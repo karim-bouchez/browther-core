@@ -12,33 +12,32 @@ jobs:
       - name: Libérer de l'espace disque
         run: |
           echo "=== Espace avant nettoyage ==="
-          df -h / /mnt
+          df -h /
           # Supprimer les logiciels pré-installés inutiles
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /usr/share/swift
-          sudo rm -rf /usr/local/.ghcup
-          sudo rm -rf /usr/lib/jvm
-          sudo rm -rf /usr/local/graalvm
-          sudo rm -rf /usr/local/share/powershell
-          sudo rm -rf /usr/local/share/chromium
-          sudo rm -rf /usr/share/miniconda
-          sudo rm -rf /opt/az
-          sudo rm -rf /opt/microsoft
-          sudo rm -rf /usr/lib/google-cloud-sdk
-          sudo rm -rf /usr/lib/mono
-          sudo rm -rf /usr/share/kotlinc
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /opt/hostedtoolcache /usr/local/share/boost /usr/share/swift \
+            /usr/local/.ghcup /usr/lib/jvm /usr/local/graalvm \
+            /usr/local/share/powershell /usr/local/share/chromium \
+            /usr/share/miniconda /opt/az /opt/microsoft \
+            /usr/lib/google-cloud-sdk /usr/lib/mono /usr/share/kotlinc \
+            /usr/lib/firefox /usr/share/dotnet /usr/share/gradle* \
+            /usr/share/sbt /usr/local/julia* /usr/share/az_* \
+            /usr/share/man /usr/share/doc /usr/share/locale \
+            /var/lib/apt/lists/* /var/cache/apt/archives/*
+          # Supprimer les snaps
+          sudo snap remove --purge lxd 2>/dev/null || true
+          sudo snap remove --purge core20 2>/dev/null || true
+          sudo snap remove --purge snapd 2>/dev/null || true
+          sudo apt-get purge -y snapd || true
+          # Docker
           sudo docker image prune --all --force || true
           sudo apt-get autoremove -y || true
           sudo apt-get clean || true
-          # Supprimer le swap pré-existant pour gagner de l'espace disque
+          # Supprimer le swap pour gagner de l'espace disque
           sudo swapoff -a || true
           sudo rm -f /swapfile /mnt/swapfile || true
           echo "=== Espace après nettoyage ==="
-          df -h / /mnt
+          df -h /
 
       - name: Installer les dépendances système
         run: |
@@ -78,8 +77,24 @@ jobs:
           echo "=== Début npm run init (gclient sync) ==="
           npm run init -- --target_os=android --target_arch=arm
           echo "=== Init terminé ==="
-          echo "=== Espace disque restant ==="
-          df -h / /mnt
+          df -h /
+
+      - name: Libérer de l'espace post-sync
+        run: |
+          echo "=== Espace avant nettoyage post-sync ==="
+          df -h /
+          # Supprimer les .git imbriqués (historique git des deps, ~5-10 GB)
+          find $GITHUB_WORKSPACE/src -path "*/third_party/*/.git" -type d -exec rm -rf {} + 2>/dev/null || true
+          find $GITHUB_WORKSPACE/src -path "*/.git/modules" -type d -exec rm -rf {} + 2>/dev/null || true
+          # Supprimer les données de test volumineuses
+          find $GITHUB_WORKSPACE/src -path "*/test_data" -type d -exec rm -rf {} + 2>/dev/null || true
+          find $GITHUB_WORKSPACE/src -path "*/testdata" -type d -exec rm -rf {} + 2>/dev/null || true
+          # Supprimer les builds pré-compilés pour d'autres plateformes
+          rm -rf $GITHUB_WORKSPACE/src/third_party/llvm-build-tools 2>/dev/null || true
+          # APT cache accumulé par install-build-deps
+          sudo apt-get clean || true
+          echo "=== Espace après nettoyage post-sync ==="
+          df -h /
 
       - name: Installer les deps build Chromium
         run: |
@@ -91,7 +106,7 @@ jobs:
           echo "=== Mémoire ==="
           free -h
           echo "=== Disque ==="
-          df -h / /mnt
+          df -h /
           echo "=== CPU ==="
           nproc
 
