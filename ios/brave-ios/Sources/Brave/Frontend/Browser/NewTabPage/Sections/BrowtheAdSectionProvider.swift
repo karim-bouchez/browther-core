@@ -3,7 +3,6 @@
 
 import BraveUI
 import Foundation
-import Preferences
 import SnapKit
 import UIKit
 
@@ -117,7 +116,7 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
   ) -> Int {
-    guard Preferences.NewTabPage.showAds.value, cachedAd != nil else {
+    guard cachedAd != nil else {
       return 0
     }
     return 1
