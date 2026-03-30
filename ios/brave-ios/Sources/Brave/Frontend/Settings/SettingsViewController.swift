@@ -973,7 +973,8 @@ class SettingsViewController: TableViewController {
       cellClass: MultilineSubtitleCell.self,
       uuid: Preferences.General.openKeyboardOnNTPSelection.key
     )
-    tabs.rows.append(keyboardRow)
+    // Browther: auto-open keyboard disabled, toggle hidden
+    // tabs.rows.append(keyboardRow)
 
     return tabs
   }()

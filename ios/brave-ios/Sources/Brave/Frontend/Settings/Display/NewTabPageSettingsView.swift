@@ -12,6 +12,7 @@ struct NewTabPageSettingsView: View {
   @ObservedObject private var backgroundImages = Preferences.NewTabPage.backgroundImages
   @ObservedObject private var showNewTabPrivacyHub = Preferences.NewTabPage.showNewTabPrivacyHub
   @ObservedObject private var showNewTabFavourites = Preferences.NewTabPage.showNewTabFavourites
+  @ObservedObject private var showAds = Preferences.NewTabPage.showAds
 
   var body: some View {
     Form {
@@ -28,6 +29,12 @@ struct NewTabPageSettingsView: View {
           .listRowBackground(Color(.secondaryBraveGroupedBackground))
       } header: {
         Text(Strings.Widgets.widgetTitle)
+      }
+      Section {
+        Toggle("Afficher les publicités", isOn: $showAds.value)
+          .listRowBackground(Color(.secondaryBraveGroupedBackground))
+      } header: {
+        Text("Publicités")
       }
     }
     .tint(Color(braveSystemName: .primary40))

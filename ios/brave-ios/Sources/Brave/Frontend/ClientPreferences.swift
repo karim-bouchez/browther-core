@@ -135,6 +135,7 @@ extension Preferences {
       default: nil
     )
     /// Whether or not automatically bring up keyboard when select a new tab
+    /// Browther: forced to false so users always see the NTP with ads
     public static let openKeyboardOnNTPSelection = Option<Bool>(
       key: "general.open-keyboard-on-ntp-selection",
       default: false
@@ -254,6 +255,9 @@ extension Preferences {
   final public class NewTabPage {
     /// Whether bookmark image are enabled / shown
     static let backgroundImages = Option<Bool>(key: "newtabpage.background-images", default: true)
+
+    /// Whether Browther ads are shown on the new tab page
+    static let showAds = Option<Bool>(key: "newtabpage.show-ads", default: true)
 
     // MARK: - Legacy prefs (kept for compilation, unused by Browther)
 

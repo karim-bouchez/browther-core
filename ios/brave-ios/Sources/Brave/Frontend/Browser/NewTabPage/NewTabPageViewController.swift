@@ -181,6 +181,7 @@ class NewTabPageViewController: UIViewController {
 
     Preferences.NewTabPage.showNewTabPrivacyHub.observe(from: self)
     Preferences.NewTabPage.showNewTabFavourites.observe(from: self)
+    Preferences.NewTabPage.showAds.observe(from: self)
 
     sections = [
       StatsSectionProvider(
@@ -233,6 +234,22 @@ class NewTabPageViewController: UIViewController {
         self?.delegate?.focusURLBar()
       }),
     ]
+
+    // Browther: ad banner section
+    if !privateBrowsingManager.isPrivateBrowsing {
+      let adSection = BrowtheAdSectionProvider()
+      adSection.onAdTapped = { [weak self] url in
+        self?.delegate?.navigateToInput(
+          url.absoluteString,
+          inNewTab: true,
+          switchingToPrivateMode: false
+        )
+      }
+      adSection.onAdLoaded = { [weak self] in
+        self?.collectionView.reloadData()
+      }
+      sections.append(adSection)
+    }
 
     let ntpDefaultBrowserCalloutProvider = NTPDefaultBrowserCalloutProvider(
       isBackgroundNTPSI: false
