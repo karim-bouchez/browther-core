@@ -703,8 +703,7 @@ extension BrowserViewController: TopToolbarDelegate {
     let isPrivate = tabManager.selectedTab?.isPrivate ?? false
     let searchDataSource = SearchSuggestionDataSource(
       isPrivate: isPrivate,
-      isAIChatAvailable: !isPrivate && Preferences.AIChat.leoInQuickSearchBarEnabled.value
-        && AIChatUtils.isAIChatEnabled(for: profileController.profile.prefs),
+      isAIChatAvailable: false,  // Browther: Leo disabled
       isPlaylistAvailable: profileController.profile.prefs.isPlaylistAvailable,
       searchEngines: profile.searchEngines
     )

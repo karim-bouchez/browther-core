@@ -618,9 +618,8 @@ class SettingsViewController: TableViewController {
       )
     }
 
-    if !tabManager.privateBrowsingManager.isPrivateBrowsing
-      && AIChatUtils.isAIChatEnabled(for: braveCore.profile.prefs)
-    {
+    // Browther: Leo (AI Chat) disabled — hide settings row
+    if false {
       section.rows.append(leoSettingsRow)
     }
 

@@ -43,11 +43,7 @@ public struct OriginSettingsView: View {
         Text(Strings.Origin.analyticsHeader)
       }
       Section {
-        Toggle(isOn: $viewModel.isAIChatEnabled) {
-          Label(Strings.Origin.leoAILabel, braveSystemImage: "leo.product.brave-leo")
-        }
-        .toggleStyle(.origin)
-        .listRowBackground(Color(.secondaryBraveGroupedBackground))
+        // Browther: Leo (AI Chat) disabled — hide toggle
         Toggle(isOn: $viewModel.isNewsDisabled.inversed) {
           Label(Strings.Origin.newsLabel, braveSystemImage: "leo.product.brave-news")
         }

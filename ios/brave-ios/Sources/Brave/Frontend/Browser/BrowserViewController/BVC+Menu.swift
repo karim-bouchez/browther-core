@@ -515,7 +515,8 @@ extension BrowserViewController {
         }
       )
     }
-    if AIChatUtils.isAIChatEnabled(for: profileController.profile.prefs) {
+    // Browther: Leo (AI Chat) disabled
+    if false {
       actions.append(
         .init(
           id: .braveLeo,
