@@ -473,7 +473,7 @@ public class BrowserViewController: UIViewController {
     Preferences.Rewards.hideRewardsIcon.observe(from: self)
     Preferences.Rewards.rewardsToggledOnce.observe(from: self)
     Preferences.Playlist.enablePlaylistURLBarButton.observe(from: self)
-    Preferences.NewTabPage.backgroundMediaTypeRaw.observe(from: self)
+    // Browther: backgroundMediaTypeRaw removed (no sponsored images)
     Preferences.Shields.blockAdsAndTrackingLevelRaw.observe(from: self)
     Preferences.Privacy.screenTimeEnabled.observe(from: self)
     Preferences.Translate.translateEnabled.observe(from: self)
@@ -2836,44 +2836,6 @@ extension BrowserViewController: NewTabPageDelegate {
     topToolbar.tabLocationViewDidTapLocation(topToolbar.locationView)
   }
 
-  func brandedImageCalloutActioned(_ state: BrandedImageCalloutState) {
-    guard state.hasDetailViewController else { return }
-
-    let vc = NTPLearnMoreViewController(state: state, rewards: rewards)
-
-    vc.linkHandler = { [weak self] url in
-      self?.tabManager.selectedTab?.loadRequest(PrivilegedRequest(url: url) as URLRequest)
-    }
-
-    addChild(vc)
-    view.addSubview(vc.view)
-    vc.view.snp.remakeConstraints {
-      $0.right.top.bottom.leading.equalToSuperview()
-    }
-  }
-
-  func showNewTabTakeoverInfoBarIfNeeded() {
-    // do not show if topToobar is in overlay mode
-    guard !topToolbar.inOverlayMode,
-      rewards.ads.shouldDisplayNewTabTakeoverInfobar()
-    else { return }
-
-    rewards.ads.recordNewTabTakeoverInfobarWasDisplayed()
-
-    let newTabTakeoverInfoBar = NewTabTakeoverInfoBar(
-      tabManager: self.tabManager,
-      onLinkPressed: { [weak self] in
-        guard let self else { return }
-        self.rewards.ads.suppressNewTabTakeoverInfobar()
-      },
-      onClosePressed: { [weak self] in
-        guard let self else { return }
-        self.rewards.ads.suppressNewTabTakeoverInfobar()
-      }
-    )
-    self.show(toast: newTabTakeoverInfoBar, duration: nil)
-  }
-
   func isURLBarInOverlayMode() -> Bool {
     return topToolbar.inOverlayMode
   }
@@ -2985,8 +2947,7 @@ extension BrowserViewController: PreferencesObserver {
         cryptoStore.rejectAllPendingWebpageRequests()
       }
       updateURLBarWalletButton()
-    case Preferences.NewTabPage.backgroundMediaTypeRaw.key:
-      recordAdsUsageType()
+    // Browther: backgroundMediaTypeRaw removed (no sponsored images)
     case Preferences.Privacy.screenTimeEnabled.key:
       if Preferences.Privacy.screenTimeEnabled.value, !ProcessInfo.processInfo.isiOSAppOnVisionOS {
         // Accessing `STWebpageController` on Vision OS results in a crash

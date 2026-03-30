@@ -387,13 +387,10 @@ extension BrowserViewController {
       case pushOnly = 2
       case ntpAndPush = 3
     }
+    // Browther: sponsored images disabled, only push ads possible
     var answer: Answer = .none
-    if rewards.ads.isEnabled && Preferences.NewTabPage.backgroundMediaType.isSponsored {
-      answer = .ntpAndPush
-    } else if rewards.ads.isEnabled {
+    if rewards.ads.isEnabled {
       answer = .pushOnly
-    } else if Preferences.NewTabPage.backgroundMediaType.isSponsored {
-      answer = .ntpOnly
     }
     UmaHistogramEnumeration("Brave.Rewards.AdTypesEnabled", sample: answer)
   }

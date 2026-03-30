@@ -15,19 +15,6 @@ enum TabBarVisibility: Int, CaseIterable {
   case landscapeOnly
 }
 
-enum BackgroundMediaType: Int, CaseIterable {
-  case defaultImages
-  case sponsoredImages
-  case sponsoredImagesAndVideos
-
-  public var isSponsored: Bool {
-    switch self {
-    case .sponsoredImages, .sponsoredImagesAndVideos: return true
-    case .defaultImages: return false
-    }
-  }
-}
-
 extension Preferences {
   public enum AutoCloseTabsOption: Int, CaseIterable {
     case manually
@@ -268,30 +255,7 @@ extension Preferences {
     /// Whether bookmark image are enabled / shown
     static let backgroundImages = Option<Bool>(key: "newtabpage.background-images", default: true)
 
-    /// Determines the type of sponsored media to include in the background image rotation
-    /// - Warning: You should not access this directly but  through ``backgroundMediaType``
-    static let backgroundMediaTypeRaw = Option<Int>(
-      key: "newtabpage.background-media-type",
-      default: BackgroundMediaType.sponsoredImagesAndVideos.rawValue
-    )
-
-    /// A  variable to access the ``backgroundMediaTypeRaw`` preference value
-    static var backgroundMediaType: BackgroundMediaType {
-      get {
-        BackgroundMediaType(rawValue: backgroundMediaTypeRaw.value)
-          ?? BackgroundMediaType.sponsoredImagesAndVideos
-      }
-      set { backgroundMediaTypeRaw.value = newValue.rawValue }
-    }
-
-    /// The counter that indicates what background should be shown, this is used to determine when a new
-    ///     sponsored image should be shown. (`1` means, first image in cycle N, should be shown).
-    /// One example, if rotation is every 4 images, but sponsored image should be shown as 2nd image, then this will
-    ///     be reset back to `1` after reaching `4`, and when the value is `2`, a sponsored image will be shown.
-    static let backgroundRotationCounter = Option<Int>(
-      key: "newtabpage.background-rotation-count",
-      default: 0
-    )
+    // MARK: - Legacy prefs (kept for compilation, unused by Browther)
 
     /// At least one notification must show before we lock showing subsequent notifications.
     static let atleastOneNTPNotificationWasShowed = Option<Bool>(
@@ -305,9 +269,7 @@ extension Preferences {
       default: false
     )
 
-    /// When true, a notification on new tab page will be shown that an ad grant can be claimed(if rewards and grant are available).
-    /// This value is reseted on each app launch,
-    /// The goal is to show the claim grant notification only once per app session if still available.
+    /// Legacy: claim rewards notification (unused in Browther)
     static let attemptToShowClaimRewardsNotification =
       Option<Bool>(key: "newtabpage.show-grant-notification", default: true)
 

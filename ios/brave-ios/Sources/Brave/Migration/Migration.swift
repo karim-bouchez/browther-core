@@ -515,14 +515,7 @@ extension Preferences {
   }
 
   fileprivate class func migrateBackgroundSponsoredImages() {
-    guard !Migration.backgroundSponsoredImagesCompleted.value else { return }
-
-    // Migrate old Background Sponsored Images setting
-    DeprecatedPreferences.backgroundSponsoredImages.migrate { isEnabled in
-      Preferences.NewTabPage.backgroundMediaType =
-        isEnabled ? .sponsoredImagesAndVideos : .defaultImages
-    }
-
+    // Browther: sponsored images removed, migration no longer needed
     Migration.backgroundSponsoredImagesCompleted.value = true
   }
 

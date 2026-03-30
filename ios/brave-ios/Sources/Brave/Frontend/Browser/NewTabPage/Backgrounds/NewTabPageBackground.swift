@@ -6,7 +6,6 @@
 import BraveCore
 import BraveUI
 import Foundation
-import Growth
 import Preferences
 import UIKit
 
@@ -19,8 +18,7 @@ import UIKit
 class NewTabPageBackground: PreferencesObserver {
   /// The source of new tab page backgrounds
   private let dataSource: NTPDataSource
-  private let rewards: BraveRewards
-  /// The current background image & possibly sponsor
+  /// The current background image
   private(set) var currentBackground: NTPWallpaper? {
     didSet {
       wallpaperId = UUID()
@@ -33,28 +31,16 @@ class NewTabPageBackground: PreferencesObserver {
   var backgroundImage: UIImage? {
     currentBackground?.backgroundImage
   }
-  /// The background video URL if available
-  var backgroundVideoPath: URL? {
-    currentBackground?.backgroundVideoPath
-  }
-  /// The sponsors logo if available
-  var sponsorLogoImage: UIImage? {
-    currentBackground?.logoImage
-  }
-  /// A block called when the current background image/sponsored logo changes
+  /// A block called when the current background image changes
   /// while the New Tab Page is active
   var changed: (() -> Void)?
   /// Create a background holder given a source of all NTP background images
   init(dataSource: NTPDataSource, rewards: BraveRewards) {
     self.dataSource = dataSource
-    self.rewards = rewards
     self.currentBackground = dataSource.newBackground()
 
     Preferences.NewTabPage.backgroundImages.observe(from: self)
-    Preferences.NewTabPage.backgroundMediaTypeRaw.observe(from: self)
     Preferences.NewTabPage.selectedCustomTheme.observe(from: self)
-
-    recordSponsoredMediaTypeP3A()
   }
 
   deinit {
@@ -64,8 +50,6 @@ class NewTabPageBackground: PreferencesObserver {
   private var timer: Timer?
 
   func preferencesDidChange(for key: String) {
-    // Debounce multiple changes to preferences, since toggling bg images
-    // cause sponsored images to also be toggled at the same time
     timer?.invalidate()
     timer = Timer.scheduledTimer(
       withTimeInterval: 0.25,
@@ -73,30 +57,7 @@ class NewTabPageBackground: PreferencesObserver {
       block: { [weak self] _ in
         guard let self = self else { return }
         self.currentBackground = self.dataSource.newBackground()
-        self.recordSponsoredMediaTypeP3A()
       }
     )
-  }
-
-  private func recordSponsoredMediaTypeP3A() {
-    // Question: What type of new tab page sponsored media is shown?
-    enum Answer: Int, CaseIterable {
-      case disabled = 0
-      case images = 1
-      case imagesAndVideos = 2
-    }
-
-    var answer = Answer.disabled
-    if Preferences.NewTabPage.backgroundImages.value
-      && Preferences.NewTabPage.backgroundMediaType.isSponsored
-    {
-      answer =
-        Preferences.NewTabPage.backgroundMediaType == .sponsoredImagesAndVideos
-          && rewards.ads.shouldShowSponsoredImagesAndVideosSetting()
-        ? .imagesAndVideos
-        : .images
-    }
-
-    UmaHistogramEnumeration("Brave.NTP.SponsoredMediaType", sample: answer)
   }
 }
