@@ -86,11 +86,9 @@ jobs:
           # Supprimer les .git imbriqués (historique git des deps, ~5-10 GB)
           find $GITHUB_WORKSPACE/src -path "*/third_party/*/.git" -type d -exec rm -rf {} + 2>/dev/null || true
           find $GITHUB_WORKSPACE/src -path "*/.git/modules" -type d -exec rm -rf {} + 2>/dev/null || true
-          # Supprimer les données de test volumineuses
-          find $GITHUB_WORKSPACE/src -path "*/test_data" -type d -exec rm -rf {} + 2>/dev/null || true
-          find $GITHUB_WORKSPACE/src -path "*/testdata" -type d -exec rm -rf {} + 2>/dev/null || true
-          # Supprimer les builds pré-compilés pour d'autres plateformes
-          rm -rf $GITHUB_WORKSPACE/src/third_party/llvm-build-tools 2>/dev/null || true
+          # Supprimer les données de test volumineuses (seulement dans third_party, PAS dans brave/)
+          find $GITHUB_WORKSPACE/src/third_party -path "*/test_data" -type d -exec rm -rf {} + 2>/dev/null || true
+          find $GITHUB_WORKSPACE/src/third_party -path "*/testdata" -type d -exec rm -rf {} + 2>/dev/null || true
           # APT cache accumulé par install-build-deps
           sudo apt-get clean || true
           echo "=== Espace après nettoyage post-sync ==="
