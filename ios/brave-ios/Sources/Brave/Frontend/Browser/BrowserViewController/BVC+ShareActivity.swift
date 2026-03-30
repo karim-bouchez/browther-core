@@ -178,36 +178,7 @@ extension BrowserViewController {
         )
       )
 
-      // Add Feed To Brave News Activity
-      if profileController.profile.prefs.isBraveNewsAvailable,
-        Preferences.BraveNews.isEnabled.value, let metadata = tab?.pageMetadataHelper?.metadata,
-        !metadata.feeds.isEmpty
-      {
-        let feeds: [RSSFeedLocation] = metadata.feeds.compactMap { feed in
-          guard let url = URL(string: feed.href) else { return nil }
-          return RSSFeedLocation(title: feed.title, url: url)
-        }
-        if !feeds.isEmpty {
-          activities.append(
-            BasicMenuActivity(
-              activityType: .addSourceNews,
-              callback: { [weak self] in
-                guard let self = self else { return }
-                let controller = BraveNewsAddSourceResultsViewController(
-                  dataSource: self.feedDataSource,
-                  searchedURL: url,
-                  rssFeedLocations: feeds,
-                  sourcesAdded: nil
-                )
-                let container = UINavigationController(rootViewController: controller)
-                let idiom = UIDevice.current.userInterfaceIdiom
-                container.modalPresentationStyle = idiom == .phone ? .pageSheet : .formSheet
-                self.present(container, animated: true)
-              }
-            )
-          )
-        }
-      }
+      // Browther: Add Source to Brave News removed
 
       // Create PDF Activity
       if let tab, tab.temporaryDocument == nil, tab.lastCommittedURL?.isWebPage() == true {
@@ -261,39 +232,8 @@ extension BrowserViewController {
           )
         )
       }
-    } else {
-      // Add Feed To Brave News Activity
-      // Check if it's a feed, url is a temp document file URL
-      if let selectedTab = tabManager.selectedTab,
-        selectedTab.contentsMimeType == "application/xml"
-          || selectedTab.contentsMimeType == "application/json",
-        let tabURL = selectedTab.url
-      {
-
-        let parser = FeedParser(URL: url)
-        if case .success(let feed) = parser.parse() {
-          activities.append(
-            BasicMenuActivity(
-              activityType: .addSourceNews,
-              callback: { [weak self] in
-                guard let self = self else { return }
-                let controller = BraveNewsAddSourceResultsViewController(
-                  dataSource: self.feedDataSource,
-                  searchedURL: tabURL,
-                  rssFeedLocations: [.init(title: feed.title, url: tabURL)],
-                  sourcesAdded: nil
-                )
-                let container = UINavigationController(rootViewController: controller)
-                let idiom = UIDevice.current.userInterfaceIdiom
-                container.modalPresentationStyle = idiom == .phone ? .pageSheet : .formSheet
-                self.present(container, animated: true)
-
-              }
-            )
-          )
-        }
-      }
     }
+    // Browther: Add Feed to Brave News removed
 
     // Add Search Engine Activity
     if let tab = tabManager.selectedTab,
@@ -322,14 +262,7 @@ extension BrowserViewController {
       )
     }
 
-    // Report Web-compat Issue Activity
-    activities.append(
-      BasicMenuActivity(
-        activityType: .reportBrokenSite
-      ) { [weak self] in
-        self?.showSubmitReportView(for: url)
-      }
-    )
+    // Browther: Report Broken Site removed
 
     return activities
   }

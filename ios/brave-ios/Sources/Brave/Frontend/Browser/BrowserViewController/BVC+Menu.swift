@@ -143,9 +143,7 @@ extension BrowserViewController {
     pageURL: URL?
   ) {
     var actions: [Action] = []
-    if profileController.profile.prefs.isBraveVPNAvailable {
-      actions.append(vpnMenuAction)
-    }
+    // Browther: VPN removed from menu
     actions.append(contentsOf: destinationMenuActions(for: pageURL))
     actions.append(contentsOf: pageActions(for: pageURL, tab: tab))
     var pageActivities: Set<Action> = Set(
@@ -256,45 +254,7 @@ extension BrowserViewController {
         return .updateAction(actionCopy)
       },
     ]
-    if profileController.profile.prefs.isPlaylistAvailable {
-      let playlistActivity = addToPlayListActivityItem ?? openInPlaylistActivityItem
-      let isPlaylistItemAdded = openInPlaylistActivityItem != nil
-      actions.append(
-        .init(
-          id: .addToPlaylist,
-          title: isPlaylistItemAdded ? Strings.PlayList.toastAddedToPlaylistTitle : nil,
-          image: isPlaylistItemAdded ? "leo.product.playlist-added" : nil,
-          attributes: playlistActivity?.enabled == true ? [] : .disabled
-        ) { @MainActor [unowned self] action in
-          let playlistActivity = addToPlayListActivityItem ?? openInPlaylistActivityItem
-          let isPlaylistItemAdded = openInPlaylistActivityItem != nil
-          guard let item = playlistActivity?.item else { return .none }
-          if !isPlaylistItemAdded {
-            // Add to playlist
-            // TODO: Need to be able to return something that will update the underlying action
-            let addedItem = await withCheckedContinuation { continuation in
-              self.addToPlaylist(item: item) { didAddItem in
-                continuation.resume(returning: didAddItem)
-              }
-            }
-            if addedItem {
-              var actionCopy = action
-              actionCopy.title = Strings.PlayList.toastAddedToPlaylistTitle
-              actionCopy.image = "leo.product.playlist-added"
-              return .updateAction(actionCopy)
-            }
-          } else {
-            self.dismiss(animated: true) {
-              self.openPlaylist(
-                tab: self.tabManager.selectedTab,
-                item: item
-              )
-            }
-          }
-          return .none
-        }
-      )
-    }
+    // Browther: Playlist / Add to Playlist removed
     if BraveCore.FeatureList.kBraveShredFeature.enabled {
       let isShredAvailable = tabManager.selectedTab?.visibleURL?.isShredAvailable ?? false
       actions.append(
@@ -494,85 +454,7 @@ extension BrowserViewController {
         return .none
       },
     ]
-    if profileController.profile.prefs.isPlaylistAvailable {
-      actions.append(
-        .init(id: .playlist) { @MainActor [unowned self] _ in
-          // presentPlaylistController already handles dismiss + present
-          self.presentPlaylistController()
-          return .none
-        }
-      )
-    }
-    if profileController.braveWalletAPI.isAllowed {
-      actions.append(
-        .init(
-          id: .braveWallet,
-          attributes: isPrivateBrowsing ? .disabled : []
-        ) { @MainActor [unowned self] _ in
-          // Present wallet already handles dismiss + present
-          self.presentWallet()
-          return .none
-        }
-      )
-    }
-    // Browther: Leo (AI Chat) disabled
-    if false {
-      actions.append(
-        .init(
-          id: .braveLeo,
-          attributes: isPrivateBrowsing ? .disabled : []
-        ) { @MainActor [unowned self] _ in
-          self.dismiss(animated: true) {
-            self.openBraveLeo()
-          }
-          return .none
-        }
-      )
-    }
-    if profileController.profile.prefs.isBraveTalkAvailable {
-      actions.append(
-        .init(id: .braveTalk) { @MainActor [unowned self] _ in
-          self.dismiss(animated: true) {
-            guard let url = URL(string: "https://talk.brave.com/") else { return }
-            self.popToBVC()
-            if pageURL == nil {
-              // Already on NTP
-              self.finishEditingAndSubmit(url)
-            } else {
-              self.openURLInNewTab(url, isPrivileged: false)
-            }
-          }
-          return .none
-        }
-      )
-    }
-    if profileController.profile.prefs.isBraveNewsAvailable {
-      actions.append(
-        .init(id: .braveNews) { @MainActor [unowned self] _ in
-          self.dismiss(animated: true) {
-            if pageURL == nil,
-              let newTabPageController = self.tabManager.selectedTab?.newTabPageViewController
-            {
-              // Already on NTP
-              newTabPageController.scrollToBraveNews()
-            } else {
-              // Make a new tab and scroll to it
-              // Need to stay in NTP for Brave News
-              self.openBlankNewTab(
-                attemptLocationFieldFocus: false,
-                isPrivate: false,
-                isExternal: true
-              )
-              self.popToBVC()
-              if let newTabPageController = self.tabManager.selectedTab?.newTabPageViewController {
-                newTabPageController.scrollToBraveNews()
-              }
-            }
-          }
-          return .none
-        }
-      )
-    }
+    // Browther: Playlist, Wallet, Leo, Brave Talk, Brave News removed from menu
     return actions
   }
 

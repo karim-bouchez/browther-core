@@ -235,7 +235,7 @@ class NewTabPageViewController: UIViewController {
       }),
     ]
 
-    // Browther: ad banner section
+    // Browther: ad banner between Stats and Favorites
     if !privateBrowsingManager.isPrivateBrowsing {
       let adSection = BrowtheAdSectionProvider()
       adSection.onAdTapped = { [weak self] url in
@@ -248,7 +248,9 @@ class NewTabPageViewController: UIViewController {
       adSection.onAdLoaded = { [weak self] in
         self?.collectionView.reloadData()
       }
-      sections.append(adSection)
+      // Insert after StatsSectionProvider (index 1), before FavoritesSectionProvider
+      let insertIndex = sections.firstIndex(where: { $0 is FavoritesSectionProvider }) ?? 1
+      sections.insert(adSection, at: insertIndex)
     }
 
     let ntpDefaultBrowserCalloutProvider = NTPDefaultBrowserCalloutProvider(

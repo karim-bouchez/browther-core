@@ -168,6 +168,16 @@ var package = Package(
         .copy("Frontend/Reader/Reader.html"),
         .copy("Frontend/Reader/ReaderViewLoading.html"),
         .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/corwin-prescott-3.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/abdou-faiz-TQipjFceOBg-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/clarisse-meyer-N88l6zWEhZk-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/david-billings-KCEwOduK8ck-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/izuddin-helmi-adnan-JFirQekVo3U-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/john-fowler-7Ym9rpYtSdA-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/localize-eXwQCS2TUUE-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/pommelien-da-silva-cosme-nnDgdAGoeAE-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/yasmine-arfaoui-R6rh5ttDO-4-unsplash.jpg"),
+        .copy("Frontend/Browser/NewTabPage/Backgrounds/Assets/NTP_Images/younes-m-zVBWVMontM4-unsplash.jpg"),
         .copy("Frontend/Browser/Favorites/Data/top_sites_by_region.json"),
         .copy(
           "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/DomainSpecific/Paged/BraveSearchResultAdScript.js"

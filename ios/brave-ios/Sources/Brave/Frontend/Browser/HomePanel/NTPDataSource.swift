@@ -47,15 +47,40 @@ public class NTPDataSource {
 
   private var lastBackgroundChoices = [Int]()
 
-  private func getImageBackground() -> NTPWallpaper? {
-    // Identifying the background array to use
-    let backgroundSet = {
-      () -> [NTPWallpaper] in
+  /// Browther bundled background images
+  private static let browtheBackgrounds: [NTPBackgroundImage] = {
+    let imageNames = [
+      ("abdou-faiz-TQipjFceOBg-unsplash", "Abdou Faiz"),
+      ("agnieszka-stankiewicz-MVrgqBB-fqU-unsplash", "Agnieszka Stankiewicz"),
+      ("clarisse-meyer-N88l6zWEhZk-unsplash", "Clarisse Meyer"),
+      ("david-billings-KCEwOduK8ck-unsplash", "David Billings"),
+      ("izuddin-helmi-adnan-JFirQekVo3U-unsplash", "Izuddin Helmi Adnan"),
+      ("john-fowler-7Ym9rpYtSdA-unsplash", "John Fowler"),
+      ("localize-eXwQCS2TUUE-unsplash", "Localize"),
+      ("pommelien-da-silva-cosme-nnDgdAGoeAE-unsplash", "Pommelien Da Silva Cosme"),
+      ("yasmine-arfaoui-R6rh5ttDO-4-unsplash", "Yasmine Arfaoui"),
+      ("younes-m-zVBWVMontM4-unsplash", "Younes M"),
+    ]
+    return imageNames.compactMap { (name, _) in
+      guard let url = Bundle.module.url(forResource: name, withExtension: "jpg") else {
+        return nil
+      }
+      return NTPBackgroundImage(
+        imagePath: url,
+        author: "",
+        link: URL(string: "https://unsplash.com")!
+      )
+    }
+  }()
 
-      if service.backgroundImages.isEmpty {
+  private func getImageBackground() -> NTPWallpaper? {
+    // Browther: use bundled images instead of Brave CDN
+    let backgroundSet: [NTPWallpaper] = {
+      let images = NTPDataSource.browtheBackgrounds
+      if images.isEmpty {
         return [NTPWallpaper.image(.fallback)]
       }
-      return service.backgroundImages.map(NTPWallpaper.image)
+      return images.map(NTPWallpaper.image)
     }()
 
     if backgroundSet.isEmpty { return nil }
