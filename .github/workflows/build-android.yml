@@ -6,7 +6,7 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
-    timeout-minutes: 350  # ~6h max (limite GitHub = 360 min)
+    timeout-minutes: 360  # max GitHub Actions
 
     steps:
       - name: Libérer de l'espace disque
@@ -111,8 +111,8 @@ jobs:
       - name: Build Android APK
         run: |
           cd $GITHUB_WORKSPACE/src/brave
-          echo "=== Début du build Android (ninja -j1) ==="
-          npm run build -- --target_os=android --target_arch=arm --ninja j:1
+          echo "=== Début du build Android ==="
+          npm run build -- --target_os=android --target_arch=arm
           echo "=== Build terminé ==="
           df -h /
 
