@@ -63,6 +63,8 @@ inline constexpr char kShieldsAdvancedViewEnabled[] =
 inline constexpr char kShieldsStatsBadgeVisible[] =
     "brave.shields.stats_badge_visible";
 inline constexpr char kAdControlType[] = "brave.ad_default";
+// Browther: Sawtunaa (music/noise removal)
+inline constexpr char kSawtunaaEnabled[] = "brave.sawtunaa.enabled";
 inline constexpr char kGoogleLoginControlType[] = "brave.google_login_default";
 // Deprecated
 inline constexpr char kWebTorrentEnabled[] = "brave.webtorrent_enabled";

@@ -335,6 +335,17 @@ RegisterPolymerTemplateModifications({
       searchEl.insertAdjacentElement('afterend', extensionEl)
     }
 
+    // Add Sawtunaa item (Browther)
+    const sawtunaaEl = createMenuElement(
+      loadTimeData.getString('sawtunaaTitle'),
+      '/sawtunaa',
+      'media-visualizer',
+      'sawtunaa' as keyof typeof pageVisibility,
+    )
+    if (extensionEl) {
+      extensionEl.insertAdjacentElement('afterend', sawtunaaEl)
+    }
+
     // Move autofill to advanced
     const autofillEl = getMenuElement(templateContent, '/autofill')
     const languagesEl = getMenuElement(templateContent, '/languages')

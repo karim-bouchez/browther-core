@@ -56,6 +56,7 @@ export default function addBraveRoutes(r: Partial<SettingsRoutes>) {
     r.BRAVE_WALLET_NETWORKS = r.BRAVE_WEB3.createChild('/wallet/networks')
   }
   r.BRAVE_NEW_TAB = r.BASIC.createSection('/newTab', 'newTab')
+  r.SAWTUNAA = r.BASIC.createSection('/sawtunaa', 'sawtunaa')
 
   if (pageVisibility.leoAssistant) {
     r.BRAVE_LEO_ASSISTANT =

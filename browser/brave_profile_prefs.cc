@@ -425,6 +425,7 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
 #endif
 
   registry->RegisterBooleanPref(kShieldsStatsBadgeVisible, true);
+  registry->RegisterBooleanPref(kSawtunaaEnabled, false);  // Browther: Sawtunaa
   registry->RegisterBooleanPref(kGoogleLoginControlType, true);
   registry->RegisterBooleanPref(
       query_filter::kTrackingQueryParametersFilteringEnabled, true);
