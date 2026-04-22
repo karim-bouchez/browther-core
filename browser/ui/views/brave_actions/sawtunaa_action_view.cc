@@ -30,10 +30,13 @@
 SawtunaaActionView::SawtunaaActionView(
     BrowserWindowInterface* browser_window_interface)
     : LabelButton(base::BindRepeating(
-                      [](BrowserWindowInterface*) {
-                        // Click toggles the pref (no panel)
+                      [](SawtunaaActionView* self) {
+                        bool current = self->profile_prefs_->GetBoolean(
+                            kSawtunaaEnabled);
+                        self->profile_prefs_->SetBoolean(kSawtunaaEnabled,
+                                                         !current);
                       },
-                      browser_window_interface),
+                      base::Unretained(this)),
                   std::u16string()),
       browser_window_interface_(browser_window_interface),
       profile_prefs_(
@@ -41,7 +44,6 @@ SawtunaaActionView::SawtunaaActionView(
       tab_strip_model_(
           CHECK_DEREF(browser_window_interface->GetTabStripModel())) {
   SetAccessibleName(u"Sawtunaa");
-  SetTooltipText(u"Sawtunaa — Music removal");
   SetHorizontalAlignment(gfx::ALIGN_CENTER);
   tab_strip_model_->AddObserver(this);
 
@@ -60,12 +62,7 @@ void SawtunaaActionView::Init() {
 }
 
 bool SawtunaaActionView::IsActive() const {
-  // Active = pref enabled AND current tab is playing audio
-  if (!profile_prefs_->GetBoolean(kSawtunaaEnabled)) {
-    return false;
-  }
-  auto* web_contents = tab_strip_model_->GetActiveWebContents();
-  return web_contents && web_contents->IsCurrentlyAudible();
+  return profile_prefs_->GetBoolean(kSawtunaaEnabled);
 }
 
 gfx::ImageSkia SawtunaaActionView::GetIconImage(bool active) {
@@ -86,13 +83,7 @@ void SawtunaaActionView::UpdateIconState() {
   SetImageModel(views::Button::STATE_NORMAL,
                 ui::ImageModel::FromImageSkia(GetIconImage(active)));
 
-  if (active) {
-    SetTooltipText(u"Sawtunaa — Active (removing music)");
-  } else if (profile_prefs_->GetBoolean(kSawtunaaEnabled)) {
-    SetTooltipText(u"Sawtunaa — Enabled");
-  } else {
-    SetTooltipText(u"Sawtunaa — Disabled");
-  }
+  SetTooltipText(active ? u"Sawtunaa — ON" : u"Sawtunaa — OFF");
 }
 
 void SawtunaaActionView::Update() {
