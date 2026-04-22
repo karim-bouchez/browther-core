@@ -11,6 +11,7 @@
 #include "base/feature_list.h"
 #include "brave/browser/ui/page_info/features.h"
 #include "brave/browser/ui/views/brave_actions/brave_shields_action_view.h"
+#include "brave/browser/ui/views/brave_actions/sawtunaa_action_view.h"
 #include "brave/browser/ui/views/rounded_separator.h"
 #include "brave/components/brave_rewards/core/buildflags/buildflags.h"
 #include "brave/components/constants/pref_names.h"
@@ -63,6 +64,7 @@ void BraveActionsContainer::Init() {
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS) && 0
   AddActionViewForRewards();
 #endif
+  AddActionViewForSawtunaa();  // Browther: Sawtunaa icon
   AddActionViewForShields();
   AddChildViewAt(brave_button_separator_, 0);
 
@@ -102,6 +104,14 @@ void BraveActionsContainer::AddActionViewForShields() {
   shields_action_btn_->Init();
 }
 
+// Browther: Sawtunaa toolbar icon
+void BraveActionsContainer::AddActionViewForSawtunaa() {
+  sawtunaa_action_btn_ = AddChildViewAt(
+      std::make_unique<SawtunaaActionView>(browser_window_interface_), 0);
+  sawtunaa_action_btn_->SetPreferredSize(GetActionSize());
+  sawtunaa_action_btn_->Init();
+}
+
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
 void BraveActionsContainer::AddActionViewForRewards() {
   auto button =
@@ -116,6 +126,11 @@ void BraveActionsContainer::AddActionViewForRewards() {
 void BraveActionsContainer::Update() {
   if (shields_action_btn_) {
     shields_action_btn_->Update();
+  }
+
+  // Browther: Sawtunaa
+  if (sawtunaa_action_btn_) {
+    sawtunaa_action_btn_->Update();
   }
 
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
@@ -133,6 +148,10 @@ void BraveActionsContainer::UpdateVisibility() {
 
   if (shields_action_btn_) {
     can_show = shields_action_btn_->GetVisible();
+  }
+
+  if (sawtunaa_action_btn_) {
+    can_show = can_show || sawtunaa_action_btn_->GetVisible();
   }
 
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)

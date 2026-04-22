@@ -109,6 +109,7 @@
       </if>
       <if expr="not is_android">
         <part file="brave_shields_resources.grdp" />
+        <part file="sawtunaa_resources.grdp" />
         <part file="brave_private_new_tab_resources.grdp" />
       </if>
       <if expr="enable_ai_chat">

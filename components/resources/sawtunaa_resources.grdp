@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grit-part>
+  <include name="IDR_SAWTUNAA_ICON_64" file="../sawtunaa/resources/icon.png" type="BINDATA" />
+  <include name="IDR_SAWTUNAA_ICON_64_DISABLED" file="../sawtunaa/resources/icon-off.png" type="BINDATA" />
+</grit-part>
