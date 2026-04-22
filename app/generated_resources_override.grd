@@ -425,7 +425,7 @@ are declared in tools/grit/grit_args.gni.
         Private App: <ph name="APP_NAME">$1<ex>Sample App</ex></ph>
       </message>
       <message name="IDS_TASK_MANAGER_TAB_INCOGNITO_PREFIX" desc="The prefix for a Task Manager Private Tab row (may not be visible if Private is not open)">
-        Private Tab: <ph name="TAB_NAME">$1<ex>Brave</ex></ph>
+        Private Tab: <ph name="TAB_NAME">$1<ex>Browther</ex></ph>
       </message>
       <message name="IDS_TASK_MANAGER_BACK_FORWARD_CACHE_INCOGNITO_PREFIX" desc="The prefix for a Private page stored in the Back/Forward Cache">
         Private Back/Forward Cached Page: <ph name="BACK_FORWARD_CACHE_INCOGNITO_PAGE_URL">$1<ex>http://www.google.com</ex></ph>

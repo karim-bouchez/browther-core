@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grit-part>
   <message name="IDS_BRAVE_ACCOUNT_TITLE" translateable="false" desc="Title for the Brave Account page/section" formatter_data="webui=BraveAccount,BraveAccountSettings android_java">
-    Brave Account
+    Browther Account
   </message>
   <message name="IDS_SETTINGS_BRAVE_ACCOUNT_LOGGED_OUT_ROW_TITLE" translateable="false" desc="Title inviting users to sign in or create a Brave Account, shown in the Get started settings page" formatter_data="webui=BraveAccountSettings">
-    Sign in or create a Brave account
+    Sign in or create a Browther account
   </message>
   <message name="IDS_SETTINGS_BRAVE_ACCOUNT_GET_STARTED_BUTTON_LABEL" translateable="false" desc="Label for the button that opens the Brave Account dialog when clicked" formatter_data="webui=BraveAccountSettings android_java">
     Get Started
@@ -37,10 +37,10 @@
 
   <!-- 'Entry' dialog: -->
   <message name="IDS_BRAVE_ACCOUNT_ENTRY_DIALOG_TITLE" translateable="false" desc="Title for the dialog where the user can choose to create a Brave Account, or sign in" formatter_data="webui=BraveAccount">
-    Get started with your Brave account
+    Get started with your Browther account
   </message>
   <message name="IDS_BRAVE_ACCOUNT_ENTRY_DIALOG_CREATE_BRAVE_ACCOUNT_BUTTON_LABEL" translateable="false" desc="Label for the button that takes the user to the 'Create' dialog" formatter_data="webui=BraveAccount">
-    Create a Brave account
+    Create a Browther account
   </message>
   <message name="IDS_BRAVE_ACCOUNT_ALREADY_HAVE_ACCOUNT_SIGN_IN_BUTTON_LABEL" translateable="false" desc="Label for the button that takes the user to the 'Sign In' dialog" formatter_data="webui=BraveAccount">
     Already have an account? Sign in
@@ -51,7 +51,7 @@
     Create your account
   </message>
   <message name="IDS_BRAVE_ACCOUNT_EMAIL_INPUT_ERROR_MESSAGE" translateable="false" desc="Error message for when the user tries to use a @bravealias.com email address when creating their Brave Account" formatter_data="webui=BraveAccount">
-    You can't use @bravealias.com addresses for creating Brave accounts. Please try again with a different domain.
+    You can't use @bravealias.com addresses for creating Browther accounts. Please try again with a different domain.
   </message>
   <message name="IDS_BRAVE_ACCOUNT_CREATE_PASSWORD_INPUT_LABEL" translateable="false" desc="Label for the 'Create a password' input field" formatter_data="webui=BraveAccount">
     Create a password
@@ -100,7 +100,7 @@
     Forgot your password?
   </message>
   <message name="IDS_BRAVE_ACCOUNT_FORGOT_PASSWORD_DIALOG_DESCRIPTION" translateable="false" desc="Description for the dialog where the user can reset their Brave Account password" formatter_data="webui=BraveAccount">
-    Confirm your Brave account email and we'll email you a link to reset your password. The link will only be valid for 30 minutes.
+    Confirm your Browther account email and we'll email you a link to reset your password. The link will only be valid for 30 minutes.
   </message>
   <message name="IDS_BRAVE_ACCOUNT_ALERT_MESSAGE" translateable="false" desc="Alert message explaining that if the user resets their password without having an active login, all their data will be deleted" formatter_data="webui=BraveAccount">
     [Explain that if they reset their password without having an active login, all the user data will be deleted]
@@ -163,7 +163,7 @@
 
   <!-- Common: -->
   <message name="IDS_BRAVE_ACCOUNT_DESCRIPTION" translateable="false" desc="Description explaining the benefits of having a Brave Account" formatter_data="webui=BraveAccount,BraveAccountSettings">
-    A Brave account will allow you to easily access Brave services.
+    A Browther account will allow you to easily access Browther services.
   </message>
   <message name="IDS_BRAVE_ACCOUNT_BACK_BUTTON_LABEL" translateable="false" desc="Label for the back button" formatter_data="webui=BraveAccount">
     Go back

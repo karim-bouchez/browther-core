@@ -7,7 +7,7 @@
 
 <!-- Omnibox popup match descriptions. -->
   <message name="IDS_AUTOCOMPLETE_SEARCH_DESCRIPTION" desc="Description for the default search match.">
-    <ph name="ENGINE">$1<ex>Brave</ex></ph> Search
+    <ph name="ENGINE">$1<ex>Browther</ex></ph> Search
   </message>
   <message name="IDS_AUTOCOMPLETE_ASK_DESCRIPTION" desc="Description for matches from ask-keywords; e.g. gemini or ai mode.">
     Ask <ph name="ENGINE">$1<ex>AI Mode</ex></ph>
@@ -17,7 +17,7 @@
   </message>
 
   <message name="IDS_CONTEXTUAL_SEARCH_OPEN_LENS_ACTION_LABEL" desc="Label text for the action match that opens lens.">
-    Ask Brave about this page
+    Ask Browther about this page
   </message>
   <message name="IDS_CONTEXTUAL_SEARCH_OPEN_LENS_ACTION_LABEL_ALT" desc="Alternative label text for the action match that opens lens.">
     Ask Google Lens about this page
@@ -30,16 +30,16 @@
   </message>
 
   <message name="IDS_CONTEXTUAL_SEARCH_OPEN_LENS_ACTION_HINT" desc="The button text contents to suggest an omnibox action that opens lens">
-    Ask Brave about this page
+    Ask Browther about this page
   </message>
   <message name="IDS_CONTEXTUAL_SEARCH_OPEN_LENS_ACTION_SUGGESTION_CONTENTS" desc="The button hover tooltip text to describe omnibox action that opens lens">
-    Ask Brave about this page
+    Ask Browther about this page
   </message>
   <message name="IDS_ACC_CONTEXTUAL_SEARCH_OPEN_LENS_ACTION_SUFFIX" desc="Suffix for spoken suggestion description with omnibox action button, to explain keystroke used to open lens.">
-    <ph name="CONTEXTUAL_SEARCH_OPEN_LENS_FOCUSED_FRIENDLY_MATCH_TEXT">$1<ex>The Chromium Projects http://www.chromium.org bookmark</ex></ph>, press Enter to ask Brave about this page
+    <ph name="CONTEXTUAL_SEARCH_OPEN_LENS_FOCUSED_FRIENDLY_MATCH_TEXT">$1<ex>The Chromium Projects http://www.chromium.org bookmark</ex></ph>, press Enter to ask Browther about this page
   </message>
   <message name="IDS_ACC_CONTEXTUAL_SEARCH_OPEN_LENS_ACTION" desc="Announcement when lens action button is focused">
-    Ask Brave about this page button, activate to ask Brave about this page
+    Ask Browther about this page button, activate to ask Browther about this page
   </message>
 
   <message name="IDS_STARTER_PACK_BOOKMARKS_ACTION_HINT" desc="The button label for an omnibox action that invokes bookmark search keyword mode.">
@@ -184,7 +184,7 @@
   </if>
   <if expr="is_android">
     <message name="IDS_OMNIBOX_ON_CCT_EMPTY_HINT" desc="Hint text shown in the Omnibox on a Custom Tab." formatter_data="android_java">
-      Search the web in Brave
+      Search the web in Browther
     </message>
   </if>
   <message name="IDS_OMNIBOX_ADDITIONAL_TEXT_DASH_TEMPLATE" desc="The omnibox text when there is both traditional text (i.e., user text + inline autocompletion) and additional text (i.e. the default suggestion's URL when rich autocompleting a title) to display.">
@@ -211,13 +211,13 @@
     Comma-Separated Values
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_APPS_SCRIPT" desc="Brave Apps Script product name, for use in omnibox content suggestion descriptions.">
-    Brave Apps Script
+    Browther Apps Script
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_DOCS" desc="Google Docs product name, for use in omnibox content suggestion descriptions.">
     Google Docs
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_DRAWINGS" desc="Brave Drawings product name, for use in omnibox content suggestion descriptions.">
-    Brave Drawings
+    Browther Drawings
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_DRIVE" desc="Google Drive product name shown when the file type is unknown, for use in omnibox content suggestion descriptions.">
     Google Drive
@@ -226,22 +226,22 @@
     Google Drive Folder
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_FORMS" desc="Brave Forms product name, for use in omnibox content suggestion descriptions.">
-    Brave Forms
+    Browther Forms
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_JAMBOARD" desc="Brave Jamboard product name, for use in omnibox content suggestion descriptions.">
-    Brave Jamboard
+    Browther Jamboard
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_PHOTOS" desc="Google Photos product name, for use in omnibox content suggestion descriptions.">
     Google Photos
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_SITES" desc="Brave Sites product name, for use in omnibox content suggestion descriptions.">
-    Brave Sites
+    Browther Sites
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_SHEETS" desc="Brave Sheets product name, for use in omnibox content suggestion descriptions.">
-    Brave Sheets
+    Browther Sheets
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_GOOGLE_SLIDES" desc="Brave Slides product name, for use in omnibox content suggestion descriptions.">
-    Brave Slides
+    Browther Slides
   </message>
   <message name="IDS_CONTENT_SUGGESTION_DESCRIPTION_IMAGE_JPEG" desc="JPEG image file format name, for use in omnibox content suggestion descriptions.">
     JPEG Image
@@ -343,13 +343,13 @@
     Resume your journey
   </message>
   <message name="IDS_OMNIBOX_ACTION_HISTORY_CLUSTERS_SEARCH_SUGGESTION_CONTENTS" desc="The button tooltip for the History Clusters omnibox action. Clicking this button takes users to a view of their browsing history related to the attached suggestion.">
-    Resume your journey to see relevant activity in your Brave history
+    Resume your journey to see relevant activity in your Browther history
   </message>
   <message name="IDS_ACC_OMNIBOX_ACTION_HISTORY_CLUSTERS_SEARCH_SUFFIX" desc="Suffix for spoken suggestion description with action button to explain keystroke used to Search History Clusters.">
-    <ph name="HISTORY_CLUSTERS_SEARCH_FOCUSED_FRIENDLY_MATCH_TEXT">$1<ex>dog food</ex></ph>, press Tab, then Enter to resume your journey and see relevant activity in your Brave history
+    <ph name="HISTORY_CLUSTERS_SEARCH_FOCUSED_FRIENDLY_MATCH_TEXT">$1<ex>dog food</ex></ph>, press Tab, then Enter to resume your journey and see relevant activity in your Browther history
   </message>
   <message name="IDS_ACC_OMNIBOX_ACTION_HISTORY_CLUSTERS_SEARCH" desc="Announcement when the Search History Clusters action button is focused.">
-    Resume your journey button, press Enter to resume your journey and see relevant activity in your Brave history
+    Resume your journey button, press Enter to resume your journey and see relevant activity in your Browther history
   </message>
 
   <!-- Omnibox Actions in Suggest. -->
@@ -535,16 +535,16 @@
 
   <!-- Accessibility announcements made for the Brave tip IPH suggestions sometimes shown at the bottom of the Omnibox -->
   <message name="IDS_ACC_CHROME_TIP" desc="Announcement that is read after the last suggestion when the IPH row is present in the Omnibox.">
-    Role: Brave tip. Accessibility label: <ph name="CHROME_TIP">$1<ex>Type @gemini to Chat with Gemini</ex></ph>
+    Role: Browther tip. Accessibility label: <ph name="CHROME_TIP">$1<ex>Type @gemini to Chat with Gemini</ex></ph>
   </message>
   <message name="IDS_ACC_DISMISS_CHROME_TIP_SUFFIX" desc="Suffix for Brave Tip IPH rows with a dismiss button to explain keystroke used to dismiss the tip.">
-    <ph name="CHROME_TIP">$1<ex>Type @gemini to Chat with Gemini</ex></ph>, press Tab then Enter to Dismiss Brave Tip.
+    <ph name="CHROME_TIP">$1<ex>Type @gemini to Chat with Gemini</ex></ph>, press Tab then Enter to Dismiss Browther Tip.
   </message>
   <message name="IDS_ACC_DISMISS_CHROME_TIP_FOCUSED_PREFIX" desc="Announcement when dismiss chrome tip button is focused.">
-    Dismiss Brave Tip button, press Enter to dismiss, <ph name="REMOVE_BUTTON_FOCUSED_FRIENDLY_MATCH_TEXT">$1<ex>Type @gemini to Chat with Gemini</ex></ph>
+    Dismiss Browther Tip button, press Enter to dismiss, <ph name="REMOVE_BUTTON_FOCUSED_FRIENDLY_MATCH_TEXT">$1<ex>Type @gemini to Chat with Gemini</ex></ph>
   </message>
   <message name="IDS_ACC_DISMISS_CHROME_TIP_BUTTON" desc="Announcement when dismiss chrome tip button is focused.">
-    Dismiss Brave Tip button, press Enter to dismiss
+    Dismiss Browther Tip button, press Enter to dismiss
   </message>
 
   <!-- Site Search/Keyword mode Starter Pack strings. Note: kCurrentDataVersion in template_url_starter_pack_data.cc must also be updated when changing these values. -->
@@ -579,7 +579,7 @@
     Page
   </message>
   <message name="IDS_SEARCH_ENGINES_STARTER_PACK_AI_MODE_NAME" desc="The name of the Brave AI Mode search engine as it appears on chrome://settings/searchEngines.">
-    Brave AI Mode
+    Browther AI Mode
   </message>
   <message name="IDS_SEARCH_ENGINES_STARTER_PACK_AI_MODE_KEYWORD" desc="The keyword required to trigger the Brave AI Mode search engine. This will be stripped of whitespace and prepended with an '@'.">
     AI Mode
@@ -625,13 +625,13 @@
   </message>
 
   <message name="IDS_OMNIBOX_HISTORY_EMBEDDINGS_DISCLAIMER_IPH" desc="The string displayed as the last row in the Omnibox as IPH informing them their info is sent to Brave.">
-    Your searches, best matches, and their page contents are sent to Brave and may be seen by human reviewers to improve this feature. This is an experimental feature and won't always get it right.
+    Your searches, best matches, and their page contents are sent to Browther and may be seen by human reviewers to improve this feature. This is an experimental feature and won't always get it right.
   </message>
   <message name="IDS_OMNIBOX_HISTORY_EMBEDDINGS_DISCLAIMER_IPH_LINK_TEXT" desc="The link displayed on the last row in the Omnibox as IPH informing them their info is sent to Brave.">
     Learn more
   </message>
   <message name="IDS_ACC_OMNIBOX_IPH_LINK_SELECTED" desc="Announcement when an IPH Brave Tip link is selected.">
-    Brave Tip link, press Enter to open <ph name="IPH_LINK_FOCUSED_LINK_TEXT">$1<ex>Learn more</ex></ph>
+    Browther Tip link, press Enter to open <ph name="IPH_LINK_FOCUSED_LINK_TEXT">$1<ex>Learn more</ex></ph>
   </message>
 
   <message name="IDS_ACC_OMNIBOX_TOOLBELT_NEXT_SUFFIX" desc="Additional text announcement when a match preceding the toolbelt is selected.">

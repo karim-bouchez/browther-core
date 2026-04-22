@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grit-part>
   <message name="IDS_BRAVE_NEWS_INTRO_TITLE" desc="Title for introduction to Brave News news feed section" formatter_data="webui=BraveNews">
-    Turn on Brave News, and never miss a story
+    Turn on Browther News, and never miss a story
   </message>
   <message name="IDS_BRAVE_NEWS_INTRO_DESCRIPTION" desc="Description for introduction to Brave News news feed section. Do not translate the title Brave News." formatter_data="webui=BraveNews">
-    Follow your favorite sources, in a single feed. Just open a tab in Brave, scroll down, and… voila!
+    Follow your favorite sources, in a single feed. Just open a tab in Browther, scroll down, and… voila!
   </message>
   <message name="IDS_BRAVE_NEWS_INTRO_DESCRIPTION_TWO" desc="Description second paragraph for introduction to Brave News news feed section. Do not translate the title Brave News." formatter_data="webui=BraveNews">
-    Brave News is ad-supported with private, anonymized ads. <ph name="LINK_START">$1</ph>Learn more.<ph name="LINK_END">/$1</ph>.
+    Browther News is ad-supported with private, anonymized ads. <ph name="LINK_START">$1</ph>Learn more.<ph name="LINK_END">/$1</ph>.
   </message>
   <message name="IDS_BRAVE_NEWS_OPT_IN_ACTION_LABEL" desc="Button text for opting in to Brave News" formatter_data="webui=BraveNews">
-    Turn on Brave News
+    Turn on Browther News
   </message>
   <message name="IDS_BRAVE_NEWS_OPT_OUT_ACTION_LABEL" desc="Button text for opting out of Brave News" formatter_data="webui=BraveNews">
     No thanks
   </message>
   <message name="IDS_BRAVE_NEWS_SETTINGS_TITLE" desc="Title for the News settings dialog" formatter_data="webui=BraveNews">
-    Brave News
+    Browther News
   </message>
   <message name="IDS_BRAVE_NEWS_BACK_TO_DASHBOARD" desc="Label for the back to dashboard button" formatter_data="webui=BraveNews">
     Back to <ph name="BEGIN_BOLD">$1</ph>Dashboard<ph name="END_BOLD">/$1</ph>
@@ -85,7 +85,7 @@
     Oops…
   </message>
   <message name="IDS_BRAVE_NEWS_ERROR_MESSAGE" desc="Message body for when there is a Brave News error" formatter_data="webui=BraveNews">
-    Brave News was unable to fetch content.
+    Browther News was unable to fetch content.
   </message>
   <message name="IDS_BRAVE_NEWS_ERROR_ACTION_LABEL" desc="Message action label for when there is a Brave News error" formatter_data="webui=BraveNews">
     Try again
@@ -101,7 +101,7 @@
   </message>
 
   <message name="IDS_BRAVE_NEWS_CHANNEL_BRAVE" desc="Translation of the 'Brave' channel" formatter_data="webui=BraveNews">
-    Brave
+    Browther
   </message>
   <message name="IDS_BRAVE_NEWS_CHANNEL_BUSINESS" desc="Translation of the 'Business' channel" formatter_data="webui=BraveNews">
     Business

@@ -575,16 +575,16 @@
       </message>
       <!-- Clear browsing data strings. -->
       <message name="IDS_SETTINGS_MANAGE_IN_GOOGLE_PASSWORD_MANAGER" desc="Description for the 'Passwords and Passkeys' linkout in the 'Other Brave Data' subpage inside the 'Delete browsing data' dialog. This lets users know that passwords and passkeys can be managed and deleted in Brave password manager.">
-        Manage in Brave Password Manager
+        Manage in Browther Password Manager
       </message>
       <message name="IDS_SETTINGS_MANAGE_IN_YOUR_GOOGLE_ACCOUNT" desc="Description for the MyActivity and Search History linkouts in the 'Other Brave Data' subpage inside the 'Delete browsing data' dialog. This lets users know that this data can be managed and deleted in their Brave account.">
-        Manage in your Brave sync chain
+        Manage in your Browther sync chain
       </message>
       <message name="IDS_SETTINGS_MANAGE_OTHER_DATA_LABEL" desc="Label for the 'Manage other data' subpage entry-point in the 'Delete Browsing Data' dialog where the user can find link-outs to manage their data outside of Brave. This is the label shown when the user does not have Brave as their default search engine.">
         Manage other data
       </message>
       <message name="IDS_SETTINGS_MANAGE_OTHER_GOOGLE_DATA_LABEL" desc="Label for the 'Manage other Brave data' subpage entry-point in the 'Delete Browsing Data' dialog where the user can find link-outs to manage their data outside of Brave. This is the label shown when the user has Brave as their default search engine.">
-        Manage other Brave data
+        Manage other Browther data
       </message>
       <message name="IDS_SETTINGS_MY_ACTIVITY" desc="Label for the 'My Activity' linkout in the 'Other Brave Data' subpage inside the 'Delete browsing data' dialog, where the user can see and manage data that is stored outside of Brave. This linkout is specifically for activity data stored in the user's Brave account.">
         My Activity
@@ -593,7 +593,7 @@
          Other data
        </message>
        <message name="IDS_SETTINGS_OTHER_GOOGLE_DATA_TITLE" desc="Title for the 'Other Brave Data' subpage inside the 'Delete browsing data' dialog, where the user can see and manage data that is stored outside of Brave. This is the title shown when the user set Brave as their default search engine, indicating that all data linked in this subpage is stored within Brave.">
-         Other Brave data
+         Other Browther data
        </message>
        <message name="IDS_SETTINGS_PASSWORDS_AND_PASSKEYS" desc="Label for the 'Passwords and Passkeys' linkout in the 'Other Brave Data' subpage inside the 'Delete browsing data' dialog, where the user can see and manage data that is stored outside of Brave. This linkout is specifically for passwords and passkeys stored in Brave password manager.">
          Passwords and passkeys

@@ -422,7 +422,7 @@
     Add account
   </message>
   <message name="IDS_OS_SETTINGS_TAG_PEOPLE_ACCOUNTS_ADD_V2" desc="Text for search result item which, when clicked, navigates the user to accounts settings, with a button to add a new account.">
-    Add Brave sync chain
+    Add Browther sync chain
   </message>
   <message name="IDS_OS_SETTINGS_TAG_PEOPLE_ACCOUNTS_REMOVE" desc="Text for search result item which, when clicked, navigates the user to accounts settings, with an option to remove an account.">
     Remove account
@@ -503,7 +503,7 @@
     Family Link
   </message>
   <message name="IDS_OS_SETTINGS_TAG_SYNC_AND_GOOGLE_SERVICES" desc="Text for search result item which, when clicked, navigates the user to settings for Sync (syncs data between multiple Chromebooks) and Brave Services.">
-    Sync and Brave services
+    Sync and Browther services
   </message>
   <message name="IDS_OS_SETTINGS_TAG_SYNC_ENCRYPTION_OPTIONS" desc="Text for search result item which, when clicked, navigates the user to sync settings, with an option to choose whether synced data is encrypted with the user's Brave account password or with a custom password chosen by the user. Alternate phrase for: 'Sync encryption password'">
     Sync encryption options
@@ -518,7 +518,7 @@
     Improve search suggestions
   </message>
   <message name="IDS_OS_SETTINGS_TAG_MAKE_SEARCHES_AND_BROWSER_BETTER" desc="Text for search result item which, when clicked, navigates the user to Brave services settings, with a toggle to enable/disable a feature which sends URLs of pages the user has visited to Brave, which helps to improve search/browsing results.">
-    Send URLs of pages you visit to Brave
+    Send URLs of pages you visit to Browther
   </message>
   <message name="IDS_OS_SETTINGS_TAG_GOOGLE_DRIVE_SEARCH_SUGGESTIONS" desc="Text for search result item which, when clicked, navigates the user to Brave services settings, with a toggle to enable/disable a feature which provides suggestions to visit Google Drive items when the user types in the address bar.">
     Show Google Drive suggestions
@@ -863,7 +863,7 @@
   </message>
 
   <message name="IDS_OS_SETTINGS_TAG_MAGIC_BOOST" desc="Text for search result item which, when clicked, navigates the user to Brave AI settings, with an option to turn functionality on.">
-    Brave AI
+    Browther AI
   </message>
   <message name="IDS_OS_SETTINGS_TAG_MAGIC_BOOST_HMR" desc="Text for search result item which, when clicked, navigates the user to Help Me Read settings, with an option to turn functionality on.">
     Help Me Read
@@ -1559,7 +1559,7 @@
     Screen flash
   </message>
   <message name="IDS_OS_SETTINGS_TAG_A11Y_LABELS_FROM_GOOGLE" desc="Text for search result item which, when clicked, navigates the user to accessibility settings, with a toggle to enable/disable getting image descriptions from Brave.">
-    Get image descriptions from Brave
+    Get image descriptions from Browther
   </message>
   <message name="IDS_OS_SETTINGS_TAG_A11Y_COLOR_CORRECTION" desc="Text for search result item which, when clicked, navigates the user to the accessibility settings, with a toggle to enable/disable color correction.">
     Color correction

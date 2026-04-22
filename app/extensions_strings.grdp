@@ -57,7 +57,7 @@
     Repair
   </message>
   <message name="IDS_EXTENSIONS_MOVE_TO_ACCOUNT_ICON_TOOLTIP" desc="The tooltip displayed when the user hovers the button to move the extension to their account.">
-    Save in your Brave sync chain
+    Save in your Browther sync chain
   </message>
   <message name="IDS_EXTENSIONS_VIEW_IFRAME" desc="Text that signifies that the extension view is an iframe.">
     (iframe)
@@ -261,7 +261,7 @@
     Allow User Scripts
   </message>
   <message name="IDS_EXTENSIONS_ALLOW_USER_SCRIPTS_WARNING" desc="Warns the user that the extension will be able to run code not review by Brave. Displayed in extensions management UI after an extension is selected to allow these scripts.">
-    The extension will be able to run code which has not been reviewed by Brave. It may be unsafe and you should only enable this if you know what you are doing.
+    The extension will be able to run code which has not been reviewed by Browther. It may be unsafe and you should only enable this if you know what you are doing.
   </message>
   <message name="IDS_EXTENSIONS_ITEM_DEPENDENCIES" desc="The label above a list of any extensions that depend on this extension.">
     The following extensions depend on this extension:
@@ -513,7 +513,7 @@
     Global
   </message>
   <message name="IDS_EXTENSIONS_APPS_TITLE" desc="The text displayed in the sidebar to go to the apps section of the page.">
-    Brave Apps
+    Browther Apps
   </message>
   <message name="IDS_EXTENSIONS_REMOVE" desc="The generic label for a button to remove an entry.">
     Remove
@@ -726,16 +726,16 @@
     Supercharge your browser with extensions and themes
   </message>
   <message name="IDS_EXTENSIONS_ZERO_STATE_CHIPS_IPH_DESCRIPTION" desc="An one line description for the extensions zero state in-product-help promo.">
-    Extensions are add-ons for Brave that can help you do more
+    Extensions are add-ons for Browther that can help you do more
   </message>
   <message name="IDS_EXTENSIONS_ZERO_STATE_CHIPS_WITH_LINK_IPH_LINK_LABEL" desc="A label of extensions links to chrome web store home page.">
     Extensions
   </message>
   <message name="IDS_EXTENSIONS_ZERO_STATE_CHIPS_WITH_LINK_IPH_DESCRIPTION" desc="An one line description for the extensions zero state in-product-help promo with links to chrome web store home page.">
-    are add-ons for Brave that can help you do more
+    are add-ons for Browther that can help you do more
   </message>
   <message name="IDS_EXTENSIONS_ZERO_STATE_PLAIN_LINK_IPH_DESCRIPTION" desc="An one line description for the extensions zero state in-product-help promo.">
-    Extensions are add-ons to Brave that can help you
+    Extensions are add-ons to Browther that can help you
   </message>
   <message name="IDS_EXTENSIONS_ZERO_STATE_IPH_SHOPPING_CATEGORY_LABEL" desc="Label for the button that opens the Web Store shopping category page.">
     Find coupons

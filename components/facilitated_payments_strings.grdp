@@ -12,7 +12,7 @@
     Pay with non-card payment methods
   </message>
   <message name="IDS_SETTINGS_MANAGE_NON_CARD_PAYMENT_METHODS_DESCRIPTION" desc="Description for the preference that allows the user to manage non-card payment methods." formatter_data="android_java">
-    When you make purchases in Brave, see non-card payment methods as an option
+    When you make purchases in Browther, see non-card payment methods as an option
   </message>
     <message name="IDS_SETTINGS_MANAGE_NON_CARD_PAYMENT_METHODS_A2A_TITLE" desc="Title for the toggle preference when the user has payment apps that can be used to make payments via the account to account flow." formatter_data="android_java">
     Payments apps
@@ -31,13 +31,13 @@
     Pay with eWallet and Pix
   </message>
   <message name="IDS_SETTINGS_MANAGE_EWALLET_DESCRIPTION" desc="Description for the preference that allows the user to manage eWallet accounts. 'eWallet' is a payment system that should not be translated." formatter_data="android_java">
-    When you make purchases in Brave, see eWallet as an option
+    When you make purchases in Browther, see eWallet as an option
   </message>
   <message name="IDS_SETTINGS_MANAGE_PIX_DESCRIPTION" desc="Description for the preference that allows the user to manage Pix accounts. 'Pix' is a Brazilian payment system that should not be translated." formatter_data="android_java">
-    When you make purchases in Brave, see Pix as an option
+    When you make purchases in Browther, see Pix as an option
   </message>
   <message name="IDS_SETTINGS_MANAGE_EWALLET_AND_PIX_DESCRIPTION" desc="Description for the preference that allows the user to manage eWallet and Pix accounts. 'eWallet' and 'Pix' are payment systems that should not be translated." formatter_data="android_java">
-    When you make purchases in Brave, see eWallet and Pix as options
+    When you make purchases in Browther, see eWallet and Pix as options
   </message>
   <!-- Ewallet and Pix related strings -->
   <message name="IDS_SETTINGS_MANAGE_OTHER_FINANCIAL_ACCOUNTS_EWALLET" desc="This is the string added to the summary for the 'Manage other financial accounts' preference when user has eWallets accounts available to be used." formatter_data="android_java" translateable="false">
@@ -89,16 +89,16 @@
     Complete one-time security check to pay faster
   </message>
   <message name="IDS_PIX_PAYMENT_ADDITIONAL_INFO" desc="Additional info for the bottom sheet displaying user's PIX bank accounts linked to their GPay wallet. The bottom sheet is shown to prompt the user to pay directly on Brave when a PIX payment page is detected. This string provides supplemental information about the user's accounts and the transaction." formatter_data="android_java">
-    To turn off Pix in Brave, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
+    To turn off Pix in Browther, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
   </message>
   <message name="IDS_EWALLET_PAYMENT_ADDITIONAL_INFO" desc="Additional info for the bottom sheet displaying user's eWallet accounts linked to their GPay wallet. The bottom sheet is shown to prompt the user to pay directly on Brave when an eWallet payment page is detected. This string provides supplemental information about the user's accounts and the transaction." formatter_data="android_java">
-    Your saved auto-pay method may be used for this payment. To turn off eWallets in Brave, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
+    Your saved auto-pay method may be used for this payment. To turn off eWallets in Browther, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
   </message>
   <message name="IDS_PAYMENT_APP_PAYMENT_ADDITIONAL_INFO" desc="Additional info for the bottom sheet displaying user's supported payment apps. The bottom sheet is shown to prompt the user to pay by app redirection when an A2A payment link is detected. This string provides supplemental information about the user's accounts and the transaction." formatter_data="android_java">
-    To turn off payment app in Brave, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
+    To turn off payment app in Browther, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
   </message>
   <message name="IDS_EWALLET_AND_PAYMENT_APP_PAYMENT_ADDITIONAL_INFO" desc="Additional info for the bottom sheet displaying user's eWallet accounts linked to their GPay wallet and user's supported payment apps. The bottom sheet is shown to prompt the user to pay directly on Brave or by app redirection when a payment link is detected. This string provides supplemental information about the user's accounts and the transaction." formatter_data="android_java">
-    Your saved auto-pay method may be used for this payment. To turn off eWallets or payment app in Brave, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
+    Your saved auto-pay method may be used for this payment. To turn off eWallets or payment app in Browther, go to your <ph name="BEGIN_LINK1">&lt;link1&gt;</ph>payment settings<ph name="END_LINK1">&lt;/link1&gt;</ph>
   </message>
   <message name="IDS_PIX_PAYMENT_PRODUCT_ICON_CONTENT_DESCRIPTION" desc="Accessibility string for the Google Pay + Pix product icon." formatter_data="android_java">
     Google Pay, Pix
@@ -130,13 +130,13 @@
 
   <!-- Pix account linking prompt strings -->
   <message name="IDS_PIX_ACCOUNT_LINKING_PROMPT_TITLE" desc="Title for the bottom sheet showing Pix account linking prompt. It asks users to link their Pix accounts to Brave Wallet so they can directly pay on Brave." formatter_data="android_java">
-    Pay with Pix directly in Brave next time
+    Pay with Pix directly in Browther next time
   </message>
   <message name="IDS_PIX_ACCOUNT_LINKING_PROMPT_VALUE_PROP_MESSAGE_1" desc="A message in the bottom sheet showing Pix account linking prompt. The prompt asks users to link their Pix accounts to Brave Wallet so they can directly pay on Brave. The value prop messages communicate unique benefits of Pix account linking. This message informs users that they can enable Pix on Brave by linking their Pix account to Brave Wallet." formatter_data="android_java">
     Enable Pix by linking your account quickly
   </message>
   <message name="IDS_PIX_ACCOUNT_LINKING_PROMPT_VALUE_PROP_MESSAGE_2" desc="A message in the bottom sheet showing Pix account linking prompt. The prompt asks users to link their Pix accounts to Brave Wallet so they can directly pay on Brave. The value prop messages communicate unique benefits of Pix account linking. This message informs users that enabling Pix on Brave allows them to pay directly on Brave without having to use their bank app." formatter_data="android_java">
-    Pay in Brave without using your bank app
+    Pay in Browther without using your bank app
   </message>
   <message name="IDS_PIX_ACCOUNT_LINKING_PROMPT_VALUE_PROP_MESSAGE_3" desc="A message in the bottom sheet showing Pix account linking prompt. The prompt asks users to link their Pix accounts to Brave Wallet so they can directly pay on Brave. The value prop messages communicate unique benefits of Pix account linking. This message informs users that their personal info is protected using encryption." formatter_data="android_java">
     Encryption protects your personal info

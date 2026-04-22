@@ -137,7 +137,7 @@
     Turn on Gemini keyboard shortcut
   </message>
   <message name="IDS_SETTINGS_GLIC_OS_WIDGET_TOGGLE_SUBLABEL" desc="Sublabel of the toggle that controls whether the Gemini icon is shown in the menu bar (on Mac) / system tray (on Windows and Linux).">
-    Easy access to use Gemini across your device, even if Brave is minimized.
+    Easy access to use Gemini across your device, even if Browther is minimized.
   </message>
   <message name="IDS_SETTINGS_GLIC_KEYBOARD_SHORTCUT" desc="Name of the keyboard shortcut setting.">
     Keyboard shortcut
@@ -230,7 +230,7 @@
     You can easily ask Gemini questions about your current tab as you browse
   </message>
   <message name="IDS_SETTINGS_GLIC_PERMISSIONS_TAB_ACCESS_CONSIDER_1" desc="First point in 'things to consider' column of the 'tab access' expando">
-    When you choose to share the current tab with Gemini, the tab’s full content, media and URL are sent to Brave.
+    When you choose to share the current tab with Gemini, the tab’s full content, media and URL are sent to Browther.
   </message>
   <message name="IDS_SETTINGS_GLIC_PERMISSIONS_TAB_ACCESS_CONSIDER_1_LEARN_MORE_LABEL" desc="Label for the 'Learn more' link in the 'things to consider' section.">
     Learn more
@@ -245,7 +245,7 @@
     Tabs opened from a chat or a shared tab are also shared with Gemini.
   </message>
   <message name="IDS_SETTINGS_GLIC_PERMISSIONS_DEFAULT_TAB_ACCESS_CONSIDER_1" desc="First point in 'things to consider' column of the 'default tab access' expands">
-    When tabs are shared, their page contents, media and URLs are sent to Brave.
+    When tabs are shared, their page contents, media and URLs are sent to Browther.
   </message>
   <message name="IDS_SETTINGS_GLIC_PERMISSIONS_DEFAULT_TAB_ACCESS_CONSIDER_2" desc="Second point in 'things to consider' column of the 'default tab access' expands">
     Conversations about shared tabs may be seen by human reviewers to improve Gemini.
@@ -270,7 +270,7 @@
     Gemini shows its steps and tries to confirm before taking sensitive ones. You can stop or take over anytime.
   </message>
   <message name="IDS_SETTINGS_GLIC_PERMISSIONS_WEB_ACTUATION_TOGGLE_CONSIDER_1" desc="First point in 'things to consider' column of the 'let Gemini browse for you' expands">
-    The page content and URLs that Gemini uses during a task will be shared with Brave.
+    The page content and URLs that Gemini uses during a task will be shared with Browther.
   </message>
   <message name="IDS_SETTINGS_GLIC_PERMISSIONS_WEB_ACTUATION_TOGGLE_CONSIDER_2" desc="Second point in 'things to consider' column of the 'let Gemini browse for you' expands">
     Use Gemini carefully and <ph name="BEGIN_LINK1">&lt;a href="$1" target="_blank"&gt;</ph>safely<ph name="LINK_END1">&lt;/a&gt;</ph>. You are responsible for Gemini's actions during a task, including mistakes and <ph name="BEGIN_LINK2">&lt;a href="$2" target="_blank"&gt;</ph>unexpected results<ph name="LINK_END2">&lt;/a&gt;</ph> like purchases.
@@ -402,7 +402,7 @@
     Get help with your tasks
   </message>
   <message name="IDS_GLIC_TRYIT_BODY" desc="Text for a promo pointing to the Gemini icon in Brave, that opens Gemini in Brave if selected.">
-    Chat with Gemini in Brave to get answers, key takeaways, and more as you browse
+    Chat with Gemini in Browther to get answers, key takeaways, and more as you browse
   </message>
 
   <!-- Shortcut IPH -->
@@ -413,6 +413,6 @@
     Easily open with <ph name="FOCUS_TOGGLE_HOTKEY">$1<ex>Ctrl+⌘+G</ex></ph>
   </message>
   <message name="IDS_GLIC_SHORTCUT_IPH_SCREENREADER" is_accessibility_with_no_ui="true" desc="Title for a promo pointing to the Gemini icon in Brave for screen readers. It informs the user about a keyboard shortcut for quicly opening Gemini in Brave.">
-    Easily open Gemini in Brave with <ph name="FOCUS_TOGGLE_HOTKEY">$1<ex>Ctrl+⌘+G</ex></ph>
+    Easily open Gemini in Browther with <ph name="FOCUS_TOGGLE_HOTKEY">$1<ex>Ctrl+⌘+G</ex></ph>
   </message>
 </grit-part>

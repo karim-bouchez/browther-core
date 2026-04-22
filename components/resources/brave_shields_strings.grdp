@@ -33,11 +33,11 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_BROKEN_NOTE" desc="A footnote below the main Shields switch button to convey reduced privacy protections.">
-    <ph name="NOTE_BEFORE">$1</ph>Note: this may reduce Brave's privacy protections.<ph name="NOTE_AFTER">/$1</ph>
+    <ph name="NOTE_BEFORE">$1</ph>Note: this may reduce Browther's privacy protections.<ph name="NOTE_AFTER">/$1</ph>
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_PRIVACY_NOTE" desc="A note about reduced privacy protections with a link." formatter_data="webui=BraveShields">
-    This may reduce Brave's privacy protections. <ph name="LINK_BEFORE">$1</ph>Learn more<ph name="LINK_AFTER">/$1</ph>
+    This may reduce Browther's privacy protections. <ph name="LINK_BEFORE">$1</ph>Learn more<ph name="LINK_AFTER">/$1</ph>
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_TRACKERS_ADS_BLOCKED" desc="Summary text for blocked trackers and ads." formatter_data="webui=BraveShields">
@@ -65,7 +65,7 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ARE_YOU_EXPERIENCING_ISSUES_WITH_THIS_SITE_DESC2" desc="Second part of the description for the alert if the user is experiencing issues with the site.">
-    Please note that for individual websites broken by Brave's privacy protections, you can set Shields to DOWN.
+    Please note that for individual websites broken by Browther's privacy protections, you can set Shields to DOWN.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ENABLE_AD_BLOCK_ONLY_MODE" desc="A button label to enable Adblock-Only mode." formatter_data="webui=BraveShields">
@@ -297,7 +297,7 @@
   </message>
 
    <message name="IDS_BRAVE_SHIELDS_DOWN_DESC" desc="Tell users the site's Shield is turned off">
-    You are viewing this site without Brave's privacy protections.
+    You are viewing this site without Browther's privacy protections.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ICON_TOOLTIP" desc="The message shown on hover of the shields lion icon">
@@ -353,7 +353,7 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ONBOARDING_CLICK_TO_VIEW_LABEL" desc="Label for the onboarding bubble to guide the user to the Shield icon">
-    Click the Brave icon to view Brave Shields.
+    Click the Browther icon to view Brave Shields.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_PAGE_INFO_SITE_INFO_LINK" desc="Link text for Site Info tab on Page Info bubble">

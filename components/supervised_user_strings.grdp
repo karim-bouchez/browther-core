@@ -93,10 +93,10 @@
         Next
       </message>
       <message name="IDS_SUPERVISED_USER_VERIFY_PAGE_SUBFRAME_YOUTUBE_HEADING" desc="A message for the child user when they visit a permitted site, but then encounter embedded content from YouTube.com. The child is signed in to their Brave sync chain in Brave, but their credentials have expired, so they need to sign in to get all the settings that their parent chose for them on YouTube.">
-        To use YouTube, continue with your Brave sync chain
+        To use YouTube, continue with your Browther sync chain
       </message>
       <message name="IDS_SUPERVISED_USER_VERIFY_PAGE_SUBFRAME_BLOCKED_SITE_HEADING" desc="A message for the child user when they visit a permitted site, but then encounter embedded content from a second site that is not permitted by their parent. Before they can ask their parent to let them view the content, the child first needs to enter their Brave sync chain password because their credentials expired.">
-        To ask to see this content, continue with your Brave sync chain
+        To ask to see this content, continue with your Browther sync chain
       </message>
       <!-- Supervised user PACP widget custom subtitles for local web approvals -->
       <message name="IDS_PARENT_WEBSITE_APPROVAL_BLOCK_ALL_URL" desc="This text displayed as a subtitle in a bottom sheet asking a parent to allow or not allow a website. This informs the parent that this site has not been permitted by the parent.">

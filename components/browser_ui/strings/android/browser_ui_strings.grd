@@ -331,7 +331,7 @@
         Sort by:
       </message>
       <message name="IDS_PROVIDED_BY_GOOGLE" desc="Generic label for something that comes from Brave servers.">
-        Provided by Brave
+        Provided by Browther
       </message>
       <message name="IDS_TURN_ON" desc="Generic label for a user to turn">
         Turn on
@@ -484,7 +484,7 @@
         Learn about its source and topic
       </message>
       <message name="IDS_PAGE_INFO_DOMAIN_HIDDEN" desc="Message to display in the page info bubble when the domain is hidden.">
-        This content is from <ph name="DOMAIN_NAME">%1$s<ex>google.com</ex></ph>, delivered by Brave.
+        This content is from <ph name="DOMAIN_NAME">%1$s<ex>google.com</ex></ph>, delivered by Browther.
       </message>
       <message name="IDS_PAGE_INFO_HISTORY_TITLE" desc="Label used in the Page Info dialog above the history list.">
         History
@@ -550,7 +550,7 @@
         other {<ph name="PERMISSION_1">%1$s<ex>Location</ex></ph>, <ph name="PERMISSION_2">%2$s<ex>Sound</ex></ph>, and <ph name="NUM_MORE">%3$s<ex>2</ex></ph> more blocked}}
       </message>
       <message name="IDS_PAGE_INFO_LITE_MODE_HTTPS_IMAGE_COMPRESSION" desc="This text is displayed in the page info bubble when the currently viewed page has https images that were optimized by Brave">
-        To save you data, this page's images have been optimized by Brave.
+        To save you data, this page's images have been optimized by Browther.
       </message>
       <message name="IDS_PAGE_INFO_OPEN_ONLINE_BUTTON" desc="Text in the button that attempts to open an online version of the offline website displayed in the tab.">
         Open Online
@@ -574,15 +574,15 @@
         Cookies and other site data are used to remember you, for example to sign you in or to personalize ads. To manage cookies for all sites, see <ph name="BEGIN_LINK">&lt;link&gt;</ph>Settings<ph name="END_LINK">&lt;/link&gt;</ph>.
       </message>
       <message name="IDS_PAGE_INFO_COOKIES_BLOCKING_RESTART_TODAY_TITLE" desc="Subtitle shown on the Page Info UI when cookies are allowed temporarily, indicating how long until they are no longer allowed. Used for the Today's variation.">
-        Brave will block cookies again today
+        Browther will block cookies again today
       </message>
       <message name="IDS_PAGE_INFO_COOKIES_BLOCKING_RESTART_TRACKING_PROTECTION_TITLE" desc="Subtitle shown on the Page Info UI when cookies are allowed temporarily, indicating how long until they are no longer allowed.">
         {DAYS, plural,
-          =1 {Brave will block cookies again tomorrow}
+          =1 {Browther will block cookies again tomorrow}
           other {# days until cookies are blocked again}}
       </message>
       <message name="IDS_PAGE_INFO_COOKIES_SEND_FEEDBACK_DESCRIPTION" desc="Text asking the user for feedback on why they allowed third-party cookies for this particular site.">
-        Help us improve Brave by telling us why you allowed third-party cookies. <ph name="BEGIN_LINK">&lt;link&gt;</ph>Send feedback<ph name="END_LINK">&lt;/link&gt;</ph>
+        Help us improve Browther by telling us why you allowed third-party cookies. <ph name="BEGIN_LINK">&lt;link&gt;</ph>Send feedback<ph name="END_LINK">&lt;/link&gt;</ph>
       </message>
       <message name="IDS_PAGE_INFO_COOKIES_PERMANENT_ALLOWED_TITLE" desc="A subtitle in the Page Info UI if cookies were allowed by the user and they won't be automatically blocked again the future.">
         You allowed third-party cookies on this site
@@ -636,13 +636,13 @@
         Ad privacy
       </message>
       <message name="IDS_PAGE_INFO_AD_PRIVACY_TOPICS_DESCRIPTION" desc="1 of 3 possible descriptions a user might see when they choose 'Ad privacy' from page info for a specific site. 1) Navigate to any site. 2) Click the icon (often a lock) to the left of the URL in the address bar. Information about the page you're viewing appears. The 'Ad privacy' label will appear above the 'Site settings' button. 3) Click on Ad privacy. This string describes the case that the site being viewed uses the Ad topics setting. What's the Ad topics setting? When on, Brave will estimate the user's topics of interest based on their recent browsing history and then show up to 3 of those topics with a site so that the site can better personalize ads (a privacy-preserving way to replicate some of the functionality of third-party cookies). In this case, we're informing the user that this site uses the Ad topics API and we're showing the user the ad topics Brave has shared with the site. A button 'Manage ad privacy' allows the user to turn 'Ad privacy' settings on/off or to block specific ad topics.">
-        This site gets your ad topics from Brave to show you more relevant ads
+        This site gets your ad topics from Browther to show you more relevant ads
       </message>
       <message name="IDS_PAGE_INFO_AD_PRIVACY_FLEDGE_DESCRIPTION" desc="2 of 3 possible descriptions a user might see when they choose 'Ad privacy' from page info for a specific site. 1) Navigate to any site. 2) Click the icon (often a lock) to the left of the URL in the address bar. Information about the page you're viewing appears. The 'Ad privacy' label will appear above the 'Site settings' button. 3) Click on Ad privacy. This string describes the case that the site being viewed uses the Site-suggested ads setting. What's the Site-suggested ads setting? When on, a site can determine a user's interests, save info with Brave relative to those interests. Later, as a user continues browsing, a site can ask Brave for a user's interests and the first site can (through Brave) suggest ads the user might like. In this case, we're informing the user that this site uses the Site-suggested ads API. A button 'Manage ad privacy' allows the user to turn 'Ad privacy' settings on/off or to block specific ad topics.">
         This site determines things you like and then suggests ads to other sites
       </message>
       <message name="IDS_PAGE_INFO_AD_PRIVACY_TOPICS_AND_FLEDGE_DESCRIPTION" desc="3 of 3 possible descriptions a user might see when they choose 'Ad privacy' from page info for a specific site. 1) Navigate to any site. 2) Click the icon (often a lock) to the left of the URL in the address bar. Information about the page you're viewing appears. The 'Ad privacy' label will appear above the 'Site settings' button. 3) Click on Ad privacy. This string describes the case that the site being viewed uses both the Ad topics and Site-suggested ads settings. AD TOPICS: When on, Brave will estimate the user's topics of interest based on their recent browsing history and then show up to 3 of those topics with a site so that the site can better personalize ads (a privacy-preserving way to replicate some of the functionality of third-party cookies). SITE-SUGGESTED ADS: When on, a site can determine a user's interests, save info with Brave relative to those interests. Later, as a user continues browsing, a site can ask Brave for a user's interests and the first site can (through Brave) suggest ads the user might like. In this case, we're informing the user that this site 1) has asked Brave for the user's interests (the Ad topics setting), and 2) uses the Site-suggested ads API (this site determines the user's interests and then can suggest ads to other sites as the user continues browsing). A button 'Manage ad privacy' allows the user to turn 'Ad privacy' settings on/off or to block specific ad topics or sites.">
-        This site determines things you like and then suggests ads to other sites. This site also gets your ad topics from Brave to show you more relevant ads.
+        This site determines things you like and then suggests ads to other sites. This site also gets your ad topics from Browther to show you more relevant ads.
       </message>
       <message name="IDS_PAGE_INFO_AD_PRIVACY_SUBPAGE_MANAGE_BUTTON" desc="A button label that opens the Ad privacy page, allowing a user to turn on / off the ad privacy settings and to manage the topics and sites that influence ad personalization.">
         Manage ad privacy
@@ -949,7 +949,7 @@
 
       <!-- WebApk name/icon report abuse dialog -->
       <message name="IDS_WEBAPK_REPORT_ABUSE_DIALOG_TITLE" desc="The title at the top of the report abuse dialog.">
-        Uninstall '<ph name="APP_NAME">%1$s<ex>Brave App</ex></ph>'?
+        Uninstall '<ph name="APP_NAME">%1$s<ex>Browther App</ex></ph>'?
       </message>
       <message name="IDS_WEBAPK_REPORT_ABUSE_CHECKBOX" desc="The label for the box you check when you want to report an app for abuse.">
         Report abuse
@@ -1052,7 +1052,7 @@
         Jump-start Omnibox
       </message>
       <message name="IDS_JUMP_START_OMNIBOX_SUMMARY" desc="When this preference is enabled, Brave start-up time is reduced, and the user is taken directly to an active Omnibox">
-        Launch Brave with the Omnibox focused, reducing start-up time on low-end devices.
+        Launch Browther with the Omnibox focused, reducing start-up time on low-end devices.
       </message>
       <message name="IDS_TOUCHPAD_OVERSCROLL_HISTORY_NAVIGATION_TITLE" desc="Title of the preference to enable swipe-to-navigate by touchpad horizontal overscroll">
         Swipe between pages using a touchpad
@@ -1114,7 +1114,7 @@
         Match Android font size
       </message>
       <message name="IDS_PAGE_ZOOM_INCLUDE_OS_ADJUSTMENT_SUMMARY" translateable="false" desc="Summary of the preference that allows the user to control if page zoom adjusts for OS level setting">
-        When enabled, Brave will adjust web content size to match your Android setting
+        When enabled, Browther will adjust web content size to match your Android setting
       </message>
       <message name="IDS_PAGE_ZOOM_ALWAYS_SHOW_PREFERENCE_TITLE" desc="Title of the preference that allows the user to always show the menu item for zoom">
         Show zoom option in main menu
@@ -1218,16 +1218,16 @@
         Hide View tabs in your app list
       </message>
       <message name="IDS_AUXILIARY_SEARCH_MODULE_CONTENT" desc="Content of the auxiliary search module on NTP for a device with this feature enabled by default..">
-        Brave now shares your recent tabs with your device. You’ll see them in your device’s app list and search results. You can turn this off anytime in Brave settings.
+        Browther now shares your recent tabs with your device. You’ll see them in your device’s app list and search results. You can turn this off anytime in Browther settings.
       </message>
       <message name="IDS_AUXILIARY_SEARCH_MODULE_CONTENT_SHORT" desc="Content of the auxiliary search module on NTP for a device with this feature enabled by default..">
-        Brave now shows your recent tabs in your device's app list and search results. You can turn this off anytime in Brave settings.
+        Browther now shows your recent tabs in your device's app list and search results. You can turn this off anytime in Browther settings.
       </message>
       <message name="IDS_AUXILIARY_SEARCH_MODULE_CONTENT_DEFAULT_OFF" desc="Content of the auxiliary search module on NTP for a device with this feature disabled by default.">
-        Let Brave share your recent tabs with your device to see them in your device's app list and search results. You can turn this on or off in Brave settings.
+        Let Browther share your recent tabs with your device to see them in your device's app list and search results. You can turn this on or off in Browther settings.
       </message>
       <message name="IDS_AUXILIARY_SEARCH_MODULE_CONTENT_DEFAULT_OFF_SHORT" desc="Content of the auxiliary search module on NTP for a device with this feature disabled by default.">
-        Let Brave show your recent tabs in your device’s app list and search results. You can turn this off anytime in Brave settings.
+        Let Browther show your recent tabs in your device’s app list and search results. You can turn this off anytime in Browther settings.
       </message>
       <message name="IDS_AUXILIARY_SEARCH_MODULE_BUTTON_GO_TO_SETTINGS" desc="The text shown on the Go to settings button on the auxiliary search module on NTP.">
         Go to settings
@@ -1244,13 +1244,13 @@
 
       <!-- Educational tip module strings -->
       <message name="IDS_EDUCATIONAL_TIP_MODULE_TITLE" desc="Title of the educational tip module on NTP.">
-        Brave Tips
+        Browther Tips
       </message>
       <message name="IDS_EDUCATIONAL_TIP_MODULE_NAME" desc="The string that is shown in settings to customize whether the educational tip card should be enabled.">
-        Brave tips
+        Browther tips
       </message>
       <message name="IDS_EDUCATIONAL_TIP_MODULE_CONTEXT_MENU_HIDE" desc="The string that is going to be part of the context menu item string to hide the educational tip card.">
-        Hide Brave tips card
+        Hide Browther tips card
       </message>
       <message name="IDS_EDUCATIONAL_TIP_MODULE_BUTTON" desc="Name of the clickable button in the educational tip module on NTP.">
         Show me how
@@ -1259,10 +1259,10 @@
         See more
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_TITLE" desc="Title of the default browser section in the educational tip module on NTP.">
-        Use Brave by default
+        Use Browther by default
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_DESCRIPTION" desc="Description of the default browser section in the educational tip module on NTP.">
-        You can use Brave any time you tap links in messages, documents and other apps
+        You can use Browther any time you tap links in messages, documents and other apps
       </message>
       <message name="IDS_EDUCATIONAL_TIP_TAB_GROUP_TITLE" desc="Title of the tab group promo in the educational tip module on NTP.">
         Tidy up with tab groups
@@ -1283,10 +1283,10 @@
         You can delete some or all of your history, cookies, site data and more
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_BOTTOM_SHEET_TITLE" desc="Title of the default browser section's bottom sheet in the educational tip module on NTP.">
-        Use Brave By Default
+        Use Browther By Default
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_BOTTOM_SHEET_DESCRIPTION" desc="Description of the default browser section's bottom sheet in the educational tip module on NTP.">
-        You can now use Brave anytime you browse or tap links in messages, documents, and other apps.
+        You can now use Browther anytime you browse or tap links in messages, documents, and other apps.
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_BOTTOM_SHEET_FIRST_STEP" desc="The first step in the bottom sheet of the default browser section within the educational tip module on the NTP.">
         On your phone, open Settings
@@ -1298,10 +1298,10 @@
         Tap Apps then tap Default apps
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_BOTTOM_SHEET_THIRD_STEP" desc="The third step in the bottom sheet of the default browser section within the educational tip module on the NTP.">
-        Tap Browser app &gt; Brave
+        Tap Browser app &gt; Browther
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_BOTTOM_SHEET_THIRD_STEP_ACCESSIBILITY" desc="Accessibility string that describes the third step in the bottom sheet of the default browser section within the educational tip module on the NTP.">
-        Tap Browser app then tap Brave
+        Tap Browser app then tap Browther
       </message>
       <message name="IDS_EDUCATIONAL_TIP_DEFAULT_BROWSER_BOTTOM_SHEET_BUTTON" desc="The name of the button in the bottom sheet of the default browser section within the educational tip module on the NTP">
         Settings
@@ -1325,10 +1325,10 @@
         Let’s go
       </message>
       <message name="IDS_EDUCATIONAL_TIP_TIPS_NOTIFICATIONS_TITLE" desc="Title of the tips notifications promo that invites users to turn on tips notifications in the educational tip module on NTP.">
-        Get Brave tips notifications
+        Get Browther tips notifications
       </message>
       <message name="IDS_EDUCATIONAL_TIP_TIPS_NOTIFICATIONS_DESCRIPTION" desc="Description of the tips notifications promo that invites users to turn on tips notifications in the educational tip module on NTP.">
-        Turn on notifications for useful tips to help you get the best of Brave
+        Turn on notifications for useful tips to help you get the best of Browther
       </message>
       <message name="IDS_EDUCATIONAL_TIP_TIPS_NOTIFICATIONS_BUTTON" desc="Text on the clickable button on the tips notifications promo that invites users to turn on tips notifications in the educational tip module on NTP.">
         Notify me
@@ -1338,7 +1338,7 @@
 
       <!-- Setup list Sign in promo strings -->
       <message name="IDS_EDUCATIONAL_TIP_SIGN_IN_PROMO_TITLE" desc="Title of the sign in promo that invites users to sign in to Brave in the educational tip module on NTP.">
-        Make Brave your own
+        Make Browther your own
       </message>
       <message name="IDS_EDUCATIONAL_TIP_SIGN_IN_PROMO_DESCRIPTION" desc="Description of the sign in promo that invites users to sign in to Brave in the educational tip module on NTP.">
         Sign in to easily continue on all your devices
@@ -1352,12 +1352,12 @@
         Enhance your security
       </message>
       <message name="IDS_EDUCATIONAL_TIP_ENHANCED_SAFE_BROWSING_DESCRIPTION" desc="Description of the enhanced safe browsing promo that invites users to turn on enhanced safe browsing in the educational tip module on NTP.">
-        Get Brave’s strongest protection against online threats
+        Get Browther’s strongest protection against online threats
       </message>
 
       <!-- Setup list Save Passwords promo strings -->
       <message name="IDS_EDUCATIONAL_TIP_SAVE_PASSWORDS_TITLE" desc="Title of the Save Passwords promo that invites users to turn on the save passwords feature in the educational tip module on NTP.">
-        Save passwords in Brave
+        Save passwords in Browther
       </message>
       <message name="IDS_EDUCATIONAL_TIP_SAVE_PASSWORDS_DESCRIPTION" desc="Description of the Save Passwords promo that invites users to turn on the save passwords feature in the educational tip module on NTP.">
         Sign in quickly and easily into sites and apps
@@ -1371,7 +1371,7 @@
         Sign in to any website
       </message>
       <message name="IDS_EDUCATIONAL_TIP_SAVE_PASSWORDS_BOTTOM_SHEET_SECOND_STEP" desc="The second step in the bottom sheet of the save passwords section within the educational tip module on the NTP.">
-        Brave will offer to save your password
+        Browther will offer to save your password
       </message>
       <message name="IDS_EDUCATIONAL_TIP_SAVE_PASSWORDS_BOTTOM_SHEET_THIRD_STEP" desc="The third step in the bottom sheet of the save passwords section within the educational tip module on the NTP.">
         Tap Yes to easily use this password the next time you sign in
@@ -1380,7 +1380,7 @@
         Save passwords instructional bottom sheet has closed
       </message>
       <message name="IDS_EDUCATIONAL_TIP_SAVE_PASSWORDS_BOTTOM_SHEET_CONTENT_DESCRIPTION" desc="Accessibility string that describes the save passwords bottom sheet.">
-        Instructional bottom sheet for saving passwords in Brave
+        Instructional bottom sheet for saving passwords in Browther
       </message>
       <message name="IDS_EDUCATIONAL_TIP_SAVE_PASSWORDS_BOTTOM_SHEET_ACCESSIBILITY_OPENED_FULL" desc="Accessibility string that describes that the save passwords bottom sheet has fully opened.">
         Save passwords instructional bottom sheet has fully opened
@@ -1495,10 +1495,10 @@
         New tab page appearance bottom sheet opened at half height
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_CHROME_COLORS_BOTTOM_SHEET_OPENED_FULL" desc="Accessibility string that describes the new tab page appearance bottom sheet is fully opened.">
-        Brave colors bottom sheet opened at full height
+        Browther colors bottom sheet opened at full height
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_CHROME_COLORS_BOTTOM_SHEET_OPENED_HALF" desc="Accessibility string that describes the new tab page appearance bottom sheet is fully opened.">
-        Brave colors bottom sheet opened at half height
+        Browther colors bottom sheet opened at half height
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_MAIN_BOTTOM_SHEET_CLOSED" desc="Accessibility string that describes a new tab page customization bottom sheet is closed">
         Customize your new tab page bottom sheet closed
@@ -1537,13 +1537,13 @@
         New tab page appearance bottom sheet
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_THEME_BOTTOM_SHEET_DEFAULT_OPTION" desc="Title of the default option in the new tab page customization theme bottom sheet">
-        Brave Default
+        Browther Default
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_THEME_BOTTOM_SHEET_UPLOAD_IMAGE_OPTION" desc="Title of the upload image option in the new tab page customization theme bottom sheet">
         Upload an image
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_THEME_BOTTOM_SHEET_CHROME_COLORS_OPTION" desc="Title of the chrome colors option in the new tab page customization theme bottom sheet">
-        Brave Colors
+        Browther Colors
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_THEME_BOTTOM_SHEET_THEME_COLLECTIONS_OPTION" desc="Title of the theme collections option in the new tab page customization theme bottom sheet">
         Theme Collections
@@ -1564,10 +1564,10 @@
         Refresh daily
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_CHROME_COLORS_TITLE" desc="Title for the Brave Colors bottom sheet in NTP customization.">
-        Brave Colors
+        Browther Colors
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_CHROME_COLORS_BOTTOM_SHEET" desc="Accessibility string to announce the currently displaying bottom sheet is the Brave Colors bottom sheet." is_accessibility_with_no_ui="true">
-        Brave Colors bottom sheet
+        Browther Colors bottom sheet
       </message>
       <message name="IDS_NTP_CUSTOMIZATION_THEME_IMAGE_PREVIEW_PINCH_TO_RESIZE" desc="Text explaining the image could be resized by pinching it.">
         Pinch to resize
@@ -1641,7 +1641,7 @@
         What's New
       </message>
       <message name="IDS_WHATS_NEW_PAGE_DESCRIPTION" translateable="false" desc="Description of the what's new page.">
-        What's New in Brave
+        What's New in Browther
       </message>
     </messages>
   </release>

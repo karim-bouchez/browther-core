@@ -19,24 +19,24 @@
   </message>
   <if expr="is_chromeos">
     <message name="IDS_AUTOFILL_AI_FILLING_REAUTH" desc="Message shown to the user when they need to authenticate to fill an Autofill AI form.">
-      Brave browser is trying to fill your sensitive info on <ph name="APP_NAME">$1<ex>google.com</ex></ph>.
+      Browther browser is trying to fill your sensitive info on <ph name="APP_NAME">$1<ex>google.com</ex></ph>.
     </message>
     <message name="IDS_AUTOFILL_AI_VIEWING_REAUTH" desc="Message shown to the user when they need to authenticate to view Autofill AI data.">
-      Brave browser is trying to show sensitive info
+      Browther browser is trying to show sensitive info
     </message>
     <message name="IDS_AUTOFILL_AI_UPDATE_REAUTH_REQUIREMENT" desc="Message shown to the user when they need to authenticate to update whether reauth is required when filling or viewing Autofill AI sensitive data.">
-      Brave browser wants to verify it's you before you change settings
+      Browther browser wants to verify it's you before you change settings
     </message>
   </if>
   <if expr="is_win">
     <message name="IDS_AUTOFILL_AI_FILLING_REAUTH" desc="Message shown to the user when they need to authenticate to fill an Autofill AI form.">
-      Brave is trying to fill your sensitive info on <ph name="APP_NAME">$1<ex>google.com</ex></ph>.
+      Browther is trying to fill your sensitive info on <ph name="APP_NAME">$1<ex>google.com</ex></ph>.
     </message>
     <message name="IDS_AUTOFILL_AI_VIEWING_REAUTH" desc="Message shown to the user when they need to authenticate to view Autofill AI data.">
-      Brave is trying to show sensitive info
+      Browther is trying to show sensitive info
     </message>
     <message name="IDS_AUTOFILL_AI_UPDATE_REAUTH_REQUIREMENT" desc="Message shown to the user when they need to authenticate to update whether reauth is required when filling or viewing Autofill AI sensitive data.">
-      Brave wants to verify it's you before you change settings
+      Browther wants to verify it's you before you change settings
     </message>
   </if>
   <if expr="is_macosx">
@@ -52,43 +52,43 @@
   </if>
   <if expr="_google_chrome">
     <message name="IDS_AUTOFILL_DELETE_AUTOCOMPLETE_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete an autocomplete form history suggestion.">
-      Remove form suggestion from Brave?
+      Remove form suggestion from Browther?
     </message>
     <message name="IDS_AUTOFILL_DELETE_CREDIT_CARD_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete a credit card from Autofill.">
-      Remove credit card from Brave?
+      Remove credit card from Browther?
     </message>
     <message name="IDS_AUTOFILL_DELETE_PROFILE_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete an address from Autofill.">
-      Remove address from Brave?
+      Remove address from Browther?
     </message>
   </if>
   <if expr="not _google_chrome">
     <message name="IDS_AUTOFILL_DELETE_AUTOCOMPLETE_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete an autocomplete form history suggestion.">
-      Remove form suggestion from Brave?
+      Remove form suggestion from Browther?
     </message>
     <message name="IDS_AUTOFILL_DELETE_CREDIT_CARD_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete a credit card from Autofill.">
-      Remove credit card from Brave?
+      Remove credit card from Browther?
     </message>
     <message name="IDS_AUTOFILL_DELETE_PROFILE_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete an address from Autofill.">
-      Remove address from Brave?
+      Remove address from Browther?
     </message>
   </if>
   <message name="IDS_AUTOFILL_REMOVE_HOME_PROFILE_SUGGESTION_CONFIRMATION_TITLE" desc="Title in a dialog to confirm that the user wants to delete their Home address from Autofill." formatter_data="android_java">
-    Remove home address from Brave autofill?
+    Remove home address from Browther autofill?
   </message>
   <message name="IDS_AUTOFILL_REMOVE_HOME_PROFILE_SUGGESTION_CONFIRMATION_BODY" desc="Text in a dialog to confirm that the user wants to delete their Home address from Autofill." formatter_data="android_java">
-    Your home address can help you get things done across Brave services, like more relevant Search results and directions in Brave Maps. You can edit or delete your address <ph name="BEGIN_LINK">&lt;link&gt;</ph>in your Brave sync chain <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph><ph name="END_LINK">&lt;/link&gt;</ph>.
+    Your home address can help you get things done across Browther services, like more relevant Search results and directions in Browther Maps. You can edit or delete your address <ph name="BEGIN_LINK">&lt;link&gt;</ph>in your Browther sync chain <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph><ph name="END_LINK">&lt;/link&gt;</ph>.
   </message>
   <message name="IDS_AUTOFILL_REMOVE_WORK_PROFILE_SUGGESTION_CONFIRMATION_TITLE" desc="Title in a dialog to confirm that the user wants to delete their Work address from Autofill." formatter_data="android_java">
-    Remove work address from Brave autofill?
+    Remove work address from Browther autofill?
   </message>
   <message name="IDS_AUTOFILL_REMOVE_WORK_PROFILE_SUGGESTION_CONFIRMATION_BODY" desc="Title in a dialog to confirm that the user wants to delete their Work address from Autofill." formatter_data="android_java">
-    Your work address can help you get things done across Brave services, like more relevant Search results and directions in Brave Maps. You can edit or delete your address <ph name="BEGIN_LINK">&lt;link&gt;</ph>in your Brave sync chain <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph><ph name="END_LINK">&lt;/link&gt;</ph>.
+    Your work address can help you get things done across Browther services, like more relevant Search results and directions in Browther Maps. You can edit or delete your address <ph name="BEGIN_LINK">&lt;link&gt;</ph>in your Browther sync chain <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph><ph name="END_LINK">&lt;/link&gt;</ph>.
   </message>
   <message name="IDS_AUTOFILL_REMOVE_ACCOUNT_NAME_AND_EMAIL_PROFILE_SUGGESTION_CONFIRMATION_TITLE" desc="Title in a dialog to confirm that the user wants to delete their account name and email from Autofill." formatter_data="android_java">
-    Remove this info from Brave autofill?
+    Remove this info from Browther autofill?
   </message>
   <message name="IDS_AUTOFILL_REMOVE_ACCOUNT_NAME_AND_EMAIL_PROFILE_SUGGESTION_CONFIRMATION_BODY" desc="Title in a dialog to confirm that the user wants to delete their account name and email address from Autofill." formatter_data="android_java">
-    You can edit your name in your <ph name="BEGIN_LINK">&lt;link&gt;</ph>Brave sync chain<ph name="END_LINK">&lt;/link&gt;</ph> <ph name="ACCOUNT">$1<ex>example@gmail.com</ex></ph>
+    You can edit your name in your <ph name="BEGIN_LINK">&lt;link&gt;</ph>Browther sync chain<ph name="END_LINK">&lt;/link&gt;</ph> <ph name="ACCOUNT">$1<ex>example@gmail.com</ex></ph>
   </message>
   <message name="IDS_AUTOFILL_REMOVE_SUGGESTION_BUTTON" desc="Text in a remove button for Autofill suggestion." formatter_data="android_java">
     Remove
@@ -306,7 +306,7 @@
   </if>
 
   <message name="IDS_AUTOFILL_MANAGE_LOYALTY_CARDS_A11Y_HINT" desc="Voice over text that is read out when the manage loyalty cards at the bottom of the Autofill popup is selected.">
-    Manage loyalty cards in Brave Wallet
+    Manage loyalty cards in Browther Wallet
   </message>
 
   <message name="IDS_AUTOFILL_SCAN_CREDIT_CARD" desc="An item in the autofill popup that triggers a new credit card to be scanned using the camera on the device." formatter_data="android_java">
@@ -343,23 +343,23 @@
   </if>
 
   <message name="IDS_AUTOFILL_IPH_EXTERNAL_ACCOUNT_PROFILE_SUGGESTION" desc="IPH bubble for a suggestion item with an account profile that was created somewhere outside Brave (e.g. Google Pay)." formatter_data="android_java">
-    You can now use addresses from your Brave sync chain
+    You can now use addresses from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_IPH_HOME_AND_WORK_ACCOUNT_PROFILE_SUGGESTION" desc="IPH bubble for a suggestion item suggesting that home and work account profiles are available to use.">
-    Autofill your home and work addresses from your Brave sync chain
+    Autofill your home and work addresses from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_IPH_HOME_AND_WORK_ACCOUNT_PROFILE_SUGGESTION_SCREENREADER" is_accessibility_with_no_ui="true" desc="IPH bubble for a suggestion item suggesting that home and work account profiles are available to use.">
-    Autofill your home and work addresses from your Brave sync chain
+    Autofill your home and work addresses from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_IPH_HOME_AND_WORK_ACCOUNT_PROFILE_SUGGESTION_TITLE" desc="Title text for IPH bubble for a suggestion item suggesting that home and work account profiles are available to use.">
     Fill forms faster
   </message>
 
   <message name="IDS_AUTOFILL_IPH_ACCOUNT_NAME_EMAIL_SUGGESTION" desc="IPH bubble for a suggestion item suggesting that name and email account profile is available to use.">
-    Autofill your name and email address from your Brave sync chain
+    Autofill your name and email address from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_IPH_ACCOUNT_NAME_EMAIL_SUGGESTION_SCREENREADER" is_accessibility_with_no_ui="true" desc="IPH bubble for a suggestion item suggesting that name and email account profile is available to use.">
-    Autofill your name and email address from your Brave sync chain
+    Autofill your name and email address from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_IPH_ACCOUNT_NAME_EMAIL_SUGGESTION_TITLE" desc="Title text for IPH bubble for a suggestion item suggesting that name and email account profile is available to use.">
     Fill forms faster
@@ -412,7 +412,7 @@
     Fills in payment forms with your saved payment methods
   </message>
   <message name="IDS_AUTOFILL_DELETE_ACCOUNT_ADDRESS_RECORD_TYPE_NOTICE" desc="The notice/warning for the user before the address deletion." formatter_data="android_java">
-    This address will be deleted from your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>
+    This address will be deleted from your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>
   </message>
   <message name="IDS_AUTOFILL_DELETE_SYNC_ADDRESS_RECORD_TYPE_NOTICE" desc="The notice/warning for the user before the address deletion (with syncing enabled)." formatter_data="android_java">
     This address will be deleted from this and your other signed-in devices
@@ -421,25 +421,25 @@
     This address will be deleted from this device
   </message>
   <message name="IDS_AUTOFILL_SAVE_IN_ACCOUNT_MESSAGE_ADDRESS_RECORD_TYPE_NOTICE" desc="The notice/warning message for the user that this address is going to be stored in their account.">
-    In your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>
+    In your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>
   </message>
   <message name="IDS_AUTOFILL_SAVE_IN_ACCOUNT_MESSAGE_ADDRESS_MIGRATION_RECORD_TYPE_NOTICE" desc="The notice/warning message for the user that this address is going to be migrated in their account.">
-    You will be able to use it across Brave products
+    You will be able to use it across Browther products
   </message>
   <message name="IDS_AUTOFILL_ADDRESS_ALREADY_SAVED_IN_ACCOUNT_RECORD_TYPE_NOTICE" desc="The footer message used to notify user that their address is stored in their account." formatter_data="android_java">
-    You can use saved addresses across Brave products. This address is saved in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    You can use saved addresses across Browther products. This address is saved in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_ADDRESS_WILL_BE_SAVED_IN_ACCOUNT_RECORD_TYPE_NOTICE" desc="The footer message used to notify user that their address will be saved in their account." formatter_data="android_java">
-    You can use saved addresses across Brave products. This address will be saved in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    You can use saved addresses across Browther products. This address will be saved in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_ADDRESS_HOME_RECORD_TYPE_NOTICE" desc="The footer message used to notify user that their home address won't be modified and a new address will be added to their Brave sync chain.">
-    You can use saved addresses across Brave products. This won’t change your existing home address. It’ll be saved in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    You can use saved addresses across Browther products. This won’t change your existing home address. It’ll be saved in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_ADDRESS_WORK_RECORD_TYPE_NOTICE" desc="The footer message used to notify user that their work address won't be modified and a new address will be added to their Brave sync chain.">
-    You can use saved addresses across Brave products. This won’t change your existing work address. It’ll be saved in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    You can use saved addresses across Browther products. This won’t change your existing work address. It’ll be saved in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_ADDRESS_HOME_AND_WORK_RECORD_TYPE_NOTICE" desc="The footer message used to notify user that their Home/Work address is used to fill forms faster in Brave." formatter_data="android_java">
-    Info from your Brave sync chain <ph name="ACCOUNT">$1<ex>elisa.beckett@gmail.com</ex></ph> can help you fill forms faster in Brave
+    Info from your Browther sync chain <ph name="ACCOUNT">$1<ex>elisa.beckett@gmail.com</ex></ph> can help you fill forms faster in Browther
   </message>
   <message name="IDS_AUTOFILL_EDIT_ADDRESS_REQUIRED_FIELD_FORM_ERROR" desc="The form error message shown to the user in case of a single required field missing.">
     A required field is empty. Fill it before saving.
@@ -460,7 +460,7 @@
     Edit, opens new window
   </message>
   <message name="IDS_AUTOFILL_SYNC_TOGGLE_LABEL" desc="The Sync Autofill toggle label on the Autofill Settings page.">
-    Use and save Addresses from your Brave sync chain
+    Use and save Addresses from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_ADDRESSES_SETTINGS_TITLE" desc="Title for the Autofill settings page that allows user to manage their list of saved addresses and Autofill preferences for addresses. Sentence-Cased." formatter_data="android_java">
     Addresses and more
@@ -479,10 +479,10 @@
     Save and fill addresses
   </message>
   <message name="IDS_AUTOFILL_DISABLE_SETTINGS_EXPLANATION_TITLE" desc="Title of the card explaining why the settings page was disabled. Sentence-Cased." formatter_data="android_java">
-  Brave isn’t your autofill provider
+  Browther isn’t your autofill provider
   </message>
   <message name="IDS_AUTOFILL_DISABLE_SETTINGS_EXPLANATION" desc="Explanation why the settings page was disabled. Sentence-Cased." formatter_data="android_java">
-    To enable these settings and use payment info from your Brave sync chain, visit autofill services settings.
+    To enable these settings and use payment info from your Browther sync chain, visit autofill services settings.
   </message>
   <message name="IDS_AUTOFILL_DISABLE_SETTINGS_BUTTON_LABEL" desc="Button that opens the autofill services settings page. Sentence-Cased." formatter_data="android_java">
     Autofill services settings
@@ -504,28 +504,28 @@
       Enter <ph name="FIELD">$1<ex>ZIP code</ex></ph>
     </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_DEFAULT" desc="Title of the option to use the default Brave autofill experience." formatter_data="android_java">
-      Autofill with Brave
+      Autofill with Browther
     </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_OPT_IN" desc="Title of the option to use third-party autofill in Brave." formatter_data="android_java">
       Autofill using another service
     </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_DEFAULT_DESCRIPTION" desc="Description shown on the option to use the default Brave autofill experience." formatter_data="android_java">
-      Use info saved in your Brave sync chain to autofill passwords, passkeys, addresses, payment methods, and other info
+      Use info saved in your Browther sync chain to autofill passwords, passkeys, addresses, payment methods, and other info
     </message>
     <message name="IDS_AUTOFILL_THIRD_PARTY_FILLING_OPT_IN_DESCRIPTION" desc="Description shown on the option enabling the use of third-party autofill in Brave." formatter_data="android_java">
-      To use another autofill service in Brave, choose your autofill provider in Android settings
+      To use another autofill service in Browther, choose your autofill provider in Android settings
     </message>
     <message name="IDS_PAYMENT_METHODS_SETTINGS_LOYALTY_CARDS_TITLE" desc="Title for the payment methods settings page row that links the user to the Brave Wallet app." formatter_data="android_java">
       Loyalty cards
     </message>
     <message name="IDS_PAYMENT_METHODS_SETTINGS_LOYALTY_CARDS_DESCRIPTION" desc="Description shown below the loyalty cards link to the Brave Wallet app." formatter_data="android_java">
-      Manage your loyalty cards in Brave Wallet
+      Manage your loyalty cards in Browther Wallet
     </message>
   </if>
 
   <!-- Autofill/Wallet integration preferences -->
   <message name="IDS_SYNC_DATATYPE_PAYMENTS_AND_INFO" desc="Label for the checkbox that controls the Autofill/Wallet integration feature used for Autofill. 'Brave Wallet' should not be translated as it is the product name. Sentence-Cased.">
-    Payment methods and other info from Brave Wallet
+    Payment methods and other info from Browther Wallet
   </message>
 
   <!-- Manual filling (keyboard accessory) strings -->
@@ -595,16 +595,16 @@
     No thanks
   </message>
   <message name="IDS_AUTOFILL_SAVE_IN_ACCOUNT_PROMPT_ADDRESS_SOURCE_NOTICE" desc="The footer message in the 'Save address' prompt informing the user that this address will be stored in their account.">
-    You can use saved addresses across Brave products. This address will be saved in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    You can use saved addresses across Browther products. This address will be saved in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_UPDATE_PROMPT_ACCOUNT_ADDRESS_SOURCE_NOTICE" desc="The footer message in the 'Update address' prompt informing the user that this address is stored in their account.">
-    You can use saved addresses across Brave products. This address is saved in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    You can use saved addresses across Browther products. This address is saved in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_SYNCABLE_PROFILE_MIGRATION_PROMPT_NOTICE" desc="The syncable profile prompt body text.">
-    This address is currently saved to Brave. To use it across Brave products, save it in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    This address is currently saved to Browther. To use it across Browther products, save it in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_LOCAL_PROFILE_MIGRATION_PROMPT_NOTICE" desc="The local profile prompt body text.">
-    This address is currently saved to this device. To use it across Brave products, save it in your Brave sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
+    This address is currently saved to this device. To use it across Browther products, save it in your Browther sync chain, <ph name="ACCOUNT">$1<ex>alexpark@gmail.com</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_SAVE_PROMPT_ADDRESS_SECTION_A11Y_LABEL" desc="The 'Save address' prompt address summary section a11y announcement, accompanied with a label to make it clear that the content being read is an address.">
     Address: <ph name="ADDRESS">$1<ex>345 Spear street</ex></ph>.
@@ -675,16 +675,16 @@
       Save address in account
     </message>
     <message name="IDS_IOS_AUTOFILL_SAVE_ADDRESS_IN_ACCOUNT_MESSAGE_SUBTITLE" desc="Subtitle shown in the messages UI view when a new profile is asked to be saved in the Brave sync chain">
-       In your Brave sync chain, <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph>
+       In your Browther sync chain, <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph>
     </message>
     <message name="IDS_IOS_AUTOFILL_MIGRATE_ADDRESS_IN_ACCOUNT_MESSAGE_SUBTITLE" desc="Subtitle shown in the messages UI view when an existing profile is asked to be migrated to the Brave sync chain">
-       You can use it across Brave products
+       You can use it across Browther products
     </message>
     <message name="IDS_IOS_AUTOFILL_SAVE_ADDRESS_IN_ACCOUNT_FOOTER" desc="Footer text shown in the save modal for saving a new address profile or migrating it in the Brave sync chain">
-      You can use saved addresses across Brave products. This address will be saved in your Brave sync chain, <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph>.
+      You can use saved addresses across Browther products. This address will be saved in your Browther sync chain, <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph>.
     </message>
     <message name="IDS_IOS_AUTOFILL_HOME_WORK_PROFILE_FOOTER" desc="Footer text shown in the settings when home and work profile details are shown">
-      Info from your Brave sync chain <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph> can help you fill forms faster in Brave
+      Info from your Browther sync chain <ph name="USER_EMAIL">$1<ex>janedoe@google.com</ex></ph> can help you fill forms faster in Browther
     </message>
   </if>
   <!-- Used on Desktop: -->
@@ -711,10 +711,10 @@
       Add address
     </message>
     <message name="IDS_AUTOFILL_ADD_NEW_ADDRESS_INTO_CHROME_PROMPT_BODY_TEXT" desc="The 'Add new address' bubble body text if the address will be saved in Brave (locally or syncable among Braves on different devices).">
-      You don't have any addresses saved. Add an address to use it in Brave.
+      You don't have any addresses saved. Add an address to use it in Browther.
     </message>
     <message name="IDS_AUTOFILL_ADD_NEW_ADDRESS_INTO_ACCOUNT_PROMPT_BODY_TEXT" desc="The 'Add new address' bubble body text if the address will be save in the user's Brave account.">
-      You don't have any addresses saved. Add an address to use it across Brave products.
+      You don't have any addresses saved. Add an address to use it across Browther products.
     </message>
     <message name="IDS_AUTOFILL_UPDATE_ADDRESS_PROMPT_CANCEL_BUTTON_LABEL" desc="Label of the Cancel button in the prompt that offers the user to update an existing address.">
       No thanks
@@ -780,13 +780,13 @@
     To get this address on all your devices, verify it's you
     </message>
     <message name="IDS_AUTOFILL_IPH_LOYALTY_CARD_SUGGESTION_TITLE" desc="IPH toast for a suggestion item with a loyalty card from Brave Wallet.">
-    Now you can autofill loyalty cards from Brave Wallet
+    Now you can autofill loyalty cards from Browther Wallet
     </message>
     <message name="IDS_AUTOFILL_IPH_LOYALTY_CARD_SUGGESTION_BODY" desc="IPH toast for a suggestion item with a loyalty card from Brave Wallet.">
-    Manage loyalty cards or turn these suggestions off in Brave Wallet
+    Manage loyalty cards or turn these suggestions off in Browther Wallet
     </message>
     <message name="IDS_AUTOFILL_IPH_LOYALTY_CARD_SUGGESTION_SCREENREADER" is_accessibility_with_no_ui="true" desc="IPH toast for a suggestion item with a loyalty card from Brave Wallet.">
-    Now you can autofill loyalty cards from Brave Wallet
+    Now you can autofill loyalty cards from Browther Wallet
     </message>
     <message name="IDS_PASSWORD_MANAGER_UI_PASSWORD_RECOVERY_SHOWN_A11Y_ANNOUNCEMENT" is_accessibility_with_no_ui="true" desc="Text announced after a proactive password recovery popup is shown">
       Recovery password shown
@@ -1055,7 +1055,7 @@
     Update
   </message>
   <message name="IDS_AUTOFILL_PREDICTION_IMPROVEMENTS_SAVE_DIALOG_FOOTER_DETAILS" desc="Text displayed on the footer of the save dialog giving users details about how enhanced autofill data is saved.">
-    Saved info and the page from <ph name="WEBSITE">$1<ex>airline.com</ex></ph> are sent to Brave and may be seen by human reviewers to improve this feature.
+    Saved info and the page from <ph name="WEBSITE">$1<ex>airline.com</ex></ph> are sent to Browther and may be seen by human reviewers to improve this feature.
   </message>
 
   <!-- Iph -->
@@ -1072,13 +1072,13 @@
     Maybe later
   </message>
   <message name="IDS_AUTOFILL_AI_VALUABLES_IPH_TITLE" desc="IPH toast for a suggestion item with an item from Brave Wallet.">
-    Now you can autofill more info from Brave Wallet
+    Now you can autofill more info from Browther Wallet
   </message>
   <message name="IDS_AUTOFILL_AI_VALUABLES_IPH_BODY" desc="IPH toast for a suggestion item with an item from Brave Wallet.">
     Manage your information or turn these suggestions off in Settings
   </message>
   <message name="IDS_AUTOFILL_AI_VALUABLES_IPH_SCREENREADER" is_accessibility_with_no_ui="true" desc="IPH toast for a suggestion item with an item from Brave Wallet.">
-    Now you can autofill more info from Brave Wallet
+    Now you can autofill more info from Browther Wallet
   </message>
 
   <!-- Save/ Update dialog-->
@@ -1120,7 +1120,7 @@
     Update redress number?
   </message>
   <message name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE" desc="The name of the Brave Wallet product. This is displayed in some enhanced autofill save and update prompts as a link. Upon clicking the user is taken to a their wallet passes pages. For example the user would see 'Your info is saved to Brave Wallet for elisa.beckett@gmail.com'">
-    Brave Wallet
+    Browther Wallet
   </message>
 
   <!-- Prompt strings used on Desktop -->
@@ -1129,13 +1129,13 @@
       Saves to your device
     </message>
     <message name="IDS_AUTOFILL_AI_UPDATE_ENTITY_TO_WALLET_DIALOG_SUBTITLE" desc="A description that appears beneath the Update title prompt asking users whether they want to update their data stored in Brave Wallet. For example, the user previously saved information related to their passport. Now, the user is filling out a new form either with additional details associated with the passport or with different values than what was previously saved. The interface shows new or modified values at the top with blue dots to indicate they’re new. Existing information associated with the passport that isn’t changing appears at the bottom without blue dots. Depending on the form and what Brave recognizes, there might be just one or several pieces of data updated at this moment. This is a similar moment to updating a password or credit card with Brave.">
-      Your info is saved to <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Brave Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>
+      Your info is saved to <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Browther Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>
     </message>
     <message name="IDS_AUTOFILL_AI_SAVE_ENTITY_DIALOG_SUBTITLE" desc="A description that appears beneath the Save title prompt. This sentence essentially defines Autofill in Brave. We prompt the user to save their information with Brave with the promise that Brave can then help the user fill out forms more quickly using their saved info.">
       Save your information and fill out forms more quickly. Saves to your device.
     </message>
     <message name="IDS_AUTOFILL_AI_SAVE_ENTITY_TO_WALLET_DIALOG_SUBTITLE" desc="A description that appears beneath the Save title prompt asking users whether they want to save their data to Brave Wallet. This sentence essentially defines Autofill in Brave. We prompt the user to save their information with Brave Wallet with the promise that Brave can then help the user fill out forms across devices more quickly using their saved info.">
-      Save your info to get things done faster, across Brave products. Your info is saved to <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Brave Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>.
+      Save your info to get things done faster, across Browther products. Your info is saved to <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Browther Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>.
     </message>
     <message name="IDS_AUTOFILL_AI_UPDATE_ENTITY_DIALOG_UPDATED_ATTRIBUTE_ACCESSIBLE_NAME" desc="Used in entity update dialogs, as the accessible names for rows with updated attributes">
       <ph name="ATTRIBUTE_NAME">$1<ex>Passport number</ex></ph> updated
@@ -1145,14 +1145,14 @@
     </message>
     <!-- TODO(crbug.com/477845712): Add translation when ready. -->
     <message name="IDS_AUTOFILL_AI_WALLET_UPLOAD_THROBBER_ACCESSIBLE_NAME" desc="Announced when the loading throbber during upload to Brave Wallet is shown." translateable="false">
-      Uploading to Brave Wallet
+      Uploading to Browther Wallet
     </message>
 
     <message name="IDS_AUTOFILL_AI_LOCAL_SAVE_NOTIFICATION_TITLE" desc="The title of an informational dialog. This dialog appears when a user attempts to save data (like a driver's license) to Brave Wallet, but the request fails (e.g., due to server error or connection issues). The title clarifies that the information was not lost, but rather saved locally to the device instead.">
       Info saved to device only
     </message>
     <message name="IDS_AUTOFILL_AI_LOCAL_SAVE_NOTIFICATION_DESCRIPTION" desc="The body text of an informational dialog. The user sees this after a failed attempt to save to Brave Wallet. 'Couldn't save...' acknowledges the server failure. 'Saved to Brave...' confirms the safety of the data (local fallback). 'Brave will offer...' sets expectations that the system will retry the cloud save the next time this data is accessed.">
-      Couldn't save this info to your Brave Wallet. It's saved to Brave on this device instead. Brave will offer to save it to Wallet next time you use it.
+      Couldn't save this info to your Browther Wallet. It's saved to Browther on this device instead. Browther will offer to save it to Wallet next time you use it.
     </message>
     <message name="IDS_AUTOFILL_AI_LOCAL_SAVE_NOTIFICATION_DISMISS_BUTTON_LABEL" desc="A button on an informational dialog. Clicking this button dismisses the dialog. The user accepts that the data is saved locally for now.">
       Got it
@@ -1161,7 +1161,7 @@
 
 
   <message name="IDS_AUTOFILL_AI_WALLET_UPDATE_OR_MIGRATE_FAILURE_NOTIFICATION" desc="A message that appears when an attempt to update or migrate data to Brave Wallet fails." translateable="false">
-    Couldn't save this info to your Brave Wallet. Check your connection.
+    Couldn't save this info to your Browther Wallet. Check your connection.
   </message>
 
   <!-- Prompt strings used on Android -->
@@ -1171,13 +1171,13 @@
       Saves to your device
     </message>
     <message name="IDS_AUTOFILL_AI_SAVE_ENTITY_TO_WALLET_MESSAGE_SUBTITLE" desc="A description that appears beneath the Save title message prompting the user to save their data to Brave Wallet. This sentence essentially defines Autofill in Brave. We prompt the user to save their information with Brave Wallet with the promise that Brave can then help the user fill out forms across devices more quickly using their saved info." translateable="false">
-      In <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Brave Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>
+      In <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Browther Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>
     </message>
     <message name="IDS_AUTOFILL_AI_SAVE_OR_UPDATE_LOCAL_ENTITY_SOURCE_NOTICE" desc="A description that appears beneath the entity details notifying the user that their data is going to be stored locally on device." translateable="false">
       Your info is saved to your device
     </message>
     <message name="IDS_AUTOFILL_AI_SAVE_OR_UPDATE_ENTITY_IN_WALLET_SOURCE_NOTICE" desc="A description that appears beneath the entity details notifying the user that their data is going to be stored in Brave Wallet." translateable="false">
-      Save your info and get things done faster, like filling forms across Brave products. You can <ph name="BEGIN_LINK">&lt;link&gt;</ph>manage your info<ph name="END_LINK">&lt;/link&gt;</ph> in <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Brave Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>
+      Save your info and get things done faster, like filling forms across Browther products. You can <ph name="BEGIN_LINK">&lt;link&gt;</ph>manage your info<ph name="END_LINK">&lt;/link&gt;</ph> in <ph name="IDS_AUTOFILL_GOOGLE_WALLET_TITLE">$1<ex>Browther Wallet</ex></ph> for <ph name="ACCOUNT">$2<ex>alexpark@gmail.com</ex></ph>
     </message>
   </if>
 
@@ -1197,7 +1197,7 @@
     Enhanced autofill understands forms better and can autofill them faster for you
   </message>
   <message name="IDS_AUTOFILL_AI_FFR_CONSIDER_DESCRIPTION" desc="Body text beneath the “Things to consider” sub title. This describes to users things they might want to weigh before using this feature. Ideally, we lead with ‘To offer suggestions’, because it redefines the value of ‘enhanced autofill’ and offers a rationale for the data use that immediately follows. The data used includes 1) the URL of a page visited and 2) the content of that page. Both are shared from Brave to a Brave service that generates autofill suggestions. Inludes a placeholder for a learn more link, $1 = IDS_AUTOFILL_AI_FFR_CONSIDER_LEARN_MORE">
-    To offer suggestions and improve this feature, the page’s URL and content are shared with Brave. Change your mind anytime and <ph name="LEARN_MORE">$1<ex>learn more about enhanced autofill in settings</ex></ph>.
+    To offer suggestions and improve this feature, the page’s URL and content are shared with Browther. Change your mind anytime and <ph name="LEARN_MORE">$1<ex>learn more about enhanced autofill in settings</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_AI_FFR_CONSIDER_LEARN_MORE" desc="Link for the enhanced autofill settings page to learn more about this feature.">
     learn more about enhanced autofill in settings
@@ -1207,18 +1207,18 @@
   </message>
   <if expr="_google_chrome">
     <message name="IDS_SETTINGS_AUTOFILL_AI_DESCRIPTION" desc="The description of the enhanced autofill button on chrome://settings/autofill." formatter_data="android_java">
-      Brave understands forms better and can autofill them faster for you
+      Browther understands forms better and can autofill them faster for you
     </message>
     <message name="IDS_SETTINGS_AUTOFILL_AI_TOGGLE_SUB_LABEL" desc="The description of the setting. By 'understand forms better', we mean that when a user submits a form on a website, and if they're using enhanced autofill, this feature can offer to save the user's submitted info. When Brave saves that info, we save the submitted values and consider the page context.">
-      Brave understands forms better and can autofill them faster for you
+      Browther understands forms better and can autofill them faster for you
     </message>
   </if>
   <if expr="not _google_chrome">
     <message name="IDS_SETTINGS_AUTOFILL_AI_DESCRIPTION" desc="The description of the enhanced autofill button on chrome://settings/autofill." formatter_data="android_java">
-      Brave understands forms better and can autofill them faster for you
+      Browther understands forms better and can autofill them faster for you
     </message>
     <message name="IDS_SETTINGS_AUTOFILL_AI_TOGGLE_SUB_LABEL" desc="The description of the setting. By 'understand forms better', we mean that when a user submits a form on a website, and if they're using enhanced autofill, this feature can offer to save the user's submitted info. When Brave saves that info, we save the submitted values and consider the page context.">
-      Brave understands forms better and can autofill them faster for you
+      Browther understands forms better and can autofill them faster for you
     </message>
   </if>
 </grit-part>

@@ -13,7 +13,7 @@
     Your data and sessions
   </message>
   <message name="IDS_AI_AGENT_NTP_YOUR_DATA_AND_SESSIONS_CARD_DESCRIPTION" translateable="true" desc="Your data and sessions card description for the Brave AI Agent mode New Tab Page" formatter_data="webui=AiChatAgentNtp">
-    When you log into a website using this profile, Brave's AI browsing agent can see the information on that site if it's open, either when it visits the site itself or when you ask it to do something there.
+    When you log into a website using this profile, Browther's AI browsing agent can see the information on that site if it's open, either when it visits the site itself or when you ask it to do something there.
   </message>
   <message name="IDS_AI_AGENT_NTP_SWITCHING_BACK_CARD_TITLE" translateable="true" desc="Switching back card title for the Brave AI Agent mode New Tab Page" formatter_data="webui=AiChatAgentNtp">
     Switching back

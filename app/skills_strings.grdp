@@ -6,7 +6,7 @@
     Saved skill
   </message>
   <message name="IDS_SKILL_SAVED_TOAST_BUTTON" desc="Text on the toast action button after a skill is saved" translateable="false">
-    Try with Gemini in Brave
+    Try with Gemini in Browther
   </message>
   <message name="IDS_SKILL_DELETED_TOAST_BODY" desc="Text on the toast action button after a skill is saved" translateable="false">
     Deleted skill
@@ -34,7 +34,7 @@
     Manage your custom workflows powered by
   </message>
   <message name="IDS_SKILLS_SIDEBAR_FOOTER_BRANDING" desc="The branding text 'Gemini in Brave' displayed in the sidebar footer" translateable="false">
-    Gemini in Brave
+    Gemini in Browther
   </message>
 
   <!-- chrome://skills error page -->
@@ -42,7 +42,7 @@
     Skills isn't available
   </message>
   <message name="IDS_SKILLS_ERROR_PAGE_DESCRIPTION" desc="Description of the error page that occurs when chrome://skills is not accessible" translateable="false">
-    To use Skills, sign in to Brave with a Brave account that has Gemini in Brave enabled
+    To use Skills, sign in to Browther with a Browther account that has Gemini in Browther enabled
   </message>
   <message name="IDS_SKILLS_NO_SEARCH_RESULT_TITLE" desc="Title of the page that occurs when chrome://skills has no search results" translateable="false">
     No search results
@@ -123,6 +123,6 @@
     Something went wrong
   </message>
   <message name="IDS_SKILLS_DIALOG_ACCOUNT_INFO" desc="Text for account info in the skills dialog" translateable="false">
-    This skill will save to your Brave sync chain
+    This skill will save to your Browther sync chain
   </message>
 </grit-part>

@@ -60,10 +60,10 @@
     Google Pay logo
   </message>
   <message name="IDS_AUTOFILL_GOOGLE_WALLET_LOGO_ACCESSIBLE_NAME" desc="The accessible name for the Brave Wallet logo.">
-    Brave Wallet logo
+    Browther Wallet logo
   </message>
   <message name="IDS_AUTOFILL_CHROME_LOGO_ACCESSIBLE_NAME" desc="The accessible name for the Brave logo.">
-    Brave logo
+    Browther logo
   </message>
 
   <if expr="not is_android">
@@ -119,7 +119,7 @@
   <if expr="is_ios">
     <then>
       <message name="IDS_AUTOFILL_SAVE_CARD_ONLY_PROMPT_EXPLANATION_LOCAL" desc="Explanation text for the Autofill save card prompt to save a card locally. It is shown when a new card is used during checkout, and sync is not enabled. This prompt description is shown on iOS bottomsheet.">
-        Pay faster when your card is saved. Card details are saved to Brave on your device.
+        Pay faster when your card is saved. Card details are saved to Browther on your device.
       </message>
     </then>
     <else>
@@ -143,12 +143,12 @@
   <if expr="is_linux">
     <then>
       <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_TITLE_TO_CLOUD" desc="Title text for the Autofill save card prompt when the card is to be saved by uploading it to Google Payments and also saved locally. The prompt is a bubble.">
-        Do you want to save this card in your Brave sync chain?
+        Do you want to save this card in your Browther sync chain?
       </message>
     </then>
     <else>
       <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_TITLE_TO_CLOUD" desc="Title text for the Autofill save card prompt when the card is to be saved by uploading it to Google Payments and also saved locally. The prompt can be either a bubble, a bottom sheet, or an infobar.">
-        Do you want to save this card in your Brave sync chain and on this device?
+        Do you want to save this card in your Browther sync chain and on this device?
       </message>
     </else>
   </if>
@@ -158,7 +158,7 @@
     </message>
   </if>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_TITLE_TO_CLOUD_V4" desc="Title text for the Autofill save card prompt when the card is to be saved by uploading it to Google Payments, according to November 2018 UI guidelines. The prompt can be either a bubble or an infobar.">
-    Save card to Brave sync chain?
+    Save card to Browther sync chain?
   </message>
     <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_TITLE_TO_CLOUD_SECURITY" desc="Title text for the credit card upload save prompt on Desktop, using security-focused messaging. Became the new default for Desktop in Dec. 2024 and new default for Android and IOS (bottomsheet only) in H1 2025.">
       Save card securely?
@@ -193,27 +193,27 @@
     Done
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_EXPLANATION" desc="Explanation of the effect of the Autofill save card prompt when the card is to be saved by uploading it to Google Payments and also saved locally. The prompt can be either a bubble or an infobar.">
-    Pay quickly on sites and apps across devices using cards you have saved with Brave.
+    Pay quickly on sites and apps across devices using cards you have saved with Browther.
   </message>
   <if expr="is_android">
     <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_EXPLANATION_V3" desc="Explanation of the effect of the Autofill save card prompt when the card is to be saved by uploading it to Google Payments, according to April 2018 UI guidelines, and minorly updated again in September 2023. The prompt will be shown either in a bubble below the omnibox, or in a bottom sheet, or in an infobar.">
-      To pay faster next time, save your card and billing address in your Brave sync chain
+      To pay faster next time, save your card and billing address in your Browther sync chain
     </message>
   </if>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_TO_WALLET_EXPLANATION" desc="Explanation of the effect of the Autofill save card prompt when the card is to be saved by uploading it to Brave Wallet. The prompt will be shown either in a bubble below the omnibox, or in a bottom sheet, or in an infobar.">
-    To pay faster next time, save your card and billing address in Brave Wallet
+    To pay faster next time, save your card and billing address in Browther Wallet
   </message>
   <message name="IDS_AUTOFILL_SAVE_CVC_PROMPT_EXPLANATION_UPLOAD" desc="Explanation text for the Autofill save CVC prompt that offers to upload CVC to the Sync server for existing server cards. This prompt is shown if a CVC is detected for an existing server card on form submission.">
-    This card's CVC will be encrypted and saved in your Brave sync chain for faster checkout
+    This card's CVC will be encrypted and saved in your Browther sync chain for faster checkout
   </message>
   <message name="IDS_AUTOFILL_SAVE_CVC_TO_WALLET_PROMPT_EXPLANATION_UPLOAD" desc="Explanation text for the Autofill save CVC to Brave Wallet prompt that offers to upload CVC to the Sync server for existing server cards. This prompt is shown if a CVC is detected for an existing server card on form submission.">
-    This card's CVC will be encrypted and saved in Brave Wallet for faster checkout
+    This card's CVC will be encrypted and saved in Browther Wallet for faster checkout
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_EXPLANATION_SECURITY" desc="Explanation of the benefit of credit card upload save on Desktop, using security-focused messaging. Became the new default for Desktop in Dec. 2024 and new default for Android and IOS (bottomsheet only) in H1 2025.">
-    Pay faster when your card is saved. Card details are encrypted in your Brave sync chain.
+    Pay faster when your card is saved. Card details are encrypted in your Browther sync chain.
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_TO_WALLET_EXPLANATION_SECURITY" desc="Explanation of the benefit of credit card upload save on Desktop, using security-focused messaging. Became the new default for Desktop in Dec. 2024 and new default for Android and IOS (bottomsheet only) in H1 2025. The final line specifically references Brave Wallet instead of Brave sync chain.">
-    Pay faster when your card is saved. Card details are encrypted in Brave Wallet.
+    Pay faster when your card is saved. Card details are encrypted in Browther Wallet.
   </message>
   <if expr="is_android or is_ios">
     <message name="IDS_AUTOFILL_SAVE_CVC_MESSAGE_SAVE_ACCEPT" desc="Positive button label for the Autofill save CVC prompt that offers to save CVC for existing server cards. This prompt is shown if a CVC is detected for an existing server card on form submission. The prompt is shown on Android and IOS devices.">
@@ -225,7 +225,7 @@
       For faster checkout, save this CVC in your account, <ph name="ACCOUNT_EMAIL">$1<ex>youraccount@email.com</ex></ph>
     </message>
     <message name="IDS_AUTOFILL_SAVE_CVC_TO_WALLET_PROMPT_EXPLANATION_UPLOAD_IOS" desc="Explanation text for the Autofill save CVC prompt that offers to upload CVC to the Sync server for existing server cards. This prompt is shown if a CVC is detected for an existing server card on form submission on IOS devices. The wording specifically references Brave Wallet instead of Brave sync chain.">
-      For faster checkout, save this CVC in Brave Wallet (<ph name="ACCOUNT_EMAIL">$1<ex>youraccount@email.com</ex></ph>)
+      For faster checkout, save this CVC in Browther Wallet (<ph name="ACCOUNT_EMAIL">$1<ex>youraccount@email.com</ex></ph>)
     </message>
     <message name="IDS_AUTOFILL_SAVE_CVC_PROMPT_EXPLANATION_LOCAL_SAVE_IOS" desc="Explanation text for the Autofill save CVC prompt that offers to save CVC to this device for existing local cards. This prompt is shown if a CVC is detected for an existing local card on form submission on IOS devices.">
       For faster checkout, save this CVC on your device
@@ -244,7 +244,7 @@
     </else>
   </if>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_CARDHOLDER_NAME_TOOLTIP" desc="The tooltip text for the cardholder name textfield. Note that the translation should not have period" formatter_data="android_java">
-    This name is from your Brave sync chain
+    This name is from your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_CARDHOLDER_NAME_FIX_FLOW_HEADER" desc="Header for the cardholder name fix flow.">
     Confirm name
@@ -261,10 +261,10 @@
     </message>
   </if>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_EXPLANATION_TOOLTIP" desc="The tooltip hover text that explains why credit card upload to Google Payments is being offered.">
-    Brave is offering to save your cards in your Brave sync chain because you are signed in. You can change this behavior in settings.
+    Browther is offering to save your cards in your Browther sync chain because you are signed in. You can change this behavior in settings.
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_UPLOAD_EXPLANATION_AND_CARDHOLDER_NAME_TOOLTIP" desc="The tooltip hover text that explains why credit card upload to Brave sync chain is being offered and where the suggested cardholder name came from.">
-    Brave is offering to save your cards in your Brave sync chain because you are signed in. You can change this behavior in settings. The cardholder name comes from your account.
+    Browther is offering to save your cards in your Browther sync chain because you are signed in. You can change this behavior in settings. The cardholder name comes from your account.
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_PROMPT_LOADING_THROBBER_ACCESSIBLE_NAME" desc="Accessible name announced by the screenreader for save card bubble in loading state showing a throbber.">
     Saving card info
@@ -280,24 +280,24 @@
     </message>
     <if expr="_google_chrome">
       <message name="IDS_AUTOFILL_SAVE_AND_FILL_DIALOG_EXPLANATION_LOCAL" desc="Explanation text for the Autofill Save and Fill dialog for cards that will be saved locally.">
-        Autofill this card for purchases made in Brave when it's saved on this device
+        Autofill this card for purchases made in Browther when it's saved on this device
       </message>
       <message name="IDS_AUTOFILL_SAVE_AND_FILL_DIALOG_EXPLANATION_UPLOAD" desc="Explanation text for the Autofill Save and Fill dialog for cards that will be saved to the GPay server.">
-        Autofill this card for purchases made in Brave when it's saved to use with Google Pay
+        Autofill this card for purchases made in Browther when it's saved to use with Google Pay
       </message>
       <message name="IDS_AUTOFILL_SAVE_AND_FILL_TO_WALLET_DIALOG_EXPLANATION_UPLOAD" desc="Explanation text for the Autofill Save and Fill dialog for cards that will be saved to Brave Wallet.">
-        Autofill this card for purchases made in Brave when it's saved in Brave Wallet
+        Autofill this card for purchases made in Browther when it's saved in Browther Wallet
       </message>
     </if>
     <if expr="not _google_chrome">
       <message name="IDS_AUTOFILL_SAVE_AND_FILL_DIALOG_EXPLANATION_LOCAL" desc="Explanation text for the Autofill Save and Fill dialog for cards that will be saved locally.">
-        Autofill this card for purchases made in Brave when it's saved on this device
+        Autofill this card for purchases made in Browther when it's saved on this device
       </message>
       <message name="IDS_AUTOFILL_SAVE_AND_FILL_DIALOG_EXPLANATION_UPLOAD" desc="Explanation text for the Autofill Save and Fill dialog for cards that will be saved to the GPay server.">
-        Autofill this card for purchases made in Brave when it's saved to use with Google Pay
+        Autofill this card for purchases made in Browther when it's saved to use with Google Pay
       </message>
       <message name="IDS_AUTOFILL_SAVE_AND_FILL_TO_WALLET_DIALOG_EXPLANATION_UPLOAD" desc="Explanation text for the Autofill Save and Fill dialog for cards that will be saved to Brave Wallet.">
-        Autofill this card for purchases made in Brave when it's saved in Brave Wallet
+        Autofill this card for purchases made in Browther when it's saved in Browther Wallet
       </message>
     </if>
     <message name="IDS_AUTOFILL_SAVE_AND_FILL_DIALOG_CARD_NUMBER_LABEL" desc="The label text for the card number textfield.">
@@ -467,12 +467,12 @@
   <if expr="is_ios">
     <if expr="_google_chrome">
       <message name="IDS_AUTOFILL_CARD_UNMASK_PROMPT_STORAGE_TOOLTIP" desc="Text that provides further explanation on iOS for the option in the card unmasking dialog that allows user to store a Wallet card on their local device.">
-        If enabled, Brave will store a copy of your card on this device for faster form filling.
+        If enabled, Browther will store a copy of your card on this device for faster form filling.
       </message>
     </if>
     <if expr="not _google_chrome">
       <message name="IDS_AUTOFILL_CARD_UNMASK_PROMPT_STORAGE_TOOLTIP" desc="Text that provides further explanation on iOS for the option in the card unmasking dialog that allows user to store a Wallet card on their local device.">
-        If enabled, Brave will store a copy of your card on this device for faster form filling.
+        If enabled, Browther will store a copy of your card on this device for faster form filling.
       </message>
     </if>
   </if>
@@ -599,7 +599,7 @@
   </if>
   <if expr="is_win">
     <message name="IDS_PAYMENTS_AUTOFILL_FILLING_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup, asking the user to authenticate using biometric or device unlock before filling.">
-      Brave is trying to verify it's you so it can fill in your payment info.
+      Browther is trying to verify it's you so it can fill in your payment info.
     </message>
   </if>
   <if expr="is_ios">
@@ -617,24 +617,24 @@
     </message>
     <if expr="_google_chrome">
       <message name="IDS_PAYMENTS_AUTOFILL_FILLING_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup as the sublabel, asking the user to authenticate using biometric or device unlock before filling.">
-        Verify it's you so Brave can fill in your payment info.
+        Verify it's you so Browther can fill in your payment info.
       </message>
       <message name="IDS_PAYMENTS_AUTOFILL_SETTINGS_TOGGLE_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup as the sublabel when users try to switch the mandatory reauth settings page toggle, asking the user to authenticate using biometric or device unlock before the toggle is switched.">
-        Brave is trying to modify settings for filling payment methods.
+        Browther is trying to modify settings for filling payment methods.
       </message>
       <message name="IDS_PAYMENTS_AUTOFILL_SETTINGS_EDIT_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup as the sublabel when users try to edit cards in the settings page, asking the user to authenticate using biometric or device unlock first.">
-        Brave is trying to edit payment methods.
+        Browther is trying to edit payment methods.
       </message>
     </if>
     <if expr="not _google_chrome">
       <message name="IDS_PAYMENTS_AUTOFILL_FILLING_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup as the sublabel, asking the user to authenticate using biometric or device unlock before filling.">
-        Verify it's you so Brave can fill in your payment info.
+        Verify it's you so Browther can fill in your payment info.
       </message>
       <message name="IDS_PAYMENTS_AUTOFILL_SETTINGS_TOGGLE_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup as the sublabel when users try to switch the mandatory reauth settings page toggle, asking the user to authenticate using biometric or device unlock before the toggle is switched.">
-        Brave is trying to modify settings for filling payment methods.
+        Browther is trying to modify settings for filling payment methods.
       </message>
       <message name="IDS_PAYMENTS_AUTOFILL_SETTINGS_EDIT_MANDATORY_REAUTH" desc="Text that appears in the payments autofill mandatory re-authentication popup as the sublabel when users try to edit cards in the settings page, asking the user to authenticate using biometric or device unlock first.">
-        Brave is trying to edit payment methods.
+        Browther is trying to edit payment methods.
       </message>
     </if>
   </if>
@@ -745,10 +745,10 @@
     Save IBAN?
   </message>
   <message name="IDS_AUTOFILL_UPLOAD_IBAN_PROMPT_EXPLANATION" desc="Explanation text for the Autofill save IBAN (International Bank Account Number) to the GPay server prompt when a user submits a form with a valid IBAN.">
-    To autofill this IBAN next time, save it in your Brave sync chain
+    To autofill this IBAN next time, save it in your Browther sync chain
   </message>
   <message name="IDS_AUTOFILL_UPLOAD_IBAN_TO_WALLET_PROMPT_EXPLANATION" desc="Explanation text for the Autofill save IBAN (International Bank Account Number) to the Brave Wallet server prompt when a user submits a form with a valid IBAN.">
-    To autofill this IBAN next time, save it in Brave Wallet
+    To autofill this IBAN next time, save it in Browther Wallet
   </message>
   <!-- Autofill save IBAN bottom sheet prompt -->
   <if expr="is_android">
@@ -790,7 +790,7 @@
     You're all set
   </message>
   <message name="IDS_AUTOFILL_MANDATORY_REAUTH_CONFIRMATION_EXPLANATION" desc="Explanation text for the mandatory reauth confirmation prompt that is displayed to the user after opting into mandatory reauth. Mandatory reauth requires the user to unlock their device or pass a biometric auth when autofilling payment method information.">
-    Brave will now verify it's you before filling in payment methods. You can update this at any time in <ph name="IDS_AUTOFILL_MANDATORY_REAUTH_CONFIRMATION_SETTINGS_LINK">$1<ex>settings</ex></ph>.
+    Browther will now verify it's you before filling in payment methods. You can update this at any time in <ph name="IDS_AUTOFILL_MANDATORY_REAUTH_CONFIRMATION_SETTINGS_LINK">$1<ex>settings</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_MANDATORY_REAUTH_CONFIRMATION_SETTINGS_LINK" desc="A link to the settings page for the mandatory reauth confirmation prompt that is displayed to the user after opting into mandatory reauth. Mandatory reauth requires the user to unlock their device or pass a biometric auth when autofilling payment method information.">
     settings
@@ -1023,10 +1023,10 @@
       Purchase must be under <ph name="CHECKOUT_AMOUNT_MAXIMUM">$1<ex>$10,000.00</ex></ph>
   </message>
   <message name="IDS_AUTOFILL_CARD_BNPL_SELECT_PROVIDER_AI_FOOTNOTE" desc="A note explaining that Brave will collect data from the checkout page to determine the checkout amount.">
-      Page content from the checkout page is shared with Brave to offer these options. To hide pay later options in autofill, go to <ph name="IDS_AUTOFILL_CARD_BNPL_SELECT_PROVIDER_FOOTNOTE_HIDE_OPTION_PAYMENT_SETTINGS_LINK_TEXT">$1<ex>payment settings</ex></ph>.
+      Page content from the checkout page is shared with Browther to offer these options. To hide pay later options in autofill, go to <ph name="IDS_AUTOFILL_CARD_BNPL_SELECT_PROVIDER_FOOTNOTE_HIDE_OPTION_PAYMENT_SETTINGS_LINK_TEXT">$1<ex>payment settings</ex></ph>.
   </message>
   <message name="IDS_AUTOFILL_CARD_BNPL_SELECT_PROVIDER_FOOTNOTE_FOR_AI_AMOUNT_EXTRACTION_NOTE" desc="A note explaining that Brave will collect data from the checkout page to determine the checkout amount.">
-      Page content from the checkout page is shared with Brave to offer these options.
+      Page content from the checkout page is shared with Browther to offer these options.
   </message>
   <message name="IDS_AUTOFILL_CARD_BNPL_SELECT_PROVIDER_FOOTNOTE_HIDE_OPTION" desc="Text shown in the footnote of the BNPL select provider screen, instructing users how to hide the pay later options.">
   To hide pay later options, go to <ph name="IDS_AUTOFILL_CARD_BNPL_SELECT_PROVIDER_FOOTNOTE_HIDE_OPTION_PAYMENT_SETTINGS_LINK_TEXT">$1<ex>payment settings</ex></ph>
@@ -1208,7 +1208,7 @@
         After you review your order, you must sign into or create an account with <ph name="BNPL_ISSUER_NAME">%1$s</ph>. This account will be automatically linked to Google Pay.
       </message>
       <message name="IDS_AUTOFILL_BNPL_TOS_REVIEW_TEXT_WALLET_BRANDING" desc="The text informing the user that they will be asked to review their order in the Buy-Now-Pay-Later Terms of Service dialog with Brave Wallet branding." formatter_data="android_java">
-        After you review your order, you must sign into or create an account with <ph name="BNPL_ISSUER_NAME">%1$s</ph>. This account will be automatically linked in Brave Wallet.
+        After you review your order, you must sign into or create an account with <ph name="BNPL_ISSUER_NAME">%1$s</ph>. This account will be automatically linked in Browther Wallet.
       </message>
       <message name="IDS_AUTOFILL_BNPL_TOS_APPROVE_TEXT" desc="The text informing the user that that BNPL issuer will check and approve their eligibility in the Buy-Now-Pay-Later Terms of Service dialog." formatter_data="android_java">
         <ph name="BNPL_ISSUER_NAME">%1$s</ph> will check your eligibility (this won't affect your credit score). If approved, <ph name="BNPL_ISSUER_NAME">%1$s</ph> will provide payment plans for you to choose from and complete your purchase.
@@ -1228,7 +1228,7 @@
         After you review your order, you must sign into or create an account with <ph name="BNPL_ISSUER_NAME">$1</ph>. This account will be automatically linked to Google Pay.
       </message>
       <message name="IDS_AUTOFILL_BNPL_TOS_REVIEW_TEXT_WALLET_BRANDING" desc="The text informing the user that they will be asked to review their order in the Buy-Now-Pay-Later Terms of Service dialog with Brave Wallet branding.">
-        After you review your order, you must sign into or create an account with <ph name="BNPL_ISSUER_NAME">$1</ph>. This account will be automatically linked in Brave Wallet.
+        After you review your order, you must sign into or create an account with <ph name="BNPL_ISSUER_NAME">$1</ph>. This account will be automatically linked in Browther Wallet.
       </message>
       <message name="IDS_AUTOFILL_BNPL_TOS_APPROVE_TEXT" desc="The text informing the user that that BNPL issuer will check and approve their eligibility in the Buy-Now-Pay-Later Terms of Service dialog.">
         <ph name="BNPL_ISSUER_NAME">$1</ph> will check your eligibility (this won't affect your credit score). If approved, <ph name="BNPL_ISSUER_NAME">$1</ph> will provide payment plans for you to choose from and complete your purchase.
@@ -1413,7 +1413,7 @@
       Check out faster with autofill
     </message>
     <message name="IDS_AUTOFILL_CREATE_FIRST_CREDIT_CARD_SUMMARY" desc="Summary for a call to action settings preference to add a new autofill credit card when the user does not have any cards added." formatter_data="android_java">
-      Save a payment method in your Brave sync chain to autofill it for purchases made in Brave
+      Save a payment method in your Browther sync chain to autofill it for purchases made in Browther
     </message>
     <message name="IDS_AUTOFILL_CREATE_FIRST_CREDIT_CARD_BUTTON_TEXT" desc="Button text for a call to action settings preference to add a new autofill credit card when the user does not have any cards added." formatter_data="android_java">
       Add payment method
@@ -1457,10 +1457,10 @@
       Autofill loyalty card
     </message>
     <message name="IDS_AUTOFILL_LOYALTY_CARD_FIRST_TIME_USAGE_BOTTOM_SHEET_TITLE" desc="The title of the touch to fill bottom sheet for loyalty cards that appears under the Brave Wallet icon. This title is shown to promote loyalty card filling to users." formatter_data="android_java">
-      Now you can autofill loyalty cards from Brave Wallet
+      Now you can autofill loyalty cards from Browther Wallet
     </message>
     <message name="IDS_AUTOFILL_LOYALTY_CARD_FIRST_TIME_USAGE_BOTTOM_SHEET_SUBTITLE" desc="The subtitle of the touch to fill bottom sheet for loyalty cards that appears under the title. This subtitle is shown to promote loyalty card filling to users." formatter_data="android_java">
-      Manage loyalty cards or turn these suggestions off in Brave Wallet
+      Manage loyalty cards or turn these suggestions off in Browther Wallet
     </message>
     <message name="IDS_AUTOFILL_PAYMENT_METHOD_CONTINUE_BUTTON" desc="The label of the button, which would fill in the web form with card credentials." formatter_data="android_java">
       Continue
@@ -1601,10 +1601,10 @@
       Delete saved security codes?
     </message>
     <message name="IDS_AUTOFILL_SETTINGS_PAGE_BULK_REMOVE_CVC_DESCRIPTION" desc="Description for the modal dialog when the user is trying to bulk remove/delete all the CVCs stored locally and on Brave servers.">
-      All security codes saved on your device and in Brave sync chain will be deleted
+      All security codes saved on your device and in Browther sync chain will be deleted
     </message>
     <message name="IDS_AUTOFILL_SETTINGS_PAGE_BULK_REMOVE_CVC_FROM_WALLET_DESCRIPTION" desc="Description for the modal dialog when the user is trying to bulk remove/delete all the CVCs stored locally and on Brave servers.">
-      All security codes saved on your device and in Brave Wallet will be deleted
+      All security codes saved on your device and in Browther Wallet will be deleted
     </message>
     <message name="IDS_AUTOFILL_SETTINGS_PAGE_CVC_TAG_FOR_CREDIT_CARD_LIST_ENTRY" desc="Tag present on each entry in the credit card list on the payments settings page if that entry has a cvc saved to it.">
       CVC saved
@@ -1645,10 +1645,10 @@
   <!-- IBAN snackbar confirmation -->
   <if expr="is_android">
     <message name="IDS_AUTOFILL_SAVE_SERVER_IBAN_SUCCESS_SNACKBAR_MESSAGE_TEXT" desc="Text to be displayed in the snackbar shown after a server IBAN is saved.">
-      IBAN saved to your Brave sync chain
+      IBAN saved to your Browther sync chain
     </message>
     <message name="IDS_AUTOFILL_SAVE_SERVER_IBAN_TO_WALLET_SUCCESS_SNACKBAR_MESSAGE_TEXT" desc="Text to be displayed in the snackbar shown after a server IBAN is saved in Brave Wallet.">
-      IBAN saved in Brave Wallet
+      IBAN saved in Browther Wallet
     </message>
     <message name="IDS_AUTOFILL_SAVE_SERVER_IBAN_SUCCESS_SNACKBAR_BUTTON_TEXT" desc="Text shown on the ok button of the confirmation prompt after an IBAN is saved.">
       Got it
@@ -1676,34 +1676,34 @@
   </message>
 
   <message name="IDS_AUTOFILL_SAVE_CARD_CONFIRMATION_SUCCESS_DESCRIPTION_TEXT" desc="Description text for confirmation shown after save card is successfully uploaded and saved to the server.">
-    Your card is saved in your Brave sync chain so you can autofill it for future purchases
+    Your card is saved in your Browther sync chain so you can autofill it for future purchases
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_TO_WALLET_CONFIRMATION_SUCCESS_DESCRIPTION_TEXT" desc="Description text for confirmation shown after Brave Wallet save card is successfully uploaded and saved to the server.">
-    Your card is saved in Brave Wallet so you can autofill it for future purchases
+    Your card is saved in Browther Wallet so you can autofill it for future purchases
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_CONFIRMATION_FAILURE_DESCRIPTION_TEXT" desc="Description text for confirmation shown after save card upload to the server was unsuccessful.">
-    This card couldn't be saved in your Brave sync chain. It's saved to Brave on this device instead.
+    This card couldn't be saved in your Browther sync chain. It's saved to Browther on this device instead.
   </message>
   <message name="IDS_AUTOFILL_SAVE_CARD_TO_WALLET_CONFIRMATION_FAILURE_DESCRIPTION_TEXT" desc="Description text for confirmation shown after Brave Wallet save card upload to the server was unsuccessful.">
-    This card couldn't be saved in Brave Wallet. It's saved to Brave on this device instead.
+    This card couldn't be saved in Browther Wallet. It's saved to Browther on this device instead.
   </message>
   <message name="IDS_AUTOFILL_SAVE_IBAN_CONFIRMATION_SUCCESS_DESCRIPTION_TEXT" desc="Description text for confirmation shown after upload save IBAN attempt was successful and it was uploaded to the server.">
-    This IBAN is saved in your Brave sync chain so you can use it across Brave services.
+    This IBAN is saved in your Browther sync chain so you can use it across Browther services.
   </message>
   <message name="IDS_AUTOFILL_SAVE_IBAN_TO_WALLET_CONFIRMATION_SUCCESS_DESCRIPTION_TEXT" desc="Description text for confirmation shown after upload save IBAN attempt was successful and it was uploaded to the server. The wording specifically references Brave Wallet.">
-    This IBAN is saved in Brave Wallet so you can use it across Brave services.
+    This IBAN is saved in Browther Wallet so you can use it across Browther services.
   </message>
   <message name="IDS_AUTOFILL_SAVE_IBAN_CONFIRMATION_FAILURE_DESCRIPTION_TEXT" desc="Description text for confirmation shown after upload save IBAN attempt was failed and and it was not uploaded to the server.">
-    This IBAN couldn't be saved in your Brave sync chain. It's saved to Brave on this device instead. Brave will ask you again the next time you use this IBAN.
+    This IBAN couldn't be saved in your Browther sync chain. It's saved to Browther on this device instead. Browther will ask you again the next time you use this IBAN.
   </message>
   <message name="IDS_AUTOFILL_SAVE_IBAN_TO_WALLET_CONFIRMATION_FAILURE_DESCRIPTION_TEXT" desc="Description text for confirmation shown after upload save IBAN to Brave Wallet attempt was failed and and it was not uploaded to the server.">
-     This IBAN couldn't be saved in Brave Wallet. It's saved to Brave on this device instead. Brave will ask you again the next time you use this IBAN.
+     This IBAN couldn't be saved in Browther Wallet. It's saved to Browther on this device instead. Browther will ask you again the next time you use this IBAN.
   </message>
   <message name="IDS_AUTOFILL_SAVE_IBAN_CONFIRMATION_FAILURE_HIT_MAX_STRIKE_DESCRIPTION_TEXT" desc="Description text for confirmation shown after upload save IBAN attempt was failed and and it was not uploaded to the server. Other than that, the number of offer-to-upload has hit the max strike.">
-    This IBAN couldn't be saved in your Brave sync chain. It's saved to Brave on this device instead.
+    This IBAN couldn't be saved in your Browther sync chain. It's saved to Browther on this device instead.
   </message>
   <message name="IDS_AUTOFILL_SAVE_IBAN_TO_WALLET_CONFIRMATION_FAILURE_HIT_MAX_STRIKE_DESCRIPTION_TEXT" desc="Description text for confirmation shown after upload save IBAN to Brave Wallet attempt was failed and and it was not uploaded to the server. Other than that, the number of offer-to-upload has hit the max strike.">
-    This IBAN couldn't be saved in Brave Wallet. It's saved to Brave on this device instead.
+    This IBAN couldn't be saved in Browther Wallet. It's saved to Browther on this device instead.
   </message>
   <message name="IDS_AUTOFILL_VIRTUAL_CARD_ENROLL_CONFIRMATION_SUCCESS_DESCRIPTION_TEXT" desc="Description text for confirmation shown after virtual card enrollment is successful.">
     You can now use a virtual card to check out more securely with autofill.
