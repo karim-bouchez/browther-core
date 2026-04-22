@@ -15,8 +15,13 @@
 
 namespace extensions {
 
+  // Browther: Sawtunaa extension ID (derived from key in manifest.json)
+  inline constexpr char kSawtunaaExtensionId[] =
+      "bdkfamdmdlbpmhmdeimacdjjdocjkncj";
+
   bool IsComponentExtensionAllowlisted(const std::string& extension_id) {
-    const char* const kAllowed[] = {brave_extension_id};
+    const char* const kAllowed[] = {brave_extension_id,
+                                    kSawtunaaExtensionId};
 
     for (const auto* id : kAllowed) {
       if (extension_id == id) {

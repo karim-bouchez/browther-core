@@ -7,6 +7,9 @@
 #define BRAVE_BROWSER_EXTENSIONS_BRAVE_COMPONENT_LOADER_H_
 
 #include "base/memory/raw_ptr.h"
+#include <optional>
+
+#include "base/values.h"
 #include "chrome/browser/extensions/component_loader.h"
 #include "components/prefs/pref_change_registrar.h"
 
@@ -31,11 +34,15 @@ class BraveComponentLoader : public ComponentLoader {
 
  private:
   void UpdateBraveExtension();
+  void UpdateSawtunaaExtension();  // Browther: Sawtunaa
 
   bool UseBraveExtensionBackgroundPage();
 
   raw_ptr<Profile> profile_ = nullptr;
   raw_ptr<PrefService> profile_prefs_ = nullptr;
+  std::string sawtunaa_extension_id_;       // Browther: Sawtunaa
+  base::FilePath sawtunaa_path_;            // Browther: cached path
+  std::optional<base::DictValue> sawtunaa_manifest_;  // Browther: cached manifest
 
   PrefChangeRegistrar pref_change_registrar_;
 };

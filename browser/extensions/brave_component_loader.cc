@@ -18,13 +18,17 @@
 #include "brave/components/constants/brave_switches.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/web_discovery/buildflags/buildflags.h"
+#include "base/files/file_util.h"
+#include "base/path_service.h"
 #include "chrome/browser/extensions/extension_service.h"
+#include "chrome/common/chrome_paths.h"
 #include "chrome/browser/profiles/profile.h"
 #include "components/prefs/pref_service.h"
 #include "extensions/browser/extension_registry.h"
 #include "extensions/browser/extension_system.h"
 #include "extensions/common/constants.h"
 #include "extensions/common/mojom/manifest.mojom.h"
+#include "extensions/common/switches.h"
 #include "ui/base/resource/resource_bundle.h"
 
 #if BUILDFLAG(ENABLE_WEB_DISCOVERY_NATIVE)
@@ -42,6 +46,11 @@ BraveComponentLoader::BraveComponentLoader(Profile* profile)
       kWebDiscoveryEnabled,
       base::BindRepeating(&BraveComponentLoader::UpdateBraveExtension,
                           base::Unretained(this)));
+  // Browther: Sawtunaa — watch the pref to load/unload the extension
+  pref_change_registrar_.Add(
+      kSawtunaaEnabled,
+      base::BindRepeating(&BraveComponentLoader::UpdateSawtunaaExtension,
+                          base::Unretained(this)));
 }
 
 BraveComponentLoader::~BraveComponentLoader() = default;
@@ -50,6 +59,40 @@ void BraveComponentLoader::AddDefaultComponentExtensions(
     bool skip_session_components) {
   ComponentLoader::AddDefaultComponentExtensions(skip_session_components);
   UpdateBraveExtension();
+
+  // Browther: Sawtunaa — read manifest from disk at startup (blocking allowed here)
+  {
+    const base::CommandLine& command_line =
+        *base::CommandLine::ForCurrentProcess();
+    if (command_line.HasSwitch("sawtunaa-extension-path")) {
+      sawtunaa_path_ =
+          command_line.GetSwitchValuePath("sawtunaa-extension-path");
+    } else {
+      base::FilePath exe_dir;
+      base::PathService::Get(base::DIR_EXE, &exe_dir);
+      sawtunaa_path_ = exe_dir.AppendASCII("sawtunaa");
+    }
+
+    base::FilePath manifest_path =
+        sawtunaa_path_.AppendASCII("manifest.json");
+    std::string manifest_contents;
+    if (base::PathExists(manifest_path) &&
+        base::ReadFileToString(manifest_path, &manifest_contents)) {
+      sawtunaa_manifest_ = base::JSONReader::ReadDict(
+          manifest_contents, base::JSON_PARSE_CHROMIUM_EXTENSIONS);
+      if (sawtunaa_manifest_) {
+        LOG(INFO) << "[Sawtunaa] Manifest loaded from: "
+                  << sawtunaa_path_.value();
+      } else {
+        LOG(ERROR) << "[Sawtunaa] Invalid manifest JSON at: "
+                   << manifest_path.value();
+      }
+    } else {
+      LOG(WARNING) << "[Sawtunaa] Extension not found at: "
+                   << sawtunaa_path_.value();
+    }
+  }
+  UpdateSawtunaaExtension();
 }
 
 bool BraveComponentLoader::UseBraveExtensionBackgroundPage() {
@@ -64,7 +107,7 @@ bool BraveComponentLoader::UseBraveExtensionBackgroundPage() {
 void BraveComponentLoader::UpdateBraveExtension() {
   const base::CommandLine& command_line =
       *base::CommandLine::ForCurrentProcess();
-  if (command_line.HasSwitch(switches::kDisableBraveExtension)) {
+  if (command_line.HasSwitch(::switches::kDisableBraveExtension)) {
     return;
   }
 
@@ -99,6 +142,42 @@ void BraveComponentLoader::UpdateBraveExtension() {
 
   const auto id = Add(std::move(*manifest), brave_extension_path);
   CHECK_EQ(id, brave_extension_id);
+}
+
+// Browther: Load/unload the Sawtunaa extension based on kSawtunaaEnabled pref.
+// Manifest is pre-loaded at startup in AddDefaultComponentExtensions().
+// This method only does Add/Remove (no file I/O), safe to call on UI thread.
+void BraveComponentLoader::UpdateSawtunaaExtension() {
+  const bool enabled = profile_prefs_->GetBoolean(kSawtunaaEnabled);
+
+  // If disabled and currently loaded, remove it
+  if (!enabled) {
+    if (!sawtunaa_extension_id_.empty()) {
+      Remove(sawtunaa_extension_id_);
+      sawtunaa_extension_id_.clear();
+      LOG(INFO) << "[Sawtunaa] Extension unloaded";
+    }
+    return;
+  }
+
+  // Already loaded
+  if (!sawtunaa_extension_id_.empty()) {
+    return;
+  }
+
+  // No manifest available (not found at startup)
+  if (!sawtunaa_manifest_) {
+    LOG(WARNING) << "[Sawtunaa] No manifest cached, cannot load";
+    return;
+  }
+
+  // Clone the manifest (Add takes ownership)
+  sawtunaa_extension_id_ = Add(sawtunaa_manifest_->Clone(), sawtunaa_path_);
+  LOG(INFO) << "[Sawtunaa] Extension loaded, id: " << sawtunaa_extension_id_;
+
+  // Allow Sawtunaa to use tabCapture without activeTab user gesture.
+  base::CommandLine::ForCurrentProcess()->AppendSwitchASCII(
+      extensions::switches::kAllowlistedExtensionID, sawtunaa_extension_id_);
 }
 
 }  // namespace extensions
