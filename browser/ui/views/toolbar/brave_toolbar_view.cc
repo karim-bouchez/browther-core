@@ -224,7 +224,8 @@ void BraveToolbarView::Init() {
       base::BindRepeating(&BraveToolbarView::OnShowBookmarksButtonChanged,
                           base::Unretained(this)));
 
-#if BUILDFLAG(ENABLE_BRAVE_WALLET)
+  // Browther: Wallet disabled — skip pref watchers
+#if BUILDFLAG(ENABLE_BRAVE_WALLET) && 0
   show_wallet_button_.Init(
       brave_wallet::kShowWalletIconOnToolbar, browser_->profile()->GetPrefs(),
       base::BindRepeating(&BraveToolbarView::UpdateWalletButtonVisibility,
@@ -311,7 +312,8 @@ void BraveToolbarView::Init() {
       *container_view->GetIndexOf(GetAppMenuButton()) - 1);
   SetBraveButtonFlexBehavior(side_panel_);
 
-#if BUILDFLAG(ENABLE_BRAVE_WALLET)
+  // Browther: Wallet disabled — hide toolbar button
+#if BUILDFLAG(ENABLE_BRAVE_WALLET) && 0
   wallet_ = container_view->AddChildViewAt(
       std::make_unique<WalletButton>(GetAppMenuButton(), profile),
       *container_view->GetIndexOf(GetAppMenuButton()) - 1);
@@ -323,7 +325,8 @@ void BraveToolbarView::Init() {
   UpdateWalletButtonVisibility();
 #endif
 
-#if BUILDFLAG(ENABLE_AI_CHAT)
+  // Browther: AI Chat (Leo) disabled — hide toolbar button
+#if BUILDFLAG(ENABLE_AI_CHAT) && 0
   // Don't check policy status since we're going to
   // setup a watcher for policy pref.
   if (ai_chat::IsAllowedForContext(browser_->profile(), false)) {
@@ -344,7 +347,8 @@ void BraveToolbarView::Init() {
   }
 #endif
 
-#if BUILDFLAG(ENABLE_BRAVE_VPN)
+  // Browther: VPN disabled — hide toolbar button
+#if BUILDFLAG(ENABLE_BRAVE_VPN) && 0
   if (brave_vpn::BraveVpnServiceFactory::GetForProfile(profile)) {
     brave_vpn_ = container_view->AddChildViewAt(
         std::make_unique<BraveVPNButton>(browser()),

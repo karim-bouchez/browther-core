@@ -284,29 +284,12 @@ RegisterPolymerTemplateModifications({
     // Track last inserted element to simplify conditional insertions
     let lastInserted = privacyEl!
 
-    // Add web3 item
+    // Browther: Web3/Wallet disabled — menu item removed
     // <if expr="enable_brave_wallet">
-    if (loadTimeData.getBoolean('isBraveWalletAllowed')) {
-      const web3El = createMenuElement(
-        loadTimeData.getString('braveWeb3'),
-        '/web3',
-        'product-brave-wallet',
-        'braveWallet',
-      )
-      lastInserted = lastInserted.insertAdjacentElement('afterend', web3El)!
-    }
     // </if>
 
-    // Add leo item
+    // Browther: Leo (AI Chat) disabled — menu item removed
 // <if expr="enable_ai_chat">
-    const leoAssistantEl = createMenuElement(
-      loadTimeData.getString('leoAssistant'),
-      '/leo-ai',
-      'product-brave-leo',
-      'leoAssistant',
-    )
-    lastInserted =
-      lastInserted.insertAdjacentElement('afterend', leoAssistantEl)!
 // </if>
 
     // Add Sync item

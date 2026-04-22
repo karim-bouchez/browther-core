@@ -167,7 +167,8 @@ void BraveAppMenuModel::BuildBraveProductsSection() {
   // Needs to add separator as this section is brave specific section.
   bool need_separator = false;
 
-#if BUILDFLAG(ENABLE_AI_CHAT)
+  // Browther: AI Chat (Leo) disabled — hide menu item
+#if BUILDFLAG(ENABLE_AI_CHAT) && 0
   if (IsCommandIdEnabled(IDC_TOGGLE_AI_CHAT)) {
     InsertItemWithStringIdAt(GetNextIndexOfBraveProductsSection(),
                              IDC_TOGGLE_AI_CHAT, IDS_TOGGLE_AI_CHAT);
@@ -175,13 +176,17 @@ void BraveAppMenuModel::BuildBraveProductsSection() {
   }
 #endif
 
+  // Browther: Wallet disabled — menu item removed
+  /*
   if (IsCommandIdEnabled(IDC_SHOW_BRAVE_WALLET)) {
     InsertItemWithStringIdAt(GetNextIndexOfBraveProductsSection(),
                              IDC_SHOW_BRAVE_WALLET, IDS_SHOW_BRAVE_WALLET);
     need_separator = true;
   }
+  */
 
-#if BUILDFLAG(ENABLE_BRAVE_VPN)
+  // Browther: VPN disabled — hide menu item
+#if BUILDFLAG(ENABLE_BRAVE_VPN) && 0
   if (IsCommandIdEnabled(IDC_BRAVE_VPN_MENU)) {
     sub_menus().push_back(std::make_unique<BraveVPNMenuModel>(
         browser(), browser()->profile()->GetPrefs()));

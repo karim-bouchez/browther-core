@@ -59,13 +59,15 @@ void BraveActionsContainer::Init() {
       gfx::Insets::TLBR(0, kSeparatorMargin, 0, kSeparatorMargin)));
   // Just in case the extensions load before this function does (not likely!)
   // add children to the front in reverse order.
-#if BUILDFLAG(ENABLE_BRAVE_REWARDS)
+  // Browther: Rewards disabled — hide toolbar button
+#if BUILDFLAG(ENABLE_BRAVE_REWARDS) && 0
   AddActionViewForRewards();
 #endif
   AddActionViewForShields();
   AddChildViewAt(brave_button_separator_, 0);
 
-#if BUILDFLAG(ENABLE_BRAVE_REWARDS)
+  // Browther: Rewards disabled — skip pref watcher
+#if BUILDFLAG(ENABLE_BRAVE_REWARDS) && 0
   // React to Brave Rewards preferences changes.
   show_brave_rewards_button_.Init(
       brave_rewards::prefs::kShowLocationBarButton,
