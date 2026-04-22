@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "base/check_deref.h"
+#include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
@@ -22,10 +23,17 @@
 #include "ui/base/metadata/metadata_impl_macros.h"
 #include "ui/base/models/image_model.h"
 #include "ui/base/resource/resource_bundle.h"
+#include "ui/color/color_provider_manager.h"
 #include "ui/gfx/image/image_skia_rep.h"
 #include "ui/views/animation/ink_drop_impl.h"
 #include "ui/views/controls/button/label_button_border.h"
 #include "ui/views/controls/highlight_path_generator.h"
+#include "extensions/common/constants.h"
+
+namespace {
+constexpr SkColor kBadgeGreen = SkColorSetRGB(0x22, 0xC5, 0x5E);
+constexpr SkColor kBadgeRed = SkColorSetRGB(0xEF, 0x44, 0x44);
+}  // namespace
 
 SawtunaaActionView::SawtunaaActionView(
     BrowserWindowInterface* browser_window_interface)
@@ -47,7 +55,6 @@ SawtunaaActionView::SawtunaaActionView(
   SetHorizontalAlignment(gfx::ALIGN_CENTER);
   tab_strip_model_->AddObserver(this);
 
-  // Watch the enabled pref to update icon state
   pref_change_registrar_.Init(&*profile_prefs_);
   pref_change_registrar_.Add(
       kSawtunaaEnabled,
@@ -67,10 +74,9 @@ bool SawtunaaActionView::IsActive() const {
 
 gfx::ImageSkia SawtunaaActionView::GetIconImage(bool active) {
   ui::ResourceBundle& rb = ui::ResourceBundle::GetSharedInstance();
+  // Always use the same base icon — badge shows state
   const SkBitmap bitmap =
-      rb.GetImageNamed(active ? IDR_SAWTUNAA_ICON_64
-                              : IDR_SAWTUNAA_ICON_64_DISABLED)
-          .AsBitmap();
+      rb.GetImageNamed(IDR_SAWTUNAA_ICON_64).AsBitmap();
   float scale = static_cast<float>(bitmap.width()) /
                 GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize);
   gfx::ImageSkia image;
@@ -80,8 +86,39 @@ gfx::ImageSkia SawtunaaActionView::GetIconImage(bool active) {
 
 void SawtunaaActionView::UpdateIconState() {
   bool active = IsActive();
+  auto preferred_size = GetPreferredSize();
+
+  auto* web_contents = tab_strip_model_->GetActiveWebContents();
+  auto get_color_provider_callback = base::BindRepeating(
+      [](base::WeakPtr<content::WebContents> weak_web_contents) {
+        const auto* const color_provider =
+            weak_web_contents
+                ? &weak_web_contents->GetColorProvider()
+                : ui::ColorProviderManager::Get().GetColorProviderFor(
+                      ui::NativeTheme::GetInstanceForNativeUi()
+                          ->GetColorProviderKey(nullptr));
+        return color_provider;
+      },
+      web_contents ? web_contents->GetWeakPtr()
+                   : base::WeakPtr<content::WebContents>());
+
+  std::unique_ptr<IconWithBadgeImageSource> image_source(
+      new brave::BraveIconWithBadgeImageSource(
+          preferred_size, std::move(get_color_provider_callback),
+          GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize),
+          kBraveActionLeftMarginExtra));
+
+  image_source->SetIcon(gfx::Image(GetIconImage(active)));
+
+  // Badge: green dot when ON, red dot when OFF
+  SkColor badge_bg = active ? kBadgeGreen : kBadgeRed;
+  auto badge = std::make_unique<IconWithBadgeImageSource::Badge>(
+      " ", SK_ColorWHITE, badge_bg);
+  image_source->SetBadge(std::move(badge));
+
+  const gfx::ImageSkia icon(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,
-                ui::ImageModel::FromImageSkia(GetIconImage(active)));
+                ui::ImageModel::FromImageSkia(icon));
 
   SetTooltipText(active ? u"Sawtunaa — ON" : u"Sawtunaa — OFF");
 }
