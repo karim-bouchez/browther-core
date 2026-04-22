@@ -64,7 +64,7 @@ void BraveActionsContainer::Init() {
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS) && 0
   AddActionViewForRewards();
 #endif
-  AddActionViewForSawtunaa();  // Browther: Sawtunaa icon
+  // Browther: Sawtunaa icon moved to main toolbar (BraveToolbarView)
   AddActionViewForShields();
   AddChildViewAt(brave_button_separator_, 0);
 
@@ -128,11 +128,6 @@ void BraveActionsContainer::Update() {
     shields_action_btn_->Update();
   }
 
-  // Browther: Sawtunaa
-  if (sawtunaa_action_btn_) {
-    sawtunaa_action_btn_->Update();
-  }
-
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
   if (rewards_action_btn_) {
     rewards_action_btn_->Update();
@@ -150,9 +145,6 @@ void BraveActionsContainer::UpdateVisibility() {
     can_show = shields_action_btn_->GetVisible();
   }
 
-  if (sawtunaa_action_btn_) {
-    can_show = can_show || sawtunaa_action_btn_->GetVisible();
-  }
 
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
   if (rewards_action_btn_) {
