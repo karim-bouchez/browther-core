@@ -216,15 +216,23 @@ void NTPBackgroundImagesService::RegisterBackgroundImagesComponent() {
                           weak_factory_.GetWeakPtr()));
 
   // Browther: load bundled backgrounds as fallback (Brave's component server
-  // won't serve our fork). The images are in browther_backgrounds/ next to
-  // the source code, copied to the output dir at build time.
+  // won't serve our fork). Check on a background thread to avoid blocking.
   base::FilePath exe_dir;
   base::PathService::Get(base::DIR_EXE, &exe_dir);
   base::FilePath browther_bg_dir =
       exe_dir.AppendASCII("browther_backgrounds");
-  if (base::PathExists(browther_bg_dir.AppendASCII(kNTPManifestFile))) {
-    OnComponentReady(browther_bg_dir);
-  }
+  base::ThreadPool::PostTaskAndReplyWithResult(
+      FROM_HERE, {base::MayBlock()},
+      base::BindOnce(&base::PathExists,
+                     browther_bg_dir.AppendASCII(kNTPManifestFile)),
+      base::BindOnce(
+          [](base::WeakPtr<NTPBackgroundImagesService> self,
+             base::FilePath dir, bool exists) {
+            if (self && exists) {
+              self->OnComponentReady(dir);
+            }
+          },
+          weak_factory_.GetWeakPtr(), browther_bg_dir));
 }
 
 void NTPBackgroundImagesService::RegisterSponsoredImagesComponent() {
