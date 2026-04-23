@@ -214,6 +214,17 @@ void NTPBackgroundImagesService::RegisterBackgroundImagesComponent() {
       component_update_service_,
       base::BindRepeating(&NTPBackgroundImagesService::OnComponentReady,
                           weak_factory_.GetWeakPtr()));
+
+  // Browther: load bundled backgrounds as fallback (Brave's component server
+  // won't serve our fork). The images are in browther_backgrounds/ next to
+  // the source code, copied to the output dir at build time.
+  base::FilePath exe_dir;
+  base::PathService::Get(base::DIR_EXE, &exe_dir);
+  base::FilePath browther_bg_dir =
+      exe_dir.AppendASCII("browther_backgrounds");
+  if (base::PathExists(browther_bg_dir.AppendASCII(kNTPManifestFile))) {
+    OnComponentReady(browther_bg_dir);
+  }
 }
 
 void NTPBackgroundImagesService::RegisterSponsoredImagesComponent() {
