@@ -53,7 +53,8 @@ void ReferralsServiceDelegate::OnProfileAdded(Profile* profile) {
   if (profile != ProfileManager::GetLastUsedProfileIfLoaded())
     return;
 
-  service_->Start();
+  // Browther: referrals disabled — don't start the service
+  // service_->Start();
   DCHECK(!profile_manager_observation_.IsObserving())
       << "Should be cleared by OnInitialized";
 }
