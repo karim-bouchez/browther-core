@@ -12,7 +12,8 @@ inline constexpr char kMagnetScheme[] = "magnet";
 inline constexpr char kWidevineTOS[] = "https://policies.google.com/terms";
 inline constexpr char kRewardsUpholdSupport[] =
     "https://uphold.com/en/brave/support";
-inline constexpr char kP3ALearnMoreURL[] = "https://brave.com/P3A";
+// Browther: P3A disabled, point to devndin
+inline constexpr char kP3ALearnMoreURL[] = "https://devndin.com";
 inline constexpr char kP3ASettingsLink[] = "chrome://settings/privacy";
 inline constexpr char kImportDataHelpURL[] =
     "https://support.brave.app/hc/en-us/articles/360019782291#safari";
@@ -35,7 +36,8 @@ inline constexpr char kDevChannelDeprecationLearnMoreUrl[] =
     "17924707453581-How-do-I-migrate-my-Brave-Dev-data-to-another-channel-"
     "Nightly-Beta-Release-";
 
-inline constexpr char kDownloadBraveUrl[] = "https://www.brave.com/download";
-inline constexpr char kAIChatAboutUrl[] = "https://brave.com/leo/";
+// Browther: point to devndin
+inline constexpr char kDownloadBraveUrl[] = "https://devndin.com";
+inline constexpr char kAIChatAboutUrl[] = "https://devndin.com";
 
 #endif  // BRAVE_COMPONENTS_CONSTANTS_URL_CONSTANTS_H_
