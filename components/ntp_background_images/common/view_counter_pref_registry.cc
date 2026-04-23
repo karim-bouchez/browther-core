@@ -43,8 +43,9 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
                                 false);
   registry->RegisterBooleanPref(prefs::kBrandedWallpaperNotificationDismissed,
                                 false);
+  // Browther: sponsored images disabled by default
   registry->RegisterBooleanPref(
-      prefs::kNewTabPageShowSponsoredImagesBackgroundImage, true);
+      prefs::kNewTabPageShowSponsoredImagesBackgroundImage, false);
   registry->RegisterBooleanPref(prefs::kNewTabPageShowBackgroundImage, true);
   registry->RegisterIntegerPref(
       prefs::kNewTabTakeoverInfobarRemainingDisplayCount,
