@@ -33,7 +33,8 @@ extension BrowserViewController {
   }
 
   func showBraveRewardsPanel() {
-    if !BraveRewards.isSupported(prefService: profileController.profile.prefs) {
+    // Browther: Rewards disabled — skip entirely
+    if false, !BraveRewards.isSupported(prefService: profileController.profile.prefs) {
       return
     }
 

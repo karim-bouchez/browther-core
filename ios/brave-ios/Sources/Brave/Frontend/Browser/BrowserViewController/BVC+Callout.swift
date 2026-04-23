@@ -119,7 +119,8 @@ extension BrowserViewController {
   }
 
   private func presentBraveRewardsScreenCallout(skipSafeGuards: Bool = false) {
-    if !skipSafeGuards {
+    // Browther: Rewards disabled — skip callout
+    if false, !skipSafeGuards {
       guard BraveRewards.isSupported(prefService: profileController.profile.prefs),
         !Preferences.Rewards.rewardsToggledOnce.value
       else {
@@ -140,7 +141,8 @@ extension BrowserViewController {
   }
 
   private func presentVPNLinkReceiptCallout(skipSafeGuards: Bool = false) {
-    if !skipSafeGuards {
+    // Browther: VPN disabled — skip callout
+    if false, !skipSafeGuards {
       // Show this onboarding only if the VPN has been purchased
       guard case .purchased = BraveVPN.vpnState else {
         return
