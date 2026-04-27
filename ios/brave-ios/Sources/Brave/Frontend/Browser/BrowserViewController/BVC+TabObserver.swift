@@ -8,6 +8,7 @@ import BraveUI
 import BraveWallet
 import Foundation
 import Preferences
+import Sawtunaa
 import Shared
 import UIKit
 import Web
@@ -462,6 +463,10 @@ extension BrowserViewController {
       ])
     }
 
+    if Preferences.Sawtunaa.enabled.value {
+      injectedScripts.append(SawtunaaScriptHandler())
+    }
+
     // XXX: Bug 1390200 - Disable NSUserActivity/CoreSpotlight temporarily
     // let spotlightHelper = SpotlightHelper(tab: tab)
     // tab.addHelper(spotlightHelper, name: SpotlightHelper.name())
@@ -484,5 +489,8 @@ extension BrowserViewController {
       as? PlaylistFolderSharingScriptHandler)?.delegate = self
     (tab.browserData?.getContentScript(name: Web3NameServiceScriptHandler.scriptName)
       as? Web3NameServiceScriptHandler)?.delegate = self
+    (tab.browserData?.getContentScript(name: SawtunaaScriptHandler.scriptName)
+      as? SawtunaaScriptHandler)?
+      .delegate = self
   }
 }

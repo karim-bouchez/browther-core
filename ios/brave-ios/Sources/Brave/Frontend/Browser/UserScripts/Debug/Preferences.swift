@@ -97,5 +97,11 @@ extension Preferences {
         key: "userscript.preferences.\(UserScriptManager.ScriptType.braveTranslate.rawValue)",
         default: true
       )
+
+    public static let sawtunaa =
+      Option<Bool>(
+        key: "userscript.preferences.\(UserScriptManager.ScriptType.sawtunaa.rawValue)",
+        default: true
+      )
   }
 }

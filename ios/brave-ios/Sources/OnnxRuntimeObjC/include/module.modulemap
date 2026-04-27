@@ -1,0 +1,5 @@
+module onnxruntime_objc {
+  header "onnxruntime.h"
+  export *
+  link framework "onnxruntime"
+}

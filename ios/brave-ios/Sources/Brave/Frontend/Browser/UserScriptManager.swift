@@ -6,6 +6,7 @@ import BraveCore
 import BraveWallet
 import Data
 import Preferences
+import Sawtunaa
 import Shared
 import Web
 import WebKit
@@ -40,6 +41,10 @@ class UserScriptManager {
 
     if Preferences.UserScript.leo.value {
       scripts.append(.braveLeoAIChat)
+    }
+
+    if Preferences.Sawtunaa.enabled.value {
+      scripts.append(.sawtunaa)
     }
 
     return scripts
@@ -129,6 +134,7 @@ class UserScriptManager {
     case youtubeQuality
     case braveLeoAIChat
     case braveTranslate
+    case sawtunaa
 
     fileprivate var script: WKUserScript? {
       switch self {
@@ -176,6 +182,9 @@ class UserScriptManager {
       case .braveTranslate:
         return Preferences.UserScript.translate.value && FeatureList.kBraveTranslateEnabled.enabled
           ? BraveTranslateScriptHandler.userScript : nil
+      case .sawtunaa:
+        return Preferences.Sawtunaa.enabled.value
+          ? SawtunaaScriptHandler.userScript : nil
       }
     }
 

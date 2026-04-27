@@ -36,6 +36,7 @@ var package = Package(
     .library(name: "BraveStore", targets: ["BraveStore"]),
     .library(name: "Favicon", targets: ["Favicon"]),
     .library(name: "FaviconModels", targets: ["FaviconModels"]),
+    .library(name: "Sawtunaa", targets: ["Sawtunaa"]),
     .library(name: "SpeechRecognition", targets: ["SpeechRecognition"]),
     .library(name: "Onboarding", targets: ["Onboarding"]),
     .library(name: "Growth", targets: ["Growth"]),
@@ -109,6 +110,7 @@ var package = Package(
         "BraveStore",
         "Onboarding",
         "Growth",
+        "Sawtunaa",
         "SpeechRecognition",
         "CodableHelpers",
         "Preferences",
@@ -223,6 +225,12 @@ var package = Package(
         ),
         .copy(
           "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/WalletCardanoProviderScript.js"
+        ),
+        .copy(
+          "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/SawtunaaOpusDecoderBundle.js"
+        ),
+        .copy(
+          "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/SawtunaaScript.js"
         ),
         .copy(
           "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/YoutubeQualityScript.js"
@@ -341,6 +349,31 @@ var package = Package(
     .binaryTarget(
       name: "GRDWireGuardKit",
       path: "../third_party/GRDWireGuardKit/GRDWireGuardKit.xcframework"
+    ),
+    .binaryTarget(
+      name: "OnnxRuntimeC",
+      path: "../third_party/OnnxRuntime/onnxruntime.xcframework"
+    ),
+    .target(
+      name: "onnxruntime_objc",
+      dependencies: ["OnnxRuntimeC"],
+      path: "Sources/OnnxRuntimeObjC",
+      exclude: ["onnxruntime"],
+      publicHeadersPath: "include",
+      cxxSettings: [
+        .define("SPM_BUILD"),
+        .headerSearchPath("."),
+      ],
+      linkerSettings: [
+        .linkedFramework("onnxruntime"),
+      ]
+    ),
+    .target(
+      name: "Sawtunaa",
+      dependencies: ["Preferences", "onnxruntime_objc"],
+      resources: [
+        .copy("Resources/nsnet2-stateful.onnx"),
+      ]
     ),
     .target(
       name: "Storage",
