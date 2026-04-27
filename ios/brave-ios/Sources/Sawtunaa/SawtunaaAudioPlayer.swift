@@ -81,17 +81,33 @@ public class SawtunaaAudioPlayer {
   }
 
   /// Load the NSNet2 ONNX model from a file path.
+  /// After load, runs a warmup pass on 1s of silence to amortize the first-chunk
+  /// processing spike (~1.2s observed). The processor's GRU states are then reset
+  /// to a clean slate before real audio arrives.
   public func loadModel(path: String) {
     SawtunaaMetric.emit("model_load_start", ["path": path])
     let t0 = CFAbsoluteTimeGetCurrent()
     preprocessQueue.async { [weak self] in
       let processor = NSNet2Processor(modelPath: path)
       let loadMs = Int((CFAbsoluteTimeGetCurrent() - t0) * 1000)
+
+      // Warmup: process 1s of silence to prime ONNX runtime, vDSP buffers, GRU states.
+      let warmupT0 = CFAbsoluteTimeGetCurrent()
+      let silence = [Float](repeating: 0, count: 48000)
+      _ = processor.process(silence)
+      let warmupMs = Int((CFAbsoluteTimeGetCurrent() - warmupT0) * 1000)
+      // Reset state so first real chunk starts from a clean slate
+      processor.reset()
+
       DispatchQueue.main.async {
         self?.nsnet2 = processor
         SawtunaaMetric.emit(
           "model_load_done",
-          ["available": processor.isAvailable, "load_ms": loadMs])
+          [
+            "available": processor.isAvailable,
+            "load_ms": loadMs,
+            "warmup_ms": warmupMs,
+          ])
       }
     }
   }

@@ -339,7 +339,14 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
 
       var durationMs = parsed.packets.length * 20;
       var startTimeMs = parsed.startTimeMs;
-      if (startTimeMs < 0) startTimeMs = lastEstimatedEndMs;
+      // Sanity check: reject aberrant timestamps from EBML parser (overflow, etc.)
+      // Valid range: [0, 24h]. Otherwise fall back to estimated continuation.
+      if (startTimeMs < 0 || startTimeMs > 24 * 3600 * 1000 || !isFinite(startTimeMs)) {
+        if (parsed.startTimeMs !== -1) {
+          metric('invalid_timestamp', { raw: String(parsed.startTimeMs) });
+        }
+        startTimeMs = lastEstimatedEndMs;
+      }
       lastEstimatedEndMs = startTimeMs + durationMs;
 
       var totalSamples = result.samplesDecoded;

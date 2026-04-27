@@ -53,6 +53,9 @@ class SawtunaaScriptHandler: TabContentScript {
   init() {
     SawtunaaMetric.reset()
     SawtunaaMetric.emit("handler_init", [:])
+    // Eager: create player + load NSNet2 model immediately, before any chunk arrives.
+    // Avoids dropping early chunks during the model load latency.
+    ensureAudioPlayer()
   }
 
   // MARK: - Lifecycle
@@ -142,8 +145,14 @@ class SawtunaaScriptHandler: TabContentScript {
     let b64Str = data[data.index(after: pipeIdx)...]
 
     guard let timestampMs = Double(tsStr),
+      timestampMs.isFinite,
+      timestampMs >= 0,
+      timestampMs < 24 * 3600 * 1000,  // < 24h, reject EBML parser overflows
       let rawData = Data(base64Encoded: String(b64Str))
-    else { return }
+    else {
+      SawtunaaMetric.emit("preprocess_invalid_ts", ["raw": String(tsStr)])
+      return
+    }
 
     let floats = rawData.withUnsafeBytes { ptr -> [Float] in
       let bound = ptr.bindMemory(to: Float.self)
