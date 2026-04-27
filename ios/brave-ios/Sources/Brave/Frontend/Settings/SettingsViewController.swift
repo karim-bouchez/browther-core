@@ -577,7 +577,8 @@ class SettingsViewController: TableViewController {
       uuid: featureSectionUUID.uuidString
     )
 
-    if BraveRewards.isSupported(prefService: braveCore.profile.prefs), let rewards = rewards {
+    // Browther: Rewards disabled — hide settings row
+    if false, BraveRewards.isSupported(prefService: braveCore.profile.prefs), let rewards = rewards {
       section.rows += [
         Row(
           text: Strings.braveRewardsSettingsTitle,
@@ -591,7 +592,8 @@ class SettingsViewController: TableViewController {
       ]
     }
 
-    if braveCore.profile.prefs.isBraveNewsAvailable {
+    // Browther: News disabled — hide settings row
+    if false, braveCore.profile.prefs.isBraveNewsAvailable {
       section.rows.append(
         Row(
           text: Strings.BraveNews.braveNewsTitle,
@@ -623,7 +625,8 @@ class SettingsViewController: TableViewController {
       section.rows.append(leoSettingsRow)
     }
 
-    if braveCore.profile.prefs.isBraveVPNAvailable {
+    // Browther: VPN disabled — hide settings row
+    if false, braveCore.profile.prefs.isBraveVPNAvailable {
       section.rows.append(vpnSettingsRow)
     }
 
@@ -641,7 +644,22 @@ class SettingsViewController: TableViewController {
       )
     }
 
-    if FeatureList.kBraveTranslateEnabled.enabled {
+    // Browther: Sawtunaa (music/noise removal)
+    section.rows.append(
+      Row(
+        text: "Sawtunaa",
+        detailText: "Suppression musique et bruit de fond",
+        accessory: .switchToggle(
+          value: Preferences.Sawtunaa.enabled.value,
+          { newValue in
+            Preferences.Sawtunaa.enabled.value = newValue
+          }
+        )
+      )
+    )
+
+    // Browther: Brave Translate disabled (uses Brave servers) — hide settings row
+    if false, FeatureList.kBraveTranslateEnabled.enabled {
       section.rows.append(
         Row(
           text: Strings.BraveTranslate.settingsMenuTitle,
@@ -1762,7 +1780,8 @@ class SettingsViewController: TableViewController {
         $0.uuid == self.walletRowUUID.uuidString
       })
 
-      if walletRowIndex == nil && braveCore.braveWalletAPI.isAllowed {
+      // Browther: Wallet/Web3 disabled — hide settings row
+      if false, walletRowIndex == nil && braveCore.braveWalletAPI.isAllowed {
         let settingsStore = cryptoStore?.settingsStore
         copyOfSections[featureSectionIndex].rows.append(
           Row(
