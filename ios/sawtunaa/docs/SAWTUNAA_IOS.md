@@ -53,6 +53,49 @@
 └───────────────────────────────────────────────────────────────────────┘
 ```
 
+## Comment ça marche concrètement (pipeline temporel)
+
+YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance aussi**, mais l'audio sort des speakers **précisément** quand la vidéo arrive au bon moment.
+
+```
+                     Video time réel:    [0s ━━━ 5s ━━━━━━━━━━ 30s]
+                                              ↑ user regarde ici
+
+1. YouTube buffer:   [0s ━━━━━━━━━━━━━━━━━━━━━━━ 30s]  ← envoie d'avance
+                          ↓ MSE intercept (segments par bursts)
+
+2. JS décode Opus:   [chunks ts=0,1,2,3...30s]
+                          ↓ envoie à Swift en base64
+
+3. NSNet2 process:   [chunks filtrés ts=0..30] ← traite ~4× plus vite que temps réel
+                          ↓ 1 chunk de 1s en ~250ms
+
+4. Buffer Swift:     [chunks prêts: ts=5,6,7,8,9] ← max 5s d'avance (lookahead cap)
+                          ↓ scheduleBuffer au playerNode
+
+5. Player queue:     [chunks attendant: ts=5,6,7,8,9]
+                          ↓ joue 1× temps réel
+
+6. Speakers:         [son qui sort] ← actuellement sample ts=5s, video à 5.15s
+                                       (decalage 150ms hardware AVAudioEngine)
+```
+
+**Points clés :**
+- **Pas "fil de l'eau strict"** : on a toujours ~5s d'audio prêt à jouer (sécurité contre les bursts YouTube qui peuvent envoyer 30s d'audio puis rester silencieux 17s)
+- **NSNet2 process en avance** : ~4× plus rapide que temps réel, donc on peut buffer
+- **Le PlayerNode joue à 1×** : impossible de l'accélérer/ralentir, il consomme à temps réel
+- **Sync** : le 1er chunk est trim/aligné sur `video.currentTime`, après ça l'audio joue chunk après chunk en suivant le timestamp source
+- **Drift résiduel ~150ms** = latence hardware AVAudioEngine sur iOS (incompressible facilement, sous le seuil de perception)
+
+### Mécanismes anti-drift
+
+1. **Lookahead cap (5s)** : ne schedule jamais plus de 5s d'avance dans le playerNode. Évite que le player accumule un burst entier puis joue avec un trou de silence.
+2. **Skip + trim** : si un chunk arrive en retard (>200ms vieux), on le skip ; s'il est partiellement en retard, on coupe le début pour resync.
+3. **Gap-fill** : si YouTube livre des chunks non-contigus (ts=0..1000 puis ts=1500..2500), on insère 500ms de silence pour ne pas que l'audio "saute" et prenne de l'avance.
+4. **Silence-lead** : si le 1er chunk après un reset (init/seek) est légèrement dans le futur (jusqu'à 2s), on insère du silence pour aligner avec video.currentTime.
+5. **Drop-during-pause** : pendant la pause, on jette les nouveaux chunks NSNet2 (sinon ils s'accumuleraient et prendraient de l'avance au resume).
+6. **Flush au seek** : `clearChunks` vide le buffer Swift ET le playerNode (sinon jusqu'à 5s d'audio périmé jouerait après le seek).
+
 ## Pourquoi cette approche ?
 
 | Approche testée | Verdict |
@@ -87,21 +130,37 @@
 | Underruns par minute | 0 | — |
 | Chunks skippés (trop vieux) | 0% | — |
 
-## Bugs connus
+## Métriques mesurées (état actuel)
 
-### 1. Audio hachuré les 2 premières secondes (**connu, POC**)
-**Cause :** warmup NSNet2 (premier chunk = ~700ms) crée un micro-gap suivi de starvation pendant le rattrapage.
-**Fix proposé :** warmup à froid avec un buffer silence au lancement.
+| Métrique | Mesuré |
+|---|---|
+| Activation → 1er son | **~1.3s** (vs cible POC 700-800ms) |
+| NSNet2 1er chunk (warmup) | **~400-500ms** (warmup 1s silence appliqué au load) |
+| NSNet2 chunks suivants | **~110-220ms / 1s** (4-5× temps réel) |
+| Audio coverage | **99.9%** sur tests 60-130s |
+| Drift video↔audio | **~150ms** (audio en retard, latence hardware iOS) |
+| Underruns vrais | **0** |
 
-### 2. Audio en avance par rapport à la vidéo (**régression Browther**)
-**Cause :** offset de timestamp calibré au démarrage shifte l'audio en avance.
-**Fix :** retirer l'offset, laisser `chunk.timestampMs <= upToMs` jouer naturellement (comme le POC).
+## Fixes appliqués (commits)
 
-### 3. Stops aléatoires (**à diagnostiquer**)
-**Hypothèses :**
-- `playerNode` finit tous les buffers schedulés et passe en idle silencieux
-- AVAudioEngine erreur non loguée
-- Audio session interruption
+| Fix | Commit | Effet mesuré |
+|---|---|---|
+| Eager load + warmup à froid NSNet2 | `cac1aa8323e` | Activation 10318ms → 1261ms (-83%) |
+| Lookahead cap 5s + gap-fill silence | `9b643fcafb6` | Plus de silence 15s entre bursts. Coverage 84% → 99.9% |
+| Drop-during-pause + flush au seek + métrique drift | `631a7378008` | Pause/resume sans drift, drift mesuré objectivement |
+
+## Limitations connues
+
+### Seek vers position déjà bufferisée par YouTube — non géré
+Quand l'utilisateur seek vers une position que YouTube a déjà appendée à son buffer MSE interne, YouTube **ne re-livre pas** les segments via `appendBuffer()`. Notre interception ne reçoit donc rien et l'audio ne reprend pas.
+
+**Solutions possibles (non implémentées) :**
+- Maintenir un cache Swift des chunks récemment processés (LRU sur ~30s)
+- Patcher `SourceBuffer.remove()` ou `MediaSource.endOfStream()` pour forcer YouTube à re-fetch
+- Intercepter aussi le video element `seeking`/`seeked` events et utiliser un autre canal
+
+### Drift hardware ~150ms incompressible
+Latence intrinsèque AVAudioEngine + iOS audio I/O. Sous le seuil de perception conscious (~250ms). Pour réduire, on peut configurer `AVAudioSession.preferredIOBufferDuration` (au prix d'une consommation CPU plus élevée et risque d'underrun).
 
 ## Méthodologie de debug
 
