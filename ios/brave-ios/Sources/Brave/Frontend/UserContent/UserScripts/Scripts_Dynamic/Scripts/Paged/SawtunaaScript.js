@@ -45,7 +45,54 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     return;
   }
 
-  metric('script_init', { hasMS: hasMS, hasMMS: hasMMS });
+  metric('script_init', {
+    hasMS: hasMS,
+    hasMMS: hasMMS,
+    url: location.href,
+    isYoutube: /(?:youtube\.com|youtu\.be)/.test(location.host)
+  });
+
+  // ─── Page lifecycle ───
+  // The Swift SawtunaaScriptHandler is bound to the WKWebView/tab, NOT the JS
+  // context. On a page refresh, SPA-navigation back-forward, etc., the JS context
+  // is re-created (or restarted from bfcache) but the Swift handler keeps its
+  // audioCache, scheduler state and AVAudioEngine queue. Without an explicit
+  // signal, audio from the previous page would keep playing on top of the new
+  // page's audio. We send `pageReset` at every script init to drop the stale
+  // state on Swift side.
+  send('pageReset', location.href);
+  metric('page_reset_sent', { url: location.href });
+
+  // Track URL changes (SPA navigation inside YouTube). We don't drop the cache
+  // on these (the same video timeline may continue), but logging helps when
+  // diagnosing "audio from previous video" reports.
+  var __sawtunaaLastUrl = location.href;
+  setInterval(function() {
+    if (location.href !== __sawtunaaLastUrl) {
+      metric('url_changed', { from: __sawtunaaLastUrl, to: location.href });
+      __sawtunaaLastUrl = location.href;
+    }
+  }, 1000);
+
+  // pagehide fires before the page goes into bfcache or is unloaded. Mirror
+  // it so the Swift side can drop stale audio if the user navigates away.
+  try {
+    window.addEventListener('pagehide', function(e) {
+      metric('pagehide', { persisted: !!(e && e.persisted) });
+      send('pageReset', 'pagehide');
+    });
+    window.addEventListener('pageshow', function(e) {
+      metric('pageshow', { persisted: !!(e && e.persisted) });
+      // If restored from bfcache, the JS context is alive but Swift was reset
+      // by our pagehide. Re-init by sending pageReset (idempotent on Swift).
+      if (e && e.persisted) {
+        send('pageReset', 'pageshow_bfcache');
+      }
+    });
+    document.addEventListener('visibilitychange', function() {
+      metric('visibility_change', { hidden: document.hidden });
+    });
+  } catch(e) {}
 
   // ─── EBML Parser ───
   function readVint(data, offset) {
@@ -448,12 +495,14 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       if (vid.paused) {
         if (!audioPaused) {
           audioPaused = true;
+          metric('video_paused', { video_ms: Math.round(vid.currentTime * 1000) });
           send('pauseAudio');
         }
         return;
       }
       if (audioPaused) {
         audioPaused = false;
+        metric('video_resumed', { video_ms: Math.round(vid.currentTime * 1000) });
         send('resumeAudio');
       }
 

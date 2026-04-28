@@ -125,6 +125,18 @@ class SawtunaaScriptHandler: TabContentScript {
       isActive = false
       SawtunaaMetric.emit("handler_clear_chunks", [:])
 
+    case "pageReset":
+      // JS context restart (page refresh, bfcache restore, pagehide).
+      // The Swift handler is bound to the tab so its audioCache and
+      // playerNode queue would otherwise survive the navigation, leading
+      // to "double audio" (old chunks playing on top of the new page).
+      let prevActive = isActive
+      audioPlayer?.clearChunks()
+      isActive = false
+      SawtunaaMetric.emit(
+        "handler_page_reset",
+        ["url": data, "was_active": prevActive])
+
     case "seekTo":
       if let toMs = Double(data) {
         audioPlayer?.seekTo(toMs: toMs)

@@ -85,6 +85,11 @@ public class SawtunaaAudioPlayer {
   // same chunk from being re-scheduled (esp. for chunks shorter than the gap
   // tolerance, which would re-match against a duration-based cursor).
   private var scheduledCursorTsMs: Double = -1
+  // Epoch counter: incremented on every clearChunks (page reset / new video).
+  // preprocessChunk captures the current epoch when enqueued and the result
+  // is dropped if the epoch has changed by the time NSNet2 finishes — this
+  // avoids inserting stale chunks from a previous page into the fresh cache.
+  private var epoch: UInt64 = 0
 
   // Engine state polling
   private var stateTimer: Timer?
@@ -270,11 +275,13 @@ public class SawtunaaAudioPlayer {
       return
     }
     let receivedAt = CFAbsoluteTimeGetCurrent()
+    let chunkEpoch = epoch
     SawtunaaMetric.emit(
       "chunk_preprocess_start",
       [
         "chunk_ts": Int(timestampMs),
         "samples": samples.count,
+        "epoch": Int(chunkEpoch),
       ])
     preprocessQueue.async { [weak self] in
       guard let self = self, let nsnet2 = self.nsnet2 else {
@@ -303,6 +310,19 @@ public class SawtunaaAudioPlayer {
       let totalMs = Int((CFAbsoluteTimeGetCurrent() - receivedAt) * 1000)
       let durationMs = Double(processed.count) / 48.0
       DispatchQueue.main.async {
+        // Drop the chunk if a clearChunks/pageReset happened between enqueue
+        // and completion: it belongs to a stale session.
+        if chunkEpoch != self.epoch {
+          SawtunaaMetric.emit(
+            "chunk_preprocess_drop",
+            [
+              "chunk_ts": Int(timestampMs),
+              "reason": "stale_epoch",
+              "chunk_epoch": Int(chunkEpoch),
+              "current_epoch": Int(self.epoch),
+            ])
+          return
+        }
         // Insert into cache, sorted by timestampMs (deduplicate if exists).
         let entry = (timestampMs: timestampMs, durationMs: durationMs, buffer: buffer)
         if let existingIdx = self.audioCache.firstIndex(where: { $0.timestampMs == timestampMs })
@@ -530,6 +550,7 @@ public class SawtunaaAudioPlayer {
   /// Used on init segment (new video / page reload), NOT on seek (use seekTo).
   public func clearChunks() {
     let prev = audioCache.count
+    epoch &+= 1  // invalidate any in-flight preprocess from a prior session
     audioCache.removeAll()
     if isRunning {
       playerNode.stop()
@@ -545,10 +566,14 @@ public class SawtunaaAudioPlayer {
     firstChunkPlayedAt = nil
     anchorAudioSampleTime = nil
     anchorSourceMs = 0
+    isPausedFlag = false
+    lastVideoUpToMs = 0
     preprocessQueue.async { [weak self] in
       self?.nsnet2?.reset()
     }
-    SawtunaaMetric.emit("clear_chunks", ["dropped_cache": prev])
+    SawtunaaMetric.emit(
+      "clear_chunks",
+      ["dropped_cache": prev, "epoch": Int(epoch)])
   }
 
   /// Seek to a new video position. Keeps the audio cache (so we can re-play

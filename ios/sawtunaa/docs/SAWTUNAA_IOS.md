@@ -95,6 +95,8 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 4. **Silence-lead** : si le 1er chunk après un reset (init/seek) est légèrement dans le futur (jusqu'à 2s), on insère du silence pour aligner avec video.currentTime.
 5. **Drop-during-pause** : pendant la pause, on jette les nouveaux chunks NSNet2 (sinon ils s'accumuleraient et prendraient de l'avance au resume).
 6. **Flush au seek + cache LRU** : `seekTo` flush le playerNode mais **garde le cache** (jusqu'à 600 chunks ~10min) pour permettre le seek instantané vers une zone déjà bufferisée.
+7. **PageReset au refresh** : à chaque init du script JS (refresh, restore depuis bfcache, navigation), une action `pageReset` est envoyée à Swift, qui drop le cache et flush le playerNode. Sans ça, l'audio de la page précédente continuerait à jouer par-dessus la nouvelle page (le `SawtunaaScriptHandler` Swift est lié au tab, pas au JS context). Idempotent.
+8. **Epoch counter (anti-race)** : `clearChunks()` incrémente un compteur. Tout chunk en cours de preprocess capture l'epoch au moment du dispatch ; à la complétion, si l'epoch a changé, le chunk est dropé (`stale_epoch`) — sinon on insère un chunk de l'ancienne session dans le cache neuf, recréant le bug "audio en double".
 
 ### Cache mirror du buffer YouTube (seek instantané)
 
@@ -163,6 +165,8 @@ Le curseur strict `scheduledCursorTsMs` (timestampMs du dernier chunk schedulé)
 | Lookahead cap 5s + gap-fill silence | `9b643fcafb6` | Plus de silence 15s entre bursts. Coverage 84% → 99.9% |
 | Drop-during-pause + flush au seek + métrique drift | `631a7378008` | Pause/resume sans drift, drift mesuré objectivement |
 | Cache mirror buffer YouTube + curseur strict | `1646d390c4f` | Seek instantané dans zone bufferisée. Fix bug OOM (chunks courts re-scheduled en boucle). Fix EBML false positive (0xE7 dans Opus → ts ~30min) |
+| Reset `lastEstimatedEndMs` au seek lointain | `f8fda3586fb` | Fix zone morte après seek vers une position non bufferisée (>60s). Le validateur jump>60s rejetait à tort les ts post-seek valides |
+| `pageReset` action JS→Swift + epoch counter | (en cours) | Fix bug "audio en double après refresh" : Swift drop son cache à chaque init du script JS. Epoch counter empêche les chunks en flight d'une ancienne session de polluer le cache neuf |
 
 ## Limitations connues
 
@@ -190,6 +194,10 @@ Tous les events clés sont logués au format `[METRIC] {json}` :
 - `engine_error` — toute erreur AVAudio
 
 **Côté JS :**
+- `script_init` — script chargé (avec URL + isYoutube)
+- `page_reset_sent` — pageReset envoyé à Swift (refresh / nouvelle page)
+- `pagehide` / `pageshow` / `visibility_change` — lifecycle DOM
+- `url_changed` — URL a changé (SPA navigation YouTube)
 - `init_segment` — MSE init segment reçu
 - `media_segment` — MSE media segment reçu (taille, packets)
 - `decoder_ready` — Opus decoder initialisé
@@ -197,8 +205,16 @@ Tous les events clés sont logués au format `[METRIC] {json}` :
 - `chunk_send` — Chunk envoyé à Swift
 - `auto_activate` — Pipeline activé
 - `seek_detected` — Saut détecté
-- `pause_audio` / `resume_audio`
+- `video_paused` / `video_resumed` — détection lecture/pause vidéo (avec video_ms)
 - `video_state` — poll toutes les 500ms (currentTime, paused, muted, buffered)
+
+**Côté Swift (lifecycle) :**
+- `handler_init` / `handler_deinit` — TabContentScript instancié/détruit
+- `handler_create_player` — AVAudioEngine créé (eager init)
+- `handler_page_reset` — action pageReset reçue, drop le cache (avec was_active)
+- `handler_clear_chunks` — action clearChunks reçue
+- `clear_chunks` — cache nettoyé (epoch incrémenté)
+- `seek_to` — seek (cache préservé)
 
 ### Étape 2 : Scénario de test reproductible
 
@@ -257,6 +273,26 @@ Pour chaque bug :
 5. **Passer au suivant** seulement si la métrique cible est dans la fourchette
 
 Si une métrique se dégrade ailleurs → revert.
+
+### Sortie de l'analyzer
+
+Le script `analyze_sawtunaa_metrics.py` produit :
+
+- **Lifecycle** : timeline de tous les events haut-niveau (script_init, page_reset, init_segment, seek, pause/resume, etc.) avec deltas
+- **Sessions** : segmentation automatique par `handler_page_reset` (chaque refresh = nouvelle session). Stats par session : activation, chunks joués, coverage, drift
+- **NSNet2 / Playback / Sync / Engine state / JS pipeline** : agrégats classiques
+- **Anomalies détectées** : auto-detection de bugs courants
+  - `OUT-OF-ORDER scheduling` — un chunk avec ts inférieur a été schedulé après
+  - `DISCONTINUITIES in scheduling` — gap >100ms entre chunks consécutifs
+  - `BIG JUMP` — saut >5s (typiquement seek lointain mal géré)
+  - `STALE AUDIO AFTER RESET` — chunks d'une ancienne session joués après pageReset (= "audio en double")
+  - `CACHE SURVIVED RESET` — cache pas vidé après pageReset
+  - `STALE EPOCH DROPS` — info : race correctement attrapée par l'epoch counter
+  - `RESET STORM` — ≥3 page_resets en <5s (potentiel bug de loop)
+  - `CACHE HOLES` — gaps >100ms dans le cache (zones manquantes)
+  - `DRIFT TREND` — drift moyen 1/3 fin > 1/3 début (drift cumulatif)
+
+Avec `--lifecycle`, tous les events lifecycle sont imprimés (sans cap par type).
 
 ## Fichiers du pipeline
 
