@@ -94,7 +94,21 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 3. **Gap-fill** : si YouTube livre des chunks non-contigus (ts=0..1000 puis ts=1500..2500), on insère 500ms de silence pour ne pas que l'audio "saute" et prenne de l'avance.
 4. **Silence-lead** : si le 1er chunk après un reset (init/seek) est légèrement dans le futur (jusqu'à 2s), on insère du silence pour aligner avec video.currentTime.
 5. **Drop-during-pause** : pendant la pause, on jette les nouveaux chunks NSNet2 (sinon ils s'accumuleraient et prendraient de l'avance au resume).
-6. **Flush au seek** : `clearChunks` vide le buffer Swift ET le playerNode (sinon jusqu'à 5s d'audio périmé jouerait après le seek).
+6. **Flush au seek + cache LRU** : `seekTo` flush le playerNode mais **garde le cache** (jusqu'à 600 chunks ~10min) pour permettre le seek instantané vers une zone déjà bufferisée.
+
+### Cache mirror du buffer YouTube (seek instantané)
+
+Le `audioCache` Swift mirror exactement le buffer MSE interne de YouTube :
+- **`appendBuffer`** intercepté → ajoute le chunk processé au cache
+- **`remove(start, end)`** intercepté → évince la plage du cache (action `evictRange`)
+- **`abort()`** intercepté → metric uniquement
+- **Sanity check 5s** → JS envoie `sb.buffered` ranges, Swift drop les chunks hors plages (catch les évictions silencieuses du browser quand le quota MSE est atteint)
+
+Au seek :
+- Si la cible est dans le cache → audio reprend instantanément (curseur `scheduledCursorTsMs` repositionné, chunks rejoués depuis le cache)
+- Si hors cache → comportement YouTube natif (silence pendant que YouTube re-fetch via DASH)
+
+Le curseur strict `scheduledCursorTsMs` (timestampMs du dernier chunk schedulé) garantit qu'un chunk n'est **jamais** scheduled deux fois — sans ça, des chunks courts (<100ms en fin de segment) pouvaient re-matcher en boucle infinie (bug OOM observé : 429063× scheduling).
 
 ## Pourquoi cette approche ?
 
@@ -148,19 +162,15 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 | Eager load + warmup à froid NSNet2 | `cac1aa8323e` | Activation 10318ms → 1261ms (-83%) |
 | Lookahead cap 5s + gap-fill silence | `9b643fcafb6` | Plus de silence 15s entre bursts. Coverage 84% → 99.9% |
 | Drop-during-pause + flush au seek + métrique drift | `631a7378008` | Pause/resume sans drift, drift mesuré objectivement |
+| Cache mirror buffer YouTube + curseur strict | `1646d390c4f` | Seek instantané dans zone bufferisée. Fix bug OOM (chunks courts re-scheduled en boucle). Fix EBML false positive (0xE7 dans Opus → ts ~30min) |
 
 ## Limitations connues
 
-### Seek vers position déjà bufferisée par YouTube — non géré
-Quand l'utilisateur seek vers une position que YouTube a déjà appendée à son buffer MSE interne, YouTube **ne re-livre pas** les segments via `appendBuffer()`. Notre interception ne reçoit donc rien et l'audio ne reprend pas.
-
-**Solutions possibles (non implémentées) :**
-- Maintenir un cache Swift des chunks récemment processés (LRU sur ~30s)
-- Patcher `SourceBuffer.remove()` ou `MediaSource.endOfStream()` pour forcer YouTube à re-fetch
-- Intercepter aussi le video element `seeking`/`seeked` events et utiliser un autre canal
-
 ### Drift hardware ~150ms incompressible
 Latence intrinsèque AVAudioEngine + iOS audio I/O. Sous le seuil de perception conscious (~250ms). Pour réduire, on peut configurer `AVAudioSession.preferredIOBufferDuration` (au prix d'une consommation CPU plus élevée et risque d'underrun).
+
+### Seek vers zone jamais visitée
+Si l'utilisateur seek vers une position que YouTube n'a jamais bufferisée (et qu'on n'a pas dans notre cache non plus), il faut attendre que YouTube re-fetch via DASH (~500ms-2s). Comportement identique à YouTube natif sur iOS.
 
 ## Méthodologie de debug
 
