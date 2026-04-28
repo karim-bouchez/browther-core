@@ -170,6 +170,22 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   var decoderInitializing = false;
   var audioPaused = false;
 
+  // Aggregation buffer: accumulates mono PCM until we can send a full 1s chunk.
+  // Smooths out YouTube's micro-segments (22% are <100ms) which would otherwise
+  // create many tiny scheduleBuffer calls and audible micro-glitches.
+  var pendingMono = new Float32Array(CHUNK_SAMPLES * 2);
+  var pendingMonoLen = 0;
+  var pendingMonoStartMs = 0;
+  var pendingMonoEndMs = 0;
+
+  function flushPendingMono() {
+    if (pendingMonoLen <= 0) return;
+    var chunkSlice = new Float32Array(pendingMono.buffer, pendingMono.byteOffset, pendingMonoLen);
+    sendChunkToSwift(chunkSlice, pendingMonoStartMs);
+    decodedSegments.push({ startTimeMs: pendingMonoStartMs, durationMs: pendingMonoLen / 48 });
+    pendingMonoLen = 0;
+  }
+
   // ─── Send mono PCM chunk to Swift for NSNet2 processing ───
   var chunkSendCount = 0;
   function sendChunkToSwift(monoChunk, timestampMs) {
@@ -273,6 +289,9 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     isActive = false;
     audioPaused = false;
     lastVideoTimeMs = -1;
+    pendingMonoLen = 0;
+    pendingMonoStartMs = 0;
+    pendingMonoEndMs = 0;
 
     metric('init_segment', {
       channels: initInfo.channels,
@@ -370,17 +389,37 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         mono.set(result.channelData[0]);
       }
 
-      var chunkOffset = 0;
-      var chunkTimeMs = startTimeMs;
-      while (chunkOffset < totalSamples) {
-        var chunkEnd = Math.min(chunkOffset + CHUNK_SAMPLES, totalSamples);
-        var chunkSamples = chunkEnd - chunkOffset;
-        var chunkDurationMs = chunkSamples / 48;
-        var chunkMono = new Float32Array(mono.buffer, mono.byteOffset + chunkOffset * 4, chunkSamples);
-        sendChunkToSwift(chunkMono, chunkTimeMs);
-        decodedSegments.push({ startTimeMs: chunkTimeMs, durationMs: chunkDurationMs });
-        chunkTimeMs += chunkDurationMs;
-        chunkOffset = chunkEnd;
+      // Append to pending aggregation buffer (smooths out YouTube's micro-segments
+      // — 22% of segments are <100ms which would create choppy playback if sent
+      // directly). We flush full 1s chunks to Swift below.
+      // If non-contiguous (gap or jump in source time), flush the pending buffer
+      // first to avoid mixing chunks with broken timestamps.
+      if (pendingMonoLen > 0 && Math.abs(startTimeMs - pendingMonoEndMs) > 50) {
+        flushPendingMono();
+      }
+      if (pendingMonoLen === 0) {
+        pendingMonoStartMs = startTimeMs;
+      }
+      // Append mono samples to pendingMono (resize if needed)
+      if (pendingMonoLen + totalSamples > pendingMono.length) {
+        var newCap = Math.max(pendingMono.length * 2, pendingMonoLen + totalSamples + CHUNK_SAMPLES);
+        var grown = new Float32Array(newCap);
+        grown.set(pendingMono.subarray(0, pendingMonoLen));
+        pendingMono = grown;
+      }
+      pendingMono.set(mono, pendingMonoLen);
+      pendingMonoLen += totalSamples;
+      pendingMonoEndMs = startTimeMs + durationMs;
+
+      // Flush full 1s chunks while we have enough samples
+      while (pendingMonoLen >= CHUNK_SAMPLES) {
+        var chunkSlice = new Float32Array(pendingMono.buffer, pendingMono.byteOffset, CHUNK_SAMPLES);
+        sendChunkToSwift(chunkSlice, pendingMonoStartMs);
+        decodedSegments.push({ startTimeMs: pendingMonoStartMs, durationMs: 1000 });
+        // Shift remaining samples left
+        pendingMono.copyWithin(0, CHUNK_SAMPLES, pendingMonoLen);
+        pendingMonoLen -= CHUNK_SAMPLES;
+        pendingMonoStartMs += 1000;
       }
 
       if (!isActive) {
