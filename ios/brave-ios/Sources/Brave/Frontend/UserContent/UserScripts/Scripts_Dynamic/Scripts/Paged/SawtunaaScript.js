@@ -463,12 +463,19 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         metric('seek_detected', {
           from_ms: Math.round(lastVideoTimeMs),
           to_ms: Math.round(currentTimeMs),
-          pending_mono_len: pendingMonoLen
+          pending_mono_len: pendingMonoLen,
+          last_estimated_end_ms: Math.round(lastEstimatedEndMs)
         });
         // Flush the pending aggregation buffer to avoid mixing samples from
         // the pre-seek timeline with post-seek samples in the next chunk.
         flushPendingMono();
         decodedSegments = [];
+        // CRITICAL: reset the estimated continuation timestamp. Without this,
+        // post-seek segments arriving with valid ts (e.g. 120s after seeking
+        // to 2:00) would be rejected by the >60s jump validation (because
+        // lastEstimatedEndMs was still ~49s pre-seek), then replaced by the
+        // stale 49s value — corrupting the cache with wrong timestamps.
+        lastEstimatedEndMs = 0;
         send('seekTo', '' + Math.round(currentTimeMs));
       }
       lastVideoTimeMs = currentTimeMs;
