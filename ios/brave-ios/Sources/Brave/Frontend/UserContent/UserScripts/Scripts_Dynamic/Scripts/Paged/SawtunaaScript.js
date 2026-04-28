@@ -299,8 +299,10 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       bytes: buf.byteLength
     });
 
-    // Reset Swift audio player state (offset, chunks) for fresh calibration
-    send('clearChunks');
+    // NOTE: do NOT send clearChunks here. YouTube emits a new init_segment
+    // after each seek (to re-init the Opus decoder), but the audio cache
+    // remains valid for the same video timeline. Clearing it would wipe
+    // chunks the user might come back to (e.g. rewind after seek).
 
     var decoder = new OpusDecoderLib.OpusDecoder({
       channels: initInfo.channels,
@@ -582,25 +584,11 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     });
   }, 500);
 
-  // Periodic cache sync (every 5s): mirror YouTube's audio SourceBuffer
-  // buffered ranges to Swift, so our cache evicts chunks that the browser
-  // silently dropped when the MSE quota was reached (i.e. without a
-  // remove() call we could intercept).
-  setInterval(function() {
-    if (audioBuffers.length === 0) return;
-    var allRanges = [];
-    audioBuffers.forEach(function(sb) {
-      try {
-        for (var i = 0; i < sb.buffered.length; i++) {
-          allRanges.push(
-            Math.round(sb.buffered.start(i) * 1000) + '|' +
-            Math.round(sb.buffered.end(i) * 1000)
-          );
-        }
-      } catch(e) {}
-    });
-    if (allRanges.length > 0) {
-      send('syncRanges', allRanges.join(','));
-    }
-  }, 5000);
+  // NOTE: previously we synced our cache to sb.buffered every 5s, with the
+  // intent to evict chunks the browser silently dropped on MSE quota.
+  // Disabled because YouTube's sb.buffered shrinks aggressively after seeks
+  // (only retains a window around the new position), which would wipe chunks
+  // the user might rewind to. The LRU cap (600 chunks ~10min) is a sufficient
+  // memory safety net. Explicit SourceBuffer.remove() calls still hit our
+  // evictRange handler.
 });
