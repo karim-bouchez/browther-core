@@ -61,6 +61,11 @@ public class SawtunaaAudioPlayer {
   private let preprocessQueue = DispatchQueue(label: "nsnet2.preprocess", qos: .userInteractive)
   private var processedChunks: [(timestampMs: Double, buffer: AVAudioPCMBuffer)] = []
   private var preprocessCount = 0
+  private var isPausedFlag = false
+  // Anchors used to compute audio playback position in source time
+  private var anchorAudioSampleTime: AVAudioFramePosition?
+  private var anchorSourceMs: Double = 0
+  private var lastVideoUpToMs: Double = 0
   private var playedChunkCount = 0
   private var skippedChunkCount = 0
   private var trimmedChunkCount = 0
@@ -157,6 +162,10 @@ public class SawtunaaAudioPlayer {
         [weak self] _ in
         guard let self = self else { return }
         let queuedMs = self.estimateQueuedAudioMs()
+        let audioSrcMs = self.currentAudioSourceMs()
+        // Video current ≈ lastVideoUpToMs - 100 (we add 100 in the JS scheduler)
+        let videoSrcMs = self.lastVideoUpToMs - 100
+        let driftMs: Int = audioSrcMs.map { Int(videoSrcMs - $0) } ?? -99999
         SawtunaaMetric.emit(
           "engine_state",
           [
@@ -164,6 +173,9 @@ public class SawtunaaAudioPlayer {
             "player_playing": self.playerNode.isPlaying,
             "queue_depth": self.processedChunks.count,
             "audio_queued_ms": queuedMs,
+            "audio_src_ms": audioSrcMs.map { Int($0) } ?? -1,
+            "video_src_ms": Int(videoSrcMs),
+            "drift_ms": driftMs,
             "played_total": self.playedChunkCount,
             "skipped_total": self.skippedChunkCount,
             "trimmed_total": self.trimmedChunkCount,
@@ -181,23 +193,47 @@ public class SawtunaaAudioPlayer {
   }
 
   /// Estimate audio milliseconds currently queued in playerNode (scheduled but not yet played).
-  private func estimateQueuedAudioMs() -> Int {
+  /// Not directly queryable on AVAudioPlayerNode without tracking scheduled samples manually.
+  private func estimateQueuedAudioMs() -> Int { -1 }
+
+  /// Anchor the audio playback timeline against a source-time origin.
+  /// Used to compute the source-time position of the audio currently coming
+  /// out of the speakers, and thus measure drift vs video.currentTime.
+  private func anchorPlayback(sourceMs: Double) {
+    guard anchorAudioSampleTime == nil else { return }
     guard let lastRender = playerNode.lastRenderTime,
       let playerTime = playerNode.playerTime(forNodeTime: lastRender)
-    else { return 0 }
-    // playerTime.sampleTime increases as audio is consumed.
-    // We can compute remaining queued as the difference between scheduled samples
-    // and consumed samples. Without tracking scheduled, return -1 to indicate unknown.
-    // Approximation: nothing can be queried directly. Return engine.isRunning as proxy.
-    let _ = playerTime
-    return -1  // not directly queryable on AVAudioPlayerNode
+    else { return }
+    // Use playerTime (player-relative samples), not nodeTime (output-device samples).
+    anchorAudioSampleTime = playerTime.sampleTime
+    anchorSourceMs = sourceMs
+  }
+
+  /// Compute the source-time position of audio currently being rendered.
+  /// Returns nil if the playback hasn't been anchored yet.
+  private func currentAudioSourceMs() -> Double? {
+    guard let anchor = anchorAudioSampleTime,
+      let lastRender = playerNode.lastRenderTime,
+      let playerTime = playerNode.playerTime(forNodeTime: lastRender)
+    else { return nil }
+    let elapsedSamples = playerTime.sampleTime - anchor
+    return anchorSourceMs + Double(elapsedSamples) / 48.0
   }
 
   // MARK: - Pre-processing pipeline
 
   /// Pre-process a mono PCM chunk through NSNet2 on a serial background queue.
   /// The result is stored for later playback via `playChunksUpTo`.
+  /// While paused, drop incoming chunks: the player node keeps its existing
+  /// queue (~5s of audio thanks to lookahead cap), so on resume the audio is
+  /// already in sync with the video position. Newer chunks would only push
+  /// the player ahead of video time when it resumes.
   public func preprocessChunk(samples: [Float], timestampMs: Double) {
+    if isPausedFlag {
+      SawtunaaMetric.emit(
+        "preprocess_drop_paused", ["chunk_ts": Int(timestampMs)])
+      return
+    }
     let receivedAt = CFAbsoluteTimeGetCurrent()
     SawtunaaMetric.emit(
       "chunk_preprocess_start",
@@ -270,13 +306,43 @@ public class SawtunaaAudioPlayer {
       }
     }
 
+    lastVideoUpToMs = upToMs
+
     while !processedChunks.isEmpty {
       let nextTs = processedChunks[0].timestampMs
       let nextEnd = nextTs + Double(processedChunks[0].buffer.frameLength) / 48.0
 
-      // Wait if next chunk is too far in the future (cap lookahead)
+      // Wait if next chunk is too far in the future (lookahead cap).
       if nextTs > upToMs + Self.lookaheadMs {
         return
+      }
+
+      let isFirstChunk = (playedChunkCount == 0)
+
+      // First chunk handling: if it's in the future (after seek/init, YouTube
+      // delivers chunks for video.currentTime + 200ms..2s), insert silence to
+      // align the audio start with the current video position, then schedule
+      // the chunk normally so it plays at the right video time.
+      if isFirstChunk && nextTs > upToMs + 100 {
+        let silentMs = nextTs - upToMs
+        if silentMs > 2000 {
+          // Too far ahead — wait for video to catch up
+          return
+        }
+        let silentFrames = Int(silentMs * 48)
+        if silentFrames > 0,
+          let silence = AVAudioPCMBuffer(
+            pcmFormat: format, frameCapacity: AVAudioFrameCount(silentFrames))
+        {
+          silence.frameLength = AVAudioFrameCount(silentFrames)
+          playerNode.scheduleBuffer(silence)
+          anchorPlayback(sourceMs: upToMs)
+          lastScheduledEndMs = nextTs
+          SawtunaaMetric.emit(
+            "first_chunk_silence_lead",
+            ["silent_ms": Int(silentMs), "video_ms": Int(upToMs), "next_ts": Int(nextTs)])
+          // Fall through to schedule the chunk in this same iteration
+        }
       }
 
       // Skip if entirely in the past
@@ -314,6 +380,8 @@ public class SawtunaaAudioPlayer {
           lastScheduledEndMs = chunk.timestampMs + Double(chunk.buffer.frameLength) / 48.0
           if firstChunkPlayedAt == nil {
             firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
+            // The trimmed chunk's effective start in source time = upToMs
+            anchorPlayback(sourceMs: upToMs)
             SawtunaaMetric.emit(
               "first_chunk_played",
               [
@@ -366,6 +434,7 @@ public class SawtunaaAudioPlayer {
       lastScheduledEndMs = chunk.timestampMs + Double(chunk.buffer.frameLength) / 48.0
       if firstChunkPlayedAt == nil {
         firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
+        anchorPlayback(sourceMs: chunk.timestampMs)
         SawtunaaMetric.emit(
           "first_chunk_played",
           [
@@ -389,19 +458,30 @@ public class SawtunaaAudioPlayer {
   public func pausePlayback() {
     guard isRunning else { return }
     playerNode.pause()
+    isPausedFlag = true
     SawtunaaMetric.emit("pause_audio", [:])
   }
 
   public func resumePlayback() {
     guard isRunning else { return }
+    isPausedFlag = false
+    // PlayerNode resumes its existing queue (still in sync with video time
+    // since we dropped incoming chunks during pause and didn't add new ones).
     playerNode.play()
     SawtunaaMetric.emit("resume_audio", [:])
   }
 
   /// Clear all pre-processed chunks and reset NSNet2 state (on seek or new video).
+  /// Also flushes the player node's scheduled buffers — without this, after a
+  /// seek the player keeps playing up to 5s of stale audio from before the seek.
   public func clearChunks() {
     let prev = processedChunks.count
+    let prevPlayerQueue = playedChunkCount
     processedChunks.removeAll()
+    if isRunning {
+      playerNode.stop()
+      playerNode.play()
+    }
     preprocessCount = 0
     playedChunkCount = 0
     skippedChunkCount = 0
@@ -409,9 +489,12 @@ public class SawtunaaAudioPlayer {
     gapFillCount = 0
     lastScheduledEndMs = 0
     firstChunkPlayedAt = nil
+    anchorAudioSampleTime = nil
+    anchorSourceMs = 0
     preprocessQueue.async { [weak self] in
       self?.nsnet2?.reset()
     }
-    SawtunaaMetric.emit("clear_chunks", ["dropped": prev])
+    SawtunaaMetric.emit(
+      "clear_chunks", ["dropped_swift": prev, "dropped_player_seq": prevPlayerQueue])
   }
 }
