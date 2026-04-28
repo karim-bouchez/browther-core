@@ -64,7 +64,12 @@ public class SawtunaaAudioPlayer {
   private var playedChunkCount = 0
   private var skippedChunkCount = 0
   private var trimmedChunkCount = 0
+  private var gapFillCount = 0
   private var firstChunkPlayedAt: Int?  // session-relative ms
+  // Tracks the source-time end of the last scheduled buffer (in ms relative to
+  // the source timeline). Used to detect timestamp gaps between consecutive
+  // chunks and fill them with silence so audio stays in sync with video.
+  private var lastScheduledEndMs: Double = 0
 
   // Engine state polling
   private var stateTimer: Timer?
@@ -242,8 +247,20 @@ public class SawtunaaAudioPlayer {
     }
   }
 
-  /// Play all pre-processed chunks whose timestamp <= upToMs.
-  /// Trims chunks that start before upToMs to stay in sync with video.
+  /// Play pre-processed chunks, keeping audio in sync with video time.
+  ///
+  /// Strategy:
+  /// - **Lookahead cap** (5s): only schedule chunks whose timestamp is within
+  ///   the next ~5s of video time. Prevents the player queue from accumulating
+  ///   way ahead of video — which would cause the audio to play through and
+  ///   then go silent during YouTube's burst gaps, then resume out of sync.
+  /// - **Skip too-old chunks**: any chunk whose end is >200ms behind video.
+  /// - **Trim partially-old chunks**: if a chunk starts before video time,
+  ///   skip the early samples to resync.
+  /// - **Fill timestamp gaps with silence**: if YouTube emits non-contiguous
+  ///   chunks, insert silence so audio doesn't drift ahead of video.
+  private static let lookaheadMs: Double = 5000
+
   public func playChunksUpTo(_ upToMs: Double) {
     if !isRunning {
       start()
@@ -253,83 +270,100 @@ public class SawtunaaAudioPlayer {
       }
     }
 
-    let initialQueueDepth = processedChunks.count
-    var playedThisCall = 0
+    while !processedChunks.isEmpty {
+      let nextTs = processedChunks[0].timestampMs
+      let nextEnd = nextTs + Double(processedChunks[0].buffer.frameLength) / 48.0
 
-    while !processedChunks.isEmpty && processedChunks[0].timestampMs <= upToMs {
-      let chunk = processedChunks.removeFirst()
-      let chunkDurationMs = Double(chunk.buffer.frameLength) / 48.0
-      let chunkEndMs = chunk.timestampMs + chunkDurationMs
+      // Wait if next chunk is too far in the future (cap lookahead)
+      if nextTs > upToMs + Self.lookaheadMs {
+        return
+      }
 
-      // Skip chunks entirely in the past (ended > 200ms ago)
-      if chunkEndMs < upToMs - 200 {
+      // Skip if entirely in the past
+      if nextEnd < upToMs - 200 {
+        let chunk = processedChunks.removeFirst()
         skippedChunkCount += 1
         SawtunaaMetric.emit(
           "chunk_skip_old",
           [
             "chunk_ts": Int(chunk.timestampMs),
-            "chunk_end_ms": Int(chunkEndMs),
             "video_ms": Int(upToMs),
-            "lag_ms": Int(upToMs - chunkEndMs),
+            "lag_ms": Int(upToMs - nextEnd),
           ])
         continue
       }
 
-      // Trim chunk if it starts significantly before current video time
-      if chunk.timestampMs < upToMs - 100 {
+      // Trim if starts significantly before video time
+      if nextTs < upToMs - 100 {
+        let chunk = processedChunks.removeFirst()
         let skipMs = upToMs - chunk.timestampMs
         let skipSamples = Int(skipMs * 48)
         let totalFrames = Int(chunk.buffer.frameLength)
-        if skipSamples > 0 && skipSamples < totalFrames {
+        if skipSamples > 0 && skipSamples < totalFrames,
+          let trimmed = AVAudioPCMBuffer(
+            pcmFormat: format, frameCapacity: AVAudioFrameCount(totalFrames - skipSamples))
+        {
           let remaining = totalFrames - skipSamples
-          if let trimmed = AVAudioPCMBuffer(
-            pcmFormat: format, frameCapacity: AVAudioFrameCount(remaining)
-          ) {
-            trimmed.frameLength = AVAudioFrameCount(remaining)
-            let src = chunk.buffer.floatChannelData![0]
-            let dst = trimmed.floatChannelData![0]
-            for i in 0..<remaining { dst[i] = src[skipSamples + i] }
-            playerNode.scheduleBuffer(trimmed)
-            playedChunkCount += 1
-            trimmedChunkCount += 1
-            playedThisCall += 1
+          trimmed.frameLength = AVAudioFrameCount(remaining)
+          let src = chunk.buffer.floatChannelData![0]
+          let dst = trimmed.floatChannelData![0]
+          for i in 0..<remaining { dst[i] = src[skipSamples + i] }
+          playerNode.scheduleBuffer(trimmed)
+          playedChunkCount += 1
+          trimmedChunkCount += 1
+          lastScheduledEndMs = chunk.timestampMs + Double(chunk.buffer.frameLength) / 48.0
+          if firstChunkPlayedAt == nil {
+            firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
+            SawtunaaMetric.emit(
+              "first_chunk_played",
+              [
+                "chunk_ts": Int(chunk.timestampMs),
+                "video_ms": Int(upToMs),
+                "trimmed": true,
+                "skip_ms": Int(skipMs),
+              ])
+          } else {
             SawtunaaMetric.emit(
               "chunk_play_trim",
               [
                 "chunk_ts": Int(chunk.timestampMs),
                 "video_ms": Int(upToMs),
                 "skip_ms": Int(skipMs),
-                "remaining_samples": remaining,
-                "play_idx": playedChunkCount,
               ])
-            if firstChunkPlayedAt == nil {
-              firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
-              SawtunaaMetric.emit(
-                "first_chunk_played",
-                [
-                  "chunk_ts": Int(chunk.timestampMs),
-                  "video_ms": Int(upToMs),
-                  "trimmed": true,
-                ])
-            }
-            continue
+          }
+          continue
+        }
+      }
+
+      // Fill timestamp gap with silence (only after first chunk)
+      if playedChunkCount > 0 {
+        let gapMs = nextTs - lastScheduledEndMs
+        if gapMs > 30 && gapMs < 30 * 1000 {
+          let silenceFrames = Int(gapMs * 48)
+          if let silence = AVAudioPCMBuffer(
+            pcmFormat: format, frameCapacity: AVAudioFrameCount(silenceFrames))
+          {
+            silence.frameLength = AVAudioFrameCount(silenceFrames)
+            playerNode.scheduleBuffer(silence)
+            gapFillCount += 1
+            SawtunaaMetric.emit(
+              "gap_fill",
+              [
+                "gap_ms": Int(gapMs),
+                "next_ts": Int(nextTs),
+                "last_end_ms": Int(lastScheduledEndMs),
+                "fill_count": gapFillCount,
+              ])
+            lastScheduledEndMs = nextTs
           }
         }
       }
 
-      // Play full chunk
+      // Schedule the chunk
+      let chunk = processedChunks.removeFirst()
       playerNode.scheduleBuffer(chunk.buffer)
       playedChunkCount += 1
-      playedThisCall += 1
-      SawtunaaMetric.emit(
-        "chunk_play_full",
-        [
-          "chunk_ts": Int(chunk.timestampMs),
-          "video_ms": Int(upToMs),
-          "frames": chunk.buffer.frameLength,
-          "play_idx": playedChunkCount,
-          "lag_ms": Int(upToMs - chunk.timestampMs),
-        ])
+      lastScheduledEndMs = chunk.timestampMs + Double(chunk.buffer.frameLength) / 48.0
       if firstChunkPlayedAt == nil {
         firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
         SawtunaaMetric.emit(
@@ -339,20 +373,17 @@ public class SawtunaaAudioPlayer {
             "video_ms": Int(upToMs),
             "trimmed": false,
           ])
+      } else {
+        SawtunaaMetric.emit(
+          "chunk_play_full",
+          [
+            "chunk_ts": Int(chunk.timestampMs),
+            "video_ms": Int(upToMs),
+            "frames": chunk.buffer.frameLength,
+            "play_idx": playedChunkCount,
+          ])
       }
     }
-
-    // Detect underrun: playAt called but nothing to play AND we've played before
-    if playedThisCall == 0 && playedChunkCount > 0 && processedChunks.isEmpty {
-      SawtunaaMetric.emit(
-        "underrun",
-        [
-          "video_ms": Int(upToMs),
-          "played_total": playedChunkCount,
-        ])
-    }
-
-    let _ = initialQueueDepth
   }
 
   public func pausePlayback() {
@@ -375,6 +406,8 @@ public class SawtunaaAudioPlayer {
     playedChunkCount = 0
     skippedChunkCount = 0
     trimmedChunkCount = 0
+    gapFillCount = 0
+    lastScheduledEndMs = 0
     firstChunkPlayedAt = nil
     preprocessQueue.async { [weak self] in
       self?.nsnet2?.reset()
