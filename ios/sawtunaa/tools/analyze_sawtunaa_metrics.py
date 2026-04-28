@@ -211,6 +211,93 @@ def analyze(events):
         print(f"  Chunks sent to Swift:     {len(sends)}")
     print()
 
+    # Anomalies automatiques — diagnostic clé
+    print("== Anomalies détectées ==")
+    anomalies = []
+
+    # 1. Out-of-order scheduling (chunk N+1.ts < chunk N.ts)
+    play_events = [e for e in events if e.get("event") in ("chunk_play_full", "chunk_play_trim")]
+    prev_ts = -1
+    out_of_order = []
+    for e in play_events:
+        ts = e.get("chunk_ts", 0)
+        if ts < prev_ts:
+            out_of_order.append((e["t"], prev_ts, ts))
+        prev_ts = ts
+    if out_of_order:
+        anomalies.append(f"OUT-OF-ORDER scheduling: {len(out_of_order)} occurrences (e.g. T+{out_of_order[0][0]}ms played ts={out_of_order[0][2]} after ts={out_of_order[0][1]})")
+
+    # 2. Discontinuités scheduling (gap entre fin chunk N et début chunk N+1)
+    discontinuities = []
+    prev_end = -1
+    for e in play_events:
+        ts = e.get("chunk_ts", 0)
+        frames = e.get("frames", e.get("remaining_samples", 48000))
+        end = ts + frames / 48
+        if prev_end > 0 and abs(ts - prev_end) > 100:
+            discontinuities.append((e["t"], prev_end, ts, ts - prev_end))
+        prev_end = end
+    if discontinuities:
+        big_jumps = [d for d in discontinuities if d[3] > 5000]
+        anomalies.append(
+            f"DISCONTINUITIES in scheduling: {len(discontinuities)} (biggest: "
+            f"{[f'{d[3]/1000:.1f}s' for d in sorted(discontinuities, key=lambda x:-abs(x[3]))[:5]]})"
+        )
+        for d in big_jumps[:3]:
+            anomalies.append(
+                f"  → BIG JUMP at T+{d[0]/1000:.1f}s: prev_end={d[1]:.0f}ms next_ts={d[2]:.0f}ms (jump {d[3]/1000:+.1f}s)")
+
+    # 3. Cache holes (zones non couvertes)
+    states_with_holes = [s for s in by_event.get("engine_state", []) if s.get("cache_holes", 0) > 0]
+    if states_with_holes:
+        last_state = states_with_holes[-1]
+        max_holes = max(s.get("cache_holes", 0) for s in states_with_holes)
+        max_hole_ms = max(s.get("cache_hole_ms", 0) for s in states_with_holes)
+        anomalies.append(
+            f"CACHE HOLES detected: max {max_holes} holes ({max_hole_ms}ms total). "
+            f"Last state: {last_state.get('cache_holes')} holes/{last_state.get('cache_hole_ms')}ms"
+        )
+
+    # 4. Cache cleanup destructeur (perte massive)
+    for e in by_event.get("cache_sync_cleanup", []):
+        if e.get("removed", 0) > 5 and e.get("kept", 0) == 0:
+            anomalies.append(
+                f"CACHE WIPED at T+{e['t']/1000:.1f}s: removed={e.get('removed')} kept=0"
+            )
+
+    # 5. clear_chunks après seek_to (le cache aurait dû être préservé)
+    seeks = sorted(by_event.get("seek_to", []), key=lambda e: e["t"])
+    clears = sorted(by_event.get("clear_chunks", []), key=lambda e: e["t"])
+    for seek in seeks:
+        for clear in clears:
+            if 0 < clear["t"] - seek["t"] < 2000 and clear.get("dropped_cache", 0) > 0:
+                anomalies.append(
+                    f"CACHE CLEARED right after seek: T+{seek['t']/1000:.1f}s seek to {seek.get('target_ms')}ms"
+                    f" → T+{clear['t']/1000:.1f}s clear dropped {clear.get('dropped_cache')} chunks"
+                )
+                break
+
+    # 6. Drift cumulatif (tendance dans le temps)
+    drifts_with_t = [(s["t"], s.get("drift_ms")) for s in by_event.get("engine_state", [])
+                     if s.get("drift_ms", -99999) != -99999]
+    if len(drifts_with_t) > 30:
+        first_third = drifts_with_t[: len(drifts_with_t) // 3]
+        last_third = drifts_with_t[-len(drifts_with_t) // 3 :]
+        if first_third and last_third:
+            avg_first = statistics.mean(d for _, d in first_third)
+            avg_last = statistics.mean(d for _, d in last_third)
+            if abs(avg_last - avg_first) > 100:
+                anomalies.append(
+                    f"DRIFT TREND: drift moyen 1/3 début = {avg_first:.0f}ms vs 1/3 fin = {avg_last:.0f}ms (Δ={avg_last - avg_first:+.0f}ms)"
+                )
+
+    if anomalies:
+        for a in anomalies:
+            print(f"  ⚠ {a}")
+    else:
+        print("  ✓ aucune anomalie détectée")
+    print()
+
     # Errors
     print("== Errors / abnormal events ==")
     error_events = [

@@ -462,11 +462,13 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       if (lastVideoTimeMs >= 0 && Math.abs(currentTimeMs - lastVideoTimeMs) > 2000) {
         metric('seek_detected', {
           from_ms: Math.round(lastVideoTimeMs),
-          to_ms: Math.round(currentTimeMs)
+          to_ms: Math.round(currentTimeMs),
+          pending_mono_len: pendingMonoLen
         });
+        // Flush the pending aggregation buffer to avoid mixing samples from
+        // the pre-seek timeline with post-seek samples in the next chunk.
+        flushPendingMono();
         decodedSegments = [];
-        // Use seekTo (preserves the audio cache so we can replay chunks
-        // that YouTube may not re-deliver after seeking into its MSE buffer).
         send('seekTo', '' + Math.round(currentTimeMs));
       }
       lastVideoTimeMs = currentTimeMs;

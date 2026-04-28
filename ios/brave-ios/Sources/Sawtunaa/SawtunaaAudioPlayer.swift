@@ -173,15 +173,40 @@ public class SawtunaaAudioPlayer {
         guard let self = self else { return }
         let queuedMs = self.estimateQueuedAudioMs()
         let audioSrcMs = self.currentAudioSourceMs()
-        // Video current ≈ lastVideoUpToMs - 100 (we add 100 in the JS scheduler)
         let videoSrcMs = self.lastVideoUpToMs - 100
         let driftMs: Int = audioSrcMs.map { Int(videoSrcMs - $0) } ?? -99999
+
+        // Detect holes in the cache: gaps between consecutive chunks > 100ms.
+        // Useful to flag "missing audio" zones the user may experience as silence.
+        var holes = 0
+        var holeMs = 0
+        var cacheFirstTs = -1
+        var cacheLastEnd = -1
+        if !self.audioCache.isEmpty {
+          cacheFirstTs = Int(self.audioCache.first!.timestampMs)
+          cacheLastEnd =
+            Int(self.audioCache.last!.timestampMs + self.audioCache.last!.durationMs)
+          for i in 1..<self.audioCache.count {
+            let prevEnd = self.audioCache[i - 1].timestampMs
+              + self.audioCache[i - 1].durationMs
+            let gap = self.audioCache[i].timestampMs - prevEnd
+            if gap > 100 {
+              holes += 1
+              holeMs += Int(gap)
+            }
+          }
+        }
+
         SawtunaaMetric.emit(
           "engine_state",
           [
             "engine_running": self.engine.isRunning,
             "player_playing": self.playerNode.isPlaying,
             "cache_size": self.audioCache.count,
+            "cache_first_ts": cacheFirstTs,
+            "cache_last_end": cacheLastEnd,
+            "cache_holes": holes,
+            "cache_hole_ms": holeMs,
             "audio_queued_ms": queuedMs,
             "audio_src_ms": audioSrcMs.map { Int($0) } ?? -1,
             "video_src_ms": Int(videoSrcMs),
