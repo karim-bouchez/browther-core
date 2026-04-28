@@ -59,7 +59,12 @@ public class SawtunaaAudioPlayer {
   private var nsnet2: NSNet2Processor?
 
   private let preprocessQueue = DispatchQueue(label: "nsnet2.preprocess", qos: .userInteractive)
-  private var processedChunks: [(timestampMs: Double, buffer: AVAudioPCMBuffer)] = []
+  // Cache of processed chunks, mirroring the contents of YouTube's MSE
+  // SourceBuffer. Chunks are kept after being scheduled so we can re-play
+  // them on seek without depending on YouTube to re-deliver via appendBuffer.
+  // Sorted by timestampMs.
+  private var audioCache: [(timestampMs: Double, durationMs: Double, buffer: AVAudioPCMBuffer)] =
+    []
   private var preprocessCount = 0
   private var isPausedFlag = false
   // Anchors used to compute audio playback position in source time
@@ -71,10 +76,15 @@ public class SawtunaaAudioPlayer {
   private var trimmedChunkCount = 0
   private var gapFillCount = 0
   private var firstChunkPlayedAt: Int?  // session-relative ms
-  // Tracks the source-time end of the last scheduled buffer (in ms relative to
-  // the source timeline). Used to detect timestamp gaps between consecutive
-  // chunks and fill them with silence so audio stays in sync with video.
+  // Tracks the source-time end of the last scheduled buffer (in ms relative
+  // to the source timeline). Used to detect timestamp gaps between
+  // consecutive chunks and fill them with silence so audio stays in sync.
   private var lastScheduledEndMs: Double = 0
+  // Cursor in the audio cache: only chunks with timestampMs > this value are
+  // eligible for scheduling. Strictly increasing per chunk to prevent the
+  // same chunk from being re-scheduled (esp. for chunks shorter than the gap
+  // tolerance, which would re-match against a duration-based cursor).
+  private var scheduledCursorTsMs: Double = -1
 
   // Engine state polling
   private var stateTimer: Timer?
@@ -171,7 +181,7 @@ public class SawtunaaAudioPlayer {
           [
             "engine_running": self.engine.isRunning,
             "player_playing": self.playerNode.isPlaying,
-            "queue_depth": self.processedChunks.count,
+            "cache_size": self.audioCache.count,
             "audio_queued_ms": queuedMs,
             "audio_src_ms": audioSrcMs.map { Int($0) } ?? -1,
             "video_src_ms": Int(videoSrcMs),
@@ -266,8 +276,24 @@ public class SawtunaaAudioPlayer {
       for i in 0..<processed.count { ch0[i] = processed[i] }
 
       let totalMs = Int((CFAbsoluteTimeGetCurrent() - receivedAt) * 1000)
+      let durationMs = Double(processed.count) / 48.0
       DispatchQueue.main.async {
-        self.processedChunks.append((timestampMs: timestampMs, buffer: buffer))
+        // Insert into cache, sorted by timestampMs (deduplicate if exists).
+        let entry = (timestampMs: timestampMs, durationMs: durationMs, buffer: buffer)
+        if let existingIdx = self.audioCache.firstIndex(where: { $0.timestampMs == timestampMs })
+        {
+          self.audioCache[existingIdx] = entry
+        } else if let insertIdx = self.audioCache.firstIndex(where: {
+          $0.timestampMs > timestampMs
+        }) {
+          self.audioCache.insert(entry, at: insertIdx)
+        } else {
+          self.audioCache.append(entry)
+        }
+        // Cap the cache size (LRU-ish): drop oldest if > 600 chunks (~10 min @ 1s/chunk)
+        if self.audioCache.count > 600 {
+          self.audioCache.removeFirst(self.audioCache.count - 600)
+        }
         self.preprocessCount += 1
         SawtunaaMetric.emit(
           "chunk_preprocess_done",
@@ -276,7 +302,7 @@ public class SawtunaaAudioPlayer {
             "nsnet2_ms": nsnet2Ms,
             "total_ms": totalMs,
             "frames": processed.count,
-            "queue_depth": self.processedChunks.count,
+            "cache_size": self.audioCache.count,
             "preprocess_idx": self.preprocessCount,
           ])
       }
@@ -308,9 +334,17 @@ public class SawtunaaAudioPlayer {
 
     lastVideoUpToMs = upToMs
 
-    while !processedChunks.isEmpty {
-      let nextTs = processedChunks[0].timestampMs
-      let nextEnd = nextTs + Double(processedChunks[0].buffer.frameLength) / 48.0
+    // Cursor-based scheduling over the persistent audio cache:
+    // a chunk is a candidate if timestampMs > scheduledCursorTsMs (strict).
+    // After scheduling, scheduledCursorTsMs is set to that chunk's ts so it
+    // can't be picked again. On seek, the cursor is reset so the cache is
+    // re-traversed from the seek target.
+    while let nextIdx = audioCache.firstIndex(where: {
+      $0.timestampMs > scheduledCursorTsMs
+    }) {
+      let next = audioCache[nextIdx]
+      let nextTs = next.timestampMs
+      let nextEnd = nextTs + next.durationMs
 
       // Wait if next chunk is too far in the future (lookahead cap).
       if nextTs > upToMs + Self.lookaheadMs {
@@ -319,15 +353,12 @@ public class SawtunaaAudioPlayer {
 
       let isFirstChunk = (playedChunkCount == 0)
 
-      // First chunk handling: if it's in the future (after seek/init, YouTube
-      // delivers chunks for video.currentTime + 200ms..2s), insert silence to
-      // align the audio start with the current video position, then schedule
-      // the chunk normally so it plays at the right video time.
+      // First chunk silence-lead: if the chunk is in the future (init/seek),
+      // insert silence to align audio_start with video.currentTime.
       if isFirstChunk && nextTs > upToMs + 100 {
         let silentMs = nextTs - upToMs
         if silentMs > 2000 {
-          // Too far ahead — wait for video to catch up
-          return
+          return  // too far ahead, wait
         }
         let silentFrames = Int(silentMs * 48)
         if silentFrames > 0,
@@ -345,47 +376,46 @@ public class SawtunaaAudioPlayer {
         }
       }
 
-      // Skip if entirely in the past
+      // Skip if entirely in the past — advance cursor without removing from cache
       if nextEnd < upToMs - 200 {
-        let chunk = processedChunks.removeFirst()
         skippedChunkCount += 1
         SawtunaaMetric.emit(
           "chunk_skip_old",
           [
-            "chunk_ts": Int(chunk.timestampMs),
+            "chunk_ts": Int(nextTs),
             "video_ms": Int(upToMs),
             "lag_ms": Int(upToMs - nextEnd),
           ])
+        scheduledCursorTsMs = nextTs  // advance cursor past this chunk
         continue
       }
 
       // Trim if starts significantly before video time
       if nextTs < upToMs - 100 {
-        let chunk = processedChunks.removeFirst()
-        let skipMs = upToMs - chunk.timestampMs
+        let skipMs = upToMs - nextTs
         let skipSamples = Int(skipMs * 48)
-        let totalFrames = Int(chunk.buffer.frameLength)
+        let totalFrames = Int(next.buffer.frameLength)
         if skipSamples > 0 && skipSamples < totalFrames,
           let trimmed = AVAudioPCMBuffer(
             pcmFormat: format, frameCapacity: AVAudioFrameCount(totalFrames - skipSamples))
         {
           let remaining = totalFrames - skipSamples
           trimmed.frameLength = AVAudioFrameCount(remaining)
-          let src = chunk.buffer.floatChannelData![0]
+          let src = next.buffer.floatChannelData![0]
           let dst = trimmed.floatChannelData![0]
           for i in 0..<remaining { dst[i] = src[skipSamples + i] }
           playerNode.scheduleBuffer(trimmed)
           playedChunkCount += 1
           trimmedChunkCount += 1
-          lastScheduledEndMs = chunk.timestampMs + Double(chunk.buffer.frameLength) / 48.0
+          lastScheduledEndMs = nextEnd
+          scheduledCursorTsMs = nextTs
           if firstChunkPlayedAt == nil {
             firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
-            // The trimmed chunk's effective start in source time = upToMs
             anchorPlayback(sourceMs: upToMs)
             SawtunaaMetric.emit(
               "first_chunk_played",
               [
-                "chunk_ts": Int(chunk.timestampMs),
+                "chunk_ts": Int(nextTs),
                 "video_ms": Int(upToMs),
                 "trimmed": true,
                 "skip_ms": Int(skipMs),
@@ -394,7 +424,7 @@ public class SawtunaaAudioPlayer {
             SawtunaaMetric.emit(
               "chunk_play_trim",
               [
-                "chunk_ts": Int(chunk.timestampMs),
+                "chunk_ts": Int(nextTs),
                 "video_ms": Int(upToMs),
                 "skip_ms": Int(skipMs),
               ])
@@ -427,18 +457,18 @@ public class SawtunaaAudioPlayer {
         }
       }
 
-      // Schedule the chunk
-      let chunk = processedChunks.removeFirst()
-      playerNode.scheduleBuffer(chunk.buffer)
+      // Schedule the chunk (full)
+      playerNode.scheduleBuffer(next.buffer)
       playedChunkCount += 1
-      lastScheduledEndMs = chunk.timestampMs + Double(chunk.buffer.frameLength) / 48.0
+      lastScheduledEndMs = nextEnd
+      scheduledCursorTsMs = nextTs
       if firstChunkPlayedAt == nil {
         firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
-        anchorPlayback(sourceMs: chunk.timestampMs)
+        anchorPlayback(sourceMs: nextTs)
         SawtunaaMetric.emit(
           "first_chunk_played",
           [
-            "chunk_ts": Int(chunk.timestampMs),
+            "chunk_ts": Int(nextTs),
             "video_ms": Int(upToMs),
             "trimmed": false,
           ])
@@ -446,9 +476,9 @@ public class SawtunaaAudioPlayer {
         SawtunaaMetric.emit(
           "chunk_play_full",
           [
-            "chunk_ts": Int(chunk.timestampMs),
+            "chunk_ts": Int(nextTs),
             "video_ms": Int(upToMs),
-            "frames": chunk.buffer.frameLength,
+            "frames": next.buffer.frameLength,
             "play_idx": playedChunkCount,
           ])
       }
@@ -471,13 +501,11 @@ public class SawtunaaAudioPlayer {
     SawtunaaMetric.emit("resume_audio", [:])
   }
 
-  /// Clear all pre-processed chunks and reset NSNet2 state (on seek or new video).
-  /// Also flushes the player node's scheduled buffers — without this, after a
-  /// seek the player keeps playing up to 5s of stale audio from before the seek.
+  /// Full reset: drop the entire audio cache and reset all state.
+  /// Used on init segment (new video / page reload), NOT on seek (use seekTo).
   public func clearChunks() {
-    let prev = processedChunks.count
-    let prevPlayerQueue = playedChunkCount
-    processedChunks.removeAll()
+    let prev = audioCache.count
+    audioCache.removeAll()
     if isRunning {
       playerNode.stop()
       playerNode.play()
@@ -488,13 +516,78 @@ public class SawtunaaAudioPlayer {
     trimmedChunkCount = 0
     gapFillCount = 0
     lastScheduledEndMs = 0
+    scheduledCursorTsMs = -1
     firstChunkPlayedAt = nil
     anchorAudioSampleTime = nil
     anchorSourceMs = 0
     preprocessQueue.async { [weak self] in
       self?.nsnet2?.reset()
     }
+    SawtunaaMetric.emit("clear_chunks", ["dropped_cache": prev])
+  }
+
+  /// Seek to a new video position. Keeps the audio cache (so we can re-play
+  /// chunks already processed for the seek target if YouTube doesn't re-deliver
+  /// them via appendBuffer). Flushes the player node and resets the playback
+  /// state so the next playChunksUpTo treats it as a fresh start.
+  public func seekTo(toMs: Double) {
+    if isRunning {
+      playerNode.stop()
+      playerNode.play()
+    }
+    // Reset playback state but keep the cache
+    playedChunkCount = 0
+    skippedChunkCount = 0
+    trimmedChunkCount = 0
+    gapFillCount = 0
+    firstChunkPlayedAt = nil
+    anchorAudioSampleTime = nil
+    anchorSourceMs = 0
+    // Position cursors just before toMs so chunks at toMs+ become candidates
+    lastScheduledEndMs = max(0, toMs - 100)
+    scheduledCursorTsMs = max(-1, toMs - 1)
+    // Reset NSNet2 state (the GRU continuity is broken anyway by the seek)
+    preprocessQueue.async { [weak self] in
+      self?.nsnet2?.reset()
+    }
+    let chunksAvailable = audioCache.filter {
+      $0.timestampMs + $0.durationMs > toMs - 200
+        && $0.timestampMs < toMs + Self.lookaheadMs
+    }.count
     SawtunaaMetric.emit(
-      "clear_chunks", ["dropped_swift": prev, "dropped_player_seq": prevPlayerQueue])
+      "seek_to",
+      ["target_ms": Int(toMs), "cache_size": audioCache.count, "available": chunksAvailable])
+  }
+
+  /// Evict chunks whose timestamp falls within [startMs, endMs). Mirrors a
+  /// `SourceBuffer.remove(start, end)` call from YouTube.
+  public func evictRange(startMs: Double, endMs: Double) {
+    let before = audioCache.count
+    audioCache.removeAll {
+      $0.timestampMs >= startMs && $0.timestampMs < endMs
+    }
+    let removed = before - audioCache.count
+    if removed > 0 {
+      SawtunaaMetric.emit(
+        "cache_evict_range",
+        ["start_ms": Int(startMs), "end_ms": Int(endMs), "removed": removed])
+    }
+  }
+
+  /// Drop cached chunks whose timestamp is not contained in any of the given
+  /// ranges. Used to mirror the buffer state of YouTube's MSE SourceBuffer.
+  public func cleanOutsideBuffered(ranges: [(start: Double, end: Double)]) {
+    let before = audioCache.count
+    audioCache.removeAll { chunk in
+      !ranges.contains { range in
+        chunk.timestampMs >= range.start && chunk.timestampMs < range.end
+      }
+    }
+    let removed = before - audioCache.count
+    if removed > 0 {
+      SawtunaaMetric.emit(
+        "cache_sync_cleanup",
+        ["removed": removed, "kept": audioCache.count, "ranges": ranges.count])
+    }
   }
 }

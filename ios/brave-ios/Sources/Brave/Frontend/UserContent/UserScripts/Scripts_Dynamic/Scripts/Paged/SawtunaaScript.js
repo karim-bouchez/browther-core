@@ -339,11 +339,22 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
 
       var durationMs = parsed.packets.length * 20;
       var startTimeMs = parsed.startTimeMs;
-      // Sanity check: reject aberrant timestamps from EBML parser (overflow, etc.)
-      // Valid range: [0, 24h]. Otherwise fall back to estimated continuation.
-      if (startTimeMs < 0 || startTimeMs > 24 * 3600 * 1000 || !isFinite(startTimeMs)) {
+      // Sanity check: EBML parser may produce false positives if 0xE7 appears
+      // inside Opus content (looks like Cluster Timestamp). Reject if out of
+      // range OR if it jumps > 60s from the previous estimated position.
+      var aberrant = startTimeMs < 0 || startTimeMs > 24 * 3600 * 1000 || !isFinite(startTimeMs);
+      if (!aberrant && lastEstimatedEndMs > 0) {
+        var jump = Math.abs(startTimeMs - lastEstimatedEndMs);
+        if (jump > 60000) {
+          aberrant = true;  // > 60s jump suggests false positive
+        }
+      }
+      if (aberrant) {
         if (parsed.startTimeMs !== -1) {
-          metric('invalid_timestamp', { raw: String(parsed.startTimeMs) });
+          metric('invalid_timestamp', {
+            raw: String(parsed.startTimeMs),
+            last_estimated: Math.round(lastEstimatedEndMs)
+          });
         }
         startTimeMs = lastEstimatedEndMs;
       }
@@ -413,7 +424,9 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
           to_ms: Math.round(currentTimeMs)
         });
         decodedSegments = [];
-        send('clearChunks');
+        // Use seekTo (preserves the audio cache so we can replay chunks
+        // that YouTube may not re-deliver after seeking into its MSE buffer).
+        send('seekTo', '' + Math.round(currentTimeMs));
       }
       lastVideoTimeMs = currentTimeMs;
 
@@ -433,11 +446,16 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     return d[0] === 0x1A && d[1] === 0x45 && d[2] === 0xDF && d[3] === 0xA3;
   }
 
-  // ─── Patch SourceBuffer.appendBuffer ───
+  // ─── Patch SourceBuffer.appendBuffer/remove/abort ───
+  // These three methods are how YouTube manipulates its MSE audio buffer.
+  // We mirror them on the Swift side so our cache reflects exactly what
+  // YouTube has in its internal buffer — enabling instant seek into already-
+  // buffered regions.
   function patchSB(sb) {
     if (sbPatched) return;
     try {
       var proto = Object.getPrototypeOf(sb);
+
       var origAppend = proto.appendBuffer;
       proto.appendBuffer = function(data) {
         if (audioBuffers.indexOf(this) >= 0) {
@@ -452,6 +470,28 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         }
         return origAppend.call(this, data);
       };
+
+      var origRemove = proto.remove;
+      if (origRemove) {
+        proto.remove = function(start, end) {
+          if (audioBuffers.indexOf(this) >= 0) {
+            send('evictRange', Math.round(start * 1000) + '|' + Math.round(end * 1000));
+            metric('sb_remove', { start_ms: Math.round(start * 1000), end_ms: Math.round(end * 1000) });
+          }
+          return origRemove.call(this, start, end);
+        };
+      }
+
+      var origAbort = proto.abort;
+      if (origAbort) {
+        proto.abort = function() {
+          if (audioBuffers.indexOf(this) >= 0) {
+            metric('sb_abort', {});
+          }
+          return origAbort.call(this);
+        };
+      }
+
       sbPatched = true;
     } catch(e) {
       LOG('Error patching SB: ' + e.message);
@@ -502,4 +542,26 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       active: isActive
     });
   }, 500);
+
+  // Periodic cache sync (every 5s): mirror YouTube's audio SourceBuffer
+  // buffered ranges to Swift, so our cache evicts chunks that the browser
+  // silently dropped when the MSE quota was reached (i.e. without a
+  // remove() call we could intercept).
+  setInterval(function() {
+    if (audioBuffers.length === 0) return;
+    var allRanges = [];
+    audioBuffers.forEach(function(sb) {
+      try {
+        for (var i = 0; i < sb.buffered.length; i++) {
+          allRanges.push(
+            Math.round(sb.buffered.start(i) * 1000) + '|' +
+            Math.round(sb.buffered.end(i) * 1000)
+          );
+        }
+      } catch(e) {}
+    });
+    if (allRanges.length > 0) {
+      send('syncRanges', allRanges.join(','));
+    }
+  }, 5000);
 });

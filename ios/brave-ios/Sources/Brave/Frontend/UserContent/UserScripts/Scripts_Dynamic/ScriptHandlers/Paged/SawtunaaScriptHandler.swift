@@ -125,6 +125,38 @@ class SawtunaaScriptHandler: TabContentScript {
       isActive = false
       SawtunaaMetric.emit("handler_clear_chunks", [:])
 
+    case "seekTo":
+      if let toMs = Double(data) {
+        audioPlayer?.seekTo(toMs: toMs)
+      }
+
+    case "evictRange":
+      // data = "startMs|endMs"
+      let parts = data.split(separator: "|", maxSplits: 1)
+      if parts.count == 2,
+        let s = Double(parts[0]),
+        let e = Double(parts[1])
+      {
+        audioPlayer?.evictRange(startMs: s, endMs: e)
+      }
+
+    case "syncRanges":
+      // data = "start1|end1,start2|end2,..."
+      let ranges: [(start: Double, end: Double)] = data.split(separator: ",").compactMap {
+        rangeStr in
+        let parts = rangeStr.split(separator: "|", maxSplits: 1)
+        if parts.count == 2,
+          let s = Double(parts[0]),
+          let e = Double(parts[1])
+        {
+          return (start: s, end: e)
+        }
+        return nil
+      }
+      if !ranges.isEmpty {
+        audioPlayer?.cleanOutsideBuffered(ranges: ranges)
+      }
+
     case "pauseAudio":
       audioPlayer?.pausePlayback()
 
