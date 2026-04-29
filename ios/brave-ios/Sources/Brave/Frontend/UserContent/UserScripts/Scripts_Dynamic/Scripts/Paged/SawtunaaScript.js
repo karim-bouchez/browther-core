@@ -376,24 +376,32 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     }, 50);
   }
 
-  // Track whether we've ever received an init segment. When YouTube emits a
-  // new init_segment after the first one, it means the decoder is being
-  // re-initialized — either for a content change (pre-roll ad → main video,
-  // SSAI ad insertion, audio-quality switch) or for a seek in the same
-  // content. Distinguishing the two reliably from JS is hard (init segment
-  // bytes are unreliable: codec params identical for ad and video; Track
-  // UID differs even between seeks of the same video). Pragmatic call:
-  // always drop the Swift cache at every non-first init_segment. The cost
-  // for a same-video seek is just waiting for YouTube to re-deliver the
-  // chunks via appendBuffer (~500ms-1s) — acceptable. The benefit: no
-  // chunks from the previous content can leak into the new content's
-  // playback at overlapping timestamps.
-  var hadInitSegment = false;
+  // Detect content change (pre-roll ad → main video, SSAI insertion, etc.)
+  // vs seek in the same content. We rely on `video.duration` because:
+  //   - pub and main video have different durations → detected
+  //   - seek in the same content keeps duration stable → not detected
+  //   - codec params are identical for ad and video → unreliable signal
+  //   - init segment bytes carry a Track UID that differs even between
+  //     seeks of the same video → false positives
+  // Also need to keep the cache untouched on plain seeks: YouTube only
+  // ever re-delivers chunks via appendBuffer when the seek target is
+  // outside its sb.buffered window (~20-30s on mobile). If we drop the
+  // cache here, a 5s rewind into the YouTube-buffered zone would have no
+  // audio at all (we never get a re-delivery to refill our cache).
+  var lastInitSegDuration = -1;
 
   // ─── Init decoder from init segment ───
   function onInitSegment(buf) {
-    var contentChanged = hadInitSegment;
-    hadInitSegment = true;
+    var v = document.querySelector('video');
+    var currentDuration = (v && isFinite(v.duration) && v.duration > 0)
+      ? v.duration : -1;
+    var prevDuration = lastInitSegDuration;
+    var contentChanged = false;
+    if (prevDuration > 0 && currentDuration > 0
+        && Math.abs(currentDuration - prevDuration) > 2) {
+      contentChanged = true;
+    }
+    if (currentDuration > 0) lastInitSegDuration = currentDuration;
 
     initInfo = parseInitSegment(buf);
     decoderInitializing = true;
@@ -409,8 +417,11 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     pendingMonoEndMs = 0;
 
     if (contentChanged) {
-      metric('init_segment_drop_cache', {});
-      send('pageReset', 'init_segment');
+      metric('content_change_detected', {
+        prev_duration_s: Math.round(prevDuration),
+        new_duration_s: Math.round(currentDuration)
+      });
+      send('pageReset', 'duration_change');
     }
 
     metric('init_segment', {
