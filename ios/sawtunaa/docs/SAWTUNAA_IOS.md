@@ -96,7 +96,8 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 5. **Drop-during-pause** : pendant la pause, on jette les nouveaux chunks NSNet2 (sinon ils s'accumuleraient et prendraient de l'avance au resume).
 6. **Flush au seek + cache LRU** : `seekTo` flush le playerNode mais **garde le cache** (jusqu'à 600 chunks ~10min) pour permettre le seek instantané vers une zone déjà bufferisée.
 7. **PageReset au refresh** : à chaque init du script JS (refresh, restore depuis bfcache, navigation), une action `pageReset` est envoyée à Swift, qui drop le cache et flush le playerNode. Sans ça, l'audio de la page précédente continuerait à jouer par-dessus la nouvelle page (le `SawtunaaScriptHandler` Swift est lié au tab, pas au JS context). Idempotent.
-8. **Epoch counter (anti-race)** : `clearChunks()` incrémente un compteur. Tout chunk en cours de preprocess capture l'epoch au moment du dispatch ; à la complétion, si l'epoch a changé, le chunk est dropé (`stale_epoch`) — sinon on insère un chunk de l'ancienne session dans le cache neuf, recréant le bug "audio en double".
+8. **PageReset au changement de vidéo SPA** : YouTube utilise `history.pushState` pour passer d'une vidéo à l'autre sans recharger la page. Le JS context survit, donc `script_init` ne se redéclenche pas. On hook `pushState`/`replaceState`/`popstate` + polling 250ms : dès que le `v=` de l'URL change, on envoie `pageReset`. Sans ça, les chunks de la nouvelle vidéo arrivent à des timestamps ~0ms qui chevauchent ceux de la vidéo précédente dans le cache → "début de A puis alternance A/B puis B".
+9. **Epoch counter (anti-race)** : `clearChunks()` incrémente un compteur. Tout chunk en cours de preprocess capture l'epoch au moment du dispatch ; à la complétion, si l'epoch a changé, le chunk est dropé (`stale_epoch`) — sinon on insère un chunk de l'ancienne session dans le cache neuf, recréant le bug "audio en double".
 
 ### Cache mirror du buffer YouTube (seek instantané)
 
@@ -166,7 +167,8 @@ Le curseur strict `scheduledCursorTsMs` (timestampMs du dernier chunk schedulé)
 | Drop-during-pause + flush au seek + métrique drift | `631a7378008` | Pause/resume sans drift, drift mesuré objectivement |
 | Cache mirror buffer YouTube + curseur strict | `1646d390c4f` | Seek instantané dans zone bufferisée. Fix bug OOM (chunks courts re-scheduled en boucle). Fix EBML false positive (0xE7 dans Opus → ts ~30min) |
 | Reset `lastEstimatedEndMs` au seek lointain | `f8fda3586fb` | Fix zone morte après seek vers une position non bufferisée (>60s). Le validateur jump>60s rejetait à tort les ts post-seek valides |
-| `pageReset` action JS→Swift + epoch counter | (en cours) | Fix bug "audio en double après refresh" : Swift drop son cache à chaque init du script JS. Epoch counter empêche les chunks en flight d'une ancienne session de polluer le cache neuf |
+| `pageReset` action JS→Swift + epoch counter | `58bae2fa91b` | Fix bug "audio en double après refresh" : Swift drop son cache à chaque init du script JS. Epoch counter empêche les chunks en flight d'une ancienne session de polluer le cache neuf |
+| `pageReset` au video change SPA (pushState hook) | (en cours) | Fix bug "début vidéo A puis alternance A/B puis B" : détection du `v=` qui change → pageReset instantané (pushState/replaceState/popstate hooks + polling 250ms) |
 
 ## Limitations connues
 

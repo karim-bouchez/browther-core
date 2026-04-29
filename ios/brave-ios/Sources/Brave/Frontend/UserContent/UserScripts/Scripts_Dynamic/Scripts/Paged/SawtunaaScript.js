@@ -63,16 +63,72 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   send('pageReset', location.href);
   metric('page_reset_sent', { url: location.href });
 
-  // Track URL changes (SPA navigation inside YouTube). We don't drop the cache
-  // on these (the same video timeline may continue), but logging helps when
-  // diagnosing "audio from previous video" reports.
+  // Extract the YouTube video id from a URL — used to detect a true video
+  // change vs an in-page state update (timestamp param, sidebar open, etc.)
+  // that should NOT trigger a cache reset.
+  function extractVideoId(url) {
+    if (!url) return null;
+    var m = /[?&]v=([^&#]+)/.exec(url);
+    if (m) return m[1];
+    m = /youtu\.be\/([^?&#\/]+)/.exec(url);
+    if (m) return m[1];
+    m = /\/shorts\/([^?&#\/]+)/.exec(url);
+    if (m) return m[1];
+    m = /\/embed\/([^?&#\/]+)/.exec(url);
+    if (m) return m[1];
+    return null;
+  }
+
+  // Track URL/video-id changes. SPA navigation on YouTube changes the URL
+  // via history.pushState/replaceState (and popstate on back/forward), all
+  // without re-creating the JS context — so our pageReset would never fire
+  // from script_init or pagehide. We hook those three APIs (script runs at
+  // atDocumentStart so we override them before any YouTube script can store
+  // a reference). When the video id actually changes (A -> B), we send
+  // pageReset so Swift drops the previous video's cache. Without this, B's
+  // chunks arrive at timestamps near 0ms and collide with A's chunks at the
+  // same timestamps in the cache — causing the "first ms of A then
+  // alternating A/B then B" bug.
   var __sawtunaaLastUrl = location.href;
-  setInterval(function() {
-    if (location.href !== __sawtunaaLastUrl) {
-      metric('url_changed', { from: __sawtunaaLastUrl, to: location.href });
-      __sawtunaaLastUrl = location.href;
+  var __sawtunaaLastVideoId = extractVideoId(location.href);
+  function onUrlChangeCheck() {
+    var newUrl = location.href;
+    if (newUrl === __sawtunaaLastUrl) return;
+    var newVideoId = extractVideoId(newUrl);
+    var videoChanged = newVideoId !== __sawtunaaLastVideoId;
+    metric('url_changed', {
+      from: __sawtunaaLastUrl,
+      to: newUrl,
+      from_video: __sawtunaaLastVideoId,
+      to_video: newVideoId,
+      video_changed: videoChanged
+    });
+    __sawtunaaLastUrl = newUrl;
+    if (videoChanged) {
+      __sawtunaaLastVideoId = newVideoId;
+      send('pageReset', 'video_change:' + (newVideoId || 'null'));
+      metric('video_change_reset', { video_id: newVideoId });
     }
-  }, 1000);
+  }
+  try {
+    var origPush = history.pushState;
+    history.pushState = function() {
+      var ret = origPush.apply(this, arguments);
+      try { onUrlChangeCheck(); } catch(e) {}
+      return ret;
+    };
+    var origReplace = history.replaceState;
+    history.replaceState = function() {
+      var ret = origReplace.apply(this, arguments);
+      try { onUrlChangeCheck(); } catch(e) {}
+      return ret;
+    };
+    window.addEventListener('popstate', function() {
+      try { onUrlChangeCheck(); } catch(e) {}
+    });
+  } catch(e) {
+    metric('history_hook_error', { msg: e.message });
+  }
 
   // pagehide fires before the page goes into bfcache or is unloaded. Mirror
   // it so the Swift side can drop stale audio if the user navigates away.
