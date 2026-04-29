@@ -290,7 +290,8 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   }
 
   // ─── Send mono PCM chunk to Swift for NSNet2 processing ───
-  var chunkSendCount = 0;
+  // No per-chunk log here: each chunk is already traced by Swift's
+  // chunk_preprocess_done. Only error path emits a metric.
   function sendChunkToSwift(monoChunk, timestampMs) {
     try {
       var binary = '';
@@ -300,12 +301,6 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       }
       var b64 = btoa(binary);
       send('preprocess', Math.round(timestampMs) + '|' + b64);
-      chunkSendCount++;
-      metric('chunk_send', {
-        chunk_ts: Math.round(timestampMs),
-        samples: monoChunk.length,
-        idx: chunkSendCount
-      });
     } catch(e) {
       metric('chunk_send_error', { msg: e.message });
     }
@@ -383,22 +378,19 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
 
   // Cheap content-fingerprint of an init segment. Used to detect when
   // YouTube switches to a different stream (pre-roll ad → main video, or
-  // an audio-quality change). Same content typically produces byte-identical
-  // init segments (same OpusHead, same trackUID, etc.); a different content
-  // produces a different one. We only compare two consecutive ones — an
-  // exact match means "decoder re-init for seek/resume in same stream"
-  // (cache must be kept), a mismatch means "new content" (cache must be
-  // dropped to avoid mixing the previous stream's chunks at overlapping
-  // timestamps with the new stream's chunks — the "ad audio keeps playing
-  // after Skip Ad" bug).
+  // an audio-quality change). We only fingerprint the first 24 bytes —
+  // those contain the EBML header, codec ID and OpusHead which are stable
+  // for a given stream. The tail of the init segment contains a Track UID
+  // that changes between seeks of the same content (false positives),
+  // so we explicitly avoid it. Total length alone is unreliable too
+  // (compression varies). Two consecutive matches → same stream (cache
+  // preserved); mismatch → new content → cache drop via pageReset.
   var lastInitSegHash = null;
   function hashInitSeg(buf) {
     var d = new Uint8Array(buf);
-    var n = d.byteLength;
-    var hash = n.toString(16);
-    var sample = Math.min(32, n);
-    for (var i = 0; i < sample; i++) hash += '_' + d[i];
-    for (var i = n - sample; i < n; i++) hash += '_' + d[i];
+    var n = Math.min(24, d.byteLength);
+    var hash = '';
+    for (var i = 0; i < n; i++) hash += '_' + d[i];
     return hash;
   }
 
@@ -706,7 +698,10 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
 
   metric('mse_hooks_installed', {});
 
-  // Periodic video state polling (every 500ms)
+  // Periodic video state polling. 2s is enough to catch state transitions
+  // for diagnostics (paused, readyState changes); the engine_state poll on
+  // the Swift side runs at 1Hz so we already have fine-grained sync data.
+  // Going faster here just spams the log without adding signal.
   setInterval(function() {
     var v = document.querySelector('video');
     if (!v) return;
@@ -726,7 +721,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       ready_chunks: decodedSegments.length,
       active: isActive
     });
-  }, 500);
+  }, 2000);
 
   // NOTE: previously we synced our cache to sb.buffered every 5s, with the
   // intent to evict chunks the browser silently dropped on MSE quota.

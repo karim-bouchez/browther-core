@@ -276,13 +276,9 @@ public class SawtunaaAudioPlayer {
     }
     let receivedAt = CFAbsoluteTimeGetCurrent()
     let chunkEpoch = epoch
-    SawtunaaMetric.emit(
-      "chunk_preprocess_start",
-      [
-        "chunk_ts": Int(timestampMs),
-        "samples": samples.count,
-        "epoch": Int(chunkEpoch),
-      ])
+    // No chunk_preprocess_start emit: chunk_preprocess_done arrives
+    // shortly after with all the same info plus the result. Saves
+    // ~1 log line per chunk (a third of all log volume).
     preprocessQueue.async { [weak self] in
       guard let self = self, let nsnet2 = self.nsnet2 else {
         SawtunaaMetric.emit(
@@ -349,6 +345,7 @@ public class SawtunaaAudioPlayer {
             "frames": processed.count,
             "cache_size": self.audioCache.count,
             "preprocess_idx": self.preprocessCount,
+            "epoch": Int(chunkEpoch),
           ])
       }
     }

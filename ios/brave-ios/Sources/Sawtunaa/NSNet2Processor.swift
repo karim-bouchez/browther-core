@@ -252,13 +252,10 @@ public class NSNet2Processor {
       synthesisOverlap[i] = synthesized[Self.N_HOP + i]
     }
 
-    // Perf logging (every 100 frames)
+    // Per-frame perf is already aggregated per-chunk via chunk_preprocess_done
+    // (nsnet2_ms field) — no per-100-frames print needed.
     frameCount += 1
     totalProcessMs += (CFAbsoluteTimeGetCurrent() - t0) * 1000.0
-    if frameCount % 100 == 0 {
-      let avg = totalProcessMs / Double(frameCount)
-      print("[\(Self.TAG)] Avg frame: \(String(format: "%.2f", avg))ms (\(frameCount) frames)")
-    }
 
     return output
   }

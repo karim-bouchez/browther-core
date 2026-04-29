@@ -169,7 +169,8 @@ Le curseur strict `scheduledCursorTsMs` (timestampMs du dernier chunk schedulé)
 | Reset `lastEstimatedEndMs` au seek lointain | `f8fda3586fb` | Fix zone morte après seek vers une position non bufferisée (>60s). Le validateur jump>60s rejetait à tort les ts post-seek valides |
 | `pageReset` action JS→Swift + epoch counter | `58bae2fa91b` | Fix bug "audio en double après refresh" : Swift drop son cache à chaque init du script JS. Epoch counter empêche les chunks en flight d'une ancienne session de polluer le cache neuf |
 | `pageReset` au video change SPA (pushState hook) | `6f8d2af303d` | Fix bug "début vidéo A puis alternance A/B puis B" : détection du `v=` qui change → pageReset instantané (pushState/replaceState/popstate hooks) |
-| `pageReset` au content change (init_segment hash) | (en cours) | Fix bug "audio de pub continue après Skip Ad" : compare les init_segments consécutifs ; si différents → contenu changé (pre-roll ad → vidéo principale, ou changement de stream) → pageReset |
+| `pageReset` au content change (init_segment hash) | `fb9adcb54f3` | Fix bug "audio de pub continue après Skip Ad" : compare les init_segments consécutifs ; si différents → contenu changé (pre-roll ad → vidéo principale, ou changement de stream) → pageReset |
+| Hash plus robuste (24 premiers bytes seulement) + logs réduits | (en cours) | Le hash incluait la queue (Track UID variable) → faux positifs à chaque seek, drop de cache injustifié. Restreint aux 24 premiers bytes (EBML header + codec params, stables). Logs : suppression `chunk_send` (JS) + `chunk_preprocess_start` (Swift) + `Avg frame` (NSNet2) ; `video_state` ralenti de 500ms à 2s. Réduction ~280 events/min |
 
 ## Limitations connues
 
