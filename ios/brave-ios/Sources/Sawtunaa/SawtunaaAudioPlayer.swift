@@ -289,6 +289,22 @@ public class SawtunaaAudioPlayer {
           ])
         return
       }
+      // Early-exit: if a clearChunks/pageReset happened while this chunk
+      // was waiting in the preprocess queue, abort BEFORE running NSNet2.
+      // Otherwise we'd waste ~280ms processing a chunk we'll drop later
+      // anyway — and 15+ chunks in flight at once × 280ms = ~5s of dead
+      // audio after every reset (visible as `chunk_skip_old` cascade).
+      if chunkEpoch != self.epoch {
+        SawtunaaMetric.emit(
+          "chunk_preprocess_drop",
+          [
+            "chunk_ts": Int(timestampMs),
+            "reason": "stale_epoch_pre",
+            "chunk_epoch": Int(chunkEpoch),
+            "current_epoch": Int(self.epoch),
+          ])
+        return
+      }
       let t0 = CFAbsoluteTimeGetCurrent()
       let processed = nsnet2.process(samples)
       let nsnet2Ms = Int((CFAbsoluteTimeGetCurrent() - t0) * 1000)

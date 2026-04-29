@@ -376,29 +376,24 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     }, 50);
   }
 
-  // Cheap content-fingerprint of an init segment. Used to detect when
-  // YouTube switches to a different stream (pre-roll ad → main video, or
-  // an audio-quality change). We only fingerprint the first 24 bytes —
-  // those contain the EBML header, codec ID and OpusHead which are stable
-  // for a given stream. The tail of the init segment contains a Track UID
-  // that changes between seeks of the same content (false positives),
-  // so we explicitly avoid it. Total length alone is unreliable too
-  // (compression varies). Two consecutive matches → same stream (cache
-  // preserved); mismatch → new content → cache drop via pageReset.
-  var lastInitSegHash = null;
-  function hashInitSeg(buf) {
-    var d = new Uint8Array(buf);
-    var n = Math.min(24, d.byteLength);
-    var hash = '';
-    for (var i = 0; i < n; i++) hash += '_' + d[i];
-    return hash;
-  }
+  // Track whether we've ever received an init segment. When YouTube emits a
+  // new init_segment after the first one, it means the decoder is being
+  // re-initialized — either for a content change (pre-roll ad → main video,
+  // SSAI ad insertion, audio-quality switch) or for a seek in the same
+  // content. Distinguishing the two reliably from JS is hard (init segment
+  // bytes are unreliable: codec params identical for ad and video; Track
+  // UID differs even between seeks of the same video). Pragmatic call:
+  // always drop the Swift cache at every non-first init_segment. The cost
+  // for a same-video seek is just waiting for YouTube to re-deliver the
+  // chunks via appendBuffer (~500ms-1s) — acceptable. The benefit: no
+  // chunks from the previous content can leak into the new content's
+  // playback at overlapping timestamps.
+  var hadInitSegment = false;
 
   // ─── Init decoder from init segment ───
   function onInitSegment(buf) {
-    var newHash = hashInitSeg(buf);
-    var contentChanged = lastInitSegHash !== null && lastInitSegHash !== newHash;
-    lastInitSegHash = newHash;
+    var contentChanged = hadInitSegment;
+    hadInitSegment = true;
 
     initInfo = parseInitSegment(buf);
     decoderInitializing = true;
@@ -414,8 +409,8 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     pendingMonoEndMs = 0;
 
     if (contentChanged) {
-      metric('init_seg_content_change', { hash: newHash });
-      send('pageReset', 'init_seg_content_change');
+      metric('init_segment_drop_cache', {});
+      send('pageReset', 'init_segment');
     }
 
     metric('init_segment', {
