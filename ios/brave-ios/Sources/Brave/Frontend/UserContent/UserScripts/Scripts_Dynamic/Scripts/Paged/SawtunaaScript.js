@@ -381,8 +381,33 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     }, 50);
   }
 
+  // Cheap content-fingerprint of an init segment. Used to detect when
+  // YouTube switches to a different stream (pre-roll ad → main video, or
+  // an audio-quality change). Same content typically produces byte-identical
+  // init segments (same OpusHead, same trackUID, etc.); a different content
+  // produces a different one. We only compare two consecutive ones — an
+  // exact match means "decoder re-init for seek/resume in same stream"
+  // (cache must be kept), a mismatch means "new content" (cache must be
+  // dropped to avoid mixing the previous stream's chunks at overlapping
+  // timestamps with the new stream's chunks — the "ad audio keeps playing
+  // after Skip Ad" bug).
+  var lastInitSegHash = null;
+  function hashInitSeg(buf) {
+    var d = new Uint8Array(buf);
+    var n = d.byteLength;
+    var hash = n.toString(16);
+    var sample = Math.min(32, n);
+    for (var i = 0; i < sample; i++) hash += '_' + d[i];
+    for (var i = n - sample; i < n; i++) hash += '_' + d[i];
+    return hash;
+  }
+
   // ─── Init decoder from init segment ───
   function onInitSegment(buf) {
+    var newHash = hashInitSeg(buf);
+    var contentChanged = lastInitSegHash !== null && lastInitSegHash !== newHash;
+    lastInitSegHash = newHash;
+
     initInfo = parseInitSegment(buf);
     decoderInitializing = true;
     pendingSegments = [];
@@ -395,6 +420,11 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     pendingMonoLen = 0;
     pendingMonoStartMs = 0;
     pendingMonoEndMs = 0;
+
+    if (contentChanged) {
+      metric('init_seg_content_change', { hash: newHash });
+      send('pageReset', 'init_seg_content_change');
+    }
 
     metric('init_segment', {
       channels: initInfo.channels,

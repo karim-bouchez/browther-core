@@ -40,6 +40,7 @@ LIFECYCLE_EVENTS = [
     "visibility_change",
     "url_changed",
     "video_change_reset",
+    "init_seg_content_change",
     "init_segment",
     "decoder_ready",
     "decoder_error",
