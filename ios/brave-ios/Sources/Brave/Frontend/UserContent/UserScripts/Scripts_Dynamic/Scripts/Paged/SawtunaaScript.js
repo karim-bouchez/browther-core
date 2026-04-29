@@ -130,6 +130,30 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     metric('history_hook_error', { msg: e.message });
   }
 
+  // ─── User mark gesture (debug) ───
+  // 3-finger touch on the screen emits a `user_mark` metric with the
+  // current video time and URL. Lets the user flag the precise moment
+  // they observed a bug (audio glitch, sync issue, …) for later analysis
+  // — instead of having to describe the symptom by hand.
+  // Capture phase + non-passive listener so YouTube can't preventDefault.
+  try {
+    var __sawtunaaLastMarkAt = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.touches || e.touches.length !== 3) return;
+      var now = Date.now();
+      // Debounce: a single 3-finger touch fires multiple touchstart events
+      // as fingers land sequentially. Only emit one mark per ~1s window.
+      if (now - __sawtunaaLastMarkAt < 1000) return;
+      __sawtunaaLastMarkAt = now;
+      var v = document.querySelector('video');
+      metric('user_mark', {
+        video_ms: v ? Math.round(v.currentTime * 1000) : -1,
+        url: location.href,
+        cache_chunks: decodedSegments.length
+      });
+    }, { capture: true, passive: true });
+  } catch(e) {}
+
   // pagehide fires before the page goes into bfcache or is unloaded. Mirror
   // it so the Swift side can drop stale audio if the user navigates away.
   try {

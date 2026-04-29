@@ -41,6 +41,7 @@ LIFECYCLE_EVENTS = [
     "url_changed",
     "video_change_reset",
     "content_change_detected",
+    "user_mark",
     "init_segment",
     "decoder_ready",
     "decoder_error",
@@ -576,6 +577,59 @@ def analyze(events, full_lifecycle=False):
         f"{len(pauses)} pause, {len(resumes)} resume"
     )
     print()
+
+    # User marks (3-finger touch — debug gesture flagging "I heard a glitch here")
+    marks = by_event.get("user_mark", [])
+    if marks:
+        print("== User marks (zoom around each glitch flagged by user) ==")
+        print(f"  {len(marks)} mark(s) total")
+        for i, mark in enumerate(marks, 1):
+            mark_t = mark["t"]
+            print()
+            print(
+                f"  Mark #{i} @ T+{mark_t/1000:.1f}s  video_ms={mark.get('video_ms', '?')} "
+                f"cache_chunks={mark.get('cache_chunks', '?')}"
+            )
+            # Show events ±3s around the mark (focusing on issues like gap_fill,
+            # underrun, drift spikes, skip)
+            window_start = mark_t - 3000
+            window_end = mark_t + 1000
+            relevant_events = (
+                "gap_fill",
+                "underrun",
+                "chunk_skip_old",
+                "chunk_play_trim",
+                "video_paused",
+                "video_resumed",
+                "seek_detected",
+                "init_segment",
+                "engine_state",
+            )
+            zoom = [
+                e
+                for e in events
+                if window_start <= e["t"] <= window_end
+                and e.get("event") in relevant_events
+            ]
+            if zoom:
+                print(f"    Events in [-3s, +1s]:")
+                for e in zoom[:25]:
+                    delta = e["t"] - mark_t
+                    sign = "+" if delta >= 0 else ""
+                    ev = e.get("event", "?")
+                    if ev == "engine_state":
+                        # Only show drift, cache_holes
+                        print(
+                            f"      {sign}{delta}ms  engine_state  "
+                            f"drift={e.get('drift_ms', '?')}ms  "
+                            f"cache_holes={e.get('cache_holes', 0)}/{e.get('cache_hole_ms', 0)}ms"
+                        )
+                    else:
+                        kvs = fmt_kvs(e)
+                        print(f"      {sign}{delta}ms  {ev}  {kvs}")
+            else:
+                print(f"    No relevant events in window")
+        print()
 
     # Anomalies
     print("== Anomalies détectées ==")

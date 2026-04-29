@@ -172,7 +172,8 @@ Le curseur strict `scheduledCursorTsMs` (timestampMs du dernier chunk schedulé)
 | `pageReset` au content change (init_segment hash) | `fb9adcb54f3` | Fix bug "audio de pub continue après Skip Ad" : compare les init_segments consécutifs ; si différents → contenu changé (pre-roll ad → vidéo principale, ou changement de stream) → pageReset |
 | Hash plus robuste (24 premiers bytes seulement) + logs réduits | `e586bff5b7d` | Le hash incluait la queue (Track UID variable) → faux positifs à chaque seek, drop de cache injustifié. Restreint aux 24 premiers bytes (EBML header + codec params, stables). Logs : suppression `chunk_send` (JS) + `chunk_preprocess_start` (Swift) + `Avg frame` (NSNet2) ; `video_state` ralenti de 500ms à 2s. Réduction ~280 events/min |
 | Drop systématique au init_segment + early-exit epoch | `3b1ef74e975` | Tentative initiale qui cassait les seeks courts dans la zone YouTube-buffered (~20-30s). Repris : voir ligne suivante. Early-exit epoch conservé. |
-| Détection content change via `video.duration` | (en cours) | Au lieu de drop le cache à chaque init_segment, on observe `video.duration` au moment du init_segment. Si la durée change >2s vs précédente → contenu différent (pub→vidéo, etc.) → pageReset. Sinon → seek dans le même contenu → cache préservé (donc seek instantané dans zone bufferisée préservé) |
+| Détection content change via `video.duration` | `c8c04a99fea` | Au lieu de drop le cache à chaque init_segment, on observe `video.duration` au moment du init_segment. Si la durée change >2s vs précédente → contenu différent (pub→vidéo, etc.) → pageReset. Sinon → seek dans le même contenu → cache préservé (donc seek instantané dans zone bufferisée préservé) |
+| User mark via 3-finger touch | (en cours) | Pour signaler à l'analyzer un moment précis où l'utilisateur a observé un bug (audio haché, désync). Toucher l'écran à 3 doigts simultanés → `user_mark` event. L'analyzer affiche une section "User marks" avec les events ±3s autour de chaque mark (gap_fill, underrun, drift, etc.) |
 
 ## Limitations connues
 
@@ -221,6 +222,17 @@ Tous les events clés sont logués au format `[METRIC] {json}` :
 - `handler_clear_chunks` — action clearChunks reçue
 - `clear_chunks` — cache nettoyé (epoch incrémenté)
 - `seek_to` — seek (cache préservé)
+
+### Marquer un bug observé (geste 3 doigts)
+
+Les bugs aléatoires (audio qui disparaît, hachure soudaine) sont durs à reproduire à la demande. Solution : **3 doigts simultanés sur l'écran** → emit un `user_mark` event dans le log avec `video_ms` et URL. L'analyzer Python affiche une section "User marks" avec les events `gap_fill`, `underrun`, `drift`, etc. dans une fenêtre ±3s autour de chaque mark.
+
+Procédure :
+1. Lancer la capture des logs (`xcrun devicectl ... | tee /tmp/sawtunaa.log`)
+2. Reproduire (ou attendre) le bug
+3. Au moment exact où tu l'entends → 3 doigts sur l'écran (zone non-interactive de la vidéo)
+4. Stopper la capture (Ctrl+C)
+5. `python3 analyze_sawtunaa_metrics.py /tmp/sawtunaa.log` — la section "User marks" zoome sur tes marks
 
 ### Étape 2 : Scénario de test reproductible
 
