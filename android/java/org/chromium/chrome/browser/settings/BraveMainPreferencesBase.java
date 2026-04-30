@@ -378,11 +378,9 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
             setPreferenceOrder(PREF_USE_CUSTOM_TABS, ++generalOrder);
         }
 
-        if (ChromeFeatureList.isEnabled(BraveFeatureList.BRAVE_ORIGIN)) {
-            setPreferenceOrder(PREF_BRAVE_ORIGIN, ++generalOrder);
-        } else {
-            removePreferenceIfPresent(PREF_BRAVE_ORIGIN);
-        }
+        // Browther: Brave Origin (paywall) disabled
+        // (was: if (ChromeFeatureList.isEnabled(BraveFeatureList.BRAVE_ORIGIN)))
+        removePreferenceIfPresent(PREF_BRAVE_ORIGIN);
 
         int displaySectionOrder = generalOrder;
         setPreferenceOrder(PREF_DISPLAY_SECTION, ++displaySectionOrder);

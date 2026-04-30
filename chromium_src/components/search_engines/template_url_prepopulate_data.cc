@@ -35,8 +35,13 @@ int GetDataVersion(PrefService* prefs) {
   return (data_version + kBraveCurrentDataVersion);
 }
 
-// Chromium picks Google (if on the list, otherwise the first prepopulated on
-// the list). We should return the default engine by country, or Brave.
+// Browther: forcer Google par défaut (laisser l'utilisateur changer ensuite via
+// les settings). Ordre de fallback : Google → engine régional default → Brave →
+// premier de la liste.
+//
+// Note : on ignore default_engine_id (qui est Brave Search pour la plupart des
+// régions chez Brave). Si Google est dispo on le prend, sinon on retombe sur
+// le comportement original.
 std::unique_ptr<TemplateURLData> GetPrepopulatedFallbackSearch(
     BravePrepopulatedEngineID default_engine_id,
     PrefService& prefs,
@@ -48,22 +53,33 @@ std::unique_ptr<TemplateURLData> GetPrepopulatedFallbackSearch(
     return nullptr;
   }
 
+  // Browther: prepopulate_id 1 = Google (cf. upstream prepopulated_engines.json).
+  constexpr int kGoogleEngineId = 1;
+
+  std::unique_ptr<TemplateURLData> google_engine;
+  std::unique_ptr<TemplateURLData> default_engine;
   std::unique_ptr<TemplateURLData> brave_engine;
   for (auto& engine : prepopulated_engines) {
-    if (engine->prepopulate_id == static_cast<int>(default_engine_id)) {
-      return std::move(engine);
+    if (engine->prepopulate_id == kGoogleEngineId) {
+      google_engine = std::move(engine);
+    } else if (engine->prepopulate_id == static_cast<int>(default_engine_id)) {
+      default_engine = std::move(engine);
     } else if (engine->prepopulate_id ==
                TemplateURLPrepopulateData::PREPOPULATED_ENGINE_ID_BRAVE) {
       brave_engine = std::move(engine);
     }
   }
 
-  // Default engine wasn't found, then return Brave, if found.
+  // Browther: priorité Google.
+  if (google_engine) {
+    return google_engine;
+  }
+  if (default_engine) {
+    return default_engine;
+  }
   if (brave_engine) {
     return brave_engine;
   }
-
-  // If all else fails, return the first engine on the list.
   return std::move(prepopulated_engines[0]);
 }
 

@@ -199,6 +199,8 @@ class BraveDropdownItemViewInfoListBuilder extends DropdownItemViewInfoListBuild
     }
 
     private boolean isBraveSearchPromoBanner() {
+        // Browther: Brave Search omnibox promo banner disabled
+        if (true) return false;
         Tab activeTab = mActivityTabSupplier.get();
         if (ChromeFeatureList.isEnabled(BraveFeatureList.BRAVE_SEARCH_OMNIBOX_BANNER)
                 && mUrlBarEditingTextProvider != null
