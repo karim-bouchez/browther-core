@@ -108,23 +108,22 @@ public class BraveSetDefaultBrowserUtilsTest {
     @Test
     @SmallTest
     public void testBravePackageNames_AreCorrectlyDefined() {
-        // This test verifies the Brave package name constants are properly defined
-        // and match the expected format.
+        // Browther: package names rebrandés com.brave.browser* → com.devndin.browther*
         assertEquals(
-                "Production package name should be com.brave.browser",
-                "com.brave.browser",
+                "Production package name should be com.devndin.browther",
+                "com.devndin.browther",
                 BraveConstants.BRAVE_PRODUCTION_PACKAGE_NAME);
         assertEquals(
-                "Beta package name should be com.brave.browser_beta",
-                "com.brave.browser_beta",
+                "Beta package name should be com.devndin.browther_beta",
+                "com.devndin.browther_beta",
                 BraveConstants.BRAVE_BETA_PACKAGE_NAME);
         assertEquals(
-                "Nightly package name should be com.brave.browser_nightly",
-                "com.brave.browser_nightly",
+                "Nightly package name should be com.devndin.browther_nightly",
+                "com.devndin.browther_nightly",
                 BraveConstants.BRAVE_NIGHTLY_PACKAGE_NAME);
         assertEquals(
-                "Debug package name should be com.brave.browser_default",
-                "com.brave.browser_default",
+                "Debug package name should be com.devndin.browther_default",
+                "com.devndin.browther_default",
                 BraveConstants.BRAVE_DEBUG_PACKAGE_NAME);
     }
 }

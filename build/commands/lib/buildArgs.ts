@@ -281,19 +281,22 @@ export function getBuildArgs(config: Config) {
 
   if (config.targetOS === 'android') {
     args.android_channel = config.channel
+    // Browther: applicationId rebrandé com.brave.browser* → com.devndin.browther*.
+    // Underscore (et pas point) car les segments Java ne peuvent pas être des
+    // mots réservés ('default', 'dev'...) — sinon R.java ne compile pas.
     if (!config.isReleaseBuild()) {
       args.android_channel = 'default'
-      args.chrome_public_manifest_package = 'com.brave.browser_default'
+      args.chrome_public_manifest_package = 'com.devndin.browther_default'
     } else if (config.channel === '') {
       args.android_channel = 'stable'
-      args.chrome_public_manifest_package = 'com.brave.browser'
+      args.chrome_public_manifest_package = 'com.devndin.browther'
     } else if (config.channel === 'beta') {
-      args.chrome_public_manifest_package = 'com.brave.browser_beta'
+      args.chrome_public_manifest_package = 'com.devndin.browther_beta'
     } else if (config.channel === 'dev') {
-      args.chrome_public_manifest_package = 'com.brave.browser_dev'
+      args.chrome_public_manifest_package = 'com.devndin.browther_dev'
     } else if (config.channel === 'nightly') {
       args.android_channel = 'canary'
-      args.chrome_public_manifest_package = 'com.brave.browser_nightly'
+      args.chrome_public_manifest_package = 'com.devndin.browther_nightly'
     }
     // exclude_unwind_tables is inherited form upstream and is false for any
     // Android build

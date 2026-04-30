@@ -17,10 +17,12 @@ public final class BraveConstants {
     // used in BravseSetDefaultBrowserUtils
     public static final int DEFAULT_BROWSER_ROLE_REQUEST_CODE = 37;
 
-    public static final String BRAVE_PRODUCTION_PACKAGE_NAME = "com.brave.browser";
-    public static final String BRAVE_BETA_PACKAGE_NAME = "com.brave.browser_beta";
-    public static final String BRAVE_NIGHTLY_PACKAGE_NAME = "com.brave.browser_nightly";
-    public static final String BRAVE_DEBUG_PACKAGE_NAME = "com.brave.browser_default";
+    // Browther: package names rebrandés com.brave.browser* → com.devndin.browther*
+    // (underscore et pas point — voir buildArgs.ts pour la raison)
+    public static final String BRAVE_PRODUCTION_PACKAGE_NAME = "com.devndin.browther";
+    public static final String BRAVE_BETA_PACKAGE_NAME = "com.devndin.browther_beta";
+    public static final String BRAVE_NIGHTLY_PACKAGE_NAME = "com.devndin.browther_nightly";
+    public static final String BRAVE_DEBUG_PACKAGE_NAME = "com.devndin.browther_default";
 
     // used in BraveNtpAdapter
     public static final String BRAVE_REF_URL = "https://brave.com/r/";
