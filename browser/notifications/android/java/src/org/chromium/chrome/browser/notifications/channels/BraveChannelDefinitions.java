@@ -18,14 +18,15 @@ import java.util.Map;
 import java.util.Set;
 
 public class BraveChannelDefinitions {
+    // Browther: notification channel IDs rebrandés com.brave.browser* → com.devndin.browther*
     public static class ChannelId {
-        public static final String BRAVE_ADS = "com.brave.browser.ads";
-        public static final String BRAVE_ADS_BACKGROUND = "com.brave.browser.ads.background";
-        public static final String BRAVE_BROWSER = "com.brave.browser";
+        public static final String BRAVE_ADS = "com.devndin.browther.ads";
+        public static final String BRAVE_ADS_BACKGROUND = "com.devndin.browther.ads.background";
+        public static final String BRAVE_BROWSER = "com.devndin.browther";
     }
 
     public static class ChannelGroupId {
-        public static final String BRAVE_ADS = "com.brave.browser.ads";
+        public static final String BRAVE_ADS = "com.devndin.browther.ads";
         public static final String GENERAL = "general";
     }
 
