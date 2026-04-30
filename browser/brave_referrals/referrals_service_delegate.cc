@@ -53,8 +53,9 @@ void ReferralsServiceDelegate::OnProfileAdded(Profile* profile) {
   if (profile != ProfileManager::GetLastUsedProfileIfLoaded())
     return;
 
-  // Browther: referrals disabled — don't start the service
+  // Browther: referrals disabled — don't start the service.
+  // Since Start() doesn't run, OnInitialized() never fires to clear the
+  // observation, so we must reset it manually here (otherwise debug DCHECK).
   // service_->Start();
-  DCHECK(!profile_manager_observation_.IsObserving())
-      << "Should be cleared by OnInitialized";
+  profile_manager_observation_.Reset();
 }
