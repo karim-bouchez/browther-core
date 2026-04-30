@@ -222,11 +222,13 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         mCurrentStep++;
         if (mCurrentStep == 0) {
             handleSetAsDefaultStep();
-        } else if (mCurrentStep == 1) {
-            handleWDPStep();
-        } else if (mCurrentStep == 2) {
-            handleAnalyticsConsentPage();
         } else {
+            // Browther: WDP (Web Discovery Project, step 1) et P3A/crash consent
+            // (step 2) retirés du flow onboarding. WDP collecte des données pour
+            // Brave Search, P3A pour Brave Analytics — inutiles pour Browther.
+            // Was:
+            //   } else if (mCurrentStep == 1) { handleWDPStep(); }
+            //   else if (mCurrentStep == 2) { handleAnalyticsConsentPage(); }
             finalStep(false);
         }
     }
@@ -289,6 +291,9 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         }
     }
 
+    // Browther: méthode plus appelée (WDP step retiré du flow onboarding).
+    // Gardée pour faciliter un éventuel re-merge upstream.
+    @SuppressWarnings("UnusedMethod")
     private void handleWDPStep() {
         if (!isWDPSettingAvailable()) {
             nextOnboardingStepForDefaultVariant();
@@ -311,6 +316,9 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
                 .isManagedPreference(WebDiscoveryPrefs.WEB_DISCOVERY_ENABLED);
     }
 
+    // Browther: méthode plus appelée (consent screen retiré du flow onboarding).
+    // Gardée pour faciliter un éventuel re-merge upstream.
+    @SuppressWarnings("UnusedMethod")
     private void handleAnalyticsConsentPage() {
         // If both settings are managed by policy, skip this page entirely
         if (mIsP3aManaged && mIsCrashReportingManaged) {

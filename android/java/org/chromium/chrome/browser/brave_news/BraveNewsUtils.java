@@ -136,17 +136,13 @@ public class BraveNewsUtils {
     }
 
     public static boolean shouldDisplayNewsFeed(@Nullable Profile profile) {
-        return !BraveNewsPolicy.isDisabledByPolicy(profile)
-                && BravePrefServiceBridge.getInstance().getShowNews()
-                && BravePrefServiceBridge.getInstance().getNewsOptIn();
+        // Browther: News disabled
+        return false;
     }
 
     public static boolean shouldDisplayNewsOptin(@Nullable Profile profile) {
-        return !BraveNewsPolicy.isDisabledByPolicy(profile)
-                && BravePrefServiceBridge.getInstance().getShowNews()
-                && !BravePrefServiceBridge.getInstance().getNewsOptIn()
-                && ChromeSharedPreferences.getInstance()
-                        .readBoolean(BraveNewsPreferencesV2.PREF_SHOW_OPTIN, true);
+        // Browther: News opt-in disabled
+        return false;
     }
 
     public static void setChannelIcons() {
