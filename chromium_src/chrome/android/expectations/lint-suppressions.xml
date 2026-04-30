@@ -19,7 +19,16 @@
     <issue id="WrongConstant">
         <ignore regexp="ContentSettingsType.BRAVE_CONTENT_SETTINGS_TYPES_LIST" />
     </issue>
+    <!-- Browther: vector drawables Browther custom (wordmark/splash) > 200dp width.
+         Acceptable car ce sont des assets de branding spécifiques. -->
+    <issue id="VectorRaster">
+        <ignore regexp="brave/browser/first_run/android/java/res/drawable/ic_brave_brand.xml" />
+        <ignore regexp="brave/browser/first_run/android/java/res/drawable/ic_brave_splash.xml" />
+    </issue>
     <issue id="UnusedResources">
+        <!-- Browther: strings devenues unused après retrait WDP/P3A/search promo onboarding. -->
+        <ignore regexp="The resource `R.string.fre_activity_label` appears to be unused" />
+        <ignore regexp="The resource `R.string.search_widget_description` appears to be unused" />
         <ignore regexp="The resource `R.string.playlist_.*` appears to be unused" />
         <ignore regexp="The resource `R.string.new_tab_otr.*` appears to be unused" />
         <ignore regexp="The resource `R.dimen.md_incognito_ntp.*` appears to be unused" />
