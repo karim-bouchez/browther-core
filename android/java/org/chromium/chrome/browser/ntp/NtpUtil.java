@@ -33,7 +33,7 @@ public class NtpUtil {
     }
 
     public static boolean shouldShowRewardsIcon() {
-        return ChromeSharedPreferences.getInstance()
-                .readBoolean(AppearancePreferences.PREF_SHOW_BRAVE_REWARDS_ICON, true);
+        // Browther: Rewards disabled
+        return false;
     }
 }

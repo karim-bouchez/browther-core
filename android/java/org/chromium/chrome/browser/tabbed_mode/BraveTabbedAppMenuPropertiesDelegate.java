@@ -89,6 +89,10 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
     private final AppMenuDelegate mBraveAppMenuDelegate;
     private final NullableObservableSupplier<BookmarkModel> mBookmarkModelSupplier;
     private final Context mBraveContext;
+
+    // Browther: champ devenu inutilisé après désactivation VPN — gardé pour
+    // ne pas casser l'API setter (voir setIsJunitTesting).
+    @SuppressWarnings("UnusedVariable")
     private boolean mJunitIsTesting;
 
     /**
@@ -140,7 +144,7 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                 new PolicyControlledMenuItem(
                         R.id.brave_wallet_id,
                         this::buildBraveWalletItem,
-                        () -> ChromeFeatureList.isEnabled(BraveFeatureList.NATIVE_BRAVE_WALLET),
+                        () -> false, // Browther: Wallet disabled (was: ChromeFeatureList.isEnabled(NATIVE_BRAVE_WALLET))
                         () -> {
                             Tab tab = mActivityTabProvider.get();
                             return tab != null
@@ -150,11 +154,7 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                 new PolicyControlledMenuItem(
                         R.id.brave_leo_id,
                         this::buildBraveLeoItem,
-                        () -> {
-                            Tab tab = mActivityTabProvider.get();
-                            return BraveLeoPrefUtils.isLeoEnabled()
-                                    && (tab == null || !tab.isIncognito());
-                        },
+                        () -> false, // Browther: Leo (AI Chat) disabled
                         () -> {
                             Tab tab = mActivityTabProvider.get();
                             return tab != null
@@ -168,15 +168,7 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                 new PolicyControlledMenuItem(
                         R.id.brave_rewards_id,
                         this::buildBraveRewardsItem,
-                        () -> {
-                            // Native methods are not available in unit tests (Robolectric)
-                            if (!LibraryLoader.getInstance().isInitialized()) {
-                                return false;
-                            }
-                            BraveRewardsNativeWorker worker =
-                                    BraveRewardsNativeWorker.getInstance();
-                            return worker != null && worker.isSupported();
-                        },
+                        () -> false, // Browther: Rewards disabled
                         () -> {
                             Tab tab = mActivityTabProvider.get();
                             return tab != null
@@ -189,33 +181,28 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                 new PolicyControlledMenuItem(
                         R.id.brave_news_id,
                         this::buildBraveNewsItem,
-                        () -> true,
+                        () -> false, // Browther: News disabled (was: () -> true)
                         () -> {
                             Tab tab = mActivityTabProvider.get();
                             return tab != null
                                     && BraveNewsPolicy.isDisabledByPolicy(tab.getProfile());
                         },
                         Arrays.asList(CustomizeBraveMenu.BRAVE_CUSTOMIZE_ITEM_ID, R.id.exit_id)),
-                // VPN feature checks call native code, so assume supported in JUnit tests
+                // Browther: VPN disabled
                 new PolicyControlledMenuItem(
                         R.id.request_brave_vpn_id,
                         this::buildBraveVpnItem,
-                        () -> mJunitIsTesting || BraveVpnUtils.isVpnFeatureSupported(mBraveContext),
+                        () -> false, // Browther: VPN disabled
                         () -> {
                             Tab tab = mActivityTabProvider.get();
                             return tab != null
                                     && BraveVpnPolicy.isDisabledByPolicy(tab.getProfile());
                         },
                         Arrays.asList(CustomizeBraveMenu.BRAVE_CUSTOMIZE_ITEM_ID, R.id.exit_id)),
-                // VPN location requires actual subscription/region data, don't assume in tests
                 new PolicyControlledMenuItem(
                         R.id.request_vpn_location_id,
                         this::buildBraveVpnLocationIconItem,
-                        () ->
-                                !mJunitIsTesting
-                                        && BraveVpnUtils.isVpnFeatureSupported(mBraveContext)
-                                        && BraveVpnPrefUtils.isSubscriptionPurchase()
-                                        && !TextUtils.isEmpty(BraveVpnPrefUtils.getRegionIsoCode()),
+                        () -> false, // Browther: VPN location disabled
                         () -> {
                             Tab tab = mActivityTabProvider.get();
                             return tab != null

@@ -103,11 +103,11 @@ public class AppearancePreferences extends AppearanceSettingsFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // Browther: Rewards disabled — masquer le toggle entièrement
         ChromeSwitchPreference showBraveRewardsIconPref =
                 (ChromeSwitchPreference) findPreference(PREF_SHOW_BRAVE_REWARDS_ICON);
         if (showBraveRewardsIconPref != null) {
-            showBraveRewardsIconPref.setChecked(NtpUtil.shouldShowRewardsIcon());
-            showBraveRewardsIconPref.setOnPreferenceChangeListener(this);
+            showBraveRewardsIconPref.setVisible(false);
         }
 
         ChromeSwitchPreference adsSwitchPref =

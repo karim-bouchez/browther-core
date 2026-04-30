@@ -325,13 +325,13 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
         setPreferenceOrder(PREF_FEATURES_SECTION, ++featuresSectionOrder);
 
         setPreferenceOrder(PREF_SHIELDS_AND_PRIVACY, ++featuresSectionOrder);
-        setPreferenceOrder(PREF_BRAVE_NEWS_V2, ++featuresSectionOrder);
 
-        if (ChromeFeatureList.isEnabled(BraveFeatureList.NATIVE_BRAVE_WALLET)) {
-            setPreferenceOrder(PREF_BRAVE_WALLET, ++featuresSectionOrder);
-        } else {
-            removePreferenceIfPresent(PREF_BRAVE_WALLET);
-        }
+        // Browther: News disabled
+        removePreferenceIfPresent(PREF_BRAVE_NEWS_V2);
+
+        // Browther: Wallet disabled
+        // (was: if (ChromeFeatureList.isEnabled(BraveFeatureList.NATIVE_BRAVE_WALLET)))
+        removePreferenceIfPresent(PREF_BRAVE_WALLET);
 
         if (ChromeFeatureList.isEnabled(BraveFeatureList.BRAVE_PLAYLIST)) {
             setPreferenceOrder(PREF_BRAVE_PLAYLIST, ++featuresSectionOrder);
@@ -339,19 +339,14 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
             removePreferenceIfPresent(PREF_BRAVE_PLAYLIST);
         }
 
-        if (getActivity() != null
-                && !getActivity().isFinishing()
-                && BraveVpnUtils.isVpnFeatureSupported(getActivity())) {
-            setPreferenceOrder(PREF_BRAVE_VPN, ++featuresSectionOrder);
-        } else {
-            removePreferenceIfPresent(PREF_BRAVE_VPN);
-        }
+        // Browther: VPN disabled
+        // (was: if (getActivity() != null && !getActivity().isFinishing()
+        //              && BraveVpnUtils.isVpnFeatureSupported(getActivity())))
+        removePreferenceIfPresent(PREF_BRAVE_VPN);
 
-        if (BraveLeoPrefUtils.isLeoEnabled()) {
-            setPreferenceOrder(PREF_BRAVE_LEO, ++featuresSectionOrder);
-        } else {
-            removePreferenceIfPresent(PREF_BRAVE_LEO);
-        }
+        // Browther: Leo (AI Chat) disabled
+        // (was: if (BraveLeoPrefUtils.isLeoEnabled()))
+        removePreferenceIfPresent(PREF_BRAVE_LEO);
 
         int generalOrder = featuresSectionOrder;
         setPreferenceOrder(PREF_GENERAL_SECTION, ++generalOrder);
