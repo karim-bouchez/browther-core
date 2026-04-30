@@ -1,59 +1,42 @@
 {
-  "color-space-for-untagged-svg-colors" : "display-p3",
-  "fill" : "system-light",
+  "fill" : {
+    "linear-gradient" : [
+      "display-p3:0.64706,0.69804,0.60000,1.00000",
+      "srgb:0.48627,0.56863,0.43529,1.00000"
+    ],
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
+  },
   "groups" : [
     {
-      "blur-material" : null,
       "layers" : [
         {
-          "fill" : "automatic",
           "glass" : true,
-          "image-name" : "face.svg",
-          "name" : "face",
+          "image-name" : "path43.png",
+          "name" : "path43",
           "position" : {
-            "scale" : 4.859999999999998,
+            "scale" : 0.5,
             "translation-in-points" : [
               0,
-              -7
+              0
             ]
           }
         }
       ],
-      "name" : "Group",
       "shadow" : {
         "kind" : "neutral",
-        "opacity" : 0.65
+        "opacity" : 0.5
       },
       "translucency" : {
         "enabled" : true,
-        "value" : 0.2
-      }
-    },
-    {
-      "blur-material" : null,
-      "hidden" : false,
-      "layers" : [
-        {
-          "hidden" : false,
-          "image-name" : "head-dev.svg",
-          "name" : "head-dev",
-          "opacity" : 1,
-          "position" : {
-            "scale" : 4.85,
-            "translation-in-points" : [
-              0,
-              14
-            ]
-          }
-        }
-      ],
-      "shadow" : {
-        "kind" : "layer-color",
-        "opacity" : 0.5
-      },
-      "specular" : true,
-      "translucency" : {
-        "enabled" : false,
         "value" : 0.5
       }
     }

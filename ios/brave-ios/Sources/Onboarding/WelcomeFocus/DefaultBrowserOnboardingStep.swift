@@ -9,6 +9,12 @@ import DesignSystem
 import Lottie
 import SwiftUI
 
+// TODO(browther): les .lottie actuels (browser-default-{light,dark}.lottie)
+// affichent toujours le logo Brave. Plan : remplacer cette LottieView par un
+// AVPlayer qui joue le même MP4 que le Picture-in-Picture (set-default-pip-*.mp4)
+// en boucle muette → 1 seul enregistrement à recréer (cf. CLAUDE.md Phase 2.4).
+// L'enregistrement nécessite Browther = navigateur par défaut, donc bloqué tant
+// que l'entitlement com.apple.developer.web-browser n'est pas approuvé par Apple.
 struct DefaultBrowserGraphicView: View {
   @Environment(\.colorScheme) private var colorScheme
 
