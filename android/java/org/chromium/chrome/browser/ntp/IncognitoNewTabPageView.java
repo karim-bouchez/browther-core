@@ -108,6 +108,9 @@ public class IncognitoNewTabPageView extends FrameLayout {
     }
 
     private void updateVpnSectionVisibility() {
+        // Browther: VPN section toujours masquée (feature désactivée)
+        setVpnSectionVisibility(View.GONE);
+        if (true) return;
         // If policy disables VPN, hide entire section
         if (mVpnDisabledByPolicy) {
             setVpnSectionVisibility(View.GONE);
