@@ -23,29 +23,29 @@
 <translation id="1094555143448724771">Sinkroniseer jou oortjies en geskiedenis om oortjies van jou ander toestelle af te sien</translation>
 <translation id="1095761715416917775">Maak seker dat jy altyd toegang tot jou gesinkroniseerde data het</translation>
 <translation id="1100066534610197918">Open in nuwe oortjie in groep</translation>
-<translation id="4660777881054855091">Help om Brave te verbeter?</translation>
+<translation id="3026320571846591531">Help om Brave te verbeter?</translation>
 <translation id="1105960400813249514">Skermskoot</translation>
 <translation id="1108214977745280468">Bekyk bladinsigte</translation>
 <translation id="1108938384783527433">Geskiedenissinkronisering</translation>
 <translation id="1111673857033749125">Boekmerke wat op jou ander toestelle gestoor is, sal hier verskyn.</translation>
 <translation id="1126696498560056882">Bestuur rekeninge op hierdie toestel</translation>
-<translation id="9171525955914564119">Meld aan by Brave as <ph name="EMAIL"/> om jou boekmerke en meer op al jou toestelle te kry</translation>
+<translation id="3559223211185095685">Meld aan by Brave as <ph name="EMAIL"/> om jou boekmerke en meer op al jou toestelle te kry</translation>
 <translation id="1138458427267715730">Kry opletberigte wanneer die prys op enige werf op die web daal</translation>
 <translation id="1140317858355046628">As jy dit uitvee sal almal onmiddellik toegang tot die “<ph name="GROUP_NAME"/>”-oortjiegroep verloor, en dit sal van alle toestelle af uitgevee word.</translation>
 <translation id="1142732900304639782">Moenie aanbied om hierdie werwe te vertaal nie</translation>
 <translation id="1143193470214071120">Maak ’n venster toe of bestuur vensters</translation>
 <translation id="1149725087019908252">Skandeer tans <ph name="FILE_NAME"/></translation>
-<translation id="7083341910267693582"><ph name="APP_NAME"/> sal in Brave oopmaak. Deur voort te gaan, stem jy in tot <ph name="BEGIN_LINK1"/>Brave se diensbepalings<ph name="END_LINK1"/> en <ph name="BEGIN_LINK2"/>Brave en Brave-bedryfstelsel se bykomende diensbepalings<ph name="END_LINK2"/>.</translation>
-<translation id="7443574521624544928">Jy het nie wagwoorde wat in Brave Wagwoordbestuurder gestoor is nie.</translation>
+<translation id="7996991009765533404"><ph name="APP_NAME"/> sal in Brave oopmaak. Deur voort te gaan, stem jy in tot <ph name="BEGIN_LINK1"/>Brave se diensbepalings<ph name="END_LINK1"/> en <ph name="BEGIN_LINK2"/>Brave en Brave-bedryfstelsel se bykomende diensbepalings<ph name="END_LINK2"/>.</translation>
+<translation id="964080040366306085">Jy het nie wagwoorde wat in Brave Wagwoordbestuurder gestoor is nie.</translation>
 <translation id="115483310321669804">Gebruik wagwoord <ph name="PASSWORD"/></translation>
 <translation id="1161065531352634524">Sinkroniseer oortjies en geskiedenis</translation>
 <translation id="1165109137568919258">Neem ’n foto of voeg ’n prent uit jou fotogalery by om te soek</translation>
 <translation id="1173894706177603556">Hernoem</translation>
-<translation id="7947699437047020219">Brave sal die mobiele werf versoek wanneer die skerm smal is</translation>
-<translation id="3336989427111006280">Jou administrateur kan oor ’n afstand veranderinge aan jou profiel en blaaier maak, inligting oor die blaaier ontleed deur middel van verslagdoening, en ander nodige take uitvoer. Aktiwiteit op hierdie toestel kan ook buite Brave bestuur word.</translation>
+<translation id="7513585456394374915">Brave sal die mobiele werf versoek wanneer die skerm smal is</translation>
+<translation id="1950680085664215661">Jou administrateur kan oor ’n afstand veranderinge aan jou profiel en blaaier maak, inligting oor die blaaier ontleed deur middel van verslagdoening, en ander nodige take uitvoer. Aktiwiteit op hierdie toestel kan ook buite Brave bestuur word.</translation>
 <translation id="1177863135347784049">Gepasmaak</translation>
 <translation id="1181037720776840403">Verwyder</translation>
-<translation id="4606796610935634842">Verifieer dis jy om seker te maak dat jy altyd die wagwoorde in jou Brave-rekening kan gebruik</translation>
+<translation id="5750094421252169071">Verifieer dis jy om seker te maak dat jy altyd die wagwoorde in jou Brave-rekening kan gebruik</translation>
 <translation id="1187810343066461819">Vee ook boekmerke, geskiedenis en meer van hierdie motor uit</translation>
 <translation id="1193729455103054076">Gebruik sterk wagwoord?</translation>
 <translation id="11947597112837849">e-posadres</translation>
@@ -64,8 +64,8 @@
 <translation id="124116460088058876">Meer tale</translation>
 <translation id="124678866338384709">Maak huidige oortjie toe</translation>
 <translation id="1246905108078336582">Verwyder voorstel van knipbord af?</translation>
-<translation id="1996480094660735607">Brave-logoskets: <ph name="DOODLE_DESCRIPTION"/></translation>
-<translation id="7074197713963877855">Jy sal nou inhoud vanaf en oor <ph name="SITE_NAME"/> in Following sien. Die werwe en soektogte wat jy volg, word in jou Brave-rekening gestoor. Jy kan enige tyd in instellings bestuur wat jy volg.</translation>
+<translation id="1968396666562604350">Brave-logoskets: <ph name="DOODLE_DESCRIPTION"/></translation>
+<translation id="7483533353113019756">Jy sal nou inhoud vanaf en oor <ph name="SITE_NAME"/> in Following sien. Die werwe en soektogte wat jy volg, word in jou Brave-rekening gestoor. Jy kan enige tyd in instellings bestuur wat jy volg.</translation>
 <translation id="1263231323834454256">Leeslys</translation>
 <translation id="1269129608791067105">Jy sal jou geskiedenis hier kry</translation>
 <translation id="1273937721055267968">Blokkeer <ph name="DOMAIN"/></translation>
@@ -79,13 +79,13 @@
 <translation id="1318262688555255786">Deel skakel na webbladsy <ph name="PAGE_TITLE"/>. Bron: <ph name="PAGE_URL"/></translation>
 <translation id="1320912611264252795">Boekmerkstoorvloei se vouers is teen volle hoogte oopgemaak</translation>
 <translation id="1327257854815634930">Navigasiegeskiedenis is oopgemaak</translation>
-<translation id="6773423637732432200">Brave kan nie opdateer nie. Meer opsies</translation>
-<translation id="3169981355900570544">Brave-kenmerkkortpaaie</translation>
+<translation id="6795810344435704254">Brave kan nie opdateer nie. Meer opsies</translation>
+<translation id="7347079679527157811">Brave-kenmerkkortpaaie</translation>
 <translation id="1333491156693005331">Onlangs gekontroleer</translation>
 <translation id="1336996151357442890">Uitgeteken van <ph name="SITE_NAME"/>. Jy sal weer gevra word wanneer jy dit weer besoek.</translation>
 <translation id="1340839264183302272">Verlaat groep</translation>
-<translation id="873343310451048603">Gaan na Brave Wagwoordbestuurder om gekompromitteerde wagwoorde na te gaan</translation>
-<translation id="4167284810587724062">Meld aan by Brave</translation>
+<translation id="4015140226731283700">Gaan na Brave Wagwoordbestuurder om gekompromitteerde wagwoorde na te gaan</translation>
+<translation id="611080704131468868">Meld aan by Brave</translation>
 <translation id="1344653310988386453">Sluit skakel na hoogtepunt in</translation>
 <translation id="1347468774581902829">Bestuur aktiwiteit</translation>
 <translation id="1355088659320425659">Geskiedenis en oortjies</translation>
@@ -100,16 +100,16 @@
 <translation id="1383876407941801731">Soek</translation>
 <translation id="1384704387250346179">Vertaal prent met Google Lens <ph name="BEGIN_NEW"/>Nuut<ph name="END_NEW"/></translation>
 <translation id="1386674309198842382"><ph name="LAST_UPDATED"/> dae gelede aktief</translation>
-<translation id="5463773698398059977">Jy kan moontlik die geskiedenis sien van ander apps wat skakels in Brave oopmaak. Jou Brave-rekening kan dalk ander vorme van blaaigeskiedenis hê by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/>.</translation>
+<translation id="169882774094480692">Jy kan moontlik die geskiedenis sien van ander apps wat skakels in Brave oopmaak. Jou Brave-rekening kan dalk ander vorme van blaaigeskiedenis hê by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/>.</translation>
 <translation id="139752016751285248">Prysinsigte se onderste blad het teen volle hoogte oopgemaak</translation>
 <translation id="1397811292916898096">Soek met <ph name="PRODUCT_NAME"/></translation>
-<translation id="846688154675148885">Jy kan <ph name="BEGIN_LINK1"/>bestuur watter Brave-data gestoor word<ph name="END_LINK1"/> in jou Brave-rekening.
+<translation id="9222662969113968262">Jy kan <ph name="BEGIN_LINK1"/>bestuur watter Brave-data gestoor word<ph name="END_LINK1"/> in jou Brave-rekening.
 
 Gaan na <ph name="BEGIN_LINK2"/>Brave-dienste<ph name="END_LINK2"/> vir meer instellings wat data gebruik om jou Brave-ervaring te verbeter.</translation>
 <translation id="1407069428457324124">Donkertema</translation>
 <translation id="1407135791313364759">Maak alles oop</translation>
 <translation id="1409879593029778104">Aflaai van <ph name="FILE_NAME"/> is verhinder omdat die lêer reeds bestaan.</translation>
-<translation id="3219606989239049572">Stoor data in jou Brave-rekening</translation>
+<translation id="8550375690073358188">Stoor data in jou Brave-rekening</translation>
 <translation id="1414919006379339073">Maak huidige venster toe</translation>
 <translation id="1416550906796893042">Programweergawe</translation>
 <translation id="1428770807407000502">Skakel sinkronisering af?</translation>
@@ -119,10 +119,10 @@ Gaan na <ph name="BEGIN_LINK2"/>Brave-dienste<ph name="END_LINK2"/> vir meer ins
 <translation id="1448440926884431741">Organiseer jou nagespoorde produkte in Boekmerke</translation>
 <translation id="1455845192930279203">Wil jy in elk geval “<ph name="FILE_NAME"/>” (<ph name="FILE_SIZE"/>) van <ph name="DOWNLOAD_DOMAIN"/> aflaai?</translation>
 <translation id="1460751212339734034">Spaar tyd, tik minder</translation>
-<translation id="5598889255595678761">Kies Brave se taal</translation>
+<translation id="3105750613725512637">Kies Brave se taal</translation>
 <translation id="1477626028522505441">Kon <ph name="FILE_NAME"/> weens bedienerkwessies nie aflaai nie.</translation>
 <translation id="147982357559798527">Het verander</translation>
-<translation id="5970766554644855317">Sommige van jou geskiedenis sal dalk nie hier verskyn nie. Maak die volle Brave-geskiedenis oop om al jou Brave-geskiedenis te sien.</translation>
+<translation id="5947838057599061624">Sommige van jou geskiedenis sal dalk nie hier verskyn nie. Maak die volle Brave-geskiedenis oop om al jou Brave-geskiedenis te sien.</translation>
 <translation id="1493287004536771723">Jy volg tans <ph name="SITE_NAME"/></translation>
 <translation id="1495677929897281669">Terug na oortjie</translation>
 <translation id="1496514951988037011">gebruikernaam</translation>
@@ -131,14 +131,14 @@ Gaan na <ph name="BEGIN_LINK2"/>Brave-dienste<ph name="END_LINK2"/> vir meer ins
 <translation id="1513352483775369820">Boekmerke en webgeskiedenis</translation>
 <translation id="1515901671075971249">Kortpaaie vir oortjienavigasie</translation>
 <translation id="1521774566618522728">Aktief vandag</translation>
-<translation id="5840742727909553422">Nuwe weergawe van Brave is beskikbaar</translation>
+<translation id="6078998033977811407">Nuwe weergawe van Brave is beskikbaar</translation>
 <translation id="1540012742443808215">Adresbalk is tans bo</translation>
-<translation id="3748360913454941567">Betaalmetodes en adresse sal nie geënkripteer word nie. Blaaigeskiedenis van Brave af sal nie sinkroniseer nie.
+<translation id="3739314470013156139">Betaalmetodes en adresse sal nie geënkripteer word nie. Blaaigeskiedenis van Brave af sal nie sinkroniseer nie.
 Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word nie na Brave toe gestuur of deur Brave geberg nie. <ph name="BEGIN_LINK"/>Vee die Brave-data in jou rekening uit<ph name="END_LINK"/> indien jy jou wagfrase vergeet of hierdie instelling wil verander.</translation>
-<translation id="8090895580117672212">Tik op die "Bestuur rekening"-knoppie om jou Brave-rekening te bestuur</translation>
+<translation id="7915672915886720432">Tik op die "Bestuur rekening"-knoppie om jou Brave-rekening te bestuur</translation>
 <translation id="1549000191223877751">Beweeg na 'n ander venster</translation>
-<translation id="1705567146636171298">Dateer Brave op</translation>
-<translation id="2509230690562869141">Help om Brave beter te maak vir mense wat dit op dieselfde manier as jy gebruik</translation>
+<translation id="1772745060691790742">Dateer Brave op</translation>
+<translation id="311274932832044896">Help om Brave beter te maak vir mense wat dit op dieselfde manier as jy gebruik</translation>
 <translation id="1568636008098739136">Luister na hierdie bladsy. Raak en hou om hierdie kortpad te wysig.</translation>
 <translation id="1571041387761170095">Geen swak of hergebruikte wagwoorde nie</translation>
 <translation id="1578591621182011812">{NUM_PASSWORDS,plural, =1{1 gekompromitteerde wagwoord op hierdie toestel}other{# gekompromitteerde wagwoorde op hierdie toestel}}</translation>
@@ -146,7 +146,7 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="1598163867407640634">Gebruik <ph name="SITE_ETLD_PLUS_ONE"/> met <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/></translation>
 <translation id="1598770407402123677"><ph name="TAB_TITLE"/>, vasgespelde oortjie wat opgeneem word</translation>
 <translation id="1600756129506222718"><ph name="TAB_TITLE"/>, oortjie wat gedeel word</translation>
-<translation id="1851107663393500801">Gebruik en stoor data in jou Brave-rekening wanneer dit aan is. Data word slegs op hierdie toestel gestoor wanneer dit af is.</translation>
+<translation id="2443690794494513365">Gebruik en stoor data in jou Brave-rekening wanneer dit aan is. Data word slegs op hierdie toestel gestoor wanneer dit af is.</translation>
 <translation id="1628019612362412531">{NUM_SELECTED,plural, =1{Verwyder 1 gekose item}other{Verwyder # gekose items}}</translation>
 <translation id="1639239467298939599">Laai tans</translation>
 <translation id="1641113438599504367">Veiligblaai</translation>
@@ -158,30 +158,30 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="1672586136351118594">Moenie weer wys nie</translation>
 <translation id="1680919990519905526">Soek-en-koop met Google Lens <ph name="BEGIN_NEW"/>Nuut<ph name="END_NEW"/></translation>
 <translation id="1683774088349393383">\u0020en toegemaak ná <ph name="MONTHS_ARCHIVED"/> maande</translation>
-<translation id="7870200641233500458">Binnekort sal jy inhoud vanaf en oor <ph name="SITE_NAME"/> in Following sien. Die werwe en soektogte wat jy volg, word in jou Brave-rekening gestoor. Jy kan enige tyd in instellings bestuur wat jy volg.</translation>
+<translation id="6022145101890144158">Binnekort sal jy inhoud vanaf en oor <ph name="SITE_NAME"/> in Following sien. Die werwe en soektogte wat jy volg, word in jou Brave-rekening gestoor. Jy kan enige tyd in instellings bestuur wat jy volg.</translation>
 <translation id="1689333818294560261">Bynaam</translation>
 <translation id="1696555181932908973">Jy kan ander maniere probeer om voort te gaan op <ph name="SITE_ETLD_PLUS_ONE"/>.</translation>
 <translation id="1702543251015153180">Verander jou donkertema-instellings?</translation>
 <translation id="1702907158640575240">Bestuurde blaaier</translation>
 <translation id="1718835860248848330">Afgelope uur</translation>
-<translation id="6493900814829428590">Jy kan vinniger blaai en soek wanneer Brave bladsye vooraf laai wat dit dink jy dalk gaan besoek</translation>
+<translation id="1456218887094498520">Jy kan vinniger blaai en soek wanneer Brave bladsye vooraf laai wat dit dink jy dalk gaan besoek</translation>
 <translation id="1732514748744806741">Ons sal jou laat weet as jou wagwoorde gekompromitteer is</translation>
-<translation id="2514812079175971391">Kry Brave se sterkste beskerming</translation>
+<translation id="5067726376036768159">Kry Brave se sterkste beskerming</translation>
 <translation id="1747593111377567311">{NUM_SITES,plural, =1{1 werf het onlangs baie kennisgewings gestuur}other{# werwe het onlangs baie kennisgewings gestuur}}</translation>
 <translation id="1749561566933687563">Sinkroniseer jou boekmerke</translation>
-<translation id="12433225238423439">Hou aan om die wagwoorde in jou Brave-rekening te gebruik</translation>
+<translation id="6450206303813208092">Hou aan om die wagwoorde in jou Brave-rekening te gebruik</translation>
 <translation id="17513872634828108">Oop oortjies</translation>
 <translation id="1753744496844366747">Aa</translation>
 <translation id="1755203724116202818">Om die werkverrigting van ’n advertensie te meet, word beperkte soorte data tussen werwe gedeel, soos of jy ’n aankoop gedoen het nadat jy ’n werf besoek het.</translation>
 <translation id="1760873718737761808">{FILE_COUNT,plural, =1{Bladsye, 1 bladsy in lys}other{Bladsye, # bladsye in lys}}</translation>
-<translation id="9142246815232811613">Inligting oor jou Brave-gebruik word na Brave toe gestuur, maar dit word nie met jou verbind nie\n\nAs Brave omval, kan besonderhede oor die omval sekere persoonlike inligting insluit\n\nAs jy jou geskiedenis met jou Brave-rekening sinkroniseer, kan maatstawwe ook inligting insluit oor URL'e wat jy besoek</translation>
+<translation id="7367969438453026110">Inligting oor jou Brave-gebruik word na Brave toe gestuur, maar dit word nie met jou verbind nie\n\nAs Brave omval, kan besonderhede oor die omval sekere persoonlike inligting insluit\n\nAs jy jou geskiedenis met jou Brave-rekening sinkroniseer, kan maatstawwe ook inligting insluit oor URL'e wat jy besoek</translation>
 <translation id="1778457539567749232">Merk as ongelees</translation>
 <translation id="1779766957982586368">Maak venster toe</translation>
 <translation id="1780023393214832643">Wagwoorde is na <ph name="USERNAME"/> gestoor</translation>
 <translation id="1791662854739702043">Geïnstalleer</translation>
 <translation id="1792959175193046959">Verander enige tyd die verstekaflaailigging</translation>
 <translation id="1796666869097395659">Maak oortjie klein om later daarna terug te keer</translation>
-<translation id="7401204338724669842">Brave-wenke</translation>
+<translation id="6821610326647051769">Brave-wenke</translation>
 <translation id="1807246157184219062">Lig</translation>
 <translation id="1807709131360304325">Maak ’n nuwe venster oop</translation>
 <translation id="1810845389119482123">Aanvanklike sinkronisering-opstelling is nie klaar nie</translation>
@@ -190,13 +190,13 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="1820408774134375111">Aanmelding se onderste blad</translation>
 <translation id="1823492026305965829">Meld aan as <ph name="USER_FULL_NAME"/></translation>
 <translation id="1824902652744048041">Tik op Vee blaaierdata uit</translation>
-<translation id="1902518199598615730">Betaalmetodes en adresse van Google Pay af sal nie geënkripteer word nie. Blaaigeskiedenis van Brave af sal nie sinkroniseer nie.
+<translation id="3000894337469294427">Betaalmetodes en adresse van Google Pay af sal nie geënkripteer word nie. Blaaigeskiedenis van Brave af sal nie sinkroniseer nie.
 Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word nie na Brave toe gestuur of deur Brave geberg nie. <ph name="BEGIN_LINK"/>Vee die Brave-data in jou rekening uit<ph name="END_LINK"/> indien jy jou wagfrase vergeet of hierdie instelling wil verander.</translation>
 <translation id="1829244130665387512">Vind op bladsy</translation>
 <translation id="1832459821645506983">Ja, ek is in</translation>
-<translation id="4544426875066706571">Brave het toestemmings verwyder, van werwe wat jy nie onlangs besoek het nie, om jou data te beskerm</translation>
-<translation id="7175072311426658869">Maak in Brave-blaaier oop</translation>
-<translation id="5173820533850252773">Brave is verouderd</translation>
+<translation id="2154598912968750895">Brave het toestemmings verwyder, van werwe wat jy nie onlangs besoek het nie, om jou data te beskerm</translation>
+<translation id="8927885242120512720">Maak in Brave-blaaier oop</translation>
+<translation id="4377377022617011492">Brave is verouderd</translation>
 <translation id="1877073879466606884">Die profiel waarmee jy aangemeld is, is ’n bestuurde profiel. Jou administrateur kan oor ’n afstand veranderinge aan jou profielinstellings maak, inligting oor die blaaier ontleed deur middel van verslagdoening, en ander nodige take uitvoer.</translation>
 <translation id="1879904908408734349">Aanmelding se onderste blad is toegemaak</translation>
 <translation id="1883903952484604915">My lêers</translation>
@@ -204,11 +204,11 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="189358972401248634">Ander tale</translation>
 <translation id="1899175549411605574">Prysinsigte se onderste blad</translation>
 <translation id="1900260903084164610">Deur voort te gaan, stem jy in tot die <ph name="BEGIN_TOS_LINK"/>diensbepalings<ph name="END_TOS_LINK"/>.</translation>
-<translation id="6893464351226208429">Die URL'e wat jy besoek, word in jou Brave-rekening gestoor</translation>
+<translation id="6871283322493873507">Die URL'e wat jy besoek, word in jou Brave-rekening gestoor</translation>
 <translation id="1910950723001426294">Lys deelopsies is gesluit.</translation>
 <translation id="191726024256261717">Gaan toestemmings na</translation>
-<translation id="5859922224596572493">Jy sal onmiddellik toegang tot die “<ph name="GROUP_NAME"/>”-oortjiegroep verloor, en <ph name="BLOCKED_MEMBER_FULL_NAME"/> (<ph name="BLOCKED_MEMBER_EMAIL"/>) sal nie meer met jou oor Brave-dienste kan kommunikeer nie.</translation>
-<translation id="7021823858304886493">Laat Brave-aanmelding toe</translation>
+<translation id="4596471407375877361">Jy sal onmiddellik toegang tot die “<ph name="GROUP_NAME"/>”-oortjiegroep verloor, en <ph name="BLOCKED_MEMBER_FULL_NAME"/> (<ph name="BLOCKED_MEMBER_EMAIL"/>) sal nie meer met jou oor Brave-dienste kan kommunikeer nie.</translation>
+<translation id="2651210046538078820">Laat Brave-aanmelding toe</translation>
 <translation id="1922362554271624559">Voorgestelde tale</translation>
 <translation id="1924255092154549435">Oortjie is uitgevou</translation>
 <translation id="1925021887439448749">Voer gepasmaakte webadres in</translation>
@@ -218,11 +218,11 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="1944535645109964458">Geen toegangsleutels beskikbaar nie</translation>
 <translation id="1957557050935255529">Laai tans PDF …</translation>
 <translation id="1959679933317802873">Wag tans vir inhoud</translation>
-<translation id="3968054912784331254">Brave-opdaterings word nie meer vir hierdie weergawe van Android gesteun nie</translation>
+<translation id="237938306469861028">Brave-opdaterings word nie meer vir hierdie weergawe van Android gesteun nie</translation>
 <translation id="1962061488333185936"><ph name="TAB_TITLE"/>, multigekose hoorbare oortjie</translation>
 <translation id="1963976881984600709">Standaardbeskerming</translation>
 <translation id="1966710179511230534">Dateer asseblief jou aanmeldbesonderhede op.</translation>
-<translation id="789731011736896184">Jy word nie by jou Brave-rekening afgemeld wanneer jy blaaierdata uitvee nie. <ph name="BEGIN_LINK1"/>Meld by Brave af<ph name="END_LINK1"/> om dit te doen.</translation>
+<translation id="8402951739359439718">Jy word nie by jou Brave-rekening afgemeld wanneer jy blaaierdata uitvee nie. <ph name="BEGIN_LINK1"/>Meld by Brave af<ph name="END_LINK1"/> om dit te doen.</translation>
 <translation id="197288927597451399">Behou</translation>
 <translation id="1973912524893600642">Hou data</translation>
 <translation id="1974060860693918893">Gevorderd</translation>
@@ -230,11 +230,11 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="1984087999855033707">foonnommer</translation>
 <translation id="1984417487208496350">Geen beskerming nie (nie aanbeveel nie)</translation>
 <translation id="1986685561493779662">Naam bestaan reeds</translation>
-<translation id="6968892567705775281">Sluit omringende teks by Brave-soektogte in?</translation>
+<translation id="4313392800943440530">Sluit omringende teks by Brave-soektogte in?</translation>
 <translation id="2021896219286479412">Volskermwerfkontroles</translation>
 <translation id="2029669011553795746">Intekening vir Wenke-kennisgewings is teen halwe hoogte oopgemaak</translation>
 <translation id="2038563949887743358">Skakel Versoek rekenaarwerf aan</translation>
-<translation id="7675869148432102528"><ph name="APP_NAME"/> het ook data in Brave</translation>
+<translation id="6866939229923392932"><ph name="APP_NAME"/> het ook data in Brave</translation>
 <translation id="2049574241039454490"><ph name="FILE_SIZE_OF_TOTAL"/> <ph name="SEPARATOR"/> <ph name="DESCRIPTION"/></translation>
 <translation id="2051669996101374349">Gebruik HTTPS waar moontlik en word gewaarsku voordat werwe laai wat dit nie steun nie. Jy kan nie hierdie instelling verander nie omdat Gevorderde Beskerming geaktiveer is.</translation>
 <translation id="2056878612599315956">Werf is onderbreek</translation>
@@ -255,9 +255,9 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2138283760993967204">Bestuur ikoon</translation>
 <translation id="2138632817776076519"><ph name="TAB_TITLE"/>, gekose oortjie wat gedeel word</translation>
 <translation id="2141396931810938595">Gegrond op jou gebruik</translation>
-<translation id="5905359144499324202">Brave kontroleer gereeld om seker te maak dat jou blaaier die veiligste instellings het. Ons sal jou laat weet as enigiets nagegaan moet word.</translation>
+<translation id="5667746060344409518">Brave kontroleer gereeld om seker te maak dat jou blaaier die veiligste instellings het. Ons sal jou laat weet as enigiets nagegaan moet word.</translation>
 <translation id="2149973817440762519">Wysig boekmerk</translation>
-<translation id="526235294307144732">Voer jou wagfrase in om Brave-data in jou Brave-rekening te gebruik en te stoor</translation>
+<translation id="8912436499620582668">Voer jou wagfrase in om Brave-data in jou Brave-rekening te gebruik en te stoor</translation>
 <translation id="2166228530126694506">Weergawe <ph name="VERSION_NUMBER"/></translation>
 <translation id="2172688499998841696">Prentbeskrywings is af</translation>
 <translation id="2172905120685242547">Maak venster toe?</translation>
@@ -265,12 +265,12 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2175927920773552910">QR-kode</translation>
 <translation id="2184272387334793084">Meld aan om jou wagwoorde en meer op al jou toestelle te kry</translation>
 <translation id="218608176142494674">Deling</translation>
-<translation id="9047236051556228042">Jy kan kies watter data om in jou Brave-rekening te stoor.\nJy kan ook hierdie items in jou boekmerke, leeslys of wagwoordbestuurder bekyk en bestuur.</translation>
+<translation id="5610020350884398272">Jy kan kies watter data om in jou Brave-rekening te stoor.\nJy kan ook hierdie items in jou boekmerke, leeslys of wagwoordbestuurder bekyk en bestuur.</translation>
 <translation id="219283042927675668">Oortjies in groep</translation>
 <translation id="2194856509914051091">Dinge om in ag te neem</translation>
 <translation id="2205701497928406883"><ph name="TAB_TITLE"/>, vasgespelde oortjie wat gedeel word</translation>
 <translation id="22091350895006575">Voeg gebruikernaam by</translation>
-<translation id="4075202346699640887">As jy Brave sonder ’n profielsluit oopmaak, sal jou gestoorde wagwoorde en betaalmetodes uit die motor verwyder word. Die gebruik van ’n profielsluit hou hierdie data veilig.</translation>
+<translation id="5089560420754214323">As jy Brave sonder ’n profielsluit oopmaak, sal jou gestoorde wagwoorde en betaalmetodes uit die motor verwyder word. Die gebruik van ’n profielsluit hou hierdie data veilig.</translation>
 <translation id="2227179592712503583">Verwyder voorstel</translation>
 <translation id="2227444325776770048">Gaan voort as <ph name="USER_FULL_NAME"/></translation>
 <translation id="2230777942707397948">Leë venster</translation>
@@ -283,7 +283,7 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2249635629516220541">Pasmaak die inligting wat deur werwe gebruik word om vir jou advertensies te wys</translation>
 <translation id="2253927598983295051">Kies wat om met <ph name="APP_NAME"/> te deel</translation>
 <translation id="2261570557291037252">Meer appinligting</translation>
-<translation id="781982477617612877">Meld by jou Brave-rekening aan om jou wagwoorde na te gaan</translation>
+<translation id="7329760584001106777">Meld by jou Brave-rekening aan om jou wagwoorde na te gaan</translation>
 <translation id="2286841657746966508">Faktureringadres</translation>
 <translation id="228704530595896923">Lys deelopsies.</translation>
 <translation id="2287421207599770907">{NUMBER_OF_TABS,plural, =1{Sien <ph name="TABS_COUNT_ONE"/> oortjie}other{Sien <ph name="TABS_COUNT_MANY"/> oortjies}}</translation>
@@ -296,11 +296,11 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2332515770639153015">Verbeterde Veiligblaai is aan</translation>
 <translation id="233375395665273385">Vee uit en meld af</translation>
 <translation id="2341410551640223969">Kon nie <ph name="WEBAPK_NAME"/> installeer nie.</translation>
-<translation id="3587672679800759167">Alle data deur Brave gebruik, insluitend rekeninge, boekmerke en gestoorde instellings</translation>
-<translation id="2767094839186957509">Brave-privaatheidsbeleid</translation>
+<translation id="802569096800365565">Alle data deur Brave gebruik, insluitend rekeninge, boekmerke en gestoorde instellings</translation>
+<translation id="1205389676867022049">Brave-privaatheidsbeleid</translation>
 <translation id="2359808026110333948">Gaan voort</translation>
 <translation id="2362083820973145409">Aangemeld as <ph name="USER_NAME"/>. <ph name="USER_EMAIL"/>. Maak instellings oop.</translation>
-<translation id="351551888962017708">Meer bladsye word vooraf gelaai. Bladsye kan vooraf deur Brave-bedieners gelaai word wanneer hulle deur ander werwe of apps versoek word.</translation>
+<translation id="4142532704162770054">Meer bladsye word vooraf gelaai. Bladsye kan vooraf deur Brave-bedieners gelaai word wanneer hulle deur ander werwe of apps versoek word.</translation>
 <translation id="2366554533468315977">Prysgeskiedenis oral op die web vir hierdie opsie</translation>
 <translation id="2367818124433749493">Kortpaaie vir ontwikkelaars</translation>
 <translation id="2385605401818128172">Jy kan hierdie werwe wat baie kennisgewings stuur, nagaan en keer dat hulle in die toekoms nog stuur</translation>
@@ -315,8 +315,8 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2427025860753516072">{FILE_COUNT,plural, =1{Video’s, 1 video in lys}other{Video’s, # video’s in lys}}</translation>
 <translation id="2433507940547922241">Voorkoms</translation>
 <translation id="2439153523196674349"><ph name="SITE_NAME"/>-voorskou</translation>
-<translation id="6209052069534739007">Brave enkripteer en laai bladsye vooraf deur Brave-bedieners sonder webkoekies wanneer ’n Brave-werf of -app vra om skakels op hul bladsy privaat vooraf te laai. Dit versteek jou identiteit vir die voorafgelaaide werf.</translation>
-<translation id="7174054574169352743">Betaalmetodes en ander inligting van Brave Wallet af</translation>
+<translation id="8695771598569529122">Brave enkripteer en laai bladsye vooraf deur Brave-bedieners sonder webkoekies wanneer ’n Brave-werf of -app vra om skakels op hul bladsy privaat vooraf te laai. Dit versteek jou identiteit vir die voorafgelaaide werf.</translation>
+<translation id="7452229127286950161">Betaalmetodes en ander inligting van Brave Wallet af</translation>
 <translation id="2450083983707403292">Wil jy <ph name="FILE_NAME"/> weer begin aflaai?</translation>
 <translation id="2451607499823206582">Spoor tans na</translation>
 <translation id="2453860139492968684">Voltooi</translation>
@@ -324,20 +324,20 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2466378451804467735"><ph name="TAB_TITLE"/>, multigekose gedempte oortjie</translation>
 <translation id="2468444275314013497">Jou blaaier lyk goed</translation>
 <translation id="2471632347767899461">Deursoek die Hulpsentrum</translation>
-<translation id="2542068854151299295">Meld aan om Brave ten beste te benut</translation>
+<translation id="8588751890910059844">Meld aan om Brave ten beste te benut</translation>
 <translation id="247737702124049222">Prentbeskrywings is aan</translation>
 <translation id="2479148705183875116">Gaan na Instellings</translation>
 <translation id="2482878487686419369">Kennisgewings</translation>
 <translation id="2496180316473517155">Blaaigeskiedenis</translation>
 <translation id="2497852260688568942">Jou administrateur het sinkronisering gedeaktiveer</translation>
-<translation id="7229462727772664332">Jy sal jou <ph name="SITE_NAME"/>-aanmeldingstatus, -blaaierdata en -werfdata in Brave sien</translation>
+<translation id="6266200235645678284">Jy sal jou <ph name="SITE_NAME"/>-aanmeldingstatus, -blaaierdata en -werfdata in Brave sien</translation>
 <translation id="2510106555128151389">Installeer tans <ph name="WEBAPK_NAME"/> …</translation>
 <translation id="2512234228327349533">Soek koopopsies</translation>
-<translation id="7222718784508482526">Sien <ph name="BEGIN_LINK"/>Sinkornisering en Brave-dienste<ph name="END_LINK"/> vir meer instellings wat verband hou met privaatheid, sekuriteit en data-insameling</translation>
-<translation id="786015673145068023">Vee jou Brave-data op hierdie toestel uit?</translation>
+<translation id="3671110559757534079">Sien <ph name="BEGIN_LINK"/>Sinkornisering en Brave-dienste<ph name="END_LINK"/> vir meer instellings wat verband hou met privaatheid, sekuriteit en data-insameling</translation>
+<translation id="777274493740687521">Vee jou Brave-data op hierdie toestel uit?</translation>
 <translation id="2517113738956581680">Volgrootteblad</translation>
-<translation id="284843628681142937">Stuur URL'e van bladsye wat jy besoek na Brave toe</translation>
-<translation id="8808315979415031229">Gaan na stemsoektog van Brave-app</translation>
+<translation id="7757688388512398492">Stuur URL'e van bladsye wat jy besoek na Brave toe</translation>
+<translation id="4440938147687279063">Gaan na stemsoektog van Brave-app</translation>
 <translation id="2527209463677295330">As jy meer van 'n bladsy se teks insluit, sal jy dalk beter resultate sien</translation>
 <translation id="2527779675047087889">Versteek knipbordinhoud</translation>
 <translation id="2531209299761896527">Knyp, hou en sleep om oortjies in ’n nuwe bladsy oop te maak</translation>
@@ -348,15 +348,15 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2539002604555291451">Sans Serif</translation>
 <translation id="2542548955756682219"><ph name="TAB_TITLE"/>, oortjie</translation>
 <translation id="2546283357679194313">Webkoekies en werfdata</translation>
-<translation id="1272534541032649011">Jou profielsluit hou jou inligting veilig in die motor, insluitend wagwoorde, betalings en meer wat in jou Brave-rekening gestoor is.</translation>
+<translation id="2836389470525500658">Jou profielsluit hou jou inligting veilig in die motor, insluitend wagwoorde, betalings en meer wat in jou Brave-rekening gestoor is.</translation>
 <translation id="254973855621628293">Wagwoorde is op hierdie toestel gestoor</translation>
 <translation id="2553962148913791095">Sommige boekmerke is nie gestoor nie</translation>
 <translation id="2566471851103108967">{FILE_COUNT,plural, =1{Gevaarlike aflaai is geblokkeer}other{# gevaarlike aflaaie is geblokkeer}}</translation>
 <translation id="5079947353572974060">Bied aan om bladsye in ander tale na Brave Vertaal te stuur</translation>
 <translation id="2571834852878229351">Skep my eie</translation>
-<translation id="7242554556818074465">Meld op al jou toestelle aan om jou oortjies te sien van waar ook al jy Brave gebruik</translation>
-<translation id="5021250666812601581"><ph name="MEMBER_FULL_NAME"/> (<ph name="EMAIL"/>) sal onmiddellik toegang tot die “<ph name="GROUP_NAME"/>”-oortjiegroep verloor en sal nie meer met jou in Brave-dienste kan kommunikeer nie.</translation>
-<translation id="2324920234469020158">Dit sal koekies, kas en ander data uitvee van werwe wat Brave nie dink belangrik is nie.</translation>
+<translation id="5014400297391359731">Meld op al jou toestelle aan om jou oortjies te sien van waar ook al jy Brave gebruik</translation>
+<translation id="6986269850374872202"><ph name="MEMBER_FULL_NAME"/> (<ph name="EMAIL"/>) sal onmiddellik toegang tot die “<ph name="GROUP_NAME"/>”-oortjiegroep verloor en sal nie meer met jou in Brave-dienste kan kommunikeer nie.</translation>
+<translation id="3794615207244627258">Dit sal koekies, kas en ander data uitvee van werwe wat Brave nie dink belangrik is nie.</translation>
 <translation id="2587052924345400782">Nuwer weergawe is beskikbaar</translation>
 <translation id="2593272815202181319">Enkelspasie</translation>
 <translation id="260403163289591229">Volg tans</translation>
@@ -394,32 +394,32 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2779651927720337254">misluk</translation>
 <translation id="2781151931089541271">1 sekonde oor</translation>
 <translation id="2789486458103222910">OK</translation>
-<translation id="7717639919252237580">{NUM_PASSWORDS,plural, =1{Brave het ’n hergebruikte wagwoord gevind wat jy kan verbeter}other{Brave het # hergebruikte wagwoorde gevind wat jy kan verbeter}}</translation>
-<translation id="1708222144403389505">Skakel kennisgewings aan vir nuttige wenke om jou te help om die beste uit Brave te kry</translation>
+<translation id="662963962411197409">{NUM_PASSWORDS,plural, =1{Brave het ’n hergebruikte wagwoord gevind wat jy kan verbeter}other{Brave het # hergebruikte wagwoorde gevind wat jy kan verbeter}}</translation>
+<translation id="5815780472498778248">Skakel kennisgewings aan vir nuttige wenke om jou te help om die beste uit Brave te kry</translation>
 <translation id="2805210243313393104">Kry jou boekmerke en meer op al jou toestelle</translation>
 <translation id="2805756323405976993">Programme</translation>
 <translation id="2819849308549746319">Teken by alles uit</translation>
-<translation id="5702802474992520892">Jy kan kies watter data om in jou Brave-rekening, <ph name="ACCOUNT_EMAIL"/>, te stoor.\nJy kan ook hierdie items in jou boekmerke, leeslys of wagwoordbestuurder bekyk en bestuur.</translation>
+<translation id="7131322888362310676">Jy kan kies watter data om in jou Brave-rekening, <ph name="ACCOUNT_EMAIL"/>, te stoor.\nJy kan ook hierdie items in jou boekmerke, leeslys of wagwoordbestuurder bekyk en bestuur.</translation>
 <translation id="2826576843404243001">Kry waarskuwings oor werwe wat nie veilige verbindings steun nie, voordat jy die werf besoek. Jy kan nie hierdie instelling verander nie omdat Gevorderde Beskerming geaktiveer is.</translation>
 <translation id="2827278682606527653">Stroomkaartkieslys teen halwe hoogte</translation>
 <translation id="2830783625999891985">Knipbordinhoud word versteek</translation>
-<translation id="9087158967432747643">Instellings, fout met Brave-rekening</translation>
+<translation id="7330132035654509457">Instellings, fout met Brave-rekening</translation>
 <translation id="2838367486340230368">Privaatheidgidsverduideliking is teen halwe hoogte oopgemaak</translation>
 <translation id="2839327205551510876">Het <ph name="SITE_NAME"/> ontvolg</translation>
 <translation id="2839604041336226596"><ph name="TAB_TITLE"/>, multigekose vasgespelde oortjie</translation>
 <translation id="2841216154655874070">{NUM_DAYS,plural, =1{1 dag gelede nagegaan}other{# dae gelede nagegaan}}</translation>
 <translation id="2842985007712546952">Moedervouer</translation>
 <translation id="2860954141821109167">Maak seker dat 'n foonprogram op hierdie toestel geaktiveer is</translation>
-<translation id="6518254564747115579">Sommige Brave-kenmerke sal nie meer beskikbaar wees nie</translation>
+<translation id="8977333341450607548">Sommige Brave-kenmerke sal nie meer beskikbaar wees nie</translation>
 <translation id="286473047976978798">Pas jou voorkomsvoorkeure toe?</translation>
 <translation id="2869416538780777323">{OTHER_TAB_COUNT,plural, =1{<ph name="URL"/> en 1 ander oortjie}other{<ph name="URL"/> en <ph name="TAB_COUNT_MANY"/> ander oortjies}}</translation>
 <translation id="2869430948265924908">Jy moet ’n motorprofielslot skep om jou sensitiewe inhoud in die motor te beskerm.  Jy kan dit met ’n PIN, kode of wagwoord doen.</translation>
 <translation id="2870560284913253234">Werf</translation>
 <translation id="2871733351037274014">Laai bladsye vooraf</translation>
 <translation id="2876136027428473467"><ph name="CHILD_NAME"/> wil hê jy moet hierdie webwerf goedkeur:</translation>
-<translation id="6756656512757374876">Kom meer te wete oor <ph name="BEGIN_LINK"/>hoe Brave jou data privaat hou<ph name="END_LINK"/></translation>
+<translation id="9040334484455218184">Kom meer te wete oor <ph name="BEGIN_LINK"/>hoe Brave jou data privaat hou<ph name="END_LINK"/></translation>
 <translation id="2885355868600171871">Spring na adresbalk</translation>
-<translation id="8541922081612557424">Meer oor Brave</translation>
+<translation id="8291401179516272335">Meer oor Brave</translation>
 <translation id="2891154217021530873">Stop bladsylaai</translation>
 <translation id="2893168226686371498">Verstekblaaier</translation>
 <translation id="2894821468041866720">Veroorsaak nie dat jou blaaier of toestel merkbaar stadiger is nie.</translation>
@@ -430,28 +430,28 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="2904300462646366554">Afgelaaide PDF’s maak outomaties met een van die PDF-kykers op jou toestel oop</translation>
 <translation id="2904414404539560095">Lys toestelle om 'n oortjie mee te deel, is teen volle hoogte oopgemaak.</translation>
 <translation id="2908243544703713905">Ongelese stories is gereed</translation>
-<translation id="7339921667754113786">Brave-kennisgewingsplatform</translation>
+<translation id="8536297463502625772">Brave-kennisgewingsplatform</translation>
 <translation id="2912247081180973411">Maak vensters toe</translation>
 <translation id="2918484639460781603">Gaan na instellings</translation>
 <translation id="2920713489113095380"><ph name="TAB_TITLE"/>, gedempte oortjie</translation>
 <translation id="2923908459366352541">Naam is ongeldig</translation>
-<translation id="6355102470683871794">Brave <ph name="APP_NAME"/>-berging</translation>
+<translation id="1558089113198477945">Brave <ph name="APP_NAME"/>-berging</translation>
 <translation id="2932222164150889403">Jou sleutelbord sal nie verander nie</translation>
-<translation id="6537665929855787038">Brave-kennisgewings maak dinge makliker</translation>
+<translation id="8132990764038190356">Brave-kennisgewings maak dinge makliker</translation>
 <translation id="2940075786175545812">Opsie om ’n webwerf goed te keur of nie goed te keur nie</translation>
 <translation id="2942036813789421260">Voorskou-oortjie is toegemaak</translation>
 <translation id="2951071800649516099">Voeg bladsye by jou leeslys vir later</translation>
 <translation id="2954586176076923855">Skuif adresbalk na bo</translation>
 <translation id="2961208450284224863">{READING_LIST_UNREAD_PAGE_COUNT,plural, =1{<ph name="READING_LIST_UNREAD_PAGE_COUNT_ONE"/> ongeleesde bladsy}other{<ph name="READING_LIST_UNREAD_PAGE_COUNT_MANY"/> ongeleesde bladsye}}</translation>
 <translation id="2972109037780336501">Verwyder toestemmings outomaties</translation>
-<translation id="9016397405981579308">Sommige van jou Brave-data is nog nie in jou Brave-rekening gestoor nie.\nProbeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data uitgevee word.</translation>
+<translation id="1692495867017910522">Sommige van jou Brave-data is nog nie in jou Brave-rekening gestoor nie.\nProbeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data uitgevee word.</translation>
 <translation id="2977350910003566746">Sorteer volgens laas oopgemaak</translation>
 <translation id="297771753501244313">Sorteer: laas oopgemaak</translation>
 <translation id="2979639724566107830">Maak in nuwe venster oop</translation>
 <translation id="2983102365694924129">Gegrond op jou aktiwiteit op ’n werf. Hierdie instelling is af.</translation>
 <translation id="2983398917942897288">Onaktief (<ph name="ITEM_COUNT"/>)</translation>
 <translation id="2983835398644161987">Verlaat prent-in-prent</translation>
-<translation id="5948666439178419683">Sluit omringende teks by Brave-soektogte in</translation>
+<translation id="2096987762552908667">Sluit omringende teks by Brave-soektogte in</translation>
 <translation id="2988638966064514052">Versterk tans jou wagwoorde</translation>
 <translation id="2989523299700148168">Onlangs besoek</translation>
 <translation id="2992473221983447149">Prentbeskrywings</translation>
@@ -467,23 +467,23 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3035527385626181784"><ph name="TAB_TITLE"/>, gekose oortjie wat gedeel word</translation>
 <translation id="3036750288708366620"><ph name="BEGIN_LINK"/>Kry hulp<ph name="END_LINK"/></translation>
 <translation id="3037177537145227281">Spoor tans prys na</translation>
-<translation id="3251012123600267109">Wys porboodskappe om by Brave aan te meld.</translation>
+<translation id="4879869745782826167">Wys porboodskappe om by Brave aan te meld.</translation>
 <translation id="3038272154009688107">Sien alle werwe</translation>
 <translation id="3060635849835183725">{BOOKMARKS_COUNT,plural, =1{<ph name="BOOKMARKS_COUNT_ONE"/> boekmerk}other{<ph name="BOOKMARKS_COUNT_MANY"/> boekmerke}}</translation>
-<translation id="6153252609477956632">Artikels oor jou belangstellings op Brave</translation>
+<translation id="1690898941193259641">Artikels oor jou belangstellings op Brave</translation>
 <translation id="3066573403916685335">Beweeg Af</translation>
 <translation id="3067505415088964188">Prys is laag</translation>
 <translation id="3070005020161560471">Vertaal outomaties</translation>
-<translation id="1094255666887095087"><ph name="APP_NAME"/> sal in Brave oopmaak. Deur voort te gaan, stem jy in tot <ph name="BEGIN_LINK1"/>Brave se diensbepalings<ph name="END_LINK1"/> en <ph name="BEGIN_LINK2"/>Brave en Brave-bedryfstelsel se bykomende diensbepalings<ph name="END_LINK2"/>. Die <ph name="BEGIN_LINK3"/>privaatheidsbeleid<ph name="END_LINK3"/> geld ook.</translation>
+<translation id="8749033728607902390"><ph name="APP_NAME"/> sal in Brave oopmaak. Deur voort te gaan, stem jy in tot <ph name="BEGIN_LINK1"/>Brave se diensbepalings<ph name="END_LINK1"/> en <ph name="BEGIN_LINK2"/>Brave en Brave-bedryfstelsel se bykomende diensbepalings<ph name="END_LINK2"/>. Die <ph name="BEGIN_LINK3"/>privaatheidsbeleid<ph name="END_LINK3"/> geld ook.</translation>
 <translation id="3080525922482950719">Jy kan bladsye stoor om later of vanlyn te lees</translation>
 <translation id="3087734570205094154">Onderkant</translation>
 <translation id="3091010850649238832">Wys knipbordinhoud</translation>
-<translation id="821565628224723530">Sommige prente word na Brave toe gestuur om hul beskrywings vir jou te verbeter</translation>
+<translation id="3770113991403381165">Sommige prente word na Brave toe gestuur om hul beskrywings vir jou te verbeter</translation>
 <translation id="3114507951000454849">Lees vandag se nuus <ph name="NEWS_ICON"/></translation>
 <translation id="3122883569442693641">Meer besonderhede</translation>
 <translation id="3123734510202723619">Aankondigings</translation>
 <translation id="3134385238404760368">Geen onlangse oortjies nie</translation>
-<translation id="5063487983358782016">Brave se tuisblad</translation>
+<translation id="8480453095706901015">Brave se tuisblad</translation>
 <translation id="3158667104057012316">Sorteer tans orde handmatig</translation>
 <translation id="3159335509547415276">Kry meer inligting oor geblokkeerde rekeninge</translation>
 <translation id="3161699713309727585"><ph name="BUTTON_TEXT"/>, maak in ’n nuwe oortjie oop</translation>
@@ -502,7 +502,7 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3236059992281584593">1 minuut oor</translation>
 <translation id="3237087289225714896">Standaardvooraflaai:</translation>
 <translation id="3244271242291266297">MM</translation>
-<translation id="7402642357351265733">As jy ook Brave-gebruiksverslae deel, sluit daardie verslae die URL'e in wat jy besoek</translation>
+<translation id="7690070364551268156">As jy ook Brave-gebruiksverslae deel, sluit daardie verslae die URL'e in wat jy besoek</translation>
 <translation id="3250563604907490871">Prentbeskrywings sal hervat wanneer jy aan wi-fi koppel</translation>
 <translation id="3254409185687681395">Boekmerk hierdie bladsy</translation>
 <translation id="3265093782546847662">Alle bladsye van <ph name="DOMAIN"/></translation>
@@ -510,7 +510,7 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3269093882174072735">Laai prent</translation>
 <translation id="3280562213547448728">Stemsoektog</translation>
 <translation id="3285065882678541460">{TAB_COUNT,plural, =1{<ph name="TAB_GROUPS_PART"/>, <ph name="TAB_COUNT_ONE"/> oortjie}other{<ph name="TAB_GROUPS_PART"/>, <ph name="TAB_COUNT_MANY"/> oortjies}}</translation>
-<translation id="8794905135160933967">{PASSWORDS_COUNT,plural, =1{1 wagwoord word net op hierdie toestel gestoor. Stoor dit in jou Brave-rekening om dit op jou ander toestelle te gebruik.}other{# wagwoorde word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
+<translation id="155579319989943244">{PASSWORDS_COUNT,plural, =1{1 wagwoord word net op hierdie toestel gestoor. Stoor dit in jou Brave-rekening om dit op jou ander toestelle te gebruik.}other{# wagwoorde word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
 <translation id="3293181007446299124">Jou blaai-aktiwiteit word privaat op jou toestel gehou en verslae word met ’n vertraging gestuur om jou identiteit te beskerm</translation>
 <translation id="3301936297336370235">Bevestiging van wagwoordvoorstel</translation>
 <translation id="3302615849591357577">Stel oortjiegroep <ph name="TITLE_OF_GROUP"/>, kleur <ph name="COLOR_NAME"/>, terug as ’n nuwe agtergrondoortjiegroep.</translation>
@@ -534,38 +534,38 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3414952576877147120">Grootte:</translation>
 <translation id="3430670036890315772">Jou gestoorde inligting sal verwyder word as jy jou profielslot afskakel</translation>
 <translation id="3435465986463792564">Het jy baie vensters? Jy kan hulle van hier af bestuur</translation>
-<translation id="4114256890962999877">Om toegang tot jou wagwoorde te behou, moet jy hulle nou uitvoer, Google Play Dienste opdateer, en hulle dan weer na Brave Wagwoordbestuurder invoer. <ph name="BEGIN_LINK"/>Sien volledige instruksies<ph name="END_LINK"/>.</translation>
+<translation id="9095972596566512566">Om toegang tot jou wagwoorde te behou, moet jy hulle nou uitvoer, Google Play Dienste opdateer, en hulle dan weer na Brave Wagwoordbestuurder invoer. <ph name="BEGIN_LINK"/>Sien volledige instruksies<ph name="END_LINK"/>.</translation>
 <translation id="3435738964857648380">Sekuriteit</translation>
 <translation id="3435914367318771664">Voeg oortjie by nuwe groep</translation>
-<translation id="3830890663494219270">Meld aan by Brave om jou wagwoorde en meer op al jou toestelle te kry.</translation>
+<translation id="8705561858232289221">Meld aan by Brave om jou wagwoorde en meer op al jou toestelle te kry.</translation>
 <translation id="3439276997620616816">Jy sal jou onlangse oortjies hier kry</translation>
 <translation id="3443221991560634068">Herlaai die huidige bladsy</translation>
 <translation id="3444179773590444986">Deel terugvoer oor donkertema vir werwe?</translation>
 <translation id="3448874648066942074">Som bladsy op met KI</translation>
-<translation id="7384339501748168186">Om jou privaatheid te beskerm, sal Brave nie outomaties jou wagwoord in hierdie veld invul nie.</translation>
+<translation id="3896605095091292042">Om jou privaatheid te beskerm, sal Brave nie outomaties jou wagwoord in hierdie veld invul nie.</translation>
 <translation id="3467081767799433066">Met advertensiemeting word beperkte soorte data tussen werwe gedeel om die werkverrigting van hul advertensies te meet, soos of jy ’n aankoop gedoen het nadat jy ’n werf besoek het.</translation>
 <translation id="3474624961160222204">Gaan voort as <ph name="NAME"/></translation>
 <translation id="3478363558367712427">Jy kan jou soekenjin kies</translation>
-<translation id="6165882953768534820">Die uitgevoerde lêer kan toeganklik wees vir ander, insluitend apps. Sodra jy uitvoer, sal jou wagwoorde van Brave af uitgevee word.</translation>
+<translation id="1736544569620429438">Die uitgevoerde lêer kan toeganklik wees vir ander, insluitend apps. Sodra jy uitvoer, sal jou wagwoorde van Brave af uitgevee word.</translation>
 <translation id="3488199663160411179">naam</translation>
 <translation id="3493531032208478708"><ph name="BEGIN_LINK"/>Kom meer te wete<ph name="END_LINK"/> oor voorgestelde inhoud</translation>
 <translation id="3499246418971111862">chrome_qrcode_<ph name="CURRENT_TIMESTAMP_MS"/></translation>
 <translation id="350276055892098337">Rangskik volgens oudste</translation>
 <translation id="3507132249039706973">Standaardbeskerming is aan</translation>
-<translation id="8669829441518807650">Vanlyn. Brave kan nie nagaan of daar opdaterings is nie.</translation>
+<translation id="2035058969986141068">Vanlyn. Brave kan nie nagaan of daar opdaterings is nie.</translation>
 <translation id="3513019849832307207">Sluit aan en maak oop</translation>
 <translation id="3513704683820682405">Aangevulde realiteit</translation>
 <translation id="3516053221628030540">Gaan na Google Play</translation>
 <translation id="3518985090088779359">Aanvaar, gaan voort</translation>
-<translation id="7586854317445879873">Help om strooiposbeskerming te verbeter deur kennisgewinginhoud en die werf se URL met Brave te deel. Inhoud kan deur mense gekontrolleer word.</translation>
+<translation id="9186998691130549747">Help om strooiposbeskerming te verbeter deur kennisgewinginhoud en die werf se URL met Brave te deel. Inhoud kan deur mense gekontrolleer word.</translation>
 <translation id="3521388823983121502">Kan nie voortgaan met <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/> nie</translation>
 <translation id="3522247891732774234">Opdatering is beskikbaar. Meer opsies</translation>
-<translation id="3888465267851728698">Jy kan enige tyd in instellings ophou sinkroniseer. Brave kan Search en ander dienste op grond van jou geskiedenis personaliseer.</translation>
+<translation id="1416215211514874797">Jy kan enige tyd in instellings ophou sinkroniseer. Brave kan Search en ander dienste op grond van jou geskiedenis personaliseer.</translation>
 <translation id="3524138585025253783">Ontwikkelaar-UI</translation>
 <translation id="3524334353996115845">Laat <ph name="ORIGIN"/> verifieer dat dit jy is</translation>
 <translation id="3527085408025491307">Vouer</translation>
 <translation id="3542235761944717775"><ph name="KILOBYTES"/> KB beskikbaar</translation>
-<translation id="719175600387583059">Brave-bedieners ontvang nie nuwe inligting wanneer hierdie bladsye privaat vooraf gelaai word nie omdat die voorafgelaaide bladsye geënkripteer is en die werf of app wat na die bladsye skakel 'n Brave-werf of -app is.</translation>
+<translation id="144495292992572848">Brave-bedieners ontvang nie nuwe inligting wanneer hierdie bladsye privaat vooraf gelaai word nie omdat die voorafgelaaide bladsye geënkripteer is en die werf of app wat na die bladsye skakel 'n Brave-werf of -app is.</translation>
 <translation id="3549657413697417275">Deursoek jou geskiedenis</translation>
 <translation id="3557336313807607643">Voeg by kontakte</translation>
 <translation id="3563767357928833671">Knipbordinhoud word gewys</translation>
@@ -583,16 +583,16 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3623240789707551553">{DOMAIN_COUNT,plural, =1{+ 1 werf}other{+ # werwe}}</translation>
 <translation id="3625870480639975468">Stel zoem terug</translation>
 <translation id="3631987586758005671">Deel tans na <ph name="DEVICE_NAME"/></translation>
-<translation id="871233388178581868">Brave kan jou wagwoorde nagaan wanneer jy hulle stoor</translation>
+<translation id="4507581730979762077">Brave kan jou wagwoorde nagaan wanneer jy hulle stoor</translation>
 <translation id="3636940436873918441">Voorkeurtale</translation>
-<translation id="7120697372526128040"><ph name="BEGIN_LINK"/>Vee die Brave-data in jou rekening uit<ph name="END_LINK"/> indien jy jou wagfrase vergeet het of hierdie instelling wil verander.</translation>
+<translation id="3356077634236242127"><ph name="BEGIN_LINK"/>Vee die Brave-data in jou rekening uit<ph name="END_LINK"/> indien jy jou wagfrase vergeet het of hierdie instelling wil verander.</translation>
 <translation id="3647019414263135904">Maak die konteksopspringer oop of toe</translation>
 <translation id="3653111872753786013"><ph name="WEBSITE_TITLE"/>: <ph name="WEBSITE_URL"/></translation>
-<translation id="5399378599142661690">Gaan na tuisblad van Brave-app</translation>
+<translation id="4761563184787610463">Gaan na tuisblad van Brave-app</translation>
 <translation id="368329460027487650">Afgemeld. Maak opsies oop om aan te meld.</translation>
 <translation id="3684540848053703310">Prysinsigte se onderste blad is toegemaak</translation>
 <translation id="3687645719033307815">Jy bekyk tans 'n voorskou van hierdie bladsy</translation>
-<translation id="2064782115955508856">{BOOKMARKS_COUNT,plural, =1{1 boekmerk is net op hierdie toestel gestoor. Stoor dit in jou Brave-rekening om dit op jou ander toestelle te gebruik.}other{# boekmerke word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
+<translation id="5405474047728519162">{BOOKMARKS_COUNT,plural, =1{1 boekmerk is net op hierdie toestel gestoor. Stoor dit in jou Brave-rekening om dit op jou ander toestelle te gebruik.}other{# boekmerke word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
 <translation id="3692944402865947621"><ph name="FILE_NAME"/> aflaai het misluk omdat die bergingligging nie bereik kan word nie.</translation>
 <translation id="3697705478071004188">Rangskik volgens werf</translation>
 <translation id="3699022356773522638">Laai lêer af?</translation>
@@ -602,18 +602,18 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3709577906275923507"><ph name="FILE_NAME"/> kan sensitiewe inligting bevat en moenie gedeel word nie</translation>
 <translation id="3710501561113687889">Om voort te gaan, sal <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/> jou <ph name="FIELDS_STRING"/> met hierdie werf deel.</translation>
 <translation id="3710560693796335511">Samewerking</translation>
-<translation id="7305861879874805497">Jy kan moontlik die geskiedenis sien van ander apps wat skakels in Brave oopmaak.</translation>
-<translation id="8397843425685839889">Jy en Brave</translation>
+<translation id="897020125495028372">Jy kan moontlik die geskiedenis sien van ander apps wat skakels in Brave oopmaak.</translation>
+<translation id="8357055410664599836">Jy en Brave</translation>
 <translation id="3727000368239390918">Meld aan om jou oortjies en meer op al jou toestelle te kry</translation>
 <translation id="3737319253362202215">Vertaalinstellings</translation>
 <translation id="3738139272394829648">Raak om te soek</translation>
-<translation id="4890062597702688591">Geen gekompromitteerde wagwoorde in jou Brave-rekening nie</translation>
+<translation id="8287917212213512188">Geen gekompromitteerde wagwoorde in jou Brave-rekening nie</translation>
 <translation id="3739899004075612870">Geboekmerk in <ph name="PRODUCT_NAME"/></translation>
 <translation id="3740525748616366977">Stemsoektog is nie op hierdie toestel beskikbaar nie</translation>
 <translation id="376561056759077985">Sommige data is nog nie gestoor nie</translation>
 <translation id="3770620323585347665">Benoem venster</translation>
 <translation id="3771290962915251154">Hierdie instelling is gedeaktiveer omdat ouerkontroles aan is</translation>
-<translation id="1138681184697033370">Brave se diensbepalings</translation>
+<translation id="2149112697819255772">Brave se diensbepalings</translation>
 <translation id="3775705724665058594">Stuur na jou toestelle toe</translation>
 <translation id="3777796259512476958">Meld jou by die meeste werwe af</translation>
 <translation id="3791957072666773229">{TAB_COUNT,plural, =1{1 oortjie}other{# oortjies}}</translation>
@@ -649,8 +649,8 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="393697183122708255">Geaktiveerde stemsoektog is onbeskikbaar</translation>
 <translation id="3950820424414687140">Meld aan</translation>
 <translation id="395377504920307820">Gebruik sonder 'n rekening</translation>
-<translation id="6945986954012067786">{NUM_IN_PROGRESS,plural, =1{Brave sal jou bladsy laai wanneer dit gereed is}other{Brave sal jou bladsye laai wanneer dit gereed is}}</translation>
-<translation id="1453002554835005700">Brave kan nie jou wagwoorde nagaan nie</translation>
+<translation id="963503028936395527">{NUM_IN_PROGRESS,plural, =1{Brave sal jou bladsy laai wanneer dit gereed is}other{Brave sal jou bladsye laai wanneer dit gereed is}}</translation>
+<translation id="3125221144871556631">Brave kan nie jou wagwoorde nagaan nie</translation>
 <translation id="3969863827134279083">Beweeg op</translation>
 <translation id="397105322502079400">Bereken tans …</translation>
 <translation id="397583555483684758">Sinkronisering het ophou werk</translation>
@@ -661,10 +661,10 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="3987993985790029246">Kopieer skakel</translation>
 <translation id="3994236846568425219">Skakel donkertema aan wanneer jou toestel se donkertema aan is</translation>
 <translation id="4000212216660919741">Vanlyn tuisblad</translation>
-<translation id="4694008025405984126">Pasmaak en beheer Brave met ’n gemerkte item</translation>
-<translation id="5267293611589304570">{NUM_PASSWORDS,plural, =1{1 gekompromitteerde wagwoord in jou Brave-rekening}other{# gekompromitteerde wagwoorde in jou Brave-rekening}}</translation>
+<translation id="6335026186938234370">Pasmaak en beheer Brave met ’n gemerkte item</translation>
+<translation id="2988243814594158300">{NUM_PASSWORDS,plural, =1{1 gekompromitteerde wagwoord in jou Brave-rekening}other{# gekompromitteerde wagwoorde in jou Brave-rekening}}</translation>
 <translation id="4016425174436051808">Kan nie volg nie. Iets was fout.</translation>
-<translation id="7002462047122704254">Meld aan by Brave om jou boekmerke en meer op al jou toestelle te kry</translation>
+<translation id="1652508890386912923">Meld aan by Brave om jou boekmerke en meer op al jou toestelle te kry</translation>
 <translation id="4024768890073681126">Jou ouer bestuur jou blaaier</translation>
 <translation id="4027569221211770437"><ph name="FOLDER_TITLE"/>-vouer</translation>
 <translation id="4034817413553209278">{HOURS,plural, =1{# uur}other{# uur}}</translation>
@@ -680,15 +680,15 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="4070897657850712662">{NUM_SITES,plural, =1{Ongeveer 1 kennisgewing per dag}other{Ongeveer # kennisgewings per dag}}</translation>
 <translation id="4072805772816336153">Probeer later weer</translation>
 <translation id="4084682180776658562">Boekmerk</translation>
-<translation id="4521874409998847950">Vanaf <ph name="PUBLISHER_ORIGIN"/> – <ph name="BEGIN_DEEMPHASIZED"/>afgelewer deur Brave<ph name="END_DEEMPHASIZED"/></translation>
-<translation id="7268155614575494857">Voeg jou gebruikernaam vir hierdie werf by om Brave Wagwoordbestuurder te help om jou aanmeldinligting te stoor</translation>
+<translation id="6879331918632850546">Vanaf <ph name="PUBLISHER_ORIGIN"/> – <ph name="BEGIN_DEEMPHASIZED"/>afgelewer deur Brave<ph name="END_DEEMPHASIZED"/></translation>
+<translation id="8572602423395011681">Voeg jou gebruikernaam vir hierdie werf by om Brave Wagwoordbestuurder te help om jou aanmeldinligting te stoor</translation>
 <translation id="4095146165863963773">Vee appdata uit?</translation>
 <translation id="4096227151372679484">Boekmerkstoorvloei is teen halwe hoogte oopgemaak</translation>
-<translation id="1523634703470981382">Brave Wagwoordbestuurder se opdatering is oopgemaak</translation>
+<translation id="5797465236909174074">Brave Wagwoordbestuurder se opdatering is oopgemaak</translation>
 <translation id="4108314971463891922">Volg</translation>
 <translation id="4113030288477039509">Deur jou administrateur bestuur</translation>
 <translation id="4116038641877404294">Laai bladsye af om hulle vanlyn te gebruik</translation>
-<translation id="37459938731864814">Jy hoef nie hierdie wagwoord te onthou nie. Dit sal vir <ph name="USERNAME"/> in Brave Wagwoordbestuurder gestoor word.</translation>
+<translation id="4828084467223525685">Jy hoef nie hierdie wagwoord te onthou nie. Dit sal vir <ph name="USERNAME"/> in Brave Wagwoordbestuurder gestoor word.</translation>
 <translation id="4124152339699379357">Kennisgewingtoestemmingvloei is teen volle hoogte oopgemaak</translation>
 <translation id="4132137475637520539">Laat enigiemand met die skakel aansluit</translation>
 <translation id="4135200667068010335">Lys toestelle om 'n oortjie mee te deel, is toegemaak.</translation>
@@ -704,27 +704,27 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="4180726336228139707">Net op hierdie toestel</translation>
 <translation id="4181841719683918333">Tale</translation>
 <translation id="4188221736490993796">Rangskik volgens Z na A</translation>
-<translation id="6423270958351890725">{NUM_REVOKED_PERMISSIONS,plural, =1{Brave het weens strooipos of misleidende inhoud hierdie werf gekeer om kennisgewings te stuur}other{Brave het weens strooipos of misleidende inhoud hierdie werwe gekeer om kennisgewings te stuur}}</translation>
+<translation id="2144445060097978173">{NUM_REVOKED_PERMISSIONS,plural, =1{Brave het weens strooipos of misleidende inhoud hierdie werf gekeer om kennisgewings te stuur}other{Brave het weens strooipos of misleidende inhoud hierdie werwe gekeer om kennisgewings te stuur}}</translation>
 <translation id="4195643157523330669">Maak in nuwe oortjie oop</translation>
 <translation id="4197828496439691735">{NUM_TABS,plural, =1{1 oortjie op hierdie toestel}other{# oortjies op hierdie toestel}}</translation>
 <translation id="4198423547019359126">Geen beskikbare aflaailiggings nie</translation>
 <translation id="4209029522667123437"><ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/> • Jy het op hierdie werf gebruik</translation>
-<translation id="1675646381334855139">As jy webkoekies toelaat, kan Brave hulle vir vooraflaai gebruik.</translation>
+<translation id="6203118704684479070">As jy webkoekies toelaat, kan Brave hulle vir vooraflaai gebruik.</translation>
 <translation id="4216511743389425832">Luister na hierdie bladsy</translation>
 <translation id="4225725533026049334">Volg tans</translation>
 <translation id="4225895483398857530">Nutsbalkkortpad</translation>
 <translation id="4232376164796433044">Wagwoorde en outovul</translation>
 <translation id="4242533952199664413">Maak instellings oop</translation>
-<translation id="7445061995866044926">Meld af uit Brave?</translation>
+<translation id="3987833816263696343">Meld af uit Brave?</translation>
 <translation id="4249955472157341256">Rangskik volgens Jongste</translation>
-<translation id="4847510842720497216">Intydse, AI-aangedrewe beskerming teen gevaarlike werwe, aflaaie en uitbreidings wat gegrond is op blaaierdata wat na Brave toe gestuur word</translation>
+<translation id="1321106930839538319">Intydse, AI-aangedrewe beskerming teen gevaarlike werwe, aflaaie en uitbreidings wat gegrond is op blaaierdata wat na Brave toe gestuur word</translation>
 <translation id="4256782883801055595">Oopbronlisensies</translation>
 <translation id="426652736638196239">Hierdie IBAN sal net op hierdie toestel gestoor word</translation>
 <translation id="4269820728363426813">Kopieer skakeladres</translation>
 <translation id="4270730597186910506">Begin of stop nasporing van ’n produk.</translation>
 <translation id="4277529130885813215">Gebruik ’n ander toestel</translation>
 <translation id="427987768447457592">Nuwe oortjiegroep</translation>
-<translation id="6553929648301062677">Jou organisasie, <ph name="MANAGED_DOMAIN"/>, bestuur die rekening waarby jy aanmeld en hoe Brave gebruik kan word. Jou administrateur kan sekere kenmerke opstel of beperk.</translation>
+<translation id="1224196756310663167">Jou organisasie, <ph name="MANAGED_DOMAIN"/>, bestuur die rekening waarby jy aanmeld en hoe Brave gebruik kan word. Jou administrateur kan sekere kenmerke opstel of beperk.</translation>
 <translation id="4285498937028063278">Ontspeld</translation>
 <translation id="4285846616383034558">Webkoekies, kasgeheue en ander werfdata</translation>
 <translation id="4291407919474070700"><ph name="BEGIN_LINK"/>Skakel skermslot in Android-instellings aan<ph name="END_LINK"/></translation>
@@ -737,7 +737,7 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="4311652497846705514">Maak PDF oop?</translation>
 <translation id="4313895677475587452">{NUM_SUSPICIOUS_NOTIFICATIONS,plural, =1{Moontlike strooipos}other{Moontlike strooipos (#)}}</translation>
 <translation id="4320177379694898372">Geen internetverbinding nie</translation>
-<translation id="6329878711227695496">Verifieer dis jy om Brave-data in jou Brave-rekening te gebruik en te stoor</translation>
+<translation id="3958358028735895188">Verifieer dis jy om Brave-data in jou Brave-rekening te gebruik en te stoor</translation>
 <translation id="433213510553688132">Volg tans …</translation>
 <translation id="4335835283689002019">Veiligblaai is af</translation>
 <translation id="4351244548802238354">Maak dialoog toe</translation>
@@ -760,7 +760,7 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="4409014848144759297"><ph name="WEBSITE_TITLE"/> en <ph name="TAB_COUNT"/> ander oortjies</translation>
 <translation id="441100617989818073">Ongebruikte of duplikaatoortjies en -groepe</translation>
 <translation id="4414179633735763985"><ph name="TAB_GROUPS_AND_TABS_PART"/> is uitgevee</translation>
-<translation id="5749788945734786627">Bestuur jou Brave-rekening</translation>
+<translation id="6858002458933279303">Bestuur jou Brave-rekening</translation>
 <translation id="4425140285732600465">Spoor tans prys na. Kry kennisgewings as die prys op enige werf daal.</translation>
 <translation id="4425173294238317796">Toegangsleutelbevestigingsblad</translation>
 <translation id="442518031075347249">Jy sal nie meer jou virtuele kaart met Google Pay kan gebruik nie <ph name="BEGIN_LINK1"/>Kom meer te wete oor virtuele kaarte<ph name="END_LINK1"/></translation>
@@ -773,14 +773,14 @@ Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word
 <translation id="4478161224666880173">Jy kan jou <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/>-rekening op hierdie werf gebruik. Meld aan by <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/> om voort te gaan.</translation>
 <translation id="3133489217401741157">Installeer tans <ph name="MODULE"/> vir Brave …</translation>
 <translation id="4484496141267039529">Geen verbinding nie. Probeer later weer.</translation>
-<translation id="53119194224775367">Al Brave se programdata sal permanent uitgevee word. Dit sluit in alle lêers, instellings, rekeninge, databasisse, ens.</translation>
+<translation id="5753197250886151540">Al Brave se programdata sal permanent uitgevee word. Dit sluit in alle lêers, instellings, rekeninge, databasisse, ens.</translation>
 <translation id="4494315997125191493">Kies bestuur om alle vensters te sien</translation>
 <translation id="4494806687727322324">Die stoor van wagwoorde is deur jou administrateur aangeskakel</translation>
 <translation id="4508528996305412043">Stroomkaartkieslys is oop</translation>
 <translation id="4509741852167209430">Beperkte soorte data tussen werwe gedeel om die werkverrigting van hul advertensies te meet, soos of jy ’n aankoop gedoen het nadat jy ’n werf besoek het</translation>
 <translation id="4513387527876475750">{DAYS,plural, =1{# dag gelede}other{# dae gelede}}</translation>
 <translation id="451872707440238414">Deursoek jou boekmerke</translation>
-<translation id="1664855196866195614">Die gekose data is van Brave en jou gesinkroniseerde toestelle verwyder.
+<translation id="5976277331518429250">Die gekose data is van Brave en jou gesinkroniseerde toestelle verwyder.
 
 Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en aktiwiteit van ander Brave-dienste af, by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/>.</translation>
 <translation id="4523326818319942067">laaste uur</translation>
@@ -799,13 +799,13 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="4594952190837476234">Hierdie vanlyn bladsy is van <ph name="CREATION_TIME"/> af en kan van die aanlyn weergawe verskil.</translation>
 <translation id="4595237294768457124">Maak ’n Nuwe oortjie-bladsy oop</translation>
 <translation id="4595276580892809760">Heg prente uit galery aan</translation>
-<translation id="2724914440849807699">Fout met Brave-rekening</translation>
+<translation id="5094546550901783044">Fout met Brave-rekening</translation>
 <translation id="4601095002996233687">Omvattende skanderings vir verdagte aflaaie.</translation>
-<translation id="3047078595137661468">Brave enkripteer en laai bladsye vooraf deur Brave-bedieners sonder webkoekies wanneer ’n werf of app vra om skakels op hul bladsy privaat vooraf te laai. Dit versteek jou identiteit vir die voorafgelaaide werf.</translation>
+<translation id="743791379909939658">Brave enkripteer en laai bladsye vooraf deur Brave-bedieners sonder webkoekies wanneer ’n werf of app vra om skakels op hul bladsy privaat vooraf te laai. Dit versteek jou identiteit vir die voorafgelaaide werf.</translation>
 <translation id="4616150815774728855">Maak <ph name="WEBAPK_NAME"/> oop</translation>
 <translation id="4619564267100705184">Verifieer dis jy</translation>
 <translation id="4634124774493850572">Gebruik wagwoord</translation>
-<translation id="6005362221286220739">{PASSWORDS_COUNT,plural, =1{1 wagwoord en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}other{# wagwoorde en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
+<translation id="6049484478621779513">{PASSWORDS_COUNT,plural, =1{1 wagwoord en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}other{# wagwoorde en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
 <translation id="4640331037679501949">{NUM_PASSWORDS,plural, =1{1 gekompromitteerde wagwoord}other{# gekompromitteerde wagwoorde}}</translation>
 <translation id="4641919525231168205">Gaan na volgende bladsy</translation>
 <translation id="4642472735733036929">Prysnasporing is gestop</translation>
@@ -816,7 +816,7 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="4668279686271488041">Advertensiemetingdata word gereeld van jou toestel af uitgevee</translation>
 <translation id="4668347365065281350">Alle data wat deur werwe geberg is, insluitend webkoekies en ander data wat plaaslik gestoor is</translation>
 <translation id="4675298276894277358">Hierdie werf sal nie weer gewys word nie</translation>
-<translation id="6904731820418823295">Donkertema vir werwe is aan in Brave</translation>
+<translation id="3899289616742512702">Donkertema vir werwe is aan in Brave</translation>
 <translation id="4682306524980568490">Net <ph name="MAX_INSTANCE_COUNT"/> vensters kan gewys word</translation>
 <translation id="4684427112815847243">Sinkroniseer alles</translation>
 <translation id="4685741273709472646">Kies op die aftreklys</translation>
@@ -838,16 +838,16 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="4738836084190194332">Laas gesinkroniseer: <ph name="WHEN"/></translation>
 <translation id="474121291218385686">Filtreer volgens app</translation>
 <translation id="4741753828624614066">Jy sal verbeterde voorstelle in die adresbalk kry</translation>
-<translation id="5788625372408165654">Brave-data is uitgevee</translation>
+<translation id="2600839092420112155">Brave-data is uitgevee</translation>
 <translation id="4742970037960872810">Verwyder kleurmerk</translation>
 <translation id="4749960740855309258">Maak 'n nuwe oortjie oop</translation>
-<translation id="5122326460832678317">Aangemeld as <ph name="USER_NAME"/>. <ph name="USER_EMAIL"/>. Fout met Brave-rekening. Maak instellings oop.</translation>
+<translation id="8203618978064113889">Aangemeld as <ph name="USER_NAME"/>. <ph name="USER_EMAIL"/>. Fout met Brave-rekening. Maak instellings oop.</translation>
 <translation id="4758061975920522644">Deel net prent</translation>
 <translation id="4759238208242260848">Aflaaie</translation>
 <translation id="4763480195061959176">video</translation>
 <translation id="4766313118839197559">Wagwoorde word op hierdie toestel in Wagwoordbestuurder gestoor</translation>
 <translation id="4766678251456904326">Voeg rekening by toestel</translation>
-<translation id="1996253762801922860">Ons stel ’n nuwe advertensieprivaatheidkenmerk genaamd advertensiemeting bekend. Brave deel net baie beperkte inligting tussen werwe en apps, soos wanneer ’n advertensie vir jou gewys is, om werwe te help om advertensieprestasie te meet.</translation>
+<translation id="708704264744481639">Ons stel ’n nuwe advertensieprivaatheidkenmerk genaamd advertensiemeting bekend. Brave deel net baie beperkte inligting tussen werwe en apps, soos wanneer ’n advertensie vir jou gewys is, om werwe te help om advertensieprestasie te meet.</translation>
 <translation id="4769095993849849966">Nuwe lêernaam</translation>
 <translation id="4769632191812288342">Jy kry tans standaardbeskerming</translation>
 <translation id="4773122030389014189">Deel “<ph name="GROUP_NAME"/>”-oortjiegroep</translation>
@@ -857,14 +857,14 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="4782929588435725897"><ph name="SEARCH_ENGINE"/> is jou versteksoekenjin</translation>
 <translation id="4784349455504343791"><ph name="WEBSITE_ORIGIN"/> wil persoonlike inligting gebruik wat in jou digitale beursie is.</translation>
 <translation id="4787736314074622408">Wil jy <ph name="ITEM_TITLE"/> uitvee?</translation>
-<translation id="4194619960643453552">Vinnd uit hoe Brave jou veilig hou</translation>
+<translation id="1832973663231751701">Vinnd uit hoe Brave jou veilig hou</translation>
 <translation id="4794291718671962615">(<ph name="MEGABYTES"/>) <ph name="URL"/></translation>
 <translation id="4807098396393229769">Naam op kaart</translation>
 <translation id="480990236307250886">Maak die tuisblad oop</translation>
 <translation id="4822710610088666676"><ph name="TAB_GROUP_TITLE"/>-oortjiegroep is toegemaak en gestoor</translation>
 <translation id="482405935591409882">Soek jou oortjies en groepe</translation>
 <translation id="4834250788637067901">Betaalmetodes, aanbiedings en adresse wat Google Pay gebruik</translation>
-<translation id="2593289874938379417">Brave het nie toegang tot die hulpbron wat versoek is nie.</translation>
+<translation id="278281410144257175">Brave het nie toegang tot die hulpbron wat versoek is nie.</translation>
 <translation id="483742037940503070">{TAB_COUNT,plural, =1{Stel oortjiegroep van <ph name="TAB_COUNT_ONE"/> oortjie, kleur <ph name="COLOR_NAME"/>, terug as ’n nuwe agtergrondoortjiegroep.}other{Stel oortjiegroep van <ph name="TAB_COUNT_MANY"/> oortjies, kleur <ph name="COLOR_NAME"/>, terug as ’n nuwe agtergrondoortjiegroep.}}</translation>
 <translation id="4849731766219625109">Gebruik jou <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/>-rekening</translation>
 <translation id="4850886885716139402">Bekyk</translation>
@@ -879,27 +879,27 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="4880127995492972015">Vertaal …</translation>
 <translation id="4881695831933465202">Maak oop</translation>
 <translation id="488187801263602086">Hernoem lêer</translation>
-<translation id="1248710015876067820">Ongesteunde aantal Brave-gevalle.</translation>
-<translation id="8743324804589176795">Geen gestoorde wagwoorde in jou Brave-rekening nie</translation>
+<translation id="5532217788860907816">Ongesteunde aantal Brave-gevalle.</translation>
+<translation id="2633032797231200431">Geen gestoorde wagwoorde in jou Brave-rekening nie</translation>
 <translation id="4905823827770127520">Sluit 'n skakel na die bladsy toe in</translation>
-<translation id="3217997482476578430">Ontdek deur Brave</translation>
+<translation id="3715560705225868837">Ontdek deur Brave</translation>
 <translation id="4910889077668685004">Betalingprogramme</translation>
 <translation id="4911042367886397055">Welkom terug, <ph name="USER_NAME"/>!</translation>
 <translation id="4913169188695071480">Hou op herlaai</translation>
-<translation id="367116267716122258">Meld aan by Brave as <ph name="EMAIL"/> om jou wagwoorde en meer op al jou toestelle te kry</translation>
+<translation id="4360673347688376078">Meld aan by Brave as <ph name="EMAIL"/> om jou wagwoorde en meer op al jou toestelle te kry</translation>
 <translation id="4923173329789776645">Aflaai word nie deur jou organisasie aanbeveel nie</translation>
 <translation id="4925120120285606924">Skermkiekie <ph name="CURRENT_DATE_ISO"/></translation>
 <translation id="4926901776383726965">Jy kan prente en lêers stoor om vanlyn te bekyk of in ander apps te deel</translation>
-<translation id="627813071783441186">{BOOKMARKS_COUNT,plural, =1{1 boekmerk en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}other{# boekmerke en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
-<translation id="1955495299630319741">Jou Brave-data sal van hierdie toestel af uitgevee word omdat jy uitteken by 'n rekening wat deur <ph name="DOMAIN_NAME"/> bestuur word. Dit sal in jou Brave-rekening bly.</translation>
+<translation id="1158245065905181548">{BOOKMARKS_COUNT,plural, =1{1 boekmerk en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}other{# boekmerke en ander items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
+<translation id="198395052321042680">Jou Brave-data sal van hierdie toestel af uitgevee word omdat jy uitteken by 'n rekening wat deur <ph name="DOMAIN_NAME"/> bestuur word. Dit sal in jou Brave-rekening bly.</translation>
 <translation id="4943703118917034429">Virtuele realiteit</translation>
 <translation id="4943872375798546930">Geen resultate nie</translation>
 <translation id="4957722034734105353">Kom meer te wete …</translation>
 <translation id="4959115606310463263">Aanmelding se onderste blad is teen halwe hoogte oopgemaak</translation>
 <translation id="4961107849584082341">Vertaal hierdie bladsy in enige taal</translation>
-<translation id="6785504257633294906">Brave waarsku jou oor onveilige werwe en aflaaie</translation>
-<translation id="8367947725773962458">Dateer Google Play-dienste op om nuwe wagwoorde in jou Brave-rekening te stoor en te gebruik</translation>
-<translation id="1885435884843655635">Probeer om vir iets anders te soek of maak die volle Brave-geskiedenis oop om meer resultate te sien.</translation>
+<translation id="8555028221428832384">Brave waarsku jou oor onveilige werwe en aflaaie</translation>
+<translation id="7826753176501122235">Dateer Google Play-dienste op om nuwe wagwoorde in jou Brave-rekening te stoor en te gebruik</translation>
+<translation id="5112722188704321244">Probeer om vir iets anders te soek of maak die volle Brave-geskiedenis oop om meer resultate te sien.</translation>
 <translation id="497421865427891073">Gaan vorentoe</translation>
 <translation id="497983151715419057">Gaan jou onaktiewe oortjies en groepe hier na</translation>
 <translation id="498624032394115435">Enigiemand met die skakel kan alle oortjies wysig.</translation>
@@ -925,18 +925,18 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5056587122125565772">Skep prent</translation>
 <translation id="506254248375231072">Geen oortjies nie</translation>
 <translation id="5075939510584558547">Stoor sonder enkripsie</translation>
-<translation id="6518666204737985156">Meld by hierdie werf en Brave aan om jou boekmerke en meer op al jou toestelle te kry</translation>
-<translation id="4744980273298156620">Jy sal binnekort stories van <ph name="SITE_NAME"/> af sien wanneer jy 'n nuwe oortjie oopmaak. Werwe wat jy volg, word in jou Brave-rekening gestoor. Jy kan hulle bestuur in Ontdek-instellings.</translation>
+<translation id="8971544964124529716">Meld by hierdie werf en Brave aan om jou boekmerke en meer op al jou toestelle te kry</translation>
+<translation id="4193013755195743926">Jy sal binnekort stories van <ph name="SITE_NAME"/> af sien wanneer jy 'n nuwe oortjie oopmaak. Werwe wat jy volg, word in jou Brave-rekening gestoor. Jy kan hulle bestuur in Ontdek-instellings.</translation>
 <translation id="509429900233858213">'n Fout het voorgekom.</translation>
 <translation id="5096775069898886423">Kry waarskuwings oor werwe wat nie veilige verbindings steun nie, voordat jy die werf besoek</translation>
 <translation id="510275257476243843">1 uur oor</translation>
 <translation id="5114895953710637392">Appfilterblad is toe.</translation>
 <translation id="5115811374190515607">na <ph name="PRODUCT_NAME"/></translation>
-<translation id="7143053178237996319">Jy kan Brave enige tyd gebruik wanneer jy tik op skakels in boodskappe, dokumente en ander apps.</translation>
+<translation id="6339743327057410200">Jy kan Brave enige tyd gebruik wanneer jy tik op skakels in boodskappe, dokumente en ander apps.</translation>
 <translation id="5118713593561876160">Belangstellings</translation>
 <translation id="5122378528687922675">Vra jou ouer (<ph name="PARENT_NAME_1"/> of <ph name="PARENT_NAME_2"/>) as jy hulp benodig</translation>
 <translation id="5142281402488957685">Trek af om te herlaai vir nuwe berigte</translation>
-<translation id="8164849572238219995">Sommige van die bladsye wat jy besoek, word vooraf gelaai. Bladsye kan vooraf deur Brave-bedieners gelaai word wanneer hulle vanaf ’n Brave-werf of -app gekoppel is.</translation>
+<translation id="6978323149190246966">Sommige van die bladsye wat jy besoek, word vooraf gelaai. Bladsye kan vooraf deur Brave-bedieners gelaai word wanneer hulle vanaf ’n Brave-werf of -app gekoppel is.</translation>
 <translation id="5152843274749979095">Geen gesteunde programme is geïnstalleer nie</translation>
 <translation id="5161254044473106830">Titel word vereis</translation>
 <translation id="5161262286013276579">Toegangsleutelbevestigingsblad is oopgemaak</translation>
@@ -952,11 +952,11 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5206168361184759344">{FILE_COUNT,plural, =1{Laai tans lêer af …}other{Laai tans # lêers af …}}</translation>
 <translation id="5210286577605176222">Spring na die vorige oortjie</translation>
 <translation id="5210365745912300556">Maak oortjie toe</translation>
-<translation id="6070412534311859792">Herbegin Brave om hierdie verandering te voltooi. Oortjies maak outomaties weer oop wanneer jy herbegin.</translation>
+<translation id="471473124727194648">Herbegin Brave om hierdie verandering te voltooi. Oortjies maak outomaties weer oop wanneer jy herbegin.</translation>
 <translation id="5213114823401215820">Heropen groep wat toegemaak is</translation>
 <translation id="5215957675041756913">Beheer jou data en rekening</translation>
 <translation id="5218324087477576825">Kaartnommer word vereis</translation>
-<translation id="7965009626431458039"><ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> en meer <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want jy het nie onlangs die werf besoek nie</translation>
+<translation id="8940533142873964161"><ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> en meer <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want jy het nie onlangs die werf besoek nie</translation>
 <translation id="5222676887888702881">Meld af</translation>
 <translation id="5226378907213531272">Jy sal elke keer as jy die motor gebruik jou skerm ontsluit</translation>
 <translation id="5227554086496586518">Tik om soekresultate te sien</translation>
@@ -968,13 +968,13 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5271967389191913893">Toestel kan nie die inhoud oopmaak wat afgelaai moet word nie.</translation>
 <translation id="5273031377282080577">Jou admin bestuur hierdie instelling.</translation>
 <translation id="5292796745632149097">Stuur na</translation>
-<translation id="1078957913029848404">Jy is aangemeld as <ph name="EMAIL"/>. Jy kan enige tyd in instellings ophou sinkroniseer. Brave kan Search en ander dienste op grond van jou geskiedenis personaliseer.</translation>
+<translation id="8707309303174791483">Jy is aangemeld as <ph name="EMAIL"/>. Jy kan enige tyd in instellings ophou sinkroniseer. Brave kan Search en ander dienste op grond van jou geskiedenis personaliseer.</translation>
 <translation id="5304593522240415983">Hierdie veld mag nie leeg wees nie</translation>
 <translation id="5306014156308790439">Gedeaktiveer: Voeg by versameling</translation>
 <translation id="5308380583665731573">Koppel</translation>
 <translation id="5316947901395241499">Die stoor van wagwoorde is deur jou administrateur afgeskakel</translation>
 <translation id="5317780077021120954">Berg</translation>
-<translation id="989239400026154074">Brave beveel Brave aan</translation>
+<translation id="5669943213650053323">Brave beveel Brave aan</translation>
 <translation id="5326246328175179736">Jy kan nie met hierdie rekening aanmeld nie</translation>
 <translation id="5327248766486351172">Naam</translation>
 <translation id="5328542107300944283">Gebruik met <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/></translation>
@@ -985,7 +985,7 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5375374982898812658">Jy sal onmiddellik toegang tot die “<ph name="GROUP_NAME"/>”-oortjiegroep verloor, en dit sal van al jou toestelle af uitgevee word</translation>
 <translation id="5375577065097716013">Soek prent met Google Lens <ph name="BEGIN_NEW"/>Nuut<ph name="END_NEW"/></translation>
 <translation id="5390367025924544771"><ph name="WEBSITE_ORIGIN"/> wil persoonlike inligting gebruik wat in jou digitale beursie is. Gaan net voort as jy hierdie werf vertrou. Gevaarlike werwe kan jou dalk mislei om dinge soos jou wetlike naam of ID-nommer bekend te maak.</translation>
-<translation id="4799771635362945886">Maak seker dat jy altyd die Brave-data in jou Brave-rekening kan gebruik</translation>
+<translation id="9167866466005593845">Maak seker dat jy altyd die Brave-data in jou Brave-rekening kan gebruik</translation>
 <translation id="539881862970320163">Sterk wagwoord word voorgestel. Sleutelbord is versteek.</translation>
 <translation id="5409881200985013443">Dien <ph name="ONE_TIME_CODE"/> op <ph name="CLIENT_NAME"/> in?</translation>
 <translation id="5410300144953132176"><ph name="OWNER_FULL_NAME"/> (<ph name="OWNER_EMAIL"/>) wil hê jy moet by ’n oortjiegroep aansluit. Enigiemand met die skakel kan alle oortjies wysig, so sluit versigtig aan. Skakel verval oor 48 uur.</translation>
@@ -996,7 +996,7 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5424588387303617268"><ph name="GIGABYTES"/> GB is beskikbaar</translation>
 <translation id="5436928407363358055">Sinkroniseer jou geskiedenis en oortjies om maklik aan te gaan waar jy opgehou het</translation>
 <translation id="5438292632479953702">Laai weer af</translation>
-<translation id="2766925507720001104">Waarsku jou oor gevaarlike werwe – selfs werwe waarvan Brave nie voorheen geweet het nie – deur meer data van werwe te ontleed as standaardbeskerming. Jy kan kies om Brave-waarskuwings oor te slaan.</translation>
+<translation id="3789814425225347106">Waarsku jou oor gevaarlike werwe – selfs werwe waarvan Brave nie voorheen geweet het nie – deur meer data van werwe te ontleed as standaardbeskerming. Jy kan kies om Brave-waarskuwings oor te slaan.</translation>
 <translation id="5441137934526263133">Werk werf nie? Derdepartywebkoekies word geblokkeer</translation>
 <translation id="5441466871879044658">Vertaal in hierdie taal</translation>
 <translation id="5444999712122199445">Gaan terug na werf</translation>
@@ -1012,7 +1012,7 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5526281268548144413">Kan nie op verskeie vensters toegemaak word nie</translation>
 <translation id="5532536403031755365">Voeg ’n ekstra laag beskerming teen aanlyn bedreigings by met verbeterde beskerming</translation>
 <translation id="5548606607480005320">Veiligheidskontrole</translation>
-<translation id="4362225295386962644">Wanneer jy ’n wagwoord gebruik, waarsku Brave jou as dit aanlyn gepubliseer is. Wanneer dit gedoen word, word jou wagwoorde en gebruikername geënkripteer sodat niemand, insluitend Brave, hulle kan lees nie.</translation>
+<translation id="6709384821587399925">Wanneer jy ’n wagwoord gebruik, waarsku Brave jou as dit aanlyn gepubliseer is. Wanneer dit gedoen word, word jou wagwoorde en gebruikername geënkripteer sodat niemand, insluitend Brave, hulle kan lees nie.</translation>
 <translation id="5555525474779371165">Kies jou Veiligblaai-beskerming</translation>
 <translation id="5556459405103347317">Herlaai</translation>
 <translation id="555671485580955310">Sinkroniseer geskiedenis en oortjies</translation>
@@ -1024,10 +1024,10 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="557018954714092179">Skep nuwe vouer</translation>
 <translation id="5578795271662203820">Deursoek <ph name="SEARCH_ENGINE"/> vir hierdie prent</translation>
 <translation id="5596627076506792578">Meer opsies</translation>
-<translation id="6894318537270274409">Gaan na <ph name="BEGIN_LINK"/>Brave-dienste<ph name="END_LINK"/> vir meer instellings wat data gebruik om jou Brave-ervaring te verbeter.</translation>
+<translation id="7249201331503662141">Gaan na <ph name="BEGIN_LINK"/>Brave-dienste<ph name="END_LINK"/> vir meer instellings wat data gebruik om jou Brave-ervaring te verbeter.</translation>
 <translation id="5601924940067278327">Kry jou wagwoorde en meer op al jou toestelle</translation>
 <translation id="5611398002774823980">Stoor in rekening</translation>
-<translation id="7769309869030290448">Meld by Brave aan as <ph name="EMAIL"/> om jou oortjies en meer op al jou toestelle te kry</translation>
+<translation id="6628904508788359268">Meld by Brave aan as <ph name="EMAIL"/> om jou oortjies en meer op al jou toestelle te kry</translation>
 <translation id="5614625640221885312">Meld aan om jou boekmerke, wagwoorde en meer op al jou toestelle te kry</translation>
 <translation id="5619633276517849615">Jou organisasie het Veiligblaai aangeskakel</translation>
 <translation id="5620163320393916465">Geen gestoorde wagwoorde nie</translation>
@@ -1036,27 +1036,27 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5628604359369369630">Ongelees – vanlyn beskikbaar</translation>
 <translation id="5631483240431073854">Bestuur oop oortjies</translation>
 <translation id="5632485077360054581">Wys my hoe</translation>
-<translation id="8459994515707449554">Aangemeld as <ph name="USER_NAME"/>. Fout met Brave-rekening. Maak instellings oop.</translation>
-<translation id="3801854459269566477"><ph name="BEGIN_LINK1"/>Soekgeskiedenis<ph name="END_LINK1"/> en <ph name="BEGIN_LINK2"/>ander vorme van aktiwiteit<ph name="END_LINK2"/> kan in jou Brave-rekening gestoor word</translation>
+<translation id="7835063606849589822">Aangemeld as <ph name="USER_NAME"/>. Fout met Brave-rekening. Maak instellings oop.</translation>
+<translation id="103472338162568830"><ph name="BEGIN_LINK1"/>Soekgeskiedenis<ph name="END_LINK1"/> en <ph name="BEGIN_LINK2"/>ander vorme van aktiwiteit<ph name="END_LINK2"/> kan in jou Brave-rekening gestoor word</translation>
 <translation id="5648166631817621825">Afgelope 7 dae</translation>
 <translation id="5655963694829536461">Deursoek jou aflaaie</translation>
 <translation id="5657871969392618475">Jou inligting word deur ’n profielslot beskerm</translation>
 <translation id="5659593005791499971">E-pos</translation>
 <translation id="5665379678064389456">Skep geleentheid in <ph name="APP_NAME"/></translation>
-<translation id="5668833306439455813">Brave kan nie nagaan of daar opdaterings is nie</translation>
+<translation id="2374998947301249214">Brave kan nie nagaan of daar opdaterings is nie</translation>
 <translation id="5683916195767086779">Oortjiegroep</translation>
 <translation id="5686790454216892815">Lêernaam is te lank</translation>
 <translation id="569536719314091526">Vertaal hierdie bladsy in enige taal vanaf die Meer Opsies-knoppie</translation>
-<translation id="2320748512701464301">Brave kan help om jou teen dataskendings, onveilige webwerwe, en meer te beskerm</translation>
+<translation id="1449664158353512780">Brave kan help om jou teen dataskendings, onveilige webwerwe, en meer te beskerm</translation>
 <translation id="5698878456427040674">Kyk of die gekose rekening gesteun word.</translation>
 <translation id="5709213329446699338"><ph name="SITE"/> wil aan 'n seriepoort koppel</translation>
 <translation id="5715150588940290235">Vee gestoorde sekuriteitskodes uit?</translation>
-<translation id="8926436246118281502">Jou boekmerke, geskiedenis en ander Brave-data sal nie meer met jou Brave-rekening gesinkroniseer word nie</translation>
+<translation id="9082685497877830644">Jou boekmerke, geskiedenis en ander Brave-data sal nie meer met jou Brave-rekening gesinkroniseer word nie</translation>
 <translation id="572328651809341494">Onlangse oortjies</translation>
-<translation id="2628630689312565278">Gekoppelde Brave-dienste</translation>
+<translation id="4376779449918948219">Gekoppelde Brave-dienste</translation>
 <translation id="5744751019568455640">Hier is die stemme wat jy kan kies om jou webblaaie te lees. As jy van hierdie stem hou en wil hê ek moet dit aanhou gebruik, tik net op die stemnaam.</translation>
 <translation id="574845902699630049">Deel as <ph name="OWNER_FULL_NAME"/></translation>
-<translation id="3088191967551450609">Brave het bergingtoegang nodig om lêers af te laai.</translation>
+<translation id="2706788694351593607">Brave het bergingtoegang nodig om lêers af te laai.</translation>
 <translation id="5749237766298580851">Af <ph name="SEPARATOR"/> Nie aanbeveel nie</translation>
 <translation id="5752232708629533680">Deel net GIF</translation>
 <translation id="5753570386948603678">Vee uit in geskiedenis</translation>
@@ -1074,14 +1074,14 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5811144606237321538"><ph name="TAB_TITLE"/>, multigekose vasgespelde gedempte oortjie</translation>
 <translation id="5814749351757353073">Bly op hoogte van jou gunstelingwerwe</translation>
 <translation id="5823093032261493462">Wil jy in elk geval “<ph name="FILE_NAME"/>” van <ph name="DOWNLOAD_DOMAIN"/> aflaai?</translation>
-<translation id="8433094421066568876">Nadat Brave herbegin het, sal jou inligting wat van jou nuwe verskaffer gestoor is, gebruik word om wagwoorde, toegangsleutels, adresse, betaalmetodes en ander inligting outomaties in te vul.</translation>
-<translation id="2326452470420653225">Jy kan die data in Brave-instellings uitvee</translation>
+<translation id="2689905356808994500">Nadat Brave herbegin het, sal jou inligting wat van jou nuwe verskaffer gestoor is, gebruik word om wagwoorde, toegangsleutels, adresse, betaalmetodes en ander inligting outomaties in te vul.</translation>
+<translation id="5143456168435022710">Jy kan die data in Brave-instellings uitvee</translation>
 <translation id="5829586821381540080">Gestoor in <ph name="FOLDER_NAME"/></translation>
 <translation id="583281660410589416">Onbekend</translation>
 <translation id="5833984609253377421">Deel skakel</translation>
-<translation id="2225291765389142805">Brave-dinosourusspeletjie</translation>
+<translation id="8806476113492679288">Brave-dinosourusspeletjie</translation>
 <translation id="5841444063256914865">Wil jy in elk geval “<ph name="FILE_NAME"/>” aflaai?</translation>
-<translation id="4783542788057285695">Brave het misbruikende en ongebruikte werwe gekeer om kennisgewings te stuur</translation>
+<translation id="206028821902806851">Brave het misbruikende en ongebruikte werwe gekeer om kennisgewings te stuur</translation>
 <translation id="5848257610304005265">Maak PDF oop met <ph name="APP_NAME"/>?</translation>
 <translation id="5849288995120328556">Hou op deel?</translation>
 <translation id="5853623416121554550">laat wag</translation>
@@ -1091,37 +1091,37 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="5860033963881614850">Af</translation>
 <translation id="5860491529813859533">Skakel aan</translation>
 <translation id="5864419784173784555">Wag tans vir nog 'n aflaai …</translation>
-<translation id="6538479075382111079">Stuur gebruikstatistieke en omvalverslae outomaties na Brave</translation>
+<translation id="154814400924146898">Stuur gebruikstatistieke en omvalverslae outomaties na Brave</translation>
 <translation id="5869522115854928033">Gestoorde wagwoorde</translation>
 <translation id="5870416898561279542">Duplikaatoortjies en -groepe of dié wat vir <ph name="DAYS_INACTIVE"/> dae nie gebruik is nie, word hierheen geskuif<ph name="AUTODELETE_SECTION"/>. Jy kan dit enige tyd in <ph name="DECLUTTER_SETTINGS_TITLE"/> verander.</translation>
-<translation id="5604589745019948682">Om 'n werf te volg, moet jy na die werf gaan, die Brave-kieslys oopmaak, en op Volg tik.</translation>
-<translation id="2496394743292988533">Kennisgewings <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want die werf is gevaarlik</translation>
+<translation id="5477143680532073603">Om 'n werf te volg, moet jy na die werf gaan, die Brave-kieslys oopmaak, en op Volg tik.</translation>
+<translation id="3363783669068682495">Kennisgewings <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want die werf is gevaarlik</translation>
 <translation id="5899667542927581604">Geen toegangsleutelblad is toegemaak nie</translation>
 <translation id="5907542076239273525">Boekmerk gestoor in <ph name="FOLDER_NAME"/></translation>
 <translation id="5916664084637901428">Aan</translation>
 <translation id="5919204609460789179">Dateer <ph name="PRODUCT_NAME"/> op om sinkronisering te begin</translation>
 <translation id="5932881020239635062">Reeksnommer</translation>
 <translation id="5938820472109305350">Voeg <ph name="INTEREST"/> by</translation>
-<translation id="6103327872225198548">Gebruik Brave om te soek</translation>
+<translation id="8386956524586154298">Gebruik Brave om te soek</translation>
 <translation id="5945035219773565305">Huidige aanbeveling:  <ph name="RECOMMENDATION"/></translation>
 <translation id="5951119116059277034">Bekyk tans regstreekse bladsy</translation>
-<translation id="305870044889644984">Maak die Brave-hulpsentrum in 'n nuwe oortjie oop</translation>
+<translation id="7141756105872479755">Maak die Brave-hulpsentrum in 'n nuwe oortjie oop</translation>
 <translation id="59577092665511740">Kies ’n rekening.</translation>
 <translation id="5958275228015807058">Kry jou lêers en bladsye in Aflaaie</translation>
-<translation id="4262327329851675629">{NUM_REVOKED_PERMISSIONS,plural, =1{Brave het ’n werf wat jy nie onlangs besoek het nie gekeer om vir jou kennisgewings te stuur}other{Brave het werwe wat jy nie onlangs besoek het nie gekeer om vir jou kennisgewings te stuur}}</translation>
+<translation id="7837685972414572526">{NUM_REVOKED_PERMISSIONS,plural, =1{Brave het ’n werf wat jy nie onlangs besoek het nie gekeer om vir jou kennisgewings te stuur}other{Brave het werwe wat jy nie onlangs besoek het nie gekeer om vir jou kennisgewings te stuur}}</translation>
 <translation id="5962718611393537961">Tik om in te vou</translation>
 <translation id="5964869237734432770">Stop prentbeskrywings</translation>
 <translation id="5972844218283131174">Ontkies alles</translation>
 <translation id="5975083100439434680">Zoem uit</translation>
 <translation id="5977976211062815271">Op hierdie toestel</translation>
 <translation id="5978661847409534366">{ITEMS_COUNT,plural, =1{1 bladsy op jou leeslys}other{# bladsye op jou leeslys}}</translation>
-<translation id="2373832261299530145"><ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want jy het nie onlangs die werf besoek nie</translation>
+<translation id="2426863007232567922"><ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want jy het nie onlangs die werf besoek nie</translation>
 <translation id="5995726099713306770">Laai bladsy weer af?</translation>
-<translation id="6456271171669383967">Hou Brave</translation>
+<translation id="3142153930488154627">Hou Brave</translation>
 <translation id="6000203700195075278">Volg weer</translation>
 <translation id="6011308810877101166">Verbeter soekvoorstelle</translation>
 <translation id="6013305291643746595">Sorteer volgens oudste</translation>
-<translation id="296137235951584143">Maak Brave jou eie</translation>
+<translation id="1665840797775025867">Maak Brave jou eie</translation>
 <translation id="6026538407078977628">Vou uit na volskerm</translation>
 <translation id="6030719887161080597">Bestuur inligting wat deur werwe gebruik word om advertensieprestasie te meet</translation>
 <translation id="6039379616847168523">Spring na die volgende oortjie</translation>
@@ -1131,12 +1131,12 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="604996488070107836">Kon <ph name="FILE_NAME"/> weens 'n onbekende fout nie aflaai nie.</translation>
 <translation id="605721222689873409">YY</translation>
 <translation id="6059830886158432458">Beheer jou stories en aktiwiteit hier</translation>
-<translation id="4701065218405772222">Meld by jou Brave-rekening aan om gekompromitteerde wagwoorde na te gaan</translation>
+<translation id="7134493893031268830">Meld by jou Brave-rekening aan om gekompromitteerde wagwoorde na te gaan</translation>
 <translation id="6078323886959318429">Voeg kortpad by</translation>
 <translation id="6085886413119427067">Bepaal hoe om met 'n beveiligde verbinding aan webwerwe te koppel</translation>
 <translation id="6087286598828478206">Blokkeer en verlaat groep?</translation>
 <translation id="60923314841986378"><ph name="HOURS"/> uur oor</translation>
-<translation id="4726571606794511368">As Brave ook jou versteksoekenjin is, sal jy beter, kontekstueel relevante voorstelle sien</translation>
+<translation id="3301068714583569205">As Brave ook jou versteksoekenjin is, sal jy beter, kontekstueel relevante voorstelle sien</translation>
 <translation id="6104768972315313991">Gegenereerde QR-kode</translation>
 <translation id="610630277578876674">Maak vinnig skakels in boodskappe oop en meer</translation>
 <translation id="6108923351542677676">Opstelling is besig …</translation>
@@ -1157,17 +1157,17 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 <translation id="6146563240635539929">Video's</translation>
 <translation id="614890671148262506">Laat altyd kennisgewings van hierdie werf af toe</translation>
 <translation id="6150320133806434356">Boekmerk is gestoor</translation>
-<translation id="1224606669200461217">Dateer Brave op om Brave-data in jou Brave-rekening te gebruik en te stoor</translation>
+<translation id="1553025851718680114">Dateer Brave op om Brave-data in jou Brave-rekening te gebruik en te stoor</translation>
 <translation id="6154478581116148741">Skakel skermslot in Instellings aan om jou wagwoorde van hierdie toestel af uit te voer</translation>
-<translation id="7087658909840709934">Laai bladsye vooraf wat Brave dink jy waarskynlik gaan besoek.</translation>
+<translation id="4234270930258920539">Laai bladsye vooraf wat Brave dink jy waarskynlik gaan besoek.</translation>
 <translation id="6165508094623778733">Kom meer te wete</translation>
 <translation id="6170675927290506430">Gaan na kennisgewinginstellings</translation>
 <translation id="6186394685773237175">Geen gekompromitteerde wagwoorde gekry nie</translation>
 <translation id="6192907950379606605">Kry prentbeskrywings</translation>
 <translation id="6193448654517602979">Kies oortjies</translation>
-<translation id="8367262879301982880">Wagwoorde word op hierdie toestel in Brave Wagwoordbestuurder gestoor</translation>
+<translation id="287278312657159458">Wagwoorde word op hierdie toestel in Brave Wagwoordbestuurder gestoor</translation>
 <translation id="6202812185118613467">Meld weer aan om sinkronisering te begin</translation>
-<translation id="7766137781166927396">Brave het moontlike strooipos van <ph name="DOMAIN"/> af bespeur.</translation>
+<translation id="2627071156883111281">Brave het moontlike strooipos van <ph name="DOMAIN"/> af bespeur.</translation>
 <translation id="6205314730813004066">Advertensieprivaatheid</translation>
 <translation id="6210748933810148297">Nie <ph name="EMAIL"/> nie?</translation>
 <translation id="6211386937064921208">Voorbeskou tans hierdie bladsy</translation>
@@ -1177,14 +1177,14 @@ Jou Brave-rekening het dalk ander vorme van blaaigeskiedenis, soos soektogte en 
 
 Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advertensies te wys wat nie gegrond is op ander webwerwe wat jy besoek het nie. Baie webwerwe sal steeds jou blaaidata insamel en gebruik – byvoorbeeld om sekuriteit te verbeter, om inhoud, advertensies en aanbevelings te verskaf en om verslagdoeningstatistiek te genereer.</translation>
 <translation id="623755660902014047">Leesmodus</translation>
-<translation id="8883879481897424949">Brave Wagwoordbestuurder</translation>
+<translation id="1655899427877139728">Brave Wagwoordbestuurder</translation>
 <translation id="6248988683584659830">Soekinstellings</translation>
-<translation id="2715956954609894918">Bekyk hier jou Brave-geskiedenis</translation>
+<translation id="5001648538730504563">Bekyk hier jou Brave-geskiedenis</translation>
 <translation id="6254139308321626268">Jy bekyk ’n PDF-lêer</translation>
-<translation id="725280687245147974">Met nutsgoed van Brave af kan jy veilig blaai en in beheer bly</translation>
+<translation id="431483880104772094">Met nutsgoed van Brave af kan jy veilig blaai en in beheer bly</translation>
 <translation id="6264376385120300461">Laai in elk geval af</translation>
 <translation id="6264485186158353794">Terug na veiligheid</translation>
-<translation id="1239706734048905478">Kennisgewings <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder weens strooipos of misleidende inhoud</translation>
+<translation id="1519364330167739028">Kennisgewings <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder weens strooipos of misleidende inhoud</translation>
 <translation id="6276708887952587684">Bekyk bladsybron</translation>
 <translation id="6277522088822131679">Kon nie die bladsy uitdruk nie. Probeer asseblief weer.</translation>
 <translation id="6278428485366576908">Tema</translation>
@@ -1212,13 +1212,13 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="6356893102071098867">Maak seker dat jy die regte rekening gekies het</translation>
 <translation id="6363990818884053551">Verifieer dis jy om sinkronisering te begin</translation>
 <translation id="6364438453358674297">Verwyder voorstel uit geskiedenis?</translation>
-<translation id="806493401838431801">Laai meer gereeld bladsye vooraf wat Brave dink jy waarskynlik gaan besoek. Hierdie instelling kan groter datagebruik tot gevolg hê.</translation>
+<translation id="968138231424641875">Laai meer gereeld bladsye vooraf wat Brave dink jy waarskynlik gaan besoek. Hierdie instelling kan groter datagebruik tot gevolg hê.</translation>
 <translation id="6382848304055775421">Voer uit</translation>
 <translation id="6388152137132427505">Deel altyd verstandig. Skakels verval oor 48 uur.</translation>
 <translation id="6394791151443660613">Soek vir: <ph name="SEARCH_QUERY"/></translation>
 <translation id="6397616442223433927">Weer aanlyn</translation>
 <translation id="6399363707848566877">Jy kan nou maklik hier oortjies by groepe voeg</translation>
-<translation id="8789425457808164956">Om hierdie oortjie na ’n ander toestel toe te stuur, moet jy daar by Brave aanmeld</translation>
+<translation id="1504872560114940242">Om hierdie oortjie na ’n ander toestel toe te stuur, moet jy daar by Brave aanmeld</translation>
 <translation id="6404511346730675251">Wysig boekmerk</translation>
 <translation id="6406506848690869874">Sinkronisering</translation>
 <translation id="6410883413783534063">Maak oortjies oop om verskillende bladsye op dieselfde tyd te besoek</translation>
@@ -1237,52 +1237,52 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="6452534462676960500">Nuwe aktiwiteit</translation>
 <translation id="6459045781120991510">Opnames</translation>
 <translation id="6461962085415701688">Kan nie lêer oopmaak nie</translation>
-<translation id="9055113864158719823">Jy kan werwe sien wat jy in Brave besoek en tydtellers vir hulle stel.\n\nBrave kry inligting oor die werwe waarvoor jy tydtellers stel en hoe lank jy hulle besoek. Hierdie inligting word gebruik om Digitale Welstand te verbeter.</translation>
+<translation id="8333083424818961040">Jy kan werwe sien wat jy in Brave besoek en tydtellers vir hulle stel.\n\nBrave kry inligting oor die werwe waarvoor jy tydtellers stel en hoe lank jy hulle besoek. Hierdie inligting word gebruik om Digitale Welstand te verbeter.</translation>
 <translation id="6468703991511753953">Adresbalk is tans onder</translation>
-<translation id="1774272248732824119">Die bladsye wat jy in Brave oopgemaak het terwyl jy <ph name="APP_LABEL"/> gebruik het, sal hier verskyn.</translation>
+<translation id="8105873242653992427">Die bladsye wat jy in Brave oopgemaak het terwyl jy <ph name="APP_LABEL"/> gebruik het, sal hier verskyn.</translation>
 <translation id="6473086018775716761">Lys deelopsies wat teen halwe hoogte oopgemaak is.</translation>
 <translation id="6475951671322991020">Laai video af</translation>
 <translation id="6477928892249167417">Dit lyk of hierdie werwe vir jou belangrik is:</translation>
-<translation id="387105482057676379">Koppel Brave en ander Brave-dienste vir personalisering en ander doeleindes</translation>
+<translation id="6236643159256182256">Koppel Brave en ander Brave-dienste vir personalisering en ander doeleindes</translation>
 <translation id="6482749332252372425">Kon <ph name="FILE_NAME"/> weens 'n gebrek aan bergingspasie nie aflaai nie.</translation>
 <translation id="6486420406192123355">Hierdie PDF-lêer is van ’n werf af wat ’n onveilige verbinding gebruik</translation>
 <translation id="650224091954855786">{FILE_COUNT,plural, =1{Lêer is afgelaai}other{# aflaaie is voltooi}}</translation>
-<translation id="3960299545138990065">Herbegin Brave</translation>
+<translation id="6635284698940246374">Herbegin Brave</translation>
 <translation id="6513924416597632811">Kopieer skakel na soekresultaatbladsy vir: <ph name="SEARCH_QUERY"/>. Bron: <ph name="PAGE_URL"/></translation>
 <translation id="6518133107902771759">Verifieer</translation>
 <translation id="6527303717912515753">Deel</translation>
-<translation id="3700405816184340252">Brave-geskiedenis</translation>
-<translation id="708829030563435351">Werwe wat jy in Brave besoek, sal nie wys nie. Alle werftydtellers sal uitgevee word.</translation>
+<translation id="2065456480740480340">Brave-geskiedenis</translation>
+<translation id="1346616456895412145">Werwe wat jy in Brave besoek, sal nie wys nie. Alle werftydtellers sal uitgevee word.</translation>
 <translation id="6539092367496845964">Iets is fout. Probeer later weer.</translation>
 <translation id="6541983376925655882">{NUM_HOURS,plural, =1{1 uur gelede nagegaan}other{# uur gelede nagegaan}}</translation>
 <translation id="6545017243486555795">Vee alle data uit</translation>
 <translation id="6546511553472444032">Lêer kan skadelik wees</translation>
 <translation id="654871471440386944">Skakel karetblaai aan?</translation>
-<translation id="6702167990458635422">Beskerm jou nie teen gevaarlike webwerwe, aflaaie en uitbreidings nie. Jou Veiligblaai-instellings in ander Brave-produkte sal nie geraak word nie.</translation>
+<translation id="4903527947711005006">Beskerm jou nie teen gevaarlike webwerwe, aflaaie en uitbreidings nie. Jou Veiligblaai-instellings in ander Brave-produkte sal nie geraak word nie.</translation>
 <translation id="6554822972009632311">Inhoudfilter is aan</translation>
 <translation id="6556501700899673703">Lexend</translation>
 <translation id="6560414384669816528">Soek met Sogou</translation>
 <translation id="656065428026159829">Sien meer</translation>
-<translation id="971059121491380239">Jou Android-toestel kan ’n soortgelyke instelling insluit. As advertensiemeting in Brave en op jou Android-toestel aangeskakel is, kan ’n maatskappy dalk die doeltreffendheid van ’n advertensie meet op alle webwerwe wat jy besoek en apps wat jy gebruik.</translation>
+<translation id="5513251383511055194">Jou Android-toestel kan ’n soortgelyke instelling insluit. As advertensiemeting in Brave en op jou Android-toestel aangeskakel is, kan ’n maatskappy dalk die doeltreffendheid van ’n advertensie meet op alle webwerwe wat jy besoek en apps wat jy gebruik.</translation>
 <translation id="6565959834589222080">Wi-fi word gebruik wanneer dit beskikbaar is</translation>
-<translation id="4480935821314799946">Jy sal nou stories van <ph name="SITE_NAME"/> af sien wanneer jy 'n nuwe oortjie oopmaak. Werwe wat jy volg, word in jou Brave-rekening gestoor. Jy kan hulle bestuur in Ontdek-instellings.</translation>
+<translation id="5520308733840015355">Jy sal nou stories van <ph name="SITE_NAME"/> af sien wanneer jy 'n nuwe oortjie oopmaak. Werwe wat jy volg, word in jou Brave-rekening gestoor. Jy kan hulle bestuur in Ontdek-instellings.</translation>
 <translation id="657177046675873214">Skakel “Boekmerke” in instellings aan om jou boekmerke op al jou toestelle te kry</translation>
 <translation id="6573096386450695060">Laat altyd toe</translation>
-<translation id="5157964048453367290">Oortjies wat jy op jou ander toestelle in Brave oopgemaak het, sal hier verskyn.</translation>
+<translation id="6018014282927441671">Oortjies wat jy op jou ander toestelle in Brave oopgemaak het, sal hier verskyn.</translation>
 <translation id="6583199322650523874">Boekmerk die huidige bladsy</translation>
 <translation id="6588043302623806746">Gebruik beveiligde DNS</translation>
 <translation id="6590471736817333463">Bespaar tot 60% data</translation>
 <translation id="6593061639179217415">Werkskermwerf</translation>
 <translation id="6594347733515723558">Rangskik en bekyk opsies</translation>
-<translation id="2466982615210189224">Prente word na Brave toe gestuur om beskrywings vir jou beter te maak.</translation>
+<translation id="4785119047374918631">Prente word na Brave toe gestuur om beskrywings vir jou beter te maak.</translation>
 <translation id="661266467055912436">Verbeter sekuriteit vir jou en almal op die web.</translation>
-<translation id="8127050479140582768">Om hierdie oortjie na ’n ander toestel toe te stuur, moet jy op albei toestelle by Brave aanmeld</translation>
+<translation id="1154780804461210759">Om hierdie oortjie na ’n ander toestel toe te stuur, moet jy op albei toestelle by Brave aanmeld</translation>
 <translation id="6627583120233659107">Wysig vouer</translation>
 <translation id="6636623428211296678">Verken meer instellings hieronder of maak nou klaar</translation>
-<translation id="7939692063031538305">Brave stuur gebruik- en omvaldata na Brave toe om te help om die app beter te maak. <ph name="BEGIN_UMA_LINK"/>Bestuur<ph name="END_UMA_LINK"/></translation>
+<translation id="3509900331743011045">Brave stuur gebruik- en omvaldata na Brave toe om te help om die app beter te maak. <ph name="BEGIN_UMA_LINK"/>Bestuur<ph name="END_UMA_LINK"/></translation>
 <translation id="6641780377503683465">Verwyder <ph name="INTEREST"/></translation>
 <translation id="6642299196749785472">Heg oortjies aan</translation>
-<translation id="7556503430569358637">URL'e wat jy besoek, word na Brave toe gestuur om te voorspel watter werwe jy dalk volgende sal besoek</translation>
+<translation id="1199185063326631866">URL'e wat jy besoek, word na Brave toe gestuur om te voorspel watter werwe jy dalk volgende sal besoek</translation>
 <translation id="6648977384226967773">{CONTACT,plural, =1{<ph name="CONTACT_PREVIEW"/> \u2026 en nog <ph name="NUMBER_OF_ADDITIONAL_CONTACTS"/>}other{<ph name="CONTACT_PREVIEW"/> \u2026 en nog <ph name="NUMBER_OF_ADDITIONAL_CONTACTS"/>}}</translation>
 <translation id="6649642165559792194">Voorbeskou prent <ph name="BEGIN_NEW"/>Nuwe<ph name="END_NEW"/></translation>
 <translation id="666731172850799929">Maak oop in <ph name="APP_NAME"/></translation>
@@ -1290,15 +1290,15 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="6672697278890207089">Voer jou wagfrase in</translation>
 <translation id="6672917148207387131">Voeg <ph name="DOMAIN"/> by</translation>
 <translation id="6674571176963658787">Voer jou wagfrase in om sinkronisering te begin</translation>
-<translation id="3683330416566109578">Meld by hierdie werf en Brave aan</translation>
-<translation id="3385384709865894288">Maak Brave beter</translation>
+<translation id="3189086029325773711">Meld by hierdie werf en Brave aan</translation>
+<translation id="4609715360578412701">Maak Brave beter</translation>
 <translation id="6689436252814043643">Leesmodus is onbeskikbaar</translation>
 <translation id="6700279777779583398">Keuses is gestoor</translation>
 <translation id="670498945988402717">Gister nagegaan</translation>
 <translation id="6710213216561001401">Vorige</translation>
 <translation id="671481426037969117">Jou <ph name="FQDN"/>-tydteller het uitgetel. Dit sal môre weer begin.</translation>
 <translation id="6716434912087331834">Verminder die totale aantal aktiewe vensters na <ph name="MAX_WINDOW_COUNT_MINUS_ONE"/> of minder om ’n nuwe venster terug te stel. Onaktiewe vensters word ná 6 maande uitgevee.</translation>
-<translation id="7499197548870160669">In jou Brave-rekening</translation>
+<translation id="7971347098293528089">In jou Brave-rekening</translation>
 <translation id="6734310707649923383">Jy kan die bladsye sien wat jy besoek het of hulle van jou geskiedenis uitvee</translation>
 <translation id="6738867403308150051">Laai tans af …</translation>
 <translation id="6745063744988317486">Mono</translation>
@@ -1312,21 +1312,21 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="676305334223455055">Meld aan om inhoud gegrond op jou belangstellings te kry</translation>
 <translation id="6764137532716892442">Gedeelde <ph name="GROUP_TITLE"/> oortjiegroep met nuwe aktiwiteit</translation>
 <translation id="6767294960381293877">Lys toestelle om 'n oortjie mee te deel, is teen halwe hoogte oopgemaak.</translation>
-<translation id="8174975477247159780">Brave en Brave-bedryfstelsel se bykomende diensbepalings</translation>
+<translation id="4498800910946953041">Brave en Brave-bedryfstelsel se bykomende diensbepalings</translation>
 <translation id="6786747875388722282">Uitbreidings</translation>
 <translation id="6787600234697426339">Limiet van <ph name="MAX_INSTANCE_COUNT"/> vensters is bereik</translation>
 <translation id="6795633245022906657">Maak vinnig 'n nuwe oortjie oop. Gaan na Instellings om hierdie kortpad te wysig.</translation>
-<translation id="4757665660890677272">Maak Brave jou verstekblaaier</translation>
+<translation id="1912374365682360205">Maak Brave jou verstekblaaier</translation>
 <translation id="679956319013005046">As jy jou voorkeurdiens vir outovul wil stel, moet jy eers die diens in <ph name="BEGIN_LINK"/>Android-instellings<ph name="END_LINK"/> byvoeg.</translation>
 <translation id="6802555630140434547">Die venster sal toegemaak word</translation>
 <translation id="6803791793483522764">Gaan kennisgewings na</translation>
 <translation id="6811034713472274749">Bladsy is gereed om bekyk te word</translation>
 <translation id="6813359536773993594">{FILE_COUNT,plural, =1{Prente, 1 prent in lys}other{Prente, # prente in lys}}</translation>
-<translation id="8418237809013783651">Meld by Brave aan; oopgemaak.</translation>
+<translation id="7044427728798952426">Meld by Brave aan; oopgemaak.</translation>
 <translation id="6815692190508268848">Jou voorkomsvoorkeure is toegepas</translation>
 <translation id="6817747507826986771">Deel hierdie bladsy vinnig. Raak en hou om hierdie kortpad te wysig.</translation>
 <translation id="6820686453637990663">CVC</translation>
-<translation id="2909289633148417535">Brave Wagwoordbestuurder se opdatering is toegemaak</translation>
+<translation id="8753793955973616195">Brave Wagwoordbestuurder se opdatering is toegemaak</translation>
 <translation id="6824933543577433709">Onderste blad van onlangse aktiwiteit is toegemaak</translation>
 <translation id="6828070228333235514">Stop prysnasporing</translation>
 <translation id="6830728435402077660">Nie veilig nie</translation>
@@ -1335,36 +1335,36 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="6850409657436465440">Jou aflaai is nog aan die gang</translation>
 <translation id="6850830437481525139"><ph name="TAB_COUNT"/> oortjies is toegemaak</translation>
 <translation id="685340923442249391">{FILE_COUNT,plural, =1{Oudiolêers, 1 oudiolêer in lys}other{Oudiolêers, # oudiolêers in lys}}</translation>
-<translation id="4046835482356054431">Ontdek deur Brave – af</translation>
+<translation id="1228340036606413021">Ontdek deur Brave – af</translation>
 <translation id="6864459304226931083">Laai prent af</translation>
 <translation id="686490460830618322">Appfilterblad</translation>
 <translation id="6865313869410766144">Vul vormdata outomaties in</translation>
-<translation id="1565666992559765293">Adresse word nie met jou wagfrase geënkripteer nie. Dit laat jou toe om hulle in ander Brave-dienste te gebruik.</translation>
+<translation id="8056293266409333010">Adresse word nie met jou wagfrase geënkripteer nie. Dit laat jou toe om hulle in ander Brave-dienste te gebruik.</translation>
 <translation id="6870625088374152862">Aangemeld as <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="687838958001010630">Enigiemand met die skakel kan alle oortjies wysig</translation>
 <translation id="6880903702195291049">Toestemmings lyk goed</translation>
 <translation id="6883204995689174413">Deel</translation>
-<translation id="8975140877370364494">{ITEMS_COUNT,plural, =1{1 item word net op hierdie toestel gestoor. Stoor dit in jou Brave-rekening om dit op jou ander toestelle te gebruik.}other{# items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
+<translation id="3677081506029719319">{ITEMS_COUNT,plural, =1{1 item word net op hierdie toestel gestoor. Stoor dit in jou Brave-rekening om dit op jou ander toestelle te gebruik.}other{# items word net op hierdie toestel gestoor. Stoor hulle in jou Brave-rekening om hulle op jou ander toestelle te gebruik.}}</translation>
 <translation id="6883606786470492001">Bestuur jou advertensie-onderwerpe en ander instellings om te beperk wat werwe oor jou kan leer om vir jou gepersonaliseerde advertensies te wys</translation>
 <translation id="6883906387682976294">Teken kennisgewings uit vanaf hierdie werf</translation>
 <translation id="688398477366397178">Laat webwerwe weet watter tale jy praat. Hulle sal inhoud in daardie tale wys, wanneer moontlik.</translation>
 <translation id="6885933993535178919">{NUM_SITES,plural, =1{Uitgeteken van 1 werf}other{Uitgeteken van # werwe}}</translation>
 <translation id="6886500155621657325">{ITEMS_COUNT,plural, =1{1 wagwoord}other{# wagwoorde}}</translation>
-<translation id="667636428974305054">Nadat jy afgemeld het, sal jou boekmerke, wagwoorde en meer in jou Brave-rekening van hierdie toestel verwyder word.</translation>
+<translation id="410520883152329376">Nadat jy afgemeld het, sal jou boekmerke, wagwoorde en meer in jou Brave-rekening van hierdie toestel verwyder word.</translation>
 <translation id="6896758677409633944">Kopieer</translation>
-<translation id="3677019108032076044">Gebruik jou eie wagwoordfrase om al die Brave-data in jou Brave-rekening te enkripteer</translation>
+<translation id="6042134194951087301">Gebruik jou eie wagwoordfrase om al die Brave-data in jou Brave-rekening te enkripteer</translation>
 <translation id="6900532703269623216">Verbeterde beskerming</translation>
 <translation id="6903907808598579934">Skakel sinkronisering aan</translation>
-<translation id="748044163560741026">Maak seker dat jy altyd die wagwoorde in jou Brave-rekening kan gebruik</translation>
+<translation id="838271918968537902">Maak seker dat jy altyd die wagwoorde in jou Brave-rekening kan gebruik</translation>
 <translation id="6908230663105268638">Kennisgewings word toegelaat vir <ph name="SITE_NAME"/></translation>
 <translation id="6908998565271542516">Opsie om webwerf oop te maak of nie oop te maak nie, is teen volle hoogte oopgemaak</translation>
 <translation id="6909589135458168665">Laai bladsye vooraf</translation>
 <translation id="6910211073230771657">Uitgevee</translation>
 <translation id="6916590542764765824">Bestuur uitbreidings</translation>
 <translation id="6918398787259831832"><ph name="BEGIN_LINK"/>Kry meer inligting<ph name="END_LINK"/> by <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/> as hierdie kwessie aanhou voorkom.</translation>
-<translation id="1431096429631226393"><ph name="PERMISSION"/> <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want jy het nie onlangs die werf besoek nie</translation>
+<translation id="4335716434628008037"><ph name="PERMISSION"/> <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder want jy het nie onlangs die werf besoek nie</translation>
 <translation id="6927821422725196292">{TABS_COUNT,plural, =1{1 oortjie}other{<ph name="NUMBER_OF_TABS"/> oortjies}}</translation>
-<translation id="5854472260286669100">Alle sekuriteitskodes wat op jou toestel en in jou Brave-rekening gestoor is, sal uitgevee word</translation>
+<translation id="3935631848939780856">Alle sekuriteitskodes wat op jou toestel en in jou Brave-rekening gestoor is, sal uitgevee word</translation>
 <translation id="6933180670536678127"><ph name="TAB_TITLE"/>, gekose vasgespelde hoorbare oortjie</translation>
 <translation id="6937524809504266803">Personalisering en koppeling</translation>
 <translation id="6937876069006524083">Bynaam (opsioneel)</translation>
@@ -1388,39 +1388,39 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7020741890149022655">Voeg by leeslys <ph name="BEGIN_NEW"/>Nuut<ph name="END_NEW"/></translation>
 <translation id="7022756207310403729">Maak in blaaier oop</translation>
 <translation id="7029809446516969842">Wagwoorde</translation>
-<translation id="8400061599399680870">Maak Brave die verstekblaaier</translation>
+<translation id="7884214324266957405">Maak Brave die verstekblaaier</translation>
 <translation id="7053256416619638731">Versterk jou wagwoorde op hierdie toestel</translation>
 <translation id="7053983685419859001">Blokkeer</translation>
 <translation id="7054588988317389591">Kry prentbeskrywings?</translation>
-<translation id="754645164710303412">Maak volledige Brave-geskiedenis oop</translation>
+<translation id="4010017007066963524">Maak volledige Brave-geskiedenis oop</translation>
 <translation id="7063006564040364415">Kon nie aan die sinkroniseringbediener koppel nie.</translation>
 <translation id="7071521146534760487">Bestuur rekening</translation>
 <translation id="707155805709242880">Kies hieronder wat om te sinkroniseer</translation>
 <translation id="7077143737582773186">SD-kaart</translation>
-<translation id="4947532681094581238">Vee ook jou Brave-data op hierdie toestel uit</translation>
+<translation id="2216381585763274370">Vee ook jou Brave-data op hierdie toestel uit</translation>
 <translation id="7080145768121641840"><ph name="TAB_TITLE"/>, gekose vasgespelde gedempte oortjie</translation>
 <translation id="7084115944294706056">Kies adresbalk se posisie</translation>
-<translation id="5499149312981370855">Kies of jy Brave-geskiedenis wil insluit vir meer gepersonaliseerde ervarings in Brave-dienste</translation>
-<translation id="8208853227947884571">Brave is op datum</translation>
+<translation id="8194525816714210105">Kies of jy Brave-geskiedenis wil insluit vir meer gepersonaliseerde ervarings in Brave-dienste</translation>
+<translation id="6488090896442998436">Brave is op datum</translation>
 <translation id="7106762743910369165">Jou organisasie bestuur jou blaaier</translation>
-<translation id="144902786838571419">Brave gee jou meer beheer oor die advertensies wat jy sien en beperk wat werwe oor jou kan uitvind wanneer hulle vir jou gepersonaliseerde advertensies wys.</translation>
+<translation id="106061565348481022">Brave gee jou meer beheer oor die advertensies wat jy sien en beperk wat werwe oor jou kan uitvind wanneer hulle vir jou gepersonaliseerde advertensies wys.</translation>
 <translation id="7111822978084196600">Gee hierdie venster 'n naam</translation>
 <translation id="7115358764509798967">Stelselverstek</translation>
 <translation id="7117485132243600300">Bestuur inhoud wat jy volg en voorgestelde onderwerpe en soektogte</translation>
 <translation id="7119984597597798764">Maak <ph name="INSTANCE_TITLE"/> toe</translation>
-<translation id="721261350616678948">Meld aan by Brave</translation>
+<translation id="6388429281015199562">Meld aan by Brave</translation>
 <translation id="7136902389402789299">{NUM_SITES,plural, =1{Toestemmings is vir 1 werf gekontroleer}other{Toestemmings is vir # werwe gekontroleer}}</translation>
 <translation id="7138678301420049075">Ander</translation>
 <translation id="7140829094791862589">Sorteer orde handmatig</translation>
 <translation id="7146622961999026732">Dit lyk of hierdie werwe en apps vir jou belangrik is:</translation>
 <translation id="7148400116894863598"><ph name="BEGIN_LINK"/>Kry meer inligting<ph name="END_LINK"/> by <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/>.</translation>
 <translation id="7149893636342594995">Afgelope 24 uur</translation>
-<translation id="1206376179559420424">Wagfrase-enkripsie sluit nie betaalmetodes en adresse van Google Pay af in nie.
+<translation id="470838496817682691">Wagfrase-enkripsie sluit nie betaalmetodes en adresse van Google Pay af in nie.
 
 <ph name="BEGIN_LINK"/>Vee die Brave-data in jou rekening uit<ph name="END_LINK"/> om hierdie instelling te verander.</translation>
-<translation id="2679203756569766105">Kry meer inligting oor waarom Brave sekere lêers blokkeer</translation>
+<translation id="1454330133041467478">Kry meer inligting oor waarom Brave sekere lêers blokkeer</translation>
 <translation id="7168323970702333693">Aangemeld as <ph name="USER_NAME"/>. Maak instellings oop.</translation>
-<translation id="6390064556944765055">Alle sekuriteitskodes wat op jou toestel en in Brave Wallet gestoor is, sal uitgevee word</translation>
+<translation id="8932360866133227195">Alle sekuriteitskodes wat op jou toestel en in Brave Wallet gestoor is, sal uitgevee word</translation>
 <translation id="7173114856073700355">Maak Instellings oop</translation>
 <translation id="7173338713290252554">Prysgeskiedenis regoor die web</translation>
 <translation id="7177466738963138057">Jy kan dit later verander in Instellings</translation>
@@ -1429,7 +1429,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7182051712900867547">Gebruik 'n ander rekening</translation>
 <translation id="7182520625618447753">Verander die posisie van jou adresbalk na die bo- of onderkant vir ’n gepasmaakte blaai-ervaring</translation>
 <translation id="7183517696921903380">Appfilterblad is oop.</translation>
-<translation id="6475793992224120104">Beheer hoe blaaigeskiedenis met jou ander data oral in Brave-dienste gebruik word</translation>
+<translation id="6095437025692041241">Beheer hoe blaaigeskiedenis met jou ander data oral in Brave-dienste gebruik word</translation>
 <translation id="7190921792980745354">Blokkeer <ph name="MEMBER_FULL_NAME"/>?</translation>
 <translation id="7191430249889272776">Oortjie is op die agtergrond oopgemaak.</translation>
 <translation id="7192397795254933433">{NUM_PASSWORDS,plural, =1{Jy moet dit nou verander}other{Jy moet hierdie nou verander}}</translation>
@@ -1440,24 +1440,24 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7221869452894271364">Herlaai hierdie bladsy</translation>
 <translation id="722681077040152344">Uitgeteken van <ph name="COUNT"/> werwe</translation>
 <translation id="7227218174981371415">{FILE_COUNT,plural, =1{1 aflaai hangende}other{# aflaaie hangende}}</translation>
-<translation id="8353574248857730978">Brave Wagwoordbestuurder het opgehou werk</translation>
+<translation id="3463287652324273093">Brave Wagwoordbestuurder het opgehou werk</translation>
 <translation id="7239496616545081903">Versteek Leesmodus</translation>
 <translation id="72415438529550637">Wagwoordvoorstel is toe.</translation>
 <translation id="724510009481365878">Hierdie bladsy kan nie gedruk word nie</translation>
 <translation id="7248671827512403053">App</translation>
 <translation id="7253951228444156601">Gaan tans wagwoorde na …</translation>
-<translation id="4957342254208357193">Jou Android-toestel kan ’n soortgelyke instelling insluit. As advertensiemeting in Brave en op jou Android-toestel aangeskakel is, kan ’n maatskappy dalk die doeltreffendheid van ’n advertensie meet op alle webwerwe wat jy besoek en apps wat jy gebruik.</translation>
+<translation id="2787285025303324309">Jou Android-toestel kan ’n soortgelyke instelling insluit. As advertensiemeting in Brave en op jou Android-toestel aangeskakel is, kan ’n maatskappy dalk die doeltreffendheid van ’n advertensie meet op alle webwerwe wat jy besoek en apps wat jy gebruik.</translation>
 <translation id="727288900855680735">Dien <ph name="ONE_TIME_CODE"/> in by <ph name="ORIGIN"/>?</translation>
 <translation id="7274013316676448362">Geblokkeerde werf</translation>
 <translation id="7276868533747677875">As jy voorheen wagwoorde uitgevoer het, moet jy ’n CSV-lêer op jou toestel soek en dit invoer na jou voorkeurwagwoordbestuurder.</translation>
 <translation id="728377807486816582">Tik op Adresbalk</translation>
-<translation id="2700309900785251885">Jy het Brave se sterkste sekuriteit</translation>
+<translation id="7057021409352377725">Jy het Brave se sterkste sekuriteit</translation>
 <translation id="7289303553784750393">Jy kan ander maniere probeer om voort te gaan op <ph name="SITE_ETLD_PLUS_ONE"/> as hierdie kwessie aanhou voorkom al is jy aanlyn.</translation>
 <translation id="7290209999329137901">Hernoeming is nie beskikbaar nie</translation>
 <translation id="7291910923717764901">Prentbeskrywings is vir hierdie bladsy bygevoeg</translation>
 <translation id="7293429513719260019">Kies taal</translation>
 <translation id="7298319215489933099"><ph name="TAB_TITLE"/>, gekose vasgespelde oortjie wat gedeel word</translation>
-<translation id="7581648335850642193">Jou Android-toestel kan ’n soortgelyke instelling insluit. As hierdie instelling in Brave en op jou Android-toestel aangeskakel is, kan ’n maatskappy dalk die doeltreffendheid van ’n advertensie meet op alle webwerwe wat jy besoek en apps wat jy gebruik.</translation>
+<translation id="7559252377158901321">Jou Android-toestel kan ’n soortgelyke instelling insluit. As hierdie instelling in Brave en op jou Android-toestel aangeskakel is, kan ’n maatskappy dalk die doeltreffendheid van ’n advertensie meet op alle webwerwe wat jy besoek en apps wat jy gebruik.</translation>
 <translation id="7311244614769792472">Geen resultate gekry nie</translation>
 <translation id="7313188324932846546">Tik om sinkronisering op te stel</translation>
 <translation id="7314734791127433392">Kan nie wagwoorde kontroleer nie</translation>
@@ -1472,7 +1472,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7359002509206457351">Toegang tot betaalmetodes</translation>
 <translation id="7363349185727752629">'n Gids tot jou privaatheidkeuses</translation>
 <translation id="7364103838544876661">Nog opsies om blaaierdata uit te vee</translation>
-<translation id="5640892076695177498">Dateer Google Play Dienste op om wagwoorde met Brave Wagwoordbestuurder te begin stoor en te gebruik</translation>
+<translation id="2319759523837352564">Dateer Google Play Dienste op om wagwoorde met Brave Wagwoordbestuurder te begin stoor en te gebruik</translation>
 <translation id="7375125077091615385">Tipe:</translation>
 <translation id="7376560087009844242">As jy meer van 'n bladsy se teks insluit, sal jy dalk beter resultate sien wanneer jy Raak om te Soek gebruik. Jy kan altyd <ph name="BEGIN_LINK"/>Instellings<ph name="END_LINK"/> besoek om dit te verander.</translation>
 <translation id="7379900596734708416">Donkertema vir werwe is beskikbaar</translation>
@@ -1482,12 +1482,12 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7400003506822844357">{FILE_COUNT,plural, =1{Ander, 1 lêer in lys}other{Ander, # lêers in lys}}</translation>
 <translation id="7400418766976504921">URL</translation>
 <translation id="7400424692675800399">Verminder die totale aantal vensters in die aktiewe en onaktiewe afdeling na <ph name="MAX_WINDOW_COUNT_MINUS_ONE"/> of minder om ’n nuwe venster oop te maak.</translation>
-<translation id="724102042129299115">Brave se eerste laatloopervaring</translation>
-<translation id="5341476184053934779">Brave-rekeninggebruiker</translation>
+<translation id="4997494227195862552">Brave se eerste laatloopervaring</translation>
+<translation id="6283572658579059159">Brave-rekeninggebruiker</translation>
 <translation id="7419565702166471774">Gebruik altyd veilige verbindings</translation>
 <translation id="7421293530411019405">Verlaat oortjiegroep?</translation>
 <translation id="7435356471928173109">Afgeskakel deur jou administrateur</translation>
-<translation id="6234515504547364178">Meld af uit Brave</translation>
+<translation id="5686724084351858452">Meld af uit Brave</translation>
 <translation id="7439467816829380878">Skuif oortjie na groep toe</translation>
 <translation id="7439749340204407129">Maak Boekmerkbestuurder oop</translation>
 <translation id="7453810262525006706">Vou in na kantaansig</translation>
@@ -1514,14 +1514,14 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7507207699631365376">Lees hierdie verskaffer se <ph name="BEGIN_LINK"/>privaatheidsbeleid<ph name="END_LINK"/></translation>
 <translation id="750886945254958667">Hou hierdie groep om later oortjies by te voeg, of verlaat dit as jy nie meer toegang daartoe wil hê nie</translation>
 <translation id="7514365320538308">Laai af</translation>
-<translation id="9075033240840348521">Gebruik Brave se verstekenkripsie vir die wagwoorde in jou Brave-rekening</translation>
+<translation id="2865470806927244051">Gebruik Brave se verstekenkripsie vir die wagwoorde in jou Brave-rekening</translation>
 <translation id="7518079994230200553">Hierdie opsie is nie tans beskikbaar nie.</translation>
 <translation id="751961395872307827">Kan nie aan die werf koppel nie</translation>
 <translation id="7523960634226602883">Gebruik Google Lens om met jou kamera te soek</translation>
 <translation id="7525248386620136756"><ph name="TAB_GROUPS_AND_TABS_PART"/> is toegemaak en gestoor</translation>
 <translation id="7545347190366646170">Mense met toegang</translation>
 <translation id="7553482318994371148">Maak toegemaakte oortjies weer oop</translation>
-<translation id="3987895309799116299">Kan nie Brave-weergawe kontroleer nie</translation>
+<translation id="5760400390023645624">Kan nie Brave-weergawe kontroleer nie</translation>
 <translation id="7557508262441527045">Afgemeld</translation>
 <translation id="7573665567024262965">Kies jou verstekapps</translation>
 <translation id="7577900504646297215">Bestuur belangstellings</translation>
@@ -1534,10 +1534,10 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7597601275223325603">{NUMBER_OF_TABS,plural, =1{<ph name="TABS_COUNT_ONE"/> standaardoortjie}other{<ph name="TABS_COUNT_MANY"/> standaardoortjies}}</translation>
 <translation id="7603168929588204083">Ongeldige datum</translation>
 <translation id="7605594153474022051">Sinkronisering werk nie</translation>
-<translation id="649070405679044769">By Brave aangemeld as</translation>
+<translation id="8022803675028970792">By Brave aangemeld as</translation>
 <translation id="7612989789287281429">Meld jou tans aan …</translation>
 <translation id="7619072057915878432">Kon <ph name="FILE_NAME"/> weens netwerkmislukkings nie aflaai nie.</translation>
-<translation id="7207456302801184289">Welkom by Brave</translation>
+<translation id="7339353273994862168">Welkom by Brave</translation>
 <translation id="7628417132421583481">Gaan na Wagwoordbestuurder</translation>
 <translation id="7630202231528827509">Verskaffer-URL</translation>
 <translation id="7638584964844754484">Verkeerde wagwoordfrase</translation>
@@ -1551,7 +1551,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7666185984446444960"><ph name="TAB_GROUPS_AND_TABS_PART"/> is toegemaak</translation>
 <translation id="7682724950699840886">Probeer die volgende wenke: maak seker dat daar genoeg spasie op jou toestel is; probeer om weer uit te voer.</translation>
 <translation id="7686086654630106285">Meer oor advertensies wat deur ’n werf voorgestel is</translation>
-<translation id="7795837497684113327">Jou toestel kon nie Brave oopmaak nie. Laai die jongste Brave-opdatering uit jou appwinkel af om die kwessie reg te stel.</translation>
+<translation id="5097062835856190274">Jou toestel kon nie Brave oopmaak nie. Laai die jongste Brave-opdatering uit jou appwinkel af om die kwessie reg te stel.</translation>
 <translation id="7691043218961417207">Verken inhoud om te volg</translation>
 <translation id="7692761875510935111">Maak vinnig in blaaier oop. Raak en hou om hierdie kortpad te wysig.</translation>
 <translation id="7697383401610880082">Sleephandvatsel</translation>
@@ -1559,7 +1559,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7702420606070050505">Onderste blad van onlangse aktiwiteit is teen volle hoogte oopgemaak</translation>
 <translation id="7707922173985738739">Gebruik mobiele data</translation>
 <translation id="7708994397325774423">Kry al jou wagwoorde</translation>
-<translation id="1864444014110998467">Maak Brave-kieslys oop</translation>
+<translation id="1228680703823262267">Maak Brave-kieslys oop</translation>
 <translation id="7733878270780732638">Nie genoeg spasie op toestel nie.</translation>
 <translation id="7740287852186792672">Soekresultate</translation>
 <translation id="774876555279732384">Outovuldienste word ook in <ph name="BEGIN_LINK"/>Android-instellings<ph name="END_LINK"/> bestuur.</translation>
@@ -1570,7 +1570,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7772375229873196092">Maak <ph name="APP_NAME"/> toe</translation>
 <translation id="7774125747223422443">Op grond van ’n wet in jou streek, moet jy jou blaaier en soekenjin kies</translation>
 <translation id="7774809984919390718">{PAYMENT_METHOD,plural, =1{<ph name="PAYMENT_METHOD_PREVIEW"/> \u2026 en nog <ph name="NUMBER_OF_ADDITIONAL_PAYMENT_METHODS"/>}other{<ph name="PAYMENT_METHOD_PREVIEW"/> \u2026 en nog <ph name="NUMBER_OF_ADDITIONAL_PAYMENT_METHODS"/>}}</translation>
-<translation id="5614774692683309331">Wanneer jy aangemeld is, beskerm dit jou oral in Brave-dienste.</translation>
+<translation id="7959225586495546687">Wanneer jy aangemeld is, beskerm dit jou oral in Brave-dienste.</translation>
 <translation id="7778840695157240389">Loer later weer in vir nuwe stories</translation>
 <translation id="7791543448312431591">Voeg by</translation>
 <translation id="7792388396321542707">Hou op deel</translation>
@@ -1582,12 +1582,12 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7815680994978050279">Gevaarlike aflaai is geblokkeer</translation>
 <translation id="7819605256207059717">Geblokkeer deur jou organisasie</translation>
 <translation id="7821130663268546430">Jy kan alle oop oortjies in die oortjiewisselaar vind</translation>
-<translation id="8439902729344548970">Wanneer jy aangemeld is, word hierdie data aan jou Brave-rekening gekoppel om jou oral in Brave-dienste te beskerm, byvoorbeeld deur beskerming in Gmail te verhoog ná ’n sekuriteitvoorval.</translation>
+<translation id="8448730492937520203">Wanneer jy aangemeld is, word hierdie data aan jou Brave-rekening gekoppel om jou oral in Brave-dienste te beskerm, byvoorbeeld deur beskerming in Gmail te verhoog ná ’n sekuriteitvoorval.</translation>
 <translation id="7824665136384946951">Jou organisasie het Veiligblaai afgeskakel</translation>
-<translation id="802130069867035673">Jou Brave, oral</translation>
+<translation id="2239911886624082949">Jou Brave, oral</translation>
 <translation id="7844171778363018843">Geen data gekies om te sinkroniseer nie</translation>
 <translation id="7846161022626028328">Iets is fout. Probeer weer.</translation>
-<translation id="7068829570137757602">Brave-dienste</translation>
+<translation id="5220539379983132966">Brave-dienste</translation>
 <translation id="784652447248278262">Huidige venster</translation>
 <translation id="784934925303690534">Tydomvang</translation>
 <translation id="7851858861565204677">Ander toestelle</translation>
@@ -1597,7 +1597,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7866213166286285359">Vertaal bladsye hier</translation>
 <translation id="7875915731392087153">Skep e-pos</translation>
 <translation id="7876243839304621966">Verwyder alles</translation>
-<translation id="6143689084714664628">Werk in Brave</translation>
+<translation id="4715255381926011706">Werk in Brave</translation>
 <translation id="7887174313503389866">Begin 'n begeleide toer van belangrike privaatheid- en sekuriteitkontroles. Gaan na individuele instellings vir meer opsies.</translation>
 <translation id="7913993612870913335">{FILE_COUNT,plural, =1{1 is deur jou organisasie geblokkeer}other{# is deur jou organisasie geblokkeer}}</translation>
 <translation id="7914399737746719723">App is geïnstalleer</translation>
@@ -1606,7 +1606,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7921782882718083488">Som hierdie bladsy op</translation>
 <translation id="7926975587469166629">Kaart se bynaam</translation>
 <translation id="7927073875790626822">UR</translation>
-<translation id="6485598694371328620">Brave verwyder outomaties toestemmings van werwe wat kennisgewings misbruik of wat jy nie onlangs besoek het nie</translation>
+<translation id="2010221706064177614">Brave verwyder outomaties toestemmings van werwe wat kennisgewings misbruik of wat jy nie onlangs besoek het nie</translation>
 <translation id="7934668619883965330">Kan nie lêer aflaai nie. Lêerformaat word nie gesteun nie.</translation>
 <translation id="7942131818088350342"><ph name="PRODUCT_NAME"/> is verouderd.</translation>
 <translation id="7944772052836377867">Sinkronisering moet verifieer dat dit jy is</translation>
@@ -1616,14 +1616,14 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="7959485987650214982">Oortjies op hierdie toestel</translation>
 <translation id="7961926449547174351">Jy het bergingtoegang gedeaktiveer. Gaan na Instellings om dit te aktiveer.</translation>
 <translation id="7963646190083259054">Verskaffer:</translation>
-<translation id="2939504940637874963">Jy kan gestoorde wagwoorde op enige toestel gebruik. Hulle word in Brave Wagwoordbestuurder gestoor vir <ph name="ACCOUNT"/></translation>
+<translation id="4781538405765476984">Jy kan gestoorde wagwoorde op enige toestel gebruik. Hulle word in Brave Wagwoordbestuurder gestoor vir <ph name="ACCOUNT"/></translation>
 <translation id="7968014550143838305">By leeslys gevoeg</translation>
 <translation id="7968982339740310781">Bekyk details</translation>
 <translation id="7969391000881506217">Vervaldatum*</translation>
 <translation id="7971136598759319605">1 dag gelede aktief</translation>
 <translation id="7975379999046275268">Voorbeskou bladsy <ph name="BEGIN_NEW"/>Nuwe<ph name="END_NEW"/></translation>
 <translation id="7977451675950311423">Waarsku jou as jy ’n wagwoord gebruik wat in ’n dataskending gekompromitteer is.</translation>
-<translation id="6171786297758300317"><ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/> <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder, want jy het nie onlangs die werf besoek nie</translation>
+<translation id="1763490937808422116"><ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/> <ph name="SEPARATOR"/> Brave het hierdie toestemmings verwyder, want jy het nie onlangs die werf besoek nie</translation>
 <translation id="7995059495660416932">Jy sal inhoud sien wanneer dit beskikbaar word</translation>
 <translation id="799576009106109668">Jy sal vinniger kan blaai omdat inhoud proaktief op grond van jou huidige webbladsybesoek gelaai word</translation>
 <translation id="7998918019931843664">Heropen toegemaakte oortjie</translation>
@@ -1637,7 +1637,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8037801708772278989">Sopas nagegaan</translation>
 <translation id="804335162455518893">Kon nie SD-kaart kry nie</translation>
 <translation id="8051695050440594747"><ph name="MEGABYTES"/> MB beskikbaar</translation>
-<translation id="2317945146070194624">Open in nuwe Brave-oortjie</translation>
+<translation id="7780790499610149538">Open in nuwe Brave-oortjie</translation>
 <translation id="8062594758852531064">Uitgebreide vooraflaai:</translation>
 <translation id="8063895661287329888">Kon nie boekmerk byvoeg nie.</translation>
 <translation id="8066816452984416180">Boekmerk hierdie bladsy vinnig. Raak en hou om hierdie kortpad te wysig.</translation>
@@ -1645,18 +1645,18 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8076492880354921740">Oortjies</translation>
 <translation id="8078096376109663956">Deel net teks</translation>
 <translation id="8078348702936632821">Speld hierdie kortpad vas</translation>
-<translation id="1718138320251931534">Beheer jou Brave-rekeningdata</translation>
-<translation id="6213630783726251371">Sommige van jou geskiedenis sal dalk nie hier verskyn nie. Maak die volle Brave-geskiedenis oop om al jou Brave-geskiedenis te sien. Jou Brave-rekening kan dalk ook ander vorme van blaaigeskiedenis hê by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/>.</translation>
+<translation id="650786381953081374">Beheer jou Brave-rekeningdata</translation>
+<translation id="3554927172038633077">Sommige van jou geskiedenis sal dalk nie hier verskyn nie. Maak die volle Brave-geskiedenis oop om al jou Brave-geskiedenis te sien. Jou Brave-rekening kan dalk ook ander vorme van blaaigeskiedenis hê by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/>.</translation>
 <translation id="8088176524274673045">Om met mense naby te deel, moet hulle hierdie QR-kode skandeer</translation>
 <translation id="8090732854597034573">Vra jou ouer as jy hulp benodig</translation>
 <translation id="8101414242770404289">Geen oortjies vanaf die <ph name="TIME_PERIOD"/></translation>
 <translation id="810433609302852">Wenkekennisgewingskenmerkpromosie en gebruikstappe se onderste blad</translation>
 <translation id="8105893657415066307"><ph name="DESCRIPTION"/> <ph name="SEPARATOR"/> <ph name="FILE_SIZE"/></translation>
 <translation id="8107530384992929318">Maak rangskikopsies toe</translation>
-<translation id="2919733817273403520">Help om Brave se kenmerke en -werkverrigting beter te maak</translation>
-<translation id="4565206163201411670">Wys jou Brave-aktiwiteit in Digitale Welstand?</translation>
+<translation id="7815523058804989523">Help om Brave se kenmerke en -werkverrigting beter te maak</translation>
+<translation id="3444763222411219951">Wys jou Brave-aktiwiteit in Digitale Welstand?</translation>
 <translation id="8118117428362942925">Vra jou ouer (<ph name="PARENT_NAME"/>) as jy hulp benodig</translation>
-<translation id="3018959290664438109">Meld aan by Brave om jou oortjies en meer op al jou toestelle te kry</translation>
+<translation id="124290912062679241">Meld aan by Brave om jou oortjies en meer op al jou toestelle te kry</translation>
 <translation id="8120286190326371840">Geen gekompromitteerde wagwoorde op hierdie toestel nie</translation>
 <translation id="8122623268651408616">Sorteer volgens nuutste</translation>
 <translation id="8127542551745560481">Wysig tuisblad</translation>
@@ -1664,11 +1664,11 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8130309322784422030">Jou gebergde aanmeldinligting is dalk verouderd</translation>
 <translation id="813082847718468539">Bekyk werfinligting</translation>
 <translation id="8135406045838672858">Afgelaaide PDF’s maak met <ph name="APP_NAME"/> outomaties oop</translation>
-<translation id="6337533477704327362">Jy hoef nie hierdie wagwoord te onthou nie. Dit sal in Brave Wagwoordbestuurder gestoor word.</translation>
+<translation id="1707321440264122972">Jy hoef nie hierdie wagwoord te onthou nie. Dit sal in Brave Wagwoordbestuurder gestoor word.</translation>
 <translation id="8152331954420209374">Gaan na Lens</translation>
 <translation id="8153206878708357851">Skakel Karetblaai aan of af</translation>
 <translation id="8154784523622173959">Personaliseer die agtergrond van hierdie bladsy</translation>
-<translation id="6779735068647643024">Verifieer dis jy om wagwoorde in jou Brave-rekening te gebruik en te stoor</translation>
+<translation id="1201353647060621798">Verifieer dis jy om wagwoorde in jou Brave-rekening te gebruik en te stoor</translation>
 <translation id="8175940240143658258">{ARCHIVED_TAB_COUNT,plural, =1{(1) onaktiewe item}other{(#) onaktiewe items}}</translation>
 <translation id="8186512483418048923"><ph name="FILES"/> lêers oor</translation>
 <translation id="8190358571722158785">1 dag oor</translation>
@@ -1692,11 +1692,11 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8250920743982581267">Dokumente</translation>
 <translation id="8257429805444572809">Uitgeteken van <ph name="DOMAIN"/></translation>
 <translation id="8258999165172757081">Bygevoeg</translation>
-<translation id="2876689296031086375">Brave sal niks oor die voorafgelaaide bladsy se inhoud te wete kom nie omdat die voorafgelaaide bladsye geënkripteer word. Brave-bedieners sal leer watter werwe privaat vooraf gelaai word. Hierdie inligting word slegs gebruik om die bladsye vooraf te laai en word nie aan ander inligting in jou Brave-rekening gekoppel nie.</translation>
+<translation id="8985835565880092979">Brave sal niks oor die voorafgelaaide bladsy se inhoud te wete kom nie omdat die voorafgelaaide bladsye geënkripteer word. Brave-bedieners sal leer watter werwe privaat vooraf gelaai word. Hierdie inligting word slegs gebruik om die bladsye vooraf te laai en word nie aan ander inligting in jou Brave-rekening gekoppel nie.</translation>
 <translation id="8260126382462817229">Probeer weer om aan te meld</translation>
 <translation id="8261506727792406068">Vee uit</translation>
 <translation id="82619448491672958">Sien ander oortjies</translation>
-<translation id="3895752892853969272">Maak die Brave-kieslys oop</translation>
+<translation id="6875243146684054621">Maak die Brave-kieslys oop</translation>
 <translation id="8266753737658117282">Gaan voort met <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/></translation>
 <translation id="8266862848225348053">Laai ligging af</translation>
 <translation id="8271267069224406035">Gee strooipos aan</translation>
@@ -1709,7 +1709,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8317318757008452355">Maak opsies om te druk oop</translation>
 <translation id="8320212361750431956">Onlangse aktiwiteit</translation>
 <translation id="832514020744584629"><ph name="PREF_TITLE"/>  <ph name="BEGIN_NEW"/>Nuut<ph name="END_NEW"/></translation>
-<translation id="7174809333940729365">Brave sal jou laat weet van werwe wat moontlik te veel kennisgewings stuur</translation>
+<translation id="6666153730880019186">Brave sal jou laat weet van werwe wat moontlik te veel kennisgewings stuur</translation>
 <translation id="834313815369870491">Moet nooit werwe vertaal nie</translation>
 <translation id="8348430946834215779">Gebruik HTTPS waar moontlik en word gewaarsku voordat werwe laai wat dit nie steun nie</translation>
 <translation id="8354977102499939946">Soek vinnig met jou stem. Gaan na Instellings om hierdie kortpad te wysig.</translation>
@@ -1721,12 +1721,12 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8396098434728053815">Deel ook oortjie-oudio</translation>
 <translation id="8402673309244746971">Gaan na Volg tans</translation>
 <translation id="8413126021676339697">Wys volle geskiedenis</translation>
-<translation id="5348884013239264115">Beskerm teen webwerwe, aflaaie en uitbreidings wat bekend is daarvoor dat hulle gevaarlik is. Wanneer jy ’n werf besoek, stuur Brave ’n verdoeselde gedeelte van die URL na Brave deur ’n privaatheidbediener wat jou IP-adres versteek. As ’n webwerf iets verdag doen, word volledige URL’e en stukkies van die bladsyinhoud ook gestuur.</translation>
+<translation id="8922807241922551020">Beskerm teen webwerwe, aflaaie en uitbreidings wat bekend is daarvoor dat hulle gevaarlik is. Wanneer jy ’n werf besoek, stuur Brave ’n verdoeselde gedeelte van die URL na Brave deur ’n privaatheidbediener wat jou IP-adres versteek. As ’n webwerf iets verdag doen, word volledige URL’e en stukkies van die bladsyinhoud ook gestuur.</translation>
 <translation id="8414396119627470038">Meld aan by <ph name="SITE_ETLD_PLUS_ONE"/> met <ph name="IDENTITY_PROVIDER_ETLD_PLUS_ONE"/></translation>
 <translation id="8419144699778179708">Vee geskiedenis uit, ook in die soekkassie</translation>
 <translation id="8419244640277402268">Sluit in</translation>
 <translation id="8422250855136581222">Geen oortjies op hierdie toestel nie</translation>
-<translation id="78656282836782594">Brave se veiligheidnutsgoed</translation>
+<translation id="1662821477495041770">Brave se veiligheidnutsgoed</translation>
 <translation id="8427875596167638501">Voorskou-oortjie is half oopgemaak</translation>
 <translation id="8428213095426709021">Instellings</translation>
 <translation id="8430824733382774043">Deel net skermskoot</translation>
@@ -1734,7 +1734,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8438566539970814960">Maak soektogte en blaai-ervaring beter</translation>
 <translation id="8439974325294139057"><ph name="LANG"/> – taal is gereed; herbegin <ph name="APP_NAME"/>.</translation>
 <translation id="8442258441309440798">Geen stories beskikbaar nie</translation>
-<translation id="4058091506841967397">Brave dateer nie op nie</translation>
+<translation id="2701925155613089572">Brave dateer nie op nie</translation>
 <translation id="8443600937324357591">Skuif oortjie na ’n ander venster toe</translation>
 <translation id="8445448999790540984">Kan nie wagwoorde uitvoer nie</translation>
 <translation id="8446884382197647889">Kom meer te wete</translation>
@@ -1742,7 +1742,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8453310803815879010">Begin Dinosourusspeletjie</translation>
 <translation id="8455675988389029454">Kry jou boekmerke, wagwoorde en meer op al jou toestelle</translation>
 <translation id="8458413889418591446">Sinkroniseer jou geskiedenis en oortjies om vinnig terug te gaan na werwe wat jy besoek het</translation>
-<translation id="7018408824172283743">Hou aan om die Brave-data in jou Brave-rekening te gebruik</translation>
+<translation id="1801826411533930516">Hou aan om die Brave-data in jou Brave-rekening te gebruik</translation>
 <translation id="8460448946170646641">Gaan belangrike privaatheid- en sekuriteitkontroles na</translation>
 <translation id="8460932807646981183">Bestuur soekenjins en werfsoektog</translation>
 <translation id="8473863474539038330">Adresse en meer</translation>
@@ -1762,7 +1762,7 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8540136935098276800">Voer 'n URL in wat reg geformateer is</translation>
 <translation id="854522910157234410">Maak hierdie bladsy oop</translation>
 <translation id="8547466829003330976">Hersien PDF met KI</translation>
-<translation id="5503308854539525011">Brave beperk die totale hoeveelheid data wat werwe deur die blaaier kan deel om advertensiewerkverrigting te meet</translation>
+<translation id="3282095334056073762">Brave beperk die totale hoeveelheid data wat werwe deur die blaaier kan deel om advertensiewerkverrigting te meet</translation>
 <translation id="8559990750235505898">Aanbieding om bladsye in ander tale te vertaal</translation>
 <translation id="8560602726703398413">Kry jou leeslys in Boekmerke</translation>
 <translation id="8565021320663436446">Verwyder <ph name="MEMBER_FULL_NAME"/>?</translation>
@@ -1774,12 +1774,12 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="859046281437143747">Spoor pryse deur die Meer Opsies-knoppie na</translation>
 <translation id="859064343657890103"><ph name="TAB_GROUP_TITLE"/>-oortjiegroep is uitgevee</translation>
 <translation id="860043288473659153">Kaarthouernaam</translation>
-<translation id="1673533133011266617">Meld by Brave aan; toegemaak.</translation>
+<translation id="2815385509593575031">Meld by Brave aan; toegemaak.</translation>
 <translation id="860282621117673749">Opletberigte oor prysverlagings</translation>
 <translation id="8611922158252451755">Enigiemand met die skakel kan alle oortjies wysig, so deel verstandig. Skakel verval oor 48 uur.</translation>
-<translation id="5784514951651328424">Jou Brave-rekening kan dalk ander vorme van blaaigeskiedenis hê by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/></translation>
+<translation id="56793382154872750">Jou Brave-rekening kan dalk ander vorme van blaaigeskiedenis hê by <ph name="BEGIN_LINK"/>myactivity.google.com<ph name="END_LINK"/></translation>
 <translation id="8617240290563765734">Maak die voorgestelde URL oop wat in die afgelaaide inhoud gespesifiseer word?</translation>
-<translation id="5601608515527024348">Maak Brave-kieslys &gt; Instellings oop</translation>
+<translation id="8098651545500229722">Maak Brave-kieslys &gt; Instellings oop</translation>
 <translation id="8634050254805484913">Word versteek op klein skerms</translation>
 <translation id="8635399646025169806">Hou oortjiegroep?</translation>
 <translation id="8636825310635137004">Skakel sinkronisering aan om jou oortjies van jou ander toestelle af te kry.</translation>
@@ -1792,24 +1792,24 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8697753151306746444">Deel pleks daarvan venster of skerm</translation>
 <translation id="8699120352855309748">Moenie aanbied om hierdie tale te vertaal nie</translation>
 <translation id="8712637175834984815">Het dit</translation>
-<translation id="6146670726156522332">Maak jou wagwoorde in jou Brave-rekening sterker</translation>
+<translation id="511590343311208545">Maak jou wagwoorde in jou Brave-rekening sterker</translation>
 <translation id="8715300232952757586"><ph name="TAB_TITLE"/> sal toegemaak word</translation>
 <translation id="8723453889042591629">Vertaal hierdie bladsy vinnig. Raak en hou om hierdie kortpad te wysig.</translation>
 <translation id="8725066075913043281">Probeer weer</translation>
-<translation id="6614332522102257453">Benut Brave ten beste</translation>
+<translation id="3096460863109263522">Benut Brave ten beste</translation>
 <translation id="8731268612289859741">Sekuriteitkode</translation>
 <translation id="8738163682604285902">Bekyk Leesmodus?</translation>
 <translation id="8746155870861185046">Deel hoogtepunt</translation>
 <translation id="8748850008226585750">Inhoud word versteek</translation>
 <translation id="8754448020583829686">Kopieer sonder skakel</translation>
 <translation id="8756969031206844760">Dateer wagwoord op?</translation>
-<translation id="5237925635961014228">{NUM_PASSWORDS,plural, =1{Brave het ’n swak wagwoord gevind wat jy kan verbeter}other{Brave het # swak wagwoorde gevind wat jy kan verbeter}}</translation>
+<translation id="1816469355463295797">{NUM_PASSWORDS,plural, =1{Brave het ’n swak wagwoord gevind wat jy kan verbeter}other{Brave het # swak wagwoorde gevind wat jy kan verbeter}}</translation>
 <translation id="8766529642647037772">Skep 'n hoogtepuntskakel soos hierdie een?</translation>
 <translation id="8788265440806329501">Navigasiegeskiedenis is toegemaak.</translation>
 <translation id="8790193082819560975">Tik om in ’n nuwe oortjie na koopopsies vir die produk te soek.</translation>
 <translation id="8798449543960971550">Lees</translation>
 <translation id="8803526663383843427">As dit aan is</translation>
-<translation id="2508649107031454563">{ITEMS_COUNT,plural, =1{Item is in jou Brave-rekening, <ph name="ACCOUNT_EMAIL"/>, gestoor.}other{Items is in jou Brave-rekening, <ph name="ACCOUNT_EMAIL"/>, gestoor.}}</translation>
+<translation id="4884302095302889588">{ITEMS_COUNT,plural, =1{Item is in jou Brave-rekening, <ph name="ACCOUNT_EMAIL"/>, gestoor.}other{Items is in jou Brave-rekening, <ph name="ACCOUNT_EMAIL"/>, gestoor.}}</translation>
 <translation id="8804742093141782941">Hou groep</translation>
 <translation id="8812260976093120287">Op sommige webwerwe kan jy met gesteunde betalingprogramme op jou toestel betaal.</translation>
 <translation id="8816556050903368450">Skakel ingesluit: <ph name="ORIGIN"/></translation>
@@ -1826,27 +1826,27 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="8856607253650333758">Kry beskrywings</translation>
 <translation id="8856931513242997049">Kennisgewingtoestemmingvloei is toegemaak</translation>
 <translation id="8863714995118816041">Toestemmings word weer toegelaat vir <ph name="SITE_NAME"/></translation>
-<translation id="7261356974224431851">Brave-data in jou rekening</translation>
+<translation id="120745000989996104">Brave-data in jou rekening</translation>
 <translation id="8872506776304248286">Maak in app oop</translation>
-<translation id="1984646864943401749">Stuur URL'e van sommige bladsye wat jy besoek, beperkte stelselinligting en sekere bladsyinhoud na Brave toe om te help om nuwe bedreigings te ontdek en almal op die web te beskerm.</translation>
+<translation id="3069725108794830316">Stuur URL'e van sommige bladsye wat jy besoek, beperkte stelselinligting en sekere bladsyinhoud na Brave toe om te help om nuwe bedreigings te ontdek en almal op die web te beskerm.</translation>
 <translation id="8903921497873541725">Zoem in</translation>
 <translation id="8909135823018751308">Deel …</translation>
 <translation id="8918299437379122615">Deel skakel na soekresultaatbladsy vir: <ph name="SEARCH_QUERY"/>. Bron: <ph name="PAGE_URL"/></translation>
 <translation id="8922289737868596582">Laai bladsye vanaf die Meer Opsies-knoppie af om hulle vanlyn te gebruik</translation>
 <translation id="8924575305646776101"><ph name="BEGIN_LINK"/>Kom meer te wete<ph name="END_LINK"/></translation>
 <translation id="892496902842311796"><ph name="LANG"/> is gereed</translation>
-<translation id="1174893863889683998">Verwyder jou Brave-aktiwiteit van Digitale Welstand?</translation>
+<translation id="9212138773039741489">Verwyder jou Brave-aktiwiteit van Digitale Welstand?</translation>
 <translation id="8942627711005830162">Maak in 'n ander venster oop</translation>
 <translation id="8945143127965743188"><ph name="LANG"/> – hierdie taal kon nie afgelaai word nie. Probeer later weer.</translation>
 <translation id="8946759102391960088">Behou toegang tot jou wagwoorde</translation>
 <translation id="895442993047180128">Intekening vir Wenke-kennisgewings is toegemaak</translation>
-<translation id="85151160756468368">Om toegang tot jou wagwoorde te behou, moet jy hulle nou uitvoer en hulle dan na jou voorkeurwagwoordbestuurder invoer. Brave Wagwoordbestuurder het opgehou werk omdat Google Play Dienste nie beskikbaar is nie.</translation>
+<translation id="7291655069497525420">Om toegang tot jou wagwoorde te behou, moet jy hulle nou uitvoer en hulle dan na jou voorkeurwagwoordbestuurder invoer. Brave Wagwoordbestuurder het opgehou werk omdat Google Play Dienste nie beskikbaar is nie.</translation>
 <translation id="8963117664422609631">Gaan na werfinstellings</translation>
 <translation id="8965591936373831584">hangende</translation>
 <translation id="8969796057708736017">Jou aflaai sal voltooi word as die lêer aan jou organisasie se beleide voldoen</translation>
 <translation id="8970887620466824814">Iets is fout.</translation>
 <translation id="8972098258593396643">Laai af na verstekvouer?</translation>
-<translation id="2481553173340651149">Jou data is met jou wagfrase geënkripteer. Voer dit in om Brave-data in jou Brave-rekening te gebruik en te stoor.</translation>
+<translation id="70453521937551896">Jou data is met jou wagfrase geënkripteer. Voer dit in om Brave-data in jou Brave-rekening te gebruik en te stoor.</translation>
 <translation id="8995521496079646922">Die apps wat jy gekies het, sal by verstek gebruik word. As ’n app nie reeds op hierdie toestel is nie, sal dit binnekort afgelaai word.</translation>
 <translation id="8996847606757455498">Kies 'n ander verskaffer</translation>
 <translation id="8998837250940831980">Kon nie oortjie klein maak nie. Probeer later weer.</translation>
@@ -1857,14 +1857,14 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="9027728231343310283">Ontdoen <ph name="SITE"/></translation>
 <translation id="9035378196785279980">Skuif na \u2026</translation>
 <translation id="9042893549633094279">Privaatheid en sekuriteit</translation>
-<translation id="1612219807314383628">Begin vinnig ’n soektog in Brave</translation>
+<translation id="7186405974701592532">Begin vinnig ’n soektog in Brave</translation>
 <translation id="9050666287014529139">Wagfrase</translation>
 <translation id="9055497320631373736">Werf is weer by potensiële werwe gevoeg</translation>
 <translation id="9057030985451135243">Kry meer inligting oor gedeelde oortjiegroepe</translation>
 <translation id="9063400323119781058">Uitgeteken</translation>
 <translation id="9063523880881406963">Skakel Versoek rekenaarwerf af</translation>
 <translation id="9065203028668620118">Wysig</translation>
-<translation id="5496925146144075335">Gebergde data wat Brave nie dink belangrik is nie (bv. werwe met geen gestoorde instellings nie of wat jy nie dikwels besoek nie)</translation>
+<translation id="4559141342987006682">Gebergde data wat Brave nie dink belangrik is nie (bv. werwe met geen gestoorde instellings nie of wat jy nie dikwels besoek nie)</translation>
 <translation id="9067341854474068781">Geen toegangsleutelblad is op volle hoogte oopgemaak nie</translation>
 <translation id="906781307897697745">in <ph name="PRODUCT_NAME"/></translation>
 <translation id="9069999660519089861">Geen ongeleesde bladsye nie</translation>
@@ -1872,8 +1872,8 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="9073805459138993880"><ph name="TAB_TITLE"/>, multigekose oortjie wat gedeel word</translation>
 <translation id="9074739597929991885">Bluetooth</translation>
 <translation id="9086455579313502267">Kon nie by netwerk ingaan nie</translation>
-<translation id="7708077127614889658">Maak in Brave-venster oop</translation>
-<translation id="2324185818196590038">Sluit Web- en Appaktiwiteit en gekoppelde Brave-dienste by Brave in om die mees gepersonaliseerde ervaring te kry</translation>
+<translation id="6530109046540321193">Maak in Brave-venster oop</translation>
+<translation id="361743137004197194">Sluit Web- en Appaktiwiteit en gekoppelde Brave-dienste by Brave in om die mees gepersonaliseerde ervaring te kry</translation>
 <translation id="9099220545925418560">Gegrond op jou blaaigeskiedenis. Hierdie instelling is af.</translation>
 <translation id="9100610230175265781">Wagwoordfrase word vereis</translation>
 <translation id="9101137867221042551">Bestuur</translation>
@@ -1908,34 +1908,34 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="9218430445555521422">Stel as verstek</translation>
 <translation id="9219103736887031265">Prente</translation>
 <translation id="9222198206152536936">Meld aan as <ph name="EMAIL"/> om jou oortjies en meer op al jou toestelle te kry</translation>
-<translation id="7625138338483121345">Maak Brave jou verstekblaaier</translation>
-<translation id="4596514158372210596">Verwyder jou Brave-aktiwiteit van Digitale Welstand</translation>
-<translation id="2830145431802238213">Gebruik Ligte Modus op Brave</translation>
+<translation id="6128711898363100092">Maak Brave jou verstekblaaier</translation>
+<translation id="6452669885989571831">Verwyder jou Brave-aktiwiteit van Digitale Welstand</translation>
+<translation id="3674796519501292953">Gebruik Ligte Modus op Brave</translation>
 <translation id="928550791203542716">Volg tans <ph name="SITE_NAME"/></translation>
 <translation id="930124987204876019">Vee geskiedenis, webkoekies, werfdata, kasgeheue uit …</translation>
 <translation id="930834144334005936">Stel huidige modus <ph name="MODE_NAME"/> terug na Search</translation>
 <translation id="938850635132480979">Fout: <ph name="ERROR_CODE"/></translation>
 <translation id="939598580284253335">Tik wagfrase in</translation>
 <translation id="945522503751344254">Stuur terugvoer</translation>
-<translation id="5406914950576900927">Brave kan <ph name="BEGIN_BOLD"/>Sogou<ph name="END_BOLD"/> gebruik om soektogte in China uit te voer. Jy kan dit in <ph name="BEGIN_LINK"/>Instellings<ph name="END_LINK"/> verander.</translation>
+<translation id="6184981435870596274">Brave kan <ph name="BEGIN_BOLD"/>Sogou<ph name="END_BOLD"/> gebruik om soektogte in China uit te voer. Jy kan dit in <ph name="BEGIN_LINK"/>Instellings<ph name="END_LINK"/> verander.</translation>
 <translation id="961856697154696964">Vee blaaierdata uit</translation>
 <translation id="963246339335003378">Maak Taakbestuurder oop</translation>
 <translation id="966131775676567255">Vee tans rekeningdata uit</translation>
 <translation id="970715775301869095"><ph name="MINUTES"/> minute oor</translation>
 <translation id="981121421437150478">Vanlyn</translation>
 <translation id="983192555821071799">Maak alle oortjies toe</translation>
-<translation id="5022280646675126732">Kan nie wagwoorde in jou Brave-rekening nagaan nie</translation>
+<translation id="8586312571586115966">Kan nie wagwoorde in jou Brave-rekening nagaan nie</translation>
 <translation id="987264212798334818">Algemeen</translation>
 <translation id="992745192656291733"><ph name="TAB_COUNT"/> oortjies</translation>
 <translation id="996149300115483134">Stroomkaartkieslys is toe</translation>
 <translation id="5186185447130319458">Privaat</translation>
-<translation id="79269250264141507">Wanneer jy iets in die adresbalk of soekkassie tik, stuur Brave wat jy tik na jou versteksoekenjin toe om beter voorstelle te kry. Dit is af in Incognito.</translation>
-<translation id="5711390076756601471">Sluit Incognito-oortjies wanneer jy Brave verlaat</translation>
-<translation id="5352668640894950863">Sluit Privaat vensters wanneer jy Brave verlaat</translation>
+<translation id="6954203250660846933">Wanneer jy iets in die adresbalk of soekkassie tik, stuur Brave wat jy tik na jou versteksoekenjin toe om beter voorstelle te kry. Dit is af in Incognito.</translation>
+<translation id="8850651686708361325">Sluit Incognito-oortjies wanneer jy Brave verlaat</translation>
+<translation id="5533797004337301383">Sluit Privaat vensters wanneer jy Brave verlaat</translation>
 <translation id="1014490034578104945">Gebruik skermslot om oop Incognito-oortjies te sien</translation>
 <translation id="5572558661069030949">Gebruik skermslot om oop Privaat vensters te sien</translation>
 <translation id="383007806262310953">Wys boekmerkbalk</translation>
-<translation id="2589970573128789862">Brave Incognito</translation>
+<translation id="3542179014707218534">Brave Incognito</translation>
 <translation id="5809126106485463836">Incognitomodus hou jou blaai privaat van ander mense wat jou toestel gebruik</translation>
 <translation id="2633278372998075009">Incognito-oortjies</translation>
 <translation id="8810805383611013660">Maak in Incognito-oortjie oop</translation>
@@ -1945,10 +1945,10 @@ Byvoorbeeld, sommige webwerwe kan op hierdie versoek reageer deur vir jou advert
 <translation id="3442126301004443274">Maak alle Incognito-oortjies toe om Incognito-blaaigeskiedenis op jou toestel uit te vee.</translation>
 <translation id="4526803704855831732">Incognito-oortjies</translation>
 <translation id="5248610748197335423">Maak alle Incognito-oortjies toe</translation>
-<translation id="2656327481457116654">Maak in Incognito Brave-oortjie oop</translation>
+<translation id="2009978752164231035">Maak in Incognito Brave-oortjie oop</translation>
 <translation id="4660964651149493586">Ontsluit Incognito</translation>
 <translation id="5278260521317049275">Skakel Incognito-slot aan</translation>
-<translation id="6302653771627628530">Incognito-oortjies sal gesluit word wanneer jy Brave verlaat</translation>
+<translation id="1419806157686956012">Incognito-oortjies sal gesluit word wanneer jy Brave verlaat</translation>
 <translation id="4167670741834902166">Nuwe Incognito-oortjie</translation>
 <translation id="5760418762676108038">Nuwe privaat venster</translation>
 <translation id="408336132633586393">Incognito-venster</translation>

@@ -65,7 +65,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> ଟାବକୁ ବନ୍ଦ କରାଯାଇଛି}other{<ph name="MANY_CLOSED"/> ଟାବକୁ ବନ୍ଦ କରାଯାଇଛି}}</translation>
 <translation id="2894757982205307093">ଗୋଷ୍ଠୀରେ ନୂଆ ଟାବ୍</translation>
 <translation id="2918484639460781603">ସେଟିଂସକୁ ଯାଆନ୍ତୁ</translation>
-<translation id="4691798003247738043">Brave | ଏହି ଷ୍ଟୋର୍ ବିଷୟରେ</translation>
+<translation id="1426788624931453470">Brave | ଏହି ଷ୍ଟୋର୍ ବିଷୟରେ</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> ଚୟନ କରାଯାଇଛି}other{<ph name="ITEMS_COUNT_MANY"/> ଚୟନ କରାଯାଇଛି}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{ଟାବ ପିନ କରନ୍ତୁ}other{ଟାବଗୁଡ଼ିକ ପିନ କରନ୍ତୁ}}</translation>
 <translation id="3008554597174452548">ପ୍ରଡକ୍ଟକୁ ଟ୍ରାକ କରିବା ବନ୍ଦ କରନ୍ତୁ</translation>
@@ -123,7 +123,7 @@
 <translation id="5073204694187207510">ପୂର୍ଣ୍ଣସ୍କ୍ରିନ୍‌ ଗ୍ରୀଡ୍‌କୁ ଲୁଚାନ୍ତୁ</translation>
 <translation id="5076161749301278626">ଷ୍ଟୋର ସମୀକ୍ଷାଗୁଡ଼ିକୁ ଦେଖିବେ?</translation>
 <translation id="5161254044473106830">ଟାଇଟେଲ୍ ଆବଶ୍ୟକ</translation>
-<translation id="1600515547518251664">{AUTO_DELETE_DELAY,plural, =1{<ph name="AUTO_DELETE_DELAY_ONE"/> ମାସ ପରେ Brave ସ୍ୱତଃ ନିଷ୍କ୍ରିୟ ଟାବ ଏବଂ ଟାବ ଗ୍ରୁପଗୁଡ଼ିକୁ ବନ୍ଦ କରିଦିଏ। ଆପଣ ଏହାକୁ ସେଟିଂସରେ ପରିବର୍ତ୍ତନ କରିପାରିବେ।}other{<ph name="AUTO_DELETE_DELAY_MANY"/> ମାସ ପରେ Brave ସ୍ୱତଃ ନିଷ୍କ୍ରିୟ ଟାବ ଏବଂ ଟାବ ଗ୍ରୁପଗୁଡ଼ିକୁ ବନ୍ଦ କରିଦିଏ। ଆପଣ ଏହାକୁ ସେଟିଂସରେ ପରିବର୍ତ୍ତନ କରିପାରିବେ।}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{<ph name="AUTO_DELETE_DELAY_ONE"/> ମାସ ପରେ Brave ସ୍ୱତଃ ନିଷ୍କ୍ରିୟ ଟାବ ଏବଂ ଟାବ ଗ୍ରୁପଗୁଡ଼ିକୁ ବନ୍ଦ କରିଦିଏ। ଆପଣ ଏହାକୁ ସେଟିଂସରେ ପରିବର୍ତ୍ତନ କରିପାରିବେ।}other{<ph name="AUTO_DELETE_DELAY_MANY"/> ମାସ ପରେ Brave ସ୍ୱତଃ ନିଷ୍କ୍ରିୟ ଟାବ ଏବଂ ଟାବ ଗ୍ରୁପଗୁଡ଼ିକୁ ବନ୍ଦ କରିଦିଏ। ଆପଣ ଏହାକୁ ସେଟିଂସରେ ପରିବର୍ତ୍ତନ କରିପାରିବେ।}}</translation>
 <translation id="5339733443032484186">ଆପଣଙ୍କ ଗତ ଟାବ</translation>
 <translation id="5380159289133845234">ନକଲି ଟାବଗୁଡ଼ିକୁ ଆର୍କାଇଭ କରନ୍ତୁ</translation>
 <translation id="5446043142172831860">ଟାବକୁ କାଢ଼ି ଦେଇ ଗୋଷ୍ଠୀରୁ ବାହାରି ଯାଆନ୍ତୁ</translation>
@@ -134,7 +134,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{<ph name="COLOR_NAME"/> ରଙ୍ଗର <ph name="TABS_COUNT_ONE"/> ଟାବ ଥିବା ଟାବ ଗ୍ରୁପକୁ ବନ୍ଦ କରନ୍ତୁ।}other{<ph name="COLOR_NAME"/> ରଙ୍ଗର <ph name="TABS_COUNT_MANY"/> ଟାବ ଥିବା ଟାବ ଗ୍ରୁପକୁ ବନ୍ଦ କରନ୍ତୁ।}}</translation>
 <translation id="5556417849629758491">ଷ୍ଟୋରର ସୂଚନା ଦେଖନ୍ତୁ, ସ୍କ୍ରିନର ଶୀର୍ଷଭାଗର ନିକଟରେ ବିକଳ୍ପ ଉପଲବ୍ଧ ଅଛି</translation>
 <translation id="5627941783489838464">କୌଣସି ଟାବ ଅପଡେଟ ନାହିଁ</translation>
-<translation id="3225229609960545342">{TABS_COUNT,plural, =1{Braveରୁ <ph name="TABS_COUNT_ONE"/>ଟି ଲିଙ୍କ}other{Braveରୁ <ph name="TABS_COUNT_MANY"/>ଟି ଲିଙ୍କ}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{Braveରୁ <ph name="TABS_COUNT_ONE"/>ଟି ଲିଙ୍କ}other{Braveରୁ <ph name="TABS_COUNT_MANY"/>ଟି ଲିଙ୍କ}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{ଟାବକୁ ବାମକୁ ମୁଭ କରନ୍ତୁ}other{ଟାବଗୁଡ଼ିକୁ ବାମକୁ ମୁଭ କରନ୍ତୁ}}</translation>
 <translation id="5746204836956568669">ଶୀଘ୍ର କାମ କରିବା ପାଇଁ <ph name="NUMBER_OF_TABS"/> ଟାବକୁ ଗ୍ରୁପ କରିବେ?</translation>
 <translation id="5773295109010386583">ନିଷ୍କ୍ରିୟ ଆଇଟମଗୁଡ଼ିକୁ ସ୍ୱତଃ ବନ୍ଦ କରନ୍ତୁ</translation>
@@ -189,7 +189,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ଆଇଟମ}other{<ph name="TABS_COUNT_MANY"/> ଆଇଟମ}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ଚୟନିତ ଆଇଟମକୁ ରିଷ୍ଟୋର କରନ୍ତୁ}other{<ph name="TABS_COUNT_MANY"/> ଚୟନିତ ଆଇଟମକୁ ରିଷ୍ଟୋର କରନ୍ତୁ}}</translation>
 <translation id="753732157349120914">ଟାବ୍ ସ୍ୱିଚର୍</translation>
-<translation id="1068242749670180460">{REVIEWS,plural, =1{Braveରୁ <ph name="REVIEWS_COUNT_ONE"/>ଟି ସମୀକ୍ଷା}other{Braveରୁ <ph name="REVIEWS_COUNT_MANY"/>ଟି ସମୀକ୍ଷା}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{Braveରୁ <ph name="REVIEWS_COUNT_ONE"/>ଟି ସମୀକ୍ଷା}other{Braveରୁ <ph name="REVIEWS_COUNT_MANY"/>ଟି ସମୀକ୍ଷା}}</translation>
 <translation id="7559245342362162951">ପୂର୍ଣ୍ଣ ସ୍କ୍ରିନ୍‌ ଗ୍ରୀଡ୍‌ରେ ଗୋଷ୍ଠୀର ଟାବ୍‌ଗୁଡ଼ିକ ଦେଖାନ୍ତୁ</translation>
 <translation id="7658239707568436148">ବାତିଲ</translation>
 <translation id="7688386659311034820">ନିଷ୍କ୍ରିୟ ଟାବଗୁଡ଼ିକର ଡାଏଲଗ</translation>

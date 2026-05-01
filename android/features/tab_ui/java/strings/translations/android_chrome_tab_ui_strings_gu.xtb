@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> ટૅબ બંધ કર્યું}one{<ph name="MANY_CLOSED"/> બંધ કર્યું}other{<ph name="MANY_CLOSED"/> બંધ કર્યા}}</translation>
 <translation id="2894757982205307093">ગ્રૂપમાં નવું ટૅબ</translation>
 <translation id="2918484639460781603">સેટિંગ્સ પર જાઓ </translation>
-<translation id="4691798003247738043">Brave | આ સ્ટોર વિશે</translation>
+<translation id="1426788624931453470">Brave | આ સ્ટોર વિશે</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> પસંદ કરી}one{<ph name="ITEMS_COUNT_MANY"/> પસંદ કરી}other{<ph name="ITEMS_COUNT_MANY"/> પસંદ કરી}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{ટૅબને પિન કરો}one{ટૅબને પિન કરો}other{ટૅબને પિન કરો}}</translation>
 <translation id="3008554597174452548">પ્રોડક્ટને ટ્રૅક કરવાનું બંધ કરો</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">પૂર્ણસ્ક્રીન ગ્રિડને છુપાવો</translation>
 <translation id="5076161749301278626">શું સ્ટોરના રિવ્યૂ જોવા માગો છો?</translation>
 <translation id="5161254044473106830">શીર્ષક જરૂરી</translation>
-<translation id="1600515547518251664">{AUTO_DELETE_DELAY,plural, =1{Brave <ph name="AUTO_DELETE_DELAY_ONE"/> મહિના પછી નિષ્ક્રિય ટૅબ અને ટૅબના ગ્રૂપને ઑટોમૅટિક રીતે બંધ કરે છે. તમે આને સેટિંગમાં બદલી શકો છો.}one{Brave <ph name="AUTO_DELETE_DELAY_MANY"/> મહિના પછી નિષ્ક્રિય ટૅબ અને ટૅબના ગ્રૂપને ઑટોમૅટિક રીતે બંધ કરે છે. તમે આને સેટિંગમાં બદલી શકો છો.}other{Brave <ph name="AUTO_DELETE_DELAY_MANY"/> મહિના પછી નિષ્ક્રિય ટૅબ અને ટૅબના ગ્રૂપને ઑટોમૅટિક રીતે બંધ કરે છે. તમે આને સેટિંગમાં બદલી શકો છો.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave <ph name="AUTO_DELETE_DELAY_ONE"/> મહિના પછી નિષ્ક્રિય ટૅબ અને ટૅબના ગ્રૂપને ઑટોમૅટિક રીતે બંધ કરે છે. તમે આને સેટિંગમાં બદલી શકો છો.}one{Brave <ph name="AUTO_DELETE_DELAY_MANY"/> મહિના પછી નિષ્ક્રિય ટૅબ અને ટૅબના ગ્રૂપને ઑટોમૅટિક રીતે બંધ કરે છે. તમે આને સેટિંગમાં બદલી શકો છો.}other{Brave <ph name="AUTO_DELETE_DELAY_MANY"/> મહિના પછી નિષ્ક્રિય ટૅબ અને ટૅબના ગ્રૂપને ઑટોમૅટિક રીતે બંધ કરે છે. તમે આને સેટિંગમાં બદલી શકો છો.}}</translation>
 <translation id="5339733443032484186">તમારું છેલ્લું ટૅબ</translation>
 <translation id="5380159289133845234">ડુપ્લિકેટ ટૅબ આર્કાઇવ કરો</translation>
 <translation id="5446043142172831860">ટૅબ કાઢી નાખો અને ગ્રૂપ છોડી દો</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{<ph name="COLOR_NAME"/> રંગનું <ph name="TABS_COUNT_ONE"/> ટૅબ ધરાવતા ટૅબના ગ્રૂપને બંધ કરો.}one{<ph name="COLOR_NAME"/> રંગનું <ph name="TABS_COUNT_MANY"/> ટૅબ ધરાવતા ટૅબના ગ્રૂપને બંધ કરો.}other{<ph name="COLOR_NAME"/> રંગના <ph name="TABS_COUNT_MANY"/> ટૅબ ધરાવતા ટૅબના ગ્રૂપને બંધ કરો.}}</translation>
 <translation id="5556417849629758491">સ્ટોરની માહિતી જુઓ, વિકલ્પ સ્ક્રીનની ટોચની નજીક ઉપલબ્ધ છે</translation>
 <translation id="5627941783489838464">ટૅબ સંબંધી કોઈ અપડેટ નથી</translation>
-<translation id="3225229609960545342">{TABS_COUNT,plural, =1{Braveમાંથી <ph name="TABS_COUNT_ONE"/> લિંક}one{Braveમાંથી <ph name="TABS_COUNT_MANY"/> લિંક}other{Braveમાંથી <ph name="TABS_COUNT_MANY"/> લિંક}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{Braveમાંથી <ph name="TABS_COUNT_ONE"/> લિંક}one{Braveમાંથી <ph name="TABS_COUNT_MANY"/> લિંક}other{Braveમાંથી <ph name="TABS_COUNT_MANY"/> લિંક}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{ટૅબને ડાબી બાજુ ખસેડો}one{ટૅબને ડાબી બાજુ ખસેડો}other{ટૅબને ડાબી બાજુ ખસેડો}}</translation>
 <translation id="5746204836956568669">વધુ ઝડપથી કામ કરવા માટે <ph name="NUMBER_OF_TABS"/>ને ગ્રૂપ કરીએ?</translation>
 <translation id="5773295109010386583">ઑટોમૅટિક રીતે નિષ્ક્રિય આઇટમ બંધ કરો</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> આઇટમ}one{<ph name="TABS_COUNT_MANY"/> આઇટમ}other{<ph name="TABS_COUNT_MANY"/> આઇટમ}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{પસંદ કરેલી <ph name="TABS_COUNT_ONE"/> આઇટમ રિસ્ટોર કરો}one{પસંદ કરેલ <ph name="TABS_COUNT_MANY"/> આઇટમ રિસ્ટોર કરો}other{પસંદ કરેલ <ph name="TABS_COUNT_MANY"/> આઇટમ રિસ્ટોર કરો}}</translation>
 <translation id="753732157349120914">ટૅબ સ્વિચર</translation>
-<translation id="1068242749670180460">{REVIEWS,plural, =1{Brave તરફથી <ph name="REVIEWS_COUNT_ONE"/> રિવ્યૂ}one{Brave તરફથી <ph name="REVIEWS_COUNT_MANY"/> રિવ્યૂ}other{Brave તરફથી <ph name="REVIEWS_COUNT_MANY"/> રિવ્યૂ}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{Brave તરફથી <ph name="REVIEWS_COUNT_ONE"/> રિવ્યૂ}one{Brave તરફથી <ph name="REVIEWS_COUNT_MANY"/> રિવ્યૂ}other{Brave તરફથી <ph name="REVIEWS_COUNT_MANY"/> રિવ્યૂ}}</translation>
 <translation id="7559245342362162951">ગ્રુપના ટૅબને પૂર્ણસ્ક્રીન ગ્રિડમાં બતાવો</translation>
 <translation id="7658239707568436148">રદ કરો</translation>
 <translation id="7688386659311034820">નિષ્ક્રિય ટૅબ સંવાદ</translation>
