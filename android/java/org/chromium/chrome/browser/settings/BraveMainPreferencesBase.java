@@ -46,9 +46,10 @@ import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
 import org.chromium.chrome.browser.settings.search.ChromeBaseSearchIndexProvider;
 import org.chromium.chrome.browser.toolbar.bottom.BottomToolbarConfiguration;
 import org.chromium.chrome.browser.vpn.BraveVpnPolicy;
-import org.chromium.chrome.browser.vpn.settings.VpnCalloutPreference;
-import org.chromium.chrome.browser.vpn.utils.BraveVpnPrefUtils;
-import org.chromium.chrome.browser.vpn.utils.BraveVpnUtils;
+// Browther: imports VPN promo retirés (callout désactivé)
+// import org.chromium.chrome.browser.vpn.settings.VpnCalloutPreference;
+// import org.chromium.chrome.browser.vpn.utils.BraveVpnPrefUtils;
+// import org.chromium.chrome.browser.vpn.utils.BraveVpnUtils;
 import org.chromium.chrome.browser.widget.quickactionsearchandbookmark.utils.BraveSearchWidgetUtils;
 import org.chromium.components.brave_account.BraveAccountFeatures;
 import org.chromium.components.browser_ui.settings.ChromeBasePreference;
@@ -116,6 +117,8 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
 
     private final HashMap<String, Preference> mRemovedPreferences = new HashMap<>();
     private @Nullable BraveAccountSectionController mAccountController;
+    // Browther: VPN callout désactivé — champ gardé pour minimiser le diff
+    @SuppressWarnings("UnusedVariable")
     private @Nullable Preference mVpnCalloutPreference;
     private boolean mNotificationClicked;
 
@@ -296,21 +299,8 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
     private void rearrangePreferenceOrders() {
         int firstSectionOrder = 0;
 
-        if (getActivity() != null
-                && !getActivity().isFinishing()
-                && BraveVpnPrefUtils.shouldShowCallout()
-                && !BraveVpnPrefUtils.isSubscriptionPurchase()
-                && BraveVpnUtils.isVpnFeatureSupported(getActivity())
-                && !BraveVpnPolicy.isDisabledByPolicy(getProfile())) {
-            if (mVpnCalloutPreference == null) {
-                mVpnCalloutPreference = new VpnCalloutPreference(getActivity());
-            }
-            if (mVpnCalloutPreference != null) {
-                mVpnCalloutPreference.setKey(PREF_BRAVE_VPN_CALLOUT);
-                mVpnCalloutPreference.setOrder(firstSectionOrder);
-                getPreferenceScreen().addPreference(mVpnCalloutPreference);
-            }
-        }
+        // Browther: VPN callout/promo card désactivée
+        // (was: BraveVpnPrefUtils.shouldShowCallout() etc. → addPreference(mVpnCalloutPreference))
 
         int braveAccountSectionOrder = firstSectionOrder;
         for (String key : BraveAccountSectionController.ALL_PREFERENCE_KEYS) {

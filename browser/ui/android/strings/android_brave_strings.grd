@@ -258,7 +258,7 @@ This file contains all "about" strings.  It is set to NOT be translated, in tran
         Turn on Browther notifications
       </message>
       <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_BRAVE_SHIELDS" desc="Content description for the button that is enable, disable Brave Shields.">
-        Enable/Disable Brave Shields
+        Enable/Disable Browther Shields
       </message>
     <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_BRAVE_PIP" desc="Content description for the button that triggers picture-in-picture mode for YouTube videos.">
       Enter picture-in-picture mode
@@ -366,7 +366,7 @@ This file contains all "about" strings.  It is set to NOT be translated, in tran
         Analytics
       </message>
       <message name="IDS_BRAVE_SHIELDS_AND_PRIVACY" desc="Label for the settings related to shields and privacy">
-        Brave Shields &amp; privacy
+        Browther Shields &amp; privacy
       </message>
       <message name="IDS_BRAVE_SEARCH_ENGINES" desc="Label for the settings related to the search engines">
         Search engines
@@ -826,7 +826,7 @@ This file contains all "about" strings.  It is set to NOT be translated, in tran
         Private product insights
       </message>
       <message name="IDS_SHIELD_ONBOARDING" desc="Text for shield tooltip onboarding">
-        Tap to view Brave Shields
+        Tap to view Browther Shields
       </message>
       <message name="IDS_SHIELD_TOOLTIP_DESC" desc="Text for shield tooltip description onboarding">
         See all the bad stuff Browther blocked, on every page, with Shields.
@@ -850,7 +850,7 @@ This file contains all "about" strings.  It is set to NOT be translated, in tran
         Troubleshooting onboarding
       </message>
       <message name="IDS_BRAVE_SHIELDS_ONBOARDING_TITLE" desc="Title for brave shield page">
-        Brave Shields
+        Browther Shields
       </message>
       <message name="IDS_EARN_TOKENS" desc="Partial Text for brave rewards page">
         Earn <ph name="TOKEN">%1$s<ex>token</ex></ph>s
@@ -1461,7 +1461,7 @@ Are you sure you want to do this?
         Sites often include cookies and scripts which try to identify you and your device. They want to work out who you are and follow you across the web, tracking what you do on every site.\n\nBrowther blocks these things so that you can browse without being followed around.
       </message>
       <message name="IDS_ABOUT_BRAVE_SHIELDS_TEXT" desc="About Title for shields option.">
-        About Brave Shields
+        About Browther Shields
       </message>
       <message name="IDS_UP" desc="Text for brave shields switch.">
         UP
@@ -3727,7 +3727,7 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Support our mission &amp; open-source work
     </message>
     <message name="IDS_ORIGIN_PAYWALL_TEXT_2" desc="Brave Origin paywall text">
-      Minimalist browser UI centered on Brave Shields
+      Minimalist browser UI centered on Browther Shields
     </message>
     <message name="IDS_ORIGIN_PAYWALL_TEXT_3" desc="Brave Origin paywall text">
       Maintain core adblock, privacy, &amp; speed
