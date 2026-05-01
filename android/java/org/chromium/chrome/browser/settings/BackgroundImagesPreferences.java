@@ -84,17 +84,12 @@ public class BackgroundImagesPreferences extends BravePreferenceFragment
                             .getBoolean(BravePref.NEW_TAB_PAGE_SHOW_BACKGROUND_IMAGE));
             mShowBackgroundImagesPref.setOnPreferenceChangeListener(this);
         }
+        // Browther: toggle "Afficher les annonces sur la page de nouvel onglet"
+        // masqué (Brave Ads sponsored images désactivés au niveau runtime)
         mShowSponsoredImagesPref =
                 (ChromeSwitchPreference) findPreference(PREF_SHOW_SPONSORED_IMAGES);
         if (mShowSponsoredImagesPref != null) {
-            mShowSponsoredImagesPref.setEnabled(
-                    UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
-                            .getBoolean(BravePref.NEW_TAB_PAGE_SHOW_BACKGROUND_IMAGE));
-            mShowSponsoredImagesPref.setChecked(
-                    UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
-                            .getBoolean(
-                                    BravePref.NEW_TAB_PAGE_SHOW_SPONSORED_IMAGES_BACKGROUND_IMAGE));
-            mShowSponsoredImagesPref.setOnPreferenceChangeListener(this);
+            mShowSponsoredImagesPref.setVisible(false);
         }
         mLearnMorePreference =
                 (ClickableSpansTextMessagePreference)

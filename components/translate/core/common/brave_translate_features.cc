@@ -31,9 +31,9 @@ bool ShouldUpdateLanguagesList() {
 }
 
 bool UseGoogleTranslateEndpoint() {
-  return IsBraveTranslateGoAvailable() &&
-         base::CommandLine::ForCurrentProcess()->HasSwitch(
-             switches::kBraveTranslateUseGoogleEndpoint);
+  // Browther: route Translate via Google endpoint (gratuit, pas de
+  // BRAVE_SERVICES_KEY requis pour translate.brave.com).
+  return IsBraveTranslateGoAvailable();
 }
 
 bool IsBraveAutoTranslateEnabled() {
