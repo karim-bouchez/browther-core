@@ -1414,14 +1414,8 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
 
     // Determine if the sponsored image should be shown on NTP based on experiment variant
     private boolean shouldShowSponsoredImage() {
-        if (!BraveFreshNtpHelper.isEnabled()) {
-            return true;
-        }
-        boolean shouldShowSnackbar =
-                ChromeSharedPreferences.getInstance()
-                        .readBoolean(BravePreferenceKeys.BRAVE_SHOW_RECENT_TABS_SNACKBAR, false);
-        String variant = BraveFreshNtpHelper.getVariant();
-        return variant == null || !variant.equals("D") || !shouldShowSnackbar;
+        // Browther: sponsored images NTP disabled (Brave Ads)
+        return false;
     }
 
     private void checkAndShowNTPImage(boolean isReset) {

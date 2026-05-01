@@ -391,37 +391,20 @@ public class BravePrivacySettings extends PrivacySettings {
         mClearBrowsingDataOnExit = (ChromeSwitchPreference) findPreference(PREF_CLEAR_ON_EXIT);
         mClearBrowsingDataOnExit.setOnPreferenceChangeListener(this);
 
-        // Hide P3A setting if it's managed by policy
-        if (BraveLocalState.get().isManagedPreference(BravePref.P3A_ENABLED)) {
-            removePreferenceIfPresent(PREF_SEND_P3A);
-            mSendP3A = null;
-        } else {
-            mSendP3A = (ChromeSwitchPreference) findPreference(PREF_SEND_P3A);
-            mSendP3A.setOnPreferenceChangeListener(this);
-        }
+        // Browther: P3A toggle masqué (télémétrie envoyée à Brave)
+        removePreferenceIfPresent(PREF_SEND_P3A);
+        mSendP3A = null;
 
-        // Hide crash reporting setting if it's disabled by policy
-        if (!mPrivacyPrefManager.isUsageAndCrashReportingPermittedByPolicy()) {
-            removePreferenceIfPresent(PREF_SEND_CRASH_REPORTS);
-            mSendCrashReports = null;
-        } else {
-            mSendCrashReports = (ChromeSwitchPreference) findPreference(PREF_SEND_CRASH_REPORTS);
-            mSendCrashReports.setOnPreferenceChangeListener(this);
-        }
+        // Browther: Send crash reports toggle masqué (Brave Crashpad)
+        removePreferenceIfPresent(PREF_SEND_CRASH_REPORTS);
+        mSendCrashReports = null;
 
-        // Hide stats usage ping setting if it's managed by policy
-        if (BraveLocalState.get().isManagedPreference(BravePref.STATS_REPORTING_ENABLED)) {
-            removePreferenceIfPresent(PREF_BRAVE_STATS_USAGE_PING);
-            mBraveStatsUsagePing = null;
-        } else {
-            mBraveStatsUsagePing =
-                    (ChromeSwitchPreference) findPreference(PREF_BRAVE_STATS_USAGE_PING);
-            mBraveStatsUsagePing.setOnPreferenceChangeListener(this);
-        }
+        // Browther: Brave Stats usage ping (DAU) masqué
+        removePreferenceIfPresent(PREF_BRAVE_STATS_USAGE_PING);
+        mBraveStatsUsagePing = null;
 
-        boolean surveyPanelistEnabled =
-                ChromeFeatureList.isEnabled(
-                        BraveFeatureList.BRAVE_NTP_BRANDED_WALLPAPER_SURVEY_PANELIST);
+        // Browther: Survey panelist (NTP branded wallpaper survey) masqué
+        boolean surveyPanelistEnabled = false;
         mSurveyPanelist = (ChromeSwitchPreference) findPreference(PREF_SURVEY_PANELIST);
         mSurveyPanelist.setOnPreferenceChangeListener(this);
         mSurveyPanelist.setVisible(surveyPanelistEnabled);

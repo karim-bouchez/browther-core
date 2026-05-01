@@ -24,20 +24,22 @@ import org.chromium.ui.text.SpanApplier;
 import org.chromium.ui.text.SpanApplier.SpanInfo;
 
 public class BraveClearBrowsingDataFragment extends ClearBrowsingDataFragment {
+    // Browther: champ inutilisé après désactivation Leo AI history clear
+    @SuppressWarnings("UnusedVariable")
     ClearBrowsingDataCheckBoxPreference mClearAIChatDataCheckBoxPreference;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         super.onCreatePreferences(savedInstanceState, rootKey);
-
-        getPreferenceScreen().addPreference(buildClearLeoAIHistory());
-        getPreferenceScreen()
-                .addPreference(
-                        BraveRewardsHelper.isRewardsEnabled()
-                                ? buildResetBraveRewardsDataPref()
-                                : buildClearBraveAdsDataPref());
+        // Browther: Leo AI history + Rewards/Ads data prefs masqués (features désactivées)
+        // Was:
+        //   getPreferenceScreen().addPreference(buildClearLeoAIHistory());
+        //   getPreferenceScreen().addPreference(
+        //       BraveRewardsHelper.isRewardsEnabled()
+        //           ? buildResetBraveRewardsDataPref() : buildClearBraveAdsDataPref());
     }
 
+    @SuppressWarnings("UnusedMethod") // Browther: feature désactivée
     private ClearBrowsingDataCheckBoxPreference buildClearLeoAIHistory() {
         mClearAIChatDataCheckBoxPreference =
                 new ClearBrowsingDataCheckBoxPreference(getContext(), null);
@@ -48,6 +50,7 @@ public class BraveClearBrowsingDataFragment extends ClearBrowsingDataFragment {
         return mClearAIChatDataCheckBoxPreference;
     }
 
+    @SuppressWarnings("UnusedMethod") // Browther: feature désactivée
     private ClickableSpansTextMessagePreference buildResetBraveRewardsDataPref() {
         SpannableString resetBraveRewardsDataText =
                 SpanApplier.applySpans(
@@ -64,6 +67,7 @@ public class BraveClearBrowsingDataFragment extends ClearBrowsingDataFragment {
         return resetBraveRewardsDataPref;
     }
 
+    @SuppressWarnings("UnusedMethod") // Browther: feature désactivée
     private ClickableSpansTextMessagePreference buildClearBraveAdsDataPref() {
         SpannableString clearBraveAdsDataText =
                 SpanApplier.applySpans(
@@ -80,6 +84,7 @@ public class BraveClearBrowsingDataFragment extends ClearBrowsingDataFragment {
         return clearBraveAdsDataPref;
     }
 
+    @SuppressWarnings("UnusedMethod") // Browther: feature désactivée
     private Callback<View> resetBraveRewardsDataCallback() {
         return (view) -> {
             try {
@@ -90,6 +95,7 @@ public class BraveClearBrowsingDataFragment extends ClearBrowsingDataFragment {
         };
     }
 
+    @SuppressWarnings("UnusedMethod") // Browther: feature désactivée
     private Callback<View> clearBraveAdsDataCallback() {
         return (view) -> {
             Profile profile = getProfile();
