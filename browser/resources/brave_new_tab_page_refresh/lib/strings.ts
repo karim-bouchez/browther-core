@@ -16,6 +16,11 @@ import {
 declare global {
   interface Strings {
     BraveNewTabPageStrings: typeof BraveNewTabPageStrings
+    // Browther: BraveNewsStrings ajouté ici. À l'origine enregistré indirectement
+    // via LazyNewsFeed (qui importait components/brave_news/.../strings.ts).
+    // On a retiré LazyNewsFeed (News disabled) mais widget_stack.tsx importe
+    // toujours news_widget.tsx pour le typing → TS a besoin de BraveNewsStrings.
+    BraveNewsStrings: typeof BraveNewsStrings
     BraveRewardsStrings: typeof BraveRewardsStrings
     BraveOmniboxStrings: typeof BraveOmniboxStrings
   }
