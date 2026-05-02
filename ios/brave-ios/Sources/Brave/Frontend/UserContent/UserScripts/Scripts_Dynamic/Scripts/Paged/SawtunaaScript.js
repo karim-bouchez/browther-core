@@ -376,17 +376,36 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     // already what we want, the native setter is a no-op and no
     // `volumechange` event fires — YouTube doesn't observe a transient
     // false→true flip that would otherwise put it in a degraded UI state.
+    // Cosmetic state shown to YouTube via getters. Initialized to "sound on
+    // at full volume" so the YouTube UI doesn't display the player as muted
+    // by default (real audio comes from AVAudioEngine independently of
+    // these properties). Setters track the user's intent (e.g. user drags
+    // slider → fakeVolume updated) but ignore the auto-mute attempts that
+    // YouTube and iOS perform on init / fullscreen transitions / orientation
+    // changes — those would otherwise reset the cosmetic display to 0.
+    var fakeMuted = false;
+    var fakeVolume = 1;
+
     try {
       Object.defineProperty(v, 'muted', {
-        get: function() { return nativeGetMuted(v); },
-        set: function(_value) {
+        get: function() { return fakeMuted; },
+        set: function(value) {
+          // Accept user-driven unmute (false), ignore auto-mute (true).
+          if (value === false) fakeMuted = false;
+          // Native mute is forced regardless — Sawtunaa needs the original
+          // audio path silent.
           if (nativeGetMuted(v) !== true) nativeSetMuted(v, true);
         },
         configurable: true
       });
       Object.defineProperty(v, 'volume', {
-        get: function() { return nativeGetVolume(v); },
-        set: function(_value) {
+        get: function() { return fakeVolume; },
+        set: function(value) {
+          // Accept numeric sets > 0 (user adjusting slider), ignore 0
+          // (auto-zero on init / fullscreen transitions).
+          if (typeof value === 'number' && isFinite(value) && value > 0) {
+            fakeVolume = Math.min(1, value);
+          }
           if (nativeGetVolume(v) !== 0) nativeSetVolume(v, 0);
         },
         configurable: true
