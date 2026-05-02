@@ -145,6 +145,20 @@ export function getBuildArgs(config: Config) {
   args.updater_dev_endpoint = dummyUrl
   args.updater_prod_endpoint = dummyUrl
   args.brave_sync_endpoint = dummyUrl
+  // Browther: dummies pour les asserts Brave Rewards (Bitflyer/Gemini/Uphold/Zebpay).
+  // Ces APIs sont désactivées (enable_brave_rewards=false) mais les asserts GN
+  // exigent des valeurs non-vides.
+  args.bitflyer_production_client_id = dummyKey
+  args.bitflyer_production_fee_address = dummyKey
+  args.bitflyer_production_url = dummyUrl
+  args.gemini_production_api_url = dummyUrl
+  args.gemini_production_fee_address = dummyKey
+  args.gemini_production_oauth_url = dummyUrl
+  args.uphold_production_api_url = dummyUrl
+  args.uphold_production_fee_address = dummyKey
+  args.uphold_production_oauth_url = dummyUrl
+  args.zebpay_production_api_url = dummyUrl
+  args.zebpay_production_oauth_url = dummyUrl
 
   if (config.isOfficialBuild()) {
     args.enable_updater = true
