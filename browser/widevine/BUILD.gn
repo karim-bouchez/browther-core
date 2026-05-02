@@ -6,6 +6,8 @@
 import("//third_party/widevine/cdm/widevine.gni")
 
 if (is_win) {
+  # Browther: import explicite de config.gni pour accéder à $brave_exe.
+  import("//brave/build/config.gni")
   import("//brave/build/win/sign.gni")
 }
 
@@ -134,8 +136,9 @@ source_set("browser_tests") {
 
 if (is_win && !skip_signing) {
   widevine_sign_file("brave_exe_sig") {
-    file = "$root_out_dir/presigned_binaries/brave.exe"
-    signature_file = "$root_out_dir/brave.exe.sig"
+    # Browther: brave.exe → $brave_exe.
+    file = "$root_out_dir/presigned_binaries/$brave_exe"
+    signature_file = "$root_out_dir/$brave_exe.sig"
     flags = "1"
     deps = [ "//brave:signed_brave_exe" ]
   }
