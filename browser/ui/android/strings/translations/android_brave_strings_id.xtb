@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Aktifkan notifikasi dari Browther untuk mendapatkan Imbalan Browther.</translation>
 <translation id="4714541943538330">Buka Pengaturan dan aktifkan notifikasi perangkat untuk Iklan Browther.</translation>
 <translation id="7341107637383044975">Aktifkan notifikasi Browther</translation>
-<translation id="9063439289570656162">Aktifkan/Nonaktifkan Brave Shields</translation>
+<translation id="9063439289570656162">Aktifkan/Nonaktifkan Browther Shields</translation>
 <translation id="15346379325756892">Masuk ke mode gambar-dalam-gambar</translation>
 <translation id="6945863270524203017">Dapatkan pembaruan privasi mingguan pada pelacak &amp; pemblokir iklan.</translation>
 <translation id="4324735664183300693">Aktifkan notifikasi</translation>
@@ -188,7 +188,7 @@
 <translation id="834487290629916192">NANTI SAJA</translation>
 <translation id="4117451092682672487">Privasi. Dapatkan dengan mudah.</translation>
 <translation id="5512887128063976049">Dengan Browther sebagai bawaan, setiap tautan yang Anda ketuk akan terbuka dengan perlindungan privasi Browther.</translation>
-<translation id="5148943178722443958">Bantulah membuat Browther lebih baik.</translation>
+<translation id="9133910347634099679">Bantulah membuat Browther lebih baik.</translation>
 <translation id="6718362830686703942">Kirimkan laporan diagnostik jika Anda mengalami kerusakan atau kebekuan.</translation>
 <translation id="7134864207653684195">Bagikanlah wawasan produk secara privat dan anonim tentang fitur-fitur yang digunakan pengguna Browther.</translation>
 <translation id="2888496576732880897">Bantu Browther Penelusuran berkembang</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Lewati</translation>
 <translation id="6165508094623778733">Pelajari lebih lanjut</translation>
 <translation id="986879628471635371">Pengenalan Penyelesaian Masalah</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Dapatkan <ph name="TOKEN"/></translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">dengan melihat iklan yang menghormati privasi dan mendukung situs dan kreator favorit Anda secara default.</translation>
@@ -408,7 +408,7 @@ Anda yakin ingin melakukan hal ini?</translation>
 <translation id="769702552748212954">Izinkan semua pemindaian sidik jari</translation>
 <translation id="876424292214881779">Iklan dan hal mencurigakan lainnya diblokir</translation>
 <translation id="2709945082202062860">Situs kerap memiliki kuki dan skrip yang berupaya mengidentifikasi Anda dan perangkat Anda. Mereka ingin mengetahui siapa Anda dan mengikuti Anda ke seantero web, melacak aktivitas Anda di setiap situs.\n\nBrave memblokir hal-hal ini agar Anda dapat meramban tanpa dibuntuti.</translation>
-<translation id="5695422144228065490">Seputar Brave Shields</translation>
+<translation id="5695422144228065490">Seputar Browther Shields</translation>
 <translation id="8912304686498704084">PASANG</translation>
 <translation id="4963218453264888510">TURUN</translation>
 <translation id="5721161384090584434">Anda sedang meramban situs ini tanpa perlindungan privasi Browther. Apakah ini tidak berfungsi dengan benar jika memasang Shield?</translation>
@@ -958,7 +958,7 @@ Jika Anda tidak menerima permintaan ini, VPN tidak akan tersambung kembali dan s
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Mengatur ulang ke pengaturan default</translation>
 <translation id="4922034974043704366">Fitur ini diaktifkan karena Anda memilihnya</translation>
-<translation id="3144818380093107753">Browther Origin adalah cara berbasis langganan untuk menonaktifkan fitur-fitur penghasil pendapatan yang mendukung Browther sebagai sebuah bisnis. Pelanggan Browther Origin akan terus mendapatkan manfaat dari privasi, adblock, dan kecepatan kami yang terdepan di industri ini (melalui Brave Shields), serta pembaruan perangkat lunak secara berkala, patch Chromium, dan peningkatan keamanan dan privasi. Mereka juga akan membuka opsi untuk menonaktifkan fitur-fitur seperti Browther Leo, Berita, Hadiah, Dompet, VPN, domain Web3, dan banyak lagi.&lt;br/&gt;&lt;br/&gt;Pelanggan akan melihat panel kontrol baru di menu pengaturan browser. Fitur-fitur yang ada-serta fitur-fitur baru yang akan kami hadirkan di masa mendatang-akan muncul di sini, dan dimatikan secara default.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Catatan: Browther Origin tidak akan menonaktifkan fitur-fitur peramban yang sedang Anda gunakan, dan tidak akan memengaruhi fitur-fitur Brave Search atau Iklan Brave Search.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin adalah cara berbasis langganan untuk menonaktifkan fitur-fitur penghasil pendapatan yang mendukung Browther sebagai sebuah bisnis. Pelanggan Browther Origin akan terus mendapatkan manfaat dari privasi, adblock, dan kecepatan kami yang terdepan di industri ini (melalui Browther Shields), serta pembaruan perangkat lunak secara berkala, patch Chromium, dan peningkatan keamanan dan privasi. Mereka juga akan membuka opsi untuk menonaktifkan fitur-fitur seperti Browther Leo, Berita, Hadiah, Dompet, VPN, domain Web3, dan banyak lagi.&lt;br/&gt;&lt;br/&gt;Pelanggan akan melihat panel kontrol baru di menu pengaturan browser. Fitur-fitur yang ada-serta fitur-fitur baru yang akan kami hadirkan di masa mendatang-akan muncul di sini, dan dimatikan secara default.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Catatan: Browther Origin tidak akan menonaktifkan fitur-fitur peramban yang sedang Anda gunakan, dan tidak akan memengaruhi fitur-fitur Brave Search atau Iklan Brave Search.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Masuk dengan Dompet Browther</translation>
 <translation id="7380890081275286865">Anda masuk ke <ph name="ORIGIN"/>. Dompet Browther akan membagikan alamat dompet Anda dengan <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Lihat detail</translation>

@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Ative as notificações no dispositivo para ganhar Recompensas Browther.</translation>
 <translation id="4714541943538330">Abra as Configurações e ative as notificações no dispositivo para os Anúncios Browther.</translation>
 <translation id="7341107637383044975">Ativar notificações do Browther</translation>
-<translation id="9063439289570656162">Habilitar/Desabilitar Brave Shields</translation>
+<translation id="9063439289570656162">Habilitar/Desabilitar Browther Shields</translation>
 <translation id="15346379325756892">Entrar no modo picture-in-picture</translation>
 <translation id="6945863270524203017">Receba informações semanais atualizadas sobre o bloqueio de rastreadores e anúncios.</translation>
 <translation id="4324735664183300693">Ativar notificações</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">Os sites podem pedir para usar o Google Sign-In herdado por meio de cookies de terceiros</translation>
 <translation id="2903783737778379345">Não permitir login herdado do Google por meio de cookies de terceiros</translation>
 <translation id="6880817299303842099">Permitido o uso de cookies de terceiros para o Google Sign-In herdado</translation>
-<translation id="8266435325778969511">Padrões globais do Brave Shields</translation>
+<translation id="8266435325778969511">Padrões globais do Browther Shields</translation>
 <translation id="2675679258824361492">Outras configurações de privacidade</translation>
 <translation id="8026334261755873520">Limpar dados de navegação</translation>
 <translation id="1690924763769415936">Reproduzir em segundo plano</translation>
@@ -188,7 +188,7 @@
 <translation id="834487290629916192">MAIS TARDE</translation>
 <translation id="4117451092682672487">Privacidade simplificada.</translation>
 <translation id="5512887128063976049">Com o Browther como padrão, todos os links em que você toca são abertos com as proteções de segurança do Browther.</translation>
-<translation id="5148943178722443958">Ajude a melhorar o Browther.</translation>
+<translation id="9133910347634099679">Ajude a melhorar o Browther.</translation>
 <translation id="6718362830686703942">Envie relatórios de diagnóstico em caso de falha ou congelamento.</translation>
 <translation id="7134864207653684195">Compartilhe insights de produtos privados e anônimos sobre quais recursos estão sendo usados ​​pelos usuários do Browther.</translation>
 <translation id="2888496576732880897">Ajude a melhorar a Pesquisa Browther</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Pular</translation>
 <translation id="6165508094623778733">Saiba mais</translation>
 <translation id="986879628471635371">Solução de problemas para onboarding</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Ganhe <ph name="TOKEN"/>s</translation>
 <translation id="1315468656814955997">Recompensas Browther</translation>
 <translation id="5870330605209713397">ao visualizar anúncios que respeitam a sua privacidade e apoiar os seus sites e criadores favoritos por padrão.</translation>
@@ -408,7 +408,7 @@ Tem certeza de que deseja continuar?</translation>
 <translation id="769702552748212954">Permitir todas as impressões digitais</translation>
 <translation id="876424292214881779">anúncios e outros itens estranhos bloqueados</translation>
 <translation id="2709945082202062860">Os sites geralmente incluem cookies e scripts que tentam identificar você e seu dispositivo. Eles querem descobrir quem você é e segui-lo pela web, rastreando o que você faz em cada site.\n\nO Browther bloqueia essas coisas para que você possa navegar sem ser seguido.</translation>
-<translation id="5695422144228065490">Sobre o Brave Shields</translation>
+<translation id="5695422144228065490">Sobre o Browther Shields</translation>
 <translation id="8912304686498704084">ATIVADO</translation>
 <translation id="4963218453264888510">DESATIVADO</translation>
 <translation id="5721161384090584434">Você está navegando neste site sem as proteções de privacidade do Browther. Não está funcionando direito com o Shields ativado?</translation>
@@ -958,7 +958,7 @@ Se você não aceitar essa solicitação, a VPN não se reconectará, e sua cone
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Redefinir para os padrões</translation>
 <translation id="4922034974043704366">Esse recurso está ativado porque o senhor optou por ele</translation>
-<translation id="3144818380093107753">O Browther Origin é uma forma baseada em assinatura para desativar os recursos geradores de receita que, de outra forma, sustentam o Browther como um negócio. Os assinantes do Browther Origin continuarão a se beneficiar de nossa privacidade, bloqueio de anúncios e velocidade líderes do setor (via Brave Shields), além de atualizações regulares de software, patches do Chromium e melhorias de segurança e privacidade. Eles também desbloquearão a opção de desativar recursos como Browther Leo, News, Rewards, Wallet, VPN, domínios Web3 e muito mais.&lt;br/&gt;&lt;br/&gt;Os assinantes verão um novo painel de controle no menu de configurações do navegador. Os recursos existentes - bem como quaisquer novos recursos que enviaremos no futuro - aparecerão aqui e serão desativados por padrão.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Observação: o Browther Origin não desativará os recursos do navegador que o senhor usa atualmente e não afetará os recursos do Brave Search ou do Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">O Browther Origin é uma forma baseada em assinatura para desativar os recursos geradores de receita que, de outra forma, sustentam o Browther como um negócio. Os assinantes do Browther Origin continuarão a se beneficiar de nossa privacidade, bloqueio de anúncios e velocidade líderes do setor (via Browther Shields), além de atualizações regulares de software, patches do Chromium e melhorias de segurança e privacidade. Eles também desbloquearão a opção de desativar recursos como Browther Leo, News, Rewards, Wallet, VPN, domínios Web3 e muito mais.&lt;br/&gt;&lt;br/&gt;Os assinantes verão um novo painel de controle no menu de configurações do navegador. Os recursos existentes - bem como quaisquer novos recursos que enviaremos no futuro - aparecerão aqui e serão desativados por padrão.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Observação: o Browther Origin não desativará os recursos do navegador que o senhor usa atualmente e não afetará os recursos do Brave Search ou do Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Iniciar sessão com a Carteira Browther</translation>
 <translation id="7380890081275286865">Você iniciou sessão em <ph name="ORIGIN"/>. A carteira Browther compartilhará o endereço da sua carteira com <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Ver detalhes</translation>

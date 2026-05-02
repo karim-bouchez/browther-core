@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Ota Braven ilmoitukset käyttöön, jotta voit ansaita Browther-palkintoja.</translation>
 <translation id="4714541943538330">Avaa asetukset ja ota laitteen ilmoitukset käyttöön Browther-mainoksille.</translation>
 <translation id="7341107637383044975">Ota Browther-ilmoitukset käyttöön</translation>
-<translation id="9063439289570656162">Ota Brave Shields käyttöön tai poista se käytöstä</translation>
+<translation id="9063439289570656162">Ota Browther Shields käyttöön tai poista se käytöstä</translation>
 <translation id="15346379325756892">Siirry kuva-kuvassa-tilaan</translation>
 <translation id="6945863270524203017">Hanki viikoittaisia tietosuojapäivityksiä seurantavälineiden ja mainosten estämiseen liittyen.</translation>
 <translation id="4324735664183300693">Ota ilmoitukset käyttöön</translation>
@@ -188,7 +188,7 @@
 <translation id="834487290629916192">MYÖHEMMIN</translation>
 <translation id="4117451092682672487">Yksinkertainen tietosuoja.</translation>
 <translation id="5512887128063976049">Kun Browther on käytössä oletuksena, jokainen napsauttamasi linkki avautuu Braven tietosuoja-asetusten suojaamana.</translation>
-<translation id="5148943178722443958">Auta parantamaan Bravea.</translation>
+<translation id="9133910347634099679">Auta parantamaan Bravea.</translation>
 <translation id="6718362830686703942">Lähetä diagnostiikkaraportteja, jos selain kaatuu tai jäätyy.</translation>
 <translation id="7134864207653684195">Jaa yksityisiä ja nimettömiä tuotetietoja siitä, mitä ominaisuuksia Braven käyttäjät käyttävät.</translation>
 <translation id="2888496576732880897">Auta Brave Searchia kasvamaan</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Ohita</translation>
 <translation id="6165508094623778733">Lisätietoa</translation>
 <translation id="986879628471635371">Perehdytysprosessin vianetsintä</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Ansaitse <ph name="TOKEN"/>s</translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">katsomalla tietosuojaa kunnioittavia mainokaisa sekä tukemalla suosikkisivujasi ja kehittäjiäsi oletusarvoisesti.</translation>
@@ -408,7 +408,7 @@ Haluatko varmasti tehdä tämän?</translation>
 <translation id="769702552748212954">Salli kaikki sormenjälkitunnistaminen</translation>
 <translation id="876424292214881779">Estetyt mainokset ja muut epäilyttävät kohteet</translation>
 <translation id="2709945082202062860">Sivustoilla on usein evästeitä ja merkkijonoja, joita käytetään sinun ja laitteesi tunnistamiseen. Ne tahtovat selvittää henkilöllisyytesi sekä seurata sinua verkossa, tarkkaillen jokaisen sivuston käyttöä.\n\nBrave estää kyseiset seuraimet, joten voit rauhassa selata nettiä ilman tarkkailijoita.</translation>
-<translation id="5695422144228065490">Tietoja Brave Shieldsistä</translation>
+<translation id="5695422144228065490">Tietoja Browther Shieldsistä</translation>
 <translation id="8912304686498704084">YLÖS</translation>
 <translation id="4963218453264888510">ALAS</translation>
 <translation id="5721161384090584434">Selaat tätä sivustoa ilman Braven tietosuojaa. Eikö se toimi kunnolla, kun Shields on käytössä?</translation>
@@ -958,7 +958,7 @@ Jos et hyväksy tätä pyyntöä, yhteyttä VPN:ään ei muodosta uudelleen ja I
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Nollaa oletusasetukset</translation>
 <translation id="4922034974043704366">Tämä ominaisuus on käytössä, koska olet valinnut sen.</translation>
-<translation id="3144818380093107753">Browther Origin on tilauspohjainen tapa poistaa käytöstä tuloja tuottavat ominaisuudet, jotka muuten tukevat Bravea liiketoimintana. Browther Originin tilaajat hyötyvät jatkossakin alan johtavista yksityisyydensuoja-, mainosesto- ja nopeusominaisuuksista (Brave Shieldsin kautta) sekä säännöllisistä ohjelmistopäivityksistä, Chromium-korjauksista ja tietoturva- ja yksityisyysparannuksista. Heillä on myös mahdollisuus poistaa käytöstä ominaisuuksia, kuten Browther Leo, News, Rewards, Wallet, VPN, Web3-verkkotunnukset ja paljon muuta.&lt;br/&gt;&lt;br/&gt;Tilaajat näkevät selaimen asetusvalikossa uuden ohjauspaneelin. Olemassa olevat ominaisuudet - samoin kuin kaikki uudet ominaisuudet, jotka toimitamme tulevaisuudessa - näkyvät täällä, ja ne ovat oletusarvoisesti pois päältä.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Huomautus: Browther Origin ei poista käytöstä selaimen ominaisuuksia, joita käytät tällä hetkellä, eikä vaikuta Brave Search -ominaisuuksiin tai Brave Search -mainoksiin.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin on tilauspohjainen tapa poistaa käytöstä tuloja tuottavat ominaisuudet, jotka muuten tukevat Bravea liiketoimintana. Browther Originin tilaajat hyötyvät jatkossakin alan johtavista yksityisyydensuoja-, mainosesto- ja nopeusominaisuuksista (Browther Shieldsin kautta) sekä säännöllisistä ohjelmistopäivityksistä, Chromium-korjauksista ja tietoturva- ja yksityisyysparannuksista. Heillä on myös mahdollisuus poistaa käytöstä ominaisuuksia, kuten Browther Leo, News, Rewards, Wallet, VPN, Web3-verkkotunnukset ja paljon muuta.&lt;br/&gt;&lt;br/&gt;Tilaajat näkevät selaimen asetusvalikossa uuden ohjauspaneelin. Olemassa olevat ominaisuudet - samoin kuin kaikki uudet ominaisuudet, jotka toimitamme tulevaisuudessa - näkyvät täällä, ja ne ovat oletusarvoisesti pois päältä.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Huomautus: Browther Origin ei poista käytöstä selaimen ominaisuuksia, joita käytät tällä hetkellä, eikä vaikuta Brave Search -ominaisuuksiin tai Brave Search -mainoksiin.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Kirjaudu sisään Browther-lompakon kautta</translation>
 <translation id="7380890081275286865">Olet kirjautumassa sisään kohteeseen <ph name="ORIGIN"/>. Browther-lompakko jakaa lompakkosi osoitteen kohteen <ph name="ORIGIN"/> kanssa.</translation>
 <translation id="1028781062521375153">Katso tiedot</translation>

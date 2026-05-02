@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">ເປີດການແຈ້ງເຕືອນຈາກ Browther ເພື່ອຮັບລາງວັນ Browther Rewards.</translation>
 <translation id="4714541943538330">ເປີດການຕັ້ງຄ່າແລະເປີດການແຈ້ງເຕືອນນິວັດຂອງອຸປະກອນສຳລັບ Browther Ads.</translation>
 <translation id="7341107637383044975">ເປີດການແຈ້ງເຕືອນ Browther</translation>
-<translation id="9063439289570656162">ເປີດ/ປິດ Brave Shields</translation>
+<translation id="9063439289570656162">ເປີດ/ປິດ Browther Shields</translation>
 <translation id="15346379325756892">ເຂົ້າໂໝດພາບໃນພາບ</translation>
 <translation id="6945863270524203017">ຮັບການປັບປຸງຄວາມເປັນສ່ວນຕົວທຸກອາທິດໃນດ້ານການປິດແລະການໂຄສະນາຮຸກຫຼາບ.</translation>
 <translation id="4324735664183300693">ເປີດການແຈ້ງເຕືອນ</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">ຄຸນສົມບັດ</translation>
 <translation id="1919345977826869612">Ads</translation>
 <translation id="2839742394543397416">ຂໍ້ມູນວິເຄາະ</translation>
-<translation id="5644165410146827297">Brave Shields &amp; ຄວາມເປັນສ່ວນຕົວ</translation>
+<translation id="5644165410146827297">Browther Shields &amp; ຄວາມເປັນສ່ວນຕົວ</translation>
 <translation id="4692623383562244444">ເຄື່ອງມືຄົ້ນຫາ</translation>
 <translation id="1468415711258933398">ແທັບມາດຕານ</translation>
 <translation id="3377025655491224618">ແທັບສ່ວນຕົວ</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">ໃນພາຍຫຼັງ</translation>
 <translation id="4117451092682672487">ຄວາມເປັນສ່ວນຕົວ. ໃຊ້ງານງ່າຍ.</translation>
 <translation id="5512887128063976049">ຖ້າຕັ້ງຄ່າໃຫ້ Browther ເປັນຄ່າເລີ່ມຕົ້ນ, ທຸກລິ້ງທີ່ທ່ານກົດຈະເປີດພ້ອມການປົກປ້ອງຄວາມເປັນສ່ວນຕົວຂອງ Browther.</translation>
-<translation id="5148943178722443958">ຊ່ວຍໃຫ້ Browther ດີຂຶ້ນ.</translation>
+<translation id="9133910347634099679">ຊ່ວຍໃຫ້ Browther ດີຂຶ້ນ.</translation>
 <translation id="6718362830686703942">ສົ່ງລາຍງານການວິເຄາະຖ້າແອັບຂັດຂ້ອງ ຫຼື ຄ້າງ.</translation>
 <translation id="7134864207653684195">ແບ່ງປັນຂໍ້ມູນການໃຊ້ງານແບບບໍ່ລະບຸຕົວຕົນເພື່ອຊ່ວຍໃຫ້ Browther ເຂົ້າໃຈວ່າຜູ້ໃຊ້ໃຊ້ງານຄຸນສົມບັດໃດແນ່.</translation>
 <translation id="2888496576732880897">ຊ່ວຍໃຫ້ Brave Search ເຕີບໃຫຍ່</translation>
 <translation id="7044431516245362795">ເຂົ້າຮ່ວມໂຄງການ Web Discovery ເພື່ອຊ່ວຍຂະຫຍາຍດັດຊະນີ ແລະ ປັບປຸງຜົນການຄົ້ນຫາໃຫ້ແມ່ນຍຳຍິ່ງຂຶ້ນ.<ph name="LEARN_MORE_START"/>ເບິ່ງຂໍ້ມູນເພີ່ມເຕີມ.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">ໄດ້ເລີຍ, ຂ້ອຍຍິນດີຊ່ວຍ.</translation>
-<translation id="7443712250454754077">ກົດເພື່ອເບິ່ງ Brave Shields</translation>
+<translation id="7443712250454754077">ກົດເພື່ອເບິ່ງ Browther Shields</translation>
 <translation id="118577974285037669">ເຫັນທຸກ ຄວາມສາມາດທີ່ Browther ປ້ອງກັນໄດ້, ທຸກອ່ອນປະເງີນ, ໃຫ້ Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> ແລະ <ph name="TRACKER"/> ບລັອກໂຄສະນາ &amp; ຕົວຕິດຕາມແລ້ວ</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> ແລະ Browther &amp; ຕົວຕິດຕາມອື່ນໆທີ່ຖືກປ້ອງກັນ</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">ຂ້າມ</translation>
 <translation id="6165508094623778733">ຮຽນຮູ້ເພີ່ມເຕີມ</translation>
 <translation id="986879628471635371">ການລົງທະບຽນມື້ໃໝ່</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">ສ້າງ <ph name="TOKEN"/></translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">ໂດຍການເບິ່ງໂຄສະນາໃຫ້ການສັບພອນເວັບໄຊ້ແລະສ້າງເອີນເອີ້ນ.</translation>
@@ -411,7 +411,7 @@ Enter the sync chain code words shown below.</translation>
 <translation id="769702552748212954">ອະນຸຍາດໃຫ້ການລະບຸລັກສະນະທັງໝົດ</translation>
 <translation id="876424292214881779">ໂຄສະນາ ແລະ ສິ່ງລົບກວນອື່ນໆຖືກບລັອກແລ້ວ</translation>
 <translation id="2709945082202062860">ເວັບໄຊຫຼາຍແອບປາບ:ຄຸກຂີໍ ແລະ ສະບາຍນົມ</translation>
-<translation id="5695422144228065490">ກ່ຽວກັບ Brave Shields</translation>
+<translation id="5695422144228065490">ກ່ຽວກັບ Browther Shields</translation>
 <translation id="8912304686498704084">ຂຶ້ນ</translation>
 <translation id="4963218453264888510">ລົງ</translation>
 <translation id="5721161384090584434">ທ່ານກຳລັງເປີດເວັບໄຊທ໌ນີ້ໂດຍບໍ່ມີການປົກປ້ອງຄວາມເປັນສ່ວນຕົວຈາກ Browther. ເວັບໄຊທ໌ເຮັດວຽກບໍ່ຖືກຕ້ອງເມື່ອເປີດ Shields ແມ່ນບໍ່?</translation>
@@ -959,7 +959,7 @@ Enter the sync chain code words shown below.</translation>
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">ຕັ້ງຄ່າທັງຫມົດໃຫ້ເປັນຄ່າເລີ່ມຕົ້ນ</translation>
 <translation id="4922034974043704366">ຟີເຈີນີ້ໄດ້ຖືກເປີດໃຊ້ເພາະທ່ານເລືອກເຂົ້າຮ່ວມ</translation>
-<translation id="3144818380093107753">Browther Origin ແມ່ນຮູບແບບການສະໝັກສະມາຊິກທີ່ເປີດໃຫ້ປິດໃຊ້ຄຸນສົມບັດທີ່ສ້າງລາຍຮັບ ທີ່ປົກກະຕິຊ່ວຍສະໜັບສະໜູນທຸລະກິດ Browther. ຜູ້ສະໝັກ Browther Origin ຈະຍັງຄົງໄດ້ຮັບຜົນປະໂຫຍດຈາກການປົກປ້ອງຄວາມເປັນສ່ວນຕົວ, ມິຕິການປິດໂຄສະນາ, ແລະຄວາມໄວ (ຜ່ານ Brave Shields), ພ້ອມກັບການອັບເດດຊອຟແວທົ່ວໄປ, ຊ່ອງວ່າງ Chromium ແລະການປັບປຸງຄວາມປອດໄພ ແລະ ຄວາມເປັນສ່ວນຕົວ. ທ່ານຍັງສາມາດປົດລັອກຕົວເລືອກເພື່ອປິດໃຊ້ເຊັ່ນ Browther Leo, News, Rewards, Wallet, VPN, ໂດເມນ Web3 ແລະອື່ນໆ.&lt;br/&gt;&lt;br/&gt;ສະມາຊິກຈະເຫັນແຜງຄວບຄຸມໃໝ່ໃນເມນູການຕັ້ງຄ່າບຣາວເຊີ. ຄຸນສົມບັດທີ່ມີຢູ່ ແລະທີ່ຈະເພີ່ມໃນອະນາຄົດຈະປາກົດຢູ່ນີ້ແລະຖືກປິດໄວ້ເປັນຄ່າເລີ່ມຕົ້ນ.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;ໝາຍເຫດ: Browther Origin ຈະບໍ່ປິດຄຸນສົມບັດບຣາວເຊີທີ່ທ່ານກຳລັງໃຊ້ ແລະຈະບໍ່ສົມພັນຄຸນສົມບັດ Brave Search ຫຼື Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin ແມ່ນຮູບແບບການສະໝັກສະມາຊິກທີ່ເປີດໃຫ້ປິດໃຊ້ຄຸນສົມບັດທີ່ສ້າງລາຍຮັບ ທີ່ປົກກະຕິຊ່ວຍສະໜັບສະໜູນທຸລະກິດ Browther. ຜູ້ສະໝັກ Browther Origin ຈະຍັງຄົງໄດ້ຮັບຜົນປະໂຫຍດຈາກການປົກປ້ອງຄວາມເປັນສ່ວນຕົວ, ມິຕິການປິດໂຄສະນາ, ແລະຄວາມໄວ (ຜ່ານ Browther Shields), ພ້ອມກັບການອັບເດດຊອຟແວທົ່ວໄປ, ຊ່ອງວ່າງ Chromium ແລະການປັບປຸງຄວາມປອດໄພ ແລະ ຄວາມເປັນສ່ວນຕົວ. ທ່ານຍັງສາມາດປົດລັອກຕົວເລືອກເພື່ອປິດໃຊ້ເຊັ່ນ Browther Leo, News, Rewards, Wallet, VPN, ໂດເມນ Web3 ແລະອື່ນໆ.&lt;br/&gt;&lt;br/&gt;ສະມາຊິກຈະເຫັນແຜງຄວບຄຸມໃໝ່ໃນເມນູການຕັ້ງຄ່າບຣາວເຊີ. ຄຸນສົມບັດທີ່ມີຢູ່ ແລະທີ່ຈະເພີ່ມໃນອະນາຄົດຈະປາກົດຢູ່ນີ້ແລະຖືກປິດໄວ້ເປັນຄ່າເລີ່ມຕົ້ນ.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;ໝາຍເຫດ: Browther Origin ຈະບໍ່ປິດຄຸນສົມບັດບຣາວເຊີທີ່ທ່ານກຳລັງໃຊ້ ແລະຈະບໍ່ສົມພັນຄຸນສົມບັດ Brave Search ຫຼື Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">ເຂົ້າລະບົບດ້ວຍ Browther Wallet</translation>
 <translation id="7380890081275286865">ທ່ານກຳລັງທິດໃຊ້ຢູ່ທີ່ <ph name="ORIGIN"/>. Browther Wallet ສົ່ງເບີນໄອດີຂອງທ່ານຕໍ່ <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">ເບິ່ງລາຍລະອຽດ</translation>

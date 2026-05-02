@@ -188,7 +188,7 @@
 <translation id="834487290629916192">ĐỂ SAU</translation>
 <translation id="4117451092682672487">Bảo mật. Đơn giản.</translation>
 <translation id="5512887128063976049">Với việc đặt Browther làm mặc định, mọi liên kết bạn chạm vào sẽ mở ra với các biện pháp bảo vệ quyền riêng tư của Browther.</translation>
-<translation id="5148943178722443958">Giúp cải thiện Browther.</translation>
+<translation id="9133910347634099679">Giúp cải thiện Browther.</translation>
 <translation id="6718362830686703942">Gửi báo cáo chẩn đoán nếu bạn gặp sự cố hoặc đóng băng.</translation>
 <translation id="7134864207653684195">Chia sẻ thông tin chi tiết riêng tư và ẩn danh về các tính năng đang được người dùng Browther sử dụng.</translation>
 <translation id="2888496576732880897">Giúp Browther Tìm kiếm phát triển</translation>
@@ -961,7 +961,7 @@ Nếu bạn không chấp nhận yêu cầu này, VPN sẽ không kết nối l�
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Đặt lại về cài đặt mặc định</translation>
 <translation id="4922034974043704366">Tính năng này được kích hoạt vì bạn đã chọn tham gia.</translation>
-<translation id="3144818380093107753">Browther Origin là một dịch vụ đăng ký cho phép người dùng tắt các tính năng tạo doanh thu vốn hỗ trợ Browther hoạt động như một doanh nghiệp. Người đăng ký Browther Origin sẽ tiếp tục được hưởng các tính năng bảo mật hàng đầu ngành, chặn quảng cáo và tốc độ (thông qua Brave Shields), cùng với các bản cập nhật phần mềm định kỳ, bản vá Chromium và các cải tiến về bảo mật và quyền riêng tư. Họ cũng có thể tắt các tính năng như Browther Leo, Tin tức, Phần thưởng, Ví, VPN, tên miền Web3 và nhiều tính năng khác.&lt;br/&gt;&lt;br/&gt;Người dùng sẽ thấy một bảng điều khiển mới trong menu cài đặt trình duyệt. Các tính năng hiện có — cũng như bất kỳ tính năng mới nào chúng tôi phát hành trong tương lai — sẽ xuất hiện ở đây và được tắt theo mặc định.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Lưu ý: Browther Origin sẽ không vô hiệu hóa các tính năng trình duyệt mà bạn đang sử dụng và sẽ không ảnh hưởng đến các tính năng tìm kiếm Browther hoặc quảng cáo tìm kiếm Browther.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin là một dịch vụ đăng ký cho phép người dùng tắt các tính năng tạo doanh thu vốn hỗ trợ Browther hoạt động như một doanh nghiệp. Người đăng ký Browther Origin sẽ tiếp tục được hưởng các tính năng bảo mật hàng đầu ngành, chặn quảng cáo và tốc độ (thông qua Browther Shields), cùng với các bản cập nhật phần mềm định kỳ, bản vá Chromium và các cải tiến về bảo mật và quyền riêng tư. Họ cũng có thể tắt các tính năng như Browther Leo, Tin tức, Phần thưởng, Ví, VPN, tên miền Web3 và nhiều tính năng khác.&lt;br/&gt;&lt;br/&gt;Người dùng sẽ thấy một bảng điều khiển mới trong menu cài đặt trình duyệt. Các tính năng hiện có — cũng như bất kỳ tính năng mới nào chúng tôi phát hành trong tương lai — sẽ xuất hiện ở đây và được tắt theo mặc định.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Lưu ý: Browther Origin sẽ không vô hiệu hóa các tính năng trình duyệt mà bạn đang sử dụng và sẽ không ảnh hưởng đến các tính năng tìm kiếm Browther hoặc quảng cáo tìm kiếm Browther.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Đăng nhập bằng Ví Browther</translation>
 <translation id="7380890081275286865">Bạn đang đăng nhập vào<ph name="ORIGIN"/>. Ví Browther sẽ chia sẻ địa chỉ ví của bạn với <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Xem chi tiết</translation>

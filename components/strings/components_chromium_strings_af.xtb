@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="af">
 <translation id="130631256467250065">Jou veranderinge sal in werking tree wanneer jy jou toestel herbegin.</translation>
-<translation id="6451924152958941455">Gaan na
+<translation id="5681560603157873402">Gaan na
           die Browther-kieslys &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -10,19 +10,19 @@
           &gt;
           <ph name="PROXIES_TITLE"/>
           en maak seker jou opstelling is op “geen instaanbediener nie” of “direk” gestel.</translation>
-<translation id="7999989146447764333">Omvalrapportering is nie beskikbaar in Browther nie.</translation>
-<translation id="1953231710324290369">Jy bekyk tans 'n veilige Browther-bladsy</translation>
-<translation id="907470742420136113">Browther probeer tans instellings vir die invul van betaalmetodes wysig.</translation>
-<translation id="4847979153841887006">Browther-logo</translation>
-<translation id="336808635693308470">Browther probeer tans om betaalmetodes te wysig.</translation>
-<translation id="7932149101545999102">Browther word moontlik gemaak deur die <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>-oopbronprojek en ander <ph name="BEGIN_LINK_OSS"/>oopbronsagteware<ph name="END_LINK_OSS"/>.</translation>
-<translation id="303960458633076466">Hierdie bladsy is deur Browther geblokkeer</translation>
-<translation id="2017237562285586622">Laat Browther in jou brandmuur- of antivirusinstellings toe om by jou netwerk
+<translation id="4903497818305945122">Omvalrapportering is nie beskikbaar in Browther nie.</translation>
+<translation id="5747951541048369241">Jy bekyk tans 'n veilige Browther-bladsy</translation>
+<translation id="7041193161756628041">Browther probeer tans instellings vir die invul van betaalmetodes wysig.</translation>
+<translation id="4670277172953498174">Browther-logo</translation>
+<translation id="3474898875907708105">Browther probeer tans om betaalmetodes te wysig.</translation>
+<translation id="5700544173546684818">Browther word moontlik gemaak deur die <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>-oopbronprojek en ander <ph name="BEGIN_LINK_OSS"/>oopbronsagteware<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8935269788853634726">Hierdie bladsy is deur Browther geblokkeer</translation>
+<translation id="1339376981847018870">Laat Browther in jou brandmuur- of antivirusinstellings toe om by jou netwerk
           in te gaan.</translation>
 <translation id="4949828774841497663">Gaan na Apps &gt; Stelselinstellings &gt; Netwerk, kies die
           aktiewe netwerk, klik die Besonderhedeknoppie, en ontkies enige instaanbedieners
           wat dalk gekies is.</translation>
-<translation id="3269554930871094325">Gaan na
+<translation id="4191403906356422893">Gaan na
           die Browther-kieslys &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -32,13 +32,13 @@
           &gt;
           Netwerk en internet &gt; Instaanbediener
           en ontkies “Vind instellings outomaties”.</translation>
-<translation id="6159073403999048272">Hierdie bladsye is bedoel vir gebruik deur Browther-ontwikkelaars en word dalk nie aktief onderhou of getoets nie. As jy hulle wil aktiveer, navigeer na <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, klik die knoppie om ontfoutbladsye te aktiveer en navigeer dan terug na hierdie bladsy toe.</translation>
-<translation id="2765022094254723779">Browther word ook moontlik gemaak deur ander <ph name="BEGIN_LINK_OSS"/>oopbronsagteware<ph name="END_LINK_OSS"/>.</translation>
-<translation id="9156965752763025780">Jou veranderinge sal in werking tree wanneer jy Browther weer herbegin.</translation>
-<translation id="8828443087767259398">Browther het Bluetooth-toegang nodig om voort te gaan met 
+<translation id="958169674889932546">Hierdie bladsye is bedoel vir gebruik deur Browther-ontwikkelaars en word dalk nie aktief onderhou of getoets nie. As jy hulle wil aktiveer, navigeer na <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, klik die knoppie om ontfoutbladsye te aktiveer en navigeer dan terug na hierdie bladsy toe.</translation>
+<translation id="4303967029316005584">Browther word ook moontlik gemaak deur ander <ph name="BEGIN_LINK_OSS"/>oopbronsagteware<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8031938899816118394">Jou veranderinge sal in werking tree wanneer jy Browther weer herbegin.</translation>
+<translation id="221029295134825758">Browther het Bluetooth-toegang nodig om voort te gaan met 
  saambinding. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Browther word moontlik gemaak deur die <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>-oopbronprojek.</translation>
-<translation id="4068928808254189629">Gaan na
+<translation id="8530161404084147314">Browther word moontlik gemaak deur die <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>-oopbronprojek.</translation>
+<translation id="3134645574591615830">Gaan na
         die Browther-kieslys &gt;
         <ph name="SETTINGS_TITLE"/>
         &gt;
@@ -46,6 +46,6 @@
         en ontmerk "<ph name="NO_PREFETCH_DESCRIPTION"/>."
         As dit nie die probleem oplos nie, beveel ons aan dat hierdie opsie
         weer gekies word vir verbeterde werkverrigting.</translation>
-<translation id="4159376633403260073">Jy bekyk tans ’n veilige Browther-toetsweergawe-bladsy</translation>
-<translation id="88187049159266777">Browther het nie reg toegemaak nie.</translation>
+<translation id="8927199829149811571">Jy bekyk tans ’n veilige Browther-toetsweergawe-bladsy</translation>
+<translation id="4220066730874343807">Browther het nie reg toegemaak nie.</translation>
 </translationbundle>

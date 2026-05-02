@@ -188,7 +188,7 @@
 <translation id="834487290629916192">KASNIJE</translation>
 <translation id="4117451092682672487">Pojednostavljena zaštita privatnosti.</translation>
 <translation id="5512887128063976049">Kada je Browther podešen kao podrazumevani pregledač, svaki link koji dodirnete otvara se uz Browther-ovu zaštitu privatnosti.</translation>
-<translation id="5148943178722443958">Pomozite nam da poboljšamo Browther.</translation>
+<translation id="9133910347634099679">Pomozite nam da poboljšamo Browther.</translation>
 <translation id="6718362830686703942">Pošaljite nam dijagnostički izveštaj u slučaju da pregledač prekine sa radom ili se zamrzne.</translation>
 <translation id="7134864207653684195">Podelite privatna i anonimna saznanja o funkcijama proizvoda koje koriste Browther korisnici.</translation>
 <translation id="2888496576732880897">Doprinesi razvoju Browther pretrage</translation>
@@ -957,7 +957,7 @@ Ako ne budete prihvatili ovaj zahtev, VPN se neće ponovo povezati i vaša veza 
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Resetuj sve na podrazumevano</translation>
 <translation id="4922034974043704366">Ova funkcija je omogućena jer ste je vi uključili</translation>
-<translation id="3144818380093107753">Browther Origin je model zasnovan na pretplati koji omogućava isključivanje funkcija koje generišu prihode a koje inače pomažu poslovanju Browther-a. Pretplatnici Browther Origin-a i dalje imaju koristi od naše vodeće zaštite privatnosti, blokade oglasa i brzine (preko Brave Shields-a), kao i redovnih softverskih ažuriranja, Chromium zakrpa i poboljšanja bezbednosti i privatnosti.&lt;br/&gt;&lt;br/&gt;Takođe će imati pristup opciji da isključe funkcije poput Browther Leo, News, Rewards, Wallet, VPN, Web3 domena i druge.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Napomena: Browther Origin ne isključuje funkcije pregledača koje trenutno koristite i ne utiče na funkcije Brave Search-a ili Brave Search oglasa.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin je model zasnovan na pretplati koji omogućava isključivanje funkcija koje generišu prihode a koje inače pomažu poslovanju Browther-a. Pretplatnici Browther Origin-a i dalje imaju koristi od naše vodeće zaštite privatnosti, blokade oglasa i brzine (preko Browther Shields-a), kao i redovnih softverskih ažuriranja, Chromium zakrpa i poboljšanja bezbednosti i privatnosti.&lt;br/&gt;&lt;br/&gt;Takođe će imati pristup opciji da isključe funkcije poput Browther Leo, News, Rewards, Wallet, VPN, Web3 domena i druge.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Napomena: Browther Origin ne isključuje funkcije pregledača koje trenutno koristite i ne utiče na funkcije Brave Search-a ili Brave Search oglasa.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Prijavite se pomoću Browther novčanika</translation>
 <translation id="7380890081275286865">Prijavljujete se na: <ph name="ORIGIN"/>. Browther novčanik će podeliti vašu adresu novčanika sa: <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Prikaži detalje</translation>

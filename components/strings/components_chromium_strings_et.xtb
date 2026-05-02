@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="et">
 <translation id="130631256467250065">Muudatused jõustuvad järgmine kord, kui seadme taaskäivitate.</translation>
-<translation id="6451924152958941455">Minge
+<translation id="5681560603157873402">Minge
           Bravei menüüsse &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -10,19 +10,19 @@
           &gt;
           <ph name="PROXIES_TITLE"/>
           ja veenduge, et konfiguratsioon on määratud valikule „Puhverserverita” või „Otse”.</translation>
-<translation id="7999989146447764333">Krahhiaruandlus ei ole Braveis saadaval.</translation>
-<translation id="1953231710324290369">Vaatate turvalist Bravei lehte</translation>
-<translation id="907470742420136113">Browther proovib muuta makseviiside sisestamise seadeid.</translation>
-<translation id="4847979153841887006">Bravei logo</translation>
-<translation id="336808635693308470">Browther üritab muuta makseviise.</translation>
-<translation id="7932149101545999102">Bravei aluseks on avatud lähtekoodiga projekt <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> ja muu <ph name="BEGIN_LINK_OSS"/>avatud lähtekoodiga tarkvara<ph name="END_LINK_OSS"/>.</translation>
-<translation id="303960458633076466">Browther blokeeris selle lehe</translation>
-<translation id="2017237562285586622">Lubage Bravei juurdepääs võrgule tulemüüri või viirusetõrje
+<translation id="4903497818305945122">Krahhiaruandlus ei ole Braveis saadaval.</translation>
+<translation id="5747951541048369241">Vaatate turvalist Bravei lehte</translation>
+<translation id="7041193161756628041">Browther proovib muuta makseviiside sisestamise seadeid.</translation>
+<translation id="4670277172953498174">Bravei logo</translation>
+<translation id="3474898875907708105">Browther üritab muuta makseviise.</translation>
+<translation id="5700544173546684818">Bravei aluseks on avatud lähtekoodiga projekt <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> ja muu <ph name="BEGIN_LINK_OSS"/>avatud lähtekoodiga tarkvara<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8935269788853634726">Browther blokeeris selle lehe</translation>
+<translation id="1339376981847018870">Lubage Bravei juurdepääs võrgule tulemüüri või viirusetõrje
          seadetes.</translation>
 <translation id="4949828774841497663">Avage Applications &gt; System Settings &gt; Network, valige
           aktiivne võrk, klõpsake nupul Details... ja tühistage mis tahes puhverserverite valikud,
           mis võisid olla valitud.</translation>
-<translation id="3269554930871094325">Avage
+<translation id="4191403906356422893">Avage
           Bravei menüü &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -32,12 +32,12 @@
           &gt;
           Võrk ja internet &gt; Puhverserver
           ning tühistage valik „Tuvasta seaded automaatselt“.</translation>
-<translation id="6159073403999048272">Need lehed on mõeldud kasutamiseks Bravei arendajatele ning neid ei pruugita aktiivselt hooldada ega testida. Silumislehtede lubamiseks navigeerige lingile <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, klõpsake selleks ettenähtud nupul ja seejärel navigeerige uuesti praegusele lehele.</translation>
-<translation id="2765022094254723779">Bravei võimaldab pakkuda ka muu <ph name="BEGIN_LINK_OSS"/>avatud lähtekoodiga tarkvara<ph name="END_LINK_OSS"/>.</translation>
-<translation id="9156965752763025780">Teie muudatused jõustuvad järgmine kord, kui Bravei taaskäivitate.</translation>
-<translation id="8828443087767259398">Browther vajab sidumise jätkamiseks juurdepääsu Bluetoothile. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Bravei võimaldab pakkuda <ph name="BEGIN_LINK_CHROMIUM"/>Bravei<ph name="END_LINK_CHROMIUM"/> avatud lähtekoodi projekt.</translation>
-<translation id="4068928808254189629">Avage
+<translation id="958169674889932546">Need lehed on mõeldud kasutamiseks Bravei arendajatele ning neid ei pruugita aktiivselt hooldada ega testida. Silumislehtede lubamiseks navigeerige lingile <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, klõpsake selleks ettenähtud nupul ja seejärel navigeerige uuesti praegusele lehele.</translation>
+<translation id="4303967029316005584">Bravei võimaldab pakkuda ka muu <ph name="BEGIN_LINK_OSS"/>avatud lähtekoodiga tarkvara<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8031938899816118394">Teie muudatused jõustuvad järgmine kord, kui Bravei taaskäivitate.</translation>
+<translation id="221029295134825758">Browther vajab sidumise jätkamiseks juurdepääsu Bluetoothile. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
+<translation id="8530161404084147314">Bravei võimaldab pakkuda <ph name="BEGIN_LINK_CHROMIUM"/>Bravei<ph name="END_LINK_CHROMIUM"/> avatud lähtekoodi projekt.</translation>
+<translation id="3134645574591615830">Avage
         Bravei menüü &gt;
         <ph name="SETTINGS_TITLE"/>
         &gt;
@@ -45,6 +45,6 @@
         ja tühistage valik „<ph name="NO_PREFETCH_DESCRIPTION"/>”.
         Kui see probleemi ei lahenda, soovitame selle valiku
         toimivuse parandamiseks uuesti teha.</translation>
-<translation id="4159376633403260073">Vaatate turvalist brauseri Browther for Testing lehte</translation>
-<translation id="88187049159266777">Browther ei sulgunud õigesti.</translation>
+<translation id="8927199829149811571">Vaatate turvalist brauseri Browther for Testing lehte</translation>
+<translation id="4220066730874343807">Browther ei sulgunud õigesti.</translation>
 </translationbundle>

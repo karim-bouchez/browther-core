@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">เปิดการแจ้งเตือนจาก Browther เพื่อรับ Browther Rewards</translation>
 <translation id="4714541943538330">เปิดการตั้งค่าและเปิดการแจ้งเตือนอุปกรณ์สำหรับ Browther Ads</translation>
 <translation id="7341107637383044975">เปิดการแจ้งเตือน Browther</translation>
-<translation id="9063439289570656162">เปิด/ปิดใช้งาน Brave Shields</translation>
+<translation id="9063439289570656162">เปิด/ปิดใช้งาน Browther Shields</translation>
 <translation id="15346379325756892">เข้าสู่โหมดภาพซ้อนภาพ</translation>
 <translation id="6945863270524203017">รับการอัปเดตความเป็นส่วนตัวรายสัปดาห์เกี่ยวกับตัวติดตามและการบล็อกโฆษณา</translation>
 <translation id="4324735664183300693">เปิดการแจ้งเตือน</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">เว็บไซต์สามารถขอใช้การลงชื่อเข้าใช้ด้วย Google แบบเก่าผ่านคุกกี้ของบุคคลที่สาม</translation>
 <translation id="2903783737778379345">ไม่อนุญาตให้ใช้การลงชื่อเข้าใช้ด้วย Google แบบเก่าผ่านคุกกี้ของบุคคลที่สาม</translation>
 <translation id="6880817299303842099">อนุญาตการใช้คุกกี้ของบุคคลที่สามสำหรับการลงชื่อเข้าใช้ด้วย Google แบบเก่า</translation>
-<translation id="8266435325778969511">ค่าเริ่มต้นทั่วไปของ Brave Shields</translation>
+<translation id="8266435325778969511">ค่าเริ่มต้นทั่วไปของ Browther Shields</translation>
 <translation id="2675679258824361492">การตั้งค่าความเป็นส่วนตัวอื่นๆ</translation>
 <translation id="8026334261755873520">ล้างข้อมูลการท่องเว็บ</translation>
 <translation id="1690924763769415936">เล่นในพื้นหลัง</translation>
@@ -188,21 +188,21 @@
 <translation id="834487290629916192">ภายหลัง</translation>
 <translation id="4117451092682672487">ปกป้องความเป็นส่วนตัวง่ายๆ</translation>
 <translation id="5512887128063976049">เมื่อ Browther เป็นค่าเริ่มต้น ทุกลิงก์ที่คุณคลิกจะเปิดด้วยการป้องกันความเป็นส่วนตัวของ Browther</translation>
-<translation id="5148943178722443958">ช่วยปรับปรุง Browther ให้ดีขึ้น</translation>
+<translation id="9133910347634099679">ช่วยปรับปรุง Browther ให้ดีขึ้น</translation>
 <translation id="6718362830686703942">ส่งรายงานการวินิจฉัยหากคุณพบข้อขัดข้องหรืออาการค้าง</translation>
 <translation id="7134864207653684195">แชร์ข้อมูลเชิงลึกของผลิตภัณฑ์แบบส่วนตัวและไม่ระบุชื่อ ซึ่งมีข้อมูลเกี่ยวกับคุณสมบัติที่ผู้ใช้ Browther ใช้</translation>
 <translation id="2888496576732880897">ช่วยให้ Brave Search เติบโต</translation>
 <translation id="7044431516245362795">เข้าร่วมโครงการ Web Discovery เพื่อช่วยขยายดัชนีและปรับปรุงผลการค้นหา <ph name="LEARN_MORE_START"/>ดูข้อมูลเพิ่มเติม<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">แน่นอน ฉันจะช่วย</translation>
-<translation id="7443712250454754077">แตะเพื่อดู Brave Shields</translation>
-<translation id="118577974285037669">ดูสิ่งรบกวนทั้งหมดที่ Browther บล็อกในทุกหน้าด้วย Brave Shields</translation>
+<translation id="7443712250454754077">แตะเพื่อดู Browther Shields</translation>
+<translation id="118577974285037669">ดูสิ่งรบกวนทั้งหมดที่ Browther บล็อกในทุกหน้าด้วย Browther Shields</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> และ <ph name="TRACKER"/> บล็อกโฆษณาอื่นๆ &amp; ตัวติดตามแล้ว</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> และโฆษณาอื่น ๆ &amp; การติดตาม ถูกบล็อก</translation>
 <translation id="3092683655478890840"><ph name="TRACKER_COUNT"/> บล็อกโฆษณา &amp; ตัวติดตามแล้ว</translation>
 <translation id="8281886186245836920">ข้าม</translation>
 <translation id="6165508094623778733">ดูข้อมูลเพิ่มเติม</translation>
 <translation id="986879628471635371">การแก้ไขปัญหาการเตรียมความพร้อม</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">รับ <ph name="TOKEN"/></translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">ด้วยการดูโฆษณาที่เคารพความเป็นส่วนตัวและสนับสนุนเว็บและครีเอเตอร์คนโปรดของคุณ</translation>
@@ -411,7 +411,7 @@
 <translation id="769702552748212954">อนุญาตการสร้างลายนิ้วมือทั้งหมด</translation>
 <translation id="876424292214881779">บล็อกโฆษณาและสิ่งที่น่ากลัวต่างๆ ถูกแล้ว</translation>
 <translation id="2709945082202062860">หลายเว็บไซต์มักใส่คุกกี้และสคริปต์ที่พยายามระบุตัวตนคุณและอุปกรณ์ของคุณ พวกเขาอยากรู้ว่าคุณเป็นใคร และจะติดตามคุณและสิ่งที่คุณทำบนทุกเว็บไซต์ \n\nโดยที่ Browther จะบล็อกสิ่งเหล่านี้เพื่อให้คุณสามารถท่องอินเทอร์เน็ตได้โดยไม่ถูกติดตามตัว</translation>
-<translation id="5695422144228065490">เกี่ยวกับ Brave Shields</translation>
+<translation id="5695422144228065490">เกี่ยวกับ Browther Shields</translation>
 <translation id="8912304686498704084">ขึ้น</translation>
 <translation id="4963218453264888510">ลง</translation>
 <translation id="5721161384090584434">คุณกำลังค้นเว็บนี้โดยไม่มีการป้องกันความเป็นส่วนตัวของ Browther เว็บนี้ทำงานไม่ถูกต้องเมื่อเปิด Shields หรือ?</translation>
@@ -961,7 +961,7 @@
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">รีเซ็ตเป็นค่าเริ่มต้น</translation>
 <translation id="4922034974043704366">คุณลักษณะนี้ถูกเปิดใช้งานเนื่องจากคุณได้เลือกที่จะใช้งาน</translation>
-<translation id="3144818380093107753">Browther Origin เป็นวิธีการสมัครสมาชิกเพื่อปิดการใช้งานฟีเจอร์ที่สร้างรายได้ซึ่งปกติแล้วจะสนับสนุน Browther ในฐานะธุรกิจ ผู้สมัครสมาชิก Browther Origin จะยังคงได้รับประโยชน์จากการปกป้องความเป็นส่วนตัวชั้นนำของอุตสาหกรรม, การบล็อกโฆษณา, และความเร็ว (ผ่าน Brave Shields) รวมถึงการอัปเดตซอฟต์แวร์เป็นประจำ, แพตช์ Chromium, และการปรับปรุงด้านความปลอดภัยและความเป็นส่วนตัว พวกเขายังจะสามารถปลดล็อกตัวเลือกในการปิดการใช้งานฟีเจอร์ต่างๆ เช่น Browther Leo, ข่าว, รางวัล, กระเป๋าเงิน, VPN, โดเมน Web3 และอื่นๆ อีกมากมาย&lt;br/&gt;&lt;br/&gt;ผู้สมัครสมาชิกจะเห็นแผงควบคุมใหม่ในเมนูการตั้งค่าเบราว์เซอร์ คุณสมบัติที่มีอยู่—รวมถึงคุณสมบัติใหม่ใด ๆ ที่เราพัฒนาในอนาคต—จะปรากฏที่นี่ และจะถูกปิดใช้งานตามค่าเริ่มต้น&lt;br/&gt;&lt;br/&gt;&lt;b&gt;หมายเหตุ: Browther Origin จะไม่ปิดใช้งานคุณสมบัติเบราว์เซอร์ที่คุณใช้อยู่ในปัจจุบัน และจะไม่ส่งผลกระทบต่อคุณสมบัติของ Brave Search หรือโฆษณาของ Brave Search&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin เป็นวิธีการสมัครสมาชิกเพื่อปิดการใช้งานฟีเจอร์ที่สร้างรายได้ซึ่งปกติแล้วจะสนับสนุน Browther ในฐานะธุรกิจ ผู้สมัครสมาชิก Browther Origin จะยังคงได้รับประโยชน์จากการปกป้องความเป็นส่วนตัวชั้นนำของอุตสาหกรรม, การบล็อกโฆษณา, และความเร็ว (ผ่าน Browther Shields) รวมถึงการอัปเดตซอฟต์แวร์เป็นประจำ, แพตช์ Chromium, และการปรับปรุงด้านความปลอดภัยและความเป็นส่วนตัว พวกเขายังจะสามารถปลดล็อกตัวเลือกในการปิดการใช้งานฟีเจอร์ต่างๆ เช่น Browther Leo, ข่าว, รางวัล, กระเป๋าเงิน, VPN, โดเมน Web3 และอื่นๆ อีกมากมาย&lt;br/&gt;&lt;br/&gt;ผู้สมัครสมาชิกจะเห็นแผงควบคุมใหม่ในเมนูการตั้งค่าเบราว์เซอร์ คุณสมบัติที่มีอยู่—รวมถึงคุณสมบัติใหม่ใด ๆ ที่เราพัฒนาในอนาคต—จะปรากฏที่นี่ และจะถูกปิดใช้งานตามค่าเริ่มต้น&lt;br/&gt;&lt;br/&gt;&lt;b&gt;หมายเหตุ: Browther Origin จะไม่ปิดใช้งานคุณสมบัติเบราว์เซอร์ที่คุณใช้อยู่ในปัจจุบัน และจะไม่ส่งผลกระทบต่อคุณสมบัติของ Brave Search หรือโฆษณาของ Brave Search&lt;/b&gt;</translation>
 <translation id="2456150688942361838">ลงชื่อเข้าใช้ด้วย Browther Wallet</translation>
 <translation id="7380890081275286865">คุณกำลังลงชื่อเข้าใช้ <ph name="ORIGIN"/> Browther Wallet จะแบ่งปันที่อยู่ Wallet ของคุณกับ <ph name="ORIGIN"/></translation>
 <translation id="1028781062521375153">ดูรายละเอียด</translation>

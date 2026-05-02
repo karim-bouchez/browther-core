@@ -3,123 +3,123 @@
 <translationbundle lang="is">
 <translation id="1026101648481255140">Halda uppsetningu áfram</translation>
 <translation id="7099479769133613710">Endurræstu til að uppfæra &amp;ChromeOS</translation>
-<translation id="2479110114759182442">Browther mælir með að þú farir yfir þessa viðbót</translation>
-<translation id="3814674848168165531">Þegar vefsvæði biður um að forhlaða tenglum á lokaðan hátt á síðunni sinni notar Browther Browther-þjóna. Þetta kemur í veg fyrir að forhlaðna vefsvæðið geti auðkennt þig en Browther lærir að þekkja hvaða vefsvæðum er forhlaðið.</translation>
+<translation id="7264054672589027446">Browther mælir með að þú farir yfir þessa viðbót</translation>
+<translation id="7848219163187166649">Þegar vefsvæði biður um að forhlaða tenglum á lokaðan hátt á síðunni sinni notar Browther Browther-þjóna. Þetta kemur í veg fyrir að forhlaðna vefsvæðið geti auðkennt þig en Browther lærir að þekkja hvaða vefsvæðum er forhlaðið.</translation>
 <translation id="5749154344207139683">Taktu þátt í örstuttri könnun til að hjálpa okkur að bæta huliðsstillingu.</translation>
 <translation id="1065672644894730302">Ekki er tókst að lesa kjörstillingarnar þínar.
 
 Sumir eiginleikar kunna að vera óaðgengilegir og breytingar á kjörstillingum verða ekki vistaðar.</translation>
-<translation id="7577672138294294152">Foreldri þitt hefur slökkt á „Heimildum fyrir vefsvæði, forrit og viðbætur" fyrir Browther</translation>
-<translation id="5918095577778020936">Browther vill flytja út aðgangsorðin þín. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
+<translation id="8837164267124113709">Foreldri þitt hefur slökkt á „Heimildum fyrir vefsvæði, forrit og viðbætur" fyrir Browther</translation>
+<translation id="881513728707488138">Browther vill flytja út aðgangsorðin þín. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
 <translation id="112640046208448578">Berðu kennsl á hluti eða staði og afritaðu eða þýddu texta. Þegar þú notar myndaleit er skjámynd af síðunni send til þjónsins. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther er sjálfgefni vafrinn þinn</translation>
-<translation id="8522292744959221145"><ph name="BEGIN_LINK"/>Skráðu þig inn á Browther<ph name="END_LINK"/> til að athuga hvort aðgangsorðin þín séu óhult fyrir öryggisbrotum og öðrum öryggisvandamálum.</translation>
-<translation id="2627788872035182013">Smelltu á Browther-valmyndina</translation>
+<translation id="8280092658684559253">Browther er sjálfgefni vafrinn þinn</translation>
+<translation id="6580138787163923852"><ph name="BEGIN_LINK"/>Skráðu þig inn á Browther<ph name="END_LINK"/> til að athuga hvort aðgangsorðin þín séu óhult fyrir öryggisbrotum og öðrum öryggisvandamálum.</translation>
+<translation id="1089111274164380772">Smelltu á Browther-valmyndina</translation>
 <translation id="1157985233335035034">Nýleg tungumál</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> bætti við viðbót sem gæti breytt því hvernig Browther virkar.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> bætti við viðbót sem gæti breytt því hvernig Browther virkar.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Uppsetning mistókst því að þín útgáfa af Windows er ekki studd.</translation>
-<translation id="8541922081612557424">Um Browther</translation>
+<translation id="8291401179516272335">Um Browther</translation>
 <translation id="1203500561924088507">Takk fyrir að setja upp. Þú þarft að endurræsa vafrann áður en þú getur notað <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="1232234696885483911">Þegar þú opnar myndaleit eru titill síðu, vefslóð og innihald, þ.m.t. PDF-skjöl, sjálfkrafa send til þjónsins. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Á meðan þú ert innskráð(ur) geturðu notað aðgangsorðin þín og fleira af Browther-reikningnum þínum í Browther. Til að breyta þessu skaltu fara í „Reikningurinn þinn í Browther“.</translation>
-<translation id="8799570501820813406">Meðan þessi flipi var óvirkur var losað um minni til að gera Browther hraðari. Þú getur valið að undanskilja þetta vefsvæði alltaf frá því að vera óvirkt.</translation>
-<translation id="8767381092474532098">Browther lokaði á þetta niðurhal vegna þess að skráin er hættuleg</translation>
-<translation id="3256289531845594061">Þegar þú skráir þig inn í Browther-þjónustu á borð við Gmail eða YouTube með <ph name="USER_EMAIL"/> geturðu skráð þig sjálfkrafa inn í Browther með sama reikningi</translation>
+<translation id="3496831315930641015">Á meðan þú ert innskráð(ur) geturðu notað aðgangsorðin þín og fleira af Browther-reikningnum þínum í Browther. Til að breyta þessu skaltu fara í „Reikningurinn þinn í Browther“.</translation>
+<translation id="9034321258761608912">Meðan þessi flipi var óvirkur var losað um minni til að gera Browther hraðari. Þú getur valið að undanskilja þetta vefsvæði alltaf frá því að vera óvirkt.</translation>
+<translation id="249571811018731941">Browther lokaði á þetta niðurhal vegna þess að skráin er hættuleg</translation>
+<translation id="8850227089720975601">Þegar þú skráir þig inn í Browther-þjónustu á borð við Gmail eða YouTube með <ph name="USER_EMAIL"/> geturðu skráð þig sjálfkrafa inn í Browther með sama reikningi</translation>
 <translation id="1290883685122687410">Villa við uppsetningu: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Settu upp nýja Browther prófílinn þinn</translation>
-<translation id="878572309106296578">Browther þarf aðgang að Bluetooth til að kanna 
+<translation id="6235774143043174856">Settu upp nýja Browther prófílinn þinn</translation>
+<translation id="4437862975743821367">Browther þarf aðgang að Bluetooth til að kanna 
  Bluetooth-tæki. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Greina tungumál</translation>
-<translation id="6204677860546245308">Notaðu ráðlagðar vafrastillingar Browther</translation>
-<translation id="108284536240904209">Eyða einnig gögnum úr Browther (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Notaðu ráðlagðar vafrastillingar Browther</translation>
+<translation id="8270483548049772782">Eyða einnig gögnum úr Browther (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Fest! Nú geturðu opnað myndaleit aftur með því að ýta á nýja hnappinn á tækjastikunni</translation>
 <translation id="1356661055722410047">Nýtt! Þú getur þýtt bæði texta og myndir á skjánum þínum</translation>
 <translation id="1383876407941801731">Leita</translation>
-<translation id="7009295044271335553">&amp;Stjórna Browther-prófílum</translation>
+<translation id="1592588950737518481">&amp;Stjórna Browther-prófílum</translation>
 <translation id="1404026649028693342">Alltaf sýna gervigreindarstillingu</translation>
 <translation id="141901961143729572">Segðu skoðun þína</translation>
-<translation id="3880714039086599943">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila glugganum þínum.</translation>
-<translation id="1586284627848250203">Fá hjálp með Browther for Testing</translation>
+<translation id="1743952081001089298">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila glugganum þínum.</translation>
+<translation id="8627385813382688019">Fá hjálp með Browther for Testing</translation>
 <translation id="1497802159252041924">Uppsetningarvilla: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Þessi síða er varin</translation>
-<translation id="5147525139567260139">Deila Browther flipa</translation>
-<translation id="721261350616678948">Skráðu þig inn á Browther</translation>
+<translation id="7252430412915798987">Deila Browther flipa</translation>
+<translation id="6388429281015199562">Skráðu þig inn á Browther</translation>
 <translation id="1547469039832541117">Lýkur völdu verkefni.</translation>
-<translation id="1530633922026945685">Browther þarf leyfi til að nota myndavélina til að búa til þrívíddarkort af umhverfinu</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Þessi viðbót er ekki lengur studd. Browther mælir með að þú fjarlægir hana.}one{Þessi viðbót er ekki lengur studd. Browther mælir með að þú fjarlægir hana.}other{Þessar viðbætur eru ekki lengur studdar. Browther mælir með að þú fjarlægir þær.}}</translation>
-<translation id="51545890371361355">Festa Browther</translation>
-<translation id="6570689355868013775">Öryggisverkfæri Browther</translation>
-<translation id="1902837727299679178">Browther vill eyða gögnum Aðgangsorðastjórnunar. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu}=1{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu. Huliðsglugginn enduropnast ekki.}one{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggi enduropnast ekki.}other{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggar enduropnast ekki.}}</translation>
-<translation id="4449148723378534338">Farðu yfir helstu öryggis- og persónuverndarstýringar í Browther</translation>
+<translation id="1801944307203212016">Browther þarf leyfi til að nota myndavélina til að búa til þrívíddarkort af umhverfinu</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Þessi viðbót er ekki lengur studd. Browther mælir með að þú fjarlægir hana.}one{Þessi viðbót er ekki lengur studd. Browther mælir með að þú fjarlægir hana.}other{Þessar viðbætur eru ekki lengur studdar. Browther mælir með að þú fjarlægir þær.}}</translation>
+<translation id="4667068923142532753">Festa Browther</translation>
+<translation id="3006560544901646947">Öryggisverkfæri Browther</translation>
+<translation id="686052171138185761">Browther vill eyða gögnum Aðgangsorðastjórnunar. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu}=1{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu. Huliðsglugginn enduropnast ekki.}one{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggi enduropnast ekki.}other{Kerfisstjórinn þinn gerir kröfu um að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggar enduropnast ekki.}}</translation>
+<translation id="8713026329083542796">Farðu yfir helstu öryggis- og persónuverndarstýringar í Browther</translation>
 <translation id="1640672724030957280">Sækir...</translation>
 <translation id="1680687534629375545">Spyrja Myndaleit um þessa síðu</translation>
 <translation id="1709772298389099340">Veitir auknar heimildir fyrir <ph name="BROWSER_NAME"/>.</translation>
-<translation id="2913217021115517297">Til að hjálpa til við að bæta þessa eiginleika sendir Browther upplýsingar um notkun þína á þeim til Browther. Mennskir yfirlesarar kunna að lesa, vinna úr og skrifa skýringar við þessi gögn.</translation>
+<translation id="4243382967656566037">Til að hjálpa til við að bæta þessa eiginleika sendir Browther upplýsingar um notkun þína á þeim til Browther. Mennskir yfirlesarar kunna að lesa, vinna úr og skrifa skýringar við þessi gögn.</translation>
 <translation id="1722488837206509557">Þetta gerir þér kleift að velja á milli tiltækra tækja og efnis á skjá þeirra.</translation>
-<translation id="8004287232784878841">Browther mun eyða vefskoðunargögnum bráðlega</translation>
-<translation id="4197839351786449392">Browther mun reyna að uppfæra flettingar þínar í HTTPS</translation>
-<translation id="7814200940910057384">Hreinsaði gögn Browther</translation>
-<translation id="9048361966237194186">Browther endurræsist eftir <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">Ef HTTPS er ekki í boði mun Browther notast við ótrygga tengingu án þess að vara þig við</translation>
-<translation id="6797402139308059782">Leyfa Browther að keyra í bakgrunni</translation>
-<translation id="1448049584457347995">Til að gera Browther öruggara höfum við slökkt á vissum viðbótum sem ekki eru á skrá hjá <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> og kann að hafa verið bætt við án þinnar vitneskju.</translation>
-<translation id="5875673934455379806">Setja Browther upp aftur</translation>
-<translation id="4529028207655448215">Browther er að reyna að <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Næst þegar þú opnar Browther í <ph name="DEVICE_TYPE"/> muntu sjá ábendingu um að nota Browther-aðgangsorðastjórnun.</translation>
+<translation id="6820510278633522408">Browther mun eyða vefskoðunargögnum bráðlega</translation>
+<translation id="7775028004939172516">Browther mun reyna að uppfæra flettingar þínar í HTTPS</translation>
+<translation id="6963959729951758069">Hreinsaði gögn Browther</translation>
+<translation id="4085139922884095932">Browther endurræsist eftir <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">Ef HTTPS er ekki í boði mun Browther notast við ótrygga tengingu án þess að vara þig við</translation>
+<translation id="3975328336074677101">Leyfa Browther að keyra í bakgrunni</translation>
+<translation id="3629539416935660172">Til að gera Browther öruggara höfum við slökkt á vissum viðbótum sem ekki eru á skrá hjá <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> og kann að hafa verið bætt við án þinnar vitneskju.</translation>
+<translation id="2497443204974841650">Setja Browther upp aftur</translation>
+<translation id="1724309687045787742">Browther er að reyna að <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Næst þegar þú opnar Browther í <ph name="DEVICE_TYPE"/> muntu sjá ábendingu um að nota Browther-aðgangsorðastjórnun.</translation>
 <translation id="1838374766361614909">Hreinsa leit</translation>
-<translation id="3541642064306182066"><ph name="BEGIN_LINK"/>Skráðu þig út af Browther<ph name="END_LINK"/> til að eyða vefskoðunargögnum aðeins úr þessu tæki en ekki af Browther-reikningnum þínum.</translation>
-<translation id="5679816001365584346">Sæktu Browther í símann þinn til að opna eða búa til nýja flipahópa á ferðinni.</translation>
-<translation id="4559627161887338743">Þú getur stjórnað innskráðum Browther reikningum þínum. Browther reikningarnir þínir eru notaðir fyrir Browther vafrann, Play Store, Gmail og fleira. Ef þú vilt bæta við reikningi fyrir einhvern annan, t.d. fjölskyldumeðlim, skaltu frekar bæta nýjum einstaklingi við <ph name="DEVICE_TYPE"/>. <ph name="LINK_BEGIN"/>Frekari upplýsingar<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155"><ph name="BEGIN_LINK"/>Skráðu þig út af Browther<ph name="END_LINK"/> til að eyða vefskoðunargögnum aðeins úr þessu tæki en ekki af Browther-reikningnum þínum.</translation>
+<translation id="3927415701154897844">Sæktu Browther í símann þinn til að opna eða búa til nýja flipahópa á ferðinni.</translation>
+<translation id="2063443520349987970">Þú getur stjórnað innskráðum Browther reikningum þínum. Browther reikningarnir þínir eru notaðir fyrir Browther vafrann, Play Store, Gmail og fleira. Ef þú vilt bæta við reikningi fyrir einhvern annan, t.d. fjölskyldumeðlim, skaltu frekar bæta nýjum einstaklingi við <ph name="DEVICE_TYPE"/>. <ph name="LINK_BEGIN"/>Frekari upplýsingar<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Leitaðu með myndaleit</translation>
 <translation id="1880677175115548835">Velja texta</translation>
-<translation id="4528406859989804913">Þú ert að skrá þig inn með stýrðum reikningi og veitir stjórnanda hans vald yfir Browther-prófílnum þínum. Browther-gögnin þín, s.s. forrit, bókamerki, ferill, aðgangsorð og aðrar stillingar, verða tengd varanlega við <ph name="USER_NAME"/>. Þú getur eytt þessum gögnum á stjórnborði Browther-reikninga en getur ekki tengt þau öðrum reikningi. Þér er frjálst að búa til nýjan prófíl til að halda fyrirliggjandi Browther-gögnum aðskildum. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther sparar rafhlöðuna með því að takmarka bakgrunnsvirkni og myndáhrif, s.s. mjúkflettingu og vídeórammatíðni. <ph name="BEGIN_LINK"/>Nánar um orkusparnað<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Þú ert að skrá þig inn með stýrðum reikningi og veitir stjórnanda hans vald yfir Browther-prófílnum þínum. Browther-gögnin þín, s.s. forrit, bókamerki, ferill, aðgangsorð og aðrar stillingar, verða tengd varanlega við <ph name="USER_NAME"/>. Þú getur eytt þessum gögnum á stjórnborði Browther-reikninga en getur ekki tengt þau öðrum reikningi. Þér er frjálst að búa til nýjan prófíl til að halda fyrirliggjandi Browther-gögnum aðskildum. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther sparar rafhlöðuna með því að takmarka bakgrunnsvirkni og myndáhrif, s.s. mjúkflettingu og vídeórammatíðni. <ph name="BEGIN_LINK"/>Nánar um orkusparnað<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Spyrja um þessa síðu</translation>
-<translation id="8643267611122541711">Uppfærsluþjónusta Browther</translation>
-<translation id="1649714546770135458">Með því að slökkva á þessu geturðu skráð þig inn á Browther vefsvæði eins og Gmail án þess að skrá þig inn í Browther</translation>
-<translation id="189297655255130768">Browther svarar ekki. Viltu endurræsa núna?</translation>
-<translation id="8422047647688939115">Fyrirtækið þitt, <ph name="MANAGER"/>, krefst þess að þú skráir þig inn í Browther</translation>
+<translation id="9128006428501241840">Uppfærsluþjónusta Browther</translation>
+<translation id="6302815314157879372">Með því að slökkva á þessu geturðu skráð þig inn á Browther vefsvæði eins og Gmail án þess að skrá þig inn í Browther</translation>
+<translation id="1063611196035804685">Browther svarar ekki. Viltu endurræsa núna?</translation>
+<translation id="2873360330889594383">Fyrirtækið þitt, <ph name="MANAGER"/>, krefst þess að þú skráir þig inn í Browther</translation>
 <translation id="4035053306113201399">Endurræsa þarf ChromeOS til að nota uppfærsluna.</translation>
-<translation id="9048754176089806686">Browther lokaði á þetta niðurhal vegna þess að skráargerðin er ekki sótt oft og gæti verið hættuleg</translation>
+<translation id="2861285003831382718">Browther lokaði á þetta niðurhal vegna þess að skráargerðin er ekki sótt oft og gæti verið hættuleg</translation>
 <translation id="1953553007165777902">Sækir... <ph name="MINUTE"/> mín. eftir</translation>
-<translation id="2470048290583727811">Browther-ráð: Vistaðu aðgangsorð</translation>
-<translation id="1775322105159056176">Browther getur ekki ákvarðað eða stillt sjálfgefinn vafra</translation>
-<translation id="4372901050442507812">Kynntu þér hvers vegna Browther lokar fyrir vissar skrár (opnast í nýjum flipa)</translation>
-<translation id="2703425183860615504">Heldur Browther-hugbúnaðinum þínum uppfærðum. Ef slökkt er á þessari þjónustu eða hún stöðvuð verður Browther-hugbúnaðinum þínum ekki haldið uppfærðum sem þýðir að ekki verður hægt að lagfæra öryggisveikleika sem kunna að koma upp og tilteknir eiginleikar virka hugsanlega ekki sem skyldi. Þjónustan fjarlægist sjálfkrafa ef enginn Browther-hugbúnaður er að nota hana.</translation>
-<translation id="9220324636239049437">Þetta mun eyða einu atriði úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögnin síðar.</translation>
+<translation id="2080160985220483492">Browther-ráð: Vistaðu aðgangsorð</translation>
+<translation id="8037497710694492565">Browther getur ekki ákvarðað eða stillt sjálfgefinn vafra</translation>
+<translation id="7395009124247513849">Kynntu þér hvers vegna Browther lokar fyrir vissar skrár (opnast í nýjum flipa)</translation>
+<translation id="762710512520170632">Heldur Browther-hugbúnaðinum þínum uppfærðum. Ef slökkt er á þessari þjónustu eða hún stöðvuð verður Browther-hugbúnaðinum þínum ekki haldið uppfærðum sem þýðir að ekki verður hægt að lagfæra öryggisveikleika sem kunna að koma upp og tilteknir eiginleikar virka hugsanlega ekki sem skyldi. Þjónustan fjarlægist sjálfkrafa ef enginn Browther-hugbúnaður er að nota hana.</translation>
+<translation id="5793588180426267429">Þetta mun eyða einu atriði úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögnin síðar.</translation>
 <translation id="2018879682492276940">Uppsetning mistókst. Reyndu aftur.</translation>
-<translation id="831418749472885028"><ph name="BEGIN_LINK"/>Skráðu þig inn á Browther<ph name="END_LINK"/> til að athuga hvort hin aðgangsorðin þín séu óhult fyrir öryggisbrotum og öðrum öryggisvandamálum.</translation>
+<translation id="6351516710581760512"><ph name="BEGIN_LINK"/>Skráðu þig inn á Browther<ph name="END_LINK"/> til að athuga hvort hin aðgangsorðin þín séu óhult fyrir öryggisbrotum og öðrum öryggisvandamálum.</translation>
 <translation id="2039417478970545937">Stillingar.</translation>
-<translation id="5499149312981370855">Veldu hvort Browther-ferill á að fylgja með til að fá sérsniðnari upplifun í Browther-þjónustum</translation>
-<translation id="6959434860418352144">Smelltu á hnappinn „Sérsníða Browther“ á síðu nýrra flipa til að gefa Browther nýtt útlit</translation>
+<translation id="8194525816714210105">Veldu hvort Browther-ferill á að fylgja með til að fá sérsniðnari upplifun í Browther-þjónustum</translation>
+<translation id="5909559127548969159">Smelltu á hnappinn „Sérsníða Browther“ á síðu nýrra flipa til að gefa Browther nýtt útlit</translation>
 <translation id="2066690553719545730">Alltaf sýna gervigreindarstillingu</translation>
-<translation id="2472891440303445472">Browther lokaði á þetta niðurhal vegna þess að skráin er blekkjandi og gæti gert óvæntar breytingar á tækinu þínu</translation>
-<translation id="2054358978145431867">Þú munt sjá ábendingu um að prófa <ph name="FEATURE_NAME"/> næst þegar þú opnar Browther iOS.</translation>
-<translation id="2726948994393234543">Lykilorðið þitt og önnur Browther-gögn sem þú vistaðir á Browther-reikningnum þínum verða fjarlægð úr þessu tæki. Til að nota þau aftur í Browther skaltu skrá þig aftur inn.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Fyrirtækið eyðir vefskoðunargögnum sjálfkrafa þegar Browther er ekki notað í 1 mínútu. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal. Flipar verða áfram opnir.}one{Fyrirtækið eyðir vefskoðunargögnum sjálfkrafa þegar Browther er ekki notað í # mínútu. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal. Flipar verða áfram opnir.}other{Fyrirtækið eyðir vefskoðunargögnum sjálfkrafa þegar Browther er ekki notað í # mínútur. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal. Flipar verða áfram opnir.}}</translation>
+<translation id="3283892260110318935">Browther lokaði á þetta niðurhal vegna þess að skráin er blekkjandi og gæti gert óvæntar breytingar á tækinu þínu</translation>
+<translation id="6160571936643742128">Þú munt sjá ábendingu um að prófa <ph name="FEATURE_NAME"/> næst þegar þú opnar Browther iOS.</translation>
+<translation id="8380517409933452343">Lykilorðið þitt og önnur Browther-gögn sem þú vistaðir á Browther-reikningnum þínum verða fjarlægð úr þessu tæki. Til að nota þau aftur í Browther skaltu skrá þig aftur inn.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Fyrirtækið eyðir vefskoðunargögnum sjálfkrafa þegar Browther er ekki notað í 1 mínútu. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal. Flipar verða áfram opnir.}one{Fyrirtækið eyðir vefskoðunargögnum sjálfkrafa þegar Browther er ekki notað í # mínútu. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal. Flipar verða áfram opnir.}other{Fyrirtækið eyðir vefskoðunargögnum sjálfkrafa þegar Browther er ekki notað í # mínútur. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal. Flipar verða áfram opnir.}}</translation>
 <translation id="2126108037660393668">Ekki tókst að staðfesta skrána sem var sótt.</translation>
 <translation id="2135919691573380097">Tilkynna þetta vefsvæði</translation>
 <translation id="2137162749895930932">Loka hnappinum „þýða skjá“</translation>
-<translation id="5789330946301045610">Browther lokaði á þetta niðurhal vegna þess að vefsvæðið notar ekki örugga tengingu og hugsanlega er búið að eiga við skrána</translation>
+<translation id="4283559398694996391">Browther lokaði á þetta niðurhal vegna þess að vefsvæðið notar ekki örugga tengingu og hugsanlega er búið að eiga við skrána</translation>
 <translation id="2170098639895543546">Velja hvað sem er á síðu</translation>
-<translation id="142389341645668510">Sérsníða Browther</translation>
+<translation id="2495182092286337191">Sérsníða Browther</translation>
 <translation id="2174917724755363426">Uppsetningunni er ekki lokið. Ertu viss um að þú viljir hætta við?</translation>
-<translation id="8745514854244955877">Browther – innskráning á net – <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther – innskráning á net – <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Villa við uppfærsluleit: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Fjarlægja reikning úr Browther</translation>
-<translation id="5550942974310218641">Vertu öruggari á ferðinni með Enn öruggari vefskoðun í Browther fyrir iOS</translation>
-<translation id="6677253423995557759">Skaðlegt vefsvæði. Browther fjarlægði tilkynningar.</translation>
+<translation id="6696114732806961952">Fjarlægja reikning úr Browther</translation>
+<translation id="1084363153644366288">Vertu öruggari á ferðinni með Enn öruggari vefskoðun í Browther fyrir iOS</translation>
+<translation id="7949164640723239455">Skaðlegt vefsvæði. Browther fjarlægði tilkynningar.</translation>
 <translation id="2236949375853147973">Mín virkni</translation>
-<translation id="457168681575748148">Skráðu þig inn á Browther til að fá aðgang að heimilisföngum og fleiru í öllum tækjunum þínum Þetta heimilisfang verður vistað á Browther-reikningnum þínum eftir að þú skráir þig inn.</translation>
-<translation id="5659384504794665581">Ef nokkrir eru um sömu tölvu geta vinir og fjölskyldumeðlimir vafrað hver á sínum prófíl og sett Browther upp eins og hverjum og einum líkar best.</translation>
+<translation id="4536403809133456417">Skráðu þig inn á Browther til að fá aðgang að heimilisföngum og fleiru í öllum tækjunum þínum Þetta heimilisfang verður vistað á Browther-reikningnum þínum eftir að þú skráir þig inn.</translation>
+<translation id="5627930103267312171">Ef nokkrir eru um sömu tölvu geta vinir og fjölskyldumeðlimir vafrað hver á sínum prófíl og sett Browther upp eins og hverjum og einum líkar best.</translation>
 <translation id="2283803047247799269">Leita á þessum flipa með myndaleit</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther mælir með því að gera hlé á flipanum sem er að hægja á vafranum þínum}one{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}other{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther mælir með því að gera hlé á flipanum sem er að hægja á vafranum þínum}one{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}other{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}}</translation>
 <translation id="2307973900865360088">Hafa í dokku</translation>
-<translation id="7810992039564280750">Ber vefslóðir saman við lista yfir óörugg vefsvæði sem er vistaður í Browther. Ef vefsvæði reynir að stela aðgangsorðinu þínu, eða ef þú sækir skaðlega skrá, gæti Browther einnig sent vefslóðir í Örugga vefskoðun, þar á meðal hluta af innihaldi síðna.</translation>
-<translation id="5042718521573656164">Þessi aðgerð mun:
+<translation id="5161617112768367959">Ber vefslóðir saman við lista yfir óörugg vefsvæði sem er vistaður í Browther. Ef vefsvæði reynir að stela aðgangsorðinu þínu, eða ef þú sækir skaðlega skrá, gæti Browther einnig sent vefslóðir í Örugga vefskoðun, þar á meðal hluta af innihaldi síðna.</translation>
+<translation id="4123094831918713833">Þessi aðgerð mun:
           <ph name="LINE_BREAKS"/>
            • Endurstilla sumar stillingar og flýtileiðir Browther
            <ph name="LINE_BREAK"/>
@@ -128,627 +128,627 @@ Sumir eiginleikar kunna að vera óaðgengilegir og breytingar á kjörstillingu
            • Eyða fótsporum og öðrum tímabundnum vefsvæðagögnum
             <ph name="LINE_BREAKS"/>
            Hún hefur ekki áhrif á bókamerki, feril og vistuð aðgangsorð.</translation>
-<translation id="9095263438435683933">Til að senda númer héðan í Android símann þinn skaltu skrá þig inn á Browther í báðum tækjunum.</translation>
+<translation id="5456070119344236353">Til að senda númer héðan í Android símann þinn skaltu skrá þig inn á Browther í báðum tækjunum.</translation>
 <translation id="2356070529366658676">Spyrja</translation>
 <translation id="2359808026110333948">Halda áfram</translation>
-<translation id="6485997157403727556">Viðbótin „<ph name="EXTENSION_NAME"/>“ vill að þú skráir þig inn á Browther</translation>
-<translation id="7017760840808989683">Ekki leyfa Browther að keyra forrit í bakgrunni</translation>
-<translation id="8491912023989916905">Skráðu þig inn á Browther til að nota þessa viðbót sem <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="6468415397021485143">Viðbótin „<ph name="EXTENSION_NAME"/>“ vill að þú skráir þig inn á Browther</translation>
+<translation id="2558600429878197587">Ekki leyfa Browther að keyra forrit í bakgrunni</translation>
+<translation id="5295781918312989856">Skráðu þig inn á Browther til að nota þessa viðbót sem <ph name="USER_EMAIL_ADDRESS"/>.</translation>
 <translation id="8418845734693287262">ChromeOS gat ekki samstillt gögnin vegna þess að innskráningarupplýsingar reikningsins þíns eru úreltar.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Ein eða fleiri Browther-viðbætur fengu aðgang að 1 HID-tæki}=1{Ein eða fleiri Browther-viðbætur hafa aðgang að 1 HID-tæki}one{Ein eða fleiri Browther-viðbætur hafa aðgang að # HID-tæki}other{Ein eða fleiri Browther-viðbætur hafa aðgang að # HID-tækjum}}</translation>
-<translation id="1248225940185478633">Browther verður að fá leyfi fyrir myndavél og hljóðnema fyrir þetta vefsvæði</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Ein eða fleiri Browther-viðbætur fengu aðgang að 1 HID-tæki}=1{Ein eða fleiri Browther-viðbætur hafa aðgang að 1 HID-tæki}one{Ein eða fleiri Browther-viðbætur hafa aðgang að # HID-tæki}other{Ein eða fleiri Browther-viðbætur hafa aðgang að # HID-tækjum}}</translation>
+<translation id="434258293817844111">Browther verður að fá leyfi fyrir myndavél og hljóðnema fyrir þetta vefsvæði</translation>
 <translation id="2403703063067034158">Villa í ræsingu: annað tilvik af uppsetningu er í keyrslu, reyndu aftur síðar.</translation>
-<translation id="5298352791080868905">Opnaðu tengla í Browther úr hvaða forriti sem er og hafðu vafrann aðgengilegan á forritastikunni</translation>
-<translation id="2118275934191847461"><ph name="BEGIN_LINK"/>Verkfæri Browther<ph name="END_LINK"/> gera þér kleift að vafra á öruggan hátt og vera við stjórnvölinn</translation>
+<translation id="5458993228789433099">Opnaðu tengla í Browther úr hvaða forriti sem er og hafðu vafrann aðgengilegan á forritastikunni</translation>
+<translation id="1677640217693742525"><ph name="BEGIN_LINK"/>Verkfæri Browther<ph name="END_LINK"/> gera þér kleift að vafra á öruggan hátt og vera við stjórnvölinn</translation>
 <translation id="2451727308784734061">Notaðu flýtileiðina til að komast í Aðgangsorðastjórnun á skjótan hátt. Þú getur fært flýtileiðina á heimaskjá tölvunnar eða í ræsiforritið.</translation>
-<translation id="6381750314821942592">Browther lokast bráðlega</translation>
-<translation id="6078442581074612226">í Browther</translation>
+<translation id="2280315911954332435">Browther lokast bráðlega</translation>
+<translation id="6410820860979094113">í Browther</translation>
 <translation id="2485422356828889247">Fjarlægja</translation>
 <translation id="2513154137948333830">Endurræsingar er krafist: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Veldu texta fyrir myndaleit</translation>
-<translation id="70183448213529602">Browther er að reyna að skipta núverandi aðgangsorðum út. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
-<translation id="7798069806040634998">Browther þarf aðgang að geymslu til að geta sótt skrár</translation>
-<translation id="2351700486811407088">Hjálparforrit Browther Origin</translation>
+<translation id="7892218991241200190">Browther er að reyna að skipta núverandi aðgangsorðum út. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
+<translation id="8976443723926188033">Browther þarf aðgang að geymslu til að geta sótt skrár</translation>
+<translation id="4131374838781785973">Hjálparforrit Browther Origin</translation>
 <translation id="2575822587468774919">Veldu hvað sem er til að leita með myndaleit</translation>
-<translation id="3830890663494219270">Skráðu þig inn á Browther til að fá aðgang að aðgangsorðum og fleiru í öllum tækjunum þínum</translation>
-<translation id="6252796827759111076">Halda áfram að nota Browther</translation>
+<translation id="8705561858232289221">Skráðu þig inn á Browther til að fá aðgang að aðgangsorðum og fleiru í öllum tækjunum þínum</translation>
+<translation id="437162022240011372">Halda áfram að nota Browther</translation>
 <translation id="259935314519650377">Ekki tókst að vista uppsetningarforrit sem var sótt í skyndiminni. Villa: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Kerfi</translation>
-<translation id="7931230852267968641">Fyrirtækið þitt getur séð og stjórnað vefskoðunargögnunum þínum, s.s. bókamerkjum, ferli og aðgangsorðum. Það getur ekki séð vefskoðunargögn á öðrum Browther-prófílum</translation>
-<translation id="2257221826278123061">Staðfestu að þetta sért þú til að nota og vista Browther-gögn á reikningnum þínum, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="1400696845469684552">{COUNT,plural, =0{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu}=1{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu. Huliðsglugginn enduropnast ekki.}one{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggi enduropnast ekki.}other{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggar enduropnast ekki.}}</translation>
-<translation id="7387051847644272380">Stýrikerfisvilla kom upp við uppsetningu. Sæktu Browther aftur.</translation>
-<translation id="2648689842065142443">Ef nokkrir deila sama tæki geta vinir og fjölskyldumeðlimir vafrað hver á sínum prófíl og sett Browther upp eins og hverjum og einum líkar best</translation>
-<translation id="6791166902140255175">Browther flipi</translation>
-<translation id="8372880274820509128">Browther dulkóðar gögnin þín til að auka öryggið.</translation>
-<translation id="8752006915531191162">Skráðu þig út til að fjarlægja Browther-reikninginn þinn af Browther</translation>
-<translation id="5344406739101555055">Skráðu þig inn á Browther til að fá aðgang að aðgangsorðum, bókamerkjum og fleiru í öllum tækjunum þínum</translation>
+<translation id="2907676829052962091">Fyrirtækið þitt getur séð og stjórnað vefskoðunargögnunum þínum, s.s. bókamerkjum, ferli og aðgangsorðum. Það getur ekki séð vefskoðunargögn á öðrum Browther-prófílum</translation>
+<translation id="1289116577679005654">Staðfestu að þetta sért þú til að nota og vista Browther-gögn á reikningnum þínum, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="8762228142105311329">{COUNT,plural, =0{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu}=1{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu. Huliðsglugginn enduropnast ekki.}one{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggi enduropnast ekki.}other{Ítarleg vernd krefst þess að þú endurræsir Browther til að setja upp uppfærslu. # huliðsgluggar enduropnast ekki.}}</translation>
+<translation id="7192278346779151664">Stýrikerfisvilla kom upp við uppsetningu. Sæktu Browther aftur.</translation>
+<translation id="7724398260867885339">Ef nokkrir deila sama tæki geta vinir og fjölskyldumeðlimir vafrað hver á sínum prófíl og sett Browther upp eins og hverjum og einum líkar best</translation>
+<translation id="1679595317134614424">Browther flipi</translation>
+<translation id="7189168846924379421">Browther dulkóðar gögnin þín til að auka öryggið.</translation>
+<translation id="4052643592793184278">Skráðu þig út til að fjarlægja Browther-reikninginn þinn af Browther</translation>
+<translation id="7694616023994438906">Skráðu þig inn á Browther til að fá aðgang að aðgangsorðum, bókamerkjum og fleiru í öllum tækjunum þínum</translation>
 <translation id="2738871930057338499">Ekki er hægt að tengjast internetinu. HTTP 403 bannað. Kannaðu uppsetningu staðgengilsþjóna.</translation>
 <translation id="2753623023919742414">Smelltu til að leita</translation>
-<translation id="1312769823139326127">Stilltu Browther sem sjálfgefinn PDF-lesara</translation>
-<translation id="3173824377856109157">Browther getur fyllt út erfiða reiti sem stöðluð sjálfvirk útfylling gæti misst af</translation>
-<translation id="1187986649024576560">Þessi viðbót inniheldur spilliforrit og er ekki örugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum þínum.</translation>
+<translation id="9078193405195503710">Stilltu Browther sem sjálfgefinn PDF-lesara</translation>
+<translation id="2456995288904753506">Browther getur fyllt út erfiða reiti sem stöðluð sjálfvirk útfylling gæti misst af</translation>
+<translation id="3271730304285122987">Þessi viðbót inniheldur spilliforrit og er ekki örugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum þínum.</translation>
 <translation id="2799223571221894425">Endurræsa</translation>
-<translation id="5962774139606909656">Browther-prófíllinn þinn</translation>
+<translation id="1427337251963884503">Browther-prófíllinn þinn</translation>
 <translation id="2816462166102338036">Leita í þessu vídeói með Myndaleit</translation>
 <translation id="2841525013647267359">Þýða úr</translation>
 <translation id="2846251086934905009">Uppsetningarvilla: Uppsetningarforrit lauk ekki verki sínu. Hætt var við uppsetningu.</translation>
-<translation id="777113543093865885">Fjarlægja úr Browther...</translation>
-<translation id="5265419033369521352">Tryggir öryggi þitt í Browther og kann að vera notað til að auka öryggi þitt í öðrum Browther-forritum þegar þú hefur skráð þig inn.</translation>
+<translation id="928966105228355994">Fjarlægja úr Browther...</translation>
+<translation id="587805782197019018">Tryggir öryggi þitt í Browther og kann að vera notað til að auka öryggi þitt í öðrum Browther-forritum þegar þú hefur skráð þig inn.</translation>
 <translation id="2885378588091291677">Verkstjórn</translation>
-<translation id="2176825726964012531">Um &amp;Browther</translation>
+<translation id="3055995278166070443">Um &amp;Browther</translation>
 <translation id="2915996080311180594">Endurræsa seinna</translation>
 <translation id="2928420929544864228">Uppsetningu lokið.</translation>
-<translation id="2481553173340651149">Gögnin þín eru dulkóðuð með aðgangsorði. Sláðu það inn til að nota og vista Browther-gögn á Browther-reikningnum þínum.</translation>
+<translation id="70453521937551896">Gögnin þín eru dulkóðuð með aðgangsorði. Sláðu það inn til að nota og vista Browther-gögn á Browther-reikningnum þínum.</translation>
 <translation id="2945997411976714835">Uppsetningarvilla: Ekki tókst að ræsa ferli uppsetningarforrits.</translation>
-<translation id="2413255940314578781">Vertu fljótari að skrá þig inn á vefsvæði með því að nota vistuð aðgangsorð fyrir Browther í iOS</translation>
-<translation id="122765104641632123">Bættu nýjum Browther-prófíl við til að halda bókamerkjum, aðgangsorðum og stillingum aðskildum.</translation>
-<translation id="3688936822855019158">Fyrirtækið þitt hefur umsjón með Browther</translation>
-<translation id="8208853227947884571">Browther er uppfært</translation>
-<translation id="5122472867956731189">Ef vefsvæði reynir að stela aðgangsorðinu þínu, eða ef þú sækir skaðlega skrá, gæti Browther einnig sent vefslóðir í örugga vefskoðun, þar á meðal hluta af innihaldi síðna</translation>
-<translation id="3963199983793987097">Til að vera öruggari á netinu með vali foreldra þinna skaltu skrá þig inn í Browther</translation>
+<translation id="3188308520233701133">Vertu fljótari að skrá þig inn á vefsvæði með því að nota vistuð aðgangsorð fyrir Browther í iOS</translation>
+<translation id="8145318807880784886">Bættu nýjum Browther-prófíl við til að halda bókamerkjum, aðgangsorðum og stillingum aðskildum.</translation>
+<translation id="4330268530227888227">Fyrirtækið þitt hefur umsjón með Browther</translation>
+<translation id="6488090896442998436">Browther er uppfært</translation>
+<translation id="300557164611864786">Ef vefsvæði reynir að stela aðgangsorðinu þínu, eða ef þú sækir skaðlega skrá, gæti Browther einnig sent vefslóðir í örugga vefskoðun, þar á meðal hluta af innihaldi síðna</translation>
+<translation id="2447145782593796785">Til að vera öruggari á netinu með vali foreldra þinna skaltu skrá þig inn í Browther</translation>
 <translation id="3003694935412297923">Öll verkefni</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum (1 atriði) eytt.}one{Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}other{Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}}</translation>
-<translation id="4202995875619419215">Opna <ph name="URL"/> í nýjum flipa í Browther.</translation>
-<translation id="8755404239607088219">Browther getur ekki athugað aðgangsorðin þín. Reyndu aftur síðar.</translation>
-<translation id="8880183781256147665">Bætir við Browther...</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum (1 atriði) eytt.}one{Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}other{Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}}</translation>
+<translation id="5522228731050510047">Opna <ph name="URL"/> í nýjum flipa í Browther.</translation>
+<translation id="6358780591055960280">Browther getur ekki athugað aðgangsorðin þín. Reyndu aftur síðar.</translation>
+<translation id="1386422761453740126">Bætir við Browther...</translation>
 <translation id="3038232873781883849">Bíður eftir uppsetningu...</translation>
 <translation id="3045032126857188731">Þýtt tungumál: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Loka ábendingaglugga</translation>
-<translation id="4503085212612536713">Aðrir Browther-prófílar</translation>
-<translation id="7918740962659365265">Hjálpaðu til við að bæta Browther með því að senda tilkynningar um hrun og <ph name="UMA_LINK"/> til Browther</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Ein eða fleiri Browther-viðbætur fengu aðgang að 1 USB-tæki}=1{Ein eða fleiri Browther-viðbætur hafa aðgang að 1 USB-tæki}one{Ein eða fleiri Browther-viðbætur hafa aðgang að # USB-tæki}other{Ein eða fleiri Browther-viðbætur hafa aðgang að # USB-tækjum}}</translation>
-<translation id="3700405816184340252">Browther-ferill</translation>
-<translation id="7365690458036015383">Uppsetningarforritinu mistókst að afþjappa safnskránni. Sæktu Browther aftur.</translation>
+<translation id="369127628511662602">Aðrir Browther-prófílar</translation>
+<translation id="2370255879896574713">Hjálpaðu til við að bæta Browther með því að senda tilkynningar um hrun og <ph name="UMA_LINK"/> til Browther</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Ein eða fleiri Browther-viðbætur fengu aðgang að 1 USB-tæki}=1{Ein eða fleiri Browther-viðbætur hafa aðgang að 1 USB-tæki}one{Ein eða fleiri Browther-viðbætur hafa aðgang að # USB-tæki}other{Ein eða fleiri Browther-viðbætur hafa aðgang að # USB-tækjum}}</translation>
+<translation id="2065456480740480340">Browther-ferill</translation>
+<translation id="5011660649081947055">Uppsetningarforritinu mistókst að afþjappa safnskránni. Sæktu Browther aftur.</translation>
 <translation id="310459126943037700">Ekki tókst að ljúka verkefni/verkefnum.</translation>
 <translation id="3104828284009500087">Leitaðu að hverju sem er á síðunni</translation>
-<translation id="6422885447166607802">Haltu aðgangsorðunum þínum, bókamerkjum og ferli fullkomlega samstilltum á milli tækja. Fáðu greiðan aðgang að eiginleikunum sem þú þekkir og elskar með því að uppfæra sjálfgefna vafrann þinn í Browther.</translation>
-<translation id="8919461291440820124">Browther er að nota hljóðnemann þinn.</translation>
+<translation id="4917564010081457061">Haltu aðgangsorðunum þínum, bókamerkjum og ferli fullkomlega samstilltum á milli tækja. Fáðu greiðan aðgang að eiginleikunum sem þú þekkir og elskar með því að uppfæra sjálfgefna vafrann þinn í Browther.</translation>
+<translation id="1041472930719344928">Browther er að nota hljóðnemann þinn.</translation>
 <translation id="3130333203120345554">Ný leit</translation>
 <translation id="3137969841538672700">Dragðu til að leita</translation>
-<translation id="8372436892102763334">Þessi flipi notar aukagögn. Leyfðu Browther að óvirkja hann til að bæta afköstin.</translation>
-<translation id="5949068186379578553">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila skjánum þínum.</translation>
-<translation id="4805806622840861220">Endurræsa Browther</translation>
+<translation id="5312717254055363883">Þessi flipi notar aukagögn. Leyfðu Browther að óvirkja hann til að bæta afköstin.</translation>
+<translation id="373523409348786203">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila skjánum þínum.</translation>
+<translation id="802113445299754598">Endurræsa Browther</translation>
 <translation id="3161522574479303604">Öll tungumál</translation>
-<translation id="6554952862405000915">Opna ten&amp;gil í huliðsglugga í Browther</translation>
-<translation id="3225882094369124157">Annað forrit í tölvunni þinni bætti þema við sem gæti breytt því hvernig Browther virkar.
+<translation id="5556794247782664281">Opna ten&amp;gil í huliðsglugga í Browther</translation>
+<translation id="4522189060330781648">Annað forrit í tölvunni þinni bætti þema við sem gæti breytt því hvernig Browther virkar.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Sérsníddu nýja Browther prófílinn þinn</translation>
-<translation id="4805865169608137960">Skráðu þig út af Browther á stillingarsíðunni til að fjarlægja Browther-reikninginn þinn af Browther</translation>
-<translation id="1651639704310627074">Browther getur síðan spurt hvort þú viljir nota vistuðu upplýsingarnar til að fylla út eyðublöð sjálfkrafa síðar</translation>
-<translation id="2585240446624043880">Browther getur ekki lesið og skrifað í gagnamöppuna sína:
+<translation id="2604272613984010799">Sérsníddu nýja Browther prófílinn þinn</translation>
+<translation id="5150830326120505481">Skráðu þig út af Browther á stillingarsíðunni til að fjarlægja Browther-reikninginn þinn af Browther</translation>
+<translation id="7113660200899017820">Browther getur síðan spurt hvort þú viljir nota vistuðu upplýsingarnar til að fylla út eyðublöð sjálfkrafa síðar</translation>
+<translation id="4475011322243623412">Browther getur ekki lesið og skrifað í gagnamöppuna sína:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Endurræsa núna</translation>
-<translation id="2339258256897053758">Lykla vantar fyrir forritaskil Browther. Sumir eiginleikar Browther verða óvirkir.</translation>
-<translation id="8926637909431618259">Halda áfram að keyra bakgrunnsforrit þegar Browther er lokað</translation>
-<translation id="518125528057094977">Browther varar þig við áður en vefsvæði með ótrygga tengingu er hlaðið</translation>
-<translation id="8652321858775514885">Þegar þú lokar öllum Browther-gluggum skráistu út af flestum vefsvæðum, að undanskildum Browther-reikningnum þínum ef þú ert skráð(ur) inn á Browther. <ph name="SETTINGS_LINK"/> til að leyfa vefsvæðum að muna eftir þér.</translation>
-<translation id="3795277300264350702">Sjálfgefnu leitarvélinni þinni var breytt utan Browther. Browther endurstillti hana til að vernda þig.</translation>
-<translation id="5033074923607633232">Skráðu þig inn í Browther og fáðu aðgang að aðgangsorðum, bókamerkjum og fleiru í öllum tækjunum þínum</translation>
+<translation id="3536063527222598206">Lykla vantar fyrir forritaskil Browther. Sumir eiginleikar Browther verða óvirkir.</translation>
+<translation id="1011450868746766298">Halda áfram að keyra bakgrunnsforrit þegar Browther er lokað</translation>
+<translation id="179611081153855734">Browther varar þig við áður en vefsvæði með ótrygga tengingu er hlaðið</translation>
+<translation id="8965591964936552871">Þegar þú lokar öllum Browther-gluggum skráistu út af flestum vefsvæðum, að undanskildum Browther-reikningnum þínum ef þú ert skráð(ur) inn á Browther. <ph name="SETTINGS_LINK"/> til að leyfa vefsvæðum að muna eftir þér.</translation>
+<translation id="6626350400537358074">Sjálfgefnu leitarvélinni þinni var breytt utan Browther. Browther endurstillti hana til að vernda þig.</translation>
+<translation id="1170501833661894915">Skráðu þig inn í Browther og fáðu aðgang að aðgangsorðum, bókamerkjum og fleiru í öllum tækjunum þínum</translation>
 <translation id="3352986031709923790">efsta horn leitarsvæðis hægra megin: til hægri <ph name="RIGHT"/>%, efst <ph name="TOP"/>%</translation>
-<translation id="7261356974224431851">Browther-gögn á reikningnum þínum</translation>
+<translation id="120745000989996104">Browther-gögn á reikningnum þínum</translation>
 <translation id="3369405342922656244">Leita á þessari síðu með Myndaleit</translation>
-<translation id="6610330853796830621">Notaðu aðgangsorðin þín með Browther í símanum</translation>
+<translation id="7173761126541905083">Notaðu aðgangsorðin þín með Browther í símanum</translation>
 <translation id="2645435784669275700">ChromeOS</translation>
-<translation id="2297290224191497273">Skipta yfir í Browther prófíl sem er til?</translation>
+<translation id="5266583242423616945">Skipta yfir í Browther prófíl sem er til?</translation>
 <translation id="3412460710772753638">Í Aðgangsorðastjórnun í þessu tæki</translation>
-<translation id="2491221873705777076">Framlengdu Enn öruggari vefskoðun með Browther í símanum þínum</translation>
-<translation id="7304389940068374923">Browther gert að þínu...</translation>
-<translation id="9216183508558772570">Browther lætur þig vita þegar þú skráir þig inn með aðgangsorði sem er í hættu</translation>
-<translation id="5853262807109651878">Þetta mun eyða <ph name="ITEMS_COUNT"/> atriðum úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögnin síðar.</translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> getur skipt á milli Browther prófíla</translation>
-<translation id="8703492925273919597">Lokaðu öllum gluggum Browther og reyndu aftur.</translation>
-<translation id="599091950194451698">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila glugganum þínum.</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> er þegar innskráð(ur).  Til að halda vefskoðun aðskilinni skaltu skrá þig inn á Browther með þínum eigin prófíl sem <ph name="USER_EMAIL_ADDRESS"/>.</translation>
-<translation id="8981774130895723211">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila skjánum þínum.</translation>
+<translation id="4282363917570905631">Framlengdu Enn öruggari vefskoðun með Browther í símanum þínum</translation>
+<translation id="986094398735583155">Browther gert að þínu...</translation>
+<translation id="3266047225484320321">Browther lætur þig vita þegar þú skráir þig inn með aðgangsorði sem er í hættu</translation>
+<translation id="3508047337876211050">Þetta mun eyða <ph name="ITEMS_COUNT"/> atriðum úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögnin síðar.</translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> getur skipt á milli Browther prófíla</translation>
+<translation id="7225005776233199285">Lokaðu öllum gluggum Browther og reyndu aftur.</translation>
+<translation id="5465054931427475969">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila glugganum þínum.</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> er þegar innskráð(ur).  Til að halda vefskoðun aðskilinni skaltu skrá þig inn á Browther með þínum eigin prófíl sem <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="8133590217245064579">Leyfðu skjáupptöku í Browther í kerfisstillingunum til að deila skjánum þínum.</translation>
 <translation id="3597003331831379823">Ekki tókst að hefja uppsetningu með auknum heimildum. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Skráðu þig inn á Browther</translation>
-<translation id="3066805437003400520">Vefskoðunargögnum þessa aðila verður eytt úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögn.</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir.}=1{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir. Huliðsglugginn enduropnast ekki.}one{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir. # huliðsgluggi enduropnast ekki.}other{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir. # huliðsgluggar enduropnast ekki.}}</translation>
-<translation id="7029305463989165490">Til að senda númer úr <ph name="ORIGIN"/> í Android símann þinn skaltu skrá þig inn á Browther í báðum tækjunum.</translation>
+<translation id="611080704131468868">Skráðu þig inn á Browther</translation>
+<translation id="2492221622209669678">Vefskoðunargögnum þessa aðila verður eytt úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögn.</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir.}=1{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir. Huliðsglugginn enduropnast ekki.}one{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir. # huliðsgluggi enduropnast ekki.}other{Ný útgáfa af Browther er í boði og hún verður notuð um leið og þú endurræsir. # huliðsgluggar enduropnast ekki.}}</translation>
+<translation id="6793778233257855801">Til að senda númer úr <ph name="ORIGIN"/> í Android símann þinn skaltu skrá þig inn á Browther í báðum tækjunum.</translation>
 <translation id="3667616615096815454">Ekki tókst að setja upp, þjónninn þekkir ekki forritið.</translation>
-<translation id="1128485277465085828">Notaðu <ph name="BEGIN_LINK"/>eigið aðgangsorð<ph name="END_LINK"/> til að dulkóða öll Browther-gögn á Browther-reikningnum þínum. Upplýsingar um greiðslumáta og heimilisföng úr Google Pay verða ekki dulkóðaðar. Vafraferill Browther samstillist ekki.</translation>
-<translation id="4304059894777924102">Browther getur ekki athugað aðgangsorðin þín. Athugaðu nettenginguna þína.</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu}=1{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu. Huliðsglugginn enduropnast ekki.}one{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu. # huliðsgluggi enduropnast ekki.}other{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu. # huliðsgluggar enduropnast ekki.}}</translation>
-<translation id="1807774211756215222">Opna &amp;tengil í nýjum Browther flipa</translation>
-<translation id="387105482057676379">Tengdu Browther við aðrar Browther-þjónustur til að sérsníða upplifun þína og fleira</translation>
+<translation id="5585500151754164442">Notaðu <ph name="BEGIN_LINK"/>eigið aðgangsorð<ph name="END_LINK"/> til að dulkóða öll Browther-gögn á Browther-reikningnum þínum. Upplýsingar um greiðslumáta og heimilisföng úr Google Pay verða ekki dulkóðaðar. Vafraferill Browther samstillist ekki.</translation>
+<translation id="404323216042159951">Browther getur ekki athugað aðgangsorðin þín. Athugaðu nettenginguna þína.</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu}=1{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu. Huliðsglugginn enduropnast ekki.}one{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu. # huliðsgluggi enduropnast ekki.}other{Kerfisstjórinn þinn vill að þú endurræsir Browther til að setja upp þessa uppfærslu. # huliðsgluggar enduropnast ekki.}}</translation>
+<translation id="5004936474632127765">Opna &amp;tengil í nýjum Browther flipa</translation>
+<translation id="6236643159256182256">Tengdu Browther við aðrar Browther-þjónustur til að sérsníða upplifun þína og fleira</translation>
 <translation id="3729187154190517324">Þrengdu leitina með því að bæta við mörgum flipum, skrám og verkfærum með því að nota hnappinn „Bæta við flipa og fleiru“.</translation>
-<translation id="3867175562099983425">Stjórna Browther-prófílum</translation>
-<translation id="308146532933302843">Kynntu þér hvers vegna Browther lokar á sumt niðurhal</translation>
-<translation id="2189149060536531804">Browther lætur þig vita ef þú þarft að yfirfara eitthvað</translation>
-<translation id="8422094375343667686">Browther-prófílar hjálpa þér að aðskilja mismunandi hluta lífsins. Bættu nýjum prófíl við núna.</translation>
-<translation id="6324134303015966238">Browther forhleður síðum sem er líklegt að þú munir skoða svo að þær hlaðist fyrr þegar þú opnar þær</translation>
+<translation id="1400697664933775238">Stjórna Browther-prófílum</translation>
+<translation id="2461315395128103158">Kynntu þér hvers vegna Browther lokar á sumt niðurhal</translation>
+<translation id="8058420662026104226">Browther lætur þig vita ef þú þarft að yfirfara eitthvað</translation>
+<translation id="3177448557921912221">Browther-prófílar hjálpa þér að aðskilja mismunandi hluta lífsins. Bættu nýjum prófíl við núna.</translation>
+<translation id="1541177876035612043">Browther forhleður síðum sem er líklegt að þú munir skoða svo að þær hlaðist fyrr þegar þú opnar þær</translation>
 <translation id="3810973564298564668">Stjórna</translation>
-<translation id="4815742196440583661">Til að nota vistuð aðgangsorð skaltu skanna QR-kóðann, sækja Browther fyrir iOS og skrá þig inn á Browther-reikninginn þinn</translation>
-<translation id="6093965249696204223">Browther-ráð: Enn öruggari vefskoðun</translation>
+<translation id="1117103475254549453">Til að nota vistuð aðgangsorð skaltu skanna QR-kóðann, sækja Browther fyrir iOS og skrá þig inn á Browther-reikninginn þinn</translation>
+<translation id="8880695882192156860">Browther-ráð: Enn öruggari vefskoðun</translation>
 <translation id="3846683726093018685">**Taka saman:** Lýsa aðalviðfangsefninu og tilgangi efnisins á skjámyndinni með einni setningu sem er innan við 30 orð.
 
           **Leggja til spurningar:** Búa til punktalista með 3-5 ögrandi spurningum sem notandi gæti spurt til að skilja skjámyndina betur. Þessar spurningar ættu að fela í sér minnst eina sem er sérstaklega um sjónrænt atriði, hönnun þess eða staðsetningu.</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/> – Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/> – Browther Origin</translation>
 <translation id="3885770153807205175">Tungumálaval</translation>
-<translation id="6315734375101223238">Sérsníða og stjórna Browther. Eitthvað krefst athygli þinnar – smelltu til að sjá nánar.</translation>
-<translation id="7130675370997202556">Smelltu á nafnið þitt til að opna Browther og byrja að vafra.</translation>
+<translation id="4861846616763552424">Sérsníða og stjórna Browther. Eitthvað krefst athygli þinnar – smelltu til að sjá nánar.</translation>
+<translation id="6126366281251241386">Smelltu á nafnið þitt til að opna Browther og byrja að vafra.</translation>
 <translation id="3892148308691398805">Afrita texta</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> er þegar innskráð(ur) á þennan Browther prófíl. Browther getur búið til sérstakan prófíl fyrir þig svo að þú getir haldið þinni vefskoðun aðskilinni.</translation>
-<translation id="6184592406110188164">Þessi viðbót brýtur gegn reglum Vefverslunar Browther og kann að vera óörugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum þínum.</translation>
-<translation id="8744239658215739511">Sérsníddu Browther-vafrann þinn</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> er þegar innskráð(ur) á þennan Browther prófíl. Browther getur búið til sérstakan prófíl fyrir þig svo að þú getir haldið þinni vefskoðun aðskilinni.</translation>
+<translation id="3593119910409528681">Þessi viðbót brýtur gegn reglum Vefverslunar Browther og kann að vera óörugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum þínum.</translation>
+<translation id="3821553157234855663">Sérsníddu Browther-vafrann þinn</translation>
 <translation id="3941890832296813527">Uppsetningarvilla: Skráarheiti uppsetningarforrits er ógilt eða ekki stutt.</translation>
-<translation id="8090497651549769448">Browther er að reyna að afrita aðgangsorð. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
-<translation id="4256965182800026277">Aðgangsorðin þín, greiðslumátar og heimilisföng sem þú vistaðir á Browther-reikningnum þínum verða fjarlægð úr þessu tæki. Til að nota þau aftur í Browther skaltu skrá þig aftur inn.</translation>
+<translation id="6482299900191767005">Browther er að reyna að afrita aðgangsorð. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
+<translation id="5853011008278898603">Aðgangsorðin þín, greiðslumátar og heimilisföng sem þú vistaðir á Browther-reikningnum þínum verða fjarlægð úr þessu tæki. Til að nota þau aftur í Browther skaltu skrá þig aftur inn.</translation>
 <translation id="395904275706073188">Ekki er hægt að lesa varðar síður. Prófaðu aðra síðu.</translation>
-<translation id="4194619960643453552">Kynntu þér hvernig Browther gætir að öryggi þínu</translation>
-<translation id="1486377520191913768">Þegar þú skrifar í veffangastikuna eða leitarreitinn sendir Browther það sem þú skrifar til leitarforrits fyrirtækisins þíns, gervigreindar og verkfæra hjá fulltrúum til að fá tillögur.</translation>
-<translation id="1311808042904310985">Um &amp;Browther for Testing</translation>
+<translation id="1832973663231751701">Kynntu þér hvernig Browther gætir að öryggi þínu</translation>
+<translation id="4531502594774670767">Þegar þú skrifar í veffangastikuna eða leitarreitinn sendir Browther það sem þú skrifar til leitarforrits fyrirtækisins þíns, gervigreindar og verkfæra hjá fulltrúum til að fá tillögur.</translation>
+<translation id="300013383485253006">Um &amp;Browther for Testing</translation>
 <translation id="1152920704813762236">Um ChromeOS</translation>
-<translation id="8282895427217902177">Þegar þú opnar vefsvæði sendir Browther ruglaðan hluta vefslóðarinnar til <ph name="BEGIN_LINK"/>Öruggrar vefskoðunar Browther<ph name="END_LINK"/> í gegnum traustan þjón sem felur IP-töluna þína. Ef vefsvæði gerir eitthvað grunsamlegt eru heilar vefslóðir og efnisbútar af síðu einnig sendir.</translation>
+<translation id="8126752030994997015">Þegar þú opnar vefsvæði sendir Browther ruglaðan hluta vefslóðarinnar til <ph name="BEGIN_LINK"/>Öruggrar vefskoðunar Browther<ph name="END_LINK"/> í gegnum traustan þjón sem felur IP-töluna þína. Ef vefsvæði gerir eitthvað grunsamlegt eru heilar vefslóðir og efnisbútar af síðu einnig sendir.</translation>
 <translation id="3703994572283698466">ChromeOS á tilvist sína að þakka öðrum <ph name="BEGIN_LINK_CROS_OSS"/>opnum hugbúnaði<ph name="END_LINK_CROS_OSS"/> og það sama á við um <ph name="BEGIN_LINK_LINUX_OSS"/>Linux-forritunarumhverfið <ph name="END_LINK_LINUX_OSS"/>.</translation>
 <translation id="4022972681110646219">Þýða skjá</translation>
 <translation id="4023601594785368013">Upprunalegt tungumál: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Opnaðu tengla úr hvaða forriti sem er í Browther og festu vafrann þar að auki á forritastikuna þína til að hafa greiðan aðgang að honum</translation>
-<translation id="6056473803837713617">Hjálpa til við að gera Browther betra með því að tilkynna um <ph name="BEGIN_LINK"/>núverandi stillingar<ph name="END_LINK"/></translation>
+<translation id="6450460108719059465">Opnaðu tengla úr hvaða forriti sem er í Browther og festu vafrann þar að auki á forritastikuna þína til að hafa greiðan aðgang að honum</translation>
+<translation id="3437506136408403836">Hjálpa til við að gera Browther betra með því að tilkynna um <ph name="BEGIN_LINK"/>núverandi stillingar<ph name="END_LINK"/></translation>
 <translation id="4050175100176540509">Mikilvægar öryggislagfæringar og nýir eiginleikar eru í boði í nýjustu útgáfunni.</translation>
 <translation id="4055805654398742145">Aðgangsorðastjórnun</translation>
-<translation id="6654312501894761082">Annað forrit í tölvunni þinni bætti viðbót við sem gæti breytt því hvernig Browther virkar.
+<translation id="2164947358785939495">Annað forrit í tölvunni þinni bætti viðbót við sem gæti breytt því hvernig Browther virkar.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í 1 mínútu. Vefskoðunargögnum er eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.}one{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútu. Vefskoðunargögnum er eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.}other{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútur. Vefskoðunargögnum er eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.}}</translation>
-<translation id="2589970573128789862">Huliðsstilling Browther</translation>
-<translation id="5794951150713244901">Fara á síðuna Um Browther</translation>
-<translation id="10925962326134232">Sérsníddu Browther til að gefa vafranum nýtt útlit</translation>
-<translation id="6596295505984504022">Sérsníddu Browther-vafrann þinn</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í 1 mínútu. Vefskoðunargögnum er eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.}one{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútu. Vefskoðunargögnum er eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.}other{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútur. Vefskoðunargögnum er eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.}}</translation>
+<translation id="3542179014707218534">Huliðsstilling Browther</translation>
+<translation id="1535413545339990419">Fara á síðuna Um Browther</translation>
+<translation id="692283249649018289">Sérsníddu Browther til að gefa vafranum nýtt útlit</translation>
+<translation id="6375229634133804834">Sérsníddu Browther-vafrann þinn</translation>
 <translation id="4148957013307229264">Setur upp...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> – innskráning á net – Browther</translation>
-<translation id="2871190378186459992">Uppgötvaðu frábær forrit, leiki, viðbætur og þemu fyrir Browther.</translation>
-<translation id="462105622535258178">Skráðu þig inn í Browther til að fá þessa viðbót og fleira í öllum tölvunum þínum</translation>
-<translation id="6670140629169983459">Til að vera öruggari á netinu með vali foreldra þinna skaltu skipta yfir í Browther-prófílinn þinn þar sem þú ert þegar innskráð(ur) sem <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> – innskráning á net – Browther</translation>
+<translation id="2911246138082876798">Uppgötvaðu frábær forrit, leiki, viðbætur og þemu fyrir Browther.</translation>
+<translation id="2528977475313334293">Skráðu þig inn í Browther til að fá þessa viðbót og fleira í öllum tölvunum þínum</translation>
+<translation id="8244267655940711467">Til að vera öruggari á netinu með vali foreldra þinna skaltu skipta yfir í Browther-prófílinn þinn þar sem þú ert þegar innskráð(ur) sem <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="4222932583846282852">Hættir við...</translation>
 <translation id="4224210481850767180">Hætt hefur verið við uppsetninguna.</translation>
-<translation id="1853997773668795891">Tengja Browther gögnin þín við þennan reikning?</translation>
-<translation id="4732930052828648898">Varar þig við hættulegum vefsvæðum, jafnvel þeim sem Browther hafði enga vitneskju um, með því að greina fleiri gögn frá vefsvæðum en hefðbundin vörn. Þú getur valið að sleppa Browther-viðvörunum.</translation>
-<translation id="2201661640076600072">Skrá út af Browther</translation>
-<translation id="3262506503470845422">Fá hjálp með Browther</translation>
+<translation id="8219359042845534271">Tengja Browther gögnin þín við þennan reikning?</translation>
+<translation id="5520777668172961882">Varar þig við hættulegum vefsvæðum, jafnvel þeim sem Browther hafði enga vitneskju um, með því að greina fleiri gögn frá vefsvæðum en hefðbundin vörn. Þú getur valið að sleppa Browther-viðvörunum.</translation>
+<translation id="2014920019837536689">Skrá út af Browther</translation>
+<translation id="4341512411059715879">Fá hjálp með Browther</translation>
 <translation id="4281844954008187215">Þjónustuskilmálar</translation>
-<translation id="7691786510374174420">Uppsetning mistókst vegna ótilgreindrar villu. Ef Browther er í gangi eins og er skaltu loka því og reyna aftur.</translation>
-<translation id="6368144843345980623">Flytja aðgangsorð út úr Browther</translation>
+<translation id="322492684764924424">Uppsetning mistókst vegna ótilgreindrar villu. Ef Browther er í gangi eins og er skaltu loka því og reyna aftur.</translation>
+<translation id="3813060261346666066">Flytja aðgangsorð út úr Browther</translation>
 <translation id="4304713468139749426">Aðgangsorðastjórnun</translation>
 <translation id="4334241893986177674">Leita að þessari skjámynd</translation>
 <translation id="4334294535648607276">Niðurhali lokið.</translation>
-<translation id="242356249838681145">Ræsa Browther þegar Windows ræsist</translation>
-<translation id="4747339441562331861">Fáðu greiðan aðgang að eiginleikunum sem þú þekkir, elskar og treystir með því að stilla Browther sem sjálfgefinn vafra. Browther verður festur við forritastikuna þína til að auðvelda aðgang.</translation>
+<translation id="2177954934431828302">Ræsa Browther þegar Windows ræsist</translation>
+<translation id="2472318668926455009">Fáðu greiðan aðgang að eiginleikunum sem þú þekkir, elskar og treystir með því að stilla Browther sem sjálfgefinn vafra. Browther verður festur við forritastikuna þína til að auðvelda aðgang.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> krefst þess að þú lesir og samþykkir eftirfarandi þjónustuskilmála áður en þú notar þetta tæki. Þessir skilmálar auka ekki við, breyta eða takmarka skilmála ChromeOS.</translation>
-<translation id="9183662282810237335">Viltu samt loka Browther?</translation>
+<translation id="2897580280700805340">Viltu samt loka Browther?</translation>
 <translation id="4413205837991854510">Alltaf sýna flýtileið myndaleitar</translation>
-<translation id="4065288863231444640">Leyfa Browther að keyra í bakgrunni</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther mælir með að þú fjarlægir hana. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/>}one{Browther mælir með að þú fjarlægir þær. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/>}other{Browther mælir með að þú fjarlægir þær. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Sérsníða og stjórna Browther</translation>
+<translation id="2454897022983434851">Leyfa Browther að keyra í bakgrunni</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther mælir með að þú fjarlægir hana. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/>}one{Browther mælir með að þú fjarlægir þær. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/>}other{Browther mælir með að þú fjarlægir þær. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Sérsníða og stjórna Browther</translation>
 <translation id="4427306783828095590">Aukin vernd gengur lengra í að loka á vefveiðar og spilliforrit</translation>
 <translation id="4434353761996769206">Uppsetningarvilla: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> hefur umsjón með Browther</translation>
-<translation id="3579012341787637143">Bæta við Browther-prófíl</translation>
-<translation id="6786534271003695094">Um Browther for Testing</translation>
-<translation id="526235294307144732">Sláðu inn aðgangsorðið þitt til að nota og vista Browther-gögn á Browther-reikningnum þínum.</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> hefur umsjón með Browther</translation>
+<translation id="4007482010626246887">Bæta við Browther-prófíl</translation>
+<translation id="6888322430074420631">Um Browther for Testing</translation>
+<translation id="8912436499620582668">Sláðu inn aðgangsorðið þitt til að nota og vista Browther-gögn á Browther-reikningnum þínum.</translation>
 <translation id="4493028449971051158">Villa í ræsingu: keyrðu uppsetningarforritið sem kerfisstjóri.</translation>
 <translation id="4501471624619070934">Uppsetning mistókst vegna þess að aðgangur er takmarkaður í landinu.</translation>
-<translation id="8594994021633965927">Þessi viðbót hefur ekki gefið út vinnureglur um persónuvernd, svo sem hvernig hún safnar og notar gögn. Browther mælir með að þú fjarlægir hana.</translation>
-<translation id="770557926599450702">Velkomin(n) í Browther Origin; nýr vafragluggi opnaður</translation>
-<translation id="137732229629632648">Browther þarfnast heimildar til að kortleggja umhverfið þitt og rekja handahreyfingarnar þínar</translation>
-<translation id="5036046007335188949">Þú ert þegar skráð(ur) inn sem <ph name="USER_EMAIL_ADDRESS"/> á öðrum Browther-prófíl</translation>
-<translation id="1878185978731985193">Browther forhleður síðum sem tryggir þér hraða vefskoðun og leit. <ph name="BEGIN_LINK"/>Nánar um að forhlaða síðum<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Þessi viðbót hefur ekki gefið út vinnureglur um persónuvernd, svo sem hvernig hún safnar og notar gögn. Browther mælir með að þú fjarlægir hana.</translation>
+<translation id="8888202093812883067">Velkomin(n) í Browther Origin; nýr vafragluggi opnaður</translation>
+<translation id="6391148383688605718">Browther þarfnast heimildar til að kortleggja umhverfið þitt og rekja handahreyfingarnar þínar</translation>
+<translation id="7756445485815468244">Þú ert þegar skráð(ur) inn sem <ph name="USER_EMAIL_ADDRESS"/> á öðrum Browther-prófíl</translation>
+<translation id="137435413163730206">Browther forhleður síðum sem tryggir þér hraða vefskoðun og leit. <ph name="BEGIN_LINK"/>Nánar um að forhlaða síðum<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Auktu netöryggi allra með því að tilkynna vefsvæði sem þú telur að sé skaðlegt.</translation>
-<translation id="8669339108356170796">Browther lokaði á þetta niðurhal vegna þess að þú slökktir á öruggri vefskoðun og ekki er hægt að staðfesta skrána</translation>
-<translation id="7583343841997441047">Prófaðu Browther-linsu með Browther í símanum þínum</translation>
+<translation id="3266647901351304597">Browther lokaði á þetta niðurhal vegna þess að þú slökktir á öruggri vefskoðun og ekki er hægt að staðfesta skrána</translation>
+<translation id="6980208900390333646">Prófaðu Browther-linsu með Browther í símanum þínum</translation>
 <translation id="4594305310729380060">Í Aðgangsorðastjórnun í þessu tæki</translation>
-<translation id="7776200949522126045">Browther Origin forrit</translation>
+<translation id="5282047884678321451">Browther Origin forrit</translation>
 <translation id="4598116752460667024">Leitaðu að hvaða ferli sem er á listanum.</translation>
 <translation id="4970880042055371251">Útgáfa ChromeOS</translation>
-<translation id="2182657378556811785">Næstum uppfært! Endurræstu Browther til að ljúka uppfærslunni.</translation>
-<translation id="6311668361877328515">Styttir hleðslutíma vefsvæða með V8-vél Browther en gerir Browther örlítið berskjaldaðri gagnvart árásum</translation>
-<translation id="1299765473362724475">Viðvörun: Browther getur ekki komið í veg fyrir að viðbætur skrái vafraferilinn þinn. Afturkallaðu þennan valkost til að gera þessa viðbót óvirka í huliðsstillingu.</translation>
-<translation id="7402642357351265733">Ef þú deilir einnig Browther notkunarskýrslum innihalda þær skýrslur vefslóðirnar sem þú opnar</translation>
-<translation id="8142245354207161805">Annað Browther-ferli (<ph name="PROCESS_ID"/>) virðist vera að nota þennan prófíl í annarri tölvu (<ph name="HOST_NAME"/>). Browther hefur læst prófílnum svo að hann skemmist ekki. Ef þú ert viss um að engin önnur ferli séu að nota þennan prófíl geturðu tekið hann úr lás og endurræst Browther.</translation>
+<translation id="4482468019601425607">Næstum uppfært! Endurræstu Browther til að ljúka uppfærslunni.</translation>
+<translation id="5517890123509214766">Styttir hleðslutíma vefsvæða með V8-vél Browther en gerir Browther örlítið berskjaldaðri gagnvart árásum</translation>
+<translation id="5245976396374147971">Viðvörun: Browther getur ekki komið í veg fyrir að viðbætur skrái vafraferilinn þinn. Afturkallaðu þennan valkost til að gera þessa viðbót óvirka í huliðsstillingu.</translation>
+<translation id="7690070364551268156">Ef þú deilir einnig Browther notkunarskýrslum innihalda þær skýrslur vefslóðirnar sem þú opnar</translation>
+<translation id="5020487088453637212">Annað Browther-ferli (<ph name="PROCESS_ID"/>) virðist vera að nota þennan prófíl í annarri tölvu (<ph name="HOST_NAME"/>). Browther hefur læst prófílnum svo að hann skemmist ekki. Ef þú ert viss um að engin önnur ferli séu að nota þennan prófíl geturðu tekið hann úr lás og endurræst Browther.</translation>
 <translation id="4680828127924988555">Hætta við uppsetningu</translation>
-<translation id="2014343159590733363">Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum eytt.</translation>
-<translation id="2408746614080689238">Á meðan þú ert innskráð(ur) geturðu notað aðgangsorðin þín og fleira af Browther-reikningnum þínum í Browther. <ph name="SHORTCUT"/> getur breytt stillingum þínum fyrir Browther-þjónustur.</translation>
-<translation id="847561904663814268">Einhver skráði sig inn á Browther úr þessari tölvu sem <ph name="ACCOUNT_EMAIL_LAST"/>. Stofnaðu nýjan notanda í Browther til að halda þínum upplýsingum aðskildum frá hinum notandanum.</translation>
+<translation id="8134827615154347946">Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum eytt.</translation>
+<translation id="3508712423420506333">Á meðan þú ert innskráð(ur) geturðu notað aðgangsorðin þín og fleira af Browther-reikningnum þínum í Browther. <ph name="SHORTCUT"/> getur breytt stillingum þínum fyrir Browther-þjónustur.</translation>
+<translation id="2388739442635757494">Einhver skráði sig inn á Browther úr þessari tölvu sem <ph name="ACCOUNT_EMAIL_LAST"/>. Stofnaðu nýjan notanda í Browther til að halda þínum upplýsingum aðskildum frá hinum notandanum.</translation>
 <translation id="4724676981607797757">Uppsetning mistókst vegna villu sem tengist óstuddri samskiptareglu.</translation>
-<translation id="3834935463915107022">Viltu samt loka Browther?</translation>
-<translation id="8668413672647811944">Sérstök öryggisuppfærsla fyrir Browther var tekin í notkun. Endurræstu núna og við opnum flipana þína aftur.</translation>
-<translation id="9029438584415578308">Spyrja Browther</translation>
-<translation id="4941816441131888792">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> og <ph name="COUNT"/> til viðbótar.</translation>
-<translation id="4823369970559443694">Browther getur ekki athugað aðgangsorðin þín. Reyndu aftur eftir sólarhring eða <ph name="BEGIN_LINK"/>athugaðu aðgangsorðin á Browther reikningnum þínum<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Þetta notar sömu ritvilluleit og er notuð í Browther-leit. Textinn sem þú skrifar í vafranum er sendur til Browther. Þú getur alltaf breytt þessu í stillingunum.</translation>
-<translation id="2899369907387169108">Nota Browther án reiknings</translation>
-<translation id="1833893255023048385">Regla á innleið til að láta Browther Origin leyfa mDNS-umferð.</translation>
-<translation id="711601904575862069">Endurræstu til að uppfæra &amp;Browther</translation>
+<translation id="8305313684264112434">Viltu samt loka Browther?</translation>
+<translation id="418155915144835101">Sérstök öryggisuppfærsla fyrir Browther var tekin í notkun. Endurræstu núna og við opnum flipana þína aftur.</translation>
+<translation id="2683970367518529374">Spyrja Browther</translation>
+<translation id="5064473048847774331">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> og <ph name="COUNT"/> til viðbótar.</translation>
+<translation id="5941343075741207533">Browther getur ekki athugað aðgangsorðin þín. Reyndu aftur eftir sólarhring eða <ph name="BEGIN_LINK"/>athugaðu aðgangsorðin á Browther reikningnum þínum<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Þetta notar sömu ritvilluleit og er notuð í Browther-leit. Textinn sem þú skrifar í vafranum er sendur til Browther. Þú getur alltaf breytt þessu í stillingunum.</translation>
+<translation id="4581078588976787792">Nota Browther án reiknings</translation>
+<translation id="3394520491703535051">Regla á innleið til að láta Browther Origin leyfa mDNS-umferð.</translation>
+<translation id="6563126962881169552">Endurræstu til að uppfæra &amp;Browther</translation>
 <translation id="4918086044614829423">Samþykkja</translation>
 <translation id="4918844574251943176">Mynd afrituð</translation>
-<translation id="8797356639448065696">Browther er í bakgrunnsstillingu.</translation>
-<translation id="1895567721497166950">Smelltu til að loka innskráningarglugga Browther</translation>
-<translation id="2692971232706994729">Þú getur aðskilið allt efnið þitt á Browther með Browther-prófílum. Stofnaðu prófíla fyrir vini og fjölskyldu eða skiptu á milli vinnu og afþreyingar.</translation>
-<translation id="7406627712452599344">Gestir geta notað Browther án þess að skilja eftir sig nokkur spor.</translation>
-<translation id="844471735881341044">Reikningurinn þinn í Browther</translation>
-<translation id="5952898964075639679">Bættu þér við Browther</translation>
-<translation id="7995865526174204486">Gemini í Browther notar sjálfvirka skoðun til að vinna í flipunum þínum og ljúka verkefnum sem þú gefur því. <ph name="LINK_BEGIN"/>Nánar<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther þarf heimild til að rekja handahreyfingar þínar</translation>
-<translation id="5406591571925937375">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">Browther er í bakgrunnsstillingu.</translation>
+<translation id="3603134280602182991">Smelltu til að loka innskráningarglugga Browther</translation>
+<translation id="6120233890602288442">Þú getur aðskilið allt efnið þitt á Browther með Browther-prófílum. Stofnaðu prófíla fyrir vini og fjölskyldu eða skiptu á milli vinnu og afþreyingar.</translation>
+<translation id="5722688387568011881">Gestir geta notað Browther án þess að skilja eftir sig nokkur spor.</translation>
+<translation id="7786958592460743302">Reikningurinn þinn í Browther</translation>
+<translation id="9114640791491590337">Bættu þér við Browther</translation>
+<translation id="3536391594566515053">Gemini í Browther notar sjálfvirka skoðun til að vinna í flipunum þínum og ljúka verkefnum sem þú gefur því. <ph name="LINK_BEGIN"/>Nánar<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther þarf heimild til að rekja handahreyfingar þínar</translation>
+<translation id="1627123463102858476">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Þú lokar yfirleitt á tilkynningar. Smelltu á tilkynningatáknið í hægra horni veffangastikunnar til að leyfa vefsvæðinu að senda þér tilkynningar.</translation>
 <translation id="5174983315706567306">Ekki nægilegt diskpláss.</translation>
-<translation id="8157129267754368853">Browther-reikningur þarfnast endurauðkenningar</translation>
-<translation id="9078804073692109646">Engin vistuð aðgangsorð. Browther getur athugað aðgangsorðin þín þegar þú vistar þau.</translation>
-<translation id="6234515504547364178">Skrá út af Browther</translation>
+<translation id="7091313576354542088">Browther-reikningur þarfnast endurauðkenningar</translation>
+<translation id="9045390598305758496">Engin vistuð aðgangsorð. Browther getur athugað aðgangsorðin þín þegar þú vistar þau.</translation>
+<translation id="5686724084351858452">Skrá út af Browther</translation>
 <translation id="5234764350956374838">Hunsa</translation>
 <translation id="5254739261293693943">Spyrja út í þetta vídeó</translation>
-<translation id="8586264863973514035">Endurræstu Browther til að breytingarnar taki gildi</translation>
+<translation id="8165028066129227692">Endurræstu Browther til að breytingarnar taki gildi</translation>
 <translation id="5286907366254680517">Greint</translation>
-<translation id="7264453786974905915">Sækja Browther-forritið</translation>
-<translation id="5994282802285556682">Þegar vafrað er í huliðsstillingu mun Browther vara þig við áður en vefsvæði með ótrygga tengingu er hlaðið</translation>
-<translation id="6944930779012811739">Innri uppfærsluþjónusta Browther</translation>
+<translation id="198210130507193824">Sækja Browther-forritið</translation>
+<translation id="2076355018722231995">Þegar vafrað er í huliðsstillingu mun Browther vara þig við áður en vefsvæði með ótrygga tengingu er hlaðið</translation>
+<translation id="8472078903122489041">Innri uppfærsluþjónusta Browther</translation>
 <translation id="5346389065299425353">Dýpkaðu leitina þína með því að bæta við mörgum flipum, skrám og verkfærum</translation>
-<translation id="7573068992266397941">Browther fann öryggistillögur sem þú þarft að fara yfir</translation>
-<translation id="8174413867995118050">Aðrir Browther-prófílar</translation>
-<translation id="7708394612738038097">Þú ert að skrá þig inn með stýrðum reikningi og veitir stjórnanda hans vald yfir Browther prófílnum þínum. Browther gögnin þín, s.s. forrit, bókamerki, ferill, aðgangsorð og aðrar stillingar, verða tengd varanlega við <ph name="USER_NAME"/>. Þú getur eytt þessum gögnum á stjórnborði Browther-reikninga en getur ekki tengt þau öðrum reikningi. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther fann öryggistillögur sem þú þarft að fara yfir</translation>
+<translation id="509616246140011182">Aðrir Browther-prófílar</translation>
+<translation id="8214429210535362385">Þú ert að skrá þig inn með stýrðum reikningi og veitir stjórnanda hans vald yfir Browther prófílnum þínum. Browther gögnin þín, s.s. forrit, bókamerki, ferill, aðgangsorð og aðrar stillingar, verða tengd varanlega við <ph name="USER_NAME"/>. Þú getur eytt þessum gögnum á stjórnborði Browther-reikninga en getur ekki tengt þau öðrum reikningi. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Viðbótarkóði: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Hafðu Browther með í vef- og forritavirkni til að fá aðgang að sérsniði</translation>
-<translation id="5154625106151193600">Kynntu þér hvers vegna Browther lokar á sumar skrár</translation>
-<translation id="1786715389543715322">Uppfærir Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Leyfa innskráningu í Browther</translation>
-<translation id="5267531627648004734">Fjarlægja úr Browther</translation>
-<translation id="4620757336635063467">Dregur úr afköstum en auðveldar Browther að verjast árásum</translation>
-<translation id="239760341987199724">Stilla Browther sem sjálfgefinn vafra</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> - tilraunaútgáfa Browther Origin</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther mælir með því að gera hlé á flipanum sem er að hægja á vafranum þínum}one{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}other{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}}</translation>
-<translation id="894936507076470937">Vera kann að Browther virki ekki sem skyldi vegna þess að það er ekki lengur stutt í þessu Linux-kerfi.</translation>
-<translation id="2596557398669145729">Browther lokaði á þetta niðurhal vegna þess að skráin getur skaðað persónulega reikninga og samfélagsmiðlareikninga þína</translation>
-<translation id="696826782632239602">Browther þarf staðsetningaraðgang til að deila staðsetningu þinni með þessu vefsvæði</translation>
-<translation id="1744365871163268756">Bíddu á meðan Browther setur upp nýjustu kerfisuppfærslunar.</translation>
-<translation id="3861679447659630159">Browther er að reyna að breyta aðgangsorðum. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
+<translation id="5244017809112094908">Hafðu Browther með í vef- og forritavirkni til að fá aðgang að sérsniði</translation>
+<translation id="8096544113811780871">Kynntu þér hvers vegna Browther lokar á sumar skrár</translation>
+<translation id="2384387444932590174">Uppfærir Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Leyfa innskráningu í Browther</translation>
+<translation id="6557334704331248411">Fjarlægja úr Browther</translation>
+<translation id="5832041381258620673">Dregur úr afköstum en auðveldar Browther að verjast árásum</translation>
+<translation id="3763317028635993788">Stilla Browther sem sjálfgefinn vafra</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> - tilraunaútgáfa Browther Origin</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther mælir með því að gera hlé á flipanum sem er að hægja á vafranum þínum}one{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}other{Browther mælir með því að gera hlé á flipunum sem eru að hægja á vafranum þínum}}</translation>
+<translation id="4423621904097888155">Vera kann að Browther virki ekki sem skyldi vegna þess að það er ekki lengur stutt í þessu Linux-kerfi.</translation>
+<translation id="6201726364919996698">Browther lokaði á þetta niðurhal vegna þess að skráin getur skaðað persónulega reikninga og samfélagsmiðlareikninga þína</translation>
+<translation id="7679204468655335605">Browther þarf staðsetningaraðgang til að deila staðsetningu þinni með þessu vefsvæði</translation>
+<translation id="1163572992704966942">Bíddu á meðan Browther setur upp nýjustu kerfisuppfærslunar.</translation>
+<translation id="5050118226119231029">Browther er að reyna að breyta aðgangsorðum. Sláðu inn Windows-aðgangsorðið þitt til að leyfa það.</translation>
 <translation id="5524890928877629608">efsta horn leitarsvæðis vinstra megin: til vinstri <ph name="LEFT"/>%, efst <ph name="TOP"/>%</translation>
-<translation id="232381795826373334">Opna PDF-skjöl í Browther</translation>
+<translation id="5875549039106594731">Opna PDF-skjöl í Browther</translation>
 <translation id="5536164441519929134">Spyrðu<ph name="LINE_BREAK"/>um þennan flipa</translation>
 <translation id="5579324208890605088">Villa í ræsingu: keyrðu uppsetningarforritið sem venjulegur notandi, ekki sem kerfisstjóri.</translation>
-<translation id="3588973534877826647">Notaðu Browther sem sjálfgefinn vafra og festu hann</translation>
+<translation id="202315329304302571">Notaðu Browther sem sjálfgefinn vafra og festu hann</translation>
 <translation id="5596627076506792578">Fleiri valkostir</translation>
 <translation id="5605834417512968703">Veldu hvað sem er til að leita með myndaleit eða ýttu á „Esc“ til að loka myndaleitinni</translation>
 <translation id="5618818588972826921">Veldu hvaða texta eða mynd sem er til að leita með myndaleit eða ýttu á „Esc“ til að loka myndaleitinni</translation>
-<translation id="1026406809507858026">{0,plural, =0{Uppfærsla er í boði fyrir Browther}=1{Uppfærsla er í boði fyrir Browther}one{Uppfærsla hefur verið í boði fyrir Browther í # dag}other{Uppfærsla hefur verið í boði fyrir Browther í # daga}}</translation>
-<translation id="1023472437588692618">Ávallt eyða vefsvæðagögnum úr tækinu þegar þú lokar Browther</translation>
-<translation id="5646769069113654257">Endurræstu Browther núna</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Birta Browther á þessu tungumáli</translation>
+<translation id="5823076755666406442">{0,plural, =0{Uppfærsla er í boði fyrir Browther}=1{Uppfærsla er í boði fyrir Browther}one{Uppfærsla hefur verið í boði fyrir Browther í # dag}other{Uppfærsla hefur verið í boði fyrir Browther í # daga}}</translation>
+<translation id="8414129876440043675">Ávallt eyða vefsvæðagögnum úr tækinu þegar þú lokar Browther</translation>
+<translation id="5156991567152325333">Endurræstu Browther núna</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Birta Browther á þessu tungumáli</translation>
 <translation id="569897634095159764">Ekki er hægt að tengjast internetinu. Staðgengilsþjónninn krefst auðkenningar.</translation>
-<translation id="3364613146104156465">Browther-prófílar gera þér kleift að halda persónulegri vefskoðun og vinnu aðskildum. Bættu nýjum prófíl við núna.</translation>
-<translation id="1834213228893578875">Browther endurheimtir minni úr óvirkum flipum. Þetta veitir virkum flipum og öðrum forritum meiri tölvugögn og heldur Browther hröðum. Óvirkir flipar virkjast aftur sjálfkrafa þegar þú opnar þá. <ph name="BEGIN_LINK"/>Nánar um minnissparnað<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">Ef þú gleymdir aðgangsorðinu þínu eða vilt breyta þessari stillingu skaltu <ph name="SETTINGS_LINK"/> Browther-gögnin á reikningnum þínum.</translation>
-<translation id="82926023981336111">Sérsníddu og stjórnaðu Browther. Stilltu Browther sem sjálfgefinn vafra.</translation>
+<translation id="4215338057953170891">Browther-prófílar gera þér kleift að halda persónulegri vefskoðun og vinnu aðskildum. Bættu nýjum prófíl við núna.</translation>
+<translation id="5366435608642317052">Browther endurheimtir minni úr óvirkum flipum. Þetta veitir virkum flipum og öðrum forritum meiri tölvugögn og heldur Browther hröðum. Óvirkir flipar virkjast aftur sjálfkrafa þegar þú opnar þá. <ph name="BEGIN_LINK"/>Nánar um minnissparnað<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">Ef þú gleymdir aðgangsorðinu þínu eða vilt breyta þessari stillingu skaltu <ph name="SETTINGS_LINK"/> Browther-gögnin á reikningnum þínum.</translation>
+<translation id="7763291835437810978">Sérsníddu og stjórnaðu Browther. Stilltu Browther sem sjálfgefinn vafra.</translation>
 <translation id="5809516625706423866">Ekki er hægt að tengjast internetinu. HTTP 403 óheimilt. Kannaðu uppsetningu staðgengilsþjóna.</translation>
-<translation id="95980832839683236">Styttir hleðslutíma vefsvæða með V8-vél Browther en gerir Browther örlítið berskjaldaðri gagnvart árásum. Slökkt er á þessari stillingu.</translation>
-<translation id="1224606669200461217">Til að nota og vista Browther-gögn á Browther-reikningnum þínum skaltu uppfæra Browther</translation>
+<translation id="1827132270895283425">Styttir hleðslutíma vefsvæða með V8-vél Browther en gerir Browther örlítið berskjaldaðri gagnvart árásum. Slökkt er á þessari stillingu.</translation>
+<translation id="1553025851718680114">Til að nota og vista Browther-gögn á Browther-reikningnum þínum skaltu uppfæra Browther</translation>
 <translation id="5824893331272123205">Ekki tókst að hlaða glugganum, reyndu aftur</translation>
-<translation id="4467664627714200493">Velkomin(n) í Browther Origin</translation>
+<translation id="6642862349634944253">Velkomin(n) í Browther Origin</translation>
 <translation id="5871205389137001634">Smelltu til að loka myndaleit</translation>
-<translation id="8054200348483755053">Browther komst að því að eftirfarandi atriði innihalda spilliforrit:</translation>
-<translation id="3955583201925082436">Browther athugar reglulega hvort vafrinn þinn sé með öruggustu stillingarnar. Við látum þig vita ef þú þarft að yfirfara eitthvað.</translation>
+<translation id="7586794330537887406">Browther komst að því að eftirfarandi atriði innihalda spilliforrit:</translation>
+<translation id="1666897346518812892">Browther athugar reglulega hvort vafrinn þinn sé með öruggustu stillingarnar. Við látum þig vita ef þú þarft að yfirfara eitthvað.</translation>
 <translation id="5895138241574237353">Endurræsa</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> – innskráning á net</translation>
 <translation id="5924017743176219022">Tengist internetinu…</translation>
 <translation id="5941711191222866238">Minnka</translation>
-<translation id="5768962901674164501">Skráðu þig inn í Browther til að fá þetta bókamerki og fleiri í öllum tækjunum þínum</translation>
-<translation id="5101892358689285100">Gerðu Browther-vafrann að þínum</translation>
+<translation id="4938357262936377412">Skráðu þig inn í Browther til að fá þetta bókamerki og fleiri í öllum tækjunum þínum</translation>
+<translation id="260974496993853147">Gerðu Browther-vafrann að þínum</translation>
 <translation id="5960071705175224773">Óþekkt forrit breytti stillingunum þínum</translation>
 <translation id="5968400720580217226">Gervigreindarstilling</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í 1 mínútu.}one{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútu.}other{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútur.}}</translation>
-<translation id="3598551856834560515">Uppfærðu Browther til að hefja samstillingu</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í 1 mínútu.}one{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútu.}other{Fyrirtækið lokar Browther sjálfkrafa eftir aðgerðaleysi í # mínútur.}}</translation>
+<translation id="5852664780493076676">Uppfærðu Browther til að hefja samstillingu</translation>
 <translation id="6003112304606738118">Sækir... <ph name="HOURS"/> klst. eftir</translation>
 <translation id="6009821354356307391">Spyrja framhaldsspurningar</translation>
 <translation id="6040143037577758943">Loka</translation>
-<translation id="700488072601322385">Til að vernda gögnin þín skaltu leyfa Browther að fjarlægja heimildir vefsvæða sem þú hefur ekki opnað nýlega. Stöðvar ekki tilkynningar.</translation>
-<translation id="9071554113102421877">&amp;Opna í Browther</translation>
+<translation id="2495504229007749358">Til að vernda gögnin þín skaltu leyfa Browther að fjarlægja heimildir vefsvæða sem þú hefur ekki opnað nýlega. Stöðvar ekki tilkynningar.</translation>
+<translation id="6038969823662006832">&amp;Opna í Browther</translation>
 <translation id="6069027071882229820">Afrita sem mynd</translation>
-<translation id="7861579472672677409"><ph name="EXTENSION_NAME"/> hefur verið bætt við Browther</translation>
-<translation id="5849446944780602366">Sérstilltu og stjórnaðu Browther. Uppfærsla er í boði.</translation>
-<translation id="5711722515923392428">Kveikt • Browther getur ekki staðfest hvaðan þessi viðbót kemur</translation>
-<translation id="6355366566986893068">Reikningurinn þinn í Browther</translation>
-<translation id="7433698744896946664">Leyfa viðbót að sýna aðgangsbeiðnir í tækjastiku Browther</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> er skaðleg skrá og Browther útilokaði hana.</translation>
-<translation id="991182453936521413">Browther mun bráðlega lokast og eyða gögnum</translation>
-<translation id="4060970194201477024">Hér geturðu skipt á milli Browther prófíla</translation>
-<translation id="7815000350132166985">Ef þú leyfir fótspor kann Browther að nota þau við forhleðslu</translation>
+<translation id="6606690217326148454"><ph name="EXTENSION_NAME"/> hefur verið bætt við Browther</translation>
+<translation id="6037324269860323082">Sérstilltu og stjórnaðu Browther. Uppfærsla er í boði.</translation>
+<translation id="3695768481578778794">Kveikt • Browther getur ekki staðfest hvaðan þessi viðbót kemur</translation>
+<translation id="4401885752362736126">Reikningurinn þinn í Browther</translation>
+<translation id="4310817187912076496">Leyfa viðbót að sýna aðgangsbeiðnir í tækjastiku Browther</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> er skaðleg skrá og Browther útilokaði hana.</translation>
+<translation id="5139243417751674628">Browther mun bráðlega lokast og eyða gögnum</translation>
+<translation id="4696750309605389299">Hér geturðu skipt á milli Browther prófíla</translation>
+<translation id="7475001351099358916">Ef þú leyfir fótspor kann Browther að nota þau við forhleðslu</translation>
 <translation id="6165508094623778733">Frekari upplýsingar</translation>
-<translation id="5739368447874065758">Eyddu Browther-gögnum af reikningnum þínum</translation>
-<translation id="6685697979743742605">Þessi skrá kann að vera hættuleg<ph name="LINE_BREAK"/>Browther getur athugað niðurhalið fyrir þig ef þú gefur upp aðgangsorðið. Upplýsingar um skrána verða sendar í örugga vefskoðun Browther en efni og aðgangsorð hennar verða eftir í tækinu þínu.</translation>
+<translation id="5975099973700540482">Eyddu Browther-gögnum af reikningnum þínum</translation>
+<translation id="6800151735486681860">Þessi skrá kann að vera hættuleg<ph name="LINE_BREAK"/>Browther getur athugað niðurhalið fyrir þig ef þú gefur upp aðgangsorðið. Upplýsingar um skrána verða sendar í örugga vefskoðun Browther en efni og aðgangsorð hennar verða eftir í tækinu þínu.</translation>
 <translation id="6182736845697986886">Uppsetning mistókst vegna innri villu uppfærsluþjóns.</translation>
-<translation id="4368341489795135329">Vertu viss um að þú sért skráð(ur) inn á Browther í <ph name="TARGET_DEVICE_NAME"/> og reyndu svo að senda aftur.</translation>
-<translation id="3038354906709778538">Annað forrit í tölvunni þinni bætti forriti við sem gæti breytt því hvernig Browther virkar.
+<translation id="48832130233362517">Vertu viss um að þú sért skráð(ur) inn á Browther í <ph name="TARGET_DEVICE_NAME"/> og reyndu svo að senda aftur.</translation>
+<translation id="8868210753005945522">Annað forrit í tölvunni þinni bætti forriti við sem gæti breytt því hvernig Browther virkar.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Á þessari tölvu er þegar nýrri útgáfa af Browther. Ef hugbúnaðurinn virkar ekki skaltu fjarlægja Browther og reyna aftur.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther verður endurræst núna}=1{Browther verður endurræst eftir 1 sekúndu}one{Browther verður endurræst eftir # sekúndu}other{Browther verður endurræst eftir # sekúndur}}</translation>
+<translation id="2779436101182061679">Á þessari tölvu er þegar nýrri útgáfa af Browther. Ef hugbúnaðurinn virkar ekki skaltu fjarlægja Browther og reyna aftur.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther verður endurræst núna}=1{Browther verður endurræst eftir 1 sekúndu}one{Browther verður endurræst eftir # sekúndu}other{Browther verður endurræst eftir # sekúndur}}</translation>
 <translation id="6239161312595354541">Spyrja Myndaleit um þetta vídeó</translation>
-<translation id="5980269616827212166">Browther verður að fá aðgang að geymslurými til að sækja skrár</translation>
-<translation id="7651600795135059130">Ber vefslóðir saman við lista yfir óörugg vefsvæði sem er vistaður í Browther</translation>
-<translation id="5019879183386042809">Gera Browther að sjálfgefnum vafra</translation>
-<translation id="7445061995866044926">Skrá út af Browther?</translation>
-<translation id="4659866260728515512">Þessir flipar nota aukagögn. Leyfðu Browther að óvirkja þá til að bæta afköstin.</translation>
-<translation id="6806912298071949921">Sérsníða Browther prófílinn þinn</translation>
-<translation id="3792238845239580301">Gefðu Browther prófílnum þínum heiti</translation>
-<translation id="5874208157501051620">Viðbót vill að þú skráir þig inn á Browther</translation>
-<translation id="3561569806301739367"><ph name="FILE_NAME"/> gæti verið skaðleg skrá og Browther útilokaði hana.</translation>
-<translation id="3205074487970075628">Browther er að nota myndavélina þína.</translation>
+<translation id="1755464917870815989">Browther verður að fá aðgang að geymslurými til að sækja skrár</translation>
+<translation id="304681001513922736">Ber vefslóðir saman við lista yfir óörugg vefsvæði sem er vistaður í Browther</translation>
+<translation id="7785903492969539081">Gera Browther að sjálfgefnum vafra</translation>
+<translation id="3987833816263696343">Skrá út af Browther?</translation>
+<translation id="4723540739671534529">Þessir flipar nota aukagögn. Leyfðu Browther að óvirkja þá til að bæta afköstin.</translation>
+<translation id="6540151687468239291">Sérsníða Browther prófílinn þinn</translation>
+<translation id="770793114032605647">Gefðu Browther prófílnum þínum heiti</translation>
+<translation id="385867753870250529">Viðbót vill að þú skráir þig inn á Browther</translation>
+<translation id="2022337046348377650"><ph name="FILE_NAME"/> gæti verið skaðleg skrá og Browther útilokaði hana.</translation>
+<translation id="45270956603278068">Browther er að nota myndavélina þína.</translation>
 <translation id="6327105987658262776">Uppfærsla er ekki tiltæk.</translation>
-<translation id="1819119299840995223">Önnur aðgerð er í gangi í Browther. Reyndu aftur síðar.</translation>
-<translation id="8616874628011103667">Nú er auðveldara að nota Browther með Browther reikningnum þínum og í samnýttum tölvum.</translation>
-<translation id="4264606872840545968">Browther-flýtilykill</translation>
-<translation id="6890616081898535725">Browther lokaði á þetta niðurhal vegna þess að skráin er ekki sótt oft og gæti verið hættuleg</translation>
-<translation id="335632367599648646">Viltu örugglega fjarlægja Browther?</translation>
+<translation id="673633752219771459">Önnur aðgerð er í gangi í Browther. Reyndu aftur síðar.</translation>
+<translation id="1482759407165416070">Nú er auðveldara að nota Browther með Browther reikningnum þínum og í samnýttum tölvum.</translation>
+<translation id="5538042432112726532">Browther-flýtilykill</translation>
+<translation id="833085228901080512">Browther lokaði á þetta niðurhal vegna þess að skráin er ekki sótt oft og gæti verið hættuleg</translation>
+<translation id="491120842288314439">Viltu örugglega fjarlægja Browther?</translation>
 <translation id="6375219077595103062">Bættu við flýtileið í Aðgangsorðastjórnun</translation>
 <translation id="6388799252195623474">hjálpa mér með þetta</translation>
-<translation id="7920857181125123335">Skráðu þig inn í Browther sem <ph name="EMAIL"/> til að halda áfram. Það tryggir að reglur fyrirtækisins þíns gildi.</translation>
-<translation id="3256100650978957522">Browther-lógó á tölvuskjá.</translation>
-<translation id="5880764554173582719">Browther Origin er vafri sem keyrir vefsíður og forrit með ótrúlegum hraða. Hann er hraðvirkur, stöðugur og einfaldur í notkun. Notaðu vefinn á öruggari hátt með innbyggðri vernd Browther Origin gegn spilliforritum og vefveiðum.</translation>
-<translation id="2532326772258858491">Browther virkar hraðar og eiginleikar sem nota JavaScript ættu að virka sem skyldi (ráðlagt)</translation>
+<translation id="6715003312952407375">Skráðu þig inn í Browther sem <ph name="EMAIL"/> til að halda áfram. Það tryggir að reglur fyrirtækisins þíns gildi.</translation>
+<translation id="1897845318651970239">Browther-lógó á tölvuskjá.</translation>
+<translation id="4702069255970029302">Browther Origin er vafri sem keyrir vefsíður og forrit með ótrúlegum hraða. Hann er hraðvirkur, stöðugur og einfaldur í notkun. Notaðu vefinn á öruggari hátt með innbyggðri vernd Browther Origin gegn spilliforritum og vefveiðum.</translation>
+<translation id="5669767676913031391">Browther virkar hraðar og eiginleikar sem nota JavaScript ættu að virka sem skyldi (ráðlagt)</translation>
 <translation id="6436260184216827876">Myndaleit er ekki í boði. Reyndu aftur síðar.</translation>
 <translation id="2139300032719313227">Endurræsa ChromeOS</translation>
-<translation id="638302211119176182">Browther forhleður fleiri síðum sem er líklegt að þú munir skoða svo að þær hlaðist fyrr þegar þú opnar þær</translation>
-<translation id="7167975344637731051">Sæktu Browther í símanum þínum til að rekja verð og fá tilkynningar þegar verðið lækkar á einhverri síðu</translation>
-<translation id="890319829408077946">Slökkt • Browther getur ekki staðfest hvaðan þessi viðbót kemur</translation>
-<translation id="1684121725014454063">Velkomin(n) í Browther prófíla</translation>
-<translation id="8211983866539058675">Næst þegar þú opnar Browther í <ph name="DEVICE_TYPE"/> muntu sjá ábendingu um að nota flipahópa.</translation>
-<translation id="7906693299331092358">Fjarlægja reikning úr Browther</translation>
+<translation id="6110616900529884221">Browther forhleður fleiri síðum sem er líklegt að þú munir skoða svo að þær hlaðist fyrr þegar þú opnar þær</translation>
+<translation id="1217194059001819677">Sæktu Browther í símanum þínum til að rekja verð og fá tilkynningar þegar verðið lækkar á einhverri síðu</translation>
+<translation id="7058555680120557198">Slökkt • Browther getur ekki staðfest hvaðan þessi viðbót kemur</translation>
+<translation id="676533642429632127">Velkomin(n) í Browther prófíla</translation>
+<translation id="5518682889576009702">Næst þegar þú opnar Browther í <ph name="DEVICE_TYPE"/> muntu sjá ábendingu um að nota flipahópa.</translation>
+<translation id="6038105561107837619">Fjarlægja reikning úr Browther</translation>
 <translation id="2675662665675552980">Stýrir því einnig hvaða síða birtist þegar þú ræsir Browther.</translation>
 <translation id="648319183876919572">Enn öruggari vefskoðun gerir viðbótarráðstafanir til að vernda þig gegn skaðlegum vefsvæðum og niðurhali</translation>
-<translation id="5590013613412457132">Fjarlægja Browther</translation>
-<translation id="7185585387858242335">Flýtileiðir opnast í Browther</translation>
-<translation id="3617744907966785605">Fyrirtækið þitt lokar Browther eftir aðgerðaleysi í <ph name="TIMEOUT_DURATION"/>. Vefskoðunargögnum var eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.</translation>
-<translation id="8646609321956191980">Á hverjum prófíl eru geymdar Browther upplýsingar á borð við bókamerki, feril, aðgangsorð og fleira</translation>
-<translation id="6756656512757374876">Nánar um <ph name="BEGIN_LINK"/>hvernig Browther heldur gögnunum þínum leyndum<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">Breytingar á þessari stillingu taka gildi þegar Browther endurræsist.</translation>
-<translation id="2535436634051789953">Þú getur skipt um prófíl til að sjá aðgangsorð frá öðrum Browther-prófíl</translation>
-<translation id="2312399718665761438">Til að lagfæra stafsetningarvillur sendir Browther textann sem þú skrifar í textareiti til Browther</translation>
-<translation id="3507835409099344374">Fara í tilkynningastillingar Browther</translation>
+<translation id="2930243146591999795">Fjarlægja Browther</translation>
+<translation id="5241183382286817629">Flýtileiðir opnast í Browther</translation>
+<translation id="7907014599435829661">Fyrirtækið þitt lokar Browther eftir aðgerðaleysi í <ph name="TIMEOUT_DURATION"/>. Vefskoðunargögnum var eytt. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.</translation>
+<translation id="2088471423667794811">Á hverjum prófíl eru geymdar Browther upplýsingar á borð við bókamerki, feril, aðgangsorð og fleira</translation>
+<translation id="9040334484455218184">Nánar um <ph name="BEGIN_LINK"/>hvernig Browther heldur gögnunum þínum leyndum<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">Breytingar á þessari stillingu taka gildi þegar Browther endurræsist.</translation>
+<translation id="6331317152404762758">Þú getur skipt um prófíl til að sjá aðgangsorð frá öðrum Browther-prófíl</translation>
+<translation id="6097706403184348562">Til að lagfæra stafsetningarvillur sendir Browther textann sem þú skrifar í textareiti til Browther</translation>
+<translation id="2319647238307402812">Fara í tilkynningastillingar Browther</translation>
 <translation id="6600016381025017075">Leitaðu að hverju sem er á síðunni</translation>
-<translation id="9156965752763025780">Breytingar þínar munu taka gildi næst þegar þú endurræsir Browther.</translation>
-<translation id="3387992981600748596">Browther ræsist nú þegar Windows ræsist, svo að þú getur byrjað að vafra samstundis. Þú getur slökkt á þessu í stillingunum.</translation>
-<translation id="3119017564683030312">Haltu áfram þaðan sem frá var horfið: Browther endurheimtir flipana sem þú varst með opna síðast. Þú getur slökkt á þessu í</translation>
-<translation id="245693535809364497">Browther verður að fá leyfi fyrir myndavél til að búa til þrívíddarkort af umhverfi þínu</translation>
-<translation id="9210457680074341078">Ef þú vistar bókamerkin þín einnig á Browther-reikningnum þínum geturðu vaktað verð á vörum í Browther og fengið tilkynningar þegar verð lækka</translation>
+<translation id="8031938899816118394">Breytingar þínar munu taka gildi næst þegar þú endurræsir Browther.</translation>
+<translation id="7412185356697187964">Browther ræsist nú þegar Windows ræsist, svo að þú getur byrjað að vafra samstundis. Þú getur slökkt á þessu í stillingunum.</translation>
+<translation id="9123343592576384616">Haltu áfram þaðan sem frá var horfið: Browther endurheimtir flipana sem þú varst með opna síðast. Þú getur slökkt á þessu í</translation>
+<translation id="5847926498049048567">Browther verður að fá leyfi fyrir myndavél til að búa til þrívíddarkort af umhverfi þínu</translation>
+<translation id="5532585028508811858">Ef þú vistar bókamerkin þín einnig á Browther-reikningnum þínum geturðu vaktað verð á vörum í Browther og fengið tilkynningar þegar verð lækka</translation>
 <translation id="6676384891291319759">Aðgangur að internetinu</translation>
 <translation id="1363996462118479832">ChromeOS gat ekki samstillt gögnin þín vegna innskráningarvillu.</translation>
-<translation id="4694512973195649124">Fjarlægja þessi forritsgögn úr Browther</translation>
-<translation id="5324448127277983819">Browther veitir þér betri stjórn á auglýsingunum sem þú sérð og takmarkar upplýsingar um þig sem vefsvæði safna þegar þau birta þér sérsniðnar auglýsingar</translation>
-<translation id="1257247502847251159">Browther verður að fá leyfi fyrir hljóðnema fyrir þetta vefsvæði</translation>
+<translation id="3373239673945775810">Fjarlægja þessi forritsgögn úr Browther</translation>
+<translation id="8122759674786039814">Browther veitir þér betri stjórn á auglýsingunum sem þú sérð og takmarkar upplýsingar um þig sem vefsvæði safna þegar þau birta þér sérsniðnar auglýsingar</translation>
+<translation id="6277682530398500159">Browther verður að fá leyfi fyrir hljóðnema fyrir þetta vefsvæði</translation>
 <translation id="6712881677154121168">Niðurhalsvilla: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Ekki er hægt að nota prófílinn þinn því hann er úr nýrri útgáfu af Browther.
+<translation id="2972046656127603037">Ekki er hægt að nota prófílinn þinn því hann er úr nýrri útgáfu af Browther.
 
 Sumir eiginleikar kunna að verða óaðgengilegir. Tilgreindu aðra prófílamöppu eða notaðu nýrri útgáfu af Browther.</translation>
-<translation id="1505112054322049777">Hafðu Browther með í vef- og forritavirkni og tengdum Browther-þjónustum til að fá aðgang að sérsniði og öðrum eiginleikum</translation>
-<translation id="6666624454809779082">Browther hefur þegar verið sett upp fyrir alla notendur í tölvunni.</translation>
-<translation id="5848830584656405219">Skráðu þig inn á Browther til að fá aðgang að bókamerkjum og fleiru í öllum tækjunum þínum Þetta bókamerki verður vistað á Browther-reikningnum þínum eftir að þú skráir þig inn.</translation>
-<translation id="4020203987234748583">Styttir hleðslutíma vefsvæða með V8-vél Browther en gerir Browther örlítið berskjaldaðri gagnvart árásum. Kveikt er á þessari stillingu.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum (1 atriði) eytt.}one{Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}other{Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}}</translation>
-<translation id="3136039682492230890">Browther mælir með að skanna þessa skrá þar sem hún gæti verið hættuleg.</translation>
+<translation id="871671753163165892">Hafðu Browther með í vef- og forritavirkni og tengdum Browther-þjónustum til að fá aðgang að sérsniði og öðrum eiginleikum</translation>
+<translation id="5000832110229523807">Browther hefur þegar verið sett upp fyrir alla notendur í tölvunni.</translation>
+<translation id="5204575479550973859">Skráðu þig inn á Browther til að fá aðgang að bókamerkjum og fleiru í öllum tækjunum þínum Þetta bókamerki verður vistað á Browther-reikningnum þínum eftir að þú skráir þig inn.</translation>
+<translation id="2874208284092283937">Styttir hleðslutíma vefsvæða með V8-vél Browther en gerir Browther örlítið berskjaldaðri gagnvart árásum. Kveikt er á þessari stillingu.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum (1 atriði) eytt.}one{Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}other{Einhver Browther-gögn hafa ekki enn verið vistuð á Browther-reikningnum þínum. Prófaðu að bíða í nokkrar mínútur áður en þú skráir þig út. Ef þú skráir þig út núna verður þessum gögnum ({count} atriði) eytt.}}</translation>
+<translation id="7683816018918395929">Browther mælir með að skanna þessa skrá þar sem hún gæti verið hættuleg.</translation>
 <translation id="1547295885616600893">ChromeOS á tilvist sína að þakka öðrum <ph name="BEGIN_LINK_CROS_OSS"/>opnum hugbúnaði<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="6831043979455480757">Þýða</translation>
-<translation id="8211837073776713955">Browther lætur þig vita ef aðgangsorðin þín eru einhvern tímann í hættu</translation>
+<translation id="2142653375108595728">Browther lætur þig vita ef aðgangsorðin þín eru einhvern tímann í hættu</translation>
 <translation id="684888714667046800">Ekki er hægt að tengjast internetinu. Ef þú notar eldvegg skaltu tryggja að <ph name="PRODUCT_EXE_NAME"/> sé á hvíta listanum.</translation>
-<translation id="7830723774663008396">Browther – <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther – <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Dálkalykill til að halda áfram</translation>
 <translation id="6862030660799253820">Leita á þessari mynd með Myndaleit</translation>
-<translation id="3028928628792374067">Browther komst að því að „<ph name="EXTENSION_NAME"/>“ inniheldur spilliforrit</translation>
+<translation id="3860339351709082396">Browther komst að því að „<ph name="EXTENSION_NAME"/>“ inniheldur spilliforrit</translation>
 <translation id="6877155553248388166">neðsta horn leitarsvæðis hægra megin: til hægri <ph name="RIGHT"/>%, neðst <ph name="BOTTOM"/>%</translation>
 <translation id="6896758677409633944">Afrita</translation>
-<translation id="862687584320433626">Stilltu Browther sem sjálfgefinn vafra og festu hann við forritastikuna</translation>
-<translation id="1991562568473125499">&amp;Stjórna Browther-prófílum</translation>
+<translation id="7804113502310231166">Stilltu Browther sem sjálfgefinn vafra og festu hann við forritastikuna</translation>
+<translation id="3228374215117173004">&amp;Stjórna Browther-prófílum</translation>
 <translation id="6934579572334859869">Spyrja Myndaleit um þessa mynd</translation>
-<translation id="5529781826378237601">Þú náðir hámarksfjölda bókamerkja í Browther (<ph name="BOOKMARK_LIMIT"/>) svo að sum bókamerkin þín hafa ekki verið vistuð á Browther-reikningnum þínum enn sem komið er.
+<translation id="5995328366516663808">Þú náðir hámarksfjölda bókamerkja í Browther (<ph name="BOOKMARK_LIMIT"/>) svo að sum bókamerkin þín hafa ekki verið vistuð á Browther-reikningnum þínum enn sem komið er.
 
 Ekki er hægt að vista ný bókamerki á reikningnum þínum fyrr en þú eyðir einhverjum. Ef þú skráir þig út núna verður óvistuðum bókamerkjum eytt.</translation>
-<translation id="4624945300945265642">Opna tengil í &amp;huliðsglugga í Browther</translation>
+<translation id="3031052147361385845">Opna tengil í &amp;huliðsglugga í Browther</translation>
 <translation id="6965382102122355670">Í lagi</translation>
-<translation id="6418340404893954563">Léleg aðgangsorð eru þau sem auðvelt er að giska á. Leyfðu Browther <ph name="BEGIN_LINK"/>að búa til traust aðgangsorð fyrir þig og muna þau<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Léleg aðgangsorð eru þau sem auðvelt er að giska á. Leyfðu Browther <ph name="BEGIN_LINK"/>að búa til traust aðgangsorð fyrir þig og muna þau<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Skilmálar ChromeOS</translation>
-<translation id="3335606533094650083">Browther þarf leyfi til að nota hljóðnemann á þessu vefsvæði</translation>
-<translation id="6643520655691573653">Sláðu inn aðgangsorðið þitt til að nota og vista Browther-gögn á reikningnum þínum, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="5379058926689137454">Browther þarf leyfi til að nota hljóðnemann á þessu vefsvæði</translation>
+<translation id="4684462982894889021">Sláðu inn aðgangsorðið þitt til að nota og vista Browther-gögn á reikningnum þínum, <ph name="ACCOUNT_EMAIL"/></translation>
 <translation id="7011190694940573312">Uppsetning mistókst vegna þess að þessi útgáfa af stýrikerfinu er ekki studd.</translation>
 <translation id="7024536598735240744">Villa við afpökkun: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Uppsetning var stöðvuð.</translation>
-<translation id="280382502853897110">Lagaðu Browther að þínum þörfum</translation>
+<translation id="8257174622576051374">Lagaðu Browther að þínum þörfum</translation>
 <translation id="7047386856539490735">Eru þessar niðurstöður gagnlegar?</translation>
-<translation id="1705567146636171298">Uppfæra Browther</translation>
-<translation id="5499063270485366718">Ef gagnlega lýsingu vantar við mynd reynir Browther að útvega þér lýsingu. Til að búa til lýsingar eru myndir sendar til Browther.</translation>
-<translation id="5966368554860795750">Sérsníða Browther for Testing</translation>
-<translation id="792838367208896130">Þú getur notað Browther hvenær sem þú smellir á tengla í skilaboðum, skjölum og öðrum forritum</translation>
-<translation id="375314543563594498">Fjarlægja <ph name="EXTENSION_NAME"/> úr Browther</translation>
-<translation id="2332301637111071062">Fyrirtækið þitt eyðir Browther-gögnum þegar þau eru ekki notuð í <ph name="TIMEOUT_DURATION"/>. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.</translation>
-<translation id="1008530050039597147">Browther verður að fá leyfi fyrir myndavél fyrir þetta vefsvæði</translation>
-<translation id="1197672524850678392">Ekki var hægt að ræsa Browther. Reyndu aftur.</translation>
-<translation id="3405035915691517126">Browther getur ekki athugað aðgangsorðin þín. Reyndu aftur eftir sólarhring.</translation>
-<translation id="3625983487600668413">Hafðu Browther í dokkunni þinni til að hafa það ávallt við höndina</translation>
-<translation id="5755581833598928580">Notaðu Browther þegar þú smellir á tengla í skilaboðum, skjölum og öðrum forritum</translation>
-<translation id="5516268345616100622">Verkstjórn – Browther</translation>
-<translation id="713191641919118540">Áhugasvið þín samkvæmt mati Browther</translation>
-<translation id="1871621397473741084">Byrjaðu að vafra samstundis: Nú getur Browther ræst þegar Windows ræsist.</translation>
+<translation id="1772745060691790742">Uppfæra Browther</translation>
+<translation id="4937970118065051027">Ef gagnlega lýsingu vantar við mynd reynir Browther að útvega þér lýsingu. Til að búa til lýsingar eru myndir sendar til Browther.</translation>
+<translation id="1594112132009288601">Sérsníða Browther for Testing</translation>
+<translation id="5915000938288527952">Þú getur notað Browther hvenær sem þú smellir á tengla í skilaboðum, skjölum og öðrum forritum</translation>
+<translation id="8775664994493381735">Fjarlægja <ph name="EXTENSION_NAME"/> úr Browther</translation>
+<translation id="3276648807841991013">Fyrirtækið þitt eyðir Browther-gögnum þegar þau eru ekki notuð í <ph name="TIMEOUT_DURATION"/>. Þetta getur falið í sér feril, sjálfvirka útfyllingu og niðurhal.</translation>
+<translation id="4725226878394159809">Browther verður að fá leyfi fyrir myndavél fyrir þetta vefsvæði</translation>
+<translation id="8931474625901592021">Ekki var hægt að ræsa Browther. Reyndu aftur.</translation>
+<translation id="8242947409070121799">Browther getur ekki athugað aðgangsorðin þín. Reyndu aftur eftir sólarhring.</translation>
+<translation id="1737922827960215472">Hafðu Browther í dokkunni þinni til að hafa það ávallt við höndina</translation>
+<translation id="335855266303176628">Notaðu Browther þegar þú smellir á tengla í skilaboðum, skjölum og öðrum forritum</translation>
+<translation id="709455597778444012">Verkstjórn – Browther</translation>
+<translation id="7147140345767587643">Áhugasvið þín samkvæmt mati Browther</translation>
+<translation id="7337408274890534789">Byrjaðu að vafra samstundis: Nú getur Browther ræst þegar Windows ræsist.</translation>
 <translation id="7274695763216404502">Fest! Opnaðu myndaleit aftur af tækjastikunni</translation>
 <translation id="7288567540154601580">Flipar og viðbætur</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther mælir með að þú fjarlægir hana}one{Browther mælir með að þú fjarlægir þær}other{Browther mælir með að þú fjarlægir þær}}</translation>
-<translation id="4600669988724328687">Til að deila kerfishljóði skaltu opna kerfisstillingarnar og leyfa „Aðeins upptaka kerfishljóðs“ fyrir Browther. Þú þarft að endurræsa Browther í kjölfarið.</translation>
-<translation id="9068395155143628872">Auglýsingamælingar heimila vefsvæðum sem þú opnar að biðja Browther um upplýsingar sem hjálpa vefsvæðinu að mæla afköst auglýsinga þess. Auglýsingamælingar takmarka rakningu á milli vefsvæða með því að flytja eins lítið magn upplýsinga á milli vefsvæða og mögulegt er.</translation>
-<translation id="1864557848095568223">Uppfærir Browther</translation>
-<translation id="3403365884036456766">Kjörstillingaskráin þín er skemmd eða ógild.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther mælir með að þú fjarlægir hana}one{Browther mælir með að þú fjarlægir þær}other{Browther mælir með að þú fjarlægir þær}}</translation>
+<translation id="1527644038571473502">Til að deila kerfishljóði skaltu opna kerfisstillingarnar og leyfa „Aðeins upptaka kerfishljóðs“ fyrir Browther. Þú þarft að endurræsa Browther í kjölfarið.</translation>
+<translation id="1427913074981060872">Auglýsingamælingar heimila vefsvæðum sem þú opnar að biðja Browther um upplýsingar sem hjálpa vefsvæðinu að mæla afköst auglýsinga þess. Auglýsingamælingar takmarka rakningu á milli vefsvæða með því að flytja eins lítið magn upplýsinga á milli vefsvæða og mögulegt er.</translation>
+<translation id="1657652725060525338">Uppfærir Browther</translation>
+<translation id="884846289464870238">Kjörstillingaskráin þín er skemmd eða ógild.
 
 Browther getur ekki endurheimt stillingarnar þínar.</translation>
 <translation id="7339898014177206373">Nýr gluggi</translation>
-<translation id="3511996232906761537">Hér er vefefnið þitt, bókamerkin og annað dót úr Browther.</translation>
-<translation id="1754899895078387289">Aðeins einstaklingar sem eru með aðgangsorðið þitt geta lesið dulkóðuðu gögnin þín. Aðgangsorðið er hvorki sent til né vistað hjá Browther. Ef þú gleymir aðgangsorðinu eða vilt breyta þessari stillingu þarftu að <ph name="BEGIN_LINK"/>eyða Browther-gögnunum á reikningnum þínum<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Kerfisstjórinn hefur stillt Browther Browther á að opna <ph name="ALTERNATIVE_BROWSER_NAME"/> til að fá aðgang að <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="633044855886370183">Hér er vefefnið þitt, bókamerkin og annað dót úr Browther.</translation>
+<translation id="1185960088713242527">Aðeins einstaklingar sem eru með aðgangsorðið þitt geta lesið dulkóðuðu gögnin þín. Aðgangsorðið er hvorki sent til né vistað hjá Browther. Ef þú gleymir aðgangsorðinu eða vilt breyta þessari stillingu þarftu að <ph name="BEGIN_LINK"/>eyða Browther-gögnunum á reikningnum þínum<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Kerfisstjórinn hefur stillt Browther Browther á að opna <ph name="ALTERNATIVE_BROWSER_NAME"/> til að fá aðgang að <ph name="TARGET_URL_HOSTNAME"/>.</translation>
 <translation id="7352651011704765696">Eitthvað fór úrskeiðis</translation>
-<translation id="6085660187823915017">Til að halda áfram að fá uppfærslur fyrir Browther þarftu macOS 13 eða nýrri útgáfu. Þessi tölva notar macOS 12.</translation>
-<translation id="2865744782251083875">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/></translation>
-<translation id="4631170166710903214">Þessi viðbót er ekki lengur studd. Browther mælir með að þú fjarlægir hana þess í stað.</translation>
-<translation id="7951152294775418909">Haltu áfram þaðan sem frá var horfið: Browther endurheimtir flipana þína í hvert skipti sem þú hefst handa. Þú getur slökkt á þessu í</translation>
-<translation id="3191314862567596053">Flytja aðgangsorð inn í Browther</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
+<translation id="6638123710106659002">Til að halda áfram að fá uppfærslur fyrir Browther þarftu macOS 13 eða nýrri útgáfu. Þessi tölva notar macOS 12.</translation>
+<translation id="7286289384512061761">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/></translation>
+<translation id="113593073175678746">Þessi viðbót er ekki lengur studd. Browther mælir með að þú fjarlægir hana þess í stað.</translation>
+<translation id="137615076640044304">Haltu áfram þaðan sem frá var horfið: Browther endurheimtir flipana þína í hvert skipti sem þú hefst handa. Þú getur slökkt á þessu í</translation>
+<translation id="5967238175620483220">Flytja aðgangsorð inn í Browther</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
 <translation id="7450541714075000668">Texti afritaður</translation>
-<translation id="2034072705932785495">Browther þarf leyfi til að nota myndavélina á þessu vefsvæði</translation>
-<translation id="7129342855140808694">Veittu Browther aðgang að hljóðnemanum þínum í <ph name="BEGIN_LINK"/>kerfisstillingum<ph name="END_LINK"/> til að geta notað hann</translation>
-<translation id="5296583608321648908">Til að fá frekari uppfærslur á Browther þarftu Windows 10 eða nýrri útgáfu. Þessi tölva notar Windows 7.</translation>
-<translation id="3962395975456095331">Endurræsa Browther?</translation>
-<translation id="2619516027171717873">Ekki er hægt að setja upp sömu útgáfu Browther og er nú þegar í gangi. Lokaðu Browther og reyndu aftur.</translation>
-<translation id="2731639583336131792">Þú vistar og notar aðgangsorðin þín og margt fleira á Browther-reikningnum þegar þú ert með innskráningu í Browther. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Vefsvæði munu líklega virka sem skyldi. Þú skráist út af flestum vefsvæðum þegar þú lokar öllum Browther-gluggum en ekki út af Browther-reikningnum þínum ef þú hefur skráð þig inn á Browther.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther verður endurræst eftir 1 mínútu}one{Browther verður endurræst eftir # mínútu}other{Browther verður endurræst eftir # mínútur}}</translation>
-<translation id="552342471964912391">Til að vernda gögnin þín skaltu leyfa Browther að fjarlægja heimildir vefsvæða sem þú hefur ekki opnað nýlega.</translation>
-<translation id="3826701455067637694">Ræstu Browther sjálfkrafa til að byrja að skoða vefinn í hvelli.</translation>
+<translation id="7766009218653304791">Browther þarf leyfi til að nota myndavélina á þessu vefsvæði</translation>
+<translation id="5844418066487488520">Veittu Browther aðgang að hljóðnemanum þínum í <ph name="BEGIN_LINK"/>kerfisstillingum<ph name="END_LINK"/> til að geta notað hann</translation>
+<translation id="8065480549334161841">Til að fá frekari uppfærslur á Browther þarftu Windows 10 eða nýrri útgáfu. Þessi tölva notar Windows 7.</translation>
+<translation id="6299293759264950896">Endurræsa Browther?</translation>
+<translation id="180908550381040105">Ekki er hægt að setja upp sömu útgáfu Browther og er nú þegar í gangi. Lokaðu Browther og reyndu aftur.</translation>
+<translation id="7625576878150380853">Þú vistar og notar aðgangsorðin þín og margt fleira á Browther-reikningnum þegar þú ert með innskráningu í Browther. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Vefsvæði munu líklega virka sem skyldi. Þú skráist út af flestum vefsvæðum þegar þú lokar öllum Browther-gluggum en ekki út af Browther-reikningnum þínum ef þú hefur skráð þig inn á Browther.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther verður endurræst eftir 1 mínútu}one{Browther verður endurræst eftir # mínútu}other{Browther verður endurræst eftir # mínútur}}</translation>
+<translation id="3602613943932672197">Til að vernda gögnin þín skaltu leyfa Browther að fjarlægja heimildir vefsvæða sem þú hefur ekki opnað nýlega.</translation>
+<translation id="8759568213742229377">Ræstu Browther sjálfkrafa til að byrja að skoða vefinn í hvelli.</translation>
 <translation id="7583399374488819119">Uppsetningarforrit <ph name="COMPANY_NAME"/></translation>
-<translation id="3293668930608086049">Browther er að nota myndavélina þína og hljóðnema.</translation>
-<translation id="2827121003398607864">Browther er nú enn betra</translation>
-<translation id="3071313329776323836">Nú standa fleiri eiginleikar þér til boða í Browther</translation>
+<translation id="8991800242749014880">Browther er að nota myndavélina þína og hljóðnema.</translation>
+<translation id="2692328388439821508">Browther er nú enn betra</translation>
+<translation id="4318444066563223295">Nú standa fleiri eiginleikar þér til boða í Browther</translation>
 <translation id="7649070708921625228">Hjálp</translation>
-<translation id="4008841832817149051">Láttu Browther skoða fyrir þig</translation>
+<translation id="5591287320769313116">Láttu Browther skoða fyrir þig</translation>
 <translation id="7658239707568436148">Hætta við</translation>
-<translation id="3343095737966473035">Browther er ekki sjálfgefinn vafri</translation>
-<translation id="5477319665405831211">Samstilltu Browther á milli tækja og gerðu það að þínu</translation>
-<translation id="2339273275658335597">Browther-uppfærsla</translation>
+<translation id="6325482130534634729">Browther er ekki sjálfgefinn vafri</translation>
+<translation id="8185915921134219287">Samstilltu Browther á milli tækja og gerðu það að þínu</translation>
+<translation id="5120421624925726813">Browther-uppfærsla</translation>
 <translation id="7716950018788545737">Verkefni/verkefnum lauk.</translation>
 <translation id="77283119132245232">Sér <ph name="BROWSER_NAME"/> fyrir kerfisrakningarþjónustu. Ef slökkt er á þessari þjónustu munu afkastaspor sem búin eru til af vafranum ekki innihalda viðburði úr öllu kerfinu eins og samhengisskipti og tilbúna þráðarviðburði.</translation>
-<translation id="4784414698887946907">Þetta mun eyða vefskoðunargögnunum þínum úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögnin síðar.</translation>
+<translation id="6542096191573265107">Þetta mun eyða vefskoðunargögnunum þínum úr þessu tæki. Skráðu þig inn í Browther sem <ph name="USER_EMAIL"/> til að endurheimta gögnin síðar.</translation>
 <translation id="7747138024166251722">Uppsetningarforritið gat ekki búið til tímabundna möppu. Athugaðu laust diskpláss og heimildir fyrir uppsetningu hugbúnaðar.</translation>
-<translation id="8543787950557226450">Endurstilla á sjálfgefið Browther</translation>
-<translation id="4976450819672499783">Stilltu Browther sem sjálfgefinn vafra og festu hann við forritastikuna</translation>
-<translation id="1978509466033734608">Láttu Browther vinna hraðar</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
-<translation id="2684504034454188774">Gerðu fólki með aðgang að netumferðinni þinni erfiðara fyrir að sjá hvaða vefsvæði þú skoðar. Browther notar örugga tengingu til að finna IP-tölu vefsvæðis í DNS (nafnakerfi léna).</translation>
+<translation id="351575328720488268">Endurstilla á sjálfgefið Browther</translation>
+<translation id="1054170408395182418">Stilltu Browther sem sjálfgefinn vafra og festu hann við forritastikuna</translation>
+<translation id="4569594230301902490">Láttu Browther vinna hraðar</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
+<translation id="7893465573639396635">Gerðu fólki með aðgang að netumferðinni þinni erfiðara fyrir að sjá hvaða vefsvæði þú skoðar. Browther notar örugga tengingu til að finna IP-tölu vefsvæðis í DNS (nafnakerfi léna).</translation>
 <translation id="7810005234485217901">Þú getur fest myndaleit til að hafa greiðan aðgang að henni</translation>
-<translation id="1652855885539187849">Browther prófíll með þessum reikningi er þegar til í þessu tæki</translation>
+<translation id="2462631024103158515">Browther prófíll með þessum reikningi er þegar til í þessu tæki</translation>
 <translation id="7845233973568007926">Takk fyrir að setja upp. Þú þarft að endurræsa tölvuna áður en þú getur notað <ph name="BUNDLE_NAME"/>.</translation>
-<translation id="9148690296223500734">Sérsníddu Browther til að gefa honum nýtt útlit</translation>
-<translation id="79269250264141507">Þegar þú skrifar í veffangastiku eða leitarreit sendir Browther það sem þú skrifar á sjálfgefna leitarvél til að fá betri tillögur. Slökkt er á þessu í huliðsstillingu.</translation>
-<translation id="7963515534397191222">Ekki var hægt að uppfæra Browther í nýjustu útgáfu og þú ferð því á mis við nýja eiginleika og öryggislagfæringar.</translation>
+<translation id="311190437086049332">Sérsníddu Browther til að gefa honum nýtt útlit</translation>
+<translation id="6954203250660846933">Þegar þú skrifar í veffangastiku eða leitarreit sendir Browther það sem þú skrifar á sjálfgefna leitarvél til að fá betri tillögur. Slökkt er á þessu í huliðsstillingu.</translation>
+<translation id="6728847658878265103">Ekki var hægt að uppfæra Browther í nýjustu útgáfu og þú ferð því á mis við nýja eiginleika og öryggislagfæringar.</translation>
 <translation id="7872446069773932638">Sækir... <ph name="SECONDS"/> sek. eftir</translation>
-<translation id="5545136190679883344">Ef þú gleymdir aðgangsorðinu eða vilt breyta þessari stillingu skaltu <ph name="BEGIN_LINK"/>eyða Browther-gögnunum á reikningnum þínum<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">Ef þú gleymdir aðgangsorðinu eða vilt breyta þessari stillingu skaltu <ph name="BEGIN_LINK"/>eyða Browther-gögnunum á reikningnum þínum<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">Spyrja um þessa mynd</translation>
-<translation id="5687542525349822727">Stilltu Browther sem sjálfgefinn vafra</translation>
-<translation id="6396151137840491551">Browther uppfærir óöruggar tengingar sjálfkrafa í HTTPS þegar hægt er</translation>
-<translation id="2925193881330501265">Þú varst skráð(ur) inn í Browther sem <ph name="USER_EMAIL_ADDRESS"/>. Notaðu sama reikning til að skrá þig inn aftur.</translation>
-<translation id="6915252145142862992">Þetta er aukaleg uppsetning á Browther sem ekki er hægt að gera að sjálfgefnum vafra.</translation>
-<translation id="1743665722170667430">Viðbætur, forrit og þemu frá óþekktum uppruna geta skaðað tækið þitt. Browther mælir með að sækja slíkar skrár aðeins í <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
+<translation id="9172499982238113829">Stilltu Browther sem sjálfgefinn vafra</translation>
+<translation id="3313826726620159669">Browther uppfærir óöruggar tengingar sjálfkrafa í HTTPS þegar hægt er</translation>
+<translation id="3317928686912559532">Þú varst skráð(ur) inn í Browther sem <ph name="USER_EMAIL_ADDRESS"/>. Notaðu sama reikning til að skrá þig inn aftur.</translation>
+<translation id="6007009085341946457">Þetta er aukaleg uppsetning á Browther sem ekki er hægt að gera að sjálfgefnum vafra.</translation>
+<translation id="9074842261125908635">Viðbætur, forrit og þemu frá óþekktum uppruna geta skaðað tækið þitt. Browther mælir með að sækja slíkar skrár aðeins í <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
 <translation id="8004582292198964060">Vafri</translation>
 <translation id="8010081455002666927">Greina sjálfkrafa</translation>
-<translation id="7685904775439037072">Þegar Browther hefur aðgang munu vefsvæði geta beðið þig um aðgang.</translation>
-<translation id="3230755314472063687">Festu Browther við forritastikuna til að hafa það ávallt við höndina</translation>
+<translation id="174885789898161653">Þegar Browther hefur aðgang munu vefsvæði geta beðið þig um aðgang.</translation>
+<translation id="3001754454174546602">Festu Browther við forritastikuna til að hafa það ávallt við höndina</translation>
 <translation id="80471789339884597">Takk fyrir að setja upp. Þú þarft að endurræsa alla vafra áður en þú getur notað <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="8054112667659782652">Alltaf sýna flýtileið myndaleitar</translation>
-<translation id="6175141682081019059">Ekki leyfa Browther að keyra forrit í bakgrunni</translation>
+<translation id="6993312779622863465">Ekki leyfa Browther að keyra forrit í bakgrunni</translation>
 <translation id="80790299200510644">Myndaleit</translation>
 <translation id="8086881907087796310">Uppsetning mistókst vegna þess að tölvan þín uppfyllir ekki lágmarksskilyrði um vélbúnað.</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/> - Browther Origin for Testing</translation>
-<translation id="2061155704815580583">Browther verður að fá staðsetningarheimild fyrir þetta vefsvæði</translation>
-<translation id="3576319845915562805">Næst þegar þú opnar Browther í <ph name="DEVICE_TYPE"/> muntu sjá ábendingu um að kveikja á verðrakningartilkynningum.</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/> - Browther Origin for Testing</translation>
+<translation id="543407324609820492">Browther verður að fá staðsetningarheimild fyrir þetta vefsvæði</translation>
+<translation id="1767887552863788514">Næst þegar þú opnar Browther í <ph name="DEVICE_TYPE"/> muntu sjá ábendingu um að kveikja á verðrakningartilkynningum.</translation>
 <translation id="8118331347066725040">Senda ábendingu vegna leitar með Linsu</translation>
 <translation id="5334309298019785904">ChromeOS gat ekki samstillt gögnin þín vegna þess að samstilling er ekki í boði fyrir lénið þitt.</translation>
 <translation id="813913629614996137">Frumstillir...</translation>
-<translation id="1081849497974110565">Viðbótarþjónustuskilmálar Browther</translation>
-<translation id="9067428552314418522">Þessi skrá er hættuleg og þess vegna útilokaði Browther hana.</translation>
+<translation id="4879101934056397619">Viðbótarþjónustuskilmálar Browther</translation>
+<translation id="4505690237431768764">Þessi skrá er hættuleg og þess vegna útilokaði Browther hana.</translation>
 <translation id="8177472873527554730">Ekki tókst að finna efni á síðu</translation>
-<translation id="6219250889396046657">Sláðu inn aðgangsorðið þitt til að nota og vista Browther-gögn á reikningnum þínum, <ph name="USER_EMAIL"/></translation>
+<translation id="4720341280133158605">Sláðu inn aðgangsorðið þitt til að nota og vista Browther-gögn á reikningnum þínum, <ph name="USER_EMAIL"/></translation>
 <translation id="8221491193165283816">Þú lokar yfirleitt á tilkynningar. Ef þú vilt leyfa þessu vefsvæði að birta þér tilkynningar skaltu smella hér.</translation>
-<translation id="8377926237617998195">Veittu Browther aðgang að myndavélinni þinni í <ph name="BEGIN_LINK"/>kerfisstillingum<ph name="END_LINK"/> til að geta notað hana</translation>
-<translation id="1755067029031059271">Browther getur ekki staðfest hvaðan þessi viðbót kemur og hún gæti verið óörugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum.</translation>
-<translation id="8207657266087451193">Ef gagnlega lýsingu vantar við mynd reynir Browther að útvega þér lýsingu. Til að búa til lýsingar eru myndir sendar til Browther. Þú getur slökkt á þessu hvenær sem er í stillingunum.</translation>
-<translation id="7792526144795244436">Skrá þig inn á Browther með nýjum prófíl?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther varar þig við<ph name="END_LINK"/> ótraustum vefsvæðum og niðurhali</translation>
-<translation id="8060549744348950090">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Notaðu myndavélina þína í Browther iOS-forritinu til að versla, þýða og bera kennsl á það sem þú sérð</translation>
+<translation id="1083711467946065278">Veittu Browther aðgang að myndavélinni þinni í <ph name="BEGIN_LINK"/>kerfisstillingum<ph name="END_LINK"/> til að geta notað hana</translation>
+<translation id="6569785137733211804">Browther getur ekki staðfest hvaðan þessi viðbót kemur og hún gæti verið óörugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum.</translation>
+<translation id="1122818205373648656">Ef gagnlega lýsingu vantar við mynd reynir Browther að útvega þér lýsingu. Til að búa til lýsingar eru myndir sendar til Browther. Þú getur slökkt á þessu hvenær sem er í stillingunum.</translation>
+<translation id="6877990294324319801">Skrá þig inn á Browther með nýjum prófíl?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther varar þig við<ph name="END_LINK"/> ótraustum vefsvæðum og niðurhali</translation>
+<translation id="1685486387921540822">Þú hefur ekki skoðað vefsvæðið nýlega. Browther fjarlægði <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Notaðu myndavélina þína í Browther iOS-forritinu til að versla, þýða og bera kennsl á það sem þú sérð</translation>
 <translation id="8313851650939857356">Villa í ræsingu: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Fyrirtækið þitt lokar Browther eftir aðgerðaleysi í <ph name="TIMEOUT_DURATION"/>.</translation>
+<translation id="7386947683604296534">Fyrirtækið þitt lokar Browther eftir aðgerðaleysi í <ph name="TIMEOUT_DURATION"/>.</translation>
 <translation id="8321888067342493336">Vista sem mynd</translation>
-<translation id="3360368475735266712">Skráðu þig inn til að samstilla Browther í tækjunum þínum og gera það að þínu</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> var áður að nota Browther</translation>
-<translation id="5592122595094519401">Uppfærðu Browther til að halda áfram að nota Browther-gögnin á Browther-reikningnum þínum, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="2569754604093464025">Til að fá frekari uppfærslur á Browther þarftu Windows 10 eða nýrri útgáfu. Þessi tölva notar Windows 8.</translation>
+<translation id="143016831128278157">Skráðu þig inn til að samstilla Browther í tækjunum þínum og gera það að þínu</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> var áður að nota Browther</translation>
+<translation id="1288164710697017468">Uppfærðu Browther til að halda áfram að nota Browther-gögnin á Browther-reikningnum þínum, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="8648401677359150296">Til að fá frekari uppfærslur á Browther þarftu Windows 10 eða nýrri útgáfu. Þessi tölva notar Windows 8.</translation>
 <translation id="8362914115861174987">Þýða yfir á</translation>
 <translation id="8367705492654390392">Spurðu að hverju sem er</translation>
-<translation id="7296197595428914424">Skráðu þig inn á Browther til að fá aðgang að aðgangsorðum og fleiru í öllum tækjunum þínum. Þetta aðgangsorð verður vistað á Browther-reikningnum þínum eftir að þú skráir þig inn.</translation>
-<translation id="9098234372282930719">Þú þarft að endurræsa Browther í kjölfarið.</translation>
-<translation id="1327729221471951979">Browther mælir með að þú fjarlægir hana. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Útgefandi þessarar viðbótar afturkallaði hana og hún kann að vera óörugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum þínum.</translation>
-<translation id="4234753748520037091">Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum eytt.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Endurræstu Browther innan dags}one{Endurræstu Browther innan # dags}other{Endurræstu Browther innan # daga}}</translation>
+<translation id="5769022907892823357">Skráðu þig inn á Browther til að fá aðgang að aðgangsorðum og fleiru í öllum tækjunum þínum. Þetta aðgangsorð verður vistað á Browther-reikningnum þínum eftir að þú skráir þig inn.</translation>
+<translation id="4782442810031768771">Þú þarft að endurræsa Browther í kjölfarið.</translation>
+<translation id="8265348385714408341">Browther mælir með að þú fjarlægir hana. <ph name="BEGIN_LINK"/>Nánar um studdar viðbætur<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Útgefandi þessarar viðbótar afturkallaði hana og hún kann að vera óörugg. Fjarlægðu hana úr Browther svo hún geti ekki lengur séð og breytt gögnum á vefsvæðum sem þú heimsækir, þ.m.t. persónuupplýsingum þínum.</translation>
+<translation id="1613655732912855341">Browther þarf að staðfesta að þetta sért þú svo að þú getir vistað tiltekin gögn á Browther-reikningnum þínum og notað þau í öllum tækjunum þínum. Ef þú skráir þig út núna verður þessum gögnum eytt.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Endurræstu Browther innan dags}one{Endurræstu Browther innan # dags}other{Endurræstu Browther innan # daga}}</translation>
 <translation id="8438543370129609977">Þegar þú notar myndaleit verða titill síðu, vefslóð og innihald, að meðtöldum PDF-skjölum, send til þjónsins. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Nánar um myndaleit í Browther</translation>
-<translation id="6914496861676471566">Uppsetningarsafnskráin er skemmd eða ógild. Sæktu Browther aftur.</translation>
-<translation id="4378573854226202617">Browther krefst Windows 10 eða nýrri útgáfu.</translation>
-<translation id="6431861494713261006">Valfrjálst: Hjálpa til við að bæta eiginleika og afköst ChromeOS með því að senda greiningar- og notkunargögn sjálfkrafa til Browther.</translation>
-<translation id="8691137711639873980">Staðfestu að þetta sért þú til að nota og vista Browther-gögn á Browther-reikningnum þínum</translation>
-<translation id="3251012123600267109">Sýna innskráningartilkynningar í Browther</translation>
-<translation id="2097604701283463988">Browther er úrelt</translation>
-<translation id="6080203201796279095">Takk fyrir að velja Browther sem sjálfgefinn vafra!</translation>
-<translation id="871233388178581868">Browther getur athugað aðgangsorðin þín þegar þú vistar þau</translation>
-<translation id="3667461919057407535">Fáðu viðvörun ef Browther finnur eitt aðgangsorðanna þinna í almennu öryggisbroti</translation>
+<translation id="3550129882823305293">Nánar um myndaleit í Browther</translation>
+<translation id="1401757916223057494">Uppsetningarsafnskráin er skemmd eða ógild. Sæktu Browther aftur.</translation>
+<translation id="5029760494698649486">Browther krefst Windows 10 eða nýrri útgáfu.</translation>
+<translation id="7906734902028783072">Valfrjálst: Hjálpa til við að bæta eiginleika og afköst ChromeOS með því að senda greiningar- og notkunargögn sjálfkrafa til Browther.</translation>
+<translation id="6791756730901393492">Staðfestu að þetta sért þú til að nota og vista Browther-gögn á Browther-reikningnum þínum</translation>
+<translation id="4879869745782826167">Sýna innskráningartilkynningar í Browther</translation>
+<translation id="2967761098021401720">Browther er úrelt</translation>
+<translation id="7674832651694000881">Takk fyrir að velja Browther sem sjálfgefinn vafra!</translation>
+<translation id="4507581730979762077">Browther getur athugað aðgangsorðin þín þegar þú vistar þau</translation>
+<translation id="7205233182271132386">Fáðu viðvörun ef Browther finnur eitt aðgangsorðanna þinna í almennu öryggisbroti</translation>
 <translation id="8555465886620020932">Þjónustuvilla: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Þú getur fest myndaleit til að hafa greiðan aðgang að henni: Smelltu á hnappinn „Festa“ efst í hliðarglugganum</translation>
 <translation id="856656450041460113">Leita í lista tungumála</translation>
-<translation id="227028348235968071">Browther getur athugað aðgangsorðin þín þegar þú skráir þig inn með Browther reikningnum þínum</translation>
-<translation id="839677568225616901">Mörg fyrirtæki hafa umsjón með Browther</translation>
-<translation id="8121009781989288430">Höfundarréttur <ph name="YEAR"/> höfundar Browther. Allur réttur áskilinn.</translation>
+<translation id="75470458211269379">Browther getur athugað aðgangsorðin þín þegar þú skráir þig inn með Browther reikningnum þínum</translation>
+<translation id="2108930010779660436">Mörg fyrirtæki hafa umsjón með Browther</translation>
+<translation id="7209630341463003999">Höfundarréttur <ph name="YEAR"/> höfundar Browther. Allur réttur áskilinn.</translation>
 <translation id="8601359445272098721">Nýtt! Þú getur þýtt bæði texta og myndir á skjánum þínum með því að velja hnappinn „þýða skjá“</translation>
-<translation id="3052349005266761501">Ræsir Browther...</translation>
+<translation id="782928371899183269">Ræsir Browther...</translation>
 <translation id="8624541899164515475">Stillingar, opnast í nýjum flipa.</translation>
-<translation id="5128665650717824082">Ekki er hægt að gera Browther for Testing að sjálfgefna vafranum þínum.</translation>
+<translation id="5879341334716115002">Ekki er hægt að gera Browther for Testing að sjálfgefna vafranum þínum.</translation>
 <translation id="2433912322225810055">Það stýrir því einnig hvaða síða opnast þegar þú ræsir Browther eða leitar í veffangastikunni.</translation>
-<translation id="4100716194836114130">Browther er þitt</translation>
+<translation id="4816541973978692496">Browther er þitt</translation>
 <translation id="8712637175834984815">Ég skil</translation>
-<translation id="1419543648228375718">Skrá þig inn á Browther?</translation>
-<translation id="4891728458408976811">Hafðu allt í Browther</translation>
+<translation id="9037464035997618895">Skrá þig inn á Browther?</translation>
+<translation id="7897185368811431919">Hafðu allt í Browther</translation>
 <translation id="8747073452963259673">neðsta horn leitarsvæðis vinstra megin: til vinstri <ph name="LEFT"/>%, neðst <ph name="BOTTOM"/>%</translation>
 <translation id="878572486461146056">Uppsetningarvilla: Kerfisstjórinn hefur notað hópreglu sem kemur í veg fyrir uppsetningu: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">Browther þarf leyfi til að nota myndavélina og hljóðnemann á þessu vefsvæði</translation>
+<translation id="1576369213923770885">Browther þarf leyfi til að nota myndavélina og hljóðnemann á þessu vefsvæði</translation>
 <translation id="8813277370772331957">Minna mig á seinna</translation>
-<translation id="64216977793816291">Skrá þig inn í Browther?</translation>
-<translation id="7447364954121496869">Gerðu Browther að sjálfgefnum vafra og festu hann á forritastikuna</translation>
+<translation id="6831999464349484462">Skrá þig inn í Browther?</translation>
+<translation id="3698151322107951111">Gerðu Browther að sjálfgefnum vafra og festu hann á forritastikuna</translation>
 <translation id="8826492472752484139">Smelltu á „Aðgangsorðastjórnun“</translation>
 <translation id="6933858244219479645">ChromeOS kerfi</translation>
-<translation id="9084132286318231275">Þetta tungumál er notað til að birta valmyndir, stillingar, viðvaranir og annan texta í Browther</translation>
+<translation id="3986927308621489499">Þetta tungumál er notað til að birta valmyndir, stillingar, viðvaranir og annan texta í Browther</translation>
 <translation id="8862326446509486874">Þú hefur ekki tilskilin réttindi til uppsetningar fyrir kerfið allt. Prófaðu að keyra uppsetningarforritið aftur sem stjórnandi.</translation>
-<translation id="7289323009146924152">Bæta við Browther-prófíl</translation>
-<translation id="6412037018950369131">Ef svo er skaltu breyta vistaða aðgangsorðinu í Browther í nýja aðgangsorðið.</translation>
-<translation id="1150745254876977823">Fyrirtækið þitt krefst þess að þú skráir þig inn í Browther</translation>
-<translation id="8285294305439559616">Browther er að reyna að sýna aðgangsorð. Sláðu inn Windows-aðgangsorðið þitt til að heimila þetta.</translation>
-<translation id="4684884244620579559">Browther er ekki lengur sjálfgefni vafrinn þinn. Gera Browther að sjálfgefnum vafra?</translation>
-<translation id="6389268239133412586">Ekki var hægt að uppfæra Browther</translation>
-<translation id="7731184591599776500">Lógó Browther Enterprise</translation>
-<translation id="6500340165622970282">Gat ekki ræst Browther þar sem eitthvað fór úrskeiðis við að opna prófílinn þinn Prófaðu að endurræsa Browther.</translation>
-<translation id="3424657754843264466">Stjórna Browther-prófílum</translation>
-<translation id="8848045066928358658">Til að gera Browther öruggara höfum við slökkt á eftirfarandi viðbót sem ekki er á skrá hjá <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> og kann að hafa verið bætt við án þinnar vitneskju.</translation>
-<translation id="7055223246119657449">Browther lokaði á þetta niðurhal vegna þess að safnskráin getur innihaldið aðrar skrár sem geta falið spilliforrit</translation>
-<translation id="9049928023195059068">Skráðu þig inn í Browther þegar þú skráir þig inn í aðrar Browther-þjónustur</translation>
-<translation id="4561046754724442504">Browther var lokað sjálfkrafa</translation>
-<translation id="5173820533850252773">Browther er úrelt</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther verður endurræst eftir klukkustund}one{Browther verður endurræst eftir # klukkustund}other{Browther verður endurræst eftir # klukkustundir}}</translation>
+<translation id="5318226144018267261">Bæta við Browther-prófíl</translation>
+<translation id="1298790608554316415">Ef svo er skaltu breyta vistaða aðgangsorðinu í Browther í nýja aðgangsorðið.</translation>
+<translation id="960933321883777733">Fyrirtækið þitt krefst þess að þú skráir þig inn í Browther</translation>
+<translation id="948979409756947611">Browther er að reyna að sýna aðgangsorð. Sláðu inn Windows-aðgangsorðið þitt til að heimila þetta.</translation>
+<translation id="1418854271943945136">Browther er ekki lengur sjálfgefni vafrinn þinn. Gera Browther að sjálfgefnum vafra?</translation>
+<translation id="7228667329366610727">Ekki var hægt að uppfæra Browther</translation>
+<translation id="4817697255467736794">Lógó Browther Enterprise</translation>
+<translation id="3507731466523097529">Gat ekki ræst Browther þar sem eitthvað fór úrskeiðis við að opna prófílinn þinn Prófaðu að endurræsa Browther.</translation>
+<translation id="3234473600657230663">Stjórna Browther-prófílum</translation>
+<translation id="157534302749986451">Til að gera Browther öruggara höfum við slökkt á eftirfarandi viðbót sem ekki er á skrá hjá <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> og kann að hafa verið bætt við án þinnar vitneskju.</translation>
+<translation id="8953887022581653484">Browther lokaði á þetta niðurhal vegna þess að safnskráin getur innihaldið aðrar skrár sem geta falið spilliforrit</translation>
+<translation id="532304972436358335">Skráðu þig inn í Browther þegar þú skráir þig inn í aðrar Browther-þjónustur</translation>
+<translation id="3425998261052065067">Browther var lokað sjálfkrafa</translation>
+<translation id="4377377022617011492">Browther er úrelt</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther verður endurræst eftir klukkustund}one{Browther verður endurræst eftir # klukkustund}other{Browther verður endurræst eftir # klukkustundir}}</translation>
 <translation id="9106236359747881194">Veldu texta til að leita</translation>
-<translation id="5190991181158966940">Til að fá frekari uppfærslur á Browther þarftu Windows 10 eða nýrri útgáfu. Þessi tölva notar Windows 8.1.</translation>
-<translation id="7863882214613921971">Opna tengil í nýjum Browther &amp;flipa</translation>
+<translation id="5115014198092384730">Til að fá frekari uppfærslur á Browther þarftu Windows 10 eða nýrri útgáfu. Þessi tölva notar Windows 8.1.</translation>
+<translation id="7129101984664345614">Opna tengil í nýjum Browther &amp;flipa</translation>
 <translation id="911206726377975832">Eyða líka vafragögnum?</translation>
 <translation id="9134482777260927479">Aðstoð með heimanám</translation>
 <translation id="9148058034647219655">Hætta</translation>
-<translation id="2792073155252170448">Haltu áfram þaðan sem frá var horfið: Browther getur endurheimt flipana þína í hvert skipti sem þú hefst handa. Þú getur kveikt á þessu í</translation>
-<translation id="2444257125841652328">Kerfisstjórinn þinn hefur stillt Browther á að opna annan vafra fyrir <ph name="TARGET_URL_HOSTNAME"/>.</translation>
-<translation id="8208548103319284047">Ábending frá Browther: Leitaðu með linsu</translation>
-<translation id="7902365066753170041">Endurræstu til að uppfæra &amp;Browther</translation>
-<translation id="538146372587193686">Browther Origin (mDNS-inn)</translation>
-<translation id="49909619875329637">Fáðu meira út úr Browther með innskráningu</translation>
-<translation id="296137235951584143">Lagaðu Browther að þínum þörfum</translation>
-<translation id="7977787072794666032">Vera kann að Browther virki ekki sem skyldi vegna þess að vafrinn er ekki lengur studdur á Windows XP eða Windows Vista</translation>
+<translation id="1734388504720121468">Haltu áfram þaðan sem frá var horfið: Browther getur endurheimt flipana þína í hvert skipti sem þú hefst handa. Þú getur kveikt á þessu í</translation>
+<translation id="8633974232736772207">Kerfisstjórinn þinn hefur stillt Browther á að opna annan vafra fyrir <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="1122669402846843682">Ábending frá Browther: Leitaðu með linsu</translation>
+<translation id="595330134356385835">Endurræstu til að uppfæra &amp;Browther</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS-inn)</translation>
+<translation id="6491100124044190139">Fáðu meira út úr Browther með innskráningu</translation>
+<translation id="1665840797775025867">Lagaðu Browther að þínum þörfum</translation>
+<translation id="4407047432656809023">Vera kann að Browther virki ekki sem skyldi vegna þess að vafrinn er ekki lengur studdur á Windows XP eða Windows Vista</translation>
 <translation id="945522503751344254">Senda ábendingu</translation>
-<translation id="4484434718272972655">Hver er að nota Browther?</translation>
-<translation id="7173394303099002355">Njóttu hámarksöryggis Browther</translation>
+<translation id="7620348044248809366">Hver er að nota Browther?</translation>
+<translation id="7299962884342109067">Njóttu hámarksöryggis Browther</translation>
 <translation id="983803489796659991">Uppsetning mistókst vegna þess að uppfærsluþjónninn er ekki með tætigögn fyrir forritið.</translation>
-<translation id="8435446479956716379">Nota Browther án reiknings</translation>
-<translation id="8992261409816268381">Höfundar Browther</translation>
+<translation id="8775461190334353148">Nota Browther án reiknings</translation>
+<translation id="7146761239544860058">Höfundar Browther</translation>
 <translation id="989970834842471429">Veldu hvaða texta eða mynd sem er til að leita með myndaleit</translation>
-<translation id="3146636448190445245">Veittu Browther aðgang að staðsetningunni þinni í <ph name="BEGIN_LINK"/>kerfisstillingum<ph name="END_LINK"/> til að geta notað hana</translation>
+<translation id="6616551030373607751">Veittu Browther aðgang að staðsetningunni þinni í <ph name="BEGIN_LINK"/>kerfisstillingum<ph name="END_LINK"/> til að geta notað hana</translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Uppsetning mistókst vegna ótilgreindrar villu. Sæktu Browther aftur.</translation>
+<translation id="5110032212554763592">Uppsetning mistókst vegna ótilgreindrar villu. Sæktu Browther aftur.</translation>
 </translationbundle>

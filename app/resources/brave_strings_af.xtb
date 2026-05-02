@@ -3,120 +3,120 @@
 <translationbundle lang="af">
 <translation id="1026101648481255140">Hervat installering</translation>
 <translation id="7099479769133613710">Herbegin om &amp;Browther-bedryfstelsel op te dateer</translation>
-<translation id="2479110114759182442">Browther beveel aan dat jy hierdie uitbreiding nagaan</translation>
-<translation id="3814674848168165531">Browther gebruik Browther-bedieners wanneer ’n werf vra om skakels op hul bladsy vooraf te laai. Dit versteek jou identiteit vir die werf wat vooraf gelaai is, maar Browther vind uit watter werwe vooraf gelaai word.</translation>
+<translation id="7264054672589027446">Browther beveel aan dat jy hierdie uitbreiding nagaan</translation>
+<translation id="7848219163187166649">Browther gebruik Browther-bedieners wanneer ’n werf vra om skakels op hul bladsy vooraf te laai. Dit versteek jou identiteit vir die werf wat vooraf gelaai is, maar Browther vind uit watter werwe vooraf gelaai word.</translation>
 <translation id="1065672644894730302">Jou voorkeure kan nie gelees word nie.
 
 Sommige kenmerke kan dalk nie beskikbaar wees nie en veranderings aan voorkeure sal nie gestoor word nie.</translation>
-<translation id="7577672138294294152">Jou ouer het “Toestemmings vir werwe, apps en uitbreidings” vir Browther afgeskakel</translation>
-<translation id="5918095577778020936">Browther wil jou wagwoorde uitvoer. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
+<translation id="8837164267124113709">Jou ouer het “Toestemmings vir werwe, apps en uitbreidings” vir Browther afgeskakel</translation>
+<translation id="881513728707488138">Browther wil jou wagwoorde uitvoer. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
 <translation id="112640046208448578">Identifiseer dinge of plekke en kopieer of vertaal teks. Wanneer jy Prentsoektog gebruik, word ’n skermskoot van die bladsy na die bediener toe gestuur. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther is jou verstekblaaier</translation>
-<translation id="8522292744959221145"><ph name="BEGIN_LINK"/>Meld by Browther aan<ph name="END_LINK"/> om te kyk of jou wagwoorde teen dataskendings en ander sekuriteitkwessies beveilig word.</translation>
-<translation id="2627788872035182013">Klik die Browther-kieslys</translation>
+<translation id="8280092658684559253">Browther is jou verstekblaaier</translation>
+<translation id="6580138787163923852"><ph name="BEGIN_LINK"/>Meld by Browther aan<ph name="END_LINK"/> om te kyk of jou wagwoorde teen dataskendings en ander sekuriteitkwessies beveilig word.</translation>
+<translation id="1089111274164380772">Klik die Browther-kieslys</translation>
 <translation id="1157985233335035034">Onlangse tale</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> het ’n uitbreiding bygevoeg wat dalk kan verander hoe Browther werk.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> het ’n uitbreiding bygevoeg wat dalk kan verander hoe Browther werk.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Installering het misluk omdat jou weergawe van Windows nie gesteun word nie.</translation>
-<translation id="8541922081612557424">Meer oor Browther</translation>
+<translation id="8291401179516272335">Meer oor Browther</translation>
 <translation id="1203500561924088507">Dankie dat jy geïnstalleer het. Jy moet jou blaaier herbegin voordat jy <ph name="BUNDLE_NAME"/> gebruik.</translation>
 <translation id="1232234696885483911">Wanneer jy Prentsoektog oopmaak, sal die bladsytitel, URL en inhoud, insluitend PDF’s, outomaties na die bediener toe gestuur word. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Terwyl jy aangemeld is, kan jy jou wagwoorde en meer uit jou Browther-rekening in Browther gebruik. Gaan na “Jou rekening in Browther” toe om dit te verander.</translation>
-<translation id="8799570501820813406">Geheue is beskikbaar gemaak terwyl hierdie oortjie onaktief was om Browther vinnig te hou. Jy kan kies om hierdie werf altyd daarvan uit te sluit om onaktief te wees.</translation>
-<translation id="8767381092474532098">Browther het hierdie aflaai geblokkeer omdat die lêer gevaarlik is</translation>
-<translation id="3256289531845594061">Wanneer jy by Browther-dienste soos Gmail of YouTube met <ph name="USER_EMAIL"/> aanmeld, kan jy met dieselfde rekening outomaties by Browther aanmeld</translation>
+<translation id="3496831315930641015">Terwyl jy aangemeld is, kan jy jou wagwoorde en meer uit jou Browther-rekening in Browther gebruik. Gaan na “Jou rekening in Browther” toe om dit te verander.</translation>
+<translation id="9034321258761608912">Geheue is beskikbaar gemaak terwyl hierdie oortjie onaktief was om Browther vinnig te hou. Jy kan kies om hierdie werf altyd daarvan uit te sluit om onaktief te wees.</translation>
+<translation id="249571811018731941">Browther het hierdie aflaai geblokkeer omdat die lêer gevaarlik is</translation>
+<translation id="8850227089720975601">Wanneer jy by Browther-dienste soos Gmail of YouTube met <ph name="USER_EMAIL"/> aanmeld, kan jy met dieselfde rekening outomaties by Browther aanmeld</translation>
 <translation id="1290883685122687410">Opstellingfout: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Stel jou nuwe Browther-profiel op</translation>
-<translation id="878572309106296578">Browther het Bluetooth-toegang nodig om 
+<translation id="6235774143043174856">Stel jou nuwe Browther-profiel op</translation>
+<translation id="4437862975743821367">Browther het Bluetooth-toegang nodig om 
  Bluetooth-toestelle te verken. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Bespeur taal</translation>
-<translation id="6204677860546245308">Gebruik Browther se aanbevole blaaierinstellings</translation>
-<translation id="108284536240904209">Vee ook data uit Browther uit (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Gebruik Browther se aanbevole blaaierinstellings</translation>
+<translation id="8270483548049772782">Vee ook data uit Browther uit (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Vasgespeld! Jy kan weer toegang tot Prentsoektog kry vanaf die nuwe knoppie op die nutsbalk</translation>
 <translation id="1356661055722410047">Nuut! Jy kan sowel teks as prente op jou skerm vertaal</translation>
 <translation id="1383876407941801731">Soek</translation>
-<translation id="7009295044271335553">&amp;Bestuur Browther-profiele</translation>
+<translation id="1592588950737518481">&amp;Bestuur Browther-profiele</translation>
 <translation id="1404026649028693342">Wys altyd KI-modus</translation>
 <translation id="141901961143729572">Deel jou gedagtes</translation>
-<translation id="3880714039086599943">Om jou venster te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
-<translation id="1586284627848250203">Kry hulp met Browther-toetsweergawe</translation>
+<translation id="1743952081001089298">Om jou venster te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
+<translation id="8627385813382688019">Kry hulp met Browther-toetsweergawe</translation>
 <translation id="1497802159252041924">Installeerfout: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Hierdie bladsy is beskermd</translation>
-<translation id="5147525139567260139">Deel 'n Browther-oortjie</translation>
-<translation id="721261350616678948">Meld by Browther aan</translation>
+<translation id="7252430412915798987">Deel 'n Browther-oortjie</translation>
+<translation id="6388429281015199562">Meld by Browther aan</translation>
 <translation id="1547469039832541117">Beëindig die gemerkte taak.</translation>
-<translation id="1530633922026945685">Browther moet toestemming hê om toegang te kry tot jou kamera om 'n 3D-kaart van jou omgewing te skep</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Hierdie uitbreiding word nie meer gesteun nie. Browther beveel aan dat jy dit verwyder.}other{Hierdie uitbreidings word nie meer gesteun nie. Browther beveel aan dat jy hulle verwyder.}}</translation>
-<translation id="51545890371361355">Speld Browther vas</translation>
-<translation id="6570689355868013775">Browther se veiligheidnutsgoed</translation>
-<translation id="1902837727299679178">Browther wil jou Wagwoordbestuurder-data uitvee. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
-<translation id="4449148723378534338">Gaan belangrike privaatheid- en sekuriteitkontroles in Browther na</translation>
+<translation id="1801944307203212016">Browther moet toestemming hê om toegang te kry tot jou kamera om 'n 3D-kaart van jou omgewing te skep</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Hierdie uitbreiding word nie meer gesteun nie. Browther beveel aan dat jy dit verwyder.}other{Hierdie uitbreidings word nie meer gesteun nie. Browther beveel aan dat jy hulle verwyder.}}</translation>
+<translation id="4667068923142532753">Speld Browther vas</translation>
+<translation id="3006560544901646947">Browther se veiligheidnutsgoed</translation>
+<translation id="686052171138185761">Browther wil jou Wagwoordbestuurder-data uitvee. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
+<translation id="8713026329083542796">Gaan belangrike privaatheid- en sekuriteitkontroles in Browther na</translation>
 <translation id="1640672724030957280">Laai tans af …</translation>
 <translation id="1680687534629375545">Vra Prentsoektog oor hierdie bladsy</translation>
 <translation id="1709772298389099340">Verskaf verhoogde voorregte vir <ph name="BROWSER_NAME"/>.</translation>
-<translation id="2913217021115517297">Om hierdie kenmerke te help verbeter, stuur Browther jou interaksies daarmee na Browther. Hierdie data kan deur menslike kontroleerders gelees, verwerk en geannoteer word.</translation>
+<translation id="4243382967656566037">Om hierdie kenmerke te help verbeter, stuur Browther jou interaksies daarmee na Browther. Hierdie data kan deur menslike kontroleerders gelees, verwerk en geannoteer word.</translation>
 <translation id="1722488837206509557">Hiermee sal jy uit beskikbare toestelle kan kies en inhoud daarop kan wys.</translation>
-<translation id="8004287232784878841">Browther gaan blaaierdata binnekort uitvee</translation>
-<translation id="4197839351786449392">Browther sal probeer om navigasies na HTTPS op te gradeer</translation>
-<translation id="7814200940910057384">Browther-data is uitgevee</translation>
-<translation id="9048361966237194186">Browther sal oor <ph name="REMAINING_TIME"/> herbegin</translation>
-<translation id="5524150602137990006">Browther sal ’n onveilige verbinding gebruik sonder om jou te waarsku wanneer HTTPS nie beskikbaar is nie</translation>
-<translation id="6797402139308059782">Laat Browther in die agtergrond loop</translation>
-<translation id="5875673934455379806">Herinstalleer Browther</translation>
-<translation id="4529028207655448215">Browther probeer tans om <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Jy sal ’n porboodskap sien om Browther Wagwoordbestuurder te gebruik wanneer jy volgende keer Browther op jou <ph name="DEVICE_TYPE"/> oopmaak.</translation>
+<translation id="6820510278633522408">Browther gaan blaaierdata binnekort uitvee</translation>
+<translation id="7775028004939172516">Browther sal probeer om navigasies na HTTPS op te gradeer</translation>
+<translation id="6963959729951758069">Browther-data is uitgevee</translation>
+<translation id="4085139922884095932">Browther sal oor <ph name="REMAINING_TIME"/> herbegin</translation>
+<translation id="2586248102295515296">Browther sal ’n onveilige verbinding gebruik sonder om jou te waarsku wanneer HTTPS nie beskikbaar is nie</translation>
+<translation id="3975328336074677101">Laat Browther in die agtergrond loop</translation>
+<translation id="2497443204974841650">Herinstalleer Browther</translation>
+<translation id="1724309687045787742">Browther probeer tans om <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Jy sal ’n porboodskap sien om Browther Wagwoordbestuurder te gebruik wanneer jy volgende keer Browther op jou <ph name="DEVICE_TYPE"/> oopmaak.</translation>
 <translation id="1838374766361614909">Vee soektog uit</translation>
-<translation id="3541642064306182066"><ph name="BEGIN_LINK"/>Meld by Browther af<ph name="END_LINK"/> om blaaierdata net van hierdie toestel af uit te vee terwyl jy dit in jou Browther-rekening hou.</translation>
-<translation id="5679816001365584346">Laai Browther op jou foon af om nuwe oortjiegroepe oop te maak of te skep terwyl jy aan die beweeg is.</translation>
-<translation id="4559627161887338743">Jy kan jou aangemelde Browther-rekeninge bestuur. Jou Browther-rekeninge word gebruik vir Browther-blaaier, Play Winkel, Gmail en meer. As jy 'n rekening vir iemand anders, soos 'n gesinslid, wil byvoeg, kan jy 'n nuwe persoon eerder by jou <ph name="DEVICE_TYPE"/> voeg. <ph name="LINK_BEGIN"/>Kom meer te wete<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155"><ph name="BEGIN_LINK"/>Meld by Browther af<ph name="END_LINK"/> om blaaierdata net van hierdie toestel af uit te vee terwyl jy dit in jou Browther-rekening hou.</translation>
+<translation id="3927415701154897844">Laai Browther op jou foon af om nuwe oortjiegroepe oop te maak of te skep terwyl jy aan die beweeg is.</translation>
+<translation id="2063443520349987970">Jy kan jou aangemelde Browther-rekeninge bestuur. Jou Browther-rekeninge word gebruik vir Browther-blaaier, Play Winkel, Gmail en meer. As jy 'n rekening vir iemand anders, soos 'n gesinslid, wil byvoeg, kan jy 'n nuwe persoon eerder by jou <ph name="DEVICE_TYPE"/> voeg. <ph name="LINK_BEGIN"/>Kom meer te wete<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Soek met Prentsoektog</translation>
 <translation id="1880677175115548835">Kies teks</translation>
-<translation id="4528406859989804913">Jy meld tans met 'n bestuurde rekening aan en gee sy administrateur beheer oor jou Browther-profiel. Jou Browther-data, soos jou programme, boekmerke, geskiedenis, wagwoorde en ander instellings sal permanent aan <ph name="USER_NAME"/> gekoppel word. Jy sal hierdie data via die Browther-rekening se kontroleskerm kan uitvee, maar jy sal nie hierdie data met 'n ander rekening kan assosieer nie. Jy het die opsie om 'n nuwe profiel te skep om jou bestaande Browther-data apart te hou. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther bespaar batterykrag deur agtergrondaktiwiteit en visuele effekte, soos gladde rollees en videoraamtempo’s, te beperk. <ph name="BEGIN_LINK"/>Kry meer inligting oor Energiebespaarder<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Jy meld tans met 'n bestuurde rekening aan en gee sy administrateur beheer oor jou Browther-profiel. Jou Browther-data, soos jou programme, boekmerke, geskiedenis, wagwoorde en ander instellings sal permanent aan <ph name="USER_NAME"/> gekoppel word. Jy sal hierdie data via die Browther-rekening se kontroleskerm kan uitvee, maar jy sal nie hierdie data met 'n ander rekening kan assosieer nie. Jy het die opsie om 'n nuwe profiel te skep om jou bestaande Browther-data apart te hou. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther bespaar batterykrag deur agtergrondaktiwiteit en visuele effekte, soos gladde rollees en videoraamtempo’s, te beperk. <ph name="BEGIN_LINK"/>Kry meer inligting oor Energiebespaarder<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Vra oor hierdie bladsy</translation>
-<translation id="8643267611122541711">Browther-opdateerderdiens</translation>
-<translation id="1649714546770135458">Deur dit af te skakel, kan jy by Browther-werwe soos Gmail aanmeld sonder om by Browther aan te meld</translation>
-<translation id="189297655255130768">Browther reageer nie. Herbegin nou?</translation>
-<translation id="8422047647688939115">Jou organisasie, <ph name="MANAGER"/>, vereis dat jy by Browther aanmeld</translation>
+<translation id="9128006428501241840">Browther-opdateerderdiens</translation>
+<translation id="6302815314157879372">Deur dit af te skakel, kan jy by Browther-werwe soos Gmail aanmeld sonder om by Browther aan te meld</translation>
+<translation id="1063611196035804685">Browther reageer nie. Herbegin nou?</translation>
+<translation id="2873360330889594383">Jou organisasie, <ph name="MANAGER"/>, vereis dat jy by Browther aanmeld</translation>
 <translation id="4035053306113201399">Browther-bedryfstelsel moet herbegin word om die opdatering toe te pas.</translation>
-<translation id="9048754176089806686">Browther het hierdie aflaai geblokkeer omdat die lêertipe nie algemeen afgelaai word nie en dit gevaarlik kan wees</translation>
+<translation id="2861285003831382718">Browther het hierdie aflaai geblokkeer omdat die lêertipe nie algemeen afgelaai word nie en dit gevaarlik kan wees</translation>
 <translation id="1953553007165777902">Laai tans af … <ph name="MINUTE"/> minuut(minute) oor</translation>
-<translation id="2470048290583727811">Browther-wenk: Stoor wagwoorde</translation>
-<translation id="1775322105159056176">Browther kan nie die verstekblaaier bepaal of stel nie</translation>
-<translation id="4372901050442507812">Vind uit hoekom Browther sommige lêers blokkeer – maak in ’n nuwe oortjie oop</translation>
-<translation id="2703425183860615504">Hou jou Browther-sagteware bygewerk. As hierdie diens gedeaktiveer of gestop word, sal jou Browther-sagteware nie bygewerk gehou word nie, wat beteken dat sekuriteitskwesbaarhede kan opduik wat nie reggestel kan word nie, en dat kenmerke dalk nie sal werk nie. Hierdie diens deïnstalleer vanself wanneer geen Browther-sagteware dit gebruik nie.</translation>
-<translation id="9220324636239049437">Dit sal 1 item op hierdie toestel uitvee. Meld as <ph name="USER_EMAIL"/> by Browther aan om jou data later op te haal.</translation>
+<translation id="2080160985220483492">Browther-wenk: Stoor wagwoorde</translation>
+<translation id="8037497710694492565">Browther kan nie die verstekblaaier bepaal of stel nie</translation>
+<translation id="7395009124247513849">Vind uit hoekom Browther sommige lêers blokkeer – maak in ’n nuwe oortjie oop</translation>
+<translation id="762710512520170632">Hou jou Browther-sagteware bygewerk. As hierdie diens gedeaktiveer of gestop word, sal jou Browther-sagteware nie bygewerk gehou word nie, wat beteken dat sekuriteitskwesbaarhede kan opduik wat nie reggestel kan word nie, en dat kenmerke dalk nie sal werk nie. Hierdie diens deïnstalleer vanself wanneer geen Browther-sagteware dit gebruik nie.</translation>
+<translation id="5793588180426267429">Dit sal 1 item op hierdie toestel uitvee. Meld as <ph name="USER_EMAIL"/> by Browther aan om jou data later op te haal.</translation>
 <translation id="2018879682492276940">Kan nie installeer nie. Probeer weer.</translation>
-<translation id="831418749472885028"><ph name="BEGIN_LINK"/>Meld by Browther aan<ph name="END_LINK"/> om te kyk of jou ander wagwoorde teen dataskendings en ander sekuriteitkwessies beveilig word.</translation>
+<translation id="6351516710581760512"><ph name="BEGIN_LINK"/>Meld by Browther aan<ph name="END_LINK"/> om te kyk of jou ander wagwoorde teen dataskendings en ander sekuriteitkwessies beveilig word.</translation>
 <translation id="2039417478970545937">Instellings.</translation>
-<translation id="5499149312981370855">Kies of jy Browther-geskiedenis wil insluit vir meer gepersonaliseerde ervarings in Browther-dienste</translation>
-<translation id="6959434860418352144">Klik die Pasmaak Browther-knoppie op die Nuwe Oortjie-bladsy om vir Browther ’n nuwe voorkoms te gee</translation>
+<translation id="8194525816714210105">Kies of jy Browther-geskiedenis wil insluit vir meer gepersonaliseerde ervarings in Browther-dienste</translation>
+<translation id="5909559127548969159">Klik die Pasmaak Browther-knoppie op die Nuwe Oortjie-bladsy om vir Browther ’n nuwe voorkoms te gee</translation>
 <translation id="2066690553719545730">Wys altyd KI-modus</translation>
-<translation id="2472891440303445472">Browther het hierdie aflaai geblokkeer omdat die lêer misleidend is en onverwagte veranderinge aan jou toestel kan maak</translation>
-<translation id="2054358978145431867">Jy sal ’n porboodskap sien om <ph name="FEATURE_NAME"/> te probeer wanneer jy volgende keer Browther iOS oopmaak.</translation>
-<translation id="2726948994393234543">Jou wagwoorde en ander Browther-data wat jy in jou Browther-rekening gestoor het, sal van hierdie toestel verwyder word. Meld weer aan as jy hulle weer in Browther wil gebruik.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Jou organisasie vee blaaierdata outomaties uit nadat Browther 1 minuut lank nie gebruik is nie. Dit kan geskiedenis, outovul en aflaaie insluit. Jou oortjies sal oopbly.}other{Jou organisasie vee blaaierdata outomaties uit nadat Browther # minute lank nie gebruik is nie. Dit kan geskiedenis, outovul en aflaaie insluit. Jou oortjies sal oopbly.}}</translation>
+<translation id="3283892260110318935">Browther het hierdie aflaai geblokkeer omdat die lêer misleidend is en onverwagte veranderinge aan jou toestel kan maak</translation>
+<translation id="6160571936643742128">Jy sal ’n porboodskap sien om <ph name="FEATURE_NAME"/> te probeer wanneer jy volgende keer Browther iOS oopmaak.</translation>
+<translation id="8380517409933452343">Jou wagwoorde en ander Browther-data wat jy in jou Browther-rekening gestoor het, sal van hierdie toestel verwyder word. Meld weer aan as jy hulle weer in Browther wil gebruik.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Jou organisasie vee blaaierdata outomaties uit nadat Browther 1 minuut lank nie gebruik is nie. Dit kan geskiedenis, outovul en aflaaie insluit. Jou oortjies sal oopbly.}other{Jou organisasie vee blaaierdata outomaties uit nadat Browther # minute lank nie gebruik is nie. Dit kan geskiedenis, outovul en aflaaie insluit. Jou oortjies sal oopbly.}}</translation>
 <translation id="2126108037660393668">Die afgelaaide lêer kon nie geverifieer word nie.</translation>
 <translation id="2135919691573380097">Gee hierdie werf aan</translation>
 <translation id="2137162749895930932">Maak vertaalskerm toe</translation>
-<translation id="5789330946301045610">Browther het hierdie aflaai geblokkeer omdat die werf nie ’n veilige verbinding gebruik nie en daar moontlik met die lêer gepeuter is</translation>
+<translation id="4283559398694996391">Browther het hierdie aflaai geblokkeer omdat die werf nie ’n veilige verbinding gebruik nie en daar moontlik met die lêer gepeuter is</translation>
 <translation id="2170098639895543546">Kies enigiets op die bladsy</translation>
-<translation id="142389341645668510">Pasmaak Browther</translation>
+<translation id="2495182092286337191">Pasmaak Browther</translation>
 <translation id="2174917724755363426">Installering is nie afgehandel nie. Is jy seker jy wil kanselleer?</translation>
-<translation id="8745514854244955877">Browther – Netwerkaanmelding – <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther – Netwerkaanmelding – <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Opdateringkontroleringfout: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Verwyder rekening uit Browther</translation>
-<translation id="5550942974310218641">Bly veiliger terwyl jy aan die beweeg is met Verbeterde Veiligblaai op Browther vir iOS</translation>
-<translation id="6677253423995557759">Gevaarlike webwerf. Browther het kennisgewings verwyder.</translation>
+<translation id="6696114732806961952">Verwyder rekening uit Browther</translation>
+<translation id="1084363153644366288">Bly veiliger terwyl jy aan die beweeg is met Verbeterde Veiligblaai op Browther vir iOS</translation>
+<translation id="7949164640723239455">Gevaarlike webwerf. Browther het kennisgewings verwyder.</translation>
 <translation id="2236949375853147973">My aktiwiteit</translation>
-<translation id="457168681575748148">Meld aan by Browther om jou adresse en meer op al jou toestelle te kry. Hierdie adres sal in jou Browther-rekening gestoor word nadat jy aangemeld het.</translation>
-<translation id="5659384504794665581">As jy 'n rekenaar deel, kan vriende en familie apart blaai en Browther opstel net soos hulle dit wil hê.</translation>
+<translation id="4536403809133456417">Meld aan by Browther om jou adresse en meer op al jou toestelle te kry. Hierdie adres sal in jou Browther-rekening gestoor word nadat jy aangemeld het.</translation>
+<translation id="5627930103267312171">As jy 'n rekenaar deel, kan vriende en familie apart blaai en Browther opstel net soos hulle dit wil hê.</translation>
 <translation id="2283803047247799269">Deursoek hierdie oortjie met Prentsoektog</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther beveel aan dat jy die oortjie wat jou blaaier stadig maak, onderbreek}other{Browther beveel aan dat jy die oortjies wat jou blaaier stadig maak, onderbreek}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther beveel aan dat jy die oortjie wat jou blaaier stadig maak, onderbreek}other{Browther beveel aan dat jy die oortjies wat jou blaaier stadig maak, onderbreek}}</translation>
 <translation id="2307973900865360088">Hou gedok</translation>
-<translation id="7810992039564280750">Vergelyk URL'e met 'n lys onveilige werwe wat in Browther geberg is. As 'n werf probeer om jou wagwoord te steel, of wanneer jy 'n skadelike lêer aflaai, sal Browther dalk ook URL'e, insluitend stukkies bladsyinhoud, na Veiligblaai toe stuur.</translation>
-<translation id="5042718521573656164">Hierdie handeling sal:
+<translation id="5161617112768367959">Vergelyk URL'e met 'n lys onveilige werwe wat in Browther geberg is. As 'n werf probeer om jou wagwoord te steel, of wanneer jy 'n skadelike lêer aflaai, sal Browther dalk ook URL'e, insluitend stukkies bladsyinhoud, na Veiligblaai toe stuur.</translation>
+<translation id="4123094831918713833">Hierdie handeling sal:
         <ph name="LINE_BREAKS"/>
           • Sommige Browther-instellings en Browther-kortpaaie terugstel
           <ph name="LINE_BREAK"/>
@@ -125,630 +125,630 @@ Sommige kenmerke kan dalk nie beskikbaar wees nie en veranderings aan voorkeure 
           • Webkoekies en ander tydelike werfdata uitvee
           <ph name="LINE_BREAKS"/>
           Boekmerke, geskiedenis en gestoorde wagwoorde sal nie geraak word nie.</translation>
-<translation id="9095263438435683933">Meld op albei toestelle by Browther aan om 'n nommer van hier af na jou Android-foon te stuur.</translation>
+<translation id="5456070119344236353">Meld op albei toestelle by Browther aan om 'n nommer van hier af na jou Android-foon te stuur.</translation>
 <translation id="2356070529366658676">Vra</translation>
 <translation id="2359808026110333948">Gaan voort</translation>
-<translation id="6485997157403727556">Die uitbreiding “<ph name="EXTENSION_NAME"/>” wil hê dat jy by Browther moet aanmeld</translation>
-<translation id="7017760840808989683">Deaktiveer Browther wat op die agtergrond vir apps loop</translation>
-<translation id="8491912023989916905">Meld aan by Browther om hierdie uitbreiding as <ph name="USER_EMAIL_ADDRESS"/> te gebruik.</translation>
+<translation id="6468415397021485143">Die uitbreiding “<ph name="EXTENSION_NAME"/>” wil hê dat jy by Browther moet aanmeld</translation>
+<translation id="2558600429878197587">Deaktiveer Browther wat op die agtergrond vir apps loop</translation>
+<translation id="5295781918312989856">Meld aan by Browther om hierdie uitbreiding as <ph name="USER_EMAIL_ADDRESS"/> te gebruik.</translation>
 <translation id="8418845734693287262">Browther-bedryfstelsel kon nie jou data sinkroniseer nie omdat jou rekening se aanmeldbesonderhede verouderd is.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Een of meer Browther-uitbreidings het toegang tot 1 MKT-toestel gehad}=1{Een of meer Browther-uitbreidings het tans toegang tot 1 MKT-toestel}other{Een of meer Browther-uitbreidings het tans toegang tot # MKT-toestelle}}</translation>
-<translation id="1248225940185478633">Browther het kamera- en mikrofoontoestemming vir hierdie werf nodig</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Een of meer Browther-uitbreidings het toegang tot 1 MKT-toestel gehad}=1{Een of meer Browther-uitbreidings het tans toegang tot 1 MKT-toestel}other{Een of meer Browther-uitbreidings het tans toegang tot # MKT-toestelle}}</translation>
+<translation id="434258293817844111">Browther het kamera- en mikrofoontoestemming vir hierdie werf nodig</translation>
 <translation id="2403703063067034158">Aanskakelingsfout: ’n ander geval of opstelling word tans gebruik; probeer weer later.</translation>
-<translation id="5298352791080868905">Maak skakels in Browther vanaf enige app oop en hou die blaaier toeganklik op jou taakbalk</translation>
-<translation id="2118275934191847461">Met <ph name="BEGIN_LINK"/>nutsgoed van Browther<ph name="END_LINK"/> kan jy veilig blaai en in beheer bly</translation>
+<translation id="5458993228789433099">Maak skakels in Browther vanaf enige app oop en hou die blaaier toeganklik op jou taakbalk</translation>
+<translation id="1677640217693742525">Met <ph name="BEGIN_LINK"/>nutsgoed van Browther<ph name="END_LINK"/> kan jy veilig blaai en in beheer bly</translation>
 <translation id="2451727308784734061">Gebruik jou kortpad om vinnig na Wagwoordbestuurder toe te gaan. Jy kan jou kortpad na jou rekenaar se tuisskerm of applanseerder toe skuif.</translation>
-<translation id="6381750314821942592">Browther gaan binnekort toemaak</translation>
-<translation id="6078442581074612226">In Browther</translation>
+<translation id="2280315911954332435">Browther gaan binnekort toemaak</translation>
+<translation id="6410820860979094113">In Browther</translation>
 <translation id="2485422356828889247">Deïnstalleer</translation>
 <translation id="2513154137948333830">Herselflaai word vereis: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Kies teks met Prentsoektog</translation>
-<translation id="70183448213529602">Browther probeer tans bestaande wagwoorde vervang. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
-<translation id="7798069806040634998">Browther het bergingtoegang nodig om lêers af te laai</translation>
-<translation id="8447483940522230788">Browther-helper</translation>
+<translation id="7892218991241200190">Browther probeer tans bestaande wagwoorde vervang. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
+<translation id="8976443723926188033">Browther het bergingtoegang nodig om lêers af te laai</translation>
+<translation id="1973587471928846950">Browther-helper</translation>
 <translation id="2575822587468774919">Kies enigiets om met Prentsoektog te soek</translation>
-<translation id="3830890663494219270">Meld aan by Browther om jou wagwoorde en meer op al jou toestelle te kry</translation>
-<translation id="6252796827759111076">Hou aan om Browther te gebruik</translation>
+<translation id="8705561858232289221">Meld aan by Browther om jou wagwoorde en meer op al jou toestelle te kry</translation>
+<translation id="437162022240011372">Hou aan om Browther te gebruik</translation>
 <translation id="259935314519650377">Kon nie die afgelaaide installeerder kas nie. Fout: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Stelsel</translation>
-<translation id="7931230852267968641">Jou organisasie kan blaaierdata sien en bestuur, soos jou boekmerke, geskiedenis en wagwoorde. Dit kan nie blaaierdata in ander Browther-profiele sien nie</translation>
-<translation id="2257221826278123061">Verifieer dat dit jy is om Browther-data in jou rekening, <ph name="ACCOUNT_EMAIL"/>, te gebruik en te stoor</translation>
-<translation id="7387051847644272380">'n Bedryfstelselfout het voorgekom met installering. Laai Browther asseblief weer af.</translation>
-<translation id="2648689842065142443">As jy 'n toestel deel, kan vriende en familie apart blaai en Browther opstel net soos hulle dit wil hê</translation>
-<translation id="6791166902140255175">Browther-oortjie</translation>
-<translation id="8372880274820509128">Browther sal jou data enkripteer vir bykomende sekuriteit.</translation>
-<translation id="8752006915531191162">Meld af om jou Browther-rekening uit Browther te verwyder</translation>
-<translation id="5344406739101555055">Meld aan by Browther om jou wagwoorde, boekmerke en meer op al jou toestelle te kry</translation>
+<translation id="2907676829052962091">Jou organisasie kan blaaierdata sien en bestuur, soos jou boekmerke, geskiedenis en wagwoorde. Dit kan nie blaaierdata in ander Browther-profiele sien nie</translation>
+<translation id="1289116577679005654">Verifieer dat dit jy is om Browther-data in jou rekening, <ph name="ACCOUNT_EMAIL"/>, te gebruik en te stoor</translation>
+<translation id="7192278346779151664">'n Bedryfstelselfout het voorgekom met installering. Laai Browther asseblief weer af.</translation>
+<translation id="7724398260867885339">As jy 'n toestel deel, kan vriende en familie apart blaai en Browther opstel net soos hulle dit wil hê</translation>
+<translation id="1679595317134614424">Browther-oortjie</translation>
+<translation id="7189168846924379421">Browther sal jou data enkripteer vir bykomende sekuriteit.</translation>
+<translation id="4052643592793184278">Meld af om jou Browther-rekening uit Browther te verwyder</translation>
+<translation id="7694616023994438906">Meld aan by Browther om jou wagwoorde, boekmerke en meer op al jou toestelle te kry</translation>
 <translation id="2738871930057338499">Kon nie aan die internet koppel nie. HTTP 403 verbode. Gaan asseblief jou proxy-opstelling na.</translation>
 <translation id="2753623023919742414">Klik om te soek</translation>
-<translation id="1312769823139326127">Stel Browther as jou verstek-PDF-bekyker</translation>
-<translation id="3173824377856109157">Browther kan moeilike velde outovul wat standaardoutovul dalk sal mis</translation>
-<translation id="1187986649024576560">Hierdie uitbreiding bevat wanware en is onveilig. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend jou persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
+<translation id="9078193405195503710">Stel Browther as jou verstek-PDF-bekyker</translation>
+<translation id="2456995288904753506">Browther kan moeilike velde outovul wat standaardoutovul dalk sal mis</translation>
+<translation id="3271730304285122987">Hierdie uitbreiding bevat wanware en is onveilig. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend jou persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
 <translation id="2799223571221894425">Begin weer</translation>
-<translation id="5962774139606909656">Jou Browther</translation>
+<translation id="1427337251963884503">Jou Browther</translation>
 <translation id="2816462166102338036">Soek hierdie video met Prentsoektog</translation>
 <translation id="2841525013647267359">Vertaal uit</translation>
 <translation id="2846251086934905009">Installeerfout: Die installeerder is nie voltooi nie. Die installasie is gestaak.</translation>
-<translation id="777113543093865885">Verwyder uit Browther …</translation>
-<translation id="5265419033369521352">Hou jou veilig op Browther en kan gebruik word om jou sekuriteit in ander Browther-programme te verbeter wanneer jy aangemeld is</translation>
+<translation id="928966105228355994">Verwyder uit Browther …</translation>
+<translation id="587805782197019018">Hou jou veilig op Browther en kan gebruik word om jou sekuriteit in ander Browther-programme te verbeter wanneer jy aangemeld is</translation>
 <translation id="2885378588091291677">Taakbestuurder</translation>
-<translation id="2176825726964012531">Meer oor Browther</translation>
+<translation id="3055995278166070443">Meer oor Browther</translation>
 <translation id="2915996080311180594">Herbegin later</translation>
 <translation id="2928420929544864228">Installering is voltooi.</translation>
-<translation id="2481553173340651149">Jou data is met jou wagfrase geënkripteer. Voer dit in om Browther-data in jou Browther-rekening te gebruik en te stoor.</translation>
+<translation id="70453521937551896">Jou data is met jou wagfrase geënkripteer. Voer dit in om Browther-data in jou Browther-rekening te gebruik en te stoor.</translation>
 <translation id="2945997411976714835">Installeerfout: Die installeerderproses kon nie begin nie.</translation>
-<translation id="2413255940314578781">Meld vinniger by werwe aan deur gestoorde wagwoorde vir Browther op iOS te gebruik</translation>
-<translation id="122765104641632123">Voeg ’n nuwe Browther-profiel by om boekmerke, wagwoorde en instellings apart te hou.</translation>
-<translation id="3688936822855019158">Jou organisasie bestuur Browther</translation>
-<translation id="8208853227947884571">Browther is op datum</translation>
-<translation id="5122472867956731189">As 'n werf probeer om jou wagwoord te steel, of wanneer jy 'n skadelike lêer aflaai, sal Browther dalk ook URL'e, insluitend stukkies bladsyinhoud, na Veiligblaai toe stuur</translation>
-<translation id="3963199983793987097">Meld aan by Browther om met jou ouers se keuses veiliger aanlyn te bly</translation>
+<translation id="3188308520233701133">Meld vinniger by werwe aan deur gestoorde wagwoorde vir Browther op iOS te gebruik</translation>
+<translation id="8145318807880784886">Voeg ’n nuwe Browther-profiel by om boekmerke, wagwoorde en instellings apart te hou.</translation>
+<translation id="4330268530227888227">Jou organisasie bestuur Browther</translation>
+<translation id="6488090896442998436">Browther is op datum</translation>
+<translation id="300557164611864786">As 'n werf probeer om jou wagwoord te steel, of wanneer jy 'n skadelike lêer aflaai, sal Browther dalk ook URL'e, insluitend stukkies bladsyinhoud, na Veiligblaai toe stuur</translation>
+<translation id="2447145782593796785">Meld aan by Browther om met jou ouers se keuses veiliger aanlyn te bly</translation>
 <translation id="3003694935412297923">Alle take</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther moet verifieer dat dit jy is voordat sommige data in jou Browther-rekening gestoor kan word en op al jou toestelle gebruik kan word. As jy nou afmeld, sal hierdie data (1 item) uitgevee word.}other{Browther moet verifieer dat dit jy is voordat sommige data in jou Browther-rekening gestoor kan word en op al jou toestelle gebruik kan word. As jy nou afmeld, sal hierdie data ({count} items) uitgevee word.}}</translation>
-<translation id="4202995875619419215">Maak <ph name="URL"/> in 'n nuwe oortjie in Browther oop.</translation>
-<translation id="8755404239607088219">Browther kan nie jou wagwoorde nagaan nie. Probeer later weer.</translation>
-<translation id="8880183781256147665">Voeg tans by Browther …</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther moet verifieer dat dit jy is voordat sommige data in jou Browther-rekening gestoor kan word en op al jou toestelle gebruik kan word. As jy nou afmeld, sal hierdie data (1 item) uitgevee word.}other{Browther moet verifieer dat dit jy is voordat sommige data in jou Browther-rekening gestoor kan word en op al jou toestelle gebruik kan word. As jy nou afmeld, sal hierdie data ({count} items) uitgevee word.}}</translation>
+<translation id="5522228731050510047">Maak <ph name="URL"/> in 'n nuwe oortjie in Browther oop.</translation>
+<translation id="6358780591055960280">Browther kan nie jou wagwoorde nagaan nie. Probeer later weer.</translation>
+<translation id="1386422761453740126">Voeg tans by Browther …</translation>
 <translation id="3038232873781883849">Wag tans om te installeer...</translation>
 <translation id="3045032126857188731">Vertaalde taal: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Maak terugvoerdialoog toe</translation>
-<translation id="4503085212612536713">Ander Browther-profiele</translation>
-<translation id="7918740962659365265">Help om Browther beter te maak deur omvalverslae en <ph name="UMA_LINK"/> na Browther te stuur</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Een of meer Browther-uitbreidings het toegang tot 1 USB-toestel gehad}=1{Een of meer Browther-uitbreidings het tans toegang tot 1 USB-toestel}other{Een of meer Browther-uitbreidings het tans toegang tot # USB-toestelle}}</translation>
-<translation id="3700405816184340252">Browther-geskiedenis</translation>
-<translation id="7365690458036015383">Die installeerder kon nie die argief se saampersing omkeer nie. Laai Browther asseblief weer af.</translation>
+<translation id="369127628511662602">Ander Browther-profiele</translation>
+<translation id="2370255879896574713">Help om Browther beter te maak deur omvalverslae en <ph name="UMA_LINK"/> na Browther te stuur</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Een of meer Browther-uitbreidings het toegang tot 1 USB-toestel gehad}=1{Een of meer Browther-uitbreidings het tans toegang tot 1 USB-toestel}other{Een of meer Browther-uitbreidings het tans toegang tot # USB-toestelle}}</translation>
+<translation id="2065456480740480340">Browther-geskiedenis</translation>
+<translation id="5011660649081947055">Die installeerder kon nie die argief se saampersing omkeer nie. Laai Browther asseblief weer af.</translation>
 <translation id="310459126943037700">Kon nie taak(take) beëindig nie.</translation>
 <translation id="3104828284009500087">Soek enigiets op die bladsy</translation>
-<translation id="6422885447166607802">Hou jou wagwoorde, boekmerke en geskiedenis perfek gesinkroniseer op alle toestelle. Kry maklik toegang tot die kenmerke wat jy ken en van hou deur jou verstekblaaier na Browther op te dateer.</translation>
-<translation id="8919461291440820124">Browther gebruik tans jou mikrofoon.</translation>
+<translation id="4917564010081457061">Hou jou wagwoorde, boekmerke en geskiedenis perfek gesinkroniseer op alle toestelle. Kry maklik toegang tot die kenmerke wat jy ken en van hou deur jou verstekblaaier na Browther op te dateer.</translation>
+<translation id="1041472930719344928">Browther gebruik tans jou mikrofoon.</translation>
 <translation id="3130333203120345554">Nuwe soektog</translation>
 <translation id="3137969841538672700">Sleep om te soek</translation>
-<translation id="8372436892102763334">Hierdie oortjie gebruik ekstra hulpbronne. Laat Browther dit onaktief maak om jou werkverrigting te verbeter.</translation>
-<translation id="5949068186379578553">Om jou skerm te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
-<translation id="4805806622840861220">Herbegin Browther</translation>
+<translation id="5312717254055363883">Hierdie oortjie gebruik ekstra hulpbronne. Laat Browther dit onaktief maak om jou werkverrigting te verbeter.</translation>
+<translation id="373523409348786203">Om jou skerm te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
+<translation id="802113445299754598">Herbegin Browther</translation>
 <translation id="3161522574479303604">Alle tale</translation>
-<translation id="3225882094369124157">’n Ander program op jou rekenaar het ’n tema bygevoeg wat dalk kan verander hoe Browther werk.
+<translation id="4522189060330781648">’n Ander program op jou rekenaar het ’n tema bygevoeg wat dalk kan verander hoe Browther werk.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Pasmaak jou nuwe Browther-profiel</translation>
-<translation id="4805865169608137960">Meld in die Instellings-bladsy by Browther af om jou Browther-rekening uit Browther te verwyder</translation>
-<translation id="1651639704310627074">Browther kan jou later vra of jy gestoorde inligting wil gebruik om vorms vir jou te outovul</translation>
-<translation id="2585240446624043880">Browther kan nie sy datagids lees of daarheen skryf nie:
+<translation id="2604272613984010799">Pasmaak jou nuwe Browther-profiel</translation>
+<translation id="5150830326120505481">Meld in die Instellings-bladsy by Browther af om jou Browther-rekening uit Browther te verwyder</translation>
+<translation id="7113660200899017820">Browther kan jou later vra of jy gestoorde inligting wil gebruik om vorms vir jou te outovul</translation>
+<translation id="4475011322243623412">Browther kan nie sy datagids lees of daarheen skryf nie:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Herbegin nou</translation>
-<translation id="2339258256897053758">Browther API-sleutels ontbreek. Sommige funksies van Browther sal gedeaktiveer word.</translation>
-<translation id="8926637909431618259">Hou aan om agtergrondprogramme te laat loop wanneer Browther toe is</translation>
-<translation id="518125528057094977">Browther sal jou waarsku voordat enige werf met ’n onveilige verbinding gelaai word</translation>
-<translation id="8652321858775514885">Jy sal by die meeste werwe afgemeld word wanneer jy alle Browther-vensters toemaak, behalwe jou Browther-rekening as jy by Browther aangemeld is. Om werwe toe te laat om jou te onthou, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Jou versteksoekenjin is van buite Browther af verander. Browther het dit teruggestel om jou te beskerm.</translation>
-<translation id="5033074923607633232">Meld by Browther aan om jou wagwoorde, boekmerke en meer op al jou toestelle te kry</translation>
+<translation id="3536063527222598206">Browther API-sleutels ontbreek. Sommige funksies van Browther sal gedeaktiveer word.</translation>
+<translation id="1011450868746766298">Hou aan om agtergrondprogramme te laat loop wanneer Browther toe is</translation>
+<translation id="179611081153855734">Browther sal jou waarsku voordat enige werf met ’n onveilige verbinding gelaai word</translation>
+<translation id="8965591964936552871">Jy sal by die meeste werwe afgemeld word wanneer jy alle Browther-vensters toemaak, behalwe jou Browther-rekening as jy by Browther aangemeld is. Om werwe toe te laat om jou te onthou, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Jou versteksoekenjin is van buite Browther af verander. Browther het dit teruggestel om jou te beskerm.</translation>
+<translation id="1170501833661894915">Meld by Browther aan om jou wagwoorde, boekmerke en meer op al jou toestelle te kry</translation>
 <translation id="3352986031709923790">boonste regterhoek van soekgebied: regs <ph name="RIGHT"/>%, bo <ph name="TOP"/>%</translation>
-<translation id="7261356974224431851">Browther-data in jou rekening</translation>
+<translation id="120745000989996104">Browther-data in jou rekening</translation>
 <translation id="3369405342922656244">Soek hierdie bladsy met Prentsoektog</translation>
-<translation id="6610330853796830621">Gebruik jou wagwoorde met Browther op jou foon</translation>
+<translation id="7173761126541905083">Gebruik jou wagwoorde met Browther op jou foon</translation>
 <translation id="2645435784669275700">Browther-bedryfstelsel</translation>
-<translation id="2297290224191497273">Skakel oor na bestaande Browther-profiel?</translation>
+<translation id="5266583242423616945">Skakel oor na bestaande Browther-profiel?</translation>
 <translation id="3412460710772753638">In Wagwoordbestuurder op hierdie toestel</translation>
-<translation id="2491221873705777076">Verleng Verbeterde Veiligblaai met Browther op jou foon</translation>
-<translation id="7304389940068374923">Maak tans Browther joune …</translation>
-<translation id="9216183508558772570">Browther sal jou in kennis stel wanneer jy met 'n gekompromitteerde wagwoord aanmeld</translation>
-<translation id="5853262807109651878">Dit sal <ph name="ITEMS_COUNT"/> items op hierdie toestel uitvee. Meld as <ph name="USER_EMAIL"/> by Browther aan om jou data later op te haal.</translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> kan tussen Browther-profiele wissel</translation>
-<translation id="8703492925273919597">Maak asseblief alle Browther-vensters toe en probeer weer.</translation>
-<translation id="599091950194451698">Om jou venster te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> is reeds aangemeld.  Meld in jou eie profiel as <ph name="USER_EMAIL_ADDRESS"/> by Browther aan om jou blaai-aktiwiteit apart te hou.</translation>
-<translation id="8981774130895723211">Om jou skerm te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
+<translation id="4282363917570905631">Verleng Verbeterde Veiligblaai met Browther op jou foon</translation>
+<translation id="986094398735583155">Maak tans Browther joune …</translation>
+<translation id="3266047225484320321">Browther sal jou in kennis stel wanneer jy met 'n gekompromitteerde wagwoord aanmeld</translation>
+<translation id="3508047337876211050">Dit sal <ph name="ITEMS_COUNT"/> items op hierdie toestel uitvee. Meld as <ph name="USER_EMAIL"/> by Browther aan om jou data later op te haal.</translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> kan tussen Browther-profiele wissel</translation>
+<translation id="7225005776233199285">Maak asseblief alle Browther-vensters toe en probeer weer.</translation>
+<translation id="5465054931427475969">Om jou venster te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> is reeds aangemeld.  Meld in jou eie profiel as <ph name="USER_EMAIL_ADDRESS"/> by Browther aan om jou blaai-aktiwiteit apart te hou.</translation>
+<translation id="8133590217245064579">Om jou skerm te deel, moet jy skermopname vir Browther in Stelselinstellings toelaat.</translation>
 <translation id="3597003331831379823">Kon nie opstelling met verhoogde voorregte laat loop nie. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Meld by Browther aan</translation>
-<translation id="3066805437003400520">Hierdie persoon se blaaierdata sal van hierdie toestel af uitgevee word. Meld as <ph name="USER_EMAIL"/> by Browther aan om die data te herwin.</translation>
-<translation id="7029305463989165490">Meld op albei toestelle by Browther aan om 'n nommer van <ph name="ORIGIN"/> af na jou Android-foon te stuur.</translation>
+<translation id="611080704131468868">Meld by Browther aan</translation>
+<translation id="2492221622209669678">Hierdie persoon se blaaierdata sal van hierdie toestel af uitgevee word. Meld as <ph name="USER_EMAIL"/> by Browther aan om die data te herwin.</translation>
+<translation id="6793778233257855801">Meld op albei toestelle by Browther aan om 'n nommer van <ph name="ORIGIN"/> af na jou Android-foon te stuur.</translation>
 <translation id="3667616615096815454">Kan nie installeer nie, die app is onbekend aan die bediener.</translation>
-<translation id="1128485277465085828">Gebruik jou eie <ph name="BEGIN_LINK"/>wagfrase<ph name="END_LINK"/> om al die Browther-data in jou Browther-rekening te enkripteer. Betaalmetodes en adresse van Google Pay af sal nie geënkripteer word nie. Blaaigeskiedenis van Browther af sal nie sinkroniseer nie.</translation>
-<translation id="4304059894777924102">Browther kan nie jou wagwoorde nagaan nie. Probeer om jou internetverbinding na te gaan.</translation>
-<translation id="1807774211756215222">Maak skakel in 'n nuwe Browther-oortjie oop</translation>
-<translation id="387105482057676379">Koppel Browther en ander Browther-dienste vir personalisering en ander doeleindes</translation>
+<translation id="5585500151754164442">Gebruik jou eie <ph name="BEGIN_LINK"/>wagfrase<ph name="END_LINK"/> om al die Browther-data in jou Browther-rekening te enkripteer. Betaalmetodes en adresse van Google Pay af sal nie geënkripteer word nie. Blaaigeskiedenis van Browther af sal nie sinkroniseer nie.</translation>
+<translation id="404323216042159951">Browther kan nie jou wagwoorde nagaan nie. Probeer om jou internetverbinding na te gaan.</translation>
+<translation id="5004936474632127765">Maak skakel in 'n nuwe Browther-oortjie oop</translation>
+<translation id="6236643159256182256">Koppel Browther en ander Browther-dienste vir personalisering en ander doeleindes</translation>
 <translation id="3729187154190517324">Voeg verskeie oortjies, lêers en nutsgoed by met die “Voeg ’n oortjie en meer by”-knoppie om dieper te soek.</translation>
-<translation id="3867175562099983425">Bestuur Browther-profiele</translation>
-<translation id="308146532933302843">Vind uit hoekom Browther sommige aflaaie blokkeer</translation>
-<translation id="2189149060536531804">Browther sal jou laat weet as jy enigiets moet hersien</translation>
-<translation id="8422094375343667686">Browther-profiele help jou om verskillende dele van jou lewe te skei. Voeg nou ’n nuwe profiel by.</translation>
-<translation id="6324134303015966238">Browther laai bladsye wat jy moontlik sal besoek vooraf, sodat hulle vinniger laai wanneer jy hulle wel besoek</translation>
+<translation id="1400697664933775238">Bestuur Browther-profiele</translation>
+<translation id="2461315395128103158">Vind uit hoekom Browther sommige aflaaie blokkeer</translation>
+<translation id="8058420662026104226">Browther sal jou laat weet as jy enigiets moet hersien</translation>
+<translation id="3177448557921912221">Browther-profiele help jou om verskillende dele van jou lewe te skei. Voeg nou ’n nuwe profiel by.</translation>
+<translation id="1541177876035612043">Browther laai bladsye wat jy moontlik sal besoek vooraf, sodat hulle vinniger laai wanneer jy hulle wel besoek</translation>
 <translation id="3810973564298564668">Bestuur</translation>
-<translation id="4815742196440583661">Volg die QR-kode, laai Browther vir iOS af en meld by jou Browther-rekening aan om jou gestoorde wagwoorde te gebruik</translation>
-<translation id="6093965249696204223">Browther-wenk: Verbeterde Veiligblaai</translation>
+<translation id="1117103475254549453">Volg die QR-kode, laai Browther vir iOS af en meld by jou Browther-rekening aan om jou gestoorde wagwoorde te gebruik</translation>
+<translation id="8880695882192156860">Browther-wenk: Verbeterde Veiligblaai</translation>
 <translation id="3846683726093018685">**Som op:** Beskryf die primêre onderwerp en doel van die inhoud in die skermskoot in ’n enkele sin van onder 30 woorde.
 
           **Stel vrae voor:** Genereer ’n koeëlpuntlys met 3-5 besinningswaardige vrae wat ’n gebruiker kan vra om die skermskoot beter te verstaan. Hierdie vrae moet ten minste een vraag wat spesifiek oor ’n visuele objek, sy ontwerp of sy plasing gaan, insluit.</translation>
-<translation id="5381622442243174305"><ph name="PAGE_TITLE"/> – Browther</translation>
+<translation id="8293474885560144454"><ph name="PAGE_TITLE"/> – Browther</translation>
 <translation id="3885770153807205175">Taalkieser</translation>
-<translation id="6315734375101223238">Pasmaak en beheer Browther. Iets verg jou aandag – klik vir besonderhede.</translation>
-<translation id="7130675370997202556">Klik jou naam om Browther oop te maak en te begin blaai.</translation>
+<translation id="4861846616763552424">Pasmaak en beheer Browther. Iets verg jou aandag – klik vir besonderhede.</translation>
+<translation id="6126366281251241386">Klik jou naam om Browther oop te maak en te begin blaai.</translation>
 <translation id="3892148308691398805">Kopieer teks</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> is reeds by hierdie Browther-profiel aangemeld. Browther kan jou eie profiel vir jou skep om jou blaaidata apart te hou.</translation>
-<translation id="8744239658215739511">P&amp;asmaak jou Browther</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> is reeds by hierdie Browther-profiel aangemeld. Browther kan jou eie profiel vir jou skep om jou blaaidata apart te hou.</translation>
+<translation id="3821553157234855663">P&amp;asmaak jou Browther</translation>
 <translation id="3941890832296813527">Installeerfout: Die installeerderlêernaam is ongeldig of word nie ondersteun nie.</translation>
-<translation id="8090497651549769448">Browther probeer tans om wagwoorde te kopieer. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
-<translation id="4256965182800026277">Jou wagwoorde, betaalmetodes en adresse wat jy in jou Browther-rekening gestoor het, sal van hierdie toestel verwyder word. Meld weer aan as jy hulle weer in Browther wil gebruik.</translation>
+<translation id="6482299900191767005">Browther probeer tans om wagwoorde te kopieer. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
+<translation id="5853011008278898603">Jou wagwoorde, betaalmetodes en adresse wat jy in jou Browther-rekening gestoor het, sal van hierdie toestel verwyder word. Meld weer aan as jy hulle weer in Browther wil gebruik.</translation>
 <translation id="395904275706073188">Beskermde bladsye kan nie gelees word nie. Probeer ’n ander bladsy.</translation>
-<translation id="4194619960643453552">Vind uit hoe Browther jou veilig hou</translation>
-<translation id="1486377520191913768">Wanneer jy in die adresbalk of soekkassie tik, stuur Browther dit wat jy tik na jou organisasie se soek-, KI- en agentnutsgoed om voorstelle te kry.</translation>
-<translation id="1311808042904310985">Meer oor &amp;Browther-toetsweergawe</translation>
+<translation id="1832973663231751701">Vind uit hoe Browther jou veilig hou</translation>
+<translation id="4531502594774670767">Wanneer jy in die adresbalk of soekkassie tik, stuur Browther dit wat jy tik na jou organisasie se soek-, KI- en agentnutsgoed om voorstelle te kry.</translation>
+<translation id="300013383485253006">Meer oor &amp;Browther-toetsweergawe</translation>
 <translation id="1152920704813762236">Meer oor Browther-bedryfstelsel</translation>
-<translation id="8282895427217902177">Wanneer jy ’n werf besoek, stuur Browther ’n verdoeselde gedeelte van die URL na <ph name="BEGIN_LINK"/>Browther Veiligblaai<ph name="END_LINK"/> toe deur ’n privaatheidbediener wat jou IP-adres versteek. As ’n webwerf iets verdag doen, word volledige URL’e en stukkies van die bladsyinhoud ook gestuur.</translation>
+<translation id="8126752030994997015">Wanneer jy ’n werf besoek, stuur Browther ’n verdoeselde gedeelte van die URL na <ph name="BEGIN_LINK"/>Browther Veiligblaai<ph name="END_LINK"/> toe deur ’n privaatheidbediener wat jou IP-adres versteek. As ’n webwerf iets verdag doen, word volledige URL’e en stukkies van die bladsyinhoud ook gestuur.</translation>
 <translation id="3703994572283698466">Browther-bedryfstelsel word moontlik gemaak deur bykomende <ph name="BEGIN_LINK_CROS_OSS"/>oopbronsagteware<ph name="END_LINK_CROS_OSS"/>, soos die geval ook is met <ph name="BEGIN_LINK_LINUX_OSS"/>Linux-ontwikkelingomgewing<ph name="END_LINK_LINUX_OSS"/>.</translation>
 <translation id="4022972681110646219">Vertaal skerm</translation>
 <translation id="4023601594785368013">Oorspronklike taal: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Maak skakels in Browther vanaf enige app oop. Dit word ook vir maklike toegang in jou taakbalk vasgespeld.</translation>
-<translation id="6056473803837713617">Help om Browther te verbeter deur die <ph name="BEGIN_LINK"/>huidige instellings<ph name="END_LINK"/> aan te gee</translation>
+<translation id="6450460108719059465">Maak skakels in Browther vanaf enige app oop. Dit word ook vir maklike toegang in jou taakbalk vasgespeld.</translation>
+<translation id="3437506136408403836">Help om Browther te verbeter deur die <ph name="BEGIN_LINK"/>huidige instellings<ph name="END_LINK"/> aan te gee</translation>
 <translation id="4050175100176540509">Belangrike sekuriteitverbeterings en nuwe kenmerke is in die jongste weergawe beskikbaar.</translation>
 <translation id="4055805654398742145">W&amp;agwoordbestuurder</translation>
-<translation id="6654312501894761082">’n Ander program op jou rekenaar het ’n uitbreiding bygevoeg wat dalk kan verander hoe Browther werk.
+<translation id="2164947358785939495">’n Ander program op jou rekenaar het ’n uitbreiding bygevoeg wat dalk kan verander hoe Browther werk.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Jou organisasie maak Browther outomaties toe nadat dit 1 minuut lank nie gebruik is nie. Blaaierdata word uitgevee. Dit kan geskiedenis, outovul en aflaaie insluit.}other{Jou organisasie maak Browther outomaties toe nadat dit # minute lank nie gebruik is nie. Blaaierdata word uitgevee. Dit kan geskiedenis, outovul en aflaaie insluit.}}</translation>
-<translation id="5794951150713244901">Gaan na Meer oor Browther-bladsy</translation>
-<translation id="10925962326134232">Pasmaak Browther om vir jou blaaier ’n nuwe voorkoms te gee</translation>
-<translation id="6596295505984504022">P&amp;asmaak jou Browther</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Jou organisasie maak Browther outomaties toe nadat dit 1 minuut lank nie gebruik is nie. Blaaierdata word uitgevee. Dit kan geskiedenis, outovul en aflaaie insluit.}other{Jou organisasie maak Browther outomaties toe nadat dit # minute lank nie gebruik is nie. Blaaierdata word uitgevee. Dit kan geskiedenis, outovul en aflaaie insluit.}}</translation>
+<translation id="1535413545339990419">Gaan na Meer oor Browther-bladsy</translation>
+<translation id="692283249649018289">Pasmaak Browther om vir jou blaaier ’n nuwe voorkoms te gee</translation>
+<translation id="6375229634133804834">P&amp;asmaak jou Browther</translation>
 <translation id="4148957013307229264">Installeer tans …</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> – Netwerkaanmelding – Browther</translation>
-<translation id="2871190378186459992">Ontdek wonderlike programme, speletjies, uitbreidings en temas vir Browther.</translation>
-<translation id="462105622535258178">Meld by Browther aan om hierdie uitbreiding en meer op al jou rekenaars te kry</translation>
-<translation id="6670140629169983459">Skakel oor na jou Browther-profiel waar jy reeds aangemeld is as <ph name="USER_EMAIL_ADDRESS"/> om met jou ouers se keuses veiliger aanlyn te bly</translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> – Netwerkaanmelding – Browther</translation>
+<translation id="2911246138082876798">Ontdek wonderlike programme, speletjies, uitbreidings en temas vir Browther.</translation>
+<translation id="2528977475313334293">Meld by Browther aan om hierdie uitbreiding en meer op al jou rekenaars te kry</translation>
+<translation id="8244267655940711467">Skakel oor na jou Browther-profiel waar jy reeds aangemeld is as <ph name="USER_EMAIL_ADDRESS"/> om met jou ouers se keuses veiliger aanlyn te bly</translation>
 <translation id="4222932583846282852">Kanselleer tans …</translation>
 <translation id="4224210481850767180">Die installering is gekanselleer.</translation>
-<translation id="1853997773668795891">Koppel jou Browther-data aan hierdie rekening?</translation>
-<translation id="4732930052828648898">Waarsku jou oor gevaarlike werwe – selfs werwe waarvan Browther nie voorheen geweet het nie – deur meer data van werwe te ontleed as standaardbeskerming. Jy kan kies om Browther-waarskuwings oor te slaan.</translation>
-<translation id="2201661640076600072">Meld by Browther af</translation>
-<translation id="3262506503470845422">Kry hulp met Browther</translation>
+<translation id="8219359042845534271">Koppel jou Browther-data aan hierdie rekening?</translation>
+<translation id="5520777668172961882">Waarsku jou oor gevaarlike werwe – selfs werwe waarvan Browther nie voorheen geweet het nie – deur meer data van werwe te ontleed as standaardbeskerming. Jy kan kies om Browther-waarskuwings oor te slaan.</translation>
+<translation id="2014920019837536689">Meld by Browther af</translation>
+<translation id="4341512411059715879">Kry hulp met Browther</translation>
 <translation id="4281844954008187215">Diensbepalings</translation>
-<translation id="7691786510374174420">Kon weens 'n ongespesifiseerde fout nie installeer nie. As Browther tans loop, maak dit asseblief toe en probeer weer.</translation>
-<translation id="6368144843345980623">Voer wagwoorde vanaf Browther uit</translation>
+<translation id="322492684764924424">Kon weens 'n ongespesifiseerde fout nie installeer nie. As Browther tans loop, maak dit asseblief toe en probeer weer.</translation>
+<translation id="3813060261346666066">Voer wagwoorde vanaf Browther uit</translation>
 <translation id="4304713468139749426">Wagwoordbestuurder</translation>
 <translation id="4334241893986177674">Deursoek hierdie skermskoot</translation>
 <translation id="4334294535648607276">Aflaai is voltooi.</translation>
-<translation id="242356249838681145">Begin Browther wanneer Windows begin</translation>
-<translation id="4747339441562331861">Kry maklik toegang tot die kenmerke wat jy ken, van hou en vertrou deur Browther as jou verstekblaaier te stel. Browther sal vir kitstoegang op jou taakbalk vasgespeld word.</translation>
+<translation id="2177954934431828302">Begin Browther wanneer Windows begin</translation>
+<translation id="2472318668926455009">Kry maklik toegang tot die kenmerke wat jy ken, van hou en vertrou deur Browther as jou verstekblaaier te stel. Browther sal vir kitstoegang op jou taakbalk vasgespeld word.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> vereis dat jy die volgende diensbepalings lees en aanvaar voordat jy hierdie toestel gebruik. Hierdie bepalings verander, beperk of brei nie Browther-bedryfstelsel se bepalings uit nie.</translation>
-<translation id="9183662282810237335">Verlaat Browther in elk geval?</translation>
+<translation id="2897580280700805340">Verlaat Browther in elk geval?</translation>
 <translation id="4413205837991854510">Wys altyd kortpad vir Prentsoektog</translation>
-<translation id="4065288863231444640">Laat Browther in die agtergrond loop</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther beveel aan dat jy dit verwyder. <ph name="BEGIN_LINK"/>Kry meer inligting oor gesteunde uitbreidings<ph name="END_LINK"/>}other{Browther beveel aan dat jy hulle verwyder. <ph name="BEGIN_LINK"/>Kry meer inligting oor gesteunde uitbreidings<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Pasmaak en beheer Browther</translation>
+<translation id="2454897022983434851">Laat Browther in die agtergrond loop</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther beveel aan dat jy dit verwyder. <ph name="BEGIN_LINK"/>Kry meer inligting oor gesteunde uitbreidings<ph name="END_LINK"/>}other{Browther beveel aan dat jy hulle verwyder. <ph name="BEGIN_LINK"/>Kry meer inligting oor gesteunde uitbreidings<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Pasmaak en beheer Browther</translation>
 <translation id="4427306783828095590">Verbeterde beskerming doen meer om uitvissing en wanware te blokkeer</translation>
 <translation id="4434353761996769206">Installeerderfout: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> bestuur Browther</translation>
-<translation id="3579012341787637143">Voeg Browther-profiel by</translation>
-<translation id="6786534271003695094">Meer oor Browther-toetsweergawe</translation>
-<translation id="526235294307144732">Voer jou wagfrase in om Browther-data in jou Browther-rekening te gebruik en te stoor</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> bestuur Browther</translation>
+<translation id="4007482010626246887">Voeg Browther-profiel by</translation>
+<translation id="6888322430074420631">Meer oor Browther-toetsweergawe</translation>
+<translation id="8912436499620582668">Voer jou wagfrase in om Browther-data in jou Browther-rekening te gebruik en te stoor</translation>
 <translation id="4493028449971051158">Aanskakelingfout: laat loop die installeerder as administrateur.</translation>
 <translation id="4501471624619070934">Installasie het misluk omdat toegang in hierdie land beperk is.</translation>
-<translation id="8594994021633965927">Hierdie uitbreiding het nie privaatheidpraktyke gepubliseer nie, soos hoe dit data insamel en gebruik. Browther beveel aan dat jy dit verwyder.</translation>
-<translation id="7084397798469173252">Welkom by Browther; nuwe blaaiervenster is oopgemaak</translation>
-<translation id="137732229629632648">Browther het toestemming nodig om jou omgewing te karteer en jou hande na te spoor</translation>
-<translation id="5036046007335188949">Jy het reeds in ’n ander Browther-profiel as <ph name="USER_EMAIL_ADDRESS"/> aangemeld</translation>
-<translation id="1878185978731985193">Browther laai bladsye vooraf wat blaai en soek vinniger maak. <ph name="BEGIN_LINK"/>Kry meer inligting oor voorafgelaaide bladsye<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Hierdie uitbreiding het nie privaatheidpraktyke gepubliseer nie, soos hoe dit data insamel en gebruik. Browther beveel aan dat jy dit verwyder.</translation>
+<translation id="2174621824527957495">Welkom by Browther; nuwe blaaiervenster is oopgemaak</translation>
+<translation id="6391148383688605718">Browther het toestemming nodig om jou omgewing te karteer en jou hande na te spoor</translation>
+<translation id="7756445485815468244">Jy het reeds in ’n ander Browther-profiel as <ph name="USER_EMAIL_ADDRESS"/> aangemeld</translation>
+<translation id="137435413163730206">Browther laai bladsye vooraf wat blaai en soek vinniger maak. <ph name="BEGIN_LINK"/>Kry meer inligting oor voorafgelaaide bladsye<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Verbeter aanlyn veiligheid vir almal wanneer jy ’n werf aangee wat jy dink skadelik is.</translation>
-<translation id="8669339108356170796">Browther het hierdie aflaai geblokkeer omdat jy Veiligblaai afgeskakel het en die lêer nie geverifieer kan word nie</translation>
-<translation id="7583343841997441047">Probeer Google Lens met Browther op jou foon</translation>
+<translation id="3266647901351304597">Browther het hierdie aflaai geblokkeer omdat jy Veiligblaai afgeskakel het en die lêer nie geverifieer kan word nie</translation>
+<translation id="6980208900390333646">Probeer Google Lens met Browther op jou foon</translation>
 <translation id="4594305310729380060">Na Wagwoordbestuurder op hierdie toestel</translation>
-<translation id="3349475100979552835">Browther-programme</translation>
+<translation id="738228944918383850">Browther-programme</translation>
 <translation id="4598116752460667024">Soek enige proses op die lys.</translation>
 <translation id="4970880042055371251">Browther-bedryfstelselweergawe</translation>
-<translation id="2182657378556811785">Amper op datum! Herbegin Browther om opdatering te voltooi.</translation>
-<translation id="6311668361877328515">Maak werwe met Browther se V8-enjin vinniger, maar maak Browther effens minder bestand teen aanvalle</translation>
-<translation id="7402642357351265733">As jy ook Browther-gebruiksverslae deel, sluit daardie verslae die URL'e in wat jy besoek</translation>
-<translation id="8142245354207161805">Dit lyk of die profiel deur 'n ander Browther-proses (<ph name="PROCESS_ID"/>) op 'n ander rekenaar (<ph name="HOST_NAME"/>) gebruik word. Browther het jou profiel gesluit sodat dit nie gekorrupteer word nie. As jy seker is dat geen ander prosesse hierdie profiel gebruik nie, kan jy die profiel ontsluit en Browther herbegin.</translation>
+<translation id="4482468019601425607">Amper op datum! Herbegin Browther om opdatering te voltooi.</translation>
+<translation id="5517890123509214766">Maak werwe met Browther se V8-enjin vinniger, maar maak Browther effens minder bestand teen aanvalle</translation>
+<translation id="7690070364551268156">As jy ook Browther-gebruiksverslae deel, sluit daardie verslae die URL'e in wat jy besoek</translation>
+<translation id="5020487088453637212">Dit lyk of die profiel deur 'n ander Browther-proses (<ph name="PROCESS_ID"/>) op 'n ander rekenaar (<ph name="HOST_NAME"/>) gebruik word. Browther het jou profiel gesluit sodat dit nie gekorrupteer word nie. As jy seker is dat geen ander prosesse hierdie profiel gebruik nie, kan jy die profiel ontsluit en Browther herbegin.</translation>
 <translation id="4680828127924988555">Kanselleer installering</translation>
-<translation id="2014343159590733363">Sommige van jou Browther-data is nog nie in jou Browther-rekening gestoor nie. Probeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data uitgevee word.</translation>
-<translation id="2408746614080689238">Terwyl jy aangemeld is, kan jy jou wagwoorde en meer van jou Browther-rekening in Browther gebruik. <ph name="SHORTCUT"/> kan jou Browther-dienste-instellings verander.</translation>
-<translation id="847561904663814268">Iemand het voorheen op hierdie rekenaar as <ph name="ACCOUNT_EMAIL_LAST"/> by Browther aangemeld. Skep asseblief 'n nuwe Browther-gebruiker om jou inligting apart te hou.</translation>
+<translation id="8134827615154347946">Sommige van jou Browther-data is nog nie in jou Browther-rekening gestoor nie. Probeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data uitgevee word.</translation>
+<translation id="3508712423420506333">Terwyl jy aangemeld is, kan jy jou wagwoorde en meer van jou Browther-rekening in Browther gebruik. <ph name="SHORTCUT"/> kan jou Browther-dienste-instellings verander.</translation>
+<translation id="2388739442635757494">Iemand het voorheen op hierdie rekenaar as <ph name="ACCOUNT_EMAIL_LAST"/> by Browther aangemeld. Skep asseblief 'n nuwe Browther-gebruiker om jou inligting apart te hou.</translation>
 <translation id="4724676981607797757">Installasie het misluk as gevolg van ’n ongesteunde protokolfout.</translation>
-<translation id="3834935463915107022">Verlaat Browther in elk geval?</translation>
-<translation id="8668413672647811944">'n Spesiale sekuriteitopdatering vir Browther is sopas toegepas. Herbegin nou en ons sal jou oortjies teruglaai.</translation>
-<translation id="9029438584415578308">Vra vir Browther</translation>
-<translation id="4941816441131888792">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> en nog <ph name="COUNT"/> verwyder.</translation>
-<translation id="4823369970559443694">Browther kan nie jou wagwoorde nagaan nie. Probeer ná 24 uur weer of <ph name="BEGIN_LINK"/>gaan wagwoorde in jou Browther-rekening na<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Dit gebruik dieselfde speltoetser wat in Browther-soektog gebruik word. Teks wat jy in die blaaier tik, word na Browther toe gestuur. Jy kan altyd hierdie gedrag in instellings verander.</translation>
-<translation id="2899369907387169108">Gebruik Browther sonder 'n rekening</translation>
-<translation id="1912973375560256099">Inkomende reël vir Browther om mDNS-verkeer toe te laat.</translation>
-<translation id="711601904575862069">Begin weer om &amp;Browther op te dateer</translation>
+<translation id="8305313684264112434">Verlaat Browther in elk geval?</translation>
+<translation id="418155915144835101">'n Spesiale sekuriteitopdatering vir Browther is sopas toegepas. Herbegin nou en ons sal jou oortjies teruglaai.</translation>
+<translation id="2683970367518529374">Vra vir Browther</translation>
+<translation id="5064473048847774331">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> en nog <ph name="COUNT"/> verwyder.</translation>
+<translation id="5941343075741207533">Browther kan nie jou wagwoorde nagaan nie. Probeer ná 24 uur weer of <ph name="BEGIN_LINK"/>gaan wagwoorde in jou Browther-rekening na<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Dit gebruik dieselfde speltoetser wat in Browther-soektog gebruik word. Teks wat jy in die blaaier tik, word na Browther toe gestuur. Jy kan altyd hierdie gedrag in instellings verander.</translation>
+<translation id="4581078588976787792">Gebruik Browther sonder 'n rekening</translation>
+<translation id="5921583137589782067">Inkomende reël vir Browther om mDNS-verkeer toe te laat.</translation>
+<translation id="6563126962881169552">Begin weer om &amp;Browther op te dateer</translation>
 <translation id="4918086044614829423">Aanvaar</translation>
 <translation id="4918844574251943176">Prent is gekopieer</translation>
-<translation id="8797356639448065696">Browther is in agtergrondmodus.</translation>
-<translation id="1895567721497166950">Klik om die Browther-aanmeldingdialoog toe te maak</translation>
-<translation id="2692971232706994729">Met Browther-profiele kan jy al jou Browther-goed skei. Skep profiele vir vriende en familielede, of verdeel tussen werk en pret.</translation>
-<translation id="7406627712452599344">Gaste kan Browther gebruik sonder om iets agter te laat.</translation>
-<translation id="844471735881341044">Jou rekening in Browther</translation>
-<translation id="5952898964075639679">Voeg jouself by Browther</translation>
-<translation id="7995865526174204486">Gemini in Browther gebruik outoblaai om in jou oortjies te werk en take te voltooi wat jy vir dit gee. <ph name="LINK_BEGIN"/>Meer inligting<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther benodig toestemming om jou hande na te spoor</translation>
-<translation id="5406591571925937375">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/> verwyder.</translation>
+<translation id="5240982928057703861">Browther is in agtergrondmodus.</translation>
+<translation id="3603134280602182991">Klik om die Browther-aanmeldingdialoog toe te maak</translation>
+<translation id="6120233890602288442">Met Browther-profiele kan jy al jou Browther-goed skei. Skep profiele vir vriende en familielede, of verdeel tussen werk en pret.</translation>
+<translation id="5722688387568011881">Gaste kan Browther gebruik sonder om iets agter te laat.</translation>
+<translation id="7786958592460743302">Jou rekening in Browther</translation>
+<translation id="9114640791491590337">Voeg jouself by Browther</translation>
+<translation id="3536391594566515053">Gemini in Browther gebruik outoblaai om in jou oortjies te werk en take te voltooi wat jy vir dit gee. <ph name="LINK_BEGIN"/>Meer inligting<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther benodig toestemming om jou hande na te spoor</translation>
+<translation id="1627123463102858476">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/> verwyder.</translation>
 <translation id="5174969993834422967">Jy blokkeer gewoonlik kennisgewings. Klik die kennisgewing-ikoon in die regter hoek van jou liggingbalk sodat dié werf jou in kennis kan stel.</translation>
 <translation id="5174983315706567306">Te min skyfspasie.</translation>
-<translation id="8157129267754368853">Browther-rekening vereis herstawing</translation>
-<translation id="9078804073692109646">Geen gestoorde wagwoorde nie. Browther kan jou wagwoorde nagaan wanneer jy hulle stoor.</translation>
-<translation id="6234515504547364178">Meld af uit Browther</translation>
+<translation id="7091313576354542088">Browther-rekening vereis herstawing</translation>
+<translation id="9045390598305758496">Geen gestoorde wagwoorde nie. Browther kan jou wagwoorde nagaan wanneer jy hulle stoor.</translation>
+<translation id="5686724084351858452">Meld af uit Browther</translation>
 <translation id="5234764350956374838">Verwerp</translation>
 <translation id="5254739261293693943">Vra oor hierdie video</translation>
-<translation id="8586264863973514035">Herbegin Browther om jou veranderinge toe te pas</translation>
+<translation id="8165028066129227692">Herbegin Browther om jou veranderinge toe te pas</translation>
 <translation id="5286907366254680517">Bespeur</translation>
-<translation id="7264453786974905915">Kry die Browther-app</translation>
-<translation id="6944930779012811739">Browther-opdateerderdiens (intern)</translation>
+<translation id="198210130507193824">Kry die Browther-app</translation>
+<translation id="8472078903122489041">Browther-opdateerderdiens (intern)</translation>
 <translation id="5346389065299425353">Voeg verskeie oortjies, lêers en nutsgoed by om dieper te soek</translation>
-<translation id="7573068992266397941">Browther het ’n paar veiligheidsaanbevelings vir jou hersiening gekry</translation>
-<translation id="8174413867995118050">Ander Browther-profiele</translation>
-<translation id="7708394612738038097">Jy meld tans met 'n bestuurde rekening aan en gee sy administrateur beheer oor jou Browther-profiel. Jou Browther-data, soos jou programme, boekmerke, geskiedenis, wagwoorde en ander instellings, sal permanent aan <ph name="USER_NAME"/> gekoppel word. Jy sal hierdie data via die Browther-rekening se kontroleskerm kan uitvee, maar jy sal nie hierdie data met 'n ander rekening kan assosieer nie. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther het ’n paar veiligheidsaanbevelings vir jou hersiening gekry</translation>
+<translation id="509616246140011182">Ander Browther-profiele</translation>
+<translation id="8214429210535362385">Jy meld tans met 'n bestuurde rekening aan en gee sy administrateur beheer oor jou Browther-profiel. Jou Browther-data, soos jou programme, boekmerke, geskiedenis, wagwoorde en ander instellings, sal permanent aan <ph name="USER_NAME"/> gekoppel word. Jy sal hierdie data via die Browther-rekening se kontroleskerm kan uitvee, maar jy sal nie hierdie data met 'n ander rekening kan assosieer nie. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Ekstra kode: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Sluit Browther by Web- en Appaktiwiteit in om personalisering te kry</translation>
-<translation id="5154625106151193600">Vind uit hoekom Browther sommige lêers blokkeer</translation>
-<translation id="1786715389543715322">Dateer Browther tans op (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Laat Browther-aanmelding toe</translation>
-<translation id="5267531627648004734">Verwyder van Browther af</translation>
-<translation id="4620757336635063467">Verminder werkverrigting, maar maak Browther meer bestand teen aanvalle</translation>
-<translation id="239760341987199724">Stel Browther as jou verstekblaaier</translation>
-<translation id="1403270718080126244"><ph name="PAGE_TITLE"/> – Browther Beta</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther beveel aan dat jy die oortjie wat jou blaaier stadig maak, onderbreek}other{Browther beveel aan dat jy die oortjies wat jou blaaier stadig maak, onderbreek}}</translation>
-<translation id="894936507076470937">Browther sal dalk nie reg werk nie omdat dit nie meer in hierdie Linux-uitreiking gesteun word nie</translation>
-<translation id="2596557398669145729">Browther het hierdie aflaai geblokkeer omdat die lêer jou persoonlike en sosialenetwerkrekeninge kan beskadig</translation>
-<translation id="696826782632239602">Browther het toegang tot jou ligging nodig om jou ligging met hierdie werf te deel</translation>
-<translation id="1744365871163268756">Wag terwyl Browther die jongste stelselopdaterings installeer.</translation>
-<translation id="3861679447659630159">Browther probeer tans om wagwoorde te wysig. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
+<translation id="5244017809112094908">Sluit Browther by Web- en Appaktiwiteit in om personalisering te kry</translation>
+<translation id="8096544113811780871">Vind uit hoekom Browther sommige lêers blokkeer</translation>
+<translation id="2384387444932590174">Dateer Browther tans op (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Laat Browther-aanmelding toe</translation>
+<translation id="6557334704331248411">Verwyder van Browther af</translation>
+<translation id="5832041381258620673">Verminder werkverrigting, maar maak Browther meer bestand teen aanvalle</translation>
+<translation id="3763317028635993788">Stel Browther as jou verstekblaaier</translation>
+<translation id="8756552710915246172"><ph name="PAGE_TITLE"/> – Browther Beta</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther beveel aan dat jy die oortjie wat jou blaaier stadig maak, onderbreek}other{Browther beveel aan dat jy die oortjies wat jou blaaier stadig maak, onderbreek}}</translation>
+<translation id="4423621904097888155">Browther sal dalk nie reg werk nie omdat dit nie meer in hierdie Linux-uitreiking gesteun word nie</translation>
+<translation id="6201726364919996698">Browther het hierdie aflaai geblokkeer omdat die lêer jou persoonlike en sosialenetwerkrekeninge kan beskadig</translation>
+<translation id="7679204468655335605">Browther het toegang tot jou ligging nodig om jou ligging met hierdie werf te deel</translation>
+<translation id="1163572992704966942">Wag terwyl Browther die jongste stelselopdaterings installeer.</translation>
+<translation id="5050118226119231029">Browther probeer tans om wagwoorde te wysig. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
 <translation id="5524890928877629608">boonste linkerhoek van soekgebied: links <ph name="LEFT"/>%, bo <ph name="TOP"/>%</translation>
-<translation id="232381795826373334">Maak PDF's in Browther oop</translation>
+<translation id="5875549039106594731">Maak PDF's in Browther oop</translation>
 <translation id="5536164441519929134">Vra<ph name="LINE_BREAK"/>oor hierdie oortjie</translation>
 <translation id="5579324208890605088">Aanskakelingfout: laat loop die installeerder as ’n gereelde gebruiker, nie as administrateur nie.</translation>
-<translation id="3588973534877826647">Gebruik Browther by verstek en speld dit vas</translation>
+<translation id="202315329304302571">Gebruik Browther by verstek en speld dit vas</translation>
 <translation id="5596627076506792578">Meer opsies</translation>
 <translation id="5605834417512968703">Kies enigiets om met Prentsoektog te soek of druk Escape om uit Prentsoektog te gaan</translation>
 <translation id="5618818588972826921">Kies enige teks of prent om met Prentsoektog te soek of druk Escape om die Prentsoektog te verlaat</translation>
-<translation id="1026406809507858026">{0,plural, =0{'n Browther-opdatering is beskikbaar}=1{'n Browther-opdatering is beskikbaar}other{'n Browther-opdatering is al # dae lank beskikbaar}}</translation>
-<translation id="1023472437588692618">Vee altyd werfdata op jou toestel uit wanneer jy Browther toemaak</translation>
-<translation id="5646769069113654257">Herbegin Browther asseblief nou</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Wys Browther in hierdie taal</translation>
+<translation id="5823076755666406442">{0,plural, =0{'n Browther-opdatering is beskikbaar}=1{'n Browther-opdatering is beskikbaar}other{'n Browther-opdatering is al # dae lank beskikbaar}}</translation>
+<translation id="8414129876440043675">Vee altyd werfdata op jou toestel uit wanneer jy Browther toemaak</translation>
+<translation id="5156991567152325333">Herbegin Browther asseblief nou</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Wys Browther in hierdie taal</translation>
 <translation id="569897634095159764">Kon nie aan die internet koppel nie. Instaanbediener vereis stawing.</translation>
-<translation id="3364613146104156465">Met Browther-profiele kan jy persoonlike blaai-aktiwiteit en werk apart hou. Voeg nou ’n nuwe profiel by.</translation>
-<translation id="1834213228893578875">Browther maak geheue uit onaktiewe oortjies beskikbaar. Dit gee aktiewe oortjies en ander apps meer rekenaarhulpbronne en hou Browther vinnig. Jou onaktiewe oortjies word outomaties weer aktief wanneer jy na hulle toe teruggaan. <ph name="BEGIN_LINK"/>Kry meer inligting oor Geheuebespaarder<ph name="END_LINK"/></translation>
-<translation id="899523323751802352"><ph name="SETTINGS_LINK"/> die Browther-data in jou rekening indien jy jou wagfrase vergeet het of hierdie instelling wil verander</translation>
-<translation id="82926023981336111">Pasmaak en beheer Browther. Stel Browther as jou verstek.</translation>
+<translation id="4215338057953170891">Met Browther-profiele kan jy persoonlike blaai-aktiwiteit en werk apart hou. Voeg nou ’n nuwe profiel by.</translation>
+<translation id="5366435608642317052">Browther maak geheue uit onaktiewe oortjies beskikbaar. Dit gee aktiewe oortjies en ander apps meer rekenaarhulpbronne en hou Browther vinnig. Jou onaktiewe oortjies word outomaties weer aktief wanneer jy na hulle toe teruggaan. <ph name="BEGIN_LINK"/>Kry meer inligting oor Geheuebespaarder<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738"><ph name="SETTINGS_LINK"/> die Browther-data in jou rekening indien jy jou wagfrase vergeet het of hierdie instelling wil verander</translation>
+<translation id="7763291835437810978">Pasmaak en beheer Browther. Stel Browther as jou verstek.</translation>
 <translation id="5809516625706423866">Kon nie aan die internet koppel nie. HTTP 401 ongemagtig. Gaan asseblief jou proxy-opstelling na.</translation>
-<translation id="95980832839683236">Maak werwe vinniger met Browther se V8-enjin, maar maak Browther effens minder bestand teen aanvalle. Hierdie instelling is af.</translation>
-<translation id="1224606669200461217">Dateer Browther op om Browther-data in jou Browther-rekening te gebruik en te stoor</translation>
+<translation id="1827132270895283425">Maak werwe vinniger met Browther se V8-enjin, maar maak Browther effens minder bestand teen aanvalle. Hierdie instelling is af.</translation>
+<translation id="1553025851718680114">Dateer Browther op om Browther-data in jou Browther-rekening te gebruik en te stoor</translation>
 <translation id="5824893331272123205">Kon nie hierdie paneel laai nie, probeer weer</translation>
-<translation id="7207456302801184289">Welkom by Browther</translation>
+<translation id="7339353273994862168">Welkom by Browther</translation>
 <translation id="5871205389137001634">Klik om uit Prentsoektog te gaan</translation>
-<translation id="8054200348483755053">Browther het bevind dat hierdie items wanware bevat:</translation>
-<translation id="3955583201925082436">Browther kontroleer gereeld om seker te maak jou blaaier het die veiligste instellings. Ons sal jou laat weet as jy enigiets moet nagaan.</translation>
+<translation id="7586794330537887406">Browther het bevind dat hierdie items wanware bevat:</translation>
+<translation id="1666897346518812892">Browther kontroleer gereeld om seker te maak jou blaaier het die veiligste instellings. Ons sal jou laat weet as jy enigiets moet nagaan.</translation>
 <translation id="5895138241574237353">Herbegin</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> – Netwerkaanmelding</translation>
 <translation id="5924017743176219022">Koppel tans aan die internet …</translation>
 <translation id="5941711191222866238">Maak kleiner</translation>
-<translation id="5768962901674164501">Meld aan by Browther om hierdie boekmerk en meer op al jou toestelle te kry</translation>
-<translation id="5101892358689285100">Maak Browther joune</translation>
+<translation id="4938357262936377412">Meld aan by Browther om hierdie boekmerk en meer op al jou toestelle te kry</translation>
+<translation id="260974496993853147">Maak Browther joune</translation>
 <translation id="5960071705175224773">Jou instellings is deur ’n onbekende app verander</translation>
 <translation id="5968400720580217226">KI-modus</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Jou organisasie maak Browther outomaties toe nadat dit 1 minuut lank nie gebruik is nie.}other{Jou organisasie maak Browther outomaties toe nadat dit # minute lank nie gebruik is nie.}}</translation>
-<translation id="3598551856834560515">Dateer Browther op om sinkronisering te begin</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Jou organisasie maak Browther outomaties toe nadat dit 1 minuut lank nie gebruik is nie.}other{Jou organisasie maak Browther outomaties toe nadat dit # minute lank nie gebruik is nie.}}</translation>
+<translation id="5852664780493076676">Dateer Browther op om sinkronisering te begin</translation>
 <translation id="6003112304606738118">Laai tans af … <ph name="HOURS"/> uur oor</translation>
 <translation id="6009821354356307391">Vra vir ’n opvolg</translation>
 <translation id="6040143037577758943">Maak toe</translation>
-<translation id="700488072601322385">Laat Browther toestemmings van werwe verwyder wat jy nie onlangs besoek het nie om jou data te beskerm. Stop nie kennisgewings nie.</translation>
-<translation id="9071554113102421877">&amp;Maak in Browther oop</translation>
+<translation id="2495504229007749358">Laat Browther toestemmings van werwe verwyder wat jy nie onlangs besoek het nie om jou data te beskerm. Stop nie kennisgewings nie.</translation>
+<translation id="6038969823662006832">&amp;Maak in Browther oop</translation>
 <translation id="6069027071882229820">Kopieer as prent</translation>
-<translation id="7861579472672677409"><ph name="EXTENSION_NAME"/> is by Browther gevoeg</translation>
-<translation id="5849446944780602366">Pasmaak en beheer Browther. Opdatering is beskikbaar.</translation>
-<translation id="5711722515923392428">Aan • Browther kan nie verifieer waarvandaan hierdie uitbreiding kom nie</translation>
-<translation id="6355366566986893068">Jou rekening in Browther</translation>
-<translation id="7433698744896946664">Laat uitbreiding toe om toegangversoeke op die Browther-nutsbalk te wys</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> is gevaarlik en daarom het Browther dit geblokkeer.</translation>
-<translation id="991182453936521413">Browther gaan binnekort toemaak en data uitvee</translation>
-<translation id="4060970194201477024">Jy kan hier tussen Browther-profiele wissel</translation>
-<translation id="7815000350132166985">As jy webkoekies toelaat, kan Browther hulle met vooraflaai gebruik</translation>
+<translation id="6606690217326148454"><ph name="EXTENSION_NAME"/> is by Browther gevoeg</translation>
+<translation id="6037324269860323082">Pasmaak en beheer Browther. Opdatering is beskikbaar.</translation>
+<translation id="3695768481578778794">Aan • Browther kan nie verifieer waarvandaan hierdie uitbreiding kom nie</translation>
+<translation id="4401885752362736126">Jou rekening in Browther</translation>
+<translation id="4310817187912076496">Laat uitbreiding toe om toegangversoeke op die Browther-nutsbalk te wys</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> is gevaarlik en daarom het Browther dit geblokkeer.</translation>
+<translation id="5139243417751674628">Browther gaan binnekort toemaak en data uitvee</translation>
+<translation id="4696750309605389299">Jy kan hier tussen Browther-profiele wissel</translation>
+<translation id="7475001351099358916">As jy webkoekies toelaat, kan Browther hulle met vooraflaai gebruik</translation>
 <translation id="6165508094623778733">Kom meer te wete</translation>
-<translation id="5739368447874065758">Vee die Browther-data in jou rekening uit</translation>
-<translation id="6685697979743742605">Hierdie lêer kan gevaarlik wees<ph name="LINE_BREAK"/>Browther kan hierdie aflaai vir jou nagaan as jy die wagwoord verskaf. Inligting oor die lêer word na Browther Veiligblaai gestuur, maar die lêerinhoud en wagwoord bly op jou toestel.</translation>
+<translation id="5975099973700540482">Vee die Browther-data in jou rekening uit</translation>
+<translation id="6800151735486681860">Hierdie lêer kan gevaarlik wees<ph name="LINE_BREAK"/>Browther kan hierdie aflaai vir jou nagaan as jy die wagwoord verskaf. Inligting oor die lêer word na Browther Veiligblaai gestuur, maar die lêerinhoud en wagwoord bly op jou toestel.</translation>
 <translation id="6182736845697986886">Installering het misluk as gevolg van ’n interne opdateringbedienerfout.</translation>
-<translation id="4368341489795135329">Maak seker dat jy by Browther aangemeld is op jou <ph name="TARGET_DEVICE_NAME"/> en probeer dan weer stuur.</translation>
-<translation id="3038354906709778538">’n Ander program op jou rekenaar het ’n app bygevoeg wat dalk kan verander hoe Browther werk.
+<translation id="48832130233362517">Maak seker dat jy by Browther aangemeld is op jou <ph name="TARGET_DEVICE_NAME"/> en probeer dan weer stuur.</translation>
+<translation id="8868210753005945522">’n Ander program op jou rekenaar het ’n app bygevoeg wat dalk kan verander hoe Browther werk.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Hierdie rekenaar het reeds 'n meer onlangse weergawe van Browther. As die sagteware nie werk nie, deïnstalleer Browther en probeer weer.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther sal nou herbegin}=1{Browther sal oor 1 sekonde herbegin}other{Browther sal oor # sekondes herbegin}}</translation>
+<translation id="2779436101182061679">Hierdie rekenaar het reeds 'n meer onlangse weergawe van Browther. As die sagteware nie werk nie, deïnstalleer Browther en probeer weer.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther sal nou herbegin}=1{Browther sal oor 1 sekonde herbegin}other{Browther sal oor # sekondes herbegin}}</translation>
 <translation id="6239161312595354541">Vra Prentsoektog oor hierdie video</translation>
-<translation id="5980269616827212166">Browther het bergingtoegangtoestemming nodig om lêers af te laai</translation>
-<translation id="7651600795135059130">Vergelyk URL'e met 'n lys onveilige werwe wat in Browther geberg word</translation>
-<translation id="5019879183386042809">Maak Browther die verstekblaaier</translation>
-<translation id="7445061995866044926">Meld by Browther af?</translation>
-<translation id="4659866260728515512">Hierdie oortjies gebruik ekstra hulpbronne. Om jou prestasie te verbeter, laat Browther hulle onaktief maak.</translation>
-<translation id="6806912298071949921">Pasmaak jou Browther-profiel</translation>
-<translation id="3792238845239580301">Gee jou Browther-profiel 'n naam</translation>
-<translation id="5874208157501051620">’n Uitbreiding wil hê dat jy by Browther moet aanmeld</translation>
-<translation id="3561569806301739367"><ph name="FILE_NAME"/> kan gevaarlik wees en daarom het Browther dit geblokkeer.</translation>
-<translation id="3205074487970075628">Browther gebruik tans jou kamera.</translation>
+<translation id="1755464917870815989">Browther het bergingtoegangtoestemming nodig om lêers af te laai</translation>
+<translation id="304681001513922736">Vergelyk URL'e met 'n lys onveilige werwe wat in Browther geberg word</translation>
+<translation id="7785903492969539081">Maak Browther die verstekblaaier</translation>
+<translation id="3987833816263696343">Meld by Browther af?</translation>
+<translation id="4723540739671534529">Hierdie oortjies gebruik ekstra hulpbronne. Om jou prestasie te verbeter, laat Browther hulle onaktief maak.</translation>
+<translation id="6540151687468239291">Pasmaak jou Browther-profiel</translation>
+<translation id="770793114032605647">Gee jou Browther-profiel 'n naam</translation>
+<translation id="385867753870250529">’n Uitbreiding wil hê dat jy by Browther moet aanmeld</translation>
+<translation id="2022337046348377650"><ph name="FILE_NAME"/> kan gevaarlik wees en daarom het Browther dit geblokkeer.</translation>
+<translation id="45270956603278068">Browther gebruik tans jou kamera.</translation>
 <translation id="6327105987658262776">Geen opdatering is beskikbaar nie.</translation>
-<translation id="1819119299840995223">'n Ander handeling in Browther vind tans plaas. Probeer asseblief later weer.</translation>
-<translation id="8616874628011103667">Nou is dit makliker om Browther met jou Browther-rekening en op gedeelde rekenaars te gebruik.</translation>
-<translation id="4264606872840545968">Browther-kortpad</translation>
-<translation id="6890616081898535725">Browther het hierdie aflaai geblokkeer omdat die lêer nie algemeen afgelaai word nie en dit gevaarlik kan wees</translation>
-<translation id="335632367599648646">Is jy seker jy wil Browther deïnstalleer?</translation>
+<translation id="673633752219771459">'n Ander handeling in Browther vind tans plaas. Probeer asseblief later weer.</translation>
+<translation id="1482759407165416070">Nou is dit makliker om Browther met jou Browther-rekening en op gedeelde rekenaars te gebruik.</translation>
+<translation id="5538042432112726532">Browther-kortpad</translation>
+<translation id="833085228901080512">Browther het hierdie aflaai geblokkeer omdat die lêer nie algemeen afgelaai word nie en dit gevaarlik kan wees</translation>
+<translation id="491120842288314439">Is jy seker jy wil Browther deïnstalleer?</translation>
 <translation id="6375219077595103062">Voeg ’n kortpad na Wagwoordbestuurder by</translation>
 <translation id="6388799252195623474">help my hiermee</translation>
-<translation id="7920857181125123335">Meld aan by Browther as <ph name="EMAIL"/> om voort te gaan. Dit maak seker dat jy jou organisasie se beleide het.</translation>
-<translation id="3256100650978957522">Browther-logo binne ’n rekenaarskerm.</translation>
-<translation id="6373767849825830651">Browther is 'n webblaaier wat webbladsye en programme blitsvinning laat loop. Dis vinnig, stabiel en maklik om te gebruik. Blaai veiliger deur die web met beskerming teen wanware en uitvissing wat by Browther ingebou is.</translation>
-<translation id="2532326772258858491">Browther loop vinniger en kenmerke wat JavaScript gebruik, behoort volgens ontwerp te werk</translation>
+<translation id="6715003312952407375">Meld aan by Browther as <ph name="EMAIL"/> om voort te gaan. Dit maak seker dat jy jou organisasie se beleide het.</translation>
+<translation id="1897845318651970239">Browther-logo binne ’n rekenaarskerm.</translation>
+<translation id="3669522483038684532">Browther is 'n webblaaier wat webbladsye en programme blitsvinning laat loop. Dis vinnig, stabiel en maklik om te gebruik. Blaai veiliger deur die web met beskerming teen wanware en uitvissing wat by Browther ingebou is.</translation>
+<translation id="5669767676913031391">Browther loop vinniger en kenmerke wat JavaScript gebruik, behoort volgens ontwerp te werk</translation>
 <translation id="6436260184216827876">Prentsoektog is nie beskikbaar nie. Probeer later weer.</translation>
 <translation id="2139300032719313227">Herbegin Browther-bedryfstelsel</translation>
-<translation id="638302211119176182">Browther laai selfs nog meer bladsye wat jy moontlik sal besoek vooraf, sodat hulle vinniger laai wanneer jy hulle wel besoek.</translation>
-<translation id="7167975344637731051">Laai Browther op jou foon af om pryse na te spoor en opletberigte te kry wanneer die prys op enige werf daal</translation>
-<translation id="890319829408077946">Af • Browther kan nie verifieer waarvandaan hierdie uitbreiding kom nie</translation>
-<translation id="1684121725014454063">Welkom by Browther-profiele</translation>
-<translation id="8211983866539058675">Jy sal ’n porboodskap sien om oortjiegroepe te gebruik wanneer jy volgende keer Browther op jou <ph name="DEVICE_TYPE"/> oopmaak.</translation>
-<translation id="7906693299331092358">Verwyder rekening uit Browther</translation>
+<translation id="6110616900529884221">Browther laai selfs nog meer bladsye wat jy moontlik sal besoek vooraf, sodat hulle vinniger laai wanneer jy hulle wel besoek.</translation>
+<translation id="1217194059001819677">Laai Browther op jou foon af om pryse na te spoor en opletberigte te kry wanneer die prys op enige werf daal</translation>
+<translation id="7058555680120557198">Af • Browther kan nie verifieer waarvandaan hierdie uitbreiding kom nie</translation>
+<translation id="676533642429632127">Welkom by Browther-profiele</translation>
+<translation id="5518682889576009702">Jy sal ’n porboodskap sien om oortjiegroepe te gebruik wanneer jy volgende keer Browther op jou <ph name="DEVICE_TYPE"/> oopmaak.</translation>
+<translation id="6038105561107837619">Verwyder rekening uit Browther</translation>
 <translation id="2675662665675552980">Dit beheer ook watter bladsy gewys word wanneer jy Browther begin.</translation>
 <translation id="648319183876919572">Verbeterde Veiligblaai doen meer om jou teen gevaarlike webwerwe en aflaaie te beskerm</translation>
-<translation id="5590013613412457132">Deïnstalleer Browther</translation>
-<translation id="7185585387858242335">Kortpaaie maak in Browther oop</translation>
-<translation id="3617744907966785605">Jou organisasie maak Browther toe wanneer dit <ph name="TIMEOUT_DURATION"/> lank nie gebruik is nie. Blaaierdata is uitgevee. Dit kan geskiedenis, outovul en aflaaie insluit.</translation>
-<translation id="8646609321956191980">Elke profiel hou sy eie Browther-inligting soos boekmerke, geskiedenis, wagwoorde en meer</translation>
-<translation id="6756656512757374876">Kom meer te wete oor <ph name="BEGIN_LINK"/>hoe Browther jou data privaat hou<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">Veranderinge aan hierdie instelling sal toegepas word sodra Browther herbegin.</translation>
-<translation id="2535436634051789953">Jy kan oorskakel om wagwoorde van ’n ander Browther-profiel af te sien</translation>
-<translation id="2312399718665761438">Browther stuur die teks wat jy in teksvelde intik na Browther toe om spelfoute reg te maak</translation>
-<translation id="3507835409099344374">Gaan na Browther se kennisgewinginstellings</translation>
+<translation id="2930243146591999795">Deïnstalleer Browther</translation>
+<translation id="5241183382286817629">Kortpaaie maak in Browther oop</translation>
+<translation id="7907014599435829661">Jou organisasie maak Browther toe wanneer dit <ph name="TIMEOUT_DURATION"/> lank nie gebruik is nie. Blaaierdata is uitgevee. Dit kan geskiedenis, outovul en aflaaie insluit.</translation>
+<translation id="2088471423667794811">Elke profiel hou sy eie Browther-inligting soos boekmerke, geskiedenis, wagwoorde en meer</translation>
+<translation id="9040334484455218184">Kom meer te wete oor <ph name="BEGIN_LINK"/>hoe Browther jou data privaat hou<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">Veranderinge aan hierdie instelling sal toegepas word sodra Browther herbegin.</translation>
+<translation id="6331317152404762758">Jy kan oorskakel om wagwoorde van ’n ander Browther-profiel af te sien</translation>
+<translation id="6097706403184348562">Browther stuur die teks wat jy in teksvelde intik na Browther toe om spelfoute reg te maak</translation>
+<translation id="2319647238307402812">Gaan na Browther se kennisgewinginstellings</translation>
 <translation id="6600016381025017075">Soek na enigiets op hierdie bladsy</translation>
-<translation id="9156965752763025780">Jou veranderinge sal in werking tree wanneer jy Browther weer herbegin.</translation>
-<translation id="3387992981600748596">Browther begin nou wanneer Windows begin sodat jy dadelik kan begin blaai. Jy kan dit in instellings afskakel.</translation>
-<translation id="3119017564683030312">Gaan voort waar jy opgehou het: Browther het jou oortjies van jou laaste sessie teruggestel. Jy kan dit afskakel in</translation>
-<translation id="245693535809364497">Browther het kameratoestemming nodig om 'n 3D-kaart van jou omgewing te skep</translation>
-<translation id="9210457680074341078">As jy jou boekmerke ook in jou Browther-rekening stoor, kan jy produkpryse in Browther naspoor en kennisgewings kry wanneer die prys daal</translation>
+<translation id="8031938899816118394">Jou veranderinge sal in werking tree wanneer jy Browther weer herbegin.</translation>
+<translation id="7412185356697187964">Browther begin nou wanneer Windows begin sodat jy dadelik kan begin blaai. Jy kan dit in instellings afskakel.</translation>
+<translation id="9123343592576384616">Gaan voort waar jy opgehou het: Browther het jou oortjies van jou laaste sessie teruggestel. Jy kan dit afskakel in</translation>
+<translation id="5847926498049048567">Browther het kameratoestemming nodig om 'n 3D-kaart van jou omgewing te skep</translation>
+<translation id="5532585028508811858">As jy jou boekmerke ook in jou Browther-rekening stoor, kan jy produkpryse in Browther naspoor en kennisgewings kry wanneer die prys daal</translation>
 <translation id="6676384891291319759">Gaan by die internet in</translation>
 <translation id="1363996462118479832">Browther-bedryfstelsel kon weens ’n fout met aanmelding nie jou data sinkroniseer nie.</translation>
-<translation id="4694512973195649124">Verwyder hierdie app se data uit Browther</translation>
-<translation id="5324448127277983819">Browther gee jou meer beheer oor die advertensies wat jy sien en beperk wat werwe oor jou kan uitvind wanneer hulle vir jou gepersonaliseerde advertensies wys.</translation>
-<translation id="1257247502847251159">Browther het mikrofoontoestemming vir hierdie werf nodig</translation>
+<translation id="3373239673945775810">Verwyder hierdie app se data uit Browther</translation>
+<translation id="8122759674786039814">Browther gee jou meer beheer oor die advertensies wat jy sien en beperk wat werwe oor jou kan uitvind wanneer hulle vir jou gepersonaliseerde advertensies wys.</translation>
+<translation id="6277682530398500159">Browther het mikrofoontoestemming vir hierdie werf nodig</translation>
 <translation id="6712881677154121168">Aflaaifout: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Jou profiel kan nie gebruik word nie want dit is van 'n nuwer weergawe van Browther af.
+<translation id="2972046656127603037">Jou profiel kan nie gebruik word nie want dit is van 'n nuwer weergawe van Browther af.
 
 Sommige kenmerke sal dalk nie beskikbaar wees nie. Spesifiseer 'n ander profielgids of gebruik 'n nuwer weergawe van Browther.</translation>
-<translation id="1505112054322049777">Sluit Browther by Web- en Appaktiwiteit en gekoppelde Browther-dienste in om personalisering en ander kenmerke te kry</translation>
-<translation id="6666624454809779082">Browther is reeds vir alle gebruikers op jou rekenaar geïnstalleer.</translation>
-<translation id="5848830584656405219">Meld aan by Browther om jou boekmerke en meer op al jou toestelle te kry. Hierdie boekmerk sal in jou Browther-rekening gestoor word nadat jy aangemeld het.</translation>
-<translation id="4020203987234748583">Maak werwe vinniger met Browther se V8-enjin, maar maak Browther effens minder bestand teen aanvalle. Hierdie instelling is aan.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Sommige van jou Browther-data is nog nie in jou Browther-rekening gestoor nie. Probeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data (1 item) uitgevee word.}other{Sommige van jou Browther-data is nog nie in jou Browther-rekening gestoor nie. Probeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data ({count} items) uitgevee word.}}</translation>
-<translation id="3136039682492230890">Browther beveel aan dat hierdie lêer geskandeer word omdat dit gevaarlik kan wees.</translation>
+<translation id="871671753163165892">Sluit Browther by Web- en Appaktiwiteit en gekoppelde Browther-dienste in om personalisering en ander kenmerke te kry</translation>
+<translation id="5000832110229523807">Browther is reeds vir alle gebruikers op jou rekenaar geïnstalleer.</translation>
+<translation id="5204575479550973859">Meld aan by Browther om jou boekmerke en meer op al jou toestelle te kry. Hierdie boekmerk sal in jou Browther-rekening gestoor word nadat jy aangemeld het.</translation>
+<translation id="2874208284092283937">Maak werwe vinniger met Browther se V8-enjin, maar maak Browther effens minder bestand teen aanvalle. Hierdie instelling is aan.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Sommige van jou Browther-data is nog nie in jou Browther-rekening gestoor nie. Probeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data (1 item) uitgevee word.}other{Sommige van jou Browther-data is nog nie in jou Browther-rekening gestoor nie. Probeer om ’n paar minute te wag voordat jy afmeld. As jy nou afmeld, sal hierdie data ({count} items) uitgevee word.}}</translation>
+<translation id="7683816018918395929">Browther beveel aan dat hierdie lêer geskandeer word omdat dit gevaarlik kan wees.</translation>
 <translation id="1547295885616600893">Browther-bedryfstelsel word moontlik gemaak deur bykomende <ph name="BEGIN_LINK_CROS_OSS"/>oopbronsagteware<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="6831043979455480757">Vertaal</translation>
-<translation id="8211837073776713955">Browther sal jou laat weet as jou wagwoorde gekompromitteer is</translation>
+<translation id="2142653375108595728">Browther sal jou laat weet as jou wagwoorde gekompromitteer is</translation>
 <translation id="684888714667046800">Kan nie aan die internet koppel nie. As jy ’n brandmuur gebruik, moet jy seker maak dat <ph name="PRODUCT_EXE_NAME"/> op die toelaatlys is.</translation>
-<translation id="7830723774663008396">Browther – <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther – <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Oortjie om voort te gaan</translation>
 <translation id="6862030660799253820">Soek hierdie prent met Prentsoektog</translation>
-<translation id="3028928628792374067">Browther het bevind dat "<ph name="EXTENSION_NAME"/>" wanware bevat</translation>
+<translation id="3860339351709082396">Browther het bevind dat "<ph name="EXTENSION_NAME"/>" wanware bevat</translation>
 <translation id="6877155553248388166">onderste regterhoek van soekgebied: regs <ph name="RIGHT"/>%, onder <ph name="BOTTOM"/>%</translation>
 <translation id="6896758677409633944">Kopieer</translation>
-<translation id="862687584320433626">Stel Browther as jou verstekblaaier en speld dit aan jou taakbalk vas</translation>
-<translation id="1991562568473125499">&amp;Bestuur Browther-profiele</translation>
+<translation id="7804113502310231166">Stel Browther as jou verstekblaaier en speld dit aan jou taakbalk vas</translation>
+<translation id="3228374215117173004">&amp;Bestuur Browther-profiele</translation>
 <translation id="6934579572334859869">Vra Prentsoektog oor hierdie prent</translation>
-<translation id="5529781826378237601">Jy het Browther se limiet van <ph name="BOOKMARK_LIMIT"/> boekmerke bereik, en daarom is sommige van jou boekmerke nog nie in jou Browther-rekening gestoor nie.
+<translation id="5995328366516663808">Jy het Browther se limiet van <ph name="BOOKMARK_LIMIT"/> boekmerke bereik, en daarom is sommige van jou boekmerke nog nie in jou Browther-rekening gestoor nie.
 
 Nuwe boekmerke kan nie in jou rekening gestoor word totdat jy sommige uitvee nie. As jy nou afmeld, sal ongestoorde boekmerke uitgevee word.</translation>
 <translation id="6965382102122355670">OK</translation>
-<translation id="6418340404893954563">Swak wagwoorde is maklik om te raai. Laat Browther <ph name="BEGIN_LINK"/>sterk wagwoorde vir jou skep en onthou<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Swak wagwoorde is maklik om te raai. Laat Browther <ph name="BEGIN_LINK"/>sterk wagwoorde vir jou skep en onthou<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Browther-bedryfstel se bepalings</translation>
-<translation id="3335606533094650083">Browther het toestemming nodig om toegang te kry tot jou mikrofoon vir hierdie werf</translation>
-<translation id="6643520655691573653">Voer jou wagfrase in om Browther-data in jou rekening, <ph name="ACCOUNT_EMAIL"/>, te gebruik en te stoor</translation>
+<translation id="5379058926689137454">Browther het toestemming nodig om toegang te kry tot jou mikrofoon vir hierdie werf</translation>
+<translation id="4684462982894889021">Voer jou wagfrase in om Browther-data in jou rekening, <ph name="ACCOUNT_EMAIL"/>, te gebruik en te stoor</translation>
 <translation id="7011190694940573312">Installering het misluk omdat hierdie weergawe van die bedryfstelsel nie gesteun word nie.</translation>
 <translation id="7024536598735240744">Uitpakfout: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Installering is gestop.</translation>
-<translation id="280382502853897110">Maak Browther jou eie</translation>
+<translation id="8257174622576051374">Maak Browther jou eie</translation>
 <translation id="7047386856539490735">Is hierdie resultate nuttig?</translation>
-<translation id="1705567146636171298">Dateer Browther op</translation>
-<translation id="5499063270485366718">As 'n prent nie 'n nuttige beskrywing het nie, sal Browther probeer om een vir jou te verskaf. Prente word na Browther toe gestuur om beskrywings te skep.</translation>
-<translation id="5966368554860795750">Pasmaak Browther-toetsweergawe</translation>
-<translation id="792838367208896130">Jy kan Browther enige tyd gebruik wanneer jy op skakels in boodskappe, dokumente en ander apps klik</translation>
-<translation id="375314543563594498">Verwyder <ph name="EXTENSION_NAME"/> uit Browther</translation>
-<translation id="2332301637111071062">Jou organisasie vee Browther-data uit wanneer dit <ph name="TIMEOUT_DURATION"/> lank nie gebruik is nie. Dit kan geskiedenis, outovul en aflaaie insluit.</translation>
-<translation id="1008530050039597147">Browther het kameratoestemming vir hierdie werf nodig</translation>
-<translation id="1197672524850678392">Kon nie Browther begin nie. Probeer weer.</translation>
-<translation id="3405035915691517126">Browther kan nie jou wagwoorde nagaan nie. Probeer weer ná 24 uur.</translation>
-<translation id="3625983487600668413">Hou Browther in jou dok om enige tyd vinnig daarby uit te kom</translation>
-<translation id="5755581833598928580">Gebruik Browther enige tyd wanneer jy op skakels in boodskappe, dokumente en ander apps klik</translation>
-<translation id="5516268345616100622">Taakbestuurder – Browther</translation>
-<translation id="713191641919118540">Jou belangstellings soos geskat deur Browther</translation>
-<translation id="1871621397473741084">Begin dadelik blaai: Browther kan nou begin wanneer Windows begin.</translation>
+<translation id="1772745060691790742">Dateer Browther op</translation>
+<translation id="4937970118065051027">As 'n prent nie 'n nuttige beskrywing het nie, sal Browther probeer om een vir jou te verskaf. Prente word na Browther toe gestuur om beskrywings te skep.</translation>
+<translation id="1594112132009288601">Pasmaak Browther-toetsweergawe</translation>
+<translation id="5915000938288527952">Jy kan Browther enige tyd gebruik wanneer jy op skakels in boodskappe, dokumente en ander apps klik</translation>
+<translation id="8775664994493381735">Verwyder <ph name="EXTENSION_NAME"/> uit Browther</translation>
+<translation id="3276648807841991013">Jou organisasie vee Browther-data uit wanneer dit <ph name="TIMEOUT_DURATION"/> lank nie gebruik is nie. Dit kan geskiedenis, outovul en aflaaie insluit.</translation>
+<translation id="4725226878394159809">Browther het kameratoestemming vir hierdie werf nodig</translation>
+<translation id="8931474625901592021">Kon nie Browther begin nie. Probeer weer.</translation>
+<translation id="8242947409070121799">Browther kan nie jou wagwoorde nagaan nie. Probeer weer ná 24 uur.</translation>
+<translation id="1737922827960215472">Hou Browther in jou dok om enige tyd vinnig daarby uit te kom</translation>
+<translation id="335855266303176628">Gebruik Browther enige tyd wanneer jy op skakels in boodskappe, dokumente en ander apps klik</translation>
+<translation id="709455597778444012">Taakbestuurder – Browther</translation>
+<translation id="7147140345767587643">Jou belangstellings soos geskat deur Browther</translation>
+<translation id="7337408274890534789">Begin dadelik blaai: Browther kan nou begin wanneer Windows begin.</translation>
 <translation id="7274695763216404502">Vasgespeld! Probeer Prentsoektog weer van die nutsbalk af</translation>
 <translation id="7288567540154601580">Oortjies en uitbreidings</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther beveel aan dat jy dit verwyder}other{Browther beveel aan dat jy hulle verwyder}}</translation>
-<translation id="4600669988724328687">Maak Stelselinstellings oop en laat “Slegs stelseloudio-opname” vir Browther toe om stelseloudio te deel. Jy sal dan Browther moet herbegin.</translation>
-<translation id="9068395155143628872">Advertensiemeting stel werwe wat jy besoek in staat om inligting van Browther af te versoek wat die werf help om die werkverrigting van hul advertensies te meet. Advertensiemeting beperk oorkruiswerfnasporing deur so min inligting moontlik tussen werwe oor te dra.</translation>
-<translation id="1864557848095568223">Dateer tans Browther op</translation>
-<translation id="3403365884036456766">Jou voorkeurelêer is korrup of ongeldig.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther beveel aan dat jy dit verwyder}other{Browther beveel aan dat jy hulle verwyder}}</translation>
+<translation id="1527644038571473502">Maak Stelselinstellings oop en laat “Slegs stelseloudio-opname” vir Browther toe om stelseloudio te deel. Jy sal dan Browther moet herbegin.</translation>
+<translation id="1427913074981060872">Advertensiemeting stel werwe wat jy besoek in staat om inligting van Browther af te versoek wat die werf help om die werkverrigting van hul advertensies te meet. Advertensiemeting beperk oorkruiswerfnasporing deur so min inligting moontlik tussen werwe oor te dra.</translation>
+<translation id="1657652725060525338">Dateer tans Browther op</translation>
+<translation id="884846289464870238">Jou voorkeurelêer is korrup of ongeldig.
 
 Browther kan nie jou instellings herwin nie.</translation>
 <translation id="7339898014177206373">Nuwe venster</translation>
-<translation id="3511996232906761537">Jou web, boekmerke en ander Browther-goed woon hier.</translation>
-<translation id="1754899895078387289">Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word nie na Browther toe gestuur of deur Browther geberg nie. Jy sal <ph name="BEGIN_LINK"/>die Browther-data in jou rekening moet uitvee<ph name="END_LINK"/> indien jy jou wagfrase vergeet of hierdie instelling wil verander.</translation>
-<translation id="5380963249588143069">Jou stelseladministrateur het Browther opgestel om <ph name="ALTERNATIVE_BROWSER_NAME"/> oop te maak om by <ph name="TARGET_URL_HOSTNAME"/> in te gaan.</translation>
+<translation id="633044855886370183">Jou web, boekmerke en ander Browther-goed woon hier.</translation>
+<translation id="1185960088713242527">Net iemand met jou wagfrase kan jou geënkripteerde data lees. Die wagfrase word nie na Browther toe gestuur of deur Browther geberg nie. Jy sal <ph name="BEGIN_LINK"/>die Browther-data in jou rekening moet uitvee<ph name="END_LINK"/> indien jy jou wagfrase vergeet of hierdie instelling wil verander.</translation>
+<translation id="7125151836477182110">Jou stelseladministrateur het Browther opgestel om <ph name="ALTERNATIVE_BROWSER_NAME"/> oop te maak om by <ph name="TARGET_URL_HOSTNAME"/> in te gaan.</translation>
 <translation id="7352651011704765696">Iets het verkeerd geloop</translation>
-<translation id="6085660187823915017">Jy het macOS 13 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik macOS 12.</translation>
-<translation id="2865744782251083875">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> verwyder.</translation>
-<translation id="4631170166710903214">Hierdie uitbreiding word nie meer gesteun nie. Browther beveel aan dat jy dit eerder verwyder.</translation>
-<translation id="7951152294775418909">Gaan voort waar jy opgehou het: Browther stel elke keer as jy herbegin, jou oortjies terug. Om dit af te skakel, gaan na</translation>
-<translation id="3191314862567596053">Voer wagwoorde na Browther in</translation>
-<translation id="3943696263619956191"><ph name="PAGE_TITLE"/> – Browther Dev</translation>
+<translation id="6638123710106659002">Jy het macOS 13 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik macOS 12.</translation>
+<translation id="7286289384512061761">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> verwyder.</translation>
+<translation id="113593073175678746">Hierdie uitbreiding word nie meer gesteun nie. Browther beveel aan dat jy dit eerder verwyder.</translation>
+<translation id="137615076640044304">Gaan voort waar jy opgehou het: Browther stel elke keer as jy herbegin, jou oortjies terug. Om dit af te skakel, gaan na</translation>
+<translation id="5967238175620483220">Voer wagwoorde na Browther in</translation>
+<translation id="4719434010343478165"><ph name="PAGE_TITLE"/> – Browther Dev</translation>
 <translation id="7450541714075000668">Teks gekopieer</translation>
-<translation id="2034072705932785495">Browther het toestemming nodig om toegang te kry tot jou kamera vir hierdie werf</translation>
-<translation id="7129342855140808694">Jy moet vir Browther toegang in <ph name="BEGIN_LINK"/>stelselinstellings<ph name="END_LINK"/> gee om jou mikrofoon te gebruik</translation>
-<translation id="5296583608321648908">Jy het Windows 10 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik Windows 7.</translation>
-<translation id="3962395975456095331">Herbegin Browther?</translation>
-<translation id="2619516027171717873">Kan nie dieselfde Browther-weergawe installeer wat tans gebruik word nie. Maak Browther asseblief toe en probeer weer.</translation>
-<translation id="2731639583336131792">Wanneer jy by Browther aangemeld is sal jy wagwoorde stoor, gebruik en meer in jou Browther-rekening. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Werwe sal waarskynlik werk soos verwag. Jy sal by die meeste werwe afgemeld word wanneer jy alle Browther-vensters toemaak, behalwe jou Browther-rekening as jy by Browther aangemeld is.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther sal oor 1 minuut herbegin}other{Browther sal oor # minute herbegin}}</translation>
-<translation id="552342471964912391">Laat Browther toestemmings van werwe verwyder wat jy nie onlangs besoek het nie om jou data te beskerm.</translation>
-<translation id="3826701455067637694">Begin Browther outomaties om dadelik te begin blaai.</translation>
+<translation id="7766009218653304791">Browther het toestemming nodig om toegang te kry tot jou kamera vir hierdie werf</translation>
+<translation id="5844418066487488520">Jy moet vir Browther toegang in <ph name="BEGIN_LINK"/>stelselinstellings<ph name="END_LINK"/> gee om jou mikrofoon te gebruik</translation>
+<translation id="8065480549334161841">Jy het Windows 10 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik Windows 7.</translation>
+<translation id="6299293759264950896">Herbegin Browther?</translation>
+<translation id="180908550381040105">Kan nie dieselfde Browther-weergawe installeer wat tans gebruik word nie. Maak Browther asseblief toe en probeer weer.</translation>
+<translation id="7625576878150380853">Wanneer jy by Browther aangemeld is sal jy wagwoorde stoor, gebruik en meer in jou Browther-rekening. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Werwe sal waarskynlik werk soos verwag. Jy sal by die meeste werwe afgemeld word wanneer jy alle Browther-vensters toemaak, behalwe jou Browther-rekening as jy by Browther aangemeld is.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther sal oor 1 minuut herbegin}other{Browther sal oor # minute herbegin}}</translation>
+<translation id="3602613943932672197">Laat Browther toestemmings van werwe verwyder wat jy nie onlangs besoek het nie om jou data te beskerm.</translation>
+<translation id="8759568213742229377">Begin Browther outomaties om dadelik te begin blaai.</translation>
 <translation id="7583399374488819119"><ph name="COMPANY_NAME"/>-installeerder</translation>
-<translation id="3293668930608086049">Browther gebruik tans jou kamera en mikrofoon.</translation>
-<translation id="2827121003398607864">Browther het pas beter geword</translation>
-<translation id="3071313329776323836">Jy het nou meer kenmerke beskikbaar in Browther</translation>
+<translation id="8991800242749014880">Browther gebruik tans jou kamera en mikrofoon.</translation>
+<translation id="2692328388439821508">Browther het pas beter geword</translation>
+<translation id="4318444066563223295">Jy het nou meer kenmerke beskikbaar in Browther</translation>
 <translation id="7649070708921625228">Hulp</translation>
-<translation id="4008841832817149051">Laat Browther vir jou blaai</translation>
+<translation id="5591287320769313116">Laat Browther vir jou blaai</translation>
 <translation id="7658239707568436148">Kanselleer</translation>
-<translation id="3343095737966473035">Browther is nie jou verstekblaaier nie</translation>
-<translation id="5477319665405831211">Sinkroniseer en personaliseer Browther op al jou toestelle</translation>
-<translation id="2339273275658335597">Browther-opdatering</translation>
+<translation id="6325482130534634729">Browther is nie jou verstekblaaier nie</translation>
+<translation id="8185915921134219287">Sinkroniseer en personaliseer Browther op al jou toestelle</translation>
+<translation id="5120421624925726813">Browther-opdatering</translation>
 <translation id="7716950018788545737">Taak(take) het geëindig.</translation>
 <translation id="77283119132245232">Verskaf stelselnasporingdienste vir <ph name="BROWSER_NAME"/>. As hierdie diens gedeaktiveer is, sal prestasiespore wat deur die blaaier geskep word, nie stelselwye gevalle soos kontekswisseling en gespreksdraadgevalle wat gereed is, insluit nie.</translation>
-<translation id="4784414698887946907">Dit sal jou blaaierdata op hierdie toestel uitvee. Meld as <ph name="USER_EMAIL"/> by Browther aan om jou data later op te haal.</translation>
+<translation id="6542096191573265107">Dit sal jou blaaierdata op hierdie toestel uitvee. Meld as <ph name="USER_EMAIL"/> by Browther aan om jou data later op te haal.</translation>
 <translation id="7747138024166251722">Die installeerder kon nie 'n tydelike gids skep nie. Gaan asseblief na vir beskikbare skyfspasie en toestemming om sagteware te installeer.</translation>
-<translation id="8543787950557226450">Stel terug na verstek-Browther</translation>
-<translation id="4976450819672499783">Stel Browther as verstek en speld dit aan taakbalk vas</translation>
-<translation id="1978509466033734608">Maak Browther vinniger</translation>
-<translation id="6236814935154483927"><ph name="PAGE_TITLE"/> – Browther Canary</translation>
-<translation id="2684504034454188774">Maak dit moeiliker vir mense met toegang tot jou internetverkeer om te sien watter werwe jy besoek. Browther gebruik ’n veilige verbinding om ’n webwerf se IP-adres in die DNS (domeinnaamstelsel) op te soek.</translation>
+<translation id="351575328720488268">Stel terug na verstek-Browther</translation>
+<translation id="1054170408395182418">Stel Browther as verstek en speld dit aan taakbalk vas</translation>
+<translation id="4569594230301902490">Maak Browther vinniger</translation>
+<translation id="5525298466557654312"><ph name="PAGE_TITLE"/> – Browther Canary</translation>
+<translation id="7893465573639396635">Maak dit moeiliker vir mense met toegang tot jou internetverkeer om te sien watter werwe jy besoek. Browther gebruik ’n veilige verbinding om ’n webwerf se IP-adres in die DNS (domeinnaamstelsel) op te soek.</translation>
 <translation id="7810005234485217901">Jy kan Prentsoektog vir vinnige toegang vasspeld</translation>
-<translation id="1652855885539187849">'n Browther-profiel met hierdie rekening bestaan reeds op hierdie toestel</translation>
+<translation id="2462631024103158515">'n Browther-profiel met hierdie rekening bestaan reeds op hierdie toestel</translation>
 <translation id="7845233973568007926">Dankie dat jy geïnstalleer het. Jy moet jou rekenaar herbegin voordat jy <ph name="BUNDLE_NAME"/> gebruik.</translation>
-<translation id="9148690296223500734">Pasmaak Browther om dit ’n nuwe voorkoms te gee</translation>
-<translation id="7963515534397191222">Browther kon nie na die nuutste weergawe opdateer nie en daarom het jy nie nuwe kenmerke en sekuriteitregstellings nie.</translation>
+<translation id="311190437086049332">Pasmaak Browther om dit ’n nuwe voorkoms te gee</translation>
+<translation id="6728847658878265103">Browther kon nie na die nuutste weergawe opdateer nie en daarom het jy nie nuwe kenmerke en sekuriteitregstellings nie.</translation>
 <translation id="7872446069773932638">Laai tans af … <ph name="SECONDS"/> sekonde(s) oor.</translation>
-<translation id="5545136190679883344"><ph name="BEGIN_LINK"/>Vee die Browther-data in jou rekening uit<ph name="END_LINK"/> indien jy jou wagfrase vergeet het of hierdie instelling wil verander.</translation>
+<translation id="5374532739787768601"><ph name="BEGIN_LINK"/>Vee die Browther-data in jou rekening uit<ph name="END_LINK"/> indien jy jou wagfrase vergeet het of hierdie instelling wil verander.</translation>
 <translation id="7877212753140190672">Vra oor hierdie prent</translation>
-<translation id="5687542525349822727">Stel Browther as jou verstek.</translation>
-<translation id="6396151137840491551">Browther gradeer onveilige verbindings aan HTTPS outomaties op, wanneer moontlik</translation>
-<translation id="2925193881330501265">Jy was as <ph name="USER_EMAIL_ADDRESS"/> by Browther aangemeld. Gebruik asseblief dieselfde rekening om weer aan te meld.</translation>
-<translation id="6915252145142862992">Dit is 'n sekondêre installering van Browther en kan nie jou verstekblaaier gemaak word nie.</translation>
+<translation id="9172499982238113829">Stel Browther as jou verstek.</translation>
+<translation id="3313826726620159669">Browther gradeer onveilige verbindings aan HTTPS outomaties op, wanneer moontlik</translation>
+<translation id="3317928686912559532">Jy was as <ph name="USER_EMAIL_ADDRESS"/> by Browther aangemeld. Gebruik asseblief dieselfde rekening om weer aan te meld.</translation>
+<translation id="6007009085341946457">Dit is 'n sekondêre installering van Browther en kan nie jou verstekblaaier gemaak word nie.</translation>
 <translation id="8004582292198964060">Blaaier</translation>
 <translation id="8010081455002666927">Outobespeur</translation>
-<translation id="7685904775439037072">Sodra Browther toegang het, sal webwerwe jou kan vra vir toegang.</translation>
-<translation id="3230755314472063687">Speld Browther vas op jou taakbalk om enige tyd vinnig daarby uit te kom</translation>
+<translation id="174885789898161653">Sodra Browther toegang het, sal webwerwe jou kan vra vir toegang.</translation>
+<translation id="3001754454174546602">Speld Browther vas op jou taakbalk om enige tyd vinnig daarby uit te kom</translation>
 <translation id="80471789339884597">Dankie dat jy geïnstalleer het. Jy moet al jou blaaiers herbegin voordat jy <ph name="BUNDLE_NAME"/> gebruik.</translation>
 <translation id="8054112667659782652">Wys altyd kortpad vir Prentsoektog</translation>
-<translation id="6175141682081019059">Deaktiveer Browther wat op die agtergrond vir apps loop</translation>
+<translation id="6993312779622863465">Deaktiveer Browther wat op die agtergrond vir apps loop</translation>
 <translation id="80790299200510644">Prentsoektog</translation>
 <translation id="8086881907087796310">Installering het misluk omdat jou rekenaar nie aan die minimum hardewarevereistes voldoen nie.</translation>
-<translation id="8263061319795838019"><ph name="PAGE_TITLE"/> - Browther-toetsweergawe</translation>
-<translation id="2061155704815580583">Browther het liggingtoestemming vir hierdie werf nodig</translation>
-<translation id="3576319845915562805">Jy sal ’n porboodskap sien om prysnasporingopletberigte te aktiveer wanneer jy volgende keer Browther op jou <ph name="DEVICE_TYPE"/> oopmaak.</translation>
+<translation id="4734875482699037091"><ph name="PAGE_TITLE"/> - Browther-toetsweergawe</translation>
+<translation id="543407324609820492">Browther het liggingtoestemming vir hierdie werf nodig</translation>
+<translation id="1767887552863788514">Jy sal ’n porboodskap sien om prysnasporingopletberigte te aktiveer wanneer jy volgende keer Browther op jou <ph name="DEVICE_TYPE"/> oopmaak.</translation>
 <translation id="8118331347066725040">Stuur terugvoer vir soektog met Lens</translation>
 <translation id="5334309298019785904">Browther-bedryfstelsel kon nie jou data sinkroniseer nie omdat sinkronisering nie vir jou domein beskikbaar is nie.</translation>
 <translation id="813913629614996137">Inisialiseer tans …</translation>
-<translation id="1081849497974110565">Browther se bykomende diensbepalings</translation>
-<translation id="9067428552314418522">Hierdie lêer is gevaarlik en daarom het Browther dit geblokkeer.</translation>
+<translation id="4879101934056397619">Browther se bykomende diensbepalings</translation>
+<translation id="4505690237431768764">Hierdie lêer is gevaarlik en daarom het Browther dit geblokkeer.</translation>
 <translation id="8177472873527554730">Kan nie inhoud op die bladsy vind nie</translation>
-<translation id="6219250889396046657">Voer jou wagfrase in om Browther-data in jou rekening, <ph name="USER_EMAIL"/>, te gebruik en te stoor</translation>
+<translation id="4720341280133158605">Voer jou wagfrase in om Browther-data in jou rekening, <ph name="USER_EMAIL"/>, te gebruik en te stoor</translation>
 <translation id="8221491193165283816">Jy blokkeer gewoonlik kennisgewings. Klik hier sodat dié werf jou in kennis kan stel.</translation>
-<translation id="8377926237617998195">Jy moet vir Browther toegang in <ph name="BEGIN_LINK"/>stelselinstellings<ph name="END_LINK"/> gee om jou kamera te gebruik</translation>
-<translation id="1755067029031059271">Browther kan nie verifieer waar hierdie uitbreiding vandaan kom nie, en dit kan dalk onveilig wees. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
-<translation id="8207657266087451193">As 'n prent nie 'n nuttige beskrywing het nie, sal Browther probeer om een vir jou te verskaf. Prente word na Browther toe gestuur om beskrywings te skep. Jy kan dit enige tyd in instellings afskakel.</translation>
-<translation id="7792526144795244436">Meld in ’n nuwe profiel by Browther aan?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther waarsku jou<ph name="END_LINK"/> oor onveilige werwe en aflaaie</translation>
-<translation id="8060549744348950090">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION"/> verwyder.</translation>
-<translation id="7402663241490331652">Koop, vertaal en identifiseer wat jy sien met jou kamera in die Browther iOS-app</translation>
+<translation id="1083711467946065278">Jy moet vir Browther toegang in <ph name="BEGIN_LINK"/>stelselinstellings<ph name="END_LINK"/> gee om jou kamera te gebruik</translation>
+<translation id="6569785137733211804">Browther kan nie verifieer waar hierdie uitbreiding vandaan kom nie, en dit kan dalk onveilig wees. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
+<translation id="1122818205373648656">As 'n prent nie 'n nuttige beskrywing het nie, sal Browther probeer om een vir jou te verskaf. Prente word na Browther toe gestuur om beskrywings te skep. Jy kan dit enige tyd in instellings afskakel.</translation>
+<translation id="6877990294324319801">Meld in ’n nuwe profiel by Browther aan?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther waarsku jou<ph name="END_LINK"/> oor onveilige werwe en aflaaie</translation>
+<translation id="1685486387921540822">Jy het nie onlangs die webwerf besoek nie. Browther het <ph name="PERMISSION"/> verwyder.</translation>
+<translation id="8921153410460268589">Koop, vertaal en identifiseer wat jy sien met jou kamera in die Browther iOS-app</translation>
 <translation id="8313851650939857356">Aanskakelingfout: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Jou organisasie maak Browther toe wanneer dit <ph name="TIMEOUT_DURATION"/> lank nie gebruik is nie.</translation>
+<translation id="7386947683604296534">Jou organisasie maak Browther toe wanneer dit <ph name="TIMEOUT_DURATION"/> lank nie gebruik is nie.</translation>
 <translation id="8321888067342493336">Stoor as prent</translation>
-<translation id="3360368475735266712">Meld aan om Browther op al jou toestelle te sinkroniseer en personaliseer</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> het voorheen Browther gebruik</translation>
-<translation id="5592122595094519401">Dateer Browther op om aan te hou om die Browther-data in jou Browther-rekening, <ph name="ACCOUNT_EMAIL"/>, te gebruik</translation>
-<translation id="2569754604093464025">Jy het Windows 10 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik Windows 8.</translation>
+<translation id="143016831128278157">Meld aan om Browther op al jou toestelle te sinkroniseer en personaliseer</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> het voorheen Browther gebruik</translation>
+<translation id="1288164710697017468">Dateer Browther op om aan te hou om die Browther-data in jou Browther-rekening, <ph name="ACCOUNT_EMAIL"/>, te gebruik</translation>
+<translation id="8648401677359150296">Jy het Windows 10 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik Windows 8.</translation>
 <translation id="8362914115861174987">Vertaal in</translation>
 <translation id="8367705492654390392">Vra enigiets</translation>
-<translation id="7296197595428914424">Meld aan by Browther om jou wagwoorde en meer op al jou toestelle te kry. Hierdie wagwoord sal in jou Browther-rekening gestoor word nadat jy aangemeld het.</translation>
-<translation id="9098234372282930719">Jy sal dan Browther moet herbegin.</translation>
-<translation id="1327729221471951979">Browther beveel aan dat jy dit verwyder. <ph name="BEGIN_LINK"/>Kry meer inligting oor gesteunde uitbreidings<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Die ontwikkelaar van hierdie uitbreiding het dit gedepubliseer, en dit kan onveilig wees. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend jou persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
-<translation id="4234753748520037091">Browther moet verifieer dat dit jy is voordat sommige data in jou Browther-rekening gestoor kan word en op al jou toestelle gebruik kan word. As jy nou afmeld, sal hierdie data uitgevee word.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Herbegin Browther binne 'n dag}other{Herbegin Browther binne # dae}}</translation>
+<translation id="5769022907892823357">Meld aan by Browther om jou wagwoorde en meer op al jou toestelle te kry. Hierdie wagwoord sal in jou Browther-rekening gestoor word nadat jy aangemeld het.</translation>
+<translation id="4782442810031768771">Jy sal dan Browther moet herbegin.</translation>
+<translation id="8265348385714408341">Browther beveel aan dat jy dit verwyder. <ph name="BEGIN_LINK"/>Kry meer inligting oor gesteunde uitbreidings<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Die ontwikkelaar van hierdie uitbreiding het dit gedepubliseer, en dit kan onveilig wees. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend jou persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
+<translation id="1613655732912855341">Browther moet verifieer dat dit jy is voordat sommige data in jou Browther-rekening gestoor kan word en op al jou toestelle gebruik kan word. As jy nou afmeld, sal hierdie data uitgevee word.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Herbegin Browther binne 'n dag}other{Herbegin Browther binne # dae}}</translation>
 <translation id="8438543370129609977">Wanneer jy Prentsoektog gebruik, word die bladsytitel, URL en inhoud, insluitend PDF’s, na die bediener toe gestuur. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Kry meer inligting oor hoe om met Prentsoektog in Browther te soek</translation>
-<translation id="6914496861676471566">Die installeerderargief is korrup of ongeldig. Laai Browther asseblief weer af.</translation>
-<translation id="4378573854226202617">Browther vereis Windows 10 of nuwer.</translation>
-<translation id="6431861494713261006">Opsioneel: Help om Browther-bedryfstelsel se kenmerke en werkverrigting beter te maak deur outomaties diagnostiese en gebruiksdata na Browther toe te stuur.</translation>
-<translation id="8691137711639873980">Verifieer dis jy om Browther-data in jou Browther-rekening te gebruik en te stoor</translation>
-<translation id="3251012123600267109">Wys porboodskappe om by Browther aan te meld</translation>
-<translation id="2097604701283463988">Browther is verouderd</translation>
-<translation id="6080203201796279095">Dankie dat jy Browther as jou verstekblaaier gekies het!</translation>
-<translation id="871233388178581868">Browther kan jou wagwoorde nagaan wanneer jy hulle stoor</translation>
-<translation id="3667461919057407535">Kry ’n waarskuwing as Browther een van jou wagwoorde in ’n publieke dataskending vind</translation>
+<translation id="3550129882823305293">Kry meer inligting oor hoe om met Prentsoektog in Browther te soek</translation>
+<translation id="1401757916223057494">Die installeerderargief is korrup of ongeldig. Laai Browther asseblief weer af.</translation>
+<translation id="5029760494698649486">Browther vereis Windows 10 of nuwer.</translation>
+<translation id="7906734902028783072">Opsioneel: Help om Browther-bedryfstelsel se kenmerke en werkverrigting beter te maak deur outomaties diagnostiese en gebruiksdata na Browther toe te stuur.</translation>
+<translation id="6791756730901393492">Verifieer dis jy om Browther-data in jou Browther-rekening te gebruik en te stoor</translation>
+<translation id="4879869745782826167">Wys porboodskappe om by Browther aan te meld</translation>
+<translation id="2967761098021401720">Browther is verouderd</translation>
+<translation id="7674832651694000881">Dankie dat jy Browther as jou verstekblaaier gekies het!</translation>
+<translation id="4507581730979762077">Browther kan jou wagwoorde nagaan wanneer jy hulle stoor</translation>
+<translation id="7205233182271132386">Kry ’n waarskuwing as Browther een van jou wagwoorde in ’n publieke dataskending vind</translation>
 <translation id="8555465886620020932">Diensfout: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Jy kan Prentsoektog vir vinnige toegang vasspeld; klik die Speld Vas-knoppie boaan die kantpaneel</translation>
 <translation id="856656450041460113">Deursoek lys tale</translation>
-<translation id="227028348235968071">Browther kan jou wagwoorde nagaan as jy met jou Browther-rekening aanmeld</translation>
-<translation id="839677568225616901">Veelvuldige organisasies bestuur Browther</translation>
-<translation id="8121009781989288430">Kopiereg <ph name="YEAR"/> Die Browther-outeurs. Alle regte voorbehou.</translation>
+<translation id="75470458211269379">Browther kan jou wagwoorde nagaan as jy met jou Browther-rekening aanmeld</translation>
+<translation id="2108930010779660436">Veelvuldige organisasies bestuur Browther</translation>
+<translation id="7209630341463003999">Kopiereg <ph name="YEAR"/> Die Browther-outeurs. Alle regte voorbehou.</translation>
 <translation id="8601359445272098721">Nuut! Jy kan sowel teks as prente op jou skerm vertaal deur die “vertaal skerm”-knoppie te kies</translation>
-<translation id="3052349005266761501">Begin tans Browther …</translation>
+<translation id="782928371899183269">Begin tans Browther …</translation>
 <translation id="8624541899164515475">Instellings; maak in nuwe oortjie oop.</translation>
-<translation id="5128665650717824082">Browther-toetsweergawe kan nie jou verstekblaaier gemaak word nie.</translation>
+<translation id="5879341334716115002">Browther-toetsweergawe kan nie jou verstekblaaier gemaak word nie.</translation>
 <translation id="2433912322225810055">Dit beheer ook watter bladsy gewys word wanneer jy Browther begin of vanuit die omnikassie soek.</translation>
-<translation id="4100716194836114130">Dit is jou Browther</translation>
+<translation id="4816541973978692496">Dit is jou Browther</translation>
 <translation id="8712637175834984815">Het dit</translation>
-<translation id="1419543648228375718">Meld by Browther aan?</translation>
-<translation id="4891728458408976811">Hou alles in Browther</translation>
+<translation id="9037464035997618895">Meld by Browther aan?</translation>
+<translation id="7897185368811431919">Hou alles in Browther</translation>
 <translation id="8747073452963259673">onderste linkerhoek van soekgebied: links <ph name="LEFT"/>%, onder <ph name="BOTTOM"/>%</translation>
 <translation id="878572486461146056">Installeerfout: Jou netwerkadmin het ’n groepbeleid toegepas wat installasie verhinder: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">Browther het toestemming nodig om toegang te kry tot jou kamera en mikrofoon vir hierdie werf</translation>
+<translation id="1576369213923770885">Browther het toestemming nodig om toegang te kry tot jou kamera en mikrofoon vir hierdie werf</translation>
 <translation id="8813277370772331957">Herinner my later</translation>
-<translation id="64216977793816291">Meld aan by Browther?</translation>
-<translation id="7447364954121496869">Maak Browther die verstekblaaier en speld dit aan die taakbalk vas</translation>
+<translation id="6831999464349484462">Meld aan by Browther?</translation>
+<translation id="3698151322107951111">Maak Browther die verstekblaaier en speld dit aan die taakbalk vas</translation>
 <translation id="8826492472752484139">Klik “Wagwoordbestuurder”</translation>
 <translation id="6933858244219479645">Browther-bedryfstelsel</translation>
-<translation id="9084132286318231275">Hierdie taal word gebruik om kieslyste, instellings, opletberigte en ander teks in Browther te vertoon</translation>
+<translation id="3986927308621489499">Hierdie taal word gebruik om kieslyste, instellings, opletberigte en ander teks in Browther te vertoon</translation>
 <translation id="8862326446509486874">Jy het nie die gepaste regte vir stelselvlak-installering nie. Probeer om die installeerder weer te laat loop as Administrateur.</translation>
-<translation id="7289323009146924152">Voeg Browther-profiel by</translation>
-<translation id="6412037018950369131">Indien wel moet jy asseblief jou gestoorde wagwoord in Browther wysig sodat dit met jou nuwe wagwoord ooreenstem.</translation>
-<translation id="1150745254876977823">Jou organisasie vereis dat jy by Browther aanmeld</translation>
-<translation id="8285294305439559616">Browther probeer tans om wagwoorde te wys. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
-<translation id="4684884244620579559">Browther is nie meer jou verstekblaaier nie. Maak Browther die verstekblaaier?</translation>
-<translation id="6389268239133412586">Kan nie Browther opdateer nie</translation>
-<translation id="7731184591599776500">Browther Enterprise-logo</translation>
-<translation id="6500340165622970282">Kan nie Browther begin nie omdat iets skeefgeloop het toe jou profiel oopgemaak is. Probeer om Browther te herbegin.</translation>
-<translation id="3424657754843264466">Bestuur Browther-profiele</translation>
-<translation id="7055223246119657449">Browther het hierdie aflaai geblokkeer omdat die argieflêer ander lêers insluit wat wanware kan versteek</translation>
-<translation id="9049928023195059068">Meld aan by Browther wanneer jy by ander Browther-dienste aanmeld</translation>
-<translation id="4561046754724442504">Browther is outomaties toegemaak</translation>
-<translation id="5173820533850252773">Browther is verouderd</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther sal oor 'n uur herbegin}other{Browther sal oor # uur herbegin}}</translation>
+<translation id="5318226144018267261">Voeg Browther-profiel by</translation>
+<translation id="1298790608554316415">Indien wel moet jy asseblief jou gestoorde wagwoord in Browther wysig sodat dit met jou nuwe wagwoord ooreenstem.</translation>
+<translation id="960933321883777733">Jou organisasie vereis dat jy by Browther aanmeld</translation>
+<translation id="948979409756947611">Browther probeer tans om wagwoorde te wys. Tik jou Windows-wagwoord in om dit toe te laat.</translation>
+<translation id="1418854271943945136">Browther is nie meer jou verstekblaaier nie. Maak Browther die verstekblaaier?</translation>
+<translation id="7228667329366610727">Kan nie Browther opdateer nie</translation>
+<translation id="4817697255467736794">Browther Enterprise-logo</translation>
+<translation id="3507731466523097529">Kan nie Browther begin nie omdat iets skeefgeloop het toe jou profiel oopgemaak is. Probeer om Browther te herbegin.</translation>
+<translation id="3234473600657230663">Bestuur Browther-profiele</translation>
+<translation id="8953887022581653484">Browther het hierdie aflaai geblokkeer omdat die argieflêer ander lêers insluit wat wanware kan versteek</translation>
+<translation id="532304972436358335">Meld aan by Browther wanneer jy by ander Browther-dienste aanmeld</translation>
+<translation id="3425998261052065067">Browther is outomaties toegemaak</translation>
+<translation id="4377377022617011492">Browther is verouderd</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther sal oor 'n uur herbegin}other{Browther sal oor # uur herbegin}}</translation>
 <translation id="9106236359747881194">Kies teks om te soek</translation>
-<translation id="5190991181158966940">Jy het Windows 10 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik Windows 8.1.</translation>
-<translation id="7863882214613921971">Maak skakel in 'n nuwe Browther-oortjie oop</translation>
+<translation id="5115014198092384730">Jy het Windows 10 of nuwer nodig om in die toekoms Browther-opdaterings te kry. Hierdie rekenaar gebruik Windows 8.1.</translation>
+<translation id="7129101984664345614">Maak skakel in 'n nuwe Browther-oortjie oop</translation>
 <translation id="911206726377975832">Vee ook jou blaaidata uit?</translation>
 <translation id="9134482777260927479">Huiswerkhulp</translation>
 <translation id="9148058034647219655">Gaan uit</translation>
-<translation id="2792073155252170448">Gaan voort waar jy opgehou het: Browther kan elke keer as jy herbegin, jou oortjies terugstel. Om dit aan te skakel, gaan na</translation>
-<translation id="2444257125841652328">Jou stelseladministrateur het Browther opgestel om 'n alternatiewe blaaier oop te maak om na <ph name="TARGET_URL_HOSTNAME"/> toe te gaan.</translation>
-<translation id="8208548103319284047">Browther-wenk: Soek met Lens</translation>
-<translation id="7902365066753170041">Begin weer om &amp;Browther op te dateer</translation>
-<translation id="3350544518197210895">Browther (mDNS-In)</translation>
-<translation id="49909619875329637">Kry meer as jy by Browther aangemeld is</translation>
-<translation id="296137235951584143">Maak Browther jou eie</translation>
-<translation id="7977787072794666032">Browther sal dalk nie reg werk nie omdat dit nie meer in Windows XP en Windows Vista gesteun word nie</translation>
+<translation id="1734388504720121468">Gaan voort waar jy opgehou het: Browther kan elke keer as jy herbegin, jou oortjies terugstel. Om dit aan te skakel, gaan na</translation>
+<translation id="8633974232736772207">Jou stelseladministrateur het Browther opgestel om 'n alternatiewe blaaier oop te maak om na <ph name="TARGET_URL_HOSTNAME"/> toe te gaan.</translation>
+<translation id="1122669402846843682">Browther-wenk: Soek met Lens</translation>
+<translation id="595330134356385835">Begin weer om &amp;Browther op te dateer</translation>
+<translation id="4659389438500978709">Browther (mDNS-In)</translation>
+<translation id="6491100124044190139">Kry meer as jy by Browther aangemeld is</translation>
+<translation id="1665840797775025867">Maak Browther jou eie</translation>
+<translation id="4407047432656809023">Browther sal dalk nie reg werk nie omdat dit nie meer in Windows XP en Windows Vista gesteun word nie</translation>
 <translation id="945522503751344254">Stuur terugvoer</translation>
-<translation id="4484434718272972655">Wie gebruik tans Browther?</translation>
-<translation id="7173394303099002355">Kry Browther se sterkste sekuriteit</translation>
+<translation id="7620348044248809366">Wie gebruik tans Browther?</translation>
+<translation id="7299962884342109067">Kry Browther se sterkste sekuriteit</translation>
 <translation id="983803489796659991">Installering het misluk omdat die opdateringbediener nie enige hutsdata vir die app het nie.</translation>
-<translation id="8435446479956716379">Gebruik Browther sonder ’n rekening</translation>
-<translation id="8992261409816268381">Die Browther-outeurs</translation>
+<translation id="8775461190334353148">Gebruik Browther sonder ’n rekening</translation>
+<translation id="7146761239544860058">Die Browther-outeurs</translation>
 <translation id="989970834842471429">Kies enige teks of prent om met Prentsoektog te soek</translation>
-<translation id="3146636448190445245">Jy moet vir Browther toegang in <ph name="BEGIN_LINK"/>stelselinstellings<ph name="END_LINK"/> gee om jou ligging te gebruik</translation>
+<translation id="6616551030373607751">Jy moet vir Browther toegang in <ph name="BEGIN_LINK"/>stelselinstellings<ph name="END_LINK"/> gee om jou ligging te gebruik</translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Kon weens 'n ongespesifiseerde fout nie installeer nie. Laai Browther asseblief weer af.</translation>
-<translation id="1743665722170667430">Uitbreidings, toeps en temas van onbekende bronne kan u toestel beskadig. Browther beveel aan dat u dit slegs vanaf die <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> installeer</translation>
-<translation id="6184592406110188164">Hierdie uitbreiding oortree Browther Webwinkel se beleid, en kan onveilig wees. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend jou persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
-<translation id="1299765473362724475">Waarskuwing: Browther kan nie verhoed dat uitbreidings rekord hou van u blaaigeskiedenis nie. Om hierdie uitbreiding in privaat modus te deaktiveer, moet u hierdie opsie ontmerk.</translation>
-<translation id="1448049584457347995">Om Browther veiliger te maak, het ons sekere uitbreidings gedeaktiveer wat nie in die <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> gelys is nie en sonder u medewete toegevoeg kon wees.</translation>
-<translation id="8848045066928358658">Om Browther veiliger te maak, het ons die volgende uitbreiding, wat nie in die <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> gelys word nie en wat dalk sonder u medewete toygevoeg is, gedeaktiveer.</translation>
-<translation id="4624945300945265642">Maak skakel in 'n incognitovenster in Browther oop</translation>
-<translation id="6554952862405000915">Maak skakel in 'n incognitovenster in Browther oop</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{'n Nuwe opdatering vir Browther is beskikbaar en sal toegepas word sodra jy herbegin.}=1{'n Nuwe opdatering vir Browther is beskikbaar en sal toegepas word sodra jy herbegin. Jou incognitovenster sal nie weer oopgemaak word nie.}other{'n Nuwe opdatering vir Browther is beskikbaar en sal toegepas word sodra jy herbegin. Jou # incognitovensters sal nie weer oopgemaak word nie.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{Jou administrateur vra dat jy Browther herbegin om hierdie opdatering toe te pas}=1{Jou administrateur vra dat jy Browther herbegin om hierdie opdatering toe te pas. Jou incognitovenster sal nie weer oopgemaak word nie.}other{Jou administrateur vra dat jy Browther herbegin om hierdie opdatering toe te pas. Jou # incognitovensters sal nie weer oopgemaak word nie.}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{Jou administrateur vereis dat jy Browther herbegin om 'n opdatering toe te pas}=1{Jou administrateur vereis dat jy Browther herbegin om 'n opdatering toe te pas. Jou incognitovenster sal nie weer oopgemaak word nie.}other{Jou administrateur vereis dat jy Browther herbegin om 'n opdatering toe te pas. Jou # incognitovensters sal nie weer oopgemaak word nie.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural, =0 {Gevorderde Beskerming vereis dat jy Browther moet herbegin om 'n opdatering toe te pas} =1 {Gevorderde Beskerming vereis dat jy Browther moet herbegin om 'n opdatering toe te pas. Jou Private venster sal nie weer oopmaak nie.} other {Gevorderde Beskerming vereis dat jy Browther moet herbegin om 'n opdatering toe te pas. Jou # Private vensters sal nie weer oopmaak nie.}}</translation>
+<translation id="5110032212554763592">Kon weens 'n ongespesifiseerde fout nie installeer nie. Laai Browther asseblief weer af.</translation>
+<translation id="9074842261125908635">Uitbreidings, toeps en temas van onbekende bronne kan u toestel beskadig. Browther beveel aan dat u dit slegs vanaf die <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> installeer</translation>
+<translation id="3593119910409528681">Hierdie uitbreiding oortree Browther Webwinkel se beleid, en kan onveilig wees. Verwyder dit uit Browther sodat dit nie meer jou data, insluitend jou persoonlike inligting, op werwe wat jy besoek kan sien en verander nie.</translation>
+<translation id="5245976396374147971">Waarskuwing: Browther kan nie verhoed dat uitbreidings rekord hou van u blaaigeskiedenis nie. Om hierdie uitbreiding in privaat modus te deaktiveer, moet u hierdie opsie ontmerk.</translation>
+<translation id="3629539416935660172">Om Browther veiliger te maak, het ons sekere uitbreidings gedeaktiveer wat nie in die <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> gelys is nie en sonder u medewete toegevoeg kon wees.</translation>
+<translation id="157534302749986451">Om Browther veiliger te maak, het ons die volgende uitbreiding, wat nie in die <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> gelys word nie en wat dalk sonder u medewete toygevoeg is, gedeaktiveer.</translation>
+<translation id="3031052147361385845">Maak skakel in 'n incognitovenster in Browther oop</translation>
+<translation id="5556794247782664281">Maak skakel in 'n incognitovenster in Browther oop</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{'n Nuwe opdatering vir Browther is beskikbaar en sal toegepas word sodra jy herbegin.}=1{'n Nuwe opdatering vir Browther is beskikbaar en sal toegepas word sodra jy herbegin. Jou incognitovenster sal nie weer oopgemaak word nie.}other{'n Nuwe opdatering vir Browther is beskikbaar en sal toegepas word sodra jy herbegin. Jou # incognitovensters sal nie weer oopgemaak word nie.}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{Jou administrateur vra dat jy Browther herbegin om hierdie opdatering toe te pas}=1{Jou administrateur vra dat jy Browther herbegin om hierdie opdatering toe te pas. Jou incognitovenster sal nie weer oopgemaak word nie.}other{Jou administrateur vra dat jy Browther herbegin om hierdie opdatering toe te pas. Jou # incognitovensters sal nie weer oopgemaak word nie.}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{Jou administrateur vereis dat jy Browther herbegin om 'n opdatering toe te pas}=1{Jou administrateur vereis dat jy Browther herbegin om 'n opdatering toe te pas. Jou incognitovenster sal nie weer oopgemaak word nie.}other{Jou administrateur vereis dat jy Browther herbegin om 'n opdatering toe te pas. Jou # incognitovensters sal nie weer oopgemaak word nie.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural, =0 {Gevorderde Beskerming vereis dat jy Browther moet herbegin om 'n opdatering toe te pas} =1 {Gevorderde Beskerming vereis dat jy Browther moet herbegin om 'n opdatering toe te pas. Jou Private venster sal nie weer oopmaak nie.} other {Gevorderde Beskerming vereis dat jy Browther moet herbegin om 'n opdatering toe te pas. Jou # Private vensters sal nie weer oopmaak nie.}}</translation>
 <translation id="5749154344207139683">Help ons om Incognito te verbeter deur hierdie 1-minuutopname te voltooi.</translation>
-<translation id="79269250264141507">Wanneer jy iets in die adresbalk of soekkassie tik, stuur Browther wat jy tik na jou versteksoekenjin toe om beter voorstelle te kry. Dit is af in Incognito.</translation>
-<translation id="2589970573128789862">Browther Incognito</translation>
-<translation id="5994282802285556682">Browther sal jou waarsku voordat ’n werf met ’n onveilige verbinding gelaai word wanneer jy in Incognitomodus blaai</translation>
+<translation id="6954203250660846933">Wanneer jy iets in die adresbalk of soekkassie tik, stuur Browther wat jy tik na jou versteksoekenjin toe om beter voorstelle te kry. Dit is af in Incognito.</translation>
+<translation id="3542179014707218534">Browther Incognito</translation>
+<translation id="2076355018722231995">Browther sal jou waarsku voordat ’n werf met ’n onveilige verbinding gelaai word wanneer jy in Incognitomodus blaai</translation>
 </translationbundle>

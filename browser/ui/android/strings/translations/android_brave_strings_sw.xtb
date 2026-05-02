@@ -188,13 +188,13 @@
 <translation id="834487290629916192">BAADAYE</translation>
 <translation id="4117451092682672487">Faragha. Imerahisishwa.</translation>
 <translation id="5512887128063976049">Ukiwa na Browther kama chaguo-msingi, kila kiungo unachogusa hufunguka kikiwa na ulinzi wa faragha wa Browther.</translation>
-<translation id="5148943178722443958">Saidia kuboresha Browther.</translation>
+<translation id="9133910347634099679">Saidia kuboresha Browther.</translation>
 <translation id="6718362830686703942">Tuma ripoti za uchunguzi wa kubainisha matatizo ikiwa utakabiliwa na programu kuacha kufanya kazi vyema au kukwama.</translation>
 <translation id="7134864207653684195">Shiriki maarifa ya bidhaa ya faragha na yasiyokutambulisha kuhusu ni vipengele vipi vinavyotumiwa na watumiaji wa Browther.</translation>
 <translation id="2888496576732880897">Saidiya Brave Search ikue</translation>
 <translation id="7044431516245362795">Jisajili kwenye Mradi wa Kugundua Wavuti ili kusaidia kukuza orodha na kuboresha matokeo ya utafutaji. <ph name="LEARN_MORE_START"/>Jifunze zaidi.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Sawa, nitashiriki</translation>
-<translation id="7443712250454754077">Gusa ili utazame Brave Shields</translation>
+<translation id="7443712250454754077">Gusa ili utazame Browther Shields</translation>
 <translation id="118577974285037669">Tazama mambo yote mabaya ambayo Browther imezuia katika kila ukurasa, kwa Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> na matangazo na vifuatiliaji vingine vya<ph name="TRACKER"/> vilivyozuiwa</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> na matangazo mengine na vifuatiliaji vimezuiwa</translation>
@@ -408,7 +408,7 @@ Je, una uhakika unataka kufanya hili?</translation>
 <translation id="769702552748212954">Ruhusu uchapishaji wote wa alama za vidole</translation>
 <translation id="876424292214881779">Matangazo na mambo mengine ya ajabu yamezuiwa</translation>
 <translation id="2709945082202062860">Mara nyingi tovuti hujumuisha vidakuzi na programu ndogo za ufuatiliaji ambazo hujaribu kukutambua wewe na kifaa chako. Zinataka kujua wewe ni nani na hukufuata kote kwenye wavuti, zikifuatilia unachofanya kwenye kila tovuti.\n\nBrave huzuia mambo haya ili uweze kuvinjari bila kufuatwa.</translation>
-<translation id="5695422144228065490">Kuhusu Brave Shields</translation>
+<translation id="5695422144228065490">Kuhusu Browther Shields</translation>
 <translation id="8912304686498704084">JUU</translation>
 <translation id="4963218453264888510">CHINI</translation>
 <translation id="5721161384090584434">Unavinjari tovuti hii bila ulinzi wa faragha wa Browther. Haifanyi kazi vizuri na Shields?</translation>
@@ -958,7 +958,7 @@ Usipolikubali ombi hili, VPN haitaunganisha tena na muunganisho wako wa intaneti
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Rejesha kwenye mipangilio chaguomsingi</translation>
 <translation id="4922034974043704366">Kipengele hiki kimewezeshwa kwa sababu ulikiwasha</translation>
-<translation id="3144818380093107753">Browther Origin ni njia ya kulipia ili kulemaza vipengele vinavyozalisha mapato ambavyo kwa kawaida huunga mkono Browther kama biashara. Waliosajiliwa watapata manufaa ya faragha inayoongoza kwenye tasnia, uzuiaji wa matangazo, na kasi (kupitia Brave Shields), pamoja na masasisho ya kawaida ya programu, viraka vya Chromium, na maboresho ya kiusalama na faragha.&lt;br/&gt;&lt;br/&gt;Pia, watapata udhibiti mpya katika menyu ya mipangilio ya kivinjari. Vipengele vilivyopo—na vile vipya vitakavyoongezwa baadaye—vitaonekana hapa vikiwa vimezimwa kwa chaguo-msingi.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Kumbuka: Browther Origin haitazima vipengele vya kivinjari unavyovitumia kwa sasa, wala haitabadilisha vipengele vya Brave Search au Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin ni njia ya kulipia ili kulemaza vipengele vinavyozalisha mapato ambavyo kwa kawaida huunga mkono Browther kama biashara. Waliosajiliwa watapata manufaa ya faragha inayoongoza kwenye tasnia, uzuiaji wa matangazo, na kasi (kupitia Browther Shields), pamoja na masasisho ya kawaida ya programu, viraka vya Chromium, na maboresho ya kiusalama na faragha.&lt;br/&gt;&lt;br/&gt;Pia, watapata udhibiti mpya katika menyu ya mipangilio ya kivinjari. Vipengele vilivyopo—na vile vipya vitakavyoongezwa baadaye—vitaonekana hapa vikiwa vimezimwa kwa chaguo-msingi.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Kumbuka: Browther Origin haitazima vipengele vya kivinjari unavyovitumia kwa sasa, wala haitabadilisha vipengele vya Brave Search au Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Ingia kwa Pochi ya Browther</translation>
 <translation id="7380890081275286865">Unaingia kwenye <ph name="ORIGIN"/>. Pochi ya Browther itashiriki anwani ya pochi yako na <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Tazama maelezo</translation>

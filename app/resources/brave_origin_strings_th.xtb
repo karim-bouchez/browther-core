@@ -3,117 +3,117 @@
 <translationbundle lang="th">
 <translation id="1026101648481255140">ดำเนินการติดตั้งต่อ</translation>
 <translation id="7099479769133613710">เปิดอีกครั้งเพื่ออัปเดต &amp;Chrome OS</translation>
-<translation id="2479110114759182442">Browther ขอแนะนำให้คุณตรวจสอบส่วนขยายนี้</translation>
-<translation id="3814674848168165531">เมื่อเว็บไซต์ขอโหลดลิงก์ในหน้าเว็บของตนล่วงหน้าแบบส่วนตัว Browther จะใช้เซิร์ฟเวอร์ของ Browther การดำเนินการนี้จะซ่อนตัวตนของคุณจากเว็บไซต์ที่โหลดล่วงหน้า แต่ Browther จะทราบถึงเว็บไซต์ที่ได้รับการโหลดล่วงหน้า</translation>
+<translation id="7264054672589027446">Browther ขอแนะนำให้คุณตรวจสอบส่วนขยายนี้</translation>
+<translation id="7848219163187166649">เมื่อเว็บไซต์ขอโหลดลิงก์ในหน้าเว็บของตนล่วงหน้าแบบส่วนตัว Browther จะใช้เซิร์ฟเวอร์ของ Browther การดำเนินการนี้จะซ่อนตัวตนของคุณจากเว็บไซต์ที่โหลดล่วงหน้า แต่ Browther จะทราบถึงเว็บไซต์ที่ได้รับการโหลดล่วงหน้า</translation>
 <translation id="1065672644894730302">ค่ากำหนดของคุณไม่สามารถอ่านได้ ฟีเจอร์บางอย่างอาจใช้ไม่ได้และการเปลี่ยนแปลงค่ากำหนดจะไม่ได้รับการบันทึก</translation>
-<translation id="7577672138294294152">ผู้ปกครองได้ปิด "สิทธิ์สำหรับเว็บไซต์ แอป และส่วนขยาย" ใน Browther</translation>
-<translation id="5918095577778020936">Browther ต้องการส่งออกรหัสผ่านของคุณ พิมพ์รหัสผ่าน Windows เพื่ออนุญาตให้ดำเนินการ</translation>
+<translation id="8837164267124113709">ผู้ปกครองได้ปิด "สิทธิ์สำหรับเว็บไซต์ แอป และส่วนขยาย" ใน Browther</translation>
+<translation id="881513728707488138">Browther ต้องการส่งออกรหัสผ่านของคุณ พิมพ์รหัสผ่าน Windows เพื่ออนุญาตให้ดำเนินการ</translation>
 <translation id="112640046208448578">ระบุสิ่งหรือสถานที่ต่างๆ แล้วคัดลอกหรือแปลข้อความ เมื่อใช้การค้นหารูปภาพ ระบบจะส่งภาพหน้าจอของหน้าเว็บไปยังเซิร์ฟเวอร์ <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther เป็นเบราว์เซอร์เริ่มต้นของคุณ</translation>
-<translation id="8522292744959221145"><ph name="BEGIN_LINK"/>ลงชื่อเข้าใช้ Browther<ph name="END_LINK"/> เพื่อตรวจสอบว่ารหัสผ่านของคุณไม่ได้รับผลกระทบจากการละเมิดข้อมูลและปัญหาด้านความปลอดภัยอื่นๆ</translation>
-<translation id="2627788872035182013">คลิกเมนู Browther</translation>
+<translation id="8280092658684559253">Browther เป็นเบราว์เซอร์เริ่มต้นของคุณ</translation>
+<translation id="6580138787163923852"><ph name="BEGIN_LINK"/>ลงชื่อเข้าใช้ Browther<ph name="END_LINK"/> เพื่อตรวจสอบว่ารหัสผ่านของคุณไม่ได้รับผลกระทบจากการละเมิดข้อมูลและปัญหาด้านความปลอดภัยอื่นๆ</translation>
+<translation id="1089111274164380772">คลิกเมนู Browther</translation>
 <translation id="1157985233335035034">ภาษาล่าสุด</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> ได้เพิ่มส่วนขยายที่อาจเปลี่ยนวิธีการทำงานของ Browther
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> ได้เพิ่มส่วนขยายที่อาจเปลี่ยนวิธีการทำงานของ Browther
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">ติดตั้งไม่สำเร็จเนื่องจากระบบไม่รองรับ Windows เวอร์ชันที่คุณใช้</translation>
-<translation id="8541922081612557424">เกี่ยวกับ Browther</translation>
+<translation id="8291401179516272335">เกี่ยวกับ Browther</translation>
 <translation id="1203500561924088507">ขอขอบคุณที่ติดตั้ง คุณต้องรีสตาร์ทเบราว์เซอร์ก่อนใช้ <ph name="BUNDLE_NAME"/></translation>
 <translation id="1232234696885483911">เมื่อคุณเปิดการค้นหารูปภาพ ระบบจะส่งชื่อหน้า, URL และเนื้อหา รวมถึง PDF ไปยังเซิร์ฟเวอร์โดยอัตโนมัติ <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">เมื่อลงชื่อเข้าใช้อยู่ คุณจะใช้รหัสผ่านและข้อมูลอื่นๆ จากบัญชี Browther ใน Browther ได้ หากต้องการเปลี่ยน ให้ไปที่ "บัญชีของคุณใน Browther"</translation>
-<translation id="8799570501820813406">ขณะที่แท็บนี้ไม่มีการใช้งาน ระบบจะเพิ่มพื้นที่ว่างในหน่วยความจำเพื่อให้ใช้ Browther ได้อย่างรวดเร็วอยู่เสมอ ทั้งนี้คุณจะเลือกยกเว้นให้เว็บไซต์นี้ทำงานตลอดเวลาได้</translation>
-<translation id="8767381092474532098">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์เป็นอันตราย</translation>
-<translation id="3256289531845594061">เมื่อลงชื่อเข้าใช้บริการของ Browther อย่าง Gmail หรือ YouTube ด้วย <ph name="USER_EMAIL"/> คุณจะลงชื่อเข้าใช้ Browther ด้วยบัญชีเดียวกันได้โดยอัตโนมัติ</translation>
+<translation id="3496831315930641015">เมื่อลงชื่อเข้าใช้อยู่ คุณจะใช้รหัสผ่านและข้อมูลอื่นๆ จากบัญชี Browther ใน Browther ได้ หากต้องการเปลี่ยน ให้ไปที่ "บัญชีของคุณใน Browther"</translation>
+<translation id="9034321258761608912">ขณะที่แท็บนี้ไม่มีการใช้งาน ระบบจะเพิ่มพื้นที่ว่างในหน่วยความจำเพื่อให้ใช้ Browther ได้อย่างรวดเร็วอยู่เสมอ ทั้งนี้คุณจะเลือกยกเว้นให้เว็บไซต์นี้ทำงานตลอดเวลาได้</translation>
+<translation id="249571811018731941">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์เป็นอันตราย</translation>
+<translation id="8850227089720975601">เมื่อลงชื่อเข้าใช้บริการของ Browther อย่าง Gmail หรือ YouTube ด้วย <ph name="USER_EMAIL"/> คุณจะลงชื่อเข้าใช้ Browther ด้วยบัญชีเดียวกันได้โดยอัตโนมัติ</translation>
 <translation id="1290883685122687410">ข้อผิดพลาดในการตั้งค่า: <ph name="METAINSTALLER_EXIT_CODE"/> <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">ตั้งค่าโปรไฟล์ Browther ใหม่</translation>
-<translation id="878572309106296578">Browther ต้องการสิทธิ์เข้าถึงบลูทูธเพื่อสำรวจอุปกรณ์บลูทูธ <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
+<translation id="6235774143043174856">ตั้งค่าโปรไฟล์ Browther ใหม่</translation>
+<translation id="4437862975743821367">Browther ต้องการสิทธิ์เข้าถึงบลูทูธเพื่อสำรวจอุปกรณ์บลูทูธ <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">ตรวจหาภาษา</translation>
-<translation id="6204677860546245308">ใช้การตั้งค่าเบราว์เซอร์ที่ Browther แนะนำ</translation>
-<translation id="108284536240904209">ลบข้อมูลออกจาก Browther (<ph name="URL"/>) ด้วย</translation>
+<translation id="1206925267243987362">ใช้การตั้งค่าเบราว์เซอร์ที่ Browther แนะนำ</translation>
+<translation id="8270483548049772782">ลบข้อมูลออกจาก Browther (<ph name="URL"/>) ด้วย</translation>
 <translation id="1345251407431278948">ปักหมุดแล้ว คุณเข้าถึงการค้นหารูปภาพได้อีกครั้งจากปุ่มใหม่ในแถบเครื่องมือ</translation>
 <translation id="1356661055722410047">ใหม่! คุณแปลได้ทั้งข้อความและรูปภาพบนหน้าจอ</translation>
 <translation id="1383876407941801731">ค้นหา</translation>
-<translation id="7009295044271335553">&amp;จัดการโปรไฟล์ Browther</translation>
+<translation id="1592588950737518481">&amp;จัดการโปรไฟล์ Browther</translation>
 <translation id="1404026649028693342">แสดงโหมด AI เสมอ</translation>
 <translation id="141901961143729572">แชร์ความคิดเห็นของคุณ</translation>
-<translation id="3880714039086599943">หากต้องการแชร์หน้าต่าง ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
-<translation id="1586284627848250203">รับความช่วยเหลือเกี่ยวกับ Browther สำหรับการทดสอบ</translation>
+<translation id="1743952081001089298">หากต้องการแชร์หน้าต่าง ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
+<translation id="8627385813382688019">รับความช่วยเหลือเกี่ยวกับ Browther สำหรับการทดสอบ</translation>
 <translation id="1497802159252041924">ข้อผิดพลาดในการติดตั้ง: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">หน้านี้ได้รับการป้องกัน</translation>
-<translation id="5147525139567260139">แชร์แท็บ Browther</translation>
-<translation id="721261350616678948">ลงชื่อเข้าใช้ Browther</translation>
+<translation id="7252430412915798987">แชร์แท็บ Browther</translation>
+<translation id="6388429281015199562">ลงชื่อเข้าใช้ Browther</translation>
 <translation id="1547469039832541117">สิ้นสุดงานที่ไฮไลต์ไว้</translation>
-<translation id="1530633922026945685">Browther ต้องการสิทธิ์เข้าถึงกล้องเพื่อสร้างแผนที่ 3 มิติของสิ่งที่อยู่รอบตัวคุณ</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{ระบบไม่รองรับส่วนขยายนี้อีกต่อไป Browther ขอแนะนำให้คุณนำออก}other{ระบบไม่รองรับส่วนขยายเหล่านี้อีกต่อไป Browther ขอแนะนำให้คุณนำออก}}</translation>
-<translation id="51545890371361355">ปักหมุด Browther</translation>
-<translation id="6570689355868013775">เครื่องมือด้านความปลอดภัยของ Browther</translation>
-<translation id="1902837727299679178">Browther ต้องการลบข้อมูลในเครื่องมือจัดการรหัสผ่าน โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
-<translation id="4449148723378534338">ตรวจสอบการควบคุมที่สำคัญด้านความเป็นส่วนตัวและความปลอดภัยใน Browther</translation>
+<translation id="1801944307203212016">Browther ต้องการสิทธิ์เข้าถึงกล้องเพื่อสร้างแผนที่ 3 มิติของสิ่งที่อยู่รอบตัวคุณ</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{ระบบไม่รองรับส่วนขยายนี้อีกต่อไป Browther ขอแนะนำให้คุณนำออก}other{ระบบไม่รองรับส่วนขยายเหล่านี้อีกต่อไป Browther ขอแนะนำให้คุณนำออก}}</translation>
+<translation id="4667068923142532753">ปักหมุด Browther</translation>
+<translation id="3006560544901646947">เครื่องมือด้านความปลอดภัยของ Browther</translation>
+<translation id="686052171138185761">Browther ต้องการลบข้อมูลในเครื่องมือจัดการรหัสผ่าน โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
+<translation id="8713026329083542796">ตรวจสอบการควบคุมที่สำคัญด้านความเป็นส่วนตัวและความปลอดภัยใน Browther</translation>
 <translation id="1640672724030957280">กำลังดาวน์โหลด...</translation>
 <translation id="1680687534629375545">ถามการค้นหารูปภาพเกี่ยวกับหน้านี้</translation>
 <translation id="1709772298389099340">ให้สิทธิ์ในระดับสูงขึ้นกับ <ph name="BROWSER_NAME"/></translation>
-<translation id="2913217021115517297">Browther จะส่งข้อมูลการโต้ตอบของคุณให้กับ Browther เพื่อช่วยปรับปรุงฟีเจอร์เหล่านี้ เจ้าหน้าที่ตรวจสอบอาจอ่าน ประมวลผล และใส่คำอธิบายประกอบข้อมูลดังกล่าว</translation>
+<translation id="4243382967656566037">Browther จะส่งข้อมูลการโต้ตอบของคุณให้กับ Browther เพื่อช่วยปรับปรุงฟีเจอร์เหล่านี้ เจ้าหน้าที่ตรวจสอบอาจอ่าน ประมวลผล และใส่คำอธิบายประกอบข้อมูลดังกล่าว</translation>
 <translation id="1722488837206509557">สิทธิ์นี้จะช่วยให้คุณสามารถเลือกจากอุปกรณ์ที่พร้อมใช้งานและแสดงเนื้อหาบนอุปกรณ์เหล่านั้น</translation>
-<translation id="8004287232784878841">Browther จะลบข้อมูลการท่องเว็บเร็วๆ นี้</translation>
-<translation id="4197839351786449392">Browther จะพยายามอัปเกรดการนำทางให้เป็นแบบ HTTPS</translation>
-<translation id="7814200940910057384">ล้างข้อมูล Browther แล้ว</translation>
-<translation id="9048361966237194186">Browther จะรีสตาร์ทใน <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">เมื่อ HTTPS ไม่พร้อมใช้งาน Browther จะใช้การเชื่อมต่อที่ไม่ปลอดภัยโดยไม่แจ้งเตือนคุณ</translation>
-<translation id="6797402139308059782">ให้ Browther ทำงานในพื้นหลัง</translation>
-<translation id="5875673934455379806">ติดตั้ง Browther ใหม่</translation>
-<translation id="4529028207655448215">Browther กำลังพยายาม<ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">ครั้งถัดไปที่เปิด Browther ใน <ph name="DEVICE_TYPE"/> คุณจะเห็นข้อความแจ้งให้ใช้เครื่องมือจัดการรหัสผ่านบน Browther</translation>
+<translation id="6820510278633522408">Browther จะลบข้อมูลการท่องเว็บเร็วๆ นี้</translation>
+<translation id="7775028004939172516">Browther จะพยายามอัปเกรดการนำทางให้เป็นแบบ HTTPS</translation>
+<translation id="6963959729951758069">ล้างข้อมูล Browther แล้ว</translation>
+<translation id="4085139922884095932">Browther จะรีสตาร์ทใน <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">เมื่อ HTTPS ไม่พร้อมใช้งาน Browther จะใช้การเชื่อมต่อที่ไม่ปลอดภัยโดยไม่แจ้งเตือนคุณ</translation>
+<translation id="3975328336074677101">ให้ Browther ทำงานในพื้นหลัง</translation>
+<translation id="2497443204974841650">ติดตั้ง Browther ใหม่</translation>
+<translation id="1724309687045787742">Browther กำลังพยายาม<ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">ครั้งถัดไปที่เปิด Browther ใน <ph name="DEVICE_TYPE"/> คุณจะเห็นข้อความแจ้งให้ใช้เครื่องมือจัดการรหัสผ่านบน Browther</translation>
 <translation id="1838374766361614909">ล้างการค้นหา</translation>
-<translation id="3541642064306182066">หากต้องการลบข้อมูลการท่องเว็บออกจากอุปกรณ์นี้เท่านั้น แต่ยังเก็บข้อมูลดังกล่าวไว้ในบัญชี Browther ให้<ph name="BEGIN_LINK"/>ออกจากระบบ Browther<ph name="END_LINK"/></translation>
-<translation id="5679816001365584346">ดาวน์โหลด Browther บนโทรศัพท์เพื่อเปิดหรือสร้างกลุ่มแท็บใหม่ได้ทุกที่ทุกเวลา</translation>
-<translation id="4559627161887338743">คุณจัดการบัญชี Browther ที่ลงชื่อเข้าใช้ได้ บัญชี Browther ใช้สำหรับเบราว์เซอร์ Browther, Play Store, Gmail และอื่นๆ หากต้องการเพิ่มบัญชีให้คนอื่น เช่น สมาชิกในครอบครัว ให้เพิ่มบุคคลใหม่ลงใน <ph name="DEVICE_TYPE"/> แทน <ph name="LINK_BEGIN"/>ดูข้อมูลเพิ่มเติม<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">หากต้องการลบข้อมูลการท่องเว็บออกจากอุปกรณ์นี้เท่านั้น แต่ยังเก็บข้อมูลดังกล่าวไว้ในบัญชี Browther ให้<ph name="BEGIN_LINK"/>ออกจากระบบ Browther<ph name="END_LINK"/></translation>
+<translation id="3927415701154897844">ดาวน์โหลด Browther บนโทรศัพท์เพื่อเปิดหรือสร้างกลุ่มแท็บใหม่ได้ทุกที่ทุกเวลา</translation>
+<translation id="2063443520349987970">คุณจัดการบัญชี Browther ที่ลงชื่อเข้าใช้ได้ บัญชี Browther ใช้สำหรับเบราว์เซอร์ Browther, Play Store, Gmail และอื่นๆ หากต้องการเพิ่มบัญชีให้คนอื่น เช่น สมาชิกในครอบครัว ให้เพิ่มบุคคลใหม่ลงใน <ph name="DEVICE_TYPE"/> แทน <ph name="LINK_BEGIN"/>ดูข้อมูลเพิ่มเติม<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">ค้นหาด้วยการค้นหารูปภาพ</translation>
 <translation id="1880677175115548835">เลือกข้อความ</translation>
-<translation id="4528406859989804913">คุณกำลังลงชื่อเข้าใช้ด้วยบัญชีที่จัดการ และให้การควบคุมระดับผู้ดูแลระบบของบัญชีดังกล่าวเหนือโปรไฟล์ Browther ของคุณ ข้อมูล Browther เช่น แอป บุ๊กมาร์ก ประวัติการเข้าชม รหัสผ่าน และการตั้งค่าอื่นๆ จะเชื่อมโยงอย่างถาวรกับ <ph name="USER_NAME"/> คุณจะสามารถลบข้อมูลนี้ผ่านทางแผงควบคุมบัญชี Browther แต่คุณจะไม่สามารถเชื่อมโยงข้อมูลนี้กับบัญชีอื่น คุณสามารถเลือกที่จะสร้างโปรไฟล์ใหม่เพื่อแยกเก็บข้อมูล Browther ที่มีอยู่ของคุณ <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther จะช่วยสงวนพลังงานแบตเตอรี่โดยการจำกัดกิจกรรมในเบื้องหลังและเอฟเฟกต์ภาพ เช่น การเลื่อนอย่างราบรื่นและอัตราเฟรมวิดีโอ <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับโหมดประหยัดพลังงาน<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">คุณกำลังลงชื่อเข้าใช้ด้วยบัญชีที่จัดการ และให้การควบคุมระดับผู้ดูแลระบบของบัญชีดังกล่าวเหนือโปรไฟล์ Browther ของคุณ ข้อมูล Browther เช่น แอป บุ๊กมาร์ก ประวัติการเข้าชม รหัสผ่าน และการตั้งค่าอื่นๆ จะเชื่อมโยงอย่างถาวรกับ <ph name="USER_NAME"/> คุณจะสามารถลบข้อมูลนี้ผ่านทางแผงควบคุมบัญชี Browther แต่คุณจะไม่สามารถเชื่อมโยงข้อมูลนี้กับบัญชีอื่น คุณสามารถเลือกที่จะสร้างโปรไฟล์ใหม่เพื่อแยกเก็บข้อมูล Browther ที่มีอยู่ของคุณ <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther จะช่วยสงวนพลังงานแบตเตอรี่โดยการจำกัดกิจกรรมในเบื้องหลังและเอฟเฟกต์ภาพ เช่น การเลื่อนอย่างราบรื่นและอัตราเฟรมวิดีโอ <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับโหมดประหยัดพลังงาน<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">สอบถามเกี่ยวกับหน้านี้</translation>
-<translation id="8643267611122541711">บริการ Browther Updater</translation>
-<translation id="1649714546770135458">เมื่อปิดการตั้งค่านี้ คุณจะลงชื่อเข้าใช้เว็บไซต์ของ Browther อย่างเช่น Gmail ได้โดยไม่ต้องลงชื่อเข้าใช้ Browther</translation>
-<translation id="189297655255130768">Browther ไม่ตอบสนอง เปิดใหม่เลยหรือไม่</translation>
-<translation id="8422047647688939115">องค์กร <ph name="MANAGER"/> กำหนดให้คุณต้องลงชื่อเข้าใช้ Browther</translation>
+<translation id="9128006428501241840">บริการ Browther Updater</translation>
+<translation id="6302815314157879372">เมื่อปิดการตั้งค่านี้ คุณจะลงชื่อเข้าใช้เว็บไซต์ของ Browther อย่างเช่น Gmail ได้โดยไม่ต้องลงชื่อเข้าใช้ Browther</translation>
+<translation id="1063611196035804685">Browther ไม่ตอบสนอง เปิดใหม่เลยหรือไม่</translation>
+<translation id="2873360330889594383">องค์กร <ph name="MANAGER"/> กำหนดให้คุณต้องลงชื่อเข้าใช้ Browther</translation>
 <translation id="4035053306113201399">ต้องรีสตาร์ท Chrome OS เพื่อใช้การอัปเดต</translation>
-<translation id="9048754176089806686">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์ประเภทนี้ไม่ได้มีการดาวน์โหลดกันโดยทั่วไปและอาจเป็นอันตราย</translation>
+<translation id="2861285003831382718">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์ประเภทนี้ไม่ได้มีการดาวน์โหลดกันโดยทั่วไปและอาจเป็นอันตราย</translation>
 <translation id="1953553007165777902">กำลังดาวน์โหลด... เหลืออีก <ph name="MINUTE"/> นาที</translation>
-<translation id="2470048290583727811">เคล็ดลับสำหรับ Browther: บันทึกรหัสผ่าน</translation>
-<translation id="1775322105159056176">Browther ไม่สามารถกำหนดหรือตั้งค่าเบราว์เซอร์เริ่มต้น</translation>
-<translation id="4372901050442507812">ดูสาเหตุที่ Browther บล็อกบางไฟล์ เปิดในแท็บใหม่</translation>
-<translation id="2703425183860615504">โปรดอัปเดตซอฟต์แวร์ Browther ให้เป็นเวอร์ชันล่าสุดอยู่เสมอ หากปิดใช้หรือหยุดบริการนี้ ซอฟต์แวร์ Browther ของคุณจะไม่ได้รับการอัปเดต ซึ่งหมายความว่าช่องโหว่ด้านความปลอดภัยที่อาจเกิดขึ้นจะไม่สามารถแก้ไขได้และฟีเจอร์อาจไม่ทำงาน บริการนี้จะถอนการติดตั้งตัวเองเมื่อไม่มีซอฟต์แวร์ Browther ใช้งานอยู่</translation>
-<translation id="9220324636239049437">การดำเนินการนี้จะลบ 1 รายการออกจากอุปกรณ์นี้ หากต้องการดึงข้อมูลภายหลัง ให้ลงชื่อเข้าใช้ Browther ด้วย <ph name="USER_EMAIL"/></translation>
+<translation id="2080160985220483492">เคล็ดลับสำหรับ Browther: บันทึกรหัสผ่าน</translation>
+<translation id="8037497710694492565">Browther ไม่สามารถกำหนดหรือตั้งค่าเบราว์เซอร์เริ่มต้น</translation>
+<translation id="7395009124247513849">ดูสาเหตุที่ Browther บล็อกบางไฟล์ เปิดในแท็บใหม่</translation>
+<translation id="762710512520170632">โปรดอัปเดตซอฟต์แวร์ Browther ให้เป็นเวอร์ชันล่าสุดอยู่เสมอ หากปิดใช้หรือหยุดบริการนี้ ซอฟต์แวร์ Browther ของคุณจะไม่ได้รับการอัปเดต ซึ่งหมายความว่าช่องโหว่ด้านความปลอดภัยที่อาจเกิดขึ้นจะไม่สามารถแก้ไขได้และฟีเจอร์อาจไม่ทำงาน บริการนี้จะถอนการติดตั้งตัวเองเมื่อไม่มีซอฟต์แวร์ Browther ใช้งานอยู่</translation>
+<translation id="5793588180426267429">การดำเนินการนี้จะลบ 1 รายการออกจากอุปกรณ์นี้ หากต้องการดึงข้อมูลภายหลัง ให้ลงชื่อเข้าใช้ Browther ด้วย <ph name="USER_EMAIL"/></translation>
 <translation id="2018879682492276940">การติดตั้งไม่สำเร็จ โปรดลองอีกครั้ง</translation>
-<translation id="831418749472885028"><ph name="BEGIN_LINK"/>ลงชื่อเข้าใช้ Browther<ph name="END_LINK"/> เพื่อตรวจสอบว่ารหัสผ่านรายการอื่นไม่ได้รับผลกระทบจากการละเมิดข้อมูลและปัญหาด้านความปลอดภัยอื่นๆ</translation>
+<translation id="6351516710581760512"><ph name="BEGIN_LINK"/>ลงชื่อเข้าใช้ Browther<ph name="END_LINK"/> เพื่อตรวจสอบว่ารหัสผ่านรายการอื่นไม่ได้รับผลกระทบจากการละเมิดข้อมูลและปัญหาด้านความปลอดภัยอื่นๆ</translation>
 <translation id="2039417478970545937">การตั้งค่า</translation>
-<translation id="5499149312981370855">เลือกว่าจะรวมประวัติการเข้าชม Browther เพื่อรับประสบการณ์ที่ปรับเปลี่ยนในแบบของคุณมากขึ้นในบริการของ Browther หรือไม่</translation>
-<translation id="6959434860418352144">คลิกปุ่มปรับแต่ง Browther ในหน้าแท็บใหม่เพื่อสร้างรูปลักษณ์ใหม่ๆ ให้ Browther</translation>
+<translation id="8194525816714210105">เลือกว่าจะรวมประวัติการเข้าชม Browther เพื่อรับประสบการณ์ที่ปรับเปลี่ยนในแบบของคุณมากขึ้นในบริการของ Browther หรือไม่</translation>
+<translation id="5909559127548969159">คลิกปุ่มปรับแต่ง Browther ในหน้าแท็บใหม่เพื่อสร้างรูปลักษณ์ใหม่ๆ ให้ Browther</translation>
 <translation id="2066690553719545730">แสดงโหมด AI เสมอ</translation>
-<translation id="2472891440303445472">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์มีการหลอกลวงและอาจทำการเปลี่ยนแปลงที่ไม่คาดคิดกับอุปกรณ์</translation>
-<translation id="2054358978145431867">คุณจะเห็นข้อความแจ้งให้ลองใช้ <ph name="FEATURE_NAME"/> ในครั้งถัดไปที่เปิด Browther บน iOS</translation>
-<translation id="2726948994393234543">ระบบจะนำรหัสผ่านและข้อมูลอื่นๆ ของ Browther ที่คุณบันทึกไว้ในบัญชี Browther ออกจากอุปกรณ์นี้ หากต้องการใช้ข้อมูลเหล่านี้ใน Browther ให้ลงชื่อเข้าใช้อีกครั้ง</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{องค์กรจะลบข้อมูลการท่องเว็บโดยอัตโนมัติเมื่อไม่มีการใช้ Browther เป็นเวลา 1 นาที ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด ทั้งนี้ แท็บจะยังคงเปิดอยู่}other{องค์กรจะลบข้อมูลการท่องเว็บโดยอัตโนมัติเมื่อไม่มีการใช้ Browther เป็นเวลา # นาที ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด ทั้งนี้ แท็บจะยังคงเปิดอยู่}}</translation>
+<translation id="3283892260110318935">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์มีการหลอกลวงและอาจทำการเปลี่ยนแปลงที่ไม่คาดคิดกับอุปกรณ์</translation>
+<translation id="6160571936643742128">คุณจะเห็นข้อความแจ้งให้ลองใช้ <ph name="FEATURE_NAME"/> ในครั้งถัดไปที่เปิด Browther บน iOS</translation>
+<translation id="8380517409933452343">ระบบจะนำรหัสผ่านและข้อมูลอื่นๆ ของ Browther ที่คุณบันทึกไว้ในบัญชี Browther ออกจากอุปกรณ์นี้ หากต้องการใช้ข้อมูลเหล่านี้ใน Browther ให้ลงชื่อเข้าใช้อีกครั้ง</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{องค์กรจะลบข้อมูลการท่องเว็บโดยอัตโนมัติเมื่อไม่มีการใช้ Browther เป็นเวลา 1 นาที ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด ทั้งนี้ แท็บจะยังคงเปิดอยู่}other{องค์กรจะลบข้อมูลการท่องเว็บโดยอัตโนมัติเมื่อไม่มีการใช้ Browther เป็นเวลา # นาที ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด ทั้งนี้ แท็บจะยังคงเปิดอยู่}}</translation>
 <translation id="2126108037660393668">ไฟล์ที่ดาวน์โหลดไม่ผ่านการยืนยัน</translation>
 <translation id="2135919691573380097">รายงานเว็บไซต์นี้</translation>
 <translation id="2137162749895930932">ปิดหน้าจอแปลภาษา</translation>
-<translation id="5789330946301045610">Browther บล็อกการดาวน์โหลดนี้เนื่องจากเว็บไซต์ไม่ได้ใช้การเชื่อมต่อที่ปลอดภัยและไฟล์อาจมีการดัดแปลง</translation>
+<translation id="4283559398694996391">Browther บล็อกการดาวน์โหลดนี้เนื่องจากเว็บไซต์ไม่ได้ใช้การเชื่อมต่อที่ปลอดภัยและไฟล์อาจมีการดัดแปลง</translation>
 <translation id="2170098639895543546">เลือกสิ่งที่ต้องการในหน้า</translation>
-<translation id="142389341645668510">ปรับแต่ง Browther</translation>
+<translation id="2495182092286337191">ปรับแต่ง Browther</translation>
 <translation id="2174917724755363426">การติดตั้งไม่สมบูรณ์ คุณแน่ใจไหมว่าต้องการยกเลิก</translation>
-<translation id="8745514854244955877">Browther - หน้าลงชื่อเข้าใช้ของเครือข่าย - <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther - หน้าลงชื่อเข้าใช้ของเครือข่าย - <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">ข้อผิดพลาดในการตรวจสอบการอัปเดต: <ph name="UPDATE_CHECK_ERROR"/></translation>
-<translation id="2058539073923004395">นำบัญชีออกจาก Browther</translation>
-<translation id="5550942974310218641">ใช้งานได้อย่างปลอดภัยมากขึ้นทุกที่ทุกเวลาด้วย Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้นใน Browther สำหรับ iOS</translation>
-<translation id="6677253423995557759">เว็บไซต์อันตราย Browther นำสิทธิ์เข้าถึงการแจ้งเตือนออกแล้ว</translation>
+<translation id="6696114732806961952">นำบัญชีออกจาก Browther</translation>
+<translation id="1084363153644366288">ใช้งานได้อย่างปลอดภัยมากขึ้นทุกที่ทุกเวลาด้วย Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้นใน Browther สำหรับ iOS</translation>
+<translation id="7949164640723239455">เว็บไซต์อันตราย Browther นำสิทธิ์เข้าถึงการแจ้งเตือนออกแล้ว</translation>
 <translation id="2236949375853147973">กิจกรรมของฉัน</translation>
-<translation id="457168681575748148">ลงชื่อเข้าใช้ Browther เพื่อรับที่อยู่และข้อมูลอื่นๆ ในทุกอุปกรณ์ ระบบจะบันทึกที่อยู่นี้ไว้ในบัญชี Browther หลังจากที่คุณลงชื่อเข้าใช้</translation>
-<translation id="5659384504794665581">ถ้าคุณให้ผู้อื่นใช้คอมพิวเตอร์ร่วมด้วย เพื่อนๆ และครอบครัวของคุณสามารถท่องเว็บแยกกันได้และตั้งค่า Browther ได้ตามที่พวกเขาต้องการ</translation>
+<translation id="4536403809133456417">ลงชื่อเข้าใช้ Browther เพื่อรับที่อยู่และข้อมูลอื่นๆ ในทุกอุปกรณ์ ระบบจะบันทึกที่อยู่นี้ไว้ในบัญชี Browther หลังจากที่คุณลงชื่อเข้าใช้</translation>
+<translation id="5627930103267312171">ถ้าคุณให้ผู้อื่นใช้คอมพิวเตอร์ร่วมด้วย เพื่อนๆ และครอบครัวของคุณสามารถท่องเว็บแยกกันได้และตั้งค่า Browther ได้ตามที่พวกเขาต้องการ</translation>
 <translation id="2283803047247799269">ค้นหาแท็บนี้ด้วยการค้นหารูปภาพ</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther แนะนำให้หยุดแท็บที่ทำให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}other{Browther แนะนำให้หยุดแท็บที่ทําให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther แนะนำให้หยุดแท็บที่ทำให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}other{Browther แนะนำให้หยุดแท็บที่ทําให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}}</translation>
 <translation id="2307973900865360088">ปักหมุดไว้ที่แถบแอป</translation>
-<translation id="7810992039564280750">ตรวจสอบ URL กับรายการเว็บไซต์ที่ไม่ปลอดภัยซึ่งจัดเก็บไว้ใน Browther หากเว็บไซต์พยายามขโมยรหัสผ่าน หรือคุณดาวน์โหลดไฟล์ที่เป็นอันตราย Browther อาจส่ง URL รวมถึงเนื้อหาบางส่วนในหน้าไปยัง Google Safe Browsing ด้วย</translation>
-<translation id="5042718521573656164">การดำเนินการนี้จะ
+<translation id="5161617112768367959">ตรวจสอบ URL กับรายการเว็บไซต์ที่ไม่ปลอดภัยซึ่งจัดเก็บไว้ใน Browther หากเว็บไซต์พยายามขโมยรหัสผ่าน หรือคุณดาวน์โหลดไฟล์ที่เป็นอันตราย Browther อาจส่ง URL รวมถึงเนื้อหาบางส่วนในหน้าไปยัง Google Safe Browsing ด้วย</translation>
+<translation id="4123094831918713833">การดำเนินการนี้จะ
         <ph name="LINE_BREAKS"/>
           • รีเซ็ตการตั้งค่าและทางลัดบางอย่างของ Browther
           <ph name="LINE_BREAK"/>
@@ -122,633 +122,633 @@
           • ลบคุกกี้และข้อมูลชั่วคราวอื่นๆ ของเว็บไซต์
           <ph name="LINE_BREAKS"/>
           การดำเนินการนี้จะไม่มีผลกับบุ๊กมาร์ก ประวัติการเข้าชม และรหัสผ่านที่บันทึกไว้</translation>
-<translation id="9095263438435683933">หากต้องการส่งหมายเลขจากที่นี่ไปยังโทรศัพท์ Android ให้ลงชื่อเข้าใช้ Browther ในอุปกรณ์ทั้งสองเครื่อง</translation>
+<translation id="5456070119344236353">หากต้องการส่งหมายเลขจากที่นี่ไปยังโทรศัพท์ Android ให้ลงชื่อเข้าใช้ Browther ในอุปกรณ์ทั้งสองเครื่อง</translation>
 <translation id="2356070529366658676">ถาม</translation>
 <translation id="2359808026110333948">ต่อไป</translation>
-<translation id="6485997157403727556">ส่วนขยาย "<ph name="EXTENSION_NAME"/>" ต้องการให้คุณลงชื่อเข้าใช้ Browther</translation>
-<translation id="7017760840808989683">ปิดใช้ Browther ที่ทำงานในเบื้องหลังสำหรับแอป</translation>
-<translation id="8491912023989916905">หากต้องการใช้ส่วนขยายนี้ด้วย <ph name="USER_EMAIL_ADDRESS"/> ให้ลงชื่อเข้าใช้ Browther</translation>
+<translation id="6468415397021485143">ส่วนขยาย "<ph name="EXTENSION_NAME"/>" ต้องการให้คุณลงชื่อเข้าใช้ Browther</translation>
+<translation id="2558600429878197587">ปิดใช้ Browther ที่ทำงานในเบื้องหลังสำหรับแอป</translation>
+<translation id="5295781918312989856">หากต้องการใช้ส่วนขยายนี้ด้วย <ph name="USER_EMAIL_ADDRESS"/> ให้ลงชื่อเข้าใช้ Browther</translation>
 <translation id="8418845734693287262">Chrome OS ซิงค์ข้อมูลไม่ได้เนื่องจากรายละเอียดการลงชื่อเข้าใช้บัญชีไม่ใช่ข้อมูลปัจจุบัน</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ HID 1 เครื่อง}=1{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ HID 1 เครื่อง}other{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ HID # เครื่อง}}</translation>
-<translation id="1248225940185478633">Browther ต้องการสิทธิ์เข้าถึงกล้องและไมโครโฟนสำหรับเว็บไซต์นี้</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ HID 1 เครื่อง}=1{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ HID 1 เครื่อง}other{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ HID # เครื่อง}}</translation>
+<translation id="434258293817844111">Browther ต้องการสิทธิ์เข้าถึงกล้องและไมโครโฟนสำหรับเว็บไซต์นี้</translation>
 <translation id="2403703063067034158">ข้อผิดพลาดในการเริ่มต้น: อินสแตนซ์อื่นของการตั้งค่ากำลังทำงานอยู่ โปรดลองอีกครั้งในภายหลัง</translation>
-<translation id="5298352791080868905">เปิดลิงก์ใน Browther จากแอปใดก็ได้ และช่วยให้เข้าถึงเบราว์เซอร์ได้ง่ายจากในแถบงาน</translation>
-<translation id="2118275934191847461"><ph name="BEGIN_LINK"/>เครื่องมือจาก Browther<ph name="END_LINK"/> ช่วยให้คุณท่องเว็บได้อย่างปลอดภัยและควบคุมได้ตามความต้องการ</translation>
+<translation id="5458993228789433099">เปิดลิงก์ใน Browther จากแอปใดก็ได้ และช่วยให้เข้าถึงเบราว์เซอร์ได้ง่ายจากในแถบงาน</translation>
+<translation id="1677640217693742525"><ph name="BEGIN_LINK"/>เครื่องมือจาก Browther<ph name="END_LINK"/> ช่วยให้คุณท่องเว็บได้อย่างปลอดภัยและควบคุมได้ตามความต้องการ</translation>
 <translation id="2451727308784734061">ใช้ทางลัดเพื่อไปยังเครื่องมือจัดการรหัสผ่านได้อย่างรวดเร็ว คุณสามารถย้ายทางลัดไปยังหน้าจอหลักหรือตัวเปิดแอปของคอมพิวเตอร์ได้</translation>
-<translation id="6381750314821942592">Browther จะปิดเร็วๆ นี้</translation>
-<translation id="6078442581074612226">ใน Browther</translation>
+<translation id="2280315911954332435">Browther จะปิดเร็วๆ นี้</translation>
+<translation id="6410820860979094113">ใน Browther</translation>
 <translation id="2485422356828889247">ถอนการติดตั้ง</translation>
 <translation id="2513154137948333830">ต้องรีบูต: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">เลือกข้อความด้วยการค้นหารูปภาพ</translation>
-<translation id="70183448213529602">Browther กำลังพยายามแทนที่รหัสผ่านที่มีอยู่ โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
-<translation id="7798069806040634998">Browther ต้องการสิทธิ์เข้าถึงพื้นที่เก็บข้อมูลเพื่อดาวน์โหลดไฟล์</translation>
-<translation id="2351700486811407088">Browther Origin Helper</translation>
+<translation id="7892218991241200190">Browther กำลังพยายามแทนที่รหัสผ่านที่มีอยู่ โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
+<translation id="8976443723926188033">Browther ต้องการสิทธิ์เข้าถึงพื้นที่เก็บข้อมูลเพื่อดาวน์โหลดไฟล์</translation>
+<translation id="4131374838781785973">Browther Origin Helper</translation>
 <translation id="2575822587468774919">เลือกอะไรก็ได้เพื่อค้นหาด้วยการค้นหารูปภาพ</translation>
-<translation id="3830890663494219270">ลงชื่อเข้าใช้ Browther เพื่อรับรหัสผ่านและข้อมูลอื่นๆ ในทุกอุปกรณ์</translation>
-<translation id="6252796827759111076">ใช้ Browther ต่อ</translation>
+<translation id="8705561858232289221">ลงชื่อเข้าใช้ Browther เพื่อรับรหัสผ่านและข้อมูลอื่นๆ ในทุกอุปกรณ์</translation>
+<translation id="437162022240011372">ใช้ Browther ต่อ</translation>
 <translation id="259935314519650377">การแคชโปรแกรมติดตั้งที่ดาวน์โหลดไว้ล้มเหลว ข้อผิดพลาด: <ph name="UNPACK_CACHING_ERROR_CODE"/></translation>
 <translation id="2620436844016719705">ระบบ</translation>
-<translation id="7931230852267968641">องค์กรของคุณจะดูและจัดการข้อมูลการท่องเว็บได้ เช่น บุ๊กมาร์ก ประวัติการเข้าชม และรหัสผ่าน แต่จะไม่เห็นข้อมูลการท่องเว็บในโปรไฟล์ Browther อื่นๆ</translation>
-<translation id="2257221826278123061">โปรดยืนยันว่าเป็นคุณเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="7387051847644272380">เกิดข้อผิดพลาดของระบบปฏิบัติในระหว่างการติดตั้ง โปรดดาวน์โหลด Browther อีกครั้ง</translation>
-<translation id="2648689842065142443">เพื่อนและครอบครัวสามารถท่องเว็บแยกกันและตั้งค่า Browther ตามที่ตนต้องการในกรณีที่ใช้อุปกรณ์ร่วมกัน</translation>
-<translation id="6791166902140255175">แท็บ Browther</translation>
-<translation id="8372880274820509128">เพื่อเพิ่มความปลอดภัยให้มากยิ่งขึ้น Browther จะเข้ารหัสข้อมูลของคุณ</translation>
-<translation id="8752006915531191162">หากต้องการนำบัญชี Browther ออกจาก Browther ให้ออกจากระบบ</translation>
-<translation id="5344406739101555055">ลงชื่อเข้าใช้ Browther เพื่อเข้าถึงรหัสผ่าน บุ๊กมาร์ก และข้อมูลอื่นๆ ในอุปกรณ์ทุกเครื่อง</translation>
+<translation id="2907676829052962091">องค์กรของคุณจะดูและจัดการข้อมูลการท่องเว็บได้ เช่น บุ๊กมาร์ก ประวัติการเข้าชม และรหัสผ่าน แต่จะไม่เห็นข้อมูลการท่องเว็บในโปรไฟล์ Browther อื่นๆ</translation>
+<translation id="1289116577679005654">โปรดยืนยันว่าเป็นคุณเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="7192278346779151664">เกิดข้อผิดพลาดของระบบปฏิบัติในระหว่างการติดตั้ง โปรดดาวน์โหลด Browther อีกครั้ง</translation>
+<translation id="7724398260867885339">เพื่อนและครอบครัวสามารถท่องเว็บแยกกันและตั้งค่า Browther ตามที่ตนต้องการในกรณีที่ใช้อุปกรณ์ร่วมกัน</translation>
+<translation id="1679595317134614424">แท็บ Browther</translation>
+<translation id="7189168846924379421">เพื่อเพิ่มความปลอดภัยให้มากยิ่งขึ้น Browther จะเข้ารหัสข้อมูลของคุณ</translation>
+<translation id="4052643592793184278">หากต้องการนำบัญชี Browther ออกจาก Browther ให้ออกจากระบบ</translation>
+<translation id="7694616023994438906">ลงชื่อเข้าใช้ Browther เพื่อเข้าถึงรหัสผ่าน บุ๊กมาร์ก และข้อมูลอื่นๆ ในอุปกรณ์ทุกเครื่อง</translation>
 <translation id="2738871930057338499">เชื่อมต่อกับอินเทอร์เน็ตไม่ได้ HTTP 403 Forbidden โปรดตรวจสอบการกำหนดค่าพร็อกซีของคุณ</translation>
 <translation id="2753623023919742414">คลิกเพื่อค้นหา</translation>
-<translation id="1312769823139326127">ตั้งค่า Browther เป็นโปรแกรมอ่าน PDF เริ่มต้น</translation>
-<translation id="3173824377856109157">Browther สามารถป้อนข้อมูลในช่องที่ป้อนได้ยากซึ่งฟีเจอร์ป้อนข้อความอัตโนมัติมาตรฐานอาจพลาดไป</translation>
-<translation id="1187986649024576560">ส่วนขยายนี้มีมัลแวร์และไม่ปลอดภัย นำส่วนขยายดังกล่าวออกจาก Browther เพื่อไม่ให้ดูและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่เข้าชม รวมถึงข้อมูลส่วนบุคคลได้อีกต่อไป</translation>
+<translation id="9078193405195503710">ตั้งค่า Browther เป็นโปรแกรมอ่าน PDF เริ่มต้น</translation>
+<translation id="2456995288904753506">Browther สามารถป้อนข้อมูลในช่องที่ป้อนได้ยากซึ่งฟีเจอร์ป้อนข้อความอัตโนมัติมาตรฐานอาจพลาดไป</translation>
+<translation id="3271730304285122987">ส่วนขยายนี้มีมัลแวร์และไม่ปลอดภัย นำส่วนขยายดังกล่าวออกจาก Browther เพื่อไม่ให้ดูและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่เข้าชม รวมถึงข้อมูลส่วนบุคคลได้อีกต่อไป</translation>
 <translation id="2799223571221894425">เปิดใหม่</translation>
-<translation id="5962774139606909656">Browther ของคุณ</translation>
+<translation id="1427337251963884503">Browther ของคุณ</translation>
 <translation id="2816462166102338036">ค้นหาวิดีโอนี้ด้วยการค้นหารูปภาพ</translation>
 <translation id="2841525013647267359">แปลจากภาษา</translation>
 <translation id="2846251086934905009">ข้อผิดพลาดในการติดตั้ง: โปรแกรมติดตั้งทำงานไม่สมบูรณ์ ล้มเลิกการติดตั้งแล้ว</translation>
-<translation id="777113543093865885">นำออกจาก Browther...</translation>
-<translation id="5265419033369521352">รักษาความปลอดภัยของคุณใน Browther และอาจใช้เพื่อปรับปรุงความปลอดภัยในแอปอื่นๆ ของ Browther เมื่อลงชื่อเข้าใช้</translation>
+<translation id="928966105228355994">นำออกจาก Browther...</translation>
+<translation id="587805782197019018">รักษาความปลอดภัยของคุณใน Browther และอาจใช้เพื่อปรับปรุงความปลอดภัยในแอปอื่นๆ ของ Browther เมื่อลงชื่อเข้าใช้</translation>
 <translation id="2885378588091291677">ตัวจัดการงาน</translation>
-<translation id="2176825726964012531">เกี่ยวกับ &amp;Browther</translation>
+<translation id="3055995278166070443">เกี่ยวกับ &amp;Browther</translation>
 <translation id="2915996080311180594">รีสตาร์ทภายหลัง</translation>
 <translation id="2928420929544864228">การติดตั้งเสร็จสมบูรณ์</translation>
-<translation id="2481553173340651149">ข้อมูลของคุณมีการเข้ารหัสด้วยรหัสผ่าน ป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี Browther</translation>
+<translation id="70453521937551896">ข้อมูลของคุณมีการเข้ารหัสด้วยรหัสผ่าน ป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี Browther</translation>
 <translation id="2945997411976714835">ข้อผิดพลาดในการติดตั้ง: เริ่มขั้นตอนของโปรแกรมติดตั้งไม่สำเร็จ</translation>
-<translation id="2413255940314578781">ลงชื่อเข้าใช้เว็บไซต์ได้เร็วขึ้นโดยใช้รหัสผ่านที่บันทึกไว้สำหรับ Browther บน iOS</translation>
-<translation id="122765104641632123">เพิ่มโปรไฟล์ Browther ใหม่เพื่อแยกบุ๊กมาร์ก รหัสผ่าน และการตั้งค่าออกจากกัน</translation>
-<translation id="3688936822855019158">องค์กรของคุณจัดการ Browther</translation>
-<translation id="8208853227947884571">Browther อัปเดตแล้ว</translation>
-<translation id="5122472867956731189">หากเว็บไซต์พยายามขโมยรหัสผ่าน หรือคุณดาวน์โหลดไฟล์ที่เป็นอันตราย Browther อาจส่ง URL รวมถึงเนื้อหาบางส่วนในหน้าไปยัง Google Safe Browsing ด้วย</translation>
-<translation id="3963199983793987097">หากต้องการท่องโลกออนไลน์อย่างปลอดภัยยิ่งขึ้นด้วยตัวเลือกของผู้ปกครอง ให้ลงชื่อเข้าใช้ Browther</translation>
+<translation id="3188308520233701133">ลงชื่อเข้าใช้เว็บไซต์ได้เร็วขึ้นโดยใช้รหัสผ่านที่บันทึกไว้สำหรับ Browther บน iOS</translation>
+<translation id="8145318807880784886">เพิ่มโปรไฟล์ Browther ใหม่เพื่อแยกบุ๊กมาร์ก รหัสผ่าน และการตั้งค่าออกจากกัน</translation>
+<translation id="4330268530227888227">องค์กรของคุณจัดการ Browther</translation>
+<translation id="6488090896442998436">Browther อัปเดตแล้ว</translation>
+<translation id="300557164611864786">หากเว็บไซต์พยายามขโมยรหัสผ่าน หรือคุณดาวน์โหลดไฟล์ที่เป็นอันตราย Browther อาจส่ง URL รวมถึงเนื้อหาบางส่วนในหน้าไปยัง Google Safe Browsing ด้วย</translation>
+<translation id="2447145782593796785">หากต้องการท่องโลกออนไลน์อย่างปลอดภัยยิ่งขึ้นด้วยตัวเลือกของผู้ปกครอง ให้ลงชื่อเข้าใช้ Browther</translation>
 <translation id="3003694935412297923">งานทั้งหมด</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther จำเป็นต้องยืนยันว่าเป็นคุณก่อนจึงจะบันทึกข้อมูลบางอย่างในบัญชี Browther และใช้ในอุปกรณ์ทุกเครื่องได้ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ (1 รายการ)}other{Browther จำเป็นต้องยืนยันว่าเป็นคุณก่อนจึงจะบันทึกข้อมูลบางอย่างในบัญชี Browther และใช้ในอุปกรณ์ทุกเครื่องได้ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ ({count} รายการ)}}</translation>
-<translation id="4202995875619419215">เปิด <ph name="URL"/> ในแท็บใหม่ใน Browther</translation>
-<translation id="8755404239607088219">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดลองอีกครั้งภายหลัง</translation>
-<translation id="8880183781256147665">กำลังเพิ่มลงใน Browther...</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther จำเป็นต้องยืนยันว่าเป็นคุณก่อนจึงจะบันทึกข้อมูลบางอย่างในบัญชี Browther และใช้ในอุปกรณ์ทุกเครื่องได้ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ (1 รายการ)}other{Browther จำเป็นต้องยืนยันว่าเป็นคุณก่อนจึงจะบันทึกข้อมูลบางอย่างในบัญชี Browther และใช้ในอุปกรณ์ทุกเครื่องได้ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ ({count} รายการ)}}</translation>
+<translation id="5522228731050510047">เปิด <ph name="URL"/> ในแท็บใหม่ใน Browther</translation>
+<translation id="6358780591055960280">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดลองอีกครั้งภายหลัง</translation>
+<translation id="1386422761453740126">กำลังเพิ่มลงใน Browther...</translation>
 <translation id="3038232873781883849">กำลังรอติดตั้ง...</translation>
 <translation id="3045032126857188731">ภาษาที่แปล: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">ปิดกล่องโต้ตอบความคิดเห็น</translation>
-<translation id="4503085212612536713">โปรไฟล์ Browther อื่นๆ</translation>
-<translation id="7918740962659365265">ช่วยทำให้ Browther ดียิ่งขึ้นโดยการส่งรายงานข้อขัดข้องและ <ph name="UMA_LINK"/> ไปยัง Browther</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ USB 1 เครื่อง}=1{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ USB 1 เครื่อง}other{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ USB # เครื่อง}}</translation>
-<translation id="3700405816184340252">ประวัติการเข้าชมใน Browther</translation>
-<translation id="7365690458036015383">โปรแกรมติดตั้งคลายการบีบอัดการเก็บข้อมูลไม่ได้ โปรดดาวน์โหลด Browther อีกครั้ง</translation>
+<translation id="369127628511662602">โปรไฟล์ Browther อื่นๆ</translation>
+<translation id="2370255879896574713">ช่วยทำให้ Browther ดียิ่งขึ้นโดยการส่งรายงานข้อขัดข้องและ <ph name="UMA_LINK"/> ไปยัง Browther</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ USB 1 เครื่อง}=1{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ USB 1 เครื่อง}other{มีส่วนขยาย Browther อย่างน้อย 1 รายการกำลังเข้าถึงอุปกรณ์ USB # เครื่อง}}</translation>
+<translation id="2065456480740480340">ประวัติการเข้าชมใน Browther</translation>
+<translation id="5011660649081947055">โปรแกรมติดตั้งคลายการบีบอัดการเก็บข้อมูลไม่ได้ โปรดดาวน์โหลด Browther อีกครั้ง</translation>
 <translation id="310459126943037700">ทำให้งานสิ้นสุดไม่สำเร็จ</translation>
 <translation id="3104828284009500087">ค้นหาอะไรก็ได้ในหน้า</translation>
-<translation id="6422885447166607802">ซิงค์รหัสผ่าน บุ๊กมาร์ก และประวัติการเข้าชมในอุปกรณ์ต่างๆ ได้อย่างสมบูรณ์แบบ เข้าถึงฟีเจอร์ที่คุณรู้จักและชื่นชอบได้อย่างง่ายดายโดยอัปเดตเบราว์เซอร์เริ่มต้นเป็น Browther</translation>
-<translation id="8919461291440820124">Browther ใช้ไมโครโฟนของคุณอยู่</translation>
+<translation id="4917564010081457061">ซิงค์รหัสผ่าน บุ๊กมาร์ก และประวัติการเข้าชมในอุปกรณ์ต่างๆ ได้อย่างสมบูรณ์แบบ เข้าถึงฟีเจอร์ที่คุณรู้จักและชื่นชอบได้อย่างง่ายดายโดยอัปเดตเบราว์เซอร์เริ่มต้นเป็น Browther</translation>
+<translation id="1041472930719344928">Browther ใช้ไมโครโฟนของคุณอยู่</translation>
 <translation id="3130333203120345554">ค้นหาใหม่</translation>
 <translation id="3137969841538672700">ลากเพื่อค้นหา</translation>
-<translation id="8372436892102763334">แท็บนี้ใช้ทรัพยากรมากเป็นพิเศษ ให้ Browther ช่วยปิดใช้งานแท็บเหล่านี้เพื่อปรับปรุงประสิทธิภาพ</translation>
-<translation id="5949068186379578553">หากต้องการแชร์หน้าจอ ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
-<translation id="4805806622840861220">เรียกใช้งาน Browther อีกครั้ง</translation>
+<translation id="5312717254055363883">แท็บนี้ใช้ทรัพยากรมากเป็นพิเศษ ให้ Browther ช่วยปิดใช้งานแท็บเหล่านี้เพื่อปรับปรุงประสิทธิภาพ</translation>
+<translation id="373523409348786203">หากต้องการแชร์หน้าจอ ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
+<translation id="802113445299754598">เรียกใช้งาน Browther อีกครั้ง</translation>
 <translation id="3161522574479303604">ทุกภาษา</translation>
-<translation id="3225882094369124157">โปรแกรมอื่นในคอมพิวเตอร์เพิ่มธีมที่อาจเปลี่ยนวิธีการทำงานของ Browther
+<translation id="4522189060330781648">โปรแกรมอื่นในคอมพิวเตอร์เพิ่มธีมที่อาจเปลี่ยนวิธีการทำงานของ Browther
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">ปรับแต่งโปรไฟล์ Browther ใหม่</translation>
-<translation id="4805865169608137960">หากต้องการนำบัญชี Browther ออกจาก Browther ให้ออกจากระบบ Browther ในหน้าการตั้งค่า</translation>
-<translation id="1651639704310627074">Browther จะถามว่าคุณต้องการใช้ข้อมูลที่บันทึกไว้เพื่อให้ระบบป้อนข้อความให้คุณอัตโนมัติในแบบฟอร์มหรือไม่ในภายหลัง</translation>
-<translation id="2585240446624043880">Browther ไม่สามารถอ่านและเขียนข้อมูลในไดเรกทอรีข้อมูล:
+<translation id="2604272613984010799">ปรับแต่งโปรไฟล์ Browther ใหม่</translation>
+<translation id="5150830326120505481">หากต้องการนำบัญชี Browther ออกจาก Browther ให้ออกจากระบบ Browther ในหน้าการตั้งค่า</translation>
+<translation id="7113660200899017820">Browther จะถามว่าคุณต้องการใช้ข้อมูลที่บันทึกไว้เพื่อให้ระบบป้อนข้อความให้คุณอัตโนมัติในแบบฟอร์มหรือไม่ในภายหลัง</translation>
+<translation id="4475011322243623412">Browther ไม่สามารถอ่านและเขียนข้อมูลในไดเรกทอรีข้อมูล:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">รีสตาร์ทเดี๋ยวนี้</translation>
-<translation id="2339258256897053758">คีย์ API ของ Browther หายไป การทำงานบางอย่างของ Browther จะถูกปิดใช้งาน</translation>
-<translation id="8926637909431618259">เรียกใช้แอปพลิเคชันพื้นหลังต่อไปเมื่อปิด Browther</translation>
-<translation id="518125528057094977">Browther จะแจ้งเตือนคุณก่อนโหลดเว็บไซต์โดยใช้การเชื่อมต่อที่ไม่ปลอดภัย</translation>
-<translation id="8652321858775514885">คุณจะออกจากระบบของเว็บไซต์ส่วนใหญ่เมื่อปิดหน้าต่าง Browther ทั้งหมด ยกเว้นบัญชี Browther ที่ลงชื่อเข้าใช้ Browther หากต้องการให้เว็บไซต์จดจำคุณ ให้<ph name="SETTINGS_LINK"/></translation>
-<translation id="3795277300264350702">มีการเปลี่ยนเครื่องมือค้นหาเริ่มต้นของคุณจากภายนอก Browther Browther จึงรีเซ็ตเครื่องมือดังกล่าวเพื่อปกป้องคุณ</translation>
-<translation id="5033074923607633232">ลงชื่อเข้าใช้ Browther เพื่อรับรหัสผ่าน บุ๊กมาร์ก และข้อมูลอื่นๆ ในอุปกรณ์ทุกเครื่องของคุณ</translation>
+<translation id="3536063527222598206">คีย์ API ของ Browther หายไป การทำงานบางอย่างของ Browther จะถูกปิดใช้งาน</translation>
+<translation id="1011450868746766298">เรียกใช้แอปพลิเคชันพื้นหลังต่อไปเมื่อปิด Browther</translation>
+<translation id="179611081153855734">Browther จะแจ้งเตือนคุณก่อนโหลดเว็บไซต์โดยใช้การเชื่อมต่อที่ไม่ปลอดภัย</translation>
+<translation id="8965591964936552871">คุณจะออกจากระบบของเว็บไซต์ส่วนใหญ่เมื่อปิดหน้าต่าง Browther ทั้งหมด ยกเว้นบัญชี Browther ที่ลงชื่อเข้าใช้ Browther หากต้องการให้เว็บไซต์จดจำคุณ ให้<ph name="SETTINGS_LINK"/></translation>
+<translation id="6626350400537358074">มีการเปลี่ยนเครื่องมือค้นหาเริ่มต้นของคุณจากภายนอก Browther Browther จึงรีเซ็ตเครื่องมือดังกล่าวเพื่อปกป้องคุณ</translation>
+<translation id="1170501833661894915">ลงชื่อเข้าใช้ Browther เพื่อรับรหัสผ่าน บุ๊กมาร์ก และข้อมูลอื่นๆ ในอุปกรณ์ทุกเครื่องของคุณ</translation>
 <translation id="3352986031709923790">มุมขวาบนของพื้นที่การค้นหา: ขวา <ph name="RIGHT"/>% บน <ph name="TOP"/>%</translation>
-<translation id="7261356974224431851">ข้อมูล Browther ในบัญชี</translation>
+<translation id="120745000989996104">ข้อมูล Browther ในบัญชี</translation>
 <translation id="3369405342922656244">ค้นหาหน้านี้ด้วยการค้นหารูปภาพ</translation>
-<translation id="6610330853796830621">ใช้รหัสผ่านกับ Browther ในโทรศัพท์</translation>
+<translation id="7173761126541905083">ใช้รหัสผ่านกับ Browther ในโทรศัพท์</translation>
 <translation id="2645435784669275700">Chrome OS</translation>
-<translation id="2297290224191497273">เปลี่ยนไปใช้โปรไฟล์ Browther ที่มีอยู่ไหม</translation>
+<translation id="5266583242423616945">เปลี่ยนไปใช้โปรไฟล์ Browther ที่มีอยู่ไหม</translation>
 <translation id="3412460710772753638">ในเครื่องมือจัดการรหัสผ่านบนอุปกรณ์นี้</translation>
-<translation id="2491221873705777076">ขยายการใช้งาน Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้นด้วย Browther ในโทรศัพท์</translation>
-<translation id="7304389940068374923">กำลังปรับแต่ง Browther ในแบบของคุณ...</translation>
-<translation id="9216183508558772570">Browther จะแจ้งให้ทราบเมื่อคุณลงชื่อเข้าใช้ด้วยรหัสผ่านที่ไม่รัดกุม</translation>
-<translation id="5853262807109651878">การดำเนินการนี้จะลบ <ph name="ITEMS_COUNT"/> รายการออกจากอุปกรณ์นี้ หากต้องการดึงข้อมูลภายหลัง ให้ลงชื่อเข้าใช้ Browther ด้วย <ph name="USER_EMAIL"/></translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> จะสลับไปมาระหว่างโปรไฟล์ Browther ได้</translation>
-<translation id="8703492925273919597">โปรดปิดหน้าต่าง Browther ทั้งหมดแล้วลองอีกครั้ง</translation>
-<translation id="599091950194451698">หากต้องการแชร์หน้าต่าง ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> ลงชื่อเข้าใช้อยู่แล้ว  หากต้องการแยกการท่องเว็บของคุณไว้ต่างหาก ให้ลงชื่อเข้าใช้ Browther ในโปรไฟล์ของคุณเองด้วย <ph name="USER_EMAIL_ADDRESS"/></translation>
-<translation id="8981774130895723211">หากต้องการแชร์หน้าจอ ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
+<translation id="4282363917570905631">ขยายการใช้งาน Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้นด้วย Browther ในโทรศัพท์</translation>
+<translation id="986094398735583155">กำลังปรับแต่ง Browther ในแบบของคุณ...</translation>
+<translation id="3266047225484320321">Browther จะแจ้งให้ทราบเมื่อคุณลงชื่อเข้าใช้ด้วยรหัสผ่านที่ไม่รัดกุม</translation>
+<translation id="3508047337876211050">การดำเนินการนี้จะลบ <ph name="ITEMS_COUNT"/> รายการออกจากอุปกรณ์นี้ หากต้องการดึงข้อมูลภายหลัง ให้ลงชื่อเข้าใช้ Browther ด้วย <ph name="USER_EMAIL"/></translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> จะสลับไปมาระหว่างโปรไฟล์ Browther ได้</translation>
+<translation id="7225005776233199285">โปรดปิดหน้าต่าง Browther ทั้งหมดแล้วลองอีกครั้ง</translation>
+<translation id="5465054931427475969">หากต้องการแชร์หน้าต่าง ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> ลงชื่อเข้าใช้อยู่แล้ว  หากต้องการแยกการท่องเว็บของคุณไว้ต่างหาก ให้ลงชื่อเข้าใช้ Browther ในโปรไฟล์ของคุณเองด้วย <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="8133590217245064579">หากต้องการแชร์หน้าจอ ให้อนุญาตการบันทึกหน้าจอสำหรับ Browther ใน "การตั้งค่าระบบ"</translation>
 <translation id="3597003331831379823">เรียกใช้การตั้งค่าด้วยสิทธิ์ในระดับสูงขึ้นไม่สำเร็จ <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">ลงชื่อเข้าใช้ Browther</translation>
-<translation id="3066805437003400520">ระบบจะลบข้อมูลการท่องเว็บของบุคคลนี้ออกจากอุปกรณ์นี้ หากต้องการกู้ข้อมูลคืน ให้ลงชื่อเข้าใช้ Browther ในชื่อ <ph name="USER_EMAIL"/></translation>
-<translation id="7029305463989165490">หากต้องการส่งหมายเลขจาก <ph name="ORIGIN"/> ไปยังโทรศัพท์ Android ให้ลงชื่อเข้าใช้ Browther ในอุปกรณ์ทั้งสองเครื่อง</translation>
+<translation id="611080704131468868">ลงชื่อเข้าใช้ Browther</translation>
+<translation id="2492221622209669678">ระบบจะลบข้อมูลการท่องเว็บของบุคคลนี้ออกจากอุปกรณ์นี้ หากต้องการกู้ข้อมูลคืน ให้ลงชื่อเข้าใช้ Browther ในชื่อ <ph name="USER_EMAIL"/></translation>
+<translation id="6793778233257855801">หากต้องการส่งหมายเลขจาก <ph name="ORIGIN"/> ไปยังโทรศัพท์ Android ให้ลงชื่อเข้าใช้ Browther ในอุปกรณ์ทั้งสองเครื่อง</translation>
 <translation id="3667616615096815454">ติดตั้งไม่ได้เนื่องจากเซิร์ฟเวอร์ไม่รู้จักแอปพลิเคชัน</translation>
-<translation id="1128485277465085828">ใช้<ph name="BEGIN_LINK"/>รหัสผ่านของคุณเอง<ph name="END_LINK"/>ในการเข้ารหัสข้อมูล Browther ทั้งหมดในบัญชี Browther ที่อยู่และวิธีการชำระเงินจาก Google Pay จะไม่มีการเข้ารหัส ประวัติการท่องเว็บจาก Browther จะไม่ซิงค์</translation>
-<translation id="4304059894777924102">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดลองตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</translation>
-<translation id="1807774211756215222">เปิดลิงก์ใน Browther แท็บใหม่</translation>
-<translation id="387105482057676379">ลิงก์ Browther และบริการอื่นๆ ของ Browther เพื่อการปรับเปลี่ยนในแบบของคุณและวัตถุประสงค์อื่นๆ</translation>
+<translation id="5585500151754164442">ใช้<ph name="BEGIN_LINK"/>รหัสผ่านของคุณเอง<ph name="END_LINK"/>ในการเข้ารหัสข้อมูล Browther ทั้งหมดในบัญชี Browther ที่อยู่และวิธีการชำระเงินจาก Google Pay จะไม่มีการเข้ารหัส ประวัติการท่องเว็บจาก Browther จะไม่ซิงค์</translation>
+<translation id="404323216042159951">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดลองตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</translation>
+<translation id="5004936474632127765">เปิดลิงก์ใน Browther แท็บใหม่</translation>
+<translation id="6236643159256182256">ลิงก์ Browther และบริการอื่นๆ ของ Browther เพื่อการปรับเปลี่ยนในแบบของคุณและวัตถุประสงค์อื่นๆ</translation>
 <translation id="3729187154190517324">เจาะลึกการค้นหาด้วยการเพิ่มแท็บ ไฟล์ และเครื่องมือหลายรายการโดยใช้ปุ่ม "เพิ่มแท็บและอื่นๆ"</translation>
-<translation id="3867175562099983425">จัดการโปรไฟล์ Browther</translation>
-<translation id="308146532933302843">ดูสาเหตุที่ Browther บล็อกการดาวน์โหลดบางรายการ</translation>
-<translation id="2189149060536531804">Browther จะแจ้งให้คุณทราบหากมีสิ่งใดที่คุณควรตรวจสอบ</translation>
-<translation id="8422094375343667686">โปรไฟล์ Browther ช่วยให้คุณแยกชีวิตแต่ละด้านออกจากกันได้ เพิ่มโปรไฟล์ใหม่เลย</translation>
-<translation id="6324134303015966238">Browther จะโหลดหน้าเว็บที่คุณน่าจะเข้าชมเอาไว้ล่วงหน้าเพื่อให้หน้าเหล่านั้นโหลดเร็วขึ้นเมื่อคุณเข้าชม</translation>
+<translation id="1400697664933775238">จัดการโปรไฟล์ Browther</translation>
+<translation id="2461315395128103158">ดูสาเหตุที่ Browther บล็อกการดาวน์โหลดบางรายการ</translation>
+<translation id="8058420662026104226">Browther จะแจ้งให้คุณทราบหากมีสิ่งใดที่คุณควรตรวจสอบ</translation>
+<translation id="3177448557921912221">โปรไฟล์ Browther ช่วยให้คุณแยกชีวิตแต่ละด้านออกจากกันได้ เพิ่มโปรไฟล์ใหม่เลย</translation>
+<translation id="1541177876035612043">Browther จะโหลดหน้าเว็บที่คุณน่าจะเข้าชมเอาไว้ล่วงหน้าเพื่อให้หน้าเหล่านั้นโหลดเร็วขึ้นเมื่อคุณเข้าชม</translation>
 <translation id="3810973564298564668">จัดการ</translation>
-<translation id="4815742196440583661">หากต้องการใช้รหัสผ่านที่บันทึกไว้ ให้สแกนคิวอาร์โค้ด, ดาวน์โหลด Browther สำหรับ iOS และลงชื่อเข้าใช้บัญชี Browther</translation>
-<translation id="6093965249696204223">เคล็ดลับสำหรับ Browther: Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้น</translation>
+<translation id="1117103475254549453">หากต้องการใช้รหัสผ่านที่บันทึกไว้ ให้สแกนคิวอาร์โค้ด, ดาวน์โหลด Browther สำหรับ iOS และลงชื่อเข้าใช้บัญชี Browther</translation>
+<translation id="8880695882192156860">เคล็ดลับสำหรับ Browther: Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้น</translation>
 <translation id="3846683726093018685">**สรุป:** อธิบายเรื่องหลักและวัตถุประสงค์ของเนื้อหาในภาพหน้าจอในประโยคเดียวที่มีไม่เกิน 30 คำ
 
           **แนะนำคำถาม:** สร้างรายการสัญลักษณ์หัวข้อย่อยของคำถามกระตุ้นความคิด 3-5 ข้อที่ผู้ใช้อาจถามเพื่อทำความเข้าใจภาพหน้าจอได้ดียิ่งขึ้น คำถามเหล่านี้ควรมีอย่างน้อย 1 ข้อที่เกี่ยวกับวัตถุภาพ การออกแบบ หรือตำแหน่งของวัตถุนั้นโดยเฉพาะ</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/> - Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/> - Browther Origin</translation>
 <translation id="3885770153807205175">เครื่องมือเลือกภาษา</translation>
-<translation id="6315734375101223238">ปรับแต่งและควบคุม Browther มีสิ่งที่คุณจำเป็นต้องทราบ โปรดคลิกเพื่อดูรายละเอียด</translation>
-<translation id="7130675370997202556">คลิกชื่อของคุณเพื่อเปิด Browther และเริ่มท่องเว็บ</translation>
+<translation id="4861846616763552424">ปรับแต่งและควบคุม Browther มีสิ่งที่คุณจำเป็นต้องทราบ โปรดคลิกเพื่อดูรายละเอียด</translation>
+<translation id="6126366281251241386">คลิกชื่อของคุณเพื่อเปิด Browther และเริ่มท่องเว็บ</translation>
 <translation id="3892148308691398805">คัดลอกข้อความ</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> ลงชื่อเข้าใช้โปรไฟล์ Browther นี้แล้ว หากต้องการแยกการท่องเว็บของคุณไว้ต่างหาก Browther สร้างโปรไฟล์ให้คุณโดยเฉพาะได้</translation>
-<translation id="8744239658215739511">ปรับแต่ง Browther</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> ลงชื่อเข้าใช้โปรไฟล์ Browther นี้แล้ว หากต้องการแยกการท่องเว็บของคุณไว้ต่างหาก Browther สร้างโปรไฟล์ให้คุณโดยเฉพาะได้</translation>
+<translation id="3821553157234855663">ปรับแต่ง Browther</translation>
 <translation id="3941890832296813527">ข้อผิดพลาดในการติดตั้ง: ชื่อไฟล์ของโปรแกรมติดตั้งไม่ถูกต้องหรือระบบไม่รองรับ</translation>
-<translation id="8090497651549769448">Browther กำลังพยายามคัดลอกรหัสผ่าน โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
-<translation id="4256965182800026277">ระบบจะนำรหัสผ่าน วิธีการชำระเงิน และที่อยู่ที่คุณบันทึกไว้ในบัญชี Browther ออกจากอุปกรณ์นี้ หากต้องการใช้ข้อมูลเหล่านี้ใน Browther ให้ลงชื่อเข้าใช้อีกครั้ง</translation>
+<translation id="6482299900191767005">Browther กำลังพยายามคัดลอกรหัสผ่าน โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
+<translation id="5853011008278898603">ระบบจะนำรหัสผ่าน วิธีการชำระเงิน และที่อยู่ที่คุณบันทึกไว้ในบัญชี Browther ออกจากอุปกรณ์นี้ หากต้องการใช้ข้อมูลเหล่านี้ใน Browther ให้ลงชื่อเข้าใช้อีกครั้ง</translation>
 <translation id="395904275706073188">อ่านหน้าเว็บที่มีการป้องกันไม่ได้ โปรดลองใช้หน้าอื่น</translation>
-<translation id="4194619960643453552">ดูวิธีที่ Browther ช่วยให้คุณปลอดภัย</translation>
-<translation id="1486377520191913768">เมื่อคุณพิมพ์ในแถบที่อยู่หรือช่องค้นหา Browther จะส่งสิ่งที่คุณพิมพ์ไปยังเครื่องมือค้นหา, AI และเครื่องมือตัวแทนขององค์กรเพื่อรับคำแนะนำ</translation>
-<translation id="1311808042904310985">เกี่ยวกับ Browther สำหรับการทดสอบ</translation>
+<translation id="1832973663231751701">ดูวิธีที่ Browther ช่วยให้คุณปลอดภัย</translation>
+<translation id="4531502594774670767">เมื่อคุณพิมพ์ในแถบที่อยู่หรือช่องค้นหา Browther จะส่งสิ่งที่คุณพิมพ์ไปยังเครื่องมือค้นหา, AI และเครื่องมือตัวแทนขององค์กรเพื่อรับคำแนะนำ</translation>
+<translation id="300013383485253006">เกี่ยวกับ Browther สำหรับการทดสอบ</translation>
 <translation id="1152920704813762236">เกี่ยวกับ Chrome OS</translation>
-<translation id="8282895427217902177">เมื่อคุณเข้าชมเว็บไซต์ Browther จะนำเฉพาะบางส่วนของ URL มาปรับให้ยากต่อการอ่าน (Obfuscate) แล้วส่งไปยัง <ph name="BEGIN_LINK"/>Google Safe Browsing<ph name="END_LINK"/> ผ่านเซิร์ฟเวอร์ส่วนตัวที่ซ่อนที่อยู่ IP ของคุณ หากเว็บไซต์ทำสิ่งที่น่าสงสัย ระบบจะส่ง URL แบบเต็มและเนื้อหาของหน้าเว็บบางส่วนด้วย</translation>
+<translation id="8126752030994997015">เมื่อคุณเข้าชมเว็บไซต์ Browther จะนำเฉพาะบางส่วนของ URL มาปรับให้ยากต่อการอ่าน (Obfuscate) แล้วส่งไปยัง <ph name="BEGIN_LINK"/>Google Safe Browsing<ph name="END_LINK"/> ผ่านเซิร์ฟเวอร์ส่วนตัวที่ซ่อนที่อยู่ IP ของคุณ หากเว็บไซต์ทำสิ่งที่น่าสงสัย ระบบจะส่ง URL แบบเต็มและเนื้อหาของหน้าเว็บบางส่วนด้วย</translation>
 <translation id="3703994572283698466">Chrome OS เกิดขึ้นได้ด้วยการสนับสนุนจาก<ph name="BEGIN_LINK_CROS_OSS"/>ซอฟต์แวร์โอเพนซอร์ส<ph name="END_LINK_CROS_OSS"/>อื่นเพิ่มเติม ตลอดจน<ph name="BEGIN_LINK_LINUX_OSS"/>สภาพแวดล้อมในการพัฒนาซอฟต์แวร์ Linux<ph name="END_LINK_LINUX_OSS"/></translation>
 <translation id="4022972681110646219">แปลหน้าจอ</translation>
 <translation id="4023601594785368013">ภาษาต้นฉบับ: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">เปิดลิงก์ใน Browther จากแอปใดก็ได้ และปักหมุดไว้ที่แถบงานเพื่อให้เข้าถึงได้ง่าย</translation>
-<translation id="6056473803837713617">ช่วยให้ Browther ดียิ่งขึ้นด้วยการรายงาน<ph name="BEGIN_LINK"/>การตั้งค่าปัจจุบัน<ph name="END_LINK"/></translation>
+<translation id="6450460108719059465">เปิดลิงก์ใน Browther จากแอปใดก็ได้ และปักหมุดไว้ที่แถบงานเพื่อให้เข้าถึงได้ง่าย</translation>
+<translation id="3437506136408403836">ช่วยให้ Browther ดียิ่งขึ้นด้วยการรายงาน<ph name="BEGIN_LINK"/>การตั้งค่าปัจจุบัน<ph name="END_LINK"/></translation>
 <translation id="4050175100176540509">การปรับปรุงด้านความปลอดภัยที่สำคัญและฟีเจอร์ใหม่ๆ พร้อมให้บริการในเวอร์ชันล่าสุด</translation>
 <translation id="4055805654398742145">เครื่องมือจัดการรหัสผ่าน</translation>
-<translation id="6654312501894761082">โปรแกรมอื่นในคอมพิวเตอร์เพิ่มส่วนขยายที่อาจเปลี่ยนวิธีการทำงานของ Browther
+<translation id="2164947358785939495">โปรแกรมอื่นในคอมพิวเตอร์เพิ่มส่วนขยายที่อาจเปลี่ยนวิธีการทำงานของ Browther
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา 1 นาที ลบข้อมูลการท่องเว็บแล้ว ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด}other{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา # นาที ลบข้อมูลการท่องเว็บแล้ว ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด}}</translation>
-<translation id="5794951150713244901">ไปที่หน้าเกี่ยวกับ Browther</translation>
-<translation id="10925962326134232">ปรับแต่ง Browther เพื่อสร้างรูปลักษณ์ใหม่ๆ ให้เบราว์เซอร์</translation>
-<translation id="6596295505984504022">ปรับแต่ง Browther</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา 1 นาที ลบข้อมูลการท่องเว็บแล้ว ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด}other{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา # นาที ลบข้อมูลการท่องเว็บแล้ว ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด}}</translation>
+<translation id="1535413545339990419">ไปที่หน้าเกี่ยวกับ Browther</translation>
+<translation id="692283249649018289">ปรับแต่ง Browther เพื่อสร้างรูปลักษณ์ใหม่ๆ ให้เบราว์เซอร์</translation>
+<translation id="6375229634133804834">ปรับแต่ง Browther</translation>
 <translation id="4148957013307229264">กำลังติดตั้ง...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> - หน้าลงชื่อเข้าใช้ของเครือข่าย - Browther</translation>
-<translation id="2871190378186459992">พบกับแอป เกม ส่วนขยาย และธีมเด็ดๆ สำหรับ Browther</translation>
-<translation id="462105622535258178">ลงชื่อเข้าใช้ Browther เพื่อรับส่วนขยายนี้และข้อมูลอื่นๆ ในคอมพิวเตอร์ทุกเครื่อง</translation>
-<translation id="6670140629169983459">หากต้องการท่องโลกออนไลน์อย่างปลอดภัยยิ่งขึ้นด้วยตัวเลือกของผู้ปกครอง ให้เปลี่ยนไปใช้โปรไฟล์ Browther ที่คุณลงชื่อเข้าใช้ด้วย <ph name="USER_EMAIL_ADDRESS"/> อยู่แล้ว</translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> - หน้าลงชื่อเข้าใช้ของเครือข่าย - Browther</translation>
+<translation id="2911246138082876798">พบกับแอป เกม ส่วนขยาย และธีมเด็ดๆ สำหรับ Browther</translation>
+<translation id="2528977475313334293">ลงชื่อเข้าใช้ Browther เพื่อรับส่วนขยายนี้และข้อมูลอื่นๆ ในคอมพิวเตอร์ทุกเครื่อง</translation>
+<translation id="8244267655940711467">หากต้องการท่องโลกออนไลน์อย่างปลอดภัยยิ่งขึ้นด้วยตัวเลือกของผู้ปกครอง ให้เปลี่ยนไปใช้โปรไฟล์ Browther ที่คุณลงชื่อเข้าใช้ด้วย <ph name="USER_EMAIL_ADDRESS"/> อยู่แล้ว</translation>
 <translation id="4222932583846282852">กำลังยกเลิก...</translation>
 <translation id="4224210481850767180">ยกเลิกการติดตั้งแล้ว</translation>
-<translation id="1853997773668795891">เชื่อมโยงข้อมูล Browther กับบัญชีนี้ไหม</translation>
-<translation id="4732930052828648898">เตือนคุณเกี่ยวกับเว็บไซต์ที่เป็นอันตราย แม้แต่เว็บไซต์ที่ Browther ไม่เคยรู้จักมาก่อนด้วยการวิเคราะห์ข้อมูลจากเว็บไซต์มากกว่าการปกป้องแบบมาตรฐาน คุณเลือกข้ามคำเตือนของ Browther ได้</translation>
-<translation id="2201661640076600072">ออกจากระบบ Browther</translation>
-<translation id="3262506503470845422">รับความช่วยเหลือเกี่ยวกับ Browther</translation>
+<translation id="8219359042845534271">เชื่อมโยงข้อมูล Browther กับบัญชีนี้ไหม</translation>
+<translation id="5520777668172961882">เตือนคุณเกี่ยวกับเว็บไซต์ที่เป็นอันตราย แม้แต่เว็บไซต์ที่ Browther ไม่เคยรู้จักมาก่อนด้วยการวิเคราะห์ข้อมูลจากเว็บไซต์มากกว่าการปกป้องแบบมาตรฐาน คุณเลือกข้ามคำเตือนของ Browther ได้</translation>
+<translation id="2014920019837536689">ออกจากระบบ Browther</translation>
+<translation id="4341512411059715879">รับความช่วยเหลือเกี่ยวกับ Browther</translation>
 <translation id="4281844954008187215">ข้อกำหนดในการให้บริการ</translation>
-<translation id="7691786510374174420">การติดตั้งล้มเหลวเนื่องจากมีข้อผิดพลาดที่ไม่ได้ระบุ หาก Browther ทำงานอยู่ในขณะนี้ โปรดปิดและลองอีกครั้ง</translation>
-<translation id="6368144843345980623">ส่งออกรหัสผ่านจาก Browther</translation>
+<translation id="322492684764924424">การติดตั้งล้มเหลวเนื่องจากมีข้อผิดพลาดที่ไม่ได้ระบุ หาก Browther ทำงานอยู่ในขณะนี้ โปรดปิดและลองอีกครั้ง</translation>
+<translation id="3813060261346666066">ส่งออกรหัสผ่านจาก Browther</translation>
 <translation id="4304713468139749426">เครื่องมือจัดการรหัสผ่าน</translation>
 <translation id="4334241893986177674">ค้นหาในภาพหน้าจอนี้</translation>
 <translation id="4334294535648607276">ดาวน์โหลดเสร็จสมบูรณ์</translation>
-<translation id="242356249838681145">เปิด Browther เมื่อ Windows เริ่มทำงาน</translation>
-<translation id="4747339441562331861">เข้าถึงฟีเจอร์ที่คุณรู้จัก ชื่นชอบ และไว้วางใจได้อย่างง่ายดายด้วยการตั้ง Browther เป็นเบราว์เซอร์เริ่มต้น ระบบจะปักหมุด Browther ไว้ที่แถบงานเพื่อให้เข้าถึงได้อย่างรวดเร็ว</translation>
+<translation id="2177954934431828302">เปิด Browther เมื่อ Windows เริ่มทำงาน</translation>
+<translation id="2472318668926455009">เข้าถึงฟีเจอร์ที่คุณรู้จัก ชื่นชอบ และไว้วางใจได้อย่างง่ายดายด้วยการตั้ง Browther เป็นเบราว์เซอร์เริ่มต้น ระบบจะปักหมุด Browther ไว้ที่แถบงานเพื่อให้เข้าถึงได้อย่างรวดเร็ว</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> กำหนดว่าคุณต้องอ่านและยอมรับข้อกำหนดในการให้บริการต่อไปนี้ก่อนใช้อุปกรณ์นี้ ข้อกำหนดเหล่านี้ไม่ได้ขยาย แก้ไข หรือจำกัดข้อกำหนดของ Chrome OS</translation>
-<translation id="9183662282810237335">ออกจาก Browther ใช่ไหม</translation>
+<translation id="2897580280700805340">ออกจาก Browther ใช่ไหม</translation>
 <translation id="4413205837991854510">แสดงทางลัดการค้นหารูปภาพเสมอ</translation>
-<translation id="4065288863231444640">ให้ Browther ทำงานในพื้นหลัง</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther ขอแนะนำให้คุณนำออก <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับส่วนขยายที่รองรับ<ph name="END_LINK"/>}other{Browther ขอแนะนำให้คุณนำออก <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับส่วนขยายที่รองรับ<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">กำหนดค่าและควบคุม Browther</translation>
+<translation id="2454897022983434851">ให้ Browther ทำงานในพื้นหลัง</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther ขอแนะนำให้คุณนำออก <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับส่วนขยายที่รองรับ<ph name="END_LINK"/>}other{Browther ขอแนะนำให้คุณนำออก <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับส่วนขยายที่รองรับ<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">กำหนดค่าและควบคุม Browther</translation>
 <translation id="4427306783828095590">การปกป้องที่ปรับปรุงแล้วทำได้มากกว่าบล็อกฟิชชิงและมัลแวร์</translation>
 <translation id="4434353761996769206">ข้อผิดพลาดของโปรแกรมติดตั้ง: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> จัดการ Browther</translation>
-<translation id="3579012341787637143">เพิ่มโปรไฟล์ Browther</translation>
-<translation id="6786534271003695094">เกี่ยวกับ Browther สำหรับการทดสอบ</translation>
-<translation id="526235294307144732">โปรดป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี Browther</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> จัดการ Browther</translation>
+<translation id="4007482010626246887">เพิ่มโปรไฟล์ Browther</translation>
+<translation id="6888322430074420631">เกี่ยวกับ Browther สำหรับการทดสอบ</translation>
+<translation id="8912436499620582668">โปรดป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี Browther</translation>
 <translation id="4493028449971051158">ข้อผิดพลาดในการเริ่มต้น: โปรดเรียกใช้โปรแกรมติดตั้งในฐานะผู้ดูแลระบบ</translation>
 <translation id="4501471624619070934">การติดตั้งล้มเหลวเนื่องจากมีการควบคุมการเข้าใช้งานในประเทศนี้</translation>
-<translation id="8594994021633965927">ส่วนขยายนี้ไม่ได้เผยแพร่หลักปฏิบัติเกี่ยวกับนโยบายความเป็นส่วนตัว เช่น วิธีเก็บรวบรวมและใช้ข้อมูล Browther แนะนำให้คุณนำออก</translation>
-<translation id="770557926599450702">ยินดีต้อนรับสู่ Browther Origin เปิดหน้าต่างเบราวเซอร์ใหม่แล้ว</translation>
-<translation id="137732229629632648">Browther ต้องการสิทธิ์ในการแมปสิ่งต่างๆ รอบตัวคุณและติดตามการเคลื่อนไหวของมือ</translation>
-<translation id="5036046007335188949">คุณลงชื่อเข้าใช้ด้วย <ph name="USER_EMAIL_ADDRESS"/> ในโปรไฟล์ Browther อื่นอยู่แล้ว</translation>
-<translation id="1878185978731985193">Browther จะโหลดหน้าเว็บล่วงหน้าซึ่งทำให้ท่องเว็บและค้นหาได้เร็วขึ้น <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับการโหลดหน้าเว็บล่วงหน้า<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">ส่วนขยายนี้ไม่ได้เผยแพร่หลักปฏิบัติเกี่ยวกับนโยบายความเป็นส่วนตัว เช่น วิธีเก็บรวบรวมและใช้ข้อมูล Browther แนะนำให้คุณนำออก</translation>
+<translation id="8888202093812883067">ยินดีต้อนรับสู่ Browther Origin เปิดหน้าต่างเบราวเซอร์ใหม่แล้ว</translation>
+<translation id="6391148383688605718">Browther ต้องการสิทธิ์ในการแมปสิ่งต่างๆ รอบตัวคุณและติดตามการเคลื่อนไหวของมือ</translation>
+<translation id="7756445485815468244">คุณลงชื่อเข้าใช้ด้วย <ph name="USER_EMAIL_ADDRESS"/> ในโปรไฟล์ Browther อื่นอยู่แล้ว</translation>
+<translation id="137435413163730206">Browther จะโหลดหน้าเว็บล่วงหน้าซึ่งทำให้ท่องเว็บและค้นหาได้เร็วขึ้น <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับการโหลดหน้าเว็บล่วงหน้า<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">ช่วยให้ทุกคนบนโลกออนไลน์ปลอดภัยยิ่งขึ้นด้วยการรายงานเว็บไซต์ที่คิดว่าเป็นอันตราย</translation>
-<translation id="8669339108356170796">Browther บล็อกการดาวน์โหลดนี้เนื่องจากคุณปิด Google Safe Browsing จึงยืนยันไฟล์ไม่ได้</translation>
-<translation id="7583343841997441047">ลองใช้ Google Lens กับ Browther ในโทรศัพท์</translation>
+<translation id="3266647901351304597">Browther บล็อกการดาวน์โหลดนี้เนื่องจากคุณปิด Google Safe Browsing จึงยืนยันไฟล์ไม่ได้</translation>
+<translation id="6980208900390333646">ลองใช้ Google Lens กับ Browther ในโทรศัพท์</translation>
 <translation id="4594305310729380060">ไปยังเครื่องมือจัดการรหัสผ่านบนอุปกรณ์นี้</translation>
-<translation id="7776200949522126045">แอป Browther Origin</translation>
+<translation id="5282047884678321451">แอป Browther Origin</translation>
 <translation id="4598116752460667024">ค้นหากระบวนการใดๆ จากรายการ</translation>
 <translation id="4970880042055371251">เวอร์ชัน Chrome OS</translation>
-<translation id="2182657378556811785">การอัปเดตใกล้จะเสร็จเรียบร้อยแล้ว เปิด Browther อีกครั้งเพื่อให้การอัปเดตเสร็จสิ้น</translation>
-<translation id="6311668361877328515">เพิ่มความเร็วให้เว็บไซต์ด้วยเครื่องมือ V8 ของ Browther แต่ทำให้ Browther ต้านทานการโจมตีได้น้อยลงเล็กน้อย</translation>
-<translation id="7402642357351265733">หากคุณแชร์รายงานการใช้งาน Browther ด้วย รายงานดังกล่าวจะรวม URL ที่คุณเข้าชม</translation>
-<translation id="8142245354207161805">ดูเหมือนว่าโปรไฟล์กำลังถูกใช้งานโดยกระบวนการอื่นของ Browther (<ph name="PROCESS_ID"/>) บนคอมพิวเตอร์อีกเครื่อง (<ph name="HOST_NAME"/>) Browther ล็อกโปรไฟล์ไว้เพื่อไม่ให้โปรไฟล์เกิดความเสียหาย หากคุณมั่นใจว่าไม่มีกระบวนการอื่นใดกำลังใช้โปรไฟล์นี้อยู่ คุณสามารถปลดล็อกโปรไฟล์และเปิด Browther ใหม่</translation>
+<translation id="4482468019601425607">การอัปเดตใกล้จะเสร็จเรียบร้อยแล้ว เปิด Browther อีกครั้งเพื่อให้การอัปเดตเสร็จสิ้น</translation>
+<translation id="5517890123509214766">เพิ่มความเร็วให้เว็บไซต์ด้วยเครื่องมือ V8 ของ Browther แต่ทำให้ Browther ต้านทานการโจมตีได้น้อยลงเล็กน้อย</translation>
+<translation id="7690070364551268156">หากคุณแชร์รายงานการใช้งาน Browther ด้วย รายงานดังกล่าวจะรวม URL ที่คุณเข้าชม</translation>
+<translation id="5020487088453637212">ดูเหมือนว่าโปรไฟล์กำลังถูกใช้งานโดยกระบวนการอื่นของ Browther (<ph name="PROCESS_ID"/>) บนคอมพิวเตอร์อีกเครื่อง (<ph name="HOST_NAME"/>) Browther ล็อกโปรไฟล์ไว้เพื่อไม่ให้โปรไฟล์เกิดความเสียหาย หากคุณมั่นใจว่าไม่มีกระบวนการอื่นใดกำลังใช้โปรไฟล์นี้อยู่ คุณสามารถปลดล็อกโปรไฟล์และเปิด Browther ใหม่</translation>
 <translation id="4680828127924988555">ยกเลิกการติดตั้ง</translation>
-<translation id="2014343159590733363">ยังไม่ได้บันทึกข้อมูล Browther บางอย่างของคุณลงในบัญชี Browther โปรดรอสักครู่ก่อนออกจากระบบ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้</translation>
-<translation id="2408746614080689238">เมื่อลงชื่อเข้าใช้อยู่ คุณจะใช้รหัสผ่านและข้อมูลอื่นๆ จากบัญชี Browther ใน Browther ได้ โดยสามารถใช้ <ph name="SHORTCUT"/> เพื่อเปลี่ยนการตั้งค่าบริการของ Browther</translation>
-<translation id="847561904663814268">ก่อนหน้านี้มีผู้ลงชื่อเข้าใช้ Browther ในคอมพิวเตอร์นี้ด้วยชื่อ <ph name="ACCOUNT_EMAIL_LAST"/> โปรดสร้างผู้ใช้ Browther ใหม่เพื่อเก็บข้อมูลแยก</translation>
+<translation id="8134827615154347946">ยังไม่ได้บันทึกข้อมูล Browther บางอย่างของคุณลงในบัญชี Browther โปรดรอสักครู่ก่อนออกจากระบบ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้</translation>
+<translation id="3508712423420506333">เมื่อลงชื่อเข้าใช้อยู่ คุณจะใช้รหัสผ่านและข้อมูลอื่นๆ จากบัญชี Browther ใน Browther ได้ โดยสามารถใช้ <ph name="SHORTCUT"/> เพื่อเปลี่ยนการตั้งค่าบริการของ Browther</translation>
+<translation id="2388739442635757494">ก่อนหน้านี้มีผู้ลงชื่อเข้าใช้ Browther ในคอมพิวเตอร์นี้ด้วยชื่อ <ph name="ACCOUNT_EMAIL_LAST"/> โปรดสร้างผู้ใช้ Browther ใหม่เพื่อเก็บข้อมูลแยก</translation>
 <translation id="4724676981607797757">การติดตั้งไม่สำเร็จเนื่องจากเกิดข้อผิดพลาดเกี่ยวกับโปรโตคอลที่ไม่รองรับ</translation>
-<translation id="3834935463915107022">ปิด Browther ใช่ไหม</translation>
-<translation id="8668413672647811944">ระบบเพิ่งนำการอัปเดตความปลอดภัยพิเศษไปใช้กับ Browther รีสตาร์ทเลย แล้วเราจะคืนค่าแท็บให้คุณ</translation>
-<translation id="9029438584415578308">ถาม Browther</translation>
-<translation id="4941816441131888792">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION_1"/> <ph name="PERMISSION_2"/> และอีก <ph name="COUNT"/> รายการออกแล้ว</translation>
-<translation id="4823369970559443694">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดรอ 24 ชั่วโมงแล้วลองอีกครั้งหรือ<ph name="BEGIN_LINK"/>ตรวจสอบรหัสผ่านในบัญชี Browther<ph name="END_LINK"/></translation>
-<translation id="215320507915280336">การดำเนินการนี้จะใช้โปรแกรมตรวจตัวสะกดแบบเดียวกับใน Brave Search ข้อความที่คุณพิมพ์ในเบราว์เซอร์จะส่งไปยัง Browther คุณปรับเปลี่ยนลักษณะการทำงานนี้ได้ทุกเมื่อในการตั้งค่า</translation>
-<translation id="2899369907387169108">ใช้ Browther โดยไม่มีบัญชี</translation>
-<translation id="1833893255023048385">กฎขาเข้าสำหรับ Browther Origin เพื่ออนุญาตการเข้าชมแบบ mDNS</translation>
-<translation id="711601904575862069">เปิดอีกครั้งเพื่ออัปเดต Browther</translation>
+<translation id="8305313684264112434">ปิด Browther ใช่ไหม</translation>
+<translation id="418155915144835101">ระบบเพิ่งนำการอัปเดตความปลอดภัยพิเศษไปใช้กับ Browther รีสตาร์ทเลย แล้วเราจะคืนค่าแท็บให้คุณ</translation>
+<translation id="2683970367518529374">ถาม Browther</translation>
+<translation id="5064473048847774331">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION_1"/> <ph name="PERMISSION_2"/> และอีก <ph name="COUNT"/> รายการออกแล้ว</translation>
+<translation id="5941343075741207533">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดรอ 24 ชั่วโมงแล้วลองอีกครั้งหรือ<ph name="BEGIN_LINK"/>ตรวจสอบรหัสผ่านในบัญชี Browther<ph name="END_LINK"/></translation>
+<translation id="3854190830798038395">การดำเนินการนี้จะใช้โปรแกรมตรวจตัวสะกดแบบเดียวกับใน Brave Search ข้อความที่คุณพิมพ์ในเบราว์เซอร์จะส่งไปยัง Browther คุณปรับเปลี่ยนลักษณะการทำงานนี้ได้ทุกเมื่อในการตั้งค่า</translation>
+<translation id="4581078588976787792">ใช้ Browther โดยไม่มีบัญชี</translation>
+<translation id="3394520491703535051">กฎขาเข้าสำหรับ Browther Origin เพื่ออนุญาตการเข้าชมแบบ mDNS</translation>
+<translation id="6563126962881169552">เปิดอีกครั้งเพื่ออัปเดต Browther</translation>
 <translation id="4918086044614829423">ยอมรับ</translation>
 <translation id="4918844574251943176">คัดลอกรูปภาพแล้ว</translation>
-<translation id="8797356639448065696">Browther กำลังอยู่ในโหมดทำงานในพื้นหลัง</translation>
-<translation id="1895567721497166950">คลิกเพื่อปิดกล่องโต้ตอบการลงชื่อเข้าใช้ Browther</translation>
-<translation id="2692971232706994729">โปรไฟล์ Browther ช่วยให้คุณแยกข้อมูลต่างๆ ใน Browther ออกจากกันได้ สร้างโปรไฟล์สำหรับเพื่อนและครอบครัว หรือแยกการทำงานออกจากความบันเทิง</translation>
-<translation id="7406627712452599344">ผู้เยี่ยมชมสามารถใช้ Browther โดยไม่ทิ้งร่องรอยไว้</translation>
-<translation id="844471735881341044">บัญชีของคุณใน Browther</translation>
-<translation id="5952898964075639679">เพิ่มตัวคุณเองใน Browther</translation>
-<translation id="7995865526174204486">Gemini ใน Browther ใช้การท่องเว็บอัตโนมัติเพื่อทำงานในแท็บและดำเนินงานที่คุณมอบหมายให้เสร็จสมบูรณ์ <ph name="LINK_BEGIN"/>ดูข้อมูลเพิ่มเติม<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther ต้องการสิทธิ์ในการติดตามการเคลื่อนไหวของมือ</translation>
-<translation id="5406591571925937375">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION_1"/> <ph name="PERMISSION_2"/> และ<ph name="PERMISSION_3"/>ออกแล้ว</translation>
+<translation id="5240982928057703861">Browther กำลังอยู่ในโหมดทำงานในพื้นหลัง</translation>
+<translation id="3603134280602182991">คลิกเพื่อปิดกล่องโต้ตอบการลงชื่อเข้าใช้ Browther</translation>
+<translation id="6120233890602288442">โปรไฟล์ Browther ช่วยให้คุณแยกข้อมูลต่างๆ ใน Browther ออกจากกันได้ สร้างโปรไฟล์สำหรับเพื่อนและครอบครัว หรือแยกการทำงานออกจากความบันเทิง</translation>
+<translation id="5722688387568011881">ผู้เยี่ยมชมสามารถใช้ Browther โดยไม่ทิ้งร่องรอยไว้</translation>
+<translation id="7786958592460743302">บัญชีของคุณใน Browther</translation>
+<translation id="9114640791491590337">เพิ่มตัวคุณเองใน Browther</translation>
+<translation id="3536391594566515053">Gemini ใน Browther ใช้การท่องเว็บอัตโนมัติเพื่อทำงานในแท็บและดำเนินงานที่คุณมอบหมายให้เสร็จสมบูรณ์ <ph name="LINK_BEGIN"/>ดูข้อมูลเพิ่มเติม<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther ต้องการสิทธิ์ในการติดตามการเคลื่อนไหวของมือ</translation>
+<translation id="1627123463102858476">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION_1"/> <ph name="PERMISSION_2"/> และ<ph name="PERMISSION_3"/>ออกแล้ว</translation>
 <translation id="5174969993834422967">คุณมักจะบล็อกการแจ้งเตือน หากต้องการให้เว็บไซต์ส่งการแจ้งเตือน ให้คลิกไอคอนการแจ้งเตือนที่มุมขวาของแถบตําแหน่ง</translation>
 <translation id="5174983315706567306">มีพื้นที่ในดิสก์ไม่เพียงพอ</translation>
-<translation id="8157129267754368853">บัญชี Browther ต้องมีการตรวจสอบสิทธิ์อีกครั้ง</translation>
-<translation id="9078804073692109646">ไม่มีรหัสผ่านที่บันทึกไว้ Browther จะตรวจสอบรหัสผ่านได้เมื่อคุณบันทึกรหัสผ่านไว้</translation>
-<translation id="6234515504547364178">ออกจากระบบ Browther</translation>
+<translation id="7091313576354542088">บัญชี Browther ต้องมีการตรวจสอบสิทธิ์อีกครั้ง</translation>
+<translation id="9045390598305758496">ไม่มีรหัสผ่านที่บันทึกไว้ Browther จะตรวจสอบรหัสผ่านได้เมื่อคุณบันทึกรหัสผ่านไว้</translation>
+<translation id="5686724084351858452">ออกจากระบบ Browther</translation>
 <translation id="5234764350956374838">ปิด</translation>
 <translation id="5254739261293693943">ถามเกี่ยวกับวิดีโอนี้</translation>
-<translation id="8586264863973514035">เปิด Browther ขึ้นมาใหม่เพื่อให้การเปลี่ยนแปลงมีผล</translation>
+<translation id="8165028066129227692">เปิด Browther ขึ้นมาใหม่เพื่อให้การเปลี่ยนแปลงมีผล</translation>
 <translation id="5286907366254680517">ตรวจพบ</translation>
-<translation id="7264453786974905915">ดาวน์โหลดแอป Browther</translation>
-<translation id="6944930779012811739">บริการภายในของ Browther Updater</translation>
+<translation id="198210130507193824">ดาวน์โหลดแอป Browther</translation>
+<translation id="8472078903122489041">บริการภายในของ Browther Updater</translation>
 <translation id="5346389065299425353">เจาะลึกการค้นหาด้วยการเพิ่มแท็บ ไฟล์ และเครื่องมือหลายรายการ</translation>
-<translation id="7573068992266397941">Browther พบคำแนะนำด้านความปลอดภัยบางอย่างที่คุณควรตรวจสอบ</translation>
-<translation id="8174413867995118050">โปรไฟล์ Browther อื่นๆ</translation>
-<translation id="7708394612738038097">คุณกำลังลงชื่อเข้าใช้ด้วยบัญชีที่จัดการ และให้การควบคุมระดับผู้ดูแลระบบของบัญชีดังกล่าวเหนือโปรไฟล์ Browther ของคุณ ข้อมูล Browther เช่น แอป บุ๊กมาร์ก ประวัติการเข้าชม รหัสผ่าน และการตั้งค่าอื่นๆ จะเชื่อมโยงอย่างถาวรกับ <ph name="USER_NAME"/> คุณจะสามารถลบข้อมูลนี้ผ่านทางแผงควบคุมบัญชี Browther แต่คุณจะไม่สามารถเชื่อมโยงข้อมูลนี้กับบัญชีอื่น <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther พบคำแนะนำด้านความปลอดภัยบางอย่างที่คุณควรตรวจสอบ</translation>
+<translation id="509616246140011182">โปรไฟล์ Browther อื่นๆ</translation>
+<translation id="8214429210535362385">คุณกำลังลงชื่อเข้าใช้ด้วยบัญชีที่จัดการ และให้การควบคุมระดับผู้ดูแลระบบของบัญชีดังกล่าวเหนือโปรไฟล์ Browther ของคุณ ข้อมูล Browther เช่น แอป บุ๊กมาร์ก ประวัติการเข้าชม รหัสผ่าน และการตั้งค่าอื่นๆ จะเชื่อมโยงอย่างถาวรกับ <ph name="USER_NAME"/> คุณจะสามารถลบข้อมูลนี้ผ่านทางแผงควบคุมบัญชี Browther แต่คุณจะไม่สามารถเชื่อมโยงข้อมูลนี้กับบัญชีอื่น <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">รหัสเพิ่มเติม: <ph name="EXTRA_CODE"/></translation>
-<translation id="2487133103111559902">รวม Browther ไว้ในกิจกรรมบนเว็บและแอปเพื่อรับการปรับเปลี่ยนในแบบของคุณ</translation>
-<translation id="5154625106151193600">ดูสาเหตุที่ Browther บล็อกบางไฟล์</translation>
-<translation id="1786715389543715322">กำลังอัปเดต Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">อนุญาตให้ลงชื่อเข้าใช้ Browther</translation>
-<translation id="5267531627648004734">ลบจาก Browther</translation>
-<translation id="4620757336635063467">ลดประสิทธิภาพแต่ทำให้ Browther ต้านทานการโจมตีได้มากขึ้น</translation>
-<translation id="239760341987199724">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นของคุณ</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> - Browther Origin เบต้า</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther แนะนำให้หยุดแท็บที่ทำให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}other{Browther แนะนำให้หยุดแท็บที่ทําให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}}</translation>
-<translation id="894936507076470937">Browther อาจทำงานไม่ถูกต้องเพราะไม่รองรับใน Linux Distribution นี้แล้ว</translation>
-<translation id="2596557398669145729">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์อาจเป็นอันตรายต่อบัญชีส่วนตัวและบัญชีโซเชียลเน็ตเวิร์กของคุณ</translation>
-<translation id="696826782632239602">Browther ต้องการสิทธิ์เข้าถึงตำแหน่งของคุณเพื่อแชร์ตำแหน่งกับเว็บไซต์นี้</translation>
-<translation id="1744365871163268756">โปรดรอขณะที่ Browther ติดตั้งการอัปเดตระบบล่าสุด</translation>
-<translation id="3861679447659630159">Browther กำลังพยายามแก้ไขรหัสผ่าน โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
+<translation id="5244017809112094908">รวม Browther ไว้ในกิจกรรมบนเว็บและแอปเพื่อรับการปรับเปลี่ยนในแบบของคุณ</translation>
+<translation id="8096544113811780871">ดูสาเหตุที่ Browther บล็อกบางไฟล์</translation>
+<translation id="2384387444932590174">กำลังอัปเดต Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">อนุญาตให้ลงชื่อเข้าใช้ Browther</translation>
+<translation id="6557334704331248411">ลบจาก Browther</translation>
+<translation id="5832041381258620673">ลดประสิทธิภาพแต่ทำให้ Browther ต้านทานการโจมตีได้มากขึ้น</translation>
+<translation id="3763317028635993788">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นของคุณ</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> - Browther Origin เบต้า</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther แนะนำให้หยุดแท็บที่ทำให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}other{Browther แนะนำให้หยุดแท็บที่ทําให้เบราว์เซอร์ทำงานช้าลงชั่วคราว}}</translation>
+<translation id="4423621904097888155">Browther อาจทำงานไม่ถูกต้องเพราะไม่รองรับใน Linux Distribution นี้แล้ว</translation>
+<translation id="6201726364919996698">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์อาจเป็นอันตรายต่อบัญชีส่วนตัวและบัญชีโซเชียลเน็ตเวิร์กของคุณ</translation>
+<translation id="7679204468655335605">Browther ต้องการสิทธิ์เข้าถึงตำแหน่งของคุณเพื่อแชร์ตำแหน่งกับเว็บไซต์นี้</translation>
+<translation id="1163572992704966942">โปรดรอขณะที่ Browther ติดตั้งการอัปเดตระบบล่าสุด</translation>
+<translation id="5050118226119231029">Browther กำลังพยายามแก้ไขรหัสผ่าน โปรดพิมพ์รหัสผ่าน Windows ของคุณเพื่ออนุญาต</translation>
 <translation id="5524890928877629608">มุมซ้ายบนของพื้นที่การค้นหา: ซ้าย <ph name="LEFT"/>% บน <ph name="TOP"/>%</translation>
-<translation id="232381795826373334">เปิด PDF ใน Browther</translation>
+<translation id="5875549039106594731">เปิด PDF ใน Browther</translation>
 <translation id="5536164441519929134">ถาม<ph name="LINE_BREAK"/>เกี่ยวกับแท็บนี้</translation>
 <translation id="5579324208890605088">ข้อผิดพลาดในการเริ่มต้น: โปรดเรียกใช้โปรแกรมติดตั้งในฐานะผู้ใช้ทั่วไป ไม่ใช่ในฐานะผู้ดูแลระบบ</translation>
-<translation id="3588973534877826647">ใช้ Browther โดยค่าเริ่มต้นและปักหมุดไว้</translation>
+<translation id="202315329304302571">ใช้ Browther โดยค่าเริ่มต้นและปักหมุดไว้</translation>
 <translation id="5596627076506792578">ตัวเลือกเพิ่มเติม</translation>
 <translation id="5605834417512968703">เลือกอะไรก็ได้เพื่อค้นหาด้วยการค้นหารูปภาพ หรือกด Escape เพื่อออกจากฟีเจอร์นี้</translation>
 <translation id="5618818588972826921">เลือกข้อความหรือรูปภาพเพื่อค้นหาด้วยการค้นหารูปภาพ หรือกด Escape เพื่อออกจากฟีเจอร์นี้</translation>
-<translation id="1026406809507858026">{0,plural, =0{มีอัปเดต Browther พร้อมให้ใช้งาน}=1{มีอัปเดต Browther พร้อมให้ใช้งาน}other{อัปเดต Browther พร้อมให้ใช้งานมาแล้ว # วัน}}</translation>
-<translation id="1023472437588692618">ลบข้อมูลเว็บไซต์จากอุปกรณ์เสมอเมื่อปิด Browther</translation>
-<translation id="5646769069113654257">โปรดรีสตาร์ท Browther ตอนนี้เลย</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">แสดง Browther ในภาษานี้</translation>
+<translation id="5823076755666406442">{0,plural, =0{มีอัปเดต Browther พร้อมให้ใช้งาน}=1{มีอัปเดต Browther พร้อมให้ใช้งาน}other{อัปเดต Browther พร้อมให้ใช้งานมาแล้ว # วัน}}</translation>
+<translation id="8414129876440043675">ลบข้อมูลเว็บไซต์จากอุปกรณ์เสมอเมื่อปิด Browther</translation>
+<translation id="5156991567152325333">โปรดรีสตาร์ท Browther ตอนนี้เลย</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">แสดง Browther ในภาษานี้</translation>
 <translation id="569897634095159764">เชื่อมต่อกับอินเทอร์เน็ตไม่ได้ พร็อกซีเซิร์ฟเวอร์ต้องมีการตรวจสอบสิทธิ์</translation>
-<translation id="3364613146104156465">โปรไฟล์ Browther ช่วยให้คุณแยกการท่องเว็บส่วนตัวและการทำงานออกจากกันได้ เพิ่มโปรไฟล์ใหม่เลย</translation>
-<translation id="1834213228893578875">Browther จะเพิ่มหน่วยความจำจากแท็บที่ไม่ได้ใช้งาน ซึ่งทำให้แท็บที่ใช้งานอยู่และแอปอื่นๆ มีทรัพยากรสำหรับคอมพิวเตอร์เพิ่มขึ้นและช่วยให้ Browther ทำงานได้เร็ว แท็บที่ไม่มีการใช้งานจะกลับมาทำงานโดยอัตโนมัติเมื่อคุณไปที่แท็บเหล่านั้น <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับการประหยัดหน่วยความจำ<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">หากลืมรหัสผ่านหรือต้องการเปลี่ยนการตั้งค่านี้ ให้<ph name="SETTINGS_LINK"/>ข้อมูล Browther ในบัญชี</translation>
-<translation id="82926023981336111">ปรับแต่งและควบคุม Browther ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
+<translation id="4215338057953170891">โปรไฟล์ Browther ช่วยให้คุณแยกการท่องเว็บส่วนตัวและการทำงานออกจากกันได้ เพิ่มโปรไฟล์ใหม่เลย</translation>
+<translation id="5366435608642317052">Browther จะเพิ่มหน่วยความจำจากแท็บที่ไม่ได้ใช้งาน ซึ่งทำให้แท็บที่ใช้งานอยู่และแอปอื่นๆ มีทรัพยากรสำหรับคอมพิวเตอร์เพิ่มขึ้นและช่วยให้ Browther ทำงานได้เร็ว แท็บที่ไม่มีการใช้งานจะกลับมาทำงานโดยอัตโนมัติเมื่อคุณไปที่แท็บเหล่านั้น <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับการประหยัดหน่วยความจำ<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">หากลืมรหัสผ่านหรือต้องการเปลี่ยนการตั้งค่านี้ ให้<ph name="SETTINGS_LINK"/>ข้อมูล Browther ในบัญชี</translation>
+<translation id="7763291835437810978">ปรับแต่งและควบคุม Browther ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
 <translation id="5809516625706423866">เชื่อมต่อกับอินเทอร์เน็ตไม่ได้ HTTP 401 Unauthorized โปรดตรวจสอบการกำหนดค่าพร็อกซีของคุณ</translation>
-<translation id="95980832839683236">เพิ่มความเร็วให้เว็บไซต์ด้วยเครื่องมือ V8 ของ Browther แต่ทำให้ Browther ต้านทานการโจมตีได้น้อยลงเล็กน้อย การตั้งค่านี้ปิดอยู่</translation>
-<translation id="1224606669200461217">โปรดอัปเดต Browther เพื่อใช้และบันทึกข้อมูล Browther ลงในบัญชี Browther</translation>
+<translation id="1827132270895283425">เพิ่มความเร็วให้เว็บไซต์ด้วยเครื่องมือ V8 ของ Browther แต่ทำให้ Browther ต้านทานการโจมตีได้น้อยลงเล็กน้อย การตั้งค่านี้ปิดอยู่</translation>
+<translation id="1553025851718680114">โปรดอัปเดต Browther เพื่อใช้และบันทึกข้อมูล Browther ลงในบัญชี Browther</translation>
 <translation id="5824893331272123205">โหลดแผงนี้ไม่ได้ โปรดลองอีกครั้ง</translation>
-<translation id="4467664627714200493">ยินดีต้อนรับสู่ Browther Origin</translation>
+<translation id="6642862349634944253">ยินดีต้อนรับสู่ Browther Origin</translation>
 <translation id="5871205389137001634">คลิกเพื่อออกจากการค้นหารูปภาพ</translation>
-<translation id="8054200348483755053">Browther พบว่ารายการเหล่านี้มีมัลแวร์</translation>
-<translation id="3955583201925082436">Browther ดำเนินการตรวจสอบเป็นประจำเพื่อให้มั่นใจว่าเบราว์เซอร์มีการตั้งค่าที่ปลอดภัยที่สุด เราจะแจ้งให้คุณทราบหากมีสิ่งใดที่คุณต้องตรวจสอบ</translation>
+<translation id="7586794330537887406">Browther พบว่ารายการเหล่านี้มีมัลแวร์</translation>
+<translation id="1666897346518812892">Browther ดำเนินการตรวจสอบเป็นประจำเพื่อให้มั่นใจว่าเบราว์เซอร์มีการตั้งค่าที่ปลอดภัยที่สุด เราจะแจ้งให้คุณทราบหากมีสิ่งใดที่คุณต้องตรวจสอบ</translation>
 <translation id="5895138241574237353">ปิดแล้วเปิดอีกครั้ง</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> - หน้าลงชื่อเข้าใช้ของเครือข่าย</translation>
 <translation id="5924017743176219022">กำลังเชื่อมต่ออินเทอร์เน็ต...</translation>
 <translation id="5941711191222866238">ย่อเล็กสุด</translation>
-<translation id="5768962901674164501">ลงชื่อเข้าใช้ Browther เพื่อดูบุ๊กมาร์กนี้และอื่นๆ ในอุปกรณ์ทุกเครื่อง</translation>
-<translation id="5101892358689285100">ปรับเปลี่ยน Browther ในแบบของคุณ</translation>
+<translation id="4938357262936377412">ลงชื่อเข้าใช้ Browther เพื่อดูบุ๊กมาร์กนี้และอื่นๆ ในอุปกรณ์ทุกเครื่อง</translation>
+<translation id="260974496993853147">ปรับเปลี่ยน Browther ในแบบของคุณ</translation>
 <translation id="5960071705175224773">แอปที่ไม่รู้จักเปลี่ยนการตั้งค่าของคุณ</translation>
 <translation id="5968400720580217226">โหมด AI</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา 1 นาที}other{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา # นาที}}</translation>
-<translation id="3598551856834560515">อัปเดต Browther เพื่อเริ่มการซิงค์</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา 1 นาที}other{องค์กรจะปิด Browther โดยอัตโนมัติเมื่อไม่มีการใช้งานเป็นเวลา # นาที}}</translation>
+<translation id="5852664780493076676">อัปเดต Browther เพื่อเริ่มการซิงค์</translation>
 <translation id="6003112304606738118">กำลังดาวน์โหลด... เหลืออีก <ph name="HOURS"/> ชั่วโมง</translation>
 <translation id="6009821354356307391">ขอการติดตามผล</translation>
 <translation id="6040143037577758943">ปิด</translation>
-<translation id="700488072601322385">ให้ Browther นำสิทธิ์ออกจากเว็บไซต์ที่คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้เพื่อปกป้องข้อมูลของคุณ การนำสิทธิ์ออกจะไม่หยุดการแจ้งเตือน</translation>
-<translation id="9071554113102421877">&amp;เปิดใน Browther</translation>
+<translation id="2495504229007749358">ให้ Browther นำสิทธิ์ออกจากเว็บไซต์ที่คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้เพื่อปกป้องข้อมูลของคุณ การนำสิทธิ์ออกจะไม่หยุดการแจ้งเตือน</translation>
+<translation id="6038969823662006832">&amp;เปิดใน Browther</translation>
 <translation id="6069027071882229820">คัดลอกเป็นภาพ</translation>
-<translation id="7861579472672677409">เพิ่ม <ph name="EXTENSION_NAME"/> ลงใน Browther แล้ว</translation>
-<translation id="5849446944780602366">ปรับแต่งและควบคุม Browther มีการอัปเดต</translation>
-<translation id="5711722515923392428">เปิด • Browther ยืนยันไม่ได้ว่าส่วนขยายนี้มาจากไหน</translation>
-<translation id="6355366566986893068">บัญชีของคุณใน Browther</translation>
-<translation id="7433698744896946664">อนุญาตให้ส่วนขยายแสดงคำขอเข้าถึงในแถบเครื่องมือ Browther</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> เป็นอันตราย Browther จึงบล็อกไว้</translation>
-<translation id="991182453936521413">Browther จะปิดและลบข้อมูลเร็วๆ นี้</translation>
-<translation id="4060970194201477024">คุณสลับไปมาระหว่างโปรไฟล์ Browther ได้ที่นี่</translation>
-<translation id="7815000350132166985">Browther อาจใช้คุกกี้เมื่อโหลดล่วงหน้าหากคุณอนุญาต</translation>
+<translation id="6606690217326148454">เพิ่ม <ph name="EXTENSION_NAME"/> ลงใน Browther แล้ว</translation>
+<translation id="6037324269860323082">ปรับแต่งและควบคุม Browther มีการอัปเดต</translation>
+<translation id="3695768481578778794">เปิด • Browther ยืนยันไม่ได้ว่าส่วนขยายนี้มาจากไหน</translation>
+<translation id="4401885752362736126">บัญชีของคุณใน Browther</translation>
+<translation id="4310817187912076496">อนุญาตให้ส่วนขยายแสดงคำขอเข้าถึงในแถบเครื่องมือ Browther</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> เป็นอันตราย Browther จึงบล็อกไว้</translation>
+<translation id="5139243417751674628">Browther จะปิดและลบข้อมูลเร็วๆ นี้</translation>
+<translation id="4696750309605389299">คุณสลับไปมาระหว่างโปรไฟล์ Browther ได้ที่นี่</translation>
+<translation id="7475001351099358916">Browther อาจใช้คุกกี้เมื่อโหลดล่วงหน้าหากคุณอนุญาต</translation>
 <translation id="6165508094623778733">ดูข้อมูลเพิ่มเติม</translation>
-<translation id="5739368447874065758">ล้างข้อมูล Browther ในบัญชี</translation>
-<translation id="6685697979743742605">ไฟล์นี้อาจเป็นอันตราย<ph name="LINE_BREAK"/>Browther ตรวจสอบการดาวน์โหลดนี้ให้คุณได้หากคุณให้รหัสผ่าน ข้อมูลเกี่ยวกับไฟล์จะส่งไปยัง Google Safe Browsing แต่เนื้อหาและรหัสผ่านของไฟล์จะยังอยู่ในอุปกรณ์ของคุณ</translation>
+<translation id="5975099973700540482">ล้างข้อมูล Browther ในบัญชี</translation>
+<translation id="6800151735486681860">ไฟล์นี้อาจเป็นอันตราย<ph name="LINE_BREAK"/>Browther ตรวจสอบการดาวน์โหลดนี้ให้คุณได้หากคุณให้รหัสผ่าน ข้อมูลเกี่ยวกับไฟล์จะส่งไปยัง Google Safe Browsing แต่เนื้อหาและรหัสผ่านของไฟล์จะยังอยู่ในอุปกรณ์ของคุณ</translation>
 <translation id="6182736845697986886">การติดตั้งไม่สำเร็จเนื่องจากเกิดข้อผิดพลาดภายในเซิร์ฟเวอร์การอัปเดต</translation>
-<translation id="4368341489795135329">ตรวจสอบว่าคุณลงชื่อเข้าใช้ Browther ใน <ph name="TARGET_DEVICE_NAME"/> แล้วลองส่งอีกครั้ง</translation>
-<translation id="3038354906709778538">โปรแกรมอื่นในคอมพิวเตอร์เพิ่มแอปที่อาจเปลี่ยนวิธีการทำงานของ Browther
+<translation id="48832130233362517">ตรวจสอบว่าคุณลงชื่อเข้าใช้ Browther ใน <ph name="TARGET_DEVICE_NAME"/> แล้วลองส่งอีกครั้ง</translation>
+<translation id="8868210753005945522">โปรแกรมอื่นในคอมพิวเตอร์เพิ่มแอปที่อาจเปลี่ยนวิธีการทำงานของ Browther
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">คอมพิวเตอร์เครื่องนี้ติดตั้ง Browther รุ่นที่ใหม่กว่าอยู่แล้ว ถ้าซอฟต์แวร์ไม่ทำงาน โปรดถอนการติดตั้ง Browther และลองอีกครั้ง</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther จะเปิดขึ้นมาใหม่ตอนนี้}=1{Browther จะเปิดขึ้นมาใหม่ใน 1 วินาที}other{Browther จะเปิดขึ้นมาใหม่ใน # วินาที}}</translation>
+<translation id="2779436101182061679">คอมพิวเตอร์เครื่องนี้ติดตั้ง Browther รุ่นที่ใหม่กว่าอยู่แล้ว ถ้าซอฟต์แวร์ไม่ทำงาน โปรดถอนการติดตั้ง Browther และลองอีกครั้ง</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther จะเปิดขึ้นมาใหม่ตอนนี้}=1{Browther จะเปิดขึ้นมาใหม่ใน 1 วินาที}other{Browther จะเปิดขึ้นมาใหม่ใน # วินาที}}</translation>
 <translation id="6239161312595354541">ถามการค้นหารูปภาพเกี่ยวกับวิดีโอนี้</translation>
-<translation id="5980269616827212166">Browther ต้องการสิทธิ์เข้าถึงพื้นที่เก็บข้อมูลเพื่อดาวน์โหลดไฟล์</translation>
-<translation id="7651600795135059130">ตรวจสอบ URL กับรายการเว็บไซต์ที่ไม่ปลอดภัยซึ่งจัดเก็บไว้ใน Browther</translation>
-<translation id="5019879183386042809">ทำให้ Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
-<translation id="7445061995866044926">ต้องการออกจาก Browther ใช่ไหม</translation>
-<translation id="4659866260728515512">แท็บเหล่านี้ใช้ทรัพยากรมากเป็นพิเศษ ให้ Browther ช่วยปิดใช้งานแท็บเหล่านี้เพื่อปรับปรุงประสิทธิภาพ</translation>
-<translation id="6806912298071949921">ปรับแต่งโปรไฟล์ Browther ของคุณ</translation>
-<translation id="3792238845239580301">ตั้งชื่อโปรไฟล์ Browther ของคุณ</translation>
-<translation id="5874208157501051620">ส่วนขยายต้องการให้คุณลงชื่อเข้าใช้ Browther</translation>
-<translation id="3561569806301739367"><ph name="FILE_NAME"/> อาจเป็นอันตราย Browther จึงบล็อกไว้</translation>
-<translation id="3205074487970075628">Browther ใช้กล้องของคุณอยู่</translation>
+<translation id="1755464917870815989">Browther ต้องการสิทธิ์เข้าถึงพื้นที่เก็บข้อมูลเพื่อดาวน์โหลดไฟล์</translation>
+<translation id="304681001513922736">ตรวจสอบ URL กับรายการเว็บไซต์ที่ไม่ปลอดภัยซึ่งจัดเก็บไว้ใน Browther</translation>
+<translation id="7785903492969539081">ทำให้ Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
+<translation id="3987833816263696343">ต้องการออกจาก Browther ใช่ไหม</translation>
+<translation id="4723540739671534529">แท็บเหล่านี้ใช้ทรัพยากรมากเป็นพิเศษ ให้ Browther ช่วยปิดใช้งานแท็บเหล่านี้เพื่อปรับปรุงประสิทธิภาพ</translation>
+<translation id="6540151687468239291">ปรับแต่งโปรไฟล์ Browther ของคุณ</translation>
+<translation id="770793114032605647">ตั้งชื่อโปรไฟล์ Browther ของคุณ</translation>
+<translation id="385867753870250529">ส่วนขยายต้องการให้คุณลงชื่อเข้าใช้ Browther</translation>
+<translation id="2022337046348377650"><ph name="FILE_NAME"/> อาจเป็นอันตราย Browther จึงบล็อกไว้</translation>
+<translation id="45270956603278068">Browther ใช้กล้องของคุณอยู่</translation>
 <translation id="6327105987658262776">ไม่มีอัปเดตพร้อมใช้งาน</translation>
-<translation id="1819119299840995223">Browther กำลังดำเนินการอย่างอื่นอยู่ โปรดลองอีกครั้งในภายหลัง</translation>
-<translation id="8616874628011103667">ตอนนี้การใช้ Browther กับบัญชี Browther ของคุณและบนคอมพิวเตอร์ที่ใช้ร่วมกันทำได้ง่ายกว่าเดิม</translation>
-<translation id="4264606872840545968">ทางลัดของ Browther</translation>
-<translation id="6890616081898535725">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์ไม่ได้มีการดาวน์โหลดกันโดยทั่วไปและอาจเป็นอันตราย</translation>
-<translation id="335632367599648646">คุณแน่ใจหรือไม่ว่าต้องการถอนการติดตั้ง Browther</translation>
+<translation id="673633752219771459">Browther กำลังดำเนินการอย่างอื่นอยู่ โปรดลองอีกครั้งในภายหลัง</translation>
+<translation id="1482759407165416070">ตอนนี้การใช้ Browther กับบัญชี Browther ของคุณและบนคอมพิวเตอร์ที่ใช้ร่วมกันทำได้ง่ายกว่าเดิม</translation>
+<translation id="5538042432112726532">ทางลัดของ Browther</translation>
+<translation id="833085228901080512">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์ไม่ได้มีการดาวน์โหลดกันโดยทั่วไปและอาจเป็นอันตราย</translation>
+<translation id="491120842288314439">คุณแน่ใจหรือไม่ว่าต้องการถอนการติดตั้ง Browther</translation>
 <translation id="6375219077595103062">เพิ่มทางลัดไปยังเครื่องมือจัดการรหัสผ่าน</translation>
 <translation id="6388799252195623474">ช่วยฉันเรื่องนี้</translation>
-<translation id="7920857181125123335">หากต้องการดำเนินการต่อ โปรดลงชื่อเข้าใช้ Browther ด้วย <ph name="EMAIL"/> การดำเนินการดังกล่าวจะตรวจสอบว่าคุณมีนโยบายขององค์กรแล้ว</translation>
-<translation id="3256100650978957522">โลโก้ Browther ในหน้าจอคอมพิวเตอร์</translation>
-<translation id="5880764554173582719">Browther Origin เป็นเว็บเบราว์เซอร์ที่เรียกใช้หน้าเว็บและแอปพลิเคชันด้วยความเร็วสูง มีความรวดเร็ว เสถียร และง่ายในการใช้งาน เรียกดูเว็บได้อย่างปลอดภัยมากขึ้นด้วยการป้องกันมัลแวร์และฟิชชิงที่สร้างอยู่ภายใน Browther Origin</translation>
-<translation id="2532326772258858491">Browther ทำงานได้เร็วขึ้นและฟีเจอร์ที่ใช้ JavaScript ควรทำงานตามที่ออกแบบไว้</translation>
+<translation id="6715003312952407375">หากต้องการดำเนินการต่อ โปรดลงชื่อเข้าใช้ Browther ด้วย <ph name="EMAIL"/> การดำเนินการดังกล่าวจะตรวจสอบว่าคุณมีนโยบายขององค์กรแล้ว</translation>
+<translation id="1897845318651970239">โลโก้ Browther ในหน้าจอคอมพิวเตอร์</translation>
+<translation id="4702069255970029302">Browther Origin เป็นเว็บเบราว์เซอร์ที่เรียกใช้หน้าเว็บและแอปพลิเคชันด้วยความเร็วสูง มีความรวดเร็ว เสถียร และง่ายในการใช้งาน เรียกดูเว็บได้อย่างปลอดภัยมากขึ้นด้วยการป้องกันมัลแวร์และฟิชชิงที่สร้างอยู่ภายใน Browther Origin</translation>
+<translation id="5669767676913031391">Browther ทำงานได้เร็วขึ้นและฟีเจอร์ที่ใช้ JavaScript ควรทำงานตามที่ออกแบบไว้</translation>
 <translation id="6436260184216827876">การค้นหารูปภาพไม่พร้อมใช้งาน โปรดลองอีกครั้งในภายหลัง</translation>
 <translation id="2139300032719313227">รีสตาร์ท Chrome OS</translation>
-<translation id="638302211119176182">Browther จะโหลดหน้าเว็บที่คุณน่าจะเข้าชมเอาไว้ล่วงหน้าเพิ่มมากขึ้น เพื่อให้หน้าเหล่านั้นโหลดเร็วขึ้นเมื่อคุณเข้าชม</translation>
-<translation id="7167975344637731051">ดาวน์โหลด Browther บนโทรศัพท์เพื่อติดตามราคาและรับการแจ้งเตือนเมื่อราคาต่ำลงในเว็บไซต์ใดก็ตาม</translation>
-<translation id="890319829408077946">ปิด • Browther ยืนยันไม่ได้ว่าส่วนขยายนี้มาจากไหน</translation>
-<translation id="1684121725014454063">ยินดีต้อนรับสู่โปรไฟล์ Browther</translation>
-<translation id="8211983866539058675">ครั้งถัดไปที่เปิด Browther ใน <ph name="DEVICE_TYPE"/> คุณจะเห็นข้อความแจ้งให้ใช้กลุ่มแท็บ</translation>
-<translation id="7906693299331092358">นำบัญชีออกจาก Browther</translation>
+<translation id="6110616900529884221">Browther จะโหลดหน้าเว็บที่คุณน่าจะเข้าชมเอาไว้ล่วงหน้าเพิ่มมากขึ้น เพื่อให้หน้าเหล่านั้นโหลดเร็วขึ้นเมื่อคุณเข้าชม</translation>
+<translation id="1217194059001819677">ดาวน์โหลด Browther บนโทรศัพท์เพื่อติดตามราคาและรับการแจ้งเตือนเมื่อราคาต่ำลงในเว็บไซต์ใดก็ตาม</translation>
+<translation id="7058555680120557198">ปิด • Browther ยืนยันไม่ได้ว่าส่วนขยายนี้มาจากไหน</translation>
+<translation id="676533642429632127">ยินดีต้อนรับสู่โปรไฟล์ Browther</translation>
+<translation id="5518682889576009702">ครั้งถัดไปที่เปิด Browther ใน <ph name="DEVICE_TYPE"/> คุณจะเห็นข้อความแจ้งให้ใช้กลุ่มแท็บ</translation>
+<translation id="6038105561107837619">นำบัญชีออกจาก Browther</translation>
 <translation id="2675662665675552980">อีกทั้งยังควบคุมหน้าที่จะแสดงเมื่อคุณเปิด Browther ด้วย</translation>
 <translation id="648319183876919572">Safe Browsing พร้อมการปกป้องที่ดียิ่งขึ้นทำสิ่งต่างๆ ได้มากขึ้นเพื่อปกป้องคุณจากเว็บไซต์และการดาวน์โหลดที่เป็นอันตราย</translation>
-<translation id="5590013613412457132">ถอนการติดตั้ง Browther</translation>
-<translation id="7185585387858242335">เปิดทางลัดใน Browther</translation>
-<translation id="3617744907966785605">องค์กรจะปิด Browther เมื่อไม่มีการใช้งานเป็นเวลา <ph name="TIMEOUT_DURATION"/> ลบข้อมูลการท่องเว็บแล้ว ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด</translation>
-<translation id="8646609321956191980">แต่ละโปรไฟล์จะเก็บข้อมูล Browther ของตัวเอง เช่น บุ๊กมาร์ก ประวัติการเข้าชม รหัสผ่าน และอื่นๆ</translation>
-<translation id="6756656512757374876">ดูข้อมูลเพิ่มเติมเกี่ยวกับ<ph name="BEGIN_LINK"/>วิธีที่ Browther ช่วยรักษาข้อมูลของคุณให้เป็นส่วนตัว<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">การเปลี่ยนแปลงการตั้งค่านี้จะมีผลเมื่อ Browther รีสตาร์ท</translation>
-<translation id="2535436634051789953">คุณสามารถสลับเพื่อดูรหัสผ่านจากโปรไฟล์ Browther อื่นได้</translation>
-<translation id="2312399718665761438">Browther จะส่งข้อความที่คุณพิมพ์ในช่องข้อความไปยัง Browther เพื่อแก้ไขข้อผิดพลาดของการสะกดคำ</translation>
-<translation id="3507835409099344374">ไปที่การตั้งค่าการแจ้งเตือน Browther</translation>
+<translation id="2930243146591999795">ถอนการติดตั้ง Browther</translation>
+<translation id="5241183382286817629">เปิดทางลัดใน Browther</translation>
+<translation id="7907014599435829661">องค์กรจะปิด Browther เมื่อไม่มีการใช้งานเป็นเวลา <ph name="TIMEOUT_DURATION"/> ลบข้อมูลการท่องเว็บแล้ว ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด</translation>
+<translation id="2088471423667794811">แต่ละโปรไฟล์จะเก็บข้อมูล Browther ของตัวเอง เช่น บุ๊กมาร์ก ประวัติการเข้าชม รหัสผ่าน และอื่นๆ</translation>
+<translation id="9040334484455218184">ดูข้อมูลเพิ่มเติมเกี่ยวกับ<ph name="BEGIN_LINK"/>วิธีที่ Browther ช่วยรักษาข้อมูลของคุณให้เป็นส่วนตัว<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">การเปลี่ยนแปลงการตั้งค่านี้จะมีผลเมื่อ Browther รีสตาร์ท</translation>
+<translation id="6331317152404762758">คุณสามารถสลับเพื่อดูรหัสผ่านจากโปรไฟล์ Browther อื่นได้</translation>
+<translation id="6097706403184348562">Browther จะส่งข้อความที่คุณพิมพ์ในช่องข้อความไปยัง Browther เพื่อแก้ไขข้อผิดพลาดของการสะกดคำ</translation>
+<translation id="2319647238307402812">ไปที่การตั้งค่าการแจ้งเตือน Browther</translation>
 <translation id="6600016381025017075">ค้นหาอะไรก็ได้ในหน้านี้</translation>
-<translation id="9156965752763025780">การเปลี่ยนแปลงของคุณจะมีผลในครั้งถัดไปที่คุณเปิด Browther ขึ้นอีก</translation>
-<translation id="3387992981600748596">ตอนนี้ระบบจะเปิด Browther เมื่อ Windows เริ่มทำงาน คุณจึงเริ่มท่องเว็บได้ทันที คุณปิดการดำเนินการนี้ได้ในการตั้งค่า</translation>
-<translation id="3119017564683030312">ดำเนินการต่อจากที่ค้างไว้: Browther ได้คืนค่าแท็บจากการเข้าชมล่าสุด คุณปิดตัวเลือกนี้ได้ใน</translation>
-<translation id="245693535809364497">Browther ต้องการสิทธิ์เข้าถึงกล้องเพื่อสร้างแผนที่ 3 มิติของสิ่งที่อยู่รอบตัวคุณ</translation>
-<translation id="9210457680074341078">หากบันทึกบุ๊กมาร์กไว้ในบัญชี Browther ด้วย คุณก็จะติดตามราคาผลิตภัณฑ์ใน Browther และรับการแจ้งเตือนเมื่อราคาต่ำลงได้</translation>
+<translation id="8031938899816118394">การเปลี่ยนแปลงของคุณจะมีผลในครั้งถัดไปที่คุณเปิด Browther ขึ้นอีก</translation>
+<translation id="7412185356697187964">ตอนนี้ระบบจะเปิด Browther เมื่อ Windows เริ่มทำงาน คุณจึงเริ่มท่องเว็บได้ทันที คุณปิดการดำเนินการนี้ได้ในการตั้งค่า</translation>
+<translation id="9123343592576384616">ดำเนินการต่อจากที่ค้างไว้: Browther ได้คืนค่าแท็บจากการเข้าชมล่าสุด คุณปิดตัวเลือกนี้ได้ใน</translation>
+<translation id="5847926498049048567">Browther ต้องการสิทธิ์เข้าถึงกล้องเพื่อสร้างแผนที่ 3 มิติของสิ่งที่อยู่รอบตัวคุณ</translation>
+<translation id="5532585028508811858">หากบันทึกบุ๊กมาร์กไว้ในบัญชี Browther ด้วย คุณก็จะติดตามราคาผลิตภัณฑ์ใน Browther และรับการแจ้งเตือนเมื่อราคาต่ำลงได้</translation>
 <translation id="6676384891291319759">เข้าถึงอินเทอร์เน็ต</translation>
 <translation id="1363996462118479832">Chrome OS ซิงค์ข้อมูลไม่ได้เนื่องจากเกิดข้อผิดพลาดในการลงชื่อเข้าใช้</translation>
-<translation id="4694512973195649124">นำข้อมูลแอปนี้ออกจาก Browther</translation>
-<translation id="5324448127277983819">Browther ให้คุณควบคุมโฆษณาที่เห็นได้มากขึ้น และจำกัดว่าเว็บไซต์จะรู้อะไรเกี่ยวกับคุณได้บ้างเมื่อแสดงโฆษณาที่ปรับตามโปรไฟล์ของผู้ใช้</translation>
-<translation id="1257247502847251159">Browther ต้องการสิทธิ์เข้าถึงไมโครโฟนสำหรับเว็บไซต์นี้</translation>
+<translation id="3373239673945775810">นำข้อมูลแอปนี้ออกจาก Browther</translation>
+<translation id="8122759674786039814">Browther ให้คุณควบคุมโฆษณาที่เห็นได้มากขึ้น และจำกัดว่าเว็บไซต์จะรู้อะไรเกี่ยวกับคุณได้บ้างเมื่อแสดงโฆษณาที่ปรับตามโปรไฟล์ของผู้ใช้</translation>
+<translation id="6277682530398500159">Browther ต้องการสิทธิ์เข้าถึงไมโครโฟนสำหรับเว็บไซต์นี้</translation>
 <translation id="6712881677154121168">ข้อผิดพลาดในการดาวน์โหลด: <ph name="DOWNLOAD_ERROR"/></translation>
-<translation id="1489465648257900784">โปรไฟล์ของคุณไม่สามารถใช้ได้เนื่องจากมาจาก Browther รุ่นใหม่
+<translation id="2972046656127603037">โปรไฟล์ของคุณไม่สามารถใช้ได้เนื่องจากมาจาก Browther รุ่นใหม่
 
 ฟีเจอร์บางประการอาจไม่มี โปรดระบุไดเรกทอรีโปรไฟล์อื่น หรือใช้ Browther รุ่นใหม่</translation>
-<translation id="1505112054322049777">รวม Browther ไว้ในกิจกรรมบนเว็บและแอป ตลอดจนบริการของ Browther ที่ลิงก์ไว้เพื่อรับการปรับเปลี่ยนในแบบของคุณและฟีเจอร์อื่นๆ</translation>
-<translation id="6666624454809779082">มีการติดตั้ง Browther สำหรับผู้ใช้ทุกคนบนคอมพิวเตอร์ของคุณแล้ว</translation>
-<translation id="5848830584656405219">ลงชื่อเข้าใช้ Browther เพื่อเข้าถึงรหัสผ่าน บุ๊กมาร์ก และข้อมูลอื่นๆ ในอุปกรณ์ทุกเครื่อง ระบบจะบันทึกบุ๊กมาร์กนี้ไว้ในบัญชี Browther หลังจากที่คุณลงชื่อเข้าใช้</translation>
-<translation id="4020203987234748583">เพิ่มความเร็วให้เว็บไซต์ด้วยเครื่องมือ V8 ของ Browther แต่ทำให้ Browther ต้านทานการโจมตีได้น้อยลงเล็กน้อย การตั้งค่านี้เปิดอยู่</translation>
-<translation id="3848421741245997269">{count,plural, =1{ยังไม่ได้บันทึกข้อมูล Browther บางอย่างของคุณลงในบัญชี Browther โปรดรอสักครู่ก่อนออกจากระบบ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ (1 รายการ)}other{ยังไม่ได้บันทึกข้อมูล Browther บางอย่างของคุณลงในบัญชี Browther โปรดรอสักครู่ก่อนออกจากระบบ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ ({count} รายการ)}}</translation>
-<translation id="3136039682492230890">Browther แนะนำให้สแกนไฟล์นี้เนื่องจากอาจเป็นอันตราย</translation>
+<translation id="871671753163165892">รวม Browther ไว้ในกิจกรรมบนเว็บและแอป ตลอดจนบริการของ Browther ที่ลิงก์ไว้เพื่อรับการปรับเปลี่ยนในแบบของคุณและฟีเจอร์อื่นๆ</translation>
+<translation id="5000832110229523807">มีการติดตั้ง Browther สำหรับผู้ใช้ทุกคนบนคอมพิวเตอร์ของคุณแล้ว</translation>
+<translation id="5204575479550973859">ลงชื่อเข้าใช้ Browther เพื่อเข้าถึงรหัสผ่าน บุ๊กมาร์ก และข้อมูลอื่นๆ ในอุปกรณ์ทุกเครื่อง ระบบจะบันทึกบุ๊กมาร์กนี้ไว้ในบัญชี Browther หลังจากที่คุณลงชื่อเข้าใช้</translation>
+<translation id="2874208284092283937">เพิ่มความเร็วให้เว็บไซต์ด้วยเครื่องมือ V8 ของ Browther แต่ทำให้ Browther ต้านทานการโจมตีได้น้อยลงเล็กน้อย การตั้งค่านี้เปิดอยู่</translation>
+<translation id="3268577459683869744">{count,plural, =1{ยังไม่ได้บันทึกข้อมูล Browther บางอย่างของคุณลงในบัญชี Browther โปรดรอสักครู่ก่อนออกจากระบบ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ (1 รายการ)}other{ยังไม่ได้บันทึกข้อมูล Browther บางอย่างของคุณลงในบัญชี Browther โปรดรอสักครู่ก่อนออกจากระบบ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้ ({count} รายการ)}}</translation>
+<translation id="7683816018918395929">Browther แนะนำให้สแกนไฟล์นี้เนื่องจากอาจเป็นอันตราย</translation>
 <translation id="1547295885616600893">Chrome OS เกิดขึ้นได้ด้วยการสนับสนุนจาก<ph name="BEGIN_LINK_CROS_OSS"/>ซอฟต์แวร์โอเพนซอร์ส<ph name="END_LINK_CROS_OSS"/>อื่นเพิ่มเติม</translation>
 <translation id="6831043979455480757">แปลภาษา</translation>
-<translation id="8211837073776713955">Browther จะแจ้งให้ทราบหากมีคนล่วงรู้รหัสผ่านของคุณ</translation>
+<translation id="2142653375108595728">Browther จะแจ้งให้ทราบหากมีคนล่วงรู้รหัสผ่านของคุณ</translation>
 <translation id="684888714667046800">เชื่อมต่อกับอินเทอร์เน็ตไม่ได้ หากคุณใช้ไฟร์วอลล์ โปรดตรวจสอบว่า <ph name="PRODUCT_EXE_NAME"/> อยู่ในรายการที่อนุญาต</translation>
-<translation id="7830723774663008396">Browther - <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther - <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">แตะเพื่อดำเนินการต่อ</translation>
 <translation id="6862030660799253820">ค้นหารูปภาพนี้ด้วยการค้นหารูปภาพ</translation>
-<translation id="3028928628792374067">Browther พบว่า "<ph name="EXTENSION_NAME"/>" มีมัลแวร์</translation>
+<translation id="3860339351709082396">Browther พบว่า "<ph name="EXTENSION_NAME"/>" มีมัลแวร์</translation>
 <translation id="6877155553248388166">มุมขวาล่างของพื้นที่การค้นหา: ขวา <ph name="RIGHT"/>% ล่าง <ph name="BOTTOM"/>%</translation>
 <translation id="6896758677409633944">คัดลอก</translation>
-<translation id="862687584320433626">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นและปักหมุดไว้ที่แถบงาน</translation>
-<translation id="1991562568473125499">&amp;จัดการโปรไฟล์ Browther</translation>
+<translation id="7804113502310231166">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นและปักหมุดไว้ที่แถบงาน</translation>
+<translation id="3228374215117173004">&amp;จัดการโปรไฟล์ Browther</translation>
 <translation id="6934579572334859869">ถามการค้นหารูปภาพเกี่ยวกับรูปภาพนี้</translation>
-<translation id="5529781826378237601">คุณมีบุ๊กมาร์กถึงขีดจำกัด <ph name="BOOKMARK_LIMIT"/> รายการของ Browther แล้ว ระบบจึงยังไม่ได้บันทึกบุ๊กมาร์กบางรายการลงในบัญชี Browther
+<translation id="5995328366516663808">คุณมีบุ๊กมาร์กถึงขีดจำกัด <ph name="BOOKMARK_LIMIT"/> รายการของ Browther แล้ว ระบบจึงยังไม่ได้บันทึกบุ๊กมาร์กบางรายการลงในบัญชี Browther
 
 บันทึกบุ๊กมาร์กใหม่ในบัญชีไม่ได้จนกว่าคุณจะลบบุ๊กมาร์กบางรายการ หากคุณออกจากระบบตอนนี้ ระบบจะลบบุ๊กมาร์กที่ยังไม่ได้บันทึก</translation>
 <translation id="6965382102122355670">ตกลง</translation>
-<translation id="6418340404893954563">รหัสผ่านที่ไม่รัดกุมนั้นคาดเดาได้ง่าย ให้ Browther <ph name="BEGIN_LINK"/>สร้างและจดจำรหัสผ่านที่รัดกุมให้คุณ<ph name="END_LINK"/></translation>
+<translation id="4533562834763015352">รหัสผ่านที่ไม่รัดกุมนั้นคาดเดาได้ง่าย ให้ Browther <ph name="BEGIN_LINK"/>สร้างและจดจำรหัสผ่านที่รัดกุมให้คุณ<ph name="END_LINK"/></translation>
 <translation id="3453763134178591239">ข้อกำหนดของ Chrome OS</translation>
-<translation id="3335606533094650083">Browther ต้องการสิทธิ์เข้าถึงไมโครโฟนของคุณสำหรับเว็บไซต์นี้</translation>
-<translation id="6643520655691573653">ป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="5379058926689137454">Browther ต้องการสิทธิ์เข้าถึงไมโครโฟนของคุณสำหรับเว็บไซต์นี้</translation>
+<translation id="4684462982894889021">ป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี <ph name="ACCOUNT_EMAIL"/></translation>
 <translation id="7011190694940573312">การติดตั้งไม่สำเร็จเนื่องจากระบบไม่รองรับระบบปฏิบัติการเวอร์ชันนี้</translation>
 <translation id="7024536598735240744">ข้อผิดพลาดในการคลายการแพคข้อมูล: <ph name="UNPACK_ERROR"/></translation>
 <translation id="7025789849649390912">หยุดการติดตั้งแล้ว</translation>
-<translation id="280382502853897110">ปรับเปลี่ยน Browther ในแบบของคุณ</translation>
+<translation id="8257174622576051374">ปรับเปลี่ยน Browther ในแบบของคุณ</translation>
 <translation id="7047386856539490735">ผลการค้นหาเหล่านี้มีประโยชน์ไหม</translation>
-<translation id="1705567146636171298">อัปเดต Browther</translation>
-<translation id="5499063270485366718">หากรูปภาพไม่มีคำอธิบายที่เป็นประโยชน์ Browther จะพยายามใส่คำอธิบายให้คุณ รูปภาพจะส่งมายัง Browther เพื่อสร้างคำอธิบาย</translation>
-<translation id="5966368554860795750">ปรับแต่ง Browther สำหรับการทดสอบ</translation>
-<translation id="792838367208896130">คุณจะใช้ Browther ได้ทุกครั้งที่คลิกลิงก์ในข้อความ เอกสาร และแอปอื่นๆ</translation>
-<translation id="375314543563594498">นำ <ph name="EXTENSION_NAME"/> ออกจาก Browther</translation>
-<translation id="2332301637111071062">องค์กรจะลบข้อมูล Browther เมื่อไม่มีการใช้งานเป็นเวลา <ph name="TIMEOUT_DURATION"/> ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด</translation>
-<translation id="1008530050039597147">Browther ต้องการสิทธิ์เข้าถึงกล้องสำหรับเว็บไซต์นี้</translation>
-<translation id="1197672524850678392">เปิด Browther ไม่ได้ โปรดลองอีกครั้ง</translation>
-<translation id="3405035915691517126">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดรอ 24 ชั่วโมงแล้วลองอีกครั้ง</translation>
-<translation id="3625983487600668413">ปักหมุด Browther ไว้ที่แถบแอปเพื่อให้เข้าถึงได้อย่างรวดเร็วทุกเมื่อ</translation>
-<translation id="5755581833598928580">ใช้ Browther ทุกครั้งที่คุณคลิกลิงก์ในข้อความ เอกสาร และแอปอื่นๆ</translation>
-<translation id="5516268345616100622">ตัวจัดการงาน - Browther</translation>
-<translation id="713191641919118540">ความสนใจของคุณตามที่คาดคะเนโดย Browther</translation>
-<translation id="1871621397473741084">เริ่มท่องเว็บได้ทันที: ตอนนี้ระบบสามารถเปิด Browther เมื่อ Windows เริ่มทำงานได้แล้ว</translation>
+<translation id="1772745060691790742">อัปเดต Browther</translation>
+<translation id="4937970118065051027">หากรูปภาพไม่มีคำอธิบายที่เป็นประโยชน์ Browther จะพยายามใส่คำอธิบายให้คุณ รูปภาพจะส่งมายัง Browther เพื่อสร้างคำอธิบาย</translation>
+<translation id="1594112132009288601">ปรับแต่ง Browther สำหรับการทดสอบ</translation>
+<translation id="5915000938288527952">คุณจะใช้ Browther ได้ทุกครั้งที่คลิกลิงก์ในข้อความ เอกสาร และแอปอื่นๆ</translation>
+<translation id="8775664994493381735">นำ <ph name="EXTENSION_NAME"/> ออกจาก Browther</translation>
+<translation id="3276648807841991013">องค์กรจะลบข้อมูล Browther เมื่อไม่มีการใช้งานเป็นเวลา <ph name="TIMEOUT_DURATION"/> ซึ่งอาจรวมถึงประวัติการเข้าชม การป้อนข้อความอัตโนมัติ และการดาวน์โหลด</translation>
+<translation id="4725226878394159809">Browther ต้องการสิทธิ์เข้าถึงกล้องสำหรับเว็บไซต์นี้</translation>
+<translation id="8931474625901592021">เปิด Browther ไม่ได้ โปรดลองอีกครั้ง</translation>
+<translation id="8242947409070121799">Browther ตรวจสอบรหัสผ่านของคุณไม่ได้ โปรดรอ 24 ชั่วโมงแล้วลองอีกครั้ง</translation>
+<translation id="1737922827960215472">ปักหมุด Browther ไว้ที่แถบแอปเพื่อให้เข้าถึงได้อย่างรวดเร็วทุกเมื่อ</translation>
+<translation id="335855266303176628">ใช้ Browther ทุกครั้งที่คุณคลิกลิงก์ในข้อความ เอกสาร และแอปอื่นๆ</translation>
+<translation id="709455597778444012">ตัวจัดการงาน - Browther</translation>
+<translation id="7147140345767587643">ความสนใจของคุณตามที่คาดคะเนโดย Browther</translation>
+<translation id="7337408274890534789">เริ่มท่องเว็บได้ทันที: ตอนนี้ระบบสามารถเปิด Browther เมื่อ Windows เริ่มทำงานได้แล้ว</translation>
 <translation id="7274695763216404502">ปักหมุดแล้ว ใช้การค้นหารูปภาพอีกครั้งจากแถบเครื่องมือ</translation>
 <translation id="7288567540154601580">แท็บและส่วนขยาย</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther แนะนำให้คุณนำออก}other{Browther แนะนำให้คุณนำออก}}</translation>
-<translation id="4600669988724328687">หากต้องการแชร์เสียงของระบบ ให้เปิดการตั้งค่าระบบและอนุญาต "การบันทึกเสียงของระบบเท่านั้น" สำหรับ Browther จากนั้นคุณต้องรีสตาร์ท Browther</translation>
-<translation id="9068395155143628872">การวัดผลโฆษณาจะให้เว็บไซต์ที่คุณเข้าชมสามารถขอข้อมูลจาก Browther เพื่อช่วยในการวัดประสิทธิภาพโฆษณาของเว็บไซต์ดังกล่าวได้ การวัดผลโฆษณาจะจำกัดการติดตามข้ามเว็บไซต์โดยโอนข้อมูลระหว่างเว็บไซต์ให้น้อยที่สุด</translation>
-<translation id="1864557848095568223">กำลังอัปเดต Browther</translation>
-<translation id="3403365884036456766">ไฟล์ค่ากำหนดของคุณขัดข้องหรือไม่ถูกต้อง
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther แนะนำให้คุณนำออก}other{Browther แนะนำให้คุณนำออก}}</translation>
+<translation id="1527644038571473502">หากต้องการแชร์เสียงของระบบ ให้เปิดการตั้งค่าระบบและอนุญาต "การบันทึกเสียงของระบบเท่านั้น" สำหรับ Browther จากนั้นคุณต้องรีสตาร์ท Browther</translation>
+<translation id="1427913074981060872">การวัดผลโฆษณาจะให้เว็บไซต์ที่คุณเข้าชมสามารถขอข้อมูลจาก Browther เพื่อช่วยในการวัดประสิทธิภาพโฆษณาของเว็บไซต์ดังกล่าวได้ การวัดผลโฆษณาจะจำกัดการติดตามข้ามเว็บไซต์โดยโอนข้อมูลระหว่างเว็บไซต์ให้น้อยที่สุด</translation>
+<translation id="1657652725060525338">กำลังอัปเดต Browther</translation>
+<translation id="884846289464870238">ไฟล์ค่ากำหนดของคุณขัดข้องหรือไม่ถูกต้อง
 
 Browther ไม่สามารถกู้คืนการตั้งค่าของคุณได้</translation>
 <translation id="7339898014177206373">หน้าต่างใหม่</translation>
-<translation id="3511996232906761537">เว็บของคุณ บุ๊กมาร์ก และข้อมูลอื่นๆ ใน Browther พร้อมใช้แล้วที่นี่</translation>
-<translation id="1754899895078387289">เฉพาะผู้ที่มีรหัสผ่านของคุณเท่านั้นที่จะอ่านข้อมูลที่เข้ารหัสได้ Browther จะไม่ได้รับหรือจัดเก็บรหัสผ่านดังกล่าว หากลืมรหัสผ่านหรือต้องการเปลี่ยนการตั้งค่านี้ คุณจะต้อง<ph name="BEGIN_LINK"/>ลบข้อมูล Browther ในบัญชี<ph name="END_LINK"/></translation>
-<translation id="5380963249588143069">ผู้ดูแลระบบได้กำหนดค่าให้ Browther เปิด <ph name="ALTERNATIVE_BROWSER_NAME"/> เพื่อเข้าถึง <ph name="TARGET_URL_HOSTNAME"/></translation>
+<translation id="633044855886370183">เว็บของคุณ บุ๊กมาร์ก และข้อมูลอื่นๆ ใน Browther พร้อมใช้แล้วที่นี่</translation>
+<translation id="1185960088713242527">เฉพาะผู้ที่มีรหัสผ่านของคุณเท่านั้นที่จะอ่านข้อมูลที่เข้ารหัสได้ Browther จะไม่ได้รับหรือจัดเก็บรหัสผ่านดังกล่าว หากลืมรหัสผ่านหรือต้องการเปลี่ยนการตั้งค่านี้ คุณจะต้อง<ph name="BEGIN_LINK"/>ลบข้อมูล Browther ในบัญชี<ph name="END_LINK"/></translation>
+<translation id="7125151836477182110">ผู้ดูแลระบบได้กำหนดค่าให้ Browther เปิด <ph name="ALTERNATIVE_BROWSER_NAME"/> เพื่อเข้าถึง <ph name="TARGET_URL_HOSTNAME"/></translation>
 <translation id="7352651011704765696">มีข้อผิดพลาดเกิดขึ้น</translation>
-<translation id="6085660187823915017">คุณจะต้องใช้ macOS 13 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ macOS 12</translation>
-<translation id="2865744782251083875">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION_1"/>และ<ph name="PERMISSION_2"/>ออกแล้ว</translation>
-<translation id="4631170166710903214">ระบบไม่รองรับส่วนขยายนี้แล้ว Browther แนะนำให้คุณนำออกแทน</translation>
-<translation id="7951152294775418909">ดำเนินการต่อจากที่ค้างไว้: Browther จะคืนค่าแท็บทุกครั้งที่คุณรีสตาร์ท หากต้องการปิดตัวเลือกนี้ ให้ไปที่</translation>
-<translation id="3191314862567596053">นำเข้ารหัสผ่านไปยัง Browther</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
+<translation id="6638123710106659002">คุณจะต้องใช้ macOS 13 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ macOS 12</translation>
+<translation id="7286289384512061761">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION_1"/>และ<ph name="PERMISSION_2"/>ออกแล้ว</translation>
+<translation id="113593073175678746">ระบบไม่รองรับส่วนขยายนี้แล้ว Browther แนะนำให้คุณนำออกแทน</translation>
+<translation id="137615076640044304">ดำเนินการต่อจากที่ค้างไว้: Browther จะคืนค่าแท็บทุกครั้งที่คุณรีสตาร์ท หากต้องการปิดตัวเลือกนี้ ให้ไปที่</translation>
+<translation id="5967238175620483220">นำเข้ารหัสผ่านไปยัง Browther</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
 <translation id="7450541714075000668">คัดลอกข้อความแล้ว</translation>
-<translation id="2034072705932785495">Browther ต้องการสิทธิ์เข้าถึงกล้องถ่ายรูปของคุณสำหรับเว็บไซต์นี้</translation>
-<translation id="7129342855140808694">หากต้องการใช้ไมโครโฟน โปรดให้สิทธิ์เข้าถึงแก่ Browther ใน<ph name="BEGIN_LINK"/>การตั้งค่าระบบ<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">คุณจะต้องใช้ Windows 10 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ Windows 7</translation>
-<translation id="3962395975456095331">เปิด Browther อีกครั้งใช่ไหม</translation>
-<translation id="2619516027171717873">ไม่สามารถติดตั้ง Browther รุ่นเดียวกับที่กำลังใช้งานอยู่ในขณะนี้ โปรดปิด Browther และลองอีกครั้ง</translation>
-<translation id="2731639583336131792">คุณจะบันทึกและใช้รหัสผ่านรวมถึงข้อมูลอื่นๆ ในบัญชี Browther ได้ทุกครั้งที่ลงชื่อเข้าใช้ Browther <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">เว็บไซต์อาจทำงานตามที่คาดไว้ คุณจะออกจากระบบของเว็บไซต์ส่วนใหญ่เมื่อปิดหน้าต่าง Browther ทั้งหมด ยกเว้นบัญชี Browther ที่ลงชื่อเข้าใช้ Browther</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther จะเปิดขึ้นมาใหม่ใน 1 นาที}other{Browther จะเปิดขึ้นมาใหม่ใน # นาที}}</translation>
-<translation id="552342471964912391">ให้ Browther นำสิทธิ์ออกจากเว็บไซต์ที่คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้เพื่อปกป้องข้อมูลของคุณ</translation>
-<translation id="3826701455067637694">เปิด Browther โดยอัตโนมัติเพื่อเริ่มท่องเว็บได้ทันที</translation>
+<translation id="7766009218653304791">Browther ต้องการสิทธิ์เข้าถึงกล้องถ่ายรูปของคุณสำหรับเว็บไซต์นี้</translation>
+<translation id="5844418066487488520">หากต้องการใช้ไมโครโฟน โปรดให้สิทธิ์เข้าถึงแก่ Browther ใน<ph name="BEGIN_LINK"/>การตั้งค่าระบบ<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">คุณจะต้องใช้ Windows 10 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ Windows 7</translation>
+<translation id="6299293759264950896">เปิด Browther อีกครั้งใช่ไหม</translation>
+<translation id="180908550381040105">ไม่สามารถติดตั้ง Browther รุ่นเดียวกับที่กำลังใช้งานอยู่ในขณะนี้ โปรดปิด Browther และลองอีกครั้ง</translation>
+<translation id="7625576878150380853">คุณจะบันทึกและใช้รหัสผ่านรวมถึงข้อมูลอื่นๆ ในบัญชี Browther ได้ทุกครั้งที่ลงชื่อเข้าใช้ Browther <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">เว็บไซต์อาจทำงานตามที่คาดไว้ คุณจะออกจากระบบของเว็บไซต์ส่วนใหญ่เมื่อปิดหน้าต่าง Browther ทั้งหมด ยกเว้นบัญชี Browther ที่ลงชื่อเข้าใช้ Browther</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther จะเปิดขึ้นมาใหม่ใน 1 นาที}other{Browther จะเปิดขึ้นมาใหม่ใน # นาที}}</translation>
+<translation id="3602613943932672197">ให้ Browther นำสิทธิ์ออกจากเว็บไซต์ที่คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้เพื่อปกป้องข้อมูลของคุณ</translation>
+<translation id="8759568213742229377">เปิด Browther โดยอัตโนมัติเพื่อเริ่มท่องเว็บได้ทันที</translation>
 <translation id="7583399374488819119">โปรแกรมติดตั้ง <ph name="COMPANY_NAME"/></translation>
-<translation id="3293668930608086049">Browther ใช้กล้องและไมโครโฟนของคุณอยู่</translation>
-<translation id="2827121003398607864">Browther ดีขึ้นกว่าเดิม</translation>
-<translation id="3071313329776323836">ตอนนี้คุณมีฟีเจอร์เพิ่มเติมใน Browther</translation>
+<translation id="8991800242749014880">Browther ใช้กล้องและไมโครโฟนของคุณอยู่</translation>
+<translation id="2692328388439821508">Browther ดีขึ้นกว่าเดิม</translation>
+<translation id="4318444066563223295">ตอนนี้คุณมีฟีเจอร์เพิ่มเติมใน Browther</translation>
 <translation id="7649070708921625228">ความช่วยเหลือ</translation>
-<translation id="4008841832817149051">ให้ Browther ท่องเว็บแทนคุณ</translation>
+<translation id="5591287320769313116">ให้ Browther ท่องเว็บแทนคุณ</translation>
 <translation id="7658239707568436148">ยกเลิก</translation>
-<translation id="3343095737966473035">Browther ไม่ใช่เบราว์เซอร์เริ่มต้น</translation>
-<translation id="5477319665405831211">ซิงค์และปรับเปลี่ยน Browther ในอุปกรณ์ต่างๆ</translation>
-<translation id="2339273275658335597">การอัปเดต Browther</translation>
+<translation id="6325482130534634729">Browther ไม่ใช่เบราว์เซอร์เริ่มต้น</translation>
+<translation id="8185915921134219287">ซิงค์และปรับเปลี่ยน Browther ในอุปกรณ์ต่างๆ</translation>
+<translation id="5120421624925726813">การอัปเดต Browther</translation>
 <translation id="7716950018788545737">งานสิ้นสุดแล้ว</translation>
 <translation id="77283119132245232">ให้บริการ System Tracing สำหรับ <ph name="BROWSER_NAME"/> หากปิดใช้บริการนี้ การติดตามประสิทธิภาพที่เบราว์เซอร์สร้างขึ้นจะไม่รวมเหตุการณ์ทั้งระบบ เช่น เหตุการณ์การเปลี่ยนบริบทและเธรดพร้อมใช้งาน</translation>
-<translation id="4784414698887946907">การดำเนินการนี้จะลบข้อมูลการท่องเว็บออกจากอุปกรณ์นี้ หากต้องการดึงข้อมูลภายหลัง ให้ลงชื่อเข้าใช้ Browther ด้วย <ph name="USER_EMAIL"/></translation>
+<translation id="6542096191573265107">การดำเนินการนี้จะลบข้อมูลการท่องเว็บออกจากอุปกรณ์นี้ หากต้องการดึงข้อมูลภายหลัง ให้ลงชื่อเข้าใช้ Browther ด้วย <ph name="USER_EMAIL"/></translation>
 <translation id="7747138024166251722">โปรแกรมติดตั้งสร้างไดเรกทอรีชั่วคราวไม่ได้ โปรดตรวจสอบพื้นที่ดิสก์ว่างและการอนุญาตให้ติดตั้งซอฟต์แวร์</translation>
-<translation id="8543787950557226450">รีเซ็ตเป็น Browther ซึ่งเป็นค่าเริ่มต้น</translation>
-<translation id="4976450819672499783">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นและปักหมุดไว้ที่แถบงาน</translation>
-<translation id="1978509466033734608">ทำให้ Browther เร็วขึ้น</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
-<translation id="2684504034454188774">ทำให้ผู้ที่มีสิทธิ์เข้าถึงการเข้าใช้อินเทอร์เน็ตของคุณดูว่าคุณเข้าชมเว็บไซต์ไหนบ้างได้ยากขึ้น Browther ใช้การเชื่อมต่อที่ปลอดภัยเพื่อค้นหาที่อยู่ IP ของเว็บไซต์ใน DNS (ระบบชื่อโดเมน)</translation>
+<translation id="351575328720488268">รีเซ็ตเป็น Browther ซึ่งเป็นค่าเริ่มต้น</translation>
+<translation id="1054170408395182418">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นและปักหมุดไว้ที่แถบงาน</translation>
+<translation id="4569594230301902490">ทำให้ Browther เร็วขึ้น</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
+<translation id="7893465573639396635">ทำให้ผู้ที่มีสิทธิ์เข้าถึงการเข้าใช้อินเทอร์เน็ตของคุณดูว่าคุณเข้าชมเว็บไซต์ไหนบ้างได้ยากขึ้น Browther ใช้การเชื่อมต่อที่ปลอดภัยเพื่อค้นหาที่อยู่ IP ของเว็บไซต์ใน DNS (ระบบชื่อโดเมน)</translation>
 <translation id="7810005234485217901">คุณสามารถปักหมุดการค้นหารูปภาพเพื่อให้เข้าถึงได้ง่าย</translation>
-<translation id="1652855885539187849">มีโปรไฟล์ Browther ที่ใช้บัญชีนี้ในอุปกรณ์นี้อยู่แล้ว</translation>
+<translation id="2462631024103158515">มีโปรไฟล์ Browther ที่ใช้บัญชีนี้ในอุปกรณ์นี้อยู่แล้ว</translation>
 <translation id="7845233973568007926">ขอขอบคุณที่ติดตั้ง คุณต้องรีสตาร์ทคอมพิวเตอร์ก่อนใช้ <ph name="BUNDLE_NAME"/></translation>
-<translation id="9148690296223500734">ปรับแต่ง Browther เพื่อสร้างรูปลักษณ์ใหม่ๆ</translation>
-<translation id="7963515534397191222">Browther อัปเดตเป็นเวอร์ชันล่าสุดไม่ได้ คุณจึงไม่ได้รับฟีเจอร์ใหม่และการแก้ไขด้านความปลอดภัย</translation>
+<translation id="311190437086049332">ปรับแต่ง Browther เพื่อสร้างรูปลักษณ์ใหม่ๆ</translation>
+<translation id="6728847658878265103">Browther อัปเดตเป็นเวอร์ชันล่าสุดไม่ได้ คุณจึงไม่ได้รับฟีเจอร์ใหม่และการแก้ไขด้านความปลอดภัย</translation>
 <translation id="7872446069773932638">กำลังดาวน์โหลด... เหลืออีก <ph name="SECONDS"/> วินาที</translation>
-<translation id="5545136190679883344">หากลืมรหัสผ่านหรือต้องการเปลี่ยนการตั้งค่านี้ ให้<ph name="BEGIN_LINK"/>ลบข้อมูล Browther ในบัญชี<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">หากลืมรหัสผ่านหรือต้องการเปลี่ยนการตั้งค่านี้ ให้<ph name="BEGIN_LINK"/>ลบข้อมูล Browther ในบัญชี<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">ถามเกี่ยวกับรูปภาพนี้</translation>
-<translation id="5687542525349822727">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
-<translation id="6396151137840491551">Browther จะอัปเกรดการเชื่อมต่อที่ไม่ปลอดภัยเป็น HTTPS โดยอัตโนมัติเมื่อเป็นไปได้</translation>
-<translation id="2925193881330501265">คุณเคยลงชื่อเข้าใช้ Browther ในชื่อ <ph name="USER_EMAIL_ADDRESS"/> โปรดใช้บัญชีเดิมเพื่อลงชื่อเข้าใช้อีกครั้ง</translation>
-<translation id="6915252145142862992">นี่เป็นการติดตั้ง Browther แบบสำรอง และไม่สามารถใช้เป็นเบราว์เซอร์เริ่มต้นของคุณ</translation>
+<translation id="9172499982238113829">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
+<translation id="3313826726620159669">Browther จะอัปเกรดการเชื่อมต่อที่ไม่ปลอดภัยเป็น HTTPS โดยอัตโนมัติเมื่อเป็นไปได้</translation>
+<translation id="3317928686912559532">คุณเคยลงชื่อเข้าใช้ Browther ในชื่อ <ph name="USER_EMAIL_ADDRESS"/> โปรดใช้บัญชีเดิมเพื่อลงชื่อเข้าใช้อีกครั้ง</translation>
+<translation id="6007009085341946457">นี่เป็นการติดตั้ง Browther แบบสำรอง และไม่สามารถใช้เป็นเบราว์เซอร์เริ่มต้นของคุณ</translation>
 <translation id="8004582292198964060">เบราว์เซอร์</translation>
 <translation id="8010081455002666927">ตรวจหาอัตโนมัติ</translation>
-<translation id="7685904775439037072">เมื่อ Browther มีสิทธิ์การเข้าถึงแล้ว เว็บไซต์จะขอสิทธิ์การเข้าถึงจากคุณได้</translation>
-<translation id="3230755314472063687">ปักหมุด Browther ไว้ที่แถบงานเพื่อให้เข้าถึงได้รวดเร็วทุกเมื่อ</translation>
+<translation id="174885789898161653">เมื่อ Browther มีสิทธิ์การเข้าถึงแล้ว เว็บไซต์จะขอสิทธิ์การเข้าถึงจากคุณได้</translation>
+<translation id="3001754454174546602">ปักหมุด Browther ไว้ที่แถบงานเพื่อให้เข้าถึงได้รวดเร็วทุกเมื่อ</translation>
 <translation id="80471789339884597">ขอขอบคุณที่ติดตั้ง คุณต้องรีสตาร์ทเบราว์เซอร์ทั้งหมดก่อนใช้ <ph name="BUNDLE_NAME"/></translation>
 <translation id="8054112667659782652">แสดงทางลัดการค้นหารูปภาพเสมอ</translation>
-<translation id="6175141682081019059">ปิดใช้ Browther ที่ทำงานในเบื้องหลังสำหรับแอป</translation>
+<translation id="6993312779622863465">ปิดใช้ Browther ที่ทำงานในเบื้องหลังสำหรับแอป</translation>
 <translation id="80790299200510644">ค้นหารูปภาพ</translation>
 <translation id="8086881907087796310">การติดตั้งไม่สำเร็จเนื่องจากคอมพิวเตอร์ของคุณไม่เป็นไปตามข้อกำหนดขั้นต่ำสำหรับฮาร์ดแวร์</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/> - Browther Origin สำหรับการทดสอบ</translation>
-<translation id="2061155704815580583">Browther ต้องการสิทธิ์เข้าถึงตำแหน่งสำหรับเว็บไซต์นี้</translation>
-<translation id="3576319845915562805">ครั้งถัดไปที่เปิด Browther ใน <ph name="DEVICE_TYPE"/> คุณจะเห็นข้อความแจ้งให้เปิดใช้การแจ้งเตือนการติดตามราคา</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/> - Browther Origin สำหรับการทดสอบ</translation>
+<translation id="543407324609820492">Browther ต้องการสิทธิ์เข้าถึงตำแหน่งสำหรับเว็บไซต์นี้</translation>
+<translation id="1767887552863788514">ครั้งถัดไปที่เปิด Browther ใน <ph name="DEVICE_TYPE"/> คุณจะเห็นข้อความแจ้งให้เปิดใช้การแจ้งเตือนการติดตามราคา</translation>
 <translation id="8118331347066725040">ส่งความคิดเห็นเกี่ยวกับการค้นหาด้วย Lens</translation>
 <translation id="5334309298019785904">Chrome OS ซิงค์ข้อมูลไม่ได้เนื่องจากการซิงค์ไม่พร้อมใช้งานสำหรับโดเมนของคุณ</translation>
 <translation id="813913629614996137">กำลังเริ่มดำเนินการ...</translation>
-<translation id="1081849497974110565">ข้อกำหนดในการให้บริการเพิ่มเติมของ Browther</translation>
-<translation id="9067428552314418522">ไฟล์นี้อันตราย Browther จึงบล็อกไว้</translation>
+<translation id="4879101934056397619">ข้อกำหนดในการให้บริการเพิ่มเติมของ Browther</translation>
+<translation id="4505690237431768764">ไฟล์นี้อันตราย Browther จึงบล็อกไว้</translation>
 <translation id="8177472873527554730">ไม่พบเนื้อหาในหน้าเว็บ</translation>
-<translation id="6219250889396046657">ป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี <ph name="USER_EMAIL"/></translation>
+<translation id="4720341280133158605">ป้อนรหัสผ่านเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี <ph name="USER_EMAIL"/></translation>
 <translation id="8221491193165283816">คุณมักจะบล็อกการแจ้งเตือน หากต้องการให้เว็บไซต์ส่งการแจ้งเตือน ให้คลิกที่นี่</translation>
-<translation id="8377926237617998195">หากต้องการใช้กล้อง โปรดให้สิทธิ์เข้าถึงแก่ Browther ใน<ph name="BEGIN_LINK"/>การตั้งค่าระบบ<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">Browther ไม่สามารถยืนยันได้ว่าส่วนขยายนี้มาจากไหนและอาจไม่ปลอดภัย นำส่วนขยายดังกล่าวออกจาก Browther เพื่อไม่ให้ดูและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่เข้าชม รวมถึงข้อมูลส่วนบุคคลได้อีกต่อไป</translation>
-<translation id="8207657266087451193">หากรูปภาพไม่มีคำอธิบายที่เป็นประโยชน์ Browther จะพยายามใส่คำอธิบายให้คุณ รูปภาพจะส่งมายัง Browther เพื่อสร้างคำอธิบาย คุณปิดการดำเนินการนี้ได้ทุกเมื่อในการตั้งค่า</translation>
-<translation id="7792526144795244436">ต้องการลงชื่อเข้าใช้ Browther ในโปรไฟล์ใหม่ใช่ไหม</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther จะเตือนคุณ<ph name="END_LINK"/>เกี่ยวกับเว็บไซต์และการดาวน์โหลดที่ไม่ปลอดภัย</translation>
-<translation id="8060549744348950090">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION"/>ออกแล้ว</translation>
-<translation id="7402663241490331652">เลือกซื้อ แปล และระบุสิ่งที่คุณเห็นโดยใช้กล้องในแอป Browther สำหรับ iOS</translation>
+<translation id="1083711467946065278">หากต้องการใช้กล้อง โปรดให้สิทธิ์เข้าถึงแก่ Browther ใน<ph name="BEGIN_LINK"/>การตั้งค่าระบบ<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">Browther ไม่สามารถยืนยันได้ว่าส่วนขยายนี้มาจากไหนและอาจไม่ปลอดภัย นำส่วนขยายดังกล่าวออกจาก Browther เพื่อไม่ให้ดูและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่เข้าชม รวมถึงข้อมูลส่วนบุคคลได้อีกต่อไป</translation>
+<translation id="1122818205373648656">หากรูปภาพไม่มีคำอธิบายที่เป็นประโยชน์ Browther จะพยายามใส่คำอธิบายให้คุณ รูปภาพจะส่งมายัง Browther เพื่อสร้างคำอธิบาย คุณปิดการดำเนินการนี้ได้ทุกเมื่อในการตั้งค่า</translation>
+<translation id="6877990294324319801">ต้องการลงชื่อเข้าใช้ Browther ในโปรไฟล์ใหม่ใช่ไหม</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther จะเตือนคุณ<ph name="END_LINK"/>เกี่ยวกับเว็บไซต์และการดาวน์โหลดที่ไม่ปลอดภัย</translation>
+<translation id="1685486387921540822">คุณไม่ได้เข้าชมเมื่อเร็วๆ นี้ Browther นำสิทธิ์เข้าถึง<ph name="PERMISSION"/>ออกแล้ว</translation>
+<translation id="8921153410460268589">เลือกซื้อ แปล และระบุสิ่งที่คุณเห็นโดยใช้กล้องในแอป Browther สำหรับ iOS</translation>
 <translation id="8313851650939857356">ข้อผิดพลาดในการเริ่มต้น: <ph name="STARTUP_ERROR"/></translation>
-<translation id="6098476632210317894">องค์กรจะปิด Browther เมื่อไม่มีการใช้งานเป็นเวลา <ph name="TIMEOUT_DURATION"/></translation>
+<translation id="7386947683604296534">องค์กรจะปิด Browther เมื่อไม่มีการใช้งานเป็นเวลา <ph name="TIMEOUT_DURATION"/></translation>
 <translation id="8321888067342493336">บันทึกเป็นรูปภาพ</translation>
-<translation id="3360368475735266712">ลงชื่อเข้าใช้เพื่อซิงค์และปรับเปลี่ยน Browther ในอุปกรณ์ต่างๆ</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> ใช้ Browther อยู่ก่อนหน้านี้</translation>
-<translation id="5592122595094519401">อัปเดต Browther เพื่อใช้ข้อมูล Browther ในบัญชี Browther (<ph name="ACCOUNT_EMAIL"/>) ของคุณต่อไป</translation>
-<translation id="2569754604093464025">คุณจะต้องใช้ Windows 10 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ Windows 8</translation>
+<translation id="143016831128278157">ลงชื่อเข้าใช้เพื่อซิงค์และปรับเปลี่ยน Browther ในอุปกรณ์ต่างๆ</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> ใช้ Browther อยู่ก่อนหน้านี้</translation>
+<translation id="1288164710697017468">อัปเดต Browther เพื่อใช้ข้อมูล Browther ในบัญชี Browther (<ph name="ACCOUNT_EMAIL"/>) ของคุณต่อไป</translation>
+<translation id="8648401677359150296">คุณจะต้องใช้ Windows 10 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ Windows 8</translation>
 <translation id="8362914115861174987">แปลเป็นภาษา</translation>
 <translation id="8367705492654390392">ถามอะไรก็ได้</translation>
-<translation id="7296197595428914424">ลงชื่อเข้าใช้ Browther เพื่อรับรหัสผ่านและข้อมูลอื่นๆ ในทุกอุปกรณ์ ระบบจะบันทึกรหัสผ่านนี้ไว้ในบัญชี Browther หลังจากที่คุณลงชื่อเข้าใช้</translation>
-<translation id="9098234372282930719">จากนั้นคุณต้องรีสตาร์ท Browther</translation>
-<translation id="1327729221471951979">Browther แนะนำให้คุณนำออก <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับส่วนขยายที่รองรับ<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">นักพัฒนาซอฟต์แวร์เลิกเผยแพร่ส่วนขยายนี้แล้วและอาจไม่ปลอดภัย นำส่วนขยายดังกล่าวออกจาก Browther เพื่อไม่ให้ดูและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่เข้าชม รวมถึงข้อมูลส่วนบุคคลได้อีกต่อไป</translation>
-<translation id="4234753748520037091">Browther จำเป็นต้องยืนยันว่าเป็นคุณก่อนจึงจะบันทึกข้อมูลบางอย่างในบัญชี Browther และใช้ในอุปกรณ์ทุกเครื่องได้ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้</translation>
-<translation id="5337999052834672687">{0,plural, =1{เปิด Browther ขึ้นมาใหม่ภายใน 1 วัน}other{เปิด Browther ขึ้นมาใหม่ภายใน # วัน}}</translation>
+<translation id="5769022907892823357">ลงชื่อเข้าใช้ Browther เพื่อรับรหัสผ่านและข้อมูลอื่นๆ ในทุกอุปกรณ์ ระบบจะบันทึกรหัสผ่านนี้ไว้ในบัญชี Browther หลังจากที่คุณลงชื่อเข้าใช้</translation>
+<translation id="4782442810031768771">จากนั้นคุณต้องรีสตาร์ท Browther</translation>
+<translation id="8265348385714408341">Browther แนะนำให้คุณนำออก <ph name="BEGIN_LINK"/>ดูข้อมูลเพิ่มเติมเกี่ยวกับส่วนขยายที่รองรับ<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">นักพัฒนาซอฟต์แวร์เลิกเผยแพร่ส่วนขยายนี้แล้วและอาจไม่ปลอดภัย นำส่วนขยายดังกล่าวออกจาก Browther เพื่อไม่ให้ดูและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่เข้าชม รวมถึงข้อมูลส่วนบุคคลได้อีกต่อไป</translation>
+<translation id="1613655732912855341">Browther จำเป็นต้องยืนยันว่าเป็นคุณก่อนจึงจะบันทึกข้อมูลบางอย่างในบัญชี Browther และใช้ในอุปกรณ์ทุกเครื่องได้ หากคุณออกจากระบบตอนนี้ ระบบจะลบข้อมูลนี้</translation>
+<translation id="9103715009358215214">{0,plural, =1{เปิด Browther ขึ้นมาใหม่ภายใน 1 วัน}other{เปิด Browther ขึ้นมาใหม่ภายใน # วัน}}</translation>
 <translation id="8438543370129609977">เมื่อคุณใช้ฟีเจอร์ค้นหารูปภาพ ระบบจะส่งชื่อหน้า, URL และเนื้อหา รวมถึง PDF ไปยังเซิร์ฟเวอร์ <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">ดูข้อมูลเพิ่มเติมเกี่ยวกับการค้นหาด้วยฟีเจอร์ค้นหารูปภาพใน Browther</translation>
-<translation id="6914496861676471566">การเก็บข้อมูลของโปรแกรมติดตั้งเสียหายหรือไม่ถูกต้อง โปรดดาวน์โหลด Browther อีกครั้ง</translation>
-<translation id="4378573854226202617">Browther ต้องใช้ Windows 10 ขึ้นไป</translation>
-<translation id="6431861494713261006">ไม่บังคับ: ช่วยปรับปรุงฟีเจอร์และประสิทธิภาพของ Chrome OS โดยการส่งข้อมูลการวินิจฉัยและการใช้งานให้ Browther โดยอัตโนมัติ</translation>
-<translation id="8691137711639873980">โปรดยืนยันว่าเป็นคุณเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี Browther</translation>
-<translation id="3251012123600267109">แสดงข้อความแจ้งให้ลงชื่อเข้าใช้ Browther</translation>
-<translation id="2097604701283463988">Browther ล้าสมัย</translation>
-<translation id="6080203201796279095">ขอขอบคุณที่เลือกใช้ Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
-<translation id="871233388178581868">Browther จะตรวจสอบรหัสผ่านได้เมื่อคุณบันทึกรหัสผ่านไว้</translation>
-<translation id="3667461919057407535">รับคำเตือนหาก Browther พบรหัสผ่านของคุณในการละเมิดข้อมูลสาธารณะ</translation>
+<translation id="3550129882823305293">ดูข้อมูลเพิ่มเติมเกี่ยวกับการค้นหาด้วยฟีเจอร์ค้นหารูปภาพใน Browther</translation>
+<translation id="1401757916223057494">การเก็บข้อมูลของโปรแกรมติดตั้งเสียหายหรือไม่ถูกต้อง โปรดดาวน์โหลด Browther อีกครั้ง</translation>
+<translation id="5029760494698649486">Browther ต้องใช้ Windows 10 ขึ้นไป</translation>
+<translation id="7906734902028783072">ไม่บังคับ: ช่วยปรับปรุงฟีเจอร์และประสิทธิภาพของ Chrome OS โดยการส่งข้อมูลการวินิจฉัยและการใช้งานให้ Browther โดยอัตโนมัติ</translation>
+<translation id="6791756730901393492">โปรดยืนยันว่าเป็นคุณเพื่อใช้และบันทึกข้อมูล Browther ในบัญชี Browther</translation>
+<translation id="4879869745782826167">แสดงข้อความแจ้งให้ลงชื่อเข้าใช้ Browther</translation>
+<translation id="2967761098021401720">Browther ล้าสมัย</translation>
+<translation id="7674832651694000881">ขอขอบคุณที่เลือกใช้ Browther เป็นเบราว์เซอร์เริ่มต้น</translation>
+<translation id="4507581730979762077">Browther จะตรวจสอบรหัสผ่านได้เมื่อคุณบันทึกรหัสผ่านไว้</translation>
+<translation id="7205233182271132386">รับคำเตือนหาก Browther พบรหัสผ่านของคุณในการละเมิดข้อมูลสาธารณะ</translation>
 <translation id="8555465886620020932">ข้อผิดพลาดในการบริการ: <ph name="SERVICE_ERROR"/></translation>
 <translation id="8556420416730706394">คุณสามารถปักหมุดการค้นหารูปภาพเพื่อให้เข้าถึงได้ง่าย โดยการคลิกปุ่ม "ปักหมุด" ที่ด้านบนของแผงด้านข้าง</translation>
 <translation id="856656450041460113">ค้นหารายการภาษา</translation>
-<translation id="227028348235968071">Browther จะตรวจสอบรหัสผ่านได้เมื่อคุณลงชื่อเข้าใช้ด้วยบัญชี Browther</translation>
-<translation id="839677568225616901">องค์กรหลายแห่งจัดการ Browther</translation>
-<translation id="8121009781989288430">ลิขสิทธิ์ <ph name="YEAR"/> Browther Software Inc สงวนลิขสิทธิ์</translation>
+<translation id="75470458211269379">Browther จะตรวจสอบรหัสผ่านได้เมื่อคุณลงชื่อเข้าใช้ด้วยบัญชี Browther</translation>
+<translation id="2108930010779660436">องค์กรหลายแห่งจัดการ Browther</translation>
+<translation id="7209630341463003999">ลิขสิทธิ์ <ph name="YEAR"/> Browther Software Inc สงวนลิขสิทธิ์</translation>
 <translation id="8601359445272098721">ใหม่! คุณแปลได้ทั้งข้อความและรูปภาพบนหน้าจอโดยเลือกปุ่ม "แปลหน้าจอ"</translation>
-<translation id="3052349005266761501">กำลังเปิด Browther...</translation>
+<translation id="782928371899183269">กำลังเปิด Browther...</translation>
 <translation id="8624541899164515475">การตั้งค่า เปิดในแท็บใหม่</translation>
-<translation id="5128665650717824082">ไม่สามารถตั้ง Browther สำหรับการทดสอบเป็นเบราว์เซอร์เริ่มต้นได้</translation>
+<translation id="5879341334716115002">ไม่สามารถตั้ง Browther สำหรับการทดสอบเป็นเบราว์เซอร์เริ่มต้นได้</translation>
 <translation id="2433912322225810055">อีกทั้งยังควบคุมหน้าที่จะแสดงเมื่อคุณเปิด Browther หรือทำการค้นหาจากแถบอเนกประสงค์ด้วย</translation>
-<translation id="4100716194836114130">นี่คือ Browther ของคุณ</translation>
+<translation id="4816541973978692496">นี่คือ Browther ของคุณ</translation>
 <translation id="8712637175834984815">รับทราบ</translation>
-<translation id="1419543648228375718">ลงชื่อเข้าใช้ Browther ไหม</translation>
-<translation id="4891728458408976811">เก็บทุกอย่างไว้ใน Browther</translation>
+<translation id="9037464035997618895">ลงชื่อเข้าใช้ Browther ไหม</translation>
+<translation id="7897185368811431919">เก็บทุกอย่างไว้ใน Browther</translation>
 <translation id="8747073452963259673">มุมซ้ายล่างของพื้นที่การค้นหา: ซ้าย <ph name="LEFT"/>% ล่าง <ph name="BOTTOM"/>%</translation>
 <translation id="878572486461146056">ข้อผิดพลาดในการติดตั้ง: ผู้ดูแลเครือข่ายของคุณใช้นโยบายระดับกลุ่มซึ่งป้องกันการติดตั้ง: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">Browther ต้องการสิทธิ์เข้าถึงไมโครโฟนและกล้องถ่ายรูปของคุณสำหรับเว็บไซต์นี้</translation>
+<translation id="1576369213923770885">Browther ต้องการสิทธิ์เข้าถึงไมโครโฟนและกล้องถ่ายรูปของคุณสำหรับเว็บไซต์นี้</translation>
 <translation id="8813277370772331957">เตือนฉันภายหลัง</translation>
-<translation id="64216977793816291">ลงชื่อเข้าใช้ Browther ไหม</translation>
-<translation id="7447364954121496869">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นและปักหมุดไว้ที่แถบงาน</translation>
+<translation id="6831999464349484462">ลงชื่อเข้าใช้ Browther ไหม</translation>
+<translation id="3698151322107951111">ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นและปักหมุดไว้ที่แถบงาน</translation>
 <translation id="8826492472752484139">คลิก "เครื่องมือจัดการรหัสผ่าน"</translation>
 <translation id="6933858244219479645">ระบบ Chrome OS</translation>
-<translation id="9084132286318231275">ระบบจะใช้ภาษานี้เพื่อแสดงเมนู การตั้งค่า การแจ้งเตือน และข้อความอื่นๆ ใน Browther</translation>
+<translation id="3986927308621489499">ระบบจะใช้ภาษานี้เพื่อแสดงเมนู การตั้งค่า การแจ้งเตือน และข้อความอื่นๆ ใน Browther</translation>
 <translation id="8862326446509486874">คุณไม่มีสิทธิ์ในการติดตั้งระดับระบบ ทดลองใช้งานโปรแกรมติดตั้งอีกครั้งโดยกำหนดให้เป็นผู้ดูแลระบบ</translation>
-<translation id="7289323009146924152">เพิ่มโปรไฟล์ Browther</translation>
-<translation id="6412037018950369131">หากเปลี่ยนแล้ว โปรดแก้ไขรหัสผ่านที่บันทึกไว้ใน Browther ให้ตรงกับรหัสผ่านใหม่</translation>
-<translation id="1150745254876977823">องค์กรกำหนดให้คุณต้องลงชื่อเข้าใช้ Browther</translation>
-<translation id="8285294305439559616">Browther กำลังพยายามแสดงรหัสผ่าน พิมพ์รหัสผ่าน Windows ของคุณเพื่อแสดงรหัสผ่าน</translation>
-<translation id="4684884244620579559">Browther ไม่ใช่เบราว์เซอร์เริ่มต้นของคุณอีกต่อไป ทำให้ Browther เป็นเบราว์เซอร์เริ่มต้นไหม</translation>
-<translation id="6389268239133412586">อัปเดต Browther ไม่ได้</translation>
-<translation id="7731184591599776500">โลโก้ Browther Enterprise</translation>
-<translation id="6500340165622970282">เริ่ม Browther ไม่ได้เนื่องจากเกิดข้อผิดพลาดขณะเปิดโปรไฟล์ ลองรีสตาร์ท Browther</translation>
-<translation id="3424657754843264466">จัดการโปรไฟล์ Browther</translation>
-<translation id="7055223246119657449">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์ที่เก็บถาวรมีไฟล์อื่นๆ ที่อาจซ่อนมัลแวร์ไว้</translation>
-<translation id="9049928023195059068">ลงชื่อเข้าใช้ Browther เมื่อคุณลงชื่อเข้าใช้บริการอื่นๆ ของ Browther</translation>
-<translation id="4561046754724442504">มีการปิด Browther โดยอัตโนมัติ</translation>
-<translation id="5173820533850252773">Browther ล้าสมัย</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther จะเปิดขึ้นมาใหม่ใน 1 ชั่วโมง}other{Browther จะเปิดขึ้นมาใหม่ใน # ชั่วโมง}}</translation>
+<translation id="5318226144018267261">เพิ่มโปรไฟล์ Browther</translation>
+<translation id="1298790608554316415">หากเปลี่ยนแล้ว โปรดแก้ไขรหัสผ่านที่บันทึกไว้ใน Browther ให้ตรงกับรหัสผ่านใหม่</translation>
+<translation id="960933321883777733">องค์กรกำหนดให้คุณต้องลงชื่อเข้าใช้ Browther</translation>
+<translation id="948979409756947611">Browther กำลังพยายามแสดงรหัสผ่าน พิมพ์รหัสผ่าน Windows ของคุณเพื่อแสดงรหัสผ่าน</translation>
+<translation id="1418854271943945136">Browther ไม่ใช่เบราว์เซอร์เริ่มต้นของคุณอีกต่อไป ทำให้ Browther เป็นเบราว์เซอร์เริ่มต้นไหม</translation>
+<translation id="7228667329366610727">อัปเดต Browther ไม่ได้</translation>
+<translation id="4817697255467736794">โลโก้ Browther Enterprise</translation>
+<translation id="3507731466523097529">เริ่ม Browther ไม่ได้เนื่องจากเกิดข้อผิดพลาดขณะเปิดโปรไฟล์ ลองรีสตาร์ท Browther</translation>
+<translation id="3234473600657230663">จัดการโปรไฟล์ Browther</translation>
+<translation id="8953887022581653484">Browther บล็อกการดาวน์โหลดนี้เนื่องจากไฟล์ที่เก็บถาวรมีไฟล์อื่นๆ ที่อาจซ่อนมัลแวร์ไว้</translation>
+<translation id="532304972436358335">ลงชื่อเข้าใช้ Browther เมื่อคุณลงชื่อเข้าใช้บริการอื่นๆ ของ Browther</translation>
+<translation id="3425998261052065067">มีการปิด Browther โดยอัตโนมัติ</translation>
+<translation id="4377377022617011492">Browther ล้าสมัย</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther จะเปิดขึ้นมาใหม่ใน 1 ชั่วโมง}other{Browther จะเปิดขึ้นมาใหม่ใน # ชั่วโมง}}</translation>
 <translation id="9106236359747881194">เลือกข้อความที่จะค้นหา</translation>
-<translation id="5190991181158966940">คุณจะต้องใช้ Windows 10 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ Windows 8.1</translation>
-<translation id="7863882214613921971">เปิดลิงก์ใน Browther แท็บใหม่</translation>
+<translation id="5115014198092384730">คุณจะต้องใช้ Windows 10 ขึ้นไปเพื่อรับการอัปเดต Browther ในอนาคต คอมพิวเตอร์เครื่องนี้ใช้ Windows 8.1</translation>
+<translation id="7129101984664345614">เปิดลิงก์ใน Browther แท็บใหม่</translation>
 <translation id="911206726377975832">ลบข้อมูลการท่องเว็บด้วยหรือไม่</translation>
 <translation id="9134482777260927479">ความช่วยเหลือเรื่องการบ้าน</translation>
 <translation id="9148058034647219655">ออก</translation>
-<translation id="2792073155252170448">ดำเนินการต่อจากที่ค้างไว้: Browther สามารถคืนค่าแท็บทุกครั้งที่คุณรีสตาร์ท หากต้องการเปิดตัวเลือกนี้ ให้ไปที่</translation>
-<translation id="2444257125841652328">ผู้ดูแลระบบของคุณกำหนดค่าให้ Browther เปิดเบราว์เซอร์สำรองเพื่อเข้าถึง <ph name="TARGET_URL_HOSTNAME"/></translation>
-<translation id="8208548103319284047">เคล็ดลับสำหรับ Browther: ค้นหาด้วย Lens</translation>
-<translation id="7902365066753170041">เปิดอีกครั้งเพื่ออัปเดต Browther</translation>
-<translation id="538146372587193686">Browther Origin (mDNS-In)</translation>
-<translation id="49909619875329637">รับประโยชน์มากขึ้นเมื่อลงชื่อเข้าใช้ Browther</translation>
-<translation id="296137235951584143">ปรับเปลี่ยน Browther ในแบบของคุณ</translation>
-<translation id="7977787072794666032">Browther อาจทำงานไม่ถูกต้องเพราะไม่รองรับ Windows XP หรือ Windows Vista อีกต่อไป</translation>
+<translation id="1734388504720121468">ดำเนินการต่อจากที่ค้างไว้: Browther สามารถคืนค่าแท็บทุกครั้งที่คุณรีสตาร์ท หากต้องการเปิดตัวเลือกนี้ ให้ไปที่</translation>
+<translation id="8633974232736772207">ผู้ดูแลระบบของคุณกำหนดค่าให้ Browther เปิดเบราว์เซอร์สำรองเพื่อเข้าถึง <ph name="TARGET_URL_HOSTNAME"/></translation>
+<translation id="1122669402846843682">เคล็ดลับสำหรับ Browther: ค้นหาด้วย Lens</translation>
+<translation id="595330134356385835">เปิดอีกครั้งเพื่ออัปเดต Browther</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS-In)</translation>
+<translation id="6491100124044190139">รับประโยชน์มากขึ้นเมื่อลงชื่อเข้าใช้ Browther</translation>
+<translation id="1665840797775025867">ปรับเปลี่ยน Browther ในแบบของคุณ</translation>
+<translation id="4407047432656809023">Browther อาจทำงานไม่ถูกต้องเพราะไม่รองรับ Windows XP หรือ Windows Vista อีกต่อไป</translation>
 <translation id="945522503751344254">ส่งความคิดเห็น</translation>
-<translation id="4484434718272972655">ใครกำลังใช้ Browther อยู่</translation>
-<translation id="7173394303099002355">รับการรักษาความปลอดภัยที่เข้มงวดที่สุดของ Browther</translation>
+<translation id="7620348044248809366">ใครกำลังใช้ Browther อยู่</translation>
+<translation id="7299962884342109067">รับการรักษาความปลอดภัยที่เข้มงวดที่สุดของ Browther</translation>
 <translation id="983803489796659991">การติดตั้งไม่สำเร็จเนื่องจากเซิร์ฟเวอร์การอัปเดตไม่มีข้อมูลแฮชสำหรับแอปพลิเคชัน</translation>
-<translation id="8435446479956716379">ใช้ Browther โดยไม่มีบัญชี</translation>
-<translation id="8992261409816268381">Browther Software Inc</translation>
+<translation id="8775461190334353148">ใช้ Browther โดยไม่มีบัญชี</translation>
+<translation id="7146761239544860058">Browther Software Inc</translation>
 <translation id="989970834842471429">เลือกข้อความหรือรูปภาพเพื่อค้นหาด้วยการค้นหารูปภาพ</translation>
-<translation id="3146636448190445245">หากต้องการใช้ตำแหน่ง โปรดให้สิทธิ์เข้าถึงแก่ Browther ใน<ph name="BEGIN_LINK"/>การตั้งค่าระบบ<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">หากต้องการใช้ตำแหน่ง โปรดให้สิทธิ์เข้าถึงแก่ Browther ใน<ph name="BEGIN_LINK"/>การตั้งค่าระบบ<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">Google Chrome เบต้า</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">การติดตั้งล้มเหลวเนื่องจากเกิดข้อผิดพลาดที่ไม่ระบุ โปรดดาวน์โหลด Browther อีกครั้ง</translation>
-<translation id="1743665722170667430">ส่วนขยาย แอป และธีมจากแหล่งที่ไม่รู้จักอาจเป็นอันตรายต่ออุปกรณ์ของคุณได้ Browther ขอแนะนำให้ติดตั้งรายการดังกล่าวจาก <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> เท่านั้น</translation>
-<translation id="6184592406110188164">ส่วนขยายนี้ละเมิดนโยบายของ Web Store และอาจไม่ปลอดภัย ลบออกจาก Browther เพื่อไม่ให้เห็นและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่คุณเข้าชม รวมถึงข้อมูลส่วนบุคคลของคุณ</translation>
-<translation id="1299765473362724475">คำเตือน: Browther ไม่สามารถป้องกันไม่ให้ส่วนขยายบันทึกประวัติการท่องเว็บได้ หากคุณต้องการปิดใช้ส่วนขยายนี้ในโหมดไม่ระบุตัวตน ให้ยกเลิกการเลือกตัวเลือกนี้</translation>
-<translation id="1448049584457347995">เพื่อให้ Browther ปลอดภัยขึ้น เราได้ปิดส่วนขยายบางรายการที่ไม่ได้ระบุไว้ใน <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> และอาจถูกเพิ่มเข้ามาโดยที่คุณไม่รู้ตัว</translation>
-<translation id="8848045066928358658">เพื่อให้ Browther ปลอดภัยขึ้น เราได้ปิดส่วนขยายต่อไปนี้ซึ่งไม่ได้แสดงอยู่ใน <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> และอาจมีการเพิ่มเข้ามาโดยที่คุณไม่รู้ตัว</translation>
-<translation id="4624945300945265642">เปิดลิงก์ในหน้าต่างที่ไม่ระบุตัวตนของ Browther</translation>
-<translation id="6554952862405000915">เปิดลิงก์ในหน้าต่างที่ไม่ระบุตัวตนของ Browther</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{อัปเดตใหม่ของ Browther พร้อมให้ใช้งานแล้วและระบบจะใช้อัปเดตดังกล่าวเมื่อคุณเปิด Browther ขึ้นมาใหม่}=1{อัปเดตใหม่ของ Browther พร้อมให้ใช้งานแล้วและระบบจะใช้อัปเดตดังกล่าวเมื่อคุณเปิด Browther ขึ้นมาใหม่ หน้าต่างที่ไม่ระบุตัวตนจะไม่เปิดให้อีก}other{อัปเดตใหม่ของ Browther พร้อมให้ใช้งานแล้วและระบบจะใช้อัปเดตดังกล่าวเมื่อคุณเปิด Browther ขึ้นมาใหม่ หน้าต่างที่ไม่ระบุตัวตนจำนวน # หน้าต่างจะไม่เปิดให้อีก}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{ผู้ดูแลระบบขอให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดตนี้}=1{ผู้ดูแลระบบขอให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดตนี้ หน้าต่างที่ไม่ระบุตัวตนจะไม่เปิดให้อีก}other{ผู้ดูแลระบบขอให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดตนี้ หน้าต่างที่ไม่ระบุตัวตนจำนวน # หน้าต่างจะไม่เปิดให้อีก}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{ผู้ดูแลระบบต้องการให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดต}=1{ผู้ดูแลระบบต้องการให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดต หน้าต่างที่ไม่ระบุตัวตนจะไม่เปิดให้อีก}other{ผู้ดูแลระบบต้องการให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดต หน้าต่างที่ไม่ระบุตัวตนจำนวน # หน้าต่างจะไม่เปิดให้อีก}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="5110032212554763592">การติดตั้งล้มเหลวเนื่องจากเกิดข้อผิดพลาดที่ไม่ระบุ โปรดดาวน์โหลด Browther อีกครั้ง</translation>
+<translation id="9074842261125908635">ส่วนขยาย แอป และธีมจากแหล่งที่ไม่รู้จักอาจเป็นอันตรายต่ออุปกรณ์ของคุณได้ Browther ขอแนะนำให้ติดตั้งรายการดังกล่าวจาก <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> เท่านั้น</translation>
+<translation id="3593119910409528681">ส่วนขยายนี้ละเมิดนโยบายของ Web Store และอาจไม่ปลอดภัย ลบออกจาก Browther เพื่อไม่ให้เห็นและเปลี่ยนแปลงข้อมูลของคุณในเว็บไซต์ที่คุณเข้าชม รวมถึงข้อมูลส่วนบุคคลของคุณ</translation>
+<translation id="5245976396374147971">คำเตือน: Browther ไม่สามารถป้องกันไม่ให้ส่วนขยายบันทึกประวัติการท่องเว็บได้ หากคุณต้องการปิดใช้ส่วนขยายนี้ในโหมดไม่ระบุตัวตน ให้ยกเลิกการเลือกตัวเลือกนี้</translation>
+<translation id="3629539416935660172">เพื่อให้ Browther ปลอดภัยขึ้น เราได้ปิดส่วนขยายบางรายการที่ไม่ได้ระบุไว้ใน <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> และอาจถูกเพิ่มเข้ามาโดยที่คุณไม่รู้ตัว</translation>
+<translation id="157534302749986451">เพื่อให้ Browther ปลอดภัยขึ้น เราได้ปิดส่วนขยายต่อไปนี้ซึ่งไม่ได้แสดงอยู่ใน <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> และอาจมีการเพิ่มเข้ามาโดยที่คุณไม่รู้ตัว</translation>
+<translation id="3031052147361385845">เปิดลิงก์ในหน้าต่างที่ไม่ระบุตัวตนของ Browther</translation>
+<translation id="5556794247782664281">เปิดลิงก์ในหน้าต่างที่ไม่ระบุตัวตนของ Browther</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{อัปเดตใหม่ของ Browther พร้อมให้ใช้งานแล้วและระบบจะใช้อัปเดตดังกล่าวเมื่อคุณเปิด Browther ขึ้นมาใหม่}=1{อัปเดตใหม่ของ Browther พร้อมให้ใช้งานแล้วและระบบจะใช้อัปเดตดังกล่าวเมื่อคุณเปิด Browther ขึ้นมาใหม่ หน้าต่างที่ไม่ระบุตัวตนจะไม่เปิดให้อีก}other{อัปเดตใหม่ของ Browther พร้อมให้ใช้งานแล้วและระบบจะใช้อัปเดตดังกล่าวเมื่อคุณเปิด Browther ขึ้นมาใหม่ หน้าต่างที่ไม่ระบุตัวตนจำนวน # หน้าต่างจะไม่เปิดให้อีก}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{ผู้ดูแลระบบขอให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดตนี้}=1{ผู้ดูแลระบบขอให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดตนี้ หน้าต่างที่ไม่ระบุตัวตนจะไม่เปิดให้อีก}other{ผู้ดูแลระบบขอให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดตนี้ หน้าต่างที่ไม่ระบุตัวตนจำนวน # หน้าต่างจะไม่เปิดให้อีก}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{ผู้ดูแลระบบต้องการให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดต}=1{ผู้ดูแลระบบต้องการให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดต หน้าต่างที่ไม่ระบุตัวตนจะไม่เปิดให้อีก}other{ผู้ดูแลระบบต้องการให้คุณเปิด Browther ขึ้นมาใหม่เพื่อใช้การอัปเดต หน้าต่างที่ไม่ระบุตัวตนจำนวน # หน้าต่างจะไม่เปิดให้อีก}}</translation>
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {การป้องกันขั้นสูงต้องการให้คุณรีสตาร์ท Browther เพื่อติดตั้งการอัปเดต}
               =1 {การป้องกันขั้นสูงต้องการให้คุณรีสตาร์ท Browther เพื่อติดตั้งการอัปเดต หน้าต่างส่วนตัวของคุณจะไม่เปิดใหม่}
               other {การป้องกันขั้นสูงต้องการให้คุณรีสตาร์ท Browther เพื่อติดตั้งการอัปเดต หน้าต่างส่วนตัวของคุณจะไม่เปิดใหม่}}</translation>
 <translation id="5749154344207139683">ช่วยเราปรับปรุง Private โดยการทำแบบสำรวจนี้ใช้เวลาเพียง 1 นาที</translation>
-<translation id="79269250264141507">เมื่อคุณพิมพ์ในแถบที่อยู่หรือช่องค้นหา Browther จะส่งข้อมูลที่คุณพิมพ์ไปยังเครื่องมือค้นหาเริ่มต้นเพื่อรับคำแนะนำที่ดีขึ้น และจะถูกปิดใน Private</translation>
-<translation id="2589970573128789862">Browther Private</translation>
-<translation id="5994282802285556682">เมื่อท่องเว็บในโหมดส่วนตัว Browther จะทำการเตือนคุณก่อนโหลดเว็บไซต์ที่ใช้การเชื่อมต่อที่ไม่ปลอดภัย</translation>
+<translation id="6954203250660846933">เมื่อคุณพิมพ์ในแถบที่อยู่หรือช่องค้นหา Browther จะส่งข้อมูลที่คุณพิมพ์ไปยังเครื่องมือค้นหาเริ่มต้นเพื่อรับคำแนะนำที่ดีขึ้น และจะถูกปิดใน Private</translation>
+<translation id="3542179014707218534">Browther Private</translation>
+<translation id="2076355018722231995">เมื่อท่องเว็บในโหมดส่วนตัว Browther จะทำการเตือนคุณก่อนโหลดเว็บไซต์ที่ใช้การเชื่อมต่อที่ไม่ปลอดภัย</translation>
 </translationbundle>

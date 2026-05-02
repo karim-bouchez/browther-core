@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Activez les notifications de Browther pour gagner des récompenses Browther.</translation>
 <translation id="4714541943538330">Ouvrez les paramètres et activez les notifications d'appareil pour obtenir des récompenses Browther.</translation>
 <translation id="7341107637383044975">Activer les notifications Browther</translation>
-<translation id="9063439289570656162">Activer/désactiver Brave Shields</translation>
+<translation id="9063439289570656162">Activer/désactiver Browther Shields</translation>
 <translation id="15346379325756892">Passer en mode fenêtre flottante</translation>
 <translation id="6945863270524203017">Recevez des mises à jour de confidentialité chaque semaine sur les traqueurs et les publicités bloqués.</translation>
 <translation id="4324735664183300693">Activer les notifications</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">Fonctionnalités</translation>
 <translation id="1919345977826869612">Annonces</translation>
 <translation id="2839742394543397416">Analytique</translation>
-<translation id="5644165410146827297">Boucliers Brave et confidentialité</translation>
+<translation id="5644165410146827297">Boucliers Browther et confidentialité</translation>
 <translation id="4692623383562244444">Moteurs de recherche</translation>
 <translation id="1468415711258933398">Onglet standard</translation>
 <translation id="3377025655491224618">Onglet privé</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">Les sites peuvent demander d'utiliser l'ancienne connexion à Google au moyen de témoins tiers</translation>
 <translation id="2903783737778379345">Ne pas autoriser l'ancienne connexion à Google au moyen de témoins tiers</translation>
 <translation id="6880817299303842099">Autorisé à utiliser des témoins tiers pour l'ancienne connexion à Google</translation>
-<translation id="8266435325778969511">Paramètres globaux par défaut de Brave Shields</translation>
+<translation id="8266435325778969511">Paramètres globaux par défaut de Browther Shields</translation>
 <translation id="2675679258824361492">Autres paramètres de confidentialité</translation>
 <translation id="8026334261755873520">Effacer les données de navigation</translation>
 <translation id="1690924763769415936">Lecture en arrière-plan</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">PLUS TARD</translation>
 <translation id="4117451092682672487">Protégez votre vie privée en toute facilité.</translation>
 <translation id="5512887128063976049">En définissant Browther comme navigateur par défaut, chaque lien s'ouvrira avec les protections de confidentialité de Browther.</translation>
-<translation id="5148943178722443958">Aidez-nous à améliorer Browther.</translation>
+<translation id="9133910347634099679">Aidez-nous à améliorer Browther.</translation>
 <translation id="6718362830686703942">Envoyer des rapports de diagnostic en cas de dysfonctionnement.</translation>
 <translation id="7134864207653684195">Partagez des renseignements privés et anonymes sur les fonctionnalités utilisées par les utilisateurs de Browther.</translation>
 <translation id="2888496576732880897">Aidez-nous à développer la recherche Brave</translation>
 <translation id="7044431516245362795">Participez au projet Web Discovery pour aider à développer l'index et améliorer les résultats de recherche. <ph name="LEARN_MORE_START"/>En savoir plus.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Oui, je veux apporter mon aide</translation>
-<translation id="7443712250454754077">Appuyez pour voir les boucliers Brave</translation>
+<translation id="7443712250454754077">Appuyez pour voir les boucliers Browther</translation>
 <translation id="118577974285037669">Visualisez toutes les nuisances bloquées par Browther sur chaque page grâce aux boucliers.</translation>
 <translation id="5386259141409498372">publicités et traceurs de <ph name="BIG_TECH"/> et <ph name="TRACKER"/> autre(s) bloqués</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> et d'autres publicités et traceurs bloqués</translation>
@@ -408,7 +408,7 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="769702552748212954">Autoriser toutes les empreintes digitales</translation>
 <translation id="876424292214881779">publicités et autres éléments indésirables bloqués</translation>
 <translation id="2709945082202062860">Les sites incluent souvent des témoins et des scripts qui tentent de vous identifier, vous et votre appareil. Ils veulent savoir qui vous êtes et vous suivre sur le web en pistant ce que vous faites sur chaque site.\n\nBrave bloque ces éléments afin que vous puissiez naviguer sans être suivi.</translation>
-<translation id="5695422144228065490">À propos de Brave Shields</translation>
+<translation id="5695422144228065490">À propos de Browther Shields</translation>
 <translation id="8912304686498704084">Haut</translation>
 <translation id="4963218453264888510">Bas</translation>
 <translation id="5721161384090584434">Vous naviguez sur ce site sans les protections de la vie privée de Browther. Cela ne fonctionne-t-il pas bien avec Shields activé ?</translation>
@@ -958,7 +958,7 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Rétablir les paramètres par défaut</translation>
 <translation id="4922034974043704366">Cette fonctionnalité est activée parce que vous y avez consenti</translation>
-<translation id="3144818380093107753">Browther Origin est un abonnement qui vous permet de désactiver les fonctionnalités génératrices de revenus qui soutiennent autrement Browther en tant qu’entreprise. Les abonnés de Browther Origin continueront de bénéficier de notre protection de confidentialité de pointe, du blocage des publicités et de la vitesse (grâce aux boucliers Brave), ainsi que des mises à jour logicielles régulières, des correctifs Chromium, et des améliorations en matière de sécurité et de confidentialité. Ils pourront également désactiver des fonctionnalités comme Browther Leo, Actualités, programme de récompenses, portefeuille, VPN, les domaines Web3, et plus encore.&lt;br/&gt;&lt;br/&gt;Les abonnés verront un nouveau panneau de configuration dans le menu des paramètres du navigateur. Les fonctionnalités existantes — ainsi que toute nouvelle fonctionnalité que nous pourrions publier ultérieurement — y apparaîtront et seront désactivées par défaut.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Remarque : Browther Origin ne désactivera pas les fonctionnalités du navigateur que vous utilisez actuellement et n’affectera pas les fonctionnalités ni les annonces dans les résultats de recherche Brave.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin est un abonnement qui vous permet de désactiver les fonctionnalités génératrices de revenus qui soutiennent autrement Browther en tant qu’entreprise. Les abonnés de Browther Origin continueront de bénéficier de notre protection de confidentialité de pointe, du blocage des publicités et de la vitesse (grâce aux boucliers Browther), ainsi que des mises à jour logicielles régulières, des correctifs Chromium, et des améliorations en matière de sécurité et de confidentialité. Ils pourront également désactiver des fonctionnalités comme Browther Leo, Actualités, programme de récompenses, portefeuille, VPN, les domaines Web3, et plus encore.&lt;br/&gt;&lt;br/&gt;Les abonnés verront un nouveau panneau de configuration dans le menu des paramètres du navigateur. Les fonctionnalités existantes — ainsi que toute nouvelle fonctionnalité que nous pourrions publier ultérieurement — y apparaîtront et seront désactivées par défaut.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Remarque : Browther Origin ne désactivera pas les fonctionnalités du navigateur que vous utilisez actuellement et n’affectera pas les fonctionnalités ni les annonces dans les résultats de recherche Brave.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Se connecter au portefeuille Browther</translation>
 <translation id="7380890081275286865">Vous vous connectez à <ph name="ORIGIN"/>. Le portefeuille Browther partagera l'adresse de votre portefeuille avec <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Voir les détails</translation>

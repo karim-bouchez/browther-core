@@ -189,13 +189,13 @@
 <translation id="834487290629916192">لاحقاً</translation>
 <translation id="4117451092682672487">الخصوصية. أصبحت أبسط.</translation>
 <translation id="5512887128063976049">باستخدام Browther كافتراضي، يفتح كل رابط تنقر عليه بحماية خصوصية Browther.</translation>
-<translation id="5148943178722443958">ساعد في تحسين Browther.</translation>
+<translation id="9133910347634099679">ساعد في تحسين Browther.</translation>
 <translation id="6718362830686703942">أرسل تقارير التشخيص إذا واجهت حالة عطل أو توقف.</translation>
 <translation id="7134864207653684195">شارك نتائج تحليلات المنتج الخاصة والمجهولة حول الميزات التي يستخدمها مستخدمو Browther.</translation>
 <translation id="2888496576732880897">ساعد Brave Search على النمو</translation>
 <translation id="7044431516245362795">اشترك في مشروع اكتشاف الويب للمساعدة في تطوير الفهرس وتحسين نتائج البحث. <ph name="LEARN_MORE_START"/>تعرف على المزيد.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">بالتأكيد، سأقدم المساعدة.</translation>
-<translation id="7443712250454754077">انقر لعرض Brave Shields</translation>
+<translation id="7443712250454754077">انقر لعرض Browther Shields</translation>
 <translation id="118577974285037669">شاهد كل الأشياء السيئةالتي تم حظرها بواسطة Browther، في كل صفحة، باستخدام Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> و<ph name="TRACKER"/> إعلانات أخرى &amp; تم حظر أجهزة التعقب</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> وتم حظر أدوات تتبُّع الإعلانات الأخرى &amp;</translation>
@@ -408,7 +408,7 @@
 <translation id="769702552748212954">السماح بجميع عمليات أخذ البصمات</translation>
 <translation id="876424292214881779">الإعلانات والأشياء المريبة الأخرى التي تم حظرها</translation>
 <translation id="2709945082202062860">غالبًا ما تتضمن المواقع ملفات تعريف الارتباط والبرامج النصية التي تحاول التعرف عليك وعلى جهازك. وتريد معرفة هويتك ومتابعتك عبر الويب، تتبع ما تفعله على كل موقع.\n\nيقوم Browther بحظر هذه الأشياء حتى تتمكن من التصفح دون متابعة.</translation>
-<translation id="5695422144228065490">حول Brave Shields</translation>
+<translation id="5695422144228065490">حول Browther Shields</translation>
 <translation id="8912304686498704084">قيد التشغيل</translation>
 <translation id="4963218453264888510">معطل</translation>
 <translation id="5721161384090584434">إنك تتصفح هذا الموقع دون حماية الخصوصية من Browther. ألا يعمل بشكل صحيح أثناء تشغيل Shields؟</translation>
@@ -958,7 +958,7 @@
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">إعادة التعيين إلى الإعدادات الافتراضية</translation>
 <translation id="4922034974043704366">تم تمكين هذه الميزة لأنك قمت باختيارها</translation>
-<translation id="3144818380093107753">Browther Origin هي طريقة قائمة على الاشتراك لتعطيل الميزات المدرة للدخل التي تدعم Browther كعمل تجاري. سيستمر المشتركون في Browther Origin في الاستفادة من الخصوصية الرائدة في المجال وحظر الإعلانات والسرعة (عبر Brave Shields)، بالإضافة إلى تحديثات البرامج المنتظمة وتصحيحات Chromium وتحسينات الأمان والخصوصية. سيحصلون أيضًا على خيار تعطيل ميزات مثل Browther Leo، والأخبار، والمكافآت، والمحفظة، والشبكة الافتراضية الخاصة، ونطاقات Web3، والمزيد.&lt;br/&gt;&lt;br/&gt;سيشاهد المشتركون لوحة تحكم جديدة في قائمة إعدادات المتصفح. ستظهر الميزات الحالية - بالإضافة إلى أي ميزات جديدة نشحنها في المستقبل - هنا، وسيتم إيقاف تشغيلها افتراضيًا.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;ملاحظة: لن يقوم Browther Origin بتعطيل ميزات المتصفح التي تستخدمها حاليًا، ولن يؤثر على ميزات Brave Search أو إعلانات Brave Search.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin هي طريقة قائمة على الاشتراك لتعطيل الميزات المدرة للدخل التي تدعم Browther كعمل تجاري. سيستمر المشتركون في Browther Origin في الاستفادة من الخصوصية الرائدة في المجال وحظر الإعلانات والسرعة (عبر Browther Shields)، بالإضافة إلى تحديثات البرامج المنتظمة وتصحيحات Chromium وتحسينات الأمان والخصوصية. سيحصلون أيضًا على خيار تعطيل ميزات مثل Browther Leo، والأخبار، والمكافآت، والمحفظة، والشبكة الافتراضية الخاصة، ونطاقات Web3، والمزيد.&lt;br/&gt;&lt;br/&gt;سيشاهد المشتركون لوحة تحكم جديدة في قائمة إعدادات المتصفح. ستظهر الميزات الحالية - بالإضافة إلى أي ميزات جديدة نشحنها في المستقبل - هنا، وسيتم إيقاف تشغيلها افتراضيًا.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;ملاحظة: لن يقوم Browther Origin بتعطيل ميزات المتصفح التي تستخدمها حاليًا، ولن يؤثر على ميزات Brave Search أو إعلانات Brave Search.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">تسجيل الدخول إلى Browther Wallet</translation>
 <translation id="7380890081275286865">أنت الآن تقوم بتسجيل الدخول في <ph name="ORIGIN"/>. سوف تشارك Browther wallet عنوان محفظتك مع <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">عرض التفاصيل</translation>

@@ -2,25 +2,25 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="ca">
 <translation id="130631256467250065">Els canvis es faran efectius la propera vegada que reinicieu el dispositiu.</translation>
-<translation id="6451924152958941455">Ves al menú de Browther &gt; <ph name="SETTINGS_TITLE"/> &gt; <ph name="SYSTEM_TITLE"/> &gt; <ph name="PROXIES_TITLE"/> i assegura't que la configuració estigui definida sense servidor intermediari o com a directa.</translation>
-<translation id="7999989146447764333">La creació d'informes de bloqueig no està disponible a Browther.</translation>
-<translation id="1953231710324290369">Estàs visualitzant una pàgina segura de Browther</translation>
-<translation id="907470742420136113">Browther està provant de modificar la configuració per emplenar les formes de pagament.</translation>
-<translation id="4847979153841887006">Logotip de Browther</translation>
-<translation id="336808635693308470">Browther està provant d'editar les formes de pagament.</translation>
-<translation id="7932149101545999102">Browther és possible gràcies al projecte de codi obert de <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> i a altre <ph name="BEGIN_LINK_OSS"/>programari lliure<ph name="END_LINK_OSS"/>.</translation>
-<translation id="303960458633076466">Browther ha bloquejat aquesta pàgina</translation>
-<translation id="2017237562285586622">Configureu el tallafoc o l'antivirus per permetre que Browther accedeixi
+<translation id="5681560603157873402">Ves al menú de Browther &gt; <ph name="SETTINGS_TITLE"/> &gt; <ph name="SYSTEM_TITLE"/> &gt; <ph name="PROXIES_TITLE"/> i assegura't que la configuració estigui definida sense servidor intermediari o com a directa.</translation>
+<translation id="4903497818305945122">La creació d'informes de bloqueig no està disponible a Browther.</translation>
+<translation id="5747951541048369241">Estàs visualitzant una pàgina segura de Browther</translation>
+<translation id="7041193161756628041">Browther està provant de modificar la configuració per emplenar les formes de pagament.</translation>
+<translation id="4670277172953498174">Logotip de Browther</translation>
+<translation id="3474898875907708105">Browther està provant d'editar les formes de pagament.</translation>
+<translation id="5700544173546684818">Browther és possible gràcies al projecte de codi obert de <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> i a altre <ph name="BEGIN_LINK_OSS"/>programari lliure<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8935269788853634726">Browther ha bloquejat aquesta pàgina</translation>
+<translation id="1339376981847018870">Configureu el tallafoc o l'antivirus per permetre que Browther accedeixi
           a la xarxa.</translation>
 <translation id="4949828774841497663">Ves a Aplicacions &gt; Configuració del sistema &gt; Xarxa, selecciona la xarxa activa, fes clic al botó Detalls... i desselecciona els servidors intermediaris que s'hagin seleccionat.</translation>
-<translation id="3269554930871094325">Ves al menú de Browther &gt; <ph name="SETTINGS_TITLE"/> &gt; <ph name="SYSTEM_TITLE"/> &gt; <ph name="PROXIES_TITLE"/> &gt; Xarxa i Internet &gt; Servidor intermediari i, tot seguit, desselecciona Detecta la configuració automàticament.</translation>
-<translation id="6159073403999048272">Aquestes pàgines estan pensades per a desenvolupadors de Browther i és possible que no es mantinguin ni es provin activament. Per activar-les, navega fins a <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, fes clic al botó per activar les pàgines de depuració i, a continuació, torna a aquesta pàgina.</translation>
-<translation id="2765022094254723779">Browther també és possible gràcies a un altre <ph name="BEGIN_LINK_OSS"/>programari lliure<ph name="END_LINK_OSS"/>.</translation>
-<translation id="9156965752763025780">Els canvis s'aplicaran la propera vegada que reinicieu Browther.</translation>
-<translation id="8828443087767259398">Browther necessita accedir al Bluetooth per continuar 
+<translation id="4191403906356422893">Ves al menú de Browther &gt; <ph name="SETTINGS_TITLE"/> &gt; <ph name="SYSTEM_TITLE"/> &gt; <ph name="PROXIES_TITLE"/> &gt; Xarxa i Internet &gt; Servidor intermediari i, tot seguit, desselecciona Detecta la configuració automàticament.</translation>
+<translation id="958169674889932546">Aquestes pàgines estan pensades per a desenvolupadors de Browther i és possible que no es mantinguin ni es provin activament. Per activar-les, navega fins a <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, fes clic al botó per activar les pàgines de depuració i, a continuació, torna a aquesta pàgina.</translation>
+<translation id="4303967029316005584">Browther també és possible gràcies a un altre <ph name="BEGIN_LINK_OSS"/>programari lliure<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8031938899816118394">Els canvis s'aplicaran la propera vegada que reinicieu Browther.</translation>
+<translation id="221029295134825758">Browther necessita accedir al Bluetooth per continuar 
  amb la vinculació. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Browther és possible gràcies al projecte de codi obert de <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
-<translation id="4068928808254189629">Aneu al
+<translation id="8530161404084147314">Browther és possible gràcies al projecte de codi obert de <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
+<translation id="3134645574591615830">Aneu al
         menú de Browther &gt;
         <ph name="SETTINGS_TITLE"/>
         &gt;
@@ -28,6 +28,6 @@
         i desmarqueu <ph name="NO_PREFETCH_DESCRIPTION"/>.
         Si això no resol el problema, us recomanem que torneu a seleccionar
         aquesta opció per obtenir un rendiment millorat.</translation>
-<translation id="4159376633403260073">Estàs consultant una pàgina segura de Browther for Testing</translation>
-<translation id="88187049159266777">Browther no s'ha tancat correctament.</translation>
+<translation id="8927199829149811571">Estàs consultant una pàgina segura de Browther for Testing</translation>
+<translation id="4220066730874343807">Browther no s'ha tancat correctament.</translation>
 </translationbundle>

@@ -3,120 +3,120 @@
 <translationbundle lang="lt">
 <translation id="1026101648481255140">Tęsti diegimą</translation>
 <translation id="7099479769133613710">Paleisti iš naujo ir atnaujinti „&amp;Browther“ OS</translation>
-<translation id="2479110114759182442">„Browther“ rekomenduoja peržiūrėti šį plėtinį</translation>
-<translation id="3814674848168165531">Kai svetainė paprašo privačiai iš anksto įkelti nuorodas savo puslapyje, „Browther“ naudoja „Browther“ serverius. Taip slepiama jūsų tapatybė nuo iš anksto įkeltos svetainės, bet „Browther“ sužino, kokios svetainės įkeliamos iš anksto.</translation>
+<translation id="7264054672589027446">„Browther“ rekomenduoja peržiūrėti šį plėtinį</translation>
+<translation id="7848219163187166649">Kai svetainė paprašo privačiai iš anksto įkelti nuorodas savo puslapyje, „Browther“ naudoja „Browther“ serverius. Taip slepiama jūsų tapatybė nuo iš anksto įkeltos svetainės, bet „Browther“ sužino, kokios svetainės įkeliamos iš anksto.</translation>
 <translation id="1065672644894730302">Jūsų nuostatų negalima nuskaityti.
 
 Kai kurios funkcijos gali būti nepasiekiamos ir nuostatų pakeitimai nebus išsaugoti.</translation>
-<translation id="7577672138294294152">Vienas iš tėvų išjungė svetainių, programų ir plėtinių leidimus sistemoje „Browther“</translation>
-<translation id="5918095577778020936">„Browther“ nori eksportuoti jūsų slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
+<translation id="8837164267124113709">Vienas iš tėvų išjungė svetainių, programų ir plėtinių leidimus sistemoje „Browther“</translation>
+<translation id="881513728707488138">„Browther“ nori eksportuoti jūsų slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
 <translation id="112640046208448578">Nustatykite daiktus ar vietas ir kopijuokite arba verskite tekstą. Kai naudojate vaizdų paiešką, puslapio ekrano kopija siunčiama į serverį. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">„Browther“ yra numatytoji naršyklė</translation>
-<translation id="8522292744959221145">Jei norite patikrinti, ar slaptažodžiai apsaugoti nuo duomenų saugos pažeidimų bei kitų saugos problemų, <ph name="BEGIN_LINK"/>prisijunkite prie „Browther“<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Spustelėkite „Browther“ meniu</translation>
+<translation id="8280092658684559253">„Browther“ yra numatytoji naršyklė</translation>
+<translation id="6580138787163923852">Jei norite patikrinti, ar slaptažodžiai apsaugoti nuo duomenų saugos pažeidimų bei kitų saugos problemų, <ph name="BEGIN_LINK"/>prisijunkite prie „Browther“<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Spustelėkite „Browther“ meniu</translation>
 <translation id="1157985233335035034">Naujausios kalbos</translation>
-<translation id="7813580490378477695">„<ph name="PARTNER_NAME"/>“ pridėjo plėtinį, kuris gali pakeisti, kaip veikia „Browther“.
+<translation id="3673786631598474384">„<ph name="PARTNER_NAME"/>“ pridėjo plėtinį, kuris gali pakeisti, kaip veikia „Browther“.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Įdiegti nepavyko, nes jūsų „Windows“ versija nepalaikoma.</translation>
-<translation id="8541922081612557424">Apie „Browther“</translation>
+<translation id="8291401179516272335">Apie „Browther“</translation>
 <translation id="1203500561924088507">Dėkojame už diegimą. Turite iš naujo paleisti naršyklę, prieš naudodami „<ph name="BUNDLE_NAME"/>“.</translation>
 <translation id="1232234696885483911">Kai atidarysite vaizdų paiešką, puslapio pavadinimas, URL ir turinys, įskaitant PDF failus, bus automatiškai siunčiami į serverį. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Prisijungus galima naudoti slaptažodžius ir daugiau iš „Browther“ paskyros „Browther“ įrenginyje. Jei norite tai pakeisti, eikite į skiltį „Jūsų paskyra sistemoje „Browther“.</translation>
-<translation id="8799570501820813406">Kol šis skirtukas buvo neaktyvus, atmintis buvo atlaisvinta, kad „Browther“ veiktų sparčiai. Galite pasirinkti visada išskirti šią svetainę, kad būtų aktyvi.</translation>
-<translation id="8767381092474532098">„Browther“ užblokavo šį atsisiuntimą, nes failas pavojingas</translation>
-<translation id="3256289531845594061">Prisijungdami prie „Browther“ paslaugų, pvz., „Gmail“ ar „YouTube“, naudodami <ph name="USER_EMAIL"/>, galite automatiškai prisijungti prie „Browther“ naudodami tą pačią paskyrą</translation>
+<translation id="3496831315930641015">Prisijungus galima naudoti slaptažodžius ir daugiau iš „Browther“ paskyros „Browther“ įrenginyje. Jei norite tai pakeisti, eikite į skiltį „Jūsų paskyra sistemoje „Browther“.</translation>
+<translation id="9034321258761608912">Kol šis skirtukas buvo neaktyvus, atmintis buvo atlaisvinta, kad „Browther“ veiktų sparčiai. Galite pasirinkti visada išskirti šią svetainę, kad būtų aktyvi.</translation>
+<translation id="249571811018731941">„Browther“ užblokavo šį atsisiuntimą, nes failas pavojingas</translation>
+<translation id="8850227089720975601">Prisijungdami prie „Browther“ paslaugų, pvz., „Gmail“ ar „YouTube“, naudodami <ph name="USER_EMAIL"/>, galite automatiškai prisijungti prie „Browther“ naudodami tą pačią paskyrą</translation>
 <translation id="1290883685122687410">Sąrankos klaida: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Nustatykite naują „Browther“ profilį</translation>
-<translation id="878572309106296578">„Browther“ reikalinga „Bluetooth“ prieiga, kad galėtų naršyti 
+<translation id="6235774143043174856">Nustatykite naują „Browther“ profilį</translation>
+<translation id="4437862975743821367">„Browther“ reikalinga „Bluetooth“ prieiga, kad galėtų naršyti 
  „Bluetooth“ įrenginius. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Aptikti kalbą</translation>
-<translation id="6204677860546245308">Naudoti „Browther“ rekomenduojamus naršyklės nustatymus</translation>
-<translation id="108284536240904209">Taip pat ištrinti duomenis iš „Browther“ (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Naudoti „Browther“ rekomenduojamus naršyklės nustatymus</translation>
+<translation id="8270483548049772782">Taip pat ištrinti duomenis iš „Browther“ (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Prisegta! Galite vėl pasiekti vaizdų paiešką naudodami naują įrankių juostos mygtuką</translation>
 <translation id="1356661055722410047">Naujiena! Galite versti ir tekstą, ir vaizdus ekrane</translation>
 <translation id="1383876407941801731">Ieškoti</translation>
-<translation id="7009295044271335553">&amp;Tvarkyti „Browther“ profilius</translation>
+<translation id="1592588950737518481">&amp;Tvarkyti „Browther“ profilius</translation>
 <translation id="1404026649028693342">Visada rodyti DI režimą</translation>
 <translation id="141901961143729572">Pasidalykite mintimis</translation>
-<translation id="3880714039086599943">Jei norite bendrinti langą, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą.</translation>
-<translation id="1586284627848250203">Gauti pagalbos dėl „Browther for Testing“</translation>
+<translation id="1743952081001089298">Jei norite bendrinti langą, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą.</translation>
+<translation id="8627385813382688019">Gauti pagalbos dėl „Browther for Testing“</translation>
 <translation id="1497802159252041924">Diegimo klaida: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Šis puslapis apsaugotas</translation>
-<translation id="5147525139567260139">„Browther“ skirtuko bendrinimas</translation>
-<translation id="721261350616678948">Prisijungti prie „Browther“</translation>
+<translation id="7252430412915798987">„Browther“ skirtuko bendrinimas</translation>
+<translation id="6388429281015199562">Prisijungti prie „Browther“</translation>
 <translation id="1547469039832541117">Baigiama paryškinta užduotis.</translation>
-<translation id="1530633922026945685">„Browther“ reikia leidimo naudoti fotoaparatą jūsų aplinkos 3D žemėlapiui kurti</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Šis plėtinys nebepalaikomas. „Browther“ rekomenduoja jį pašalinti.}one{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}few{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}many{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}other{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}}</translation>
-<translation id="51545890371361355">Prisegti „Browther“</translation>
-<translation id="6570689355868013775">„Browther“ saugos įrankiai</translation>
-<translation id="1902837727299679178">„Browther“ nori ištrinti jūsų Slaptažodžių tvarkyklės duomenis. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
-<translation id="4449148723378534338">Peržiūrėkite pagrindinius privatumo ir saugos valdiklius naršyklėje „Browther“</translation>
+<translation id="1801944307203212016">„Browther“ reikia leidimo naudoti fotoaparatą jūsų aplinkos 3D žemėlapiui kurti</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Šis plėtinys nebepalaikomas. „Browther“ rekomenduoja jį pašalinti.}one{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}few{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}many{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}other{Šie plėtiniai nebepalaikomi. „Browther“ rekomenduoja juos pašalinti}}</translation>
+<translation id="4667068923142532753">Prisegti „Browther“</translation>
+<translation id="3006560544901646947">„Browther“ saugos įrankiai</translation>
+<translation id="686052171138185761">„Browther“ nori ištrinti jūsų Slaptažodžių tvarkyklės duomenis. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
+<translation id="8713026329083542796">Peržiūrėkite pagrindinius privatumo ir saugos valdiklius naršyklėje „Browther“</translation>
 <translation id="1640672724030957280">Atsisiunčiama...</translation>
 <translation id="1680687534629375545">Klausti vaizdų paieškos apie šį puslapį</translation>
 <translation id="1709772298389099340">Suteikia „<ph name="BROWSER_NAME"/>“ aukštesnio lygio privilegijas.</translation>
-<translation id="2913217021115517297">Kad padėtų tobulinti šias funkcijas, „Browther“ siunčia jūsų sąveikas su jomis sistemai „Browther“. Šiuos duomenis gali skaityti, apdoroti ir komentuoti tikrinantys žmonės.</translation>
+<translation id="4243382967656566037">Kad padėtų tobulinti šias funkcijas, „Browther“ siunčia jūsų sąveikas su jomis sistemai „Browther“. Šiuos duomenis gali skaityti, apdoroti ir komentuoti tikrinantys žmonės.</translation>
 <translation id="1722488837206509557">Galėsite pasirinkti iš pasiekiamų įrenginių ir pateikti turinį juose.</translation>
-<translation id="8004287232784878841">„Browther“ netrukus ištrins naršymo duomenis</translation>
-<translation id="4197839351786449392">„Browther“ bandys naujovinti naršymą į HTTPS</translation>
-<translation id="7814200940910057384">Išvalyti „Browther“ duomenys</translation>
-<translation id="9048361966237194186">„Browther“ bus paleista iš naujo po <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">Kai HTTPS nepasiekiamas, „Browther“ naudos nesaugų ryšį be perspėjimo</translation>
-<translation id="6797402139308059782">Paleisti „Browther“ fone</translation>
-<translation id="5875673934455379806">Iš naujo įdiegti „Browther“</translation>
-<translation id="4529028207655448215">„Browther“ bando <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Kitą kartą atidarius „Browther“ įrenginyje „<ph name="DEVICE_TYPE"/>“, bus pateiktas raginimas naudoti „Browther“ slaptažodžių tvarkyklę.</translation>
+<translation id="6820510278633522408">„Browther“ netrukus ištrins naršymo duomenis</translation>
+<translation id="7775028004939172516">„Browther“ bandys naujovinti naršymą į HTTPS</translation>
+<translation id="6963959729951758069">Išvalyti „Browther“ duomenys</translation>
+<translation id="4085139922884095932">„Browther“ bus paleista iš naujo po <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">Kai HTTPS nepasiekiamas, „Browther“ naudos nesaugų ryšį be perspėjimo</translation>
+<translation id="3975328336074677101">Paleisti „Browther“ fone</translation>
+<translation id="2497443204974841650">Iš naujo įdiegti „Browther“</translation>
+<translation id="1724309687045787742">„Browther“ bando <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Kitą kartą atidarius „Browther“ įrenginyje „<ph name="DEVICE_TYPE"/>“, bus pateiktas raginimas naudoti „Browther“ slaptažodžių tvarkyklę.</translation>
 <translation id="1838374766361614909">Išvalyti paiešką</translation>
-<translation id="3541642064306182066">Norėdami ištrinti naršymo duomenis tik iš šio įrenginio ir palikti juos „Browther“ paskyroje, <ph name="BEGIN_LINK"/>atsijunkite nuo „Browther“<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Atsisiųskite „Browther“ į telefoną, kad galėtumėte atidaryti arba kurti naujas skirtukų grupes keliaudami.</translation>
-<translation id="4559627161887338743">Galite tvarkyti „Browther“ paskyras, prie kurių prisijungiate. Jūsų „Browther“ paskyros naudojamos naršyklei „Browther“, „Play“ parduotuvei, „Gmail“ ir kt. Jei norite kam nors pridėti paskyrą, pvz., šeimos grupės nariui, pridėkite naują asmenį prie „<ph name="DEVICE_TYPE"/>“ įrenginio. <ph name="LINK_BEGIN"/>Sužinokite daugiau<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">Norėdami ištrinti naršymo duomenis tik iš šio įrenginio ir palikti juos „Browther“ paskyroje, <ph name="BEGIN_LINK"/>atsijunkite nuo „Browther“<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Atsisiųskite „Browther“ į telefoną, kad galėtumėte atidaryti arba kurti naujas skirtukų grupes keliaudami.</translation>
+<translation id="2063443520349987970">Galite tvarkyti „Browther“ paskyras, prie kurių prisijungiate. Jūsų „Browther“ paskyros naudojamos naršyklei „Browther“, „Play“ parduotuvei, „Gmail“ ir kt. Jei norite kam nors pridėti paskyrą, pvz., šeimos grupės nariui, pridėkite naują asmenį prie „<ph name="DEVICE_TYPE"/>“ įrenginio. <ph name="LINK_BEGIN"/>Sužinokite daugiau<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Paieška naudojant vaizdų paiešką</translation>
 <translation id="1880677175115548835">Pasirinkti tekstą</translation>
-<translation id="4528406859989804913">Prisijungiate su valdoma paskyra ir leidžiate jos administratoriui valdyti jūsų „Browther“ profilį. „Browther“ duomenys, pvz., programos, žymės, istorija, slaptažodžiai ir kiti nustatymai, bus visam laikui susieti su <ph name="USER_NAME"/>. Galėsite ištrinti šiuos duomenis naudodami „Browther“ paskyrų informacijos suvestinę, bet negalėsite susieti šių duomenų su kita paskyra. Galite pasirinktinai sukurti naują profilį, kad esami „Browther“ duomenys būtų saugomi atskirai. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">„Browther“ taupo akumuliatoriaus energiją, apribodama veiklą fone ir vaizdo efektus, pvz., tolygų slinkimą ir vaizdo įrašų kadrų dažnį. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie Energijos taupymo priemonę<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Prisijungiate su valdoma paskyra ir leidžiate jos administratoriui valdyti jūsų „Browther“ profilį. „Browther“ duomenys, pvz., programos, žymės, istorija, slaptažodžiai ir kiti nustatymai, bus visam laikui susieti su <ph name="USER_NAME"/>. Galėsite ištrinti šiuos duomenis naudodami „Browther“ paskyrų informacijos suvestinę, bet negalėsite susieti šių duomenų su kita paskyra. Galite pasirinktinai sukurti naują profilį, kad esami „Browther“ duomenys būtų saugomi atskirai. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">„Browther“ taupo akumuliatoriaus energiją, apribodama veiklą fone ir vaizdo efektus, pvz., tolygų slinkimą ir vaizdo įrašų kadrų dažnį. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie Energijos taupymo priemonę<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Paklauskite apie šį puslapį</translation>
-<translation id="8643267611122541711">„Browther“ naujinimo priemonės paslauga</translation>
-<translation id="1649714546770135458">Jei išjungsite šį nustatymą, prie „Browther“ svetainių galėsite prisijungti kaip prie „Gmail“ neprisijungę prie „Browther“</translation>
-<translation id="189297655255130768">„Browther“ neatsako. Paleisti iš naujo dabar?</translation>
-<translation id="8422047647688939115">Jūsų organizacija (<ph name="MANAGER"/>) reikalauja prisijungti prie „Browther“</translation>
+<translation id="9128006428501241840">„Browther“ naujinimo priemonės paslauga</translation>
+<translation id="6302815314157879372">Jei išjungsite šį nustatymą, prie „Browther“ svetainių galėsite prisijungti kaip prie „Gmail“ neprisijungę prie „Browther“</translation>
+<translation id="1063611196035804685">„Browther“ neatsako. Paleisti iš naujo dabar?</translation>
+<translation id="2873360330889594383">Jūsų organizacija (<ph name="MANAGER"/>) reikalauja prisijungti prie „Browther“</translation>
 <translation id="4035053306113201399">Kad būtų galima pritaikyti naujinį, „Browther“ OS reikia paleisti iš naujo.</translation>
-<translation id="9048754176089806686">„Browther“ užblokavo šį atsisiuntimą, nes šio tipo failas nėra dažnai atsisiunčiamas ir jis gali būti pavojingas</translation>
+<translation id="2861285003831382718">„Browther“ užblokavo šį atsisiuntimą, nes šio tipo failas nėra dažnai atsisiunčiamas ir jis gali būti pavojingas</translation>
 <translation id="1953553007165777902">Atsisiunčiama... Liko <ph name="MINUTE"/> min.</translation>
-<translation id="2470048290583727811">„Browther“ patarimas: išsaugokite slaptažodžius</translation>
-<translation id="1775322105159056176">„Browther“ nepavyko aptikti arba nustatyti numatytosios naršyklės</translation>
-<translation id="4372901050442507812">Sužinokite, kodėl „Browther“ blokuoja kai kuriuos failus (atidaroma naujame skirtuke)</translation>
-<translation id="2703425183860615504">Nuolat naujina „Browther“ programinę įrangą. Išjungus arba sustabdžius šią programą „Browther“ programinė įranga nebus naujinama. Tai reiškia, kad gali nepavykti pašalinti galimų saugos pažeidimų ir funkcijos gali neveikti. Ši programa pasišalina pati, kai „Browther“ programinė įranga jos nenaudoja.</translation>
-<translation id="9220324636239049437">Atlikus šį veiksmą iš šio įrenginio bus ištrintas 1 elementas. Jei vėliau norėsite gauti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
+<translation id="2080160985220483492">„Browther“ patarimas: išsaugokite slaptažodžius</translation>
+<translation id="8037497710694492565">„Browther“ nepavyko aptikti arba nustatyti numatytosios naršyklės</translation>
+<translation id="7395009124247513849">Sužinokite, kodėl „Browther“ blokuoja kai kuriuos failus (atidaroma naujame skirtuke)</translation>
+<translation id="762710512520170632">Nuolat naujina „Browther“ programinę įrangą. Išjungus arba sustabdžius šią programą „Browther“ programinė įranga nebus naujinama. Tai reiškia, kad gali nepavykti pašalinti galimų saugos pažeidimų ir funkcijos gali neveikti. Ši programa pasišalina pati, kai „Browther“ programinė įranga jos nenaudoja.</translation>
+<translation id="5793588180426267429">Atlikus šį veiksmą iš šio įrenginio bus ištrintas 1 elementas. Jei vėliau norėsite gauti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
 <translation id="2018879682492276940">Nepavyko įdiegti. Bandykite dar kartą.</translation>
-<translation id="831418749472885028">Jei norite patikrinti, ar kiti slaptažodžiai apsaugoti nuo duomenų saugos pažeidimų bei kitų saugos problemų, <ph name="BEGIN_LINK"/>prisijunkite prie „Browther“<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Jei norite patikrinti, ar kiti slaptažodžiai apsaugoti nuo duomenų saugos pažeidimų bei kitų saugos problemų, <ph name="BEGIN_LINK"/>prisijunkite prie „Browther“<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Nustatymai.</translation>
-<translation id="5499149312981370855">Pasirinkite, ar įtraukti „Browther“ istoriją, kad būtų teikiamos labiau suasmenintos funkcijos „Browther“ paslaugose</translation>
-<translation id="6959434860418352144">Spustelėkite mygtuką „Tinkinti „Browther“ naujo skirtuko puslapyje, kad suteiktumėte „Browther“ naują išvaizdą</translation>
+<translation id="8194525816714210105">Pasirinkite, ar įtraukti „Browther“ istoriją, kad būtų teikiamos labiau suasmenintos funkcijos „Browther“ paslaugose</translation>
+<translation id="5909559127548969159">Spustelėkite mygtuką „Tinkinti „Browther“ naujo skirtuko puslapyje, kad suteiktumėte „Browther“ naują išvaizdą</translation>
 <translation id="2066690553719545730">Visada rodyti DI režimą</translation>
-<translation id="2472891440303445472">„Browther“ užblokavo šį atsisiuntimą, nes failas yra klaidinantis ir gali atlikti nenumatytų pakeitimų įrenginyje</translation>
-<translation id="2054358978145431867">Kitą kartą atidarius „Browther iOS“ bus pateiktas raginimas išbandyti „<ph name="FEATURE_NAME"/>“.</translation>
-<translation id="2726948994393234543">Slaptažodžiai ir kiti „Browther“ duomenys, kuriuos išsaugojote „Browther“ paskyroje, bus pašalinti iš šio įrenginio. Jei norite juos vėl naudoti „Browther“, vėl prisijunkite.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama vieną minutę. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}one{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minutę. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}few{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minutes. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}many{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minutės. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}other{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minučių. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}}</translation>
+<translation id="3283892260110318935">„Browther“ užblokavo šį atsisiuntimą, nes failas yra klaidinantis ir gali atlikti nenumatytų pakeitimų įrenginyje</translation>
+<translation id="6160571936643742128">Kitą kartą atidarius „Browther iOS“ bus pateiktas raginimas išbandyti „<ph name="FEATURE_NAME"/>“.</translation>
+<translation id="8380517409933452343">Slaptažodžiai ir kiti „Browther“ duomenys, kuriuos išsaugojote „Browther“ paskyroje, bus pašalinti iš šio įrenginio. Jei norite juos vėl naudoti „Browther“, vėl prisijunkite.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama vieną minutę. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}one{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minutę. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}few{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minutes. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}many{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minutės. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}other{Jūsų organizacija automatiškai ištrina naršymo duomenis, kai „Browther“ nenaudojama # minučių. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai. Skirtukai liks atidaryti.}}</translation>
 <translation id="2126108037660393668">Nepavyko patvirtinti atsisiųsto failo.</translation>
 <translation id="2135919691573380097">Pranešimas apie šią svetainę</translation>
 <translation id="2137162749895930932">Uždaryti vertimo ekraną</translation>
-<translation id="5789330946301045610">„Browther“ užblokavo šį atsisiuntimą, nes svetainėje nenaudojamas saugus ryšys ir failas gali būti sugadintas</translation>
+<translation id="4283559398694996391">„Browther“ užblokavo šį atsisiuntimą, nes svetainėje nenaudojamas saugus ryšys ir failas gali būti sugadintas</translation>
 <translation id="2170098639895543546">Pasirinkite bet ką puslapyje</translation>
-<translation id="142389341645668510">Tinkinti „Browther“</translation>
+<translation id="2495182092286337191">Tinkinti „Browther“</translation>
 <translation id="2174917724755363426">Diegimas nebaigtas. Ar tikrai norite atšaukti?</translation>
-<translation id="8745514854244955877">„Browther“ – prisijungimas prie tinklo – „<ph name="PAGE_TITLE"/>“</translation>
+<translation id="4877141231724140862">„Browther“ – prisijungimas prie tinklo – „<ph name="PAGE_TITLE"/>“</translation>
 <translation id="2190166659037789668">Naujinio patikros klaida: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Pašalinti paskyrą iš „Browther“</translation>
-<translation id="5550942974310218641">Būkite saugesni keliaudami įjungę Sustiprintą saugų naršymą „iOS“ skirtoje „Browther“</translation>
-<translation id="6677253423995557759">Pavojinga svetainė. „Browther“ pašalino pranešimus.</translation>
+<translation id="6696114732806961952">Pašalinti paskyrą iš „Browther“</translation>
+<translation id="1084363153644366288">Būkite saugesni keliaudami įjungę Sustiprintą saugų naršymą „iOS“ skirtoje „Browther“</translation>
+<translation id="7949164640723239455">Pavojinga svetainė. „Browther“ pašalino pranešimus.</translation>
 <translation id="2236949375853147973">Mano veikla</translation>
-<translation id="457168681575748148">Jei norite pasiekti adresus ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“. Šis adresas bus išsaugotas jūsų „Browther“ paskyroje, kai prisijungsite.</translation>
-<translation id="5659384504794665581">Jei bendrinate kompiuterį, šeimos nariai ir draugai gali naršyti atskirai ir nustatyti „Browther“ pagal savo poreikius.</translation>
+<translation id="4536403809133456417">Jei norite pasiekti adresus ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“. Šis adresas bus išsaugotas jūsų „Browther“ paskyroje, kai prisijungsite.</translation>
+<translation id="5627930103267312171">Jei bendrinate kompiuterį, šeimos nariai ir draugai gali naršyti atskirai ir nustatyti „Browther“ pagal savo poreikius.</translation>
 <translation id="2283803047247799269">Ieškoti šiame skirtuke naudojant vaizdų paiešką</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{„Browther“ rekomenduoja pristabdyti skirtuką, kuris lėtina naršyklę}one{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}few{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}many{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}other{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{„Browther“ rekomenduoja pristabdyti skirtuką, kuris lėtina naršyklę}one{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}few{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}many{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}other{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}}</translation>
 <translation id="2307973900865360088">Palikti doke</translation>
-<translation id="7810992039564280750">Tikrinami URL pagal nesaugių svetainių sąrašą, saugomą naršyklėje „Browther“. Jei svetainė bando pavogti slaptažodį ar atsisiuntėte žalingą failą, „Browther“ taip pat gali siųsti URL, įskaitant puslapio turinio dalis, Saugaus naršymo funkcijai.</translation>
-<translation id="5042718521573656164">Atlikus šį veiksmą bus:
+<translation id="5161617112768367959">Tikrinami URL pagal nesaugių svetainių sąrašą, saugomą naršyklėje „Browther“. Jei svetainė bando pavogti slaptažodį ar atsisiuntėte žalingą failą, „Browther“ taip pat gali siųsti URL, įskaitant puslapio turinio dalis, Saugaus naršymo funkcijai.</translation>
+<translation id="4123094831918713833">Atlikus šį veiksmą bus:
         <ph name="LINE_BREAKS"/>
           • iš naujo nustatyti kai kurie „Browther“ nustatymai ir „Browther“ spartieji klavišai;
           <ph name="LINE_BREAK"/>
@@ -125,633 +125,633 @@ Kai kurios funkcijos gali būti nepasiekiamos ir nuostatų pakeitimai nebus išs
           • ištrinti slapukai ir kiti laikini svetainės duomenys.
           <ph name="LINE_BREAKS"/>
           Tai neturės įtakos žymėms, istorijai ir išsaugotiems slaptažodžiams.</translation>
-<translation id="9095263438435683933">Jei norite iš čia į „Android“ telefoną išsiųsti numerį, prisijunkite prie „Browther“ abiejuose įrenginiuose.</translation>
+<translation id="5456070119344236353">Jei norite iš čia į „Android“ telefoną išsiųsti numerį, prisijunkite prie „Browther“ abiejuose įrenginiuose.</translation>
 <translation id="2356070529366658676">Paklausti</translation>
 <translation id="2359808026110333948">Tęskite</translation>
-<translation id="6485997157403727556">Norint naudoti plėtinį „<ph name="EXTENSION_NAME"/>“, reikia prisijungti prie „Browther“</translation>
-<translation id="7017760840808989683">„Browther“ vykdymo fone programose išjungimas</translation>
-<translation id="8491912023989916905">Jei norite naudoti šį plėtinį kaip <ph name="USER_EMAIL_ADDRESS"/>, prisijunkite prie „Browther“.</translation>
+<translation id="6468415397021485143">Norint naudoti plėtinį „<ph name="EXTENSION_NAME"/>“, reikia prisijungti prie „Browther“</translation>
+<translation id="2558600429878197587">„Browther“ vykdymo fone programose išjungimas</translation>
+<translation id="5295781918312989856">Jei norite naudoti šį plėtinį kaip <ph name="USER_EMAIL_ADDRESS"/>, prisijunkite prie „Browther“.</translation>
 <translation id="8418845734693287262">„Browther“ OS nepavyko sinchronizuoti duomenų, nes išsami paskyros prisijungimo informacija pasenusi.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Vienas ŽSĮ įrenginys buvo pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}=1{Vienas ŽSĮ įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}one{# ŽSĮ įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}few{# ŽSĮ įrenginiai pasiekiami naudojant vieną ar daugiau „Browther“ plėtinių}many{# ŽSĮ įrenginio pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}other{# ŽSĮ įrenginių pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}}</translation>
-<translation id="1248225940185478633">„Browther“ reikalingi fotoaparato ir mikrofono leidimai šioje svetainėje</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Vienas ŽSĮ įrenginys buvo pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}=1{Vienas ŽSĮ įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}one{# ŽSĮ įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}few{# ŽSĮ įrenginiai pasiekiami naudojant vieną ar daugiau „Browther“ plėtinių}many{# ŽSĮ įrenginio pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}other{# ŽSĮ įrenginių pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}}</translation>
+<translation id="434258293817844111">„Browther“ reikalingi fotoaparato ir mikrofono leidimai šioje svetainėje</translation>
 <translation id="2403703063067034158">Paleisties klaida: šiuo metu vykdoma kita sąrankos kopija. Vėliau bandykite dar kartą.</translation>
-<translation id="5298352791080868905">Atidarykite nuorodas naršyklėje „Browther“ iš bet kurios programos ir palikite ją pasiekiamą užduočių juostoje</translation>
-<translation id="2118275934191847461">Naudodami <ph name="BEGIN_LINK"/>„Browther“ įrankius<ph name="END_LINK"/> galite saugiai naršyti ir valdyti situaciją</translation>
+<translation id="5458993228789433099">Atidarykite nuorodas naršyklėje „Browther“ iš bet kurios programos ir palikite ją pasiekiamą užduočių juostoje</translation>
+<translation id="1677640217693742525">Naudodami <ph name="BEGIN_LINK"/>„Browther“ įrankius<ph name="END_LINK"/> galite saugiai naršyti ir valdyti situaciją</translation>
 <translation id="2451727308784734061">Naudodami šaukinį galite greitai pasiekti Slaptažodžių tvarkyklę. Šaukinį galite perkelti į kompiuterio pagrindinį ekraną ar programų paleidimo priemonę.</translation>
-<translation id="6381750314821942592">„Browther“ netrukus bus uždaryta</translation>
-<translation id="6078442581074612226">Naudojant „Browther“</translation>
+<translation id="2280315911954332435">„Browther“ netrukus bus uždaryta</translation>
+<translation id="6410820860979094113">Naudojant „Browther“</translation>
 <translation id="2485422356828889247">Pašalinti</translation>
 <translation id="2513154137948333830">Būtina paleisti iš naujo: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Pasirinkite tekstą naudodami vaizdų paiešką</translation>
-<translation id="70183448213529602">„Browther“ bando pakeisti esamus slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
-<translation id="7798069806040634998">„Browther“ reikia prieigos prie saugyklos, kad būtų galima atsisiųsti failus</translation>
-<translation id="2351700486811407088">„Browther Origin“ pagalbos priemonė</translation>
+<translation id="7892218991241200190">„Browther“ bando pakeisti esamus slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
+<translation id="8976443723926188033">„Browther“ reikia prieigos prie saugyklos, kad būtų galima atsisiųsti failus</translation>
+<translation id="4131374838781785973">„Browther Origin“ pagalbos priemonė</translation>
 <translation id="2575822587468774919">Pasirinkite bet ką, ko norite ieškoti naudodami vaizdų paiešką</translation>
-<translation id="3830890663494219270">Jei norite pasiekti slaptažodžius ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“</translation>
-<translation id="6252796827759111076">Toliau naudoti „Browther“</translation>
+<translation id="8705561858232289221">Jei norite pasiekti slaptažodžius ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“</translation>
+<translation id="437162022240011372">Toliau naudoti „Browther“</translation>
 <translation id="259935314519650377">Nepavyko talpykloje išsaugoti atsisiųstos diegimo programos. Klaida: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Sistema</translation>
-<translation id="7931230852267968641">Organizacija gali peržiūrėti ir tvarkyti naršymo duomenis, pvz., žymes, istoriją ir slaptažodžius. Ji negali peržiūrėti naršymo duomenų kituose „Browther“ profiliuose</translation>
-<translation id="2257221826278123061">Patvirtinkite savo tapatybę, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis paskyroje <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="7387051847644272380">Diegiant įvyko operacinės sistemos klaida. Atsisiųskite „Browther“ dar kartą.</translation>
-<translation id="2648689842065142443">Jei bendrinate įrenginį, šeimos nariai ir draugai gali naršyti atskirai ir nustatyti „Browther“ pagal savo poreikius</translation>
-<translation id="6791166902140255175">„Browther“ skirtukas</translation>
-<translation id="8372880274820509128">Kad būtų papildomai užtikrintas saugumas, „Browther“ užšifruos jūsų duomenis.</translation>
-<translation id="8752006915531191162">Jei norite pašalinti „Browther“ paskyrą iš „Browther“, atsijunkite</translation>
-<translation id="5344406739101555055">Jei norite pasiekti slaptažodžius, žymes ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“</translation>
+<translation id="2907676829052962091">Organizacija gali peržiūrėti ir tvarkyti naršymo duomenis, pvz., žymes, istoriją ir slaptažodžius. Ji negali peržiūrėti naršymo duomenų kituose „Browther“ profiliuose</translation>
+<translation id="1289116577679005654">Patvirtinkite savo tapatybę, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis paskyroje <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="7192278346779151664">Diegiant įvyko operacinės sistemos klaida. Atsisiųskite „Browther“ dar kartą.</translation>
+<translation id="7724398260867885339">Jei bendrinate įrenginį, šeimos nariai ir draugai gali naršyti atskirai ir nustatyti „Browther“ pagal savo poreikius</translation>
+<translation id="1679595317134614424">„Browther“ skirtukas</translation>
+<translation id="7189168846924379421">Kad būtų papildomai užtikrintas saugumas, „Browther“ užšifruos jūsų duomenis.</translation>
+<translation id="4052643592793184278">Jei norite pašalinti „Browther“ paskyrą iš „Browther“, atsijunkite</translation>
+<translation id="7694616023994438906">Jei norite pasiekti slaptažodžius, žymes ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“</translation>
 <translation id="2738871930057338499">Nepavyko prisijungti prie interneto. HTTP 403 uždrausta. Patikrinkite tarpinio serverio konfigūraciją.</translation>
 <translation id="2753623023919742414">Spustelėkite, jei norite ieškoti</translation>
-<translation id="1312769823139326127">Nustatyti „Browther“ kaip numatytąją PDF failų žiūryklę</translation>
-<translation id="3173824377856109157">„Browther“ gali automatiškai užpildyti sudėtingus laukus, kurių standartinė automatinio pildymo funkcija gali nepastebėti</translation>
-<translation id="1187986649024576560">Šiame plėtinyje yra kenkėjiškų programų ir jis nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų pakeisti jūsų duomenų svetainėse, kuriose lankotės, įskaitant jūsų asmens informaciją.</translation>
+<translation id="9078193405195503710">Nustatyti „Browther“ kaip numatytąją PDF failų žiūryklę</translation>
+<translation id="2456995288904753506">„Browther“ gali automatiškai užpildyti sudėtingus laukus, kurių standartinė automatinio pildymo funkcija gali nepastebėti</translation>
+<translation id="3271730304285122987">Šiame plėtinyje yra kenkėjiškų programų ir jis nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų pakeisti jūsų duomenų svetainėse, kuriose lankotės, įskaitant jūsų asmens informaciją.</translation>
 <translation id="2799223571221894425">Paleisti iš naujo</translation>
-<translation id="5962774139606909656">Jūsų „Browther“</translation>
+<translation id="1427337251963884503">Jūsų „Browther“</translation>
 <translation id="2816462166102338036">Ieškoti šiame vaizdo įraše naudojant vaizdų paiešką</translation>
 <translation id="2841525013647267359">Versti iš</translation>
 <translation id="2846251086934905009">Diegimo klaida: diegimo programa neužbaigta. Diegimas nutrauktas.</translation>
-<translation id="777113543093865885">Pašalinti iš „Browther“...</translation>
-<translation id="5265419033369521352">Apsaugo jus naršyklėje „Browther“ ir gali būti naudojama apsaugai kitose „Browther“ programose pagerinti, kai esate prisijungę.</translation>
+<translation id="928966105228355994">Pašalinti iš „Browther“...</translation>
+<translation id="587805782197019018">Apsaugo jus naršyklėje „Browther“ ir gali būti naudojama apsaugai kitose „Browther“ programose pagerinti, kai esate prisijungę.</translation>
 <translation id="2885378588091291677">Užduočių tvarkytuvė</translation>
-<translation id="2176825726964012531">Apie &amp;„Browther“</translation>
+<translation id="3055995278166070443">Apie &amp;„Browther“</translation>
 <translation id="2915996080311180594">Paleisti iš naujo vėliau</translation>
 <translation id="2928420929544864228">Diegimas baigtas.</translation>
-<translation id="2481553173340651149">Duomenys užšifruoti naudojant slaptafrazę. Įveskite ją, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje.</translation>
+<translation id="70453521937551896">Duomenys užšifruoti naudojant slaptafrazę. Įveskite ją, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje.</translation>
 <translation id="2945997411976714835">Diegimo klaida: nepavyko pradėti diegimo programos proceso.</translation>
-<translation id="2413255940314578781">Greičiau prisijunkite prie svetainių naudodami „Browther“ išsaugotus slaptažodžius sistemoje „iOS“</translation>
-<translation id="122765104641632123">Pridėkite naują „Browther“ profilį, kad žymės, slaptažodžiai ir nustatymai būtų atskirti.</translation>
-<translation id="3688936822855019158">Jūsų organizacija tvarko „Browther“</translation>
-<translation id="8208853227947884571">„Browther“ naujausios versijos</translation>
-<translation id="5122472867956731189">Jei svetainė bando pavogti slaptažodį ar atsisiuntėte žalingą failą, „Browther“ taip pat gali siųsti URL, įskaitant puslapio turinio dalis, Saugaus naršymo funkcijai</translation>
-<translation id="3963199983793987097">Jei norite būti saugesni internete naudodami vieno iš tėvų pasirinkimus, prisijunkite prie „Browther“</translation>
+<translation id="3188308520233701133">Greičiau prisijunkite prie svetainių naudodami „Browther“ išsaugotus slaptažodžius sistemoje „iOS“</translation>
+<translation id="8145318807880784886">Pridėkite naują „Browther“ profilį, kad žymės, slaptažodžiai ir nustatymai būtų atskirti.</translation>
+<translation id="4330268530227888227">Jūsų organizacija tvarko „Browther“</translation>
+<translation id="6488090896442998436">„Browther“ naujausios versijos</translation>
+<translation id="300557164611864786">Jei svetainė bando pavogti slaptažodį ar atsisiuntėte žalingą failą, „Browther“ taip pat gali siųsti URL, įskaitant puslapio turinio dalis, Saugaus naršymo funkcijai</translation>
+<translation id="2447145782593796785">Jei norite būti saugesni internete naudodami vieno iš tėvų pasirinkimus, prisijunkite prie „Browther“</translation>
 <translation id="3003694935412297923">Visos užduotys</translation>
-<translation id="7611046016537686219">{count,plural, =1{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys (1 elementas) bus ištrinti.}one{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elementas) bus ištrinti.}few{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elementai) bus ištrinti.}many{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elemento) bus ištrinti.}other{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elementų) bus ištrinti.}}</translation>
-<translation id="4202995875619419215">Atidarykite <ph name="URL"/> naujame „Browther“ skirtuke.</translation>
-<translation id="8755404239607088219">„Browther“ negali patikrinti jūsų slaptažodžių. Vėliau bandykite dar kartą.</translation>
-<translation id="8880183781256147665">Pridedama prie „Browther“...</translation>
+<translation id="7554113777150891030">{count,plural, =1{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys (1 elementas) bus ištrinti.}one{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elementas) bus ištrinti.}few{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elementai) bus ištrinti.}many{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elemento) bus ištrinti.}other{„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei atsijungsite dabar, šie duomenys ({count} elementų) bus ištrinti.}}</translation>
+<translation id="5522228731050510047">Atidarykite <ph name="URL"/> naujame „Browther“ skirtuke.</translation>
+<translation id="6358780591055960280">„Browther“ negali patikrinti jūsų slaptažodžių. Vėliau bandykite dar kartą.</translation>
+<translation id="1386422761453740126">Pridedama prie „Browther“...</translation>
 <translation id="3038232873781883849">Laukiama, kol bus įdiegta...</translation>
 <translation id="3045032126857188731">Vertimo kalba: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Uždaryti atsiliepimo dialogo langą</translation>
-<translation id="4503085212612536713">Kiti „Browther“ profiliai</translation>
-<translation id="7918740962659365265">Padėkite tobulinti „Browther“ siųsdami „Browther“ strigčių ataskaitas ir <ph name="UMA_LINK"/></translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Vienas USB įrenginys buvo pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}=1{Vienas USB įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}one{# USB įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}few{# USB įrenginiai pasiekiami naudojant vieną ar daugiau „Browther“ plėtinių}many{# USB įrenginio pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}other{# USB įrenginių pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}}</translation>
-<translation id="3700405816184340252">„Browther“ istorija</translation>
-<translation id="7365690458036015383">Diegimo programai nepavyko išpakuoti archyvo. Atsisiųskite „Browther“ dar kartą.</translation>
+<translation id="369127628511662602">Kiti „Browther“ profiliai</translation>
+<translation id="2370255879896574713">Padėkite tobulinti „Browther“ siųsdami „Browther“ strigčių ataskaitas ir <ph name="UMA_LINK"/></translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Vienas USB įrenginys buvo pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}=1{Vienas USB įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}one{# USB įrenginys pasiekiamas naudojant vieną ar daugiau „Browther“ plėtinių}few{# USB įrenginiai pasiekiami naudojant vieną ar daugiau „Browther“ plėtinių}many{# USB įrenginio pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}other{# USB įrenginių pasiekiama naudojant vieną ar daugiau „Browther“ plėtinių}}</translation>
+<translation id="2065456480740480340">„Browther“ istorija</translation>
+<translation id="5011660649081947055">Diegimo programai nepavyko išpakuoti archyvo. Atsisiųskite „Browther“ dar kartą.</translation>
 <translation id="310459126943037700">Nepavyko užbaigti užduoties (-čių).</translation>
 <translation id="3104828284009500087">Ieškokite bet ko puslapyje</translation>
-<translation id="6422885447166607802">Užtikrinkite, kad slaptažodžiai, žymės ir istorija būtų tobulai sinchronizuojami įrenginiuose. Lengvai pasiekite žinomas ir mėgstamas funkcijas atnaujinę numatytąją naršyklę į „Browther“.</translation>
-<translation id="8919461291440820124">„Browther“ naudoja jūsų mikrofoną.</translation>
+<translation id="4917564010081457061">Užtikrinkite, kad slaptažodžiai, žymės ir istorija būtų tobulai sinchronizuojami įrenginiuose. Lengvai pasiekite žinomas ir mėgstamas funkcijas atnaujinę numatytąją naršyklę į „Browther“.</translation>
+<translation id="1041472930719344928">„Browther“ naudoja jūsų mikrofoną.</translation>
 <translation id="3130333203120345554">Nauja paieška</translation>
 <translation id="3137969841538672700">Nuvilkite, jei norite ieškoti</translation>
-<translation id="8372436892102763334">Šiam skirtukui naudojami papildomi šaltiniai. Kad padidintumėte našumą, leiskite „Browther“ jį padaryti neaktyvų.</translation>
-<translation id="5949068186379578553">Jei norite bendrinti ekraną, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą</translation>
-<translation id="4805806622840861220">Iš naujo paleisti „Browther“</translation>
+<translation id="5312717254055363883">Šiam skirtukui naudojami papildomi šaltiniai. Kad padidintumėte našumą, leiskite „Browther“ jį padaryti neaktyvų.</translation>
+<translation id="373523409348786203">Jei norite bendrinti ekraną, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą</translation>
+<translation id="802113445299754598">Iš naujo paleisti „Browther“</translation>
 <translation id="3161522574479303604">Visos kalbos</translation>
-<translation id="3225882094369124157">Kita kompiuterio programa pridėjo temą, kuri gali pakeisti, kaip veikia „Browther“.
+<translation id="4522189060330781648">Kita kompiuterio programa pridėjo temą, kuri gali pakeisti, kaip veikia „Browther“.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Tinkinkite naująjį „Browther“ profilį</translation>
-<translation id="4805865169608137960">Jei norite pašalinti „Browther“ paskyrą iš „Browther“, atsijunkite nuo „Browther“ puslapyje „Nustatymai“</translation>
-<translation id="1651639704310627074">Vėliau „Browther“ gali paklausti, ar norite naudoti išsaugotą informaciją automatiškai užpildydami formas</translation>
-<translation id="2585240446624043880">„Browther“ negali skaityti ir rašyti į duomenų katalogą:
+<translation id="2604272613984010799">Tinkinkite naująjį „Browther“ profilį</translation>
+<translation id="5150830326120505481">Jei norite pašalinti „Browther“ paskyrą iš „Browther“, atsijunkite nuo „Browther“ puslapyje „Nustatymai“</translation>
+<translation id="7113660200899017820">Vėliau „Browther“ gali paklausti, ar norite naudoti išsaugotą informaciją automatiškai užpildydami formas</translation>
+<translation id="4475011322243623412">„Browther“ negali skaityti ir rašyti į duomenų katalogą:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Paleisti iš naujo dabar</translation>
-<translation id="2339258256897053758">Trūksta „Browther“ API raktų. Bus išjungtos kai kurios „Browther“ funkcijos.</translation>
-<translation id="8926637909431618259">Toliau vykdyti fonines programas, kai „Browther“ uždaroma</translation>
-<translation id="518125528057094977">„Browther“ perspės jus prieš įkeliant bet kokią svetainę, kurioje naudojamas nesaugus ryšys</translation>
-<translation id="8652321858775514885">Būsite atjungti nuo daugelio svetainių, kai uždarysite visus „Browther“ langus, išskyrus „Browther“ paskyrą, jei esate prisijungę prie „Browther“. Jei norite, kad svetainės jus prisimintų, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Numatytasis paieškos variklis buvo pakeistas ne naršyklėje „Browther“. Kad apsaugotų jus, „Browther“ jį nustatė iš naujo.</translation>
-<translation id="5033074923607633232">Prisijunkite prie „Browther“, kad galėtumėte pasiekti slaptažodžius, žymes ir kitas funkcijas visuose įrenginiuose</translation>
+<translation id="3536063527222598206">Trūksta „Browther“ API raktų. Bus išjungtos kai kurios „Browther“ funkcijos.</translation>
+<translation id="1011450868746766298">Toliau vykdyti fonines programas, kai „Browther“ uždaroma</translation>
+<translation id="179611081153855734">„Browther“ perspės jus prieš įkeliant bet kokią svetainę, kurioje naudojamas nesaugus ryšys</translation>
+<translation id="8965591964936552871">Būsite atjungti nuo daugelio svetainių, kai uždarysite visus „Browther“ langus, išskyrus „Browther“ paskyrą, jei esate prisijungę prie „Browther“. Jei norite, kad svetainės jus prisimintų, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Numatytasis paieškos variklis buvo pakeistas ne naršyklėje „Browther“. Kad apsaugotų jus, „Browther“ jį nustatė iš naujo.</translation>
+<translation id="1170501833661894915">Prisijunkite prie „Browther“, kad galėtumėte pasiekti slaptažodžius, žymes ir kitas funkcijas visuose įrenginiuose</translation>
 <translation id="3352986031709923790">viršutinis dešinysis paieškos srities kampas: dešinė – <ph name="RIGHT"/> %, viršus – <ph name="TOP"/> %</translation>
-<translation id="7261356974224431851">„Browther“ duomenys jūsų paskyroje</translation>
+<translation id="120745000989996104">„Browther“ duomenys jūsų paskyroje</translation>
 <translation id="3369405342922656244">Ieškoti šiame puslapyje naudojant vaizdų paiešką</translation>
-<translation id="6610330853796830621">Slaptažodžių naudojimas naršyklėje „Browther“ telefone</translation>
+<translation id="7173761126541905083">Slaptažodžių naudojimas naršyklėje „Browther“ telefone</translation>
 <translation id="2645435784669275700">„Browther“ OS</translation>
-<translation id="2297290224191497273">Perjungti į esamą „Browther“ profilį?</translation>
+<translation id="5266583242423616945">Perjungti į esamą „Browther“ profilį?</translation>
 <translation id="3412460710772753638">Slaptažodžių tvarkyklėje šiame įrenginyje</translation>
-<translation id="2491221873705777076">Sustiprinto saugaus naršymo išplėtimas naudojant „Browther“ telefone</translation>
-<translation id="7304389940068374923">„Browther“ suasmeninimas...</translation>
-<translation id="9216183508558772570">„Browther“ praneš jums, kai prisijungsite naudodami pažeistą slaptažodį</translation>
-<translation id="5853262807109651878">Atlikus šį veiksmą iš šio įrenginio bus ištrinti elementai (<ph name="ITEMS_COUNT"/>). Jei vėliau norėsite gauti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
-<translation id="2024972335338126423">Naudojant spartųjį klavišą <ph name="SHORTCUT"/> galima perjungti „Browther“ profilius</translation>
-<translation id="8703492925273919597">Uždarykite visus „Browther“ langus ir bandykite dar kartą.</translation>
-<translation id="599091950194451698">Jei norite bendrinti langą, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> jau prisijungė.  Jei norite atskirti naršymą, prisijunkite prie „Browther“ savo profilyje kaip <ph name="USER_EMAIL_ADDRESS"/>.</translation>
-<translation id="8981774130895723211">Jei norite bendrinti ekraną, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą.</translation>
+<translation id="4282363917570905631">Sustiprinto saugaus naršymo išplėtimas naudojant „Browther“ telefone</translation>
+<translation id="986094398735583155">„Browther“ suasmeninimas...</translation>
+<translation id="3266047225484320321">„Browther“ praneš jums, kai prisijungsite naudodami pažeistą slaptažodį</translation>
+<translation id="3508047337876211050">Atlikus šį veiksmą iš šio įrenginio bus ištrinti elementai (<ph name="ITEMS_COUNT"/>). Jei vėliau norėsite gauti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
+<translation id="7772248897860792723">Naudojant spartųjį klavišą <ph name="SHORTCUT"/> galima perjungti „Browther“ profilius</translation>
+<translation id="7225005776233199285">Uždarykite visus „Browther“ langus ir bandykite dar kartą.</translation>
+<translation id="5465054931427475969">Jei norite bendrinti langą, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> jau prisijungė.  Jei norite atskirti naršymą, prisijunkite prie „Browther“ savo profilyje kaip <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="8133590217245064579">Jei norite bendrinti ekraną, sistemos nustatymuose leiskite įrašyti „Browther“ ekrano vaizdą.</translation>
 <translation id="3597003331831379823">Nepavyko vykdyti sąrankos su aukštesnio lygio privilegijomis. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Prisijungimas prie „Browther“</translation>
-<translation id="3066805437003400520">Šio asmens naršymo duomenys bus ištrinti iš šio įrenginio. Jei norite atkurti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
-<translation id="7029305463989165490">Jei norite iš <ph name="ORIGIN"/> į „Android“ telefoną išsiųsti numerį, prisijunkite prie „Browther“ abiejuose įrenginiuose.</translation>
+<translation id="611080704131468868">Prisijungimas prie „Browther“</translation>
+<translation id="2492221622209669678">Šio asmens naršymo duomenys bus ištrinti iš šio įrenginio. Jei norite atkurti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
+<translation id="6793778233257855801">Jei norite iš <ph name="ORIGIN"/> į „Android“ telefoną išsiųsti numerį, prisijunkite prie „Browther“ abiejuose įrenginiuose.</translation>
 <translation id="3667616615096815454">Nepavyko įdiegti, nes programa nežinoma serveriui.</translation>
-<translation id="1128485277465085828">Naudokite <ph name="BEGIN_LINK"/>savo slaptafrazę<ph name="END_LINK"/>, kad užšifruotumėte visus „Browther“ duomenis „Browther“ paskyroje. „Google Pay“ mokėjimo metodai ir adresai nebus šifruojami. Naršymo istorija iš „Browther“ nebus sinchronizuojama.</translation>
-<translation id="4304059894777924102">„Browther“ negali patikrinti jūsų slaptažodžių. Pabandykite patikrinti interneto ryšį.</translation>
-<translation id="1807774211756215222">Atidaryti nuorodą naujame „Browther“ &amp;skirtuke</translation>
-<translation id="387105482057676379">Susiekite „Browther“ ir kitas „Browther“ paslaugas, kad būtų galima suasmeninti ir kitais tikslais</translation>
+<translation id="5585500151754164442">Naudokite <ph name="BEGIN_LINK"/>savo slaptafrazę<ph name="END_LINK"/>, kad užšifruotumėte visus „Browther“ duomenis „Browther“ paskyroje. „Google Pay“ mokėjimo metodai ir adresai nebus šifruojami. Naršymo istorija iš „Browther“ nebus sinchronizuojama.</translation>
+<translation id="404323216042159951">„Browther“ negali patikrinti jūsų slaptažodžių. Pabandykite patikrinti interneto ryšį.</translation>
+<translation id="5004936474632127765">Atidaryti nuorodą naujame „Browther“ &amp;skirtuke</translation>
+<translation id="6236643159256182256">Susiekite „Browther“ ir kitas „Browther“ paslaugas, kad būtų galima suasmeninti ir kitais tikslais</translation>
 <translation id="3729187154190517324">Išplėskite paiešką pridėdami kelis skirtukus, failus ir įrankius mygtuku „Pridėti skirtuką ir kt.“</translation>
-<translation id="3867175562099983425">Tvarkyti „Browther“ profilius</translation>
-<translation id="308146532933302843">Sužinokite, kodėl „Browther“ blokuoja kai kuriuos atsisiuntimus</translation>
-<translation id="2189149060536531804">„Browther“ praneš, jei reikės ką nors peržiūrėti</translation>
-<translation id="8422094375343667686">„Browther“ profiliai padeda atskirti skirtingas gyvenimo dalis. Pridėkite naują profilį dabar.</translation>
-<translation id="6324134303015966238">„Browther“ iš anksto įkelia puslapius, kuriuose galite apsilankyti, kad jie būtų sparčiau įkeliami juose lankantis</translation>
+<translation id="1400697664933775238">Tvarkyti „Browther“ profilius</translation>
+<translation id="2461315395128103158">Sužinokite, kodėl „Browther“ blokuoja kai kuriuos atsisiuntimus</translation>
+<translation id="8058420662026104226">„Browther“ praneš, jei reikės ką nors peržiūrėti</translation>
+<translation id="3177448557921912221">„Browther“ profiliai padeda atskirti skirtingas gyvenimo dalis. Pridėkite naują profilį dabar.</translation>
+<translation id="1541177876035612043">„Browther“ iš anksto įkelia puslapius, kuriuose galite apsilankyti, kad jie būtų sparčiau įkeliami juose lankantis</translation>
 <translation id="3810973564298564668">Tvarkyti</translation>
-<translation id="4815742196440583661">Jei norite naudoti išsaugotus slaptažodžius, vadovaukitės QR kodu, atsisiųskite „iOS“ skirtą „Browther“ ir prisijunkite prie „Browther“ paskyros</translation>
-<translation id="6093965249696204223">„Browther“ patarimas: Sustiprintas saugus naršymas</translation>
+<translation id="1117103475254549453">Jei norite naudoti išsaugotus slaptažodžius, vadovaukitės QR kodu, atsisiųskite „iOS“ skirtą „Browther“ ir prisijunkite prie „Browther“ paskyros</translation>
+<translation id="8880695882192156860">„Browther“ patarimas: Sustiprintas saugus naršymas</translation>
 <translation id="3846683726093018685">**Apibendrinkite:** vienu sakiniu, ne ilgesniu nei trisdešimt žodžių, apibūdinkite pagrindinę ekrano kopijos turinio temą ir paskirtį.
 
           **Pasiūlykite klausimų:** sugeneruokite tris–penkis mąstyti skatinančius klausimus, kuriuos naudotojas galėtų užduoti, kad geriau suprastų ekrano kopiją, sąrašą. Šie klausimai turi apimti bent vieną, kuris konkrečiai susijęs su vaizdiniu objektu, jo dizainu ar išdėstymu.</translation>
-<translation id="6899774208752247219">„<ph name="PAGE_TITLE"/>“ – „Browther Origin“</translation>
+<translation id="6004388035596644950">„<ph name="PAGE_TITLE"/>“ – „Browther Origin“</translation>
 <translation id="3885770153807205175">Kalbos rinkiklis</translation>
-<translation id="6315734375101223238">Tinkinkite ir valdykite „Browther“. Reikia atkreipti dėmesį – spustelėkite ir peržiūrėkite išsamią informaciją.</translation>
-<translation id="7130675370997202556">Spustelėkite savo vardą, kad atidarytumėte „Browther“ ir pradėtumėte naršyti.</translation>
+<translation id="4861846616763552424">Tinkinkite ir valdykite „Browther“. Reikia atkreipti dėmesį – spustelėkite ir peržiūrėkite išsamią informaciją.</translation>
+<translation id="6126366281251241386">Spustelėkite savo vardą, kad atidarytumėte „Browther“ ir pradėtumėte naršyti.</translation>
 <translation id="3892148308691398805">Kopijuoti tekstą</translation>
-<translation id="4920958997042285125">Naudotojas (<ph name="EXISTING_USER"/>) jau yra prisijungęs prie šio „Browther“ profilio. Kad naršytumėte atskirai, „Browther“ gali sukurti jums atskirą profilį.</translation>
-<translation id="8744239658215739511">„C&amp;hromium“ tinkinimas</translation>
+<translation id="3760801273210219822">Naudotojas (<ph name="EXISTING_USER"/>) jau yra prisijungęs prie šio „Browther“ profilio. Kad naršytumėte atskirai, „Browther“ gali sukurti jums atskirą profilį.</translation>
+<translation id="3821553157234855663">„C&amp;hromium“ tinkinimas</translation>
 <translation id="3941890832296813527">Diegimo klaida: diegimo programos failo pavadinimas netinkamas arba nepalaikomas.</translation>
-<translation id="8090497651549769448">„Browther“ bando kopijuoti slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
-<translation id="4256965182800026277">Slaptažodžiai, mokėjimo metodai ir adresai, kuriuos išsaugojote „Browther“ paskyroje, bus pašalinti iš šio įrenginio. Jei norite juos vėl naudoti „Browther“, vėl prisijunkite.</translation>
+<translation id="6482299900191767005">„Browther“ bando kopijuoti slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
+<translation id="5853011008278898603">Slaptažodžiai, mokėjimo metodai ir adresai, kuriuos išsaugojote „Browther“ paskyroje, bus pašalinti iš šio įrenginio. Jei norite juos vėl naudoti „Browther“, vėl prisijunkite.</translation>
 <translation id="395904275706073188">Apsaugotų puslapių negalima skaityti. Pabandykite kitą puslapį.</translation>
-<translation id="4194619960643453552">Sužinokite, kaip „Browther“ jus apsaugo</translation>
-<translation id="1486377520191913768">Kai vedate tekstą adreso juostoje ar paieškos laukelyje, „Browther“ siunčia tai, ką įvedate, organizacijos paieškai, DI ir tarpininko įrankiams, kad gautų pasiūlymų.</translation>
-<translation id="1311808042904310985">Apie &amp;„Browther for Testing“</translation>
+<translation id="1832973663231751701">Sužinokite, kaip „Browther“ jus apsaugo</translation>
+<translation id="4531502594774670767">Kai vedate tekstą adreso juostoje ar paieškos laukelyje, „Browther“ siunčia tai, ką įvedate, organizacijos paieškai, DI ir tarpininko įrankiams, kad gautų pasiūlymų.</translation>
+<translation id="300013383485253006">Apie &amp;„Browther for Testing“</translation>
 <translation id="1152920704813762236">Apie „Browther“ OS</translation>
-<translation id="8282895427217902177">Kai apsilankote svetainėje, „Browther“ siunčia klaidinančią URL dalį <ph name="BEGIN_LINK"/>„Browther“ saugaus naršymo funkcijai<ph name="END_LINK"/> per privatumo serverį, slepiantį jūsų IP adresą. Jei svetainė atlieka ką nors įtartino, siunčiami ir visi URL bei puslapio turinio dalys.</translation>
+<translation id="8126752030994997015">Kai apsilankote svetainėje, „Browther“ siunčia klaidinančią URL dalį <ph name="BEGIN_LINK"/>„Browther“ saugaus naršymo funkcijai<ph name="END_LINK"/> per privatumo serverį, slepiantį jūsų IP adresą. Jei svetainė atlieka ką nors įtartino, siunčiami ir visi URL bei puslapio turinio dalys.</translation>
 <translation id="3703994572283698466">„Browther“ OS, kaip ir <ph name="BEGIN_LINK_LINUX_OSS"/>„Linux“ kūrimo aplinka<ph name="END_LINK_LINUX_OSS"/>, pasiekiama naudojant papildomą <ph name="BEGIN_LINK_CROS_OSS"/>atvirojo šaltinio programinę įrangą<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="4022972681110646219">Išversti ekrano turinį</translation>
 <translation id="4023601594785368013">Originali kalba: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Atidarykite nuorodas naršyklėje „Browther“ iš bet kurios programos. Be to, kad būtų lengviau pasiekti, ji prisegama prie užduočių juostos.</translation>
-<translation id="6056473803837713617">Padėkite tobulinti „Browther“ pateikę ataskaitą apie <ph name="BEGIN_LINK"/>dabartinius nustatymus<ph name="END_LINK"/>.</translation>
+<translation id="6450460108719059465">Atidarykite nuorodas naršyklėje „Browther“ iš bet kurios programos. Be to, kad būtų lengviau pasiekti, ji prisegama prie užduočių juostos.</translation>
+<translation id="3437506136408403836">Padėkite tobulinti „Browther“ pateikę ataskaitą apie <ph name="BEGIN_LINK"/>dabartinius nustatymus<ph name="END_LINK"/>.</translation>
 <translation id="4050175100176540509">Naujausios versijos programoje įdiegti svarbūs saugos patobulinimai ir pasiekiamos naujos funkcijos.</translation>
 <translation id="4055805654398742145">Slaptažodžių tvarkyklė</translation>
-<translation id="6654312501894761082">Kita kompiuterio programa pridėjo plėtinį, kuris gali pakeisti, kaip veikia „Browther“.
+<translation id="2164947358785939495">Kita kompiuterio programa pridėjo plėtinį, kuris gali pakeisti, kaip veikia „Browther“.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Organizacija automatiškai uždaro „Browther“, kai nenaudojama vieną minutę. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}one{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutę. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}few{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutes. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}many{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutės. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}other{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minučių. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}}</translation>
-<translation id="5794951150713244901">Eiti į puslapį „Apie „Browther“</translation>
-<translation id="10925962326134232">Tinkinkite „Browther“ ir suteikite naršyklei naują išvaizdą</translation>
-<translation id="6596295505984504022">„C&amp;hromium“ tinkinimas</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Organizacija automatiškai uždaro „Browther“, kai nenaudojama vieną minutę. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}one{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutę. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}few{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutes. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}many{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutės. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}other{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minučių. Naršymo duomenys ištrinami. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.}}</translation>
+<translation id="1535413545339990419">Eiti į puslapį „Apie „Browther“</translation>
+<translation id="692283249649018289">Tinkinkite „Browther“ ir suteikite naršyklei naują išvaizdą</translation>
+<translation id="6375229634133804834">„C&amp;hromium“ tinkinimas</translation>
 <translation id="4148957013307229264">Diegiama...</translation>
-<translation id="4658486203392098459">„<ph name="PAGE_TITLE"/>“ – prisijungimas prie tinklo – „Browther“</translation>
-<translation id="2871190378186459992">Atraskite puikių „Browther“ programų, žaidimų, plėtinių ir temų.</translation>
-<translation id="462105622535258178">Jei norite gauti šį plėtinį ir kt. visuose kompiuteriuose, prisijunkite prie „Browther“</translation>
-<translation id="6670140629169983459">Jei norite būti saugesni internete naudodami vieno iš tėvų pasirinkimus, perjunkite į savo „Browther“ profilį, kuriame jau esate prisijungę kaip <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="2399933334889379115">„<ph name="PAGE_TITLE"/>“ – prisijungimas prie tinklo – „Browther“</translation>
+<translation id="2911246138082876798">Atraskite puikių „Browther“ programų, žaidimų, plėtinių ir temų.</translation>
+<translation id="2528977475313334293">Jei norite gauti šį plėtinį ir kt. visuose kompiuteriuose, prisijunkite prie „Browther“</translation>
+<translation id="8244267655940711467">Jei norite būti saugesni internete naudodami vieno iš tėvų pasirinkimus, perjunkite į savo „Browther“ profilį, kuriame jau esate prisijungę kaip <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="4222932583846282852">Atšaukiama...</translation>
 <translation id="4224210481850767180">Diegimas atšauktas.</translation>
-<translation id="1853997773668795891">Susisieti „Browther“ duomenis su šia paskyra?</translation>
-<translation id="4732930052828648898">Įspėjama apie pavojingas svetaines, net ir apie tas, apie kurias anksčiau „Browther“ nežinojo, analizuojant daugiau duomenų iš svetainių, nei taikant įprastą apsaugą. Galite pasirinkti praleisti „Browther“ įspėjimus.</translation>
-<translation id="2201661640076600072">Atsijungti nuo „Browther“</translation>
-<translation id="3262506503470845422">Gaukite pagalbos dėl „Browther“</translation>
+<translation id="8219359042845534271">Susisieti „Browther“ duomenis su šia paskyra?</translation>
+<translation id="5520777668172961882">Įspėjama apie pavojingas svetaines, net ir apie tas, apie kurias anksčiau „Browther“ nežinojo, analizuojant daugiau duomenų iš svetainių, nei taikant įprastą apsaugą. Galite pasirinkti praleisti „Browther“ įspėjimus.</translation>
+<translation id="2014920019837536689">Atsijungti nuo „Browther“</translation>
+<translation id="4341512411059715879">Gaukite pagalbos dėl „Browther“</translation>
 <translation id="4281844954008187215">Paslaugų teikimo sąlygos</translation>
-<translation id="7691786510374174420">Diegimas nepavyko dėl nežinomos klaidos. Jei šiuo metu veikia „Browther“, uždarykite ir pabandykite iš naujo.</translation>
-<translation id="6368144843345980623">Slaptažodžių eksportavimas iš „Browther“</translation>
+<translation id="322492684764924424">Diegimas nepavyko dėl nežinomos klaidos. Jei šiuo metu veikia „Browther“, uždarykite ir pabandykite iš naujo.</translation>
+<translation id="3813060261346666066">Slaptažodžių eksportavimas iš „Browther“</translation>
 <translation id="4304713468139749426">Slaptažodžių tvarkytuvė</translation>
 <translation id="4334241893986177674">Ieškoti šioje ekrano kopijoje</translation>
 <translation id="4334294535648607276">Atsisiuntimas baigtas.</translation>
-<translation id="242356249838681145">Paleisti „Browther“ paleidus „Windows“</translation>
-<translation id="4747339441562331861">Lengvai pasiekite žinomas, mėgstamas ir patikimas funkcijas nustatę „Browther“ kaip numatytąją naršyklę. „Browther“ bus prisegta prie užduočių juostos, kad galėtumėte greitai ją pasiekti.</translation>
+<translation id="2177954934431828302">Paleisti „Browther“ paleidus „Windows“</translation>
+<translation id="2472318668926455009">Lengvai pasiekite žinomas, mėgstamas ir patikimas funkcijas nustatę „Browther“ kaip numatytąją naršyklę. „Browther“ bus prisegta prie užduočių juostos, kad galėtumėte greitai ją pasiekti.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> reikia, kad prieš naudodami šį įrenginį perskaitytumėte toliau pateiktas paslaugų teikimo sąlygas ir su jomis sutiktumėte. Šios sąlygos neišplečia, nepakeičia ir neapriboja „Browther“ OS sąlygų.</translation>
-<translation id="9183662282810237335">Vis tiek išeiti iš „Browther“?</translation>
+<translation id="2897580280700805340">Vis tiek išeiti iš „Browther“?</translation>
 <translation id="4413205837991854510">Visada rodyti vaizdų paieškos šaukinį</translation>
-<translation id="4065288863231444640">„Browther“ leidimas fone</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{„Browther“ rekomenduoja jį pašalinti. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius<ph name="END_LINK"/>}one{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}few{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}many{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}other{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Tinkinkite ir valdykite „Browther“</translation>
+<translation id="2454897022983434851">„Browther“ leidimas fone</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{„Browther“ rekomenduoja jį pašalinti. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius<ph name="END_LINK"/>}one{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}few{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}many{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}other{„Browther“ rekomenduoja juos pašalinti <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius.<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Tinkinkite ir valdykite „Browther“</translation>
 <translation id="4427306783828095590">Naudojant sustiprintą apsaugą pasitelkiama papildomų priemonių sukčiavimui ir kenkėjiškoms programoms užblokuoti</translation>
 <translation id="4434353761996769206">Diegimo programos klaida: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413">„<ph name="MANAGER"/>“ tvarko „Browther“</translation>
-<translation id="3579012341787637143">Pridėti „Browther“ profilį</translation>
-<translation id="6786534271003695094">Apie „Browther for Testing“</translation>
-<translation id="526235294307144732">Jei norite naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje, įveskite slaptafrazę</translation>
+<translation id="4870160002723711846">„<ph name="MANAGER"/>“ tvarko „Browther“</translation>
+<translation id="4007482010626246887">Pridėti „Browther“ profilį</translation>
+<translation id="6888322430074420631">Apie „Browther for Testing“</translation>
+<translation id="8912436499620582668">Jei norite naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje, įveskite slaptafrazę</translation>
 <translation id="4493028449971051158">Paleisties klaida: diegimo programą paleiskite kaip administratorius.</translation>
 <translation id="4501471624619070934">Diegimas nepavyko, nes šioje šalyje prieiga ribojama.</translation>
-<translation id="8594994021633965927">Šis plėtinys nepaskelbė privatumo praktikos, pvz., kaip renka ir naudoja duomenis. „Browther“ rekomenduoja jį pašalinti.</translation>
-<translation id="770557926599450702">Sveiki, tai – „Browther Origin“; atidarytas naujas naršyklės langas</translation>
-<translation id="137732229629632648">„Browther“ reikia leidimo susieti jūsų aplinką ir stebėti jūsų rankas</translation>
-<translation id="5036046007335188949">Jau esate prisijungę kaip <ph name="USER_EMAIL_ADDRESS"/> kitame „Browther“ profilyje</translation>
-<translation id="1878185978731985193">„Browther“ iš anksto įkelia puslapius, kad būtų galima sparčiau naršyti ir ieškoti. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie išankstinį puslapių įkėlimą<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Šis plėtinys nepaskelbė privatumo praktikos, pvz., kaip renka ir naudoja duomenis. „Browther“ rekomenduoja jį pašalinti.</translation>
+<translation id="8888202093812883067">Sveiki, tai – „Browther Origin“; atidarytas naujas naršyklės langas</translation>
+<translation id="6391148383688605718">„Browther“ reikia leidimo susieti jūsų aplinką ir stebėti jūsų rankas</translation>
+<translation id="7756445485815468244">Jau esate prisijungę kaip <ph name="USER_EMAIL_ADDRESS"/> kitame „Browther“ profilyje</translation>
+<translation id="137435413163730206">„Browther“ iš anksto įkelia puslapius, kad būtų galima sparčiau naršyti ir ieškoti. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie išankstinį puslapių įkėlimą<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Praneškite apie svetainę, kuri, jūsų manymu, yra žalinga, ir padėkite pagerinti visų naudotojų saugą internete.</translation>
-<translation id="8669339108356170796">„Browther“ užblokavo šį atsisiuntimą, nes išjungėte Saugaus naršymo funkciją ir failo nepavyko patvirtinti</translation>
-<translation id="7583343841997441047">Galimybė išbandyti „Google Lens“ naudojant „Browther“ telefone</translation>
+<translation id="3266647901351304597">„Browther“ užblokavo šį atsisiuntimą, nes išjungėte Saugaus naršymo funkciją ir failo nepavyko patvirtinti</translation>
+<translation id="6980208900390333646">Galimybė išbandyti „Google Lens“ naudojant „Browther“ telefone</translation>
 <translation id="4594305310729380060">Slaptažodžių tvarkyklei šiame įrenginyje</translation>
-<translation id="7776200949522126045">„Browther Origin“ programos</translation>
+<translation id="5282047884678321451">„Browther Origin“ programos</translation>
 <translation id="4598116752460667024">Ieškokite bet kurio proceso iš sąrašo.</translation>
 <translation id="4970880042055371251">„Browther“ OS versija</translation>
-<translation id="2182657378556811785">Beveik atnaujinta! Paleiskite „Browther“ iš naujo, kad būtų užbaigtas naujinimas.</translation>
-<translation id="6311668361877328515">Paspartina svetaines naudojant „Browther“ V8 variklį, bet daro „Browther“ šiek tiek mažiau atsparią atakoms</translation>
-<translation id="7402642357351265733">Jei taip pat bendrinate „Browther“ naudojimo ataskaitas, į tas ataskaitas įtraukiami URL, kuriais lankėtės</translation>
-<translation id="8142245354207161805">Atrodo, kad profilį naudoja kitas „Browther“ procesas (<ph name="PROCESS_ID"/>) kitame kompiuteryje (<ph name="HOST_NAME"/>). „Browther“ užrakino profilį, kad jis nebūtų sugadintas. Jei esate tikri, kad jokie kiti procesai nenaudoja šio profilio, galite atrakinti profilį ir iš naujo paleisti „Browther“.</translation>
+<translation id="4482468019601425607">Beveik atnaujinta! Paleiskite „Browther“ iš naujo, kad būtų užbaigtas naujinimas.</translation>
+<translation id="5517890123509214766">Paspartina svetaines naudojant „Browther“ V8 variklį, bet daro „Browther“ šiek tiek mažiau atsparią atakoms</translation>
+<translation id="7690070364551268156">Jei taip pat bendrinate „Browther“ naudojimo ataskaitas, į tas ataskaitas įtraukiami URL, kuriais lankėtės</translation>
+<translation id="5020487088453637212">Atrodo, kad profilį naudoja kitas „Browther“ procesas (<ph name="PROCESS_ID"/>) kitame kompiuteryje (<ph name="HOST_NAME"/>). „Browther“ užrakino profilį, kad jis nebūtų sugadintas. Jei esate tikri, kad jokie kiti procesai nenaudoja šio profilio, galite atrakinti profilį ir iš naujo paleisti „Browther“.</translation>
 <translation id="4680828127924988555">Atšaukti diegimą</translation>
-<translation id="2014343159590733363">Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys bus ištrinti.</translation>
-<translation id="2408746614080689238">Kai esate prisijungę, galite naudoti slaptažodžius ir daugiau iš „Browther“ paskyros „Browther“ įrenginyje. Paspaudę <ph name="SHORTCUT"/> galite pakeisti „Browther“ paslaugų nustatymus.</translation>
-<translation id="847561904663814268">Kažkas anksčiau prisijungė prie „Browther“ šiame kompiuteryje kaip <ph name="ACCOUNT_EMAIL_LAST"/>. Sukurkite naują „Browther“ naudotoją, kad apsaugotumėte savo informaciją.</translation>
+<translation id="8134827615154347946">Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys bus ištrinti.</translation>
+<translation id="3508712423420506333">Kai esate prisijungę, galite naudoti slaptažodžius ir daugiau iš „Browther“ paskyros „Browther“ įrenginyje. Paspaudę <ph name="SHORTCUT"/> galite pakeisti „Browther“ paslaugų nustatymus.</translation>
+<translation id="2388739442635757494">Kažkas anksčiau prisijungė prie „Browther“ šiame kompiuteryje kaip <ph name="ACCOUNT_EMAIL_LAST"/>. Sukurkite naują „Browther“ naudotoją, kad apsaugotumėte savo informaciją.</translation>
 <translation id="4724676981607797757">Įdiegti nepavyko dėl nepalaikomo protokolo klaidos.</translation>
-<translation id="3834935463915107022">Vis tiek išeiti iš „Browther“?</translation>
-<translation id="8668413672647811944">Ką tik pritaikytas specialus „Browther“ skirtas saugos naujinys. Paleiskite naršyklę iš naujo ir atkursime visus skirtukus.</translation>
-<translation id="9029438584415578308">Klausti „Browther“</translation>
-<translation id="4941816441131888792">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> ir dar <ph name="COUNT"/>.</translation>
-<translation id="4823369970559443694">„Browther“ negali patikrinti jūsų slaptažodžių. Bandykite dar kartą po 24 val. arba <ph name="BEGIN_LINK"/>patikrinkite slaptažodžius „Browther“ paskyroje<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Naudojamas tas pats rašybos tikrinimas kaip ir „Browther“ paieškoje. Tekstas, kurį įvedate naršyklėje, nusiunčiamas „Browther“. Šį veikimą visada galite pakeisti nustatymuose.</translation>
-<translation id="2899369907387169108">Naudoti „Browther“ be paskyros</translation>
-<translation id="1833893255023048385">„Browther Origin“ skirta taisyklė, pagal kurią leidžiamas mDNS srautas.</translation>
-<translation id="711601904575862069">Paleisti iš naujo atnaujinant „&amp;Browther“</translation>
+<translation id="8305313684264112434">Vis tiek išeiti iš „Browther“?</translation>
+<translation id="418155915144835101">Ką tik pritaikytas specialus „Browther“ skirtas saugos naujinys. Paleiskite naršyklę iš naujo ir atkursime visus skirtukus.</translation>
+<translation id="2683970367518529374">Klausti „Browther“</translation>
+<translation id="5064473048847774331">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> ir dar <ph name="COUNT"/>.</translation>
+<translation id="5941343075741207533">„Browther“ negali patikrinti jūsų slaptažodžių. Bandykite dar kartą po 24 val. arba <ph name="BEGIN_LINK"/>patikrinkite slaptažodžius „Browther“ paskyroje<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Naudojamas tas pats rašybos tikrinimas kaip ir „Browther“ paieškoje. Tekstas, kurį įvedate naršyklėje, nusiunčiamas „Browther“. Šį veikimą visada galite pakeisti nustatymuose.</translation>
+<translation id="4581078588976787792">Naudoti „Browther“ be paskyros</translation>
+<translation id="3394520491703535051">„Browther Origin“ skirta taisyklė, pagal kurią leidžiamas mDNS srautas.</translation>
+<translation id="6563126962881169552">Paleisti iš naujo atnaujinant „&amp;Browther“</translation>
 <translation id="4918086044614829423">Priimti</translation>
 <translation id="4918844574251943176">Vaizdas nukopijuotas</translation>
-<translation id="8797356639448065696">„Browther“ veikia fono režimu.</translation>
-<translation id="1895567721497166950">Spustelėkite, kad uždarytumėte „Browther“ prisijungimo dialogo langą</translation>
-<translation id="2692971232706994729">Naudodami „Browther“ profilius galite atskirti visus savo „Browther“ duomenis. Sukurkite profilius draugams ir šeimos nariams arba atskirkite darbą ir pramogas.</translation>
-<translation id="7406627712452599344">Svečiai gali naudoti „Browther“ nepalikdami jokių duomenų.</translation>
-<translation id="844471735881341044">Jūsų paskyra naršyklėje „Browther“</translation>
-<translation id="5952898964075639679">Pridėkite save prie „Browther“</translation>
-<translation id="7995865526174204486">„Gemini“ naršyklėje „Browther“ naudoja automatinį naršymą, kad veiktų jūsų skirtukuose ir atliktų jūsų pateiktas užduotis. <ph name="LINK_BEGIN"/>Sužinokite daugiau<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">„Browther“ reikalingas leidimas stebėti jūsų rankas</translation>
-<translation id="5406591571925937375">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">„Browther“ veikia fono režimu.</translation>
+<translation id="3603134280602182991">Spustelėkite, kad uždarytumėte „Browther“ prisijungimo dialogo langą</translation>
+<translation id="6120233890602288442">Naudodami „Browther“ profilius galite atskirti visus savo „Browther“ duomenis. Sukurkite profilius draugams ir šeimos nariams arba atskirkite darbą ir pramogas.</translation>
+<translation id="5722688387568011881">Svečiai gali naudoti „Browther“ nepalikdami jokių duomenų.</translation>
+<translation id="7786958592460743302">Jūsų paskyra naršyklėje „Browther“</translation>
+<translation id="9114640791491590337">Pridėkite save prie „Browther“</translation>
+<translation id="3536391594566515053">„Gemini“ naršyklėje „Browther“ naudoja automatinį naršymą, kad veiktų jūsų skirtukuose ir atliktų jūsų pateiktas užduotis. <ph name="LINK_BEGIN"/>Sužinokite daugiau<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">„Browther“ reikalingas leidimas stebėti jūsų rankas</translation>
+<translation id="1627123463102858476">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Įprastai blokuojate pranešimus. Jei norite leisti šiai svetainei siųsti pranešimus, spustelėkite pranešimo piktogramą vietos juostos dešiniajame kampe.</translation>
 <translation id="5174983315706567306">Nepakanka vietos diske.</translation>
-<translation id="8157129267754368853">Reikia iš naujo autentifikuoti „Browther“ paskyrą</translation>
-<translation id="9078804073692109646">Nėra išsaugotų slaptažodžių. „Browther“ gali tikrinti jūsų slaptažodžius, kai juos išsaugote.</translation>
-<translation id="6234515504547364178">Atsijungimas nuo „Browther“</translation>
+<translation id="7091313576354542088">Reikia iš naujo autentifikuoti „Browther“ paskyrą</translation>
+<translation id="9045390598305758496">Nėra išsaugotų slaptažodžių. „Browther“ gali tikrinti jūsų slaptažodžius, kai juos išsaugote.</translation>
+<translation id="5686724084351858452">Atsijungimas nuo „Browther“</translation>
 <translation id="5234764350956374838">Atsisakyti</translation>
 <translation id="5254739261293693943">Klausti apie šį vaizdo įrašą</translation>
-<translation id="8586264863973514035">Norėdami pritaikyti pakeitimus, paleiskite „Browther“ iš naujo</translation>
+<translation id="8165028066129227692">Norėdami pritaikyti pakeitimus, paleiskite „Browther“ iš naujo</translation>
 <translation id="5286907366254680517">Aptikta</translation>
-<translation id="7264453786974905915">Gauti „Browther“ programą</translation>
-<translation id="6944930779012811739">„Browther“ naujinimo priemonės vidinė paslauga</translation>
+<translation id="198210130507193824">Gauti „Browther“ programą</translation>
+<translation id="8472078903122489041">„Browther“ naujinimo priemonės vidinė paslauga</translation>
 <translation id="5346389065299425353">Išplėskite paiešką pridėdami kelis skirtukus, failus ir įrankius</translation>
-<translation id="7573068992266397941">„Browther“ rado kelias saugos rekomendacijas, kurias reikia peržiūrėti</translation>
-<translation id="8174413867995118050">Kiti „Browther“ profiliai</translation>
-<translation id="7708394612738038097">Prisijungiate su valdoma paskyra ir leidžiate jos administratoriui valdyti jūsų „Browther“ profilį. „Browther“ duomenys, pvz., programos, žymės, istorija, slaptažodžiai ir kiti nustatymai, bus visam laikui susieti su <ph name="USER_NAME"/>. Galėsite ištrinti šiuos duomenis naudodami „Browther“ paskyrų informacijos suvestinę, bet negalėsite susieti šių duomenų su kita paskyra. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">„Browther“ rado kelias saugos rekomendacijas, kurias reikia peržiūrėti</translation>
+<translation id="509616246140011182">Kiti „Browther“ profiliai</translation>
+<translation id="8214429210535362385">Prisijungiate su valdoma paskyra ir leidžiate jos administratoriui valdyti jūsų „Browther“ profilį. „Browther“ duomenys, pvz., programos, žymės, istorija, slaptažodžiai ir kiti nustatymai, bus visam laikui susieti su <ph name="USER_NAME"/>. Galėsite ištrinti šiuos duomenis naudodami „Browther“ paskyrų informacijos suvestinę, bet negalėsite susieti šių duomenų su kita paskyra. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Papildomas kodas: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Jei norite naudoti suasmeninimo funkciją, įtraukite „Browther“ į Žiniatinklio ir programų veiklą</translation>
-<translation id="5154625106151193600">Sužinokite, kodėl „Browther“ blokuoja kai kuriuos failus</translation>
-<translation id="1786715389543715322">Atnaujinama „Browther“ (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Leisti „Browther“ prisijungti</translation>
-<translation id="5267531627648004734">Pašalinti iš „Browther“</translation>
-<translation id="4620757336635063467">Sumažinamas našumas, bet „Browther“ tampa atsparesnė atakoms</translation>
-<translation id="239760341987199724">Nustatyti „Browther“ kaip numatytąją naršyklę</translation>
-<translation id="5165277482382778404">„<ph name="PAGE_TITLE"/>“ – „Browther Origin Beta“</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{„Browther“ rekomenduoja pristabdyti skirtuką, kuris lėtina naršyklę}one{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}few{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}many{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}other{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}}</translation>
-<translation id="894936507076470937">„Browther“ gali tinkamai neveikti, nes ji nebepalaikoma naudojant šią „Linux“ versiją</translation>
-<translation id="2596557398669145729">„Browther“ užblokavo šį atsisiuntimą, nes failas gali pakenkti asmeninėms ir socialinių tinklų paskyroms</translation>
-<translation id="696826782632239602">„Browther“ reikia leidimo, kad galėtų naudoti jūsų vietovės informaciją ir bendrinti ją su šia svetaine</translation>
-<translation id="1744365871163268756">Palaukite, kol „Browther“ įdiegs naujausius sistemos naujinius.</translation>
-<translation id="3861679447659630159">„Browther“ bando redaguoti slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
+<translation id="5244017809112094908">Jei norite naudoti suasmeninimo funkciją, įtraukite „Browther“ į Žiniatinklio ir programų veiklą</translation>
+<translation id="8096544113811780871">Sužinokite, kodėl „Browther“ blokuoja kai kuriuos failus</translation>
+<translation id="2384387444932590174">Atnaujinama „Browther“ (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Leisti „Browther“ prisijungti</translation>
+<translation id="6557334704331248411">Pašalinti iš „Browther“</translation>
+<translation id="5832041381258620673">Sumažinamas našumas, bet „Browther“ tampa atsparesnė atakoms</translation>
+<translation id="3763317028635993788">Nustatyti „Browther“ kaip numatytąją naršyklę</translation>
+<translation id="862357563072119126">„<ph name="PAGE_TITLE"/>“ – „Browther Origin Beta“</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{„Browther“ rekomenduoja pristabdyti skirtuką, kuris lėtina naršyklę}one{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}few{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}many{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}other{„Browther“ rekomenduoja pristabdyti skirtukus, kurie lėtina naršyklę}}</translation>
+<translation id="4423621904097888155">„Browther“ gali tinkamai neveikti, nes ji nebepalaikoma naudojant šią „Linux“ versiją</translation>
+<translation id="6201726364919996698">„Browther“ užblokavo šį atsisiuntimą, nes failas gali pakenkti asmeninėms ir socialinių tinklų paskyroms</translation>
+<translation id="7679204468655335605">„Browther“ reikia leidimo, kad galėtų naudoti jūsų vietovės informaciją ir bendrinti ją su šia svetaine</translation>
+<translation id="1163572992704966942">Palaukite, kol „Browther“ įdiegs naujausius sistemos naujinius.</translation>
+<translation id="5050118226119231029">„Browther“ bando redaguoti slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
 <translation id="5524890928877629608">viršutinis kairysis paieškos srities kampas: kairė – <ph name="LEFT"/> %, viršus – <ph name="TOP"/> %</translation>
-<translation id="232381795826373334">Atidaryti PDF failus naudojant „Browther“</translation>
+<translation id="5875549039106594731">Atidaryti PDF failus naudojant „Browther“</translation>
 <translation id="5536164441519929134">Klauskite<ph name="LINE_BREAK"/>apie šį skirtuką</translation>
 <translation id="5579324208890605088">Paleisties klaida: diegimo programą paleiskite kaip įprastas naudotojas, o ne administratorius.</translation>
-<translation id="3588973534877826647">„Browther“ naudojimas pagal numatytuosius nustatymus ir jos prisegimas</translation>
+<translation id="202315329304302571">„Browther“ naudojimas pagal numatytuosius nustatymus ir jos prisegimas</translation>
 <translation id="5596627076506792578">Daugiau parinkčių</translation>
 <translation id="5605834417512968703">Pasirinkite bet ką, ko norite ieškoti naudodami vaizdų paiešką, arba paspauskite „Escape“, kad išeitumėte iš vaizdų paieškos</translation>
 <translation id="5618818588972826921">Pasirinkite bet kokį tekstą arba vaizdą, kad galėtumėte ieškoti naudodami vaizdų paiešką, arba paspauskite „Escape“, kad išeitumėte iš vaizdų paieškos</translation>
-<translation id="1026406809507858026">{0,plural, =0{Pasiekiamas „Browther“ naujinys}=1{Pasiekiamas „Browther“ naujinys}one{„Browther“ naujinys pasiekiamas # dieną}few{„Browther“ naujinys pasiekiamas # dienas}many{„Browther“ naujinys pasiekiamas # dienos}other{„Browther“ naujinys pasiekiamas # dienų}}</translation>
-<translation id="1023472437588692618">Visada ištrinti svetainių duomenis iš įrenginio uždarius „Browther“</translation>
-<translation id="5646769069113654257">Dabar iš naujo paleiskite „Browther“</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Pateikti „Browther“ šia kalba</translation>
+<translation id="5823076755666406442">{0,plural, =0{Pasiekiamas „Browther“ naujinys}=1{Pasiekiamas „Browther“ naujinys}one{„Browther“ naujinys pasiekiamas # dieną}few{„Browther“ naujinys pasiekiamas # dienas}many{„Browther“ naujinys pasiekiamas # dienos}other{„Browther“ naujinys pasiekiamas # dienų}}</translation>
+<translation id="8414129876440043675">Visada ištrinti svetainių duomenis iš įrenginio uždarius „Browther“</translation>
+<translation id="5156991567152325333">Dabar iš naujo paleiskite „Browther“</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Pateikti „Browther“ šia kalba</translation>
 <translation id="569897634095159764">Nepavyko prisijungti prie interneto. Reikalingas tarpinio serverio autentifikavimas.</translation>
-<translation id="3364613146104156465">„Browther“ profiliai leidžia atskirti asmeninį naršymą ir darbą. Pridėkite naują profilį dabar.</translation>
-<translation id="1834213228893578875">„Browther“ atlaisvina atminties iš neaktyvių skirtukų. Taip aktyviems skirtukams ir kitoms programoms suteikiama daugiau kompiuterio išteklių ir „Browther“ veikia sparčiai. Neaktyvūs skirtukai automatiškai vėl tampa aktyvūs, kai grįžtate į juos. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie Atminties taupymo priemonę<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">Jei pamiršote slaptafrazę ar norite pakeisti šį nustatymą, <ph name="SETTINGS_LINK"/> „Browther“ duomenis paskyroje.</translation>
-<translation id="82926023981336111">Tinkinkite ir valdykite „Browther“. Nustatykite „Browther“ kaip numatytąją naršyklę.</translation>
+<translation id="4215338057953170891">„Browther“ profiliai leidžia atskirti asmeninį naršymą ir darbą. Pridėkite naują profilį dabar.</translation>
+<translation id="5366435608642317052">„Browther“ atlaisvina atminties iš neaktyvių skirtukų. Taip aktyviems skirtukams ir kitoms programoms suteikiama daugiau kompiuterio išteklių ir „Browther“ veikia sparčiai. Neaktyvūs skirtukai automatiškai vėl tampa aktyvūs, kai grįžtate į juos. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie Atminties taupymo priemonę<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">Jei pamiršote slaptafrazę ar norite pakeisti šį nustatymą, <ph name="SETTINGS_LINK"/> „Browther“ duomenis paskyroje.</translation>
+<translation id="7763291835437810978">Tinkinkite ir valdykite „Browther“. Nustatykite „Browther“ kaip numatytąją naršyklę.</translation>
 <translation id="5809516625706423866">Nepavyko prisijungti prie interneto. HTTP 401 nesuteikta prieigos teisė. Patikrinkite tarpinio serverio konfigūraciją.</translation>
-<translation id="95980832839683236">Paspartina svetaines naudojant „Browther“ V8 variklį, bet daro „Browther“ šiek tiek mažiau atsparią atakoms. Šis nustatymas išjungtas.</translation>
-<translation id="1224606669200461217">Jei norite naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje, atnaujinkite „Browther“</translation>
+<translation id="1827132270895283425">Paspartina svetaines naudojant „Browther“ V8 variklį, bet daro „Browther“ šiek tiek mažiau atsparią atakoms. Šis nustatymas išjungtas.</translation>
+<translation id="1553025851718680114">Jei norite naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje, atnaujinkite „Browther“</translation>
 <translation id="5824893331272123205">Nepavyko įkelti šio skydelio, bandykite dar kartą</translation>
-<translation id="4467664627714200493">Sveiki, tai „Browther Origin“</translation>
+<translation id="6642862349634944253">Sveiki, tai „Browther Origin“</translation>
 <translation id="5871205389137001634">Spustelėkite, kad išeitumėte iš vaizdų paieškos</translation>
-<translation id="8054200348483755053">„Browther“ aptiko kenkėjišką programą šiuose elementuose:</translation>
-<translation id="3955583201925082436">„Browther“ reguliariai tikrina, ar naršyklės nustatymai yra saugiausi. Pranešime, jei reikės ką nors peržiūrėti.</translation>
+<translation id="7586794330537887406">„Browther“ aptiko kenkėjišką programą šiuose elementuose:</translation>
+<translation id="1666897346518812892">„Browther“ reguliariai tikrina, ar naršyklės nustatymai yra saugiausi. Pranešime, jei reikės ką nors peržiūrėti.</translation>
 <translation id="5895138241574237353">Paleisti iš naujo</translation>
 <translation id="5903106910045431592">„<ph name="PAGE_TITLE"/>“ – prisijungimas prie tinklo</translation>
 <translation id="5924017743176219022">Prisijungiama prie interneto...</translation>
 <translation id="5941711191222866238">Sumažinti</translation>
-<translation id="5768962901674164501">Jei norite pasiekti šią žymę ir kt. visuose įrenginiuose, prisijunkite prie „Browther“</translation>
-<translation id="5101892358689285100">„Browther“ suasmeninimas</translation>
+<translation id="4938357262936377412">Jei norite pasiekti šią žymę ir kt. visuose įrenginiuose, prisijunkite prie „Browther“</translation>
+<translation id="260974496993853147">„Browther“ suasmeninimas</translation>
 <translation id="5960071705175224773">Nustatymus pakeitė nežinoma programa</translation>
 <translation id="5968400720580217226">DI režimas</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Organizacija automatiškai uždaro „Browther“, kai nenaudojama vieną minutę.}one{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutę.}few{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutes.}many{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutės.}other{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minučių.}}</translation>
-<translation id="3598551856834560515">Atnaujinkite „Browther“, kad galėtumėte pradėti sinchronizuoti</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Organizacija automatiškai uždaro „Browther“, kai nenaudojama vieną minutę.}one{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutę.}few{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutes.}many{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minutės.}other{Organizacija automatiškai uždaro „Browther“, kai nenaudojama # minučių.}}</translation>
+<translation id="5852664780493076676">Atnaujinkite „Browther“, kad galėtumėte pradėti sinchronizuoti</translation>
 <translation id="6003112304606738118">Atsisiunčiama… Liko <ph name="HOURS"/> val.</translation>
 <translation id="6009821354356307391">Pateikti papildomą paieškos užklausą</translation>
 <translation id="6040143037577758943">Uždaryti</translation>
-<translation id="700488072601322385">Kad apsaugotumėte duomenis, leiskite „Browther“ pašalinti svetainių, kuriose pastaruoju metu nesilankėte, leidimus. Pranešimai nesustabdomi.</translation>
-<translation id="9071554113102421877">&amp;Atidaryti naudojant „Browther“</translation>
+<translation id="2495504229007749358">Kad apsaugotumėte duomenis, leiskite „Browther“ pašalinti svetainių, kuriose pastaruoju metu nesilankėte, leidimus. Pranešimai nesustabdomi.</translation>
+<translation id="6038969823662006832">&amp;Atidaryti naudojant „Browther“</translation>
 <translation id="6069027071882229820">Kopijuoti kaip vaizdą</translation>
-<translation id="7861579472672677409">„<ph name="EXTENSION_NAME"/>“ pridėtas prie „Browther“</translation>
-<translation id="5849446944780602366">Tinkinkite ir valdykite „Browther“. Pasiekiamas naujinys.</translation>
-<translation id="5711722515923392428">Įjungta • „Browther“ nepavyko patvirtinti, iš kur gaunamas šis plėtinys</translation>
-<translation id="6355366566986893068">Jūsų paskyra naršyklėje „Browther“</translation>
-<translation id="7433698744896946664">Leisti plėtiniui rodyti prieigos užklausas „Browther“ įrankių juostoje</translation>
-<translation id="4168372721886011198">Failas „<ph name="FILE_NAME"/>“ pavojingas, todėl „Browther“ jį užblokavo.</translation>
-<translation id="991182453936521413">„Browther“ netrukus bus uždaryta ir ištrins duomenis</translation>
-<translation id="4060970194201477024">Čia galite perjungti „Browther“ profilius</translation>
-<translation id="7815000350132166985">Jei leisite slapukus, „Browther“ gali naudoti juos iš anksto įkeldama puslapius</translation>
+<translation id="6606690217326148454">„<ph name="EXTENSION_NAME"/>“ pridėtas prie „Browther“</translation>
+<translation id="6037324269860323082">Tinkinkite ir valdykite „Browther“. Pasiekiamas naujinys.</translation>
+<translation id="3695768481578778794">Įjungta • „Browther“ nepavyko patvirtinti, iš kur gaunamas šis plėtinys</translation>
+<translation id="4401885752362736126">Jūsų paskyra naršyklėje „Browther“</translation>
+<translation id="4310817187912076496">Leisti plėtiniui rodyti prieigos užklausas „Browther“ įrankių juostoje</translation>
+<translation id="4602490888173698813">Failas „<ph name="FILE_NAME"/>“ pavojingas, todėl „Browther“ jį užblokavo.</translation>
+<translation id="5139243417751674628">„Browther“ netrukus bus uždaryta ir ištrins duomenis</translation>
+<translation id="4696750309605389299">Čia galite perjungti „Browther“ profilius</translation>
+<translation id="7475001351099358916">Jei leisite slapukus, „Browther“ gali naudoti juos iš anksto įkeldama puslapius</translation>
 <translation id="6165508094623778733">Sužinokite daugiau</translation>
-<translation id="5739368447874065758">Išvalyti „Browther“ duomenis paskyroje</translation>
-<translation id="6685697979743742605">Šis failas gali būti pavojingas<ph name="LINE_BREAK"/>„Browther“ gali patikrinti šį atsisiuntimą už jus, jei pateiksite slaptažodį. Informacija apie failą siunčiama „Browther“ saugaus naršymo paslaugai, bet failo turinys ir slaptažodis lieka įrenginyje.</translation>
+<translation id="5975099973700540482">Išvalyti „Browther“ duomenis paskyroje</translation>
+<translation id="6800151735486681860">Šis failas gali būti pavojingas<ph name="LINE_BREAK"/>„Browther“ gali patikrinti šį atsisiuntimą už jus, jei pateiksite slaptažodį. Informacija apie failą siunčiama „Browther“ saugaus naršymo paslaugai, bet failo turinys ir slaptažodis lieka įrenginyje.</translation>
 <translation id="6182736845697986886">Įdiegti nepavyko dėl vidinės atnaujinimo serverio klaidos.</translation>
-<translation id="4368341489795135329">Įsitikinkite, kad esate prisijungę prie „Browther“ naudodami „<ph name="TARGET_DEVICE_NAME"/>“, ir bandykite siųsti iš naujo.</translation>
-<translation id="3038354906709778538">Kita kompiuterio programa pridėjo programą, kuri gali pakeisti, kaip veikia „Browther“.
+<translation id="48832130233362517">Įsitikinkite, kad esate prisijungę prie „Browther“ naudodami „<ph name="TARGET_DEVICE_NAME"/>“, ir bandykite siųsti iš naujo.</translation>
+<translation id="8868210753005945522">Kita kompiuterio programa pridėjo programą, kuri gali pakeisti, kaip veikia „Browther“.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Šiame kompiuteryje jau yra naujesnės versijos „Browther“. Jei programinė įranga neveikia, pašalinkite „Browther“ ir bandykite dar kartą.</translation>
-<translation id="3574823187131579180">{0,plural, =0{„Browther“ bus paleista iš naujo dabar}=1{„Browther“ bus paleista iš naujo po 1 sekundės}one{„Browther“ bus paleista iš naujo po # sekundės}few{„Browther“ bus paleista iš naujo po # sekundžių}many{„Browther“ bus paleista iš naujo po # sekundės}other{„Browther“ bus paleista iš naujo po # sekundžių}}</translation>
+<translation id="2779436101182061679">Šiame kompiuteryje jau yra naujesnės versijos „Browther“. Jei programinė įranga neveikia, pašalinkite „Browther“ ir bandykite dar kartą.</translation>
+<translation id="9222998061982994203">{0,plural, =0{„Browther“ bus paleista iš naujo dabar}=1{„Browther“ bus paleista iš naujo po 1 sekundės}one{„Browther“ bus paleista iš naujo po # sekundės}few{„Browther“ bus paleista iš naujo po # sekundžių}many{„Browther“ bus paleista iš naujo po # sekundės}other{„Browther“ bus paleista iš naujo po # sekundžių}}</translation>
 <translation id="6239161312595354541">Klausti vaizdų paieškos apie šį vaizdo įrašą</translation>
-<translation id="5980269616827212166">„Browther“ reikia prieigos prie saugyklos, kad būtų galima atsisiųsti failus</translation>
-<translation id="7651600795135059130">Tikrinami URL pagal nesaugių svetainių sąrašą, saugomą naršyklėje „Browther“</translation>
-<translation id="5019879183386042809">Padaryti „Browther“ numatytąja naršykle</translation>
-<translation id="7445061995866044926">Atsijungti nuo „Browther“?</translation>
-<translation id="4659866260728515512">Šie skirtukai naudoja papildomus šaltinius. Kad padidintumėte našumą, leiskite „Browther“ juos padaryti neaktyvius.</translation>
-<translation id="6806912298071949921">Tinkinti „Browther“ profilį</translation>
-<translation id="3792238845239580301">Pavadinkite „Browther“ profilį</translation>
-<translation id="5874208157501051620">Norint naudoti plėtinį, reikia prisijungti prie „Browther“</translation>
-<translation id="3561569806301739367">Failas „<ph name="FILE_NAME"/>“ gali būti pavojingas, todėl „Browther“ jį užblokavo.</translation>
-<translation id="3205074487970075628">„Browther“ naudoja jūsų fotoaparatą.</translation>
+<translation id="1755464917870815989">„Browther“ reikia prieigos prie saugyklos, kad būtų galima atsisiųsti failus</translation>
+<translation id="304681001513922736">Tikrinami URL pagal nesaugių svetainių sąrašą, saugomą naršyklėje „Browther“</translation>
+<translation id="7785903492969539081">Padaryti „Browther“ numatytąja naršykle</translation>
+<translation id="3987833816263696343">Atsijungti nuo „Browther“?</translation>
+<translation id="4723540739671534529">Šie skirtukai naudoja papildomus šaltinius. Kad padidintumėte našumą, leiskite „Browther“ juos padaryti neaktyvius.</translation>
+<translation id="6540151687468239291">Tinkinti „Browther“ profilį</translation>
+<translation id="770793114032605647">Pavadinkite „Browther“ profilį</translation>
+<translation id="385867753870250529">Norint naudoti plėtinį, reikia prisijungti prie „Browther“</translation>
+<translation id="2022337046348377650">Failas „<ph name="FILE_NAME"/>“ gali būti pavojingas, todėl „Browther“ jį užblokavo.</translation>
+<translation id="45270956603278068">„Browther“ naudoja jūsų fotoaparatą.</translation>
 <translation id="6327105987658262776">Naujini nėra.</translation>
-<translation id="1819119299840995223">Vykdoma kita „Browther“ operacija. Vėliau bandykite dar kartą.</translation>
-<translation id="8616874628011103667">Dabar galite lengviau naudoti „Browther“ naudodami „Browther“ paskyrą ir bendrinamus kompiuterius.</translation>
-<translation id="4264606872840545968">„Browther“ spartusis klavišas</translation>
-<translation id="6890616081898535725">„Browther“ užblokavo šį atsisiuntimą, nes failas nėra dažnai atsisiunčiamas ir jis gali būti pavojingas</translation>
-<translation id="335632367599648646">Ar tikrai norite pašalinti „Browther"?</translation>
+<translation id="673633752219771459">Vykdoma kita „Browther“ operacija. Vėliau bandykite dar kartą.</translation>
+<translation id="1482759407165416070">Dabar galite lengviau naudoti „Browther“ naudodami „Browther“ paskyrą ir bendrinamus kompiuterius.</translation>
+<translation id="5538042432112726532">„Browther“ spartusis klavišas</translation>
+<translation id="833085228901080512">„Browther“ užblokavo šį atsisiuntimą, nes failas nėra dažnai atsisiunčiamas ir jis gali būti pavojingas</translation>
+<translation id="491120842288314439">Ar tikrai norite pašalinti „Browther"?</translation>
 <translation id="6375219077595103062">Šaukinio pridėjimas prie Slaptažodžių tvarkyklės</translation>
 <translation id="6388799252195623474">padėkite man tai padaryti</translation>
-<translation id="7920857181125123335">Jei norite tęsti, prisijunkite prie „Browther“ kaip <ph name="EMAIL"/>. Taip užtikrinama, kad būtų laikomasi organizacijos politikos.</translation>
-<translation id="3256100650978957522">„Browther“ logotipas kompiuterio ekrane.</translation>
-<translation id="5880764554173582719">„Browther Origin“ – tai žiniatinklio naršyklė, kurią naudojant akimirksniu paleidžiami tinklalapiai ir programos. Ji greita, stabili ir lengvai naudojama. Saugiau naršykite žiniatinklį naudodami į „Browther Origin“ integruotą apsaugą nuo kenkėjiškų programų ir sukčiavimo.</translation>
-<translation id="2532326772258858491">„Browther“ veikia sparčiau, o „JavaScript“ naudojančios funkcijos turėtų veikti, kaip numatyta (rekomenduojama)</translation>
+<translation id="6715003312952407375">Jei norite tęsti, prisijunkite prie „Browther“ kaip <ph name="EMAIL"/>. Taip užtikrinama, kad būtų laikomasi organizacijos politikos.</translation>
+<translation id="1897845318651970239">„Browther“ logotipas kompiuterio ekrane.</translation>
+<translation id="4702069255970029302">„Browther Origin“ – tai žiniatinklio naršyklė, kurią naudojant akimirksniu paleidžiami tinklalapiai ir programos. Ji greita, stabili ir lengvai naudojama. Saugiau naršykite žiniatinklį naudodami į „Browther Origin“ integruotą apsaugą nuo kenkėjiškų programų ir sukčiavimo.</translation>
+<translation id="5669767676913031391">„Browther“ veikia sparčiau, o „JavaScript“ naudojančios funkcijos turėtų veikti, kaip numatyta (rekomenduojama)</translation>
 <translation id="6436260184216827876">Vaizdų paieška nepasiekiama. Bandykite dar kartą vėliau.</translation>
 <translation id="2139300032719313227">„Browther“ OS paleidimas iš naujo</translation>
-<translation id="638302211119176182">„Browther“ iš anksto įkelia dar daugiau puslapių, kuriuose galite apsilankyti, kad jie būtų sparčiau įkeliami juose lankantis</translation>
-<translation id="7167975344637731051">Atsisiųskite „Browther“ į telefoną, kad galėtumėte stebėti kainas ir gauti įspėjimus, kai kaina sumažės bet kurioje svetainėje</translation>
-<translation id="890319829408077946">Išjungta • „Browther“ nepavyko patvirtinti, iš kur gaunamas šis plėtinys</translation>
-<translation id="1684121725014454063">Sveiki, tai – „Browther“ profiliai</translation>
-<translation id="8211983866539058675">Kitą kartą atidarius „Browther“ įrenginyje „<ph name="DEVICE_TYPE"/>“, bus pateiktas raginimas naudoti skirtukų grupes.</translation>
-<translation id="7906693299331092358">Pašalinti paskyrą iš „Browther“</translation>
+<translation id="6110616900529884221">„Browther“ iš anksto įkelia dar daugiau puslapių, kuriuose galite apsilankyti, kad jie būtų sparčiau įkeliami juose lankantis</translation>
+<translation id="1217194059001819677">Atsisiųskite „Browther“ į telefoną, kad galėtumėte stebėti kainas ir gauti įspėjimus, kai kaina sumažės bet kurioje svetainėje</translation>
+<translation id="7058555680120557198">Išjungta • „Browther“ nepavyko patvirtinti, iš kur gaunamas šis plėtinys</translation>
+<translation id="676533642429632127">Sveiki, tai – „Browther“ profiliai</translation>
+<translation id="5518682889576009702">Kitą kartą atidarius „Browther“ įrenginyje „<ph name="DEVICE_TYPE"/>“, bus pateiktas raginimas naudoti skirtukų grupes.</translation>
+<translation id="6038105561107837619">Pašalinti paskyrą iš „Browther“</translation>
 <translation id="2675662665675552980">Ji taip pat kontroliuoja, koks puslapis rodomas, kai paleidžiate „Browther“.</translation>
 <translation id="648319183876919572">Sustiprinto saugaus naršymo funkcija padeda apsaugoti jus nuo pavojingų svetainių ir atsisiuntimų</translation>
-<translation id="5590013613412457132">Pašalinti „Browther“</translation>
-<translation id="7185585387858242335">Spartieji klavišai atidaromi naršyklėje „Browther“</translation>
-<translation id="3617744907966785605">Organizacija uždaro „Browther“, kai ji nenaudojama <ph name="TIMEOUT_DURATION"/>. Naršymo duomenys ištrinti. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.</translation>
-<translation id="8646609321956191980">Kiekviename profilyje saugoma atskira „Browther“ informacija, pvz., žymės, istorija, slaptažodžiai ir kt.</translation>
-<translation id="6756656512757374876">Sužinokite daugiau, <ph name="BEGIN_LINK"/>kaip „Browther“ užtikrina jūsų duomenų privatumą<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">Šio nustatymo pakeitimai bus pritaikyti iš naujo paleidus „Browther“.</translation>
-<translation id="2535436634051789953">Galite perjungti, kad matytumėte slaptažodžius iš kito „Browther“ profilio</translation>
-<translation id="2312399718665761438">Kad ištaisytų rašybos klaidas, „Browther“ siunčia „Browther“ tekstą, kurį įvedate teksto laukuose</translation>
-<translation id="3507835409099344374">Eiti į „Browther“ pranešimų nustatymus</translation>
+<translation id="2930243146591999795">Pašalinti „Browther“</translation>
+<translation id="5241183382286817629">Spartieji klavišai atidaromi naršyklėje „Browther“</translation>
+<translation id="7907014599435829661">Organizacija uždaro „Browther“, kai ji nenaudojama <ph name="TIMEOUT_DURATION"/>. Naršymo duomenys ištrinti. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.</translation>
+<translation id="2088471423667794811">Kiekviename profilyje saugoma atskira „Browther“ informacija, pvz., žymės, istorija, slaptažodžiai ir kt.</translation>
+<translation id="9040334484455218184">Sužinokite daugiau, <ph name="BEGIN_LINK"/>kaip „Browther“ užtikrina jūsų duomenų privatumą<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">Šio nustatymo pakeitimai bus pritaikyti iš naujo paleidus „Browther“.</translation>
+<translation id="6331317152404762758">Galite perjungti, kad matytumėte slaptažodžius iš kito „Browther“ profilio</translation>
+<translation id="6097706403184348562">Kad ištaisytų rašybos klaidas, „Browther“ siunčia „Browther“ tekstą, kurį įvedate teksto laukuose</translation>
+<translation id="2319647238307402812">Eiti į „Browther“ pranešimų nustatymus</translation>
 <translation id="6600016381025017075">Ieškokite bet ko šiame puslapyje</translation>
-<translation id="9156965752763025780">Pakeitimai įsigalios kitą kartą iš naujo paleidus „Browther“.</translation>
-<translation id="3387992981600748596">„Browther“ dabar paleidžiama paleidus „Windows“, kad galėtumėte iš karto pradėti naršyti. Šią parinktį bet kada galite išjungti skiltyje „Nustatymai“.</translation>
-<translation id="3119017564683030312">Tęskite ten, kur baigėte: „Browther“ atkūrė skirtukus iš paskutinio seanso. Tai galite išjungti skiltyje</translation>
-<translation id="245693535809364497">„Browther“ reikalingas fotoaparato leidimas, kad būtų galima sukurti trimatį aplinkos žemėlapį</translation>
-<translation id="9210457680074341078">Jei taip pat išsaugosite žymes „Browther“ paskyroje, galėsite stebėti produktų kainas naršyklėje „Browther“ ir gauti pranešimą, kai kaina sumažės</translation>
+<translation id="8031938899816118394">Pakeitimai įsigalios kitą kartą iš naujo paleidus „Browther“.</translation>
+<translation id="7412185356697187964">„Browther“ dabar paleidžiama paleidus „Windows“, kad galėtumėte iš karto pradėti naršyti. Šią parinktį bet kada galite išjungti skiltyje „Nustatymai“.</translation>
+<translation id="9123343592576384616">Tęskite ten, kur baigėte: „Browther“ atkūrė skirtukus iš paskutinio seanso. Tai galite išjungti skiltyje</translation>
+<translation id="5847926498049048567">„Browther“ reikalingas fotoaparato leidimas, kad būtų galima sukurti trimatį aplinkos žemėlapį</translation>
+<translation id="5532585028508811858">Jei taip pat išsaugosite žymes „Browther“ paskyroje, galėsite stebėti produktų kainas naršyklėje „Browther“ ir gauti pranešimą, kai kaina sumažės</translation>
 <translation id="6676384891291319759">Interneto prieiga</translation>
 <translation id="1363996462118479832">„Browther“ OS nepavyko sinchronizuoti duomenų, nes prisijungiant įvyko klaida.</translation>
-<translation id="4694512973195649124">Pašalinti šios programos duomenis iš „Browther“</translation>
-<translation id="5324448127277983819">„Browther“ suteikia daugiau galimybių valdyti matomus skelbimus ir apriboja, ką svetainės gali sužinoti apie jus, kai rodo suasmenintus skelbimus</translation>
-<translation id="1257247502847251159">„Browther“ reikalingas mikrofono leidimas šioje svetainėje</translation>
+<translation id="3373239673945775810">Pašalinti šios programos duomenis iš „Browther“</translation>
+<translation id="8122759674786039814">„Browther“ suteikia daugiau galimybių valdyti matomus skelbimus ir apriboja, ką svetainės gali sužinoti apie jus, kai rodo suasmenintus skelbimus</translation>
+<translation id="6277682530398500159">„Browther“ reikalingas mikrofono leidimas šioje svetainėje</translation>
 <translation id="6712881677154121168">Atsisiuntimo klaida: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Jūsų profilis nenaudojamas, nes jis iš naujesnės versijos „Browther“.
+<translation id="2972046656127603037">Jūsų profilis nenaudojamas, nes jis iš naujesnės versijos „Browther“.
 
 Kai kurios funkcijos gali būti nepasiekiamos. Nurodykite kitą profilio katalogą arba naudokite naujesnės versijos „Browther“.</translation>
-<translation id="1505112054322049777">Jei norite naudoti suasmeninimo ir kitas funkcijas, įtraukite „Browther“ į Žiniatinklio ir programų veiklą bei susietas „Browther“ paslaugas</translation>
-<translation id="6666624454809779082">„Browther“ jau įdiegta visiems kompiuterio naudotojams.</translation>
-<translation id="5848830584656405219">Jei norite pasiekti žymes ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“. Ši žymė bus išsaugota jūsų „Browther“ paskyroje, kai prisijungsite.</translation>
-<translation id="4020203987234748583">Paspartina svetaines naudojant „Browther“ V8 variklį, bet daro „Browther“ šiek tiek mažiau atsparią atakoms. Šis nustatymas įjungtas.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys (1 elementas) bus ištrinti.}one{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elementas) bus ištrinti.}few{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elementai) bus ištrinti.}many{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elemento) bus ištrinti.}other{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elementų) bus ištrinti.}}</translation>
-<translation id="3136039682492230890">„Browther“ rekomenduoja nuskaityti šį failą, nes jis gali būti pavojingas.</translation>
+<translation id="871671753163165892">Jei norite naudoti suasmeninimo ir kitas funkcijas, įtraukite „Browther“ į Žiniatinklio ir programų veiklą bei susietas „Browther“ paslaugas</translation>
+<translation id="5000832110229523807">„Browther“ jau įdiegta visiems kompiuterio naudotojams.</translation>
+<translation id="5204575479550973859">Jei norite pasiekti žymes ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“. Ši žymė bus išsaugota jūsų „Browther“ paskyroje, kai prisijungsite.</translation>
+<translation id="2874208284092283937">Paspartina svetaines naudojant „Browther“ V8 variklį, bet daro „Browther“ šiek tiek mažiau atsparią atakoms. Šis nustatymas įjungtas.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys (1 elementas) bus ištrinti.}one{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elementas) bus ištrinti.}few{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elementai) bus ištrinti.}many{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elemento) bus ištrinti.}other{Kai kurie „Browther“ duomenys dar neišsaugoti „Browther“ paskyroje. Pabandykite palaukti kelias minutes prieš atsijungdami. Jei atsijungsite dabar, šie duomenys ({count} elementų) bus ištrinti.}}</translation>
+<translation id="7683816018918395929">„Browther“ rekomenduoja nuskaityti šį failą, nes jis gali būti pavojingas.</translation>
 <translation id="1547295885616600893">„Browther“ OS pasiekiama naudojant papildomą <ph name="BEGIN_LINK_CROS_OSS"/>atvirojo šaltinio programinę įrangą<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="6831043979455480757">Vertėjas</translation>
-<translation id="8211837073776713955">„Browther“ praneš, jei slaptažodžiai bus pažeisti</translation>
+<translation id="2142653375108595728">„Browther“ praneš, jei slaptažodžiai bus pažeisti</translation>
 <translation id="684888714667046800">Nepavyksta prisijungti prie interneto. Jei naudojate užkardą, įsitikinkite, kad „<ph name="PRODUCT_EXE_NAME"/>“ yra leidžiamųjų sąraše.</translation>
-<translation id="7830723774663008396">„Browther“ – „<ph name="PAGE_TITLE"/>“</translation>
+<translation id="7333549743055076502">„Browther“ – „<ph name="PAGE_TITLE"/>“</translation>
 <translation id="6859580922007887573">Jei norite tęsti, paspauskite tabuliavimo klavišą</translation>
 <translation id="6862030660799253820">Ieškoti šio vaizdo naudojant vaizdų paiešką</translation>
-<translation id="3028928628792374067">„Browther“ aptiko kenkėjišką programą plėtinyje „<ph name="EXTENSION_NAME"/>“</translation>
+<translation id="3860339351709082396">„Browther“ aptiko kenkėjišką programą plėtinyje „<ph name="EXTENSION_NAME"/>“</translation>
 <translation id="6877155553248388166">apatinis dešinysis paieškos srities kampas: dešinė – <ph name="RIGHT"/> %, apačia – <ph name="BOTTOM"/> %</translation>
 <translation id="6896758677409633944">Kopijuoti</translation>
-<translation id="862687584320433626">Nustatykite „Browther“ kaip numatytąją naršyklę ir prisekite ją prie užduočių juostos</translation>
-<translation id="1991562568473125499">&amp;Tvarkyti „Browther“ profilius</translation>
+<translation id="7804113502310231166">Nustatykite „Browther“ kaip numatytąją naršyklę ir prisekite ją prie užduočių juostos</translation>
+<translation id="3228374215117173004">&amp;Tvarkyti „Browther“ profilius</translation>
 <translation id="6934579572334859869">Klausti vaizdų paieškos apie šį vaizdą</translation>
-<translation id="5529781826378237601">Pasiekėte „Browther“ žymių apribojimą (<ph name="BOOKMARK_LIMIT"/>), todėl kai kurios žymės dar neišsaugotos „Browther“ paskyroje.
+<translation id="5995328366516663808">Pasiekėte „Browther“ žymių apribojimą (<ph name="BOOKMARK_LIMIT"/>), todėl kai kurios žymės dar neišsaugotos „Browther“ paskyroje.
 
 Naujų žymių negalima išsaugoti paskyroje, kol ištrinsite kai kurias žymes. Jei atsijungsite dabar, neišsaugotos žymės bus ištrintos.</translation>
 <translation id="6965382102122355670">Gerai</translation>
-<translation id="6418340404893954563">Nesudėtingus slaptažodžius lengva atspėti. Leiskite „Browther“ <ph name="BEGIN_LINK"/>jums sukurti ir įsiminti sudėtingus slaptažodžius<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Nesudėtingus slaptažodžius lengva atspėti. Leiskite „Browther“ <ph name="BEGIN_LINK"/>jums sukurti ir įsiminti sudėtingus slaptažodžius<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">„Browther“ OS sąlygos</translation>
-<translation id="3335606533094650083">„Browther“ reikia leidimo, kad galėtų naudoti mikrofoną šioje svetainėje</translation>
-<translation id="6643520655691573653">Įveskite slaptafrazę, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis paskyroje <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="5379058926689137454">„Browther“ reikia leidimo, kad galėtų naudoti mikrofoną šioje svetainėje</translation>
+<translation id="4684462982894889021">Įveskite slaptafrazę, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis paskyroje <ph name="ACCOUNT_EMAIL"/></translation>
 <translation id="7011190694940573312">Įdiegti nepavyko, nes ši operacinės sistemos versija nepalaikoma.</translation>
 <translation id="7024536598735240744">Išpakavimo klaida: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Diegimas sustabdytas.</translation>
-<translation id="280382502853897110">Suasmeninkite „Browther“</translation>
+<translation id="8257174622576051374">Suasmeninkite „Browther“</translation>
 <translation id="7047386856539490735">Ar šie rezultatai naudingi?</translation>
-<translation id="1705567146636171298">Atnaujinti „Browther“</translation>
-<translation id="5499063270485366718">Jei nebus naudingo vaizdo aprašo, „Browther“ bandys jums jį pateikti. Kad būtų galima kurti aprašus, vaizdai siunčiami į sistemą „Browther“.</translation>
-<translation id="5966368554860795750">Tinkinti „Browther for Testing“</translation>
-<translation id="792838367208896130">Galite naudoti „Browther“ bet kada spustelėję nuorodas pranešimuose, dokumentuose ir kitose programose</translation>
-<translation id="375314543563594498">Pašalinti „<ph name="EXTENSION_NAME"/>“ iš „Browther“</translation>
-<translation id="2332301637111071062">Organizacija ištrina „Browther“ duomenis, kai jie nenaudojami <ph name="TIMEOUT_DURATION"/>. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.</translation>
-<translation id="1008530050039597147">„Browther“ reikalingas fotoaparato leidimas šioje svetainėje</translation>
-<translation id="1197672524850678392">Nepavyko paleisti „Browther“. Bandykite dar kartą.</translation>
-<translation id="3405035915691517126">„Browther“ negali patikrinti jūsų slaptažodžių. Bandykite dar kartą po 24 val.</translation>
-<translation id="3625983487600668413">Palikite „Browther“ doke, kad bet kada galėtumėte greitai ją pasiekti</translation>
-<translation id="5755581833598928580">Naudokite „Browther“ bet kada spustelėję nuorodas pranešimuose, dokumentuose ir kitose programose</translation>
-<translation id="5516268345616100622">Užduočių tvarkytuvė – „Browther“</translation>
-<translation id="713191641919118540">„Browther“ numatyti jūsų pomėgiai</translation>
-<translation id="1871621397473741084">Pradėkite naršyti akimirksniu: „Browther“ dabar galima paleisti paleidus „Windows“.</translation>
+<translation id="1772745060691790742">Atnaujinti „Browther“</translation>
+<translation id="4937970118065051027">Jei nebus naudingo vaizdo aprašo, „Browther“ bandys jums jį pateikti. Kad būtų galima kurti aprašus, vaizdai siunčiami į sistemą „Browther“.</translation>
+<translation id="1594112132009288601">Tinkinti „Browther for Testing“</translation>
+<translation id="5915000938288527952">Galite naudoti „Browther“ bet kada spustelėję nuorodas pranešimuose, dokumentuose ir kitose programose</translation>
+<translation id="8775664994493381735">Pašalinti „<ph name="EXTENSION_NAME"/>“ iš „Browther“</translation>
+<translation id="3276648807841991013">Organizacija ištrina „Browther“ duomenis, kai jie nenaudojami <ph name="TIMEOUT_DURATION"/>. Tai gali būti istorija, automatinis pildymas ir atsisiuntimai.</translation>
+<translation id="4725226878394159809">„Browther“ reikalingas fotoaparato leidimas šioje svetainėje</translation>
+<translation id="8931474625901592021">Nepavyko paleisti „Browther“. Bandykite dar kartą.</translation>
+<translation id="8242947409070121799">„Browther“ negali patikrinti jūsų slaptažodžių. Bandykite dar kartą po 24 val.</translation>
+<translation id="1737922827960215472">Palikite „Browther“ doke, kad bet kada galėtumėte greitai ją pasiekti</translation>
+<translation id="335855266303176628">Naudokite „Browther“ bet kada spustelėję nuorodas pranešimuose, dokumentuose ir kitose programose</translation>
+<translation id="709455597778444012">Užduočių tvarkytuvė – „Browther“</translation>
+<translation id="7147140345767587643">„Browther“ numatyti jūsų pomėgiai</translation>
+<translation id="7337408274890534789">Pradėkite naršyti akimirksniu: „Browther“ dabar galima paleisti paleidus „Windows“.</translation>
 <translation id="7274695763216404502">Prisegta! Vėl naudokite vaizdų paiešką iš įrankių juostos</translation>
 <translation id="7288567540154601580">Skirtukai ir plėtiniai</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{„Browther“ rekomenduoja tai pašalinti}one{„Browther“ rekomenduoja tai pašalinti}few{„Browther“ rekomenduoja tai pašalinti}many{„Browther“ rekomenduoja tai pašalinti}other{„Browther“ rekomenduoja tai pašalinti}}</translation>
-<translation id="4600669988724328687">Jei norite bendrinti sistemos garsą, atidarykite sistemos nustatymus ir leiskite „Browther“ įrašyti tik sistemos garsą. Tada turėsite iš naujo paleisti „Browther“.</translation>
-<translation id="9068395155143628872">Skelbimų vertinimas leidžia svetainėms, kuriose lankotės, prašyti „Browther“ informacijos, padedančios įvertinti savo skelbimų našumą. Skelbimų vertinimas apriboja veiklos skirtingose svetainėse stebėjimą tarp svetainių perduodant kaip įmanoma mažiau informacijos.</translation>
-<translation id="1864557848095568223">Atnaujinama „Browther“</translation>
-<translation id="3403365884036456766">Nuostatų failas sugadintas ar netinkamas.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{„Browther“ rekomenduoja tai pašalinti}one{„Browther“ rekomenduoja tai pašalinti}few{„Browther“ rekomenduoja tai pašalinti}many{„Browther“ rekomenduoja tai pašalinti}other{„Browther“ rekomenduoja tai pašalinti}}</translation>
+<translation id="1527644038571473502">Jei norite bendrinti sistemos garsą, atidarykite sistemos nustatymus ir leiskite „Browther“ įrašyti tik sistemos garsą. Tada turėsite iš naujo paleisti „Browther“.</translation>
+<translation id="1427913074981060872">Skelbimų vertinimas leidžia svetainėms, kuriose lankotės, prašyti „Browther“ informacijos, padedančios įvertinti savo skelbimų našumą. Skelbimų vertinimas apriboja veiklos skirtingose svetainėse stebėjimą tarp svetainių perduodant kaip įmanoma mažiau informacijos.</translation>
+<translation id="1657652725060525338">Atnaujinama „Browther“</translation>
+<translation id="884846289464870238">Nuostatų failas sugadintas ar netinkamas.
 
 „Browther“ negali atkurti nustatymų.</translation>
 <translation id="7339898014177206373">Naujas langas</translation>
-<translation id="3511996232906761537">Čia saugoma žiniatinklio informacija, žymės ir kiti „Browther“ duomenys.</translation>
-<translation id="1754899895078387289">Tik jūsų slaptafrazę turintis asmuo galės perskaityti šifruotus duomenis. Slaptafrazė nesiunčiama ir nesaugoma „Browther“. Jei pamiršite slaptafrazę ar norėsite pakeisti šį nustatymą, turėsite <ph name="BEGIN_LINK"/>ištrinti „Browther“ duomenis paskyroje<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Sistemos administratorius sukonfigūravo „Browther“ atidaryti naršyklę „<ph name="ALTERNATIVE_BROWSER_NAME"/>“, norint pasiekti <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="633044855886370183">Čia saugoma žiniatinklio informacija, žymės ir kiti „Browther“ duomenys.</translation>
+<translation id="1185960088713242527">Tik jūsų slaptafrazę turintis asmuo galės perskaityti šifruotus duomenis. Slaptafrazė nesiunčiama ir nesaugoma „Browther“. Jei pamiršite slaptafrazę ar norėsite pakeisti šį nustatymą, turėsite <ph name="BEGIN_LINK"/>ištrinti „Browther“ duomenis paskyroje<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Sistemos administratorius sukonfigūravo „Browther“ atidaryti naršyklę „<ph name="ALTERNATIVE_BROWSER_NAME"/>“, norint pasiekti <ph name="TARGET_URL_HOSTNAME"/>.</translation>
 <translation id="7352651011704765696">Kažkas negerai</translation>
-<translation id="6085660187823915017">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 13 ar naujesnės „macOS“ versijos. Šiame kompiuteryje naudojama 12 versijos „macOS“.</translation>
-<translation id="2865744782251083875">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Šis plėtinys nebepalaikomas. „Browther“ rekomenduoja jį pašalinti.</translation>
-<translation id="7951152294775418909">Tęskite nuo ten, kur baigėte: „Browther“ atkuria skirtukus kiekvieną kartą, kai paleidžiate iš naujo. Jei norite tai išjungti, eikite į</translation>
-<translation id="3191314862567596053">Slaptažodžių importavimas į „Browther“</translation>
-<translation id="4864311514218370796">„<ph name="PAGE_TITLE"/>“ – „Browther Origin Dev“</translation>
+<translation id="6638123710106659002">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 13 ar naujesnės „macOS“ versijos. Šiame kompiuteryje naudojama 12 versijos „macOS“.</translation>
+<translation id="7286289384512061761">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Šis plėtinys nebepalaikomas. „Browther“ rekomenduoja jį pašalinti.</translation>
+<translation id="137615076640044304">Tęskite nuo ten, kur baigėte: „Browther“ atkuria skirtukus kiekvieną kartą, kai paleidžiate iš naujo. Jei norite tai išjungti, eikite į</translation>
+<translation id="5967238175620483220">Slaptažodžių importavimas į „Browther“</translation>
+<translation id="4935019315986703336">„<ph name="PAGE_TITLE"/>“ – „Browther Origin Dev“</translation>
 <translation id="7450541714075000668">Tekstas nukopijuotas</translation>
-<translation id="2034072705932785495">„Browther“ reikia leidimo, kad galėtų naudoti fotoaparatą šioje svetainėje</translation>
-<translation id="7129342855140808694">Jei norite naudoti mikrofoną, suteikite „Browther“ prieigą <ph name="BEGIN_LINK"/>sistemos nustatymuose<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 10 ar naujesnės versijos „Windows“. Šiame kompiuteryje naudojama 7 versijos „Windows“.</translation>
-<translation id="3962395975456095331">Iš naujo paleisti „Browther“?</translation>
-<translation id="2619516027171717873">Negalima įdiegti tos pačios „Browther“ versijos, kuri šiuo metu paleista. Uždarykite „Browther“ ir bandykite dar kartą.</translation>
-<translation id="2731639583336131792">Išsaugosite ir naudosite slaptažodžius bei kitus duomenis „Browther“ paskyroje, kai būsite prisijungę prie „Browther“. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Svetainės tikriausiai veiks kaip numatyta. Būsite atjungti nuo daugelio svetainių, kai uždarysite visus „Browther“ langus, išskyrus „Browther“ paskyrą, jei esate prisijungę prie „Browther“.</translation>
-<translation id="3186363903915641692">{0,plural, =1{„Browther“ bus paleista iš naujo po 1 minutės}one{„Browther“ bus paleista iš naujo po # minutės}few{„Browther“ bus paleista iš naujo po # minučių}many{„Browther“ bus paleista iš naujo po # minutės}other{„Browther“ bus paleista iš naujo po # minučių}}</translation>
-<translation id="552342471964912391">Kad apsaugotumėte duomenis, leiskite „Browther“ pašalinti svetainių, kuriose pastaruoju metu nesilankėte, leidimus.</translation>
-<translation id="3826701455067637694">Paleiskite „Browther“ automatiškai, kad galėtumėte iš karto pradėti naršyti.</translation>
+<translation id="7766009218653304791">„Browther“ reikia leidimo, kad galėtų naudoti fotoaparatą šioje svetainėje</translation>
+<translation id="5844418066487488520">Jei norite naudoti mikrofoną, suteikite „Browther“ prieigą <ph name="BEGIN_LINK"/>sistemos nustatymuose<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 10 ar naujesnės versijos „Windows“. Šiame kompiuteryje naudojama 7 versijos „Windows“.</translation>
+<translation id="6299293759264950896">Iš naujo paleisti „Browther“?</translation>
+<translation id="180908550381040105">Negalima įdiegti tos pačios „Browther“ versijos, kuri šiuo metu paleista. Uždarykite „Browther“ ir bandykite dar kartą.</translation>
+<translation id="7625576878150380853">Išsaugosite ir naudosite slaptažodžius bei kitus duomenis „Browther“ paskyroje, kai būsite prisijungę prie „Browther“. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Svetainės tikriausiai veiks kaip numatyta. Būsite atjungti nuo daugelio svetainių, kai uždarysite visus „Browther“ langus, išskyrus „Browther“ paskyrą, jei esate prisijungę prie „Browther“.</translation>
+<translation id="7099370564362681943">{0,plural, =1{„Browther“ bus paleista iš naujo po 1 minutės}one{„Browther“ bus paleista iš naujo po # minutės}few{„Browther“ bus paleista iš naujo po # minučių}many{„Browther“ bus paleista iš naujo po # minutės}other{„Browther“ bus paleista iš naujo po # minučių}}</translation>
+<translation id="3602613943932672197">Kad apsaugotumėte duomenis, leiskite „Browther“ pašalinti svetainių, kuriose pastaruoju metu nesilankėte, leidimus.</translation>
+<translation id="8759568213742229377">Paleiskite „Browther“ automatiškai, kad galėtumėte iš karto pradėti naršyti.</translation>
 <translation id="7583399374488819119">„<ph name="COMPANY_NAME"/>“ diegimo programa</translation>
-<translation id="3293668930608086049">„Browther“ naudoja jūsų fotoaparatą ir mikrofoną.</translation>
-<translation id="2827121003398607864">„Browther“ dabar dar tobulesnė</translation>
-<translation id="3071313329776323836">Dabar „Browther“ pasiekiama daugiau funkcijų</translation>
+<translation id="8991800242749014880">„Browther“ naudoja jūsų fotoaparatą ir mikrofoną.</translation>
+<translation id="2692328388439821508">„Browther“ dabar dar tobulesnė</translation>
+<translation id="4318444066563223295">Dabar „Browther“ pasiekiama daugiau funkcijų</translation>
 <translation id="7649070708921625228">Pagalba</translation>
-<translation id="4008841832817149051">Leiskite „Browther“ naršyti už jus</translation>
+<translation id="5591287320769313116">Leiskite „Browther“ naršyti už jus</translation>
 <translation id="7658239707568436148">Atšaukti</translation>
-<translation id="3343095737966473035">„Browther“ nėra numatytoji naršyklė</translation>
-<translation id="5477319665405831211">Sinchronizuokite ir suasmeninkite „Browther“ skirtinguose įrenginiuose</translation>
-<translation id="2339273275658335597">„Browther“ naujinys</translation>
+<translation id="6325482130534634729">„Browther“ nėra numatytoji naršyklė</translation>
+<translation id="8185915921134219287">Sinchronizuokite ir suasmeninkite „Browther“ skirtinguose įrenginiuose</translation>
+<translation id="5120421624925726813">„Browther“ naujinys</translation>
 <translation id="7716950018788545737">Užduotis (-ys) baigėsi.</translation>
 <translation id="77283119132245232">Naršyklei „<ph name="BROWSER_NAME"/>“ teikiamos sistemos stebėjimo paslaugos. Jei ši paslauga išjungta, sistemos lygio įvykiai, pvz., konteksto perjungimai ir grupių parengties įvykiai, neįtraukiami naršyklės sugeneruotus našumo stebėjimo duomenis.</translation>
-<translation id="4784414698887946907">Atlikus šį veiksmą iš šio įrenginio bus ištrinti naršymo duomenys. Jei vėliau norėsite gauti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
+<translation id="6542096191573265107">Atlikus šį veiksmą iš šio įrenginio bus ištrinti naršymo duomenys. Jei vėliau norėsite gauti duomenis, prisijunkite prie „Browther“ kaip <ph name="USER_EMAIL"/>.</translation>
 <translation id="7747138024166251722">Diegimo programai nepavyko sukurti laikino katalogo. Patikrinkite, ar yra laisvos vietos diske ir, ar leidžiama įdiegti programinę įrangą.</translation>
-<translation id="8543787950557226450">Iš naujo nustatyti numatytąją „Browther“ temą</translation>
-<translation id="4976450819672499783">Nustatykite „Browther“ kaip numatytąją naršyklę ir prisekite ją prie užduočių juostos</translation>
-<translation id="1978509466033734608">Paspartinkite „Browther“</translation>
-<translation id="8607348724092473027">„<ph name="PAGE_TITLE"/>“ – „Browther Origin Canary“</translation>
-<translation id="2684504034454188774">Neleiskite srautą internete galintiems pasiekti žmonėms matyti svetainių, kuriose lankotės. „Browther“ naudoja saugų ryšį ieškodama svetainės IP adreso DNS (domenų pavadinimų sistemoje).</translation>
+<translation id="351575328720488268">Iš naujo nustatyti numatytąją „Browther“ temą</translation>
+<translation id="1054170408395182418">Nustatykite „Browther“ kaip numatytąją naršyklę ir prisekite ją prie užduočių juostos</translation>
+<translation id="4569594230301902490">Paspartinkite „Browther“</translation>
+<translation id="8041924294044943913">„<ph name="PAGE_TITLE"/>“ – „Browther Origin Canary“</translation>
+<translation id="7893465573639396635">Neleiskite srautą internete galintiems pasiekti žmonėms matyti svetainių, kuriose lankotės. „Browther“ naudoja saugų ryšį ieškodama svetainės IP adreso DNS (domenų pavadinimų sistemoje).</translation>
 <translation id="7810005234485217901">Galite prisegti vaizdų paiešką, kad lengvai ją pasiektumėte</translation>
-<translation id="1652855885539187849">Šios paskyros „Browther“ profilis jau yra šiame įrenginyje</translation>
+<translation id="2462631024103158515">Šios paskyros „Browther“ profilis jau yra šiame įrenginyje</translation>
 <translation id="7845233973568007926">Dėkojame už diegimą. Turite iš naujo paleisti kompiuterį, prieš naudodami „<ph name="BUNDLE_NAME"/>“.</translation>
-<translation id="9148690296223500734">Tinkinkite „Browther“ ir suteikite jai naują išvaizdą</translation>
-<translation id="7963515534397191222">Nepavyko atnaujinti „Browther“ į naujausią versiją, todėl nebus pasiekiamos naujos funkcijos ir saugos pataisos.</translation>
+<translation id="311190437086049332">Tinkinkite „Browther“ ir suteikite jai naują išvaizdą</translation>
+<translation id="6728847658878265103">Nepavyko atnaujinti „Browther“ į naujausią versiją, todėl nebus pasiekiamos naujos funkcijos ir saugos pataisos.</translation>
 <translation id="7872446069773932638">Atsisiunčiama... Liko <ph name="SECONDS"/> sek.</translation>
-<translation id="5545136190679883344">Jei pamiršote slaptafrazę ar norite pakeisti šį nustatymą, <ph name="BEGIN_LINK"/>ištrinkite „Browther“ duomenis paskyroje<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">Jei pamiršote slaptafrazę ar norite pakeisti šį nustatymą, <ph name="BEGIN_LINK"/>ištrinkite „Browther“ duomenis paskyroje<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">Klausti apie šį vaizdą</translation>
-<translation id="5687542525349822727">„Browther“ nustatymas kaip numatytosios naršyklės</translation>
-<translation id="6396151137840491551">„Browther“ automatiškai naujovina nesaugius ryšius į HTTPS, kai tai įmanoma</translation>
-<translation id="2925193881330501265">Buvote prisijungę prie „Browther“ kaip <ph name="USER_EMAIL_ADDRESS"/>. Prisijungdami vėl naudokite tą pačią paskyrą.</translation>
-<translation id="6915252145142862992">Tai yra antrinis „Browther“ diegimas, todėl ji negali būti nustatyta kaip numatytoji naršyklė.</translation>
+<translation id="9172499982238113829">„Browther“ nustatymas kaip numatytosios naršyklės</translation>
+<translation id="3313826726620159669">„Browther“ automatiškai naujovina nesaugius ryšius į HTTPS, kai tai įmanoma</translation>
+<translation id="3317928686912559532">Buvote prisijungę prie „Browther“ kaip <ph name="USER_EMAIL_ADDRESS"/>. Prisijungdami vėl naudokite tą pačią paskyrą.</translation>
+<translation id="6007009085341946457">Tai yra antrinis „Browther“ diegimas, todėl ji negali būti nustatyta kaip numatytoji naršyklė.</translation>
 <translation id="8004582292198964060">Naršyklė</translation>
 <translation id="8010081455002666927">Automatinis aptikimas</translation>
-<translation id="7685904775439037072">Kai „Browther“ galės pasiekti duomenis, svetainės taip pat galės prašyti suteikti leidimą juos pasiekti.</translation>
-<translation id="3230755314472063687">Prisekite „Browther“ prie užduočių juostos, kad bet kada galėtumėte greitai ją pasiekti</translation>
+<translation id="174885789898161653">Kai „Browther“ galės pasiekti duomenis, svetainės taip pat galės prašyti suteikti leidimą juos pasiekti.</translation>
+<translation id="3001754454174546602">Prisekite „Browther“ prie užduočių juostos, kad bet kada galėtumėte greitai ją pasiekti</translation>
 <translation id="80471789339884597">Dėkojame už diegimą. Turite iš naujo paleisti visas naršykles, prieš naudodami „<ph name="BUNDLE_NAME"/>“.</translation>
 <translation id="8054112667659782652">Visada rodyti vaizdų paieškos šaukinį</translation>
-<translation id="6175141682081019059">Išjungti „Browther“ vykdymą fone programose</translation>
+<translation id="6993312779622863465">Išjungti „Browther“ vykdymą fone programose</translation>
 <translation id="80790299200510644">Vaizdų paieška</translation>
 <translation id="8086881907087796310">Įdiegti nepavyko, nes kompiuteris neatitinka minimalių aparatinės įrangos reikalavimų.</translation>
-<translation id="5528402763209637578">„<ph name="PAGE_TITLE"/>“ – „Browther Origin for Testing“</translation>
-<translation id="2061155704815580583">„Browther“ reikalingas leidimas pasiekti vietovės duomenis šioje svetainėje</translation>
-<translation id="3576319845915562805">Kitą kartą atidarius „Browther“ įrenginyje „<ph name="DEVICE_TYPE"/>“, bus pateiktas raginimas įgalinti kainų stebėjimo įspėjimus.</translation>
+<translation id="3217614128548917842">„<ph name="PAGE_TITLE"/>“ – „Browther Origin for Testing“</translation>
+<translation id="543407324609820492">„Browther“ reikalingas leidimas pasiekti vietovės duomenis šioje svetainėje</translation>
+<translation id="1767887552863788514">Kitą kartą atidarius „Browther“ įrenginyje „<ph name="DEVICE_TYPE"/>“, bus pateiktas raginimas įgalinti kainų stebėjimo įspėjimus.</translation>
 <translation id="8118331347066725040">Atsiliepimų apie paiešką siuntimas naudojant „Lens“</translation>
 <translation id="5334309298019785904">„Browther“ OS nepavyko sinchronizuoti duomenų, nes jūsų domene sinchronizavimas nepasiekiamas.</translation>
 <translation id="813913629614996137">Inicijuojama...</translation>
-<translation id="1081849497974110565">„Browther“ papildomos paslaugų teikimo sąlygos</translation>
-<translation id="9067428552314418522">Šis failas pavojingas, todėl „Browther“ jį užblokavo.</translation>
+<translation id="4879101934056397619">„Browther“ papildomos paslaugų teikimo sąlygos</translation>
+<translation id="4505690237431768764">Šis failas pavojingas, todėl „Browther“ jį užblokavo.</translation>
 <translation id="8177472873527554730">Nepavyko rasti puslapio turinio</translation>
-<translation id="6219250889396046657">Įveskite slaptafrazę, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis paskyroje <ph name="USER_EMAIL"/></translation>
+<translation id="4720341280133158605">Įveskite slaptafrazę, kad galėtumėte naudoti ir išsaugoti „Browther“ duomenis paskyroje <ph name="USER_EMAIL"/></translation>
 <translation id="8221491193165283816">Įprastai blokuojate pranešimus. Jei norite leisti šiai svetainei siųsti pranešimus, spustelėkite čia.</translation>
-<translation id="8377926237617998195">Jei norite naudoti vaizdo kamerą, suteikite „Browther“ prieigą <ph name="BEGIN_LINK"/>sistemos nustatymuose<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">„Browther“ negali patvirtinti, iš kur gaunamas šis plėtinys, ir jis gali būti nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų pakeisti jūsų duomenų svetainėse, kuriose lankotės, įskaitant jūsų asmens informaciją.</translation>
-<translation id="8207657266087451193">Jei nebus naudingo vaizdo aprašo, „Browther“ bandys jums jį pateikti. Kad būtų galima kurti aprašus, vaizdai siunčiami į sistemą „Browther“. Šią parinktį galite bet kada išjungti skiltyje „Nustatymai“.</translation>
-<translation id="7792526144795244436">Prisijungti prie „Browther“ naujame profilyje?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>„Browther“ jus įspėja<ph name="END_LINK"/> apie nesaugias svetaines ir atsisiuntimus</translation>
-<translation id="8060549744348950090">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Apsipirkite, verskite ir nustatykite, ką matote, naudodami fotoaparatą „Browther“ „iOS“ programoje</translation>
+<translation id="1083711467946065278">Jei norite naudoti vaizdo kamerą, suteikite „Browther“ prieigą <ph name="BEGIN_LINK"/>sistemos nustatymuose<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">„Browther“ negali patvirtinti, iš kur gaunamas šis plėtinys, ir jis gali būti nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų pakeisti jūsų duomenų svetainėse, kuriose lankotės, įskaitant jūsų asmens informaciją.</translation>
+<translation id="1122818205373648656">Jei nebus naudingo vaizdo aprašo, „Browther“ bandys jums jį pateikti. Kad būtų galima kurti aprašus, vaizdai siunčiami į sistemą „Browther“. Šią parinktį galite bet kada išjungti skiltyje „Nustatymai“.</translation>
+<translation id="6877990294324319801">Prisijungti prie „Browther“ naujame profilyje?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>„Browther“ jus įspėja<ph name="END_LINK"/> apie nesaugias svetaines ir atsisiuntimus</translation>
+<translation id="1685486387921540822">Pastaruoju metu nesilankėte. „Browther“ pašalino <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Apsipirkite, verskite ir nustatykite, ką matote, naudodami fotoaparatą „Browther“ „iOS“ programoje</translation>
 <translation id="8313851650939857356">Paleisties klaida: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Organizacija uždaro „Browther“, kai ji nenaudojama <ph name="TIMEOUT_DURATION"/>.</translation>
+<translation id="7386947683604296534">Organizacija uždaro „Browther“, kai ji nenaudojama <ph name="TIMEOUT_DURATION"/>.</translation>
 <translation id="8321888067342493336">Išsaugoti kaip vaizdą</translation>
-<translation id="3360368475735266712">Prisijunkite, kad galėtumėte sinchronizuoti ir suasmeninti „Browther“ skirtinguose įrenginiuose</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> anksčiau naudojo „Browther“</translation>
-<translation id="5592122595094519401">Atnaujinkite „Browther“, kad galėtumėte toliau naudoti „Browther“ duomenis „Browther“ paskyroje <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="2569754604093464025">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 10 ar naujesnės versijos „Windows“. Šiame kompiuteryje naudojama 8 versijos „Windows“.</translation>
+<translation id="143016831128278157">Prisijunkite, kad galėtumėte sinchronizuoti ir suasmeninti „Browther“ skirtinguose įrenginiuose</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> anksčiau naudojo „Browther“</translation>
+<translation id="1288164710697017468">Atnaujinkite „Browther“, kad galėtumėte toliau naudoti „Browther“ duomenis „Browther“ paskyroje <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="8648401677359150296">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 10 ar naujesnės versijos „Windows“. Šiame kompiuteryje naudojama 8 versijos „Windows“.</translation>
 <translation id="8362914115861174987">Versti į</translation>
 <translation id="8367705492654390392">Klauskite ko nors</translation>
-<translation id="7296197595428914424">Jei norite pasiekti slaptažodžius ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“. Šis slaptažodis bus išsaugotas jūsų „Browther“ paskyroje, kai prisijungsite.</translation>
-<translation id="9098234372282930719">Tada turėsite iš naujo paleisti „Browther“.</translation>
-<translation id="1327729221471951979">„Browther“ rekomenduoja jį pašalinti. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Kūrėjas anuliavo šio plėtinio paskelbimą ir gali būti nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų pakeisti jūsų duomenų svetainėse, kuriose lankotės, įskaitant jūsų asmens informaciją.</translation>
-<translation id="4234753748520037091">„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei dabar atsijungsite, šie duomenys bus ištrinti.</translation>
-<translation id="5337999052834672687">{0,plural, =1{„Browther“ paleidimas iš naujo po dienos}one{„Browther“ paleidimas iš naujo po # dienos}few{„Browther“ paleidimas iš naujo po # dienų}many{„Browther“ paleidimas iš naujo po # dienos}other{„Browther“ paleidimas iš naujo po # dienų}}</translation>
+<translation id="5769022907892823357">Jei norite pasiekti slaptažodžius ir kitas funkcijas visuose įrenginiuose, prisijunkite prie „Browther“. Šis slaptažodis bus išsaugotas jūsų „Browther“ paskyroje, kai prisijungsite.</translation>
+<translation id="4782442810031768771">Tada turėsite iš naujo paleisti „Browther“.</translation>
+<translation id="8265348385714408341">„Browther“ rekomenduoja jį pašalinti. <ph name="BEGIN_LINK"/>Sužinokite daugiau apie palaikomus plėtinius<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Kūrėjas anuliavo šio plėtinio paskelbimą ir gali būti nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų pakeisti jūsų duomenų svetainėse, kuriose lankotės, įskaitant jūsų asmens informaciją.</translation>
+<translation id="1613655732912855341">„Browther“ turi patvirtinti jūsų tapatybę, kad tam tikrus duomenis būtų galima išsaugoti „Browther“ paskyroje ir naudoti visuose jūsų įrenginiuose. Jei dabar atsijungsite, šie duomenys bus ištrinti.</translation>
+<translation id="9103715009358215214">{0,plural, =1{„Browther“ paleidimas iš naujo po dienos}one{„Browther“ paleidimas iš naujo po # dienos}few{„Browther“ paleidimas iš naujo po # dienų}many{„Browther“ paleidimas iš naujo po # dienos}other{„Browther“ paleidimas iš naujo po # dienų}}</translation>
 <translation id="8438543370129609977">Kai naudojate vaizdų paiešką, puslapio pavadinimas, URL ir turinys, įskaitant PDF failus, siunčiami į serverį. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Sužinokite daugiau apie paiešką naudojant vaizdų paiešką naršyklėje „Browther“</translation>
-<translation id="6914496861676471566">Diegimo programos archyvas sugadintas arba negalioja. Atsisiųskite „Browther“ dar kartą.</translation>
-<translation id="4378573854226202617">Kad būtų galima naudoti „Browther“, reikalinga 10 ar naujesnės versijos „Windows“.</translation>
-<translation id="6431861494713261006">Pasirenkama: padėkite tobulinti „Browther“ OS funkcijas ir našumą automatiškai siųsdami diagnostikos ir naudojimo duomenis sistemai „Browther“.</translation>
-<translation id="8691137711639873980">Jei norite naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje, patvirtinkite savo tapatybę</translation>
-<translation id="3251012123600267109">Rodomi raginimai prisijungti prie „Browther“</translation>
-<translation id="2097604701283463988">„Browther“ versija yra pasenusi</translation>
-<translation id="6080203201796279095">Dėkojame, kad pasirinkote „Browther“ kaip numatytąją naršyklę!</translation>
-<translation id="871233388178581868">„Browther“ gali tikrinti jūsų slaptažodžius, kai juos išsaugote</translation>
-<translation id="3667461919057407535">Gaukite įspėjimą, jei „Browther“ aptinka vieną iš jūsų slaptažodžių viešajame duomenų saugos pažeidime</translation>
+<translation id="3550129882823305293">Sužinokite daugiau apie paiešką naudojant vaizdų paiešką naršyklėje „Browther“</translation>
+<translation id="1401757916223057494">Diegimo programos archyvas sugadintas arba negalioja. Atsisiųskite „Browther“ dar kartą.</translation>
+<translation id="5029760494698649486">Kad būtų galima naudoti „Browther“, reikalinga 10 ar naujesnės versijos „Windows“.</translation>
+<translation id="7906734902028783072">Pasirenkama: padėkite tobulinti „Browther“ OS funkcijas ir našumą automatiškai siųsdami diagnostikos ir naudojimo duomenis sistemai „Browther“.</translation>
+<translation id="6791756730901393492">Jei norite naudoti ir išsaugoti „Browther“ duomenis „Browther“ paskyroje, patvirtinkite savo tapatybę</translation>
+<translation id="4879869745782826167">Rodomi raginimai prisijungti prie „Browther“</translation>
+<translation id="2967761098021401720">„Browther“ versija yra pasenusi</translation>
+<translation id="7674832651694000881">Dėkojame, kad pasirinkote „Browther“ kaip numatytąją naršyklę!</translation>
+<translation id="4507581730979762077">„Browther“ gali tikrinti jūsų slaptažodžius, kai juos išsaugote</translation>
+<translation id="7205233182271132386">Gaukite įspėjimą, jei „Browther“ aptinka vieną iš jūsų slaptažodžių viešajame duomenų saugos pažeidime</translation>
 <translation id="8555465886620020932">Paslaugos klaida: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Galite prisegti vaizdų paiešką, kad lengvai ją pasiektumėte; spustelėkite mygtuką „Prisegti“ šoninio skydelio viršuje</translation>
 <translation id="856656450041460113">Ieškoti kalbų sąrašo</translation>
-<translation id="227028348235968071">„Browther“ gali tikrinti jūsų slaptažodžius, kai prisijungiate naudodami „Browther“ paskyrą</translation>
-<translation id="839677568225616901">Kelios organizacijos tvarko „Browther“</translation>
-<translation id="8121009781989288430">Autorių teisės priklauso „Browther“ autoriams, <ph name="YEAR"/> m. Visos teisės saugomos.</translation>
+<translation id="75470458211269379">„Browther“ gali tikrinti jūsų slaptažodžius, kai prisijungiate naudodami „Browther“ paskyrą</translation>
+<translation id="2108930010779660436">Kelios organizacijos tvarko „Browther“</translation>
+<translation id="7209630341463003999">Autorių teisės priklauso „Browther“ autoriams, <ph name="YEAR"/> m. Visos teisės saugomos.</translation>
 <translation id="8601359445272098721">Naujiena! Galite versti tekstą ir vaizdus ekrane pasirinkę mygtuką „Išversti ekrano turinį“</translation>
-<translation id="3052349005266761501">Pristatoma „Browther“...</translation>
+<translation id="782928371899183269">Pristatoma „Browther“...</translation>
 <translation id="8624541899164515475">Nustatymai, atidaroma naujame skirtuke.</translation>
-<translation id="5128665650717824082">„Browther for Testing“ negali būti nustatyta kaip numatytoji naršyklė.</translation>
+<translation id="5879341334716115002">„Browther for Testing“ negali būti nustatyta kaip numatytoji naršyklė.</translation>
 <translation id="2433912322225810055">Ji taip pat kontroliuoja, koks puslapis rodomas, kai paleidžiate „Browther“ arba ieškote „Omnibox“.</translation>
-<translation id="4100716194836114130">Tai jūsų „Browther“</translation>
+<translation id="4816541973978692496">Tai jūsų „Browther“</translation>
 <translation id="8712637175834984815">Supratau</translation>
-<translation id="1419543648228375718">Prisijungti prie „Browther“?</translation>
-<translation id="4891728458408976811">Viską laikykite naršyklėje „Browther“</translation>
+<translation id="9037464035997618895">Prisijungti prie „Browther“?</translation>
+<translation id="7897185368811431919">Viską laikykite naršyklėje „Browther“</translation>
 <translation id="8747073452963259673">apatinis kairysis paieškos srities kampas: kairė – <ph name="LEFT"/> %, apačia – <ph name="BOTTOM"/> %</translation>
 <translation id="878572486461146056">Diegimo klaida: tinklo administratorius taiko grupių politiką, pagal kurią neleidžiama įdiegti: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">„Browther“ reikia leidimo, kad galėtų naudoti fotoaparatą ir mikrofoną šioje svetainėje</translation>
+<translation id="1576369213923770885">„Browther“ reikia leidimo, kad galėtų naudoti fotoaparatą ir mikrofoną šioje svetainėje</translation>
 <translation id="8813277370772331957">Priminti vėliau</translation>
-<translation id="64216977793816291">Prisijungti prie „Browther“?</translation>
-<translation id="7447364954121496869">Nustatyti „Browther“ kaip numatytąją naršyklę ir prisegti prie užduočių juostos</translation>
+<translation id="6831999464349484462">Prisijungti prie „Browther“?</translation>
+<translation id="3698151322107951111">Nustatyti „Browther“ kaip numatytąją naršyklę ir prisegti prie užduočių juostos</translation>
 <translation id="8826492472752484139">Spustelėkite „Slaptažodžių tvarkyklė“</translation>
 <translation id="6933858244219479645">„Browther“ OS sistema</translation>
-<translation id="9084132286318231275">Ši kalba vartojama „Browther“ meniu, nustatymams, įspėjimams ir kitam tekstui pateikti</translation>
+<translation id="3986927308621489499">Ši kalba vartojama „Browther“ meniu, nustatymams, įspėjimams ir kitam tekstui pateikti</translation>
 <translation id="8862326446509486874">Neturite reikiamų teisių sistemai įdiegti. Pamėginkite įdiegimo priemonę dar kartą paleisti kaip administratorius.</translation>
-<translation id="7289323009146924152">Pridėti „Browther“ profilį</translation>
-<translation id="6412037018950369131">Jei taip, redaguokite išsaugotą slaptažodį naršyklėje „Browther“, kad jis atitiktų naują.</translation>
-<translation id="1150745254876977823">Jūsų organizacija reikalauja prisijungti prie „Browther“</translation>
-<translation id="8285294305439559616">„Browther“ bando rodyti slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
-<translation id="4684884244620579559">„Browther“ nebėra numatytoji naršyklė. Padaryti „Browther“ numatytąja naršykle?</translation>
-<translation id="6389268239133412586">Nepavyko atnaujinti „Browther“</translation>
-<translation id="7731184591599776500">„Browther Enterprise“ logotipas</translation>
-<translation id="6500340165622970282">Negalima paleisti „Browther“, nes atidarant jūsų profilį įvyko klaida. Pabandykite paleisti „Browther“ iš naujo.</translation>
-<translation id="3424657754843264466">Tvarkyti „Browther“ profilius</translation>
-<translation id="7055223246119657449">„Browther“ užblokavo šį atsisiuntimą, nes archyvo faile yra kitų failų, kurie gali slėpti kenkėjiškas programas</translation>
-<translation id="9049928023195059068">Prisijunkite prie „Browther“ prisijungdami prie kitų „Browther“ paslaugų</translation>
-<translation id="4561046754724442504">„Browther“ automatiškai uždaryta</translation>
-<translation id="5173820533850252773">„Browther“ versija yra pasenusi</translation>
-<translation id="310518206836658214">{0,plural, =1{„Browther“ bus paleista iš naujo po valandos}one{„Browther“ bus paleista iš naujo po # valandos}few{„Browther“ bus paleista iš naujo po # valandų}many{„Browther“ bus paleista iš naujo po # valandos}other{„Browther“ bus paleista iš naujo po # valandų}}</translation>
+<translation id="5318226144018267261">Pridėti „Browther“ profilį</translation>
+<translation id="1298790608554316415">Jei taip, redaguokite išsaugotą slaptažodį naršyklėje „Browther“, kad jis atitiktų naują.</translation>
+<translation id="960933321883777733">Jūsų organizacija reikalauja prisijungti prie „Browther“</translation>
+<translation id="948979409756947611">„Browther“ bando rodyti slaptažodžius. Įveskite „Windows“ slaptažodį, kad tai leistumėte.</translation>
+<translation id="1418854271943945136">„Browther“ nebėra numatytoji naršyklė. Padaryti „Browther“ numatytąja naršykle?</translation>
+<translation id="7228667329366610727">Nepavyko atnaujinti „Browther“</translation>
+<translation id="4817697255467736794">„Browther Enterprise“ logotipas</translation>
+<translation id="3507731466523097529">Negalima paleisti „Browther“, nes atidarant jūsų profilį įvyko klaida. Pabandykite paleisti „Browther“ iš naujo.</translation>
+<translation id="3234473600657230663">Tvarkyti „Browther“ profilius</translation>
+<translation id="8953887022581653484">„Browther“ užblokavo šį atsisiuntimą, nes archyvo faile yra kitų failų, kurie gali slėpti kenkėjiškas programas</translation>
+<translation id="532304972436358335">Prisijunkite prie „Browther“ prisijungdami prie kitų „Browther“ paslaugų</translation>
+<translation id="3425998261052065067">„Browther“ automatiškai uždaryta</translation>
+<translation id="4377377022617011492">„Browther“ versija yra pasenusi</translation>
+<translation id="3247296757162889864">{0,plural, =1{„Browther“ bus paleista iš naujo po valandos}one{„Browther“ bus paleista iš naujo po # valandos}few{„Browther“ bus paleista iš naujo po # valandų}many{„Browther“ bus paleista iš naujo po # valandos}other{„Browther“ bus paleista iš naujo po # valandų}}</translation>
 <translation id="9106236359747881194">Pasirinkite tekstą, pagal kurį norite ieškoti</translation>
-<translation id="5190991181158966940">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 10 ar naujesnės versijos „Windows“. Šiame kompiuteryje naudojama 8.1 versijos „Windows“.</translation>
-<translation id="7863882214613921971">Atidaryti nuorodą naujame „Browther“ &amp;skirtuke</translation>
+<translation id="5115014198092384730">Jei norite gauti būsimus „Browther“ naujinius, jums reikės 10 ar naujesnės versijos „Windows“. Šiame kompiuteryje naudojama 8.1 versijos „Windows“.</translation>
+<translation id="7129101984664345614">Atidaryti nuorodą naujame „Browther“ &amp;skirtuke</translation>
 <translation id="911206726377975832">Ar ištrinti naršymo duomenis?</translation>
 <translation id="9134482777260927479">Pagalba atliekant namų darbus</translation>
 <translation id="9148058034647219655">Išeiti</translation>
-<translation id="2792073155252170448">Tęskite nuo ten, kur baigėte: „Browther“ gali atkurti skirtukus kiekvieną kartą, kai paleidžiate iš naujo. Jei norite tai įjungti, eikite į</translation>
-<translation id="2444257125841652328">Sistemos administratorius sukonfigūravo „Browther“ atidaryti alternatyvią naršyklę, kad būtų galima pasiekti <ph name="TARGET_URL_HOSTNAME"/>.</translation>
-<translation id="8208548103319284047">„Browther“ patarimas: ieškokite naudodami „Lens“</translation>
-<translation id="7902365066753170041">Paleisti iš naujo atnaujinant „&amp;Browther“</translation>
-<translation id="538146372587193686">„Browther Origin“ (mDNS-In)</translation>
-<translation id="49909619875329637">Gaukite daugiau prisijungę prie „Browther“</translation>
-<translation id="296137235951584143">Suasmeninkite „Browther“</translation>
-<translation id="7977787072794666032">„Browther“ gali tinkamai neveikti, nes ji nebepalaikoma naudojant „Windows XP“ arba „Windows Vista“</translation>
+<translation id="1734388504720121468">Tęskite nuo ten, kur baigėte: „Browther“ gali atkurti skirtukus kiekvieną kartą, kai paleidžiate iš naujo. Jei norite tai įjungti, eikite į</translation>
+<translation id="8633974232736772207">Sistemos administratorius sukonfigūravo „Browther“ atidaryti alternatyvią naršyklę, kad būtų galima pasiekti <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="1122669402846843682">„Browther“ patarimas: ieškokite naudodami „Lens“</translation>
+<translation id="595330134356385835">Paleisti iš naujo atnaujinant „&amp;Browther“</translation>
+<translation id="2556178781950124146">„Browther Origin“ (mDNS-In)</translation>
+<translation id="6491100124044190139">Gaukite daugiau prisijungę prie „Browther“</translation>
+<translation id="1665840797775025867">Suasmeninkite „Browther“</translation>
+<translation id="4407047432656809023">„Browther“ gali tinkamai neveikti, nes ji nebepalaikoma naudojant „Windows XP“ arba „Windows Vista“</translation>
 <translation id="945522503751344254">Siųsti atsiliepimą</translation>
-<translation id="4484434718272972655">Kas naudoja „Browther“?</translation>
-<translation id="7173394303099002355">Patikimiausios „Browther“ saugos užtikrinimas</translation>
+<translation id="7620348044248809366">Kas naudoja „Browther“?</translation>
+<translation id="7299962884342109067">Patikimiausios „Browther“ saugos užtikrinimas</translation>
 <translation id="983803489796659991">Įdiegti nepavyko, nes atnaujinimo serveryje nėra jokių programos maišos duomenų.</translation>
-<translation id="8435446479956716379">Naudoti „Browther“ be paskyros</translation>
-<translation id="8992261409816268381">„Browther“ autoriai</translation>
+<translation id="8775461190334353148">Naudoti „Browther“ be paskyros</translation>
+<translation id="7146761239544860058">„Browther“ autoriai</translation>
 <translation id="989970834842471429">Pasirinkite bet kokį tekstą ar vaizdą, kad galėtumėte ieškoti naudodami vaizdų paiešką</translation>
-<translation id="3146636448190445245">Kad būtų galima naudoti jūsų vietovės informaciją, suteikite „Browther“ prieigą <ph name="BEGIN_LINK"/>sistemos nustatymuose<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">Kad būtų galima naudoti jūsų vietovės informaciją, suteikite „Browther“ prieigą <ph name="BEGIN_LINK"/>sistemos nustatymuose<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">„Google Chrome“ beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Nepavyko įdiegti dėl nenurodytos klaidos. Atsisiųskite „Browther“ dar kartą.</translation>
-<translation id="1743665722170667430">Plėtiniai, programos ir temos iš nežinomų šaltinių gali pakenkti jūsų įrenginiui. „Browther“ rekomenduoja juos įdiegti tik iš<ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
-<translation id="6184592406110188164">Šis plėtinys pažeidžia internetinės parduotuvės politiką ir gali būti nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų keisti jūsų duomenų lankomose svetainėse, įskaitant asmeninę informaciją.</translation>
-<translation id="1299765473362724475">Įspėjimas: „Browther“ negali neleisti plėtiniams įrašyti naršymo istorijos. Jei norite išjungti šį plėtinį inkognito režimu, panaikinkite šios parinkties pasirinkimą.</translation>
-<translation id="1448049584457347995">Kad „Browther“ padarytume saugesnę, išjungėme kai kuriuos plėtinius, kurių nėra „<ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>“ sąraše ir kurie galėjo būti pridėti be jūsų žinios.</translation>
-<translation id="8848045066928358658">Kad „Browther“ būtų saugesnė, išjungėme toliau nurodytą plėtinį, kuris nepateiktas <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> sąraše ir tikriausiai buvo pridėtas be jūsų žinios.</translation>
-<translation id="4624945300945265642">Atidaryti nuorodą „Browther“ inko&amp;gnito lange</translation>
-<translation id="6554952862405000915">Atidaryti nuorodą „Browther“ inko&amp;gnito lange</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo.}=1{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. Inkognito langas nebus atidarytas iš naujo.}one{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito langas nebus atidarytas iš naujo.}few{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito langai nebus atidaryti iš naujo.}many{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito lango nebus atidaryta iš naujo.}other{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito langų nebus atidaryta iš naujo.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį}=1{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. Inkognito langas nebus atidarytas iš naujo.}one{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito langas nebus atidarytas iš naujo.}few{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito langai nebus atidaryti iš naujo.}many{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito lango nebus atidaryta iš naujo.}other{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito langų nebus atidaryta iš naujo.}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį}=1{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. Inkognito langas nebus atidarytas iš naujo.}one{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito langas nebus atidarytas iš naujo.}few{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito langai nebus atidaryti iš naujo.}many{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito lango nebus atidaryta iš naujo.}other{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito langų nebus atidaryta iš naujo.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="5110032212554763592">Nepavyko įdiegti dėl nenurodytos klaidos. Atsisiųskite „Browther“ dar kartą.</translation>
+<translation id="9074842261125908635">Plėtiniai, programos ir temos iš nežinomų šaltinių gali pakenkti jūsų įrenginiui. „Browther“ rekomenduoja juos įdiegti tik iš<ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
+<translation id="3593119910409528681">Šis plėtinys pažeidžia internetinės parduotuvės politiką ir gali būti nesaugus. Pašalinkite jį iš „Browther“, kad jis nebematytų ir negalėtų keisti jūsų duomenų lankomose svetainėse, įskaitant asmeninę informaciją.</translation>
+<translation id="5245976396374147971">Įspėjimas: „Browther“ negali neleisti plėtiniams įrašyti naršymo istorijos. Jei norite išjungti šį plėtinį inkognito režimu, panaikinkite šios parinkties pasirinkimą.</translation>
+<translation id="3629539416935660172">Kad „Browther“ padarytume saugesnę, išjungėme kai kuriuos plėtinius, kurių nėra „<ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>“ sąraše ir kurie galėjo būti pridėti be jūsų žinios.</translation>
+<translation id="157534302749986451">Kad „Browther“ būtų saugesnė, išjungėme toliau nurodytą plėtinį, kuris nepateiktas <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> sąraše ir tikriausiai buvo pridėtas be jūsų žinios.</translation>
+<translation id="3031052147361385845">Atidaryti nuorodą „Browther“ inko&amp;gnito lange</translation>
+<translation id="5556794247782664281">Atidaryti nuorodą „Browther“ inko&amp;gnito lange</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo.}=1{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. Inkognito langas nebus atidarytas iš naujo.}one{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito langas nebus atidarytas iš naujo.}few{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito langai nebus atidaryti iš naujo.}many{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito lango nebus atidaryta iš naujo.}other{Pasiekiamas naujas „Browther“ naujinys. Jis bus pritaikytas, kai paleisite „Browther“ iš naujo. # inkognito langų nebus atidaryta iš naujo.}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį}=1{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. Inkognito langas nebus atidarytas iš naujo.}one{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito langas nebus atidarytas iš naujo.}few{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito langai nebus atidaryti iš naujo.}many{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito lango nebus atidaryta iš naujo.}other{Administratorius prašo paleisti „Browther“ iš naujo, kad būtų galima pritaikyti šį naujinį. # inkognito langų nebus atidaryta iš naujo.}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį}=1{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. Inkognito langas nebus atidarytas iš naujo.}one{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito langas nebus atidarytas iš naujo.}few{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito langai nebus atidaryti iš naujo.}many{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito lango nebus atidaryta iš naujo.}other{Administratorius reikalauja paleisti „Browther“ iš naujo, kad būtų galima pritaikyti naujinį. # inkognito langų nebus atidaryta iš naujo.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {Išplėstinė apsauga reikalauja, kad iš naujo paleistumėte "Browther", norėdami pritaikyti naujinį}
               =1 {Išplėstinė apsauga reikalauja, kad iš naujo paleistumėte "Browther", norėdami pritaikyti naujinį. Jūsų privatus langas neatsidaro iš naujo.}
               other {Advanced Protection reikalauja, kad iš naujo paleistumėte "Browther", norėdami pritaikyti atnaujinimą. Jūsų # Privatūs langai neatsidaro iš naujo.}}</translation>
 <translation id="5749154344207139683">Padėkite mums pagerinti būseną „Privatu“ dalyvaudami šioje 1 minutės trukmės apklausoje.</translation>
-<translation id="79269250264141507">Siekiant užtikrinti, kad gausite tinkamiausius pasiūlymus, užklausa, kurią įvedate adreso juostoje arba paieškos lauke, perduodama numatytajai paieškos sistemai. Ši funkcija išjungta naršant privačiuoju režimu.</translation>
-<translation id="2589970573128789862">„Browther“ inkognito</translation>
-<translation id="5994282802285556682">Naršant inkognito režimu, prieš įkeliant svetainę, kurioje naudojamas nesaugus ryšys, „Browther“ jus įspės</translation>
+<translation id="6954203250660846933">Siekiant užtikrinti, kad gausite tinkamiausius pasiūlymus, užklausa, kurią įvedate adreso juostoje arba paieškos lauke, perduodama numatytajai paieškos sistemai. Ši funkcija išjungta naršant privačiuoju režimu.</translation>
+<translation id="3542179014707218534">„Browther“ inkognito</translation>
+<translation id="2076355018722231995">Naršant inkognito režimu, prieš įkeliant svetainę, kurioje naudojamas nesaugus ryšys, „Browther“ jus įspės</translation>
 </translationbundle>

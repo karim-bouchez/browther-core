@@ -3,120 +3,120 @@
 <translationbundle lang="az">
 <translation id="1026101648481255140">Quraşdırmaya davam edin</translation>
 <translation id="7099479769133613710">&amp;ChromeOS'i güncəlləmək üçün yenidən başladın</translation>
-<translation id="2479110114759182442">Browther bu artırmanı nəzərdən keçirməyi tövsiyə edir</translation>
-<translation id="3814674848168165531">Sayt səhifədə keçidləri məxfi qaydada əvvəlcədən yükləmək istədikdə Browther Browther serverlərindən istifadə edir. Bu, kimliyinizi əvvəlcədən yüklənmiş saytdan gizlədir, lakin Browther hansı saytların əvvəlcədən yükləndiyini öyrənir.</translation>
+<translation id="7264054672589027446">Browther bu artırmanı nəzərdən keçirməyi tövsiyə edir</translation>
+<translation id="7848219163187166649">Sayt səhifədə keçidləri məxfi qaydada əvvəlcədən yükləmək istədikdə Browther Browther serverlərindən istifadə edir. Bu, kimliyinizi əvvəlcədən yüklənmiş saytdan gizlədir, lakin Browther hansı saytların əvvəlcədən yükləndiyini öyrənir.</translation>
 <translation id="1065672644894730302">Tərcihləriniz oxuna bilmir.
 
 Bəzi funksiyalar əlçatmaz ola bilər ki, nəticədə tərcihlərə edilən dəyişikliklər saxlanmaya bilər.</translation>
-<translation id="7577672138294294152">Valideyn Browther-da "Sayt, tətbiq və artırmalar üçün icazələr"i deaktiv edib</translation>
-<translation id="5918095577778020936">Browther parollarınızı eksport etmək istəyir. Buna icazə vermək üçün Windows parolunu yazın.</translation>
+<translation id="8837164267124113709">Valideyn Browther-da "Sayt, tətbiq və artırmalar üçün icazələr"i deaktiv edib</translation>
+<translation id="881513728707488138">Browther parollarınızı eksport etmək istəyir. Buna icazə vermək üçün Windows parolunu yazın.</translation>
 <translation id="112640046208448578">Əşya və ya yerləri müəyyənləşdirin və mətni kopiyalayın, yaxud tərcümə edin. Şəkil Axtarışından istifadə etdiyiniz zaman səhifənin skrinşotu serverə göndərilir. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther defolt brauzerinizdir</translation>
-<translation id="8522292744959221145">Parollarınızın data pozuntuları və digər güvənlik məsələlərinə qarşı güvəndə olduğunu yoxlamaq üçün <ph name="BEGIN_LINK"/>Browther'a daxil olun<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Browther menyusuna klikləyin</translation>
+<translation id="8280092658684559253">Browther defolt brauzerinizdir</translation>
+<translation id="6580138787163923852">Parollarınızın data pozuntuları və digər güvənlik məsələlərinə qarşı güvəndə olduğunu yoxlamaq üçün <ph name="BEGIN_LINK"/>Browther'a daxil olun<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Browther menyusuna klikləyin</translation>
 <translation id="1157985233335035034">Son dillər</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> Browther-un iş prinsipini dəyişdirə biləcək artırma əlavə etdi.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> Browther-un iş prinsipini dəyişdirə biləcək artırma əlavə etdi.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Windows versiyanız dəstəklənmədiyi üçün quraşdırma alınmadı.</translation>
-<translation id="8541922081612557424">Browther haqqında</translation>
+<translation id="8291401179516272335">Browther haqqında</translation>
 <translation id="1203500561924088507">Quraşdırdığınız üçün təşəkkür edirik. <ph name="BUNDLE_NAME"/> istifadə etməzdən əvvəl brauzerinizi yenidən başlatmalısınız.</translation>
 <translation id="1232234696885483911">Şəkil Axtarışını açdığınız zaman səhifənin başlığı, URL və kontent, o cümlədən PDF-lər avtomatik olaraq serverə göndəriləcək. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Daxil olduğunuz müddətdə Browther-da Browther Hesabınızdan əldə edilən parolları və s. istifadə edə bilərsiniz. Bunu dəyişmək üçün "Browther-da hesabınız" bölməsinə keçin.</translation>
-<translation id="8799570501820813406">Bu tab deaktiv olduqda Browther-u sürətli saxlamaq üçün yaddaş boşaldıldı. Bu saytın deaktiv olmasını həmişə istisna edə bilərsiniz.</translation>
-<translation id="8767381092474532098">Bu fayl təhlükəli olduğu üçün Browther endirməni blokladı</translation>
-<translation id="3256289531845594061"><ph name="USER_EMAIL"/> ilə Gmail və ya YouTube kimi Browther xidmətlərinə daxil olduqda eyni hesab ilə Browther-a avtomatik daxil ola bilərsiniz</translation>
+<translation id="3496831315930641015">Daxil olduğunuz müddətdə Browther-da Browther Hesabınızdan əldə edilən parolları və s. istifadə edə bilərsiniz. Bunu dəyişmək üçün "Browther-da hesabınız" bölməsinə keçin.</translation>
+<translation id="9034321258761608912">Bu tab deaktiv olduqda Browther-u sürətli saxlamaq üçün yaddaş boşaldıldı. Bu saytın deaktiv olmasını həmişə istisna edə bilərsiniz.</translation>
+<translation id="249571811018731941">Bu fayl təhlükəli olduğu üçün Browther endirməni blokladı</translation>
+<translation id="8850227089720975601"><ph name="USER_EMAIL"/> ilə Gmail və ya YouTube kimi Browther xidmətlərinə daxil olduqda eyni hesab ilə Browther-a avtomatik daxil ola bilərsiniz</translation>
 <translation id="1290883685122687410">Ayarlama xətası: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Yeni Browther profilinizi ayarlayın</translation>
-<translation id="878572309106296578">Browther Bluetooth cihazlarını araşdırmaq üçün 
+<translation id="6235774143043174856">Yeni Browther profilinizi ayarlayın</translation>
+<translation id="4437862975743821367">Browther Bluetooth cihazlarını araşdırmaq üçün 
  Bluetooth-a giriş tələb edir. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Dili aşkar edin</translation>
-<translation id="6204677860546245308">Browther üzrə tövsiyə olunan brauzer ayarlarından istifadə edin</translation>
-<translation id="108284536240904209">Datanı Browther-dan da silin (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Browther üzrə tövsiyə olunan brauzer ayarlarından istifadə edin</translation>
+<translation id="8270483548049772782">Datanı Browther-dan da silin (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Bərkidildi! Alətlər panelindəki yeni düymə ilə Şəkil Axtarışına yenidən daxil ola bilərsiniz</translation>
 <translation id="1356661055722410047">Yenilik! Həm ekrandakı mətni, həm də təsvirləri tərcümə edə bilərsiniz</translation>
 <translation id="1383876407941801731">Axtar</translation>
-<translation id="7009295044271335553">&amp;Browther Profillərini idarə edin</translation>
+<translation id="1592588950737518481">&amp;Browther Profillərini idarə edin</translation>
 <translation id="1404026649028693342">Sİ rejimi həmişə göstərilsin</translation>
 <translation id="141901961143729572">Fikirlərinizi paylaşın</translation>
-<translation id="3880714039086599943">Pəncərəni paylaşmaq üçün Sistem Ayarlarında Browther üzrə ekranın qeydə alınmasına icazə verin.</translation>
-<translation id="1586284627848250203">Sınaq üçün Browther ilə bağlı kömək alın</translation>
+<translation id="1743952081001089298">Pəncərəni paylaşmaq üçün Sistem Ayarlarında Browther üzrə ekranın qeydə alınmasına icazə verin.</translation>
+<translation id="8627385813382688019">Sınaq üçün Browther ilə bağlı kömək alın</translation>
 <translation id="1497802159252041924">Quraşdırma xətası: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Bu səhifə qorunur</translation>
-<translation id="5147525139567260139">Browther tabı paylaşın</translation>
-<translation id="721261350616678948">Browther-a daxil olun</translation>
+<translation id="7252430412915798987">Browther tabı paylaşın</translation>
+<translation id="6388429281015199562">Browther-a daxil olun</translation>
 <translation id="1547469039832541117">Vurğulanan tapşırığı sonlandırır.</translation>
-<translation id="1530633922026945685">Browther ətrafınızın 3D xəritəsini yaratmaq üçün kameranıza giriş icazəsi tələb edir</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Bu artırma artıq dəstəklənmir. Browther onu silməyinizi tövsiyə edir.}other{Bu artırmalar artıq dəstəklənmir. Browther onları silməyinizi tövsiyə edir.}}</translation>
-<translation id="51545890371361355">Browther-u bərkidin</translation>
-<translation id="6570689355868013775">Browther-un güvənlik alətləri</translation>
-<translation id="1902837727299679178">Browther Parol Meneceri datanızı silmək istəyir. İcazə vermək üçün Windows parolunu yazın.</translation>
-<translation id="4449148723378534338">Browther'da əsas məxfilik və təhlükəsizlik nəzarətlərini nəzərdən keçirin</translation>
+<translation id="1801944307203212016">Browther ətrafınızın 3D xəritəsini yaratmaq üçün kameranıza giriş icazəsi tələb edir</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Bu artırma artıq dəstəklənmir. Browther onu silməyinizi tövsiyə edir.}other{Bu artırmalar artıq dəstəklənmir. Browther onları silməyinizi tövsiyə edir.}}</translation>
+<translation id="4667068923142532753">Browther-u bərkidin</translation>
+<translation id="3006560544901646947">Browther-un güvənlik alətləri</translation>
+<translation id="686052171138185761">Browther Parol Meneceri datanızı silmək istəyir. İcazə vermək üçün Windows parolunu yazın.</translation>
+<translation id="8713026329083542796">Browther'da əsas məxfilik və təhlükəsizlik nəzarətlərini nəzərdən keçirin</translation>
 <translation id="1640672724030957280">Endirilir...</translation>
 <translation id="1680687534629375545">Bu səhifə haqqında Şəkil Axtarışından soruşun</translation>
 <translation id="1709772298389099340"><ph name="BROWSER_NAME"/> üçün artırılmış imtiyazlar təmin edir.</translation>
-<translation id="2913217021115517297">Bu funksiyaları təkmilləşdirmək üçün Browther interaksiyaları Browther-a göndərir. Bu datanı insan redaktorlar oxuya, emal edə və ona annotasiya əlavə edə bilər.</translation>
+<translation id="4243382967656566037">Bu funksiyaları təkmilləşdirmək üçün Browther interaksiyaları Browther-a göndərir. Bu datanı insan redaktorlar oxuya, emal edə və ona annotasiya əlavə edə bilər.</translation>
 <translation id="1722488837206509557">Bu, əlçatan cihazlardan seçim etmək və oradakı kontenti göstərmək imkanı verəcək.</translation>
-<translation id="8004287232784878841">Browther tezliklə baxış datasını siləcək</translation>
-<translation id="4197839351786449392">Browther naviqasiyaları HTTPS-ə təkmilləşdirməyə cəhd edəcək</translation>
-<translation id="7814200940910057384">Təmizlənmiş Browther datası</translation>
-<translation id="9048361966237194186">Browther <ph name="REMAINING_TIME"/> sonra yenidən başladılacaq</translation>
-<translation id="5524150602137990006">HTTPS əlçatan olmadıqda Browther xəbərdarlıq etmədən təhlükəli bağlantı istifadə edəcək</translation>
-<translation id="6797402139308059782">Browther'a fonda işləməyə icazə verin</translation>
-<translation id="5875673934455379806">Browther'u yenidən quraşdırın</translation>
-<translation id="4529028207655448215">Browther cəhd edir: <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Növbəti dəfə <ph name="DEVICE_TYPE"/> cihazında Browther-u açdığınız zaman Browther Parol Menecerindən istifadə etmək üçün göstəriş görəcəksiniz.</translation>
+<translation id="6820510278633522408">Browther tezliklə baxış datasını siləcək</translation>
+<translation id="7775028004939172516">Browther naviqasiyaları HTTPS-ə təkmilləşdirməyə cəhd edəcək</translation>
+<translation id="6963959729951758069">Təmizlənmiş Browther datası</translation>
+<translation id="4085139922884095932">Browther <ph name="REMAINING_TIME"/> sonra yenidən başladılacaq</translation>
+<translation id="2586248102295515296">HTTPS əlçatan olmadıqda Browther xəbərdarlıq etmədən təhlükəli bağlantı istifadə edəcək</translation>
+<translation id="3975328336074677101">Browther'a fonda işləməyə icazə verin</translation>
+<translation id="2497443204974841650">Browther'u yenidən quraşdırın</translation>
+<translation id="1724309687045787742">Browther cəhd edir: <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Növbəti dəfə <ph name="DEVICE_TYPE"/> cihazında Browther-u açdığınız zaman Browther Parol Menecerindən istifadə etmək üçün göstəriş görəcəksiniz.</translation>
 <translation id="1838374766361614909">Axtarışı təmizləyin</translation>
-<translation id="3541642064306182066">Baxış datasını yalnız bu cihazdan silib, Browther Hesabında saxlamaq üçün <ph name="BEGIN_LINK"/>Browther-dan çıxın<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Yolda olarkən yeni tab qrupları açmaq və ya yaratmaq üçün telefonunuza Browther endirin.</translation>
-<translation id="4559627161887338743">Daxil olunmuş Browther Hesablarını idarə edə bilərsiniz. Browther Hesablarınız Browther brauzeri, Play Market, Gmail və digər xidmətlər üçün istifadə olunur. Ailə üzvü kimi başqası üçün bir hesab əlavə etmək istəyirsinizsə, əvəzində <ph name="DEVICE_TYPE"/> cihazınıza yeni bir şəxs əlavə edin. <ph name="LINK_BEGIN"/>Ətraflı məlumat<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">Baxış datasını yalnız bu cihazdan silib, Browther Hesabında saxlamaq üçün <ph name="BEGIN_LINK"/>Browther-dan çıxın<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Yolda olarkən yeni tab qrupları açmaq və ya yaratmaq üçün telefonunuza Browther endirin.</translation>
+<translation id="2063443520349987970">Daxil olunmuş Browther Hesablarını idarə edə bilərsiniz. Browther Hesablarınız Browther brauzeri, Play Market, Gmail və digər xidmətlər üçün istifadə olunur. Ailə üzvü kimi başqası üçün bir hesab əlavə etmək istəyirsinizsə, əvəzində <ph name="DEVICE_TYPE"/> cihazınıza yeni bir şəxs əlavə edin. <ph name="LINK_BEGIN"/>Ətraflı məlumat<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Şəkil Axtarışı ilə axtarın</translation>
 <translation id="1880677175115548835">Mətn seçin</translation>
-<translation id="4528406859989804913">Nəzarət olunan hesabla daxil olursunuz və hesabın administratoruna Browther profiliniz üzərində nəzarət etmək imkanı verirsiniz. Tətbiqləriniz, əlfəcinləriniz, tarixçəniz, parollarınız və digər ayarlarınız <ph name="USER_NAME"/> adına həmişəlik bağlı qalacaq. Bu datanı Browther Hesab İdarə Paneli vasitəsilə silə biləcəksiniz, lakin bu datanı digər hesabla əlaqələndirə bilməyəcəksiniz. Mövcud Browther datanızı ayrı saxlamaq üçün yeni profil yarada bilərsiniz. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther arxa fon fəaliyyətini, habelə rahat sürüşdürmə və video çərçivə səviyyəsi kimi vizual effektləri məhdudlaşdırmaqla batareya enerjisinə qənaət edir. <ph name="BEGIN_LINK"/>Enerjiyə Qənaət haqqında ətraflı məlumat<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Nəzarət olunan hesabla daxil olursunuz və hesabın administratoruna Browther profiliniz üzərində nəzarət etmək imkanı verirsiniz. Tətbiqləriniz, əlfəcinləriniz, tarixçəniz, parollarınız və digər ayarlarınız <ph name="USER_NAME"/> adına həmişəlik bağlı qalacaq. Bu datanı Browther Hesab İdarə Paneli vasitəsilə silə biləcəksiniz, lakin bu datanı digər hesabla əlaqələndirə bilməyəcəksiniz. Mövcud Browther datanızı ayrı saxlamaq üçün yeni profil yarada bilərsiniz. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther arxa fon fəaliyyətini, habelə rahat sürüşdürmə və video çərçivə səviyyəsi kimi vizual effektləri məhdudlaşdırmaqla batareya enerjisinə qənaət edir. <ph name="BEGIN_LINK"/>Enerjiyə Qənaət haqqında ətraflı məlumat<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Bu səhifə haqqında soruşun</translation>
-<translation id="8643267611122541711">Browther Güncəlləyici Xidməti</translation>
-<translation id="1649714546770135458">Bunu deaktiv etməklə Browther'a giriş etmədən Gmail kimi Browther saytlarına daxil ola bilərsiniz</translation>
-<translation id="189297655255130768">Browther cavab vermir. İndi yenidən başladılsın?</translation>
-<translation id="8422047647688939115">Təşkilatınız, <ph name="MANAGER"/>, Browther-a daxil olmağınızı tələb edir</translation>
+<translation id="9128006428501241840">Browther Güncəlləyici Xidməti</translation>
+<translation id="6302815314157879372">Bunu deaktiv etməklə Browther'a giriş etmədən Gmail kimi Browther saytlarına daxil ola bilərsiniz</translation>
+<translation id="1063611196035804685">Browther cavab vermir. İndi yenidən başladılsın?</translation>
+<translation id="2873360330889594383">Təşkilatınız, <ph name="MANAGER"/>, Browther-a daxil olmağınızı tələb edir</translation>
 <translation id="4035053306113201399">Güncəlləşmənin tətbiq olunması üçün ChromeOS yenidən başladılmalıdır.</translation>
-<translation id="9048754176089806686">Bu fayl növü adətən endirilmədiyi və təhlükəli ola biləcəyi üçün Browther endirməni blokladı</translation>
+<translation id="2861285003831382718">Bu fayl növü adətən endirilmədiyi və təhlükəli ola biləcəyi üçün Browther endirməni blokladı</translation>
 <translation id="1953553007165777902">Endirilir... <ph name="MINUTE"/> dəqiqə qalıb</translation>
-<translation id="2470048290583727811">Browther ipucusu: Parolları yadda saxlayın</translation>
-<translation id="1775322105159056176">Browther defolt brauzeri müəyyən edə və ya ayarlaya bilmir</translation>
-<translation id="4372901050442507812">Browther-un bəzi faylları bloklama səbəbini öyrənin, yeni tabda açılır</translation>
-<translation id="2703425183860615504">Browther proqram təminatını güncəl saxlayır. Bu xidmət deaktiv edilərsə və ya dayandırılarsa, Browther proqram təminatınız güncəl saxlanılmayacaq, yəni yarana biləcək təhlükəsizlik problemləri aradan qaldırıla bilməz və funksiyalar işləməyə bilər. Bu xidmət ondan istifadə edən Browther proqram təminatı olmadıqda özünü sistemdən silir.</translation>
-<translation id="9220324636239049437">1 element cihazdan silinəcək. Sonradan datanızı bərpa etmək üçün <ph name="USER_EMAIL"/> kimi Bravea daxil olun.</translation>
+<translation id="2080160985220483492">Browther ipucusu: Parolları yadda saxlayın</translation>
+<translation id="8037497710694492565">Browther defolt brauzeri müəyyən edə və ya ayarlaya bilmir</translation>
+<translation id="7395009124247513849">Browther-un bəzi faylları bloklama səbəbini öyrənin, yeni tabda açılır</translation>
+<translation id="762710512520170632">Browther proqram təminatını güncəl saxlayır. Bu xidmət deaktiv edilərsə və ya dayandırılarsa, Browther proqram təminatınız güncəl saxlanılmayacaq, yəni yarana biləcək təhlükəsizlik problemləri aradan qaldırıla bilməz və funksiyalar işləməyə bilər. Bu xidmət ondan istifadə edən Browther proqram təminatı olmadıqda özünü sistemdən silir.</translation>
+<translation id="5793588180426267429">1 element cihazdan silinəcək. Sonradan datanızı bərpa etmək üçün <ph name="USER_EMAIL"/> kimi Bravea daxil olun.</translation>
 <translation id="2018879682492276940">Quraşdırma alınmadı. Yenidən sınayın.</translation>
-<translation id="831418749472885028">Digər parollarınızın data pozuntuları və digər güvənlik məsələlərinə qarşı güvəndə olduğunu yoxlamaq üçün <ph name="BEGIN_LINK"/>Browther'a daxil olun<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Digər parollarınızın data pozuntuları və digər güvənlik məsələlərinə qarşı güvəndə olduğunu yoxlamaq üçün <ph name="BEGIN_LINK"/>Browther'a daxil olun<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Ayarlar.</translation>
-<translation id="5499149312981370855">Browther xidmətlərində daha çox fərdiləşdirilmiş təcrübə üçün Browther tarixçəsinin daxil edilib-edilməməsini seçin</translation>
-<translation id="6959434860418352144">Browther-un görünüşünü dəyişmək üçün Yeni tab səhifəsində Browther-u fərdiləşdirin düyməsinə klikləyin</translation>
+<translation id="8194525816714210105">Browther xidmətlərində daha çox fərdiləşdirilmiş təcrübə üçün Browther tarixçəsinin daxil edilib-edilməməsini seçin</translation>
+<translation id="5909559127548969159">Browther-un görünüşünü dəyişmək üçün Yeni tab səhifəsində Browther-u fərdiləşdirin düyməsinə klikləyin</translation>
 <translation id="2066690553719545730">Sİ rejimi həmişə göstərilsin</translation>
-<translation id="2472891440303445472">Bu fayl aldadıcı olduğu və cihaza gözlənilməz dəyişikliklər edə biləcəyi üçün Browther endirməni blokladı</translation>
-<translation id="2054358978145431867">Növbəti dəfə Browther iOS-u açdığınız zaman <ph name="FEATURE_NAME"/> tətbiqini sınamaq üçün göstəriş görəcəksiniz.</translation>
-<translation id="2726948994393234543">Browther hesabınızda yadda saxladığınız parollar və digər Browther datası bu cihazdan silinəcək. Onları Browther-da yenidən istifadə etmək üçün təkrar daxil olun.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Browther 1 dəqiqə istifadə edilmədikdə təşkilat baxış datasını avtomatik silir. Bura tarixçə, avtodoldurma və endirmələr daxil ola bilər. Tablar açıq qalacaq.}other{Browther # dəqiqə istifadə edilmədikdə təşkilat baxış datasını avtomatik silir. Bura tarixçə, avtodoldurma və endirmələr daxil ola bilər. Tablar açıq qalacaq.}}</translation>
+<translation id="3283892260110318935">Bu fayl aldadıcı olduğu və cihaza gözlənilməz dəyişikliklər edə biləcəyi üçün Browther endirməni blokladı</translation>
+<translation id="6160571936643742128">Növbəti dəfə Browther iOS-u açdığınız zaman <ph name="FEATURE_NAME"/> tətbiqini sınamaq üçün göstəriş görəcəksiniz.</translation>
+<translation id="8380517409933452343">Browther hesabınızda yadda saxladığınız parollar və digər Browther datası bu cihazdan silinəcək. Onları Browther-da yenidən istifadə etmək üçün təkrar daxil olun.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Browther 1 dəqiqə istifadə edilmədikdə təşkilat baxış datasını avtomatik silir. Bura tarixçə, avtodoldurma və endirmələr daxil ola bilər. Tablar açıq qalacaq.}other{Browther # dəqiqə istifadə edilmədikdə təşkilat baxış datasını avtomatik silir. Bura tarixçə, avtodoldurma və endirmələr daxil ola bilər. Tablar açıq qalacaq.}}</translation>
 <translation id="2126108037660393668">Endirilmiş fayl doğrulanmadı.</translation>
 <translation id="2135919691573380097">Bu saytı şikayət edin</translation>
 <translation id="2137162749895930932">Tərcümə ekranını bağlayın</translation>
-<translation id="5789330946301045610">Sayt güvənli bağlantı istifadə etmədiyi və bu fayla müdaxilə edilmiş ola biləcəyi üçün Browther endirməni blokladı</translation>
+<translation id="4283559398694996391">Sayt güvənli bağlantı istifadə etmədiyi və bu fayla müdaxilə edilmiş ola biləcəyi üçün Browther endirməni blokladı</translation>
 <translation id="2170098639895543546">Səhifədə istədiyinizi seçin</translation>
-<translation id="142389341645668510">Browther'u fərdiləşdirin</translation>
+<translation id="2495182092286337191">Browther'u fərdiləşdirin</translation>
 <translation id="2174917724755363426">Quraşdırma tamamlanmayıb. Ləğv etmək istədiyinizə əminsiniz?</translation>
-<translation id="8745514854244955877">Browther - Şəbəkəyə Giriş - <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther - Şəbəkəyə Giriş - <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Yeniləmə yoxlaması xətası: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Hesabı Browther-dan silin</translation>
-<translation id="5550942974310218641">iOS üçün Browther-da Qabaqcıl Güvənli Baxış ilə yolda daha təhlükəsiz olun</translation>
-<translation id="6677253423995557759">Təhlükəli sayt. Browther bildirişləri sildi.</translation>
+<translation id="6696114732806961952">Hesabı Browther-dan silin</translation>
+<translation id="1084363153644366288">iOS üçün Browther-da Qabaqcıl Güvənli Baxış ilə yolda daha təhlükəsiz olun</translation>
+<translation id="7949164640723239455">Təhlükəli sayt. Browther bildirişləri sildi.</translation>
 <translation id="2236949375853147973">Fəaliyyətim</translation>
-<translation id="457168681575748148">Ünvanları və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun. Daxil olduqdan sonra bu ünvan Browther Hesabında yadda saxlanılacaq.</translation>
-<translation id="5659384504794665581">Paylaşılan kompüteriniz varsa, kompüterin paylaşıldığı şəxslər ayrı-ayrılıqda istifadə edə və Browther'u istədikləri kimi quraşdıra bilər.</translation>
+<translation id="4536403809133456417">Ünvanları və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun. Daxil olduqdan sonra bu ünvan Browther Hesabında yadda saxlanılacaq.</translation>
+<translation id="5627930103267312171">Paylaşılan kompüteriniz varsa, kompüterin paylaşıldığı şəxslər ayrı-ayrılıqda istifadə edə və Browther'u istədikləri kimi quraşdıra bilər.</translation>
 <translation id="2283803047247799269">Bu tabı Şəkil Axtarışı ilə axtarın</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther brauzeri yavaşladan tabı durdurmağı tövsiyə edir}other{Browther brauzeri yavaşladan tabları durdurmağı tövsiyə edir}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther brauzeri yavaşladan tabı durdurmağı tövsiyə edir}other{Browther brauzeri yavaşladan tabları durdurmağı tövsiyə edir}}</translation>
 <translation id="2307973900865360088">Dokda saxlayın</translation>
-<translation id="7810992039564280750">URL'ləri Browther'da saxlanılan təhlükəli saytların siyahısı ilə yoxlayır Sayt parolunuzu oğurlamağa çalışdıqda və ya zərərli fayl endirdiyinizdə Browther səhifə məzmunundan kiçik nümunələr də daxil olmaqla, URL'ləri Təhlükəsiz Baxışa göndərə bilər.</translation>
-<translation id="5042718521573656164">Nəticədə:
+<translation id="5161617112768367959">URL'ləri Browther'da saxlanılan təhlükəli saytların siyahısı ilə yoxlayır Sayt parolunuzu oğurlamağa çalışdıqda və ya zərərli fayl endirdiyinizdə Browther səhifə məzmunundan kiçik nümunələr də daxil olmaqla, URL'ləri Təhlükəsiz Baxışa göndərə bilər.</translation>
+<translation id="4123094831918713833">Nəticədə:
           <ph name="LINE_BREAKS"/>
           • Browther ayarları və Browther qısayolları sıfırlanacaq
           <ph name="LINE_BREAK"/>
@@ -125,638 +125,638 @@ Bəzi funksiyalar əlçatmaz ola bilər ki, nəticədə tərcihlərə edilən d�
           • Kukilər və digər müvəqqəti sayt datası silinəcək
           <ph name="LINE_BREAKS"/>
           Əlfəcin, tarixçə və yadda saxlanılmış parollar təsirə məruz qalmayacaq.</translation>
-<translation id="9095263438435683933">Buradan Android telefonunuza nömrə göndərmək üçün hər iki cihazda Browther'a daxil olun.</translation>
+<translation id="5456070119344236353">Buradan Android telefonunuza nömrə göndərmək üçün hər iki cihazda Browther'a daxil olun.</translation>
 <translation id="2356070529366658676">Soruşun</translation>
 <translation id="2359808026110333948">Davam edin</translation>
-<translation id="6485997157403727556">"<ph name="EXTENSION_NAME"/>" artırması Browther-a daxil olmağınızı istəyir</translation>
-<translation id="7017760840808989683">Tətbiqlər üçün arxa fonda işləyən Browther-u deaktiv edin</translation>
-<translation id="8491912023989916905"><ph name="USER_EMAIL_ADDRESS"/> kimi bu artırmanı istifadə etmək üçün Browther-a daxil olun.</translation>
+<translation id="6468415397021485143">"<ph name="EXTENSION_NAME"/>" artırması Browther-a daxil olmağınızı istəyir</translation>
+<translation id="2558600429878197587">Tətbiqlər üçün arxa fonda işləyən Browther-u deaktiv edin</translation>
+<translation id="5295781918312989856"><ph name="USER_EMAIL_ADDRESS"/> kimi bu artırmanı istifadə etmək üçün Browther-a daxil olun.</translation>
 <translation id="8418845734693287262">ChromeOS datanızı sinxronizasiya edə bilmir, çünki hesaba giriş məlumatlarınız köhnədir.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Bir və ya bir neçə Browther artırması 1 HID cihazına daxil olurdu}=1{Bir və ya bir neçə Browther artırması 1 HID cihazına daxil olur}other{Bir və ya bir neçə Browther artırması # HID cihazına daxil olur}}</translation>
-<translation id="1248225940185478633">Browther bu sayt üçün kamera və mikrofon icazəsi tələb edir</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Bir və ya bir neçə Browther artırması 1 HID cihazına daxil olurdu}=1{Bir və ya bir neçə Browther artırması 1 HID cihazına daxil olur}other{Bir və ya bir neçə Browther artırması # HID cihazına daxil olur}}</translation>
+<translation id="434258293817844111">Browther bu sayt üçün kamera və mikrofon icazəsi tələb edir</translation>
 <translation id="2403703063067034158">Başlatma xətası: başqa ayarlama nümunəsi icra edilir. Sonra yenidən cəhd edin.</translation>
-<translation id="5298352791080868905">İstənilən tətbiqdəki keçidləri Browther-da açın və brauzeri tapşırıqlar panelində əlçatan saxlayın</translation>
-<translation id="2118275934191847461"><ph name="BEGIN_LINK"/>Browther alətləri ilə<ph name="END_LINK"/> təhlükəsiz nəzər sala və nəzarət edə bilərsiniz</translation>
+<translation id="5458993228789433099">İstənilən tətbiqdəki keçidləri Browther-da açın və brauzeri tapşırıqlar panelində əlçatan saxlayın</translation>
+<translation id="1677640217693742525"><ph name="BEGIN_LINK"/>Browther alətləri ilə<ph name="END_LINK"/> təhlükəsiz nəzər sala və nəzarət edə bilərsiniz</translation>
 <translation id="2451727308784734061">Qısayol ilə Parol menecerinə tez daxil olun. Qısayolu kompüterin əsas ekranına və ya tətbiq işəsalanına köçürə bilərsiniz.</translation>
-<translation id="6381750314821942592">Browther tezliklə bağlanacaq</translation>
-<translation id="6078442581074612226">Browther'da</translation>
+<translation id="2280315911954332435">Browther tezliklə bağlanacaq</translation>
+<translation id="6410820860979094113">Browther'da</translation>
 <translation id="2485422356828889247">Sistemdən silin</translation>
 <translation id="2513154137948333830">Yenidən yükləmə tələb edilir: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Şəkil Axtarışı ilə mətn seçin</translation>
-<translation id="70183448213529602">Browther mövcud parolları əvəz etmək istəyir. İcazə vermək üçün Windows parolunu yazın.</translation>
-<translation id="7798069806040634998">Faylları endirmək üçün Browther yaddaşa giriş tələb edir</translation>
-<translation id="2351700486811407088">Browther Origin Yardım</translation>
+<translation id="7892218991241200190">Browther mövcud parolları əvəz etmək istəyir. İcazə vermək üçün Windows parolunu yazın.</translation>
+<translation id="8976443723926188033">Faylları endirmək üçün Browther yaddaşa giriş tələb edir</translation>
+<translation id="4131374838781785973">Browther Origin Yardım</translation>
 <translation id="2575822587468774919">Şəkil Axtarışı ilə axtarmaq üçün istədiyinizi seçin</translation>
-<translation id="3830890663494219270">Parolları və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun</translation>
-<translation id="6252796827759111076">Browther istifadəsinə davam edin</translation>
+<translation id="8705561858232289221">Parolları və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun</translation>
+<translation id="437162022240011372">Browther istifadəsinə davam edin</translation>
 <translation id="259935314519650377">Endirilmiş quraşdırıcı keşlənmədi. Xəta: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Sistem</translation>
-<translation id="7931230852267968641">Təşkilat əlfəcin, tarixçə və parollar kimi axtarış datasını görə və idarə edə bilər. Digər Browther profillərindəki axtarış datasını görə bilməz</translation>
-<translation id="2257221826278123061">Browther datasını hesabınızda (<ph name="ACCOUNT_EMAIL"/>) istifadə etmək və yadda saxlamaq üçün kimliyinizi doğrulayın</translation>
-<translation id="7387051847644272380">Quraşdırma zamanı əməliyyat sistemi xətası baş verdi. Browther'u yenidən endirin.</translation>
-<translation id="2648689842065142443">Cihaz paylaşsanız, dostlarınız və ailəniz ayrıca baxış keçirə bilər və Browther'u istədikləri kimi ayarlaya bilər.</translation>
-<translation id="6791166902140255175">Browther Paneli</translation>
-<translation id="8372880274820509128">Əlavə təhlükəsizlik üçün, Browther datanızı şifrələyəcək.</translation>
-<translation id="8752006915531191162">Browther Hesabını Browther-dan silmək üçün çıxın</translation>
-<translation id="5344406739101555055">Parolları, əlfəcinləri və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun</translation>
+<translation id="2907676829052962091">Təşkilat əlfəcin, tarixçə və parollar kimi axtarış datasını görə və idarə edə bilər. Digər Browther profillərindəki axtarış datasını görə bilməz</translation>
+<translation id="1289116577679005654">Browther datasını hesabınızda (<ph name="ACCOUNT_EMAIL"/>) istifadə etmək və yadda saxlamaq üçün kimliyinizi doğrulayın</translation>
+<translation id="7192278346779151664">Quraşdırma zamanı əməliyyat sistemi xətası baş verdi. Browther'u yenidən endirin.</translation>
+<translation id="7724398260867885339">Cihaz paylaşsanız, dostlarınız və ailəniz ayrıca baxış keçirə bilər və Browther'u istədikləri kimi ayarlaya bilər.</translation>
+<translation id="1679595317134614424">Browther Paneli</translation>
+<translation id="7189168846924379421">Əlavə təhlükəsizlik üçün, Browther datanızı şifrələyəcək.</translation>
+<translation id="4052643592793184278">Browther Hesabını Browther-dan silmək üçün çıxın</translation>
+<translation id="7694616023994438906">Parolları, əlfəcinləri və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun</translation>
 <translation id="2738871930057338499">İnternetə qoşulmaq olmur. HTTP 403 qadağan edilib. Proksi konfiqurasiyasını yoxlayın.</translation>
 <translation id="2753623023919742414">Klikləyərək axtarın</translation>
-<translation id="1312769823139326127">Browther-u defolt PDF görüntüləyicisi kimi təyin edin</translation>
-<translation id="3173824377856109157">Browther standart avtodoldurmanın ötürə biləcəyi çətin sahələri avtomatik doldura bilər</translation>
-<translation id="1187986649024576560">Bu artırmada zərərli proqram var və təhlükəlidir. Onu Browther-dan silin ki, daxil olduğunuz saytlardakı dataya, o cümlədən şəxsi məlumatlara baxa və onları dəyişə bilməsin.</translation>
+<translation id="9078193405195503710">Browther-u defolt PDF görüntüləyicisi kimi təyin edin</translation>
+<translation id="2456995288904753506">Browther standart avtodoldurmanın ötürə biləcəyi çətin sahələri avtomatik doldura bilər</translation>
+<translation id="3271730304285122987">Bu artırmada zərərli proqram var və təhlükəlidir. Onu Browther-dan silin ki, daxil olduğunuz saytlardakı dataya, o cümlədən şəxsi məlumatlara baxa və onları dəyişə bilməsin.</translation>
 <translation id="2799223571221894425">Yenidən başladın</translation>
-<translation id="5962774139606909656">Sizin Browther</translation>
+<translation id="1427337251963884503">Sizin Browther</translation>
 <translation id="2816462166102338036">Bu videonu Şəkil Axtarışı ilə axtarın</translation>
 <translation id="2841525013647267359">Mənbə dil:</translation>
 <translation id="2846251086934905009">Quraşdırma xətası: Quraşdırıcı prosesi tamamlanmadı. Quraşdırma dayandırıldı.</translation>
-<translation id="777113543093865885">Browther'dan silin...</translation>
-<translation id="5265419033369521352">Daxil olduğunuzda Browther'da sizi qoruyur və digər Browther tətbiqlərində təhlükəsizliyinizi artırmaq üçün istifadə edilə bilər</translation>
+<translation id="928966105228355994">Browther'dan silin...</translation>
+<translation id="587805782197019018">Daxil olduğunuzda Browther'da sizi qoruyur və digər Browther tətbiqlərində təhlükəsizliyinizi artırmaq üçün istifadə edilə bilər</translation>
 <translation id="2885378588091291677">Tapşırıq Meneceri</translation>
-<translation id="2176825726964012531">Browther haqqında</translation>
+<translation id="3055995278166070443">Browther haqqında</translation>
 <translation id="2915996080311180594">Sonra yenidən başladın</translation>
 <translation id="2928420929544864228">Quraşdırma tamamlandı.</translation>
-<translation id="2481553173340651149">Data parol ifadəsi ilə şifrələnib. Browther Hesabında Browther datasını istifadə etmək və yadda saxlamaq üçün onu daxil edin.</translation>
+<translation id="70453521937551896">Data parol ifadəsi ilə şifrələnib. Browther Hesabında Browther datasını istifadə etmək və yadda saxlamaq üçün onu daxil edin.</translation>
 <translation id="2945997411976714835">Quraşdırma xətası: Quraşdırıcı prosesini başlatmaq mümkün olmadı.</translation>
-<translation id="2413255940314578781">iOS-da Browther üçün yadda saxlanmış parollardan istifadə edərək saytlara daha sürətli daxil olun</translation>
-<translation id="122765104641632123">Əlfəcin, parol və ayarları bir-birindən ayrı saxlamaq üçün yeni Browther profili əlavə edin.</translation>
-<translation id="3688936822855019158">Təşkilatınız Browther-u idarə edir</translation>
-<translation id="8208853227947884571">Browther güncəldir</translation>
-<translation id="5122472867956731189">Sayt parolunuzu oğurlamağa çalışdıqda və ya zərərli fayl endirdiyinizdə Browther səhifə məzmunundan kiçik nümunələr də daxil olmaqla, URL'ləri Təhlükəsiz Baxışa göndərə bilər</translation>
-<translation id="3963199983793987097">Onlayn təhlükəsizliyinizi valideyninizin seçimləri ilə qorumaq üçün Browther-a daxil olun</translation>
+<translation id="3188308520233701133">iOS-da Browther üçün yadda saxlanmış parollardan istifadə edərək saytlara daha sürətli daxil olun</translation>
+<translation id="8145318807880784886">Əlfəcin, parol və ayarları bir-birindən ayrı saxlamaq üçün yeni Browther profili əlavə edin.</translation>
+<translation id="4330268530227888227">Təşkilatınız Browther-u idarə edir</translation>
+<translation id="6488090896442998436">Browther güncəldir</translation>
+<translation id="300557164611864786">Sayt parolunuzu oğurlamağa çalışdıqda və ya zərərli fayl endirdiyinizdə Browther səhifə məzmunundan kiçik nümunələr də daxil olmaqla, URL'ləri Təhlükəsiz Baxışa göndərə bilər</translation>
+<translation id="2447145782593796785">Onlayn təhlükəsizliyinizi valideyninizin seçimləri ilə qorumaq üçün Browther-a daxil olun</translation>
 <translation id="3003694935412297923">Bütün tapşırıqlar</translation>
-<translation id="7611046016537686219">{count,plural, =1{Müəyyən datanın Browther Hesabınızda yadda saxlanılması və bütün cihazlarda istifadə edilməsi üçün Browther kimliyinizi doğrulamalıdır. İndi çıxsanız, bu data (1 element) silinəcək.}other{Müəyyən datanın Browther Hesabınızda yadda saxlanılması və bütün cihazlarda istifadə edilməsi üçün Browther kimliyinizi doğrulamalıdır. İndi çıxsanız, bu data ({count} element) silinəcək.}}</translation>
-<translation id="4202995875619419215">Browther-da yeni tabda <ph name="URL"/> açın.</translation>
-<translation id="8755404239607088219">Browther parollarınızı yoxlaya bilmir. Sonra yenidən cəhd edin.</translation>
-<translation id="8880183781256147665">Xrom durub ...</translation>
+<translation id="7554113777150891030">{count,plural, =1{Müəyyən datanın Browther Hesabınızda yadda saxlanılması və bütün cihazlarda istifadə edilməsi üçün Browther kimliyinizi doğrulamalıdır. İndi çıxsanız, bu data (1 element) silinəcək.}other{Müəyyən datanın Browther Hesabınızda yadda saxlanılması və bütün cihazlarda istifadə edilməsi üçün Browther kimliyinizi doğrulamalıdır. İndi çıxsanız, bu data ({count} element) silinəcək.}}</translation>
+<translation id="5522228731050510047">Browther-da yeni tabda <ph name="URL"/> açın.</translation>
+<translation id="6358780591055960280">Browther parollarınızı yoxlaya bilmir. Sonra yenidən cəhd edin.</translation>
+<translation id="1386422761453740126">Xrom durub ...</translation>
 <translation id="3038232873781883849">Quraşdırılması gözlənilir...</translation>
 <translation id="3045032126857188731">Tərcümə edilmiş dil: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Rəy dialoqunu bağlayın</translation>
-<translation id="4503085212612536713">Digər Browther profilləri</translation>
-<translation id="7918740962659365265">Qəza raportlarını və <ph name="UMA_LINK"/> linkini Browther'a göndərməklə Browther'un daha keyfiyyətli olmasına yardım olun</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Bir və ya bir neçə Browther artırması 1 USB cihazına daxil olurdu}=1{Bir və ya bir neçə Browther artırması 1 USB cihazına daxil olur}other{Bir və ya bir neçə Browther artırması # USB cihazına daxil olur}}</translation>
-<translation id="3700405816184340252">Browther tarixçəsi</translation>
-<translation id="7365690458036015383">Quraşdırıcı arxivi dekompres edə bilmədi. Browther'u yenidən endirməyiniz xahiş olunur.</translation>
+<translation id="369127628511662602">Digər Browther profilləri</translation>
+<translation id="2370255879896574713">Qəza raportlarını və <ph name="UMA_LINK"/> linkini Browther'a göndərməklə Browther'un daha keyfiyyətli olmasına yardım olun</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Bir və ya bir neçə Browther artırması 1 USB cihazına daxil olurdu}=1{Bir və ya bir neçə Browther artırması 1 USB cihazına daxil olur}other{Bir və ya bir neçə Browther artırması # USB cihazına daxil olur}}</translation>
+<translation id="2065456480740480340">Browther tarixçəsi</translation>
+<translation id="5011660649081947055">Quraşdırıcı arxivi dekompres edə bilmədi. Browther'u yenidən endirməyiniz xahiş olunur.</translation>
 <translation id="310459126943037700">Tapşırıq(lar) sonlandırılmadı.</translation>
 <translation id="3104828284009500087">Səhifədə istədiyinizi axtarın</translation>
-<translation id="6422885447166607802">Parollarınızı, əlfəcinlərinizi və tarixçənizi cihazlar arasında mükəmməl şəkildə sinxronlaşdırın. Defolt brauzerinizi Browther-a güncəlləməklə bildiyiniz və sevdiyiniz funksiyalara asanlıqla daxil olun.</translation>
-<translation id="8919461291440820124">Browther mikrofonunuzu istifadə edir.</translation>
+<translation id="4917564010081457061">Parollarınızı, əlfəcinlərinizi və tarixçənizi cihazlar arasında mükəmməl şəkildə sinxronlaşdırın. Defolt brauzerinizi Browther-a güncəlləməklə bildiyiniz və sevdiyiniz funksiyalara asanlıqla daxil olun.</translation>
+<translation id="1041472930719344928">Browther mikrofonunuzu istifadə edir.</translation>
 <translation id="3130333203120345554">Yeni axtarış</translation>
 <translation id="3137969841538672700">Sürüşdürərək axtarın</translation>
-<translation id="8372436892102763334">Bu tab əlavə resurslardan istifadə edir. Performansı təkmilləşdirmək üçün Browther-a onu deaktiv etmək imkanı verin.</translation>
-<translation id="5949068186379578553">Ekranı paylaşmaq üçün Sistem Ayarlarında Browther üzrə ekranın qeydə alınmasına icazə verin</translation>
-<translation id="4805806622840861220">Browther'u yenidən başladın</translation>
+<translation id="5312717254055363883">Bu tab əlavə resurslardan istifadə edir. Performansı təkmilləşdirmək üçün Browther-a onu deaktiv etmək imkanı verin.</translation>
+<translation id="373523409348786203">Ekranı paylaşmaq üçün Sistem Ayarlarında Browther üzrə ekranın qeydə alınmasına icazə verin</translation>
+<translation id="802113445299754598">Browther'u yenidən başladın</translation>
 <translation id="3161522574479303604">Bütün dillər</translation>
-<translation id="3225882094369124157">Kompüterinizdə başqa proqram Browther-un fəaliyyət tərzini dəyişən tema əlavə etdi.
+<translation id="4522189060330781648">Kompüterinizdə başqa proqram Browther-un fəaliyyət tərzini dəyişən tema əlavə etdi.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Yeni Browther profilinizi fərdiləşdirin</translation>
-<translation id="4805865169608137960">Browther Hesabını Browther-dan silmək üçün Ayarlar səhifəsində Browther-dan çıxın</translation>
-<translation id="1651639704310627074">Sonra Browther formaları avtomatik doldurmaq üçün yadda saxlanmış məlumatdan istifadə etmək istəyib-istəmədiyinizi soruşa bilər</translation>
-<translation id="2585240446624043880">Browther öz data direktivini oxuya və yaza bilməz:  <ph name="USER_DATA_DIRECTORY"/></translation>
+<translation id="2604272613984010799">Yeni Browther profilinizi fərdiləşdirin</translation>
+<translation id="5150830326120505481">Browther Hesabını Browther-dan silmək üçün Ayarlar səhifəsində Browther-dan çıxın</translation>
+<translation id="7113660200899017820">Sonra Browther formaları avtomatik doldurmaq üçün yadda saxlanmış məlumatdan istifadə etmək istəyib-istəmədiyinizi soruşa bilər</translation>
+<translation id="4475011322243623412">Browther öz data direktivini oxuya və yaza bilməz:  <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">İndi yenidən başladın</translation>
-<translation id="2339258256897053758">Browther API açarları çatışmır. Browther'un bəzi funksionallığı deaktiv ediləcək.</translation>
-<translation id="8926637909431618259">Browther bağlı olduqda arxa fon tətbiqləri işləsin?</translation>
-<translation id="518125528057094977">Browther təhlükəli bağlantı ilə sayt yükləməzdən əvvəl xəbərdarlıq edəcək</translation>
-<translation id="8652321858775514885">Browther-a daxil olsanız, Browther Hesabı istisna olmaqla bütün Browther pəncərələrini bağladıqda əksər saytlardan çıxacaqsınız. Saytların sizi xatırlaması üçün <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Defolt axtarış mühərrikiniz Browther-dan kənarda dəyişdirildi. Sizi qorumaq üçün Browther onu sıfırladı.</translation>
-<translation id="5033074923607633232">Parolları, əlfəcinləri və daha çoxunu bütün cihazlarda əldə etmək üçün Browther-a daxil olun</translation>
+<translation id="3536063527222598206">Browther API açarları çatışmır. Browther'un bəzi funksionallığı deaktiv ediləcək.</translation>
+<translation id="1011450868746766298">Browther bağlı olduqda arxa fon tətbiqləri işləsin?</translation>
+<translation id="179611081153855734">Browther təhlükəli bağlantı ilə sayt yükləməzdən əvvəl xəbərdarlıq edəcək</translation>
+<translation id="8965591964936552871">Browther-a daxil olsanız, Browther Hesabı istisna olmaqla bütün Browther pəncərələrini bağladıqda əksər saytlardan çıxacaqsınız. Saytların sizi xatırlaması üçün <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Defolt axtarış mühərrikiniz Browther-dan kənarda dəyişdirildi. Sizi qorumaq üçün Browther onu sıfırladı.</translation>
+<translation id="1170501833661894915">Parolları, əlfəcinləri və daha çoxunu bütün cihazlarda əldə etmək üçün Browther-a daxil olun</translation>
 <translation id="3352986031709923790">axtarış sahəsinin yuxarı sağ küncü: <ph name="RIGHT"/>% sağ, <ph name="TOP"/>% yuxarı</translation>
-<translation id="7261356974224431851">Hesabdakı Browther datası</translation>
+<translation id="120745000989996104">Hesabdakı Browther datası</translation>
 <translation id="3369405342922656244">Bu səhifəni Şəkil Axtarışı ilə axtarın</translation>
-<translation id="6610330853796830621">Telefonda Browther ilə parollardan istifadə edin</translation>
+<translation id="7173761126541905083">Telefonda Browther ilə parollardan istifadə edin</translation>
 <translation id="2645435784669275700">ChromeOS</translation>
-<translation id="2297290224191497273">Mövcud Browther profilinə keçirilsin?</translation>
+<translation id="5266583242423616945">Mövcud Browther profilinə keçirilsin?</translation>
 <translation id="3412460710772753638">Bu cihazda Parol Menecerində</translation>
-<translation id="2491221873705777076">Telefonda Browther ilə qabaqcıl güvənli baxışı genişləndirin</translation>
-<translation id="7304389940068374923">Browther sizin üçün hazırlanır...</translation>
-<translation id="9216183508558772570">Oğurlanmış parol ilə daxil olduqda Browther sizə bildiriş göndərəcək</translation>
-<translation id="5853262807109651878"><ph name="ITEMS_COUNT"/> element bu cihazdan silinəcək. Sonradan datanızı bərpa etmək üçün Bravea <ph name="USER_EMAIL"/> kimi daxil olun.</translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> Browther profilləri arasında keçid edə bilər</translation>
-<translation id="8703492925273919597">Bütün Browther pəncərələrini bağlayın və yenidən cəhd edin.</translation>
-<translation id="599091950194451698">Pəncərəni paylaşmaq üçün Sistem Ayarlarında Browther üzrə ekranın qeydə alınmasına icazə verin</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> artıq giriş edib.  Baxışı ayrı saxlamaq üçün öz profilinizdə Browther-a <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olun.</translation>
-<translation id="8981774130895723211">Ekranı paylaşmaq üçün Sistem Ayarlarında Browther üçün ekranın qeydə alınmasına icazə verin.</translation>
+<translation id="4282363917570905631">Telefonda Browther ilə qabaqcıl güvənli baxışı genişləndirin</translation>
+<translation id="986094398735583155">Browther sizin üçün hazırlanır...</translation>
+<translation id="3266047225484320321">Oğurlanmış parol ilə daxil olduqda Browther sizə bildiriş göndərəcək</translation>
+<translation id="3508047337876211050"><ph name="ITEMS_COUNT"/> element bu cihazdan silinəcək. Sonradan datanızı bərpa etmək üçün Bravea <ph name="USER_EMAIL"/> kimi daxil olun.</translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> Browther profilləri arasında keçid edə bilər</translation>
+<translation id="7225005776233199285">Bütün Browther pəncərələrini bağlayın və yenidən cəhd edin.</translation>
+<translation id="5465054931427475969">Pəncərəni paylaşmaq üçün Sistem Ayarlarında Browther üzrə ekranın qeydə alınmasına icazə verin</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> artıq giriş edib.  Baxışı ayrı saxlamaq üçün öz profilinizdə Browther-a <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olun.</translation>
+<translation id="8133590217245064579">Ekranı paylaşmaq üçün Sistem Ayarlarında Browther üçün ekranın qeydə alınmasına icazə verin.</translation>
 <translation id="3597003331831379823">Artırılmış imtiyazlar ilə ayarlamanı işə salmaq alınmadı. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Browther-a daxil olun</translation>
-<translation id="3066805437003400520">Bu şəxsin axtarış datası bu cihazdan silinəcək. Datanı bərpa etmək üçün Browther'a <ph name="USER_EMAIL"/> olaraq daxil olun.</translation>
-<translation id="7029305463989165490"><ph name="ORIGIN"/> cihazından Android telefonunuza nömrə göndərmək üçün hər iki cihazda Browther'a daxil olun.</translation>
+<translation id="611080704131468868">Browther-a daxil olun</translation>
+<translation id="2492221622209669678">Bu şəxsin axtarış datası bu cihazdan silinəcək. Datanı bərpa etmək üçün Browther'a <ph name="USER_EMAIL"/> olaraq daxil olun.</translation>
+<translation id="6793778233257855801"><ph name="ORIGIN"/> cihazından Android telefonunuza nömrə göndərmək üçün hər iki cihazda Browther'a daxil olun.</translation>
 <translation id="3667616615096815454">Quraşdırmaq olmur. Tətbiq serverə məlum deyil.</translation>
-<translation id="1128485277465085828">Browther Hesabındakı bütün Browther datasını şifrələmək üçün <ph name="BEGIN_LINK"/>öz parol ifadələrinizdən<ph name="END_LINK"/> istifadə edin. Google Pay-dən ödəniş metodu və ünvanlar şifrələnməyəcək. Browther-dan brauzer tarixçəsi sinxronlaşdırılmayacaq.</translation>
-<translation id="4304059894777924102">Browther parollarınızı yoxlaya bilmir. İnternet bağlantınızı yoxlamağa cəhd edin.</translation>
-<translation id="1807774211756215222">Linki yeni Browther tabında açın</translation>
-<translation id="387105482057676379">Fərdiləşdirmə və digər məqsədlər üçün Browther və digər Browther xidmətlərini əlaqələndirin</translation>
+<translation id="5585500151754164442">Browther Hesabındakı bütün Browther datasını şifrələmək üçün <ph name="BEGIN_LINK"/>öz parol ifadələrinizdən<ph name="END_LINK"/> istifadə edin. Google Pay-dən ödəniş metodu və ünvanlar şifrələnməyəcək. Browther-dan brauzer tarixçəsi sinxronlaşdırılmayacaq.</translation>
+<translation id="404323216042159951">Browther parollarınızı yoxlaya bilmir. İnternet bağlantınızı yoxlamağa cəhd edin.</translation>
+<translation id="5004936474632127765">Linki yeni Browther tabında açın</translation>
+<translation id="6236643159256182256">Fərdiləşdirmə və digər məqsədlər üçün Browther və digər Browther xidmətlərini əlaqələndirin</translation>
 <translation id="3729187154190517324">"Tab və daha çoxunu əlavə edin" düyməsi vasitəsilə bir neçə tab, fayl və alət əlavə etməklə axtarışınızı dərinləşdirin.</translation>
-<translation id="3867175562099983425">Browther profillərini idarə edin</translation>
-<translation id="308146532933302843">Browther-un bəzi endirmələri bloklama səbəbini öyrənin</translation>
-<translation id="2189149060536531804">Nəzərdən keçirilməli məqam olsa, Browther sizə bildirəcək</translation>
-<translation id="8422094375343667686">Browther profilləri həyatınızın müxtəlif hissələrini bir-birindən ayırmağa kömək edir. Yeni profil əlavə edin.</translation>
-<translation id="6324134303015966238">Tez yüklənməsi üçün Browther daxil ola biləcəyiniz səhifələri əvvəlcədən yükləyir</translation>
+<translation id="1400697664933775238">Browther profillərini idarə edin</translation>
+<translation id="2461315395128103158">Browther-un bəzi endirmələri bloklama səbəbini öyrənin</translation>
+<translation id="8058420662026104226">Nəzərdən keçirilməli məqam olsa, Browther sizə bildirəcək</translation>
+<translation id="3177448557921912221">Browther profilləri həyatınızın müxtəlif hissələrini bir-birindən ayırmağa kömək edir. Yeni profil əlavə edin.</translation>
+<translation id="1541177876035612043">Tez yüklənməsi üçün Browther daxil ola biləcəyiniz səhifələri əvvəlcədən yükləyir</translation>
 <translation id="3810973564298564668">İdarə edin</translation>
-<translation id="4815742196440583661">Yadda saxlanmış parolları istifadə etmək üçün QR kodunu izləyin, iOS üçün Browther endirin və Browther Hesabına daxil olun</translation>
-<translation id="6093965249696204223">Browther ipucusu: Qabaqcıl Güvənli Baxış</translation>
+<translation id="1117103475254549453">Yadda saxlanmış parolları istifadə etmək üçün QR kodunu izləyin, iOS üçün Browther endirin və Browther Hesabına daxil olun</translation>
+<translation id="8880695882192156860">Browther ipucusu: Qabaqcıl Güvənli Baxış</translation>
 <translation id="3846683726093018685">**İcmallaşdır:** Skrinşotdakı kontentin əsas mövzusunu və məqsədini bir cümlə ilə və 30 sözdən az olmaqla təsvir et.
 
           **Suallar təklif et:** Skrinşotu daha yaxşı anlamaq üçün istifadəçinin verə biləcəyi 3-5 düşündürücü sualdan ibarət bəndli siyahı yarat. Bu sualların ən azı biri xüsusi olaraq vizual obyektə, onun dizaynına və ya yerləşməsinə aid olmalıdır.</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/> - Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/> - Browther Origin</translation>
 <translation id="3885770153807205175">Dil seçicisi</translation>
-<translation id="6315734375101223238">Browther'u fərdiləşdirin və nəzarət edin. Buna baxmalısınız - ətraflı məlumat üçün klikləyin.</translation>
-<translation id="7130675370997202556">Browther'u açmaq üçün adın üzərinə klikləyin və baxışa başlayın.</translation>
+<translation id="4861846616763552424">Browther'u fərdiləşdirin və nəzarət edin. Buna baxmalısınız - ətraflı məlumat üçün klikləyin.</translation>
+<translation id="6126366281251241386">Browther'u açmaq üçün adın üzərinə klikləyin və baxışa başlayın.</translation>
 <translation id="3892148308691398805">Mətni kopyalayın</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> artıq bu Browther profilinə daxil olub. Baxışınızı ayrı saxlamaq üçün Browther sizin üçün öz profilinizi yarada bilər.</translation>
-<translation id="8744239658215739511">Browther-u fərdiləşdirin</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> artıq bu Browther profilinə daxil olub. Baxışınızı ayrı saxlamaq üçün Browther sizin üçün öz profilinizi yarada bilər.</translation>
+<translation id="3821553157234855663">Browther-u fərdiləşdirin</translation>
 <translation id="3941890832296813527">Quraşdırma xətası: Quraşdırıcı fayl adı yanlışdır və ya dəstəklənmir.</translation>
-<translation id="8090497651549769448">Browther parolları kopyalamağa çalışır. Buna icazə vermək üçün Windows parolunuzu yazın.</translation>
-<translation id="4256965182800026277">Browther Hesabınızda saxladığınız parollarınız, ödəniş metodlarınız və ünvanlarınız bu cihazdan silinəcək. Onları Browther-da yenidən istifadə etmək üçün təkrar daxil olun.</translation>
+<translation id="6482299900191767005">Browther parolları kopyalamağa çalışır. Buna icazə vermək üçün Windows parolunuzu yazın.</translation>
+<translation id="5853011008278898603">Browther Hesabınızda saxladığınız parollarınız, ödəniş metodlarınız və ünvanlarınız bu cihazdan silinəcək. Onları Browther-da yenidən istifadə etmək üçün təkrar daxil olun.</translation>
 <translation id="395904275706073188">Qorunan səhifələri oxumaq mümkün deyil. Fərqli səhifə yoxlayın.</translation>
-<translation id="4194619960643453552">Browther-un təhlükəsizlik təminatı haqqında</translation>
-<translation id="1486377520191913768">Ünvan zolağına və ya axtarış xanasına yazdığınız zaman Browther təkliflər təqdim etmək üçün yazdıqlarınızı təşkilatın axtarış, Sİ və agent alətlərinə göndərir.</translation>
-<translation id="1311808042904310985">Sınaq üçün Browther haqqında</translation>
+<translation id="1832973663231751701">Browther-un təhlükəsizlik təminatı haqqında</translation>
+<translation id="4531502594774670767">Ünvan zolağına və ya axtarış xanasına yazdığınız zaman Browther təkliflər təqdim etmək üçün yazdıqlarınızı təşkilatın axtarış, Sİ və agent alətlərinə göndərir.</translation>
+<translation id="300013383485253006">Sınaq üçün Browther haqqında</translation>
 <translation id="1152920704813762236">ChromeOS haqqında</translation>
-<translation id="8282895427217902177">Sayta daxil olduqda Browther IP ünvanını gizlədən məxfilik mərkəzi vasitəsilə URL-in gizli hissəsini <ph name="BEGIN_LINK"/>Browther güvənli baxışa<ph name="END_LINK"/> göndərir. Sayt şübhəli nəsə edərsə, tam URL-lər və səhifə kontentinin bəzi hissələri də göndərilir.</translation>
+<translation id="8126752030994997015">Sayta daxil olduqda Browther IP ünvanını gizlədən məxfilik mərkəzi vasitəsilə URL-in gizli hissəsini <ph name="BEGIN_LINK"/>Browther güvənli baxışa<ph name="END_LINK"/> göndərir. Sayt şübhəli nəsə edərsə, tam URL-lər və səhifə kontentinin bəzi hissələri də göndərilir.</translation>
 <translation id="3703994572283698466">ChromeOS <ph name="BEGIN_LINK_LINUX_OSS"/>Linux tərtibat mühiti<ph name="END_LINK_LINUX_OSS"/> kimi əlavə <ph name="BEGIN_LINK_CROS_OSS"/>açıq mənbə proqram təminatı<ph name="END_LINK_CROS_OSS"/> ilə əlçatan edilib.</translation>
 <translation id="4022972681110646219">Ekranı tərcümə edin</translation>
 <translation id="4023601594785368013">Orijinal dil: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Browther-da istənilən tətbiqdən linkləri açın. Asan giriş üçün o, işləmə panelinə bərkidilir.</translation>
-<translation id="6056473803837713617"><ph name="BEGIN_LINK"/>Cari ayarları<ph name="END_LINK"/> bildirməklə Chormium'u təkmilləşdirməyə kömək edin</translation>
+<translation id="6450460108719059465">Browther-da istənilən tətbiqdən linkləri açın. Asan giriş üçün o, işləmə panelinə bərkidilir.</translation>
+<translation id="3437506136408403836"><ph name="BEGIN_LINK"/>Cari ayarları<ph name="END_LINK"/> bildirməklə Chormium'u təkmilləşdirməyə kömək edin</translation>
 <translation id="4050175100176540509">Mühüm təhlükəsizlik təkmilləşdirilmələri və yeni funksiyalar son versiyada əlçatandır.</translation>
 <translation id="4055805654398742145">Parol Meneceri</translation>
-<translation id="6654312501894761082">Kompüterinizdə başqa bir proqram Browther-un fəaliyyət göstərmə formasını dəyişən artırma əlavə etdi.
+<translation id="2164947358785939495">Kompüterinizdə başqa bir proqram Browther-un fəaliyyət göstərmə formasını dəyişən artırma əlavə etdi.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Browther 1 dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır. Baxış datası silinir. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.}other{Browther # dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır. Baxış datası silinir. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.}}</translation>
-<translation id="5794951150713244901">Browther haqqında səhifəsinə keçin</translation>
-<translation id="10925962326134232">Brauzerə yeni görünüş tətbiq etmək üçün Browther-u fərdiləşdirin</translation>
-<translation id="6596295505984504022">Browther-u fərdiləşdirin</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Browther 1 dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır. Baxış datası silinir. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.}other{Browther # dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır. Baxış datası silinir. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.}}</translation>
+<translation id="1535413545339990419">Browther haqqında səhifəsinə keçin</translation>
+<translation id="692283249649018289">Brauzerə yeni görünüş tətbiq etmək üçün Browther-u fərdiləşdirin</translation>
+<translation id="6375229634133804834">Browther-u fərdiləşdirin</translation>
 <translation id="4148957013307229264">Quraşdırılır...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> - Şəbəkəyə Giriş - Browther</translation>
-<translation id="2871190378186459992">Browther üçün möhtəşəm tətbiqlər, oyunlar, artırmalar və temalar kəşf edin.</translation>
-<translation id="462105622535258178">Bu artırmanı və digərlərini bütün kompüterlərinizdə əldə etmək üçün Browther-a daxil olun</translation>
-<translation id="6670140629169983459">Onlayn təhlükəsizliyinizi valideyninizin seçimləri ilə qorumaq üçün artıq <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olduğunuz Browther profilinə keçin</translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> - Şəbəkəyə Giriş - Browther</translation>
+<translation id="2911246138082876798">Browther üçün möhtəşəm tətbiqlər, oyunlar, artırmalar və temalar kəşf edin.</translation>
+<translation id="2528977475313334293">Bu artırmanı və digərlərini bütün kompüterlərinizdə əldə etmək üçün Browther-a daxil olun</translation>
+<translation id="8244267655940711467">Onlayn təhlükəsizliyinizi valideyninizin seçimləri ilə qorumaq üçün artıq <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olduğunuz Browther profilinə keçin</translation>
 <translation id="4222932583846282852">Ləğv edilir...</translation>
 <translation id="4224210481850767180">Quraşdırma ləğv edildi.</translation>
-<translation id="1853997773668795891">Browther datanız bu hesab ilə birləşdirilsin?</translation>
-<translation id="4732930052828648898">Standart qoruma ilə müqayisədə saytlardan daha çox data təhlil edərək təhlükəli, hətta Browther-un bilmədiyi saytlar haqqında xəbərdar edir. Browther xəbərdarlıqlarını ötürə bilərsiniz.</translation>
-<translation id="2201661640076600072">Browther-dan çıxın</translation>
-<translation id="3262506503470845422">Browther ilə yardım alın</translation>
+<translation id="8219359042845534271">Browther datanız bu hesab ilə birləşdirilsin?</translation>
+<translation id="5520777668172961882">Standart qoruma ilə müqayisədə saytlardan daha çox data təhlil edərək təhlükəli, hətta Browther-un bilmədiyi saytlar haqqında xəbərdar edir. Browther xəbərdarlıqlarını ötürə bilərsiniz.</translation>
+<translation id="2014920019837536689">Browther-dan çıxın</translation>
+<translation id="4341512411059715879">Browther ilə yardım alın</translation>
 <translation id="4281844954008187215">Xidmət Şərtləri</translation>
-<translation id="7691786510374174420">Naməlum xəta üzündən quraşdırmaq alınmadı. Əgər Browther hazırda işləyirsə, lütfən, qapadın və yenidən cəhd edin.</translation>
-<translation id="6368144843345980623">Parolları Browther-dan eksport edin</translation>
+<translation id="322492684764924424">Naməlum xəta üzündən quraşdırmaq alınmadı. Əgər Browther hazırda işləyirsə, lütfən, qapadın və yenidən cəhd edin.</translation>
+<translation id="3813060261346666066">Parolları Browther-dan eksport edin</translation>
 <translation id="4304713468139749426">Parol Meneceri</translation>
 <translation id="4334241893986177674">Bu skrinşotu axtarın</translation>
 <translation id="4334294535648607276">Endirmə tamamlandı.</translation>
-<translation id="242356249838681145">Windows işə düşdükdə Browther-u işə salın</translation>
-<translation id="4747339441562331861">Browther-u defolt brauzeriniz kimi ayarlamaqla bildiyiniz, sevdiyiniz və etibar etdiyiniz funksiyalara asanlıqla daxil olun. Sürətli giriş üçün Browther tapşırıqlar panelinə bərkidiləcək.</translation>
+<translation id="2177954934431828302">Windows işə düşdükdə Browther-u işə salın</translation>
+<translation id="2472318668926455009">Browther-u defolt brauzeriniz kimi ayarlamaqla bildiyiniz, sevdiyiniz və etibar etdiyiniz funksiyalara asanlıqla daxil olun. Sürətli giriş üçün Browther tapşırıqlar panelinə bərkidiləcək.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> bu cihazı istifadə etməzdən əvvəl aşağıdakı Xidmət Şərtlərini oxumağınızı və qəbul etməyinizi tələb edir. Bu şərtlər ChromeOS Şərtlərini artırmır, dəyişdirmir və ya məhdudlaşdırmır.</translation>
-<translation id="9183662282810237335">Browther'dan istənilən halda çıxılsın?</translation>
+<translation id="2897580280700805340">Browther'dan istənilən halda çıxılsın?</translation>
 <translation id="4413205837991854510">Şəkil Axtarışı qısayolunu həmişə göstərin</translation>
-<translation id="4065288863231444640">Browther'a Arxa Fonda İşləmək İcazəsi Verin</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther onu silməyinizi tövsiyə edir. <ph name="BEGIN_LINK"/>Dəstəklənən artırmalar haqqında ətraflı məlumat əldə edin<ph name="END_LINK"/>}other{Browther onları silməyinizi tövsiyə edir. <ph name="BEGIN_LINK"/>Dəstəklənən artırmalar haqqında ətraflı məlumat əldə edin<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Fərdiləşdirin və Browther'u kontrol edin</translation>
+<translation id="2454897022983434851">Browther'a Arxa Fonda İşləmək İcazəsi Verin</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther onu silməyinizi tövsiyə edir. <ph name="BEGIN_LINK"/>Dəstəklənən artırmalar haqqında ətraflı məlumat əldə edin<ph name="END_LINK"/>}other{Browther onları silməyinizi tövsiyə edir. <ph name="BEGIN_LINK"/>Dəstəklənən artırmalar haqqında ətraflı məlumat əldə edin<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Fərdiləşdirin və Browther'u kontrol edin</translation>
 <translation id="4427306783828095590">Təkmil qoruma ilə fişinq və zərərli proqramların bloklanması üçün daha çox iş görülür</translation>
 <translation id="4434353761996769206">Quraşdırıcı xətası: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> Browther-u idarə edir</translation>
-<translation id="3579012341787637143">Browther profili əlavə edin</translation>
-<translation id="6786534271003695094">Sınaq üçün Browther haqqında</translation>
-<translation id="526235294307144732">Browther Hesabında Browther datasını istifadə etmək və saxlamaq üçün parol ifadəsi daxil edin</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> Browther-u idarə edir</translation>
+<translation id="4007482010626246887">Browther profili əlavə edin</translation>
+<translation id="6888322430074420631">Sınaq üçün Browther haqqında</translation>
+<translation id="8912436499620582668">Browther Hesabında Browther datasını istifadə etmək və saxlamaq üçün parol ifadəsi daxil edin</translation>
 <translation id="4493028449971051158">Başlatma xətası: quraşdırıcını administrator kimi işə salın.</translation>
 <translation id="4501471624619070934">Bu ölkədə giriş məhdudlaşdırıldığı üçün quraşdırma alınmadı.</translation>
-<translation id="8594994021633965927">Bu artırma datanın toplanma və istifadə qaydası kimi məxfilik təcrübələrini dərc etməyib. Browther onu silməyinizi tövsiyə edir.</translation>
-<translation id="770557926599450702">Browther Origin'a xoş gəlmisiniz; yeni brauzer pəncərəsi açılıb</translation>
-<translation id="137732229629632648">Browther ətrafın xəritəsini çəkmək və əllərinizi izləmək üçün icazə tələb edir</translation>
-<translation id="5036046007335188949">Artıq başqa Browther profilində <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olmusunuz</translation>
-<translation id="1878185978731985193">Browther səhifələri əvvəlcədən yükləyərək baxış və axtarışı sürətləndirir. <ph name="BEGIN_LINK"/>Səhifələri əvvəlcədən yükləmək haqqında ətraflı məlumat<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Bu artırma datanın toplanma və istifadə qaydası kimi məxfilik təcrübələrini dərc etməyib. Browther onu silməyinizi tövsiyə edir.</translation>
+<translation id="8888202093812883067">Browther Origin'a xoş gəlmisiniz; yeni brauzer pəncərəsi açılıb</translation>
+<translation id="6391148383688605718">Browther ətrafın xəritəsini çəkmək və əllərinizi izləmək üçün icazə tələb edir</translation>
+<translation id="7756445485815468244">Artıq başqa Browther profilində <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olmusunuz</translation>
+<translation id="137435413163730206">Browther səhifələri əvvəlcədən yükləyərək baxış və axtarışı sürətləndirir. <ph name="BEGIN_LINK"/>Səhifələri əvvəlcədən yükləmək haqqında ətraflı məlumat<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Zərərli olduğunu düşündüyünüz saytı şikayət etdiyiniz zaman hər kəs üçün onlayn təhlükəsizliyi artırın.</translation>
-<translation id="8669339108356170796">Güvənli Baxış deaktiv olduğu və bu fayl doğrulanmadığı üçün Browther endirməni blokladı</translation>
-<translation id="7583343841997441047">Telefonda Browther ilə Browther Linzanı sınayın</translation>
+<translation id="3266647901351304597">Güvənli Baxış deaktiv olduğu və bu fayl doğrulanmadığı üçün Browther endirməni blokladı</translation>
+<translation id="6980208900390333646">Telefonda Browther ilə Browther Linzanı sınayın</translation>
 <translation id="4594305310729380060">Bu cihazda Parol Menecerinə</translation>
-<translation id="7776200949522126045">Browther Origin Tətbiqləri</translation>
+<translation id="5282047884678321451">Browther Origin Tətbiqləri</translation>
 <translation id="4598116752460667024">Siyahıdan istənilən prosesi axtarın.</translation>
 <translation id="4970880042055371251">ChromeOS versiyası</translation>
-<translation id="2182657378556811785">Güncəllənmək üzrədir. Güncəlləşməni tamamlamaq üçün Browther'u yenidən işə salın.</translation>
-<translation id="6311668361877328515">Browther-un V8 mühərriki ilə saytları sürətləndirir, lakin Browther-un hücumlara qarşı müqavimətini bir qədər azaldır</translation>
-<translation id="7402642357351265733">Browther istifadə hesabatlarını da paylaşırsınızsa, bu hesabatlara ziyarət etdiyiniz keçidlər daxil olacaq</translation>
-<translation id="8142245354207161805">Profil başqa kompüterdə başqa Browther prosesi tərəfindən (<ph name="PROCESS_ID"/>)istifadə olunur (<ph name="HOST_NAME"/>). Browther profili xəta almaması üçün qapadıb. Əgər bu profilin başqa proseslər tərəfindən istifadə olunmadığına əminsinizsə, profili blokdan çıxarın və Browther'u yenidən başladın.</translation>
+<translation id="4482468019601425607">Güncəllənmək üzrədir. Güncəlləşməni tamamlamaq üçün Browther'u yenidən işə salın.</translation>
+<translation id="5517890123509214766">Browther-un V8 mühərriki ilə saytları sürətləndirir, lakin Browther-un hücumlara qarşı müqavimətini bir qədər azaldır</translation>
+<translation id="7690070364551268156">Browther istifadə hesabatlarını da paylaşırsınızsa, bu hesabatlara ziyarət etdiyiniz keçidlər daxil olacaq</translation>
+<translation id="5020487088453637212">Profil başqa kompüterdə başqa Browther prosesi tərəfindən (<ph name="PROCESS_ID"/>)istifadə olunur (<ph name="HOST_NAME"/>). Browther profili xəta almaması üçün qapadıb. Əgər bu profilin başqa proseslər tərəfindən istifadə olunmadığına əminsinizsə, profili blokdan çıxarın və Browther'u yenidən başladın.</translation>
 <translation id="4680828127924988555">Quraşdırmanı ləğv edin</translation>
-<translation id="2014343159590733363">Müəyyən Browther datası Browther Hesabında yadda saxlanılmayıb. Çıxmazdan əvvəl bir neçə dəqiqə gözləyin. İndi çıxsanız, bu data silinəcək.</translation>
-<translation id="2408746614080689238">Daxil olduğunuz müddətdə Browther-da Browther Hesabınızdan əldə edilən parolları və s. istifadə edə bilərsiniz. <ph name="SHORTCUT"/> Browther xidmətləri ayarlarınızı dəyişə bilər.</translation>
-<translation id="847561904663814268">Kimsə bu kompüterdə <ph name="ACCOUNT_EMAIL_LAST"/> kimi Browther'a daxil olub. Məlumatınızı ayrı saxlamaq üçün yeni Browther istifadəçisi yaradın.</translation>
+<translation id="8134827615154347946">Müəyyən Browther datası Browther Hesabında yadda saxlanılmayıb. Çıxmazdan əvvəl bir neçə dəqiqə gözləyin. İndi çıxsanız, bu data silinəcək.</translation>
+<translation id="3508712423420506333">Daxil olduğunuz müddətdə Browther-da Browther Hesabınızdan əldə edilən parolları və s. istifadə edə bilərsiniz. <ph name="SHORTCUT"/> Browther xidmətləri ayarlarınızı dəyişə bilər.</translation>
+<translation id="2388739442635757494">Kimsə bu kompüterdə <ph name="ACCOUNT_EMAIL_LAST"/> kimi Browther'a daxil olub. Məlumatınızı ayrı saxlamaq üçün yeni Browther istifadəçisi yaradın.</translation>
 <translation id="4724676981607797757">Dəstəklənməyən protokol xətası səbəbindən quraşdırma alınmadı.</translation>
-<translation id="3834935463915107022">Browther'dan istənilən halda çıxılsın?</translation>
-<translation id="8668413672647811944">Browther üçün xüsusi güvənlik güncəllənməsi indicə tətbiq edildi. Yenidən başladaraq açıq qalmış tablarınızı bərpa edə bilərsiniz.</translation>
-<translation id="9029438584415578308">Browther-dan soruşun</translation>
-<translation id="4941816441131888792">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> və daha <ph name="COUNT"/> icazə.</translation>
-<translation id="4823369970559443694">Browther parollarınızı yoxlaya bilmir. 24 saatdan sonra yenidən cəhd edin və ya <ph name="BEGIN_LINK"/>Browther Hesabınızda parolları yoxlayın<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Bu, Browther axtarışda istifadə edilən eyni orfoqrafiya yoxlayandan istifadə edir. Brauzerdə yazdığınız mətn Browther'a göndərilir. Bunu istənilən vaxt ayarlardan dəyişə bilərsiniz.</translation>
-<translation id="2899369907387169108">Hesab olmadan Browther istifadə edin</translation>
-<translation id="1833893255023048385">mDNS trafikinə imkan vermək üçün Browther Origin üçün daxil olan qayda.</translation>
-<translation id="711601904575862069">&amp;Browther'u Güncəlləmək üçün yenidən başladın</translation>
+<translation id="8305313684264112434">Browther'dan istənilən halda çıxılsın?</translation>
+<translation id="418155915144835101">Browther üçün xüsusi güvənlik güncəllənməsi indicə tətbiq edildi. Yenidən başladaraq açıq qalmış tablarınızı bərpa edə bilərsiniz.</translation>
+<translation id="2683970367518529374">Browther-dan soruşun</translation>
+<translation id="5064473048847774331">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> və daha <ph name="COUNT"/> icazə.</translation>
+<translation id="5941343075741207533">Browther parollarınızı yoxlaya bilmir. 24 saatdan sonra yenidən cəhd edin və ya <ph name="BEGIN_LINK"/>Browther Hesabınızda parolları yoxlayın<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Bu, Browther axtarışda istifadə edilən eyni orfoqrafiya yoxlayandan istifadə edir. Brauzerdə yazdığınız mətn Browther'a göndərilir. Bunu istənilən vaxt ayarlardan dəyişə bilərsiniz.</translation>
+<translation id="4581078588976787792">Hesab olmadan Browther istifadə edin</translation>
+<translation id="3394520491703535051">mDNS trafikinə imkan vermək üçün Browther Origin üçün daxil olan qayda.</translation>
+<translation id="6563126962881169552">&amp;Browther'u Güncəlləmək üçün yenidən başladın</translation>
 <translation id="4918086044614829423">Qəbul edin</translation>
 <translation id="4918844574251943176">Şəkil kopyalandı</translation>
-<translation id="8797356639448065696">Browther arxa fon rejimindədir.</translation>
-<translation id="1895567721497166950">Klikləyərək Browther giriş dialoqunu bağlayın</translation>
-<translation id="2692971232706994729">Browther profilləri ilə bütün Browther elementlərinizi ayıra bilərsiniz. Dostlarınız və ailəniz üçün profillər yaradın, yaxud iş və əyləncə olaraq ayırın.</translation>
-<translation id="7406627712452599344">Qonaqlar geridə heç nə buraxmadan Browther istifadə edə bilər.</translation>
-<translation id="844471735881341044">Browther-dakı Hesabınız</translation>
-<translation id="5952898964075639679">Özünüzü Browther'a əlavə edin</translation>
-<translation id="7995865526174204486">Browther-da Gemini tablarınızda işləmək və ona verdiyiniz tapşırıqları yerinə yetirmək üçün avtomatik axtarışdan istifadə edir. <ph name="LINK_BEGIN"/>Ətraflı məlumat<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther əllərinizi izləmək üçün icazə istəyir</translation>
-<translation id="5406591571925937375">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">Browther arxa fon rejimindədir.</translation>
+<translation id="3603134280602182991">Klikləyərək Browther giriş dialoqunu bağlayın</translation>
+<translation id="6120233890602288442">Browther profilləri ilə bütün Browther elementlərinizi ayıra bilərsiniz. Dostlarınız və ailəniz üçün profillər yaradın, yaxud iş və əyləncə olaraq ayırın.</translation>
+<translation id="5722688387568011881">Qonaqlar geridə heç nə buraxmadan Browther istifadə edə bilər.</translation>
+<translation id="7786958592460743302">Browther-dakı Hesabınız</translation>
+<translation id="9114640791491590337">Özünüzü Browther'a əlavə edin</translation>
+<translation id="3536391594566515053">Browther-da Gemini tablarınızda işləmək və ona verdiyiniz tapşırıqları yerinə yetirmək üçün avtomatik axtarışdan istifadə edir. <ph name="LINK_BEGIN"/>Ətraflı məlumat<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther əllərinizi izləmək üçün icazə istəyir</translation>
+<translation id="1627123463102858476">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Adətən bildirişləri bloklayırsınız. Bu saytın sizi xəbərdar etməsi üçün məkan panelinin sağ küncündəki bildiriş işarəsinə klikləyin.</translation>
 <translation id="5174983315706567306">Kifayət qədər disk ölçüsü yoxdur.</translation>
-<translation id="8157129267754368853">Browther hesabı təkrar doğrulama tələb edir</translation>
-<translation id="9078804073692109646">Yadda saxlanmış parol yoxdur. Parollarınızı yadda saxladıqda Browther onları yoxlaya bilər.</translation>
-<translation id="6234515504547364178">Browther hesabından çıxın</translation>
+<translation id="7091313576354542088">Browther hesabı təkrar doğrulama tələb edir</translation>
+<translation id="9045390598305758496">Yadda saxlanmış parol yoxdur. Parollarınızı yadda saxladıqda Browther onları yoxlaya bilər.</translation>
+<translation id="5686724084351858452">Browther hesabından çıxın</translation>
 <translation id="5234764350956374838">Kənarlaşdırın</translation>
 <translation id="5254739261293693943">Bu video haqqında soruşun</translation>
-<translation id="8586264863973514035">Dəyişiklikləri tətbiq etmək üçün Browther'u yenidən başladın</translation>
+<translation id="8165028066129227692">Dəyişiklikləri tətbiq etmək üçün Browther'u yenidən başladın</translation>
 <translation id="5286907366254680517">Aşkarlandı</translation>
-<translation id="7264453786974905915">Browther tətbiqini əldə edin</translation>
-<translation id="6944930779012811739">Browther Güncəlləyici Daxili Xidməti</translation>
+<translation id="198210130507193824">Browther tətbiqini əldə edin</translation>
+<translation id="8472078903122489041">Browther Güncəlləyici Daxili Xidməti</translation>
 <translation id="5346389065299425353">Bir neçə tab, fayl və alət əlavə edərək axtarışı dərinləşdirin</translation>
-<translation id="7573068992266397941">Browther nəzərdən keçirilməli güvənlik tövsiyələri tapdı</translation>
-<translation id="8174413867995118050">Digər Browther profilləri</translation>
-<translation id="7708394612738038097">İdarə olunan hesabla daxil olursnuz və onun inzibati idarəetməsini Browther profilinizə verirsiniz. Tətbiqləriniz, əlfəcinləriniz, tarixçəniz və digər ayarlarınız Chromimum datanızla birlikdə <ph name="USER_NAME"/> üzərinə həmişəlik bənd olacaq. Bu datanı Browther Hesabları Paneli vasitəsilə silə bilərsiniz, lakin bu datanı digər hesabla əlaqəli edə bilməzsiniz. Mövcud Browther datanızı ayrı saxlamaq üçün yeni profil yarada bilərsiniz. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther nəzərdən keçirilməli güvənlik tövsiyələri tapdı</translation>
+<translation id="509616246140011182">Digər Browther profilləri</translation>
+<translation id="8214429210535362385">İdarə olunan hesabla daxil olursnuz və onun inzibati idarəetməsini Browther profilinizə verirsiniz. Tətbiqləriniz, əlfəcinləriniz, tarixçəniz və digər ayarlarınız Chromimum datanızla birlikdə <ph name="USER_NAME"/> üzərinə həmişəlik bənd olacaq. Bu datanı Browther Hesabları Paneli vasitəsilə silə bilərsiniz, lakin bu datanı digər hesabla əlaqəli edə bilməzsiniz. Mövcud Browther datanızı ayrı saxlamaq üçün yeni profil yarada bilərsiniz. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Əlavə kod: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Fərdiləşdirmə üçün Browther-u Veb və Tətbiq fəaliyyətinə daxil edin</translation>
-<translation id="5154625106151193600">Browther-un bəzi faylları bloklama səbəbini öyrənin</translation>
-<translation id="1786715389543715322">Browther güncəllənir (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Browther girişinə icazə verin</translation>
-<translation id="5267531627648004734">Browther'dan silin</translation>
-<translation id="4620757336635063467">Performansı azaldır, lakin Browther-u hücumlara qarşı davamlı edir</translation>
-<translation id="239760341987199724">Browther'u defolt brauzer təyin edin</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> - Browther Origin Beta</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther brauzeri yavaşladan tabı durdurmağı tövsiyə edir}other{Browther brauzeri yavaşladan tabları durdurmağı tövsiyə edir}}</translation>
-<translation id="894936507076470937">Browther düzgün işləməyə bilər, çünki daha Linux sistemi üzərində dəstəklənmir</translation>
-<translation id="2596557398669145729">Browther bu endirməni blokladı. Çünki fayl şəxsi və sosial şəbəkə hesablarını zədələyə bilər</translation>
-<translation id="696826782632239602">Browther məkanı bu saytla paylaşmaq üçün ona giriş tələb edir</translation>
-<translation id="1744365871163268756">Browther'um ən son sistem güncəlləşmələrini quraşdırmasını gözləyin.</translation>
-<translation id="3861679447659630159">Browther parolları redaktə etməyə çalışır. Buna icazə vermək üçün Windows parolunuzu yazın.</translation>
+<translation id="5244017809112094908">Fərdiləşdirmə üçün Browther-u Veb və Tətbiq fəaliyyətinə daxil edin</translation>
+<translation id="8096544113811780871">Browther-un bəzi faylları bloklama səbəbini öyrənin</translation>
+<translation id="2384387444932590174">Browther güncəllənir (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Browther girişinə icazə verin</translation>
+<translation id="6557334704331248411">Browther'dan silin</translation>
+<translation id="5832041381258620673">Performansı azaldır, lakin Browther-u hücumlara qarşı davamlı edir</translation>
+<translation id="3763317028635993788">Browther'u defolt brauzer təyin edin</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> - Browther Origin Beta</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther brauzeri yavaşladan tabı durdurmağı tövsiyə edir}other{Browther brauzeri yavaşladan tabları durdurmağı tövsiyə edir}}</translation>
+<translation id="4423621904097888155">Browther düzgün işləməyə bilər, çünki daha Linux sistemi üzərində dəstəklənmir</translation>
+<translation id="6201726364919996698">Browther bu endirməni blokladı. Çünki fayl şəxsi və sosial şəbəkə hesablarını zədələyə bilər</translation>
+<translation id="7679204468655335605">Browther məkanı bu saytla paylaşmaq üçün ona giriş tələb edir</translation>
+<translation id="1163572992704966942">Browther'um ən son sistem güncəlləşmələrini quraşdırmasını gözləyin.</translation>
+<translation id="5050118226119231029">Browther parolları redaktə etməyə çalışır. Buna icazə vermək üçün Windows parolunuzu yazın.</translation>
 <translation id="5524890928877629608">axtarış sahəsinin yuxarı sol küncü: <ph name="LEFT"/>% sol, <ph name="TOP"/>% yuxarı</translation>
-<translation id="232381795826373334">PDF-ləri Browther'da açın</translation>
+<translation id="5875549039106594731">PDF-ləri Browther'da açın</translation>
 <translation id="5536164441519929134">Bu tab<ph name="LINE_BREAK"/>haqqında soruşun</translation>
 <translation id="5579324208890605088">Başlatma xətası: quraşdırıcını administrator kimi deyil, adi istifadəçi kimi işə salın.</translation>
-<translation id="3588973534877826647">Defolt olaraq Browther-dan istifadə edin və onu bərkidin</translation>
+<translation id="202315329304302571">Defolt olaraq Browther-dan istifadə edin və onu bərkidin</translation>
 <translation id="5596627076506792578">Əlavə seçimlər</translation>
 <translation id="5605834417512968703">Şəkil Axtarışı ilə axtarış etmək üçün istədiyinizi seçin və ya Şəkil Axtarışından çıxmaq üçün escape düyməsini basın</translation>
 <translation id="5618818588972826921">Şəkil Axtarışı ilə axtarmaq üçün istənilən mətn və ya şəkli seçin və ya Şəkil Axtarışından çıxmaq üçün escape düyməsini basın</translation>
-<translation id="1026406809507858026">{0,plural, =0{Browther güncəlləməsi əlçatandır}=1{Browther güncəlləməsi əlçatandır}other{Browther güncəlləməsi # gün ərzində əlçatan olub}}</translation>
-<translation id="1023472437588692618">Browther-u bağladıqda sayt datasını cihazdan silin</translation>
-<translation id="5646769069113654257">Browther'u indi başladın</translation>
-<translation id="3117204675033805491">Browther MMC</translation>
-<translation id="2335583906071111058">Browther'u bu dildə görüntüləyin</translation>
+<translation id="5823076755666406442">{0,plural, =0{Browther güncəlləməsi əlçatandır}=1{Browther güncəlləməsi əlçatandır}other{Browther güncəlləməsi # gün ərzində əlçatan olub}}</translation>
+<translation id="8414129876440043675">Browther-u bağladıqda sayt datasını cihazdan silin</translation>
+<translation id="5156991567152325333">Browther'u indi başladın</translation>
+<translation id="5710072384986281834">Browther MMC</translation>
+<translation id="1536693367017293028">Browther'u bu dildə görüntüləyin</translation>
 <translation id="569897634095159764">İnternetə qoşulmaq olmur. Proksi serveri identifikasiya tələb edir.</translation>
-<translation id="3364613146104156465">Browther profilləri şəxsi baxış və işi bir-birindən ayrı saxlamağa imkan verir. Yeni profil əlavə edin.</translation>
-<translation id="1834213228893578875">Browther deaktiv tabların yaddaşını boşaldır. Bu, aktiv tablara və digər tətbiqlərə daha çox kompüter resursu verir və Browther-u sürətləndirir. Qayıtdığınız zaman deaktiv tablar avtomatik olaraq yenidən aktivləşir. <ph name="BEGIN_LINK"/>Yaddaşa Qənaət haqqında ətraflı məlumat<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">Parol ifadəsini unutsanız, yaxud bu ayarı dəyişmək istəsəniz, hesabdakı Browther datasını <ph name="SETTINGS_LINK"/></translation>
-<translation id="82926023981336111">Browther-u fərdiləşdirin və idarə edin. Browther-u defolt kimi ayarlayın.</translation>
+<translation id="4215338057953170891">Browther profilləri şəxsi baxış və işi bir-birindən ayrı saxlamağa imkan verir. Yeni profil əlavə edin.</translation>
+<translation id="5366435608642317052">Browther deaktiv tabların yaddaşını boşaldır. Bu, aktiv tablara və digər tətbiqlərə daha çox kompüter resursu verir və Browther-u sürətləndirir. Qayıtdığınız zaman deaktiv tablar avtomatik olaraq yenidən aktivləşir. <ph name="BEGIN_LINK"/>Yaddaşa Qənaət haqqında ətraflı məlumat<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">Parol ifadəsini unutsanız, yaxud bu ayarı dəyişmək istəsəniz, hesabdakı Browther datasını <ph name="SETTINGS_LINK"/></translation>
+<translation id="7763291835437810978">Browther-u fərdiləşdirin və idarə edin. Browther-u defolt kimi ayarlayın.</translation>
 <translation id="5809516625706423866">İnternetə qoşulmaq olmur. HTTP 401 üçün icazə verilməyib. Proksi konfiqurasiyasını yoxlayın.</translation>
-<translation id="95980832839683236">Browther-un V8 mühərriki ilə saytları sürətləndirir, lakin Browther-un hücumlara qarşı müqavimətini bir qədər azaldır. Bu ayar deaktivdir.</translation>
-<translation id="1224606669200461217">Browther Hesabınızda Browther datasından istifadə etmək və datanı yadda saxlamaq üçün Browther-u güncəlləyin</translation>
+<translation id="1827132270895283425">Browther-un V8 mühərriki ilə saytları sürətləndirir, lakin Browther-un hücumlara qarşı müqavimətini bir qədər azaldır. Bu ayar deaktivdir.</translation>
+<translation id="1553025851718680114">Browther Hesabınızda Browther datasından istifadə etmək və datanı yadda saxlamaq üçün Browther-u güncəlləyin</translation>
 <translation id="5824893331272123205">Bu paneli yükləmək mümkün olmadı, yenidən cəhd edin</translation>
-<translation id="4467664627714200493">Browther Origin'a xoş gəlmisiniz</translation>
+<translation id="6642862349634944253">Browther Origin'a xoş gəlmisiniz</translation>
 <translation id="5871205389137001634">Şəkil axtarışından çıxmaq üçün klikləyin</translation>
-<translation id="8054200348483755053">Browther bu elementlərdə zərərli proqram olduğunu aşkar edib:</translation>
-<translation id="3955583201925082436">Browther brauzerin ən təhlükəsiz ayarlara malik olub-olmadığını müntəzəm yoxlayır. Nəzərdən keçirilməli məqam olsa, sizə bildirəcəyik.</translation>
+<translation id="7586794330537887406">Browther bu elementlərdə zərərli proqram olduğunu aşkar edib:</translation>
+<translation id="1666897346518812892">Browther brauzerin ən təhlükəsiz ayarlara malik olub-olmadığını müntəzəm yoxlayır. Nəzərdən keçirilməli məqam olsa, sizə bildirəcəyik.</translation>
 <translation id="5895138241574237353">Yenidən başladın</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> - Şəbəkəyə Giriş</translation>
 <translation id="5924017743176219022">İnternetə qoşulur...</translation>
 <translation id="5941711191222866238">Minimallaşdırın</translation>
-<translation id="5768962901674164501">Bu əlfəcini və digərlərini bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun</translation>
-<translation id="5101892358689285100">Browther-u özünüzə uyğunlaşdırın</translation>
+<translation id="4938357262936377412">Bu əlfəcini və digərlərini bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun</translation>
+<translation id="260974496993853147">Browther-u özünüzə uyğunlaşdırın</translation>
 <translation id="5960071705175224773">Ayarlarınız naməlum tətbiq tərəfindən dəyişdirildi</translation>
 <translation id="5968400720580217226">Sİ Rejimi</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Browther 1 dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır.}other{Browther # dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır.}}</translation>
-<translation id="3598551856834560515">Sinxronizasiyanı başlatmaq üçün Browther'u güncəlləyin</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Browther 1 dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır.}other{Browther # dəqiqə istifadə edilmədikdə təşkilat onu avtomatik bağlayır.}}</translation>
+<translation id="5852664780493076676">Sinxronizasiyanı başlatmaq üçün Browther'u güncəlləyin</translation>
 <translation id="6003112304606738118">Endirilir... <ph name="HOURS"/> saat qalıb</translation>
 <translation id="6009821354356307391">Əlavə sual soruşun</translation>
 <translation id="6040143037577758943">Qapat</translation>
-<translation id="700488072601322385">Datanı qorumaq üçün Browther-un son vaxtlar daxil olmadığınız saytlardan icazələri silməsinə icazə verin. Bildirişlər dayanmır.</translation>
-<translation id="9071554113102421877">Browther'də açın</translation>
+<translation id="2495504229007749358">Datanı qorumaq üçün Browther-un son vaxtlar daxil olmadığınız saytlardan icazələri silməsinə icazə verin. Bildirişlər dayanmır.</translation>
+<translation id="6038969823662006832">Browther'də açın</translation>
 <translation id="6069027071882229820">Şəkil kimi kopiyalayın</translation>
-<translation id="7861579472672677409"><ph name="EXTENSION_NAME"/> Browther'a əlavə edildi</translation>
-<translation id="5849446944780602366">Browther'u fərdiləşdirin və idarə edin. Güncəlləmə əlçatandır.</translation>
-<translation id="5711722515923392428">Yanılı • Browther bu artırmanın mənbəyini doğrulaya bilmir</translation>
-<translation id="6355366566986893068">Browther-dakı hesabınız</translation>
-<translation id="7433698744896946664">Browther alətlər panelində artırmanın giriş sorğularını göstərməsinə icazə verin</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> təklükəli olduğu üçün Browther onu blok etdi.</translation>
-<translation id="991182453936521413">Browther tezliklə bağlanacaq və datanı siləcək</translation>
-<translation id="4060970194201477024">Burada Browther profilləri arasında keçid edə bilərsiniz</translation>
-<translation id="7815000350132166985">Kukilərə icazə versəniz, əvvəlcədən yükləmə zamanı Browther onlardan istifadə edə bilər</translation>
+<translation id="6606690217326148454"><ph name="EXTENSION_NAME"/> Browther'a əlavə edildi</translation>
+<translation id="6037324269860323082">Browther'u fərdiləşdirin və idarə edin. Güncəlləmə əlçatandır.</translation>
+<translation id="3695768481578778794">Yanılı • Browther bu artırmanın mənbəyini doğrulaya bilmir</translation>
+<translation id="4401885752362736126">Browther-dakı hesabınız</translation>
+<translation id="4310817187912076496">Browther alətlər panelində artırmanın giriş sorğularını göstərməsinə icazə verin</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> təklükəli olduğu üçün Browther onu blok etdi.</translation>
+<translation id="5139243417751674628">Browther tezliklə bağlanacaq və datanı siləcək</translation>
+<translation id="4696750309605389299">Burada Browther profilləri arasında keçid edə bilərsiniz</translation>
+<translation id="7475001351099358916">Kukilərə icazə versəniz, əvvəlcədən yükləmə zamanı Browther onlardan istifadə edə bilər</translation>
 <translation id="6165508094623778733">Ətraflı öyrənin</translation>
-<translation id="5739368447874065758">Hesabdakı Browther datasını silin</translation>
-<translation id="6685697979743742605">Bu fayl təhlükəli ola bilər<ph name="LINE_BREAK"/>Parolu təqdim etsəniz, Browther bu endirməni yoxlaya bilər. Fayl haqqında məlumat Browther güvənli baxışa göndərilir, lakin fayl kontenti və parol cihazda qalır.</translation>
+<translation id="5975099973700540482">Hesabdakı Browther datasını silin</translation>
+<translation id="6800151735486681860">Bu fayl təhlükəli ola bilər<ph name="LINE_BREAK"/>Parolu təqdim etsəniz, Browther bu endirməni yoxlaya bilər. Fayl haqqında məlumat Browther güvənli baxışa göndərilir, lakin fayl kontenti və parol cihazda qalır.</translation>
 <translation id="6182736845697986886">Yeniləmə serverində daxili xəta səbəbindən quraşdırma alınmadı.</translation>
-<translation id="4368341489795135329"><ph name="TARGET_DEVICE_NAME"/> cihazınızda Browther'a daxil olduğunuza əmin olun və sonra yenidən göndərin.</translation>
-<translation id="3038354906709778538">Kompüterinizdə başqa proqram Browther-un fəaliyyət tərzini dəyişən tətbiq əlavə etdi.
+<translation id="48832130233362517"><ph name="TARGET_DEVICE_NAME"/> cihazınızda Browther'a daxil olduğunuza əmin olun və sonra yenidən göndərin.</translation>
+<translation id="8868210753005945522">Kompüterinizdə başqa proqram Browther-un fəaliyyət tərzini dəyişən tətbiq əlavə etdi.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Bu kompüterdə Browther'um daha son versiyası var. Proqram təminatı işləmirsə, Chroimum'u sistemdən silin və yenidən cəhd edin.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther indi yenidən başlayacaq}=1{Browther 1 saniyəyə yenidən başlayacaq}other{Browther # saniyəyə yenidən başlayacaq}}</translation>
+<translation id="2779436101182061679">Bu kompüterdə Browther'um daha son versiyası var. Proqram təminatı işləmirsə, Chroimum'u sistemdən silin və yenidən cəhd edin.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther indi yenidən başlayacaq}=1{Browther 1 saniyəyə yenidən başlayacaq}other{Browther # saniyəyə yenidən başlayacaq}}</translation>
 <translation id="6239161312595354541">Bu video haqqında Şəkil Axtarışından soruşun</translation>
-<translation id="5980269616827212166">Browther faylları endirmək üçün yaddaşa giriş tələb edir</translation>
-<translation id="7651600795135059130">URL'ləri Browther'da saxlanılan təhlükəli saytların siyahısı ilə yoxlayır</translation>
-<translation id="5019879183386042809">Browther'u defolt brauzer edin</translation>
-<translation id="7445061995866044926">Browther'dan çıxılsın?</translation>
-<translation id="4659866260728515512">Bu tablar əlavə resurslar istifadə edir. Performansı təkmilləşdirmək üçün Browther-a onları deaktiv etmək imkanı verin.</translation>
-<translation id="6806912298071949921">Browther profilinizi fərdiləşdirin</translation>
-<translation id="3792238845239580301">Browther profilinizə ad verin</translation>
-<translation id="5874208157501051620">Artırma Browther-a daxil olmağınızı istəyir</translation>
-<translation id="3561569806301739367"><ph name="FILE_NAME"/> təklükəli ola bilər, bu səbəbdən Browther onu blok etdi.</translation>
-<translation id="3205074487970075628">Browther kameranızı istifadə edir.</translation>
+<translation id="1755464917870815989">Browther faylları endirmək üçün yaddaşa giriş tələb edir</translation>
+<translation id="304681001513922736">URL'ləri Browther'da saxlanılan təhlükəli saytların siyahısı ilə yoxlayır</translation>
+<translation id="7785903492969539081">Browther'u defolt brauzer edin</translation>
+<translation id="3987833816263696343">Browther'dan çıxılsın?</translation>
+<translation id="4723540739671534529">Bu tablar əlavə resurslar istifadə edir. Performansı təkmilləşdirmək üçün Browther-a onları deaktiv etmək imkanı verin.</translation>
+<translation id="6540151687468239291">Browther profilinizi fərdiləşdirin</translation>
+<translation id="770793114032605647">Browther profilinizə ad verin</translation>
+<translation id="385867753870250529">Artırma Browther-a daxil olmağınızı istəyir</translation>
+<translation id="2022337046348377650"><ph name="FILE_NAME"/> təklükəli ola bilər, bu səbəbdən Browther onu blok etdi.</translation>
+<translation id="45270956603278068">Browther kameranızı istifadə edir.</translation>
 <translation id="6327105987658262776">Güncəlləmə əlçatan deyil.</translation>
-<translation id="1819119299840995223">Browther'da digər əməliyyat davam edir. Sonra yenidən cəhd edin.</translation>
-<translation id="8616874628011103667">Browther'u Browther Hesabınız ilə ə paylaşılmış kompüterlərdə istifadə etmək indi daha asandır.</translation>
-<translation id="4264606872840545968">Browther qısayolu</translation>
-<translation id="6890616081898535725">Bu fayl adətən endirilmədiyi və təhlükəli ola biləcəyi üçün Browther endirməni blokladı</translation>
-<translation id="335632367599648646">Browther'u silmək istəyirsiniz?</translation>
+<translation id="673633752219771459">Browther'da digər əməliyyat davam edir. Sonra yenidən cəhd edin.</translation>
+<translation id="1482759407165416070">Browther'u Browther Hesabınız ilə ə paylaşılmış kompüterlərdə istifadə etmək indi daha asandır.</translation>
+<translation id="5538042432112726532">Browther qısayolu</translation>
+<translation id="833085228901080512">Bu fayl adətən endirilmədiyi və təhlükəli ola biləcəyi üçün Browther endirməni blokladı</translation>
+<translation id="491120842288314439">Browther'u silmək istəyirsiniz?</translation>
 <translation id="6375219077595103062">Parol meneceri üçün qısayol əlavə edin</translation>
 <translation id="6388799252195623474">bununla bağlı mənə kömək edin</translation>
-<translation id="7920857181125123335">Davam etmək üçün Browther-a <ph name="EMAIL"/> kimi daxil olun. Bu, təşkilat siyasətlərinin tətbiq edilməsini təmin edir.</translation>
-<translation id="3256100650978957522">Kompüter ekranında Browther loqosu.</translation>
-<translation id="5880764554173582719">Browther Origin veb səhifələri və tətbiqləri ildırım sürəti ilə işlədən veb brauzerdir. Browther Origin sürətlidir, stabildir və istifadəyə rahatdır. Browther Origin ilə internetdən fırıldaqlardan və viruslardan uzaq şəkildə istifadə edin.</translation>
-<translation id="2532326772258858491">Browther daha sürətli işləyir və JavaScript istifadə edən funksiyalar nəzərdə tutulan kimi işləməlidir (tövsiyə olunur)</translation>
+<translation id="6715003312952407375">Davam etmək üçün Browther-a <ph name="EMAIL"/> kimi daxil olun. Bu, təşkilat siyasətlərinin tətbiq edilməsini təmin edir.</translation>
+<translation id="1897845318651970239">Kompüter ekranında Browther loqosu.</translation>
+<translation id="4702069255970029302">Browther Origin veb səhifələri və tətbiqləri ildırım sürəti ilə işlədən veb brauzerdir. Browther Origin sürətlidir, stabildir və istifadəyə rahatdır. Browther Origin ilə internetdən fırıldaqlardan və viruslardan uzaq şəkildə istifadə edin.</translation>
+<translation id="5669767676913031391">Browther daha sürətli işləyir və JavaScript istifadə edən funksiyalar nəzərdə tutulan kimi işləməlidir (tövsiyə olunur)</translation>
 <translation id="6436260184216827876">Şəkil Axtarışı əlçatan deyil. Sonra cəhd edin.</translation>
 <translation id="2139300032719313227">ChromeOS'i yenidən başladın</translation>
-<translation id="638302211119176182">Tez yüklənməsi üçün Browther daxil ola biləcəyiniz digər səhifələri əvvəlcədən yükləyir</translation>
-<translation id="7167975344637731051">İstənilən saytda qiymətləri izləmək və qiymət endikdə xəbərdarlıq əldə etmək üçün telefonunuza Browther endirin</translation>
-<translation id="890319829408077946">Sönülü • Browther bu artırmanın mənbəyini doğrulaya bilməz</translation>
-<translation id="1684121725014454063">Browther profillərinə xoş gəlmisiniz</translation>
-<translation id="8211983866539058675">Növbəti dəfə <ph name="DEVICE_TYPE"/> cihazında Browther-u açdığınız zaman tab qruplarından istifadə etmək üçün göstəriş görəcəksiniz.</translation>
-<translation id="7906693299331092358">Hesabı Browther-dan silin</translation>
+<translation id="6110616900529884221">Tez yüklənməsi üçün Browther daxil ola biləcəyiniz digər səhifələri əvvəlcədən yükləyir</translation>
+<translation id="1217194059001819677">İstənilən saytda qiymətləri izləmək və qiymət endikdə xəbərdarlıq əldə etmək üçün telefonunuza Browther endirin</translation>
+<translation id="7058555680120557198">Sönülü • Browther bu artırmanın mənbəyini doğrulaya bilməz</translation>
+<translation id="676533642429632127">Browther profillərinə xoş gəlmisiniz</translation>
+<translation id="5518682889576009702">Növbəti dəfə <ph name="DEVICE_TYPE"/> cihazında Browther-u açdığınız zaman tab qruplarından istifadə etmək üçün göstəriş görəcəksiniz.</translation>
+<translation id="6038105561107837619">Hesabı Browther-dan silin</translation>
 <translation id="2675662665675552980">Həmçinin, Browther açılanda hansı səhifənin göstərildiyini idarə edir.</translation>
 <translation id="648319183876919572">Qabaqcıl Güvənli Baxış təhlükəli veb-sayt və endirmələrə qarşı daha yaxşı qoruyur</translation>
-<translation id="5590013613412457132">Browther'u sistemdən silin</translation>
-<translation id="7185585387858242335">Qısayollar Browther-da açılır</translation>
-<translation id="3617744907966785605">Browther <ph name="TIMEOUT_DURATION"/> istifadə edilməsə, təşkilat onu bağlayır. Baxış datası silindi. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.</translation>
-<translation id="8646609321956191980">Hər bir profil əlfəcinlər, tarixçələr, parollar və s. kimi öz Browther məlumatlarını saxlayır</translation>
-<translation id="6756656512757374876"><ph name="BEGIN_LINK"/>Browther-un datanı məxfi saxlaması<ph name="END_LINK"/> haqqında ətraflı</translation>
-<translation id="3556601443414636547">Bu ayara edilən dəyişikliklər Browther yenidən başladıqda tətbiq olunacaq.</translation>
-<translation id="2535436634051789953">Dəyişməklə parollara başqa Browther profilindən baxa bilərsiniz</translation>
-<translation id="2312399718665761438">Browther, yazı səhvlərini düzəltmək üçün mətn sahələrinə yazdığınız mətni Browther'a göndərir</translation>
-<translation id="3507835409099344374">Browther bildiriş ayarlarına keçin</translation>
+<translation id="2930243146591999795">Browther'u sistemdən silin</translation>
+<translation id="5241183382286817629">Qısayollar Browther-da açılır</translation>
+<translation id="7907014599435829661">Browther <ph name="TIMEOUT_DURATION"/> istifadə edilməsə, təşkilat onu bağlayır. Baxış datası silindi. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.</translation>
+<translation id="2088471423667794811">Hər bir profil əlfəcinlər, tarixçələr, parollar və s. kimi öz Browther məlumatlarını saxlayır</translation>
+<translation id="9040334484455218184"><ph name="BEGIN_LINK"/>Browther-un datanı məxfi saxlaması<ph name="END_LINK"/> haqqında ətraflı</translation>
+<translation id="1718697235867382480">Bu ayara edilən dəyişikliklər Browther yenidən başladıqda tətbiq olunacaq.</translation>
+<translation id="6331317152404762758">Dəyişməklə parollara başqa Browther profilindən baxa bilərsiniz</translation>
+<translation id="6097706403184348562">Browther, yazı səhvlərini düzəltmək üçün mətn sahələrinə yazdığınız mətni Browther'a göndərir</translation>
+<translation id="2319647238307402812">Browther bildiriş ayarlarına keçin</translation>
 <translation id="6600016381025017075">Bu səhifədə istədiyinizi axtarın</translation>
-<translation id="9156965752763025780">Dəyişiklikləriniz gələn dəfə Browther'u başlatdıqda qüvvəyə minəcək.</translation>
-<translation id="3387992981600748596">Browther artıq Windows işə düşdükdə işə salınır. Beləliklə, dərhal nəzər salmağa başlaya bilərsiniz. Bunu ayarlarda söndürə bilərsiniz.</translation>
-<translation id="3119017564683030312">Qaldığınız yerdən davam edin: Browther tablarınızı son sessiyadan bərpa etdi. Burada deaktiv edə bilərsiniz:</translation>
-<translation id="245693535809364497">Browther ətrafınızın 3D xəritəsini yaratmaq üçün kameranıza giriş icazəsi tələb edir</translation>
-<translation id="9210457680074341078">Browther-da məhsul qiymətlərini izləmək və qiymət enəndə bildiriş almaq üçün əlfəcinləri Browther Hesabında da saxlayın</translation>
+<translation id="8031938899816118394">Dəyişiklikləriniz gələn dəfə Browther'u başlatdıqda qüvvəyə minəcək.</translation>
+<translation id="7412185356697187964">Browther artıq Windows işə düşdükdə işə salınır. Beləliklə, dərhal nəzər salmağa başlaya bilərsiniz. Bunu ayarlarda söndürə bilərsiniz.</translation>
+<translation id="9123343592576384616">Qaldığınız yerdən davam edin: Browther tablarınızı son sessiyadan bərpa etdi. Burada deaktiv edə bilərsiniz:</translation>
+<translation id="5847926498049048567">Browther ətrafınızın 3D xəritəsini yaratmaq üçün kameranıza giriş icazəsi tələb edir</translation>
+<translation id="5532585028508811858">Browther-da məhsul qiymətlərini izləmək və qiymət enəndə bildiriş almaq üçün əlfəcinləri Browther Hesabında da saxlayın</translation>
 <translation id="6676384891291319759">İnternet</translation>
 <translation id="1363996462118479832">Giriş xətası səbəbindən ChromeOS datanızı sinxronizasiya edə bilmədi.</translation>
-<translation id="4694512973195649124">Bu tətbiqin datasını Browther-dan silin</translation>
-<translation id="5324448127277983819">Browther gördüyünüz reklamlar üzərində daha çox nəzarət imkanı verir və fərdiləşdirilmiş reklamlar göstərərkən saytların haqqınızda öyrəndiyi məlumatları məhdudlaşdırır.</translation>
-<translation id="1257247502847251159">Browther bu sayt üçün mikrofon icazəsi tələb edir</translation>
+<translation id="3373239673945775810">Bu tətbiqin datasını Browther-dan silin</translation>
+<translation id="8122759674786039814">Browther gördüyünüz reklamlar üzərində daha çox nəzarət imkanı verir və fərdiləşdirilmiş reklamlar göstərərkən saytların haqqınızda öyrəndiyi məlumatları məhdudlaşdırır.</translation>
+<translation id="6277682530398500159">Browther bu sayt üçün mikrofon icazəsi tələb edir</translation>
 <translation id="6712881677154121168">Endirmə xətası: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Profiliniz yeni versiya Browther Browther'dan olduğu üçün istifadə edilə bilməz.
+<translation id="2972046656127603037">Profiliniz yeni versiya Browther Browther'dan olduğu üçün istifadə edilə bilməz.
 
 Bəzi funksiyalar əlçatmaz ola bilər. Xüsusi profil direktoriyası göstərin və ya yeni Browther versiyası işlədin.</translation>
-<translation id="1505112054322049777">Fərdiləşdirmə və digər funksiyaları əldə etmək üçün Browther-u Veb və Tətbiq fəaliyyəti, habelə əlaqələndirilmiş Browther xidmətlərinə daxil edin</translation>
-<translation id="6666624454809779082">Browther kompüterinizdəki bütün istifadəçilər üçün artıq quraşdırılıb.</translation>
-<translation id="5848830584656405219">Əlfəcinləri və digər məlumatları bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun. Daxil olduqdan sonra bu əlfəcin Browther Hesabınızda yadda saxlanılacaq.</translation>
-<translation id="4020203987234748583">Browther-un V8 mühərriki ilə saytları sürətləndirir, lakin Browther-un hücumlara qarşı müqavimətini bir qədər azaldır. Bu ayar aktivdir.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Müəyyən Browther datası Browther Hesabınızda yadda saxlanılmayıb. Çıxmazdan əvvəl bir neçə dəqiqə gözləyin. İndi çıxsanız, bu data (1 element) silinəcək.}other{Müəyyən Browther datası Browther Hesabınızda yadda saxlanılmayıb. Çıxmazdan əvvəl bir neçə dəqiqə gözləyin. İndi çıxsanız, bu data ({count} element) silinəcək.}}</translation>
-<translation id="3136039682492230890">Browther bu faylı skan etməyi tövsiyə edir, çünki o, təhlükəli ola bilər.</translation>
+<translation id="871671753163165892">Fərdiləşdirmə və digər funksiyaları əldə etmək üçün Browther-u Veb və Tətbiq fəaliyyəti, habelə əlaqələndirilmiş Browther xidmətlərinə daxil edin</translation>
+<translation id="5000832110229523807">Browther kompüterinizdəki bütün istifadəçilər üçün artıq quraşdırılıb.</translation>
+<translation id="5204575479550973859">Əlfəcinləri və digər məlumatları bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun. Daxil olduqdan sonra bu əlfəcin Browther Hesabınızda yadda saxlanılacaq.</translation>
+<translation id="2874208284092283937">Browther-un V8 mühərriki ilə saytları sürətləndirir, lakin Browther-un hücumlara qarşı müqavimətini bir qədər azaldır. Bu ayar aktivdir.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Müəyyən Browther datası Browther Hesabınızda yadda saxlanılmayıb. Çıxmazdan əvvəl bir neçə dəqiqə gözləyin. İndi çıxsanız, bu data (1 element) silinəcək.}other{Müəyyən Browther datası Browther Hesabınızda yadda saxlanılmayıb. Çıxmazdan əvvəl bir neçə dəqiqə gözləyin. İndi çıxsanız, bu data ({count} element) silinəcək.}}</translation>
+<translation id="7683816018918395929">Browther bu faylı skan etməyi tövsiyə edir, çünki o, təhlükəli ola bilər.</translation>
 <translation id="1547295885616600893">ChromeOS əlavə <ph name="BEGIN_LINK_CROS_OSS"/>açıq mənbə proqram təminatı ilə<ph name="END_LINK_CROS_OSS"/> mümkün oldu.</translation>
 <translation id="6831043979455480757">Tərcümə et</translation>
-<translation id="8211837073776713955">Browther parollarınızın oğurlanıb-oğurlanmadığı haqqında Sizə məlumat verir</translation>
+<translation id="2142653375108595728">Browther parollarınızın oğurlanıb-oğurlanmadığı haqqında Sizə məlumat verir</translation>
 <translation id="684888714667046800">İnternetə qoşulmaq olmur. Qoruyucu divar istifadə edirsinizsə, <ph name="PRODUCT_EXE_NAME"/> icazə verilənlər siyahısında olmalıdır.</translation>
-<translation id="7830723774663008396">Browther - <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther - <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Davam etmək üçün tab</translation>
 <translation id="6862030660799253820">Bu şəkli Şəkil Axtarışı ilə axtarın</translation>
-<translation id="3028928628792374067">Browther "<ph name="EXTENSION_NAME"/>" artırmasında zərərli proqram olduğunu aşkar edib</translation>
+<translation id="3860339351709082396">Browther "<ph name="EXTENSION_NAME"/>" artırmasında zərərli proqram olduğunu aşkar edib</translation>
 <translation id="6877155553248388166">axtarış sahəsinin aşağı sağ küncü: <ph name="RIGHT"/>% sağ, <ph name="BOTTOM"/>% aşağı</translation>
 <translation id="6896758677409633944">Kopyalayın</translation>
-<translation id="862687584320433626">Browther-u defolt brauzer kimi ayarlayın və tapşırıqlar panelinə bərkidin</translation>
-<translation id="1991562568473125499">&amp;Browther profillərini idarə edin</translation>
+<translation id="7804113502310231166">Browther-u defolt brauzer kimi ayarlayın və tapşırıqlar panelinə bərkidin</translation>
+<translation id="3228374215117173004">&amp;Browther profillərini idarə edin</translation>
 <translation id="6934579572334859869">Bu şəkil haqqında Şəkil Axtarışından soruşun</translation>
-<translation id="5529781826378237601">Browther-un <ph name="BOOKMARK_LIMIT"/> əlfəcin limitinə çatdınız, ona görə də əlfəcinlərinizin bir hissəsi hələ Browther Hesabınızda yadda saxlanılmayıb.
+<translation id="5995328366516663808">Browther-un <ph name="BOOKMARK_LIMIT"/> əlfəcin limitinə çatdınız, ona görə də əlfəcinlərinizin bir hissəsi hələ Browther Hesabınızda yadda saxlanılmayıb.
 
 Bəzilərini silənə qədər yeni əlfəcinləri hesabınızda yadda saxlamaq olmur. İndi çıxsanız, yadda saxlanılmamış əlfəcinlər silinəcək.</translation>
 <translation id="6965382102122355670">OK</translation>
-<translation id="6418340404893954563">Zəif parolları tapmaq asandır. Browther'un <ph name="BEGIN_LINK"/>sizin üçün güclü parollar yaratmasına və yadda saxlamasına<ph name="END_LINK"/> imkan verin.</translation>
+<translation id="4533562834763015352">Zəif parolları tapmaq asandır. Browther'un <ph name="BEGIN_LINK"/>sizin üçün güclü parollar yaratmasına və yadda saxlamasına<ph name="END_LINK"/> imkan verin.</translation>
 <translation id="3453763134178591239">ChromeOS şərtləri</translation>
-<translation id="3335606533094650083">Browther bu sayt üçün mikrofona giriş tələb edir</translation>
-<translation id="6643520655691573653">Browther datasını hesabınızda (<ph name="ACCOUNT_EMAIL"/>) istifadə etmək və yadda saxlamaq üçün parol ifadəsini daxil edin</translation>
+<translation id="5379058926689137454">Browther bu sayt üçün mikrofona giriş tələb edir</translation>
+<translation id="4684462982894889021">Browther datasını hesabınızda (<ph name="ACCOUNT_EMAIL"/>) istifadə etmək və yadda saxlamaq üçün parol ifadəsini daxil edin</translation>
 <translation id="7011190694940573312">Əməliyyat sisteminin bu versiyası dəstəklənmədiyi üçün quraşdırma alınmadı.</translation>
 <translation id="7024536598735240744">Paketin açılması xətası: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Quraşdırma Dayandırılıb.</translation>
-<translation id="280382502853897110">Browther'u Fərdiləşdirin</translation>
+<translation id="8257174622576051374">Browther'u Fərdiləşdirin</translation>
 <translation id="7047386856539490735">Bu nəticələr faydalıdır?</translation>
-<translation id="1705567146636171298">Browther'u güncəlləşdirin</translation>
-<translation id="5499063270485366718">Şəklin təsviri faydalı deyilsə, Browther Sizin üçün təsviri təmin etməyə çalışacaq. Təsvir yaratmaq üçün şəkillər Browther'a göndərilir.</translation>
-<translation id="5966368554860795750">Sınaq üçün Browther-u fərdiləşdirin</translation>
-<translation id="792838367208896130">İstənilən vaxt mesaj, sənəd və digər tətbiqlərdə keçidlərə kliklədikdə Browther-dan istifadə edə bilərsiniz</translation>
-<translation id="375314543563594498"><ph name="EXTENSION_NAME"/> artırmasını Browther-dan silin</translation>
-<translation id="2332301637111071062">Browther datası <ph name="TIMEOUT_DURATION"/> istifadə edilməsə, təşkilat onu silir. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.</translation>
-<translation id="1008530050039597147">Browther bu sayt üçün kamera icazəsi tələb edir</translation>
-<translation id="1197672524850678392">Browther başlamadı. Yenidən sınayın.</translation>
-<translation id="3405035915691517126">Browther parollarınızı yoxlaya bilmir. 24 saatdan sonra yenidən cəhd edin.</translation>
-<translation id="3625983487600668413">İstənilən vaxt ona tez daxil olmaq üçün Browther-u Dokda saxlayın</translation>
-<translation id="5755581833598928580">Mesaj, sənəd və digər tətbiqlərdə keçidlərə kliklədikdə Browther istifadə edin</translation>
-<translation id="5516268345616100622">Tapşırıq Meneceri - Browther</translation>
-<translation id="713191641919118540">Browther tərəfindən təxmin edilən maraqlarınız</translation>
-<translation id="1871621397473741084">Dərhal nəzər salmağa başlayın: Browther artıq Windows işə düşdükdə işə salına bilər.</translation>
+<translation id="1772745060691790742">Browther'u güncəlləşdirin</translation>
+<translation id="4937970118065051027">Şəklin təsviri faydalı deyilsə, Browther Sizin üçün təsviri təmin etməyə çalışacaq. Təsvir yaratmaq üçün şəkillər Browther'a göndərilir.</translation>
+<translation id="1594112132009288601">Sınaq üçün Browther-u fərdiləşdirin</translation>
+<translation id="5915000938288527952">İstənilən vaxt mesaj, sənəd və digər tətbiqlərdə keçidlərə kliklədikdə Browther-dan istifadə edə bilərsiniz</translation>
+<translation id="8775664994493381735"><ph name="EXTENSION_NAME"/> artırmasını Browther-dan silin</translation>
+<translation id="3276648807841991013">Browther datası <ph name="TIMEOUT_DURATION"/> istifadə edilməsə, təşkilat onu silir. Bura tarixçə, avto doldurma və endirmələr daxil ola bilər.</translation>
+<translation id="4725226878394159809">Browther bu sayt üçün kamera icazəsi tələb edir</translation>
+<translation id="8931474625901592021">Browther başlamadı. Yenidən sınayın.</translation>
+<translation id="8242947409070121799">Browther parollarınızı yoxlaya bilmir. 24 saatdan sonra yenidən cəhd edin.</translation>
+<translation id="1737922827960215472">İstənilən vaxt ona tez daxil olmaq üçün Browther-u Dokda saxlayın</translation>
+<translation id="335855266303176628">Mesaj, sənəd və digər tətbiqlərdə keçidlərə kliklədikdə Browther istifadə edin</translation>
+<translation id="709455597778444012">Tapşırıq Meneceri - Browther</translation>
+<translation id="7147140345767587643">Browther tərəfindən təxmin edilən maraqlarınız</translation>
+<translation id="7337408274890534789">Dərhal nəzər salmağa başlayın: Browther artıq Windows işə düşdükdə işə salına bilər.</translation>
 <translation id="7274695763216404502">Bərkidildi! Alətlər panelində yenidən Şəkil Axtarışından istifadə edin</translation>
 <translation id="7288567540154601580">Tab və artırmalar</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther onu silməyinizi tövsiyə edir}other{Browther onları silməyinizi tövsiyə edir}}</translation>
-<translation id="4600669988724328687">Sistem audiosunu paylaşmaq üçün Sistem Ayarlarını açın və Browther-da "Yalnız Sistem Audiosunun Qeydə Alınması"na icazə verin. Sonra Browther-u yenidən başlatmalı olacaqsınız.</translation>
-<translation id="9068395155143628872">Reklamın ölçülməsi ziyarət etdiyiniz saytlara Browther'dan sayta reklamlarının performansını ölçməyə kömək edən məlumat tələb etməyə imkan verir. Reklamın ölçülməsi saytlar arasında mümkün qədər az məlumat ötürməklə saytlararası izləməni məhdudlaşdırır.</translation>
-<translation id="1864557848095568223">Browther güncəlləşir</translation>
-<translation id="3403365884036456766">Tərcih faylınız zədələnib və ya yanlışdır.  Browther ayarlarınızı bərpa edə bilmir.</translation>
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther onu silməyinizi tövsiyə edir}other{Browther onları silməyinizi tövsiyə edir}}</translation>
+<translation id="1527644038571473502">Sistem audiosunu paylaşmaq üçün Sistem Ayarlarını açın və Browther-da "Yalnız Sistem Audiosunun Qeydə Alınması"na icazə verin. Sonra Browther-u yenidən başlatmalı olacaqsınız.</translation>
+<translation id="1427913074981060872">Reklamın ölçülməsi ziyarət etdiyiniz saytlara Browther'dan sayta reklamlarının performansını ölçməyə kömək edən məlumat tələb etməyə imkan verir. Reklamın ölçülməsi saytlar arasında mümkün qədər az məlumat ötürməklə saytlararası izləməni məhdudlaşdırır.</translation>
+<translation id="1657652725060525338">Browther güncəlləşir</translation>
+<translation id="884846289464870238">Tərcih faylınız zədələnib və ya yanlışdır.  Browther ayarlarınızı bərpa edə bilmir.</translation>
 <translation id="7339898014177206373">Yeni pəncərə</translation>
-<translation id="3511996232906761537">Veb, əlfəcinlər və Browther'a aid hər şeyiniz buradadır.</translation>
-<translation id="1754899895078387289">Yalnız parol ifadəsini bilən şəxs şifrələnmiş datanı oxuya bilər. Browther parol ifadəsini əldə etmir və ya saxlamır. Parol ifadəsini unutmusunuzsa və ya bu ayarı dəyişmək istəyirsinizsə, <ph name="BEGIN_LINK"/>hesabınızdakı Browther datasını silməlisiniz<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Sistem administratorunun konfiqurasiyasına əsasən Browther <ph name="TARGET_URL_HOSTNAME"/> ünvanına daxil olmaq üçün <ph name="ALTERNATIVE_BROWSER_NAME"/> tətbiqini aça bilər.</translation>
+<translation id="633044855886370183">Veb, əlfəcinlər və Browther'a aid hər şeyiniz buradadır.</translation>
+<translation id="1185960088713242527">Yalnız parol ifadəsini bilən şəxs şifrələnmiş datanı oxuya bilər. Browther parol ifadəsini əldə etmir və ya saxlamır. Parol ifadəsini unutmusunuzsa və ya bu ayarı dəyişmək istəyirsinizsə, <ph name="BEGIN_LINK"/>hesabınızdakı Browther datasını silməlisiniz<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Sistem administratorunun konfiqurasiyasına əsasən Browther <ph name="TARGET_URL_HOSTNAME"/> ünvanına daxil olmaq üçün <ph name="ALTERNATIVE_BROWSER_NAME"/> tətbiqini aça bilər.</translation>
 <translation id="7352651011704765696">Xəta oldu</translation>
-<translation id="6085660187823915017">Browther güncəlləmələrini əldə etmək üçün macOS 13 və ya yeni versiya tələb olunur. Bu kompüter macOS 12 versiyasından istifadə edir.</translation>
-<translation id="2865744782251083875">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Bu artırma artıq dəstəklənmir. Browther onu silməyinizi tövsiyə edir.</translation>
-<translation id="7951152294775418909">Qaldığınız yerdən davam edin: Browther hər dəfə yenidən başladıldıqda tablarınızı bərpa edir. Bunu deaktiv etmək üçün keçin:</translation>
-<translation id="3191314862567596053">Parolları Browther-a import edin</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
+<translation id="6638123710106659002">Browther güncəlləmələrini əldə etmək üçün macOS 13 və ya yeni versiya tələb olunur. Bu kompüter macOS 12 versiyasından istifadə edir.</translation>
+<translation id="7286289384512061761">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Bu artırma artıq dəstəklənmir. Browther onu silməyinizi tövsiyə edir.</translation>
+<translation id="137615076640044304">Qaldığınız yerdən davam edin: Browther hər dəfə yenidən başladıldıqda tablarınızı bərpa edir. Bunu deaktiv etmək üçün keçin:</translation>
+<translation id="5967238175620483220">Parolları Browther-a import edin</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
 <translation id="7450541714075000668">Mətn kopyalandı</translation>
-<translation id="2034072705932785495">Browther bu sayt üçün kameraya giriş tələb edir</translation>
-<translation id="7129342855140808694">Mikrofondan istifadə etmək üçün Browther-a <ph name="BEGIN_LINK"/>sistem ayarlarında<ph name="END_LINK"/> giriş imkanı verin</translation>
-<translation id="5296583608321648908">Browther güncəlləmələrini əldə etmək üçün Windows 10 və ya daha yeni versiya tələb olunur. Bu kompüter Windows 7 istifadə edir.</translation>
-<translation id="3962395975456095331">Browther yenidən başladılsın?</translation>
-<translation id="2619516027171717873">Hazırda istifadə olunan Browther versiyasını quraşdıra bilməzsiniz. Lütfən, Browther'u qapadın və yenidən cəhd edin.</translation>
-<translation id="2731639583336131792">Browther-a daxil olduğunuz zaman parolları və daha çoxunu Browther Hesabınızda yadda saxlayacaq və istifadə edəcəksiniz. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Saytlar gözlənilən kimi işləyəcək. Browther-a daxil olsanız, Browther Hesabı istisna olmaqla bütün Browther pəncərələrini bağladıqda əksər saytlardan çıxacaqsınız.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther 1 dəqiqəyə yenidən başlayacaq}other{Browther # dəqiqəyə yenidən başlayacaq}}</translation>
-<translation id="552342471964912391">Datanı qorumaq üçün Browther-un son vaxtlar daxil olmadığınız saytlardan icazələri silməsinə icazə verin.</translation>
-<translation id="3826701455067637694">Dərhal nəzər salmağa başlamaq üçün Browther-u avtomatik işə salın.</translation>
+<translation id="7766009218653304791">Browther bu sayt üçün kameraya giriş tələb edir</translation>
+<translation id="5844418066487488520">Mikrofondan istifadə etmək üçün Browther-a <ph name="BEGIN_LINK"/>sistem ayarlarında<ph name="END_LINK"/> giriş imkanı verin</translation>
+<translation id="8065480549334161841">Browther güncəlləmələrini əldə etmək üçün Windows 10 və ya daha yeni versiya tələb olunur. Bu kompüter Windows 7 istifadə edir.</translation>
+<translation id="6299293759264950896">Browther yenidən başladılsın?</translation>
+<translation id="180908550381040105">Hazırda istifadə olunan Browther versiyasını quraşdıra bilməzsiniz. Lütfən, Browther'u qapadın və yenidən cəhd edin.</translation>
+<translation id="7625576878150380853">Browther-a daxil olduğunuz zaman parolları və daha çoxunu Browther Hesabınızda yadda saxlayacaq və istifadə edəcəksiniz. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Saytlar gözlənilən kimi işləyəcək. Browther-a daxil olsanız, Browther Hesabı istisna olmaqla bütün Browther pəncərələrini bağladıqda əksər saytlardan çıxacaqsınız.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther 1 dəqiqəyə yenidən başlayacaq}other{Browther # dəqiqəyə yenidən başlayacaq}}</translation>
+<translation id="3602613943932672197">Datanı qorumaq üçün Browther-un son vaxtlar daxil olmadığınız saytlardan icazələri silməsinə icazə verin.</translation>
+<translation id="8759568213742229377">Dərhal nəzər salmağa başlamaq üçün Browther-u avtomatik işə salın.</translation>
 <translation id="7583399374488819119"><ph name="COMPANY_NAME"/> Quraşdırıcısı</translation>
-<translation id="3293668930608086049">Browther kameranızı və mikrofonunuzu işlədir.</translation>
-<translation id="2827121003398607864">Browther daha da keyfiyyətli oldu</translation>
-<translation id="3071313329776323836">Artıq Browther-da sizin üçün daha çox funksiya əlçatandır</translation>
+<translation id="8991800242749014880">Browther kameranızı və mikrofonunuzu işlədir.</translation>
+<translation id="2692328388439821508">Browther daha da keyfiyyətli oldu</translation>
+<translation id="4318444066563223295">Artıq Browther-da sizin üçün daha çox funksiya əlçatandır</translation>
 <translation id="7649070708921625228">Yardım</translation>
-<translation id="4008841832817149051">Browther-a sizin üçün axtarış etməyə icazə verin</translation>
+<translation id="5591287320769313116">Browther-a sizin üçün axtarış etməyə icazə verin</translation>
 <translation id="7658239707568436148">Ləğv edin</translation>
-<translation id="3343095737966473035">Browther defolt brauzeriniz deyil</translation>
-<translation id="5477319665405831211">Browther'u cihazlarda sinxronizasiya edin və fərdiləşdirin</translation>
-<translation id="2339273275658335597">Browther güncəllənməsi</translation>
+<translation id="6325482130534634729">Browther defolt brauzeriniz deyil</translation>
+<translation id="8185915921134219287">Browther'u cihazlarda sinxronizasiya edin və fərdiləşdirin</translation>
+<translation id="5120421624925726813">Browther güncəllənməsi</translation>
 <translation id="7716950018788545737">Tapşırıq(lar) sonlandırıldı.</translation>
 <translation id="77283119132245232"><ph name="BROWSER_NAME"/> üçün sistem izləmə xidmətləri təqdim edir. Bu xidmət deaktiv edilərsə, brauzer tərəfindən yaradılan performans izlərinə kontekst keçidi və hazır mövzu tədbirləri kimi sistem miqyaslı tədbirlər daxil olmayacaq.</translation>
-<translation id="4784414698887946907">Brauzinq datanız bu cihazdan silinəcək. Sonradan datanızı bərpa etmək üçün Bravea <ph name="USER_EMAIL"/> kimi daxil olun.</translation>
+<translation id="6542096191573265107">Brauzinq datanız bu cihazdan silinəcək. Sonradan datanızı bərpa etmək üçün Bravea <ph name="USER_EMAIL"/> kimi daxil olun.</translation>
 <translation id="7747138024166251722">Quraşdırıcı müvəqqəti direktoriya yarada bilmədi. Proqramı quraşdırmaq üçün boş disk yeri və icazə tapın.</translation>
-<translation id="8543787950557226450">Defolt Browther-a sıfırlayın</translation>
-<translation id="4976450819672499783">Browther-u defolt kimi ayarlayın və işləmə panelinə bərkidin</translation>
-<translation id="1978509466033734608">Browther'u sürətli edin</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
-<translation id="2684504034454188774">İnternet trafikinizə girişi olanların daxil olduğunuz saytları görməsini çətinləşdirin. Browther saytın IP ünvanını DNS-də (Domen adı sistemi) axtarmaq üçün güvənli bağlantıdan istifadə edir.</translation>
+<translation id="351575328720488268">Defolt Browther-a sıfırlayın</translation>
+<translation id="1054170408395182418">Browther-u defolt kimi ayarlayın və işləmə panelinə bərkidin</translation>
+<translation id="4569594230301902490">Browther'u sürətli edin</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
+<translation id="7893465573639396635">İnternet trafikinizə girişi olanların daxil olduğunuz saytları görməsini çətinləşdirin. Browther saytın IP ünvanını DNS-də (Domen adı sistemi) axtarmaq üçün güvənli bağlantıdan istifadə edir.</translation>
 <translation id="7810005234485217901">Asan giriş üçün Şəkil Axtarışını bərkidə bilərsiniz</translation>
-<translation id="1652855885539187849">Bu hesab ilə Browther profili artıq bu cihazda mövcuddur</translation>
+<translation id="2462631024103158515">Bu hesab ilə Browther profili artıq bu cihazda mövcuddur</translation>
 <translation id="7845233973568007926">Quraşdırdığınız üçün təşəkkür edirik. <ph name="BUNDLE_NAME"/> istifadə etməzdən əvvəl kompüterinizi yenidən başlatmalısınız.</translation>
-<translation id="9148690296223500734">Browther-un görünüşünü dəyişmək üçün fərdiləşdirin</translation>
-<translation id="7963515534397191222">Browther ən son versiyaya güncəllənə bilmədi. Yeni funksiyaları və təhlükəsizlik həllərini əldən verirsiniz.</translation>
+<translation id="311190437086049332">Browther-un görünüşünü dəyişmək üçün fərdiləşdirin</translation>
+<translation id="6728847658878265103">Browther ən son versiyaya güncəllənə bilmədi. Yeni funksiyaları və təhlükəsizlik həllərini əldən verirsiniz.</translation>
 <translation id="7872446069773932638">Endirilir... <ph name="SECONDS"/> saniyə qalıb</translation>
-<translation id="5545136190679883344">Parol ifadəsini unutmusunuzsa, yaxud bu ayarı dəyişmək istəyirsinizsə, <ph name="BEGIN_LINK"/>hesabınızdakı Browther datasını silin<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">Parol ifadəsini unutmusunuzsa, yaxud bu ayarı dəyişmək istəyirsinizsə, <ph name="BEGIN_LINK"/>hesabınızdakı Browther datasını silin<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">Bu şəkil haqqında soruşun</translation>
-<translation id="5687542525349822727">Browther-u defolt kimi ayarlayın</translation>
-<translation id="6396151137840491551">Browther mümkün olduqda güvənsiz bağlantıları avtomatik olaraq HTTPS-ə təkmilləşdirir</translation>
-<translation id="2925193881330501265">Browther'a <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olmuşdunuz. Lütfən, yenidən daxil olmaq üçün eyni hesabdan istifadə edin.</translation>
-<translation id="6915252145142862992">Bu Browther'un ikinci quraşdırmasıdır və defolt brauzer kimi ayarlana bilmir.</translation>
+<translation id="9172499982238113829">Browther-u defolt kimi ayarlayın</translation>
+<translation id="3313826726620159669">Browther mümkün olduqda güvənsiz bağlantıları avtomatik olaraq HTTPS-ə təkmilləşdirir</translation>
+<translation id="3317928686912559532">Browther'a <ph name="USER_EMAIL_ADDRESS"/> kimi daxil olmuşdunuz. Lütfən, yenidən daxil olmaq üçün eyni hesabdan istifadə edin.</translation>
+<translation id="6007009085341946457">Bu Browther'un ikinci quraşdırmasıdır və defolt brauzer kimi ayarlana bilmir.</translation>
 <translation id="8004582292198964060">Brauzer</translation>
 <translation id="8010081455002666927">Avto-aşkarlama</translation>
-<translation id="7685904775439037072">Browther'un giriş imkanı olduqda veb saytlar giriş üçün Sizdən icazə istəyəcək.</translation>
-<translation id="3230755314472063687">İstənilən vaxt tez daxil olmaq üçün Browther-u tapşırıqlar panelinə bərkidin</translation>
+<translation id="174885789898161653">Browther'un giriş imkanı olduqda veb saytlar giriş üçün Sizdən icazə istəyəcək.</translation>
+<translation id="3001754454174546602">İstənilən vaxt tez daxil olmaq üçün Browther-u tapşırıqlar panelinə bərkidin</translation>
 <translation id="80471789339884597">Quraşdırdığınız üçün təşəkkür edirik. <ph name="BUNDLE_NAME"/> istifadə etməzdən əvvəl bütün brauzerlərinizi yenidən başlatmalısınız.</translation>
 <translation id="8054112667659782652">Şəkil Axtarışı qısayolunu həmişə göstərin</translation>
-<translation id="6175141682081019059">Tətbiqlər üçün arxa fonda işləyən Browther-u deaktiv edin</translation>
+<translation id="6993312779622863465">Tətbiqlər üçün arxa fonda işləyən Browther-u deaktiv edin</translation>
 <translation id="80790299200510644">Şəkil axtarışı</translation>
 <translation id="8086881907087796310">Kompüteriniz minimum avadanlıq tələblərinə cavab vermədiyi üçün quraşdırma alınmadı.</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/> - Browther Origin Sınaq üçün Browther Origin</translation>
-<translation id="2061155704815580583">Browther bu sayt üçün məkan icazəsi tələb edir</translation>
-<translation id="3576319845915562805">Növbəti dəfə <ph name="DEVICE_TYPE"/> cihazında Browther-u açdığınız zaman qiymət izləmə xəbərdarlıqlarını aktivləşdirmək üçün göstəriş görəcəksiniz.</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/> - Browther Origin Sınaq üçün Browther Origin</translation>
+<translation id="543407324609820492">Browther bu sayt üçün məkan icazəsi tələb edir</translation>
+<translation id="1767887552863788514">Növbəti dəfə <ph name="DEVICE_TYPE"/> cihazında Browther-u açdığınız zaman qiymət izləmə xəbərdarlıqlarını aktivləşdirmək üçün göstəriş görəcəksiniz.</translation>
 <translation id="8118331347066725040">Linza ilə axtarış üçün rəy göndərin</translation>
 <translation id="5334309298019785904">ChromeOS datanızı sinxronizasiya edə bilmədi, çünki sinxronizasiya domeniniz üçün əlçatan deyil.</translation>
 <translation id="813913629614996137">Başladılır...</translation>
-<translation id="1081849497974110565">Browther üzrə Əlavə Xidmət Şərtləri</translation>
-<translation id="9067428552314418522">Bu fayl təklükəlidir, bu səbəbdən Browther onu blok etdi.</translation>
+<translation id="4879101934056397619">Browther üzrə Əlavə Xidmət Şərtləri</translation>
+<translation id="4505690237431768764">Bu fayl təklükəlidir, bu səbəbdən Browther onu blok etdi.</translation>
 <translation id="8177472873527554730">Səhifədə kontenti tapmaq olmur</translation>
-<translation id="6219250889396046657">Browther datasını hesabınızda (<ph name="USER_EMAIL"/>) istifadə etmək və yadda saxlamaq üçün parol ifadəsini daxil edin</translation>
+<translation id="4720341280133158605">Browther datasını hesabınızda (<ph name="USER_EMAIL"/>) istifadə etmək və yadda saxlamaq üçün parol ifadəsini daxil edin</translation>
 <translation id="8221491193165283816">Bildirişləri, adətən, bloklayırsınız. Bu saytın sizə bildirişlər göndərməsinə icazə vermək üçün buraya klikləyin.</translation>
-<translation id="8377926237617998195">Kameradan istifadə etmək üçün Browther-a <ph name="BEGIN_LINK"/>sistem ayarlarında<ph name="END_LINK"/> giriş imkanı verin</translation>
-<translation id="1755067029031059271">Browther bu artırmanın mənbəyini yoxlaya bilmir və artırma güvənsiz ola bilər. Onu Browther-dan silin ki, daxil olduğunuz saytlardakı dataya, o cümlədən şəxsi məlumatlara baxa və onları dəyişə bilməsin.</translation>
-<translation id="8207657266087451193">Şəklin təsviri faydalı deyilsə, Browther Sizin üçün təsviri təmin etməyə çalışacaq. Təsvir yaratmaq üçün şəkillər Browther'a göndərilir. Bunu istənilən vaxt ayarlardan deaktiv edə bilərsiniz.</translation>
-<translation id="7792526144795244436">Yeni profildə Browther-a daxil olursunuz?</translation>
-<translation id="976541154724186511">Browther təhlükəli sayt və endirmələr haqqında <ph name="BEGIN_LINK"/>xəbərdarlıq edir<ph name="END_LINK"/></translation>
-<translation id="8060549744348950090">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Browther iOS tətbiqində kamera ilə alış-veriş edin, tərcümə edin və gördüklərinizi müəyyənləşdirin</translation>
+<translation id="1083711467946065278">Kameradan istifadə etmək üçün Browther-a <ph name="BEGIN_LINK"/>sistem ayarlarında<ph name="END_LINK"/> giriş imkanı verin</translation>
+<translation id="6569785137733211804">Browther bu artırmanın mənbəyini yoxlaya bilmir və artırma güvənsiz ola bilər. Onu Browther-dan silin ki, daxil olduğunuz saytlardakı dataya, o cümlədən şəxsi məlumatlara baxa və onları dəyişə bilməsin.</translation>
+<translation id="1122818205373648656">Şəklin təsviri faydalı deyilsə, Browther Sizin üçün təsviri təmin etməyə çalışacaq. Təsvir yaratmaq üçün şəkillər Browther'a göndərilir. Bunu istənilən vaxt ayarlardan deaktiv edə bilərsiniz.</translation>
+<translation id="6877990294324319801">Yeni profildə Browther-a daxil olursunuz?</translation>
+<translation id="6478811748813986578">Browther təhlükəli sayt və endirmələr haqqında <ph name="BEGIN_LINK"/>xəbərdarlıq edir<ph name="END_LINK"/></translation>
+<translation id="1685486387921540822">Bu yaxınlarda daxil olmamısınız. Browther sildi: <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Browther iOS tətbiqində kamera ilə alış-veriş edin, tərcümə edin və gördüklərinizi müəyyənləşdirin</translation>
 <translation id="8313851650939857356">Başlatma xətası: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Browther <ph name="TIMEOUT_DURATION"/> istifadə edilməsə, təşkilat onu bağlayır.</translation>
+<translation id="7386947683604296534">Browther <ph name="TIMEOUT_DURATION"/> istifadə edilməsə, təşkilat onu bağlayır.</translation>
 <translation id="8321888067342493336">Şəkil kimi saxlayın</translation>
-<translation id="3360368475735266712">Browther'u cihazlarda sinxronizasiya etmək və fərdiləşdirmək üçün daxil olun</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> əvvəl Browther istifadə edirdi</translation>
-<translation id="5592122595094519401">Browther datasını Browther Hesabınızda (<ph name="ACCOUNT_EMAIL"/>) istifadə etmək üçün Browther-u güncəlləyin</translation>
-<translation id="2569754604093464025">Browther güncəlləmələrini əldə etmək üçün Windows 10 və ya daha yeni versiya tələb olunur. Bu kompüter Windows 8 istifadə edir.</translation>
+<translation id="143016831128278157">Browther'u cihazlarda sinxronizasiya etmək və fərdiləşdirmək üçün daxil olun</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> əvvəl Browther istifadə edirdi</translation>
+<translation id="1288164710697017468">Browther datasını Browther Hesabınızda (<ph name="ACCOUNT_EMAIL"/>) istifadə etmək üçün Browther-u güncəlləyin</translation>
+<translation id="8648401677359150296">Browther güncəlləmələrini əldə etmək üçün Windows 10 və ya daha yeni versiya tələb olunur. Bu kompüter Windows 8 istifadə edir.</translation>
 <translation id="8362914115861174987">Hədəf dil:</translation>
 <translation id="8367705492654390392">İstədiyinizi soruşun</translation>
-<translation id="7296197595428914424">Parolları və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun. Daxil olduqdan sonra bu parol Browther Hesabında yadda saxlanılacaq.</translation>
-<translation id="9098234372282930719">Sonra Browther-u yenidən başlatmalı olacaqsınız.</translation>
-<translation id="1327729221471951979">Browther onu silməyinizi tövsiyə edir. <ph name="BEGIN_LINK"/>Dəstəklənən artırmalar haqqında ətraflı məlumat əldə edin<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Bu artırmanın yayımı tərtibatçı tərəfindən ləğv edildi və təhlükəli ola bilər. Onu Browther-dan silin ki, daxil olduğunuz saytlardakı dataya, o cümlədən şəxsi məlumatlara baxa və onları dəyişə bilməsin.</translation>
-<translation id="4234753748520037091">Müəyyən datanın Browther Hesabında yadda saxlanılması və bütün cihazlarda istifadə edilməsi üçün Browther kimliyinizi doğrulamalıdır. İndi çıxsanız, bu data silinəcək.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Browther'u bir gün ərzində yenidən başladın}other{Browther'u # gün ərzində yenidən başladın}}</translation>
+<translation id="5769022907892823357">Parolları və s. datanı bütün cihazlarınızda əldə etmək üçün Browther-a daxil olun. Daxil olduqdan sonra bu parol Browther Hesabında yadda saxlanılacaq.</translation>
+<translation id="4782442810031768771">Sonra Browther-u yenidən başlatmalı olacaqsınız.</translation>
+<translation id="8265348385714408341">Browther onu silməyinizi tövsiyə edir. <ph name="BEGIN_LINK"/>Dəstəklənən artırmalar haqqında ətraflı məlumat əldə edin<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Bu artırmanın yayımı tərtibatçı tərəfindən ləğv edildi və təhlükəli ola bilər. Onu Browther-dan silin ki, daxil olduğunuz saytlardakı dataya, o cümlədən şəxsi məlumatlara baxa və onları dəyişə bilməsin.</translation>
+<translation id="1613655732912855341">Müəyyən datanın Browther Hesabında yadda saxlanılması və bütün cihazlarda istifadə edilməsi üçün Browther kimliyinizi doğrulamalıdır. İndi çıxsanız, bu data silinəcək.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Browther'u bir gün ərzində yenidən başladın}other{Browther'u # gün ərzində yenidən başladın}}</translation>
 <translation id="8438543370129609977">Şəkil axtarışından istifadə edəndə səhifə başlığı, URL və kontent, o cümlədən PDF sənədləri serverə göndərilir. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Browther-da Şəkil Axtarışı ilə axtarış haqqında ətraflı məlumat</translation>
-<translation id="6914496861676471566">Quraşdırıcı arxivi zədələnib və ya yanlışdır. Lütfən, Browther'u yenidən endirin.</translation>
-<translation id="4378573854226202617">Browther Windows 10 və ya daha yeni versiya tələb edir.</translation>
-<translation id="6431861494713261006">İstəyə görə: Diaqnostika və istifadəçi datasını avtomatik Browther'a göndərməklə ChromeOS funksiyalarını təkmilləşdirməyə yardım edin.</translation>
-<translation id="8691137711639873980">Browther datasını Browther Hesabınızda istifadə etmək və yadda saxlamaq üçün kimliyinizi doğrulayın</translation>
-<translation id="3251012123600267109">Browther-a giriş sorğularını göstərir</translation>
-<translation id="2097604701283463988">Browther'um vaxtı keçib</translation>
-<translation id="6080203201796279095">Browther-u defolt brauzer seçdiyiniz üçün təşəkkür edirik!</translation>
-<translation id="871233388178581868">Browther yadda saxlanan parolları yoxlaya bilər</translation>
-<translation id="3667461919057407535">Browther parollarınızdan birini ictimai data pozuntusunda aşkar edərsə, xəbərdarlıq alın</translation>
+<translation id="3550129882823305293">Browther-da Şəkil Axtarışı ilə axtarış haqqında ətraflı məlumat</translation>
+<translation id="1401757916223057494">Quraşdırıcı arxivi zədələnib və ya yanlışdır. Lütfən, Browther'u yenidən endirin.</translation>
+<translation id="5029760494698649486">Browther Windows 10 və ya daha yeni versiya tələb edir.</translation>
+<translation id="7906734902028783072">İstəyə görə: Diaqnostika və istifadəçi datasını avtomatik Browther'a göndərməklə ChromeOS funksiyalarını təkmilləşdirməyə yardım edin.</translation>
+<translation id="6791756730901393492">Browther datasını Browther Hesabınızda istifadə etmək və yadda saxlamaq üçün kimliyinizi doğrulayın</translation>
+<translation id="4879869745782826167">Browther-a giriş sorğularını göstərir</translation>
+<translation id="2967761098021401720">Browther'um vaxtı keçib</translation>
+<translation id="7674832651694000881">Browther-u defolt brauzer seçdiyiniz üçün təşəkkür edirik!</translation>
+<translation id="4507581730979762077">Browther yadda saxlanan parolları yoxlaya bilər</translation>
+<translation id="7205233182271132386">Browther parollarınızdan birini ictimai data pozuntusunda aşkar edərsə, xəbərdarlıq alın</translation>
 <translation id="8555465886620020932">Xidmət xətası: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Asan giriş üçün Şəkil Axtarışını bərkidə bilərsiniz; yan panelin yuxarısındakı Bərkitmə düyməsinə klikləyin</translation>
 <translation id="856656450041460113">Dil siyahısını axtarın</translation>
-<translation id="227028348235968071">Browther Hesabınız ilə daxil olduqda Browther parollarınızı yoxlaya bilər</translation>
-<translation id="839677568225616901">Bir neçə təşkilat Browther-u idarə edir</translation>
-<translation id="8121009781989288430">Müəlliflik Hüququ <ph name="YEAR"/> Browther Müəllifləri. Bütün hüquqlar qorunur.</translation>
+<translation id="75470458211269379">Browther Hesabınız ilə daxil olduqda Browther parollarınızı yoxlaya bilər</translation>
+<translation id="2108930010779660436">Bir neçə təşkilat Browther-u idarə edir</translation>
+<translation id="7209630341463003999">Müəlliflik Hüququ <ph name="YEAR"/> Browther Müəllifləri. Bütün hüquqlar qorunur.</translation>
 <translation id="8601359445272098721">Yenilik! "Ekranı tərcümə edin" düyməsini seçməklə həm ekrandakı mətni, həm də təsvirləri tərcümə edə bilərsiniz</translation>
-<translation id="3052349005266761501">Browther başlayır...</translation>
+<translation id="782928371899183269">Browther başlayır...</translation>
 <translation id="8624541899164515475">Ayarlar, yeni tabda açılır.</translation>
-<translation id="5128665650717824082">Sınaq üçün Browther defolt brauzer ola bilməz.</translation>
+<translation id="5879341334716115002">Sınaq üçün Browther defolt brauzer ola bilməz.</translation>
 <translation id="2433912322225810055">O, həmçinin Browther'u başlatdığınız zaman və ya Omnibox'dan axtarış etdiyiniz zaman göstərilən səhifəyə nəzarət edir.</translation>
-<translation id="4100716194836114130">Bu, Sizin Browther'dur</translation>
+<translation id="4816541973978692496">Bu, Sizin Browther'dur</translation>
 <translation id="8712637175834984815">Anladım</translation>
-<translation id="1419543648228375718">Browther-a daxil olunsun?</translation>
-<translation id="4891728458408976811">Hər şeyi Browther-da saxlayın</translation>
+<translation id="9037464035997618895">Browther-a daxil olunsun?</translation>
+<translation id="7897185368811431919">Hər şeyi Browther-da saxlayın</translation>
 <translation id="8747073452963259673">axtarış sahəsinin aşağı sol küncü: <ph name="LEFT"/>% sol, <ph name="BOTTOM"/>% aşağı</translation>
 <translation id="878572486461146056">Quraşdırma xətası: Şəbəkə administratoru quraşdırmanın qarşısını alan Qrup Siyasəti tətbiq edib: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">Browther bu sayt üçün kamera və mikrofona giriş icazəsi tələb edir</translation>
+<translation id="1576369213923770885">Browther bu sayt üçün kamera və mikrofona giriş icazəsi tələb edir</translation>
 <translation id="8813277370772331957">Sonra xatırladın</translation>
-<translation id="64216977793816291">Browther-a daxil olursunuz?</translation>
-<translation id="7447364954121496869">Browther-u defolt brauzer edin və tapşırıqlar panelinə bərkidin</translation>
+<translation id="6831999464349484462">Browther-a daxil olursunuz?</translation>
+<translation id="3698151322107951111">Browther-u defolt brauzer edin və tapşırıqlar panelinə bərkidin</translation>
 <translation id="8826492472752484139">"Parol meneceri" üzərinə klikləyin</translation>
 <translation id="6933858244219479645">ChromeOS sistemi</translation>
-<translation id="9084132286318231275">Bu dil Browther-da menyuları, ayarları, xəbərdarlıqları və digər mətnləri göstərmək üçün istifadə olunur</translation>
+<translation id="3986927308621489499">Bu dil Browther-da menyuları, ayarları, xəbərdarlıqları və digər mətnləri göstərmək üçün istifadə olunur</translation>
 <translation id="8862326446509486874">Sistem səviyyəli quraşdırma üçün uyğun hüquqlarınız yoxdur. Quraşdırıcını yenidən Administrator olaraq işə salmağa cəhd edin.</translation>
-<translation id="7289323009146924152">Browther profili əlavə edin</translation>
-<translation id="6412037018950369131">Bu halda, Browther'da saxlanmış parolları redaktə edərək yeni parola uyğunlaşdırın.</translation>
-<translation id="1150745254876977823">Təşkilatınız Browther-a daxil olmağınızı tələb edir</translation>
-<translation id="8285294305439559616">Browther parolları göstərməyə çalışır. buna icazə vermək üçün Windows parolunuzu yazın.</translation>
-<translation id="4684884244620579559">Browther artıq defolt brauzeriniz deyil. Browther defolt brauzer edilsin?</translation>
-<translation id="6389268239133412586">Browther'u güncəlləmək alınmadı</translation>
-<translation id="7731184591599776500">Browther Enterprise loqosu</translation>
-<translation id="6500340165622970282">Profilinizi açarkən xəta baş verdiyinə görə Browther-u işə salmaq olmur. Browther-u yenidən başladın.</translation>
-<translation id="3424657754843264466">Browther profillərini idarə edin</translation>
-<translation id="7055223246119657449">Browther bu endirməni blokladı. Çünki arxiv faylına zərərli proqram gizlədə biləcək digər fayllar daxildir</translation>
-<translation id="9049928023195059068">Digər Browther xidmətlərinə daxil olduqda Browther-a daxil olun</translation>
-<translation id="4561046754724442504">Browther avtomatik bağlandı</translation>
-<translation id="5173820533850252773">Browther'un vaxtı keçib</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther 1 saata yenidən başlayacaq}other{Browther # saata yenidən başlayacaq}}</translation>
+<translation id="5318226144018267261">Browther profili əlavə edin</translation>
+<translation id="1298790608554316415">Bu halda, Browther'da saxlanmış parolları redaktə edərək yeni parola uyğunlaşdırın.</translation>
+<translation id="960933321883777733">Təşkilatınız Browther-a daxil olmağınızı tələb edir</translation>
+<translation id="948979409756947611">Browther parolları göstərməyə çalışır. buna icazə vermək üçün Windows parolunuzu yazın.</translation>
+<translation id="1418854271943945136">Browther artıq defolt brauzeriniz deyil. Browther defolt brauzer edilsin?</translation>
+<translation id="7228667329366610727">Browther'u güncəlləmək alınmadı</translation>
+<translation id="4817697255467736794">Browther Enterprise loqosu</translation>
+<translation id="3507731466523097529">Profilinizi açarkən xəta baş verdiyinə görə Browther-u işə salmaq olmur. Browther-u yenidən başladın.</translation>
+<translation id="3234473600657230663">Browther profillərini idarə edin</translation>
+<translation id="8953887022581653484">Browther bu endirməni blokladı. Çünki arxiv faylına zərərli proqram gizlədə biləcək digər fayllar daxildir</translation>
+<translation id="532304972436358335">Digər Browther xidmətlərinə daxil olduqda Browther-a daxil olun</translation>
+<translation id="3425998261052065067">Browther avtomatik bağlandı</translation>
+<translation id="4377377022617011492">Browther'un vaxtı keçib</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther 1 saata yenidən başlayacaq}other{Browther # saata yenidən başlayacaq}}</translation>
 <translation id="9106236359747881194">Axtarmaq üçün mətn seçin</translation>
-<translation id="5190991181158966940">Browther güncəlləmələrini əldə etmək üçün Windows 10 və ya daha yeni versiya tələb olunur. Bu kompüter Windows 8.1 istifadə edir.</translation>
-<translation id="7863882214613921971">Linki Yeni Browther tabında açın</translation>
+<translation id="5115014198092384730">Browther güncəlləmələrini əldə etmək üçün Windows 10 və ya daha yeni versiya tələb olunur. Bu kompüter Windows 8.1 istifadə edir.</translation>
+<translation id="7129101984664345614">Linki Yeni Browther tabında açın</translation>
 <translation id="911206726377975832">Brauzinq datanız da silinsin?</translation>
 <translation id="9134482777260927479">Ev tapşırığı ilə bağlı yardım</translation>
 <translation id="9148058034647219655">Çıxış</translation>
-<translation id="2792073155252170448">Qaldığınız yerdən davam edin: Browther hər dəfə yenidən başladıldıqda tablarınızı bərpa edə bilər. Bunu aktiv etmək üçün keçin:</translation>
-<translation id="2444257125841652328">Sistem administratoru Browther'u <ph name="TARGET_URL_HOSTNAME"/> ünvanına daxil olmaq məqsədilə alternativ brauzer açmaq üçün konfiqurasiya edib.</translation>
-<translation id="8208548103319284047">Browther ipucusu: Linza ilə axtarın</translation>
-<translation id="7902365066753170041">&amp;Browther'u güncəlləmək üçün yenidən başladın</translation>
-<translation id="538146372587193686">Browther Origin (mDNS-In)</translation>
-<translation id="49909619875329637">Browther-a daxil olduqda daha çox əldə edin</translation>
-<translation id="296137235951584143">Browther-u fərdiləşdirin</translation>
-<translation id="7977787072794666032">Browther düzgün işləməyə bilər, çünki daha Windows XP və ya Windows Vista'da dəstəklənmir</translation>
+<translation id="1734388504720121468">Qaldığınız yerdən davam edin: Browther hər dəfə yenidən başladıldıqda tablarınızı bərpa edə bilər. Bunu aktiv etmək üçün keçin:</translation>
+<translation id="8633974232736772207">Sistem administratoru Browther'u <ph name="TARGET_URL_HOSTNAME"/> ünvanına daxil olmaq məqsədilə alternativ brauzer açmaq üçün konfiqurasiya edib.</translation>
+<translation id="1122669402846843682">Browther ipucusu: Linza ilə axtarın</translation>
+<translation id="595330134356385835">&amp;Browther'u güncəlləmək üçün yenidən başladın</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS-In)</translation>
+<translation id="6491100124044190139">Browther-a daxil olduqda daha çox əldə edin</translation>
+<translation id="1665840797775025867">Browther-u fərdiləşdirin</translation>
+<translation id="4407047432656809023">Browther düzgün işləməyə bilər, çünki daha Windows XP və ya Windows Vista'da dəstəklənmir</translation>
 <translation id="945522503751344254">Geri əlaqə göndərin</translation>
-<translation id="4484434718272972655">Browther'u kim istifadə edir?</translation>
-<translation id="7173394303099002355">Browther’un ən güclü güvənlik sistemini əldə edin</translation>
+<translation id="7620348044248809366">Browther'u kim istifadə edir?</translation>
+<translation id="7299962884342109067">Browther’un ən güclü güvənlik sistemini əldə edin</translation>
 <translation id="983803489796659991">Yeniləmə serverində tətbiq heş datası olmadığı üçün quraşdırma alınmadı.</translation>
-<translation id="8435446479956716379">Hesab olmadan Browther istifadə edin</translation>
-<translation id="8992261409816268381">Browther Müəllifləri</translation>
+<translation id="8775461190334353148">Hesab olmadan Browther istifadə edin</translation>
+<translation id="7146761239544860058">Browther Müəllifləri</translation>
 <translation id="989970834842471429">Şəkil Axtarışı ilə axtarmaq üçün istənilən mətn və ya şəkli seçin</translation>
-<translation id="3146636448190445245">Məkandan istifadə etmək üçün Browther-a <ph name="BEGIN_LINK"/>sistem ayarlarında<ph name="END_LINK"/> giriş imkanı verin</translation>
+<translation id="6616551030373607751">Məkandan istifadə etmək üçün Browther-a <ph name="BEGIN_LINK"/>sistem ayarlarında<ph name="END_LINK"/> giriş imkanı verin</translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Naməlum xəta üzündən quraşdırmaq alınmadı. Browther'u yenidən endirin.</translation>
-<translation id="1743665722170667430">Naməlum mənbələrdən gələn genişlənmələr, tətbiqlər və temalar cihazınıza zərər verə bilər. Browther yalnız <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> istifadəsini tövsiyə edir</translation>
-<translation id="6184592406110188164">Bu genişlənmə Veb mağaza siyasətini pozur və təhlükəli ola bilər. Daxil olduğunuz saytlardakı verilənlərinizi və şəxsi məlumatlarınızı görməməsi və dəyişdirməməsi üçün onu Browther-dən silin.</translation>
-<translation id="1299765473362724475">Xəbərdarlıq: Browther genişlənmələrin internetə baxış tarixçənizi qeyd etməsinin qarşısını ala bilməz. Genişlənməni Gizli rejimdə qeyri-aktiv etmək üçün bu seçimi ləğv edin.</translation>
-<translation id="1448049584457347995">Browther-i daha təhlükəsiz vəziyyətə salmaq üçün <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> siyahısında olmayan və sizdən xəbərsiz əlavə edilmiş bəzi genişlənmələri qeyri-aktiv etdik.</translation>
-<translation id="8848045066928358658">Browther-i daha təhlükəsiz vəziyyətə salmaq üçün <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> siyahısında olmayan və sizdən xəbərsiz əlavə edilmiş aşağıdakı genişlənmələri qeyri-aktiv etdik.</translation>
-<translation id="4624945300945265642">Keçidi Browther &amp;gizli pəncərədə aç</translation>
-<translation id="6554952862405000915">Keçidi Browther &amp;Gizli Pəncərəsində aç</translation>
-<translation id="8274659559228306809">{COUNT, plural,
+<translation id="5110032212554763592">Naməlum xəta üzündən quraşdırmaq alınmadı. Browther'u yenidən endirin.</translation>
+<translation id="9074842261125908635">Naməlum mənbələrdən gələn genişlənmələr, tətbiqlər və temalar cihazınıza zərər verə bilər. Browther yalnız <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> istifadəsini tövsiyə edir</translation>
+<translation id="3593119910409528681">Bu genişlənmə Veb mağaza siyasətini pozur və təhlükəli ola bilər. Daxil olduğunuz saytlardakı verilənlərinizi və şəxsi məlumatlarınızı görməməsi və dəyişdirməməsi üçün onu Browther-dən silin.</translation>
+<translation id="5245976396374147971">Xəbərdarlıq: Browther genişlənmələrin internetə baxış tarixçənizi qeyd etməsinin qarşısını ala bilməz. Genişlənməni Gizli rejimdə qeyri-aktiv etmək üçün bu seçimi ləğv edin.</translation>
+<translation id="3629539416935660172">Browther-i daha təhlükəsiz vəziyyətə salmaq üçün <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> siyahısında olmayan və sizdən xəbərsiz əlavə edilmiş bəzi genişlənmələri qeyri-aktiv etdik.</translation>
+<translation id="157534302749986451">Browther-i daha təhlükəsiz vəziyyətə salmaq üçün <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> siyahısında olmayan və sizdən xəbərsiz əlavə edilmiş aşağıdakı genişlənmələri qeyri-aktiv etdik.</translation>
+<translation id="3031052147361385845">Keçidi Browther &amp;gizli pəncərədə aç</translation>
+<translation id="5556794247782664281">Keçidi Browther &amp;Gizli Pəncərəsində aç</translation>
+<translation id="4555500675737067970">{COUNT, plural,
           =0 {Browther üçün yeni bir yeniləmə var və siz proqramı təkrar açdıqda təbiq olunacaq.}
           =1 {Browther üçün yeni bir yeniləmə var və siz proqramı təkrar açdıqda təbiq olunacaq. Gizli pəncərəniz təkrar açılmayacaq.}
           other {Browther üçün yeni bir yeniləmə var və siz proqramı təkrar açdıqda təbiq olunacaq. # Gizli pəncərəniz təkrar açılmayacaq.}}</translation>
-<translation id="3829358914761176693">{COUNT, plural,
+<translation id="6181263681651521876">{COUNT, plural,
               =0 {Administratorunuz bu yeniləmənin tətbiq olunması üçün Browther-i yenidən açmanızı istəyir}
               =1 {Administratorunuz bu yeniləmənin tətbiq olunması üçün Browther-i yenidən açmanızı istəyir. Gizli pəncərəniz təkrar açılmayacaq.}
               other {Administratorunuz bu yeniləmənin tətbiq olunması üçün Browther-i yenidən açmanızı istəyir. # Gizli pəncərələriniz təkrar açılmayacaq.}}</translation>
-<translation id="552349673358711446">{COUNT, plural,
+<translation id="1341091418019636353">{COUNT, plural,
               =0 {Administratorunuz bir yeniləmənin tətbiq olunması üçün Browther-i yenidən açmanızı istəyir}
               =1 {Administratorunuz bir yeniləmənin tətbiq olunması üçün Browther-i yenidən açmanızı istəyir. Gizli pəncərəniz təkrar açılmayacaq.}
               other {Administratorunuz bir yeniləmənin tətbiq olunması üçün Browther-i yenidən açmanızı istəyir. # Gizli pəncərələriniz təkrar açılmayacaq.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {Təkmilləşdirilmiş Mühafizə yeniləmənin tətbiqi üçün Browther-i yenidən başlatmağınızı tələb edir}
               =1 {Təkmilləşdirilmiş Mühafizə yeniləmənin tətbiqi üçün Browther-i yenidən başlatmağınızı tələb edir. Şəxsi pəncərəniz yenidən açılmayacaq.}
               other {Təkmilləşdirilmiş Mühafizə yeniləmənin tətbiqi üçün Browther-i yenidən başlatmağınızı tələb edir. # Şəxsi pəncərə yenidən açılmayacaq.}}</translation>
 <translation id="5749154344207139683">Bu 1 dəqiqəlik sorğuda iştirak etməklə Məxfiliyi təkmilləşdirməyimizə kömək edin.</translation>
-<translation id="79269250264141507">Ünvan panelinə və ya axtarış qutusuna yazdıqda, Browther daha yaxşı tövsiyələr vermək üçün yazdıqlarınızı standart axtarış mühərrikinizə göndərir. Bu xüsusiyyət Gizli rejimdə bağlıdır.</translation>
-<translation id="2589970573128789862">Browther Gizli rejimi</translation>
-<translation id="5994282802285556682">İnternetə Gizli rejimdə baxarkən Browther təhlükəli bağlantıya malik bir saytdan istifadə etməzdən əvvəl sizə xəbərdarlıq göndərir</translation>
+<translation id="6954203250660846933">Ünvan panelinə və ya axtarış qutusuna yazdıqda, Browther daha yaxşı tövsiyələr vermək üçün yazdıqlarınızı standart axtarış mühərrikinizə göndərir. Bu xüsusiyyət Gizli rejimdə bağlıdır.</translation>
+<translation id="3542179014707218534">Browther Gizli rejimi</translation>
+<translation id="2076355018722231995">İnternetə Gizli rejimdə baxarkən Browther təhlükəli bağlantıya malik bir saytdan istifadə etməzdən əvvəl sizə xəbərdarlıq göndərir</translation>
 </translationbundle>

@@ -188,7 +188,7 @@
 <translation id="834487290629916192">POZDĚJI</translation>
 <translation id="4117451092682672487">Jednoduše soukromí.</translation>
 <translation id="5512887128063976049">Pokud je Browther nastaven jako váš výchozí prohlížeč, každý odkaz, na který kliknete, se otevře s ochranou soukromí Browther.</translation>
-<translation id="5148943178722443958">Pomozte vylepšit Browther.</translation>
+<translation id="9133910347634099679">Pomozte vylepšit Browther.</translation>
 <translation id="6718362830686703942">Pokud dojde k pádu nebo zamrznutí, odešlete diagnostické hlášení.</translation>
 <translation id="7134864207653684195">Sdílejte soukromé a anonymní produktové informace o tom, jaké funkce Browther uživatelé používají.</translation>
 <translation id="2888496576732880897">Pomozte vyhledávači Browther růst</translation>
@@ -958,7 +958,7 @@ Pokud tuto žádost nepřijmete, síť VPN se znovu nepřipojí a vaše připoje
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Obnovení výchozího nastavení</translation>
 <translation id="4922034974043704366">Tato funkce je povolena, protože jste se k ní přihlásili.</translation>
-<translation id="3144818380093107753">Browther Origin je způsob, jak na základě předplatného vypnout funkce generující příjmy, které jinak podporují Browther jako firmu. Předplatitelé služby Browther Origin budou i nadále využívat výhod naší špičkové ochrany soukromí, blokování reklam a rychlosti (prostřednictvím Brave Shields), jakož i pravidelných aktualizací softwaru, záplat Chromu a vylepšení zabezpečení a ochrany soukromí. Odemknou také možnost vypnout funkce, jako jsou Browther Leo, Zprávy, Odměny, Peněženka, VPN, Web3 domény a další.&lt;br/&gt;&lt;br/&gt;Předplatitelé uvidí nový ovládací panel v nabídce nastavení prohlížeče. Stávající funkce - stejně jako všechny nové funkce, které dodáme v budoucnu - se zde objeví a budou ve výchozím nastavení vypnuty.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Poznámka: Browther Origin nezakáže funkce prohlížeče, které aktuálně používáte, a neovlivní funkce vyhledávače Brave Search ani reklamy Brave Search.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin je způsob, jak na základě předplatného vypnout funkce generující příjmy, které jinak podporují Browther jako firmu. Předplatitelé služby Browther Origin budou i nadále využívat výhod naší špičkové ochrany soukromí, blokování reklam a rychlosti (prostřednictvím Browther Shields), jakož i pravidelných aktualizací softwaru, záplat Chromu a vylepšení zabezpečení a ochrany soukromí. Odemknou také možnost vypnout funkce, jako jsou Browther Leo, Zprávy, Odměny, Peněženka, VPN, Web3 domény a další.&lt;br/&gt;&lt;br/&gt;Předplatitelé uvidí nový ovládací panel v nabídce nastavení prohlížeče. Stávající funkce - stejně jako všechny nové funkce, které dodáme v budoucnu - se zde objeví a budou ve výchozím nastavení vypnuty.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Poznámka: Browther Origin nezakáže funkce prohlížeče, které aktuálně používáte, a neovlivní funkce vyhledávače Brave Search ani reklamy Brave Search.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Přihlásit se peněženkou Browther Wallet</translation>
 <translation id="7380890081275286865">Přihlašujete se do <ph name="ORIGIN"/>. Peněženka Browther Wallet bude s <ph name="ORIGIN"/> sdílet adresu vaší peněženky.</translation>
 <translation id="1028781062521375153">Zobrazit podrobné informace</translation>

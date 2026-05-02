@@ -188,7 +188,7 @@
 <translation id="834487290629916192">VĒLĀK</translation>
 <translation id="4117451092682672487">Privātums. Vienkārši.</translation>
 <translation id="5512887128063976049">Ja Browther būs noklusējuma pārlūks, visas saites, kam pieskaraties, tiks atvērtas ar Browther privātuma aizsardzību.</translation>
-<translation id="5148943178722443958">Palīdziet uzlabot Browther.</translation>
+<translation id="9133910347634099679">Palīdziet uzlabot Browther.</translation>
 <translation id="6718362830686703942">Sūtiet diagnostikas ziņojumus, ja programma avarē vai sastingst.</translation>
 <translation id="7134864207653684195">Kopīgojiet privātus un anonīmus viedokļus par produktiem un par to, kādas funkcijas izmanto Browther lietotāji.</translation>
 <translation id="2888496576732880897">Atbalstiet Browther meklēšanas izaugsmi</translation>
@@ -962,7 +962,7 @@ Ja šo pieprasījumu nepieņemsiet, savienojums ar VPN netiks atkārtoti izveido
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Atiestatīt noklusējuma iestatījumus</translation>
 <translation id="4922034974043704366">Šī funkcija ir iespējota, jo esat to izvēlējies.</translation>
-<translation id="3144818380093107753">Browther Origin ir uz abonementu balstīts veids, kā atspējot ieņēmumus nesošās funkcijas, kas citādi nodrošina Browther kā uzņēmuma darbību. Browther Origin abonenti arī turpmāk varēs izmantot priekšrocības, ko sniedz mūsu nozarē vadošās privātuma, reklāmu bloķēšanas un ātruma (izmantojot Brave Shields) funkcijas, kā arī regulārus programmatūras atjauninājumus, Chromium ielāpus un drošības un privātuma uzlabojumus. Viņi arī atslēgs iespēju atslēgt tādas funkcijas kā Browther Leo, News, Rewards, Wallet, VPN, Web3 domēni un citas.&lt;br/&gt;&lt;br/&gt;Abonenti redzēs jaunu vadības paneli pārlūkprogrammas iestatījumu izvēlnē. Esošās funkcijas - kā arī visas jaunās funkcijas, ko mēs piegādāsim nākotnē - parādīsies šeit un pēc noklusējuma tiks izslēgtas.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Piezīme: Browther Origin nedeaktivizēs pārlūka funkcijas, ko jūs pašlaik izmantojat, un neietekmēs Browther meklēšanas funkcijas vai Browther meklēšanas reklāmas.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin ir uz abonementu balstīts veids, kā atspējot ieņēmumus nesošās funkcijas, kas citādi nodrošina Browther kā uzņēmuma darbību. Browther Origin abonenti arī turpmāk varēs izmantot priekšrocības, ko sniedz mūsu nozarē vadošās privātuma, reklāmu bloķēšanas un ātruma (izmantojot Browther Shields) funkcijas, kā arī regulārus programmatūras atjauninājumus, Chromium ielāpus un drošības un privātuma uzlabojumus. Viņi arī atslēgs iespēju atslēgt tādas funkcijas kā Browther Leo, News, Rewards, Wallet, VPN, Web3 domēni un citas.&lt;br/&gt;&lt;br/&gt;Abonenti redzēs jaunu vadības paneli pārlūkprogrammas iestatījumu izvēlnē. Esošās funkcijas - kā arī visas jaunās funkcijas, ko mēs piegādāsim nākotnē - parādīsies šeit un pēc noklusējuma tiks izslēgtas.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Piezīme: Browther Origin nedeaktivizēs pārlūka funkcijas, ko jūs pašlaik izmantojat, un neietekmēs Browther meklēšanas funkcijas vai Browther meklēšanas reklāmas.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Pierakstīties ar Browther maku</translation>
 <translation id="7380890081275286865">Jūs pierakstāties <ph name="ORIGIN"/>. Browther maks kopīgos jūsu maka adresi ar <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Skatīt informāciju</translation>

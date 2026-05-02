@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Aktivera enhetsaviseringar från Browther för att tjäna Browther Rewards.</translation>
 <translation id="4714541943538330">Öppna Inställningar och aktivera enhetsaviseringar för Browther Ads.</translation>
 <translation id="7341107637383044975">Aktivera Browther-aviseringar</translation>
-<translation id="9063439289570656162">Aktivera/Inaktivera Brave Shields</translation>
+<translation id="9063439289570656162">Aktivera/Inaktivera Browther Shields</translation>
 <translation id="15346379325756892">Gå till bild-i-bild-läge</translation>
 <translation id="6945863270524203017">Få sekretessuppdateringar varje vecka om spårning och annonsblockering.</translation>
 <translation id="4324735664183300693">Aktivera aviseringar</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">Funktioner</translation>
 <translation id="1919345977826869612">Ads</translation>
 <translation id="2839742394543397416">Analys</translation>
-<translation id="5644165410146827297">Brave Shields och sekretess</translation>
+<translation id="5644165410146827297">Browther Shields och sekretess</translation>
 <translation id="4692623383562244444">Sökmotorer</translation>
 <translation id="1468415711258933398">Standardflik</translation>
 <translation id="3377025655491224618">Privat flik</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">Webbplatser kan fråga dig om de får göra inloggningar med äldre Google-teknik via cookies från tredje part</translation>
 <translation id="2903783737778379345">Tillåt inte inloggningar med äldre Google-teknik via cookies från tredje part</translation>
 <translation id="6880817299303842099">Tillåt användning av cookies från tredje part för inloggningar med äldre Google-teknik</translation>
-<translation id="8266435325778969511">Brave Shields globala standardinställningar</translation>
+<translation id="8266435325778969511">Browther Shields globala standardinställningar</translation>
 <translation id="2675679258824361492">Andra sekretessinställningar</translation>
 <translation id="8026334261755873520">Rensa webbinformation</translation>
 <translation id="1690924763769415936">Uppspelning i bakgrunden</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">SENARE</translation>
 <translation id="4117451092682672487">Sekretess har gjorts enkelt.</translation>
 <translation id="5512887128063976049">Om du gör Browther till standard öppnas alla länkar som du trycker på med Braves sekretesskydd.</translation>
-<translation id="5148943178722443958">Hjälp till att göra Browther bättre.</translation>
+<translation id="9133910347634099679">Hjälp till att göra Browther bättre.</translation>
 <translation id="6718362830686703942">Skicka diagnostikrapporter om du upplever en krasch eller frysning.</translation>
 <translation id="7134864207653684195">Dela anonyma produktinsikter om vilka funktioner som Browther-användarna använder.</translation>
 <translation id="2888496576732880897">Hjälp Browther Sök att växa</translation>
 <translation id="7044431516245362795">Gå in på Web Discovery Project för att hjälpa till att utöka indexet och förbättra sökresultaten. <ph name="LEARN_MORE_START"/>Läs mer.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Ok, jag hjälper till.</translation>
-<translation id="7443712250454754077">Tryck för att visa Brave Shields</translation>
+<translation id="7443712250454754077">Tryck för att visa Browther Shields</translation>
 <translation id="118577974285037669">Se alla dåliga saker som Browther har blockerat, på varje sida, med Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> och <ph name="TRACKER"/> andra annonser och spårare har blockerats</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> och andra annonser och spårare blockerades</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Hoppa över</translation>
 <translation id="6165508094623778733">Lär dig mer</translation>
 <translation id="986879628471635371">Felsökning onboarding</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Tjäna <ph name="TOKEN"/>s</translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">Genom att titta på annonser som värnar din integritet och stödja dina favoritsajter och -skapare.</translation>
@@ -408,7 +408,7 @@ Dubbelkolla att dessa kodord genererades av en enhet som du äger.
 <translation id="769702552748212954">Tillåt att alla fingeravtryck tas</translation>
 <translation id="876424292214881779">annonser och andra oönskade saker har blockerats</translation>
 <translation id="2709945082202062860">Webbplatser innehåller ofta cookies och skript som försöker identifiera dig och din enhet. De vill ta reda på vem du är och följa dig över hela webben och spåra vad du gör på varje webbplats.\n\nBrave blockerar dessa saker så att du kan surfa utan att bli förföljd.</translation>
-<translation id="5695422144228065490">Om Brave Shields</translation>
+<translation id="5695422144228065490">Om Browther Shields</translation>
 <translation id="8912304686498704084">UPP</translation>
 <translation id="4963218453264888510">NED</translation>
 <translation id="5721161384090584434">Du surfar på denna sajt utan Braves integritetsskydd. Fungerar den inte som den ska med Shields?</translation>
@@ -958,7 +958,7 @@ Om du inte accepterar denna begäran kommer VPN inte att ansluta igen och din in
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Återställ till standardvärden</translation>
 <translation id="4922034974043704366">Denna funktion är aktiverad eftersom du har valt att använda den</translation>
-<translation id="3144818380093107753">Browther Origin är ett prenumerationsbaserat sätt att inaktivera de intäktsgenererande funktioner som annars stöder Browther som företag. Browther Origin-prenumeranter kommer att fortsätta att dra nytta av vår branschledande integritet, adblock och hastighet (via Brave Shields), samt regelbundna programuppdateringar, Chromium-patchar och säkerhets- och integritetsförbättringar. De kommer också att låsa upp möjligheten att inaktivera funktioner som Browther Leo, News, Rewards, Wallet, VPN, Web3-domäner med mera.&lt;br/&gt;&lt;br/&gt;Prenumeranter kommer att se en ny kontrollpanel i webbläsarens inställningsmeny. Befintliga funktioner - liksom alla nya funktioner som vi skickar i framtiden - kommer att visas här och vara avstängda som standard.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Obs: Browther Origin kommer inte att inaktivera webbläsarfunktioner som du använder för närvarande och kommer inte att påverka Brave Search-funktioner eller Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin är ett prenumerationsbaserat sätt att inaktivera de intäktsgenererande funktioner som annars stöder Browther som företag. Browther Origin-prenumeranter kommer att fortsätta att dra nytta av vår branschledande integritet, adblock och hastighet (via Browther Shields), samt regelbundna programuppdateringar, Chromium-patchar och säkerhets- och integritetsförbättringar. De kommer också att låsa upp möjligheten att inaktivera funktioner som Browther Leo, News, Rewards, Wallet, VPN, Web3-domäner med mera.&lt;br/&gt;&lt;br/&gt;Prenumeranter kommer att se en ny kontrollpanel i webbläsarens inställningsmeny. Befintliga funktioner - liksom alla nya funktioner som vi skickar i framtiden - kommer att visas här och vara avstängda som standard.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Obs: Browther Origin kommer inte att inaktivera webbläsarfunktioner som du använder för närvarande och kommer inte att påverka Brave Search-funktioner eller Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Logga in med Browther Wallet</translation>
 <translation id="7380890081275286865">Du loggar in på <ph name="ORIGIN"/>. Browther wallet kommer att dela din plånboksadress med <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Visa information</translation>

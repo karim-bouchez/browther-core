@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Enable notifications from Browther to earn Browther Rewards.</translation>
 <translation id="4714541943538330">Open Settings and turn on device notifications for Browther Ads.</translation>
 <translation id="7341107637383044975">Turn on Browther notifications</translation>
-<translation id="9063439289570656162">Enable/disable Brave Shields</translation>
+<translation id="9063439289570656162">Enable/disable Browther Shields</translation>
 <translation id="15346379325756892">Enter picture-in-picture mode</translation>
 <translation id="6945863270524203017">Get weekly privacy updates on tracker &amp; ad blocking.</translation>
 <translation id="4324735664183300693">Turn on notifications</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">Features</translation>
 <translation id="1919345977826869612">Ads</translation>
 <translation id="2839742394543397416">Analytics</translation>
-<translation id="5644165410146827297">Brave Shields &amp; privacy</translation>
+<translation id="5644165410146827297">Browther Shields &amp; privacy</translation>
 <translation id="4692623383562244444">Search engines</translation>
 <translation id="1468415711258933398">Standard tab</translation>
 <translation id="3377025655491224618">Private Tab</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">LATER</translation>
 <translation id="4117451092682672487">Privacy. Made simple.</translation>
 <translation id="5512887128063976049">With Browther as default, every link you tap opens with Browther's privacy protections.</translation>
-<translation id="5148943178722443958">Help make Browther better.</translation>
+<translation id="9133910347634099679">Help make Browther better.</translation>
 <translation id="6718362830686703942">Send diagnostic reports if you experience a crash or freeze.</translation>
 <translation id="7134864207653684195">Share private and anonymous product insights about what features are being used by Browther's users.</translation>
 <translation id="2888496576732880897">Help Brave Search grow</translation>
 <translation id="7044431516245362795">Opt into the Web Discovery Project to help grow the index and improve search results. <ph name="LEARN_MORE_START"/>Learn more.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Sure, I'll help</translation>
-<translation id="7443712250454754077">Tap to view Brave Shields</translation>
+<translation id="7443712250454754077">Tap to view Browther Shields</translation>
 <translation id="118577974285037669">See all the bad stuff Browther blocked, on every page, with Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> and <ph name="TRACKER"/> other ads &amp; trackers blocked</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> and other ads &amp; trackers blocked</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Skip</translation>
 <translation id="6165508094623778733">Learn more</translation>
 <translation id="986879628471635371">Troubleshooting onboarding</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Earn <ph name="TOKEN"/>s</translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">by viewing privacy-respecting ads and support your favorite sites and creators by default.</translation>
@@ -411,7 +411,7 @@ Are you sure you want to do this?</translation>
 <translation id="769702552748212954">Allow all fingerprinting</translation>
 <translation id="876424292214881779">Ads and other creepy things blocked</translation>
 <translation id="2709945082202062860">Sites often include cookies and scripts that try to identify you and your device. They want to work out who you are and follow you across the web, tracking what you do on every site.\n\nBrave blocks these things so that you can browse without being followed around.</translation>
-<translation id="5695422144228065490">About Brave Shields</translation>
+<translation id="5695422144228065490">About Browther Shields</translation>
 <translation id="8912304686498704084">UP</translation>
 <translation id="4963218453264888510">DOWN</translation>
 <translation id="5721161384090584434">You're browsing this site without Browther's privacy protections. Does it not work right with Shields up?</translation>
@@ -961,7 +961,7 @@ If you don't accept this request, VPN will not reconnect and your Internet conne
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Reset to defaults</translation>
 <translation id="4922034974043704366">This feature is enabled because you opted into it</translation>
-<translation id="3144818380093107753">Browther Origin is a subscription-based way to disable the revenue-generating features that otherwise support Browther as a business. Browther Origin subscribers will continue to benefit from our industry-leading privacy, adblock, and speed (via Brave Shields), as well as regular software updates, Chromium patches, and security and privacy improvements. They'll also unlock the option to disable features like Browther Leo, News, Rewards, Wallet, VPN, Web3 domains, and more.&lt;br/&gt;&lt;br/&gt;Subscribers will see a new control panel in the browser settings menu. Existing features—as well as any new features we ship in the future—would appear here, and be toggled off by default.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Note: Browther Origin will not disable browser features that you currently use, and will not affect Brave Search features or Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin is a subscription-based way to disable the revenue-generating features that otherwise support Browther as a business. Browther Origin subscribers will continue to benefit from our industry-leading privacy, adblock, and speed (via Browther Shields), as well as regular software updates, Chromium patches, and security and privacy improvements. They'll also unlock the option to disable features like Browther Leo, News, Rewards, Wallet, VPN, Web3 domains, and more.&lt;br/&gt;&lt;br/&gt;Subscribers will see a new control panel in the browser settings menu. Existing features—as well as any new features we ship in the future—would appear here, and be toggled off by default.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Note: Browther Origin will not disable browser features that you currently use, and will not affect Brave Search features or Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Sign in with Browther Wallet</translation>
 <translation id="7380890081275286865">You are signing into <ph name="ORIGIN"/>. Browther wallet will share your wallet address with <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">See details</translation>

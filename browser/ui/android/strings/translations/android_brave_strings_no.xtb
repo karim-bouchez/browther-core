@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Slå på varsler fra Browther for å tjene Browther-belønninger.</translation>
 <translation id="4714541943538330">Åpne Innstillinger og slå på enhetsvarsler for Browther-annonser.</translation>
 <translation id="7341107637383044975">Slå på Browther-varsler</translation>
-<translation id="9063439289570656162">Aktiver eller deaktiver Brave Shields</translation>
+<translation id="9063439289570656162">Aktiver eller deaktiver Browther Shields</translation>
 <translation id="15346379325756892">Gå inn i bilde-i-bilde-modus</translation>
 <translation id="6945863270524203017">Få ukentlige personvernoppdateringer om blokkering av sporere og annonseblokkering.</translation>
 <translation id="4324735664183300693">Slå på varsler</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">SENERE</translation>
 <translation id="4117451092682672487">Personvern. Helt enkelt.</translation>
 <translation id="5512887128063976049">Med Browther som standard åpnes alle linker du trykker på, med Braves personvernbeskyttelser.</translation>
-<translation id="5148943178722443958">Bidra til å gjøre Browther bedre.</translation>
+<translation id="9133910347634099679">Bidra til å gjøre Browther bedre.</translation>
 <translation id="6718362830686703942">Send diagnoserapporter hvis du opplever at systemet krasjer eller henger seg opp.</translation>
 <translation id="7134864207653684195">Send privat og anonym produktinformasjon om hvilke funksjoner som brukes av Browther-brukerne.</translation>
 <translation id="2888496576732880897">Gjør Browther Søk bedre</translation>
 <translation id="7044431516245362795">Bli med i Web Discovery Project for å gjøre indeksen større og søkeresultatene bedre. <ph name="LEARN_MORE_START"/>Finn ut mer.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Klart, jeg kan hjelpe</translation>
-<translation id="7443712250454754077">Trykk for å vise Brave Shields</translation>
+<translation id="7443712250454754077">Trykk for å vise Browther Shields</translation>
 <translation id="118577974285037669">Se alt det kjipe Browther har blokkert, på alle sider, med Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> og <ph name="TRACKER"/> annonser og sporere er blokkert</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> og andre annonsetjenester og sporere er blokkert</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Hopp over</translation>
 <translation id="6165508094623778733">Finn ut mer</translation>
 <translation id="986879628471635371">Feilsøking av introduksjonsprogram</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Tjen <ph name="TOKEN"/>er</translation>
 <translation id="1315468656814955997">Browther-belønninger</translation>
 <translation id="5870330605209713397">ved å se annonser som respekterer personvernet og støtter dine favorittsider og skapere som standard.</translation>
@@ -408,7 +408,7 @@ Er du sikker på at du vil gjøre dette?</translation>
 <translation id="769702552748212954">Tillat all bruk av fingeravtrykk</translation>
 <translation id="876424292214881779">Annonser og andre ekle ting blokkert</translation>
 <translation id="2709945082202062860">Nettsteder inkluderer ofte informasjonskapsler og skript som prøver å identifisere deg og enheten din. De ønsker å finne ut av hvem du er, overvåke deg på nettet og spore det du gjør på alle nettsteder. \n\nBrave blokkerer dette, slik at du kan surfe på nett uten å bli overvåket.</translation>
-<translation id="5695422144228065490">Om Brave Shields</translation>
+<translation id="5695422144228065490">Om Browther Shields</translation>
 <translation id="8912304686498704084">OPP</translation>
 <translation id="4963218453264888510">NED</translation>
 <translation id="5721161384090584434">Du blar nå gjennom denne nettsiden uten personvern fra Browther. Fungerer den ikke som den skal med Shields aktivert?</translation>
@@ -958,7 +958,7 @@ Hvis du ikke godtar forespørselen, kobler ikke VPN seg opp igjen, og internetti
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Tilbakestill til standardoppsettet</translation>
 <translation id="4922034974043704366">Denne funksjonen er aktivert fordi du valgte det</translation>
-<translation id="3144818380093107753">Browther Origin er en abonnementsbasert måte å deaktivere inntektsgenererende funksjoner som ellers støtter Browther som selskap. Abonnenter på Browther Origin vil fortsatt dra nytte av vår bransjeledende personvernfunksjonalitet, annonseblokkering og hastighet (via Brave Shields), samt regelmessige programvareoppdateringer, Chromium-oppdateringer og forbedringer i sikkerhet og personvern.&lt;br/&gt;&lt;br/&gt;De vil også få mulighet til å deaktivere funksjoner som Browther Leo, News, Rewards, Wallet, VPN, Web3-domener og mer.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Merk: Browther Origin vil ikke deaktivere funksjoner i nettleseren som du allerede bruker, og vil ikke påvirke funksjoner i Brave Search eller Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin er en abonnementsbasert måte å deaktivere inntektsgenererende funksjoner som ellers støtter Browther som selskap. Abonnenter på Browther Origin vil fortsatt dra nytte av vår bransjeledende personvernfunksjonalitet, annonseblokkering og hastighet (via Browther Shields), samt regelmessige programvareoppdateringer, Chromium-oppdateringer og forbedringer i sikkerhet og personvern.&lt;br/&gt;&lt;br/&gt;De vil også få mulighet til å deaktivere funksjoner som Browther Leo, News, Rewards, Wallet, VPN, Web3-domener og mer.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Merk: Browther Origin vil ikke deaktivere funksjoner i nettleseren som du allerede bruker, og vil ikke påvirke funksjoner i Brave Search eller Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Logg på med Browther-lommeboken</translation>
 <translation id="7380890081275286865">Du logger på <ph name="ORIGIN"/>. Browther-lommeboken vil dele lommebok-adressen din med <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Vis detaljer</translation>

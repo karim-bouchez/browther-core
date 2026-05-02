@@ -3,119 +3,119 @@
 <translationbundle lang="eu">
 <translation id="1026101648481255140">Berrekin instalazioari</translation>
 <translation id="7099479769133613710">&amp;Chrome OS eguneratzeko, exekuta ezazu berriro</translation>
-<translation id="2479110114759182442">Luzapen hau berrikustea gomendatzen dizu Browther-ek</translation>
-<translation id="3814674848168165531">Webgune batek orriko estekak modu pribatuan aurrez kargatzeko eskatzen duenean, Browther-ek Browther-ren zerbitzariak erabiltzen ditu. Horrela, zure identitatea ezkutatzen zaio aurrez kargatutako webguneari, baina Browther-k aurrez kargatu diren webguneak hautematen ditu.</translation>
+<translation id="7264054672589027446">Luzapen hau berrikustea gomendatzen dizu Browther-ek</translation>
+<translation id="7848219163187166649">Webgune batek orriko estekak modu pribatuan aurrez kargatzeko eskatzen duenean, Browther-ek Browther-ren zerbitzariak erabiltzen ditu. Horrela, zure identitatea ezkutatzen zaio aurrez kargatutako webguneari, baina Browther-k aurrez kargatu diren webguneak hautematen ditu.</translation>
 <translation id="1065672644894730302">Ezin dira zure hobespenak irakurri.
 
 Eginbide batzuk agian dira erabilgarri egongo eta hobespenei egindako aldaketak ez dira aldatuko.</translation>
-<translation id="7577672138294294152">Zure gurasoak "Webguneen, aplikazioen eta luzapenen baimenak" desaktibatu du Browther-en</translation>
-<translation id="5918095577778020936">Browther-ek pasahitzak esportatu nahi ditu. Hori baimentzeko, idatzi Windows pasahitza.</translation>
+<translation id="8837164267124113709">Zure gurasoak "Webguneen, aplikazioen eta luzapenen baimenak" desaktibatu du Browther-en</translation>
+<translation id="881513728707488138">Browther-ek pasahitzak esportatu nahi ditu. Hori baimentzeko, idatzi Windows pasahitza.</translation>
 <translation id="112640046208448578">Identifikatu gauzak edo tokiak eta kopiatu edo itzuli testua. Irudi-bilaketa erabiltzen duzunean, orriaren pantaila-argazki bat bidaltzen da zerbitzarira. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther da arakatzaile lehenetsia</translation>
-<translation id="8522292744959221145">Pasahitzak datuen isilpekotasunaren urratzeen eta beste segurtasun-arazoen aurka babestuta dauden egiaztatzeko, <ph name="BEGIN_LINK"/>hasi saioa Browther-en<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Sakatu Browther-eko menua</translation>
+<translation id="8280092658684559253">Browther da arakatzaile lehenetsia</translation>
+<translation id="6580138787163923852">Pasahitzak datuen isilpekotasunaren urratzeen eta beste segurtasun-arazoen aurka babestuta dauden egiaztatzeko, <ph name="BEGIN_LINK"/>hasi saioa Browther-en<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Sakatu Browther-eko menua</translation>
 <translation id="1157985233335035034">Azkenaldian erabilitako hizkuntzak</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> bazkideak Browther-en funtzionamenduari agian eragingo dion luzapen bat gehitu du.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> bazkideak Browther-en funtzionamenduari agian eragingo dion luzapen bat gehitu du.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Ezin izan da instalatu, Windows-en bertsio hau ez delako bateragarria.</translation>
-<translation id="8541922081612557424">Browther arakatzaileari buruz</translation>
+<translation id="8291401179516272335">Browther arakatzaileari buruz</translation>
 <translation id="1203500561924088507">Eskerrik asko instalatzeagatik. <ph name="BUNDLE_NAME"/> erabiltzeko, arakatzailea berrabiarazi behar duzu.</translation>
 <translation id="1232234696885483911">Irudi-bilaketa irekitzen duzunean, orriaren izena, URLa eta edukia (PDFak barne) zerbitzariari bidaliko zaizkio automatikoki. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Saioa hasita daukazunean, Browther-ko kontuko pasahitzak eta beste erabil ditzakezu Browther-en. Hori aldatzeko, joan "Zure kontua Browther-en" atalera.</translation>
-<translation id="8799570501820813406">Fitxa inaktibo zegoen bitartean, memorian tokia egin da Browther-ek bizkor funtzionatzen jarrai dezan. Webgune hau inoiz ez inaktibo ezartzea aukera dezakezu.</translation>
-<translation id="8767381092474532098">Browther-ek deskarga hau blokeatu du, fitxategia arriskutsua delako</translation>
-<translation id="3256289531845594061"><ph name="USER_EMAIL"/> kontuarekin Browther-ren zerbitzuetan saioa hastean (adibidez, Gmail-en edo YouTube-n), Browther-en ere automatikoki has dezakezu saioa kontu berarekin</translation>
+<translation id="3496831315930641015">Saioa hasita daukazunean, Browther-ko kontuko pasahitzak eta beste erabil ditzakezu Browther-en. Hori aldatzeko, joan "Zure kontua Browther-en" atalera.</translation>
+<translation id="9034321258761608912">Fitxa inaktibo zegoen bitartean, memorian tokia egin da Browther-ek bizkor funtzionatzen jarrai dezan. Webgune hau inoiz ez inaktibo ezartzea aukera dezakezu.</translation>
+<translation id="249571811018731941">Browther-ek deskarga hau blokeatu du, fitxategia arriskutsua delako</translation>
+<translation id="8850227089720975601"><ph name="USER_EMAIL"/> kontuarekin Browther-ren zerbitzuetan saioa hastean (adibidez, Gmail-en edo YouTube-n), Browther-en ere automatikoki has dezakezu saioa kontu berarekin</translation>
 <translation id="1290883685122687410">Konfigurazio-errorea: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Konfiguratu Browther-eko profil berria</translation>
-<translation id="878572309106296578">Bluetooth bidezko gailuak arakatzeko, Bluetootha erabiltzeko baimena behar du Browther-ek. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
+<translation id="6235774143043174856">Konfiguratu Browther-eko profil berria</translation>
+<translation id="4437862975743821367">Bluetooth bidezko gailuak arakatzeko, Bluetootha erabiltzeko baimena behar du Browther-ek. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Hauteman hizkuntza</translation>
-<translation id="6204677860546245308">Erabili Browther-en arakatzailearen ezarpen gomendatuak</translation>
-<translation id="108284536240904209">Ezabatu datuak Browther-etik ere bai (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Erabili Browther-en arakatzailearen ezarpen gomendatuak</translation>
+<translation id="8270483548049772782">Ezabatu datuak Browther-etik ere bai (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Ainguratu da! Tresna-barrako botoi berriaren bidez erabil dezakezu berriro irudi-bilaketa.</translation>
 <translation id="1356661055722410047">Berria! Pantailan bertan itzuli ditzakezu testuak zein irudiak</translation>
 <translation id="1383876407941801731">Bilaketa</translation>
-<translation id="7009295044271335553">&amp;Kudeatu Browther-eko profilak</translation>
+<translation id="1592588950737518481">&amp;Kudeatu Browther-eko profilak</translation>
 <translation id="1404026649028693342">Erakutsi beti AA modua</translation>
 <translation id="141901961143729572">Partekatu burutazioak</translation>
-<translation id="3880714039086599943">Leihoa partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan.</translation>
-<translation id="1586284627848250203">Lortu Browther for Testing-en inguruko laguntza</translation>
+<translation id="1743952081001089298">Leihoa partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan.</translation>
+<translation id="8627385813382688019">Lortu Browther for Testing-en inguruko laguntza</translation>
 <translation id="1497802159252041924">Instalazio-errorea: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Orri hau babestuta dago</translation>
-<translation id="5147525139567260139">Partekatu Browther-eko fitxa bat</translation>
-<translation id="721261350616678948">Hasi saioa Browther-en</translation>
+<translation id="7252430412915798987">Partekatu Browther-eko fitxa bat</translation>
+<translation id="6388429281015199562">Hasi saioa Browther-en</translation>
 <translation id="1547469039832541117">Nabarmendutako zeregina amaitzen du.</translation>
-<translation id="1530633922026945685">Browther-ek kamera erabiltzeko baimena behar du, ingurunearen hiru dimentsioko mapa bat sortzeko</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Luzapena ez da onartzen jada. Kentzea gomendatzen dizu Browther-ek.}other{Luzapen hauek ez dira onartzen jada. Kentzea gomendatzen dizu Browther-ek.}}</translation>
-<translation id="51545890371361355">Ainguratu Browther</translation>
-<translation id="6570689355868013775">Browther-en segurtasun-tresnak</translation>
-<translation id="1902837727299679178">Browther-ek Pasahitz-kudeatzailea zerbitzuan dauzkazun datuak ezabatu behar ditu. Horretarako baimena emateko, idatzi Windows-eko pasahitza.</translation>
-<translation id="4449148723378534338">Berrikusi pribatutasuna eta segurtasuna kontrolatzeko aukera garrantzitsuenak Browther-en</translation>
+<translation id="1801944307203212016">Browther-ek kamera erabiltzeko baimena behar du, ingurunearen hiru dimentsioko mapa bat sortzeko</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Luzapena ez da onartzen jada. Kentzea gomendatzen dizu Browther-ek.}other{Luzapen hauek ez dira onartzen jada. Kentzea gomendatzen dizu Browther-ek.}}</translation>
+<translation id="4667068923142532753">Ainguratu Browther</translation>
+<translation id="3006560544901646947">Browther-en segurtasun-tresnak</translation>
+<translation id="686052171138185761">Browther-ek Pasahitz-kudeatzailea zerbitzuan dauzkazun datuak ezabatu behar ditu. Horretarako baimena emateko, idatzi Windows-eko pasahitza.</translation>
+<translation id="8713026329083542796">Berrikusi pribatutasuna eta segurtasuna kontrolatzeko aukera garrantzitsuenak Browther-en</translation>
 <translation id="1640672724030957280">Deskargatzen…</translation>
 <translation id="1680687534629375545">Egin orri honi buruzko galdera bat irudi-bilaketari</translation>
 <translation id="1709772298389099340"><ph name="BROWSER_NAME"/> arakatzailerako gehiegizko baimenak ematen ditu.</translation>
-<translation id="2913217021115517297">Eginbide hauek hobetzen laguntzeko, Browther-ek haiekin dituzun interakzioak bidaltzen dizkio Browther-ri. Baliteke informazio hori gizakia den berrikusle batek irakurtzea, prozesatzea eta hari buruzko oharpenak egitea.</translation>
+<translation id="4243382967656566037">Eginbide hauek hobetzen laguntzeko, Browther-ek haiekin dituzun interakzioak bidaltzen dizkio Browther-ri. Baliteke informazio hori gizakia den berrikusle batek irakurtzea, prozesatzea eta hari buruzko oharpenak egitea.</translation>
 <translation id="1722488837206509557">Erabilgarri dauden gailuen artean hautatu ahal izango duzu, eta haietan edukia bistaratu.</translation>
-<translation id="8004287232784878841">Browther-ek arakatze-datuak ezabatuko ditu laster</translation>
-<translation id="4197839351786449392">Browther nabigazioetan HTTPS protokoloa ezartzen saiatuko da</translation>
-<translation id="7814200940910057384">Garbitu dira Browther datuak</translation>
-<translation id="9048361966237194186"><ph name="REMAINING_TIME"/> barru berrabiaraziko da Browther</translation>
-<translation id="5524150602137990006">HTTPS erabilgarri ez dagoenean, Browther-ek konexio ez-seguru bat erabiliko du abisatu gabe</translation>
-<translation id="6797402139308059782">Onartu Browther atzeko planoan abiaraztea</translation>
-<translation id="5875673934455379806">Instalatu berriro Browther</translation>
-<translation id="4529028207655448215">Browther-ek <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489"><ph name="DEVICE_TYPE"/> gailuan Browther irekitzen duzun hurrengo aldian, Browther-ren Pasahitz-kudeatzailea erabiltzeko eskatuko zaizu.</translation>
+<translation id="6820510278633522408">Browther-ek arakatze-datuak ezabatuko ditu laster</translation>
+<translation id="7775028004939172516">Browther nabigazioetan HTTPS protokoloa ezartzen saiatuko da</translation>
+<translation id="6963959729951758069">Garbitu dira Browther datuak</translation>
+<translation id="4085139922884095932"><ph name="REMAINING_TIME"/> barru berrabiaraziko da Browther</translation>
+<translation id="2586248102295515296">HTTPS erabilgarri ez dagoenean, Browther-ek konexio ez-seguru bat erabiliko du abisatu gabe</translation>
+<translation id="3975328336074677101">Onartu Browther atzeko planoan abiaraztea</translation>
+<translation id="2497443204974841650">Instalatu berriro Browther</translation>
+<translation id="1724309687045787742">Browther-ek <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783"><ph name="DEVICE_TYPE"/> gailuan Browther irekitzen duzun hurrengo aldian, Browther-ren Pasahitz-kudeatzailea erabiltzeko eskatuko zaizu.</translation>
 <translation id="1838374766361614909">Garbitu bilaketa</translation>
-<translation id="3541642064306182066">Zure arakatze-datuak gailu honetatik soilik ezabatzeko, baina haiek Browther-ko kontuan mantentzeko, <ph name="BEGIN_LINK"/>amaitu saioa Browther-en<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Deskargatu Browther telefonoan, fitxa taldeak edonoiz eta edonon ireki edo sortu ahal izateko.</translation>
-<translation id="4559627161887338743">Saioa hasita daukaten Browther-ko kontuak kudea ditzakezu. Browther-ko kontuak Browther arakatzaile, Google Play Store, Gmail eta abarrerako erabiltzen dira. Kontu bat beste norbaitentzat gehitu nahi baduzu (adibidez, familiako kide batentzat), gehitu beste pertsona bat <ph name="DEVICE_TYPE"/> gailuan. <ph name="LINK_BEGIN"/>Lortu informazio gehiago<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">Zure arakatze-datuak gailu honetatik soilik ezabatzeko, baina haiek Browther-ko kontuan mantentzeko, <ph name="BEGIN_LINK"/>amaitu saioa Browther-en<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Deskargatu Browther telefonoan, fitxa taldeak edonoiz eta edonon ireki edo sortu ahal izateko.</translation>
+<translation id="2063443520349987970">Saioa hasita daukaten Browther-ko kontuak kudea ditzakezu. Browther-ko kontuak Browther arakatzaile, Google Play Store, Gmail eta abarrerako erabiltzen dira. Kontu bat beste norbaitentzat gehitu nahi baduzu (adibidez, familiako kide batentzat), gehitu beste pertsona bat <ph name="DEVICE_TYPE"/> gailuan. <ph name="LINK_BEGIN"/>Lortu informazio gehiago<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Bilatu irudi-bilaketaren bidez</translation>
 <translation id="1880677175115548835">Hautatu testua</translation>
-<translation id="4528406859989804913">Kontu kudeatu batekin hasten ari zara saioa eta kontuaren administratzaileari zure Browther profila kontrolatzeko ahalmena ematera zoaz. Browther aplikazioan dituzun datuak, esaterako, aplikazioak, laster-markak, historia, pasahitzak eta beste ezarpen batzuk betiko lotuko zaizkio <ph name="USER_NAME"/> erabiltzaileari. Browther-ko kontuetako Panelaren bidez ezabatu ahalko dituzu datu horiek, baina ezingo dituzu beste kontu batekin lotu. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther-ek bateria aurrezten du atzeko planoko jarduerak eta ikusizko efektuak mugatuta (esaterako, gora eta behera modu leunean egiteko aukera eta bideoen irudi-abiadurak). <ph name="BEGIN_LINK"/>Lortu energia-aurreztaileari buruzko informazio gehiago<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Kontu kudeatu batekin hasten ari zara saioa eta kontuaren administratzaileari zure Browther profila kontrolatzeko ahalmena ematera zoaz. Browther aplikazioan dituzun datuak, esaterako, aplikazioak, laster-markak, historia, pasahitzak eta beste ezarpen batzuk betiko lotuko zaizkio <ph name="USER_NAME"/> erabiltzaileari. Browther-ko kontuetako Panelaren bidez ezabatu ahalko dituzu datu horiek, baina ezingo dituzu beste kontu batekin lotu. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther-ek bateria aurrezten du atzeko planoko jarduerak eta ikusizko efektuak mugatuta (esaterako, gora eta behera modu leunean egiteko aukera eta bideoen irudi-abiadurak). <ph name="BEGIN_LINK"/>Lortu energia-aurreztaileari buruzko informazio gehiago<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Egin orri honi buruzko galdera bat</translation>
-<translation id="8643267611122541711">Browther eguneratzeko zerbitzua</translation>
-<translation id="1649714546770135458">Aukera hau desaktibatzen baduzu, Browther-ren webguneetan saioa hasi ahalko duzu (adibidez, Gmail-en) Browther-en saioa hasi beharrik gabe</translation>
-<translation id="189297655255130768">Browther-ek ez du eranzuten. Berrabiarazi nahi duzu?</translation>
-<translation id="8422047647688939115">Browther-en saioa hasteko eskatzen dizu zure erakundeak (<ph name="MANAGER"/>)</translation>
+<translation id="9128006428501241840">Browther eguneratzeko zerbitzua</translation>
+<translation id="6302815314157879372">Aukera hau desaktibatzen baduzu, Browther-ren webguneetan saioa hasi ahalko duzu (adibidez, Gmail-en) Browther-en saioa hasi beharrik gabe</translation>
+<translation id="1063611196035804685">Browther-ek ez du eranzuten. Berrabiarazi nahi duzu?</translation>
+<translation id="2873360330889594383">Browther-en saioa hasteko eskatzen dizu zure erakundeak (<ph name="MANAGER"/>)</translation>
 <translation id="4035053306113201399">Eguneratzea aplikatzeko, berrabiarazi egin behar da Chrome OS.</translation>
-<translation id="9048754176089806686">Browther-ek deskarga hau blokeatu du, fitxategi mota normalean deskargatzen ez delako eta agian arriskutsua delako</translation>
+<translation id="2861285003831382718">Browther-ek deskarga hau blokeatu du, fitxategi mota normalean deskargatzen ez delako eta agian arriskutsua delako</translation>
 <translation id="1953553007165777902">Deskargatzen… <ph name="MINUTE"/> minutu geratzen dira.</translation>
-<translation id="2470048290583727811">Browther-erako aholkua: gorde pasahitzak</translation>
-<translation id="1775322105159056176">Browther-ek ezin du ezarri edo zehaztu arakatzaile lehenetsia</translation>
-<translation id="4372901050442507812">Ikusi zergatik blokeatzen dituen Browther-ek fitxategi batzuk, beste fitxa batean irekiko da</translation>
-<translation id="2703425183860615504">Browther-en softwarea eguneratuta mantentzen du. Zerbitzu hau desgaitzen edo gelditzen bada, Browther-en softwarea ez da eguneratuta mantenduko; beraz, agertzen diren segurtasun-ahultasunak ezin izango dira konpondu eta eginbideek agian ez dute funtzionatuko. Zerbitzu hau erabiltzen duen Browther-en softwarerik ez badago, automatikoki desinstalatuko da.</translation>
-<translation id="9220324636239049437">Gailuko elementu bat ezabatuko da. Geroago datuak eskuratu nahi izanez gero, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
+<translation id="2080160985220483492">Browther-erako aholkua: gorde pasahitzak</translation>
+<translation id="8037497710694492565">Browther-ek ezin du ezarri edo zehaztu arakatzaile lehenetsia</translation>
+<translation id="7395009124247513849">Ikusi zergatik blokeatzen dituen Browther-ek fitxategi batzuk, beste fitxa batean irekiko da</translation>
+<translation id="762710512520170632">Browther-en softwarea eguneratuta mantentzen du. Zerbitzu hau desgaitzen edo gelditzen bada, Browther-en softwarea ez da eguneratuta mantenduko; beraz, agertzen diren segurtasun-ahultasunak ezin izango dira konpondu eta eginbideek agian ez dute funtzionatuko. Zerbitzu hau erabiltzen duen Browther-en softwarerik ez badago, automatikoki desinstalatuko da.</translation>
+<translation id="5793588180426267429">Gailuko elementu bat ezabatuko da. Geroago datuak eskuratu nahi izanez gero, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
 <translation id="2018879682492276940">Ezin izan da instalatu. Saiatu berriro.</translation>
-<translation id="831418749472885028">Gainerako pasahitzak datuen isilpekotasunaren urratzeen eta beste segurtasun-arazoen aurka babestuta dauden egiaztatzeko, <ph name="BEGIN_LINK"/>hasi saioa Browther-en<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Gainerako pasahitzak datuen isilpekotasunaren urratzeen eta beste segurtasun-arazoen aurka babestuta dauden egiaztatzeko, <ph name="BEGIN_LINK"/>hasi saioa Browther-en<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Ezarpenak.</translation>
-<translation id="5499149312981370855">Aukeratu ea Browther-eko historia kontuan hartu nahi duzun ala ez Browther-ren zerbitzuak modu pertsonalizatuago batean erabiltzeko</translation>
-<translation id="6959434860418352144">Browther-i itxura berri bat emateko, sakatu fitxa berriaren orriko "Pertsonalizatu Browther" botoia</translation>
+<translation id="8194525816714210105">Aukeratu ea Browther-eko historia kontuan hartu nahi duzun ala ez Browther-ren zerbitzuak modu pertsonalizatuago batean erabiltzeko</translation>
+<translation id="5909559127548969159">Browther-i itxura berri bat emateko, sakatu fitxa berriaren orriko "Pertsonalizatu Browther" botoia</translation>
 <translation id="2066690553719545730">Erakutsi beti AA modua</translation>
-<translation id="2472891440303445472">Browther-ek deskarga hau blokeatu du, fitxategia engainagarria delako eta agian espero ez dituzun aldaketak egingo dituelako gailuan</translation>
-<translation id="2054358978145431867"><ph name="FEATURE_NAME"/> probatzeko eskatuko zaizu iOS-erako Browther irekitzen duzun hurrengo aldian.</translation>
-<translation id="2726948994393234543">Browther-ko kontuan gordetako pasahitzak eta Browther-eko beste datuak gailu honetatik kenduko dira. Browther-en haiek berriro ere erabiltzeko, hasi saioa berriro.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Erakundeak automatikoki ezabatuko ditu arakatze-datuak Browther minutu batez erabiltzen ez bada. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude. Fitxak irekita mantenduko dira.}other{Erakundeak automatikoki ezabatuko ditu arakatze-datuak Browther # minutuz erabiltzen ez bada. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude. Fitxak irekita mantenduko dira.}}</translation>
+<translation id="3283892260110318935">Browther-ek deskarga hau blokeatu du, fitxategia engainagarria delako eta agian espero ez dituzun aldaketak egingo dituelako gailuan</translation>
+<translation id="6160571936643742128"><ph name="FEATURE_NAME"/> probatzeko eskatuko zaizu iOS-erako Browther irekitzen duzun hurrengo aldian.</translation>
+<translation id="8380517409933452343">Browther-ko kontuan gordetako pasahitzak eta Browther-eko beste datuak gailu honetatik kenduko dira. Browther-en haiek berriro ere erabiltzeko, hasi saioa berriro.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Erakundeak automatikoki ezabatuko ditu arakatze-datuak Browther minutu batez erabiltzen ez bada. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude. Fitxak irekita mantenduko dira.}other{Erakundeak automatikoki ezabatuko ditu arakatze-datuak Browther # minutuz erabiltzen ez bada. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude. Fitxak irekita mantenduko dira.}}</translation>
 <translation id="2126108037660393668">Deskargatutako fitxategia ezin izan da egiaztatu.</translation>
 <translation id="2135919691573380097">Salatu webgunea</translation>
 <translation id="2137162749895930932">Itxi itzultzeko pantaila</translation>
-<translation id="5789330946301045610">Browther-ek deskarga hau blokeatu du, webgunearen konexioa segurua ez delako eta agian fitxategia manipulatu delako</translation>
+<translation id="4283559398694996391">Browther-ek deskarga hau blokeatu du, webgunearen konexioa segurua ez delako eta agian fitxategia manipulatu delako</translation>
 <translation id="2170098639895543546">Hautatu orriko edozein gauza</translation>
-<translation id="142389341645668510">Pertsonalizatu Browther</translation>
+<translation id="2495182092286337191">Pertsonalizatu Browther</translation>
 <translation id="2174917724755363426">Ez da osatu instalazioa. Ziur bertan behera utzi nahi duzula?</translation>
-<translation id="8745514854244955877">Browther - Hasi saioa sarean - <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther - Hasi saioa sarean - <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Eguneratzearen egiaztapenaren errorea: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Kendu kontua Browther-etik</translation>
-<translation id="5550942974310218641">Egon seguruago edonoiz eta edonon iOS-erako Browther-eko arakatze seguru hobetuarekin</translation>
-<translation id="6677253423995557759">Webgune arriskutsua. Browther-ek jakinarazpenak erabiltzeko baimena kendu dio.</translation>
+<translation id="6696114732806961952">Kendu kontua Browther-etik</translation>
+<translation id="1084363153644366288">Egon seguruago edonoiz eta edonon iOS-erako Browther-eko arakatze seguru hobetuarekin</translation>
+<translation id="7949164640723239455">Webgune arriskutsua. Browther-ek jakinarazpenak erabiltzeko baimena kendu dio.</translation>
 <translation id="2236949375853147973">Nire jarduerak</translation>
-<translation id="457168681575748148">Helbideak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en. Saioa hasi ondoren, helbide hau zure Browther-ko kontuan gordeko da.</translation>
-<translation id="5659384504794665581">Ordenagailua partekatzen baduzu, lagunek eta familiako kideek euren kontuak erabilita ibil daitezke Interneten, nahi duten moduan.</translation>
+<translation id="4536403809133456417">Helbideak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en. Saioa hasi ondoren, helbide hau zure Browther-ko kontuan gordeko da.</translation>
+<translation id="5627930103267312171">Ordenagailua partekatzen baduzu, lagunek eta familiako kideek euren kontuak erabilita ibil daitezke Interneten, nahi duten moduan.</translation>
 <translation id="2283803047247799269">Bilatu fitxa honetan irudi-bilaketarekin</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Arakatzailea mantsotzen duen fitxa pausatzea gomendatzen du Browther-ek}other{Arakatzailea mantsotzen duten fitxak pausatzea gomendatzen du Browther-ek}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Arakatzailea mantsotzen duen fitxa pausatzea gomendatzen du Browther-ek}other{Arakatzailea mantsotzen duten fitxak pausatzea gomendatzen du Browther-ek}}</translation>
 <translation id="2307973900865360088">Mantendu Dock-ean</translation>
-<translation id="7810992039564280750">URLak Browther-en gordetako webgune ez-seguruen zerrendan dauden ala ez egiaztatzen du. Webguneren bat pasahitza lapurtzen saiatzen bada, edo fitxategi kaltegarriren bat deskargatzen baduzu, baliteke Browther-ek URLak ere bidaltzea (orriko edukiaren zati batzuk barne) Arakatze segurua eginbideari.</translation>
-<translation id="5042718521573656164">Ekintza honen bidez, hauek egingo dira:
+<translation id="5161617112768367959">URLak Browther-en gordetako webgune ez-seguruen zerrendan dauden ala ez egiaztatzen du. Webguneren bat pasahitza lapurtzen saiatzen bada, edo fitxategi kaltegarriren bat deskargatzen baduzu, baliteke Browther-ek URLak ere bidaltzea (orriko edukiaren zati batzuk barne) Arakatze segurua eginbideari.</translation>
+<translation id="4123094831918713833">Ekintza honen bidez, hauek egingo dira:
           <ph name="LINE_BREAKS"/>
            • Browther-en ezarpen eta lasterbide batzuk berrezarri.
            <ph name="LINE_BREAK"/>
@@ -124,633 +124,633 @@ Eginbide batzuk agian dira erabilgarri egongo eta hobespenei egindako aldaketak 
            • Cookieak eta webguneetako bestelako aldi baterako datuak ezabatu.
             <ph name="LINE_BREAKS"/>
            Ekintzak ez die eragingo laster-markei, historiari eta gordetako pasahitzei.</translation>
-<translation id="9095263438435683933">Zenbaki bat hemendik Android-eko telefonora bidaltzeko, hasi Browther-eko saioa bi gailuetan.</translation>
+<translation id="5456070119344236353">Zenbaki bat hemendik Android-eko telefonora bidaltzeko, hasi Browther-eko saioa bi gailuetan.</translation>
 <translation id="2356070529366658676">Galdetu</translation>
 <translation id="2359808026110333948">Egin aurrera</translation>
-<translation id="6485997157403727556">"<ph name="EXTENSION_NAME"/>" luzapenak Browther-en saioa has dezazun behar du</translation>
-<translation id="7017760840808989683">Desgaitu Browther atzeko planoan exekutatzea aplikazioetarako</translation>
-<translation id="8491912023989916905">Luzapen hau <ph name="USER_EMAIL_ADDRESS"/> gisa erabiltzeko, hasi saioa Browther-en.</translation>
+<translation id="6468415397021485143">"<ph name="EXTENSION_NAME"/>" luzapenak Browther-en saioa has dezazun behar du</translation>
+<translation id="2558600429878197587">Desgaitu Browther atzeko planoan exekutatzea aplikazioetarako</translation>
+<translation id="5295781918312989856">Luzapen hau <ph name="USER_EMAIL_ADDRESS"/> gisa erabiltzeko, hasi saioa Browther-en.</translation>
 <translation id="8418845734693287262">Chrome OS-k ezin izan ditu sinkronizatu zure datuak, kontuan saioa hasteko xehetasunak zaharkituta daudelako.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Browther-erako luzapen bat edo gehiago giza interfazeko gailu bat erabiltzen ari ziren}=1{Browther-erako luzapen bat edo gehiago giza interfazeko gailu bat erabiltzen ari dira}other{Browther-erako luzapen bat edo gehiago giza interfazeko # gailu erabiltzen ari dira}}</translation>
-<translation id="1248225940185478633">Browther-ek kamera eta mikrofonoa erabiltzeko baimenak behar ditu webgune honetan</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Browther-erako luzapen bat edo gehiago giza interfazeko gailu bat erabiltzen ari ziren}=1{Browther-erako luzapen bat edo gehiago giza interfazeko gailu bat erabiltzen ari dira}other{Browther-erako luzapen bat edo gehiago giza interfazeko # gailu erabiltzen ari dira}}</translation>
+<translation id="434258293817844111">Browther-ek kamera eta mikrofonoa erabiltzeko baimenak behar ditu webgune honetan</translation>
 <translation id="2403703063067034158">Abiarazte-errorea: konfigurazioaren beste instantzia bat exekutatzen ari da. Saiatu berriro geroago.</translation>
-<translation id="5298352791080868905">Ireki edozein aplikaziotako estekak Browther-en eta mantendu arakatzailea eskura zereginen barran</translation>
-<translation id="2118275934191847461"><ph name="BEGIN_LINK"/>Browther-en tresnekin<ph name="END_LINK"/>, segurtasunez araka dezakezu, eta dena kontrolpean eduki</translation>
+<translation id="5458993228789433099">Ireki edozein aplikaziotako estekak Browther-en eta mantendu arakatzailea eskura zereginen barran</translation>
+<translation id="1677640217693742525"><ph name="BEGIN_LINK"/>Browther-en tresnekin<ph name="END_LINK"/>, segurtasunez araka dezakezu, eta dena kontrolpean eduki</translation>
 <translation id="2451727308784734061">Erabili lasterbidea Pasahitz-kudeatzailea zerbitzura azkar joateko. Lasterbidea ordenagailuaren orri nagusira edo aplikazioak exekutatzeko tresnara eraman dezakezu.</translation>
-<translation id="6381750314821942592">Browther itxi egingo da laster</translation>
-<translation id="6078442581074612226">Browther-en</translation>
+<translation id="2280315911954332435">Browther itxi egingo da laster</translation>
+<translation id="6410820860979094113">Browther-en</translation>
 <translation id="2485422356828889247">Desinstalatu</translation>
 <translation id="2513154137948333830">Berrabiarazi egin behar da: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Hautatu testua irudi-bilaketaren bidez</translation>
-<translation id="70183448213529602">Lehendik dauden pasahitzak ordezten saiatzen ari da Browther. Horretarako baimena emateko, idatzi Windows-eko pasahitza.</translation>
-<translation id="7798069806040634998">Browther-ek fitxategiak deskargatzearren memorian sartzeko baimena behar du</translation>
-<translation id="2351700486811407088">Browther Origin laguntzailea</translation>
+<translation id="7892218991241200190">Lehendik dauden pasahitzak ordezten saiatzen ari da Browther. Horretarako baimena emateko, idatzi Windows-eko pasahitza.</translation>
+<translation id="8976443723926188033">Browther-ek fitxategiak deskargatzearren memorian sartzeko baimena behar du</translation>
+<translation id="4131374838781785973">Browther Origin laguntzailea</translation>
 <translation id="2575822587468774919">Hautatu edozer, irudi-bilaketarekin bilatzeko</translation>
-<translation id="3830890663494219270">Pasahitzak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en</translation>
-<translation id="6252796827759111076">Jarraitu Browther erabiltzen</translation>
+<translation id="8705561858232289221">Pasahitzak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en</translation>
+<translation id="437162022240011372">Jarraitu Browther erabiltzen</translation>
 <translation id="259935314519650377">Ezin izan da gorde cachean deskargatutako instalatzailea. Errorea: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Sistema</translation>
-<translation id="7931230852267968641">Erakundeak zure arakatze-datuak ikusi eta kudea ditzake, hala nola laster-markak, historia eta pasahitzak. Ezin ditu ikusi Browther-eko beste profiletako arakatze-datuak.</translation>
-<translation id="2257221826278123061">Browther-eko datuak zure kontuan (<ph name="ACCOUNT_EMAIL"/>) erabiltzeko eta gordetzeko, egiaztatu zeu zarela</translation>
-<translation id="7387051847644272380">Sistema-eragilean errore bat gertatu da instalatu bitartean. Deskargatu Browther berriro.</translation>
-<translation id="2648689842065142443">Gailu bat partekatzen baduzu, lagunak eta familiako kideak beren kontuak erabilita ibil daitezke Interneten, eta Browther nahi duten moduan konfiguratu</translation>
-<translation id="6791166902140255175">Browther fitxa</translation>
-<translation id="8372880274820509128">Segurtasun gehiago izateko, Browther-ek datuak enkriptatuko ditu.</translation>
-<translation id="8752006915531191162">Zure Browther-ko kontua Browther-etik kentzeko, amaitu saioa</translation>
-<translation id="5344406739101555055">Pasahitzak, laster-markak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en</translation>
+<translation id="2907676829052962091">Erakundeak zure arakatze-datuak ikusi eta kudea ditzake, hala nola laster-markak, historia eta pasahitzak. Ezin ditu ikusi Browther-eko beste profiletako arakatze-datuak.</translation>
+<translation id="1289116577679005654">Browther-eko datuak zure kontuan (<ph name="ACCOUNT_EMAIL"/>) erabiltzeko eta gordetzeko, egiaztatu zeu zarela</translation>
+<translation id="7192278346779151664">Sistema-eragilean errore bat gertatu da instalatu bitartean. Deskargatu Browther berriro.</translation>
+<translation id="7724398260867885339">Gailu bat partekatzen baduzu, lagunak eta familiako kideak beren kontuak erabilita ibil daitezke Interneten, eta Browther nahi duten moduan konfiguratu</translation>
+<translation id="1679595317134614424">Browther fitxa</translation>
+<translation id="7189168846924379421">Segurtasun gehiago izateko, Browther-ek datuak enkriptatuko ditu.</translation>
+<translation id="4052643592793184278">Zure Browther-ko kontua Browther-etik kentzeko, amaitu saioa</translation>
+<translation id="7694616023994438906">Pasahitzak, laster-markak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en</translation>
 <translation id="2738871930057338499">Ezin da konektatu Internetera. HTTP 403 (debekatuta). Egiaztatu proxyaren konfigurazioa.</translation>
 <translation id="2753623023919742414">Sakatu bilatzeko</translation>
-<translation id="1312769823139326127">Ezarri Browther PDFen ikustaile lehenetsi gisa</translation>
-<translation id="3173824377856109157">Betetze automatiko estandarrak agian betetzen ez dituen eremu zailak bete ditzake automatikoki Browther-ek</translation>
-<translation id="1187986649024576560">Luzapenak malwarea dauka, eta ez da segurua. Ken ezazu Browther-etik, bisitatzen dituzun webguneetan zure datuak ikusi eta aldatu ezin izan ditzan, informazio pertsonala barne.</translation>
+<translation id="9078193405195503710">Ezarri Browther PDFen ikustaile lehenetsi gisa</translation>
+<translation id="2456995288904753506">Betetze automatiko estandarrak agian betetzen ez dituen eremu zailak bete ditzake automatikoki Browther-ek</translation>
+<translation id="3271730304285122987">Luzapenak malwarea dauka, eta ez da segurua. Ken ezazu Browther-etik, bisitatzen dituzun webguneetan zure datuak ikusi eta aldatu ezin izan ditzan, informazio pertsonala barne.</translation>
 <translation id="2799223571221894425">Abiarazi berriro</translation>
-<translation id="5962774139606909656">Zure Browther</translation>
+<translation id="1427337251963884503">Zure Browther</translation>
 <translation id="2816462166102338036">Egin bilaketak bideo honetan irudi-bilaketarekin</translation>
 <translation id="2841525013647267359">Itzuli hizkuntza honetatik</translation>
 <translation id="2846251086934905009">Instalazio-errorea: instalatzailea ez da osatu. Instalazioa bertan behera utzi da.</translation>
-<translation id="777113543093865885">Kendu Browther-etik…</translation>
-<translation id="5265419033369521352">Babestuta mantentzen zaitu Browther-en, eta segurtasuna hobetzeko erabil daiteke Browther-ren beste aplikazio batzuetan saioa hasita daukazunean</translation>
+<translation id="928966105228355994">Kendu Browther-etik…</translation>
+<translation id="587805782197019018">Babestuta mantentzen zaitu Browther-en, eta segurtasuna hobetzeko erabil daiteke Browther-ren beste aplikazio batzuetan saioa hasita daukazunean</translation>
 <translation id="2885378588091291677">Zereginen kudeatzailea</translation>
-<translation id="2176825726964012531">&amp;Browther arakatzaileari buruz</translation>
+<translation id="3055995278166070443">&amp;Browther arakatzaileari buruz</translation>
 <translation id="2915996080311180594">Berrabiarazi geroago</translation>
 <translation id="2928420929544864228">Instalatu da.</translation>
-<translation id="2481553173340651149">Datuak pasaesaldiarekin enkriptatuta daude. Browther-eko datuak Browther-ko kontuan gordetzeko eta erabiltzeko, idatz ezazu.</translation>
+<translation id="70453521937551896">Datuak pasaesaldiarekin enkriptatuta daude. Browther-eko datuak Browther-ko kontuan gordetzeko eta erabiltzeko, idatz ezazu.</translation>
 <translation id="2945997411976714835">Instalazio-errorea: instalatzailearen prozesua ezin izan da hasi.</translation>
-<translation id="2413255940314578781">Hasi saioa bizkorrago webguneetan iOS-erako Browther-en gordetako pasahitzak erabilita</translation>
-<translation id="122765104641632123">Gehitu Browther-eko beste profil bat laster-markak, pasahitzak eta ezarpenak bereizita edukitzeko.</translation>
-<translation id="3688936822855019158">Zure erakundeak kudeatzen du Browther</translation>
-<translation id="8208853227947884571">Eguneratuta dago Browther</translation>
-<translation id="5122472867956731189">Webguneren bat pasahitza lapurtzen saiatzen bada edo fitxategi kaltegarriren bat deskargatzen baduzu, baliteke Browther-ek URLak ere bidaltzea (orriko edukiaren zati batzuk barne) Arakatze segurua eginbideari.</translation>
-<translation id="3963199983793987097">Gurasoen aukerekin sarean seguruago egoteko, hasi saioa Browther-en</translation>
+<translation id="3188308520233701133">Hasi saioa bizkorrago webguneetan iOS-erako Browther-en gordetako pasahitzak erabilita</translation>
+<translation id="8145318807880784886">Gehitu Browther-eko beste profil bat laster-markak, pasahitzak eta ezarpenak bereizita edukitzeko.</translation>
+<translation id="4330268530227888227">Zure erakundeak kudeatzen du Browther</translation>
+<translation id="6488090896442998436">Eguneratuta dago Browther</translation>
+<translation id="300557164611864786">Webguneren bat pasahitza lapurtzen saiatzen bada edo fitxategi kaltegarriren bat deskargatzen baduzu, baliteke Browther-ek URLak ere bidaltzea (orriko edukiaren zati batzuk barne) Arakatze segurua eginbideari.</translation>
+<translation id="2447145782593796785">Gurasoen aukerekin sarean seguruago egoteko, hasi saioa Browther-en</translation>
 <translation id="3003694935412297923">Zeregin guztiak</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther-ek zeu zarela egiaztatu behar du datu batzuk zure Browther-ko kontuan gorde, eta gailu guztietan erabili ahal izan baino lehen. Orain amaitzen baduzu saioa, datu horiek (elementu bat) ezabatuko dira.}other{Browther-ek zeu zarela egiaztatu behar du datu batzuk zure Browther-ko kontuan gorde, eta gailu guztietan erabili ahal izan baino lehen. Orain amaitzen baduzu saioa, datu horiek ({count} elementu) ezabatuko dira.}}</translation>
-<translation id="4202995875619419215">Ireki <ph name="URL"/> Browther-eko fitxa berri batean.</translation>
-<translation id="8755404239607088219">Browther-ek ezin ditu egiaztatu pasahitzak. Saiatu geroago.</translation>
-<translation id="8880183781256147665">Browther-era gehitzen…</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther-ek zeu zarela egiaztatu behar du datu batzuk zure Browther-ko kontuan gorde, eta gailu guztietan erabili ahal izan baino lehen. Orain amaitzen baduzu saioa, datu horiek (elementu bat) ezabatuko dira.}other{Browther-ek zeu zarela egiaztatu behar du datu batzuk zure Browther-ko kontuan gorde, eta gailu guztietan erabili ahal izan baino lehen. Orain amaitzen baduzu saioa, datu horiek ({count} elementu) ezabatuko dira.}}</translation>
+<translation id="5522228731050510047">Ireki <ph name="URL"/> Browther-eko fitxa berri batean.</translation>
+<translation id="6358780591055960280">Browther-ek ezin ditu egiaztatu pasahitzak. Saiatu geroago.</translation>
+<translation id="1386422761453740126">Browther-era gehitzen…</translation>
 <translation id="3038232873781883849">Instalatzeko zain…</translation>
 <translation id="3045032126857188731">Xede-hizkuntza: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Itxi oharrak bidaltzeko leihoa</translation>
-<translation id="4503085212612536713">Browther-eko beste profilak</translation>
-<translation id="7918740962659365265">Lagundu Browther hobetzen hutsegite-txostenak eta <ph name="UMA_LINK"/> Browther-ra bidalita</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Browther-erako luzapen bat edo gehiago USB bidezko gailu bat erabiltzen ari ziren}=1{Browther-erako luzapen bat edo gehiago USB bidezko gailu bat erabiltzen ari dira}other{Browther-erako luzapen bat edo gehiago USB bidezko # gailu erabiltzen ari dira}}</translation>
-<translation id="3700405816184340252">Browther-eko historia</translation>
-<translation id="7365690458036015383">Instalatzaileak ezin izan du artxiboa deskonprimitu. Deskargatu berriro Browther.</translation>
+<translation id="369127628511662602">Browther-eko beste profilak</translation>
+<translation id="2370255879896574713">Lagundu Browther hobetzen hutsegite-txostenak eta <ph name="UMA_LINK"/> Browther-ra bidalita</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Browther-erako luzapen bat edo gehiago USB bidezko gailu bat erabiltzen ari ziren}=1{Browther-erako luzapen bat edo gehiago USB bidezko gailu bat erabiltzen ari dira}other{Browther-erako luzapen bat edo gehiago USB bidezko # gailu erabiltzen ari dira}}</translation>
+<translation id="2065456480740480340">Browther-eko historia</translation>
+<translation id="5011660649081947055">Instalatzaileak ezin izan du artxiboa deskonprimitu. Deskargatu berriro Browther.</translation>
 <translation id="310459126943037700">Ezin izan dira amaitu zereginak.</translation>
 <translation id="3104828284009500087">Bilatu orriko edozein gauza</translation>
-<translation id="6422885447166607802">Mantendu pasahitzak, laster-markak eta historia gailuen artean ezin hobeto sinkronizatuta. Atzitu erraz eginbide ezagun eta gogokoak Browther arakatzaile lehenetsi bihurtuta.</translation>
-<translation id="8919461291440820124">Browther zure mikrofonoa erabiltzen ari da.</translation>
+<translation id="4917564010081457061">Mantendu pasahitzak, laster-markak eta historia gailuen artean ezin hobeto sinkronizatuta. Atzitu erraz eginbide ezagun eta gogokoak Browther arakatzaile lehenetsi bihurtuta.</translation>
+<translation id="1041472930719344928">Browther zure mikrofonoa erabiltzen ari da.</translation>
 <translation id="3130333203120345554">Bilaketa berria</translation>
 <translation id="3137969841538672700">Arrastatu bilatzeko</translation>
-<translation id="8372436892102763334">Fitxa honek baliabide gehiago erabiltzen ditu. Errendimendua hobetzeko, eman fitxa inaktibo ezartzeko baimena Browther-i.</translation>
-<translation id="5949068186379578553">Pantaila partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan</translation>
-<translation id="4805806622840861220">Berrabiarazi Browther</translation>
+<translation id="5312717254055363883">Fitxa honek baliabide gehiago erabiltzen ditu. Errendimendua hobetzeko, eman fitxa inaktibo ezartzeko baimena Browther-i.</translation>
+<translation id="373523409348786203">Pantaila partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan</translation>
+<translation id="802113445299754598">Berrabiarazi Browther</translation>
 <translation id="3161522574479303604">Hizkuntza guztiak</translation>
-<translation id="3225882094369124157">Ordenagailuko beste programa batek Browther-en funtzionamenduari agian eragingo dion gai bat gehitu du.
+<translation id="4522189060330781648">Ordenagailuko beste programa batek Browther-en funtzionamenduari agian eragingo dion gai bat gehitu du.
 
 <ph name="EXTENSION_NAME"/>.</translation>
-<translation id="1742948938503172561">Pertsonalizatu Browther-eko profil berria</translation>
-<translation id="4805865169608137960">Zure Browther-ko kontua Browther-etik kentzeko, amaitu Browther-eko saioa Ezarpenak orrian</translation>
-<translation id="1651639704310627074">Aurrerago, gordetako informazioa inprimakiak automatikoki betetzeko erabili nahi duzun ala ez galdetu ahal izango dizu Browther-ek</translation>
-<translation id="2585240446624043880">Browther-ek ezin du irakurri bere datu-direktorioa eta ezin du idatzi bertan:
+<translation id="2604272613984010799">Pertsonalizatu Browther-eko profil berria</translation>
+<translation id="5150830326120505481">Zure Browther-ko kontua Browther-etik kentzeko, amaitu Browther-eko saioa Ezarpenak orrian</translation>
+<translation id="7113660200899017820">Aurrerago, gordetako informazioa inprimakiak automatikoki betetzeko erabili nahi duzun ala ez galdetu ahal izango dizu Browther-ek</translation>
+<translation id="4475011322243623412">Browther-ek ezin du irakurri bere datu-direktorioa eta ezin du idatzi bertan:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Berrabiarazi orain</translation>
-<translation id="2339258256897053758">Browther APIko gakoak falta dira. Browther-en funtzionalitate batzuk desgaitu egingo dira.</translation>
-<translation id="8926637909431618259">Mantendu atzeko planoko aplikazioak abian Browther ixten denean</translation>
-<translation id="518125528057094977">Browther-ek abisatu egingo dizu webgune bat konexio ez-seguru batekin kargatu aurretik</translation>
-<translation id="8652321858775514885">Browther-eko leiho guztiak ixtean, webgune gehienetako saioa amaituko da Browther-ko kontuarena izan ezik, baldin eta Browther-en saioa hasita badaukazu. Webguneek gogora zaitzaten, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Bilatzaile lehenetsia Browther-etik kanpo aldatu da. Zu babesteko, Browther-ek berrezarri egin du.</translation>
-<translation id="5033074923607633232">Pasahitzak, laster-markak eta abar gailu guztietan eskura izateko, hasi saioa Browther-en</translation>
+<translation id="3536063527222598206">Browther APIko gakoak falta dira. Browther-en funtzionalitate batzuk desgaitu egingo dira.</translation>
+<translation id="1011450868746766298">Mantendu atzeko planoko aplikazioak abian Browther ixten denean</translation>
+<translation id="179611081153855734">Browther-ek abisatu egingo dizu webgune bat konexio ez-seguru batekin kargatu aurretik</translation>
+<translation id="8965591964936552871">Browther-eko leiho guztiak ixtean, webgune gehienetako saioa amaituko da Browther-ko kontuarena izan ezik, baldin eta Browther-en saioa hasita badaukazu. Webguneek gogora zaitzaten, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Bilatzaile lehenetsia Browther-etik kanpo aldatu da. Zu babesteko, Browther-ek berrezarri egin du.</translation>
+<translation id="1170501833661894915">Pasahitzak, laster-markak eta abar gailu guztietan eskura izateko, hasi saioa Browther-en</translation>
 <translation id="3352986031709923790">bilaketa-eremuaren goiko eskuineko ertza: % <ph name="RIGHT"/> eskuinean, % <ph name="TOP"/> goian</translation>
-<translation id="7261356974224431851">Kontuan dauden Browther-eko datuak</translation>
+<translation id="120745000989996104">Kontuan dauden Browther-eko datuak</translation>
 <translation id="3369405342922656244">Egin bilaketak orri honetan irudi-bilaketarekin</translation>
-<translation id="6610330853796830621">Erabili pasahitzak telefonoan Browther-ekin</translation>
+<translation id="7173761126541905083">Erabili pasahitzak telefonoan Browther-ekin</translation>
 <translation id="2645435784669275700">Chrome OS</translation>
-<translation id="2297290224191497273">Lehendik dagoen Browther-eko profil batera aldatu nahi duzu?</translation>
+<translation id="5266583242423616945">Lehendik dagoen Browther-eko profil batera aldatu nahi duzu?</translation>
 <translation id="3412460710772753638">Gailuko Pasahitz-kudeatzailea zerbitzuan</translation>
-<translation id="2491221873705777076">Hedatu Arakatze seguru hobetua telefonoan Browther-ekin</translation>
-<translation id="7304389940068374923">Browther pertsonalizatzen…</translation>
-<translation id="9216183508558772570">Arriskuan dagoen pasahitz batekin hasten baduzu saioa, jakinarazi egingo dizu Browther-ek</translation>
-<translation id="5853262807109651878">Gailuko <ph name="ITEMS_COUNT"/> elementu ezabatuko dira. Geroago datuak eskuratu nahi izanez gero, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> da Browther-eko profil batetik bestera aldatzeko lasterbidea</translation>
-<translation id="8703492925273919597">Itxi Browther leiho guztiak eta saiatu berriro.</translation>
-<translation id="599091950194451698">Leihoa partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> erabiltzaileak hasita dauka saioa jada.  Arakatze-jarduerak bereizita edukitzeko, hasi saioa Browther-en zeure profilarekin (<ph name="USER_EMAIL_ADDRESS"/>).</translation>
-<translation id="8981774130895723211">Pantaila partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan.</translation>
+<translation id="4282363917570905631">Hedatu Arakatze seguru hobetua telefonoan Browther-ekin</translation>
+<translation id="986094398735583155">Browther pertsonalizatzen…</translation>
+<translation id="3266047225484320321">Arriskuan dagoen pasahitz batekin hasten baduzu saioa, jakinarazi egingo dizu Browther-ek</translation>
+<translation id="3508047337876211050">Gailuko <ph name="ITEMS_COUNT"/> elementu ezabatuko dira. Geroago datuak eskuratu nahi izanez gero, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> da Browther-eko profil batetik bestera aldatzeko lasterbidea</translation>
+<translation id="7225005776233199285">Itxi Browther leiho guztiak eta saiatu berriro.</translation>
+<translation id="5465054931427475969">Leihoa partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> erabiltzaileak hasita dauka saioa jada.  Arakatze-jarduerak bereizita edukitzeko, hasi saioa Browther-en zeure profilarekin (<ph name="USER_EMAIL_ADDRESS"/>).</translation>
+<translation id="8133590217245064579">Pantaila partekatzeko, eman pantaila grabatzeko baimena Browther-i sistemaren ezarpenetan.</translation>
 <translation id="3597003331831379823">Ezin izan da exekutatu konfigurazioa gehiegizko baimenekin. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Hasi saioa Browther-en</translation>
-<translation id="3066805437003400520">Pertsona honen arakatze-datuak gailutik ezabatuko dira. Datuak berreskuratzeko, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
-<translation id="7029305463989165490">Zenbaki bat <ph name="ORIGIN"/> webgunetik Android-eko telefonora bidaltzeko, hasi Browther-eko saioa bi gailuetan.</translation>
+<translation id="611080704131468868">Hasi saioa Browther-en</translation>
+<translation id="2492221622209669678">Pertsona honen arakatze-datuak gailutik ezabatuko dira. Datuak berreskuratzeko, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
+<translation id="6793778233257855801">Zenbaki bat <ph name="ORIGIN"/> webgunetik Android-eko telefonora bidaltzeko, hasi Browther-eko saioa bi gailuetan.</translation>
 <translation id="3667616615096815454">Ezin da instalatu, zerbitzariak ez duelako ezagutzen aplikazioa.</translation>
-<translation id="1128485277465085828">Erabili <ph name="BEGIN_LINK"/>zeure pasaesaldia<ph name="END_LINK"/> Browther-ko kontuko Browther-eko datu guztiak enkriptatzeko. Google Pay-ko ordainketa-metodoak eta helbideak ez dira enkriptatuko. Browther-eko arakatze-historia ez da sinkronizatuko.</translation>
-<translation id="4304059894777924102">Browther-ek ezin ditu egiaztatu pasahitzak. Egiaztatu Internetera konektatuta zaudela.</translation>
-<translation id="1807774211756215222">Ireki esteka Browther-eko beste &amp;fitxa batean</translation>
-<translation id="387105482057676379">Lotu Browther eta Browther-ren beste zerbitzuak pertsonalizaziorako eta bestelako helburu batzuetarako</translation>
+<translation id="5585500151754164442">Erabili <ph name="BEGIN_LINK"/>zeure pasaesaldia<ph name="END_LINK"/> Browther-ko kontuko Browther-eko datu guztiak enkriptatzeko. Google Pay-ko ordainketa-metodoak eta helbideak ez dira enkriptatuko. Browther-eko arakatze-historia ez da sinkronizatuko.</translation>
+<translation id="404323216042159951">Browther-ek ezin ditu egiaztatu pasahitzak. Egiaztatu Internetera konektatuta zaudela.</translation>
+<translation id="5004936474632127765">Ireki esteka Browther-eko beste &amp;fitxa batean</translation>
+<translation id="6236643159256182256">Lotu Browther eta Browther-ren beste zerbitzuak pertsonalizaziorako eta bestelako helburu batzuetarako</translation>
 <translation id="3729187154190517324">Sakondu bilaketan fitxa, fitxategi eta tresna bat baino gehiago gehituta "Gehitu fitxa bat eta gauza gehiago" botoiaren bidez.</translation>
-<translation id="3867175562099983425">Kudeatu Browther-eko profilak</translation>
-<translation id="308146532933302843">Ikusi zergatik blokeatzen dituen Browther-ek deskarga batzuk</translation>
-<translation id="2189149060536531804">Browther-ek jakinaraziko dizu ezerk zure berrikuspena behar badu</translation>
-<translation id="8422094375343667686">Browther-eko profilekin, bizitzako alderdi desberdinak bereiz ditzakezu. Gehitu beste profil bat.</translation>
-<translation id="6324134303015966238">Ziurrenik bisitatuko dituzun orriak aurrez kargatzen ditu Browther-ek, bisitatzen dituzunean bizkorrago karga daitezen</translation>
+<translation id="1400697664933775238">Kudeatu Browther-eko profilak</translation>
+<translation id="2461315395128103158">Ikusi zergatik blokeatzen dituen Browther-ek deskarga batzuk</translation>
+<translation id="8058420662026104226">Browther-ek jakinaraziko dizu ezerk zure berrikuspena behar badu</translation>
+<translation id="3177448557921912221">Browther-eko profilekin, bizitzako alderdi desberdinak bereiz ditzakezu. Gehitu beste profil bat.</translation>
+<translation id="1541177876035612043">Ziurrenik bisitatuko dituzun orriak aurrez kargatzen ditu Browther-ek, bisitatzen dituzunean bizkorrago karga daitezen</translation>
 <translation id="3810973564298564668">Kudeatu</translation>
-<translation id="4815742196440583661">Gordetako pasahitzak erabiltzeko, jarraitu QR kodeari, deskargatu iOS-erako Browther eta hasi saioa Browther-ko kontuan</translation>
-<translation id="6093965249696204223">Browther-erako aholkua: arakatze seguru hobetua</translation>
+<translation id="1117103475254549453">Gordetako pasahitzak erabiltzeko, jarraitu QR kodeari, deskargatu iOS-erako Browther eta hasi saioa Browther-ko kontuan</translation>
+<translation id="8880695882192156860">Browther-erako aholkua: arakatze seguru hobetua</translation>
 <translation id="3846683726093018685">**Laburbildu:** 30 hitz baino gutxiagoko esaldi bakar batean, azaldu pantaila-argazkiko edukiaren gai nagusia eta xedea.
 
           **Iradoki galderak:** sortu pentsarazten duten 3-5 galdera dituen zerrenda buletdun bat, erabiltzaile batek pantaila-argazkia hobeki ulertzeko galdetuko lituzkeenak. Galdera horietako batek gutxienez objektu bisual bati buruzkoa izan behar du, edo haren diseinuari edo kokapenari buruzkoa.</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/> - Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/> - Browther Origin</translation>
 <translation id="3885770153807205175">Hizkuntza-hautatzailea</translation>
-<translation id="6315734375101223238">Pertsonalizatu eta kontrolatu Browther. Zure arreta behar duen zerbait dago. Sakatu informazio gehiago ikusteko.</translation>
-<translation id="7130675370997202556">Browther irekitzeko eta arakatzen hasteko, egin klik zure izenean.</translation>
+<translation id="4861846616763552424">Pertsonalizatu eta kontrolatu Browther. Zure arreta behar duen zerbait dago. Sakatu informazio gehiago ikusteko.</translation>
+<translation id="6126366281251241386">Browther irekitzeko eta arakatzen hasteko, egin klik zure izenean.</translation>
 <translation id="3892148308691398805">Kopiatu testua</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> erabiltzaileak Browther-eko profil honetan hasi du saioa dagoeneko. Arakatze-datuak bereizita edukitzeko, Browther-ek profil bat sor dezake zuretzat.</translation>
-<translation id="8744239658215739511">Pertsonalizat&amp;u Browther</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> erabiltzaileak Browther-eko profil honetan hasi du saioa dagoeneko. Arakatze-datuak bereizita edukitzeko, Browther-ek profil bat sor dezake zuretzat.</translation>
+<translation id="3821553157234855663">Pertsonalizat&amp;u Browther</translation>
 <translation id="3941890832296813527">Instalazio-errorea: instalatzailearen fitxategi-izenak ez du balio edo ez da onartzen.</translation>
-<translation id="8090497651549769448">Pasahitzak kopiatzen saiatzen ari da Browther. Hori baimentzeko, idatzi Windows-eko pasahitza.</translation>
-<translation id="4256965182800026277">Browther-ko kontuan gorde dituzun pasahitzak, ordainketa-metodoak eta helbideak gailutik kenduko dira. Browther-en haiek berriro ere erabiltzeko, hasi saioa berriro.</translation>
+<translation id="6482299900191767005">Pasahitzak kopiatzen saiatzen ari da Browther. Hori baimentzeko, idatzi Windows-eko pasahitza.</translation>
+<translation id="5853011008278898603">Browther-ko kontuan gorde dituzun pasahitzak, ordainketa-metodoak eta helbideak gailutik kenduko dira. Browther-en haiek berriro ere erabiltzeko, hasi saioa berriro.</translation>
 <translation id="395904275706073188">Babestutako orriak ezin dira irakurri. Probatu beste orri batekin.</translation>
-<translation id="4194619960643453552">Lortu Browther-ek zu babesteko duen moduari buruzko informazio gehiago</translation>
-<translation id="1486377520191913768">Helbide-barran edo bilaketa-koadroan zerbait idazten duzunean, Browther-ek erakundearen bilaketa- eta agente-tresnetara, eta AA bidezkoetara bidaltzen du idatzitakoa, iradokizunak lortzeko.</translation>
-<translation id="1311808042904310985">Browther for Testing-i buruz</translation>
+<translation id="1832973663231751701">Lortu Browther-ek zu babesteko duen moduari buruzko informazio gehiago</translation>
+<translation id="4531502594774670767">Helbide-barran edo bilaketa-koadroan zerbait idazten duzunean, Browther-ek erakundearen bilaketa- eta agente-tresnetara, eta AA bidezkoetara bidaltzen du idatzitakoa, iradokizunak lortzeko.</translation>
+<translation id="300013383485253006">Browther for Testing-i buruz</translation>
 <translation id="1152920704813762236">Chrome OS-ri buruz</translation>
-<translation id="8282895427217902177">Webgune bat bisitatzen duzunean, Browther-ek URLaren zati nahasi bat bidaltzen dio <ph name="BEGIN_LINK"/>Browther-ren Arakatze segurua<ph name="END_LINK"/> eginbideari, zure IP helbidea ezkutatzen duen pribatutasun-zerbitzari baten bidez. Webgune batek susmagarria den zerbait egiten badu, URL osoak eta orriaren edukiaren zati batzuk ere bidaltzen dira.</translation>
+<translation id="8126752030994997015">Webgune bat bisitatzen duzunean, Browther-ek URLaren zati nahasi bat bidaltzen dio <ph name="BEGIN_LINK"/>Browther-ren Arakatze segurua<ph name="END_LINK"/> eginbideari, zure IP helbidea ezkutatzen duen pribatutasun-zerbitzari baten bidez. Webgune batek susmagarria den zerbait egiten badu, URL osoak eta orriaren edukiaren zati batzuk ere bidaltzen dira.</translation>
 <translation id="3703994572283698466"><ph name="BEGIN_LINK_CROS_OSS"/>Kode irekiko software<ph name="END_LINK_CROS_OSS"/> gehigarriari esker da posible Chrome OS; adibidez, <ph name="BEGIN_LINK_LINUX_OSS"/>Linux-eko garapen-ingurunea<ph name="END_LINK_LINUX_OSS"/> erabiltzen da.</translation>
 <translation id="4022972681110646219">Itzuli pantaila</translation>
 <translation id="4023601594785368013">Jatorrizko hizkuntza: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Ireki estekak Browther-en edozein aplikaziotatik. Gainera, errazago atzitzeko, zereginen barran ainguratuko da.</translation>
-<translation id="6056473803837713617">Lagundu Browther hobetzen <ph name="BEGIN_LINK"/>oraingo ezarpenen<ph name="END_LINK"/> berri emanda</translation>
+<translation id="6450460108719059465">Ireki estekak Browther-en edozein aplikaziotatik. Gainera, errazago atzitzeko, zereginen barran ainguratuko da.</translation>
+<translation id="3437506136408403836">Lagundu Browther hobetzen <ph name="BEGIN_LINK"/>oraingo ezarpenen<ph name="END_LINK"/> berri emanda</translation>
 <translation id="4050175100176540509">Segurtasun-hobekuntza garrantzitsuak eta eginbide berriak dituzu erabilgarri azken bertsioan.</translation>
 <translation id="4055805654398742145">Pasahitz-kudeatzailea</translation>
-<translation id="6654312501894761082">Ordenagailuko beste programa batek Browther-en funtzionamenduari agian eragingo dion luzapen bat gehitu du.
+<translation id="2164947358785939495">Ordenagailuko beste programa batek Browther-en funtzionamenduari agian eragingo dion luzapen bat gehitu du.
 
 <ph name="EXTENSION_NAME"/>.</translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Erakundeak automatikoki itxiko du Browther minutu batez erabiltzen ez bada. Arakatze-datuak ezabatuko dira. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude.}other{Erakundeak automatikoki itxiko du Browther # minutuz erabiltzen ez bada. Arakatze-datuak ezabatuko dira. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude.}}</translation>
-<translation id="5794951150713244901">Joan "Browther arakatzaileari buruz" orrira</translation>
-<translation id="10925962326134232">Arakatzaileari itxura berria emateko, pertsonalizatu Browther</translation>
-<translation id="6596295505984504022">Pertsonalizat&amp;u Browther</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Erakundeak automatikoki itxiko du Browther minutu batez erabiltzen ez bada. Arakatze-datuak ezabatuko dira. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude.}other{Erakundeak automatikoki itxiko du Browther # minutuz erabiltzen ez bada. Arakatze-datuak ezabatuko dira. Arakatze-datuetan, historia, automatikoki betetako datuak eta deskargak daude.}}</translation>
+<translation id="1535413545339990419">Joan "Browther arakatzaileari buruz" orrira</translation>
+<translation id="692283249649018289">Arakatzaileari itxura berria emateko, pertsonalizatu Browther</translation>
+<translation id="6375229634133804834">Pertsonalizat&amp;u Browther</translation>
 <translation id="4148957013307229264">Instalatzen…</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> - Hasi saioa sarean - Browther</translation>
-<translation id="2871190378186459992">Ezagutu Browther-erako aplikazio, joko, luzapen eta gai bikainak.</translation>
-<translation id="462105622535258178">Luzapen hori eta gauza gehiago ordenagailu guztietan lortzeko, hasi saioa Browther-en</translation>
-<translation id="6670140629169983459">Gurasoen aukerekin sarean seguruago egoteko, aldatu zure Browther-eko profilera, bertan <ph name="USER_EMAIL_ADDRESS"/> gisa saioa hasita baitaukazu jada</translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> - Hasi saioa sarean - Browther</translation>
+<translation id="2911246138082876798">Ezagutu Browther-erako aplikazio, joko, luzapen eta gai bikainak.</translation>
+<translation id="2528977475313334293">Luzapen hori eta gauza gehiago ordenagailu guztietan lortzeko, hasi saioa Browther-en</translation>
+<translation id="8244267655940711467">Gurasoen aukerekin sarean seguruago egoteko, aldatu zure Browther-eko profilera, bertan <ph name="USER_EMAIL_ADDRESS"/> gisa saioa hasita baitaukazu jada</translation>
 <translation id="4222932583846282852">Bertan behera uzten…</translation>
 <translation id="4224210481850767180">Bertan behera utzi da instalazioa.</translation>
-<translation id="1853997773668795891">Browther datuak kontu honekin lotu nahi dituzu?</translation>
-<translation id="4732930052828648898">Webgune arriskutsuen berri ematen dizu, Browther-k ezagutzen ez zituenak barne, webguneetan babes estandarrak baino datu gehiago aztertuz. Browther-en abisuak saltatzea aukera dezakezu.</translation>
-<translation id="2201661640076600072">Amaitu Browther-eko saioa</translation>
-<translation id="3262506503470845422">Lortu Browther erabiltzeko laguntza</translation>
+<translation id="8219359042845534271">Browther datuak kontu honekin lotu nahi dituzu?</translation>
+<translation id="5520777668172961882">Webgune arriskutsuen berri ematen dizu, Browther-k ezagutzen ez zituenak barne, webguneetan babes estandarrak baino datu gehiago aztertuz. Browther-en abisuak saltatzea aukera dezakezu.</translation>
+<translation id="2014920019837536689">Amaitu Browther-eko saioa</translation>
+<translation id="4341512411059715879">Lortu Browther erabiltzeko laguntza</translation>
 <translation id="4281844954008187215">Zerbitzu-baldintzak</translation>
-<translation id="7691786510374174420">Instalazioak huts egin du zehaztu gabeko errore batengatik. Browther abian bada, itxi eta ireki berriro.</translation>
-<translation id="6368144843345980623">Esportatu pasahitzak Browther-etik</translation>
+<translation id="322492684764924424">Instalazioak huts egin du zehaztu gabeko errore batengatik. Browther abian bada, itxi eta ireki berriro.</translation>
+<translation id="3813060261346666066">Esportatu pasahitzak Browther-etik</translation>
 <translation id="4304713468139749426">Pasahitz-kudeatzailea</translation>
 <translation id="4334241893986177674">Bilatu pantaila-argazki honetan</translation>
 <translation id="4334294535648607276">Deskargatu da.</translation>
-<translation id="242356249838681145">Exekutatu Browther Windows abiaraztean</translation>
-<translation id="4747339441562331861">Atzitu erraz eginbide ezagun, gogoko eta fidagarriak Browther arakatzaile lehenetsi bihurtuta. Browther zereginen barran ainguratuko da, hura bizkor atzitzeko.</translation>
+<translation id="2177954934431828302">Exekutatu Browther Windows abiaraztean</translation>
+<translation id="2472318668926455009">Atzitu erraz eginbide ezagun, gogoko eta fidagarriak Browther arakatzaile lehenetsi bihurtuta. Browther zereginen barran ainguratuko da, hura bizkor atzitzeko.</translation>
 <translation id="1068681683510904753">Gailua erabili aurretik, <ph name="MANAGER"/> kudeatzaileak jarraian azalduko diren Zerbitzu-baldintzak irakurtzeko eta onartzeko eskatzen dizu. Baldintzok ez dituzte hedatuko, aldatuko edo mugatuko Chrome OS-ren Baldintzak.</translation>
-<translation id="9183662282810237335">Browther-etik irten nahi duzu hala ere?</translation>
+<translation id="2897580280700805340">Browther-etik irten nahi duzu hala ere?</translation>
 <translation id="4413205837991854510">Erakutsi beti irudi-bilaketaren lasterbidea</translation>
-<translation id="4065288863231444640">Onartu Browther atzeko planoan abiaraztea</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Kentzea gomendatzen dizu Browther-ek. <ph name="BEGIN_LINK"/>Lortu onartzen diren luzapenei buruzko informazio gehiago<ph name="END_LINK"/>}other{Kentzea gomendatzen dizu Browther-ek. <ph name="BEGIN_LINK"/>Lortu onartzen diren luzapenei buruzko informazio gehiago<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Pertsonalizatu eta kontrolatu Browther</translation>
+<translation id="2454897022983434851">Onartu Browther atzeko planoan abiaraztea</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Kentzea gomendatzen dizu Browther-ek. <ph name="BEGIN_LINK"/>Lortu onartzen diren luzapenei buruzko informazio gehiago<ph name="END_LINK"/>}other{Kentzea gomendatzen dizu Browther-ek. <ph name="BEGIN_LINK"/>Lortu onartzen diren luzapenei buruzko informazio gehiago<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Pertsonalizatu eta kontrolatu Browther</translation>
 <translation id="4427306783828095590">Babes handiagoa eskaintzen du phishingaren eta malwarearen aurka</translation>
 <translation id="4434353761996769206">Instalatzailearen errorea: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> erabiltzaileak kudeatzen du Browther</translation>
-<translation id="3579012341787637143">Gehitu Browther-eko profil bat</translation>
-<translation id="6786534271003695094">Browther for Testing-i buruz</translation>
-<translation id="526235294307144732">Browther-eko datuak Browther-ko kontuan gordetzeko eta erabiltzeko, idatzi pasaesaldia</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> erabiltzaileak kudeatzen du Browther</translation>
+<translation id="4007482010626246887">Gehitu Browther-eko profil bat</translation>
+<translation id="6888322430074420631">Browther for Testing-i buruz</translation>
+<translation id="8912436499620582668">Browther-eko datuak Browther-ko kontuan gordetzeko eta erabiltzeko, idatzi pasaesaldia</translation>
 <translation id="4493028449971051158">Abiarazte-errorea: exekutatu instalatzailea administratzaile gisa.</translation>
 <translation id="4501471624619070934">Ezin izan da instalatu, herrialde honetan sarbidea murriztuta dagoelako.</translation>
-<translation id="8594994021633965927">Luzapen honek ez du argitaratu pribatutasun-jardunbiderik (adibidez, datuak biltzeko eta erabiltzeko duen moduari buruz). Kentzea gomendatzen dizu Browther-ek.</translation>
-<translation id="770557926599450702">Ongi etorri Browther Origin-era; beste leiho bat ireki da arakatzailean</translation>
-<translation id="137732229629632648">Browther-ek zure inguruaren mapa bat sortzeko eta zure eskuen jarraipena egiteko baimenak behar ditu</translation>
-<translation id="5036046007335188949">Jadanik hasita daukazu saioa <ph name="USER_EMAIL_ADDRESS"/> gisa Browther-eko beste profil batean</translation>
-<translation id="1878185978731985193">Browther-ek orriak aurrez kargatzen ditu, bizkorrago arakatu eta bila dezazun. <ph name="BEGIN_LINK"/>Lortu aurrez kargatutako orriei buruzko informazio gehiago<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Luzapen honek ez du argitaratu pribatutasun-jardunbiderik (adibidez, datuak biltzeko eta erabiltzeko duen moduari buruz). Kentzea gomendatzen dizu Browther-ek.</translation>
+<translation id="8888202093812883067">Ongi etorri Browther Origin-era; beste leiho bat ireki da arakatzailean</translation>
+<translation id="6391148383688605718">Browther-ek zure inguruaren mapa bat sortzeko eta zure eskuen jarraipena egiteko baimenak behar ditu</translation>
+<translation id="7756445485815468244">Jadanik hasita daukazu saioa <ph name="USER_EMAIL_ADDRESS"/> gisa Browther-eko beste profil batean</translation>
+<translation id="137435413163730206">Browther-ek orriak aurrez kargatzen ditu, bizkorrago arakatu eta bila dezazun. <ph name="BEGIN_LINK"/>Lortu aurrez kargatutako orriei buruzko informazio gehiago<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Salatu kaltegarriak direla uste duzun webguneak sareko segurtasuna guztientzat hobetzeko.</translation>
-<translation id="8669339108356170796">Browther-ek deskarga hau blokeatu du, Arakatze segurua desaktibatu duzulako eta fitxategia egiaztatu ezin delako</translation>
-<translation id="7583343841997441047">Probatu Google Lens telefonoan Browther-ekin</translation>
+<translation id="3266647901351304597">Browther-ek deskarga hau blokeatu du, Arakatze segurua desaktibatu duzulako eta fitxategia egiaztatu ezin delako</translation>
+<translation id="6980208900390333646">Probatu Google Lens telefonoan Browther-ekin</translation>
 <translation id="4594305310729380060">Gailuko Pasahitz-kudeatzailea zerbitzuan</translation>
-<translation id="7776200949522126045">Browther Origin aplikazioak</translation>
+<translation id="5282047884678321451">Browther Origin aplikazioak</translation>
 <translation id="4598116752460667024">Bilatu zerrendako edozein prozesu.</translation>
 <translation id="4970880042055371251">Chrome OS-ren bertsioa</translation>
-<translation id="2182657378556811785">Ia amaitu dugu! Eguneratzen amaitzeko, exekutatu Browther berriro.</translation>
-<translation id="6311668361877328515">Webguneen abiadura handitzen du Browther-en V8 motorrarekin, baina erasoen aurrean Browther apur bat ahultzen du</translation>
-<translation id="7402642357351265733">Browther-en erabilera-txostenak ere partekatzen badituzu, bisitatzen dituzun URLak agertuko dira txosten horietan</translation>
-<translation id="8142245354207161805">Beste Browther prozesu bat (<ph name="PROCESS_ID"/>) beste ordenagailu batean (<ph name="HOST_NAME"/>) profila erabiltzen ari dela dirudi. Browther-ek profila blokeatu du honda ez dadin. Ziur badakizu ez dela beste inongo prozesurik profila erabiltzen ari, profila desblokea dezakezu eta Browther berrabiarazi.</translation>
+<translation id="4482468019601425607">Ia amaitu dugu! Eguneratzen amaitzeko, exekutatu Browther berriro.</translation>
+<translation id="5517890123509214766">Webguneen abiadura handitzen du Browther-en V8 motorrarekin, baina erasoen aurrean Browther apur bat ahultzen du</translation>
+<translation id="7690070364551268156">Browther-en erabilera-txostenak ere partekatzen badituzu, bisitatzen dituzun URLak agertuko dira txosten horietan</translation>
+<translation id="5020487088453637212">Beste Browther prozesu bat (<ph name="PROCESS_ID"/>) beste ordenagailu batean (<ph name="HOST_NAME"/>) profila erabiltzen ari dela dirudi. Browther-ek profila blokeatu du honda ez dadin. Ziur badakizu ez dela beste inongo prozesurik profila erabiltzen ari, profila desblokea dezakezu eta Browther berrabiarazi.</translation>
 <translation id="4680828127924988555">Utzi instalazioa bertan behera</translation>
-<translation id="2014343159590733363">Browther-eko datu batzuk ez dira gorde Browther-ko kontuan oraindik. Saioa amaitu aurretik, itxaron minutu batzuk. Orain amaitzen baduzu saioa, ezabatu egingo dira datuak.</translation>
-<translation id="2408746614080689238">Saioa hasita daukazunean, Browther-ko kontuko pasahitzak eta beste erabil ditzakezu Browther-en. Browther-ren zerbitzuen ezarpenak aldatzeko, erabili <ph name="SHORTCUT"/>.</translation>
-<translation id="847561904663814268">Norbaitek <ph name="ACCOUNT_EMAIL_LAST"/> gisa hasi du saioa Browther-en ordenagailu hau erabilita. Zure informazioa bereizita izateko, sortu beste Browther erabiltzaile bat.</translation>
+<translation id="8134827615154347946">Browther-eko datu batzuk ez dira gorde Browther-ko kontuan oraindik. Saioa amaitu aurretik, itxaron minutu batzuk. Orain amaitzen baduzu saioa, ezabatu egingo dira datuak.</translation>
+<translation id="3508712423420506333">Saioa hasita daukazunean, Browther-ko kontuko pasahitzak eta beste erabil ditzakezu Browther-en. Browther-ren zerbitzuen ezarpenak aldatzeko, erabili <ph name="SHORTCUT"/>.</translation>
+<translation id="2388739442635757494">Norbaitek <ph name="ACCOUNT_EMAIL_LAST"/> gisa hasi du saioa Browther-en ordenagailu hau erabilita. Zure informazioa bereizita izateko, sortu beste Browther erabiltzaile bat.</translation>
 <translation id="4724676981607797757">Instalazioak huts egin du, protokoloa onartu ez delako.</translation>
-<translation id="3834935463915107022">Browther-etik irten nahi duzu hala ere?</translation>
-<translation id="8668413672647811944">Browther-en segurtasun-eguneratze berezi bat aplikatu berri da. Berrabiarazi gailua, eta fitxak leheneratuko dizkizugu.</translation>
-<translation id="9029438584415578308">Galdetu Browther-i</translation>
-<translation id="4941816441131888792">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION_1"/> eta <ph name="PERMISSION_2"/> erabiltzeko baimenak eta beste <ph name="COUNT"/> baimen kendu dizkio.</translation>
-<translation id="4823369970559443694">Browther-ek ezin ditu egiaztatu pasahitzak. Saiatu berriro 24 ordu barru edo <ph name="BEGIN_LINK"/>egiaztatu pasahitzak Browther-ko kontuan<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Browther Bilaketa zerbitzuan erabiltzen den ortografia-zuzentzaile bera erabiltzen da. Arakatzailean idazten duzun testua Browther-ri bidaltzen zaio. Aukera horiek aldatzeko, joan ezarpenetara.</translation>
-<translation id="2899369907387169108">Erabili Browther saioa hasi gabe</translation>
-<translation id="1833893255023048385">Browther Origin-ek mDNS trafikoa baimentzeko sarrerako araua.</translation>
-<translation id="711601904575862069">Exekuta ezazu berriro &amp;Browther eguneratzeko</translation>
+<translation id="8305313684264112434">Browther-etik irten nahi duzu hala ere?</translation>
+<translation id="418155915144835101">Browther-en segurtasun-eguneratze berezi bat aplikatu berri da. Berrabiarazi gailua, eta fitxak leheneratuko dizkizugu.</translation>
+<translation id="2683970367518529374">Galdetu Browther-i</translation>
+<translation id="5064473048847774331">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION_1"/> eta <ph name="PERMISSION_2"/> erabiltzeko baimenak eta beste <ph name="COUNT"/> baimen kendu dizkio.</translation>
+<translation id="5941343075741207533">Browther-ek ezin ditu egiaztatu pasahitzak. Saiatu berriro 24 ordu barru edo <ph name="BEGIN_LINK"/>egiaztatu pasahitzak Browther-ko kontuan<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Browther Bilaketa zerbitzuan erabiltzen den ortografia-zuzentzaile bera erabiltzen da. Arakatzailean idazten duzun testua Browther-ri bidaltzen zaio. Aukera horiek aldatzeko, joan ezarpenetara.</translation>
+<translation id="4581078588976787792">Erabili Browther saioa hasi gabe</translation>
+<translation id="3394520491703535051">Browther Origin-ek mDNS trafikoa baimentzeko sarrerako araua.</translation>
+<translation id="6563126962881169552">Exekuta ezazu berriro &amp;Browther eguneratzeko</translation>
 <translation id="4918086044614829423">Onartu</translation>
 <translation id="4918844574251943176">Kopiatu da irudia</translation>
-<translation id="8797356639448065696">Browther atzeko planoko moduan dago.</translation>
-<translation id="1895567721497166950">Browther-en saioa hasteko leihoa ixteko, sakatu hau</translation>
-<translation id="2692971232706994729">Browther-eko profilekin, Browther-en dituzun gauza guztiak bereiz ditzakezu. Sortu profilak lagunentzat eta familiako kideentzat, edo banandu gauza pertsonalak eta lanekoak.</translation>
-<translation id="7406627712452599344">Gonbidatuek Browther erabil dezakete aztarnarik utzi gabe.</translation>
-<translation id="844471735881341044">Zure kontua Browther-en</translation>
-<translation id="5952898964075639679">Gaitu zure burua Browther-en</translation>
-<translation id="7995865526174204486">Browther-eko Gemini-k arakatze automatikoa erabiltzen du fitxetan lan egiteko eta ematen dizkiozun zereginak osatzeko. <ph name="LINK_BEGIN"/>Lortu informazio gehiago<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther-ek zure eskuen jarraipena egiteko baimena behar du</translation>
-<translation id="5406591571925937375">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> eta <ph name="PERMISSION_3"/> erabiltzeko baimena kendu dio.</translation>
+<translation id="5240982928057703861">Browther atzeko planoko moduan dago.</translation>
+<translation id="3603134280602182991">Browther-en saioa hasteko leihoa ixteko, sakatu hau</translation>
+<translation id="6120233890602288442">Browther-eko profilekin, Browther-en dituzun gauza guztiak bereiz ditzakezu. Sortu profilak lagunentzat eta familiako kideentzat, edo banandu gauza pertsonalak eta lanekoak.</translation>
+<translation id="5722688387568011881">Gonbidatuek Browther erabil dezakete aztarnarik utzi gabe.</translation>
+<translation id="7786958592460743302">Zure kontua Browther-en</translation>
+<translation id="9114640791491590337">Gaitu zure burua Browther-en</translation>
+<translation id="3536391594566515053">Browther-eko Gemini-k arakatze automatikoa erabiltzen du fitxetan lan egiteko eta ematen dizkiozun zereginak osatzeko. <ph name="LINK_BEGIN"/>Lortu informazio gehiago<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther-ek zure eskuen jarraipena egiteko baimena behar du</translation>
+<translation id="1627123463102858476">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> eta <ph name="PERMISSION_3"/> erabiltzeko baimena kendu dio.</translation>
 <translation id="5174969993834422967">Jakinarazpenak blokeatu ohi dituzu. Webgune honen jakinarazpenak jasotzeko, sakatu kokapenaren barrako eskuineko izkinan dagoen jakinarazpen-ikonoa.</translation>
 <translation id="5174983315706567306">Ez dago nahikoa tokirik diskoan.</translation>
-<translation id="8157129267754368853">Berriro autentifikatu behar da Browther-eko kontua</translation>
-<translation id="9078804073692109646">Ez dago pasahitzik gordeta. Gordeta dituzun pasahitzak egiaztatu egin ditzake Browther-ek.</translation>
-<translation id="6234515504547364178">Amaitu Browther-eko saioa</translation>
+<translation id="7091313576354542088">Berriro autentifikatu behar da Browther-eko kontua</translation>
+<translation id="9045390598305758496">Ez dago pasahitzik gordeta. Gordeta dituzun pasahitzak egiaztatu egin ditzake Browther-ek.</translation>
+<translation id="5686724084351858452">Amaitu Browther-eko saioa</translation>
 <translation id="5234764350956374838">Baztertu</translation>
 <translation id="5254739261293693943">Egin bideo honi buruzko galdera bat</translation>
-<translation id="8586264863973514035">Aldaketak aplikatzeko, exekutatu Browther berriro</translation>
+<translation id="8165028066129227692">Aldaketak aplikatzeko, exekutatu Browther berriro</translation>
 <translation id="5286907366254680517">Hautemanda</translation>
-<translation id="7264453786974905915">Lortu Browther aplikazioa</translation>
-<translation id="6944930779012811739">Browther eguneratzeko barneko zerbitzua</translation>
+<translation id="198210130507193824">Lortu Browther aplikazioa</translation>
+<translation id="8472078903122489041">Browther eguneratzeko barneko zerbitzua</translation>
 <translation id="5346389065299425353">Sakondu bilaketan fitxa, fitxategi eta tresna bat baino gehiago gehituta</translation>
-<translation id="7573068992266397941">Browther-ek segurtasun-gomendio batzuk aurkitu ditu berrikus ditzazun</translation>
-<translation id="8174413867995118050">Browther-eko beste profilak</translation>
-<translation id="7708394612738038097">Kontu kudeatu batekin hasten ari zara saioa eta kontuaren administratzaileari zure Browther profila kontrolatzeko ahalmena ematera zoaz. Browther aplikazioan dituzun datuak, esaterako, aplikazioak, laster-markak, historia, pasahitzak eta beste ezarpen batzuk betiko lotuko zaizkio <ph name="USER_NAME"/> erabiltzaileari. Browther-ko kontuetako Panelaren bidez ezabatu ahalko dituzu datu horiek, baina ezingo dituzu beste kontu batekin lotu. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther-ek segurtasun-gomendio batzuk aurkitu ditu berrikus ditzazun</translation>
+<translation id="509616246140011182">Browther-eko beste profilak</translation>
+<translation id="8214429210535362385">Kontu kudeatu batekin hasten ari zara saioa eta kontuaren administratzaileari zure Browther profila kontrolatzeko ahalmena ematera zoaz. Browther aplikazioan dituzun datuak, esaterako, aplikazioak, laster-markak, historia, pasahitzak eta beste ezarpen batzuk betiko lotuko zaizkio <ph name="USER_NAME"/> erabiltzaileari. Browther-ko kontuetako Panelaren bidez ezabatu ahalko dituzu datu horiek, baina ezingo dituzu beste kontu batekin lotu. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Kode gehigarria: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Pertsonalizazioa eskuratzeko, sartu Browther sareko eta aplikazioetako jardueretan</translation>
-<translation id="5154625106151193600">Ikusi zergatik blokeatzen dituen Browther-ek fitxategi batzuk</translation>
-<translation id="1786715389543715322">Browther eguneratzen (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Baimendu Browther-en saioa hastea</translation>
-<translation id="5267531627648004734">Kendu Browther-etik</translation>
-<translation id="4620757336635063467">Errendimendua gutxitzen du, baina Browther erasoen aurrean indartzen du</translation>
-<translation id="239760341987199724">Ezarri Browther arakatzaile lehenetsi gisa</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> - Browther Origin Beta</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Arakatzailea mantsotzen duen fitxa pausatzea gomendatzen du Browther-ek}other{Arakatzailea mantsotzen duten fitxak pausatzea gomendatzen du Browther-ek}}</translation>
-<translation id="894936507076470937">Browther-ek agian ez du behar bezala funtzionatuko ez delako jada bateragarria Linux banaketa honekin</translation>
-<translation id="2596557398669145729">Browther-ek deskarga hau blokeatu du, fitxategiak zure kontu pertsonalak eta sare sozialetakoak kaltetuko dituelako agian</translation>
-<translation id="696826782632239602">Browther-ek zure kokapena webgune honekin partekatzeko baimena behar du</translation>
-<translation id="1744365871163268756">Itxaron Browther-ek sistemaren azken eguneratzeak instalatu arte.</translation>
-<translation id="3861679447659630159">Pasahitzak editatzen saiatzen ari da Browther. Hori baimentzeko, idatzi Windows-eko pasahitza.</translation>
+<translation id="5244017809112094908">Pertsonalizazioa eskuratzeko, sartu Browther sareko eta aplikazioetako jardueretan</translation>
+<translation id="8096544113811780871">Ikusi zergatik blokeatzen dituen Browther-ek fitxategi batzuk</translation>
+<translation id="2384387444932590174">Browther eguneratzen (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Baimendu Browther-en saioa hastea</translation>
+<translation id="6557334704331248411">Kendu Browther-etik</translation>
+<translation id="5832041381258620673">Errendimendua gutxitzen du, baina Browther erasoen aurrean indartzen du</translation>
+<translation id="3763317028635993788">Ezarri Browther arakatzaile lehenetsi gisa</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> - Browther Origin Beta</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Arakatzailea mantsotzen duen fitxa pausatzea gomendatzen du Browther-ek}other{Arakatzailea mantsotzen duten fitxak pausatzea gomendatzen du Browther-ek}}</translation>
+<translation id="4423621904097888155">Browther-ek agian ez du behar bezala funtzionatuko ez delako jada bateragarria Linux banaketa honekin</translation>
+<translation id="6201726364919996698">Browther-ek deskarga hau blokeatu du, fitxategiak zure kontu pertsonalak eta sare sozialetakoak kaltetuko dituelako agian</translation>
+<translation id="7679204468655335605">Browther-ek zure kokapena webgune honekin partekatzeko baimena behar du</translation>
+<translation id="1163572992704966942">Itxaron Browther-ek sistemaren azken eguneratzeak instalatu arte.</translation>
+<translation id="5050118226119231029">Pasahitzak editatzen saiatzen ari da Browther. Hori baimentzeko, idatzi Windows-eko pasahitza.</translation>
 <translation id="5524890928877629608">bilaketa-eremuaren goiko ezkerreko ertza: % <ph name="LEFT"/> ezkerrean, % <ph name="TOP"/> goian</translation>
-<translation id="232381795826373334">Ireki PDFak Browther-en</translation>
+<translation id="5875549039106594731">Ireki PDFak Browther-en</translation>
 <translation id="5536164441519929134">Galdetu<ph name="LINE_BREAK"/>fitxa honi buruz</translation>
 <translation id="5579324208890605088">Abiarazte-errorea: exekutatu instalatzailea erabiltzaile arrunt gisa, ez administratzaile gisa.</translation>
-<translation id="3588973534877826647">Erabili Browther modu lehenetsian eta aingura ezazu</translation>
+<translation id="202315329304302571">Erabili Browther modu lehenetsian eta aingura ezazu</translation>
 <translation id="5596627076506792578">Aukera gehiago</translation>
 <translation id="5605834417512968703">Hautatu edozer, irudi-bilaketarekin bilatzeko. Irudi-bilaketatik irteteko, sakatu Ihes.</translation>
 <translation id="5618818588972826921">Hautatu testu bat edo irudi bat, hura irudi-bilaketarekin bilatzeko. Irudi-bilaketatik irteteko, sakatu Ihes.</translation>
-<translation id="1026406809507858026">{0,plural, =0{Browther arakatzailearen eguneratze bat dago erabilgarri}=1{Browther arakatzailearen eguneratze bat dago erabilgarri}other{Browther arakatzailearen eguneratze batek # egun daramatza erabilgarri}}</translation>
-<translation id="1023472437588692618">Browther ixten duzunean, ezabatu beti webguneetako datuak gailutik</translation>
-<translation id="5646769069113654257">Berrabiarazi Browther</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Bistaratu Browther hizkuntza honetan</translation>
+<translation id="5823076755666406442">{0,plural, =0{Browther arakatzailearen eguneratze bat dago erabilgarri}=1{Browther arakatzailearen eguneratze bat dago erabilgarri}other{Browther arakatzailearen eguneratze batek # egun daramatza erabilgarri}}</translation>
+<translation id="8414129876440043675">Browther ixten duzunean, ezabatu beti webguneetako datuak gailutik</translation>
+<translation id="5156991567152325333">Berrabiarazi Browther</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Bistaratu Browther hizkuntza honetan</translation>
 <translation id="569897634095159764">Ezin da konektatu Internetera. Proxy-zerbitzariak autentifikazioa behar du.</translation>
-<translation id="3364613146104156465">Browther-eko profilekin, arakatze-jarduera pertsonalak eta lanekoak bereizita eduki ditzakezu. Gehitu beste profil bat.</translation>
-<translation id="1834213228893578875">Browther-ek tokia egiten du fitxa inaktiboei dagokienez. Horrela, fitxa aktiboek eta gainerako aplikazioek ordenagailuaren baliabide gehiago izango dituzte, eta bizkorrago ibiliko da Browther. Fitxa inaktiboak haietara itzultzen zarenean aktibatuko dira berriro. <ph name="BEGIN_LINK"/>Lortu memoria-aurreztaileari buruzko informazio gehiago<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">Pasaesaldia ahazten bazaizu edo ezarpena aldatu nahi baduzu, <ph name="SETTINGS_LINK"/> kontuko Browther-eko datuak</translation>
-<translation id="82926023981336111">Pertsonalizatu eta kontrolatu Browther. Ezarri Browther arakatzaile lehenetsi gisa</translation>
+<translation id="4215338057953170891">Browther-eko profilekin, arakatze-jarduera pertsonalak eta lanekoak bereizita eduki ditzakezu. Gehitu beste profil bat.</translation>
+<translation id="5366435608642317052">Browther-ek tokia egiten du fitxa inaktiboei dagokienez. Horrela, fitxa aktiboek eta gainerako aplikazioek ordenagailuaren baliabide gehiago izango dituzte, eta bizkorrago ibiliko da Browther. Fitxa inaktiboak haietara itzultzen zarenean aktibatuko dira berriro. <ph name="BEGIN_LINK"/>Lortu memoria-aurreztaileari buruzko informazio gehiago<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">Pasaesaldia ahazten bazaizu edo ezarpena aldatu nahi baduzu, <ph name="SETTINGS_LINK"/> kontuko Browther-eko datuak</translation>
+<translation id="7763291835437810978">Pertsonalizatu eta kontrolatu Browther. Ezarri Browther arakatzaile lehenetsi gisa</translation>
 <translation id="5809516625706423866">Ezin da konektatu Internetera. HTTP 401 (baimenik gabe). Egiaztatu proxyaren konfigurazioa.</translation>
-<translation id="95980832839683236">Webguneen abiadura handitzen du Browther-en V8 motorrarekin, baina erasoen aurrean Browther apur bat ahulagoa da. Desaktibatuta dago ezarpena.</translation>
-<translation id="1224606669200461217">Browther-eko datuak zure Browther-ko kontuan erabiltzeko eta gordetzeko, eguneratu Browther</translation>
+<translation id="1827132270895283425">Webguneen abiadura handitzen du Browther-en V8 motorrarekin, baina erasoen aurrean Browther apur bat ahulagoa da. Desaktibatuta dago ezarpena.</translation>
+<translation id="1553025851718680114">Browther-eko datuak zure Browther-ko kontuan erabiltzeko eta gordetzeko, eguneratu Browther</translation>
 <translation id="5824893331272123205">Ezin izan da kargatu panel hau, saiatu berriro</translation>
-<translation id="4467664627714200493">Ongi etorri Browther Origin-era</translation>
+<translation id="6642862349634944253">Ongi etorri Browther Origin-era</translation>
 <translation id="5871205389137001634">Irudi-bilaketatik irteteko, sakatu hau</translation>
-<translation id="8054200348483755053">Elementuok malwarea dutela hauteman du Browther-ek:</translation>
-<translation id="3955583201925082436">Browther-ek maiz begiratzen die arakatzailearen ezarpenei, ahalik eta seguruenak direla ziurtatzeko. Ezarpenen bat berrikustea komeni bazaizu, jakinarazpen bat bidaliko dizugu.</translation>
+<translation id="7586794330537887406">Elementuok malwarea dutela hauteman du Browther-ek:</translation>
+<translation id="1666897346518812892">Browther-ek maiz begiratzen die arakatzailearen ezarpenei, ahalik eta seguruenak direla ziurtatzeko. Ezarpenen bat berrikustea komeni bazaizu, jakinarazpen bat bidaliko dizugu.</translation>
 <translation id="5895138241574237353">Berrabiarazi</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> - Hasi saioa sarean</translation>
 <translation id="5924017743176219022">Internetera konektatzen…</translation>
 <translation id="5941711191222866238">Minimizatu</translation>
-<translation id="5768962901674164501">Laster-marka hau eta abar gailu guztietan lortzeko, hasi saioa Browther-en</translation>
-<translation id="5101892358689285100">Zeureganatu Browther</translation>
+<translation id="4938357262936377412">Laster-marka hau eta abar gailu guztietan lortzeko, hasi saioa Browther-en</translation>
+<translation id="260974496993853147">Zeureganatu Browther</translation>
 <translation id="5960071705175224773">Aplikazio ezezagun batek zure ezarpenak aldatu ditu</translation>
 <translation id="5968400720580217226">AA modua</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Erakundeak automatikoki itxiko du Browther minutu batez erabiltzen ez bada.}other{Erakundeak automatikoki itxiko du Browther # minutuz erabiltzen ez bada.}}</translation>
-<translation id="3598551856834560515">Eguneratu Browther sinkronizatzen hasteko</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Erakundeak automatikoki itxiko du Browther minutu batez erabiltzen ez bada.}other{Erakundeak automatikoki itxiko du Browther # minutuz erabiltzen ez bada.}}</translation>
+<translation id="5852664780493076676">Eguneratu Browther sinkronizatzen hasteko</translation>
 <translation id="6003112304606738118">Deskargatzen… <ph name="HOURS"/> ordu geratzen dira.</translation>
 <translation id="6009821354356307391">Eskatu jarraipena egiteko</translation>
 <translation id="6040143037577758943">Itxi</translation>
-<translation id="700488072601322385">Datuak babesteko, eman azkenaldian bisitatu ez dituzun webguneei baimenak kentzeko baimena Browther-i. Ez ditu geldiarazten jakinarazpenak.</translation>
-<translation id="9071554113102421877">&amp;Ireki Browther-en</translation>
+<translation id="2495504229007749358">Datuak babesteko, eman azkenaldian bisitatu ez dituzun webguneei baimenak kentzeko baimena Browther-i. Ez ditu geldiarazten jakinarazpenak.</translation>
+<translation id="6038969823662006832">&amp;Ireki Browther-en</translation>
 <translation id="6069027071882229820">Kopiatu irudi gisa</translation>
-<translation id="7861579472672677409">Gehitu da <ph name="EXTENSION_NAME"/> luzapena Browther-en</translation>
-<translation id="5849446944780602366">Pertsonalizatu eta kontrolatu Browther. Eguneratze bat erabilgarri dago.</translation>
-<translation id="5711722515923392428">Aktibatuta • Browther-ek ezin du egiaztatu luzapena nondik datorren</translation>
-<translation id="6355366566986893068">Zure kontua Browther-en</translation>
-<translation id="7433698744896946664">Eman Browther-eko tresna-barran sarbide-eskaerak erakusteko baimena luzapenari</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> arriskutsua da; horregatik, blokeatu egin du Browther-ek.</translation>
-<translation id="991182453936521413">Browther-ek arakatze-datuak ezabatuko ditu eta itxi egingo da laster</translation>
-<translation id="4060970194201477024">Aldatu Browther-eko profila hemen</translation>
-<translation id="7815000350132166985">Cookieak onartzen badituzu, baliteke Browther-ek haiek erabiltzea orriak aurrez kargatzeko</translation>
+<translation id="6606690217326148454">Gehitu da <ph name="EXTENSION_NAME"/> luzapena Browther-en</translation>
+<translation id="6037324269860323082">Pertsonalizatu eta kontrolatu Browther. Eguneratze bat erabilgarri dago.</translation>
+<translation id="3695768481578778794">Aktibatuta • Browther-ek ezin du egiaztatu luzapena nondik datorren</translation>
+<translation id="4401885752362736126">Zure kontua Browther-en</translation>
+<translation id="4310817187912076496">Eman Browther-eko tresna-barran sarbide-eskaerak erakusteko baimena luzapenari</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> arriskutsua da; horregatik, blokeatu egin du Browther-ek.</translation>
+<translation id="5139243417751674628">Browther-ek arakatze-datuak ezabatuko ditu eta itxi egingo da laster</translation>
+<translation id="4696750309605389299">Aldatu Browther-eko profila hemen</translation>
+<translation id="7475001351099358916">Cookieak onartzen badituzu, baliteke Browther-ek haiek erabiltzea orriak aurrez kargatzeko</translation>
 <translation id="6165508094623778733">Lortu informazio gehiago</translation>
-<translation id="5739368447874065758">Garbitu Browther-eko datuak kontutik</translation>
-<translation id="6685697979743742605">Baliteke fitxategi hau arriskutsua izatea<ph name="LINE_BREAK"/>Browther-ek deskarga hau egiazta dezake pasahitza idazten baduzu. Fitxategiari buruzko informazioa Browther-ren Arakatze segurua eginbidera bidaliko da, baina fitxategiaren edukia eta pasahitza zure gailuan geratuko dira.</translation>
+<translation id="5975099973700540482">Garbitu Browther-eko datuak kontutik</translation>
+<translation id="6800151735486681860">Baliteke fitxategi hau arriskutsua izatea<ph name="LINE_BREAK"/>Browther-ek deskarga hau egiazta dezake pasahitza idazten baduzu. Fitxategiari buruzko informazioa Browther-ren Arakatze segurua eginbidera bidaliko da, baina fitxategiaren edukia eta pasahitza zure gailuan geratuko dira.</translation>
 <translation id="6182736845697986886">Instalazioak huts egin du, eguneratze-zerbitzariak barneko errore bat izan duelako.</translation>
-<translation id="4368341489795135329">Ziurtatu Browther-eko saioa hasita daukazula <ph name="TARGET_DEVICE_NAME"/> gailuan eta saiatu berriro bidaltzen.</translation>
-<translation id="3038354906709778538">Ordenagailuko beste programa batek Browther-en funtzionamenduari agian eragingo dion aplikazio bat gehitu du.
+<translation id="48832130233362517">Ziurtatu Browther-eko saioa hasita daukazula <ph name="TARGET_DEVICE_NAME"/> gailuan eta saiatu berriro bidaltzen.</translation>
+<translation id="8868210753005945522">Ordenagailuko beste programa batek Browther-en funtzionamenduari agian eragingo dion aplikazio bat gehitu du.
 
 <ph name="EXTENSION_NAME"/>.</translation>
-<translation id="8320964054148936490">Ordenagailuak Browther arakatzailearen bertsio berriagoa du. Softwareak ez badu funtzionatzean, desinstalatu Browther eta saiatu berriro.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Orain exekutatuko da Browther berriro}=1{1 segundo barru exekutatuko da Browther berriro}other{# segundo barru exekutatuko da Browther berriro}}</translation>
+<translation id="2779436101182061679">Ordenagailuak Browther arakatzailearen bertsio berriagoa du. Softwareak ez badu funtzionatzean, desinstalatu Browther eta saiatu berriro.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Orain exekutatuko da Browther berriro}=1{1 segundo barru exekutatuko da Browther berriro}other{# segundo barru exekutatuko da Browther berriro}}</translation>
 <translation id="6239161312595354541">Egin bideo honi buruzko galdera bat irudi-bilaketari</translation>
-<translation id="5980269616827212166">Browther-ek biltegia erabiltzeko baimena behar du fitxategiak deskargatu ahal izateko</translation>
-<translation id="7651600795135059130">URLak Browther-en gordetako webgune ez-seguruen zerrendan dauden ala ez egiaztatzen du.</translation>
-<translation id="5019879183386042809">Ezarri Browther arakatzaile lehenetsi gisa</translation>
-<translation id="7445061995866044926">Browther-eko saioa amaitu?</translation>
-<translation id="4659866260728515512">Fitxa hauek baliabide gehigarriak erabiltzen dituzte. Errendimendua hobetzeko, eman fitxa horiek inaktibo ezartzeko baimena Browther-i.</translation>
-<translation id="6806912298071949921">Pertsonalizatu Browther-eko profila</translation>
-<translation id="3792238845239580301">Eman izen bat Browther-eko profilari</translation>
-<translation id="5874208157501051620">Luzapen batek Browther-en saioa has dezazun behar du</translation>
-<translation id="3561569806301739367">Baliteke <ph name="FILE_NAME"/> arriskutsua izatea; horregatik, blokeatu egin du Browther-ek.</translation>
-<translation id="3205074487970075628">Browther zure kamera erabiltzen ari da.</translation>
+<translation id="1755464917870815989">Browther-ek biltegia erabiltzeko baimena behar du fitxategiak deskargatu ahal izateko</translation>
+<translation id="304681001513922736">URLak Browther-en gordetako webgune ez-seguruen zerrendan dauden ala ez egiaztatzen du.</translation>
+<translation id="7785903492969539081">Ezarri Browther arakatzaile lehenetsi gisa</translation>
+<translation id="3987833816263696343">Browther-eko saioa amaitu?</translation>
+<translation id="4723540739671534529">Fitxa hauek baliabide gehigarriak erabiltzen dituzte. Errendimendua hobetzeko, eman fitxa horiek inaktibo ezartzeko baimena Browther-i.</translation>
+<translation id="6540151687468239291">Pertsonalizatu Browther-eko profila</translation>
+<translation id="770793114032605647">Eman izen bat Browther-eko profilari</translation>
+<translation id="385867753870250529">Luzapen batek Browther-en saioa has dezazun behar du</translation>
+<translation id="2022337046348377650">Baliteke <ph name="FILE_NAME"/> arriskutsua izatea; horregatik, blokeatu egin du Browther-ek.</translation>
+<translation id="45270956603278068">Browther zure kamera erabiltzen ari da.</translation>
 <translation id="6327105987658262776">Ez dago eguneratzerik erabilgarri.</translation>
-<translation id="1819119299840995223">Beste eragiketa bat egiten ari da Browther. Saiatu berriro geroago.</translation>
-<translation id="8616874628011103667">Errazagoa da Browther erabiltzea Browther-ko kontuarekin eta partekatutako ordenagailuetan.</translation>
-<translation id="4264606872840545968">Browther-en lasterbidea</translation>
-<translation id="6890616081898535725">Browther-ek deskarga hau blokeatu du, fitxategia normalean deskargatzen ez delako eta agian arriskutsua delako</translation>
-<translation id="335632367599648646">Ziur Browther desinstalatu nahi duzula?</translation>
+<translation id="673633752219771459">Beste eragiketa bat egiten ari da Browther. Saiatu berriro geroago.</translation>
+<translation id="1482759407165416070">Errazagoa da Browther erabiltzea Browther-ko kontuarekin eta partekatutako ordenagailuetan.</translation>
+<translation id="5538042432112726532">Browther-en lasterbidea</translation>
+<translation id="833085228901080512">Browther-ek deskarga hau blokeatu du, fitxategia normalean deskargatzen ez delako eta agian arriskutsua delako</translation>
+<translation id="491120842288314439">Ziur Browther desinstalatu nahi duzula?</translation>
 <translation id="6375219077595103062">Gehitu Pasahitz-kudeatzailea zerbitzurako lasterbide bat</translation>
 <translation id="6388799252195623474">laguntza behar dut honekin</translation>
-<translation id="7920857181125123335">Jarraitzeko, hasi saioa Browther-en <ph name="EMAIL"/> helbide elektronikoarekin. Horrek bermatuko du zure erakundearen gidalerroak jasotzen dituzula.</translation>
-<translation id="3256100650978957522">Browther-en logotipoa ordenagailu baten pantailan.</translation>
-<translation id="5880764554173582719">Web-orriak eta aplikazioak tximista bezain azkar abiarazten dituen web-arakatzailea da Browther Origin. Bizkorra, egonkorra eta erabiltzeko erraza da. Browther Origin-ek malwarearen eta phishingaren aurka dituen babes inkorporatuei esker, seguruago ibiliko zara Interneten.</translation>
-<translation id="2532326772258858491">Browther-ek bizkorrago funtzionatzen du, eta JavaScript darabilten eginbideek behar bezala funtzionatu beharko lukete</translation>
+<translation id="6715003312952407375">Jarraitzeko, hasi saioa Browther-en <ph name="EMAIL"/> helbide elektronikoarekin. Horrek bermatuko du zure erakundearen gidalerroak jasotzen dituzula.</translation>
+<translation id="1897845318651970239">Browther-en logotipoa ordenagailu baten pantailan.</translation>
+<translation id="4702069255970029302">Web-orriak eta aplikazioak tximista bezain azkar abiarazten dituen web-arakatzailea da Browther Origin. Bizkorra, egonkorra eta erabiltzeko erraza da. Browther Origin-ek malwarearen eta phishingaren aurka dituen babes inkorporatuei esker, seguruago ibiliko zara Interneten.</translation>
+<translation id="5669767676913031391">Browther-ek bizkorrago funtzionatzen du, eta JavaScript darabilten eginbideek behar bezala funtzionatu beharko lukete</translation>
 <translation id="6436260184216827876">Irudi-bilaketa ez dago erabilgarri. Saiatu berriro geroago.</translation>
 <translation id="2139300032719313227">Berrabiarazi Chrome OS</translation>
-<translation id="638302211119176182">Ziurrenik bisitatuko dituzun are orri gehiago aurrez kargatzen ditu Browther-ek, bisitatzen dituzunean bizkorrago karga daitezen</translation>
-<translation id="7167975344637731051">Deskargatu Browther telefonoan, prezioen jarraipena egiteko eta alertak jasotzeko edozein webgunetan prezio-jaitsierak egotean</translation>
-<translation id="890319829408077946">Desaktibatuta • Browther-ek ezin du egiaztatu luzapena nondik datorren</translation>
-<translation id="1684121725014454063">Ongi etorri Browther-eko profiletara</translation>
-<translation id="8211983866539058675"><ph name="DEVICE_TYPE"/> gailuan Browther irekitzen duzun hurrengo aldian, fitxa taldeak erabiltzeko eskatuko zaizu.</translation>
-<translation id="7906693299331092358">Kendu kontua Browther-etik</translation>
+<translation id="6110616900529884221">Ziurrenik bisitatuko dituzun are orri gehiago aurrez kargatzen ditu Browther-ek, bisitatzen dituzunean bizkorrago karga daitezen</translation>
+<translation id="1217194059001819677">Deskargatu Browther telefonoan, prezioen jarraipena egiteko eta alertak jasotzeko edozein webgunetan prezio-jaitsierak egotean</translation>
+<translation id="7058555680120557198">Desaktibatuta • Browther-ek ezin du egiaztatu luzapena nondik datorren</translation>
+<translation id="676533642429632127">Ongi etorri Browther-eko profiletara</translation>
+<translation id="5518682889576009702"><ph name="DEVICE_TYPE"/> gailuan Browther irekitzen duzun hurrengo aldian, fitxa taldeak erabiltzeko eskatuko zaizu.</translation>
+<translation id="6038105561107837619">Kendu kontua Browther-etik</translation>
 <translation id="2675662665675552980">Browther abiarazten duzunean erakusten den orria ere kontrolatzen du.</translation>
 <translation id="648319183876919572">Arakatze seguru hobetuak are gehiago babesten zaitu webgune eta deskarga arriskutsuen aurka</translation>
-<translation id="5590013613412457132">Desinstalatu Browther</translation>
-<translation id="7185585387858242335">Browther-en irekita dauden lasterbideak</translation>
-<translation id="3617744907966785605">Erakundeak Browther ixten du <ph name="TIMEOUT_DURATION"/>z erabiltzen ez denean. Arakatze-datuak ezabatu dira. Arakatze-datuen barnean daude historia, automatikoki betetako datuak eta deskargak.</translation>
-<translation id="8646609321956191980">Profil bakoitzak Browther-eko informazio propioa dauka; adibidez, laster-markak, historia, pasahitzak eta beste</translation>
-<translation id="6756656512757374876">Lortu <ph name="BEGIN_LINK"/>Browther-ek zure datuen pribatutasuna babesteko duen moduari<ph name="END_LINK"/> buruzko informazio gehiago</translation>
-<translation id="3556601443414636547">Ezarpen honetan egindako aldaketak Browther berrabiarazi ondoren aplikatuko dira.</translation>
-<translation id="2535436634051789953">Browther-eko beste profil bateko pasahitzak ikustera joan zaitezke</translation>
-<translation id="2312399718665761438">Ortografia-akatsak konpondu ahal izateko, testu-eremuetan idazten duzun testua Browther-ri bidaltzen dio Browther-ek</translation>
-<translation id="3507835409099344374">Joan Browther-en jakinarazpen-ezarpenetara</translation>
+<translation id="2930243146591999795">Desinstalatu Browther</translation>
+<translation id="5241183382286817629">Browther-en irekita dauden lasterbideak</translation>
+<translation id="7907014599435829661">Erakundeak Browther ixten du <ph name="TIMEOUT_DURATION"/>z erabiltzen ez denean. Arakatze-datuak ezabatu dira. Arakatze-datuen barnean daude historia, automatikoki betetako datuak eta deskargak.</translation>
+<translation id="2088471423667794811">Profil bakoitzak Browther-eko informazio propioa dauka; adibidez, laster-markak, historia, pasahitzak eta beste</translation>
+<translation id="9040334484455218184">Lortu <ph name="BEGIN_LINK"/>Browther-ek zure datuen pribatutasuna babesteko duen moduari<ph name="END_LINK"/> buruzko informazio gehiago</translation>
+<translation id="1718697235867382480">Ezarpen honetan egindako aldaketak Browther berrabiarazi ondoren aplikatuko dira.</translation>
+<translation id="6331317152404762758">Browther-eko beste profil bateko pasahitzak ikustera joan zaitezke</translation>
+<translation id="6097706403184348562">Ortografia-akatsak konpondu ahal izateko, testu-eremuetan idazten duzun testua Browther-ri bidaltzen dio Browther-ek</translation>
+<translation id="2319647238307402812">Joan Browther-en jakinarazpen-ezarpenetara</translation>
 <translation id="6600016381025017075">Bilatu edozer orri honetan</translation>
-<translation id="9156965752763025780">Aldaketek Browther abiarazten duzun hurrengo aldian izango dute eragina.</translation>
-<translation id="3387992981600748596">Orain, Windows abiaraztean exekutatzen da Browther, berehala arakatzen has zaitezen. Aukera hori desaktibatzeko, joan Ezarpenak atalera.</translation>
-<translation id="3119017564683030312">Jarraitu utzi zenuen tokitik: Browther-ek azken saioko fitxak leheneratu ditu. Aukera hori desaktibatzeko, joan hona:</translation>
-<translation id="245693535809364497">Browther-ek kamera erabiltzeko baimena behar du zure inguruaren 3D-ko mapa bat sortzeko</translation>
-<translation id="9210457680074341078">Era berean, laster-markak Browther-ko kontuan gordetzen badituzu, Browther-en produktuen prezioen jarraipena egin ahal izango duzu, eta prezioak jaisten direnean jakinarazpenak jaso</translation>
+<translation id="8031938899816118394">Aldaketek Browther abiarazten duzun hurrengo aldian izango dute eragina.</translation>
+<translation id="7412185356697187964">Orain, Windows abiaraztean exekutatzen da Browther, berehala arakatzen has zaitezen. Aukera hori desaktibatzeko, joan Ezarpenak atalera.</translation>
+<translation id="9123343592576384616">Jarraitu utzi zenuen tokitik: Browther-ek azken saioko fitxak leheneratu ditu. Aukera hori desaktibatzeko, joan hona:</translation>
+<translation id="5847926498049048567">Browther-ek kamera erabiltzeko baimena behar du zure inguruaren 3D-ko mapa bat sortzeko</translation>
+<translation id="5532585028508811858">Era berean, laster-markak Browther-ko kontuan gordetzen badituzu, Browther-en produktuen prezioen jarraipena egin ahal izango duzu, eta prezioak jaisten direnean jakinarazpenak jaso</translation>
 <translation id="6676384891291319759">Sartu Interneten</translation>
 <translation id="1363996462118479832">Saioa hastean gertatu den errore bat dela-eta, Chrome OS-k ezin izan ditu sinkronizatu zure datuak.</translation>
-<translation id="4694512973195649124">Kendu aplikazio honetako datuak Browther-etik</translation>
-<translation id="5324448127277983819">Browther-ek ikusten dituzun iragarkien gaineko kontrol handiagoa ematen dizu, eta webguneek iragarki pertsonalizatuak erakusten dizkizutenean zuri buruz atzi dezaketen informazioa mugatzen du</translation>
-<translation id="1257247502847251159">Browther-ek mikrofonoa erabiltzeko baimena behar du webgune honetan</translation>
+<translation id="3373239673945775810">Kendu aplikazio honetako datuak Browther-etik</translation>
+<translation id="8122759674786039814">Browther-ek ikusten dituzun iragarkien gaineko kontrol handiagoa ematen dizu, eta webguneek iragarki pertsonalizatuak erakusten dizkizutenean zuri buruz atzi dezaketen informazioa mugatzen du</translation>
+<translation id="6277682530398500159">Browther-ek mikrofonoa erabiltzeko baimena behar du webgune honetan</translation>
 <translation id="6712881677154121168">Deskarga-errorea: <ph name="DOWNLOAD_ERROR"/></translation>
-<translation id="1489465648257900784">Ezin duzu profila erabili Browther bertsio berriago batekoa delako.
+<translation id="2972046656127603037">Ezin duzu profila erabili Browther bertsio berriago batekoa delako.
 
 Baliteke eginbide batzuk erabilgarri ez egotea. Adierazi beste profil-direktorio bat edo erabili Browther bertsio berriago bat.</translation>
-<translation id="1505112054322049777">Pertsonalizazioa eta beste eginbide batzuk eskuratzeko, sartu Browther sareko eta aplikazioetako jardueretan eta lotutako Browther-ren zerbitzuetan</translation>
-<translation id="6666624454809779082">Ordenagailuko erabiltzaile guztientzat dago instalatuta Browther.</translation>
-<translation id="5848830584656405219">Laster-markak eta bestelako datuak zure gailu guztietan erabili ahal izateko, hasi saioa Browther-en. Saioa hasi ondoren, laster-marka hau zure Browther-ko kontuan gordeko da.</translation>
-<translation id="4020203987234748583">Webguneen abiadura handitzen du Browther-en V8 motorrarekin, baina erasoen aurrean Browther apur bat ahulagoa da. Aktibatuta dago ezarpena.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Browther-eko datu batzuk ez dira gorde Browther-ko kontuan oraindik. Saioa amaitu aurretik, itxaron minutu batzuk. Orain amaitzen baduzu saioa, datu horiek (elementu bat) ezabatuko dira.}other{Browther-eko datu batzuk ez dira gorde Browther-ko kontuan oraindik. Saioa amaitu aurretik, itxaron minutu batzuk. Orain amaitzen baduzu saioa, datu horiek ({count} elementu) ezabatuko dira.}}</translation>
-<translation id="3136039682492230890">Browther-ek fitxategia aztertzea gomendatzen du, agian arriskutsua delako.</translation>
+<translation id="871671753163165892">Pertsonalizazioa eta beste eginbide batzuk eskuratzeko, sartu Browther sareko eta aplikazioetako jardueretan eta lotutako Browther-ren zerbitzuetan</translation>
+<translation id="5000832110229523807">Ordenagailuko erabiltzaile guztientzat dago instalatuta Browther.</translation>
+<translation id="5204575479550973859">Laster-markak eta bestelako datuak zure gailu guztietan erabili ahal izateko, hasi saioa Browther-en. Saioa hasi ondoren, laster-marka hau zure Browther-ko kontuan gordeko da.</translation>
+<translation id="2874208284092283937">Webguneen abiadura handitzen du Browther-en V8 motorrarekin, baina erasoen aurrean Browther apur bat ahulagoa da. Aktibatuta dago ezarpena.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Browther-eko datu batzuk ez dira gorde Browther-ko kontuan oraindik. Saioa amaitu aurretik, itxaron minutu batzuk. Orain amaitzen baduzu saioa, datu horiek (elementu bat) ezabatuko dira.}other{Browther-eko datu batzuk ez dira gorde Browther-ko kontuan oraindik. Saioa amaitu aurretik, itxaron minutu batzuk. Orain amaitzen baduzu saioa, datu horiek ({count} elementu) ezabatuko dira.}}</translation>
+<translation id="7683816018918395929">Browther-ek fitxategia aztertzea gomendatzen du, agian arriskutsua delako.</translation>
 <translation id="1547295885616600893"><ph name="BEGIN_LINK_CROS_OSS"/>Kode irekiko software<ph name="END_LINK_CROS_OSS"/> gehigarriari esker da posible Chrome OS.</translation>
 <translation id="6831043979455480757">Itzuli</translation>
-<translation id="8211837073776713955">Browther-ek abisatu egingo dizu pasahitzak inoiz arriskuan badaude</translation>
+<translation id="2142653375108595728">Browther-ek abisatu egingo dizu pasahitzak inoiz arriskuan badaude</translation>
 <translation id="684888714667046800">Ezin da konektatu Internetera. Suebaki bat erabiltzen baduzu, ziurtatu <ph name="PRODUCT_EXE_NAME"/> baimendutakoen zerrendan dagoela.</translation>
-<translation id="7830723774663008396">Browther - <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther - <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Aurrera egiteko, sakatu tabuladorea</translation>
 <translation id="6862030660799253820">Egin bilaketak irudi honetan irudi-bilaketarekin</translation>
-<translation id="3028928628792374067">"<ph name="EXTENSION_NAME"/>" elementuak malwarea duela hauteman du Browther-ek</translation>
+<translation id="3860339351709082396">"<ph name="EXTENSION_NAME"/>" elementuak malwarea duela hauteman du Browther-ek</translation>
 <translation id="6877155553248388166">bilaketa-eremuaren beheko eskuineko ertza: % <ph name="RIGHT"/> eskuinean, % <ph name="BOTTOM"/> behean</translation>
 <translation id="6896758677409633944">Kopiatu</translation>
-<translation id="862687584320433626">Ezarri Browther arakatzaile lehenetsi gisa eta aingura ezazu zereginen barran</translation>
-<translation id="1991562568473125499">&amp;Kudeatu Browther-eko profilak</translation>
+<translation id="7804113502310231166">Ezarri Browther arakatzaile lehenetsi gisa eta aingura ezazu zereginen barran</translation>
+<translation id="3228374215117173004">&amp;Kudeatu Browther-eko profilak</translation>
 <translation id="6934579572334859869">Egin irudi honi buruzko galdera bat irudi-bilaketari</translation>
-<translation id="5529781826378237601">Browther-ek onartzen dituen laster-marken mugara iritsi zara (<ph name="BOOKMARK_LIMIT"/>). Beraz, laster-marka batzuk ez dira gorde Browther-ko kontuan oraindik.
+<translation id="5995328366516663808">Browther-ek onartzen dituen laster-marken mugara iritsi zara (<ph name="BOOKMARK_LIMIT"/>). Beraz, laster-marka batzuk ez dira gorde Browther-ko kontuan oraindik.
 
 Laster-marka batzuk ezabatu arte, ezingo da beste laster-markarik gorde kontuan. Orain saioa amaitzen baduzu, gorde gabeko laster-markak ezabatuko dira.</translation>
 <translation id="6965382102122355670">Ados</translation>
-<translation id="6418340404893954563">Seguruak ez diren pasahitzak erraz asmatzen dira. Utzi Browther-i <ph name="BEGIN_LINK"/>pasahitz konplexuak sortzen eta gogoratzen<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Seguruak ez diren pasahitzak erraz asmatzen dira. Utzi Browther-i <ph name="BEGIN_LINK"/>pasahitz konplexuak sortzen eta gogoratzen<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Chrome OS-ren baldintzak</translation>
-<translation id="3335606533094650083">Browther-ek webgune honen izenean mikrofonoa erabiltzeko baimena behar du</translation>
-<translation id="6643520655691573653">Browther-eko datuak zure kontuan (<ph name="ACCOUNT_EMAIL"/>) erabiltzeko eta gordetzeko, idatzi pasaesaldia</translation>
+<translation id="5379058926689137454">Browther-ek webgune honen izenean mikrofonoa erabiltzeko baimena behar du</translation>
+<translation id="4684462982894889021">Browther-eko datuak zure kontuan (<ph name="ACCOUNT_EMAIL"/>) erabiltzeko eta gordetzeko, idatzi pasaesaldia</translation>
 <translation id="7011190694940573312">Instalazioak huts egin du, sistema eragilearen bertsio hau bateragarria ez delako.</translation>
 <translation id="7024536598735240744">Despaketatze-errorea: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Gelditu da instalazioa.</translation>
-<translation id="280382502853897110">Pertsonalizatu Browther</translation>
+<translation id="8257174622576051374">Pertsonalizatu Browther</translation>
 <translation id="7047386856539490735">Erabilgarriak al dira emaitzak?</translation>
-<translation id="1705567146636171298">Eguneratu Browther</translation>
-<translation id="5499063270485366718">Irudiren batek ez badu azalpen lagungarririk, halako bat lortzen ahaleginduko da Browther. Azalpen horiek sortzeko, irudiak Browther-ri bidaltzen zaizkio.</translation>
-<translation id="5966368554860795750">Pertsonalizatu Browther for Testing</translation>
-<translation id="792838367208896130">Browther erabili ahalko duzu mezu, dokumentu eta aplikazioetako estekak sakatzen dituzunean</translation>
-<translation id="375314543563594498">Kendu <ph name="EXTENSION_NAME"/> Browther-etik</translation>
-<translation id="2332301637111071062">Erakundeak Browther-eko datuak ezabatzen ditu <ph name="TIMEOUT_DURATION"/>z erabiltzen ez denean. Arakatze-datuen barnean daude historia, automatikoki betetako datuak eta deskargak.</translation>
-<translation id="1008530050039597147">Browther-ek kamera erabiltzeko baimena behar du webgune honetan</translation>
-<translation id="1197672524850678392">Ezin izan da exekutatu Browther. Saiatu berriro.</translation>
-<translation id="3405035915691517126">Browther-ek ezin ditu egiaztatu pasahitzak. Saiatu berriro 24 ordu barru.</translation>
-<translation id="3625983487600668413">Mantendu Browther Dock-ean, hura bizkor atzitzeko edonoiz</translation>
-<translation id="5755581833598928580">Erabili Browther mezu, dokumentu edo beste aplikazioetako estekak sakatzean</translation>
-<translation id="5516268345616100622">Ataza-kudeatzailea - Browther</translation>
-<translation id="713191641919118540">Browther-ek estimatu dizkizun interesak</translation>
-<translation id="1871621397473741084">Hasi berehala arakatzen: orain, Windows abiaraztean exekuta daiteke Browther.</translation>
+<translation id="1772745060691790742">Eguneratu Browther</translation>
+<translation id="4937970118065051027">Irudiren batek ez badu azalpen lagungarririk, halako bat lortzen ahaleginduko da Browther. Azalpen horiek sortzeko, irudiak Browther-ri bidaltzen zaizkio.</translation>
+<translation id="1594112132009288601">Pertsonalizatu Browther for Testing</translation>
+<translation id="5915000938288527952">Browther erabili ahalko duzu mezu, dokumentu eta aplikazioetako estekak sakatzen dituzunean</translation>
+<translation id="8775664994493381735">Kendu <ph name="EXTENSION_NAME"/> Browther-etik</translation>
+<translation id="3276648807841991013">Erakundeak Browther-eko datuak ezabatzen ditu <ph name="TIMEOUT_DURATION"/>z erabiltzen ez denean. Arakatze-datuen barnean daude historia, automatikoki betetako datuak eta deskargak.</translation>
+<translation id="4725226878394159809">Browther-ek kamera erabiltzeko baimena behar du webgune honetan</translation>
+<translation id="8931474625901592021">Ezin izan da exekutatu Browther. Saiatu berriro.</translation>
+<translation id="8242947409070121799">Browther-ek ezin ditu egiaztatu pasahitzak. Saiatu berriro 24 ordu barru.</translation>
+<translation id="1737922827960215472">Mantendu Browther Dock-ean, hura bizkor atzitzeko edonoiz</translation>
+<translation id="335855266303176628">Erabili Browther mezu, dokumentu edo beste aplikazioetako estekak sakatzean</translation>
+<translation id="709455597778444012">Ataza-kudeatzailea - Browther</translation>
+<translation id="7147140345767587643">Browther-ek estimatu dizkizun interesak</translation>
+<translation id="7337408274890534789">Hasi berehala arakatzen: orain, Windows abiaraztean exekuta daiteke Browther.</translation>
 <translation id="7274695763216404502">Ainguratu da! Tresna-barraren bidez erabil dezakezu berriro irudi-bilaketa.</translation>
 <translation id="7288567540154601580">Fitxak eta luzapenak</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Kentzea gomendatzen dizu Browther-ek}other{Kentzea gomendatzen dizu Browther-ek}}</translation>
-<translation id="4600669988724328687">Sistemaren audioa partekatzeko, ireki Sistemaren ezarpenak eta eman sistemaren audioa soilik grabatzeko baimena Browther-i. Browther berrabiarazi beharko duzu ondoren.</translation>
-<translation id="9068395155143628872">Iragarkien neurketari esker, bisitatzen dituzun webguneek Browther-i informazioa eska diezaiokete. Informazio horren bidez, webguneek beren iragarkien errendimendua neur dezakete. Webguneen artean ahalik eta informazio gutxien transferituta mugatzen du iragarkien neurketak webgunearteko jarraipena.</translation>
-<translation id="1864557848095568223">Browther eguneratzen</translation>
-<translation id="3403365884036456766">Hobespenen fitxategia hondatuta dago edo ez da baliozkoa.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Kentzea gomendatzen dizu Browther-ek}other{Kentzea gomendatzen dizu Browther-ek}}</translation>
+<translation id="1527644038571473502">Sistemaren audioa partekatzeko, ireki Sistemaren ezarpenak eta eman sistemaren audioa soilik grabatzeko baimena Browther-i. Browther berrabiarazi beharko duzu ondoren.</translation>
+<translation id="1427913074981060872">Iragarkien neurketari esker, bisitatzen dituzun webguneek Browther-i informazioa eska diezaiokete. Informazio horren bidez, webguneek beren iragarkien errendimendua neur dezakete. Webguneen artean ahalik eta informazio gutxien transferituta mugatzen du iragarkien neurketak webgunearteko jarraipena.</translation>
+<translation id="1657652725060525338">Browther eguneratzen</translation>
+<translation id="884846289464870238">Hobespenen fitxategia hondatuta dago edo ez da baliozkoa.
 
 Browther-ek ezin ditu ezarpenak berreskuratu.</translation>
 <translation id="7339898014177206373">Leiho berria</translation>
-<translation id="3511996232906761537">Webguneak, laster-markak eta Browther-eko beste gauzak hemen daude.</translation>
-<translation id="1754899895078387289">Zure pasaesaldia dakitenek soilik irakur ditzakete zure datu enkriptatuak. Browther-k ez du jasoko pasaesaldia, ezta gordeko ere. Pasaesaldia ahazten bazaizu edo ezarpena aldatu nahi baduzu, <ph name="BEGIN_LINK"/>kontuko Browther-eko datuak ezabatu beharko dituzu<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Sistemaren administratzailearen konfigurazioaren arabera, Browther-ek <ph name="ALTERNATIVE_BROWSER_NAME"/> arakatzailea ireki behar du <ph name="TARGET_URL_HOSTNAME"/> helbidera joateko.</translation>
+<translation id="633044855886370183">Webguneak, laster-markak eta Browther-eko beste gauzak hemen daude.</translation>
+<translation id="1185960088713242527">Zure pasaesaldia dakitenek soilik irakur ditzakete zure datu enkriptatuak. Browther-k ez du jasoko pasaesaldia, ezta gordeko ere. Pasaesaldia ahazten bazaizu edo ezarpena aldatu nahi baduzu, <ph name="BEGIN_LINK"/>kontuko Browther-eko datuak ezabatu beharko dituzu<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Sistemaren administratzailearen konfigurazioaren arabera, Browther-ek <ph name="ALTERNATIVE_BROWSER_NAME"/> arakatzailea ireki behar du <ph name="TARGET_URL_HOSTNAME"/> helbidera joateko.</translation>
 <translation id="7352651011704765696">Arazo bat izan da</translation>
-<translation id="6085660187823915017">Etorkizunean Browther-en eguneratzeak eskuratzeko, macOS 13 edo berriago bat beharko duzu. Ordenagailu hau macOS 12 erabiltzen ari da.</translation>
-<translation id="2865744782251083875">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION_1"/> eta <ph name="PERMISSION_2"/> erabiltzeko baimena kendu dio.</translation>
-<translation id="4631170166710903214">Luzapena ez da onartzen jada. Kentzea gomendatzen dizu Browther-ek.</translation>
-<translation id="7951152294775418909">Jarraitu utzi zenuen tokitik: Browther-ek fitxak leheneratzen ditu berrabiarazten duzun bakoitzean. Aukera hori desaktibatzeko, joan hona:</translation>
-<translation id="3191314862567596053">Inportatu pasahitzak Browther-era</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
+<translation id="6638123710106659002">Etorkizunean Browther-en eguneratzeak eskuratzeko, macOS 13 edo berriago bat beharko duzu. Ordenagailu hau macOS 12 erabiltzen ari da.</translation>
+<translation id="7286289384512061761">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION_1"/> eta <ph name="PERMISSION_2"/> erabiltzeko baimena kendu dio.</translation>
+<translation id="113593073175678746">Luzapena ez da onartzen jada. Kentzea gomendatzen dizu Browther-ek.</translation>
+<translation id="137615076640044304">Jarraitu utzi zenuen tokitik: Browther-ek fitxak leheneratzen ditu berrabiarazten duzun bakoitzean. Aukera hori desaktibatzeko, joan hona:</translation>
+<translation id="5967238175620483220">Inportatu pasahitzak Browther-era</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
 <translation id="7450541714075000668">Kopiatu da testua</translation>
-<translation id="2034072705932785495">Browther-ek webgune honen izenean kamera erabiltzeko baimena behar du</translation>
-<translation id="7129342855140808694">Mikrofonoa erabiltzeko, eman baimena Browther-i <ph name="BEGIN_LINK"/>sistemaren ezarpenetan<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">Etorkizunean Browther-en eguneratzeak eskuratzeko, Windows 10 edo bertsio berriago bat beharko duzu. Ordenagailu hau Windows 7 erabiltzen ari da.</translation>
-<translation id="3962395975456095331">Browther berriro exekutatu nahi duzu?</translation>
-<translation id="2619516027171717873">Ezin da instalatu une honetan abian den Browther-en bertsio bera. Itxi Browther eta saiatu berriro.</translation>
-<translation id="2731639583336131792">Browther-ko kontuan pasahitzak eta abar gorde eta erabili ahalko dituzu Browther-en saioa hasita daukazunean. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Webguneek espero bezala funtzionatuko dute ziurrenik. Browther-eko leiho guztiak ixtean, webgune gehienetako saioa amaituko da Browther-ko kontuarena izan ezik, baldin eta Browther-en saioa hasita badaukazu.</translation>
-<translation id="3186363903915641692">{0,plural, =1{1 minutu barru exekutatuko da Browther berriro}other{# minutu barru exekutatuko da Browther berriro}}</translation>
-<translation id="552342471964912391">Datuak babesteko, eman azkenaldian bisitatu ez dituzun webguneei baimenak kentzeko baimena Browther-i.</translation>
-<translation id="3826701455067637694">Exekutatu Browther automatikoki berehala arakatzen hasteko.</translation>
+<translation id="7766009218653304791">Browther-ek webgune honen izenean kamera erabiltzeko baimena behar du</translation>
+<translation id="5844418066487488520">Mikrofonoa erabiltzeko, eman baimena Browther-i <ph name="BEGIN_LINK"/>sistemaren ezarpenetan<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">Etorkizunean Browther-en eguneratzeak eskuratzeko, Windows 10 edo bertsio berriago bat beharko duzu. Ordenagailu hau Windows 7 erabiltzen ari da.</translation>
+<translation id="6299293759264950896">Browther berriro exekutatu nahi duzu?</translation>
+<translation id="180908550381040105">Ezin da instalatu une honetan abian den Browther-en bertsio bera. Itxi Browther eta saiatu berriro.</translation>
+<translation id="7625576878150380853">Browther-ko kontuan pasahitzak eta abar gorde eta erabili ahalko dituzu Browther-en saioa hasita daukazunean. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Webguneek espero bezala funtzionatuko dute ziurrenik. Browther-eko leiho guztiak ixtean, webgune gehienetako saioa amaituko da Browther-ko kontuarena izan ezik, baldin eta Browther-en saioa hasita badaukazu.</translation>
+<translation id="7099370564362681943">{0,plural, =1{1 minutu barru exekutatuko da Browther berriro}other{# minutu barru exekutatuko da Browther berriro}}</translation>
+<translation id="3602613943932672197">Datuak babesteko, eman azkenaldian bisitatu ez dituzun webguneei baimenak kentzeko baimena Browther-i.</translation>
+<translation id="8759568213742229377">Exekutatu Browther automatikoki berehala arakatzen hasteko.</translation>
 <translation id="7583399374488819119"><ph name="COMPANY_NAME"/> zerbitzuaren instalatzailea</translation>
-<translation id="3293668930608086049">Browther kamera eta mikrofonoa erabiltzen ari da.</translation>
-<translation id="2827121003398607864">Browther hobetu egin dugu</translation>
-<translation id="3071313329776323836">Orain, eginbide gehiago dituzu Browther-en</translation>
+<translation id="8991800242749014880">Browther kamera eta mikrofonoa erabiltzen ari da.</translation>
+<translation id="2692328388439821508">Browther hobetu egin dugu</translation>
+<translation id="4318444066563223295">Orain, eginbide gehiago dituzu Browther-en</translation>
 <translation id="7649070708921625228">Laguntza</translation>
-<translation id="4008841832817149051">Eman zure izenean arakatzeko baimena Browther-i</translation>
+<translation id="5591287320769313116">Eman zure izenean arakatzeko baimena Browther-i</translation>
 <translation id="7658239707568436148">Utzi</translation>
-<translation id="3343095737966473035">Browther ez da zure arakatzaile lehenetsia</translation>
-<translation id="5477319665405831211">Sinkronizatu eta pertsonalizatu Browther gailu guzietan</translation>
-<translation id="2339273275658335597">Browther-en eguneratzea</translation>
+<translation id="6325482130534634729">Browther ez da zure arakatzaile lehenetsia</translation>
+<translation id="8185915921134219287">Sinkronizatu eta pertsonalizatu Browther gailu guzietan</translation>
+<translation id="5120421624925726813">Browther-en eguneratzea</translation>
 <translation id="7716950018788545737">Amaitu dira zereginak.</translation>
 <translation id="77283119132245232"><ph name="BROWSER_NAME"/> arakatzailerako sistemaren jarraipen-zerbitzuak ematen ditu. Zerbitzua desgaitzen bada, arakatzaileak sortutako errendimendu-arrastoetan ez dira sartuko sistema osoko gertaerak (adibidez, testuinguru-aldaketen eta elkarrizketa-hariak prest egotearen gertaerak).</translation>
-<translation id="4784414698887946907">Gailuko arakatze-datuak ezabatuko dira. Geroago datuak eskuratu nahi izanez gero, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
+<translation id="6542096191573265107">Gailuko arakatze-datuak ezabatuko dira. Geroago datuak eskuratu nahi izanez gero, hasi saioa Browther-en <ph name="USER_EMAIL"/> gisa.</translation>
 <translation id="7747138024166251722">Instalatzaileak ezin izan du sortu behin behineko direktoriorik. Softwarea instalatzeko, egiaztatu diskoan duzun espazio librea eta baimena.</translation>
-<translation id="8543787950557226450">Berrezarri Browther gai lehenetsira</translation>
-<translation id="4976450819672499783">Ezarri Browther arakatzaile lehenetsi gisa eta aingura ezazu zereginen barran</translation>
-<translation id="1978509466033734608">Bizkortu Browther</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
-<translation id="2684504034454188774">Zaildu zure Interneteko trafikorako sarbidea duten pertsonei bisitatzen dituzun webguneak ikustea. Browther-ek konexio seguru bat erabiltzen du DNSan (domeinu-izenen sistema) webgune baten IP helbidea bilatzean.</translation>
+<translation id="351575328720488268">Berrezarri Browther gai lehenetsira</translation>
+<translation id="1054170408395182418">Ezarri Browther arakatzaile lehenetsi gisa eta aingura ezazu zereginen barran</translation>
+<translation id="4569594230301902490">Bizkortu Browther</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
+<translation id="7893465573639396635">Zaildu zure Interneteko trafikorako sarbidea duten pertsonei bisitatzen dituzun webguneak ikustea. Browther-ek konexio seguru bat erabiltzen du DNSan (domeinu-izenen sistema) webgune baten IP helbidea bilatzean.</translation>
 <translation id="7810005234485217901">Irudi-bilaketa erraz erabiltzeko, aingura ezazu</translation>
-<translation id="1652855885539187849">Badago kontu honen Browther-eko profil bat gailu honetan</translation>
+<translation id="2462631024103158515">Badago kontu honen Browther-eko profil bat gailu honetan</translation>
 <translation id="7845233973568007926">Eskerrik asko instalatzeagatik. <ph name="BUNDLE_NAME"/> erabiltzeko, ordenagailua berrabiarazi behar duzu.</translation>
-<translation id="9148690296223500734">Pertsonalizatu Browther itxura berri bat emateko</translation>
-<translation id="7963515534397191222">Ezin izan da eguneratu Browther azken bertsiora; beraz, ez dituzu erabilgarri eginbide berriak eta segurtasun-konponketak.</translation>
+<translation id="311190437086049332">Pertsonalizatu Browther itxura berri bat emateko</translation>
+<translation id="6728847658878265103">Ezin izan da eguneratu Browther azken bertsiora; beraz, ez dituzu erabilgarri eginbide berriak eta segurtasun-konponketak.</translation>
 <translation id="7872446069773932638">Deskargatzen… <ph name="SECONDS"/> segundo geratzen dira.</translation>
-<translation id="5545136190679883344">Pasaesaldia ahazten bazaizu edo ezarpena aldatu nahi baduzu, <ph name="BEGIN_LINK"/>ezabatu kontuko Browther-eko datuak<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">Pasaesaldia ahazten bazaizu edo ezarpena aldatu nahi baduzu, <ph name="BEGIN_LINK"/>ezabatu kontuko Browther-eko datuak<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">Egin irudi honi buruzko galdera bat</translation>
-<translation id="5687542525349822727">Ezarri Browther arakatzaile lehenetsi gisa</translation>
-<translation id="6396151137840491551">Browther-ek konexio ez-seguruen maila HTTPSra igotzen du automatikoki posible denean</translation>
-<translation id="2925193881330501265">Browther-en <ph name="USER_EMAIL_ADDRESS"/> gisa hasi duzu saioa. Saioa berriro hasteko, erabili hasiera batean erabilitako kontu bera.</translation>
-<translation id="6915252145142862992">Browther-en bigarren mailako instalazio bat da hau; beraz, ezin duzu ezarri arakatzaile lehenetsi gisa.</translation>
+<translation id="9172499982238113829">Ezarri Browther arakatzaile lehenetsi gisa</translation>
+<translation id="3313826726620159669">Browther-ek konexio ez-seguruen maila HTTPSra igotzen du automatikoki posible denean</translation>
+<translation id="3317928686912559532">Browther-en <ph name="USER_EMAIL_ADDRESS"/> gisa hasi duzu saioa. Saioa berriro hasteko, erabili hasiera batean erabilitako kontu bera.</translation>
+<translation id="6007009085341946457">Browther-en bigarren mailako instalazio bat da hau; beraz, ezin duzu ezarri arakatzaile lehenetsi gisa.</translation>
 <translation id="8004582292198964060">Arakatzailea</translation>
 <translation id="8010081455002666927">Hautemate automatikoa</translation>
-<translation id="7685904775439037072">Browther-ek sarbidea duenean, webguneek sarbidea eskatuko dizute.</translation>
-<translation id="3230755314472063687">Ainguratu Browther zereginen barran, hura bizkor atzitzeko edonoiz</translation>
+<translation id="174885789898161653">Browther-ek sarbidea duenean, webguneek sarbidea eskatuko dizute.</translation>
+<translation id="3001754454174546602">Ainguratu Browther zereginen barran, hura bizkor atzitzeko edonoiz</translation>
 <translation id="80471789339884597">Eskerrik asko instalatzeagatik. <ph name="BUNDLE_NAME"/> erabiltzeko, arakatzaile guztiak berrabiarazi behar dituzu.</translation>
 <translation id="8054112667659782652">Erakutsi beti irudi-bilaketaren lasterbidea</translation>
-<translation id="6175141682081019059">Desgaitu Browther atzeko planoan exekutatzea aplikazioetarako</translation>
+<translation id="6993312779622863465">Desgaitu Browther atzeko planoan exekutatzea aplikazioetarako</translation>
 <translation id="80790299200510644">Irudi-bilaketa</translation>
 <translation id="8086881907087796310">Instalazioak huts egin du, ordenagailuak hardwarearen gutxieneko eskakizunak betetzen ez dituelako.</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/>: Browther Origin for Testing</translation>
-<translation id="2061155704815580583">Browther-ek kokapena erabiltzeko baimena behar du webgune honetan</translation>
-<translation id="3576319845915562805"><ph name="DEVICE_TYPE"/> gailuan Browther irekitzen duzun hurrengo aldian, prezioen jarraipenaren alertak gaitzeko eskatuko zaizu.</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/>: Browther Origin for Testing</translation>
+<translation id="543407324609820492">Browther-ek kokapena erabiltzeko baimena behar du webgune honetan</translation>
+<translation id="1767887552863788514"><ph name="DEVICE_TYPE"/> gailuan Browther irekitzen duzun hurrengo aldian, prezioen jarraipenaren alertak gaitzeko eskatuko zaizu.</translation>
 <translation id="8118331347066725040">Bidali Lens-ekin bilatzeari buruzko oharrak</translation>
 <translation id="5334309298019785904">Chrome OS-k ezin izan ditu sinkronizatu zure datuak sinkronizazioa ez dagoelako erabilgarri zure domeinuan.</translation>
 <translation id="813913629614996137">Hasieratzen…</translation>
-<translation id="1081849497974110565">Browther-en zerbitzu-baldintza gehigarriak</translation>
-<translation id="9067428552314418522">Fitxategia arriskutsua da; horregatik, blokeatu egin du Browther-ek.</translation>
+<translation id="4879101934056397619">Browther-en zerbitzu-baldintza gehigarriak</translation>
+<translation id="4505690237431768764">Fitxategia arriskutsua da; horregatik, blokeatu egin du Browther-ek.</translation>
 <translation id="8177472873527554730">Ezin da aurkitu edukirik orrian</translation>
-<translation id="6219250889396046657">Browther-eko datuak zure kontuan (<ph name="USER_EMAIL"/>) erabiltzeko eta gordetzeko, idatzi pasaesaldia</translation>
+<translation id="4720341280133158605">Browther-eko datuak zure kontuan (<ph name="USER_EMAIL"/>) erabiltzeko eta gordetzeko, idatzi pasaesaldia</translation>
 <translation id="8221491193165283816">Jakinarazpenak blokeatu ohi dituzu. Webgune honen jakinarazpenak jasotzeko, egin klik hemen.</translation>
-<translation id="8377926237617998195">Kamera erabiltzeko, eman baimena Browther-i <ph name="BEGIN_LINK"/>sistemaren ezarpenetan<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">Browther-ek ezin du egiaztatu luzapena nondik datorren, eta baliteke segurua ez izatea. Ken ezazu Browther-etik, bisitatzen dituzun webguneetan zure datuak ikusi eta aldatu ezin izan ditzan, informazio pertsonala barne.</translation>
-<translation id="8207657266087451193">Irudiren batek ez badu azalpen lagungarririk, halako bat lortzen ahaleginduko da Browther. Azalpen horiek sortzeko, irudiak Browther-ri bidaltzen zaizkio. Aukera hori desaktibatu nahi baduzu, joan ezarpenetara.</translation>
-<translation id="7792526144795244436">Browther-en beste profil batekin hasi nahi duzu saioa?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther-ek abisatu egiten dizu<ph name="END_LINK"/> webgune edo deskarga bat segurua ez bada</translation>
-<translation id="8060549744348950090">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION"/> erabiltzeko baimena kendu dio.</translation>
-<translation id="7402663241490331652">Arakatu produktuak, itzuli testua eta identifikatu ikusten duzuna kamerarekin iOS-erako Browther aplikazioan</translation>
+<translation id="1083711467946065278">Kamera erabiltzeko, eman baimena Browther-i <ph name="BEGIN_LINK"/>sistemaren ezarpenetan<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">Browther-ek ezin du egiaztatu luzapena nondik datorren, eta baliteke segurua ez izatea. Ken ezazu Browther-etik, bisitatzen dituzun webguneetan zure datuak ikusi eta aldatu ezin izan ditzan, informazio pertsonala barne.</translation>
+<translation id="1122818205373648656">Irudiren batek ez badu azalpen lagungarririk, halako bat lortzen ahaleginduko da Browther. Azalpen horiek sortzeko, irudiak Browther-ri bidaltzen zaizkio. Aukera hori desaktibatu nahi baduzu, joan ezarpenetara.</translation>
+<translation id="6877990294324319801">Browther-en beste profil batekin hasi nahi duzu saioa?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther-ek abisatu egiten dizu<ph name="END_LINK"/> webgune edo deskarga bat segurua ez bada</translation>
+<translation id="1685486387921540822">Azkenaldian ez duzu bisitatu webgune hau. Browther-ek <ph name="PERMISSION"/> erabiltzeko baimena kendu dio.</translation>
+<translation id="8921153410460268589">Arakatu produktuak, itzuli testua eta identifikatu ikusten duzuna kamerarekin iOS-erako Browther aplikazioan</translation>
 <translation id="8313851650939857356">Abiarazte-errorea: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Erakundeak Browther ixten du <ph name="TIMEOUT_DURATION"/>z erabiltzen ez denean.</translation>
+<translation id="7386947683604296534">Erakundeak Browther ixten du <ph name="TIMEOUT_DURATION"/>z erabiltzen ez denean.</translation>
 <translation id="8321888067342493336">Gorde irudi gisa</translation>
-<translation id="3360368475735266712">Hasi saioa Browther gailu guztietan sinkronizatu eta pertsonalizatzeko</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> Browther erabiltzen ari da lehendik ere</translation>
-<translation id="5592122595094519401">Browther-eko datuak Browther-ko kontuan (<ph name="ACCOUNT_EMAIL"/>) erabiltzen jarraitzeko, eguneratu Browther</translation>
-<translation id="2569754604093464025">Etorkizunean Browther-en eguneratzeak eskuratzeko, Windows 10 edo bertsio berriago bat beharko duzu. Ordenagailua Windows 8 erabiltzen ari da.</translation>
+<translation id="143016831128278157">Hasi saioa Browther gailu guztietan sinkronizatu eta pertsonalizatzeko</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> Browther erabiltzen ari da lehendik ere</translation>
+<translation id="1288164710697017468">Browther-eko datuak Browther-ko kontuan (<ph name="ACCOUNT_EMAIL"/>) erabiltzen jarraitzeko, eguneratu Browther</translation>
+<translation id="8648401677359150296">Etorkizunean Browther-en eguneratzeak eskuratzeko, Windows 10 edo bertsio berriago bat beharko duzu. Ordenagailua Windows 8 erabiltzen ari da.</translation>
 <translation id="8362914115861174987">Itzuli hizkuntza honetara:</translation>
 <translation id="8367705492654390392">Galdetu edozer</translation>
-<translation id="7296197595428914424">Pasahitzak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en. Saioa hasi ondoren, pasahitz hau zure Browther-ko kontuan gordeko da.</translation>
-<translation id="9098234372282930719">Browther berrabiarazi beharko duzu ondoren.</translation>
-<translation id="1327729221471951979">Kentzea gomendatzen dizu Browther-ek. <ph name="BEGIN_LINK"/>Lortu onartzen diren luzapenei buruzko informazio gehiago<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Garatzaileak luzapena desargitaratu du, eta agian ez da segurua. Ken ezazu Browther-etik, bisitatzen dituzun webguneetan zure datuak ikusi eta aldatu ezin izan ditzan, informazio pertsonala barne.</translation>
-<translation id="4234753748520037091">Browther-ek zeu zarela egiaztatu behar du datu batzuk zure Browther-ko kontuan gorde eta gailu guztietan erabili baino lehen. Orain amaitzen baduzu saioa, ezabatu egingo dira datuak.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Exekutatu Browther berriro egun bateko epean}other{Exekutatu Browther berriro # eguneko epean}}</translation>
+<translation id="5769022907892823357">Pasahitzak eta bestelako datuak zure gailu guztietan gordeta edukitzeko, hasi saioa Browther-en. Saioa hasi ondoren, pasahitz hau zure Browther-ko kontuan gordeko da.</translation>
+<translation id="4782442810031768771">Browther berrabiarazi beharko duzu ondoren.</translation>
+<translation id="8265348385714408341">Kentzea gomendatzen dizu Browther-ek. <ph name="BEGIN_LINK"/>Lortu onartzen diren luzapenei buruzko informazio gehiago<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Garatzaileak luzapena desargitaratu du, eta agian ez da segurua. Ken ezazu Browther-etik, bisitatzen dituzun webguneetan zure datuak ikusi eta aldatu ezin izan ditzan, informazio pertsonala barne.</translation>
+<translation id="1613655732912855341">Browther-ek zeu zarela egiaztatu behar du datu batzuk zure Browther-ko kontuan gorde eta gailu guztietan erabili baino lehen. Orain amaitzen baduzu saioa, ezabatu egingo dira datuak.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Exekutatu Browther berriro egun bateko epean}other{Exekutatu Browther berriro # eguneko epean}}</translation>
 <translation id="8438543370129609977">Irudi-bilaketa erabiltzen duzunean, orriaren izena, URLa eta edukia, PDFak barne, zerbitzariari bidaltzen zaizkio. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Lortu Browther-en irudi-bilaketa erabiltzeari buruzko informazio gehiago</translation>
-<translation id="6914496861676471566">Instalatzailearen artxiboa hondatuta dago edo baliogabea da. Deskargatu Browther berriro.</translation>
-<translation id="4378573854226202617">Windows 10 edo sistema berriagoa behar da Browther erabiltzeko.</translation>
-<translation id="6431861494713261006">Aukerakoa: lagundu Chrome OS-ren eginbideak eta errendimendua hobetzen Browther-ri diagnostiko- eta erabilera-datuak automatikoki bidalita.</translation>
-<translation id="8691137711639873980">Browther-eko datuak Browther-ko kontuan gordetzeko eta erabiltzeko, egiaztatu zeu zarela</translation>
-<translation id="3251012123600267109">Browther-n saioa hasteko eskaera-mezuak erakusten ditu</translation>
-<translation id="2097604701283463988">Browther zaharkituta dago</translation>
-<translation id="6080203201796279095">Eskerrik asko Browther arakatzaile lehenetsi gisa aukeratzeagatik!</translation>
-<translation id="871233388178581868">Gordetzen dituzun pasahitzak egiaztatzeko gai da Browther</translation>
-<translation id="3667461919057407535">Jaso abisu bat Browther-ek zure pasahitzetako bat datuen isilpekotasunaren urratze publiko batean aurkitzen badu</translation>
+<translation id="3550129882823305293">Lortu Browther-en irudi-bilaketa erabiltzeari buruzko informazio gehiago</translation>
+<translation id="1401757916223057494">Instalatzailearen artxiboa hondatuta dago edo baliogabea da. Deskargatu Browther berriro.</translation>
+<translation id="5029760494698649486">Windows 10 edo sistema berriagoa behar da Browther erabiltzeko.</translation>
+<translation id="7906734902028783072">Aukerakoa: lagundu Chrome OS-ren eginbideak eta errendimendua hobetzen Browther-ri diagnostiko- eta erabilera-datuak automatikoki bidalita.</translation>
+<translation id="6791756730901393492">Browther-eko datuak Browther-ko kontuan gordetzeko eta erabiltzeko, egiaztatu zeu zarela</translation>
+<translation id="4879869745782826167">Browther-n saioa hasteko eskaera-mezuak erakusten ditu</translation>
+<translation id="2967761098021401720">Browther zaharkituta dago</translation>
+<translation id="7674832651694000881">Eskerrik asko Browther arakatzaile lehenetsi gisa aukeratzeagatik!</translation>
+<translation id="4507581730979762077">Gordetzen dituzun pasahitzak egiaztatzeko gai da Browther</translation>
+<translation id="7205233182271132386">Jaso abisu bat Browther-ek zure pasahitzetako bat datuen isilpekotasunaren urratze publiko batean aurkitzen badu</translation>
 <translation id="8555465886620020932">Zerbitzuaren errorea: <ph name="SERVICE_ERROR"/></translation>
 <translation id="8556420416730706394">Irudi-bilaketa erraz erabiltzeko, aingura ezazu. Horretarako, sakatu ainguratzeko botoia alboko panelaren goialdean.</translation>
 <translation id="856656450041460113">Bilatu hizkuntzen zerrendan</translation>
-<translation id="227028348235968071">Browther-ko kontu batekin saioa hasten duzunean egiazta ditzake Browther-ek pasahitzak</translation>
-<translation id="839677568225616901">Erakunde batek baino gehiagok kudeatzen dute Browther</translation>
-<translation id="8121009781989288430">Copyright © <ph name="YEAR"/> Browther-en egileak. Eskubide guztiak erreserbatuta.</translation>
+<translation id="75470458211269379">Browther-ko kontu batekin saioa hasten duzunean egiazta ditzake Browther-ek pasahitzak</translation>
+<translation id="2108930010779660436">Erakunde batek baino gehiagok kudeatzen dute Browther</translation>
+<translation id="7209630341463003999">Copyright © <ph name="YEAR"/> Browther-en egileak. Eskubide guztiak erreserbatuta.</translation>
 <translation id="8601359445272098721">Berria! Pantailan bertan itzuli ditzakezu testuak zein irudiak, "itzuli pantaila" botoia hautatuta.</translation>
-<translation id="3052349005266761501">Browther abiarazten…</translation>
+<translation id="782928371899183269">Browther abiarazten…</translation>
 <translation id="8624541899164515475">Ezarpenak, beste fitxa batean irekitzen da.</translation>
-<translation id="5128665650717824082">Browther for Testing ezin da ezarri arakatzaile lehenetsi gisa.</translation>
+<translation id="5879341334716115002">Browther for Testing ezin da ezarri arakatzaile lehenetsi gisa.</translation>
 <translation id="2433912322225810055">Browther hasten duzunean edo Omnibox-etik bilaketak egiten dituzunean erakusten den orria ere kontrolatzen du.</translation>
-<translation id="4100716194836114130">Hau da zure Browther arakatzailea</translation>
+<translation id="4816541973978692496">Hau da zure Browther arakatzailea</translation>
 <translation id="8712637175834984815">Ados</translation>
-<translation id="1419543648228375718">Browther-en saioa hasi nahi duzu?</translation>
-<translation id="4891728458408976811">Mantendu dena Browther-en</translation>
+<translation id="9037464035997618895">Browther-en saioa hasi nahi duzu?</translation>
+<translation id="7897185368811431919">Mantendu dena Browther-en</translation>
 <translation id="8747073452963259673">bilaketa-eremuaren beheko ezkerreko ertza: % <ph name="LEFT"/> ezkerrean, % <ph name="BOTTOM"/> behean</translation>
 <translation id="878572486461146056">Instalazio-errorea: zure sarearen administratzaileak talde-gidalerro bat ezarri du, edozer instalatzea eragozten duena (<ph name="INSTALL_ERROR"/>)</translation>
-<translation id="4831743161813926460">Browther-ek webgune honen izenean kamera eta mikrofonoa erabiltzeko baimena behar du</translation>
+<translation id="1576369213923770885">Browther-ek webgune honen izenean kamera eta mikrofonoa erabiltzeko baimena behar du</translation>
 <translation id="8813277370772331957">Gogorarazi geroago</translation>
-<translation id="64216977793816291">Browther-en saioa hasi nahi duzu?</translation>
-<translation id="7447364954121496869">Ezarri Browther arakatzaile lehenetsi gisa eta aingura ezazu zereginen barran</translation>
+<translation id="6831999464349484462">Browther-en saioa hasi nahi duzu?</translation>
+<translation id="3698151322107951111">Ezarri Browther arakatzaile lehenetsi gisa eta aingura ezazu zereginen barran</translation>
 <translation id="8826492472752484139">Sakatu Pasahitz-kudeatzailea</translation>
 <translation id="6933858244219479645">Chrome OS sistema</translation>
-<translation id="9084132286318231275">Browther-en menuak, ezarpenak, alertak eta bestelako testuak bistaratzeko erabiltzen da hizkuntza hau</translation>
+<translation id="3986927308621489499">Browther-en menuak, ezarpenak, alertak eta bestelako testuak bistaratzeko erabiltzen da hizkuntza hau</translation>
 <translation id="8862326446509486874">Ez dituzu eskubide egokiak sistema mailako instalazio bat egiteko. Saiatu instalatzailea administratzaile gisa abiarazten.</translation>
-<translation id="7289323009146924152">Gehitu Browther-eko profil bat</translation>
-<translation id="6412037018950369131">Hala bada, editatu Browther-en gordetako pasahitza, berriarekin bat etor dadin.</translation>
-<translation id="1150745254876977823">Browther-en saioa hasteko eskatzen dizu zure erakundeak</translation>
-<translation id="8285294305439559616">Browther pasahitzak erakusten saiatzen ari da. Hori baimentzeko, idatzi Windows pasahitza.</translation>
-<translation id="4684884244620579559">Browther jada ez da arakatzaile lehenetsia. Browther arakatzaile lehenetsi gisa ezarri nahi duzu?</translation>
-<translation id="6389268239133412586">Ezin da eguneratu Browther</translation>
-<translation id="7731184591599776500">Browther Enterprise-ren logotipoa</translation>
-<translation id="6500340165622970282">Ezin da abiarazi Browther, arazo bat izan delako profila irekitzean. Berrabiarazi Browther.</translation>
-<translation id="3424657754843264466">Kudeatu Browther-eko profilak</translation>
-<translation id="7055223246119657449">Browther-ek deskarga hau blokeatu du, artxibo-fitxategi honek beste fitxategi batzuk dituelako, eta agian haietan malwarea dagoelako</translation>
-<translation id="9049928023195059068">Hasi saioa Browther-en Browther-ren beste zerbitzuetan saioa hasten duzunean</translation>
-<translation id="4561046754724442504">Browther automatikoki itxi da</translation>
-<translation id="5173820533850252773">Browther zaharkituta dago</translation>
-<translation id="310518206836658214">{0,plural, =1{Ordubete barru exekutatuko da Browther berriro}other{# ordu barru exekutatuko da Browther berriro}}</translation>
+<translation id="5318226144018267261">Gehitu Browther-eko profil bat</translation>
+<translation id="1298790608554316415">Hala bada, editatu Browther-en gordetako pasahitza, berriarekin bat etor dadin.</translation>
+<translation id="960933321883777733">Browther-en saioa hasteko eskatzen dizu zure erakundeak</translation>
+<translation id="948979409756947611">Browther pasahitzak erakusten saiatzen ari da. Hori baimentzeko, idatzi Windows pasahitza.</translation>
+<translation id="1418854271943945136">Browther jada ez da arakatzaile lehenetsia. Browther arakatzaile lehenetsi gisa ezarri nahi duzu?</translation>
+<translation id="7228667329366610727">Ezin da eguneratu Browther</translation>
+<translation id="4817697255467736794">Browther Enterprise-ren logotipoa</translation>
+<translation id="3507731466523097529">Ezin da abiarazi Browther, arazo bat izan delako profila irekitzean. Berrabiarazi Browther.</translation>
+<translation id="3234473600657230663">Kudeatu Browther-eko profilak</translation>
+<translation id="8953887022581653484">Browther-ek deskarga hau blokeatu du, artxibo-fitxategi honek beste fitxategi batzuk dituelako, eta agian haietan malwarea dagoelako</translation>
+<translation id="532304972436358335">Hasi saioa Browther-en Browther-ren beste zerbitzuetan saioa hasten duzunean</translation>
+<translation id="3425998261052065067">Browther automatikoki itxi da</translation>
+<translation id="4377377022617011492">Browther zaharkituta dago</translation>
+<translation id="3247296757162889864">{0,plural, =1{Ordubete barru exekutatuko da Browther berriro}other{# ordu barru exekutatuko da Browther berriro}}</translation>
 <translation id="9106236359747881194">Hautatu bilatu beharreko testua</translation>
-<translation id="5190991181158966940">Etorkizunean Browther-en eguneratzeak eskuratzeko, Windows 10 edo bertsio berriago bat beharko duzu. Ordenagailu hau Windows 8.1 erabiltzen ari da.</translation>
-<translation id="7863882214613921971">Ireki esteka Browther-eko beste &amp;fitxa batean</translation>
+<translation id="5115014198092384730">Etorkizunean Browther-en eguneratzeak eskuratzeko, Windows 10 edo bertsio berriago bat beharko duzu. Ordenagailu hau Windows 8.1 erabiltzen ari da.</translation>
+<translation id="7129101984664345614">Ireki esteka Browther-eko beste &amp;fitxa batean</translation>
 <translation id="911206726377975832">Arakatze-datuak ere ezabatu nahi dituzu?</translation>
 <translation id="9134482777260927479">Laguntza etxeko lanekin</translation>
 <translation id="9148058034647219655">Irten</translation>
-<translation id="2792073155252170448">Jarraitu utzi zenuen tokitik: Browther-ek fitxak lehenera ditzake berrabiarazten duzun bakoitzean. Aukera hori aktibatzeko, joan hona:</translation>
-<translation id="2444257125841652328">Sistemaren administratzailearen konfigurazioaren arabera, Browther-ek beste arakatzaile bat ireki behar du <ph name="TARGET_URL_HOSTNAME"/> helbidera joateko.</translation>
-<translation id="8208548103319284047">Browther-i buruzko aholkua: bilatu Lens bidez</translation>
-<translation id="7902365066753170041">Exekuta ezazu berriro &amp;Browther eguneratzeko</translation>
-<translation id="538146372587193686">Browther Origin (mDNS-In)</translation>
-<translation id="49909619875329637">Lortu abantaila gehiago Browther-en saioa hasita daukazunean</translation>
-<translation id="296137235951584143">Pertsonalizatu Browther</translation>
-<translation id="7977787072794666032">Browther-ek agian ez du behar bezala funtzionatuko, jada ez baita bateragarria Windows XP eta Windows Vista-rekin</translation>
+<translation id="1734388504720121468">Jarraitu utzi zenuen tokitik: Browther-ek fitxak lehenera ditzake berrabiarazten duzun bakoitzean. Aukera hori aktibatzeko, joan hona:</translation>
+<translation id="8633974232736772207">Sistemaren administratzailearen konfigurazioaren arabera, Browther-ek beste arakatzaile bat ireki behar du <ph name="TARGET_URL_HOSTNAME"/> helbidera joateko.</translation>
+<translation id="1122669402846843682">Browther-i buruzko aholkua: bilatu Lens bidez</translation>
+<translation id="595330134356385835">Exekuta ezazu berriro &amp;Browther eguneratzeko</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS-In)</translation>
+<translation id="6491100124044190139">Lortu abantaila gehiago Browther-en saioa hasita daukazunean</translation>
+<translation id="1665840797775025867">Pertsonalizatu Browther</translation>
+<translation id="4407047432656809023">Browther-ek agian ez du behar bezala funtzionatuko, jada ez baita bateragarria Windows XP eta Windows Vista-rekin</translation>
 <translation id="945522503751344254">Bidali oharrak</translation>
-<translation id="4484434718272972655">Nor erabiltzen ari da Browther?</translation>
-<translation id="7173394303099002355">Lortu Browther-en segurtasun-aukerarik sendoena</translation>
+<translation id="7620348044248809366">Nor erabiltzen ari da Browther?</translation>
+<translation id="7299962884342109067">Lortu Browther-en segurtasun-aukerarik sendoena</translation>
 <translation id="983803489796659991">Instalazioak huts egin du, eguneratze-zerbitzariak aplikaziorako hash-daturik ez duelako.</translation>
-<translation id="8435446479956716379">Erabili Browther konturik gabe</translation>
-<translation id="8992261409816268381">Browther egileak</translation>
+<translation id="8775461190334353148">Erabili Browther konturik gabe</translation>
+<translation id="7146761239544860058">Browther egileak</translation>
 <translation id="989970834842471429">Hautatu testu bat edo irudi bat, hura irudi-bilaketarekin bilatzeko</translation>
-<translation id="3146636448190445245">Kokapena erabiltzeko, eman baimena Browther-i <ph name="BEGIN_LINK"/>sistemaren ezarpenetan<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">Kokapena erabiltzeko, eman baimena Browther-i <ph name="BEGIN_LINK"/>sistemaren ezarpenetan<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Instalazioak huts egin du zehaztu gabeko errore batengatik. Deskargatu Browther berriro.</translation>
-<translation id="1743665722170667430">Iturri ezezaguneko luzapenek, aplikazioek eta gaiak zure gailua kaltetu dezakete. Braveri gomendatzen dizu instalatzea soilik <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>-tik</translation>
-<translation id="6184592406110188164">Luzapen honek Web Store politikak hausten ditu eta segurua ez izan daiteke. Ezabatu Browther-tik zure webguneetan ikusten eta aldatzen duen datuak blokeatzeko, zure informazio pertsonala barne.</translation>
-<translation id="1299765473362724475">Abisua: Braveren ezin dute luzapenak zure nabigazio historiatik grabatzea saihestu. Modu Pribatuan luzapen hau desgaitzeko, desmarkatu aukera hau.</translation>
-<translation id="1448049584457347995">Browther seguruagoa izan dadin, <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> zerrendan agertzen ez diren eta zure jakinaren gabe gehitu izan daitezkeen luzapen batzuk desgaitu ditugu.</translation>
-<translation id="8848045066928358658">Browther seguruagoa izan dadin, <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> zerrendan agertzen ez den eta zure jakinaren gabe gehitu izan daitekeen luzapen hau desgaitu dugu.</translation>
-<translation id="4624945300945265642">Ireki esteka Browther &amp;Pribatu leiho</translation>
-<translation id="6554952862405000915">Ireki Esteka Browther &amp;Pribatu Leihoan</translation>
-<translation id="8274659559228306809">{COUNT, plural, =0 {Braveri eskuragarri dago eguneraketa berri bat eta berrelan egiterakoan aplikatuko da.} =1 {Braveri eskuragarri dago eguneraketa berri bat eta berrelan egiterakoan aplikatuko da. Zure Pribatu leihoa ez da berriro ireki.} other {Braveri eskuragarri dago eguneraketa berri bat eta berrelan egiterakoan aplikatuko da. Zure # Pribatu leihoak ez dira berriro ireki.}}</translation>
-<translation id="3829358914761176693">{COUNT, plural, =0 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du.} =1 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure Pribatu leihoa ez da berriro ireki.} other {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure # Pribatu leihoak ez dira berriro ireki.}}</translation>
-<translation id="552349673358711446">{COUNT, plural, =0 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du.} =1 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure Pribatu leihoa ez da berriro ireki.} other {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure # Pribatu leihoak ez dira berriro ireki.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="5110032212554763592">Instalazioak huts egin du zehaztu gabeko errore batengatik. Deskargatu Browther berriro.</translation>
+<translation id="9074842261125908635">Iturri ezezaguneko luzapenek, aplikazioek eta gaiak zure gailua kaltetu dezakete. Braveri gomendatzen dizu instalatzea soilik <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>-tik</translation>
+<translation id="3593119910409528681">Luzapen honek Web Store politikak hausten ditu eta segurua ez izan daiteke. Ezabatu Browther-tik zure webguneetan ikusten eta aldatzen duen datuak blokeatzeko, zure informazio pertsonala barne.</translation>
+<translation id="5245976396374147971">Abisua: Braveren ezin dute luzapenak zure nabigazio historiatik grabatzea saihestu. Modu Pribatuan luzapen hau desgaitzeko, desmarkatu aukera hau.</translation>
+<translation id="3629539416935660172">Browther seguruagoa izan dadin, <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> zerrendan agertzen ez diren eta zure jakinaren gabe gehitu izan daitezkeen luzapen batzuk desgaitu ditugu.</translation>
+<translation id="157534302749986451">Browther seguruagoa izan dadin, <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> zerrendan agertzen ez den eta zure jakinaren gabe gehitu izan daitekeen luzapen hau desgaitu dugu.</translation>
+<translation id="3031052147361385845">Ireki esteka Browther &amp;Pribatu leiho</translation>
+<translation id="5556794247782664281">Ireki Esteka Browther &amp;Pribatu Leihoan</translation>
+<translation id="4555500675737067970">{COUNT, plural, =0 {Braveri eskuragarri dago eguneraketa berri bat eta berrelan egiterakoan aplikatuko da.} =1 {Braveri eskuragarri dago eguneraketa berri bat eta berrelan egiterakoan aplikatuko da. Zure Pribatu leihoa ez da berriro ireki.} other {Braveri eskuragarri dago eguneraketa berri bat eta berrelan egiterakoan aplikatuko da. Zure # Pribatu leihoak ez dira berriro ireki.}}</translation>
+<translation id="6181263681651521876">{COUNT, plural, =0 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du.} =1 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure Pribatu leihoa ez da berriro ireki.} other {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure # Pribatu leihoak ez dira berriro ireki.}}</translation>
+<translation id="1341091418019636353">{COUNT, plural, =0 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du.} =1 {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure Pribatu leihoa ez da berriro ireki.} other {Zure administratzaileak Braveri eguneraketa aplikatzeko berlan egitea eskatzen du. Zure # Pribatu leihoak ez dira berriro ireki.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {Advanced Protection funtzioak Browther berrabiaraztea eskatzen du eguneraketa bat ezartzeko}
               =1 {Advanced Protection funtzioak Browther berrabiaraztea eskatzen du eguneraketa bat ezartzeko. Zure Leiho Pribatua ez da berriro irekiko.}
               other {Advanced Protection funtzioak Browther berrabiaraztea eskatzen du eguneraketa bat ezartzeko. Zure # Leiho Pribatuak ez dira berriro irekiko.}}</translation>
 <translation id="5749154344207139683">Lagundu Private hobetzen minutu bateko inkesta hau eginez.</translation>
-<translation id="79269250264141507">Helbide-barran edo bilaketa-koadroan idazten duzunean, Bravek zuk idatzitakoa zure lehenetsitako bilatzaileari bidaltzen dio iradokizun hoberenak lortzeko. Hau Pribatuan itzalita dago.</translation>
-<translation id="2589970573128789862">Browther Pribatua</translation>
-<translation id="5994282802285556682">Modu Pribatuan nabigatzean, Bravek webgune bat konexio ez-seguru bat erabiltzen ari dela kargatu aurretik ohartaraziko zaitu.</translation>
+<translation id="6954203250660846933">Helbide-barran edo bilaketa-koadroan idazten duzunean, Bravek zuk idatzitakoa zure lehenetsitako bilatzaileari bidaltzen dio iradokizun hoberenak lortzeko. Hau Pribatuan itzalita dago.</translation>
+<translation id="3542179014707218534">Browther Pribatua</translation>
+<translation id="2076355018722231995">Modu Pribatuan nabigatzean, Bravek webgune bat konexio ez-seguru bat erabiltzen ari dela kargatu aurretik ohartaraziko zaitu.</translation>
 </translationbundle>

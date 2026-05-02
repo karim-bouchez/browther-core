@@ -188,7 +188,7 @@
 <translation id="834487290629916192">HILJEM</translation>
 <translation id="4117451092682672487">Privaatsus on nüüd lihtne.</translation>
 <translation id="5512887128063976049">Kui kasutate vaikimisi Browther'i, kasutatakse iga puudutatud lingi avamisel Browther'i privaatsuskaitseid.</translation>
-<translation id="5148943178722443958">Aidake Browther'i paremaks muuta.</translation>
+<translation id="9133910347634099679">Aidake Browther'i paremaks muuta.</translation>
 <translation id="6718362830686703942">Saatke diagnostikaaruanne, kui kogete krahhi minekut või hangumist.</translation>
 <translation id="7134864207653684195">Jagage täiesti privaatselt ja anonüümselt tooteteavet funktsioonide kohta, mida Browther'i kasutajad tarvitavad.</translation>
 <translation id="2888496576732880897">Aita Browther otsingul kasvada</translation>
@@ -959,7 +959,7 @@ Kui te selle taotlusega ei nõustu, siis VPN-i ühendust ei taastata ja teie int
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Lähtestamine vaikimisi seadistustele</translation>
 <translation id="4922034974043704366">See funktsioon on lubatud, sest te valisite selle kasutamise.</translation>
-<translation id="3144818380093107753">Browther Origin on tellimuspõhine viis, kuidas keelata tulu teenivad funktsioonid, mis muidu toetavad Browther'i kui äri. Browther Origin'i tellijad saavad jätkuvalt kasu meie valdkonna juhtivast privaatsusest, reklaamblokeerimisest ja kiirusest (Brave Shieldsi kaudu), samuti regulaarsetest tarkvarauuendustest, Chromiumi parandustest ning turvalisuse ja privaatsuse parandustest. Samuti avavad nad võimaluse keelata sellised funktsioonid nagu Browther Leo, Uudised, preemiad, rahakott, VPN, Web3-domeenid ja muud.&lt;br/&gt;&lt;br/&gt;Tellijatele avaneb brauseri seadete menüüs uus juhtpaneel. Olemasolevad funktsioonid - ja ka kõik uued funktsioonid, mida me tulevikus tarnime - ilmuvad siia ja on vaikimisi välja lülitatud.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Märkus: Browther Origin ei lülita välja brauserifunktsioone, mida te praegu kasutate, ega mõjuta Brave Searchi funktsioone ega Brave Searchi reklaame.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin on tellimuspõhine viis, kuidas keelata tulu teenivad funktsioonid, mis muidu toetavad Browther'i kui äri. Browther Origin'i tellijad saavad jätkuvalt kasu meie valdkonna juhtivast privaatsusest, reklaamblokeerimisest ja kiirusest (Browther Shieldsi kaudu), samuti regulaarsetest tarkvarauuendustest, Chromiumi parandustest ning turvalisuse ja privaatsuse parandustest. Samuti avavad nad võimaluse keelata sellised funktsioonid nagu Browther Leo, Uudised, preemiad, rahakott, VPN, Web3-domeenid ja muud.&lt;br/&gt;&lt;br/&gt;Tellijatele avaneb brauseri seadete menüüs uus juhtpaneel. Olemasolevad funktsioonid - ja ka kõik uued funktsioonid, mida me tulevikus tarnime - ilmuvad siia ja on vaikimisi välja lülitatud.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Märkus: Browther Origin ei lülita välja brauserifunktsioone, mida te praegu kasutate, ega mõjuta Brave Searchi funktsioone ega Brave Searchi reklaame.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Logi sisse Browther’i rahakotiga</translation>
 <translation id="7380890081275286865">Logite sisse kohta <ph name="ORIGIN"/>. Browther’i rahakott jagab teie rahakotiaadressi ressursiga <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Kuva üksikasjad</translation>

@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">啟用 Browther 通知功能，以賺取 Browther 獎勵。</translation>
 <translation id="4714541943538330">開啟「設定」，並開啟裝置上的 Browther Ads 通知。</translation>
 <translation id="7341107637383044975">開啟 Browther 通知</translation>
-<translation id="9063439289570656162">啟用/停用 Brave Shields</translation>
+<translation id="9063439289570656162">啟用/停用 Browther Shields</translation>
 <translation id="15346379325756892">進入畫中畫模式</translation>
 <translation id="6945863270524203017">獲取有關跟蹤器與廣告攔截的每週私隱更新。</translation>
 <translation id="4324735664183300693">開啟通知</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">稍後</translation>
 <translation id="4117451092682672487">輕鬆捍衛個人隱私。</translation>
 <translation id="5512887128063976049">只要將 Browther 設為預設瀏覽器，您輕觸的每個連結都會在 Browther 的隱私保護功能下開啟。</translation>
-<translation id="5148943178722443958">協助提升 Browther 品質。</translation>
+<translation id="9133910347634099679">協助提升 Browther 品質。</translation>
 <translation id="6718362830686703942">系統當機或停止回應時傳送診斷報告。</translation>
 <translation id="7134864207653684195">分享不公開的匿名產品深入分析，指出 Browther 使用者正在使用哪些功能。</translation>
 <translation id="2888496576732880897">幫助 Browther 搜尋成長</translation>
 <translation id="7044431516245362795">選擇加入「網路探索計畫」，以幫助索引成長並改善搜尋結果。 <ph name="LEARN_MORE_START"/>了解更多資訊。<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">沒問題，我願意協助</translation>
-<translation id="7443712250454754077">輕觸以查看 Brave Shields</translation>
+<translation id="7443712250454754077">輕觸以查看 Browther Shields</translation>
 <translation id="118577974285037669">查看 Browther 使用 Shields 在每個頁面上封鎖的所有惡意內容。</translation>
 <translation id="5386259141409498372">已封鎖 <ph name="BIG_TECH"/> 和其他 <ph name="TRACKER"/> 個廣告和追蹤器</translation>
 <translation id="7256200875155794202">已封鎖 <ph name="BIG_TECH"/> 以及其他廣告和追蹤器</translation>
@@ -411,7 +411,7 @@
 <translation id="769702552748212954">允許所有指紋追蹤</translation>
 <translation id="876424292214881779">已封鎖廣告與其他令人毛骨悚然的東西</translation>
 <translation id="2709945082202062860">網站時常含有 Cookie 和程式碼，這些程式會嘗試辨認您的身分和裝置。此設計是要識別您的身分，並追蹤您在網路上各個網站的使用情形。\n\nBrave 會封鎖這些程式，讓您在瀏覽網路期間不受追蹤。</translation>
-<translation id="5695422144228065490">關於 Brave Shields</translation>
+<translation id="5695422144228065490">關於 Browther Shields</translation>
 <translation id="8912304686498704084">开启</translation>
 <translation id="4963218453264888510">关闭</translation>
 <translation id="5721161384090584434">您正在沒有受到 Browther 的隱私保護下瀏覽此網站。是因為 Shields up 功能哪裡出錯了嗎？</translation>

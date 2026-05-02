@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Schakel meldingen van Browther in om Browther Rewards te ontvangen.</translation>
 <translation id="4714541943538330">Open Instellingen en zet de apparaatmeldingen voor Browther Ads aan.</translation>
 <translation id="7341107637383044975">Zet Browther-meldingen aan</translation>
-<translation id="9063439289570656162">Schakel Brave Shields in/uit</translation>
+<translation id="9063439289570656162">Schakel Browther Shields in/uit</translation>
 <translation id="15346379325756892">Naar de beeld-in-beeld modus gaan</translation>
 <translation id="6945863270524203017">Ontvang wekelijks privacy-updates voor tracker- en advertentieblokkering.</translation>
 <translation id="4324735664183300693">Meldingen aanzetten</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">Functies</translation>
 <translation id="1919345977826869612">Advertenties</translation>
 <translation id="2839742394543397416">Analytics</translation>
-<translation id="5644165410146827297">Brave Shields en privacy</translation>
+<translation id="5644165410146827297">Browther Shields en privacy</translation>
 <translation id="4692623383562244444">Zoekmachines</translation>
 <translation id="1468415711258933398">Standaard Tab</translation>
 <translation id="3377025655491224618">Privétabblad</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">Sites kunnen via cookies van derden vragen om een verouderd Google-inlogproces te gebruiken</translation>
 <translation id="2903783737778379345">Geef geen toestemming voor het gebruik van een verouderd Google-inlogproces via cookies van derden</translation>
 <translation id="6880817299303842099">Toestemming voor het gebruik van een verouderd Google-inlogproces via cookies van derden</translation>
-<translation id="8266435325778969511">Standaardinstellingen van Brave Shields</translation>
+<translation id="8266435325778969511">Standaardinstellingen van Browther Shields</translation>
 <translation id="2675679258824361492">Andere privacy-instellingen</translation>
 <translation id="8026334261755873520">Browsegegevens wissen</translation>
 <translation id="1690924763769415936">Op achtergrond afspelen</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">LATER</translation>
 <translation id="4117451092682672487">Privacy, eenvoudig geregeld.</translation>
 <translation id="5512887128063976049">Met Browther als standaardbrowser worden de privacyfuncties van Browther geopend voor elke koppeling waar u op tikt.</translation>
-<translation id="5148943178722443958">Help ons Browther beter te maken.</translation>
+<translation id="9133910347634099679">Help ons Browther beter te maken.</translation>
 <translation id="6718362830686703942">Verzend diagnostische rapporten als uw systeem crasht of vastloopt.</translation>
 <translation id="7134864207653684195">Deel anonieme productinzichten over welke functies worden gebruikt door de gebruikers van Browther.</translation>
 <translation id="2888496576732880897">Help Brave Search groeien</translation>
 <translation id="7044431516245362795">Neem deel aan het Web Discovery Project om de index te helpen groeien en de zoekresultaten te verbeteren. <ph name="LEARN_MORE_START"/>Meer informatie.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Natuurlijk, ik wil helpen</translation>
-<translation id="7443712250454754077">Tik om Brave Shields te bekijken</translation>
+<translation id="7443712250454754077">Tik om Browther Shields te bekijken</translation>
 <translation id="118577974285037669">Bekijk alles wat Browther heeft geblokkeerd op alle pagina's met Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> en nog <ph name="TRACKER"/> advertenties en trackers geblokkeerd</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> en andere advertenties en trackers geblokkeerd</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Overslaan</translation>
 <translation id="6165508094623778733">Meer Leren</translation>
 <translation id="986879628471635371">Problemen met onboarding oplossingen</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Verdien <ph name="TOKEN"/>s</translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">door advertenties te bekijken die privacy in acht nemen en uw favoriete sites en makers bij standaard ondersteunen.</translation>
@@ -408,7 +408,7 @@ Weet je zeker dat je dit wilt doen?</translation>
 <translation id="769702552748212954">Sta alle vingerafdrukken toe</translation>
 <translation id="876424292214881779">Advertenties en andere griezelige dingen zijn geblokkeerd</translation>
 <translation id="2709945082202062860">Sites gebruiken vaak cookies en scripts die jou en je apparaat proberen te identificeren. Ze willen achterhalen wie je bent, je volgen op het web en bijhouden wat je op elke site doet.\n\nBrave blokkeert deze acties zodat je kunt browsen zonder dat iemand je volgt.</translation>
-<translation id="5695422144228065490">Over Brave Shields</translation>
+<translation id="5695422144228065490">Over Browther Shields</translation>
 <translation id="8912304686498704084">BOVEN</translation>
 <translation id="4963218453264888510">BENEDEN</translation>
 <translation id="5721161384090584434">Je surft op deze site zonder de privacybescherming van Browther. Werkt het niet goed als Shields aan staat?</translation>
@@ -958,7 +958,7 @@ Als je dit verzoek niet accepteert, maakt VPN niet opnieuw verbinding en is je i
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Terugzetten op standaardwaarden</translation>
 <translation id="4922034974043704366">Deze functie is ingeschakeld omdat u ervoor hebt gekozen</translation>
-<translation id="3144818380093107753">Browther Origin is een abonnementsgebaseerde manier om de inkomstengenererende functies uit te schakelen die anders Browther als bedrijf ondersteunen. Browther Origin-abonnees zullen blijven profiteren van onze toonaangevende privacy, adblock en snelheid (via Brave Shields), evenals regelmatige software-updates, Chromium-patches en beveiligings- en privacyverbeteringen. Ze krijgen ook de optie om functies zoals Browther Leo, Nieuws, Beloningen, Portemonnee, VPN, Web3 domeinen en meer uit te schakelen.&lt;br/&gt;&lt;br/&gt;Abonnees zullen een nieuw bedieningspaneel zien in het menu met browserinstellingen. Bestaande functies - en alle nieuwe functies die we in de toekomst zullen leveren - zullen hier verschijnen en standaard uitgeschakeld worden.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Opmerking: Browther Origin zal geen browserfuncties uitschakelen die u momenteel gebruikt, en zal geen invloed hebben op Browther Zoekfuncties of Browther Zoekadvertenties.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin is een abonnementsgebaseerde manier om de inkomstengenererende functies uit te schakelen die anders Browther als bedrijf ondersteunen. Browther Origin-abonnees zullen blijven profiteren van onze toonaangevende privacy, adblock en snelheid (via Browther Shields), evenals regelmatige software-updates, Chromium-patches en beveiligings- en privacyverbeteringen. Ze krijgen ook de optie om functies zoals Browther Leo, Nieuws, Beloningen, Portemonnee, VPN, Web3 domeinen en meer uit te schakelen.&lt;br/&gt;&lt;br/&gt;Abonnees zullen een nieuw bedieningspaneel zien in het menu met browserinstellingen. Bestaande functies - en alle nieuwe functies die we in de toekomst zullen leveren - zullen hier verschijnen en standaard uitgeschakeld worden.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Opmerking: Browther Origin zal geen browserfuncties uitschakelen die u momenteel gebruikt, en zal geen invloed hebben op Browther Zoekfuncties of Browther Zoekadvertenties.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Inloggen bij Browther Wallet</translation>
 <translation id="7380890081275286865">U logt in bij <ph name="ORIGIN"/>. Browther-wallet deelt uw wallet-adres met <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Gegevens bekijken</translation>

@@ -3,118 +3,118 @@
 <translationbundle lang="hu">
 <translation id="1026101648481255140">Telepítés folytatása</translation>
 <translation id="7099479769133613710">Indítsa újra a ChromeOS frissítéséhez</translation>
-<translation id="2479110114759182442">A Browther a bővítmény ellenőrzését javasolja</translation>
-<translation id="3814674848168165531">Ha valamely webhely a linkek privát módon való előtöltését kéri az oldalán, a Browther a Browther szervereit használja. Ez a művelet elrejti az Ön személyazonosságát az előtöltött webhely elől, de a Browther értesül arról, hogy mely webhelyek töltődnek be előre.</translation>
+<translation id="7264054672589027446">A Browther a bővítmény ellenőrzését javasolja</translation>
+<translation id="7848219163187166649">Ha valamely webhely a linkek privát módon való előtöltését kéri az oldalán, a Browther a Browther szervereit használja. Ez a művelet elrejti az Ön személyazonosságát az előtöltött webhely elől, de a Browther értesül arról, hogy mely webhelyek töltődnek be előre.</translation>
 <translation id="1065672644894730302">A beállításait nem sikerült olvasni. Egyes funkciókat esetleg nem ér el, és a beállításaiban végrehajtott módosításokat nem menti a rendszer.</translation>
-<translation id="7577672138294294152">Szülőd kikapcsolta a Browther „Engedélyek webhelyek, alkalmazások és bővítmények számára” beállítását.</translation>
-<translation id="5918095577778020936">A Browther exportálni szeretné a jelszavakat. Ennek engedélyezéséhez írja be Windows-jelszavát.</translation>
+<translation id="8837164267124113709">Szülőd kikapcsolta a Browther „Engedélyek webhelyek, alkalmazások és bővítmények számára” beállítását.</translation>
+<translation id="881513728707488138">A Browther exportálni szeretné a jelszavakat. Ennek engedélyezéséhez írja be Windows-jelszavát.</translation>
 <translation id="112640046208448578">Azonosíthat dolgokat és helyeket, valamint szöveget másolhat vagy fordíthat le. A Képkereső használatakor a rendszer elküldi az oldal képernyőképét a szervernek. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">A Browther az alapértelmezett böngésző</translation>
-<translation id="8522292744959221145">Ha ellenőrizni szeretné, hogy jelszavai biztonságban vannak-e az adatvédelmi incidensektől és más biztonsági problémáktól, <ph name="BEGIN_LINK"/>jelentkezzen be a Braveba<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Kattintson a Browther-menüre</translation>
+<translation id="8280092658684559253">A Browther az alapértelmezett böngésző</translation>
+<translation id="6580138787163923852">Ha ellenőrizni szeretné, hogy jelszavai biztonságban vannak-e az adatvédelmi incidensektől és más biztonsági problémáktól, <ph name="BEGIN_LINK"/>jelentkezzen be a Braveba<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Kattintson a Browther-menüre</translation>
 <translation id="1157985233335035034">A legutóbbi nyelvek</translation>
-<translation id="7813580490378477695">A(z) <ph name="PARTNER_NAME"/> olyan bővítményt adott hozzá, amely módosíthatja a Browther működését.
+<translation id="3673786631598474384">A(z) <ph name="PARTNER_NAME"/> olyan bővítményt adott hozzá, amely módosíthatja a Browther működését.
 
 <ph name="EXTENSION_NAME"/>.</translation>
 <translation id="1184145431117212167">A telepítés meghiúsult, mert az Ön által használt Windows-verzió nem támogatott.</translation>
-<translation id="8541922081612557424">A Browther névjegye</translation>
+<translation id="8291401179516272335">A Browther névjegye</translation>
 <translation id="1203500561924088507">Köszönjük, hogy elvégezte a telepítést. A(z) <ph name="BUNDLE_NAME"/> használata előtt újra kell indítania a böngészőt.</translation>
 <translation id="1232234696885483911">A képkereső megnyitásakor a rendszer automatikusan elküldi az oldal címét, URL-jét és tartalmát (beleértve a PDF-eket is) a szervernek. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Amíg be van jelentkezve, használhatja a Browther-fiókjában tárolt jelszavait és egyéb tartalmait a Braveban. A módosításhoz lépjen „Az Ön fiókja a Braveban” részhez.</translation>
-<translation id="8799570501820813406">Amíg ez a lap inaktív volt, a rendszer memóriát szabadított fel, hogy a Browther gyors maradjon. Dönthet úgy, hogy mindig kizárja ezt a webhelyet az inaktív állapotból.</translation>
-<translation id="8767381092474532098">A Browther letiltotta ezt a letöltést, mert a fájl veszélyes</translation>
-<translation id="3256289531845594061">Amikor <ph name="USER_EMAIL"/> fiókjával bejelentkezik a Browther-szolgáltatásokba (például a Gmailbe vagy a YouTube-ba), ugyanazzal a fiókkal automatikusan bejelentkezhet a Braveba is.</translation>
+<translation id="3496831315930641015">Amíg be van jelentkezve, használhatja a Browther-fiókjában tárolt jelszavait és egyéb tartalmait a Braveban. A módosításhoz lépjen „Az Ön fiókja a Braveban” részhez.</translation>
+<translation id="9034321258761608912">Amíg ez a lap inaktív volt, a rendszer memóriát szabadított fel, hogy a Browther gyors maradjon. Dönthet úgy, hogy mindig kizárja ezt a webhelyet az inaktív állapotból.</translation>
+<translation id="249571811018731941">A Browther letiltotta ezt a letöltést, mert a fájl veszélyes</translation>
+<translation id="8850227089720975601">Amikor <ph name="USER_EMAIL"/> fiókjával bejelentkezik a Browther-szolgáltatásokba (például a Gmailbe vagy a YouTube-ba), ugyanazzal a fiókkal automatikusan bejelentkezhet a Braveba is.</translation>
 <translation id="1290883685122687410">Beállítási hiba: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/>.</translation>
-<translation id="4798342026247191171">Új Browther-profil beállítása</translation>
-<translation id="878572309106296578">A Bravenak Bluetooth-hozzáférésre van szüksége a 
+<translation id="6235774143043174856">Új Browther-profil beállítása</translation>
+<translation id="4437862975743821367">A Bravenak Bluetooth-hozzáférésre van szüksége a 
  Bluetooth-eszközök felfedezéséhez. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Nyelvfelismerés</translation>
-<translation id="6204677860546245308">A Browther ajánlott böngészőbeállításainak használata</translation>
-<translation id="108284536240904209">Az adatok a Braveból is legyenek törölve (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">A Browther ajánlott böngészőbeállításainak használata</translation>
+<translation id="8270483548049772782">Az adatok a Braveból is legyenek törölve (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Sikeres kitűzés. A Képkereső funkcióhoz az eszköztár új gombjával is hozzáférhet</translation>
 <translation id="1356661055722410047">Új! A képernyőn megjelenő szöveget és képeket is lefordíthatja.</translation>
 <translation id="1383876407941801731">Keresés</translation>
-<translation id="7009295044271335553">&amp;Browther-profilok kezelése</translation>
+<translation id="1592588950737518481">&amp;Browther-profilok kezelése</translation>
 <translation id="1404026649028693342">Mindig látszódjon az AI-mód</translation>
 <translation id="141901961143729572">Ossza meg gondolatait</translation>
-<translation id="3880714039086599943">Az ablak megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
-<translation id="1586284627848250203">Segítség kérése a Browther for Testing verzióval kapcsolatban</translation>
+<translation id="1743952081001089298">Az ablak megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
+<translation id="8627385813382688019">Segítség kérése a Browther for Testing verzióval kapcsolatban</translation>
 <translation id="1497802159252041924">Telepítési hiba: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Ez az oldal védett</translation>
-<translation id="5147525139567260139">Browther-lap megosztása</translation>
-<translation id="721261350616678948">Bejelentkezés a Braveba</translation>
+<translation id="7252430412915798987">Browther-lap megosztása</translation>
+<translation id="6388429281015199562">Bejelentkezés a Braveba</translation>
 <translation id="1547469039832541117">Befejezi a kiemelt feladatot.</translation>
-<translation id="1530633922026945685">A Bravenak engedélyre van szüksége a kamerájához való hozzáféréshez annak érdekében, hogy 3D-s térképet készíthessen az Ön környezetéről.</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Ez a bővítmény már nem támogatott. A Browther az eltávolítását javasolja}other{Ezek a bővítmények már nem támogatottak. A Browther az eltávolításukat javasolja}}</translation>
-<translation id="51545890371361355">A Browther kitűzése</translation>
-<translation id="6570689355868013775">A Browther biztonsági eszközei</translation>
-<translation id="1902837727299679178">A Browther törölni szeretné a Jelszókezelőhöz tartozó adatait. Az engedélyezéshez adja meg Windows-jelszavát.</translation>
-<translation id="4449148723378534338">A legfontosabb adatvédelmi és biztonsági beállítások áttekintése a Braveban</translation>
+<translation id="1801944307203212016">A Bravenak engedélyre van szüksége a kamerájához való hozzáféréshez annak érdekében, hogy 3D-s térképet készíthessen az Ön környezetéről.</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Ez a bővítmény már nem támogatott. A Browther az eltávolítását javasolja}other{Ezek a bővítmények már nem támogatottak. A Browther az eltávolításukat javasolja}}</translation>
+<translation id="4667068923142532753">A Browther kitűzése</translation>
+<translation id="3006560544901646947">A Browther biztonsági eszközei</translation>
+<translation id="686052171138185761">A Browther törölni szeretné a Jelszókezelőhöz tartozó adatait. Az engedélyezéshez adja meg Windows-jelszavát.</translation>
+<translation id="8713026329083542796">A legfontosabb adatvédelmi és biztonsági beállítások áttekintése a Braveban</translation>
 <translation id="1640672724030957280">Letöltés...</translation>
 <translation id="1680687534629375545">Kérdés feltevése a Képkeresőnek erről az oldalról</translation>
 <translation id="1709772298389099340">Magasabb szintű jogosultságokat biztosít a <ph name="BROWSER_NAME"/> számára.</translation>
-<translation id="2913217021115517297">A funkciók továbbfejlesztése érdekében a Browther elküldi a velük végzett műveleteket a Browther-nak. Ezeket az adatokat ellenőreink elolvashatják, feldolgozhatják és megjegyzésekkel láthatják el.</translation>
+<translation id="4243382967656566037">A funkciók továbbfejlesztése érdekében a Browther elküldi a velük végzett műveleteket a Browther-nak. Ezeket az adatokat ellenőreink elolvashatják, feldolgozhatják és megjegyzésekkel láthatják el.</translation>
 <translation id="1722488837206509557">Ez lehetővé teszi, hogy válasszon a rendelkezésre álló eszközök közül, és tartalmakat jelenítsen meg rajtuk.</translation>
-<translation id="8004287232784878841">A Browther hamarosan törli a böngészési adatokat</translation>
-<translation id="4197839351786449392">A Browther megpróbálja HTTPS-re frissíteni a navigációt</translation>
-<translation id="7814200940910057384">A Browther adatai törölve</translation>
-<translation id="9048361966237194186">A Browther <ph name="REMAINING_TIME"/> múlva újraindul</translation>
-<translation id="5524150602137990006">Ha a HTTPS nem áll rendelkezésre, a Browther nem biztonságos kapcsolatot fog használni anélkül, hogy figyelmeztetné Önt</translation>
-<translation id="6797402139308059782">A Browther fusson a háttérben</translation>
-<translation id="5875673934455379806">A Browther újratelepítése</translation>
-<translation id="4529028207655448215">A Browther megpróbálja a következőt: <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Amikor legközelebb megnyitja a Braveot <ph name="DEVICE_TYPE"/> eszközén, megjelenik egy üzenet a Browther Jelszókezelő használatával kapcsolatban.</translation>
+<translation id="6820510278633522408">A Browther hamarosan törli a böngészési adatokat</translation>
+<translation id="7775028004939172516">A Browther megpróbálja HTTPS-re frissíteni a navigációt</translation>
+<translation id="6963959729951758069">A Browther adatai törölve</translation>
+<translation id="4085139922884095932">A Browther <ph name="REMAINING_TIME"/> múlva újraindul</translation>
+<translation id="2586248102295515296">Ha a HTTPS nem áll rendelkezésre, a Browther nem biztonságos kapcsolatot fog használni anélkül, hogy figyelmeztetné Önt</translation>
+<translation id="3975328336074677101">A Browther fusson a háttérben</translation>
+<translation id="2497443204974841650">A Browther újratelepítése</translation>
+<translation id="1724309687045787742">A Browther megpróbálja a következőt: <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Amikor legközelebb megnyitja a Braveot <ph name="DEVICE_TYPE"/> eszközén, megjelenik egy üzenet a Browther Jelszókezelő használatával kapcsolatban.</translation>
 <translation id="1838374766361614909">Keresett kifejezés törlése</translation>
-<translation id="3541642064306182066">Ha csak erről az eszközről szeretné törölni böngészési adatait, Browther-fiókjából azonban nem, <ph name="BEGIN_LINK"/>jelentkezzen ki a Braveból<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Töltse le a Braveot a telefonjára, hogy útközben is megnyithasson vagy létrehozhasson új lapcsoportokat.</translation>
-<translation id="4559627161887338743">Kezelheti a bejelentkezett Browther-fiókjait. Browther-fiókjait használhatja a Browther böngészőben, a Play Áruházban, a Gmailben és még sok más helyen. Ha más számára szeretne hozzáadni fiókot (például családtagjának), inkább új személyt adjon hozzá <ph name="DEVICE_TYPE"/> eszközéhez. <ph name="LINK_BEGIN"/>További információ<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">Ha csak erről az eszközről szeretné törölni böngészési adatait, Browther-fiókjából azonban nem, <ph name="BEGIN_LINK"/>jelentkezzen ki a Braveból<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Töltse le a Braveot a telefonjára, hogy útközben is megnyithasson vagy létrehozhasson új lapcsoportokat.</translation>
+<translation id="2063443520349987970">Kezelheti a bejelentkezett Browther-fiókjait. Browther-fiókjait használhatja a Browther böngészőben, a Play Áruházban, a Gmailben és még sok más helyen. Ha más számára szeretne hozzáadni fiókot (például családtagjának), inkább új személyt adjon hozzá <ph name="DEVICE_TYPE"/> eszközéhez. <ph name="LINK_BEGIN"/>További információ<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Keresés a Képkeresővel</translation>
 <translation id="1880677175115548835">Szöveg kijelölése</translation>
-<translation id="4528406859989804913">Kezelt fiókkal jelentkezik be, és annak adminisztrátora számára hozzáférést biztosít Browther-profiljához. Browther-adatait – például alkalmazásait, könyvjelzőit, előzményeit, jelszavait és más beállításait – a rendszer véglegesen társítja a(z) <ph name="USER_NAME"/> fiókhoz. Ezen adatokat a Browther-fiók Irányítópultján törölheti, de más fiókhoz nem társíthatja őket. Létrehozhat egy új profilt is meglévő Browther-adatainak elkülönített tárolásához. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">A Browther kíméli az akkumulátort: korlátozza a háttértevékenységeket és a vizuális effekteket, például a finomgörgetést és a videók képkockasebességét. <ph name="BEGIN_LINK"/>További információ az Energiatakarékos módról<ph name="END_LINK"/>.</translation>
+<translation id="3183933389992069620">Kezelt fiókkal jelentkezik be, és annak adminisztrátora számára hozzáférést biztosít Browther-profiljához. Browther-adatait – például alkalmazásait, könyvjelzőit, előzményeit, jelszavait és más beállításait – a rendszer véglegesen társítja a(z) <ph name="USER_NAME"/> fiókhoz. Ezen adatokat a Browther-fiók Irányítópultján törölheti, de más fiókhoz nem társíthatja őket. Létrehozhat egy új profilt is meglévő Browther-adatainak elkülönített tárolásához. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">A Browther kíméli az akkumulátort: korlátozza a háttértevékenységeket és a vizuális effekteket, például a finomgörgetést és a videók képkockasebességét. <ph name="BEGIN_LINK"/>További információ az Energiatakarékos módról<ph name="END_LINK"/>.</translation>
 <translation id="1898804291554630487">Tegyen fel kérdést az oldalról</translation>
-<translation id="8643267611122541711">Browther-frissítési szolgáltatás</translation>
-<translation id="1649714546770135458">A beállítás kikapcsolásával anélkül jelentkezhet be a Browther-webhelyekre (pl. Gmail), hogy a Braveba is bejelentkezne</translation>
-<translation id="189297655255130768">A Browther nem válaszol. Újraindítja most?</translation>
-<translation id="8422047647688939115">Szervezete (<ph name="MANAGER"/>) megköveteli a Braveba történő bejelentkezést</translation>
+<translation id="9128006428501241840">Browther-frissítési szolgáltatás</translation>
+<translation id="6302815314157879372">A beállítás kikapcsolásával anélkül jelentkezhet be a Browther-webhelyekre (pl. Gmail), hogy a Braveba is bejelentkezne</translation>
+<translation id="1063611196035804685">A Browther nem válaszol. Újraindítja most?</translation>
+<translation id="2873360330889594383">Szervezete (<ph name="MANAGER"/>) megköveteli a Braveba történő bejelentkezést</translation>
 <translation id="4035053306113201399">A frissítés alkalmazásához újra kell indítani a Chrome OS-t.</translation>
-<translation id="9048754176089806686">A Browther letiltotta ezt a letöltést, mert ezt a fájltípust nem töltik le gyakran, és veszélyes lehet</translation>
+<translation id="2861285003831382718">A Browther letiltotta ezt a letöltést, mert ezt a fájltípust nem töltik le gyakran, és veszélyes lehet</translation>
 <translation id="1953553007165777902">Letöltés… <ph name="MINUTE"/> perc van hátra</translation>
-<translation id="2470048290583727811">Browther-tipp: Jelszavak mentése</translation>
-<translation id="1775322105159056176">A Browther problémába ütközött az alapértelmezett böngésző megállapításakor vagy beállításakor</translation>
-<translation id="4372901050442507812">További információ arról, hogy miért tilt le bizonyos fájlokat a Browther (új lapon nyílik meg)</translation>
-<translation id="2703425183860615504">Naprakészen tartja a Browther szoftvert. Ha ez a szolgáltatás le van tiltva vagy le van állítva, a Browther szoftver nem lesz naprakészen tartva, ami azt jelenti, hogy az esetlegesen felmerülő biztonsági rések nem lesznek kijavítva, és előfordulhat, egyes funkciók nem fognak működni. Ez a szolgáltatás automatikusan eltávolítja magát, ha nincs olyan Browther szoftver, amely használja.</translation>
-<translation id="9220324636239049437">Ezzel egyetlen elemet töröl erről az eszközről. Az adatok későbbi lekéréséhez jelentkezzen be a Braveba a következő e-mail-címmel: <ph name="USER_EMAIL"/>.</translation>
+<translation id="2080160985220483492">Browther-tipp: Jelszavak mentése</translation>
+<translation id="8037497710694492565">A Browther problémába ütközött az alapértelmezett böngésző megállapításakor vagy beállításakor</translation>
+<translation id="7395009124247513849">További információ arról, hogy miért tilt le bizonyos fájlokat a Browther (új lapon nyílik meg)</translation>
+<translation id="762710512520170632">Naprakészen tartja a Browther szoftvert. Ha ez a szolgáltatás le van tiltva vagy le van állítva, a Browther szoftver nem lesz naprakészen tartva, ami azt jelenti, hogy az esetlegesen felmerülő biztonsági rések nem lesznek kijavítva, és előfordulhat, egyes funkciók nem fognak működni. Ez a szolgáltatás automatikusan eltávolítja magát, ha nincs olyan Browther szoftver, amely használja.</translation>
+<translation id="5793588180426267429">Ezzel egyetlen elemet töröl erről az eszközről. Az adatok későbbi lekéréséhez jelentkezzen be a Braveba a következő e-mail-címmel: <ph name="USER_EMAIL"/>.</translation>
 <translation id="2018879682492276940">Sikertelen telepítés. Próbálja újra.</translation>
-<translation id="831418749472885028">Ha ellenőrizni szeretné, hogy a többi jelszava biztonságban van-e az adatvédelmi incidensektől és más biztonsági problémáktól, <ph name="BEGIN_LINK"/>jelentkezzen be a Braveba<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Ha ellenőrizni szeretné, hogy a többi jelszava biztonságban van-e az adatvédelmi incidensektől és más biztonsági problémáktól, <ph name="BEGIN_LINK"/>jelentkezzen be a Braveba<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Beállítások.</translation>
-<translation id="5499149312981370855">Válassza ki, hogy szeretné-e használni a Browther-előzményeket személyre szabott élmények biztosításához a Browther-szolgáltatásokban.</translation>
-<translation id="6959434860418352144">Az Új lap oldalon található A Browther személyre szabása gombra kattintva új megjelenést adhat a Bravenak</translation>
+<translation id="8194525816714210105">Válassza ki, hogy szeretné-e használni a Browther-előzményeket személyre szabott élmények biztosításához a Browther-szolgáltatásokban.</translation>
+<translation id="5909559127548969159">Az Új lap oldalon található A Browther személyre szabása gombra kattintva új megjelenést adhat a Bravenak</translation>
 <translation id="2066690553719545730">Mindig látszódjon az AI-mód</translation>
-<translation id="2472891440303445472">A Browther letiltotta ezt a letöltést, mert a fájl megtévesztő, és váratlan módosításokat végezhet az eszközön</translation>
-<translation id="2054358978145431867">A Browther iOS következő megnyitásakor megjelenik egy üzenet, amely a(z) <ph name="FEATURE_NAME"/> funkció kipróbálását javasolja.</translation>
-<translation id="2726948994393234543">A Browther-fiókjába mentett jelszavai és egyéb Browther-adatai el lesznek távolítva erről az eszközről. Ha újra használni szeretné őket a Braveban, jelentkezzen be újra.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Szervezete automatikusan törli a böngészési adatokat, ha a Browther 1 percig nincs használatban. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések. A lapok nyitva maradnak.}other{Szervezete automatikusan törli a böngészési adatokat, ha a Browther # percig nincs használatban. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések. A lapok nyitva maradnak.}}</translation>
+<translation id="3283892260110318935">A Browther letiltotta ezt a letöltést, mert a fájl megtévesztő, és váratlan módosításokat végezhet az eszközön</translation>
+<translation id="6160571936643742128">A Browther iOS következő megnyitásakor megjelenik egy üzenet, amely a(z) <ph name="FEATURE_NAME"/> funkció kipróbálását javasolja.</translation>
+<translation id="8380517409933452343">A Browther-fiókjába mentett jelszavai és egyéb Browther-adatai el lesznek távolítva erről az eszközről. Ha újra használni szeretné őket a Braveban, jelentkezzen be újra.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Szervezete automatikusan törli a böngészési adatokat, ha a Browther 1 percig nincs használatban. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések. A lapok nyitva maradnak.}other{Szervezete automatikusan törli a böngészési adatokat, ha a Browther # percig nincs használatban. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések. A lapok nyitva maradnak.}}</translation>
 <translation id="2126108037660393668">A letöltött fájl az ellenőrzés során hibásnak bizonyult.</translation>
 <translation id="2135919691573380097">Webhely bejelentése</translation>
 <translation id="2137162749895930932">Fordítási képernyő bezárása</translation>
-<translation id="5789330946301045610">A Browther letiltotta ezt a letöltést, mert a webhely nem használ biztonságos kapcsolatot, és előfordulhat, hogy a fájlt illetéktelenül módosították</translation>
+<translation id="4283559398694996391">A Browther letiltotta ezt a letöltést, mert a webhely nem használ biztonságos kapcsolatot, és előfordulhat, hogy a fájlt illetéktelenül módosították</translation>
 <translation id="2170098639895543546">Jelöljön ki bármit az oldalon</translation>
-<translation id="142389341645668510">A Browther személyre szabása</translation>
+<translation id="2495182092286337191">A Browther személyre szabása</translation>
 <translation id="2174917724755363426">A telepítés még nem fejeződött be. Biztosan megszakítja a műveletet?</translation>
-<translation id="8745514854244955877">Browther – Hálózati bejelentkezés – <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther – Hálózati bejelentkezés – <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Frissítés-ellenőrzési hiba: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Fiók eltávolítása a Braveból</translation>
-<translation id="5550942974310218641">A Biztonságos Böngészés fokozott védelemmel funkcióval biztonságosabban böngészhet útközben is az iOS rendszeren működő Bravemal.</translation>
-<translation id="6677253423995557759">Veszélyes webhely. A Browther eltávolította az értesítéseket.</translation>
+<translation id="6696114732806961952">Fiók eltávolítása a Braveból</translation>
+<translation id="1084363153644366288">A Biztonságos Böngészés fokozott védelemmel funkcióval biztonságosabban böngészhet útközben is az iOS rendszeren működő Bravemal.</translation>
+<translation id="7949164640723239455">Veszélyes webhely. A Browther eltávolította az értesítéseket.</translation>
 <translation id="2236949375853147973">Saját tevékenységek</translation>
-<translation id="457168681575748148">Ha az összes eszközén szeretne hozzáférni címeihez és egyebekhez, jelentkezzen be a Braveba. Ezt a címet a rendszer az Ön Browther-fiókjába menti a bejelentkezés után.</translation>
-<translation id="5659384504794665581">Ha megoszt egy számítógépet, ismerősei és családtagjai külön fiókokban internetezve a saját kívánságaik szerint állíthatják be a Braveot.</translation>
+<translation id="4536403809133456417">Ha az összes eszközén szeretne hozzáférni címeihez és egyebekhez, jelentkezzen be a Braveba. Ezt a címet a rendszer az Ön Browther-fiókjába menti a bejelentkezés után.</translation>
+<translation id="5627930103267312171">Ha megoszt egy számítógépet, ismerősei és családtagjai külön fiókokban internetezve a saját kívánságaik szerint állíthatják be a Braveot.</translation>
 <translation id="2283803047247799269">Keresés ezen a lapon a képkereső használatával</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{A Browther a böngészőt lassító lap szüneteltetését javasolja}other{A Browther a böngészőt lassító lapok szüneteltetését javasolja}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{A Browther a böngészőt lassító lap szüneteltetését javasolja}other{A Browther a böngészőt lassító lapok szüneteltetését javasolja}}</translation>
 <translation id="2307973900865360088">Megtartás a Dockban</translation>
-<translation id="7810992039564280750">Ellenőrzi az URL-eket a Braveban a nem biztonságos webhelyekről tárolt lista alapján. Ha valamelyik webhely megpróbálja ellopni az Ön jelszavát, illetve ha Ön kártékony fájlt tölt le, akkor a Browther elküldheti az URL-eket is (az oldal tartalmának részeivel együtt) a Biztonságos Böngészésnek.</translation>
-<translation id="5042718521573656164">Ez a művelet:
+<translation id="5161617112768367959">Ellenőrzi az URL-eket a Braveban a nem biztonságos webhelyekről tárolt lista alapján. Ha valamelyik webhely megpróbálja ellopni az Ön jelszavát, illetve ha Ön kártékony fájlt tölt le, akkor a Browther elküldheti az URL-eket is (az oldal tartalmának részeivel együtt) a Biztonságos Böngészésnek.</translation>
+<translation id="4123094831918713833">Ez a művelet:
         <ph name="LINE_BREAKS"/>
           • visszaállít néhány Browther-beállítást és Browther-billentyűparancsot;
           <ph name="LINE_BREAK"/>
@@ -123,631 +123,631 @@
           • törli a cookie-kat és az egyéb ideiglenes webhelyadatokat.
           <ph name="LINE_BREAKS"/>
           Ez nem lesz hatással a könyvjelzőkre, az előzményekre és a mentett jelszavakra.</translation>
-<translation id="9095263438435683933">Ha innen szeretne számot küldeni Android-telefonjára, jelentkezzen be a Braveba mindkét eszközén.</translation>
+<translation id="5456070119344236353">Ha innen szeretne számot küldeni Android-telefonjára, jelentkezzen be a Braveba mindkét eszközén.</translation>
 <translation id="2356070529366658676">Kérés</translation>
 <translation id="2359808026110333948">Tovább</translation>
-<translation id="6485997157403727556">A(z) „<ph name="EXTENSION_NAME"/>” bővítmény arra kéri, hogy jelentkezzen be a Braveba</translation>
-<translation id="7017760840808989683">A Browther háttérben való futtatásának letiltása az alkalmazásoknál</translation>
-<translation id="8491912023989916905">Ha ezt a bővítményt a(z) <ph name="USER_EMAIL_ADDRESS"/> fiókban szeretné használni, jelentkezzen be a Braveba.</translation>
+<translation id="6468415397021485143">A(z) „<ph name="EXTENSION_NAME"/>” bővítmény arra kéri, hogy jelentkezzen be a Braveba</translation>
+<translation id="2558600429878197587">A Browther háttérben való futtatásának letiltása az alkalmazásoknál</translation>
+<translation id="5295781918312989856">Ha ezt a bővítményt a(z) <ph name="USER_EMAIL_ADDRESS"/> fiókban szeretné használni, jelentkezzen be a Braveba.</translation>
 <translation id="8418845734693287262">A ChromeOS nem tudta szinkronizálni az adatokat, mert a fiók bejelentkezési adatai elavultak.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Valamelyik (akár több is) Browther-bővítmény hozzáfért 1 HID-eszközhöz}=1{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér 1 HID-eszközhöz}other{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér # HID-eszközhöz}}</translation>
-<translation id="1248225940185478633">A Bravenak kamera- és mikrofonhasználati engedélyre van szüksége ehhez a webhelyhez</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Valamelyik (akár több is) Browther-bővítmény hozzáfért 1 HID-eszközhöz}=1{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér 1 HID-eszközhöz}other{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér # HID-eszközhöz}}</translation>
+<translation id="434258293817844111">A Bravenak kamera- és mikrofonhasználati engedélyre van szüksége ehhez a webhelyhez</translation>
 <translation id="2403703063067034158">Indítási hiba: jelenleg a beállítás egy másik példánya fut; próbálkozzon újra később.</translation>
-<translation id="5298352791080868905">Bármelyik alkalmazásból megnyithatja a linkeket a Braveban, és a böngésző a tálcán is hozzáférhető marad</translation>
-<translation id="2118275934191847461">A <ph name="BEGIN_LINK"/>Browther eszközeivel<ph name="END_LINK"/> biztonságosan böngészhet, és kézben tarthatja az irányítást</translation>
+<translation id="5458993228789433099">Bármelyik alkalmazásból megnyithatja a linkeket a Braveban, és a böngésző a tálcán is hozzáférhető marad</translation>
+<translation id="1677640217693742525">A <ph name="BEGIN_LINK"/>Browther eszközeivel<ph name="END_LINK"/> biztonságosan böngészhet, és kézben tarthatja az irányítást</translation>
 <translation id="2451727308784734061">Parancsikon segítségével gyorsan megnyithatja a Jelszókezelőt. A parancsikont áthelyezheti a számítógép kezdőképernyőjére vagy az alkalmazásindítóba.</translation>
-<translation id="6381750314821942592">A Browther hamarosan bezáródik</translation>
-<translation id="6078442581074612226">A Braveban</translation>
+<translation id="2280315911954332435">A Browther hamarosan bezáródik</translation>
+<translation id="6410820860979094113">A Braveban</translation>
 <translation id="2485422356828889247">Eltávolítás</translation>
 <translation id="2513154137948333830">Újraindításra van szükség: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Jelölje ki a szöveget a Képkeresővel</translation>
-<translation id="70183448213529602">A Browther lecserélni próbálja a meglévő jelszavakat. Az engedélyezéshez adja meg Windows-jelszavát.</translation>
-<translation id="7798069806040634998">A Bravenak tárhelyhozzáférésre van szüksége a fájlok letöltéséhez</translation>
-<translation id="2351700486811407088">Browther Origin Helper</translation>
+<translation id="7892218991241200190">A Browther lecserélni próbálja a meglévő jelszavakat. Az engedélyezéshez adja meg Windows-jelszavát.</translation>
+<translation id="8976443723926188033">A Bravenak tárhelyhozzáférésre van szüksége a fájlok letöltéséhez</translation>
+<translation id="4131374838781785973">Browther Origin Helper</translation>
 <translation id="2575822587468774919">Válasszon ki bármit a Képkeresővel való kereséshez</translation>
-<translation id="3830890663494219270">Ha az összes eszközén szeretne hozzáférni jelszavaihoz és egyebekhez, jelentkezzen be a Braveba</translation>
-<translation id="6252796827759111076">A Browther használatának folytatása</translation>
+<translation id="8705561858232289221">Ha az összes eszközén szeretne hozzáférni jelszavaihoz és egyebekhez, jelentkezzen be a Braveba</translation>
+<translation id="437162022240011372">A Browther használatának folytatása</translation>
 <translation id="259935314519650377">A letöltött telepítő gyorsítótárazása sikertelen. Hiba: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Rendszer</translation>
-<translation id="7931230852267968641">Szervezete láthatja és kezelheti a böngészési adatokat (például a könyvjelzőket, az előzményeket és a jelszavakat). A többi Browther-profilban lévő böngészési adatot viszont nem láthatja.</translation>
-<translation id="2257221826278123061">Igazolja személyazonosságát, ha a Browther-adatokat szeretné használni és tárolni a fiókjában (<ph name="ACCOUNT_EMAIL"/>)</translation>
-<translation id="7387051847644272380">Az operációs rendszer hibát jelzett a telepítés során. Kérjük, töltse le újra a Braveot.</translation>
-<translation id="2648689842065142443">Ha megoszt egy eszközt, ismerősei és családtagjai külön fiókokban internetezve a saját kívánságaik szerint állíthatják be a Braveot.</translation>
-<translation id="6791166902140255175">Browther lap</translation>
-<translation id="8372880274820509128">A nagyobb biztonság érdekében a Browther titkosítja az Ön adatait.</translation>
-<translation id="8752006915531191162">Ha szeretné eltávolítani Browther-fiókját a Braveból, jelentkezzen ki</translation>
-<translation id="5344406739101555055">Ha az összes eszközén szeretne hozzáférni jelszavaihoz, könyvjelzőihez és egyebekhez, jelentkezzen be a Braveba</translation>
+<translation id="2907676829052962091">Szervezete láthatja és kezelheti a böngészési adatokat (például a könyvjelzőket, az előzményeket és a jelszavakat). A többi Browther-profilban lévő böngészési adatot viszont nem láthatja.</translation>
+<translation id="1289116577679005654">Igazolja személyazonosságát, ha a Browther-adatokat szeretné használni és tárolni a fiókjában (<ph name="ACCOUNT_EMAIL"/>)</translation>
+<translation id="7192278346779151664">Az operációs rendszer hibát jelzett a telepítés során. Kérjük, töltse le újra a Braveot.</translation>
+<translation id="7724398260867885339">Ha megoszt egy eszközt, ismerősei és családtagjai külön fiókokban internetezve a saját kívánságaik szerint állíthatják be a Braveot.</translation>
+<translation id="1679595317134614424">Browther lap</translation>
+<translation id="7189168846924379421">A nagyobb biztonság érdekében a Browther titkosítja az Ön adatait.</translation>
+<translation id="4052643592793184278">Ha szeretné eltávolítani Browther-fiókját a Braveból, jelentkezzen ki</translation>
+<translation id="7694616023994438906">Ha az összes eszközén szeretne hozzáférni jelszavaihoz, könyvjelzőihez és egyebekhez, jelentkezzen be a Braveba</translation>
 <translation id="2738871930057338499">Nem lehet csatlakozni az internethez. HTTP 403 tiltás. Ellenőrizze a proxybeállításokat.</translation>
 <translation id="2753623023919742414">Kattintson a kereséshez</translation>
-<translation id="1312769823139326127">A Browther beállítása alapértelmezett PDF-megtekintőként</translation>
-<translation id="3173824377856109157">A Browther automatikusan ki tudja tölteni azokat a nehéz mezőket, amelyeket a normál automatikus kitöltés adott esetben nem tud kitölteni</translation>
-<translation id="1187986649024576560">Ez a bővítmény rosszindulatú programot tartalmaz, és nem biztonságos. Távolítsa el a Braveból, így a továbbiakban már nem láthatja és módosíthatja az Ön felkeresett webhelyekkel kapcsolatos adatait, beleértve a személyes adatokat is.</translation>
+<translation id="9078193405195503710">A Browther beállítása alapértelmezett PDF-megtekintőként</translation>
+<translation id="2456995288904753506">A Browther automatikusan ki tudja tölteni azokat a nehéz mezőket, amelyeket a normál automatikus kitöltés adott esetben nem tud kitölteni</translation>
+<translation id="3271730304285122987">Ez a bővítmény rosszindulatú programot tartalmaz, és nem biztonságos. Távolítsa el a Braveból, így a továbbiakban már nem láthatja és módosíthatja az Ön felkeresett webhelyekkel kapcsolatos adatait, beleértve a személyes adatokat is.</translation>
 <translation id="2799223571221894425">Újraindítás</translation>
-<translation id="5962774139606909656">A Browther</translation>
+<translation id="1427337251963884503">A Browther</translation>
 <translation id="2816462166102338036">A videó megkeresése a Képkereső használatával</translation>
 <translation id="2841525013647267359">Fordítás a következő nyelvről:</translation>
 <translation id="2846251086934905009">Telepítési hiba: A telepítő nem fejezte be a folyamatot. A telepítés megszakadt.</translation>
-<translation id="777113543093865885">Eltávolítás a Braveból…</translation>
-<translation id="5265419033369521352">Gondoskodik a biztonságáról a Braveban, és használható a biztonság növelésére más Browther-alkalmazásokban olyankor, amikor Ön be van jelentkezve.</translation>
+<translation id="928966105228355994">Eltávolítás a Braveból…</translation>
+<translation id="587805782197019018">Gondoskodik a biztonságáról a Braveban, és használható a biztonság növelésére más Browther-alkalmazásokban olyankor, amikor Ön be van jelentkezve.</translation>
 <translation id="2885378588091291677">Feladatkezelő</translation>
-<translation id="2176825726964012531">A &amp;Browther névjegye</translation>
+<translation id="3055995278166070443">A &amp;Browther névjegye</translation>
 <translation id="2915996080311180594">Újraindítás később</translation>
 <translation id="2928420929544864228">A telepítés befejeződött.</translation>
-<translation id="2481553173340651149">Adatai az összetett jelszavával vannak titkosítva. Adja meg, ha Browther-fiókjában Browther-adatokat szeretne használni és menteni.</translation>
+<translation id="70453521937551896">Adatai az összetett jelszavával vannak titkosítva. Adja meg, ha Browther-fiókjában Browther-adatokat szeretne használni és menteni.</translation>
 <translation id="2945997411976714835">Telepítési hiba: Nem sikerült elindítani a telepítést.</translation>
-<translation id="2413255940314578781">Gyorsabban bejelentkezhet a webhelyekre az iOS rendszeren működő Bravehoz mentett jelszavak használatával.</translation>
-<translation id="122765104641632123">Új Browther-profilt hozzáadva elkülönítheti a könyvjelzőket, a jelszavakat és a beállításokat.</translation>
-<translation id="3688936822855019158">Az Ön szervezete kezeli a Braveot</translation>
-<translation id="8208853227947884571">A Browther naprakész</translation>
-<translation id="5122472867956731189">Ha valamelyik webhely megpróbálja ellopni az Ön jelszavát, illetve ha Ön kártékony fájlt tölt le, akkor a Browther elküldheti az URL-eket is (az oldal tartalmának részeivel együtt) a Biztonságos Böngészésnek.</translation>
-<translation id="3963199983793987097">Ha szeretnéd, hogy a szülőd által megadott beállításokkal nagyobb biztonságban lehess az interneten, jelentkezz be a Braveba.</translation>
+<translation id="3188308520233701133">Gyorsabban bejelentkezhet a webhelyekre az iOS rendszeren működő Bravehoz mentett jelszavak használatával.</translation>
+<translation id="8145318807880784886">Új Browther-profilt hozzáadva elkülönítheti a könyvjelzőket, a jelszavakat és a beállításokat.</translation>
+<translation id="4330268530227888227">Az Ön szervezete kezeli a Braveot</translation>
+<translation id="6488090896442998436">A Browther naprakész</translation>
+<translation id="300557164611864786">Ha valamelyik webhely megpróbálja ellopni az Ön jelszavát, illetve ha Ön kártékony fájlt tölt le, akkor a Browther elküldheti az URL-eket is (az oldal tartalmának részeivel együtt) a Biztonságos Böngészésnek.</translation>
+<translation id="2447145782593796785">Ha szeretnéd, hogy a szülőd által megadott beállításokkal nagyobb biztonságban lehess az interneten, jelentkezz be a Braveba.</translation>
 <translation id="3003694935412297923">Az összes feladat</translation>
-<translation id="7611046016537686219">{count,plural, =1{A Bravenak ellenőriznie kell az Ön személyazonosságát, mielőtt bizonyos adatokat menthetne az Ön Browther-fiókjába, és minden eszközén használhatná őket. Ha most jelentkezik ki, akkor ezek az adatok (1 elem) törlődnek.}other{A Bravenak ellenőriznie kell az Ön személyazonosságát, mielőtt bizonyos adatokat menthetne az Ön Browther-fiókjába, és minden eszközén használhatná őket. Ha most jelentkezik ki, akkor ezek az adatok ({count} elem) törlődnek.}}</translation>
-<translation id="4202995875619419215">A(z) <ph name="URL"/> megnyitása új Browther-lapon.</translation>
-<translation id="8755404239607088219">A Browther nem tudja ellenőrizni a jelszavait. Próbálkozzon később.</translation>
-<translation id="8880183781256147665">Hozzáadás a Bravehoz...</translation>
+<translation id="7554113777150891030">{count,plural, =1{A Bravenak ellenőriznie kell az Ön személyazonosságát, mielőtt bizonyos adatokat menthetne az Ön Browther-fiókjába, és minden eszközén használhatná őket. Ha most jelentkezik ki, akkor ezek az adatok (1 elem) törlődnek.}other{A Bravenak ellenőriznie kell az Ön személyazonosságát, mielőtt bizonyos adatokat menthetne az Ön Browther-fiókjába, és minden eszközén használhatná őket. Ha most jelentkezik ki, akkor ezek az adatok ({count} elem) törlődnek.}}</translation>
+<translation id="5522228731050510047">A(z) <ph name="URL"/> megnyitása új Browther-lapon.</translation>
+<translation id="6358780591055960280">A Browther nem tudja ellenőrizni a jelszavait. Próbálkozzon később.</translation>
+<translation id="1386422761453740126">Hozzáadás a Bravehoz...</translation>
 <translation id="3038232873781883849">Várakozás a telepítésre…</translation>
 <translation id="3045032126857188731">Fordítás nyelve: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Visszajelzési párbeszédpanel bezárása</translation>
-<translation id="4503085212612536713">Egyéb Browther-profilok</translation>
-<translation id="7918740962659365265">Segítse a Browther fejlesztését azáltal, hogy elküldi a Browther-nak a következőket: hibajelentések és <ph name="UMA_LINK"/></translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Valamelyik (akár több is) Browther-bővítmény hozzáfért 1 USB-eszközhöz}=1{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér 1 USB-eszközhöz}other{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér # USB-eszközhöz}}</translation>
-<translation id="3700405816184340252">Browther-előzmények</translation>
-<translation id="7365690458036015383">Nem sikerült a telepítőnek kibontani a tömörített állományt. Kérjük, töltse le újra a Browther böngészőt.</translation>
+<translation id="369127628511662602">Egyéb Browther-profilok</translation>
+<translation id="2370255879896574713">Segítse a Browther fejlesztését azáltal, hogy elküldi a Browther-nak a következőket: hibajelentések és <ph name="UMA_LINK"/></translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Valamelyik (akár több is) Browther-bővítmény hozzáfért 1 USB-eszközhöz}=1{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér 1 USB-eszközhöz}other{Valamelyik (akár több is) Browther-bővítmény éppen hozzáfér # USB-eszközhöz}}</translation>
+<translation id="2065456480740480340">Browther-előzmények</translation>
+<translation id="5011660649081947055">Nem sikerült a telepítőnek kibontani a tömörített állományt. Kérjük, töltse le újra a Browther böngészőt.</translation>
 <translation id="310459126943037700">A feladatok befejezése nem sikerült.</translation>
 <translation id="3104828284009500087">Bármire rákereshet az oldalon</translation>
-<translation id="6422885447166607802">Jelszavai, könyvjelzői és előzményei tökéletesen szinkronizálódnak az eszközök között. Ha a Braveot állítja be alapértelmezett böngészőként, könnyen hozzáférhet a már ismert és szeretett funkciókhoz.</translation>
-<translation id="8919461291440820124">A Browther használja a mikrofont.</translation>
+<translation id="4917564010081457061">Jelszavai, könyvjelzői és előzményei tökéletesen szinkronizálódnak az eszközök között. Ha a Braveot állítja be alapértelmezett böngészőként, könnyen hozzáférhet a már ismert és szeretett funkciókhoz.</translation>
+<translation id="1041472930719344928">A Browther használja a mikrofont.</translation>
 <translation id="3130333203120345554">Új keresés</translation>
 <translation id="3137969841538672700">Húzza a kereséshez</translation>
-<translation id="8372436892102763334">Ez a lap plusz erőforrásokat használ. A teljesítmény javítása érdekében engedélyezze, hogy a Browther inaktiválhassa.</translation>
-<translation id="5949068186379578553">A képernyő megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
-<translation id="4805806622840861220">A Browther újraindítása</translation>
+<translation id="5312717254055363883">Ez a lap plusz erőforrásokat használ. A teljesítmény javítása érdekében engedélyezze, hogy a Browther inaktiválhassa.</translation>
+<translation id="373523409348786203">A képernyő megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
+<translation id="802113445299754598">A Browther újraindítása</translation>
 <translation id="3161522574479303604">Minden nyelv</translation>
-<translation id="3225882094369124157">A számítógépen lévő egyik program olyan témát adott hozzá, amely módosíthatja a Browther működését.
+<translation id="4522189060330781648">A számítógépen lévő egyik program olyan témát adott hozzá, amely módosíthatja a Browther működését.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Szabja személyre az új Browther-profilját</translation>
-<translation id="4805865169608137960">Ha el szeretné távolítani Browther-fiókját a Braveból, jelentkezzen ki a Braveból a Beállítások oldalon</translation>
-<translation id="1651639704310627074">A Browther később rákérdezhet, hogy szeretné-e a mentett adatokat űrlapok automatikus kitöltéséhez használni</translation>
-<translation id="2585240446624043880">A Browther nem tudja olvasni és írni az adatkönyvtárát:
+<translation id="2604272613984010799">Szabja személyre az új Browther-profilját</translation>
+<translation id="5150830326120505481">Ha el szeretné távolítani Browther-fiókját a Braveból, jelentkezzen ki a Braveból a Beállítások oldalon</translation>
+<translation id="7113660200899017820">A Browther később rákérdezhet, hogy szeretné-e a mentett adatokat űrlapok automatikus kitöltéséhez használni</translation>
+<translation id="4475011322243623412">A Browther nem tudja olvasni és írni az adatkönyvtárát:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Újraindítás most</translation>
-<translation id="2339258256897053758">Hiányoznak Browther API-kulcsok. A Browther egyes funkciói kikapcsolnak.</translation>
-<translation id="8926637909431618259">A háttéralkalmazások továbbfuttatása, ha a Braveot bezárják</translation>
-<translation id="518125528057094977">A Browther figyelmezteti Önt a nem biztonságos kapcsolatot használó webhelyek betöltése előtt</translation>
-<translation id="8652321858775514885">Az összes Browther-ablak bezárásakor a legtöbb webhelyről kijelentkezteti a rendszer, kivéve a Browther-fiókját, ha bejelentkezett a Braveba. Ha engedélyezni szeretné, hogy a webhelyek emlékezzenek Önre, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Az alapértelmezett keresőmotor a Braveon kívülről lett módosítva. A Browther visszaállította az Ön biztonsága érdekében.</translation>
-<translation id="5033074923607633232">Jelentkezzen be a Braveba, hogy az összes eszközén hozzáférhessen jelszavaihoz, könyvjelzőihez és más beállításaihoz.</translation>
+<translation id="3536063527222598206">Hiányoznak Browther API-kulcsok. A Browther egyes funkciói kikapcsolnak.</translation>
+<translation id="1011450868746766298">A háttéralkalmazások továbbfuttatása, ha a Braveot bezárják</translation>
+<translation id="179611081153855734">A Browther figyelmezteti Önt a nem biztonságos kapcsolatot használó webhelyek betöltése előtt</translation>
+<translation id="8965591964936552871">Az összes Browther-ablak bezárásakor a legtöbb webhelyről kijelentkezteti a rendszer, kivéve a Browther-fiókját, ha bejelentkezett a Braveba. Ha engedélyezni szeretné, hogy a webhelyek emlékezzenek Önre, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Az alapértelmezett keresőmotor a Braveon kívülről lett módosítva. A Browther visszaállította az Ön biztonsága érdekében.</translation>
+<translation id="1170501833661894915">Jelentkezzen be a Braveba, hogy az összes eszközén hozzáférhessen jelszavaihoz, könyvjelzőihez és más beállításaihoz.</translation>
 <translation id="3352986031709923790">keresési terület jobb felső sarka: jobb <ph name="RIGHT"/>%, fent <ph name="TOP"/>%</translation>
-<translation id="7261356974224431851">A fiókjában lévő Browther-adatok</translation>
+<translation id="120745000989996104">A fiókjában lévő Browther-adatok</translation>
 <translation id="3369405342922656244">Keresés ezen az oldalon a Képkereső használatával</translation>
-<translation id="6610330853796830621">Jelszavai használata a Bravemal a telefonján</translation>
+<translation id="7173761126541905083">Jelszavai használata a Bravemal a telefonján</translation>
 <translation id="2645435784669275700">ChromeOS</translation>
-<translation id="2297290224191497273">Szeretne a meglévő Browther-profilra váltani?</translation>
+<translation id="5266583242423616945">Szeretne a meglévő Browther-profilra váltani?</translation>
 <translation id="3412460710772753638">Az eszközön található Jelszókezelőben</translation>
-<translation id="2491221873705777076">A Biztonságos Böngészés fokozott védelemmel funkció használatának kiterjesztésre a telefonra a Bravemal</translation>
-<translation id="7304389940068374923">A Browther személyre szabása…</translation>
-<translation id="9216183508558772570">A Browther figyelmezteti Önt, amikor olyan jelszóval jelentkezik be, amelyhez illetéktelenül hozzáfértek</translation>
-<translation id="5853262807109651878">Ezzel <ph name="ITEMS_COUNT"/> elemet töröl erről az eszközről. Az adatok későbbi lekéréséhez jelentkezzen be a Braveba a következő e-mail-címmel: <ph name="USER_EMAIL"/>.</translation>
-<translation id="2024972335338126423">A(z) <ph name="SHORTCUT"/> billentyűkombinációval válthat a Browther-profilok között</translation>
-<translation id="8703492925273919597">Zárjon be minden Browther-ablakot, és próbálkozzon újra.</translation>
-<translation id="599091950194451698">Az ablak megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> már bejelentkezett.  Ha szeretné elkülöníteni böngészési tevékenységeit, jelentkezzen be a Braveban a saját profiljába a következő e-mail-címmel: <ph name="USER_EMAIL_ADDRESS"/>.</translation>
-<translation id="8981774130895723211">A képernyő megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
+<translation id="4282363917570905631">A Biztonságos Böngészés fokozott védelemmel funkció használatának kiterjesztésre a telefonra a Bravemal</translation>
+<translation id="986094398735583155">A Browther személyre szabása…</translation>
+<translation id="3266047225484320321">A Browther figyelmezteti Önt, amikor olyan jelszóval jelentkezik be, amelyhez illetéktelenül hozzáfértek</translation>
+<translation id="3508047337876211050">Ezzel <ph name="ITEMS_COUNT"/> elemet töröl erről az eszközről. Az adatok későbbi lekéréséhez jelentkezzen be a Braveba a következő e-mail-címmel: <ph name="USER_EMAIL"/>.</translation>
+<translation id="7772248897860792723">A(z) <ph name="SHORTCUT"/> billentyűkombinációval válthat a Browther-profilok között</translation>
+<translation id="7225005776233199285">Zárjon be minden Browther-ablakot, és próbálkozzon újra.</translation>
+<translation id="5465054931427475969">Az ablak megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> már bejelentkezett.  Ha szeretné elkülöníteni böngészési tevékenységeit, jelentkezzen be a Braveban a saját profiljába a következő e-mail-címmel: <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="8133590217245064579">A képernyő megosztásához engedélyezze a Browther számára a képernyőrögzítést a Rendszerbeállításokban.</translation>
 <translation id="3597003331831379823">Nem sikerült futtatni a beállítást emelt szintű jogosultságokkal. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Bejelentkezés a Braveba</translation>
-<translation id="3066805437003400520">A személy böngészési adatai törlődnek az eszközről. Az adatok visszaállításához jelentkezzen be a Braveba a következő felhasználóként: <ph name="USER_EMAIL"/>.</translation>
-<translation id="7029305463989165490">Ha innen: <ph name="ORIGIN"/> szeretne számot küldeni Android-telefonjára, jelentkezzen be a Braveba mindkét eszközén.</translation>
+<translation id="611080704131468868">Bejelentkezés a Braveba</translation>
+<translation id="2492221622209669678">A személy böngészési adatai törlődnek az eszközről. Az adatok visszaállításához jelentkezzen be a Braveba a következő felhasználóként: <ph name="USER_EMAIL"/>.</translation>
+<translation id="6793778233257855801">Ha innen: <ph name="ORIGIN"/> szeretne számot küldeni Android-telefonjára, jelentkezzen be a Braveba mindkét eszközén.</translation>
 <translation id="3667616615096815454">A telepítés sikertelen volt, mert az alkalmazás ismeretlen a szerver számára.</translation>
-<translation id="1128485277465085828"><ph name="BEGIN_LINK"/>Saját összetett jelszó<ph name="END_LINK"/> használata a Browther-fiókjában tárolt Browther-adatok mindegyikének titkosításához. A Google Payből származó fizetési módok és címek nem lesznek titkosítva. A Browther böngészési előzményei nem lesznek szinkronizálva.</translation>
-<translation id="4304059894777924102">A Browther nem tudja ellenőrizni a jelszavakat. Ellenőrizze az internetkapcsolatot.</translation>
-<translation id="1807774211756215222">Link megnyi&amp;tása új Browther-lapon</translation>
-<translation id="387105482057676379">A Browther és más Browther-szolgáltatások összekapcsolása személyre szabási és egyéb célokból</translation>
+<translation id="5585500151754164442"><ph name="BEGIN_LINK"/>Saját összetett jelszó<ph name="END_LINK"/> használata a Browther-fiókjában tárolt Browther-adatok mindegyikének titkosításához. A Google Payből származó fizetési módok és címek nem lesznek titkosítva. A Browther böngészési előzményei nem lesznek szinkronizálva.</translation>
+<translation id="404323216042159951">A Browther nem tudja ellenőrizni a jelszavakat. Ellenőrizze az internetkapcsolatot.</translation>
+<translation id="5004936474632127765">Link megnyi&amp;tása új Browther-lapon</translation>
+<translation id="6236643159256182256">A Browther és más Browther-szolgáltatások összekapcsolása személyre szabási és egyéb célokból</translation>
 <translation id="3729187154190517324">A „Lap és egyebek hozzáadása” gombbal több lapot, fájlt és eszközt is hozzáadhat a keresés elmélyítése céljából.</translation>
-<translation id="3867175562099983425">Browther-profilok kezelése</translation>
-<translation id="308146532933302843">További információ arról, hogy miért tilt le bizonyos letöltéseket a Browther</translation>
-<translation id="2189149060536531804">A Browther értesíti Önt, ha bármit érdemes áttekintenie</translation>
-<translation id="8422094375343667686">A Browther-profilok segítségével különválaszthatja élete különböző területeit. Adjon hozzá új profilt most.</translation>
-<translation id="6324134303015966238">A Browther előtölt olyan oldalakat, amelyeket Ön valószínűsíthetően fel fog keresni, így amikor valóban felkeresi őket, gyorsabban töltődnek be</translation>
+<translation id="1400697664933775238">Browther-profilok kezelése</translation>
+<translation id="2461315395128103158">További információ arról, hogy miért tilt le bizonyos letöltéseket a Browther</translation>
+<translation id="8058420662026104226">A Browther értesíti Önt, ha bármit érdemes áttekintenie</translation>
+<translation id="3177448557921912221">A Browther-profilok segítségével különválaszthatja élete különböző területeit. Adjon hozzá új profilt most.</translation>
+<translation id="1541177876035612043">A Browther előtölt olyan oldalakat, amelyeket Ön valószínűsíthetően fel fog keresni, így amikor valóban felkeresi őket, gyorsabban töltődnek be</translation>
 <translation id="3810973564298564668">Kezelés</translation>
-<translation id="4815742196440583661">Ha szeretné használni a mentett jelszavait, kövesse a QR-kódot, töltse le a Browther iOS-verzióját, és jelentkezzen be Browther-fiókjába</translation>
-<translation id="6093965249696204223">Browther-tipp: Biztonságos Böngészés fokozott védelemmel</translation>
+<translation id="1117103475254549453">Ha szeretné használni a mentett jelszavait, kövesse a QR-kódot, töltse le a Browther iOS-verzióját, és jelentkezzen be Browther-fiókjába</translation>
+<translation id="8880695882192156860">Browther-tipp: Biztonságos Böngészés fokozott védelemmel</translation>
 <translation id="3846683726093018685">**Összefoglalás:** Egyetlen, 30 szónál rövidebb mondatban írd le a képernyőképen látható tartalom elsődleges tárgyát és célját.
 
           **Kérdések javaslása:** Generálj egy pontokba szedett listát 3–5 olyan elgondolkodtató kérdéssel, amelyet a felhasználó feltehet a képernyőkép jobb megértése érdekében. E kérdések közül legalább egynek kifejezetten egy vizuális objektumra, illetve annak dizájnjára vagy elhelyezésére kell vonatkoznia.</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/> -- Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/> -- Browther Origin</translation>
 <translation id="3885770153807205175">Nyelvválasztó</translation>
-<translation id="6315734375101223238">Személyre szabhatja a Browther működését. Figyelmet kell fordítania valamire – a részletekért kattintson.</translation>
-<translation id="7130675370997202556">Kattintson a nevére a Browther megnyitásához és a böngészés megkezdéséhez.</translation>
+<translation id="4861846616763552424">Személyre szabhatja a Browther működését. Figyelmet kell fordítania valamire – a részletekért kattintson.</translation>
+<translation id="6126366281251241386">Kattintson a nevére a Browther megnyitásához és a böngészés megkezdéséhez.</translation>
 <translation id="3892148308691398805">Szöveg másolása</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> már be van jelentkezve ebbe a Browther-profilba. Ha szeretné elkülöníteni böngészési tevékenységeit, a Browther saját profilt hozhat létre Önnek.</translation>
-<translation id="8744239658215739511">A Browther s&amp;zemélyre szabása</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> már be van jelentkezve ebbe a Browther-profilba. Ha szeretné elkülöníteni böngészési tevékenységeit, a Browther saját profilt hozhat létre Önnek.</translation>
+<translation id="3821553157234855663">A Browther s&amp;zemélyre szabása</translation>
 <translation id="3941890832296813527">Telepítési hiba: A telepítő fájlneve érvénytelen vagy nem támogatott.</translation>
-<translation id="8090497651549769448">A Browther megpróbálkozik a jelszavak másolásával. Ennek engedélyezéséhez írja be Windows-jelszavát.</translation>
-<translation id="4256965182800026277">A Browther-fiókjába mentett jelszavai, fizetési módjai és címei el lesznek távolítva erről az eszközről. Ha újra használni szeretné őket a Braveban, jelentkezzen be újra.</translation>
+<translation id="6482299900191767005">A Browther megpróbálkozik a jelszavak másolásával. Ennek engedélyezéséhez írja be Windows-jelszavát.</translation>
+<translation id="5853011008278898603">A Browther-fiókjába mentett jelszavai, fizetési módjai és címei el lesznek távolítva erről az eszközről. Ha újra használni szeretné őket a Braveban, jelentkezzen be újra.</translation>
 <translation id="395904275706073188">A védett oldalakat nem lehet olvasni. Próbálkozzon másik oldallal.</translation>
-<translation id="4194619960643453552">További információ arról, hogy miként gondoskodik a Browther az Ön biztonságáról</translation>
-<translation id="1486377520191913768">Amikor beír valamit a címsávba vagy a keresőmezőbe, a Browther elküldi a beírt szöveget a szervezet keresési, AI- és ügynökeszközeinek javaslatok biztosítása érdekében.</translation>
-<translation id="1311808042904310985">A Browther for Testing névjegye</translation>
+<translation id="1832973663231751701">További információ arról, hogy miként gondoskodik a Browther az Ön biztonságáról</translation>
+<translation id="4531502594774670767">Amikor beír valamit a címsávba vagy a keresőmezőbe, a Browther elküldi a beírt szöveget a szervezet keresési, AI- és ügynökeszközeinek javaslatok biztosítása érdekében.</translation>
+<translation id="300013383485253006">A Browther for Testing névjegye</translation>
 <translation id="1152920704813762236">A ChromeOS névjegye</translation>
-<translation id="8282895427217902177">Amikor Ön felkeres egy webhelyet, a Browther az URL egy obfuszkált (érthetetlenné tett) részét elküldi a <ph name="BEGIN_LINK"/>Browther Biztonságos Böngészésnek<ph name="END_LINK"/> egy olyan adatvédelmi szerveren keresztül, amely elrejti az Ön IP-címét. Ha valamelyik oldalon gyanús műveletet észlel, akkor a böngésző a teljes URL-eket és az oldal tartalmának egyes részeit is elküldi.</translation>
+<translation id="8126752030994997015">Amikor Ön felkeres egy webhelyet, a Browther az URL egy obfuszkált (érthetetlenné tett) részét elküldi a <ph name="BEGIN_LINK"/>Browther Biztonságos Böngészésnek<ph name="END_LINK"/> egy olyan adatvédelmi szerveren keresztül, amely elrejti az Ön IP-címét. Ha valamelyik oldalon gyanús műveletet észlel, akkor a böngésző a teljes URL-eket és az oldal tartalmának egyes részeit is elküldi.</translation>
 <translation id="3703994572283698466">A ChromeOS létrejöttéhez egyéb <ph name="BEGIN_LINK_CROS_OSS"/>nyílt forráskódú szoftverek<ph name="END_LINK_CROS_OSS"/> is hozzájárultak, ahogyan a <ph name="BEGIN_LINK_LINUX_OSS"/>Linux fejlesztői környezet<ph name="END_LINK_LINUX_OSS"/> létrejöttéhez is.</translation>
 <translation id="4022972681110646219">Képernyőtartalom lefordítása</translation>
 <translation id="4023601594785368013">Eredeti nyelv: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">A Braveban bármely alkalmazásból megnyithatja a linkeket. A Browther a tálcára is ki lesz tűzve, így könnyen hozzáférhet.</translation>
-<translation id="6056473803837713617">Segítsen a Browther fejlesztésében a <ph name="BEGIN_LINK"/>jelenlegi beállítások<ph name="END_LINK"/> elküldésével</translation>
+<translation id="6450460108719059465">A Braveban bármely alkalmazásból megnyithatja a linkeket. A Browther a tálcára is ki lesz tűzve, így könnyen hozzáférhet.</translation>
+<translation id="3437506136408403836">Segítsen a Browther fejlesztésében a <ph name="BEGIN_LINK"/>jelenlegi beállítások<ph name="END_LINK"/> elküldésével</translation>
 <translation id="4050175100176540509">A legújabb verzióban fontos biztonsági fejlesztések és új funkciók érhetők el.</translation>
 <translation id="4055805654398742145">J&amp;elszókezelő</translation>
-<translation id="6654312501894761082">A számítógépen lévő egyik program olyan bővítményt adott hozzá, amely módosíthatja a Browther működését.
+<translation id="2164947358785939495">A számítógépen lévő egyik program olyan bővítményt adott hozzá, amely módosíthatja a Browther működését.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Szervezete automatikusan bezárja a Braveot, ha 1 percig nincs használatban. A böngészési adatok ekkor törlődnek. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések.}other{Szervezete automatikusan bezárja a Braveot, ha # percig nincs használatban. A böngészési adatok ekkor törlődnek. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések.}}</translation>
-<translation id="5794951150713244901">Ugrás A Browther névjegye oldalra</translation>
-<translation id="10925962326134232">A Browther személyre szabásával új megjelenést adhat böngészőjének</translation>
-<translation id="6596295505984504022">A Browther s&amp;zemélyre szabása</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Szervezete automatikusan bezárja a Braveot, ha 1 percig nincs használatban. A böngészési adatok ekkor törlődnek. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések.}other{Szervezete automatikusan bezárja a Braveot, ha # percig nincs használatban. A böngészési adatok ekkor törlődnek. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltések.}}</translation>
+<translation id="1535413545339990419">Ugrás A Browther névjegye oldalra</translation>
+<translation id="692283249649018289">A Browther személyre szabásával új megjelenést adhat böngészőjének</translation>
+<translation id="6375229634133804834">A Browther s&amp;zemélyre szabása</translation>
 <translation id="4148957013307229264">Telepítés...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> – Hálózati bejelentkezés – Browther</translation>
-<translation id="2871190378186459992">Fedezzen fel nagyszerű alkalmazásokat, játékokat, bővítményeket és témákat a Bravehoz.</translation>
-<translation id="462105622535258178">Ha az összes számítógépén hozzá szeretne férni ehhez a bővítményhez és egyebekhez, jelentkezzen be a Braveba</translation>
-<translation id="6670140629169983459">Ha szeretnéd, hogy a szülőd által kiválasztott beállításokkal nagyobb biztonságban legyél az interneten, válts a Browther-profilodra, amelybe már be vagy jelentkezve a következő e-mail-címmel: <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> – Hálózati bejelentkezés – Browther</translation>
+<translation id="2911246138082876798">Fedezzen fel nagyszerű alkalmazásokat, játékokat, bővítményeket és témákat a Bravehoz.</translation>
+<translation id="2528977475313334293">Ha az összes számítógépén hozzá szeretne férni ehhez a bővítményhez és egyebekhez, jelentkezzen be a Braveba</translation>
+<translation id="8244267655940711467">Ha szeretnéd, hogy a szülőd által kiválasztott beállításokkal nagyobb biztonságban legyél az interneten, válts a Browther-profilodra, amelybe már be vagy jelentkezve a következő e-mail-címmel: <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="4222932583846282852">Visszavonás…</translation>
 <translation id="4224210481850767180">A telepítés meg lett szakítva.</translation>
-<translation id="1853997773668795891">Társítja Browther-adatait ezzel a fiókkal?</translation>
-<translation id="4732930052828648898">Figyelmezteti Önt a veszélyes webhelyekre (még azokra is, amelyekről a Browther korábban nem tudott), azáltal hogy több, webhelyekről származó adatot elemez, mint a normál védelem. Beállíthatja a Browther figyelmeztetéseinek kihagyását.</translation>
-<translation id="2201661640076600072">Kijelentkezés a Braveból</translation>
-<translation id="3262506503470845422">Segítség a Browther használatával kapcsolatban</translation>
+<translation id="8219359042845534271">Társítja Browther-adatait ezzel a fiókkal?</translation>
+<translation id="5520777668172961882">Figyelmezteti Önt a veszélyes webhelyekre (még azokra is, amelyekről a Browther korábban nem tudott), azáltal hogy több, webhelyekről származó adatot elemez, mint a normál védelem. Beállíthatja a Browther figyelmeztetéseinek kihagyását.</translation>
+<translation id="2014920019837536689">Kijelentkezés a Braveból</translation>
+<translation id="4341512411059715879">Segítség a Browther használatával kapcsolatban</translation>
 <translation id="4281844954008187215">Általános Szerződési Feltételek</translation>
-<translation id="7691786510374174420">A telepítés váratlan hiba miatt nem sikerült. Ha a Browther jelenleg fut, zárja be, majd próbálkozzon újra.</translation>
-<translation id="6368144843345980623">Jelszavak exportálása a Braveból</translation>
+<translation id="322492684764924424">A telepítés váratlan hiba miatt nem sikerült. Ha a Browther jelenleg fut, zárja be, majd próbálkozzon újra.</translation>
+<translation id="3813060261346666066">Jelszavak exportálása a Braveból</translation>
 <translation id="4304713468139749426">Jelszókezelő</translation>
 <translation id="4334241893986177674">Keresés ezen a képernyőképen</translation>
 <translation id="4334294535648607276">A letöltés befejeződött.</translation>
-<translation id="242356249838681145">A Browther indítása a Windows indulásakor</translation>
-<translation id="4747339441562331861">A Browther alapértelmezett böngészőként való beállításával könnyen hozzáférhet a már ismert, szeretett és megbízható funkciókhoz. A Browther a gyors hozzáférés érdekében ki lesz tűzve a tálcára.</translation>
+<translation id="2177954934431828302">A Browther indítása a Windows indulásakor</translation>
+<translation id="2472318668926455009">A Browther alapértelmezett böngészőként való beállításával könnyen hozzáférhet a már ismert, szeretett és megbízható funkciókhoz. A Browther a gyors hozzáférés érdekében ki lesz tűzve a tálcára.</translation>
 <translation id="1068681683510904753">A(z) <ph name="MANAGER"/> megköveteli, hogy olvassa, majd fogadja el a következő Általános Szerződési Feltételeket, mielőtt használná ezt az eszközt. Ezek a feltételek nem bővítik, módosítják vagy korlátozzák a ChromeOS feltételeit.</translation>
-<translation id="9183662282810237335">Biztosan kilép a Braveból?</translation>
+<translation id="2897580280700805340">Biztosan kilép a Braveból?</translation>
 <translation id="4413205837991854510">A Képkereső parancsikonja mindig jelenjen meg</translation>
-<translation id="4065288863231444640">A Browther futhat a háttérben</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{A Browther az eltávolítását javasolja. <ph name="BEGIN_LINK"/>További információ a támogatott bővítményekről.<ph name="END_LINK"/>}other{A Browther az eltávolításukat javasolja. <ph name="BEGIN_LINK"/>További információ a támogatott bővítményekről.<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">A Browther személyre szabása és beállításai</translation>
+<translation id="2454897022983434851">A Browther futhat a háttérben</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{A Browther az eltávolítását javasolja. <ph name="BEGIN_LINK"/>További információ a támogatott bővítményekről.<ph name="END_LINK"/>}other{A Browther az eltávolításukat javasolja. <ph name="BEGIN_LINK"/>További információ a támogatott bővítményekről.<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">A Browther személyre szabása és beállításai</translation>
 <translation id="4427306783828095590">A Speciális védelem még többet tesz annak érdekében, hogy letiltsa az adathalászatot és a rosszindulatú programokat</translation>
 <translation id="4434353761996769206">Telepítőhiba: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413">A(z) <ph name="MANAGER"/> kezeli a Braveot</translation>
-<translation id="3579012341787637143">Browther-profil hozzáadása</translation>
-<translation id="6786534271003695094">A Browther for Testing névjegye</translation>
-<translation id="526235294307144732">Ha Browther-adatokat szeretne használni és tárolni Browther-fiókjában, adja meg összetett jelszavát</translation>
+<translation id="4870160002723711846">A(z) <ph name="MANAGER"/> kezeli a Braveot</translation>
+<translation id="4007482010626246887">Browther-profil hozzáadása</translation>
+<translation id="6888322430074420631">A Browther for Testing névjegye</translation>
+<translation id="8912436499620582668">Ha Browther-adatokat szeretne használni és tárolni Browther-fiókjában, adja meg összetett jelszavát</translation>
 <translation id="4493028449971051158">Indítási hiba: rendszergazdaként futtassa a telepítőt.</translation>
 <translation id="4501471624619070934">A telepítés sikertelen volt, mivel a hozzáférés korlátozott ebben az országban.</translation>
-<translation id="8594994021633965927">Ez a bővítmény nem tett közzé adatvédelmi gyakorlatokat például arra vonatkozóan, hogy hogyan gyűjti és használja fel az adatokat. A Browther az eltávolítását javasolja.</translation>
-<translation id="770557926599450702">Üdvözöljük a Browther Originban; új böngészőablak megnyitva</translation>
-<translation id="137732229629632648">A Bravenak engedélyre van szüksége ahhoz, hogy feltérképezhesse az Ön környezetét, és nyomon követhesse a kezét</translation>
-<translation id="5036046007335188949">Már be van jelentkezve a(z) <ph name="USER_EMAIL_ADDRESS"/> fiókkal egy másik Browther-profilban.</translation>
-<translation id="1878185978731985193">A Browther előre betölti az oldalakat, ami felgyorsítja a böngészést és a keresést. <ph name="BEGIN_LINK"/>További információ az oldalak előtöltéséről<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Ez a bővítmény nem tett közzé adatvédelmi gyakorlatokat például arra vonatkozóan, hogy hogyan gyűjti és használja fel az adatokat. A Browther az eltávolítását javasolja.</translation>
+<translation id="8888202093812883067">Üdvözöljük a Browther Originban; új böngészőablak megnyitva</translation>
+<translation id="6391148383688605718">A Bravenak engedélyre van szüksége ahhoz, hogy feltérképezhesse az Ön környezetét, és nyomon követhesse a kezét</translation>
+<translation id="7756445485815468244">Már be van jelentkezve a(z) <ph name="USER_EMAIL_ADDRESS"/> fiókkal egy másik Browther-profilban.</translation>
+<translation id="137435413163730206">A Browther előre betölti az oldalakat, ami felgyorsítja a böngészést és a keresést. <ph name="BEGIN_LINK"/>További információ az oldalak előtöltéséről<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Ha bejelent egy olyan webhelyet, amelyről úgy gondolja, hogy káros, azzal mindenki számára biztonságosabbá teszi az internetezést.</translation>
-<translation id="8669339108356170796">A Browther letiltotta ezt a letöltést, mert Ön kikapcsolta a Biztonságos Böngészést, és a fájl nem ellenőrizhető</translation>
-<translation id="7583343841997441047">A Google Lens kipróbálása a Bravemal telefonon</translation>
+<translation id="3266647901351304597">A Browther letiltotta ezt a letöltést, mert Ön kikapcsolta a Biztonságos Böngészést, és a fájl nem ellenőrizhető</translation>
+<translation id="6980208900390333646">A Google Lens kipróbálása a Bravemal telefonon</translation>
 <translation id="4594305310729380060">Az eszközön található Jelszókezelőbe</translation>
-<translation id="7776200949522126045">Browther Origin-alkalmazások</translation>
+<translation id="5282047884678321451">Browther Origin-alkalmazások</translation>
 <translation id="4598116752460667024">Keressen rá a listában található bármelyik folyamatra.</translation>
 <translation id="4970880042055371251">A ChromeOS verziója</translation>
-<translation id="2182657378556811785">Már majdnem naprakész! Indítsa újra a Braveot a frissítés befejezéséhez.</translation>
-<translation id="6311668361877328515">A Browther V8 motorjával felgyorsítja a webhelyeket, de kissé kevésbé ellenállóvá teszi a Braveot a támadásokkal szemben.</translation>
-<translation id="7402642357351265733">Ha a Browther használati jelentéseit is megosztja, ezek a jelentések tartalmazzák az Ön által felkeresett URL-eket.</translation>
-<translation id="8142245354207161805">Úgy tűnik, a profilt egy másik Browther-folyamat (<ph name="PROCESS_ID"/>) használja egy másik számítógépen (<ph name="HOST_NAME"/>). A Browther zárolta a profilt, hogy az ne sérülhessen. Ha biztos benne, hogy nem használja másik folyamat a profilt, feloldhatja azt, és újraindíthatja a Braveot.</translation>
+<translation id="4482468019601425607">Már majdnem naprakész! Indítsa újra a Braveot a frissítés befejezéséhez.</translation>
+<translation id="5517890123509214766">A Browther V8 motorjával felgyorsítja a webhelyeket, de kissé kevésbé ellenállóvá teszi a Braveot a támadásokkal szemben.</translation>
+<translation id="7690070364551268156">Ha a Browther használati jelentéseit is megosztja, ezek a jelentések tartalmazzák az Ön által felkeresett URL-eket.</translation>
+<translation id="5020487088453637212">Úgy tűnik, a profilt egy másik Browther-folyamat (<ph name="PROCESS_ID"/>) használja egy másik számítógépen (<ph name="HOST_NAME"/>). A Browther zárolta a profilt, hogy az ne sérülhessen. Ha biztos benne, hogy nem használja másik folyamat a profilt, feloldhatja azt, és újraindíthatja a Braveot.</translation>
 <translation id="4680828127924988555">Telepítés megszakítása</translation>
-<translation id="2014343159590733363">Az Ön egyes Browther-adatait még nem mentette a rendszer a Browther-fiókjába. A kijelentkezés előtt várjon néhány percet. Ha most jelentkezik ki, akkor ezek az adatok törlődnek.</translation>
-<translation id="2408746614080689238">Amíg be van jelentkezve, használhatja a Browther-fiókjában tárolt jelszavait és egyéb tartalmait a Braveban. A(z) <ph name="SHORTCUT"/> billentyűparancs módosíthatja a Browther-szolgáltatásokra vonatkozó beállításait.</translation>
-<translation id="847561904663814268">Valaki korábban <ph name="ACCOUNT_EMAIL_LAST"/> néven bejelentkezett a Braveba erről a számítógépről. Az adatai elkülönítéséhez hozzon létre új Browther-felhasználót.</translation>
+<translation id="8134827615154347946">Az Ön egyes Browther-adatait még nem mentette a rendszer a Browther-fiókjába. A kijelentkezés előtt várjon néhány percet. Ha most jelentkezik ki, akkor ezek az adatok törlődnek.</translation>
+<translation id="3508712423420506333">Amíg be van jelentkezve, használhatja a Browther-fiókjában tárolt jelszavait és egyéb tartalmait a Braveban. A(z) <ph name="SHORTCUT"/> billentyűparancs módosíthatja a Browther-szolgáltatásokra vonatkozó beállításait.</translation>
+<translation id="2388739442635757494">Valaki korábban <ph name="ACCOUNT_EMAIL_LAST"/> néven bejelentkezett a Braveba erről a számítógépről. Az adatai elkülönítéséhez hozzon létre új Browther-felhasználót.</translation>
 <translation id="4724676981607797757">A telepítés nem támogatott protokoll hiba miatt nem sikerült.</translation>
-<translation id="3834935463915107022">Biztosan kilép a Braveból?</translation>
-<translation id="8668413672647811944">A rendszer egy speciális biztonsági frissítést alkalmazott a Braveon. Indítsa újra a számítógépet, a lapokat majd mi visszaállítjuk.</translation>
-<translation id="9029438584415578308">Kérdezzen a Bravetól</translation>
-<translation id="4941816441131888792">Nem látogatta meg mostanában. A Browther eltávolította a következőket: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> és további <ph name="COUNT"/>.</translation>
-<translation id="4823369970559443694">A Browther nem tudja ellenőrizni a jelszavait. Próbálja újra 24 óra múlva, vagy <ph name="BEGIN_LINK"/>ellenőrizze jelszavait a Browther-fiókjában<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">A szolgáltatás ugyanazt a helyesírás-ellenőrzést használja, mint a Browther Kereső. A begépelt szöveget a böngésző elküldi a Browther-nak. A beállítások között ezt bármikor módosíthatja.</translation>
-<translation id="2899369907387169108">Browther használata fiók nélkül</translation>
-<translation id="1833893255023048385">Bejövő szabály a Browther Originhoz az mDNS forgalom engedélyezése céljából.</translation>
-<translation id="711601904575862069">Indítsa újra a Browther frissítéshez</translation>
+<translation id="8305313684264112434">Biztosan kilép a Braveból?</translation>
+<translation id="418155915144835101">A rendszer egy speciális biztonsági frissítést alkalmazott a Braveon. Indítsa újra a számítógépet, a lapokat majd mi visszaállítjuk.</translation>
+<translation id="2683970367518529374">Kérdezzen a Bravetól</translation>
+<translation id="5064473048847774331">Nem látogatta meg mostanában. A Browther eltávolította a következőket: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> és további <ph name="COUNT"/>.</translation>
+<translation id="5941343075741207533">A Browther nem tudja ellenőrizni a jelszavait. Próbálja újra 24 óra múlva, vagy <ph name="BEGIN_LINK"/>ellenőrizze jelszavait a Browther-fiókjában<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">A szolgáltatás ugyanazt a helyesírás-ellenőrzést használja, mint a Browther Kereső. A begépelt szöveget a böngésző elküldi a Browther-nak. A beállítások között ezt bármikor módosíthatja.</translation>
+<translation id="4581078588976787792">Browther használata fiók nélkül</translation>
+<translation id="3394520491703535051">Bejövő szabály a Browther Originhoz az mDNS forgalom engedélyezése céljából.</translation>
+<translation id="6563126962881169552">Indítsa újra a Browther frissítéshez</translation>
 <translation id="4918086044614829423">Elfogadás</translation>
 <translation id="4918844574251943176">Kép másolva</translation>
-<translation id="8797356639448065696">A Browther háttérmódban van.</translation>
-<translation id="1895567721497166950">Kattintson a Browther bejelentkezési párbeszédpaneljének bezárásához</translation>
-<translation id="2692971232706994729">A Browther-profilokkal különválaszthatja minden Browther-anyagát. Létrehozhat profilokat ismerőseinek és családtagjainak, vagy elkülönítheti egymástól a munkát és a szórakozást.</translation>
-<translation id="7406627712452599344">A vendégek úgy használhatják a Braveot, hogy nem hagynak hátra semmit.</translation>
-<translation id="844471735881341044">Az Ön fiókja a Braveban</translation>
-<translation id="5952898964075639679">Adja hozzá magát a Braveban</translation>
-<translation id="7995865526174204486">A Gemini a Braveban az automatikus böngészés funkciót használja az Ön lapjain való munkavégzéshez és az Ön által adott feladatok elvégzéséhez. <ph name="LINK_BEGIN"/>További információ<ph name="LINK_END"/>.</translation>
-<translation id="1204184037023366446">A Bravenak engedélyre van szüksége ahhoz, hogy követhesse az Ön kézmozgását</translation>
-<translation id="5406591571925937375">Nem látogatta meg mostanában. A Browther eltávolította a következőket: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> és <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">A Browther háttérmódban van.</translation>
+<translation id="3603134280602182991">Kattintson a Browther bejelentkezési párbeszédpaneljének bezárásához</translation>
+<translation id="6120233890602288442">A Browther-profilokkal különválaszthatja minden Browther-anyagát. Létrehozhat profilokat ismerőseinek és családtagjainak, vagy elkülönítheti egymástól a munkát és a szórakozást.</translation>
+<translation id="5722688387568011881">A vendégek úgy használhatják a Braveot, hogy nem hagynak hátra semmit.</translation>
+<translation id="7786958592460743302">Az Ön fiókja a Braveban</translation>
+<translation id="9114640791491590337">Adja hozzá magát a Braveban</translation>
+<translation id="3536391594566515053">A Gemini a Braveban az automatikus böngészés funkciót használja az Ön lapjain való munkavégzéshez és az Ön által adott feladatok elvégzéséhez. <ph name="LINK_BEGIN"/>További információ<ph name="LINK_END"/>.</translation>
+<translation id="5620073061430082932">A Bravenak engedélyre van szüksége ahhoz, hogy követhesse az Ön kézmozgását</translation>
+<translation id="1627123463102858476">Nem látogatta meg mostanában. A Browther eltávolította a következőket: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> és <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Ön általában letiltja az értesítéseket. Ha azt szeretné, hogy ez a webhely küldjön értesítéseket, kattintson a helysáv jobb sarkában lévő értesítési ikonra.</translation>
 <translation id="5174983315706567306">Nincs elég lemezterület.</translation>
-<translation id="8157129267754368853">A Browther-fiókot újból hitelesíteni kell</translation>
-<translation id="9078804073692109646">Nincsenek mentett jelszavak. A Browther képes a jelszavak ellenőrzésére, ha Ön elmenti őket.</translation>
-<translation id="6234515504547364178">Kijelentkezés a Braveból</translation>
+<translation id="7091313576354542088">A Browther-fiókot újból hitelesíteni kell</translation>
+<translation id="9045390598305758496">Nincsenek mentett jelszavak. A Browther képes a jelszavak ellenőrzésére, ha Ön elmenti őket.</translation>
+<translation id="5686724084351858452">Kijelentkezés a Braveból</translation>
 <translation id="5234764350956374838">Elvetés</translation>
 <translation id="5254739261293693943">Kérdés feltevése erről a videóról</translation>
-<translation id="8586264863973514035">A módosítások alkalmazásához indítsa újra a Braveot</translation>
+<translation id="8165028066129227692">A módosítások alkalmazásához indítsa újra a Braveot</translation>
 <translation id="5286907366254680517">Észlelve</translation>
-<translation id="7264453786974905915">A Browther app letöltése</translation>
-<translation id="6944930779012811739">Browther-frissítési belső szolgáltatás</translation>
+<translation id="198210130507193824">A Browther app letöltése</translation>
+<translation id="8472078903122489041">Browther-frissítési belső szolgáltatás</translation>
 <translation id="5346389065299425353">Több lap, fájl és eszköz hozzáadásával elmélyítheti a keresést</translation>
-<translation id="7573068992266397941">A Browther talált néhány áttekintésre érdemes biztonsági javaslatot</translation>
-<translation id="8174413867995118050">Egyéb Browther-profilok</translation>
-<translation id="7708394612738038097">Kezelt fiókkal jelentkezik be, és annak adminisztrátora számára hozzáférést biztosít Browther-profiljához. Browther-adatait – például alkalmazásait, könyvjelzőit, előzményeit, jelszavait és más beállításait – a rendszer véglegesen társítja a(z) <ph name="USER_NAME"/> fiókhoz. Ezen adatokat a Browther-fiók Irányítópultján törölheti, de más fiókhoz nem társíthatja őket. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">A Browther talált néhány áttekintésre érdemes biztonsági javaslatot</translation>
+<translation id="509616246140011182">Egyéb Browther-profilok</translation>
+<translation id="8214429210535362385">Kezelt fiókkal jelentkezik be, és annak adminisztrátora számára hozzáférést biztosít Browther-profiljához. Browther-adatait – például alkalmazásait, könyvjelzőit, előzményeit, jelszavait és más beállításait – a rendszer véglegesen társítja a(z) <ph name="USER_NAME"/> fiókhoz. Ezen adatokat a Browther-fiók Irányítópultján törölheti, de más fiókhoz nem társíthatja őket. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Extra kód: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">A személyre szabáshoz vegye fel a Braveot az Internetes és alkalmazástevékenységek közé</translation>
-<translation id="5154625106151193600">További információ arról, hogy miért tilt le bizonyos fájlokat a Browther</translation>
-<translation id="1786715389543715322">A Browther frissítése (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Browther-bejelentkezés engedélyezése</translation>
-<translation id="5267531627648004734">Eltávolítás a Braveból</translation>
-<translation id="4620757336635063467">Csökkenti a teljesítményt, de ellenállóbbá teszi a Braveot a támadásokkal szemben</translation>
-<translation id="239760341987199724">A Browther beállítása alapértelmezett böngészőként</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> – Browther Origin Béta</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{A Browther a böngészőt lassító lap szüneteltetését javasolja}other{A Browther a böngészőt lassító lapok szüneteltetését javasolja}}</translation>
-<translation id="894936507076470937">Előfordulhat, hogy a Browther nem fog megfelelően működni, mert a továbbiakban már nem támogatja ezt a Linux-verziót.</translation>
-<translation id="2596557398669145729">A Browther letiltotta ezt a letöltést, mert a fájl károkat okozhat az Ön személyes és közösségi fiókjaiban</translation>
-<translation id="696826782632239602">A Bravenak a helyadatokhoz való hozzáférésre van szüksége ahhoz, hogy megoszthassa az Ön tartózkodási helyét a webhellyel</translation>
-<translation id="1744365871163268756">Kérjük, várjon, amíg a Browther telepíti a legutóbbi rendszerfrissítéseket.</translation>
-<translation id="3861679447659630159">A Browther szerkeszteni próbálja a jelszavakat. Az engedélyezéshez adja meg Windows-jelszavát.</translation>
+<translation id="5244017809112094908">A személyre szabáshoz vegye fel a Braveot az Internetes és alkalmazástevékenységek közé</translation>
+<translation id="8096544113811780871">További információ arról, hogy miért tilt le bizonyos fájlokat a Browther</translation>
+<translation id="2384387444932590174">A Browther frissítése (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Browther-bejelentkezés engedélyezése</translation>
+<translation id="6557334704331248411">Eltávolítás a Braveból</translation>
+<translation id="5832041381258620673">Csökkenti a teljesítményt, de ellenállóbbá teszi a Braveot a támadásokkal szemben</translation>
+<translation id="3763317028635993788">A Browther beállítása alapértelmezett böngészőként</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> – Browther Origin Béta</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{A Browther a böngészőt lassító lap szüneteltetését javasolja}other{A Browther a böngészőt lassító lapok szüneteltetését javasolja}}</translation>
+<translation id="4423621904097888155">Előfordulhat, hogy a Browther nem fog megfelelően működni, mert a továbbiakban már nem támogatja ezt a Linux-verziót.</translation>
+<translation id="6201726364919996698">A Browther letiltotta ezt a letöltést, mert a fájl károkat okozhat az Ön személyes és közösségi fiókjaiban</translation>
+<translation id="7679204468655335605">A Bravenak a helyadatokhoz való hozzáférésre van szüksége ahhoz, hogy megoszthassa az Ön tartózkodási helyét a webhellyel</translation>
+<translation id="1163572992704966942">Kérjük, várjon, amíg a Browther telepíti a legutóbbi rendszerfrissítéseket.</translation>
+<translation id="5050118226119231029">A Browther szerkeszteni próbálja a jelszavakat. Az engedélyezéshez adja meg Windows-jelszavát.</translation>
 <translation id="5524890928877629608">keresési terület bal felső sarka: bal <ph name="LEFT"/>%, fent <ph name="TOP"/>%</translation>
-<translation id="232381795826373334">PDF-fájlok megnyitása a Braveban</translation>
+<translation id="5875549039106594731">PDF-fájlok megnyitása a Braveban</translation>
 <translation id="5536164441519929134">Kérdés<ph name="LINE_BREAK"/>erről a lapról</translation>
 <translation id="5579324208890605088">Indítási hiba: normál felhasználóként futtassa a telepítőt, ne rendszergazdaként.</translation>
-<translation id="3588973534877826647">Használja a Braveot alapértelmezett böngészőként, és tűzze ki a tálcára</translation>
+<translation id="202315329304302571">Használja a Braveot alapértelmezett böngészőként, és tűzze ki a tálcára</translation>
 <translation id="5596627076506792578">További lehetőségek</translation>
 <translation id="5605834417512968703">Válasszon ki bármit a Képkeresővel való kereséshez, vagy nyomja meg az Esc billentyűt a Képkeresőből való kilépéshez</translation>
 <translation id="5618818588972826921">Válasszon ki bármilyen szöveget vagy képet a Képkeresővel való kereséshez, vagy nyomja meg az Esc billentyűt a Képkeresőből való kilépéshez</translation>
-<translation id="1026406809507858026">{0,plural, =0{Rendelkezésre áll egy Browther-frissítés}=1{Rendelkezésre áll egy Browther-frissítés}other{# napja rendelkezésre áll egy Browther-frissítés}}</translation>
-<translation id="1023472437588692618">Mindig törölje a webhelyadatokat az eszközről a Browther bezárásakor</translation>
-<translation id="5646769069113654257">Indítsa újra a Braveot most</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">A Browther megjelenítése ezen a nyelven</translation>
+<translation id="5823076755666406442">{0,plural, =0{Rendelkezésre áll egy Browther-frissítés}=1{Rendelkezésre áll egy Browther-frissítés}other{# napja rendelkezésre áll egy Browther-frissítés}}</translation>
+<translation id="8414129876440043675">Mindig törölje a webhelyadatokat az eszközről a Browther bezárásakor</translation>
+<translation id="5156991567152325333">Indítsa újra a Braveot most</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">A Browther megjelenítése ezen a nyelven</translation>
 <translation id="569897634095159764">Nem lehet csatlakozni az internethez. A proxyszerver hitelesítést igényel.</translation>
-<translation id="3364613146104156465">A Browther-profilokkal különválaszthatja a magáncélú és a munkahelyi böngészést. Adjon hozzá új profilt most.</translation>
-<translation id="1834213228893578875">A Browther memóriát szabadít fel az inaktív lapokból. Így az aktív lapok és más alkalmazások több számítógépes erőforrást kapnak, és a Browther gyors marad. Az inaktív lapok automatikusan ismét aktívak lesznek, amikor visszalép rájuk. <ph name="BEGIN_LINK"/>További információ a Memóriatakarékos funkcióról<ph name="END_LINK"/>.</translation>
-<translation id="899523323751802352">Ha elfelejtette az összetett jelszavát, vagy módosítani szeretné ezt a beállítást, <ph name="SETTINGS_LINK"/> törölje a fiókjában lévő Browther-adatokat.</translation>
-<translation id="82926023981336111">Személyre szabhatja a Browther működését. Beállíthatja a Braveot alapértelmezettként.</translation>
+<translation id="4215338057953170891">A Browther-profilokkal különválaszthatja a magáncélú és a munkahelyi böngészést. Adjon hozzá új profilt most.</translation>
+<translation id="5366435608642317052">A Browther memóriát szabadít fel az inaktív lapokból. Így az aktív lapok és más alkalmazások több számítógépes erőforrást kapnak, és a Browther gyors marad. Az inaktív lapok automatikusan ismét aktívak lesznek, amikor visszalép rájuk. <ph name="BEGIN_LINK"/>További információ a Memóriatakarékos funkcióról<ph name="END_LINK"/>.</translation>
+<translation id="4941518395341035738">Ha elfelejtette az összetett jelszavát, vagy módosítani szeretné ezt a beállítást, <ph name="SETTINGS_LINK"/> törölje a fiókjában lévő Browther-adatokat.</translation>
+<translation id="7763291835437810978">Személyre szabhatja a Browther működését. Beállíthatja a Braveot alapértelmezettként.</translation>
 <translation id="5809516625706423866">Nem lehet csatlakozni az internethez. „HTTP 401 Unauthorized” hiba. Ellenőrizze a proxybeállításokat.</translation>
-<translation id="95980832839683236">A Browther V8 motorjával felgyorsítja a webhelyeket, de kissé kevésbé ellenállóvá teszi a Braveot a támadásokkal szemben. Ez a beállítás ki van kapcsolva.</translation>
-<translation id="1224606669200461217">Ha Browther-adatokat szeretne használni és tárolni Browther-fiókjában, frissítse a Braveot</translation>
+<translation id="1827132270895283425">A Browther V8 motorjával felgyorsítja a webhelyeket, de kissé kevésbé ellenállóvá teszi a Braveot a támadásokkal szemben. Ez a beállítás ki van kapcsolva.</translation>
+<translation id="1553025851718680114">Ha Browther-adatokat szeretne használni és tárolni Browther-fiókjában, frissítse a Braveot</translation>
 <translation id="5824893331272123205">Nem sikerült betölteni ezt a panelt. Próbálja újra.</translation>
-<translation id="4467664627714200493">Üdvözli a Browther Origin!</translation>
+<translation id="6642862349634944253">Üdvözli a Browther Origin!</translation>
 <translation id="5871205389137001634">Kattintson a Képkeresőből való kilépéshez</translation>
-<translation id="8054200348483755053">A Browther rosszindulatú programot talált a következő elemekben:</translation>
-<translation id="3955583201925082436">A Browther rendszeresen ellenőrzi, hogy a böngészője a legbiztonságosabb beállításokkal rendelkezik-e. Tudatni fogjuk, ha bármit felül kell vizsgálni.</translation>
+<translation id="7586794330537887406">A Browther rosszindulatú programot talált a következő elemekben:</translation>
+<translation id="1666897346518812892">A Browther rendszeresen ellenőrzi, hogy a böngészője a legbiztonságosabb beállításokkal rendelkezik-e. Tudatni fogjuk, ha bármit felül kell vizsgálni.</translation>
 <translation id="5895138241574237353">Újraindítás</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> – Hálózati bejelentkezés</translation>
 <translation id="5924017743176219022">Kapcsolódás az internethez…</translation>
 <translation id="5941711191222866238">Kis méret</translation>
-<translation id="5768962901674164501">Ha az összes eszközén szeretne hozzáférni ehhez a könyvjelzőhöz és egyebekhez, jelentkezzen be a Braveba</translation>
-<translation id="5101892358689285100">Tegye személyessé a Braveot</translation>
+<translation id="4938357262936377412">Ha az összes eszközén szeretne hozzáférni ehhez a könyvjelzőhöz és egyebekhez, jelentkezzen be a Braveba</translation>
+<translation id="260974496993853147">Tegye személyessé a Braveot</translation>
 <translation id="5960071705175224773">A beállításokat egy ismeretlen alkalmazás módosította</translation>
 <translation id="5968400720580217226">AI-mód</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Szervezete automatikusan bezárja a Braveot, ha 1 percig nincs használatban.}other{Szervezete automatikusan bezárja a Braveot, ha # percig nincs használatban.}}</translation>
-<translation id="3598551856834560515">Frissítse a Braveot a szinkronizálás megkezdéséhez</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Szervezete automatikusan bezárja a Braveot, ha 1 percig nincs használatban.}other{Szervezete automatikusan bezárja a Braveot, ha # percig nincs használatban.}}</translation>
+<translation id="5852664780493076676">Frissítse a Braveot a szinkronizálás megkezdéséhez</translation>
 <translation id="6003112304606738118">Letöltés… <ph name="HOURS"/> óra van hátra</translation>
 <translation id="6009821354356307391">Kiegészítő keresés kérése</translation>
 <translation id="6040143037577758943">Bezárás</translation>
-<translation id="700488072601322385">Adatainak védelme érdekében engedélyezze, hogy a Browther eltávolítsa azoknak a webhelyeknek az engedélyeit, amelyeket Ön nem keresett fel mostanában. Ez nem állítja le az értesítéseket.</translation>
-<translation id="9071554113102421877">Megnyitás Braveban</translation>
+<translation id="2495504229007749358">Adatainak védelme érdekében engedélyezze, hogy a Browther eltávolítsa azoknak a webhelyeknek az engedélyeit, amelyeket Ön nem keresett fel mostanában. Ez nem állítja le az értesítéseket.</translation>
+<translation id="6038969823662006832">Megnyitás Braveban</translation>
 <translation id="6069027071882229820">Másolás képként</translation>
-<translation id="7861579472672677409">A(z) <ph name="EXTENSION_NAME"/> hozzá lett adva a Bravehoz</translation>
-<translation id="5849446944780602366">A Browther személyre szabása és vezérlése. Van rendelkezésre álló frissítés.</translation>
-<translation id="5711722515923392428">Be • A Browther nem tudja ellenőrizni a bővítmény forrását</translation>
-<translation id="6355366566986893068">Az Ön fiókja a Braveban</translation>
-<translation id="7433698744896946664">A bővítmény megjeleníthet hozzáférési kérelmeket a Browther eszköztárán</translation>
-<translation id="4168372721886011198">A(z) <ph name="FILE_NAME"/> veszélyes, ezért a Browther letiltotta.</translation>
-<translation id="991182453936521413">A Browther hamarosan bezáródik, és törli az adatokat</translation>
-<translation id="4060970194201477024">Itt válthat a Browther-profilok között</translation>
-<translation id="7815000350132166985">Ha engedélyezi a cookie-kat, előfordulhat, hogy a Browther előtöltéskor felhasználja őket.</translation>
+<translation id="6606690217326148454">A(z) <ph name="EXTENSION_NAME"/> hozzá lett adva a Bravehoz</translation>
+<translation id="6037324269860323082">A Browther személyre szabása és vezérlése. Van rendelkezésre álló frissítés.</translation>
+<translation id="3695768481578778794">Be • A Browther nem tudja ellenőrizni a bővítmény forrását</translation>
+<translation id="4401885752362736126">Az Ön fiókja a Braveban</translation>
+<translation id="4310817187912076496">A bővítmény megjeleníthet hozzáférési kérelmeket a Browther eszköztárán</translation>
+<translation id="4602490888173698813">A(z) <ph name="FILE_NAME"/> veszélyes, ezért a Browther letiltotta.</translation>
+<translation id="5139243417751674628">A Browther hamarosan bezáródik, és törli az adatokat</translation>
+<translation id="4696750309605389299">Itt válthat a Browther-profilok között</translation>
+<translation id="7475001351099358916">Ha engedélyezi a cookie-kat, előfordulhat, hogy a Browther előtöltéskor felhasználja őket.</translation>
 <translation id="6165508094623778733">További információ</translation>
-<translation id="5739368447874065758">Törölje a fiókjában lévő Browther-adatokat</translation>
-<translation id="6685697979743742605">Ez a fájl veszélyes lehet<ph name="LINE_BREAK"/>A Browther ellenőrizni tudja ezt a letöltést Ön helyett, ha megadja a jelszót. A rendszer elküldi a fájlról szóló információkat a Browther Biztonságos Böngészésnek, de a fájl tartalma és a jelszó továbbra is az eszközén marad.</translation>
+<translation id="5975099973700540482">Törölje a fiókjában lévő Browther-adatokat</translation>
+<translation id="6800151735486681860">Ez a fájl veszélyes lehet<ph name="LINE_BREAK"/>A Browther ellenőrizni tudja ezt a letöltést Ön helyett, ha megadja a jelszót. A rendszer elküldi a fájlról szóló információkat a Browther Biztonságos Böngészésnek, de a fájl tartalma és a jelszó továbbra is az eszközén marad.</translation>
 <translation id="6182736845697986886">A telepítés a frissítési szerver belső hibája miatt nem sikerült.</translation>
-<translation id="4368341489795135329">Ellenőrizze, hogy bejelentkezett-e a Braveba <ph name="TARGET_DEVICE_NAME"/> eszközén, majd próbálja meg újraküldeni.</translation>
-<translation id="3038354906709778538">A számítógépen lévő egyik program olyan alkalmazást adott hozzá, amely módosíthatja a Browther működését.
+<translation id="48832130233362517">Ellenőrizze, hogy bejelentkezett-e a Braveba <ph name="TARGET_DEVICE_NAME"/> eszközén, majd próbálja meg újraküldeni.</translation>
+<translation id="8868210753005945522">A számítógépen lévő egyik program olyan alkalmazást adott hozzá, amely módosíthatja a Browther működését.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">A számítógépen már megtalálható a Browther újabb verziója. Ha a szoftver nem működik, kérjük, távolítsa el a Braveot, majd próbálkozzon újra.</translation>
-<translation id="3574823187131579180">{0,plural, =0{A Browther most újraindul}=1{A Browther 1 másodpercen belül újraindul}other{A Browther # másodpercen belül újraindul}}</translation>
+<translation id="2779436101182061679">A számítógépen már megtalálható a Browther újabb verziója. Ha a szoftver nem működik, kérjük, távolítsa el a Braveot, majd próbálkozzon újra.</translation>
+<translation id="9222998061982994203">{0,plural, =0{A Browther most újraindul}=1{A Browther 1 másodpercen belül újraindul}other{A Browther # másodpercen belül újraindul}}</translation>
 <translation id="6239161312595354541">Kérdés feltevése a Képkeresőnek erről a videóról</translation>
-<translation id="5980269616827212166">A Bravenak tárhelyhozzáférési engedélyre van szüksége a fájlok letöltéséhez</translation>
-<translation id="7651600795135059130">Ellenőrzi az URL-eket a Braveban a nem biztonságos webhelyekről tárolt lista alapján.</translation>
-<translation id="5019879183386042809">Legyen a Browther az alapértelmezett böngészőm</translation>
-<translation id="7445061995866044926">Kijelentkezik a Braveból?</translation>
-<translation id="4659866260728515512">Ezek a lapok plusz erőforrásokat használnak. A teljesítmény javítása érdekében engedélyezze, hogy a Browther inaktiválhassaa őket.</translation>
-<translation id="6806912298071949921">A Browther-profil személyre szabása</translation>
-<translation id="3792238845239580301">Nevezze el Browther-profilját</translation>
-<translation id="5874208157501051620">Egy bővítmény arra kéri, hogy jelentkezzen be a Braveba</translation>
-<translation id="3561569806301739367">A(z) <ph name="FILE_NAME"/> veszélyes lehet, ezért a Browther letiltotta.</translation>
-<translation id="3205074487970075628">A Browther használja a kamerát.</translation>
+<translation id="1755464917870815989">A Bravenak tárhelyhozzáférési engedélyre van szüksége a fájlok letöltéséhez</translation>
+<translation id="304681001513922736">Ellenőrzi az URL-eket a Braveban a nem biztonságos webhelyekről tárolt lista alapján.</translation>
+<translation id="7785903492969539081">Legyen a Browther az alapértelmezett böngészőm</translation>
+<translation id="3987833816263696343">Kijelentkezik a Braveból?</translation>
+<translation id="4723540739671534529">Ezek a lapok plusz erőforrásokat használnak. A teljesítmény javítása érdekében engedélyezze, hogy a Browther inaktiválhassaa őket.</translation>
+<translation id="6540151687468239291">A Browther-profil személyre szabása</translation>
+<translation id="770793114032605647">Nevezze el Browther-profilját</translation>
+<translation id="385867753870250529">Egy bővítmény arra kéri, hogy jelentkezzen be a Braveba</translation>
+<translation id="2022337046348377650">A(z) <ph name="FILE_NAME"/> veszélyes lehet, ezért a Browther letiltotta.</translation>
+<translation id="45270956603278068">A Browther használja a kamerát.</translation>
 <translation id="6327105987658262776">Nincs rendelkezésre álló frissítés.</translation>
-<translation id="1819119299840995223">Egy másik Browther-művelet is folyamatban van. Próbálkozzon újra később.</translation>
-<translation id="8616874628011103667">Browther-fiókjával most még egyszerűbben használhatja a Braveot közösen használt számítógépeken.</translation>
-<translation id="4264606872840545968">Browther-parancsikon</translation>
-<translation id="6890616081898535725">A Browther letiltotta ezt a letöltést, mert ezt a fájlt nem töltik le gyakran, és veszélyes lehet</translation>
-<translation id="335632367599648646">Biztos, hogy el szeretné távolítani a Braveot?</translation>
+<translation id="673633752219771459">Egy másik Browther-művelet is folyamatban van. Próbálkozzon újra később.</translation>
+<translation id="1482759407165416070">Browther-fiókjával most még egyszerűbben használhatja a Braveot közösen használt számítógépeken.</translation>
+<translation id="5538042432112726532">Browther-parancsikon</translation>
+<translation id="833085228901080512">A Browther letiltotta ezt a letöltést, mert ezt a fájlt nem töltik le gyakran, és veszélyes lehet</translation>
+<translation id="491120842288314439">Biztos, hogy el szeretné távolítani a Braveot?</translation>
 <translation id="6375219077595103062">Parancsikon hozzáadása a Jelszókezelőhöz</translation>
 <translation id="6388799252195623474">ehhez kérek segítséget</translation>
-<translation id="7920857181125123335">A folytatáshoz jelentkezzen be a Braveba a következő fiókkal: <ph name="EMAIL"/>. Ezzel biztosíthatja, hogy megfeleljen a szervezete házirendjeinek.</translation>
-<translation id="3256100650978957522">A Browther logója egy számítógép képernyőjén.</translation>
-<translation id="5880764554173582719">A Browther Origin olyan böngésző, amely villámgyorsan futtatja a weboldalakat és az alkalmazásokat. Gyors, stabil és könnyen használható. A beépített, adathalászat és kártékony programok elleni védelemmel biztonságosabban böngészhet az interneten.</translation>
-<translation id="2532326772258858491">A Browther gyorsabban fut, a JavaScriptet használó funkcióknak pedig a tervezett módon kell működniük</translation>
+<translation id="6715003312952407375">A folytatáshoz jelentkezzen be a Braveba a következő fiókkal: <ph name="EMAIL"/>. Ezzel biztosíthatja, hogy megfeleljen a szervezete házirendjeinek.</translation>
+<translation id="1897845318651970239">A Browther logója egy számítógép képernyőjén.</translation>
+<translation id="4702069255970029302">A Browther Origin olyan böngésző, amely villámgyorsan futtatja a weboldalakat és az alkalmazásokat. Gyors, stabil és könnyen használható. A beépített, adathalászat és kártékony programok elleni védelemmel biztonságosabban böngészhet az interneten.</translation>
+<translation id="5669767676913031391">A Browther gyorsabban fut, a JavaScriptet használó funkcióknak pedig a tervezett módon kell működniük</translation>
 <translation id="6436260184216827876">A Képkereső nem áll rendelkezésre. Próbálja újra később.</translation>
 <translation id="2139300032719313227">A ChromeOS újraindítása</translation>
-<translation id="638302211119176182">A Browther még több olyan oldalt előtölt, amelyeket Ön valószínűsíthetően fel fog keresni, így amikor valóban felkeresi őket, gyorsabban töltődnek be.</translation>
-<translation id="7167975344637731051">Töltse le a Braveot a telefonjára, hogy nyomon követhesse az árakat, és értesítést kapjon, ha valamelyik webhelyen csökkennek az árak.</translation>
-<translation id="890319829408077946">Ki • A Browther nem tudja ellenőrizni a bővítmény forrását</translation>
-<translation id="1684121725014454063">Üdvözöljük a Browther-profilokban!</translation>
-<translation id="8211983866539058675">Amikor legközelebb megnyitja a Braveot <ph name="DEVICE_TYPE"/> eszközén, megjelenik a lapcsoportok használatával kapcsolatos üzenet.</translation>
-<translation id="7906693299331092358">Fiók eltávolítása a Braveból</translation>
+<translation id="6110616900529884221">A Browther még több olyan oldalt előtölt, amelyeket Ön valószínűsíthetően fel fog keresni, így amikor valóban felkeresi őket, gyorsabban töltődnek be.</translation>
+<translation id="1217194059001819677">Töltse le a Braveot a telefonjára, hogy nyomon követhesse az árakat, és értesítést kapjon, ha valamelyik webhelyen csökkennek az árak.</translation>
+<translation id="7058555680120557198">Ki • A Browther nem tudja ellenőrizni a bővítmény forrását</translation>
+<translation id="676533642429632127">Üdvözöljük a Browther-profilokban!</translation>
+<translation id="5518682889576009702">Amikor legközelebb megnyitja a Braveot <ph name="DEVICE_TYPE"/> eszközén, megjelenik a lapcsoportok használatával kapcsolatos üzenet.</translation>
+<translation id="6038105561107837619">Fiók eltávolítása a Braveból</translation>
 <translation id="2675662665675552980">Továbbá azt is szabályozza, hogy melyik oldal jelenik meg a Browther indításakor.</translation>
 <translation id="648319183876919572">A Biztonságos Böngészés fokozott védelemmel funkció többet tesz a veszélyes webhelyekkel és letöltésekkel szembeni védekezésért</translation>
-<translation id="5590013613412457132">Browther eltávolítása</translation>
-<translation id="7185585387858242335">A parancsikonok a Braveban nyílnak meg</translation>
-<translation id="3617744907966785605">Szervezete bezárja a Braveot, ha nem használja a böngészőt ennyi ideig:<ph name="TIMEOUT_DURATION"/>. A böngészési adatok törlődtek. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltött tartalom is.</translation>
-<translation id="8646609321956191980">Minden profil saját Browther-adatokat (például könyvjelzőket, előzményeket, jelszavakat és egyebeket) tárol.</translation>
-<translation id="6756656512757374876">További információ arról, <ph name="BEGIN_LINK"/>hogyan gondoskodik az Ön adatainak védelméről a Browther<ph name="END_LINK"/>.</translation>
-<translation id="3556601443414636547">A beállítás módosításai a Browther újraindítása után lépnek érvénybe.</translation>
-<translation id="2535436634051789953">Átválthat másik Browther-profilra, ha meg szeretné nézni annak jelszavait</translation>
-<translation id="2312399718665761438">A nyelvtani hibák javítása érdekében a Browther elküldi a szövegmezőkbe gépelt szöveget a Browther-nak</translation>
-<translation id="3507835409099344374">A Browther értesítési beállításainak megnyitása</translation>
+<translation id="2930243146591999795">Browther eltávolítása</translation>
+<translation id="5241183382286817629">A parancsikonok a Braveban nyílnak meg</translation>
+<translation id="7907014599435829661">Szervezete bezárja a Braveot, ha nem használja a böngészőt ennyi ideig:<ph name="TIMEOUT_DURATION"/>. A böngészési adatok törlődtek. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltött tartalom is.</translation>
+<translation id="2088471423667794811">Minden profil saját Browther-adatokat (például könyvjelzőket, előzményeket, jelszavakat és egyebeket) tárol.</translation>
+<translation id="9040334484455218184">További információ arról, <ph name="BEGIN_LINK"/>hogyan gondoskodik az Ön adatainak védelméről a Browther<ph name="END_LINK"/>.</translation>
+<translation id="1718697235867382480">A beállítás módosításai a Browther újraindítása után lépnek érvénybe.</translation>
+<translation id="6331317152404762758">Átválthat másik Browther-profilra, ha meg szeretné nézni annak jelszavait</translation>
+<translation id="6097706403184348562">A nyelvtani hibák javítása érdekében a Browther elküldi a szövegmezőkbe gépelt szöveget a Browther-nak</translation>
+<translation id="2319647238307402812">A Browther értesítési beállításainak megnyitása</translation>
 <translation id="6600016381025017075">Bármire rákereshet ezen az oldalon</translation>
-<translation id="9156965752763025780">Módosításai a Browther újraindítása után lépnek érvénybe.</translation>
-<translation id="3387992981600748596">A Browther mostantól elindul a Windows indításakor, így azonnal elkezdheti a böngészést. Ezt a funkciót a beállítások között lehet kikapcsolni.</translation>
-<translation id="3119017564683030312">Ott folytathatja, ahol abbahagyta: a Browther visszaállította a lapokat az előző munkamenetből. Ezt a következő helyen kapcsolhatja ki:</translation>
-<translation id="245693535809364497">A Bravenak kamerahasználati engedélyre van szüksége, hogy 3D-s térképet készíthessen az Ön környezetéről</translation>
-<translation id="9210457680074341078">Ha Browther-fiókjába is menti könyvjelzőit, a Braveban nyomon követheti a termékek árait, és értesítést kaphat, amikor az árak csökkennek.</translation>
+<translation id="8031938899816118394">Módosításai a Browther újraindítása után lépnek érvénybe.</translation>
+<translation id="7412185356697187964">A Browther mostantól elindul a Windows indításakor, így azonnal elkezdheti a böngészést. Ezt a funkciót a beállítások között lehet kikapcsolni.</translation>
+<translation id="9123343592576384616">Ott folytathatja, ahol abbahagyta: a Browther visszaállította a lapokat az előző munkamenetből. Ezt a következő helyen kapcsolhatja ki:</translation>
+<translation id="5847926498049048567">A Bravenak kamerahasználati engedélyre van szüksége, hogy 3D-s térképet készíthessen az Ön környezetéről</translation>
+<translation id="5532585028508811858">Ha Browther-fiókjába is menti könyvjelzőit, a Braveban nyomon követheti a termékek árait, és értesítést kaphat, amikor az árak csökkennek.</translation>
 <translation id="6676384891291319759">Internetelérés</translation>
 <translation id="1363996462118479832">A ChromeOS egy bejelentkezési hiba miatt nem tudta szinkronizálni az adatokat.</translation>
-<translation id="4694512973195649124">Az alkalmazás adatainak eltávolítása a Braveból</translation>
-<translation id="5324448127277983819">A Browther nagyobb irányítást ad afelett, hogy milyen hirdetések jelenjenek meg Önnek, és korlátozza, hogy mely webhelyek tudhatnak meg Önről információkat, amikor személyre szabott hirdetéseket jelenítenek meg.</translation>
-<translation id="1257247502847251159">A Bravenak mikrofonhasználati engedélyre van szüksége ehhez a webhelyhez</translation>
+<translation id="3373239673945775810">Az alkalmazás adatainak eltávolítása a Braveból</translation>
+<translation id="8122759674786039814">A Browther nagyobb irányítást ad afelett, hogy milyen hirdetések jelenjenek meg Önnek, és korlátozza, hogy mely webhelyek tudhatnak meg Önről információkat, amikor személyre szabott hirdetéseket jelenítenek meg.</translation>
+<translation id="6277682530398500159">A Bravenak mikrofonhasználati engedélyre van szüksége ehhez a webhelyhez</translation>
 <translation id="6712881677154121168">Letöltési hiba: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">A profilja nem használható, mert az a Browther egy újabb verziójából származik. Előfordulhat, hogy egyes funkciók nem érhetők el. Kérjük, adjon meg egy másik profilmappát, vagy használja a Browther újabb verzióját.</translation>
-<translation id="1505112054322049777">A személyre szabás és az egyéb funkciók használatához vegye fel a Braveot az Internetes és alkalmazástevékenységek közé, valamint az összekapcsolt Browther-szolgáltatásokba</translation>
-<translation id="6666624454809779082">A Browther már telepítve van az összes felhasználó számára a számítógépen.</translation>
-<translation id="5848830584656405219">Ha az összes eszközén szeretne hozzáférni könyvjelzőihez és egyebekhez, jelentkezzen be a Braveba. Ezt a könyvjelzőt a rendszer az Ön Browther-fiókjába menti a bejelentkezés után.</translation>
-<translation id="4020203987234748583">A Browther V8 motorjával felgyorsítja a webhelyeket, de kissé kevésbé ellenállóvá teszi a Braveot a támadásokkal szemben. Ez a beállítás be van kapcsolva.</translation>
-<translation id="3848421741245997269">{count,plural, =1{A Browther egyes adatait még nem mentette a rendszer a Browther-fiókjába. A kijelentkezés előtt várjon néhány percet. Ha most jelentkezik ki, akkor ezek az adatok (1 elem) törlődnek.}other{A Browther egyes adatait még nem mentette a rendszer a Browther-fiókjába. A kijelentkezés előtt várjon néhány percet. Ha most jelentkezik ki, akkor ezek az adatok ({count} elem) törlődnek.}}</translation>
-<translation id="3136039682492230890">A Browther a fájl ellenőrzését javasolja, mert veszélyes lehet.</translation>
+<translation id="2972046656127603037">A profilja nem használható, mert az a Browther egy újabb verziójából származik. Előfordulhat, hogy egyes funkciók nem érhetők el. Kérjük, adjon meg egy másik profilmappát, vagy használja a Browther újabb verzióját.</translation>
+<translation id="871671753163165892">A személyre szabás és az egyéb funkciók használatához vegye fel a Braveot az Internetes és alkalmazástevékenységek közé, valamint az összekapcsolt Browther-szolgáltatásokba</translation>
+<translation id="5000832110229523807">A Browther már telepítve van az összes felhasználó számára a számítógépen.</translation>
+<translation id="5204575479550973859">Ha az összes eszközén szeretne hozzáférni könyvjelzőihez és egyebekhez, jelentkezzen be a Braveba. Ezt a könyvjelzőt a rendszer az Ön Browther-fiókjába menti a bejelentkezés után.</translation>
+<translation id="2874208284092283937">A Browther V8 motorjával felgyorsítja a webhelyeket, de kissé kevésbé ellenállóvá teszi a Braveot a támadásokkal szemben. Ez a beállítás be van kapcsolva.</translation>
+<translation id="3268577459683869744">{count,plural, =1{A Browther egyes adatait még nem mentette a rendszer a Browther-fiókjába. A kijelentkezés előtt várjon néhány percet. Ha most jelentkezik ki, akkor ezek az adatok (1 elem) törlődnek.}other{A Browther egyes adatait még nem mentette a rendszer a Browther-fiókjába. A kijelentkezés előtt várjon néhány percet. Ha most jelentkezik ki, akkor ezek az adatok ({count} elem) törlődnek.}}</translation>
+<translation id="7683816018918395929">A Browther a fájl ellenőrzését javasolja, mert veszélyes lehet.</translation>
 <translation id="1547295885616600893">A ChromeOS létrejöttéhez további <ph name="BEGIN_LINK_CROS_OSS"/>nyílt forráskódú szoftverek<ph name="END_LINK_CROS_OSS"/> is hozzájárultak.</translation>
 <translation id="6831043979455480757">Fordítás</translation>
-<translation id="8211837073776713955">A Browther tájékoztatja arról, ha jelszavai illetéktelen kezekbe kerülnek</translation>
+<translation id="2142653375108595728">A Browther tájékoztatja arról, ha jelszavai illetéktelen kezekbe kerülnek</translation>
 <translation id="684888714667046800">Nem lehet kapcsolódni az internethez. Ha tűzfalat használ, győződjön meg arról, hogy a(z) <ph name="PRODUCT_EXE_NAME"/> szerepel az engedélyezőlistán.</translation>
-<translation id="7830723774663008396">Browther – <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther – <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Nyomja meg a Tab billentyűt a folytatáshoz</translation>
 <translation id="6862030660799253820">A kép megkeresése a Képkereső használatával</translation>
-<translation id="3028928628792374067">A Browther kártékony programot talált a következőben: „<ph name="EXTENSION_NAME"/>”</translation>
+<translation id="3860339351709082396">A Browther kártékony programot talált a következőben: „<ph name="EXTENSION_NAME"/>”</translation>
 <translation id="6877155553248388166">keresési terület jobb alsó sarka: jobb <ph name="RIGHT"/>%, lent <ph name="BOTTOM"/>%</translation>
 <translation id="6896758677409633944">Másolás</translation>
-<translation id="862687584320433626">Állítsa be a Braveot alapértelmezett böngészőként, és rögzítse a tálcán</translation>
-<translation id="1991562568473125499">&amp;Browther-profilok kezelése</translation>
+<translation id="7804113502310231166">Állítsa be a Braveot alapértelmezett böngészőként, és rögzítse a tálcán</translation>
+<translation id="3228374215117173004">&amp;Browther-profilok kezelése</translation>
 <translation id="6934579572334859869">Kérdés feltevése a Képkeresőnek erről a képről</translation>
-<translation id="5529781826378237601">Elérte a Browther <ph name="BOOKMARK_LIMIT"/> könyvjelzős korlátját, ezért egyes könyvjelzőit még nem mentette a rendszer a Browther-fiókjába.
+<translation id="5995328366516663808">Elérte a Browther <ph name="BOOKMARK_LIMIT"/> könyvjelzős korlátját, ezért egyes könyvjelzőit még nem mentette a rendszer a Browther-fiókjába.
 
 Új könyvjelzőket nem lehet menteni a fiókjába, amíg nem töröl néhányat. Ha most jelentkezik ki, a nem mentett könyvjelzők törlődnek.</translation>
 <translation id="6965382102122355670">OK</translation>
-<translation id="6418340404893954563">A gyenge jelszavakat könnyű kitalálni. Engedélyezze a Browther számára, hogy <ph name="BEGIN_LINK"/> erős jelszavakat hozzon létre Önnek, és megjegyezze őket<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">A gyenge jelszavakat könnyű kitalálni. Engedélyezze a Browther számára, hogy <ph name="BEGIN_LINK"/> erős jelszavakat hozzon létre Önnek, és megjegyezze őket<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">A ChromeOS feltételei</translation>
-<translation id="3335606533094650083">A Bravenak engedélyre van szüksége ahhoz, hogy hozzáférjen a mikrofonhoz ennél a webhelynél</translation>
-<translation id="6643520655691573653">Adja meg összetett jelszavát, ha a Browther-adatokat szeretné használni és tárolni a fiókjában (<ph name="ACCOUNT_EMAIL"/>)</translation>
+<translation id="5379058926689137454">A Bravenak engedélyre van szüksége ahhoz, hogy hozzáférjen a mikrofonhoz ennél a webhelynél</translation>
+<translation id="4684462982894889021">Adja meg összetett jelszavát, ha a Browther-adatokat szeretné használni és tárolni a fiókjában (<ph name="ACCOUNT_EMAIL"/>)</translation>
 <translation id="7011190694940573312">A telepítés sikertelen volt, mert az operációs rendszer aktuális verziója nem támogatott.</translation>
 <translation id="7024536598735240744">Kicsomagolási hiba: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Telepítés leállítva.</translation>
-<translation id="280382502853897110">Tegye személyessé a Braveot</translation>
+<translation id="8257174622576051374">Tegye személyessé a Braveot</translation>
 <translation id="7047386856539490735">Hasznosak ezek a találatok?</translation>
-<translation id="1705567146636171298">A Browther frissítése</translation>
-<translation id="5499063270485366718">Ha valamelyik kép nem rendelkezik hasznos leírással, akkor a Browther igyekszik leírást adni róla. A Browther automatikusan megkapja a leírások létrehozásához szükséges képeket.</translation>
-<translation id="5966368554860795750">A Browther for Testing személyre szabása</translation>
-<translation id="792838367208896130">Mostantól bármikor használhatja a Braveot, amikor üzenetekben, dokumentumokban és más alkalmazásokban található linkekre kattint</translation>
-<translation id="375314543563594498">A következő eltávolítása a Braveból: <ph name="EXTENSION_NAME"/></translation>
-<translation id="2332301637111071062">Szervezete törli a Browther-adatokat, ha nem használja a böngészőt ennyi ideig: <ph name="TIMEOUT_DURATION"/>. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltött tartalom is.</translation>
-<translation id="1008530050039597147">A Bravenak kamerahasználati engedélyre van szüksége ehhez a webhelyhez</translation>
-<translation id="1197672524850678392">Nem sikerült a Browther elindítása. Próbálkozzon újra.</translation>
-<translation id="3405035915691517126">A Browther nem tudja ellenőrizni a jelszavait. Próbálja újra 24 óra múlva.</translation>
-<translation id="3625983487600668413">Tartsa a Braveot a Dockban, hogy bármikor gyorsan hozzáférhessen</translation>
-<translation id="5755581833598928580">Mostantól bármikor használhatja a Braveot, amikor üzenetekben, dokumentumokban és más alkalmazásokban található linkekre kattint</translation>
-<translation id="5516268345616100622">Feladatkezelő -- Browther</translation>
-<translation id="713191641919118540">Az Ön Browther által megbecsült érdeklődési körei</translation>
-<translation id="1871621397473741084">Azonnal elkezdheti a böngészést: a Browther mostantól a Windows indításakor is elindulhat.</translation>
+<translation id="1772745060691790742">A Browther frissítése</translation>
+<translation id="4937970118065051027">Ha valamelyik kép nem rendelkezik hasznos leírással, akkor a Browther igyekszik leírást adni róla. A Browther automatikusan megkapja a leírások létrehozásához szükséges képeket.</translation>
+<translation id="1594112132009288601">A Browther for Testing személyre szabása</translation>
+<translation id="5915000938288527952">Mostantól bármikor használhatja a Braveot, amikor üzenetekben, dokumentumokban és más alkalmazásokban található linkekre kattint</translation>
+<translation id="8775664994493381735">A következő eltávolítása a Braveból: <ph name="EXTENSION_NAME"/></translation>
+<translation id="3276648807841991013">Szervezete törli a Browther-adatokat, ha nem használja a böngészőt ennyi ideig: <ph name="TIMEOUT_DURATION"/>. A böngészési adatok közé tartozhatnak az előzmények, az automatikus kitöltés adatai és a letöltött tartalom is.</translation>
+<translation id="4725226878394159809">A Bravenak kamerahasználati engedélyre van szüksége ehhez a webhelyhez</translation>
+<translation id="8931474625901592021">Nem sikerült a Browther elindítása. Próbálkozzon újra.</translation>
+<translation id="8242947409070121799">A Browther nem tudja ellenőrizni a jelszavait. Próbálja újra 24 óra múlva.</translation>
+<translation id="1737922827960215472">Tartsa a Braveot a Dockban, hogy bármikor gyorsan hozzáférhessen</translation>
+<translation id="335855266303176628">Mostantól bármikor használhatja a Braveot, amikor üzenetekben, dokumentumokban és más alkalmazásokban található linkekre kattint</translation>
+<translation id="709455597778444012">Feladatkezelő -- Browther</translation>
+<translation id="7147140345767587643">Az Ön Browther által megbecsült érdeklődési körei</translation>
+<translation id="7337408274890534789">Azonnal elkezdheti a böngészést: a Browther mostantól a Windows indításakor is elindulhat.</translation>
 <translation id="7274695763216404502">Sikeres kitűzés. Ha megint használni szeretné a Képkeresőt, megteheti az eszköztárból</translation>
 <translation id="7288567540154601580">Lapok és bővítmények</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{A Browther az eltávolítását javasolja}other{A Browther az eltávolításukat javasolja}}</translation>
-<translation id="4600669988724328687">A rendszerhang megosztásához nyissa meg a Rendszerbeállításokat, és engedélyezze a „System Audio Recording Only” (Csak a rendszerhang rögzítése) beállítást a Bravera vonatkozóan. Ezután újra kell indítania a Braveot.</translation>
-<translation id="9068395155143628872">A hirdetésmérés segítségével az Ön által felkeresett webhelyek olyan adatokat kérhetnek a Bravetól, amelyek segítségével a webhely mérheti hirdetéseinek teljesítményét. A hirdetésmérés azáltal korlátozza a webhelyeken átnyúló nyomon követést, hogy a lehető legkevesebb adatot továbbítja a webhelyek között.</translation>
-<translation id="1864557848095568223">A Browther frissítése</translation>
-<translation id="3403365884036456766">A beállításait tartalmazó fájl hibás vagy érvénytelen.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{A Browther az eltávolítását javasolja}other{A Browther az eltávolításukat javasolja}}</translation>
+<translation id="1527644038571473502">A rendszerhang megosztásához nyissa meg a Rendszerbeállításokat, és engedélyezze a „System Audio Recording Only” (Csak a rendszerhang rögzítése) beállítást a Bravera vonatkozóan. Ezután újra kell indítania a Braveot.</translation>
+<translation id="1427913074981060872">A hirdetésmérés segítségével az Ön által felkeresett webhelyek olyan adatokat kérhetnek a Bravetól, amelyek segítségével a webhely mérheti hirdetéseinek teljesítményét. A hirdetésmérés azáltal korlátozza a webhelyeken átnyúló nyomon követést, hogy a lehető legkevesebb adatot továbbítja a webhelyek között.</translation>
+<translation id="1657652725060525338">A Browther frissítése</translation>
+<translation id="884846289464870238">A beállításait tartalmazó fájl hibás vagy érvénytelen.
 
 A Browther nem tudja visszaállítani a beállításait.</translation>
 <translation id="7339898014177206373">Új ablak</translation>
-<translation id="3511996232906761537">Az Ön könyvjelzői, valamint az internetezéssel és a Bravemal kapcsolatos egyéb dolgai vannak itt.</translation>
-<translation id="1754899895078387289">Csak az összetett jelszava ismeretében tudja bárki is megtekinteni az Ön titkosított adatait. Az összetett jelszót nem kapja meg, és nem is tárolja a Browther. Ha elfelejti az összetett jelszavát, vagy módosítani szeretné ezt a beállítást, <ph name="BEGIN_LINK"/>törölnie kell a fiókjában lévő Browther-adatokat<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Rendszergazdája úgy állította be a Braveot, hogy a(z) <ph name="ALTERNATIVE_BROWSER_NAME"/> böngészőt nyissa meg a(z) <ph name="TARGET_URL_HOSTNAME"/> eléréséhez.</translation>
+<translation id="633044855886370183">Az Ön könyvjelzői, valamint az internetezéssel és a Bravemal kapcsolatos egyéb dolgai vannak itt.</translation>
+<translation id="1185960088713242527">Csak az összetett jelszava ismeretében tudja bárki is megtekinteni az Ön titkosított adatait. Az összetett jelszót nem kapja meg, és nem is tárolja a Browther. Ha elfelejti az összetett jelszavát, vagy módosítani szeretné ezt a beállítást, <ph name="BEGIN_LINK"/>törölnie kell a fiókjában lévő Browther-adatokat<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Rendszergazdája úgy állította be a Braveot, hogy a(z) <ph name="ALTERNATIVE_BROWSER_NAME"/> böngészőt nyissa meg a(z) <ph name="TARGET_URL_HOSTNAME"/> eléréséhez.</translation>
 <translation id="7352651011704765696">Valami nem működik</translation>
-<translation id="6085660187823915017">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a macOS 13-as vagy újabb verziójára lesz szüksége. Ezen a számítógépen a macOS 12 fut.</translation>
-<translation id="2865744782251083875">Nem látogatta meg mostanában. A Browther eltávolította a következőket: <ph name="PERMISSION_1"/> és <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Ez a bővítmény már nem támogatott. A Browther az eltávolítását javasolja.</translation>
-<translation id="7951152294775418909">Ott folytathatja, ahol abbahagyta: a Browther minden újraindításkor visszaállítja a lapokat. A kikapcsoláshoz lépjen ide:</translation>
-<translation id="3191314862567596053">Jelszavak importálása a Braveba</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> – Browther Origin Dev</translation>
+<translation id="6638123710106659002">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a macOS 13-as vagy újabb verziójára lesz szüksége. Ezen a számítógépen a macOS 12 fut.</translation>
+<translation id="7286289384512061761">Nem látogatta meg mostanában. A Browther eltávolította a következőket: <ph name="PERMISSION_1"/> és <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Ez a bővítmény már nem támogatott. A Browther az eltávolítását javasolja.</translation>
+<translation id="137615076640044304">Ott folytathatja, ahol abbahagyta: a Browther minden újraindításkor visszaállítja a lapokat. A kikapcsoláshoz lépjen ide:</translation>
+<translation id="5967238175620483220">Jelszavak importálása a Braveba</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> – Browther Origin Dev</translation>
 <translation id="7450541714075000668">Szöveg vágólapra másolva</translation>
-<translation id="2034072705932785495">A Bravenak engedélyre van szüksége ahhoz, hogy hozzáférjen a kamerához ennél a webhelynél</translation>
-<translation id="7129342855140808694">A mikrofon használatához adjon hozzáférést a Bravenak a <ph name="BEGIN_LINK"/>rendszerbeállításokban<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a Windows 10 vagy újabb rendszerre lesz szüksége. Ezen a számítógépen a Windows 7 operációs rendszer fut.</translation>
-<translation id="3962395975456095331">Újraindítja a Braveot?</translation>
-<translation id="2619516027171717873">Nem lehet ugyanazt a Browther-verziót telepíteni, amely jelenleg is fut. Zárja be a Braveot, és próbálja újra.</translation>
-<translation id="2731639583336131792">Lehetősége van például a Browther-fiókjában tárolt jelszavak használatára, illetve újak mentésére, amikor be van jelentkezve a Braveba. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">A webhelyek valószínűleg a várt módon fognak működni. Az összes Browther-ablak bezárásakor a legtöbb webhelyről kijelentkezteti a rendszer, kivéve a Browther-fiókját, ha bejelentkezett a Braveba.</translation>
-<translation id="3186363903915641692">{0,plural, =1{A Browther 1 percen belül újraindul}other{A Browther # percen belül újraindul}}</translation>
-<translation id="552342471964912391">Adatainak védelme érdekében engedélyezze, hogy a Browther eltávolítsa azoknak a webhelyeknek az engedélyeit, amelyeket Ön nem keresett fel mostanában.</translation>
-<translation id="3826701455067637694">A Browther automatikus elindítása a böngészés azonnali elkezdéséhez.</translation>
+<translation id="7766009218653304791">A Bravenak engedélyre van szüksége ahhoz, hogy hozzáférjen a kamerához ennél a webhelynél</translation>
+<translation id="5844418066487488520">A mikrofon használatához adjon hozzáférést a Bravenak a <ph name="BEGIN_LINK"/>rendszerbeállításokban<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a Windows 10 vagy újabb rendszerre lesz szüksége. Ezen a számítógépen a Windows 7 operációs rendszer fut.</translation>
+<translation id="6299293759264950896">Újraindítja a Braveot?</translation>
+<translation id="180908550381040105">Nem lehet ugyanazt a Browther-verziót telepíteni, amely jelenleg is fut. Zárja be a Braveot, és próbálja újra.</translation>
+<translation id="7625576878150380853">Lehetősége van például a Browther-fiókjában tárolt jelszavak használatára, illetve újak mentésére, amikor be van jelentkezve a Braveba. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">A webhelyek valószínűleg a várt módon fognak működni. Az összes Browther-ablak bezárásakor a legtöbb webhelyről kijelentkezteti a rendszer, kivéve a Browther-fiókját, ha bejelentkezett a Braveba.</translation>
+<translation id="7099370564362681943">{0,plural, =1{A Browther 1 percen belül újraindul}other{A Browther # percen belül újraindul}}</translation>
+<translation id="3602613943932672197">Adatainak védelme érdekében engedélyezze, hogy a Browther eltávolítsa azoknak a webhelyeknek az engedélyeit, amelyeket Ön nem keresett fel mostanában.</translation>
+<translation id="8759568213742229377">A Browther automatikus elindítása a böngészés azonnali elkezdéséhez.</translation>
 <translation id="7583399374488819119"><ph name="COMPANY_NAME"/>-telepítő</translation>
-<translation id="3293668930608086049">A Browther használja a kamerát és a mikrofont.</translation>
-<translation id="2827121003398607864">A Browther még jobb lett</translation>
-<translation id="3071313329776323836">Mostantól több funkció áll rendelkezésre a Braveban</translation>
+<translation id="8991800242749014880">A Browther használja a kamerát és a mikrofont.</translation>
+<translation id="2692328388439821508">A Browther még jobb lett</translation>
+<translation id="4318444066563223295">Mostantól több funkció áll rendelkezésre a Braveban</translation>
 <translation id="7649070708921625228">Súgó</translation>
-<translation id="4008841832817149051">A Browther böngészhet Ön helyett</translation>
+<translation id="5591287320769313116">A Browther böngészhet Ön helyett</translation>
 <translation id="7658239707568436148">Mégse</translation>
-<translation id="3343095737966473035">A Browther nem az alapértelmezett böngésző</translation>
-<translation id="5477319665405831211">Szinkronizálhatja és személyre szabhatja a Braveot minden eszközén</translation>
-<translation id="2339273275658335597">Browther-frissítés</translation>
+<translation id="6325482130534634729">A Browther nem az alapértelmezett böngésző</translation>
+<translation id="8185915921134219287">Szinkronizálhatja és személyre szabhatja a Braveot minden eszközén</translation>
+<translation id="5120421624925726813">Browther-frissítés</translation>
 <translation id="7716950018788545737">Feladatok befejezve.</translation>
 <translation id="77283119132245232">Rendszerkövetési szolgáltatásokat biztosít a(z) <ph name="BROWSER_NAME"/> böngészőhöz. Ha ez a szolgáltatás le van tiltva, a böngésző által létrehozott teljesítménynyomok nem tartalmazzák a rendszerszintű eseményeket, például a kontextusváltási és a ready thread-eseményeket.</translation>
-<translation id="4784414698887946907">Ezzel az eszközön lévő összes böngészési adat törlődik. Az adatok későbbi lekéréséhez jelentkezzen be a Braveba a következő e-mail-címmel: <ph name="USER_EMAIL"/>.</translation>
+<translation id="6542096191573265107">Ezzel az eszközön lévő összes böngészési adat törlődik. Az adatok későbbi lekéréséhez jelentkezzen be a Braveba a következő e-mail-címmel: <ph name="USER_EMAIL"/>.</translation>
 <translation id="7747138024166251722">A telepítőnek nem sikerült létrehoznia az ideiglenes könyvtárat. Kérjük ellenőrizze, hogy van-e elegendő hely a lemezen, és rendelkezik-e engedéllyel a szoftvertelepítésre.</translation>
-<translation id="8543787950557226450">Visszaállítás az alapértelmezett Bravera</translation>
-<translation id="4976450819672499783">Állítsa be a Braveot alapértelmezettként, és tűzze ki a tálcára</translation>
-<translation id="1978509466033734608">A Browther felgyorsítása</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> – Browther Origin Canary</translation>
-<translation id="2684504034454188774">Megnehezítheti az internetes forgalmához hozzáférő személyek számára, hogy lássák, milyen webhelyeket keres fel. A Browther biztonságos kapcsolatot használ a webhelyek IP-címének DNS-ben (domainnévrendszerben) való megkereséséhez.</translation>
+<translation id="351575328720488268">Visszaállítás az alapértelmezett Bravera</translation>
+<translation id="1054170408395182418">Állítsa be a Braveot alapértelmezettként, és tűzze ki a tálcára</translation>
+<translation id="4569594230301902490">A Browther felgyorsítása</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> – Browther Origin Canary</translation>
+<translation id="7893465573639396635">Megnehezítheti az internetes forgalmához hozzáférő személyek számára, hogy lássák, milyen webhelyeket keres fel. A Browther biztonságos kapcsolatot használ a webhelyek IP-címének DNS-ben (domainnévrendszerben) való megkereséséhez.</translation>
 <translation id="7810005234485217901">Az egyszerű hozzáférés érdekében kitűzheti a Képkeresőt</translation>
-<translation id="1652855885539187849">Már létezik Browther-profil ezzel a fiókkal ezen az eszközön.</translation>
+<translation id="2462631024103158515">Már létezik Browther-profil ezzel a fiókkal ezen az eszközön.</translation>
 <translation id="7845233973568007926">Köszönjük, hogy elvégezte a telepítést. A(z) <ph name="BUNDLE_NAME"/> használata előtt újra kell indítania a számítógépet.</translation>
-<translation id="9148690296223500734">Tegye egyedivé a Braveot: adjon neki új megjelenést</translation>
-<translation id="7963515534397191222">Nem sikerült a Browther frissítése a legújabb verzióra, így Ön lemarad az új funkciókról és biztonsági javításokról.</translation>
+<translation id="311190437086049332">Tegye egyedivé a Braveot: adjon neki új megjelenést</translation>
+<translation id="6728847658878265103">Nem sikerült a Browther frissítése a legújabb verzióra, így Ön lemarad az új funkciókról és biztonsági javításokról.</translation>
 <translation id="7872446069773932638">Letöltés… <ph name="SECONDS"/> másodperc van hátra</translation>
-<translation id="5545136190679883344">Ha elfelejtette az összetett jelszavát, vagy módosítani szeretné ezt a beállítást, <ph name="BEGIN_LINK"/>törölje a fiókjában lévő Browther-adatokat<ph name="END_LINK"/>.</translation>
+<translation id="5374532739787768601">Ha elfelejtette az összetett jelszavát, vagy módosítani szeretné ezt a beállítást, <ph name="BEGIN_LINK"/>törölje a fiókjában lévő Browther-adatokat<ph name="END_LINK"/>.</translation>
 <translation id="7877212753140190672">Kérdés erről a képről</translation>
-<translation id="5687542525349822727">A Browther beállítása alapértelmezettként</translation>
-<translation id="6396151137840491551">A Browther automatikusan frissíti a nem biztonságos kapcsolatokat HTTPS-re, amikor lehetséges.</translation>
-<translation id="2925193881330501265"><ph name="USER_EMAIL_ADDRESS"/> néven volt bejelentkezve a Braveba. Kérjük, ugyanazzal a fiókkal jelentkezzen be újra.</translation>
-<translation id="6915252145142862992">Ez a Browther második telepítése, amelyet nem állíthat be az alapértelmezett böngészővé.</translation>
+<translation id="9172499982238113829">A Browther beállítása alapértelmezettként</translation>
+<translation id="3313826726620159669">A Browther automatikusan frissíti a nem biztonságos kapcsolatokat HTTPS-re, amikor lehetséges.</translation>
+<translation id="3317928686912559532"><ph name="USER_EMAIL_ADDRESS"/> néven volt bejelentkezve a Braveba. Kérjük, ugyanazzal a fiókkal jelentkezzen be újra.</translation>
+<translation id="6007009085341946457">Ez a Browther második telepítése, amelyet nem állíthat be az alapértelmezett böngészővé.</translation>
 <translation id="8004582292198964060">Böngésző</translation>
 <translation id="8010081455002666927">Automatikus felismerés</translation>
-<translation id="7685904775439037072">Miután hozzáférést biztosított a Bravenak, a webhelyek is hozzáférést kérhetnek.</translation>
-<translation id="3230755314472063687">Tűzze ki a Braveot a tálcára, hogy bármikor gyorsan hozzáférhessen</translation>
+<translation id="174885789898161653">Miután hozzáférést biztosított a Bravenak, a webhelyek is hozzáférést kérhetnek.</translation>
+<translation id="3001754454174546602">Tűzze ki a Braveot a tálcára, hogy bármikor gyorsan hozzáférhessen</translation>
 <translation id="80471789339884597">Köszönjük, hogy elvégezte a telepítést. A(z) <ph name="BUNDLE_NAME"/> használata előtt minden böngészőt újra kell indítania.</translation>
 <translation id="8054112667659782652">A Képkereső parancsikonja mindig jelenjen meg</translation>
-<translation id="6175141682081019059">A Browther háttérben való futtatásának letiltása az alkalmazásoknál</translation>
+<translation id="6993312779622863465">A Browther háttérben való futtatásának letiltása az alkalmazásoknál</translation>
 <translation id="80790299200510644">Képkereső</translation>
 <translation id="8086881907087796310">A telepítés sikertelen volt, mert a számítógép nem felel meg a minimális hardverkövetelményeknek.</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/> – Browther Origin for Testing</translation>
-<translation id="2061155704815580583">A Bravenak helymeghatározási jogosultságra van szüksége ehhez a webhelyhez</translation>
-<translation id="3576319845915562805">Amikor legközelebb megnyitja a Braveot <ph name="DEVICE_TYPE"/> eszközén, megjelenik az árfigyelési értesítések engedélyezésével kapcsolatos üzenet.</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/> – Browther Origin for Testing</translation>
+<translation id="543407324609820492">A Bravenak helymeghatározási jogosultságra van szüksége ehhez a webhelyhez</translation>
+<translation id="1767887552863788514">Amikor legközelebb megnyitja a Braveot <ph name="DEVICE_TYPE"/> eszközén, megjelenik az árfigyelési értesítések engedélyezésével kapcsolatos üzenet.</translation>
 <translation id="8118331347066725040">Visszajelzés küldése a Lens segítségével való keresésről</translation>
 <translation id="5334309298019785904">A ChromeOS nem tudta szinkronizálni az adatait, mert a szinkronizálás nem áll rendelkezésre az Ön domainjénél.</translation>
 <translation id="813913629614996137">Indítás…</translation>
-<translation id="1081849497974110565">A Browther kiegészítő szerződési feltételei</translation>
-<translation id="9067428552314418522">Ez a fájl veszélyes, ezért a Browther letiltotta.</translation>
+<translation id="4879101934056397619">A Browther kiegészítő szerződési feltételei</translation>
+<translation id="4505690237431768764">Ez a fájl veszélyes, ezért a Browther letiltotta.</translation>
 <translation id="8177472873527554730">Nem található tartalom az oldalon</translation>
-<translation id="6219250889396046657">Adja meg összetett jelszavát, ha a Browther-adatokat szeretné használni és tárolni a fiókjában (<ph name="USER_EMAIL"/>)</translation>
+<translation id="4720341280133158605">Adja meg összetett jelszavát, ha a Browther-adatokat szeretné használni és tárolni a fiókjában (<ph name="USER_EMAIL"/>)</translation>
 <translation id="8221491193165283816">Ön általában letiltja az értesítéseket. Ha azt szeretné, hogy ez a webhely küldjön értesítéseket, kattintson ide.</translation>
-<translation id="8377926237617998195">A kamera használatához adjon hozzáférést a Bravenak a <ph name="BEGIN_LINK"/>rendszerbeállításokban<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">A Browther nem tudja ellenőrizni, hogy honnan származik a bővítmény, amely lehet, hogy nem biztonságos. Távolítsa el a Braveból, hogy a bővítmény a továbbiakban már ne láthassa és módosíthassa az Ön adatait a felkeresett webhelyeken (a személyes adatokat is beleértve).</translation>
-<translation id="8207657266087451193">Ha valamelyik kép nem rendelkezik hasznos leírással, akkor a Browther igyekszik leírást adni róla. A Browther automatikusan megkapja a leírások létrehozásához szükséges képeket. A funkciót a beállítások között bármikor kikapcsolhatja.</translation>
-<translation id="7792526144795244436">Új profilban jelentkezik be a Braveba?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>A Browther figyelmezteti<ph name="END_LINK"/> a nem biztonságos webhelyekre és letöltésekre</translation>
-<translation id="8060549744348950090">Nem látogatta meg mostanában. A Browther eltávolította a következőt: <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Vásárolhat, fordíthat, és azonosíthatja a látott dolgokat a kamera segítségével a Browther iOS-alkalmazásban</translation>
+<translation id="1083711467946065278">A kamera használatához adjon hozzáférést a Bravenak a <ph name="BEGIN_LINK"/>rendszerbeállításokban<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">A Browther nem tudja ellenőrizni, hogy honnan származik a bővítmény, amely lehet, hogy nem biztonságos. Távolítsa el a Braveból, hogy a bővítmény a továbbiakban már ne láthassa és módosíthassa az Ön adatait a felkeresett webhelyeken (a személyes adatokat is beleértve).</translation>
+<translation id="1122818205373648656">Ha valamelyik kép nem rendelkezik hasznos leírással, akkor a Browther igyekszik leírást adni róla. A Browther automatikusan megkapja a leírások létrehozásához szükséges képeket. A funkciót a beállítások között bármikor kikapcsolhatja.</translation>
+<translation id="6877990294324319801">Új profilban jelentkezik be a Braveba?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>A Browther figyelmezteti<ph name="END_LINK"/> a nem biztonságos webhelyekre és letöltésekre</translation>
+<translation id="1685486387921540822">Nem látogatta meg mostanában. A Browther eltávolította a következőt: <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Vásárolhat, fordíthat, és azonosíthatja a látott dolgokat a kamera segítségével a Browther iOS-alkalmazásban</translation>
 <translation id="8313851650939857356">Indítási hiba: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Szervezete bezárja a Braveot, ha nem használja a böngészőt ennyi ideig:<ph name="TIMEOUT_DURATION"/>.</translation>
+<translation id="7386947683604296534">Szervezete bezárja a Braveot, ha nem használja a böngészőt ennyi ideig:<ph name="TIMEOUT_DURATION"/>.</translation>
 <translation id="8321888067342493336">Mentés képként</translation>
-<translation id="3360368475735266712">Jelentkezzen be, hogy szinkronizálhassa és személyre szabhassa a Braveot minden eszközén</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> előzőleg Braveot használt</translation>
-<translation id="5592122595094519401">Frissítse a Braveot, hogy továbbra is használhassa a Browther-fiókjában (<ph name="ACCOUNT_EMAIL"/>) lévő Browther-adatokat</translation>
-<translation id="2569754604093464025">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a Windows 10 vagy újabb rendszerre lesz szüksége. Ezen a számítógépen a Windows 8 operációs rendszer fut.</translation>
+<translation id="143016831128278157">Jelentkezzen be, hogy szinkronizálhassa és személyre szabhassa a Braveot minden eszközén</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> előzőleg Braveot használt</translation>
+<translation id="1288164710697017468">Frissítse a Braveot, hogy továbbra is használhassa a Browther-fiókjában (<ph name="ACCOUNT_EMAIL"/>) lévő Browther-adatokat</translation>
+<translation id="8648401677359150296">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a Windows 10 vagy újabb rendszerre lesz szüksége. Ezen a számítógépen a Windows 8 operációs rendszer fut.</translation>
 <translation id="8362914115861174987">Fordítás a következő nyelvre:</translation>
 <translation id="8367705492654390392">Kérdezzen bármit</translation>
-<translation id="7296197595428914424">Ha az összes eszközén szeretne hozzáférni jelszavaihoz és egyebekhez, jelentkezzen be a Braveba. Ezt a jelszót a rendszer az Ön Browther-fiókjába menti a bejelentkezés után.</translation>
-<translation id="9098234372282930719">Ezután újra kell indítania a Braveot.</translation>
-<translation id="1327729221471951979">A Browther az eltávolítását javasolja. <ph name="BEGIN_LINK"/>További információ a támogatott bővítményekről.<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">A bővítmény közzétételét visszavonta a fejlesztő, és előfordulhat, hogy nem biztonságos. Távolítsa el a Braveból, így a továbbiakban már nem láthatja és módosíthatja az Ön felkeresett webhelyekkel kapcsolatos adatait, beleértve a személyes adatokat is.</translation>
-<translation id="4234753748520037091">A Bravenak ellenőriznie kell az Ön személyazonosságát, mielőtt bizonyos adatokat menthetne az Ön Browther-fiókjába, és minden eszközén használhatná őket. Ha most jelentkezik ki, akkor ezek az adatok törlődnek.</translation>
-<translation id="5337999052834672687">{0,plural, =1{A Braveot 1 napon belül újra kell indítani}other{A Braveot # napon belül újra kell indítani}}</translation>
+<translation id="5769022907892823357">Ha az összes eszközén szeretne hozzáférni jelszavaihoz és egyebekhez, jelentkezzen be a Braveba. Ezt a jelszót a rendszer az Ön Browther-fiókjába menti a bejelentkezés után.</translation>
+<translation id="4782442810031768771">Ezután újra kell indítania a Braveot.</translation>
+<translation id="8265348385714408341">A Browther az eltávolítását javasolja. <ph name="BEGIN_LINK"/>További információ a támogatott bővítményekről.<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">A bővítmény közzétételét visszavonta a fejlesztő, és előfordulhat, hogy nem biztonságos. Távolítsa el a Braveból, így a továbbiakban már nem láthatja és módosíthatja az Ön felkeresett webhelyekkel kapcsolatos adatait, beleértve a személyes adatokat is.</translation>
+<translation id="1613655732912855341">A Bravenak ellenőriznie kell az Ön személyazonosságát, mielőtt bizonyos adatokat menthetne az Ön Browther-fiókjába, és minden eszközén használhatná őket. Ha most jelentkezik ki, akkor ezek az adatok törlődnek.</translation>
+<translation id="9103715009358215214">{0,plural, =1{A Braveot 1 napon belül újra kell indítani}other{A Braveot # napon belül újra kell indítani}}</translation>
 <translation id="8438543370129609977">A Képkereső használatakor a rendszer elküldi az oldal címét, URL-jét és tartalmát (beleértve a PDF-eket is) a szervernek. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">További információ a képkeresőről a Braveban</translation>
-<translation id="6914496861676471566">A telepítő tömörített állománya megsérült vagy érvénytelen. Kérjük, töltse le újra a Browther böngészőt.</translation>
-<translation id="4378573854226202617">A Browther futtatásához Windows 10 vagy újabb verzió szükséges.</translation>
-<translation id="6431861494713261006">Nem kötelező: Hozzájárulhat a ChromeOS funkcióinak és teljesítményének javításához azzal, hogy automatikusan elküldi a diagnosztikai és használati adatokat a Browther-nak.</translation>
-<translation id="8691137711639873980">Ha Browther-adatokat szeretne használni és tárolni Browther-fiókjában, igazolja személyazonosságát.</translation>
-<translation id="3251012123600267109">Értesítéseket jelenít meg a Braveba való bejelentkezéshez</translation>
-<translation id="2097604701283463988">A Browther elavult</translation>
-<translation id="6080203201796279095">Köszönjük, hogy a Braveot választotta alapértelmezett böngészőként!</translation>
-<translation id="871233388178581868">A Browther képes a jelszavak ellenőrzésére, ha Ön menti őket</translation>
-<translation id="3667461919057407535">Figyelmeztetést kaphat, ha a Browther azt észleli, hogy az Ön egyik jelszava nyilvános adatvédelmi incidensben volt érintett.</translation>
+<translation id="3550129882823305293">További információ a képkeresőről a Braveban</translation>
+<translation id="1401757916223057494">A telepítő tömörített állománya megsérült vagy érvénytelen. Kérjük, töltse le újra a Browther böngészőt.</translation>
+<translation id="5029760494698649486">A Browther futtatásához Windows 10 vagy újabb verzió szükséges.</translation>
+<translation id="7906734902028783072">Nem kötelező: Hozzájárulhat a ChromeOS funkcióinak és teljesítményének javításához azzal, hogy automatikusan elküldi a diagnosztikai és használati adatokat a Browther-nak.</translation>
+<translation id="6791756730901393492">Ha Browther-adatokat szeretne használni és tárolni Browther-fiókjában, igazolja személyazonosságát.</translation>
+<translation id="4879869745782826167">Értesítéseket jelenít meg a Braveba való bejelentkezéshez</translation>
+<translation id="2967761098021401720">A Browther elavult</translation>
+<translation id="7674832651694000881">Köszönjük, hogy a Braveot választotta alapértelmezett böngészőként!</translation>
+<translation id="4507581730979762077">A Browther képes a jelszavak ellenőrzésére, ha Ön menti őket</translation>
+<translation id="7205233182271132386">Figyelmeztetést kaphat, ha a Browther azt észleli, hogy az Ön egyik jelszava nyilvános adatvédelmi incidensben volt érintett.</translation>
 <translation id="8555465886620020932">Szolgáltatáshiba: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Az egyszerű hozzáférés érdekében kitűzheti a Képkereső funkciót. Ehhez kattintson az oldalsó panel tetején található Rögzítés gombra.</translation>
 <translation id="856656450041460113">Keresés a nyelvek listájában</translation>
-<translation id="227028348235968071">A Browther ellenőrizni tudja a mentett jelszavakat, ha Ön bejelentkezik Browther-fiókjával</translation>
-<translation id="839677568225616901">Több szervezet is kezeli a Braveot</translation>
-<translation id="8121009781989288430">Copyright © <ph name="YEAR"/> – A Browther szerzői. Minden jog fenntartva.</translation>
+<translation id="75470458211269379">A Browther ellenőrizni tudja a mentett jelszavakat, ha Ön bejelentkezik Browther-fiókjával</translation>
+<translation id="2108930010779660436">Több szervezet is kezeli a Braveot</translation>
+<translation id="7209630341463003999">Copyright © <ph name="YEAR"/> – A Browther szerzői. Minden jog fenntartva.</translation>
 <translation id="8601359445272098721">Új! A „Képernyő fordítása” gombbal a képernyőn megjelenő szöveget és képeket is lefordíthatja</translation>
-<translation id="3052349005266761501">Browther indítása…</translation>
+<translation id="782928371899183269">Browther indítása…</translation>
 <translation id="8624541899164515475">Beállítások, új lapon nyílik meg.</translation>
-<translation id="5128665650717824082">A Browther for Testing nem alkalmazható alapértelmezett böngészőként.</translation>
+<translation id="5879341334716115002">A Browther for Testing nem alkalmazható alapértelmezett böngészőként.</translation>
 <translation id="2433912322225810055">Továbbá azt is szabályozza, hogy melyik oldal jelenik meg a Browther indításakor vagy a cím- és keresősávban indított kereséskor.</translation>
-<translation id="4100716194836114130">Ez az Ön Braveja</translation>
+<translation id="4816541973978692496">Ez az Ön Braveja</translation>
 <translation id="8712637175834984815">Értem</translation>
-<translation id="1419543648228375718">Bejelentkezik a Braveba?</translation>
-<translation id="4891728458408976811">Mindent a Braveban tarthat</translation>
+<translation id="9037464035997618895">Bejelentkezik a Braveba?</translation>
+<translation id="7897185368811431919">Mindent a Braveban tarthat</translation>
 <translation id="8747073452963259673">keresési terület bal alsó sarka: bal <ph name="LEFT"/>%, lent <ph name="BOTTOM"/>%</translation>
 <translation id="878572486461146056">Telepítési hiba: A hálózati rendszergazda olyan csoportházirendet alkalmazott, amely megakadályozza a telepítést: <ph name="INSTALL_ERROR"/>.</translation>
-<translation id="4831743161813926460">A Bravenak engedélyre van szüksége ahhoz, hogy hozzáférjen a kamerához és a mikrofonhoz ennél a webhelynél</translation>
+<translation id="1576369213923770885">A Bravenak engedélyre van szüksége ahhoz, hogy hozzáférjen a kamerához és a mikrofonhoz ennél a webhelynél</translation>
 <translation id="8813277370772331957">Emlékeztessen később</translation>
-<translation id="64216977793816291">Bejelentkezik a Braveba?</translation>
-<translation id="7447364954121496869">A Browther beállítása alapértelmezett böngészőként és rögzítése a tálcán</translation>
+<translation id="6831999464349484462">Bejelentkezik a Braveba?</translation>
+<translation id="3698151322107951111">A Browther beállítása alapértelmezett böngészőként és rögzítése a tálcán</translation>
 <translation id="8826492472752484139">Kattintson a „Jelszókezelő” elemre</translation>
 <translation id="6933858244219479645">ChromeOS rendszer</translation>
-<translation id="9084132286318231275">A Browther ezt a nyelvet használja a menük, beállítások, figyelmeztetések és egyéb szövegek megjelenítésére</translation>
+<translation id="3986927308621489499">A Browther ezt a nyelvet használja a menük, beállítások, figyelmeztetések és egyéb szövegek megjelenítésére</translation>
 <translation id="8862326446509486874">Nincsenek meg a megfelelő jogai a rendszerszintű telepítéshez. Indítsa újra a telepítőt rendszergazdaként.</translation>
-<translation id="7289323009146924152">Browther-profil hozzáadása</translation>
-<translation id="6412037018950369131">Ha igen, akkor módosítsa a Browther böngészőben mentett jelszót az új jelszóra.</translation>
-<translation id="1150745254876977823">Szervezete megköveteli a Braveba történő bejelentkezést</translation>
-<translation id="8285294305439559616">A Browther megkísérli megjeleníteni a jelszavakat. Ennek engedélyezéséhez írja be Windows-jelszavát.</translation>
-<translation id="4684884244620579559">Már nem a Browther az alapértelmezett böngésző. Beállítja a Braveot alapértelmezett böngészőként?</translation>
-<translation id="6389268239133412586">Nem sikerült a Browther frissítése</translation>
-<translation id="7731184591599776500">A Browther Enterprise logója</translation>
-<translation id="6500340165622970282">Nem indítható el a Browther, mert hiba történt a profilja megnyitása során. Próbálkozzon a Browther újraindításával.</translation>
-<translation id="3424657754843264466">Browther-profilok kezelése</translation>
-<translation id="7055223246119657449">A Browther letiltotta ezt a letöltést, mert az archívumfájl olyan egyéb fájlokat is tartalmaz, amelyek rosszindulatú programokat is rejthetnek</translation>
-<translation id="9049928023195059068">Bejelentkezés a Braveba, amikor más Browther-szolgáltatásokba is bejelentkezik</translation>
-<translation id="4561046754724442504">A Browther automatikusan bezárult</translation>
-<translation id="5173820533850252773">A Browther elavult</translation>
-<translation id="310518206836658214">{0,plural, =1{A Browther 1 órán belül újraindul}other{A Browther # órán belül újraindul}}</translation>
+<translation id="5318226144018267261">Browther-profil hozzáadása</translation>
+<translation id="1298790608554316415">Ha igen, akkor módosítsa a Browther böngészőben mentett jelszót az új jelszóra.</translation>
+<translation id="960933321883777733">Szervezete megköveteli a Braveba történő bejelentkezést</translation>
+<translation id="948979409756947611">A Browther megkísérli megjeleníteni a jelszavakat. Ennek engedélyezéséhez írja be Windows-jelszavát.</translation>
+<translation id="1418854271943945136">Már nem a Browther az alapértelmezett böngésző. Beállítja a Braveot alapértelmezett böngészőként?</translation>
+<translation id="7228667329366610727">Nem sikerült a Browther frissítése</translation>
+<translation id="4817697255467736794">A Browther Enterprise logója</translation>
+<translation id="3507731466523097529">Nem indítható el a Browther, mert hiba történt a profilja megnyitása során. Próbálkozzon a Browther újraindításával.</translation>
+<translation id="3234473600657230663">Browther-profilok kezelése</translation>
+<translation id="8953887022581653484">A Browther letiltotta ezt a letöltést, mert az archívumfájl olyan egyéb fájlokat is tartalmaz, amelyek rosszindulatú programokat is rejthetnek</translation>
+<translation id="532304972436358335">Bejelentkezés a Braveba, amikor más Browther-szolgáltatásokba is bejelentkezik</translation>
+<translation id="3425998261052065067">A Browther automatikusan bezárult</translation>
+<translation id="4377377022617011492">A Browther elavult</translation>
+<translation id="3247296757162889864">{0,plural, =1{A Browther 1 órán belül újraindul}other{A Browther # órán belül újraindul}}</translation>
 <translation id="9106236359747881194">Jelöljön ki szöveget a kereséshez</translation>
-<translation id="5190991181158966940">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a Windows 10 vagy újabb rendszerre lesz szüksége. Ezen a számítógépen a Windows 8.1 operációs rendszer fut.</translation>
-<translation id="7863882214613921971">Link megnyi&amp;tása új Browther-lapon</translation>
+<translation id="5115014198092384730">Ha a jövőben Browther-frissítéseket szeretne kapni, akkor a Windows 10 vagy újabb rendszerre lesz szüksége. Ezen a számítógépen a Windows 8.1 operációs rendszer fut.</translation>
+<translation id="7129101984664345614">Link megnyi&amp;tása új Browther-lapon</translation>
 <translation id="911206726377975832">Törli a böngészési adatait is?</translation>
 <translation id="9134482777260927479">Segítség a házi feladatban</translation>
 <translation id="9148058034647219655">Kilépés</translation>
-<translation id="2792073155252170448">Ott folytathatja, ahol abbahagyta: a Browther minden újraindításkor vissza tudja állítani a lapokat. A bekapcsoláshoz lépjen ide:</translation>
-<translation id="2444257125841652328">Rendszergazdája úgy állította be a Braveot, hogy másik böngészőt nyisson meg a(z) <ph name="TARGET_URL_HOSTNAME"/> eléréséhez.</translation>
-<translation id="8208548103319284047">Browther-tipp: Kereshet a Lens segítségével</translation>
-<translation id="7902365066753170041">Indítsa újra a Browther frissítéshez</translation>
-<translation id="538146372587193686">Browther Origin (mDNS-In)</translation>
-<translation id="49909619875329637">Több mindenhez hozzáférhet, amikor be van jelentkezve a Braveba</translation>
-<translation id="296137235951584143">Tegye sajátjává a Braveot</translation>
-<translation id="7977787072794666032">Előfordulhat, hogy a Browther nem működik majd megfelelően, mert a továbbiakban már nem támogatja a következő rendszereket: Windows XP és Windows Vista</translation>
+<translation id="1734388504720121468">Ott folytathatja, ahol abbahagyta: a Browther minden újraindításkor vissza tudja állítani a lapokat. A bekapcsoláshoz lépjen ide:</translation>
+<translation id="8633974232736772207">Rendszergazdája úgy állította be a Braveot, hogy másik böngészőt nyisson meg a(z) <ph name="TARGET_URL_HOSTNAME"/> eléréséhez.</translation>
+<translation id="1122669402846843682">Browther-tipp: Kereshet a Lens segítségével</translation>
+<translation id="595330134356385835">Indítsa újra a Browther frissítéshez</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS-In)</translation>
+<translation id="6491100124044190139">Több mindenhez hozzáférhet, amikor be van jelentkezve a Braveba</translation>
+<translation id="1665840797775025867">Tegye sajátjává a Braveot</translation>
+<translation id="4407047432656809023">Előfordulhat, hogy a Browther nem működik majd megfelelően, mert a továbbiakban már nem támogatja a következő rendszereket: Windows XP és Windows Vista</translation>
 <translation id="945522503751344254">Visszajelzés küldése</translation>
-<translation id="4484434718272972655">Ki használja a Braveot?</translation>
-<translation id="7173394303099002355">Állítsa be a Browther legerősebb védelmét</translation>
+<translation id="7620348044248809366">Ki használja a Braveot?</translation>
+<translation id="7299962884342109067">Állítsa be a Browther legerősebb védelmét</translation>
 <translation id="983803489796659991">A telepítés nem sikerült, mert a frissítési szerver nem rendelkezik hash-adatokkal az alkalmazáshoz.</translation>
-<translation id="8435446479956716379">Browther használata fiók nélkül</translation>
-<translation id="8992261409816268381">A Browther szerzői</translation>
+<translation id="8775461190334353148">Browther használata fiók nélkül</translation>
+<translation id="7146761239544860058">A Browther szerzői</translation>
 <translation id="989970834842471429">Válasszon ki bármilyen szöveget vagy képet a Képkeresővel való kereséshez</translation>
-<translation id="3146636448190445245">A helyadatok használatához adjon hozzáférést a Bravenak a <ph name="BEGIN_LINK"/>rendszerbeállításokban<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">A helyadatok használatához adjon hozzáférést a Bravenak a <ph name="BEGIN_LINK"/>rendszerbeállításokban<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">Google Chrome Béta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">A telepítés egy meg nem határozott hiba miatt nem sikerült. Kérjük, töltse le újra a Braveot.</translation>
-<translation id="1743665722170667430">Az ismeretlen forrásból származó bővítmények, alkalmazások és témák kárt tehetnek eszközében. A Browther azt javasolja, hogy csak innen telepítse őket: <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
-<translation id="6184592406110188164">A bővítmény sérti a Browther Internetes áruház irányelvét, és lehet, hogy nem biztonságos. Távolítsa el a Browther-ből, hogy ne láthassa vagy módosíthassa adatait (pl. a személyes adatait) a meglátogatott oldalakon.</translation>
-<translation id="1299765473362724475">Figyelmeztetés: a Browther nem tudja megakadályozni, hogy a bővítmények rögzítsék a böngészési előzményeket. A bővítmény privát módban való használatának letiltásához töröld a lehetőség bejelölését.</translation>
-<translation id="1448049584457347995">A Browther biztonságosabbá tétele érdekében kikapcsoltunk néhány bővítményt, amelyek nem a(z) <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> szolgáltatásból származnak, és előfordulhat, hogy az Ön tudta nélkül lettek telepítve.</translation>
-<translation id="8848045066928358658">A Browther biztonságosabbá tétele érdekében kikapcsoltuk a következő bővítményt, amely nem a(z) <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> szolgáltatásból származik, és előfordulhat, hogy az Ön tudta nélkül lett telepítve.</translation>
-<translation id="4624945300945265642">Link megnyitása Browther-inko&amp;gnitóablakban</translation>
-<translation id="6554952862405000915">Link megnyitása Browther-inko&amp;gnitóablakban</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{Új Browther-frissítés jelent meg, amely az újraindítás után azonnal érvénybe lép.}=1{Új Browther-frissítés jelent meg, amely az újraindítás után azonnal érvénybe lép. Az inkognitóablak nem fog újra megnyílni.}other{Új Browther-frissítés jelent meg, amely az újraindítás után azonnal érvénybe lép. A(z) # inkognitóablak nem fog újra megnyílni.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{Rendszergazdája arra kéri, hogy indítsa újra a Braveot a frissítés alkalmazásához.}=1{Rendszergazdája arra kéri, hogy indítsa újra a Braveot a frissítés alkalmazásához. Az inkognitóablak nem fog újra megnyílni.}other{Rendszergazdája arra kéri, hogy indítsa újra a Braveot a frissítés alkalmazásához. A(z) # inkognitóablak nem fog újra megnyílni.}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{A rendszergazda előírta, hogy újra kell indítania a Braveot a frissítés alkalmazásához.}=1{A rendszergazda előírta, hogy újra kell indítania a Braveot a frissítés alkalmazásához. Az inkognitóablak nem fog újra megnyílni.}other{A rendszergazda előírta, hogy újra kell indítania a Braveot a frissítés alkalmazásához. A(z) # inkognitóablak nem fog újra megnyílni.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="5110032212554763592">A telepítés egy meg nem határozott hiba miatt nem sikerült. Kérjük, töltse le újra a Braveot.</translation>
+<translation id="9074842261125908635">Az ismeretlen forrásból származó bővítmények, alkalmazások és témák kárt tehetnek eszközében. A Browther azt javasolja, hogy csak innen telepítse őket: <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
+<translation id="3593119910409528681">A bővítmény sérti a Browther Internetes áruház irányelvét, és lehet, hogy nem biztonságos. Távolítsa el a Browther-ből, hogy ne láthassa vagy módosíthassa adatait (pl. a személyes adatait) a meglátogatott oldalakon.</translation>
+<translation id="5245976396374147971">Figyelmeztetés: a Browther nem tudja megakadályozni, hogy a bővítmények rögzítsék a böngészési előzményeket. A bővítmény privát módban való használatának letiltásához töröld a lehetőség bejelölését.</translation>
+<translation id="3629539416935660172">A Browther biztonságosabbá tétele érdekében kikapcsoltunk néhány bővítményt, amelyek nem a(z) <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> szolgáltatásból származnak, és előfordulhat, hogy az Ön tudta nélkül lettek telepítve.</translation>
+<translation id="157534302749986451">A Browther biztonságosabbá tétele érdekében kikapcsoltuk a következő bővítményt, amely nem a(z) <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> szolgáltatásból származik, és előfordulhat, hogy az Ön tudta nélkül lett telepítve.</translation>
+<translation id="3031052147361385845">Link megnyitása Browther-inko&amp;gnitóablakban</translation>
+<translation id="5556794247782664281">Link megnyitása Browther-inko&amp;gnitóablakban</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{Új Browther-frissítés jelent meg, amely az újraindítás után azonnal érvénybe lép.}=1{Új Browther-frissítés jelent meg, amely az újraindítás után azonnal érvénybe lép. Az inkognitóablak nem fog újra megnyílni.}other{Új Browther-frissítés jelent meg, amely az újraindítás után azonnal érvénybe lép. A(z) # inkognitóablak nem fog újra megnyílni.}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{Rendszergazdája arra kéri, hogy indítsa újra a Braveot a frissítés alkalmazásához.}=1{Rendszergazdája arra kéri, hogy indítsa újra a Braveot a frissítés alkalmazásához. Az inkognitóablak nem fog újra megnyílni.}other{Rendszergazdája arra kéri, hogy indítsa újra a Braveot a frissítés alkalmazásához. A(z) # inkognitóablak nem fog újra megnyílni.}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{A rendszergazda előírta, hogy újra kell indítania a Braveot a frissítés alkalmazásához.}=1{A rendszergazda előírta, hogy újra kell indítania a Braveot a frissítés alkalmazásához. Az inkognitóablak nem fog újra megnyílni.}other{A rendszergazda előírta, hogy újra kell indítania a Braveot a frissítés alkalmazásához. A(z) # inkognitóablak nem fog újra megnyílni.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {A fejlett védelem megköveteli, hogy a frissítés alkalmazásához újraindítsa a Browther-ot}
               =1 {A fejlett védelem megköveteli, hogy a frissítés alkalmazásához újraindítsa a Browther-ot. A Privát ablak nem nyílik meg újra.}
               other {A fejlett védelem megköveteli, hogy a Browther-ot újraindítsa a frissítés alkalmazásához. A # Privát ablakok nem nyílnak meg újra.}}</translation>
 <translation id="5749154344207139683">Segítsen jobbá tenni a privát módot egy 1 perces kérdőív kitöltésével.</translation>
-<translation id="79269250264141507">Amikor szöveget ír a címsávba vagy keresőmezőbe, a Browther elküldi a beírt szöveget az alapértelmezett keresőmotornak a javaslatok fejlesztése érdekében. Ez Privát módban ki van kapcsolva.</translation>
-<translation id="2589970573128789862">Browther privát mód</translation>
-<translation id="5994282802285556682">Amikor Privát módban böngészik, a Browther figyelmeztetni fogja Önt, mielőtt betöltene egy nem biztonságos kapcsolatot használó oldalt</translation>
+<translation id="6954203250660846933">Amikor szöveget ír a címsávba vagy keresőmezőbe, a Browther elküldi a beírt szöveget az alapértelmezett keresőmotornak a javaslatok fejlesztése érdekében. Ez Privát módban ki van kapcsolva.</translation>
+<translation id="3542179014707218534">Browther privát mód</translation>
+<translation id="2076355018722231995">Amikor Privát módban böngészik, a Browther figyelmeztetni fogja Önt, mielőtt betöltene egy nem biztonságos kapcsolatot használó oldalt</translation>
 </translationbundle>

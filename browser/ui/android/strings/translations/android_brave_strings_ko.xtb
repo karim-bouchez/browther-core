@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Browther Rewards를 적립하려면 Browther 알림을 활성화하세요.</translation>
 <translation id="4714541943538330">기기에서 설정을 열고 Browther Ads 알림을 켜세요.</translation>
 <translation id="7341107637383044975">Browther 알림 켜기</translation>
-<translation id="9063439289570656162">Brave Shields 활성화/비활성화</translation>
+<translation id="9063439289570656162">Browther Shields 활성화/비활성화</translation>
 <translation id="15346379325756892">화면 속 화면 모드로 전환</translation>
 <translation id="6945863270524203017">트래커 및 광고 차단과 관련한 프라이버시 업데이트를 매주 받습니다.</translation>
 <translation id="4324735664183300693">알림 켜기</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">기능</translation>
 <translation id="1919345977826869612">광고</translation>
 <translation id="2839742394543397416">분석</translation>
-<translation id="5644165410146827297">Brave Shields 및 프라이버시</translation>
+<translation id="5644165410146827297">Browther Shields 및 프라이버시</translation>
 <translation id="4692623383562244444">검색 엔진</translation>
 <translation id="1468415711258933398">일반 탭</translation>
 <translation id="3377025655491224618">비공개 탭</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">사이트가 타사 쿠키를 통해 레거시 Google 로그인을 사용할지 물어볼 수 있도록 허용</translation>
 <translation id="2903783737778379345">타사 쿠키를 통한 레거시 Google 로그인 허용 안 함</translation>
 <translation id="6880817299303842099">레거시 Google 로그인에 타사 쿠키 사용 허용됨</translation>
-<translation id="8266435325778969511">Brave Shields 전역 기본값</translation>
+<translation id="8266435325778969511">Browther Shields 전역 기본값</translation>
 <translation id="2675679258824361492">기타 프라이버시 설정</translation>
 <translation id="8026334261755873520">인터넷 사용 기록 삭제</translation>
 <translation id="1690924763769415936">백그라운드 재생</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">나중에</translation>
 <translation id="4117451092682672487">프라이버시. 더욱 간편하게.</translation>
 <translation id="5512887128063976049">Brave를 기본 브라우저로 설정하면 탭하는 모든 링크가 프라이버시를 보호하는 Brave로 열립니다.</translation>
-<translation id="5148943178722443958">Browther 개선에 참여.</translation>
+<translation id="9133910347634099679">Browther 개선에 참여.</translation>
 <translation id="6718362830686703942">충돌 또는 프리징이 발생하면 진단 보고서를 보냅니다.</translation>
 <translation id="7134864207653684195">Browther 사용자가 사용하고 있는 기능에 대한 프라이빗 익명 제품 인사이트를 공유합니다.</translation>
 <translation id="2888496576732880897">Browther 검색 성장 지원</translation>
 <translation id="7044431516245362795">웹 디스커버리 프로젝트에 참여하여 Brave가 인덱스를 확장하고 검색 결과를 향상할 수 있도록 도와주세요. <ph name="LEARN_MORE_START"/>자세히 알아보기.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">좋아요, 도울게요</translation>
-<translation id="7443712250454754077">탭하여 Brave Shields 보기</translation>
+<translation id="7443712250454754077">탭하여 Browther Shields 보기</translation>
 <translation id="118577974285037669">모든 페이지에서 Brave가 Shields로 차단한 모든 나쁜 것들을 확인합니다.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> 포함, <ph name="TRACKER"/>개의 광고 및 트래커 차단됨</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> 외 광고 및 트래커 차단됨</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">건너뛰기</translation>
 <translation id="6165508094623778733">자세히 알아보기</translation>
 <translation id="986879628471635371">온보딩 문제 해결</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400"><ph name="TOKEN"/> 적립</translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">개인 정보 보호 광고를 보셔서 기본적으로 선호하는 사이트와 작성자를 지원하세요.</translation>

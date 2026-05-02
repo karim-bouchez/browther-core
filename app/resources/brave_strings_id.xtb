@@ -3,118 +3,118 @@
 <translationbundle lang="id">
 <translation id="1026101648481255140">Lanjutkan Penginstalan</translation>
 <translation id="7099479769133613710">Luncurkan kembali untuk mengupdate &amp;ChromeOS</translation>
-<translation id="2479110114759182442">Browther merekomendasikan Anda untuk meninjau ekstensi ini</translation>
-<translation id="3814674848168165531">Saat sebuah situs meminta untuk melakukan pramuat link yang ada di halamannya secara pribadi, Browther akan menggunakan server Browther. Hal ini akan menyembunyikan identitas Anda dari situs yang dipramuat, tetapi Browther akan mempelajari situs apa yang dipramuat.</translation>
+<translation id="7264054672589027446">Browther merekomendasikan Anda untuk meninjau ekstensi ini</translation>
+<translation id="7848219163187166649">Saat sebuah situs meminta untuk melakukan pramuat link yang ada di halamannya secara pribadi, Browther akan menggunakan server Browther. Hal ini akan menyembunyikan identitas Anda dari situs yang dipramuat, tetapi Browther akan mempelajari situs apa yang dipramuat.</translation>
 <translation id="1065672644894730302">Preferensi Anda tidak dapat dibaca. Beberapa fitur mungkin tidak tersedia dan perubahan pada preferensi tidak akan disimpan.</translation>
-<translation id="7577672138294294152">Orang tuamu telah menonaktifkan "Izin untuk situs, aplikasi, dan ekstensi" untuk Browther</translation>
-<translation id="5918095577778020936">Browther ingin mengekspor sandi. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
+<translation id="8837164267124113709">Orang tuamu telah menonaktifkan "Izin untuk situs, aplikasi, dan ekstensi" untuk Browther</translation>
+<translation id="881513728707488138">Browther ingin mengekspor sandi. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
 <translation id="112640046208448578">Identifikasi berbagai hal atau tempat, serta salin atau terjemahkan teks. Saat Anda menggunakan Penelusuran Gambar, screenshot halaman akan dikirim ke server. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther adalah browser default Anda</translation>
-<translation id="8522292744959221145">Untuk memeriksa apakah sandi Anda aman dari pelanggaran data dan masalah keamanan lainnya, <ph name="BEGIN_LINK"/>login ke Browther<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Klik menu Browther</translation>
+<translation id="8280092658684559253">Browther adalah browser default Anda</translation>
+<translation id="6580138787163923852">Untuk memeriksa apakah sandi Anda aman dari pelanggaran data dan masalah keamanan lainnya, <ph name="BEGIN_LINK"/>login ke Browther<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Klik menu Browther</translation>
 <translation id="1157985233335035034">Bahasa yang baru-baru ini digunakan</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> telah menambahkan ekstensi yang dapat mengubah cara kerja Browther.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> telah menambahkan ekstensi yang dapat mengubah cara kerja Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Penginstalan gagal karena versi Windows Anda tidak didukung.</translation>
-<translation id="8541922081612557424">Tentang Browther</translation>
+<translation id="8291401179516272335">Tentang Browther</translation>
 <translation id="1203500561924088507">Terima kasih telah menginstal. Anda harus memulai ulang browser sebelum menggunakan <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="1232234696885483911">Saat Anda membuka Penelusuran Gambar, judul halaman, URL, dan konten, termasuk PDF, akan otomatis dikirim ke server. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Saat Anda login, Anda dapat menggunakan sandi Anda dan info lainnya dari Akun Browther Anda di Browther. Untuk mengubahnya, buka “Akun Anda di Browther”.</translation>
-<translation id="8799570501820813406">Saat tab ini tidak aktif, memori akan dikosongkan agar Browther tetap cepat. Anda dapat memilih untuk selalu mengecualikan situs ini agar tetap aktif.</translation>
-<translation id="8767381092474532098">Browther memblokir download ini karena file tersebut berbahaya</translation>
-<translation id="3256289531845594061">Saat login ke layanan Browther seperti Gmail atau YouTube dengan <ph name="USER_EMAIL"/>, Anda dapat login otomatis ke Browther dengan akun yang sama</translation>
+<translation id="3496831315930641015">Saat Anda login, Anda dapat menggunakan sandi Anda dan info lainnya dari Akun Browther Anda di Browther. Untuk mengubahnya, buka “Akun Anda di Browther”.</translation>
+<translation id="9034321258761608912">Saat tab ini tidak aktif, memori akan dikosongkan agar Browther tetap cepat. Anda dapat memilih untuk selalu mengecualikan situs ini agar tetap aktif.</translation>
+<translation id="249571811018731941">Browther memblokir download ini karena file tersebut berbahaya</translation>
+<translation id="8850227089720975601">Saat login ke layanan Browther seperti Gmail atau YouTube dengan <ph name="USER_EMAIL"/>, Anda dapat login otomatis ke Browther dengan akun yang sama</translation>
 <translation id="1290883685122687410">Kesalahan saat penyiapan: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Siapkan profil Browther baru Anda</translation>
-<translation id="878572309106296578">Browther memerlukan akses Bluetooth untuk menjelajah 
+<translation id="6235774143043174856">Siapkan profil Browther baru Anda</translation>
+<translation id="4437862975743821367">Browther memerlukan akses Bluetooth untuk menjelajah 
  perangkat Bluetooth. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Deteksi bahasa</translation>
-<translation id="6204677860546245308">Gunakan setelan browser yang direkomendasikan Browther</translation>
-<translation id="108284536240904209">Hapus juga data dari Browther (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Gunakan setelan browser yang direkomendasikan Browther</translation>
+<translation id="8270483548049772782">Hapus juga data dari Browther (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Disematkan. Anda dapat mengakses Penelusuran Gambar lagi dari tombol baru di toolbar</translation>
 <translation id="1356661055722410047">Baru! Anda dapat menerjemahkan teks dan gambar di layar</translation>
 <translation id="1383876407941801731">Telusuri</translation>
-<translation id="7009295044271335553">&amp;Kelola Profil Browther</translation>
+<translation id="1592588950737518481">&amp;Kelola Profil Browther</translation>
 <translation id="1404026649028693342">Selalu tampilkan Mode AI</translation>
 <translation id="141901961143729572">Sampaikan pendapat Anda</translation>
-<translation id="3880714039086599943">Untuk membagikan jendela Anda, izinkan perekaman layar untuk Browther di Setelan Sistem.</translation>
-<translation id="1586284627848250203">Dapatkan bantuan untuk Browther for Testing</translation>
+<translation id="1743952081001089298">Untuk membagikan jendela Anda, izinkan perekaman layar untuk Browther di Setelan Sistem.</translation>
+<translation id="8627385813382688019">Dapatkan bantuan untuk Browther for Testing</translation>
 <translation id="1497802159252041924">Error saat penginstalan: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Halaman ini dilindungi</translation>
-<translation id="5147525139567260139">Bagikan tab Browther</translation>
-<translation id="721261350616678948">Login ke Browther</translation>
+<translation id="7252430412915798987">Bagikan tab Browther</translation>
+<translation id="6388429281015199562">Login ke Browther</translation>
 <translation id="1547469039832541117">Mengakhiri tugas yang dipilih.</translation>
-<translation id="1530633922026945685">Browther memerlukan izin untuk mengakses kamera guna membuat peta 3D untuk area di sekeliling Anda.</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Ekstensi ini tidak lagi didukung. Browther merekomendasikan agar Anda menghapusnya.}other{Ekstensi ini tidak lagi didukung. Browther merekomendasikan agar Anda menghapusnya.}}</translation>
-<translation id="51545890371361355">Sematkan Browther</translation>
-<translation id="6570689355868013775">Alat keamanan Browther</translation>
-<translation id="1902837727299679178">Browther ingin menghapus data Pengelola Sandi Anda. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
-<translation id="4449148723378534338">Meninjau kontrol privasi dan keamanan utama di Browther</translation>
+<translation id="1801944307203212016">Browther memerlukan izin untuk mengakses kamera guna membuat peta 3D untuk area di sekeliling Anda.</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Ekstensi ini tidak lagi didukung. Browther merekomendasikan agar Anda menghapusnya.}other{Ekstensi ini tidak lagi didukung. Browther merekomendasikan agar Anda menghapusnya.}}</translation>
+<translation id="4667068923142532753">Sematkan Browther</translation>
+<translation id="3006560544901646947">Alat keamanan Browther</translation>
+<translation id="686052171138185761">Browther ingin menghapus data Pengelola Sandi Anda. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
+<translation id="8713026329083542796">Meninjau kontrol privasi dan keamanan utama di Browther</translation>
 <translation id="1640672724030957280">Mengunduh...</translation>
 <translation id="1680687534629375545">Tanya Penelusuran Gambar info tentang halaman ini</translation>
 <translation id="1709772298389099340">Memberikan hak istimewa yang ditingkatkan untuk <ph name="BROWSER_NAME"/>.</translation>
-<translation id="2913217021115517297">Untuk membantu meningkatkan fitur ini, Browther mengirim interaksi Anda dengan fitur tersebut ke Browther. Data ini dapat dibaca, diproses, dan dianotasi oleh petugas peninjau.</translation>
+<translation id="4243382967656566037">Untuk membantu meningkatkan fitur ini, Browther mengirim interaksi Anda dengan fitur tersebut ke Browther. Data ini dapat dibaca, diproses, dan dianotasi oleh petugas peninjau.</translation>
 <translation id="1722488837206509557">Tindakan ini akan memungkinkan Anda memilih dari perangkat yang tersedia dan menampilkan konten di perangkat tersebut.</translation>
-<translation id="8004287232784878841">Browther akan segera menghapus data penjelajahan</translation>
-<translation id="4197839351786449392">Browther akan mencoba mengupgrade navigasi ke HTTPS</translation>
-<translation id="7814200940910057384">Data Browther dihapus</translation>
-<translation id="9048361966237194186">Browther akan dimulai ulang dalam <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">Jika HTTPS tidak tersedia, Browther akan menggunakan koneksi yang tidak aman tanpa memperingatkan Anda</translation>
-<translation id="6797402139308059782">Jalankan Browther di latar belakang</translation>
-<translation id="5875673934455379806">Instal ulang Browther</translation>
-<translation id="4529028207655448215">Browther sedang mencoba <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Saat Anda membuka Browther di <ph name="DEVICE_TYPE"/>, Anda akan melihat perintah untuk menggunakan Pengelola Sandi Browther.</translation>
+<translation id="6820510278633522408">Browther akan segera menghapus data penjelajahan</translation>
+<translation id="7775028004939172516">Browther akan mencoba mengupgrade navigasi ke HTTPS</translation>
+<translation id="6963959729951758069">Data Browther dihapus</translation>
+<translation id="4085139922884095932">Browther akan dimulai ulang dalam <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">Jika HTTPS tidak tersedia, Browther akan menggunakan koneksi yang tidak aman tanpa memperingatkan Anda</translation>
+<translation id="3975328336074677101">Jalankan Browther di latar belakang</translation>
+<translation id="2497443204974841650">Instal ulang Browther</translation>
+<translation id="1724309687045787742">Browther sedang mencoba <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Saat Anda membuka Browther di <ph name="DEVICE_TYPE"/>, Anda akan melihat perintah untuk menggunakan Pengelola Sandi Browther.</translation>
 <translation id="1838374766361614909">Hapus penelusuran</translation>
-<translation id="3541642064306182066">Untuk menghapus data penjelajahan hanya dari perangkat ini dan tetap menyimpannya di Akun Browther Anda, <ph name="BEGIN_LINK"/>logout dari Browther<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Download Browther di ponsel untuk membuka atau membuat grup tab baru kapan saja di mana saja</translation>
-<translation id="4559627161887338743">Anda dapat mengelola Akun Browther yang Anda gunakan untuk login. Akun Browther Anda digunakan untuk browser Browther, Play Store, Gmail, dan lainnya. Jika Anda ingin menambahkan akun untuk orang lain, seperti anggota keluarga, tambahkan pengguna baru ke <ph name="DEVICE_TYPE"/>. <ph name="LINK_BEGIN"/>Pelajari lebih lanjut<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">Untuk menghapus data penjelajahan hanya dari perangkat ini dan tetap menyimpannya di Akun Browther Anda, <ph name="BEGIN_LINK"/>logout dari Browther<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Download Browther di ponsel untuk membuka atau membuat grup tab baru kapan saja di mana saja</translation>
+<translation id="2063443520349987970">Anda dapat mengelola Akun Browther yang Anda gunakan untuk login. Akun Browther Anda digunakan untuk browser Browther, Play Store, Gmail, dan lainnya. Jika Anda ingin menambahkan akun untuk orang lain, seperti anggota keluarga, tambahkan pengguna baru ke <ph name="DEVICE_TYPE"/>. <ph name="LINK_BEGIN"/>Pelajari lebih lanjut<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Telusuri dengan Penelusuran Gambar</translation>
 <translation id="1880677175115548835">Pilih teks</translation>
-<translation id="4528406859989804913">Anda masuk dengan akun terkelola dan memberikan administratornya kontrol atas profil Browther Anda. Data Browther Anda, seperti aplikasi, bookmark, histori, sandi, dan setelan lain selamanya akan dikaitkan ke <ph name="USER_NAME"/>. Anda dapat menghapus data ini melalui Dasbor Akun Browther, namun Anda tidak akan dapat mengaitkan data ini dengan akun yang lain. Secara opsional, Anda dapat membuat profil untuk menjaga data Browther Anda yang sudah ada tetap terpisah. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther akan menghemat daya baterai dengan membatasi aktivitas latar belakang dan efek visual, seperti scroll yang lancar dan kecepatan frame video. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut Penghemat Energi<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Anda masuk dengan akun terkelola dan memberikan administratornya kontrol atas profil Browther Anda. Data Browther Anda, seperti aplikasi, bookmark, histori, sandi, dan setelan lain selamanya akan dikaitkan ke <ph name="USER_NAME"/>. Anda dapat menghapus data ini melalui Dasbor Akun Browther, namun Anda tidak akan dapat mengaitkan data ini dengan akun yang lain. Secara opsional, Anda dapat membuat profil untuk menjaga data Browther Anda yang sudah ada tetap terpisah. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther akan menghemat daya baterai dengan membatasi aktivitas latar belakang dan efek visual, seperti scroll yang lancar dan kecepatan frame video. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut Penghemat Energi<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Tanyakan info tentang halaman ini</translation>
-<translation id="8643267611122541711">Layanan Browther Updater</translation>
-<translation id="1649714546770135458">Dengan menonaktifkan ini, Anda dapat login ke situs Browther seperti Gmail tanpa harus login ke Browther</translation>
-<translation id="189297655255130768">Browther tidak merespons. Luncurkan ulang sekarang?</translation>
-<translation id="8422047647688939115">Organisasi Anda, <ph name="MANAGER"/>, mengharuskan Anda login ke Browther</translation>
+<translation id="9128006428501241840">Layanan Browther Updater</translation>
+<translation id="6302815314157879372">Dengan menonaktifkan ini, Anda dapat login ke situs Browther seperti Gmail tanpa harus login ke Browther</translation>
+<translation id="1063611196035804685">Browther tidak merespons. Luncurkan ulang sekarang?</translation>
+<translation id="2873360330889594383">Organisasi Anda, <ph name="MANAGER"/>, mengharuskan Anda login ke Browther</translation>
 <translation id="4035053306113201399">ChromeOS harus dimulai ulang untuk menerapkan update.</translation>
-<translation id="9048754176089806686">Browther memblokir download ini karena jenis file tersebut tidak biasa didownload dan mungkin berbahaya</translation>
+<translation id="2861285003831382718">Browther memblokir download ini karena jenis file tersebut tidak biasa didownload dan mungkin berbahaya</translation>
 <translation id="1953553007165777902">Mendownload... <ph name="MINUTE"/> menit lagi</translation>
-<translation id="2470048290583727811">Tips Browther: Simpan Sandi</translation>
-<translation id="1775322105159056176">Browther tidak dapat menentukan atau menyetel browser default</translation>
-<translation id="4372901050442507812">Pelajari alasan Browther memblokir beberapa file, terbuka di tab baru</translation>
-<translation id="2703425183860615504">Menjaga software Browther Anda tetap update. Jika layanan ini dinonaktifkan atau dihentikan, software Browther Anda tidak akan terus diupdate, yang berarti kerentanan keamanan yang mungkin terjadi tidak dapat diperbaiki dan fitur mungkin tidak berfungsi. Layanan ini akan otomatis di-uninstal jika tidak ada software Browther yang menggunakannya.</translation>
-<translation id="9220324636239049437">Tindakan ini akan menghapus 1 item dari perangkat. Untuk mengambil data nanti, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
+<translation id="2080160985220483492">Tips Browther: Simpan Sandi</translation>
+<translation id="8037497710694492565">Browther tidak dapat menentukan atau menyetel browser default</translation>
+<translation id="7395009124247513849">Pelajari alasan Browther memblokir beberapa file, terbuka di tab baru</translation>
+<translation id="762710512520170632">Menjaga software Browther Anda tetap update. Jika layanan ini dinonaktifkan atau dihentikan, software Browther Anda tidak akan terus diupdate, yang berarti kerentanan keamanan yang mungkin terjadi tidak dapat diperbaiki dan fitur mungkin tidak berfungsi. Layanan ini akan otomatis di-uninstal jika tidak ada software Browther yang menggunakannya.</translation>
+<translation id="5793588180426267429">Tindakan ini akan menghapus 1 item dari perangkat. Untuk mengambil data nanti, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
 <translation id="2018879682492276940">Gagal menginstal. Coba lagi.</translation>
-<translation id="831418749472885028">Untuk memeriksa apakah sandi Anda yang lain aman dari pelanggaran data dan masalah keamanan lainnya, <ph name="BEGIN_LINK"/>login ke Browther<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Untuk memeriksa apakah sandi Anda yang lain aman dari pelanggaran data dan masalah keamanan lainnya, <ph name="BEGIN_LINK"/>login ke Browther<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Setelan.</translation>
-<translation id="5499149312981370855">Pilih apakah akan menyertakan histori Browther untuk mendapatkan pengalaman yang lebih dipersonalisasi di layanan Browther</translation>
-<translation id="6959434860418352144">Klik tombol Sesuaikan Browther di Halaman Tab Baru untuk memberikan tampilan baru pada Browther</translation>
+<translation id="8194525816714210105">Pilih apakah akan menyertakan histori Browther untuk mendapatkan pengalaman yang lebih dipersonalisasi di layanan Browther</translation>
+<translation id="5909559127548969159">Klik tombol Sesuaikan Browther di Halaman Tab Baru untuk memberikan tampilan baru pada Browther</translation>
 <translation id="2066690553719545730">Selalu Tampilkan Mode AI</translation>
-<translation id="2472891440303445472">Browther memblokir download ini karena file tersebut tidak jujur dan dapat menyebabkan perubahan tidak terduga di perangkat Anda</translation>
-<translation id="2054358978145431867">Anda akan melihat perintah untuk mencoba <ph name="FEATURE_NAME"/> saat berikutnya Anda membuka Browther iOS.</translation>
-<translation id="2726948994393234543">Sandi dan data Browther Anda lainnya yang disimpan di Akun Browther Anda akan dihapus dari perangkat ini. Untuk menggunakannya lagi di Browther, login kembali.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Organisasi akan otomatis menghapus data penjelajahan jika Browther tidak digunakan selama 1 menit. Data ini dapat mencakup histori, isi otomatis, dan download. Tab Anda akan tetap terbuka.}other{Organisasi akan otomatis menghapus data penjelajahan jika Browther tidak digunakan selama # menit. Data ini dapat mencakup histori, isi otomatis, dan download. Tab Anda akan tetap terbuka.}}</translation>
+<translation id="3283892260110318935">Browther memblokir download ini karena file tersebut tidak jujur dan dapat menyebabkan perubahan tidak terduga di perangkat Anda</translation>
+<translation id="6160571936643742128">Anda akan melihat perintah untuk mencoba <ph name="FEATURE_NAME"/> saat berikutnya Anda membuka Browther iOS.</translation>
+<translation id="8380517409933452343">Sandi dan data Browther Anda lainnya yang disimpan di Akun Browther Anda akan dihapus dari perangkat ini. Untuk menggunakannya lagi di Browther, login kembali.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Organisasi akan otomatis menghapus data penjelajahan jika Browther tidak digunakan selama 1 menit. Data ini dapat mencakup histori, isi otomatis, dan download. Tab Anda akan tetap terbuka.}other{Organisasi akan otomatis menghapus data penjelajahan jika Browther tidak digunakan selama # menit. Data ini dapat mencakup histori, isi otomatis, dan download. Tab Anda akan tetap terbuka.}}</translation>
 <translation id="2126108037660393668">Verifikasi file yang didownload gagal.</translation>
 <translation id="2135919691573380097">Laporkan situs ini</translation>
 <translation id="2137162749895930932">Tutup layar terjemahan</translation>
-<translation id="5789330946301045610">Browther memblokir download ini karena situs tidak menggunakan koneksi yang aman dan file mungkin telah dimodifikasi</translation>
+<translation id="4283559398694996391">Browther memblokir download ini karena situs tidak menggunakan koneksi yang aman dan file mungkin telah dimodifikasi</translation>
 <translation id="2170098639895543546">Pilih apa pun di halaman</translation>
-<translation id="142389341645668510">Sesuaikan Browther</translation>
+<translation id="2495182092286337191">Sesuaikan Browther</translation>
 <translation id="2174917724755363426">Penginstalan tidak selesai. Yakin ingin membatalkan?</translation>
-<translation id="8745514854244955877">Browther - Login Jaringan - <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther - Login Jaringan - <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Error pemeriksaan update: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Hapus akun dari Browther</translation>
-<translation id="5550942974310218641">Tetap aman kapan saja di mana saja dengan Safe Browsing yang Disempurnakan di Browther untuk iOS</translation>
-<translation id="6677253423995557759">Situs berbahaya. Browther menghapus izin notifikasi.</translation>
+<translation id="6696114732806961952">Hapus akun dari Browther</translation>
+<translation id="1084363153644366288">Tetap aman kapan saja di mana saja dengan Safe Browsing yang Disempurnakan di Browther untuk iOS</translation>
+<translation id="7949164640723239455">Situs berbahaya. Browther menghapus izin notifikasi.</translation>
 <translation id="2236949375853147973">Aktivitas Saya</translation>
-<translation id="457168681575748148">Untuk mendapatkan alamat dan info Anda yang lain di semua perangkat Anda, login ke Browther. Alamat ini akan disimpan di Akun Browther Anda setelah Anda login.</translation>
-<translation id="5659384504794665581">Jika Anda berbagi komputer, teman dan keluarga bisa menjelajah secara terpisah dan menyiapkan Browther sesuai keinginannya.</translation>
+<translation id="4536403809133456417">Untuk mendapatkan alamat dan info Anda yang lain di semua perangkat Anda, login ke Browther. Alamat ini akan disimpan di Akun Browther Anda setelah Anda login.</translation>
+<translation id="5627930103267312171">Jika Anda berbagi komputer, teman dan keluarga bisa menjelajah secara terpisah dan menyiapkan Browther sesuai keinginannya.</translation>
 <translation id="2283803047247799269">Telusuri tab ini dengan Penelusuran Gambar</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther merekomendasikan untuk menjeda tab yang memperlambat browser Anda}other{Browther merekomendasikan untuk menjeda tab yang memperlambat browser Anda}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther merekomendasikan untuk menjeda tab yang memperlambat browser Anda}other{Browther merekomendasikan untuk menjeda tab yang memperlambat browser Anda}}</translation>
 <translation id="2307973900865360088">Simpan di Dok</translation>
-<translation id="7810992039564280750">Memeriksa kesesuaian URL dengan daftar situs tidak aman yang disimpan di Browther. Jika situs berusaha mencuri sandi Anda, atau jika Anda mendownload file berbahaya, Browther mungkin juga mengirim URL, termasuk bit konten halaman, ke Safe Browsing.</translation>
-<translation id="5042718521573656164">Tindakan ini akan:
+<translation id="5161617112768367959">Memeriksa kesesuaian URL dengan daftar situs tidak aman yang disimpan di Browther. Jika situs berusaha mencuri sandi Anda, atau jika Anda mendownload file berbahaya, Browther mungkin juga mengirim URL, termasuk bit konten halaman, ke Safe Browsing.</translation>
+<translation id="4123094831918713833">Tindakan ini akan:
         <ph name="LINE_BREAKS"/>
           • Mereset beberapa setelan dan pintasan Browther
           <ph name="LINE_BREAK"/>
@@ -123,633 +123,633 @@
           • Menghapus cookie dan data situs sementara lainnya
           <ph name="LINE_BREAKS"/>
           Bookmark, histori, dan sandi tersimpan tidak akan terpengaruh.</translation>
-<translation id="9095263438435683933">Untuk mengirimkan nomor dari sini ke ponsel Android Anda, login ke Browther di kedua perangkat.</translation>
+<translation id="5456070119344236353">Untuk mengirimkan nomor dari sini ke ponsel Android Anda, login ke Browther di kedua perangkat.</translation>
 <translation id="2356070529366658676">Tanya</translation>
 <translation id="2359808026110333948">Lanjutkan</translation>
-<translation id="6485997157403727556">Ekstensi "<ph name="EXTENSION_NAME"/>" ingin Anda login ke Browther</translation>
-<translation id="7017760840808989683">Nonaktifkan Browther agar Tidak Menjalankan Aplikasi di Latar Belakang</translation>
-<translation id="8491912023989916905">Untuk menggunakan ekstensi ini sebagai <ph name="USER_EMAIL_ADDRESS"/>, login ke Browther.</translation>
+<translation id="6468415397021485143">Ekstensi "<ph name="EXTENSION_NAME"/>" ingin Anda login ke Browther</translation>
+<translation id="2558600429878197587">Nonaktifkan Browther agar Tidak Menjalankan Aplikasi di Latar Belakang</translation>
+<translation id="5295781918312989856">Untuk menggunakan ekstensi ini sebagai <ph name="USER_EMAIL_ADDRESS"/>, login ke Browther.</translation>
 <translation id="8418845734693287262">ChromeOS tidak dapat menyinkronkan data karena detail login akun Anda belum diperbarui.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Tidak ada perangkat HID yang diakses oleh ekstensi Browther}=1{1 perangkat HID sedang diakses oleh satu atau beberapa ekstensi Browther}other{# perangkat HID sedang diakses oleh satu atau beberapa ekstensi Browther}}</translation>
-<translation id="1248225940185478633">Browther memerlukan izin mikrofon dan kamera untuk situs ini</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Tidak ada perangkat HID yang diakses oleh ekstensi Browther}=1{1 perangkat HID sedang diakses oleh satu atau beberapa ekstensi Browther}other{# perangkat HID sedang diakses oleh satu atau beberapa ekstensi Browther}}</translation>
+<translation id="434258293817844111">Browther memerlukan izin mikrofon dan kamera untuk situs ini</translation>
 <translation id="2403703063067034158">Error saat sistem dimulai: instance penyiapan lain sedang berjalan, coba lagi nanti.</translation>
-<translation id="5298352791080868905">Buka link di Browther dari aplikasi apa pun dan buat browser tetap dapat diakses di taskbar Anda</translation>
-<translation id="2118275934191847461">Dengan <ph name="BEGIN_LINK"/>alat dari Browther<ph name="END_LINK"/>, Anda dapat menjelajah dengan aman dan tetap memegang kendali</translation>
+<translation id="5458993228789433099">Buka link di Browther dari aplikasi apa pun dan buat browser tetap dapat diakses di taskbar Anda</translation>
+<translation id="1677640217693742525">Dengan <ph name="BEGIN_LINK"/>alat dari Browther<ph name="END_LINK"/>, Anda dapat menjelajah dengan aman dan tetap memegang kendali</translation>
 <translation id="2451727308784734061">Gunakan pintasan Anda untuk mengakses Pengelola Sandi dengan cepat. Anda dapat memindahkan pintasan ke layar utama atau peluncur aplikasi di komputer.</translation>
-<translation id="6381750314821942592">Browther akan segera ditutup</translation>
-<translation id="6078442581074612226">Di Browther</translation>
+<translation id="2280315911954332435">Browther akan segera ditutup</translation>
+<translation id="6410820860979094113">Di Browther</translation>
 <translation id="2485422356828889247">Uninstal</translation>
 <translation id="2513154137948333830">Perlu memulai ulang: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Pilih teks dengan Penelusuran Gambar</translation>
-<translation id="70183448213529602">Browther mencoba mengganti sandi yang ada. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
-<translation id="7798069806040634998">Browther memerlukan akses penyimpanan untuk mendownload file</translation>
-<translation id="8447483940522230788">Pembantu Browther</translation>
+<translation id="7892218991241200190">Browther mencoba mengganti sandi yang ada. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
+<translation id="8976443723926188033">Browther memerlukan akses penyimpanan untuk mendownload file</translation>
+<translation id="1973587471928846950">Pembantu Browther</translation>
 <translation id="2575822587468774919">Pilih item untuk ditelusuri dengan Penelusuran Gambar</translation>
-<translation id="3830890663494219270">Untuk mendapatkan sandi dan info Anda yang lain di semua perangkat Anda, login ke Browther</translation>
-<translation id="6252796827759111076">Terus gunakan Browther</translation>
+<translation id="8705561858232289221">Untuk mendapatkan sandi dan info Anda yang lain di semua perangkat Anda, login ke Browther</translation>
+<translation id="437162022240011372">Terus gunakan Browther</translation>
 <translation id="259935314519650377">Gagal menyimpan cache penginstal yang didownload. Error: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Sistem</translation>
-<translation id="7931230852267968641">Organisasi Anda dapat melihat dan mengelola data penjelajahan, seperti bookmark, histori, dan sandi. Organisasi Anda tidak dapat melihat data penjelajahan di profil Browther lain</translation>
-<translation id="2257221826278123061">Verifikasi diri Anda untuk menggunakan dan menyimpan data Browther di akun Anda, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="7387051847644272380">Terjadi error pada sistem operasi saat pemasangan berlangsung. Download Browther lagi.</translation>
-<translation id="2648689842065142443">Jika Anda berbagi perangkat, teman dan keluarga dapat menjelajah secara terpisah dan menyiapkan Browther sesuai keinginannya</translation>
-<translation id="6791166902140255175">Tab Browther</translation>
-<translation id="8372880274820509128">Untuk keamanan tambahan, Browther akan mengenkripsi data Anda.</translation>
-<translation id="8752006915531191162">Logout untuk menghapus Akun Browther Anda dari Browther</translation>
-<translation id="5344406739101555055">Untuk mendapatkan sandi, bookmark, dan info Anda yang lain di semua perangkat Anda, login ke Browther</translation>
+<translation id="2907676829052962091">Organisasi Anda dapat melihat dan mengelola data penjelajahan, seperti bookmark, histori, dan sandi. Organisasi Anda tidak dapat melihat data penjelajahan di profil Browther lain</translation>
+<translation id="1289116577679005654">Verifikasi diri Anda untuk menggunakan dan menyimpan data Browther di akun Anda, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="7192278346779151664">Terjadi error pada sistem operasi saat pemasangan berlangsung. Download Browther lagi.</translation>
+<translation id="7724398260867885339">Jika Anda berbagi perangkat, teman dan keluarga dapat menjelajah secara terpisah dan menyiapkan Browther sesuai keinginannya</translation>
+<translation id="1679595317134614424">Tab Browther</translation>
+<translation id="7189168846924379421">Untuk keamanan tambahan, Browther akan mengenkripsi data Anda.</translation>
+<translation id="4052643592793184278">Logout untuk menghapus Akun Browther Anda dari Browther</translation>
+<translation id="7694616023994438906">Untuk mendapatkan sandi, bookmark, dan info Anda yang lain di semua perangkat Anda, login ke Browther</translation>
 <translation id="2738871930057338499">Tidak dapat terhubung ke internet. HTTP 403 Terlarang. Periksa konfigurasi proxy Anda.</translation>
 <translation id="2753623023919742414">Klik untuk menelusuri</translation>
-<translation id="1312769823139326127">Setel Browther sebagai penampil PDF default Anda</translation>
-<translation id="3173824377856109157">Browther dapat mengisi otomatis kolom sulit yang mungkin dilewati fitur isi otomatis standar</translation>
-<translation id="1187986649024576560">Ekstensi ini berisi malware dan tidak aman. Hapus dari Browther agar ekstensi ini tidak dapat lagi melihat dan mengubah data Anda di situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
+<translation id="9078193405195503710">Setel Browther sebagai penampil PDF default Anda</translation>
+<translation id="2456995288904753506">Browther dapat mengisi otomatis kolom sulit yang mungkin dilewati fitur isi otomatis standar</translation>
+<translation id="3271730304285122987">Ekstensi ini berisi malware dan tidak aman. Hapus dari Browther agar ekstensi ini tidak dapat lagi melihat dan mengubah data Anda di situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
 <translation id="2799223571221894425">Luncurkan Ulang</translation>
-<translation id="5962774139606909656">Browther Anda</translation>
+<translation id="1427337251963884503">Browther Anda</translation>
 <translation id="2816462166102338036">Telusuri video ini dengan Penelusuran Gambar</translation>
 <translation id="2841525013647267359">Terjemahkan dari</translation>
 <translation id="2846251086934905009">Error penginstalan: Penginstal tidak selesai. Penginstalan telah dibatalkan.</translation>
-<translation id="777113543093865885">Buang dari Browther...</translation>
-<translation id="5265419033369521352">Memastikan Anda tetap aman di Browther dan dapat digunakan untuk meningkatkan keamanan Anda di aplikasi Browther lainnya saat login</translation>
+<translation id="928966105228355994">Buang dari Browther...</translation>
+<translation id="587805782197019018">Memastikan Anda tetap aman di Browther dan dapat digunakan untuk meningkatkan keamanan Anda di aplikasi Browther lainnya saat login</translation>
 <translation id="2885378588091291677">Pengelola Tugas</translation>
-<translation id="2176825726964012531">Tentang &amp;Browther</translation>
+<translation id="3055995278166070443">Tentang &amp;Browther</translation>
 <translation id="2915996080311180594">Mulai Ulang Nanti</translation>
 <translation id="2928420929544864228">Penginstalan selesai.</translation>
-<translation id="2481553173340651149">Data Anda dienkripsi dengan frasa sandi. Masukkan frasa sandi untuk menggunakan dan menyimpan data Browther di Akun Browther Anda.</translation>
+<translation id="70453521937551896">Data Anda dienkripsi dengan frasa sandi. Masukkan frasa sandi untuk menggunakan dan menyimpan data Browther di Akun Browther Anda.</translation>
 <translation id="2945997411976714835">Error penginstalan: Proses penginstal gagal dimulai.</translation>
-<translation id="2413255940314578781">Login lebih cepat ke situs menggunakan sandi tersimpan untuk Browther di iOS</translation>
-<translation id="122765104641632123">Tambahkan profil Browther baru untuk memisahkan bookmark, sandi, dan setelan.</translation>
-<translation id="3688936822855019158">Organisasi Anda mengelola Browther</translation>
-<translation id="8208853227947884571">Browther sudah diperbarui</translation>
-<translation id="5122472867956731189">Jika situs berusaha mencuri sandi Anda, atau jika Anda mendownload file berbahaya, Browther mungkin juga mengirimkan URL, termasuk bit konten halaman, ke Safe Browsing</translation>
-<translation id="3963199983793987097">Agar tetap aman saat online dengan pilihan orang tuamu, login ke Browther</translation>
+<translation id="3188308520233701133">Login lebih cepat ke situs menggunakan sandi tersimpan untuk Browther di iOS</translation>
+<translation id="8145318807880784886">Tambahkan profil Browther baru untuk memisahkan bookmark, sandi, dan setelan.</translation>
+<translation id="4330268530227888227">Organisasi Anda mengelola Browther</translation>
+<translation id="6488090896442998436">Browther sudah diperbarui</translation>
+<translation id="300557164611864786">Jika situs berusaha mencuri sandi Anda, atau jika Anda mendownload file berbahaya, Browther mungkin juga mengirimkan URL, termasuk bit konten halaman, ke Safe Browsing</translation>
+<translation id="2447145782593796785">Agar tetap aman saat online dengan pilihan orang tuamu, login ke Browther</translation>
 <translation id="3003694935412297923">Semua tugas</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther perlu memverifikasi diri Anda sebelum beberapa data dapat disimpan di Akun Browther Anda dan digunakan di semua perangkat Anda. Jika Anda logout sekarang, data ini (1 item) akan dihapus.}other{Browther perlu memverifikasi diri Anda sebelum beberapa data dapat disimpan di Akun Browther Anda dan digunakan di semua perangkat Anda. Jika Anda logout sekarang, data ini ({count} item) akan dihapus.}}</translation>
-<translation id="4202995875619419215">Buka <ph name="URL"/> di tab baru di Browther.</translation>
-<translation id="8755404239607088219">Browther tidak dapat memeriksa sandi Anda. Coba lagi nanti.</translation>
-<translation id="8880183781256147665">Menambahkan Browther...</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther perlu memverifikasi diri Anda sebelum beberapa data dapat disimpan di Akun Browther Anda dan digunakan di semua perangkat Anda. Jika Anda logout sekarang, data ini (1 item) akan dihapus.}other{Browther perlu memverifikasi diri Anda sebelum beberapa data dapat disimpan di Akun Browther Anda dan digunakan di semua perangkat Anda. Jika Anda logout sekarang, data ini ({count} item) akan dihapus.}}</translation>
+<translation id="5522228731050510047">Buka <ph name="URL"/> di tab baru di Browther.</translation>
+<translation id="6358780591055960280">Browther tidak dapat memeriksa sandi Anda. Coba lagi nanti.</translation>
+<translation id="1386422761453740126">Menambahkan Browther...</translation>
 <translation id="3038232873781883849">Menunggu untuk menginstal...</translation>
 <translation id="3045032126857188731">Bahasa terjemahan: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Tutup dialog masukan</translation>
-<translation id="4503085212612536713">Profil Browther lainnya</translation>
-<translation id="7918740962659365265">Bantu Browther menjadi lebih baik dengan mengirim laporan kerusakan dan <ph name="UMA_LINK"/> ke Browther</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Tidak ada perangkat USB yang diakses oleh ekstensi Browther}=1{1 perangkat USB sedang diakses oleh satu atau beberapa ekstensi Browther}other{# perangkat USB sedang diakses oleh satu atau beberapa ekstensi Browther}}</translation>
-<translation id="3700405816184340252">Histori Browther</translation>
-<translation id="7365690458036015383">Pemasang gagal membatalkan kompresi arsip. Download Browther lagi.</translation>
+<translation id="369127628511662602">Profil Browther lainnya</translation>
+<translation id="2370255879896574713">Bantu Browther menjadi lebih baik dengan mengirim laporan kerusakan dan <ph name="UMA_LINK"/> ke Browther</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Tidak ada perangkat USB yang diakses oleh ekstensi Browther}=1{1 perangkat USB sedang diakses oleh satu atau beberapa ekstensi Browther}other{# perangkat USB sedang diakses oleh satu atau beberapa ekstensi Browther}}</translation>
+<translation id="2065456480740480340">Histori Browther</translation>
+<translation id="5011660649081947055">Pemasang gagal membatalkan kompresi arsip. Download Browther lagi.</translation>
 <translation id="310459126943037700">Gagal mengakhiri tugas.</translation>
 <translation id="3104828284009500087">Telusuri apa saja di halaman</translation>
-<translation id="6422885447166607802">Selalu sinkronkan sandi, bookmark, dan histori lintas perangkat. Update browser default ke Browther agar dapat mengakses fitur yang Anda kenal dan suka dengan mudah.</translation>
-<translation id="8919461291440820124">Browther menggunakan mikrofon Anda.</translation>
+<translation id="4917564010081457061">Selalu sinkronkan sandi, bookmark, dan histori lintas perangkat. Update browser default ke Browther agar dapat mengakses fitur yang Anda kenal dan suka dengan mudah.</translation>
+<translation id="1041472930719344928">Browther menggunakan mikrofon Anda.</translation>
 <translation id="3130333203120345554">Penelusuran baru</translation>
 <translation id="3137969841538672700">Tarik untuk menelusuri</translation>
-<translation id="8372436892102763334">Tab ini menggunakan resource tambahan. Untuk meningkatkan performa, izinkan Browther menonaktifkannya.</translation>
-<translation id="5949068186379578553">Untuk membagikan layar Anda, izinkan perekaman layar untuk Browther di Setelan Sistem</translation>
-<translation id="4805806622840861220">Luncurkan ulang Browther</translation>
+<translation id="5312717254055363883">Tab ini menggunakan resource tambahan. Untuk meningkatkan performa, izinkan Browther menonaktifkannya.</translation>
+<translation id="373523409348786203">Untuk membagikan layar Anda, izinkan perekaman layar untuk Browther di Setelan Sistem</translation>
+<translation id="802113445299754598">Luncurkan ulang Browther</translation>
 <translation id="3161522574479303604">Semua bahasa</translation>
-<translation id="3225882094369124157">Program lain di komputer Anda menambahkan tema yang dapat mengubah cara kerja Browther.
+<translation id="4522189060330781648">Program lain di komputer Anda menambahkan tema yang dapat mengubah cara kerja Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Sesuaikan profil Browther baru Anda</translation>
-<translation id="4805865169608137960">Untuk menghapus Akun Browther Anda dari Browther, logout dari Browther di halaman Setelan</translation>
-<translation id="1651639704310627074">Nanti, Browther dapat menanyakan apakah Anda ingin menggunakan info tersimpan guna mengisi formulir secara otomatis untuk Anda</translation>
-<translation id="2585240446624043880">Browther tidak dapat membaca dan menulis ke direktori datanya:
+<translation id="2604272613984010799">Sesuaikan profil Browther baru Anda</translation>
+<translation id="5150830326120505481">Untuk menghapus Akun Browther Anda dari Browther, logout dari Browther di halaman Setelan</translation>
+<translation id="7113660200899017820">Nanti, Browther dapat menanyakan apakah Anda ingin menggunakan info tersimpan guna mengisi formulir secara otomatis untuk Anda</translation>
+<translation id="4475011322243623412">Browther tidak dapat membaca dan menulis ke direktori datanya:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Mulai Ulang Sekarang</translation>
-<translation id="2339258256897053758">Kunci API Browther tidak ada. Beberapa fungsi Browther tidak akan berfungsi.</translation>
-<translation id="8926637909431618259">Lanjutkan aplikasi yang berjalan di latar belakang jika Browther ditutup</translation>
-<translation id="518125528057094977">Browther akan memperingatkan Anda sebelum memuat situs apa pun menggunakan koneksi yang tidak aman</translation>
-<translation id="8652321858775514885">Anda akan logout dari sebagian besar situs saat menutup semua jendela Browther, kecuali Akun Browther Anda jika Anda login ke Browther. Agar situs mengingat Anda, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Mesin telusur default Anda diubah dari luar Browther. Untuk melindungi Anda, Browther meresetnya.</translation>
-<translation id="5033074923607633232">Login ke Browther untuk mendapatkan sandi, bookmark, dan lainnya di semua perangkat Anda</translation>
+<translation id="3536063527222598206">Kunci API Browther tidak ada. Beberapa fungsi Browther tidak akan berfungsi.</translation>
+<translation id="1011450868746766298">Lanjutkan aplikasi yang berjalan di latar belakang jika Browther ditutup</translation>
+<translation id="179611081153855734">Browther akan memperingatkan Anda sebelum memuat situs apa pun menggunakan koneksi yang tidak aman</translation>
+<translation id="8965591964936552871">Anda akan logout dari sebagian besar situs saat menutup semua jendela Browther, kecuali Akun Browther Anda jika Anda login ke Browther. Agar situs mengingat Anda, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Mesin telusur default Anda diubah dari luar Browther. Untuk melindungi Anda, Browther meresetnya.</translation>
+<translation id="1170501833661894915">Login ke Browther untuk mendapatkan sandi, bookmark, dan lainnya di semua perangkat Anda</translation>
 <translation id="3352986031709923790">pojok kanan atas area penelusuran: kanan <ph name="RIGHT"/>%, atas <ph name="TOP"/>%</translation>
-<translation id="7261356974224431851">Data Browther di akun Anda</translation>
+<translation id="120745000989996104">Data Browther di akun Anda</translation>
 <translation id="3369405342922656244">Telusuri halaman ini dengan Penelusuran Gambar</translation>
-<translation id="6610330853796830621">Gunakan sandi dengan Browther di ponsel</translation>
+<translation id="7173761126541905083">Gunakan sandi dengan Browther di ponsel</translation>
 <translation id="2645435784669275700">ChromeOS</translation>
-<translation id="2297290224191497273">Beralih ke profil Browther yang sudah ada?</translation>
+<translation id="5266583242423616945">Beralih ke profil Browther yang sudah ada?</translation>
 <translation id="3412460710772753638">Di Pengelola Sandi di perangkat ini</translation>
-<translation id="2491221873705777076">Manfaatkan Safe Browsing yang Disempurnakan dengan Browther di ponsel</translation>
-<translation id="7304389940068374923">Personalisasi Browther untuk Anda...</translation>
-<translation id="9216183508558772570">Browther akan memberi tahu Anda saat Anda login dengan sandi yang telah dibobol</translation>
-<translation id="5853262807109651878">Tindakan ini akan menghapus <ph name="ITEMS_COUNT"/> item dari perangkat. Untuk mengambil data nanti, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> dapat membuat berpindah-pindah profil Browther</translation>
-<translation id="8703492925273919597">Tutup semua jendela Browther dan coba lagi.</translation>
-<translation id="599091950194451698">Untuk membagikan jendela Anda, izinkan perekaman layar untuk Browther di Setelan Sistem</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> sudah login.  Agar penjelajahan Anda tetap terpisah, login ke Browther di profil Anda sendiri sebagai <ph name="USER_EMAIL_ADDRESS"/>.</translation>
-<translation id="8981774130895723211">Untuk membagikan layar Anda, izinkan perekaman layar untuk Browther di Setelan Sistem.</translation>
+<translation id="4282363917570905631">Manfaatkan Safe Browsing yang Disempurnakan dengan Browther di ponsel</translation>
+<translation id="986094398735583155">Personalisasi Browther untuk Anda...</translation>
+<translation id="3266047225484320321">Browther akan memberi tahu Anda saat Anda login dengan sandi yang telah dibobol</translation>
+<translation id="3508047337876211050">Tindakan ini akan menghapus <ph name="ITEMS_COUNT"/> item dari perangkat. Untuk mengambil data nanti, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> dapat membuat berpindah-pindah profil Browther</translation>
+<translation id="7225005776233199285">Tutup semua jendela Browther dan coba lagi.</translation>
+<translation id="5465054931427475969">Untuk membagikan jendela Anda, izinkan perekaman layar untuk Browther di Setelan Sistem</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> sudah login.  Agar penjelajahan Anda tetap terpisah, login ke Browther di profil Anda sendiri sebagai <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="8133590217245064579">Untuk membagikan layar Anda, izinkan perekaman layar untuk Browther di Setelan Sistem.</translation>
 <translation id="3597003331831379823">Gagal menjalankan penyiapan dengan hak istimewa yang ditingkatkan. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Login ke Browther</translation>
-<translation id="3066805437003400520">Data browsing pengguna ini akan dihapus dari perangkat ini. Untuk memulihkan data, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
-<translation id="7029305463989165490">Untuk mengirimkan nomor dari <ph name="ORIGIN"/> ke ponsel Android Anda, login ke Browther di kedua perangkat.</translation>
+<translation id="611080704131468868">Login ke Browther</translation>
+<translation id="2492221622209669678">Data browsing pengguna ini akan dihapus dari perangkat ini. Untuk memulihkan data, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
+<translation id="6793778233257855801">Untuk mengirimkan nomor dari <ph name="ORIGIN"/> ke ponsel Android Anda, login ke Browther di kedua perangkat.</translation>
 <translation id="3667616615096815454">Tidak dapat menginstal, aplikasi tidak dikenali oleh server.</translation>
-<translation id="1128485277465085828">Gunakan <ph name="BEGIN_LINK"/>frasa sandi Anda sendiri<ph name="END_LINK"/> untuk mengenkripsi semua data Browther di Akun Browther Anda. Metode pembayaran dan alamat dari Google Pay tidak akan dienkripsi. Histori penjelajahan dari Browther tidak akan disinkronkan.</translation>
-<translation id="4304059894777924102">Browther tidak dapat memeriksa sandi Anda. Coba periksa koneksi internet Anda.</translation>
-<translation id="1807774211756215222">Buka link di &amp;tab Browther baru</translation>
-<translation id="387105482057676379">Tautkan Browther dan layanan Browther lainnya untuk personalisasi dan tujuan lainnya</translation>
+<translation id="5585500151754164442">Gunakan <ph name="BEGIN_LINK"/>frasa sandi Anda sendiri<ph name="END_LINK"/> untuk mengenkripsi semua data Browther di Akun Browther Anda. Metode pembayaran dan alamat dari Google Pay tidak akan dienkripsi. Histori penjelajahan dari Browther tidak akan disinkronkan.</translation>
+<translation id="404323216042159951">Browther tidak dapat memeriksa sandi Anda. Coba periksa koneksi internet Anda.</translation>
+<translation id="5004936474632127765">Buka link di &amp;tab Browther baru</translation>
+<translation id="6236643159256182256">Tautkan Browther dan layanan Browther lainnya untuk personalisasi dan tujuan lainnya</translation>
 <translation id="3729187154190517324">Perdalam penelusuran Anda dengan menambahkan beberapa tab, file, dan alat menggunakan tombol "Tambahkan tab dan lainnya".</translation>
-<translation id="3867175562099983425">Kelola Profil Browther</translation>
-<translation id="308146532933302843">Pelajari alasan Browther memblokir beberapa download</translation>
-<translation id="2189149060536531804">Browther akan memberi tahu Anda jika ada yang perlu ditinjau</translation>
-<translation id="8422094375343667686">Profil Browther membantu Anda memisahkan berbagai bagian dalam hidup Anda. Tambahkan profil baru sekarang.</translation>
-<translation id="6324134303015966238">Browther melakukan pramuat halaman yang mungkin akan Anda buka, agar halaman tersebut dimuat lebih cepat saat Anda membukanya</translation>
+<translation id="1400697664933775238">Kelola Profil Browther</translation>
+<translation id="2461315395128103158">Pelajari alasan Browther memblokir beberapa download</translation>
+<translation id="8058420662026104226">Browther akan memberi tahu Anda jika ada yang perlu ditinjau</translation>
+<translation id="3177448557921912221">Profil Browther membantu Anda memisahkan berbagai bagian dalam hidup Anda. Tambahkan profil baru sekarang.</translation>
+<translation id="1541177876035612043">Browther melakukan pramuat halaman yang mungkin akan Anda buka, agar halaman tersebut dimuat lebih cepat saat Anda membukanya</translation>
 <translation id="3810973564298564668">Kelola</translation>
-<translation id="4815742196440583661">Untuk menggunakan sandi yang telah disimpan, ikuti kode QR, download Browther untuk iOS, dan login ke Akun Browther Anda</translation>
-<translation id="6093965249696204223">Tips Browther: Safe Browsing yang Disempurnakan</translation>
+<translation id="1117103475254549453">Untuk menggunakan sandi yang telah disimpan, ikuti kode QR, download Browther untuk iOS, dan login ke Akun Browther Anda</translation>
+<translation id="8880695882192156860">Tips Browther: Safe Browsing yang Disempurnakan</translation>
 <translation id="3846683726093018685">**Ringkas:** Dalam satu kalimat kurang dari 30 kata, deskripsikan subjek utama dan tujuan konten dalam screenshot.
 
           **Sarankan Pertanyaan:** Buat daftar berbutir berisi 3-5 pertanyaan yang dapat diajukan pengguna untuk lebih memahami screenshot. Pertanyaan ini harus mencakup setidaknya satu pertanyaan yang secara khusus membahas objek visual, desain, atau penempatannya.</translation>
-<translation id="5381622442243174305"><ph name="PAGE_TITLE"/> - Browther</translation>
+<translation id="8293474885560144454"><ph name="PAGE_TITLE"/> - Browther</translation>
 <translation id="3885770153807205175">Pemilih bahasa</translation>
-<translation id="6315734375101223238">Sesuaikan dan kontrol Browther. Ada sesuatu yang memerlukan perhatian Anda - klik untuk melihat detailnya.</translation>
-<translation id="7130675370997202556">Klik nama Anda untuk membuka Browther dan mulai menjelajah.</translation>
+<translation id="4861846616763552424">Sesuaikan dan kontrol Browther. Ada sesuatu yang memerlukan perhatian Anda - klik untuk melihat detailnya.</translation>
+<translation id="6126366281251241386">Klik nama Anda untuk membuka Browther dan mulai menjelajah.</translation>
 <translation id="3892148308691398805">Salin teks</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> telah login ke profil Browther ini. Agar penjelajahan Anda tetap terpisah, Browther dapat membuat profil tersendiri untuk Anda.</translation>
-<translation id="8744239658215739511">S&amp;esuaikan Browther Anda</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> telah login ke profil Browther ini. Agar penjelajahan Anda tetap terpisah, Browther dapat membuat profil tersendiri untuk Anda.</translation>
+<translation id="3821553157234855663">S&amp;esuaikan Browther Anda</translation>
 <translation id="3941890832296813527">Error penginstalan: Nama file penginstal tidak valid atau tidak didukung.</translation>
-<translation id="8090497651549769448">Browther mencoba menyalin sandi. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
-<translation id="4256965182800026277">Sandi, metode pembayaran, dan alamat Anda yang disimpan di Akun Browther Anda akan dihapus dari perangkat ini. Untuk menggunakannya lagi di Browther, login kembali.</translation>
+<translation id="6482299900191767005">Browther mencoba menyalin sandi. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
+<translation id="5853011008278898603">Sandi, metode pembayaran, dan alamat Anda yang disimpan di Akun Browther Anda akan dihapus dari perangkat ini. Untuk menggunakannya lagi di Browther, login kembali.</translation>
 <translation id="395904275706073188">Halaman yang dilindungi tidak dapat dibaca. Coba halaman lain.</translation>
-<translation id="4194619960643453552">Pelajari cara Browther menjaga keamanan Anda</translation>
-<translation id="1486377520191913768">Saat Anda mengetik di kolom URL atau kotak penelusuran, Browther akan mengirimkan hal yang Anda ketik ke alat penelusuran, AI, dan agen milik organisasi Anda untuk mendapatkan saran.</translation>
-<translation id="1311808042904310985">Tentang &amp;Browther for Testing</translation>
+<translation id="1832973663231751701">Pelajari cara Browther menjaga keamanan Anda</translation>
+<translation id="4531502594774670767">Saat Anda mengetik di kolom URL atau kotak penelusuran, Browther akan mengirimkan hal yang Anda ketik ke alat penelusuran, AI, dan agen milik organisasi Anda untuk mendapatkan saran.</translation>
+<translation id="300013383485253006">Tentang &amp;Browther for Testing</translation>
 <translation id="1152920704813762236">Tentang ChromeOS</translation>
-<translation id="8282895427217902177">Saat Anda membuka situs, Browther akan mengirimkan bagian URL yang di-obfuscate ke <ph name="BEGIN_LINK"/>Google Safe Browsing<ph name="END_LINK"/> melalui server privasi yang menyembunyikan alamat IP Anda. Jika situs melakukan hal yang mencurigakan, URL lengkap dan bit konten halaman juga akan dikirim.</translation>
+<translation id="8126752030994997015">Saat Anda membuka situs, Browther akan mengirimkan bagian URL yang di-obfuscate ke <ph name="BEGIN_LINK"/>Google Safe Browsing<ph name="END_LINK"/> melalui server privasi yang menyembunyikan alamat IP Anda. Jika situs melakukan hal yang mencurigakan, URL lengkap dan bit konten halaman juga akan dikirim.</translation>
 <translation id="3703994572283698466">ChromeOS terwujud karena adanya <ph name="BEGIN_LINK_CROS_OSS"/>software open source<ph name="END_LINK_CROS_OSS"/> tambahan, seperti <ph name="BEGIN_LINK_LINUX_OSS"/>lingkungan pengembangan Linux<ph name="END_LINK_LINUX_OSS"/>.</translation>
 <translation id="4022972681110646219">Terjemahkan layar</translation>
 <translation id="4023601594785368013">Bahasa asli: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Buka link di Browther dari aplikasi apa pun. Selain itu, Browther akan disematkan ke taskbar Anda untuk memudahkan akses.</translation>
-<translation id="6056473803837713617">Bantu Browther jadi lebih baik dengan melaporkan <ph name="BEGIN_LINK"/>setelan saat ini<ph name="END_LINK"/></translation>
+<translation id="6450460108719059465">Buka link di Browther dari aplikasi apa pun. Selain itu, Browther akan disematkan ke taskbar Anda untuk memudahkan akses.</translation>
+<translation id="3437506136408403836">Bantu Browther jadi lebih baik dengan melaporkan <ph name="BEGIN_LINK"/>setelan saat ini<ph name="END_LINK"/></translation>
 <translation id="4050175100176540509">Peningkatan keamanan dan fitur baru yang penting tersedia di versi terbaru.</translation>
 <translation id="4055805654398742145">Pengelola S&amp;andi</translation>
-<translation id="6654312501894761082">Program lain di komputer Anda menambahkan ekstensi yang dapat mengubah cara kerja Browther.
+<translation id="2164947358785939495">Program lain di komputer Anda menambahkan ekstensi yang dapat mengubah cara kerja Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Organisasi akan otomatis menutup Browther jika tidak digunakan selama 1 menit. Data penjelajahan akan dihapus. Data ini dapat mencakup histori, isi otomatis, dan download.}other{Organisasi akan otomatis menutup Browther jika tidak digunakan selama # menit. Data penjelajahan akan dihapus. Data ini dapat mencakup histori, isi otomatis, dan download.}}</translation>
-<translation id="5794951150713244901">Buka halaman Tentang Browther</translation>
-<translation id="10925962326134232">Sesuaikan Browther untuk memberikan tampilan baru ke browser Anda</translation>
-<translation id="6596295505984504022">S&amp;esuaikan Browther Anda</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Organisasi akan otomatis menutup Browther jika tidak digunakan selama 1 menit. Data penjelajahan akan dihapus. Data ini dapat mencakup histori, isi otomatis, dan download.}other{Organisasi akan otomatis menutup Browther jika tidak digunakan selama # menit. Data penjelajahan akan dihapus. Data ini dapat mencakup histori, isi otomatis, dan download.}}</translation>
+<translation id="1535413545339990419">Buka halaman Tentang Browther</translation>
+<translation id="692283249649018289">Sesuaikan Browther untuk memberikan tampilan baru ke browser Anda</translation>
+<translation id="6375229634133804834">S&amp;esuaikan Browther Anda</translation>
 <translation id="4148957013307229264">Memasang...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> - Login Jaringan - Browther</translation>
-<translation id="2871190378186459992">Temukan aplikasi, game, ekstensi, dan tema yang hebat untuk Browther.</translation>
-<translation id="462105622535258178">Untuk mendapatkan ekstensi ini dan yang lainnya di semua komputer Anda, login ke Browther</translation>
-<translation id="6670140629169983459">Agar tetap aman saat online dengan pilihan orang tuamu, beralihlah ke profil Browther-mu, tempat kamu sudah login sebagai <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> - Login Jaringan - Browther</translation>
+<translation id="2911246138082876798">Temukan aplikasi, game, ekstensi, dan tema yang hebat untuk Browther.</translation>
+<translation id="2528977475313334293">Untuk mendapatkan ekstensi ini dan yang lainnya di semua komputer Anda, login ke Browther</translation>
+<translation id="8244267655940711467">Agar tetap aman saat online dengan pilihan orang tuamu, beralihlah ke profil Browther-mu, tempat kamu sudah login sebagai <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="4222932583846282852">Membatalkan...</translation>
 <translation id="4224210481850767180">Penginstalan telah dibatalkan.</translation>
-<translation id="1853997773668795891">Tautkan data Browther Anda ke akun ini?</translation>
-<translation id="4732930052828648898">Memperingatkan Anda tentang situs berbahaya, bahkan situs yang tidak diketahui Browther sebelumnya, dengan menganalisis lebih banyak data dari situs dibandingkan perlindungan standar. Anda dapat memilih untuk melewati peringatan Browther.</translation>
-<translation id="2201661640076600072">Logout dari Browther</translation>
-<translation id="3262506503470845422">Dapatkan bantuan Browther</translation>
+<translation id="8219359042845534271">Tautkan data Browther Anda ke akun ini?</translation>
+<translation id="5520777668172961882">Memperingatkan Anda tentang situs berbahaya, bahkan situs yang tidak diketahui Browther sebelumnya, dengan menganalisis lebih banyak data dari situs dibandingkan perlindungan standar. Anda dapat memilih untuk melewati peringatan Browther.</translation>
+<translation id="2014920019837536689">Logout dari Browther</translation>
+<translation id="4341512411059715879">Dapatkan bantuan Browther</translation>
 <translation id="4281844954008187215">Persyaratan Layanan</translation>
-<translation id="7691786510374174420">Pemasangan gagal karena kesalahan yang tidak diketahui. Jika Browther sedang berjalan, tutup, lalu ulang kembali.</translation>
-<translation id="6368144843345980623">Ekspor Sandi dari Browther</translation>
+<translation id="322492684764924424">Pemasangan gagal karena kesalahan yang tidak diketahui. Jika Browther sedang berjalan, tutup, lalu ulang kembali.</translation>
+<translation id="3813060261346666066">Ekspor Sandi dari Browther</translation>
 <translation id="4304713468139749426">Pengelola Sandi</translation>
 <translation id="4334241893986177674">Telusuri screenshot ini</translation>
 <translation id="4334294535648607276">Download selesai.</translation>
-<translation id="242356249838681145">Luncurkan Browther saat Windows dimulai</translation>
-<translation id="4747339441562331861">Dapatkan akses mudah ke fitur yang Anda kenal, suka, dan percaya dengan menyetel Browther sebagai browser default. Browther akan disematkan ke taskbar agar dapat diakses dengan cepat.</translation>
+<translation id="2177954934431828302">Luncurkan Browther saat Windows dimulai</translation>
+<translation id="2472318668926455009">Dapatkan akses mudah ke fitur yang Anda kenal, suka, dan percaya dengan menyetel Browther sebagai browser default. Browther akan disematkan ke taskbar agar dapat diakses dengan cepat.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> mewajibkan Anda membaca dan menyetujui Persyaratan Layanan berikut sebelum menggunakan perangkat ini. Persyaratan ini tidak memperluas, mengubah, atau membatasi Persyaratan ChromeOS.</translation>
-<translation id="9183662282810237335">Tetap keluar dari Browther?</translation>
+<translation id="2897580280700805340">Tetap keluar dari Browther?</translation>
 <translation id="4413205837991854510">Selalu Tampilkan Pintasan Penelusuran Gambar</translation>
-<translation id="4065288863231444640">Jalankan Browther di Background</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther merekomendasikan agar Anda menghapusnya. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut ekstensi yang didukung<ph name="END_LINK"/>}other{Browther merekomendasikan agar Anda menghapusnya. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut ekstensi yang didukung<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Menyesuaikan dan mengontrol Browther</translation>
+<translation id="2454897022983434851">Jalankan Browther di Background</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther merekomendasikan agar Anda menghapusnya. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut ekstensi yang didukung<ph name="END_LINK"/>}other{Browther merekomendasikan agar Anda menghapusnya. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut ekstensi yang didukung<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Menyesuaikan dan mengontrol Browther</translation>
 <translation id="4427306783828095590">Perlindungan yang ditingkatkan akan memblokir phishing dan malware dengan lebih optimal</translation>
 <translation id="4434353761996769206">Error penginstal: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> mengelola Browther</translation>
-<translation id="3579012341787637143">Tambahkan profil Browther</translation>
-<translation id="6786534271003695094">Tentang Browther for Testing</translation>
-<translation id="526235294307144732">Untuk menggunakan dan menyimpan data Browther di Akun Browther Anda, masukkan frasa sandi</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> mengelola Browther</translation>
+<translation id="4007482010626246887">Tambahkan profil Browther</translation>
+<translation id="6888322430074420631">Tentang Browther for Testing</translation>
+<translation id="8912436499620582668">Untuk menggunakan dan menyimpan data Browther di Akun Browther Anda, masukkan frasa sandi</translation>
 <translation id="4493028449971051158">Error saat sistem dimulai: jalankan penginstal sebagai administrator.</translation>
 <translation id="4501471624619070934">Penginstalan gagal karena akses dibatasi untuk negara ini.</translation>
-<translation id="8594994021633965927">Ekstensi ini belum memublikasikan praktik privasi, seperti cara ekstensi mengumpulkan dan menggunakan data. Browther merekomendasikan agar Anda menghapusnya.</translation>
-<translation id="7084397798469173252">Selamat datang di Browther; jendela browser baru terbuka</translation>
-<translation id="137732229629632648">Browther memerlukan izin untuk memetakan lingkungan dan melacak tangan Anda</translation>
-<translation id="5036046007335188949">Anda sudah login sebagai <ph name="USER_EMAIL_ADDRESS"/> di profil Browther lain</translation>
-<translation id="1878185978731985193">Browther akan melakukan pramuat halaman yang membuat penjelajahan dan penelusuran menjadi lebih cepat. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut cara melakukan pramuat halaman<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Ekstensi ini belum memublikasikan praktik privasi, seperti cara ekstensi mengumpulkan dan menggunakan data. Browther merekomendasikan agar Anda menghapusnya.</translation>
+<translation id="2174621824527957495">Selamat datang di Browther; jendela browser baru terbuka</translation>
+<translation id="6391148383688605718">Browther memerlukan izin untuk memetakan lingkungan dan melacak tangan Anda</translation>
+<translation id="7756445485815468244">Anda sudah login sebagai <ph name="USER_EMAIL_ADDRESS"/> di profil Browther lain</translation>
+<translation id="137435413163730206">Browther akan melakukan pramuat halaman yang membuat penjelajahan dan penelusuran menjadi lebih cepat. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut cara melakukan pramuat halaman<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Tingkatkan keamanan online untuk semua orang saat Anda melaporkan situs yang menurut Anda berbahaya.</translation>
-<translation id="8669339108356170796">Browther memblokir download ini karena Anda menonaktifkan Safe Browsing dan file tidak dapat diverifikasi</translation>
-<translation id="7583343841997441047">Coba Google Lens dengan Browther di ponsel</translation>
+<translation id="3266647901351304597">Browther memblokir download ini karena Anda menonaktifkan Safe Browsing dan file tidak dapat diverifikasi</translation>
+<translation id="6980208900390333646">Coba Google Lens dengan Browther di ponsel</translation>
 <translation id="4594305310729380060">Ke Pengelola Sandi di perangkat ini</translation>
-<translation id="3349475100979552835">Aplikasi Browther</translation>
+<translation id="738228944918383850">Aplikasi Browther</translation>
 <translation id="4598116752460667024">Telusuri proses apa saja dari daftar.</translation>
 <translation id="4970880042055371251">Versi ChromeOS</translation>
-<translation id="2182657378556811785">Hampir selesai diperbarui! Luncurkan ulang Browther untuk menyelesaikan pembaruan.</translation>
-<translation id="6311668361877328515">Mempercepat situs dengan mesin V8 Browther, tetapi membuat Browther sedikit lebih rentan terhadap serangan</translation>
-<translation id="7402642357351265733">Jika Anda juga membagikan laporan penggunaan Browther, laporan tersebut akan menyertakan URL yang Anda buka</translation>
-<translation id="8142245354207161805">Profil tersebut mungkin digunakan pada proses Browther lainnya (<ph name="PROCESS_ID"/>) pada komputer lain (<ph name="HOST_NAME"/>). Browther telah mengunci profil tersebut agar tidak rusak. Jika yakin tidak ada proses lain yang menggunakan profil tersebut, Anda dapat membuka profil dan meluncurkan Browther kembali.</translation>
+<translation id="4482468019601425607">Hampir selesai diperbarui! Luncurkan ulang Browther untuk menyelesaikan pembaruan.</translation>
+<translation id="5517890123509214766">Mempercepat situs dengan mesin V8 Browther, tetapi membuat Browther sedikit lebih rentan terhadap serangan</translation>
+<translation id="7690070364551268156">Jika Anda juga membagikan laporan penggunaan Browther, laporan tersebut akan menyertakan URL yang Anda buka</translation>
+<translation id="5020487088453637212">Profil tersebut mungkin digunakan pada proses Browther lainnya (<ph name="PROCESS_ID"/>) pada komputer lain (<ph name="HOST_NAME"/>). Browther telah mengunci profil tersebut agar tidak rusak. Jika yakin tidak ada proses lain yang menggunakan profil tersebut, Anda dapat membuka profil dan meluncurkan Browther kembali.</translation>
 <translation id="4680828127924988555">Batalkan Penginstalan</translation>
-<translation id="2014343159590733363">Beberapa data Browther Anda belum disimpan di Akun Browther Anda. Coba tunggu beberapa menit sebelum logout. Jika Anda logout sekarang, data ini akan dihapus.</translation>
-<translation id="2408746614080689238">Saat Anda login, Anda dapat menggunakan sandi Anda dan lainnya dari Akun Browther Anda di Browther. <ph name="SHORTCUT"/> dapat mengubah setelan layanan Browther Anda.</translation>
-<translation id="847561904663814268">Sebelumnya ada seseorang yang masuk ke Browther di komputer ini sebagai <ph name="ACCOUNT_EMAIL_LAST"/>. Buat pengguna Browther baru agar informasi Anda tetap terpisah.</translation>
+<translation id="8134827615154347946">Beberapa data Browther Anda belum disimpan di Akun Browther Anda. Coba tunggu beberapa menit sebelum logout. Jika Anda logout sekarang, data ini akan dihapus.</translation>
+<translation id="3508712423420506333">Saat Anda login, Anda dapat menggunakan sandi Anda dan lainnya dari Akun Browther Anda di Browther. <ph name="SHORTCUT"/> dapat mengubah setelan layanan Browther Anda.</translation>
+<translation id="2388739442635757494">Sebelumnya ada seseorang yang masuk ke Browther di komputer ini sebagai <ph name="ACCOUNT_EMAIL_LAST"/>. Buat pengguna Browther baru agar informasi Anda tetap terpisah.</translation>
 <translation id="4724676981607797757">Penginstalan gagal karena error protokol yang tidak didukung.</translation>
-<translation id="3834935463915107022">Tetap tutup Browther?</translation>
-<translation id="8668413672647811944">Update keamanan khusus untuk Browther baru saja diterapkan. Mulai ulang Browther sekarang dan kami akan memulihkan tab Anda.</translation>
-<translation id="9029438584415578308">Tanya Browther</translation>
-<translation id="4941816441131888792">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, dan <ph name="COUNT"/> lainnya.</translation>
-<translation id="4823369970559443694">Browther tidak dapat memeriksa sandi Anda. Coba lagi setelah 24 jam atau <ph name="BEGIN_LINK"/>periksa sandi di Akun Browther Anda<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Tindakan ini akan menggunakan pemeriksa ejaan yang sama dengan yang digunakan di penelusuran Browther. Teks yang Anda ketikkan di browser dikirim ke Browther. Anda dapat mengubah perilaku ini di setelan.</translation>
-<translation id="2899369907387169108">Gunakan Browther tanpa akun</translation>
-<translation id="1912973375560256099">Inbound rule untuk Browther guna mengizinkan lalu lintas mDNS.</translation>
-<translation id="711601904575862069">Luncurkan kembali untuk Mengupdate &amp;Browther</translation>
+<translation id="8305313684264112434">Tetap tutup Browther?</translation>
+<translation id="418155915144835101">Update keamanan khusus untuk Browther baru saja diterapkan. Mulai ulang Browther sekarang dan kami akan memulihkan tab Anda.</translation>
+<translation id="2683970367518529374">Tanya Browther</translation>
+<translation id="5064473048847774331">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, dan <ph name="COUNT"/> lainnya.</translation>
+<translation id="5941343075741207533">Browther tidak dapat memeriksa sandi Anda. Coba lagi setelah 24 jam atau <ph name="BEGIN_LINK"/>periksa sandi di Akun Browther Anda<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Tindakan ini akan menggunakan pemeriksa ejaan yang sama dengan yang digunakan di penelusuran Browther. Teks yang Anda ketikkan di browser dikirim ke Browther. Anda dapat mengubah perilaku ini di setelan.</translation>
+<translation id="4581078588976787792">Gunakan Browther tanpa akun</translation>
+<translation id="5921583137589782067">Inbound rule untuk Browther guna mengizinkan lalu lintas mDNS.</translation>
+<translation id="6563126962881169552">Luncurkan kembali untuk Mengupdate &amp;Browther</translation>
 <translation id="4918086044614829423">Terima</translation>
 <translation id="4918844574251943176">Gambar disalin</translation>
-<translation id="8797356639448065696">Browther berjalan di mode latar belakang.</translation>
-<translation id="1895567721497166950">Klik untuk menutup dialog login Browther</translation>
-<translation id="2692971232706994729">Dengan profil Browther, Anda dapat memisahkan semua aktivitas Browther Anda. Buat profil untuk teman dan keluarga, atau pisahkan antara aktivitas kerja dan hiburan.</translation>
-<translation id="7406627712452599344">Tamu dapat menggunakan Browther tanpa meninggalkan apa pun.</translation>
-<translation id="844471735881341044">Akun Anda di Browther</translation>
-<translation id="5952898964075639679">Tambahkan diri Anda ke Browther</translation>
-<translation id="7995865526174204486">Gemini di Browther menggunakan penjelajahan otomatis untuk bekerja di tab Anda dan menyelesaikan tugas yang Anda berikan. <ph name="LINK_BEGIN"/>Pelajari lebih lanjut<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther memerlukan izin untuk melacak tangan Anda</translation>
-<translation id="5406591571925937375">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">Browther berjalan di mode latar belakang.</translation>
+<translation id="3603134280602182991">Klik untuk menutup dialog login Browther</translation>
+<translation id="6120233890602288442">Dengan profil Browther, Anda dapat memisahkan semua aktivitas Browther Anda. Buat profil untuk teman dan keluarga, atau pisahkan antara aktivitas kerja dan hiburan.</translation>
+<translation id="5722688387568011881">Tamu dapat menggunakan Browther tanpa meninggalkan apa pun.</translation>
+<translation id="7786958592460743302">Akun Anda di Browther</translation>
+<translation id="9114640791491590337">Tambahkan diri Anda ke Browther</translation>
+<translation id="3536391594566515053">Gemini di Browther menggunakan penjelajahan otomatis untuk bekerja di tab Anda dan menyelesaikan tugas yang Anda berikan. <ph name="LINK_BEGIN"/>Pelajari lebih lanjut<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther memerlukan izin untuk melacak tangan Anda</translation>
+<translation id="1627123463102858476">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Anda biasanya memblokir notifikasi. Untuk mengizinkan situs ini memberi Anda notifikasi, klik ikon notifikasi di sudut kanan kolom lokasi.</translation>
 <translation id="5174983315706567306">Kapasitas disk tidak cukup.</translation>
-<translation id="8157129267754368853">Akun Browther memerlukan autentikasi ulang</translation>
-<translation id="9078804073692109646">Tidak ada sandi yang tersimpan. Browther dapat memeriksa sandi Anda jika Anda menyimpannya.</translation>
-<translation id="6234515504547364178">Keluar dari Browther</translation>
+<translation id="7091313576354542088">Akun Browther memerlukan autentikasi ulang</translation>
+<translation id="9045390598305758496">Tidak ada sandi yang tersimpan. Browther dapat memeriksa sandi Anda jika Anda menyimpannya.</translation>
+<translation id="5686724084351858452">Keluar dari Browther</translation>
 <translation id="5234764350956374838">Tutup</translation>
 <translation id="5254739261293693943">Tanyakan info tentang video ini</translation>
-<translation id="8586264863973514035">Untuk menerapkan perubahan Anda, luncurkan ulang Browther</translation>
+<translation id="8165028066129227692">Untuk menerapkan perubahan Anda, luncurkan ulang Browther</translation>
 <translation id="5286907366254680517">Terdeteksi</translation>
-<translation id="7264453786974905915">Dapatkan aplikasi Browther</translation>
-<translation id="6944930779012811739">Layanan Internal Browther Updater</translation>
+<translation id="198210130507193824">Dapatkan aplikasi Browther</translation>
+<translation id="8472078903122489041">Layanan Internal Browther Updater</translation>
 <translation id="5346389065299425353">Perdalam penelusuran Anda dengan menambahkan beberapa tab, file, dan alat</translation>
-<translation id="7573068992266397941">Browther menemukan beberapa rekomendasi keamanan untuk Anda tinjau</translation>
-<translation id="8174413867995118050">Profil Browther Lainnya</translation>
-<translation id="7708394612738038097">Anda masuk dengan akun terkelola dan memberikan administratornya kontrol atas profil Browther Anda. Data Browther Anda, seperti aplikasi, bookmark, histori, sandi, dan setelan lain selamanya akan dikaitkan ke <ph name="USER_NAME"/>. Anda dapat menghapus data ini melalui Dasbor Akun Browther, namun Anda tidak akan dapat mengaitkan data ini dengan akun yang lain. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther menemukan beberapa rekomendasi keamanan untuk Anda tinjau</translation>
+<translation id="509616246140011182">Profil Browther Lainnya</translation>
+<translation id="8214429210535362385">Anda masuk dengan akun terkelola dan memberikan administratornya kontrol atas profil Browther Anda. Data Browther Anda, seperti aplikasi, bookmark, histori, sandi, dan setelan lain selamanya akan dikaitkan ke <ph name="USER_NAME"/>. Anda dapat menghapus data ini melalui Dasbor Akun Browther, namun Anda tidak akan dapat mengaitkan data ini dengan akun yang lain. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Kode tambahan: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Untuk mendapatkan personalisasi, sertakan Browther dalam Aktivitas Web &amp; Aplikasi</translation>
-<translation id="5154625106151193600">Pelajari alasan Browther memblokir beberapa file</translation>
-<translation id="1786715389543715322">Memperbarui Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Izinkan login Browther</translation>
-<translation id="5267531627648004734">Hapus dari Browther</translation>
-<translation id="4620757336635063467">Menurunkan performa tetapi membuat Browther lebih tahan terhadap serangan</translation>
-<translation id="239760341987199724">Setel Browther sebagai browser default</translation>
-<translation id="1403270718080126244"><ph name="PAGE_TITLE"/> - Browther Beta</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther Merekomendasikan untuk Menjeda Tab yang Memperlambat Browser Anda}other{Browther Merekomendasikan untuk Menjeda Tab yang Memperlambat Browser Anda}}</translation>
-<translation id="894936507076470937">Browther mungkin tidak berfungsi dengan semestinya karena sudah tidak didukung di distribusi Linux ini</translation>
-<translation id="2596557398669145729">Browther memblokir download ini karena file tersebut dapat membahayakan akun pribadi dan jejaring sosial Anda</translation>
-<translation id="696826782632239602">Browther memerlukan akses ke lokasi Anda untuk berbagi lokasi dengan situs ini</translation>
-<translation id="1744365871163268756">Harap tunggu selagi Browther memasang pembaruan sistem terkini.</translation>
-<translation id="3861679447659630159">Browther mencoba mengedit sandi. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
+<translation id="5244017809112094908">Untuk mendapatkan personalisasi, sertakan Browther dalam Aktivitas Web &amp; Aplikasi</translation>
+<translation id="8096544113811780871">Pelajari alasan Browther memblokir beberapa file</translation>
+<translation id="2384387444932590174">Memperbarui Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Izinkan login Browther</translation>
+<translation id="6557334704331248411">Hapus dari Browther</translation>
+<translation id="5832041381258620673">Menurunkan performa tetapi membuat Browther lebih tahan terhadap serangan</translation>
+<translation id="3763317028635993788">Setel Browther sebagai browser default</translation>
+<translation id="8756552710915246172"><ph name="PAGE_TITLE"/> - Browther Beta</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther Merekomendasikan untuk Menjeda Tab yang Memperlambat Browser Anda}other{Browther Merekomendasikan untuk Menjeda Tab yang Memperlambat Browser Anda}}</translation>
+<translation id="4423621904097888155">Browther mungkin tidak berfungsi dengan semestinya karena sudah tidak didukung di distribusi Linux ini</translation>
+<translation id="6201726364919996698">Browther memblokir download ini karena file tersebut dapat membahayakan akun pribadi dan jejaring sosial Anda</translation>
+<translation id="7679204468655335605">Browther memerlukan akses ke lokasi Anda untuk berbagi lokasi dengan situs ini</translation>
+<translation id="1163572992704966942">Harap tunggu selagi Browther memasang pembaruan sistem terkini.</translation>
+<translation id="5050118226119231029">Browther mencoba mengedit sandi. Ketik sandi Windows Anda untuk mengizinkannya.</translation>
 <translation id="5524890928877629608">pojok kiri atas area penelusuran: kiri <ph name="LEFT"/>%, atas <ph name="TOP"/>%</translation>
-<translation id="232381795826373334">Buka PDF di Browther</translation>
+<translation id="5875549039106594731">Buka PDF di Browther</translation>
 <translation id="5536164441519929134">Tanyakan<ph name="LINE_BREAK"/>tentang tab ini</translation>
 <translation id="5579324208890605088">Error saat sistem dimulai: jalankan penginstal sebagai pengguna biasa, bukan sebagai administrator.</translation>
-<translation id="3588973534877826647">Gunakan Browther sebagai browser default dan sematkan ke taskbar</translation>
+<translation id="202315329304302571">Gunakan Browther sebagai browser default dan sematkan ke taskbar</translation>
 <translation id="5596627076506792578">Opsi lainnya</translation>
 <translation id="5605834417512968703">Pilih item untuk ditelusuri dengan Penelusuran Gambar atau tekan escape untuk keluar dari Penelusuran Gambar</translation>
 <translation id="5618818588972826921">Pilih teks atau gambar untuk ditelusuri dengan Penelusuran Gambar atau tekan escape untuk keluar dari Penelusuran Gambar</translation>
-<translation id="1026406809507858026">{0,plural, =0{Update Browther tersedia}=1{Update Browther tersedia}other{Update Browther telah tersedia selama # hari}}</translation>
-<translation id="1023472437588692618">Selalu menghapus data situs dari perangkat saat Anda menutup Browther</translation>
-<translation id="5646769069113654257">Mulai ulang Browther sekarang</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Tampilkan Browther dalam bahasa ini</translation>
+<translation id="5823076755666406442">{0,plural, =0{Update Browther tersedia}=1{Update Browther tersedia}other{Update Browther telah tersedia selama # hari}}</translation>
+<translation id="8414129876440043675">Selalu menghapus data situs dari perangkat saat Anda menutup Browther</translation>
+<translation id="5156991567152325333">Mulai ulang Browther sekarang</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Tampilkan Browther dalam bahasa ini</translation>
 <translation id="569897634095159764">Tidak dapat terhubung ke internet. Server proxy memerlukan autentikasi.</translation>
-<translation id="3364613146104156465">Profil Browther memungkinkan Anda memisahkan penjelajahan pribadi dan kerja. Tambahkan profil baru sekarang.</translation>
-<translation id="1834213228893578875">Browther akan membebaskan memori dari tab yang tidak aktif. Tindakan ini akan memberikan lebih banyak resource komputer untuk tab aktif dan aplikasi lainnya, serta menjaga Browther tetap cepat. Tab yang tidak aktif akan otomatis menjadi aktif lagi saat Anda kembali ke tab tersebut. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut Penghemat Memori<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">Jika lupa frasa sandi atau ingin mengubah setelan ini, <ph name="SETTINGS_LINK"/> data Browther di akun Anda</translation>
-<translation id="82926023981336111">Sesuaikan dan kontrol Browther. Setel Browther sebagai browser default.</translation>
+<translation id="4215338057953170891">Profil Browther memungkinkan Anda memisahkan penjelajahan pribadi dan kerja. Tambahkan profil baru sekarang.</translation>
+<translation id="5366435608642317052">Browther akan membebaskan memori dari tab yang tidak aktif. Tindakan ini akan memberikan lebih banyak resource komputer untuk tab aktif dan aplikasi lainnya, serta menjaga Browther tetap cepat. Tab yang tidak aktif akan otomatis menjadi aktif lagi saat Anda kembali ke tab tersebut. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut Penghemat Memori<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">Jika lupa frasa sandi atau ingin mengubah setelan ini, <ph name="SETTINGS_LINK"/> data Browther di akun Anda</translation>
+<translation id="7763291835437810978">Sesuaikan dan kontrol Browther. Setel Browther sebagai browser default.</translation>
 <translation id="5809516625706423866">Tidak dapat terhubung ke internet. HTTP 401 Tidak Sah. Periksa konfigurasi proxy Anda.</translation>
-<translation id="95980832839683236">Mempercepat situs dengan mesin V8 Browther, tetapi membuat Browther sedikit lebih rentan terhadap serangan. Setelan ini nonaktif.</translation>
-<translation id="1224606669200461217">Untuk menggunakan dan menyimpan data Browther di Akun Browther Anda, update Browther</translation>
+<translation id="1827132270895283425">Mempercepat situs dengan mesin V8 Browther, tetapi membuat Browther sedikit lebih rentan terhadap serangan. Setelan ini nonaktif.</translation>
+<translation id="1553025851718680114">Untuk menggunakan dan menyimpan data Browther di Akun Browther Anda, update Browther</translation>
 <translation id="5824893331272123205">Tidak dapat memuat panel ini, coba lagi</translation>
-<translation id="7207456302801184289">Selamat Datang di Browther</translation>
+<translation id="7339353273994862168">Selamat Datang di Browther</translation>
 <translation id="5871205389137001634">Klik untuk keluar dari Penelusuran Gambar</translation>
-<translation id="8054200348483755053">Browther menemukan bahwa item berikut berisi malware:</translation>
-<translation id="3955583201925082436">Browther memeriksa secara berkala untuk memastikan browser memiliki setelan yang paling aman. Kami akan memberi tahu Anda jika ada yang perlu ditinjau.</translation>
+<translation id="7586794330537887406">Browther menemukan bahwa item berikut berisi malware:</translation>
+<translation id="1666897346518812892">Browther memeriksa secara berkala untuk memastikan browser memiliki setelan yang paling aman. Kami akan memberi tahu Anda jika ada yang perlu ditinjau.</translation>
 <translation id="5895138241574237353">Mulai Ulang</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> - Login Jaringan</translation>
 <translation id="5924017743176219022">Menghubungkan ke internet...</translation>
 <translation id="5941711191222866238">Perkecil</translation>
-<translation id="5768962901674164501">Untuk mendapatkan bookmark ini dan lainnya di semua perangkat Anda, login ke Browther</translation>
-<translation id="5101892358689285100">Personalisasi Browther Anda</translation>
+<translation id="4938357262936377412">Untuk mendapatkan bookmark ini dan lainnya di semua perangkat Anda, login ke Browther</translation>
+<translation id="260974496993853147">Personalisasi Browther Anda</translation>
 <translation id="5960071705175224773">Setelan Anda diubah oleh aplikasi yang tidak dikenal</translation>
 <translation id="5968400720580217226">Mode AI</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Organisasi akan otomatis menutup Browther jika tidak digunakan selama 1 menit.}other{Organisasi akan otomatis menutup Browther jika tidak digunakan selama # menit.}}</translation>
-<translation id="3598551856834560515">Perbarui Browther untuk memulai sinkronisasi</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Organisasi akan otomatis menutup Browther jika tidak digunakan selama 1 menit.}other{Organisasi akan otomatis menutup Browther jika tidak digunakan selama # menit.}}</translation>
+<translation id="5852664780493076676">Perbarui Browther untuk memulai sinkronisasi</translation>
 <translation id="6003112304606738118">Mendownload... <ph name="HOURS"/> jam lagi</translation>
 <translation id="6009821354356307391">Ajukan pertanyaan lanjutan</translation>
 <translation id="6040143037577758943">Tutup</translation>
-<translation id="700488072601322385">Untuk melindungi data Anda, izinkan Browther menghapus izin dari situs yang tidak Anda kunjungi baru-baru ini. Tindakan ini tidak menghentikan notifikasi.</translation>
-<translation id="9071554113102421877">&amp;Buka di Browther</translation>
+<translation id="2495504229007749358">Untuk melindungi data Anda, izinkan Browther menghapus izin dari situs yang tidak Anda kunjungi baru-baru ini. Tindakan ini tidak menghentikan notifikasi.</translation>
+<translation id="6038969823662006832">&amp;Buka di Browther</translation>
 <translation id="6069027071882229820">Salin sebagai gambar</translation>
-<translation id="7861579472672677409"><ph name="EXTENSION_NAME"/> telah ditambahkan ke Browther</translation>
-<translation id="5849446944780602366">Sesuaikan dan kontrol Browther. Update tersedia.</translation>
-<translation id="5711722515923392428">Aktif • Browther tidak dapat memverifikasi asal ekstensi ini</translation>
-<translation id="6355366566986893068">Akun Anda di Browther</translation>
-<translation id="7433698744896946664">Izinkan ekstensi menampilkan permintaan akses di toolbar Browther</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> berbahaya, sehingga Browther memblokirnya.</translation>
-<translation id="991182453936521413">Browther akan segera ditutup serta menghapus data</translation>
-<translation id="4060970194201477024">Anda dapat berpindah-pindah profil Browther di sini</translation>
-<translation id="7815000350132166985">Jika Anda mengizinkan cookie, Browther dapat menggunakannya saat melakukan pramuat</translation>
+<translation id="6606690217326148454"><ph name="EXTENSION_NAME"/> telah ditambahkan ke Browther</translation>
+<translation id="6037324269860323082">Sesuaikan dan kontrol Browther. Update tersedia.</translation>
+<translation id="3695768481578778794">Aktif • Browther tidak dapat memverifikasi asal ekstensi ini</translation>
+<translation id="4401885752362736126">Akun Anda di Browther</translation>
+<translation id="4310817187912076496">Izinkan ekstensi menampilkan permintaan akses di toolbar Browther</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> berbahaya, sehingga Browther memblokirnya.</translation>
+<translation id="5139243417751674628">Browther akan segera ditutup serta menghapus data</translation>
+<translation id="4696750309605389299">Anda dapat berpindah-pindah profil Browther di sini</translation>
+<translation id="7475001351099358916">Jika Anda mengizinkan cookie, Browther dapat menggunakannya saat melakukan pramuat</translation>
 <translation id="6165508094623778733">Pelajari selengkapnya</translation>
-<translation id="5739368447874065758">Hapus data Browther di akun Anda</translation>
-<translation id="6685697979743742605">File ini mungkin berbahaya<ph name="LINE_BREAK"/>Browther dapat memeriksa hasil download ini untuk Anda jika Anda memberikan sandi. Info tentang file ini akan dikirim ke Google Safe Browsing, tetapi konten dan sandi file tidak dikirim ke luar perangkat Anda.</translation>
+<translation id="5975099973700540482">Hapus data Browther di akun Anda</translation>
+<translation id="6800151735486681860">File ini mungkin berbahaya<ph name="LINE_BREAK"/>Browther dapat memeriksa hasil download ini untuk Anda jika Anda memberikan sandi. Info tentang file ini akan dikirim ke Google Safe Browsing, tetapi konten dan sandi file tidak dikirim ke luar perangkat Anda.</translation>
 <translation id="6182736845697986886">Penginstalan gagal karena server update mengalami error internal.</translation>
-<translation id="4368341489795135329">Pastikan Anda login ke Browther di <ph name="TARGET_DEVICE_NAME"/> Anda, lalu coba kirimkan lagi.</translation>
-<translation id="3038354906709778538">Program lain di komputer Anda menambahkan aplikasi yang dapat mengubah cara kerja Browther.
+<translation id="48832130233362517">Pastikan Anda login ke Browther di <ph name="TARGET_DEVICE_NAME"/> Anda, lalu coba kirimkan lagi.</translation>
+<translation id="8868210753005945522">Program lain di komputer Anda menambahkan aplikasi yang dapat mengubah cara kerja Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Komputer ini sudah memiliki versi Browther yang lebih baru. Jika software tidak bekerja, harap coba uninstal Browther, lalu cobalah kembali.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther akan diluncurkan ulang sekarang}=1{Browther akan diluncurkan ulang dalam 1 detik}other{Browther akan diluncurkan ulang dalam # detik}}</translation>
+<translation id="2779436101182061679">Komputer ini sudah memiliki versi Browther yang lebih baru. Jika software tidak bekerja, harap coba uninstal Browther, lalu cobalah kembali.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther akan diluncurkan ulang sekarang}=1{Browther akan diluncurkan ulang dalam 1 detik}other{Browther akan diluncurkan ulang dalam # detik}}</translation>
 <translation id="6239161312595354541">Tanya Penelusuran Gambar info tentang video ini</translation>
-<translation id="5980269616827212166">Browther memerlukan izin akses penyimpanan untuk mendownload file</translation>
-<translation id="7651600795135059130">Memeriksa kesesuaian URL dengan daftar situs tidak aman yang disimpan di Browther</translation>
-<translation id="5019879183386042809">Jadikan Browther browser default</translation>
-<translation id="7445061995866044926">Keluar dari Browther?</translation>
-<translation id="4659866260728515512">Tab ini menggunakan lebih banyak resource. Untuk meningkatkan performa, izinkan Browther menonaktifkannya.</translation>
-<translation id="6806912298071949921">Sesuaikan profil Browther Anda</translation>
-<translation id="3792238845239580301">Beri nama profil Browther Anda</translation>
-<translation id="5874208157501051620">Salah satu ekstensi ingin Anda login ke Browther</translation>
-<translation id="3561569806301739367"><ph name="FILE_NAME"/> mungkin berbahaya, sehingga Browther memblokirnya.</translation>
-<translation id="3205074487970075628">Browther menggunakan kamera Anda.</translation>
+<translation id="1755464917870815989">Browther memerlukan izin akses penyimpanan untuk mendownload file</translation>
+<translation id="304681001513922736">Memeriksa kesesuaian URL dengan daftar situs tidak aman yang disimpan di Browther</translation>
+<translation id="7785903492969539081">Jadikan Browther browser default</translation>
+<translation id="3987833816263696343">Keluar dari Browther?</translation>
+<translation id="4723540739671534529">Tab ini menggunakan lebih banyak resource. Untuk meningkatkan performa, izinkan Browther menonaktifkannya.</translation>
+<translation id="6540151687468239291">Sesuaikan profil Browther Anda</translation>
+<translation id="770793114032605647">Beri nama profil Browther Anda</translation>
+<translation id="385867753870250529">Salah satu ekstensi ingin Anda login ke Browther</translation>
+<translation id="2022337046348377650"><ph name="FILE_NAME"/> mungkin berbahaya, sehingga Browther memblokirnya.</translation>
+<translation id="45270956603278068">Browther menggunakan kamera Anda.</translation>
 <translation id="6327105987658262776">Tidak ada update yang tersedia.</translation>
-<translation id="1819119299840995223">Operasi lain di Browther sedang berlangsung. Coba lagi nanti.</translation>
-<translation id="8616874628011103667">Kini, menggunakan Browther dengan Akun Browther Anda dan di komputer bersama jadi lebih mudah.</translation>
-<translation id="4264606872840545968">Pintasan Browther</translation>
-<translation id="6890616081898535725">Browther memblokir download ini karena file tersebut tidak biasa didownload dan mungkin berbahaya</translation>
-<translation id="335632367599648646">Anda yakin ingin meng-uninstal Browther?</translation>
+<translation id="673633752219771459">Operasi lain di Browther sedang berlangsung. Coba lagi nanti.</translation>
+<translation id="1482759407165416070">Kini, menggunakan Browther dengan Akun Browther Anda dan di komputer bersama jadi lebih mudah.</translation>
+<translation id="5538042432112726532">Pintasan Browther</translation>
+<translation id="833085228901080512">Browther memblokir download ini karena file tersebut tidak biasa didownload dan mungkin berbahaya</translation>
+<translation id="491120842288314439">Anda yakin ingin meng-uninstal Browther?</translation>
 <translation id="6375219077595103062">Tambahkan pintasan ke Pengelola Sandi</translation>
 <translation id="6388799252195623474">bantu saya dengan hal ini</translation>
-<translation id="7920857181125123335">Untuk melanjutkan, login ke Browther sebagai <ph name="EMAIL"/>. Langkah ini memastikan bahwa Anda telah memahami kebijakan organisasi Anda.</translation>
-<translation id="3256100650978957522">Logo Browther di dalam layar komputer.</translation>
-<translation id="6373767849825830651">Browther adalah browser web yang menjalankan halaman web dan aplikasi dengan kecepatan kilat. Browser ini cepat, stabil, dan mudah digunakan. Jelajahi web lebih aman dengan perlindungan dari software perusak dan phishing yang tertanam di dalam Browther.</translation>
-<translation id="2532326772258858491">Browther berjalan lebih cepat dan fitur yang menggunakan JavaScript akan berfungsi sebagaimana mestinya</translation>
+<translation id="6715003312952407375">Untuk melanjutkan, login ke Browther sebagai <ph name="EMAIL"/>. Langkah ini memastikan bahwa Anda telah memahami kebijakan organisasi Anda.</translation>
+<translation id="1897845318651970239">Logo Browther di dalam layar komputer.</translation>
+<translation id="3669522483038684532">Browther adalah browser web yang menjalankan halaman web dan aplikasi dengan kecepatan kilat. Browser ini cepat, stabil, dan mudah digunakan. Jelajahi web lebih aman dengan perlindungan dari software perusak dan phishing yang tertanam di dalam Browther.</translation>
+<translation id="5669767676913031391">Browther berjalan lebih cepat dan fitur yang menggunakan JavaScript akan berfungsi sebagaimana mestinya</translation>
 <translation id="6436260184216827876">Penelusuran Gambar tidak tersedia. Coba lagi nanti.</translation>
 <translation id="2139300032719313227">Mulai ulang ChromeOS</translation>
-<translation id="638302211119176182">Browther melakukan pramuat lebih banyak halaman yang mungkin akan Anda buka, agar halaman tersebut dimuat lebih cepat saat Anda membukanya</translation>
-<translation id="7167975344637731051">Download Browther di ponsel untuk memantau harga dan menerima notifikasi saat harga turun di situs mana pun</translation>
-<translation id="890319829408077946">Nonaktif • Browther tidak dapat memverifikasi asal ekstensi ini</translation>
-<translation id="1684121725014454063">Selamat datang di profil Browther</translation>
-<translation id="8211983866539058675">Saat lain kali membuka Browther di <ph name="DEVICE_TYPE"/>, Anda akan melihat perintah untuk menggunakan grup tab.</translation>
-<translation id="7906693299331092358">Hapus Akun dari Browther</translation>
+<translation id="6110616900529884221">Browther melakukan pramuat lebih banyak halaman yang mungkin akan Anda buka, agar halaman tersebut dimuat lebih cepat saat Anda membukanya</translation>
+<translation id="1217194059001819677">Download Browther di ponsel untuk memantau harga dan menerima notifikasi saat harga turun di situs mana pun</translation>
+<translation id="7058555680120557198">Nonaktif • Browther tidak dapat memverifikasi asal ekstensi ini</translation>
+<translation id="676533642429632127">Selamat datang di profil Browther</translation>
+<translation id="5518682889576009702">Saat lain kali membuka Browther di <ph name="DEVICE_TYPE"/>, Anda akan melihat perintah untuk menggunakan grup tab.</translation>
+<translation id="6038105561107837619">Hapus Akun dari Browther</translation>
 <translation id="2675662665675552980">Juga mengontrol halaman apa yang ditampilkan saat Anda memulai Browther.</translation>
 <translation id="648319183876919572">Safe Browsing yang Disempurnakan melakukan lebih banyak hal untuk melindungi Anda dari situs dan download berbahaya</translation>
-<translation id="5590013613412457132">Uninstal Browther</translation>
-<translation id="7185585387858242335">Pintasan dibuka di Browther</translation>
-<translation id="3617744907966785605">Organisasi Anda menutup Browther saat tidak digunakan selama <ph name="TIMEOUT_DURATION"/>. Data penjelajahan dihapus. Data ini dapat mencakup histori, isi otomatis, dan download.</translation>
-<translation id="8646609321956191980">Setiap profil memiliki info Browther tersendiri, seperti bookmark, histori, sandi, dan lainnya</translation>
-<translation id="6756656512757374876">Pelajari lebih lanjut <ph name="BEGIN_LINK"/>cara Browther menjaga privasi data Anda<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">Perubahan pada setelan ini akan diterapkan setelah Browther dimulai ulang.</translation>
-<translation id="2535436634051789953">Anda dapat beralih untuk melihat sandi dari profil Browther lainnya</translation>
-<translation id="2312399718665761438">Untuk memperbaiki kesalahan ejaan, Browther mengirimkan teks yang Anda ketik di kolom teks ke Browther</translation>
-<translation id="3507835409099344374">Buka setelan notifikasi Browther</translation>
+<translation id="2930243146591999795">Uninstal Browther</translation>
+<translation id="5241183382286817629">Pintasan dibuka di Browther</translation>
+<translation id="7907014599435829661">Organisasi Anda menutup Browther saat tidak digunakan selama <ph name="TIMEOUT_DURATION"/>. Data penjelajahan dihapus. Data ini dapat mencakup histori, isi otomatis, dan download.</translation>
+<translation id="2088471423667794811">Setiap profil memiliki info Browther tersendiri, seperti bookmark, histori, sandi, dan lainnya</translation>
+<translation id="9040334484455218184">Pelajari lebih lanjut <ph name="BEGIN_LINK"/>cara Browther menjaga privasi data Anda<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">Perubahan pada setelan ini akan diterapkan setelah Browther dimulai ulang.</translation>
+<translation id="6331317152404762758">Anda dapat beralih untuk melihat sandi dari profil Browther lainnya</translation>
+<translation id="6097706403184348562">Untuk memperbaiki kesalahan ejaan, Browther mengirimkan teks yang Anda ketik di kolom teks ke Browther</translation>
+<translation id="2319647238307402812">Buka setelan notifikasi Browther</translation>
 <translation id="6600016381025017075">Telusuri apa saja di halaman ini</translation>
-<translation id="9156965752763025780">Perubahan Anda akan berlaku saat berikutnya Anda membuka Browther.</translation>
-<translation id="3387992981600748596">Browther kini diluncurkan saat Windows dimulai sehingga Anda dapat langsung menjelajahi internet. Anda dapat menonaktifkannya di setelan.</translation>
-<translation id="3119017564683030312">Lanjutkan dari halaman terakhir yang dibuka: Browther memulihkan tab Anda dari sesi terakhir. Anda dapat menonaktifkannya di</translation>
-<translation id="245693535809364497">Browther memerlukan izin kamera untuk membuat peta 3D area sekitar Anda</translation>
-<translation id="9210457680074341078">Jika Anda juga menyimpan bookmark di Akun Browther, Anda dapat memantau harga produk di Browther dan mendapatkan notifikasi jika ada penurunan harga</translation>
+<translation id="8031938899816118394">Perubahan Anda akan berlaku saat berikutnya Anda membuka Browther.</translation>
+<translation id="7412185356697187964">Browther kini diluncurkan saat Windows dimulai sehingga Anda dapat langsung menjelajahi internet. Anda dapat menonaktifkannya di setelan.</translation>
+<translation id="9123343592576384616">Lanjutkan dari halaman terakhir yang dibuka: Browther memulihkan tab Anda dari sesi terakhir. Anda dapat menonaktifkannya di</translation>
+<translation id="5847926498049048567">Browther memerlukan izin kamera untuk membuat peta 3D area sekitar Anda</translation>
+<translation id="5532585028508811858">Jika Anda juga menyimpan bookmark di Akun Browther, Anda dapat memantau harga produk di Browther dan mendapatkan notifikasi jika ada penurunan harga</translation>
 <translation id="6676384891291319759">Akses Internet</translation>
 <translation id="1363996462118479832">ChromeOS tidak dapat menyinkronkan data Anda karena terjadi error saat login.</translation>
-<translation id="4694512973195649124">Hapus data aplikasi ini dari Browther</translation>
-<translation id="5324448127277983819">Browther memberi Anda lebih banyak kontrol atas iklan yang Anda lihat dan membatasi informasi yang dapat dipelajari situs tentang Anda saat menampilkan iklan yang dipersonalisasi kepada Anda</translation>
-<translation id="1257247502847251159">Browther memerlukan izin mikrofon untuk situs ini</translation>
+<translation id="3373239673945775810">Hapus data aplikasi ini dari Browther</translation>
+<translation id="8122759674786039814">Browther memberi Anda lebih banyak kontrol atas iklan yang Anda lihat dan membatasi informasi yang dapat dipelajari situs tentang Anda saat menampilkan iklan yang dipersonalisasi kepada Anda</translation>
+<translation id="6277682530398500159">Browther memerlukan izin mikrofon untuk situs ini</translation>
 <translation id="6712881677154121168">Error download: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Profil Anda tidak dapat digunakan karena berasal dari Browther versi yang lebih baru.
+<translation id="2972046656127603037">Profil Anda tidak dapat digunakan karena berasal dari Browther versi yang lebih baru.
 
 Sebagian fitur mungkin tidak tersedia. Tentukan direktori profil yang berbeda atau gunakan versi Browther yang lebih baru.</translation>
-<translation id="1505112054322049777">Untuk mendapatkan personalisasi dan fitur lainnya, sertakan Browther dalam Aktivitas Web &amp; Aplikasi serta layanan Browther tertaut</translation>
-<translation id="6666624454809779082">Browther sudah terpasang untuk semua pengguna di komputer Anda.</translation>
-<translation id="5848830584656405219">Untuk mendapatkan bookmark dan info Anda yang lain di semua perangkat Anda, login ke Browther. Bookmark ini akan disimpan di Akun Browther Anda setelah Anda login.</translation>
-<translation id="4020203987234748583">Mempercepat situs dengan mesin V8 Browther, tetapi membuat Browther sedikit lebih rentan terhadap serangan. Setelan ini aktif.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Beberapa data Browther Anda belum disimpan di Akun Browther Anda. Coba tunggu beberapa menit sebelum logout. Jika Anda logout sekarang, data ini (1 item) akan dihapus.}other{Beberapa data Browther Anda belum disimpan di Akun Browther Anda. Coba tunggu beberapa menit sebelum logout. Jika Anda logout sekarang, data ini ({count} item) akan dihapus.}}</translation>
-<translation id="3136039682492230890">Browther merekomendasikan pemindaian file ini karena file mungkin berbahaya.</translation>
+<translation id="871671753163165892">Untuk mendapatkan personalisasi dan fitur lainnya, sertakan Browther dalam Aktivitas Web &amp; Aplikasi serta layanan Browther tertaut</translation>
+<translation id="5000832110229523807">Browther sudah terpasang untuk semua pengguna di komputer Anda.</translation>
+<translation id="5204575479550973859">Untuk mendapatkan bookmark dan info Anda yang lain di semua perangkat Anda, login ke Browther. Bookmark ini akan disimpan di Akun Browther Anda setelah Anda login.</translation>
+<translation id="2874208284092283937">Mempercepat situs dengan mesin V8 Browther, tetapi membuat Browther sedikit lebih rentan terhadap serangan. Setelan ini aktif.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Beberapa data Browther Anda belum disimpan di Akun Browther Anda. Coba tunggu beberapa menit sebelum logout. Jika Anda logout sekarang, data ini (1 item) akan dihapus.}other{Beberapa data Browther Anda belum disimpan di Akun Browther Anda. Coba tunggu beberapa menit sebelum logout. Jika Anda logout sekarang, data ini ({count} item) akan dihapus.}}</translation>
+<translation id="7683816018918395929">Browther merekomendasikan pemindaian file ini karena file mungkin berbahaya.</translation>
 <translation id="1547295885616600893">ChromeOS terwujud karena adanya <ph name="BEGIN_LINK_CROS_OSS"/>software open source<ph name="END_LINK_CROS_OSS"/> tambahan.</translation>
 <translation id="6831043979455480757">Terjemahkan</translation>
-<translation id="8211837073776713955">Browther akan memberi tahu jika sandi Anda disusupi</translation>
+<translation id="2142653375108595728">Browther akan memberi tahu jika sandi Anda disusupi</translation>
 <translation id="684888714667046800">Tidak dapat terhubung ke internet. Jika Anda menggunakan firewall, pastikan <ph name="PRODUCT_EXE_NAME"/> tercantum dalam daftar yang diizinkan.</translation>
-<translation id="7830723774663008396">Browther - <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther - <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Tab untuk melanjutkan</translation>
 <translation id="6862030660799253820">Telusuri gambar ini dengan Penelusuran Gambar</translation>
-<translation id="3028928628792374067">Browther menemukan bahwa "<ph name="EXTENSION_NAME"/>" berisi malware</translation>
+<translation id="3860339351709082396">Browther menemukan bahwa "<ph name="EXTENSION_NAME"/>" berisi malware</translation>
 <translation id="6877155553248388166">pojok kanan bawah area penelusuran: kanan <ph name="RIGHT"/>%, bawah <ph name="BOTTOM"/>%</translation>
 <translation id="6896758677409633944">Salin</translation>
-<translation id="862687584320433626">Setel Browther sebagai browser default Anda dan sematkan Browther ke taskbar</translation>
-<translation id="1991562568473125499">&amp;Kelola profil Browther</translation>
+<translation id="7804113502310231166">Setel Browther sebagai browser default Anda dan sematkan Browther ke taskbar</translation>
+<translation id="3228374215117173004">&amp;Kelola profil Browther</translation>
 <translation id="6934579572334859869">Tanya Penelusuran Gambar info tentang gambar ini</translation>
-<translation id="5529781826378237601">Anda telah mencapai batas <ph name="BOOKMARK_LIMIT"/> bookmark Browther, sehingga beberapa bookmark belum disimpan di Akun Browther Anda.
+<translation id="5995328366516663808">Anda telah mencapai batas <ph name="BOOKMARK_LIMIT"/> bookmark Browther, sehingga beberapa bookmark belum disimpan di Akun Browther Anda.
 
 Bookmark baru tidak dapat disimpan di akun hingga Anda menghapus beberapa bookmark. Jika Anda logout sekarang, bookmark yang belum disimpan akan dihapus.</translation>
 <translation id="6965382102122355670">Oke</translation>
-<translation id="6418340404893954563">Sandi yang lemah mudah ditebak. Izinkan Browther <ph name="BEGIN_LINK"/>membuat dan mengingat sandi yang kuat untuk Anda<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Sandi yang lemah mudah ditebak. Izinkan Browther <ph name="BEGIN_LINK"/>membuat dan mengingat sandi yang kuat untuk Anda<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Persyaratan ChromeOS</translation>
-<translation id="3335606533094650083">Browther memerlukan izin akses ke mikrofon untuk situs ini</translation>
-<translation id="6643520655691573653">Masukkan frasa sandi untuk menggunakan dan menyimpan data Browther di akun Anda, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="5379058926689137454">Browther memerlukan izin akses ke mikrofon untuk situs ini</translation>
+<translation id="4684462982894889021">Masukkan frasa sandi untuk menggunakan dan menyimpan data Browther di akun Anda, <ph name="ACCOUNT_EMAIL"/></translation>
 <translation id="7011190694940573312">Penginstalan gagal karena versi sistem operasi ini tidak didukung.</translation>
 <translation id="7024536598735240744">Error ekstrak: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Penginstalan Terhenti.</translation>
-<translation id="280382502853897110">Sesuaikan Browther dengan Selera Anda</translation>
+<translation id="8257174622576051374">Sesuaikan Browther dengan Selera Anda</translation>
 <translation id="7047386856539490735">Apakah hasil ini bermanfaat?</translation>
-<translation id="1705567146636171298">Perbarui Browther</translation>
-<translation id="5499063270485366718">Jika gambar tidak memiliki deskripsi yang berguna, Browther akan mencoba memberikan deskripsi untuk Anda. Untuk membuat deskripsi, gambar akan dikirim ke Browther.</translation>
-<translation id="5966368554860795750">Sesuaikan Browther for Testing</translation>
-<translation id="792838367208896130">Anda dapat menggunakan Browther kapan saja dengan mengklik link di pesan, dokumen, dan aplikasi lainnya</translation>
-<translation id="375314543563594498">Hapus <ph name="EXTENSION_NAME"/> dari Browther</translation>
-<translation id="2332301637111071062">Organisasi Anda akan menghapus data Browther jika tidak digunakan selama <ph name="TIMEOUT_DURATION"/>. Data ini dapat mencakup histori, isi otomatis, dan download.</translation>
-<translation id="1008530050039597147">Browther memerlukan izin kamera untuk situs ini</translation>
-<translation id="1197672524850678392">Tidak dapat meluncurkan Browther. Harap coba lagi.</translation>
-<translation id="3405035915691517126">Browther tidak dapat memeriksa sandi Anda. Coba lagi setelah 24 jam.</translation>
-<translation id="3625983487600668413">Simpan Browther di Dok untuk mengaksesnya dengan cepat kapan saja</translation>
-<translation id="5755581833598928580">Gunakan Browther kapan pun Anda mengklik link di pesan, dokumen, dan aplikasi lainnya</translation>
-<translation id="5516268345616100622">Pengelola Tugas - Browther</translation>
-<translation id="713191641919118540">Minat Anda sesuai perkiraan Browther</translation>
-<translation id="1871621397473741084">Langsung menjelajahi internet: Browther kini dapat diluncurkan saat Windows dimulai.</translation>
+<translation id="1772745060691790742">Perbarui Browther</translation>
+<translation id="4937970118065051027">Jika gambar tidak memiliki deskripsi yang berguna, Browther akan mencoba memberikan deskripsi untuk Anda. Untuk membuat deskripsi, gambar akan dikirim ke Browther.</translation>
+<translation id="1594112132009288601">Sesuaikan Browther for Testing</translation>
+<translation id="5915000938288527952">Anda dapat menggunakan Browther kapan saja dengan mengklik link di pesan, dokumen, dan aplikasi lainnya</translation>
+<translation id="8775664994493381735">Hapus <ph name="EXTENSION_NAME"/> dari Browther</translation>
+<translation id="3276648807841991013">Organisasi Anda akan menghapus data Browther jika tidak digunakan selama <ph name="TIMEOUT_DURATION"/>. Data ini dapat mencakup histori, isi otomatis, dan download.</translation>
+<translation id="4725226878394159809">Browther memerlukan izin kamera untuk situs ini</translation>
+<translation id="8931474625901592021">Tidak dapat meluncurkan Browther. Harap coba lagi.</translation>
+<translation id="8242947409070121799">Browther tidak dapat memeriksa sandi Anda. Coba lagi setelah 24 jam.</translation>
+<translation id="1737922827960215472">Simpan Browther di Dok untuk mengaksesnya dengan cepat kapan saja</translation>
+<translation id="335855266303176628">Gunakan Browther kapan pun Anda mengklik link di pesan, dokumen, dan aplikasi lainnya</translation>
+<translation id="709455597778444012">Pengelola Tugas - Browther</translation>
+<translation id="7147140345767587643">Minat Anda sesuai perkiraan Browther</translation>
+<translation id="7337408274890534789">Langsung menjelajahi internet: Browther kini dapat diluncurkan saat Windows dimulai.</translation>
 <translation id="7274695763216404502">Disematkan. Gunakan Penelusuran Gambar lagi dari toolbar</translation>
 <translation id="7288567540154601580">Tab &amp; ekstensi</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther merekomendasikan agar Anda menghapusnya}other{Browther merekomendasikan agar Anda menghapusnya}}</translation>
-<translation id="4600669988724328687">Untuk membagikan audio sistem, buka Setelan Sistem dan izinkan 'Hanya Perekaman Audio Sistem' untuk Browther. Kemudian, Anda harus memulai ulang Browther.</translation>
-<translation id="9068395155143628872">Pengukuran iklan memungkinkan situs yang Anda buka untuk meminta informasi dari Browther yang membantu situs mengukur performa iklannya. Pengukuran iklan membatasi pelacakan lintas situs dengan mentransfer sesedikit mungkin informasi antar-situs.</translation>
-<translation id="1864557848095568223">Memperbarui Browther</translation>
-<translation id="3403365884036456766">File preferensi Anda rusak atau tidak valid.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther merekomendasikan agar Anda menghapusnya}other{Browther merekomendasikan agar Anda menghapusnya}}</translation>
+<translation id="1527644038571473502">Untuk membagikan audio sistem, buka Setelan Sistem dan izinkan 'Hanya Perekaman Audio Sistem' untuk Browther. Kemudian, Anda harus memulai ulang Browther.</translation>
+<translation id="1427913074981060872">Pengukuran iklan memungkinkan situs yang Anda buka untuk meminta informasi dari Browther yang membantu situs mengukur performa iklannya. Pengukuran iklan membatasi pelacakan lintas situs dengan mentransfer sesedikit mungkin informasi antar-situs.</translation>
+<translation id="1657652725060525338">Memperbarui Browther</translation>
+<translation id="884846289464870238">File preferensi Anda rusak atau tidak valid.
 
 Browther tidak dapat memulihkan setelan Anda.</translation>
 <translation id="7339898014177206373">Jendela baru</translation>
-<translation id="3511996232906761537">Web, bookmark, dan barang Browther Anda lainnya tersedia di sini.</translation>
-<translation id="1754899895078387289">Hanya orang yang memiliki frasa sandi Anda yang dapat membaca data terenkripsi Anda. Frasa sandi tidak dikirim ke atau disimpan oleh Browther. Jika lupa frasa sandi atau ingin mengubah setelan ini, Anda perlu <ph name="BEGIN_LINK"/>menghapus data Browther di akun Anda<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Administrator sistem Anda telah mengonfigurasi Browther untuk membuka <ph name="ALTERNATIVE_BROWSER_NAME"/> guna mengakses <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="633044855886370183">Web, bookmark, dan barang Browther Anda lainnya tersedia di sini.</translation>
+<translation id="1185960088713242527">Hanya orang yang memiliki frasa sandi Anda yang dapat membaca data terenkripsi Anda. Frasa sandi tidak dikirim ke atau disimpan oleh Browther. Jika lupa frasa sandi atau ingin mengubah setelan ini, Anda perlu <ph name="BEGIN_LINK"/>menghapus data Browther di akun Anda<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Administrator sistem Anda telah mengonfigurasi Browther untuk membuka <ph name="ALTERNATIVE_BROWSER_NAME"/> guna mengakses <ph name="TARGET_URL_HOSTNAME"/>.</translation>
 <translation id="7352651011704765696">Terjadi error</translation>
-<translation id="6085660187823915017">Untuk mendapatkan update Browther berikutnya, Anda perlu macOS 13 atau yang lebih baru. Komputer ini menggunakan macOS 12.</translation>
-<translation id="2865744782251083875">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Ekstensi ini tidak lagi didukung. Browther merekomendasikan agar Anda menghapusnya.</translation>
-<translation id="7951152294775418909">Lanjutkan dari halaman terakhir yang dibuka: Browther memulihkan tab setiap kali Anda memulai ulang. Untuk menonaktifkannya, buka</translation>
-<translation id="3191314862567596053">Impor Sandi ke Browther</translation>
-<translation id="3943696263619956191"><ph name="PAGE_TITLE"/> - Browther Dev</translation>
+<translation id="6638123710106659002">Untuk mendapatkan update Browther berikutnya, Anda perlu macOS 13 atau yang lebih baru. Komputer ini menggunakan macOS 12.</translation>
+<translation id="7286289384512061761">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Ekstensi ini tidak lagi didukung. Browther merekomendasikan agar Anda menghapusnya.</translation>
+<translation id="137615076640044304">Lanjutkan dari halaman terakhir yang dibuka: Browther memulihkan tab setiap kali Anda memulai ulang. Untuk menonaktifkannya, buka</translation>
+<translation id="5967238175620483220">Impor Sandi ke Browther</translation>
+<translation id="4719434010343478165"><ph name="PAGE_TITLE"/> - Browther Dev</translation>
 <translation id="7450541714075000668">Teks disalin</translation>
-<translation id="2034072705932785495">Browther memerlukan izin akses ke kamera untuk situs ini</translation>
-<translation id="7129342855140808694">Untuk menggunakan mikrofon, beri Browther akses di <ph name="BEGIN_LINK"/>setelan sistem<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">Untuk mendapatkan update Browther berikutnya, Anda perlu Windows 10 atau yang lebih baru. Komputer ini menggunakan Windows 7.</translation>
-<translation id="3962395975456095331">Luncurkan kembali Browther?</translation>
-<translation id="2619516027171717873">Tidak dapat memasang Browther versi yang sama dengan yang sedang Anda jalankan. Tutup Browther dan coba lagi.</translation>
-<translation id="2731639583336131792">Anda akan menyimpan dan menggunakan sandi serta data lainnya di Akun Browther Anda setiap kali Anda login ke Browther. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Situs mungkin akan berfungsi seperti yang diharapkan. Anda akan logout dari sebagian besar situs saat menutup semua jendela Browther, kecuali Akun Browther Anda jika Anda login ke Browther.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther akan diluncurkan ulang dalam 1 menit}other{Browther akan diluncurkan ulang dalam # menit}}</translation>
-<translation id="552342471964912391">Untuk melindungi data Anda, izinkan Browther menghapus izin dari situs yang tidak Anda kunjungi baru-baru ini.</translation>
-<translation id="3826701455067637694">Otomatis luncurkan Browther agar dapat langsung menjelajahi internet.</translation>
+<translation id="7766009218653304791">Browther memerlukan izin akses ke kamera untuk situs ini</translation>
+<translation id="5844418066487488520">Untuk menggunakan mikrofon, beri Browther akses di <ph name="BEGIN_LINK"/>setelan sistem<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">Untuk mendapatkan update Browther berikutnya, Anda perlu Windows 10 atau yang lebih baru. Komputer ini menggunakan Windows 7.</translation>
+<translation id="6299293759264950896">Luncurkan kembali Browther?</translation>
+<translation id="180908550381040105">Tidak dapat memasang Browther versi yang sama dengan yang sedang Anda jalankan. Tutup Browther dan coba lagi.</translation>
+<translation id="7625576878150380853">Anda akan menyimpan dan menggunakan sandi serta data lainnya di Akun Browther Anda setiap kali Anda login ke Browther. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Situs mungkin akan berfungsi seperti yang diharapkan. Anda akan logout dari sebagian besar situs saat menutup semua jendela Browther, kecuali Akun Browther Anda jika Anda login ke Browther.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther akan diluncurkan ulang dalam 1 menit}other{Browther akan diluncurkan ulang dalam # menit}}</translation>
+<translation id="3602613943932672197">Untuk melindungi data Anda, izinkan Browther menghapus izin dari situs yang tidak Anda kunjungi baru-baru ini.</translation>
+<translation id="8759568213742229377">Otomatis luncurkan Browther agar dapat langsung menjelajahi internet.</translation>
 <translation id="7583399374488819119">Penginstal <ph name="COMPANY_NAME"/></translation>
-<translation id="3293668930608086049">Browther menggunakan kamera dan mikrofon Anda.</translation>
-<translation id="2827121003398607864">Browther menjadi lebih baik</translation>
-<translation id="3071313329776323836">Anda kini memiliki lebih banyak fitur yang tersedia di Browther</translation>
+<translation id="8991800242749014880">Browther menggunakan kamera dan mikrofon Anda.</translation>
+<translation id="2692328388439821508">Browther menjadi lebih baik</translation>
+<translation id="4318444066563223295">Anda kini memiliki lebih banyak fitur yang tersedia di Browther</translation>
 <translation id="7649070708921625228">Bantuan</translation>
-<translation id="4008841832817149051">Izinkan Browther melakukan penjelajahan untuk Anda</translation>
+<translation id="5591287320769313116">Izinkan Browther melakukan penjelajahan untuk Anda</translation>
 <translation id="7658239707568436148">Batal</translation>
-<translation id="3343095737966473035">Browther bukan browser default</translation>
-<translation id="5477319665405831211">Menyinkronkan dan mempersonalisasi Browther di perangkat Anda</translation>
-<translation id="2339273275658335597">Update Browther</translation>
+<translation id="6325482130534634729">Browther bukan browser default</translation>
+<translation id="8185915921134219287">Menyinkronkan dan mempersonalisasi Browther di perangkat Anda</translation>
+<translation id="5120421624925726813">Update Browther</translation>
 <translation id="7716950018788545737">Tugas berakhir.</translation>
 <translation id="77283119132245232">Menyediakan layanan pelacakan sistem untuk <ph name="BROWSER_NAME"/>. Jika layanan ini dinonaktifkan, rekaman aktivitas performa yang dibuat oleh browser tidak akan menyertakan peristiwa di seluruh sistem seperti peristiwa peralihan konteks dan thread yang siap.</translation>
-<translation id="4784414698887946907">Tindakan ini akan menghapus data browsing dari perangkat. Untuk mengambil data nanti, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
+<translation id="6542096191573265107">Tindakan ini akan menghapus data browsing dari perangkat. Untuk mengambil data nanti, login ke Browther sebagai <ph name="USER_EMAIL"/>.</translation>
 <translation id="7747138024166251722">Pemasang tidak dapat membuat direktori sementara. Periksa kapasitas kosong pada disk dan izin untuk memasang software.</translation>
-<translation id="8543787950557226450">Reset ke Browther Default</translation>
-<translation id="4976450819672499783">Setel Browther sebagai default dan sematkan ke taskbar</translation>
-<translation id="1978509466033734608">Buat Browther lebih cepat</translation>
-<translation id="6236814935154483927"><ph name="PAGE_TITLE"/> - Browther Canary</translation>
-<translation id="2684504034454188774">Persulit orang yang memiliki akses ke traffic internet Anda untuk melihat situs yang Anda kunjungi. Browther menggunakan koneksi aman untuk mencari alamat IP situs di Domain Name System (DNS).</translation>
+<translation id="351575328720488268">Reset ke Browther Default</translation>
+<translation id="1054170408395182418">Setel Browther sebagai default dan sematkan ke taskbar</translation>
+<translation id="4569594230301902490">Buat Browther lebih cepat</translation>
+<translation id="5525298466557654312"><ph name="PAGE_TITLE"/> - Browther Canary</translation>
+<translation id="7893465573639396635">Persulit orang yang memiliki akses ke traffic internet Anda untuk melihat situs yang Anda kunjungi. Browther menggunakan koneksi aman untuk mencari alamat IP situs di Domain Name System (DNS).</translation>
 <translation id="7810005234485217901">Anda dapat menyematkan Penelusuran Gambar agar mudah diakses</translation>
-<translation id="1652855885539187849">Profil Browther dengan akun ini sudah ada di perangkat ini</translation>
+<translation id="2462631024103158515">Profil Browther dengan akun ini sudah ada di perangkat ini</translation>
 <translation id="7845233973568007926">Terima kasih telah menginstal. Anda harus memulai ulang komputer sebelum menggunakan <ph name="BUNDLE_NAME"/>.</translation>
-<translation id="9148690296223500734">Sesuaikan Browther untuk memberikan tampilan baru</translation>
-<translation id="7963515534397191222">Browther tidak dapat diupdate ke versi terbaru, sehingga Anda tidak mendapatkan perbaikan keamanan dan fitur baru.</translation>
+<translation id="311190437086049332">Sesuaikan Browther untuk memberikan tampilan baru</translation>
+<translation id="6728847658878265103">Browther tidak dapat diupdate ke versi terbaru, sehingga Anda tidak mendapatkan perbaikan keamanan dan fitur baru.</translation>
 <translation id="7872446069773932638">Mendownload ... <ph name="SECONDS"/> detik lagi</translation>
-<translation id="5545136190679883344">Jika lupa frasa sandi atau ingin mengubah setelan ini, <ph name="BEGIN_LINK"/>hapus data Browther di akun Anda<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">Jika lupa frasa sandi atau ingin mengubah setelan ini, <ph name="BEGIN_LINK"/>hapus data Browther di akun Anda<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">Tanyakan info tentang gambar ini</translation>
-<translation id="5687542525349822727">Setel Browther sebagai browser default</translation>
-<translation id="6396151137840491551">Browther mengupgrade koneksi yang tidak aman ke HTTPS secara otomatis jika memungkinkan</translation>
-<translation id="2925193881330501265">Anda telah masuk ke Browther sebagai <ph name="USER_EMAIL_ADDRESS"/>. Gunakan akun yang sama untuk masuk kembali.</translation>
-<translation id="6915252145142862992">Ini adalah pemasangan Browther sekunder, dan tidak dapat digunakan sebagai browser default.</translation>
+<translation id="9172499982238113829">Setel Browther sebagai browser default</translation>
+<translation id="3313826726620159669">Browther mengupgrade koneksi yang tidak aman ke HTTPS secara otomatis jika memungkinkan</translation>
+<translation id="3317928686912559532">Anda telah masuk ke Browther sebagai <ph name="USER_EMAIL_ADDRESS"/>. Gunakan akun yang sama untuk masuk kembali.</translation>
+<translation id="6007009085341946457">Ini adalah pemasangan Browther sekunder, dan tidak dapat digunakan sebagai browser default.</translation>
 <translation id="8004582292198964060">Browser</translation>
 <translation id="8010081455002666927">Deteksi otomatis</translation>
-<translation id="7685904775439037072">Setelah Browther memiliki akses, situs dapat meminta akses dari Anda.</translation>
-<translation id="3230755314472063687">Sematkan Browther ke taskbar untuk mengaksesnya dengan cepat kapan saja</translation>
+<translation id="174885789898161653">Setelah Browther memiliki akses, situs dapat meminta akses dari Anda.</translation>
+<translation id="3001754454174546602">Sematkan Browther ke taskbar untuk mengaksesnya dengan cepat kapan saja</translation>
 <translation id="80471789339884597">Terima kasih telah menginstal. Anda harus memulai ulang semua browser sebelum menggunakan <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="8054112667659782652">Selalu tampilkan pintasan Penelusuran Gambar</translation>
-<translation id="6175141682081019059">Nonaktifkan Browther agar tidak menjalankan aplikasi di latar belakang</translation>
+<translation id="6993312779622863465">Nonaktifkan Browther agar tidak menjalankan aplikasi di latar belakang</translation>
 <translation id="80790299200510644">Penelusuran Gambar</translation>
 <translation id="8086881907087796310">Penginstalan gagal karena komputer Anda tidak memenuhi persyaratan hardware minimum.</translation>
-<translation id="8263061319795838019"><ph name="PAGE_TITLE"/> - Browther for Testing</translation>
-<translation id="2061155704815580583">Browther memerlukan izin akses lokasi untuk situs ini</translation>
-<translation id="3576319845915562805">Saat lain kali membuka Browther di <ph name="DEVICE_TYPE"/>, Anda akan melihat perintah untuk mengaktifkan notifikasi pemantauan harga.</translation>
+<translation id="4734875482699037091"><ph name="PAGE_TITLE"/> - Browther for Testing</translation>
+<translation id="543407324609820492">Browther memerlukan izin akses lokasi untuk situs ini</translation>
+<translation id="1767887552863788514">Saat lain kali membuka Browther di <ph name="DEVICE_TYPE"/>, Anda akan melihat perintah untuk mengaktifkan notifikasi pemantauan harga.</translation>
 <translation id="8118331347066725040">Kirim masukan untuk penelusuran dengan Lens</translation>
 <translation id="5334309298019785904">ChromeOS tidak dapat menyinkronkan data Anda karena Sinkronisasi tidak tersedia untuk domain Anda.</translation>
 <translation id="813913629614996137">Memulai...</translation>
-<translation id="1081849497974110565">Persyaratan Layanan Tambahan Browther</translation>
-<translation id="9067428552314418522">File ini berbahaya, jadi Browther telah memblokirnya.</translation>
+<translation id="4879101934056397619">Persyaratan Layanan Tambahan Browther</translation>
+<translation id="4505690237431768764">File ini berbahaya, jadi Browther telah memblokirnya.</translation>
 <translation id="8177472873527554730">Tidak dapat menemukan konten di halaman</translation>
-<translation id="6219250889396046657">Masukkan frasa sandi untuk menggunakan dan menyimpan data Browther di akun Anda, <ph name="USER_EMAIL"/></translation>
+<translation id="4720341280133158605">Masukkan frasa sandi untuk menggunakan dan menyimpan data Browther di akun Anda, <ph name="USER_EMAIL"/></translation>
 <translation id="8221491193165283816">Anda biasanya memblokir notifikasi. Untuk mengizinkan situs ini memberi Anda notifikasi, klik di sini.</translation>
-<translation id="8377926237617998195">Untuk menggunakan kamera, beri Browther akses di <ph name="BEGIN_LINK"/>setelan sistem<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">Browther tidak dapat memverifikasi asal ekstensi ini, dan mungkin ekstensi ini tidak aman. Hapus dari Browther agar ekstensi ini tidak dapat lagi melihat dan mengubah data Anda di situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
-<translation id="8207657266087451193">Jika gambar tidak memiliki deskripsi yang berguna, Browther akan mencoba memberikan deskripsi untuk Anda. Untuk membuat deskripsi, gambar akan dikirim ke Browther. Anda dapat menonaktifkannya kapan saja di setelan.</translation>
-<translation id="7792526144795244436">Login ke Browther di profil baru?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther akan memperingatkan Anda<ph name="END_LINK"/> tentang situs dan download yang tidak aman</translation>
-<translation id="8060549744348950090">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Gunakan kamera di aplikasi Browther versi iOS untuk berbelanja, menerjemahkan teks, dan mengidentifikasi objek yang Anda lihat</translation>
+<translation id="1083711467946065278">Untuk menggunakan kamera, beri Browther akses di <ph name="BEGIN_LINK"/>setelan sistem<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">Browther tidak dapat memverifikasi asal ekstensi ini, dan mungkin ekstensi ini tidak aman. Hapus dari Browther agar ekstensi ini tidak dapat lagi melihat dan mengubah data Anda di situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
+<translation id="1122818205373648656">Jika gambar tidak memiliki deskripsi yang berguna, Browther akan mencoba memberikan deskripsi untuk Anda. Untuk membuat deskripsi, gambar akan dikirim ke Browther. Anda dapat menonaktifkannya kapan saja di setelan.</translation>
+<translation id="6877990294324319801">Login ke Browther di profil baru?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther akan memperingatkan Anda<ph name="END_LINK"/> tentang situs dan download yang tidak aman</translation>
+<translation id="1685486387921540822">Anda tidak membuka situs ini baru-baru ini. Browther menghapus izin <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Gunakan kamera di aplikasi Browther versi iOS untuk berbelanja, menerjemahkan teks, dan mengidentifikasi objek yang Anda lihat</translation>
 <translation id="8313851650939857356">Error saat sistem dimulai: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Organisasi Anda menutup Browther saat tidak digunakan selama <ph name="TIMEOUT_DURATION"/>.</translation>
+<translation id="7386947683604296534">Organisasi Anda menutup Browther saat tidak digunakan selama <ph name="TIMEOUT_DURATION"/>.</translation>
 <translation id="8321888067342493336">Simpan sebagai gambar</translation>
-<translation id="3360368475735266712">Login untuk menyinkronkan dan mempersonalisasi Browther di perangkat Anda</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> sebelumnya menggunakan Browther</translation>
-<translation id="5592122595094519401">Update Browther untuk terus menggunakan data Browther di Akun Browther Anda, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="2569754604093464025">Untuk mendapatkan update Browther berikutnya, Anda perlu Windows 10 atau yang lebih baru. Komputer ini menggunakan Windows 8.</translation>
+<translation id="143016831128278157">Login untuk menyinkronkan dan mempersonalisasi Browther di perangkat Anda</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> sebelumnya menggunakan Browther</translation>
+<translation id="1288164710697017468">Update Browther untuk terus menggunakan data Browther di Akun Browther Anda, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="8648401677359150296">Untuk mendapatkan update Browther berikutnya, Anda perlu Windows 10 atau yang lebih baru. Komputer ini menggunakan Windows 8.</translation>
 <translation id="8362914115861174987">Terjemahkan ke</translation>
 <translation id="8367705492654390392">Tanyakan apa saja</translation>
-<translation id="7296197595428914424">Untuk mendapatkan sandi dan info Anda yang lain di semua perangkat Anda, login ke Browther. Sandi ini akan disimpan di Akun Browther Anda setelah Anda login.</translation>
-<translation id="9098234372282930719">Kemudian, Anda harus memulai ulang Browther.</translation>
-<translation id="1327729221471951979">Browther merekomendasikan agar Anda menghapusnya. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut ekstensi yang didukung<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Ekstensi ini dibatalkan publikasinya oleh developer, dan mungkin tidak aman. Hapus dari Browther agar ekstensi ini tidak dapat lagi melihat dan mengubah data Anda di situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
-<translation id="4234753748520037091">Browther perlu memverifikasi diri Anda sebelum beberapa data dapat disimpan di Akun Browther Anda dan digunakan di semua perangkat Anda. Jika Anda logout sekarang, data ini akan dihapus.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Luncurkan ulang Browther dalam 1 hari}other{Luncurkan ulang Browther dalam # hari}}</translation>
+<translation id="5769022907892823357">Untuk mendapatkan sandi dan info Anda yang lain di semua perangkat Anda, login ke Browther. Sandi ini akan disimpan di Akun Browther Anda setelah Anda login.</translation>
+<translation id="4782442810031768771">Kemudian, Anda harus memulai ulang Browther.</translation>
+<translation id="8265348385714408341">Browther merekomendasikan agar Anda menghapusnya. <ph name="BEGIN_LINK"/>Pelajari lebih lanjut ekstensi yang didukung<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Ekstensi ini dibatalkan publikasinya oleh developer, dan mungkin tidak aman. Hapus dari Browther agar ekstensi ini tidak dapat lagi melihat dan mengubah data Anda di situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
+<translation id="1613655732912855341">Browther perlu memverifikasi diri Anda sebelum beberapa data dapat disimpan di Akun Browther Anda dan digunakan di semua perangkat Anda. Jika Anda logout sekarang, data ini akan dihapus.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Luncurkan ulang Browther dalam 1 hari}other{Luncurkan ulang Browther dalam # hari}}</translation>
 <translation id="8438543370129609977">Saat Anda menggunakan Penelusuran Gambar, judul halaman, URL, dan konten halaman, termasuk PDF, akan dikirim ke server. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Pelajari lebih lanjut cara menelusuri dengan Penelusuran Gambar di Browther</translation>
-<translation id="6914496861676471566">Arsip pemasang rusak atau tidak valid. Download Browther lagi.</translation>
-<translation id="4378573854226202617">Browther memerlukan Windows 10 atau lebih tinggi.</translation>
-<translation id="6431861494713261006">Opsional: Bantu tingkatkan fitur dan performa ChromeOS dengan mengirimkan data penggunaan dan diagnostik secara otomatis ke Browther.</translation>
-<translation id="8691137711639873980">Untuk menggunakan dan menyimpan data Browther di Akun Browther Anda, verifikasi diri Anda</translation>
-<translation id="3251012123600267109">Menampilkan dialog untuk login ke Browther</translation>
-<translation id="2097604701283463988">Browther Terlalu Lawas</translation>
-<translation id="6080203201796279095">Terima kasih telah memilih Browther sebagai browser default Anda.</translation>
-<translation id="871233388178581868">Browther dapat memeriksa sandi jika Anda menyimpannya</translation>
-<translation id="3667461919057407535">Dapatkan peringatan jika Browther menemukan salah satu sandi Anda dalam pelanggaran data publik</translation>
+<translation id="3550129882823305293">Pelajari lebih lanjut cara menelusuri dengan Penelusuran Gambar di Browther</translation>
+<translation id="1401757916223057494">Arsip pemasang rusak atau tidak valid. Download Browther lagi.</translation>
+<translation id="5029760494698649486">Browther memerlukan Windows 10 atau lebih tinggi.</translation>
+<translation id="7906734902028783072">Opsional: Bantu tingkatkan fitur dan performa ChromeOS dengan mengirimkan data penggunaan dan diagnostik secara otomatis ke Browther.</translation>
+<translation id="6791756730901393492">Untuk menggunakan dan menyimpan data Browther di Akun Browther Anda, verifikasi diri Anda</translation>
+<translation id="4879869745782826167">Menampilkan dialog untuk login ke Browther</translation>
+<translation id="2967761098021401720">Browther Terlalu Lawas</translation>
+<translation id="7674832651694000881">Terima kasih telah memilih Browther sebagai browser default Anda.</translation>
+<translation id="4507581730979762077">Browther dapat memeriksa sandi jika Anda menyimpannya</translation>
+<translation id="7205233182271132386">Dapatkan peringatan jika Browther menemukan salah satu sandi Anda dalam pelanggaran data publik</translation>
 <translation id="8555465886620020932">Error layanan: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Anda dapat menyematkan Penelusuran Gambar agar mudah diakses; klik tombol Sematkan di bagian atas panel samping</translation>
 <translation id="856656450041460113">Telusuri daftar bahasa</translation>
-<translation id="227028348235968071">Browther dapat memeriksa sandi saat Anda login dengan Akun Browther</translation>
-<translation id="839677568225616901">Beberapa organisasi mengelola Browther</translation>
-<translation id="8121009781989288430">Hak Cipta <ph name="YEAR"/> Pengarang Browther. Semua hak dilindungi undang-undang.</translation>
+<translation id="75470458211269379">Browther dapat memeriksa sandi saat Anda login dengan Akun Browther</translation>
+<translation id="2108930010779660436">Beberapa organisasi mengelola Browther</translation>
+<translation id="7209630341463003999">Hak Cipta <ph name="YEAR"/> Pengarang Browther. Semua hak dilindungi undang-undang.</translation>
 <translation id="8601359445272098721">Baru! Anda dapat menerjemahkan teks dan gambar di layar dengan memilih tombol "terjemahkan layar"</translation>
-<translation id="3052349005266761501">Meluncurkan Browther...</translation>
+<translation id="782928371899183269">Meluncurkan Browther...</translation>
 <translation id="8624541899164515475">Setelan, terbuka di tab baru.</translation>
-<translation id="5128665650717824082">Browther for Testing tidak dapat dijadikan sebagai browser default.</translation>
+<translation id="5879341334716115002">Browther for Testing tidak dapat dijadikan sebagai browser default.</translation>
 <translation id="2433912322225810055">Juga mengontrol halaman apa yang ditampilkan saat Anda memulai Browther atau menelusuri dari Omnibox.</translation>
-<translation id="4100716194836114130">Ini Browther Anda</translation>
+<translation id="4816541973978692496">Ini Browther Anda</translation>
 <translation id="8712637175834984815">Mengerti</translation>
-<translation id="1419543648228375718">Login ke Browther?</translation>
-<translation id="4891728458408976811">Simpan semuanya di Browther</translation>
+<translation id="9037464035997618895">Login ke Browther?</translation>
+<translation id="7897185368811431919">Simpan semuanya di Browther</translation>
 <translation id="8747073452963259673">pojok kiri bawah area penelusuran: kiri <ph name="LEFT"/>%, bawah <ph name="BOTTOM"/>%</translation>
 <translation id="878572486461146056">Error penginstalan: Administrator jaringan Anda telah menerapkan Kebijakan Grup yang mencegah penginstalan: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">Browther memerlukan izin akses ke kamera dan mikrofon untuk situs ini</translation>
+<translation id="1576369213923770885">Browther memerlukan izin akses ke kamera dan mikrofon untuk situs ini</translation>
 <translation id="8813277370772331957">Ingatkan saya nanti</translation>
-<translation id="64216977793816291">Login ke Browther?</translation>
-<translation id="7447364954121496869">Jadikan Browther sebagai browser default dan sematkan ke taskbar</translation>
+<translation id="6831999464349484462">Login ke Browther?</translation>
+<translation id="3698151322107951111">Jadikan Browther sebagai browser default dan sematkan ke taskbar</translation>
 <translation id="8826492472752484139">Klik “Pengelola Sandi”</translation>
 <translation id="6933858244219479645">Sistem ChromeOS</translation>
-<translation id="9084132286318231275">Bahasa ini digunakan untuk menampilkan menu, setelan, notifikasi, dan teks lainnya di Browther</translation>
+<translation id="3986927308621489499">Bahasa ini digunakan untuk menampilkan menu, setelan, notifikasi, dan teks lainnya di Browther</translation>
 <translation id="8862326446509486874">Anda tidak memiliki hak yang diperlukan untuk penginstalan tingkat sistem. Coba jalankan lagi penginstal dengan login sebagai Administrator.</translation>
-<translation id="7289323009146924152">Tambahkan Profil Browther</translation>
-<translation id="6412037018950369131">Jika ya, edit sandi Anda yang tersimpan di Browther agar cocok dengan sandi baru Anda.</translation>
-<translation id="1150745254876977823">Organisasi Anda mengharuskan Anda login ke Browther</translation>
-<translation id="8285294305439559616">Browther mencoba menampilkan sandi. Ketik sandi Windows untuk mengizinkannya.</translation>
-<translation id="4684884244620579559">Browther bukan lagi browser default Anda. Jadikan Browther browser default?</translation>
-<translation id="6389268239133412586">Tidak dapat mengupdate Browther</translation>
-<translation id="7731184591599776500">Logo Browther Enterprise</translation>
-<translation id="6500340165622970282">Tidak dapat memulai Browther karena terjadi error saat membuka profil Anda. Coba mulai ulang Browther.</translation>
-<translation id="3424657754843264466">Kelola profil Browther</translation>
-<translation id="7055223246119657449">Browther memblokir download ini karena file arsip tersebut menyertakan file lain yang mungkin menyembunyikan malware</translation>
-<translation id="9049928023195059068">Login ke Browther saat Anda login ke layanan Browther lainnya</translation>
-<translation id="4561046754724442504">Browther ditutup secara otomatis</translation>
-<translation id="5173820533850252773">Browther terlalu lawas</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther akan diluncurkan ulang dalam 1 jam}other{Browther akan diluncurkan ulang dalam # jam}}</translation>
+<translation id="5318226144018267261">Tambahkan Profil Browther</translation>
+<translation id="1298790608554316415">Jika ya, edit sandi Anda yang tersimpan di Browther agar cocok dengan sandi baru Anda.</translation>
+<translation id="960933321883777733">Organisasi Anda mengharuskan Anda login ke Browther</translation>
+<translation id="948979409756947611">Browther mencoba menampilkan sandi. Ketik sandi Windows untuk mengizinkannya.</translation>
+<translation id="1418854271943945136">Browther bukan lagi browser default Anda. Jadikan Browther browser default?</translation>
+<translation id="7228667329366610727">Tidak dapat mengupdate Browther</translation>
+<translation id="4817697255467736794">Logo Browther Enterprise</translation>
+<translation id="3507731466523097529">Tidak dapat memulai Browther karena terjadi error saat membuka profil Anda. Coba mulai ulang Browther.</translation>
+<translation id="3234473600657230663">Kelola profil Browther</translation>
+<translation id="8953887022581653484">Browther memblokir download ini karena file arsip tersebut menyertakan file lain yang mungkin menyembunyikan malware</translation>
+<translation id="532304972436358335">Login ke Browther saat Anda login ke layanan Browther lainnya</translation>
+<translation id="3425998261052065067">Browther ditutup secara otomatis</translation>
+<translation id="4377377022617011492">Browther terlalu lawas</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther akan diluncurkan ulang dalam 1 jam}other{Browther akan diluncurkan ulang dalam # jam}}</translation>
 <translation id="9106236359747881194">Pilih teks untuk menelusuri</translation>
-<translation id="5190991181158966940">Untuk mendapatkan update Browther berikutnya, Anda perlu Windows 10 atau yang lebih baru. Komputer ini menggunakan Windows 8.1.</translation>
-<translation id="7863882214613921971">Buka Link di &amp;tab Browther Baru</translation>
+<translation id="5115014198092384730">Untuk mendapatkan update Browther berikutnya, Anda perlu Windows 10 atau yang lebih baru. Komputer ini menggunakan Windows 8.1.</translation>
+<translation id="7129101984664345614">Buka Link di &amp;tab Browther Baru</translation>
 <translation id="911206726377975832">Hapus juga data browsing Anda?</translation>
 <translation id="9134482777260927479">Bantuan pekerjaan rumah</translation>
 <translation id="9148058034647219655">Keluar</translation>
-<translation id="2792073155252170448">Lanjutkan dari halaman terakhir yang dibuka: Browther dapat memulihkan tab setiap kali Anda memulai ulang. Untuk mengaktifkannya, buka</translation>
-<translation id="2444257125841652328">Administrator sistem Anda telah mengonfigurasi Browther untuk membuka browser alternatif guna mengakses <ph name="TARGET_URL_HOSTNAME"/>.</translation>
-<translation id="8208548103319284047">Tips Browther: Telusuri Dengan Lens</translation>
-<translation id="7902365066753170041">Luncurkan kembali untuk mengupdate &amp;Browther</translation>
-<translation id="3350544518197210895">Browther (mDNS-In)</translation>
-<translation id="49909619875329637">Dapatkan lebih banyak manfaat saat Anda login ke Browther</translation>
-<translation id="296137235951584143">Personalisasi Browther Anda</translation>
-<translation id="7977787072794666032">Browther mungkin tidak berfungsi dengan semestinya karena sudah tidak didukung di Windows XP atau Windows Vista</translation>
+<translation id="1734388504720121468">Lanjutkan dari halaman terakhir yang dibuka: Browther dapat memulihkan tab setiap kali Anda memulai ulang. Untuk mengaktifkannya, buka</translation>
+<translation id="8633974232736772207">Administrator sistem Anda telah mengonfigurasi Browther untuk membuka browser alternatif guna mengakses <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="1122669402846843682">Tips Browther: Telusuri Dengan Lens</translation>
+<translation id="595330134356385835">Luncurkan kembali untuk mengupdate &amp;Browther</translation>
+<translation id="4659389438500978709">Browther (mDNS-In)</translation>
+<translation id="6491100124044190139">Dapatkan lebih banyak manfaat saat Anda login ke Browther</translation>
+<translation id="1665840797775025867">Personalisasi Browther Anda</translation>
+<translation id="4407047432656809023">Browther mungkin tidak berfungsi dengan semestinya karena sudah tidak didukung di Windows XP atau Windows Vista</translation>
 <translation id="945522503751344254">Kirim masukan</translation>
-<translation id="4484434718272972655">Siapa yang menggunakan Browther?</translation>
-<translation id="7173394303099002355">Dapatkan keamanan terkuat Browther</translation>
+<translation id="7620348044248809366">Siapa yang menggunakan Browther?</translation>
+<translation id="7299962884342109067">Dapatkan keamanan terkuat Browther</translation>
 <translation id="983803489796659991">Penginstalan gagal karena server update tidak memiliki data hash apa pun untuk aplikasi.</translation>
-<translation id="8435446479956716379">Gunakan Browther Tanpa Akun</translation>
-<translation id="8992261409816268381">Pengarang Browther</translation>
+<translation id="8775461190334353148">Gunakan Browther Tanpa Akun</translation>
+<translation id="7146761239544860058">Pengarang Browther</translation>
 <translation id="989970834842471429">Pilih teks atau gambar untuk ditelusuri dengan Penelusuran Gambar</translation>
-<translation id="3146636448190445245">Untuk menggunakan lokasi, beri Browther akses di <ph name="BEGIN_LINK"/>setelan sistem<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">Untuk menggunakan lokasi, beri Browther akses di <ph name="BEGIN_LINK"/>setelan sistem<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Pemasangan gagal karena kesalahan yang tidak ditentukan. Download Browther lagi.</translation>
-<translation id="1743665722170667430">Ekstensi, aplikasi, dan tema dari sumber yang tidak dikenal dapat membahayakan perangkat Anda. Browther merekomendasikan untuk hanya memasangnya dari <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
-<translation id="6184592406110188164">Ekstensi ini melanggar kebijakan Web Store, dan mungkin tidak aman. Hapus dari Browther sehingga mereka tidak dapat lagi melihat atau mengubah data Anda pada situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
-<translation id="1299765473362724475">Peringatan: Browther tidak dapat mencegah ekstensi dari merekam riwayat peramban Anda. Untuk menonaktifkan ekstensi ini dalam mode privat, jangan pilih opsi ini.</translation>
-<translation id="1448049584457347995">Agar Browther lebih aman, kami menonaktifkan beberapa ekstensi yang tidak tercantum dalam <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> dan mungkin telah ditambahkan tanpa sepengetahuan Anda.</translation>
-<translation id="8848045066928358658">Agar Browther lebih aman, kami menonaktifkan ekstensi berikut yang tidak tercantum dalam <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> dan mungkin telah ditambahkan tanpa sepengetahuan Anda.</translation>
-<translation id="4624945300945265642">Buka link di jendela sa&amp;maran Browther</translation>
-<translation id="6554952862405000915">Buka Link di Jendela Sa&amp;maran Browther</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{Update baru untuk Browther telah tersedia dan akan diterapkan segera setelah diluncurkan kembali.}=1{Update baru untuk Browther telah tersedia dan akan diterapkan segera setelah diluncurkan kembali. Jendela samaran Anda tidak akan dibuka kembali.}other{Update baru untuk Browther telah tersedia dan akan diterapkan segera setelah diluncurkan kembali. # jendela samaran Anda tidak akan dibuka kembali.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{Administrator meminta Anda meluncurkan kembali Browther untuk menerapkan update ini}=1{Administrator meminta Anda meluncurkan kembali Browther untuk menerapkan update ini. Jendela samaran Anda tidak akan dibuka kembali.}other{Administrator meminta Anda meluncurkan kembali Browther untuk menerapkan update ini. # jendela samaran Anda tidak akan dibuka kembali.}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{Administrator mewajibkan Anda meluncurkan kembali Browther untuk menerapkan update}=1{Administrator mewajibkan Anda meluncurkan kembali Browther untuk menerapkan update. Jendela samaran Anda tidak akan dibuka kembali.}other{Administrator mewajibkan Anda meluncurkan kembali Browther untuk menerapkan update. # jendela samaran Anda tidak akan dibuka kembali.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="5110032212554763592">Pemasangan gagal karena kesalahan yang tidak ditentukan. Download Browther lagi.</translation>
+<translation id="9074842261125908635">Ekstensi, aplikasi, dan tema dari sumber yang tidak dikenal dapat membahayakan perangkat Anda. Browther merekomendasikan untuk hanya memasangnya dari <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
+<translation id="3593119910409528681">Ekstensi ini melanggar kebijakan Web Store, dan mungkin tidak aman. Hapus dari Browther sehingga mereka tidak dapat lagi melihat atau mengubah data Anda pada situs yang Anda kunjungi, termasuk info pribadi Anda.</translation>
+<translation id="5245976396374147971">Peringatan: Browther tidak dapat mencegah ekstensi dari merekam riwayat peramban Anda. Untuk menonaktifkan ekstensi ini dalam mode privat, jangan pilih opsi ini.</translation>
+<translation id="3629539416935660172">Agar Browther lebih aman, kami menonaktifkan beberapa ekstensi yang tidak tercantum dalam <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> dan mungkin telah ditambahkan tanpa sepengetahuan Anda.</translation>
+<translation id="157534302749986451">Agar Browther lebih aman, kami menonaktifkan ekstensi berikut yang tidak tercantum dalam <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> dan mungkin telah ditambahkan tanpa sepengetahuan Anda.</translation>
+<translation id="3031052147361385845">Buka link di jendela sa&amp;maran Browther</translation>
+<translation id="5556794247782664281">Buka Link di Jendela Sa&amp;maran Browther</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{Update baru untuk Browther telah tersedia dan akan diterapkan segera setelah diluncurkan kembali.}=1{Update baru untuk Browther telah tersedia dan akan diterapkan segera setelah diluncurkan kembali. Jendela samaran Anda tidak akan dibuka kembali.}other{Update baru untuk Browther telah tersedia dan akan diterapkan segera setelah diluncurkan kembali. # jendela samaran Anda tidak akan dibuka kembali.}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{Administrator meminta Anda meluncurkan kembali Browther untuk menerapkan update ini}=1{Administrator meminta Anda meluncurkan kembali Browther untuk menerapkan update ini. Jendela samaran Anda tidak akan dibuka kembali.}other{Administrator meminta Anda meluncurkan kembali Browther untuk menerapkan update ini. # jendela samaran Anda tidak akan dibuka kembali.}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{Administrator mewajibkan Anda meluncurkan kembali Browther untuk menerapkan update}=1{Administrator mewajibkan Anda meluncurkan kembali Browther untuk menerapkan update. Jendela samaran Anda tidak akan dibuka kembali.}other{Administrator mewajibkan Anda meluncurkan kembali Browther untuk menerapkan update. # jendela samaran Anda tidak akan dibuka kembali.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {Perlindungan Tingkat Lanjut mengharuskan Anda menjalankan ulang Browther untuk menerapkan pembaruan}
               =1 {Perlindungan Tingkat Lanjut mengharuskan Anda menjalankan ulang Browther untuk menerapkan pembaruan. Jendela Pribadi Anda tidak akan terbuka kembali.}
               other {Perlindungan Tingkat Lanjut mengharuskan Anda menjalankan ulang Browther untuk menerapkan pembaruan. Jendela #Private Anda tidak akan terbuka kembali.}}</translation>
 <translation id="5749154344207139683">Bantu kami meningkatkan kualitas Privasi dengan mengikuti survei 1 menit ini.</translation>
-<translation id="79269250264141507">Ketika Anda mengetik di bilah alamat atau kotak pencarian, Browther mengirim hal yang Anda ketik ke mesin pencarian bawaan Anda untuk mendapatkan usulan yang lebih baik. Ini dinonaktifkan di mode Privat.</translation>
-<translation id="2589970573128789862">Privat Browther</translation>
-<translation id="5994282802285556682">Saat meramban dalam mode Privat, Browther akan memperingatkan Anda sebelum memuat situs dengan menggunakan koneksi yang tidak aman</translation>
+<translation id="6954203250660846933">Ketika Anda mengetik di bilah alamat atau kotak pencarian, Browther mengirim hal yang Anda ketik ke mesin pencarian bawaan Anda untuk mendapatkan usulan yang lebih baik. Ini dinonaktifkan di mode Privat.</translation>
+<translation id="3542179014707218534">Privat Browther</translation>
+<translation id="2076355018722231995">Saat meramban dalam mode Privat, Browther akan memperingatkan Anda sebelum memuat situs dengan menggunakan koneksi yang tidak aman</translation>
 </translationbundle>

@@ -189,13 +189,13 @@
 <translation id="834487290629916192">KASNEJE</translation>
 <translation id="4117451092682672487">Zasebnost. Enostavno preprosto.</translation>
 <translation id="5512887128063976049">Če je privzeta možnost Browther, se vsaka povezava, ki jo tapnete, odpre z zaščito zasebnosti Browther.</translation>
-<translation id="5148943178722443958">Pomagajte izboljšati Browther.</translation>
+<translation id="9133910347634099679">Pomagajte izboljšati Browther.</translation>
 <translation id="6718362830686703942">Pošljite diagnostična poročila, če pride do okvare ali zamrznitve.</translation>
 <translation id="7134864207653684195">Delite zasebne in anonimne vpoglede v izdelek o tem, katere funkcije uporabljajo uporabniki sistema Browther.</translation>
 <translation id="2888496576732880897">Pomagajte rasti Browther Iskanju</translation>
 <translation id="7044431516245362795">Vključite se v projekt Web Discovery Project in pomagajte povečati indeks ter izboljšati rezultate iskanja. <ph name="LEARN_MORE_START"/>Več o tem.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Seveda, pomagal bom</translation>
-<translation id="7443712250454754077">Tapnite za ogled Brave Shields</translation>
+<translation id="7443712250454754077">Tapnite za ogled Browther Shields</translation>
 <translation id="118577974285037669">Oglejte si vso navlako, ki jih je Browther blokiral, na vsaki strani, s ščiti.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> in <ph name="TRACKER"/> drugi oglasi in sledilniki so blokirani</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> ter drugi oglasi in sledilci, ki smo jih blokirali</translation>
@@ -409,7 +409,7 @@ Ali ste prepričani, da želite to storiti?</translation>
 <translation id="769702552748212954">Dovoli vsa ustvarjanja prstnih odtisov</translation>
 <translation id="876424292214881779">Oglasi in ostali neželeni poskusi blokirani</translation>
 <translation id="2709945082202062860">Spletna mesta pogosto vključujejo piškotke in skripte, ki poskušajo prepoznati vas in vašo napravo. Želijo ugotoviti, kdo ste in vas spremljati po spletu - spremljati, kaj počnete na vsakem posameznem spletnem mestu.\nBrave to blokira, da lahko brskate, ne da bi vas povsod spremljali.</translation>
-<translation id="5695422144228065490">O Brave Shields</translation>
+<translation id="5695422144228065490">O Browther Shields</translation>
 <translation id="8912304686498704084">GOR</translation>
 <translation id="4963218453264888510">DOL</translation>
 <translation id="5721161384090584434">Na tej spletni strani brskate brez brez zaščite zasebnosti Browther. Ali stan ne deluje pravilno z zaščito Shields?</translation>
@@ -959,7 +959,7 @@ Ali ste prepričani, da želite to storiti?</translation>
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Ponastavitev na privzete nastavitve</translation>
 <translation id="4922034974043704366">Ta funkcija je omogočena, ker ste se zanjo odločili.</translation>
-<translation id="3144818380093107753">Browther Origin je naročniški način za onemogočanje funkcij, ki prinašajo prihodke in sicer podpirajo poslovanje podjetja Browther. Naročniki na Browther Origin bodo še naprej imeli koristi od naše najboljše zasebnosti, blokiranja oglasov in hitrosti (prek Brave Shields) ter rednih posodobitev programske opreme, popravkov Chromium ter izboljšav varnosti in zasebnosti. Odklenili bodo tudi možnost onemogočanja funkcij, kot so Browther Leo, Novice, Nagrade, Denarnica, VPN, domene Web3 in druge.&lt;br/&gt;&lt;br/&gt;Naročniki bodo v meniju z nastavitvami brskalnika videli novo nadzorno ploščo. Obstoječe funkcije - kot tudi vse nove funkcije, ki jih bomo poslali v prihodnosti - bodo prikazane tukaj in privzeto izklopljene.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Opomba: Browther Origin ne bo onemogočil funkcij brskalnika, ki jih trenutno uporabljate, in ne bo vplival na funkcije iskanja Browther ali oglase za iskanje Browther.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin je naročniški način za onemogočanje funkcij, ki prinašajo prihodke in sicer podpirajo poslovanje podjetja Browther. Naročniki na Browther Origin bodo še naprej imeli koristi od naše najboljše zasebnosti, blokiranja oglasov in hitrosti (prek Browther Shields) ter rednih posodobitev programske opreme, popravkov Chromium ter izboljšav varnosti in zasebnosti. Odklenili bodo tudi možnost onemogočanja funkcij, kot so Browther Leo, Novice, Nagrade, Denarnica, VPN, domene Web3 in druge.&lt;br/&gt;&lt;br/&gt;Naročniki bodo v meniju z nastavitvami brskalnika videli novo nadzorno ploščo. Obstoječe funkcije - kot tudi vse nove funkcije, ki jih bomo poslali v prihodnosti - bodo prikazane tukaj in privzeto izklopljene.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Opomba: Browther Origin ne bo onemogočil funkcij brskalnika, ki jih trenutno uporabljate, in ne bo vplival na funkcije iskanja Browther ali oglase za iskanje Browther.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Prijavite se s Browther Wallet</translation>
 <translation id="7380890081275286865">Vpisujete se v<ph name="ORIGIN"/>. Browther denarnica bo naslov vaše denarnice delil z<ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Glej podrobnosti</translation>

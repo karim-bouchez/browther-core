@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">Mrežna mjesta mogu zatražiti upotrebu starijeg izdanja prijave putem platforme Google pomoću kolačića treće strane</translation>
 <translation id="2903783737778379345">Ne dopusti starije izdanje prijave putem platforme Google pomoću kolačića treće strane</translation>
 <translation id="6880817299303842099">Dopuštena je upotreba kolačića treće strane za starije izdanje prijave putem platforme Google</translation>
-<translation id="8266435325778969511">Zadane postavke značajke Brave Shields</translation>
+<translation id="8266435325778969511">Zadane postavke značajke Browther Shields</translation>
 <translation id="2675679258824361492">Ostale postavke privatnosti</translation>
 <translation id="8026334261755873520">Brisanje podataka o pregledavanju</translation>
 <translation id="1690924763769415936">Reprodukcija u pozadini</translation>
@@ -188,7 +188,7 @@
 <translation id="834487290629916192">KASNIJE</translation>
 <translation id="4117451092682672487">Pojednostavljena zaštita privatnosti.</translation>
 <translation id="5512887128063976049">Kad je Browther postavljen kao zadani preglednik, svaka veza koju dodirnete otvara se uz zaštite privatnosti preglednika Browther.</translation>
-<translation id="5148943178722443958">Pomognite poboljšati Browther.</translation>
+<translation id="9133910347634099679">Pomognite poboljšati Browther.</translation>
 <translation id="6718362830686703942">Pošaljite dijagnostička izvješća ako iskusite pad ili zamrzavanje stranice.</translation>
 <translation id="7134864207653684195">Podijelite privatne i anonimne uvide u proizvod o tome koje značajke upotrebljavaju korisnici preglednika Browther.</translation>
 <translation id="2888496576732880897">Pomozite razvoju tražilice Browther</translation>
@@ -400,7 +400,7 @@ Sigurno želite to napraviti?</translation>
 <translation id="554464532999080267">Slanje upita prije prelaska u privatni način rada (standardno)</translation>
 <translation id="926857659063503456">Nikada privatni način rada</translation>
 <translation id="3895527457258986253">Blokiraj izrade digitalnog otiska</translation>
-<translation id="7854108565842971747">Ovo su zadane postavke značajke Brave Shields za nova mreža mjesta. Mijenjanjem ovih postavki ne mijenjaju se postojeće postavke prethodno postavljene za određeno mrežno mjesto.</translation>
+<translation id="7854108565842971747">Ovo su zadane postavke značajke Browther Shields za nova mreža mjesta. Mijenjanjem ovih postavki ne mijenjaju se postojeće postavke prethodno postavljene za određeno mrežno mjesto.</translation>
 <translation id="218587021686734263">Spriječite otiske prstiju putem postavki jezika</translation>
 <translation id="1706099589708266367">Smanjuje koliko mrežna mjesta mogu saznati o vama na temelju jezičnih postavki vašeg preglednika.</translation>
 <translation id="6486971767955110687">Spremi kontaktne podatke za buduće izvještaje o neispravnim stranicama</translation>
@@ -411,7 +411,7 @@ Sigurno želite to napraviti?</translation>
 <translation id="769702552748212954">Dopusti sve pokušaje pritiskanja prstima</translation>
 <translation id="876424292214881779">Blokirani oglasi i druge čudne stavke</translation>
 <translation id="2709945082202062860">Stranice često sadrže kolačiće i skripte koje pokušavaju identificirati vas i vaš uređaj. Žele otkriti tko ste i prate vas na cijeloj mreži, prateći što radite na svakoj stranici.\n\nBrave blokira te stvari tako da možete pregledavati bez da vas netko prati.</translation>
-<translation id="5695422144228065490">O značajci Brave Shields</translation>
+<translation id="5695422144228065490">O značajci Browther Shields</translation>
 <translation id="8912304686498704084">GORE</translation>
 <translation id="4963218453264888510">DOLJE</translation>
 <translation id="5721161384090584434">Pregledavate ovo mrežno mjesto bez sigurnosne zaštite i zaštite privatnosti preglednika Browther. Radi li ispravno s uključenom značajkom Štitnika?</translation>

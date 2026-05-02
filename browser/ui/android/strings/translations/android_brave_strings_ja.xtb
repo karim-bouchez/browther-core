@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Braveからの通知を有効にしてBraveリワードを獲得しましょう。</translation>
 <translation id="4714541943538330">設定を開いて「Brave広告」のデバイス通知をオンにします。</translation>
 <translation id="7341107637383044975">Brave通知を有効にする</translation>
-<translation id="9063439289570656162">Brave Shieldsを有効/無効にします</translation>
+<translation id="9063439289570656162">Browther Shieldsを有効/無効にします</translation>
 <translation id="15346379325756892">ピクチャー・イン・ピクチャー・モードに入る</translation>
 <translation id="6945863270524203017">トラッカーおよび広告のブロックに関するプライバシー最新情報を毎週受信できます。</translation>
 <translation id="4324735664183300693">通知を有効にする</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">機能</translation>
 <translation id="1919345977826869612">広告</translation>
 <translation id="2839742394543397416">アナリティクス</translation>
-<translation id="5644165410146827297">Brave Shields &amp; プライバシー</translation>
+<translation id="5644165410146827297">Browther Shields &amp; プライバシー</translation>
 <translation id="4692623383562244444">検索エンジン</translation>
 <translation id="1468415711258933398">通常タブ</translation>
 <translation id="3377025655491224618">プライベートタブ</translation>
@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">サイトは、サードパーティのCookieを介して、レガシーのGoogleサインインの利用を求めることができる</translation>
 <translation id="2903783737778379345">サードパーティCookieを使用したレガシーのGoogleサインインを許可しない</translation>
 <translation id="6880817299303842099">レガシーのGoogleサインインにサードパーティCookieの使用を許可する</translation>
-<translation id="8266435325778969511">Brave Shields グローバルデフォルト</translation>
+<translation id="8266435325778969511">Browther Shields グローバルデフォルト</translation>
 <translation id="2675679258824361492">その他のプライバシー設定</translation>
 <translation id="8026334261755873520">閲覧履歴データの削除</translation>
 <translation id="1690924763769415936">バックグラウンド再生</translation>
@@ -188,7 +188,7 @@
 <translation id="834487290629916192">後で</translation>
 <translation id="4117451092682672487">シンプルに、プライバシーを保護。</translation>
 <translation id="5512887128063976049">Braveをデフォルトで使用すると、タップしたすべてのリンクがBrave流のプライバシー保護モードで開かれます。</translation>
-<translation id="5148943178722443958">Braveの品質向上にご協力ください。</translation>
+<translation id="9133910347634099679">Braveの品質向上にご協力ください。</translation>
 <translation id="6718362830686703942">クラッシュやフリーズが発生した場合、診断レポートを送信します。</translation>
 <translation id="7134864207653684195">Braveのユーザーがどのような機能を使用しているかについて、非公開かつ匿名で製品インサイトを共有できます。</translation>
 <translation id="2888496576732880897">Braveサーチの向上にご協力ください</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">スキップ</translation>
 <translation id="6165508094623778733">詳しく知る</translation>
 <translation id="986879628471635371">トラブルシューティングのチュートリアル</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400"><ph name="TOKEN"/>を獲得</translation>
 <translation id="1315468656814955997">Browther Rewards</translation>
 <translation id="5870330605209713397">プライバシーを侵害しない広告を閲覧して、お気に入りのサイトやクリエイターをデフォルト設定でサポートしましょう。</translation>
@@ -411,7 +411,7 @@
 <translation id="769702552748212954">すべてのフィンガープリントを許可する</translation>
 <translation id="876424292214881779">ブロック済の広告およびその他の不審な通信</translation>
 <translation id="2709945082202062860">多くの場合、ウェブサイトにはあなた (のデバイス) を識別するためにCookieとスクリプトが含まれます。あなたが誰であるかを判別・追跡しあなたが他のサイトで何をしているかを知ろうとします。\n\nBraveはこれらをブロックし、あなたが追跡されることなくブラウザできるようにします。</translation>
-<translation id="5695422144228065490">Brave Shieldsについて</translation>
+<translation id="5695422144228065490">Browther Shieldsについて</translation>
 <translation id="8912304686498704084">オン</translation>
 <translation id="4963218453264888510">オフ</translation>
 <translation id="5721161384090584434">現在、Braveのプライバシー保護機能なしでこのサイトを閲覧しています。Shieldsを有効にするとサイトに問題がありましたか？</translation>

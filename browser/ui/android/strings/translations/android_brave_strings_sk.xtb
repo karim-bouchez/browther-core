@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">Funkcie</translation>
 <translation id="1919345977826869612">Reklamy</translation>
 <translation id="2839742394543397416">Analytika</translation>
-<translation id="5644165410146827297">Brave Shields a ochrana osobných údajov</translation>
+<translation id="5644165410146827297">Browther Shields a ochrana osobných údajov</translation>
 <translation id="4692623383562244444">Vyhľadávače</translation>
 <translation id="1468415711258933398">Štandardná karta</translation>
 <translation id="3377025655491224618">Karta Inkognito</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">NESKÔR</translation>
 <translation id="4117451092682672487">Jednoduchý spôsob ochrany vášho súkromia.</translation>
 <translation id="5512887128063976049">S Browther ako predvoleným prehliadačom sa každý odkaz, na ktorý ťuknete, otvorí s ochranou osobných údajov Browther.</translation>
-<translation id="5148943178722443958">Pomôžte zlepšiť prehliadač Browther.</translation>
+<translation id="9133910347634099679">Pomôžte zlepšiť prehliadač Browther.</translation>
 <translation id="6718362830686703942">Odošlite diagnostické správy, ak dôjde k zlyhaniu alebo zamrznutiu.</translation>
 <translation id="7134864207653684195">Zdieľajte súkromné a anonymné informácie o produktoch, ktoré používatelia Browther používajú.</translation>
 <translation id="2888496576732880897">Pomôžte Vyhľadávaniu Browther rásť</translation>
 <translation id="7044431516245362795">Prihláste sa do projektu Web Discovery Project a pomôžte tak rozšíriť index a zlepšiť výsledky vyhľadávania. <ph name="LEARN_MORE_START"/>Ďalšie informácie.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Áno, chcem pomôcť</translation>
-<translation id="7443712250454754077">Ťuknutím zobrazíte Brave Shields</translation>
+<translation id="7443712250454754077">Ťuknutím zobrazíte Browther Shields</translation>
 <translation id="118577974285037669">Pozrite si všetky obťažujúce prvky, ktoré prehliadač Browther zablokoval na jednotlivých stránkach pomocou funkcie Shields.</translation>
 <translation id="5386259141409498372">Blokovanie <ph name="BIG_TECH"/> a <ph name="TRACKER"/> ďalších reklám a sledovacích nástrojov</translation>
 <translation id="7256200875155794202">Počet zablokovaných reklám a sledovacích nástrojov: <ph name="BIG_TECH"/></translation>
@@ -961,7 +961,7 @@ Ak túto žiadosť neprijmete, VPN sa znova nepripojí a vaše pripojenie na int
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Obnovenie predvolených nastavení</translation>
 <translation id="4922034974043704366">Táto funkcia je povolená, pretože ste sa k nej prihlásili</translation>
-<translation id="3144818380093107753">Browther Origin je spôsob, ako na základe predplatného vypnúť funkcie generujúce príjmy, ktoré inak podporujú Browther ako podnikanie. Predplatitelia služby Browther Origin budú naďalej využívať výhody našej špičkovej ochrany súkromia, blokovania reklám a rýchlosti (prostredníctvom Brave Shields), ako aj pravidelné aktualizácie softvéru, záplaty Chromium a vylepšenia zabezpečenia a ochrany súkromia. Odomkne sa im aj možnosť vypnúť funkcie, ako sú Browther Leo, Novinky, Odmeny, Peňaženka, VPN, Web3 domény a ďalšie.&lt;br/&gt;&lt;br/&gt;Predplatitelia uvidia nový ovládací panel v ponuke nastavení prehliadača. Existujúce funkcie - ako aj všetky nové funkcie, ktoré dodáme v budúcnosti - sa tu zobrazia a budú štandardne vypnuté.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Poznámka: Browther Origin nezakáže funkcie prehliadača, ktoré v súčasnosti používate, a neovplyvní funkcie vyhľadávania Browther ani reklamy Brave Search.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin je spôsob, ako na základe predplatného vypnúť funkcie generujúce príjmy, ktoré inak podporujú Browther ako podnikanie. Predplatitelia služby Browther Origin budú naďalej využívať výhody našej špičkovej ochrany súkromia, blokovania reklám a rýchlosti (prostredníctvom Browther Shields), ako aj pravidelné aktualizácie softvéru, záplaty Chromium a vylepšenia zabezpečenia a ochrany súkromia. Odomkne sa im aj možnosť vypnúť funkcie, ako sú Browther Leo, Novinky, Odmeny, Peňaženka, VPN, Web3 domény a ďalšie.&lt;br/&gt;&lt;br/&gt;Predplatitelia uvidia nový ovládací panel v ponuke nastavení prehliadača. Existujúce funkcie - ako aj všetky nové funkcie, ktoré dodáme v budúcnosti - sa tu zobrazia a budú štandardne vypnuté.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Poznámka: Browther Origin nezakáže funkcie prehliadača, ktoré v súčasnosti používate, a neovplyvní funkcie vyhľadávania Browther ani reklamy Brave Search.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Prihláste sa pomocou peňaženky Browther</translation>
 <translation id="7380890081275286865">Prihlasujete sa do <ph name="ORIGIN"/>. Peňaženka Browther bude zdieľať adresu vašej peňaženky s <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Zobraziť podrobnosti</translation>

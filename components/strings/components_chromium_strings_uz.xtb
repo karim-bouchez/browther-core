@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="uz">
 <translation id="130631256467250065">O‘zgartirishlar qurimla qaytadan ishga tushirilganda kuchga kiradi.</translation>
-<translation id="6451924152958941455">Bularni oching:
+<translation id="5681560603157873402">Bularni oching:
           Browther menyusi &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -11,18 +11,18 @@
           <ph name="PROXIES_TITLE"/>
           &gt;
           va sozlamalarda “proksi-serversiz” yoki “bevosita” ulanish belgilanganini tekshiring.</translation>
-<translation id="7999989146447764333">Browther‘da xatoliklar haqidagi hisobot funksiyasi mavjud emas.</translation>
-<translation id="1953231710324290369">Xavfsiz Browther sahifasini ko‘rmoqdasiz.</translation>
-<translation id="907470742420136113">Browther toʻlov usuli kiritilishi sozlamasini oʻzgaritishga urinmoqda.</translation>
-<translation id="4847979153841887006">Browther logotipi</translation>
-<translation id="336808635693308470">Browther toʻlov usullarini oʻzgartirishga urinmoqda.</translation>
-<translation id="7932149101545999102">Browther yaratilishida <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> ochiq kodli loyiha va boshqa <ph name="BEGIN_LINK_OSS"/>ochiq kodli dasturiy ta’minotning<ph name="END_LINK_OSS"/> katta o‘rni bor.</translation>
-<translation id="303960458633076466">Bu sahifa Browther tomonidan bloklandi</translation>
-<translation id="2017237562285586622">Himoya devori va antivirus dasturlari sozlamalarida Browther tarmoqqa ulanishiga ruxsat bering.</translation>
+<translation id="4903497818305945122">Browther‘da xatoliklar haqidagi hisobot funksiyasi mavjud emas.</translation>
+<translation id="5747951541048369241">Xavfsiz Browther sahifasini ko‘rmoqdasiz.</translation>
+<translation id="7041193161756628041">Browther toʻlov usuli kiritilishi sozlamasini oʻzgaritishga urinmoqda.</translation>
+<translation id="4670277172953498174">Browther logotipi</translation>
+<translation id="3474898875907708105">Browther toʻlov usullarini oʻzgartirishga urinmoqda.</translation>
+<translation id="5700544173546684818">Browther yaratilishida <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> ochiq kodli loyiha va boshqa <ph name="BEGIN_LINK_OSS"/>ochiq kodli dasturiy ta’minotning<ph name="END_LINK_OSS"/> katta o‘rni bor.</translation>
+<translation id="8935269788853634726">Bu sahifa Browther tomonidan bloklandi</translation>
+<translation id="1339376981847018870">Himoya devori va antivirus dasturlari sozlamalarida Browther tarmoqqa ulanishiga ruxsat bering.</translation>
 <translation id="4949828774841497663">Ilovalar &gt; tizim sozlamalari &gt; tarmoq sahifasini ochib,
           faol tarmoqni tanlang, keyin Tafsilotlar... tugmasini bosing va tanlanishi mumkin har qanday
           proksi tanlovini bekor qiling.</translation>
-<translation id="3269554930871094325">Bularni oching:
+<translation id="4191403906356422893">Bularni oching:
           Browther menyusi &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -32,13 +32,13 @@
           &gt;
           Tarmoq va internet &gt; Proksi-server
           va keyin “Sozlamalarni avtomatik aniqlash” tanlovini bekor qiling.</translation>
-<translation id="6159073403999048272">Bu sahifalar Browther dastur ishlab chiquvchilari foydalanishi uchun moʻljallangan va faol ishlatish yoki sinovdan oʻtkazish mumkin emas. Ularni yoqish uchun <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/> havolasiga oʻting, debag sahifalarini yoqish uchun tugmani bosib, keyin yana bu sahifaga oʻting.</translation>
-<translation id="2765022094254723779">Browther paydo boʻlishida boshqa <ph name="BEGIN_LINK_OSS"/>ochiq kodli dastur<ph name="END_LINK_OSS"/> taʼminotining katta oʻrni bor.</translation>
-<translation id="9156965752763025780">O‘zgartirishlar Browther qaytadan ishga tushirilganda kuchga kiradi.</translation>
-<translation id="8828443087767259398">Browther ulanishi uchun Bluetooth orqali kirish ruxsati 
+<translation id="958169674889932546">Bu sahifalar Browther dastur ishlab chiquvchilari foydalanishi uchun moʻljallangan va faol ishlatish yoki sinovdan oʻtkazish mumkin emas. Ularni yoqish uchun <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/> havolasiga oʻting, debag sahifalarini yoqish uchun tugmani bosib, keyin yana bu sahifaga oʻting.</translation>
+<translation id="4303967029316005584">Browther paydo boʻlishida boshqa <ph name="BEGIN_LINK_OSS"/>ochiq kodli dastur<ph name="END_LINK_OSS"/> taʼminotining katta oʻrni bor.</translation>
+<translation id="8031938899816118394">O‘zgartirishlar Browther qaytadan ishga tushirilganda kuchga kiradi.</translation>
+<translation id="221029295134825758">Browther ulanishi uchun Bluetooth orqali kirish ruxsati 
  kerak. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Browther paydo boʻlishida <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> ochiq kodli dastur loyihasining katta oʻrni bor.</translation>
-<translation id="4068928808254189629">Bu yerga o‘ting
+<translation id="8530161404084147314">Browther paydo boʻlishida <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> ochiq kodli dastur loyihasining katta oʻrni bor.</translation>
+<translation id="3134645574591615830">Bu yerga o‘ting
           Browther menyusi &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -46,6 +46,6 @@
           va "<ph name="NO_PREFETCH_DESCRIPTION"/>"dan tanlanishni olib tashlang.
           Shunda muammo hal bo‘lmasa, samaradorlikni oshirish uchun
           yana shu parametrni tanlashni tavsiya qilamiz.</translation>
-<translation id="4159376633403260073">Xavfsiz Browther for Testing sahifasidasiz.</translation>
-<translation id="88187049159266777">Browther faoliyati noto‘g‘ri yakunlandi.</translation>
+<translation id="8927199829149811571">Xavfsiz Browther for Testing sahifasidasiz.</translation>
+<translation id="4220066730874343807">Browther faoliyati noto‘g‘ri yakunlandi.</translation>
 </translationbundle>

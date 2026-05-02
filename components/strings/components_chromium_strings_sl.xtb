@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="sl">
 <translation id="130631256467250065">Spremembe bodo uveljavljene pri naslednjem vnovičnem zagonu naprave.</translation>
-<translation id="6451924152958941455">Odprite
+<translation id="5681560603157873402">Odprite
           Braveov meni &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -10,19 +10,19 @@
           &gt;
           <ph name="PROXIES_TITLE"/>
           in poskrbite, da je konfiguracija nastavljena na »brez strežnika proxy« ali »neposredno«.</translation>
-<translation id="7999989146447764333">Poročanje o zrušitvah ni na voljo v Braveu.</translation>
-<translation id="1953231710324290369">Ogledujete si varno stran Bravea</translation>
-<translation id="907470742420136113">Browther poskuša spremeniti nastavitve za izpolnjevanje podatkov o plačilnih sredstvih.</translation>
-<translation id="4847979153841887006">Logotip Bravea</translation>
-<translation id="336808635693308470">Browther poskuša urediti plačilna sredstva.</translation>
-<translation id="7932149101545999102">Browther omogočata odprtokodni projekt <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> in druga <ph name="BEGIN_LINK_OSS"/>odprtokodna programska oprema<ph name="END_LINK_OSS"/>.</translation>
-<translation id="303960458633076466">To stran je blokiral Browther.</translation>
-<translation id="2017237562285586622">V nastavitvah požarnega zidu ali protivirusnega programa omogočite Braveu dostop do
+<translation id="4903497818305945122">Poročanje o zrušitvah ni na voljo v Braveu.</translation>
+<translation id="5747951541048369241">Ogledujete si varno stran Bravea</translation>
+<translation id="7041193161756628041">Browther poskuša spremeniti nastavitve za izpolnjevanje podatkov o plačilnih sredstvih.</translation>
+<translation id="4670277172953498174">Logotip Bravea</translation>
+<translation id="3474898875907708105">Browther poskuša urediti plačilna sredstva.</translation>
+<translation id="5700544173546684818">Browther omogočata odprtokodni projekt <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> in druga <ph name="BEGIN_LINK_OSS"/>odprtokodna programska oprema<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8935269788853634726">To stran je blokiral Browther.</translation>
+<translation id="1339376981847018870">V nastavitvah požarnega zidu ali protivirusnega programa omogočite Braveu dostop do
         omrežja.</translation>
 <translation id="4949828774841497663">Odprite »Aplikacije &gt; Sistemske nastavitve &gt; Omrežje«, izberite
           aktivno omrežje, kliknite gumb »Podrobnosti …« in počistite vse strežnike proxy,
           ki so morda izbrani.</translation>
-<translation id="3269554930871094325">Odprite
+<translation id="4191403906356422893">Odprite
           Braveov meni &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -32,13 +32,13 @@
           &gt;
           Omrežje in internet &gt; Strežnik proxy
           in počistite izbiro možnosti »Samodejno zaznaj nastavitve«.</translation>
-<translation id="6159073403999048272">Te strani so namenjene razvijalcem za Browther in morda niso aktivno vzdrževane ali preizkušane. Če jih želite omogočiti, odprite <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, kliknite gumb, da omogočite strani za odpravljanje napak, in se znova pomaknite na to stran.</translation>
-<translation id="2765022094254723779">Browther omogoča tudi druga <ph name="BEGIN_LINK_OSS"/>odprtokodna programska oprema<ph name="END_LINK_OSS"/>.</translation>
-<translation id="9156965752763025780">Spremembe bodo začele veljati ob naslednjem zagonu Bravea.</translation>
-<translation id="8828443087767259398">Browther potrebuje dostop do Bluetootha za nadaljevanje 
+<translation id="958169674889932546">Te strani so namenjene razvijalcem za Browther in morda niso aktivno vzdrževane ali preizkušane. Če jih želite omogočiti, odprite <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, kliknite gumb, da omogočite strani za odpravljanje napak, in se znova pomaknite na to stran.</translation>
+<translation id="4303967029316005584">Browther omogoča tudi druga <ph name="BEGIN_LINK_OSS"/>odprtokodna programska oprema<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8031938899816118394">Spremembe bodo začele veljati ob naslednjem zagonu Bravea.</translation>
+<translation id="221029295134825758">Browther potrebuje dostop do Bluetootha za nadaljevanje 
  seznanjanja. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Browther omogoča odprtokodni projekt <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
-<translation id="4068928808254189629">Odprite
+<translation id="8530161404084147314">Browther omogoča odprtokodni projekt <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
+<translation id="3134645574591615830">Odprite
         meni Bravea &gt;
         <ph name="SETTINGS_TITLE"/>
         &gt;
@@ -46,6 +46,6 @@
         in počistite polje »<ph name="NO_PREFETCH_DESCRIPTION"/>«.
         Če s tem težave ne odpravite, priporočamo, da to možnost
         zaradi izboljšanja delovanja znova izberete.</translation>
-<translation id="4159376633403260073">Ogledujete si varno stran brskalnika Browther for Testing</translation>
-<translation id="88187049159266777">Browther se ni pravilno zaustavil.</translation>
+<translation id="8927199829149811571">Ogledujete si varno stran brskalnika Browther for Testing</translation>
+<translation id="4220066730874343807">Browther se ni pravilno zaustavil.</translation>
 </translationbundle>

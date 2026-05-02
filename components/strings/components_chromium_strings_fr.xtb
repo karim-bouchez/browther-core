@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="fr">
 <translation id="130631256467250065">Vos modifications seront prises en compte au prochain démarrage de l'appareil.</translation>
-<translation id="6451924152958941455">Accédez au
+<translation id="5681560603157873402">Accédez au
           menu Browther &gt;
           <ph name="SETTINGS_TITLE"/> 
           &gt;
@@ -10,17 +10,17 @@
           &gt;
           <ph name="PROXIES_TITLE"/> 
           et assurez-vous que vos paramètres sont définis sur "sans proxy" ou "direct".</translation>
-<translation id="7999989146447764333">Les rapports sur les plantages ne sont pas disponibles dans Browther.</translation>
-<translation id="1953231710324290369">Cette page Browther est sécurisée</translation>
-<translation id="907470742420136113">Browther tente de modifier les paramètres de saisie des modes de paiement.</translation>
-<translation id="4847979153841887006">Logo Browther</translation>
-<translation id="336808635693308470">Browther essaie de modifier les modes de paiement.</translation>
-<translation id="7932149101545999102">Browther fonctionne grâce au projet Open Source <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> et à <ph name="BEGIN_LINK_OSS"/>d'autres logiciels libres<ph name="END_LINK_OSS"/>.</translation>
-<translation id="303960458633076466">Cette page a été bloquée par Browther</translation>
-<translation id="2017237562285586622">Autorisez Browther à accéder au réseau depuis les paramètres du pare-feu ou
+<translation id="4903497818305945122">Les rapports sur les plantages ne sont pas disponibles dans Browther.</translation>
+<translation id="5747951541048369241">Cette page Browther est sécurisée</translation>
+<translation id="7041193161756628041">Browther tente de modifier les paramètres de saisie des modes de paiement.</translation>
+<translation id="4670277172953498174">Logo Browther</translation>
+<translation id="3474898875907708105">Browther essaie de modifier les modes de paiement.</translation>
+<translation id="5700544173546684818">Browther fonctionne grâce au projet Open Source <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> et à <ph name="BEGIN_LINK_OSS"/>d'autres logiciels libres<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8935269788853634726">Cette page a été bloquée par Browther</translation>
+<translation id="1339376981847018870">Autorisez Browther à accéder au réseau depuis les paramètres du pare-feu ou
         de l'antivirus.</translation>
 <translation id="4949828774841497663">Accédez à Applications &gt; Réglages système &gt; Réseau, puis sélectionnez le réseau actif, cliquez sur le bouton "Détails..." et désélectionnez tous les proxys qui auraient pu être sélectionnés.</translation>
-<translation id="3269554930871094325">Accédez au menu Browther &gt;
+<translation id="4191403906356422893">Accédez au menu Browther &gt;
           <ph name="SETTINGS_TITLE"/> 
           &gt;
           <ph name="SYSTEM_TITLE"/> 
@@ -28,13 +28,13 @@
           <ph name="PROXIES_TITLE"/> 
           &gt; Réseau et Internet &gt; Proxy,
           puis désélectionnez "Détecter automatiquement les paramètres".</translation>
-<translation id="6159073403999048272">Ces pages sont destinées aux développeurs Browther, et il est possible qu'elles ne fassent pas l'objet d'une maintenance ni de tests actifs. Pour les activer, accédez à <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, cliquez sur le bouton pour activer les pages de débogage, puis accédez à nouveau à cette page.</translation>
-<translation id="2765022094254723779">Browther fonctionne également grâce à d'autres <ph name="BEGIN_LINK_OSS"/>logiciels Open Source<ph name="END_LINK_OSS"/>.</translation>
-<translation id="9156965752763025780">Vos modifications seront prises en compte au prochain redémarrage de Browther.</translation>
-<translation id="8828443087767259398">Browther a besoin d'accéder au Bluetooth pour continuer 
+<translation id="958169674889932546">Ces pages sont destinées aux développeurs Browther, et il est possible qu'elles ne fassent pas l'objet d'une maintenance ni de tests actifs. Pour les activer, accédez à <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, cliquez sur le bouton pour activer les pages de débogage, puis accédez à nouveau à cette page.</translation>
+<translation id="4303967029316005584">Browther fonctionne également grâce à d'autres <ph name="BEGIN_LINK_OSS"/>logiciels Open Source<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8031938899816118394">Vos modifications seront prises en compte au prochain redémarrage de Browther.</translation>
+<translation id="221029295134825758">Browther a besoin d'accéder au Bluetooth pour continuer 
  l'association. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Browther fonctionne grâce au projet Open Source <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
-<translation id="4068928808254189629">Accédez
+<translation id="8530161404084147314">Browther fonctionne grâce au projet Open Source <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
+<translation id="3134645574591615830">Accédez
           au menu Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -42,6 +42,6 @@
           puis désélectionnez "<ph name="NO_PREFETCH_DESCRIPTION"/>".
           Si le problème persiste, nous vous conseillons de
           réactiver cette option pour des performances optimales.</translation>
-<translation id="4159376633403260073">Cette page Browther for Testing est sécurisée</translation>
-<translation id="88187049159266777">Browther n'a pas été arrêté correctement.</translation>
+<translation id="8927199829149811571">Cette page Browther for Testing est sécurisée</translation>
+<translation id="4220066730874343807">Browther n'a pas été arrêté correctement.</translation>
 </translationbundle>

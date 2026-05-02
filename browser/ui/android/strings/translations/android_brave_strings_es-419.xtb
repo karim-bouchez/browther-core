@@ -188,7 +188,7 @@
 <translation id="834487290629916192">DESPUÉS</translation>
 <translation id="4117451092682672487">La privacidad, simplificada.</translation>
 <translation id="5512887128063976049">Si utilizas Browther de manera predeterminada, todos los enlaces que pulses se abrirán con las protecciones de privacidad de Browther.</translation>
-<translation id="5148943178722443958">Ayuda a mejorar Browther</translation>
+<translation id="9133910347634099679">Ayuda a mejorar Browther</translation>
 <translation id="6718362830686703942">Envía informes de diagnóstico en caso de fallos o bloqueos.</translation>
 <translation id="7134864207653684195">Comparta de forma privada y anónima su opinión sobre las funciones que utilizan los usuarios de Browther.</translation>
 <translation id="2888496576732880897">Ayuda a que el Buscador de Browther crezca</translation>
@@ -408,7 +408,7 @@ Verifique que ha sido un dispositivo suyo el que ha generado estas palabras clav
 <translation id="769702552748212954">Permitir todos los reconocimientos de huellas digitales</translation>
 <translation id="876424292214881779">Bloqueo de anuncios y otras cosas raras</translation>
 <translation id="2709945082202062860">Los sitios a menudo incluyen cookies y secuencias de comandos que intentan identificar a usted y al dispositivo. Quieren saber quién es y seguir su rastro a través de un mecanismo de seguimiento web para conocer lo que hace en cada sitio.\n\nBrave bloquea estos mecanismos para que pueda navegar sin que sigan su rastro.</translation>
-<translation id="5695422144228065490">Acerca de Brave Shields</translation>
+<translation id="5695422144228065490">Acerca de Browther Shields</translation>
 <translation id="8912304686498704084">ACTIVADO</translation>
 <translation id="4963218453264888510">DESACTIVADO</translation>
 <translation id="5721161384090584434">Estás navegando por este sitio sin la protección de privacidad de Browther. ¿No funciona correctamente con Shields activado?</translation>
@@ -958,7 +958,7 @@ Si no acepta esta solicitud, la VPN no se volverá a conectar y su conexión a I
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Restablecer valores predeterminados</translation>
 <translation id="4922034974043704366">Esta función está habilitada porque usted la ha activado.</translation>
-<translation id="3144818380093107753">Browther Origin es una forma basada en suscripción para desactivar las funciones que generan ingresos y que, de otro modo, respaldan a Browther como negocio. Los suscriptores de Browther Origin seguirán beneficiándose de nuestra privacidad, bloqueo de anuncios y velocidad (a través de Brave Shields) líderes en el sector, así como de actualizaciones periódicas de software, parches de Chromium y mejoras de seguridad y privacidad. También desbloquearán la opción de desactivar funciones como Browther Leo, Noticias, Recompensas, Cartera, VPN, dominios Web3 y mucho más.&lt;br/&gt;&lt;br/&gt;Los suscriptores verán un nuevo panel de control en el menú de configuración del navegador. Las funciones existentes, así como cualquier nueva función que lancemos en el futuro, aparecerán aquí y estarán desactivadas de forma predeterminada.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Nota: Browther Origin no desactivará las funciones del navegador que utiliza actualmente y no afectará a las funciones de Brave Search ni a los anuncios de Brave Search.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin es una forma basada en suscripción para desactivar las funciones que generan ingresos y que, de otro modo, respaldan a Browther como negocio. Los suscriptores de Browther Origin seguirán beneficiándose de nuestra privacidad, bloqueo de anuncios y velocidad (a través de Browther Shields) líderes en el sector, así como de actualizaciones periódicas de software, parches de Chromium y mejoras de seguridad y privacidad. También desbloquearán la opción de desactivar funciones como Browther Leo, Noticias, Recompensas, Cartera, VPN, dominios Web3 y mucho más.&lt;br/&gt;&lt;br/&gt;Los suscriptores verán un nuevo panel de control en el menú de configuración del navegador. Las funciones existentes, así como cualquier nueva función que lancemos en el futuro, aparecerán aquí y estarán desactivadas de forma predeterminada.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Nota: Browther Origin no desactivará las funciones del navegador que utiliza actualmente y no afectará a las funciones de Brave Search ni a los anuncios de Brave Search.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Iniciar sesión con Billetera de Browther</translation>
 <translation id="7380890081275286865">Estás iniciando sesión en <ph name="ORIGIN"/>. Billetera de Browther compartirá la dirección de tu cartera con <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Ver detalles</translation>

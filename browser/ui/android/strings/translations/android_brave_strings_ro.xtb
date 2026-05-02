@@ -188,13 +188,13 @@
 <translation id="834487290629916192">MAI TÂRZIU</translation>
 <translation id="4117451092682672487">E simplu să vă păstrați confidențialitatea.</translation>
 <translation id="5512887128063976049">Atunci când Browther este setat ca browser implicit, orice link pe care îl accesați va fi deschis cu setările de confidențialitate ale Browther.</translation>
-<translation id="5148943178722443958">Ajutați-ne să îmbunătățim Browther.</translation>
+<translation id="9133910347634099679">Ajutați-ne să îmbunătățim Browther.</translation>
 <translation id="6718362830686703942">Transmiteți rapoarte de diagnostic în caz că întâmpinați erori sau blocaje.</translation>
 <translation id="7134864207653684195">Trimiteți în mod confidențial și anonim informații privind funcțiile care sunt folosite de către utilizatorii Browther.</translation>
 <translation id="2888496576732880897">Ajută Brave Search să crească</translation>
 <translation id="7044431516245362795">Participă la Web Discovery Project pentru a contribui la creșterea indexului și la îmbunătățirea rezultatelor căutărilor. <ph name="LEARN_MORE_START"/>Află mai multe.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Sigur, voi ajuta</translation>
-<translation id="7443712250454754077">Atingeți pentru a deschide Brave Shields.</translation>
+<translation id="7443712250454754077">Atingeți pentru a deschide Browther Shields.</translation>
 <translation id="118577974285037669">Vizualizați toate lucrurile dăunătoare pe care Browther le-a blocat, pe fiecare pagină, cu ajutorul Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> și<ph name="TRACKER"/> alte reclame &amp; monitoare de activitate blocate</translation>
 <translation id="7256200875155794202">Anunțurile <ph name="BIG_TECH"/>, alături de alte anunțuri și monitoare de activitate au fost blocate</translation>
@@ -961,7 +961,7 @@ Dacă nu acceptați această solicitare, nu se va realiza reconectarea la VPN, i
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Resetare la valorile implicite</translation>
 <translation id="4922034974043704366">Această caracteristică este activată deoarece ați optat pentru ea</translation>
-<translation id="3144818380093107753">Browther Origin este o modalitate pe bază de abonament de a dezactiva funcțiile generatoare de venituri care susțin Browther ca o afacere. Abonații Browther Origin vor continua să beneficieze de confidențialitate, adblock și viteză de top (prin Brave Shields), precum și de actualizări software regulate, patch-uri Chromium și îmbunătățiri ale securității și confidențialității. De asemenea, ei vor debloca opțiunea de a dezactiva funcții precum Browther Leo, Știri, Recompense, Portofel, VPN, Domenii Web3 și multe altele.&lt;br/&gt;&lt;br/&gt;Abonații vor vedea un nou panou de control în meniul de setări al browserului. Funcțiile existente - precum și orice funcții noi pe care le vom livra în viitor - vor apărea aici și vor fi dezactivate în mod implicit.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Notă: Browther Origin nu va dezactiva funcțiile browserului pe care le utilizați în prezent și nu va afecta funcțiile Brave Search sau reclamele Brave Search.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin este o modalitate pe bază de abonament de a dezactiva funcțiile generatoare de venituri care susțin Browther ca o afacere. Abonații Browther Origin vor continua să beneficieze de confidențialitate, adblock și viteză de top (prin Browther Shields), precum și de actualizări software regulate, patch-uri Chromium și îmbunătățiri ale securității și confidențialității. De asemenea, ei vor debloca opțiunea de a dezactiva funcții precum Browther Leo, Știri, Recompense, Portofel, VPN, Domenii Web3 și multe altele.&lt;br/&gt;&lt;br/&gt;Abonații vor vedea un nou panou de control în meniul de setări al browserului. Funcțiile existente - precum și orice funcții noi pe care le vom livra în viitor - vor apărea aici și vor fi dezactivate în mod implicit.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Notă: Browther Origin nu va dezactiva funcțiile browserului pe care le utilizați în prezent și nu va afecta funcțiile Brave Search sau reclamele Brave Search.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Conectați-vă cu Browther Wallet</translation>
 <translation id="7380890081275286865">Vă conectați la <ph name="ORIGIN"/>. Browther Wallet va partaja adresa portofelului dvs. cu <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Vedeți detaliile</translation>

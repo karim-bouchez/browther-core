@@ -3,118 +3,118 @@
 <translationbundle lang="ca">
 <translation id="1026101648481255140">Reprèn la instal·lació</translation>
 <translation id="7099479769133613710">Reinicia per actualitzar &amp;Chrome OS</translation>
-<translation id="2479110114759182442">Browther et recomana que revisis aquesta extensió</translation>
-<translation id="3814674848168165531">Quan un lloc web demana precarregar de manera privada enllaços de la seva pàgina, Browther fa servir els servidors de Browther. Això amaga la teva identitat del lloc web precarregat, però Browther sap quins llocs web es precarreguen.</translation>
+<translation id="7264054672589027446">Browther et recomana que revisis aquesta extensió</translation>
+<translation id="7848219163187166649">Quan un lloc web demana precarregar de manera privada enllaços de la seva pàgina, Browther fa servir els servidors de Browther. Això amaga la teva identitat del lloc web precarregat, però Browther sap quins llocs web es precarreguen.</translation>
 <translation id="1065672644894730302">No es poden llegir les vostres preferències. És possible que algunes funcions no estiguin disponibles i que els canvis a les preferències no es desin.</translation>
-<translation id="7577672138294294152">El teu pare o mare ha desactivat Permisos per a llocs web, aplicacions i extensions en relació amb Browther</translation>
-<translation id="5918095577778020936">Browther vol exportar les teves contrasenyes. Escriu la contrasenya de Windows per permetre-ho.</translation>
+<translation id="8837164267124113709">El teu pare o mare ha desactivat Permisos per a llocs web, aplicacions i extensions en relació amb Browther</translation>
+<translation id="881513728707488138">Browther vol exportar les teves contrasenyes. Escriu la contrasenya de Windows per permetre-ho.</translation>
 <translation id="112640046208448578">Identifica coses o llocs i copia o tradueix text. Quan utilitzes la cerca d'imatges, s'envia al servidor una captura de pantalla de la pàgina. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther és el navegador predeterminat</translation>
-<translation id="8522292744959221145">Per comprovar si les teves contrasenyes estan protegides contra violacions de les dades i contra altres problemes de seguretat, <ph name="BEGIN_LINK"/>inicia la sessió a Browther<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Fes clic al menú de Browther</translation>
+<translation id="8280092658684559253">Browther és el navegador predeterminat</translation>
+<translation id="6580138787163923852">Per comprovar si les teves contrasenyes estan protegides contra violacions de les dades i contra altres problemes de seguretat, <ph name="BEGIN_LINK"/>inicia la sessió a Browther<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Fes clic al menú de Browther</translation>
 <translation id="1157985233335035034">Idiomes recents</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> ha afegit una extensió que pot canviar el funcionament de Browther.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> ha afegit una extensió que pot canviar el funcionament de Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">La instal·lació ha fallat perquè la versió de Windows del dispositiu no s'admet.</translation>
-<translation id="8541922081612557424">Sobre Browther</translation>
+<translation id="8291401179516272335">Sobre Browther</translation>
 <translation id="1203500561924088507">T'agraïm la instal·lació. Has de reiniciar el navegador abans d'utilitzar <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="1232234696885483911">Quan obris la cerca d'imatges, el títol, l'URL i el contingut de la pàgina (inclosos els PDF) s'enviaran automàticament al servidor. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Amb la sessió iniciada, pots utilitzar les teves contrasenyes i altres elements del teu Compte de Browther a Browther. Per canviar-ho, ves a El teu compte a Browther.</translation>
-<translation id="8799570501820813406">Mentre aquesta pestanya estava inactiva, s'ha alliberat memòria perquè Browther funcioni sempre de pressa. Pots optar per excloure sempre aquest lloc web d'estar inactiu.</translation>
-<translation id="8767381092474532098">Browther ha bloquejat aquesta baixada perquè el fitxer és perillós</translation>
-<translation id="3256289531845594061">Si inicies la sessió en serveis de Browther com ara Gmail o YouTube amb <ph name="USER_EMAIL"/>, pots utilitzar el mateix compte per iniciar la sessió automàticament a Browther</translation>
+<translation id="3496831315930641015">Amb la sessió iniciada, pots utilitzar les teves contrasenyes i altres elements del teu Compte de Browther a Browther. Per canviar-ho, ves a El teu compte a Browther.</translation>
+<translation id="9034321258761608912">Mentre aquesta pestanya estava inactiva, s'ha alliberat memòria perquè Browther funcioni sempre de pressa. Pots optar per excloure sempre aquest lloc web d'estar inactiu.</translation>
+<translation id="249571811018731941">Browther ha bloquejat aquesta baixada perquè el fitxer és perillós</translation>
+<translation id="8850227089720975601">Si inicies la sessió en serveis de Browther com ara Gmail o YouTube amb <ph name="USER_EMAIL"/>, pots utilitzar el mateix compte per iniciar la sessió automàticament a Browther</translation>
 <translation id="1290883685122687410">Error de configuració: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Configura el teu perfil de Browther nou</translation>
-<translation id="878572309106296578">Browther necessita accedir al Bluetooth per explorar 
+<translation id="6235774143043174856">Configura el teu perfil de Browther nou</translation>
+<translation id="4437862975743821367">Browther necessita accedir al Bluetooth per explorar 
  dispositius Bluetooth. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/>.</translation>
 <translation id="1330562121671411446">Detecta l'idioma</translation>
-<translation id="6204677860546245308">Utilitza la configuració recomanada del navegador Browther</translation>
-<translation id="108284536240904209">Suprimeix també les dades de Browther (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Utilitza la configuració recomanada del navegador Browther</translation>
+<translation id="8270483548049772782">Suprimeix també les dades de Browther (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">S'ha fixat. Pots tornar a accedir a la cerca d'imatges des del botó nou de la barra d'eines.</translation>
 <translation id="1356661055722410047">Novetat! Pots traduir tant el text com les imatges en pantalla</translation>
 <translation id="1383876407941801731">Cerca</translation>
-<translation id="7009295044271335553">&amp;Gestiona els perfils de Browther</translation>
+<translation id="1592588950737518481">&amp;Gestiona els perfils de Browther</translation>
 <translation id="1404026649028693342">Mostra sempre el mode IA</translation>
 <translation id="141901961143729572">Comparteix què penses</translation>
-<translation id="3880714039086599943">Per compartir la finestra, permet que Browther gravi la pantalla a Configuració del sistema.</translation>
-<translation id="1586284627848250203">Obtén ajuda amb Browther for Testing</translation>
+<translation id="1743952081001089298">Per compartir la finestra, permet que Browther gravi la pantalla a Configuració del sistema.</translation>
+<translation id="8627385813382688019">Obtén ajuda amb Browther for Testing</translation>
 <translation id="1497802159252041924">Error d'instal·lació: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Aquesta pàgina està protegida</translation>
-<translation id="5147525139567260139">Comparteix una pestanya de Browther</translation>
-<translation id="721261350616678948">Inicia la sessió a Browther</translation>
+<translation id="7252430412915798987">Comparteix una pestanya de Browther</translation>
+<translation id="6388429281015199562">Inicia la sessió a Browther</translation>
 <translation id="1547469039832541117">Finalitza la tasca destacada.</translation>
-<translation id="1530633922026945685">Browther necessita permís per accedir a la càmera i poder crear un mapa 3D del teu entorn</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Aquesta extensió ja no s'admet. Browther et recomana que la suprimeixis.}other{Aquestes extensions ja no s'admeten. Browther et recomana que les suprimeixis.}}</translation>
-<translation id="51545890371361355">Fixa Browther</translation>
-<translation id="6570689355868013775">Eines de seguretat de Browther</translation>
-<translation id="1902837727299679178">Browther vol suprimir les dades del gestor de contrasenyes. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
-<translation id="4449148723378534338">Revisa els controls principals de privadesa i seguretat a Browther</translation>
+<translation id="1801944307203212016">Browther necessita permís per accedir a la càmera i poder crear un mapa 3D del teu entorn</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Aquesta extensió ja no s'admet. Browther et recomana que la suprimeixis.}other{Aquestes extensions ja no s'admeten. Browther et recomana que les suprimeixis.}}</translation>
+<translation id="4667068923142532753">Fixa Browther</translation>
+<translation id="3006560544901646947">Eines de seguretat de Browther</translation>
+<translation id="686052171138185761">Browther vol suprimir les dades del gestor de contrasenyes. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
+<translation id="8713026329083542796">Revisa els controls principals de privadesa i seguretat a Browther</translation>
 <translation id="1640672724030957280">S'està baixant...</translation>
 <translation id="1680687534629375545">Pregunta a la cerca d'imatges sobre aquesta pàgina</translation>
 <translation id="1709772298389099340">Proporciona privilegis elevats per a <ph name="BROWSER_NAME"/>.</translation>
-<translation id="2913217021115517297">Per ajudar a millorar aquestes funcions, Browther envia a Browther les interaccions que hi mantinguis. És possible que revisors humans llegeixin, tractin i anotin aquestes dades.</translation>
+<translation id="4243382967656566037">Per ajudar a millorar aquestes funcions, Browther envia a Browther les interaccions que hi mantinguis. És possible que revisors humans llegeixin, tractin i anotin aquestes dades.</translation>
 <translation id="1722488837206509557">Això et permetrà seleccionar un dels dispositius disponibles i mostrar-hi contingut.</translation>
-<translation id="8004287232784878841">Browther suprimirà les dades de navegació aviat</translation>
-<translation id="4197839351786449392">Browther provarà de navegar mitjançant HTTPS</translation>
-<translation id="7814200940910057384">Dades de Browther esborrades</translation>
-<translation id="9048361966237194186">Browther es reiniciarà d'aquí a <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">Quan l'HTTPS no estigui disponible, Browther utilitzarà una connexió no segura sense avisar-te</translation>
-<translation id="6797402139308059782">Permet que Browther s'executi en segon pla</translation>
-<translation id="5875673934455379806">Torna a instal·lar Browther</translation>
-<translation id="4529028207655448215">Browther està intentant <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">La propera vegada que obris Browther al teu <ph name="DEVICE_TYPE"/>, veuràs una indicació per utilitzar el gestor de contrasenyes de Browther.</translation>
+<translation id="6820510278633522408">Browther suprimirà les dades de navegació aviat</translation>
+<translation id="7775028004939172516">Browther provarà de navegar mitjançant HTTPS</translation>
+<translation id="6963959729951758069">Dades de Browther esborrades</translation>
+<translation id="4085139922884095932">Browther es reiniciarà d'aquí a <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">Quan l'HTTPS no estigui disponible, Browther utilitzarà una connexió no segura sense avisar-te</translation>
+<translation id="3975328336074677101">Permet que Browther s'executi en segon pla</translation>
+<translation id="2497443204974841650">Torna a instal·lar Browther</translation>
+<translation id="1724309687045787742">Browther està intentant <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">La propera vegada que obris Browther al teu <ph name="DEVICE_TYPE"/>, veuràs una indicació per utilitzar el gestor de contrasenyes de Browther.</translation>
 <translation id="1838374766361614909">Esborra la cerca</translation>
-<translation id="3541642064306182066">Per suprimir les dades de navegació només d'aquest dispositiu i conservar-les al teu Compte de Browther, <ph name="BEGIN_LINK"/>tanca la sessió de Browther<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Baixa Browther al telèfon per obrir o crear grups de pestanyes nous siguis on siguis.</translation>
-<translation id="4559627161887338743">Pots gestionar els Comptes de Browther en què tens la sessió iniciada. Els Comptes de Browther s'utilitzen per al navegador Browther, Play Store, Gmail i més. Si vols afegir un compte per a algú altre, com ara un membre de la família, afegeix una persona nova al teu dispositiu <ph name="DEVICE_TYPE"/>. <ph name="LINK_BEGIN"/>Més informació<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">Per suprimir les dades de navegació només d'aquest dispositiu i conservar-les al teu Compte de Browther, <ph name="BEGIN_LINK"/>tanca la sessió de Browther<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Baixa Browther al telèfon per obrir o crear grups de pestanyes nous siguis on siguis.</translation>
+<translation id="2063443520349987970">Pots gestionar els Comptes de Browther en què tens la sessió iniciada. Els Comptes de Browther s'utilitzen per al navegador Browther, Play Store, Gmail i més. Si vols afegir un compte per a algú altre, com ara un membre de la família, afegeix una persona nova al teu dispositiu <ph name="DEVICE_TYPE"/>. <ph name="LINK_BEGIN"/>Més informació<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Cerca amb la cerca d'imatges</translation>
 <translation id="1880677175115548835">Selecciona el text</translation>
-<translation id="4528406859989804913">Esteu a punt d'iniciar la sessió amb un compte gestionat i d'atorgar el control del vostre perfil de Browther a l'administrador corresponent. Les dades de Browther, com ara aplicacions, adreces d'interès, historial, contrasenyes i altres configuracions, s'enllaçaran permanentment amb <ph name="USER_NAME"/>. Podreu suprimir aquestes dades mitjançant el Tauler de Comptes de Browther, però no les podreu associar amb un altre compte. De manera opcional, podeu crear un perfil nou per mantenir les vostres dades de Browther a part. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther estalvia bateria limitant l'activitat en segon pla i els efectes visuals, com ara el desplaçament suau i els fotogrames per segon dels vídeos. <ph name="BEGIN_LINK"/>Obtén més informació sobre la funció Estalvi d'energia<ph name="END_LINK"/>.</translation>
+<translation id="3183933389992069620">Esteu a punt d'iniciar la sessió amb un compte gestionat i d'atorgar el control del vostre perfil de Browther a l'administrador corresponent. Les dades de Browther, com ara aplicacions, adreces d'interès, historial, contrasenyes i altres configuracions, s'enllaçaran permanentment amb <ph name="USER_NAME"/>. Podreu suprimir aquestes dades mitjançant el Tauler de Comptes de Browther, però no les podreu associar amb un altre compte. De manera opcional, podeu crear un perfil nou per mantenir les vostres dades de Browther a part. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther estalvia bateria limitant l'activitat en segon pla i els efectes visuals, com ara el desplaçament suau i els fotogrames per segon dels vídeos. <ph name="BEGIN_LINK"/>Obtén més informació sobre la funció Estalvi d'energia<ph name="END_LINK"/>.</translation>
 <translation id="1898804291554630487">Pregunta sobre aquesta pàgina</translation>
-<translation id="8643267611122541711">Servei de l'actualitzador de Browther</translation>
-<translation id="1649714546770135458">En desactivar aquesta opció, pots iniciar la sessió en llocs web de Browther, com ara Gmail, sense iniciar la sessió a Browther</translation>
-<translation id="189297655255130768">Browther no respon. Voleu tornar-lo a iniciar ara?</translation>
-<translation id="8422047647688939115">La teva organització, <ph name="MANAGER"/>, requereix que iniciïs la sessió a Browther</translation>
+<translation id="9128006428501241840">Servei de l'actualitzador de Browther</translation>
+<translation id="6302815314157879372">En desactivar aquesta opció, pots iniciar la sessió en llocs web de Browther, com ara Gmail, sense iniciar la sessió a Browther</translation>
+<translation id="1063611196035804685">Browther no respon. Voleu tornar-lo a iniciar ara?</translation>
+<translation id="2873360330889594383">La teva organització, <ph name="MANAGER"/>, requereix que iniciïs la sessió a Browther</translation>
 <translation id="4035053306113201399">Cal reiniciar Chrome OS per aplicar l'actualització.</translation>
-<translation id="9048754176089806686">Browther ha bloquejat aquesta baixada perquè el tipus de fitxer no se sol baixar i pot ser perillós</translation>
+<translation id="2861285003831382718">Browther ha bloquejat aquesta baixada perquè el tipus de fitxer no se sol baixar i pot ser perillós</translation>
 <translation id="1953553007165777902">S'està baixant... Queden <ph name="MINUTE"/> minuts</translation>
-<translation id="2470048290583727811">Consell de Browther: desa les contrasenyes</translation>
-<translation id="1775322105159056176">Browther no pot determinar ni definir el navegador predeterminat</translation>
-<translation id="4372901050442507812">Descobreix per què Browther bloqueja alguns fitxers (s'obre en una pestanya nova)</translation>
-<translation id="2703425183860615504">Manté el programari de Browther actualitzat. Si aquest servei es desactiva o s'atura, el programari Browther no es mantindrà actualitzat i, per tant, no es podran corregir les vulnerabilitats de seguretat que puguin sorgir i és possible que les funcions no estiguin operatives. Aquest servei es desinstal·la sol quan no hi ha cap programari de Browther que l'utilitzi.</translation>
-<translation id="9220324636239049437">Amb aquesta acció, se suprimirà 1 element d'aquest dispositiu. Per recuperar les teves dades més endavant, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
+<translation id="2080160985220483492">Consell de Browther: desa les contrasenyes</translation>
+<translation id="8037497710694492565">Browther no pot determinar ni definir el navegador predeterminat</translation>
+<translation id="7395009124247513849">Descobreix per què Browther bloqueja alguns fitxers (s'obre en una pestanya nova)</translation>
+<translation id="762710512520170632">Manté el programari de Browther actualitzat. Si aquest servei es desactiva o s'atura, el programari Browther no es mantindrà actualitzat i, per tant, no es podran corregir les vulnerabilitats de seguretat que puguin sorgir i és possible que les funcions no estiguin operatives. Aquest servei es desinstal·la sol quan no hi ha cap programari de Browther que l'utilitzi.</translation>
+<translation id="5793588180426267429">Amb aquesta acció, se suprimirà 1 element d'aquest dispositiu. Per recuperar les teves dades més endavant, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
 <translation id="2018879682492276940">La instal·lació ha fallat. Torna-ho a provar.</translation>
-<translation id="831418749472885028">Per comprovar si les teves altres contrasenyes estan protegides contra violacions de les dades i contra altres problemes de seguretat, <ph name="BEGIN_LINK"/>inicia la sessió a Browther<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Per comprovar si les teves altres contrasenyes estan protegides contra violacions de les dades i contra altres problemes de seguretat, <ph name="BEGIN_LINK"/>inicia la sessió a Browther<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Configuració.</translation>
-<translation id="5499149312981370855">Tria si vols incloure l'historial de Browther per obtenir experiències més personalitzades als serveis de Browther</translation>
-<translation id="6959434860418352144">Per renovar l'aspecte de Browther, a la pàgina Pestanya nova, fes clic al botó Personalitza Browther</translation>
+<translation id="8194525816714210105">Tria si vols incloure l'historial de Browther per obtenir experiències més personalitzades als serveis de Browther</translation>
+<translation id="5909559127548969159">Per renovar l'aspecte de Browther, a la pàgina Pestanya nova, fes clic al botó Personalitza Browther</translation>
 <translation id="2066690553719545730">Mostra sempre el mode IA</translation>
-<translation id="2472891440303445472">Browther ha bloquejat aquesta baixada perquè el fitxer és enganyós i és possible que faci canvis inesperats al dispositiu</translation>
-<translation id="2054358978145431867">Veuràs una indicació per provar <ph name="FEATURE_NAME"/> la propera vegada que obris Browther a iOS.</translation>
-<translation id="2726948994393234543">Les contrasenyes i altres dades de Browther que hagis desat al teu Compte de Browther se suprimiran d'aquest dispositiu. Per tornar-les a utilitzar a Browther, inicia la sessió de nou.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{La teva organització suprimeix automàticament les dades de navegació quan Browther no s'utilitza durant 1 minut. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades. Les pestanyes continuaran obertes.}other{La teva organització suprimeix automàticament les dades de navegació quan Browther no s'utilitza durant # minuts. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades. Les pestanyes continuaran obertes.}}</translation>
+<translation id="3283892260110318935">Browther ha bloquejat aquesta baixada perquè el fitxer és enganyós i és possible que faci canvis inesperats al dispositiu</translation>
+<translation id="6160571936643742128">Veuràs una indicació per provar <ph name="FEATURE_NAME"/> la propera vegada que obris Browther a iOS.</translation>
+<translation id="8380517409933452343">Les contrasenyes i altres dades de Browther que hagis desat al teu Compte de Browther se suprimiran d'aquest dispositiu. Per tornar-les a utilitzar a Browther, inicia la sessió de nou.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{La teva organització suprimeix automàticament les dades de navegació quan Browther no s'utilitza durant 1 minut. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades. Les pestanyes continuaran obertes.}other{La teva organització suprimeix automàticament les dades de navegació quan Browther no s'utilitza durant # minuts. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades. Les pestanyes continuaran obertes.}}</translation>
 <translation id="2126108037660393668">La verificació del fitxer baixat ha fallat.</translation>
 <translation id="2135919691573380097">Informa d'aquest lloc web</translation>
 <translation id="2137162749895930932">Tanca la pantalla de traducció</translation>
-<translation id="5789330946301045610">Browther ha bloquejat aquesta baixada perquè el lloc web no utilitza una connexió segura i és possible que el fitxer s'hagi manipulat</translation>
+<translation id="4283559398694996391">Browther ha bloquejat aquesta baixada perquè el lloc web no utilitza una connexió segura i és possible que el fitxer s'hagi manipulat</translation>
 <translation id="2170098639895543546">Selecciona alguna cosa a la pàgina</translation>
-<translation id="142389341645668510">Personalitza Browther</translation>
+<translation id="2495182092286337191">Personalitza Browther</translation>
 <translation id="2174917724755363426">La instal·lació no s'ha completat. Confirmes que vols cancel·lar-la?</translation>
-<translation id="8745514854244955877">Browther - Inici de sessió a la xarxa - <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther - Inici de sessió a la xarxa - <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Error de comprovació d'actualització: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Suprimeix el compte de Browther</translation>
-<translation id="5550942974310218641">Protegeix-te més siguis on siguis amb la funció Navegació segura millorada a Browther per a iOS</translation>
-<translation id="6677253423995557759">Lloc web perillós. Browther ha suprimit les notificacions.</translation>
+<translation id="6696114732806961952">Suprimeix el compte de Browther</translation>
+<translation id="1084363153644366288">Protegeix-te més siguis on siguis amb la funció Navegació segura millorada a Browther per a iOS</translation>
+<translation id="7949164640723239455">Lloc web perillós. Browther ha suprimit les notificacions.</translation>
 <translation id="2236949375853147973">La meva activitat</translation>
-<translation id="457168681575748148">Per obtenir les teves adreces i altres dades en tots els dispositius, inicia la sessió a Browther. Aquesta adreça es desarà al teu Compte de Browther després d'iniciar-hi la sessió.</translation>
-<translation id="5659384504794665581">Si compartiu un ordinador, els amics i els familiars poden navegar de manera independent i configurar Browther com vulguin.</translation>
+<translation id="4536403809133456417">Per obtenir les teves adreces i altres dades en tots els dispositius, inicia la sessió a Browther. Aquesta adreça es desarà al teu Compte de Browther després d'iniciar-hi la sessió.</translation>
+<translation id="5627930103267312171">Si compartiu un ordinador, els amics i els familiars poden navegar de manera independent i configurar Browther com vulguin.</translation>
 <translation id="2283803047247799269">Cerca en aquesta pestanya amb la cerca d'imatges</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther recomana posar en pausa la pestanya que està alentint el navegador}other{Browther recomana posar en pausa les pestanyes que estan alentint el navegador}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther recomana posar en pausa la pestanya que està alentint el navegador}other{Browther recomana posar en pausa les pestanyes que estan alentint el navegador}}</translation>
 <translation id="2307973900865360088">Mantén al Dock</translation>
-<translation id="7810992039564280750">Compara els URL amb una llista de llocs web no segurs emmagatzemada a Browther. Si un lloc web prova de robar-te la contrasenya o si baixes un fitxer maliciós, és possible que Browther també n'enviï els URL, inclosos fragments de contingut de les pàgines, a Navegació segura.</translation>
-<translation id="5042718521573656164">Amb aquesta acció:
+<translation id="5161617112768367959">Compara els URL amb una llista de llocs web no segurs emmagatzemada a Browther. Si un lloc web prova de robar-te la contrasenya o si baixes un fitxer maliciós, és possible que Browther també n'enviï els URL, inclosos fragments de contingut de les pàgines, a Navegació segura.</translation>
+<translation id="4123094831918713833">Amb aquesta acció:
           <ph name="LINE_BREAKS"/>
            • Es restabliran algunes opcions de configuració i dreceres de Browther.
            <ph name="LINE_BREAK"/>
@@ -123,633 +123,633 @@
            • Se suprimiran les galetes i altres dades temporals dels llocs web.
             <ph name="LINE_BREAKS"/>
            Les adreces d'interès, l'historial i les contrasenyes desades no es veuran afectats.</translation>
-<translation id="9095263438435683933">Per enviar un número d'aquí al teu telèfon Android, inicia la sessió a Browther en tots dos dispositius.</translation>
+<translation id="5456070119344236353">Per enviar un número d'aquí al teu telèfon Android, inicia la sessió a Browther en tots dos dispositius.</translation>
 <translation id="2356070529366658676">Pregunta</translation>
 <translation id="2359808026110333948">Continua</translation>
-<translation id="6485997157403727556">L'extensió "<ph name="EXTENSION_NAME"/>" vol que iniciïs la sessió a Browther</translation>
-<translation id="7017760840808989683">Desactiva l'execució de Browther en segon pla per a les aplicacions</translation>
-<translation id="8491912023989916905">Per utilitzar aquesta extensió com a <ph name="USER_EMAIL_ADDRESS"/>, inicia la sessió a Browther.</translation>
+<translation id="6468415397021485143">L'extensió "<ph name="EXTENSION_NAME"/>" vol que iniciïs la sessió a Browther</translation>
+<translation id="2558600429878197587">Desactiva l'execució de Browther en segon pla per a les aplicacions</translation>
+<translation id="5295781918312989856">Per utilitzar aquesta extensió com a <ph name="USER_EMAIL_ADDRESS"/>, inicia la sessió a Browther.</translation>
 <translation id="8418845734693287262">Chrome OS no ha pogut sincronitzar les teves dades perquè la informació d'inici de sessió del teu compte no està actualitzada.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Una o més extensions de Browther estaven accedint a 1 dispositiu d'interfície humana}=1{Una o més extensions de Browther estan accedint a 1 dispositiu d'interfície humana}other{Una o més extensions de Browther estan accedint a # dispositius d'interfície humana}}</translation>
-<translation id="1248225940185478633">Browther necessita permís d'accés a la càmera i al micròfon per a aquest lloc web</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Una o més extensions de Browther estaven accedint a 1 dispositiu d'interfície humana}=1{Una o més extensions de Browther estan accedint a 1 dispositiu d'interfície humana}other{Una o més extensions de Browther estan accedint a # dispositius d'interfície humana}}</translation>
+<translation id="434258293817844111">Browther necessita permís d'accés a la càmera i al micròfon per a aquest lloc web</translation>
 <translation id="2403703063067034158">Error d'inici: s'està executant una altra instància de la configuració. Torna-ho a provar més tard.</translation>
-<translation id="5298352791080868905">Obre enllaços a Browther des de qualsevol aplicació i mantén el navegador accessible a la barra de tasques</translation>
-<translation id="2118275934191847461">Amb les <ph name="BEGIN_LINK"/>eines de Browther<ph name="END_LINK"/>, pots navegar de manera segura i mantenir el control</translation>
+<translation id="5458993228789433099">Obre enllaços a Browther des de qualsevol aplicació i mantén el navegador accessible a la barra de tasques</translation>
+<translation id="1677640217693742525">Amb les <ph name="BEGIN_LINK"/>eines de Browther<ph name="END_LINK"/>, pots navegar de manera segura i mantenir el control</translation>
 <translation id="2451727308784734061">Utilitza la drecera per accedir ràpidament al gestor de contrasenyes. Pots moure la drecera a la pantalla d'inici o al menú d'aplicacions de l'ordinador.</translation>
-<translation id="6381750314821942592">Browther es tancarà aviat</translation>
-<translation id="6078442581074612226">A Browther</translation>
+<translation id="2280315911954332435">Browther es tancarà aviat</translation>
+<translation id="6410820860979094113">A Browther</translation>
 <translation id="2485422356828889247">Desinstal·la</translation>
 <translation id="2513154137948333830">Reinici necessari: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Selecciona text amb la cerca d'imatges</translation>
-<translation id="70183448213529602">Browther està provant de substituir les contrasenyes existents. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
-<translation id="7798069806040634998">Browther necessita accedir a l'emmagatzematge per baixar fitxers</translation>
-<translation id="2351700486811407088">Aplicació d'ajuda de Browther Origin</translation>
+<translation id="7892218991241200190">Browther està provant de substituir les contrasenyes existents. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
+<translation id="8976443723926188033">Browther necessita accedir a l'emmagatzematge per baixar fitxers</translation>
+<translation id="4131374838781785973">Aplicació d'ajuda de Browther Origin</translation>
 <translation id="2575822587468774919">Selecciona el que vulguis per cercar-ho amb la cerca d'imatges</translation>
-<translation id="3830890663494219270">Per obtenir les teves contrasenyes i altres dades en tots els dispositius, inicia la sessió a Browther</translation>
-<translation id="6252796827759111076">Continua utilitzant Browther</translation>
+<translation id="8705561858232289221">Per obtenir les teves contrasenyes i altres dades en tots els dispositius, inicia la sessió a Browther</translation>
+<translation id="437162022240011372">Continua utilitzant Browther</translation>
 <translation id="259935314519650377">No s'ha pogut desar l'instal·lador baixat a la memòria cau. Error: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Sistema</translation>
-<translation id="7931230852267968641">La teva organització pot veure i gestionar les dades de navegació, com ara les adreces d'interès, l'historial i les contrasenyes. No pot veure les dades de navegació dels altres perfils de Browther.</translation>
-<translation id="2257221826278123061">Verifica la teva identitat per utilitzar i desar les dades de Browther al teu compte, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="7387051847644272380">Hi ha hagut un error en el sistema operatiu durant la instal·lació. Torneu a baixar Browther.</translation>
-<translation id="2648689842065142443">Si comparteixes un dispositiu, els amics i els familiars poden navegar per separat i configurar Browther com vulguin</translation>
-<translation id="6791166902140255175">Pestanya de Browther</translation>
-<translation id="8372880274820509128">Per a més seguretat, Browther encriptarà les teves dades.</translation>
-<translation id="8752006915531191162">Per suprimir de Browther el teu Compte de Browther, tanca la sessió</translation>
-<translation id="5344406739101555055">Per obtenir les teves contrasenyes, adreces d'interès i altres dades en tots els teus dispositius, inicia la sessió a Browther</translation>
+<translation id="2907676829052962091">La teva organització pot veure i gestionar les dades de navegació, com ara les adreces d'interès, l'historial i les contrasenyes. No pot veure les dades de navegació dels altres perfils de Browther.</translation>
+<translation id="1289116577679005654">Verifica la teva identitat per utilitzar i desar les dades de Browther al teu compte, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="7192278346779151664">Hi ha hagut un error en el sistema operatiu durant la instal·lació. Torneu a baixar Browther.</translation>
+<translation id="7724398260867885339">Si comparteixes un dispositiu, els amics i els familiars poden navegar per separat i configurar Browther com vulguin</translation>
+<translation id="1679595317134614424">Pestanya de Browther</translation>
+<translation id="7189168846924379421">Per a més seguretat, Browther encriptarà les teves dades.</translation>
+<translation id="4052643592793184278">Per suprimir de Browther el teu Compte de Browther, tanca la sessió</translation>
+<translation id="7694616023994438906">Per obtenir les teves contrasenyes, adreces d'interès i altres dades en tots els teus dispositius, inicia la sessió a Browther</translation>
 <translation id="2738871930057338499">No es pot connectar a Internet. Error d'HTTP "403 Forbidden". Comprova la configuració del servidor intermediari.</translation>
 <translation id="2753623023919742414">Fes clic per cercar</translation>
-<translation id="1312769823139326127">Defineix Browther com el visor de PDF predeterminat</translation>
-<translation id="3173824377856109157">Browther pot emplenar automàticament els camps difícils que l'emplenament automàtic estàndard podria ometre</translation>
-<translation id="1187986649024576560">Aquesta extensió conté programari maliciós i no és segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades als llocs web que visitis, inclosa la teva informació personal.</translation>
+<translation id="9078193405195503710">Defineix Browther com el visor de PDF predeterminat</translation>
+<translation id="2456995288904753506">Browther pot emplenar automàticament els camps difícils que l'emplenament automàtic estàndard podria ometre</translation>
+<translation id="3271730304285122987">Aquesta extensió conté programari maliciós i no és segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades als llocs web que visitis, inclosa la teva informació personal.</translation>
 <translation id="2799223571221894425">Reinicia</translation>
-<translation id="5962774139606909656">El teu Browther</translation>
+<translation id="1427337251963884503">El teu Browther</translation>
 <translation id="2816462166102338036">Cerca en aquest vídeo amb la cerca d'imatges</translation>
 <translation id="2841525013647267359">Tradueix de</translation>
 <translation id="2846251086934905009">Error d'instal·lació: l'instal·lador no ha completat el procés. La instal·lació s'ha anul·lat.</translation>
-<translation id="777113543093865885">Suprimeix de Browther...</translation>
-<translation id="5265419033369521352">Et protegeix a Browther i és possible que s'utilitzi per millorar la teva seguretat en altres aplicacions de Browther quan tinguis la sessió iniciada</translation>
+<translation id="928966105228355994">Suprimeix de Browther...</translation>
+<translation id="587805782197019018">Et protegeix a Browther i és possible que s'utilitzi per millorar la teva seguretat en altres aplicacions de Browther quan tinguis la sessió iniciada</translation>
 <translation id="2885378588091291677">Gestor de tasques</translation>
-<translation id="2176825726964012531">Quant a &amp;Browther</translation>
+<translation id="3055995278166070443">Quant a &amp;Browther</translation>
 <translation id="2915996080311180594">Reinicia més tard</translation>
 <translation id="2928420929544864228">La instal·lació s'ha completat.</translation>
-<translation id="2481553173340651149">Les teves dades s'encripten amb la teva frase de contrasenya. Per utilitzar i desar les dades de Browther al teu Compte de Browther, introdueix la frase de contrasenya.</translation>
+<translation id="70453521937551896">Les teves dades s'encripten amb la teva frase de contrasenya. Per utilitzar i desar les dades de Browther al teu Compte de Browther, introdueix la frase de contrasenya.</translation>
 <translation id="2945997411976714835">Error d'instal·lació: no s'ha pogut iniciar el procés d'instal·lació.</translation>
-<translation id="2413255940314578781">Inicia la sessió en llocs web més ràpidament utilitzant les contrasenyes desades per a Browther a iOS</translation>
-<translation id="122765104641632123">Afegeix un perfil de Browther nou per mantenir separades les adreces d'interès, les contrasenyes i la configuració.</translation>
-<translation id="3688936822855019158">La teva organització gestiona Browther</translation>
-<translation id="8208853227947884571">Browther està actualitzat</translation>
-<translation id="5122472867956731189">Si un lloc web prova de robar-te la contrasenya o si baixes un fitxer maliciós, és possible que Browther també n'enviï els URL, inclosos fragments de contingut de les pàgines, a Navegació segura.</translation>
-<translation id="3963199983793987097">Per protegir-te més en línia amb les eleccions del teu pare o mare, inicia la sessió a Browther</translation>
+<translation id="3188308520233701133">Inicia la sessió en llocs web més ràpidament utilitzant les contrasenyes desades per a Browther a iOS</translation>
+<translation id="8145318807880784886">Afegeix un perfil de Browther nou per mantenir separades les adreces d'interès, les contrasenyes i la configuració.</translation>
+<translation id="4330268530227888227">La teva organització gestiona Browther</translation>
+<translation id="6488090896442998436">Browther està actualitzat</translation>
+<translation id="300557164611864786">Si un lloc web prova de robar-te la contrasenya o si baixes un fitxer maliciós, és possible que Browther també n'enviï els URL, inclosos fragments de contingut de les pàgines, a Navegació segura.</translation>
+<translation id="2447145782593796785">Per protegir-te més en línia amb les eleccions del teu pare o mare, inicia la sessió a Browther</translation>
 <translation id="3003694935412297923">Totes les tasques</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther ha de verificar la teva identitat perquè algunes dades es puguin desar al teu Compte de Browther i utilitzar-se en tots els teus dispositius. Si tanques la sessió ara, aquestes dades (1 element) se suprimiran.}other{Browther ha de verificar la teva identitat perquè algunes dades es puguin desar al teu Compte de Browther i utilitzar-se en tots els teus dispositius. Si tanques la sessió ara, aquestes dades ({count} elements) se suprimiran.}}</translation>
-<translation id="4202995875619419215">Obre <ph name="URL"/> en una pestanya nova a Browther.</translation>
-<translation id="8755404239607088219">Browther no pot comprovar les teves contrasenyes. Torna-ho a provar més tard.</translation>
-<translation id="8880183781256147665">S'està afegint a Browther...</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther ha de verificar la teva identitat perquè algunes dades es puguin desar al teu Compte de Browther i utilitzar-se en tots els teus dispositius. Si tanques la sessió ara, aquestes dades (1 element) se suprimiran.}other{Browther ha de verificar la teva identitat perquè algunes dades es puguin desar al teu Compte de Browther i utilitzar-se en tots els teus dispositius. Si tanques la sessió ara, aquestes dades ({count} elements) se suprimiran.}}</translation>
+<translation id="5522228731050510047">Obre <ph name="URL"/> en una pestanya nova a Browther.</translation>
+<translation id="6358780591055960280">Browther no pot comprovar les teves contrasenyes. Torna-ho a provar més tard.</translation>
+<translation id="1386422761453740126">S'està afegint a Browther...</translation>
 <translation id="3038232873781883849">S'està esperant per instal·lar...</translation>
 <translation id="3045032126857188731">Idioma de traducció: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Tanca el quadre de diàleg de suggeriments</translation>
-<translation id="4503085212612536713">Altres perfils de Browther</translation>
-<translation id="7918740962659365265">Ajudeu a millorar Browther; envieu informes d'error i <ph name="UMA_LINK"/> a Browther.</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Una o més extensions de Browther estaven accedint a 1 dispositiu USB}=1{Una o més extensions de Browther estan accedint a 1 dispositiu USB}other{Una o més extensions de Browther estan accedint a # dispositius USB}}</translation>
-<translation id="3700405816184340252">Historial de Browther</translation>
-<translation id="7365690458036015383">L'instal·lador no ha pogut descomprimir l'arxiu. Torneu a baixar Browther.</translation>
+<translation id="369127628511662602">Altres perfils de Browther</translation>
+<translation id="2370255879896574713">Ajudeu a millorar Browther; envieu informes d'error i <ph name="UMA_LINK"/> a Browther.</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Una o més extensions de Browther estaven accedint a 1 dispositiu USB}=1{Una o més extensions de Browther estan accedint a 1 dispositiu USB}other{Una o més extensions de Browther estan accedint a # dispositius USB}}</translation>
+<translation id="2065456480740480340">Historial de Browther</translation>
+<translation id="5011660649081947055">L'instal·lador no ha pogut descomprimir l'arxiu. Torneu a baixar Browther.</translation>
 <translation id="310459126943037700">No s'han pogut finalitzar les tasques.</translation>
 <translation id="3104828284009500087">Cerca qualsevol cosa a la pàgina</translation>
-<translation id="6422885447166607802">Mantén les contrasenyes, les adreces d'interès i l'historial perfectament sincronitzats en tots els dispositius. Accedeix fàcilment a les funcions que coneixes i que tant t'agraden actualitzant el navegador predeterminat a Browther.</translation>
-<translation id="8919461291440820124">Browther està utilitzant el micròfon.</translation>
+<translation id="4917564010081457061">Mantén les contrasenyes, les adreces d'interès i l'historial perfectament sincronitzats en tots els dispositius. Accedeix fàcilment a les funcions que coneixes i que tant t'agraden actualitzant el navegador predeterminat a Browther.</translation>
+<translation id="1041472930719344928">Browther està utilitzant el micròfon.</translation>
 <translation id="3130333203120345554">Cerca nova</translation>
 <translation id="3137969841538672700">Arrossega per cercar</translation>
-<translation id="8372436892102763334">Aquesta pestanya utilitza recursos addicionals. Per millorar el rendiment, permet que Browther la desactivi.</translation>
-<translation id="5949068186379578553">Per compartir la pantalla, permet que Browther gravi la pantalla a Configuració del sistema</translation>
-<translation id="4805806622840861220">Torna a iniciar Browther</translation>
+<translation id="5312717254055363883">Aquesta pestanya utilitza recursos addicionals. Per millorar el rendiment, permet que Browther la desactivi.</translation>
+<translation id="373523409348786203">Per compartir la pantalla, permet que Browther gravi la pantalla a Configuració del sistema</translation>
+<translation id="802113445299754598">Torna a iniciar Browther</translation>
 <translation id="3161522574479303604">Tots els idiomes</translation>
-<translation id="3225882094369124157">Un altre programa de l'ordinador ha afegit un tema que pot canviar el funcionament de Browther.
+<translation id="4522189060330781648">Un altre programa de l'ordinador ha afegit un tema que pot canviar el funcionament de Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Personalitza el teu perfil de Browther nou</translation>
-<translation id="4805865169608137960">Per suprimir de Browther el teu Compte de Browther, tanca la sessió de Browther a la pàgina Configuració</translation>
-<translation id="1651639704310627074">Més tard, Browther et pot preguntar si vols utilitzar la informació desada per emplenar automàticament formularis per tu</translation>
-<translation id="2585240446624043880">Browther no pot llegir ni escriure en el directori de dades:
+<translation id="2604272613984010799">Personalitza el teu perfil de Browther nou</translation>
+<translation id="5150830326120505481">Per suprimir de Browther el teu Compte de Browther, tanca la sessió de Browther a la pàgina Configuració</translation>
+<translation id="7113660200899017820">Més tard, Browther et pot preguntar si vols utilitzar la informació desada per emplenar automàticament formularis per tu</translation>
+<translation id="4475011322243623412">Browther no pot llegir ni escriure en el directori de dades:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Reinicia ara</translation>
-<translation id="2339258256897053758">Falten les claus de l'API de Browther. Es desactivaran algunes de les funcions de Browther.</translation>
-<translation id="8926637909431618259">Continua executant les aplicacions en segon pla quan es tanqui Browther</translation>
-<translation id="518125528057094977">Browther t'avisarà abans de carregar qualsevol lloc web amb una connexió no segura</translation>
-<translation id="8652321858775514885">Quan tanquis totes les finestres de Browther, se't tancarà la sessió de la majoria de llocs web, tret del teu Compte de Browther si tens la sessió iniciada a Browther. Perquè els llocs web et recordin, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">El motor de cerca predeterminat s'ha canviat des de fora de Browther. Per protegir-te, Browther l'ha restablert.</translation>
-<translation id="5033074923607633232">Inicia la sessió a Browther per accedir a les contrasenyes, les adreces d'interès i més en tots els dispositius</translation>
+<translation id="3536063527222598206">Falten les claus de l'API de Browther. Es desactivaran algunes de les funcions de Browther.</translation>
+<translation id="1011450868746766298">Continua executant les aplicacions en segon pla quan es tanqui Browther</translation>
+<translation id="179611081153855734">Browther t'avisarà abans de carregar qualsevol lloc web amb una connexió no segura</translation>
+<translation id="8965591964936552871">Quan tanquis totes les finestres de Browther, se't tancarà la sessió de la majoria de llocs web, tret del teu Compte de Browther si tens la sessió iniciada a Browther. Perquè els llocs web et recordin, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">El motor de cerca predeterminat s'ha canviat des de fora de Browther. Per protegir-te, Browther l'ha restablert.</translation>
+<translation id="1170501833661894915">Inicia la sessió a Browther per accedir a les contrasenyes, les adreces d'interès i més en tots els dispositius</translation>
 <translation id="3352986031709923790">extrem superior dret de l'àrea de cerca: <ph name="RIGHT"/> % per la dreta i <ph name="TOP"/> % per dalt</translation>
-<translation id="7261356974224431851">Dades de Browther al teu compte</translation>
+<translation id="120745000989996104">Dades de Browther al teu compte</translation>
 <translation id="3369405342922656244">Cerca en aquesta pàgina amb la cerca d'imatges</translation>
-<translation id="6610330853796830621">Utilitza les teves contrasenyes amb Browther al telèfon</translation>
+<translation id="7173761126541905083">Utilitza les teves contrasenyes amb Browther al telèfon</translation>
 <translation id="2645435784669275700">Chrome OS</translation>
-<translation id="2297290224191497273">Vols canviar al perfil de Browther existent?</translation>
+<translation id="5266583242423616945">Vols canviar al perfil de Browther existent?</translation>
 <translation id="3412460710772753638">Al gestor de contrasenyes en aquest dispositiu</translation>
-<translation id="2491221873705777076">Amplia la funció Navegació segura millorada amb Browther al telèfon</translation>
-<translation id="7304389940068374923">S'està personalitzant Browther...</translation>
-<translation id="9216183508558772570">Browther t'enviarà una notificació quan iniciïs la sessió amb una contrasenya en perill</translation>
-<translation id="5853262807109651878">Amb aquesta acció, se suprimiran <ph name="ITEMS_COUNT"/> elements d'aquest dispositiu. Per recuperar les teves dades més endavant, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
-<translation id="2024972335338126423"><ph name="SHORTCUT"/> permet canviar entre perfils de Browther</translation>
-<translation id="8703492925273919597">Tanqueu totes les finestres de Browther i torneu-ho a provar.</translation>
-<translation id="599091950194451698">Per compartir la finestra, permet que Browther gravi la pantalla a Configuració del sistema</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> ja ha iniciat la sessió.  Per mantenir la navegació per separat, inicia la sessió a Browther amb el teu perfil (<ph name="USER_EMAIL_ADDRESS"/>).</translation>
-<translation id="8981774130895723211">Per compartir la pantalla, permet que Browther gravi la pantalla a Configuració del sistema.</translation>
+<translation id="4282363917570905631">Amplia la funció Navegació segura millorada amb Browther al telèfon</translation>
+<translation id="986094398735583155">S'està personalitzant Browther...</translation>
+<translation id="3266047225484320321">Browther t'enviarà una notificació quan iniciïs la sessió amb una contrasenya en perill</translation>
+<translation id="3508047337876211050">Amb aquesta acció, se suprimiran <ph name="ITEMS_COUNT"/> elements d'aquest dispositiu. Per recuperar les teves dades més endavant, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
+<translation id="7772248897860792723"><ph name="SHORTCUT"/> permet canviar entre perfils de Browther</translation>
+<translation id="7225005776233199285">Tanqueu totes les finestres de Browther i torneu-ho a provar.</translation>
+<translation id="5465054931427475969">Per compartir la finestra, permet que Browther gravi la pantalla a Configuració del sistema</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> ja ha iniciat la sessió.  Per mantenir la navegació per separat, inicia la sessió a Browther amb el teu perfil (<ph name="USER_EMAIL_ADDRESS"/>).</translation>
+<translation id="8133590217245064579">Per compartir la pantalla, permet que Browther gravi la pantalla a Configuració del sistema.</translation>
 <translation id="3597003331831379823">No s'ha pogut executar la configuració amb privilegis elevats. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Inicia la sessió a Browther</translation>
-<translation id="3066805437003400520">Les dades de navegació d'aquesta persona se suprimiran d'aquest dispositiu. Per recuperar-les, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
-<translation id="7029305463989165490">Per enviar un número del dispositiu <ph name="ORIGIN"/> al teu telèfon Android, inicia la sessió a Browther en tots dos dispositius.</translation>
+<translation id="611080704131468868">Inicia la sessió a Browther</translation>
+<translation id="2492221622209669678">Les dades de navegació d'aquesta persona se suprimiran d'aquest dispositiu. Per recuperar-les, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
+<translation id="6793778233257855801">Per enviar un número del dispositiu <ph name="ORIGIN"/> al teu telèfon Android, inicia la sessió a Browther en tots dos dispositius.</translation>
 <translation id="3667616615096815454">No es pot instal·lar; el servidor no coneix l'aplicació.</translation>
-<translation id="1128485277465085828">Utilitza la <ph name="BEGIN_LINK"/>teva frase de contrasenya<ph name="END_LINK"/> per encriptar totes les dades de Browther al teu Compte de Browther Les formes de pagament i les adreces de Google Pay no s'encriptaran. L'historial de navegació de Browther no se sincronitzarà.</translation>
-<translation id="4304059894777924102">Browther no pot comprovar les teves contrasenyes. Comprova la connexió a Internet.</translation>
-<translation id="1807774211756215222">Obre l'enllaç en una pes&amp;tanya nova a Browther</translation>
-<translation id="387105482057676379">Enllaça Browther i altres serveis de Browther per a la personalització i altres finalitats</translation>
+<translation id="5585500151754164442">Utilitza la <ph name="BEGIN_LINK"/>teva frase de contrasenya<ph name="END_LINK"/> per encriptar totes les dades de Browther al teu Compte de Browther Les formes de pagament i les adreces de Google Pay no s'encriptaran. L'historial de navegació de Browther no se sincronitzarà.</translation>
+<translation id="404323216042159951">Browther no pot comprovar les teves contrasenyes. Comprova la connexió a Internet.</translation>
+<translation id="5004936474632127765">Obre l'enllaç en una pes&amp;tanya nova a Browther</translation>
+<translation id="6236643159256182256">Enllaça Browther i altres serveis de Browther per a la personalització i altres finalitats</translation>
 <translation id="3729187154190517324">Aprofundeix en la cerca afegint diverses pestanyes, fitxers i eines amb el botó Afegeix una pestanya i més.</translation>
-<translation id="3867175562099983425">Gestiona els perfils de Browther</translation>
-<translation id="308146532933302843">Descobreix per què Browther bloqueja algunes baixades</translation>
-<translation id="2189149060536531804">Browther t'avisarà si hi ha res que hagis de revisar</translation>
-<translation id="8422094375343667686">Els perfils de Browther t'ajuden a separar les diferents parts de la teva vida. Afegeix un perfil nou ara.</translation>
-<translation id="6324134303015966238">Browther precarrega les pàgines que és probable que visitis perquè es carreguin més ràpidament quan ho facis</translation>
+<translation id="1400697664933775238">Gestiona els perfils de Browther</translation>
+<translation id="2461315395128103158">Descobreix per què Browther bloqueja algunes baixades</translation>
+<translation id="8058420662026104226">Browther t'avisarà si hi ha res que hagis de revisar</translation>
+<translation id="3177448557921912221">Els perfils de Browther t'ajuden a separar les diferents parts de la teva vida. Afegeix un perfil nou ara.</translation>
+<translation id="1541177876035612043">Browther precarrega les pàgines que és probable que visitis perquè es carreguin més ràpidament quan ho facis</translation>
 <translation id="3810973564298564668">Gestiona</translation>
-<translation id="4815742196440583661">Per utilitzar les contrasenyes desades, segueix el codi QR, baixa Browther per a iOS i inicia la sessió al teu Compte de Browther</translation>
-<translation id="6093965249696204223">Consell de Browther: Navegació segura millorada</translation>
+<translation id="1117103475254549453">Per utilitzar les contrasenyes desades, segueix el codi QR, baixa Browther per a iOS i inicia la sessió al teu Compte de Browther</translation>
+<translation id="8880695882192156860">Consell de Browther: Navegació segura millorada</translation>
 <translation id="3846683726093018685">**Resumeix**: en una sola frase de menys de 30 paraules, descriu el tema i la finalitat principals del contingut de la captura de pantalla.
 
           **Preguntes suggerides**: genera una llista de pics d'entre 3 i 5 preguntes que facin reflexionar i que un usuari podria fer per entendre millor la captura de pantalla. Aquestes preguntes n'han d'incloure com a mínim una que sigui específicament sobre un objecte visual, el seu disseny o el seu emplaçament.</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/>: Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/>: Browther Origin</translation>
 <translation id="3885770153807205175">Selector d'idioma</translation>
-<translation id="6315734375101223238">Personalitza i controla Browther. Cal la teva intervenció. Fes clic per obtenir més informació.</translation>
-<translation id="7130675370997202556">Feu clic al vostre nom per obrir Browther i començar a navegar.</translation>
+<translation id="4861846616763552424">Personalitza i controla Browther. Cal la teva intervenció. Fes clic per obtenir més informació.</translation>
+<translation id="6126366281251241386">Feu clic al vostre nom per obrir Browther i començar a navegar.</translation>
 <translation id="3892148308691398805">Copia el text</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> ja té la sessió iniciada en aquest perfil de Browther. Per continuar amb la teva navegació per separat, Browther et pot crear un perfil propi.</translation>
-<translation id="8744239658215739511">&amp;Personalitza Browther</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> ja té la sessió iniciada en aquest perfil de Browther. Per continuar amb la teva navegació per separat, Browther et pot crear un perfil propi.</translation>
+<translation id="3821553157234855663">&amp;Personalitza Browther</translation>
 <translation id="3941890832296813527">Error d'instal·lació: el nom de fitxer de l'instal·lador no és vàlid o no s'admet.</translation>
-<translation id="8090497651549769448">Browther està provant de copiar les contrasenyes. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
-<translation id="4256965182800026277">Les contrasenyes, les formes de pagament i les adreces que hagis desat al teu Compte de Browther se suprimiran d'aquest dispositiu. Per tornar-les a utilitzar a Browther, inicia la sessió de nou.</translation>
+<translation id="6482299900191767005">Browther està provant de copiar les contrasenyes. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
+<translation id="5853011008278898603">Les contrasenyes, les formes de pagament i les adreces que hagis desat al teu Compte de Browther se suprimiran d'aquest dispositiu. Per tornar-les a utilitzar a Browther, inicia la sessió de nou.</translation>
 <translation id="395904275706073188">Les pàgines protegides no es poden llegir. Prova una altra pàgina.</translation>
-<translation id="4194619960643453552">Informació sobre com et protegeix Browther</translation>
-<translation id="1486377520191913768">Quan escrius a la barra d'adreces o al quadre de cerca, Browther envia el que escrius a les eines de cerca, d'IA i d'agent de la teva organització per obtenir suggeriments.</translation>
-<translation id="1311808042904310985">Sobre &amp;Browther for Testing</translation>
+<translation id="1832973663231751701">Informació sobre com et protegeix Browther</translation>
+<translation id="4531502594774670767">Quan escrius a la barra d'adreces o al quadre de cerca, Browther envia el que escrius a les eines de cerca, d'IA i d'agent de la teva organització per obtenir suggeriments.</translation>
+<translation id="300013383485253006">Sobre &amp;Browther for Testing</translation>
 <translation id="1152920704813762236">Sobre Chrome OS</translation>
-<translation id="8282895427217902177">Quan visites un lloc web, Browther envia una part ofuscada de l'URL a <ph name="BEGIN_LINK"/>Navegació segura de Browther<ph name="END_LINK"/> mitjançant un servidor de privadesa que amaga la teva adreça IP. Si un lloc web fa alguna acció sospitosa, també s'envien URL complets i fragments de contingut de la pàgina.</translation>
+<translation id="8126752030994997015">Quan visites un lloc web, Browther envia una part ofuscada de l'URL a <ph name="BEGIN_LINK"/>Navegació segura de Browther<ph name="END_LINK"/> mitjançant un servidor de privadesa que amaga la teva adreça IP. Si un lloc web fa alguna acció sospitosa, també s'envien URL complets i fragments de contingut de la pàgina.</translation>
 <translation id="3703994572283698466">Chrome OS és possible gràcies a <ph name="BEGIN_LINK_CROS_OSS"/>programari lliure<ph name="END_LINK_CROS_OSS"/> addicional, igual que l‘<ph name="BEGIN_LINK_LINUX_OSS"/>entorn de desenvolupament de Linux<ph name="END_LINK_LINUX_OSS"/>.</translation>
 <translation id="4022972681110646219">Tradueix la pantalla</translation>
 <translation id="4023601594785368013">Idioma original: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Obre enllaços a Browther des de qualsevol aplicació. A més, perquè sigui més fàcil accedir-hi, es fixa a la barra de tasques.</translation>
-<translation id="6056473803837713617">Informa de la <ph name="BEGIN_LINK"/>configuració actual<ph name="END_LINK"/> per ajudar-nos a millorar Browther</translation>
+<translation id="6450460108719059465">Obre enllaços a Browther des de qualsevol aplicació. A més, perquè sigui més fàcil accedir-hi, es fixa a la barra de tasques.</translation>
+<translation id="3437506136408403836">Informa de la <ph name="BEGIN_LINK"/>configuració actual<ph name="END_LINK"/> per ajudar-nos a millorar Browther</translation>
 <translation id="4050175100176540509">La versió més recent incorpora millores de seguretat i funcions noves importants.</translation>
 <translation id="4055805654398742145">G&amp;estor de contrasenyes</translation>
-<translation id="6654312501894761082">Un altre programa de l'ordinador ha afegit una extensió que pot canviar el funcionament de Browther.
+<translation id="2164947358785939495">Un altre programa de l'ordinador ha afegit una extensió que pot canviar el funcionament de Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{La teva organització tanca Browther automàticament quan no s'utilitza durant 1 minut. Les dades de navegació se suprimeixen. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.}other{La teva organització tanca Browther automàticament quan no s'utilitza durant # minuts. Les dades de navegació se suprimeixen. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.}}</translation>
-<translation id="5794951150713244901">Ves a la pàgina Quant a Browther</translation>
-<translation id="10925962326134232">Personalitza Browther per renovar l'aspecte del navegador</translation>
-<translation id="6596295505984504022">&amp;Personalitza Browther</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{La teva organització tanca Browther automàticament quan no s'utilitza durant 1 minut. Les dades de navegació se suprimeixen. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.}other{La teva organització tanca Browther automàticament quan no s'utilitza durant # minuts. Les dades de navegació se suprimeixen. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.}}</translation>
+<translation id="1535413545339990419">Ves a la pàgina Quant a Browther</translation>
+<translation id="692283249649018289">Personalitza Browther per renovar l'aspecte del navegador</translation>
+<translation id="6375229634133804834">&amp;Personalitza Browther</translation>
 <translation id="4148957013307229264">S'està instal·lant...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> - Inici de sessió a la xarxa - Browther</translation>
-<translation id="2871190378186459992">Descobriu aplicacions, jocs, extensions i temes genials per a Browther.</translation>
-<translation id="462105622535258178">Per accedir a aquesta extensió i a altres elements des de tots els teus ordinadors, inicia la sessió a Browther</translation>
-<translation id="6670140629169983459">Per protegir-te més en línia amb les opcions del teu pare o mare, canvia al perfil de Browther en què ja tens la sessió iniciada amb <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> - Inici de sessió a la xarxa - Browther</translation>
+<translation id="2911246138082876798">Descobriu aplicacions, jocs, extensions i temes genials per a Browther.</translation>
+<translation id="2528977475313334293">Per accedir a aquesta extensió i a altres elements des de tots els teus ordinadors, inicia la sessió a Browther</translation>
+<translation id="8244267655940711467">Per protegir-te més en línia amb les opcions del teu pare o mare, canvia al perfil de Browther en què ja tens la sessió iniciada amb <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="4222932583846282852">S'està cancel·lant...</translation>
 <translation id="4224210481850767180">S'ha cancel·lat la instal·lació.</translation>
-<translation id="1853997773668795891">Voleu enllaçar les vostres dades de Browther amb aquest compte?</translation>
-<translation id="4732930052828648898">T'avisa de llocs web perillosos, fins i tot dels que Browther no coneixia abans, ja que analitza més dades dels llocs web que la protecció estàndard. Pots optar per ometre els advertiments de Browther.</translation>
-<translation id="2201661640076600072">Tanca la sessió de Browther</translation>
-<translation id="3262506503470845422">Obtén ajuda per a Browther</translation>
+<translation id="8219359042845534271">Voleu enllaçar les vostres dades de Browther amb aquest compte?</translation>
+<translation id="5520777668172961882">T'avisa de llocs web perillosos, fins i tot dels que Browther no coneixia abans, ja que analitza més dades dels llocs web que la protecció estàndard. Pots optar per ometre els advertiments de Browther.</translation>
+<translation id="2014920019837536689">Tanca la sessió de Browther</translation>
+<translation id="4341512411059715879">Obtén ajuda per a Browther</translation>
 <translation id="4281844954008187215">Condicions del servei</translation>
-<translation id="7691786510374174420">S'ha produït un error no especificat durant la instal·lació. Si Browther s'està executant en aquests moments, tanqueu-lo i torneu-ho a provar.</translation>
-<translation id="6368144843345980623">Exporta les contrasenyes de Browther</translation>
+<translation id="322492684764924424">S'ha produït un error no especificat durant la instal·lació. Si Browther s'està executant en aquests moments, tanqueu-lo i torneu-ho a provar.</translation>
+<translation id="3813060261346666066">Exporta les contrasenyes de Browther</translation>
 <translation id="4304713468139749426">Gestor de contrasenyes</translation>
 <translation id="4334241893986177674">Cerca aquesta captura de pantalla</translation>
 <translation id="4334294535648607276">S'ha completat la baixada.</translation>
-<translation id="242356249838681145">Obre Browther quan s'iniciï Windows</translation>
-<translation id="4747339441562331861">Accedeix fàcilment a les funcions que coneixes, que tant t'agraden i en què confies establint Browther com a navegador predeterminat. Browther es fixarà a la barra de tasques perquè hi puguis accedir ràpidament.</translation>
+<translation id="2177954934431828302">Obre Browther quan s'iniciï Windows</translation>
+<translation id="2472318668926455009">Accedeix fàcilment a les funcions que coneixes, que tant t'agraden i en què confies establint Browther com a navegador predeterminat. Browther es fixarà a la barra de tasques perquè hi puguis accedir ràpidament.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> requereix que llegeixis i acceptis les condicions del servei següents abans d'utilitzar el dispositiu. Aquestes condicions no amplien, modifiquen ni limiten les condicions de Chrome OS.</translation>
-<translation id="9183662282810237335">Vols sortir de Browther igualment?</translation>
+<translation id="2897580280700805340">Vols sortir de Browther igualment?</translation>
 <translation id="4413205837991854510">Mostra sempre la drecera de la cerca d'imatges</translation>
-<translation id="4065288863231444640">Permet que Browther s'executi en segon pla</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther et recomana que la suprimeixis. <ph name="BEGIN_LINK"/>Més informació sobre les extensions admeses<ph name="END_LINK"/>}other{Browther et recomana que les suprimeixis. <ph name="BEGIN_LINK"/>Més informació sobre les extensions admeses<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Personalitza i controla Browther</translation>
+<translation id="2454897022983434851">Permet que Browther s'executi en segon pla</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther et recomana que la suprimeixis. <ph name="BEGIN_LINK"/>Més informació sobre les extensions admeses<ph name="END_LINK"/>}other{Browther et recomana que les suprimeixis. <ph name="BEGIN_LINK"/>Més informació sobre les extensions admeses<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Personalitza i controla Browther</translation>
 <translation id="4427306783828095590">La protecció millorada és més efiçaç a l'hora de bloquejar la pesca de credencials i el programari maliciós</translation>
 <translation id="4434353761996769206">Error de l'instal·lador: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> gestiona Browther</translation>
-<translation id="3579012341787637143">Afegeix un perfil de Browther</translation>
-<translation id="6786534271003695094">Sobre Browther for Testing</translation>
-<translation id="526235294307144732">Per utilitzar i desar les dades de Browther al teu Compte de Browther, introdueix la frase de contrasenya</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> gestiona Browther</translation>
+<translation id="4007482010626246887">Afegeix un perfil de Browther</translation>
+<translation id="6888322430074420631">Sobre Browther for Testing</translation>
+<translation id="8912436499620582668">Per utilitzar i desar les dades de Browther al teu Compte de Browther, introdueix la frase de contrasenya</translation>
 <translation id="4493028449971051158">Error d'arrencada: executa l'instal·lador com a administrador.</translation>
 <translation id="4501471624619070934">La instal·lació ha fallat perquè l'accés està restringit en aquest país.</translation>
-<translation id="8594994021633965927">Aquesta extensió no ha publicat les seves pràctiques de privadesa, per exemple, la manera com recull i utilitza les dades. Browther et recomana que la suprimeixis.</translation>
-<translation id="770557926599450702">Et donem la benvinguda a Browther Origin; s'ha obert una altra finestra del navegador</translation>
-<translation id="137732229629632648">Browther necessita permís per mapar el teu entorn i fer un seguiment de les teves mans</translation>
-<translation id="5036046007335188949">Ja has iniciat la sessió amb <ph name="USER_EMAIL_ADDRESS"/> en un altre perfil de Browther</translation>
-<translation id="1878185978731985193">Browther precarrega les pàgines perquè la navegació i la cerca siguin més ràpides. <ph name="BEGIN_LINK"/>Obtén més informació sobre la precàrrega de pàgines<ph name="END_LINK"/>.</translation>
+<translation id="8976207309012239417">Aquesta extensió no ha publicat les seves pràctiques de privadesa, per exemple, la manera com recull i utilitza les dades. Browther et recomana que la suprimeixis.</translation>
+<translation id="8888202093812883067">Et donem la benvinguda a Browther Origin; s'ha obert una altra finestra del navegador</translation>
+<translation id="6391148383688605718">Browther necessita permís per mapar el teu entorn i fer un seguiment de les teves mans</translation>
+<translation id="7756445485815468244">Ja has iniciat la sessió amb <ph name="USER_EMAIL_ADDRESS"/> en un altre perfil de Browther</translation>
+<translation id="137435413163730206">Browther precarrega les pàgines perquè la navegació i la cerca siguin més ràpides. <ph name="BEGIN_LINK"/>Obtén més informació sobre la precàrrega de pàgines<ph name="END_LINK"/>.</translation>
 <translation id="4549180975214802957">Millora la seguretat en línia per a tothom informant d'un lloc web que creus que és perjudicial.</translation>
-<translation id="8669339108356170796">Browther ha bloquejat aquesta baixada perquè has desactivat Navegació segura i el fitxer no es pot verificar</translation>
-<translation id="7583343841997441047">Prova Google Lens amb Browther al telèfon</translation>
+<translation id="3266647901351304597">Browther ha bloquejat aquesta baixada perquè has desactivat Navegació segura i el fitxer no es pot verificar</translation>
+<translation id="6980208900390333646">Prova Google Lens amb Browther al telèfon</translation>
 <translation id="4594305310729380060">Al gestor de contrasenyes en aquest dispositiu</translation>
-<translation id="7776200949522126045">Aplicacions de Browther Origin</translation>
+<translation id="5282047884678321451">Aplicacions de Browther Origin</translation>
 <translation id="4598116752460667024">Cerca qualsevol procés de la llista.</translation>
 <translation id="4970880042055371251">Versió de Chrome OS</translation>
-<translation id="2182657378556811785">Gairebé has acabat amb l'actualització. Reinicia Browther per completar-la.</translation>
-<translation id="6311668361877328515">Agilitza els llocs web amb el motor V8 de Browther, però fa que Browther sigui una mica menys resistent als atacs</translation>
-<translation id="7402642357351265733">Si també comparteixes els informes d'ús de Browther, aquests informes inclouen els URL que visites</translation>
-<translation id="8142245354207161805">Sembla que un altre procés de Browther (<ph name="PROCESS_ID"/>) està fent servir el perfil en un altre ordinador (<ph name="HOST_NAME"/>). Browther ha bloquejat el perfil perquè no es malmeti. Si esteu segur que no hi ha cap altre procés que utilitzi el perfil, podeu desbloquejar-lo i tornar a iniciar Browther.</translation>
+<translation id="4482468019601425607">Gairebé has acabat amb l'actualització. Reinicia Browther per completar-la.</translation>
+<translation id="5517890123509214766">Agilitza els llocs web amb el motor V8 de Browther, però fa que Browther sigui una mica menys resistent als atacs</translation>
+<translation id="7690070364551268156">Si també comparteixes els informes d'ús de Browther, aquests informes inclouen els URL que visites</translation>
+<translation id="5020487088453637212">Sembla que un altre procés de Browther (<ph name="PROCESS_ID"/>) està fent servir el perfil en un altre ordinador (<ph name="HOST_NAME"/>). Browther ha bloquejat el perfil perquè no es malmeti. Si esteu segur que no hi ha cap altre procés que utilitzi el perfil, podeu desbloquejar-lo i tornar a iniciar Browther.</translation>
 <translation id="4680828127924988555">Cancel·la la instal·lació</translation>
-<translation id="2014343159590733363">Algunes dades de Browther encara no s'han desat al teu Compte de Browther. Prova d'esperar uns quants minuts abans de tancar la sessió. Si tanques la sessió ara, aquestes dades se suprimiran.</translation>
-<translation id="2408746614080689238">Mentre tinguis la sessió iniciada, pots utilitzar les teves contrasenyes i altres elements del teu Compte de Browther a Browther. Fes servir <ph name="SHORTCUT"/> per canviar la configuració dels serveis de Browther.</translation>
-<translation id="847561904663814268">Algú ha iniciat anteriorment la sessió a Browther en aquest ordinador com a <ph name="ACCOUNT_EMAIL_LAST"/>. Crea un usuari de Browther per mantenir la informació separada.</translation>
+<translation id="8134827615154347946">Algunes dades de Browther encara no s'han desat al teu Compte de Browther. Prova d'esperar uns quants minuts abans de tancar la sessió. Si tanques la sessió ara, aquestes dades se suprimiran.</translation>
+<translation id="3508712423420506333">Mentre tinguis la sessió iniciada, pots utilitzar les teves contrasenyes i altres elements del teu Compte de Browther a Browther. Fes servir <ph name="SHORTCUT"/> per canviar la configuració dels serveis de Browther.</translation>
+<translation id="2388739442635757494">Algú ha iniciat anteriorment la sessió a Browther en aquest ordinador com a <ph name="ACCOUNT_EMAIL_LAST"/>. Crea un usuari de Browther per mantenir la informació separada.</translation>
 <translation id="4724676981607797757">La instal·lació ha fallat a causa d'un error de protocol no admès.</translation>
-<translation id="3834935463915107022">Vols sortir de Browther igualment?</translation>
-<translation id="8668413672647811944">S'acaba d'aplicar una actualització de seguretat especial per a Browther. Reinicia el navegador i restaurarem les pestanyes.</translation>
-<translation id="9029438584415578308">Demana a Browther</translation>
-<translation id="4941816441131888792">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> i <ph name="COUNT"/> més.</translation>
-<translation id="4823369970559443694">Browther no pot comprovar les teves contrasenyes. Torna-ho a provar al cap de 24 hores o <ph name="BEGIN_LINK"/>comprova les contrasenyes desades al teu Compte de Browther<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Fa servir el mateix corrector ortogràfic que s'utilitza a la Cerca de Browther. El text que escrius al navegador s'envia a Browther. Pots canviar aquest comportament sempre que vulguis a la configuració.</translation>
-<translation id="2899369907387169108">Fes servir Browther sense cap compte</translation>
-<translation id="1833893255023048385">Regla d'entrada de Browther Origin per permetre el trànsit de mDNS.</translation>
-<translation id="711601904575862069">Reinicia per actualitzar &amp;Browther</translation>
+<translation id="8305313684264112434">Vols sortir de Browther igualment?</translation>
+<translation id="418155915144835101">S'acaba d'aplicar una actualització de seguretat especial per a Browther. Reinicia el navegador i restaurarem les pestanyes.</translation>
+<translation id="2683970367518529374">Demana a Browther</translation>
+<translation id="5064473048847774331">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> i <ph name="COUNT"/> més.</translation>
+<translation id="5941343075741207533">Browther no pot comprovar les teves contrasenyes. Torna-ho a provar al cap de 24 hores o <ph name="BEGIN_LINK"/>comprova les contrasenyes desades al teu Compte de Browther<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Fa servir el mateix corrector ortogràfic que s'utilitza a la Cerca de Browther. El text que escrius al navegador s'envia a Browther. Pots canviar aquest comportament sempre que vulguis a la configuració.</translation>
+<translation id="4581078588976787792">Fes servir Browther sense cap compte</translation>
+<translation id="3394520491703535051">Regla d'entrada de Browther Origin per permetre el trànsit de mDNS.</translation>
+<translation id="6563126962881169552">Reinicia per actualitzar &amp;Browther</translation>
 <translation id="4918086044614829423">Accepta</translation>
 <translation id="4918844574251943176">La imatge s'ha copiat</translation>
-<translation id="8797356639448065696">Browther està en mode de segon pla.</translation>
-<translation id="1895567721497166950">Fes clic per tancar el quadre de diàleg d'inici de sessió de Browther</translation>
-<translation id="2692971232706994729">Els perfils de Browther et permeten separar tot el contingut de Browther. Crea perfils per a amics i familiars, o separa la feina de la diversió.</translation>
-<translation id="7406627712452599344">Els convidats poden utilitzar Browther sense deixar-hi rastre.</translation>
-<translation id="844471735881341044">El teu compte a Browther</translation>
-<translation id="5952898964075639679">Afegeix-me a Browther</translation>
-<translation id="7995865526174204486">Gemini a Browther utilitza la navegació automàtica per treballar a les teves pestanyes i completar les tasques que li demanis. <ph name="LINK_BEGIN"/>Més informació<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther necessita permís per fer un seguiment de les teves mans</translation>
-<translation id="5406591571925937375">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> i <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">Browther està en mode de segon pla.</translation>
+<translation id="3603134280602182991">Fes clic per tancar el quadre de diàleg d'inici de sessió de Browther</translation>
+<translation id="6120233890602288442">Els perfils de Browther et permeten separar tot el contingut de Browther. Crea perfils per a amics i familiars, o separa la feina de la diversió.</translation>
+<translation id="5722688387568011881">Els convidats poden utilitzar Browther sense deixar-hi rastre.</translation>
+<translation id="7786958592460743302">El teu compte a Browther</translation>
+<translation id="9114640791491590337">Afegeix-me a Browther</translation>
+<translation id="3536391594566515053">Gemini a Browther utilitza la navegació automàtica per treballar a les teves pestanyes i completar les tasques que li demanis. <ph name="LINK_BEGIN"/>Més informació<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther necessita permís per fer un seguiment de les teves mans</translation>
+<translation id="1627123463102858476">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> i <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Normalment bloqueges les notificacions. Per permetre que aquest lloc web et mostri notificacions, fes clic a la icona de notificacions que hi ha a l'extrem dret de la barra d'ubicacions.</translation>
 <translation id="5174983315706567306">No hi ha prou espai de disc.</translation>
-<translation id="8157129267754368853">El compte de Browther requereix una reautenticació</translation>
-<translation id="9078804073692109646">No hi ha cap contrasenya desada. Browther pot comprovar les teves contrasenyes quan les deses.</translation>
-<translation id="6234515504547364178">Tanca la sessió de Browther</translation>
+<translation id="7091313576354542088">El compte de Browther requereix una reautenticació</translation>
+<translation id="9045390598305758496">No hi ha cap contrasenya desada. Browther pot comprovar les teves contrasenyes quan les deses.</translation>
+<translation id="5686724084351858452">Tanca la sessió de Browther</translation>
 <translation id="5234764350956374838">Ignora</translation>
 <translation id="5254739261293693943">Pregunta sobre aquest vídeo</translation>
-<translation id="8586264863973514035">Torna a iniciar Browther perquè s'apliquin els canvis</translation>
+<translation id="8165028066129227692">Torna a iniciar Browther perquè s'apliquin els canvis</translation>
 <translation id="5286907366254680517">Detectat</translation>
-<translation id="7264453786974905915">Obtén l'aplicació Browther</translation>
-<translation id="6944930779012811739">Servei intern de l'actualitzador de Browther</translation>
+<translation id="198210130507193824">Obtén l'aplicació Browther</translation>
+<translation id="8472078903122489041">Servei intern de l'actualitzador de Browther</translation>
 <translation id="5346389065299425353">Aprofundeix en la cerca afegint diverses pestanyes, fitxers i eines</translation>
-<translation id="7573068992266397941">Browther ha trobat algunes recomanacions de seguretat que hauries de revisar</translation>
-<translation id="8174413867995118050">Altres perfils de Browther</translation>
-<translation id="7708394612738038097">Esteu a punt d'iniciar la sessió amb un compte gestionat i d'atorgar el control del vostre perfil de Browther a l'administrador corresponent. Les dades de Browther, com ara aplicacions, adreces d'interès, historial, contrasenyes i altres configuracions, s'enllaçaran permanentment amb <ph name="USER_NAME"/>. Podreu suprimir aquestes dades mitjançant el Tauler de Comptes de Browther, però no les podreu associar amb un altre compte. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther ha trobat algunes recomanacions de seguretat que hauries de revisar</translation>
+<translation id="509616246140011182">Altres perfils de Browther</translation>
+<translation id="8214429210535362385">Esteu a punt d'iniciar la sessió amb un compte gestionat i d'atorgar el control del vostre perfil de Browther a l'administrador corresponent. Les dades de Browther, com ara aplicacions, adreces d'interès, historial, contrasenyes i altres configuracions, s'enllaçaran permanentment amb <ph name="USER_NAME"/>. Podreu suprimir aquestes dades mitjançant el Tauler de Comptes de Browther, però no les podreu associar amb un altre compte. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Codi addicional: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Per obtenir personalització, inclou Browther a Activitat al web i en aplicacions</translation>
-<translation id="5154625106151193600">Descobreix per què Browther bloqueja alguns fitxers</translation>
-<translation id="1786715389543715322">S'està actualitzant Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Permet l'inici de sessió a Browther</translation>
-<translation id="5267531627648004734">Elimina de Browther</translation>
-<translation id="4620757336635063467">Redueix el rendiment, però fa que Browther sigui més resistent als atacs</translation>
-<translation id="239760341987199724">Defineix Browther com a navegador predeterminat</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> - Browther Origin Beta</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther recomana posar en pausa la pestanya que està alentint el navegador}other{Browther recomana posar en pausa les pestanyes que estan alentint el navegador}}</translation>
-<translation id="894936507076470937">Pot ser que Browther no funcioni correctament perquè ja no és compatible amb aquesta distribució de Linux</translation>
-<translation id="2596557398669145729">Browther ha bloquejat aquesta baixada perquè el fitxer pot malmetre els teus comptes personals i de xarxes socials</translation>
-<translation id="696826782632239602">Browther necessita accedir a la teva ubicació per compartir-la amb aquest lloc web</translation>
-<translation id="1744365871163268756">Espereu mentre Browther instal·la les darreres actualitzacions del sistema.</translation>
-<translation id="3861679447659630159">Browther està provant d'editar les contrasenyes. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
+<translation id="5244017809112094908">Per obtenir personalització, inclou Browther a Activitat al web i en aplicacions</translation>
+<translation id="8096544113811780871">Descobreix per què Browther bloqueja alguns fitxers</translation>
+<translation id="2384387444932590174">S'està actualitzant Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Permet l'inici de sessió a Browther</translation>
+<translation id="6557334704331248411">Elimina de Browther</translation>
+<translation id="5832041381258620673">Redueix el rendiment, però fa que Browther sigui més resistent als atacs</translation>
+<translation id="3763317028635993788">Defineix Browther com a navegador predeterminat</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> - Browther Origin Beta</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther recomana posar en pausa la pestanya que està alentint el navegador}other{Browther recomana posar en pausa les pestanyes que estan alentint el navegador}}</translation>
+<translation id="4423621904097888155">Pot ser que Browther no funcioni correctament perquè ja no és compatible amb aquesta distribució de Linux</translation>
+<translation id="6201726364919996698">Browther ha bloquejat aquesta baixada perquè el fitxer pot malmetre els teus comptes personals i de xarxes socials</translation>
+<translation id="7679204468655335605">Browther necessita accedir a la teva ubicació per compartir-la amb aquest lloc web</translation>
+<translation id="1163572992704966942">Espereu mentre Browther instal·la les darreres actualitzacions del sistema.</translation>
+<translation id="5050118226119231029">Browther està provant d'editar les contrasenyes. Escriu la teva contrasenya de Windows per permetre-ho.</translation>
 <translation id="5524890928877629608">extrem superior esquerre de l'àrea de cerca: <ph name="LEFT"/> % per l'esquerra i <ph name="TOP"/> % per dalt</translation>
-<translation id="232381795826373334">Obre els fitxers PDF a Browther</translation>
+<translation id="5875549039106594731">Obre els fitxers PDF a Browther</translation>
 <translation id="5536164441519929134">Pregunta<ph name="LINE_BREAK"/>sobre aquesta pestanya</translation>
 <translation id="5579324208890605088">Error d'arrencada: executa l'instal·lador com a usuari normal, no com a administrador.</translation>
-<translation id="3588973534877826647">Utilitza Browther de manera predeterminada i fixa'l</translation>
+<translation id="202315329304302571">Utilitza Browther de manera predeterminada i fixa'l</translation>
 <translation id="5596627076506792578">Més opcions</translation>
 <translation id="5605834417512968703">Selecciona el que vulguis per cercar-ho amb la cerca d'imatges o prem Esc per sortir de la cerca d'imatges</translation>
 <translation id="5618818588972826921">Selecciona el text o la imatge que vulguis cercar amb la cerca d'imatges o prem Esc per sortir de la cerca d'imatges</translation>
-<translation id="1026406809507858026">{0,plural, =0{Hi ha una actualització de Browther disponible}=1{Hi ha una actualització de Browther disponible}other{Fa # dies que hi ha una actualització de Browther disponible}}</translation>
-<translation id="1023472437588692618">Suprimeix sempre les dades dels llocs web del dispositiu quan tanquis Browther</translation>
-<translation id="5646769069113654257">Reinicia Browther ara</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Mostra Browther en aquest idioma</translation>
+<translation id="5823076755666406442">{0,plural, =0{Hi ha una actualització de Browther disponible}=1{Hi ha una actualització de Browther disponible}other{Fa # dies que hi ha una actualització de Browther disponible}}</translation>
+<translation id="8414129876440043675">Suprimeix sempre les dades dels llocs web del dispositiu quan tanquis Browther</translation>
+<translation id="5156991567152325333">Reinicia Browther ara</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Mostra Browther en aquest idioma</translation>
 <translation id="569897634095159764">No es pot connectar a Internet. El servidor intermediari necessita autenticació.</translation>
-<translation id="3364613146104156465">Els perfils de Browther et permeten mantenir separades la navegació personal i la de la feina. Afegeix un perfil nou ara.</translation>
-<translation id="1834213228893578875">Browther allibera memòria de les pestanyes inactives. Així, les pestanyes actives i altres aplicacions disposen de més recursos de l'ordinador i es manté l'agilitat de Browther. Les pestanyes inactives s'activen de nou automàticament quan hi tornes. <ph name="BEGIN_LINK"/>Obtén més informació sobre la funció Estalvi de memòria<ph name="END_LINK"/>.</translation>
-<translation id="899523323751802352">Si has oblidat la frase de contrasenya o vols canviar aquesta opció de configuració, <ph name="SETTINGS_LINK"/> les dades de Browther del teu compte</translation>
-<translation id="82926023981336111">Personalitza i controla Browther. Defineix Browther com a navegador predeterminat.</translation>
+<translation id="4215338057953170891">Els perfils de Browther et permeten mantenir separades la navegació personal i la de la feina. Afegeix un perfil nou ara.</translation>
+<translation id="5366435608642317052">Browther allibera memòria de les pestanyes inactives. Així, les pestanyes actives i altres aplicacions disposen de més recursos de l'ordinador i es manté l'agilitat de Browther. Les pestanyes inactives s'activen de nou automàticament quan hi tornes. <ph name="BEGIN_LINK"/>Obtén més informació sobre la funció Estalvi de memòria<ph name="END_LINK"/>.</translation>
+<translation id="4941518395341035738">Si has oblidat la frase de contrasenya o vols canviar aquesta opció de configuració, <ph name="SETTINGS_LINK"/> les dades de Browther del teu compte</translation>
+<translation id="7763291835437810978">Personalitza i controla Browther. Defineix Browther com a navegador predeterminat.</translation>
 <translation id="5809516625706423866">No es pot connectar a Internet. Error d'HTTP "401 Unauthorized". Comprova la configuració del servidor intermediari.</translation>
-<translation id="95980832839683236">Agilitza els llocs web amb el motor V8 de Browther, però fa que Browther sigui una mica menys resistent als atacs. Aquesta opció de configuració està desactivada.</translation>
-<translation id="1224606669200461217">Per utilitzar i desar les dades de Browther al teu Compte de Browther, actualitza Browther</translation>
+<translation id="1827132270895283425">Agilitza els llocs web amb el motor V8 de Browther, però fa que Browther sigui una mica menys resistent als atacs. Aquesta opció de configuració està desactivada.</translation>
+<translation id="1553025851718680114">Per utilitzar i desar les dades de Browther al teu Compte de Browther, actualitza Browther</translation>
 <translation id="5824893331272123205">Aquest tauler no s'ha pogut carregar. Torna-ho a provar.</translation>
-<translation id="4467664627714200493">Us donem la benvinguda a Browther Origin</translation>
+<translation id="6642862349634944253">Us donem la benvinguda a Browther Origin</translation>
 <translation id="5871205389137001634">Fes clic per sortir de la cerca d'imatges</translation>
-<translation id="8054200348483755053">Browther ha detectat que aquests elements contenen programari maliciós:</translation>
-<translation id="3955583201925082436">Browther comprova regularment que el navegador tingui la configuració més segura. T'avisarem si hi ha res que hagis de revisar.</translation>
+<translation id="7586794330537887406">Browther ha detectat que aquests elements contenen programari maliciós:</translation>
+<translation id="1666897346518812892">Browther comprova regularment que el navegador tingui la configuració més segura. T'avisarem si hi ha res que hagis de revisar.</translation>
 <translation id="5895138241574237353">Reinicia</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> - Inici de sessió a la xarxa</translation>
 <translation id="5924017743176219022">S'està connectant a Internet...</translation>
 <translation id="5941711191222866238">Minimitza</translation>
-<translation id="5768962901674164501">Per obtenir aquesta adreça d'interès i més en tots els dispositius, inicia la sessió a Browther</translation>
-<translation id="5101892358689285100">Personalitza Browther al teu gust</translation>
+<translation id="4938357262936377412">Per obtenir aquesta adreça d'interès i més en tots els dispositius, inicia la sessió a Browther</translation>
+<translation id="260974496993853147">Personalitza Browther al teu gust</translation>
 <translation id="5960071705175224773">Una aplicació desconeguda ha canviat la configuració</translation>
 <translation id="5968400720580217226">Mode IA</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{La teva organització tanca Browther automàticament quan no s'utilitza durant 1 minut.}other{La teva organització tanca Browther automàticament quan no s'utilitza durant # minuts.}}</translation>
-<translation id="3598551856834560515">Actualitza Browther per iniciar la sincronització</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{La teva organització tanca Browther automàticament quan no s'utilitza durant 1 minut.}other{La teva organització tanca Browther automàticament quan no s'utilitza durant # minuts.}}</translation>
+<translation id="5852664780493076676">Actualitza Browther per iniciar la sincronització</translation>
 <translation id="6003112304606738118">S'està baixant… Queden <ph name="HOURS"/> hores</translation>
 <translation id="6009821354356307391">Fes una pregunta de seguiment</translation>
 <translation id="6040143037577758943">Tanca</translation>
-<translation id="700488072601322385">Per protegir les teves dades, permet que Browther suprimeixi els permisos dels llocs web que no has visitat recentment. En continuaràs rebent notificacions.</translation>
-<translation id="9071554113102421877">&amp;Obre a Browther</translation>
+<translation id="2495504229007749358">Per protegir les teves dades, permet que Browther suprimeixi els permisos dels llocs web que no has visitat recentment. En continuaràs rebent notificacions.</translation>
+<translation id="6038969823662006832">&amp;Obre a Browther</translation>
 <translation id="6069027071882229820">Copia com a imatge</translation>
-<translation id="7861579472672677409"><ph name="EXTENSION_NAME"/> s'ha afegit a Browther</translation>
-<translation id="5849446944780602366">Personalitza i controla Browther. Hi ha una actualització disponible.</translation>
-<translation id="5711722515923392428">Activat • Browther no pot verificar d'on prové aquesta extensió</translation>
-<translation id="6355366566986893068">El teu compte a Browther</translation>
-<translation id="7433698744896946664">Permet que l'extensió mostri sol·licituds d'accés a la barra d'eines de Browther</translation>
-<translation id="4168372721886011198">Browther ha bloquejat <ph name="FILE_NAME"/> perquè és perillós.</translation>
-<translation id="991182453936521413">Browther es tancarà aviat i suprimirà les dades</translation>
-<translation id="4060970194201477024">Pots canviar entre perfils de Browther aquí</translation>
-<translation id="7815000350132166985">Si permets les galetes, Browther pot utilitzar-les en la precàrrega</translation>
+<translation id="6606690217326148454"><ph name="EXTENSION_NAME"/> s'ha afegit a Browther</translation>
+<translation id="6037324269860323082">Personalitza i controla Browther. Hi ha una actualització disponible.</translation>
+<translation id="3695768481578778794">Activat • Browther no pot verificar d'on prové aquesta extensió</translation>
+<translation id="4401885752362736126">El teu compte a Browther</translation>
+<translation id="4310817187912076496">Permet que l'extensió mostri sol·licituds d'accés a la barra d'eines de Browther</translation>
+<translation id="4602490888173698813">Browther ha bloquejat <ph name="FILE_NAME"/> perquè és perillós.</translation>
+<translation id="5139243417751674628">Browther es tancarà aviat i suprimirà les dades</translation>
+<translation id="4696750309605389299">Pots canviar entre perfils de Browther aquí</translation>
+<translation id="7475001351099358916">Si permets les galetes, Browther pot utilitzar-les en la precàrrega</translation>
 <translation id="6165508094623778733">Més informació</translation>
-<translation id="5739368447874065758">Esborra les dades de Browther del teu compte</translation>
-<translation id="6685697979743742605">Aquest fitxer pot ser perillós<ph name="LINE_BREAK"/>Browther pot comprovar aquesta baixada per tu si proporciones la contrasenya. La informació sobre el fitxer s'envia a Navegació segura de Browther, però el contingut i la contrasenya del fitxer es queden al dispositiu.</translation>
+<translation id="5975099973700540482">Esborra les dades de Browther del teu compte</translation>
+<translation id="6800151735486681860">Aquest fitxer pot ser perillós<ph name="LINE_BREAK"/>Browther pot comprovar aquesta baixada per tu si proporciones la contrasenya. La informació sobre el fitxer s'envia a Navegació segura de Browther, però el contingut i la contrasenya del fitxer es queden al dispositiu.</translation>
 <translation id="6182736845697986886">La instal·lació ha fallat a causa d'un error intern del servidor d'actualitzacions.</translation>
-<translation id="4368341489795135329">Assegura't que tinguis la sessió iniciada a Browther a <ph name="TARGET_DEVICE_NAME"/> i prova d'enviar-ho de nou.</translation>
-<translation id="3038354906709778538">Un altre programa de l'ordinador ha afegit una aplicació que pot canviar el funcionament de Browther.
+<translation id="48832130233362517">Assegura't que tinguis la sessió iniciada a Browther a <ph name="TARGET_DEVICE_NAME"/> i prova d'enviar-ho de nou.</translation>
+<translation id="8868210753005945522">Un altre programa de l'ordinador ha afegit una aplicació que pot canviar el funcionament de Browther.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Aquest equip ja té una versió més recent de Browther. Si el programari no funciona, desinstal·leu Browther i torneu-ho a provar.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther es reiniciarà ara}=1{Browther es reiniciarà d'aquí a 1 segon}other{Browther es reiniciarà d'aquí a # segons}}</translation>
+<translation id="2779436101182061679">Aquest equip ja té una versió més recent de Browther. Si el programari no funciona, desinstal·leu Browther i torneu-ho a provar.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther es reiniciarà ara}=1{Browther es reiniciarà d'aquí a 1 segon}other{Browther es reiniciarà d'aquí a # segons}}</translation>
 <translation id="6239161312595354541">Pregunta a la cerca d'imatges sobre aquest vídeo</translation>
-<translation id="5980269616827212166">Browther necessita permís d'accés a l'emmagatzematge per poder baixar fitxers</translation>
-<translation id="7651600795135059130">Compara els URL amb una llista de llocs web no segurs emmagatzemada a Browther</translation>
-<translation id="5019879183386042809">Estableix Browther com a navegador predeterminat</translation>
-<translation id="7445061995866044926">Voleu tancar la sessió de Browther?</translation>
-<translation id="4659866260728515512">Aquestes pestanyes utilitzen recursos addicionals. Per millorar el rendiment, permet que Browther les desactivi.</translation>
-<translation id="6806912298071949921">Personalitza el teu perfil de Browther</translation>
-<translation id="3792238845239580301">Posa nom al teu perfil de Browther</translation>
-<translation id="5874208157501051620">Una extensió vol que iniciïs la sessió a Browther</translation>
-<translation id="3561569806301739367">Browther ha bloquejat <ph name="FILE_NAME"/> perquè pot ser perillós.</translation>
-<translation id="3205074487970075628">Browther està utilitzant la càmera.</translation>
+<translation id="1755464917870815989">Browther necessita permís d'accés a l'emmagatzematge per poder baixar fitxers</translation>
+<translation id="304681001513922736">Compara els URL amb una llista de llocs web no segurs emmagatzemada a Browther</translation>
+<translation id="7785903492969539081">Estableix Browther com a navegador predeterminat</translation>
+<translation id="3987833816263696343">Voleu tancar la sessió de Browther?</translation>
+<translation id="4723540739671534529">Aquestes pestanyes utilitzen recursos addicionals. Per millorar el rendiment, permet que Browther les desactivi.</translation>
+<translation id="6540151687468239291">Personalitza el teu perfil de Browther</translation>
+<translation id="770793114032605647">Posa nom al teu perfil de Browther</translation>
+<translation id="385867753870250529">Una extensió vol que iniciïs la sessió a Browther</translation>
+<translation id="2022337046348377650">Browther ha bloquejat <ph name="FILE_NAME"/> perquè pot ser perillós.</translation>
+<translation id="45270956603278068">Browther està utilitzant la càmera.</translation>
 <translation id="6327105987658262776">No hi ha cap actualització disponible.</translation>
-<translation id="1819119299840995223">Hi ha una altra operació en curs a Browther. Torna-ho a provar més tard.</translation>
-<translation id="8616874628011103667">Ara resulta més fàcil utilitzar Browther amb el vostre compte de Browther i en ordinadors compartits.</translation>
-<translation id="4264606872840545968">Drecera de Browther</translation>
-<translation id="6890616081898535725">Browther ha bloquejat aquesta baixada perquè el fitxer no se sol baixar i pot ser perillós</translation>
-<translation id="335632367599648646">Confirmeu que voleu desinstal·lar Browther?</translation>
+<translation id="673633752219771459">Hi ha una altra operació en curs a Browther. Torna-ho a provar més tard.</translation>
+<translation id="1482759407165416070">Ara resulta més fàcil utilitzar Browther amb el vostre compte de Browther i en ordinadors compartits.</translation>
+<translation id="5538042432112726532">Drecera de Browther</translation>
+<translation id="833085228901080512">Browther ha bloquejat aquesta baixada perquè el fitxer no se sol baixar i pot ser perillós</translation>
+<translation id="491120842288314439">Confirmeu que voleu desinstal·lar Browther?</translation>
 <translation id="6375219077595103062">Afegeix una drecera al gestor de contrasenyes</translation>
 <translation id="6388799252195623474">ajuda'm amb això</translation>
-<translation id="7920857181125123335">Per continuar, inicia la sessió a Browther com a <ph name="EMAIL"/>. D'aquesta manera, podem garantir que s'apliquen les polítiques de la teva organització.</translation>
-<translation id="3256100650978957522">Logotip de Browther a l'interior d'una pantalla d'ordinador.</translation>
-<translation id="5880764554173582719">Browther Origin és un navegador web que executa les pàgines web i les aplicacions a gran velocitat. És ràpid, estable i fàcil d'utilitzar. Navegueu per Internet amb més seguretat amb protecció inserida a Browther Origin contra el programari maliciós i contra la pesca de credencials.</translation>
-<translation id="2532326772258858491">Browther s'executa més ràpidament i les funcions que utilitzen JavaScript haurien de funcionar tal com es van dissenyar</translation>
+<translation id="6715003312952407375">Per continuar, inicia la sessió a Browther com a <ph name="EMAIL"/>. D'aquesta manera, podem garantir que s'apliquen les polítiques de la teva organització.</translation>
+<translation id="1897845318651970239">Logotip de Browther a l'interior d'una pantalla d'ordinador.</translation>
+<translation id="4702069255970029302">Browther Origin és un navegador web que executa les pàgines web i les aplicacions a gran velocitat. És ràpid, estable i fàcil d'utilitzar. Navegueu per Internet amb més seguretat amb protecció inserida a Browther Origin contra el programari maliciós i contra la pesca de credencials.</translation>
+<translation id="5669767676913031391">Browther s'executa més ràpidament i les funcions que utilitzen JavaScript haurien de funcionar tal com es van dissenyar</translation>
 <translation id="6436260184216827876">La cerca d'imatges no està disponible. Torna-ho a provar més tard.</translation>
 <translation id="2139300032719313227">Reinicia Chrome OS</translation>
-<translation id="638302211119176182">Browther precarrega encara més pàgines que és probable que visitis perquè es carreguin més ràpidament quan ho facis</translation>
-<translation id="7167975344637731051">Baixa Browther al telèfon per fer un seguiment dels preus i rebre alertes quan un preu baixi en qualsevol lloc web</translation>
-<translation id="890319829408077946">Desactivat • Browther no pot verificar d'on prové aquesta extensió</translation>
-<translation id="1684121725014454063">Et donem la benvinguda als perfils de Browther</translation>
-<translation id="8211983866539058675">La propera vegada que obris Browther al teu <ph name="DEVICE_TYPE"/>, veuràs una indicació per utilitzar grups de pestanyes.</translation>
-<translation id="7906693299331092358">Suprimeix el compte de Browther</translation>
+<translation id="6110616900529884221">Browther precarrega encara més pàgines que és probable que visitis perquè es carreguin més ràpidament quan ho facis</translation>
+<translation id="1217194059001819677">Baixa Browther al telèfon per fer un seguiment dels preus i rebre alertes quan un preu baixi en qualsevol lloc web</translation>
+<translation id="7058555680120557198">Desactivat • Browther no pot verificar d'on prové aquesta extensió</translation>
+<translation id="676533642429632127">Et donem la benvinguda als perfils de Browther</translation>
+<translation id="5518682889576009702">La propera vegada que obris Browther al teu <ph name="DEVICE_TYPE"/>, veuràs una indicació per utilitzar grups de pestanyes.</translation>
+<translation id="6038105561107837619">Suprimeix el compte de Browther</translation>
 <translation id="2675662665675552980">També controla la pàgina que es mostra quan inicieu Browther.</translation>
 <translation id="648319183876919572">La Navegació segura millorada és més eficaç a l'hora de protegir-te de baixades i llocs web perillosos</translation>
-<translation id="5590013613412457132">Desinstal·la Browther</translation>
-<translation id="7185585387858242335">Dreceres obertes a Browther</translation>
-<translation id="3617744907966785605">La teva organització tanca Browther quan no s'utilitza durant <ph name="TIMEOUT_DURATION"/>. Les dades de navegació s'han suprimit. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.</translation>
-<translation id="8646609321956191980">Cada perfil conserva la seva pròpia informació de Browther, com ara les adreces d'interès, l'historial, les contrasenyes i més</translation>
-<translation id="6756656512757374876">Més informació sobre <ph name="BEGIN_LINK"/>com Browther manté la privadesa de les teves dades<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">Els canvis en aquesta opció de configuració s'aplicaran quan Browther es reiniciï.</translation>
-<translation id="2535436634051789953">Pots canviar de perfil per veure les contrasenyes d'un altre perfil de Browther</translation>
-<translation id="2312399718665761438">Per corregir els errors d'ortografia, Browther envia a Browther el que escrius als camps de text</translation>
-<translation id="3507835409099344374">Ves a la configuració de notificacions de Browther</translation>
+<translation id="2930243146591999795">Desinstal·la Browther</translation>
+<translation id="5241183382286817629">Dreceres obertes a Browther</translation>
+<translation id="7907014599435829661">La teva organització tanca Browther quan no s'utilitza durant <ph name="TIMEOUT_DURATION"/>. Les dades de navegació s'han suprimit. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.</translation>
+<translation id="2088471423667794811">Cada perfil conserva la seva pròpia informació de Browther, com ara les adreces d'interès, l'historial, les contrasenyes i més</translation>
+<translation id="9040334484455218184">Més informació sobre <ph name="BEGIN_LINK"/>com Browther manté la privadesa de les teves dades<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">Els canvis en aquesta opció de configuració s'aplicaran quan Browther es reiniciï.</translation>
+<translation id="6331317152404762758">Pots canviar de perfil per veure les contrasenyes d'un altre perfil de Browther</translation>
+<translation id="6097706403184348562">Per corregir els errors d'ortografia, Browther envia a Browther el que escrius als camps de text</translation>
+<translation id="2319647238307402812">Ves a la configuració de notificacions de Browther</translation>
 <translation id="6600016381025017075">Cerca qualsevol cosa en aquesta pàgina</translation>
-<translation id="9156965752763025780">Els canvis s'aplicaran la propera vegada que reinicieu Browther.</translation>
-<translation id="3387992981600748596">Ara Browther s'obre quan s'inicia Windows perquè puguis començar a navegar a l'instant. Pots desactivar aquesta opció a la configuració.</translation>
-<translation id="3119017564683030312">Continua des d'on ho vas deixar: Browther ha restaurat les pestanyes de la darrera sessió. Pots desactivar-ho a</translation>
-<translation id="245693535809364497">Browther necessita permís d'accés a la càmera per poder crear un mapa en 3D del teu entorn</translation>
-<translation id="9210457680074341078">Si també deses les teves adreces d'interès al teu Compte de Browther, pots fer un seguiment dels preus dels productes a Browther i rebre una notificació quan baixi el preu</translation>
+<translation id="8031938899816118394">Els canvis s'aplicaran la propera vegada que reinicieu Browther.</translation>
+<translation id="7412185356697187964">Ara Browther s'obre quan s'inicia Windows perquè puguis començar a navegar a l'instant. Pots desactivar aquesta opció a la configuració.</translation>
+<translation id="9123343592576384616">Continua des d'on ho vas deixar: Browther ha restaurat les pestanyes de la darrera sessió. Pots desactivar-ho a</translation>
+<translation id="5847926498049048567">Browther necessita permís d'accés a la càmera per poder crear un mapa en 3D del teu entorn</translation>
+<translation id="5532585028508811858">Si també deses les teves adreces d'interès al teu Compte de Browther, pots fer un seguiment dels preus dels productes a Browther i rebre una notificació quan baixi el preu</translation>
 <translation id="6676384891291319759">Accedeix a Internet</translation>
 <translation id="1363996462118479832">Chrome OS no ha pogut sincronitzar les teves dades a causa d'un error en iniciar la sessió.</translation>
-<translation id="4694512973195649124">Suprimeix les dades d'aquesta aplicació de Browther</translation>
-<translation id="5324448127277983819">Browther et proporciona més control sobre els anuncis que veus i limita la informació que els llocs web poden obtenir sobre tu quan et mostren anuncis personalitzats</translation>
-<translation id="1257247502847251159">Browther necessita permís d'accés al micròfon per a aquest lloc web</translation>
+<translation id="3373239673945775810">Suprimeix les dades d'aquesta aplicació de Browther</translation>
+<translation id="8122759674786039814">Browther et proporciona més control sobre els anuncis que veus i limita la informació que els llocs web poden obtenir sobre tu quan et mostren anuncis personalitzats</translation>
+<translation id="6277682530398500159">Browther necessita permís d'accés al micròfon per a aquest lloc web</translation>
 <translation id="6712881677154121168">Error de baixada: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">El vostre perfil no es pot utilitzar perquè es va crear amb una versió més recent de Browther.
+<translation id="2972046656127603037">El vostre perfil no es pot utilitzar perquè es va crear amb una versió més recent de Browther.
 
 És possible que algunes funcions no estiguin disponibles. Especifiqueu un altre directori de perfil o utilitzeu una versió més nova de Browther.</translation>
-<translation id="1505112054322049777">Per obtenir personalització i altres funcions, inclou Browther a Activitat al web i en aplicacions i als serveis de Browther enllaçats</translation>
-<translation id="6666624454809779082">Ja tens instal·lat Browther per a tots els usuaris de l'ordinador.</translation>
-<translation id="5848830584656405219">Per obtenir les teves adreces d'interès i altres dades en tots els dispositius, inicia la sessió a Browther. Aquesta adreça d'interès es desarà al teu Compte de Browther després d'iniciar-hi la sessió.</translation>
-<translation id="4020203987234748583">Agilitza els llocs web amb el motor V8 de Browther, però fa que Browther sigui una mica menys resistent als atacs. Aquesta opció de configuració està activada.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Algunes dades de Browther encara no s'han desat al teu Compte de Browther. Prova d'esperar uns quants minuts abans de tancar la sessió. Si tanques la sessió ara, aquestes dades (1 element) se suprimiran.}other{Algunes dades de Browther encara no s'han desat al teu Compte de Browther. Prova d'esperar uns quants minuts abans de tancar la sessió. Si tanques la sessió ara, aquestes dades ({count} elements) se suprimiran.}}</translation>
-<translation id="3136039682492230890">Browther recomana que s'analitzi aquest fitxer perquè pot ser perillós.</translation>
+<translation id="871671753163165892">Per obtenir personalització i altres funcions, inclou Browther a Activitat al web i en aplicacions i als serveis de Browther enllaçats</translation>
+<translation id="5000832110229523807">Ja tens instal·lat Browther per a tots els usuaris de l'ordinador.</translation>
+<translation id="5204575479550973859">Per obtenir les teves adreces d'interès i altres dades en tots els dispositius, inicia la sessió a Browther. Aquesta adreça d'interès es desarà al teu Compte de Browther després d'iniciar-hi la sessió.</translation>
+<translation id="2874208284092283937">Agilitza els llocs web amb el motor V8 de Browther, però fa que Browther sigui una mica menys resistent als atacs. Aquesta opció de configuració està activada.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Algunes dades de Browther encara no s'han desat al teu Compte de Browther. Prova d'esperar uns quants minuts abans de tancar la sessió. Si tanques la sessió ara, aquestes dades (1 element) se suprimiran.}other{Algunes dades de Browther encara no s'han desat al teu Compte de Browther. Prova d'esperar uns quants minuts abans de tancar la sessió. Si tanques la sessió ara, aquestes dades ({count} elements) se suprimiran.}}</translation>
+<translation id="7683816018918395929">Browther recomana que s'analitzi aquest fitxer perquè pot ser perillós.</translation>
 <translation id="1547295885616600893">Chrome OS és possible gràcies a <ph name="BEGIN_LINK_CROS_OSS"/>programari lliure addicional<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="6831043979455480757">Tradueix</translation>
-<translation id="8211837073776713955">Browther et permet saber si les contrasenyes s'han posat en perill</translation>
+<translation id="2142653375108595728">Browther et permet saber si les contrasenyes s'han posat en perill</translation>
 <translation id="684888714667046800">No es pot connectar a Internet. Si fas servir un tallafoc, assegura't que <ph name="PRODUCT_EXE_NAME"/> sigui a la llista d'accés permès.</translation>
-<translation id="7830723774663008396">Browther: <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther: <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Prem el tabulador per continuar</translation>
 <translation id="6862030660799253820">Cerca en aquesta imatge amb la cerca d'imatges</translation>
-<translation id="3028928628792374067">Browther ha detectat que l'extensió "<ph name="EXTENSION_NAME"/>" conté programari maliciós</translation>
+<translation id="3860339351709082396">Browther ha detectat que l'extensió "<ph name="EXTENSION_NAME"/>" conté programari maliciós</translation>
 <translation id="6877155553248388166">extrem inferior dret de l'àrea de cerca: <ph name="RIGHT"/> % per la dreta i <ph name="BOTTOM"/> % per baix</translation>
 <translation id="6896758677409633944">Copia</translation>
-<translation id="862687584320433626">Defineix Browther com a navegador predeterminat i fixa'l a la barra de tasques</translation>
-<translation id="1991562568473125499">&amp;Gestiona els perfils de Browther</translation>
+<translation id="7804113502310231166">Defineix Browther com a navegador predeterminat i fixa'l a la barra de tasques</translation>
+<translation id="3228374215117173004">&amp;Gestiona els perfils de Browther</translation>
 <translation id="6934579572334859869">Pregunta a la cerca d'imatges sobre aquesta imatge</translation>
-<translation id="5529781826378237601">Has arribat al límit de <ph name="BOOKMARK_LIMIT"/> adreces d'interès de Browther, de manera que algunes encara no s'han desat al teu Compte de Browther.
+<translation id="5995328366516663808">Has arribat al límit de <ph name="BOOKMARK_LIMIT"/> adreces d'interès de Browther, de manera que algunes encara no s'han desat al teu Compte de Browther.
 
 No es poden desar adreces d'interès noves al teu compte fins que no en suprimeixis algunes. Si tanques la sessió ara, se suprimiran les adreces d'interès no desades.</translation>
 <translation id="6965382102122355670">D'acord</translation>
-<translation id="6418340404893954563">Les contrasenyes poc segures són fàcils d'endevinar. Deixa que Browther <ph name="BEGIN_LINK"/>creï i recordi contrasenyes segures en nom teu<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Les contrasenyes poc segures són fàcils d'endevinar. Deixa que Browther <ph name="BEGIN_LINK"/>creï i recordi contrasenyes segures en nom teu<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Condicions de Chrome OS</translation>
-<translation id="3335606533094650083">Per visitar aquest lloc web, Browther necessita permís per accedir al micròfon</translation>
-<translation id="6643520655691573653">Introdueix la frase de contrasenya per utilitzar i desar les dades de Browther al teu compte, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="5379058926689137454">Per visitar aquest lloc web, Browther necessita permís per accedir al micròfon</translation>
+<translation id="4684462982894889021">Introdueix la frase de contrasenya per utilitzar i desar les dades de Browther al teu compte, <ph name="ACCOUNT_EMAIL"/></translation>
 <translation id="7011190694940573312">La instal·lació ha fallat perquè aquesta versió del sistema operatiu no és compatible.</translation>
 <translation id="7024536598735240744">Error de descompressió: <ph name="UNPACK_ERROR"/></translation>
 <translation id="7025789849649390912">La instal·lació s'ha aturat.</translation>
-<translation id="280382502853897110">Personalitza Browther</translation>
+<translation id="8257174622576051374">Personalitza Browther</translation>
 <translation id="7047386856539490735">Aquests resultats són útils?</translation>
-<translation id="1705567146636171298">Actualitza Browther</translation>
-<translation id="5499063270485366718">Si una imatge no té una descripció útil, Browther provarà d'oferir-te'n una. Per crear les descripcions, les imatges s'envien a Browther.</translation>
-<translation id="5966368554860795750">Personalitza Browther for Testing</translation>
-<translation id="792838367208896130">Pots utilitzar Browther cada vegada que facis clic en enllaços en missatges, documents i altres aplicacions</translation>
-<translation id="375314543563594498">Suprimeix <ph name="EXTENSION_NAME"/> de Browther</translation>
-<translation id="2332301637111071062">La teva organització suprimeix les dades de Browther quan no s'utilitzen durant <ph name="TIMEOUT_DURATION"/>. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.</translation>
-<translation id="1008530050039597147">Browther necessita permís d'accés a la càmera per a aquest lloc web</translation>
-<translation id="1197672524850678392">No s'ha pogut iniciar Browther. Torna-ho a provar.</translation>
-<translation id="3405035915691517126">Browther no pot comprovar les teves contrasenyes. Torna-ho a provar al cap de 24 hores.</translation>
-<translation id="3625983487600668413">Mantén Browther al Dock per accedir-hi ràpidament en qualsevol moment</translation>
-<translation id="5755581833598928580">Utilitza Browther cada vegada que facis clic en enllaços en missatges, documents i altres aplicacions</translation>
-<translation id="5516268345616100622">Gestor de tasques: Browther</translation>
-<translation id="713191641919118540">Els teus interessos segons les estimacions de Browther</translation>
-<translation id="1871621397473741084">Comença a navegar a l'instant: ara Browther es pot obrir quan s'inicia Windows.</translation>
+<translation id="1772745060691790742">Actualitza Browther</translation>
+<translation id="4937970118065051027">Si una imatge no té una descripció útil, Browther provarà d'oferir-te'n una. Per crear les descripcions, les imatges s'envien a Browther.</translation>
+<translation id="1594112132009288601">Personalitza Browther for Testing</translation>
+<translation id="5915000938288527952">Pots utilitzar Browther cada vegada que facis clic en enllaços en missatges, documents i altres aplicacions</translation>
+<translation id="8775664994493381735">Suprimeix <ph name="EXTENSION_NAME"/> de Browther</translation>
+<translation id="3276648807841991013">La teva organització suprimeix les dades de Browther quan no s'utilitzen durant <ph name="TIMEOUT_DURATION"/>. Això pot incloure l'historial, les dades d'Emplenament automàtic i les baixades.</translation>
+<translation id="4725226878394159809">Browther necessita permís d'accés a la càmera per a aquest lloc web</translation>
+<translation id="8931474625901592021">No s'ha pogut iniciar Browther. Torna-ho a provar.</translation>
+<translation id="8242947409070121799">Browther no pot comprovar les teves contrasenyes. Torna-ho a provar al cap de 24 hores.</translation>
+<translation id="1737922827960215472">Mantén Browther al Dock per accedir-hi ràpidament en qualsevol moment</translation>
+<translation id="335855266303176628">Utilitza Browther cada vegada que facis clic en enllaços en missatges, documents i altres aplicacions</translation>
+<translation id="709455597778444012">Gestor de tasques: Browther</translation>
+<translation id="7147140345767587643">Els teus interessos segons les estimacions de Browther</translation>
+<translation id="7337408274890534789">Comença a navegar a l'instant: ara Browther es pot obrir quan s'inicia Windows.</translation>
 <translation id="7274695763216404502">S'ha fixat. Torna a utilitzar la cerca d'imatges des de la barra d'eines.</translation>
 <translation id="7288567540154601580">Pestanyes i extensions</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther et recomana que la suprimeixis}other{Browther et recomana que les suprimeixis}}</translation>
-<translation id="4600669988724328687">Per compartir l'àudio del sistema, obre Configuració del sistema i permet l'opció Només gravació d'àudio del sistema per a Browther. Després hauràs de reiniciar Browther.</translation>
-<translation id="9068395155143628872">El mesurament d'anuncis permet als llocs web que visites sol·licitar informació de Browther que els ajudi a mesurar el rendiment dels anuncis. El mesurament d'anuncis restringeix el seguiment entre llocs web transferint la quantitat mínima possible d'informació entre llocs web.</translation>
-<translation id="1864557848095568223">S'està actualitzant Browther</translation>
-<translation id="3403365884036456766">El fitxer de preferències està malmès o no és vàlid.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther et recomana que la suprimeixis}other{Browther et recomana que les suprimeixis}}</translation>
+<translation id="1527644038571473502">Per compartir l'àudio del sistema, obre Configuració del sistema i permet l'opció Només gravació d'àudio del sistema per a Browther. Després hauràs de reiniciar Browther.</translation>
+<translation id="1427913074981060872">El mesurament d'anuncis permet als llocs web que visites sol·licitar informació de Browther que els ajudi a mesurar el rendiment dels anuncis. El mesurament d'anuncis restringeix el seguiment entre llocs web transferint la quantitat mínima possible d'informació entre llocs web.</translation>
+<translation id="1657652725060525338">S'està actualitzant Browther</translation>
+<translation id="884846289464870238">El fitxer de preferències està malmès o no és vàlid.
 
 Browther no pot recuperar la configuració.</translation>
 <translation id="7339898014177206373">Finestra nova</translation>
-<translation id="3511996232906761537">El vostre web, les adreces d'interès i altres coses de Browther resideixen aquí.</translation>
-<translation id="1754899895078387289">Només les persones que sàpiguen la teva frase de contrasenya podran llegir les dades encriptades. La frase de contrasenya no s'envia a Browther, i Browther tampoc no l'emmagatzema. Si oblides la frase de contrasenya o vols canviar aquesta opció de configuració, has de <ph name="BEGIN_LINK"/>suprimir les dades de Browther del compte<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">L'administrador del sistema ha configurat Browther perquè obri <ph name="ALTERNATIVE_BROWSER_NAME"/> per accedir a <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="633044855886370183">El vostre web, les adreces d'interès i altres coses de Browther resideixen aquí.</translation>
+<translation id="1185960088713242527">Només les persones que sàpiguen la teva frase de contrasenya podran llegir les dades encriptades. La frase de contrasenya no s'envia a Browther, i Browther tampoc no l'emmagatzema. Si oblides la frase de contrasenya o vols canviar aquesta opció de configuració, has de <ph name="BEGIN_LINK"/>suprimir les dades de Browther del compte<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">L'administrador del sistema ha configurat Browther perquè obri <ph name="ALTERNATIVE_BROWSER_NAME"/> per accedir a <ph name="TARGET_URL_HOSTNAME"/>.</translation>
 <translation id="7352651011704765696">S'ha produït un error</translation>
-<translation id="6085660187823915017">Per obtenir actualitzacions de Browther en un futur, necessitaràs macOS 13 o una versió posterior. Aquest ordinador utilitza macOS 12.</translation>
-<translation id="2865744782251083875">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION_1"/> i <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Aquesta extensió ja no s'admet. Browther et recomana que la suprimeixis.</translation>
-<translation id="7951152294775418909">Continua des d'on ho vas deixar: Browther restaura les teves pestanyes cada vegada que reinicies el navegador. Per desactivar-ho, ves a</translation>
-<translation id="3191314862567596053">Importa les contrasenyes a Browther</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
+<translation id="6638123710106659002">Per obtenir actualitzacions de Browther en un futur, necessitaràs macOS 13 o una versió posterior. Aquest ordinador utilitza macOS 12.</translation>
+<translation id="7286289384512061761">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION_1"/> i <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Aquesta extensió ja no s'admet. Browther et recomana que la suprimeixis.</translation>
+<translation id="137615076640044304">Continua des d'on ho vas deixar: Browther restaura les teves pestanyes cada vegada que reinicies el navegador. Per desactivar-ho, ves a</translation>
+<translation id="5967238175620483220">Importa les contrasenyes a Browther</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> - Browther Origin Dev</translation>
 <translation id="7450541714075000668">El text s'ha copiat</translation>
-<translation id="2034072705932785495">Per visitar aquest lloc web, Browther necessita permís per accedir a la càmera</translation>
-<translation id="7129342855140808694">Per poder utilitzar el micròfon, dona accés a Browther des de la <ph name="BEGIN_LINK"/>configuració del sistema<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">Per obtenir actualitzacions de Browther en el futur, necessitaràs Windows 10 o una versió posterior. Aquest ordinador utilitza Windows 7.</translation>
-<translation id="3962395975456095331">Vols tornar a iniciar Browther?</translation>
-<translation id="2619516027171717873">No es pot instal·lar la mateixa versió de Browther que s'està executant actualment. Tanqueu Browther i torneu-ho a provar.</translation>
-<translation id="2731639583336131792">Desaràs i utilitzaràs contrasenyes i altres elements del teu Compte de Browther en tots els llocs en què tinguis la sessió iniciada a Browther. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">És probable que els llocs web funcionin de la manera prevista. Quan tanquis totes les finestres de Browther, se't tancarà la sessió de la majoria de llocs web, tret del Compte de Browther si tens la sessió iniciada a Browther.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther es reiniciarà d'aquí a 1 minut}other{Browther es reiniciarà d'aquí a # minuts}}</translation>
-<translation id="552342471964912391">Per protegir les teves dades, permet que Browther suprimeixi els permisos dels llocs web que no has visitat recentment.</translation>
-<translation id="3826701455067637694">Obre Browther automàticament per començar a navegar a l'instant.</translation>
+<translation id="7766009218653304791">Per visitar aquest lloc web, Browther necessita permís per accedir a la càmera</translation>
+<translation id="5844418066487488520">Per poder utilitzar el micròfon, dona accés a Browther des de la <ph name="BEGIN_LINK"/>configuració del sistema<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">Per obtenir actualitzacions de Browther en el futur, necessitaràs Windows 10 o una versió posterior. Aquest ordinador utilitza Windows 7.</translation>
+<translation id="6299293759264950896">Vols tornar a iniciar Browther?</translation>
+<translation id="180908550381040105">No es pot instal·lar la mateixa versió de Browther que s'està executant actualment. Tanqueu Browther i torneu-ho a provar.</translation>
+<translation id="7625576878150380853">Desaràs i utilitzaràs contrasenyes i altres elements del teu Compte de Browther en tots els llocs en què tinguis la sessió iniciada a Browther. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">És probable que els llocs web funcionin de la manera prevista. Quan tanquis totes les finestres de Browther, se't tancarà la sessió de la majoria de llocs web, tret del Compte de Browther si tens la sessió iniciada a Browther.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther es reiniciarà d'aquí a 1 minut}other{Browther es reiniciarà d'aquí a # minuts}}</translation>
+<translation id="3602613943932672197">Per protegir les teves dades, permet que Browther suprimeixi els permisos dels llocs web que no has visitat recentment.</translation>
+<translation id="8759568213742229377">Obre Browther automàticament per començar a navegar a l'instant.</translation>
 <translation id="7583399374488819119">Instal·lador de <ph name="COMPANY_NAME"/></translation>
-<translation id="3293668930608086049">Browther està utilitzant la càmera i el micròfon.</translation>
-<translation id="2827121003398607864">Browther és millor que mai</translation>
-<translation id="3071313329776323836">Ara tens més funcions disponibles a Browther</translation>
+<translation id="8991800242749014880">Browther està utilitzant la càmera i el micròfon.</translation>
+<translation id="2692328388439821508">Browther és millor que mai</translation>
+<translation id="4318444066563223295">Ara tens més funcions disponibles a Browther</translation>
 <translation id="7649070708921625228">Ajuda</translation>
-<translation id="4008841832817149051">Deixa que Browther navegui per tu</translation>
+<translation id="5591287320769313116">Deixa que Browther navegui per tu</translation>
 <translation id="7658239707568436148">Cancel·la</translation>
-<translation id="3343095737966473035">Browther no és el navegador predeterminat</translation>
-<translation id="5477319665405831211">Sincronitza i personalitza Browther en tots els teus dispositius</translation>
-<translation id="2339273275658335597">Actualització de Browther</translation>
+<translation id="6325482130534634729">Browther no és el navegador predeterminat</translation>
+<translation id="8185915921134219287">Sincronitza i personalitza Browther en tots els teus dispositius</translation>
+<translation id="5120421624925726813">Actualització de Browther</translation>
 <translation id="7716950018788545737">Les tasques s'han finalitzat.</translation>
 <translation id="77283119132245232">Proporciona serveis de traçabilitat del sistema per a <ph name="BROWSER_NAME"/>. Si aquest servei es desactiva, les traces de rendiment creades pel navegador no inclouran esdeveniments de tot el sistema, com ara els esdeveniments de canvi de context i de fils preparats.</translation>
-<translation id="4784414698887946907">Amb aquesta acció, se suprimiran les teves dades de navegació d'aquest dispositiu. Per recuperar les teves dades més endavant, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
+<translation id="6542096191573265107">Amb aquesta acció, se suprimiran les teves dades de navegació d'aquest dispositiu. Per recuperar les teves dades més endavant, inicia la sessió a Browther com a <ph name="USER_EMAIL"/>.</translation>
 <translation id="7747138024166251722">L'instal·lador no ha pogut crear un directori temporal. Comprova que hi ha espai lliure al disc i que tens permís per instal·lar el programari.</translation>
-<translation id="8543787950557226450">Restableix el tema predeterminat de Browther</translation>
-<translation id="4976450819672499783">Defineix Browther com a navegador predeterminat i fixa'l a la barra de tasques</translation>
-<translation id="1978509466033734608">Fes que Browther sigui més ràpid</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
-<translation id="2684504034454188774">Dificulta que les persones amb accés al teu trànsit d'Internet vegin els llocs web que visites. Browther utilitza una connexió segura per cercar l'adreça IP d'un lloc web al sistema de noms de domini (DNS).</translation>
+<translation id="351575328720488268">Restableix el tema predeterminat de Browther</translation>
+<translation id="1054170408395182418">Defineix Browther com a navegador predeterminat i fixa'l a la barra de tasques</translation>
+<translation id="4569594230301902490">Fes que Browther sigui més ràpid</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> - Browther Origin Canary</translation>
+<translation id="7893465573639396635">Dificulta que les persones amb accés al teu trànsit d'Internet vegin els llocs web que visites. Browther utilitza una connexió segura per cercar l'adreça IP d'un lloc web al sistema de noms de domini (DNS).</translation>
 <translation id="7810005234485217901">Pots fixar la cerca d'imatges per accedir-hi fàcilment</translation>
-<translation id="1652855885539187849">Ja existeix un perfil de Browther amb aquest compte en aquest dispositiu</translation>
+<translation id="2462631024103158515">Ja existeix un perfil de Browther amb aquest compte en aquest dispositiu</translation>
 <translation id="7845233973568007926">T'agraïm la instal·lació. Has de reiniciar l'equip abans d'utilitzar <ph name="BUNDLE_NAME"/>.</translation>
-<translation id="9148690296223500734">Personalitza Browther per renovar-ne l'aspecte</translation>
-<translation id="7963515534397191222">Browther no s'ha pogut actualitzar a la darrera versió, així que no pots gaudir de les noves funcions ni de les correccions de seguretat.</translation>
+<translation id="311190437086049332">Personalitza Browther per renovar-ne l'aspecte</translation>
+<translation id="6728847658878265103">Browther no s'ha pogut actualitzar a la darrera versió, així que no pots gaudir de les noves funcions ni de les correccions de seguretat.</translation>
 <translation id="7872446069773932638">S'està baixant… Queden <ph name="SECONDS"/> segons</translation>
-<translation id="5545136190679883344">Si has oblidat la frase de contrasenya o vols canviar aquesta opció de configuració, <ph name="BEGIN_LINK"/>suprimeix les dades de Browther del compte<ph name="END_LINK"/>.</translation>
+<translation id="5374532739787768601">Si has oblidat la frase de contrasenya o vols canviar aquesta opció de configuració, <ph name="BEGIN_LINK"/>suprimeix les dades de Browther del compte<ph name="END_LINK"/>.</translation>
 <translation id="7877212753140190672">Pregunta sobre aquesta imatge</translation>
-<translation id="5687542525349822727">Defineix Browther com a navegador predeterminat</translation>
-<translation id="6396151137840491551">Quan és possible, Browther actualitza automàticament les connexions no segures a HTTPS</translation>
-<translation id="2925193881330501265">Teníeu la sessió iniciada a Browther com a <ph name="USER_EMAIL_ADDRESS"/>. Utilitzeu el mateix compte per tornar a iniciar-hi la sessió.</translation>
-<translation id="6915252145142862992">Aquesta és una instal·lació secundària de Browther i no pot definir-se com a navegador predeterminat.</translation>
+<translation id="9172499982238113829">Defineix Browther com a navegador predeterminat</translation>
+<translation id="3313826726620159669">Quan és possible, Browther actualitza automàticament les connexions no segures a HTTPS</translation>
+<translation id="3317928686912559532">Teníeu la sessió iniciada a Browther com a <ph name="USER_EMAIL_ADDRESS"/>. Utilitzeu el mateix compte per tornar a iniciar-hi la sessió.</translation>
+<translation id="6007009085341946457">Aquesta és una instal·lació secundària de Browther i no pot definir-se com a navegador predeterminat.</translation>
 <translation id="8004582292198964060">Navegador</translation>
 <translation id="8010081455002666927">Detecta automàticament</translation>
-<translation id="7685904775439037072">Un cop Browther tingui accés, els llocs web et podran demanar accés.</translation>
-<translation id="3230755314472063687">Fixa Browther a la barra de tasques per accedir-hi ràpidament en qualsevol moment</translation>
+<translation id="174885789898161653">Un cop Browther tingui accés, els llocs web et podran demanar accés.</translation>
+<translation id="3001754454174546602">Fixa Browther a la barra de tasques per accedir-hi ràpidament en qualsevol moment</translation>
 <translation id="80471789339884597">T'agraïm la instal·lació. Has de reiniciar tots els navegadors abans d'utilitzar <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="8054112667659782652">Mostra sempre la drecera de la cerca d'imatges</translation>
-<translation id="6175141682081019059">Desactiva l'execució de Browther en segon pla per a les aplicacions</translation>
+<translation id="6993312779622863465">Desactiva l'execució de Browther en segon pla per a les aplicacions</translation>
 <translation id="80790299200510644">Cerca d'imatges</translation>
 <translation id="8086881907087796310">La instal·lació ha fallat perquè l'ordinador no compleix els requisits mínims de maquinari.</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/> - Browther Origin for Testing</translation>
-<translation id="2061155704815580583">Browther necessita permís d'accés a la ubicació per a aquest lloc web</translation>
-<translation id="3576319845915562805">La propera vegada que obris Browther al teu <ph name="DEVICE_TYPE"/>, veuràs una indicació per activar les alertes de seguiment de preus.</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/> - Browther Origin for Testing</translation>
+<translation id="543407324609820492">Browther necessita permís d'accés a la ubicació per a aquest lloc web</translation>
+<translation id="1767887552863788514">La propera vegada que obris Browther al teu <ph name="DEVICE_TYPE"/>, veuràs una indicació per activar les alertes de seguiment de preus.</translation>
 <translation id="8118331347066725040">Envia suggeriments per a la cerca amb Lens</translation>
 <translation id="5334309298019785904">Chrome OS no ha pogut sincronitzar les teves dades perquè la sincronització no està disponible per al teu domini.</translation>
 <translation id="813913629614996137">S'està inicialitzant…</translation>
-<translation id="1081849497974110565">Condicions del servei addicionals de Browther</translation>
-<translation id="9067428552314418522">Browther ha bloquejat aquest fitxer perquè és perillós.</translation>
+<translation id="4879101934056397619">Condicions del servei addicionals de Browther</translation>
+<translation id="4505690237431768764">Browther ha bloquejat aquest fitxer perquè és perillós.</translation>
 <translation id="8177472873527554730">No es troba contingut a la pàgina</translation>
-<translation id="6219250889396046657">Introdueix la frase de contrasenya per utilitzar i desar les dades de Browther al teu compte, <ph name="USER_EMAIL"/></translation>
+<translation id="4720341280133158605">Introdueix la frase de contrasenya per utilitzar i desar les dades de Browther al teu compte, <ph name="USER_EMAIL"/></translation>
 <translation id="8221491193165283816">Normalment bloqueges les notificacions. Per permetre que aquest lloc web et mostri notificacions, fes clic aquí.</translation>
-<translation id="8377926237617998195">Per poder utilitzar la càmera, dona accés a Browther des de la <ph name="BEGIN_LINK"/>configuració del sistema<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">Browther no pot verificar d'on prové aquesta extensió i és possible que no sigui segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades als llocs web que visitis, inclosa la informació personal.</translation>
-<translation id="8207657266087451193">Si una imatge no té una descripció útil, Browther provarà d'oferir-te'n una. Per crear les descripcions, les imatges s'envien a Browther. Pots desactivar aquesta funció en qualsevol moment a la configuració.</translation>
-<translation id="7792526144795244436">Vols iniciar la sessió a Browther en un altre perfil?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther t'avisa<ph name="END_LINK"/> sobre baixades i llocs web que no són segurs</translation>
-<translation id="8060549744348950090">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Compra, tradueix i identifica el que veus amb la càmera a l'aplicació Browther per a iOS</translation>
+<translation id="1083711467946065278">Per poder utilitzar la càmera, dona accés a Browther des de la <ph name="BEGIN_LINK"/>configuració del sistema<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">Browther no pot verificar d'on prové aquesta extensió i és possible que no sigui segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades als llocs web que visitis, inclosa la informació personal.</translation>
+<translation id="1122818205373648656">Si una imatge no té una descripció útil, Browther provarà d'oferir-te'n una. Per crear les descripcions, les imatges s'envien a Browther. Pots desactivar aquesta funció en qualsevol moment a la configuració.</translation>
+<translation id="6877990294324319801">Vols iniciar la sessió a Browther en un altre perfil?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther t'avisa<ph name="END_LINK"/> sobre baixades i llocs web que no són segurs</translation>
+<translation id="1685486387921540822">No l'has visitat recentment. Browther ha suprimit <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Compra, tradueix i identifica el que veus amb la càmera a l'aplicació Browther per a iOS</translation>
 <translation id="8313851650939857356">Error d'arrencada: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">La teva organització tanca Browther quan no s'utilitza durant <ph name="TIMEOUT_DURATION"/>.</translation>
+<translation id="7386947683604296534">La teva organització tanca Browther quan no s'utilitza durant <ph name="TIMEOUT_DURATION"/>.</translation>
 <translation id="8321888067342493336">Desa com a imatge</translation>
-<translation id="3360368475735266712">Inicia la sessió per sincronitzar i personalitzar Browther en tots els teus dispositius</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> abans utilitzava Browther</translation>
-<translation id="5592122595094519401">Actualitza Browther per continuar utilitzant les dades de Browther al teu Compte de Browther, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="2569754604093464025">Per obtenir actualitzacions de Browther en el futur, necessitaràs Windows 10 o una versió posterior. Aquest ordinador utilitza Windows 8.</translation>
+<translation id="143016831128278157">Inicia la sessió per sincronitzar i personalitzar Browther en tots els teus dispositius</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> abans utilitzava Browther</translation>
+<translation id="1288164710697017468">Actualitza Browther per continuar utilitzant les dades de Browther al teu Compte de Browther, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="8648401677359150296">Per obtenir actualitzacions de Browther en el futur, necessitaràs Windows 10 o una versió posterior. Aquest ordinador utilitza Windows 8.</translation>
 <translation id="8362914115861174987">Tradueix a</translation>
 <translation id="8367705492654390392">Pregunta el que vulguis</translation>
-<translation id="7296197595428914424">Per obtenir les teves contrasenyes i altres dades en tots els dispositius, inicia la sessió a Browther. Aquesta contrasenya es desarà al teu Compte de Browther després d'iniciar-hi la sessió.</translation>
-<translation id="9098234372282930719">Després hauràs de reiniciar Browther.</translation>
-<translation id="1327729221471951979">Browther et recomana que la suprimeixis. <ph name="BEGIN_LINK"/>Més informació sobre les extensions admeses<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">El desenvolupador ha anul·lat la publicació d'aquesta extensió, cosa que podria fer-la poc segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades als llocs web que visitis, inclosa la teva informació personal.</translation>
-<translation id="4234753748520037091">Browther ha de verificar la teva identitat perquè algunes dades es puguin desar al teu Compte de Browther i utilitzar-se en tots els teus dispositius. Si tanques la sessió ara, aquestes dades se suprimiran.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Reinicia Browther en 1 dia}other{Reinicia Browther en # dies}}</translation>
+<translation id="5769022907892823357">Per obtenir les teves contrasenyes i altres dades en tots els dispositius, inicia la sessió a Browther. Aquesta contrasenya es desarà al teu Compte de Browther després d'iniciar-hi la sessió.</translation>
+<translation id="4782442810031768771">Després hauràs de reiniciar Browther.</translation>
+<translation id="8265348385714408341">Browther et recomana que la suprimeixis. <ph name="BEGIN_LINK"/>Més informació sobre les extensions admeses<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">El desenvolupador ha anul·lat la publicació d'aquesta extensió, cosa que podria fer-la poc segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades als llocs web que visitis, inclosa la teva informació personal.</translation>
+<translation id="1613655732912855341">Browther ha de verificar la teva identitat perquè algunes dades es puguin desar al teu Compte de Browther i utilitzar-se en tots els teus dispositius. Si tanques la sessió ara, aquestes dades se suprimiran.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Reinicia Browther en 1 dia}other{Reinicia Browther en # dies}}</translation>
 <translation id="8438543370129609977">Quan utilitzes la cerca d'imatges, el títol, l'URL i el contingut de la pàgina (inclosos els PDF) s'envien al servidor. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Més informació sobre les consultes amb la cerca d'imatges a Browther</translation>
-<translation id="6914496861676471566">L'arxiu d'instal·lació està malmès o no és vàlid. Torneu a baixar Browther.</translation>
-<translation id="4378573854226202617">Browther requereix Windows 10 o una versió posterior.</translation>
-<translation id="6431861494713261006">Opcional: ajuda a millorar les funcions i el rendiment de Chrome OS enviant automàticament dades de diagnòstic i d'ús a Browther.</translation>
-<translation id="8691137711639873980">Per utilitzar i desar les dades de Browther al teu Compte de Browther, verifica la teva identitat</translation>
-<translation id="3251012123600267109">Mostra sol·licituds per iniciar la sessió a Browther</translation>
-<translation id="2097604701283463988">Browther no està actualitzat</translation>
-<translation id="6080203201796279095">Gràcies per triar Browther com a navegador predeterminat.</translation>
-<translation id="871233388178581868">Browther pot comprovar les teves contrasenyes quan les deses</translation>
-<translation id="3667461919057407535">Rep un advertiment si Browther troba que una de les teves contrasenyes s'ha fet pública a causa d'una violació de les dades</translation>
+<translation id="3550129882823305293">Més informació sobre les consultes amb la cerca d'imatges a Browther</translation>
+<translation id="1401757916223057494">L'arxiu d'instal·lació està malmès o no és vàlid. Torneu a baixar Browther.</translation>
+<translation id="5029760494698649486">Browther requereix Windows 10 o una versió posterior.</translation>
+<translation id="7906734902028783072">Opcional: ajuda a millorar les funcions i el rendiment de Chrome OS enviant automàticament dades de diagnòstic i d'ús a Browther.</translation>
+<translation id="6791756730901393492">Per utilitzar i desar les dades de Browther al teu Compte de Browther, verifica la teva identitat</translation>
+<translation id="4879869745782826167">Mostra sol·licituds per iniciar la sessió a Browther</translation>
+<translation id="2967761098021401720">Browther no està actualitzat</translation>
+<translation id="7674832651694000881">Gràcies per triar Browther com a navegador predeterminat.</translation>
+<translation id="4507581730979762077">Browther pot comprovar les teves contrasenyes quan les deses</translation>
+<translation id="7205233182271132386">Rep un advertiment si Browther troba que una de les teves contrasenyes s'ha fet pública a causa d'una violació de les dades</translation>
 <translation id="8555465886620020932">Error de servei: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Pots fixar la cerca d'imatges per accedir-hi fàcilment. Fes clic al botó per fixar que hi ha a la part superior del tauler lateral.</translation>
 <translation id="856656450041460113">Cerca a la llista d'idiomes</translation>
-<translation id="227028348235968071">Browther pot comprovar les teves contrasenyes quan inicies la sessió amb el Compte de Browther</translation>
-<translation id="839677568225616901">Diverses organitzacions gestionen Browther</translation>
-<translation id="8121009781989288430">Copyright © <ph name="YEAR"/> Els autors de Browther. Tots els drets reservats.</translation>
+<translation id="75470458211269379">Browther pot comprovar les teves contrasenyes quan inicies la sessió amb el Compte de Browther</translation>
+<translation id="2108930010779660436">Diverses organitzacions gestionen Browther</translation>
+<translation id="7209630341463003999">Copyright © <ph name="YEAR"/> Els autors de Browther. Tots els drets reservats.</translation>
 <translation id="8601359445272098721">Novetat! Pots traduir tant el text com les imatges en pantalla seleccionant el botó Tradueix la pantalla.</translation>
-<translation id="3052349005266761501">S'està iniciant Browther...</translation>
+<translation id="782928371899183269">S'està iniciant Browther...</translation>
 <translation id="8624541899164515475">Configuració; s'obre en una pestanya nova.</translation>
-<translation id="5128665650717824082">Browther for Testing no pot definir-se com a navegador predeterminat.</translation>
+<translation id="5879341334716115002">Browther for Testing no pot definir-se com a navegador predeterminat.</translation>
 <translation id="2433912322225810055">També controla la pàgina que es mostra quan inicieu Browther o quan feu una cerca des de l'omnibox.</translation>
-<translation id="4100716194836114130">Aquest és el vostre Browther</translation>
+<translation id="4816541973978692496">Aquest és el vostre Browther</translation>
 <translation id="8712637175834984815">Entesos</translation>
-<translation id="1419543648228375718">Vols iniciar la sessió a Browther?</translation>
-<translation id="4891728458408976811">Mantén-ho tot a Browther</translation>
+<translation id="9037464035997618895">Vols iniciar la sessió a Browther?</translation>
+<translation id="7897185368811431919">Mantén-ho tot a Browther</translation>
 <translation id="8747073452963259673">extrem inferior esquerre de l'àrea de cerca: <ph name="LEFT"/> % per l'esquerra i <ph name="BOTTOM"/> % per baix</translation>
 <translation id="878572486461146056">Error d'instal·lació: l'administrador de la xarxa ha aplicat una norma de grup que impedeix la instal·lació (<ph name="INSTALL_ERROR"/>)</translation>
-<translation id="4831743161813926460">Per visitar aquest lloc web, Browther necessita permís per accedir a la càmera i al micròfon</translation>
+<translation id="1576369213923770885">Per visitar aquest lloc web, Browther necessita permís per accedir a la càmera i al micròfon</translation>
 <translation id="8813277370772331957">Recorda-m'ho més tard</translation>
-<translation id="64216977793816291">Vols iniciar la sessió a Browther?</translation>
-<translation id="7447364954121496869">Fes que Browther sigui el navegador predeterminat i fixa'l a la barra de tasques</translation>
+<translation id="6831999464349484462">Vols iniciar la sessió a Browther?</translation>
+<translation id="3698151322107951111">Fes que Browther sigui el navegador predeterminat i fixa'l a la barra de tasques</translation>
 <translation id="8826492472752484139">Fes clic a Gestor de contrasenyes</translation>
 <translation id="6933858244219479645">Sistema Chrome OS</translation>
-<translation id="9084132286318231275">Aquest idioma s'utilitza per mostrar menús, opcions de configuració, alertes i altres textos a Browther</translation>
+<translation id="3986927308621489499">Aquest idioma s'utilitza per mostrar menús, opcions de configuració, alertes i altres textos a Browther</translation>
 <translation id="8862326446509486874">No disposeu dels drets necessaris per instal·lar aplicacions al sistema. Proveu de tornar a executar l'instal·lador com a administrador.</translation>
-<translation id="7289323009146924152">Afegeix un perfil de Browther</translation>
-<translation id="6412037018950369131">Si ja ho has fet, edita la contrasenya desada a Browther perquè coincideixi amb la contrasenya nova.</translation>
-<translation id="1150745254876977823">La teva organització requereix que iniciïs la sessió a Browther</translation>
-<translation id="8285294305439559616">Browther està provant de mostrar contrasenyes. Escriviu la vostra contrasenya de Windows per permetre-ho.</translation>
-<translation id="4684884244620579559">Browther ja no és el teu navegador predeterminat. Vols establir Browther com a navegador predeterminat?</translation>
-<translation id="6389268239133412586">Browther no es pot actualitzar</translation>
-<translation id="7731184591599776500">Logotip de Browther Enterprise</translation>
-<translation id="6500340165622970282">No es pot iniciar Browther perquè hi ha hagut un error en obrir el teu perfil. Prova de reiniciar Browther.</translation>
-<translation id="3424657754843264466">Gestiona els perfils de Browther</translation>
-<translation id="7055223246119657449">Browther ha bloquejat aquesta baixada perquè el fitxer d'arxiu inclou altres fitxers que poden amagar programari maliciós</translation>
-<translation id="9049928023195059068">Inicia la sessió a Browther quan iniciïs la sessió en altres serveis de Browther</translation>
-<translation id="4561046754724442504">Browther s'ha tancat automàticament</translation>
-<translation id="5173820533850252773">Browther no està actualitzat</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther es reiniciarà d'aquí a 1 hora}other{Browther es reiniciarà d'aquí a # hores}}</translation>
+<translation id="5318226144018267261">Afegeix un perfil de Browther</translation>
+<translation id="1298790608554316415">Si ja ho has fet, edita la contrasenya desada a Browther perquè coincideixi amb la contrasenya nova.</translation>
+<translation id="960933321883777733">La teva organització requereix que iniciïs la sessió a Browther</translation>
+<translation id="948979409756947611">Browther està provant de mostrar contrasenyes. Escriviu la vostra contrasenya de Windows per permetre-ho.</translation>
+<translation id="1418854271943945136">Browther ja no és el teu navegador predeterminat. Vols establir Browther com a navegador predeterminat?</translation>
+<translation id="7228667329366610727">Browther no es pot actualitzar</translation>
+<translation id="4817697255467736794">Logotip de Browther Enterprise</translation>
+<translation id="3507731466523097529">No es pot iniciar Browther perquè hi ha hagut un error en obrir el teu perfil. Prova de reiniciar Browther.</translation>
+<translation id="3234473600657230663">Gestiona els perfils de Browther</translation>
+<translation id="8953887022581653484">Browther ha bloquejat aquesta baixada perquè el fitxer d'arxiu inclou altres fitxers que poden amagar programari maliciós</translation>
+<translation id="532304972436358335">Inicia la sessió a Browther quan iniciïs la sessió en altres serveis de Browther</translation>
+<translation id="3425998261052065067">Browther s'ha tancat automàticament</translation>
+<translation id="4377377022617011492">Browther no està actualitzat</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther es reiniciarà d'aquí a 1 hora}other{Browther es reiniciarà d'aquí a # hores}}</translation>
 <translation id="9106236359747881194">Selecciona text per cercar</translation>
-<translation id="5190991181158966940">Per obtenir actualitzacions de Browther en el futur, necessitaràs Windows 10 o una versió posterior. Aquest ordinador utilitza Windows 8.1.</translation>
-<translation id="7863882214613921971">Obre l'enllaç en una pes&amp;tanya nova a Browther</translation>
+<translation id="5115014198092384730">Per obtenir actualitzacions de Browther en el futur, necessitaràs Windows 10 o una versió posterior. Aquest ordinador utilitza Windows 8.1.</translation>
+<translation id="7129101984664345614">Obre l'enllaç en una pes&amp;tanya nova a Browther</translation>
 <translation id="911206726377975832">També voleu suprimir les dades de navegació?</translation>
 <translation id="9134482777260927479">Ajuda per fer els deures</translation>
 <translation id="9148058034647219655">Surt</translation>
-<translation id="2792073155252170448">Continua des d'on ho vas deixar: Browther pot restaurar les teves pestanyes cada vegada que reiniciïs el navegador. Per activar-ho, ves a</translation>
-<translation id="2444257125841652328">L'administrador del sistema ha configurat Browther perquè obri un navegador alternatiu per accedir a <ph name="TARGET_URL_HOSTNAME"/>.</translation>
-<translation id="8208548103319284047">Consell de Browther: cerca amb Lens</translation>
-<translation id="7902365066753170041">Reinicia per actualitzar &amp;Browther</translation>
-<translation id="538146372587193686">Browther Origin (mDNS-In)</translation>
-<translation id="49909619875329637">Obtén més avantatges tenint la sessió iniciada a Browther</translation>
-<translation id="296137235951584143">Personalitza Browther</translation>
-<translation id="7977787072794666032">Pot ser que Browther no funcioni correctament perquè ja no és compatible amb Windows XP ni Windows Vista</translation>
+<translation id="1734388504720121468">Continua des d'on ho vas deixar: Browther pot restaurar les teves pestanyes cada vegada que reiniciïs el navegador. Per activar-ho, ves a</translation>
+<translation id="8633974232736772207">L'administrador del sistema ha configurat Browther perquè obri un navegador alternatiu per accedir a <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="1122669402846843682">Consell de Browther: cerca amb Lens</translation>
+<translation id="595330134356385835">Reinicia per actualitzar &amp;Browther</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS-In)</translation>
+<translation id="6491100124044190139">Obtén més avantatges tenint la sessió iniciada a Browther</translation>
+<translation id="1665840797775025867">Personalitza Browther</translation>
+<translation id="4407047432656809023">Pot ser que Browther no funcioni correctament perquè ja no és compatible amb Windows XP ni Windows Vista</translation>
 <translation id="945522503751344254">Envia suggeriments</translation>
-<translation id="4484434718272972655">Qui està utilitzant Browther?</translation>
-<translation id="7173394303099002355">Obtén la seguretat més efectiva de Browther</translation>
+<translation id="7620348044248809366">Qui està utilitzant Browther?</translation>
+<translation id="7299962884342109067">Obtén la seguretat més efectiva de Browther</translation>
 <translation id="983803489796659991">La instal·lació ha fallat perquè el servidor d'actualitzacions no disposa de dades de valor resum per a l'aplicació.</translation>
-<translation id="8435446479956716379">Fes servir Browther sense cap compte</translation>
-<translation id="8992261409816268381">Els autors de Browther</translation>
+<translation id="8775461190334353148">Fes servir Browther sense cap compte</translation>
+<translation id="7146761239544860058">Els autors de Browther</translation>
 <translation id="989970834842471429">Selecciona el text o la imatge que vulguis cercar amb la cerca d'imatges</translation>
-<translation id="3146636448190445245">Per poder utilitzar la ubicació, dona accés a Browther des de la <ph name="BEGIN_LINK"/>configuració del sistema<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">Per poder utilitzar la ubicació, dona accés a Browther des de la <ph name="BEGIN_LINK"/>configuració del sistema<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">La instal·lació ha fallat a causa d'un error no especificat. Torneu a baixar Browther.</translation>
-<translation id="1743665722170667430">Les extensions, aplicacions i temes de fonts desconegudes poden danyar el dispositiu. Browther només recomana instal·lar-les des de <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
-<translation id="6184592406110188164">Aquesta extensió infringeix la política de la Botiga Web i pot ser que no sigui segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades dels llocs que visites, inclosa la teva informació personal.</translation>
-<translation id="1299765473362724475">Advertència: Browther no pot evitar que les extensions registrin el teu historial de navegació. Per desactivar aquesta extensió en el mode d'incògnit, desmarca la selecció d'aquesta opció.</translation>
-<translation id="1448049584457347995">Perquè Browther sigui més segur, hem desactivat algunes de les extensions que no apareixen a <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> i que és possible que s'hagin afegit sense que ho sapigues.</translation>
-<translation id="8848045066928358658">Per tal que Browther sigui més segur, hem desactivat algunes de les extensions que no figuren a <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> i que és possible que s'hagin afegit sense que ho sapigues.</translation>
-<translation id="4624945300945265642">Obre l'enllaç en una finestra d'incò&amp;gnit a Browther</translation>
-<translation id="6554952862405000915">Obre l'enllaç en una finestra d'incò&amp;gnit a Browther</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{Hi ha una actualització nova de Browther disponible i s'aplicarà tan aviat com el reiniciïs.}=1{Hi ha una actualització nova de Browther disponible i s'aplicarà tan aviat com el reiniciïs. La finestra d'incògnit no es tornarà a obrir.}other{Hi ha una actualització nova de Browther disponible i s'aplicarà tan aviat com el reiniciïs. Les # finestres d'incògnit no es tornaran a obrir.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{L'administrador et demana que reiniciïs Browther per aplicar aquesta actualització}=1{L'administrador et demana que reiniciïs Browther per aplicar aquesta actualització. La finestra d'incògnit no es tornarà a obrir.}other{L'administrador et demana que reiniciïs Browther per aplicar aquesta actualització. Les # finestres d'incògnit no es tornaran a obrir.}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{L'administrador necessita que reiniciïs Browther per aplicar una actualització}=1{L'administrador necessita que reiniciïs Browther per aplicar una actualització. La finestra d'incògnit no es tornarà a obrir.}other{L'administrador necessita que reiniciïs Browther per aplicar una actualització. Les # finestres d'incògnit no es tornaran a obrir.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="5110032212554763592">La instal·lació ha fallat a causa d'un error no especificat. Torneu a baixar Browther.</translation>
+<translation id="9074842261125908635">Les extensions, aplicacions i temes de fonts desconegudes poden danyar el dispositiu. Browther només recomana instal·lar-les des de <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
+<translation id="3593119910409528681">Aquesta extensió infringeix la política de la Botiga Web i pot ser que no sigui segura. Suprimeix-la de Browther perquè ja no pugui veure ni canviar les teves dades dels llocs que visites, inclosa la teva informació personal.</translation>
+<translation id="5245976396374147971">Advertència: Browther no pot evitar que les extensions registrin el teu historial de navegació. Per desactivar aquesta extensió en el mode d'incògnit, desmarca la selecció d'aquesta opció.</translation>
+<translation id="3629539416935660172">Perquè Browther sigui més segur, hem desactivat algunes de les extensions que no apareixen a <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> i que és possible que s'hagin afegit sense que ho sapigues.</translation>
+<translation id="157534302749986451">Per tal que Browther sigui més segur, hem desactivat algunes de les extensions que no figuren a <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> i que és possible que s'hagin afegit sense que ho sapigues.</translation>
+<translation id="3031052147361385845">Obre l'enllaç en una finestra d'incò&amp;gnit a Browther</translation>
+<translation id="5556794247782664281">Obre l'enllaç en una finestra d'incò&amp;gnit a Browther</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{Hi ha una actualització nova de Browther disponible i s'aplicarà tan aviat com el reiniciïs.}=1{Hi ha una actualització nova de Browther disponible i s'aplicarà tan aviat com el reiniciïs. La finestra d'incògnit no es tornarà a obrir.}other{Hi ha una actualització nova de Browther disponible i s'aplicarà tan aviat com el reiniciïs. Les # finestres d'incògnit no es tornaran a obrir.}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{L'administrador et demana que reiniciïs Browther per aplicar aquesta actualització}=1{L'administrador et demana que reiniciïs Browther per aplicar aquesta actualització. La finestra d'incògnit no es tornarà a obrir.}other{L'administrador et demana que reiniciïs Browther per aplicar aquesta actualització. Les # finestres d'incògnit no es tornaran a obrir.}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{L'administrador necessita que reiniciïs Browther per aplicar una actualització}=1{L'administrador necessita que reiniciïs Browther per aplicar una actualització. La finestra d'incògnit no es tornarà a obrir.}other{L'administrador necessita que reiniciïs Browther per aplicar una actualització. Les # finestres d'incògnit no es tornaran a obrir.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {La Protecció Avançada requereix que reiniciïs Browther per aplicar una actualització}
               =1 {La Protecció Avançada requereix que reiniciïs Browther per aplicar una actualització. La teva finestra privada no es tornarà a obrir.}
               other {La Protecció Avançada requereix que reiniciïs Browther per aplicar una actualització. Les teves # finestres privades no es tornaran a obrir.}}</translation>
 <translation id="5749154344207139683">Ajuda'ns a millorar el mode Privat responent a aquesta enquesta d'1 minut.</translation>
-<translation id="79269250264141507">Quan escrius a la barra d'adreces o al quadre de cerca, Browther envia el que escrius al motor de cerca predeterminat per obtenir millors suggeriments. Aquesta opció està desactivada en el mode d'incògnit.</translation>
-<translation id="2589970573128789862">Browther Incògnit</translation>
-<translation id="5994282802285556682">Quan navegues en mode d'incògnit, Browther t'avisarà abans de carregar un lloc web que utilitzi una connexió no segura</translation>
+<translation id="6954203250660846933">Quan escrius a la barra d'adreces o al quadre de cerca, Browther envia el que escrius al motor de cerca predeterminat per obtenir millors suggeriments. Aquesta opció està desactivada en el mode d'incògnit.</translation>
+<translation id="3542179014707218534">Browther Incògnit</translation>
+<translation id="2076355018722231995">Quan navegues en mode d'incògnit, Browther t'avisarà abans de carregar un lloc web que utilitzi una connexió no segura</translation>
 </translationbundle>

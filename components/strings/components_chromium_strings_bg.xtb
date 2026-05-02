@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="bg">
 <translation id="130631256467250065">Промените ви ще влязат в сила следващия път, когато рестартирате устройството си.</translation>
-<translation id="6451924152958941455">Отворете
+<translation id="5681560603157873402">Отворете
 менюто на Browther &gt;
 <ph name="SETTINGS_TITLE"/>
 &gt;
@@ -10,17 +10,17 @@
 &gt;
 <ph name="PROXIES_TITLE"/>
 и се уверете, че за конфигурацията ви е зададено no proxy или direct.</translation>
-<translation id="7999989146447764333">Подаването на сигнали за сривове не е налице в Browther.</translation>
-<translation id="1953231710324290369">Преглеждате защитена страница в Browther.</translation>
-<translation id="907470742420136113">Browther се опитва да промени настройките за попълване на начините на плащане.</translation>
-<translation id="4847979153841887006">Лого на Browther</translation>
-<translation id="336808635693308470">Browther се опитва да редактира начините на плащане.</translation>
-<translation id="7932149101545999102">Browther е възможен благодарение на проекта с отворен код <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> и на друг <ph name="BEGIN_LINK_OSS"/>софтуер с отворен код<ph name="END_LINK_OSS"/>.</translation>
-<translation id="303960458633076466">Тази страница е блокирана от Browther</translation>
-<translation id="2017237562285586622">Разрешете достъпа на Browther до мрежата от настройките на защитната стена
+<translation id="4903497818305945122">Подаването на сигнали за сривове не е налице в Browther.</translation>
+<translation id="5747951541048369241">Преглеждате защитена страница в Browther.</translation>
+<translation id="7041193161756628041">Browther се опитва да промени настройките за попълване на начините на плащане.</translation>
+<translation id="4670277172953498174">Лого на Browther</translation>
+<translation id="3474898875907708105">Browther се опитва да редактира начините на плащане.</translation>
+<translation id="5700544173546684818">Browther е възможен благодарение на проекта с отворен код <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> и на друг <ph name="BEGIN_LINK_OSS"/>софтуер с отворен код<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8935269788853634726">Тази страница е блокирана от Browther</translation>
+<translation id="1339376981847018870">Разрешете достъпа на Browther до мрежата от настройките на защитната стена
 или антивирусния си софтуер.</translation>
 <translation id="4949828774841497663">Отворете Applications &gt; System Settings &gt; Network, изберете активната мрежа, кликнете върху бутона Details... и премахнете избора от всички евентуално избрани прокси сървъри.</translation>
-<translation id="3269554930871094325">Отворете
+<translation id="4191403906356422893">Отворете
 менюто на Browther &gt;
 <ph name="SETTINGS_TITLE"/>
 &gt;
@@ -30,13 +30,13 @@
 &gt;
 „Мрежа и интернет &gt; Прокси сървър“
 и премахнете избора от опцията за автоматично установяване на настройките.</translation>
-<translation id="6159073403999048272">Тези страници са предназначени за програмисти на Browther и може да не се поддържат или тестват активно. За да ги активирате, навигирайте до <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, кликнете върху бутона за активиране на страниците за отстраняване на грешки и след това отново се придвижете до тази страница.</translation>
-<translation id="2765022094254723779">Браузърът Browther е възможен и благодарение на друг <ph name="BEGIN_LINK_OSS"/>софтуер с отворен код<ph name="END_LINK_OSS"/>.</translation>
-<translation id="9156965752763025780">Промените ви ще влязат в сила следващия път, когато стартирате отново Browther.</translation>
-<translation id="8828443087767259398">Browther се нуждае от достъп до Bluetooth, за да продължи
+<translation id="958169674889932546">Тези страници са предназначени за програмисти на Browther и може да не се поддържат или тестват активно. За да ги активирате, навигирайте до <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, кликнете върху бутона за активиране на страниците за отстраняване на грешки и след това отново се придвижете до тази страница.</translation>
+<translation id="4303967029316005584">Браузърът Browther е възможен и благодарение на друг <ph name="BEGIN_LINK_OSS"/>софтуер с отворен код<ph name="END_LINK_OSS"/>.</translation>
+<translation id="8031938899816118394">Промените ви ще влязат в сила следващия път, когато стартирате отново Browther.</translation>
+<translation id="221029295134825758">Browther се нуждае от достъп до Bluetooth, за да продължи
 сдвояването. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Браузърът Browther е възможен благодарение на проекта с отворен код <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
-<translation id="4068928808254189629">Отворете
+<translation id="8530161404084147314">Браузърът Browther е възможен благодарение на проекта с отворен код <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
+<translation id="3134645574591615830">Отворете
 менюто на Browther &gt;
 „<ph name="SETTINGS_TITLE"/>“
 &gt;
@@ -44,6 +44,6 @@
 и премахнете отметката от „<ph name="NO_PREFETCH_DESCRIPTION"/>“.
 Ако това не реши проблема, препоръчваме ви да изберете отново тази опция,
 за да подобрите ефективността.</translation>
-<translation id="4159376633403260073">Преглеждате защитена страница в Browther for Testing</translation>
-<translation id="88187049159266777">Browther не се затвори правилно.</translation>
+<translation id="8927199829149811571">Преглеждате защитена страница в Browther for Testing</translation>
+<translation id="4220066730874343807">Browther не се затвори правилно.</translation>
 </translationbundle>

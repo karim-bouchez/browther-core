@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="cy">
 <translation id="130631256467250065">Bydd eich newidiadau yn dod i rym y tro nesaf y byddwch yn ailgychwyn eich dyfais.</translation>
-<translation id="6451924152958941455">Ewch i
+<translation id="5681560603157873402">Ewch i
           ddewislen Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -10,19 +10,19 @@
           &gt;
           <ph name="PROXIES_TITLE"/>
           a gwnewch yn siŵr bod eich ffurfweddiad wedi'i osod i "dim dirprwy weinydd" neu i "uniongyrchol."</translation>
-<translation id="7999989146447764333">Nid yw adrodd am doriadau ar gael yn Browther.</translation>
-<translation id="1953231710324290369">Rydych yn edrych ar dudalen Browther ddiogel</translation>
-<translation id="907470742420136113">Mae Browther yn ceisio addasu gosodiadau ar gyfer llenwi dulliau talu.</translation>
-<translation id="4847979153841887006">Logo Browther</translation>
-<translation id="336808635693308470">Mae Browther yn ceisio golygu dulliau talu.</translation>
-<translation id="7932149101545999102">Mae Browther yn bosib oherwydd prosiect ffynhonnell agored <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> a <ph name="BEGIN_LINK_OSS"/>meddalwedd ffynhonnell agored<ph name="END_LINK_OSS"/> eraill.</translation>
-<translation id="303960458633076466">Mae'r dudalen hon wedi'i rhwystro gan Browther</translation>
-<translation id="2017237562285586622">Caniatewch i Browther gael mynediad at y rhwydwaith yn eich gosodiadau wal dân neu 
+<translation id="4903497818305945122">Nid yw adrodd am doriadau ar gael yn Browther.</translation>
+<translation id="5747951541048369241">Rydych yn edrych ar dudalen Browther ddiogel</translation>
+<translation id="7041193161756628041">Mae Browther yn ceisio addasu gosodiadau ar gyfer llenwi dulliau talu.</translation>
+<translation id="4670277172953498174">Logo Browther</translation>
+<translation id="3474898875907708105">Mae Browther yn ceisio golygu dulliau talu.</translation>
+<translation id="5700544173546684818">Mae Browther yn bosib oherwydd prosiect ffynhonnell agored <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> a <ph name="BEGIN_LINK_OSS"/>meddalwedd ffynhonnell agored<ph name="END_LINK_OSS"/> eraill.</translation>
+<translation id="8935269788853634726">Mae'r dudalen hon wedi'i rhwystro gan Browther</translation>
+<translation id="1339376981847018870">Caniatewch i Browther gael mynediad at y rhwydwaith yn eich gosodiadau wal dân neu 
          wrthfeirysau.</translation>
 <translation id="4949828774841497663">Ewch i Apiau &gt; Gosodiadau System &gt; Rhwydwaith, dewiswch y
           rhwydwaith gweithredol, cliciwch ar y botwm Manylion... a dad-ddewiswch unrhyw ddirprwyon gweinydd
           a allai fod wedi cael eu dewis.</translation>
-<translation id="3269554930871094325">Ewch i
+<translation id="4191403906356422893">Ewch i
           ddewislen Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -32,13 +32,13 @@
           &gt;
           Rhwydwaith a rhyngrwyd &gt; Dirprwy weinydd
           a dad-ddewis "Canfod gosodiadau yn awtomatig".</translation>
-<translation id="6159073403999048272">Mae'r tudalennau hyn wedi'u bwriadu i'w defnyddio gan ddatblygwyr Browther, ac mae'n bosib na fyddant yn cael eu cynnal na'u profi'n weithredol. Er mwyn eu galluogi, llywiwch i <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, cliciwch ar y botwm i alluogi tudalennau dadfygio, ac yna llywiwch i'r dudalen hon eto.</translation>
-<translation id="2765022094254723779">Mae Browther hefyd yn bosib oherwydd <ph name="BEGIN_LINK_OSS"/>meddalwedd ffynhonnell agored<ph name="END_LINK_OSS"/> eraill.</translation>
-<translation id="9156965752763025780">Bydd eich newidiadau yn dod i rym y tro nesaf y byddwch yn ail-lansio Browther.</translation>
-<translation id="8828443087767259398">Mae angen mynediad Bluetooth ar Browther i barhau i 
+<translation id="958169674889932546">Mae'r tudalennau hyn wedi'u bwriadu i'w defnyddio gan ddatblygwyr Browther, ac mae'n bosib na fyddant yn cael eu cynnal na'u profi'n weithredol. Er mwyn eu galluogi, llywiwch i <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, cliciwch ar y botwm i alluogi tudalennau dadfygio, ac yna llywiwch i'r dudalen hon eto.</translation>
+<translation id="4303967029316005584">Mae Browther hefyd yn bosib oherwydd <ph name="BEGIN_LINK_OSS"/>meddalwedd ffynhonnell agored<ph name="END_LINK_OSS"/> eraill.</translation>
+<translation id="8031938899816118394">Bydd eich newidiadau yn dod i rym y tro nesaf y byddwch yn ail-lansio Browther.</translation>
+<translation id="221029295134825758">Mae angen mynediad Bluetooth ar Browther i barhau i 
 baru <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Mae Browther yn bosib oherwydd y prosiect ffynhonnell agored <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
-<translation id="4068928808254189629">Ewch i
+<translation id="8530161404084147314">Mae Browther yn bosib oherwydd y prosiect ffynhonnell agored <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
+<translation id="3134645574591615830">Ewch i
           ddewislen Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -46,6 +46,6 @@ baru <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></transla
           a dad-ddewiswch "<ph name="NO_PREFETCH_DESCRIPTION"/>."
           Os na fydd hyn yn datrys y broblem, rydym yn argymell dewis yr opsiwn hwn
           eto ar gyfer perfformiad gwell.</translation>
-<translation id="4159376633403260073">Rydych yn edrych ar dudalen Browther for Testing ddiogel</translation>
-<translation id="88187049159266777">Ni wnaeth Browther gau'n gywir.</translation>
+<translation id="8927199829149811571">Rydych yn edrych ar dudalen Browther for Testing ddiogel</translation>
+<translation id="4220066730874343807">Ni wnaeth Browther gau'n gywir.</translation>
 </translationbundle>

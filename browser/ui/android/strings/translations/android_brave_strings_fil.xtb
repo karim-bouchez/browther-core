@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">I-enable ang mga notification mula sa Browther para makakuha ng Mga Reward ng Browther.</translation>
 <translation id="4714541943538330">Buksan ang Mga Setting at i-on ang mga notification sa device para sa Browther Ads.</translation>
 <translation id="7341107637383044975">I-on ang mga notification ng Browther</translation>
-<translation id="9063439289570656162">I-enable/I-disable ang Brave Shields</translation>
+<translation id="9063439289570656162">I-enable/I-disable ang Browther Shields</translation>
 <translation id="15346379325756892">Pumasok sa picture-in-picture mode</translation>
 <translation id="6945863270524203017">Makatanggap ng lingguhang mga update sa privacy sa tracker at pag-block ng ad.</translation>
 <translation id="4324735664183300693">I-on ang mga notification</translation>
@@ -61,7 +61,7 @@
 <translation id="1799030480311994998">Mga feature</translation>
 <translation id="1919345977826869612">Mga Ad</translation>
 <translation id="2839742394543397416">Analytics</translation>
-<translation id="5644165410146827297">Brave Shields at Privacy</translation>
+<translation id="5644165410146827297">Browther Shields at Privacy</translation>
 <translation id="4692623383562244444">Mga search engine</translation>
 <translation id="1468415711258933398">Karaniwang Tab</translation>
 <translation id="3377025655491224618">Pribadong Tab</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">MAMAYA</translation>
 <translation id="4117451092682672487">Privacy. Pinasimple.</translation>
 <translation id="5512887128063976049">Kapag default ang Browther, bubukas ang bawat link na ita-tap mo nang may mga proteksyon sa privacy ng Browther.</translation>
-<translation id="5148943178722443958">Tumulong na pagandahin ang Browther.</translation>
+<translation id="9133910347634099679">Tumulong na pagandahin ang Browther.</translation>
 <translation id="6718362830686703942">Magpadala ng mga diagnostic report kung nakakaranas ka ng pag-crash o pag-freeze.</translation>
 <translation id="7134864207653684195">Magbahagi ng prvate at walang pagkakakilanlang kaisipan sa produkto tungkol sa kung anong mga feature ang ginagamit ng mga user ng Browther.</translation>
 <translation id="2888496576732880897">Tumulong na palaguin ang Brave Search</translation>
 <translation id="7044431516245362795">Mag-opt in sa Web Discovery Project para makatulong sa pagpapalago sa index at mapahusay ang mga resulta ng paghahanap. <ph name="LEARN_MORE_START"/>Alamin ang higit pa.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Oo, tutulong ako</translation>
-<translation id="7443712250454754077">I-tap para tingnan ang Brave Shields</translation>
+<translation id="7443712250454754077">I-tap para tingnan ang Browther Shields</translation>
 <translation id="118577974285037669">Tingnan ang lahat ng masasamang bagay na na-block Browther, sa bawat page, gamit ang Shields.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> at <ph name="TRACKER"/> iba pang ad &amp; tracker ang na-block</translation>
 <translation id="7256200875155794202">Na-block ang <ph name="BIG_TECH"/> at iba pang ads at trackers</translation>
@@ -202,7 +202,7 @@
 <translation id="8281886186245836920">Laktawan</translation>
 <translation id="6165508094623778733">Matuto pa</translation>
 <translation id="986879628471635371">Pag-troubleshoot sa onboarding</translation>
-<translation id="3067154517825632296">Brave Shields</translation>
+<translation id="3067154517825632296">Browther Shields</translation>
 <translation id="8537217141725709400">Magkaroon ng <ph name="TOKEN"/>s</translation>
 <translation id="1315468656814955997">Mga Reward ng Browther</translation>
 <translation id="5870330605209713397">sa pamamagitan ng pagtingin sa mga ad na nagpapahalaga sa privacy at suportahan ang iyong mga paboritong site at creator bilang default.</translation>
@@ -408,7 +408,7 @@ Sigurado ka bang gusto mo itong gawin?</translation>
 <translation id="769702552748212954">Payagan ang lahat ng fingerprinting</translation>
 <translation id="876424292214881779">Mga ad at iba pang hindi kanais-nais na bagay na na-block</translation>
 <translation id="2709945082202062860">Madalas na nagsasama ang mga site ng cookies at mga script na sumusubok na kumilala sa iyo at sa iyong device. Gusto nilang malaman kung sino ka at susundan ka sa buong web, susubaybayan kung ano ang ginagawa mo sa bawat site.\n\nBina-block ng Browther ang mga bagay na ito para makapag-browse ka nang hindi nasusundan.</translation>
-<translation id="5695422144228065490">Tungkol sa Brave Shields</translation>
+<translation id="5695422144228065490">Tungkol sa Browther Shields</translation>
 <translation id="8912304686498704084">PATAAS</translation>
 <translation id="4963218453264888510">PABABA</translation>
 <translation id="5721161384090584434">Bina-browse mo ang site na ito nang wala ng mga proteksyon sa privacy ng Browther. Hindi ba ito gumagana nang maayos nang naka-on ang Shields?</translation>
@@ -958,7 +958,7 @@ Kung hindi mo tatanggapin ang kahilingang ito, hindi kokonekta ulit ang VPN at h
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">I-reset lahat sa mga default</translation>
 <translation id="4922034974043704366">Na-enable ang tampok na ito dahil pinili mong gamitin ito</translation>
-<translation id="3144818380093107753">Ang Browther Origin ay isang paraan na may subscription upang i-disable ang mga tampok na lumilikha ng kita na sumusuporta sa Browther bilang negosyo. Patuloy na makikinabang ang mga tagasubaybay ng Browther Origin sa aming nangunguna sa industriya na privacy, adblock, at bilis (sa pamamagitan ng Brave Shields), gayundin sa mga regular na pag-update ng software, Chromium patch, at mga pagpapabuti sa seguridad at privacy.&lt;br/&gt;&lt;br/&gt;Mau-unlock din nila ang opsyon na i-disable ang mga tampok tulad ng Browther Leo, News, Rewards, Wallet, VPN, Web3 domain, at iba pa.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Tandaan: Hindi i-disable ng Browther Origin ang mga tampok ng browser na kasalukuyan mong ginagamit, at hindi nito maaapektuhan ang mga tampok ng Brave Search o ang Brave Search Ads.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Ang Browther Origin ay isang paraan na may subscription upang i-disable ang mga tampok na lumilikha ng kita na sumusuporta sa Browther bilang negosyo. Patuloy na makikinabang ang mga tagasubaybay ng Browther Origin sa aming nangunguna sa industriya na privacy, adblock, at bilis (sa pamamagitan ng Browther Shields), gayundin sa mga regular na pag-update ng software, Chromium patch, at mga pagpapabuti sa seguridad at privacy.&lt;br/&gt;&lt;br/&gt;Mau-unlock din nila ang opsyon na i-disable ang mga tampok tulad ng Browther Leo, News, Rewards, Wallet, VPN, Web3 domain, at iba pa.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Tandaan: Hindi i-disable ng Browther Origin ang mga tampok ng browser na kasalukuyan mong ginagamit, at hindi nito maaapektuhan ang mga tampok ng Brave Search o ang Brave Search Ads.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Mag-sign in gamit ang Browther Wallet</translation>
 <translation id="7380890081275286865">Nagsa-sign in ka sa <ph name="ORIGIN"/>. Ibabahagi ng Browther wallet ang wallet address mo sa <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Tingnan ang mga detalye</translation>

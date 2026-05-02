@@ -3,118 +3,118 @@
 <translationbundle lang="no">
 <translation id="1026101648481255140">Fortsett installasjonen</translation>
 <translation id="7099479769133613710">Start på nytt for å oppdatere &amp;ChromeOS</translation>
-<translation id="2479110114759182442">Browther anbefaler at du går gjennom denne utvidelsen</translation>
-<translation id="3814674848168165531">Når nettsteder ber om privat forhåndslasting av linker på sidene sine, bruker Browther tjenerne til Browther. Dermed skjules identiteten din for det forhåndslastede nettstedet, men Browther får vite hvilke nettsteder som blir forhåndslastet.</translation>
+<translation id="7264054672589027446">Browther anbefaler at du går gjennom denne utvidelsen</translation>
+<translation id="7848219163187166649">Når nettsteder ber om privat forhåndslasting av linker på sidene sine, bruker Browther tjenerne til Browther. Dermed skjules identiteten din for det forhåndslastede nettstedet, men Browther får vite hvilke nettsteder som blir forhåndslastet.</translation>
 <translation id="1065672644894730302">Kan ikke lese innstillingene. Enkelte funksjoner kan være utilgjengelige, og endringer av innstillingene blir ikke lagret.</translation>
-<translation id="7577672138294294152">Forelderen din har slått av «Tillatelser for nettsteder, apper og utvidelser» for Browther</translation>
-<translation id="5918095577778020936">Browther forsøker å eksportere passordene dine. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
+<translation id="8837164267124113709">Forelderen din har slått av «Tillatelser for nettsteder, apper og utvidelser» for Browther</translation>
+<translation id="881513728707488138">Browther forsøker å eksportere passordene dine. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
 <translation id="112640046208448578">Identifiser ting eller steder, og kopier eller oversett tekst. Når du bruker bildesøk, sendes et skjermbilde av siden til tjeneren. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Browther er standardnettleseren din</translation>
-<translation id="8522292744959221145">For å sjekke om passordene dine er trygge mot databrudd og andre sikkerhetsproblemer, <ph name="BEGIN_LINK"/>logg på Browther<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Klikk på Browther-menyen</translation>
+<translation id="8280092658684559253">Browther er standardnettleseren din</translation>
+<translation id="6580138787163923852">For å sjekke om passordene dine er trygge mot databrudd og andre sikkerhetsproblemer, <ph name="BEGIN_LINK"/>logg på Browther<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Klikk på Browther-menyen</translation>
 <translation id="1157985233335035034">Nylig brukte språk</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> har lagt til en utvidelse som kan endre måten Browther fungerer på.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> har lagt til en utvidelse som kan endre måten Browther fungerer på.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Installasjonen mislyktes fordi du bruker en Windows-versjon som ikke støttes.</translation>
-<translation id="8541922081612557424">Om Browther</translation>
+<translation id="8291401179516272335">Om Browther</translation>
 <translation id="1203500561924088507">Installasjonen er fullført. Start nettleseren på nytt før du tar i bruk <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="1232234696885483911">Når du åpner bildesøk, sendes sidetittel, nettadresse og innhold, inkludert PDF-filer, automatisk til tjeneren. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Når du er logget på, kan du bruke passord med mer fra Browther-kontoen din i Browther. Gå til «Kontoen din i Browther» for å endre dette.</translation>
-<translation id="8799570501820813406">Mens denne fanen var inaktiv, ble minnet frigjort for å holde Browther rask. Du kan velge å alltid ekskludere dette nettstedet fra å gjøres inaktivt.</translation>
-<translation id="8767381092474532098">Browther har blokkert denne nedlastingen fordi filen er farlig</translation>
-<translation id="3256289531845594061">Når du logger på Browther-tjenester som Gmail eller YouTube med <ph name="USER_EMAIL"/>, kan du automatisk logge på Browther med den samme kontoen</translation>
+<translation id="3496831315930641015">Når du er logget på, kan du bruke passord med mer fra Browther-kontoen din i Browther. Gå til «Kontoen din i Browther» for å endre dette.</translation>
+<translation id="9034321258761608912">Mens denne fanen var inaktiv, ble minnet frigjort for å holde Browther rask. Du kan velge å alltid ekskludere dette nettstedet fra å gjøres inaktivt.</translation>
+<translation id="249571811018731941">Browther har blokkert denne nedlastingen fordi filen er farlig</translation>
+<translation id="8850227089720975601">Når du logger på Browther-tjenester som Gmail eller YouTube med <ph name="USER_EMAIL"/>, kan du automatisk logge på Browther med den samme kontoen</translation>
 <translation id="1290883685122687410">Konfigureringsfeil: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Konfigurer den nye Browther-profilen din</translation>
-<translation id="878572309106296578">Browther trenger Bluetooth-tilgang for å utforske 
+<translation id="6235774143043174856">Konfigurer den nye Browther-profilen din</translation>
+<translation id="4437862975743821367">Browther trenger Bluetooth-tilgang for å utforske 
  Bluetooth-enheter. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Gjenkjenn språk</translation>
-<translation id="6204677860546245308">Bruk de anbefalte nettleserinnstillingene for Browther</translation>
-<translation id="108284536240904209">Slett også data fra Browther (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Bruk de anbefalte nettleserinnstillingene for Browther</translation>
+<translation id="8270483548049772782">Slett også data fra Browther (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Festet. Du kan åpne bildesøk igjen via den nye knappen på verktøylinjen</translation>
 <translation id="1356661055722410047">Nyhet! Du kan oversette både tekst og bilder på skjermen</translation>
 <translation id="1383876407941801731">Søk</translation>
-<translation id="7009295044271335553">&amp;Administrer Browther-profiler</translation>
+<translation id="1592588950737518481">&amp;Administrer Browther-profiler</translation>
 <translation id="1404026649028693342">Vis alltid AI-modus</translation>
 <translation id="141901961143729572">Del det du har på hjertet</translation>
-<translation id="3880714039086599943">For å dele vinduet, tillat skjermopptak for Browther i Systeminnstillinger.</translation>
-<translation id="1586284627848250203">Få hjelp med Browther for testing</translation>
+<translation id="1743952081001089298">For å dele vinduet, tillat skjermopptak for Browther i Systeminnstillinger.</translation>
+<translation id="8627385813382688019">Få hjelp med Browther for testing</translation>
 <translation id="1497802159252041924">Installasjonsfeil: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Denne siden er beskyttet</translation>
-<translation id="5147525139567260139">Del en Browther-fane</translation>
-<translation id="721261350616678948">Logg på Browther</translation>
+<translation id="7252430412915798987">Del en Browther-fane</translation>
+<translation id="6388429281015199562">Logg på Browther</translation>
 <translation id="1547469039832541117">Avslutter den fremhevede oppgaven.</translation>
-<translation id="1530633922026945685">Browther trenger tilgang til kameraet for å lage et 3D-kart av omgivelsene</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Denne utvidelsen støttes ikke lenger. Browther anbefaler at du fjerner den.}other{Disse utvidelsene støttes ikke lenger. Browther anbefaler at du fjerner dem.}}</translation>
-<translation id="51545890371361355">Fest Browther</translation>
-<translation id="6570689355868013775">Sikkerhetsverktøyene i Browther</translation>
-<translation id="1902837727299679178">Browther vil slette Passordlagring-dataene dine. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
-<translation id="4449148723378534338">Gjennomgå viktige personvern- og sikkerhetskontroller i Browther</translation>
+<translation id="1801944307203212016">Browther trenger tilgang til kameraet for å lage et 3D-kart av omgivelsene</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Denne utvidelsen støttes ikke lenger. Browther anbefaler at du fjerner den.}other{Disse utvidelsene støttes ikke lenger. Browther anbefaler at du fjerner dem.}}</translation>
+<translation id="4667068923142532753">Fest Browther</translation>
+<translation id="3006560544901646947">Sikkerhetsverktøyene i Browther</translation>
+<translation id="686052171138185761">Browther vil slette Passordlagring-dataene dine. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
+<translation id="8713026329083542796">Gjennomgå viktige personvern- og sikkerhetskontroller i Browther</translation>
 <translation id="1640672724030957280">Laster ned …</translation>
 <translation id="1680687534629375545">Spør Bildesøk om denne siden</translation>
 <translation id="1709772298389099340">Gir overordnet rettighet til <ph name="BROWSER_NAME"/>.</translation>
-<translation id="2913217021115517297">For å bidra til å forbedre disse funksjonene sender Browther informasjon om hvordan du samhandler med dem, til Browther. Disse dataene kan bli lest, behandlet og annotert av menneskelige evaluerere.</translation>
+<translation id="4243382967656566037">For å bidra til å forbedre disse funksjonene sender Browther informasjon om hvordan du samhandler med dem, til Browther. Disse dataene kan bli lest, behandlet og annotert av menneskelige evaluerere.</translation>
 <translation id="1722488837206509557">Dette gjør at du kan velge blant tilgjengelige enheter og vise innhold på dem.</translation>
-<translation id="8004287232784878841">Browther sletter snart nettlesingsdata</translation>
-<translation id="4197839351786449392">Browther prøver å oppgradere navigeringer til HTTPS</translation>
-<translation id="7814200940910057384">Slettet Browther-data</translation>
-<translation id="9048361966237194186">Browther startes på nytt om <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">Når HTTPS ikke er tilgjengelig, bruker Browther usikre tilkoblinger uten å advare deg</translation>
-<translation id="6797402139308059782">La Browther kjøre i bakgrunnen</translation>
-<translation id="5875673934455379806">Installer Browther på nytt</translation>
-<translation id="4529028207655448215">Browther prøver å <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Neste gang du åpner Browther på <ph name="DEVICE_TYPE"/>, ser du en forespørsel om å bruke Browther Passordlagring.</translation>
+<translation id="6820510278633522408">Browther sletter snart nettlesingsdata</translation>
+<translation id="7775028004939172516">Browther prøver å oppgradere navigeringer til HTTPS</translation>
+<translation id="6963959729951758069">Slettet Browther-data</translation>
+<translation id="4085139922884095932">Browther startes på nytt om <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">Når HTTPS ikke er tilgjengelig, bruker Browther usikre tilkoblinger uten å advare deg</translation>
+<translation id="3975328336074677101">La Browther kjøre i bakgrunnen</translation>
+<translation id="2497443204974841650">Installer Browther på nytt</translation>
+<translation id="1724309687045787742">Browther prøver å <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Neste gang du åpner Browther på <ph name="DEVICE_TYPE"/>, ser du en forespørsel om å bruke Browther Passordlagring.</translation>
 <translation id="1838374766361614909">Fjern søket</translation>
-<translation id="3541642064306182066">For å slette nettlesingsdata kun på denne enheten og beholde dem i Browther-kontoen, <ph name="BEGIN_LINK"/>logg av Browther<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Last ned Browther på telefonen for å åpne eller opprette nye fanegrupper uansett hvor du er.</translation>
-<translation id="4559627161887338743">Du kan administrere de påloggede Browther-kontoene dine. Browther-kontoene dine brukes i Browther-nettleseren, Play-butikken, Gmail med mer. Hvis du vil legge til en konto for noen andre, for eksempel et familiemedlem, legger du til en ny person på <ph name="DEVICE_TYPE"/> i stedet. <ph name="LINK_BEGIN"/>Finn ut mer<ph name="LINK_END"/></translation>
+<translation id="2337233040802538155">For å slette nettlesingsdata kun på denne enheten og beholde dem i Browther-kontoen, <ph name="BEGIN_LINK"/>logg av Browther<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Last ned Browther på telefonen for å åpne eller opprette nye fanegrupper uansett hvor du er.</translation>
+<translation id="2063443520349987970">Du kan administrere de påloggede Browther-kontoene dine. Browther-kontoene dine brukes i Browther-nettleseren, Play-butikken, Gmail med mer. Hvis du vil legge til en konto for noen andre, for eksempel et familiemedlem, legger du til en ny person på <ph name="DEVICE_TYPE"/> i stedet. <ph name="LINK_BEGIN"/>Finn ut mer<ph name="LINK_END"/></translation>
 <translation id="1862852878885210965">Søk med bildesøk</translation>
 <translation id="1880677175115548835">Merk tekst</translation>
-<translation id="4528406859989804913">Du logger deg på med en administrert konto og gir tilhørende administratorer kontroll over Browther-profilen din. Browther-dataene dine, slik som apper, bokmerker, loggen, passord og andre innstillinger knyttes permanent til <ph name="USER_NAME"/>. Du kan slette disse dataene via oversikten for Browther-kontoer, men du kan ikke knytte disse dataene til en annen konto. Du kan velge om du vil opprette en ny profil for å holde de eksisterende Browther-dataene atskilte. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Browther sparer batteri ved å begrense bakgrunnsaktivitet og visuelle effekter, for eksempel jevn rulling og bildefrekvensen til videoer. <ph name="BEGIN_LINK"/>Finn ut mer om strømsparing<ph name="END_LINK"/></translation>
+<translation id="3183933389992069620">Du logger deg på med en administrert konto og gir tilhørende administratorer kontroll over Browther-profilen din. Browther-dataene dine, slik som apper, bokmerker, loggen, passord og andre innstillinger knyttes permanent til <ph name="USER_NAME"/>. Du kan slette disse dataene via oversikten for Browther-kontoer, men du kan ikke knytte disse dataene til en annen konto. Du kan velge om du vil opprette en ny profil for å holde de eksisterende Browther-dataene atskilte. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Browther sparer batteri ved å begrense bakgrunnsaktivitet og visuelle effekter, for eksempel jevn rulling og bildefrekvensen til videoer. <ph name="BEGIN_LINK"/>Finn ut mer om strømsparing<ph name="END_LINK"/></translation>
 <translation id="1898804291554630487">Spør om denne siden</translation>
-<translation id="8643267611122541711">Browther-oppdateringstjeneste</translation>
-<translation id="1649714546770135458">Ved å slå dette av kan du logge på Browther-sider, som Gmail, uten å logge på Browther</translation>
-<translation id="189297655255130768">Browther svarer ikke. Vil du starte den på nytt nå?</translation>
-<translation id="8422047647688939115">Organisasjonen din, <ph name="MANAGER"/>, krever at du logger på Browther</translation>
+<translation id="9128006428501241840">Browther-oppdateringstjeneste</translation>
+<translation id="6302815314157879372">Ved å slå dette av kan du logge på Browther-sider, som Gmail, uten å logge på Browther</translation>
+<translation id="1063611196035804685">Browther svarer ikke. Vil du starte den på nytt nå?</translation>
+<translation id="2873360330889594383">Organisasjonen din, <ph name="MANAGER"/>, krever at du logger på Browther</translation>
 <translation id="4035053306113201399">ChromeOS må startes på nytt for at oppdateringen skal tas i bruk.</translation>
-<translation id="9048754176089806686">Browther har blokkert denne nedlastingen fordi filtypen ikke lastes ned ofte, så den kan være farlig</translation>
+<translation id="2861285003831382718">Browther har blokkert denne nedlastingen fordi filtypen ikke lastes ned ofte, så den kan være farlig</translation>
 <translation id="1953553007165777902">Laster ned … <ph name="MINUTE"/> minutt(er) igjen</translation>
-<translation id="2470048290583727811">Browther-tips: Lagre passord</translation>
-<translation id="1775322105159056176">Browther kan ikke fastslå eller angi standardnettleseren</translation>
-<translation id="4372901050442507812">Finn ut hvorfor Browther blokkerer enkelte filer (åpnes i en ny fane)</translation>
-<translation id="2703425183860615504">Holder Browther-programvaren oppdatert. Hvis denne tjenesten deaktiveres eller stoppes, blir ikke Browther-programvaren din holdt oppdatert. Det betyr at eventuelle sikkerhetsproblemer som oppstår, ikke kan utbedres, og at noen funksjoner kanskje ikke fungerer. Denne tjenesten avinstallerer seg selv når det ikke finnes noen Browther-programvare som bruker den.</translation>
-<translation id="9220324636239049437">Dette sletter 1 element fra denne enheten. For å hente dataene dine igjen senere må du logge på Browther som <ph name="USER_EMAIL"/>.</translation>
+<translation id="2080160985220483492">Browther-tips: Lagre passord</translation>
+<translation id="8037497710694492565">Browther kan ikke fastslå eller angi standardnettleseren</translation>
+<translation id="7395009124247513849">Finn ut hvorfor Browther blokkerer enkelte filer (åpnes i en ny fane)</translation>
+<translation id="762710512520170632">Holder Browther-programvaren oppdatert. Hvis denne tjenesten deaktiveres eller stoppes, blir ikke Browther-programvaren din holdt oppdatert. Det betyr at eventuelle sikkerhetsproblemer som oppstår, ikke kan utbedres, og at noen funksjoner kanskje ikke fungerer. Denne tjenesten avinstallerer seg selv når det ikke finnes noen Browther-programvare som bruker den.</translation>
+<translation id="5793588180426267429">Dette sletter 1 element fra denne enheten. For å hente dataene dine igjen senere må du logge på Browther som <ph name="USER_EMAIL"/>.</translation>
 <translation id="2018879682492276940">Installasjonen mislyktes. Prøv igjen.</translation>
-<translation id="831418749472885028">For å sjekke om de andre passordene dine er trygge mot databrudd og andre sikkerhetsproblemer, <ph name="BEGIN_LINK"/>logg på Browther<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">For å sjekke om de andre passordene dine er trygge mot databrudd og andre sikkerhetsproblemer, <ph name="BEGIN_LINK"/>logg på Browther<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Innstillinger.</translation>
-<translation id="5499149312981370855">Velg om Browther-loggen skal inkluderes for å gi opplevelser i Browther-tjenester mer personlig preg</translation>
-<translation id="6959434860418352144">Klikk på Tilpass Browther-knappen på Ny fane-siden for å gi Browther et nytt utseende</translation>
+<translation id="8194525816714210105">Velg om Browther-loggen skal inkluderes for å gi opplevelser i Browther-tjenester mer personlig preg</translation>
+<translation id="5909559127548969159">Klikk på Tilpass Browther-knappen på Ny fane-siden for å gi Browther et nytt utseende</translation>
 <translation id="2066690553719545730">Vis alltid AI-modus</translation>
-<translation id="2472891440303445472">Browther har blokkert denne nedlastingen fordi filen er villedende og kan gjøre uventede endringer på enheten din</translation>
-<translation id="2054358978145431867">Du ser en forespørsel om å prøve <ph name="FEATURE_NAME"/> neste gang du åpner Browther iOS.</translation>
-<translation id="2726948994393234543">Passordene dine og andre Browther-data du har lagret i Browther-kontoen din, blir fjernet fra denne enheten. For å bruke dem i Browther igjen, logg på igjen.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Organisasjonen din sletter nettlesingsdata automatisk når Browther ikke har vært i bruk på 1 minutt. Dette kan omfatte loggen, autofyll og nedlastinger. Fanene dine forblir åpne.}other{Organisasjonen din sletter nettlesingsdata automatisk når Browther ikke har vært i bruk på # minutter. Dette kan omfatte loggen, autofyll og nedlastinger. Fanene dine forblir åpne.}}</translation>
+<translation id="3283892260110318935">Browther har blokkert denne nedlastingen fordi filen er villedende og kan gjøre uventede endringer på enheten din</translation>
+<translation id="6160571936643742128">Du ser en forespørsel om å prøve <ph name="FEATURE_NAME"/> neste gang du åpner Browther iOS.</translation>
+<translation id="8380517409933452343">Passordene dine og andre Browther-data du har lagret i Browther-kontoen din, blir fjernet fra denne enheten. For å bruke dem i Browther igjen, logg på igjen.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Organisasjonen din sletter nettlesingsdata automatisk når Browther ikke har vært i bruk på 1 minutt. Dette kan omfatte loggen, autofyll og nedlastinger. Fanene dine forblir åpne.}other{Organisasjonen din sletter nettlesingsdata automatisk når Browther ikke har vært i bruk på # minutter. Dette kan omfatte loggen, autofyll og nedlastinger. Fanene dine forblir åpne.}}</translation>
 <translation id="2126108037660393668">Kunne ikke bekrefte den nedlastede filen.</translation>
 <translation id="2135919691573380097">Rapportér dette nettstedet</translation>
 <translation id="2137162749895930932">Lukk oversettelsesskjermen</translation>
-<translation id="5789330946301045610">Browther har blokkert denne nedlastingen fordi nettstedet ikke bruker en sikker tilkobling, så filen kan ha blitt tuklet med</translation>
+<translation id="4283559398694996391">Browther har blokkert denne nedlastingen fordi nettstedet ikke bruker en sikker tilkobling, så filen kan ha blitt tuklet med</translation>
 <translation id="2170098639895543546">Velg hva som helst på siden</translation>
-<translation id="142389341645668510">Tilpass Browther</translation>
+<translation id="2495182092286337191">Tilpass Browther</translation>
 <translation id="2174917724755363426">Installasjonen er ikke fullført. Er du sikker på at du vil avbryte?</translation>
-<translation id="8745514854244955877">Browther – nettverkspålogging – <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther – nettverkspålogging – <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Feil ved oppdateringssjekk: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Fjern kontoen fra Browther</translation>
-<translation id="5550942974310218641">Hold deg tryggere på farten med Safe Browsing med økt beskyttelse for iOS.</translation>
-<translation id="6677253423995557759">Farlig nettsted. Browther har fjernet varsler.</translation>
+<translation id="6696114732806961952">Fjern kontoen fra Browther</translation>
+<translation id="1084363153644366288">Hold deg tryggere på farten med Safe Browsing med økt beskyttelse for iOS.</translation>
+<translation id="7949164640723239455">Farlig nettsted. Browther har fjernet varsler.</translation>
 <translation id="2236949375853147973">Min aktivitet</translation>
-<translation id="457168681575748148">For å få adressene dine med mer på alle enhetene dine, logg på Browther. Denne adressen blir lagret i Browther-kontoen din når du logger på.</translation>
-<translation id="5659384504794665581">Hvis du deler en datamaskin med andre, kan venner og familie surfe hver for seg og konfigurere Browther akkurat slik de vil.</translation>
+<translation id="4536403809133456417">For å få adressene dine med mer på alle enhetene dine, logg på Browther. Denne adressen blir lagret i Browther-kontoen din når du logger på.</translation>
+<translation id="5627930103267312171">Hvis du deler en datamaskin med andre, kan venner og familie surfe hver for seg og konfigurere Browther akkurat slik de vil.</translation>
 <translation id="2283803047247799269">Søk på denne fanen med Bildesøk</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther anbefaler at du setter fanen som gjør nettleseren treg, på pause}other{Browther anbefaler at du setter fanene som gjør nettleseren treg, på pause}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther anbefaler at du setter fanen som gjør nettleseren treg, på pause}other{Browther anbefaler at du setter fanene som gjør nettleseren treg, på pause}}</translation>
 <translation id="2307973900865360088">Behold i dokken</translation>
-<translation id="7810992039564280750">Kontrollerer nettadresser opp mot en liste i Browther over utrygge nettsteder. Hvis nettsteder prøver å stjele passordet ditt, eller når du laster ned skadelige filer, kan Browther også sende nettadresser, inkludert deler av sideinnholdet, til Safe Browsing.</translation>
-<translation id="5042718521573656164">Denne handlingen
+<translation id="5161617112768367959">Kontrollerer nettadresser opp mot en liste i Browther over utrygge nettsteder. Hvis nettsteder prøver å stjele passordet ditt, eller når du laster ned skadelige filer, kan Browther også sende nettadresser, inkludert deler av sideinnholdet, til Safe Browsing.</translation>
+<translation id="4123094831918713833">Denne handlingen
           <ph name="LINE_BREAKS"/>
            • tilbakestiller noen Browther-innstillinger og Browther-snarveier
            <ph name="LINE_BREAK"/>
@@ -123,630 +123,630 @@
            • sletter informasjonskapsler og andre midlertidige nettstedsdata
             <ph name="LINE_BREAKS"/>
            Bokmerker, loggen og lagrede passord berøres ikke.</translation>
-<translation id="9095263438435683933">For å sende numre herfra til Android-telefonen din, logg på Browther på begge enhetene.</translation>
+<translation id="5456070119344236353">For å sende numre herfra til Android-telefonen din, logg på Browther på begge enhetene.</translation>
 <translation id="2356070529366658676">Spør</translation>
 <translation id="2359808026110333948">Fortsett</translation>
-<translation id="6485997157403727556">Utvidelsen «<ph name="EXTENSION_NAME"/>» vil at du skal logge på Browther</translation>
-<translation id="7017760840808989683">Deaktiver kjøring av Browther i bakgrunnen for apper</translation>
-<translation id="8491912023989916905">For å bruke denne utvidelsen som <ph name="USER_EMAIL_ADDRESS"/>, logg på Browther.</translation>
+<translation id="6468415397021485143">Utvidelsen «<ph name="EXTENSION_NAME"/>» vil at du skal logge på Browther</translation>
+<translation id="2558600429878197587">Deaktiver kjøring av Browther i bakgrunnen for apper</translation>
+<translation id="5295781918312989856">For å bruke denne utvidelsen som <ph name="USER_EMAIL_ADDRESS"/>, logg på Browther.</translation>
 <translation id="8418845734693287262">ChromeOS kunne ikke synkronisere dataene dine, ettersom påloggingsopplysningene for kontoen din er utdaterte.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{1 HID-enhet ble brukt av en eller flere Browther-utvidelser}=1{1 HID-enhet brukes av en eller flere Browther-utvidelser}other{# HID-enheter brukes av en eller flere Browther-utvidelser}}</translation>
-<translation id="1248225940185478633">Browther trenger kamera- og mikrofontillatelse for dette nettstedet</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{1 HID-enhet ble brukt av en eller flere Browther-utvidelser}=1{1 HID-enhet brukes av en eller flere Browther-utvidelser}other{# HID-enheter brukes av en eller flere Browther-utvidelser}}</translation>
+<translation id="434258293817844111">Browther trenger kamera- og mikrofontillatelse for dette nettstedet</translation>
 <translation id="2403703063067034158">Oppstartsfeil: En annen forekomst av konfigureringen kjører for øyeblikket. Prøv på nytt senere.</translation>
-<translation id="5298352791080868905">Åpne linker i Browther fra hvilken som helst app, og fest nettleseren på oppgavelinjen for å ha den enkelt tilgjengelig</translation>
-<translation id="2118275934191847461">Med <ph name="BEGIN_LINK"/>verktøy fra Browther<ph name="END_LINK"/> kan du surfe trygt og ha kontroll</translation>
+<translation id="5458993228789433099">Åpne linker i Browther fra hvilken som helst app, og fest nettleseren på oppgavelinjen for å ha den enkelt tilgjengelig</translation>
+<translation id="1677640217693742525">Med <ph name="BEGIN_LINK"/>verktøy fra Browther<ph name="END_LINK"/> kan du surfe trygt og ha kontroll</translation>
 <translation id="2451727308784734061">Bruk snarveien for å åpne Passordlagring raskt. Du kan flytte snarveien til startskjermen eller appoversikten på datamaskinen.</translation>
-<translation id="6381750314821942592">Browther lukkes snart</translation>
-<translation id="6078442581074612226">I Browther</translation>
+<translation id="2280315911954332435">Browther lukkes snart</translation>
+<translation id="6410820860979094113">I Browther</translation>
 <translation id="2485422356828889247">Avinstaller</translation>
 <translation id="2513154137948333830">Enheten må startes på nytt: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Marker tekst med bildesøk</translation>
-<translation id="70183448213529602">Browther prøver å erstatte eksisterende passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
-<translation id="7798069806040634998">Browther må ha lagringstilgang for å laste ned filer</translation>
-<translation id="8447483940522230788">Browther-hjelper</translation>
+<translation id="7892218991241200190">Browther prøver å erstatte eksisterende passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
+<translation id="8976443723926188033">Browther må ha lagringstilgang for å laste ned filer</translation>
+<translation id="1973587471928846950">Browther-hjelper</translation>
 <translation id="2575822587468774919">Velg hva som helst for å søke med bildesøk</translation>
-<translation id="3830890663494219270">For å få passordene dine med mer på alle enhetene dine, logg på Browther</translation>
-<translation id="6252796827759111076">Fortsett å bruke Browther</translation>
+<translation id="8705561858232289221">For å få passordene dine med mer på alle enhetene dine, logg på Browther</translation>
+<translation id="437162022240011372">Fortsett å bruke Browther</translation>
 <translation id="259935314519650377">Kunne ikke bufre det nedlastede installasjonsprogrammet. Feil: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">System</translation>
-<translation id="7931230852267968641">Organisasjonen din kan se og administrere nettlesingsdata, for eksempel bokmerker, logg og passord. Den kan ikke se nettlesingsdata i andre Browther-profiler</translation>
-<translation id="2257221826278123061">Bekreft at det er deg, for å bruke og lagre Browther-data i kontoen din, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="7387051847644272380">Det oppsto en systemfeil under installering. Last ned Browther på nytt.</translation>
-<translation id="2648689842065142443">Hvis du deler en enhet med andre, kan venner og familie surfe hver for seg og konfigurere Browther akkurat slik de vil</translation>
-<translation id="6791166902140255175">Browther-fane</translation>
-<translation id="8372880274820509128">Browther krypterer dataene dine for å øke sikkerheten.</translation>
-<translation id="8752006915531191162">For å fjerne Browther-kontoen din fra Browther, logg av</translation>
-<translation id="5344406739101555055">For å få passordene og bokmerkene dine med mer på alle enhetene dine, logg på Browther</translation>
+<translation id="2907676829052962091">Organisasjonen din kan se og administrere nettlesingsdata, for eksempel bokmerker, logg og passord. Den kan ikke se nettlesingsdata i andre Browther-profiler</translation>
+<translation id="1289116577679005654">Bekreft at det er deg, for å bruke og lagre Browther-data i kontoen din, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="7192278346779151664">Det oppsto en systemfeil under installering. Last ned Browther på nytt.</translation>
+<translation id="7724398260867885339">Hvis du deler en enhet med andre, kan venner og familie surfe hver for seg og konfigurere Browther akkurat slik de vil</translation>
+<translation id="1679595317134614424">Browther-fane</translation>
+<translation id="7189168846924379421">Browther krypterer dataene dine for å øke sikkerheten.</translation>
+<translation id="4052643592793184278">For å fjerne Browther-kontoen din fra Browther, logg av</translation>
+<translation id="7694616023994438906">For å få passordene og bokmerkene dine med mer på alle enhetene dine, logg på Browther</translation>
 <translation id="2738871930057338499">Kan ikke koble til internett. HTTP 403 – forbudt. Kontroller proxy-tjenerkonfigurasjonen.</translation>
 <translation id="2753623023919742414">Klikk for å søke</translation>
-<translation id="1312769823139326127">Angi Browther som standard PDF-leser</translation>
-<translation id="3173824377856109157">Browther kan autofylle vanskelige felter som standard autofyll kanskje ikke fyller ut</translation>
-<translation id="1187986649024576560">Denne utvidelsen inneholder skadelig programvare og er utrygg. Fjern den fra Browther, slik at den ikke lenger kan se og endre dataene dine på nettsteder du besøker, inkludert personopplysningene dine.</translation>
+<translation id="9078193405195503710">Angi Browther som standard PDF-leser</translation>
+<translation id="2456995288904753506">Browther kan autofylle vanskelige felter som standard autofyll kanskje ikke fyller ut</translation>
+<translation id="3271730304285122987">Denne utvidelsen inneholder skadelig programvare og er utrygg. Fjern den fra Browther, slik at den ikke lenger kan se og endre dataene dine på nettsteder du besøker, inkludert personopplysningene dine.</translation>
 <translation id="2799223571221894425">Start på nytt</translation>
-<translation id="5962774139606909656">Din Browther</translation>
+<translation id="1427337251963884503">Din Browther</translation>
 <translation id="2816462166102338036">Søk i denne videoen med Bildesøk</translation>
 <translation id="2841525013647267359">Oversett fra</translation>
 <translation id="2846251086934905009">Installasjonsfeil: Installasjonsprogrammet ble ikke fullført. Installasjonen er avbrutt.</translation>
-<translation id="777113543093865885">Fjern fra Browther</translation>
-<translation id="5265419033369521352">Holder deg trygg i Browther og kan brukes til å øke sikkerheten din i andre Browther-apper når du er pålogget</translation>
+<translation id="928966105228355994">Fjern fra Browther</translation>
+<translation id="587805782197019018">Holder deg trygg i Browther og kan brukes til å øke sikkerheten din i andre Browther-apper når du er pålogget</translation>
 <translation id="2885378588091291677">Oppgavebehandling</translation>
-<translation id="2176825726964012531">Om &amp;Browther</translation>
+<translation id="3055995278166070443">Om &amp;Browther</translation>
 <translation id="2915996080311180594">Start på nytt senere</translation>
 <translation id="2928420929544864228">Installasjonen er fullført.</translation>
-<translation id="2481553173340651149">Dataene dine er kryptert med passordfrasen din. Skriv den inn for å bruke og lagre Browther-data i Browther-kontoen din.</translation>
+<translation id="70453521937551896">Dataene dine er kryptert med passordfrasen din. Skriv den inn for å bruke og lagre Browther-data i Browther-kontoen din.</translation>
 <translation id="2945997411976714835">Installasjonsfeil: Installasjonsprosessen kunne ikke startes.</translation>
-<translation id="2413255940314578781">Logg på nettsteder raskere med lagrede passord for Browther på iOS</translation>
-<translation id="122765104641632123">Legg til en ny Browther-profil for å holde bokmerker, passord og innstillinger atskilt.</translation>
-<translation id="3688936822855019158">Organisasjonen din administrerer Browther</translation>
-<translation id="8208853227947884571">Browther er oppdatert</translation>
-<translation id="5122472867956731189">Hvis nettsteder prøver å stjele passordet ditt, eller når du laster ned skadelige filer, kan Browther også sende nettadresser, inkludert deler av sideinnholdet, til Safe Browsing</translation>
-<translation id="3963199983793987097">For å holde deg tryggere på nettet med innstillingene som forelderen din har valgt, logg på Browther</translation>
+<translation id="3188308520233701133">Logg på nettsteder raskere med lagrede passord for Browther på iOS</translation>
+<translation id="8145318807880784886">Legg til en ny Browther-profil for å holde bokmerker, passord og innstillinger atskilt.</translation>
+<translation id="4330268530227888227">Organisasjonen din administrerer Browther</translation>
+<translation id="6488090896442998436">Browther er oppdatert</translation>
+<translation id="300557164611864786">Hvis nettsteder prøver å stjele passordet ditt, eller når du laster ned skadelige filer, kan Browther også sende nettadresser, inkludert deler av sideinnholdet, til Safe Browsing</translation>
+<translation id="2447145782593796785">For å holde deg tryggere på nettet med innstillingene som forelderen din har valgt, logg på Browther</translation>
 <translation id="3003694935412297923">Alle gjøremål</translation>
-<translation id="7611046016537686219">{count,plural, =1{Browther må bekrefte at det er deg, før enkelte data kan lagres i Browther-kontoen din og brukes på alle enhetene dine. Hvis du logger av nå, slettes disse dataene (1 element).}other{Browther må bekrefte at det er deg, før enkelte data kan lagres i Browther-kontoen din og brukes på alle enhetene dine. Hvis du logger av nå, slettes disse dataene ({count} elementer).}}</translation>
-<translation id="4202995875619419215">Åpne <ph name="URL"/> i en ny fane i Browther.</translation>
-<translation id="8755404239607088219">Browther kan ikke sjekke passordene dine. Prøv på nytt senere.</translation>
-<translation id="8880183781256147665">Legger til i Browther …</translation>
+<translation id="7554113777150891030">{count,plural, =1{Browther må bekrefte at det er deg, før enkelte data kan lagres i Browther-kontoen din og brukes på alle enhetene dine. Hvis du logger av nå, slettes disse dataene (1 element).}other{Browther må bekrefte at det er deg, før enkelte data kan lagres i Browther-kontoen din og brukes på alle enhetene dine. Hvis du logger av nå, slettes disse dataene ({count} elementer).}}</translation>
+<translation id="5522228731050510047">Åpne <ph name="URL"/> i en ny fane i Browther.</translation>
+<translation id="6358780591055960280">Browther kan ikke sjekke passordene dine. Prøv på nytt senere.</translation>
+<translation id="1386422761453740126">Legger til i Browther …</translation>
 <translation id="3038232873781883849">Venter på installering</translation>
 <translation id="3045032126857188731">Oversatt språk: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Lukk dialogboksen for tilbakemeldinger</translation>
-<translation id="4503085212612536713">Andre Browther-profiler</translation>
-<translation id="7918740962659365265">Bidra til å gjøre Browther bedre ved å sende programstopprapporter og <ph name="UMA_LINK"/> til Browther</translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{1 USB-enhet ble brukt av en eller flere Browther-utvidelser}=1{1 USB-enhet brukes av en eller flere Browther-utvidelser}other{# USB-enheter brukes av en eller flere Browther-utvidelser}}</translation>
-<translation id="3700405816184340252">Browther-logg</translation>
-<translation id="7365690458036015383">Installasjonsprogrammet kunne ikke dekomprimere arkivet. Last ned Browther på nytt.</translation>
+<translation id="369127628511662602">Andre Browther-profiler</translation>
+<translation id="2370255879896574713">Bidra til å gjøre Browther bedre ved å sende programstopprapporter og <ph name="UMA_LINK"/> til Browther</translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{1 USB-enhet ble brukt av en eller flere Browther-utvidelser}=1{1 USB-enhet brukes av en eller flere Browther-utvidelser}other{# USB-enheter brukes av en eller flere Browther-utvidelser}}</translation>
+<translation id="2065456480740480340">Browther-logg</translation>
+<translation id="5011660649081947055">Installasjonsprogrammet kunne ikke dekomprimere arkivet. Last ned Browther på nytt.</translation>
 <translation id="310459126943037700">Kunne ikke avslutte oppgaven(e).</translation>
 <translation id="3104828284009500087">Søk etter hva som helst på siden</translation>
-<translation id="6422885447166607802">Hold passordene, bokmerkene og loggen din synkronisert på alle enheter. Ved å oppdatere standardnettleseren din til Browther, får du enkel tilgang til funksjonene du kjenner og liker.</translation>
-<translation id="8919461291440820124">Browther bruker mikrofonen din.</translation>
+<translation id="4917564010081457061">Hold passordene, bokmerkene og loggen din synkronisert på alle enheter. Ved å oppdatere standardnettleseren din til Browther, får du enkel tilgang til funksjonene du kjenner og liker.</translation>
+<translation id="1041472930719344928">Browther bruker mikrofonen din.</translation>
 <translation id="3130333203120345554">Nytt søk</translation>
 <translation id="3137969841538672700">Dra for å søke</translation>
-<translation id="8372436892102763334">Denne fanen bruker ekstra ressurser. For å få bedre ytelse kan du la Browther gjøre den inaktiv.</translation>
-<translation id="5949068186379578553">For å dele skjermen, tillat skjermopptak for Browther i Systeminnstillinger</translation>
-<translation id="4805806622840861220">Start Browther på nytt</translation>
+<translation id="5312717254055363883">Denne fanen bruker ekstra ressurser. For å få bedre ytelse kan du la Browther gjøre den inaktiv.</translation>
+<translation id="373523409348786203">For å dele skjermen, tillat skjermopptak for Browther i Systeminnstillinger</translation>
+<translation id="802113445299754598">Start Browther på nytt</translation>
 <translation id="3161522574479303604">Alle språk</translation>
-<translation id="3225882094369124157">Et annet program på datamaskinen la til et tema som kan endre måten Browther fungerer på.
+<translation id="4522189060330781648">Et annet program på datamaskinen la til et tema som kan endre måten Browther fungerer på.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Tilpass den nye Browther-profilen din</translation>
-<translation id="4805865169608137960">For å fjerne Browther-kontoen din fra Browther, logg av Browther på Innstillinger-siden</translation>
-<translation id="1651639704310627074">Senere kan Browther spørre om du vil bruke lagret informasjon til å autofylle skjemaer</translation>
-<translation id="2585240446624043880">Browther kan ikke lese og skrive til egen datakatalog:
+<translation id="2604272613984010799">Tilpass den nye Browther-profilen din</translation>
+<translation id="5150830326120505481">For å fjerne Browther-kontoen din fra Browther, logg av Browther på Innstillinger-siden</translation>
+<translation id="7113660200899017820">Senere kan Browther spørre om du vil bruke lagret informasjon til å autofylle skjemaer</translation>
+<translation id="4475011322243623412">Browther kan ikke lese og skrive til egen datakatalog:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Start på nytt nå</translation>
-<translation id="2339258256897053758">API-nøkler for Browther mangler. Noe funksjonalitet i Browther blir deaktivert.</translation>
-<translation id="8926637909431618259">Fortsett å kjøre bakgrunnsprogrammer når Browther er lukket</translation>
-<translation id="518125528057094977">Browther advarer deg før all innlasting av nettsteder via usikre tilkoblinger</translation>
-<translation id="8652321858775514885">Du logges av de fleste nettsteder når du lukker alle Browther-vinduer, men du blir ikke logget av Browther-kontoen din hvis du er logget på Browther. For å la nettsteder huske deg, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Standardsøkemotoren din er endret utenfor Browther. For å beskytte deg har Browther tilbakestilt den.</translation>
-<translation id="5033074923607633232">Logg på Browther for å hente passordene og bokmerkene dine og mer på alle enheter</translation>
+<translation id="3536063527222598206">API-nøkler for Browther mangler. Noe funksjonalitet i Browther blir deaktivert.</translation>
+<translation id="1011450868746766298">Fortsett å kjøre bakgrunnsprogrammer når Browther er lukket</translation>
+<translation id="179611081153855734">Browther advarer deg før all innlasting av nettsteder via usikre tilkoblinger</translation>
+<translation id="8965591964936552871">Du logges av de fleste nettsteder når du lukker alle Browther-vinduer, men du blir ikke logget av Browther-kontoen din hvis du er logget på Browther. For å la nettsteder huske deg, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Standardsøkemotoren din er endret utenfor Browther. For å beskytte deg har Browther tilbakestilt den.</translation>
+<translation id="1170501833661894915">Logg på Browther for å hente passordene og bokmerkene dine og mer på alle enheter</translation>
 <translation id="3352986031709923790">øverst til høyre i søkefeltet: høyre <ph name="RIGHT"/> %, øverst <ph name="TOP"/> %</translation>
-<translation id="7261356974224431851">Browther-data i kontoen din</translation>
+<translation id="120745000989996104">Browther-data i kontoen din</translation>
 <translation id="3369405342922656244">Søk på denne siden med Bildesøk</translation>
-<translation id="6610330853796830621">Bruk passordene dine med Browther på telefonen</translation>
+<translation id="7173761126541905083">Bruk passordene dine med Browther på telefonen</translation>
 <translation id="2645435784669275700">ChromeOS</translation>
-<translation id="2297290224191497273">Vil du bytte til den eksisterende Browther-profilen?</translation>
+<translation id="5266583242423616945">Vil du bytte til den eksisterende Browther-profilen?</translation>
 <translation id="3412460710772753638">I Passordlagring på denne enheten</translation>
-<translation id="2491221873705777076">Utvid Safe Browsing med økt beskyttelse med Browther på telefonen</translation>
-<translation id="7304389940068374923">Gjør Browther til din …</translation>
-<translation id="9216183508558772570">Browther varsler deg når du logger på med passord som er utsatt for sikkerhetsbrudd</translation>
-<translation id="5853262807109651878">Dette sletter <ph name="ITEMS_COUNT"/> elementer fra denne enheten. For å hente dataene dine igjen senere må du logge på Browther som <ph name="USER_EMAIL"/>.</translation>
-<translation id="2024972335338126423">Bruk <ph name="SHORTCUT"/> til å bytte mellom Browther-profiler</translation>
-<translation id="8703492925273919597">Lukk alle Browther-vinduer og prøv på nytt.</translation>
-<translation id="599091950194451698">For å dele vinduet, tillat skjermopptak for Browther i Systeminnstillinger</translation>
-<translation id="1447863765638888625"><ph name="EXISTING_USER"/> er allerede logget på.  For å holde surfingen din atskilt, logg på Browther i din egen profil som <ph name="USER_EMAIL_ADDRESS"/>.</translation>
-<translation id="8981774130895723211">For å dele skjermen, tillat skjermopptak for Browther i Systeminnstillinger.</translation>
+<translation id="4282363917570905631">Utvid Safe Browsing med økt beskyttelse med Browther på telefonen</translation>
+<translation id="986094398735583155">Gjør Browther til din …</translation>
+<translation id="3266047225484320321">Browther varsler deg når du logger på med passord som er utsatt for sikkerhetsbrudd</translation>
+<translation id="3508047337876211050">Dette sletter <ph name="ITEMS_COUNT"/> elementer fra denne enheten. For å hente dataene dine igjen senere må du logge på Browther som <ph name="USER_EMAIL"/>.</translation>
+<translation id="7772248897860792723">Bruk <ph name="SHORTCUT"/> til å bytte mellom Browther-profiler</translation>
+<translation id="7225005776233199285">Lukk alle Browther-vinduer og prøv på nytt.</translation>
+<translation id="5465054931427475969">For å dele vinduet, tillat skjermopptak for Browther i Systeminnstillinger</translation>
+<translation id="6905469223518185641"><ph name="EXISTING_USER"/> er allerede logget på.  For å holde surfingen din atskilt, logg på Browther i din egen profil som <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="8133590217245064579">For å dele skjermen, tillat skjermopptak for Browther i Systeminnstillinger.</translation>
 <translation id="3597003331831379823">Kunne ikke kjøre konfigureringen med overordnede rettigheter. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Logg på Browther</translation>
-<translation id="3066805437003400520">Denne personens nettlesingsdata slettes fra denne enheten. For å gjenopprette dataene, logg på Browther som <ph name="USER_EMAIL"/>.</translation>
-<translation id="7029305463989165490">For å sende numre fra <ph name="ORIGIN"/> til Android-telefonen din, logg på Browther på begge enhetene.</translation>
+<translation id="611080704131468868">Logg på Browther</translation>
+<translation id="2492221622209669678">Denne personens nettlesingsdata slettes fra denne enheten. For å gjenopprette dataene, logg på Browther som <ph name="USER_EMAIL"/>.</translation>
+<translation id="6793778233257855801">For å sende numre fra <ph name="ORIGIN"/> til Android-telefonen din, logg på Browther på begge enhetene.</translation>
 <translation id="3667616615096815454">Kan ikke installere programmet fordi det er ukjent for tjeneren.</translation>
-<translation id="1128485277465085828">Bruk din <ph name="BEGIN_LINK"/>egen passordfrase<ph name="END_LINK"/> for å kryptere alle Browther-dataene i Browther-kontoen din. Betalingsmåter og adresser fra Google Pay krypteres ikke. Nettleserloggen fra Browther synkroniseres ikke.</translation>
-<translation id="4304059894777924102">Browther kan ikke sjekke passordene dine. Prøv å kontrollere internettilkoblingen.</translation>
-<translation id="1807774211756215222">Åpne linken i en ny fane i Browther</translation>
-<translation id="387105482057676379">Knytt sammen Browther og andre Browther-tjenester for personlig tilpasning og andre formål</translation>
+<translation id="5585500151754164442">Bruk din <ph name="BEGIN_LINK"/>egen passordfrase<ph name="END_LINK"/> for å kryptere alle Browther-dataene i Browther-kontoen din. Betalingsmåter og adresser fra Google Pay krypteres ikke. Nettleserloggen fra Browther synkroniseres ikke.</translation>
+<translation id="404323216042159951">Browther kan ikke sjekke passordene dine. Prøv å kontrollere internettilkoblingen.</translation>
+<translation id="5004936474632127765">Åpne linken i en ny fane i Browther</translation>
+<translation id="6236643159256182256">Knytt sammen Browther og andre Browther-tjenester for personlig tilpasning og andre formål</translation>
 <translation id="3729187154190517324">Gjør søket mer omfattende ved å legge til flere faner, filer og verktøy med «Legg til en fane med mer»-knappen.</translation>
-<translation id="3867175562099983425">Administrer Browther-profiler</translation>
-<translation id="308146532933302843">Finn ut hvorfor Browther blokkerer enkelte nedlastinger</translation>
-<translation id="2189149060536531804">Browther gir deg beskjed hvis noe må gjennomgås</translation>
-<translation id="8422094375343667686">Med Browther-profiler kan du holde ulike deler av livet ditt atskilt. Legg til en ny profil nå.</translation>
-<translation id="6324134303015966238">Browther forhåndslaster sider du sannsynligvis kommer til å besøke, slik at de lastes inn raskere når du faktisk besøker dem</translation>
+<translation id="1400697664933775238">Administrer Browther-profiler</translation>
+<translation id="2461315395128103158">Finn ut hvorfor Browther blokkerer enkelte nedlastinger</translation>
+<translation id="8058420662026104226">Browther gir deg beskjed hvis noe må gjennomgås</translation>
+<translation id="3177448557921912221">Med Browther-profiler kan du holde ulike deler av livet ditt atskilt. Legg til en ny profil nå.</translation>
+<translation id="1541177876035612043">Browther forhåndslaster sider du sannsynligvis kommer til å besøke, slik at de lastes inn raskere når du faktisk besøker dem</translation>
 <translation id="3810973564298564668">Administrer</translation>
-<translation id="4815742196440583661">For å bruke de lagrede passordene dine, følg QR-koden, last ned Browther for iOS, og logg på Browther-kontoen din</translation>
-<translation id="6093965249696204223">Browther-tips: Safe Browsing med økt beskyttelse</translation>
+<translation id="1117103475254549453">For å bruke de lagrede passordene dine, følg QR-koden, last ned Browther for iOS, og logg på Browther-kontoen din</translation>
+<translation id="8880695882192156860">Browther-tips: Safe Browsing med økt beskyttelse</translation>
 <translation id="3846683726093018685">**Sammendrag:** Beskriv hovedemnet og formålet med innholdet i skjermbildet i én setning på under 30 ord.
 
           **Foreslå spørsmål:** Generer en punktliste med tre til fem tankevekkende spørsmål en bruker kan stille for å forstå skjermbildet bedre. Disse spørsmålene må inneholde minst ett som handler spesifikt om et visuelt objekt, utformingen av det eller plasseringen av det.</translation>
-<translation id="5381622442243174305"><ph name="PAGE_TITLE"/> – Browther</translation>
+<translation id="8293474885560144454"><ph name="PAGE_TITLE"/> – Browther</translation>
 <translation id="3885770153807205175">Språkvelger</translation>
-<translation id="6315734375101223238">Tilpass og kontroller Browther. Det er noe du må se på – klikk for mer informasjon.</translation>
-<translation id="7130675370997202556">Klikk på navnet ditt for å åpne Browther og starte surfingen.</translation>
+<translation id="4861846616763552424">Tilpass og kontroller Browther. Det er noe du må se på – klikk for mer informasjon.</translation>
+<translation id="6126366281251241386">Klikk på navnet ditt for å åpne Browther og starte surfingen.</translation>
 <translation id="3892148308691398805">Kopier teksten</translation>
-<translation id="4920958997042285125"><ph name="EXISTING_USER"/> er allerede logget på denne Browther-profilen. For å holde surfingen din atskilt kan Browther opprette en egen profil til deg.</translation>
-<translation id="8744239658215739511">Tilpass Browther</translation>
+<translation id="3760801273210219822"><ph name="EXISTING_USER"/> er allerede logget på denne Browther-profilen. For å holde surfingen din atskilt kan Browther opprette en egen profil til deg.</translation>
+<translation id="3821553157234855663">Tilpass Browther</translation>
 <translation id="3941890832296813527">Installasjonsfeil: Navnet på installasjonsprogrammet er ugyldig eller støttes ikke.</translation>
-<translation id="8090497651549769448">Browther prøver å kopiere passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
-<translation id="4256965182800026277">Passordene, betalingsmåtene og adressene du har lagret i Browther-kontoen din, blir fjernet fra denne enheten. For å bruke dem i Browther igjen, logg på igjen.</translation>
+<translation id="6482299900191767005">Browther prøver å kopiere passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
+<translation id="5853011008278898603">Passordene, betalingsmåtene og adressene du har lagret i Browther-kontoen din, blir fjernet fra denne enheten. For å bruke dem i Browther igjen, logg på igjen.</translation>
 <translation id="395904275706073188">Beskyttede sider kan ikke leses. Prøv en annen side.</translation>
-<translation id="4194619960643453552">Finn ut hvordan Browther holder deg trygg</translation>
-<translation id="1486377520191913768">Når du skriver i adressefeltet eller søkefeltet, sender Browther det du skriver, til organisasjonens søke-, AI- og agentverktøy for å få forslag.</translation>
-<translation id="1311808042904310985">Om &amp;Browther for testing</translation>
+<translation id="1832973663231751701">Finn ut hvordan Browther holder deg trygg</translation>
+<translation id="4531502594774670767">Når du skriver i adressefeltet eller søkefeltet, sender Browther det du skriver, til organisasjonens søke-, AI- og agentverktøy for å få forslag.</translation>
+<translation id="300013383485253006">Om &amp;Browther for testing</translation>
 <translation id="1152920704813762236">Om ChromeOS</translation>
-<translation id="8282895427217902177">Når du besøker nettsteder, sender Browther en obfuskert del av nettadressen til <ph name="BEGIN_LINK"/>Google Safe Browsing<ph name="END_LINK"/> via en personverntjener som skjuler IP-adressen din. Hvis nettsteder gjør noe mistenkelig, sendes også fullstendige nettadresser og deler av sideinnholdet.</translation>
+<translation id="8126752030994997015">Når du besøker nettsteder, sender Browther en obfuskert del av nettadressen til <ph name="BEGIN_LINK"/>Google Safe Browsing<ph name="END_LINK"/> via en personverntjener som skjuler IP-adressen din. Hvis nettsteder gjør noe mistenkelig, sendes også fullstendige nettadresser og deler av sideinnholdet.</translation>
 <translation id="3703994572283698466">ChromeOS er basert på <ph name="BEGIN_LINK_CROS_OSS"/>tilleggsprogramvare med åpen kildekode<ph name="END_LINK_CROS_OSS"/>, i likhet med <ph name="BEGIN_LINK_LINUX_OSS"/>Linux-utviklingsmiljøet<ph name="END_LINK_LINUX_OSS"/>.</translation>
 <translation id="4022972681110646219">Oversett skjermen</translation>
 <translation id="4023601594785368013">Originalspråk: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Åpne linker i Browther fra alle apper. Og for å få enkel tilgang, blir det festet til oppgavelinjen.</translation>
-<translation id="6056473803837713617">Bidra til å gjøre Browther bedre ved å rapportere de <ph name="BEGIN_LINK"/>nåværende innstillingene<ph name="END_LINK"/></translation>
+<translation id="6450460108719059465">Åpne linker i Browther fra alle apper. Og for å få enkel tilgang, blir det festet til oppgavelinjen.</translation>
+<translation id="3437506136408403836">Bidra til å gjøre Browther bedre ved å rapportere de <ph name="BEGIN_LINK"/>nåværende innstillingene<ph name="END_LINK"/></translation>
 <translation id="4050175100176540509">Viktige sikkerhetsforbedringer og nye funksjoner er tilgjengelige i den nyeste versjonen.</translation>
 <translation id="4055805654398742145">P&amp;assordlagring</translation>
-<translation id="6654312501894761082">Et annet program på datamaskinen la til en utvidelse som kan endre måten Browther fungerer på.
+<translation id="2164947358785939495">Et annet program på datamaskinen la til en utvidelse som kan endre måten Browther fungerer på.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på ett minutt. Nettlesingsdata slettes. Dette kan omfatte loggen, autofyll og nedlastinger.}other{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på # minutter. Nettlesingsdata slettes. Dette kan omfatte loggen, autofyll og nedlastinger.}}</translation>
-<translation id="5794951150713244901">Gå til Om Browther-siden</translation>
-<translation id="10925962326134232">Tilpass Browther for å gi nettleseren et nytt utseende</translation>
-<translation id="6596295505984504022">Tilpass Browther</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på ett minutt. Nettlesingsdata slettes. Dette kan omfatte loggen, autofyll og nedlastinger.}other{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på # minutter. Nettlesingsdata slettes. Dette kan omfatte loggen, autofyll og nedlastinger.}}</translation>
+<translation id="1535413545339990419">Gå til Om Browther-siden</translation>
+<translation id="692283249649018289">Tilpass Browther for å gi nettleseren et nytt utseende</translation>
+<translation id="6375229634133804834">Tilpass Browther</translation>
 <translation id="4148957013307229264">Installerer ...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> – nettverkspålogging – Browther</translation>
-<translation id="2871190378186459992">Oppdag flotte apper, spill, utvidelser og temaer for Browther.</translation>
-<translation id="462105622535258178">For å få denne utvidelsen med flere på alle datamaskinene dine, logg på Browther</translation>
-<translation id="6670140629169983459">For å holde deg tryggere på nettet med innstillingene som forelderen din har valgt, bytt til Browther-profilen din der du allerede er logget på som <ph name="USER_EMAIL_ADDRESS"/></translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> – nettverkspålogging – Browther</translation>
+<translation id="2911246138082876798">Oppdag flotte apper, spill, utvidelser og temaer for Browther.</translation>
+<translation id="2528977475313334293">For å få denne utvidelsen med flere på alle datamaskinene dine, logg på Browther</translation>
+<translation id="8244267655940711467">For å holde deg tryggere på nettet med innstillingene som forelderen din har valgt, bytt til Browther-profilen din der du allerede er logget på som <ph name="USER_EMAIL_ADDRESS"/></translation>
 <translation id="4222932583846282852">Avbryter …</translation>
 <translation id="4224210481850767180">Installasjonen er avbrutt.</translation>
-<translation id="1853997773668795891">Vil du koble Browther-dataene dine til denne kontoen?</translation>
-<translation id="4732930052828648898">Advarer deg om farlige nettsteder, også nettsteder som Browther ikke kjenner til fra før, ved å analysere mer data fra nettsteder enn ved standardbeskyttelse. Du kan velge å hoppe over Browther-advarsler.</translation>
-<translation id="2201661640076600072">Logg av Browther</translation>
-<translation id="3262506503470845422">Få hjelp med Browther</translation>
+<translation id="8219359042845534271">Vil du koble Browther-dataene dine til denne kontoen?</translation>
+<translation id="5520777668172961882">Advarer deg om farlige nettsteder, også nettsteder som Browther ikke kjenner til fra før, ved å analysere mer data fra nettsteder enn ved standardbeskyttelse. Du kan velge å hoppe over Browther-advarsler.</translation>
+<translation id="2014920019837536689">Logg av Browther</translation>
+<translation id="4341512411059715879">Få hjelp med Browther</translation>
 <translation id="4281844954008187215">Vilkår for bruk</translation>
-<translation id="7691786510374174420">Installeringen mislyktes på grunn av en uspesifisert feil. Lukk Browther hvis nettleseren kjører, og prøv på nytt.</translation>
-<translation id="6368144843345980623">Eksporter passord fra Browther</translation>
+<translation id="322492684764924424">Installeringen mislyktes på grunn av en uspesifisert feil. Lukk Browther hvis nettleseren kjører, og prøv på nytt.</translation>
+<translation id="3813060261346666066">Eksporter passord fra Browther</translation>
 <translation id="4304713468139749426">Passordlagring</translation>
 <translation id="4334241893986177674">Søk i dette skjermbildet</translation>
 <translation id="4334294535648607276">Nedlastingen er fullført.</translation>
-<translation id="242356249838681145">Start Browther når Windows starter</translation>
-<translation id="4747339441562331861">Få enkel tilgang til funksjonene du kjenner, liker og stoler på, ved å angi Browther som standardnettleser. Browther festes til oppgavelinjen for rask tilgang.</translation>
+<translation id="2177954934431828302">Start Browther når Windows starter</translation>
+<translation id="2472318668926455009">Få enkel tilgang til funksjonene du kjenner, liker og stoler på, ved å angi Browther som standardnettleser. Browther festes til oppgavelinjen for rask tilgang.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> krever at du leser og godtar følgende vilkår før du bruker denne enheten. Disse vilkårene verken utvider, endrer eller begrenser ChromeOS-vilkårene.</translation>
-<translation id="9183662282810237335">Vil du avslutte Browther likevel?</translation>
+<translation id="2897580280700805340">Vil du avslutte Browther likevel?</translation>
 <translation id="4413205837991854510">Vis alltid snarveien til bildesøk</translation>
-<translation id="4065288863231444640">La Browther kjøre i bakgrunnen</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther anbefaler at du fjerner den. <ph name="BEGIN_LINK"/>Finn ut mer om utvidelser som støttes<ph name="END_LINK"/>}other{Browther anbefaler at du fjerner dem. <ph name="BEGIN_LINK"/>Finn ut mer om utvidelser som støttes<ph name="END_LINK"/>}}</translation>
-<translation id="8148611988012584308">Tilpass og kontroller Browther</translation>
+<translation id="2454897022983434851">La Browther kjøre i bakgrunnen</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther anbefaler at du fjerner den. <ph name="BEGIN_LINK"/>Finn ut mer om utvidelser som støttes<ph name="END_LINK"/>}other{Browther anbefaler at du fjerner dem. <ph name="BEGIN_LINK"/>Finn ut mer om utvidelser som støttes<ph name="END_LINK"/>}}</translation>
+<translation id="4276381981942009836">Tilpass og kontroller Browther</translation>
 <translation id="4427306783828095590">Økt beskyttelse gjør mer for å blokkere nettfisking og skadelig programvare</translation>
 <translation id="4434353761996769206">Installasjonsfeil: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413"><ph name="MANAGER"/> administrerer Browther</translation>
-<translation id="3579012341787637143">Legg til en Browther-profil</translation>
-<translation id="6786534271003695094">Om Browther for testing</translation>
-<translation id="526235294307144732">For å bruke og lagre Browther-data i Browther-kontoen din, skriv inn passordfrasen din</translation>
+<translation id="4870160002723711846"><ph name="MANAGER"/> administrerer Browther</translation>
+<translation id="4007482010626246887">Legg til en Browther-profil</translation>
+<translation id="6888322430074420631">Om Browther for testing</translation>
+<translation id="8912436499620582668">For å bruke og lagre Browther-data i Browther-kontoen din, skriv inn passordfrasen din</translation>
 <translation id="4493028449971051158">Oppstartsfeil: Kjør installasjonsprogrammet som administrator.</translation>
 <translation id="4501471624619070934">Installasjonen mislyktes fordi tilgangen er begrenset i dette landet.</translation>
-<translation id="8594994021633965927">Denne utvidelsen har ikke publisert retningslinjer for personvern, for eksempel hvordan den samler inn og bruker data. Browther anbefaler at du fjerner den.</translation>
-<translation id="7084397798469173252">Velkommen til Browther – et nytt nettleservindu er åpnet</translation>
-<translation id="137732229629632648">Browther trenger tillatelse til å kartlegge omgivelsene dine og spore hendene dine</translation>
-<translation id="5036046007335188949">Du er allerede logget på som <ph name="USER_EMAIL_ADDRESS"/> i en annen Browther-profil</translation>
-<translation id="1878185978731985193">Browther forhåndslaster sider, slik at det går raskere å surfe og søke. <ph name="BEGIN_LINK"/>Finn ut mer om forhåndslasting av sider<ph name="END_LINK"/></translation>
+<translation id="8976207309012239417">Denne utvidelsen har ikke publisert retningslinjer for personvern, for eksempel hvordan den samler inn og bruker data. Browther anbefaler at du fjerner den.</translation>
+<translation id="2174621824527957495">Velkommen til Browther – et nytt nettleservindu er åpnet</translation>
+<translation id="6391148383688605718">Browther trenger tillatelse til å kartlegge omgivelsene dine og spore hendene dine</translation>
+<translation id="7756445485815468244">Du er allerede logget på som <ph name="USER_EMAIL_ADDRESS"/> i en annen Browther-profil</translation>
+<translation id="137435413163730206">Browther forhåndslaster sider, slik at det går raskere å surfe og søke. <ph name="BEGIN_LINK"/>Finn ut mer om forhåndslasting av sider<ph name="END_LINK"/></translation>
 <translation id="4549180975214802957">Gjør nettet tryggere for alle ved å rapportere nettsteder du mener er skadelige.</translation>
-<translation id="8669339108356170796">Browther har blokkert denne nedlastingen fordi du har slått av Safe Browsing, så filen kan ikke bekreftes</translation>
-<translation id="7583343841997441047">Prøv Google Lens med Browther på telefonen</translation>
+<translation id="3266647901351304597">Browther har blokkert denne nedlastingen fordi du har slått av Safe Browsing, så filen kan ikke bekreftes</translation>
+<translation id="6980208900390333646">Prøv Google Lens med Browther på telefonen</translation>
 <translation id="4594305310729380060">I Passordlagring på denne enheten</translation>
-<translation id="3349475100979552835">Browther-apper</translation>
+<translation id="738228944918383850">Browther-apper</translation>
 <translation id="4598116752460667024">Søk etter en prosess på listen.</translation>
 <translation id="4970880042055371251">ChromeOS-versjon</translation>
-<translation id="2182657378556811785">Nå er oppdateringen snart ferdig! Start Browther på nytt for å fullføre oppdateringen.</translation>
-<translation id="6311668361877328515">Gjør nettsteder raskere med V8-motoren i Browther, men gjør Browther litt mindre motstandsdyktig mot angrep</translation>
-<translation id="7402642357351265733">Hvis du også deler Browther-bruksrapporter, inneholder disse rapportene nettadressene du besøker</translation>
-<translation id="8142245354207161805">Profilen ser ut til å være i bruk av en annen Browther-prosess (<ph name="PROCESS_ID"/>) på en annen datamaskin (<ph name="HOST_NAME"/>). Browther har låst profilen slik at den ikke blir infisert. Hvis du er sikker på at ingen andre prosesser bruker profilen, kan du låse opp profilen og starte Browther på nytt.</translation>
+<translation id="4482468019601425607">Nå er oppdateringen snart ferdig! Start Browther på nytt for å fullføre oppdateringen.</translation>
+<translation id="5517890123509214766">Gjør nettsteder raskere med V8-motoren i Browther, men gjør Browther litt mindre motstandsdyktig mot angrep</translation>
+<translation id="7690070364551268156">Hvis du også deler Browther-bruksrapporter, inneholder disse rapportene nettadressene du besøker</translation>
+<translation id="5020487088453637212">Profilen ser ut til å være i bruk av en annen Browther-prosess (<ph name="PROCESS_ID"/>) på en annen datamaskin (<ph name="HOST_NAME"/>). Browther har låst profilen slik at den ikke blir infisert. Hvis du er sikker på at ingen andre prosesser bruker profilen, kan du låse opp profilen og starte Browther på nytt.</translation>
 <translation id="4680828127924988555">Avbryt installasjon</translation>
-<translation id="2014343159590733363">Noen av Browther-dataene dine er ikke lagret i Browther-kontoen din ennå. Prøv å vente i noen minutter før du logger av. Hvis du logger av nå, blir disse dataene slettet.</translation>
-<translation id="2408746614080689238">Når du er logget på, kan du bruke passord med mer fra Browther-kontoen din i Browther. <ph name="SHORTCUT"/> kan endre innstillingene dine for Browther-tjenester.</translation>
-<translation id="847561904663814268">Noen har tidligere logget på Browther på denne datamaskinen som <ph name="ACCOUNT_EMAIL_LAST"/>. Opprett en ny Browther-bruker for å holde informasjonen din atskilt.</translation>
+<translation id="8134827615154347946">Noen av Browther-dataene dine er ikke lagret i Browther-kontoen din ennå. Prøv å vente i noen minutter før du logger av. Hvis du logger av nå, blir disse dataene slettet.</translation>
+<translation id="3508712423420506333">Når du er logget på, kan du bruke passord med mer fra Browther-kontoen din i Browther. <ph name="SHORTCUT"/> kan endre innstillingene dine for Browther-tjenester.</translation>
+<translation id="2388739442635757494">Noen har tidligere logget på Browther på denne datamaskinen som <ph name="ACCOUNT_EMAIL_LAST"/>. Opprett en ny Browther-bruker for å holde informasjonen din atskilt.</translation>
 <translation id="4724676981607797757">Installasjonen mislyktes på grunn av en feil med ikke-støttet protokoll.</translation>
-<translation id="3834935463915107022">Vil du avslutte Browther likevel?</translation>
-<translation id="8668413672647811944">En spesiell sikkerhetsoppdatering for Browther ble nettopp installert. Start på nytt nå, så gjenoppretter vi fanene dine.</translation>
-<translation id="9029438584415578308">Spør Browther</translation>
-<translation id="4941816441131888792">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> og <ph name="COUNT"/> til</translation>
-<translation id="4823369970559443694">Browther kan ikke sjekke passordene dine. Prøv på nytt om 24 timer, eller <ph name="BEGIN_LINK"/>sjekk passordene i Browther-kontoen din<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Denne funksjonen bruker den samme stavekontrollen som Browther Søk. Tekst du skriver inn i nettleseren, sendes til Browther. Du kan når som helst endre dette i innstillingene.</translation>
-<translation id="2899369907387169108">Bruk Browther uten noen konto</translation>
-<translation id="1912973375560256099">Regel om innkommende trafikk for Browther for å tillate mDNS-trafikk.</translation>
-<translation id="711601904575862069">Start på nytt for å oppdatere &amp;Browther</translation>
+<translation id="8305313684264112434">Vil du avslutte Browther likevel?</translation>
+<translation id="418155915144835101">En spesiell sikkerhetsoppdatering for Browther ble nettopp installert. Start på nytt nå, så gjenoppretter vi fanene dine.</translation>
+<translation id="2683970367518529374">Spør Browther</translation>
+<translation id="5064473048847774331">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> og <ph name="COUNT"/> til</translation>
+<translation id="5941343075741207533">Browther kan ikke sjekke passordene dine. Prøv på nytt om 24 timer, eller <ph name="BEGIN_LINK"/>sjekk passordene i Browther-kontoen din<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Denne funksjonen bruker den samme stavekontrollen som Browther Søk. Tekst du skriver inn i nettleseren, sendes til Browther. Du kan når som helst endre dette i innstillingene.</translation>
+<translation id="4581078588976787792">Bruk Browther uten noen konto</translation>
+<translation id="5921583137589782067">Regel om innkommende trafikk for Browther for å tillate mDNS-trafikk.</translation>
+<translation id="6563126962881169552">Start på nytt for å oppdatere &amp;Browther</translation>
 <translation id="4918086044614829423">Godta</translation>
 <translation id="4918844574251943176">Bildet er kopiert</translation>
-<translation id="8797356639448065696">Browther er i bakgrunnsmodus.</translation>
-<translation id="1895567721497166950">Klikk for å lukke dialogboksen for Browther-pålogging</translation>
-<translation id="2692971232706994729">Med Browther-profiler kan du holde alle Browther-tingene dine atskilt. Opprett profiler for venner og familie, eller skill mellom jobb og fritid.</translation>
-<translation id="7406627712452599344">Gjester kan bruke Browther uten å etterlate seg spor.</translation>
-<translation id="844471735881341044">Kontoen din i Browther</translation>
-<translation id="5952898964075639679">Legg til deg selv i Browther</translation>
-<translation id="7995865526174204486">Gemini i Browther bruker automatisk surfing for å jobbe i fanene dine og fullføre oppgaver du gir den. <ph name="LINK_BEGIN"/>Finn ut mer<ph name="LINK_END"/></translation>
-<translation id="1204184037023366446">Browther trenger tillatelse til å spore hendene dine</translation>
-<translation id="5406591571925937375">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> og <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">Browther er i bakgrunnsmodus.</translation>
+<translation id="3603134280602182991">Klikk for å lukke dialogboksen for Browther-pålogging</translation>
+<translation id="6120233890602288442">Med Browther-profiler kan du holde alle Browther-tingene dine atskilt. Opprett profiler for venner og familie, eller skill mellom jobb og fritid.</translation>
+<translation id="5722688387568011881">Gjester kan bruke Browther uten å etterlate seg spor.</translation>
+<translation id="7786958592460743302">Kontoen din i Browther</translation>
+<translation id="9114640791491590337">Legg til deg selv i Browther</translation>
+<translation id="3536391594566515053">Gemini i Browther bruker automatisk surfing for å jobbe i fanene dine og fullføre oppgaver du gir den. <ph name="LINK_BEGIN"/>Finn ut mer<ph name="LINK_END"/></translation>
+<translation id="5620073061430082932">Browther trenger tillatelse til å spore hendene dine</translation>
+<translation id="1627123463102858476">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> og <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Du blokkerer vanligvis varsler. For å la dette nettstedet sende deg varsler, klikk på varselikonet i høyre hjørne av adressefeltet.</translation>
 <translation id="5174983315706567306">Det er for lite diskplass.</translation>
-<translation id="8157129267754368853">Browther-kontoen krever ny autentisering</translation>
-<translation id="9078804073692109646">Ingen lagrede passord. Browther kan sjekke passordene dine når du lagrer dem.</translation>
-<translation id="6234515504547364178">Vil du logge av Browther?</translation>
+<translation id="7091313576354542088">Browther-kontoen krever ny autentisering</translation>
+<translation id="9045390598305758496">Ingen lagrede passord. Browther kan sjekke passordene dine når du lagrer dem.</translation>
+<translation id="5686724084351858452">Vil du logge av Browther?</translation>
 <translation id="5234764350956374838">Lukk</translation>
 <translation id="5254739261293693943">Spør om denne videoen</translation>
-<translation id="8586264863973514035">For å bruke endringene dine må du starte Browther på nytt</translation>
+<translation id="8165028066129227692">For å bruke endringene dine må du starte Browther på nytt</translation>
 <translation id="5286907366254680517">Registrert</translation>
-<translation id="7264453786974905915">Skaff deg Browther-appen</translation>
-<translation id="6944930779012811739">Intern Browther-oppdateringstjeneste</translation>
+<translation id="198210130507193824">Skaff deg Browther-appen</translation>
+<translation id="8472078903122489041">Intern Browther-oppdateringstjeneste</translation>
 <translation id="5346389065299425353">Gjør søket mer omfattende ved å legge til flere faner, filer og verktøy</translation>
-<translation id="7573068992266397941">Browther har noen sikkerhetsanbefalinger til deg</translation>
-<translation id="8174413867995118050">Andre Browther-profiler</translation>
-<translation id="7708394612738038097">Du logger deg på med en administrert konto og gir tilhørende administratorer kontroll over Browther-profilen din. Browther-dataene dine, slik som apper, bokmerker, loggen, passord og andre innstillinger, knyttes permanent til <ph name="USER_NAME"/>. Du kan slette disse dataene via oversikten for Browther-kontoer, men du kan ikke knytte disse dataene til en annen konto. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Browther har noen sikkerhetsanbefalinger til deg</translation>
+<translation id="509616246140011182">Andre Browther-profiler</translation>
+<translation id="8214429210535362385">Du logger deg på med en administrert konto og gir tilhørende administratorer kontroll over Browther-profilen din. Browther-dataene dine, slik som apper, bokmerker, loggen, passord og andre innstillinger, knyttes permanent til <ph name="USER_NAME"/>. Du kan slette disse dataene via oversikten for Browther-kontoer, men du kan ikke knytte disse dataene til en annen konto. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Ekstrakode: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">For å få personlig tilpasning må du inkludere Browther i Nett- og appaktivitet</translation>
-<translation id="5154625106151193600">Finn ut hvorfor Browther blokkerer enkelte filer</translation>
-<translation id="1786715389543715322">Oppdaterer Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Tillat Browther-pålogging</translation>
-<translation id="5267531627648004734">Fjern fra Browther</translation>
-<translation id="4620757336635063467">Reduserer ytelsen, men gjør Browther mer motstandsdyktig mot angrep</translation>
-<translation id="239760341987199724">Bruk Browther som standardnettleser</translation>
-<translation id="1403270718080126244"><ph name="PAGE_TITLE"/> – betaversjon av Browther</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther anbefaler at du setter fanen som gjør nettleseren treg, på pause}other{Browther anbefaler at du setter fanene som gjør nettleseren treg, på pause}}</translation>
-<translation id="894936507076470937">Det kan hende Browther ikke fungerer skikkelig fordi den ikke lenger støttes i denne Linux-distribusjonen</translation>
-<translation id="2596557398669145729">Browther har blokkert denne nedlastingen fordi filen kan skade de personlige kontoene dine og kontoene dine på sosiale nettverk</translation>
-<translation id="696826782632239602">Browther trenger tilgang til posisjonen din for å kunne dele den med dette nettstedet</translation>
-<translation id="1744365871163268756">Vent mens Browther installerer de nyeste systemoppdateringene.</translation>
-<translation id="3861679447659630159">Browther prøver å redigere passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
+<translation id="5244017809112094908">For å få personlig tilpasning må du inkludere Browther i Nett- og appaktivitet</translation>
+<translation id="8096544113811780871">Finn ut hvorfor Browther blokkerer enkelte filer</translation>
+<translation id="2384387444932590174">Oppdaterer Browther (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Tillat Browther-pålogging</translation>
+<translation id="6557334704331248411">Fjern fra Browther</translation>
+<translation id="5832041381258620673">Reduserer ytelsen, men gjør Browther mer motstandsdyktig mot angrep</translation>
+<translation id="3763317028635993788">Bruk Browther som standardnettleser</translation>
+<translation id="8756552710915246172"><ph name="PAGE_TITLE"/> – betaversjon av Browther</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther anbefaler at du setter fanen som gjør nettleseren treg, på pause}other{Browther anbefaler at du setter fanene som gjør nettleseren treg, på pause}}</translation>
+<translation id="4423621904097888155">Det kan hende Browther ikke fungerer skikkelig fordi den ikke lenger støttes i denne Linux-distribusjonen</translation>
+<translation id="6201726364919996698">Browther har blokkert denne nedlastingen fordi filen kan skade de personlige kontoene dine og kontoene dine på sosiale nettverk</translation>
+<translation id="7679204468655335605">Browther trenger tilgang til posisjonen din for å kunne dele den med dette nettstedet</translation>
+<translation id="1163572992704966942">Vent mens Browther installerer de nyeste systemoppdateringene.</translation>
+<translation id="5050118226119231029">Browther prøver å redigere passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
 <translation id="5524890928877629608">øverst til venstre i søkefeltet: venstre<ph name="LEFT"/> %, øverst <ph name="TOP"/> %</translation>
-<translation id="232381795826373334">Åpne PDF-filer i Browther</translation>
+<translation id="5875549039106594731">Åpne PDF-filer i Browther</translation>
 <translation id="5536164441519929134">Spør<ph name="LINE_BREAK"/>om denne fanen</translation>
 <translation id="5579324208890605088">Oppstartsfeil: Kjør installasjonsprogrammet som vanlig bruker, ikke som administrator.</translation>
-<translation id="3588973534877826647">Bruk Browther som standard, og fest den</translation>
+<translation id="202315329304302571">Bruk Browther som standard, og fest den</translation>
 <translation id="5596627076506792578">Flere alternativer</translation>
 <translation id="5605834417512968703">Velg hva som helst for å søke med bildesøk, eller trykk på Esc for å avslutte bildesøk</translation>
 <translation id="5618818588972826921">Velg tekst eller bilder for å søke med bildesøk, eller trykk på Esc for å avslutte bildesøk</translation>
-<translation id="1026406809507858026">{0,plural, =0{En Browther-oppdatering er tilgjengelig}=1{En Browther-oppdatering er tilgjengelig}other{En Browther-oppdatering har vært tilgjengelig i # dager}}</translation>
-<translation id="1023472437588692618">Slett alltid nettstedsdata fra enheten når du lukker Browther</translation>
-<translation id="5646769069113654257">Start Browther på nytt nå</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Vis Browther på dette språket</translation>
+<translation id="5823076755666406442">{0,plural, =0{En Browther-oppdatering er tilgjengelig}=1{En Browther-oppdatering er tilgjengelig}other{En Browther-oppdatering har vært tilgjengelig i # dager}}</translation>
+<translation id="8414129876440043675">Slett alltid nettstedsdata fra enheten når du lukker Browther</translation>
+<translation id="5156991567152325333">Start Browther på nytt nå</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Vis Browther på dette språket</translation>
 <translation id="569897634095159764">Kan ikke koble til internett. Proxy-tjeneren krever autentisering.</translation>
-<translation id="3364613146104156465">Med Browther-profiler kan du holde personlig surfing og jobb atskilt. Legg til en ny profil nå.</translation>
-<translation id="1834213228893578875">Browther frigjør minne fra inaktive faner. Dette gir aktive faner og andre apper flere datamaskinressurser og holder Browther rask. De inaktive fanene dine blir automatisk aktive igjen når du går tilbake til dem. <ph name="BEGIN_LINK"/>Finn ut mer om minnesparing<ph name="END_LINK"/></translation>
-<translation id="899523323751802352">Hvis du har glemt passordfrasen eller vil endre denne innstillingen, kan du <ph name="SETTINGS_LINK"/> Browther-dataene i kontoen din</translation>
-<translation id="82926023981336111">Tilpass og kontroller Browther. Angi Browther som standard.</translation>
+<translation id="4215338057953170891">Med Browther-profiler kan du holde personlig surfing og jobb atskilt. Legg til en ny profil nå.</translation>
+<translation id="5366435608642317052">Browther frigjør minne fra inaktive faner. Dette gir aktive faner og andre apper flere datamaskinressurser og holder Browther rask. De inaktive fanene dine blir automatisk aktive igjen når du går tilbake til dem. <ph name="BEGIN_LINK"/>Finn ut mer om minnesparing<ph name="END_LINK"/></translation>
+<translation id="4941518395341035738">Hvis du har glemt passordfrasen eller vil endre denne innstillingen, kan du <ph name="SETTINGS_LINK"/> Browther-dataene i kontoen din</translation>
+<translation id="7763291835437810978">Tilpass og kontroller Browther. Angi Browther som standard.</translation>
 <translation id="5809516625706423866">Kan ikke koble til internett. HTTP 401 – uautorisert. Kontroller proxy-tjenerkonfigurasjonen.</translation>
-<translation id="95980832839683236">Gjør nettsteder raskere med V8-motoren i Browther, men gjør Browther litt mindre motstandsdyktig mot angrep. Denne innstillingen er slått av.</translation>
-<translation id="1224606669200461217">Oppdater Browther for å bruke og lagre Browther-data i Browther-kontoen din.</translation>
+<translation id="1827132270895283425">Gjør nettsteder raskere med V8-motoren i Browther, men gjør Browther litt mindre motstandsdyktig mot angrep. Denne innstillingen er slått av.</translation>
+<translation id="1553025851718680114">Oppdater Browther for å bruke og lagre Browther-data i Browther-kontoen din.</translation>
 <translation id="5824893331272123205">Kunne ikke laste inn dette panelet – prøv på nytt</translation>
-<translation id="7207456302801184289">Velkommen til Browther</translation>
+<translation id="7339353273994862168">Velkommen til Browther</translation>
 <translation id="5871205389137001634">Klikk for å avslutte bildesøk</translation>
-<translation id="8054200348483755053">Browther har oppdaget at disse elementene inneholder skadelig programvare:</translation>
-<translation id="3955583201925082436">Browther sjekker regelmessig at nettleseren din har de tryggeste innstillingene. Vi gir deg beskjed hvis det er noe du må se nærmere på.</translation>
+<translation id="7586794330537887406">Browther har oppdaget at disse elementene inneholder skadelig programvare:</translation>
+<translation id="1666897346518812892">Browther sjekker regelmessig at nettleseren din har de tryggeste innstillingene. Vi gir deg beskjed hvis det er noe du må se nærmere på.</translation>
 <translation id="5895138241574237353">Start på nytt</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> – nettverkspålogging</translation>
 <translation id="5924017743176219022">Kobler til internett …</translation>
 <translation id="5941711191222866238">Minimer</translation>
-<translation id="5768962901674164501">For å få dette bokmerket med mer på alle enhetene dine, logg på Browther</translation>
-<translation id="5101892358689285100">Gi Browther et personlig preg</translation>
+<translation id="4938357262936377412">For å få dette bokmerket med mer på alle enhetene dine, logg på Browther</translation>
+<translation id="260974496993853147">Gi Browther et personlig preg</translation>
 <translation id="5960071705175224773">Innstillingene dine er endret av en ukjent app</translation>
 <translation id="5968400720580217226">AI-modus</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på ett minutt.}other{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på # minutter.}}</translation>
-<translation id="3598551856834560515">Oppdater Browther for å starte synkroniseringen</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på ett minutt.}other{Organisasjonen din lukker Browther-nettleseren automatisk når den ikke har vært i bruk på # minutter.}}</translation>
+<translation id="5852664780493076676">Oppdater Browther for å starte synkroniseringen</translation>
 <translation id="6003112304606738118">Laster ned … <ph name="HOURS"/> time(r) igjen</translation>
 <translation id="6009821354356307391">Be om oppfølging</translation>
 <translation id="6040143037577758943">Lukk</translation>
-<translation id="700488072601322385">Du kan beskytte dataene dine ved å la Browther fjerne tillatelser fra nettsteder du ikke har besøkt nylig. Dette stopper ikke varsler.</translation>
-<translation id="9071554113102421877">&amp;Åpne i Browther</translation>
+<translation id="2495504229007749358">Du kan beskytte dataene dine ved å la Browther fjerne tillatelser fra nettsteder du ikke har besøkt nylig. Dette stopper ikke varsler.</translation>
+<translation id="6038969823662006832">&amp;Åpne i Browther</translation>
 <translation id="6069027071882229820">Kopier som bilde</translation>
-<translation id="7861579472672677409"><ph name="EXTENSION_NAME"/> er lagt til i Browther</translation>
-<translation id="5849446944780602366">Tilpass og kontroller Browther. Oppdatering er tilgjengelig.</translation>
-<translation id="5711722515923392428">På • Browther kan ikke bekrefte hvor denne utvidelsen kommer fra</translation>
-<translation id="6355366566986893068">Kontoen din i Browther</translation>
-<translation id="7433698744896946664">Tillat at utvidelsen viser tilgangsforespørsler på Browther-verktøylinjen</translation>
-<translation id="4168372721886011198"><ph name="FILE_NAME"/> er farlig, så Browther har blokkert den.</translation>
-<translation id="991182453936521413">Browther lukkes snart og sletter data</translation>
-<translation id="4060970194201477024">Du kan bytte mellom Browther-profiler her</translation>
-<translation id="7815000350132166985">Hvis du tillater informasjonskapsler, kan Browther bruke dem ved forhåndslasting</translation>
+<translation id="6606690217326148454"><ph name="EXTENSION_NAME"/> er lagt til i Browther</translation>
+<translation id="6037324269860323082">Tilpass og kontroller Browther. Oppdatering er tilgjengelig.</translation>
+<translation id="3695768481578778794">På • Browther kan ikke bekrefte hvor denne utvidelsen kommer fra</translation>
+<translation id="4401885752362736126">Kontoen din i Browther</translation>
+<translation id="4310817187912076496">Tillat at utvidelsen viser tilgangsforespørsler på Browther-verktøylinjen</translation>
+<translation id="4602490888173698813"><ph name="FILE_NAME"/> er farlig, så Browther har blokkert den.</translation>
+<translation id="5139243417751674628">Browther lukkes snart og sletter data</translation>
+<translation id="4696750309605389299">Du kan bytte mellom Browther-profiler her</translation>
+<translation id="7475001351099358916">Hvis du tillater informasjonskapsler, kan Browther bruke dem ved forhåndslasting</translation>
 <translation id="6165508094623778733">Finn ut mer</translation>
-<translation id="5739368447874065758">Slett Browther-dataene i kontoen din</translation>
-<translation id="6685697979743742605">Denne filen kan være farlig<ph name="LINE_BREAK"/>Browther kan sjekke denne nedlastingen for deg hvis du oppgir passordet. Informasjon om filen blir sendt til Google Safe Browsing, men filinnholdet og passordet blir værende på enheten.</translation>
+<translation id="5975099973700540482">Slett Browther-dataene i kontoen din</translation>
+<translation id="6800151735486681860">Denne filen kan være farlig<ph name="LINE_BREAK"/>Browther kan sjekke denne nedlastingen for deg hvis du oppgir passordet. Informasjon om filen blir sendt til Google Safe Browsing, men filinnholdet og passordet blir værende på enheten.</translation>
 <translation id="6182736845697986886">Installasjonen mislyktes på grunn av en intern feil i oppdateringstjeneren.</translation>
-<translation id="4368341489795135329">Sørg for at du er logget på Browther på <ph name="TARGET_DEVICE_NAME"/>, og prøv å sende på nytt.</translation>
-<translation id="3038354906709778538">Et annet program på datamaskinen la til en app som kan endre måten Browther fungerer på.
+<translation id="48832130233362517">Sørg for at du er logget på Browther på <ph name="TARGET_DEVICE_NAME"/>, og prøv å sende på nytt.</translation>
+<translation id="8868210753005945522">Et annet program på datamaskinen la til en app som kan endre måten Browther fungerer på.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Denne datamaskinen har allerede en nyere versjon av Browther. Hvis programvaren ikke fungerer, må du avinstallere Browther og prøve på nytt.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Browther startes på nytt nå}=1{Browther startes på nytt om 1 sekund}other{Browther startes på nytt om # sekunder}}</translation>
+<translation id="2779436101182061679">Denne datamaskinen har allerede en nyere versjon av Browther. Hvis programvaren ikke fungerer, må du avinstallere Browther og prøve på nytt.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Browther startes på nytt nå}=1{Browther startes på nytt om 1 sekund}other{Browther startes på nytt om # sekunder}}</translation>
 <translation id="6239161312595354541">Spør Bildesøk om denne videoen</translation>
-<translation id="5980269616827212166">Browther må ha lagringstilgang for å kunne laste ned filer</translation>
-<translation id="7651600795135059130">Kontrollerer nettadresser opp mot en liste i Browther over utrygge nettsteder</translation>
-<translation id="5019879183386042809">Gjør Browther til standardnettleser</translation>
-<translation id="7445061995866044926">Vil du logge av Browther?</translation>
-<translation id="4659866260728515512">Disse fanene bruker ekstra ressurser. For å få bedre ytelse kan du la Browther gjøre dem inaktive.</translation>
-<translation id="6806912298071949921">Tilpass Browther-profilen din</translation>
-<translation id="3792238845239580301">Gi navn til Browther-profilen din</translation>
-<translation id="5874208157501051620">En utvidelse vil at du skal logge på Browther</translation>
-<translation id="3561569806301739367"><ph name="FILE_NAME"/> kan være farlig, så Browther har blokkert den.</translation>
-<translation id="3205074487970075628">Browther bruker kameraet ditt.</translation>
+<translation id="1755464917870815989">Browther må ha lagringstilgang for å kunne laste ned filer</translation>
+<translation id="304681001513922736">Kontrollerer nettadresser opp mot en liste i Browther over utrygge nettsteder</translation>
+<translation id="7785903492969539081">Gjør Browther til standardnettleser</translation>
+<translation id="3987833816263696343">Vil du logge av Browther?</translation>
+<translation id="4723540739671534529">Disse fanene bruker ekstra ressurser. For å få bedre ytelse kan du la Browther gjøre dem inaktive.</translation>
+<translation id="6540151687468239291">Tilpass Browther-profilen din</translation>
+<translation id="770793114032605647">Gi navn til Browther-profilen din</translation>
+<translation id="385867753870250529">En utvidelse vil at du skal logge på Browther</translation>
+<translation id="2022337046348377650"><ph name="FILE_NAME"/> kan være farlig, så Browther har blokkert den.</translation>
+<translation id="45270956603278068">Browther bruker kameraet ditt.</translation>
 <translation id="6327105987658262776">Ingen oppdatering er tilgjengelig.</translation>
-<translation id="1819119299840995223">En annen handling er i gang på Browther. Prøv på nytt senere.</translation>
-<translation id="8616874628011103667">Nå er det enklere å bruke Browther med Browther-kontoen din og på datamaskiner du deler med andre.</translation>
-<translation id="4264606872840545968">Browther-snarvei</translation>
-<translation id="6890616081898535725">Browther har blokkert denne nedlastingen fordi filen ikke lastes ned ofte, så den kan være farlig</translation>
-<translation id="335632367599648646">Er du sikker på at du vil avinstallere Browther?</translation>
+<translation id="673633752219771459">En annen handling er i gang på Browther. Prøv på nytt senere.</translation>
+<translation id="1482759407165416070">Nå er det enklere å bruke Browther med Browther-kontoen din og på datamaskiner du deler med andre.</translation>
+<translation id="5538042432112726532">Browther-snarvei</translation>
+<translation id="833085228901080512">Browther har blokkert denne nedlastingen fordi filen ikke lastes ned ofte, så den kan være farlig</translation>
+<translation id="491120842288314439">Er du sikker på at du vil avinstallere Browther?</translation>
 <translation id="6375219077595103062">Legg til en snarvei i Passordlagring</translation>
 <translation id="6388799252195623474">hjelp meg med dette</translation>
-<translation id="7920857181125123335">For å fortsette, logg på Browther som <ph name="EMAIL"/>. Dette sikrer at du har organisasjonens regler.</translation>
-<translation id="3256100650978957522">Browther-logo på en dataskjerm.</translation>
-<translation id="6373767849825830651">Browther er en nettleser som kjører nettsider og programmer i lynets hastighet. Den er rask, stabil og enkel å bruke. Surf på nettet på en tryggere måte med Browther, som har innebygd beskyttelse mot skadelig programvare og nettfisking.</translation>
-<translation id="2532326772258858491">Browther kjører raskere, og funksjoner som bruker JavaScript, skal fungere som tilsiktet</translation>
+<translation id="6715003312952407375">For å fortsette, logg på Browther som <ph name="EMAIL"/>. Dette sikrer at du har organisasjonens regler.</translation>
+<translation id="1897845318651970239">Browther-logo på en dataskjerm.</translation>
+<translation id="3669522483038684532">Browther er en nettleser som kjører nettsider og programmer i lynets hastighet. Den er rask, stabil og enkel å bruke. Surf på nettet på en tryggere måte med Browther, som har innebygd beskyttelse mot skadelig programvare og nettfisking.</translation>
+<translation id="5669767676913031391">Browther kjører raskere, og funksjoner som bruker JavaScript, skal fungere som tilsiktet</translation>
 <translation id="6436260184216827876">Bildesøk er ikke tilgjengelig. Prøv på nytt senere.</translation>
 <translation id="2139300032719313227">Start ChromeOS på nytt</translation>
-<translation id="638302211119176182">Browther forhåndslaster enda flere sider du sannsynligvis kommer til å besøke, slik at de lastes inn raskere når du faktisk besøker dem</translation>
-<translation id="7167975344637731051">Last ned Browther på telefonen for å spore priser og få varsler ved prisfall på et nettsted</translation>
-<translation id="890319829408077946">Av • Browther kan ikke bekrefte hvor denne utvidelsen kommer fra</translation>
-<translation id="1684121725014454063">Velkommen til Browther-profiler</translation>
-<translation id="8211983866539058675">Neste gang du åpner Browther på <ph name="DEVICE_TYPE"/>, ser du en forespørsel om å bruke fanegrupper.</translation>
-<translation id="7906693299331092358">Fjern kontoen fra Browther</translation>
+<translation id="6110616900529884221">Browther forhåndslaster enda flere sider du sannsynligvis kommer til å besøke, slik at de lastes inn raskere når du faktisk besøker dem</translation>
+<translation id="1217194059001819677">Last ned Browther på telefonen for å spore priser og få varsler ved prisfall på et nettsted</translation>
+<translation id="7058555680120557198">Av • Browther kan ikke bekrefte hvor denne utvidelsen kommer fra</translation>
+<translation id="676533642429632127">Velkommen til Browther-profiler</translation>
+<translation id="5518682889576009702">Neste gang du åpner Browther på <ph name="DEVICE_TYPE"/>, ser du en forespørsel om å bruke fanegrupper.</translation>
+<translation id="6038105561107837619">Fjern kontoen fra Browther</translation>
 <translation id="2675662665675552980">Den styrer også hvilken side som vises når du starter Browther.</translation>
 <translation id="648319183876919572">Safe Browsing med økt beskyttelse gjør mer for å beskytte deg mot farlige nettsteder og nedlastinger</translation>
-<translation id="5590013613412457132">Avinstaller Browther</translation>
-<translation id="7185585387858242335">Snarveier åpnes i Browther</translation>
-<translation id="3617744907966785605">Organisasjonen din lukker Browther når den ikke har vært i bruk på <ph name="TIMEOUT_DURATION"/>. Nettlesingsdataene ble slettet. Dette kan omfatte loggen, autofyll og nedlastinger.</translation>
-<translation id="8646609321956191980">Hver profil har sin egen Browther-informasjon, som bokmerker, logg, passord med mer</translation>
-<translation id="6756656512757374876">Finn ut mer om <ph name="BEGIN_LINK"/>hvordan Browther holder dataene dine private<ph name="END_LINK"/></translation>
-<translation id="3556601443414636547">Endringer i denne innstillingen tas i bruk når Browther startes på nytt.</translation>
-<translation id="2535436634051789953">Du kan bytte til å se passord fra en annen Browther-profil</translation>
-<translation id="2312399718665761438">For å rette opp i skrivefeil sender Browther sender tekst du skriver i tekstfelt, til Browther</translation>
-<translation id="3507835409099344374">Gå til innstillinger for Browther-varsler</translation>
+<translation id="2930243146591999795">Avinstaller Browther</translation>
+<translation id="5241183382286817629">Snarveier åpnes i Browther</translation>
+<translation id="7907014599435829661">Organisasjonen din lukker Browther når den ikke har vært i bruk på <ph name="TIMEOUT_DURATION"/>. Nettlesingsdataene ble slettet. Dette kan omfatte loggen, autofyll og nedlastinger.</translation>
+<translation id="2088471423667794811">Hver profil har sin egen Browther-informasjon, som bokmerker, logg, passord med mer</translation>
+<translation id="9040334484455218184">Finn ut mer om <ph name="BEGIN_LINK"/>hvordan Browther holder dataene dine private<ph name="END_LINK"/></translation>
+<translation id="1718697235867382480">Endringer i denne innstillingen tas i bruk når Browther startes på nytt.</translation>
+<translation id="6331317152404762758">Du kan bytte til å se passord fra en annen Browther-profil</translation>
+<translation id="6097706403184348562">For å rette opp i skrivefeil sender Browther sender tekst du skriver i tekstfelt, til Browther</translation>
+<translation id="2319647238307402812">Gå til innstillinger for Browther-varsler</translation>
 <translation id="6600016381025017075">Søk etter hva som helst på denne siden</translation>
-<translation id="9156965752763025780">Endringene dine trer i kraft neste gang du starter Browther.</translation>
-<translation id="3387992981600748596">Nå starter Browther når Windows starter, slik at du kan begynne å surfe umiddelbart. Du kan slå dette av i innstillingene.</translation>
-<translation id="3119017564683030312">Fortsett der du avsluttet: Browther har gjenopprettet fanene dine fra den forrige økten. Du kan slå av dette i</translation>
-<translation id="245693535809364497">Browther trenger kameratillatelse for å lage et 3D-kart av omgivelsene dine</translation>
-<translation id="9210457680074341078">Hvis du også lagrer bokmerkene i Browther-kontoen din, kan du spore produktpriser i Browther og bli varslet om avslag</translation>
+<translation id="8031938899816118394">Endringene dine trer i kraft neste gang du starter Browther.</translation>
+<translation id="7412185356697187964">Nå starter Browther når Windows starter, slik at du kan begynne å surfe umiddelbart. Du kan slå dette av i innstillingene.</translation>
+<translation id="9123343592576384616">Fortsett der du avsluttet: Browther har gjenopprettet fanene dine fra den forrige økten. Du kan slå av dette i</translation>
+<translation id="5847926498049048567">Browther trenger kameratillatelse for å lage et 3D-kart av omgivelsene dine</translation>
+<translation id="5532585028508811858">Hvis du også lagrer bokmerkene i Browther-kontoen din, kan du spore produktpriser i Browther og bli varslet om avslag</translation>
 <translation id="6676384891291319759">Gå til Internett</translation>
 <translation id="1363996462118479832">ChromeOS kunne ikke synkronisere dataene dine på grunn av en feil under pålogging.</translation>
-<translation id="4694512973195649124">Fjern data for disse appene fra Browther</translation>
-<translation id="5324448127277983819">Med Browther får du mer kontroll over annonsene du ser, og du begrenser hvilke ting nettsteder kan finne ut om deg når de viser deg personlig tilpassede annonser</translation>
-<translation id="1257247502847251159">Browther trenger mikrofontillatelse for dette nettstedet</translation>
+<translation id="3373239673945775810">Fjern data for disse appene fra Browther</translation>
+<translation id="8122759674786039814">Med Browther får du mer kontroll over annonsene du ser, og du begrenser hvilke ting nettsteder kan finne ut om deg når de viser deg personlig tilpassede annonser</translation>
+<translation id="6277682530398500159">Browther trenger mikrofontillatelse for dette nettstedet</translation>
 <translation id="6712881677154121168">Nedlastingsfeil: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Profilen din kan ikke brukes fordi den kommer fra en nyere versjon av Browther.
+<translation id="2972046656127603037">Profilen din kan ikke brukes fordi den kommer fra en nyere versjon av Browther.
 
 Det er mulig at enkelte funksjoner ikke er tilgjengelige. Angi en annen profilkatalog eller bruk en nyere versjon av Browther.</translation>
-<translation id="1505112054322049777">For å få personlig tilpasning og andre funksjoner må du inkludere Browther i Nett- og appaktivitet og tilknyttede Browther-tjenester</translation>
-<translation id="6666624454809779082">Browther er allerede installert for alle brukerne på datamaskinen din.</translation>
-<translation id="5848830584656405219">For å få bokmerkene dine med mer på alle enhetene dine, logg på Browther. Dette bokmerket lagres i Browther-kontoen din når du logger på.</translation>
-<translation id="4020203987234748583">Gjør nettsteder raskere med V8-motoren i Browther, men gjør Browther litt mindre motstandsdyktig mot angrep. Denne innstillingen er på.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Noen av Browther-dataene dine er ikke lagret i Browther-kontoen din ennå. Prøv å vente i noen minutter før du logger av. Hvis du logger av nå, slettes disse dataene (1 element).}other{Noen av Browther-dataene dine er ikke lagret i Browther-kontoen din ennå. Prøv å vente i noen minutter før du logger av. Hvis du logger av nå, slettes disse dataene ({count} elementer).}}</translation>
-<translation id="3136039682492230890">Browther anbefaler å skanne denne filen ettersom den kan være farlig.</translation>
+<translation id="871671753163165892">For å få personlig tilpasning og andre funksjoner må du inkludere Browther i Nett- og appaktivitet og tilknyttede Browther-tjenester</translation>
+<translation id="5000832110229523807">Browther er allerede installert for alle brukerne på datamaskinen din.</translation>
+<translation id="5204575479550973859">For å få bokmerkene dine med mer på alle enhetene dine, logg på Browther. Dette bokmerket lagres i Browther-kontoen din når du logger på.</translation>
+<translation id="2874208284092283937">Gjør nettsteder raskere med V8-motoren i Browther, men gjør Browther litt mindre motstandsdyktig mot angrep. Denne innstillingen er på.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Noen av Browther-dataene dine er ikke lagret i Browther-kontoen din ennå. Prøv å vente i noen minutter før du logger av. Hvis du logger av nå, slettes disse dataene (1 element).}other{Noen av Browther-dataene dine er ikke lagret i Browther-kontoen din ennå. Prøv å vente i noen minutter før du logger av. Hvis du logger av nå, slettes disse dataene ({count} elementer).}}</translation>
+<translation id="7683816018918395929">Browther anbefaler å skanne denne filen ettersom den kan være farlig.</translation>
 <translation id="1547295885616600893">ChromeOS er basert på <ph name="BEGIN_LINK_CROS_OSS"/>tilleggsprogramvare med åpen kildekode<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="6831043979455480757">Oversett</translation>
-<translation id="8211837073776713955">Med Browther får du beskjed hvis passordene dine noensinne utsettes for sikkerhetsbrudd</translation>
+<translation id="2142653375108595728">Med Browther får du beskjed hvis passordene dine noensinne utsettes for sikkerhetsbrudd</translation>
 <translation id="684888714667046800">Kan ikke koble til internett. Hvis du bruker en brannmur, må du sørge for at <ph name="PRODUCT_EXE_NAME"/> står på godkjenningslisten.</translation>
-<translation id="7830723774663008396">Browther – <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther – <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Trykk på Tab for å fortsette</translation>
 <translation id="6862030660799253820">Søk etter dette bildet med Bildesøk</translation>
-<translation id="3028928628792374067">Browther har oppdaget at «<ph name="EXTENSION_NAME"/>» inneholder skadelig programvare</translation>
+<translation id="3860339351709082396">Browther har oppdaget at «<ph name="EXTENSION_NAME"/>» inneholder skadelig programvare</translation>
 <translation id="6877155553248388166">nederst til høyre i søkefeltet: høyre <ph name="RIGHT"/> %, nederst <ph name="BOTTOM"/> %</translation>
 <translation id="6896758677409633944">Kopiér</translation>
-<translation id="862687584320433626">Angi Browther som standardnettleser, og fest den til oppgavelinjen</translation>
-<translation id="1991562568473125499">&amp;Administrer Browther-profiler</translation>
+<translation id="7804113502310231166">Angi Browther som standardnettleser, og fest den til oppgavelinjen</translation>
+<translation id="3228374215117173004">&amp;Administrer Browther-profiler</translation>
 <translation id="6934579572334859869">Spør Bildesøk om dette bildet</translation>
-<translation id="5529781826378237601">Du har nådd Braves grense på <ph name="BOOKMARK_LIMIT"/> bokmerker, så noen av bokmerkene dine er ikke lagret i Browther-kontoen din ennå.
+<translation id="5995328366516663808">Du har nådd Braves grense på <ph name="BOOKMARK_LIMIT"/> bokmerker, så noen av bokmerkene dine er ikke lagret i Browther-kontoen din ennå.
 
 Du kan ikke lagre nye bokmerker i kontoen din før du sletter noen. Hvis du logger av nå, slettes bokmerker som ikke er lagret.</translation>
 <translation id="6965382102122355670">OK</translation>
-<translation id="6418340404893954563">Svake passord er enkle å gjette. La Browther <ph name="BEGIN_LINK"/>opprette og huske sterke passord for deg<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Svake passord er enkle å gjette. La Browther <ph name="BEGIN_LINK"/>opprette og huske sterke passord for deg<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Vilkår for ChromeOS</translation>
-<translation id="3335606533094650083">Browther trenger tilgang til mikrofonen din for dette nettstedet</translation>
-<translation id="6643520655691573653">Skriv inn passordfrasen din for å bruke og lagre Browther-data i kontoen din, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="5379058926689137454">Browther trenger tilgang til mikrofonen din for dette nettstedet</translation>
+<translation id="4684462982894889021">Skriv inn passordfrasen din for å bruke og lagre Browther-data i kontoen din, <ph name="ACCOUNT_EMAIL"/></translation>
 <translation id="7011190694940573312">Installasjonen mislyktes fordi denne versjonen av operativsystemet ikke støttes.</translation>
 <translation id="7024536598735240744">Feil ved utpakking: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Installasjonen er stoppet.</translation>
-<translation id="280382502853897110">Gi Browther et personlig preg</translation>
+<translation id="8257174622576051374">Gi Browther et personlig preg</translation>
 <translation id="7047386856539490735">Er disse resultatene nyttige?</translation>
-<translation id="1705567146636171298">Oppdater Browther</translation>
-<translation id="5499063270485366718">Hvis et bilde ikke har noen nyttig beskrivelse, prøver Browther å finne en til deg. For å opprette beskrivelser blir bilder sendt til Browther.</translation>
-<translation id="5966368554860795750">Tilpass Browther for testing</translation>
-<translation id="792838367208896130">Du kan bruke Browther hver gang du klikker på linker i meldinger, dokumenter og andre apper</translation>
-<translation id="375314543563594498">Fjern <ph name="EXTENSION_NAME"/> fra Browther</translation>
-<translation id="2332301637111071062">Organisasjonen din sletter Browther-data når de ikke har vært i bruk på <ph name="TIMEOUT_DURATION"/>. Dette kan omfatte loggen, autofyll og nedlastinger.</translation>
-<translation id="1008530050039597147">Browther trenger kameratillatelse for dette nettstedet</translation>
-<translation id="1197672524850678392">Kunne ikke starte Browther. Prøv på nytt.</translation>
-<translation id="3405035915691517126">Browther kan ikke sjekke passordene dine. Prøv på nytt når det har gått 24 timer.</translation>
-<translation id="3625983487600668413">Ha Browther i dokken for å få rask tilgang til den når som helst</translation>
-<translation id="5755581833598928580">Bruk Browther hver gang du klikker på linker i meldinger, dokumenter og andre apper</translation>
-<translation id="5516268345616100622">Oppgavebehandling – Browther</translation>
-<translation id="713191641919118540">Interessene dine som Browther har anslått</translation>
-<translation id="1871621397473741084">Begynn å surfe umiddelbart: Nå kan Browther startes når Windows starter.</translation>
+<translation id="1772745060691790742">Oppdater Browther</translation>
+<translation id="4937970118065051027">Hvis et bilde ikke har noen nyttig beskrivelse, prøver Browther å finne en til deg. For å opprette beskrivelser blir bilder sendt til Browther.</translation>
+<translation id="1594112132009288601">Tilpass Browther for testing</translation>
+<translation id="5915000938288527952">Du kan bruke Browther hver gang du klikker på linker i meldinger, dokumenter og andre apper</translation>
+<translation id="8775664994493381735">Fjern <ph name="EXTENSION_NAME"/> fra Browther</translation>
+<translation id="3276648807841991013">Organisasjonen din sletter Browther-data når de ikke har vært i bruk på <ph name="TIMEOUT_DURATION"/>. Dette kan omfatte loggen, autofyll og nedlastinger.</translation>
+<translation id="4725226878394159809">Browther trenger kameratillatelse for dette nettstedet</translation>
+<translation id="8931474625901592021">Kunne ikke starte Browther. Prøv på nytt.</translation>
+<translation id="8242947409070121799">Browther kan ikke sjekke passordene dine. Prøv på nytt når det har gått 24 timer.</translation>
+<translation id="1737922827960215472">Ha Browther i dokken for å få rask tilgang til den når som helst</translation>
+<translation id="335855266303176628">Bruk Browther hver gang du klikker på linker i meldinger, dokumenter og andre apper</translation>
+<translation id="709455597778444012">Oppgavebehandling – Browther</translation>
+<translation id="7147140345767587643">Interessene dine som Browther har anslått</translation>
+<translation id="7337408274890534789">Begynn å surfe umiddelbart: Nå kan Browther startes når Windows starter.</translation>
 <translation id="7274695763216404502">Festet. Bruk bildesøk igjen fra verktøylinjen</translation>
 <translation id="7288567540154601580">Faner og utvidelser</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther anbefaler at du fjerner den}other{Browther anbefaler at du fjerner dem}}</translation>
-<translation id="4600669988724328687">For å dele systemlyd, åpne Systeminnstillinger og tillat «Bare opptak av systemlyd» for Browther. Deretter må du starte Browther på nytt.</translation>
-<translation id="9068395155143628872">Med annonsemålinger kan nettsteder du besøker, spørre Browther om informasjon som hjelper nettstedet å måle annonseresultatene sine. Annonsemålinger begrenser sporing på tvers av nettsteder ved å overføre så lite informasjon som mulig mellom nettsteder.</translation>
-<translation id="1864557848095568223">Oppdaterer Browther</translation>
-<translation id="3403365884036456766">Innstillingerfilen din er ødelagt eller ugyldig.
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther anbefaler at du fjerner den}other{Browther anbefaler at du fjerner dem}}</translation>
+<translation id="1527644038571473502">For å dele systemlyd, åpne Systeminnstillinger og tillat «Bare opptak av systemlyd» for Browther. Deretter må du starte Browther på nytt.</translation>
+<translation id="1427913074981060872">Med annonsemålinger kan nettsteder du besøker, spørre Browther om informasjon som hjelper nettstedet å måle annonseresultatene sine. Annonsemålinger begrenser sporing på tvers av nettsteder ved å overføre så lite informasjon som mulig mellom nettsteder.</translation>
+<translation id="1657652725060525338">Oppdaterer Browther</translation>
+<translation id="884846289464870238">Innstillingerfilen din er ødelagt eller ugyldig.
 
 Browther kan ikke gjenopprette innstillingen dine.</translation>
 <translation id="7339898014177206373">Nytt vindu</translation>
-<translation id="3511996232906761537">Her finner du nettinnholdet, bokmerkene og de andre Browther-tingene dine.</translation>
-<translation id="1754899895078387289">Bare personer som har passordfrasen din, kan lese de krypterte dataene. Passordfrasen blir verken sendt til eller lagret av Browther. Hvis du glemmer passordfrasen eller vil endre denne innstillingen, må du <ph name="BEGIN_LINK"/>slette Browther-dataene i kontoen din<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Systemadministratoren din har konfigurert Browther til å åpne <ph name="ALTERNATIVE_BROWSER_NAME"/> for å få tilgang til <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="633044855886370183">Her finner du nettinnholdet, bokmerkene og de andre Browther-tingene dine.</translation>
+<translation id="1185960088713242527">Bare personer som har passordfrasen din, kan lese de krypterte dataene. Passordfrasen blir verken sendt til eller lagret av Browther. Hvis du glemmer passordfrasen eller vil endre denne innstillingen, må du <ph name="BEGIN_LINK"/>slette Browther-dataene i kontoen din<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Systemadministratoren din har konfigurert Browther til å åpne <ph name="ALTERNATIVE_BROWSER_NAME"/> for å få tilgang til <ph name="TARGET_URL_HOSTNAME"/>.</translation>
 <translation id="7352651011704765696">Noe gikk galt</translation>
-<translation id="6085660187823915017">For å få fremtidige Browther-oppdateringer må du ha macOS 13 eller nyere. Denne datamaskinen bruker macOS 12.</translation>
-<translation id="2865744782251083875">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION_1"/> og <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Denne utvidelsen støttes ikke lenger. Browther anbefaler at du fjerner den i stedet.</translation>
-<translation id="7951152294775418909">Fortsett der du avsluttet: Browther gjenoppretter fanene dine hver gang du starter på nytt. For å slå av dette, gå til</translation>
-<translation id="3191314862567596053">Importer passord til Browther</translation>
-<translation id="3943696263619956191"><ph name="PAGE_TITLE"/> – Browther for utviklere</translation>
+<translation id="6638123710106659002">For å få fremtidige Browther-oppdateringer må du ha macOS 13 eller nyere. Denne datamaskinen bruker macOS 12.</translation>
+<translation id="7286289384512061761">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION_1"/> og <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Denne utvidelsen støttes ikke lenger. Browther anbefaler at du fjerner den i stedet.</translation>
+<translation id="137615076640044304">Fortsett der du avsluttet: Browther gjenoppretter fanene dine hver gang du starter på nytt. For å slå av dette, gå til</translation>
+<translation id="5967238175620483220">Importer passord til Browther</translation>
+<translation id="4719434010343478165"><ph name="PAGE_TITLE"/> – Browther for utviklere</translation>
 <translation id="7450541714075000668">Teksten er kopiert</translation>
-<translation id="2034072705932785495">Browther trenger tilgang til kameraet ditt for dette nettstedet</translation>
-<translation id="7129342855140808694">For å la Browther bruke mikrofonen må du gi tilgang i <ph name="BEGIN_LINK"/>systeminnstillingene<ph name="END_LINK"/></translation>
-<translation id="5296583608321648908">For å få fremtidige Browther-oppdateringer må du ha Windows 10 eller nyere. Denne datamaskinen bruker Windows 7.</translation>
-<translation id="3962395975456095331">Vil du starte Browther på nytt?</translation>
-<translation id="2619516027171717873">Kan ikke installere den samme Browther-versjonen som kjører. Lukk Browther og prøv på nytt.</translation>
-<translation id="2731639583336131792">Du lagrer og bruker passord med mer i Browther-kontoen din når du er logget på Browther. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Nettsteder fungerer sannsynligvis som forventet. Du blir logget av de fleste nettsteder når du lukker alle Browther-vinduer, unntatt Browther-kontoen din hvis du er logget på Browther.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Browther startes på nytt om 1 minutt}other{Browther startes på nytt om # minutter}}</translation>
-<translation id="552342471964912391">Du kan beskytte dataene dine ved å la Browther fjerne tillatelser fra nettsteder du ikke har besøkt nylig.</translation>
-<translation id="3826701455067637694">Start Browther automatisk for å begynne å surfe med en gang.</translation>
+<translation id="7766009218653304791">Browther trenger tilgang til kameraet ditt for dette nettstedet</translation>
+<translation id="5844418066487488520">For å la Browther bruke mikrofonen må du gi tilgang i <ph name="BEGIN_LINK"/>systeminnstillingene<ph name="END_LINK"/></translation>
+<translation id="8065480549334161841">For å få fremtidige Browther-oppdateringer må du ha Windows 10 eller nyere. Denne datamaskinen bruker Windows 7.</translation>
+<translation id="6299293759264950896">Vil du starte Browther på nytt?</translation>
+<translation id="180908550381040105">Kan ikke installere den samme Browther-versjonen som kjører. Lukk Browther og prøv på nytt.</translation>
+<translation id="7625576878150380853">Du lagrer og bruker passord med mer i Browther-kontoen din når du er logget på Browther. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Nettsteder fungerer sannsynligvis som forventet. Du blir logget av de fleste nettsteder når du lukker alle Browther-vinduer, unntatt Browther-kontoen din hvis du er logget på Browther.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Browther startes på nytt om 1 minutt}other{Browther startes på nytt om # minutter}}</translation>
+<translation id="3602613943932672197">Du kan beskytte dataene dine ved å la Browther fjerne tillatelser fra nettsteder du ikke har besøkt nylig.</translation>
+<translation id="8759568213742229377">Start Browther automatisk for å begynne å surfe med en gang.</translation>
 <translation id="7583399374488819119"><ph name="COMPANY_NAME"/>-installasjonsprogram</translation>
-<translation id="3293668930608086049">Browther bruker kameraet og mikrofonen din.</translation>
-<translation id="2827121003398607864">Nå er Browther blitt enda bedre</translation>
-<translation id="3071313329776323836">Nå har du flere funksjoner tilgjengelig i Browther</translation>
+<translation id="8991800242749014880">Browther bruker kameraet og mikrofonen din.</translation>
+<translation id="2692328388439821508">Nå er Browther blitt enda bedre</translation>
+<translation id="4318444066563223295">Nå har du flere funksjoner tilgjengelig i Browther</translation>
 <translation id="7649070708921625228">Hjelp</translation>
-<translation id="4008841832817149051">La Browther surfe for deg</translation>
+<translation id="5591287320769313116">La Browther surfe for deg</translation>
 <translation id="7658239707568436148">Avbryt</translation>
-<translation id="3343095737966473035">Browther er ikke standardnettleseren din</translation>
-<translation id="5477319665405831211">Synkroniser og gi Browther et personlig preg på alle enhetene dine</translation>
-<translation id="2339273275658335597">Browther-oppdatering</translation>
+<translation id="6325482130534634729">Browther er ikke standardnettleseren din</translation>
+<translation id="8185915921134219287">Synkroniser og gi Browther et personlig preg på alle enhetene dine</translation>
+<translation id="5120421624925726813">Browther-oppdatering</translation>
 <translation id="7716950018788545737">Oppgaven(e) er avsluttet.</translation>
 <translation id="77283119132245232">Leverer tjenester for systemsporing for <ph name="BROWSER_NAME"/>. Hvis denne tjenesten er deaktivert, inkluderer ikke ytelsessporingene som nettleseren oppretter, systemomfattende hendelser som kontekstbytte og hendelser for trådklarhet.</translation>
-<translation id="4784414698887946907">Dette sletter nettlesingsdataene dine fra denne enheten. For å hente dataene dine igjen senere må du logge på Browther som <ph name="USER_EMAIL"/>.</translation>
+<translation id="6542096191573265107">Dette sletter nettlesingsdataene dine fra denne enheten. For å hente dataene dine igjen senere må du logge på Browther som <ph name="USER_EMAIL"/>.</translation>
 <translation id="7747138024166251722">Installasjonsprogrammet kunne ikke opprette en midlertidig katalog. Kontroller at du har nok ledig diskplass og tillatelse til å installere programvare.</translation>
-<translation id="8543787950557226450">Tilbakestill til standardversjonen av Browther</translation>
-<translation id="4976450819672499783">Bruk Browther som standard, og fest den til oppgavelinjen</translation>
-<translation id="1978509466033734608">Gjør Browther raskere</translation>
-<translation id="6236814935154483927"><ph name="PAGE_TITLE"/> – Browther Canary</translation>
-<translation id="2684504034454188774">Gjør det vanskeligere for folk med tilgang til internettrafikken din å se hvilke nettsteder du besøker. Browther bruker en sikker tilkobling for å finne IP-adressen til nettsteder i DNS (Domain Name System).</translation>
+<translation id="351575328720488268">Tilbakestill til standardversjonen av Browther</translation>
+<translation id="1054170408395182418">Bruk Browther som standard, og fest den til oppgavelinjen</translation>
+<translation id="4569594230301902490">Gjør Browther raskere</translation>
+<translation id="5525298466557654312"><ph name="PAGE_TITLE"/> – Browther Canary</translation>
+<translation id="7893465573639396635">Gjør det vanskeligere for folk med tilgang til internettrafikken din å se hvilke nettsteder du besøker. Browther bruker en sikker tilkobling for å finne IP-adressen til nettsteder i DNS (Domain Name System).</translation>
 <translation id="7810005234485217901">Du kan feste bildesøk for enklere tilgang</translation>
-<translation id="1652855885539187849">Det finnes allerede en Browther-profil med denne kontoen på denne enheten</translation>
+<translation id="2462631024103158515">Det finnes allerede en Browther-profil med denne kontoen på denne enheten</translation>
 <translation id="7845233973568007926">Installasjonen er fullført. Start datamaskinen på nytt før du tar i bruk <ph name="BUNDLE_NAME"/>.</translation>
-<translation id="9148690296223500734">Tilpass Browther for å gi den et nytt utseende</translation>
-<translation id="7963515534397191222">Browther kunne ikke oppdateres til den nyeste versjonen, så du går glipp av nye funksjoner og sikkerhetsforbedringer.</translation>
+<translation id="311190437086049332">Tilpass Browther for å gi den et nytt utseende</translation>
+<translation id="6728847658878265103">Browther kunne ikke oppdateres til den nyeste versjonen, så du går glipp av nye funksjoner og sikkerhetsforbedringer.</translation>
 <translation id="7872446069773932638">Laster ned … <ph name="SECONDS"/> sekund(er) igjen</translation>
-<translation id="5545136190679883344">Hvis du har glemt passordfrasen eller vil endre denne innstillingen, kan du <ph name="BEGIN_LINK"/>slette Browther-dataene i kontoen din<ph name="END_LINK"/></translation>
+<translation id="5374532739787768601">Hvis du har glemt passordfrasen eller vil endre denne innstillingen, kan du <ph name="BEGIN_LINK"/>slette Browther-dataene i kontoen din<ph name="END_LINK"/></translation>
 <translation id="7877212753140190672">Spør om dette bildet</translation>
-<translation id="5687542525349822727">Angi Browther som standard</translation>
-<translation id="6396151137840491551">Browther oppgraderer usikre tilkoblinger til HTTPS automatisk når det er mulig</translation>
-<translation id="2925193881330501265">Du ble logget på Browther som <ph name="USER_EMAIL_ADDRESS"/>. Du må logge deg på igjen med samme konto.</translation>
-<translation id="6915252145142862992">Dette er en sekundær installering av Browther. Den kan ikke brukes som standardnettleser.</translation>
+<translation id="9172499982238113829">Angi Browther som standard</translation>
+<translation id="3313826726620159669">Browther oppgraderer usikre tilkoblinger til HTTPS automatisk når det er mulig</translation>
+<translation id="3317928686912559532">Du ble logget på Browther som <ph name="USER_EMAIL_ADDRESS"/>. Du må logge deg på igjen med samme konto.</translation>
+<translation id="6007009085341946457">Dette er en sekundær installering av Browther. Den kan ikke brukes som standardnettleser.</translation>
 <translation id="8004582292198964060">Nettleser</translation>
 <translation id="8010081455002666927">Oppdag automatisk</translation>
-<translation id="7685904775439037072">Når Browther har fått tilgang, kan nettsteder spørre deg om tilgang.</translation>
-<translation id="3230755314472063687">Fest Browther til oppgavelinjen for å få rask tilgang til den når som helst</translation>
+<translation id="174885789898161653">Når Browther har fått tilgang, kan nettsteder spørre deg om tilgang.</translation>
+<translation id="3001754454174546602">Fest Browther til oppgavelinjen for å få rask tilgang til den når som helst</translation>
 <translation id="80471789339884597">Installasjonen er fullført. Start alle nettlesere på nytt før du tar i bruk <ph name="BUNDLE_NAME"/>.</translation>
 <translation id="8054112667659782652">Vis alltid snarveien til bildesøk</translation>
-<translation id="6175141682081019059">Deaktiver kjøring av Browther i bakgrunnen for apper</translation>
+<translation id="6993312779622863465">Deaktiver kjøring av Browther i bakgrunnen for apper</translation>
 <translation id="80790299200510644">Bildesøk</translation>
 <translation id="8086881907087796310">Installasjonen mislyktes fordi datamaskinen ikke oppfyller minimumskravene til maskinvare.</translation>
-<translation id="8263061319795838019"><ph name="PAGE_TITLE"/> – Browther for testing</translation>
-<translation id="2061155704815580583">Browther trenger posisjonstillatelse for dette nettstedet</translation>
-<translation id="3576319845915562805">Neste gang du åpner Browther på <ph name="DEVICE_TYPE"/>, ser du en forespørsel om å slå på varsler om prissporing.</translation>
+<translation id="4734875482699037091"><ph name="PAGE_TITLE"/> – Browther for testing</translation>
+<translation id="543407324609820492">Browther trenger posisjonstillatelse for dette nettstedet</translation>
+<translation id="1767887552863788514">Neste gang du åpner Browther på <ph name="DEVICE_TYPE"/>, ser du en forespørsel om å slå på varsler om prissporing.</translation>
 <translation id="8118331347066725040">Send tilbakemelding om søk med Lens</translation>
 <translation id="5334309298019785904">ChromeOS kunne ikke synkronisere dataene dine, ettersom synkronisering ikke er tilgjengelig for domenet ditt.</translation>
 <translation id="813913629614996137">Initialiserer …</translation>
-<translation id="1081849497974110565">Tilleggsvilkår for bruk av Browther</translation>
-<translation id="9067428552314418522">Denne filen er farlig, så Browther har blokkert den.</translation>
+<translation id="4879101934056397619">Tilleggsvilkår for bruk av Browther</translation>
+<translation id="4505690237431768764">Denne filen er farlig, så Browther har blokkert den.</translation>
 <translation id="8177472873527554730">Finner ikke innhold på siden</translation>
-<translation id="6219250889396046657">Skriv inn passordfrasen din for å bruke og lagre Browther-data i kontoen din, <ph name="USER_EMAIL"/></translation>
+<translation id="4720341280133158605">Skriv inn passordfrasen din for å bruke og lagre Browther-data i kontoen din, <ph name="USER_EMAIL"/></translation>
 <translation id="8221491193165283816">Du blokkerer vanligvis varsler. For å la dette nettstedet varsle deg, klikk her.</translation>
-<translation id="8377926237617998195">For å la Browther bruke kameraet må du gi tilgang i <ph name="BEGIN_LINK"/>systeminnstillingene<ph name="END_LINK"/></translation>
-<translation id="1755067029031059271">Browther kan ikke bekrefte hvor denne utvidelsen kommer fra, og den kan være utrygg. Fjern den fra Browther, slik at den ikke lenger kan se og endre dataene dine på nettsteder du besøker, inkludert personopplysninger.</translation>
-<translation id="8207657266087451193">Hvis et bilde ikke har noen nyttig beskrivelse, prøver Browther å finne en til deg. For å opprette beskrivelser blir bilder sendt til Browther. Du kan slå av dette i innstillingene når som helst.</translation>
-<translation id="7792526144795244436">Vil du logge på Browther i en ny profil?</translation>
-<translation id="976541154724186511"><ph name="BEGIN_LINK"/>Browther advarer deg<ph name="END_LINK"/> om utrygge nettsteder og nedlastinger</translation>
-<translation id="8060549744348950090">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION"/></translation>
-<translation id="7402663241490331652">Handle, oversett og identifiser det du ser, med kameraet i Browther-iOS-appen</translation>
+<translation id="1083711467946065278">For å la Browther bruke kameraet må du gi tilgang i <ph name="BEGIN_LINK"/>systeminnstillingene<ph name="END_LINK"/></translation>
+<translation id="6569785137733211804">Browther kan ikke bekrefte hvor denne utvidelsen kommer fra, og den kan være utrygg. Fjern den fra Browther, slik at den ikke lenger kan se og endre dataene dine på nettsteder du besøker, inkludert personopplysninger.</translation>
+<translation id="1122818205373648656">Hvis et bilde ikke har noen nyttig beskrivelse, prøver Browther å finne en til deg. For å opprette beskrivelser blir bilder sendt til Browther. Du kan slå av dette i innstillingene når som helst.</translation>
+<translation id="6877990294324319801">Vil du logge på Browther i en ny profil?</translation>
+<translation id="6478811748813986578"><ph name="BEGIN_LINK"/>Browther advarer deg<ph name="END_LINK"/> om utrygge nettsteder og nedlastinger</translation>
+<translation id="1685486387921540822">Du har ikke vært her i det siste. Browther har fjernet <ph name="PERMISSION"/></translation>
+<translation id="8921153410460268589">Handle, oversett og identifiser det du ser, med kameraet i Browther-iOS-appen</translation>
 <translation id="8313851650939857356">Oppstartsfeil: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Organisasjonen din lukker Browther når den ikke har vært i bruk på <ph name="TIMEOUT_DURATION"/>.</translation>
+<translation id="7386947683604296534">Organisasjonen din lukker Browther når den ikke har vært i bruk på <ph name="TIMEOUT_DURATION"/>.</translation>
 <translation id="8321888067342493336">Lagre som bilde</translation>
-<translation id="3360368475735266712">Logg på for å synkronisere og gi Browther et personlig preg på alle enhetene dine</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> brukte Browther tidligere</translation>
-<translation id="5592122595094519401">Oppdater Browther for å fortsette å bruke Browther-dataene i Browther-kontoen din, <ph name="ACCOUNT_EMAIL"/></translation>
-<translation id="2569754604093464025">For å få fremtidige Browther-oppdateringer må du ha Windows 10 eller nyere. Denne datamaskinen bruker Windows 8.</translation>
+<translation id="143016831128278157">Logg på for å synkronisere og gi Browther et personlig preg på alle enhetene dine</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> brukte Browther tidligere</translation>
+<translation id="1288164710697017468">Oppdater Browther for å fortsette å bruke Browther-dataene i Browther-kontoen din, <ph name="ACCOUNT_EMAIL"/></translation>
+<translation id="8648401677359150296">For å få fremtidige Browther-oppdateringer må du ha Windows 10 eller nyere. Denne datamaskinen bruker Windows 8.</translation>
 <translation id="8362914115861174987">Oversett til</translation>
 <translation id="8367705492654390392">Spør om hva som helst</translation>
-<translation id="7296197595428914424">For å få passordene dine med mer på alle enhetene dine, logg på Browther. Dette passordet blir lagret i Browther-kontoen din når du logger på.</translation>
-<translation id="9098234372282930719">Deretter må du starte Browther på nytt.</translation>
-<translation id="1327729221471951979">Browther anbefaler at du fjerner den. <ph name="BEGIN_LINK"/>Finn ut mer om utvidelser som støttes<ph name="END_LINK"/></translation>
-<translation id="8577108764439626300">Denne utvidelsen er avpublisert av utvikleren og kan være utrygg. Fjern den fra Browther, slik at den ikke lenger kan se og endre dataene dine på nettsteder du besøker, inkludert personopplysningene dine.</translation>
-<translation id="4234753748520037091">Browther må bekrefte at det er deg, før enkelte data kan lagres i Browther-kontoen din og brukes på alle enhetene dine. Hvis du logger av nå, blir disse dataene slettet.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Start Browther på nytt innen én dag}other{Start Browther på nytt innen # dager}}</translation>
+<translation id="5769022907892823357">For å få passordene dine med mer på alle enhetene dine, logg på Browther. Dette passordet blir lagret i Browther-kontoen din når du logger på.</translation>
+<translation id="4782442810031768771">Deretter må du starte Browther på nytt.</translation>
+<translation id="8265348385714408341">Browther anbefaler at du fjerner den. <ph name="BEGIN_LINK"/>Finn ut mer om utvidelser som støttes<ph name="END_LINK"/></translation>
+<translation id="3866087820766911633">Denne utvidelsen er avpublisert av utvikleren og kan være utrygg. Fjern den fra Browther, slik at den ikke lenger kan se og endre dataene dine på nettsteder du besøker, inkludert personopplysningene dine.</translation>
+<translation id="1613655732912855341">Browther må bekrefte at det er deg, før enkelte data kan lagres i Browther-kontoen din og brukes på alle enhetene dine. Hvis du logger av nå, blir disse dataene slettet.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Start Browther på nytt innen én dag}other{Start Browther på nytt innen # dager}}</translation>
 <translation id="8438543370129609977">Når du bruker bildesøk, sendes sidens tittel, nettadresse og innhold, inkludert PDF-filer, til tjeneren. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Finn ut mer om å søke med bildesøk i Browther</translation>
-<translation id="6914496861676471566">Installasjonsarkivet er skadet eller ugyldig. Last ned Browther på nytt.</translation>
-<translation id="4378573854226202617">Browther krever Windows 10 eller nyere.</translation>
-<translation id="6431861494713261006">Valgfritt: Bidra til å gjøre funksjonene og ytelsen til ChromeOS bedre ved å sende diagnostikk og bruksdata automatisk til Browther.</translation>
-<translation id="8691137711639873980">For å bruke og lagre Browther-data i Browther-kontoen din, bekreft at det er deg</translation>
-<translation id="3251012123600267109">Viser oppfordringer som ber deg logge på Browther.</translation>
-<translation id="2097604701283463988">Browther er utdatert</translation>
-<translation id="6080203201796279095">Takk for at du har valgt Browther som standardnettleser!</translation>
-<translation id="871233388178581868">Browther kan sjekke passordene dine når du lagrer dem</translation>
-<translation id="3667461919057407535">Få en advarsel hvis Browther finner et av passordene dine i et offentlig databrudd</translation>
+<translation id="3550129882823305293">Finn ut mer om å søke med bildesøk i Browther</translation>
+<translation id="1401757916223057494">Installasjonsarkivet er skadet eller ugyldig. Last ned Browther på nytt.</translation>
+<translation id="5029760494698649486">Browther krever Windows 10 eller nyere.</translation>
+<translation id="7906734902028783072">Valgfritt: Bidra til å gjøre funksjonene og ytelsen til ChromeOS bedre ved å sende diagnostikk og bruksdata automatisk til Browther.</translation>
+<translation id="6791756730901393492">For å bruke og lagre Browther-data i Browther-kontoen din, bekreft at det er deg</translation>
+<translation id="4879869745782826167">Viser oppfordringer som ber deg logge på Browther.</translation>
+<translation id="2967761098021401720">Browther er utdatert</translation>
+<translation id="7674832651694000881">Takk for at du har valgt Browther som standardnettleser!</translation>
+<translation id="4507581730979762077">Browther kan sjekke passordene dine når du lagrer dem</translation>
+<translation id="7205233182271132386">Få en advarsel hvis Browther finner et av passordene dine i et offentlig databrudd</translation>
 <translation id="8555465886620020932">Tjenestefeil: ‏<ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Du kan feste bildesøk for enklere tilgang. Klikk på Fest-knappen øverst i sidepanelet.</translation>
 <translation id="856656450041460113">Søk på språklisten</translation>
-<translation id="227028348235968071">Browther kan sjekke passordene dine når du logger på med Browther-kontoen din</translation>
-<translation id="839677568225616901">Flere organisasjoner administrerer Browther</translation>
-<translation id="8121009781989288430">Copyright © <ph name="YEAR"/> – Browther Software Inc. Med enerett.</translation>
+<translation id="75470458211269379">Browther kan sjekke passordene dine når du logger på med Browther-kontoen din</translation>
+<translation id="2108930010779660436">Flere organisasjoner administrerer Browther</translation>
+<translation id="7209630341463003999">Copyright © <ph name="YEAR"/> – Browther Software Inc. Med enerett.</translation>
 <translation id="8601359445272098721">Nyhet! Du kan oversette både tekst og bilder på skjermen ved å velge «Oversett skjermen»-knappen</translation>
-<translation id="3052349005266761501">Starter Browther ...</translation>
+<translation id="782928371899183269">Starter Browther ...</translation>
 <translation id="8624541899164515475">Innstillinger (åpnes i en ny fane).</translation>
-<translation id="5128665650717824082">Browther for testing kan ikke brukes som standardnettleser.</translation>
+<translation id="5879341334716115002">Browther for testing kan ikke brukes som standardnettleser.</translation>
 <translation id="2433912322225810055">Den styrer også hvilken side som vises når du starter Browther eller søker fra multifunksjonsfeltet.</translation>
-<translation id="4100716194836114130">Dette er din Browther</translation>
+<translation id="4816541973978692496">Dette er din Browther</translation>
 <translation id="8712637175834984815">Skjønner</translation>
-<translation id="1419543648228375718">Vil du logge på Browther?</translation>
-<translation id="4891728458408976811">Ha alt i Browther</translation>
+<translation id="9037464035997618895">Vil du logge på Browther?</translation>
+<translation id="7897185368811431919">Ha alt i Browther</translation>
 <translation id="8747073452963259673">nederst til venstre i søkefeltet: venstre <ph name="LEFT"/> %, nederst <ph name="BOTTOM"/> %</translation>
 <translation id="878572486461146056">Installasjonsfeil: Nettverksadministratoren din har aktivert en grupperegel som forhindrer installasjonen: <ph name="INSTALL_ERROR"/></translation>
-<translation id="4831743161813926460">Browther trenger tilgang til kameraet ditt og mikrofonen din for dette nettstedet</translation>
+<translation id="1576369213923770885">Browther trenger tilgang til kameraet ditt og mikrofonen din for dette nettstedet</translation>
 <translation id="8813277370772331957">Påminn meg senere</translation>
-<translation id="64216977793816291">Vil du logge på Browther?</translation>
-<translation id="7447364954121496869">Gjør Browther til standardnettleser, og fest den til oppgavelinjen</translation>
+<translation id="6831999464349484462">Vil du logge på Browther?</translation>
+<translation id="3698151322107951111">Gjør Browther til standardnettleser, og fest den til oppgavelinjen</translation>
 <translation id="8826492472752484139">Klikk på «Passordlagring»</translation>
 <translation id="6933858244219479645">ChromeOS-systemet</translation>
-<translation id="9084132286318231275">Dette språket brukes når menyer, innstillinger, varsler og annen tekst vises i Browther</translation>
+<translation id="3986927308621489499">Dette språket brukes når menyer, innstillinger, varsler og annen tekst vises i Browther</translation>
 <translation id="8862326446509486874">Du har ikke de nødvendige rettighetene for å installere på systemnivå. Prøv å kjøre installasjonsprogrammet som administrator.</translation>
-<translation id="7289323009146924152">Legg til en Browther-profil</translation>
-<translation id="6412037018950369131">I så fall bør du endre det lagrede passordet i Browther så det samsvarer med det nye passordet.</translation>
-<translation id="1150745254876977823">Organisasjonen din krever at du logger på Browther</translation>
-<translation id="8285294305439559616">Browther forsøker å vise passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
-<translation id="4684884244620579559">Browther er ikke lenger standardnettleseren din. Vil du gjøre Browther til standardnettleseren?</translation>
-<translation id="6389268239133412586">Kan ikke oppdatere Browther</translation>
-<translation id="7731184591599776500">Browther Enterprise-logo</translation>
-<translation id="6500340165622970282">Browther kunne ikke starte, fordi det oppsto en feil ved åpning av profilen din. Prøv å starte Browther på nytt.</translation>
-<translation id="3424657754843264466">Administrer Browther-profiler</translation>
-<translation id="7055223246119657449">Browther har blokkert denne nedlastingen fordi arkivfilen inneholder andre filer som kan skjule skadelig programvare</translation>
-<translation id="9049928023195059068">Logg på Browther når du logger på andre Browther-tjenester</translation>
-<translation id="4561046754724442504">Browther ble lukket automatisk</translation>
-<translation id="5173820533850252773">Browther er utdatert</translation>
-<translation id="310518206836658214">{0,plural, =1{Browther startes på nytt om en time}other{Browther startes på nytt om # timer}}</translation>
+<translation id="5318226144018267261">Legg til en Browther-profil</translation>
+<translation id="1298790608554316415">I så fall bør du endre det lagrede passordet i Browther så det samsvarer med det nye passordet.</translation>
+<translation id="960933321883777733">Organisasjonen din krever at du logger på Browther</translation>
+<translation id="948979409756947611">Browther forsøker å vise passord. Skriv inn Windows-passordet ditt for å tillate dette.</translation>
+<translation id="1418854271943945136">Browther er ikke lenger standardnettleseren din. Vil du gjøre Browther til standardnettleseren?</translation>
+<translation id="7228667329366610727">Kan ikke oppdatere Browther</translation>
+<translation id="4817697255467736794">Browther Enterprise-logo</translation>
+<translation id="3507731466523097529">Browther kunne ikke starte, fordi det oppsto en feil ved åpning av profilen din. Prøv å starte Browther på nytt.</translation>
+<translation id="3234473600657230663">Administrer Browther-profiler</translation>
+<translation id="8953887022581653484">Browther har blokkert denne nedlastingen fordi arkivfilen inneholder andre filer som kan skjule skadelig programvare</translation>
+<translation id="532304972436358335">Logg på Browther når du logger på andre Browther-tjenester</translation>
+<translation id="3425998261052065067">Browther ble lukket automatisk</translation>
+<translation id="4377377022617011492">Browther er utdatert</translation>
+<translation id="3247296757162889864">{0,plural, =1{Browther startes på nytt om en time}other{Browther startes på nytt om # timer}}</translation>
 <translation id="9106236359747881194">Merk tekst for å søke</translation>
-<translation id="5190991181158966940">For å få fremtidige Browther-oppdateringer må du ha Windows 10 eller nyere. Denne datamaskinen bruker Windows 8.1.</translation>
-<translation id="7863882214613921971">Åpne linken i en ny &amp;fane i Browther</translation>
+<translation id="5115014198092384730">For å få fremtidige Browther-oppdateringer må du ha Windows 10 eller nyere. Denne datamaskinen bruker Windows 8.1.</translation>
+<translation id="7129101984664345614">Åpne linken i en ny &amp;fane i Browther</translation>
 <translation id="911206726377975832">Vil du slette all nettlesingsdata også?</translation>
 <translation id="9134482777260927479">Leksehjelp</translation>
 <translation id="9148058034647219655">Avslutt</translation>
-<translation id="2792073155252170448">Fortsett der du avsluttet: Browther kan gjenopprette fanene dine hver gang du starter på nytt. For å slå på dette, gå til</translation>
-<translation id="2444257125841652328">Systemadministratoren din har konfigurert Browther til å åpne en annen nettleser når du går til <ph name="TARGET_URL_HOSTNAME"/>.</translation>
-<translation id="8208548103319284047">Browther-tips: Søk med Lens</translation>
-<translation id="7902365066753170041">Start på nytt for å oppdatere &amp;Browther</translation>
-<translation id="3350544518197210895">Browther (mDNS-Inn)</translation>
-<translation id="49909619875329637">Få mer når du er logget på Browther</translation>
-<translation id="296137235951584143">Gi Browther et personlig preg</translation>
-<translation id="7977787072794666032">Browther fungerer kanskje ikke riktig fordi den ikke lenger støttes på Windows XP eller Windows Vista</translation>
+<translation id="1734388504720121468">Fortsett der du avsluttet: Browther kan gjenopprette fanene dine hver gang du starter på nytt. For å slå på dette, gå til</translation>
+<translation id="8633974232736772207">Systemadministratoren din har konfigurert Browther til å åpne en annen nettleser når du går til <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="1122669402846843682">Browther-tips: Søk med Lens</translation>
+<translation id="595330134356385835">Start på nytt for å oppdatere &amp;Browther</translation>
+<translation id="4659389438500978709">Browther (mDNS-Inn)</translation>
+<translation id="6491100124044190139">Få mer når du er logget på Browther</translation>
+<translation id="1665840797775025867">Gi Browther et personlig preg</translation>
+<translation id="4407047432656809023">Browther fungerer kanskje ikke riktig fordi den ikke lenger støttes på Windows XP eller Windows Vista</translation>
 <translation id="945522503751344254">Send tilbakemelding</translation>
-<translation id="4484434718272972655">Hvem bruker Browther?</translation>
-<translation id="7173394303099002355">Få den sterkeste sikkerheten i Browther</translation>
+<translation id="7620348044248809366">Hvem bruker Browther?</translation>
+<translation id="7299962884342109067">Få den sterkeste sikkerheten i Browther</translation>
 <translation id="983803489796659991">Installasjonen mislyktes fordi oppdateringstjeneren ikke har hash-data for programmet.</translation>
-<translation id="8435446479956716379">Bruk Browther uten noen konto</translation>
-<translation id="8992261409816268381">Browther Software Inc</translation>
+<translation id="8775461190334353148">Bruk Browther uten noen konto</translation>
+<translation id="7146761239544860058">Browther Software Inc</translation>
 <translation id="989970834842471429">Velg tekst eller bilder for å søke med bildesøk</translation>
-<translation id="3146636448190445245">For å la Browther bruke posisjonen din må du gi tilgang i <ph name="BEGIN_LINK"/>systeminnstillingene<ph name="END_LINK"/></translation>
+<translation id="6616551030373607751">For å la Browther bruke posisjonen din må du gi tilgang i <ph name="BEGIN_LINK"/>systeminnstillingene<ph name="END_LINK"/></translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Installeringen mislyktes på grunn av en uspesifisert feil. Last ned Browther på nytt.</translation>
-<translation id="1743665722170667430">Utvidelser, apper og temaer fra ukjente kilder kan skade enheten. Browther anbefaler at du bare installerer dette fra <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>.</translation>
-<translation id="6184592406110188164">Denne utvidelsen er i strid med Web Store-retningslinjene. Fjern den fra Browther slik at den ikke lenger kan se og endre data på sider du besøker, inkludert personopplysninger om deg.</translation>
-<translation id="1299765473362724475">Advarsel: Browther kan ikke forhindre utvidelser fra å lagre søkehistorikken din. For å deaktivere disse utvidelsene i privat modus, opphev merking av dette valget.</translation>
-<translation id="1448049584457347995">For å gjøre Browther tryggere, har vi deaktivert noen utvidelser som ikke er oppført i <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>, og som kan ha blitt lagt uten at du har vært klar over det.</translation>
-<translation id="8848045066928358658">For å gjøre Browther tryggere har vi slått av følgende utvidelse som ikke finnes i <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>, og som kan ha blitt lagt til uten at du vet det.</translation>
-<translation id="4624945300945265642">Åpne linken i et inko&amp;gnitovindu i Browther</translation>
-<translation id="6554952862405000915">Åpne linken i et inkognitovindu i Browther</translation>
-<translation id="8274659559228306809">{COUNT,plural, =0{En ny oppdatering for Browther er tilgjengelig og tas i bruk når du starter Browther på nytt.}=1{En ny oppdatering for Browther er tilgjengelig og tas i bruk når du starter Browther på nytt. Inkognitovinduet ditt blir ikke gjenåpnet.}other{En ny oppdatering for Browther er tilgjengelig og tas i bruk når du starter Browther på nytt. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, =0{Administratoren din ber deg om å starte Browther på nytt for å ta i bruk denne oppdateringen}=1{Administratoren din ber deg om å starte Browther på nytt for å ta i bruk denne oppdateringen. Inkognitovinduet ditt blir ikke gjenåpnet.}other{Administratoren din ber deg om å starte Browther på nytt for å ta i bruk denne oppdateringen. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
-<translation id="552349673358711446">{COUNT,plural, =0{Administratoren din krever at du starter Browther på nytt for å ta i bruk en oppdatering}=1{Administratoren din krever at du starter Browther på nytt for å ta i bruk en oppdatering. Inkognitovinduet ditt blir ikke gjenåpnet.}other{Administratoren din krever at du starter Browther på nytt for å ta i bruk en oppdatering. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural, =0{Advanced Protection krever at du starter Browther på nytt for å ta i bruk en oppdatering}=1{Advanced Protection krever at du starter Browther på nytt for å ta i bruk en oppdatering. Inkognitovinduet ditt blir ikke gjenåpnet.}other{Advanced Protection krever at du starter Browther på nytt for å ta i bruk en oppdatering. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
+<translation id="5110032212554763592">Installeringen mislyktes på grunn av en uspesifisert feil. Last ned Browther på nytt.</translation>
+<translation id="9074842261125908635">Utvidelser, apper og temaer fra ukjente kilder kan skade enheten. Browther anbefaler at du bare installerer dette fra <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>.</translation>
+<translation id="3593119910409528681">Denne utvidelsen er i strid med Web Store-retningslinjene. Fjern den fra Browther slik at den ikke lenger kan se og endre data på sider du besøker, inkludert personopplysninger om deg.</translation>
+<translation id="5245976396374147971">Advarsel: Browther kan ikke forhindre utvidelser fra å lagre søkehistorikken din. For å deaktivere disse utvidelsene i privat modus, opphev merking av dette valget.</translation>
+<translation id="3629539416935660172">For å gjøre Browther tryggere, har vi deaktivert noen utvidelser som ikke er oppført i <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>, og som kan ha blitt lagt uten at du har vært klar over det.</translation>
+<translation id="157534302749986451">For å gjøre Browther tryggere har vi slått av følgende utvidelse som ikke finnes i <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/>, og som kan ha blitt lagt til uten at du vet det.</translation>
+<translation id="3031052147361385845">Åpne linken i et inko&amp;gnitovindu i Browther</translation>
+<translation id="5556794247782664281">Åpne linken i et inkognitovindu i Browther</translation>
+<translation id="4555500675737067970">{COUNT,plural, =0{En ny oppdatering for Browther er tilgjengelig og tas i bruk når du starter Browther på nytt.}=1{En ny oppdatering for Browther er tilgjengelig og tas i bruk når du starter Browther på nytt. Inkognitovinduet ditt blir ikke gjenåpnet.}other{En ny oppdatering for Browther er tilgjengelig og tas i bruk når du starter Browther på nytt. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
+<translation id="6181263681651521876">{COUNT,plural, =0{Administratoren din ber deg om å starte Browther på nytt for å ta i bruk denne oppdateringen}=1{Administratoren din ber deg om å starte Browther på nytt for å ta i bruk denne oppdateringen. Inkognitovinduet ditt blir ikke gjenåpnet.}other{Administratoren din ber deg om å starte Browther på nytt for å ta i bruk denne oppdateringen. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
+<translation id="1341091418019636353">{COUNT,plural, =0{Administratoren din krever at du starter Browther på nytt for å ta i bruk en oppdatering}=1{Administratoren din krever at du starter Browther på nytt for å ta i bruk en oppdatering. Inkognitovinduet ditt blir ikke gjenåpnet.}other{Administratoren din krever at du starter Browther på nytt for å ta i bruk en oppdatering. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
+<translation id="8762228142105311329">{COUNT, plural, =0{Advanced Protection krever at du starter Browther på nytt for å ta i bruk en oppdatering}=1{Advanced Protection krever at du starter Browther på nytt for å ta i bruk en oppdatering. Inkognitovinduet ditt blir ikke gjenåpnet.}other{Advanced Protection krever at du starter Browther på nytt for å ta i bruk en oppdatering. De # inkognitovinduene dine blir ikke gjenåpnet.}}</translation>
 <translation id="5749154344207139683">Hjelp oss med å gjøre den private nettleseren vår bedre ved å svare på et par spørsmål.</translation>
-<translation id="79269250264141507">Når du skriver i adressefeltet eller søkefeltet, sender Browther det du skriver inn, til søkemotoren du har som standard, for å få opp bedre forslag. Dette er deaktivert i Privat modus.</translation>
-<translation id="2589970573128789862">Browther Privat</translation>
-<translation id="5994282802285556682">Når du surfer i Privat modus, advarer Browther deg før det lastes opp sider via usikre tilkoblinger</translation>
+<translation id="6954203250660846933">Når du skriver i adressefeltet eller søkefeltet, sender Browther det du skriver inn, til søkemotoren du har som standard, for å få opp bedre forslag. Dette er deaktivert i Privat modus.</translation>
+<translation id="3542179014707218534">Browther Privat</translation>
+<translation id="2076355018722231995">Når du surfer i Privat modus, advarer Browther deg før det lastes opp sider via usikre tilkoblinger</translation>
 </translationbundle>

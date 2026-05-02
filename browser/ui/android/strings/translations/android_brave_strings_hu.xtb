@@ -33,7 +33,7 @@
 <translation id="5569749307105210875">Engedélyezze az értesítéseket, hogy Browther jutalmakat szerezzen.</translation>
 <translation id="4714541943538330">Nyissa meg a Beállításokat, és kapcsolja vissza az értesítéseket a Browther hirdetésekre.</translation>
 <translation id="7341107637383044975">Browther értesítések bekapcsolása</translation>
-<translation id="9063439289570656162">Brave Shields engedélyezése/ letiltása</translation>
+<translation id="9063439289570656162">Browther Shields engedélyezése/ letiltása</translation>
 <translation id="15346379325756892">Belépés kép-a-képben módba</translation>
 <translation id="6945863270524203017">Heti adatvédelmi frissítéseket kaphat a nyomkövetők és hirdetések blokkolásáról.</translation>
 <translation id="4324735664183300693">Értesítések bekapcsolása</translation>
@@ -188,7 +188,7 @@
 <translation id="834487290629916192">KÉSŐBB</translation>
 <translation id="4117451092682672487">Adatvédelem. Egyszerűen.</translation>
 <translation id="5512887128063976049">A Browther alapértelmezett böngészőként történő beállításával minden hivatkozás, amelyre rákoppint a Browther adatvédelmi beállításaival fog megnyílni.</translation>
-<translation id="5148943178722443958">Segítsen a Browther továbbfejlesztésében.</translation>
+<translation id="9133910347634099679">Segítsen a Browther továbbfejlesztésében.</translation>
 <translation id="6718362830686703942">Küldjön diagnosztikai jelentéseket, amikor a rendszer összeomlik vagy lefagy.</translation>
 <translation id="7134864207653684195">Osszon meg privát és anonim termékinformációkat arról, hogy milyen funkciókat használnak a Browther felhasználói.</translation>
 <translation id="2888496576732880897">Segítsen a Browther kereső fejlesztésében</translation>
@@ -408,7 +408,7 @@ Biztosan végrehajtja a műveletet?</translation>
 <translation id="769702552748212954">Minden ujjlenyomat-beállítás engedélyezése</translation>
 <translation id="876424292214881779">Blokkoltuk a hirdetéseket és más bizarr dolgokat</translation>
 <translation id="2709945082202062860">A webhelyek gyakran tartalmaznak cookie-kat és szkripteket, amelyek megpróbálják azonosítani Önt és eszközét. Ki akarják deríteni, hogy Ön kicsoda, és követni akarják Önt az interneten – minden webhelyen nyomon követik, mit csinál. A Browther letiltja ezeket az eszközöket, így Ön anélkül böngészhet, hogy követnék.</translation>
-<translation id="5695422144228065490">Bővebben a Brave Shieldsről</translation>
+<translation id="5695422144228065490">Bővebben a Browther Shieldsről</translation>
 <translation id="8912304686498704084">FEL</translation>
 <translation id="4963218453264888510">LE</translation>
 <translation id="5721161384090584434">A Browther adatvédelmi rendszere nélkül böngészel. Nem működik megfelelően ha be van kapcsolva Shields?</translation>
@@ -958,7 +958,7 @@ other {<ph name="CITY_COUNT_MANY"/> város - }
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Alapértelmezettre visszaállítása</translation>
 <translation id="4922034974043704366">Ez a funkció azért van engedélyezve, mert Ön ezt választotta.</translation>
-<translation id="3144818380093107753">A Browther Origin egy előfizetéses mód a Browther-ot egyébként üzleti tevékenységként támogató, bevételt generáló funkciók letiltására. A Browther Origin előfizetők továbbra is élvezhetik az iparágvezető adatvédelmi, reklámblokkolási és sebességi előnyöket (a Brave Shields segítségével), valamint a rendszeres szoftverfrissítéseket, Chromium javításokat, biztonsági és adatvédelmi fejlesztéseket. Emellett olyan funkciókat is letilthatnak, mint a Browther Leo, a Hírek, a Jutalmak, a Pénztárca, a VPN, a Web3 tartományok és még sok más.&lt;br/&gt;&lt;br/&gt;Az előfizetők egy új vezérlőpanelt fognak látni a böngésző beállítások menüjében. A meglévő funkciók - valamint minden új funkció, amelyet a jövőben szállítunk - itt jelennek meg, és alapértelmezés szerint ki lesznek kapcsolva.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Megjegyzés: A Browther Origin nem fogja letiltani a jelenleg használt böngészőfunkciókat, és nem érinti a Brave Search funkciókat vagy a Brave Search hirdetéseket.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">A Browther Origin egy előfizetéses mód a Browther-ot egyébként üzleti tevékenységként támogató, bevételt generáló funkciók letiltására. A Browther Origin előfizetők továbbra is élvezhetik az iparágvezető adatvédelmi, reklámblokkolási és sebességi előnyöket (a Browther Shields segítségével), valamint a rendszeres szoftverfrissítéseket, Chromium javításokat, biztonsági és adatvédelmi fejlesztéseket. Emellett olyan funkciókat is letilthatnak, mint a Browther Leo, a Hírek, a Jutalmak, a Pénztárca, a VPN, a Web3 tartományok és még sok más.&lt;br/&gt;&lt;br/&gt;Az előfizetők egy új vezérlőpanelt fognak látni a böngésző beállítások menüjében. A meglévő funkciók - valamint minden új funkció, amelyet a jövőben szállítunk - itt jelennek meg, és alapértelmezés szerint ki lesznek kapcsolva.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Megjegyzés: A Browther Origin nem fogja letiltani a jelenleg használt böngészőfunkciókat, és nem érinti a Brave Search funkciókat vagy a Brave Search hirdetéseket.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Bejelentkezés a Browther pénztárcával</translation>
 <translation id="7380890081275286865">A következőbe jelentkezik be: <ph name="ORIGIN"/>. A Browther pénztárca meg fogja osztani a pénztárcája címét a következővel: <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Részletek megtekintése</translation>

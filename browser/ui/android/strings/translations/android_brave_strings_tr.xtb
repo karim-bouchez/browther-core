@@ -188,7 +188,7 @@
 <translation id="834487290629916192">DAHA SONRA</translation>
 <translation id="4117451092682672487">Gizlilik Basit Hale Geldi.</translation>
 <translation id="5512887128063976049">Browther'i varsayılan olarak ayarladıktan sonra, dokunduğunuz her bağlantı Browther’in gizlilik korumalarıyla açılır.</translation>
-<translation id="5148943178722443958">Browther'i daha iyi hale getirmeye yardım edin.</translation>
+<translation id="9133910347634099679">Browther'i daha iyi hale getirmeye yardım edin.</translation>
 <translation id="6718362830686703942">Kilitlenme veya çökme yaşarsanız tanı raporu gönderin.</translation>
 <translation id="7134864207653684195">Browther kullanıcılarının hangi özellikleri kullandıklarına dair gizli ve anonim ürün içgörülerini paylaşın.</translation>
 <translation id="2888496576732880897">Browther Arama'nın büyümesine yardımcı olun</translation>
@@ -409,7 +409,7 @@ Bunu yapmak istediğinizden emin misiniz?</translation>
 <translation id="769702552748212954">Tüm parmak izlerine izin ver</translation>
 <translation id="876424292214881779">Reklam ve diğer tuhaflıklar engellendi</translation>
 <translation id="2709945082202062860">Siteler genelde, sizi ve cihazınızı tanımlamaya çalışan çerezler ve küçük programlar içerir. Kim olduğunuzu çözmeye çalışıp sizi web'de takip ederler ve girdiğiniz her sitede ne yaptığınızı izlemek isterler.\n\nBrave, siz takip edilmeden gezinebilmeniz için bu tür şeyleri engeller.</translation>
-<translation id="5695422144228065490">Brave Shields Hakkında</translation>
+<translation id="5695422144228065490">Browther Shields Hakkında</translation>
 <translation id="8912304686498704084">AÇIK</translation>
 <translation id="4963218453264888510">KAPALI</translation>
 <translation id="5721161384090584434">Bu siteyi Browther'in gizlilik koruması olmadan tarıyorsunuz. Shields açıkken doğru çalışmıyor mu?</translation>
@@ -959,7 +959,7 @@ Bu talebi kabul etmezseniz VPN yeniden bağlanmaz ve internet bağlantınız gü
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Varsayılanlara sıfırla</translation>
 <translation id="4922034974043704366">Bu özellik etkinleştirildi çünkü siz bu özelliği seçtiniz</translation>
-<translation id="3144818380093107753">Browther Origin, Browther'i bir işletme olarak destekleyen gelir getirici özellikleri devre dışı bırakmanın abonelik tabanlı bir yoludur. Browther Origin aboneleri, sektör lideri gizlilik, reklam engelleme ve hızımızın (Brave Shields aracılığıyla) yanı sıra düzenli yazılım güncellemeleri, Chromium yamaları ve güvenlik ve gizlilik iyileştirmelerinden yararlanmaya devam edecekler. Ayrıca Browther Leo, Haberler, Ödüller, Cüzdan, VPN, Web3 alan adları ve daha fazlası gibi özellikleri devre dışı bırakma seçeneğinin kilidini açacaklar.&lt;br/&gt;&lt;br/&gt;Aboneler, tarayıcı ayarları menüsünde yeni bir kontrol paneli görecekler. Mevcut özelliklerin yanı sıra gelecekte göndereceğimiz yeni özellikler de burada görünecek ve varsayılan olarak kapatılacaktır.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Not: Browther Origin, şu anda kullandığınız tarayıcı özelliklerini devre dışı bırakmayacak ve Brave Search özelliklerini veya Brave Search Reklamlarını etkilemeyecektir.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin, Browther'i bir işletme olarak destekleyen gelir getirici özellikleri devre dışı bırakmanın abonelik tabanlı bir yoludur. Browther Origin aboneleri, sektör lideri gizlilik, reklam engelleme ve hızımızın (Browther Shields aracılığıyla) yanı sıra düzenli yazılım güncellemeleri, Chromium yamaları ve güvenlik ve gizlilik iyileştirmelerinden yararlanmaya devam edecekler. Ayrıca Browther Leo, Haberler, Ödüller, Cüzdan, VPN, Web3 alan adları ve daha fazlası gibi özellikleri devre dışı bırakma seçeneğinin kilidini açacaklar.&lt;br/&gt;&lt;br/&gt;Aboneler, tarayıcı ayarları menüsünde yeni bir kontrol paneli görecekler. Mevcut özelliklerin yanı sıra gelecekte göndereceğimiz yeni özellikler de burada görünecek ve varsayılan olarak kapatılacaktır.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Not: Browther Origin, şu anda kullandığınız tarayıcı özelliklerini devre dışı bırakmayacak ve Brave Search özelliklerini veya Brave Search Reklamlarını etkilemeyecektir.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Browther Cüzdan'la oturum açın</translation>
 <translation id="7380890081275286865"><ph name="ORIGIN"/> adresinde oturum açıyorsunuz. Browther Cüzdanı, cüzdan adresinizi <ph name="ORIGIN"/> ile paylaşacak.</translation>
 <translation id="1028781062521375153">Detayları gör</translation>

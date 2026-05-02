@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="id">
 <translation id="130631256467250065">Perubahan Anda akan diterapkan pada saat Anda nanti menyalakan ulang perangkat.</translation>
-<translation id="6451924152958941455">Buka
+<translation id="5681560603157873402">Buka
           menu Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -10,19 +10,19 @@
           &gt;
           <ph name="PROXIES_TITLE"/>
           dan pastikan konfigurasi disetel ke "tidak ada proxy" atau "langsung".</translation>
-<translation id="7999989146447764333">Pelaporan kerusakan tidak tersedia di Browther.</translation>
-<translation id="1953231710324290369">Anda melihat halaman Browther yang aman</translation>
-<translation id="907470742420136113">Browther mencoba mengubah setelan pengisian metode pembayaran.</translation>
-<translation id="4847979153841887006">Logo Browther</translation>
-<translation id="336808635693308470">Browther mencoba mengedit metode pembayaran.</translation>
-<translation id="7932149101545999102">Browther tercipta berkat proyek sumber terbuka <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> dan berbagai <ph name="BEGIN_LINK_OSS"/>software sumber terbuka<ph name="END_LINK_OSS"/> lainnya.</translation>
-<translation id="303960458633076466">Halaman ini telah diblokir oleh Browther</translation>
-<translation id="2017237562285586622">Izinkan Browther untuk mengakses jaringan di setelan firewall atau antivirus
+<translation id="4903497818305945122">Pelaporan kerusakan tidak tersedia di Browther.</translation>
+<translation id="5747951541048369241">Anda melihat halaman Browther yang aman</translation>
+<translation id="7041193161756628041">Browther mencoba mengubah setelan pengisian metode pembayaran.</translation>
+<translation id="4670277172953498174">Logo Browther</translation>
+<translation id="3474898875907708105">Browther mencoba mengedit metode pembayaran.</translation>
+<translation id="5700544173546684818">Browther tercipta berkat proyek sumber terbuka <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/> dan berbagai <ph name="BEGIN_LINK_OSS"/>software sumber terbuka<ph name="END_LINK_OSS"/> lainnya.</translation>
+<translation id="8935269788853634726">Halaman ini telah diblokir oleh Browther</translation>
+<translation id="1339376981847018870">Izinkan Browther untuk mengakses jaringan di setelan firewall atau antivirus
           Anda.</translation>
 <translation id="4949828774841497663">Buka Aplikasi &gt; Setelan Sistem &gt; Jaringan, pilih
           jaringan aktif, klik tombol Detail..., dan batalkan pilihan proxy
           yang mungkin telah dipilih.</translation>
-<translation id="3269554930871094325">Buka
+<translation id="4191403906356422893">Buka
           menu Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -32,13 +32,13 @@
           &gt;
           Jaringan &amp; internet &gt; Proxy
           dan batalkan pilihan "Otomatis deteksi setelan".</translation>
-<translation id="6159073403999048272">Halaman ini ditujukan untuk digunakan oleh developer Browther, dan mungkin tidak dikelola atau diuji secara aktif. Untuk mengaktifkannya, buka <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, klik tombol untuk mengaktifkan halaman debug, lalu buka lagi halaman ini.</translation>
-<translation id="2765022094254723779">Browther juga terwujud karena adanya <ph name="BEGIN_LINK_OSS"/>software open source<ph name="END_LINK_OSS"/> lainnya.</translation>
-<translation id="9156965752763025780">Perubahan Anda akan berlaku saat berikutnya Anda membuka Browther.</translation>
-<translation id="8828443087767259398">Browther memerlukan akses Bluetooth untuk melanjutkan 
+<translation id="958169674889932546">Halaman ini ditujukan untuk digunakan oleh developer Browther, dan mungkin tidak dikelola atau diuji secara aktif. Untuk mengaktifkannya, buka <ph name="BEGIN_LINK"/>chrome://chrome-urls<ph name="LINK_END"/>, klik tombol untuk mengaktifkan halaman debug, lalu buka lagi halaman ini.</translation>
+<translation id="4303967029316005584">Browther juga terwujud karena adanya <ph name="BEGIN_LINK_OSS"/>software open source<ph name="END_LINK_OSS"/> lainnya.</translation>
+<translation id="8031938899816118394">Perubahan Anda akan berlaku saat berikutnya Anda membuka Browther.</translation>
+<translation id="221029295134825758">Browther memerlukan akses Bluetooth untuk melanjutkan 
  penyambungan. <ph name="IDS_BLUETOOTH_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
-<translation id="6477625882876869143">Browther terwujud karena adanya project open source <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
-<translation id="4068928808254189629">Buka
+<translation id="8530161404084147314">Browther terwujud karena adanya project open source <ph name="BEGIN_LINK_CHROMIUM"/>Browther<ph name="END_LINK_CHROMIUM"/>.</translation>
+<translation id="3134645574591615830">Buka
           menu Browther &gt;
           <ph name="SETTINGS_TITLE"/>
           &gt;
@@ -46,6 +46,6 @@
           dan batalkan pilihan "<ph name="NO_PREFETCH_DESCRIPTION"/>."
           Jika hal ini tidak menyelesaikan masalah, sebaiknya pilih lagi opsi ini
           untuk meningkatkan kinerja.</translation>
-<translation id="4159376633403260073">Anda melihat halaman Browther for Testing yang aman</translation>
-<translation id="88187049159266777">Browther tidak menutup dengan benar.</translation>
+<translation id="8927199829149811571">Anda melihat halaman Browther for Testing yang aman</translation>
+<translation id="4220066730874343807">Browther tidak menutup dengan benar.</translation>
 </translationbundle>

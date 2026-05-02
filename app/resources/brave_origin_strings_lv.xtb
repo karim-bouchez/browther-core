@@ -3,117 +3,117 @@
 <translationbundle lang="lv">
 <translation id="1026101648481255140">Atsākt instalēšanu</translation>
 <translation id="7099479769133613710">Atkārtoti palaist, lai atjauninātu &amp;Browther OS</translation>
-<translation id="2479110114759182442">Browther komanda iesaka pārskatīt šo paplašinājumu.</translation>
-<translation id="3814674848168165531">Kad vietnē tiek piedāvāts privāti iepriekš ielādēt saites lapā, pārlūks Browther izmanto Browther serverus. Tādējādi jūsu identitāte tiek slēpta no iepriekš ielādētās lapas īpašniekiem, taču Browther uzzina, kādas lapas tiek iepriekš ielādētas.</translation>
+<translation id="7264054672589027446">Browther komanda iesaka pārskatīt šo paplašinājumu.</translation>
+<translation id="7848219163187166649">Kad vietnē tiek piedāvāts privāti iepriekš ielādēt saites lapā, pārlūks Browther izmanto Browther serverus. Tādējādi jūsu identitāte tiek slēpta no iepriekš ielādētās lapas īpašniekiem, taču Browther uzzina, kādas lapas tiek iepriekš ielādētas.</translation>
 <translation id="1065672644894730302">Jūsu preferences nevar nolasīt. Dažas funkcijas var nebūt pieejamas, un preferenču izmaiņas netiks saglabātas</translation>
-<translation id="7577672138294294152">Viens no jūsu vecākiem ir izslēdzis iestatījumu “Atļaujas vietnēm, lietotnēm un paplašinājumiem” pārlūkam Browther.</translation>
-<translation id="5918095577778020936">Pārlūkā Browther tiek mēģināts eksportēt jūsu paroles. Lai to atļautu, ievadiet savu Windows paroli.</translation>
+<translation id="8837164267124113709">Viens no jūsu vecākiem ir izslēdzis iestatījumu “Atļaujas vietnēm, lietotnēm un paplašinājumiem” pārlūkam Browther.</translation>
+<translation id="881513728707488138">Pārlūkā Browther tiek mēģināts eksportēt jūsu paroles. Lai to atļautu, ievadiet savu Windows paroli.</translation>
 <translation id="112640046208448578">Varat identificēt priekšmetus vai vietas un kopēt vai tulkot tekstu. Kad izmantojat funkciju Attēlu meklēšana, uz serveri tiek nosūtīts lapas ekrānuzņēmums. <ph name="LEARN_MORE"/></translation>
-<translation id="5468853758063275923">Jūsu noklusējuma pārlūks ir Browther.</translation>
-<translation id="8522292744959221145">Lai pārbaudītu, vai jūsu paroles ir aizsargātas pret datu pārkāpumiem un citām drošības problēmām, <ph name="BEGIN_LINK"/>pierakstieties pārlūkā Browther<ph name="END_LINK"/>.</translation>
-<translation id="2627788872035182013">Noklikšķiniet uz Browther izvēlnes</translation>
+<translation id="8280092658684559253">Jūsu noklusējuma pārlūks ir Browther.</translation>
+<translation id="6580138787163923852">Lai pārbaudītu, vai jūsu paroles ir aizsargātas pret datu pārkāpumiem un citām drošības problēmām, <ph name="BEGIN_LINK"/>pierakstieties pārlūkā Browther<ph name="END_LINK"/>.</translation>
+<translation id="1089111274164380772">Noklikšķiniet uz Browther izvēlnes</translation>
 <translation id="1157985233335035034">Nesen izmantotās valodas</translation>
-<translation id="7813580490378477695"><ph name="PARTNER_NAME"/> pievienoja paplašinājumu, kas var ietekmēt pārlūka Browther darbību.
+<translation id="3673786631598474384"><ph name="PARTNER_NAME"/> pievienoja paplašinājumu, kas var ietekmēt pārlūka Browther darbību.
 
 <ph name="EXTENSION_NAME"/></translation>
 <translation id="1184145431117212167">Instalēšana neizdevās, jo jūsu izmantotā Windows versija netiek atbalstīta.</translation>
-<translation id="8541922081612557424">Par Browther</translation>
+<translation id="8291401179516272335">Par Browther</translation>
 <translation id="1203500561924088507">Pateicamies, ka veicāt instalēšanu. Pirms <ph name="BUNDLE_NAME"/> izmantošanas ir jārestartē pārlūkprogramma.</translation>
 <translation id="1232234696885483911">Kad atvērsiet attēlu meklēšanu, serverim tiks automātiski nosūtīts lapas nosaukums, vietrādis URL un saturs, tostarp PDF faili. <ph name="LEARN_MORE"/></translation>
-<translation id="1934377710648094656">Kamēr esat pierakstījies, pārlūkā Browther varat izmantot savas paroles un citu saturu no Browther konta. Lai to mainītu, pārejiet uz sadaļu “Jūsu konts pārlūkā Browther”.</translation>
-<translation id="8799570501820813406">Kamēr šī cilne bija neaktīva, tika atbrīvota atmiņa pārlūka Browther ātrākai darbībai. Varat izvēlēties vienmēr saglabāt šo vietni aktīvu.</translation>
-<translation id="8767381092474532098">Pārlūkā Browther šī lejupielāde tika bloķēta, jo fails ir bīstams.</translation>
-<translation id="3256289531845594061">Ja pierakstāties Browther pakalpojumos, piemēram, Gmail vai YouTube, ar kontu <ph name="USER_EMAIL"/>, varat automātiski pierakstīties pārlūkā Browther ar to pašu kontu.</translation>
+<translation id="3496831315930641015">Kamēr esat pierakstījies, pārlūkā Browther varat izmantot savas paroles un citu saturu no Browther konta. Lai to mainītu, pārejiet uz sadaļu “Jūsu konts pārlūkā Browther”.</translation>
+<translation id="9034321258761608912">Kamēr šī cilne bija neaktīva, tika atbrīvota atmiņa pārlūka Browther ātrākai darbībai. Varat izvēlēties vienmēr saglabāt šo vietni aktīvu.</translation>
+<translation id="249571811018731941">Pārlūkā Browther šī lejupielāde tika bloķēta, jo fails ir bīstams.</translation>
+<translation id="8850227089720975601">Ja pierakstāties Browther pakalpojumos, piemēram, Gmail vai YouTube, ar kontu <ph name="USER_EMAIL"/>, varat automātiski pierakstīties pārlūkā Browther ar to pašu kontu.</translation>
 <translation id="1290883685122687410">Iestatīšanas kļūda: <ph name="METAINSTALLER_EXIT_CODE"/>. <ph name="WINDOWS_ERROR"/></translation>
-<translation id="4798342026247191171">Jaunā Browther profila iestatīšana</translation>
-<translation id="878572309106296578">Pārlūkam Browther ir nepieciešama Bluetooth piekļuve, lai atrastu Bluetooth ierīces. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
+<translation id="6235774143043174856">Jaunā Browther profila iestatīšana</translation>
+<translation id="4437862975743821367">Pārlūkam Browther ir nepieciešama Bluetooth piekļuve, lai atrastu Bluetooth ierīces. <ph name="IDS_SERIAL_DEVICE_CHOOSER_AUTHORIZE_BLUETOOTH_LINK"/></translation>
 <translation id="1330562121671411446">Valodas noteikšana</translation>
-<translation id="6204677860546245308">Izmantojiet Browther ieteicamos pārlūka iestatījumus</translation>
-<translation id="108284536240904209">Dzēst arī datus no pārlūka Browther (<ph name="URL"/>)</translation>
+<translation id="1206925267243987362">Izmantojiet Browther ieteicamos pārlūka iestatījumus</translation>
+<translation id="8270483548049772782">Dzēst arī datus no pārlūka Browther (<ph name="URL"/>)</translation>
 <translation id="1345251407431278948">Piesprausts! Varat atkal piekļūt funkcijai Attēlu meklēšana, izmantojot jauno pogu rīkjoslā.</translation>
 <translation id="1356661055722410047">Jaunums! Varat tulkot gan ekrānā redzamo tekstu, gan attēlus.</translation>
 <translation id="1383876407941801731">Meklēt</translation>
-<translation id="7009295044271335553">&amp;Pārvaldīt Browther profilus</translation>
+<translation id="1592588950737518481">&amp;Pārvaldīt Browther profilus</translation>
 <translation id="1404026649028693342">Vienmēr rādīt MI režīmu</translation>
 <translation id="141901961143729572">Dalieties domās!</translation>
-<translation id="3880714039086599943">Lai kopīgotu logu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
-<translation id="1586284627848250203">Saņemt palīdzību saistībā ar Browther for Testing</translation>
+<translation id="1743952081001089298">Lai kopīgotu logu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
+<translation id="8627385813382688019">Saņemt palīdzību saistībā ar Browther for Testing</translation>
 <translation id="1497802159252041924">Instalēšanas kļūda: <ph name="INSTALL_ERROR"/></translation>
 <translation id="1518627427551567882">Šī lapa ir aizsargāta</translation>
-<translation id="5147525139567260139">Browther cilnes kopīgošana</translation>
-<translation id="721261350616678948">Pierakstīties pārlūkā Browther</translation>
+<translation id="7252430412915798987">Browther cilnes kopīgošana</translation>
+<translation id="6388429281015199562">Pierakstīties pārlūkā Browther</translation>
 <translation id="1547469039832541117">Tiek pabeigts atzīmētais uzdevums.</translation>
-<translation id="1530633922026945685">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu kamerai, lai varētu izveidot jūsu apkārtnes 3D karti</translation>
-<translation id="9125033103884432">{NUM_EXTENSIONS,plural, =1{Šis paplašinājums vairs netiek atbalstīts. Browther iesaka to noņemt.}zero{Šie paplašinājumi vairs netiek atbalstīti. Browther iesaka tos noņemt.}one{Šie paplašinājumi vairs netiek atbalstīti. Browther iesaka tos noņemt.}other{Šie paplašinājumi vairs netiek atbalstīti. Browther iesaka tos noņemt.}}</translation>
-<translation id="51545890371361355">Piespraust pārlūku Browther</translation>
-<translation id="6570689355868013775">Browther drošības rīki</translation>
-<translation id="1902837727299679178">Browther pieprasa dzēst jūsu paroļu pārvaldnieka datus. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
-<translation id="4449148723378534338">Pārskatiet svarīgākās konfidencialitātes un drošības vadīklas pārlūkā Browther.</translation>
+<translation id="1801944307203212016">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu kamerai, lai varētu izveidot jūsu apkārtnes 3D karti</translation>
+<translation id="2181686311472635460">{NUM_EXTENSIONS,plural, =1{Šis paplašinājums vairs netiek atbalstīts. Browther iesaka to noņemt.}zero{Šie paplašinājumi vairs netiek atbalstīti. Browther iesaka tos noņemt.}one{Šie paplašinājumi vairs netiek atbalstīti. Browther iesaka tos noņemt.}other{Šie paplašinājumi vairs netiek atbalstīti. Browther iesaka tos noņemt.}}</translation>
+<translation id="4667068923142532753">Piespraust pārlūku Browther</translation>
+<translation id="3006560544901646947">Browther drošības rīki</translation>
+<translation id="686052171138185761">Browther pieprasa dzēst jūsu paroļu pārvaldnieka datus. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
+<translation id="8713026329083542796">Pārskatiet svarīgākās konfidencialitātes un drošības vadīklas pārlūkā Browther.</translation>
 <translation id="1640672724030957280">Notiek lejupielāde...</translation>
 <translation id="1680687534629375545">Jautāt attēlu meklēšanas funkcijai par šo lapu</translation>
 <translation id="1709772298389099340">Nodrošina augstas privilēģijas pārlūkam <ph name="BROWSER_NAME"/>.</translation>
-<translation id="2913217021115517297">Lai palīdzētu uzlabot šīs funkcijas, pārlūks Browther nosūta Browther serveriem datus par jūsu mijiedarbību ar tām. Šos datus var lasīt, apstrādāt un anotēt pārskatītāji.</translation>
+<translation id="4243382967656566037">Lai palīdzētu uzlabot šīs funkcijas, pārlūks Browther nosūta Browther serveriem datus par jūsu mijiedarbību ar tām. Šos datus var lasīt, apstrādāt un anotēt pārskatītāji.</translation>
 <translation id="1722488837206509557">Tādējādi varēsiet atlasīt kādu no pieejamām ierīcēm un parādīt tajā saturu.</translation>
-<translation id="8004287232784878841">Pārlūkā Browther drīz tiks dzēsti pārlūkošanas dati</translation>
-<translation id="4197839351786449392">Pārlūkā Browther tiks mēģināts navigācijai izmantot HTTPS.</translation>
-<translation id="7814200940910057384">Browther dati dzēsti</translation>
-<translation id="9048361966237194186">Pārlūks Browther tiks restartēts pēc: <ph name="REMAINING_TIME"/></translation>
-<translation id="5524150602137990006">Ja HTTPS nav pieejams, pārlūkā Browther bez brīdinājuma tiks izmantots nedrošs savienojums.</translation>
-<translation id="6797402139308059782">Ļaut Browther darboties fonā</translation>
-<translation id="5875673934455379806">Pārinstalēt Browther</translation>
-<translation id="4529028207655448215">Browther mēģina <ph name="AUTHENTICATION_PURPOSE"/></translation>
-<translation id="7362761326208547489">Kad nākamreiz savā ierīcē (<ph name="DEVICE_TYPE"/>) atvērsiet pārlūku Browther, tiks parādīts aicinājums izmantot Browther paroļu pārvaldnieku.</translation>
+<translation id="6820510278633522408">Pārlūkā Browther drīz tiks dzēsti pārlūkošanas dati</translation>
+<translation id="7775028004939172516">Pārlūkā Browther tiks mēģināts navigācijai izmantot HTTPS.</translation>
+<translation id="6963959729951758069">Browther dati dzēsti</translation>
+<translation id="4085139922884095932">Pārlūks Browther tiks restartēts pēc: <ph name="REMAINING_TIME"/></translation>
+<translation id="2586248102295515296">Ja HTTPS nav pieejams, pārlūkā Browther bez brīdinājuma tiks izmantots nedrošs savienojums.</translation>
+<translation id="3975328336074677101">Ļaut Browther darboties fonā</translation>
+<translation id="2497443204974841650">Pārinstalēt Browther</translation>
+<translation id="1724309687045787742">Browther mēģina <ph name="AUTHENTICATION_PURPOSE"/></translation>
+<translation id="4553225588627299783">Kad nākamreiz savā ierīcē (<ph name="DEVICE_TYPE"/>) atvērsiet pārlūku Browther, tiks parādīts aicinājums izmantot Browther paroļu pārvaldnieku.</translation>
 <translation id="1838374766361614909">Notīrīt meklēšanas vaicājumu</translation>
-<translation id="3541642064306182066">Lai dzēstu pārlūkošanas datus tikai no šīs ierīces un paturētu tos Browther kontā, <ph name="BEGIN_LINK"/>izrakstieties no Browther<ph name="END_LINK"/>.</translation>
-<translation id="5679816001365584346">Lejupielādējiet pārlūku Browther savā tālrunī, lai atvērtu vai izveidotu jaunas ciļņu grupas, atrodoties ceļā.</translation>
-<translation id="4559627161887338743">Varat pārvaldīt Browther kontus, kuros esat pierakstījies. Jūsu Browther konti tiek izmantoti pārlūkā Browther, Play veikalā, pakalpojumā Gmail un citur. Ja vēlaties pievienot kontu kādam citam, piemēram, ģimenes loceklim, pievienojiet jaunu personu savai <ph name="DEVICE_TYPE"/> ierīcei. <ph name="LINK_BEGIN"/>Uzziniet vairāk<ph name="LINK_END"/>.</translation>
+<translation id="2337233040802538155">Lai dzēstu pārlūkošanas datus tikai no šīs ierīces un paturētu tos Browther kontā, <ph name="BEGIN_LINK"/>izrakstieties no Browther<ph name="END_LINK"/>.</translation>
+<translation id="3927415701154897844">Lejupielādējiet pārlūku Browther savā tālrunī, lai atvērtu vai izveidotu jaunas ciļņu grupas, atrodoties ceļā.</translation>
+<translation id="2063443520349987970">Varat pārvaldīt Browther kontus, kuros esat pierakstījies. Jūsu Browther konti tiek izmantoti pārlūkā Browther, Play veikalā, pakalpojumā Gmail un citur. Ja vēlaties pievienot kontu kādam citam, piemēram, ģimenes loceklim, pievienojiet jaunu personu savai <ph name="DEVICE_TYPE"/> ierīcei. <ph name="LINK_BEGIN"/>Uzziniet vairāk<ph name="LINK_END"/>.</translation>
 <translation id="1862852878885210965">Meklēšana, izmantojot funkciju Attēlu meklēšana</translation>
 <translation id="1880677175115548835">Atlasīt tekstu</translation>
-<translation id="4528406859989804913">Jūs pierakstāties ar pārvaldītu kontu, kura administrators var kontrolēt jūsu profilu. Jūsu Browther dati, piemēram, lietotnes, grāmatzīmes, vēsture, paroles un citi iestatījumi, tiks neatgriezeniski saistīti ar lietotāju <ph name="USER_NAME"/>. Varēsiet dzēst šos datus, izmantojot Browther kontu informācijas paneli, taču nevarēsiet šos datus saistīt ar citu kontu. Ja vēlaties, varat izveidot jaunu profilu, lai atsevišķi glabātu Browther datus. <ph name="LEARN_MORE"/></translation>
-<translation id="2207454583030080759">Pārlūkā Browther tiek taupīta akumulatora enerģija, ierobežojot darbības fonā un vizuālos efektus, piemēram, vienmērīgu ritināšanu un video kadru nomaiņas ātrumu. Varat <ph name="BEGIN_LINK"/>uzzināt vairāk par enerģijas taupīšanas režīmu<ph name="END_LINK"/>.</translation>
+<translation id="3183933389992069620">Jūs pierakstāties ar pārvaldītu kontu, kura administrators var kontrolēt jūsu profilu. Jūsu Browther dati, piemēram, lietotnes, grāmatzīmes, vēsture, paroles un citi iestatījumi, tiks neatgriezeniski saistīti ar lietotāju <ph name="USER_NAME"/>. Varēsiet dzēst šos datus, izmantojot Browther kontu informācijas paneli, taču nevarēsiet šos datus saistīt ar citu kontu. Ja vēlaties, varat izveidot jaunu profilu, lai atsevišķi glabātu Browther datus. <ph name="LEARN_MORE"/></translation>
+<translation id="8330480262129054297">Pārlūkā Browther tiek taupīta akumulatora enerģija, ierobežojot darbības fonā un vizuālos efektus, piemēram, vienmērīgu ritināšanu un video kadru nomaiņas ātrumu. Varat <ph name="BEGIN_LINK"/>uzzināt vairāk par enerģijas taupīšanas režīmu<ph name="END_LINK"/>.</translation>
 <translation id="1898804291554630487">Jautājiet par šo lapu</translation>
-<translation id="8643267611122541711">Browther atjauninātāja pakalpojums</translation>
-<translation id="1649714546770135458">Ja izslēgsiet šo iestatījumu, varēsiet pierakstīties Browther vietnēs, piemēram, pakalpojumā Gmail, nepierakstoties pārlūkā Browther.</translation>
-<translation id="189297655255130768">Browther nereaģē. Vai restartēt to tūlīt?</translation>
-<translation id="8422047647688939115">Saskaņā ar jūsu organizācijas (<ph name="MANAGER"/>) politiku jums ir jāpierakstās pārlūkā Browther.</translation>
+<translation id="9128006428501241840">Browther atjauninātāja pakalpojums</translation>
+<translation id="6302815314157879372">Ja izslēgsiet šo iestatījumu, varēsiet pierakstīties Browther vietnēs, piemēram, pakalpojumā Gmail, nepierakstoties pārlūkā Browther.</translation>
+<translation id="1063611196035804685">Browther nereaģē. Vai restartēt to tūlīt?</translation>
+<translation id="2873360330889594383">Saskaņā ar jūsu organizācijas (<ph name="MANAGER"/>) politiku jums ir jāpierakstās pārlūkā Browther.</translation>
 <translation id="4035053306113201399">Browther OS ir jārestartē, lai lietotu atjauninājumu.</translation>
-<translation id="9048754176089806686">Pārlūkā Browther šī lejupielāde tika bloķēta, jo šī tipa faili parasti netiek lejupielādēti un var būt bīstami.</translation>
+<translation id="2861285003831382718">Pārlūkā Browther šī lejupielāde tika bloķēta, jo šī tipa faili parasti netiek lejupielādēti un var būt bīstami.</translation>
 <translation id="1953553007165777902">Notiek lejupielāde... Atlikušais laiks: <ph name="MINUTE"/> minūte(-es).</translation>
-<translation id="2470048290583727811">Browther padoms: paroļu saglabāšana</translation>
-<translation id="1775322105159056176">Browther nevar noteikt vai iestatīt noklusējuma pārlūku.</translation>
-<translation id="4372901050442507812">Uzzināt, kāpēc pārlūkā Browther daži faili tiek bloķēti (saite tiks atvērta jaunā cilnē)</translation>
-<translation id="2703425183860615504">Nodrošina Browther programmatūras pastāvīgu atjaunināšanu. Ja šis pakalpojums tiks atspējots vai pārtraukts, jūsu Browther programmatūra netiks pastāvīgi atjaunināta, kas nozīmē, ka nebūs iespējams labot drošības ievainojamības, ja tādas radīsies, turklāt var nedarboties funkcijas. Šis pakalpojums pats tiek atinstalēts, ja neviena Browther programmatūra to neizmanto.</translation>
-<translation id="9220324636239049437">Veicot šo darbību, no šīs ierīces tiks dzēsts 1 vienums. Lai vēlāk izgūtu datus, pierakstieties pārlūkā Browther kā <ph name="USER_EMAIL"/>.</translation>
+<translation id="2080160985220483492">Browther padoms: paroļu saglabāšana</translation>
+<translation id="8037497710694492565">Browther nevar noteikt vai iestatīt noklusējuma pārlūku.</translation>
+<translation id="7395009124247513849">Uzzināt, kāpēc pārlūkā Browther daži faili tiek bloķēti (saite tiks atvērta jaunā cilnē)</translation>
+<translation id="762710512520170632">Nodrošina Browther programmatūras pastāvīgu atjaunināšanu. Ja šis pakalpojums tiks atspējots vai pārtraukts, jūsu Browther programmatūra netiks pastāvīgi atjaunināta, kas nozīmē, ka nebūs iespējams labot drošības ievainojamības, ja tādas radīsies, turklāt var nedarboties funkcijas. Šis pakalpojums pats tiek atinstalēts, ja neviena Browther programmatūra to neizmanto.</translation>
+<translation id="5793588180426267429">Veicot šo darbību, no šīs ierīces tiks dzēsts 1 vienums. Lai vēlāk izgūtu datus, pierakstieties pārlūkā Browther kā <ph name="USER_EMAIL"/>.</translation>
 <translation id="2018879682492276940">Instalēšana neizdevās. Lūdzu, mēģiniet vēlreiz.</translation>
-<translation id="831418749472885028">Lai pārbaudītu, vai jūsu pārējās paroles ir aizsargātas pret datu pārkāpumiem un citām drošības problēmām, <ph name="BEGIN_LINK"/>pierakstieties pārlūkā Browther<ph name="END_LINK"/>.</translation>
+<translation id="6351516710581760512">Lai pārbaudītu, vai jūsu pārējās paroles ir aizsargātas pret datu pārkāpumiem un citām drošības problēmām, <ph name="BEGIN_LINK"/>pierakstieties pārlūkā Browther<ph name="END_LINK"/>.</translation>
 <translation id="2039417478970545937">Iestatījumi.</translation>
-<translation id="5499149312981370855">Izvēlieties, vai iekļaut Browther vēsturi, lai iegūtu personalizētākas iespējas Browther pakalpojumos.</translation>
-<translation id="6959434860418352144">Jaunas cilnes lapā noklikšķiniet uz pogas Pielāgot Browther, lai piešķirtu pārlūkam Browther jaunu izskatu.</translation>
+<translation id="8194525816714210105">Izvēlieties, vai iekļaut Browther vēsturi, lai iegūtu personalizētākas iespējas Browther pakalpojumos.</translation>
+<translation id="5909559127548969159">Jaunas cilnes lapā noklikšķiniet uz pogas Pielāgot Browther, lai piešķirtu pārlūkam Browther jaunu izskatu.</translation>
 <translation id="2066690553719545730">Vienmēr rādīt MI režīmu</translation>
-<translation id="2472891440303445472">Pārlūkā Browther šī lejupielāde tika bloķēta, jo fails ir maldinošs un var veikt neparedzētas izmaiņas jūsu ierīcē.</translation>
-<translation id="2054358978145431867">Kad nākamreiz iOS ierīcē atvērsiet pārlūku Browther, tiks parādīts aicinājums izmēģināt funkciju <ph name="FEATURE_NAME"/>.</translation>
-<translation id="2726948994393234543">Jūsu paroles un citi Browther dati, ko saglabājāt savā Browther kontā, tiks noņemti no šīs ierīces. Lai atkal izmantotu šos datus pārlūkā Browther, atkārtoti pierakstieties.</translation>
-<translation id="4375530476448642348">{COUNT,plural, =1{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots vienu minūti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}zero{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots # minūtes. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}one{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots # minūti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}other{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots # minūtes. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}}</translation>
+<translation id="3283892260110318935">Pārlūkā Browther šī lejupielāde tika bloķēta, jo fails ir maldinošs un var veikt neparedzētas izmaiņas jūsu ierīcē.</translation>
+<translation id="6160571936643742128">Kad nākamreiz iOS ierīcē atvērsiet pārlūku Browther, tiks parādīts aicinājums izmēģināt funkciju <ph name="FEATURE_NAME"/>.</translation>
+<translation id="8380517409933452343">Jūsu paroles un citi Browther dati, ko saglabājāt savā Browther kontā, tiks noņemti no šīs ierīces. Lai atkal izmantotu šos datus pārlūkā Browther, atkārtoti pierakstieties.</translation>
+<translation id="1388132502102606439">{COUNT,plural, =1{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots vienu minūti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}zero{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots # minūtes. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}one{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots # minūti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}other{Jūsu organizācija automātiski dzēš pārlūkošanas datus, ja pārlūks Browther nav izmantots # minūtes. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes. Cilnes joprojām būs atvērtas.}}</translation>
 <translation id="2126108037660393668">Neizdevās verificēt lejupielādēto failu.</translation>
 <translation id="2135919691573380097">Ziņošana par šo vietni</translation>
 <translation id="2137162749895930932">Aizvērt tulkošanas ekrānu</translation>
-<translation id="5789330946301045610">Pārlūkā Browther šī lejupielāde tika bloķēta, jo vietnē netiek izmantots drošs savienojums un, iespējams, failā ir veiktas izmaiņas.</translation>
+<translation id="4283559398694996391">Pārlūkā Browther šī lejupielāde tika bloķēta, jo vietnē netiek izmantots drošs savienojums un, iespējams, failā ir veiktas izmaiņas.</translation>
 <translation id="2170098639895543546">Atlasīt jebkādu saturu lapā</translation>
-<translation id="142389341645668510">Pielāgot pārlūkprogrammu Browther</translation>
+<translation id="2495182092286337191">Pielāgot pārlūkprogrammu Browther</translation>
 <translation id="2174917724755363426">Instalēšana nav pabeigta. Vai tiešām vēlaties atcelt?</translation>
-<translation id="8745514854244955877">Browther — pierakstīšanās tīklā — <ph name="PAGE_TITLE"/></translation>
+<translation id="4877141231724140862">Browther — pierakstīšanās tīklā — <ph name="PAGE_TITLE"/></translation>
 <translation id="2190166659037789668">Atjauninājumu pārbaudes kļūda: <ph name="UPDATE_CHECK_ERROR"/>.</translation>
-<translation id="2058539073923004395">Noņemt kontu no pārlūka Browther</translation>
-<translation id="5550942974310218641">Saņemiet labāku aizsardzību, atrodoties ceļā, ar funkciju “Droša pārlūkošana ar papildu aizsardzību” pārlūkā Browther operētājsistēmai iOS.</translation>
-<translation id="6677253423995557759">Bīstama vietne. Pārlūkā Browther tika noņemti paziņojumi.</translation>
+<translation id="6696114732806961952">Noņemt kontu no pārlūka Browther</translation>
+<translation id="1084363153644366288">Saņemiet labāku aizsardzību, atrodoties ceļā, ar funkciju “Droša pārlūkošana ar papildu aizsardzību” pārlūkā Browther operētājsistēmai iOS.</translation>
+<translation id="7949164640723239455">Bīstama vietne. Pārlūkā Browther tika noņemti paziņojumi.</translation>
 <translation id="2236949375853147973">Manas darbības</translation>
-<translation id="457168681575748148">Pierakstieties pārlūkā Browther, lai varētu piekļūt adresēm un citiem datiem visās savās ierīcēs. Šī adrese tiks saglabāta jūsu Browther kontā pēc pierakstīšanās.</translation>
-<translation id="5659384504794665581">Ja jūsu datoru izmanto arī jūsu draugi un ģimenes locekļi, viņi var iestatīt pārlūku Browther atbilstoši savām vēlmēm un pārlūkot saturu atsevišķos kontos.</translation>
+<translation id="4536403809133456417">Pierakstieties pārlūkā Browther, lai varētu piekļūt adresēm un citiem datiem visās savās ierīcēs. Šī adrese tiks saglabāta jūsu Browther kontā pēc pierakstīšanās.</translation>
+<translation id="5627930103267312171">Ja jūsu datoru izmanto arī jūsu draugi un ģimenes locekļi, viņi var iestatīt pārlūku Browther atbilstoši savām vēlmēm un pārlūkot saturu atsevišķos kontos.</translation>
 <translation id="2283803047247799269">Meklēt šajā cilnē, izmantojot attēlu meklēšanas funkciju</translation>
-<translation id="8984404842684436004">{NUM_TABS,plural, =1{Browther iesaka pārtraukt tās cilnes darbību, kas palēnina pārlūka darbību}zero{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}one{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}other{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}}</translation>
+<translation id="1133671091758900032">{NUM_TABS,plural, =1{Browther iesaka pārtraukt tās cilnes darbību, kas palēnina pārlūka darbību}zero{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}one{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}other{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}}</translation>
 <translation id="2307973900865360088">Paturēt dokā</translation>
-<translation id="7810992039564280750">Vietrāži URL tiek pārbaudīti, salīdzinot ar nedrošo vietņu sarakstu, kas ir saglabāts pārlūkprogrammā Browther. Ja kādā vietnē tiek mēģināts nozagt jūsu paroli vai ja jūs lejupielādējat kaitīgu failu, Browther var arī nosūtīt attiecīgos URL, tostarp lapas satura fragmentus, uz funkciju Droša pārlūkošana.</translation>
-<translation id="5042718521573656164">Veicot šo darbību, tiks ieviestas tālāk norādītās izmaiņas.
+<translation id="5161617112768367959">Vietrāži URL tiek pārbaudīti, salīdzinot ar nedrošo vietņu sarakstu, kas ir saglabāts pārlūkprogrammā Browther. Ja kādā vietnē tiek mēģināts nozagt jūsu paroli vai ja jūs lejupielādējat kaitīgu failu, Browther var arī nosūtīt attiecīgos URL, tostarp lapas satura fragmentus, uz funkciju Droša pārlūkošana.</translation>
+<translation id="4123094831918713833">Veicot šo darbību, tiks ieviestas tālāk norādītās izmaiņas.
           <ph name="LINE_BREAKS"/>
            • Tiks atiestatīti noteikti Browther iestatījumi un Browther īsinājumtaustiņi.
            <ph name="LINE_BREAK"/>
@@ -122,640 +122,640 @@
            • Tiks dzēsti sīkfaili un citi vietņu pagaidu dati.
             <ph name="LINE_BREAKS"/>
            Grāmatzīmes, vēsture un saglabātās paroles netiks ietekmētas.</translation>
-<translation id="9095263438435683933">Lai nosūtītu numuru no šejienes uz savu Android tālruni, abās ierīcēs pierakstieties pārlūkā Browther.</translation>
+<translation id="5456070119344236353">Lai nosūtītu numuru no šejienes uz savu Android tālruni, abās ierīcēs pierakstieties pārlūkā Browther.</translation>
 <translation id="2356070529366658676">Vaicāt</translation>
 <translation id="2359808026110333948">Turpināt</translation>
-<translation id="6485997157403727556">Paplašinājums “<ph name="EXTENSION_NAME"/>” pieprasa, lai jūs pierakstītos pārlūkā Browther</translation>
-<translation id="7017760840808989683">Atspējot Browther darbību fonā lietotnēm</translation>
-<translation id="8491912023989916905">Lai izmantotu šo paplašinājumu kontā <ph name="USER_EMAIL_ADDRESS"/>, pierakstieties pārlūkā Browther.</translation>
+<translation id="6468415397021485143">Paplašinājums “<ph name="EXTENSION_NAME"/>” pieprasa, lai jūs pierakstītos pārlūkā Browther</translation>
+<translation id="2558600429878197587">Atspējot Browther darbību fonā lietotnēm</translation>
+<translation id="5295781918312989856">Lai izmantotu šo paplašinājumu kontā <ph name="USER_EMAIL_ADDRESS"/>, pierakstieties pārlūkā Browther.</translation>
 <translation id="8418845734693287262">Browther OS nevarēja sinhronizēt jūsu datus, jo jūsu konta pierakstīšanās informācija ir novecojusi.</translation>
-<translation id="5617265241715541684">{NUM_DEVICES,plural, =0{Vismaz viens Browther paplašinājums piekļuva 1 HID ierīcei}=1{Vismaz viens Browther paplašinājums piekļūst 1 HID ierīcei}zero{Vismaz viens Browther paplašinājums piekļūst # HID ierīcēm}one{Vismaz viens Browther paplašinājums piekļūst # HID ierīcei}other{Vismaz viens Browther paplašinājums piekļūst # HID ierīcēm}}</translation>
-<translation id="1248225940185478633">Pārlūkam Browther ir nepieciešama atļauja izmantot kameru un mikrofonu šajā vietnē.</translation>
+<translation id="5288505984482120202">{NUM_DEVICES,plural, =0{Vismaz viens Browther paplašinājums piekļuva 1 HID ierīcei}=1{Vismaz viens Browther paplašinājums piekļūst 1 HID ierīcei}zero{Vismaz viens Browther paplašinājums piekļūst # HID ierīcēm}one{Vismaz viens Browther paplašinājums piekļūst # HID ierīcei}other{Vismaz viens Browther paplašinājums piekļūst # HID ierīcēm}}</translation>
+<translation id="434258293817844111">Pārlūkam Browther ir nepieciešama atļauja izmantot kameru un mikrofonu šajā vietnē.</translation>
 <translation id="2403703063067034158">Palaišanas kļūda: pašlaik ir aktīvs cits iestatīšanas process. Lūdzu, vēlāk mēģiniet vēlreiz.</translation>
-<translation id="5298352791080868905">Atveriet saites pārlūkā Browther no jebkuras lietotnes un saglabājiet pārlūku pieejamu uzdevumu joslā.</translation>
-<translation id="2118275934191847461">Izmantojot <ph name="BEGIN_LINK"/>Browther rīkus<ph name="END_LINK"/>, varat droši pārlūkot saturu un pārvaldīt jums pieejamās iespējas.</translation>
+<translation id="5458993228789433099">Atveriet saites pārlūkā Browther no jebkuras lietotnes un saglabājiet pārlūku pieejamu uzdevumu joslā.</translation>
+<translation id="1677640217693742525">Izmantojot <ph name="BEGIN_LINK"/>Browther rīkus<ph name="END_LINK"/>, varat droši pārlūkot saturu un pārvaldīt jums pieejamās iespējas.</translation>
 <translation id="2451727308784734061">Izmantojot saīsni, varat ātri piekļūt Browther paroļu pārvaldniekam. Varat pārvietot saīsni uz datora sākuma ekrānu vai lietotņu palaidēju.</translation>
-<translation id="6381750314821942592">Browther drīz tiks aizvērts</translation>
-<translation id="6078442581074612226">Pārlūkā Browther</translation>
+<translation id="2280315911954332435">Browther drīz tiks aizvērts</translation>
+<translation id="6410820860979094113">Pārlūkā Browther</translation>
 <translation id="2485422356828889247">Atinstalēt</translation>
 <translation id="2513154137948333830">Nepieciešama atkārtota palaišana: <ph name="INSTALL_SUCCESS"/></translation>
 <translation id="2542968102051442371">Atlasiet tekstu, ko meklēt, izmantojot funkciju Attēlu meklēšana</translation>
-<translation id="70183448213529602">Pārlūkā Browther tiek mēģināts aizstāt esošās paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
-<translation id="7798069806040634998">Pārlūkam Browther ir nepieciešama piekļuve krātuvei, lai varētu lejupielādēt failus.</translation>
-<translation id="2351700486811407088">Browther Origin palīgs</translation>
+<translation id="7892218991241200190">Pārlūkā Browther tiek mēģināts aizstāt esošās paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
+<translation id="8976443723926188033">Pārlūkam Browther ir nepieciešama piekļuve krātuvei, lai varētu lejupielādēt failus.</translation>
+<translation id="4131374838781785973">Browther Origin palīgs</translation>
 <translation id="2575822587468774919">Atlasiet jebko, lai to meklētu, izmantojot funkciju Attēlu meklēšana</translation>
-<translation id="3830890663494219270">Pierakstieties pārlūkā Browther, lai varētu piekļūt parolēm un citiem datiem visās savās ierīcēs.</translation>
-<translation id="6252796827759111076">Turpināt lietot Browther</translation>
+<translation id="8705561858232289221">Pierakstieties pārlūkā Browther, lai varētu piekļūt parolēm un citiem datiem visās savās ierīcēs.</translation>
+<translation id="437162022240011372">Turpināt lietot Browther</translation>
 <translation id="259935314519650377">Lejupielādēto instalēšanas programmu neizdevās saglabāt kešatmiņā. Kļūda: <ph name="UNPACK_CACHING_ERROR_CODE"/>.</translation>
 <translation id="2620436844016719705">Sistēma</translation>
-<translation id="7931230852267968641">Jūsu organizācija var skatīt un pārvaldīt pārlūkošanas datus, piemēram, grāmatzīmes, vēsturi un paroles. Tā nevar skatīt pārlūkošanas datus citos Browther profilos.</translation>
-<translation id="2257221826278123061">Lai izmantotu un saglabātu Browther datus savā kontā (<ph name="ACCOUNT_EMAIL"/>), apstipriniet savu identitāti.</translation>
-<translation id="7387051847644272380">Instalācijas laikā radās operētājsistēmas kļūda. Lejupielādējiet Browther vēlreiz.</translation>
-<translation id="2648689842065142443">Ja ierīci izmanto arī jūsu draugi un ģimenes locekļi, viņi var iestatīt pārlūku Browther atbilstoši savām vēlmēm un pārlūkot saturu atsevišķos profilos.</translation>
-<translation id="6791166902140255175">Browther cilne</translation>
-<translation id="8372880274820509128">Papildu drošības nolūkos Browther šifrēs jūsu datus.</translation>
-<translation id="8752006915531191162">Lai noņemtu savu Browther kontu no pārlūka Browther, izrakstieties.</translation>
-<translation id="5344406739101555055">Pierakstieties pārlūkā Browther, lai varētu piekļūt parolēm, grāmatzīmēm un citiem datiem visās savās ierīcēs.</translation>
+<translation id="2907676829052962091">Jūsu organizācija var skatīt un pārvaldīt pārlūkošanas datus, piemēram, grāmatzīmes, vēsturi un paroles. Tā nevar skatīt pārlūkošanas datus citos Browther profilos.</translation>
+<translation id="1289116577679005654">Lai izmantotu un saglabātu Browther datus savā kontā (<ph name="ACCOUNT_EMAIL"/>), apstipriniet savu identitāti.</translation>
+<translation id="7192278346779151664">Instalācijas laikā radās operētājsistēmas kļūda. Lejupielādējiet Browther vēlreiz.</translation>
+<translation id="7724398260867885339">Ja ierīci izmanto arī jūsu draugi un ģimenes locekļi, viņi var iestatīt pārlūku Browther atbilstoši savām vēlmēm un pārlūkot saturu atsevišķos profilos.</translation>
+<translation id="1679595317134614424">Browther cilne</translation>
+<translation id="7189168846924379421">Papildu drošības nolūkos Browther šifrēs jūsu datus.</translation>
+<translation id="4052643592793184278">Lai noņemtu savu Browther kontu no pārlūka Browther, izrakstieties.</translation>
+<translation id="7694616023994438906">Pierakstieties pārlūkā Browther, lai varētu piekļūt parolēm, grāmatzīmēm un citiem datiem visās savās ierīcēs.</translation>
 <translation id="2738871930057338499">Nevar izveidot savienojumu ar internetu. HTTP 403 — aizliegts. Lūdzu, pārbaudiet starpniekservera konfigurāciju.</translation>
 <translation id="2753623023919742414">Noklikšķiniet, lai meklētu</translation>
-<translation id="1312769823139326127">Iestatiet Browther kā noklusējuma PDF failu skatītāju.</translation>
-<translation id="3173824377856109157">Browther var automātiski aizpildīt sarežģītus laukus, kurus standarta automātiskās aizpildes funkcija var neatpazīt.</translation>
-<translation id="1187986649024576560">Šis paplašinājums satur ļaunprātīgu programmatūru un nav drošs. Noņemiet to no pārlūka Browther, lai tas jūsu apmeklētajās vietnēs vairs nevarētu skatīt un mainīt jūsu datus, tostarp jūsu personas informāciju.</translation>
+<translation id="9078193405195503710">Iestatiet Browther kā noklusējuma PDF failu skatītāju.</translation>
+<translation id="2456995288904753506">Browther var automātiski aizpildīt sarežģītus laukus, kurus standarta automātiskās aizpildes funkcija var neatpazīt.</translation>
+<translation id="3271730304285122987">Šis paplašinājums satur ļaunprātīgu programmatūru un nav drošs. Noņemiet to no pārlūka Browther, lai tas jūsu apmeklētajās vietnēs vairs nevarētu skatīt un mainīt jūsu datus, tostarp jūsu personas informāciju.</translation>
 <translation id="2799223571221894425">Restartēt</translation>
-<translation id="5962774139606909656">Jūsu Browther</translation>
+<translation id="1427337251963884503">Jūsu Browther</translation>
 <translation id="2816462166102338036">Meklēt šo videoklipu, izmantojot attēlu meklēšanas funkciju</translation>
 <translation id="2841525013647267359">Tulkot no šādas valodas:</translation>
 <translation id="2846251086934905009">Instalēšanas kļūda: instalēšanas programma nepabeidza darbu. Instalēšana ir priekšlaikus pārtraukta.</translation>
-<translation id="777113543093865885">Noņemšana no pārlūka Browther...</translation>
-<translation id="5265419033369521352">Tiek nodrošināta jūsu aizsardzība pārlūkprogrammā Browther. Šis režīms var tikt izmantots jūsu drošības uzlabošanai citās Browther lietotnēs, kad esat pierakstījies.</translation>
+<translation id="928966105228355994">Noņemšana no pārlūka Browther...</translation>
+<translation id="587805782197019018">Tiek nodrošināta jūsu aizsardzība pārlūkprogrammā Browther. Šis režīms var tikt izmantots jūsu drošības uzlabošanai citās Browther lietotnēs, kad esat pierakstījies.</translation>
 <translation id="2885378588091291677">Uzdevumu pārvaldnieks</translation>
-<translation id="2176825726964012531">Par &amp;Browther</translation>
+<translation id="3055995278166070443">Par &amp;Browther</translation>
 <translation id="2915996080311180594">Restartēt vēlāk</translation>
 <translation id="2928420929544864228">Instalēšana pabeigta.</translation>
-<translation id="2481553173340651149">Jūsu dati ir šifrēti, izmantojot ieejas frāzi. Ievadiet ieejas frāzi, lai izmantotu un saglabātu Browther datus savā Browther kontā.</translation>
+<translation id="70453521937551896">Jūsu dati ir šifrēti, izmantojot ieejas frāzi. Ievadiet ieejas frāzi, lai izmantotu un saglabātu Browther datus savā Browther kontā.</translation>
 <translation id="2945997411976714835">Instalēšanas kļūda: neizdevās palaist instalēšanas programmu.</translation>
-<translation id="2413255940314578781">Ātrāk pierakstieties vietnēs, izmantojot saglabātās paroles pārlūkam Browther operētājsistēmā iOS.</translation>
-<translation id="122765104641632123">Pievienojiet jaunu Browther profilu, lai atsevišķi saglabātu savas grāmatzīmes, paroles un iestatījumus.</translation>
-<translation id="3688936822855019158">Pārlūku Browther pārvalda jūsu organizācija</translation>
-<translation id="8208853227947884571">Browther ir atjaunināts</translation>
-<translation id="5122472867956731189">Ja kādā vietnē tiek mēģināts nozagt jūsu paroli vai ja jūs lejupielādējat kaitīgu failu, Browther var arī nosūtīt attiecīgos URL, tostarp lapas satura fragmentus, uz funkciju Droša pārlūkošana.</translation>
-<translation id="3963199983793987097">Lai tiktu lietoti jūsu vecāka izvēlētie iestatījumi un jūs tiešsaistē saņemtu labāku aizsardzību, pierakstieties pārlūkā Browther</translation>
+<translation id="3188308520233701133">Ātrāk pierakstieties vietnēs, izmantojot saglabātās paroles pārlūkam Browther operētājsistēmā iOS.</translation>
+<translation id="8145318807880784886">Pievienojiet jaunu Browther profilu, lai atsevišķi saglabātu savas grāmatzīmes, paroles un iestatījumus.</translation>
+<translation id="4330268530227888227">Pārlūku Browther pārvalda jūsu organizācija</translation>
+<translation id="6488090896442998436">Browther ir atjaunināts</translation>
+<translation id="300557164611864786">Ja kādā vietnē tiek mēģināts nozagt jūsu paroli vai ja jūs lejupielādējat kaitīgu failu, Browther var arī nosūtīt attiecīgos URL, tostarp lapas satura fragmentus, uz funkciju Droša pārlūkošana.</translation>
+<translation id="2447145782593796785">Lai tiktu lietoti jūsu vecāka izvēlētie iestatījumi un jūs tiešsaistē saņemtu labāku aizsardzību, pierakstieties pārlūkā Browther</translation>
 <translation id="3003694935412297923">Visi uzdevumi</translation>
-<translation id="7611046016537686219">{count,plural, =1{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati (1 vienums) tiks dzēsti.}zero{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati ({count} vienumu) tiks dzēsti.}one{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati ({count} vienums) tiks dzēsti.}other{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati ({count} vienumi) tiks dzēsti.}}</translation>
-<translation id="4202995875619419215">Atveriet vietrādi <ph name="URL"/> jaunā cilnē pārlūkā Browther.</translation>
-<translation id="8755404239607088219">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Vēlāk mēģiniet vēlreiz.</translation>
-<translation id="8880183781256147665">Notiek pievienošana pārlūkam Browther...</translation>
+<translation id="7554113777150891030">{count,plural, =1{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati (1 vienums) tiks dzēsti.}zero{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati ({count} vienumu) tiks dzēsti.}one{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati ({count} vienums) tiks dzēsti.}other{Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati ({count} vienumi) tiks dzēsti.}}</translation>
+<translation id="5522228731050510047">Atveriet vietrādi <ph name="URL"/> jaunā cilnē pārlūkā Browther.</translation>
+<translation id="6358780591055960280">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Vēlāk mēģiniet vēlreiz.</translation>
+<translation id="1386422761453740126">Notiek pievienošana pārlūkam Browther...</translation>
 <translation id="3038232873781883849">Gaida, lai instalētu...</translation>
 <translation id="3045032126857188731">Tulkojuma valoda: <ph name="LANGUAGE"/></translation>
 <translation id="3047590466164881923">Aizvērt atsauksmju dialoglodziņu</translation>
-<translation id="4503085212612536713">Citi Browther profili</translation>
-<translation id="7918740962659365265">Palīdzēt uzlabot Browther, nosūtot Browther serveriem avāriju pārskatus un <ph name="UMA_LINK"/></translation>
-<translation id="2332543193474246254">{NUM_DEVICES,plural, =0{Vismaz viens Browther paplašinājums piekļuva 1 USB ierīcei}=1{Vismaz viens Browther paplašinājums piekļūst 1 USB ierīcei}zero{Vismaz viens Browther paplašinājums piekļūst # USB ierīcēm}one{Vismaz viens Browther paplašinājums piekļūst # USB ierīcei}other{Vismaz viens Browther paplašinājums piekļūst # USB ierīcēm}}</translation>
-<translation id="3700405816184340252">Browther vēsture</translation>
-<translation id="7365690458036015383">Instalēšanas programmai neizdevās atarhivēt arhīvu. Lejupielādējiet Browther vēlreiz.</translation>
+<translation id="369127628511662602">Citi Browther profili</translation>
+<translation id="2370255879896574713">Palīdzēt uzlabot Browther, nosūtot Browther serveriem avāriju pārskatus un <ph name="UMA_LINK"/></translation>
+<translation id="3525563861100145512">{NUM_DEVICES,plural, =0{Vismaz viens Browther paplašinājums piekļuva 1 USB ierīcei}=1{Vismaz viens Browther paplašinājums piekļūst 1 USB ierīcei}zero{Vismaz viens Browther paplašinājums piekļūst # USB ierīcēm}one{Vismaz viens Browther paplašinājums piekļūst # USB ierīcei}other{Vismaz viens Browther paplašinājums piekļūst # USB ierīcēm}}</translation>
+<translation id="2065456480740480340">Browther vēsture</translation>
+<translation id="5011660649081947055">Instalēšanas programmai neizdevās atarhivēt arhīvu. Lejupielādējiet Browther vēlreiz.</translation>
 <translation id="310459126943037700">Neizdevās pabeigt uzdevumus.</translation>
 <translation id="3104828284009500087">Meklēt jebkādu informāciju lapā</translation>
-<translation id="6422885447166607802">Nevainojami sinhronizējiet savas paroles, grāmatzīmes un vēsturi visās ierīcēs. Ērti piekļūstiet zināmajām un iecienītajām funkcijām, atjauninot noklusējuma pārlūku uz Browther.</translation>
-<translation id="8919461291440820124">Pārlūkā Browther tiek izmantots jūsu mikrofons.</translation>
+<translation id="4917564010081457061">Nevainojami sinhronizējiet savas paroles, grāmatzīmes un vēsturi visās ierīcēs. Ērti piekļūstiet zināmajām un iecienītajām funkcijām, atjauninot noklusējuma pārlūku uz Browther.</translation>
+<translation id="1041472930719344928">Pārlūkā Browther tiek izmantots jūsu mikrofons.</translation>
 <translation id="3130333203120345554">Jauns meklējums</translation>
 <translation id="3137969841538672700">Velciet, lai meklētu</translation>
-<translation id="8372436892102763334">Šī cilne izmanto papildu resursus. Lai uzlabotu veiktspēju, ļaujiet pārlūkam Browther padarīt to neaktīvu.</translation>
-<translation id="5949068186379578553">Lai kopīgotu ekrānu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
-<translation id="4805806622840861220">Restartēt Browther</translation>
+<translation id="5312717254055363883">Šī cilne izmanto papildu resursus. Lai uzlabotu veiktspēju, ļaujiet pārlūkam Browther padarīt to neaktīvu.</translation>
+<translation id="373523409348786203">Lai kopīgotu ekrānu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
+<translation id="802113445299754598">Restartēt Browther</translation>
 <translation id="3161522574479303604">Visas valodas</translation>
-<translation id="3225882094369124157">Cita datorā instalēta programma pievienoja motīvu, kas var ietekmēt pārlūka Browther darbību.
+<translation id="4522189060330781648">Cita datorā instalēta programma pievienoja motīvu, kas var ietekmēt pārlūka Browther darbību.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="1742948938503172561">Pielāgojiet savu jauno Browther profilu.</translation>
-<translation id="4805865169608137960">Lai noņemtu savu Browther kontu no pārlūka Browther, lapā “Iestatījumi” izrakstieties no pārlūka Browther.</translation>
-<translation id="1651639704310627074">Vēlāk pārlūkā Browther var tikt vaicāts, vai vēlaties izmantot saglabāto informāciju veidlapu automātiskai aizpildei.</translation>
-<translation id="2585240446624043880">Browther nevar nolasīt savu datu direktoriju un ierakstīt tajā:
+<translation id="2604272613984010799">Pielāgojiet savu jauno Browther profilu.</translation>
+<translation id="5150830326120505481">Lai noņemtu savu Browther kontu no pārlūka Browther, lapā “Iestatījumi” izrakstieties no pārlūka Browther.</translation>
+<translation id="7113660200899017820">Vēlāk pārlūkā Browther var tikt vaicāts, vai vēlaties izmantot saglabāto informāciju veidlapu automātiskai aizpildei.</translation>
+<translation id="4475011322243623412">Browther nevar nolasīt savu datu direktoriju un ierakstīt tajā:
 
 <ph name="USER_DATA_DIRECTORY"/></translation>
 <translation id="3286538390144397061">Restartēt tūlīt</translation>
-<translation id="2339258256897053758">Trūkst Browther API atslēgu. Tiks atspējotas dažas Browther funkcijas.</translation>
-<translation id="8926637909431618259">Turpināt lietotņu izpildi fonā, kad Browther ir aizvērts</translation>
-<translation id="518125528057094977">Pārlūkā Browther tiks parādīts brīdinājums pirms jebkuras vietnes ielādes, izmantojot nedrošu savienojumu.</translation>
-<translation id="8652321858775514885">Aizverot visus Browther logus, automātiski izrakstīsieties no lielākās daļas vietņu, bet ne no Browther konta, ja esat pierakstījies pārlūkā Browther. Lai atļautu vietnēm jūs atcerēties, <ph name="SETTINGS_LINK"/>.</translation>
-<translation id="3795277300264350702">Jūsu noklusējuma meklētājprogramma tika mainīta ārpus pārlūka Browther. Lai jūs aizsargātu, tā tika atiestatīta pārlūkā Browther.</translation>
-<translation id="5033074923607633232">Pierakstieties pārlūkā Browther, lai iegūtu savas paroles, grāmatzīmes un citu saturu visās savās ierīcēs.</translation>
+<translation id="3536063527222598206">Trūkst Browther API atslēgu. Tiks atspējotas dažas Browther funkcijas.</translation>
+<translation id="1011450868746766298">Turpināt lietotņu izpildi fonā, kad Browther ir aizvērts</translation>
+<translation id="179611081153855734">Pārlūkā Browther tiks parādīts brīdinājums pirms jebkuras vietnes ielādes, izmantojot nedrošu savienojumu.</translation>
+<translation id="8965591964936552871">Aizverot visus Browther logus, automātiski izrakstīsieties no lielākās daļas vietņu, bet ne no Browther konta, ja esat pierakstījies pārlūkā Browther. Lai atļautu vietnēm jūs atcerēties, <ph name="SETTINGS_LINK"/>.</translation>
+<translation id="6626350400537358074">Jūsu noklusējuma meklētājprogramma tika mainīta ārpus pārlūka Browther. Lai jūs aizsargātu, tā tika atiestatīta pārlūkā Browther.</translation>
+<translation id="1170501833661894915">Pierakstieties pārlūkā Browther, lai iegūtu savas paroles, grāmatzīmes un citu saturu visās savās ierīcēs.</translation>
 <translation id="3352986031709923790">meklēšanas apgabala augšējais labais stūris: <ph name="RIGHT"/>% pa labi, <ph name="TOP"/>% augšdaļā</translation>
-<translation id="7261356974224431851">Browther dati jūsu kontā</translation>
+<translation id="120745000989996104">Browther dati jūsu kontā</translation>
 <translation id="3369405342922656244">Meklēt šajā lapā, izmantojot attēlu meklēšanas funkciju</translation>
-<translation id="6610330853796830621">Izmantojiet savas paroles pārlūkā Browther savā tālrunī</translation>
+<translation id="7173761126541905083">Izmantojiet savas paroles pārlūkā Browther savā tālrunī</translation>
 <translation id="2645435784669275700">Browther OS</translation>
-<translation id="2297290224191497273">Vai pāriet uz esošo Browther profilu?</translation>
+<translation id="5266583242423616945">Vai pāriet uz esošo Browther profilu?</translation>
 <translation id="3412460710772753638">Tā tiks atjaunināta Paroļu pārvaldniekā šajā ierīcē</translation>
-<translation id="2491221873705777076">Izmantojiet funkciju “Droša pārlūkošana ar papildu aizsardzību” pārlūkā Browther savā tālrunī</translation>
-<translation id="7304389940068374923">Notiek Browther pielāgošana…</translation>
-<translation id="9216183508558772570">Ja pierakstīsieties ar uzlauztu paroli, pārlūkprogrammā Browther tiks parādīts paziņojums</translation>
-<translation id="5853262807109651878">Veicot šo darbību, no šīs ierīces tiks dzēsts(-i) <ph name="ITEMS_COUNT"/> vienums(-i). Lai vēlāk izgūtu datus, pierakstieties pārlūkā Browther kā <ph name="USER_EMAIL"/>.</translation>
-<translation id="2024972335338126423">Lai pārslēgtos starp Browther profiliem, izmantojiet īsinājumtaustiņu <ph name="SHORTCUT"/>.</translation>
-<translation id="8703492925273919597">Aizveriet visus Browther logus un mēģiniet vēlreiz.</translation>
-<translation id="599091950194451698">Lai kopīgotu logu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
-<translation id="1447863765638888625">Jau ir pierakstījies lietotājs <ph name="EXISTING_USER"/>.  Lai atdalītu pārlūkošanu, pierakstieties pārlūkā Browther savā profilā, izmantojot e-pasta adresi <ph name="USER_EMAIL_ADDRESS"/>.</translation>
-<translation id="8981774130895723211">Lai kopīgotu ekrānu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
+<translation id="4282363917570905631">Izmantojiet funkciju “Droša pārlūkošana ar papildu aizsardzību” pārlūkā Browther savā tālrunī</translation>
+<translation id="986094398735583155">Notiek Browther pielāgošana…</translation>
+<translation id="3266047225484320321">Ja pierakstīsieties ar uzlauztu paroli, pārlūkprogrammā Browther tiks parādīts paziņojums</translation>
+<translation id="3508047337876211050">Veicot šo darbību, no šīs ierīces tiks dzēsts(-i) <ph name="ITEMS_COUNT"/> vienums(-i). Lai vēlāk izgūtu datus, pierakstieties pārlūkā Browther kā <ph name="USER_EMAIL"/>.</translation>
+<translation id="7772248897860792723">Lai pārslēgtos starp Browther profiliem, izmantojiet īsinājumtaustiņu <ph name="SHORTCUT"/>.</translation>
+<translation id="7225005776233199285">Aizveriet visus Browther logus un mēģiniet vēlreiz.</translation>
+<translation id="5465054931427475969">Lai kopīgotu logu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
+<translation id="6905469223518185641">Jau ir pierakstījies lietotājs <ph name="EXISTING_USER"/>.  Lai atdalītu pārlūkošanu, pierakstieties pārlūkā Browther savā profilā, izmantojot e-pasta adresi <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="8133590217245064579">Lai kopīgotu ekrānu, sistēmas iestatījumos atļaujiet ekrāna ierakstīšanu pārlūkā Browther.</translation>
 <translation id="3597003331831379823">Neizdevās izpildīt iestatīšanu ar augstām privilēģijām. <ph name="METAINSTALLER_ERROR"/></translation>
-<translation id="4167284810587724062">Pierakstīšanās pārlūkā Browther</translation>
-<translation id="3066805437003400520">Šī lietotāja pārlūkošanas dati tiks dzēsti no šīs ierīces. Lai atkoptu datus, pierakstieties pārlūkprogrammā Browther kā lietotājs <ph name="USER_EMAIL"/>.</translation>
-<translation id="7029305463989165490">Lai nosūtītu numuru no vietnes <ph name="ORIGIN"/> uz savu Android tālruni, abās ierīcēs pierakstieties pārlūkā Browther.</translation>
+<translation id="611080704131468868">Pierakstīšanās pārlūkā Browther</translation>
+<translation id="2492221622209669678">Šī lietotāja pārlūkošanas dati tiks dzēsti no šīs ierīces. Lai atkoptu datus, pierakstieties pārlūkprogrammā Browther kā lietotājs <ph name="USER_EMAIL"/>.</translation>
+<translation id="6793778233257855801">Lai nosūtītu numuru no vietnes <ph name="ORIGIN"/> uz savu Android tālruni, abās ierīcēs pierakstieties pārlūkā Browther.</translation>
 <translation id="3667616615096815454">Nevar instalēt. Lietojumprogramma serverim nav zināma.</translation>
-<translation id="1128485277465085828">Izmantot jūsu <ph name="BEGIN_LINK"/>ieejas frāzi<ph name="END_LINK"/> visu Browther datu šifrēšanai jūsu Browther kontā. Maksājumu veidi un adreses no pakalpojuma Browther Pay netiks šifrētas. Pārlūkā Browther saglabātā pārlūkošanas vēsture netiks sinhronizēta.</translation>
-<translation id="4304059894777924102">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Pārbaudiet interneta savienojumu.</translation>
-<translation id="1807774211756215222">Atvērt saiti jaunā Browther &amp;cilnē</translation>
-<translation id="387105482057676379">Saistiet pārlūku Browther un citus Browther pakalpojumus personalizēšanai un citiem mērķiem</translation>
+<translation id="5585500151754164442">Izmantot jūsu <ph name="BEGIN_LINK"/>ieejas frāzi<ph name="END_LINK"/> visu Browther datu šifrēšanai jūsu Browther kontā. Maksājumu veidi un adreses no pakalpojuma Browther Pay netiks šifrētas. Pārlūkā Browther saglabātā pārlūkošanas vēsture netiks sinhronizēta.</translation>
+<translation id="404323216042159951">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Pārbaudiet interneta savienojumu.</translation>
+<translation id="5004936474632127765">Atvērt saiti jaunā Browther &amp;cilnē</translation>
+<translation id="6236643159256182256">Saistiet pārlūku Browther un citus Browther pakalpojumus personalizēšanai un citiem mērķiem</translation>
 <translation id="3729187154190517324">Padziļiniet meklēšanu, izmantojot pogu “Pievienot cilni un citu kontekstu”, lai pievienotu vairākas cilnes, failus un rīkus.</translation>
-<translation id="3867175562099983425">Pārvaldīt Browther profilus</translation>
-<translation id="308146532933302843">Uzziniet, kāpēc Browther bloķē noteiktas lejupielādes</translation>
-<translation id="2189149060536531804">Ja kaut kas būs jāpārskata, saņemsiet Browther paziņojumu</translation>
-<translation id="8422094375343667686">Browther profili palīdz nodalīt dažādas jūsu dzīves jomas. Pievienojiet jaunu profilu tūlīt.</translation>
-<translation id="6324134303015966238">Pārlūkā Browther tiek iepriekš ielādētas lapas, ko jūs, iespējams, apmeklēsiet. Tādējādi var tās ielādēt ātrāk tad, kad tās tiešām apmeklējat.</translation>
+<translation id="1400697664933775238">Pārvaldīt Browther profilus</translation>
+<translation id="2461315395128103158">Uzziniet, kāpēc Browther bloķē noteiktas lejupielādes</translation>
+<translation id="8058420662026104226">Ja kaut kas būs jāpārskata, saņemsiet Browther paziņojumu</translation>
+<translation id="3177448557921912221">Browther profili palīdz nodalīt dažādas jūsu dzīves jomas. Pievienojiet jaunu profilu tūlīt.</translation>
+<translation id="1541177876035612043">Pārlūkā Browther tiek iepriekš ielādētas lapas, ko jūs, iespējams, apmeklēsiet. Tādējādi var tās ielādēt ātrāk tad, kad tās tiešām apmeklējat.</translation>
 <translation id="3810973564298564668">Pārvaldīt</translation>
-<translation id="4815742196440583661">Lai izmantotu savas saglabātās paroles, izmantojiet saiti kvadrātkodā, lejupielādējiet pārlūku Browther operētājsistēmai iOS un pierakstieties savā Browther kontā.</translation>
-<translation id="6093965249696204223">Browther padoms: funkcija “Droša pārlūkošana ar papildu aizsardzību”</translation>
+<translation id="1117103475254549453">Lai izmantotu savas saglabātās paroles, izmantojiet saiti kvadrātkodā, lejupielādējiet pārlūku Browther operētājsistēmai iOS un pierakstieties savā Browther kontā.</translation>
+<translation id="8880695882192156860">Browther padoms: funkcija “Droša pārlūkošana ar papildu aizsardzību”</translation>
 <translation id="3846683726093018685">**Apkopošana:** vienā teikumā, kas nepārsniedz 30 vārdus, aprakstiet ekrānuzņēmumā redzamā satura galveno tēmu un nolūku.
 
           **Jautājumu ieteikšana:** ģenerējiet sarakstu ar aizzīmēm ar 3–5 jautājumiem, kas liek aizdomāties un kurus lietotājs varētu uzdot, lai labāk izprastu ekrānuzņēmumu. Šajos jautājumos ir jābūt vismaz vienam jautājumam, kas ir saistīts ar vizuālu objektu, tā dizainu vai izvietojumu.</translation>
-<translation id="6899774208752247219"><ph name="PAGE_TITLE"/> — Browther Origin</translation>
+<translation id="6004388035596644950"><ph name="PAGE_TITLE"/> — Browther Origin</translation>
 <translation id="3885770153807205175">Valodas atlasītājs</translation>
-<translation id="6315734375101223238">Pielāgojiet un kontrolējiet pārlūkprogrammu Browther. Ir nepieciešama jūsu uzmanība. Noklikšķiniet, lai skatītu plašāku informāciju.</translation>
-<translation id="7130675370997202556">Noklikšķiniet uz sava vārda, lai atvērtu Browther un sāktu pārlūkošanu.</translation>
+<translation id="4861846616763552424">Pielāgojiet un kontrolējiet pārlūkprogrammu Browther. Ir nepieciešama jūsu uzmanība. Noklikšķiniet, lai skatītu plašāku informāciju.</translation>
+<translation id="6126366281251241386">Noklikšķiniet uz sava vārda, lai atvērtu Browther un sāktu pārlūkošanu.</translation>
 <translation id="3892148308691398805">Kopēt tekstu</translation>
-<translation id="4920958997042285125">Lietotājs <ph name="EXISTING_USER"/> jau ir pierakstījies šajā Browther profilā. Lai atdalītu pārlūkošanu, pārlūkā Browther varat sev izveidot atsevišķu profilu.</translation>
-<translation id="8744239658215739511">P&amp;ielāgot pārlūku Browther</translation>
+<translation id="3760801273210219822">Lietotājs <ph name="EXISTING_USER"/> jau ir pierakstījies šajā Browther profilā. Lai atdalītu pārlūkošanu, pārlūkā Browther varat sev izveidot atsevišķu profilu.</translation>
+<translation id="3821553157234855663">P&amp;ielāgot pārlūku Browther</translation>
 <translation id="3941890832296813527">Instalēšanas kļūda: instalēšanas programmas faila nosaukums nav derīgs vai netiek atbalstīts.</translation>
-<translation id="8090497651549769448">Browther mēģina nokopēt paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
-<translation id="4256965182800026277">Jūsu Browther kontā saglabātās paroles, maksājuma veidi un adreses tiks noņemtas no šīs ierīces. Lai atkal izmantotu šos datus pārlūkā Browther, atkārtoti pierakstieties.</translation>
+<translation id="6482299900191767005">Browther mēģina nokopēt paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
+<translation id="5853011008278898603">Jūsu Browther kontā saglabātās paroles, maksājuma veidi un adreses tiks noņemtas no šīs ierīces. Lai atkal izmantotu šos datus pārlūkā Browther, atkārtoti pierakstieties.</translation>
 <translation id="395904275706073188">Aizsargātas lapas nevar lasīt. Izmēģiniet citu lapu.</translation>
-<translation id="4194619960643453552">Uzziniet, kā Browther rūpējas par jūsu drošību</translation>
-<translation id="1486377520191913768">Kad rakstāt adreses joslā vai meklēšanas lodziņā, pārlūks Browther nosūta rakstīto tekstu jūsu organizācijas meklēšanas, MI un starpnieku rīkiem, lai iegūtu ieteikumus.</translation>
-<translation id="1311808042904310985">Par Browther for Testing</translation>
+<translation id="1832973663231751701">Uzziniet, kā Browther rūpējas par jūsu drošību</translation>
+<translation id="4531502594774670767">Kad rakstāt adreses joslā vai meklēšanas lodziņā, pārlūks Browther nosūta rakstīto tekstu jūsu organizācijas meklēšanas, MI un starpnieku rīkiem, lai iegūtu ieteikumus.</translation>
+<translation id="300013383485253006">Par Browther for Testing</translation>
 <translation id="1152920704813762236">Par Browther OS</translation>
-<translation id="8282895427217902177">Kad apmeklējat kādu vietni, pārlūks Browther nosūta funkcijai <ph name="BEGIN_LINK"/>Browther droša pārlūkošana<ph name="END_LINK"/> pieslēptu URL daļu, izmantojot konfidencialitātes serveri, kas slēpj jūsu IP adresi. Ja vietnē tiek veiktas aizdomīgas darbības, tiek nosūtīti arī pilni URL un lapas satura fragmenti.</translation>
+<translation id="8126752030994997015">Kad apmeklējat kādu vietni, pārlūks Browther nosūta funkcijai <ph name="BEGIN_LINK"/>Browther droša pārlūkošana<ph name="END_LINK"/> pieslēptu URL daļu, izmantojot konfidencialitātes serveri, kas slēpj jūsu IP adresi. Ja vietnē tiek veiktas aizdomīgas darbības, tiek nosūtīti arī pilni URL un lapas satura fragmenti.</translation>
 <translation id="3703994572283698466">Browther OS, kā arī <ph name="BEGIN_LINK_LINUX_OSS"/>Linux izstrādes vides<ph name="END_LINK_LINUX_OSS"/> darbību nodrošina papildu <ph name="BEGIN_LINK_CROS_OSS"/>atklātā pirmkoda programmatūra<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="4022972681110646219">Tulkot ekrāna tekstu</translation>
 <translation id="4023601594785368013">Oriģinālvaloda: <ph name="LANGUAGE"/></translation>
-<translation id="5540160525564738506">Atveriet saites pārlūkā Browther no jebkuras lietotnes. Turklāt pārlūks tiks piesprausts uzdevumjoslā, lai nodrošinātu ērtāku piekļuvi.</translation>
-<translation id="6056473803837713617">Palīdziet uzlabot pārlūku Browther, ziņojot par <ph name="BEGIN_LINK"/>pašreizējiem iestatījumiem<ph name="END_LINK"/>.</translation>
+<translation id="6450460108719059465">Atveriet saites pārlūkā Browther no jebkuras lietotnes. Turklāt pārlūks tiks piesprausts uzdevumjoslā, lai nodrošinātu ērtāku piekļuvi.</translation>
+<translation id="3437506136408403836">Palīdziet uzlabot pārlūku Browther, ziņojot par <ph name="BEGIN_LINK"/>pašreizējiem iestatījumiem<ph name="END_LINK"/>.</translation>
 <translation id="4050175100176540509">Jaunākajā versijā ir pieejami svarīgi drošības uzlabojumi un jaunas funkcijas.</translation>
 <translation id="4055805654398742145">P&amp;aroļu pārvaldnieks</translation>
-<translation id="6654312501894761082">Cita datorā instalēta programma pievienoja paplašinājumu, kas var ietekmēt pārlūka Browther darbību.
+<translation id="2164947358785939495">Cita datorā instalēta programma pievienoja paplašinājumu, kas var ietekmēt pārlūka Browther darbību.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="6217792792122501564">{COUNT,plural, =1{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots vienu minūti. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}zero{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}one{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūti. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}other{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}}</translation>
-<translation id="5794951150713244901">Pāriet uz lapu “Par Browther”</translation>
-<translation id="10925962326134232">Pielāgojiet pārlūku Browther, lai piešķirtu tam jaunu izskatu.</translation>
-<translation id="6596295505984504022">P&amp;ielāgot pārlūku Browther</translation>
+<translation id="3398985784952805125">{COUNT,plural, =1{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots vienu minūti. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}zero{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}one{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūti. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}other{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes. Pārlūkošanas dati tiek izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.}}</translation>
+<translation id="1535413545339990419">Pāriet uz lapu “Par Browther”</translation>
+<translation id="692283249649018289">Pielāgojiet pārlūku Browther, lai piešķirtu tam jaunu izskatu.</translation>
+<translation id="6375229634133804834">P&amp;ielāgot pārlūku Browther</translation>
 <translation id="4148957013307229264">Notiek instalēšana...</translation>
-<translation id="4658486203392098459"><ph name="PAGE_TITLE"/> — pierakstīšanās tīklā — Browther</translation>
-<translation id="2871190378186459992">Atklājiet lieliskas lietotnes, spēles, paplašinājumus un motīvus, ko varat izmantot pārlūkā Browther.</translation>
-<translation id="462105622535258178">Lai piekļūtu šim paplašinājumam un citiem datiem visos savos datoros, pierakstieties pārlūkā Browther.</translation>
-<translation id="6670140629169983459">Lai tiktu lietoti jūsu vecāka izvēlētie iestatījumi un jūs tiešsaistē saņemtu labāku aizsardzību, pārslēdzieties uz Browther profilu, kurā jau pierakstījāties ar kontu <ph name="USER_EMAIL_ADDRESS"/>.</translation>
+<translation id="2399933334889379115"><ph name="PAGE_TITLE"/> — pierakstīšanās tīklā — Browther</translation>
+<translation id="2911246138082876798">Atklājiet lieliskas lietotnes, spēles, paplašinājumus un motīvus, ko varat izmantot pārlūkā Browther.</translation>
+<translation id="2528977475313334293">Lai piekļūtu šim paplašinājumam un citiem datiem visos savos datoros, pierakstieties pārlūkā Browther.</translation>
+<translation id="8244267655940711467">Lai tiktu lietoti jūsu vecāka izvēlētie iestatījumi un jūs tiešsaistē saņemtu labāku aizsardzību, pārslēdzieties uz Browther profilu, kurā jau pierakstījāties ar kontu <ph name="USER_EMAIL_ADDRESS"/>.</translation>
 <translation id="4222932583846282852">Notiek atcelšana...</translation>
 <translation id="4224210481850767180">Instalēšana ir atcelta.</translation>
-<translation id="1853997773668795891">Vai saistīt Browther datus ar šo kontu?</translation>
-<translation id="4732930052828648898">Tiek rādīts brīdinājums par bīstamām vietnēm (pat ja Browther par tām iepriekš nezināja), analizējot vairāk datu no vietnēm, nekā analizē standarta aizsardzība. Varat izlaist Browther brīdinājumus.</translation>
-<translation id="2201661640076600072">Izrakstīties no pārlūka Browther</translation>
-<translation id="3262506503470845422">Saņemt palīdzību par Browther</translation>
+<translation id="8219359042845534271">Vai saistīt Browther datus ar šo kontu?</translation>
+<translation id="5520777668172961882">Tiek rādīts brīdinājums par bīstamām vietnēm (pat ja Browther par tām iepriekš nezināja), analizējot vairāk datu no vietnēm, nekā analizē standarta aizsardzība. Varat izlaist Browther brīdinājumus.</translation>
+<translation id="2014920019837536689">Izrakstīties no pārlūka Browther</translation>
+<translation id="4341512411059715879">Saņemt palīdzību par Browther</translation>
 <translation id="4281844954008187215">Browther pakalpojumu noteikumi</translation>
-<translation id="7691786510374174420">Instalācija neizdevās nenoteiktas kļūdas dēļ. Ja Browther šobrīd darbojas, aizveriet to un mēģiniet vēlreiz.</translation>
-<translation id="6368144843345980623">Paroļu eksportēšana no pārlūka Browther</translation>
+<translation id="322492684764924424">Instalācija neizdevās nenoteiktas kļūdas dēļ. Ja Browther šobrīd darbojas, aizveriet to un mēģiniet vēlreiz.</translation>
+<translation id="3813060261346666066">Paroļu eksportēšana no pārlūka Browther</translation>
 <translation id="4304713468139749426">Paroļu pārvaldnieks</translation>
 <translation id="4334241893986177674">Meklēt šajā ekrānuzņēmumā</translation>
 <translation id="4334294535648607276">Lejupielāde pabeigta.</translation>
-<translation id="242356249838681145">Palaist pārlūku Browther, kad tiek palaista operētājsistēma Windows</translation>
-<translation id="4747339441562331861">Iegūstiet ērtu piekļuvi zināmajām, iecienītajām un uzticamajām funkcijām, iestatot Browther kā noklusējuma pārlūku. Lai nodrošinātu ātru piekļuvi, pārlūks Browther tiks piesprausts uzdevumu joslai.</translation>
+<translation id="2177954934431828302">Palaist pārlūku Browther, kad tiek palaista operētājsistēma Windows</translation>
+<translation id="2472318668926455009">Iegūstiet ērtu piekļuvi zināmajām, iecienītajām un uzticamajām funkcijām, iestatot Browther kā noklusējuma pārlūku. Lai nodrošinātu ātru piekļuvi, pārlūks Browther tiks piesprausts uzdevumu joslai.</translation>
 <translation id="1068681683510904753"><ph name="MANAGER"/> pieprasa, lai pirms šīs ierīces lietošanas jūs izlasītu tālāk sniegtos pakalpojumu sniegšanas noteikumus un piekristu tiem. Šie noteikumi nepaplašina, nepārveido un neierobežo operētājsistēmas Browther OS noteikumus.</translation>
-<translation id="9183662282810237335">Vai tik un tā aizvērt pārlūku Browther?</translation>
+<translation id="2897580280700805340">Vai tik un tā aizvērt pārlūku Browther?</translation>
 <translation id="4413205837991854510">Vienmēr rādīt funkcijas Attēlu meklēšana saīsni</translation>
-<translation id="4065288863231444640">Ļaut pārlūkam Browther darboties fonā</translation>
-<translation id="1749140836512789834">{NUM_EXTENSIONS,plural, =1{Browther iesaka to noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}zero{Browther iesaka tos noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}one{Browther iesaka tos noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}other{Browther iesaka tos noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}}</translation>
-<translation id="8148611988012584308">Pielāgot un kontrolēt Browther</translation>
+<translation id="2454897022983434851">Ļaut pārlūkam Browther darboties fonā</translation>
+<translation id="6192767293556958458">{NUM_EXTENSIONS,plural, =1{Browther iesaka to noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}zero{Browther iesaka tos noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}one{Browther iesaka tos noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}other{Browther iesaka tos noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.}}</translation>
+<translation id="4276381981942009836">Pielāgot un kontrolēt Browther</translation>
 <translation id="4427306783828095590">Uzlabotā aizsardzība labāk bloķē pikšķerēšanas mēģinājumus un ļaunprātīgu programmatūru</translation>
 <translation id="4434353761996769206">Instalēšanas kļūda: <ph name="INSTALLER_ERROR"/></translation>
-<translation id="175926951572479413">Pārlūku Browther pārvalda organizācija “<ph name="MANAGER"/>”</translation>
-<translation id="3579012341787637143">Pievienot Browther profilu</translation>
-<translation id="6786534271003695094">Par Browther for Testing</translation>
-<translation id="526235294307144732">Lai izmantotu un saglabātu Browther datus savā Browther kontā, ievadiet ieejas frāzi.</translation>
+<translation id="4870160002723711846">Pārlūku Browther pārvalda organizācija “<ph name="MANAGER"/>”</translation>
+<translation id="4007482010626246887">Pievienot Browther profilu</translation>
+<translation id="6888322430074420631">Par Browther for Testing</translation>
+<translation id="8912436499620582668">Lai izmantotu un saglabātu Browther datus savā Browther kontā, ievadiet ieejas frāzi.</translation>
 <translation id="4493028449971051158">Palaišanas kļūda: lūdzu, palaidiet instalēšanas programmu kā administrators.</translation>
 <translation id="4501471624619070934">Instalēšana neizdevās, jo šajā valstī piekļuve ir ierobežota.</translation>
-<translation id="8594994021633965927">Nav norādīta konfidencialitātes prakse šim paplašinājumam, piemēram, kā tas vāc un izmanto datus. Browther iesaka to noņemt.</translation>
-<translation id="770557926599450702">Laipni lūdzam pārlūkā Browther Origin (tika atvērts jauns pārlūka logs)!</translation>
-<translation id="137732229629632648">Pārlūkam Browther ir nepieciešama atļauja jūsu apkārtnes kartēšanai un roku kustību izsekošanai</translation>
-<translation id="5036046007335188949">Ar kontu <ph name="USER_EMAIL_ADDRESS"/> jau esat pierakstījies citā Browther profilā</translation>
-<translation id="1878185978731985193">Pārlūkā Browther tiek iepriekš ielādētas lapas, tādējādi paātrinot pārlūkošanu un meklēšanu. Varat <ph name="BEGIN_LINK"/>uzzināt vairāk par lapu iepriekšēju ielādi<ph name="END_LINK"/>.</translation>
+<translation id="8976207309012239417">Nav norādīta konfidencialitātes prakse šim paplašinājumam, piemēram, kā tas vāc un izmanto datus. Browther iesaka to noņemt.</translation>
+<translation id="8888202093812883067">Laipni lūdzam pārlūkā Browther Origin (tika atvērts jauns pārlūka logs)!</translation>
+<translation id="6391148383688605718">Pārlūkam Browther ir nepieciešama atļauja jūsu apkārtnes kartēšanai un roku kustību izsekošanai</translation>
+<translation id="7756445485815468244">Ar kontu <ph name="USER_EMAIL_ADDRESS"/> jau esat pierakstījies citā Browther profilā</translation>
+<translation id="137435413163730206">Pārlūkā Browther tiek iepriekš ielādētas lapas, tādējādi paātrinot pārlūkošanu un meklēšanu. Varat <ph name="BEGIN_LINK"/>uzzināt vairāk par lapu iepriekšēju ielādi<ph name="END_LINK"/>.</translation>
 <translation id="4549180975214802957">Uzlabojiet tiešsaistes drošību visiem lietotājiem, ziņojot par vietni, kas, jūsuprāt, ir kaitīga.</translation>
-<translation id="8669339108356170796">Pārlūkā Browther šī lejupielāde tika bloķēta, jo jūs izslēdzāt drošu pārlūkošanu un failu nevar verificēt.</translation>
-<translation id="7583343841997441047">Izmēģiniet Browther Lens pārlūkā Browther savā tālrunī</translation>
+<translation id="3266647901351304597">Pārlūkā Browther šī lejupielāde tika bloķēta, jo jūs izslēdzāt drošu pārlūkošanu un failu nevar verificēt.</translation>
+<translation id="6980208900390333646">Izmēģiniet Browther Lens pārlūkā Browther savā tālrunī</translation>
 <translation id="4594305310729380060">Tā tiks saglabāta Paroļu pārvaldniekā šajā ierīcē</translation>
-<translation id="7776200949522126045">Browther Origin lietotnes</translation>
+<translation id="5282047884678321451">Browther Origin lietotnes</translation>
 <translation id="4598116752460667024">Sarakstā meklējiet jebkuru procesu.</translation>
 <translation id="4970880042055371251">Browther OS versija</translation>
-<translation id="2182657378556811785">Atjaunināšana ir gandrīz pabeigta. Lai pabeigtu atjaunināšanu, atkārtoti palaidiet pārlūku Browther.</translation>
-<translation id="6311668361877328515">Paātrina vietņu darbību, izmantojot Browther programmu V8, taču nedaudz samazina Browther izturību pret uzbrukumiem.</translation>
-<translation id="7402642357351265733">Ja kopīgojat arī Browther lietojuma pārskatus, šajos pārskatos tiek iekļauti jūsu apmeklētie vietrāži URL.</translation>
-<translation id="8142245354207161805">Šķiet, ka profils tiek izmantots citā Browther procesā (<ph name="PROCESS_ID"/>) citā datorā (<ph name="HOST_NAME"/>). Lai profils netiktu bojāts, pārlūkā Browther tas ir bloķēts. Ja esat pārliecināts, ka šis profils netiek izmantots citos procesos, varat to atbloķēt un restartēt pārlūku Browther.</translation>
+<translation id="4482468019601425607">Atjaunināšana ir gandrīz pabeigta. Lai pabeigtu atjaunināšanu, atkārtoti palaidiet pārlūku Browther.</translation>
+<translation id="5517890123509214766">Paātrina vietņu darbību, izmantojot Browther programmu V8, taču nedaudz samazina Browther izturību pret uzbrukumiem.</translation>
+<translation id="7690070364551268156">Ja kopīgojat arī Browther lietojuma pārskatus, šajos pārskatos tiek iekļauti jūsu apmeklētie vietrāži URL.</translation>
+<translation id="5020487088453637212">Šķiet, ka profils tiek izmantots citā Browther procesā (<ph name="PROCESS_ID"/>) citā datorā (<ph name="HOST_NAME"/>). Lai profils netiktu bojāts, pārlūkā Browther tas ir bloķēts. Ja esat pārliecināts, ka šis profils netiek izmantots citos procesos, varat to atbloķēt un restartēt pārlūku Browther.</translation>
 <translation id="4680828127924988555">Atcelt instalēšanu</translation>
-<translation id="2014343159590733363">Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati tiks dzēsti.</translation>
-<translation id="2408746614080689238">Kamēr esat pierakstījies, pārlūkā Browther varat izmantot savas paroles un citu saturu no Browther konta. <ph name="SHORTCUT"/> var mainīt jūsu Browther pakalpojumu iestatījumus.</translation>
-<translation id="847561904663814268">Kāds iepriekš pierakstījās pārlūkā Browther šajā datorā, izmantojot e-pasta adresi <ph name="ACCOUNT_EMAIL_LAST"/>. Lūdzu, izveidojiet jaunu Browther lietotāju, lai nošķirtu savu informāciju.</translation>
+<translation id="8134827615154347946">Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati tiks dzēsti.</translation>
+<translation id="3508712423420506333">Kamēr esat pierakstījies, pārlūkā Browther varat izmantot savas paroles un citu saturu no Browther konta. <ph name="SHORTCUT"/> var mainīt jūsu Browther pakalpojumu iestatījumus.</translation>
+<translation id="2388739442635757494">Kāds iepriekš pierakstījās pārlūkā Browther šajā datorā, izmantojot e-pasta adresi <ph name="ACCOUNT_EMAIL_LAST"/>. Lūdzu, izveidojiet jaunu Browther lietotāju, lai nošķirtu savu informāciju.</translation>
 <translation id="4724676981607797757">Instalēšana neizdevās, jo radās neatbalstīta protokola kļūda.</translation>
-<translation id="3834935463915107022">Vai tik un tā aizvērt pārlūku Browther?</translation>
-<translation id="8668413672647811944">Tikko tika piemērots īpašs Browther drošības atjauninājums. Restartējiet tūlīt, un mēs atjaunosim jūsu cilnes.</translation>
-<translation id="9029438584415578308">Jautāt Browther</translation>
-<translation id="4941816441131888792">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemtas šādas atļaujas: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> un vēl <ph name="COUNT"/>.</translation>
-<translation id="4823369970559443694">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Mēģiniet vēlreiz pēc 24 stundām vai <ph name="BEGIN_LINK"/>pārbaudiet paroles savā Browther kontā<ph name="END_LINK"/>.</translation>
-<translation id="215320507915280336">Šeit tiek izmantota tāds pats pareizrakstības pārbaudītājs, kāds tiek izmantots Browther meklēšanā. Pārlūkprogrammā ievadītais teksts tiek nosūtīts Browther serveriem. Jebkurā brīdī varat mainīt šo darbību iestatījumos.</translation>
-<translation id="2899369907387169108">Izmantot Browther, nepierakstoties kontā</translation>
-<translation id="1833893255023048385">Ienākošo savienojumu kārtula pārlūkam Browther Origin, lai atļautu mDNS datplūsmu.</translation>
-<translation id="711601904575862069">Atkārtoti palaist, lai atjauninātu &amp;Browther</translation>
+<translation id="8305313684264112434">Vai tik un tā aizvērt pārlūku Browther?</translation>
+<translation id="418155915144835101">Tikko tika piemērots īpašs Browther drošības atjauninājums. Restartējiet tūlīt, un mēs atjaunosim jūsu cilnes.</translation>
+<translation id="2683970367518529374">Jautāt Browther</translation>
+<translation id="5064473048847774331">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemtas šādas atļaujas: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/> un vēl <ph name="COUNT"/>.</translation>
+<translation id="5941343075741207533">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Mēģiniet vēlreiz pēc 24 stundām vai <ph name="BEGIN_LINK"/>pārbaudiet paroles savā Browther kontā<ph name="END_LINK"/>.</translation>
+<translation id="3854190830798038395">Šeit tiek izmantota tāds pats pareizrakstības pārbaudītājs, kāds tiek izmantots Browther meklēšanā. Pārlūkprogrammā ievadītais teksts tiek nosūtīts Browther serveriem. Jebkurā brīdī varat mainīt šo darbību iestatījumos.</translation>
+<translation id="4581078588976787792">Izmantot Browther, nepierakstoties kontā</translation>
+<translation id="3394520491703535051">Ienākošo savienojumu kārtula pārlūkam Browther Origin, lai atļautu mDNS datplūsmu.</translation>
+<translation id="6563126962881169552">Atkārtoti palaist, lai atjauninātu &amp;Browther</translation>
 <translation id="4918086044614829423">Pieņemt</translation>
 <translation id="4918844574251943176">Attēls ir nokopēts</translation>
-<translation id="8797356639448065696">Browther darbojas fona režīmā.</translation>
-<translation id="1895567721497166950">Noklikšķiniet, lai aizvērtu Browther pierakstīšanās dialoglodziņu</translation>
-<translation id="2692971232706994729">Izmantojot Browther profilus, varat nodalīt visu savu Browther saturu. Izveidojiet profilus draugiem un ģimenes locekļiem vai nodaliet darba un izklaides saturu.</translation>
-<translation id="7406627712452599344">Viesi var izmantot Browther, neatstājot nekādas pēdas.</translation>
-<translation id="844471735881341044">Jūsu konts pārlūkā Browther</translation>
-<translation id="5952898964075639679">Pievienot savu kontu pārlūkā Browther</translation>
-<translation id="7995865526174204486">Gemini pārlūkā Browther izmanto automātisko pārlūkošanu, lai darbotos jūsu cilnēs un veiktu jūsu dotos uzdevumus. <ph name="LINK_BEGIN"/>Uzziniet vairāk<ph name="LINK_END"/>.</translation>
-<translation id="1204184037023366446">Pārlūkam Browther ir nepieciešama atļauja izsekot jūsu roku kustības.</translation>
-<translation id="5406591571925937375">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemtas šādas atļaujas: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
+<translation id="5240982928057703861">Browther darbojas fona režīmā.</translation>
+<translation id="3603134280602182991">Noklikšķiniet, lai aizvērtu Browther pierakstīšanās dialoglodziņu</translation>
+<translation id="6120233890602288442">Izmantojot Browther profilus, varat nodalīt visu savu Browther saturu. Izveidojiet profilus draugiem un ģimenes locekļiem vai nodaliet darba un izklaides saturu.</translation>
+<translation id="5722688387568011881">Viesi var izmantot Browther, neatstājot nekādas pēdas.</translation>
+<translation id="7786958592460743302">Jūsu konts pārlūkā Browther</translation>
+<translation id="9114640791491590337">Pievienot savu kontu pārlūkā Browther</translation>
+<translation id="3536391594566515053">Gemini pārlūkā Browther izmanto automātisko pārlūkošanu, lai darbotos jūsu cilnēs un veiktu jūsu dotos uzdevumus. <ph name="LINK_BEGIN"/>Uzziniet vairāk<ph name="LINK_END"/>.</translation>
+<translation id="5620073061430082932">Pārlūkam Browther ir nepieciešama atļauja izsekot jūsu roku kustības.</translation>
+<translation id="1627123463102858476">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemtas šādas atļaujas: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>, <ph name="PERMISSION_3"/>.</translation>
 <translation id="5174969993834422967">Parasti jūs bloķējat paziņojumus. Lai ļautu šai vietnei sūtīt jums paziņojumus, noklikšķiniet uz paziņojumu ikonas atrašanās vietas joslas labajā stūrī.</translation>
 <translation id="5174983315706567306">Diskā nepietiek brīvas vietas.</translation>
-<translation id="8157129267754368853">Browther kontam nepieciešama atkārtota autentifikācija</translation>
-<translation id="9078804073692109646">Nav saglabātu paroļu. Pārlūkprogrammā Browther var pārbaudīt jūsu paroles, ja jūs tās saglabājat.</translation>
-<translation id="6234515504547364178">Izrakstīšanās no Browther</translation>
+<translation id="7091313576354542088">Browther kontam nepieciešama atkārtota autentifikācija</translation>
+<translation id="9045390598305758496">Nav saglabātu paroļu. Pārlūkprogrammā Browther var pārbaudīt jūsu paroles, ja jūs tās saglabājat.</translation>
+<translation id="5686724084351858452">Izrakstīšanās no Browther</translation>
 <translation id="5234764350956374838">Nerādīt</translation>
 <translation id="5254739261293693943">Uzdot jautājumus par šo videoklipu</translation>
-<translation id="8586264863973514035">Lai ieviestu veiktās izmaiņas, atkārtoti palaidiet pārlūku Browther.</translation>
+<translation id="8165028066129227692">Lai ieviestu veiktās izmaiņas, atkārtoti palaidiet pārlūku Browther.</translation>
 <translation id="5286907366254680517">Noteiktā valoda</translation>
-<translation id="7264453786974905915">Iegūt lietotni Browther</translation>
-<translation id="6944930779012811739">Browther atjauninātājs: iekšējais pakalpojums</translation>
+<translation id="198210130507193824">Iegūt lietotni Browther</translation>
+<translation id="8472078903122489041">Browther atjauninātājs: iekšējais pakalpojums</translation>
 <translation id="5346389065299425353">Padziļiniet meklēšanu, pievienojot vairākas cilnes, failus un rīkus.</translation>
-<translation id="7573068992266397941">Pārlūkā Browther tika atrasti daži drošības ieteikumi par jūsu atsauksmi</translation>
-<translation id="8174413867995118050">Citi Browther profili</translation>
-<translation id="7708394612738038097">Jūs pierakstāties ar pārvaldītu kontu, kura administrators var kontrolēt jūsu profilu. Jūsu Browther dati, piemēram, lietotnes, grāmatzīmes, vēsture, paroles un citi iestatījumi, tiks neatgriezeniski saistīti ar lietotāju <ph name="USER_NAME"/>. Varēsiet dzēst šos datus, izmantojot Browther kontu informācijas paneli, taču nevarēsiet šos datus saistīt ar citu kontu. <ph name="LEARN_MORE"/></translation>
+<translation id="3904682305383981098">Pārlūkā Browther tika atrasti daži drošības ieteikumi par jūsu atsauksmi</translation>
+<translation id="509616246140011182">Citi Browther profili</translation>
+<translation id="8214429210535362385">Jūs pierakstāties ar pārvaldītu kontu, kura administrators var kontrolēt jūsu profilu. Jūsu Browther dati, piemēram, lietotnes, grāmatzīmes, vēsture, paroles un citi iestatījumi, tiks neatgriezeniski saistīti ar lietotāju <ph name="USER_NAME"/>. Varēsiet dzēst šos datus, izmantojot Browther kontu informācijas paneli, taču nevarēsiet šos datus saistīt ar citu kontu. <ph name="LEARN_MORE"/></translation>
 <translation id="5368118228313795342">Papildu kods: <ph name="EXTRA_CODE"/>.</translation>
-<translation id="2487133103111559902">Lai izmantotu personalizēšanu, iekļaujiet pārlūku Browther iestatījumā “Darbības tīmeklī un lietotnēs”</translation>
-<translation id="5154625106151193600">Uzzināt, kāpēc pārlūkā Browther daži faili tiek bloķēti</translation>
-<translation id="1786715389543715322">Notiek Browther atjaunināšana (<ph name="PROGRESS_PERCENT"/>)</translation>
-<translation id="7021823858304886493">Atļaut pierakstīties pārlūkā Browther</translation>
-<translation id="5267531627648004734">Noņemt no pārlūka Browther</translation>
-<translation id="4620757336635063467">Samazina veiktspēju, taču uzlabo Browther izturību pret uzbrukumiem.</translation>
-<translation id="239760341987199724">Iestatīt Browther kā noklusējuma pārlūku</translation>
-<translation id="5165277482382778404"><ph name="PAGE_TITLE"/> — Browther Origin beta versija</translation>
-<translation id="604223321106006231">{NUM_TABS,plural, =1{Browther iesaka pārtraukt tās cilnes darbību, kas palēnina pārlūka darbību}zero{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}one{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}other{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}}</translation>
-<translation id="894936507076470937">Iespējams, pārlūks Browther nedarbosies pareizi, jo tas vairs netiek atbalstīts šajā Linux izdevumā.</translation>
-<translation id="2596557398669145729">Pārlūkā Browther šī lejupielāde tika bloķēta, jo šis fails var kaitēt jūsu personīgajiem un sociālo tīklu kontiem</translation>
-<translation id="696826782632239602">Pārlūkam Browther ir nepieciešama piekļuve jūsu atrašanās vietas datiem, lai varētu tos kopīgot ar šo vietni.</translation>
-<translation id="1744365871163268756">Lūdzu, uzgaidiet, kamēr Browther instalē jaunākos sistēmas atjauninājumus.</translation>
-<translation id="3861679447659630159">Browther mēģina rediģēt paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
+<translation id="5244017809112094908">Lai izmantotu personalizēšanu, iekļaujiet pārlūku Browther iestatījumā “Darbības tīmeklī un lietotnēs”</translation>
+<translation id="8096544113811780871">Uzzināt, kāpēc pārlūkā Browther daži faili tiek bloķēti</translation>
+<translation id="2384387444932590174">Notiek Browther atjaunināšana (<ph name="PROGRESS_PERCENT"/>)</translation>
+<translation id="2651210046538078820">Atļaut pierakstīties pārlūkā Browther</translation>
+<translation id="6557334704331248411">Noņemt no pārlūka Browther</translation>
+<translation id="5832041381258620673">Samazina veiktspēju, taču uzlabo Browther izturību pret uzbrukumiem.</translation>
+<translation id="3763317028635993788">Iestatīt Browther kā noklusējuma pārlūku</translation>
+<translation id="862357563072119126"><ph name="PAGE_TITLE"/> — Browther Origin beta versija</translation>
+<translation id="1280422694222936333">{NUM_TABS,plural, =1{Browther iesaka pārtraukt tās cilnes darbību, kas palēnina pārlūka darbību}zero{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}one{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}other{Browther iesaka pārtraukt to ciļņu darbību, kas palēnina pārlūka darbību}}</translation>
+<translation id="4423621904097888155">Iespējams, pārlūks Browther nedarbosies pareizi, jo tas vairs netiek atbalstīts šajā Linux izdevumā.</translation>
+<translation id="6201726364919996698">Pārlūkā Browther šī lejupielāde tika bloķēta, jo šis fails var kaitēt jūsu personīgajiem un sociālo tīklu kontiem</translation>
+<translation id="7679204468655335605">Pārlūkam Browther ir nepieciešama piekļuve jūsu atrašanās vietas datiem, lai varētu tos kopīgot ar šo vietni.</translation>
+<translation id="1163572992704966942">Lūdzu, uzgaidiet, kamēr Browther instalē jaunākos sistēmas atjauninājumus.</translation>
+<translation id="5050118226119231029">Browther mēģina rediģēt paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
 <translation id="5524890928877629608">meklēšanas apgabala augšējais kreisais stūris: <ph name="LEFT"/>% pa kreisi, <ph name="TOP"/>% augšdaļā</translation>
-<translation id="232381795826373334">Atvērt PDF failus pārlūkā Browther</translation>
+<translation id="5875549039106594731">Atvērt PDF failus pārlūkā Browther</translation>
 <translation id="5536164441519929134">Jautājiet<ph name="LINE_BREAK"/>par šo cilni</translation>
 <translation id="5579324208890605088">Palaišanas kļūda: lūdzu, palaidiet instalēšanas programmu kā parasts lietotājs, nevis kā administrators.</translation>
-<translation id="3588973534877826647">Izmantojiet pārlūku Browther pēc noklusējuma un piespraudiet to</translation>
+<translation id="202315329304302571">Izmantojiet pārlūku Browther pēc noklusējuma un piespraudiet to</translation>
 <translation id="5596627076506792578">Citas opcijas</translation>
 <translation id="5605834417512968703">Atlasiet jebko, ko vēlaties meklēt, izmantojot funkciju Attēlu meklēšana, vai nospiediet atsoļa taustiņu, lai izietu no funkcijas Attēlu meklēšana</translation>
 <translation id="5618818588972826921">Atlasiet jebkuru tekstu vai attēlu, lai to meklētu, izmantojot funkciju Attēlu meklēšana, vai nospiediet atsoļa taustiņu, lai izietu no funkcijas Attēlu meklēšana</translation>
-<translation id="1026406809507858026">{0,plural, =0{Ir pieejams Browther atjauninājums}=1{Ir pieejams Browther atjauninājums}zero{Browther atjauninājums ir pieejams jau # dienu}one{Browther atjauninājums ir pieejams jau # dienu}other{Browther atjauninājums ir pieejams jau # dienas}}</translation>
-<translation id="1023472437588692618">Vienmēr notīrīt vietnes datus no ierīces, kad tiek aizvērts pārlūks Browther</translation>
-<translation id="5646769069113654257">Lūdzu, nekavējoties restartējiet pārlūku Browther</translation>
-<translation id="3117204675033805491">Browther LLC</translation>
-<translation id="2335583906071111058">Rādīt Browther šajā valodā</translation>
+<translation id="5823076755666406442">{0,plural, =0{Ir pieejams Browther atjauninājums}=1{Ir pieejams Browther atjauninājums}zero{Browther atjauninājums ir pieejams jau # dienu}one{Browther atjauninājums ir pieejams jau # dienu}other{Browther atjauninājums ir pieejams jau # dienas}}</translation>
+<translation id="8414129876440043675">Vienmēr notīrīt vietnes datus no ierīces, kad tiek aizvērts pārlūks Browther</translation>
+<translation id="5156991567152325333">Lūdzu, nekavējoties restartējiet pārlūku Browther</translation>
+<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="1536693367017293028">Rādīt Browther šajā valodā</translation>
 <translation id="569897634095159764">Nevar izveidot savienojumu ar internetu. Starpniekserverī ir nepieciešama autentifikācija.</translation>
-<translation id="3364613146104156465">Izmantojot Browther profilus, varat nošķirt pārlūkošanu darba un personīgajām vajadzībām. Pievienojiet jaunu profilu tūlīt.</translation>
-<translation id="1834213228893578875">Pārlūkā Browther neaktīvās cilnēs tiek atbrīvota atmiņa. Tādējādi aktīvajām cilnēm un citām lietotnēm tiek nodrošināts vairāk datora resursu un tiek uzlabots Browther darbības ātrums. Neaktīvās cilnes atkal tiek automātiski aktivizētas, kad tās atverat. Varat <ph name="BEGIN_LINK"/>uzzināt vairāk par atmiņas taupīšanas režīmu<ph name="END_LINK"/>.</translation>
-<translation id="899523323751802352">Ja aizmirsāt ieejas frāzi vai vēlaties mainīt šo iestatījumu, varat <ph name="SETTINGS_LINK"/> Browther datus savā kontā.</translation>
-<translation id="82926023981336111">Pielāgojiet un kontrolējiet pārlūku Browther. Iestatiet Browther kā noklusējuma pārlūku.</translation>
+<translation id="4215338057953170891">Izmantojot Browther profilus, varat nošķirt pārlūkošanu darba un personīgajām vajadzībām. Pievienojiet jaunu profilu tūlīt.</translation>
+<translation id="5366435608642317052">Pārlūkā Browther neaktīvās cilnēs tiek atbrīvota atmiņa. Tādējādi aktīvajām cilnēm un citām lietotnēm tiek nodrošināts vairāk datora resursu un tiek uzlabots Browther darbības ātrums. Neaktīvās cilnes atkal tiek automātiski aktivizētas, kad tās atverat. Varat <ph name="BEGIN_LINK"/>uzzināt vairāk par atmiņas taupīšanas režīmu<ph name="END_LINK"/>.</translation>
+<translation id="4941518395341035738">Ja aizmirsāt ieejas frāzi vai vēlaties mainīt šo iestatījumu, varat <ph name="SETTINGS_LINK"/> Browther datus savā kontā.</translation>
+<translation id="7763291835437810978">Pielāgojiet un kontrolējiet pārlūku Browther. Iestatiet Browther kā noklusējuma pārlūku.</translation>
 <translation id="5809516625706423866">Nevar izveidot savienojumu ar internetu. HTTP 401 — neatļauts. Lūdzu, pārbaudiet starpniekservera konfigurāciju.</translation>
-<translation id="95980832839683236">Paātrina vietņu darbību, izmantojot Browther programmu V8, bet nedaudz samazina Browther izturību pret uzbrukumiem. Šis iestatījums ir izslēgts.</translation>
-<translation id="1224606669200461217">Lai izmantotu un saglabātu Browther datus Browther kontā, atjauniniet pārlūku Browther.</translation>
+<translation id="1827132270895283425">Paātrina vietņu darbību, izmantojot Browther programmu V8, bet nedaudz samazina Browther izturību pret uzbrukumiem. Šis iestatījums ir izslēgts.</translation>
+<translation id="1553025851718680114">Lai izmantotu un saglabātu Browther datus Browther kontā, atjauniniet pārlūku Browther.</translation>
 <translation id="5824893331272123205">Nevarēja ielādēt šo paneli. Mēģiniet vēlreiz.</translation>
-<translation id="4467664627714200493">Laipni lūdzam pārlūkā Browther Origin!</translation>
+<translation id="6642862349634944253">Laipni lūdzam pārlūkā Browther Origin!</translation>
 <translation id="5871205389137001634">Noklikšķiniet, lai izietu no funkcijas Attēlu meklēšana</translation>
-<translation id="8054200348483755053">Pārlūkā Browther tika konstatēts, ka tālāk norādītie vienumi satur ļaunprātīgu programmatūru:</translation>
-<translation id="3955583201925082436">Browther regulāri pārbauda, vai pārlūkā ir atlasīti visdrošākie iestatījumi. Ja kaut kas būs jāpārskata, saņemsiet paziņojumu.</translation>
+<translation id="7586794330537887406">Pārlūkā Browther tika konstatēts, ka tālāk norādītie vienumi satur ļaunprātīgu programmatūru:</translation>
+<translation id="1666897346518812892">Browther regulāri pārbauda, vai pārlūkā ir atlasīti visdrošākie iestatījumi. Ja kaut kas būs jāpārskata, saņemsiet paziņojumu.</translation>
 <translation id="5895138241574237353">Restartēt</translation>
 <translation id="5903106910045431592"><ph name="PAGE_TITLE"/> — pierakstīšanās tīklā</translation>
 <translation id="5924017743176219022">Notiek savienojuma izveide ar internetu...</translation>
 <translation id="5941711191222866238">Minimizēt</translation>
-<translation id="5768962901674164501">Lai varētu izmantot šo grāmatzīmi un citus datus visās savās ierīcēs, pierakstieties pārlūkā Browther.</translation>
-<translation id="5101892358689285100">Browther personalizēšana</translation>
+<translation id="4938357262936377412">Lai varētu izmantot šo grāmatzīmi un citus datus visās savās ierīcēs, pierakstieties pārlūkā Browther.</translation>
+<translation id="260974496993853147">Browther personalizēšana</translation>
 <translation id="5960071705175224773">Jūsu iestatījumus mainīja nezināma lietotne</translation>
 <translation id="5968400720580217226">MI režīms</translation>
-<translation id="4357808717322635817">{COUNT,plural, =1{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots vienu minūti.}zero{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes.}one{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūti.}other{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes.}}</translation>
-<translation id="3598551856834560515">Lai sāktu sinhronizēšanu, atjauniniet Browther.</translation>
+<translation id="8697015289720079159">{COUNT,plural, =1{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots vienu minūti.}zero{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes.}one{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūti.}other{Jūsu organizācija automātiski aizver pārlūku Browther, ja tas nav izmantots # minūtes.}}</translation>
+<translation id="5852664780493076676">Lai sāktu sinhronizēšanu, atjauniniet Browther.</translation>
 <translation id="6003112304606738118">Notiek lejupielāde... Atlikušais laiks: <ph name="HOURS"/> stunda(-as).</translation>
 <translation id="6009821354356307391">Uzdot papildu jautājumu</translation>
 <translation id="6040143037577758943">Aizvērt</translation>
-<translation id="700488072601322385">Lai aizsargātu savus datus, ļaujiet pārlūkā Browther atsaukt atļaujas vietnēm, ko pēdējā laikā neesat apmeklējis (paziņojumi netiks bloķēti)</translation>
-<translation id="9071554113102421877">&amp;Atvērt pārlūkā Browther</translation>
+<translation id="2495504229007749358">Lai aizsargātu savus datus, ļaujiet pārlūkā Browther atsaukt atļaujas vietnēm, ko pēdējā laikā neesat apmeklējis (paziņojumi netiks bloķēti)</translation>
+<translation id="6038969823662006832">&amp;Atvērt pārlūkā Browther</translation>
 <translation id="6069027071882229820">Kopēt kā attēlu</translation>
-<translation id="7861579472672677409">Paplašinājums <ph name="EXTENSION_NAME"/> ir pievienots pārlūkam Browther</translation>
-<translation id="5849446944780602366">Pielāgojiet un pārvaldiet pārlūku Browther. Ir pieejams atjauninājums.</translation>
-<translation id="5711722515923392428">Ieslēgts • Browther nevar pārbaudīt šī paplašinājuma izcelsmi</translation>
-<translation id="6355366566986893068">Jūsu konts pārlūkā Browther</translation>
-<translation id="7433698744896946664">Atļaut paplašinājumam rādīt piekļuves pieprasījumus Browther rīkjoslā</translation>
-<translation id="4168372721886011198">Fails <ph name="FILE_NAME"/> ir bīstams, tādēļ Browther to bloķēja.</translation>
-<translation id="991182453936521413">Browther drīz tiks aizvērts, un dati tiks izdzēsti</translation>
-<translation id="4060970194201477024">Šeit varat pārslēgties starp Browther profiliem.</translation>
-<translation id="7815000350132166985">Ja atļaujat sīkfailus, pārlūks Browther var tos izmantot iepriekšējai ielādei.</translation>
+<translation id="6606690217326148454">Paplašinājums <ph name="EXTENSION_NAME"/> ir pievienots pārlūkam Browther</translation>
+<translation id="6037324269860323082">Pielāgojiet un pārvaldiet pārlūku Browther. Ir pieejams atjauninājums.</translation>
+<translation id="3695768481578778794">Ieslēgts • Browther nevar pārbaudīt šī paplašinājuma izcelsmi</translation>
+<translation id="4401885752362736126">Jūsu konts pārlūkā Browther</translation>
+<translation id="4310817187912076496">Atļaut paplašinājumam rādīt piekļuves pieprasījumus Browther rīkjoslā</translation>
+<translation id="4602490888173698813">Fails <ph name="FILE_NAME"/> ir bīstams, tādēļ Browther to bloķēja.</translation>
+<translation id="5139243417751674628">Browther drīz tiks aizvērts, un dati tiks izdzēsti</translation>
+<translation id="4696750309605389299">Šeit varat pārslēgties starp Browther profiliem.</translation>
+<translation id="7475001351099358916">Ja atļaujat sīkfailus, pārlūks Browther var tos izmantot iepriekšējai ielādei.</translation>
 <translation id="6165508094623778733">Uzzināt vairāk</translation>
-<translation id="5739368447874065758">Notīrīt Browther datus savā kontā</translation>
-<translation id="6685697979743742605">Šis fails var būt bīstams.<ph name="LINE_BREAK"/>Browther var pārbaudīt šo lejupielādi, ja norādīsiet paroli. Informācija par failu tiek nosūtīta funkcijai “Browther droša pārlūkošana”, taču faila saturs un parole paliek jūsu ierīcē.</translation>
+<translation id="5975099973700540482">Notīrīt Browther datus savā kontā</translation>
+<translation id="6800151735486681860">Šis fails var būt bīstams.<ph name="LINE_BREAK"/>Browther var pārbaudīt šo lejupielādi, ja norādīsiet paroli. Informācija par failu tiek nosūtīta funkcijai “Browther droša pārlūkošana”, taču faila saturs un parole paliek jūsu ierīcē.</translation>
 <translation id="6182736845697986886">Instalēšana neizdevās, jo radās atjauninājumu servera iekšēja kļūda.</translation>
-<translation id="4368341489795135329">Ierīcē <ph name="TARGET_DEVICE_NAME"/> pierakstieties pārlūkā Browther un pēc tam vēlreiz mēģiniet veikt sūtīšanu.</translation>
-<translation id="3038354906709778538">Cita datorā instalēta programma pievienoja lietotni, kas var ietekmēt pārlūka Browther darbību.
+<translation id="48832130233362517">Ierīcē <ph name="TARGET_DEVICE_NAME"/> pierakstieties pārlūkā Browther un pēc tam vēlreiz mēģiniet veikt sūtīšanu.</translation>
+<translation id="8868210753005945522">Cita datorā instalēta programma pievienoja lietotni, kas var ietekmēt pārlūka Browther darbību.
 
 <ph name="EXTENSION_NAME"/></translation>
-<translation id="8320964054148936490">Šim datoram jau ir jaunākā Browther versija. Ja programmatūra nedarbojas, atinstalējiet pārlūku Browther un mēģiniet vēlreiz.</translation>
-<translation id="3574823187131579180">{0,plural, =0{Pārlūks Browther tūlīt tiks restartēts}=1{Pārlūks Browther pēc 1 sekundes tiks restartēts}zero{Pārlūks Browther pēc # sekundēm tiks restartēts}one{Pārlūks Browther pēc # sekundes tiks restartēts}other{Pārlūks Browther pēc # sekundēm tiks restartēts}}</translation>
+<translation id="2779436101182061679">Šim datoram jau ir jaunākā Browther versija. Ja programmatūra nedarbojas, atinstalējiet pārlūku Browther un mēģiniet vēlreiz.</translation>
+<translation id="9222998061982994203">{0,plural, =0{Pārlūks Browther tūlīt tiks restartēts}=1{Pārlūks Browther pēc 1 sekundes tiks restartēts}zero{Pārlūks Browther pēc # sekundēm tiks restartēts}one{Pārlūks Browther pēc # sekundes tiks restartēts}other{Pārlūks Browther pēc # sekundēm tiks restartēts}}</translation>
 <translation id="6239161312595354541">Jautāt attēlu meklēšanas funkcijai par šo videoklipu</translation>
-<translation id="5980269616827212166">Pārlūkam Browther ir nepieciešama atļauja piekļūt krātuvei, lai varētu lejupielādēt failus.</translation>
-<translation id="7651600795135059130">Vietrāži URL tiek pārbaudīti, salīdzinot ar nedrošo vietņu sarakstu, kas ir saglabāts pārlūkprogrammā Browther.</translation>
-<translation id="5019879183386042809">Padarīt Browther par noklusējuma pārlūku</translation>
-<translation id="7445061995866044926">Vai izrakstīties no Browther?</translation>
-<translation id="4659866260728515512">Šīs cilnes izmanto papildu resursus. Lai uzlabotu veiktspēju, ļaujiet pārlūkam Browther padarīt tās neaktīvas.</translation>
-<translation id="6806912298071949921">Pielāgot Browther profilu</translation>
-<translation id="3792238845239580301">Browther profila nosaukšana</translation>
-<translation id="5874208157501051620">Viens no paplašinājumiem pieprasa, lai jūs pierakstītos pārlūkā Browther</translation>
-<translation id="3561569806301739367">Fails <ph name="FILE_NAME"/> var būt bīstams, tādēļ Browther to bloķēja.</translation>
-<translation id="3205074487970075628">Browther saitē tiek izmantota kamera.</translation>
+<translation id="1755464917870815989">Pārlūkam Browther ir nepieciešama atļauja piekļūt krātuvei, lai varētu lejupielādēt failus.</translation>
+<translation id="304681001513922736">Vietrāži URL tiek pārbaudīti, salīdzinot ar nedrošo vietņu sarakstu, kas ir saglabāts pārlūkprogrammā Browther.</translation>
+<translation id="7785903492969539081">Padarīt Browther par noklusējuma pārlūku</translation>
+<translation id="3987833816263696343">Vai izrakstīties no Browther?</translation>
+<translation id="4723540739671534529">Šīs cilnes izmanto papildu resursus. Lai uzlabotu veiktspēju, ļaujiet pārlūkam Browther padarīt tās neaktīvas.</translation>
+<translation id="6540151687468239291">Pielāgot Browther profilu</translation>
+<translation id="770793114032605647">Browther profila nosaukšana</translation>
+<translation id="385867753870250529">Viens no paplašinājumiem pieprasa, lai jūs pierakstītos pārlūkā Browther</translation>
+<translation id="2022337046348377650">Fails <ph name="FILE_NAME"/> var būt bīstams, tādēļ Browther to bloķēja.</translation>
+<translation id="45270956603278068">Browther saitē tiek izmantota kamera.</translation>
 <translation id="6327105987658262776">Atjauninājums nav pieejams.</translation>
-<translation id="1819119299840995223">Tiek veikta cita darbība pārlūkā Browther. Lūdzu, vēlāk mēģiniet vēlreiz.</translation>
-<translation id="8616874628011103667">Tagad pārlūkā Browther ir vieglāk izmantot Browther kontu, kā arī ir atvieglota lietošana datoros, ko izmanto vairākas personas.</translation>
-<translation id="4264606872840545968">Browther saīsne</translation>
-<translation id="6890616081898535725">Pārlūkā Browther šī lejupielāde tika bloķēta, jo fails parasti netiek lejupielādēts un var būt bīstams.</translation>
-<translation id="335632367599648646">Vai tiešām vēlaties atinstalēt pārlūku Browther?</translation>
+<translation id="673633752219771459">Tiek veikta cita darbība pārlūkā Browther. Lūdzu, vēlāk mēģiniet vēlreiz.</translation>
+<translation id="1482759407165416070">Tagad pārlūkā Browther ir vieglāk izmantot Browther kontu, kā arī ir atvieglota lietošana datoros, ko izmanto vairākas personas.</translation>
+<translation id="5538042432112726532">Browther saīsne</translation>
+<translation id="833085228901080512">Pārlūkā Browther šī lejupielāde tika bloķēta, jo fails parasti netiek lejupielādēts un var būt bīstams.</translation>
+<translation id="491120842288314439">Vai tiešām vēlaties atinstalēt pārlūku Browther?</translation>
 <translation id="6375219077595103062">Saīsnes pievienošana paroļu pārvaldniekam</translation>
 <translation id="6388799252195623474">palīdzēt man ar šo</translation>
-<translation id="7920857181125123335">Lai turpinātu, pierakstieties pārlūkā Browther ar kontu <ph name="EMAIL"/>. Tas nodrošinās jūsu organizācijas politiku ievērošanu.</translation>
-<translation id="3256100650978957522">Browther logotips datora ekrānā.</translation>
-<translation id="5880764554173582719">Browther Origin ir tīmekļa pārlūks, kas darbina tīmekļa lapas un lietojumprogrammas zibenīgā ātrumā. Tas ir ātrs, stabils un ērti lietojams. Pārlūkojiet tīmekli vēl drošāk ar aizsardzību pret ļaunprātīgu programmatūru un pikšķerēšanu, kas iebūvēta pārlūkā Browther Origin.</translation>
-<translation id="2532326772258858491">Browther darbojas ātrāk, un funkcijas, kurās tiek izmantota valoda JavaScript, darbojas paredzētajā veidā</translation>
+<translation id="6715003312952407375">Lai turpinātu, pierakstieties pārlūkā Browther ar kontu <ph name="EMAIL"/>. Tas nodrošinās jūsu organizācijas politiku ievērošanu.</translation>
+<translation id="1897845318651970239">Browther logotips datora ekrānā.</translation>
+<translation id="4702069255970029302">Browther Origin ir tīmekļa pārlūks, kas darbina tīmekļa lapas un lietojumprogrammas zibenīgā ātrumā. Tas ir ātrs, stabils un ērti lietojams. Pārlūkojiet tīmekli vēl drošāk ar aizsardzību pret ļaunprātīgu programmatūru un pikšķerēšanu, kas iebūvēta pārlūkā Browther Origin.</translation>
+<translation id="5669767676913031391">Browther darbojas ātrāk, un funkcijas, kurās tiek izmantota valoda JavaScript, darbojas paredzētajā veidā</translation>
 <translation id="6436260184216827876">Funkcija Attēlu meklēšana nav pieejama. Vēlāk mēģiniet vēlreiz.</translation>
 <translation id="2139300032719313227">Browther OS restartēšana</translation>
-<translation id="638302211119176182">Pārlūkā Browther tiek iepriekš ielādēts vēl vairāk lapu, ko jūs, iespējams, apmeklēsiet. Tādējādi var tās ielādēt ātrāk tad, kad tās tiešām apmeklējat.</translation>
-<translation id="7167975344637731051">Lejupielādējiet pārlūku Browther savā tālrunī, lai izsekotu cenas un saņemtu brīdinājumus, kad kādā vietnē tiek konstatēts cenas samazinājums.</translation>
-<translation id="890319829408077946">Izslēgts • Browther nevar pārbaudīt šī paplašinājuma izcelsmi</translation>
-<translation id="1684121725014454063">Laipni lūdzam Browther profilos!</translation>
-<translation id="8211983866539058675">Kad nākamreiz savā ierīcē (<ph name="DEVICE_TYPE"/>) atvērsiet pārlūku Browther, tiks parādīts aicinājums izmantot ciļņu grupas.</translation>
-<translation id="7906693299331092358">Noņemt kontu no pārlūka Browther</translation>
+<translation id="6110616900529884221">Pārlūkā Browther tiek iepriekš ielādēts vēl vairāk lapu, ko jūs, iespējams, apmeklēsiet. Tādējādi var tās ielādēt ātrāk tad, kad tās tiešām apmeklējat.</translation>
+<translation id="1217194059001819677">Lejupielādējiet pārlūku Browther savā tālrunī, lai izsekotu cenas un saņemtu brīdinājumus, kad kādā vietnē tiek konstatēts cenas samazinājums.</translation>
+<translation id="7058555680120557198">Izslēgts • Browther nevar pārbaudīt šī paplašinājuma izcelsmi</translation>
+<translation id="676533642429632127">Laipni lūdzam Browther profilos!</translation>
+<translation id="5518682889576009702">Kad nākamreiz savā ierīcē (<ph name="DEVICE_TYPE"/>) atvērsiet pārlūku Browther, tiks parādīts aicinājums izmantot ciļņu grupas.</translation>
+<translation id="6038105561107837619">Noņemt kontu no pārlūka Browther</translation>
 <translation id="2675662665675552980">Tas nosaka arī to, kāda lapa tiks rādīta, kad atvērsiet pārlūku Browther.</translation>
 <translation id="648319183876919572">Droša pārlūkošana ar papildu aizsardzību nodrošina efektīvāku aizsardzību pret bīstamām vietnēm un lejupielādēm</translation>
-<translation id="5590013613412457132">Atinstalēt Browther</translation>
-<translation id="7185585387858242335">Saīsnes tiek atvērtas pārlūkā Browther</translation>
-<translation id="3617744907966785605">Jūsu organizācija aizver pārlūku Browther, ja tas <ph name="TIMEOUT_DURATION"/> netiek izmantots. Pārlūkošanas dati tika izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.</translation>
-<translation id="8646609321956191980">Katrā profilā tiek glabāta attiecīgā Browther profila informācija, piemēram, grāmatzīmes, vēsture, paroles un citi dati.</translation>
-<translation id="6756656512757374876">Uzziniet vairāk par to, <ph name="BEGIN_LINK"/>kā pārlūkā Browther tiek saglabāta jūsu datu konfidencialitāte<ph name="END_LINK"/>.</translation>
-<translation id="3556601443414636547">Šī iestatījuma izmaiņas tiks lietotas pēc pārlūka Browther restartēšanas.</translation>
-<translation id="2535436634051789953">Varat pārslēgties, lai skatītu paroles no cita Browther profila.</translation>
-<translation id="2312399718665761438">Lai izlabotu pareizrakstības kļūdas, Browther nosūta teksta laukos ievadīto tekstu Browther serveriem.</translation>
-<translation id="3507835409099344374">Pāriet uz Browther paziņojumu iestatījumiem</translation>
+<translation id="2930243146591999795">Atinstalēt Browther</translation>
+<translation id="5241183382286817629">Saīsnes tiek atvērtas pārlūkā Browther</translation>
+<translation id="7907014599435829661">Jūsu organizācija aizver pārlūku Browther, ja tas <ph name="TIMEOUT_DURATION"/> netiek izmantots. Pārlūkošanas dati tika izdzēsti. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.</translation>
+<translation id="2088471423667794811">Katrā profilā tiek glabāta attiecīgā Browther profila informācija, piemēram, grāmatzīmes, vēsture, paroles un citi dati.</translation>
+<translation id="9040334484455218184">Uzziniet vairāk par to, <ph name="BEGIN_LINK"/>kā pārlūkā Browther tiek saglabāta jūsu datu konfidencialitāte<ph name="END_LINK"/>.</translation>
+<translation id="1718697235867382480">Šī iestatījuma izmaiņas tiks lietotas pēc pārlūka Browther restartēšanas.</translation>
+<translation id="6331317152404762758">Varat pārslēgties, lai skatītu paroles no cita Browther profila.</translation>
+<translation id="6097706403184348562">Lai izlabotu pareizrakstības kļūdas, Browther nosūta teksta laukos ievadīto tekstu Browther serveriem.</translation>
+<translation id="2319647238307402812">Pāriet uz Browther paziņojumu iestatījumiem</translation>
 <translation id="6600016381025017075">Meklēt informāciju par jebkuru šīs lapas satura daļu</translation>
-<translation id="9156965752763025780">Izmaiņas stāsies spēkā, kad restartēsiet Browther.</translation>
-<translation id="3387992981600748596">Tagad pārlūks Browther tiek palaists, kad tiek palaista operētājsistēma Windows, lai jūs varētu uzreiz sākt pārlūkošanu. Šo funkciju var izslēgt iestatījumos.</translation>
-<translation id="3119017564683030312">Turpiniet darbu no vietas, kur to pārtraucāt: pārlūkā Browther tika atjaunotas cilnes no jūsu pēdējās sesijas. Varat to izslēgt lapā</translation>
-<translation id="245693535809364497">Pārlūkam Browther ir nepieciešama atļauja izmantot kameru, lai varētu izveidot jūsu apkārtnes 3D karti.</translation>
-<translation id="9210457680074341078">Ja saglabāsiet grāmatzīmes arī Browther kontā, varēsiet izsekot produktu cenām pārlūkā Browther un saņemt paziņojumus par cenu kritumiem.</translation>
+<translation id="8031938899816118394">Izmaiņas stāsies spēkā, kad restartēsiet Browther.</translation>
+<translation id="7412185356697187964">Tagad pārlūks Browther tiek palaists, kad tiek palaista operētājsistēma Windows, lai jūs varētu uzreiz sākt pārlūkošanu. Šo funkciju var izslēgt iestatījumos.</translation>
+<translation id="9123343592576384616">Turpiniet darbu no vietas, kur to pārtraucāt: pārlūkā Browther tika atjaunotas cilnes no jūsu pēdējās sesijas. Varat to izslēgt lapā</translation>
+<translation id="5847926498049048567">Pārlūkam Browther ir nepieciešama atļauja izmantot kameru, lai varētu izveidot jūsu apkārtnes 3D karti.</translation>
+<translation id="5532585028508811858">Ja saglabāsiet grāmatzīmes arī Browther kontā, varēsiet izsekot produktu cenām pārlūkā Browther un saņemt paziņojumus par cenu kritumiem.</translation>
 <translation id="6676384891291319759">Piekļūt internetam</translation>
 <translation id="1363996462118479832">Browther OS nevarēja sinhronizēt jūsu datus pierakstīšanās kļūdas dēļ.</translation>
-<translation id="4694512973195649124">Noņemt šo lietotņu datus no Browther</translation>
-<translation id="5324448127277983819">Browther nodrošina lielāku kontroli pār jums rādītajām reklāmām un ierobežo informāciju, ko vietnes var uzzināt par jums, kad tās rāda jums personalizētas reklāmas.</translation>
-<translation id="1257247502847251159">Pārlūkam Browther ir nepieciešama atļauja izmantot mikrofonu šajā vietnē.</translation>
+<translation id="3373239673945775810">Noņemt šo lietotņu datus no Browther</translation>
+<translation id="8122759674786039814">Browther nodrošina lielāku kontroli pār jums rādītajām reklāmām un ierobežo informāciju, ko vietnes var uzzināt par jums, kad tās rāda jums personalizētas reklāmas.</translation>
+<translation id="6277682530398500159">Pārlūkam Browther ir nepieciešama atļauja izmantot mikrofonu šajā vietnē.</translation>
 <translation id="6712881677154121168">Lejupielādes kļūda: <ph name="DOWNLOAD_ERROR"/>.</translation>
-<translation id="1489465648257900784">Jūsu profilu nevar izmantot, jo tas ir no jaunākas Browther versijas.
+<translation id="2972046656127603037">Jūsu profilu nevar izmantot, jo tas ir no jaunākas Browther versijas.
 
 Dažas funkcijas var nebūt pieejamas. Norādiet citu profila direktoriju vai izmantojiet jaunāku Browther versiju.</translation>
-<translation id="1505112054322049777">Lai varētu izmantot personalizēšanu un citas funkcijas, iekļaujiet pārlūku Browther iestatījumos “Darbības tīmeklī un lietotnēs” un “Saistītie Browther pakalpojumi”.</translation>
-<translation id="6666624454809779082">Pārlūks Browther jau ir instalēts visiem lietotājiem jūsu datorā.</translation>
-<translation id="5848830584656405219">Pierakstieties pārlūkā Browther, lai varētu piekļūt grāmatzīmēm un citiem datiem visās savās ierīcēs. Šī grāmatzīme tiks saglabāta jūsu Browther kontā pēc pierakstīšanās.</translation>
-<translation id="4020203987234748583">Paātrina vietņu darbību, izmantojot Browther programmu V8, bet nedaudz samazina Browther izturību pret uzbrukumiem. Šis iestatījums ir ieslēgts.</translation>
-<translation id="3848421741245997269">{count,plural, =1{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati (1 vienums) tiks dzēsti.}zero{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati ({count} vienumu) tiks dzēsti.}one{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati ({count} vienumus) tiks dzēsti.}other{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati ({count} vienumi) tiks dzēsti.}}</translation>
-<translation id="3136039682492230890">Browther iesaka pārbaudīt šo failu, jo tas var būt bīstams.</translation>
+<translation id="871671753163165892">Lai varētu izmantot personalizēšanu un citas funkcijas, iekļaujiet pārlūku Browther iestatījumos “Darbības tīmeklī un lietotnēs” un “Saistītie Browther pakalpojumi”.</translation>
+<translation id="5000832110229523807">Pārlūks Browther jau ir instalēts visiem lietotājiem jūsu datorā.</translation>
+<translation id="5204575479550973859">Pierakstieties pārlūkā Browther, lai varētu piekļūt grāmatzīmēm un citiem datiem visās savās ierīcēs. Šī grāmatzīme tiks saglabāta jūsu Browther kontā pēc pierakstīšanās.</translation>
+<translation id="2874208284092283937">Paātrina vietņu darbību, izmantojot Browther programmu V8, bet nedaudz samazina Browther izturību pret uzbrukumiem. Šis iestatījums ir ieslēgts.</translation>
+<translation id="3268577459683869744">{count,plural, =1{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati (1 vienums) tiks dzēsti.}zero{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati ({count} vienumu) tiks dzēsti.}one{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati ({count} vienumus) tiks dzēsti.}other{Noteikti jūsu Browther dati vēl nav saglabāti jūsu Browther kontā. Pirms izrakstāties, uzgaidiet dažas minūtes. Ja izrakstīsieties tūlīt, šie dati ({count} vienumi) tiks dzēsti.}}</translation>
+<translation id="7683816018918395929">Browther iesaka pārbaudīt šo failu, jo tas var būt bīstams.</translation>
 <translation id="1547295885616600893">Browther OS darbību nodrošina papildu <ph name="BEGIN_LINK_CROS_OSS"/>atklātā pirmkoda programmatūra<ph name="END_LINK_CROS_OSS"/>.</translation>
 <translation id="6831043979455480757">Tulkot</translation>
-<translation id="8211837073776713955">Ja jūsu paroles kādreiz tiks apdraudētas, pārlūkā Browther saņemsiet paziņojumu</translation>
+<translation id="2142653375108595728">Ja jūsu paroles kādreiz tiks apdraudētas, pārlūkā Browther saņemsiet paziņojumu</translation>
 <translation id="684888714667046800">Nevar izveidot savienojumu ar internetu. Ja izmantojat ugunsmūri, failam <ph name="PRODUCT_EXE_NAME"/> noteikti ir jābūt iekļautam atļaušanas sarakstā.</translation>
-<translation id="7830723774663008396">Browther — <ph name="PAGE_TITLE"/></translation>
+<translation id="7333549743055076502">Browther — <ph name="PAGE_TITLE"/></translation>
 <translation id="6859580922007887573">Nospiediet tabulēšanas taustiņu, lai turpinātu</translation>
 <translation id="6862030660799253820">Meklēt šo attēlu, izmantojot attēlu meklēšanas funkciju</translation>
-<translation id="3028928628792374067">Pārlūkā Browther tika konstatēts, ka paplašinājums “<ph name="EXTENSION_NAME"/>” satur ļaunprātīgu programmatūru.</translation>
+<translation id="3860339351709082396">Pārlūkā Browther tika konstatēts, ka paplašinājums “<ph name="EXTENSION_NAME"/>” satur ļaunprātīgu programmatūru.</translation>
 <translation id="6877155553248388166">meklēšanas apgabala apakšējais labais stūris: <ph name="RIGHT"/>% pa labi, <ph name="BOTTOM"/>% apakšdaļā</translation>
 <translation id="6896758677409633944">Kopēt</translation>
-<translation id="862687584320433626">Iestatiet Browther kā noklusējuma pārlūku un piespraudiet to uzdevumjoslai</translation>
-<translation id="1991562568473125499">&amp;Pārvaldīt Browther profilus</translation>
+<translation id="7804113502310231166">Iestatiet Browther kā noklusējuma pārlūku un piespraudiet to uzdevumjoslai</translation>
+<translation id="3228374215117173004">&amp;Pārvaldīt Browther profilus</translation>
 <translation id="6934579572334859869">Jautāt attēlu meklēšanas funkcijai par šo attēlu</translation>
-<translation id="5529781826378237601">Ir sasniegts Browther grāmatzīmju skaita ierobežojums (<ph name="BOOKMARK_LIMIT"/>), tāpēc noteiktas jūsu grāmatzīmes vēl nav saglabātas jūsu Browther kontā.
+<translation id="5995328366516663808">Ir sasniegts Browther grāmatzīmju skaita ierobežojums (<ph name="BOOKMARK_LIMIT"/>), tāpēc noteiktas jūsu grāmatzīmes vēl nav saglabātas jūsu Browther kontā.
 
 Jaunas grāmatzīmes nevar saglabāt jūsu kontā, kamēr neizdzēsīsiet dažas no tām. Ja izrakstīsieties tūlīt, nesaglabātās grāmatzīmes tiks dzēstas.</translation>
 <translation id="6965382102122355670">Labi</translation>
-<translation id="6418340404893954563">Nedrošas paroles ir viegli uzminēt. Pārlūkā Browther <ph name="BEGIN_LINK"/>var automātiski veidot un iegaumēt drošas paroles jūsu kontiem<ph name="END_LINK"/>.</translation>
+<translation id="4533562834763015352">Nedrošas paroles ir viegli uzminēt. Pārlūkā Browther <ph name="BEGIN_LINK"/>var automātiski veidot un iegaumēt drošas paroles jūsu kontiem<ph name="END_LINK"/>.</translation>
 <translation id="3453763134178591239">Browther OS noteikumi</translation>
-<translation id="3335606533094650083">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu mikrofonam šajā vietnē.</translation>
-<translation id="6643520655691573653">Lai savā kontā (<ph name="ACCOUNT_EMAIL"/>) izmantotu un saglabātu Browther datus, ievadiet ieejas frāzi.</translation>
+<translation id="5379058926689137454">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu mikrofonam šajā vietnē.</translation>
+<translation id="4684462982894889021">Lai savā kontā (<ph name="ACCOUNT_EMAIL"/>) izmantotu un saglabātu Browther datus, ievadiet ieejas frāzi.</translation>
 <translation id="7011190694940573312">Instalēšana neizdevās, jo šī operētājsistēmas versija netiek atbalstīta.</translation>
 <translation id="7024536598735240744">Atpakošanas kļūda: <ph name="UNPACK_ERROR"/>.</translation>
 <translation id="7025789849649390912">Instalēšana apturēta.</translation>
-<translation id="280382502853897110">Pielāgojiet pārlūku Browther savām vajadzībām</translation>
+<translation id="8257174622576051374">Pielāgojiet pārlūku Browther savām vajadzībām</translation>
 <translation id="7047386856539490735">Vai šie rezultāti ir noderīgi?</translation>
-<translation id="1705567146636171298">Atjaunināt Browther</translation>
-<translation id="5499063270485366718">Ja attēlam nav vērtīga apraksta, pārlūks Browther mēģinās jums tādu nodrošināt. Lai izveidotu aprakstus, attēli tiek nosūtīti uzņēmumam Browther.</translation>
-<translation id="5966368554860795750">Pielāgot versiju Browther for Testing</translation>
-<translation id="792838367208896130">Varat izmantot pārlūku Browther ikreiz, kad noklikšķināt uz saitēm ziņojumos, dokumentos un citās lietotnēs.</translation>
-<translation id="375314543563594498">Noņemt paplašinājumu <ph name="EXTENSION_NAME"/> no pārlūka Browther</translation>
-<translation id="2332301637111071062">Jūsu organizācija dzēš Browther datus, ja šis pārlūks <ph name="TIMEOUT_DURATION"/> netiek izmantots. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.</translation>
-<translation id="1008530050039597147">Pārlūkam Browther ir nepieciešama atļauja izmantot kameru šajā vietnē.</translation>
-<translation id="1197672524850678392">Neizdevās palaist Browther. Mēģiniet vēlreiz.</translation>
-<translation id="3405035915691517126">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Mēģiniet vēlreiz pēc 24 stundām.</translation>
-<translation id="3625983487600668413">Paturiet pārlūku Browther dokā, lai jebkurā laikā varētu tam ātri piekļūt.</translation>
-<translation id="5755581833598928580">Izmantojiet Browther ikreiz, kad noklikšķināt uz saitēm ziņojumos, dokumentos un citās lietotnēs</translation>
-<translation id="5516268345616100622">Uzdevumu pārvaldnieks — Browther</translation>
-<translation id="713191641919118540">Jūsu intereses, kas aptuveni noteiktas pārlūkā Browther</translation>
-<translation id="1871621397473741084">Sāciet pārlūkošanu uzreiz: tagad pārlūks Browther var tikt palaists, kad tiek palaista operētājsistēma Windows.</translation>
+<translation id="1772745060691790742">Atjaunināt Browther</translation>
+<translation id="4937970118065051027">Ja attēlam nav vērtīga apraksta, pārlūks Browther mēģinās jums tādu nodrošināt. Lai izveidotu aprakstus, attēli tiek nosūtīti uzņēmumam Browther.</translation>
+<translation id="1594112132009288601">Pielāgot versiju Browther for Testing</translation>
+<translation id="5915000938288527952">Varat izmantot pārlūku Browther ikreiz, kad noklikšķināt uz saitēm ziņojumos, dokumentos un citās lietotnēs.</translation>
+<translation id="8775664994493381735">Noņemt paplašinājumu <ph name="EXTENSION_NAME"/> no pārlūka Browther</translation>
+<translation id="3276648807841991013">Jūsu organizācija dzēš Browther datus, ja šis pārlūks <ph name="TIMEOUT_DURATION"/> netiek izmantots. Tie var ietvert vēsturi, automātiskās aizpildes datus un lejupielādes.</translation>
+<translation id="4725226878394159809">Pārlūkam Browther ir nepieciešama atļauja izmantot kameru šajā vietnē.</translation>
+<translation id="8931474625901592021">Neizdevās palaist Browther. Mēģiniet vēlreiz.</translation>
+<translation id="8242947409070121799">Pārlūkprogrammā Browther nevar pārbaudīt jūsu paroles. Mēģiniet vēlreiz pēc 24 stundām.</translation>
+<translation id="1737922827960215472">Paturiet pārlūku Browther dokā, lai jebkurā laikā varētu tam ātri piekļūt.</translation>
+<translation id="335855266303176628">Izmantojiet Browther ikreiz, kad noklikšķināt uz saitēm ziņojumos, dokumentos un citās lietotnēs</translation>
+<translation id="709455597778444012">Uzdevumu pārvaldnieks — Browther</translation>
+<translation id="7147140345767587643">Jūsu intereses, kas aptuveni noteiktas pārlūkā Browther</translation>
+<translation id="7337408274890534789">Sāciet pārlūkošanu uzreiz: tagad pārlūks Browther var tikt palaists, kad tiek palaista operētājsistēma Windows.</translation>
 <translation id="7274695763216404502">Piesprausts! Varat atkal piekļūt funkcijai Attēlu meklēšana no rīkjoslas.</translation>
 <translation id="7288567540154601580">Cilnes un paplašinājumi</translation>
-<translation id="5468053269968670855">{NUM_EXTENSIONS,plural, =1{Browther iesaka to noņemt.}zero{Browther iesaka tos noņemt.}one{Browther iesaka tos noņemt.}other{Browther iesaka tos noņemt.}}</translation>
-<translation id="4600669988724328687">Lai kopīgotu sistēmas audio, pārejiet uz sistēmas iestatījumiem un iespējojiet iestatījumu “Tikai sistēmas audio ierakstīšana” pārlūkam Browther. Pēc tam jums būs jārestartē pārlūks Browther.</translation>
-<translation id="9068395155143628872">Reklāmu izvērtēšana ļauj jūsu apmeklētajām vietnēm pieprasīt informāciju no Browther, lai efektīvāk novērtētu vietnēs rādīto reklāmu veiktspēju. Reklāmu izvērtēšana ierobežo starpvietņu izsekošanu, pārsūtot starp vietnēm pēc iespējas mazāk informācijas.</translation>
-<translation id="1864557848095568223">Notiek Browther atjaunināšana</translation>
-<translation id="3403365884036456766">Jūsu preferenču fails ir bojāts vai nederīgs. Browther nespēj atkopt jūsu iestatījumus.</translation>
+<translation id="3145046053387919070">{NUM_EXTENSIONS,plural, =1{Browther iesaka to noņemt.}zero{Browther iesaka tos noņemt.}one{Browther iesaka tos noņemt.}other{Browther iesaka tos noņemt.}}</translation>
+<translation id="1527644038571473502">Lai kopīgotu sistēmas audio, pārejiet uz sistēmas iestatījumiem un iespējojiet iestatījumu “Tikai sistēmas audio ierakstīšana” pārlūkam Browther. Pēc tam jums būs jārestartē pārlūks Browther.</translation>
+<translation id="1427913074981060872">Reklāmu izvērtēšana ļauj jūsu apmeklētajām vietnēm pieprasīt informāciju no Browther, lai efektīvāk novērtētu vietnēs rādīto reklāmu veiktspēju. Reklāmu izvērtēšana ierobežo starpvietņu izsekošanu, pārsūtot starp vietnēm pēc iespējas mazāk informācijas.</translation>
+<translation id="1657652725060525338">Notiek Browther atjaunināšana</translation>
+<translation id="884846289464870238">Jūsu preferenču fails ir bojāts vai nederīgs. Browther nespēj atkopt jūsu iestatījumus.</translation>
 <translation id="7339898014177206373">Jauns logs</translation>
-<translation id="3511996232906761537">Šeit atrodas jūsu tīmekļa saturs, grāmatzīmes un cits Browther saturs.</translation>
-<translation id="1754899895078387289">Jūsu šifrētos datus var lasīt tikai personas, kurām ir jūsu ieejas frāze. Ieejas frāze netiek sūtīta uzņēmumam Browther, un uzņēmums Browther to neuzglabā. Ja aizmirsīsiet ieejas frāzi vai vēlēsieties mainīt šo iestatījumu, jums būs <ph name="BEGIN_LINK"/>jāizdzēš Browther dati savā kontā<ph name="END_LINK"/>.</translation>
-<translation id="5380963249588143069">Jūsu sistēmas administrators ir konfigurējis Browther atvērt <ph name="ALTERNATIVE_BROWSER_NAME"/>, lai piekļūtu <ph name="TARGET_URL_HOSTNAME"/>.</translation>
+<translation id="633044855886370183">Šeit atrodas jūsu tīmekļa saturs, grāmatzīmes un cits Browther saturs.</translation>
+<translation id="1185960088713242527">Jūsu šifrētos datus var lasīt tikai personas, kurām ir jūsu ieejas frāze. Ieejas frāze netiek sūtīta uzņēmumam Browther, un uzņēmums Browther to neuzglabā. Ja aizmirsīsiet ieejas frāzi vai vēlēsieties mainīt šo iestatījumu, jums būs <ph name="BEGIN_LINK"/>jāizdzēš Browther dati savā kontā<ph name="END_LINK"/>.</translation>
+<translation id="7125151836477182110">Jūsu sistēmas administrators ir konfigurējis Browther atvērt <ph name="ALTERNATIVE_BROWSER_NAME"/>, lai piekļūtu <ph name="TARGET_URL_HOSTNAME"/>.</translation>
 <translation id="7352651011704765696">Radās problēma</translation>
-<translation id="6085660187823915017">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma macOS 13 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma macOS 12.</translation>
-<translation id="2865744782251083875">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemtas šādas atļaujas: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
-<translation id="4631170166710903214">Šis paplašinājums vairs netiek atbalstīts. Browther iesaka to noņemt.</translation>
-<translation id="7951152294775418909">Turpiniet darbu no vietas, kur to pārtraucāt: pārlūkā Browther tiek atjaunotas jūsu cilnes ikreiz, kad to restartējat. Lai to izslēgtu, pārejiet uz lapu</translation>
-<translation id="3191314862567596053">Paroļu importēšana pārlūkā Browther</translation>
-<translation id="4864311514218370796"><ph name="PAGE_TITLE"/> — Browther Origin izstrādātāju versija</translation>
+<translation id="6638123710106659002">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma macOS 13 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma macOS 12.</translation>
+<translation id="7286289384512061761">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemtas šādas atļaujas: <ph name="PERMISSION_1"/>, <ph name="PERMISSION_2"/>.</translation>
+<translation id="113593073175678746">Šis paplašinājums vairs netiek atbalstīts. Browther iesaka to noņemt.</translation>
+<translation id="137615076640044304">Turpiniet darbu no vietas, kur to pārtraucāt: pārlūkā Browther tiek atjaunotas jūsu cilnes ikreiz, kad to restartējat. Lai to izslēgtu, pārejiet uz lapu</translation>
+<translation id="5967238175620483220">Paroļu importēšana pārlūkā Browther</translation>
+<translation id="4935019315986703336"><ph name="PAGE_TITLE"/> — Browther Origin izstrādātāju versija</translation>
 <translation id="7450541714075000668">Teksts ir nokopēts</translation>
-<translation id="2034072705932785495">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu kamerai šajā vietnē.</translation>
-<translation id="7129342855140808694">Lai izmantotu mikrofonu, piešķiriet pārlūkam Browther piekļuvi <ph name="BEGIN_LINK"/>sistēmas iestatījumos<ph name="END_LINK"/>.</translation>
-<translation id="5296583608321648908">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma Windows 10 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma Windows 7.</translation>
-<translation id="3962395975456095331">Vai atkārtoti palaist Browther?</translation>
-<translation id="2619516027171717873">Nevar instalēt to pašu Browther versiju, kas jau šobrīd darbojas. Aizveriet Browther un mēģiniet vēlreiz.</translation>
-<translation id="2731639583336131792">Jūs saglabāsiet un izmantosiet paroles un citu saturu savā Browther kontā, kad vien būsiet pierakstījies pārlūkā Browther. <ph name="LEARN_MORE"/></translation>
-<translation id="5337027666828618338">Vietnes, visticamāk, darbosies, kā paredzēts. Aizverot visus Browther logus, automātiski izrakstīsieties no lielākās daļas vietņu, bet ne no Browther konta, ja esat pierakstījies pārlūkā Browther.</translation>
-<translation id="3186363903915641692">{0,plural, =1{Pārlūks Browther pēc 1 minūtes tiks restartēts}zero{Pārlūks Browther pēc # minūtēm tiks restartēts}one{Pārlūks Browther pēc # minūtes tiks restartēts}other{Pārlūks Browther pēc # minūtēm tiks restartēts}}</translation>
-<translation id="552342471964912391">Lai aizsargātu savus datus, ļaujiet pārlūkā Browther noņemt atļaujas vietnēm, ko pēdējā laikā neesat apmeklējis.</translation>
-<translation id="3826701455067637694">Automātiski palaidiet pārlūku Browther, lai uzreiz sāktu pārlūkošanu.</translation>
+<translation id="7766009218653304791">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu kamerai šajā vietnē.</translation>
+<translation id="5844418066487488520">Lai izmantotu mikrofonu, piešķiriet pārlūkam Browther piekļuvi <ph name="BEGIN_LINK"/>sistēmas iestatījumos<ph name="END_LINK"/>.</translation>
+<translation id="8065480549334161841">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma Windows 10 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma Windows 7.</translation>
+<translation id="6299293759264950896">Vai atkārtoti palaist Browther?</translation>
+<translation id="180908550381040105">Nevar instalēt to pašu Browther versiju, kas jau šobrīd darbojas. Aizveriet Browther un mēģiniet vēlreiz.</translation>
+<translation id="7625576878150380853">Jūs saglabāsiet un izmantosiet paroles un citu saturu savā Browther kontā, kad vien būsiet pierakstījies pārlūkā Browther. <ph name="LEARN_MORE"/></translation>
+<translation id="2761156087685028805">Vietnes, visticamāk, darbosies, kā paredzēts. Aizverot visus Browther logus, automātiski izrakstīsieties no lielākās daļas vietņu, bet ne no Browther konta, ja esat pierakstījies pārlūkā Browther.</translation>
+<translation id="7099370564362681943">{0,plural, =1{Pārlūks Browther pēc 1 minūtes tiks restartēts}zero{Pārlūks Browther pēc # minūtēm tiks restartēts}one{Pārlūks Browther pēc # minūtes tiks restartēts}other{Pārlūks Browther pēc # minūtēm tiks restartēts}}</translation>
+<translation id="3602613943932672197">Lai aizsargātu savus datus, ļaujiet pārlūkā Browther noņemt atļaujas vietnēm, ko pēdējā laikā neesat apmeklējis.</translation>
+<translation id="8759568213742229377">Automātiski palaidiet pārlūku Browther, lai uzreiz sāktu pārlūkošanu.</translation>
 <translation id="7583399374488819119"><ph name="COMPANY_NAME"/> instalēšanas programma</translation>
-<translation id="3293668930608086049">Pārlūkā Browther tiek izmantota jūsu kamera un mikrofons.</translation>
-<translation id="2827121003398607864">Pārlūkā Browther ir veikti uzlabojumi</translation>
-<translation id="3071313329776323836">Tagad pārlūkā Browther ir pieejams vairāk funkciju.</translation>
+<translation id="8991800242749014880">Pārlūkā Browther tiek izmantota jūsu kamera un mikrofons.</translation>
+<translation id="2692328388439821508">Pārlūkā Browther ir veikti uzlabojumi</translation>
+<translation id="4318444066563223295">Tagad pārlūkā Browther ir pieejams vairāk funkciju.</translation>
 <translation id="7649070708921625228">Palīdzība</translation>
-<translation id="4008841832817149051">Ļaujiet pārlūkam Browther veikt pārlūkošanu jūsu vietā</translation>
+<translation id="5591287320769313116">Ļaujiet pārlūkam Browther veikt pārlūkošanu jūsu vietā</translation>
 <translation id="7658239707568436148">Atcelt</translation>
-<translation id="3343095737966473035">Browther nav jūsu noklusējuma pārlūks.</translation>
-<translation id="5477319665405831211">Browther sinhronizēšana un personalizēšana visās savās ierīcēs</translation>
-<translation id="2339273275658335597">Browther atjauninājums</translation>
+<translation id="6325482130534634729">Browther nav jūsu noklusējuma pārlūks.</translation>
+<translation id="8185915921134219287">Browther sinhronizēšana un personalizēšana visās savās ierīcēs</translation>
+<translation id="5120421624925726813">Browther atjauninājums</translation>
 <translation id="7716950018788545737">Uzdevumi ir pabeigti.</translation>
 <translation id="77283119132245232">Nodrošina sistēmas izsekošanas pakalpojumus pārlūkā <ph name="BROWSER_NAME"/>. Ja šis pakalpojums ir atspējots, pārlūka izveidotajos veiktspējas izsekošanas datos netiek ietverti sistēmas līmeņa notikumi, piemēram, konteksta maiņas un pavedienu gatavības notikumi.</translation>
-<translation id="4784414698887946907">Veicot šo darbību, no šīs ierīces tiks dzēsti pārlūkošanas dati. Lai vēlāk izgūtu datus, pierakstieties pārlūkā Browther kā <ph name="USER_EMAIL"/>.</translation>
+<translation id="6542096191573265107">Veicot šo darbību, no šīs ierīces tiks dzēsti pārlūkošanas dati. Lai vēlāk izgūtu datus, pierakstieties pārlūkā Browther kā <ph name="USER_EMAIL"/>.</translation>
 <translation id="7747138024166251722">Instalētājam neizdevās izveidot pagaidu katalogu. Lūdzu, pārbaudiet, vai diskā pietiek vietas un vai ir atļauja instalēt programmatūru.</translation>
-<translation id="8543787950557226450">Atiestatīt Browther noklusējuma motīvu</translation>
-<translation id="4976450819672499783">Iestatiet Browther kā noklusējuma pārlūku un piespraudiet to uzdevumu joslai</translation>
-<translation id="1978509466033734608">Pārlūka Browther darbības paātrināšana</translation>
-<translation id="8607348724092473027"><ph name="PAGE_TITLE"/> — Browther Origin Canary</translation>
-<translation id="2684504034454188774">Neļaujiet personām, kurām ir piekļuve jūsu interneta datplūsmai, viegli skatīt jūsu apmeklētās vietnes. Browther izmanto drošu savienojumu, lai meklētu vietnes IP adresi sistēmā DNS (domēnu nosaukumu sistēmā).</translation>
+<translation id="351575328720488268">Atiestatīt Browther noklusējuma motīvu</translation>
+<translation id="1054170408395182418">Iestatiet Browther kā noklusējuma pārlūku un piespraudiet to uzdevumu joslai</translation>
+<translation id="4569594230301902490">Pārlūka Browther darbības paātrināšana</translation>
+<translation id="8041924294044943913"><ph name="PAGE_TITLE"/> — Browther Origin Canary</translation>
+<translation id="7893465573639396635">Neļaujiet personām, kurām ir piekļuve jūsu interneta datplūsmai, viegli skatīt jūsu apmeklētās vietnes. Browther izmanto drošu savienojumu, lai meklētu vietnes IP adresi sistēmā DNS (domēnu nosaukumu sistēmā).</translation>
 <translation id="7810005234485217901">Varat piespraust funkciju Attēlu meklēšana, lai ērti tai varētu piekļūt.</translation>
-<translation id="1652855885539187849">Šajā ierīcē jau pastāv Browther profils ar šādu kontu.</translation>
+<translation id="2462631024103158515">Šajā ierīcē jau pastāv Browther profils ar šādu kontu.</translation>
 <translation id="7845233973568007926">Pateicamies, ka veicāt instalēšanu. Pirms <ph name="BUNDLE_NAME"/> izmantošanas ir jārestartē dators.</translation>
-<translation id="9148690296223500734">Pielāgojiet pārlūku Browther, lai piešķirtu tam jaunu izskatu.</translation>
-<translation id="7963515534397191222">Nevarēja atjaunināt uz jaunāko Browther versiju, tādēļ jūs nevarēsiet piekļūt jaunākajām funkcijām un drošības labojumiem.</translation>
+<translation id="311190437086049332">Pielāgojiet pārlūku Browther, lai piešķirtu tam jaunu izskatu.</translation>
+<translation id="6728847658878265103">Nevarēja atjaunināt uz jaunāko Browther versiju, tādēļ jūs nevarēsiet piekļūt jaunākajām funkcijām un drošības labojumiem.</translation>
 <translation id="7872446069773932638">Notiek lejupielāde... Atlikušais laiks: <ph name="SECONDS"/> sekunde(-es).</translation>
-<translation id="5545136190679883344">Ja aizmirstat ieejas frāzi vai vēlaties mainīt šo iestatījumu, <ph name="BEGIN_LINK"/>izdzēsiet Browther datus savā kontā<ph name="END_LINK"/>.</translation>
+<translation id="5374532739787768601">Ja aizmirstat ieejas frāzi vai vēlaties mainīt šo iestatījumu, <ph name="BEGIN_LINK"/>izdzēsiet Browther datus savā kontā<ph name="END_LINK"/>.</translation>
 <translation id="7877212753140190672">Jautāt par šo attēlu</translation>
-<translation id="5687542525349822727">Iestatīt Browther kā noklusējuma pārlūku</translation>
-<translation id="6396151137840491551">Pārlūkā Browther nedrošie savienojumi tiek automātiski jaunināti uz HTTPS, ja iespējams.</translation>
-<translation id="2925193881330501265">Operētājsistēmā Browther iepriekš pierakstījāties kā lietotājs <ph name="USER_EMAIL_ADDRESS"/>. Lai pierakstītos vēlreiz, lūdzu, izmantojiet to pašu kontu.</translation>
-<translation id="6915252145142862992">Šī ir Browther papildu instalācija, un to nevar izmantot kā noklusējuma pārlūku.</translation>
+<translation id="9172499982238113829">Iestatīt Browther kā noklusējuma pārlūku</translation>
+<translation id="3313826726620159669">Pārlūkā Browther nedrošie savienojumi tiek automātiski jaunināti uz HTTPS, ja iespējams.</translation>
+<translation id="3317928686912559532">Operētājsistēmā Browther iepriekš pierakstījāties kā lietotājs <ph name="USER_EMAIL_ADDRESS"/>. Lai pierakstītos vēlreiz, lūdzu, izmantojiet to pašu kontu.</translation>
+<translation id="6007009085341946457">Šī ir Browther papildu instalācija, un to nevar izmantot kā noklusējuma pārlūku.</translation>
 <translation id="8004582292198964060">Pārlūkprogramma</translation>
 <translation id="8010081455002666927">Noteikt automātiski</translation>
-<translation id="7685904775439037072">Tiklīdz pārlūkam Browther tiks sniegta piekļuve, vietnes varēs lūgt jums piekļuvi.</translation>
-<translation id="3230755314472063687">Piespraudiet pārlūku Browther uzdevumu joslai, lai jebkurā laikā varētu tam ātri piekļūt.</translation>
+<translation id="174885789898161653">Tiklīdz pārlūkam Browther tiks sniegta piekļuve, vietnes varēs lūgt jums piekļuvi.</translation>
+<translation id="3001754454174546602">Piespraudiet pārlūku Browther uzdevumu joslai, lai jebkurā laikā varētu tam ātri piekļūt.</translation>
 <translation id="80471789339884597">Pateicamies, ka veicāt instalēšanu. Pirms <ph name="BUNDLE_NAME"/> izmantošanas ir jārestartē visas pārlūkprogrammas.</translation>
 <translation id="8054112667659782652">Vienmēr rādīt funkcijas Attēlu meklēšana saīsni</translation>
-<translation id="6175141682081019059">Atspējot Browther darbību fonā lietotnēm</translation>
+<translation id="6993312779622863465">Atspējot Browther darbību fonā lietotnēm</translation>
 <translation id="80790299200510644">Attēlu meklēšana</translation>
 <translation id="8086881907087796310">Instalēšana neizdevās, jo jūsu dators neatbilst minimālajām aparatūras prasībām.</translation>
-<translation id="5528402763209637578"><ph name="PAGE_TITLE"/> — Browther Origin for Testing</translation>
-<translation id="2061155704815580583">Pārlūkam Browther ir nepieciešama atrašanās vietas atļauja šai vietnei.</translation>
-<translation id="3576319845915562805">Kad nākamreiz savā ierīcē (<ph name="DEVICE_TYPE"/>) atvērsiet pārlūku Browther, tiks parādīts aicinājums iespējot brīdinājumus par cenu izsekošanu.</translation>
+<translation id="3217614128548917842"><ph name="PAGE_TITLE"/> — Browther Origin for Testing</translation>
+<translation id="543407324609820492">Pārlūkam Browther ir nepieciešama atrašanās vietas atļauja šai vietnei.</translation>
+<translation id="1767887552863788514">Kad nākamreiz savā ierīcē (<ph name="DEVICE_TYPE"/>) atvērsiet pārlūku Browther, tiks parādīts aicinājums iespējot brīdinājumus par cenu izsekošanu.</translation>
 <translation id="8118331347066725040">Sūtiet atsauksmes par meklēšanu, izmantojot Lens</translation>
 <translation id="5334309298019785904">Browther OS nevarēja sinhronizēt jūsu datus, jo jūsu domēnā nav pieejama sinhronizācija.</translation>
 <translation id="813913629614996137">Notiek inicializēšana...</translation>
-<translation id="1081849497974110565">Browther pakalpojumu sniegšanas papildu noteikumi</translation>
-<translation id="9067428552314418522">Šis fails ir bīstams, tāpēc Browther to bloķēja.</translation>
+<translation id="4879101934056397619">Browther pakalpojumu sniegšanas papildu noteikumi</translation>
+<translation id="4505690237431768764">Šis fails ir bīstams, tāpēc Browther to bloķēja.</translation>
 <translation id="8177472873527554730">Nevar atrast saturu lapā</translation>
-<translation id="6219250889396046657">Lai savā kontā (<ph name="USER_EMAIL"/>) izmantotu un saglabātu Browther datus, ievadiet ieejas frāzi.</translation>
+<translation id="4720341280133158605">Lai savā kontā (<ph name="USER_EMAIL"/>) izmantotu un saglabātu Browther datus, ievadiet ieejas frāzi.</translation>
 <translation id="8221491193165283816">Parasti jūs bloķējat paziņojumus. Lai ļautu šai vietnei sūtīt jums paziņojumus, noklikšķiniet šeit.</translation>
-<translation id="8377926237617998195">Lai izmantotu kameru, piešķiriet pārlūkam Browther piekļuvi <ph name="BEGIN_LINK"/>sistēmas iestatījumos<ph name="END_LINK"/>.</translation>
-<translation id="1755067029031059271">Browther nevar pārbaudīt šī paplašinājuma izcelsmi, un, iespējams, tas nav drošs. Noņemiet to no pārlūka Browther, lai tas jūsu apmeklētajās vietnēs vairs nevarētu skatīt un mainīt jūsu datus, tostarp personas informāciju.</translation>
-<translation id="8207657266087451193">Ja attēlam nav vērtīga apraksta, pārlūks Browther mēģinās jums tādu nodrošināt. Lai izveidotu aprakstus, attēli tiek nosūtīti uzņēmumam Browther. Jebkurā brīdī iestatījumos varat izslēgt šo iespēju.</translation>
-<translation id="7792526144795244436">Vai pierakstīties pārlūkā Browther, izmantojot jaunu profilu?</translation>
-<translation id="976541154724186511">Pārlūkā <ph name="BEGIN_LINK"/>Browther tiek rādīti brīdinājumi<ph name="END_LINK"/> par nedrošām vietnēm un lejupielādēm</translation>
-<translation id="8060549744348950090">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemta šāda atļauja: <ph name="PERMISSION"/>.</translation>
-<translation id="7402663241490331652">Iepērcieties, tulkojiet un identificējiet redzamo saturu, izmantojot kameru iOS lietotnē Browther.</translation>
+<translation id="1083711467946065278">Lai izmantotu kameru, piešķiriet pārlūkam Browther piekļuvi <ph name="BEGIN_LINK"/>sistēmas iestatījumos<ph name="END_LINK"/>.</translation>
+<translation id="6569785137733211804">Browther nevar pārbaudīt šī paplašinājuma izcelsmi, un, iespējams, tas nav drošs. Noņemiet to no pārlūka Browther, lai tas jūsu apmeklētajās vietnēs vairs nevarētu skatīt un mainīt jūsu datus, tostarp personas informāciju.</translation>
+<translation id="1122818205373648656">Ja attēlam nav vērtīga apraksta, pārlūks Browther mēģinās jums tādu nodrošināt. Lai izveidotu aprakstus, attēli tiek nosūtīti uzņēmumam Browther. Jebkurā brīdī iestatījumos varat izslēgt šo iespēju.</translation>
+<translation id="6877990294324319801">Vai pierakstīties pārlūkā Browther, izmantojot jaunu profilu?</translation>
+<translation id="6478811748813986578">Pārlūkā <ph name="BEGIN_LINK"/>Browther tiek rādīti brīdinājumi<ph name="END_LINK"/> par nedrošām vietnēm un lejupielādēm</translation>
+<translation id="1685486387921540822">Pēdējā laikā šī vietne nav apmeklēta. Pārlūkā Browther tika noņemta šāda atļauja: <ph name="PERMISSION"/>.</translation>
+<translation id="8921153410460268589">Iepērcieties, tulkojiet un identificējiet redzamo saturu, izmantojot kameru iOS lietotnē Browther.</translation>
 <translation id="8313851650939857356">Palaišanas kļūda: <ph name="STARTUP_ERROR"/>.</translation>
-<translation id="6098476632210317894">Jūsu organizācija aizver pārlūku Browther, ja tas <ph name="TIMEOUT_DURATION"/> netiek izmantots.</translation>
+<translation id="7386947683604296534">Jūsu organizācija aizver pārlūku Browther, ja tas <ph name="TIMEOUT_DURATION"/> netiek izmantots.</translation>
 <translation id="8321888067342493336">Saglabāt kā attēlu</translation>
-<translation id="3360368475735266712">Pierakstieties, lai sinhronizētu un personalizētu pārlūku Browther visās savās ierīcēs.</translation>
-<translation id="2591326305549412656"><ph name="USER_EMAIL_ADDRESS"/> iepriekš izmantoja Browther</translation>
-<translation id="5592122595094519401">Lai turpinātu izmantot Browther datus savā Browther kontā (<ph name="ACCOUNT_EMAIL"/>), atjauniniet pārlūku Browther.</translation>
-<translation id="2569754604093464025">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma Windows 10 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma Windows 8.</translation>
+<translation id="143016831128278157">Pierakstieties, lai sinhronizētu un personalizētu pārlūku Browther visās savās ierīcēs.</translation>
+<translation id="4784945022248750283"><ph name="USER_EMAIL_ADDRESS"/> iepriekš izmantoja Browther</translation>
+<translation id="1288164710697017468">Lai turpinātu izmantot Browther datus savā Browther kontā (<ph name="ACCOUNT_EMAIL"/>), atjauniniet pārlūku Browther.</translation>
+<translation id="8648401677359150296">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma Windows 10 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma Windows 8.</translation>
 <translation id="8362914115861174987">Tulkot šādā valodā:</translation>
 <translation id="8367705492654390392">Uzdodiet jebkādu jautājumu</translation>
-<translation id="7296197595428914424">Pierakstieties pārlūkā Browther, lai varētu piekļūt parolēm un citiem datiem visās savās ierīcēs. Šī parole tiks saglabāta jūsu Browther kontā pēc pierakstīšanās.</translation>
-<translation id="9098234372282930719">Pēc tam jums būs jārestartē pārlūks Browther.</translation>
-<translation id="1327729221471951979">Browther iesaka to noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.</translation>
-<translation id="8577108764439626300">Šī paplašinājuma publicēšanu atcēla izstrādātājs, un paplašinājums, iespējams, nav drošs. Noņemiet to no pārlūka Browther, lai tas jūsu apmeklētajās vietnēs vairs nevarētu skatīt un mainīt jūsu datus, tostarp jūsu personas informāciju.</translation>
-<translation id="4234753748520037091">Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati tiks dzēsti.</translation>
-<translation id="5337999052834672687">{0,plural, =1{Restartējiet pārlūku Browther vienas dienas laikā}zero{Restartējiet pārlūku Browther # dienu laikā}one{Restartējiet pārlūku Browther # dienas laikā}other{Restartējiet pārlūku Browther # dienu laikā}}</translation>
+<translation id="5769022907892823357">Pierakstieties pārlūkā Browther, lai varētu piekļūt parolēm un citiem datiem visās savās ierīcēs. Šī parole tiks saglabāta jūsu Browther kontā pēc pierakstīšanās.</translation>
+<translation id="4782442810031768771">Pēc tam jums būs jārestartē pārlūks Browther.</translation>
+<translation id="8265348385714408341">Browther iesaka to noņemt. <ph name="BEGIN_LINK"/>Uzziniet vairāk par atbalstītajiem paplašinājumiem<ph name="END_LINK"/>.</translation>
+<translation id="3866087820766911633">Šī paplašinājuma publicēšanu atcēla izstrādātājs, un paplašinājums, iespējams, nav drošs. Noņemiet to no pārlūka Browther, lai tas jūsu apmeklētajās vietnēs vairs nevarētu skatīt un mainīt jūsu datus, tostarp jūsu personas informāciju.</translation>
+<translation id="1613655732912855341">Pārlūkā Browther ir jāverificē jūsu identitāte, lai noteiktus datus varētu saglabāt jūsu Browther kontā un izmantot visās jūsu ierīcēs. Ja izrakstīsieties tūlīt, šie dati tiks dzēsti.</translation>
+<translation id="9103715009358215214">{0,plural, =1{Restartējiet pārlūku Browther vienas dienas laikā}zero{Restartējiet pārlūku Browther # dienu laikā}one{Restartējiet pārlūku Browther # dienas laikā}other{Restartējiet pārlūku Browther # dienu laikā}}</translation>
 <translation id="8438543370129609977">Kad izmantojat funkciju Attēlu meklēšana, serverim tiek nosūtīts lapas nosaukums, URL un saturs, tostarp PDF faili. <ph name="LEARN_MORE"/></translation>
-<translation id="2936579431423833666">Uzzināt vairāk par meklēšanu, izmantojot attēlu meklēšanu pārlūkā Browther</translation>
-<translation id="6914496861676471566">Instalēšanas programmas arhīvs ir bojāts vai nav derīgs. Lejupielādējiet Browther vēlreiz.</translation>
-<translation id="4378573854226202617">Pārlūka Browther izmantošanai nepieciešama operētājsistēma Windows 10 vai jaunāka versija.</translation>
-<translation id="6431861494713261006">Neobligāti: palīdziet uzlabot Browther OS funkcijas un veiktspēju, automātiski nosūtot Browther serveriem diagnostikas un lietojuma datus.</translation>
-<translation id="8691137711639873980">Lai izmantotu un saglabātu Browther datus savā Browther kontā, apstipriniet savu identitāti.</translation>
-<translation id="3251012123600267109">Tiek rādīti aicinājumi pierakstīties pārlūkā Browther.</translation>
-<translation id="2097604701283463988">Browther versija ir novecojusi</translation>
-<translation id="6080203201796279095">Paldies, ka izvēlējāties Browther kā noklusējuma pārlūku!</translation>
-<translation id="871233388178581868">Pārlūkprogrammā Browther var pārbaudīt jūsu paroles, ja jūs tās saglabājat.</translation>
-<translation id="3667461919057407535">Saņemiet brīdinājumu, ja pārlūkā Browther tiek konstatēts, ka kāda no jūsu parolēm ir iekļauta publiskā datu aizsardzības pārkāpumā.</translation>
+<translation id="3550129882823305293">Uzzināt vairāk par meklēšanu, izmantojot attēlu meklēšanu pārlūkā Browther</translation>
+<translation id="1401757916223057494">Instalēšanas programmas arhīvs ir bojāts vai nav derīgs. Lejupielādējiet Browther vēlreiz.</translation>
+<translation id="5029760494698649486">Pārlūka Browther izmantošanai nepieciešama operētājsistēma Windows 10 vai jaunāka versija.</translation>
+<translation id="7906734902028783072">Neobligāti: palīdziet uzlabot Browther OS funkcijas un veiktspēju, automātiski nosūtot Browther serveriem diagnostikas un lietojuma datus.</translation>
+<translation id="6791756730901393492">Lai izmantotu un saglabātu Browther datus savā Browther kontā, apstipriniet savu identitāti.</translation>
+<translation id="4879869745782826167">Tiek rādīti aicinājumi pierakstīties pārlūkā Browther.</translation>
+<translation id="2967761098021401720">Browther versija ir novecojusi</translation>
+<translation id="7674832651694000881">Paldies, ka izvēlējāties Browther kā noklusējuma pārlūku!</translation>
+<translation id="4507581730979762077">Pārlūkprogrammā Browther var pārbaudīt jūsu paroles, ja jūs tās saglabājat.</translation>
+<translation id="7205233182271132386">Saņemiet brīdinājumu, ja pārlūkā Browther tiek konstatēts, ka kāda no jūsu parolēm ir iekļauta publiskā datu aizsardzības pārkāpumā.</translation>
 <translation id="8555465886620020932">Pakalpojuma kļūda: <ph name="SERVICE_ERROR"/>.</translation>
 <translation id="8556420416730706394">Varat piespraust funkciju Attēlu meklēšana, lai ērti tai piekļūtu. Sānu paneļa augšdaļā noklikšķiniet uz pogas “Piespraust”.</translation>
 <translation id="856656450041460113">Meklēt valodu sarakstā</translation>
-<translation id="227028348235968071">Pārlūkprogrammā Browther var pārbaudīt jūsu paroles, ja esat pierakstījies savā Browther kontā.</translation>
-<translation id="839677568225616901">Pārlūku Browther pārvalda vairākas organizācijas</translation>
-<translation id="8121009781989288430">Autortiesības <ph name="YEAR"/> Browther autori. Visas tiesības paturētas.</translation>
+<translation id="75470458211269379">Pārlūkprogrammā Browther var pārbaudīt jūsu paroles, ja esat pierakstījies savā Browther kontā.</translation>
+<translation id="2108930010779660436">Pārlūku Browther pārvalda vairākas organizācijas</translation>
+<translation id="7209630341463003999">Autortiesības <ph name="YEAR"/> Browther autori. Visas tiesības paturētas.</translation>
 <translation id="8601359445272098721">Jaunums! Atlasot pogu “Tulkot ekrānu”, varat tulkot gan ekrānā redzamo tekstu, gan attēlus.</translation>
-<translation id="3052349005266761501">Notiek Browther palaišana...</translation>
+<translation id="782928371899183269">Notiek Browther palaišana...</translation>
 <translation id="8624541899164515475">Iestatījumi; tiks atvērta jauna cilne.</translation>
-<translation id="5128665650717824082">Browther for Testing nevar iestatīt kā noklusējuma pārlūku.</translation>
+<translation id="5879341334716115002">Browther for Testing nevar iestatīt kā noklusējuma pārlūku.</translation>
 <translation id="2433912322225810055">Tas nosaka arī to, kāda lapa tiks rādīta, kad atvērsiet pārlūku Browther vai meklēsiet, izmantojot universālo lodziņu.</translation>
-<translation id="4100716194836114130">Šis ir jūsu Browther</translation>
+<translation id="4816541973978692496">Šis ir jūsu Browther</translation>
 <translation id="8712637175834984815">Sapratu!</translation>
-<translation id="1419543648228375718">Vai pierakstīties pārlūkā Browther?</translation>
-<translation id="4891728458408976811">Glabājiet visu pārlūkā Browther</translation>
+<translation id="9037464035997618895">Vai pierakstīties pārlūkā Browther?</translation>
+<translation id="7897185368811431919">Glabājiet visu pārlūkā Browther</translation>
 <translation id="8747073452963259673">meklēšanas apgabala apakšējais kreisais stūris: <ph name="LEFT"/>% pa kreisi, <ph name="BOTTOM"/>% apakšdaļā</translation>
 <translation id="878572486461146056">Instalēšanas kļūda: administrators ir piemērojis grupas politiku, kas neļauj veikt instalēšanu: <ph name="INSTALL_ERROR"/>.</translation>
-<translation id="4831743161813926460">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu kamerai un mikrofonam šajā vietnē.</translation>
+<translation id="1576369213923770885">Pārlūkam Browther ir nepieciešama atļauja piekļūt jūsu kamerai un mikrofonam šajā vietnē.</translation>
 <translation id="8813277370772331957">Atgādināt vēlāk</translation>
-<translation id="64216977793816291">Vai pierakstīties pārlūkā Browther?</translation>
-<translation id="7447364954121496869">Iestatīt Browther kā noklusējuma pārlūku un piespraust to uzdevumu joslai</translation>
+<translation id="6831999464349484462">Vai pierakstīties pārlūkā Browther?</translation>
+<translation id="3698151322107951111">Iestatīt Browther kā noklusējuma pārlūku un piespraust to uzdevumu joslai</translation>
 <translation id="8826492472752484139">Noklikšķiniet uz vienuma Paroļu pārvaldnieks.</translation>
 <translation id="6933858244219479645">Browther OS sistēma</translation>
-<translation id="9084132286318231275">Šī valoda tiek izmantota, lai rādītu izvēlnes, iestatījumus, brīdinājumus un citu tekstu pārlūkā Browther.</translation>
+<translation id="3986927308621489499">Šī valoda tiek izmantota, lai rādītu izvēlnes, iestatījumus, brīdinājumus un citu tekstu pārlūkā Browther.</translation>
 <translation id="8862326446509486874">Jums nav vajadzīgo tiesību, lai instalētu sistēmas līmenī. Mēģiniet vēlreiz palaist instalēšanas programmu kā administrators.</translation>
-<translation id="7289323009146924152">Pievienot Browther profilu</translation>
-<translation id="6412037018950369131">Ja tā ir, lūdzu, rediģējiet saglabāto paroli pārlūkprogrammā Browther, lai tā atbilstu jūsu jaunajai parolei.</translation>
-<translation id="1150745254876977823">Saskaņā ar jūsu organizācijas politiku jums ir jāpierakstās pārlūkā Browther.</translation>
-<translation id="8285294305439559616">Browther mēģina rādīt paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
-<translation id="4684884244620579559">Browther vairs nav jūsu noklusējuma pārlūks. Vai iestatīt Browther par noklusējuma pārlūku?</translation>
-<translation id="6389268239133412586">Nevar atjaunināt Browther</translation>
-<translation id="7731184591599776500">Browther Enterprise logotips</translation>
-<translation id="6500340165622970282">Nevar palaist pārlūku Browther, jo radās problēma, atverot jūsu profilu. Mēģiniet restartēt pārlūku Browther.</translation>
-<translation id="3424657754843264466">Pārvaldīt Browther profilus</translation>
-<translation id="7055223246119657449">Pārlūkā Browther šī lejupielāde tika bloķēta, jo šajā arhīva failā ir ietverti citi faili, kas, iespējams, slēpj ļaunprātīgu programmatūru</translation>
-<translation id="9049928023195059068">Automātiska pierakstīšanās pārlūkā Browther, kad pierakstāties citos Browther pakalpojumos</translation>
-<translation id="4561046754724442504">Pārlūks Browther tika automātiski aizvērts</translation>
-<translation id="5173820533850252773">Browther versija ir novecojusi.</translation>
-<translation id="310518206836658214">{0,plural, =1{Pārlūks Browther pēc stundas tiks restartēts}zero{Pārlūks Browther pēc # stundām tiks restartēts}one{Pārlūks Browther pēc # stundas tiks restartēts}other{Pārlūks Browther pēc # stundām tiks restartēts}}</translation>
+<translation id="5318226144018267261">Pievienot Browther profilu</translation>
+<translation id="1298790608554316415">Ja tā ir, lūdzu, rediģējiet saglabāto paroli pārlūkprogrammā Browther, lai tā atbilstu jūsu jaunajai parolei.</translation>
+<translation id="960933321883777733">Saskaņā ar jūsu organizācijas politiku jums ir jāpierakstās pārlūkā Browther.</translation>
+<translation id="948979409756947611">Browther mēģina rādīt paroles. Lai to atļautu, ierakstiet savu Windows paroli.</translation>
+<translation id="1418854271943945136">Browther vairs nav jūsu noklusējuma pārlūks. Vai iestatīt Browther par noklusējuma pārlūku?</translation>
+<translation id="7228667329366610727">Nevar atjaunināt Browther</translation>
+<translation id="4817697255467736794">Browther Enterprise logotips</translation>
+<translation id="3507731466523097529">Nevar palaist pārlūku Browther, jo radās problēma, atverot jūsu profilu. Mēģiniet restartēt pārlūku Browther.</translation>
+<translation id="3234473600657230663">Pārvaldīt Browther profilus</translation>
+<translation id="8953887022581653484">Pārlūkā Browther šī lejupielāde tika bloķēta, jo šajā arhīva failā ir ietverti citi faili, kas, iespējams, slēpj ļaunprātīgu programmatūru</translation>
+<translation id="532304972436358335">Automātiska pierakstīšanās pārlūkā Browther, kad pierakstāties citos Browther pakalpojumos</translation>
+<translation id="3425998261052065067">Pārlūks Browther tika automātiski aizvērts</translation>
+<translation id="4377377022617011492">Browther versija ir novecojusi.</translation>
+<translation id="3247296757162889864">{0,plural, =1{Pārlūks Browther pēc stundas tiks restartēts}zero{Pārlūks Browther pēc # stundām tiks restartēts}one{Pārlūks Browther pēc # stundas tiks restartēts}other{Pārlūks Browther pēc # stundām tiks restartēts}}</translation>
 <translation id="9106236359747881194">Atlasiet tekstu, ko meklēt</translation>
-<translation id="5190991181158966940">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma Windows 10 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma Windows 8.1.</translation>
-<translation id="7863882214613921971">Atvērt saiti jaunā Browther &amp;cilnē</translation>
+<translation id="5115014198092384730">Lai saņemtu turpmākus Browther atjauninājumus, nepieciešama operētājsistēma Windows 10 vai jaunāka versija. Šajā datorā tiek izmantota operētājsistēma Windows 8.1.</translation>
+<translation id="7129101984664345614">Atvērt saiti jaunā Browther &amp;cilnē</translation>
 <translation id="911206726377975832">Vai dzēst arī pārlūkošanas datus?</translation>
 <translation id="9134482777260927479">Palīdzība mājasdarbos</translation>
 <translation id="9148058034647219655">Iziet</translation>
-<translation id="2792073155252170448">Turpiniet darbu no vietas, kur to pārtraucāt: pārlūkā Browther var tikt atjaunotas jūsu cilnes ikreiz, kad to restartējat. Lai to ieslēgtu, pārejiet uz lapu</translation>
-<translation id="2444257125841652328">Sistēmas administrators ir konfigurējis Browther, lai vietne <ph name="TARGET_URL_HOSTNAME"/> tiktu atvērta papildu pārlūkā.</translation>
-<translation id="8208548103319284047">Browther padoms: meklējiet, izmantojot Lens</translation>
-<translation id="7902365066753170041">Atkārtoti palaist, lai atjauninātu &amp;Browther</translation>
-<translation id="538146372587193686">Browther Origin (mDNS ienākošie savienojumi)</translation>
-<translation id="49909619875329637">Iegūstiet vairāk, pierakstoties pārlūkā Browther</translation>
-<translation id="296137235951584143">Pielāgojiet pārlūku Browther savām vajadzībām</translation>
-<translation id="7977787072794666032">Iespējams, Browther nedarbosies pareizi, jo tas vairs netiek atbalstīts operētājsistēmās Windows XP un Windows Vista.</translation>
+<translation id="1734388504720121468">Turpiniet darbu no vietas, kur to pārtraucāt: pārlūkā Browther var tikt atjaunotas jūsu cilnes ikreiz, kad to restartējat. Lai to ieslēgtu, pārejiet uz lapu</translation>
+<translation id="8633974232736772207">Sistēmas administrators ir konfigurējis Browther, lai vietne <ph name="TARGET_URL_HOSTNAME"/> tiktu atvērta papildu pārlūkā.</translation>
+<translation id="1122669402846843682">Browther padoms: meklējiet, izmantojot Lens</translation>
+<translation id="595330134356385835">Atkārtoti palaist, lai atjauninātu &amp;Browther</translation>
+<translation id="2556178781950124146">Browther Origin (mDNS ienākošie savienojumi)</translation>
+<translation id="6491100124044190139">Iegūstiet vairāk, pierakstoties pārlūkā Browther</translation>
+<translation id="1665840797775025867">Pielāgojiet pārlūku Browther savām vajadzībām</translation>
+<translation id="4407047432656809023">Iespējams, Browther nedarbosies pareizi, jo tas vairs netiek atbalstīts operētājsistēmās Windows XP un Windows Vista.</translation>
 <translation id="945522503751344254">Sūtīt atsauksmes</translation>
-<translation id="4484434718272972655">Kas izmanto pārlūku Browther?</translation>
-<translation id="7173394303099002355">Visaugstākais Browther drošības līmenis</translation>
+<translation id="7620348044248809366">Kas izmanto pārlūku Browther?</translation>
+<translation id="7299962884342109067">Visaugstākais Browther drošības līmenis</translation>
 <translation id="983803489796659991">Instalēšana neizdevās, jo atjauninājumu serverim nav nekādu jaukšanas datu lietojumprogrammai.</translation>
-<translation id="8435446479956716379">Izmantot Browther, nepierakstoties kontā</translation>
-<translation id="8992261409816268381">Browther autori</translation>
+<translation id="8775461190334353148">Izmantot Browther, nepierakstoties kontā</translation>
+<translation id="7146761239544860058">Browther autori</translation>
 <translation id="989970834842471429">Atlasiet jebkuru tekstu vai attēlu, lai to meklētu, izmantojot funkciju Attēlu meklēšana</translation>
-<translation id="3146636448190445245">Lai izmantotu atrašanās vietas datus, piešķiriet pārlūkam Browther piekļuvi <ph name="BEGIN_LINK"/>sistēmas iestatījumos<ph name="END_LINK"/>.</translation>
+<translation id="6616551030373607751">Lai izmantotu atrašanās vietas datus, piešķiriet pārlūkam Browther piekļuvi <ph name="BEGIN_LINK"/>sistēmas iestatījumos<ph name="END_LINK"/>.</translation>
 <translation id="137466361146087520">Google Chrome Beta</translation>
 <translation id="7535429826459677826">Google Chrome Dev</translation>
-<translation id="6283840329609797763">Instalēšana neizdevās nenoteiktas kļūdas dēļ. Lejupielādējiet pārlūku Browther vēlreiz.</translation>
-<translation id="1743665722170667430">Paplašinājumi, lietotnes un tēmas no nezināmiem avotiem var kaitēt jūsu ierīcei. Browther iesaka instalēt tos tikai no <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
-<translation id="6184592406110188164">Šis paplašinājums pārkāpj interneta veikala politikas noteikumus un var būt nedrošs. Noņemiet to no Browther, lai tas vairs neredzētu jūsu datus, tostarp jūsu personas datus, un nevarētu tos mainīt vietnēs, kuras apmeklējat.</translation>
-<translation id="1299765473362724475">BRĪDINĀJUMS! Browther nevar novērst, ka paplašinājumi reģistrē jūsu pārlūkošanas vēsturi. Lai atspējotu šo paplašinājumu inkognito režīmā, atceliet tā atlasi.</translation>
-<translation id="1448049584457347995">Lai uzlabotu Browther drošību, mēs atspējojām dažus paplašinājumus, kas nav norādīti vietnē ­<ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> un, iespējams, tika pievienoti, jums nezinot.</translation>
-<translation id="8848045066928358658">Lai uzlabotu Browther drošību, mēs atspējojām tālāk norādīto paplašinājumu, kas nav norādīts vietnē <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> un, iespējams, tika pievienots, jums nezinot.</translation>
-<translation id="4624945300945265642">Atvērt saiti &amp;inkognito režīma logā</translation>
-<translation id="6554952862405000915">Atvērt saiti &amp;inkognito režīma logā</translation>
-<translation id="8274659559228306809">{COUNT,plural, 
+<translation id="5110032212554763592">Instalēšana neizdevās nenoteiktas kļūdas dēļ. Lejupielādējiet pārlūku Browther vēlreiz.</translation>
+<translation id="9074842261125908635">Paplašinājumi, lietotnes un tēmas no nezināmiem avotiem var kaitēt jūsu ierīcei. Browther iesaka instalēt tos tikai no <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/></translation>
+<translation id="3593119910409528681">Šis paplašinājums pārkāpj interneta veikala politikas noteikumus un var būt nedrošs. Noņemiet to no Browther, lai tas vairs neredzētu jūsu datus, tostarp jūsu personas datus, un nevarētu tos mainīt vietnēs, kuras apmeklējat.</translation>
+<translation id="5245976396374147971">BRĪDINĀJUMS! Browther nevar novērst, ka paplašinājumi reģistrē jūsu pārlūkošanas vēsturi. Lai atspējotu šo paplašinājumu inkognito režīmā, atceliet tā atlasi.</translation>
+<translation id="3629539416935660172">Lai uzlabotu Browther drošību, mēs atspējojām dažus paplašinājumus, kas nav norādīti vietnē ­<ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> un, iespējams, tika pievienoti, jums nezinot.</translation>
+<translation id="157534302749986451">Lai uzlabotu Browther drošību, mēs atspējojām tālāk norādīto paplašinājumu, kas nav norādīts vietnē <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> un, iespējams, tika pievienots, jums nezinot.</translation>
+<translation id="3031052147361385845">Atvērt saiti &amp;inkognito režīma logā</translation>
+<translation id="5556794247782664281">Atvērt saiti &amp;inkognito režīma logā</translation>
+<translation id="4555500675737067970">{COUNT,plural, 
 =0{Pieejams Browther atjauninājums, un tas tiks lietots, tiklīdz restartēsiet pārlūku.}
 =1{Pieejams Browther atjauninājums, un tas tiks lietots, tiklīdz restartēsiet pārlūku. Jūsu inkognito režīma logs netiks atkārtoti atvērts.}
 other{Pieejams Browther atjauninājums, un tas tiks lietots, tiklīdz restartēsiet pārlūku. Jūsu # inkognito režīma logi netiks atkārtoti atvērti.}}</translation>
-<translation id="3829358914761176693">{COUNT,plural, 
+<translation id="6181263681651521876">{COUNT,plural, 
 =0{Lai lietotu šo atjauninājumu, administrators lūdz restartēt pārlūku Browther.}
 =1{Lai lietotu šo atjauninājumu, administrators lūdz restartēt pārlūku Browther. Jūsu inkognito režīma logs netiks atkārtoti atvērts.}
 other {Lai lietotu šo atjauninājumu, administrators lūdz restartēt pārlūku Browther. Jūsu # inkognito režīma logi netiks atkārtoti atvērti.}}</translation>
-<translation id="552349673358711446">{COUNT,plural,
+<translation id="1341091418019636353">{COUNT,plural,
  =0{Lai lietotu atjauninājumu, administrators pieprasa restartēt pārlūku Browther.}
 =1{Lai lietotu atjauninājumu, administrators pieprasa restartēt pārlūku Browther. Jūsu inkognito režīma logs netiks atkārtoti atvērts.}
 other {Lai lietotu atjauninājumu, administrators pieprasa restartēt pārlūku Browther. Jūsu # inkognito režīma logi netiks atkārtoti atvērti.}}</translation>
-<translation id="1400696845469684552">{COUNT, plural,
+<translation id="8762228142105311329">{COUNT, plural,
               =0 {Lai piemērotu atjauninājumu, ir atkārtoti jāpalaiž Browther}
               =1 {Lai piemērotu atjauninājumu, ir atkārtoti jāpalaiž Browther. Jūsu privātais logs netiks atvērts no jauna.}
               other {Lai piemērotu atjauninājumu, uzlabotajai aizsardzībai ir atkārtoti jāpalaiž Browther. Jūsu # Privātie logi netiks atvērti no jauna.}}</translation>
 <translation id="5749154344207139683">Palīdziet mums uzlabot privāto režīmu, aizpildot šo aptauju (1 min.).</translation>
-<translation id="79269250264141507">Kad rakstāt adreses joslā vai meklēšanas lodziņā, to, ko rakstāt, Browther nosūta uz jūsu noklusējuma meklētājprogrammu, lai iegūtu labākus ieteikumus. Inkognito režīmā šī opcija ir izslēgta.</translation>
-<translation id="2589970573128789862">Browther inkognito</translation>
-<translation id="5994282802285556682">Pārlūkojot privātajā režīmā, Browther brīdinās jūs pirms vietnes ielādes, izmantojot nedrošu savienojumu</translation>
+<translation id="6954203250660846933">Kad rakstāt adreses joslā vai meklēšanas lodziņā, to, ko rakstāt, Browther nosūta uz jūsu noklusējuma meklētājprogrammu, lai iegūtu labākus ieteikumus. Inkognito režīmā šī opcija ir izslēgta.</translation>
+<translation id="3542179014707218534">Browther inkognito</translation>
+<translation id="2076355018722231995">Pārlūkojot privātajā režīmā, Browther brīdinās jūs pirms vietnes ielādes, izmantojot nedrošu savienojumu</translation>
 </translationbundle>

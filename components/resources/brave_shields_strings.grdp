@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grit-part>
   <message name="IDS_BRAVE_SHIELDS" translateable="false" desc="Title for Brave Shields">
-    Brave Shields
+    Browther Shields
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_STANDALONE" desc="Label for back button on inner views of Shields panel">
@@ -9,7 +9,7 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ENABLE" desc="An accessible label for Brave Shields switch button.">
-    Enable Brave Shields
+    Enable Browther Shields
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_UP" desc="Status label for when Brave Shields is enabled.">
@@ -109,7 +109,7 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_NOT_BLOCKED_NOTE" desc="Description to convey trackers, advertisement and more are not being blocked. Do not translate Brave SHields.">
-    Not protected by Brave Shields <ph name="LINK_BEFORE">$1</ph>Learn more<ph name="LINK_AFTER">/$1</ph>
+    Not protected by Browther Shields <ph name="LINK_BEFORE">$1</ph>Learn more<ph name="LINK_AFTER">/$1</ph>
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ADVANCED_CTRLS" desc="A button label to expand/collapse more options.">
@@ -301,7 +301,7 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ICON_TOOLTIP" desc="The message shown on hover of the shields lion icon">
-    Brave Shields
+    Browther Shields
 <ph name="NUMBER">$1</ph> Trackers, ads, and more blocked
   </message>
 
@@ -342,18 +342,18 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_NOT_VALID_ADDRESS" desc="Label for link about invalid pattern for content setting page dialog to add a site">
-    Wildcards are not allowed for Brave Shields.
+    Wildcards are not allowed for Browther Shields.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ONBOARDING_LABEL_WITHOUT_COMPANIES" desc="Label for the onboarding bubble UI, informing users about Brave Shields blocking number of trackers only.">
     {BLOCKED_COUNT, plural,
-      =1 {Brave Shields blocked 1 tracker on <ph name="SITE_URL">$1</ph>}
-      other {Brave Shields blocked {BLOCKED_COUNT} trackers on <ph name="SITE_URL">$1</ph>}
+      =1 {Browther Shields blocked 1 tracker on <ph name="SITE_URL">$1</ph>}
+      other {Browther Shields blocked {BLOCKED_COUNT} trackers on <ph name="SITE_URL">$1</ph>}
     }
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_ONBOARDING_CLICK_TO_VIEW_LABEL" desc="Label for the onboarding bubble to guide the user to the Shield icon">
-    Click the Browther icon to view Brave Shields.
+    Click the Browther icon to view Browther Shields.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_PAGE_INFO_SITE_INFO_LINK" desc="Link text for Site Info tab on Page Info bubble">
@@ -361,11 +361,11 @@
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_PAGE_INFO_IPH_TEXT" desc="Text for the IPH bubble shown when Brave Shields has moved to Page Info.">
-    Brave Shields has a new home and design. It now integrates with site information for a one-stop experience.
+    Browther Shields has a new home and design. It now integrates with site information for a one-stop experience.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_PAGE_INFO_IPH_SCREENREADER_TEXT" desc="Screen reader text for the Brave Shields Page Info IPH bubble.">
-    Brave Shields has a new home and design. Access it by clicking the site icon in the address bar.
+    Browther Shields has a new home and design. Access it by clicking the site icon in the address bar.
   </message>
 
   <message name="IDS_BRAVE_SHIELDS_GO_BACK" desc="Accessible label for the back button on inner views of the Shields panel." formatter_data="webui=BraveShields">

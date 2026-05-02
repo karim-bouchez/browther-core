@@ -164,7 +164,7 @@
 <translation id="9110294136812584522">Sider kan anmode om at bruge det gamle Google-login via cookies fra tredjepart</translation>
 <translation id="2903783737778379345">Giv ikke tilladelse til Google-login via cookies fra tredjepart</translation>
 <translation id="6880817299303842099">Tilladt at bruge cookies fra tredjepart til Google-login</translation>
-<translation id="8266435325778969511">Globale standarder for Brave Shields</translation>
+<translation id="8266435325778969511">Globale standarder for Browther Shields</translation>
 <translation id="2675679258824361492">Andre anonymitetsindstillinger</translation>
 <translation id="8026334261755873520">Ryd browserdata</translation>
 <translation id="1690924763769415936">Afspilning i baggrunden</translation>
@@ -188,13 +188,13 @@
 <translation id="834487290629916192">SENERE</translation>
 <translation id="4117451092682672487">Privatliv. Gjort enkelt.</translation>
 <translation id="5512887128063976049">Med Browther som din standardbrowser bliver alle links, du åbner, åbnet med  Braves privatlivsbeskyttelse.</translation>
-<translation id="5148943178722443958">Hjælp med at gøre Browther bedre.</translation>
+<translation id="9133910347634099679">Hjælp med at gøre Browther bedre.</translation>
 <translation id="6718362830686703942">Send fejlrapporter, hvis browseren bryder sammen eller går i stå.</translation>
 <translation id="7134864207653684195">Del privat og anonym produktindsigt om, hvilke funktioner der bruges af Braves brugere.</translation>
 <translation id="2888496576732880897">Hjælp Browther Søgning med at vokse</translation>
 <translation id="7044431516245362795">Tilmeld dig Web Discovery-projektet for at hjælpe med at udvide indekset og forbedre søgeresultaterne. <ph name="LEARN_MORE_START"/>Få mere at vide.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Selvfølgelig vil jeg hjælpe.</translation>
-<translation id="7443712250454754077">Klik for at se Brave Shields</translation>
+<translation id="7443712250454754077">Klik for at se Browther Shields</translation>
 <translation id="118577974285037669">Med Shields kan du se alt det skadelige fra hver eneste side, som Browther har blokeret.</translation>
 <translation id="5386259141409498372"><ph name="BIG_TECH"/> og <ph name="TRACKER"/> andre annoncer &amp; trackere blokeret</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> og andre annoncer og trackere er blokeret</translation>
@@ -408,7 +408,7 @@ Er du sikker på, du vil gennemføre?</translation>
 <translation id="769702552748212954">Tillad al fingeraftrykning</translation>
 <translation id="876424292214881779">Reklamer og andet utøj blev blokeret</translation>
 <translation id="2709945082202062860">Sider indeholder ofte cookies og scripts, som forsøger at identificere dig og din enhed. De vil vide, hvem du er, og følge dig via web-tracking, for at se hvad du laver på alle websteder.\n\nBrave blokerer disse, så du kan browse uden at blive forfulgt.</translation>
-<translation id="5695422144228065490">Om Brave Shields</translation>
+<translation id="5695422144228065490">Om Browther Shields</translation>
 <translation id="8912304686498704084">Op</translation>
 <translation id="4963218453264888510">NED</translation>
 <translation id="5721161384090584434">Du ser denne side uden Braves privatlivsbeskyttelse. Fungerer den ikke korrekt med Shields slået til?</translation>
@@ -958,7 +958,7 @@ Hvis du ikke godkender denne anmodning, vil VPN-forbindelsen ikke blive genopret
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Nulstil til standardindstillinger</translation>
 <translation id="4922034974043704366">Denne funktion er aktiveret, fordi du har valgt den.</translation>
-<translation id="3144818380093107753">Browther Origin er en abonnementsbaseret måde at deaktivere de indtægtsgenererende funktioner, der ellers understøtter Browther som virksomhed. Browther Origin-abonnenter vil fortsat nyde godt af vores brancheførende privatliv, adblock og hastighed (via Brave Shields) samt regelmæssige softwareopdateringer, Chromium-patches og sikkerheds- og privatlivsforbedringer. De får også mulighed for at deaktivere funktioner som Browther Leo, News, Rewards, Wallet, VPN, Web3-domæner og meget mere.&lt;br/&gt;&lt;br/&gt;Abonnenter vil se et nyt kontrolpanel i browserens indstillingsmenu. Eksisterende funktioner - samt eventuelle nye funktioner, vi sender ud i fremtiden - vil blive vist her og være slået fra som standard.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Bemærk: Browther Origin vil ikke slå browserfunktioner fra, som du bruger i øjeblikket, og vil ikke påvirke Brave Search-funktioner eller Brave Search-annoncer.&lt;/b&gt;</translation>
+<translation id="3144818380093107753">Browther Origin er en abonnementsbaseret måde at deaktivere de indtægtsgenererende funktioner, der ellers understøtter Browther som virksomhed. Browther Origin-abonnenter vil fortsat nyde godt af vores brancheførende privatliv, adblock og hastighed (via Browther Shields) samt regelmæssige softwareopdateringer, Chromium-patches og sikkerheds- og privatlivsforbedringer. De får også mulighed for at deaktivere funktioner som Browther Leo, News, Rewards, Wallet, VPN, Web3-domæner og meget mere.&lt;br/&gt;&lt;br/&gt;Abonnenter vil se et nyt kontrolpanel i browserens indstillingsmenu. Eksisterende funktioner - samt eventuelle nye funktioner, vi sender ud i fremtiden - vil blive vist her og være slået fra som standard.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Bemærk: Browther Origin vil ikke slå browserfunktioner fra, som du bruger i øjeblikket, og vil ikke påvirke Brave Search-funktioner eller Brave Search-annoncer.&lt;/b&gt;</translation>
 <translation id="2456150688942361838">Log ind med Browther Wallet</translation>
 <translation id="7380890081275286865">Du er ved at logge ind på <ph name="ORIGIN"/>. Browther Wallet deler din wallet-adresse med <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Se detaljer</translation>
