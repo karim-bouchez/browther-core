@@ -408,16 +408,23 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     v.addEventListener('webkitbeginfullscreen', function() {
       metric('fullscreen_begin', { video_ms: Math.round(v.currentTime * 1000) });
       if (fsVolumeListener) return;
-      fsVolumeListener = function() {
+      // Listener in CAPTURE phase + stopImmediatePropagation: hides the
+      // volumechange events from YouTube's own listeners. Without this,
+      // YouTube sees its volume sets being silently reverted and switches
+      // to a degraded UI mode (no controls visible) that persists after
+      // fullscreen exit. With stopImmediatePropagation, YouTube never sees
+      // the parasitic events — its UI logic stays consistent.
+      fsVolumeListener = function(e) {
+        e.stopImmediatePropagation();
         if (nativeGetMuted(v) !== true) nativeSetMuted(v, true);
         if (nativeGetVolume(v) !== 0) nativeSetVolume(v, 0);
       };
-      v.addEventListener('volumechange', fsVolumeListener);
+      v.addEventListener('volumechange', fsVolumeListener, true);
     });
     v.addEventListener('webkitendfullscreen', function() {
       metric('fullscreen_end', { video_ms: Math.round(v.currentTime * 1000) });
       if (fsVolumeListener) {
-        v.removeEventListener('volumechange', fsVolumeListener);
+        v.removeEventListener('volumechange', fsVolumeListener, true);
         fsVolumeListener = null;
       }
       // Final re-mute (no listener active anymore — defineProperty resumes).
