@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> tab closed}other{<ph name="MANY_CLOSED"/> tabs closed}}</translation>
 <translation id="2894757982205307093">New tab in group</translation>
 <translation id="2918484639460781603">Go to settings</translation>
-<translation id="1426788624931453470">Brave | About this store</translation>
+<translation id="1426788624931453470">Browther | About this store</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> selected}other{<ph name="ITEMS_COUNT_MANY"/> selected}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{Pin tab}other{Pin tabs}}</translation>
 <translation id="3008554597174452548">Stop tracking product</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">Hide full-screen grid</translation>
 <translation id="5076161749301278626">See store reviews?</translation>
 <translation id="5161254044473106830">Title required</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave automatically closes inactive tabs and tab groups after <ph name="AUTO_DELETE_DELAY_ONE"/> month. You can change this in settings.}other{Brave automatically closes inactive tabs and tab groups after <ph name="AUTO_DELETE_DELAY_MANY"/> months. You can change this in settings.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Browther automatically closes inactive tabs and tab groups after <ph name="AUTO_DELETE_DELAY_ONE"/> month. You can change this in settings.}other{Browther automatically closes inactive tabs and tab groups after <ph name="AUTO_DELETE_DELAY_MANY"/> months. You can change this in settings.}}</translation>
 <translation id="5339733443032484186">Your last tab</translation>
 <translation id="5380159289133845234">Archive duplicate tabs</translation>
 <translation id="5446043142172831860">Remove tab and leave group</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{Close tab group with <ph name="TABS_COUNT_ONE"/> tab, colour <ph name="COLOR_NAME"/>.}other{Close tab group with <ph name="TABS_COUNT_MANY"/> tabs, colour <ph name="COLOR_NAME"/>.}}</translation>
 <translation id="5556417849629758491">View shop info, option available near top of the screen</translation>
 <translation id="5627941783489838464">No tab updates</translation>
-<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> link from Brave}other{<ph name="TABS_COUNT_MANY"/> links from Brave}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> link from Browther}other{<ph name="TABS_COUNT_MANY"/> links from Browther}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{Move tab left}other{Move tabs left}}</translation>
 <translation id="5746204836956568669">Group <ph name="NUMBER_OF_TABS"/> tabs to work faster?</translation>
 <translation id="5773295109010386583">Automatically close inactive items</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> item}other{<ph name="TABS_COUNT_MANY"/> items}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{Restore <ph name="TABS_COUNT_ONE"/> selected item}other{Restore <ph name="TABS_COUNT_MANY"/> selected items}}</translation>
 <translation id="753732157349120914">Tab Switcher</translation>
-<translation id="263670790415456766">{REVIEWS,plural, =1{<ph name="REVIEWS_COUNT_ONE"/> review from Brave}other{<ph name="REVIEWS_COUNT_MANY"/> reviews from Brave}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{<ph name="REVIEWS_COUNT_ONE"/> review from Browther}other{<ph name="REVIEWS_COUNT_MANY"/> reviews from Browther}}</translation>
 <translation id="7559245342362162951">Show group's tabs in full-screen grid</translation>
 <translation id="7658239707568436148">Cancel</translation>
 <translation id="7688386659311034820">Inactive tabs dialogue</translation>

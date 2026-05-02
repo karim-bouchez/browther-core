@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> Tab geschlossen}other{<ph name="MANY_CLOSED"/> Tabs geschlossen}}</translation>
 <translation id="2894757982205307093">Neuer Tab in Gruppe</translation>
 <translation id="2918484639460781603">Zu den Einstellungen wechseln</translation>
-<translation id="1426788624931453470">Brave | Informationen zu diesem Händler</translation>
+<translation id="1426788624931453470">Browther | Informationen zu diesem Händler</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> ausgewählt}other{<ph name="ITEMS_COUNT_MANY"/> ausgewählt}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{Tab anpinnen}other{Tabs anpinnen}}</translation>
 <translation id="3008554597174452548">Produkt nicht mehr beobachten</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">Vollbildraster ausblenden</translation>
 <translation id="5076161749301278626">Möchtest du dir Händlerrezensionen ansehen?</translation>
 <translation id="5161254044473106830">Titel erforderlich</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Inaktive Tabs und Tabgruppen in Brave werden nach <ph name="AUTO_DELETE_DELAY_ONE"/> Monat automatisch geschlossen. Du kannst das in den Einstellungen ändern.}other{Inaktive Tabs und Tabgruppen in Brave werden nach <ph name="AUTO_DELETE_DELAY_MANY"/> Monaten automatisch geschlossen. Du kannst das in den Einstellungen ändern.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Inaktive Tabs und Tabgruppen in Browther werden nach <ph name="AUTO_DELETE_DELAY_ONE"/> Monat automatisch geschlossen. Du kannst das in den Einstellungen ändern.}other{Inaktive Tabs und Tabgruppen in Browther werden nach <ph name="AUTO_DELETE_DELAY_MANY"/> Monaten automatisch geschlossen. Du kannst das in den Einstellungen ändern.}}</translation>
 <translation id="5339733443032484186">Dein letzter Tab</translation>
 <translation id="5380159289133845234">Tab-Duplikate archivieren</translation>
 <translation id="5446043142172831860">Tab entfernen und Gruppe verlassen</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{Tabgruppe mit <ph name="TABS_COUNT_ONE"/> Tab schließen, Farbe: <ph name="COLOR_NAME"/>.}other{Tabgruppe mit <ph name="TABS_COUNT_MANY"/> Tabs schließen, Farbe: <ph name="COLOR_NAME"/>.}}</translation>
 <translation id="5556417849629758491">Geschäftsinformationen anzeigen, Option ist oben auf dem Bildschirm verfügbar</translation>
 <translation id="5627941783489838464">Keine Tab-Updates</translation>
-<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> Link aus Brave}other{<ph name="TABS_COUNT_MANY"/> Links aus Brave}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> Link aus Browther}other{<ph name="TABS_COUNT_MANY"/> Links aus Browther}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{Tab nach links verschieben}other{Tabs nach links verschieben}}</translation>
 <translation id="5746204836956568669"><ph name="NUMBER_OF_TABS"/> Tabs gruppieren, um schneller zu arbeiten?</translation>
 <translation id="5773295109010386583">Inaktive Elemente automatisch schließen</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> Element}other{<ph name="TABS_COUNT_MANY"/> Elemente}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ausgewähltes Element wiederherstellen}other{<ph name="TABS_COUNT_MANY"/> ausgewählte Elemente wiederherstellen}}</translation>
 <translation id="753732157349120914">Tab-Wechsler</translation>
-<translation id="263670790415456766">{REVIEWS,plural, =1{<ph name="REVIEWS_COUNT_ONE"/> Rezension von Brave}other{<ph name="REVIEWS_COUNT_MANY"/> Rezensionen von Brave}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{<ph name="REVIEWS_COUNT_ONE"/> Rezension von Browther}other{<ph name="REVIEWS_COUNT_MANY"/> Rezensionen von Browther}}</translation>
 <translation id="7559245342362162951">Tabs der Gruppe in Vollbildraster anzeigen</translation>
 <translation id="7658239707568436148">Abbrechen</translation>
 <translation id="7688386659311034820">Dialogfeld „Inaktive Tabs“</translation>

@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> tab bağlanıb}other{<ph name="MANY_CLOSED"/> tab bağlanıb}}</translation>
 <translation id="2894757982205307093">Qrupa yeni tab</translation>
 <translation id="2918484639460781603">Ayarlara keçin</translation>
-<translation id="1426788624931453470">Brave | Bu mağaza haqqında</translation>
+<translation id="1426788624931453470">Browther | Bu mağaza haqqında</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> element seçilib}other{<ph name="ITEMS_COUNT_MANY"/> element seçilib}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{Tabı bərkidin}other{Tabları bərkidin}}</translation>
 <translation id="3008554597174452548">Məhsulu izləməyi dayandırın</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">Tam ekran cədvəlini gizlədin</translation>
 <translation id="5076161749301278626">Mağaza rəyləri göstərilsin?</translation>
 <translation id="5161254044473106830">Başlıq tələb olunur</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave <ph name="AUTO_DELETE_DELAY_ONE"/> aydan sonra qeyri-aktiv tab və tab qruplarını avtomatik bağlayır. Bunu ayarlarda dəyişə bilərsiniz.}other{Brave <ph name="AUTO_DELETE_DELAY_MANY"/> aydan sonra qeyri-aktiv tab və tab qruplarını avtomatik bağlayır. Bunu ayarlarda dəyişə bilərsiniz.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Browther <ph name="AUTO_DELETE_DELAY_ONE"/> aydan sonra qeyri-aktiv tab və tab qruplarını avtomatik bağlayır. Bunu ayarlarda dəyişə bilərsiniz.}other{Browther <ph name="AUTO_DELETE_DELAY_MANY"/> aydan sonra qeyri-aktiv tab və tab qruplarını avtomatik bağlayır. Bunu ayarlarda dəyişə bilərsiniz.}}</translation>
 <translation id="5339733443032484186">Son tab</translation>
 <translation id="5380159289133845234">Dublikat tabları arxivləyin</translation>
 <translation id="5446043142172831860">Tabı silin və qrupu tərk edin</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{<ph name="TABS_COUNT_ONE"/> tabdan ibarət tab qrupunu bağlayın, rəng <ph name="COLOR_NAME"/>.}other{<ph name="TABS_COUNT_MANY"/> tabdan ibarət tab qrupunu bağlayın, rəng <ph name="COLOR_NAME"/>.}}</translation>
 <translation id="5556417849629758491">Mağaza məlumatlarına baxın, seçim ekranın yuxarı hissəsində əlçatandır</translation>
 <translation id="5627941783489838464">Tab yeniləməsi yoxdur</translation>
-<translation id="2928213743976667360">{TABS_COUNT,plural, =1{Brave'dan <ph name="TABS_COUNT_ONE"/> keçid}other{Brave'dan <ph name="TABS_COUNT_MANY"/> keçid}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{Browther'dan <ph name="TABS_COUNT_ONE"/> keçid}other{Browther'dan <ph name="TABS_COUNT_MANY"/> keçid}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{Tabı sola köçürün}other{Tabları sola köçürün}}</translation>
 <translation id="5746204836956568669">Daha sürətli işləmək üçün <ph name="NUMBER_OF_TABS"/> tab qruplaşdırılsın?</translation>
 <translation id="5773295109010386583">Qeyri-aktiv elementləri avtomatik bağlayın</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> element}other{<ph name="TABS_COUNT_MANY"/> element}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{Seçilmiş <ph name="TABS_COUNT_ONE"/> elementi bərpa edin}other{Seçilmiş <ph name="TABS_COUNT_MANY"/> elementi bərpa edin}}</translation>
 <translation id="753732157349120914">Tab Keçiricisi</translation>
-<translation id="263670790415456766">{REVIEWS,plural, =1{Brave'dan <ph name="REVIEWS_COUNT_ONE"/> rəy}other{Brave'dan <ph name="REVIEWS_COUNT_MANY"/> rəy}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{Browther'dan <ph name="REVIEWS_COUNT_ONE"/> rəy}other{Browther'dan <ph name="REVIEWS_COUNT_MANY"/> rəy}}</translation>
 <translation id="7559245342362162951">Qrup tabını tam ekran cədvəlində göstərin</translation>
 <translation id="7658239707568436148">Ləğv edin</translation>
 <translation id="7688386659311034820">Qeyri-aktiv tablar dialoqu</translation>

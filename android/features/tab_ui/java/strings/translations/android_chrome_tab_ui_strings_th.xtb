@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{ปิดแล้ว <ph name="ONE_CLOSED"/> แท็บ}other{ปิดแล้ว <ph name="MANY_CLOSED"/> แท็บ}}</translation>
 <translation id="2894757982205307093">แท็บใหม่ในกลุ่ม</translation>
 <translation id="2918484639460781603">ไปที่การตั้งค่า</translation>
-<translation id="1426788624931453470">Brave | เกี่ยวกับร้านนี้</translation>
+<translation id="1426788624931453470">Browther | เกี่ยวกับร้านนี้</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{เลือกไว้ <ph name="ITEMS_COUNT_ONE"/> รายการ}other{เลือกไว้ <ph name="ITEMS_COUNT_MANY"/> รายการ}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{ปักหมุดแท็บ}other{ปักหมุดแท็บ}}</translation>
 <translation id="3008554597174452548">หยุดติดตามผลิตภัณฑ์</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">ซ่อนตารางกริดแบบเต็มหน้าจอ</translation>
 <translation id="5076161749301278626">ดูรีวิวร้านค้าไหม</translation>
 <translation id="5161254044473106830">ต้องระบุชื่อ</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave จะปิดแท็บและกลุ่มแท็บที่ไม่ได้ใช้งานโดยอัตโนมัติหลังจากผ่านไป <ph name="AUTO_DELETE_DELAY_ONE"/> เดือน คุณเปลี่ยนค่านี้ได้ในการตั้งค่า}other{Brave จะปิดแท็บและกลุ่มแท็บที่ไม่ได้ใช้งานโดยอัตโนมัติหลังจากผ่านไป <ph name="AUTO_DELETE_DELAY_MANY"/> เดือน คุณเปลี่ยนค่านี้ได้ในการตั้งค่า}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Browther จะปิดแท็บและกลุ่มแท็บที่ไม่ได้ใช้งานโดยอัตโนมัติหลังจากผ่านไป <ph name="AUTO_DELETE_DELAY_ONE"/> เดือน คุณเปลี่ยนค่านี้ได้ในการตั้งค่า}other{Browther จะปิดแท็บและกลุ่มแท็บที่ไม่ได้ใช้งานโดยอัตโนมัติหลังจากผ่านไป <ph name="AUTO_DELETE_DELAY_MANY"/> เดือน คุณเปลี่ยนค่านี้ได้ในการตั้งค่า}}</translation>
 <translation id="5339733443032484186">แท็บสุดท้าย</translation>
 <translation id="5380159289133845234">เก็บแท็บที่ซ้ำกัน</translation>
 <translation id="5446043142172831860">นำแท็บออกและออกจากกลุ่ม</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{ปิดกลุ่มแท็บที่มี <ph name="TABS_COUNT_ONE"/> แท็บ สี<ph name="COLOR_NAME"/>}other{ปิดกลุ่มแท็บที่มี <ph name="TABS_COUNT_MANY"/> แท็บ สี<ph name="COLOR_NAME"/>}}</translation>
 <translation id="5556417849629758491">ดูข้อมูลร้านค้า ตัวเลือกจะอยู่ตรงบริเวณด้านบนของหน้าจอ</translation>
 <translation id="5627941783489838464">ไม่มีการอัปเดตแท็บ</translation>
-<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ลิงก์จาก Brave}other{<ph name="TABS_COUNT_MANY"/> ลิงก์จาก Brave}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ลิงก์จาก Browther}other{<ph name="TABS_COUNT_MANY"/> ลิงก์จาก Browther}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{ย้ายแท็บไปทางซ้าย}other{ย้ายแท็บไปทางซ้าย}}</translation>
 <translation id="5746204836956568669">จัดกลุ่มแท็บ <ph name="NUMBER_OF_TABS"/> แท็บเพื่อให้ทํางานได้เร็วขึ้นไหม</translation>
 <translation id="5773295109010386583">ปิดรายการที่ไม่ได้ใช้งานโดยอัตโนมัติ</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> รายการ}other{<ph name="TABS_COUNT_MANY"/> รายการ}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{กู้คืนรายการที่เลือก <ph name="TABS_COUNT_ONE"/> รายการ}other{กู้คืนรายการที่เลือก <ph name="TABS_COUNT_MANY"/> รายการ}}</translation>
 <translation id="753732157349120914">ตัวสลับแท็บ</translation>
-<translation id="263670790415456766">{REVIEWS,plural, =1{รีวิวจาก Brave <ph name="REVIEWS_COUNT_ONE"/> รายการ}other{รีวิวจาก Brave <ph name="REVIEWS_COUNT_MANY"/> รายการ}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{รีวิวจาก Browther <ph name="REVIEWS_COUNT_ONE"/> รายการ}other{รีวิวจาก Browther <ph name="REVIEWS_COUNT_MANY"/> รายการ}}</translation>
 <translation id="7559245342362162951">แสดงแท็บของกลุ่มในตารางกริดแบบเต็มหน้าจอ</translation>
 <translation id="7658239707568436148">ยกเลิก</translation>
 <translation id="7688386659311034820">กล่องโต้ตอบ "แท็บที่ไม่ได้ใช้งาน"</translation>

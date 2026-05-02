@@ -2,7 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="ja">
 <translation id="1751249301761991853">個人用</translation>
-<translation id="3333887201479867589">Brave Rewards</translation>
+<translation id="3333887201479867589">Browther Rewards</translation>
 <translation id="7561196759112975576">常に表示</translation>
 <translation id="7961015016161918242">使用しない</translation>
 <translation id="8507663778530179003">「すべてのブックマーク」ボタンを表示する</translation>
@@ -69,10 +69,10 @@
 <translation id="6313675821927505581">Torで新しいプライベートウィンドウを開く</translation>
 <translation id="2638041073279639246">Torのプライベートウィンドウでリンクを開きます</translation>
 <translation id="3425600262621021599">Torのプライベートウィンドウで Brave内のリンクを開く</translation>
-<translation id="2545072023356206691">2023年12月1日から、Brave Devチャンネルはブラウザアップデートを受け取らなくなります。Nightly、Beta、またはRelease版のBraveに移行をお勧めします。</translation>
+<translation id="2545072023356206691">2023年12月1日から、Browther Devチャンネルはブラウザアップデートを受け取らなくなります。Nightly、Beta、またはRelease版のBraveに移行をお勧めします。</translation>
 <translation id="474217410105706308">タブをミュート</translation>
-<translation id="2804710924397009224">Brave Rewards アイコンを非表示にします</translation>
-<translation id="5029193871181468990">Brave Rewardsアイコンを非表示にする</translation>
+<translation id="2804710924397009224">Browther Rewards アイコンを非表示にします</translation>
+<translation id="5029193871181468990">Browther Rewardsアイコンを非表示にする</translation>
 <translation id="2808103541110899519">Braveウォレットのアイコンを非表示</translation>
 <translation id="7595540212376041331">Braveウォレットのアイコンを非表示</translation>
 <translation id="3893997535859323951">Leo AIアイコンを非表示</translation>
@@ -90,11 +90,11 @@
 <translation id="2162109630536601963">この拡張機能がネットワーク要求を行う場合、Torまたはプライベートモードは使用されません。</translation>
 <translation id="2725327089319971976">プライベートモードとTorモードでこの拡張機能を無効にするには、このオプションの選択を解除します。</translation>
 <translation id="438106944087726695">Braveがホストする拡張機能</translation>
-<translation id="3371343170427636147">Brave Nightly</translation>
-<translation id="4097979995947147464">Brave Beta</translation>
-<translation id="8303432794159193481">Brave Dev</translation>
-<translation id="8292967014767479012">Brave</translation>
-<translation id="4743468424889072281">Brave Development</translation>
+<translation id="3371343170427636147">Browther Nightly</translation>
+<translation id="4097979995947147464">Browther Beta</translation>
+<translation id="8303432794159193481">Browther Dev</translation>
+<translation id="8292967014767479012">Browther</translation>
+<translation id="4743468424889072281">Browther Development</translation>
 <translation id="5039804452771397117">許可</translation>
 <translation id="7053983685419859001">ブロック</translation>
 <translation id="1679356339067548863">Braveブラウザのクラッシュやフリーズ時に診断レポートを自動送信し、Brave製品の安定性向上に貢献します。</translation>
@@ -124,7 +124,7 @@
 <translation id="5234764350956374838">表示しない</translation>
 <translation id="8722651357687610395">Braveをデフォルトに設定</translation>
 <translation id="2370739752330685659">あとで</translation>
-<translation id="5100490448228945668">Brave 検索への切り替えを無効にします。[Enter] キーを押してこの提案を消します。</translation>
+<translation id="5100490448228945668">Browther 検索への切り替えを無効にします。[Enter] キーを押してこの提案を消します。</translation>
 <translation id="6213208892248046484">Brave検索に切り替え</translation>
 <translation id="9194637241566114638"><ph name="SEARCH_NAME"/>を改善するために、匿名の使用データを送信してください。 <ph name="MORE_INFO"/></translation>
 <translation id="7404610376221341525">Brave Search</translation>
@@ -219,16 +219,16 @@
 <translation id="5268098808165185458">画像からテキストをコピーしています...</translation>
 <translation id="4046485130884276245">画像からテキストをコピーしました</translation>
 <translation id="3639779775496569782">テキストのコピーに失敗しました</translation>
-<translation id="3960619311638643872">Brave VPN</translation>
-<translation id="2506438154311626334">Brave VPNでWireGuardプロトコルを使用します</translation>
-<translation id="8519170191215826548">Brave VPNの接続中は、この設定を変更できません。</translation>
+<translation id="3960619311638643872">Browther VPN</translation>
+<translation id="2506438154311626334">Browther VPNでWireGuardプロトコルを使用します</translation>
+<translation id="8519170191215826548">Browther VPNの接続中は、この設定を変更できません。</translation>
 <translation id="1177917174080821247">VPNトレイアイコンを表示</translation>
-<translation id="3747459938663420752">有効にすると、Windows のタスクバーに Brave VPN のトレイアイコンが表示されます。</translation>
+<translation id="3747459938663420752">有効にすると、Windows のタスクバーに Browther VPN のトレイアイコンが表示されます。</translation>
 <translation id="4235920711083356755">VPNボタンを表示</translation>
 <translation id="4070612712151038707">ツールバーにVPNボタンを表示します</translation>
 <translation id="7705524343798198388">VPN</translation>
 <translation id="8593397073757037946">VPNの切り替え</translation>
-<translation id="2345974803401546682">Brave VPNについて</translation>
+<translation id="2345974803401546682">Browther VPNについて</translation>
 <translation id="4378551569595875038">接続しています...</translation>
 <translation id="3368922792935385530">接続済み</translation>
 <translation id="1536754031901697553">切断しています...</translation>
@@ -340,7 +340,7 @@
 <translation id="6501807887341963552">テーマと色</translation>
 <translation id="6724227215236550330">保存されたパスワードはここに表示されます。このデバイスの <ph name="BRAND"/> にパスワードをインポートするには、 <ph name="BEGIN_LINK"/> CSV ファイルを選択してください<ph name="END_LINK"/></translation>
 <translation id="3575561030014162610">このデバイスでパスワードを <ph name="BRAND"/> にインポートするには、CSVファイルを選択してください</translation>
-<translation id="9156965752763025780">変更内容は次に Brave を再起動したときに有効になります。</translation>
+<translation id="9156965752763025780">変更内容は次に Browther を再起動したときに有効になります。</translation>
 <translation id="7179921470347911571">今すぐ再起動</translation>
 <translation id="1426410128494586442">はい</translation>
 <translation id="4250680216510889253">いいえ</translation>
@@ -358,7 +358,7 @@
 <translation id="1336940801687497203">Windowsと同じ</translation>
 <translation id="8721331068159819483">Mac OS と同様</translation>
 <translation id="4171684937791228083">全画面で常にツールバーを表示</translation>
-<translation id="5840822070878669614">Brave ウェブストアを開く</translation>
+<translation id="5840822070878669614">Browther ウェブストアを開く</translation>
 <translation id="1692470335103807198">より多くのテーマを取得する</translation>
 <translation id="2906510232093002459">Braveデフォルト画像</translation>
 <translation id="8000020256436988724">ツールバー</translation>
@@ -513,13 +513,13 @@
 <translation id="5990642573624858459">統計報告</translation>
 <translation id="2441719842399509963">デフォルトにリセット</translation>
 <translation id="4530494379350999373">Origin</translation>
-<translation id="2964215604640804042">Brave Originは、Braveのビジネスをサポートするすべての機能が必要ないが、Braveのみが提供するプライバシーが必要なユーザー向けの有料版ブラウザです。Brave Originユーザーは、業界トップクラスのプライバシー、広告ブロック、速度(Brave Shields経由)に加えて、定期的なソフトウェアアップデート、Chromiumパッチ、セキュリティおよびプライバシーの改善の恩恵を受け続けます。また、AI、Rewards、ウォレット、VPN、Web3ドメインなどの機能を無効にするオプションのロックも解除できます。</translation>
-<translation id="9130916892338379417">Brave Originは1回限りの購入で利用できます。モバイル(AndroidおよびiOS)およびデスクトップでは、Originを既存のリリース版へのアップグレードとして購入できます。デスクトップでは、Originは別のスタンドアロンアプリとしても利用できます。Originユーザーは、設定メニューに新しいコントロールパネルが表示されます。既存の機能と将来提供される新機能は、ここに表示され、デフォルトではオフに切り替わります。</translation>
+<translation id="2964215604640804042">Browther Originは、Braveのビジネスをサポートするすべての機能が必要ないが、Braveのみが提供するプライバシーが必要なユーザー向けの有料版ブラウザです。Browther Originユーザーは、業界トップクラスのプライバシー、広告ブロック、速度(Brave Shields経由)に加えて、定期的なソフトウェアアップデート、Chromiumパッチ、セキュリティおよびプライバシーの改善の恩恵を受け続けます。また、AI、Rewards、ウォレット、VPN、Web3ドメインなどの機能を無効にするオプションのロックも解除できます。</translation>
+<translation id="9130916892338379417">Browther Originは1回限りの購入で利用できます。モバイル(AndroidおよびiOS)およびデスクトップでは、Originを既存のリリース版へのアップグレードとして購入できます。デスクトップでは、Originは別のスタンドアロンアプリとしても利用できます。Originユーザーは、設定メニューに新しいコントロールパネルが表示されます。既存の機能と将来提供される新機能は、ここに表示され、デフォルトではオフに切り替わります。</translation>
 <translation id="7984508421152399880">今すぐ購入</translation>
-<translation id="5567412479632285879">Brave Rewardsは無効です</translation>
+<translation id="5567412479632285879">Browther Rewardsは無効です</translation>
 <translation id="413570371620795359">報酬パネルから有効化してはじめましょう</translation>
 <translation id="1051600834033686945">Braveリワードの設定を開く</translation>
-<translation id="8826461509529116322">Brave Rewardsボタンを表示する</translation>
+<translation id="8826461509529116322">Browther Rewardsボタンを表示する</translation>
 <translation id="4859866966646365361">広告ブロック専用モード</translation>
 <translation id="4146834954839563870">広告ブロック専用モードを使用する</translation>
 <translation id="420732343671200734">広告ブロックのみモードは、Brave Shieldsのコア広告ブロックルールを保持します。警告: すべてのプライバシー保護を削除します。Braveのプライバシー保護によって破壊された個々のウェブサイトについては、ShieldsをDOWNに設定できることに注意してください。これは試験的なモードです。<ph name="BEGIN_LINK"/>詳しくはこちら<ph name="END_LINK"/></translation>
@@ -547,7 +547,7 @@
 <translation id="1968895725257436430">データコレクション</translation>
 <translation id="4846154056248462491">終了時に</translation>
 <translation id="216468847346280584">Brave広告のデータをクリア</translation>
-<translation id="2808630562319398131">Brave Rewardsデータをリセット...</translation>
+<translation id="2808630562319398131">Browther Rewardsデータをリセット...</translation>
 <translation id="6438096877646138757">閉じたときにCookiesを消去するサイト</translation>
 <translation id="2988792685798128092">サイトを閉じたときに消去</translation>
 <translation id="7702907602086592255">ドメイン</translation>
@@ -611,7 +611,7 @@
 <translation id="7885157704277298658">コピー完了!</translation>
 <translation id="8802630444265810662">同期コードを送信するには、モバイルデバイスでQRコードをスキャンしなければなりません</translation>
 <translation id="6221331245829088299">QRコードを表示する際エラーが発生しましたので、リフレッシュしてもう一度やり直してください。</translation>
-<translation id="298546024891487702">始めるためには、同期予定の全てのデバイスに Brave をインストールする必要があります。それらを一つに繋ぐには、安全にあなたのデバイス全てをリンクさせる、同期チェーンを開始してください。</translation>
+<translation id="298546024891487702">始めるためには、同期予定の全てのデバイスに Browther をインストールする必要があります。それらを一つに繋ぐには、安全にあなたのデバイス全てをリンクさせる、同期チェーンを開始してください。</translation>
 <translation id="6200528822592747640">新たな同期チェーンを開始する</translation>
 <translation id="5184726904895809379">同期コードを持っています</translation>
 <translation id="8780295742023331191">同期コードを見る</translation>
@@ -622,7 +622,7 @@
 <translation id="6527776448555649991">「同期コードをスキャンする」</translation>
 <translation id="1400862780574843709">カメラで以下の QR コードをスキャンしてください。</translation>
 <translation id="5086223971958279691">チェーンコードの同期</translation>
-<translation id="2899261497479389619">同期先のコンピューターで、設定から「Brave Sync」に行き、</translation>
+<translation id="2899261497479389619">同期先のコンピューターで、設定から「Browther Sync」に行き、</translation>
 <translation id="4827439149833241990">「同期コードを持っています。」のボタンをクリックしてください。</translation>
 <translation id="8299617838343103908">その後、以下に表示された同期チェーンコードワードを入力してください。</translation>
 <translation id="4485276108749547761">このコードはパスワードのように厳重に扱ってください。第三者に入手された場合、第三者があなたの同期されたデータを読み取って変更することが可能になります。</translation>
@@ -648,7 +648,7 @@
     これらのコード単語があなたの所有するデバイスによって生成されたものであることを再確認してください。
 
     続行してよろしいですか？</translation>
-<translation id="7443185843787879670">Braveは、お使いのオペレーティングシステムの安全なストレージにアクセスすることができませんでした。これは、パスワードやクッキーなどのデータを保護するために使用されるものです。また、Brave Syncがデバイス間でブラウザプロファイルを接続するために必要なものです。これは、Brave Syncが実行されていないことを意味します。この問題を解決するには、<ph name="BEGIN_LINK_SYNC_GUIDE"/>Brave Sync トラブルシューティング ガイド<ph name="END_LINK_SYNC_GUIDE"/>を参照してください。</translation>
+<translation id="7443185843787879670">Braveは、お使いのオペレーティングシステムの安全なストレージにアクセスすることができませんでした。これは、パスワードやクッキーなどのデータを保護するために使用されるものです。また、Browther Syncがデバイス間でブラウザプロファイルを接続するために必要なものです。これは、Browther Syncが実行されていないことを意味します。この問題を解決するには、<ph name="BEGIN_LINK_SYNC_GUIDE"/>Browther Sync トラブルシューティング ガイド<ph name="END_LINK_SYNC_GUIDE"/>を参照してください。</translation>
 <translation id="6802736947576520626">同期の暗号化キーが、Brave同期を最初に設定した際に使用したキーと一致しません。これを簡単に解決するには、他のいずれかの同期先デバイスのパスフレーズを使用して、同期チェーンをリセットし、参加し直してください。</translation>
 <translation id="4889767840132638381">同期チェーンをリセットして参加し直す</translation>
 <translation id="1680065323266179640">同期アカウントを削除</translation>
@@ -729,8 +729,8 @@
 <translation id="970496996377628529">サードパーティーAPIを使用し、所有するNFTを自動的にウォレットに表示します。</translation>
 <translation id="8421293929927030255">プライベートウィンドウでBraveウォレットを有効にする</translation>
 <translation id="1729224157015744629">注意：プライベートウィンドウのセッションでウォレットアドレスを再利用すると、サイトでプライベートウィンドウと通常ウインドウの間でセッションの紐付けがされてしまう可能性があります。</translation>
-<translation id="8239147115686034860">Brave Wallet を自動的にロック</translation>
-<translation id="414639769490080648">Brave Wallet が自動的にロックされる分数</translation>
+<translation id="8239147115686034860">Browther Wallet を自動的にロック</translation>
+<translation id="414639769490080648">Browther Wallet が自動的にロックされる分数</translation>
 <translation id="856371974127598760">ウォレットネットワーク</translation>
 <translation id="5975930666279943472">ウォレットのトランザクションとノンス情報をクリア</translation>
 <translation id="5693968582510626466">トランザクションのクリアは、ウォレットを使用する開発時や、ローカルサーバーの状態をクリアするときなどに使用します。</translation>
@@ -800,7 +800,7 @@
 チャット履歴の消去は、以前のBrave Leo AIとの会話をすべて削除します。この操作を元に戻すことはできません。</translation>
 <translation id="5574059574002819179">オートコンプリートの候補を調整する</translation>
 <translation id="7942415993090181327">チャット履歴</translation>
-<translation id="5084498230659987096">Brave Leoは、プライバシーファーストのAIチャットをはじめ、AIを搭載したインターフェースをブラウザ内で提供します。Leoがあなたのデータから学習したり、モデルのトレーニングに使用したりすることはありません。すべてのリクエストは匿名化サーバーを経由してプロキシされます。</translation>
+<translation id="5084498230659987096">Browther Leoは、プライバシーファーストのAIチャットをはじめ、AIを搭載したインターフェースをブラウザ内で提供します。Leoがあなたのデータから学習したり、モデルのトレーニングに使用したりすることはありません。すべてのリクエストは匿名化サーバーを経由してプロキシされます。</translation>
 <translation id="6458721693611638005">BraveがあなたのAI使用をどのように保護するかについては、Leoのプライバシーポリシーをお読みください。 <ph name="BEGIN_LINK"/>詳細はこちら<ph name="END_LINK"/></translation>
 <translation id="614530507403667291">新しい会話向けデフォルトモデル</translation>
 <translation id="6340526405444716530">パーソナライゼーション</translation>

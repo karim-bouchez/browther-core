@@ -65,7 +65,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{Zatvorena je <ph name="ONE_CLOSED"/> kartica}one{Zatvorena je <ph name="MANY_CLOSED"/> kartica}few{Zatvorene su <ph name="MANY_CLOSED"/> kartice}other{Zatvoreno je <ph name="MANY_CLOSED"/> kartica}}</translation>
 <translation id="2894757982205307093">Nova kartica u grupi</translation>
 <translation id="2918484639460781603">Idi u postavke</translation>
-<translation id="1426788624931453470">Brave | O ovoj trgovini</translation>
+<translation id="1426788624931453470">Browther | O ovoj trgovini</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{Odabrana je <ph name="ITEMS_COUNT_ONE"/> stavka}one{Odabrana je <ph name="ITEMS_COUNT_MANY"/> stavka}few{Odabrane su <ph name="ITEMS_COUNT_MANY"/> stavke}other{Odabrano je <ph name="ITEMS_COUNT_MANY"/> stavki}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{Zakači karticu}one{Zakači kartice}few{Zakači kartice}other{Zakači kartice}}</translation>
 <translation id="3008554597174452548">Prestanite pratiti proizvod</translation>
@@ -123,7 +123,7 @@
 <translation id="5073204694187207510">Sakrij mrežu cijelog ekrana</translation>
 <translation id="5076161749301278626">Želite li pogledati recenzije trgovine?</translation>
 <translation id="5161254044473106830">Naslov je obavezan</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_ONE"/> mjeseca. Ovo možete promijeniti u postavkama.}one{Brave automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_MANY"/> mjeseca. Ovo možete promijeniti u postavkama.}few{Brave automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_MANY"/> mjeseca. Ovo možete promijeniti u postavkama.}other{Brave automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_MANY"/> mjeseci. Ovo možete promijeniti u postavkama.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Browther automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_ONE"/> mjeseca. Ovo možete promijeniti u postavkama.}one{Browther automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_MANY"/> mjeseca. Ovo možete promijeniti u postavkama.}few{Browther automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_MANY"/> mjeseca. Ovo možete promijeniti u postavkama.}other{Browther automatski zatvara neaktivne kartice i grupe kartica nakon <ph name="AUTO_DELETE_DELAY_MANY"/> mjeseci. Ovo možete promijeniti u postavkama.}}</translation>
 <translation id="5339733443032484186">Posljednja kartica</translation>
 <translation id="5380159289133845234">Arhiviraj duplikate kartica</translation>
 <translation id="5446043142172831860">Ukloni karticu i napusti grupu</translation>

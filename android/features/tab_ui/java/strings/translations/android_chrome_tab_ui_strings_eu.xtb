@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> fitxa itxi da}other{<ph name="MANY_CLOSED"/> fitxa itxi dira}}</translation>
 <translation id="2894757982205307093">Gehitu fitxa bat taldean</translation>
 <translation id="2918484639460781603">Joan ezarpenetara</translation>
-<translation id="1426788624931453470">Brave | Denda honi buruz</translation>
+<translation id="1426788624931453470">Browther | Denda honi buruz</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> hautatuta}other{<ph name="ITEMS_COUNT_MANY"/> hautatuta}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{Ainguratu fitxa}other{Ainguratu fitxak}}</translation>
 <translation id="3008554597174452548">Utzi produktuaren jarraipena egiteari</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">Ezkutatu pantaila osoko sareta</translation>
 <translation id="5076161749301278626">Dendari buruzko iritziak ikusi nahi dituzu?</translation>
 <translation id="5161254044473106830">Izena behar da</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave-k <ph name="AUTO_DELETE_DELAY_ONE"/> hilabeteren buruan ixten ditu automatikoki fitxa eta fitxa talde inaktiboak. Hori aldatzeko, joan Ezarpenak atalera.}other{Brave-k <ph name="AUTO_DELETE_DELAY_MANY"/> hilabeteren buruan ixten ditu automatikoki fitxa eta fitxa talde inaktiboak. Hori aldatzeko, joan Ezarpenak atalera.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Browther-k <ph name="AUTO_DELETE_DELAY_ONE"/> hilabeteren buruan ixten ditu automatikoki fitxa eta fitxa talde inaktiboak. Hori aldatzeko, joan Ezarpenak atalera.}other{Browther-k <ph name="AUTO_DELETE_DELAY_MANY"/> hilabeteren buruan ixten ditu automatikoki fitxa eta fitxa talde inaktiboak. Hori aldatzeko, joan Ezarpenak atalera.}}</translation>
 <translation id="5339733443032484186">Azken fitxa</translation>
 <translation id="5380159289133845234">Artxibatu fitxa bikoiztuak</translation>
 <translation id="5446043142172831860">Kendu fitxa eta irten taldetik</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{Itxi <ph name="TABS_COUNT_ONE"/> fitxa duen fitxa taldea, <ph name="COLOR_NAME"/> kolorekoa.}other{Itxi <ph name="TABS_COUNT_MANY"/> fitxa dituen fitxa taldea, <ph name="COLOR_NAME"/> kolorekoa.}}</translation>
 <translation id="5556417849629758491">Ikusi dendari buruzko informazioa, pantailaren goialdean dago erabilgarri</translation>
 <translation id="5627941783489838464">Ez dago fitxei buruzko berritasunik</translation>
-<translation id="2928213743976667360">{TABS_COUNT,plural, =1{Brave-ko <ph name="TABS_COUNT_ONE"/> esteka}other{Brave-ko <ph name="TABS_COUNT_MANY"/> esteka}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{Browther-ko <ph name="TABS_COUNT_ONE"/> esteka}other{Browther-ko <ph name="TABS_COUNT_MANY"/> esteka}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{Eraman fitxa ezkerrera}other{Eraman fitxak ezkerrera}}</translation>
 <translation id="5746204836956568669"><ph name="NUMBER_OF_TABS"/> fitxa taldekatu nahi dituzu bizkorrago lan egiteko?</translation>
 <translation id="5773295109010386583">Itxi automatikoki elementu inaktiboak</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> elementu}other{<ph name="TABS_COUNT_MANY"/> elementu}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{Leheneratu hautatutako <ph name="TABS_COUNT_ONE"/> elementua}other{Leheneratu hautatutako <ph name="TABS_COUNT_MANY"/> elementuak}}</translation>
 <translation id="753732157349120914">Fitxa-aldatzailea</translation>
-<translation id="263670790415456766">{REVIEWS,plural, =1{Brave-tik datorren <ph name="REVIEWS_COUNT_ONE"/> iritzi}other{Brave-tik datozen <ph name="REVIEWS_COUNT_MANY"/> iritzi}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{Browther-tik datorren <ph name="REVIEWS_COUNT_ONE"/> iritzi}other{Browther-tik datozen <ph name="REVIEWS_COUNT_MANY"/> iritzi}}</translation>
 <translation id="7559245342362162951">Erakutsi taldearen fitxak pantaila osoko saretan</translation>
 <translation id="7658239707568436148">Utzi</translation>
 <translation id="7688386659311034820">Fitxa inaktiboen leihoa</translation>

@@ -3,36 +3,36 @@
 <translationbundle lang="fr-CA">
 <translation id="7630214457764713113">Copier le lien propre</translation>
 <translation id="721490496276866468">Importer les mots de passe</translation>
-<translation id="235036711888816438">Sélectionnez un fichier .csv contenant vos mots de passe afin de les importer dans le gestionnaire de mots de passe de Brave.</translation>
+<translation id="235036711888816438">Sélectionnez un fichier .csv contenant vos mots de passe afin de les importer dans le gestionnaire de mots de passe de Browther.</translation>
 <translation id="6112331814131703370">Bloquer les avis « Passer à l'app »</translation>
 <translation id="4744921452903670666">Dites-nous ce que vous pensez!</translation>
-<translation id="1287876848804009875">Évaluer Brave</translation>
+<translation id="1287876848804009875">Évaluer Browther</translation>
 <translation id="4104400246019119780">Merci!</translation>
 <translation id="5202255382948179481">Ajoutez vos suggestions</translation>
 <translation id="7759809451544302770">Facultatif</translation>
-<translation id="8331088772212867639">Avec un simple Emoji, que pensez-vous de votre expérience avec Brave?</translation>
+<translation id="8331088772212867639">Avec un simple Emoji, que pensez-vous de votre expérience avec Browther?</translation>
 <translation id="7335142069363686805">Évaluer maintenant</translation>
-<translation id="4779948099246241696">Vous appréciez Brave?</translation>
+<translation id="4779948099246241696">Vous appréciez Browther?</translation>
 <translation id="8041093619605951337">Heureux</translation>
 <translation id="6826743502395386800">Triste</translation>
 <translation id="5488843227043643519">Laisser une évaluation sur le Play Store?</translation>
 <translation id="5867854497245948308">Merci pour vos commentaires!</translation>
-<translation id="3876486084921171423">Dites-nous comment nous pouvons améliorer Brave.</translation>
-<translation id="9215397457949162223">Les notifications Brave vous facilitent la vie</translation>
+<translation id="3876486084921171423">Dites-nous comment nous pouvons améliorer Browther.</translation>
+<translation id="9215397457949162223">Les notifications Browther vous facilitent la vie</translation>
 <translation id="7662771815233894695">Gérez les téléchargements, gagnez des jetons, consultez les statistiques d'utilisation hebdomadaires, et plus encore.</translation>
 <translation id="4265429476391459783">Vous ne gagnez aucune récompense et ne recevez aucun rapport de confidentialité</translation>
-<translation id="5334628296833615028">Vous ne gagnez aucune récompense Brave</translation>
+<translation id="5334628296833615028">Vous ne gagnez aucune récompense Browther</translation>
 <translation id="1483391942610220726">Vous ne recevez aucun rapport de confidentialité</translation>
 <translation id="4683790942451502796">Réactivez les notifications pour continuer à gagner des BAT et à recevoir des rapports de confidentialité hebdomadaires.</translation>
 <translation id="8618359751943259593">Réactivez les notifications pour continuer à gagner des BAT.</translation>
 <translation id="760355165169399836">Réactivez les notifications pour continuer à recevoir des rapports de confidentialité hebdomadaires.</translation>
 <translation id="6268959058971634697">Vous ne gagnez aucune récompense</translation>
-<translation id="8980707916899298463">Activez les notifications d'appareil pour gagner des récompenses Brave et consulter les rapports de confidentialité.</translation>
-<translation id="7404001590669579247">Activez les notifications d'appareil pour gagner des récompenses Brave.</translation>
-<translation id="2881048695257899440">Activez les notifications d'appareil pour recevoir des rapports de confidentialité Brave.</translation>
-<translation id="5569749307105210875">Activez les notifications de Brave pour gagner des récompenses Brave.</translation>
-<translation id="4714541943538330">Ouvrez les paramètres et activez les notifications d'appareil pour obtenir des récompenses Brave.</translation>
-<translation id="7341107637383044975">Activer les notifications Brave</translation>
+<translation id="8980707916899298463">Activez les notifications d'appareil pour gagner des récompenses Browther et consulter les rapports de confidentialité.</translation>
+<translation id="7404001590669579247">Activez les notifications d'appareil pour gagner des récompenses Browther.</translation>
+<translation id="2881048695257899440">Activez les notifications d'appareil pour recevoir des rapports de confidentialité Browther.</translation>
+<translation id="5569749307105210875">Activez les notifications de Browther pour gagner des récompenses Browther.</translation>
+<translation id="4714541943538330">Ouvrez les paramètres et activez les notifications d'appareil pour obtenir des récompenses Browther.</translation>
+<translation id="7341107637383044975">Activer les notifications Browther</translation>
 <translation id="9063439289570656162">Activer/désactiver Brave Shields</translation>
 <translation id="15346379325756892">Passer en mode fenêtre flottante</translation>
 <translation id="6945863270524203017">Recevez des mises à jour de confidentialité chaque semaine sur les traqueurs et les publicités bloqués.</translation>
@@ -54,7 +54,7 @@
 <translation id="863171915776379000">Autoriser les connexions à Facebook et les messages intégrés</translation>
 <translation id="5165042248369837294">Autoriser les tweets intégrés à Twitter</translation>
 <translation id="958971637207126733">Permettre les publications LinkedIn intégrées</translation>
-<translation id="1603046455695271547">Gérer les récompenses de Brave</translation>
+<translation id="1603046455695271547">Gérer les récompenses de Browther</translation>
 <translation id="8617525558807213034">Remplir automatiquement dans les onglets privés</translation>
 <translation id="8685431198160039193">Les renseignements enregistrés peuvent être remplis automatiquement dans les onglets privés</translation>
 <translation id="6583902294974160967">Assistance</translation>
@@ -99,10 +99,10 @@
 <translation id="4176463684765177261">Désactivé</translation>
 <translation id="59174027418879706">Activé</translation>
 <translation id="6920492760024499150">Les gros titres du jour dans un fil privé, rien que pour vous.</translation>
-<translation id="5182754513711223209">Activez Actualités Brave et ne ratez aucune actualité</translation>
-<translation id="5175816087537003994">Les actualités Brave sont financées par des publicités privées et anonymes adaptées à votre appareil.</translation>
-<translation id="6062338040794079003">Suivez vos sources préférées au sein d'un seul et même fil. Il vous suffit d'ouvrir un onglet dans Brave, de faire défiler la page vers le bas, et le tour est joué !\nActualités Brave affiche des annonces privées et anonymes.</translation>
-<translation id="4680010448247136133">Activer Brave News</translation>
+<translation id="5182754513711223209">Activez Actualités Browther et ne ratez aucune actualité</translation>
+<translation id="5175816087537003994">Les actualités Browther sont financées par des publicités privées et anonymes adaptées à votre appareil.</translation>
+<translation id="6062338040794079003">Suivez vos sources préférées au sein d'un seul et même fil. Il vous suffit d'ouvrir un onglet dans Browther, de faire défiler la page vers le bas, et le tour est joué !\nActualités Browther affiche des annonces privées et anonymes.</translation>
+<translation id="4680010448247136133">Activer Browther News</translation>
 <translation id="8981973962043893066">Rechercher un site, un sujet ou un flux RSS</translation>
 <translation id="3225021799163709119">Populaires</translation>
 <translation id="3673348851739109493">Liste de sources avec classement</translation>
@@ -119,7 +119,7 @@
 <translation id="7461899062138731833">SOURCES</translation>
 <translation id="6150420917380577651">Aucun flux trouvé à l'adresse <ph name="SEARCH_URL"/></translation>
 <translation id="4541978218358617681">Annonce</translation>
-<translation id="6337402151565236817">Afficher Brave News</translation>
+<translation id="6337402151565236817">Afficher Browther News</translation>
 <translation id="6527303717912515753">Partager</translation>
 <translation id="1654539412343893324">En savoir plus sur vos données</translation>
 <translation id="2989805286512600854">Ouvrir dans un nouvel onglet</translation>
@@ -128,9 +128,9 @@
 <translation id="6332791358521956870"><ph name="PUBLISHER"/> désactivé</translation>
 <translation id="1276592121036104130">Charger du nouveau contenu</translation>
 <translation id="3189348785087463371">Promotion</translation>
-<translation id="6061624742279741975">Plus d'offres Brave</translation>
+<translation id="6061624742279741975">Plus d'offres Browther</translation>
 <translation id="254100925533869330">Aucun contenu</translation>
-<translation id="2830135508296223026">Actualités Brave ne dispose d'aucun contenu à afficher.</translation>
+<translation id="2830135508296223026">Actualités Browther ne dispose d'aucun contenu à afficher.</translation>
 <translation id="1771307734839364850">Choisir des sources de contenu</translation>
 <translation id="6891769200437737956">Empêche les sites Web de me pister par empreinte numérique</translation>
 <translation id="7459000603787995422">Fermer les onglets à la sortie</translation>
@@ -147,16 +147,16 @@
 <translation id="1260864846935682371">Active la fonction de Blocage d’éléments de boucliers dans les fenêtres de navigation privée. Remarque : les éléments bloqués dans les fenêtres de navigation privée le seront également dans les fenêtres normales.</translation>
 <translation id="1680858055899097121">Ne persistez pas dans les onglets entre les sessions de navigation</translation>
 <translation id="7142548388914389999">Autoriser l'analyse de produits respectueuse de la vie privée (P3A)</translation>
-<translation id="6523027813174189434">Les données P3A anonymisées permettent à Brave d'estimer l'utilisation globale et de garantir que nous améliorons les fonctionnalités populaires.</translation>
+<translation id="6523027813174189434">Les données P3A anonymisées permettent à Browther d'estimer l'utilisation globale et de garantir que nous améliorons les fonctionnalités populaires.</translation>
 <translation id="4174337572777167894">Projet de découverte web</translation>
 <translation id="8659271182272561965">Fournissez des données de recherche et de navigation anonymes pour affiner Brave Search.</translation>
 <translation id="933652931229970927">Envoyer automatiquement les rapports de diagnostic</translation>
-<translation id="828422093576103654">Contribuez à améliorer la stabilité des produits de Brave en envoyant automatiquement des rapports de diagnostic lorsque le navigateur Brave plante ou se bloque.</translation>
+<translation id="828422093576103654">Contribuez à améliorer la stabilité des produits de Browther en envoyant automatiquement des rapports de diagnostic lorsque le navigateur Browther plante ou se bloque.</translation>
 <translation id="7977176350719484850">Données\néconomisées</translation>
 <translation id="9008534313521214777">Temps gagné\nestimé</translation>
-<translation id="6541482394929016885">Autoriser les sondages Brave</translation>
-<translation id="561058597004066681">Autorise Brave à afficher des liens vers des sondages privés sur la page du nouvel onglet. Ces sondages nous aident à développer de meilleures fonctionnalités et à mesurer l’efficacité des campagnes publicitaires dans le navigateur.</translation>
-<translation id="7957620801703424345">En savoir plus sur les sondages Brave</translation>
+<translation id="6541482394929016885">Autoriser les sondages Browther</translation>
+<translation id="561058597004066681">Autorise Browther à afficher des liens vers des sondages privés sur la page du nouvel onglet. Ces sondages nous aident à développer de meilleures fonctionnalités et à mesurer l’efficacité des campagnes publicitaires dans le navigateur.</translation>
+<translation id="7957620801703424345">En savoir plus sur les sondages Browther</translation>
 <translation id="410351446219883937">Lecture automatique</translation>
 <translation id="7445411102860286510">Autoriser les sites à lire automatiquement des vidéos dont le son est désactivé (recommandé)</translation>
 <translation id="7837721118676387834">Autorisez la lecture automatique des vidéos dont le son est désactivé pour un site en particulier.</translation>
@@ -168,9 +168,9 @@
 <translation id="2675679258824361492">Autres paramètres de confidentialité</translation>
 <translation id="8026334261755873520">Effacer les données de navigation</translation>
 <translation id="1690924763769415936">Lecture en arrière-plan</translation>
-<translation id="195599078354156770">Fermer tous les onglets ferme Brave</translation>
-<translation id="8000650235902740784">Permet de lire du contenu audio lorsque vous basculez vers un autre onglet dans Brave ou une autre app, ou si l'écran de votre appareil est éteint.</translation>
-<translation id="3306768607677939233">Ouvrir les liens YouTube dans Brave</translation>
+<translation id="195599078354156770">Fermer tous les onglets ferme Browther</translation>
+<translation id="8000650235902740784">Permet de lire du contenu audio lorsque vous basculez vers un autre onglet dans Browther ou une autre app, ou si l'écran de votre appareil est éteint.</translation>
+<translation id="3306768607677939233">Ouvrir les liens YouTube dans Browther</translation>
 <translation id="4150201353443180367">Affichage</translation>
 <translation id="4275663329226226506">Médias</translation>
 <translation id="5950428831347558278">GDN Widevine</translation>
@@ -179,41 +179,41 @@
 <translation id="4736073408974888559"><ph name="BEGIN_LINK"/>En savoir plus à propos de Widevine<ph name="END_LINK"/></translation>
 <translation id="6961369821791548622">Autoriser (Relancer maintenant)</translation>
 <translation id="2433507940547922241">Apparence</translation>
-<translation id="3778991207528196623">Icône des Récompenses Brave</translation>
-<translation id="8310304830569924190">Afficher l'icône de récompenses Brave dans la barre d'adresse</translation>
+<translation id="3778991207528196623">Icône des Récompenses Browther</translation>
+<translation id="8310304830569924190">Afficher l'icône de récompenses Browther dans la barre d'adresse</translation>
 <translation id="1215433243238902715">Activer la barre d'outils de navigation inférieure</translation>
 <translation id="1422686363939271829">Ce paramètre est désactivé lorsque la position de la barre d'adresse inférieure est sélectionnée</translation>
-<translation id="8312286765196064934">Vos changements prendront effet la prochaine fois que vous lancerez Brave</translation>
+<translation id="8312286765196064934">Vos changements prendront effet la prochaine fois que vous lancerez Browther</translation>
 <translation id="8701563696941209024">RELANCEZ MAINTENANT</translation>
 <translation id="834487290629916192">PLUS TARD</translation>
 <translation id="4117451092682672487">Protégez votre vie privée en toute facilité.</translation>
-<translation id="5512887128063976049">En définissant Brave comme navigateur par défaut, chaque lien s'ouvrira avec les protections de confidentialité de Brave.</translation>
-<translation id="5148943178722443958">Aidez-nous à améliorer Brave.</translation>
+<translation id="5512887128063976049">En définissant Browther comme navigateur par défaut, chaque lien s'ouvrira avec les protections de confidentialité de Browther.</translation>
+<translation id="5148943178722443958">Aidez-nous à améliorer Browther.</translation>
 <translation id="6718362830686703942">Envoyer des rapports de diagnostic en cas de dysfonctionnement.</translation>
-<translation id="7134864207653684195">Partagez des renseignements privés et anonymes sur les fonctionnalités utilisées par les utilisateurs de Brave.</translation>
+<translation id="7134864207653684195">Partagez des renseignements privés et anonymes sur les fonctionnalités utilisées par les utilisateurs de Browther.</translation>
 <translation id="2888496576732880897">Aidez-nous à développer la recherche Brave</translation>
 <translation id="7044431516245362795">Participez au projet Web Discovery pour aider à développer l'index et améliorer les résultats de recherche. <ph name="LEARN_MORE_START"/>En savoir plus.<ph name="LEARN_MORE_END"/></translation>
 <translation id="7818938154803162778">Oui, je veux apporter mon aide</translation>
 <translation id="7443712250454754077">Appuyez pour voir les boucliers Brave</translation>
-<translation id="118577974285037669">Visualisez toutes les nuisances bloquées par Brave sur chaque page grâce aux boucliers.</translation>
+<translation id="118577974285037669">Visualisez toutes les nuisances bloquées par Browther sur chaque page grâce aux boucliers.</translation>
 <translation id="5386259141409498372">publicités et traceurs de <ph name="BIG_TECH"/> et <ph name="TRACKER"/> autre(s) bloqués</translation>
 <translation id="7256200875155794202"><ph name="BIG_TECH"/> et d'autres publicités et traceurs bloqués</translation>
 <translation id="3092683655478890840"><ph name="TRACKER_COUNT"/> publicités et traceurs bloqués</translation>
 <translation id="8281886186245836920">Passer</translation>
 <translation id="6165508094623778733">En savoir plus</translation>
 <translation id="986879628471635371">Dépannage intégré</translation>
-<translation id="3067154517825632296">Boucliers de Brave</translation>
+<translation id="3067154517825632296">Boucliers de Browther</translation>
 <translation id="8537217141725709400">Gagnez <ph name="TOKEN"/>s</translation>
-<translation id="1315468656814955997">Récompenses de Brave</translation>
+<translation id="1315468656814955997">Récompenses de Browther</translation>
 <translation id="5870330605209713397">en regardant des publicités respectant la vie privée et en soutenant vos sites favoris par défaut.</translation>
-<translation id="4876758072369151092">En appuyant sur Commencer à utiliser Brave Rewards, vous acceptez les</translation>
+<translation id="4876758072369151092">En appuyant sur Commencer à utiliser Browther Rewards, vous acceptez les</translation>
 <translation id="4281844954008187215">Conditions d'utilisation</translation>
 <translation id="6871397658902960384">Démarrer la navigation</translation>
 <translation id="454386012157232640">Je n'ai pas vu d'annonce</translation>
-<translation id="2520135982171137695">Brave va montrer votre première annonce dans</translation>
-<translation id="8598447417258058308">Vous allez maintenant gagner des jetons avec les publicités Brave.</translation>
-<translation id="7877489272124557961">Voici votre première annonce Brave. Appuyez ici pour en savoir plus.</translation>
-<translation id="239054590732818248">Commencer à utiliser Brave Rewards</translation>
+<translation id="2520135982171137695">Browther va montrer votre première annonce dans</translation>
+<translation id="8598447417258058308">Vous allez maintenant gagner des jetons avec les publicités Browther.</translation>
+<translation id="7877489272124557961">Voici votre première annonce Browther. Appuyez ici pour en savoir plus.</translation>
+<translation id="239054590732818248">Commencer à utiliser Browther Rewards</translation>
 <translation id="48520986898237073">Continuer vers le portefeuille</translation>
 <translation id="6213254277250932867">J'ai une phrase de récupération de 12 mots</translation>
 <translation id="4225265925807365011">J'ai une phrase de récupération de 24 mots</translation>
@@ -224,8 +224,8 @@
 <translation id="8515319483805157233">Pour effectuer une recherche par code QR, alignez ce dernier sur le centre du cadre.</translation>
 <translation id="7658239707568436148">Annuler</translation>
 <translation id="1201402288615127009">Suivant</translation>
-<translation id="1968529929625213692">Pour améliorer votre confidentialité, définissez Brave comme navigateur par défaut</translation>
-<translation id="1637652037902621164">Choisissez Brave sur le prochain écran.</translation>
+<translation id="1968529929625213692">Pour améliorer votre confidentialité, définissez Browther comme navigateur par défaut</translation>
+<translation id="1637652037902621164">Choisissez Browther sur le prochain écran.</translation>
 <translation id="8926389886865778422">Ne plus afficher ce message</translation>
 <translation id="745974920645827035">Une recherche indépendante avec une meilleure confidentialité</translation>
 <translation id="2773167297815493692">La recherche Brave n'établit pas de profil vous concernant.</translation>
@@ -243,15 +243,15 @@
 <translation id="8220228041552340594">OCTOBRE</translation>
 <translation id="8280223431922155812">NOVEMBRE</translation>
 <translation id="4254029385847607686">DÉCEMBRE</translation>
-<translation id="7552108877069135992">Brave VPN</translation>
-<translation id="5689474166906758435">Brave Actualités</translation>
+<translation id="7552108877069135992">Browther VPN</translation>
+<translation id="5689474166906758435">Browther Actualités</translation>
 <translation id="2518692840036393666">Personnaliser le menu</translation>
 <translation id="5582839680698949063">Menu principal</translation>
 <translation id="7002271985859760052">Actions de page</translation>
 <translation id="7104487676473617844">Les éléments suivants ne s’afficheront dans le menu que si la page Web ouverte les prend en charge.</translation>
 <translation id="4159764849281393303">Application Web</translation>
 <translation id="8428213095426709021">Paramètres</translation>
-<translation id="1154834242163943718">Les publicités de Brave sont là!</translation>
+<translation id="1154834242163943718">Les publicités de Browther sont là!</translation>
 <translation id="222883304157347087">(cet appareil)</translation>
 <translation id="4157741509680155021">APPAREILS SUR LA CHAÎNE DE SYNCHRONISATION</translation>
 <translation id="279635009973773843">CHARGEMENT DES DISPOSITIFS...</translation>
@@ -259,17 +259,17 @@
 <translation id="2569646144216067185">Nombre de mots : <ph name="WORD_COUNT"/></translation>
 <translation id="7507533586185621084">Mauvais code de sychronisation</translation>
 <translation id="8284063834901328650">Mauvaise synchronisation de code QR</translation>
-<translation id="454326983454790156">Ce code a été généré par une version obsolète de Brave. Commencez par mettre à jour l'autre appareil</translation>
+<translation id="454326983454790156">Ce code a été généré par une version obsolète de Browther. Commencez par mettre à jour l'autre appareil</translation>
 <translation id="3132642509209154999">Ce code a expiré. Veuillez en générer un nouveau depuis votre deuxième appareil, puis réessayer.</translation>
 <translation id="2859229680945501779">Ce code n'est pas valide. Veuillez vérifier que l'heure et le fuseau horaire sont définis correctement sur votre appareil.</translation>
-<translation id="1372694944746127008">Synchronisation de Brave</translation>
-<translation id="6728835018930267893">La synchronisation Brave vous permet de synchroniser les données des favoris en privé entre vos navigateurs Brave sur vos différents appareils.\n\nIl vous suffit de numériser le code de votre chaîne de synchronisation que vous avez créée sur un autre appareil. Ou démarrez une nouvelle chaîne de synchronisation.</translation>
-<translation id="8179891544425884738">À l'aide de l'appareil actuellement synchronisé, ouvrez les paramètres Brave et naviguez vers Paramètres &gt; Synchroniser. Sélectionnez « Ajouter un nouvel appareil » puis balayez le code QR affiché à l'écran.</translation>
+<translation id="1372694944746127008">Synchronisation de Browther</translation>
+<translation id="6728835018930267893">La synchronisation Browther vous permet de synchroniser les données des favoris en privé entre vos navigateurs Browther sur vos différents appareils.\n\nIl vous suffit de numériser le code de votre chaîne de synchronisation que vous avez créée sur un autre appareil. Ou démarrez une nouvelle chaîne de synchronisation.</translation>
+<translation id="8179891544425884738">À l'aide de l'appareil actuellement synchronisé, ouvrez les paramètres Browther et naviguez vers Paramètres &gt; Synchroniser. Sélectionnez « Ajouter un nouvel appareil » puis balayez le code QR affiché à l'écran.</translation>
 <translation id="5241263629636958324">Copié dans le presse-papiers</translation>
 <translation id="5817918615728894473">Associer</translation>
 <translation id="3429575397891106447">Options de synchronisation</translation>
 <translation id="1680065323266179640">Supprimer le compte Synchronisation</translation>
-<translation id="6755881748183107529">La suppression de votre compte effacera toutes vos données chiffrées des serveurs Brave et désactivera la fonction Synchronisation sur tous vous appareils connectés. Les données stockées localement sur ces appareils ne seront toutefois pas supprimées.\n\nCette suppression est irréversible et les données sont irrécupérables. Si vous décidez de réutiliser la synchronisation, vous devrez créer un nouveau compte et ajouter à nouveau chaque appareil individuellement.</translation>
+<translation id="6755881748183107529">La suppression de votre compte effacera toutes vos données chiffrées des serveurs Browther et désactivera la fonction Synchronisation sur tous vous appareils connectés. Les données stockées localement sur ces appareils ne seront toutefois pas supprimées.\n\nCette suppression est irréversible et les données sont irrécupérables. Si vous décidez de réutiliser la synchronisation, vous devrez créer un nouveau compte et ajouter à nouveau chaque appareil individuellement.</translation>
 <translation id="9064376100690171155">Supprimer définitivement le compte</translation>
 <translation id="2740516568641790390">Le compte Synchronisation a bien été supprimé</translation>
 <translation id="7006136453627651236">Échec de la suppression du compte Synchronisation</translation>
@@ -279,8 +279,8 @@
 <translation id="1602067095281698985">Démarrer une nouvelle chaîne de synchronisation</translation>
 <translation id="1475223680121592371">Ajouter un appareil mobile</translation>
 <translation id="2965377893636908578">Ajouter un ordinateur</translation>
-<translation id="9195653302508138977">Avec un autre téléphone ou une tablette, naviguez dans les paramètres Brave &gt; Synchronisation &gt; Numériser.\n\nSur votre appareil mobile, accédez à « Synchronisation de Brave » dans le panneau « Paramètres » et cliquez sur le bouton « Numériser le code de synchronisation ». Utilisez votre appareil photo pour numériser le code QR ci-dessous.</translation>
-<translation id="2521658566821183521">Sur votre ordinateur, naviguez vers les paramètres Brave &gt; Synchronisation. Choisissez « Entrer un code de chaîne de synchronisation ».\n\nSur votre ordinateur cible, accédez à « Synchronisation de Brave » dans les paramètres et cliquez sur le bouton « J'ai un code de synchronisation ».\nEntrez les mots du code de chaîne de synchronisation indiqués ci-dessous.</translation>
+<translation id="9195653302508138977">Avec un autre téléphone ou une tablette, naviguez dans les paramètres Browther &gt; Synchronisation &gt; Numériser.\n\nSur votre appareil mobile, accédez à « Synchronisation de Browther » dans le panneau « Paramètres » et cliquez sur le bouton « Numériser le code de synchronisation ». Utilisez votre appareil photo pour numériser le code QR ci-dessous.</translation>
+<translation id="2521658566821183521">Sur votre ordinateur, naviguez vers les paramètres Browther &gt; Synchronisation. Choisissez « Entrer un code de chaîne de synchronisation ».\n\nSur votre ordinateur cible, accédez à « Synchronisation de Browther » dans les paramètres et cliquez sur le bouton « J'ai un code de synchronisation ».\nEntrez les mots du code de chaîne de synchronisation indiqués ci-dessous.</translation>
 <translation id="65315202420929965">Lire ce code de synchronisation</translation>
 <translation id="6764016175302339802">Traitez ce code comme un mot de passe. Si une personne met la main dessus, elle pourra lire et modifier vos données synchronisées.</translation>
 <translation id="2731921493694251495">Saisir le code de la chaîne de synchronisation</translation>
@@ -292,7 +292,7 @@
 <translation id="6776430845975754238">La modification des paramètres n'affectera que les données que cet appareil partage avec d'autres.</translation>
 <translation id="1061533051865606843">Ajouter un nouveau dispositif</translation>
 <translation id="7539985410310934287">Saisissez les mots de code</translation>
-<translation id="8614278549759193500">À l'aide de l'appareil actuellement synchronisé, ouvrez les paramètres Brave et naviguez vers Paramètres &gt; Synchroniser. Sélectionnez « Ajouter un nouvel appareil » puis « Afficher plutôt les mots de code ».</translation>
+<translation id="8614278549759193500">À l'aide de l'appareil actuellement synchronisé, ouvrez les paramètres Browther et naviguez vers Paramètres &gt; Synchroniser. Sélectionnez « Ajouter un nouvel appareil » puis « Afficher plutôt les mots de code ».</translation>
 <translation id="8131740175452115882">Confirmer</translation>
 <translation id="4973653569293835178">Je vais utiliser mon appareil photo...</translation>
 <translation id="326454632686131209">Synchroniser le dispositif</translation>
@@ -300,15 +300,15 @@
 <translation id="4358805443781965194">Le code a expiré. Générez-en un autre en cliquant sur le bouton ci-dessous.</translation>
 <translation id="318164877797885563">Ce code temporaire est valide pendant <ph name="TIME_AMOUNT"/></translation>
 <translation id="327726072512457161">Sortie des paramètres</translation>
-<translation id="1749084032911514523">Activer les récompenses de Brave</translation>
+<translation id="1749084032911514523">Activer les récompenses de Browther</translation>
 <translation id="9187185473011056079">Je suis partant!</translation>
-<translation id="2486960901779357051">Gagnez un jeton d'attention de base pour visionner des publicités de Brave Rewards sur préservation de la vie privée.</translation>
+<translation id="2486960901779357051">Gagnez un jeton d'attention de base pour visionner des publicités de Browther Rewards sur préservation de la vie privée.</translation>
 <translation id="5321518976657560663">Réinitialiser l'erreur</translation>
-<translation id="4915565684659864517">Une erreur s'est produite lors de la réinitialisation de Brave Rewards. Veuillez relancer Brave et réessayer.</translation>
-<translation id="6814984918024211826">Publicités Brave</translation>
-<translation id="2786299774084833120">Afficher les notifications publicitaires lorsque Brave n'est pas utilisé</translation>
-<translation id="5717636703619499822"><ph name="BEGIN_LINK1"/>Réinitialiser les données liées aux Récompenses Brave…<ph name="END_LINK1"/></translation>
-<translation id="1830919318137227284"><ph name="BEGIN_LINK1"/>Effacer les données liées aux publicités Brave…<ph name="END_LINK1"/></translation>
+<translation id="4915565684659864517">Une erreur s'est produite lors de la réinitialisation de Browther Rewards. Veuillez relancer Browther et réessayer.</translation>
+<translation id="6814984918024211826">Publicités Browther</translation>
+<translation id="2786299774084833120">Afficher les notifications publicitaires lorsque Browther n'est pas utilisé</translation>
+<translation id="5717636703619499822"><ph name="BEGIN_LINK1"/>Réinitialiser les données liées aux Récompenses Browther…<ph name="END_LINK1"/></translation>
+<translation id="1830919318137227284"><ph name="BEGIN_LINK1"/>Effacer les données liées aux publicités Browther…<ph name="END_LINK1"/></translation>
 <translation id="8293206222192510085">Ajouter un favori</translation>
 <translation id="340492034650766959">Supprimer le favori</translation>
 <translation id="2149973817440762519">Modifier le favori</translation>
@@ -327,16 +327,16 @@
 <translation id="2803313416453193357">Ouvrir le dossier</translation>
 <translation id="8985635554450124959">La synchronisation n’a pas pu être configurée</translation>
 <translation id="7173114856073700355">Ouvrir les paramètres</translation>
-<translation id="800732871150178120">Ce compte Synchronisation Brave a été supprimé depuis un autre appareil. Si vous ne vouliez pas désactiver Synchronisation, <ph name="LINK_TEXT"/></translation>
+<translation id="800732871150178120">Ce compte Synchronisation Browther a été supprimé depuis un autre appareil. Si vous ne vouliez pas désactiver Synchronisation, <ph name="LINK_TEXT"/></translation>
 <translation id="4353815407425635948"><ph name="INFOBAR_TEXT"/>recréez le compte</translation>
 <translation id="4094590686212463338">Impossible d'associer cette chaîne de synchronisation. La chaîne de synchronisation a été supprimée.</translation>
 <translation id="4908081302669157000">Numéros de téléphone, adresses courriel et adresses</translation>
 <translation id="1056898198331236512">Avertissement</translation>
 <translation id="1426410128494586442">Oui</translation>
-<translation id="3134946746952081064">Cette action partagera vos données Brave, et potentiellement vos mots de passe, avec l'appareil qui a généré ce code QR.
+<translation id="3134946746952081064">Cette action partagera vos données Browther, et potentiellement vos mots de passe, avec l'appareil qui a généré ce code QR.
 Veuillez vérifier que ce code QR a été généré par un appareil dont vous êtes le propriétaire.
 Voulez-vous vraiment continuer?</translation>
-<translation id="5309794390098987160">Cette action partagera vos données Brave, et potentiellement vos mots de passe, avec l'appareil qui a généré ces mots de code.
+<translation id="5309794390098987160">Cette action partagera vos données Browther, et potentiellement vos mots de passe, avec l'appareil qui a généré ces mots de code.
 Veuillez vérifier que ces mots de code ont été générés par un appareil dont vous êtes le propriétaire.
 Voulez-vous vraiment continuer?</translation>
 <translation id="4550208292810542331">L'autorisation d'accès à l'appareil photo n'a pas été accordée</translation>
@@ -344,19 +344,19 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="3063783274005996079">Procédez au déverrouillage pour activer la synchronisation des mots de passe</translation>
 <translation id="7551563084530025179">Avant de pouvoir synchroniser les mots de passe, vous devrez vous authentifier avec l'authentification biométrique ou le code d'accès de votre appareil. Cette mesure de sécurité supplémentaire permet d'assurer la sécurité de vos mots de passe.</translation>
 <translation id="6925081665778864449">Pour synchroniser les mots de passe, veuillez activer l'authentification biométrique ou par code d'accès sur votre appareil Android. Cette mesure de sécurité supplémentaire permet d'assurer la sécurité de vos mots de passe.</translation>
-<translation id="8989287919085862509">Licence Brave</translation>
+<translation id="8989287919085862509">Licence Browther</translation>
 <translation id="6336451774241870485">Nouvel onglet de navigation privée</translation>
 <translation id="3110967157686007724">Onglet de navigation privée</translation>
 <translation id="944340256927461196">Ne laissez aucune trace sur votre appareil</translation>
 <translation id="2063044449012253966">Les sites que vous consultez dans une fenêtre de navigation privée n'apparaissent pas dans votre historique. Les témoins, les données de formulaire et les données de site sont effacées lorsque vous fermez la fenêtre.</translation>
 <translation id="7395764193745523646">Activité de navigation</translation>
 <translation id="8670344404057978375">Notez que même dans des fenêtres privées, votre activité de navigation peut toujours être visible par votre FAI, les observateurs du réseau ou votre employeur (si vous utilisez un réseau ou un appareil professionnel).</translation>
-<translation id="7123403262367482352">Brave VPN crypte et protège tout ce que vous faites en ligne, même en dehors du navigateur Brave.</translation>
+<translation id="7123403262367482352">Browther VPN crypte et protège tout ce que vous faites en ligne, même en dehors du navigateur Browther.</translation>
 <translation id="3974348661685061050">Essayez gratuitement pendant 7 jours</translation>
-<translation id="6806401081564048945">Publicités de Brave envoyées lorsque le navigateur est en arrière-plan</translation>
+<translation id="6806401081564048945">Publicités de Browther envoyées lorsque le navigateur est en arrière-plan</translation>
 <translation id="1486343603936278248">jeton</translation>
 <translation id="7781069478569868053">Nouvel onglet</translation>
-<translation id="7766208618160482036">Les images de fond commanditées supportent la mission de Brave de construire un Web indépendant et axé sur l'utilisateur. Et contrairement aux grandes entreprises technologiques, nous mesurons les performances des publicités de manière anonyme pour préserver votre vie privée.</translation>
+<translation id="7766208618160482036">Les images de fond commanditées supportent la mission de Browther de construire un Web indépendant et axé sur l'utilisateur. Et contrairement aux grandes entreprises technologiques, nous mesurons les performances des publicités de manière anonyme pour préserver votre vie privée.</translation>
 <translation id="8748471354357836070">En savoir plus / Me désinscrire</translation>
 <translation id="3171669670217312786">Images d'arrière-plan</translation>
 <translation id="8522669544471808198">Afficher les images de fond</translation>
@@ -364,19 +364,19 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="9001530744369687550">En savoir plus sur les publicités sur la page de nouvel onglet</translation>
 <translation id="8793108040181436796">Widgets</translation>
 <translation id="8643377320501056697">Afficher les sites principaux</translation>
-<translation id="1425956604793134260">Afficher des statistiques de Brave</translation>
+<translation id="1425956604793134260">Afficher des statistiques de Browther</translation>
 <translation id="7462178177755090262">Écran d’accueil</translation>
 <translation id="5365434987337264071">Onglet précédemment ouvert</translation>
 <translation id="6019856124237323989">{HOURS, plural, =1 {Nouvel onglet après <ph name="HOURS_ONE"/> heure d'inactivité} other {Nouvel onglet après <ph name="HOURS_MANY"/> heures d'inactivité}}</translation>
 <translation id="5233638681132016545">Nouvel onglet</translation>
 <translation id="8395271296293035055">Revenir à votre onglet le plus récent</translation>
 <translation id="8297488609722895137">Photo de <ph name="PHOTO_BY"/></translation>
-<translation id="6972100910047618547">Ouvrir les liens externes dans Brave.</translation>
-<translation id="6183002535765935445">Ouvre les liens d'autres applications dans une webview Brave.</translation>
+<translation id="6972100910047618547">Ouvrir les liens externes dans Browther.</translation>
+<translation id="6183002535765935445">Ouvre les liens d'autres applications dans une webview Browther.</translation>
 <translation id="2394961582378297792">Déconnecté</translation>
 <translation id="3368922792935385530">Connecté</translation>
 <translation id="8874184842967597500">Non connecté</translation>
-<translation id="5328626432221599586">Partagez Brave avec vos amis !</translation>
+<translation id="5328626432221599586">Partagez Browther avec vos amis !</translation>
 <translation id="717952606991220586">Oups, quelque chose ne va pas. Veuillez réessayer plus tard.</translation>
 <translation id="987264212798334818">Généralités</translation>
 <translation id="1116694919640316211">À propos</translation>
@@ -411,7 +411,7 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="5695422144228065490">À propos de Brave Shields</translation>
 <translation id="8912304686498704084">Haut</translation>
 <translation id="4963218453264888510">Bas</translation>
-<translation id="5721161384090584434">Vous naviguez sur ce site sans les protections de la vie privée de Brave. Cela ne fonctionne-t-il pas bien avec Shields activé ?</translation>
+<translation id="5721161384090584434">Vous naviguez sur ce site sans les protections de la vie privée de Browther. Cela ne fonctionne-t-il pas bien avec Shields activé ?</translation>
 <translation id="4226543734057230801">Réseaux Ethereum</translation>
 <translation id="3504157706952484145">Réseaux Filecoin</translation>
 <translation id="1561541094377237745">Réseaux Solana</translation>
@@ -426,8 +426,8 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="1991004083507807299">Onglets du site fermés</translation>
 <translation id="5827277414420724690">Fermeture de l'application</translation>
 <translation id="1209739344687072997">Signaler un site qui ne fonctionne pas</translation>
-<translation id="6201517975872819145">Indiquez aux développeurs de Brave que ce site ne fonctionne pas correctement avec Shields :</translation>
-<translation id="5388602923347314006">Merci de nous aider à améliorer Brave pour tous. Ce rapport contiendra uniquement les renseignements qui nous sont nécessaires pour réparer ce site. <ph name="LEARN_MORE"/></translation>
+<translation id="6201517975872819145">Indiquez aux développeurs de Browther que ce site ne fonctionne pas correctement avec Shields :</translation>
+<translation id="5388602923347314006">Merci de nous aider à améliorer Browther pour tous. Ce rapport contiendra uniquement les renseignements qui nous sont nécessaires pour réparer ce site. <ph name="LEARN_MORE"/></translation>
 <translation id="8759753423332885148">En savoir plus.</translation>
 <translation id="8740275226259417070">Ceci est une page d'erreur. Elle ne peut pas être signalée comme un site qui ne fonctionne pas.</translation>
 <translation id="721949491455392748">Inclure une capture d'écran de la page actuelle</translation>
@@ -437,26 +437,26 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="6367576083705149078">Si vous fournissez vos informations de contact, celles-ci seront conservées pour d'éventuels futurs signalements de problèmes avec certains sites.</translation>
 <translation id="7616645803364270729">E-mail, Twitter, etc.</translation>
 <translation id="5299848999918506028">Merci!</translation>
-<translation id="3427891962258045864">Merci de faire savoir aux développeurs de Brave qu'il y a quelque chose qui ne va pas sur ce site. Nous ferons de notre mieux pour le réparer !</translation>
+<translation id="3427891962258045864">Merci de faire savoir aux développeurs de Browther qu'il y a quelque chose qui ne va pas sur ce site. Nous ferons de notre mieux pour le réparer !</translation>
 <translation id="3037432377946455872">Quel est le problème principal?</translation>
 <translation id="8731661215617360873">Sélectionnez une option</translation>
 <translation id="650318023204990401">Contrôles avancés</translation>
 <translation id="7205939464631857223">Effacer tous les éléments bloqués</translation>
 <translation id="5370478469168390143">Sauvegarder les données en ligne</translation>
-<translation id="4075755126185131234">Naviguez plus rapidement et bloquez les publicités avec Brave</translation>
-<translation id="7497702952030752311">Chaque jour, j'économise des données en naviguant sur Internet avec Brave.</translation>
+<translation id="4075755126185131234">Naviguez plus rapidement et bloquez les publicités avec Browther</translation>
+<translation id="7497702952030752311">Chaque jour, j'économise des données en naviguant sur Internet avec Browther.</translation>
 <translation id="357198789571802914">Regardez YouTube, sans les publicités.</translation>
-<translation id="8800713291179522421">Ouvrez les liens YouTube dans Brave pour bloquer les publicités.</translation>
+<translation id="8800713291179522421">Ouvrez les liens YouTube dans Browther pour bloquer les publicités.</translation>
 <translation id="1580816390443799567">Activer maintenant</translation>
 <translation id="8589748782214271192">Non merci</translation>
 <translation id="8374242949413616101">Protection de la confidentialité</translation>
-<translation id="4607607426625902285">Brave empêche les publicités et les traqueurs de collecter des informations à propos de vous sans votre consentement.</translation>
+<translation id="4607607426625902285">Browther empêche les publicités et les traqueurs de collecter des informations à propos de vous sans votre consentement.</translation>
 <translation id="752842701893882688">Économisez des données et votre batterie</translation>
 <translation id="1685837926613452362">Sans publicités et pistage, les sites web utilisent moins de données et de batterie. Vous pourriez même économiser sur les frais d'opérateur.</translation>
 <translation id="5440744330377972191">Les sites web chargent plus rapidement</translation>
-<translation id="174431668501219362">Télécharger moins de données signifie que les site web se chargent plus vite sur Brave - jusqu'à 8x plus vite que les autres navigateurs.</translation>
+<translation id="174431668501219362">Télécharger moins de données signifie que les site web se chargent plus vite sur Browther - jusqu'à 8x plus vite que les autres navigateurs.</translation>
 <translation id="8903462729414407077">Obtenir des mises à jour hebdomadaires</translation>
-<translation id="6325439366428058319">Soyez informé des sites Web qui portent le plus atteinte à la vie privée parmi ceux que vous consultez.\n\nPersonne d'autre que vous ne peut consulter ces statistiques sur la vie privée. Vos données personnelles et votre historique de navigation ne quitteront jamais le navigateur Brave sur votre appareil.</translation>
+<translation id="6325439366428058319">Soyez informé des sites Web qui portent le plus atteinte à la vie privée parmi ceux que vous consultez.\n\nPersonne d'autre que vous ne peut consulter ces statistiques sur la vie privée. Vos données personnelles et votre historique de navigation ne quitteront jamais le navigateur Browther sur votre appareil.</translation>
 <translation id="6170159749517116894">Activer les rapports de confidentialité</translation>
 <translation id="1669047024429367828">Visibilité</translation>
 <translation id="5966707198760109579">Semaine</translation>
@@ -473,16 +473,16 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="3694122362646626770">Sites web</translation>
 <translation id="2225863440766607138">Traqueurs</translation>
 <translation id="2993367530362078067"><ph name="COUNT"/><ph name="COUNT_TEXT"/></translation>
-<translation id="1902594210717982657">Vous avez bloqué <ph name="COUNT"/> traqueurs &amp; de publicité avec le navigateur Brave dans les 3 dernières heures.</translation>
-<translation id="9037752386645716998">Naviguez jusqu'à 6 fois plus vite sur les principaux sites d'information dans Brave en bloquant les traqueurs et les annonces.</translation>
+<translation id="1902594210717982657">Vous avez bloqué <ph name="COUNT"/> traqueurs &amp; de publicité avec le navigateur Browther dans les 3 dernières heures.</translation>
+<translation id="9037752386645716998">Naviguez jusqu'à 6 fois plus vite sur les principaux sites d'information dans Browther en bloquant les traqueurs et les annonces.</translation>
 <translation id="7427567994475794038">Activez les rapports de confidentialité pour voir combien de traqueurs et de publicités ont été bloqués dans les 3 derniers jours.</translation>
-<translation id="8772726782451438653">Vous avez économisé <ph name="DATA"/> <ph name="DATA_TEXT"/> de données avec le navigateur Brave.</translation>
+<translation id="8772726782451438653">Vous avez économisé <ph name="DATA"/> <ph name="DATA_TEXT"/> de données avec le navigateur Browther.</translation>
 <translation id="8640064498452534195">Activez les Rapports de confidentialité pour voir combien de données vous avez sauvegardées.</translation>
-<translation id="1070455512351007812">Le navigateur Brave utilise en moyenne 40 % de batterie en moins.🔋</translation>
-<translation id="3064728577609715659">Vous avez bloqué <ph name="COUNT"/> traqueurs et publicités avec le navigateur Brave la semaine dernière.</translation>
+<translation id="1070455512351007812">Le navigateur Browther utilise en moyenne 40 % de batterie en moins.🔋</translation>
+<translation id="3064728577609715659">Vous avez bloqué <ph name="COUNT"/> traqueurs et publicités avec le navigateur Browther la semaine dernière.</translation>
 <translation id="2883868922264431515">Gagnez des jetons en regardant des publicités respectant la confidentialité et en soutenant vos sites web favoris.</translation>
 <translation id="7408493389591475748">Commencez à naviguer pour voir les rapports de confidentialité</translation>
-<translation id="6192743605233862762">Autorise Brave à afficher vos statistiques de confidentialité</translation>
+<translation id="6192743605233862762">Autorise Browther à afficher vos statistiques de confidentialité</translation>
 <translation id="1763352720905582220">Envoie un rapport de confidentialité hebdomadaire</translation>
 <translation id="1811691435325545066">Effacer toutes les données de rapports de confidentialité</translation>
 <translation id="5966003059662780423">Effacer les données en quittant</translation>
@@ -503,11 +503,11 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="6224180438946945617">Activez les téléchargements parallèles pour augmenter votre vitesse de téléchargement</translation>
 <translation id="8967385052772844086">Afficher le rapport de confidentialité complet</translation>
 <translation id="3479552764303398839">Pas maintenant</translation>
-<translation id="5936993282488921047">Autoriser l'ouverture des liens dans les applications en dehors de Brave</translation>
+<translation id="5936993282488921047">Autoriser l'ouverture des liens dans les applications en dehors de Browther</translation>
 <translation id="4954512758656527938">Portefeuille Ethereum par défaut</translation>
 <translation id="7701023802820268122">Portefeuille Solana par défaut</translation>
 <translation id="7701040980221191251">Aucun</translation>
-<translation id="1749030715694036915">Portefeuille Brave</translation>
+<translation id="1749030715694036915">Portefeuille Browther</translation>
 <translation id="8792121506918889955">Politique de gestion de l'IP WebRTC</translation>
 <translation id="8798099450830957504">Par défaut</translation>
 <translation id="1822560017823072927">Interfaces publiques et privées par défaut</translation>
@@ -516,16 +516,16 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="1483493594462132177">Envoi</translation>
 <translation id="538450413584738399">Échanger</translation>
 <translation id="4556086616242530072">Natif du navigateur.\nGarde autonome.\nEt multi-chaîne.</translation>
-<translation id="1029094400316043935">Prenez le contrôle de votre crypto-monnaie et de vos NFT. Le portefeuille Brave prend en charge Ethereum, les chaînes EVM, Solana, Filecoin et plus encore.</translation>
+<translation id="1029094400316043935">Prenez le contrôle de votre crypto-monnaie et de vos NFT. Le portefeuille Browther prend en charge Ethereum, les chaînes EVM, Solana, Filecoin et plus encore.</translation>
 <translation id="165255193061631296">Besoin d'un nouveau portefeuille?</translation>
-<translation id="3521412940785723616">Démarrez avec le portefeuille Brave en quelques minutes</translation>
+<translation id="3521412940785723616">Démarrez avec le portefeuille Browther en quelques minutes</translation>
 <translation id="2540568096903252632">Saisissez un mot de passe pour continuer</translation>
-<translation id="4327104398932965966">Saisissez le mot de passe de votre portefeuille Brave pour commencer à sauvegarder le portefeuille.</translation>
+<translation id="4327104398932965966">Saisissez le mot de passe de votre portefeuille Browther pour commencer à sauvegarder le portefeuille.</translation>
 <translation id="2359808026110333948">Continuer</translation>
 <translation id="5488357322146334497">Message</translation>
 <translation id="5333225216561354793">Nous vous demandons de prendre acte des éléments ci-dessous</translation>
 <translation id="6937275455070754004">Choisissez quelles chaînes de blocs utiliser dans votre portefeuille.</translation>
-<translation id="4261673504607873594">Je comprends qu'il s'agit d'un portefeuille dont j'ai la garde, et que je suis le seul responsable des fonds, actifs ou comptes associés, et que je dois prendre les mesures appropriées pour sécuriser, protéger et sauvegarder mon portefeuille. Je comprends que Brave ne peut pas accéder à mon portefeuille ou inverser des transactions en mon nom, et que ma phrase de récupération est le SEUL moyen de retrouver l'accès en cas de perte du mot de passe, de vol de l'appareil ou de circonstances similaires.</translation>
+<translation id="4261673504607873594">Je comprends qu'il s'agit d'un portefeuille dont j'ai la garde, et que je suis le seul responsable des fonds, actifs ou comptes associés, et que je dois prendre les mesures appropriées pour sécuriser, protéger et sauvegarder mon portefeuille. Je comprends que Browther ne peut pas accéder à mon portefeuille ou inverser des transactions en mon nom, et que ma phrase de récupération est le SEUL moyen de retrouver l'accès en cas de perte du mot de passe, de vol de l'appareil ou de circonstances similaires.</translation>
 <translation id="4565891212173086999">J'ai lu et j'accepte les <ph name="CLICK_START"/>conditions d'utilisation<ph name="CLICK_END"/>.</translation>
 <translation id="3259102562570606417">Enregistrez votre phrase de récupération</translation>
 <translation id="4339981001593889376">Votre phrase de récupération est la clé qui vous permet d'accéder à votre portefeuille en cas d'oubli de votre mot de passe ou de perte de votre appareil.</translation>
@@ -550,7 +550,7 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="2321396552035646646">Vous pouvez coller l'intégralité de votre phrase de récupération dans n'importe quel champ.</translation>
 <translation id="3961126209136843111">Importer un portefeuille existant</translation>
 <translation id="4811736040444856406">Afficher la phrase de récupération</translation>
-<translation id="6654374687067751596">Importer depuis les portefeuilles cryptos Brave hérités?</translation>
+<translation id="6654374687067751596">Importer depuis les portefeuilles cryptos Browther hérités?</translation>
 <translation id="5844138175312846408">Vous avez déjà un portefeuille?</translation>
 <translation id="2502258949541727762">Avant de commencer</translation>
 <translation id="4303748097351941030">Réseaux pris en charge</translation>
@@ -579,8 +579,8 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="9085712756417277119">La phrase de récupération ne correspond pas</translation>
 <translation id="2360588547830602174">La récupération du compte a échoué. Veuillez réessayer.</translation>
 <translation id="1987317783729300807">Comptes</translation>
-<translation id="3475551697490895926">Envoyer automatiquement un signal d'utilisation quotidienne à Brave</translation>
-<translation id="3803092276742624224">Ce signal privé permet à Brave d'estimer le nombre d'utilisateurs actifs.</translation>
+<translation id="3475551697490895926">Envoyer automatiquement un signal d'utilisation quotidienne à Browther</translation>
+<translation id="3803092276742624224">Ce signal privé permet à Browther d'estimer le nombre d'utilisateurs actifs.</translation>
 <translation id="6725413948756358325">Nom du compte</translation>
 <translation id="3240773103344793224">Changement de propriétaire du compte demandé</translation>
 <translation id="8041423758956015568">Cette transaction rétablira la propriété du compte à un nouveau programme. Cette action est irréversible et peut engendrer une perte de fonds.</translation>
@@ -591,8 +591,8 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="3114681061018999547">Bouclier</translation>
 <translation id="3784455785234192852">Verrouiller</translation>
 <translation id="4412698727486357573">Centre d'aide</translation>
-<translation id="9126297623229391697">Verrouiller automatiquement le portefeuille Brave</translation>
-<translation id="3534678077256518435">Le nombre de minutes à attendre avant que le portefeuille Brave soit automatiquement verrouillé</translation>
+<translation id="9126297623229391697">Verrouiller automatiquement le portefeuille Browther</translation>
+<translation id="3534678077256518435">Le nombre de minutes à attendre avant que le portefeuille Browther soit automatiquement verrouillé</translation>
 <translation id="2326850911705720398">Réinitialiser et effacer les données du portefeuille</translation>
 <translation id="103130866725448389">Voulez-vous vraiment réinitialiser votre portefeuille? Si votre portefeuille n'est pas sauvegardé, vous perdrez toutes les données de votre compte (y compris tous les fonds associés). Tapez « <ph name="CONFIRMATION_PHRASE"/> » pour confirmer.</translation>
 <translation id="4862812525895306758">Effacer les renseignements relatifs aux transactions et aux nonces</translation>
@@ -605,14 +605,14 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="1721710839767183848">Pas de publicités sur la page</translation>
 <translation id="4647035642622555398">Pas d'interruptions</translation>
 <translation id="4122515759479497554">Rechercher des vidéos</translation>
-<translation id="5051649495690625135">Pare-feu + VPN Brave</translation>
+<translation id="5051649495690625135">Pare-feu + VPN Browther</translation>
 <translation id="719977489961414786">Passez à un VPN pour protéger votre connexion et bloquer les traqueurs invasifs partout.</translation>
 <translation id="8814357473522731680">Optimisé par</translation>
 <translation id="5892534145504632332">Protégez chaque application et tout votre appareil</translation>
 <translation id="7195416926059527505">Une connexion Wi-Fi plus sûre, qu'elle soit privée ou publique</translation>
 <translation id="1354700000739359839">Rapide comme l'éclair, jusqu'à 100 Mbit/s</translation>
 <translation id="3510283489391432976">Choisissez votre zone géographique/pays</translation>
-<translation id="716962531546899339">Brave n'enregistre jamais votre activité</translation>
+<translation id="716962531546899339">Browther n'enregistre jamais votre activité</translation>
 <translation id="4575683170451975058">Protégez 5 appareils avec 1 abonnement</translation>
 <translation id="755045397420611731">Confidentialité et sécurité en ligne renforcées</translation>
 <translation id="4520128772974831415">Masquez votre IP et changez votre géolocalisation</translation>
@@ -629,14 +629,14 @@ Voulez-vous vraiment continuer?</translation>
 <translation id="1163809943099641131">Un an</translation>
 <translation id="83293016232121346">(<ph name="DISCOUNT_TEXT_START"/>Économisez <ph name="PERCENTAGE_AMOUNT"/>%%<ph name="DISCOUNT_TEXT_END"/>)</translation>
 <translation id="4790641549702094825"><ph name="YEARLY_AMOUNT"/>/an</translation>
-<translation id="1611150501114381798">Les abonnements seront facturés via votre compte Google. Toute période d’essai gratuite non utilisée sera annulée en cas d’achat d’un abonnement.\n\nVotre abonnement sera automatiquement renouvelé, sauf en cas d’annulation au moins 24 heures avant la fin de la période en cours.\n\nVous pouvez gérer vos abonnements dans les Paramètres.\n\nEn utilisant Brave, vous acceptez les Conditions d’utilisation et la Politique de confidentialité.</translation>
+<translation id="1611150501114381798">Les abonnements seront facturés via votre compte Google. Toute période d’essai gratuite non utilisée sera annulée en cas d’achat d’un abonnement.\n\nVotre abonnement sera automatiquement renouvelé, sauf en cas d’annulation au moins 24 heures avant la fin de la période en cours.\n\nVous pouvez gérer vos abonnements dans les Paramètres.\n\nEn utilisant Browther, vous acceptez les Conditions d’utilisation et la Politique de confidentialité.</translation>
 <translation id="5035172357624830412">Vous avez déjà acheté sur brave.com?</translation>
 <translation id="713136183174551885">Actualisez vos identifiants</translation>
 <translation id="6053992191006521518">Faites un essai GRATUIT</translation>
 <translation id="5903391101107992067">Profitez d'un essai gratuit pendant 7 jours</translation>
 <translation id="721747358270435486">Installer le VPN</translation>
 <translation id="836074276610740314">Installer le profil VPN</translation>
-<translation id="6330417486517296810">Brave va maintenant installer un profil VPN.</translation>
+<translation id="6330417486517296810">Browther va maintenant installer un profil VPN.</translation>
 <translation id="229286271464650057">Ce profil permet au VPN de se connecter automatiquement et de sécuriser le trafic sur votre appareil, dans chaque application, en tout temps. Cette connexion VPN sera chiffrée et acheminée par le pare-feu intelligent de Guardian pour bloquer les annonces et les traqueurs.</translation>
 <translation id="9073255657908892407">Communiquer avec l'assistance technique</translation>
 <translation id="1139934321138152517">Le VPN est maintenant activé</translation>
@@ -720,14 +720,14 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="4803003663447398145">Aucune donnée</translation>
 <translation id="1105525362447173583">Signature d'une transaction Dapp Solana</translation>
 <translation id="2561824823738097741">Utilisez-vous le navigateur Web le plus rapide?</translation>
-<translation id="2455349723812028174">L'Internet 3 fois plus rapide est déjà sur votre téléphone. Utilisez Brave pour toute votre navigation sur le Web.</translation>
-<translation id="6698813105545378459">Brave = une navigation sur le Web 3 fois plus rapide</translation>
+<translation id="2455349723812028174">L'Internet 3 fois plus rapide est déjà sur votre téléphone. Utilisez Browther pour toute votre navigation sur le Web.</translation>
+<translation id="6698813105545378459">Browther = une navigation sur le Web 3 fois plus rapide</translation>
 <translation id="6887232551109532144">Profitez de votre batterie plus longtemps à chaque recharge</translation>
-<translation id="388781679836433566">Économisez facilement votre batterie. Utilisez Brave pour toute votre navigation sur le Web.</translation>
-<translation id="5787513070076123673">Brave = plus de vie à chaque recharge</translation>
+<translation id="388781679836433566">Économisez facilement votre batterie. Utilisez Browther pour toute votre navigation sur le Web.</translation>
+<translation id="5787513070076123673">Browther = plus de vie à chaque recharge</translation>
 <translation id="3211051910418903298">Rechargez vos données mobiles moins souvent</translation>
-<translation id="4980014772210311722">Moins de publicités = moins de données à charger sur chaque page. Utilisez Brave pour toute votre navigation sur le Web.</translation>
-<translation id="594094943898207013">Brave = moins de données mobiles sur chaque page</translation>
+<translation id="4980014772210311722">Moins de publicités = moins de données à charger sur chaque page. Utilisez Browther pour toute votre navigation sur le Web.</translation>
+<translation id="594094943898207013">Browther = moins de données mobiles sur chaque page</translation>
 <translation id="4355217341028673744">• Plus de confidentialité</translation>
 <translation id="3679020972083025535">• Pas de publicités invasives</translation>
 <translation id="8047527352810290817">Modifier le Gas</translation>
@@ -767,7 +767,7 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="6889920539620318793">Définir comme actif</translation>
 <translation id="2653659639078652383">Envoyer</translation>
 <translation id="4945690646623486292">Sélectionner le réseau</translation>
-<translation id="9138575201207843927">Accéder au Portefeuille Brave</translation>
+<translation id="9138575201207843927">Accéder au Portefeuille Browther</translation>
 <translation id="5308380583665731573">Connecter</translation>
 <translation id="8030169304546394654">Déconnecté</translation>
 <translation id="3423275441470187644">Faire confiance</translation>
@@ -778,7 +778,7 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="42981349822642051">Développer</translation>
 <translation id="3586752056660754651">Signer</translation>
 <translation id="3950820424414687140">Connexion</translation>
-<translation id="4510453100110178929">Connecter au Portefeuille Brave</translation>
+<translation id="4510453100110178929">Connecter au Portefeuille Browther</translation>
 <translation id="329813193938846695">Sélectionnez le(s) compte(s)</translation>
 <translation id="291375746846291973">Se connecter uniquement avec les sites auxquels vous faites confiance.</translation>
 <translation id="385051799172605136">Retour</translation>
@@ -790,11 +790,11 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="5242300593039211344">Verrouiller le portefeuille</translation>
 <translation id="1108298724135935307">Sites connectés</translation>
 <translation id="4255623233927788178">Afficher sur l'explorateur de bloc</translation>
-<translation id="2115414576465088543">Cette page souhaite interagir avec le Portefeuille Brave</translation>
+<translation id="2115414576465088543">Cette page souhaite interagir avec le Portefeuille Browther</translation>
 <translation id="3355936511340229503">Erreur de connexion</translation>
 <translation id="1531836666020185856">Présentées</translation>
 <translation id="4891604214809245310">Impossible de définir le réseau sur <ph name="NETWORK_NAME"/></translation>
-<translation id="1965909942366367594">D'autres VPN semblent être configurés pour rester toujours activés sur cet appareil. Pour activer le Pare-feu + VPN Brave, commencez par désactiver le paramètre « Toujours activé » pour les autres VPN avant de vous reconnecter. Si le problème persiste, essayez de désinstaller les autres VPN.</translation>
+<translation id="1965909942366367594">D'autres VPN semblent être configurés pour rester toujours activés sur cet appareil. Pour activer le Pare-feu + VPN Browther, commencez par désactiver le paramètre « Toujours activé » pour les autres VPN avant de vous reconnecter. Si le problème persiste, essayez de désinstaller les autres VPN.</translation>
 <translation id="85136472535634474">Ouvrir les paramètres VPN</translation>
 <translation id="8352805003811526272">Réinitialisation de la configuration…</translation>
 <translation id="6809312301323611382">Vous avez déjà sélectionné ce serveur.</translation>
@@ -814,25 +814,25 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="4822132585477111396">Identification de la chaîne</translation>
 <translation id="7131971375297699539">Symbole de devise</translation>
 <translation id="7982789257301363584">Réseau</translation>
-<translation id="1723851142686890093">Ce réseau pourra ainsi être utilisé dans le Portefeuille Brave. <ph name="CLICK_START"/>En savoir plus<ph name="CLICK_END"/>.</translation>
+<translation id="1723851142686890093">Ce réseau pourra ainsi être utilisé dans le Portefeuille Browther. <ph name="CLICK_START"/>En savoir plus<ph name="CLICK_END"/>.</translation>
 <translation id="4717431746210146708">Autoriser ce site à ajouter un réseau?</translation>
 <translation id="4857321293515555666">Cette application décentralisée souhaite lire ce message pour traiter votre demande.</translation>
 <translation id="714506544401754321">Déchiffrer le message</translation>
 <translation id="5039804452771397117">Autoriser</translation>
 <translation id="3378339846292573874">Ajouter un jeton suggéré</translation>
 <translation id="2322227405137827074">Voulez-vous importer ce jeton?</translation>
-<translation id="394869034371572065">Le navigateur Brave</translation>
-<translation id="641169268102087711">Canal de notification pour le navigateur Brave</translation>
+<translation id="394869034371572065">Le navigateur Browther</translation>
+<translation id="641169268102087711">Canal de notification pour le navigateur Browther</translation>
 <translation id="4556601961751528347">Connecter un autre compte</translation>
 <translation id="8922793255489232731">Impossible de récupérer le fuseau horaire correspondant pour : <ph name="VALUE"/></translation>
 <translation id="6471216025161697462">Connecté à <ph name="VALUE"/></translation>
 <translation id="1968852757206592413">Version d'essay</translation>
-<translation id="4555536337015628814">Désactiver le VPN Brave</translation>
+<translation id="4555536337015628814">Désactiver le VPN Browther</translation>
 <translation id="9080536793704001825">Interrompre pendant 15 minutes</translation>
 <translation id="803706420145725977">Interrompre pendant 1 heure</translation>
 <translation id="4394049700291259645">Désactiver</translation>
 <translation id="7733890291091968191">Afficher les notifications Web3</translation>
-<translation id="714044397756117600">\n\n\n\n#### Brave ne vous suit pas et ne connaît pas votre utilisation de notre application, nous ne savons donc pas comment vous avez configuré le VPN. Veuillez nous communiquer des renseignements quant au problème que vous rencontrez et nous ferons de notre mieux pour le résoudre dès que possible. ####\n\n</translation>
+<translation id="714044397756117600">\n\n\n\n#### Browther ne vous suit pas et ne connaît pas votre utilisation de notre application, nous ne savons donc pas comment vous avez configuré le VPN. Veuillez nous communiquer des renseignements quant au problème que vous rencontrez et nous ferons de notre mieux pour le résoudre dès que possible. ####\n\n</translation>
 <translation id="3367162038532116157">\n\nNom d'hôte du VPN\n <ph name="VALUE"/></translation>
 <translation id="6173438324126027458">\n\nType d'abonnement\n <ph name="VALUE"/></translation>
 <translation id="1478875290576741766">\n\nJeton du Playstore\n <ph name="VALUE"/></translation>
@@ -855,19 +855,19 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="7002577172732106572">Tunnel fractionné</translation>
 <translation id="8181161042860463420">Le compte de jeton associé n'existe pas encore. Une petite quantité de SOL sera dépensée pour le créer et l'alimenter. <ph name="CLICK_START"/>En savoir plus<ph name="CLICK_END"/></translation>
 <translation id="168154537623654021">Mise à jour du profil VPN…</translation>
-<translation id="6695297619936003477">Notez que Brave ne peut pas vérifier ce qui se passera si vous signez. Une signature peut autoriser presque n'importe quelle opération sur votre compte ou en votre nom, y compris (mais sans s'y limiter) donner le contrôle total de votre compte et de vos actifs cryptos au site qui en fait la demande. Ne signez que si vous voulez vraiment effectuer cette action et si vous faites confiance au site demandeur.</translation>
+<translation id="6695297619936003477">Notez que Browther ne peut pas vérifier ce qui se passera si vous signez. Une signature peut autoriser presque n'importe quelle opération sur votre compte ou en votre nom, y compris (mais sans s'y limiter) donner le contrôle total de votre compte et de vos actifs cryptos au site qui en fait la demande. Ne signez que si vous voulez vraiment effectuer cette action et si vous faites confiance au site demandeur.</translation>
 <translation id="3474375934783434676">Signer à votre entière responsabilité</translation>
 <translation id="7134370164002095282"><ph name="CURRENT"/> sur <ph name="SIZE"/></translation>
 <translation id="756701799684433105">Approuver la transaction</translation>
 <translation id="6450792191436242818">Programme du système</translation>
-<translation id="6026990887583305079">Déverrouiller le portefeuille Brave avec l'authentification biométrique</translation>
-<translation id="533622652768401304">Voulez-vous utiliser l'authentification biométrique pour déverrouiller le portefeuille Brave?</translation>
+<translation id="6026990887583305079">Déverrouiller le portefeuille Browther avec l'authentification biométrique</translation>
+<translation id="533622652768401304">Voulez-vous utiliser l'authentification biométrique pour déverrouiller le portefeuille Browther?</translation>
 <translation id="4782919977106118997">Utiliser le déverrouillage par empreinte digitale</translation>
 <translation id="2054995875643283428">Ignorer ceci pour l'instant</translation>
 <translation id="2610561535971892504">Cliquer pour copier</translation>
 <translation id="2522605225061484799">Accéder à mon portefeuille</translation>
 <translation id="1148624853678088576">Tout est prêt!</translation>
-<translation id="470835352345016983">Votre portefeuille Brave est prêt à être utilisé.</translation>
+<translation id="470835352345016983">Votre portefeuille Browther est prêt à être utilisé.</translation>
 <translation id="6252742184395380448">Programme de configuration</translation>
 <translation id="5358970666412490132">Programme d'enjeu</translation>
 <translation id="346636227344244984">Programme de vote</translation>
@@ -920,7 +920,7 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="4635094429202343515">Essayez le widget de recherche Brave</translation>
 <translation id="4809681171446727314">Utilisez un moteur de recherche indépendant et protégeant votre vie privée directement depuis votre écran d'accueil.</translation>
 <translation id="7751715172931488388">Ajouter le gadget logiciel</translation>
-<translation id="2891450407793898551">recherche d'action rapide Brave</translation>
+<translation id="2891450407793898551">recherche d'action rapide Browther</translation>
 <translation id="2326703104633309781">Utiliser l'outil de traduction Brave</translation>
 <translation id="5802752138057422257">Caractères non-ASCII détectés!</translation>
 <translation id="442709594176931966">Afficher le message original</translation>
@@ -933,11 +933,11 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="1313065465616456728">Émis à</translation>
 <translation id="7902225556763260253">Heure d'expiration</translation>
 <translation id="1908159733454294871">Risque de sécurité détecté</translation>
-<translation id="3705285216160877969">Associer cet achat à votre compte Brave</translation>
-<translation id="5451867360337396474">Associez votre achat sur le Play Store à votre compte Brave pour utiliser le VPN Brave sur d'autres appareils.</translation>
+<translation id="3705285216160877969">Associer cet achat à votre compte Browther</translation>
+<translation id="5451867360337396474">Associez votre achat sur le Play Store à votre compte Browther pour utiliser le VPN Browther sur d'autres appareils.</translation>
 <translation id="6662142137695589205">Associer votre abonnement VPN</translation>
-<translation id="77901425917202541">Étendre votre protection Pare-feu + VPN Brave</translation>
-<translation id="596667986286463822">Votre abonnement VPN Brave peut protéger jusqu'à cinq appareils (Android, iOS ou ordinateur de bureau). Pour ce faire, il vous suffit d'associer votre abonnement Google Play à votre compte Brave.</translation>
+<translation id="77901425917202541">Étendre votre protection Pare-feu + VPN Browther</translation>
+<translation id="596667986286463822">Votre abonnement VPN Browther peut protéger jusqu'à cinq appareils (Android, iOS ou ordinateur de bureau). Pour ce faire, il vous suffit d'associer votre abonnement Google Play à votre compte Browther.</translation>
 <translation id="6610899852831463073">Impossible d'activer la navigation sécurisée</translation>
 <translation id="7954263306665462056">La navigation sécurisée a été désactivée sur votre appareil. Pour l'activer, vérifiez que les services Google Play sont installés et à jour.</translation>
 <translation id="7748944510530490017">Réseaux principaux</translation>
@@ -958,9 +958,9 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="7705524343798198388">VPN</translation>
 <translation id="2441719842399509963">Rétablir les paramètres par défaut</translation>
 <translation id="4922034974043704366">Cette fonctionnalité est activée parce que vous y avez consenti</translation>
-<translation id="3144818380093107753">Brave Origin est un abonnement qui vous permet de désactiver les fonctionnalités génératrices de revenus qui soutiennent autrement Brave en tant qu’entreprise. Les abonnés de Brave Origin continueront de bénéficier de notre protection de confidentialité de pointe, du blocage des publicités et de la vitesse (grâce aux boucliers Brave), ainsi que des mises à jour logicielles régulières, des correctifs Chromium, et des améliorations en matière de sécurité et de confidentialité. Ils pourront également désactiver des fonctionnalités comme Brave Leo, Actualités, programme de récompenses, portefeuille, VPN, les domaines Web3, et plus encore.&lt;br/&gt;&lt;br/&gt;Les abonnés verront un nouveau panneau de configuration dans le menu des paramètres du navigateur. Les fonctionnalités existantes — ainsi que toute nouvelle fonctionnalité que nous pourrions publier ultérieurement — y apparaîtront et seront désactivées par défaut.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Remarque : Brave Origin ne désactivera pas les fonctionnalités du navigateur que vous utilisez actuellement et n’affectera pas les fonctionnalités ni les annonces dans les résultats de recherche Brave.&lt;/b&gt;</translation>
-<translation id="2456150688942361838">Se connecter au portefeuille Brave</translation>
-<translation id="7380890081275286865">Vous vous connectez à <ph name="ORIGIN"/>. Le portefeuille Brave partagera l'adresse de votre portefeuille avec <ph name="ORIGIN"/>.</translation>
+<translation id="3144818380093107753">Browther Origin est un abonnement qui vous permet de désactiver les fonctionnalités génératrices de revenus qui soutiennent autrement Browther en tant qu’entreprise. Les abonnés de Browther Origin continueront de bénéficier de notre protection de confidentialité de pointe, du blocage des publicités et de la vitesse (grâce aux boucliers Brave), ainsi que des mises à jour logicielles régulières, des correctifs Chromium, et des améliorations en matière de sécurité et de confidentialité. Ils pourront également désactiver des fonctionnalités comme Browther Leo, Actualités, programme de récompenses, portefeuille, VPN, les domaines Web3, et plus encore.&lt;br/&gt;&lt;br/&gt;Les abonnés verront un nouveau panneau de configuration dans le menu des paramètres du navigateur. Les fonctionnalités existantes — ainsi que toute nouvelle fonctionnalité que nous pourrions publier ultérieurement — y apparaîtront et seront désactivées par défaut.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Remarque : Browther Origin ne désactivera pas les fonctionnalités du navigateur que vous utilisez actuellement et n’affectera pas les fonctionnalités ni les annonces dans les résultats de recherche Brave.&lt;/b&gt;</translation>
+<translation id="2456150688942361838">Se connecter au portefeuille Browther</translation>
+<translation id="7380890081275286865">Vous vous connectez à <ph name="ORIGIN"/>. Le portefeuille Browther partagera l'adresse de votre portefeuille avec <ph name="ORIGIN"/>.</translation>
 <translation id="1028781062521375153">Voir les détails</translation>
 <translation id="6759710362319508545">Ressources</translation>
 <translation id="2471230424465522689">Pas avant</translation>
@@ -971,11 +971,11 @@ Si vous n'acceptez pas cette demande, le VPN ne se reconnectera pas et votre con
 <translation id="4983005227524068187">Afficher dans la barre de moteurs de recherche rapide</translation>
 <translation id="8514910864411336826">Permet un raccourci pour lancer Leo depuis la barre de moteurs de recherche rapide.</translation>
 <translation id="6106701981952170121">Supprimer toutes les données de conversation avec l'IA Leo</translation>
-<translation id="5783143192338352622">La réinitialisation de l'IA Leo requiert que vous choisissiez d'utiliser Brave
-Leo à l'avenir et effacera également votre historique de clavardage. L'effacement de votre historique de clavardage supprimera toutes vos conversations précédentes avec Brave Leo. Cette action est définitive.</translation>
+<translation id="5783143192338352622">La réinitialisation de l'IA Leo requiert que vous choisissiez d'utiliser Browther
+Leo à l'avenir et effacera également votre historique de clavardage. L'effacement de votre historique de clavardage supprimera toutes vos conversations précédentes avec Browther Leo. Cette action est définitive.</translation>
 <translation id="6742599753610126012">Effacer l'historique des conversations</translation>
 <translation id="3443052382074796867">Si vous désactivez l'enregistrement des conversations, toutes les conversations enregistrées seront définitivement supprimées. Cette action ne peut être annulée.</translation>
-<translation id="5641940330039443097">Associez votre achat sur le Play Store à votre compte Brave pour utiliser Brave Leo sur d'autres appareils.</translation>
+<translation id="5641940330039443097">Associez votre achat sur le Play Store à votre compte Browther pour utiliser Browther Leo sur d'autres appareils.</translation>
 <translation id="592831784390389506">Leo AI Premium</translation>
 <translation id="1028627582482425924">Un an</translation>
 <translation id="2985392169397572983">MEILLEURE VALEUR</translation>
@@ -987,7 +987,7 @@ Leo à l'avenir et effacera également votre historique de clavardage. L'effacem
 <translation id="6344103698928069918">Reprendre la lecture depuis l'endroit où la liste de lecture a été mise en pause pour la dernière fois.</translation>
 <translation id="8141583471142904652">Écoute en continu</translation>
 <translation id="851432578283946230">Lecture automatique des éléments suivants de votre liste de lecture</translation>
-<translation id="7452971751172572795">Liste de lecture Brave</translation>
+<translation id="7452971751172572795">Liste de lecture Browther</translation>
 <translation id="4850886885716139402">Affichage</translation>
 <translation id="7392941176393379100">Ajouté à « <ph name="PLAYLIST_NAME"/> »</translation>
 <translation id="349846214503465941">Activer Liste de lecture</translation>
@@ -1013,7 +1013,7 @@ Leo à l'avenir et effacera également votre historique de clavardage. L'effacem
 <translation id="8120600068258956006">Ajouter à la liste de lecture</translation>
 <translation id="39991094779686024">Listes de lecture</translation>
 <translation id="1710072605877822603">Ajouter des contenus multimédias</translation>
-<translation id="2240173080434298123">Ajoutez des vidéos à Liste de lecture Brave. Regardez-les plus tard, même hors ligne.</translation>
+<translation id="2240173080434298123">Ajoutez des vidéos à Liste de lecture Browther. Regardez-les plus tard, même hors ligne.</translation>
 <translation id="8973629800378391099">Créez des listes de lecture reprenant vos contenus favoris. Enregistrer des données mobiles. Visionnez vos vidéos sans publicités.</translation>
 <translation id="4936812987266342401">Il vous suffit d'appuyer sur le bouton pour ajouter des vidéos à une liste de lecture</translation>
 <translation id="6263657785571415306">Gardez le rythme : ajoutez des vidéos lorsque vous parcourez Internet et regardez-les plus tard</translation>
@@ -1055,18 +1055,18 @@ Leo à l'avenir et effacera également votre historique de clavardage. L'effacem
 <translation id="5538904824395606812">Utilisez votre fournisseur de service actuel ou Quad9</translation>
 <translation id="6393423486818299209">Utilisez votre fournisseur de service actuel ou Wikimedia DNS</translation>
 <translation id="3401384982562827787">Utilisez votre fournisseur de service actuel ou Cloudflare</translation>
-<translation id="1287977980749738644">Si votre fournisseur de service actuel n'est pas sécurisé, Brave utilise un fournisseur DNS alternatif sécurisé.</translation>
+<translation id="1287977980749738644">Si votre fournisseur de service actuel n'est pas sécurisé, Browther utilise un fournisseur DNS alternatif sécurisé.</translation>
 <translation id="1381108437654541567">Activer les fenêtres multiples</translation>
 <translation id="6167344249617630304">Ouvrez jusqu'à 5 fenêtres à la fois et déplacez vos onglets d'une fenêtre à l'autre</translation>
 <translation id="1063948063403254568">Fenêtres multiples détectées</translation>
-<translation id="1126425156255683883">Avant de désactiver la fonctionnalité Fenêtres multiples, assurez-vous de regrouper vos onglets dans une autre fenêtre Brave ou de fermer les autres fenêtres Brave.</translation>
+<translation id="1126425156255683883">Avant de désactiver la fonctionnalité Fenêtres multiples, assurez-vous de regrouper vos onglets dans une autre fenêtre Browther ou de fermer les autres fenêtres Browther.</translation>
 <translation id="6891382640886173702">Regrouper les fenêtres</translation>
 <translation id="2912247081180973411">Fermer les fenêtres</translation>
-<translation id="5014854594328201901">Regroupez les autres onglets dans une autre fenêtre Brave.</translation>
+<translation id="5014854594328201901">Regroupez les autres onglets dans une autre fenêtre Browther.</translation>
 <translation id="4306918392910017801">Reconnecter automatiquement VPN</translation>
 <translation id="1599073346542156922">Comment l'activer :</translation>
 <translation id="7001163334415463127">1. Ouvrez les paramètres de votre appareil depuis le menu ou en appuyant sur le bouton ci-dessous.</translation>
-<translation id="5626186351296522744">2. Repérez la section VPN Brave et appuyez sur l'icône des paramètres à droite.</translation>
+<translation id="5626186351296522744">2. Repérez la section VPN Browther et appuyez sur l'icône des paramètres à droite.</translation>
 <translation id="7546805138087561624">3. Activez l'option <ph name="AUTO_RECONNECT_VPN_TUTORIAL_START"/>VPN toujours actif<ph name="AUTO_RECONNECT_VPN_TUTORIAL_END"/>.</translation>
 <translation id="2446001600399646984">Notez qu'à cause des limitations d'Android, "Bloquer les connexions sans VPN" ne fonctionne pas comme prévu. <ph name="LEARN_MORE_START"/>En savoir plus.<ph name="LEARN_MORE_END"/></translation>
 <translation id="4776146737004271126">Ouvrir les paramètres Android</translation>
@@ -1074,7 +1074,7 @@ Leo à l'avenir et effacera également votre historique de clavardage. L'effacem
 <translation id="8403338849301491865">La liste des filtres a bien été mise à jour</translation>
 <translation id="4650851936784160359">La liste des filtres n'a pas pu être mise à jour. Veuillez réessayer.</translation>
 <translation id="3098054327870766317">Afficher le bouton Rétablir lorsque les onglets sont fermés</translation>
-<translation id="1434636655592504812">Voulez-vous vraiment fermer Brave?</translation>
+<translation id="1434636655592504812">Voulez-vous vraiment fermer Browther?</translation>
 <translation id="6061635824229591714">Effacer les données du site ?</translation>
 <translation id="1265051174491933207">La suppression fermera tous les onglets liés à « <ph name="SITE_NAME"/> » et effacera toutes les données du site. Cette action est irréversible.</translation>
 <translation id="5528772406060281700">Effacer les données du site</translation>
@@ -1096,9 +1096,9 @@ Leo à l'avenir et effacera également votre historique de clavardage. L'effacem
 <translation id="8562452229998620586">Les mots de passe enregistrés s'affichent ici.</translation>
 <translation id="1303339473099049190">Ce mot de passe est introuvable. Vérifiez l'orthographe et réessayez.</translation>
 <translation id="2259659629660284697">Exporter les mots de passe…</translation>
-<translation id="6466015600361068423">Exporter les mots de passe enregistrés avec Brave</translation>
+<translation id="6466015600361068423">Exporter les mots de passe enregistrés avec Browther</translation>
 <translation id="2321086116217818302">Préparation des mots de passe en cours…</translation>
-<translation id="5139940364318403933">Apprenez à utiliser Brave Disque</translation>
+<translation id="5139940364318403933">Apprenez à utiliser Browther Disque</translation>
 <translation id="729975465115245577">Votre appareil ne dispose pas d'une application pour stocker le fichier de mots de passe.</translation>
 <translation id="1129510026454351943">Détails : <ph name="ERROR_DESCRIPTION"/></translation>
 <translation id="5594899180331219722">Sélectionner un fichier</translation>

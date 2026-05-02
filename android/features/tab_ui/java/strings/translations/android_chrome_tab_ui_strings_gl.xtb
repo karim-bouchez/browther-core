@@ -63,7 +63,7 @@
 <translation id="2883875523421277445">{NUMBER_OF_TABS_CLOSED,plural, =1{<ph name="ONE_CLOSED"/> pestana pechada}other{<ph name="MANY_CLOSED"/> pestanas pechadas}}</translation>
 <translation id="2894757982205307093">Nova pestana no grupo</translation>
 <translation id="2918484639460781603">Ir a Configuración</translation>
-<translation id="1426788624931453470">Brave | Acerca desta tenda</translation>
+<translation id="1426788624931453470">Browther | Acerca desta tenda</translation>
 <translation id="2978860912612699943">{ITEMS_COUNT,plural, =1{<ph name="ITEMS_COUNT_ONE"/> seleccionado}other{<ph name="ITEMS_COUNT_MANY"/> seleccionados}}</translation>
 <translation id="2991702137079525605">{TABS_COUNT,plural, =1{Fixar pestana}other{Fixar pestanas}}</translation>
 <translation id="3008554597174452548">Deter seguimento do produto</translation>
@@ -121,7 +121,7 @@
 <translation id="5073204694187207510">Ocultar grade en pantalla completa</translation>
 <translation id="5076161749301278626">Queres ver recensións da tenda?</translation>
 <translation id="5161254044473106830">Título obrigatorio</translation>
-<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Brave pecha automaticamente as pestanas e os grupos de pestanas inactivos despois de <ph name="AUTO_DELETE_DELAY_ONE"/> mes. Podes cambiar esta opción na configuración.}other{Brave pecha automaticamente as pestanas e os grupos de pestanas inactivos despois de <ph name="AUTO_DELETE_DELAY_MANY"/> meses. Podes cambiar esta opción na configuración.}}</translation>
+<translation id="401703215087573224">{AUTO_DELETE_DELAY,plural, =1{Browther pecha automaticamente as pestanas e os grupos de pestanas inactivos despois de <ph name="AUTO_DELETE_DELAY_ONE"/> mes. Podes cambiar esta opción na configuración.}other{Browther pecha automaticamente as pestanas e os grupos de pestanas inactivos despois de <ph name="AUTO_DELETE_DELAY_MANY"/> meses. Podes cambiar esta opción na configuración.}}</translation>
 <translation id="5339733443032484186">A túa última pestana</translation>
 <translation id="5380159289133845234">Arquivar pestanas duplicadas</translation>
 <translation id="5446043142172831860">Quitar pestana e saír do grupo</translation>
@@ -132,7 +132,7 @@
 <translation id="5551694449008560081">{NUMBER_OF_TABS,plural, =1{Pecha o grupo de pestanas de cor <ph name="COLOR_NAME"/> que ten <ph name="TABS_COUNT_ONE"/> pestana.}other{Pecha o grupo de pestanas de cor <ph name="COLOR_NAME"/> que ten <ph name="TABS_COUNT_MANY"/> pestanas.}}</translation>
 <translation id="5556417849629758491">Ver información sobre a tenda, opción dispoñible preto da parte superior da pantalla</translation>
 <translation id="5627941783489838464">Non hai actualizacións de pestanas</translation>
-<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ligazón de Brave}other{<ph name="TABS_COUNT_MANY"/> ligazóns de Brave}}</translation>
+<translation id="2928213743976667360">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> ligazón de Browther}other{<ph name="TABS_COUNT_MANY"/> ligazóns de Browther}}</translation>
 <translation id="5740354908255726955">{TAB_COUNT,plural, =1{Mover pestana cara á esquerda}other{Mover pestanas cara á esquerda}}</translation>
 <translation id="5746204836956568669">Queres agrupar <ph name="NUMBER_OF_TABS"/> pestanas para traballar máis rápido?</translation>
 <translation id="5773295109010386583">Pechar automaticamente elementos inactivos</translation>
@@ -187,7 +187,7 @@
 <translation id="7501728912575021674">{TABS_COUNT,plural, =1{<ph name="TABS_COUNT_ONE"/> elemento}other{<ph name="TABS_COUNT_MANY"/> elementos}}</translation>
 <translation id="7507010952168401940">{TABS_COUNT,plural, =1{Restaurar <ph name="TABS_COUNT_ONE"/> elemento seleccionado}other{Restaurar <ph name="TABS_COUNT_MANY"/> elementos seleccionados}}</translation>
 <translation id="753732157349120914">Selector de pestanas</translation>
-<translation id="263670790415456766">{REVIEWS,plural, =1{<ph name="REVIEWS_COUNT_ONE"/> recensión procedente de Brave}other{<ph name="REVIEWS_COUNT_MANY"/> recensións procedentes de Brave}}</translation>
+<translation id="263670790415456766">{REVIEWS,plural, =1{<ph name="REVIEWS_COUNT_ONE"/> recensión procedente de Browther}other{<ph name="REVIEWS_COUNT_MANY"/> recensións procedentes de Browther}}</translation>
 <translation id="7559245342362162951">Mostrar as pestanas do grupo nunha grade en pantalla completa</translation>
 <translation id="7658239707568436148">Cancelar</translation>
 <translation id="7688386659311034820">Cadro de diálogo de pestanas inactivas</translation>
