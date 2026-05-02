@@ -100,6 +100,11 @@ public class SawtunaaAudioPlayer {
     format = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 1)!
     engine.attach(playerNode)
     engine.connect(playerNode, to: engine.mainMixerNode, format: format)
+    // Pre-allocate audio resources before engine.start() to avoid a race
+    // condition where scheduleBuffer is called before the first IO cycle
+    // — manifests as: 'AVAudioPlayerNodeImpl: player did not see an IO
+    // cycle' uncaught NSException → app crash.
+    engine.prepare()
     SawtunaaMetric.emit(
       "player_init",
       ["sample_rate": 48000, "channels": 1])
@@ -143,6 +148,12 @@ public class SawtunaaAudioPlayer {
       let session = AVAudioSession.sharedInstance()
       try session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
       try session.setActive(true)
+      // engine.prepare() before start() guarantees the audio graph has
+      // allocated all internal resources. Without this call, the playerNode
+      // can report `lastRenderTime == nil` for several IO cycles after
+      // start, and any scheduleBuffer in that window crashes with
+      // 'player did not see an IO cycle'.
+      engine.prepare()
       try engine.start()
       playerNode.play()
       isRunning = true
@@ -388,6 +399,18 @@ public class SawtunaaAudioPlayer {
         SawtunaaMetric.emit("play_chunks_engine_failed", ["upTo_ms": Int(upToMs)])
         return
       }
+    }
+
+    // Defensive: only schedule once the playerNode has seen its first IO
+    // cycle. Otherwise scheduleBuffer can throw 'player did not see an IO
+    // cycle' (NSException, uncatchable from Swift). On the first ticks
+    // after start(), lastRenderTime is nil for a few ms — defer scheduling.
+    if playerNode.lastRenderTime == nil {
+      SawtunaaMetric.emit("play_chunks_no_io_cycle_yet", ["upTo_ms": Int(upToMs)])
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
+        self?.playChunksUpTo(upToMs)
+      }
+      return
     }
 
     lastVideoUpToMs = upToMs

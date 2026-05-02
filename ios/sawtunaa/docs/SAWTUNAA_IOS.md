@@ -117,10 +117,50 @@ Le curseur strict `scheduledCursorTsMs` (timestampMs du dernier chunk schedulé)
 
 | Approche testée | Verdict |
 |---|---|
-| `createMediaElementSource` (Web Audio) | ❌ Ne capture pas l'audio MSE sur iOS |
+| `createMediaElementSource` (Web Audio) | ❌ Ne capture pas l'audio MSE sur iOS (re-testé sur iOS 18.7) |
 | AVPlayer + MTAudioProcessingTap | ❌ API privée, rejet App Store |
 | AVPlayer + extraction URL YouTube | ❌ Non store-compliant (scraping) |
 | **WKWebView + MSE intercept + AVAudioEngine** | ✅ Validé end-to-end |
+
+### Pourquoi Web Audio API ne marche pas sur iOS — analyse approfondie
+
+Sur Desktop (Chrome/Firefox/Edge) et même Safari macOS, la voie évidente serait :
+
+```
+video.element → createMediaElementSource() → AudioWorklet → NSNet2 → destination
+```
+
+C'est élégant : le navigateur fait le décodage audio (Opus, AAC, peu importe), on capture le PCM en sortie, on le filtre, on renvoie. Universel par design.
+
+**Sur iOS WKWebView, ça ne marche pas pour plusieurs raisons cumulées** :
+
+1. **L'audio MSE est traité dans une couche système séparée du JavaScript.** Quand iOS lit un stream MSE (ex: YouTube web), le décodage Opus/AAC + l'envoi au haut-parleur passent par AVPlayer interne en C++, sans exposition au runtime JS. Apple isole pour des raisons de batterie et sécurité.
+
+2. **`createMediaElementSource(v)` détourne le path audio**, mais l'`AudioContext` doit être en état `running` pour que le node fonctionne. L'`AudioContext` démarre toujours en `suspended` sur iOS et nécessite un **user gesture validé** pour passer en `running` via `ctx.resume()`.
+
+3. **iOS impose des règles strictes pour la "user activation"** : un click direct sur un bouton concret est OK, mais un listener global `touchstart` (même en capture phase) ou un `setTimeout` après un click ne sont **pas** considérés comme user gesture valide. Le `ctx.resume()` retourne une promise mais le ctx reste `suspended`.
+
+4. **Pendant qu'on essaie d'ouvrir le ctx, iOS pause le video** qui pipe son audio dans le ctx fermé. L'utilisateur voit la vidéo bloquée à 0:00 sans son. **C'est un effet de bord destructif** observé sur Instagram lors du POC.
+
+5. **Verdict historique** (issu du POC initial sur iOS 16) : même quand le ctx est `running`, la capture du stream MSE retourne du silence (`max_rms == 0`). C'était un bug WebKit. **Re-testé sur iOS 18.7** (octobre 2025) avec `webaudio_test_done: working: false, ctx_state: suspended` — le ctx ne passe même pas en running, donc le test n'est pas concluant, mais pratiquement, **on ne peut pas démarrer le ctx de manière fiable depuis JS**.
+
+**Conséquence** : on est forcés de **décoder l'audio nous-mêmes** côté JS, donc d'avoir un decoder par codec. YouTube utilise Opus → on a un decoder Opus WASM (~105 KB) → marche. Vimeo/Twitch/Facebook/Instagram utilisent AAC → il faut ajouter un decoder AAC.
+
+### Couverture actuelle vs cible
+
+| Plateforme | Codec | Mécanisme | Statut Sawtunaa |
+|---|---|---|---|
+| YouTube (web mobile) | Opus | MSE / ManagedMediaSource | ✅ marche |
+| YouTube Shorts | Opus | MSE | ✅ marche |
+| Vimeo | AAC | MSE | ❌ codec non supporté |
+| Twitch | AAC | MSE (HLS) | ❌ codec non supporté |
+| Dailymotion | AAC | MSE | ❌ codec non supporté |
+| Facebook web | AAC (à confirmer) | MSE (à confirmer) | ❌ pas testé |
+| Instagram Reels | AAC (à confirmer) | MSE (à confirmer) | ❌ pas testé |
+| TikTok web | AAC (à confirmer) | MSE | ❌ pas testé |
+| Sites avec `<video src=...>` direct | n/a | Pas de MSE | ❌ pas hookable |
+
+→ Étape suivante : **decoder AAC** + dispatcher par codec. Voir section "Roadmap" en bas.
 
 ## Spécificités iOS WKWebView (pièges connus)
 
@@ -311,6 +351,39 @@ Le script `analyze_sawtunaa_metrics.py` produit :
   - `DRIFT TREND` — drift moyen 1/3 fin > 1/3 début (drift cumulatif)
 
 Avec `--lifecycle`, tous les events lifecycle sont imprimés (sans cap par type).
+
+## Roadmap — étendre Sawtunaa au-delà de YouTube
+
+Voir l'analyse détaillée dans la section "Pourquoi Web Audio API ne marche pas sur iOS". Les voies viables pour étendre :
+
+### Étape 1 — Logger les codecs (✅ instrumenté)
+
+Metric `source_buffer_added` ajouté au patch `MediaSource.addSourceBuffer`. À chaque `<video>` qui crée un SourceBuffer audio, on logge `mime_type` et `host`. Permet de cartographier les codecs effectivement utilisés sur chaque plateforme.
+
+Procédure : naviguer sur YouTube/Vimeo/Twitch/Instagram/Facebook avec capture des logs, puis grep `source_buffer_added`. Le résultat dicte les decoders à intégrer.
+
+### Étape 2 — Decoder AAC
+
+YouTube est l'un des rares à utiliser Opus. La majorité du web utilise AAC (Vimeo, Twitch, Dailymotion, Facebook, Instagram, TikTok web). Pour étendre, intégrer un decoder AAC en JS/WASM. Candidats :
+
+- `aac-decoder` ou équivalents WASM (~50-150 KB)
+- API native `AudioDecoder` (WebCodecs) — vérifier support iOS
+- FFmpeg.js (lourd, ~5 MB, déconseillé)
+
+Refactor du `onInitSegment` / `onMediaSegment` pour dispatcher Opus vs AAC selon le `mimeType` détecté.
+
+### Étape 3 — Au-delà du MSE
+
+Sites avec `<video src="direct.mp4">` (pas de MSE) ne sont pas hookables par notre approche actuelle. Solutions possibles :
+
+- Pas de fix simple sur iOS (Web Audio bloqué)
+- **WebCodecs `AudioDecoder` API** (iOS récent) : décode des chunks AAC/Opus à la demande sans MSE, mais nécessite d'avoir accès aux bytes audio, ce qui n'est pas le cas avec un `src` direct
+- **Approche extension** : sur Desktop on a un service worker qui peut intercepter via `webRequest`, sur iOS WKWebView non
+- **Verdict** : sites `<video src=...>` directs probablement non couverts à terme. Mais c'est minoritaire en 2026 (la plupart streamment via MSE/HLS pour le bandwidth adaptation).
+
+### Étape 4 — Hors-vidéo (audio web)
+
+Audio elements (podcasts, music players) utilisent le même mécanisme (MSE ou direct). Le pipeline MSE intercept devrait fonctionner sur les audio elements aussi (à confirmer + tester).
 
 ## Fichiers du pipeline
 

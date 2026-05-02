@@ -783,14 +783,25 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       proto.addSourceBuffer = function(mimeType) {
         var sb = orig.call(this, mimeType);
         patchSB(sb);
-        if (mimeType.indexOf('audio/') === 0) {
+        var isAudio = mimeType.indexOf('audio/') === 0;
+        if (isAudio) {
           audioBuffers.push(sb);
-          LOG('Audio SB: ' + mimeType);
         }
+        // Structured metric: lets us survey codec usage across sites
+        // (YouTube uses Opus, most others use AAC). Helps decide which
+        // decoders to bundle.
+        metric('source_buffer_added', {
+          mime_type: mimeType,
+          host: location.host,
+          is_audio: isAudio,
+          source: proto === (typeof MediaSource !== 'undefined'
+            ? MediaSource.prototype : null) ? 'MS' : 'MMS'
+        });
         return sb;
       };
     } catch(e) {
       LOG('Error patching MSE: ' + e.message);
+      metric('mse_patch_error', { msg: e.message });
     }
   }
 
