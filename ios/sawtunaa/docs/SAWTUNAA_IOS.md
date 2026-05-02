@@ -148,19 +148,36 @@ C'est élégant : le navigateur fait le décodage audio (Opus, AAC, peu importe)
 
 ### Couverture actuelle vs cible
 
-| Plateforme | Codec | Mécanisme | Statut Sawtunaa |
+| Plateforme | Mécanisme delivery | Codec | Statut Sawtunaa |
 |---|---|---|---|
-| YouTube (web mobile) | Opus | MSE / ManagedMediaSource | ✅ marche |
-| YouTube Shorts | Opus | MSE | ✅ marche |
-| Vimeo | AAC | MSE | ❌ codec non supporté |
-| Twitch | AAC | MSE (HLS) | ❌ codec non supporté |
-| Dailymotion | AAC | MSE | ❌ codec non supporté |
-| Facebook web | AAC (à confirmer) | MSE (à confirmer) | ❌ pas testé |
-| Instagram Reels | AAC (à confirmer) | MSE (à confirmer) | ❌ pas testé |
-| TikTok web | AAC (à confirmer) | MSE | ❌ pas testé |
-| Sites avec `<video src=...>` direct | n/a | Pas de MSE | ❌ pas hookable |
+| YouTube (web mobile) | MSE / ManagedMediaSource | Opus | ✅ marche |
+| YouTube Shorts | MSE | Opus | ✅ marche |
+| Instagram Reels | **HLS natif iOS** (testé 2026-05-02) | n/a | ❌ pas interceptable |
+| Vimeo | HLS natif iOS (probable) | n/a | ❌ pas interceptable |
+| Twitch | HLS natif iOS | n/a | ❌ pas interceptable |
+| Dailymotion | HLS natif iOS (probable) | n/a | ❌ pas interceptable |
+| Facebook web | HLS natif iOS (probable) | n/a | ❌ pas interceptable |
+| TikTok web | HLS natif iOS (probable) | n/a | ❌ pas interceptable |
+| Sites avec `<video src=...>` direct | Lecture directe | n/a | ❌ pas hookable |
 
-→ Étape suivante : **decoder AAC** + dispatcher par codec. Voir section "Roadmap" en bas.
+### Pourquoi HLS natif n'est pas interceptable sur iOS
+
+Sur iOS WKWebView (et Safari iOS), `<video src="...m3u8">` ou les Player avec HLS sont gérés **par AVPlayer interne** au browser. Le manifeste m3u8 et les chunks `.ts`/`.aac` sont lus directement par le moteur natif iOS, **sans passer par MSE/MediaSource API**. Donc :
+
+- Pas d'événement `addSourceBuffer` à hooker
+- Pas de bytes audio accessibles depuis JavaScript
+- Pas de `createMediaElementSource` qui marche (on l'a re-vérifié)
+
+**Test 2026-05-02** : sur Instagram, `mse_hooks_installed` ✓ mais aucun `source_buffer_added` jamais émis pendant que la vidéo joue (currentTime avance bien). Confirmation : Instagram = HLS natif iOS.
+
+**Conclusion pratique** : sur iOS, Sawtunaa est **fondamentalement limité aux sites qui servent du MSE/DASH** (principalement YouTube web). La plupart des autres plateformes vidéo mobile (Instagram, Twitch, Vimeo, Facebook, TikTok, Dailymotion) servent du HLS natif iOS, intouchable depuis JavaScript.
+
+Pour les supporter, il faudrait :
+- **AVPlayer Tap natif côté Swift** : APIs privées Apple → rejet App Store
+- **Modifier le moteur WebKit** côté Brave iOS : très complexe, casse le diff upstream
+- **Solution OS-level (audio loopback)** : pas possible sur iOS sandbox
+
+→ **Verdict** : sur iOS, Sawtunaa restera limité à YouTube et autres sites MSE/DASH. Pas de roadmap d'extension viable identifiée à ce jour.
 
 ## Spécificités iOS WKWebView (pièges connus)
 
@@ -352,38 +369,13 @@ Le script `analyze_sawtunaa_metrics.py` produit :
 
 Avec `--lifecycle`, tous les events lifecycle sont imprimés (sans cap par type).
 
-## Roadmap — étendre Sawtunaa au-delà de YouTube
+## Roadmap — étendre Sawtunaa au-delà de YouTube ?
 
-Voir l'analyse détaillée dans la section "Pourquoi Web Audio API ne marche pas sur iOS". Les voies viables pour étendre :
+**Conclusion (2026-05-02)** : pas viable sur iOS WKWebView. Voir section "Pourquoi HLS natif n'est pas interceptable sur iOS" plus haut.
 
-### Étape 1 — Logger les codecs (✅ instrumenté)
+Le metric `source_buffer_added` reste actif dans le code pour cartographier les sites qui utilisent MSE (au cas où une plateforme bascule depuis HLS vers MSE/DASH dans le futur, on le saura via les logs).
 
-Metric `source_buffer_added` ajouté au patch `MediaSource.addSourceBuffer`. À chaque `<video>` qui crée un SourceBuffer audio, on logge `mime_type` et `host`. Permet de cartographier les codecs effectivement utilisés sur chaque plateforme.
-
-Procédure : naviguer sur YouTube/Vimeo/Twitch/Instagram/Facebook avec capture des logs, puis grep `source_buffer_added`. Le résultat dicte les decoders à intégrer.
-
-### Étape 2 — Decoder AAC
-
-YouTube est l'un des rares à utiliser Opus. La majorité du web utilise AAC (Vimeo, Twitch, Dailymotion, Facebook, Instagram, TikTok web). Pour étendre, intégrer un decoder AAC en JS/WASM. Candidats :
-
-- `aac-decoder` ou équivalents WASM (~50-150 KB)
-- API native `AudioDecoder` (WebCodecs) — vérifier support iOS
-- FFmpeg.js (lourd, ~5 MB, déconseillé)
-
-Refactor du `onInitSegment` / `onMediaSegment` pour dispatcher Opus vs AAC selon le `mimeType` détecté.
-
-### Étape 3 — Au-delà du MSE
-
-Sites avec `<video src="direct.mp4">` (pas de MSE) ne sont pas hookables par notre approche actuelle. Solutions possibles :
-
-- Pas de fix simple sur iOS (Web Audio bloqué)
-- **WebCodecs `AudioDecoder` API** (iOS récent) : décode des chunks AAC/Opus à la demande sans MSE, mais nécessite d'avoir accès aux bytes audio, ce qui n'est pas le cas avec un `src` direct
-- **Approche extension** : sur Desktop on a un service worker qui peut intercepter via `webRequest`, sur iOS WKWebView non
-- **Verdict** : sites `<video src=...>` directs probablement non couverts à terme. Mais c'est minoritaire en 2026 (la plupart streamment via MSE/HLS pour le bandwidth adaptation).
-
-### Étape 4 — Hors-vidéo (audio web)
-
-Audio elements (podcasts, music players) utilisent le même mécanisme (MSE ou direct). Le pipeline MSE intercept devrait fonctionner sur les audio elements aussi (à confirmer + tester).
+Sur iOS, Sawtunaa = **YouTube only**. Sur Desktop et Android (Chromium), on peut utiliser `chrome.tabCapture` qui capture l'audio de tout onglet indépendamment du mécanisme de delivery — voir [`DESKTOP.md`](../../../private/docs/sawtunaa/DESKTOP.md) et [`ANDROID.md`](../../../private/docs/sawtunaa/ANDROID.md).
 
 ## Fichiers du pipeline
 
