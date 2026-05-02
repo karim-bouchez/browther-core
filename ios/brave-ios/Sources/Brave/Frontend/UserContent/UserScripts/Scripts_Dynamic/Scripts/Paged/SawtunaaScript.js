@@ -330,42 +330,66 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     }
   }
 
-  // ─── Force-mute video element persistently ───
+  // ─── Force-mute video element via volumechange listener ───
+  // Approach: instead of overriding `volume`/`muted` setters via defineProperty
+  // (which causes YouTube's UI to break — it reads its own setter result and
+  // can't tell that the set was silently blocked, leading to "controls
+  // disappear" / "click toggles play" mode), we listen to `volumechange`
+  // events and re-mute via the native prototype setter. YouTube's UI gets
+  // a coherent reflection (set → fire volumechange → value rolled back).
+  //
+  // We also re-apply on every video element we see: YouTube may swap the
+  // <video> instance on SPA navigation or fullscreen transitions, and our
+  // listener must follow.
+  var nativeMutedDesc = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'muted');
+  var nativeVolDesc = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'volume');
+
+  function nativeSetMuted(v, val) {
+    if (nativeMutedDesc && nativeMutedDesc.set) nativeMutedDesc.set.call(v, val);
+    else v.muted = val;
+  }
+  function nativeSetVolume(v, val) {
+    if (nativeVolDesc && nativeVolDesc.set) nativeVolDesc.set.call(v, val);
+    else v.volume = val;
+  }
+  function nativeGetMuted(v) {
+    return nativeMutedDesc && nativeMutedDesc.get ? nativeMutedDesc.get.call(v) : v.muted;
+  }
+  function nativeGetVolume(v) {
+    return nativeVolDesc && nativeVolDesc.get ? nativeVolDesc.get.call(v) : v.volume;
+  }
+
   function forceMuteVideo(v) {
     if (!v) return;
-    v.muted = true;
-    v.volume = 0;
+    nativeSetMuted(v, true);
+    nativeSetVolume(v, 0);
 
-    // Override volume/muted setters to prevent YouTube from unmuting
-    try {
-      var proto = Object.getPrototypeOf(v);
-      if (!proto.__sawtunaa_patched) {
-        var volDesc = Object.getOwnPropertyDescriptor(proto, 'volume')
-          || Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'volume');
-        var mutedDesc = Object.getOwnPropertyDescriptor(proto, 'muted')
-          || Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'muted');
+    if (v.__sawtunaa_mute_listener) return;
+    v.__sawtunaa_mute_listener = true;
 
-        if (volDesc && volDesc.set) {
-          Object.defineProperty(v, 'volume', {
-            get: function() { return 0; },
-            set: function() { /* blocked */ },
-            configurable: true
-          });
-        }
-        if (mutedDesc && mutedDesc.set) {
-          Object.defineProperty(v, 'muted', {
-            get: function() { return true; },
-            set: function() { /* blocked */ },
-            configurable: true
-          });
-        }
-        proto.__sawtunaa_patched = true;
-        LOG('Video volume/muted locked');
+    v.addEventListener('volumechange', function() {
+      // Re-mute synchronously on any volume/muted change. The event fires
+      // after the native setter applies, so YouTube briefly observes its
+      // intended value (UI stays consistent), then we restore mute.
+      if (nativeGetMuted(v) !== true || nativeGetVolume(v) !== 0) {
+        nativeSetMuted(v, true);
+        nativeSetVolume(v, 0);
       }
-    } catch(e) {
-      // Fallback: re-mute on interval
-      LOG('Could not lock volume: ' + e.message);
-    }
+    });
+
+    // Diagnose fullscreen transitions (helps trace issues when the user goes
+    // fullscreen and iOS promotes the video to a native AVPlayerLayer).
+    v.addEventListener('webkitbeginfullscreen', function() {
+      metric('fullscreen_begin', { video_ms: Math.round(v.currentTime * 1000) });
+    });
+    v.addEventListener('webkitendfullscreen', function() {
+      metric('fullscreen_end', { video_ms: Math.round(v.currentTime * 1000) });
+      // On exit, iOS may have unmuted the underlying player. Re-mute.
+      nativeSetMuted(v, true);
+      nativeSetVolume(v, 0);
+    });
+
+    LOG('Video mute enforcer attached');
   }
 
   // ─── Auto-activate: mute video, start scheduler ───
@@ -599,6 +623,10 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     schedulerInterval = setInterval(function() {
       var vid = document.querySelector('video');
       if (!vid || !isActive) return;
+
+      // YouTube may swap the <video> element across SPA navigations or
+      // fullscreen transitions. Re-attach our mute enforcer if so.
+      forceMuteVideo(vid);
 
       if (vid.paused) {
         if (!audioPaused) {
