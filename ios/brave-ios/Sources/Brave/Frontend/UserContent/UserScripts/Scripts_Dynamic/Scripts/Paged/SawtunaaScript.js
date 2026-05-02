@@ -361,30 +361,48 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
 
   function forceMuteVideo(v) {
     if (!v) return;
-    nativeSetMuted(v, true);
-    nativeSetVolume(v, 0);
-
     if (v.__sawtunaa_mute_listener) return;
     v.__sawtunaa_mute_listener = true;
 
-    v.addEventListener('volumechange', function() {
-      // Re-mute synchronously on any volume/muted change. The event fires
-      // after the native setter applies, so YouTube briefly observes its
-      // intended value (UI stays consistent), then we restore mute.
-      if (nativeGetMuted(v) !== true || nativeGetVolume(v) !== 0) {
-        nativeSetMuted(v, true);
-        nativeSetVolume(v, 0);
-      }
-    });
+    // Apply mute via native setter first.
+    nativeSetMuted(v, true);
+    nativeSetVolume(v, 0);
 
-    // Diagnose fullscreen transitions (helps trace issues when the user goes
-    // fullscreen and iOS promotes the video to a native AVPlayerLayer).
+    // Override `muted` and `volume` accessors on this instance so YouTube's
+    // attempts to unmute are silently coerced rather than going through. The
+    // getter returns the actual native value (so YouTube's read-after-write
+    // gives a coherent answer = `true`, no UI confusion); the setter clamps
+    // any unmute to `muted=true / volume=0`. Crucially, if the value is
+    // already what we want, the native setter is a no-op and no
+    // `volumechange` event fires — YouTube doesn't observe a transient
+    // false→true flip that would otherwise put it in a degraded UI state.
+    try {
+      Object.defineProperty(v, 'muted', {
+        get: function() { return nativeGetMuted(v); },
+        set: function(_value) {
+          if (nativeGetMuted(v) !== true) nativeSetMuted(v, true);
+        },
+        configurable: true
+      });
+      Object.defineProperty(v, 'volume', {
+        get: function() { return nativeGetVolume(v); },
+        set: function(_value) {
+          if (nativeGetVolume(v) !== 0) nativeSetVolume(v, 0);
+        },
+        configurable: true
+      });
+    } catch(e) {
+      LOG('defineProperty failed: ' + e.message);
+    }
+
+    // Trace fullscreen transitions. Native fullscreen promotes the video to
+    // an AVPlayerLayer that bypasses our JS-side mute, so the user may hear
+    // the original audio while in fullscreen. On exit we re-apply mute.
     v.addEventListener('webkitbeginfullscreen', function() {
       metric('fullscreen_begin', { video_ms: Math.round(v.currentTime * 1000) });
     });
     v.addEventListener('webkitendfullscreen', function() {
       metric('fullscreen_end', { video_ms: Math.round(v.currentTime * 1000) });
-      // On exit, iOS may have unmuted the underlying player. Re-mute.
       nativeSetMuted(v, true);
       nativeSetVolume(v, 0);
     });
