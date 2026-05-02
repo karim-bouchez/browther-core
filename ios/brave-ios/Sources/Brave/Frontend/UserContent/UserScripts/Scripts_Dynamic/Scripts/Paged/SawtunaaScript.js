@@ -395,14 +395,32 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       LOG('defineProperty failed: ' + e.message);
     }
 
-    // Trace fullscreen transitions. Native fullscreen promotes the video to
-    // an AVPlayerLayer that bypasses our JS-side mute, so the user may hear
-    // the original audio while in fullscreen. On exit we re-apply mute.
+    // Fullscreen handling. In iOS WKWebView native fullscreen, the video is
+    // promoted to an internal AVPlayer that bypasses our defineProperty
+    // setters when the system audio level changes (hardware buttons, system
+    // events). YouTube's volume slider in fullscreen also triggers a media-
+    // level path that ignores our JS overrides. To prevent the original
+    // audio from leaking, we attach a `volumechange` listener ONLY during
+    // fullscreen — it re-mutes via the native prototype setter every time
+    // an iOS-internal change happens. We detach on exit so the listener
+    // doesn't disturb YouTube's UI logic in normal mode.
+    var fsVolumeListener = null;
     v.addEventListener('webkitbeginfullscreen', function() {
       metric('fullscreen_begin', { video_ms: Math.round(v.currentTime * 1000) });
+      if (fsVolumeListener) return;
+      fsVolumeListener = function() {
+        if (nativeGetMuted(v) !== true) nativeSetMuted(v, true);
+        if (nativeGetVolume(v) !== 0) nativeSetVolume(v, 0);
+      };
+      v.addEventListener('volumechange', fsVolumeListener);
     });
     v.addEventListener('webkitendfullscreen', function() {
       metric('fullscreen_end', { video_ms: Math.round(v.currentTime * 1000) });
+      if (fsVolumeListener) {
+        v.removeEventListener('volumechange', fsVolumeListener);
+        fsVolumeListener = null;
+      }
+      // Final re-mute (no listener active anymore — defineProperty resumes).
       nativeSetMuted(v, true);
       nativeSetVolume(v, 0);
     });
