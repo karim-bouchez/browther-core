@@ -18,7 +18,9 @@ declare_args() {
   sparkle_eddsa_private_key = ""
   sparkle_eddsa_public_key = ""
 
-  brave_product_name = "brave"
+  # Browther: brave.exe → browther.exe (et binaire Linux). macOS utilise
+  # chrome_product_full_name = "Browther" (.app) via la branche is_mac plus bas.
+  brave_product_name = "browther"
   brave_exe = ""
   brave_version_major = ""
   brave_version_minor = ""

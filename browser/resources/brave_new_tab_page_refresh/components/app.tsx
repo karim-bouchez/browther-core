@@ -13,19 +13,14 @@ import { BackgroundCaption } from './background/background_caption'
 import { SettingsModal, SettingsView } from './settings/settings_modal'
 import { TopSites } from './top_sites/top_sites'
 import { Clock } from './common/clock'
-import { LazyNewsFeed } from './news/lazy_news_feed'
+// Browther: News disabled — LazyNewsFeed not imported.
 import { WidgetStack } from './widgets/widget_stack'
 import { useSearchLayoutReady, useWidgetLayoutReady } from './app_layout_ready'
-import useMediaQuery from '$web-common/useMediaQuery'
 
-import { style, threeColumnBreakpoint } from './app.style'
+import { style } from './app.style'
 
-// <if expr="enable_ai_chat">
-import { useNewTabState } from '../context/new_tab_context'
-import { LazyQueryBox } from './query_box/lazy_query_box'
-// </if>
-
-const threeColumnQuery = `(width > ${threeColumnBreakpoint})`
+// Browther: AI Chat (Brave Leo) disabled — query_box not imported.
+// Browther: useMediaQuery / threeColumnBreakpoint plus utilisés (un seul widget Stats).
 
 export function App() {
   const searchLayoutReady = useSearchLayoutReady()
@@ -34,8 +29,6 @@ export function App() {
   const [settingsView, setSettingsView] = React.useState<SettingsView | null>(
     null,
   )
-
-  const threeColumnWidth = useMediaQuery(threeColumnQuery)
 
   React.useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -85,35 +78,16 @@ export function App() {
         </div>
         <div className='widget-container'>
           {widgetLayoutReady && (
-            <>
-              {threeColumnWidth ? (
-                <>
-                  <WidgetStack
-                    name='left'
-                    tabs={['stats']}
-                  />
-                  <WidgetStack
-                    name='center'
-                    tabs={['news']}
-                  />
-                </>
-              ) : (
-                <WidgetStack
-                  name='left'
-                  tabs={['stats', 'news']}
-                />
-              )}
-              <WidgetStack
-                name='right'
-                tabs={['vpn', 'rewards', 'talk']}
-              />
-            </>
+            // Browther: only Stats widget — news/vpn/rewards/talk widgets removed.
+            // The right WidgetStack will be repurposed for Browther ads later.
+            <WidgetStack
+              name='left'
+              tabs={['stats']}
+            />
           )}
         </div>
       </main>
-      <div className='news-container'>
-        <LazyNewsFeed />
-      </div>
+      {/* Browther: Brave News feed removed entirely. */}
       <SettingsModal
         isOpen={settingsView !== null}
         initialView={settingsView}
@@ -124,11 +98,7 @@ export function App() {
 }
 
 function Search(props: { showSearchSettings: () => void }) {
-  // <if expr="enable_ai_chat">
-  const aiChatInputEnabled = useNewTabState((s) => s.aiChatInputEnabled)
-  if (aiChatInputEnabled) {
-    return <LazyQueryBox showSearchSettings={props.showSearchSettings} />
-  }
-  // </if>
+  // Browther: AI Chat input ("Ask anything…" Brave Leo) disabled — always show
+  // the standard SearchBox (URL bar / Google by default).
   return <SearchBox showSearchSettings={props.showSearchSettings} />
 }
