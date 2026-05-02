@@ -56,6 +56,10 @@ def AddBraveCredits(root, prune_paths, special_cases, prune_dirs,
         os.path.join('brave', 'vendor', 'brave-ios'),
         os.path.join('brave', 'vendor', 'brave_base'),
 
+        # Browther: ONNX Runtime iOS (Sawtunaa) — utilisé uniquement par iOS,
+        # licence MIT (cf. xcframework). Pas pertinent pour les credits Android.
+        os.path.join('brave', 'ios', 'third_party', 'OnnxRuntime'),
+
         # Metadata files for Rust crates are located in the subfolders of
         # brave/third_party/rust/<crate_name>/<v>, the crates themselves in
         # brave/third_party/rust/chromium_crates_io can be skipped.

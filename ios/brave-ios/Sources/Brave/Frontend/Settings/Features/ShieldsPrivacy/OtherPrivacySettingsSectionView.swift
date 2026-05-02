@@ -159,21 +159,22 @@ struct OtherPrivacySettingsSectionView: View {
           option: Preferences.Privacy.screenTimeEnabled
         )
       }
-      if !settings.isP3AManaged {
+      // Browther: P3A, DAU ping, and surveys all send data to Brave's servers — hide toggles
+      if false, !settings.isP3AManaged {
         ToggleView(
           title: Strings.P3A.settingTitle,
           subtitle: Strings.P3A.settingSubtitle,
           toggle: $settings.isP3AEnabled
         )
       }
-      if !settings.isStatsReportingManaged {
+      if false, !settings.isStatsReportingManaged {
         ToggleView(
           title: Strings.Settings.sendUsagePingTitle,
           subtitle: Strings.Settings.sendUsagePingDescription,
           toggle: $settings.isStatsReportingEnabled
         )
       }
-      if FeatureList.kBraveNTPBrandedWallpaperSurveyPanelist.enabled {
+      if false, FeatureList.kBraveNTPBrandedWallpaperSurveyPanelist.enabled {
         ToggleView(
           title: Strings.Settings.surveyPanelistTitle,
           subtitle: String.localizedStringWithFormat(

@@ -454,7 +454,15 @@ extension BrowserViewController {
         return .none
       },
     ]
-    // Browther: Playlist, Wallet, Leo, Brave Talk, Brave News removed from menu
+    // Browther: keep Playlist, remove Wallet, Leo, Brave Talk, Brave News
+    if profileController.profile.prefs.isPlaylistAvailable {
+      actions.append(
+        .init(id: .playlist) { @MainActor [unowned self] _ in
+          self.presentPlaylistController()
+          return .none
+        }
+      )
+    }
     return actions
   }
 

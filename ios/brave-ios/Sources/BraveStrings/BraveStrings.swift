@@ -1235,14 +1235,14 @@ extension Strings {
       "tabGrid.privateBrowsingInfoBulletThreeTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Brave VPN",
+      value: "Browther VPN",
       comment: "A bullet point explaining the benefits of Brave VPN"
     )
     public static let privateBrowsingInfoBulletThreeBody = NSLocalizedString(
       "tabGrid.privateBrowsingInfoBulletThreeBody",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Brave VPN encrypts and protects anything you do online, even outside the Browther browser.",
+      value: "Browther VPN encrypts and protects anything you do online, even outside the Browther browser.",
       comment: "A bullet point explaining the benefits of Brave VPN"
     )
     public static let selectedTabs = NSLocalizedString(
@@ -5635,7 +5635,7 @@ extension Strings {
       NSLocalizedString(
         "storekitReceiptViewer.vpnMonthlySubscriptionName",
         bundle: .module,
-        value: "Brave VPN Monthly",
+        value: "Browther VPN Monthly",
         comment: "The title of the product subscription the user purchased (Monthly subscription)"
       )
 
@@ -5643,7 +5643,7 @@ extension Strings {
       NSLocalizedString(
         "storekitReceiptViewer.vpnYearlySubscriptionName",
         bundle: .module,
-        value: "Brave VPN Yearly",
+        value: "Browther VPN Yearly",
         comment: "The title of the product subscription the user purchased (Yearly subscription)"
       )
 
@@ -5651,7 +5651,7 @@ extension Strings {
       NSLocalizedString(
         "storekitReceiptViewer.leoMonthlySubscriptionName",
         bundle: .module,
-        value: "Brave Leo Monthly",
+        value: "Browther Leo Monthly",
         comment: "The title of the product subscription the user purchased (Monthly subscription)"
       )
 
@@ -5659,7 +5659,7 @@ extension Strings {
       NSLocalizedString(
         "storekitReceiptViewer.leoYearlySubscriptionName",
         bundle: .module,
-        value: "Brave Leo Yearly",
+        value: "Browther Leo Yearly",
         comment: "The title of the product subscription the user purchased (Yearly subscription)"
       )
 
@@ -6163,7 +6163,7 @@ extension Strings {
         "shortcuts.shortcutSettingsEnableVPNDescription",
         tableName: "BraveShared",
         bundle: .module,
-        value: "Use Shortcuts to enable Brave VPN via Siri - Voice Assistant",
+        value: "Use Shortcuts to enable Browther VPN via Siri - Voice Assistant",
         comment: ""
       )
 
@@ -7815,7 +7815,7 @@ extension Strings {
         "rewards.braveTalkRewardsOptInSuccessBody",
         tableName: "BraveShared",
         bundle: .module,
-        value: "Click anywhere on the screen to continue to Brave Talk.",
+        value: "Click anywhere on the screen to continue to Browther Talk.",
         comment: "Body for successful Brave Talk rewards opt-in"
       )
   }
@@ -7828,7 +7828,7 @@ extension Strings {
       "bravetalk.braveTalkTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Brave Talk",
+      value: "Browther Talk",
       comment: "The name of the feature"
     )
   }
@@ -9163,7 +9163,7 @@ extension Strings {
     public static let braveVPNLearnMoreButtonTitle = NSLocalizedString(
       "paywall.braveVPNLearnMoreButtonTitle",
       bundle: .module,
-      value: "Learn More About Brave VPN",
+      value: "Learn More About Browther VPN",
       comment: "Button action text which will bring user to Brave VPN web page for more information."
     )
     public static let havePromoCodeTitle = NSLocalizedString(

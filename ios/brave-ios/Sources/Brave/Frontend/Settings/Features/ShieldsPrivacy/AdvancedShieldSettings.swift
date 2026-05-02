@@ -234,7 +234,8 @@ import os
       ),
       ClearableSetting(id: .downloads, clearable: DownloadsClearable(), isEnabled: true),
     ]
-    if braveCore.profile.prefs.isBraveNewsAvailable {
+    // Browther: News disabled — hide clear data toggle
+    if false, braveCore.profile.prefs.isBraveNewsAvailable {
       clearableSettings.append(
         ClearableSetting(
           id: .braveNews,
@@ -244,10 +245,8 @@ import os
       )
     }
 
-    // Enable clearing of Brave Ads data only if:
-    // - Brave Ads is running
-    // - Brave Rewards is disabled
-    if let rewards, !rewards.isEnabled, rewards.ads.isServiceRunning() {
+    // Browther: Ads/Rewards disabled — hide clear data toggle
+    if false, let rewards, !rewards.isEnabled, rewards.ads.isServiceRunning() {
       clearableSettings.append(
         ClearableSetting(
           id: .braveAdsData,

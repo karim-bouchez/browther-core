@@ -11,7 +11,7 @@ extension Strings {
     public static let introducingBravePlaylist = NSLocalizedString(
       "introducingBravePlaylist",
       bundle: .module,
-      value: "Introducing Brave Playlist",
+      value: "Introducing Browther Playlist",
       comment:
         "A title shown on the first 2 steps of onboarding for Brave Playlist. Brave Playlist is a product name"
     )
@@ -50,7 +50,7 @@ extension Strings {
     public static let playlistInfoFeaturePointTitleOne = NSLocalizedString(
       "playlistInfoFeaturePointTitleOne",
       bundle: .module,
-      value: "Add videos to Brave Playlist. Playback anytime. Even offline",
+      value: "Add videos to Browther Playlist. Playback anytime. Even offline",
       comment: "A list of features in Playlist"
     )
     public static let playlistInfoFeaturePointSubtitleOne = NSLocalizedString(

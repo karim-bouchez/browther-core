@@ -12,7 +12,7 @@ extension Strings {
       "vpn.buyVPNTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Brave VPN",
+      value: "Browther VPN",
       comment: "Title for screen to buy the VPN."
     )
 
@@ -172,7 +172,7 @@ extension Strings {
       "vpn.autoRenewSoonExpireTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Oh no! Your Brave VPN subscription is about to expire.",
+      value: "Oh no! Your Browther VPN subscription is about to expire.",
       comment: "Pop up title for VPN subscription is about expire"
     )
 
@@ -180,7 +180,7 @@ extension Strings {
       "vpn.autoRenewDiscountPopOverTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Auto-renew your Brave VPN Subscription now and get 20% off for 3 months!",
+      value: "Auto-renew your Browther VPN Subscription now and get 20% off for 3 months!",
       comment: "Pop up title for renewing VPN subscription with discount"
     )
 
@@ -188,7 +188,7 @@ extension Strings {
       "vpn.autoRenewFreeMonthPopOverTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Auto-renew your Brave VPN Subscription now and get 1 month free!",
+      value: "Auto-renew your Browther VPN Subscription now and get 1 month free!",
       comment: "Pop up title for renewing VPN subscription with month free"
     )
 
@@ -205,7 +205,7 @@ extension Strings {
       "vpn.updateBillingExpiredPopOverTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Update your payment info to stay protected with Brave VPN.",
+      value: "Update your payment info to stay protected with Browther VPN.",
       comment: "Pop up title for billing issue for subcription VPN already expired"
     )
 
@@ -213,7 +213,7 @@ extension Strings {
       "vpn.autoRenewSoonExpirePopOverDescription",
       tableName: "BraveShared",
       bundle: .module,
-      value: "That means you'll lose Brave's extra protections for every app on your phone.",
+      value: "That means you'll lose Browther's extra protections for every app on your phone.",
       comment: "Pop up description for VPN subscription is about expire"
     )
 
@@ -238,7 +238,7 @@ extension Strings {
       "vpn.subscribeVPNDiscountPopOverTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Give Brave VPN another try and get 20% off for 3 months!",
+      value: "Give Browther VPN another try and get 20% off for 3 months!",
       comment: "Pop up title for subscribing VPN with discount"
     )
 
@@ -246,7 +246,7 @@ extension Strings {
       "vpn.subscribeVPNProtectionPopOverTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Did you know that Brave VPN protects you outside of Brave Browser?",
+      value: "Did you know that Browther VPN protects you outside of Browther Browser?",
       comment: "Pop up title for subscribing VPN explaning VPN protects user outside the Brave"
     )
 
@@ -254,7 +254,7 @@ extension Strings {
       "vpn.subscribeVPNAllDevicesPopOverTitle",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Now, use Brave VPN on all your devices for the same price!",
+      value: "Now, use Browther VPN on all your devices for the same price!",
       comment: "Pop up title the subscription for VPN can be used for all platforms"
     )
 
@@ -298,7 +298,7 @@ extension Strings {
       "vpn.sessionExpiredDescription",
       tableName: "BraveShared",
       bundle: .module,
-      value: "Please login to your Brave Account to refresh your VPN session.",
+      value: "Please login to your Browther Account to refresh your VPN session.",
       comment: "Alert description to show when the VPN session has expired"
     )
 
@@ -508,7 +508,7 @@ extension Strings {
     public static let checkboxNoIPLog = NSLocalizedString(
       "vpn.checkboxNoIPLog",
       bundle: .module,
-      value: "Brave never logs your activity",
+      value: "Browther never logs your activity",
       comment: "Text for a checkbox to present the user benefits for using Brave VPN"
     )
 
@@ -529,7 +529,7 @@ extension Strings {
     public static let installProfileTitle = NSLocalizedString(
       "vpn.installProfileTitle",
       bundle: .module,
-      value: "Brave will now install a VPN profile.",
+      value: "Browther will now install a VPN profile.",
       comment: ""
     )
 
@@ -593,7 +593,7 @@ extension Strings {
     public static let settingsLinkReceipt = NSLocalizedString(
       "vpn.settingsLinkReceipt",
       bundle: .module,
-      value: "Link purchase to your Brave account",
+      value: "Link purchase to your Browther account",
       comment: "Button to link your VPN receipt to other devices."
     )
 
@@ -976,7 +976,7 @@ extension Strings {
     public static let contactFormTitle = NSLocalizedString(
       "vpn.contactFormTitle",
       bundle: .module,
-      value: "Brave VPN Issue",
+      value: "Browther VPN Issue",
       comment: "Title for contact form email."
     )
 
@@ -997,14 +997,14 @@ extension Strings {
     public static let vpnBackgroundNotificationTitle = NSLocalizedString(
       "vpn.vpnBackgroundNotificationTitle",
       bundle: .module,
-      value: "Brave VPN is ON",
+      value: "Browther VPN is ON",
       comment: "Notification title to tell user that the vpn is turned on even in background"
     )
 
     public static let vpnBackgroundNotificationBody = NSLocalizedString(
       "vpn.vpnBackgroundNotificationBody",
       bundle: .module,
-      value: "Even in the background, Brave will continue to protect you.",
+      value: "Even in the background, Browther will continue to protect you.",
       comment: "Notification title to tell user that the vpn is turned on even in background"
     )
 

@@ -211,7 +211,7 @@ extension Strings.Shields {
     tableName: "BraveShared",
     bundle: .module,
     value:
-      "To address this issue, Brave can adjust your shields settings for you. Once adjusted, you can try watching this content in Brave Player instead.",
+      "To address this issue, Browther can adjust your shields settings for you. Once adjusted, you can try watching this content in Brave Player instead.",
     comment: "A descriptive message explaining to disable shields on this site."
   )
 
@@ -498,7 +498,7 @@ extension Strings.Shields {
     tableName: "BraveShared",
     bundle: .module,
     value:
-      "Because you requested to aggressively block trackers and ads, Brave is blocking this site before the first network connection.",
+      "Because you requested to aggressively block trackers and ads, Browther is blocking this site before the first network connection.",
     comment: "A description in the warning page that appears when a page was blocked"
   )
 

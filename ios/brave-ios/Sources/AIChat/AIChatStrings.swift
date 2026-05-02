@@ -177,7 +177,7 @@ extension Strings {
       "aichat.feedbackViewMainTitle",
       tableName: "BraveLeo",
       bundle: .module,
-      value: "Provide Brave AI Feedback",
+      value: "Provide Browther AI Feedback",
       comment: "The title for view which user type feedback"
     )
     public static let feedbackSubmitActionTitle = NSLocalizedString(
@@ -205,7 +205,7 @@ extension Strings {
       "aichat.chatIntroSubTitle",
       tableName: "BraveLeo",
       bundle: .module,
-      value: "An AI-powered intelligent assistant, built right into Brave.",
+      value: "An AI-powered intelligent assistant, built right into Browther.",
       comment: "The subtitle for intro view"
     )
     public static let chatIntroWebsiteHelpTitle = NSLocalizedString(
@@ -608,14 +608,14 @@ extension Strings {
       "aichat.advancedSettingsLinkPurchaseActionTitle",
       tableName: "BraveLeo",
       bundle: .module,
-      value: "Link purchase to your Brave account",
+      value: "Link purchase to your Browther account",
       comment: "The title for the button which links purchase to Brave Account"
     )
     public static let advancedSettingsLinkPurchaseActionSubTitle = NSLocalizedString(
       "aichat.advancedSettingsLinkPurchaseActionSubTitle",
       tableName: "BraveLeo",
       bundle: .module,
-      value: "Link your App Store purchase to your Brave account to use Leo on other devices.",
+      value: "Link your App Store purchase to your Browther account to use Leo on other devices.",
       comment: "The subtitle for the button which links purchase to Brave Account"
     )
     public static let advancedSettingsSubscriptionHeaderTitle = NSLocalizedString(
@@ -770,7 +770,7 @@ extension Strings {
       "aichat.termsConditionsTitle",
       tableName: "BraveLeo",
       bundle: .module,
-      value: "Chat Privately with Brave Leo",
+      value: "Chat Privately with Browther Leo",
       comment: "The title terms and conditions for AI chat usage"
     )
     public static let termsConditionsDescription = NSLocalizedString(
@@ -802,7 +802,7 @@ extension Strings {
       "aichat.speechRecognizerDisclaimer",
       tableName: "BraveLeo",
       bundle: .module,
-      value: "Brave does not store or share your voice inputs.",
+      value: "Browther does not store or share your voice inputs.",
       comment:
         "The description indicating voice inputs from user is not store or shared and these inpurs are totally private."
     )

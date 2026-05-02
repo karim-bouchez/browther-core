@@ -123,6 +123,29 @@ export function getBuildArgs(config: Config) {
 
   config.forwardEnvConfigVarsToObject(FORWARD_ENV_CONFIG_VARS_TO_GN_ARGS, args)
 
+  // Browther: désactiver les modules Brave qui dépendent de secrets API non
+  // disponibles dans notre fork (Bitflyer, Gemini, Uphold, Zebpay) et fournir
+  // des valeurs dummy non-vides pour les asserts GN des autres modules.
+  // Note : ces overrides DOIVENT être après forwardEnvConfigVarsToObject sinon
+  // ils sont écrasés par les env vars (potentiellement vides). Les services
+  // sont désactivés côté UI/runtime (cf. CLAUDE.md), ces dummies servent
+  // uniquement à passer les asserts du build Release.
+  args.enable_brave_rewards = false
+  args.enable_gemini_wallet = false
+  const dummyUrl = 'https://disabled.browther.local'
+  const dummyKey = 'disabled-browther-placeholder'
+  args.rewards_grant_dev_endpoint = dummyUrl
+  args.rewards_grant_staging_endpoint = dummyUrl
+  args.rewards_grant_prod_endpoint = dummyUrl
+  args.brave_services_key_id = dummyKey
+  args.service_key_stt = dummyKey
+  args.service_key_aichat = dummyKey
+  args.brave_stats_updater_url = dummyUrl
+  args.brave_variations_server_url = dummyUrl
+  args.updater_dev_endpoint = dummyUrl
+  args.updater_prod_endpoint = dummyUrl
+  args.brave_sync_endpoint = dummyUrl
+
   if (config.isOfficialBuild()) {
     args.enable_updater = true
   }

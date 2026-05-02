@@ -91,3 +91,6 @@ xcuserdata
 .claude/worktrees/
 
 /.ignore/
+
+# Local Chromium clone for image-blur experiments (separate workspace)
+/engine/

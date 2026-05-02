@@ -91,11 +91,11 @@ extension Strings {
       "featuresFooter",
       bundle: .module,
       value: """
-        Brave Origin is a version of the Brave browser that allows you to easily disable the revenue-generating features that otherwise support Brave as a business. Brave Origin users will continue to benefit from our industry-leading privacy, adblock, and speed (via Brave Shields), as well as regular software updates, Chromium patches, and security and privacy improvements. They’ll also unlock the option to disable features like Brave Leo, Rewards, Wallet, VPN, Web3 domains, and more.
+        Browther Origin is a version of the Browther browser that allows you to easily disable the revenue-generating features that otherwise support Browther as a business. Browther Origin users will continue to benefit from our industry-leading privacy, adblock, and speed (via Brave Shields), as well as regular software updates, Chromium patches, and security and privacy improvements. They’ll also unlock the option to disable features like Browther Leo, Rewards, Wallet, VPN, Web3 domains, and more.
 
         Once purchased, users will see a new control panel in the browser Settings menu. Existing features—as well as any new features we ship in the future—would appear here, and be toggled off by default.
 
-        **Note: Brave Origin will not disable browser features that you currently use, and will not affect Brave Search features or Brave Search Ads.**
+        **Note: Browther Origin will not disable browser features that you currently use, and will not affect Brave Search features or Brave Search Ads.**
         """,
       comment:
         "A footer text explaining Brave Origin subscription and its features. The stars represent markdown and the same paragraph should be also be bolded when translated."
@@ -110,13 +110,13 @@ extension Strings {
       "paywallDescription",
       bundle: .module,
       value: """
-        **Customize your browser while still supporting Brave**
+        **Customize your browser while still supporting Browther**
 
-        Brave Origin is a paid version of the browser for users who don't need all of the features that  support Brave as a business, but still want the privacy that only Brave offers. Brave Origin users will continue to benefit from our industry-leading privacy, adblock, and speed (via Brave Shields), as well as regular software updates, Chromium patches, and security and privacy improvements. They’ll also unlock the option to disable features like AI, Rewards, Wallet, VPN, Web3 domains, and more.
+        Browther Origin is a paid version of the browser for users who don’t need all of the features that  support Browther as a business, but still want the privacy that only Browther offers. Browther Origin users will continue to benefit from our industry-leading privacy, adblock, and speed (via Brave Shields), as well as regular software updates, Chromium patches, and security and privacy improvements. They’ll also unlock the option to disable features like AI, Rewards, Wallet, VPN, Web3 domains, and more.
 
-        **Brave Origin is available via one-time purchase. On mobile (Android and iOS) and desktop, Origin can be purchased as an upgrade to your existing release version.** On desktop, Origin is also available as a separate, standalone app. Whether purchased as an upgrade or separate app, Origin users will see a new control panel in the Settings menu. Existing features—as well as any new features we ship in the future—would appear here, and be toggled off by default.*
+        **Browther Origin is available via one-time purchase. On mobile (Android and iOS) and desktop, Origin can be purchased as an upgrade to your existing release version.** On desktop, Origin is also available as a separate, standalone app. Whether purchased as an upgrade or separate app, Origin users will see a new control panel in the Settings menu. Existing features—as well as any new features we ship in the future—would appear here, and be toggled off by default.*
 
-        * Note that if you’ve purchased Origin as an upgrade to your existing version of Brave, Origin will not disable browser features that you currently use. For both the upgrade and standalone version, Origin will not affect Brave Search features or Brave Search Ads.
+        * Note that if you’ve purchased Origin as an upgrade to your existing version of Browther, Origin will not disable browser features that you currently use. For both the upgrade and standalone version, Origin will not affect Brave Search features or Brave Search Ads.
         """,
       comment:
         "A description of Brave Origin displayed on the paywall screen. This text contains Markdown formatting, the stars represent markdown and the same paragraphs should be also be bolded when translated."
@@ -124,7 +124,7 @@ extension Strings {
     public static let alreadyPurchasedTitle = NSLocalizedString(
       "alreadyPurchasedTitle",
       bundle: .module,
-      value: "Already purchased on brave.com?",
+      value: "Already purchased on browther.com?",
       comment: "A title asking if the user already purchased on brave.com"
     )
     public static let getLoginCodeButton = NSLocalizedString(
@@ -197,7 +197,7 @@ extension Strings {
     public static let linkPurchase = NSLocalizedString(
       "linkPurchase",
       bundle: .module,
-      value: "Link Purchase To Your Brave Account",
+      value: "Link Purchase To Your Browther Account",
       comment:
         "A button title that when triggered will allow a user to link their App Store purchase with Brave Account"
     )
@@ -218,7 +218,7 @@ extension Strings {
       "purchaseSectionFooter",
       bundle: .module,
       value:
-        "Link your App Store Purchase to your Brave account to use Brave Origin on other devices",
+        "Link your App Store Purchase to your Browther account to use Browther Origin on other devices",
       comment: "The footer shown below the Purchase section of the settings page"
     )
   }

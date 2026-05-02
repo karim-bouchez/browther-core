@@ -14,7 +14,7 @@ extension Strings {
       "wallet.module",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave Wallet",
+      value: "Browther Wallet",
       comment:
         "The title shown on the wallet settings page, and the value shown when selecting the default wallet as Brave Wallet in wallet settings."
     )
@@ -495,7 +495,7 @@ extension Strings {
       "wallet.cryptoTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave Wallet",
+      value: "Browther Wallet",
       comment: "The title of the crypto tab"
     )
     public static let backupWalletWarningMessage = NSLocalizedString(
@@ -671,7 +671,7 @@ extension Strings {
       "wallet.setupCryptoCreateNewSubTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Get started with Brave Wallet within minutes.",
+      value: "Get started with Browther Wallet within minutes.",
       comment:
         "The subtitle displayed in the section for user that need to create a brand new wallet"
     )
@@ -826,7 +826,7 @@ extension Strings {
       "wallet.onbordingCompletedSubTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Your Brave Wallet is ready to use.",
+      value: "Your Browther Wallet is ready to use.",
       comment: "The subtitle of the last step of creating a new wallet."
     )
     public static let onboardingCompletedButtonTitle = NSLocalizedString(
@@ -925,7 +925,7 @@ extension Strings {
       "wallet.restoreLegacyBraveWalletToggleTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Import from legacy Brave crypto wallets?",
+      value: "Import from legacy Browther crypto wallets?",
       comment: "A label for toggle for user to use to indicate importing a legacy brave wallet or not"
     )
     public static let createWalletBackButtonTitle = NSLocalizedString(
@@ -1009,7 +1009,7 @@ extension Strings {
       "wallet.settingsResetWalletAlertTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Are you sure you want to reset Brave Wallet?",
+      value: "Are you sure you want to reset Browther Wallet?",
       comment:
         "The title the confirmation dialog when resetting the wallet. As in to erase the users wallet from the device"
     )
@@ -1208,7 +1208,7 @@ extension Strings {
       "wallet.biometricsSetupTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Unlock Brave Wallet with %@",
+      value: "Unlock Browther Wallet with %@",
       comment:
         "The title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device."
     )
@@ -1216,7 +1216,7 @@ extension Strings {
       "wallet.biometricsSetupSubTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Would you like to use %@ to unlock Brave Wallet?",
+      value: "Would you like to use %@ to unlock Browther Wallet?",
       comment:
         "The sub-title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device."
     )
@@ -1262,7 +1262,7 @@ extension Strings {
       "wallet.autoLockFooter",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "The number of minutes to wait until the Brave Wallet is automatically locked",
+      value: "The number of minutes to wait until the Browther Wallet is automatically locked",
       comment: "The footer beneath the auto-lock title and interval duration"
     )
     public static let enterAmount = NSLocalizedString(
@@ -1355,7 +1355,7 @@ extension Strings {
       "wallet.swapCryptoUnsupportNetworkBody",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave doesn't currently support swap on the %@. Please switch to a supported chain.",
+      value: "Browther doesn't currently support swap on the %@. Please switch to a supported chain.",
       comment:
         "The description of where user will see once a test network has been picked in swap screen. '%@' will be replaced with a network such as 'Rinkeby Test Network' or 'Ropsten Test Network'"
     )
@@ -1403,7 +1403,7 @@ extension Strings {
       "wallet.braveFeeLabel",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave Fee: %@",
+      value: "Browther Fee: %@",
       comment:
         "The title for Brave Fee label in Swap. The fee percentage is displayed beside the label."
     )
@@ -2192,7 +2192,7 @@ extension Strings {
       "wallet.swapDexAggrigatorNote",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave uses %@ as a DEX aggregator.",
+      value: "Browther uses %@ as a DEX aggregator.",
       comment:
         "A disclaimer note shown on the Swap screen. '%@' will be replaced by a company name, ex. '0x' / 'Jupiter'. 'DEX aggregator' is a type of blockchain-based service (decentralized exchange)"
     )
@@ -2233,7 +2233,7 @@ extension Strings {
       "wallet.braveSwapFeeDisclaimer",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Quote includes a %@ Brave fee.",
+      value: "Quote includes a %@ Browther fee.",
       comment:
         "A disclaimer that appears at the bottom of an swap screen which discloses the fixed Brave fee included in the swap quotes. '%@' will be replaced by a percentage. For example: 'Quote includes a 0.875% Brave fee'"
     )
@@ -2863,7 +2863,7 @@ extension Strings {
       "wallet.dappsConnectionNotificationTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "This page wants to interact with Brave Wallet",
+      value: "This page wants to interact with Browther Wallet",
       comment:
         "The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet."
     )
@@ -2871,7 +2871,7 @@ extension Strings {
       "wallet.dappsConnectionNotificationOriginTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "%@ wants to interact with Brave Wallet",
+      value: "%@ wants to interact with Browther Wallet",
       comment:
         "The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. The '%@' will be the site attempting to connect. For example: \"app.uniswap.org wants to interact with Brave Wallet\""
     )
@@ -2932,7 +2932,7 @@ extension Strings {
       "wallet.newSiteConnectMessage",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Connect to Brave Wallet",
+      value: "Connect to Browther Wallet",
       comment: "The message displayed below the dapp's origin url in new site connection screen."
     )
     public static let newSiteConnectFooter = NSLocalizedString(
@@ -3033,7 +3033,7 @@ extension Strings {
       "wallet.addNetworkDescription",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "This will allow this network to be used within Brave Wallet.",
+      value: "This will allow this network to be used within Browther Wallet.",
       comment:
         "The description of the view shown over a dapps website that describes what adding a new network will do."
     )
@@ -3712,7 +3712,7 @@ extension Strings {
       "wallet.dappsSettingsConnectedSitesSectionEmpty",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "DApps you connect to Brave Wallet will appear here",
+      value: "DApps you connect to Browther Wallet will appear here",
       comment:
         "A message that will be displayed under the section header when there is no dapps have been granted wallet connection."
     )
@@ -4606,7 +4606,7 @@ extension Strings {
       "wallet.ensOffchainGatewayTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave supports using offchain gateways to resolve .eth domains.",
+      value: "Browther supports using offchain gateways to resolve .eth domains.",
       comment:
         "Title shown send address / ENS domain when requesting to do an ENS off chain lookup."
     )
@@ -4655,7 +4655,7 @@ extension Strings {
       "wallet.snsDomainInterstitialPageTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Enable Support of Solana Name Service (SNS) in Brave?",
+      value: "Enable Support of Solana Name Service (SNS) in Browther?",
       comment:
         "Title displayed when users chose Brave to ask them if they want the SNS to be resolved every time they enter one."
     )
@@ -4681,7 +4681,7 @@ extension Strings {
       "wallet.ensDomainInterstitialPageTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Enable Support of Ethereum Name Service (ENS) in Brave?",
+      value: "Enable Support of Ethereum Name Service (ENS) in Browther?",
       comment:
         "Title displayed when users chose Brave to ask them if they want the ENS domain to be resolved every time they enter one."
     )
@@ -4707,7 +4707,7 @@ extension Strings {
       "wallet.ensOffchainDomainInterstitialPageTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Enable support of Ethereum Name Service (ENS) offchain lookup in Brave?",
+      value: "Enable support of Ethereum Name Service (ENS) offchain lookup in Browther?",
       comment:
         "Title displayed when users chose Brave to ask them if they want the ENS Offchain domain to be resolved every time they enter one."
     )
@@ -4733,7 +4733,7 @@ extension Strings {
       "wallet.udDomainInterstitialPageTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Enable support of Unstoppable Domains in Brave?",
+      value: "Enable support of Unstoppable Domains in Browther?",
       comment:
         "Title displayed when users chose Brave to ask them if they want the Unstoppable Domains domain to be resolved every time they enter one."
     )
@@ -4950,7 +4950,7 @@ extension Strings {
       "wallet.nftRemoveFromWalletAlertTitle",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Remove from Brave Wallet?",
+      value: "Remove from Browther Wallet?",
       comment: "The title of the alert when user attempts to remove an NFT from wallet."
     )
     public static let nftRemoveFromWalletAlertDescription = NSLocalizedString(
@@ -5230,7 +5230,7 @@ extension Strings {
       "wallet.signInWithBraveWallet",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Sign in with Brave Wallet",
+      value: "Sign in with Browther Wallet",
       comment: "The title of the view shown above a Sign In With Ethereum request."
     )
     public static let securityRiskDetectedTitle = NSLocalizedString(
@@ -5245,7 +5245,7 @@ extension Strings {
       "wallet.signInWithBraveWalletMessage",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "You are signing into %@. Brave Wallet will share your wallet address with %@.",
+      value: "You are signing into %@. Browther Wallet will share your wallet address with %@.",
       comment:
         "The title of the view shown when a security issue is detected with a Sign In With Ethereum request."
     )
@@ -5524,7 +5524,7 @@ extension Strings {
       "wallet.btcOrdinalsUnsupportedWarning",
       tableName: "BraveWallet",
       bundle: .module,
-      value: "Brave Wallet does not currently support Bitcoin NFTs (ordinals). Sending BTC from an address that has ordinals may result in its ordinals being transferred inadvertently.",
+      value: "Browther Wallet does not currently support Bitcoin NFTs (ordinals). Sending BTC from an address that has ordinals may result in its ordinals being transferred inadvertently.",
       comment: "A warning displayed in row before the Send button in Send Crypto view when a Bitcoin asset is selected."
     )
     public static let inputLabel = NSLocalizedString(
@@ -5843,7 +5843,7 @@ extension Strings {
       "wallet.meldTransactionPartnerDescription",
       tableName: "BraveWallet",
       bundle: .module,
-      value:  "Brave Wallet uses Meld.io to help aggregate and surface various crypto providers for your region. We will share information with Meld.io to complete the transaction, including your wallet address and country code. For more information please read Meld’s terms of use.",
+      value:  "Browther Wallet uses Meld.io to help aggregate and surface various crypto providers for your region. We will share information with Meld.io to complete the transaction, including your wallet address and country code. For more information please read Meld’s terms of use.",
       comment:
         "The description of the pop up when user first time open buy screen in Brave Wallet."
     )
