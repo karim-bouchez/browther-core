@@ -10,7 +10,8 @@
 namespace {
 
 GURL* RewriteExpectedURLBraveToChrome(GURL* url) {
-  if (url && url->SchemeIs(content::kBraveUIScheme)) {
+  if (url && (url->SchemeIs(content::kBraveUIScheme) ||
+              url->SchemeIs(content::kBrowtherUIScheme))) {
     GURL::Replacements replacements;
     replacements.SetSchemeStr(content::kChromeUIScheme);
     *url = url->ReplaceComponents(replacements);

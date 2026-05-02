@@ -8,7 +8,8 @@
 #include "content/public/common/url_constants.h"
 
 #if BUILDFLAG(IS_ANDROID)
-#define kChromeUIScheme kChromeUIScheme, content::kBraveUIScheme
+#define kChromeUIScheme \
+  kChromeUIScheme, content::kBraveUIScheme, content::kBrowtherUIScheme
 #endif  // BUILDFLAG(IS_ANDROID)
 #include <components/omnibox/browser/verbatim_match.cc>
 #if BUILDFLAG(IS_ANDROID)

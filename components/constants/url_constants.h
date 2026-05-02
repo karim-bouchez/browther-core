@@ -8,6 +8,8 @@
 
 inline constexpr char kChromeExtensionScheme[] = "chrome-extension";
 inline constexpr char kBraveUIScheme[] = "brave";
+// Browther: alias additif. browther:// est routé comme brave:// (lui-même alias de chrome://).
+inline constexpr char kBrowtherUIScheme[] = "browther";
 inline constexpr char kMagnetScheme[] = "magnet";
 inline constexpr char kWidevineTOS[] = "https://policies.google.com/terms";
 inline constexpr char kRewardsUpholdSupport[] =

@@ -331,7 +331,8 @@ void BraveBrowser::UpdateTargetURL(content::WebContents* source,
   GURL target_url = url;
   if (url.SchemeIs(content::kChromeUIScheme)) {
     GURL::Replacements replacements;
-    replacements.SetSchemeStr(content::kBraveUIScheme);
+    // Browther: hover URLs s'affichent en browther:// au lieu de brave://.
+    replacements.SetSchemeStr(content::kBrowtherUIScheme);
     target_url = target_url.ReplaceComponents(replacements);
   }
   Browser::UpdateTargetURL(source, target_url);

@@ -1291,6 +1291,7 @@ bool BraveContentBrowserClient::HandleURLOverrideRewrite(
   // Scope of schema is intentionally narrower than content::HasWebUIScheme(url)
   // which also allows both `chrome-untrusted` and `chrome-devtools`.
   if (!url->SchemeIs(content::kBraveUIScheme) &&
+      !url->SchemeIs(content::kBrowtherUIScheme) &&
       !url->SchemeIs(content::kChromeUIScheme)) {
     return false;
   }

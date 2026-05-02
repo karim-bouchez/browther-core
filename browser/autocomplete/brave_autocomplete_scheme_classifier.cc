@@ -28,7 +28,8 @@ BraveAutocompleteSchemeClassifier::GetInputTypeForScheme(
     return metrics::OmniboxInputType::EMPTY;
   }
   if (base::IsStringASCII(scheme) &&
-      base::EqualsCaseInsensitiveASCII(scheme, kBraveUIScheme)) {
+      (base::EqualsCaseInsensitiveASCII(scheme, kBraveUIScheme) ||
+       base::EqualsCaseInsensitiveASCII(scheme, kBrowtherUIScheme))) {
     return metrics::OmniboxInputType::URL;
   }
 

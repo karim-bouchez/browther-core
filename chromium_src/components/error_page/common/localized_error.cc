@@ -20,13 +20,14 @@ std::u16string GetFailedUrlString(GURL failed_url);
 
 namespace error_page {
 namespace {
-constexpr char kBraveUIScheme[] = "brave";
+constexpr char kBrowtherUIScheme[] = "browther";
 }
 
 std::u16string GetFailedUrlString(GURL failed_url) {
   if (failed_url.scheme() == kChromeUIScheme) {
     GURL::Replacements replacements;
-    replacements.SetSchemeStr(kBraveUIScheme);
+    // Browther: affichage des erreurs en browther:// au lieu de brave://.
+    replacements.SetSchemeStr(kBrowtherUIScheme);
 
     failed_url = failed_url.ReplaceComponents(replacements);
   }

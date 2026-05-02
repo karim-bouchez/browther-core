@@ -19,8 +19,8 @@ namespace content {
 
 // Virtual url should never be set to brave
 void NavigationEntryImpl::SetVirtualURL(const GURL& url) {
-  DCHECK(!url.SchemeIs(kBraveUIScheme))
-      << "Virtual URL should not use brave:// scheme";
+  DCHECK(!url.SchemeIs(kBraveUIScheme) && !url.SchemeIs(kBrowtherUIScheme))
+      << "Virtual URL should not use brave:// or browther:// scheme";
   SetVirtualURL_ChromiumImpl(url);
 }
 

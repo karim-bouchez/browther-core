@@ -90,6 +90,11 @@ void BraveContentClient::AddAdditionalSchemes(Schemes* schemes) {
   schemes->secure_schemes.push_back(content::kBraveUIScheme);
   schemes->cors_enabled_schemes.push_back(content::kBraveUIScheme);
   schemes->savable_schemes.push_back(content::kBraveUIScheme);
+  // Browther: register browther:// as additional alias scheme.
+  schemes->standard_schemes.push_back(content::kBrowtherUIScheme);
+  schemes->secure_schemes.push_back(content::kBrowtherUIScheme);
+  schemes->cors_enabled_schemes.push_back(content::kBrowtherUIScheme);
+  schemes->savable_schemes.push_back(content::kBrowtherUIScheme);
 }
 
 void BraveContentClient::AddContentDecryptionModules(

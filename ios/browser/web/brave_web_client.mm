@@ -74,6 +74,10 @@ void BraveWebClient::AddAdditionalSchemes(Schemes* schemes) const {
   schemes->standard_schemes.push_back(kBraveUIScheme);
   schemes->secure_schemes.push_back(kBraveUIScheme);
 
+  // Browther: register browther:// as additional alias scheme.
+  schemes->standard_schemes.push_back(kBrowtherUIScheme);
+  schemes->secure_schemes.push_back(kBrowtherUIScheme);
+
   schemes->standard_schemes.push_back(kChromeUIUntrustedScheme);
   schemes->secure_schemes.push_back(kChromeUIUntrustedScheme);
 }
@@ -82,12 +86,12 @@ bool BraveWebClient::IsAppSpecificURL(const GURL& url) const {
   // temporarily add `internal://` scheme handling until those pages can be
   // ported to WebUI
   return ChromeWebClient::IsAppSpecificURL(url) ||
-         url.SchemeIs(kBraveUIScheme) ||
+         url.SchemeIs(kBraveUIScheme) || url.SchemeIs(kBrowtherUIScheme) ||
          url.SchemeIs(kChromeUIUntrustedScheme) || url.SchemeIs("internal");
 }
 
 bool WillHandleBraveURLRedirect(GURL* url, web::BrowserState* browser_state) {
-  if (url->SchemeIs(kBraveUIScheme)) {
+  if (url->SchemeIs(kBraveUIScheme) || url->SchemeIs(kBrowtherUIScheme)) {
     GURL::Replacements replacements;
     replacements.SetSchemeStr(kChromeUIScheme);
     *url = url->ReplaceComponents(replacements);

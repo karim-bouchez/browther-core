@@ -16,7 +16,8 @@ void BraveAdjustTextForCopy(GURL* url) {
 #if !BUILDFLAG(IS_IOS)
   if (url->scheme() == content::kChromeUIScheme) {
     GURL::Replacements replacements;
-    replacements.SetSchemeStr(content::kBraveUIScheme);
+    // Browther: affichage chrome:// → browther:// (alias additif au-dessus de brave://).
+    replacements.SetSchemeStr(content::kBrowtherUIScheme);
     *url = url->ReplaceComponents(replacements);
   }
 #endif

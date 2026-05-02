@@ -19,6 +19,8 @@ inline constexpr char kChromeUIScheme[] = "chrome";
 
 namespace content {
 inline constexpr char kBraveUIScheme[] = "brave";
+// Browther: alias additif. browther:// est routé comme brave:// (lui-même alias de chrome://).
+inline constexpr char kBrowtherUIScheme[] = "browther";
 }
 
 #endif  // BRAVE_CHROMIUM_SRC_CONTENT_PUBLIC_COMMON_URL_CONSTANTS_H_
