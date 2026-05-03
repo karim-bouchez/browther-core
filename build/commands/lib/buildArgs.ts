@@ -153,6 +153,7 @@ export function getBuildArgs(config: Config) {
   // Ces APIs sont désactivées (enable_brave_rewards=false) mais les asserts GN
   // exigent des valeurs non-vides.
   args.bitflyer_production_client_id = dummyKey
+  args.bitflyer_production_client_secret = dummyKey
   args.bitflyer_production_fee_address = dummyKey
   args.bitflyer_production_url = dummyUrl
   args.gemini_production_api_url = dummyUrl
