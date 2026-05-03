@@ -130,8 +130,12 @@ export function getBuildArgs(config: Config) {
   // ils sont écrasés par les env vars (potentiellement vides). Les services
   // sont désactivés côté UI/runtime (cf. CLAUDE.md), ces dummies servent
   // uniquement à passer les asserts du build Release.
-  args.enable_brave_rewards = false
-  args.enable_gemini_wallet = false
+  // Browther: garder enable_brave_rewards/gemini_wallet=true au niveau build.
+  // Les désactiver retire le code natif C++ mais les bindings Java JNI
+  // restent (BraveRewardsNativeWorker) → undefined symbols au link Release.
+  // Les features sont masquées au niveau UI/runtime (cf. Java overrides).
+  // Les asserts GN sur les secrets de prod sont satisfaits par les dummies
+  // ci-dessous.
   const dummyUrl = 'https://disabled.browther.local'
   const dummyKey = 'disabled-browther-placeholder'
   args.rewards_grant_dev_endpoint = dummyUrl
