@@ -124,8 +124,11 @@
 #include "components/feed/core/common/pref_names.h"
 #include "components/feed/core/shared_prefs/pref_names.h"
 #include "components/ntp_tiles/pref_names.h"
-#include "components/translate/core/browser/translate_pref_names.h"
 #endif
+
+// Browther: nécessaire pour le SetDefaultPrefValue de kOfferTranslateEnabled
+// (Translate disabled par défaut, cf. RegisterUserProfilePrefs ci-dessous).
+#include "components/translate/core/browser/translate_pref_names.h"
 
 #if !BUILDFLAG(IS_ANDROID)
 #include "brave/browser/themes/pref_names.h"
