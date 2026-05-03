@@ -22,6 +22,8 @@
 #include "brave/browser/ui/webui/new_tab_page/brave_new_tab_page_handler.h"
 #include "brave/browser/ui/webui/new_tab_page/top_sites_message_handler.h"
 #include "brave/components/brave_ads/core/browser/service/ads_service.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "base/values.h"
 #include "brave/components/brave_new_tab/resources/grit/brave_new_tab_generated_map.h"
 #include "brave/components/brave_news/common/buildflags/buildflags.h"
 #include "brave/components/constants/webui_url_constants.h"
@@ -86,6 +88,15 @@ BraveNewTabUI::BraveNewTabUI(
   content::NavigationEntry* navigation_entry =
       web_contents->GetController().GetLastCommittedEntry();
   const bool was_restored = navigation_entry && navigation_entry->IsRestored();
+
+  // Browther: track page_viewed pour la NTP (jamais d'URL ni de contenu).
+  if (auto* analytics =
+          browther_analytics::BrowtherAnalyticsService::GetInstance()) {
+    base::DictValue props;
+    props.Set("page", "ntp");
+    props.Set("restored", was_restored);
+    analytics->Track("page_viewed", std::move(props));
+  }
 
   Profile* profile = Profile::FromWebUI(web_ui);
   web_ui->OverrideTitle(l10n_util::GetStringUTF16(IDS_NEW_TAB_TITLE));

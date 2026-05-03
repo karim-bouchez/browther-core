@@ -6,10 +6,12 @@
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 
 #include "base/check.h"
+#include "base/functional/bind.h"
 #include "base/no_destructor.h"
 #include "brave/components/browther_analytics/distinct_id_provider.h"
 #include "brave/components/browther_analytics/posthog_client.h"
 #include "brave/components/p3a/pref_names.h"
+#include "components/metrics/metrics_pref_names.h"
 #include "components/prefs/pref_service.h"
 #include "services/network/public/cpp/shared_url_loader_factory.h"
 
@@ -44,6 +46,35 @@ BrowtherAnalyticsService::BrowtherAnalyticsService(
     posthog_client_ = std::make_unique<PostHogClient>(
         std::move(url_loader_factory), distinct_id_provider_->GetOrCreate());
   }
+
+  // Observe les prefs de consentement pour tracker consent_changed.
+  // Note : si l'user vient de désactiver PostHog (kP3AEnabled false), le track
+  // est déjà no-op (IsPostHogEnabled vérifie la valeur courante). Donc on émet
+  // au max un dernier "consent_changed → posthog=true" quand l'user enable, et
+  // les transitions vers false sont swallowed (par design — respect du choix).
+  pref_change_registrar_.Init(local_state_);
+  pref_change_registrar_.Add(
+      p3a::kP3AEnabled,
+      base::BindRepeating(&BrowtherAnalyticsService::OnConsentPrefChanged,
+                          base::Unretained(this), "posthog"));
+  pref_change_registrar_.Add(
+      metrics::prefs::kMetricsReportingEnabled,
+      base::BindRepeating(&BrowtherAnalyticsService::OnConsentPrefChanged,
+                          base::Unretained(this), "sentry"));
+}
+
+void BrowtherAnalyticsService::OnConsentPrefChanged(
+    const std::string& consent_name) {
+  bool new_value = false;
+  if (consent_name == "posthog") {
+    new_value = local_state_->GetBoolean(p3a::kP3AEnabled);
+  } else if (consent_name == "sentry") {
+    new_value = local_state_->GetBoolean(metrics::prefs::kMetricsReportingEnabled);
+  }
+  base::DictValue props;
+  props.Set("consent", consent_name);
+  props.Set("enabled", new_value);
+  Track("consent_changed", std::move(props));
 }
 
 BrowtherAnalyticsService::~BrowtherAnalyticsService() = default;

@@ -91,6 +91,10 @@ function HelpImprove() {
     if (showMetricsToggle) {
       WelcomeBrowserProxyImpl.getInstance().setMetricsReportingEnabled(isMetricsReportingEnabled)
     }
+    WelcomeBrowserProxyImpl.getInstance().trackOnboardingEvent('onboarding_completed', {
+      sentry_enabled: isMetricsReportingEnabled,
+      posthog_enabled: isP3AEnabled
+    })
     completeURLPromise.then((url) => {
       window.open(url || 'chrome://newtab', '_self', 'noopener')
     })

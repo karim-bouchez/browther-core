@@ -46,6 +46,9 @@ class WelcomeDOMHandler : public content::WebUIMessageHandler {
   void HandleSetMetricsReportingEnabled(const base::ListValue& args);
   void HandleEnableWebDiscovery(const base::ListValue& args);
   void HandleGetWelcomeCompleteURL(const base::ListValue& args);
+  // Browther: track event PostHog depuis le flow d'onboarding.
+  // args[0] = event_name (string), args[1] = properties (dict, optionnel).
+  void HandleTrackOnboardingEvent(const base::ListValue& args);
 
   void OnGettingStartedServerCheck(const std::string& callback_id,
                                    bool available);

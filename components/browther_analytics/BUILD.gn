@@ -18,6 +18,7 @@ source_set("browther_analytics") {
   deps = [
     "//base",
     "//brave/components/p3a",
+    "//components/metrics",
     "//components/prefs",
     "//net/traffic_annotation",
     "//services/network/public/cpp",

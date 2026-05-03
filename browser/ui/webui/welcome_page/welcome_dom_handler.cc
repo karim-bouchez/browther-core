@@ -18,6 +18,7 @@
 #include "brave/common/importer/importer_constants.h"
 #include "brave/components/brave_education/education_urls.h"
 #include "brave/components/brave_education/features.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/p3a/pref_names.h"
 #include "brave/components/web_discovery/buildflags/buildflags.h"
@@ -126,6 +127,28 @@ void WelcomeDOMHandler::RegisterMessages() {
       "getWelcomeCompleteURL",
       base::BindRepeating(&WelcomeDOMHandler::HandleGetWelcomeCompleteURL,
                           base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "trackOnboardingEvent",
+      base::BindRepeating(&WelcomeDOMHandler::HandleTrackOnboardingEvent,
+                          base::Unretained(this)));
+}
+
+void WelcomeDOMHandler::HandleTrackOnboardingEvent(
+    const base::ListValue& args) {
+  if (args.empty() || !args[0].is_string()) {
+    return;
+  }
+  auto* analytics =
+      browther_analytics::BrowtherAnalyticsService::GetInstance();
+  if (!analytics) {
+    return;
+  }
+  const std::string& event_name = args[0].GetString();
+  base::DictValue properties;
+  if (args.size() > 1 && args[1].is_dict()) {
+    properties = args[1].GetDict().Clone();
+  }
+  analytics->Track(event_name, std::move(properties));
 }
 
 void WelcomeDOMHandler::HandleImportNowRequested(const base::ListValue& args) {

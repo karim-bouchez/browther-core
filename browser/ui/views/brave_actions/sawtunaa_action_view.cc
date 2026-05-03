@@ -8,7 +8,9 @@
 #include <memory>
 
 #include "base/check_deref.h"
+#include "base/values.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
@@ -43,6 +45,15 @@ SawtunaaActionView::SawtunaaActionView(
                             kSawtunaaEnabled);
                         self->profile_prefs_->SetBoolean(kSawtunaaEnabled,
                                                          !current);
+                        // Browther: track user-initiated toggle.
+                        if (auto* analytics = browther_analytics::
+                                BrowtherAnalyticsService::GetInstance()) {
+                          base::DictValue props;
+                          props.Set("feature", "sawtunaa");
+                          props.Set("enabled", !current);
+                          analytics->Track("feature_toggled",
+                                           std::move(props));
+                        }
                       },
                       base::Unretained(this)),
                   std::u16string()),

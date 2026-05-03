@@ -40,6 +40,8 @@ export interface WelcomeBrowserProxy {
   enableWebDiscovery: () => void
   getDefaultBrowser: () => Promise<string>
   getWelcomeCompleteURL: () => Promise<string>
+  // Browther: track event PostHog depuis l'onboarding.
+  trackOnboardingEvent: (eventName: string, properties?: Record<string, unknown>) => void
 }
 
 export {
@@ -75,6 +77,10 @@ export class WelcomeBrowserProxyImpl implements WelcomeBrowserProxy {
 
   getWelcomeCompleteURL (): Promise<string> {
     return sendWithPromise('getWelcomeCompleteURL')
+  }
+
+  trackOnboardingEvent (eventName: string, properties?: Record<string, unknown>) {
+    chrome.send('trackOnboardingEvent', [eventName, properties ?? {}])
   }
 
   static getInstance (): WelcomeBrowserProxy {

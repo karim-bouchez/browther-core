@@ -12,6 +12,7 @@
 #include "base/memory/raw_ptr.h"
 #include "base/memory/scoped_refptr.h"
 #include "base/values.h"
+#include "components/prefs/pref_change_registrar.h"
 
 class PrefService;
 
@@ -51,10 +52,12 @@ class BrowtherAnalyticsService {
   BrowtherAnalyticsService& operator=(const BrowtherAnalyticsService&) = delete;
 
   bool IsPostHogEnabled() const;
+  void OnConsentPrefChanged(const std::string& pref_name);
 
   raw_ptr<PrefService> local_state_;
   std::unique_ptr<DistinctIdProvider> distinct_id_provider_;
   std::unique_ptr<PostHogClient> posthog_client_;
+  PrefChangeRegistrar pref_change_registrar_;
 };
 
 }  // namespace browther_analytics
