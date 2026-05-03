@@ -86,13 +86,7 @@ constexpr webui::LocalizedString kLocalizedStrings[] = {
     {"braveWelcomeSelectThemeLightLabel",
      IDS_BRAVE_WELCOME_SELECT_THEME_LIGHT_LABEL},
     {"braveWelcomeSelectThemeDarkLabel",
-     IDS_BRAVE_WELCOME_SELECT_THEME_DARK_LABEL},
-    {"braveWelcomeHelpWDPTitle", IDS_BRAVE_WELCOME_HELP_WDP_TITLE},
-    {"braveWelcomeHelpWDPSubtitle", IDS_BRAVE_WELCOME_HELP_WDP_SUBTITLE},
-    {"braveWelcomeHelpWDPDescription", IDS_BRAVE_WELCOME_HELP_WDP_DESCRIPTION},
-    {"braveWelcomeHelpWDPLearnMore", IDS_BRAVE_WELCOME_HELP_WDP_LEARN_MORE},
-    {"braveWelcomeHelpWDPAccept", IDS_BRAVE_WELCOME_HELP_WDP_ACCEPT},
-    {"braveWelcomeHelpWDPReject", IDS_BRAVE_WELCOME_HELP_WDP_REJECT}};
+     IDS_BRAVE_WELCOME_SELECT_THEME_DARK_LABEL}};
 
 void OpenJapanWelcomePage(Profile* profile) {
   CHECK(profile);

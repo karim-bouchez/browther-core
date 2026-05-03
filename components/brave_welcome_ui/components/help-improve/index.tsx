@@ -7,7 +7,7 @@ import * as React from 'react'
 
 import * as S from './style'
 import Button from '@brave/leo/react/button'
-import { P3APhase, WelcomeBrowserProxyImpl } from '../../api/welcome_browser_proxy'
+import { WelcomeBrowserProxyImpl } from '../../api/welcome_browser_proxy'
 import { getLocale, formatLocale } from '$web-common/locale'
 import { loadTimeData } from '$web-common/loadTimeData'
 
@@ -19,7 +19,7 @@ interface InputCheckboxProps {
 }
 
 const changeSettingsNote = formatLocale('braveWelcomeChangeSettingsNote', {
-  $1: content => <a href="brave://settings/privacy" onClick={() => {
+  $1: content => <a href="browther://settings/privacy" onClick={() => {
     WelcomeBrowserProxyImpl.getInstance().openSettingsPage()
   }}>
     {content}
@@ -27,19 +27,19 @@ const changeSettingsNote = formatLocale('braveWelcomeChangeSettingsNote', {
 })
 
 const readPrivacyPolicy = formatLocale('braveWelcomePrivacyPolicyNote', {
-  $1: content => <a href='https://brave.com/privacy/browser' target='_blank'>
+  $1: content => <a href='https://browther.devndin.com/privacy' target='_blank'>
     {content}
   </a>
 })
 
 const diagnosticReportsLabel = formatLocale('braveWelcomeSendReportsLabel', {
-  $1: content => <a href='https://support.brave.app/hc/en-us/articles/360017905872-How-do-I-enable-or-disable-automatic-crash-reporting' target='_blank'>
+  $1: content => <a href='https://browther.devndin.com/privacy' target='_blank'>
     {content}
   </a>
 })
 
 const braveProductUsageDataLabel = formatLocale('braveWelcomeSendInsightsLabel', {
-  $1: content => <a href='https://support.brave.app/hc/en-us/articles/9140465918093-What-is-P3A-in-Brave-' target='_blank'>
+  $1: content => <a href='https://browther.devndin.com/privacy' target='_blank'>
     {content}
   </a>
 })
@@ -91,7 +91,6 @@ function HelpImprove() {
     if (showMetricsToggle) {
       WelcomeBrowserProxyImpl.getInstance().setMetricsReportingEnabled(isMetricsReportingEnabled)
     }
-    WelcomeBrowserProxyImpl.getInstance().recordP3A(P3APhase.Finished)
     completeURLPromise.then((url) => {
       window.open(url || 'chrome://newtab', '_self', 'noopener')
     })

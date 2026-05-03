@@ -22,7 +22,6 @@ import Welcome from '../components/welcome'
 import DataContext from '../state/context'
 import { ViewType, Scenes } from '../state/component_types'
 import Background from '../components/background'
-import HelpWDP from '../components/help-wdp'
 
 const payload = [
   {
@@ -182,8 +181,3 @@ export const _Background = {
   }
 }
 
-export const _HelpWDP = {
-  render: () => {
-    return <HelpWDP />
-  }
-}
