@@ -6,13 +6,16 @@
 #include "brave/browser/brave_browser_main_extra_parts.h"
 
 #include "base/metrics/histogram_macros.h"
+#include "base/values.h"
 #include "brave/browser/brave_browser_process_impl.h"
 #include "brave/browser/misc_metrics/process_misc_metrics.h"
 #include "brave/browser/misc_metrics/uptime_monitor_impl.h"
 #include "brave/components/brave_shields/core/browser/brave_shields_p3a.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/p3a/p3a_service.h"
 #include "components/metrics/metrics_pref_names.h"
 #include "components/prefs/pref_service.h"
+#include "components/version_info/version_info.h"
 #include "services/network/public/cpp/shared_url_loader_factory.h"
 
 #if !BUILDFLAG(IS_ANDROID)
@@ -81,6 +84,18 @@ void BraveBrowserMainExtraParts::PreMainMessageLoopRun() {
   }
 
   RecordInitialP3AValues();
+
+  // Browther: init analytics service + track app_launched.
+  browther_analytics::BrowtherAnalyticsService::Initialize(
+      g_browser_process->local_state(),
+      g_browser_process->shared_url_loader_factory());
+  if (auto* analytics =
+          browther_analytics::BrowtherAnalyticsService::GetInstance()) {
+    base::DictValue props;
+    props.Set("version", std::string(version_info::GetVersionNumber()));
+    props.Set("os", std::string(version_info::GetOSType()));
+    analytics->Track("app_launched", std::move(props));
+  }
 
   // The code below is not supported on android.
 #if !BUILDFLAG(IS_ANDROID)

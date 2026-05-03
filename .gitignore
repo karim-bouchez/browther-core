@@ -94,3 +94,6 @@ xcuserdata
 
 # Local Chromium clone for image-blur experiments (separate workspace)
 /engine/
+
+# Browther — analytics config header (généré, contient des secrets)
+/components/browther_analytics/analytics_config.h
