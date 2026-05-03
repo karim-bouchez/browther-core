@@ -214,6 +214,13 @@ void OverrideDefaultPrefValues(user_prefs::PrefRegistrySyncable* registry) {
   // Show download prompt by default
   registry->SetDefaultPrefValue(prefs::kPromptForDownload, base::Value(true));
 
+  // Browther: Translate désactivé par défaut (cf. iOS qui hide UI). L'icône
+  // dans la URL bar et la bubble auto-offer sont gates par cette pref. Le
+  // user peut toujours réactiver via Settings → Languages → Translate (mais
+  // on hide aussi ce toggle ailleurs pour cohérence).
+  registry->SetDefaultPrefValue(translate::prefs::kOfferTranslateEnabled,
+                                base::Value(false));
+
   // Not using chrome's web service for resolving navigation errors
   registry->SetDefaultPrefValue(embedder_support::kAlternateErrorPagesEnabled,
                                 base::Value(false));
