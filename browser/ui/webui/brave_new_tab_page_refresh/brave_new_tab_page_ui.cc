@@ -20,6 +20,8 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/new_tab_page_initializer.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/top_sites_facade.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/vpn_facade.h"
+#include "base/values.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/brave_ads/buildflags/buildflags.h"
 #include "brave/components/brave_news/common/buildflags/buildflags.h"
 #include "brave/components/brave_rewards/core/buildflags/buildflags.h"
@@ -88,6 +90,15 @@ BraveNewTabPageUI::BraveNewTabPageUI(content::WebUI* web_ui)
   const content::NavigationEntry* navigation_entry =
       web_contents->GetController().GetLastCommittedEntry();
   was_restored_ = navigation_entry && navigation_entry->IsRestored();
+
+  // Browther: track page_viewed pour la NTP (jamais d'URL ni de contenu).
+  if (auto* analytics =
+          browther_analytics::BrowtherAnalyticsService::GetInstance()) {
+    base::DictValue props;
+    props.Set("page", "ntp");
+    props.Set("restored", was_restored_);
+    analytics->Track("page_viewed", std::move(props));
+  }
 }
 
 BraveNewTabPageUI::~BraveNewTabPageUI() = default;
