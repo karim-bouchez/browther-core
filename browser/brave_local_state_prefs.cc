@@ -155,13 +155,6 @@ void RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
   browther_analytics::DistinctIdProvider::RegisterLocalStatePrefs(registry);
   brave_shields::RegisterPrefsForAdBlockService(registry);
   brave_stats::RegisterLocalStatePrefs(registry);
-  // Browther: opt-out par défaut pour Sentry (kMetricsReportingEnabled) et
-  // PostHog (kP3AEnabled) — cohérent avec l'onboarding desktop. SetDefaultPrefValue
-  // n'affecte que les profils où l'user n'a jamais touché la valeur ; les
-  // utilisateurs existants ayant explicitement opt-out gardent leur choix.
-  registry->SetDefaultPrefValue(metrics::prefs::kMetricsReportingEnabled,
-                                base::Value(true));
-  registry->SetDefaultPrefValue(p3a::kP3AEnabled, base::Value(true));
   brave_origin::RegisterLocalStatePrefs(registry);
   ntp_background_images::RegisterLocalStatePrefs(registry);
   RegisterPrefsForBraveReferralsService(registry);
@@ -186,6 +179,15 @@ void RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
                                  // doesn't use this arg on Android
                                  false);
 #endif  // !BUILDFLAG(IS_ANDROID)
+
+  // Browther: opt-out par défaut pour Sentry (kMetricsReportingEnabled) et
+  // PostHog (kP3AEnabled) — override les defaults Brave (false) à true,
+  // cohérent avec l'onboarding desktop. SetDefaultPrefValue n'affecte que les
+  // profils où l'user n'a jamais touché la valeur ; les users existants ayant
+  // explicitement opt-out gardent leur choix.
+  registry->SetDefaultPrefValue(metrics::prefs::kMetricsReportingEnabled,
+                                base::Value(true));
+  registry->SetDefaultPrefValue(p3a::kP3AEnabled, base::Value(true));
 
   brave_shields::RegisterShieldsP3ALocalPrefs(registry);
 #if !BUILDFLAG(IS_ANDROID)
