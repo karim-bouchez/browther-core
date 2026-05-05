@@ -22,6 +22,7 @@
 #include "brave/browser/ui/views/tabs/vertical_tab_utils.h"
 #include "brave/browser/ui/views/toolbar/bookmark_button.h"
 #include "brave/browser/ui/views/toolbar/side_panel_button.h"
+#include "brave/browser/ui/views/brave_actions/basarunaa_action_view.h"
 #include "brave/browser/ui/views/brave_actions/sawtunaa_action_view.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
@@ -320,6 +321,14 @@ void BraveToolbarView::Init() {
   sawtunaa_->SetPreferredSize(gfx::Size(28, 28));
   sawtunaa_->Init();
   SetBraveButtonFlexBehavior(sawtunaa_);
+
+  // Browther: Basarunaa toolbar button
+  basarunaa_ = container_view->AddChildViewAt(
+      std::make_unique<BasarunaaActionView>(browser()),
+      *container_view->GetIndexOf(GetAppMenuButton()) - 1);
+  basarunaa_->SetPreferredSize(gfx::Size(28, 28));
+  basarunaa_->Init();
+  SetBraveButtonFlexBehavior(basarunaa_);
 
   // Browther: Wallet disabled — hide toolbar button
 #if BUILDFLAG(ENABLE_BRAVE_WALLET) && 0

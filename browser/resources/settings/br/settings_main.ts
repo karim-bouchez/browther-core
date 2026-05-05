@@ -189,6 +189,20 @@ RegisterPolymerTemplateModifications({
         </div>
       `)
 
+    // Insert the Basarunaa page into the view manager (Browther)
+    switcher.appendChild(
+      html`
+        <div slot="view" id="basarunaa" class="cr-centered-card-container">
+          <template is="dom-if" if="[[renderPlugin_(
+        routes_.BASARUNAA, lastRoute_, inSearchMode_)]]">
+            <settings-basarunaa-page
+              prefs="{{prefs}}"
+              in-search-mode="[[inSearchMode_]]">
+            </settings-basarunaa-page>
+          </template>
+        </div>
+      `)
+
     // Insert the extensions page into the view manager
     switcher.appendChild(
       html`

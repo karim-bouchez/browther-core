@@ -51,6 +51,11 @@ BraveComponentLoader::BraveComponentLoader(Profile* profile)
       kSawtunaaEnabled,
       base::BindRepeating(&BraveComponentLoader::UpdateSawtunaaExtension,
                           base::Unretained(this)));
+  // Browther: Basarunaa — watch the pref to load/unload the extension
+  pref_change_registrar_.Add(
+      kBasarunaaEnabled,
+      base::BindRepeating(&BraveComponentLoader::UpdateBasarunaaExtension,
+                          base::Unretained(this)));
 }
 
 BraveComponentLoader::~BraveComponentLoader() = default;
@@ -93,6 +98,40 @@ void BraveComponentLoader::AddDefaultComponentExtensions(
     }
   }
   UpdateSawtunaaExtension();
+
+  // Browther: Basarunaa — read manifest from disk at startup (blocking allowed here)
+  {
+    const base::CommandLine& command_line =
+        *base::CommandLine::ForCurrentProcess();
+    if (command_line.HasSwitch("basarunaa-extension-path")) {
+      basarunaa_path_ =
+          command_line.GetSwitchValuePath("basarunaa-extension-path");
+    } else {
+      base::FilePath exe_dir;
+      base::PathService::Get(base::DIR_EXE, &exe_dir);
+      basarunaa_path_ = exe_dir.AppendASCII("basarunaa");
+    }
+
+    base::FilePath manifest_path =
+        basarunaa_path_.AppendASCII("manifest.json");
+    std::string manifest_contents;
+    if (base::PathExists(manifest_path) &&
+        base::ReadFileToString(manifest_path, &manifest_contents)) {
+      basarunaa_manifest_ = base::JSONReader::ReadDict(
+          manifest_contents, base::JSON_PARSE_CHROMIUM_EXTENSIONS);
+      if (basarunaa_manifest_) {
+        LOG(INFO) << "[Basarunaa] Manifest loaded from: "
+                  << basarunaa_path_.value();
+      } else {
+        LOG(ERROR) << "[Basarunaa] Invalid manifest JSON at: "
+                   << manifest_path.value();
+      }
+    } else {
+      LOG(WARNING) << "[Basarunaa] Extension not found at: "
+                   << basarunaa_path_.value();
+    }
+  }
+  UpdateBasarunaaExtension();
 }
 
 bool BraveComponentLoader::UseBraveExtensionBackgroundPage() {
@@ -178,6 +217,38 @@ void BraveComponentLoader::UpdateSawtunaaExtension() {
   // Allow Sawtunaa to use tabCapture without activeTab user gesture.
   base::CommandLine::ForCurrentProcess()->AppendSwitchASCII(
       extensions::switches::kAllowlistedExtensionID, sawtunaa_extension_id_);
+}
+
+// Browther: Load/unload the Basarunaa extension based on kBasarunaaEnabled pref.
+// Manifest is pre-loaded at startup in AddDefaultComponentExtensions().
+// This method only does Add/Remove (no file I/O), safe to call on UI thread.
+void BraveComponentLoader::UpdateBasarunaaExtension() {
+  const bool enabled = profile_prefs_->GetBoolean(kBasarunaaEnabled);
+
+  // If disabled and currently loaded, remove it
+  if (!enabled) {
+    if (!basarunaa_extension_id_.empty()) {
+      Remove(basarunaa_extension_id_);
+      basarunaa_extension_id_.clear();
+      LOG(INFO) << "[Basarunaa] Extension unloaded";
+    }
+    return;
+  }
+
+  // Already loaded
+  if (!basarunaa_extension_id_.empty()) {
+    return;
+  }
+
+  // No manifest available (not found at startup)
+  if (!basarunaa_manifest_) {
+    LOG(WARNING) << "[Basarunaa] No manifest cached, cannot load";
+    return;
+  }
+
+  // Clone the manifest (Add takes ownership)
+  basarunaa_extension_id_ = Add(basarunaa_manifest_->Clone(), basarunaa_path_);
+  LOG(INFO) << "[Basarunaa] Extension loaded, id: " << basarunaa_extension_id_;
 }
 
 }  // namespace extensions

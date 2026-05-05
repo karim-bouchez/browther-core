@@ -1190,6 +1190,8 @@ source_set("ui") {
       "views/brave_actions/brave_shields_action_view.h",
       "views/brave_actions/sawtunaa_action_view.cc",
       "views/brave_actions/sawtunaa_action_view.h",
+      "views/brave_actions/basarunaa_action_view.cc",
+      "views/brave_actions/basarunaa_action_view.h",
       "views/brave_help_bubble/brave_help_bubble_delegate_view.cc",
       "views/brave_help_bubble/brave_help_bubble_delegate_view.h",
       "views/brave_help_bubble/brave_help_bubble_host_view.cc",

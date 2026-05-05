@@ -34,7 +34,8 @@ class BraveComponentLoader : public ComponentLoader {
 
  private:
   void UpdateBraveExtension();
-  void UpdateSawtunaaExtension();  // Browther: Sawtunaa
+  void UpdateSawtunaaExtension();   // Browther: Sawtunaa
+  void UpdateBasarunaaExtension();  // Browther: Basarunaa
 
   bool UseBraveExtensionBackgroundPage();
 
@@ -43,6 +44,9 @@ class BraveComponentLoader : public ComponentLoader {
   std::string sawtunaa_extension_id_;       // Browther: Sawtunaa
   base::FilePath sawtunaa_path_;            // Browther: cached path
   std::optional<base::DictValue> sawtunaa_manifest_;  // Browther: cached manifest
+  std::string basarunaa_extension_id_;       // Browther: Basarunaa
+  base::FilePath basarunaa_path_;            // Browther: cached path
+  std::optional<base::DictValue> basarunaa_manifest_;  // Browther: cached manifest
 
   PrefChangeRegistrar pref_change_registrar_;
 };

@@ -329,6 +329,17 @@ RegisterPolymerTemplateModifications({
       extensionEl.insertAdjacentElement('afterend', sawtunaaEl)
     }
 
+    // Add Basarunaa item (Browther)
+    const basarunaaEl = createMenuElement(
+      loadTimeData.getString('basarunaaTitle'),
+      '/basarunaa',
+      'eye-off',
+      'basarunaa' as keyof typeof pageVisibility,
+    )
+    if (sawtunaaEl) {
+      sawtunaaEl.insertAdjacentElement('afterend', basarunaaEl)
+    }
+
     // Move autofill to advanced
     const autofillEl = getMenuElement(templateContent, '/autofill')
     const languagesEl = getMenuElement(templateContent, '/languages')
