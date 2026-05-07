@@ -1,0 +1,28 @@
+// Copyright (c) 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// You can obtain one at https://mozilla.org/MPL/2.0/.
+
+module basarunaa.mojom;
+
+// Used by the WebUI page (chrome-untrusted://basarunaa-panel.top-chrome) to
+// bootstrap bidirectional communication with the browser process.
+// Mirrors the brave_vpn PanelHandlerFactory pattern. Kept minimal for the
+// bisect rebuild — the real Basarunaa interface will be added back later.
+interface PanelHandlerFactory {
+  // The WebUI calls this method when the page is first initialized.
+  CreatePanelHandler(pending_receiver<PanelHandler> panel_handler);
+};
+
+// Browser-side handler for requests from the Basarunaa panel WebUI.
+// Intentionally empty for the bisect rebuild.
+interface PanelHandler {
+  // Notify the backend that the UI is ready to be shown. Required so that
+  // the embedder reveals the bubble widget on subsequent re-opens (this is
+  // the load-bearing handshake that the VPN panel relies on, paired with
+  // the `visibilitychange` listener on the WebUI side).
+  ShowUI();
+
+  // Notify the backend that the dialog should be closed.
+  CloseUI();
+};

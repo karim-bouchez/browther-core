@@ -1,58 +1,45 @@
 // Copyright (c) 2026 dev&din. All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
-// you can obtain one at https://mozilla.org/MPL/2.0/.
+// You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #ifndef BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_
 #define BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_
 
 #include "base/memory/raw_ptr.h"
-#include "base/memory/raw_ref.h"
-#include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
-#include "components/prefs/pref_change_registrar.h"
+#include "chrome/browser/ui/views/toolbar/toolbar_button.h"
 #include "ui/base/metadata/metadata_header_macros.h"
-#include "ui/views/controls/button/label_button.h"
+#include "ui/events/event.h"
 
-class BrowserWindowInterface;
-class PrefService;
-class TabStripModel;
+namespace views {
+class MenuButtonController;
+}  // namespace views
 
-// Toolbar button for Basarunaa (gender-blur on images/videos).
-// Always visible, click toggles the kBasarunaaEnabled pref which
-// loads/unloads the built-in extension via BraveComponentLoader.
-class BasarunaaActionView : public views::LabelButton,
-                            public TabStripModelObserver {
-  METADATA_HEADER(BasarunaaActionView, views::LabelButton)
+class Browser;
+
+// Browther: toolbar button for Basarunaa panel. 1:1 mirror of BraveVPNButton
+// stripped of the VPN-specific service observation and menu model.
+// Click dispatches IDC_SHOW_BASARUNAA_PANEL.
+class BasarunaaActionView : public ToolbarButton {
+  METADATA_HEADER(BasarunaaActionView, ToolbarButton)
  public:
-  explicit BasarunaaActionView(
-      BrowserWindowInterface* browser_window_interface);
+  explicit BasarunaaActionView(Browser* browser);
   BasarunaaActionView(const BasarunaaActionView&) = delete;
   BasarunaaActionView& operator=(const BasarunaaActionView&) = delete;
   ~BasarunaaActionView() override;
 
+  // Init() is called once after the view is added to the toolbar to refresh
+  // the icon. Kept for source-compat with the existing toolbar wiring.
   void Init();
-  void Update();
-
-  // views::LabelButton:
-  std::unique_ptr<views::LabelButtonBorder> CreateDefaultBorder()
-      const override;
-  void OnThemeChanged() override;
 
  private:
-  void UpdateIconState();
-  bool IsActive() const;
-  gfx::ImageSkia GetIconImage(bool active);
+  // ToolbarButton:
+  void UpdateColorsAndInsets() override;
 
-  // TabStripModelObserver
-  void OnTabStripModelChanged(
-      TabStripModel* tab_strip_model,
-      const TabStripModelChange& change,
-      const TabStripSelectionChange& selection) override;
+  void OnButtonPressed(const ui::Event& event);
 
-  raw_ptr<BrowserWindowInterface> browser_window_interface_ = nullptr;
-  raw_ref<PrefService> profile_prefs_;
-  raw_ref<TabStripModel> tab_strip_model_;
-  PrefChangeRegistrar pref_change_registrar_;
+  raw_ptr<Browser> browser_ = nullptr;
+  raw_ptr<views::MenuButtonController> menu_button_controller_ = nullptr;
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_

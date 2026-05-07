@@ -1,0 +1,87 @@
+// Copyright (c) 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// you can obtain one at https://mozilla.org/MPL/2.0/.
+
+#include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
+
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "base/check.h"
+#include "brave/components/basarunaa/resources/panel/grit/basarunaa_panel_generated_map.h"
+#include "brave/components/constants/webui_url_constants.h"
+#include "chrome/browser/profiles/profile.h"
+#include "chrome/browser/ui/webui/theme_source.h"
+#include "components/grit/brave_components_resources.h"
+#include "content/public/browser/web_contents.h"
+#include "content/public/browser/web_ui.h"
+#include "content/public/browser/web_ui_data_source.h"
+#include "content/public/common/bindings_policy.h"
+#include "content/public/common/url_constants.h"
+#include "ui/webui/untrusted_web_ui_controller.h"
+#include "ui/webui/webui_util.h"
+
+BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
+    : ui::UntrustedWebUIController(web_ui) {
+  // From MojoWebUIController.
+  web_ui->SetBindings(
+      content::BindingsPolicySet({content::BindingsPolicyValue::kWebUi}));
+
+  content::WebUIDataSource* source = content::WebUIDataSource::CreateAndAdd(
+      web_ui->GetWebContents()->GetBrowserContext(), kBasarunaaPanelURL);
+
+  webui::SetupWebUIDataSource(source, kBasarunaaPanelGenerated,
+                              IDR_BASARUNAA_PANEL_HTML);
+
+  source->OverrideContentSecurityPolicy(
+      network::mojom::CSPDirectiveName::StyleSrc,
+      std::string("style-src chrome-untrusted://resources "
+                  "chrome-untrusted://theme "
+                  "'unsafe-inline';"));
+
+  source->OverrideContentSecurityPolicy(
+      network::mojom::CSPDirectiveName::FontSrc,
+      std::string("font-src "
+                  "chrome-untrusted://resources;"));
+
+  source->OverrideContentSecurityPolicy(
+      network::mojom::CSPDirectiveName::ImgSrc,
+      "img-src 'self' chrome-untrusted://resources;");
+
+  Profile* profile = Profile::FromWebUI(web_ui);
+  content::URLDataSource::Add(profile, std::make_unique<ThemeSource>(
+                                           profile, /*serve_untrusted=*/true));
+}
+
+BasarunaaPanelUI::~BasarunaaPanelUI() = default;
+
+WEB_UI_CONTROLLER_TYPE_IMPL(BasarunaaPanelUI)
+
+void BasarunaaPanelUI::BindInterface(
+    mojo::PendingReceiver<basarunaa::mojom::PanelHandlerFactory> receiver) {
+  panel_factory_receiver_.reset();
+  panel_factory_receiver_.Bind(std::move(receiver));
+}
+
+void BasarunaaPanelUI::CreatePanelHandler(
+    mojo::PendingReceiver<basarunaa::mojom::PanelHandler> panel_receiver) {
+  auto* profile = Profile::FromWebUI(web_ui());
+  CHECK(profile);
+  panel_handler_ = std::make_unique<BasarunaaPanelHandler>(
+      std::move(panel_receiver), this, profile);
+}
+
+bool UntrustedBasarunaaPanelUIConfig::IsWebUIEnabled(
+    content::BrowserContext* browser_context) {
+  return true;
+}
+
+bool UntrustedBasarunaaPanelUIConfig::ShouldAutoResizeHost() {
+  return true;
+}
+
+UntrustedBasarunaaPanelUIConfig::UntrustedBasarunaaPanelUIConfig()
+    : DefaultTopChromeWebUIConfig(content::kChromeUIUntrustedScheme,
+                                  kBasarunaaPanelHost) {}

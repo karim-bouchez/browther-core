@@ -47,6 +47,8 @@ void CloseWalletBubble(Browser* browser);
 
 void MaybeDistillAndShowSpeedreaderBubble(Browser* browser);
 void ShowBraveVPNBubble(Browser* browser);
+// Browther: show Basarunaa panel bubble (gender-blur).
+void ShowBasarunaaPanel(Browser* browser);
 void ToggleBraveVPNButton(Browser* browser);
 void ToggleBraveVPNTrayIcon();
 void OpenBraveVPNUrls(Browser* browser, int command_id);

@@ -30,6 +30,7 @@
 #include "ui/base/metadata/metadata_header_macros.h"
 
 #if BUILDFLAG(ENABLE_BRAVE_VPN)
+#include "brave/browser/ui/views/toolbar/basarunaa_panel_controller.h"
 #include "brave/browser/ui/views/toolbar/brave_vpn_panel_controller.h"
 #endif
 
@@ -114,6 +115,9 @@ class BraveBrowserView : public BrowserView,
   void Layout(PassKey) override;
   void StartTabCycling() override;
   views::View* GetAnchorViewForBraveVPNPanel();
+  // Browther: Basarunaa panel (gender-blur).
+  views::View* GetAnchorViewForBasarunaaPanel();
+  void ShowBasarunaaPanel();
   gfx::Rect GetShieldsBubbleRect() override;
 #if BUILDFLAG(ENABLE_SPEEDREADER)
   // Give active tab's reader mode toolbar.
@@ -276,6 +280,8 @@ class BraveBrowserView : public BrowserView,
 #if BUILDFLAG(ENABLE_BRAVE_VPN)
   BraveVPNPanelController vpn_panel_controller_{this};
 #endif
+  // Browther: Basarunaa panel controller (gender-blur).
+  BasarunaaPanelController basarunaa_panel_controller_{this};
 
 #if BUILDFLAG(ENABLE_SPEEDREADER)
   raw_ptr<ReaderModeToolbarView> reader_mode_toolbar_;

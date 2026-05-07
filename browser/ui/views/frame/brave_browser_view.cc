@@ -29,6 +29,7 @@
 #include "brave/browser/ui/sidebar/sidebar_utils.h"
 #include "brave/browser/ui/sidebar/sidebar_web_panel_controller.h"
 #include "brave/browser/ui/tabs/brave_tab_prefs.h"
+#include "brave/browser/ui/views/brave_actions/basarunaa_action_view.h"
 #include "brave/browser/ui/views/brave_actions/brave_actions_container.h"
 #include "brave/browser/ui/views/brave_actions/brave_shields_action_view.h"
 #include "brave/browser/ui/views/brave_help_bubble/brave_help_bubble_host_view.h"
@@ -502,6 +503,20 @@ views::View* BraveBrowserView::GetAnchorViewForBraveVPNPanel() {
 #else
   return nullptr;
 #endif
+}
+
+// Browther: Basarunaa panel anchored on the Basarunaa toolbar action.
+views::View* BraveBrowserView::GetAnchorViewForBasarunaaPanel() {
+  auto* basarunaa_view =
+      static_cast<BraveToolbarView*>(toolbar())->basarunaa_action_view();
+  if (basarunaa_view && basarunaa_view->GetVisible()) {
+    return basarunaa_view;
+  }
+  return toolbar()->app_menu_button();
+}
+
+void BraveBrowserView::ShowBasarunaaPanel() {
+  basarunaa_panel_controller_.ShowBasarunaaPanel();
 }
 
 gfx::Rect BraveBrowserView::GetShieldsBubbleRect() {

@@ -44,6 +44,11 @@ inline constexpr char kWalletPanelHost[] = "wallet-panel.top-chrome";
 inline constexpr char kVPNPanelURL[] =
     "chrome-untrusted://vpn-panel.top-chrome/";
 inline constexpr char kVPNPanelHost[] = "vpn-panel.top-chrome";
+// Browther: Basarunaa panel WebUI (gender-blur on images/videos).
+// Untrusted scheme — mirrors brave_vpn panel.
+inline constexpr char kBasarunaaPanelURL[] =
+    "chrome-untrusted://basarunaa-panel.top-chrome/";
+inline constexpr char kBasarunaaPanelHost[] = "basarunaa-panel.top-chrome";
 inline constexpr char kBraveUIWalletPageURL[] = "chrome://wallet/";
 inline constexpr char kWalletPageHost[] = "wallet";
 inline constexpr char kExtensionSettingsURL[] = "brave://settings/extensions";

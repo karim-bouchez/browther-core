@@ -42,6 +42,9 @@ class BraveToolbarView : public ToolbarView,
 
   BraveBookmarkButton* bookmark_button() const { return bookmark_; }
   WalletButton* wallet_button() const { return wallet_; }
+  // Browther: getters pour les toolbar actions custom.
+  SawtunaaActionView* sawtunaa_action_view() const { return sawtunaa_; }
+  BasarunaaActionView* basarunaa_action_view() const { return basarunaa_; }
   SidePanelButton* side_panel_button() const { return side_panel_; }
   ToolbarButton* vertical_tab_toggle_button() const {
     return vertical_tab_toggle_;

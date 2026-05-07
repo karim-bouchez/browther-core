@@ -358,6 +358,9 @@
   <message name="IDS_IDC_SHOW_BRAVE_VPN_PANEL">
     Show Browther VPN panel
   </message>
+  <message name="IDS_IDC_SHOW_BASARUNAA_PANEL">
+    Show Basarunaa panel
+  </message>
   <message name="IDS_IDC_TOGGLE_BRAVE_VPN_TOOLBAR_BUTTON">
     Toggle Browther VPN toolbar button
   </message>

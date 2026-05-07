@@ -158,6 +158,7 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page.mojom.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page_ui.h"
 #include "brave/browser/ui/webui/brave_settings_ui.h"
+#include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/browser/ui/webui/brave_shields/shields_panel_ui.h"
 #include "brave/browser/ui/webui/email_aliases/email_aliases_panel_ui.h"
 #include "brave/browser/ui/webui/new_tab_page/brave_new_tab_ui.h"
@@ -794,6 +795,12 @@ void BraveContentBrowserClient::RegisterUntrustedWebUIInterfaceBrokers(
   }
 #endif
 
+#if !BUILDFLAG(IS_ANDROID)
+  // Browther: Basarunaa panel WebUI mojo binder (untrusted, mirror of VPN).
+  registry.ForWebUI<BasarunaaPanelUI>()
+      .Add<basarunaa::mojom::PanelHandlerFactory>();
+#endif
+
 #if BUILDFLAG(ENABLE_PLAYLIST_WEBUI)
   if (base::FeatureList::IsEnabled(playlist::features::kPlaylist)) {
     registry.ForWebUI<playlist::PlaylistUI>()
@@ -965,6 +972,8 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
       brave_private_new_tab::mojom::PageHandler, BravePrivateNewTabUI>(map);
   content::RegisterWebUIControllerInterfaceBinder<
       brave_shields::mojom::PanelHandlerFactory, ShieldsPanelUI>(map);
+  // Browther: Basarunaa panel binder is registered as untrusted, see
+  // RegisterUntrustedWebUIInterfaceBrokers above.
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
   content::RegisterWebUIControllerInterfaceBinder<
       brave_rewards::mojom::RewardsPageHandler,

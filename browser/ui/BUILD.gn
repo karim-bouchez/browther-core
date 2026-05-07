@@ -1293,6 +1293,25 @@ source_set("ui") {
     }
   }
 
+  # Browther: Basarunaa panel WebUI (desktop only).
+  if (!is_android) {
+    sources += [
+      "webui/basarunaa/basarunaa_panel_handler.cc",
+      "webui/basarunaa/basarunaa_panel_handler.h",
+      "webui/basarunaa/basarunaa_panel_ui.cc",
+      "webui/basarunaa/basarunaa_panel_ui.h",
+    ]
+    public_deps += [ "//brave/components/basarunaa/common/mojom" ]
+    deps += [ "//brave/components/basarunaa/resources:panel_resources" ]
+
+    if (toolkit_views) {
+      sources += [
+        "views/toolbar/basarunaa_panel_controller.cc",
+        "views/toolbar/basarunaa_panel_controller.h",
+      ]
+    }
+  }
+
   if (is_win && is_official_build) {
     sources += [ "//chrome/browser/ui/webui/help/version_updater_win.cc" ]
     deps += [ "//chrome/updater/app/server/win:updater_legacy_idl" ]

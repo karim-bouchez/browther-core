@@ -100,6 +100,11 @@
     "META": {"sizes": {"includes": [10]}},
     "includes": [53440],
   },
+  # Browther: Basarunaa panel WebUI (gender-blur). Generated during the build.
+  "<(SHARED_INTERMEDIATE_DIR)/brave/web-ui-basarunaa_panel/basarunaa_panel.grd": {
+    "META": {"sizes": {"includes": [10]}},
+    "includes": [53450],
+  },
   # This file is generated during the build.
   "<(SHARED_INTERMEDIATE_DIR)/brave/web-ui-brave_shields_panel/brave_shields_panel.grd": {
     "META": {"sizes": {"includes": [10]}},

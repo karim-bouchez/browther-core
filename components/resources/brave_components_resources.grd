@@ -69,6 +69,8 @@
         <if expr="enable_brave_vpn">
           <include name="IDR_VPN_PANEL_HTML" file="../brave_vpn/resources/panel/vpn_panel.html" type="BINDATA" />
         </if>
+        <!-- Browther: Basarunaa panel HTML resource. -->
+        <include name="IDR_BASARUNAA_PANEL_HTML" file="../basarunaa/resources/panel/basarunaa_panel.html" type="BINDATA" />
       </if>
 
       <!-- Imagery links -->

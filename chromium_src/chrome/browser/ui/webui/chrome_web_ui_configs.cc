@@ -109,6 +109,8 @@ void RegisterChromeWebUIConfigs() {
   map.AddWebUIConfig(std::make_unique<BraveSettingsUIConfig>());
   map.AddWebUIConfig(std::make_unique<BraveWelcomePageUIConfig>());
   map.AddWebUIConfig(std::make_unique<ShieldsPanelUIConfig>());
+  // Browther: Basarunaa panel — registered as untrusted in
+  // chrome_untrusted_web_ui_configs.cc (mirror of brave_vpn panel).
 #if BUILDFLAG(ENABLE_SPEEDREADER)
   map.AddWebUIConfig(std::make_unique<SpeedreaderToolbarUIConfig>());
 #endif

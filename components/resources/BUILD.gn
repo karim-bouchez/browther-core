@@ -186,6 +186,12 @@ repack("resources") {
     ]
   }
 
+  # Browther: Basarunaa panel WebUI (desktop only).
+  if (!is_android) {
+    deps += [ "//brave/components/basarunaa/resources/panel:resources" ]
+    sources += [ "$root_gen_dir/brave/components/basarunaa/basarunaa_panel_resources.pak" ]
+  }
+
   if (enable_playlist_webui) {
     deps += [ "//brave/components/playlist/content/browser/resources:generated_resources" ]
     sources += [ "$root_gen_dir/brave/components/playlist/content/browser/resources/playlist_generated.pak" ]

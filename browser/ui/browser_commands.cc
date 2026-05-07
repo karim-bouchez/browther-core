@@ -272,6 +272,15 @@ void ShowBraveVPNBubble(Browser* browser) {
 #endif
 }
 
+// Browther: ouvre le panel Basarunaa via le BraveBrowserView.
+void ShowBasarunaaPanel(Browser* browser) {
+  auto* browser_view = static_cast<BraveBrowserView*>(
+      BrowserView::GetBrowserViewForBrowser(browser));
+  if (browser_view) {
+    browser_view->ShowBasarunaaPanel();
+  }
+}
+
 void ToggleBraveVPNTrayIcon() {
 #if BUILDFLAG(ENABLE_BRAVE_VPN) && BUILDFLAG(IS_WIN)
   brave_vpn::EnableVPNTrayIcon(!brave_vpn::IsVPNTrayIconEnabled());
