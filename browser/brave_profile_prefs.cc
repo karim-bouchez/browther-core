@@ -438,6 +438,9 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kSawtunaaEnabled, false);  // Browther: Sawtunaa
   registry->RegisterBooleanPref(kBasarunaaEnabled, true);  // Browther: Basarunaa (default ON, blur women)
   registry->RegisterStringPref(kBasarunaaMode, "blur-female");  // Browther: Basarunaa mode
+  registry->RegisterDoublePref(kBasarunaaConfBody, 0.25);
+  registry->RegisterDoublePref(kBasarunaaConfFace, 0.30);
+  registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);
   registry->RegisterBooleanPref(kGoogleLoginControlType, true);
   registry->RegisterBooleanPref(
       query_filter::kTrackingQueryParametersFilteringEnabled, true);

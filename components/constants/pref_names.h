@@ -69,6 +69,11 @@ inline constexpr char kSawtunaaEnabled[] = "brave.sawtunaa.enabled";
 inline constexpr char kBasarunaaEnabled[] = "brave.basarunaa.enabled";
 // Action mode: "blur-female" (default), "blur-male", or "blur-all".
 inline constexpr char kBasarunaaMode[] = "brave.basarunaa.mode";
+// Detection thresholds (double in [0.0, 1.0]).
+inline constexpr char kBasarunaaConfBody[] = "brave.basarunaa.conf_body";
+inline constexpr char kBasarunaaConfFace[] = "brave.basarunaa.conf_face";
+inline constexpr char kBasarunaaGenderCertainty[] =
+    "brave.basarunaa.gender_certainty";
 inline constexpr char kGoogleLoginControlType[] = "brave.google_login_default";
 // Deprecated
 inline constexpr char kWebTorrentEnabled[] = "brave.webtorrent_enabled";

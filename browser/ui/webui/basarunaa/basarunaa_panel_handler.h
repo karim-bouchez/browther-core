@@ -36,6 +36,10 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void SetEnabled(bool enabled) override;
   void GetMode(GetModeCallback callback) override;
   void SetMode(const std::string& mode) override;
+  void GetSliders(GetSlidersCallback callback) override;
+  void SetConfBody(double value) override;
+  void SetConfFace(double value) override;
+  void SetGenderCertainty(double value) override;
 
  private:
   mojo::Receiver<basarunaa::mojom::PanelHandler> receiver_;

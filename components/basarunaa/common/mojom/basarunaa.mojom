@@ -34,4 +34,10 @@ interface PanelHandler {
   // Read/write the action mode pref (blur-female | blur-male | blur-all).
   GetMode() => (string mode);
   SetMode(string mode);
+
+  // Detection threshold sliders (double in [0.0, 1.0]).
+  GetSliders() => (double conf_body, double conf_face, double gender_certainty);
+  SetConfBody(double value);
+  SetConfFace(double value);
+  SetGenderCertainty(double value);
 };

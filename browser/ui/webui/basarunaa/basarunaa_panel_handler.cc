@@ -48,3 +48,22 @@ void BasarunaaPanelHandler::GetMode(GetModeCallback callback) {
 void BasarunaaPanelHandler::SetMode(const std::string& mode) {
   profile_->GetPrefs()->SetString(kBasarunaaMode, mode);
 }
+
+void BasarunaaPanelHandler::GetSliders(GetSlidersCallback callback) {
+  auto* prefs = profile_->GetPrefs();
+  std::move(callback).Run(prefs->GetDouble(kBasarunaaConfBody),
+                          prefs->GetDouble(kBasarunaaConfFace),
+                          prefs->GetDouble(kBasarunaaGenderCertainty));
+}
+
+void BasarunaaPanelHandler::SetConfBody(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaConfBody, value);
+}
+
+void BasarunaaPanelHandler::SetConfFace(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaConfFace, value);
+}
+
+void BasarunaaPanelHandler::SetGenderCertainty(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaGenderCertainty, value);
+}

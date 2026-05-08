@@ -107,6 +107,10 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
       settings_api::PrefType::kBoolean;  // Browther: Basarunaa
   (*s_brave_allowlist)[kBasarunaaMode] =
       settings_api::PrefType::kString;  // Browther: Basarunaa mode
+  (*s_brave_allowlist)[kBasarunaaConfBody] = settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[kBasarunaaConfFace] = settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[kBasarunaaGenderCertainty] =
+      settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kAdControlType] = settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kGoogleLoginControlType] =
       settings_api::PrefType::kBoolean;

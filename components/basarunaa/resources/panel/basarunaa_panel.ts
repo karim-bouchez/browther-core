@@ -19,12 +19,16 @@ function notifyShowUI() {
 
 async function refreshState() {
   try {
-    const [{ enabled }, { mode }] = await Promise.all([
+    const [{ enabled }, { mode }, sliders] = await Promise.all([
       api().getEnabled(),
       api().getMode(),
+      api().getSliders(),
     ])
     setUIEnabled(enabled)
     setUIMode(mode)
+    setUISlider('conf-body', sliders.confBody)
+    setUISlider('conf-face', sliders.confFace)
+    setUISlider('gender-certainty', sliders.genderCertainty)
   } catch (err) {
     console.error('[basarunaa-panel] refreshState failed', err)
   }
@@ -41,6 +45,31 @@ function setUIEnabled(enabled: boolean) {
 function setUIMode(mode: string) {
   const radios = document.querySelectorAll<HTMLInputElement>('input[name="mode"]')
   radios.forEach(r => { r.checked = (r.value === mode) })
+}
+
+function setUISlider(id: string, value: number) {
+  const slider = document.getElementById(id) as HTMLInputElement | null
+  const label = document.getElementById(`${id}-value`)
+  const pct = Math.round(value * 100)
+  if (slider) slider.value = String(pct)
+  if (label) label.textContent = `${pct}%`
+}
+
+function bindSlider(id: string, setter: (v: number) => void) {
+  const slider = document.getElementById(id) as HTMLInputElement | null
+  const label = document.getElementById(`${id}-value`)
+  if (!slider) return
+  slider.addEventListener('input', () => {
+    if (label) label.textContent = `${slider.value}%`
+  })
+  slider.addEventListener('change', () => {
+    const value = Number(slider.value) / 100
+    try {
+      setter(value)
+    } catch (err) {
+      console.error(`[basarunaa-panel] set ${id} failed`, err)
+    }
+  })
 }
 
 function onVisibilityChange() {
@@ -76,4 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+
+  bindSlider('conf-body', v => api().setConfBody(v))
+  bindSlider('conf-face', v => api().setConfFace(v))
+  bindSlider('gender-certainty', v => api().setGenderCertainty(v))
 })
