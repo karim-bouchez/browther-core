@@ -1302,7 +1302,11 @@ source_set("ui") {
       "webui/basarunaa/basarunaa_panel_ui.h",
     ]
     public_deps += [ "//brave/components/basarunaa/common/mojom" ]
-    deps += [ "//brave/components/basarunaa/resources:panel_resources" ]
+    deps += [
+      "//brave/browser/basarunaa",
+      "//brave/components/basarunaa/core",
+      "//brave/components/basarunaa/resources:panel_resources",
+    ]
 
     if (toolkit_views) {
       sources += [

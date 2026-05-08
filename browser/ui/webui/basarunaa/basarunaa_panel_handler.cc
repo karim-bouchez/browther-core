@@ -7,7 +7,10 @@
 
 #include <utility>
 
+#include "base/logging.h"
+#include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
+#include "brave/components/basarunaa/core/basarunaa_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "components/prefs/pref_service.h"
 
@@ -22,6 +25,11 @@ BasarunaaPanelHandler::BasarunaaPanelHandler(
 BasarunaaPanelHandler::~BasarunaaPanelHandler() = default;
 
 void BasarunaaPanelHandler::ShowUI() {
+  if (auto* service =
+          basarunaa::BasarunaaServiceFactory::GetForProfile(profile_)) {
+    LOG(INFO) << "[Basarunaa] native ML service version="
+              << service->GetVersion() << " ping=" << service->Ping();
+  }
   if (auto embedder = panel_controller_->embedder()) {
     embedder->ShowUI();
   }

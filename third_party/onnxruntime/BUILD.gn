@@ -1,0 +1,57 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+# Phase 3.1.5 — Étape 1 (M1.1).
+#
+# Microsoft's official ONNX Runtime macOS arm64 release v1.17.3 (downloaded
+# from https://github.com/microsoft/onnxruntime/releases). We ship the
+# `libonnxruntime.1.17.3.dylib` (24 MB) + headers under
+# `third_party/onnxruntime/{lib,include}/`.
+#
+# Why the dylib and not the static archive that ships in the iOS xcframework
+# (which already exists in the fork)? lld segfaults in
+# `ObjCMethListSection::setUp()` when the universal `ar` archive is fed to the
+# main browser link — likely due to ObjC method-list metadata baked for the
+# iOS distribution. Linking against a separately-built dylib bypasses that
+# code path entirely.
+#
+# CPU EP only for M1.1. CoreML EP (`coreml_provider_factory.h` is in
+# `include/`) requires linking CoreML.framework + calling
+# `OrtSessionOptionsAppendExecutionProvider_CoreML(...)` before model load.
+# See `private/docs/TODO.md` § Phase 3.1.5.
+
+import("//brave/third_party/onnxruntime/onnxruntime.gni")
+
+if (enable_basarunaa_native_ml) {
+  config("onnxruntime_config") {
+    # -isystem so Chromium's strict warnings (-Wc++98-compat-extra-semi etc.)
+    # do not flag the ORT headers' macro-emitted forward declarations.
+    cflags_cc = [
+      "-isystem",
+      rebase_path("include", root_build_dir),
+    ]
+  }
+
+  # The dylib's install_name is `@rpath/libonnxruntime.1.17.3.dylib`. We copy
+  # it next to chrome_dll.dylib in `$root_out_dir`, which is reachable at
+  # runtime via the existing `@loader_path/.` rpath that the Chromium build
+  # already adds to chrome_dll.dylib.
+  copy("onnxruntime_dylib") {
+    sources = [ "lib/libonnxruntime.1.17.3.dylib" ]
+    outputs = [ "$root_out_dir/libonnxruntime.1.17.3.dylib" ]
+  }
+
+  config("onnxruntime_link") {
+    # Link against the dylib in-tree (its install_name is already
+    # `@rpath/...`, so the resulting binary records the right reference).
+    ldflags = [ rebase_path("lib/libonnxruntime.dylib", root_build_dir) ]
+  }
+
+  group("onnxruntime") {
+    public_configs = [ ":onnxruntime_config" ]
+    all_dependent_configs = [ ":onnxruntime_link" ]
+    public_deps = [ ":onnxruntime_dylib" ]
+  }
+}

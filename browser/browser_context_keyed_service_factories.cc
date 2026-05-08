@@ -6,6 +6,7 @@
 #include "brave/browser/browser_context_keyed_service_factories.h"
 
 #include "base/feature_list.h"
+#include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/browser/brave_account/brave_account_service_factory.h"
 #include "brave/browser/brave_adaptive_captcha/brave_adaptive_captcha_service_factory.h"
 #include "brave/browser/brave_origin/brave_origin_service_factory.h"
@@ -250,6 +251,9 @@ void EnsureBrowserContextKeyedServiceFactoriesBuilt() {
   if (email_aliases::features::IsEmailAliasesEnabled()) {
     email_aliases::EmailAliasesServiceFactory::GetInstance();
   }
+
+  // Browther: Basarunaa native ML service (Phase 3.1.5 — scaffolding stub).
+  basarunaa::BasarunaaServiceFactory::GetInstance();
 
 #if BUILDFLAG(ENABLE_EXTENSIONS)
   extensions_mv2::ExtensionsManifestV2MigratorFactory::GetInstance();

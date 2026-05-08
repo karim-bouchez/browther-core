@@ -1,0 +1,23 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import("//brave/third_party/onnxruntime/onnxruntime.gni")
+
+static_library("core") {
+  sources = [
+    "basarunaa_service.cc",
+    "basarunaa_service.h",
+  ]
+
+  deps = [
+    "//base",
+    "//components/keyed_service/core",
+  ]
+
+  if (enable_basarunaa_native_ml) {
+    deps += [ "//brave/third_party/onnxruntime" ]
+    defines = [ "BASARUNAA_NATIVE_ML=1" ]
+  }
+}
