@@ -5,16 +5,21 @@
 
 static_library("basarunaa") {
   sources = [
+    "basarunaa_image_analyzer.cc",
+    "basarunaa_image_analyzer.h",
     "basarunaa_service_factory.cc",
     "basarunaa_service_factory.h",
   ]
 
   deps = [
     "//base",
+    "//brave/components/basarunaa/common/mojom",
     "//brave/components/basarunaa/core",
     "//chrome/browser/profiles:profile",
     "//components/keyed_service/content",
     "//components/keyed_service/core",
     "//content/public/browser",
+    "//mojo/public/cpp/base",
+    "//mojo/public/cpp/bindings",
   ]
 }

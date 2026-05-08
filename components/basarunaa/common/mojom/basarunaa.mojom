@@ -5,6 +5,8 @@
 
 module basarunaa.mojom;
 
+import "mojo/public/mojom/base/big_buffer.mojom";
+
 // Used by the WebUI page (chrome-untrusted://basarunaa-panel.top-chrome) to
 // bootstrap bidirectional communication with the browser process.
 // Mirrors the brave_vpn PanelHandlerFactory pattern. Kept minimal for the
@@ -52,4 +54,32 @@ interface PanelHandler {
   // and logs per-detection bbox + score via LOG(INFO). Returns the number of
   // persons detected (0 on error, or if the image is missing).
   AnalyzeTestImage() => (int32 count);
+};
+
+// Phase 3.1.5 — M2.1. Renderer-process side calls this to ask the browser
+// process to run the native ML pipeline (YOLO11n-pose) on a packed pixel
+// buffer. The renderer captures the SkBitmap from `ImageResourceContent` and
+// forwards the raw bytes via `BigBuffer` (auto-promotes to SharedMemory above
+// the Mojo inline cutoff). One receiver per `RenderFrameHost`, exposed via
+// `BraveContentBrowserClient::RegisterAssociatedInterfaceBindersForRenderFrameHost`.
+enum ImageFormat {
+  kRgba8,
+  kBgra8,
+};
+
+struct AnalyzedPerson {
+  // Bbox in pixel coordinates of the input image (NOT the 640x640 letterbox).
+  float x;
+  float y;
+  float w;
+  float h;
+  // Person class score in [0, 1].
+  float score;
+};
+
+interface ImageAnalyzer {
+  AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
+               int32 width,
+               int32 height,
+               ImageFormat format) => (array<AnalyzedPerson> persons);
 };

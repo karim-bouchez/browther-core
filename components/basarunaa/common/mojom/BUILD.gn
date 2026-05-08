@@ -19,4 +19,6 @@ preprocess_if_expr("preprocess_mojo") {
 
 mojom("mojom") {
   sources = [ "basarunaa.mojom" ]
+
+  public_deps = [ "//mojo/public/mojom/base" ]
 }
