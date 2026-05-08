@@ -34,6 +34,17 @@ constexpr int kMinSidePx = 200;
 // will drop this in favor of the scheduler.
 constexpr size_t kMaxImagesPerPage = 4;
 
+// M2.3a — hide-first CSS. Appended to the IMG's existing inline `style`
+// while the ML round-trip is in flight; restored on reply. `important` lets
+// us beat author CSS `filter` rules without resorting to `!important` in a
+// stylesheet (which would still leave a window of unblurred paint).
+//
+// Diagnostic: keep the `outline` while M2.3a is being validated visually.
+// Once we confirm the blur is honored across sites, drop the outline.
+constexpr char kHideFirstStyleSuffix[] =
+    "filter: blur(20px) !important; -webkit-filter: blur(20px) !important; "
+    "outline: 8px solid red !important;";
+
 }  // namespace
 
 BasarunaaRenderFrameObserver::BasarunaaRenderFrameObserver(
@@ -131,10 +142,34 @@ void BasarunaaRenderFrameObserver::DidFinishLoad() {
       buffer = mojo_base::BigBuffer(packed);
     }
 
+    // Hide-first: blur the IMG immediately so the user never sees a frame
+    // of unblurred content while the ML round-trip is in flight. Save the
+    // pre-existing inline `style` so we can put it back unchanged on a
+    // negative reply.
+    blink::WebString original_style =
+        element.GetAttribute(blink::WebString::FromASCII("style"));
+    std::string blurred_style = original_style.Utf8();
+    if (!blurred_style.empty() && blurred_style.back() != ';') {
+      blurred_style.push_back(';');
+    }
+    blurred_style.append(kHideFirstStyleSuffix);
+    element.SetAttribute(blink::WebString::FromASCII("style"),
+                         blink::WebString::FromUTF8(blurred_style));
+    {
+      blink::WebString readback =
+          element.GetAttribute(blink::WebString::FromASCII("style"));
+      blink::WebString src =
+          element.GetAttribute(blink::WebString::FromASCII("src"));
+      LOG(INFO) << "[Basarunaa-renderer] hide-first applied (src="
+                << src.Utf8().substr(0, 60) << "…) style="
+                << readback.Utf8();
+    }
+
     GetImageAnalyzer()->AnalyzeImage(
         std::move(buffer), bitmap.width(), bitmap.height(), format,
         base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
-                       weak_ptr_factory_.GetWeakPtr(), bitmap.width(),
+                       weak_ptr_factory_.GetWeakPtr(), element,
+                       std::move(original_style), bitmap.width(),
                        bitmap.height()));
     ++sent;
   }
@@ -147,6 +182,8 @@ void BasarunaaRenderFrameObserver::DidFinishLoad() {
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(
+    blink::WebElement element,
+    blink::WebString original_style,
     int width,
     int height,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
@@ -156,6 +193,24 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     const auto& p = persons[i];
     VLOG(1) << "  [" << i << "] bbox=(" << p->x << "," << p->y << ") "
             << p->w << "x" << p->h << " score=" << p->score;
+  }
+
+  // M2.3a — full-image blur V1. If the element has been collected since we
+  // dispatched, do nothing. If no person was detected, put the original
+  // `style` back. If a person was detected, leave the blur in place. M2.3b
+  // will replace this with a per-bbox overlay div.
+  if (element.IsNull()) {
+    LOG(INFO) << "[Basarunaa-renderer] OnAnalyzed: element gone, no-op";
+    return;
+  }
+  if (persons.empty()) {
+    element.SetAttribute(blink::WebString::FromASCII("style"), original_style);
+    blink::WebString readback =
+        element.GetAttribute(blink::WebString::FromASCII("style"));
+    LOG(INFO) << "[Basarunaa-renderer] OnAnalyzed: blur restored — style=\""
+              << readback.Utf8() << "\"";
+  } else {
+    LOG(INFO) << "[Basarunaa-renderer] OnAnalyzed: keeping blur (person found)";
   }
 }
 

@@ -12,6 +12,8 @@
 #include "brave/components/basarunaa/common/mojom/basarunaa.mojom.h"
 #include "content/public/renderer/render_frame_observer.h"
 #include "mojo/public/cpp/bindings/associated_remote.h"
+#include "third_party/blink/public/platform/web_string.h"
+#include "third_party/blink/public/web/web_element.h"
 
 namespace basarunaa {
 
@@ -43,9 +45,13 @@ class BasarunaaRenderFrameObserver final : public content::RenderFrameObserver {
   // Lazy-bound; stays alive across navigations.
   const mojo::AssociatedRemote<mojom::ImageAnalyzer>& GetImageAnalyzer();
 
-  // Logs the persons returned for one image (browser stub returns []
-  // for now; this hook is where M2.3 will route to the hide-first path).
-  void OnAnalyzed(int width,
+  // M2.3 — full-image blur V1. We capture the IMG element by value so we can
+  // restore its original `style` attribute when the browser replies. If the
+  // element has been GC'd by the time we get the reply, `WebElement::IsNull()`
+  // is true and we no-op.
+  void OnAnalyzed(blink::WebElement element,
+                  blink::WebString original_style,
+                  int width,
                   int height,
                   std::vector<mojom::AnalyzedPersonPtr> persons);
 
