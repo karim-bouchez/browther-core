@@ -6,20 +6,35 @@
 #include "brave/browser/ui/views/brave_actions/basarunaa_action_view.h"
 
 #include <memory>
+#include <utility>
 
 #include "base/check.h"
+#include "base/check_deref.h"
+#include "base/functional/bind.h"
 #include "brave/app/brave_command_ids.h"
+#include "brave/browser/ui/brave_icon_with_badge_image_source.h"
+#include "brave/components/constants/pref_names.h"
+#include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_commands.h"
 #include "chrome/browser/ui/layout_constants.h"
 #include "chrome/browser/ui/views/chrome_layout_provider.h"
 #include "components/grit/brave_components_resources.h"
+#include "components/prefs/pref_service.h"
+#include "extensions/common/constants.h"
 #include "ui/base/metadata/metadata_impl_macros.h"
 #include "ui/base/models/image_model.h"
 #include "ui/base/resource/resource_bundle.h"
+#include "ui/color/color_provider_manager.h"
+#include "ui/gfx/image/image.h"
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/image/image_skia_rep.h"
 #include "ui/views/controls/button/menu_button_controller.h"
+
+namespace {
+constexpr SkColor kBadgeGreen = SkColorSetRGB(0x22, 0xC5, 0x5E);
+constexpr SkColor kBadgeRed = SkColorSetRGB(0xEF, 0x44, 0x44);
+}  // namespace
 
 BasarunaaActionView::BasarunaaActionView(Browser* browser)
     : ToolbarButton(base::BindRepeating(&BasarunaaActionView::OnButtonPressed,
@@ -27,7 +42,8 @@ BasarunaaActionView::BasarunaaActionView(Browser* browser)
                     /*menu_model=*/nullptr,
                     /*tab_strip_model=*/nullptr,
                     /*trigger_menu_on_long_press=*/false),
-      browser_(browser) {
+      browser_(browser),
+      profile_prefs_(CHECK_DEREF(browser->profile()->GetPrefs())) {
   CHECK(browser_);
 
   // The MenuButtonController makes sure the panel closes when clicked if the
@@ -40,7 +56,12 @@ BasarunaaActionView::BasarunaaActionView(Browser* browser)
   menu_button_controller_ = menu_button_controller.get();
   SetButtonController(std::move(menu_button_controller));
   SetAccessibleName(u"Basarunaa");
-  SetTooltipText(u"Basarunaa");
+
+  pref_change_registrar_.Init(&*profile_prefs_);
+  pref_change_registrar_.Add(
+      kBasarunaaEnabled,
+      base::BindRepeating(&BasarunaaActionView::OnPrefChanged,
+                          base::Unretained(this)));
 }
 
 BasarunaaActionView::~BasarunaaActionView() = default;
@@ -49,21 +70,52 @@ void BasarunaaActionView::Init() {
   UpdateColorsAndInsets();
 }
 
+bool BasarunaaActionView::IsActive() const {
+  return profile_prefs_->GetBoolean(kBasarunaaEnabled);
+}
+
+void BasarunaaActionView::OnPrefChanged() {
+  UpdateColorsAndInsets();
+}
+
 void BasarunaaActionView::UpdateColorsAndInsets() {
-  // Minimal placeholder icon — bisect rebuild only cares about lifecycle.
+  ToolbarButton::UpdateColorsAndInsets();
+
   ui::ResourceBundle& rb = ui::ResourceBundle::GetSharedInstance();
   const SkBitmap bitmap = rb.GetImageNamed(IDR_BASARUNAA_ICON_64).AsBitmap();
   if (bitmap.isNull()) {
     return;
   }
+
+  const auto preferred_size = GetPreferredSize();
   const int icon_size =
       GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize);
   const float scale =
       static_cast<float>(bitmap.width()) / static_cast<float>(icon_size);
-  gfx::ImageSkia image;
-  image.AddRepresentation(gfx::ImageSkiaRep(bitmap, scale));
+  gfx::ImageSkia icon_image;
+  icon_image.AddRepresentation(gfx::ImageSkiaRep(bitmap, scale));
+
+  auto get_color_provider_callback =
+      base::BindRepeating([]() -> const ui::ColorProvider* {
+        return ui::ColorProviderManager::Get().GetColorProviderFor(
+            ui::NativeTheme::GetInstanceForNativeUi()->GetColorProviderKey(
+                nullptr));
+      });
+
+  auto image_source = std::make_unique<brave::BraveIconWithBadgeImageSource>(
+      preferred_size, std::move(get_color_provider_callback), icon_size,
+      kBraveActionLeftMarginExtra);
+  image_source->SetIcon(gfx::Image(icon_image));
+
+  const SkColor badge_bg = IsActive() ? kBadgeGreen : kBadgeRed;
+  image_source->SetBadge(std::make_unique<IconWithBadgeImageSource::Badge>(
+      " ", SK_ColorWHITE, badge_bg));
+
+  const gfx::ImageSkia composed(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,
-                ui::ImageModel::FromImageSkia(image));
+                ui::ImageModel::FromImageSkia(composed));
+
+  SetTooltipText(IsActive() ? u"Basarunaa — ON" : u"Basarunaa — OFF");
 }
 
 void BasarunaaActionView::OnButtonPressed(const ui::Event& event) {

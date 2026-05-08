@@ -7,7 +7,9 @@
 #define BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_
 
 #include "base/memory/raw_ptr.h"
+#include "base/memory/raw_ref.h"
 #include "chrome/browser/ui/views/toolbar/toolbar_button.h"
+#include "components/prefs/pref_change_registrar.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 #include "ui/events/event.h"
 
@@ -16,10 +18,11 @@ class MenuButtonController;
 }  // namespace views
 
 class Browser;
+class PrefService;
 
-// Browther: toolbar button for Basarunaa panel. 1:1 mirror of BraveVPNButton
-// stripped of the VPN-specific service observation and menu model.
-// Click dispatches IDC_SHOW_BASARUNAA_PANEL.
+// Browther: toolbar button for Basarunaa panel. 1:1 mirror of BraveVPNButton.
+// Click dispatches IDC_SHOW_BASARUNAA_PANEL. Displays a green/red badge that
+// reflects the kBasarunaaEnabled pref.
 class BasarunaaActionView : public ToolbarButton {
   METADATA_HEADER(BasarunaaActionView, ToolbarButton)
  public:
@@ -28,8 +31,6 @@ class BasarunaaActionView : public ToolbarButton {
   BasarunaaActionView& operator=(const BasarunaaActionView&) = delete;
   ~BasarunaaActionView() override;
 
-  // Init() is called once after the view is added to the toolbar to refresh
-  // the icon. Kept for source-compat with the existing toolbar wiring.
   void Init();
 
  private:
@@ -37,8 +38,12 @@ class BasarunaaActionView : public ToolbarButton {
   void UpdateColorsAndInsets() override;
 
   void OnButtonPressed(const ui::Event& event);
+  bool IsActive() const;
+  void OnPrefChanged();
 
   raw_ptr<Browser> browser_ = nullptr;
+  raw_ref<PrefService> profile_prefs_;
+  PrefChangeRegistrar pref_change_registrar_;
   raw_ptr<views::MenuButtonController> menu_button_controller_ = nullptr;
 };
 
