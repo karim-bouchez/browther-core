@@ -74,6 +74,9 @@ inline constexpr char kBasarunaaConfBody[] = "brave.basarunaa.conf_body";
 inline constexpr char kBasarunaaConfFace[] = "brave.basarunaa.conf_face";
 inline constexpr char kBasarunaaGenderCertainty[] =
     "brave.basarunaa.gender_certainty";
+// Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture mode.
+inline constexpr char kBasarunaaDebugMode[] = "brave.basarunaa.debug_mode";
+inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";
 inline constexpr char kGoogleLoginControlType[] = "brave.google_login_default";
 // Deprecated
 inline constexpr char kWebTorrentEnabled[] = "brave.webtorrent_enabled";

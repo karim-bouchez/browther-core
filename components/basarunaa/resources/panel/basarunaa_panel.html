@@ -143,6 +143,23 @@
     .slider-row input[type="range"]:focus-visible {
       box-shadow: 0 0 0 2px var(--leo-color-primary-30, #4c9eff66);
     }
+    .dev-section {
+      margin-top: 22px;
+      padding: 14px 12px;
+      border: 1px dashed var(--leo-color-divider-strong, #ffffff25);
+      border-radius: 8px;
+      background: var(--leo-color-container-highlight, #ffffff05);
+    }
+    .dev-section .section-label {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--leo-color-systemfeedback-warning-text, #f59e0b);
+      margin-bottom: 10px;
+    }
+    .dev-section .section-label::before {
+      content: '🛠';
+      font-size: 14px;
+    }
+    .dev-section .toggle-row { padding: 0; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -186,6 +203,21 @@
         <span class="slider-value" id="gender-certainty-value">—</span>
       </div>
       <input type="range" id="gender-certainty" min="0" max="100" step="1">
+    </div>
+  </div>
+  <div class="section dev-section" id="dev-section">
+    <div class="section-label">Debug</div>
+    <div class="radio-group">
+      <label><input type="radio" name="debug-mode" value="none">Aucun</label>
+      <label><input type="radio" name="debug-mode" value="boxes">Boxes</label>
+      <label><input type="radio" name="debug-mode" value="debug">Debug complet</label>
+    </div>
+    <div class="toggle-row">
+      <div class="text">
+        <div class="label">Capture des analyses</div>
+        <div class="desc">Sauvegarde les images dans ~/Downloads/basarunaa-capture/</div>
+      </div>
+      <input type="checkbox" class="toggle" id="capture-toggle" aria-label="Activer la capture">
     </div>
   </div>
   <script type="module" src="basarunaa_panel.bundle.js"></script>

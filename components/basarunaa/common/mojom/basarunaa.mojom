@@ -40,4 +40,10 @@ interface PanelHandler {
   SetConfBody(double value);
   SetConfFace(double value);
   SetGenderCertainty(double value);
+
+  // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture
+  // mode (saves analyzed images to ~/Downloads/basarunaa-capture/).
+  GetDevSettings() => (string debug_mode, bool capture_mode);
+  SetDebugMode(string mode);
+  SetCaptureMode(bool enabled);
 };

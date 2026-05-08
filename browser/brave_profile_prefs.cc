@@ -441,6 +441,8 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterDoublePref(kBasarunaaConfBody, 0.25);
   registry->RegisterDoublePref(kBasarunaaConfFace, 0.30);
   registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);
+  registry->RegisterStringPref(kBasarunaaDebugMode, "none");
+  registry->RegisterBooleanPref(kBasarunaaCaptureMode, false);
   registry->RegisterBooleanPref(kGoogleLoginControlType, true);
   registry->RegisterBooleanPref(
       query_filter::kTrackingQueryParametersFilteringEnabled, true);

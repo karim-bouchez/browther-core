@@ -67,3 +67,17 @@ void BasarunaaPanelHandler::SetConfFace(double value) {
 void BasarunaaPanelHandler::SetGenderCertainty(double value) {
   profile_->GetPrefs()->SetDouble(kBasarunaaGenderCertainty, value);
 }
+
+void BasarunaaPanelHandler::GetDevSettings(GetDevSettingsCallback callback) {
+  auto* prefs = profile_->GetPrefs();
+  std::move(callback).Run(prefs->GetString(kBasarunaaDebugMode),
+                          prefs->GetBoolean(kBasarunaaCaptureMode));
+}
+
+void BasarunaaPanelHandler::SetDebugMode(const std::string& mode) {
+  profile_->GetPrefs()->SetString(kBasarunaaDebugMode, mode);
+}
+
+void BasarunaaPanelHandler::SetCaptureMode(bool enabled) {
+  profile_->GetPrefs()->SetBoolean(kBasarunaaCaptureMode, enabled);
+}

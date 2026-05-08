@@ -19,19 +19,32 @@ function notifyShowUI() {
 
 async function refreshState() {
   try {
-    const [{ enabled }, { mode }, sliders] = await Promise.all([
+    const [{ enabled }, { mode }, sliders, dev] = await Promise.all([
       api().getEnabled(),
       api().getMode(),
       api().getSliders(),
+      api().getDevSettings(),
     ])
     setUIEnabled(enabled)
     setUIMode(mode)
     setUISlider('conf-body', sliders.confBody)
     setUISlider('conf-face', sliders.confFace)
     setUISlider('gender-certainty', sliders.genderCertainty)
+    setUIDebugMode(dev.debugMode)
+    setUICapture(dev.captureMode)
   } catch (err) {
     console.error('[basarunaa-panel] refreshState failed', err)
   }
+}
+
+function setUIDebugMode(mode: string) {
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="debug-mode"]')
+  radios.forEach(r => { r.checked = (r.value === mode) })
+}
+
+function setUICapture(enabled: boolean) {
+  const toggle = document.getElementById('capture-toggle') as HTMLInputElement | null
+  if (toggle) toggle.checked = enabled
 }
 
 function setUIEnabled(enabled: boolean) {
@@ -109,4 +122,24 @@ document.addEventListener('DOMContentLoaded', () => {
   bindSlider('conf-body', v => api().setConfBody(v))
   bindSlider('conf-face', v => api().setConfFace(v))
   bindSlider('gender-certainty', v => api().setGenderCertainty(v))
+
+  document.querySelectorAll<HTMLInputElement>('input[name="debug-mode"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (!radio.checked) return
+      try {
+        api().setDebugMode(radio.value)
+      } catch (err) {
+        console.error('[basarunaa-panel] setDebugMode failed', err)
+      }
+    })
+  })
+
+  const captureToggle = document.getElementById('capture-toggle') as HTMLInputElement | null
+  captureToggle?.addEventListener('change', () => {
+    try {
+      api().setCaptureMode(captureToggle.checked)
+    } catch (err) {
+      console.error('[basarunaa-panel] setCaptureMode failed', err)
+    }
+  })
 })
