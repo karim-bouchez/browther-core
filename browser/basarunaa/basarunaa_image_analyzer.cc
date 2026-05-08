@@ -6,8 +6,15 @@
 #include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
 
 #include <utility>
+#include <vector>
 
+#include "base/functional/bind.h"
 #include "base/logging.h"
+#include "base/task/thread_pool.h"
+#include "brave/browser/basarunaa/basarunaa_service_factory.h"
+#include "brave/components/basarunaa/core/basarunaa_service.h"
+#include "chrome/browser/profiles/profile.h"
+#include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
 
 namespace basarunaa {
@@ -34,18 +41,84 @@ BasarunaaImageAnalyzer::BasarunaaImageAnalyzer(
 
 BasarunaaImageAnalyzer::~BasarunaaImageAnalyzer() = default;
 
+namespace {
+
+// Worker-pool stage. Runs AnalyzeImageRgba on the YOLO session and converts
+// the result into Mojo structs ready to be sent back. We pass the
+// BasarunaaService raw pointer because the service is a KeyedService for the
+// profile and outlives any individual ImageAnalyzer call (the receiver is
+// torn down well before profile shutdown). `pixels` is moved into this lambda
+// so the buffer lives until inference is done.
+std::vector<mojom::AnalyzedPersonPtr> AnalyzeOnWorker(
+    BasarunaaService* service,
+    mojo_base::BigBuffer pixels,
+    int32_t width,
+    int32_t height,
+    bool bgra) {
+  std::vector<mojom::AnalyzedPersonPtr> result;
+  if (!service) {
+    return result;
+  }
+  // Sanity check: the renderer is untrusted, so the buffer size must match
+  // the declared dimensions. Reject mismatches outright.
+  if (width <= 0 || height <= 0) {
+    LOG(WARNING) << "[Basarunaa] AnalyzeImage rejected: bad dims " << width
+                 << "x" << height;
+    return result;
+  }
+  const size_t expected =
+      static_cast<size_t>(width) * static_cast<size_t>(height) * 4u;
+  if (pixels.size() != expected) {
+    LOG(WARNING) << "[Basarunaa] AnalyzeImage rejected: size mismatch got "
+                 << pixels.size() << " expected " << expected;
+    return result;
+  }
+
+  std::vector<DetectedPerson> persons =
+      service->AnalyzeImageRgba(pixels.data(), width, height, bgra);
+
+  result.reserve(persons.size());
+  for (const auto& p : persons) {
+    auto m = mojom::AnalyzedPerson::New();
+    m->x = p.x;
+    m->y = p.y;
+    m->w = p.w;
+    m->h = p.h;
+    m->score = p.score;
+    result.push_back(std::move(m));
+  }
+  return result;
+}
+
+}  // namespace
+
 void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
                                           int32_t width,
                                           int32_t height,
                                           mojom::ImageFormat format,
                                           AnalyzeImageCallback callback) {
-  // M2.1 stub: log the shape and return an empty result. M2.2c will replace
-  // this with a worker-pool dispatch into BasarunaaService::AnalyzeImageRgba.
-  LOG(INFO) << "[Basarunaa] AnalyzeImage stub: " << width << "x" << height
-            << " bytes=" << pixels.size()
-            << " fmt=" << (format == mojom::ImageFormat::kBgra8 ? "BGRA"
-                                                                 : "RGBA");
-  std::move(callback).Run({});
+  const bool bgra = (format == mojom::ImageFormat::kBgra8);
+  LOG(INFO) << "[Basarunaa] AnalyzeImage: " << width << "x" << height
+            << " bytes=" << pixels.size() << " fmt=" << (bgra ? "BGRA" : "RGBA");
+
+  auto* rfh = receivers_.GetCurrentTargetFrame();
+  if (!rfh) {
+    std::move(callback).Run({});
+    return;
+  }
+  auto* profile =
+      Profile::FromBrowserContext(rfh->GetBrowserContext());
+  auto* service = BasarunaaServiceFactory::GetForProfile(profile);
+  if (!service) {
+    std::move(callback).Run({});
+    return;
+  }
+
+  base::ThreadPool::PostTaskAndReplyWithResult(
+      FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
+      base::BindOnce(&AnalyzeOnWorker, service, std::move(pixels), width,
+                     height, bgra),
+      std::move(callback));
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);
