@@ -19,5 +19,10 @@ static_library("core") {
   if (enable_basarunaa_native_ml) {
     deps += [ "//brave/third_party/onnxruntime" ]
     defines = [ "BASARUNAA_NATIVE_ML=1" ]
+    # ORT's C++ API throws Ort::Exception on errors — enable exceptions for
+    # this TU only. Scoped to basarunaa/core so the rest of the browser keeps
+    # the global no-exceptions guarantee.
+    configs -= [ "//build/config/compiler:no_exceptions" ]
+    configs += [ "//build/config/compiler:exceptions" ]
   }
 }
