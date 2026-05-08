@@ -30,4 +30,8 @@ interface PanelHandler {
   // load/unload via BraveComponentLoader and the toolbar badge color.
   GetEnabled() => (bool enabled);
   SetEnabled(bool enabled);
+
+  // Read/write the action mode pref (blur-female | blur-male | blur-all).
+  GetMode() => (string mode);
+  SetMode(string mode);
 };

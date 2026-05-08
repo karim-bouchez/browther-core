@@ -40,3 +40,11 @@ void BasarunaaPanelHandler::GetEnabled(GetEnabledCallback callback) {
 void BasarunaaPanelHandler::SetEnabled(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaEnabled, enabled);
 }
+
+void BasarunaaPanelHandler::GetMode(GetModeCallback callback) {
+  std::move(callback).Run(profile_->GetPrefs()->GetString(kBasarunaaMode));
+}
+
+void BasarunaaPanelHandler::SetMode(const std::string& mode) {
+  profile_->GetPrefs()->SetString(kBasarunaaMode, mode);
+}

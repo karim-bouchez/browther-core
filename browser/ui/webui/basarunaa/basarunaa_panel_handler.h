@@ -6,6 +6,8 @@
 #ifndef BRAVE_BROWSER_UI_WEBUI_BASARUNAA_BASARUNAA_PANEL_HANDLER_H_
 #define BRAVE_BROWSER_UI_WEBUI_BASARUNAA_BASARUNAA_PANEL_HANDLER_H_
 
+#include <string>
+
 #include "base/memory/raw_ptr.h"
 #include "brave/components/basarunaa/common/mojom/basarunaa.mojom.h"
 #include "chrome/browser/profiles/profile.h"
@@ -32,6 +34,8 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void CloseUI() override;
   void GetEnabled(GetEnabledCallback callback) override;
   void SetEnabled(bool enabled) override;
+  void GetMode(GetModeCallback callback) override;
+  void SetMode(const std::string& mode) override;
 
  private:
   mojo::Receiver<basarunaa::mojom::PanelHandler> receiver_;

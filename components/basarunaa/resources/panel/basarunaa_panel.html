@@ -73,6 +73,48 @@
       justify-content: space-between; gap: 12px;
     }
     .toggle-row .text { flex: 1; }
+    .section {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--leo-color-divider-subtle, #ffffff15);
+    }
+    .section-label {
+      font-size: 12px; opacity: 0.7;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .radio-group { display: flex; flex-direction: column; gap: 6px; }
+    .radio-group label {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 8px; border-radius: 6px;
+      cursor: pointer; font-size: 14px;
+      transition: background 0.15s ease;
+    }
+    .radio-group label:hover {
+      background: var(--leo-color-container-highlight, #ffffff08);
+    }
+    .radio-group input[type="radio"] {
+      appearance: none;
+      width: 16px; height: 16px;
+      border: 2px solid var(--leo-color-icon-default, #888);
+      border-radius: 50%;
+      cursor: pointer; margin: 0;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.15s ease;
+    }
+    .radio-group input[type="radio"]:checked {
+      border-color: var(--leo-color-primary-50, #4c9eff);
+    }
+    .radio-group input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--leo-color-primary-50, #4c9eff);
+    }
+    body[data-disabled="true"] .section { opacity: 0.4; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -85,6 +127,14 @@
       <div class="desc" id="status">Chargement…</div>
     </div>
     <input type="checkbox" class="toggle" id="enabled-toggle" aria-label="Activer Basarunaa">
+  </div>
+  <div class="section" id="mode-section">
+    <div class="section-label">Mode</div>
+    <div class="radio-group">
+      <label><input type="radio" name="mode" value="blur-female">Flouter les femmes</label>
+      <label><input type="radio" name="mode" value="blur-male">Flouter les hommes</label>
+      <label><input type="radio" name="mode" value="blur-all">Flouter tout le monde</label>
+    </div>
   </div>
   <script type="module" src="basarunaa_panel.bundle.js"></script>
 </body>

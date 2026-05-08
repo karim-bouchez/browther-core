@@ -67,6 +67,8 @@ inline constexpr char kAdControlType[] = "brave.ad_default";
 inline constexpr char kSawtunaaEnabled[] = "brave.sawtunaa.enabled";
 // Browther: Basarunaa (gender blur on images/videos)
 inline constexpr char kBasarunaaEnabled[] = "brave.basarunaa.enabled";
+// Action mode: "blur-female" (default), "blur-male", or "blur-all".
+inline constexpr char kBasarunaaMode[] = "brave.basarunaa.mode";
 inline constexpr char kGoogleLoginControlType[] = "brave.google_login_default";
 // Deprecated
 inline constexpr char kWebTorrentEnabled[] = "brave.webtorrent_enabled";
