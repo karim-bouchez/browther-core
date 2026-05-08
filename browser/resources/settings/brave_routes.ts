@@ -57,7 +57,6 @@ export default function addBraveRoutes(r: Partial<SettingsRoutes>) {
   }
   r.BRAVE_NEW_TAB = r.BASIC.createSection('/newTab', 'newTab')
   r.SAWTUNAA = r.BASIC.createSection('/sawtunaa', 'sawtunaa')
-  r.BASARUNAA = r.BASIC.createSection('/basarunaa', 'basarunaa')
 
   if (pageVisibility.leoAssistant) {
     r.BRAVE_LEO_ASSISTANT =

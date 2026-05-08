@@ -1470,16 +1470,6 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SETTINGS_SAWTUNAA_TOGGLE_DESC" desc="Description for the Sawtunaa toggle in settings">
         Automatically remove background music and noise from audio and video
       </message>
-      <!-- Browther: Basarunaa -->
-      <message name="IDS_SETTINGS_BASARUNAA_TITLE" desc="Title for the Basarunaa section in settings">
-        Basarunaa
-      </message>
-      <message name="IDS_SETTINGS_BASARUNAA_TOGGLE_LABEL" desc="Label for the Basarunaa toggle in settings">
-        Enable Basarunaa
-      </message>
-      <message name="IDS_SETTINGS_BASARUNAA_TOGGLE_DESC" desc="Description for the Basarunaa toggle in settings">
-        Automatically blur men or women in images and videos using on-device AI
-      </message>
       <message name="IDS_BASARUNAA_PANEL_NAME" desc="Window title of the Basarunaa toolbar panel" formatter_data="webui=Basarunaa">
         Basarunaa
       </message>

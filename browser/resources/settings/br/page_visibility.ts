@@ -33,7 +33,6 @@ declare module '../page_visibility.js' {
     speedreader?: boolean
     // </if>
     sawtunaa?: boolean
-    basarunaa?: boolean
     surveyPanelist?: boolean,
     braveTor?: boolean
   }
@@ -71,7 +70,6 @@ function getPageVisibility () {
       speedreader: false,
       // </if>
       sawtunaa: false,
-      basarunaa: false,
       surveyPanelist: false,
       braveTor: false,
     }
