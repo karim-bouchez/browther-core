@@ -3,12 +3,6 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-// Browther: minimal entry for the bisect rebuild. Mirrors the load-bearing
-// VPN handshake: call panelHandler.showUI() on init AND on every
-// `visibilitychange` -> visible. This is the trick that makes the bubble
-// re-appear on the second open when the WebContents is cached by the
-// WebUIBubbleManager.
-
 import getPanelBrowserAPI from './api/panel_browser_api'
 
 function notifyShowUI() {
@@ -22,10 +16,41 @@ function notifyShowUI() {
 function onVisibilityChange() {
   if (document.visibilityState === 'visible') {
     notifyShowUI()
+    refreshState()
   }
+}
+
+async function refreshState() {
+  try {
+    const { enabled } = await getPanelBrowserAPI().panelHandler.getEnabled()
+    setUIEnabled(enabled)
+  } catch (err) {
+    console.error('[basarunaa-panel] getEnabled failed', err)
+  }
+}
+
+function setUIEnabled(enabled: boolean) {
+  const toggle = document.getElementById('enabled-toggle') as HTMLInputElement | null
+  const status = document.getElementById('status')
+  if (toggle) toggle.checked = enabled
+  if (status) status.textContent = enabled ? 'Actif' : 'Désactivé'
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   notifyShowUI()
+  refreshState()
   document.addEventListener('visibilitychange', onVisibilityChange)
+
+  const toggle = document.getElementById('enabled-toggle') as HTMLInputElement | null
+  if (toggle) {
+    toggle.addEventListener('change', () => {
+      const enabled = toggle.checked
+      setUIEnabled(enabled)
+      try {
+        getPanelBrowserAPI().panelHandler.setEnabled(enabled)
+      } catch (err) {
+        console.error('[basarunaa-panel] setEnabled failed', err)
+      }
+    })
+  }
 })

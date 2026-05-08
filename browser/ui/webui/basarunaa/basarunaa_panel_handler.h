@@ -30,6 +30,8 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   // basarunaa::mojom::PanelHandler:
   void ShowUI() override;
   void CloseUI() override;
+  void GetEnabled(GetEnabledCallback callback) override;
+  void SetEnabled(bool enabled) override;
 
  private:
   mojo::Receiver<basarunaa::mojom::PanelHandler> receiver_;

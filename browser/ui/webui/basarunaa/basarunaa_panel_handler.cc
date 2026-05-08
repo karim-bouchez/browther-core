@@ -8,6 +8,8 @@
 #include <utility>
 
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
+#include "brave/components/constants/pref_names.h"
+#include "components/prefs/pref_service.h"
 
 BasarunaaPanelHandler::BasarunaaPanelHandler(
     mojo::PendingReceiver<basarunaa::mojom::PanelHandler> receiver,
@@ -29,4 +31,12 @@ void BasarunaaPanelHandler::CloseUI() {
   if (auto embedder = panel_controller_->embedder()) {
     embedder->CloseUI();
   }
+}
+
+void BasarunaaPanelHandler::GetEnabled(GetEnabledCallback callback) {
+  std::move(callback).Run(profile_->GetPrefs()->GetBoolean(kBasarunaaEnabled));
+}
+
+void BasarunaaPanelHandler::SetEnabled(bool enabled) {
+  profile_->GetPrefs()->SetBoolean(kBasarunaaEnabled, enabled);
 }

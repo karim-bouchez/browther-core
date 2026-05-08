@@ -25,4 +25,9 @@ interface PanelHandler {
 
   // Notify the backend that the dialog should be closed.
   CloseUI();
+
+  // Read/write the global Basarunaa enabled pref. The pref drives extension
+  // load/unload via BraveComponentLoader and the toolbar badge color.
+  GetEnabled() => (bool enabled);
+  SetEnabled(bool enabled);
 };
