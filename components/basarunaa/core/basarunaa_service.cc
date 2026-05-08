@@ -221,8 +221,12 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   if (!rgba || width <= 0 || height <= 0) {
     return {};
   }
-  if (!yolo_pose_ready_) {
-    LoadYoloPoseModel();
+  {
+    // Serialize lazy init across worker threads (see init_lock_ docs).
+    base::AutoLock auto_lock(init_lock_);
+    if (!yolo_pose_ready_) {
+      LoadYoloPoseModel();
+    }
   }
   if (!yolo_pose_ready_) {
     return {};
