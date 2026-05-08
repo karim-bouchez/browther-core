@@ -37,8 +37,4 @@ BasarunaaServiceFactory::BuildServiceInstanceForBrowserContext(
   return std::make_unique<BasarunaaService>();
 }
 
-bool BasarunaaServiceFactory::ServiceIsCreatedWithBrowserContext() const {
-  return true;
-}
-
 }  // namespace basarunaa

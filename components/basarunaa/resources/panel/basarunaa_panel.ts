@@ -142,4 +142,23 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('[basarunaa-panel] setCaptureMode failed', err)
     }
   })
+
+  const testBtn = document.getElementById('test-infer-btn') as HTMLButtonElement | null
+  const testStatus = document.getElementById('test-infer-status')
+  testBtn?.addEventListener('click', async () => {
+    if (!testBtn || !testStatus) return
+    testBtn.disabled = true
+    const originalText = testStatus.textContent
+    testStatus.textContent = 'Inference en cours…'
+    try {
+      const { count } = await api().analyzeTestImage()
+      testStatus.textContent = `${count} personne(s) détectée(s) — voir LOG(INFO)`
+    } catch (err) {
+      console.error('[basarunaa-panel] analyzeTestImage failed', err)
+      testStatus.textContent = `erreur: ${err}`
+      setTimeout(() => { if (testStatus) testStatus.textContent = originalText }, 3000)
+    } finally {
+      testBtn.disabled = false
+    }
+  })
 })

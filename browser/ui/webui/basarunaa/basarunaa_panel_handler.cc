@@ -7,7 +7,9 @@
 
 #include <utility>
 
+#include "base/functional/bind.h"
 #include "base/logging.h"
+#include "base/task/thread_pool.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
@@ -25,11 +27,6 @@ BasarunaaPanelHandler::BasarunaaPanelHandler(
 BasarunaaPanelHandler::~BasarunaaPanelHandler() = default;
 
 void BasarunaaPanelHandler::ShowUI() {
-  if (auto* service =
-          basarunaa::BasarunaaServiceFactory::GetForProfile(profile_)) {
-    LOG(INFO) << "[Basarunaa] native ML service version="
-              << service->GetVersion() << " ping=" << service->Ping();
-  }
   if (auto embedder = panel_controller_->embedder()) {
     embedder->ShowUI();
   }
@@ -88,4 +85,28 @@ void BasarunaaPanelHandler::SetDebugMode(const std::string& mode) {
 
 void BasarunaaPanelHandler::SetCaptureMode(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaCaptureMode, enabled);
+}
+
+void BasarunaaPanelHandler::AnalyzeTestImage(
+    AnalyzeTestImageCallback callback) {
+  LOG(INFO) << "[Basarunaa] AnalyzeTestImage() reached panel handler";
+  auto* service =
+      basarunaa::BasarunaaServiceFactory::GetForProfile(profile_);
+  if (!service) {
+    LOG(WARNING) << "[Basarunaa] no service for profile";
+    std::move(callback).Run(0);
+    return;
+  }
+  // Schedule on a MayBlock pool — the service reads a file synchronously and
+  // we cannot block the UI thread. ORT's Session::Run is thread-safe and the
+  // service members are not mutated during inference, so passing the raw
+  // pointer is safe for the lifetime of the profile.
+  base::ThreadPool::PostTaskAndReplyWithResult(
+      FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
+      base::BindOnce(
+          [](basarunaa::BasarunaaService* svc) {
+            return static_cast<int>(svc->AnalyzeTestImage().size());
+          },
+          base::Unretained(service)),
+      std::move(callback));
 }

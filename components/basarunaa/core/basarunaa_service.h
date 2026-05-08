@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "components/keyed_service/core/keyed_service.h"
 
@@ -20,10 +21,20 @@ struct Session;
 
 namespace basarunaa {
 
-// Phase 3.1.5 — Étape 1 scaffolding (M1.1) + M1.2 model load.
-// Browser-process service that hosts the native ONNX Runtime inference for
-// the Basarunaa pipeline. Owns the long-lived `Ort::Env` and one
-// `Ort::Session` per loaded model. CPU EP only for now.
+// Phase 3.1.5 — M1.3 minimal output. One detection per person; only the
+// bounding box (in original image coordinates) and the YOLO score are
+// populated. Gender / face / keypoints will follow in M1.4+ once yolov8n-face
+// + InsightFace genderage are wired up.
+struct DetectedPerson {
+  // Bbox in pixel coordinates of the input image (NOT the 640x640 letterbox).
+  float x = 0.f;
+  float y = 0.f;
+  float w = 0.f;
+  float h = 0.f;
+  // Person class score in [0, 1].
+  float score = 0.f;
+};
+
 class BasarunaaService : public KeyedService {
  public:
   BasarunaaService();
@@ -31,18 +42,26 @@ class BasarunaaService : public KeyedService {
   BasarunaaService& operator=(const BasarunaaService&) = delete;
   ~BasarunaaService() override;
 
-  // Returns "scaffold-v0" + ORT version + "+yolo" if YOLO loaded.
   std::string GetVersion() const;
-
-  // True iff the service is alive AND (when native ML is enabled) the YOLO
-  // session was created without error.
   bool Ping() const;
+
+  // Phase 3.1.5 — M1.3: run YOLO11n-pose on a packed 4-channel buffer and
+  // return detected persons. Empty vector on error or if the model is not
+  // loaded. Caller-owned buffer; must be `width * height * 4` bytes.
+  // `bgra` true means byte order [B, G, R, A] (typical for SkBitmap on
+  // macOS), false means [R, G, B, A].
+  std::vector<DetectedPerson> AnalyzeImageRgba(const uint8_t* rgba,
+                                               int width,
+                                               int height,
+                                               bool bgra = false);
+
+  // Debug-only: load a JPEG bundled at
+  // `<DIR_EXE>/basarunaa/test/groupe.jpg`, run AnalyzeImageRgba, log every
+  // detection, return the result.
+  std::vector<DetectedPerson> AnalyzeTestImage();
 
  private:
 #if defined(BASARUNAA_NATIVE_ML)
-  // Resolve the model path from `base::DIR_EXE` (extension bundle path —
-  // shared with the MV3 extension during the migration; will move to
-  // component-updater data dir in a later milestone) and create the session.
   void LoadYoloPoseModel();
 
   std::unique_ptr<Ort::Env> ort_env_;

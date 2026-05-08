@@ -35,10 +35,6 @@ class BasarunaaServiceFactory : public ProfileKeyedServiceFactory {
   // ProfileKeyedServiceFactory:
   std::unique_ptr<KeyedService> BuildServiceInstanceForBrowserContext(
       content::BrowserContext* context) const override;
-  // Phase 3.1.5 — Étape 1: instantiate eagerly so ORT loads at profile init
-  // rather than on first panel open. The native ML pipeline pre-loads models
-  // (M1.2+), and we want the inference cost amortized away from user actions.
-  bool ServiceIsCreatedWithBrowserContext() const override;
 };
 
 }  // namespace basarunaa
