@@ -11,6 +11,7 @@
 #include "base/feature_list.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/brave_search/common/brave_search_utils.h"
+#include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
 #include "brave/components/brave_search/renderer/brave_search_render_frame_observer.h"
 #include "brave/components/brave_shields/core/common/features.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
@@ -173,6 +174,9 @@ void BraveContentRendererClient::RenderFrameCreated(
 #endif
 
   new script_injector::ScriptInjectorRenderFrameObserver(render_frame);
+
+  // Phase 3.1.5 — M2.2a. Self-deleting via OnDestruct.
+  new basarunaa::BasarunaaRenderFrameObserver(render_frame);
 
   if (brave_search::IsDefaultAPIEnabled()) {
     new brave_search::BraveSearchRenderFrameObserver(
