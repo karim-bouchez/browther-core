@@ -38,12 +38,8 @@ constexpr size_t kMaxImagesPerPage = 4;
 // while the ML round-trip is in flight; restored on reply. `important` lets
 // us beat author CSS `filter` rules without resorting to `!important` in a
 // stylesheet (which would still leave a window of unblurred paint).
-//
-// Diagnostic: keep the `outline` while M2.3a is being validated visually.
-// Once we confirm the blur is honored across sites, drop the outline.
 constexpr char kHideFirstStyleSuffix[] =
-    "filter: blur(20px) !important; -webkit-filter: blur(20px) !important; "
-    "outline: 8px solid red !important;";
+    "filter: blur(20px) !important; -webkit-filter: blur(20px) !important;";
 
 }  // namespace
 
