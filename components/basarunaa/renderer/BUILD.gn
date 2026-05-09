@@ -5,6 +5,8 @@
 
 source_set("renderer") {
   sources = [
+    "basarunaa_js_handler.cc",
+    "basarunaa_js_handler.h",
     "basarunaa_render_frame_observer.cc",
     "basarunaa_render_frame_observer.h",
   ]
@@ -13,11 +15,13 @@ source_set("renderer") {
     "//base",
     "//brave/components/basarunaa/common/mojom",
     "//content/public/renderer",
+    "//gin",
     "//mojo/public/cpp/bindings",
     "//skia",
     "//third_party/blink/public:blink",
     "//third_party/blink/public:blink_headers",
     "//third_party/blink/public/common",
     "//ui/gfx/geometry",
+    "//v8",
   ]
 }

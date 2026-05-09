@@ -7,10 +7,10 @@
 #define BRAVE_COMPONENTS_BASARUNAA_CORE_BASARUNAA_SERVICE_H_
 
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
 
-#include "base/synchronization/lock.h"
 #include "components/keyed_service/core/keyed_service.h"
 
 #if defined(BASARUNAA_NATIVE_ML)
@@ -67,12 +67,15 @@ class BasarunaaService : public KeyedService {
 
   std::unique_ptr<Ort::Env> ort_env_;
   // Serializes the lazy load. Multiple worker threads may race into
-  // AnalyzeImageRgba on first use; without the lock, several concurrent
-  // `LoadYoloPoseModel()` runs corrupt `yolo_pose_session_` (assignment
-  // to the unique_ptr destroys a half-built `Ort::Session` on another
-  // thread → SEGV in `~InferenceSession`). Once `yolo_pose_ready_` is
-  // true, `Ort::Session::Run` itself is thread-safe.
-  base::Lock init_lock_;
+  // AnalyzeImageRgba on first use; without serialization, several
+  // concurrent `LoadYoloPoseModel()` runs corrupt `yolo_pose_session_`
+  // (assignment to the unique_ptr destroys a half-built `Ort::Session`
+  // on another thread → SEGV in `~InferenceSession`). std::call_once
+  // is the right primitive: thread-safe one-time init, simpler than a
+  // base::Lock (which we tried first — kept hitting a DCHECK on Acquire
+  // we never fully diagnosed). Once `yolo_pose_ready_` is true,
+  // `Ort::Session::Run` itself is thread-safe.
+  std::once_flag init_flag_;
   std::unique_ptr<Ort::Session> yolo_pose_session_;
   bool yolo_pose_ready_ = false;
 #endif

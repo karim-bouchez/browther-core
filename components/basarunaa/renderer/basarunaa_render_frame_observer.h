@@ -14,17 +14,24 @@
 #include "mojo/public/cpp/bindings/associated_remote.h"
 #include "third_party/blink/public/platform/web_string.h"
 #include "third_party/blink/public/web/web_element.h"
+#include "v8/include/v8-forward.h"
 
 namespace basarunaa {
 
-// Phase 3.1.5 — M2.2. Renderer-process side of the image hook.
+// Phase 3.1.5 — M2.2 + M2.3a + M2.5. Renderer-process side of the image hook.
 //
 // At DidFinishLoad, walks `WebDocument::All()`, picks every `<img>` element
 // that has decoded pixels exposed via `WebElement::ImageContents()`, packs
-// the SkBitmap into a `BigBuffer`, and dispatches an `ImageAnalyzer`
-// `AnalyzeImage` Mojo call to the browser process. The `AnalyzedPerson`
-// bboxes returned by the browser are logged for now (M2.3 will apply them
-// to the DOM as a CSS hide-first overlay).
+// the SkBitmap into a `BigBuffer`, applies a hide-first inline `style`,
+// and dispatches an `ImageAnalyzer` `AnalyzeImage` Mojo call to the
+// browser process. On reply, the bboxes drive whether the blur stays
+// (≥ 1 person) or gets removed (no person → restore original style).
+//
+// M2.5: dynamic image observer. At DidCreateScriptContext (main world only),
+// installs a v8 binding `window.__basarunaa.notify(img)` and injects a
+// `MutationObserver` script. The JS calls back into C++ for every newly
+// inserted `<img>` once it has decoded pixels — same dispatch path,
+// event-driven, no polling.
 //
 // One instance per `RenderFrame`. Self-deleting via `OnDestruct()` (standard
 // `RenderFrameObserver` ownership pattern).
@@ -35,25 +42,32 @@ class BasarunaaRenderFrameObserver final : public content::RenderFrameObserver {
   BasarunaaRenderFrameObserver& operator=(const BasarunaaRenderFrameObserver&) =
       delete;
 
+  // Process a single `<img>` element — read its decoded SkBitmap, apply
+  // hide-first inline style, dispatch AnalyzeImage, log on reply. Used both
+  // by the initial DidFinishLoad scan and by the dynamic JS notifier
+  // (M2.5). Public so the JS binding can call it.
+  void ProcessImageElement(const blink::WebElement& element);
+
  private:
   ~BasarunaaRenderFrameObserver() override;
 
   // content::RenderFrameObserver:
   void OnDestruct() override;
   void DidFinishLoad() override;
+  void DidCreateScriptContext(v8::Local<v8::Context> context,
+                              int32_t world_id) override;
 
   // Lazy-bound; stays alive across navigations.
   const mojo::AssociatedRemote<mojom::ImageAnalyzer>& GetImageAnalyzer();
 
-  // M2.3 — full-image blur V1. We capture the IMG element by value so we can
-  // restore its original `style` attribute when the browser replies. If the
-  // element has been GC'd by the time we get the reply, `WebElement::IsNull()`
-  // is true and we no-op.
+  // M2.3 — full-image blur V1.
   void OnAnalyzed(blink::WebElement element,
                   blink::WebString original_style,
                   int width,
                   int height,
                   std::vector<mojom::AnalyzedPersonPtr> persons);
+
+  size_t images_sent_this_page_ = 0;
 
   mojo::AssociatedRemote<mojom::ImageAnalyzer> image_analyzer_;
   base::WeakPtrFactory<BasarunaaRenderFrameObserver> weak_ptr_factory_{this};
