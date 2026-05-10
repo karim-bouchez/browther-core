@@ -20,6 +20,7 @@
 #include "brave/components/brave_shields/core/common/brave_shield_constants.h"
 #include "brave/components/brave_shields/core/common/pref_names.h"
 #include "brave/components/brave_shields/core/common/shields_settings.mojom.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/content_settings/host_content_settings_map_factory.h"
 #include "chrome/browser/profiles/profile.h"
@@ -138,6 +139,11 @@ void BraveShieldsWebContentsObserver::DispatchBlockedEvent(
 
       if (block_type == kAds) {
         prefs->SetUint64(kAdsBlocked, prefs->GetUint64(kAdsBlocked) + 1);
+        // Browther: report to public stats counter (browther.devndin.com).
+        if (auto* analytics =
+                browther_analytics::BrowtherAnalyticsService::GetInstance()) {
+          analytics->IncrementAdsBlocked(1);
+        }
       } else if (block_type == kHTTPUpgradableResources) {
         prefs->SetUint64(kHttpsUpgrades, prefs->GetUint64(kHttpsUpgrades) + 1);
       } else if (block_type == kJavaScript) {

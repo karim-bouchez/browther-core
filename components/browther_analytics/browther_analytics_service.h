@@ -63,10 +63,6 @@ class BrowtherAnalyticsService {
   bool IsPostHogEnabled() const;
   bool IsStatsEnabled() const;
   void OnConsentPrefChanged(const std::string& pref_name);
-  // TEMP : envoi one-shot d'un increment de test au premier launch après
-  // déploiement v1, pour valider end-to-end DB→API→Website. À retirer dès
-  // que les hooks réels (Sawtunaa/Basarunaa/Shields) sont en place.
-  void MaybeSendTestIncrement();
 
   raw_ptr<PrefService> local_state_;
   std::unique_ptr<DistinctIdProvider> distinct_id_provider_;

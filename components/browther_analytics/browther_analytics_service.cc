@@ -53,7 +53,6 @@ BrowtherAnalyticsService::BrowtherAnalyticsService(
     stats_client_ = std::make_unique<StatsClient>(
         std::move(url_loader_factory), local_state_, distinct_id);
   }
-  MaybeSendTestIncrement();
 
   // Observe les prefs de consentement pour tracker consent_changed.
   // Note : si l'user vient de désactiver PostHog (kP3AEnabled false), le track
@@ -142,24 +141,6 @@ void BrowtherAnalyticsService::FlushStatsNow() {
     return;
   }
   stats_client_->FlushNow();
-}
-
-void BrowtherAnalyticsService::MaybeSendTestIncrement() {
-  // TEMP : envoi unique d'un increment de test au premier launch après v1.
-  // Permet de valider DB→API→Website sans avoir encore les vrais hooks.
-  // À retirer dès que Sawtunaa/Basarunaa/Shields publient leurs deltas.
-  if (!stats_client_ || !local_state_) {
-    return;
-  }
-  if (local_state_->GetBoolean(prefs::kStatsTestIncrementSent)) {
-    return;
-  }
-  // On ne respecte pas IsStatsEnabled ici exprès : le test sert justement à
-  // valider le pipeline en dev, indépendamment du toggle utilisateur.
-  stats_client_->IncrementMusicSeconds(10);
-  stats_client_->IncrementPersonsBlurred(1);
-  stats_client_->IncrementAdsBlocked(5);
-  local_state_->SetBoolean(prefs::kStatsTestIncrementSent, true);
 }
 
 }  // namespace browther_analytics

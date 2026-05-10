@@ -94,7 +94,6 @@ void StatsClient::RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
   registry->RegisterIntegerPref(prefs::kStatsPersonsBlurredPending, 0);
   registry->RegisterIntegerPref(prefs::kStatsAdsBlockedPending, 0);
   registry->RegisterIntegerPref(prefs::kStatsAdsBlockedLastSeen, 0);
-  registry->RegisterBooleanPref(prefs::kStatsTestIncrementSent, false);
 }
 
 void StatsClient::IncrementPref(const char* pref_name, int delta) {

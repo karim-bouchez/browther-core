@@ -27,16 +27,11 @@ inline constexpr char kStatsPersonsBlurredPending[] =
 inline constexpr char kStatsAdsBlockedPending[] =
     "browther.analytics.stats.ads_blocked_pending";
 
-// Curseur pour calculer le delta Shields — on lit le compteur cumulé upstream
-// `kAdsBlocked` (local_state) et on envoie la différence avec cette valeur
-// (mise à jour après flush). Persiste cross-launch pour ne pas double-compter.
+// Curseur pour future stratégie de polling Shields (delta vs compteur upstream
+// `kAdsBlocked` profile). Réservé — actuellement Shields call directement
+// `IncrementAdsBlocked(1)` à chaque blocage côté observer.
 inline constexpr char kStatsAdsBlockedLastSeen[] =
     "browther.analytics.stats.ads_blocked_last_seen";
-
-// One-shot : true après le premier flush de test post-déploiement v1
-// (TEMP : à retirer quand les hooks Sawtunaa/Basarunaa seront en place).
-inline constexpr char kStatsTestIncrementSent[] =
-    "browther.analytics.stats.test_increment_sent";
 
 }  // namespace browther_analytics::prefs
 

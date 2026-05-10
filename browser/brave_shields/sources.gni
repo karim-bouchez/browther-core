@@ -28,6 +28,7 @@ brave_browser_brave_shields_deps = [
   "//brave/components/brave_shields/content/browser",
   "//brave/components/brave_shields/core/browser",
   "//brave/components/brave_shields/core/common",
+  "//brave/components/browther_analytics",
   "//brave/components/constants",
   "//brave/components/ephemeral_storage",
   "//chrome/browser/profiles:profile",
