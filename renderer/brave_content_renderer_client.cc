@@ -11,6 +11,7 @@
 #include "base/feature_list.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/brave_search/common/brave_search_utils.h"
+#include "brave/components/basarunaa/renderer/basarunaa_renderer_installer.h"
 #include "brave/components/brave_search/renderer/brave_search_render_frame_observer.h"
 #include "brave/components/brave_shields/core/common/features.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
@@ -173,6 +174,11 @@ void BraveContentRendererClient::RenderFrameCreated(
 #endif
 
   new script_injector::ScriptInjectorRenderFrameObserver(render_frame);
+
+  // Phase 3.1.5 — Phase 2 V1. Bridge MV3 ↔ service ML natif. L'installer
+  // est un RFO standard ; il alloue/installe BasarunaaJSHandler (cppgc)
+  // uniquement quand l'origin du frame matche celui de l'extension.
+  new basarunaa::BasarunaaRendererInstaller(render_frame);
 
   if (brave_search::IsDefaultAPIEnabled()) {
     new brave_search::BraveSearchRenderFrameObserver(
