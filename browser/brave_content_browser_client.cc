@@ -158,6 +158,7 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page.mojom.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page_ui.h"
 #include "brave/browser/ui/webui/brave_settings_ui.h"
+#include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/browser/ui/webui/brave_shields/shields_panel_ui.h"
 #include "brave/browser/ui/webui/email_aliases/email_aliases_panel_ui.h"
@@ -953,6 +954,11 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
 
   map->Add<skus::mojom::SkusService>(
       base::BindRepeating(&MaybeBindSkusSdkImpl));
+
+  // Phase 3.1.5 — Étape 2 mini-spike. Bridge C++ Blink RFO → service ML.
+  // Non-associated (canal Mojo dédié, pattern Skus). Pas de V8.
+  map->Add<basarunaa::mojom::ImageAnalyzer>(
+      base::BindRepeating(&basarunaa::BasarunaaImageAnalyzer::BindReceiver));
   if (base::FeatureList::IsEnabled(history_embeddings::kHistoryEmbeddings)) {
     content::RegisterWebUIControllerInterfaceBinder<
         local_ai::mojom::LocalAIService, local_ai::UntrustedLocalAIUI>(map);

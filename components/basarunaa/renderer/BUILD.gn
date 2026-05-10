@@ -3,23 +3,18 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
-static_library("basarunaa") {
+source_set("renderer") {
   sources = [
-    "basarunaa_image_analyzer.cc",
-    "basarunaa_image_analyzer.h",
-    "basarunaa_service_factory.cc",
-    "basarunaa_service_factory.h",
+    "basarunaa_render_frame_observer.cc",
+    "basarunaa_render_frame_observer.h",
   ]
 
   deps = [
     "//base",
     "//brave/components/basarunaa/common/mojom",
-    "//brave/components/basarunaa/core",
-    "//chrome/browser/profiles:profile",
-    "//components/keyed_service/content",
-    "//components/keyed_service/core",
-    "//content/public/browser",
+    "//content/public/renderer",
     "//mojo/public/cpp/base",
     "//mojo/public/cpp/bindings",
+    "//third_party/blink/public:blink",
   ]
 }

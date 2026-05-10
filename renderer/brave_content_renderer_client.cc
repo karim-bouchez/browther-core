@@ -10,6 +10,7 @@
 
 #include "base/feature_list.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
+#include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
 #include "brave/components/brave_search/common/brave_search_utils.h"
 #include "brave/components/brave_search/renderer/brave_search_render_frame_observer.h"
 #include "brave/components/brave_shields/core/common/features.h"
@@ -173,6 +174,11 @@ void BraveContentRendererClient::RenderFrameCreated(
 #endif
 
   new script_injector::ScriptInjectorRenderFrameObserver(render_frame);
+
+  // Phase 3.1.5 — Étape 2 mini-spike. RFO C++ pur (pas de V8) qui hooke
+  // DidFinishLoad et envoie un dummy AnalyzeImage IPC pour valider que
+  // Mojo+BigBuffer ne crashe pas sous stress depuis un renderer C++.
+  new basarunaa::BasarunaaRenderFrameObserver(render_frame);
 
   if (brave_search::IsDefaultAPIEnabled()) {
     new brave_search::BraveSearchRenderFrameObserver(

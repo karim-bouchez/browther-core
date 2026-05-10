@@ -5,6 +5,8 @@
 
 module basarunaa.mojom;
 
+import "mojo/public/mojom/base/big_buffer.mojom";
+
 // Used by the WebUI page (chrome-untrusted://basarunaa-panel.top-chrome) to
 // bootstrap bidirectional communication with the browser process.
 // Mirrors the brave_vpn PanelHandlerFactory pattern.
@@ -52,11 +54,32 @@ interface PanelHandler {
   AnalyzeTestImage() => (int32 count);
 };
 
-// Phase 3.1.5 — Le bridge MV3 ↔ natif (interface ImageAnalyzer + types
-// AnalyzedPerson/Face/KeyPoint/Landmark/ImageFormat) a été retiré le
-// 2026-05-10 après une heap corruption flaky observée sur Google Images
-// sous stress (3 crashes différents dans 3 code paths random : favicon,
-// Mojo dispatch, BraveProxying). Voir `private/docs/TODO.md` (section
-// "Bridge MV3 ↔ natif retiré"). Le remplacement prévu est l'Étape 2
-// NATIVE_BROWSER.md (hooks renderer in-process Blink, sans Mojo
-// cross-process).
+// Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). On recrée l'interface
+// ImageAnalyzer pour valider que le pattern Mojo IPC renderer→browser pur
+// (sans V8/cppgc/JS bridge) est stable. Le bridge MV3 (Phase 2 V1) qui
+// utilisait V8 + cppgc::Wrappable + WeakPtr a été retiré le matin même —
+// hypothèse : le crash venait de cette chaîne JS, pas de Mojo+BigBuffer.
+// Cette interface sera consommée par un C++ RenderFrameObserver hooké sur
+// les évènements Blink (M2.2). V1 minimal : juste bbox + score, pas de
+// keypoints (à rajouter en M2.5 quand le pattern est validé).
+enum ImageFormat {
+  kRgba8,
+  kBgra8,
+};
+
+struct AnalyzedPerson {
+  // Bbox dans coords pixel image originale (top-left + w,h).
+  float x;
+  float y;
+  float w;
+  float h;
+  // Score de classe "person" dans [0, 1].
+  float score;
+};
+
+interface ImageAnalyzer {
+  AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
+               int32 width,
+               int32 height,
+               ImageFormat format) => (array<AnalyzedPerson> persons);
+};
