@@ -20,7 +20,10 @@ namespace basarunaa {
 
 namespace {
 
-constexpr int kSpikeImageSize = 128;
+// Référencée par le code commenté du spike dans `DidFinishLoad`. Préfixé
+// `[[maybe_unused]]` plutôt que supprimé pour faciliter la réactivation
+// en M2.2.
+[[maybe_unused]] constexpr int kSpikeImageSize = 128;
 
 }  // namespace
 
@@ -43,19 +46,19 @@ bool BasarunaaRenderFrameObserver::EnsureConnected() {
 }
 
 void BasarunaaRenderFrameObserver::DidFinishLoad() {
-  if (!EnsureConnected()) {
-    return;
-  }
-  // Dummy buffer 128×128 RGBA noir. Le but est juste de stresser la
-  // chaîne Mojo+BigBuffer ; le browser stub renvoie [] direct.
-  std::vector<uint8_t> pixels(kSpikeImageSize * kSpikeImageSize * 4, 0u);
-  mojo_base::BigBuffer buffer{base::span<const uint8_t>(pixels)};
-  LOG(INFO) << "[Basarunaa-spike] sending dummy AnalyzeImage from RFO";
-  image_analyzer_->AnalyzeImage(
-      std::move(buffer), kSpikeImageSize, kSpikeImageSize,
-      mojom::ImageFormat::kRgba8,
-      base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
-                     weak_ptr_factory_.GetWeakPtr()));
+  // Spike validé le 2026-05-10 (cycle dummy IPC OK sous stress Google
+  // Images, pas de crash). Désactivé pour éviter du Mojo IPC inutile à
+  // chaque page chargée. À réactiver / remplacer en M2.2 par un vrai
+  // hook ImageNotifyFinished sur les <img> du document.
+  //
+  // if (!EnsureConnected()) return;
+  // std::vector<uint8_t> pixels(kSpikeImageSize * kSpikeImageSize * 4, 0u);
+  // mojo_base::BigBuffer buffer{base::span<const uint8_t>(pixels)};
+  // image_analyzer_->AnalyzeImage(
+  //     std::move(buffer), kSpikeImageSize, kSpikeImageSize,
+  //     mojom::ImageFormat::kRgba8,
+  //     base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
+  //                    weak_ptr_factory_.GetWeakPtr()));
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(
