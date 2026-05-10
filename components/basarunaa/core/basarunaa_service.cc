@@ -6,6 +6,7 @@
 #include "brave/components/basarunaa/core/basarunaa_service.h"
 
 #include <algorithm>
+#include <array>
 #include <limits>
 #include <cmath>
 
@@ -407,6 +408,17 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeTestImage() {
 }
 
 #if defined(BASARUNAA_NATIVE_ML)
+void BasarunaaService::EnsureOrtEnv() {
+  std::call_once(env_init_flag_, [this]() {
+    try {
+      ort_env_ = std::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_WARNING,
+                                            "basarunaa");
+    } catch (const Ort::Exception& e) {
+      LOG(ERROR) << "[Basarunaa] ORT env creation failed: " << e.what();
+    }
+  });
+}
+
 void BasarunaaService::LoadYoloPoseModel() {
   base::FilePath exe_dir;
   if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
@@ -420,17 +432,18 @@ void BasarunaaService::LoadYoloPoseModel() {
     return;
   }
 
+  EnsureOrtEnv();
+  if (!ort_env_) {
+    return;
+  }
   try {
-    ort_env_ = std::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_WARNING,
-                                          "basarunaa");
     Ort::SessionOptions opts;
     opts.SetIntraOpNumThreads(1);
     opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
     yolo_pose_session_ = std::make_unique<Ort::Session>(
         *ort_env_, model_path.value().c_str(), opts);
   } catch (const Ort::Exception& e) {
-    LOG(ERROR) << "[Basarunaa] ORT session creation failed: " << e.what();
-    ort_env_.reset();
+    LOG(ERROR) << "[Basarunaa] ORT pose session creation failed: " << e.what();
     yolo_pose_session_.reset();
     return;
   }

@@ -5,19 +5,15 @@
 
 module basarunaa.mojom;
 
-import "mojo/public/mojom/base/big_buffer.mojom";
-
 // Used by the WebUI page (chrome-untrusted://basarunaa-panel.top-chrome) to
 // bootstrap bidirectional communication with the browser process.
-// Mirrors the brave_vpn PanelHandlerFactory pattern. Kept minimal for the
-// bisect rebuild — the real Basarunaa interface will be added back later.
+// Mirrors the brave_vpn PanelHandlerFactory pattern.
 interface PanelHandlerFactory {
   // The WebUI calls this method when the page is first initialized.
   CreatePanelHandler(pending_receiver<PanelHandler> panel_handler);
 };
 
 // Browser-side handler for requests from the Basarunaa panel WebUI.
-// Intentionally empty for the bisect rebuild.
 interface PanelHandler {
   // Notify the backend that the UI is ready to be shown. Required so that
   // the embedder reveals the bubble widget on subsequent re-opens (this is
@@ -56,53 +52,11 @@ interface PanelHandler {
   AnalyzeTestImage() => (int32 count);
 };
 
-// Phase 3.1.5 — M2.1. Renderer-process side calls this to ask the browser
-// process to run the native ML pipeline (YOLO11n-pose) on a packed pixel
-// buffer. The renderer captures the SkBitmap from `ImageResourceContent` and
-// forwards the raw bytes via `BigBuffer` (auto-promotes to SharedMemory above
-// the Mojo inline cutoff). One receiver per `RenderFrameHost`, exposed via
-// `BraveContentBrowserClient::RegisterAssociatedInterfaceBindersForRenderFrameHost`.
-enum ImageFormat {
-  kRgba8,
-  kBgra8,
-};
-
-struct KeyPoint {
-  float x;
-  float y;
-  float confidence;
-};
-
-// Bbox stocké en x1/y1/x2/y2 (coords pixel image originale).
-struct Bbox {
-  float x1;
-  float y1;
-  float x2;
-  float y2;
-};
-
-struct AnalyzedPerson {
-  // Bbox in pixel coordinates of the input image (NOT the 640x640 letterbox).
-  // Convention {x, y, w, h} = top-left + width/height pour rester compat avec
-  // les anciens consommateurs ; la dérivation x2 = x+w / y2 = y+h est triviale.
-  float x;
-  float y;
-  float w;
-  float h;
-  // Person class score in [0, 1].
-  float score;
-  // 17 COCO keypoints (M1.4) : nose, eyes, ears, shoulders, elbows, wrists,
-  // hips, knees, ankles. Vide si l'inférence ne les a pas produits (modèle
-  // détection seule sans pose). Coords dans l'espace pixel original.
-  array<KeyPoint> keypoints;
-  // Bbox du visage déduit des keypoints 0-4 (nose + eyes + ears) avec un
-  // padding de 40%. null si moins de 2 keypoints visibles.
-  Bbox? face_bbox;
-};
-
-interface ImageAnalyzer {
-  AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
-               int32 width,
-               int32 height,
-               ImageFormat format) => (array<AnalyzedPerson> persons);
-};
+// Phase 3.1.5 — Le bridge MV3 ↔ natif (interface ImageAnalyzer + types
+// AnalyzedPerson/Face/KeyPoint/Landmark/ImageFormat) a été retiré le
+// 2026-05-10 après une heap corruption flaky observée sur Google Images
+// sous stress (3 crashes différents dans 3 code paths random : favicon,
+// Mojo dispatch, BraveProxying). Voir `private/docs/TODO.md` (section
+// "Bridge MV3 ↔ natif retiré"). Le remplacement prévu est l'Étape 2
+// NATIVE_BROWSER.md (hooks renderer in-process Blink, sans Mojo
+// cross-process).

@@ -29,7 +29,6 @@
 #include "brave/browser/brave_shields/brave_farbling_service_factory.h"
 #include "brave/browser/brave_shields/brave_shields_settings_service_factory.h"
 #include "brave/browser/brave_shields/brave_shields_web_contents_observer.h"
-#include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
 #include "brave/browser/cosmetic_filters/cosmetic_filters_tab_helper.h"
 #include "brave/browser/debounce/debounce_service_factory.h"
 #include "brave/browser/ephemeral_storage/ephemeral_storage_service_factory.h"
@@ -614,12 +613,6 @@ void BraveContentBrowserClient::
       cosmetic_filters::mojom::CosmeticFiltersHandler>(base::BindRepeating(
       &cosmetic_filters::CosmeticFiltersTabHelper::BindCosmeticFiltersHandler,
       &render_frame_host));
-
-  // Phase 3.1.5 — M2.1. ImageAnalyzer is the renderer-side gateway to the
-  // native YOLO11n-pose pipeline. One receiver per RenderFrameHost.
-  associated_registry.AddInterface<basarunaa::mojom::ImageAnalyzer>(
-      base::BindRepeating(&basarunaa::BasarunaaImageAnalyzer::BindReceiver,
-                          &render_frame_host));
 
   ChromeContentBrowserClient::
       RegisterAssociatedInterfaceBindersForRenderFrameHost(render_frame_host,

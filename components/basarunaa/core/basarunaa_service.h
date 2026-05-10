@@ -93,6 +93,11 @@ class BasarunaaService : public KeyedService {
 #if defined(BASARUNAA_NATIVE_ML)
   void LoadYoloPoseModel();
 
+  // ort_env_ peut être créé concurremment par LoadYoloPoseModel et
+  // LoadYoloFaceModel (deux call_once sur des flags différents). On
+  // sérialise sa création via env_init_flag_ pour éviter la race.
+  void EnsureOrtEnv();
+  std::once_flag env_init_flag_;
   std::unique_ptr<Ort::Env> ort_env_;
   // Serializes the lazy load. Multiple worker threads may race into
   // AnalyzeImageRgba on first use; without serialization, several
