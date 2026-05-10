@@ -32,8 +32,11 @@ namespace browther_analytics {
 
 namespace {
 
-// Court en dev pour valider rapidement le bout-en-bout. À remonter à
-// 30 minutes (`base::Minutes(30)`) avant la release publique.
+// 60 s : compromis entre fraîcheur et bruit réseau. À cet intervalle, la
+// fenêtre de perte (compteur en mémoire jamais flushé) est ≤ 60 s par
+// session ; allonger à plusieurs minutes voudrait dire perdre les sessions
+// courtes. Si le bruit devient un problème, augmenter à 120-300 s plutôt
+// que 30 min.
 constexpr base::TimeDelta kFlushInterval = base::Seconds(60);
 
 constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
@@ -46,8 +49,8 @@ constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
             "display public 'since launch' metrics on browther.devndin.com. "
             "No URLs visited, no page content, no PII."
           trigger:
-            "Periodic flush every minute (dev) / 30 min (prod) when counters "
-            "are non-zero."
+            "Periodic flush every 60 seconds when counters are non-zero, plus "
+            "an opportunistic flush at browser shutdown."
           data:
             "Anonymous UUID (random v4), platform name, and three integer "
             "deltas since the previous flush."
