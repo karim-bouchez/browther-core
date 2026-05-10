@@ -20,7 +20,12 @@
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider_manager.h"
 #include "brave/components/brave_shields/core/browser/filter_list_catalog_entry.h"
 #include "build/build_config.h"
+#if !BUILDFLAG(IS_IOS)
+// Browther: chrome/common/chrome_paths.h inclut transitivement
+// widevine/cdm/buildflags.h qui n'est pas buildé sur iOS. On utilise
+// base::DIR_ASSETS directement sur iOS.
 #include "chrome/common/chrome_paths.h"
+#endif
 #include "components/component_updater/component_updater_service.h"
 
 constexpr char kListFile[] = "list.txt";
@@ -43,6 +48,14 @@ base::FilePath GetBrowtherBundledListPath(const std::string& component_id) {
   base::FilePath base_dir;
 #if BUILDFLAG(IS_ANDROID)
   if (!base::PathService::Get(chrome::DIR_USER_DATA, &base_dir)) {
+    return base::FilePath();
+  }
+#elif BUILDFLAG(IS_IOS)
+  // Sur iOS, le framework bundle est flat (pas de subdir "resources/" —
+  // codesign rejette ce format). Les fichiers bundlés vivent au root du
+  // framework, donc on lit base::DIR_ASSETS = FrameworkBundlePath()
+  // (= BraveCore.framework) directement.
+  if (!base::PathService::Get(base::DIR_ASSETS, &base_dir)) {
     return base::FilePath();
   }
 #else

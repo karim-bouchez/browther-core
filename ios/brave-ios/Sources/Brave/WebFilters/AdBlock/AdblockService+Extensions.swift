@@ -18,6 +18,12 @@ extension AdblockService {
   public static func makeAbsoluteURL(forComponentPath filePath: String?) -> URL? {
     // Combine the path with the base URL
     guard let filePath = filePath else { return nil }
+    // Browther: bundled Shields lists vivent dans BraveCore.framework (path
+    // absolu, hors applicationSupport). Si filePath est déjà absolu, on
+    // retourne tel quel sans re-préfixer.
+    if filePath.hasPrefix("/") {
+      return URL(fileURLWithPath: filePath)
+    }
     return filterListBaseFolderURL?.appendingPathComponent(filePath)
   }
 
@@ -33,10 +39,10 @@ extension AdblockService {
       let folderPath = filePath.path[range.upperBound...]
       return String(folderPath)
     } else {
-      assertionFailure(
-        "You are either passing a componentURL that is invalid or somehow the base url changed in brave-core"
-      )
-      return nil
+      // Browther: bundled Shields lists vivent dans BraveCore.framework — pas
+      // sous applicationSupport. Pas d'assert, on retourne le path absolu tel
+      // quel ; makeAbsoluteURL le redonne directement (cf. branche `/`).
+      return filePath.path
     }
   }
 }

@@ -80,10 +80,13 @@ static_library("browser") {
   # Browther: filter lists bundlées dans l'app au build time. Voir
   # private/docs/SHIELDS_BUNDLE.md.
   # - Mac : bundle_data → framework Resources/adblock_lists/
+  # - iOS : bundle_data → BraveCore.framework/adblock_lists/ (flat — iOS
+  #   frameworks rejettent un subdir "resources/" via codesign). Le code C++
+  #   iOS lit base::DIR_ASSETS = FrameworkBundlePath() directement.
   # - Win/Linux : copy() → $root_out_dir/resources/adblock_lists/
   # - Android : android_assets → APK assets/adblock_lists/, extraits au
   #   premier boot vers DIR_USER_DATA via shields_bundled_apk_extractor.cc
-  if (is_mac || is_win || is_linux || is_android) {
+  if (is_mac || is_ios || is_win || is_linux || is_android) {
     deps += [ "shields_bundled_lists:shields_bundled_lists_data" ]
   }
 }

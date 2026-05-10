@@ -14,7 +14,12 @@
 #include "brave/components/brave_component_updater/browser/dat_file_util.h"
 #include "brave/components/brave_shields/core/browser/ad_block_component_installer.h"
 #include "build/build_config.h"
+#if !BUILDFLAG(IS_IOS)
+// Browther: chrome/common/chrome_paths.h inclut transitivement
+// widevine/cdm/buildflags.h qui n'est pas buildé sur iOS. On utilise
+// base::DIR_ASSETS directement sur iOS (cf. branche dans le constructor).
 #include "chrome/common/chrome_paths.h"
+#endif
 
 namespace {
 
@@ -48,6 +53,12 @@ AdBlockDefaultResourceProvider::AdBlockDefaultResourceProvider(
   bool ok =
 #if BUILDFLAG(IS_ANDROID)
       base::PathService::Get(chrome::DIR_USER_DATA, &base_dir);
+#elif BUILDFLAG(IS_IOS)
+      // Sur iOS, le framework bundle est flat (pas de subdir "resources/" —
+      // codesign rejette ce format). Les fichiers bundlés vivent au root du
+      // framework, donc on lit base::DIR_ASSETS = FrameworkBundlePath()
+      // (= BraveCore.framework) directement, sans intermédiaire.
+      base::PathService::Get(base::DIR_ASSETS, &base_dir);
 #else
       base::PathService::Get(chrome::DIR_RESOURCES, &base_dir);
 #endif
