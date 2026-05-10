@@ -182,6 +182,11 @@ void BasarunaaJSHandler::OnAnalyzed(
   v8::HandleScope handle_scope(isolate);
   v8::Local<v8::Context> local_context = context.Get(isolate);
   v8::Context::Scope context_scope(local_context);
+  // Required by v8 when calling Promise::Resolver::Resolve from a non-JS
+  // entry point (Mojo callback). Without it v8 crashes with
+  // "microtask_queue->GetMicrotasksScopeDepth()" DCHECK.
+  v8::MicrotasksScope microtasks_scope(
+      local_context, v8::MicrotasksScope::kRunMicrotasks);
 
   v8::Local<v8::Array> result = v8::Array::New(isolate, persons.size());
   for (uint32_t i = 0; i < persons.size(); ++i) {
