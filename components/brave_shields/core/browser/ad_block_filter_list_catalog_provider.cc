@@ -13,6 +13,7 @@
 #include "base/task/thread_pool.h"
 #include "base/trace_event/trace_event.h"
 #include "brave/components/brave_shields/core/browser/ad_block_component_installer.h"
+#include "build/build_config.h"
 #include "chrome/common/chrome_paths.h"
 
 constexpr char kListCatalogFile[] = "list_catalog.json";
@@ -22,13 +23,24 @@ namespace brave_shields {
 namespace {
 
 // Browther: résout le path de notre bundle local de filter lists. Voir
-// private/docs/SHIELDS_BUNDLE.md. Retourne un path vide si non disponible.
+// private/docs/SHIELDS_BUNDLE.md.
+// - Mac/Win/Linux : <chrome::DIR_RESOURCES>/adblock_lists/ — copié au
+//   build via bundle_data (Mac) ou copy() GN target (Win/Linux).
+// - Android : <chrome::DIR_USER_DATA>/adblock_lists/ — extrait au premier
+//   boot depuis APK assets via shields_bundled_apk_extractor.cc.
+//   chrome::DIR_RESOURCES retourne false sur Android (pas de filesystem).
 base::FilePath GetBrowtherBundledShieldsPath() {
-  base::FilePath resources;
-  if (!base::PathService::Get(chrome::DIR_RESOURCES, &resources)) {
+  base::FilePath base_dir;
+#if BUILDFLAG(IS_ANDROID)
+  if (!base::PathService::Get(chrome::DIR_USER_DATA, &base_dir)) {
     return base::FilePath();
   }
-  return resources.AppendASCII("adblock_lists");
+#else
+  if (!base::PathService::Get(chrome::DIR_RESOURCES, &base_dir)) {
+    return base::FilePath();
+  }
+#endif
+  return base_dir.AppendASCII("adblock_lists");
 }
 
 }  // namespace

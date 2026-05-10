@@ -45,6 +45,12 @@ static_library("browser") {
     "filter_list_catalog_entry.cc",
     "filter_list_catalog_entry.h",
   ]
+  if (is_android) {
+    sources += [
+      "shields_bundled_apk_extractor.cc",
+      "shields_bundled_apk_extractor.h",
+    ]
+  }
   deps = [
     "//base",
     "//brave/components/brave_component_updater/browser",
@@ -71,9 +77,13 @@ static_library("browser") {
     "//brave/components/brave_shields/core/common/adblock",
   ]
 
-  # Browther: filter lists bundlées dans Browther.app/Contents/Resources/
-  # (Mac only en V1). Voir private/docs/SHIELDS_BUNDLE.md.
-  if (is_mac) {
+  # Browther: filter lists bundlées dans l'app au build time. Voir
+  # private/docs/SHIELDS_BUNDLE.md.
+  # - Mac : bundle_data → framework Resources/adblock_lists/
+  # - Win/Linux : copy() → $root_out_dir/resources/adblock_lists/
+  # - Android : android_assets → APK assets/adblock_lists/, extraits au
+  #   premier boot vers DIR_USER_DATA via shields_bundled_apk_extractor.cc
+  if (is_mac || is_win || is_linux || is_android) {
     deps += [ "shields_bundled_lists:shields_bundled_lists_data" ]
   }
 }

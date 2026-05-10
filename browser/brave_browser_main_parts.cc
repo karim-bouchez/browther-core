@@ -71,6 +71,10 @@
 #include "brave/components/ipfs/ipfs_component_cleaner.h"
 #endif  // BUILDFLAG(DEPRECATE_IPFS)
 
+#if BUILDFLAG(IS_ANDROID)
+#include "brave/components/brave_shields/core/browser/shields_bundled_apk_extractor.h"
+#endif
+
 ChromeBrowserMainParts::ChromeBrowserMainParts(bool is_integration_test,
                                                StartupData* startup_data)
     : ChromeBrowserMainParts_ChromiumImpl(is_integration_test, startup_data) {}
@@ -83,6 +87,14 @@ int ChromeBrowserMainParts::PreMainMessageLoopRun() {
           base::CommandLine::ForCurrentProcess()->HasSwitch(
               switches::kDisableComponentUpdate),
           &g_browser_process->component_updater()->GetOnDemandUpdater());
+
+#if BUILDFLAG(IS_ANDROID)
+  // Browther: extraire les filter lists Shields depuis l'APK vers le data
+  // dir au premier boot (idempotent — skip si déjà fait). Doit tourner
+  // AVANT l'init de AdBlockService pour que les providers trouvent les
+  // fichiers. Voir private/docs/SHIELDS_BUNDLE.md.
+  brave_shields::EnsureBundledShieldsExtracted();
+#endif
 
   return ChromeBrowserMainParts_ChromiumImpl::PreMainMessageLoopRun();
 }

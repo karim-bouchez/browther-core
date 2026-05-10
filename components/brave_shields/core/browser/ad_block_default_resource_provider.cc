@@ -13,6 +13,7 @@
 #include "base/task/thread_pool.h"
 #include "brave/components/brave_component_updater/browser/dat_file_util.h"
 #include "brave/components/brave_shields/core/browser/ad_block_component_installer.h"
+#include "build/build_config.h"
 #include "chrome/common/chrome_paths.h"
 
 namespace {
@@ -36,14 +37,23 @@ AdBlockDefaultResourceProvider::AdBlockDefaultResourceProvider(
                           weak_factory_.GetWeakPtr()));
 
   // Browther: charge resources.json depuis le bundle local sans attendre le
-  // component updater (qui ne fonctionne pas — voir SHIELDS_BUNDLE.md). NE
-  // PAS faire de PathExists ici — le constructor tourne dans un scope
+  // component updater (qui ne fonctionne pas — voir SHIELDS_BUNDLE.md).
+  // - Mac/Win/Linux : DIR_RESOURCES + adblock_lists/_resources/.
+  // - Android : DIR_USER_DATA + adblock_lists/_resources/ (extrait depuis
+  //   APK au boot via shields_bundled_apk_extractor.cc).
+  // NE PAS faire de PathExists ici — le constructor tourne dans un scope
   // no-blocking (DCHECK fail). OnComponentReady fait déjà la lecture en
   // ThreadPool, qui gère naturellement les fichiers manquants.
-  base::FilePath resources;
-  if (base::PathService::Get(chrome::DIR_RESOURCES, &resources)) {
+  base::FilePath base_dir;
+  bool ok =
+#if BUILDFLAG(IS_ANDROID)
+      base::PathService::Get(chrome::DIR_USER_DATA, &base_dir);
+#else
+      base::PathService::Get(chrome::DIR_RESOURCES, &base_dir);
+#endif
+  if (ok) {
     OnComponentReady(
-        resources.AppendASCII("adblock_lists").AppendASCII("_resources"));
+        base_dir.AppendASCII("adblock_lists").AppendASCII("_resources"));
   }
 }
 

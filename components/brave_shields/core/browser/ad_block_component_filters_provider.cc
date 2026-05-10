@@ -19,6 +19,7 @@
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider.h"
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider_manager.h"
 #include "brave/components/brave_shields/core/browser/filter_list_catalog_entry.h"
+#include "build/build_config.h"
 #include "chrome/common/chrome_paths.h"
 #include "components/component_updater/component_updater_service.h"
 
@@ -31,16 +32,25 @@ namespace {
 void AddNothingToFilterSet(rust::Box<adblock::FilterSet>*) {}
 
 // Browther: résout le path de notre bundle local pour un component_id donné.
-// Voir private/docs/SHIELDS_BUNDLE.md. Retourne un path vide si DIR_RESOURCES
-// échoue. NE PAS faire de PathExists ici — ce constructor tourne dans un
-// scope no-blocking (DCHECK fail) et de toute façon LoadFilterSet gère déjà
+// Voir private/docs/SHIELDS_BUNDLE.md.
+// - Mac/Win/Linux : DIR_RESOURCES + adblock_lists/<component_id>/.
+// - Android : DIR_USER_DATA + adblock_lists/<component_id>/ (extrait
+//   depuis APK au boot — voir shields_bundled_apk_extractor.cc).
+// NE PAS faire de PathExists ici — ce constructor tourne dans un scope
+// no-blocking (DCHECK fail) et de toute façon LoadFilterSet gère déjà
 // le cas fichier manquant via ReadDATFileData → AddNothingToFilterSet.
 base::FilePath GetBrowtherBundledListPath(const std::string& component_id) {
-  base::FilePath resources;
-  if (!base::PathService::Get(chrome::DIR_RESOURCES, &resources)) {
+  base::FilePath base_dir;
+#if BUILDFLAG(IS_ANDROID)
+  if (!base::PathService::Get(chrome::DIR_USER_DATA, &base_dir)) {
     return base::FilePath();
   }
-  return resources.AppendASCII("adblock_lists").AppendASCII(component_id);
+#else
+  if (!base::PathService::Get(chrome::DIR_RESOURCES, &base_dir)) {
+    return base::FilePath();
+  }
+#endif
+  return base_dir.AppendASCII("adblock_lists").AppendASCII(component_id);
 }
 
 // static
