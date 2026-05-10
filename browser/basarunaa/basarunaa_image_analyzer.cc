@@ -103,6 +103,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
 
   auto* rfh = receivers_.GetCurrentTargetFrame();
   if (!rfh) {
+    LOG(WARNING) << "[Basarunaa] AnalyzeImage bailout: rfh=null";
     std::move(callback).Run({});
     return;
   }
@@ -110,6 +111,8 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
       Profile::FromBrowserContext(rfh->GetBrowserContext());
   auto* service = BasarunaaServiceFactory::GetForProfile(profile);
   if (!service) {
+    LOG(WARNING) << "[Basarunaa] AnalyzeImage bailout: service=null profile="
+                 << profile;
     std::move(callback).Run({});
     return;
   }
