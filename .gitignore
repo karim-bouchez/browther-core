@@ -19,6 +19,12 @@ vendor/omaha/
 /components/brave_rewards/resources/extension/brave_rewards/out/
 /components/third_party/adblock/LICENSE
 /components/third_party/local_data/LICENSE
+
+# Browther: filter lists générées par private/scripts/fetch-shields-lists.sh
+# (depuis brave/adblock-resources upstream). Régénérables, pas commitées.
+# Voir private/docs/SHIELDS_BUNDLE.md.
+/components/brave_shields/core/browser/shields_bundled_lists/
+
 /dist/
 /out/
 node_modules/

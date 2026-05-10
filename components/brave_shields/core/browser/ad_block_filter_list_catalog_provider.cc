@@ -9,13 +9,29 @@
 #include <utility>
 
 #include "base/files/file_path.h"
+#include "base/path_service.h"
 #include "base/task/thread_pool.h"
 #include "base/trace_event/trace_event.h"
 #include "brave/components/brave_shields/core/browser/ad_block_component_installer.h"
+#include "chrome/common/chrome_paths.h"
 
 constexpr char kListCatalogFile[] = "list_catalog.json";
 
 namespace brave_shields {
+
+namespace {
+
+// Browther: résout le path de notre bundle local de filter lists. Voir
+// private/docs/SHIELDS_BUNDLE.md. Retourne un path vide si non disponible.
+base::FilePath GetBrowtherBundledShieldsPath() {
+  base::FilePath resources;
+  if (!base::PathService::Get(chrome::DIR_RESOURCES, &resources)) {
+    return base::FilePath();
+  }
+  return resources.AppendASCII("adblock_lists");
+}
+
+}  // namespace
 
 AdBlockFilterListCatalogProvider::AdBlockFilterListCatalogProvider(
     component_updater::ComponentUpdateService* cus) {
@@ -27,6 +43,15 @@ AdBlockFilterListCatalogProvider::AdBlockFilterListCatalogProvider(
         cus,
         base::BindRepeating(&AdBlockFilterListCatalogProvider::OnComponentReady,
                             weak_factory_.GetWeakPtr()));
+  }
+
+  // Browther: charge immédiatement le catalog bundlé depuis l'app sans
+  // attendre le component updater (qui ne fonctionne pas dans Browther — voir
+  // private/docs/SHIELDS_BUNDLE.md). Si jamais le component updater finit par
+  // fonctionner, OnComponentReady() sera ré-appelé avec le path à jour.
+  base::FilePath bundled = GetBrowtherBundledShieldsPath();
+  if (!bundled.empty()) {
+    OnComponentReady(bundled);
   }
 }
 

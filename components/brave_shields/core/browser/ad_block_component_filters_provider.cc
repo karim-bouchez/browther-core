@@ -11,6 +11,7 @@
 
 #include "base/files/file_path.h"
 #include "base/files/file_util.h"
+#include "base/path_service.h"
 #include "base/rand_util.h"
 #include "base/task/thread_pool.h"
 #include "base/trace_event/trace_event.h"
@@ -18,6 +19,7 @@
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider.h"
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider_manager.h"
 #include "brave/components/brave_shields/core/browser/filter_list_catalog_entry.h"
+#include "chrome/common/chrome_paths.h"
 #include "components/component_updater/component_updater_service.h"
 
 constexpr char kListFile[] = "list.txt";
@@ -27,6 +29,19 @@ namespace brave_shields {
 namespace {
 
 void AddNothingToFilterSet(rust::Box<adblock::FilterSet>*) {}
+
+// Browther: résout le path de notre bundle local pour un component_id donné.
+// Voir private/docs/SHIELDS_BUNDLE.md. Retourne un path vide si DIR_RESOURCES
+// échoue. NE PAS faire de PathExists ici — ce constructor tourne dans un
+// scope no-blocking (DCHECK fail) et de toute façon LoadFilterSet gère déjà
+// le cas fichier manquant via ReadDATFileData → AddNothingToFilterSet.
+base::FilePath GetBrowtherBundledListPath(const std::string& component_id) {
+  base::FilePath resources;
+  if (!base::PathService::Get(chrome::DIR_RESOURCES, &resources)) {
+    return base::FilePath();
+  }
+  return resources.AppendASCII("adblock_lists").AppendASCII(component_id);
+}
 
 // static
 void AddDATBufferToFilterSet(uint8_t permission_mask,
@@ -74,6 +89,15 @@ AdBlockComponentFiltersProvider::AdBlockComponentFiltersProvider(
         cus, base64_public_key, component_id_, title,
         base::BindRepeating(&AdBlockComponentFiltersProvider::OnComponentReady,
                             weak_factory_.GetWeakPtr()));
+  }
+
+  // Browther: charge immédiatement la liste bundlée depuis l'app sans
+  // attendre le component updater (qui ne fonctionne pas dans Browther — voir
+  // private/docs/SHIELDS_BUNDLE.md). Si jamais le component updater finit par
+  // fonctionner, OnComponentReady() sera ré-appelé avec le path à jour.
+  base::FilePath bundled = GetBrowtherBundledListPath(component_id_);
+  if (!bundled.empty()) {
+    OnComponentReady(bundled);
   }
 }
 

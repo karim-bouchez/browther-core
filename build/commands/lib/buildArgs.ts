@@ -146,6 +146,13 @@ export function getBuildArgs(config: Config) {
   args.service_key_aichat = dummyKey
   args.brave_stats_updater_url = dummyUrl
   args.brave_variations_server_url = dummyUrl
+  // Browther: dummy. On NE peut PAS utiliser go-updater.brave.com sans la clé
+  // BraveServiceKey privée de Brave (header obligatoire, sinon HTTP 403). Donc
+  // les composants ad-block, NTP backgrounds, etc. ne se téléchargeront jamais
+  // depuis l'infra Brave. Stratégie : bundler les filter lists directement
+  // dans l'app (Phase 3.X "Bundle Shields lists" — voir CLAUDE.md). Les autres
+  // composants (CRLSet, SafetyTips, etc.) passent par chrome.googleapis.com
+  // et continueront de fonctionner via le default Chromium.
   args.updater_dev_endpoint = dummyUrl
   args.updater_prod_endpoint = dummyUrl
   args.brave_sync_endpoint = dummyUrl

@@ -337,30 +337,13 @@ void AdBlockComponentServiceManager::UpdateFilterLists(
     base::OnceCallback<void(bool)> callback) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
-  // If there are currently no components to update, then run the callback with
-  // a success value in a future turn.
-  if (component_filters_providers_.empty()) {
-    std::move(callback).Run(true);
-    return;
-  }
-
-  std::vector<std::string> component_ids = {
-      kAdBlockResourceComponentId,
-      kAdBlockFilterListCatalogComponentId,
-  };
-
-  for (const auto& [key, provider] : component_filters_providers_) {
-    component_ids.push_back(provider->component_id());
-  }
-
-  auto on_updated = [](decltype(callback) cb, update_client::Error error) {
-    std::move(cb).Run(error == update_client::Error::NONE ||
-                      error == update_client::Error::UPDATE_IN_PROGRESS);
-  };
-
-  brave_component_updater::BraveOnDemandUpdater::GetInstance()->OnDemandUpdate(
-      component_ids, component_updater::OnDemandUpdater::Priority::FOREGROUND,
-      base::BindOnce(on_updated, std::move(callback)));
+  // Browther: en V1, les filter lists sont bundlées dans l'app (voir
+  // private/docs/SHIELDS_BUNDLE.md) et la mise à jour se fait au prochain
+  // release Browther. L'OnDemandUpdate vers go-updater.brave.com est inutile
+  // (HTTP 403 BraveServiceKey privé) — on retourne directement success pour
+  // que le bouton "Update lists" ne montre pas d'erreur. Quand on
+  // implémentera le cycle V2 (cron Dokploy / mini-CRX server), revisiter ici.
+  std::move(callback).Run(true);
 }
 
 void AdBlockComponentServiceManager::SetFilterListCatalog(

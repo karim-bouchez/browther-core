@@ -136,7 +136,7 @@ void StatsClient::FlushNow() {
     return;
   }
 
-  base::Value::Dict payload;
+  base::DictValue payload;
   payload.Set("anonUuid", anon_uuid_);
   payload.Set("platform", "desktop");
   payload.Set("musicSecondsDelta", music);

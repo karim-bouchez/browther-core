@@ -9,9 +9,11 @@
 #include <utility>
 
 #include "base/files/file_path.h"
+#include "base/path_service.h"
 #include "base/task/thread_pool.h"
 #include "brave/components/brave_component_updater/browser/dat_file_util.h"
 #include "brave/components/brave_shields/core/browser/ad_block_component_installer.h"
+#include "chrome/common/chrome_paths.h"
 
 namespace {
 
@@ -32,6 +34,17 @@ AdBlockDefaultResourceProvider::AdBlockDefaultResourceProvider(
       cus,
       base::BindRepeating(&AdBlockDefaultResourceProvider::OnComponentReady,
                           weak_factory_.GetWeakPtr()));
+
+  // Browther: charge resources.json depuis le bundle local sans attendre le
+  // component updater (qui ne fonctionne pas — voir SHIELDS_BUNDLE.md). NE
+  // PAS faire de PathExists ici — le constructor tourne dans un scope
+  // no-blocking (DCHECK fail). OnComponentReady fait déjà la lecture en
+  // ThreadPool, qui gère naturellement les fichiers manquants.
+  base::FilePath resources;
+  if (base::PathService::Get(chrome::DIR_RESOURCES, &resources)) {
+    OnComponentReady(
+        resources.AppendASCII("adblock_lists").AppendASCII("_resources"));
+  }
 }
 
 AdBlockDefaultResourceProvider::~AdBlockDefaultResourceProvider() = default;
