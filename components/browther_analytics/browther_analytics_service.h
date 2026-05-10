@@ -24,6 +24,7 @@ namespace browther_analytics {
 
 class DistinctIdProvider;
 class PostHogClient;
+class StatsClient;
 
 // Singleton browser-wide qui orchestre Sentry (via Crashpad URL override) et
 // PostHog (custom events).
@@ -42,6 +43,14 @@ class BrowtherAnalyticsService {
   void Track(const std::string& event_name, base::DictValue properties);
   void Track(const std::string& event_name);
 
+  // Stats cumulatives publiées sur browther.devndin.com via /api/stats.
+  // No-op si StatsClient non configuré ou consentement désactivé.
+  // Callable depuis n'importe quel chemin C++ Browther.
+  void IncrementMusicSeconds(int delta);
+  void IncrementPersonsBlurred(int delta);
+  void IncrementAdsBlocked(int delta);
+  void FlushStatsNow();
+
  private:
   BrowtherAnalyticsService(
       PrefService* local_state,
@@ -52,11 +61,17 @@ class BrowtherAnalyticsService {
   BrowtherAnalyticsService& operator=(const BrowtherAnalyticsService&) = delete;
 
   bool IsPostHogEnabled() const;
+  bool IsStatsEnabled() const;
   void OnConsentPrefChanged(const std::string& pref_name);
+  // TEMP : envoi one-shot d'un increment de test au premier launch après
+  // déploiement v1, pour valider end-to-end DB→API→Website. À retirer dès
+  // que les hooks réels (Sawtunaa/Basarunaa/Shields) sont en place.
+  void MaybeSendTestIncrement();
 
   raw_ptr<PrefService> local_state_;
   std::unique_ptr<DistinctIdProvider> distinct_id_provider_;
   std::unique_ptr<PostHogClient> posthog_client_;
+  std::unique_ptr<StatsClient> stats_client_;
   PrefChangeRegistrar pref_change_registrar_;
 };
 

@@ -13,6 +13,8 @@ source_set("browther_analytics") {
     "posthog_client.cc",
     "posthog_client.h",
     "pref_names.h",
+    "stats_client.cc",
+    "stats_client.h",
   ]
 
   deps = [
