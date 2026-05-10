@@ -202,6 +202,44 @@ void BasarunaaJSHandler::OnAnalyzed(
                            v8::Number::New(isolate, p->h));
     std::ignore = obj->Set(local_context, gin::StringToV8(isolate, "score"),
                            v8::Number::New(isolate, p->score));
+
+    // M1.4 — keypoints array (always 17 from YOLO11n-pose, possibly 0 if
+    // pose decoding failed).
+    v8::Local<v8::Array> kps =
+        v8::Array::New(isolate, p->keypoints.size());
+    for (uint32_t k = 0; k < p->keypoints.size(); ++k) {
+      const auto& kp = p->keypoints[k];
+      v8::Local<v8::Object> kp_obj = v8::Object::New(isolate);
+      std::ignore = kp_obj->Set(local_context, gin::StringToV8(isolate, "x"),
+                                v8::Number::New(isolate, kp->x));
+      std::ignore = kp_obj->Set(local_context, gin::StringToV8(isolate, "y"),
+                                v8::Number::New(isolate, kp->y));
+      std::ignore = kp_obj->Set(local_context,
+                                gin::StringToV8(isolate, "confidence"),
+                                v8::Number::New(isolate, kp->confidence));
+      std::ignore = kps->Set(local_context, k, kp_obj);
+    }
+    std::ignore = obj->Set(local_context,
+                           gin::StringToV8(isolate, "keypoints"), kps);
+
+    // M1.4 — faceBbox (null si moins de 2 keypoints face visibles).
+    if (p->face_bbox) {
+      v8::Local<v8::Object> fb = v8::Object::New(isolate);
+      std::ignore = fb->Set(local_context, gin::StringToV8(isolate, "x1"),
+                            v8::Number::New(isolate, p->face_bbox->x1));
+      std::ignore = fb->Set(local_context, gin::StringToV8(isolate, "y1"),
+                            v8::Number::New(isolate, p->face_bbox->y1));
+      std::ignore = fb->Set(local_context, gin::StringToV8(isolate, "x2"),
+                            v8::Number::New(isolate, p->face_bbox->x2));
+      std::ignore = fb->Set(local_context, gin::StringToV8(isolate, "y2"),
+                            v8::Number::New(isolate, p->face_bbox->y2));
+      std::ignore = obj->Set(local_context,
+                             gin::StringToV8(isolate, "faceBbox"), fb);
+    } else {
+      std::ignore = obj->Set(local_context,
+                             gin::StringToV8(isolate, "faceBbox"),
+                             v8::Null(isolate));
+    }
     std::ignore = result->Set(local_context, i, obj);
   }
   std::ignore = resolver.Get(isolate)->Resolve(local_context, result);

@@ -6,6 +6,7 @@
 #include "brave/components/basarunaa/core/basarunaa_service.h"
 
 #include <algorithm>
+#include <limits>
 #include <cmath>
 
 #include "base/compiler_specific.h"
@@ -182,6 +183,13 @@ std::vector<DetectedPerson> NonMaxSuppression(
 }  // namespace
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
+DetectedPerson::DetectedPerson() = default;
+DetectedPerson::DetectedPerson(const DetectedPerson&) = default;
+DetectedPerson::DetectedPerson(DetectedPerson&&) noexcept = default;
+DetectedPerson& DetectedPerson::operator=(const DetectedPerson&) = default;
+DetectedPerson& DetectedPerson::operator=(DetectedPerson&&) noexcept = default;
+DetectedPerson::~DetectedPerson() = default;
+
 BasarunaaService::BasarunaaService() {
 #if defined(BASARUNAA_NATIVE_ML)
   // Lazy: ORT version log + YOLO load run on first inference call (worker
@@ -270,6 +278,13 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   }
 
   // Decode anchors. Output layout is channel-major: out[c * anchors + i].
+  // Channels 0..3 = cx, cy, w, h ; channel 4 = score ; channels 5..56 = 17
+  // keypoints * 3 (x, y, confidence). Tous dans l'espace 640x640 letterbox,
+  // converti en pixel image originale via (val - pad) / scale.
+  constexpr int kNumKeypoints = 17;
+  constexpr float kFaceKpVisibilityThreshold = 0.3f;
+  constexpr float kFacePadding = 0.4f;
+
   std::vector<DetectedPerson> raw;
   raw.reserve(64);
   for (int i = 0; i < kYoloAnchors; ++i) {
@@ -288,7 +303,54 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     d.w = bw / scale;
     d.h = bh / scale;
     d.score = score;
-    raw.push_back(d);
+
+    // Decode the 17 keypoints (M1.4).
+    d.keypoints.reserve(kNumKeypoints);
+    for (int k = 0; k < kNumKeypoints; ++k) {
+      const int base_ch = 5 + k * 3;
+      const float kx = output_data[base_ch * kYoloAnchors + i];
+      const float ky = output_data[(base_ch + 1) * kYoloAnchors + i];
+      const float kconf = output_data[(base_ch + 2) * kYoloAnchors + i];
+      DetectedKeyPoint kp;
+      kp.x = (kx - pad_x) / scale;
+      kp.y = (ky - pad_y) / scale;
+      kp.confidence = kconf;
+      d.keypoints.push_back(kp);
+    }
+
+    // Derive face bbox from keypoints 0..4 (nose, left_eye, right_eye,
+    // left_ear, right_ear). Mirror du _deriveFaceBbox du POC JS.
+    float min_x = std::numeric_limits<float>::infinity();
+    float min_y = std::numeric_limits<float>::infinity();
+    float max_x = -std::numeric_limits<float>::infinity();
+    float max_y = -std::numeric_limits<float>::infinity();
+    int visible_face_kps = 0;
+    for (int k = 0; k < 5; ++k) {
+      const auto& kp = d.keypoints[k];
+      if (kp.confidence > kFaceKpVisibilityThreshold) {
+        ++visible_face_kps;
+        min_x = std::min(min_x, kp.x);
+        min_y = std::min(min_y, kp.y);
+        max_x = std::max(max_x, kp.x);
+        max_y = std::max(max_y, kp.y);
+      }
+    }
+    if (visible_face_kps >= 2) {
+      const float face_w = max_x - min_x;
+      const float face_h = max_y - min_y;
+      const float face_size = std::max(face_w, face_h);
+      const float center_x = (min_x + max_x) * 0.5f;
+      const float center_y = (min_y + max_y) * 0.5f;
+      const float half_size = (face_size * (1.f + kFacePadding)) * 0.5f;
+      DetectedFaceBbox fb;
+      fb.x1 = std::max(0.f, center_x - half_size);
+      fb.y1 = std::max(0.f, center_y - half_size);
+      fb.x2 = std::min(static_cast<float>(width), center_x + half_size);
+      fb.y2 = std::min(static_cast<float>(height), center_y + half_size);
+      d.face_bbox = fb;
+    }
+
+    raw.push_back(std::move(d));
   }
 
   auto nms = NonMaxSuppression(std::move(raw));

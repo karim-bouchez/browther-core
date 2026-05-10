@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -22,11 +23,33 @@ struct Session;
 
 namespace basarunaa {
 
-// Phase 3.1.5 — M1.3 minimal output. One detection per person; only the
-// bounding box (in original image coordinates) and the YOLO score are
-// populated. Gender / face / keypoints will follow in M1.4+ once yolov8n-face
-// + InsightFace genderage are wired up.
+// 17 COCO keypoints retournés par YOLO11n-pose : nose, eyes, ears, shoulders,
+// elbows, wrists, hips, knees, ankles. Coords pixel image originale.
+struct DetectedKeyPoint {
+  float x = 0.f;
+  float y = 0.f;
+  float confidence = 0.f;
+};
+
+// Bbox visage déduite des keypoints face (M1.4).
+struct DetectedFaceBbox {
+  float x1 = 0.f;
+  float y1 = 0.f;
+  float x2 = 0.f;
+  float y2 = 0.f;
+};
+
+// Phase 3.1.5 — M1.4. One detection per person : bbox + score + 17 keypoints
+// (nécessaires au pipeline MV3 pour matching face↔body et alignement face
+// InsightFace) + faceBbox dérivé des keypoints 0-4.
 struct DetectedPerson {
+  DetectedPerson();
+  DetectedPerson(const DetectedPerson&);
+  DetectedPerson(DetectedPerson&&) noexcept;
+  DetectedPerson& operator=(const DetectedPerson&);
+  DetectedPerson& operator=(DetectedPerson&&) noexcept;
+  ~DetectedPerson();
+
   // Bbox in pixel coordinates of the input image (NOT the 640x640 letterbox).
   float x = 0.f;
   float y = 0.f;
@@ -34,6 +57,11 @@ struct DetectedPerson {
   float h = 0.f;
   // Person class score in [0, 1].
   float score = 0.f;
+  // 17 keypoints, indexed COCO order. Empty if pose decoding failed.
+  std::vector<DetectedKeyPoint> keypoints;
+  // Derived from keypoints 0-4 (nose + eyes + ears) with 40% padding;
+  // nullopt if < 2 keypoints visible (confidence > 0.3).
+  std::optional<DetectedFaceBbox> face_bbox;
 };
 
 class BasarunaaService : public KeyedService {

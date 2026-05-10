@@ -85,6 +85,22 @@ std::vector<mojom::AnalyzedPersonPtr> AnalyzeOnWorker(
     m->w = p.w;
     m->h = p.h;
     m->score = p.score;
+    m->keypoints.reserve(p.keypoints.size());
+    for (const auto& kp : p.keypoints) {
+      auto mk = mojom::KeyPoint::New();
+      mk->x = kp.x;
+      mk->y = kp.y;
+      mk->confidence = kp.confidence;
+      m->keypoints.push_back(std::move(mk));
+    }
+    if (p.face_bbox) {
+      auto mb = mojom::Bbox::New();
+      mb->x1 = p.face_bbox->x1;
+      mb->y1 = p.face_bbox->y1;
+      mb->x2 = p.face_bbox->x2;
+      mb->y2 = p.face_bbox->y2;
+      m->face_bbox = std::move(mb);
+    }
     result.push_back(std::move(m));
   }
   return result;
