@@ -1,0 +1,235 @@
+// Copyright 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import BraveUI
+import BrowtherAnalytics
+import Preferences
+import Sawtunaa
+import SwiftUI
+import UIKit
+
+// MARK: - Sawtunaa panel
+
+struct SawtunaaPanelView: View {
+  @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
+  @State private var showLimitations = false
+
+  var body: some View {
+    VStack(spacing: 16) {
+      header
+
+      ShieldsSwitchView(isEnabled: Binding(
+        get: { enabled.value },
+        set: { newValue in
+          enabled.value = newValue
+          BrowtherAnalyticsService.shared.track(
+            event: "feature_toggled",
+            properties: ["feature": "sawtunaa", "enabled": newValue]
+          )
+        }
+      ))
+      .frame(
+        width: ShieldsSwitch.size.width,
+        height: ShieldsSwitch.size.height
+      )
+
+      // Status sous le toggle (cohérent avec "Boucliers Browther ACTIVÉ")
+      Group {
+        Text(verbatim: "Suppression de la musique ")
+          + Text(enabled.value ? "ACTIVÉE" : "DÉSACTIVÉE").bold()
+      }
+      .font(.footnote)
+      .foregroundStyle(Color(.secondaryBraveLabel))
+
+      Button {
+        showLimitations = true
+      } label: {
+        (
+          Text("Pour l'instant, ça fonctionne uniquement sur YouTube. ")
+            .foregroundColor(.primary)
+          + Text("(en savoir plus)")
+            .foregroundColor(.accentColor)
+            .underline()
+        )
+        .font(.footnote.weight(.medium))
+        .multilineTextAlignment(.leading)
+        .fixedSize(horizontal: false, vertical: true)
+      }
+      .buttonStyle(.plain)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .padding(.horizontal)
+    }
+    .padding(.top, 16)
+    .padding(.bottom, 16)
+    .frame(maxWidth: 360)
+    .background(Color(.braveBackground))
+    .alert("Pourquoi seulement YouTube ?", isPresented: $showLimitations) {
+      Button("OK", role: .cancel) {}
+    } message: {
+      Text(
+        "Apple impose des restrictions techniques sur iOS qui rendent ce genre de filtrage "
+          + "audio plus complexe que sur Mac/Windows/Android. On travaille à étendre ça à "
+          + "d'autres sites إن شاء الله."
+      )
+    }
+  }
+
+  private var header: some View {
+    HStack(alignment: .center, spacing: 8) {
+      Image("sawtunaa.icon.bg", bundle: .module)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 32, height: 32)
+      Image("sawtunaa.wordmark", bundle: .module)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(height: 24)
+    }
+    .frame(minWidth: .zero, alignment: .center)
+    .padding(.horizontal)
+  }
+}
+
+class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
+  PopoverContentComponent
+{
+  init() {
+    super.init(rootView: SawtunaaPanelView())
+    preferredContentSize = CGSize(width: 360, height: 260)
+  }
+
+  @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+
+// MARK: - Basarunaa panel (front-only, pipeline ML à venir)
+
+struct BasarunaaPanelView: View {
+  @ObservedObject private var enabled = Preferences.Basarunaa.enabled
+  @ObservedObject private var mode = Preferences.Basarunaa.mode
+  @ObservedObject private var faceThreshold = Preferences.Basarunaa.faceThreshold
+  @ObservedObject private var bodyThreshold = Preferences.Basarunaa.bodyThreshold
+  @ObservedObject private var blurStrength = Preferences.Basarunaa.blurStrength
+
+  var body: some View {
+    ScrollView {
+      VStack(spacing: 16) {
+        header
+
+        ShieldsSwitchView(isEnabled: Binding(
+          get: { enabled.value },
+          set: { newValue in
+            enabled.value = newValue
+            BrowtherAnalyticsService.shared.track(
+              event: "feature_toggled",
+              properties: ["feature": "basarunaa", "enabled": newValue]
+            )
+          }
+        ))
+        .frame(
+          width: ShieldsSwitch.size.width,
+          height: ShieldsSwitch.size.height
+        )
+
+        Group {
+          Text(verbatim: "Floutage des personnes ")
+            + Text(enabled.value ? "ACTIVÉ" : "DÉSACTIVÉ").bold()
+        }
+        .font(.footnote)
+        .foregroundStyle(Color(.secondaryBraveLabel))
+
+        // Mode segmented
+        VStack(alignment: .leading, spacing: 6) {
+          Text("Mode")
+            .font(.subheadline.weight(.medium))
+          Picker("Mode", selection: Binding(
+            get: { mode.value },
+            set: { mode.value = $0 }
+          )) {
+            Text("Off").tag("off")
+            Text("Blur").tag("blur")
+            Text("Strict").tag("strict")
+          }
+          .pickerStyle(.segmented)
+          .disabled(!enabled.value)
+        }
+        .padding(.horizontal)
+
+        VStack(spacing: 12) {
+          sliderRow(label: "Seuil visage", value: Binding(
+            get: { faceThreshold.value },
+            set: { faceThreshold.value = $0 }
+          ))
+          sliderRow(label: "Seuil corps", value: Binding(
+            get: { bodyThreshold.value },
+            set: { bodyThreshold.value = $0 }
+          ))
+          sliderRow(label: "Intensité du flou", value: Binding(
+            get: { blurStrength.value },
+            set: { blurStrength.value = $0 }
+          ))
+        }
+        .padding(.horizontal)
+
+        Text("⚠️ Pipeline ML iOS pas encore branché — la pref est sauvegardée mais aucun floutage n'est appliqué pour l'instant.")
+          .font(.caption)
+          .foregroundColor(.orange)
+          .padding(8)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .background(Color.orange.opacity(0.1))
+          .clipShape(RoundedRectangle(cornerRadius: 8))
+          .fixedSize(horizontal: false, vertical: true)
+          .padding(.horizontal)
+      }
+      .padding(.top, 16)
+      .padding(.bottom, 16)
+    }
+    .frame(maxWidth: 360)
+    .background(Color(.braveBackground))
+  }
+
+  private func sliderRow(label: String, value: Binding<Double>) -> some View {
+    VStack(alignment: .leading, spacing: 4) {
+      HStack {
+        Text(label).font(.subheadline.weight(.medium))
+        Spacer()
+        Text(String(format: "%.0f%%", value.wrappedValue * 100))
+          .font(.caption.monospacedDigit())
+          .foregroundColor(.secondary)
+      }
+      Slider(value: value, in: 0...1)
+        .disabled(!enabled.value)
+    }
+  }
+
+  private var header: some View {
+    HStack(alignment: .center, spacing: 8) {
+      Image("basarunaa.icon.bg", bundle: .module)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 32, height: 32)
+      Image("basarunaa.wordmark", bundle: .module)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(height: 24)
+    }
+    .frame(minWidth: .zero, alignment: .center)
+    .padding(.horizontal)
+  }
+}
+
+class BasarunaaPanelViewController: UIHostingController<BasarunaaPanelView>,
+  PopoverContentComponent
+{
+  init() {
+    super.init(rootView: BasarunaaPanelView())
+    preferredContentSize = CGSize(width: 360, height: 540)
+  }
+
+  @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}

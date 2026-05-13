@@ -9,6 +9,7 @@ import Combine
 import Data
 import DesignSystem
 import Preferences
+import Sawtunaa
 import Shared
 import SnapKit
 import SpeechRecognition
@@ -35,6 +36,9 @@ protocol TopToolbarDelegate: AnyObject {
   func topToolbarDidTapShortcutButton(_ topToolbar: TopToolbarView)
   func topToolbarDidTapBraveShieldsButton(_ topToolbar: TopToolbarView)
   func topToolbarDidTapBraveRewardsButton(_ topToolbar: TopToolbarView)
+  // Browther: features URL bar
+  func topToolbarDidTapSawtunaaButton(_ topToolbar: TopToolbarView)
+  func topToolbarDidTapBasarunaaButton(_ topToolbar: TopToolbarView)
   func topToolbarDidTapMenuButton(_ topToolbar: TopToolbarView)
   func topToolbarDidPressVoiceSearchButton(_ urlBar: TopToolbarView)
   func topToolbarDidPressPasteAndGoButton(_ urlBar: TopToolbarView)
@@ -217,6 +221,8 @@ class TopToolbarView: UIView, ToolbarProtocol {
     shareButton, tabsButton, shortcutButton,
     forwardButton, backButton, menuButton,
     shieldsButton, rewardsButton,
+    // Browther: features URL bar
+    sawtunaaButton, basarunaaButton,
   ].compactMap { $0 }
 
   private let mainStackView = UIStackView().then {
@@ -281,7 +287,13 @@ class TopToolbarView: UIView, ToolbarProtocol {
 
   private(set) lazy var shieldsButton: ToolbarButton = {
     let button = ToolbarButton()
-    button.setImage(UIImage(sharedNamed: "brave.logo"), for: .normal)
+    // Browther: variante dédiée URL bar (sans bg, sans padding interne) rendue
+    // via .alwaysTemplate. Les autres usages de "brave.logo" (favicon list,
+    // back-forward) gardent leur version with-bg historique.
+    let icon = UIImage(named: "browther.shield.bar", in: .module, compatibleWith: nil)?
+      .withRenderingMode(.alwaysTemplate)
+    button.setImage(icon, for: .normal)
+    applyBrowtherTint(to: button)
     button.addTarget(self, action: #selector(didTapBraveShieldsButton), for: .touchUpInside)
     button.imageView?.contentMode = .scaleAspectFit
     button.accessibilityLabel = Strings.bravePanel
@@ -289,14 +301,97 @@ class TopToolbarView: UIView, ToolbarProtocol {
     button.accessibilityIdentifier = "urlBar-shieldsButton"
     button.contentHorizontalAlignment = .fill
     button.contentVerticalAlignment = .fill
+    shieldsBadge = attachStatusBadge(to: button)
     return button
   }()
+
+  private weak var shieldsBadge: UIView?
 
   private(set) lazy var rewardsButton: RewardsButton = {
     let button = RewardsButton()
     button.addTarget(self, action: #selector(didTapBraveRewardsButton), for: .touchUpInside)
     return button
   }()
+
+  // Browther: Sawtunaa toolbar button (suppression musique/bruit)
+  private(set) lazy var sawtunaaButton: ToolbarButton = {
+    let button = makeBrowtherFeatureButton(
+      iconName: "sawtunaa.icon",
+      label: "Sawtunaa",
+      identifier: "urlBar-sawtunaaButton",
+      action: #selector(didTapSawtunaaButton)
+    )
+    sawtunaaBadge = attachStatusBadge(to: button)
+    return button
+  }()
+
+  // Browther: Basarunaa toolbar button (floutage personnes)
+  private(set) lazy var basarunaaButton: ToolbarButton = {
+    let button = makeBrowtherFeatureButton(
+      iconName: "basarunaa.icon",
+      label: "Basarunaa",
+      identifier: "urlBar-basarunaaButton",
+      action: #selector(didTapBasarunaaButton)
+    )
+    basarunaaBadge = attachStatusBadge(to: button)
+    return button
+  }()
+
+  private weak var sawtunaaBadge: UIView?
+  private weak var basarunaaBadge: UIView?
+
+  private func makeBrowtherFeatureButton(
+    iconName: String,
+    label: String,
+    identifier: String,
+    action: Selector
+  ) -> ToolbarButton {
+    let button = ToolbarButton()
+    let icon = UIImage(named: iconName, in: .module, compatibleWith: nil)?
+      .withRenderingMode(.alwaysTemplate)
+    button.setImage(icon, for: .normal)
+    applyBrowtherTint(to: button)
+    button.addTarget(self, action: action, for: .touchUpInside)
+    button.imageView?.contentMode = .scaleAspectFit
+    button.accessibilityLabel = label
+    button.accessibilityIdentifier = identifier
+    return button
+  }
+
+  /// Browther : applique la teinte standard `.iconDefault` sur primary + selected
+  /// (sinon le tap fait fallback sur le tintColor de la window = violet Brave).
+  private func applyBrowtherTint(to button: ToolbarButton) {
+    let color = UIColor(braveSystemName: .iconDefault)
+    button.primaryTintColor = color
+    button.selectedTintColor = color.withAlphaComponent(0.5)
+  }
+
+  /// Petit dot 8pt en bas-droite du bouton (vert = ON, rouge = OFF) — cohérent macOS.
+  private func attachStatusBadge(to button: UIButton) -> UIView {
+    let badge = UIView()
+    badge.translatesAutoresizingMaskIntoConstraints = false
+    badge.layer.cornerRadius = 4
+    badge.layer.borderWidth = 1.5
+    badge.layer.borderColor = UIColor.systemBackground.cgColor
+    badge.isUserInteractionEnabled = false
+    button.addSubview(badge)
+    NSLayoutConstraint.activate([
+      badge.widthAnchor.constraint(equalToConstant: 8),
+      badge.heightAnchor.constraint(equalToConstant: 8),
+      badge.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -2),
+      badge.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: -2),
+    ])
+    return badge
+  }
+
+  fileprivate func updateBrowtherFeatureButtons() {
+    sawtunaaBadge?.backgroundColor = badgeColor(enabled: Preferences.Sawtunaa.enabled.value)
+    basarunaaBadge?.backgroundColor = badgeColor(enabled: Preferences.Basarunaa.enabled.value)
+  }
+
+  private func badgeColor(enabled: Bool) -> UIColor {
+    enabled ? .systemGreen : .systemRed
+  }
 
   private lazy var pasteAndGoButton = ToolbarButton().then {
     $0.accessibilityIdentifier = "TabToolbar.pasteAndGoButton"
@@ -398,8 +493,17 @@ class TopToolbarView: UIView, ToolbarProtocol {
     trailingItemsStackView.addArrangedSubview(tabsButton)
     trailingItemsStackView.addArrangedSubview(menuButton)
 
+    // Browther: ordre = [Sawtunaa, Basarunaa, Shield, Rewards] — features Browther
+    // à gauche du Shield pour qu'elles soient les plus accessibles au pouce.
+    shieldsRewardsStack.addArrangedSubview(sawtunaaButton)
+    shieldsRewardsStack.addArrangedSubview(basarunaaButton)
     shieldsRewardsStack.addArrangedSubview(shieldsButton)
     shieldsRewardsStack.addArrangedSubview(rewardsButton)
+
+    // Observers prefs pour mettre à jour la teinte des icônes ON/OFF
+    Preferences.Sawtunaa.enabled.observe(from: self)
+    Preferences.Basarunaa.enabled.observe(from: self)
+    updateBrowtherFeatureButtons()
 
     [
       leadingItemsStackView, locationContainer, shieldsRewardsStack, trailingItemsStackView,
@@ -872,23 +976,19 @@ class TopToolbarView: UIView, ToolbarProtocol {
 
   /// Update the shields icon based on whether or not shields are enabled for this site
   func refreshShieldsStatus() {
-    // Default on
-    var shieldIcon = "brave.logo"
-    let shieldsOffIcon = "brave.logo.greyscale"
+    // Browther: l'icône reste neutre en permanence, l'état ON/OFF est porté
+    // par le badge dot vert/rouge (cohérent avec Sawtunaa/Basarunaa).
+    // Sur les pages internes (NTP, local) on affiche le badge vert : Shields
+    // est globalement actif, c'est juste que la page n'a pas de site à protéger.
+    var shieldsOn = true
     if let currentURL = currentURL, currentURL.isWebPage(includeDataURIs: false) {
       let isShieldsEnabled =
         delegate?.topToolbarIsShieldsEnabled(self, for: currentURL) ?? true
       if !isShieldsEnabled {
-        shieldIcon = shieldsOffIcon
+        shieldsOn = false
       }
-      if currentURL.isLocal || currentURL.isNewTabURL {
-        shieldIcon = shieldsOffIcon
-      }
-    } else {
-      shieldIcon = shieldsOffIcon
     }
-
-    shieldsButton.setImage(UIImage(sharedNamed: shieldIcon), for: .normal)
+    shieldsBadge?.backgroundColor = badgeColor(enabled: shieldsOn)
   }
 
   // MARK: Actions
@@ -935,6 +1035,15 @@ class TopToolbarView: UIView, ToolbarProtocol {
   @objc private func didTapBraveRewardsButton() {
     delegate?.topToolbarDidTapBraveRewardsButton(self)
   }
+
+  // Browther: features URL bar
+  @objc private func didTapSawtunaaButton() {
+    delegate?.topToolbarDidTapSawtunaaButton(self)
+  }
+
+  @objc private func didTapBasarunaaButton() {
+    delegate?.topToolbarDidTapBasarunaaButton(self)
+  }
 }
 
 // MARK:  PreferencesObserver
@@ -942,6 +1051,12 @@ class TopToolbarView: UIView, ToolbarProtocol {
 extension TopToolbarView: PreferencesObserver {
   func preferencesDidChange(for key: String) {
     updateViewsForOverlayModeAndToolbarChanges()
+    // Browther: refresh teinte des icônes Sawtunaa/Basarunaa quand prefs changent
+    if key == Preferences.Sawtunaa.enabled.key
+      || key == Preferences.Basarunaa.enabled.key
+    {
+      updateBrowtherFeatureButtons()
+    }
   }
 }
 

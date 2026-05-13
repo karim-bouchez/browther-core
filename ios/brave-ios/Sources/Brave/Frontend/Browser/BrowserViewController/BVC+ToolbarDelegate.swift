@@ -368,6 +368,23 @@ extension BrowserViewController: TopToolbarDelegate {
     presentBraveShieldsView()
   }
 
+  // Browther: features URL bar
+  func topToolbarDidTapSawtunaaButton(_ topToolbar: TopToolbarView) {
+    let popover = PopoverController(
+      contentController: SawtunaaPanelViewController(),
+      contentSizeBehavior: .preferredContentSize
+    )
+    popover.present(from: topToolbar.sawtunaaButton, on: self)
+  }
+
+  func topToolbarDidTapBasarunaaButton(_ topToolbar: TopToolbarView) {
+    let popover = PopoverController(
+      contentController: BasarunaaPanelViewController(),
+      contentSizeBehavior: .preferredContentSize
+    )
+    popover.present(from: topToolbar.basarunaaButton, on: self)
+  }
+
   func presentBraveShieldsView() {
     guard let selectedTab = tabManager.selectedTab, var url = selectedTab.visibleURL else { return }
     if let internalURL = InternalURL(url) {

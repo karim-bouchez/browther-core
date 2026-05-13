@@ -69,7 +69,13 @@ class ShieldsSwitch: UIControl {
   }
 
   private let backgroundView = UIView().then {
-    $0.backgroundColor = UIColor.secondaryBraveBackground
+    // Browther: gris adaptatif suffisamment contrasté en dark mode (l'original
+    // .secondaryBraveBackground se confondait avec le fond noir du panel).
+    $0.backgroundColor = UIColor { trait in
+      trait.userInterfaceStyle == .dark
+        ? UIColor(white: 0.32, alpha: 1.0)
+        : UIColor(white: 0.85, alpha: 1.0)
+    }
     $0.isUserInteractionEnabled = false
   }
 
@@ -195,13 +201,15 @@ class ShieldsSwitch: UIControl {
     }
   }
 
+  // Browther: nuances de vert (cohérent identité Browther) au lieu du
+  // dégradé orange/rouge/rose Brave. Effet glow animé identique.
   private let steps: [AnimationStep] = [
-    .init(colors: [0xFFA73B, 0xFF7654], shadow: 0xFF7654),
-    .init(colors: [0xFF7654, 0xFB542B], shadow: 0xFB542B),
-    .init(colors: [0xFB542B, 0xF7241C], shadow: 0xF7241C),
-    .init(colors: [0xF7241C, 0xFC4F82], shadow: 0xFC4F82),
-    .init(colors: [0xFC4F82, 0xFFA73B], shadow: 0xFFA73B),
-    .init(colors: [0xFFA73B, 0xFF7654], shadow: 0xFF7654),
+    .init(colors: [0x86EFAC, 0x4ADE80], shadow: 0x4ADE80),
+    .init(colors: [0x4ADE80, 0x22C55E], shadow: 0x22C55E),
+    .init(colors: [0x22C55E, 0x16A34A], shadow: 0x16A34A),
+    .init(colors: [0x16A34A, 0x10B981], shadow: 0x10B981),
+    .init(colors: [0x10B981, 0x34D399], shadow: 0x34D399),
+    .init(colors: [0x34D399, 0x86EFAC], shadow: 0x86EFAC),
   ]
 
   private func beginGradientAnimations() {
