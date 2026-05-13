@@ -149,20 +149,8 @@ struct ShieldsPanelView: View {
       .frame(maxHeight: .infinity, alignment: .center)
       .background(Color(.secondaryBraveBackground).cornerRadius(8))
 
-      Button {
-        actionCallback(.navigate(.shareStats, dismiss: false))
-      } label: {
-        HStack {
-          Image(braveSystemName: "leo.share")
-            .font(.title2)
-        }
-        .padding()
-        .contentShape(RoundedRectangle(cornerRadius: 8))
-      }
-      .foregroundStyle(Color(.bravePrimary))
-      .buttonStyle(.plain)
-      .frame(maxHeight: .infinity, alignment: .center)
-      .background(Color(.secondaryBraveBackground).cornerRadius(8))
+      // Browther: bouton "partager les stats" retiré (cohérence UX,
+      // pas pertinent pour Browther)
     }
     .padding(.horizontal)
   }

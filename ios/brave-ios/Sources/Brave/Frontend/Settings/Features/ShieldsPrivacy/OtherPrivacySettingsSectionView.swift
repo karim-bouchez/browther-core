@@ -7,6 +7,7 @@ import BraveCore
 import BraveShared
 import BraveShields
 import BraveUI
+import BrowtherAnalytics
 import Data
 import Growth
 import OSLog
@@ -159,31 +160,25 @@ struct OtherPrivacySettingsSectionView: View {
           option: Preferences.Privacy.screenTimeEnabled
         )
       }
-      // Browther: P3A, DAU ping, and surveys all send data to Brave's servers — hide toggles
-      if false, !settings.isP3AManaged {
-        ToggleView(
-          title: Strings.P3A.settingTitle,
-          subtitle: Strings.P3A.settingSubtitle,
-          toggle: $settings.isP3AEnabled
-        )
-      }
-      if false, !settings.isStatsReportingManaged {
-        ToggleView(
-          title: Strings.Settings.sendUsagePingTitle,
-          subtitle: Strings.Settings.sendUsagePingDescription,
-          toggle: $settings.isStatsReportingEnabled
-        )
-      }
-      if false, FeatureList.kBraveNTPBrandedWallpaperSurveyPanelist.enabled {
-        ToggleView(
-          title: Strings.Settings.surveyPanelistTitle,
-          subtitle: String.localizedStringWithFormat(
-            Strings.Settings.surveyPanelistDescription,
-            URL.brave.surveyPanelistLearnMoreLinkUrl.absoluteString
-          ),
-          toggle: $settings.isSurveyPanelistEnabled
-        )
-      }
+      // Browther: P3A/DAU/surveys Brave désactivés (envoyaient à Brave's servers).
+      // Remplacés par nos propres toggles Sentry (crashes) + PostHog (product
+      // analytics anonymes) — hébergés en UE, gated dans BrowtherAnalyticsService.
+      OptionToggleView(
+        title: "Aider à améliorer Browther (anonyme)",
+        subtitle: "Envoie l'usage des fonctionnalités à PostHog (UE). Aucune donnée personnelle, aucune URL visitée.",
+        option: Preferences.BrowtherAnalytics.posthogEnabled,
+        onChange: { newValue in
+          BrowtherAnalyticsService.shared.setPostHogEnabled(newValue)
+        }
+      )
+      OptionToggleView(
+        title: "Envoyer les rapports de crash",
+        subtitle: "Envoie automatiquement les crashes à Sentry (UE) pour les corriger.",
+        option: Preferences.BrowtherAnalytics.sentryEnabled,
+        onChange: { newValue in
+          BrowtherAnalyticsService.shared.setSentryEnabled(newValue)
+        }
+      )
     } header: {
       Text(Strings.otherPrivacySettingsSection)
     }
