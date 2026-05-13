@@ -58,6 +58,15 @@ class BraveActionsContainer : public views::View {
   void ChildPreferredSizeChanged(views::View* child) override;
 
   BraveShieldsActionView* GetShieldsActionView() { return shields_action_btn_; }
+  // Browther: setter pour pointer le getter sur le bouton créé dans le main
+  // toolbar (cf. BraveToolbarView). Le bouton n'est PAS owned par ce container.
+  // Conséquence : ce container n'a plus rien à afficher, on le marque comme
+  // "shields externalisé" → UpdateVisibility() le cachera.
+  void SetExternalShieldsActionView(BraveShieldsActionView* view) {
+    shields_action_btn_ = view;
+    shields_is_external_ = true;
+    UpdateVisibility();
+  }
 
  private:
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
@@ -77,6 +86,8 @@ class BraveActionsContainer : public views::View {
   gfx::Size GetActionSize() const;
 
   bool should_hide_ = false;
+  // Browther: true quand le shield button vit dans le main toolbar (pas ici)
+  bool shields_is_external_ = false;
 
   // The Browser this LocationBarView is in.  Note that at least
   // chromeos::SimpleWebViewDialog uses a LocationBarView outside any browser

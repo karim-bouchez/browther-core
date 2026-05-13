@@ -13,6 +13,7 @@
 #include "base/memory/weak_ptr.h"
 #include "base/strings/string_number_conversions.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
+#include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/browser/ui/webui/brave_shields/shields_panel_ui.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/constants/url_constants.h"
@@ -38,6 +39,7 @@
 #include "ui/color/color_provider_manager.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/skia_conversions.h"
+#include "ui/gfx/image/image_skia_operations.h"
 #include "ui/gfx/image/image_skia_rep.h"
 #include "ui/views/animation/ink_drop_impl.h"
 #include "ui/views/controls/button/label_button_border.h"
@@ -51,7 +53,9 @@
 #endif
 
 namespace {
-constexpr SkColor kBadgeBg = SkColorSetRGB(0x63, 0x64, 0x72);
+// Browther: dot ON/OFF aligné sur Sawtunaa/Basarunaa
+constexpr SkColor kBrowtherDotGreen = SkColorSetRGB(0x22, 0xC5, 0x5E);
+constexpr SkColor kBrowtherDotRed = SkColorSetRGB(0xEF, 0x44, 0x44);
 class BraveShieldsActionViewHighlightPathGenerator
     : public views::HighlightPathGenerator {
  public:
@@ -155,39 +159,31 @@ BraveShieldsActionView::GetImageSource() {
       web_contents ? web_contents->GetWeakPtr()
                    : base::WeakPtr<content::WebContents>());
 
-  std::unique_ptr<IconWithBadgeImageSource> image_source(
-      new brave::BraveIconWithBadgeImageSource(
-          preferred_size, std::move(get_color_provider_callback),
-          GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize),
-          kBraveActionLeftMarginExtra));
-  std::unique_ptr<IconWithBadgeImageSource::Badge> badge;
-  bool is_enabled = false;
-  std::string badge_text;
+  // Browther: petit dot ON/OFF en bas-droite (style iOS), cohérent avec
+  // Sawtunaa/Basarunaa. On perd le compteur "X bloqués" upstream Brave —
+  // l'info reste accessible dans le panel Bouclier Browther.
+  const int icon_size =
+      GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize);
+  auto image_source = std::make_unique<browther::BrowtherStatusDotImageSource>(
+      preferred_size, std::move(get_color_provider_callback), icon_size);
 
+  bool is_enabled = false;
   if (web_contents) {
     auto* shields_data_controller =
         brave_shields::BraveShieldsTabHelper::FromWebContents(web_contents);
-
-    int count = shields_data_controller->GetTotalBlockedCount();
-    if (count > 0) {
-      badge_text = count > 99 ? "99+" : base::NumberToString(count);
-    }
-
     is_enabled = shields_data_controller->GetBraveShieldsEnabled() &&
                  !IsPageInReaderMode(web_contents);
-
-    if (!badge_text.empty()) {
-      badge = std::make_unique<IconWithBadgeImageSource::Badge>(
-          badge_text, SK_ColorWHITE, kBadgeBg);
-    }
   }
 
-  image_source->SetIcon(gfx::Image(GetIconImage(is_enabled)));
-
-  if (is_enabled &&
-      profile_->GetPrefs()->GetBoolean(kShieldsStatsBadgeVisible)) {
-    image_source->SetBadge(std::move(badge));
+  // Browther: tinte l'icône Shield template (blanc + alpha) avec la couleur
+  // système toolbar pour matcher Sawtunaa/Basarunaa et les autres boutons.
+  gfx::ImageSkia base_icon = GetIconImage(is_enabled);
+  if (auto* cp = GetColorProvider()) {
+    base_icon = gfx::ImageSkiaOperations::CreateColorMask(
+        base_icon, cp->GetColor(kColorOmniboxText));
   }
+  image_source->SetIcon(gfx::Image(base_icon));
+  image_source->SetDotColor(is_enabled ? kBrowtherDotGreen : kBrowtherDotRed);
 
   return image_source;
 }

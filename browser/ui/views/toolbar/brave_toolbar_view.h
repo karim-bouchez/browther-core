@@ -25,6 +25,7 @@ class BraveVPNButton;
 #endif
 
 class BraveBookmarkButton;
+class BraveShieldsActionView;  // Browther: déplacé dans le main toolbar
 class SawtunaaActionView;
 class BasarunaaActionView;
 class SidePanelButton;
@@ -103,8 +104,9 @@ class BraveToolbarView : public ToolbarView,
   BooleanPrefMember edit_bookmarks_enabled_;
 
   raw_ptr<WalletButton> wallet_ = nullptr;
-  raw_ptr<SawtunaaActionView> sawtunaa_ = nullptr;    // Browther
-  raw_ptr<BasarunaaActionView> basarunaa_ = nullptr;  // Browther
+  raw_ptr<SawtunaaActionView> sawtunaa_ = nullptr;          // Browther
+  raw_ptr<BasarunaaActionView> basarunaa_ = nullptr;        // Browther
+  raw_ptr<BraveShieldsActionView> shields_ = nullptr;       // Browther
   raw_ptr<SidePanelButton> side_panel_ = nullptr;
 
 #if BUILDFLAG(ENABLE_BRAVE_VPN)

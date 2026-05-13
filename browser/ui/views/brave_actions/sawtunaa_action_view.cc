@@ -10,6 +10,7 @@
 #include "base/check_deref.h"
 #include "base/values.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
+#include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
@@ -26,6 +27,7 @@
 #include "ui/base/models/image_model.h"
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/color/color_provider_manager.h"
+#include "ui/gfx/image/image_skia_operations.h"
 #include "ui/gfx/image/image_skia_rep.h"
 #include "ui/views/animation/ink_drop_impl.h"
 #include "ui/views/controls/button/label_button_border.h"
@@ -113,19 +115,21 @@ void SawtunaaActionView::UpdateIconState() {
       web_contents ? web_contents->GetWeakPtr()
                    : base::WeakPtr<content::WebContents>());
 
-  std::unique_ptr<IconWithBadgeImageSource> image_source(
-      new brave::BraveIconWithBadgeImageSource(
-          preferred_size, std::move(get_color_provider_callback),
-          GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize),
-          kBraveActionLeftMarginExtra));
-
-  image_source->SetIcon(gfx::Image(GetIconImage(active)));
-
-  // Badge: green dot when ON, red dot when OFF
-  SkColor badge_bg = active ? kBadgeGreen : kBadgeRed;
-  auto badge = std::make_unique<IconWithBadgeImageSource::Badge>(
-      " ", SK_ColorWHITE, badge_bg);
-  image_source->SetBadge(std::move(badge));
+  // Browther: petit dot 8pt à cheval sur le coin bas-droite de l'icône (style
+  // iOS), au lieu du gros badge rectangulaire Brave.
+  const int icon_size =
+      GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize);
+  auto image_source = std::make_unique<browther::BrowtherStatusDotImageSource>(
+      preferred_size, std::move(get_color_provider_callback), icon_size);
+  // Browther: l'icône PNG est un template blanc + alpha. On la tinte avec la
+  // couleur système toolbar pour matcher les autres boutons.
+  gfx::ImageSkia base_icon = GetIconImage(active);
+  if (auto* cp = GetColorProvider()) {
+    base_icon = gfx::ImageSkiaOperations::CreateColorMask(
+        base_icon, cp->GetColor(kColorOmniboxText));
+  }
+  image_source->SetIcon(gfx::Image(base_icon));
+  image_source->SetDotColor(active ? kBadgeGreen : kBadgeRed);
 
   const gfx::ImageSkia icon(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,

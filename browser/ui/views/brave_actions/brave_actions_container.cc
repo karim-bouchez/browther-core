@@ -64,8 +64,10 @@ void BraveActionsContainer::Init() {
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS) && 0
   AddActionViewForRewards();
 #endif
-  // Browther: Sawtunaa icon moved to main toolbar (BraveToolbarView)
-  AddActionViewForShields();
+  // Browther: Sawtunaa + Basarunaa + Shields tous dans le main toolbar
+  // (BraveToolbarView), pour cohérence cross-platform avec iOS où les 3
+  // icônes sont groupées juste à côté de la URL bar. Le BraveActionsContainer
+  // reste vide → UpdateVisibility() le cache automatiquement (séparateur inclus).
   AddChildViewAt(brave_button_separator_, 0);
 
   // Browther: Rewards disabled — skip pref watcher
@@ -141,10 +143,11 @@ void BraveActionsContainer::Update() {
 void BraveActionsContainer::UpdateVisibility() {
   bool can_show = false;
 
-  if (shields_action_btn_) {
+  // Browther: si le shield est dans le main toolbar (pas ici), on n'a plus
+  // rien à afficher dans ce container — il reste juste un séparateur seul.
+  if (shields_action_btn_ && !shields_is_external_) {
     can_show = shields_action_btn_->GetVisible();
   }
-
 
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
   if (rewards_action_btn_) {

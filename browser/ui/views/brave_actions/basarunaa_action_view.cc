@@ -13,6 +13,7 @@
 #include "base/functional/bind.h"
 #include "brave/app/brave_command_ids.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
+#include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
@@ -25,9 +26,11 @@
 #include "ui/base/metadata/metadata_impl_macros.h"
 #include "ui/base/models/image_model.h"
 #include "ui/base/resource/resource_bundle.h"
+#include "chrome/browser/ui/omnibox/omnibox_theme.h"
 #include "ui/color/color_provider_manager.h"
 #include "ui/gfx/image/image.h"
 #include "ui/gfx/image/image_skia.h"
+#include "ui/gfx/image/image_skia_operations.h"
 #include "ui/gfx/image/image_skia_rep.h"
 #include "ui/views/controls/button/menu_button_controller.h"
 
@@ -102,14 +105,17 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
                 nullptr));
       });
 
-  auto image_source = std::make_unique<brave::BraveIconWithBadgeImageSource>(
-      preferred_size, std::move(get_color_provider_callback), icon_size,
-      kBraveActionLeftMarginExtra);
+  // Browther: petit dot 8pt à cheval sur le coin bas-droite de l'icône (style
+  // iOS), cohérent avec Sawtunaa.
+  auto image_source = std::make_unique<browther::BrowtherStatusDotImageSource>(
+      preferred_size, std::move(get_color_provider_callback), icon_size);
+  // Tinte l'icône template (blanc + alpha) avec la couleur système toolbar.
+  if (auto* cp = GetColorProvider()) {
+    icon_image = gfx::ImageSkiaOperations::CreateColorMask(
+        icon_image, cp->GetColor(kColorOmniboxText));
+  }
   image_source->SetIcon(gfx::Image(icon_image));
-
-  const SkColor badge_bg = IsActive() ? kBadgeGreen : kBadgeRed;
-  image_source->SetBadge(std::make_unique<IconWithBadgeImageSource::Badge>(
-      " ", SK_ColorWHITE, badge_bg));
+  image_source->SetDotColor(IsActive() ? kBadgeGreen : kBadgeRed);
 
   const gfx::ImageSkia composed(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,

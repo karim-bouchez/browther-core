@@ -259,6 +259,8 @@ source_set("ui") {
       "brave_file_select_utils.h",
       "brave_icon_with_badge_image_source.cc",
       "brave_icon_with_badge_image_source.h",
+      "browther_status_dot_image_source.cc",
+      "browther_status_dot_image_source.h",
       "brave_pages.cc",
       "brave_pages.h",
       "brave_tab_strip_model_delegate.cc",

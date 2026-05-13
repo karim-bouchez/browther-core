@@ -23,7 +23,10 @@
 #include "brave/browser/ui/views/toolbar/bookmark_button.h"
 #include "brave/browser/ui/views/toolbar/side_panel_button.h"
 #include "brave/browser/ui/views/brave_actions/basarunaa_action_view.h"
+#include "brave/browser/ui/views/brave_actions/brave_actions_container.h"
+#include "brave/browser/ui/views/brave_actions/brave_shields_action_view.h"
 #include "brave/browser/ui/views/brave_actions/sawtunaa_action_view.h"
+#include "brave/browser/ui/page_info/features.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
 #include "brave/components/brave_wallet/common/buildflags/buildflags.h"
@@ -329,6 +332,25 @@ void BraveToolbarView::Init() {
   basarunaa_->SetPreferredSize(gfx::Size(28, 28));
   basarunaa_->Init();
   SetBraveButtonFlexBehavior(basarunaa_);
+
+  // Browther: Bouclier Browther toolbar button — déplacé du BraveActionsContainer
+  // (URL bar) vers le main toolbar pour cohérence cross-platform avec iOS où les
+  // 3 icônes (Sawtunaa, Basarunaa, Bouclier) sont groupées au même endroit.
+  // Le getter `BraveActionsContainer::GetShieldsActionView()` est mis à jour pour
+  // pointer ici via `SetExternalShieldsActionView` (cf. brave_actions_container).
+  if (!page_info::features::IsShowBraveShieldsInPageInfoEnabled()) {
+    shields_ = container_view->AddChildViewAt(
+        std::make_unique<BraveShieldsActionView>(browser()),
+        *container_view->GetIndexOf(GetAppMenuButton()) - 1);
+    shields_->SetPreferredSize(gfx::Size(28, 28));
+    shields_->Init();
+    SetBraveButtonFlexBehavior(shields_);
+    // Brancher le getter du container URL bar (utilisé par les anchor des popups)
+    auto* lbv = static_cast<BraveLocationBarView*>(location_bar_view_);
+    if (lbv && lbv->GetBraveActionsContainer()) {
+      lbv->GetBraveActionsContainer()->SetExternalShieldsActionView(shields_);
+    }
+  }
 
   // Browther: Wallet disabled — hide toolbar button
 #if BUILDFLAG(ENABLE_BRAVE_WALLET) && 0
