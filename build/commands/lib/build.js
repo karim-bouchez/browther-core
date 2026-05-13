@@ -6,9 +6,34 @@
 import config from './config.js'
 import util from './util.js'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import fs from 'fs-extra'
 import Log from './logging.js'
 import branding from './branding.js'
+
+// Browther: post-build hook (Sentry symbols upload, future deploy-extensions, etc.)
+// Best-effort, n'échoue jamais le build.
+const runBrowtherPostBuildHook = () => {
+  try {
+    const variant = `${config.buildConfig}_${config.targetArch || 'arm64'}`
+    const scriptPath = path.resolve(
+      config.srcDir,
+      '..', '..', 'private', 'scripts', 'post-build.sh',
+    )
+    if (!fs.existsSync(scriptPath)) {
+      return // private/ pas présent (cas CI public, fork community)
+    }
+    const result = spawnSync(scriptPath, [variant], {
+      stdio: 'inherit',
+      env: process.env,
+    })
+    if (result.status !== 0) {
+      Log.warn(`Browther post-build hook a échoué (variant=${variant}, status=${result.status}) — build OK quand même`)
+    }
+  } catch (err) {
+    Log.warn(`Browther post-build hook a throw : ${err?.message || err} — build OK quand même`)
+  }
+}
 
 /**
  * Checks to make sure the src/chrome/VERSION matches brave-core's package.json version
@@ -52,6 +77,8 @@ const build = async (buildConfig = config.defaultBuildConfig, options = {}) => {
       await util.generateNinjaFiles()
     }
     await util.buildTargets()
+    // Browther: post-build hook
+    runBrowtherPostBuildHook()
   }
 }
 
