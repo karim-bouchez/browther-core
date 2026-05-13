@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Contrôles avancés";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Boucliers Brave et confidentialité";
+"BraveShieldsAndPrivacy" = "Boucliers Browther et confidentialité";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Boucliers et confidentialité";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Si ce site semble ne pas fonctionner correctement, essayez de désactiver les boucliers.";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Boucliers Brave";
+"BraveShieldsStatusTitle" = "Boucliers Browther";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "désactivé";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Bloquez les traqueurs qui portent atteinte à votre vie privée afin de naviguer en toute confidentialité sur le Web";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Boucliers Brave";
+"OBShieldsTitle" = "Boucliers Browther";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Afficher";

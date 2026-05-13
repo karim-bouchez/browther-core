@@ -2,7 +2,7 @@
 "About" = "关于";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "關於 Brave Shields";
+"AboutBraveShields" = "關於 Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "網站通常會透過 Cookie 和指令碼嘗試識別您和您使用的裝置，藉此掌握您的身分及瞭解您使用網路的情形，進而追蹤您在每個網站上的行為。\n\nBrave 會封鎖這些項目，讓您能在不受追蹤的情況下自在瀏覽。";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "進階控制項";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave 盾牌 & 隐私";
+"BraveShieldsAndPrivacy" = "Browther 盾牌 & 隐私";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "盾牌 & 隐私";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "如果這個網站貌似無法正常運作，請嘗試關閉 Shields";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "關閉";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "開啟";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "點兩下即可切換 Brave Shields";
+"BraveShieldsToggleHint" = "點兩下即可切換 Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave 通话";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "拦截侵犯隐私的跟踪程序，让您能够浏览网络内容，无需担心被跟踪";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "给我看看";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "分享消息";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields 剛剛保護了您線上活動的隱私。";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields 剛剛保護了您線上活動的隱私。";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "恭喜，您已具有特別的地位。";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "當您在此網站上觀看影片時，為您封鎖廣告。";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Brave Shields 全域預設";
+"ShieldsDefaults" = "Browther Shields 全域預設";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "這些是 Shields 對新網站的預設設定。變更這些設定不會影響現有的個別網站設定。";

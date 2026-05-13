@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "activados";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Toca dos veces para activar/desactivar Brave Shields";
+"BraveShieldsToggleHint" = "Toca dos veces para activar/desactivar Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Videollamadas Brave";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Abre todos los enlaces con Brave para proteger tu privacidad";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields bloquea rastreadores y anuncios, guarda datos y te ayuda a ahorrar tiempo cada vez que visitas un sitio";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields bloquea rastreadores y anuncios, guarda datos y te ayuda a ahorrar tiempo cada vez que visitas un sitio";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Abre Ajustes, toca en \"Aplicación de navegador predeterminado\" y selecciona Brave.";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Compartir las noticias";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields no ha hecho más que proteger tu privacidad en Internet.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields no ha hecho más que proteger tu privacidad en Internet.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "¡Enhorabuena! Eres muy especial.";
@@ -2508,10 +2508,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Los anuncios se bloquearán cuando veas los vídeos de este sitio web.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Opciones por defecto globales de Brave Shields";
+"ShieldsDefaults" = "Opciones por defecto globales de Browther Shields";
 
 /* Section footer for global shields defaults */
-"ShieldsDefaultsFooter" = "Son ajustes por defecto Brave Shields para sitios nuevos. Se pueden cambiar sin que se alteren los ajustes actuales del sitio.";
+"ShieldsDefaultsFooter" = "Son ajustes por defecto Browther Shields para sitios nuevos. Se pueden cambiar sin que se alteren los ajustes actuales del sitio.";
 
 /* No comment provided by engineer. */
 "ShieldsDownDisclaimer" = "Estás utilizando este sitio web sin la protección de privacidad de Brave. ¿Acaso no funciona bien con los escudos activados?";

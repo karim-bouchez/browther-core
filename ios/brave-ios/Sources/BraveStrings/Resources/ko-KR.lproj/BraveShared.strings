@@ -2,7 +2,7 @@
 "About" = "정보";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Brave Shields 정보";
+"AboutBraveShields" = "Browther Shields 정보";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "사이트에는 방문자와 방문자의 기기를 식별하기 위한 쿠키 및 스크립트가 포함되어 있을 수 있습니다. 이러한 요소는 방문자를 식별하고 방문자가 방문하는 웹사이트를 따라다니며 모든 사이트에서의 방문자 행동 패턴을 추적합니다.\n\nBrave는 이러한 요소를 차단하므로 추적되지 않고 브라우징을 즐길 수 있습니다.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "고급 컨트롤";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields 및 프라이버시";
+"BraveShieldsAndPrivacy" = "Browther Shields 및 프라이버시";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields 및 프라이버시";
@@ -203,7 +203,7 @@
 "BraveShieldsSiteBroken" = "사이트가 깨진 것으로 표시되면 Shields 해제 권장";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "해제";
@@ -212,7 +212,7 @@
 "BraveShieldsStatusValueUp" = "사용";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "두 번 탭하여 Brave Shields 토글";
+"BraveShieldsToggleHint" = "두 번 탭하여 Browther Shields 토글";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -257,7 +257,7 @@
 "callout.defaultBrowserTitle" = "프라이버시. 심플하게.";
 
 /* Subtitle - Description for p3a (Privacy Preserving Analytics) Full Screen Callout */
-"callout.p3aCalloutDescription" = "어떤 Brave 기능이 가장 자주 사용되는지 당사가 파악할 수 있습니다. Brave Shields 아래 Brave 설정 및 기타 프라이버시 설정에서 언제든지 변경할 수 있습니다.";
+"callout.p3aCalloutDescription" = "어떤 Brave 기능이 가장 자주 사용되는지 당사가 파악할 수 있습니다. Browther Shields 아래 Brave 설정 및 기타 프라이버시 설정에서 언제든지 변경할 수 있습니다.";
 
 /* Title for the link that navigates to a webpage showing information about p3a (Privacy Preserving Analytics) */
 "callout.p3aCalloutLinkTitle" = "프라이버시 보호 제품 분석(P3A)에 대해 자세히 알아보기.";
@@ -1145,7 +1145,7 @@
 "OBShieldsDetail" = "프라이버시를 침해하는 트래커를 차단하여 웹에서 불필요한 사이트 방문 없이 브라우징 가능";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "표시";
@@ -2660,7 +2660,7 @@
 "shieldEducation.videoAdBlockTitle" = "이 웹사이트에서 동영상을 시청하는 동안 광고가 차단되었습니다.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Brave Shields 전역 기본값";
+"ShieldsDefaults" = "Browther Shields 전역 기본값";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "새로운 사이트에 적용되는 기본 Shields 설정입니다. 이 설정을 변경해도 기존 사이트별 설정에는 영향을 주지 않습니다.";

@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Controles avançados";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields & Privacidade";
+"BraveShieldsAndPrivacy" = "Browther Shields & Privacidade";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields & Privacidade";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Ativadas";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Toque duas vezes para ativar/desativar o Brave Shields";
+"BraveShieldsToggleHint" = "Toque duas vezes para ativar/desativar o Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Abra todos os links com o Brave para proteger sua privacidade";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "O Brave Shields bloqueia rastreadores & anúncios, economiza dados e poupa seu tempo em todos os sites que você acessa";
+"defaultBrowserCallout.introSecondaryText" = "O Browther Shields bloqueia rastreadores & anúncios, economiza dados e poupa seu tempo em todos os sites que você acessa";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Abra os Ajustes, toque em \"App de Navegador Padrão\" e selecione \"Brave\".";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Compartilhe a novidade";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "O Brave Shields acabou de proteger sua privacidade on-line.";
+"shieldEducation.trackerAdWarningSubTitle" = "O Browther Shields acabou de proteger sua privacidade on-line.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Parabéns. Você é muito especial.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Os anúncios são bloqueados enquanto você assiste a vídeos neste site.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Padrões globais do Brave Shields";
+"ShieldsDefaults" = "Padrões globais do Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Essas são as configurações padrão do Shields para novos sites. A alteração delas não afetará suas atuais configurações específicas por site.";

@@ -2,7 +2,7 @@
 "About" = "เกี่ยวกับ";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "เกี่ยวกับ Brave Shields";
+"AboutBraveShields" = "เกี่ยวกับ Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "เว็บไซต์ต่างๆ มักมีคุกกี้และสคริปต์ที่พยายามระบุตัวตนและอุปกรณ์ของคุณ โดยต้องการค้นหาว่าคุณเป็นใครและติดตามคุณไปทั่วทุกเว็บไซต์ด้วยการติดตามสิ่งที่คุณทำบนทุกเว็บไซต์\n\nซึ่ง Brave จะบล็อกสิ่งเหล่านี้เพื่อให้คุณท่องเว็บได้โดยไม่ถูกติดตาม";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "การควบคุมขั้นสูง";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shield & ความเป็นส่วนตัว";
+"BraveShieldsAndPrivacy" = "Browther Shield & ความเป็นส่วนตัว";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields & ความเป็นส่วนตัว";
@@ -194,7 +194,7 @@
 "BraveShieldsBlockedInfoButtonAccessibilityLabel" = "ดูข้อมูลเพิ่มเติม";
 
 /* No comment provided by engineer. */
-"BraveShieldsGlobalChangeButton" = "ค่าเริ่มต้นทั่วไปของ Brave Shields";
+"BraveShieldsGlobalChangeButton" = "ค่าเริ่มต้นทั่วไปของ Browther Shields";
 
 /* No comment provided by engineer. */
 "BraveShieldsGlobalControls" = "การควบคุมทั่วไป";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "หากเว็บไซต์นี้ดูเหมือนมีปัญหา ให้ลองปิด Shields";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "ล่าง";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "บน";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "แตะสองครั้งเพื่อเปิดใช้ Brave Shields";
+"BraveShieldsToggleHint" = "แตะสองครั้งเพื่อเปิดใช้ Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "เปิดลิงก์ทั้งหมดด้วย Brave เพื่อปกป้องความเป็นส่วนตัวของคุณ";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields ได้บล็อกเครื่องมือติดตาม & โฆษณา บันทึกข้อมูล และช่วยให้คุณประหยัดเวลาในทุกเว็บไซต์ที่คุณเยี่ยมชม";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields ได้บล็อกเครื่องมือติดตาม & โฆษณา บันทึกข้อมูล และช่วยให้คุณประหยัดเวลาในทุกเว็บไซต์ที่คุณเยี่ยมชม";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "เปิดการตั้งค่า แตะที่แอปเบราว์เซอร์เริ่มต้น แล้วเลือก Brave";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "บล็อกตัวติดตามที่บุกรุกความเป็นส่วนตัว เพื่อให้คุณสามารถท่องเว็บได้โดยไม่มีอะไรคอยตาม";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "แสดงให้ฉันดู";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "สัปดาห์ที่แล้ว";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** ถูกบล็อคโดย Brave Shields บน **%2$lld** เว็บไซต์";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** ถูกบล็อคโดย Browther Shields บน **%2$lld** เว็บไซต์";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "เครื่องมือติดตาม & โฆษณาที่พบบ่อยที่สุด";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "แบ่งปันข่าวสาร";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields ปกป้องความเป็นส่วนตัวของคุณทางออนไลน์";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields ปกป้องความเป็นส่วนตัวของคุณทางออนไลน์";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "ยินดีด้วย คุณเป็นคนพิเศษเลยทีเดียว";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "โฆษณาถูกบล็อกขณะดูวิดีโอบนเว็บไซต์นี้";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "ค่าเริ่มต้นทั่วไปของ Brave Shields";
+"ShieldsDefaults" = "ค่าเริ่มต้นทั่วไปของ Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "นี่คือการตั้งค่า Shields เริ่มต้นสำหรับเว็บไซต์ใหม่ โดยการเปลี่ยนแปลงเหล่านี้จะไม่ส่งผลต่อการตั้งค่าที่มีอยู่ของแต่ละเว็บไซต์";

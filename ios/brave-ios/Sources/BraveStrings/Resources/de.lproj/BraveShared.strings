@@ -2,7 +2,7 @@
 "About" = "Über uns";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Über Brave Shields";
+"AboutBraveShields" = "Über Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Websites nutzen häufig Cookies und Skripte, mit denen man dich und dein Gerät erkennen kann. Das Ziel ist dabei, deine Identität zu ermitteln und deine Aktivitäten im Internet auf jeder der von deiner besuchten Websites zu tracken.\n\nBrave blockiert dieses Tracking, damit du surfen kannst, ohne im Web getrackt zu werden.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Erweiterte Steuerelemente";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields & Privatsphäre";
+"BraveShieldsAndPrivacy" = "Browther Shields & Privatsphäre";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields & Privatsphäre";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Wenn diese Website defekt erscheint, versuche es mit Shields down";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Down";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Online";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Zum Umschalten von Brave Shields doppeltippen";
+"BraveShieldsToggleHint" = "Zum Umschalten von Browther Shields doppeltippen";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Öffne alle Links mit Brave, um deine Privatsphäre zu schützen.";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blockiert Tracker und Anzeigen und spart Daten und Zeit auf jeder von dir besuchten Website";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blockiert Tracker und Anzeigen und spart Daten und Zeit auf jeder von dir besuchten Website";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Öffne die Einstellungen, tippe auf „Standardbrowser“ und wähle Brave aus.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blockiere Tracker, die deine Privatsphäre beeinträchtigen. So kannst du surfen, ohne im Web beobachtet zu werden.";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Zeige mir";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Letzte Woche";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** wurde vom Brave Shields auf **%2$lld** Websites blockiert";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** wurde vom Browther Shields auf **%2$lld** Websites blockiert";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Häufigster Tracker & Anzeige";
@@ -1727,7 +1727,7 @@
 "privacyHub.riskiestWebsiteTitle" = "Website mit den meisten Trackern";
 
 /* This text explains a setting that lets Brave monitor blocked network requests */
-"privacyHub.settingsEnableShieldsFooter" = "Der Datenschutzhub zeigt an, welche Elemente Brave Shields blockiert hat. Die Einstellung hat keine Auswirkung auf die Shields-Anzahl in neuen Tabs. In privaten Fenstern werden keine Shields-Daten erfasst.";
+"privacyHub.settingsEnableShieldsFooter" = "Der Datenschutzhub zeigt an, welche Elemente Browther Shields blockiert hat. Die Einstellung hat keine Auswirkung auf die Shields-Anzahl in neuen Tabs. In privaten Fenstern werden keine Shields-Daten erfasst.";
 
 /* Title of a setting that lets Brave monitor blocked network requests */
 "privacyHub.settingsEnableShieldsTitle" = "Shields-Daten anzeigen";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Teile deine Nachrichten";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields hat soeben deine Online-Privatsphäre geschützt.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields hat soeben deine Online-Privatsphäre geschützt.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Glückwunsch. Du bist etwas Besonderes.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Während des Abspielens von Videos auf dieser Website wurden Anzeigen blockiert.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Globale Brave Shields-Standardeinstellungen";
+"ShieldsDefaults" = "Globale Browther Shields-Standardeinstellungen";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Dies sind die Standardeinstellungen für Schutz für neue Seiten. Wenn du die folgenden Einstellungen änderst, hat dies keine Auswirkung auf die Einstellungen, die du für bestimmte Websites gemacht hast.";

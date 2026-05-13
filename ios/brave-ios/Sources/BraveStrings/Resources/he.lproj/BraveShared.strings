@@ -2,7 +2,7 @@
 "About" = "מידע כללי";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "אודות Brave Shields";
+"AboutBraveShields" = "אודות Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "אתרים לרוב כוללים קובצי עוגיות וסקריפטים שמנסים לזהות אותך ואת המכשיר שלך במטרה להבין מי את/ה ולעקוב אחריך ברחבי הרשת  — תוך מעקב אחר הפעולות שלך בכל אתר.\n\nBrave חוסם את הדברים האלה כדי שתהיה לך אפשרות לגלוש בלי שיעקבו אחריך.";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "אם האתר לא מופיע כהלכה, אפשר לנסות לכבות את המגנים";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "למטה";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "לחסום כלי מעקב שפולשים לפרטיות, כך שתהיה לך אפשרות לגלוש בלי שיעקבו אחריך ברחבי הרשת";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "תציגו לי";

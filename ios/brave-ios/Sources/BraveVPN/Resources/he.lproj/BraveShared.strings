@@ -110,7 +110,7 @@
 "vpn.subscribeVPNProtectionPopOverDescription" = "VPN של Brave תמיד חסם כלי מעקב בכל אפליקציה, גם מחוץ לדפדפן Brave. עכשיו אפשר לראות מי ניסה לעקוב אחריך עם מרכז הפרטיות של Brave.";
 
 /* Pop up title for subscribing VPN explaning VPN protects user outside the Brave */
-"vpn.subscribeVPNProtectionPopOverTitle" = "ידעת ש-VPN של Brave מגן עליך מחוץ לדפדפן Brave?";
+"vpn.subscribeVPNProtectionPopOverTitle" = "ידעת ש-VPN של Browther מגן עליך מחוץ לדפדפן Brave?";
 
 /* Cell title indicates update payment method */
 "vpn.updateActionCellTitle" = "עדכן";

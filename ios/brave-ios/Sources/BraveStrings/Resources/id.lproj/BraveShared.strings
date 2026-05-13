@@ -2,7 +2,7 @@
 "About" = "Tentang";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Seputar Brave Shields";
+"AboutBraveShields" = "Seputar Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Sering kali saat membuka situs terdapat cookies dan skrip yang berusaha mengidentifikasi pengguna dan perangkatnya.  Mereka ingin mengetahui siapa Anda dan mengikuti Anda di seluruh situs - melacak apa yang Anda lakukan di setiap situs.\n\nBrave memblokir hal-hal tersebut sehingga Anda dapat menjelajah tanpa merasa diikuti.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Kontrol lanjutan";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Perisai Brave & Privasi";
+"BraveShieldsAndPrivacy" = "Perisai Browther & Privasi";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Perisai & Privasi";
@@ -194,7 +194,7 @@
 "BraveShieldsBlockedInfoButtonAccessibilityLabel" = "Pelajari lebih lanjut";
 
 /* No comment provided by engineer. */
-"BraveShieldsGlobalChangeButton" = "Ubah Bawaan Global Perisai Brave";
+"BraveShieldsGlobalChangeButton" = "Ubah Bawaan Global Perisai Browther";
 
 /* No comment provided by engineer. */
 "BraveShieldsGlobalControls" = "Kontrol Global";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Jika situs ini tampak rusak, coba turunkan Shield";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Turun";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Naik";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Ketuk dua kali untuk mengalihkan Brave Shields";
+"BraveShieldsToggleHint" = "Ketuk dua kali untuk mengalihkan Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Buka semua tautan dengan Brave untuk menjaga privasi Anda";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Perisai Brave memblokir pelacak & iklan, menghemat data, dan menghemat waktu Anda di setiap situs yang Anda kunjungi";
+"defaultBrowserCallout.introSecondaryText" = "Perisai Browther memblokir pelacak & iklan, menghemat data, dan menghemat waktu Anda di setiap situs yang Anda kunjungi";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Buka pengaturan, ketuk Default Browser App, dan pilih Brave.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blokir pelacak privasi yang menginvasi agar Anda dapat menjelajahi di web tanpa dikuntit.";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Tampilkan Kepada Saya";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Minggu lalu";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** diblokir oleh Perisai Brave pada situs **%2$lld**";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** diblokir oleh Perisai Browther pada situs **%2$lld**";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Pelacak & Iklan Paling Sering";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Bagikan berita";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shield telah menjaga privasi online Anda.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shield telah menjaga privasi online Anda.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Selamat. Anda cukup spesial.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Iklan diblok selagi melihat video pada situs ini.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Default Global Perisai Brave";
+"ShieldsDefaults" = "Default Global Perisai Browther";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Ini adalah pengaturan bawaan Perisai untuk situs baru. Mengubah hal ini tidak akan memengaruhi pengaturan per-situs Anda yang telah ada.";

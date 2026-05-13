@@ -2,7 +2,7 @@
 "About" = "Om";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Om Brave Shields ";
+"AboutBraveShields" = "Om Browther Shields ";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Websteder indeholder ofte cookies og scripts, som forsøger at identificere dig og din enhed. De ønsker at finde ud af, hvem du er og følge dig på tværs af internettet – dvs. spore, hvad du laver på hvert websted.\n\nBrave blokerer disse ting, så du kan browse uden at blive fulgt.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Avancerede kontroller ";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields og privatliv";
+"BraveShieldsAndPrivacy" = "Browther Shields og privatliv";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields og privatliv";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Op";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Dobbelttryk for at skifte til Brave Shields";
+"BraveShieldsToggleHint" = "Dobbelttryk for at skifte til Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Åbn alle links med Brave for at beskytte dine data";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blokerer trackere og annoncer, gemmer data og sparer dig tid på hver eneste hjemmeside, du besøger";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blokerer trackere og annoncer, gemmer data og sparer dig tid på hver eneste hjemmeside, du besøger";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Åbn Indstillinger, tryk på Standardbrowserapp, og vælg Brave.";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Sidste uge";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** blev blokeret af Brave Shields på **%2$lld** websteder";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** blev blokeret af Browther Shields på **%2$lld** websteder";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Hyppigste tracker og annonce";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Del nyheden";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields har netop beskyttet dit online privatliv.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields har netop beskyttet dit online privatliv.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Tillykke. Du er ret speciel.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Annoncer blokeres, mens du ser videoer på denne hjemmeside.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Globale standarder for Brave Shields";
+"ShieldsDefaults" = "Globale standarder for Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Her er Shields' standardindstillinger til nye websider. Hvis du ændrer dem, vil det ikke få indflydelse på dine eksisterende indstillinger for specifikke sider.";

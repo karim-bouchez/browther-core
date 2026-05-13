@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "вкл";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Brave Shields: чтобы переключить, нажмите дважды";
+"BraveShieldsToggleHint" = "Browther Shields: чтобы переключить, нажмите дважды";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Разговоры";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Для безопасности открывайте ссылки с помощью Brave";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields блокирует трекеры & рекламу, сохраняет данные и экономит ваше время на каждом посещаемом вами сайте";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields блокирует трекеры & рекламу, сохраняет данные и экономит ваше время на каждом посещаемом вами сайте";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Откройте настройки, нажмите «Браузерное приложение по умолчанию» и выберите Brave.";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "За неделю";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "Сайтов, на которых Brave Щит заблокировал **%1$@**: **%2$lld**";
+"privacyHub.mostFrequentTrackerAndAdBody" = "Сайтов, на которых Browther Щит заблокировал **%1$@**: **%2$lld**";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Наиболее часто встречающийся трекер & Реклама";
@@ -1970,7 +1970,7 @@
 "ReportBrokenPlaceholder" = "Выберите один вариант";
 
 /* First part of the report a broken site copy. After the colon is a new line and then a website address */
-"ReportBrokenSiteBody1" = "Сообщите разработчикам Brave, что этот сайт некорректно работает с системой Brave Shields:";
+"ReportBrokenSiteBody1" = "Сообщите разработчикам Brave, что этот сайт некорректно работает с системой Browther Shields:";
 
 /* This is the info text that is presented when a user is submitting a web-compatibility report. */
 "ReportBrokenSiteBody2" = "Примечание. В отчете, который вы отправите на серверы Brave, будет указан адрес сайта, версия Brave, настройки Щита, статус VPN и языковые параметры.";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Поделиться новостями";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields защищает вашу конфиденциальность.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields защищает вашу конфиденциальность.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Поздравляем! Отличный результат!";
@@ -2508,10 +2508,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Реклама блокируется во время просмотра видео на этом сайте";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Общие настройки Brave Shields по умолчанию";
+"ShieldsDefaults" = "Общие настройки Browther Shields по умолчанию";
 
 /* Section footer for global shields defaults */
-"ShieldsDefaultsFooter" = "Это настройки Brave Shields по умолчанию для новых сайтов. Их изменение не повлияет на уже заданные настройки для отдельных сайтов.";
+"ShieldsDefaultsFooter" = "Это настройки Browther Shields по умолчанию для новых сайтов. Их изменение не повлияет на уже заданные настройки для отдельных сайтов.";
 
 /* No comment provided by engineer. */
 "ShieldsDownDisclaimer" = "Вы выключили защиту конфиденциальности. Сайт неправильно отображается при включенных щитах?";

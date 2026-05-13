@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Kokeile käyttöä ilman Shieldsiä, jos sivusto vaikuttaa olevan rikkinäinen.";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Alas";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Estä yksityisyyttäsi loukkaavat mainokset ja seurantaohjelmat, jotta voit selata verkkoa ilman, että sinua seurataan.";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Näytä";

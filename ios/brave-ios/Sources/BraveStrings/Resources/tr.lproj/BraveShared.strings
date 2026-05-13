@@ -2,7 +2,7 @@
 "About" = "Hakkında";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Brave Kalkanları Hakkında";
+"AboutBraveShields" = "Browther Kalkanları Hakkında";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Siteler genellikle sizi ve cihazınızı tanımlamaya çalışan çerezler ve komut dosyaları içerir. Kim olduğunuzu öğrenmek ve sizi web'de takip etmek ve her sitede ne yaptığınızı izlemek istiyorlar.\n\nBrave, takip edilmeden gezinebilmeniz için bunları engeller.";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Bu site bozuk görünüyorsa, Kalkanları indirerek deneyin";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Kalkanları";
+"BraveShieldsStatusTitle" = "Browther Kalkanları";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Aşağı";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Yukarı";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Brave Kalkanları'nı değiştirmek için iki kez dokunun";
+"BraveShieldsToggleHint" = "Browther Kalkanları'nı değiştirmek için iki kez dokunun";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Sohbet";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Gizliliğinizi korumak için Brave ile tüm bağlantıları açın";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Kalkanları, izleyicileri ve reklamları engeller, veri kurtarır ve ziyaret ettiğiniz her sitede size zaman kazandırır";
+"defaultBrowserCallout.introSecondaryText" = "Browther Kalkanları, izleyicileri ve reklamları engeller, veri kurtarır ve ziyaret ettiğiniz her sitede size zaman kazandırır";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Ayarlar'ı açın, Varsayılan Tarayıcı Uygulaması'nı dokunun ve Brave'i seçin.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Web'de takip edilmeden gezinebilmek için gizliliği ihlal eden izleyicileri engelleyin";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Kalkanları";
+"OBShieldsTitle" = "Browther Kalkanları";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Göster";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Geçen hafta";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@**, Brave Kalkanları tarafından **%2$lld** sitede engellendi";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@**, Browther Kalkanları tarafından **%2$lld** sitede engellendi";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "En Sık Saptanan İzleyici & Reklam";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Haberi paylaşın";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Kalkanları çevrimiçi gizliliğinizi korudu.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Kalkanları çevrimiçi gizliliğinizi korudu.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Tebrikler. Çok özelsin.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Bu web sitesinde video izlerken reklamlar engellenir.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Brave Kalkanları Küresel Varsayılanları";
+"ShieldsDefaults" = "Browther Kalkanları Küresel Varsayılanları";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Bunlar, yeni siteler için varsayılan Kalkan ayarlarıdır. Bunları değiştirmek mevcut site başına ayarlarınızı etkilemez.";

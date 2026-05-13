@@ -2,7 +2,7 @@
 "About" = "Despre";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Despre Brave Shields";
+"AboutBraveShields" = "Despre Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Site-urile adesea includ cookie-uri și script-uri care încearcă să te identifice pe tine și dispozitivul tău. Vor să afle cine ești și te urmăresc pe internet, monitorizându-ți activitatea pe fiecare site.\n\nBrave le blochează astfel încât să poți naviga pe internet fără să fii urmărit.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Controale avansate";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields și Confidențialitate";
+"BraveShieldsAndPrivacy" = "Browther Shields și Confidențialitate";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields și Confidențialitate";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Dacă site-ul pare nefuncțional, încearcă să dezactivezi Shields";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Jos";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Sus";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Apasă de două ori pentru a activa sau dezactiva Brave Shields";
+"BraveShieldsToggleHint" = "Apasă de două ori pentru a activa sau dezactiva Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Deschide toate link-urile în Brave pentru a îți proteja confidențialitatea";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blochează reclamele și urmăritorii și îți economisește date și timp la fiecare site vizitat";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blochează reclamele și urmăritorii și îți economisește date și timp la fiecare site vizitat";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Deschide Setările, apasă pe \"Aplicație implicită browser\" și selectează Brave.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blochează urmăritorii ce îți afectează confidențialitatea astfel încât să poți naviga fără a fi urmărit pe internet";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Arată-mi";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Săptămâna trecută";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** a fost blocat de Brave Shields pe **%2$lld** site-uri.";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** a fost blocat de Browther Shields pe **%2$lld** site-uri.";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Cel mai frecvent urmăritor / reclamă";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Distribuie știrea";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields tocmai ți-a protejat confidențialitatea online.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields tocmai ți-a protejat confidențialitatea online.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Felicitări, ai atins performanțe remarcabile.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Reclamele sunt blocate în timp ce vizionezi videoclipuri pe acest website.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Setări globale implicite Brave Shields";
+"ShieldsDefaults" = "Setări globale implicite Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Acestea sunt setările implicite pentru Shields. Modificarea lor nu va afecta setările existente per site.";

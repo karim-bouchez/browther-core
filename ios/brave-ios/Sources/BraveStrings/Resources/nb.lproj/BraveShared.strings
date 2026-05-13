@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Avanserte kontroller";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields og personvern";
+"BraveShieldsAndPrivacy" = "Browther Shields og personvern";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields og personvern";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Opp";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Dobbeltklikk for å skru av og på Brave Shields";
+"BraveShieldsToggleHint" = "Dobbeltklikk for å skru av og på Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Prat";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Åpne alle lenkene med Brave for å beskytte personvernet ditt";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blokkerer sporing og annonser, og lagrer data, slik at du sparer tid på alle nettstedene du besøker";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blokkerer sporing og annonser, og lagrer data, slik at du sparer tid på alle nettstedene du besøker";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Åpne Innstillinger, trykk på Standard Nettleser-appen, og velg Brave.";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Del nyhetene";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields beskyttet nettopp personvernet ditt på nettet.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields beskyttet nettopp personvernet ditt på nettet.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Gratulerer. Du er noe for deg selv.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Annonser blokkeres mens du ser på videoer på dette nettstedet.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Globale standarder for Brave Shields";
+"ShieldsDefaults" = "Globale standarder for Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Dette er standard Shields-innstillinger for nye nettsteder. Å endre disse påvirker ikke de eksisterende innstillingene per nettsted.";

@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Kawalan lanjutan";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Perisai Brave & Privasi";
+"BraveShieldsAndPrivacy" = "Perisai Browther & Privasi";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Perisai & Privasi";
@@ -194,7 +194,7 @@
 "BraveShieldsBlockedInfoButtonAccessibilityLabel" = "Ketahui lebih lanjut";
 
 /* No comment provided by engineer. */
-"BraveShieldsGlobalChangeButton" = "Tukar Lalai Global Perisai Brave";
+"BraveShieldsGlobalChangeButton" = "Tukar Lalai Global Perisai Browther";
 
 /* No comment provided by engineer. */
 "BraveShieldsGlobalControls" = "Kawalan Global";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Atas";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Ketik dua kali untuk togol Brave Shields";
+"BraveShieldsToggleHint" = "Ketik dua kali untuk togol Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Buka semua pautan dengan Brave untuk melindungi privasi anda  ";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields menyekat penjejak & iklan, menjimatkan data, dan menjimatkan masa anda pada setiap laman yang anda lawati";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields menyekat penjejak & iklan, menjimatkan data, dan menjimatkan masa anda pada setiap laman yang anda lawati";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Buka Tetapan, ketik Aplikasi Penyemak Imbas Lalai, dan pilih Brave.  ";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Minggu lepas";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** telah disekat oleh Brave Shields pada tapak **%2$lld**";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** telah disekat oleh Browther Shields pada tapak **%2$lld**";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Penjejak & Iklan Paling Kerap";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Kongsi berita";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields baru sahaja melindungi privasi dalam talian anda. ";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields baru sahaja melindungi privasi dalam talian anda. ";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Tahniah. Anda agak istimewa.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Iklan disekat apabila menonton video pada laman web ini. ";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Lalai Global Brave Shields";
+"ShieldsDefaults" = "Lalai Global Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Ini adalah tetapan Shields lalai untuk tapak baharu. Mengubah ini tidak akan menjejaskan tetapan setiap tapak sedia ada anda.";

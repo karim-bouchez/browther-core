@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Додаткові налаштування";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields і конфіденційність";
+"BraveShieldsAndPrivacy" = "Browther Shields і конфіденційність";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields і конфіденційність";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Якщо вебсайт не працює, спробуйте вимкнути щити";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Щити Brave";
+"BraveShieldsStatusTitle" = "Щити Browther";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Вимкн.";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Увімкн.";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Торкніться двічі, щоб увімкнути Brave Shields";
+"BraveShieldsToggleHint" = "Торкніться двічі, щоб увімкнути Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Відкривайте всі посилання у Brave, щоб захистити свою конфіденційність";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields блокує трекери та рекламу, а також дозволяє заощадити дані й час під час перегляду вебсайтів";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields блокує трекери та рекламу, а також дозволяє заощадити дані й час під час перегляду вебсайтів";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Відкрийте меню «Параметри», торкніться пункту «Програма браузера за замовчуванням» і виберіть Brave.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Блокування трекерів, які порушують приватність, щоб за вами не стежили в мережі";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Щити Brave";
+"OBShieldsTitle" = "Щити Browther";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Показати";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Останній  тиждень";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "Сервіс Brave Shields заблокував **%1$@** на сайтах (**%2$lld**)";
+"privacyHub.mostFrequentTrackerAndAdBody" = "Сервіс Browther Shields заблокував **%1$@** на сайтах (**%2$lld**)";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Трекери й реклама, які зустрічаються найчастіше";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Поділитися новинами";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields захищає вашу конфіденційність онлайн.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields захищає вашу конфіденційність онлайн.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Вітаємо! Неперевершеність — ваше друге ім’я.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Рекламу у відео заблоковано на цьому вебсайті.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Глобальні налаштування Brave Shields за замовчуванням";
+"ShieldsDefaults" = "Глобальні налаштування Browther Shields за замовчуванням";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Це налаштування Shields за замовчуванням для нових вебсайтів. Якщо ви їх зміните, це не вплине на ваші налаштування для окремих вебсайтів.";

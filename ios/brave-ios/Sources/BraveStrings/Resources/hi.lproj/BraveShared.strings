@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "उन्नत कंट्रोल";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields & प्राइवेसी";
+"BraveShieldsAndPrivacy" = "Browther Shields & प्राइवेसी";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields और प्राइवेसी";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "ऊपर";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Brave Shields को टॉगल करने के लिए डबल टैप करें";
+"BraveShieldsToggleHint" = "Browther Shields को टॉगल करने के लिए डबल टैप करें";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "अपनी गोपनीयता की रक्षा के लिए सभी लिंक को Brave के साथ खोलें";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields & ऐड्स को ब्लॉक करता है, डेटा सेव करता है और आप जिस भी साइट पर जाते हैं वहाँ आपका समय बचाता है";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields & ऐड्स को ब्लॉक करता है, डेटा सेव करता है और आप जिस भी साइट पर जाते हैं वहाँ आपका समय बचाता है";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "सेटिंग खोलें, डिफ़ॉल्ट ब्राउज़र ऐप पर टैप करें, और Brave को चुनें।";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "पिछले हफ़्ते";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "Brave Shields ने **%2$lld** साइटों पर **%1$@** को ब्लॉक किया";
+"privacyHub.mostFrequentTrackerAndAdBody" = "Browther Shields ने **%2$lld** साइटों पर **%1$@** को ब्लॉक किया";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "सबसे आम ट्रैकर & ऐड";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "न्यूज़ शेयर करें";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields ने अभी आपकी ऑनलाइन प्राइवेसी को सुरक्षित किया है।";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields ने अभी आपकी ऑनलाइन प्राइवेसी को सुरक्षित किया है।";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "बधाई हो। आप बहुत खास हैं।";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "इस वेबसाइट पर वीडियो देखने के दौरान विज्ञापन ब्लॉक किए गए हैं।";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Brave Shields ग्लोबल डिफ़ॉल्ट्स";
+"ShieldsDefaults" = "Browther Shields ग्लोबल डिफ़ॉल्ट्स";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "ये नई साइटों के लिए डिफ़ॉल्ट शील्ड सेटिंग्स हैं. इन्हें बदलने से आपकी मौजूदा प्रति-साइट सेटिंग्स पर कोई फ़र्क नहीं पड़ेगा.";

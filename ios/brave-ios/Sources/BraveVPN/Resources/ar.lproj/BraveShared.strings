@@ -11,7 +11,7 @@
 "vpn.autoRenewFreeMonthPopOverTitle" = "قم بالتجديد التلقائي لاشتراك Brave VPN الخاص بك الآن واحصل على شهر مجانًا!";
 
 /* Pop up description for VPN subscription is about expire */
-"vpn.autoRenewSoonExpirePopOverDescription" = "هذا يعني أنك ستفقد حماية Brave الإضافية لكل تطبيق على هاتفك.";
+"vpn.autoRenewSoonExpirePopOverDescription" = "هذا يعني أنك ستفقد حماية Browther الإضافية لكل تطبيق على هاتفك.";
 
 /* Pop up title for VPN subscription is about expire */
 "vpn.autoRenewSoonExpireTitle" = "للأسف! اشتراك Brave VPN الخاص بك على وشك الانتهاء.";

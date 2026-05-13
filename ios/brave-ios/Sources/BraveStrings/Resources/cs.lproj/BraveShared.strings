@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Pokročilé nastavení";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Štíty Brave a soukromí";
+"BraveShieldsAndPrivacy" = "Štíty Browther a soukromí";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Štíty a soukromí";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Pokud se tato stránka jeví jako nefunkční, zkuste štíty deaktivovat";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Štíty Brave";
+"BraveShieldsStatusTitle" = "Štíty Browther";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Dolů";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Otvírejte všechny odkazy pomocí Brave a chraňte tak svoje soukromí";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Štíty Brave blokují trackery a reklamy, ukládají data a šetří vám čas na každé vámi navštívené stránce";
+"defaultBrowserCallout.introSecondaryText" = "Štíty Browther blokují trackery a reklamy, ukládají data a šetří vám čas na každé vámi navštívené stránce";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Otevřete Nastavení, klepněte na Výchozí aplikace prohlížeče a vyberte Brave.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blokujte trackery narušující soukromí, abyste mohli prohlížet stránky, aniž byste byli sledováni po webu";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Štíty Brave";
+"OBShieldsTitle" = "Štíty Browther";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Ukázat";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Sdílejte, co je nového";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Štíty Brave právě ochránily vaše online soukromí.";
+"shieldEducation.trackerAdWarningSubTitle" = "Štíty Browther právě ochránily vaše online soukromí.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Gratulujeme. Jste poměrně unikátní.";

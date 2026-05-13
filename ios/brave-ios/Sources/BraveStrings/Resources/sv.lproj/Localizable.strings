@@ -110,7 +110,7 @@
 "ShowPreviousTabTitle" = "Visa tidigare flik";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts which is for Showing Brave Shields */
-"showShieldsTitle" = "Öppna Brave Shields";
+"showShieldsTitle" = "Öppna Browther Shields";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "ShowTabTrayFromTabKeyCodeTitle" = "Visa alla flikar";

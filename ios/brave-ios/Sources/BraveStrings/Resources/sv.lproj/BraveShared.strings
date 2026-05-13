@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Avancerade kontroller";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields & Integritet";
+"BraveShieldsAndPrivacy" = "Browther Shields & Integritet";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields & Integritet";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Upp";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Dubbeltryck för att växla Brave Shields";
+"BraveShieldsToggleHint" = "Dubbeltryck för att växla Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave-samtal";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Öppna alla länkar med Brave för att skydda din integritet";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blockerar spårare och annonser, sparar data och sparar tid på alla webbplats du besöker";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blockerar spårare och annonser, sparar data och sparar tid på alla webbplats du besöker";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Öppna Inställningar, tryck på Standardwebbläsare och välj Brave.";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Förra veckan";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** blockerades av Brave Shields på **%2$lld** webbplatser";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** blockerades av Browther Shields på **%2$lld** webbplatser";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Mest frekventa spårare & annons";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Dela nyheterna";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields skyddade precis din integritet online.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields skyddade precis din integritet online.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Grattis. Du är verkligen speciell.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Annonser blockeras när du tittar på videor på den här webbplatsen.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Globala standardinställningar för Brave Shields";
+"ShieldsDefaults" = "Globala standardinställningar för Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Dessa är Shields standardinställningar för nya webbplatser. Om du ändrar dessa påverkas inte dina befintliga inställningar per webbplats.";

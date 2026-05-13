@@ -2,7 +2,7 @@
 "About" = "حول";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "حول Brave Shields";
+"AboutBraveShields" = "حول Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "غالبًا ما تتضمن المواقع ملفات تعريف الارتباط والبرامج النصية التي تحاول التعرف عليك وعلى جهازك. وتريد معرفة هويتك ومتابعتك عبر الويب - تتبع ما تفعله على كل موقع.\n\nيقوم Brave بحظر هذه الأشياء حتى تتمكن من التصفح دون متابعة.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "الضوابط المتقدمة";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields والخصوصية";
+"BraveShieldsAndPrivacy" = "Browther Shields والخصوصية";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields والخصوصية";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "أعلى";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "انقر نقرًا مزدوجًا لتبديل Brave Shields";
+"BraveShieldsToggleHint" = "انقر نقرًا مزدوجًا لتبديل Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "محادثة Brave";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "افتح جميع الروابط بواسطة متصفح Brave لحماية خصوصيتك";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "تقوم Brave Shields بحظر أدوات التتبع والإعلانات، وتحفظ البيانات، وتوفّر الوقت في كل موقع تزوره";
+"defaultBrowserCallout.introSecondaryText" = "تقوم Browther Shields بحظر أدوات التتبع والإعلانات، وتحفظ البيانات، وتوفّر الوقت في كل موقع تزوره";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "افتح الإعدادات، وانقر فوق تطبيق المتصفح الافتراضي، وحدد Brave.";
@@ -581,7 +581,7 @@
 "defaultBrowserCallout.notificationBody" = "‏اختيار Brave كمتصفِّح تلقائي";
 
 /* Notification title to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationTitle" = "احصل على حماية Brave، على كل رابط";
+"defaultBrowserCallout.notificationTitle" = "احصل على حماية Browther، على كل رابط";
 
 /* No comment provided by engineer. */
 "defaultBrowserCalloutCloseAccesabilityLabel" = "إغلاق وسيلة شرح المتصفح الافتراضي";
@@ -1178,7 +1178,7 @@
 "onboarding.linkReceiptDescription" = "يمكن لاشتراكك في Brave VPN حماية ما يصل إلى 10 أجهزة من الأجهزة العاملة بنظام Android وiOS وسطح المكتب. ما عليك سوى ربط اشتراكك في آب ستور بحساب Brave الخاص بك.";
 
 /* Popup title to let users know they can use the vpn on all their devices */
-"onboarding.linkReceiptTitle" = "قم بتوسيع نطاق حماية Brave Firewall + VPN";
+"onboarding.linkReceiptTitle" = "قم بتوسيع نطاق حماية Browther Firewall + VPN";
 
 /* Description for the NTP pop-over that describes the tracking information on NTP */
 "onboarding.ntpOnboardingPopOverTrackerDescription" = "من خلال حظر أدوات التتبع والإعلانات، تستخدم مواقع الويب بيانات أقل وطريقة تحميل أسرع.";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "الأسبوع الماضي";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "تم حظر **%1$@** بواسطة Brave Shields على مواقع **%2$ lld**";
+"privacyHub.mostFrequentTrackerAndAdBody" = "تم حظر **%1$@** بواسطة Browther Shields على مواقع **%2$ lld**";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "أداة التتبع والإعلان الأكثر شيوعًا";
@@ -1703,7 +1703,7 @@
 "privacyHub.notificationCalloutButtonText" = "تشغيل الإشعارات";
 
 /* Message of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
-"privacyHub.notificationMessage" = "ملخص لكيفية حماية Brave لك عبر الإنترنت هذا الأسبوع.";
+"privacyHub.notificationMessage" = "ملخص لكيفية حماية Browther لك عبر الإنترنت هذا الأسبوع.";
 
 /* Title of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
 "privacyHub.notificationTitle" = "تقرير الخصوصية الأسبوعي";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "مشاركة الأخبار";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "قامت Brave Shields بحماية خصوصيتك على الإنترنت.";
+"shieldEducation.trackerAdWarningSubTitle" = "قامت Browther Shields بحماية خصوصيتك على الإنترنت.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "تهانينا. أنت مميز جدًا.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "يتم حظر الإعلانات أثناء مشاهدة مقاطع الفيديو على هذا الموقع.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "إعدادات Brave Shields الافتراضية العالمية";
+"ShieldsDefaults" = "إعدادات Browther Shields الافتراضية العالمية";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "هذه هي إعدادات طرق الحماية الافتراضية للمواقع الجديدة. لن يؤثر تغييرها على إعداداتك الحالية لكل موقع";

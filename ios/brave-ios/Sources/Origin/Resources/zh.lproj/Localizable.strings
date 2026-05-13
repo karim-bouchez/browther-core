@@ -14,7 +14,7 @@
 "enabledFeatureNote" = "该功能已启用，因为您选择了该功能";
 
 /* A footer text explaining Brave Origin subscription and its features. The stars represent markdown and the same paragraph should be also be bolded when translated. */
-"featuresFooter" = "Brave Origin 是 Brave 浏览器的一个版本，它允许您轻松禁用那些其他方式下支持 Brave 作为企业的创收功能。Brave Origin 用户将继续受益于我们业界领先的隐私、广告拦截和速度（通过 Brave 盾牌），以及定期的软件更新、Chromium 补丁和安全与隐私改进。他们还将解锁禁用 Brave Leo、奖励、钱包、VPN、Web3 域名等功能的选项。\n\n购买后，用户将在浏览器";
+"featuresFooter" = "Brave Origin 是 Brave 浏览器的一个版本，它允许您轻松禁用那些其他方式下支持 Brave 作为企业的创收功能。Brave Origin 用户将继续受益于我们业界领先的隐私、广告拦截和速度（通过 Browther 盾牌），以及定期的软件更新、Chromium 补丁和安全与隐私改进。他们还将解锁禁用 Brave Leo、奖励、钱包、VPN、Web3 域名等功能的选项。\n\n购买后，用户将在浏览器";
 
 /* A section header title that is shown over a list of Brave specific features */
 "featuresHeader" = "功能";

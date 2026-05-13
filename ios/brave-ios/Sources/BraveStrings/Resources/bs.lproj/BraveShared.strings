@@ -2,7 +2,7 @@
 "About" = "O opcijama";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "O značajci Brave Shields";
+"AboutBraveShields" = "O značajci Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Na mrežnim se mjestima obično nalaze kolačići i skripte kojima se pokušavate identificirati vi i vaš uređaj. Njima se želi doznati tko ste i pratiti što radite na svakom mrežnom mjestu.\n\nU pregledniku Brave blokiraju se navedene stavke kako biste mogli pregledavati mrežu bez praćenja.";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Ako se čini da je mrežno mjesto neispravno, pokušajte isključiti štitove";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Štitnici Brave";
+"BraveShieldsStatusTitle" = "Štitnici Browther";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Dolje";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blokirajte elemente za praćenje kojima se narušava privatnost kako biste mogli pregledavati mrežu bez praćenja ";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Štitnici Brave";
+"OBShieldsTitle" = "Štitnici Browther";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Pokaži mi";
@@ -2511,7 +2511,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "ShieldsDefaults" = "Globalne zadane postavke Štitova Brave";
 
 /* Section footer for global shields defaults */
-"ShieldsDefaultsFooter" = "Ovo su zadane postavke značajke Brave Shields za nova mreža mjesta. Mijenjanjem ovih postavki ne mijenjaju se postojeće postavke prethodno postavljene za određeno mrežno mjesto.";
+"ShieldsDefaultsFooter" = "Ovo su zadane postavke značajke Browther Shields za nova mreža mjesta. Mijenjanjem ovih postavki ne mijenjaju se postojeće postavke prethodno postavljene za određeno mrežno mjesto.";
 
 /* No comment provided by engineer. */
 "ShieldsDownDisclaimer" = "Pregledavate ovo mrežno mjesto bez sigurnosne zaštite i zaštite privatnosti preglednika Brave. Radi li ispravno s uključenom značajkom Štitnika?";

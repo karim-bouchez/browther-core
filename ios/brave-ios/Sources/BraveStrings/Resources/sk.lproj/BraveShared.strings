@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Pokročilé ovládanie";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Štíty Brave a súkromie";
+"BraveShieldsAndPrivacy" = "Štíty Browther a súkromie";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Štíty a súkromie";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Pre ochranu svojho súkromia otvorte všetky odkazy s programom Brave";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Štíty Brave blokujú sledovače a reklamy, šetria dáta a čas na každej stránke, ktorú navštívite";
+"defaultBrowserCallout.introSecondaryText" = "Štíty Browther blokujú sledovače a reklamy, šetria dáta a čas na každej stránke, ktorú navštívite";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Otvorte Nastavenia, ťuknite na Predvolenú aplikáciu prehliadača a vyberte Brave.";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Zdieľať novinky";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Štíty Brave práve ochránili vaše súkromie online.";
+"shieldEducation.trackerAdWarningSubTitle" = "Štíty Browther práve ochránili vaše súkromie online.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Gratulujeme. Ste výnimoční.";

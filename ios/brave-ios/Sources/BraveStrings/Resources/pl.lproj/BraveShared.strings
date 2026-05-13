@@ -2,7 +2,7 @@
 "About" = "Informacje";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Brave Shields – informacje";
+"AboutBraveShields" = "Browther Shields – informacje";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Witryny często wysyłają pliki cookie i skrypty, które próbują zidentyfikować Ciebie i Twoje urządzenie. Chcą dowiedzieć się, kim jesteś, śledząc Twoje działania w każdej witrynie.\n\nBrave blokuje te próby, tak aby możliwe było przeglądanie bez śledzenia.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Opcje zaawansowane";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields i prywatność";
+"BraveShieldsAndPrivacy" = "Browther Shields i prywatność";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields i prywatność";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Jeśli strona wygląda nieprawidłowo, spróbuj wyłączyć funkcję ochrony";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Tarcze Brave";
+"BraveShieldsStatusTitle" = "Tarcze Browther";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Wyłączone";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Włącz";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Dotknij dwukrotnie, aby włączyć lub wyłączyć Brave Shields";
+"BraveShieldsToggleHint" = "Dotknij dwukrotnie, aby włączyć lub wyłączyć Browther Shields";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Otwieraj wszystkie odsyłacze za pomocą przeglądarki Brave, aby chronić swoją prywatność";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blokuje programy śledzące i reklamy, zapisuje dane oraz oszczędza czas w każdej odwiedzanej witrynie";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blokuje programy śledzące i reklamy, zapisuje dane oraz oszczędza czas w każdej odwiedzanej witrynie";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Otwórz „Ustawienia”, dotknij „Domyślna aplikacja przeglądarki” i wybierz „Brave”.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blokuj aplikacje śledzące naruszające prywatność podczas przeglądania stron internetowych.";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Tarcze Brave";
+"OBShieldsTitle" = "Tarcze Browther";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Pokaż mi";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "W zeszłym tygodniu";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** zostało zablokowane przez Brave Shields na **%2$lld** witrynach";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** zostało zablokowane przez Browther Shields na **%2$lld** witrynach";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Najczęstszy skrypt śledzący i reklama";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Udostępnij wiadomości";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields właśnie ochronił Twoją prywatność.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields właśnie ochronił Twoją prywatność.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Gratulacje. Jesteś naprawdę wyjątkową osobą.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Reklamy są blokowane podczas oglądania filmów w tej witrynie.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Ogólne domyślne ustawienia Brave Shields";
+"ShieldsDefaults" = "Ogólne domyślne ustawienia Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Są to domyślne ustawienia Shields dla nowych stron. Ich zmiana nie wpłynie na istniejące ustawienia każdej strony.";

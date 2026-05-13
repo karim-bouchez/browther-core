@@ -2,7 +2,7 @@
 "About" = "Over";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Over Brave Shields";
+"AboutBraveShields" = "Over Browther Shields";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Sites bevatten vaak cookies en scripts die zowel jou als je apparaat proberen te identificeren. Ze willen erachter komen wie je bent, je over het hele web volgen en bijhouden wat je op elke site doet.\n\nBrave blokkeert deze dingen, zodat je kunt surfen zonder dat je gevolgd wordt.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Geavanceerde instellingen";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Shields & Privacy";
+"BraveShieldsAndPrivacy" = "Browther Shields & Privacy";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Shields & Privacy";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Als deze site niet correct werkt, zet je Shields uit";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Uit";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "Aan";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Dubbeltik om Brave Shields aan of uit te zetten";
+"BraveShieldsToggleHint" = "Dubbeltik om Browther Shields aan of uit te zetten";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Brave Talk";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Open alle links met Brave om je privacy te beschermen";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Shields blokkeert niet alleen trackers en advertenties, maar zorgt er ook voor dat je data en tijd bespaart wanneer je sites bezoekt";
+"defaultBrowserCallout.introSecondaryText" = "Browther Shields blokkeert niet alleen trackers en advertenties, maar zorgt er ook voor dat je data en tijd bespaart wanneer je sites bezoekt";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Open Instellingen, tik op 'Standaard browserapp' en selecteer Brave.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Blokkeer trackers die je privacy niet respecteren, zodat je kunt browsen zonder gevolgd te worden";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Toon me";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Vorige week";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** is door Brave Shields geblokkeerd op **%2$lld** sites";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** is door Browther Shields geblokkeerd op **%2$lld** sites";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Meest frequente tracker en advertentie";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Deel het nieuws";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Shields heeft net je online privacy beschermd.";
+"shieldEducation.trackerAdWarningSubTitle" = "Browther Shields heeft net je online privacy beschermd.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Gefeliciteerd! Je bent heel bijzonder.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Advertenties worden geblokkeerd wanneer je video's op deze website bekijkt.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Standaardinstellingen van Brave Shields";
+"ShieldsDefaults" = "Standaardinstellingen van Browther Shields";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Hier vind je de standaard Shields-instellingen voor nieuwe sites. Als je deze instellingen wijzigt, blijven de bestaande instellingen voor specifieke websites ongewijzigd.";

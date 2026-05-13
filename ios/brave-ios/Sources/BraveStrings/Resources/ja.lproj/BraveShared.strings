@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "もしサイトに正しく表示されていない場合は、Shieldをオフにしてみてください";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Brave Shields";
+"BraveShieldsStatusTitle" = "Browther Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "オフ";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "プライバシーを侵害するトラッカーをブロックすることで、インターネット上でつきまとわれずにブラウジングすることができます。";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Brave Shields";
+"OBShieldsTitle" = "Browther Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "表示する";
