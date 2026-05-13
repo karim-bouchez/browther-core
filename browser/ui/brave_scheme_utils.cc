@@ -12,7 +12,11 @@
 
 namespace {
 constexpr char16_t kChromeSchema16[] = u"chrome";
-constexpr char16_t kBraveSchema16[] = u"brave";
+// Browther: aligne l'affichage omnibox sur le scheme `browther://` (au lieu
+// du défaut Brave `brave://`). Le copy utilise déjà `browther://` (cf.
+// chromium_src/components/omnibox/browser/omnibox_text_util.cc), donc affichage
+// + copy sont maintenant cohérents.
+constexpr char16_t kBrowtherSchema16[] = u"browther";
 }  // namespace
 
 namespace brave_utils {
@@ -22,7 +26,7 @@ bool ReplaceChromeToBraveScheme(std::u16string& url_string) {
   if (url::ExtractScheme(url_string, &scheme) && scheme.is_valid()) {
     std::u16string_view scheme_view = scheme.AsViewOn(url_string);
     if (base::EqualsCaseInsensitiveASCII(scheme_view, kChromeSchema16)) {
-      url_string.replace(scheme.begin, scheme.len, kBraveSchema16);
+      url_string.replace(scheme.begin, scheme.len, kBrowtherSchema16);
       return true;
     }
   }
