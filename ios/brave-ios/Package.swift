@@ -37,6 +37,7 @@ var package = Package(
     .library(name: "Favicon", targets: ["Favicon"]),
     .library(name: "FaviconModels", targets: ["FaviconModels"]),
     .library(name: "Sawtunaa", targets: ["Sawtunaa"]),
+    .library(name: "Basarunaa", targets: ["Basarunaa"]),
     .library(name: "BrowtherAnalytics", targets: ["BrowtherAnalytics"]),
     .library(name: "SpeechRecognition", targets: ["SpeechRecognition"]),
     .library(name: "Onboarding", targets: ["Onboarding"]),
@@ -115,6 +116,7 @@ var package = Package(
         "Onboarding",
         "Growth",
         "Sawtunaa",
+        "Basarunaa",
         "BrowtherAnalytics",
         "SpeechRecognition",
         "CodableHelpers",
@@ -378,6 +380,17 @@ var package = Package(
       dependencies: ["BrowtherAnalytics", "Preferences", "onnxruntime_objc"],
       resources: [
         .copy("Resources/nsnet2-stateful.onnx"),
+      ]
+    ),
+    // Browther: Basarunaa (image-blur ML pipeline, CoreML natif iOS).
+    // Models are pre-compiled to .mlmodelc by `convert-to-coreml.py` because
+    // Xcode/coremlc's sandbox can't write under /Volumes/* on macOS 26.
+    .target(
+      name: "Basarunaa",
+      dependencies: ["Preferences"],
+      resources: [
+        .copy("Resources/YOLO11nPose.mlmodelc"),
+        .copy("Resources/GenderAge.mlmodelc"),
       ]
     ),
     // Browther: analytics

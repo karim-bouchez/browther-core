@@ -3,6 +3,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import Basarunaa
 import BraveUI
 import BrowtherAnalytics
 import Preferences
@@ -114,6 +115,13 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var bodyThreshold = Preferences.Basarunaa.bodyThreshold
   @ObservedObject private var blurStrength = Preferences.Basarunaa.blurStrength
 
+  /// Closure injected by the BVC to run the PoC analysis on the current tab.
+  /// Returns a short status string for the UI. `nil` when no analyzable tab.
+  let onDebugAnalyze: (() async -> String)?
+
+  @State private var debugStatus: String = ""
+  @State private var debugRunning: Bool = false
+
   var body: some View {
     ScrollView {
       VStack(spacing: 16) {
@@ -174,7 +182,7 @@ struct BasarunaaPanelView: View {
         }
         .padding(.horizontal)
 
-        Text("⚠️ Pipeline ML iOS pas encore branché — la pref est sauvegardée mais aucun floutage n'est appliqué pour l'instant.")
+        Text("⚠️ Pipeline ML iOS en cours de branchement — le floutage automatique n'est pas encore appliqué, mais le PoC ci-dessous prouve que CoreML tourne sur device.")
           .font(.caption)
           .foregroundColor(.orange)
           .padding(8)
@@ -183,6 +191,42 @@ struct BasarunaaPanelView: View {
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .fixedSize(horizontal: false, vertical: true)
           .padding(.horizontal)
+
+        #if DEBUG
+        VStack(spacing: 8) {
+          Button {
+            guard let onDebugAnalyze, !debugRunning else { return }
+            debugStatus = "Analyse en cours…"
+            debugRunning = true
+            Task { @MainActor in
+              let result = await onDebugAnalyze()
+              debugStatus = result
+              debugRunning = false
+            }
+          } label: {
+            Text(debugRunning ? "Analyse…" : "PoC : analyser la page courante")
+              .font(.subheadline.weight(.medium))
+              .frame(maxWidth: .infinity)
+              .padding(10)
+              .background(Color.accentColor.opacity(onDebugAnalyze == nil || debugRunning ? 0.4 : 1.0))
+              .foregroundColor(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 8))
+          }
+          .buttonStyle(.plain)
+          .disabled(onDebugAnalyze == nil || debugRunning)
+
+          if !debugStatus.isEmpty {
+            Text(debugStatus)
+              .font(.caption.monospaced())
+              .foregroundColor(.secondary)
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+          Text("Résultat dans Console.app (subsystem: com.devndin.browther)")
+            .font(.caption2)
+            .foregroundColor(.secondary)
+        }
+        .padding(.horizontal)
+        #endif
       }
       .padding(.top, 16)
       .padding(.bottom, 16)
@@ -224,9 +268,9 @@ struct BasarunaaPanelView: View {
 class BasarunaaPanelViewController: UIHostingController<BasarunaaPanelView>,
   PopoverContentComponent
 {
-  init() {
-    super.init(rootView: BasarunaaPanelView())
-    preferredContentSize = CGSize(width: 360, height: 540)
+  init(onDebugAnalyze: (() async -> String)? = nil) {
+    super.init(rootView: BasarunaaPanelView(onDebugAnalyze: onDebugAnalyze))
+    preferredContentSize = CGSize(width: 360, height: 620)
   }
 
   @MainActor required dynamic init?(coder aDecoder: NSCoder) {

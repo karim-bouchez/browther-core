@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import AVFoundation
+import Basarunaa
 import BraveCore
 import BraveNews
 import BraveShared
@@ -378,8 +379,45 @@ extension BrowserViewController: TopToolbarDelegate {
   }
 
   func topToolbarDidTapBasarunaaButton(_ topToolbar: TopToolbarView) {
+    #if DEBUG
+    let basarunaaLog = os.Logger(subsystem: "com.devndin.browther", category: "Basarunaa.PoC")
+    let tab = tabManager.selectedTab
+    basarunaaLog.info("panel opened, tab=\(tab != nil ? "present" : "nil", privacy: .public)")
+    let onDebugAnalyze: (() async -> String)? = (tab != nil) ? { [weak tab] in
+      basarunaaLog.info("debug button tapped, taking snapshot…")
+      guard let tab else { return "Erreur : onglet perdu" }
+      let snapshot: UIImage? = await withCheckedContinuation { cont in
+        tab.takeSnapshot(rect: .null) { image in cont.resume(returning: image) }
+      }
+      guard let cgImage = snapshot?.cgImage else {
+        basarunaaLog.error("snapshot returned nil")
+        return "Erreur : snapshot vide"
+      }
+      basarunaaLog.info(
+        "snapshot ok: \(cgImage.width, privacy: .public)x\(cgImage.height, privacy: .public), calling analyze…"
+      )
+      do {
+        let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+        let genderCounts = result.persons.reduce(into: [String: Int]()) { acc, p in
+          acc[p.gender?.rawValue ?? "?", default: 0] += 1
+        }
+        let summary = "\(result.persons.count) personnes — "
+          + "\(genderCounts["male", default: 0])♂ \(genderCounts["female", default: 0])♀ "
+          + "\(genderCounts["?", default: 0])? • "
+          + String(format: "%.0f ms", result.totalLatencyMs)
+        basarunaaLog.info("PoC done: \(summary, privacy: .public)")
+        return summary
+      } catch {
+        basarunaaLog.error("PoC failed: \(String(describing: error), privacy: .public)")
+        return "Erreur : \(error)"
+      }
+    } : nil
+    let panel = BasarunaaPanelViewController(onDebugAnalyze: onDebugAnalyze)
+    #else
+    let panel = BasarunaaPanelViewController()
+    #endif
     let popover = PopoverController(
-      contentController: BasarunaaPanelViewController(),
+      contentController: panel,
       contentSizeBehavior: .preferredContentSize
     )
     popover.present(from: topToolbar.basarunaaButton, on: self)
