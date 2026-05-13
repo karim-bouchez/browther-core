@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import AVFoundation
+import BrowtherAnalytics
 import Foundation
 
 /// Provides the path to the NSNet2 ONNX model bundled with the Sawtunaa module.
@@ -67,6 +68,9 @@ public class SawtunaaAudioPlayer {
     []
   private var preprocessCount = 0
   private var isPausedFlag = false
+  // Browther: stats publiques anonymes — accumule samples traités pour reporter
+  // 1 seconde dès qu'on dépasse le sampleRate (=48000), évite spam UserDefaults.
+  private var statsAccumulatedSamples: Int = 0
   // Anchors used to compute audio playback position in source time
   private var anchorAudioSampleTime: AVAudioFramePosition?
   private var anchorSourceMs: Double = 0
@@ -319,6 +323,16 @@ public class SawtunaaAudioPlayer {
       let t0 = CFAbsoluteTimeGetCurrent()
       let processed = nsnet2.process(samples)
       let nsnet2Ms = Int((CFAbsoluteTimeGetCurrent() - t0) * 1000)
+
+      // Browther: stats anonymes — chaque sample filtré compte. À 48 kHz on
+      // émet 1 seconde dès qu'on dépasse 48000 samples accumulés.
+      let sampleRateInt = Int(self.format.sampleRate)
+      self.statsAccumulatedSamples += processed.count
+      if self.statsAccumulatedSamples >= sampleRateInt {
+        let secondsToReport = self.statsAccumulatedSamples / sampleRateInt
+        self.statsAccumulatedSamples -= secondsToReport * sampleRateInt
+        BrowtherStatsReporter.shared.addMusicSeconds(secondsToReport)
+      }
 
       guard
         let buffer = AVAudioPCMBuffer(

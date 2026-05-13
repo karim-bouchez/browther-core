@@ -7,6 +7,7 @@ import BraveCore
 import BraveNews
 import BraveShared
 import BraveUI
+import BrowtherAnalytics
 import Combine
 import CoreData
 import Data
@@ -347,6 +348,12 @@ class NewTabPageViewController: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+
+    // Browther: analytics
+    BrowtherAnalyticsService.shared.track(
+      event: "page_viewed",
+      properties: ["page": "ntp"]
+    )
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
       self.delegate?.showNTPOnboarding()

@@ -7,6 +7,7 @@ import BraveCore
 import BraveShields
 import BraveUI
 import BraveVPN
+import BrowtherAnalytics
 import Onboarding
 import Preferences
 import Shared
@@ -317,6 +318,14 @@ extension BrowserViewController {
         Preferences.Onboarding.basicOnboardingCompleted.value = OnboardingState.completed.rawValue
         Preferences.AppState.shouldDeferPromotedPurchase.value = false
         Preferences.FocusOnboarding.focusOnboardingFinished.value = true
+        // Browther: analytics
+        BrowtherAnalyticsService.shared.track(
+          event: "onboarding_completed",
+          properties: [
+            "sentry_enabled": Preferences.BrowtherAnalytics.sentryEnabled.value,
+            "posthog_enabled": Preferences.BrowtherAnalytics.posthogEnabled.value,
+          ]
+        )
       }
     )
 

@@ -5,6 +5,7 @@
 
 import BraveCore
 import BraveShields
+import BrowtherAnalytics
 import Data
 import Foundation
 import Preferences
@@ -112,6 +113,8 @@ class RequestBlockingContentScriptHandler: TabContentScript {
             })
         {
           BraveGlobalShieldStats.shared.adblock += 1
+          // Browther: stats anonymes
+          BrowtherStatsReporter.shared.addAdsBlocked(1)
           let stats = tabData.contentBlocker.stats
           tab.contentBlocker?.stats = stats.adding(adCount: 1)
           tab.contentBlocker?.blockedRequests.append(

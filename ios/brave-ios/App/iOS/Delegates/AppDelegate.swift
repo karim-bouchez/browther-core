@@ -14,6 +14,7 @@ import BraveTalk
 import BraveVPN
 import BraveWallet
 import BraveWidgetsModels
+import BrowtherAnalytics
 import Combine
 import CoreSpotlight
 import Data
@@ -135,6 +136,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     AppState.shared.state = .launching(options: launchOptions ?? [:], active: true)
+
+    // Browther: analytics — init Sentry + PostHog (gated on consent prefs).
+    // Doit être tôt pour capturer les crashes du démarrage.
+    BrowtherAnalyticsService.shared.initialize()
+    BrowtherStatsReporter.shared.start()
+    // Note: iOS n'expose pas d'API publique pour "is_default_browser",
+    // on l'omet pour iOS (vs Desktop qui peut le détecter via OS).
+    BrowtherAnalyticsService.shared.track(
+      event: "app_launched",
+      properties: [
+        "locale": Locale.current.identifier,
+      ]
+    )
 
     // Run migrations that need access to Data
     Migration.postDataLoadMigration()

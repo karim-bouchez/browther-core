@@ -1,0 +1,25 @@
+// Copyright 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// Template — le vrai fichier `AnalyticsConfig.swift` est généré au build
+// par `private/scripts/gen-analytics-config-ios.sh` à partir de
+// `private/configs/analytics.env`. Ce fichier .example est versionné, le
+// .swift généré est gitignoré.
+
+import Foundation
+
+enum AnalyticsConfig {
+  /// DSN brute Sentry (format https://<KEY>@o<ORG_ID>.ingest.de.sentry.io/<PROJECT_ID>)
+  static let sentryDsn: String = ""
+
+  /// API key projet PostHog (commence par `phc_...`)
+  static let posthogApiKey: String = ""
+
+  /// Endpoint PostHog (EU = https://eu.i.posthog.com)
+  static let posthogHost: String = "https://eu.i.posthog.com"
+
+  /// API Browther (POST /api/stats/ingest pour stats publiques anonymes)
+  static let browtherApiUrl: String = "https://browther-api.devndin.com"
+}

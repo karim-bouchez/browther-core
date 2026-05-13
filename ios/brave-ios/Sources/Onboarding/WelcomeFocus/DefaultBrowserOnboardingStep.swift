@@ -5,6 +5,7 @@
 
 import AVFoundation
 import AVKit
+import BrowtherAnalytics
 import DesignSystem
 import Lottie
 import SwiftUI
@@ -225,6 +226,8 @@ struct DefaultBrowserActions: View {
       Button {
         Task {
           if let openSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+            // Browther: analytics
+            BrowtherAnalyticsService.shared.track(event: "default_browser_set")
             await presentPictureInPictureVideo()
             await UIApplication.shared.open(openSettingsURL)
           }

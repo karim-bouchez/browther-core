@@ -10,6 +10,7 @@ import BraveStore
 import BraveUI
 import BraveVPN
 import BraveWallet
+import BrowtherAnalytics
 import Combine
 import Data
 import DataImporter
@@ -653,6 +654,11 @@ class SettingsViewController: TableViewController {
           value: Preferences.Sawtunaa.enabled.value,
           { newValue in
             Preferences.Sawtunaa.enabled.value = newValue
+            // Browther: analytics
+            BrowtherAnalyticsService.shared.track(
+              event: "feature_toggled",
+              properties: ["feature": "sawtunaa", "enabled": newValue]
+            )
           }
         )
       )

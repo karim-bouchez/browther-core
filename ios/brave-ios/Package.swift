@@ -37,6 +37,7 @@ var package = Package(
     .library(name: "Favicon", targets: ["Favicon"]),
     .library(name: "FaviconModels", targets: ["FaviconModels"]),
     .library(name: "Sawtunaa", targets: ["Sawtunaa"]),
+    .library(name: "BrowtherAnalytics", targets: ["BrowtherAnalytics"]),
     .library(name: "SpeechRecognition", targets: ["SpeechRecognition"]),
     .library(name: "Onboarding", targets: ["Onboarding"]),
     .library(name: "Growth", targets: ["Growth"]),
@@ -82,6 +83,9 @@ var package = Package(
       revision: "622a6804d39515600ead16e6259cb5d5e50f40df"
     ),
     .package(name: "JitsiMeet", path: "../third_party/JitsiMeet"),
+    // Browther: analytics
+    .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.40.1"),
+    .package(url: "https://github.com/PostHog/posthog-ios", from: "3.20.0"),
   ],
   targets: [
     .target(
@@ -111,6 +115,7 @@ var package = Package(
         "Onboarding",
         "Growth",
         "Sawtunaa",
+        "BrowtherAnalytics",
         "SpeechRecognition",
         "CodableHelpers",
         "Preferences",
@@ -370,9 +375,18 @@ var package = Package(
     ),
     .target(
       name: "Sawtunaa",
-      dependencies: ["Preferences", "onnxruntime_objc"],
+      dependencies: ["BrowtherAnalytics", "Preferences", "onnxruntime_objc"],
       resources: [
         .copy("Resources/nsnet2-stateful.onnx"),
+      ]
+    ),
+    // Browther: analytics
+    .target(
+      name: "BrowtherAnalytics",
+      dependencies: [
+        "Preferences",
+        .product(name: "Sentry", package: "sentry-cocoa"),
+        .product(name: "PostHog", package: "posthog-ios"),
       ]
     ),
     .target(
@@ -542,6 +556,7 @@ var package = Package(
         "BraveShared",
         "BraveStrings",
         "BraveUI",
+        "BrowtherAnalytics",
         "DesignSystem",
         "Growth",
         .product(name: "Lottie", package: "lottie-spm"),
