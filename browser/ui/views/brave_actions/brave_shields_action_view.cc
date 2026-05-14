@@ -167,12 +167,17 @@ BraveShieldsActionView::GetImageSource() {
   auto image_source = std::make_unique<browther::BrowtherStatusDotImageSource>(
       preferred_size, std::move(get_color_provider_callback), icon_size);
 
-  bool is_enabled = false;
+  // Browther: défaut vert (Shields globalement actif) sur les pages internes
+  // (NTP, chrome://, settings…) où aucun BraveShieldsTabHelper n'existe —
+  // sinon le badge passait rouge alors qu'aucun site n'a désactivé Shields.
+  bool is_enabled = true;
   if (web_contents) {
     auto* shields_data_controller =
         brave_shields::BraveShieldsTabHelper::FromWebContents(web_contents);
-    is_enabled = shields_data_controller->GetBraveShieldsEnabled() &&
-                 !IsPageInReaderMode(web_contents);
+    if (shields_data_controller) {
+      is_enabled = shields_data_controller->GetBraveShieldsEnabled() &&
+                   !IsPageInReaderMode(web_contents);
+    }
   }
 
   // Browther: tinte l'icône Shield template (blanc + alpha) avec la couleur
