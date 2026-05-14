@@ -48,10 +48,17 @@ function setUICapture(enabled: boolean) {
 }
 
 function setUIEnabled(enabled: boolean) {
-  const toggle = document.getElementById('enabled-toggle') as HTMLInputElement | null
+  const toggle = document.getElementById('enabled-toggle') as HTMLButtonElement | null
   const status = document.getElementById('status')
-  if (toggle) toggle.checked = enabled
-  if (status) status.textContent = enabled ? 'Actif' : 'Désactivé'
+  if (toggle) {
+    toggle.classList.toggle('on', enabled)
+    toggle.setAttribute('aria-pressed', String(enabled))
+  }
+  if (status) {
+    status.textContent = enabled
+      ? 'Floutage des personnes ACTIVÉ'
+      : 'Floutage des personnes DÉSACTIVÉ'
+  }
   document.body.dataset.disabled = enabled ? 'false' : 'true'
 }
 
@@ -97,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshState()
   document.addEventListener('visibilitychange', onVisibilityChange)
 
-  const toggle = document.getElementById('enabled-toggle') as HTMLInputElement | null
-  toggle?.addEventListener('change', () => {
-    const enabled = toggle.checked
+  const toggle = document.getElementById('enabled-toggle') as HTMLButtonElement | null
+  toggle?.addEventListener('click', () => {
+    const enabled = !toggle.classList.contains('on')
     setUIEnabled(enabled)
     try {
       api().setEnabled(enabled)

@@ -35,6 +35,11 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
   webui::SetupWebUIDataSource(source, kBasarunaaPanelGenerated,
                               IDR_BASARUNAA_PANEL_HTML);
 
+  // Browther: expose les assets brand pour le header du panel.
+  source->AddResourcePath("brand_icon.png", IDR_BASARUNAA_BRAND_ICON);
+  source->AddResourcePath("wordmark_white.png",
+                          IDR_BASARUNAA_WORDMARK_WHITE);
+
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::StyleSrc,
       std::string("style-src chrome-untrusted://resources "

@@ -14,65 +14,91 @@
     html, body { margin: 0; padding: 0; }
     body {
       width: 320px;
-      padding: 20px 20px 24px;
+      padding: 20px 20px 22px;
       font-family: var(--leo-font-default-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
       background: var(--leo-color-container-background, #1a1a2e);
       color: var(--leo-color-text-primary, #eee);
     }
+
+    /* Header : icon (with bg) + wordmark on a single line, centered. */
     .header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 14px;
     }
-    .header h1 {
-      margin: 0; font-size: 18px; font-weight: 600;
-      color: var(--leo-color-text-primary);
+    .header img.icon { width: 40px; height: 40px; }
+    .header img.wordmark { height: 26px; width: auto; }
+
+    /* Big toggle ON/OFF — mirror of iOS ShieldsSwitchView. Les browsers ne
+       savent pas interpoler entre 2 `background: radial-gradient(...)`
+       différents — ça saute aux keyframes. La parade : animer 2 vars
+       déclarées via @property syntax:'<color>' (interpolation continue), puis
+       composer le gradient avec ces vars. */
+    @property --grad-inner {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #86EFAC;
     }
-    .row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 0;
+    @property --grad-outer {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #4ADE80;
     }
-    .row .label {
-      font-size: 14px; font-weight: 500;
-    }
-    .row .desc {
-      font-size: 12px; opacity: 0.7; margin-top: 4px;
-    }
-    .toggle {
+    .big-toggle {
+      width: 96px; height: 52px;
+      border-radius: 26px;
       position: relative;
-      width: 40px; height: 22px;
-      appearance: none;
-      background: var(--leo-color-icon-disabled, #555);
-      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.2s ease;
-      border: none;
+      background: #555;
+      transition: background 0.3s ease;
+      border: none; padding: 0;
       outline: none;
-      flex-shrink: 0;
     }
-    .toggle:checked {
-      background: var(--leo-color-primary-50, #4c9eff);
-    }
-    .toggle::before {
+    .big-toggle::before {
       content: '';
       position: absolute;
-      top: 2px; left: 2px;
-      width: 18px; height: 18px;
-      background: white;
+      top: 6px; left: 6px;
+      width: 40px; height: 40px;
       border-radius: 50%;
-      transition: transform 0.2s ease;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .toggle:checked::before {
-      transform: translateX(18px);
+    .big-toggle.on::before { transform: translateX(44px); }
+    .big-toggle.on {
+      background: radial-gradient(circle at bottom right,
+                                  var(--grad-inner), var(--grad-outer));
+      animation: greenCycle 4.5s linear infinite;
     }
-    .toggle:focus-visible {
-      box-shadow: 0 0 0 2px var(--leo-color-primary-30, #4c9eff66);
+    @keyframes greenCycle {
+      0%   { --grad-inner: #86EFAC; --grad-outer: #4ADE80; }
+      16.6%{ --grad-inner: #4ADE80; --grad-outer: #22C55E; }
+      33.3%{ --grad-inner: #22C55E; --grad-outer: #16A34A; }
+      50%  { --grad-inner: #16A34A; --grad-outer: #10B981; }
+      66.6%{ --grad-inner: #10B981; --grad-outer: #34D399; }
+      83.3%{ --grad-inner: #34D399; --grad-outer: #86EFAC; }
+      100% { --grad-inner: #86EFAC; --grad-outer: #4ADE80; }
     }
-    .toggle-row {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 12px;
+    .big-toggle:focus-visible {
+      box-shadow: 0 0 0 3px rgba(134, 239, 172, 0.4);
     }
-    .toggle-row .text { flex: 1; }
+    .toggle-wrap {
+      display: flex; justify-content: center;
+      margin: 6px 0 12px;
+    }
+
+    .status {
+      font-size: 13px; font-weight: 600;
+      text-align: center; opacity: 0.7;
+      margin-bottom: 8px;
+    }
+    .desc {
+      font-size: 12px; opacity: 0.7;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    /* Sections (Mode, Détection, Debug) — inchangées. */
     .section {
       margin-top: 18px;
       padding-top: 14px;
@@ -104,7 +130,7 @@
       transition: border-color 0.15s ease;
     }
     .radio-group input[type="radio"]:checked {
-      border-color: var(--leo-color-primary-50, #4c9eff);
+      border-color: #10B981;
     }
     .radio-group input[type="radio"]:checked::after {
       content: '';
@@ -112,7 +138,7 @@
       top: 2px; left: 2px;
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: var(--leo-color-primary-50, #4c9eff);
+      background: #10B981;
     }
     body[data-disabled="true"] .section { opacity: 0.4; pointer-events: none; }
     .slider-row { padding: 6px 0; }
@@ -136,12 +162,12 @@
     .slider-row input[type="range"]::-webkit-slider-thumb {
       appearance: none;
       width: 14px; height: 14px;
-      background: var(--leo-color-primary-50, #4c9eff);
+      background: #10B981;
       border-radius: 50%;
       cursor: pointer;
     }
     .slider-row input[type="range"]:focus-visible {
-      box-shadow: 0 0 0 2px var(--leo-color-primary-30, #4c9eff66);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
     }
     .dev-section {
       margin-top: 22px;
@@ -159,20 +185,59 @@
       content: '🛠';
       font-size: 14px;
     }
-    .dev-section .toggle-row { padding: 0; margin-top: 10px; }
+    .dev-section .toggle-row {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px;
+      margin-top: 10px;
+    }
+    .dev-section .text { flex: 1; }
+    .dev-section .label {
+      font-size: 13px; font-weight: 500;
+    }
+    .dev-section .desc-small {
+      font-size: 11px; opacity: 0.7; margin-top: 2px;
+    }
+    /* Toggle compact pour la section debug. */
+    .small-toggle {
+      position: relative;
+      width: 38px; height: 22px;
+      appearance: none;
+      background: var(--leo-color-icon-disabled, #555);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      border: none; outline: none;
+      flex-shrink: 0;
+    }
+    .small-toggle:checked { background: #10B981; }
+    .small-toggle::before {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 18px; height: 18px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .small-toggle:checked::before { transform: translateX(16px); }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>Basarunaa</h1>
+    <img class="icon" src="brand_icon.png" alt="Basarunaa">
+    <img class="wordmark" src="wordmark_white.png" alt="Basarunaa">
   </div>
-  <div class="toggle-row">
-    <div class="text">
-      <div class="label">Activer Basarunaa</div>
-      <div class="desc" id="status">Chargement…</div>
-    </div>
-    <input type="checkbox" class="toggle" id="enabled-toggle" aria-label="Activer Basarunaa">
+
+  <div class="toggle-wrap">
+    <button id="enabled-toggle" class="big-toggle" aria-label="Activer Basarunaa"></button>
   </div>
+  <div class="status" id="status">Chargement…</div>
+
+  <div class="desc">
+    Floute automatiquement les personnes dans les pages web selon le mode choisi.
+  </div>
+
   <div class="section" id="mode-section">
     <div class="section-label">Mode</div>
     <div class="radio-group">
@@ -181,6 +246,7 @@
       <label><input type="radio" name="mode" value="blur-all">Flouter tout le monde</label>
     </div>
   </div>
+
   <div class="section" id="sliders-section">
     <div class="section-label">Détection</div>
     <div class="slider-row">
@@ -205,6 +271,7 @@
       <input type="range" id="gender-certainty" min="0" max="100" step="1">
     </div>
   </div>
+
   <div class="section dev-section" id="dev-section">
     <div class="section-label">Debug</div>
     <div class="radio-group">
@@ -215,14 +282,14 @@
     <div class="toggle-row">
       <div class="text">
         <div class="label">Capture des analyses</div>
-        <div class="desc">Sauvegarde les images dans ~/Downloads/basarunaa-capture/</div>
+        <div class="desc-small">Sauvegarde les images dans ~/Downloads/basarunaa-capture/</div>
       </div>
-      <input type="checkbox" class="toggle" id="capture-toggle" aria-label="Activer la capture">
+      <input type="checkbox" class="small-toggle" id="capture-toggle" aria-label="Activer la capture">
     </div>
-    <div class="toggle-row" style="margin-top: 12px;">
+    <div class="toggle-row">
       <div class="text">
         <div class="label">Test inference (native)</div>
-        <div class="desc" id="test-infer-status">Lance YOLO sur l'image bundle de test, logs LOG(INFO).</div>
+        <div class="desc-small" id="test-infer-status">Lance YOLO sur l'image bundle de test, logs LOG(INFO).</div>
       </div>
       <button id="test-infer-btn" style="appearance: none; border: 1px solid var(--leo-color-divider-strong, #ffffff25); background: var(--leo-color-container-highlight, #ffffff08); color: var(--leo-color-text-primary, #eee); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;">Run</button>
     </div>

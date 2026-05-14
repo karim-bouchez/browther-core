@@ -2,4 +2,6 @@
 <grit-part>
   <include name="IDR_SAWTUNAA_ICON_64" file="../sawtunaa/resources/icon.png" type="BINDATA" />
   <include name="IDR_SAWTUNAA_ICON_64_DISABLED" file="../sawtunaa/resources/icon-off.png" type="BINDATA" />
+  <include name="IDR_SAWTUNAA_BRAND_ICON" file="../sawtunaa/resources/brand_icon.png" type="BINDATA" />
+  <include name="IDR_SAWTUNAA_WORDMARK_WHITE" file="../sawtunaa/resources/wordmark_white.png" type="BINDATA" />
 </grit-part>

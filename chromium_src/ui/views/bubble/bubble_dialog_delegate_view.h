@@ -15,6 +15,7 @@ class WaybackMachineBubbleView;
 class SidebarItemAddedFeedbackBubble;
 class SidebarEditItemBubbleDelegateView;
 class SidebarAddItemBubbleDelegateView;
+class SawtunaaBubbleView;
 
 namespace playlist {
 class PlaylistBubbleView;
@@ -34,6 +35,7 @@ class BraveBubbleDialogDelegateView;
   friend class ::SidebarItemAddedFeedbackBubble;       \
   friend class ::SidebarEditItemBubbleDelegateView;    \
   friend class ::SidebarAddItemBubbleDelegateView;     \
+  friend class ::SawtunaaBubbleView;                   \
   friend class ::views::BraveBubbleDialogDelegateView; \
   static BddvPassKey CreatePassKey
 

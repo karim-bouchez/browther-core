@@ -6,12 +6,13 @@
 #include "brave/browser/ui/views/brave_actions/sawtunaa_action_view.h"
 
 #include <memory>
+#include <utility>
 
 #include "base/check_deref.h"
-#include "base/values.h"
+#include "base/functional/bind.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
-#include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "brave/browser/ui/views/sawtunaa/sawtunaa_bubble_view.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
@@ -31,7 +32,9 @@
 #include "ui/gfx/image/image_skia_rep.h"
 #include "ui/views/animation/ink_drop_impl.h"
 #include "ui/views/controls/button/label_button_border.h"
+#include "ui/views/controls/button/menu_button_controller.h"
 #include "ui/views/controls/highlight_path_generator.h"
+#include "chrome/browser/ui/browser.h"
 #include "extensions/common/constants.h"
 
 namespace {
@@ -41,23 +44,8 @@ constexpr SkColor kBadgeRed = SkColorSetRGB(0xEF, 0x44, 0x44);
 
 SawtunaaActionView::SawtunaaActionView(
     BrowserWindowInterface* browser_window_interface)
-    : LabelButton(base::BindRepeating(
-                      [](SawtunaaActionView* self) {
-                        bool current = self->profile_prefs_->GetBoolean(
-                            kSawtunaaEnabled);
-                        self->profile_prefs_->SetBoolean(kSawtunaaEnabled,
-                                                         !current);
-                        // Browther: track user-initiated toggle.
-                        if (auto* analytics = browther_analytics::
-                                BrowtherAnalyticsService::GetInstance()) {
-                          base::DictValue props;
-                          props.Set("feature", "sawtunaa");
-                          props.Set("enabled", !current);
-                          analytics->Track("feature_toggled",
-                                           std::move(props));
-                        }
-                      },
-                      base::Unretained(this)),
+    : LabelButton(base::BindRepeating(&SawtunaaActionView::OnButtonPressed,
+                                      base::Unretained(this)),
                   std::u16string()),
       browser_window_interface_(browser_window_interface),
       profile_prefs_(
@@ -68,11 +56,33 @@ SawtunaaActionView::SawtunaaActionView(
   SetHorizontalAlignment(gfx::ALIGN_CENTER);
   tab_strip_model_->AddObserver(this);
 
+  // Browther: MenuButtonController so re-clicking the toolbar button while
+  // the bubble is open closes it (mirror of BraveVPNButton/Basarunaa pattern).
+  auto menu_button_controller = std::make_unique<views::MenuButtonController>(
+      this,
+      base::BindRepeating(&SawtunaaActionView::OnButtonPressed,
+                          base::Unretained(this)),
+      std::make_unique<views::Button::DefaultButtonControllerDelegate>(this));
+  menu_button_controller_ = menu_button_controller.get();
+  SetButtonController(std::move(menu_button_controller));
+
   pref_change_registrar_.Init(&*profile_prefs_);
   pref_change_registrar_.Add(
       kSawtunaaEnabled,
       base::BindRepeating(&SawtunaaActionView::UpdateIconState,
                           base::Unretained(this)));
+}
+
+void SawtunaaActionView::OnButtonPressed(const ui::Event& event) {
+  // Browther: open the popup; SawtunaaBubbleView::Show closes the active
+  // bubble itself if one is already shown (toggle behavior).
+  Browser* browser = browser_window_interface_
+                         ? browser_window_interface_->GetBrowserForMigrationOnly()
+                         : nullptr;
+  if (!browser) {
+    return;
+  }
+  SawtunaaBubbleView::Show(this, browser);
 }
 
 SawtunaaActionView::~SawtunaaActionView() = default;

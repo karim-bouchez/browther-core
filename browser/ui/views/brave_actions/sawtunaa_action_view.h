@@ -11,7 +11,12 @@
 #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "components/prefs/pref_change_registrar.h"
 #include "ui/base/metadata/metadata_header_macros.h"
+#include "ui/events/event.h"
 #include "ui/views/controls/button/label_button.h"
+
+namespace views {
+class MenuButtonController;
+}  // namespace views
 
 class BrowserWindowInterface;
 class PrefService;
@@ -42,6 +47,8 @@ class SawtunaaActionView : public views::LabelButton,
   void UpdateIconState();
   bool IsActive() const;
   gfx::ImageSkia GetIconImage(bool active);
+  // Browther: opens the Sawtunaa popup. Re-clicking while it's open closes it.
+  void OnButtonPressed(const ui::Event& event);
 
   // TabStripModelObserver
   void OnTabStripModelChanged(
@@ -53,6 +60,7 @@ class SawtunaaActionView : public views::LabelButton,
   raw_ref<PrefService> profile_prefs_;
   raw_ref<TabStripModel> tab_strip_model_;
   PrefChangeRegistrar pref_change_registrar_;
+  raw_ptr<views::MenuButtonController> menu_button_controller_ = nullptr;
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_SAWTUNAA_ACTION_VIEW_H_
