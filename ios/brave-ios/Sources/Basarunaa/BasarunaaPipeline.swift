@@ -52,6 +52,7 @@ public actor BasarunaaPipeline {
 
   private var pose: YOLOPoseDetector?
   private var classifier: GenderAgeClassifier?
+  private var bodyClassifier: PPLCNetClassifier?
 
   private init() {}
 
@@ -72,7 +73,7 @@ public actor BasarunaaPipeline {
     let bodyThreshold = Preferences.Basarunaa.bodyThreshold.value
     let faceThreshold = Preferences.Basarunaa.faceThreshold.value
 
-    let (pose, classifier) = try await loadModelsIfNeeded()
+    let (pose, classifier, bodyClassifier) = try await loadModelsIfNeeded()
 
     let imageSize = CGSize(width: image.width, height: image.height)
     let totalStart = Date()
@@ -87,26 +88,21 @@ public actor BasarunaaPipeline {
     let classifyStart = Date()
     var results: [DetectedPerson] = []
     for raw in rawPersons {
-      var gender: Gender?
-      var genderConf: Double?
-      if let faceBbox = raw.faceBbox, raw.faceConfidence >= faceThreshold {
-        if let classification = try? classifier.classify(
-          image: image,
-          faceBbox: faceBbox,
-          keypoints: raw.keypoints
-        ) {
-          gender = classification.gender
-          genderConf = classification.confidence
-        }
-      }
+      let fused = fuseGender(
+        for: raw,
+        image: image,
+        faceClassifier: classifier,
+        bodyClassifier: bodyClassifier,
+        faceThreshold: faceThreshold
+      )
       results.append(
         DetectedPerson(
           bbox: raw.bbox,
           faceBbox: raw.faceBbox,
           keypoints: raw.keypoints.map { (point: $0.point, confidence: $0.confidence) },
           bodyConfidence: raw.bodyConfidence,
-          gender: gender,
-          genderConfidence: genderConf
+          gender: fused.gender,
+          genderConfidence: fused.confidence
         )
       )
     }
@@ -143,14 +139,75 @@ public actor BasarunaaPipeline {
     )
   }
 
-  private func loadModelsIfNeeded() async throws -> (YOLOPoseDetector, GenderAgeClassifier) {
-    if let pose, let classifier {
-      return (pose, classifier)
+  private func loadModelsIfNeeded() async throws -> (
+    YOLOPoseDetector, GenderAgeClassifier, PPLCNetClassifier
+  ) {
+    if let pose, let classifier, let bodyClassifier {
+      return (pose, classifier, bodyClassifier)
     }
     let newPose = try YOLOPoseDetector()
     let newClassifier = try GenderAgeClassifier()
+    let newBodyClassifier = try PPLCNetClassifier()
     self.pose = newPose
     self.classifier = newClassifier
-    return (newPose, newClassifier)
+    self.bodyClassifier = newBodyClassifier
+    return (newPose, newClassifier, newBodyClassifier)
+  }
+
+  // MARK: - Face / body fusion (POC strategy)
+  //
+  // From `private/extensions/basarunaa/src/pipeline.js`:
+  //
+  //   if matchedFace:
+  //     hasLegs = any(keypoints[13..16].conf > 0.3)   // knees + ankles
+  //     if not hasLegs:           result = face            // partial body, trust face
+  //     elif faceGender != bodyGender
+  //          and faceConf > 0.7 and bodyConf > 0.7:  result = face (conflicted)
+  //     else:                     result = max(face, body) by confidence
+  //   else:
+  //     result = body (PPLCNet on the body bbox)
+
+  private func fuseGender(
+    for raw: RawPersonDetection,
+    image: CGImage,
+    faceClassifier: GenderAgeClassifier,
+    bodyClassifier: PPLCNetClassifier,
+    faceThreshold: Double
+  ) -> (gender: Gender?, confidence: Double?) {
+    let faceResult: GenderClassification?
+    if let faceBbox = raw.faceBbox, raw.faceConfidence >= faceThreshold {
+      faceResult = try? faceClassifier.classify(
+        image: image,
+        faceBbox: faceBbox,
+        keypoints: raw.keypoints
+      )
+    } else {
+      faceResult = nil
+    }
+
+    let hasLegs = (13...16).contains { idx in
+      idx < raw.keypoints.count && raw.keypoints[idx].confidence > 0.3
+    }
+    // Skip the body classifier for partial bodies (no legs) — POC says trust
+    // face alone in that case; it also saves a CoreML inference call.
+    let bodyResult: GenderClassification?
+    if hasLegs {
+      bodyResult = try? bodyClassifier.classify(image: image, bodyBbox: raw.bbox)
+    } else {
+      bodyResult = nil
+    }
+
+    if let face = faceResult, let body = bodyResult {
+      if face.gender != body.gender && face.confidence > 0.7 && body.confidence > 0.7 {
+        // Confident conflict → prefer face (POC marks conflicted, used as analytics).
+        return (face.gender, face.confidence)
+      }
+      // Agree or one is uncertain → pick the more confident.
+      let winner = face.confidence >= body.confidence ? face : body
+      return (winner.gender, winner.confidence)
+    }
+    if let face = faceResult { return (face.gender, face.confidence) }
+    if let body = bodyResult { return (body.gender, body.confidence) }
+    return (nil, nil)
   }
 }

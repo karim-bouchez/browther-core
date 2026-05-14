@@ -394,6 +394,7 @@ var package = Package(
       resources: [
         .copy("Resources/YOLO11nPose.mlmodelc"),
         .copy("Resources/GenderAge.mlmodelc"),
+        .copy("Resources/PPLCNet.mlmodelc"),
       ]
     ),
     // Browther: analytics
