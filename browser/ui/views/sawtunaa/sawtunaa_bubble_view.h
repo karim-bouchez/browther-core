@@ -16,7 +16,7 @@ class Label;
 }  // namespace views
 
 namespace browther {
-class SawtunaaBigToggle;
+class BrowtherBigToggle;
 }  // namespace browther
 
 class Browser;
@@ -53,7 +53,7 @@ class SawtunaaBubbleView : public views::BubbleDialogDelegateView {
 
   raw_ptr<Browser> browser_ = nullptr;
   raw_ptr<PrefService> profile_prefs_ = nullptr;
-  raw_ptr<browther::SawtunaaBigToggle> toggle_ = nullptr;
+  raw_ptr<browther::BrowtherBigToggle> toggle_ = nullptr;
   raw_ptr<views::Label> status_label_ = nullptr;
   PrefChangeRegistrar pref_change_registrar_;
 

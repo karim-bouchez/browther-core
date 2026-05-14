@@ -12,6 +12,7 @@
 #include "base/check.h"
 #include "brave/components/basarunaa/resources/panel/grit/basarunaa_panel_generated_map.h"
 #include "brave/components/constants/webui_url_constants.h"
+#include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/webui/theme_source.h"
 #include "components/grit/brave_components_resources.h"
@@ -39,6 +40,30 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
   source->AddResourcePath("brand_icon.png", IDR_BASARUNAA_BRAND_ICON);
   source->AddResourcePath("wordmark_white.png",
                           IDR_BASARUNAA_WORDMARK_WHITE);
+
+  // Browther: localized strings consumed by basarunaa_panel.html (via
+  // $i18n{...}) and basarunaa_panel.ts (via loadTimeData.getString).
+  static constexpr struct {
+    const char* name;
+    int id;
+  } kLocalizedStrings[] = {
+      {"statusOn", IDS_BASARUNAA_POPUP_STATUS_ON},
+      {"statusOff", IDS_BASARUNAA_POPUP_STATUS_OFF},
+      {"description", IDS_BASARUNAA_POPUP_DESCRIPTION},
+      {"modeLabel", IDS_BASARUNAA_PANEL_MODE_LABEL},
+      {"modeFemale", IDS_BASARUNAA_PANEL_MODE_FEMALE},
+      {"modeMale", IDS_BASARUNAA_PANEL_MODE_MALE},
+      {"modeAll", IDS_BASARUNAA_PANEL_MODE_ALL},
+      {"detectionLabel", IDS_BASARUNAA_PANEL_DETECTION_LABEL},
+      {"confBody", IDS_BASARUNAA_PANEL_CONF_BODY},
+      {"confFace", IDS_BASARUNAA_PANEL_CONF_FACE},
+      {"genderCertainty", IDS_BASARUNAA_PANEL_GENDER_CERTAINTY},
+      {"loading", IDS_BASARUNAA_PANEL_LOADING},
+      {"toggleAria", IDS_BASARUNAA_PANEL_TOGGLE_ARIA},
+  };
+  for (const auto& s : kLocalizedStrings) {
+    source->AddLocalizedString(s.name, s.id);
+  }
 
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::StyleSrc,

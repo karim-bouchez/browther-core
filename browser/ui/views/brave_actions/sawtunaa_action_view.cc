@@ -14,6 +14,7 @@
 #include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/browser/ui/views/sawtunaa/sawtunaa_bubble_view.h"
 #include "brave/components/constants/pref_names.h"
+#include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
 #include "chrome/browser/ui/layout_constants.h"
@@ -24,6 +25,7 @@
 #include "components/grit/brave_components_resources.h"
 #include "components/prefs/pref_service.h"
 #include "content/public/browser/web_contents.h"
+#include "ui/base/l10n/l10n_util.h"
 #include "ui/base/metadata/metadata_impl_macros.h"
 #include "ui/base/models/image_model.h"
 #include "ui/base/resource/resource_bundle.h"
@@ -145,7 +147,9 @@ void SawtunaaActionView::UpdateIconState() {
   SetImageModel(views::Button::STATE_NORMAL,
                 ui::ImageModel::FromImageSkia(icon));
 
-  SetTooltipText(active ? u"Sawtunaa — ON" : u"Sawtunaa — OFF");
+  SetTooltipText(l10n_util::GetStringUTF16(
+      active ? IDS_SAWTUNAA_TOGGLE_TOOLTIP_ON
+             : IDS_SAWTUNAA_TOGGLE_TOOLTIP_OFF));
 }
 
 void SawtunaaActionView::Update() {

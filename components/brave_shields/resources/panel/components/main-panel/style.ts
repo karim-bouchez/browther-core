@@ -97,8 +97,10 @@ export const StatusBox = styled.section`
 
 export const ControlBox = styled.div`
   display: grid;
-  grid-template-columns: 24px 2fr 0.5fr;
+  /* Browther: 3e colonne en auto pour accommoder le big toggle (96×52). */
+  grid-template-columns: 24px 1fr auto;
   grid-gap: 10px;
+  align-items: center;
   margin-bottom: 13px;
 `
 

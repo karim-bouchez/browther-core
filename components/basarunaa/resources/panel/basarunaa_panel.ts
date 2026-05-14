@@ -3,6 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import { loadTimeData } from '../../../common/loadTimeData'
+
 import getPanelBrowserAPI from './api/panel_browser_api'
 
 function api() {
@@ -55,9 +57,7 @@ function setUIEnabled(enabled: boolean) {
     toggle.setAttribute('aria-pressed', String(enabled))
   }
   if (status) {
-    status.textContent = enabled
-      ? 'Floutage des personnes ACTIVÉ'
-      : 'Floutage des personnes DÉSACTIVÉ'
+    status.textContent = loadTimeData.getString(enabled ? 'statusOn' : 'statusOff')
   }
   document.body.dataset.disabled = enabled ? 'false' : 'true'
 }

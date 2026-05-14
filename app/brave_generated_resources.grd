@@ -1473,6 +1473,62 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_PANEL_NAME" desc="Window title of the Basarunaa toolbar panel" formatter_data="webui=Basarunaa">
         Basarunaa
       </message>
+      <!-- Browther: Sawtunaa popup (toolbar bubble + action tooltips) -->
+      <message name="IDS_SAWTUNAA_POPUP_STATUS_ON" desc="Status text in Sawtunaa popup when enabled">
+        Music removal ENABLED
+      </message>
+      <message name="IDS_SAWTUNAA_POPUP_STATUS_OFF" desc="Status text in Sawtunaa popup when disabled">
+        Music removal DISABLED
+      </message>
+      <message name="IDS_SAWTUNAA_POPUP_DESCRIPTION" desc="Description text in Sawtunaa popup">
+        Removes background music and noise from videos in real time on any site, keeping only the voice.
+      </message>
+      <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_ON" desc="Tooltip on Sawtunaa toolbar action when enabled">
+        Sawtunaa — ON
+      </message>
+      <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_OFF" desc="Tooltip on Sawtunaa toolbar action when disabled">
+        Sawtunaa — OFF
+      </message>
+      <!-- Browther: Basarunaa panel (toolbar WebUI bubble) -->
+      <message name="IDS_BASARUNAA_POPUP_STATUS_ON" desc="Status text in Basarunaa panel when enabled">
+        Person blurring ENABLED
+      </message>
+      <message name="IDS_BASARUNAA_POPUP_STATUS_OFF" desc="Status text in Basarunaa panel when disabled">
+        Person blurring DISABLED
+      </message>
+      <message name="IDS_BASARUNAA_POPUP_DESCRIPTION" desc="Description text in Basarunaa panel">
+        Automatically blurs people on web pages according to the chosen mode.
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_MODE_LABEL" desc="Section label for the blur mode selector in the Basarunaa panel">
+        Mode
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_MODE_FEMALE" desc="Radio option to blur women in the Basarunaa panel">
+        Blur women
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_MODE_MALE" desc="Radio option to blur men in the Basarunaa panel">
+        Blur men
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_MODE_ALL" desc="Radio option to blur everyone in the Basarunaa panel">
+        Blur everyone
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_DETECTION_LABEL" desc="Section label for detection thresholds in the Basarunaa panel">
+        Detection
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_CONF_BODY" desc="Slider label for body-detection confidence threshold in the Basarunaa panel">
+        Body confidence
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_CONF_FACE" desc="Slider label for face-detection confidence threshold in the Basarunaa panel">
+        Face confidence
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_GENDER_CERTAINTY" desc="Slider label for gender-classification certainty threshold in the Basarunaa panel">
+        Gender certainty
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_LOADING" desc="Loading text shown while the Basarunaa panel fetches its initial state">
+        Loading…
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_TOGGLE_ARIA" desc="Accessibility label for the main on/off toggle in the Basarunaa panel">
+        Toggle Basarunaa
+      </message>
       <!--Add new items to the appropriate sections above -->
     </messages>
   </release>

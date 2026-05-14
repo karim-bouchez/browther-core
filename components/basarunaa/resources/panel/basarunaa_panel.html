@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="chrome-untrusted://resources/css/reset.css">
   <link rel="stylesheet" href="chrome-untrusted://resources/css/text_defaults_md.css">
   <link rel="stylesheet" href="chrome-untrusted://resources/brave/css/nala.css">
+  <script src="/strings.js"></script>
   <style>
     html, body { margin: 0; padding: 0; }
     body {
@@ -230,42 +231,42 @@
   </div>
 
   <div class="toggle-wrap">
-    <button id="enabled-toggle" class="big-toggle" aria-label="Activer Basarunaa"></button>
+    <button id="enabled-toggle" class="big-toggle" aria-label="$i18n{toggleAria}"></button>
   </div>
-  <div class="status" id="status">Chargement…</div>
+  <div class="status" id="status">$i18n{loading}</div>
 
   <div class="desc">
-    Floute automatiquement les personnes dans les pages web selon le mode choisi.
+    $i18n{description}
   </div>
 
   <div class="section" id="mode-section">
-    <div class="section-label">Mode</div>
+    <div class="section-label">$i18n{modeLabel}</div>
     <div class="radio-group">
-      <label><input type="radio" name="mode" value="blur-female">Flouter les femmes</label>
-      <label><input type="radio" name="mode" value="blur-male">Flouter les hommes</label>
-      <label><input type="radio" name="mode" value="blur-all">Flouter tout le monde</label>
+      <label><input type="radio" name="mode" value="blur-female">$i18n{modeFemale}</label>
+      <label><input type="radio" name="mode" value="blur-male">$i18n{modeMale}</label>
+      <label><input type="radio" name="mode" value="blur-all">$i18n{modeAll}</label>
     </div>
   </div>
 
   <div class="section" id="sliders-section">
-    <div class="section-label">Détection</div>
+    <div class="section-label">$i18n{detectionLabel}</div>
     <div class="slider-row">
       <div class="slider-head">
-        <span>Confiance corps</span>
+        <span>$i18n{confBody}</span>
         <span class="slider-value" id="conf-body-value">—</span>
       </div>
       <input type="range" id="conf-body" min="0" max="100" step="1">
     </div>
     <div class="slider-row">
       <div class="slider-head">
-        <span>Confiance visage</span>
+        <span>$i18n{confFace}</span>
         <span class="slider-value" id="conf-face-value">—</span>
       </div>
       <input type="range" id="conf-face" min="0" max="100" step="1">
     </div>
     <div class="slider-row">
       <div class="slider-head">
-        <span>Certitude genre</span>
+        <span>$i18n{genderCertainty}</span>
         <span class="slider-value" id="gender-certainty-value">—</span>
       </div>
       <input type="range" id="gender-certainty" min="0" max="100" step="1">

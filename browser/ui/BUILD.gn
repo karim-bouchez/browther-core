@@ -1192,6 +1192,8 @@ source_set("ui") {
       "views/brave_actions/brave_shields_action_view.h",
       "views/brave_actions/sawtunaa_action_view.cc",
       "views/brave_actions/sawtunaa_action_view.h",
+      "views/browther/browther_big_toggle.cc",
+      "views/browther/browther_big_toggle.h",
       "views/sawtunaa/sawtunaa_bubble_view.cc",
       "views/sawtunaa/sawtunaa_bubble_view.h",
       "views/brave_actions/basarunaa_action_view.cc",

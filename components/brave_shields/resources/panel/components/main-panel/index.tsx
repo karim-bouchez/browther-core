@@ -4,9 +4,11 @@
 // you can obtain one at https://mozilla.org/MPL/2.0/.
 import * as React from 'react'
 
-import Toggle from '@brave/leo/react/toggle'
 import Button from '@brave/leo/react/button'
 import Icon from '@brave/leo/react/icon'
+
+// Browther: big toggle vert animé (cohérent Sawtunaa/Basarunaa popups).
+import BrowtherBigToggle from '../browther-big-toggle'
 
 import * as S from './style'
 import AdvancedControlsContent from '../advanced-controls-content'
@@ -214,10 +216,11 @@ function MainPanel () {
             {braveShieldsStatus}
           </S.StatusText>
           <S.StatusToggle>
-            <Toggle
-              checked={siteBlockInfo?.isBraveShieldsEnabled}
-              onChange={handleToggleChange}
+            <BrowtherBigToggle
+              checked={!!siteBlockInfo?.isBraveShieldsEnabled}
+              onChange={(checked) => handleToggleChange({ checked })}
               disabled={siteBlockInfo?.isBraveShieldsManaged}
+              ariaLabel='Boucliers Browther'
             />
           </S.StatusToggle>
         </S.ControlBox>
