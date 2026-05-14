@@ -3,6 +3,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import Basarunaa
 import BraveCore
 import BraveUI
 import BraveWallet
@@ -467,6 +468,10 @@ extension BrowserViewController {
       injectedScripts.append(SawtunaaScriptHandler())
     }
 
+    if Preferences.Basarunaa.enabled.value {
+      injectedScripts.append(BasarunaaScriptHandler())
+    }
+
     // XXX: Bug 1390200 - Disable NSUserActivity/CoreSpotlight temporarily
     // let spotlightHelper = SpotlightHelper(tab: tab)
     // tab.addHelper(spotlightHelper, name: SpotlightHelper.name())
@@ -491,6 +496,9 @@ extension BrowserViewController {
       as? Web3NameServiceScriptHandler)?.delegate = self
     (tab.browserData?.getContentScript(name: SawtunaaScriptHandler.scriptName)
       as? SawtunaaScriptHandler)?
+      .delegate = self
+    (tab.browserData?.getContentScript(name: BasarunaaScriptHandler.scriptName)
+      as? BasarunaaScriptHandler)?
       .delegate = self
   }
 }

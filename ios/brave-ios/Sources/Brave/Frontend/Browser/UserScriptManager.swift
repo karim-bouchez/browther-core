@@ -2,6 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import Basarunaa
 import BraveCore
 import BraveWallet
 import Data
@@ -45,6 +46,10 @@ class UserScriptManager {
 
     if Preferences.Sawtunaa.enabled.value {
       scripts.append(.sawtunaa)
+    }
+
+    if Preferences.Basarunaa.enabled.value {
+      scripts.append(.basarunaa)
     }
 
     return scripts
@@ -135,6 +140,7 @@ class UserScriptManager {
     case braveLeoAIChat
     case braveTranslate
     case sawtunaa
+    case basarunaa
 
     fileprivate var script: WKUserScript? {
       switch self {
@@ -185,6 +191,9 @@ class UserScriptManager {
       case .sawtunaa:
         return Preferences.Sawtunaa.enabled.value
           ? SawtunaaScriptHandler.userScript : nil
+      case .basarunaa:
+        return Preferences.Basarunaa.enabled.value
+          ? BasarunaaScriptHandler.userScript : nil
       }
     }
 
