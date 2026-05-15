@@ -111,9 +111,10 @@ class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
 struct BasarunaaPanelView: View {
   @ObservedObject private var enabled = Preferences.Basarunaa.enabled
   @ObservedObject private var mode = Preferences.Basarunaa.mode
+  #if DEBUG
   @ObservedObject private var faceThreshold = Preferences.Basarunaa.faceThreshold
   @ObservedObject private var bodyThreshold = Preferences.Basarunaa.bodyThreshold
-  @ObservedObject private var blurStrength = Preferences.Basarunaa.blurStrength
+  #endif
 
   /// Closure injected by the BVC to run the PoC analysis on the current tab.
   /// Returns a short status string for the UI. `nil` when no analyzable tab.
@@ -166,31 +167,19 @@ struct BasarunaaPanelView: View {
         }
         .padding(.horizontal)
 
+        #if DEBUG
         VStack(spacing: 12) {
-          sliderRow(label: "Seuil visage", value: Binding(
+          sliderRow(label: "Seuil visage (dev)", value: Binding(
             get: { faceThreshold.value },
             set: { faceThreshold.value = $0 }
           ))
-          sliderRow(label: "Seuil corps", value: Binding(
+          sliderRow(label: "Seuil corps (dev)", value: Binding(
             get: { bodyThreshold.value },
             set: { bodyThreshold.value = $0 }
           ))
-          sliderRow(label: "Intensité du flou", value: Binding(
-            get: { blurStrength.value },
-            set: { blurStrength.value = $0 }
-          ))
         }
         .padding(.horizontal)
-
-        Text("⚠️ Pipeline ML iOS en cours de branchement — le floutage automatique n'est pas encore appliqué, mais le PoC ci-dessous prouve que CoreML tourne sur device.")
-          .font(.caption)
-          .foregroundColor(.orange)
-          .padding(8)
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .background(Color.orange.opacity(0.1))
-          .clipShape(RoundedRectangle(cornerRadius: 8))
-          .fixedSize(horizontal: false, vertical: true)
-          .padding(.horizontal)
+        #endif
 
         #if DEBUG
         VStack(spacing: 8) {
