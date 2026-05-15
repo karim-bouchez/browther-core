@@ -44,6 +44,37 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
 
   var nextId = 1;
 
+  // ─── Decision cache (URL → 'keep' | 'remove') ───
+  //
+  // Sites with infinite scroll / lazy reload (Google Images, social feeds)
+  // create + destroy many <img> elements that share the same URL. Without a
+  // cache we'd re-analyse the same bytes every time. With one, the second
+  // appearance skips the Swift roundtrip entirely.
+  //
+  // Map iteration order = insertion order in JS, so we can use it as a
+  // simple LRU-ish bound: drop the oldest entry when we hit the cap.
+  var DECISION_CACHE_MAX = 500;
+  var decisionCache = new Map();
+
+  function imgUrl(img) {
+    return img.currentSrc || img.src || '';
+  }
+
+  function getCachedDecision(url) {
+    return url ? decisionCache.get(url) : undefined;
+  }
+
+  function setCachedDecision(url, decision) {
+    if (!url) return;
+    if (decisionCache.has(url)) {
+      decisionCache.delete(url);  // re-insert to refresh LRU position
+    } else if (decisionCache.size >= DECISION_CACHE_MAX) {
+      var firstKey = decisionCache.keys().next().value;
+      decisionCache.delete(firstKey);
+    }
+    decisionCache.set(url, decision);
+  }
+
   // ─── Blur application ───
   // We use inline `style.setProperty(..., 'important')` because:
   //   1. `!important` on inline style beats virtually any page-level CSS.
@@ -175,14 +206,24 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var h = img.naturalHeight || img.height;
     if (w < MIN_DIM || h < MIN_DIM) return;  // skip tiny icons
     if (!img.complete || w === 0 || h === 0) {
-      // wait for load, then re-enqueue
       img.addEventListener('load', function() { enqueueAnalyze(img); }, { once: true });
+      return;
+    }
+    // URL cache fast-path: same bytes were classified before → skip Swift.
+    var url = imgUrl(img);
+    var cached = getCachedDecision(url);
+    if (cached) {
+      var id = nextId++;
+      img.setAttribute(ID_ATTR, String(id));
+      img.setAttribute(STATE_ATTR, cached);
+      if (cached === 'remove') removeBlurFrom(img);
+      metric('analyze_cache_hit', { id: id, decision: cached });
       return;
     }
     var id = nextId++;
     img.setAttribute(ID_ATTR, String(id));
     img.setAttribute(STATE_ATTR, 'pending');
-    queue.push({ id: id, img: img });
+    queue.push({ id: id, img: img, url: url });
     drain();
   }
 
@@ -230,6 +271,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         if (decision === 'remove') {
           removeBlurFrom(img);
         }
+        // Cache the URL → decision mapping so subsequent appearances of the
+        // same image skip the Swift roundtrip.
+        setCachedDecision(imgUrl(img), decision);
       }
     } catch (e) {
       metric('apply_error', { msg: '' + e });
