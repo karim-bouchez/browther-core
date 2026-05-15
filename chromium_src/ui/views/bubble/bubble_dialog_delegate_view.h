@@ -17,6 +17,10 @@ class SidebarEditItemBubbleDelegateView;
 class SidebarAddItemBubbleDelegateView;
 class SawtunaaBubbleView;
 
+namespace browther {
+class ShieldsInternalBubble;
+}  // namespace browther
+
 namespace playlist {
 class PlaylistBubbleView;
 }  // namespace playlist
@@ -36,6 +40,7 @@ class BraveBubbleDialogDelegateView;
   friend class ::SidebarEditItemBubbleDelegateView;    \
   friend class ::SidebarAddItemBubbleDelegateView;     \
   friend class ::SawtunaaBubbleView;                   \
+  friend class ::browther::ShieldsInternalBubble;      \
   friend class ::views::BraveBubbleDialogDelegateView; \
   static BddvPassKey CreatePassKey
 

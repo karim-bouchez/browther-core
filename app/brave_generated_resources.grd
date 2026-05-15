@@ -1529,6 +1529,22 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_PANEL_TOGGLE_ARIA" desc="Accessibility label for the main on/off toggle in the Basarunaa panel">
         Toggle Basarunaa
       </message>
+      <!-- Browther: Shields internal-page bubble (toolbar mini-popup) -->
+      <message name="IDS_BROWTHER_SHIELDS_INTERNAL_TITLE" desc="Title of the Shields bubble shown on internal browser pages">
+        Browther Shields
+      </message>
+      <message name="IDS_BROWTHER_SHIELDS_INTERNAL_DESCRIPTION" desc="Description shown in the Shields bubble explaining what Browther Shields block">
+        Browther Shields block ads, trackers, fingerprinting and unwanted scripts on every site you visit.
+      </message>
+      <message name="IDS_BROWTHER_SHIELDS_INTERNAL_PER_SITE_INFO" desc="Inline info shown when the user tries to disable Shields from the internal-page bubble — Brave manages Shields per site only">
+        Shields are managed per site. Open the website you want to exclude and click the shield button at the top right.
+      </message>
+      <message name="IDS_BROWTHER_SHIELDS_INTERNAL_STATUS_ON" desc="Status text in Shields bubble when default protection is enabled">
+        Ad blocking ENABLED
+      </message>
+      <message name="IDS_BROWTHER_SHIELDS_INTERNAL_STATUS_OFF" desc="Status text in Shields bubble when default protection is disabled">
+        Ad blocking DISABLED
+      </message>
       <!--Add new items to the appropriate sections above -->
     </messages>
   </release>

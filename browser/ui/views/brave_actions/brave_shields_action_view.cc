@@ -14,6 +14,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
+#include "brave/browser/ui/views/browther/shields_internal_bubble.h"
 #include "brave/browser/ui/webui/brave_shields/shields_panel_ui.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/constants/url_constants.h"
@@ -167,16 +168,20 @@ BraveShieldsActionView::GetImageSource() {
   auto image_source = std::make_unique<browther::BrowtherStatusDotImageSource>(
       preferred_size, std::move(get_color_provider_callback), icon_size);
 
-  // Browther: défaut vert (Shields globalement actif) sur les pages internes
-  // (NTP, chrome://, settings…) où aucun BraveShieldsTabHelper n'existe —
-  // sinon le badge passait rouge alors qu'aucun site n'a désactivé Shields.
+  // Browther: badge vert sur les pages non-HTTP/HTTPS (NTP, chrome://, etc.)
+  // — Brave gère Shields strictement par-site, et ces pages internes n'ont
+  // pas besoin de protection. Sur les vraies pages web, lecture per-site via
+  // le tab helper.
   bool is_enabled = true;
   if (web_contents) {
-    auto* shields_data_controller =
-        brave_shields::BraveShieldsTabHelper::FromWebContents(web_contents);
-    if (shields_data_controller) {
-      is_enabled = shields_data_controller->GetBraveShieldsEnabled() &&
-                   !IsPageInReaderMode(web_contents);
+    const GURL& url = web_contents->GetLastCommittedURL();
+    if (url.SchemeIsHTTPOrHTTPS()) {
+      auto* shields_data_controller =
+          brave_shields::BraveShieldsTabHelper::FromWebContents(web_contents);
+      if (shields_data_controller) {
+        is_enabled = shields_data_controller->GetBraveShieldsEnabled() &&
+                     !IsPageInReaderMode(web_contents);
+      }
     }
   }
 
@@ -217,6 +222,11 @@ void BraveShieldsActionView::ButtonPressed(
     BrowserWindowInterface* browser_window_interface) {
   auto* web_content = tab_strip_model_->GetActiveWebContents();
   if (!ShouldShowBubble(web_content)) {
+    // Browther: au lieu d'ignorer le clic sur les pages internes (chrome://,
+    // about:, file://, …), affiche un mini-popup natif rassurant indiquant
+    // que les Boucliers Browther sont bien actifs.
+    browther::ShieldsInternalBubble::Show(
+        this, browser_window_interface->GetBrowserForMigrationOnly());
     return;
   }
 
