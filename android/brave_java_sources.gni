@@ -43,6 +43,8 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/BraveSwipeRefreshHandler.java",
   "../../brave/android/java/org/chromium/chrome/browser/BraveSyncWorker.java",
   "../../brave/android/java/org/chromium/chrome/browser/BraveWalletProvider.java",
+  "../../brave/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsBridge.java",
+  "../../brave/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsConfig.java",
   "../../brave/android/java/org/chromium/chrome/browser/DormantUsersEngagementDialogFragment.java",
   "../../brave/android/java/org/chromium/chrome/browser/InternetConnection.java",
   "../../brave/android/java/org/chromium/chrome/browser/OpenYtInBraveDialogFragment.java",

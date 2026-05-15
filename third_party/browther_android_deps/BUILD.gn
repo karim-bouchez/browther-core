@@ -1,0 +1,20 @@
+# Copyright (c) 2026 The Browther Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Targets Android AAR pour Browther, hors mécanisme //third_party/android_deps
+# (fork-friendly — voir README.md). Les AAR sont téléchargés par
+# `private/scripts/fetch-android-deps.sh` dans `libs/` (gitignored).
+#
+# Batch 1 : scaffold vide. Les android_aar_prebuilt() sont ajoutés en
+# Batch 2 (Sentry) et Batch 3 (PostHog optionnel).
+
+import("//build/config/android/rules.gni")
+
+assert(is_android)
+
+# Placeholder group pour que la cible //brave/third_party/browther_android_deps
+# existe dès maintenant, avant d'avoir des AAR à exposer.
+group("browther_android_deps") {
+}

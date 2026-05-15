@@ -104,3 +104,4 @@ xcuserdata
 # Browther — analytics config header/swift (généré, contient des secrets)
 /components/browther_analytics/analytics_config.h
 /ios/brave-ios/Sources/BrowtherAnalytics/AnalyticsConfig.swift
+/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsConfig.java
