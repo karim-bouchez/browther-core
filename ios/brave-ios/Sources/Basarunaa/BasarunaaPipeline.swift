@@ -35,6 +35,11 @@ public struct BasarunaaResult: Sendable {
   public let poseLatencyMs: Double
   public let classifyLatencyMs: Double
   public let imageSize: CGSize
+  /// True if the full-image NSFW classifier (Marqo) flagged the image.
+  /// When true, the image should be blurred regardless of the person pipeline.
+  public let isNsfw: Bool
+  /// Marqo NSFW softmax probability (0..1), or nil if the classifier wasn't run.
+  public let nsfwScore: Double?
 }
 
 public enum BasarunaaError: Error {
@@ -53,6 +58,7 @@ public actor BasarunaaPipeline {
   private var pose: YOLOPoseDetector?
   private var classifier: GenderAgeClassifier?
   private var bodyClassifier: PPLCNetClassifier?
+  private var nsfwClassifier: NSFWClassifier?
 
   private init() {}
 
@@ -73,10 +79,36 @@ public actor BasarunaaPipeline {
     let bodyThreshold = Preferences.Basarunaa.bodyThreshold.value
     let faceThreshold = Preferences.Basarunaa.faceThreshold.value
 
-    let (pose, classifier, bodyClassifier) = try await loadModelsIfNeeded()
+    let (pose, classifier, bodyClassifier, nsfwClassifier) = try await loadModelsIfNeeded()
 
     let imageSize = CGSize(width: image.width, height: image.height)
     let totalStart = Date()
+
+    // 1) NSFW pre-check. If flagged, short-circuit: the caller forces `keep`
+    //    regardless of person detection. We still log it but skip YOLO.
+    let nsfwStart = Date()
+    let nsfwResult = try? nsfwClassifier.classify(image: image)
+    let nsfwLatencyMs = Date().timeIntervalSince(nsfwStart) * 1000
+    if let nsfwResult, nsfwResult.isNsfw {
+      let totalLatencyMs = Date().timeIntervalSince(totalStart) * 1000
+      log.info(
+        """
+        analyze NSFW short-circuit: score=\(String(format: "%.2f", nsfwResult.score), privacy: .public) \
+        imageSize=\(Int(imageSize.width), privacy: .public)x\(Int(imageSize.height), privacy: .public) \
+        nsfw=\(String(format: "%.1f", nsfwLatencyMs), privacy: .public)ms \
+        total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
+        """
+      )
+      return BasarunaaResult(
+        persons: [],
+        totalLatencyMs: totalLatencyMs,
+        poseLatencyMs: 0,
+        classifyLatencyMs: nsfwLatencyMs,
+        imageSize: imageSize,
+        isNsfw: true,
+        nsfwScore: nsfwResult.score
+      )
+    }
 
     let poseStart = Date()
     let rawPersons = try pose.detect(
@@ -135,23 +167,27 @@ public actor BasarunaaPipeline {
       totalLatencyMs: totalLatencyMs,
       poseLatencyMs: poseLatencyMs,
       classifyLatencyMs: classifyLatencyMs,
-      imageSize: imageSize
+      imageSize: imageSize,
+      isNsfw: false,
+      nsfwScore: nsfwResult?.score
     )
   }
 
   private func loadModelsIfNeeded() async throws -> (
-    YOLOPoseDetector, GenderAgeClassifier, PPLCNetClassifier
+    YOLOPoseDetector, GenderAgeClassifier, PPLCNetClassifier, NSFWClassifier
   ) {
-    if let pose, let classifier, let bodyClassifier {
-      return (pose, classifier, bodyClassifier)
+    if let pose, let classifier, let bodyClassifier, let nsfwClassifier {
+      return (pose, classifier, bodyClassifier, nsfwClassifier)
     }
     let newPose = try YOLOPoseDetector()
     let newClassifier = try GenderAgeClassifier()
     let newBodyClassifier = try PPLCNetClassifier()
+    let newNsfwClassifier = try NSFWClassifier()
     self.pose = newPose
     self.classifier = newClassifier
     self.bodyClassifier = newBodyClassifier
-    return (newPose, newClassifier, newBodyClassifier)
+    self.nsfwClassifier = newNsfwClassifier
+    return (newPose, newClassifier, newBodyClassifier, newNsfwClassifier)
   }
 
   // MARK: - Face / body fusion (POC strategy)

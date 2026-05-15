@@ -127,11 +127,18 @@ class BasarunaaScriptHandler: TabContentScript {
     do {
       let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
       let mode = Preferences.Basarunaa.mode.value
-      let decision = decide(from: result.persons, mode: mode)
+      let decision: BlurDecision
+      if result.isNsfw {
+        // NSFW short-circuit: blur regardless of mode.
+        decision = .keep
+      } else {
+        decision = decide(from: result.persons, mode: mode)
+      }
       let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
-        analyze[\(id, privacy: .public)] persons=\(result.persons.count, privacy: .public) \
+        analyze[\(id, privacy: .public)] nsfw=\(result.isNsfw, privacy: .public) \
+        persons=\(result.persons.count, privacy: .public) \
         mode=\(mode, privacy: .public) → \(decision.rawValue, privacy: .public) \
         (\(String(format: "%.0f", elapsedMs), privacy: .public)ms)
         """
