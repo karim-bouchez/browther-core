@@ -59,6 +59,7 @@ public actor BasarunaaPipeline {
   private var classifier: GenderAgeClassifier?
   private var bodyClassifier: PPLCNetClassifier?
   private var nsfwClassifier: NSFWClassifier?
+  private var nudeNetDetector: NudeNetDetector?
 
   private init() {}
 
@@ -79,21 +80,35 @@ public actor BasarunaaPipeline {
     let bodyThreshold = Preferences.Basarunaa.bodyThreshold.value
     let faceThreshold = Preferences.Basarunaa.faceThreshold.value
 
-    let (pose, classifier, bodyClassifier, nsfwClassifier) = try await loadModelsIfNeeded()
+    let (pose, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector) =
+      try await loadModelsIfNeeded()
 
     let imageSize = CGSize(width: image.width, height: image.height)
     let totalStart = Date()
 
-    // 1) NSFW pre-check. If flagged, short-circuit: the caller forces `keep`
-    //    regardless of person detection. We still log it but skip YOLO.
+    // 1) NSFW pre-check (Marqo + NudeNet, POC strategy).
+    //    Marqo flags whole-image NSFW; NudeNet flags visible explicit body
+    //    parts. Either positive → short-circuit, skip YOLO, force `keep`.
     let nsfwStart = Date()
-    let nsfwResult = try? nsfwClassifier.classify(image: image)
+    let marqoResult = try? nsfwClassifier.classify(image: image)
+    let nudeDetections = (try? nudeNetDetector.detect(image: image)) ?? []
+    let exposedHit = nudeDetections.contains { d in
+      guard let cls = NudeNetClass(rawValue: d.classIdx) else { return false }
+      return NudeNetClass.alwaysFlagged.contains(cls)
+    }
+    let marqoIsNsfw = marqoResult?.isNsfw ?? false
+    let nsfwScore = marqoResult?.score
+    let isNsfw = marqoIsNsfw || exposedHit
     let nsfwLatencyMs = Date().timeIntervalSince(nsfwStart) * 1000
-    if let nsfwResult, nsfwResult.isNsfw {
+
+    if isNsfw {
       let totalLatencyMs = Date().timeIntervalSince(totalStart) * 1000
+      let triggerDescription = marqoIsNsfw
+        ? "marqo=\(String(format: "%.2f", nsfwScore ?? 0))"
+        : "nudenet_exposed"
       log.info(
         """
-        analyze NSFW short-circuit: score=\(String(format: "%.2f", nsfwResult.score), privacy: .public) \
+        analyze NSFW short-circuit: \(triggerDescription, privacy: .public) \
         imageSize=\(Int(imageSize.width), privacy: .public)x\(Int(imageSize.height), privacy: .public) \
         nsfw=\(String(format: "%.1f", nsfwLatencyMs), privacy: .public)ms \
         total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
@@ -106,7 +121,7 @@ public actor BasarunaaPipeline {
         classifyLatencyMs: nsfwLatencyMs,
         imageSize: imageSize,
         isNsfw: true,
-        nsfwScore: nsfwResult.score
+        nsfwScore: nsfwScore
       )
     }
 
@@ -169,25 +184,27 @@ public actor BasarunaaPipeline {
       classifyLatencyMs: classifyLatencyMs,
       imageSize: imageSize,
       isNsfw: false,
-      nsfwScore: nsfwResult?.score
+      nsfwScore: nsfwScore
     )
   }
 
   private func loadModelsIfNeeded() async throws -> (
-    YOLOPoseDetector, GenderAgeClassifier, PPLCNetClassifier, NSFWClassifier
+    YOLOPoseDetector, GenderAgeClassifier, PPLCNetClassifier, NSFWClassifier, NudeNetDetector
   ) {
-    if let pose, let classifier, let bodyClassifier, let nsfwClassifier {
-      return (pose, classifier, bodyClassifier, nsfwClassifier)
+    if let pose, let classifier, let bodyClassifier, let nsfwClassifier, let nudeNetDetector {
+      return (pose, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector)
     }
     let newPose = try YOLOPoseDetector()
     let newClassifier = try GenderAgeClassifier()
     let newBodyClassifier = try PPLCNetClassifier()
     let newNsfwClassifier = try NSFWClassifier()
+    let newNudeNetDetector = try NudeNetDetector()
     self.pose = newPose
     self.classifier = newClassifier
     self.bodyClassifier = newBodyClassifier
     self.nsfwClassifier = newNsfwClassifier
-    return (newPose, newClassifier, newBodyClassifier, newNsfwClassifier)
+    self.nudeNetDetector = newNudeNetDetector
+    return (newPose, newClassifier, newBodyClassifier, newNsfwClassifier, newNudeNetDetector)
   }
 
   // MARK: - Face / body fusion (POC strategy)

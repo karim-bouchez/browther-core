@@ -396,6 +396,7 @@ var package = Package(
         .copy("Resources/GenderAge.mlmodelc"),
         .copy("Resources/PPLCNet.mlmodelc"),
         .copy("Resources/NsfwMarqo.mlmodelc"),
+        .copy("Resources/NudeNet.mlmodelc"),
       ]
     ),
     // Browther: analytics
