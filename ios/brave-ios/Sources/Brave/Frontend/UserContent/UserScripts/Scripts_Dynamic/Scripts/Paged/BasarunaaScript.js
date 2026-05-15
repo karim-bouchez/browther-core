@@ -239,9 +239,51 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
   };
 
-  function enqueueAll(root) {
+  // ─── IntersectionObserver — only analyze visible images ───
+  //
+  // Pages can have 50-100+ images, most below the fold. Analyzing all of them
+  // upfront wastes ML cycles on imgs the user may never scroll to. We register
+  // an IntersectionObserver and only enqueue analysis when an image enters
+  // (or is near) the viewport.
+  //
+  // The CSS blur is still applied to every <img> at scan time, so off-screen
+  // imgs are blurred when they arrive — we just defer the *decision* until
+  // they're visible.
+  var intersectionObserver = null;
+  if (typeof IntersectionObserver !== 'undefined') {
+    intersectionObserver = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        if (entry.isIntersecting && entry.target.tagName === 'IMG') {
+          var img = entry.target;
+          intersectionObserver.unobserve(img);
+          enqueueAnalyze(img);
+        }
+      }
+    }, {
+      // Trigger 200px before the image actually enters the viewport — gives
+      // the pipeline time to analyse + apply the decision before the user
+      // scrolls to it.
+      rootMargin: '200px 0px',
+      threshold: 0,
+    });
+  }
+
+  function observeForAnalysis(img) {
+    if (!img || img.tagName !== 'IMG') return;
+    if (img.hasAttribute(ID_ATTR)) return;     // already queued/analyzed
+    if (img.getAttribute(STATE_ATTR) === 'remove') return;  // sticky safe
+    if (intersectionObserver) {
+      intersectionObserver.observe(img);
+    } else {
+      // Fallback for browsers without IntersectionObserver: analyze immediately.
+      enqueueAnalyze(img);
+    }
+  }
+
+  function observeAll(root) {
     var imgs = (root || document).querySelectorAll('img');
-    for (var i = 0; i < imgs.length; i++) enqueueAnalyze(imgs[i]);
+    for (var i = 0; i < imgs.length; i++) observeForAnalysis(imgs[i]);
   }
 
   // ─── Lifecycle ───
@@ -257,7 +299,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     metric('script_init', { url: location.href, initial_imgs: initialCount });
     send('scriptReady', location.href);
     send('blurApplied', String(initialCount));
-    enqueueAll(document);
+    observeAll(document);
 
     try {
       var observer = new MutationObserver(function(mutations) {
@@ -270,10 +312,10 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
               if (!node || node.nodeType !== 1) continue;
               if (node.tagName === 'IMG') {
                 if (applyBlurTo(node)) n++;
-                enqueueAnalyze(node);
+                observeForAnalysis(node);
               } else if (node.querySelectorAll) {
                 n += scanAndBlur(node);
-                enqueueAll(node);
+                observeAll(node);
               }
             }
           }
