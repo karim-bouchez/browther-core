@@ -14,19 +14,31 @@ public enum Gender: String, Sendable {
   case female
 }
 
+/// Person produced by the pipeline. May come from a body detection (with or
+/// without a matched face) or be entirely synthesised from an unmatched
+/// face detection ("synth body").
 public struct DetectedPerson: Sendable {
-  /// Bounding box of the person/body in the *original image* coordinate space (pixels).
+  /// Body bounding box in original image coordinates (real OR synthesised
+  /// from a face bbox when `isSyntheticBody == true`).
   public let bbox: CGRect
-  /// Derived face bbox (from keypoints 0-4) in original image coords, if available.
+  /// Face bbox (from YOLOv8n-face when matched, or directly when synthetic).
   public let faceBbox: CGRect?
-  /// 17 COCO keypoints `(x, y, conf)` in original image coords.
+  /// 17 COCO keypoints from YOLO11n-pose (empty for synthetic bodies).
   public let keypoints: [(point: CGPoint, confidence: Double)]
-  /// Pose detection confidence.
+  /// Pose detection confidence (or face detection confidence for synth bodies).
   public let bodyConfidence: Double
-  /// Gender classification — only filled when a face was matched and classified.
+  /// Fused gender (face genderage / PPLCNet, possibly downgraded to nil if
+  /// below the user's `gender-certainty` threshold).
   public let gender: Gender?
-  /// Gender classification confidence (softmax probability of `gender`).
+  /// Confidence of the winning classifier.
   public let genderConfidence: Double?
+  /// True when this person was synthesised from an unmatched face detection.
+  public let isSyntheticBody: Bool
+  /// Short label of the classifier that won (matches the macOS POC labels :
+  /// "insightface", "insightface (conflict)", "insightface (partial body)",
+  /// "pplcnet (best)", "pplcnet (no face)", "pplcnet (synth body)",
+  /// "insightface (synth body)").
+  public let classifierUsed: String
 }
 
 public struct BasarunaaResult: Sendable {
@@ -36,7 +48,6 @@ public struct BasarunaaResult: Sendable {
   public let classifyLatencyMs: Double
   public let imageSize: CGSize
   /// True if the full-image NSFW classifier (Marqo) flagged the image.
-  /// When true, the image should be blurred regardless of the person pipeline.
   public let isNsfw: Bool
   /// Marqo NSFW softmax probability (0..1), or nil if the classifier wasn't run.
   public let nsfwScore: Double?
@@ -48,14 +59,29 @@ public enum BasarunaaError: Error {
   case invalidImage
 }
 
-/// PoC orchestrator for Basarunaa iOS. Loads YOLO11n-pose + GenderAge once
-/// (lazy, on first analyze) and runs them on demand.
+/// End-to-end Basarunaa pipeline on iOS. Reproduces the macOS dual-detector
+/// flow from `private/extensions/basarunaa/src/pipeline.js#_processDual` :
+///
+/// 1. NSFW short-circuit (Marqo + NudeNet) — if positive, no person work.
+/// 2. Body detection (YOLO11n-pose) + face detection (YOLOv8n-face), run
+///    sequentially.
+/// 3. Greedy global match of faces ⇄ bodies by face-center→upper-body
+///    distance, with the constraint that the face bbox lies inside the body.
+/// 4. For each body:
+///    - Compute body polygon mask from keypoints (`BodyPolygon`).
+///    - Run PPLCNet on the masked body crop.
+///    - If a face is matched: run InsightFace genderage on the aligned crop
+///      and fuse with the body classifier (POC rules).
+/// 5. For each unmatched face: build a synthetic body bbox (4× face width,
+///    7× face height downward), run PPLCNet on that synth crop and
+///    InsightFace on the face — keep the most confident result.
 public actor BasarunaaPipeline {
   public static let shared = BasarunaaPipeline()
 
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa")
 
   private var pose: YOLOPoseDetector?
+  private var face: YOLOFaceDetector?
   private var classifier: GenderAgeClassifier?
   private var bodyClassifier: PPLCNetClassifier?
   private var nsfwClassifier: NSFWClassifier?
@@ -63,8 +89,6 @@ public actor BasarunaaPipeline {
 
   private init() {}
 
-  /// Eager-load both models off the main thread. Call early (e.g. when the
-  /// Basarunaa feature is toggled on) to avoid a cold-start hit on first analyze.
   public func warmup() async {
     do {
       _ = try await loadModelsIfNeeded()
@@ -74,22 +98,18 @@ public actor BasarunaaPipeline {
     }
   }
 
-  /// Analyze a CGImage end-to-end. Returns detected persons with optional gender.
-  /// Thresholds are read from `Preferences.Basarunaa.{confBody, confFace, genderCertainty}`.
   public func analyze(image: CGImage) async throws -> BasarunaaResult {
     let bodyThreshold = Preferences.Basarunaa.confBody.value
     let faceThreshold = Preferences.Basarunaa.confFace.value
     let genderCertainty = Preferences.Basarunaa.genderCertainty.value
 
-    let (pose, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector) =
+    let (pose, face, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector) =
       try await loadModelsIfNeeded()
 
     let imageSize = CGSize(width: image.width, height: image.height)
     let totalStart = Date()
 
-    // 1) NSFW pre-check (Marqo + NudeNet, POC strategy).
-    //    Marqo flags whole-image NSFW; NudeNet flags visible explicit body
-    //    parts. Either positive → short-circuit, skip YOLO, force `keep`.
+    // 1) NSFW pre-check.
     let nsfwStart = Date()
     let marqoResult = try? nsfwClassifier.classify(image: image)
     let nudeDetections = (try? nudeNetDetector.detect(image: image)) ?? []
@@ -104,13 +124,12 @@ public actor BasarunaaPipeline {
 
     if isNsfw {
       let totalLatencyMs = Date().timeIntervalSince(totalStart) * 1000
-      let triggerDescription = marqoIsNsfw
+      let trigger = marqoIsNsfw
         ? "marqo=\(String(format: "%.2f", nsfwScore ?? 0))"
         : "nudenet_exposed"
       log.info(
         """
-        analyze NSFW short-circuit: \(triggerDescription, privacy: .public) \
-        imageSize=\(Int(imageSize.width), privacy: .public)x\(Int(imageSize.height), privacy: .public) \
+        analyze NSFW short-circuit: \(trigger, privacy: .public) \
         nsfw=\(String(format: "%.1f", nsfwLatencyMs), privacy: .public)ms \
         total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
         """
@@ -126,65 +145,69 @@ public actor BasarunaaPipeline {
       )
     }
 
-    let poseStart = Date()
-    let rawPersons = try pose.detect(
-      image: image,
-      bodyScoreThreshold: bodyThreshold
+    // 2) Body + face detection (sequential — CoreML compute scheduling).
+    let detectStart = Date()
+    let bodies = try pose.detect(image: image, bodyScoreThreshold: bodyThreshold)
+    let faces = (try? face.detect(image: image, confThreshold: faceThreshold)) ?? []
+    let poseLatencyMs = Date().timeIntervalSince(detectStart) * 1000
+    log.info(
+      "detect bodies=\(bodies.count, privacy: .public) faces=\(faces.count, privacy: .public) (\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms)"
     )
-    let poseLatencyMs = Date().timeIntervalSince(poseStart) * 1000
 
+    // 3) Match faces ⇄ bodies (greedy by distance).
+    let matches = matchFacesToBodies(bodies: bodies, faces: faces)
+
+    // 4) Classify each body.
     let classifyStart = Date()
     var results: [DetectedPerson] = []
-    for (rawIdx, raw) in rawPersons.enumerated() {
-      let fused = fuseGender(
-        for: raw,
-        personIndex: rawIdx,
+
+    for (bi, body) in bodies.enumerated() {
+      let matched = matches[bi]
+      let person = classifyMatched(
+        index: bi,
+        body: body,
+        matchedFace: matched,
         image: image,
+        imageSize: imageSize,
         faceClassifier: classifier,
         bodyClassifier: bodyClassifier,
-        faceThreshold: faceThreshold
+        faceThreshold: faceThreshold,
+        genderCertainty: genderCertainty
       )
-      // POC: if the fused softmax confidence is below the user-configured
-      // certainty threshold, downgrade to "unknown" (nil) so `blur-female`
-      // falls back to its safer-default-to-keep behaviour.
-      let trustedGender: Gender?
-      if let g = fused.gender, let c = fused.confidence, c >= genderCertainty {
-        trustedGender = g
-      } else {
-        trustedGender = nil
-      }
-      results.append(
-        DetectedPerson(
-          bbox: raw.bbox,
-          faceBbox: raw.faceBbox,
-          keypoints: raw.keypoints.map { (point: $0.point, confidence: $0.confidence) },
-          bodyConfidence: raw.bodyConfidence,
-          gender: trustedGender,
-          genderConfidence: fused.confidence
-        )
-      )
+      results.append(person)
     }
-    let classifyLatencyMs = Date().timeIntervalSince(classifyStart) * 1000
 
+    // 5) Synthetic bodies for unmatched faces.
+    let matchedFaceIndices = Set(matches.values.map { $0.0 })
+    for (fi, faceDet) in faces.enumerated() {
+      if matchedFaceIndices.contains(fi) { continue }
+      let person = classifyUnmatchedFace(
+        face: faceDet,
+        image: image,
+        imageSize: imageSize,
+        faceClassifier: classifier,
+        bodyClassifier: bodyClassifier,
+        genderCertainty: genderCertainty
+      )
+      results.append(person)
+    }
+
+    let classifyLatencyMs = Date().timeIntervalSince(classifyStart) * 1000
     let totalLatencyMs = Date().timeIntervalSince(totalStart) * 1000
     log.info(
       """
       analyze done: persons=\(results.count, privacy: .public) \
-      imageSize=\(Int(imageSize.width), privacy: .public)x\(Int(imageSize.height), privacy: .public) \
-      pose=\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms \
+      bodies=\(bodies.count, privacy: .public) faces=\(faces.count, privacy: .public) \
+      synthBodies=\(faces.count - matchedFaceIndices.count, privacy: .public) \
+      detect=\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms \
       classify=\(String(format: "%.1f", classifyLatencyMs), privacy: .public)ms \
       total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
       """
     )
     for (i, p) in results.enumerated() {
-      let genderStr = p.gender.map { "\($0.rawValue)@\(String(format: "%.2f", p.genderConfidence ?? 0))" } ?? "n/a"
+      let g = p.gender.map { "\($0.rawValue)@\(String(format: "%.2f", p.genderConfidence ?? 0))" } ?? "n/a"
       log.info(
-        """
-        [\(i, privacy: .public)] bbox=\(p.bbox.debugDescription, privacy: .public) \
-        body=\(String(format: "%.2f", p.bodyConfidence), privacy: .public) \
-        face=\(p.faceBbox?.debugDescription ?? "nil", privacy: .public) \
-        gender=\(genderStr, privacy: .public)
-        """
+        "[\(i, privacy: .public)] bbox=\(p.bbox.debugDescription, privacy: .public) body=\(String(format: "%.2f", p.bodyConfidence), privacy: .public) face=\(p.faceBbox?.debugDescription ?? "nil", privacy: .public) → \(g, privacy: .public) [\(p.classifierUsed, privacy: .public)]\(p.isSyntheticBody ? " SYNTH" : "", privacy: .public)"
       )
     }
 
@@ -199,107 +222,269 @@ public actor BasarunaaPipeline {
     )
   }
 
+  // MARK: - Loading
+
   private func loadModelsIfNeeded() async throws -> (
-    YOLOPoseDetector, GenderAgeClassifier, PPLCNetClassifier, NSFWClassifier, NudeNetDetector
+    YOLOPoseDetector, YOLOFaceDetector, GenderAgeClassifier,
+    PPLCNetClassifier, NSFWClassifier, NudeNetDetector
   ) {
-    if let pose, let classifier, let bodyClassifier, let nsfwClassifier, let nudeNetDetector {
-      return (pose, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector)
+    if let pose, let face, let classifier, let bodyClassifier,
+       let nsfwClassifier, let nudeNetDetector {
+      return (pose, face, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector)
     }
     let newPose = try YOLOPoseDetector()
+    let newFace = try YOLOFaceDetector()
     let newClassifier = try GenderAgeClassifier()
     let newBodyClassifier = try PPLCNetClassifier()
     let newNsfwClassifier = try NSFWClassifier()
     let newNudeNetDetector = try NudeNetDetector()
     self.pose = newPose
+    self.face = newFace
     self.classifier = newClassifier
     self.bodyClassifier = newBodyClassifier
     self.nsfwClassifier = newNsfwClassifier
     self.nudeNetDetector = newNudeNetDetector
-    return (newPose, newClassifier, newBodyClassifier, newNsfwClassifier, newNudeNetDetector)
+    return (newPose, newFace, newClassifier, newBodyClassifier, newNsfwClassifier, newNudeNetDetector)
   }
 
-  // MARK: - Face / body fusion (POC strategy)
-  //
-  // From `private/extensions/basarunaa/src/pipeline.js`:
-  //
-  //   if matchedFace:
-  //     hasLegs = any(keypoints[13..16].conf > 0.3)   // knees + ankles
-  //     if not hasLegs:           result = face            // partial body, trust face
-  //     elif faceGender != bodyGender
-  //          and faceConf > 0.7 and bodyConf > 0.7:  result = face (conflicted)
-  //     else:                     result = max(face, body) by confidence
-  //   else:
-  //     result = body (PPLCNet on the body bbox)
+  // MARK: - Face ⇄ body matching (port direct du POC _matchFacesToBodies)
 
-  private func fuseGender(
-    for raw: RawPersonDetection,
-    personIndex: Int,
+  /// Greedy global match of faces to bodies by distance from face center to
+  /// the body's upper-center (15% from the top). The face bbox must be
+  /// fully inside the body bbox. Returns `[bodyIndex: (faceIndex, RawFaceDetection)]`.
+  private func matchFacesToBodies(
+    bodies: [RawPersonDetection],
+    faces: [RawFaceDetection]
+  ) -> [Int: (Int, RawFaceDetection)] {
+    struct Pair { let bi: Int; let fi: Int; let dist: Double }
+    var pairs: [Pair] = []
+    for (bi, body) in bodies.enumerated() {
+      let bx1 = Double(body.bbox.minX)
+      let by1 = Double(body.bbox.minY)
+      let bx2 = Double(body.bbox.maxX)
+      let by2 = Double(body.bbox.maxY)
+      let bCx = (bx1 + bx2) / 2
+      let bFaceY = by1 + (by2 - by1) * 0.15
+
+      for (fi, faceDet) in faces.enumerated() {
+        let fx1 = Double(faceDet.faceBbox.minX)
+        let fy1 = Double(faceDet.faceBbox.minY)
+        let fx2 = Double(faceDet.faceBbox.maxX)
+        let fy2 = Double(faceDet.faceBbox.maxY)
+        // POC constraint: face bbox fully inside body bbox.
+        if fx1 < bx1 || fy1 < by1 || fx2 > bx2 || fy2 > by2 { continue }
+        let fcx = (fx1 + fx2) / 2
+        let fcy = (fy1 + fy2) / 2
+        let dx = fcx - bCx
+        let dy = fcy - bFaceY
+        let dist = (dx * dx + dy * dy).squareRoot()
+        pairs.append(Pair(bi: bi, fi: fi, dist: dist))
+      }
+    }
+    pairs.sort { $0.dist < $1.dist }
+
+    var matches: [Int: (Int, RawFaceDetection)] = [:]
+    var usedBodies = Set<Int>()
+    var usedFaces = Set<Int>()
+    for p in pairs {
+      if usedBodies.contains(p.bi) || usedFaces.contains(p.fi) { continue }
+      matches[p.bi] = (p.fi, faces[p.fi])
+      usedBodies.insert(p.bi)
+      usedFaces.insert(p.fi)
+    }
+    return matches
+  }
+
+  // MARK: - Classification for matched bodies
+
+  private func classifyMatched(
+    index: Int,
+    body: RawPersonDetection,
+    matchedFace: (Int, RawFaceDetection)?,
     image: CGImage,
+    imageSize: CGSize,
     faceClassifier: GenderAgeClassifier,
     bodyClassifier: PPLCNetClassifier,
-    faceThreshold: Double
-  ) -> (gender: Gender?, confidence: Double?) {
-    let faceResult: GenderClassification?
-    if let faceBbox = raw.faceBbox, raw.faceConfidence >= faceThreshold {
-      faceResult = try? faceClassifier.classify(
-        image: image,
-        faceBbox: faceBbox,
-        keypoints: raw.keypoints
-      )
-    } else {
-      faceResult = nil
-    }
-
-    let hasLegs = (13...16).contains { idx in
-      idx < raw.keypoints.count && raw.keypoints[idx].confidence > 0.3
-    }
-    // Skip the body classifier for partial bodies (no legs) — POC says trust
-    // face alone in that case; it also saves a CoreML inference call.
-    let bodyResult: GenderClassification?
-    if hasLegs {
-      bodyResult = try? bodyClassifier.classify(image: image, bodyBbox: raw.bbox)
-    } else {
-      bodyResult = nil
-    }
-
-    // Diagnostic log — raw softmax per classifier, hasLegs, fusion winner.
-    // Compared against the macOS POC offscreen console on the same image to
-    // pinpoint where iOS classification diverges (cf. CLAUDE.md "Reste").
-    let faceStr = faceResult.map {
-      "F=\(String(format: "%.3f", $0.pFemale))/M=\(String(format: "%.3f", $0.pMale)) raw=\($0.gender.rawValue)"
-    } ?? "skipped(faceConf=\(String(format: "%.2f", raw.faceConfidence)), thr=\(String(format: "%.2f", faceThreshold)))"
-    let bodyStr = bodyResult.map {
-      "F=\(String(format: "%.3f", $0.pFemale))/M=\(String(format: "%.3f", $0.pMale)) raw=\($0.gender.rawValue)"
-    } ?? (hasLegs ? "n/a" : "skipped(noLegs)")
-
-    let resolved: (gender: Gender?, confidence: Double?, reason: String)
-    if let face = faceResult, let body = bodyResult {
-      if face.gender != body.gender && face.confidence > 0.7 && body.confidence > 0.7 {
-        // Confident conflict → prefer face (POC marks conflicted, used as analytics).
-        resolved = (face.gender, face.confidence, "conflict→face")
-      } else {
-        let winner = face.confidence >= body.confidence ? face : body
-        let label = face.confidence >= body.confidence ? "face>body" : "body>face"
-        resolved = (winner.gender, winner.confidence, label)
-      }
-    } else if let face = faceResult {
-      resolved = (face.gender, face.confidence, "face-only")
-    } else if let body = bodyResult {
-      resolved = (body.gender, body.confidence, "body-only")
-    } else {
-      resolved = (nil, nil, "no-classifier")
-    }
-
-    let winnerStr = resolved.gender.map {
-      "\($0.rawValue)@\(String(format: "%.2f", resolved.confidence ?? 0))"
-    } ?? "nil"
-    log.info(
-      """
-      [\(personIndex, privacy: .public)] face=[\(faceStr, privacy: .public)] \
-      body=[\(bodyStr, privacy: .public)] hasLegs=\(hasLegs, privacy: .public) \
-      → \(resolved.reason, privacy: .public) → \(winnerStr, privacy: .public)
-      """
+    faceThreshold: Double,
+    genderCertainty: Double
+  ) -> DetectedPerson {
+    // Body polygon mask for PPLCNet.
+    let poly = BodyPolygon.buildPolygon(
+      keypoints: body.keypoints,
+      bbox: body.bbox,
+      imageSize: imageSize
     )
-    return (resolved.gender, resolved.confidence)
+    let bodyMask: BodyPolygon.Mask? = poly.isBodyShaped
+      ? BodyPolygon.polygonToMask(
+        points: poly.points,
+        imageWidth: Int(imageSize.width),
+        imageHeight: Int(imageSize.height)
+      )
+      : nil
+
+    let bodyResult = (try? bodyClassifier.classify(
+      image: image,
+      bodyBbox: body.bbox,
+      bodyMask: bodyMask
+    )) ?? nil
+
+    // Has-legs check uses the body keypoints (13..16 = knees + ankles).
+    let hasLegs = (13...16).contains { idx in
+      idx < body.keypoints.count && body.keypoints[idx].confidence > 0.3
+    }
+
+    var winnerGender: Gender? = nil
+    var winnerConf: Double? = nil
+    var classifierUsed: String = "pplcnet"
+
+    if let (_, faceDet) = matchedFace {
+      // Run InsightFace genderage on the matched face. Use the face bbox
+      // directly from YOLOv8n-face (not derived from body keypoints).
+      let faceResult = (try? faceClassifier.classify(
+        image: image,
+        faceBbox: faceDet.faceBbox,
+        keypoints: faceDet.keypoints
+      )) ?? nil
+
+      if let face = faceResult {
+        if !hasLegs {
+          // Partial body (cropped / seated) → trust face, body unreliable.
+          winnerGender = face.gender
+          winnerConf = face.confidence
+          classifierUsed = "insightface (partial body)"
+        } else if let body = bodyResult,
+                  face.gender != body.gender,
+                  face.confidence > 0.7,
+                  body.confidence > 0.7 {
+          // Strong conflict — pick face.
+          winnerGender = face.gender
+          winnerConf = face.confidence
+          classifierUsed = "insightface (conflict)"
+        } else if let body = bodyResult, face.confidence < body.confidence {
+          winnerGender = body.gender
+          winnerConf = body.confidence
+          classifierUsed = "pplcnet (best)"
+        } else {
+          winnerGender = face.gender
+          winnerConf = face.confidence
+          classifierUsed = "insightface"
+        }
+      } else if let body = bodyResult {
+        winnerGender = body.gender
+        winnerConf = body.confidence
+        classifierUsed = "pplcnet (align fail)"
+      }
+    } else {
+      // No face → body only.
+      if let body = bodyResult {
+        winnerGender = body.gender
+        winnerConf = body.confidence
+        classifierUsed = "pplcnet (no face)"
+      }
+    }
+
+    // Downgrade weak classifications to nil so `blur-female` falls back to
+    // its safer-default-to-keep behaviour.
+    let trustedGender: Gender?
+    if let g = winnerGender, let c = winnerConf, c >= genderCertainty {
+      trustedGender = g
+    } else {
+      trustedGender = nil
+    }
+
+    return DetectedPerson(
+      bbox: body.bbox,
+      faceBbox: matchedFace?.1.faceBbox ?? body.faceBbox,
+      keypoints: body.keypoints,
+      bodyConfidence: body.bodyConfidence,
+      gender: trustedGender,
+      genderConfidence: winnerConf,
+      isSyntheticBody: false,
+      classifierUsed: classifierUsed
+    )
+  }
+
+  // MARK: - Synthetic body for unmatched face
+
+  private func classifyUnmatchedFace(
+    face: RawFaceDetection,
+    image: CGImage,
+    imageSize: CGSize,
+    faceClassifier: GenderAgeClassifier,
+    bodyClassifier: PPLCNetClassifier,
+    genderCertainty: Double
+  ) -> DetectedPerson {
+    // POC formula: 4× face width, 7× face height downward from face top.
+    let fb = face.faceBbox
+    let faceW = Double(fb.width)
+    let faceH = Double(fb.height)
+    let fx1 = Double(fb.minX)
+    let fy1 = Double(fb.minY)
+    let bodyCx = fx1 + faceW / 2
+    let bodyW = faceW * 4
+    let synthX1 = max(0, bodyCx - bodyW / 2)
+    let synthY1 = max(0, fy1 - faceH * 0.3)
+    let synthX2 = min(Double(imageSize.width), bodyCx + bodyW / 2)
+    let synthY2 = min(Double(imageSize.height), fy1 + faceH * 7)
+    let synthBbox = CGRect(
+      x: synthX1,
+      y: synthY1,
+      width: max(0, synthX2 - synthX1),
+      height: max(0, synthY2 - synthY1)
+    )
+
+    // POC: no body keypoints for synth → no mask, no polygon gray-out.
+    let synthBodyResult = (try? bodyClassifier.classify(
+      image: image,
+      bodyBbox: synthBbox,
+      bodyMask: nil
+    )) ?? nil
+    let faceResult = (try? faceClassifier.classify(
+      image: image,
+      faceBbox: fb,
+      keypoints: face.keypoints
+    )) ?? nil
+
+    var winnerGender: Gender? = nil
+    var winnerConf: Double? = nil
+    var classifierUsed = "unmatched face"
+
+    if let f = faceResult, let b = synthBodyResult {
+      if b.confidence > f.confidence {
+        winnerGender = b.gender
+        winnerConf = b.confidence
+        classifierUsed = "pplcnet (synth body)"
+      } else {
+        winnerGender = f.gender
+        winnerConf = f.confidence
+        classifierUsed = "insightface (synth body)"
+      }
+    } else if let f = faceResult {
+      winnerGender = f.gender
+      winnerConf = f.confidence
+      classifierUsed = "insightface (synth body)"
+    } else if let b = synthBodyResult {
+      winnerGender = b.gender
+      winnerConf = b.confidence
+      classifierUsed = "pplcnet (synth body)"
+    }
+
+    let trustedGender: Gender?
+    if let g = winnerGender, let c = winnerConf, c >= genderCertainty {
+      trustedGender = g
+    } else {
+      trustedGender = nil
+    }
+
+    return DetectedPerson(
+      bbox: synthBbox,
+      faceBbox: fb,
+      keypoints: [],   // POC: synth body has no body keypoints
+      bodyConfidence: face.confidence,
+      gender: trustedGender,
+      genderConfidence: winnerConf,
+      isSyntheticBody: true,
+      classifierUsed: classifierUsed
+    )
   }
 }

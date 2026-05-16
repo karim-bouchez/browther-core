@@ -1065,6 +1065,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         bodyConfidence: typeof p.bodyConfidence === 'number' ? p.bodyConfidence : null,
         gender: p.gender || null,
         genderConfidence: typeof p.genderConfidence === 'number' ? p.genderConfidence : null,
+        isSyntheticBody: !!p.isSyntheticBody,
+        classifierUsed: typeof p.classifierUsed === 'string' ? p.classifierUsed : '',
       });
     }
     return out;
@@ -1209,14 +1211,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         }
       }
 
-      // Label
+      // Label (POC parity)
       var gShort = person.gender === 'female' ? 'F'
                  : person.gender === 'male'   ? 'M'
                  : '?';
+      var classLabel = person.classifierUsed ? ' [' + person.classifierUsed + ']' : '';
       if (isLite) {
+        // Boxes mode : "F XX%" + classifier label in brackets (macOS POC).
         var confTxt = person.genderConfidence != null
-          ? (gShort + ' ' + Math.round(person.genderConfidence * 100) + '%')
-          : gShort;
+          ? (gShort + ' ' + Math.round(person.genderConfidence * 100) + '%' + classLabel)
+          : gShort + classLabel;
         ctx.font = 'bold 13px monospace';
         var tw = ctx.measureText(confTxt).width + 6;
         var lh = 18;
@@ -1226,13 +1230,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         ctx.fillStyle = '#fff';
         ctx.fillText(confTxt, x1 + 3, ly + lh - 4);
       } else {
+        // Debug complet : main + body conf + classifier label.
         var confStr = person.genderConfidence != null
           ? (Math.round(person.genderConfidence * 100) + '%')
           : '';
         var bodyStr = person.bodyConfidence != null
           ? ('body ' + Math.round(person.bodyConfidence * 100) + '%')
           : null;
-        var mainLabel = gShort + ' ' + confStr;
+        var mainLabel = gShort + ' ' + confStr + classLabel;
         var extra = bodyStr ? [bodyStr] : [];
         var lineH = 15;
         var totalH = (1 + extra.length) * lineH + 4;

@@ -1,0 +1,91 @@
+[
+  {
+    "metadataOutputVersion" : "3.0",
+    "storagePrecision" : "Float16",
+    "outputSchema" : [
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float16",
+        "formattedType" : "MultiArray (Float16 1 × 80 × 80 × 80)",
+        "shortDescription" : "",
+        "shape" : "[1, 80, 80, 80]",
+        "name" : "var_1103",
+        "type" : "MultiArray"
+      },
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float16",
+        "formattedType" : "MultiArray (Float16 1 × 80 × 40 × 40)",
+        "shortDescription" : "",
+        "shape" : "[1, 80, 40, 40]",
+        "name" : "var_1143",
+        "type" : "MultiArray"
+      },
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float16",
+        "formattedType" : "MultiArray (Float16 1 × 80 × 20 × 20)",
+        "shortDescription" : "",
+        "shape" : "[1, 80, 20, 20]",
+        "name" : "var_1183",
+        "type" : "MultiArray"
+      }
+    ],
+    "modelParameters" : [
+
+    ],
+    "specificationVersion" : 8,
+    "mlProgramOperationTypeHistogram" : {
+      "Ios17.cast" : 1,
+      "Ios17.conv" : 72,
+      "Ios17.mul" : 1,
+      "Split" : 8,
+      "Ios17.add" : 6,
+      "Ios17.concat" : 16,
+      "Ios16.maxPool" : 3,
+      "UpsampleNearestNeighbor" : 2,
+      "Ios16.silu" : 63
+    },
+    "computePrecision" : "Mixed (Float16, Float32, Int32)",
+    "isUpdatable" : "0",
+    "stateSchema" : [
+
+    ],
+    "availability" : {
+      "macOS" : "14.0",
+      "tvOS" : "17.0",
+      "visionOS" : "1.0",
+      "watchOS" : "10.0",
+      "iOS" : "17.0",
+      "macCatalyst" : "17.0"
+    },
+    "modelType" : {
+      "name" : "MLModelType_mlProgram"
+    },
+    "userDefinedMetadata" : {
+      "com.github.apple.coremltools.conversion_date" : "2026-05-16",
+      "com.github.apple.coremltools.source" : "torch==2.8.0",
+      "com.github.apple.coremltools.version" : "9.0",
+      "com.github.apple.coremltools.source_dialect" : "TorchScript"
+    },
+    "inputSchema" : [
+      {
+        "height" : "640",
+        "colorspace" : "RGB",
+        "isOptional" : "0",
+        "width" : "640",
+        "isColor" : "1",
+        "formattedType" : "Image (Color 640 × 640)",
+        "hasSizeFlexibility" : "0",
+        "type" : "Image",
+        "shortDescription" : "",
+        "name" : "image"
+      }
+    ],
+    "generatedClassName" : "YOLOFace",
+    "method" : "predict"
+  }
+]

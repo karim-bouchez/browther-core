@@ -267,6 +267,8 @@ class BasarunaaScriptHandler: TabContentScript {
         "keypoints": kps,
         "bodyConfidence": p.bodyConfidence,
         "shouldBlur": idx < shouldBlurFlags.count ? shouldBlurFlags[idx] : true,
+        "isSyntheticBody": p.isSyntheticBody,
+        "classifierUsed": p.classifierUsed,
       ]
       if let face = p.faceBbox {
         dict["faceBbox"] = [face.minX, face.minY, face.maxX, face.maxY] as [Double]
