@@ -732,75 +732,458 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     });
   }
 
-  // Draw a debug overlay (bboxes + optional face + keypoints) on top of the
-  // original image. Reuses the same "encode image to canvas, blob URL, clone
-  // and replace the <img>" plumbing as compositePerPersonBlur — the only
-  // difference is *what* gets painted on the canvas.
-  function genderColor(gender) {
-    if (gender === 'female') return '#22c55e';   // green
-    if (gender === 'male')   return '#3b82f6';   // blue
-    return '#f59e0b';                            // amber for nil / unknown
+  // ─── Debug overlay — port fidèle du visualizer macOS POC ───
+  // (`private/extensions/basarunaa/src/debug/visualizer.js`)
+  //
+  // Mêmes palettes (5 nuances rose/magenta pour femmes, 5 nuances bleu pour
+  // hommes — une nuance distincte par personne via compteur), skeleton COCO,
+  // polygon mask (port de `src/utils/body_polygon.js`), keypoints colorés.
+  //
+  // Coordonnées : on dessine sur un canvas qui *devient* la nouvelle image,
+  // donc on travaille en coords pixel originales (le `sx`/`sy` du POC = 1).
+  var FEMALE_COLORS = [
+    '#FF69B4',  // hot pink
+    '#FF1493',  // deep pink
+    '#DB7093',  // pale violet red
+    '#C71585',  // medium violet red
+    '#FF007F',  // rose
+  ];
+  var MALE_COLORS = [
+    '#4169E1',  // royal blue
+    '#1E90FF',  // dodger blue
+    '#00BFFF',  // deep sky blue
+    '#4682B4',  // steel blue
+    '#0047AB',  // cobalt
+  ];
+
+  var COCO_SKELETON = [
+    [0, 1], [0, 2], [1, 3], [2, 4],   // head
+    [5, 6],                           // shoulders
+    [5, 7], [7, 9],                   // left arm
+    [6, 8], [8, 10],                  // right arm
+    [5, 11], [6, 12],                 // torso
+    [11, 12],                         // hips
+    [11, 13], [13, 15],               // left leg
+    [12, 14], [14, 16],               // right leg
+  ];
+  var LIMB_COLORS = [
+    '#FF6B6B', '#FF6B6B', '#FF6B6B', '#FF6B6B',   // head: red
+    '#FFD93D',                                     // shoulders: yellow
+    '#6BCB77', '#6BCB77',                          // left arm: green
+    '#4D96FF', '#4D96FF',                          // right arm: blue
+    '#FFD93D', '#FFD93D',                          // torso: yellow
+    '#FFD93D',                                     // hips: yellow
+    '#6BCB77', '#6BCB77',                          // left leg: green
+    '#4D96FF', '#4D96FF',                          // right leg: blue
+  ];
+  var KP_COLORS = [
+    '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF',
+    '#00FFFF', '#FFA500', '#FF69B4', '#7FFF00', '#DC143C',
+    '#00CED1', '#FFD700', '#8A2BE2', '#32CD32', '#FF4500',
+    '#1E90FF', '#FF1493',
+  ];
+  var KP_CONF = 0.3;
+
+  // ─── Body polygon (port de utils/body_polygon.js) ───
+  var POLY_KP_CONFIDENCE = 0.3;
+  var POLY_BODY_WIDTH_FACTOR = 0.55;
+  var POLY_HAND_EXTEND = 0.3;
+  var POLY_FOOT_EXTEND = 0.08;
+  var POLY_EDGE_SNAP = 0.05;
+  var POLY_REGION_SCALE = [
+    0.8, 0.8, 0.8, 0.8, 0.8,    // head 0-4
+    1.0, 1.0,                   // shoulders 5-6
+    0.7, 0.7,                   // elbows 7-8
+    0.6, 0.6,                   // wrists 9-10
+    1.1, 1.1,                   // hips 11-12
+    0.8, 0.8,                   // knees 13-14
+    0.7, 0.7,                   // ankles 15-16
+  ];
+
+  function _extendHand(kps, elbowIdx, wristIdx, halfWidth, out) {
+    var elbow = kps[elbowIdx], wrist = kps[wristIdx];
+    if (!elbow || !wrist) return;
+    if (elbow.confidence < POLY_KP_CONFIDENCE || wrist.confidence < POLY_KP_CONFIDENCE) return;
+    var dx = wrist.x - elbow.x;
+    var dy = wrist.y - elbow.y;
+    var hx = wrist.x + dx * POLY_HAND_EXTEND;
+    var hy = wrist.y + dy * POLY_HAND_EXTEND;
+    var w = halfWidth * 0.6;
+    out.push({ x: hx - w, y: hy });
+    out.push({ x: hx + w, y: hy });
   }
 
-  function drawDebugDetections(ctx, persons, w, h, debugMode) {
-    var lineW = Math.max(2, Math.round(Math.min(w, h) / 200));
-    ctx.lineWidth = lineW;
-    ctx.font = Math.max(14, Math.round(Math.min(w, h) / 30)) + 'px -apple-system, sans-serif';
-    ctx.textBaseline = 'top';
+  function _snapToEdges(points, bbox, imgW, imgH, kps) {
+    var bx1 = bbox[0], by1 = bbox[1], bx2 = bbox[2], by2 = bbox[3];
+    var hasAnkles = kps && [15, 16].some(function(i) {
+      return kps[i] && kps[i].confidence >= POLY_KP_CONFIDENCE;
+    });
+    var hasHead = kps && [0, 1, 2].some(function(i) {
+      return kps[i] && kps[i].confidence >= POLY_KP_CONFIDENCE;
+    });
+    var snapBottom = !hasAnkles && by2 / imgH > (1 - POLY_EDGE_SNAP);
+    var snapTop = !hasHead && by1 / imgH < POLY_EDGE_SNAP;
+    var snapLeft = bx1 / imgW < POLY_EDGE_SNAP;
+    var snapRight = bx2 / imgW > (1 - POLY_EDGE_SNAP);
+    if (!snapBottom && !snapTop && !snapLeft && !snapRight) return points;
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (var i = 0; i < points.length; i++) {
+      if (points[i].x < minX) minX = points[i].x;
+      if (points[i].x > maxX) maxX = points[i].x;
+      if (points[i].y < minY) minY = points[i].y;
+      if (points[i].y > maxY) maxY = points[i].y;
+    }
+    var xR = (maxX - minX) || 1;
+    var yR = (maxY - minY) || 1;
+    var near = 0.15;
+    return points.map(function(p) {
+      var x = p.x, y = p.y;
+      if (snapBottom && y > maxY - yR * near) y = imgH;
+      if (snapTop && y < minY + yR * near) y = 0;
+      if (snapLeft && x < minX + xR * near) x = 0;
+      if (snapRight && x > maxX - xR * near) x = imgW;
+      return { x: x, y: y };
+    });
+  }
+
+  function _bboxFallback(bbox) {
+    return {
+      points: [
+        { x: bbox[0], y: bbox[1] },
+        { x: bbox[2], y: bbox[1] },
+        { x: bbox[2], y: bbox[3] },
+        { x: bbox[0], y: bbox[3] },
+      ],
+      isBodyShaped: false,
+    };
+  }
+
+  function _convexHull(points) {
+    if (points.length < 3) return points;
+    var sorted = points.slice().sort(function(a, b) { return a.x - b.x || a.y - b.y; });
+    var n = sorted.length;
+    var cross = function(o, a, b) {
+      return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    };
+    var lower = [];
+    for (var i = 0; i < n; i++) {
+      while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], sorted[i]) <= 0) {
+        lower.pop();
+      }
+      lower.push(sorted[i]);
+    }
+    var upper = [];
+    for (var j = n - 1; j >= 0; j--) {
+      while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], sorted[j]) <= 0) {
+        upper.pop();
+      }
+      upper.push(sorted[j]);
+    }
+    lower.pop();
+    upper.pop();
+    return lower.concat(upper);
+  }
+
+  function buildBodyPolygon(kps, bbox, imgW, imgH) {
+    var bx1 = bbox[0], by1 = bbox[1], bx2 = bbox[2], by2 = bbox[3];
+    var bw = bx2 - bx1, bh = by2 - by1;
+    if (!kps) return _bboxFallback(bbox);
+    var confident = [];
+    for (var i = 0; i < kps.length; i++) {
+      if (kps[i] && kps[i].confidence >= POLY_KP_CONFIDENCE) {
+        confident.push({ idx: i, k: kps[i] });
+      }
+    }
+    if (confident.length < 4) return _bboxFallback(bbox);
+    var lSh = kps[5], rSh = kps[6];
+    var halfWidth;
+    if (lSh && rSh && lSh.confidence >= POLY_KP_CONFIDENCE && rSh.confidence >= POLY_KP_CONFIDENCE) {
+      halfWidth = Math.abs(rSh.x - lSh.x) * POLY_BODY_WIDTH_FACTOR;
+    } else {
+      halfWidth = bw * 0.25;
+    }
+    halfWidth = Math.max(halfWidth, bw * 0.2);
+    var widened = [];
+    for (var c = 0; c < confident.length; c++) {
+      var entry = confident[c];
+      var w = halfWidth * POLY_REGION_SCALE[entry.idx];
+      widened.push({ x: entry.k.x - w, y: entry.k.y });
+      widened.push({ x: entry.k.x + w, y: entry.k.y });
+    }
+    var headKps = [];
+    for (var hi = 0; hi < 5; hi++) {
+      if (kps[hi] && kps[hi].confidence >= POLY_KP_CONFIDENCE) headKps.push(hi);
+    }
+    if (headKps.length > 0) {
+      var topY = Infinity, sumX = 0;
+      for (var hh = 0; hh < headKps.length; hh++) {
+        var hk = kps[headKps[hh]];
+        if (hk.y < topY) topY = hk.y;
+        sumX += hk.x;
+      }
+      var headCx = sumX / headKps.length;
+      var headPadY = Math.max(halfWidth * 0.6, bh * 0.08);
+      var headPadX = Math.max(halfWidth * 0.9, bw * 0.25);
+      widened.push({ x: headCx - headPadX, y: topY - headPadY });
+      widened.push({ x: headCx + headPadX, y: topY - headPadY });
+    }
+    _extendHand(kps, 7, 9, halfWidth, widened);
+    _extendHand(kps, 8, 10, halfWidth, widened);
+    var footExtend = bh * POLY_FOOT_EXTEND;
+    var ankleIndices = [15, 16];
+    for (var ai = 0; ai < ankleIndices.length; ai++) {
+      var ankle = kps[ankleIndices[ai]];
+      if (ankle && ankle.confidence >= POLY_KP_CONFIDENCE) {
+        var wA = halfWidth * 0.7;
+        widened.push({ x: ankle.x - wA, y: ankle.y + footExtend });
+        widened.push({ x: ankle.x + wA, y: ankle.y + footExtend });
+      }
+    }
+    var hull = _convexHull(widened);
+    var polyMinX = Infinity, polyMaxX = -Infinity, polyMinY = Infinity, polyMaxY = -Infinity;
+    for (var pi = 0; pi < hull.length; pi++) {
+      if (hull[pi].x < polyMinX) polyMinX = hull[pi].x;
+      if (hull[pi].x > polyMaxX) polyMaxX = hull[pi].x;
+      if (hull[pi].y < polyMinY) polyMinY = hull[pi].y;
+      if (hull[pi].y > polyMaxY) polyMaxY = hull[pi].y;
+    }
+    var polyCx = (polyMinX + polyMaxX) / 2;
+    var polyCy = (polyMinY + polyMaxY) / 2;
+    var bboxCx = (bx1 + bx2) / 2;
+    var bboxCy = (by1 + by2) / 2;
+    var sX = bw / ((polyMaxX - polyMinX) || 1);
+    var sY = bh / ((polyMaxY - polyMinY) || 1);
+    var scaled = hull.map(function(p) {
+      return { x: bboxCx + (p.x - polyCx) * sX, y: bboxCy + (p.y - polyCy) * sY };
+    });
+    var snapped = _snapToEdges(scaled, bbox, imgW, imgH, kps);
+    return { points: snapped, isBodyShaped: true };
+  }
+
+  function polygonToMask(points, imgW, imgH) {
+    var data = new Uint8Array(imgW * imgH);
+    if (points.length < 3) return { data: data, width: imgW, height: imgH };
+    var minY = imgH, maxY = 0;
+    for (var i = 0; i < points.length; i++) {
+      if (points[i].y < minY) minY = points[i].y;
+      if (points[i].y > maxY) maxY = points[i].y;
+    }
+    minY = Math.max(0, Math.floor(minY));
+    maxY = Math.min(imgH - 1, Math.ceil(maxY));
+    for (var y = minY; y <= maxY; y++) {
+      var inter = [];
+      for (var p = 0; p < points.length; p++) {
+        var a = points[p];
+        var b = points[(p + 1) % points.length];
+        if ((a.y <= y && b.y > y) || (b.y <= y && a.y > y)) {
+          inter.push(a.x + (y - a.y) / (b.y - a.y) * (b.x - a.x));
+        }
+      }
+      inter.sort(function(u, v) { return u - v; });
+      for (var k = 0; k < inter.length - 1; k += 2) {
+        var x1 = Math.max(0, Math.floor(inter[k]));
+        var x2 = Math.min(imgW - 1, Math.ceil(inter[k + 1]));
+        for (var x = x1; x <= x2; x++) {
+          data[y * imgW + x] = 1;
+        }
+      }
+    }
+    return { data: data, width: imgW, height: imgH };
+  }
+
+  // Normalise le payload Swift (keypoints en `[x, y, conf]`) en objets
+  // `{x, y, confidence}` que les algos POC consomment.
+  function normalisePersons(persons) {
+    var out = [];
     for (var i = 0; i < persons.length; i++) {
       var p = persons[i];
-      var bb = p.bbox || [];
-      if (bb.length !== 4) continue;
-      var x1 = bb[0], y1 = bb[1], x2 = bb[2], y2 = bb[3];
-      var color = genderColor(p.gender);
-      ctx.strokeStyle = color;
-      ctx.fillStyle = color;
-      // Body bbox
-      ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
-      // Label (gender + confidence)
-      var genderLabel = p.gender || '?';
-      var conf = (typeof p.genderConfidence === 'number')
-        ? (' ' + Math.round(p.genderConfidence * 100) + '%')
-        : '';
-      var bodyConf = (typeof p.bodyConfidence === 'number')
-        ? (' body=' + Math.round(p.bodyConfidence * 100) + '%')
-        : '';
-      var label = genderLabel + conf + bodyConf;
-      var pad = 4;
-      var tw = ctx.measureText(label).width + pad * 2;
-      var th = parseInt(ctx.font, 10) + pad * 2;
-      var ly = Math.max(0, y1 - th);
-      ctx.fillRect(x1, ly, tw, th);
-      ctx.fillStyle = '#000';
-      ctx.fillText(label, x1 + pad, ly + pad);
-      ctx.fillStyle = color;
-
-      if (debugMode === 'debug') {
-        // Face bbox in red dashed
-        if (p.faceBbox && p.faceBbox.length === 4) {
-          ctx.save();
-          ctx.strokeStyle = '#ef4444';
-          ctx.setLineDash([lineW * 2, lineW * 2]);
-          var fx1 = p.faceBbox[0], fy1 = p.faceBbox[1];
-          var fx2 = p.faceBbox[2], fy2 = p.faceBbox[3];
-          ctx.strokeRect(fx1, fy1, fx2 - fx1, fy2 - fy1);
-          ctx.restore();
+      var kps = [];
+      if (p.keypoints && p.keypoints.length) {
+        for (var k = 0; k < p.keypoints.length; k++) {
+          var raw = p.keypoints[k];
+          if (raw && raw.length >= 3) {
+            kps.push({ x: raw[0], y: raw[1], confidence: raw[2] });
+          }
         }
-        // Keypoints as small dots, alpha by confidence
-        var kps = p.keypoints || [];
-        var dotR = Math.max(3, Math.round(lineW * 1.5));
-        for (var k = 0; k < kps.length; k++) {
-          var kp = kps[k];
-          if (!kp || kp.length < 3) continue;
-          var kx = kp[0], ky = kp[1], kc = kp[2];
-          if (kc < 0.2) continue;
-          ctx.save();
-          ctx.globalAlpha = Math.max(0.2, Math.min(1, kc));
-          ctx.fillStyle = '#fde047';
-          ctx.beginPath();
-          ctx.arc(kx, ky, dotR, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
+      }
+      out.push({
+        bbox: p.bbox,
+        faceBbox: p.faceBbox || null,
+        keypoints: kps,
+        bodyConfidence: typeof p.bodyConfidence === 'number' ? p.bodyConfidence : null,
+        gender: p.gender || null,
+        genderConfidence: typeof p.genderConfidence === 'number' ? p.genderConfidence : null,
+      });
+    }
+    return out;
+  }
+
+  // Dessine le mask polygone : fill 35% alpha de la couleur de la personne
+  // + contour 1px sur les pixels d'arête (port direct de visualizer._drawMask).
+  function drawMask(ctx, mask, hexColor) {
+    var r = parseInt(hexColor.slice(1, 3), 16);
+    var g = parseInt(hexColor.slice(3, 5), 16);
+    var b = parseInt(hexColor.slice(5, 7), 16);
+    var W = ctx.canvas.width, H = ctx.canvas.height;
+    var mw = mask.width, mh = mask.height, d = mask.data;
+    var tmp = document.createElement('canvas');
+    tmp.width = W; tmp.height = H;
+    var tCtx = tmp.getContext('2d');
+    var imgData = tCtx.createImageData(W, H);
+    for (var y = 0; y < H; y++) {
+      var my = y < mh ? y : mh - 1;
+      for (var x = 0; x < W; x++) {
+        var mx = x < mw ? x : mw - 1;
+        if (d[my * mw + mx] > 0) {
+          var off = (y * W + x) * 4;
+          imgData.data[off] = r;
+          imgData.data[off + 1] = g;
+          imgData.data[off + 2] = b;
+          imgData.data[off + 3] = 255;
+        }
+      }
+    }
+    tCtx.putImageData(imgData, 0, 0);
+    ctx.save();
+    ctx.globalAlpha = 0.35;
+    ctx.drawImage(tmp, 0, 0);
+    ctx.restore();
+    ctx.strokeStyle = hexColor;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var ey = 1; ey < mh - 1; ey++) {
+      for (var ex = 1; ex < mw - 1; ex++) {
+        if (d[ey * mw + ex] === 0) continue;
+        var isEdge = d[(ey - 1) * mw + ex] === 0 ||
+                     d[(ey + 1) * mw + ex] === 0 ||
+                     d[ey * mw + (ex - 1)] === 0 ||
+                     d[ey * mw + (ex + 1)] === 0;
+        if (isEdge) ctx.rect(ex, ey, 1, 1);
+      }
+    }
+    ctx.stroke();
+  }
+
+  // Dessine le overlay (port direct de visualizer.draw, sx=sy=1).
+  function drawDebugDetections(ctx, persons, imgW, imgH, debugMode) {
+    var isLite = debugMode === 'boxes';
+    var femaleIdx = 0;
+    var maleIdx = 0;
+
+    for (var pi = 0; pi < persons.length; pi++) {
+      var person = persons[pi];
+      var bb = person.bbox;
+      if (!bb || bb.length !== 4) continue;
+      var x1 = bb[0], y1 = bb[1], x2 = bb[2], y2 = bb[3];
+      var dw = x2 - x1, dh = y2 - y1;
+
+      var color;
+      if (person.gender === 'female') {
+        color = FEMALE_COLORS[femaleIdx % FEMALE_COLORS.length];
+        femaleIdx++;
+      } else {
+        color = MALE_COLORS[maleIdx % MALE_COLORS.length];
+        maleIdx++;
+      }
+
+      // Polygon mask (debug only) — recalculé à la volée depuis les keypoints.
+      if (!isLite && person.keypoints && person.keypoints.length === 17) {
+        try {
+          var poly = buildBodyPolygon(person.keypoints, bb, imgW, imgH);
+          if (poly.isBodyShaped) {
+            var mask = polygonToMask(poly.points, imgW, imgH);
+            drawMask(ctx, mask, color);
+          }
+        } catch (_) { /* non-fatal */ }
+      }
+
+      // Body bbox
+      ctx.strokeStyle = color;
+      ctx.lineWidth = isLite ? 2 : 3;
+      ctx.strokeRect(x1, y1, dw, dh);
+
+      if (!isLite) {
+        // Face bbox (dashed, yellow)
+        if (person.faceBbox && person.faceBbox.length === 4) {
+          var fx1 = person.faceBbox[0], fy1 = person.faceBbox[1];
+          var fx2 = person.faceBbox[2], fy2 = person.faceBbox[3];
+          ctx.strokeStyle = '#FFD700';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 4]);
+          ctx.strokeRect(fx1, fy1, fx2 - fx1, fy2 - fy1);
+          ctx.setLineDash([]);
+        }
+        // Skeleton + keypoints
+        if (person.keypoints && person.keypoints.length) {
+          var kps = person.keypoints;
+          var kpRadius = Math.max(1.5, Math.min(4, dw * 0.025));
+          ctx.lineWidth = Math.max(1, Math.round(dw * 0.012));
+          for (var si = 0; si < COCO_SKELETON.length; si++) {
+            var a = COCO_SKELETON[si][0], b = COCO_SKELETON[si][1];
+            if (kps[a] && kps[b] && kps[a].confidence > KP_CONF && kps[b].confidence > KP_CONF) {
+              ctx.strokeStyle = LIMB_COLORS[si];
+              ctx.beginPath();
+              ctx.moveTo(kps[a].x, kps[a].y);
+              ctx.lineTo(kps[b].x, kps[b].y);
+              ctx.stroke();
+            }
+          }
+          for (var ki = 0; ki < kps.length; ki++) {
+            var kp = kps[ki];
+            if (kp && kp.confidence > KP_CONF) {
+              ctx.beginPath();
+              ctx.arc(kp.x, kp.y, kpRadius, 0, Math.PI * 2);
+              ctx.fillStyle = KP_COLORS[ki % KP_COLORS.length];
+              ctx.fill();
+              ctx.strokeStyle = '#000';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      // Label
+      var gShort = person.gender === 'female' ? 'F'
+                 : person.gender === 'male'   ? 'M'
+                 : '?';
+      if (isLite) {
+        var confTxt = person.genderConfidence != null
+          ? (gShort + ' ' + Math.round(person.genderConfidence * 100) + '%')
+          : gShort;
+        ctx.font = 'bold 13px monospace';
+        var tw = ctx.measureText(confTxt).width + 6;
+        var lh = 18;
+        var ly = y1 >= lh ? y1 - lh : y1;
+        ctx.fillStyle = color;
+        ctx.fillRect(x1, ly, tw, lh);
+        ctx.fillStyle = '#fff';
+        ctx.fillText(confTxt, x1 + 3, ly + lh - 4);
+      } else {
+        var confStr = person.genderConfidence != null
+          ? (Math.round(person.genderConfidence * 100) + '%')
+          : '';
+        var bodyStr = person.bodyConfidence != null
+          ? ('body ' + Math.round(person.bodyConfidence * 100) + '%')
+          : null;
+        var mainLabel = gShort + ' ' + confStr;
+        var extra = bodyStr ? [bodyStr] : [];
+        var lineH = 15;
+        var totalH = (1 + extra.length) * lineH + 4;
+        ctx.font = 'bold 13px monospace';
+        var labelW = ctx.measureText(mainLabel).width;
+        for (var ei = 0; ei < extra.length; ei++) {
+          labelW = Math.max(labelW, ctx.measureText(extra[ei]).width);
+        }
+        labelW += 8;
+        var lyD = y1 >= totalH ? y1 - totalH : y1;
+        ctx.fillStyle = color;
+        ctx.fillRect(x1, lyD, labelW, totalH);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(mainLabel, x1 + 4, lyD + lineH - 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        for (var el = 0; el < extra.length; el++) {
+          ctx.fillText(extra[el], x1 + 4, lyD + (el + 2) * lineH - 2);
         }
       }
     }
@@ -809,8 +1192,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   function compositeDebugOverlay(img, persons, debugMode) {
     if (!persons || persons.length === 0) return Promise.resolve(false);
     var id = img.getAttribute(ID_ATTR);
+    var normalised = normalisePersons(persons);
     metric('debug_overlay_start', {
-      id: id, persons: persons.length, mode: '' + debugMode,
+      id: id, persons: normalised.length, mode: '' + debugMode,
     });
     return getCompositingSource(img).then(function(source) {
       var w = source.naturalWidth != null ? source.naturalWidth : source.width;
@@ -825,7 +1209,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         canvas.height = h;
         var ctx = canvas.getContext('2d');
         ctx.drawImage(source, 0, 0, w, h);
-        drawDebugDetections(ctx, persons, w, h, debugMode);
+        drawDebugDetections(ctx, normalised, w, h, debugMode);
         var srcLower = (img.currentSrc || img.src || '').toLowerCase();
         var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
           || srcLower.indexOf('data:image/png') === 0;
