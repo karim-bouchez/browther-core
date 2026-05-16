@@ -120,38 +120,54 @@ class BasarunaaScriptHandler: TabContentScript {
       let cgImage = uiImage.cgImage
     else {
       log.error("analyze[\(id, privacy: .public)] failed to decode base64")
-      await reply(tab: tab, id: id, decision: .keep, persons: [])
+      await reply(tab: tab, id: id, decision: .keep, persons: [], debugMode: "none")
       return
     }
 
     do {
       let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
       let mode = Preferences.Basarunaa.effectiveMode
+      let debugMode = Preferences.Basarunaa.debugMode.value
+      let isDebug = debugMode == "boxes" || debugMode == "debug"
+
       let decision: BlurDecision
-      let personsToBlur: [DetectedPerson]
-      if result.isNsfw {
+      let personsPayload: [DetectedPerson]
+      if isDebug {
+        // Debug overlay: show the image (no blur), draw bbox / keypoints
+        // on top so the user can see what the pipeline detected. We send
+        // every detected person — JS decides what to draw based on
+        // `debugMode`.
+        decision = result.persons.isEmpty ? .remove : .keep
+        personsPayload = result.persons
+      } else if result.isNsfw {
         // NSFW short-circuit: full-image blur regardless of mode. No per-person
         // payload — JS keeps the default full-image blur in place.
         decision = .keep
-        personsToBlur = []
+        personsPayload = []
       } else {
         let (d, persons) = decide(from: result.persons, mode: mode)
         decision = d
-        personsToBlur = persons
+        personsPayload = persons
       }
       let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
         analyze[\(id, privacy: .public)] nsfw=\(result.isNsfw, privacy: .public) \
-        persons=\(result.persons.count, privacy: .public) toBlur=\(personsToBlur.count, privacy: .public) \
-        mode=\(mode, privacy: .public) → \(decision.rawValue, privacy: .public) \
+        persons=\(result.persons.count, privacy: .public) toBlur=\(personsPayload.count, privacy: .public) \
+        mode=\(mode, privacy: .public) debug=\(debugMode, privacy: .public) → \(decision.rawValue, privacy: .public) \
         (\(String(format: "%.0f", elapsedMs), privacy: .public)ms)
         """
       )
-      await reply(tab: tab, id: id, decision: decision, persons: personsToBlur)
+      await reply(
+        tab: tab,
+        id: id,
+        decision: decision,
+        persons: personsPayload,
+        debugMode: debugMode
+      )
     } catch {
       log.error("analyze[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
-      await reply(tab: tab, id: id, decision: .keep, persons: [])
+      await reply(tab: tab, id: id, decision: .keep, persons: [], debugMode: "none")
     }
   }
 
@@ -190,13 +206,14 @@ class BasarunaaScriptHandler: TabContentScript {
     tab: any TabState,
     id: Int,
     decision: BlurDecision,
-    persons: [DetectedPerson]
+    persons: [DetectedPerson],
+    debugMode: String
   ) async {
     do {
       let serialized = serialize(persons: persons)
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApply",
-        args: [id, decision.rawValue, serialized],
+        args: [id, decision.rawValue, serialized, debugMode],
         contentWorld: Self.scriptSandbox
       )
     } catch {
@@ -207,9 +224,11 @@ class BasarunaaScriptHandler: TabContentScript {
   }
 
   /// Compact representation for the JS side. We send the body bbox
-  /// `[x1, y1, x2, y2]` (top-left + bottom-right, POC convention) and the 17
-  /// COCO keypoints `[x, y, conf]` so JS can rebuild the body polygon mask
-  /// exactly like the POC macOS pipeline (`buildBodyPolygon`).
+  /// `[x1, y1, x2, y2]` (top-left + bottom-right, POC convention), the 17
+  /// COCO keypoints `[x, y, conf]` (so JS can rebuild the body polygon mask
+  /// à la POC macOS `buildBodyPolygon`), the face bbox if any, and the
+  /// classification result (gender + confidence) — used by the debug
+  /// overlay to colour-code each detection.
   private func serialize(persons: [DetectedPerson]) -> [[String: Any]] {
     persons.map { p in
       let x1 = p.bbox.minX
@@ -219,10 +238,21 @@ class BasarunaaScriptHandler: TabContentScript {
       let kps = p.keypoints.map { kp -> [Double] in
         [kp.point.x, kp.point.y, kp.confidence]
       }
-      return [
+      var dict: [String: Any] = [
         "bbox": [x1, y1, x2, y2] as [Double],
         "keypoints": kps,
+        "bodyConfidence": p.bodyConfidence,
       ]
+      if let face = p.faceBbox {
+        dict["faceBbox"] = [face.minX, face.minY, face.maxX, face.maxY] as [Double]
+      }
+      if let g = p.gender {
+        dict["gender"] = g.rawValue
+      }
+      if let gc = p.genderConfidence {
+        dict["genderConfidence"] = gc
+      }
+      return dict
     }
   }
 

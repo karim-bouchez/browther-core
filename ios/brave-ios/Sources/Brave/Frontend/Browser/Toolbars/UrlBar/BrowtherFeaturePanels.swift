@@ -126,13 +126,6 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var debugMode = Preferences.Basarunaa.debugMode
   @ObservedObject private var captureMode = Preferences.Basarunaa.captureMode
 
-  /// Closure injected by the BVC to run the PoC analysis on the current tab.
-  /// Returns a short status string for the UI. `nil` when no analyzable tab.
-  let onDebugAnalyze: (() async -> String)?
-
-  @State private var debugStatus: String = ""
-  @State private var debugRunning: Bool = false
-
   var body: some View {
     ScrollView {
       VStack(spacing: 16) {
@@ -236,44 +229,6 @@ struct BasarunaaPanelView: View {
         .labelsHidden()
       }
 
-      Divider()
-
-      Button {
-        guard let onDebugAnalyze, !debugRunning else { return }
-        debugStatus = "Inférence en cours…"
-        debugRunning = true
-        Task { @MainActor in
-          let result = await onDebugAnalyze()
-          debugStatus = result
-          debugRunning = false
-        }
-      } label: {
-        HStack {
-          VStack(alignment: .leading, spacing: 2) {
-            Text("Test inférence (natif)")
-              .font(.subheadline.weight(.medium))
-              .foregroundColor(.primary)
-            Text(debugStatus.isEmpty
-                 ? "Lance le pipeline sur la page courante, logs LOG(INFO)."
-                 : debugStatus)
-              .font(.caption2)
-              .foregroundColor(.secondary)
-              .multilineTextAlignment(.leading)
-          }
-          Spacer()
-          Text(debugRunning ? "…" : "Run")
-            .font(.subheadline.weight(.semibold))
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(
-              RoundedRectangle(cornerRadius: 6)
-                .stroke(Color.secondary.opacity(0.4), lineWidth: 1)
-            )
-        }
-      }
-      .buttonStyle(.plain)
-      .disabled(onDebugAnalyze == nil || debugRunning)
-
       Text("Logs : Console.app, subsystem `com.devndin.browther`")
         .font(.caption2.monospaced())
         .foregroundColor(.secondary)
@@ -373,9 +328,9 @@ struct BasarunaaPanelView: View {
 class BasarunaaPanelViewController: UIHostingController<BasarunaaPanelView>,
   PopoverContentComponent
 {
-  init(onDebugAnalyze: (() async -> String)? = nil) {
-    super.init(rootView: BasarunaaPanelView(onDebugAnalyze: onDebugAnalyze))
-    preferredContentSize = CGSize(width: 360, height: 720)
+  init() {
+    super.init(rootView: BasarunaaPanelView())
+    preferredContentSize = CGSize(width: 360, height: 640)
   }
 
   @MainActor required dynamic init?(coder aDecoder: NSCoder) {

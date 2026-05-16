@@ -732,29 +732,191 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     });
   }
 
+  // Draw a debug overlay (bboxes + optional face + keypoints) on top of the
+  // original image. Reuses the same "encode image to canvas, blob URL, clone
+  // and replace the <img>" plumbing as compositePerPersonBlur — the only
+  // difference is *what* gets painted on the canvas.
+  function genderColor(gender) {
+    if (gender === 'female') return '#22c55e';   // green
+    if (gender === 'male')   return '#3b82f6';   // blue
+    return '#f59e0b';                            // amber for nil / unknown
+  }
+
+  function drawDebugDetections(ctx, persons, w, h, debugMode) {
+    var lineW = Math.max(2, Math.round(Math.min(w, h) / 200));
+    ctx.lineWidth = lineW;
+    ctx.font = Math.max(14, Math.round(Math.min(w, h) / 30)) + 'px -apple-system, sans-serif';
+    ctx.textBaseline = 'top';
+    for (var i = 0; i < persons.length; i++) {
+      var p = persons[i];
+      var bb = p.bbox || [];
+      if (bb.length !== 4) continue;
+      var x1 = bb[0], y1 = bb[1], x2 = bb[2], y2 = bb[3];
+      var color = genderColor(p.gender);
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      // Body bbox
+      ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+      // Label (gender + confidence)
+      var genderLabel = p.gender || '?';
+      var conf = (typeof p.genderConfidence === 'number')
+        ? (' ' + Math.round(p.genderConfidence * 100) + '%')
+        : '';
+      var bodyConf = (typeof p.bodyConfidence === 'number')
+        ? (' body=' + Math.round(p.bodyConfidence * 100) + '%')
+        : '';
+      var label = genderLabel + conf + bodyConf;
+      var pad = 4;
+      var tw = ctx.measureText(label).width + pad * 2;
+      var th = parseInt(ctx.font, 10) + pad * 2;
+      var ly = Math.max(0, y1 - th);
+      ctx.fillRect(x1, ly, tw, th);
+      ctx.fillStyle = '#000';
+      ctx.fillText(label, x1 + pad, ly + pad);
+      ctx.fillStyle = color;
+
+      if (debugMode === 'debug') {
+        // Face bbox in red dashed
+        if (p.faceBbox && p.faceBbox.length === 4) {
+          ctx.save();
+          ctx.strokeStyle = '#ef4444';
+          ctx.setLineDash([lineW * 2, lineW * 2]);
+          var fx1 = p.faceBbox[0], fy1 = p.faceBbox[1];
+          var fx2 = p.faceBbox[2], fy2 = p.faceBbox[3];
+          ctx.strokeRect(fx1, fy1, fx2 - fx1, fy2 - fy1);
+          ctx.restore();
+        }
+        // Keypoints as small dots, alpha by confidence
+        var kps = p.keypoints || [];
+        var dotR = Math.max(3, Math.round(lineW * 1.5));
+        for (var k = 0; k < kps.length; k++) {
+          var kp = kps[k];
+          if (!kp || kp.length < 3) continue;
+          var kx = kp[0], ky = kp[1], kc = kp[2];
+          if (kc < 0.2) continue;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0.2, Math.min(1, kc));
+          ctx.fillStyle = '#fde047';
+          ctx.beginPath();
+          ctx.arc(kx, ky, dotR, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  function compositeDebugOverlay(img, persons, debugMode) {
+    if (!persons || persons.length === 0) return Promise.resolve(false);
+    var id = img.getAttribute(ID_ATTR);
+    metric('debug_overlay_start', {
+      id: id, persons: persons.length, mode: '' + debugMode,
+    });
+    return getCompositingSource(img).then(function(source) {
+      var w = source.naturalWidth != null ? source.naturalWidth : source.width;
+      var h = source.naturalHeight != null ? source.naturalHeight : source.height;
+      if (!w || !h) {
+        metric('debug_overlay_nodim', { id: id });
+        return false;
+      }
+      try {
+        var canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(source, 0, 0, w, h);
+        drawDebugDetections(ctx, persons, w, h, debugMode);
+        var srcLower = (img.currentSrc || img.src || '').toLowerCase();
+        var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
+          || srcLower.indexOf('data:image/png') === 0;
+        var mime = needsAlpha ? 'image/png' : 'image/jpeg';
+        var quality = needsAlpha ? undefined : 0.85;
+        return new Promise(function(resolveBlob) {
+          canvas.toBlob(function(blob) { resolveBlob(blob); }, mime, quality);
+        }).then(function(blob) {
+          if (!blob) {
+            metric('debug_overlay_no_blob', { id: id });
+            return false;
+          }
+          if (img.hasAttribute('srcset')) img.removeAttribute('srcset');
+          if (img.hasAttribute('sizes')) img.removeAttribute('sizes');
+          var pic = img.parentNode;
+          if (pic && pic.tagName === 'PICTURE') {
+            var sources = pic.querySelectorAll('source');
+            for (var si = 0; si < sources.length; si++) {
+              sources[si].removeAttribute('srcset');
+            }
+          }
+          if (img.dataset.basarunaaBlobUrl) {
+            try { URL.revokeObjectURL(img.dataset.basarunaaBlobUrl); } catch (_) {}
+          }
+          var blobUrl = URL.createObjectURL(blob);
+          img.dataset.basarunaaBlobUrl = blobUrl;
+          var fresh = img.cloneNode(false);
+          fresh.removeAttribute('srcset');
+          fresh.removeAttribute('sizes');
+          fresh.removeAttribute('crossorigin');
+          fresh.removeAttribute(BLUR_MARKER);
+          fresh.style.removeProperty('filter');
+          fresh.dataset.basarunaaBlobUrl = blobUrl;
+          fresh.src = blobUrl;
+          fresh.setAttribute(ID_ATTR, img.getAttribute(ID_ATTR) || '');
+          fresh.setAttribute(STATE_ATTR, 'keep');
+          if (img.parentNode) {
+            img.parentNode.replaceChild(fresh, img);
+            try { if (intersectionObserver) intersectionObserver.unobserve(img); } catch (_) {}
+            metric('debug_overlay_applied', { id: id, persons: persons.length });
+          }
+          return true;
+        });
+      } catch (e) {
+        metric('debug_overlay_failed', { id: id, msg: ('' + e).slice(0, 120) });
+        return false;
+      }
+    }).catch(function(e) {
+      metric('debug_overlay_rejected', { id: id, msg: ('' + e).slice(0, 120) });
+      return false;
+    });
+  }
+
   // ─── Receive decision from Swift ───
-  // Swift sends `(id, decision, persons)` where `persons` is the array of
-  // detected people that should be blurred (empty for NSFW short-circuit or
-  // when no target gender matched in mode "blur").
-  window.__basarunaaApply = function(id, decision, persons) {
+  // Swift sends `(id, decision, persons, debugMode)`. `persons` is the array
+  // of detected people. `debugMode` is one of "none" / "boxes" / "debug" —
+  // when not "none", we draw a visible overlay (no blur) instead of
+  // compositing the per-person mask.
+  window.__basarunaaApply = function(id, decision, persons, debugMode) {
     try {
       var img = findById(id);
       var personCount = (persons && persons.length) || 0;
+      var isDebug = debugMode === 'boxes' || debugMode === 'debug';
       metric('analyze_decision', {
-        id: id, decision: '' + decision, persons: personCount, found: !!img,
+        id: id, decision: '' + decision, persons: personCount,
+        found: !!img, debug: '' + (debugMode || 'none'),
       });
       if (img) {
         img.setAttribute(STATE_ATTR, decision);
-        if (decision === 'remove') {
+        if (isDebug) {
+          // Debug overlay (boxes / full debug): always remove the default
+          // blur first, then draw the detections on top of the original
+          // image. We don't cache the decision in debug mode so the user
+          // can toggle modes and refresh.
           removeBlurFrom(img);
+          if (personCount > 0) {
+            compositeDebugOverlay(img, persons, debugMode);
+          }
+        } else if (decision === 'remove') {
+          removeBlurFrom(img);
+          setCachedDecision(imgUrl(img), decision);
         } else if (decision === 'keep' && personCount > 0) {
           // Per-person composite blur (POC method). Async because we need to
           // decode the CORS-fetched blob into an ImageBitmap before drawing.
           // Falls back silently to full-image blur on failure.
           compositePerPersonBlur(img, persons);
+          setCachedDecision(imgUrl(img), decision);
+        } else {
+          // 'keep' without persons (NSFW) → full-image blur already applied.
+          setCachedDecision(imgUrl(img), decision);
         }
-        // 'keep' without persons (NSFW) → full-image blur already applied.
-        setCachedDecision(imgUrl(img), decision);
       }
     } catch (e) {
       metric('apply_error', { msg: '' + e });
