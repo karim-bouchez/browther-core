@@ -17,6 +17,11 @@ struct GenderClassification {
   /// the per-classifier signal even after picking a winner.
   let pFemale: Double
   let pMale: Double
+  /// Crop image actually fed to the model (e.g. 96×96 BGRA for InsightFace,
+  /// 192×256 for PPLCNet). Only set when the caller requests it via the
+  /// `wantsCropImage` flag — used by the debug overlay to display the
+  /// exact bytes the classifier saw.
+  let cropImage: CGImage?
 }
 
 /// InsightFace genderage classifier (96×96 BGR raw). The CoreML model was
@@ -45,11 +50,14 @@ final class GenderAgeClassifier {
 
   /// Crop a 96×96 face patch from `image` using `faceBbox` + keypoints and
   /// run gender classification. The crop is rotated to align the eyes
-  /// horizontally à la POC (`alignFace.js`).
+  /// horizontally à la POC (`alignFace.js`). When `wantsCropImage` is true,
+  /// the returned `GenderClassification.cropImage` is the 96×96 BGRA bitmap
+  /// fed to the model — used by the debug overlay strip.
   func classify(
     image: CGImage,
     faceBbox: CGRect,
-    keypoints: [(point: CGPoint, confidence: Double)]
+    keypoints: [(point: CGPoint, confidence: Double)],
+    wantsCropImage: Bool = false
   ) throws -> GenderClassification? {
     guard let aligned = FaceAlign.alignedFaceCrop(
       image: image,
@@ -125,13 +133,13 @@ final class GenderAgeClassifier {
     guard let array = output.featureValue(for: outputName)?.multiArrayValue else {
       throw BasarunaaError.inferenceFailed("GenderAge output missing")
     }
-    return decode(output: array)
+    return decode(output: array, cropImage: wantsCropImage ? aligned : nil)
   }
 
   /// InsightFace genderage output convention: first 2 values are gender logits
   /// (index 0 = female, index 1 = male), trailing values encode age. We apply
   /// softmax on the first 2 to get gender confidence.
-  private func decode(output: MLMultiArray) -> GenderClassification? {
+  private func decode(output: MLMultiArray, cropImage: CGImage?) -> GenderClassification? {
     let count = output.count
     guard count >= 2 else { return nil }
     let read: (Int) -> Float
@@ -151,9 +159,9 @@ final class GenderAgeClassifier {
     let pFemale = eFemale / sum
     let pMale = eMale / sum
     if pMale >= pFemale {
-      return GenderClassification(gender: .male, confidence: pMale, pFemale: pFemale, pMale: pMale)
+      return GenderClassification(gender: .male, confidence: pMale, pFemale: pFemale, pMale: pMale, cropImage: cropImage)
     } else {
-      return GenderClassification(gender: .female, confidence: pFemale, pFemale: pFemale, pMale: pMale)
+      return GenderClassification(gender: .female, confidence: pFemale, pFemale: pFemale, pMale: pMale, cropImage: cropImage)
     }
   }
 }

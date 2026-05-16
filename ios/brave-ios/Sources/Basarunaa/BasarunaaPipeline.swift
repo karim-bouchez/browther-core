@@ -17,7 +17,7 @@ public enum Gender: String, Sendable {
 /// Person produced by the pipeline. May come from a body detection (with or
 /// without a matched face) or be entirely synthesised from an unmatched
 /// face detection ("synth body").
-public struct DetectedPerson: Sendable {
+public struct DetectedPerson: @unchecked Sendable {
   /// Body bounding box in original image coordinates (real OR synthesised
   /// from a face bbox when `isSyntheticBody == true`).
   public let bbox: CGRect
@@ -39,6 +39,14 @@ public struct DetectedPerson: Sendable {
   /// "pplcnet (best)", "pplcnet (no face)", "pplcnet (synth body)",
   /// "insightface (synth body)").
   public let classifierUsed: String
+  /// Per-classifier softmax (only populated when the pipeline runs in debug
+  /// mode). nil when the classifier wasn't run for this person.
+  public let faceProb: (female: Double, male: Double)?
+  public let bodyProb: (female: Double, male: Double)?
+  /// Exact 96×96 face crop fed to InsightFace genderage (debug only).
+  public let faceCropImage: CGImage?
+  /// Exact 192×256 body crop fed to PPLCNet (debug only).
+  public let bodyCropImage: CGImage?
 }
 
 public struct BasarunaaResult: Sendable {
@@ -102,6 +110,8 @@ public actor BasarunaaPipeline {
     let bodyThreshold = Preferences.Basarunaa.confBody.value
     let faceThreshold = Preferences.Basarunaa.confFace.value
     let genderCertainty = Preferences.Basarunaa.genderCertainty.value
+    let debugMode = Preferences.Basarunaa.debugMode.value
+    let wantsCrops = debugMode == "debug"
 
     let (pose, face, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector) =
       try await loadModelsIfNeeded()
@@ -172,7 +182,8 @@ public actor BasarunaaPipeline {
         faceClassifier: classifier,
         bodyClassifier: bodyClassifier,
         faceThreshold: faceThreshold,
-        genderCertainty: genderCertainty
+        genderCertainty: genderCertainty,
+        wantsCrops: wantsCrops
       )
       results.append(person)
     }
@@ -187,7 +198,8 @@ public actor BasarunaaPipeline {
         imageSize: imageSize,
         faceClassifier: classifier,
         bodyClassifier: bodyClassifier,
-        genderCertainty: genderCertainty
+        genderCertainty: genderCertainty,
+        wantsCrops: wantsCrops
       )
       results.append(person)
     }
@@ -306,7 +318,8 @@ public actor BasarunaaPipeline {
     faceClassifier: GenderAgeClassifier,
     bodyClassifier: PPLCNetClassifier,
     faceThreshold: Double,
-    genderCertainty: Double
+    genderCertainty: Double,
+    wantsCrops: Bool
   ) -> DetectedPerson {
     // Body polygon mask for PPLCNet.
     let poly = BodyPolygon.buildPolygon(
@@ -325,7 +338,8 @@ public actor BasarunaaPipeline {
     let bodyResult = (try? bodyClassifier.classify(
       image: image,
       bodyBbox: body.bbox,
-      bodyMask: bodyMask
+      bodyMask: bodyMask,
+      wantsCropImage: wantsCrops
     )) ?? nil
 
     // Has-legs check uses the body keypoints (13..16 = knees + ankles).
@@ -336,14 +350,16 @@ public actor BasarunaaPipeline {
     var winnerGender: Gender? = nil
     var winnerConf: Double? = nil
     var classifierUsed: String = "pplcnet"
+    var faceResult: GenderClassification? = nil
 
     if let (_, faceDet) = matchedFace {
       // Run InsightFace genderage on the matched face. Use the face bbox
       // directly from YOLOv8n-face (not derived from body keypoints).
-      let faceResult = (try? faceClassifier.classify(
+      faceResult = (try? faceClassifier.classify(
         image: image,
         faceBbox: faceDet.faceBbox,
-        keypoints: faceDet.keypoints
+        keypoints: faceDet.keypoints,
+        wantsCropImage: wantsCrops
       )) ?? nil
 
       if let face = faceResult {
@@ -400,7 +416,11 @@ public actor BasarunaaPipeline {
       gender: trustedGender,
       genderConfidence: winnerConf,
       isSyntheticBody: false,
-      classifierUsed: classifierUsed
+      classifierUsed: classifierUsed,
+      faceProb: faceResult.map { (female: $0.pFemale, male: $0.pMale) },
+      bodyProb: bodyResult.map { (female: $0.pFemale, male: $0.pMale) },
+      faceCropImage: faceResult?.cropImage,
+      bodyCropImage: bodyResult?.cropImage
     )
   }
 
@@ -412,7 +432,8 @@ public actor BasarunaaPipeline {
     imageSize: CGSize,
     faceClassifier: GenderAgeClassifier,
     bodyClassifier: PPLCNetClassifier,
-    genderCertainty: Double
+    genderCertainty: Double,
+    wantsCrops: Bool
   ) -> DetectedPerson {
     // POC formula: 4× face width, 7× face height downward from face top.
     let fb = face.faceBbox
@@ -437,12 +458,14 @@ public actor BasarunaaPipeline {
     let synthBodyResult = (try? bodyClassifier.classify(
       image: image,
       bodyBbox: synthBbox,
-      bodyMask: nil
+      bodyMask: nil,
+      wantsCropImage: wantsCrops
     )) ?? nil
     let faceResult = (try? faceClassifier.classify(
       image: image,
       faceBbox: fb,
-      keypoints: face.keypoints
+      keypoints: face.keypoints,
+      wantsCropImage: wantsCrops
     )) ?? nil
 
     var winnerGender: Gender? = nil
@@ -484,7 +507,11 @@ public actor BasarunaaPipeline {
       gender: trustedGender,
       genderConfidence: winnerConf,
       isSyntheticBody: true,
-      classifierUsed: classifierUsed
+      classifierUsed: classifierUsed,
+      faceProb: faceResult.map { (female: $0.pFemale, male: $0.pMale) },
+      bodyProb: synthBodyResult.map { (female: $0.pFemale, male: $0.pMale) },
+      faceCropImage: faceResult?.cropImage,
+      bodyCropImage: synthBodyResult?.cropImage
     )
   }
 }

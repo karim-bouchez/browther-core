@@ -49,7 +49,8 @@ final class PPLCNetClassifier {
   func classify(
     image: CGImage,
     bodyBbox: CGRect,
-    bodyMask: BodyPolygon.Mask? = nil
+    bodyMask: BodyPolygon.Mask? = nil,
+    wantsCropImage: Bool = false
   ) throws -> GenderClassification? {
     let imageSize = CGSize(width: image.width, height: image.height)
     let cropRect = bodyBbox.intersection(CGRect(origin: .zero, size: imageSize))
@@ -129,7 +130,10 @@ final class PPLCNetClassifier {
     guard let array = output.featureValue(for: outputName)?.multiArrayValue else {
       throw BasarunaaError.inferenceFailed("PPLCNet output missing")
     }
-    return decode(output: array)
+    // Capture the exact 192×256 BGRA crop fed to CoreML (with mask
+    // gray-out already applied) for the debug strip.
+    let cropImage: CGImage? = wantsCropImage ? ctx.makeImage() : nil
+    return decode(output: array, cropImage: cropImage)
   }
 
   /// For each destination pixel in the resized crop, sample the polygon mask
@@ -175,7 +179,7 @@ final class PPLCNetClassifier {
     }
   }
 
-  private func decode(output: MLMultiArray) -> GenderClassification? {
+  private func decode(output: MLMultiArray, cropImage: CGImage?) -> GenderClassification? {
     let count = output.count
     guard count > Self.femaleAttributeIndex else {
       log.error("PPLCNet output too small: \(count, privacy: .public)")
@@ -193,9 +197,9 @@ final class PPLCNetClassifier {
     let maleProb = 1.0 - femaleProb
     // The POC reports max(p, 1-p) as confidence (raw [0,1]).
     if femaleProb >= 0.5 {
-      return GenderClassification(gender: .female, confidence: femaleProb, pFemale: femaleProb, pMale: maleProb)
+      return GenderClassification(gender: .female, confidence: femaleProb, pFemale: femaleProb, pMale: maleProb, cropImage: cropImage)
     } else {
-      return GenderClassification(gender: .male, confidence: maleProb, pFemale: femaleProb, pMale: maleProb)
+      return GenderClassification(gender: .male, confidence: maleProb, pFemale: femaleProb, pMale: maleProb, cropImage: cropImage)
     }
   }
 }

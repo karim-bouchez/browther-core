@@ -279,8 +279,30 @@ class BasarunaaScriptHandler: TabContentScript {
       if let gc = p.genderConfidence {
         dict["genderConfidence"] = gc
       }
+      if let fp = p.faceProb {
+        dict["facePFemale"] = fp.female
+        dict["facePMale"] = fp.male
+      }
+      if let bp = p.bodyProb {
+        dict["bodyPFemale"] = bp.female
+        dict["bodyPMale"] = bp.male
+      }
+      if let img = p.faceCropImage, let dataUrl = encodeCGImagePNG(img) {
+        dict["faceCropDataUrl"] = dataUrl
+      }
+      if let img = p.bodyCropImage, let dataUrl = encodeCGImagePNG(img) {
+        dict["bodyCropDataUrl"] = dataUrl
+      }
       return dict
     }
+  }
+
+  /// Encode a CGImage as a `data:image/png;base64,...` URL. Returns nil
+  /// if encoding fails. Used to ship the debug crops to the JS overlay.
+  private func encodeCGImagePNG(_ image: CGImage) -> String? {
+    let uiImage = UIImage(cgImage: image)
+    guard let data = uiImage.pngData() else { return nil }
+    return "data:image/png;base64,\(data.base64EncodedString())"
   }
 
   deinit {

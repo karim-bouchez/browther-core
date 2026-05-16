@@ -103,19 +103,13 @@ enum FaceAlign {
 
   // MARK: - Internals
 
-  /// Build a BGRA CGContext, apply Canvas2D-style transforms
-  /// (`translate(out/2) → rotate(angle) → scale → translate(-cx, -cy)`),
+  /// Build a BGRA CGContext, apply transforms mirroring the POC web
+  /// (`translate(out/2) → rotate(±angle) → scale → translate(-cx, -cy)`),
   /// draw the source image, return the resulting CGImage.
   ///
-  /// CGContext has `y` pointing down (like Canvas2D / YOLO output), but the
-  /// rotation sign convention is *opposite* to Canvas2D :
-  ///   • Canvas2D `rotate(theta)` rotates **clockwise** for positive theta.
-  ///   • CGContext `rotate(by: theta)` rotates **counter-clockwise** for
-  ///     positive theta (Apple doc).
-  /// To match the POC web `ctx.rotate(-angle)` (= angle counter-clockwise),
-  /// we therefore pass `+angle` to CGContext (not -angle, which would
-  /// double the head tilt and break InsightFace — observed on the father
-  /// of TF1 famille-recomposee, M@100% macOS → M@68% iOS, 2026-05-16).
+  /// The exact rotation sign that matches the POC is empirically derived —
+  /// we expose the rendered crop in the debug strip so the user can see
+  /// what InsightFace receives and we can iterate quickly.
   private static func renderAffine(
     image: CGImage,
     outSize: Int,
@@ -130,8 +124,6 @@ enum FaceAlign {
     ctx.rotate(by: angle)
     ctx.scaleBy(x: scale, y: scale)
     ctx.translateBy(x: -cx, y: -cy)
-    // Draw the entire image — the transforms map the face region onto the
-    // out × out square. CG will clip whatever falls outside automatically.
     ctx.draw(
       image,
       in: CGRect(x: 0, y: 0, width: image.width, height: image.height)

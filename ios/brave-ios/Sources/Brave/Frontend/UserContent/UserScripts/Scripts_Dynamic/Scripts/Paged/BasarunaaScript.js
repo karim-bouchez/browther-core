@@ -1067,6 +1067,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         genderConfidence: typeof p.genderConfidence === 'number' ? p.genderConfidence : null,
         isSyntheticBody: !!p.isSyntheticBody,
         classifierUsed: typeof p.classifierUsed === 'string' ? p.classifierUsed : '',
+        facePFemale: typeof p.facePFemale === 'number' ? p.facePFemale : null,
+        facePMale: typeof p.facePMale === 'number' ? p.facePMale : null,
+        bodyPFemale: typeof p.bodyPFemale === 'number' ? p.bodyPFemale : null,
+        bodyPMale: typeof p.bodyPMale === 'number' ? p.bodyPMale : null,
+        faceCropDataUrl: typeof p.faceCropDataUrl === 'string' ? p.faceCropDataUrl : null,
+        bodyCropDataUrl: typeof p.bodyCropDataUrl === 'string' ? p.bodyCropDataUrl : null,
       });
     }
     return out;
@@ -1260,6 +1266,150 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
   }
 
+  // Decode a `data:image/png;base64,...` URL into an HTMLImageElement.
+  // Wrapped in a Promise so we can await the decode before drawing.
+  function decodeDataUrl(dataUrl) {
+    return new Promise(function(resolve) {
+      if (!dataUrl) { resolve(null); return; }
+      var im = new Image();
+      im.onload = function() { resolve(im); };
+      im.onerror = function() { resolve(null); };
+      im.src = dataUrl;
+    });
+  }
+
+  // Draw the bottom black strip with one column per detected person
+  // (body crop 100×133, face crop 96×96, classifier label). Wait for all
+  // crop decodes to finish before encoding the canvas to a blob so the
+  // strip is fully rendered when we replace the <img>.
+  function drawCropStripAndEncode(canvas, ctx, persons, imgW, imgH, stripH, sourceImg) {
+    // Fill strip background.
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, imgH, imgW, stripH);
+
+    // Decode all crop dataUrls in parallel.
+    var jobs = [];
+    for (var i = 0; i < persons.length; i++) {
+      var p = persons[i];
+      jobs.push(decodeDataUrl(p.faceCropDataUrl));
+      jobs.push(decodeDataUrl(p.bodyCropDataUrl));
+    }
+    return Promise.all(jobs).then(function(images) {
+      var COL_W = 110;  // body crop displayed at 100×133, + 5px padding each side
+      var GAP = 6;
+      var FACE_DISPLAY = 96;
+      var BODY_DISPLAY_W = 100;
+      var BODY_DISPLAY_H = 133;
+      var x = 6;
+      var stripTop = imgH;
+      for (var pi = 0; pi < persons.length; pi++) {
+        var person = persons[pi];
+        var face = images[pi * 2];
+        var body = images[pi * 2 + 1];
+        // Label face softmax
+        var faceLabel = '';
+        if (person.facePFemale != null && person.facePMale != null) {
+          var fF = Math.round(person.facePFemale * 100);
+          var fM = Math.round(person.facePMale * 100);
+          faceLabel = 'F:' + fF + '% M:' + fM + '%';
+        } else {
+          faceLabel = 'face:n/a';
+        }
+        // Label body softmax
+        var bodyLabel = '';
+        if (person.bodyPFemale != null && person.bodyPMale != null) {
+          var bF = Math.round(person.bodyPFemale * 100);
+          var bM = Math.round(person.bodyPMale * 100);
+          bodyLabel = 'F:' + bF + '% M:' + bM + '%';
+        } else {
+          bodyLabel = 'body:n/a';
+        }
+        var classLabel = (person.classifierUsed || '') + (person.isSyntheticBody ? ' SYNTH' : '');
+
+        var y = stripTop + 6;
+        // Face vignette (96×96) avec label au-dessus
+        ctx.font = 'bold 11px monospace';
+        ctx.fillStyle = '#FFD700';
+        ctx.fillText(faceLabel, x, y + 11);
+        if (face) {
+          ctx.drawImage(face, x, y + 14, FACE_DISPLAY, FACE_DISPLAY);
+        } else {
+          ctx.strokeStyle = '#444';
+          ctx.strokeRect(x, y + 14, FACE_DISPLAY, FACE_DISPLAY);
+          ctx.fillStyle = '#888';
+          ctx.fillText('—', x + 40, y + 60);
+        }
+        y += 14 + FACE_DISPLAY + 4;
+        // Body vignette (100×133) avec label au-dessus
+        ctx.font = 'bold 11px monospace';
+        ctx.fillStyle = '#FF69B4';
+        ctx.fillText(bodyLabel, x, y + 11);
+        if (body) {
+          ctx.drawImage(body, x, y + 14, BODY_DISPLAY_W, BODY_DISPLAY_H);
+        } else {
+          ctx.strokeStyle = '#444';
+          ctx.strokeRect(x, y + 14, BODY_DISPLAY_W, BODY_DISPLAY_H);
+          ctx.fillStyle = '#888';
+          ctx.fillText('—', x + 42, y + 80);
+        }
+        y += 14 + BODY_DISPLAY_H + 4;
+        // Classifier label
+        ctx.font = 'bold 10px monospace';
+        ctx.fillStyle = '#0f0';
+        ctx.fillText(classLabel.slice(0, 18), x, y + 10);
+
+        x += COL_W + GAP;
+        if (x + COL_W > imgW) break;  // skip if no room
+      }
+      // Encode the full canvas (image + strip) to a blob and replace the img.
+      var srcLower = (sourceImg.currentSrc || sourceImg.src || '').toLowerCase();
+      var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
+        || srcLower.indexOf('data:image/png') === 0;
+      var mime = needsAlpha ? 'image/png' : 'image/jpeg';
+      var quality = needsAlpha ? undefined : 0.85;
+      return new Promise(function(resolveBlob) {
+        canvas.toBlob(function(blob) { resolveBlob(blob); }, mime, quality);
+      }).then(function(blob) {
+        if (!blob) return false;
+        return replaceImgWithBlob(sourceImg, blob);
+      });
+    });
+  }
+
+  // Replace the original <img> with a fresh clone pointing to a blob URL —
+  // factored out of compositePerPersonBlur for the debug strip path.
+  function replaceImgWithBlob(img, blob) {
+    if (img.hasAttribute('srcset')) img.removeAttribute('srcset');
+    if (img.hasAttribute('sizes')) img.removeAttribute('sizes');
+    var pic = img.parentNode;
+    if (pic && pic.tagName === 'PICTURE') {
+      var sources = pic.querySelectorAll('source');
+      for (var si = 0; si < sources.length; si++) {
+        sources[si].removeAttribute('srcset');
+      }
+    }
+    if (img.dataset.basarunaaBlobUrl) {
+      try { URL.revokeObjectURL(img.dataset.basarunaaBlobUrl); } catch (_) {}
+    }
+    var blobUrl = URL.createObjectURL(blob);
+    img.dataset.basarunaaBlobUrl = blobUrl;
+    var fresh = img.cloneNode(false);
+    fresh.removeAttribute('srcset');
+    fresh.removeAttribute('sizes');
+    fresh.removeAttribute('crossorigin');
+    fresh.removeAttribute(BLUR_MARKER);
+    fresh.style.removeProperty('filter');
+    fresh.dataset.basarunaaBlobUrl = blobUrl;
+    fresh.src = blobUrl;
+    fresh.setAttribute(ID_ATTR, img.getAttribute(ID_ATTR) || '');
+    fresh.setAttribute(STATE_ATTR, 'keep');
+    if (img.parentNode) {
+      img.parentNode.replaceChild(fresh, img);
+      try { if (intersectionObserver) intersectionObserver.unobserve(img); } catch (_) {}
+    }
+    return true;
+  }
+
   function compositeDebugOverlay(img, persons, debugMode, elapsedMs) {
     if (!persons || persons.length === 0) return Promise.resolve(false);
     var id = img.getAttribute(ID_ATTR);
@@ -1282,9 +1432,21 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         return false;
       }
       try {
+        // In "debug" mode (full debug), add a black strip below the image
+        // showing the face crop 96×96 + body crop 192×256 that each
+        // classifier actually saw. Lets us diagnose visually instead of
+        // guessing what the model received.
+        var isFullDebug = debugMode === 'debug';
+        var stripH = 0;
+        if (isFullDebug) {
+          // Compute strip height : tallest vignette + label area.
+          // Body crop displayed at 100×133 (aspect 192:256), face 96×96.
+          // + 18px label above each + 4px padding.
+          stripH = 96 + 133 + 18 + 18 + 16;
+        }
         var canvas = document.createElement('canvas');
         canvas.width = w;
-        canvas.height = h;
+        canvas.height = h + stripH;
         var ctx = canvas.getContext('2d');
         ctx.drawImage(source, 0, 0, w, h);
         // 1) blur the persons the active mode would normally blur, with
@@ -1302,6 +1464,10 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         drawDebugDetections(ctx, normalised, w, h, debugMode);
         // 3) header in top-left : `#<id> <elapsed>ms` (POC parity).
         drawDebugHeader(ctx, id, elapsedMs);
+        // 4) crop strip in the bottom black band (debug mode only).
+        if (isFullDebug && stripH > 0) {
+          return drawCropStripAndEncode(canvas, ctx, normalised, w, h, stripH, img);
+        }
         var srcLower = (img.currentSrc || img.src || '').toLowerCase();
         var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
           || srcLower.indexOf('data:image/png') === 0;
