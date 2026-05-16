@@ -379,7 +379,9 @@ extension BrowserViewController: TopToolbarDelegate {
   }
 
   func topToolbarDidTapBasarunaaButton(_ topToolbar: TopToolbarView) {
-    #if DEBUG
+    // The Debug section is exposed to every build (Release included) so the
+    // user can describe issues — its "Test inférence" button needs an
+    // analyze closure even in Release.
     let basarunaaLog = os.Logger(subsystem: "com.devndin.browther", category: "Basarunaa.PoC")
     let tab = tabManager.selectedTab
     basarunaaLog.info("panel opened, tab=\(tab != nil ? "present" : "nil", privacy: .public)")
@@ -413,9 +415,6 @@ extension BrowserViewController: TopToolbarDelegate {
       }
     } : nil
     let panel = BasarunaaPanelViewController(onDebugAnalyze: onDebugAnalyze)
-    #else
-    let panel = BasarunaaPanelViewController()
-    #endif
     let popover = PopoverController(
       contentController: panel,
       contentSizeBehavior: .preferredContentSize

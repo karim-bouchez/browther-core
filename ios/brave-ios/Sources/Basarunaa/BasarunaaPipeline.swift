@@ -75,10 +75,11 @@ public actor BasarunaaPipeline {
   }
 
   /// Analyze a CGImage end-to-end. Returns detected persons with optional gender.
-  /// Thresholds are read from `Preferences.Basarunaa.{face,body}Threshold`.
+  /// Thresholds are read from `Preferences.Basarunaa.{confBody, confFace, genderCertainty}`.
   public func analyze(image: CGImage) async throws -> BasarunaaResult {
-    let bodyThreshold = Preferences.Basarunaa.bodyThreshold.value
-    let faceThreshold = Preferences.Basarunaa.faceThreshold.value
+    let bodyThreshold = Preferences.Basarunaa.confBody.value
+    let faceThreshold = Preferences.Basarunaa.confFace.value
+    let genderCertainty = Preferences.Basarunaa.genderCertainty.value
 
     let (pose, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector) =
       try await loadModelsIfNeeded()
@@ -142,13 +143,22 @@ public actor BasarunaaPipeline {
         bodyClassifier: bodyClassifier,
         faceThreshold: faceThreshold
       )
+      // POC: if the fused softmax confidence is below the user-configured
+      // certainty threshold, downgrade to "unknown" (nil) so `blur-female`
+      // falls back to its safer-default-to-keep behaviour.
+      let trustedGender: Gender?
+      if let g = fused.gender, let c = fused.confidence, c >= genderCertainty {
+        trustedGender = g
+      } else {
+        trustedGender = nil
+      }
       results.append(
         DetectedPerson(
           bbox: raw.bbox,
           faceBbox: raw.faceBbox,
           keypoints: raw.keypoints.map { (point: $0.point, confidence: $0.confidence) },
           bodyConfidence: raw.bodyConfidence,
-          gender: fused.gender,
+          gender: trustedGender,
           genderConfidence: fused.confidence
         )
       )

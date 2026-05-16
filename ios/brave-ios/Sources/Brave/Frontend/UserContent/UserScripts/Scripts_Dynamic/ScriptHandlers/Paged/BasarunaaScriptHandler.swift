@@ -126,7 +126,7 @@ class BasarunaaScriptHandler: TabContentScript {
 
     do {
       let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
-      let mode = Preferences.Basarunaa.mode.value
+      let mode = Preferences.Basarunaa.effectiveMode
       let decision: BlurDecision
       let personsToBlur: [DetectedPerson]
       if result.isNsfw {
@@ -155,17 +155,16 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
-  /// Decision policy + which persons trigger the blur.
+  /// Decision policy + which persons trigger the blur (POC modes).
   ///
-  /// - mode "strict" : every detected person is blurred (bbox + keypoints sent
-  ///                   to JS so it can composite a per-person mask).
-  /// - mode "blur"   : female-classified persons, plus those with `gender=nil`
-  ///                   (POC's "safer default to keep" — body detected but face
-  ///                   too small/blurry to classify is still flagged).
-  ///
-  /// Returns `(decision, personsToBlur)`. When `personsToBlur` is non-empty
-  /// the JS will composite a per-person blur using the supplied bboxes +
-  /// keypoints, à la POC macOS `applyBlur` / `_drawFeatheredBlur`.
+  /// - `blur-all`    : every detected person is blurred (bbox + keypoints
+  ///                   sent so JS composites a per-person mask).
+  /// - `blur-male`   : only persons confidently classified as male are
+  ///                   blurred. Unknown gender stays visible.
+  /// - `blur-female` : female-classified persons, plus those with
+  ///                   `gender == nil` (POC's "safer default to keep" — body
+  ///                   detected but face too small/blurry / classification
+  ///                   below the `gender-certainty` threshold).
   private func decide(
     from persons: [DetectedPerson],
     mode: String
@@ -173,9 +172,11 @@ class BasarunaaScriptHandler: TabContentScript {
     if persons.isEmpty { return (.remove, []) }
     let toBlur: [DetectedPerson]
     switch mode {
-    case "strict":
+    case "blur-all":
       toBlur = persons
-    default:
+    case "blur-male":
+      toBlur = persons.filter { $0.gender == .male }
+    case "blur-female", _:
       toBlur = persons.filter { p in
         if p.gender == nil { return true }      // safer default to keep
         return p.gender == .female
