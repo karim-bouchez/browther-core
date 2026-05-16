@@ -120,7 +120,7 @@ class BasarunaaScriptHandler: TabContentScript {
       let cgImage = uiImage.cgImage
     else {
       log.error("analyze[\(id, privacy: .public)] failed to decode base64")
-      await reply(tab: tab, id: id, decision: .keep, persons: [], debugMode: "none")
+      await reply(tab: tab, id: id, decision: .keep, persons: [], shouldBlurFlags: [], debugMode: "none", elapsedMs: 0)
       return
     }
 
@@ -130,30 +130,39 @@ class BasarunaaScriptHandler: TabContentScript {
       let debugMode = Preferences.Basarunaa.debugMode.value
       let isDebug = debugMode == "boxes" || debugMode == "debug"
 
+      // Persons the active mode would normally blur. Reused in debug mode
+      // as the per-person `shouldBlur` metadata so the overlay shows the
+      // same blur the user would see in production (macOS POC parity).
+      let (modeDecision, modePersonsToBlur) = decide(from: result.persons, mode: mode)
+
       let decision: BlurDecision
       let personsPayload: [DetectedPerson]
+      let shouldBlurFlags: [Bool]
       if isDebug {
-        // Debug overlay: show the image (no blur), draw bbox / keypoints
-        // on top so the user can see what the pipeline detected. We send
-        // every detected person — JS decides what to draw based on
-        // `debugMode`.
+        // Debug overlay (POC parity): keep the per-person blur that the
+        // active mode would apply, draw bboxes/labels on top. We send
+        // *every* detected person plus a per-person `shouldBlur` flag —
+        // JS composites blur first, overlay on top.
         decision = result.persons.isEmpty ? .remove : .keep
         personsPayload = result.persons
+        let blurredBboxes = Set(modePersonsToBlur.map { bboxKey($0.bbox) })
+        shouldBlurFlags = result.persons.map { blurredBboxes.contains(bboxKey($0.bbox)) }
       } else if result.isNsfw {
         // NSFW short-circuit: full-image blur regardless of mode. No per-person
         // payload — JS keeps the default full-image blur in place.
         decision = .keep
         personsPayload = []
+        shouldBlurFlags = []
       } else {
-        let (d, persons) = decide(from: result.persons, mode: mode)
-        decision = d
-        personsPayload = persons
+        decision = modeDecision
+        personsPayload = modePersonsToBlur
+        shouldBlurFlags = Array(repeating: true, count: modePersonsToBlur.count)
       }
       let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
         analyze[\(id, privacy: .public)] nsfw=\(result.isNsfw, privacy: .public) \
-        persons=\(result.persons.count, privacy: .public) toBlur=\(personsPayload.count, privacy: .public) \
+        persons=\(result.persons.count, privacy: .public) toBlur=\(modePersonsToBlur.count, privacy: .public) \
         mode=\(mode, privacy: .public) debug=\(debugMode, privacy: .public) → \(decision.rawValue, privacy: .public) \
         (\(String(format: "%.0f", elapsedMs), privacy: .public)ms)
         """
@@ -163,12 +172,21 @@ class BasarunaaScriptHandler: TabContentScript {
         id: id,
         decision: decision,
         persons: personsPayload,
-        debugMode: debugMode
+        shouldBlurFlags: shouldBlurFlags,
+        debugMode: debugMode,
+        elapsedMs: elapsedMs
       )
     } catch {
       log.error("analyze[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
-      await reply(tab: tab, id: id, decision: .keep, persons: [], debugMode: "none")
+      await reply(tab: tab, id: id, decision: .keep, persons: [], shouldBlurFlags: [], debugMode: "none", elapsedMs: 0)
     }
+  }
+
+  /// Stable string key for a person's body bbox — used to match persons
+  /// across `decide()` output and the full detected list when building the
+  /// per-person `shouldBlur` flags in debug mode.
+  private func bboxKey(_ rect: CGRect) -> String {
+    "\(rect.minX),\(rect.minY),\(rect.maxX),\(rect.maxY)"
   }
 
   /// Decision policy + which persons trigger the blur (POC modes).
@@ -207,13 +225,15 @@ class BasarunaaScriptHandler: TabContentScript {
     id: Int,
     decision: BlurDecision,
     persons: [DetectedPerson],
-    debugMode: String
+    shouldBlurFlags: [Bool],
+    debugMode: String,
+    elapsedMs: Double
   ) async {
     do {
-      let serialized = serialize(persons: persons)
+      let serialized = serialize(persons: persons, shouldBlurFlags: shouldBlurFlags)
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApply",
-        args: [id, decision.rawValue, serialized, debugMode],
+        args: [id, decision.rawValue, serialized, debugMode, elapsedMs],
         contentWorld: Self.scriptSandbox
       )
     } catch {
@@ -223,14 +243,18 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
-  /// Compact representation for the JS side. We send the body bbox
-  /// `[x1, y1, x2, y2]` (top-left + bottom-right, POC convention), the 17
-  /// COCO keypoints `[x, y, conf]` (so JS can rebuild the body polygon mask
-  /// à la POC macOS `buildBodyPolygon`), the face bbox if any, and the
-  /// classification result (gender + confidence) — used by the debug
-  /// overlay to colour-code each detection.
-  private func serialize(persons: [DetectedPerson]) -> [[String: Any]] {
-    persons.map { p in
+  /// Compact representation for the JS side. Sends per-person :
+  /// - `bbox` `[x1, y1, x2, y2]` (POC convention)
+  /// - `keypoints` 17 COCO points as `[x, y, conf]` (so JS rebuilds the
+  ///   body polygon mask à la POC macOS `buildBodyPolygon`)
+  /// - `faceBbox` (if any)
+  /// - `gender` + `genderConfidence` (if classified)
+  /// - `bodyConfidence` (YOLO score)
+  /// - `shouldBlur` — set in debug mode for the persons the active mode
+  ///   would normally blur, so JS composites the blur and draws the
+  ///   overlay on top (POC parity).
+  private func serialize(persons: [DetectedPerson], shouldBlurFlags: [Bool]) -> [[String: Any]] {
+    persons.enumerated().map { (idx, p) in
       let x1 = p.bbox.minX
       let y1 = p.bbox.minY
       let x2 = p.bbox.maxX
@@ -242,6 +266,7 @@ class BasarunaaScriptHandler: TabContentScript {
         "bbox": [x1, y1, x2, y2] as [Double],
         "keypoints": kps,
         "bodyConfidence": p.bodyConfidence,
+        "shouldBlur": idx < shouldBlurFlags.count ? shouldBlurFlags[idx] : true,
       ]
       if let face = p.faceBbox {
         dict["faceBbox"] = [face.minX, face.minY, face.maxX, face.maxY] as [Double]

@@ -1064,6 +1064,20 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     ctx.stroke();
   }
 
+  // Header timing en haut à gauche : `#<id> XXms` (parité POC visualizer).
+  function drawDebugHeader(ctx, id, elapsedMs) {
+    var label = '#' + (id || '?');
+    if (typeof elapsedMs === 'number' && isFinite(elapsedMs)) {
+      label += ' ' + elapsedMs.toFixed(0) + 'ms';
+    }
+    ctx.font = 'bold 13px monospace';
+    var tw = ctx.measureText(label).width + 10;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    ctx.fillRect(0, 0, tw, 22);
+    ctx.fillStyle = '#00FF00';
+    ctx.fillText(label, 5, 16);
+  }
+
   // Dessine le overlay (port direct de visualizer.draw, sx=sy=1).
   function drawDebugDetections(ctx, persons, imgW, imgH, debugMode) {
     var isLite = debugMode === 'boxes';
@@ -1189,12 +1203,19 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
   }
 
-  function compositeDebugOverlay(img, persons, debugMode) {
+  function compositeDebugOverlay(img, persons, debugMode, elapsedMs) {
     if (!persons || persons.length === 0) return Promise.resolve(false);
     var id = img.getAttribute(ID_ATTR);
     var normalised = normalisePersons(persons);
+    // POC parity: in debug mode, the per-person blur from the active mode
+    // is still applied — the overlay just draws on top so the user sees
+    // *both* the production behaviour and what the pipeline detected.
+    var toBlur = [];
+    for (var bi = 0; bi < persons.length; bi++) {
+      if (persons[bi].shouldBlur) toBlur.push(persons[bi]);
+    }
     metric('debug_overlay_start', {
-      id: id, persons: normalised.length, mode: '' + debugMode,
+      id: id, persons: normalised.length, toBlur: toBlur.length, mode: '' + debugMode,
     });
     return getCompositingSource(img).then(function(source) {
       var w = source.naturalWidth != null ? source.naturalWidth : source.width;
@@ -1209,7 +1230,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         canvas.height = h;
         var ctx = canvas.getContext('2d');
         ctx.drawImage(source, 0, 0, w, h);
+        // 1) blur the persons the active mode would normally blur.
+        if (toBlur.length > 0) {
+          var blur = Math.max(25, Math.round(Math.max(w, h) * 0.04));
+          var blurredCanvas = createEdgeClampedBlur(source, w, h, blur);
+          for (var pi = 0; pi < toBlur.length; pi++) {
+            drawFeatheredBlur(ctx, blurredCanvas, toBlur[pi], w, h);
+          }
+        }
+        // 2) draw the debug overlay on top of the (partially) blurred image.
         drawDebugDetections(ctx, normalised, w, h, debugMode);
+        // 3) header in top-left : `#<id> <elapsed>ms` (POC parity).
+        drawDebugHeader(ctx, id, elapsedMs);
         var srcLower = (img.currentSrc || img.src || '').toLowerCase();
         var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
           || srcLower.indexOf('data:image/png') === 0;
@@ -1264,11 +1296,13 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   }
 
   // ─── Receive decision from Swift ───
-  // Swift sends `(id, decision, persons, debugMode)`. `persons` is the array
-  // of detected people. `debugMode` is one of "none" / "boxes" / "debug" —
-  // when not "none", we draw a visible overlay (no blur) instead of
-  // compositing the per-person mask.
-  window.__basarunaaApply = function(id, decision, persons, debugMode) {
+  // Swift sends `(id, decision, persons, debugMode, elapsedMs)`.
+  // `persons` includes a per-entry `shouldBlur` flag (true for the persons
+  // the active mode would normally blur). `debugMode` is one of
+  // "none" / "boxes" / "debug" — when not "none", we draw a debug overlay
+  // on top of the per-person blur (POC parity), and a `#<id> XXms`
+  // header in the top-left corner.
+  window.__basarunaaApply = function(id, decision, persons, debugMode, elapsedMs) {
     try {
       var img = findById(id);
       var personCount = (persons && persons.length) || 0;
@@ -1280,13 +1314,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (img) {
         img.setAttribute(STATE_ATTR, decision);
         if (isDebug) {
-          // Debug overlay (boxes / full debug): always remove the default
-          // blur first, then draw the detections on top of the original
-          // image. We don't cache the decision in debug mode so the user
-          // can toggle modes and refresh.
+          // Debug overlay: composite blur (on shouldBlur=true persons) then
+          // draw bboxes/labels/skeleton on top. We don't cache the
+          // decision in debug mode so the user can toggle modes and reload.
           removeBlurFrom(img);
           if (personCount > 0) {
-            compositeDebugOverlay(img, persons, debugMode);
+            compositeDebugOverlay(img, persons, debugMode, elapsedMs);
           }
         } else if (decision === 'remove') {
           removeBlurFrom(img);
