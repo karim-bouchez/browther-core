@@ -128,6 +128,7 @@ import org.chromium.chrome.browser.brave_stats.BraveStatsUtil;
 import org.chromium.chrome.browser.browsing_data.BrowsingDataBridge;
 import org.chromium.chrome.browser.browsing_data.BrowsingDataType;
 import org.chromium.chrome.browser.browsing_data.TimePeriod;
+import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerChrome;
 import org.chromium.chrome.browser.crypto_wallet.AssetRatioServiceFactory;
 import org.chromium.chrome.browser.crypto_wallet.BlockchainRegistryFactory;
@@ -1197,6 +1198,13 @@ public abstract class BraveActivity extends ChromeActivity
     @Override
     public void finishNativeInitialization() {
         super.finishNativeInitialization();
+
+        // Browther: fire app_launched_android pour le pont JNI vers
+        // BrowtherAnalyticsService. C++ fire déjà app_launched dans
+        // PreMainMessageLoopRun (cross-platform), mais cet event "android"
+        // est utile pour distinguer la distrib Play Store et pour valider
+        // que le pont JNI marche end-to-end.
+        BrowtherAnalyticsBridge.track("app_launched_android");
 
         boolean isFirstInstall = PackageUtils.isFirstInstall(this);
 
