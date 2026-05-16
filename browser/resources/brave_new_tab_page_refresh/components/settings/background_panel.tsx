@@ -164,7 +164,11 @@ export function BackgroundPanel() {
           {getString(S.NEW_TAB_SHOW_BACKGROUNDS_LABEL)}
         </span>
       </Toggle>
-      {backgroundsEnabled && rewardsFeatureEnabled && (
+      {/* Browther: retire le toggle "Show new tab page ads" — la pref
+          kNewTabPageShowSponsoredImagesBackgroundImage est déjà à false par
+          défaut côté C++, mais la condition rewardsFeatureEnabled le rendait
+          encore visible. Browther n'affiche pas les sponsored images Brave. */}
+      {false && backgroundsEnabled && rewardsFeatureEnabled && (
         <Toggle
           className='toggle-row'
           size='small'
