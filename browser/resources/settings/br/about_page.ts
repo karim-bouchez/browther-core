@@ -35,7 +35,8 @@ const buildBraveVersionLink = (braveVersion: string, build: string) => {
   wrapper.setAttribute('target', '_blank')
   wrapper.setAttribute('rel', 'noopener noreferrer')
   wrapper.setAttribute('href', 'https://brave.com/latest/')
-  wrapper.textContent = `Brave ${braveVersion} ${build}`
+  // Browther: rebrand "Brave X.X.X (Developer Build)" → "Browther ..."
+  wrapper.textContent = `Browther ${braveVersion} ${build}`
 
   return wrapper
 }
