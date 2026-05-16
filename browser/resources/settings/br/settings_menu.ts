@@ -292,19 +292,21 @@ RegisterPolymerTemplateModifications({
 // <if expr="enable_ai_chat">
 // </if>
 
-    // Add Sync item
-    const syncEl = createMenuElement(
-      loadTimeData.getString('braveSync'),
-      '/braveSync',
-      'product-sync',
-      'braveSync',
-    )
-    lastInserted = lastInserted.insertAdjacentElement('afterend', syncEl)!
+    // Browther: Brave Sync disabled — endpoint `brave_sync_endpoint` est en
+    // dummy (build args, cf. buildArgs.ts:158), donc Sync ne fonctionne pas.
+    // Menu item retiré pour ne pas exposer une feature cassée.
+    // const syncEl = createMenuElement(
+    //   loadTimeData.getString('braveSync'),
+    //   '/braveSync',
+    //   'product-sync',
+    //   'braveSync',
+    // )
+    // lastInserted = lastInserted.insertAdjacentElement('afterend', syncEl)!
 
     // Add search item
     const searchEl = getMenuElement(templateContent, '/search')
-    if (searchEl && syncEl) {
-      syncEl.insertAdjacentElement('afterend', searchEl)
+    if (searchEl) {
+      lastInserted.insertAdjacentElement('afterend', searchEl)
     }
 
     // Add Extensions item

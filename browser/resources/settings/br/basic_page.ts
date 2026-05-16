@@ -6,6 +6,7 @@
 // Browther: sidebar feature désactivée — import retiré (cf. sidebar_utils.cc)
 // import '../brave_appearance_page/sidebar.js'
 import '../brave_appearance_page/tabs.js'
+import './translate_page.js'
 import '../brave_content_page/content.js'
 import '../brave_content_page/playlist.js'
 // <if expr="enable_speedreader">
@@ -17,8 +18,10 @@ import '../brave_default_extensions_page/brave_default_extensions_page.js'
 import '../brave_new_tab_page/brave_new_tab_page.js'
 import '../brave_origin_page/brave_origin_page.js'
 import '../brave_search_engines_page/brave_search_engines_page.js'
-import '../brave_sync_page/brave_sync_page_index.js'
-import '../brave_sync_page/brave_sync_manage_devices_page.js'
+// Browther: Brave Sync désactivé (endpoint dummy, cf. buildArgs.ts).
+// Imports retirés pour empêcher l'accès à la page via URL (chrome://settings/braveSync).
+// import '../brave_sync_page/brave_sync_page_index.js'
+// import '../brave_sync_page/brave_sync_manage_devices_page.js'
 // <if expr="enable_tor">
 import '../brave_tor_page/brave_tor_subpage.js'
 // </if>

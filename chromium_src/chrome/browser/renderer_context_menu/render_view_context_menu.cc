@@ -759,6 +759,19 @@ void BraveRenderViewContextMenu::SetAIEngineForTesting(
 void BraveRenderViewContextMenu::InitMenu() {
   RenderViewContextMenu_Chromium::InitMenu();
 
+  // Browther: retire les items Translate du menu contextuel. La pref
+  // kOfferTranslateEnabled est déjà à false par défaut, mais les items
+  // "Translate to French…" (page entière) et "Translate selection"
+  // (sélection) sont ajoutés inconditionnellement par Chromium.
+  if (auto translate_idx = menu_model_.GetIndexOfCommandId(
+          IDC_CONTENT_CONTEXT_TRANSLATE)) {
+    menu_model_.RemoveItemAt(*translate_idx);
+  }
+  if (auto partial_idx = menu_model_.GetIndexOfCommandId(
+          IDC_CONTENT_CONTEXT_PARTIAL_TRANSLATE)) {
+    menu_model_.RemoveItemAt(*partial_idx);
+  }
+
   // Move "Open link in split view" to the last item of the first section (right
   // before the first separator) when present.
   std::optional<size_t> split_index =
