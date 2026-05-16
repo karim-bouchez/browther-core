@@ -39,7 +39,7 @@ bool ReadLocalStateBool(const char* pref_name) {
 
 static void JNI_BrowtherAnalyticsBridge_Track(
     JNIEnv* env,
-    const base::android::JavaParamRef<jstring>& jevent_name) {
+    const base::android::JavaRef<jstring>& jevent_name) {
   auto* service = BrowtherAnalyticsService::GetInstance();
   if (!service) {
     return;
@@ -49,9 +49,9 @@ static void JNI_BrowtherAnalyticsBridge_Track(
 
 static void JNI_BrowtherAnalyticsBridge_TrackWithProps(
     JNIEnv* env,
-    const base::android::JavaParamRef<jstring>& jevent_name,
-    const base::android::JavaParamRef<jobjectArray>& jkeys,
-    const base::android::JavaParamRef<jobjectArray>& jvalues) {
+    const base::android::JavaRef<jstring>& jevent_name,
+    const base::android::JavaRef<jobjectArray>& jkeys,
+    const base::android::JavaRef<jobjectArray>& jvalues) {
   auto* service = BrowtherAnalyticsService::GetInstance();
   if (!service) {
     return;
@@ -60,7 +60,7 @@ static void JNI_BrowtherAnalyticsBridge_TrackWithProps(
   std::vector<std::string> values;
   base::android::AppendJavaStringArrayToStringVector(env, jkeys, &keys);
   base::android::AppendJavaStringArrayToStringVector(env, jvalues, &values);
-  base::Value::Dict props;
+  base::DictValue props;
   for (size_t i = 0; i < keys.size() && i < values.size(); ++i) {
     props.Set(keys[i], values[i]);
   }
