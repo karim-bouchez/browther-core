@@ -79,11 +79,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   // We use inline `style.setProperty(..., 'important')` because:
   //   1. `!important` on inline style beats virtually any page-level CSS.
   //   2. Some sites (Google Images, social feeds) mutate the DOM aggressively;
-  //      we track STATE_ATTR='remove' so an analyzed-safe image is never
-  //      re-blurred even when its parent or src changes.
+  //      we track STATE_ATTR so any analyzed image (keep with per-person
+  //      composite, or remove = safe) is never re-blurred when DOM mutates.
   function applyBlurTo(img) {
     if (!img || img.nodeType !== 1 || img.tagName !== 'IMG') return false;
-    if (img.getAttribute(STATE_ATTR) === 'remove') return false;
+    var state = img.getAttribute(STATE_ATTR);
+    if (state === 'remove' || state === 'keep') return false;
     if (img.getAttribute(BLUR_MARKER) === '1') return false;
     try {
       img.style.setProperty('filter', 'blur(' + BLUR_RADIUS_PX + 'px)', 'important');
@@ -129,6 +130,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     return btoa(binary);
   }
 
+  // Per-image cached ArrayBuffer (the fetched CORS blob). Reused by the
+  // compositing step so it doesn't have to fight cross-origin canvas taint.
+  // WeakMap so entries get GC'd when the <img> element is removed from DOM.
+  var imageBytesByImg = new WeakMap();
+
   function encodeImage(img) {
     return new Promise(function(resolve) {
       var src = img.currentSrc || img.src;
@@ -157,6 +163,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         .then(function(buf) {
           if (aborted) return;
           clearTimeout(timeout);
+          // Stash the CORS-fetched bytes so the compositing step can build a
+          // non-tainted ImageBitmap from them when Swift returns persons-to-blur.
+          imageBytesByImg.set(img, buf);
           resolve(bytesToBase64(new Uint8Array(buf)));
         })
         .catch(function(e) {
@@ -261,18 +270,490 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     return document.querySelector('[' + ID_ATTR + '="' + id + '"]');
   }
 
+  // ─── Per-person blur compositing (port du POC macOS) ───
+  //
+  // Stratégie choisie (voir aussi le commit message) : on reproduit le
+  // POC `private/extensions/basarunaa/src/content.js#applyBlur` :
+  //   1. Dessiner l'image originale dans un canvas
+  //   2. Pré-calculer une version floutée edge-clampée (`_createEdgeClampedBlur`)
+  //   3. Pour chaque personne à flouter, copier la zone floutée masquée par
+  //      le body polygon (depuis les keypoints COCO) avec bords adoucis
+  //      (FEATHER_EXPAND + FEATHER_BLUR) → `_drawFeatheredBlur`
+  //   4. Remplacer le rendu de l'<img> via `style.content = url(<dataURL>)`
+  //      — l'attribut `src` reste intact (pas de re-fetch, pas de mutation
+  //      observer en boucle).
+  //
+  // Trade-off vs DOM overlays : ~50-100 ms compute canvas par image en plus
+  // du ML, mais qualité polygon body-shaped + bords adoucis. Si la perf
+  // devient un problème (Reels/scroll long), on pourra passer à des overlays
+  // CSS rectangulaires en V2.
+
+  var KP_CONFIDENCE = 0.3;
+  var BODY_WIDTH_FACTOR = 0.55;
+  var HAND_EXTEND = 0.3;
+  var FOOT_EXTEND = 0.08;
+  var EDGE_SNAP_THRESHOLD = 0.05;
+  var FEATHER_EXPAND = 20;
+  var FEATHER_BLUR = 10;
+  var FEATHER_PAD = FEATHER_EXPAND + FEATHER_BLUR + 5;
+  var REGION_SCALE = {
+    head: 0.8, shoulder: 1.0, elbow: 0.7, wrist: 0.6,
+    hip: 1.1, knee: 0.8, ankle: 0.7,
+  };
+
+  function getRegionScale(idx) {
+    if (idx <= 4) return REGION_SCALE.head;
+    if (idx <= 6) return REGION_SCALE.shoulder;
+    if (idx <= 8) return REGION_SCALE.elbow;
+    if (idx <= 10) return REGION_SCALE.wrist;
+    if (idx <= 12) return REGION_SCALE.hip;
+    if (idx <= 14) return REGION_SCALE.knee;
+    return REGION_SCALE.ankle;
+  }
+
+  // keypoints: [[x, y, conf], ...] (17 COCO) | bbox: [x1, y1, x2, y2]
+  function buildBodyPolygon(keypoints, bbox, imgW, imgH) {
+    var bx1 = bbox[0], by1 = bbox[1], bx2 = bbox[2], by2 = bbox[3];
+    var bw = bx2 - bx1;
+    var bh = by2 - by1;
+
+    var fallback = function() {
+      return {
+        points: [
+          { x: bx1, y: by1 }, { x: bx2, y: by1 },
+          { x: bx2, y: by2 }, { x: bx1, y: by2 },
+        ],
+        isBodyShaped: false,
+      };
+    };
+
+    if (!keypoints || keypoints.length === 0) return fallback();
+    var confident = [];
+    for (var i = 0; i < keypoints.length; i++) {
+      if (keypoints[i][2] >= KP_CONFIDENCE) confident.push(i);
+    }
+    if (confident.length < 4) return fallback();
+
+    var lSh = keypoints[5], rSh = keypoints[6];
+    var halfWidth;
+    if (lSh && rSh && lSh[2] >= KP_CONFIDENCE && rSh[2] >= KP_CONFIDENCE) {
+      halfWidth = Math.abs(rSh[0] - lSh[0]) * BODY_WIDTH_FACTOR;
+    } else {
+      halfWidth = bw * 0.25;
+    }
+    halfWidth = Math.max(halfWidth, bw * 0.2);
+
+    var widened = [];
+    for (var c = 0; c < confident.length; c++) {
+      var idx = confident[c];
+      var k = keypoints[idx];
+      var w = halfWidth * getRegionScale(idx);
+      widened.push({ x: k[0] - w, y: k[1] });
+      widened.push({ x: k[0] + w, y: k[1] });
+    }
+
+    // Head padding
+    var headIdx = [0, 1, 2, 3, 4].filter(function(i) {
+      return keypoints[i] && keypoints[i][2] >= KP_CONFIDENCE;
+    });
+    if (headIdx.length > 0) {
+      var topY = Infinity;
+      var headCx = 0;
+      for (var hi = 0; hi < headIdx.length; hi++) {
+        var hkp = keypoints[headIdx[hi]];
+        if (hkp[1] < topY) topY = hkp[1];
+        headCx += hkp[0];
+      }
+      headCx /= headIdx.length;
+      var headPadY = Math.max(halfWidth * 0.6, bh * 0.08);
+      var headPadX = Math.max(halfWidth * 0.9, bw * 0.25);
+      widened.push({ x: headCx - headPadX, y: topY - headPadY });
+      widened.push({ x: headCx + headPadX, y: topY - headPadY });
+    }
+
+    extendHand(keypoints, 7, 9, halfWidth, widened);
+    extendHand(keypoints, 8, 10, halfWidth, widened);
+
+    var footExtend = bh * FOOT_EXTEND;
+    [15, 16].forEach(function(aIdx) {
+      var a = keypoints[aIdx];
+      if (!a || a[2] < KP_CONFIDENCE) return;
+      var wA = halfWidth * REGION_SCALE.ankle;
+      widened.push({ x: a[0] - wA, y: a[1] + footExtend });
+      widened.push({ x: a[0] + wA, y: a[1] + footExtend });
+    });
+
+    var hull = convexHull(widened);
+    var polyMinX = Infinity, polyMaxX = -Infinity;
+    var polyMinY = Infinity, polyMaxY = -Infinity;
+    for (var h2 = 0; h2 < hull.length; h2++) {
+      var p = hull[h2];
+      if (p.x < polyMinX) polyMinX = p.x;
+      if (p.x > polyMaxX) polyMaxX = p.x;
+      if (p.y < polyMinY) polyMinY = p.y;
+      if (p.y > polyMaxY) polyMaxY = p.y;
+    }
+    var polyCx = (polyMinX + polyMaxX) / 2;
+    var polyCy = (polyMinY + polyMaxY) / 2;
+    var bboxCx = (bx1 + bx2) / 2;
+    var bboxCy = (by1 + by2) / 2;
+    var sx = bw / ((polyMaxX - polyMinX) || 1);
+    var sy = bh / ((polyMaxY - polyMinY) || 1);
+    var scaled = hull.map(function(p) {
+      return {
+        x: bboxCx + (p.x - polyCx) * sx,
+        y: bboxCy + (p.y - polyCy) * sy,
+      };
+    });
+
+    var snapped = snapToEdges(scaled, bbox, imgW, imgH, keypoints);
+    return { points: snapped, isBodyShaped: true };
+  }
+
+  function extendHand(kps, elbowIdx, wristIdx, halfWidth, out) {
+    var elbow = kps[elbowIdx];
+    var wrist = kps[wristIdx];
+    if (!elbow || !wrist) return;
+    if (elbow[2] < KP_CONFIDENCE || wrist[2] < KP_CONFIDENCE) return;
+    var dx = wrist[0] - elbow[0];
+    var dy = wrist[1] - elbow[1];
+    var hx = wrist[0] + dx * HAND_EXTEND;
+    var hy = wrist[1] + dy * HAND_EXTEND;
+    var w = halfWidth * 0.6;
+    out.push({ x: hx - w, y: hy });
+    out.push({ x: hx + w, y: hy });
+  }
+
+  function snapToEdges(points, bbox, imgW, imgH, keypoints) {
+    var bx1 = bbox[0], by1 = bbox[1], bx2 = bbox[2], by2 = bbox[3];
+    var hasAnkles = keypoints &&
+      [15, 16].some(function(i) { return keypoints[i] && keypoints[i][2] >= KP_CONFIDENCE; });
+    var hasHead = keypoints &&
+      [0, 1, 2].some(function(i) { return keypoints[i] && keypoints[i][2] >= KP_CONFIDENCE; });
+    var snapBottom = !hasAnkles && by2 / imgH > (1 - EDGE_SNAP_THRESHOLD);
+    var snapTop = !hasHead && by1 / imgH < EDGE_SNAP_THRESHOLD;
+    var snapLeft = bx1 / imgW < EDGE_SNAP_THRESHOLD;
+    var snapRight = bx2 / imgW > (1 - EDGE_SNAP_THRESHOLD);
+    if (!snapBottom && !snapTop && !snapLeft && !snapRight) return points;
+
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (var i = 0; i < points.length; i++) {
+      if (points[i].x < minX) minX = points[i].x;
+      if (points[i].x > maxX) maxX = points[i].x;
+      if (points[i].y < minY) minY = points[i].y;
+      if (points[i].y > maxY) maxY = points[i].y;
+    }
+    var xRange = maxX - minX || 1;
+    var yRange = maxY - minY || 1;
+    var nearFrac = 0.15;
+    return points.map(function(p) {
+      var x = p.x, y = p.y;
+      if (snapBottom && y > maxY - yRange * nearFrac) y = imgH;
+      if (snapTop && y < minY + yRange * nearFrac) y = 0;
+      if (snapLeft && x < minX + xRange * nearFrac) x = 0;
+      if (snapRight && x > maxX - xRange * nearFrac) x = imgW;
+      return { x: x, y: y };
+    });
+  }
+
+  function convexHull(points) {
+    if (points.length < 3) return points;
+    var sorted = points.slice().sort(function(a, b) { return a.x - b.x || a.y - b.y; });
+    var n = sorted.length;
+    var cross = function(o, a, b) {
+      return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    };
+    var lower = [];
+    for (var i = 0; i < n; i++) {
+      while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], sorted[i]) <= 0) {
+        lower.pop();
+      }
+      lower.push(sorted[i]);
+    }
+    var upper = [];
+    for (var i2 = n - 1; i2 >= 0; i2--) {
+      while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], sorted[i2]) <= 0) {
+        upper.pop();
+      }
+      upper.push(sorted[i2]);
+    }
+    lower.pop();
+    upper.pop();
+    return lower.concat(upper);
+  }
+
+  // Diagnostic: log canvas filter support once, on first call.
+  var canvasFilterChecked = false;
+  function checkCanvasFilter() {
+    if (canvasFilterChecked) return;
+    canvasFilterChecked = true;
+    try {
+      var c = document.createElement('canvas');
+      c.width = 4; c.height = 4;
+      var cx = c.getContext('2d');
+      cx.filter = 'blur(5px)';
+      metric('canvas_filter_check', { set: 'blur(5px)', got: '' + cx.filter });
+    } catch (e) {
+      metric('canvas_filter_check', { err: '' + e });
+    }
+  }
+
+  // Downsample-upsample blur — works around iOS WKWebView's silent no-op on
+  // `ctx.filter = 'blur(...)'`. We draw the source into a tiny canvas (factor
+  // ≈ blur radius) then back into a full-size canvas with bilinear filtering
+  // enabled. The interpolation produces a Gaussian-ish blur that visually
+  // matches what the POC achieves with `filter: blur(Npx)`.
+  function createEdgeClampedBlur(img, w, h, blur) {
+    checkCanvasFilter();
+    // Two passes give a smoother (more Gaussian-like) result than one.
+    var factor = Math.max(8, Math.round(blur / 2));
+    var smallW = Math.max(1, Math.floor(w / factor));
+    var smallH = Math.max(1, Math.floor(h / factor));
+    var passes = 2;
+
+    var src = img;
+    var srcW = w, srcH = h;
+    for (var p = 0; p < passes; p++) {
+      var small = document.createElement('canvas');
+      small.width = smallW;
+      small.height = smallH;
+      var sCtx = small.getContext('2d');
+      sCtx.imageSmoothingEnabled = true;
+      sCtx.imageSmoothingQuality = 'high';
+      sCtx.drawImage(src, 0, 0, srcW, srcH, 0, 0, smallW, smallH);
+
+      var up = document.createElement('canvas');
+      up.width = w;
+      up.height = h;
+      var uCtx = up.getContext('2d');
+      uCtx.imageSmoothingEnabled = true;
+      uCtx.imageSmoothingQuality = 'high';
+      uCtx.drawImage(small, 0, 0, smallW, smallH, 0, 0, w, h);
+
+      src = up;
+      srcW = w; srcH = h;
+    }
+    return src;
+  }
+
+  function drawFeatheredBlur(ctx, blurredCanvas, person, w, h) {
+    var poly = buildBodyPolygon(person.keypoints, person.bbox, w, h);
+    var tw = w + 2 * FEATHER_PAD;
+    var th = h + 2 * FEATHER_PAD;
+    var maskCanvas = document.createElement('canvas');
+    maskCanvas.width = tw;
+    maskCanvas.height = th;
+    var mCtx = maskCanvas.getContext('2d');
+    mCtx.fillStyle = '#fff';
+    mCtx.beginPath();
+
+    if (poly.isBodyShaped) {
+      var cx = 0, cy = 0;
+      for (var i = 0; i < poly.points.length; i++) {
+        cx += poly.points[i].x; cy += poly.points[i].y;
+      }
+      cx /= poly.points.length; cy /= poly.points.length;
+      for (var i2 = 0; i2 < poly.points.length; i2++) {
+        var dx = poly.points[i2].x - cx;
+        var dy = poly.points[i2].y - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        var ex = poly.points[i2].x + (dx / dist) * FEATHER_EXPAND + FEATHER_PAD;
+        var ey = poly.points[i2].y + (dy / dist) * FEATHER_EXPAND + FEATHER_PAD;
+        if (i2 === 0) mCtx.moveTo(ex, ey);
+        else mCtx.lineTo(ex, ey);
+      }
+      mCtx.closePath();
+    } else {
+      var b = person.bbox;
+      var x1 = b[0], y1 = b[1], x2 = b[2], y2 = b[3];
+      var snapX = w * 0.10, snapY = h * 0.10;
+      if (x1 < snapX) x1 = -FEATHER_PAD; else x1 -= FEATHER_EXPAND;
+      if (y1 < snapY) y1 = -FEATHER_PAD; else y1 -= FEATHER_EXPAND;
+      if (w - x2 < snapX) x2 = w + FEATHER_PAD; else x2 += FEATHER_EXPAND;
+      if (h - y2 < snapY) y2 = h + FEATHER_PAD; else y2 += FEATHER_EXPAND;
+      mCtx.rect(x1 + FEATHER_PAD, y1 + FEATHER_PAD, x2 - x1, y2 - y1);
+    }
+    mCtx.fill();
+
+    // Same downsample-upsample trick on the mask (ctx.filter blur is silent
+    // no-op on iOS WKWebView). Gives feathered edges around the polygon.
+    var maskFactor = Math.max(4, FEATHER_BLUR);
+    var maskSmall = document.createElement('canvas');
+    maskSmall.width = Math.max(1, Math.floor(tw / maskFactor));
+    maskSmall.height = Math.max(1, Math.floor(th / maskFactor));
+    var msCtx = maskSmall.getContext('2d');
+    msCtx.imageSmoothingEnabled = true;
+    msCtx.imageSmoothingQuality = 'high';
+    msCtx.drawImage(maskCanvas, 0, 0, tw, th, 0, 0, maskSmall.width, maskSmall.height);
+
+    var blurredMask = document.createElement('canvas');
+    blurredMask.width = tw;
+    blurredMask.height = th;
+    var bmCtx = blurredMask.getContext('2d');
+    bmCtx.imageSmoothingEnabled = true;
+    bmCtx.imageSmoothingQuality = 'high';
+    bmCtx.drawImage(maskSmall, 0, 0, maskSmall.width, maskSmall.height, 0, 0, tw, th);
+
+    var tempCanvas = document.createElement('canvas');
+    tempCanvas.width = w;
+    tempCanvas.height = h;
+    var tCtx = tempCanvas.getContext('2d');
+    tCtx.drawImage(blurredCanvas, 0, 0);
+    tCtx.globalCompositeOperation = 'destination-in';
+    tCtx.drawImage(blurredMask, FEATHER_PAD, FEATHER_PAD, w, h, 0, 0, w, h);
+    ctx.drawImage(tempCanvas, 0, 0);
+  }
+
+  // Compositing source — prefer the CORS-fetched ArrayBuffer (no canvas taint),
+  // fallback to drawing the <img> directly (works only for same-origin or
+  // images with crossorigin="anonymous").
+  function getCompositingSource(img) {
+    return new Promise(function(resolve) {
+      var buf = imageBytesByImg.get(img);
+      if (buf) {
+        try {
+          var blob = new Blob([buf]);
+          createImageBitmap(blob).then(function(bm) {
+            resolve(bm);
+          }).catch(function() { resolve(img); });
+          return;
+        } catch (e) {
+          // Fall through to direct img source.
+        }
+      }
+      resolve(img);
+    });
+  }
+
+  function compositePerPersonBlur(img, persons) {
+    if (!persons || persons.length === 0) return Promise.resolve(false);
+    var id = img.getAttribute(ID_ATTR);
+    metric('composite_start', {
+      id: id,
+      naturalW: img.naturalWidth, naturalH: img.naturalHeight,
+      persons: persons.length,
+    });
+    return getCompositingSource(img).then(function(source) {
+      var sourceType = (source && source.constructor) ? source.constructor.name : 'unknown';
+      var w = source.naturalWidth != null ? source.naturalWidth : source.width;
+      var h = source.naturalHeight != null ? source.naturalHeight : source.height;
+      metric('composite_source', { id: id, type: sourceType, w: w, h: h });
+      if (!w || !h) {
+        metric('composite_nodim', { id: id });
+        return false;
+      }
+      try {
+        var canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(source, 0, 0, w, h);
+        var blur = Math.max(25, Math.round(Math.max(w, h) * 0.04));
+        var blurredCanvas = createEdgeClampedBlur(source, w, h, blur);
+        for (var pi = 0; pi < persons.length; pi++) {
+          drawFeatheredBlur(ctx, blurredCanvas, persons[pi], w, h);
+        }
+        var srcLower = (img.currentSrc || img.src || '').toLowerCase();
+        var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
+          || srcLower.indexOf('data:image/png') === 0;
+        var mime = needsAlpha ? 'image/png' : 'image/jpeg';
+        var quality = needsAlpha ? undefined : 0.85;
+        // Use Blob + createObjectURL (vs toDataURL). Blob URLs are short
+        // strings backed by binary in memory — way more reliable than 100+ KB
+        // data: URLs on iOS WebKit, where setting img.src to a huge data URL
+        // sometimes doesn't trigger a repaint.
+        return new Promise(function(resolveBlob) {
+          canvas.toBlob(function(blob) { resolveBlob(blob); }, mime, quality);
+        }).then(function(blob) {
+          if (!blob) {
+            metric('composite_no_blob', { id: id });
+            return false;
+          }
+          metric('composite_encoded', { id: id, bytes: blob.size });
+          // Strip srcset / <picture><source> so the browser actually uses
+          // our new src instead of re-picking a responsive variant.
+          if (img.hasAttribute('srcset')) img.removeAttribute('srcset');
+          if (img.hasAttribute('sizes')) img.removeAttribute('sizes');
+          var pic = img.parentNode;
+          if (pic && pic.tagName === 'PICTURE') {
+            var sources = pic.querySelectorAll('source');
+            for (var si = 0; si < sources.length; si++) {
+              sources[si].removeAttribute('srcset');
+            }
+          }
+          if (img.dataset.basarunaaBlobUrl) {
+            try { URL.revokeObjectURL(img.dataset.basarunaaBlobUrl); } catch (_) {}
+          }
+          var blobUrl = URL.createObjectURL(blob);
+          img.dataset.basarunaaBlobUrl = blobUrl;
+          // Attach diagnostic load/error listeners BEFORE setting src so we
+          // know if the browser actually accepts the blob URL.
+          img.addEventListener('load', function _onload() {
+            img.removeEventListener('load', _onload);
+            metric('composite_load_ok', { id: id, w: img.naturalWidth, h: img.naturalHeight });
+          });
+          img.addEventListener('error', function _onerror(e) {
+            img.removeEventListener('error', _onerror);
+            metric('composite_load_err', { id: id, msg: '' + (e && e.message || e) });
+          });
+          // iOS WebKit caches the rendered image after the first load and
+          // doesn't always re-render when `img.src` is replaced (especially
+          // on ImageDocument pages — direct image URLs like /foo.avif).
+          // Workaround: replace the <img> element with a fresh clone that
+          // points to our blob URL. This guarantees a new render path.
+          var fresh = img.cloneNode(false);
+          fresh.removeAttribute('srcset');
+          fresh.removeAttribute('sizes');
+          fresh.removeAttribute('crossorigin');
+          fresh.removeAttribute(BLUR_MARKER);
+          fresh.style.removeProperty('filter');
+          fresh.dataset.basarunaaBlobUrl = blobUrl;
+          fresh.src = blobUrl;
+          // Preserve our state so MutationObserver / cache treats it as done.
+          fresh.setAttribute(ID_ATTR, img.getAttribute(ID_ATTR) || '');
+          fresh.setAttribute(STATE_ATTR, 'keep');
+          if (img.parentNode) {
+            img.parentNode.replaceChild(fresh, img);
+            // Stop observing the old img (it's detached now).
+            try { if (intersectionObserver) intersectionObserver.unobserve(img); } catch (_) {}
+            metric('composite_applied', { id: id, mode: 'replace', blobUrl: blobUrl.slice(0, 50) });
+          } else {
+            metric('composite_no_parent', { id: id });
+          }
+          return true;
+        });
+      } catch (e) {
+        metric('composite_failed', { id: id, msg: ('' + e).slice(0, 120) });
+        return false;
+      }
+    }).catch(function(e) {
+      metric('composite_promise_rejected', { id: id, msg: ('' + e).slice(0, 120) });
+      return false;
+    });
+  }
+
   // ─── Receive decision from Swift ───
-  window.__basarunaaApply = function(id, decision) {
+  // Swift sends `(id, decision, persons)` where `persons` is the array of
+  // detected people that should be blurred (empty for NSFW short-circuit or
+  // when no target gender matched in mode "blur").
+  window.__basarunaaApply = function(id, decision, persons) {
     try {
       var img = findById(id);
-      metric('analyze_decision', { id: id, decision: '' + decision, found: !!img });
+      var personCount = (persons && persons.length) || 0;
+      metric('analyze_decision', {
+        id: id, decision: '' + decision, persons: personCount, found: !!img,
+      });
       if (img) {
         img.setAttribute(STATE_ATTR, decision);
         if (decision === 'remove') {
           removeBlurFrom(img);
+        } else if (decision === 'keep' && personCount > 0) {
+          // Per-person composite blur (POC method). Async because we need to
+          // decode the CORS-fetched blob into an ImageBitmap before drawing.
+          // Falls back silently to full-image blur on failure.
+          compositePerPersonBlur(img, persons);
         }
-        // Cache the URL → decision mapping so subsequent appearances of the
-        // same image skip the Swift roundtrip.
+        // 'keep' without persons (NSFW) → full-image blur already applied.
         setCachedDecision(imgUrl(img), decision);
       }
     } catch (e) {

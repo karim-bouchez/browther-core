@@ -120,7 +120,7 @@ class BasarunaaScriptHandler: TabContentScript {
       let cgImage = uiImage.cgImage
     else {
       log.error("analyze[\(id, privacy: .public)] failed to decode base64")
-      await reply(tab: tab, id: id, decision: .keep)
+      await reply(tab: tab, id: id, decision: .keep, persons: [])
       return
     }
 
@@ -128,59 +128,100 @@ class BasarunaaScriptHandler: TabContentScript {
       let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
       let mode = Preferences.Basarunaa.mode.value
       let decision: BlurDecision
+      let personsToBlur: [DetectedPerson]
       if result.isNsfw {
-        // NSFW short-circuit: blur regardless of mode.
+        // NSFW short-circuit: full-image blur regardless of mode. No per-person
+        // payload — JS keeps the default full-image blur in place.
         decision = .keep
+        personsToBlur = []
       } else {
-        decision = decide(from: result.persons, mode: mode)
+        let (d, persons) = decide(from: result.persons, mode: mode)
+        decision = d
+        personsToBlur = persons
       }
       let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
         analyze[\(id, privacy: .public)] nsfw=\(result.isNsfw, privacy: .public) \
-        persons=\(result.persons.count, privacy: .public) \
+        persons=\(result.persons.count, privacy: .public) toBlur=\(personsToBlur.count, privacy: .public) \
         mode=\(mode, privacy: .public) → \(decision.rawValue, privacy: .public) \
         (\(String(format: "%.0f", elapsedMs), privacy: .public)ms)
         """
       )
-      await reply(tab: tab, id: id, decision: decision)
+      await reply(tab: tab, id: id, decision: decision, persons: personsToBlur)
     } catch {
       log.error("analyze[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
-      await reply(tab: tab, id: id, decision: .keep)
+      await reply(tab: tab, id: id, decision: .keep, persons: [])
     }
   }
 
-  /// Decision policy:
-  /// - mode "strict" : keep blur if *any* person was detected
-  /// - mode "blur"   : keep blur only if a female person was detected (or
-  ///                   unknown gender — safer default to keep)
-  /// - any other mode value falls back to "blur" semantics.
-  private func decide(from persons: [DetectedPerson], mode: String) -> BlurDecision {
-    if persons.isEmpty { return .remove }
+  /// Decision policy + which persons trigger the blur.
+  ///
+  /// - mode "strict" : every detected person is blurred (bbox + keypoints sent
+  ///                   to JS so it can composite a per-person mask).
+  /// - mode "blur"   : female-classified persons, plus those with `gender=nil`
+  ///                   (POC's "safer default to keep" — body detected but face
+  ///                   too small/blurry to classify is still flagged).
+  ///
+  /// Returns `(decision, personsToBlur)`. When `personsToBlur` is non-empty
+  /// the JS will composite a per-person blur using the supplied bboxes +
+  /// keypoints, à la POC macOS `applyBlur` / `_drawFeatheredBlur`.
+  private func decide(
+    from persons: [DetectedPerson],
+    mode: String
+  ) -> (BlurDecision, [DetectedPerson]) {
+    if persons.isEmpty { return (.remove, []) }
+    let toBlur: [DetectedPerson]
     switch mode {
     case "strict":
-      return .keep
+      toBlur = persons
     default:
-      let hasFemaleOrUnknown = persons.contains { p in
-        if p.gender == nil { return true }
+      toBlur = persons.filter { p in
+        if p.gender == nil { return true }      // safer default to keep
         return p.gender == .female
       }
-      return hasFemaleOrUnknown ? .keep : .remove
     }
+    return toBlur.isEmpty ? (.remove, []) : (.keep, toBlur)
   }
 
   @MainActor
-  private func reply(tab: any TabState, id: Int, decision: BlurDecision) async {
+  private func reply(
+    tab: any TabState,
+    id: Int,
+    decision: BlurDecision,
+    persons: [DetectedPerson]
+  ) async {
     do {
+      let serialized = serialize(persons: persons)
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApply",
-        args: [id, decision.rawValue],
+        args: [id, decision.rawValue, serialized],
         contentWorld: Self.scriptSandbox
       )
     } catch {
       log.error(
         "evaluateJavaScript failed for id=\(id, privacy: .public): \(String(describing: error), privacy: .public)"
       )
+    }
+  }
+
+  /// Compact representation for the JS side. We send the body bbox
+  /// `[x1, y1, x2, y2]` (top-left + bottom-right, POC convention) and the 17
+  /// COCO keypoints `[x, y, conf]` so JS can rebuild the body polygon mask
+  /// exactly like the POC macOS pipeline (`buildBodyPolygon`).
+  private func serialize(persons: [DetectedPerson]) -> [[String: Any]] {
+    persons.map { p in
+      let x1 = p.bbox.minX
+      let y1 = p.bbox.minY
+      let x2 = p.bbox.maxX
+      let y2 = p.bbox.maxY
+      let kps = p.keypoints.map { kp -> [Double] in
+        [kp.point.x, kp.point.y, kp.confidence]
+      }
+      return [
+        "bbox": [x1, y1, x2, y2] as [Double],
+        "keypoints": kps,
+      ]
     }
   }
 
