@@ -15,6 +15,7 @@
 #include "brave/components/constants/webui_url_constants.h"
 #include "brave/components/vector_icons/vector_icons.h"
 #include "chrome/browser/profiles/profile.h"
+#include "components/omnibox/browser/vector_icons.h"
 #include "chrome/browser/ui/tabs/features.h"
 #include "components/prefs/pref_service.h"
 #include "content/public/browser/navigation_entry.h"
@@ -85,13 +86,15 @@ bool BraveLocationBarModelDelegate::GetURL(GURL* url) const {
 
 const gfx::VectorIcon* BraveLocationBarModelDelegate::GetVectorIconOverride()
     const {
-  // Browther: don't show any product icon in the URL bar on browther:// /
-  // chrome:// pages. Fall through to GetSecurityVectorIcon (security state
-  // based, no product branding).
+  // Browther: on browther:// / chrome:// pages, show a neutral lock icon
+  // instead of the Brave lion product icon. Returning nullptr would let the
+  // model fall through to GetSecurityVectorIcon which gives the "i" info
+  // icon (kHttpChromeRefreshIcon, security state = NONE). We prefer the
+  // padlock (kSecurePageInfoChromeRefreshIcon, normally used for SECURE).
   GURL browther_url;
   if (GetURL(&browther_url) &&
       browther_url.SchemeIs(content::kChromeUIScheme)) {
-    return nullptr;
+    return &omnibox::kSecurePageInfoChromeRefreshIcon;
   }
 
 #if BUILDFLAG(IS_BRAVE_ORIGIN_BRANDED)
