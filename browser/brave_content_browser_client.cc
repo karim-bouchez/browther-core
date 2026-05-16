@@ -955,10 +955,12 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
   map->Add<skus::mojom::SkusService>(
       base::BindRepeating(&MaybeBindSkusSdkImpl));
 
+#if !BUILDFLAG(IS_ANDROID)
   // Phase 3.1.5 — Étape 2 mini-spike. Bridge C++ Blink RFO → service ML.
   // Non-associated (canal Mojo dédié, pattern Skus). Pas de V8.
   map->Add<basarunaa::mojom::ImageAnalyzer>(
       base::BindRepeating(&basarunaa::BasarunaaImageAnalyzer::BindReceiver));
+#endif
   if (base::FeatureList::IsEnabled(history_embeddings::kHistoryEmbeddings)) {
     content::RegisterWebUIControllerInterfaceBinder<
         local_ai::mojom::LocalAIService, local_ai::UntrustedLocalAIUI>(map);
