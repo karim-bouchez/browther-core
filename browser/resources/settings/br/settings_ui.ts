@@ -185,5 +185,23 @@ RegisterPolymerTemplateModifications({
                               z-index: 1;">
       </leo-alertcenter>
     `)
+
+    // Browther: inject custom product-logo into the cr-toolbar slot. Without
+    // this, the default <picture> in cr_toolbar.html.ts uses Chromium's
+    // chrome_logo_dark.svg (Chrome diamond) in dark mode — that SVG is upstream
+    // and gets restored by `pnpm build` init. Using chrome://theme/current-channel-logo
+    // resolves to IDR_PRODUCT_LOGO_32 which is our Browther shield PNG (light AND
+    // dark). Setting srcset on the <img> bypasses the dark mode <source>.
+    const toolbar = templateContent.querySelector('cr-toolbar')
+    if (toolbar) {
+      const logo = document.createElement('img')
+      logo.setAttribute('slot', 'product-logo')
+      logo.setAttribute('srcset',
+        'chrome://theme/current-channel-logo@1x 1x, ' +
+        'chrome://theme/current-channel-logo@2x 2x')
+      logo.setAttribute('alt', '')
+      logo.setAttribute('role', 'presentation')
+      toolbar.appendChild(logo)
+    }
   }
 })

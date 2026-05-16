@@ -85,6 +85,15 @@ bool BraveLocationBarModelDelegate::GetURL(GURL* url) const {
 
 const gfx::VectorIcon* BraveLocationBarModelDelegate::GetVectorIconOverride()
     const {
+  // Browther: don't show any product icon in the URL bar on browther:// /
+  // chrome:// pages. Fall through to GetSecurityVectorIcon (security state
+  // based, no product branding).
+  GURL browther_url;
+  if (GetURL(&browther_url) &&
+      browther_url.SchemeIs(content::kChromeUIScheme)) {
+    return nullptr;
+  }
+
 #if BUILDFLAG(IS_BRAVE_ORIGIN_BRANDED)
   // For Brave Origin branded builds, use the branded product icon for
   // chrome:// URLs instead of the omnibox product icon which uses the
