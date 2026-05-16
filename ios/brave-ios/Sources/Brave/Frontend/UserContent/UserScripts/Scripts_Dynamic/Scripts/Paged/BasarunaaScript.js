@@ -536,7 +536,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     return src;
   }
 
-  function drawFeatheredBlur(ctx, blurredCanvas, person, w, h) {
+  function drawFeatheredBlur(ctx, blurredCanvas, person, w, h, showDebug) {
     var poly = buildBodyPolygon(person.keypoints, person.bbox, w, h);
     var tw = w + 2 * FEATHER_PAD;
     var th = h + 2 * FEATHER_PAD;
@@ -602,6 +602,58 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     tCtx.globalCompositeOperation = 'destination-in';
     tCtx.drawImage(blurredMask, FEATHER_PAD, FEATHER_PAD, w, h, 0, 0, w, h);
     ctx.drawImage(tempCanvas, 0, 0);
+
+    // Debug polygons (port direct de _drawFeatheredBlur POC content.js).
+    // 4 contours pointillés : polygon YOLO original, début du dégradé,
+    // bord du masque blanc, fin du dégradé. Visibles dans les modes
+    // debug-mode = "boxes" et "debug".
+    if (showDebug) {
+      ctx.save();
+      ctx.lineWidth = 2;
+      var drawExpanded = function(amount) {
+        ctx.beginPath();
+        if (poly.isBodyShaped) {
+          var pcx = 0, pcy = 0;
+          for (var i = 0; i < poly.points.length; i++) {
+            pcx += poly.points[i].x; pcy += poly.points[i].y;
+          }
+          pcx /= poly.points.length; pcy /= poly.points.length;
+          for (var j = 0; j < poly.points.length; j++) {
+            var dxe = poly.points[j].x - pcx;
+            var dye = poly.points[j].y - pcy;
+            var dist2 = Math.sqrt(dxe * dxe + dye * dye) || 1;
+            var ex2 = poly.points[j].x + (dxe / dist2) * amount;
+            var ey2 = poly.points[j].y + (dye / dist2) * amount;
+            if (j === 0) ctx.moveTo(ex2, ey2);
+            else ctx.lineTo(ex2, ey2);
+          }
+          ctx.closePath();
+        } else {
+          var bb = person.bbox;
+          var rx1 = bb[0], ry1 = bb[1], rx2 = bb[2], ry2 = bb[3];
+          ctx.rect(rx1 - amount, ry1 - amount, (rx2 - rx1) + amount * 2, (ry2 - ry1) + amount * 2);
+        }
+        ctx.stroke();
+      };
+      // Cyan : polygon original (YOLO body shape)
+      ctx.strokeStyle = '#00FFFF';
+      ctx.setLineDash([4, 4]);
+      drawExpanded(0);
+      // Vert : début du dégradé (~expand - blur = 10px)
+      ctx.strokeStyle = '#00FF00';
+      ctx.setLineDash([3, 3]);
+      drawExpanded(FEATHER_EXPAND - FEATHER_BLUR);
+      // Orange : bord du masque blanc (expand = 20px)
+      ctx.strokeStyle = '#FFA500';
+      ctx.setLineDash([6, 3]);
+      drawExpanded(FEATHER_EXPAND);
+      // Rouge : fin du dégradé (~expand + blur = 30px)
+      ctx.strokeStyle = '#FF0000';
+      ctx.setLineDash([2, 4]);
+      drawExpanded(FEATHER_EXPAND + FEATHER_BLUR);
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
   }
 
   // Compositing source — prefer the CORS-fetched ArrayBuffer (no canvas taint),
@@ -1230,12 +1282,15 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         canvas.height = h;
         var ctx = canvas.getContext('2d');
         ctx.drawImage(source, 0, 0, w, h);
-        // 1) blur the persons the active mode would normally blur.
+        // 1) blur the persons the active mode would normally blur, with
+        //    the POC's debug contours (cyan/green/orange/red dashed) drawn
+        //    around each silhouette so the user sees what the polygon mask
+        //    looks like — only in debug mode (`showDebug=true`).
         if (toBlur.length > 0) {
           var blur = Math.max(25, Math.round(Math.max(w, h) * 0.04));
           var blurredCanvas = createEdgeClampedBlur(source, w, h, blur);
           for (var pi = 0; pi < toBlur.length; pi++) {
-            drawFeatheredBlur(ctx, blurredCanvas, toBlur[pi], w, h);
+            drawFeatheredBlur(ctx, blurredCanvas, toBlur[pi], w, h, true);
           }
         }
         // 2) draw the debug overlay on top of the (partially) blurred image.
