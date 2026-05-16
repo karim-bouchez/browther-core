@@ -43,32 +43,23 @@ final class GenderAgeClassifier {
     log.info("loaded GenderAge, output=\(firstOutput, privacy: .public)")
   }
 
-  /// Crop a 96×96 face patch from `image` using `faceBbox` and run gender
-  /// classification. Uses a square crop centered on the face bbox.
+  /// Crop a 96×96 face patch from `image` using `faceBbox` + keypoints and
+  /// run gender classification. The crop is rotated to align the eyes
+  /// horizontally à la POC (`alignFace.js`).
   func classify(
     image: CGImage,
     faceBbox: CGRect,
     keypoints: [(point: CGPoint, confidence: Double)]
   ) throws -> GenderClassification? {
-    let imageSize = CGSize(width: image.width, height: image.height)
-    let cropRect = FaceAlign.squareCropRect(
-      around: faceBbox,
+    guard let aligned = FaceAlign.alignedFaceCrop(
+      image: image,
+      faceBbox: faceBbox,
       keypoints: keypoints,
-      imageSize: imageSize
-    )
-    guard cropRect.width > 4, cropRect.height > 4 else { return nil }
-    guard let cropped = image.cropping(to: cropRect) else { return nil }
+      outputSize: Int(Self.inputSize)
+    ) else { return nil }
 
-    // Resize the crop to 96×96 via CoreImage.
-    let ciImage = CIImage(cgImage: cropped)
-    let scaleX = Self.inputSize / CGFloat(cropped.width)
-    let scaleY = Self.inputSize / CGFloat(cropped.height)
-    let scaled = ciImage.transformed(
-      by: CGAffineTransform(scaleX: scaleX, y: scaleY)
-    )
-
-    let context = CIContext(options: [.useSoftwareRenderer: false])
-    let extent = CGRect(x: 0, y: 0, width: Self.inputSize, height: Self.inputSize)
+    // Pack the BGRA bytes into a CVPixelBuffer — exactly what CoreML
+    // expects for the model converted with `color_layout="BGR"`.
     var pixelBuffer: CVPixelBuffer?
     let attrs: [String: Any] = [
       kCVPixelBufferCGImageCompatibilityKey as String: true,
@@ -84,7 +75,47 @@ final class GenderAgeClassifier {
     guard let buffer = pixelBuffer else {
       throw BasarunaaError.inferenceFailed("could not allocate 96x96 pixel buffer")
     }
-    context.render(scaled, to: buffer, bounds: extent, colorSpace: CGColorSpaceCreateDeviceRGB())
+    let context = CIContext(options: [.useSoftwareRenderer: false])
+    let extent = CGRect(x: 0, y: 0, width: Self.inputSize, height: Self.inputSize)
+    context.render(
+      CIImage(cgImage: aligned),
+      to: buffer,
+      bounds: extent,
+      colorSpace: CGColorSpaceCreateDeviceRGB()
+    )
+
+    // Diagnostic — sample a centre pixel from the 96×96 buffer to check the
+    // channel order (BGRA byte order is B,G,R,A — face skin should have
+    // B<G<R for warm tones). Compared against the POC macOS pipeline on
+    // the same image to confirm we're feeding the same bytes.
+    CVPixelBufferLockBaseAddress(buffer, .readOnly)
+    let centreB: UInt8, centreG: UInt8, centreR: UInt8
+    if let base = CVPixelBufferGetBaseAddress(buffer) {
+      let rowBytes = CVPixelBufferGetBytesPerRow(buffer)
+      let cx = Int(Self.inputSize) / 2
+      let cy = Int(Self.inputSize) / 2
+      let offset = cy * rowBytes + cx * 4
+      let p = base.advanced(by: offset).assumingMemoryBound(to: UInt8.self)
+      centreB = p[0]; centreG = p[1]; centreR = p[2]
+    } else {
+      centreB = 0; centreG = 0; centreR = 0
+    }
+    CVPixelBufferUnlockBaseAddress(buffer, .readOnly)
+    // POC parity : the rotated aligned crop replaces the axis-aligned
+    // squareCrop reported in previous logs.
+    let kp1 = keypoints.indices.contains(1) ? keypoints[1] : (point: .zero, confidence: 0)
+    let kp2 = keypoints.indices.contains(2) ? keypoints[2] : (point: .zero, confidence: 0)
+    let eyeAngleDeg = atan2(kp2.point.y - kp1.point.y, kp2.point.x - kp1.point.x) * 180 / .pi
+    let useRot = kp1.confidence > 0.3 && kp2.confidence > 0.3
+    log.info(
+      """
+      face crop: imgRect=\(faceBbox.debugDescription, privacy: .public) \
+      useRot=\(useRot, privacy: .public) eyeAngle=\(String(format: "%.1f", eyeAngleDeg), privacy: .public)° \
+      eyeConfL=\(String(format: "%.2f", kp1.confidence), privacy: .public) \
+      eyeConfR=\(String(format: "%.2f", kp2.confidence), privacy: .public) \
+      centrePx(BGRA)=B\(centreB, privacy: .public)/G\(centreG, privacy: .public)/R\(centreR, privacy: .public)
+      """
+    )
 
     let input = try MLDictionaryFeatureProvider(dictionary: ["image": buffer])
     let output = try model.prediction(from: input)
