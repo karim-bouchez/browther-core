@@ -9,7 +9,6 @@ import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
 
 import org.chromium.build.annotations.NullMarked;
-import org.chromium.build.annotations.Nullable;
 
 /**
  * Bridge JNI vers le service C++ {@code browther_analytics::BrowtherAnalyticsService}.
