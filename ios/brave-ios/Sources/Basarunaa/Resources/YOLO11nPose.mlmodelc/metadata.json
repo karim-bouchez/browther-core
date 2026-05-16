@@ -1,13 +1,13 @@
 [
   {
     "metadataOutputVersion" : "3.0",
-    "storagePrecision" : "Float16",
+    "storagePrecision" : "Float32",
     "outputSchema" : [
       {
         "hasShapeFlexibility" : "0",
         "isOptional" : "0",
-        "dataType" : "Float16",
-        "formattedType" : "MultiArray (Float16 1 × 56 × 8400)",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32 1 × 56 × 8400)",
         "shortDescription" : "",
         "shape" : "[1, 56, 8400]",
         "name" : "var_1895",
@@ -19,7 +19,6 @@
     ],
     "specificationVersion" : 8,
     "mlProgramOperationTypeHistogram" : {
-      "Ios16.silu" : 83,
       "Ios17.mul" : 6,
       "Ios17.transpose" : 1,
       "Ios17.sub" : 2,
@@ -27,16 +26,16 @@
       "Ios17.conv" : 97,
       "Ios17.concat" : 23,
       "UpsampleNearestNeighbor" : 2,
+      "Ios17.sliceByIndex" : 4,
       "Ios17.add" : 17,
       "Ios16.maxPool" : 3,
-      "Ios17.sliceByIndex" : 4,
       "Ios16.softmax" : 2,
       "Ios16.sigmoid" : 2,
       "Ios17.reshape" : 16,
-      "Ios17.cast" : 1,
-      "Split" : 10
+      "Split" : 10,
+      "Ios16.silu" : 83
     },
-    "computePrecision" : "Mixed (Float16, Float32, Int32)",
+    "computePrecision" : "Mixed (Float32, Int32)",
     "isUpdatable" : "0",
     "stateSchema" : [
 
@@ -53,7 +52,7 @@
       "name" : "MLModelType_mlProgram"
     },
     "userDefinedMetadata" : {
-      "com.github.apple.coremltools.conversion_date" : "2026-05-13",
+      "com.github.apple.coremltools.conversion_date" : "2026-05-16",
       "com.github.apple.coremltools.source" : "torch==2.8.0",
       "com.github.apple.coremltools.version" : "9.0",
       "com.github.apple.coremltools.source_dialect" : "TorchScript"
