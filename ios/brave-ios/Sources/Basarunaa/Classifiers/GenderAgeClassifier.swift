@@ -13,6 +13,10 @@ import UIKit
 struct GenderClassification {
   let gender: Gender
   let confidence: Double
+  /// Raw softmax / sigmoid probabilities — kept so the pipeline can log
+  /// the per-classifier signal even after picking a winner.
+  let pFemale: Double
+  let pMale: Double
 }
 
 /// InsightFace genderage classifier (96×96 BGR raw). The CoreML model was
@@ -113,9 +117,9 @@ final class GenderAgeClassifier {
     let pFemale = eFemale / sum
     let pMale = eMale / sum
     if pMale >= pFemale {
-      return GenderClassification(gender: .male, confidence: pMale)
+      return GenderClassification(gender: .male, confidence: pMale, pFemale: pFemale, pMale: pMale)
     } else {
-      return GenderClassification(gender: .female, confidence: pFemale)
+      return GenderClassification(gender: .female, confidence: pFemale, pFemale: pFemale, pMale: pMale)
     }
   }
 }

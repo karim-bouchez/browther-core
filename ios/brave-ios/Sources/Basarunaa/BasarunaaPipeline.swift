@@ -135,9 +135,10 @@ public actor BasarunaaPipeline {
 
     let classifyStart = Date()
     var results: [DetectedPerson] = []
-    for raw in rawPersons {
+    for (rawIdx, raw) in rawPersons.enumerated() {
       let fused = fuseGender(
         for: raw,
+        personIndex: rawIdx,
         image: image,
         faceClassifier: classifier,
         bodyClassifier: bodyClassifier,
@@ -232,6 +233,7 @@ public actor BasarunaaPipeline {
 
   private func fuseGender(
     for raw: RawPersonDetection,
+    personIndex: Int,
     image: CGImage,
     faceClassifier: GenderAgeClassifier,
     bodyClassifier: PPLCNetClassifier,
@@ -260,17 +262,44 @@ public actor BasarunaaPipeline {
       bodyResult = nil
     }
 
+    // Diagnostic log — raw softmax per classifier, hasLegs, fusion winner.
+    // Compared against the macOS POC offscreen console on the same image to
+    // pinpoint where iOS classification diverges (cf. CLAUDE.md "Reste").
+    let faceStr = faceResult.map {
+      "F=\(String(format: "%.3f", $0.pFemale))/M=\(String(format: "%.3f", $0.pMale)) raw=\($0.gender.rawValue)"
+    } ?? "skipped(faceConf=\(String(format: "%.2f", raw.faceConfidence)), thr=\(String(format: "%.2f", faceThreshold)))"
+    let bodyStr = bodyResult.map {
+      "F=\(String(format: "%.3f", $0.pFemale))/M=\(String(format: "%.3f", $0.pMale)) raw=\($0.gender.rawValue)"
+    } ?? (hasLegs ? "n/a" : "skipped(noLegs)")
+
+    let resolved: (gender: Gender?, confidence: Double?, reason: String)
     if let face = faceResult, let body = bodyResult {
       if face.gender != body.gender && face.confidence > 0.7 && body.confidence > 0.7 {
         // Confident conflict → prefer face (POC marks conflicted, used as analytics).
-        return (face.gender, face.confidence)
+        resolved = (face.gender, face.confidence, "conflict→face")
+      } else {
+        let winner = face.confidence >= body.confidence ? face : body
+        let label = face.confidence >= body.confidence ? "face>body" : "body>face"
+        resolved = (winner.gender, winner.confidence, label)
       }
-      // Agree or one is uncertain → pick the more confident.
-      let winner = face.confidence >= body.confidence ? face : body
-      return (winner.gender, winner.confidence)
+    } else if let face = faceResult {
+      resolved = (face.gender, face.confidence, "face-only")
+    } else if let body = bodyResult {
+      resolved = (body.gender, body.confidence, "body-only")
+    } else {
+      resolved = (nil, nil, "no-classifier")
     }
-    if let face = faceResult { return (face.gender, face.confidence) }
-    if let body = bodyResult { return (body.gender, body.confidence) }
-    return (nil, nil)
+
+    let winnerStr = resolved.gender.map {
+      "\($0.rawValue)@\(String(format: "%.2f", resolved.confidence ?? 0))"
+    } ?? "nil"
+    log.info(
+      """
+      [\(personIndex, privacy: .public)] face=[\(faceStr, privacy: .public)] \
+      body=[\(bodyStr, privacy: .public)] hasLegs=\(hasLegs, privacy: .public) \
+      → \(resolved.reason, privacy: .public) → \(winnerStr, privacy: .public)
+      """
+    )
+    return (resolved.gender, resolved.confidence)
   }
 }

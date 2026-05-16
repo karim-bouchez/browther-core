@@ -99,11 +99,12 @@ final class PPLCNetClassifier {
       read = { p[$0] }
     }
     let femaleProb = Double(read(Self.femaleAttributeIndex))
+    let maleProb = 1.0 - femaleProb
     // The POC reports max(p, 1-p) as confidence (raw [0,1]).
     if femaleProb >= 0.5 {
-      return GenderClassification(gender: .female, confidence: femaleProb)
+      return GenderClassification(gender: .female, confidence: femaleProb, pFemale: femaleProb, pMale: maleProb)
     } else {
-      return GenderClassification(gender: .male, confidence: 1.0 - femaleProb)
+      return GenderClassification(gender: .male, confidence: maleProb, pFemale: femaleProb, pMale: maleProb)
     }
   }
 }
