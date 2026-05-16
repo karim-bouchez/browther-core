@@ -43,7 +43,6 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void GetDevSettings(GetDevSettingsCallback callback) override;
   void SetDebugMode(const std::string& mode) override;
   void SetCaptureMode(bool enabled) override;
-  void AnalyzeTestImage(AnalyzeTestImageCallback callback) override;
 
  private:
   mojo::Receiver<basarunaa::mojom::PanelHandler> receiver_;

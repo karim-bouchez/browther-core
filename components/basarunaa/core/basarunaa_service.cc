@@ -21,9 +21,6 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/time/time.h"
 #include "onnxruntime_cxx_api.h"
-#include "third_party/skia/include/core/SkBitmap.h"
-#include "third_party/skia/include/core/SkColorType.h"
-#include "ui/gfx/codec/jpeg_codec.h"
 #endif
 
 namespace basarunaa {
@@ -35,8 +32,6 @@ namespace {
 // component-updater / app Resources when Étape 5 deletes the extension.
 constexpr base::FilePath::CharType kYoloPoseRelPath[] =
     FILE_PATH_LITERAL("basarunaa/models/yolo11n-pose.onnx");
-constexpr base::FilePath::CharType kTestImageRelPath[] =
-    FILE_PATH_LITERAL("basarunaa/test/groupe.jpg");
 
 // YOLO11n-pose constants. Input is fixed 640x640 RGB float32 NCHW; output is
 // [1, 56, 8400] = [1, 4 bbox + 1 person score + 17 kpts × 3, anchors]. We do
@@ -359,49 +354,6 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   LOG(INFO) << "[Basarunaa] inference: " << width << "x" << height << " → "
             << nms.size() << " persons (" << elapsed_ms << " ms)";
   return nms;
-#else
-  return {};
-#endif  // defined(BASARUNAA_NATIVE_ML)
-}
-
-std::vector<DetectedPerson> BasarunaaService::AnalyzeTestImage() {
-#if defined(BASARUNAA_NATIVE_ML)
-  // M1.3 debug path. Caller MUST schedule this on a thread that allows
-  // blocking (e.g. base::ThreadPool with base::MayBlock()) — the file read
-  // and JPEG decode are synchronous. Étape 2/3 hooks will call
-  // AnalyzeImageRgba directly with already-decoded pixels and never touch
-  // the filesystem, so the same thread requirement does not apply there.
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    LOG(ERROR) << "[Basarunaa] DIR_EXE lookup failed";
-    return {};
-  }
-  const base::FilePath jpg_path = exe_dir.Append(kTestImageRelPath);
-  std::string jpg_bytes;
-  if (!base::ReadFileToString(jpg_path, &jpg_bytes)) {
-    LOG(WARNING) << "[Basarunaa] test image not found at " << jpg_path.value()
-                 << " (run deploy-extensions.sh)";
-    return {};
-  }
-  SkBitmap bitmap = gfx::JPEGCodec::Decode(base::as_byte_span(jpg_bytes));
-  if (bitmap.isNull()) {
-    LOG(ERROR) << "[Basarunaa] JPEG decode failed";
-    return {};
-  }
-  const bool is_bgra = bitmap.colorType() == kBGRA_8888_SkColorType;
-  if (!is_bgra && bitmap.colorType() != kRGBA_8888_SkColorType) {
-    LOG(ERROR) << "[Basarunaa] unexpected color type "
-               << static_cast<int>(bitmap.colorType());
-    return {};
-  }
-  auto persons = AnalyzeImageRgba(static_cast<const uint8_t*>(bitmap.getPixels()),
-                                  bitmap.width(), bitmap.height(), is_bgra);
-  for (size_t i = 0; i < persons.size(); ++i) {
-    const auto& p = persons[i];
-    LOG(INFO) << "[Basarunaa]   [" << i << "] bbox=(" << p.x << "," << p.y
-              << ")," << p.w << "x" << p.h << " score=" << p.score;
-  }
-  return persons;
 #else
   return {};
 #endif  // defined(BASARUNAA_NATIVE_ML)

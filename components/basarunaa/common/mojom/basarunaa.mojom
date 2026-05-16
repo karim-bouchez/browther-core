@@ -46,12 +46,6 @@ interface PanelHandler {
   GetDevSettings() => (string debug_mode, bool capture_mode);
   SetDebugMode(string mode);
   SetCaptureMode(bool enabled);
-
-  // Phase 3.1.5 — M1.3 debug. Runs the native YOLO11n-pose pipeline on a
-  // bundled test image (Browther.app/Contents/MacOS/basarunaa/test/groupe.jpg)
-  // and logs per-detection bbox + score via LOG(INFO). Returns the number of
-  // persons detected (0 on error, or if the image is missing).
-  AnalyzeTestImage() => (int32 count);
 };
 
 // Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). On recrée l'interface

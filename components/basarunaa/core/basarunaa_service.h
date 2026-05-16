@@ -84,11 +84,6 @@ class BasarunaaService : public KeyedService {
                                                int height,
                                                bool bgra = false);
 
-  // Debug-only: load a JPEG bundled at
-  // `<DIR_EXE>/basarunaa/test/groupe.jpg`, run AnalyzeImageRgba, log every
-  // detection, return the result.
-  std::vector<DetectedPerson> AnalyzeTestImage();
-
  private:
 #if defined(BASARUNAA_NATIVE_ML)
   void LoadYoloPoseModel();

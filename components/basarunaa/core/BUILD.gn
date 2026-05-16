@@ -19,8 +19,6 @@ static_library("core") {
   if (enable_basarunaa_native_ml) {
     deps += [
       "//brave/third_party/onnxruntime",
-      "//skia",
-      "//ui/gfx/codec",
     ]
     defines = [ "BASARUNAA_NATIVE_ML=1" ]
     # ORT's C++ API throws Ort::Exception on errors — enable exceptions for
