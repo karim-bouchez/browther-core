@@ -27,7 +27,10 @@ final class YOLOPoseDetector {
   static let inputSize: CGFloat = 640
   static let numKeypoints = 17
   static let scoreThresholdFallback: Double = 0.25
-  static let nmsIoUThreshold: Double = 0.45
+  // macOS POC parity (yolo_pose.js + nms.js) — 0.5, pas 0.45. Un threshold
+  // trop strict supprime des détections quand 2 personnes se chevauchent
+  // (parent + enfant devant, photo TF1/famille-recomposee, 2026-05-16).
+  static let nmsIoUThreshold: Double = 0.5
 
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.YOLO")
   private let model: MLModel
@@ -117,13 +120,51 @@ final class YOLOPoseDetector {
       read = { p[$0] }
     }
 
-    var maxScore: Float = 0
-    var maxIdx = 0
+    // Group proposals into clusters (centres within 100px in image coords).
+    // Helps see if a person YOLO detected on macOS is just below the iOS
+    // confBody threshold or completely absent. One log line per cluster
+    // avoids the OSLog ~1KB truncation.
+    struct Cluster {
+      var cx: Double
+      var cy: Double
+      var maxScore: Float
+      var count: Int
+    }
+    var clusters: [Cluster] = []
     for i in 0..<numProposals {
       let s = read(4 * channelStride + i * proposalStride)
-      if s > maxScore { maxScore = s; maxIdx = i }
+      if s < 0.20 { continue }
+      let cx = Double(read(0 * channelStride + i * proposalStride))
+      let cy = Double(read(1 * channelStride + i * proposalStride))
+      let mapped = letterbox.unmap(point: CGPoint(x: cx, y: cy))
+      let ix = Double(mapped.x)
+      let iy = Double(mapped.y)
+      var found = false
+      for k in 0..<clusters.count {
+        let dx = clusters[k].cx - ix
+        let dy = clusters[k].cy - iy
+        if dx * dx + dy * dy < 100 * 100 {
+          if s > clusters[k].maxScore { clusters[k].maxScore = s }
+          clusters[k].count += 1
+          found = true
+          break
+        }
+      }
+      if !found {
+        clusters.append(Cluster(cx: ix, cy: iy, maxScore: s, count: 1))
+      }
     }
-    log.info("max objectness=\(maxScore, privacy: .public) at idx=\(maxIdx, privacy: .public) (threshold=\(scoreThreshold, privacy: .public))")
+    clusters.sort { $0.maxScore > $1.maxScore }
+    log.info(
+      "YOLO clusters (≥0.20 score, threshold=\(scoreThreshold, privacy: .public)): \(clusters.count, privacy: .public) clusters"
+    )
+    for (rank, c) in clusters.enumerated() {
+      log.info(
+        "  cluster #\(rank, privacy: .public) max=\(String(format: "%.3f", c.maxScore), privacy: .public) center=(\(String(format: "%.0f", c.cx), privacy: .public),\(String(format: "%.0f", c.cy), privacy: .public)) count=\(c.count, privacy: .public)"
+      )
+    }
+    let maxScore = clusters.first?.maxScore ?? 0
+    log.info("max objectness=\(maxScore, privacy: .public)")
 
     var results: [RawPersonDetection] = []
 
