@@ -78,3 +78,5 @@ jboolean JNI_BrowtherAnalyticsBridge_IsMetricsReportingEnabled(
 }
 
 }  // namespace browther_analytics::android
+
+DEFINE_JNI(BrowtherAnalyticsBridge)
