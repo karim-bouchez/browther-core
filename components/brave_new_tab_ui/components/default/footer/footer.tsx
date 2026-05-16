@@ -39,6 +39,8 @@ export default class FooterInfo extends React.PureComponent<Props, {}> {
     return (
       <>
         { showPhotoInfo && backgroundImageInfo?.type === 'brave' &&
+          // Browther: skip "Photo by" si pas d'auteur (assets locaux Browther).
+          !!backgroundImageInfo.author &&
           <S.GridItemCredits>
             <PhotoName>
               {`${getLocale('photoBy')} `}

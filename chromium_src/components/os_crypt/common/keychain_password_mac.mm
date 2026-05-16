@@ -52,8 +52,9 @@ KeychainPassword::KeychainNameType& GetBraveServiceName() {
     static KeychainNameContainerType kOperaServiceName("Opera Safe Storage");
     return *kOperaServiceName;
   } else {
+    // Browther: rebrand keychain service name (default).
     static KeychainNameContainerType kBraveDefaultServiceName(
-        "Brave Safe Storage");
+        "Browther Safe Storage");
     return *kBraveDefaultServiceName;
   }
 }
@@ -83,7 +84,8 @@ KeychainPassword::KeychainNameType& GetBraveAccountName() {
     static KeychainNameContainerType kOperaAccountName("Opera");
     return *kOperaAccountName;
   } else {
-    static KeychainNameContainerType kBraveDefaultAccountName("Brave");
+    // Browther: rebrand keychain account name (default).
+    static KeychainNameContainerType kBraveDefaultAccountName("Browther");
     return *kBraveDefaultAccountName;
   }
 }
