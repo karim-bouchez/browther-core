@@ -102,10 +102,13 @@ final class GenderAgeClassifier {
     }
     CVPixelBufferUnlockBaseAddress(buffer, .readOnly)
     // POC parity : the rotated aligned crop replaces the axis-aligned
-    // squareCrop reported in previous logs.
+    // squareCrop reported in previous logs. Log the *swapped* angle (the
+    // value actually used for the rotation) — the raw atan2 returns ±180°
+    // for face-camera people because COCO uses anatomical left/right.
     let kp1 = keypoints.indices.contains(1) ? keypoints[1] : (point: .zero, confidence: 0)
     let kp2 = keypoints.indices.contains(2) ? keypoints[2] : (point: .zero, confidence: 0)
-    let eyeAngleDeg = atan2(kp2.point.y - kp1.point.y, kp2.point.x - kp1.point.x) * 180 / .pi
+    let (leftPt, rightPt) = kp1.point.x <= kp2.point.x ? (kp1.point, kp2.point) : (kp2.point, kp1.point)
+    let eyeAngleDeg = atan2(rightPt.y - leftPt.y, rightPt.x - leftPt.x) * 180 / .pi
     let useRot = kp1.confidence > 0.3 && kp2.confidence > 0.3
     log.info(
       """

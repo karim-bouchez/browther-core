@@ -49,7 +49,15 @@ enum FaceAlign {
     let outSize = CGFloat(outputSize)
 
     if useRotation, let le = leftEye, let re = rightEye {
-      let angle = atan2(re.point.y - le.point.y, re.point.x - le.point.x)
+      // Order eyes by image x so the angle is the actual head tilt
+      // (range ~[-90°, +90°]) regardless of whether YOLO11n-pose returns
+      // COCO anatomical-left/right (sujet) or image-left/right. Without
+      // this, a face-camera person triggers `atan2(0, -dx) ≈ 180°` and the
+      // crop renders upside-down → softmax biases everyone to female.
+      let (leftPt, rightPt) = le.point.x <= re.point.x
+        ? (le.point, re.point)
+        : (re.point, le.point)
+      let angle = atan2(rightPt.y - leftPt.y, rightPt.x - leftPt.x)
       let cx = faceBbox.midX
       let cy = faceBbox.midY
       let faceSize = max(faceBbox.width, faceBbox.height) * 1.1
