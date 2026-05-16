@@ -130,23 +130,23 @@ void SawtunaaBubbleView::BuildContents() {
       views::BoxLayout::CrossAxisAlignment::kCenter);
   header->SetBetweenChildSpacing(10);
 
-  // Browther: les sources PNG sont énormes (~2100×2100), un downscale naïf via
-  // CreateFrom1xBitmap + SetImageSize pixelise. On pré-resize en RESIZE_BEST
-  // (Lanczos) à la taille cible × 2 pour HiDPI Retina, puis on traite comme
-  // 2x scale → ImageSkia choisit la bonne rep selon le DPI à l'affichage.
-  auto resize_to_2x = [](const SkBitmap& src, int dst_w, int dst_h) {
+  // Browther: les sources PNG sont énormes (~2100×2100). Pré-resize en
+  // RESIZE_BEST (Lanczos) à la taille d'affichage exacte. Pas de hack 2x —
+  // sous Windows avec DPI scaling != 100%, le 2x produit des artefacts
+  // (dotted edges + clipping) car ImageSkia décide à l'affichage entre la
+  // rep "1x" demandée par SetImageSize et la rep "2x" stockée.
+  auto resize_exact = [](const SkBitmap& src, int dst_w, int dst_h) {
     gfx::ImageSkia raw = gfx::ImageSkia::CreateFrom1xBitmap(src);
     return gfx::ImageSkiaOperations::CreateResizedImage(
         raw, skia::ImageOperations::RESIZE_BEST,
-        gfx::Size(dst_w * 2, dst_h * 2));
+        gfx::Size(dst_w, dst_h));
   };
 
   const SkBitmap brand_bm =
       rb.GetImageNamed(IDR_SAWTUNAA_BRAND_ICON).AsBitmap();
   if (!brand_bm.isNull()) {
-    auto* icon_view = header->AddChildView(std::make_unique<views::ImageView>(
-        ui::ImageModel::FromImageSkia(resize_to_2x(brand_bm, 40, 40))));
-    icon_view->SetImageSize(gfx::Size(40, 40));
+    header->AddChildView(std::make_unique<views::ImageView>(
+        ui::ImageModel::FromImageSkia(resize_exact(brand_bm, 40, 40))));
   }
   const SkBitmap wm_bm =
       rb.GetImageNamed(IDR_SAWTUNAA_WORDMARK_WHITE).AsBitmap();
@@ -154,9 +154,8 @@ void SawtunaaBubbleView::BuildContents() {
     constexpr int kWmHeight = 26;
     const int wm_w = static_cast<int>(static_cast<float>(kWmHeight) *
                                       wm_bm.width() / wm_bm.height());
-    auto* wm_view = header->AddChildView(std::make_unique<views::ImageView>(
-        ui::ImageModel::FromImageSkia(resize_to_2x(wm_bm, wm_w, kWmHeight))));
-    wm_view->SetImageSize(gfx::Size(wm_w, kWmHeight));
+    header->AddChildView(std::make_unique<views::ImageView>(
+        ui::ImageModel::FromImageSkia(resize_exact(wm_bm, wm_w, kWmHeight))));
   }
 
   // ----- Big toggle (custom paint, no native hover/violet glitch) -----
