@@ -63,6 +63,10 @@ export function SettingsModal(props: Props) {
         return searchFeatureEnabled
       case 'news':
         return newsFeatureEnabled
+      // Browther: retire l'onglet "Cards" (widgets Talk/Rewards/VPN/News/Stats).
+      // Les features Brave sont désactivées, l'onglet n'a plus de sens.
+      case 'widgets':
+        return false
       default:
         return true
     }
