@@ -37,7 +37,7 @@ bool ReadLocalStateBool(const char* pref_name) {
 
 }  // namespace
 
-static void JNI_BrowtherAnalyticsBridge_Track(
+void JNI_BrowtherAnalyticsBridge_Track(
     JNIEnv* env,
     const base::android::JavaRef<jstring>& jevent_name) {
   auto* service = BrowtherAnalyticsService::GetInstance();
@@ -47,7 +47,7 @@ static void JNI_BrowtherAnalyticsBridge_Track(
   service->Track(base::android::ConvertJavaStringToUTF8(env, jevent_name));
 }
 
-static void JNI_BrowtherAnalyticsBridge_TrackWithProps(
+void JNI_BrowtherAnalyticsBridge_TrackWithProps(
     JNIEnv* env,
     const base::android::JavaRef<jstring>& jevent_name,
     const base::android::JavaRef<jobjectArray>& jkeys,
@@ -68,11 +68,11 @@ static void JNI_BrowtherAnalyticsBridge_TrackWithProps(
                  std::move(props));
 }
 
-static jboolean JNI_BrowtherAnalyticsBridge_IsPostHogEnabled(JNIEnv* env) {
+jboolean JNI_BrowtherAnalyticsBridge_IsPostHogEnabled(JNIEnv* env) {
   return ReadLocalStateBool(p3a::kP3AEnabled);
 }
 
-static jboolean JNI_BrowtherAnalyticsBridge_IsMetricsReportingEnabled(
+jboolean JNI_BrowtherAnalyticsBridge_IsMetricsReportingEnabled(
     JNIEnv* env) {
   return ReadLocalStateBool(metrics::prefs::kMetricsReportingEnabled);
 }
