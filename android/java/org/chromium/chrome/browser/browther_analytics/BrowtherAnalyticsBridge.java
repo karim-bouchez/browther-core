@@ -39,11 +39,10 @@ public final class BrowtherAnalyticsBridge {
     /**
      * Track un event avec un sac de properties string → string. Les propriétés
      * sont sérialisées en {@code base::DictValue} côté C++. Tableaux de même
-     * longueur (ou {@code null}/vides pour pas de props).
+     * longueur, non null (utiliser {@link #track(String)} pour pas de props).
      */
-    public static void trackWithProps(
-            String eventName, @Nullable String[] keys, @Nullable String[] values) {
-        if (keys == null || values == null || keys.length == 0) {
+    public static void trackWithProps(String eventName, String[] keys, String[] values) {
+        if (keys.length == 0) {
             BrowtherAnalyticsBridgeJni.get().track(eventName);
             return;
         }
