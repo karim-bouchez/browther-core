@@ -88,7 +88,10 @@ bool HiddenDefaultSidebarItemsContains(SidebarService* service,
 
 bool CanUseSidebar(Browser* browser) {
   DCHECK(browser);
-  return browser->is_type_normal();
+  // Browther: sidebar feature disabled — never instantiate the
+  // SidebarContainerView. The sidebar (vertical bar on the right with Brave
+  // Talk/Wallet/History/Bookmarks/Leo shortcuts) is not used by Browther.
+  return false;
 }
 
 // If url is relavant with bulitin items, use builtin item's url.

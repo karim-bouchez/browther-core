@@ -3,7 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import '../brave_appearance_page/sidebar.js'
+// Browther: sidebar feature désactivée — import retiré (cf. sidebar_utils.cc)
+// import '../brave_appearance_page/sidebar.js'
 import '../brave_appearance_page/tabs.js'
 import '../brave_content_page/content.js'
 import '../brave_content_page/playlist.js'

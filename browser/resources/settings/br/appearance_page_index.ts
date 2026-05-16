@@ -12,8 +12,9 @@ RegisterPolymerPrototypeModification({
   'settings-appearance-page-index': (prototype) => {
     prototype.currentRouteChanged = function (newRoute: Route) {
       const showDefaultViews = () => {
+        // Browther: sidebar settings retirés (feature désactivée)
         this.$.viewManager.switchViews(
-          ['parent', 'tabs', 'sidebar'], 'no-animation', 'no-animation');
+          ['parent', 'tabs'], 'no-animation', 'no-animation');
       }
 
       switch (newRoute) {
@@ -46,20 +47,15 @@ RegisterPolymerTemplateModifications({
     // Fonts page is rendered in the content subpage.
     viewManager.querySelector('#fonts')?.remove()
 
-    // Append tabs and sidebar settings to the appearance page.
+    // Append tabs settings to the appearance page.
+    // Browther: sidebar settings retirés (feature désactivée — cf.
+    // sidebar_utils.cc::CanUseSidebar qui retourne false).
     viewManager.append(html`
       <settings-brave-appearance-tabs
         id="tabs"
         slot="view"
         prefs="{{prefs}}"
         in-search-mode="[[inSearchMode_]]">
-      </settings-brave-appearance-tabs>
-
-      <settings-brave-appearance-sidebar
-        id="sidebar"
-        slot="view"
-        prefs="{{prefs}}"
-        in-search-mode="[[inSearchMode_]]">
-      </settings-brave-appearance-sidebar>`)
+      </settings-brave-appearance-tabs>`)
   }
 })
