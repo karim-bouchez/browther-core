@@ -4,17 +4,52 @@
 # you can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # Targets Android AAR pour Browther, hors mécanisme //third_party/android_deps
-# (fork-friendly — voir README.md). Les AAR sont téléchargés par
-# `private/scripts/fetch-android-deps.sh` dans `libs/` (gitignored).
-#
-# Batch 1 : scaffold vide. Les android_aar_prebuilt() sont ajoutés en
-# Batch 2 (Sentry) et Batch 3 (PostHog optionnel).
+# (fork-friendly — voir README.md). Les AAR/JAR sont téléchargés par
+# `private/scripts/fetch-android-deps.sh` dans `libs/` (gitignored), avec
+# les .info auto-générés via build/android/gyp/aar.py.
 
 import("//build/config/android/rules.gni")
 
 assert(is_android)
 
-# Placeholder group pour que la cible //brave/third_party/browther_android_deps
-# existe dès maintenant, avant d'avoir des AAR à exposer.
+# ── Sentry-Android (crash reporting Java + ANR) ──────────────────────────────
+# Version cohérente avec iOS Sentry-Cocoa 8.40 (cf. private/configs/analytics.env).
+
+# Java core SDK (sentry-X.Y.Z.jar). Pas d'Android-specific code, juste les types
+# d'event, transports, options, etc.
+java_prebuilt("sentry_java") {
+  jar_path = "libs/sentry/sentry-8.41.0.jar"
+  output_name = "sentry"
+  supports_android = true
+  enable_bytecode_checks = false
+}
+
+# Tombstone protobuf decoder (transitif runtime). Optionnel — sert au
+# sentry-android-ndk (pas inclus en Batch 2 ; ajouté ici par sécurité car
+# le runtime de sentry-android-core peut le scruter via reflection).
+java_prebuilt("epitaph_java") {
+  jar_path = "libs/epitaph/epitaph-0.1.1.jar"
+  output_name = "epitaph"
+  supports_android = true
+  enable_bytecode_checks = false
+}
+
+# Android runtime SDK (ContentProvider auto-init, ANR detector, app lifecycle
+# breadcrumbs, etc.). Dépend de sentry_java + lifecycle Chromium-provided.
+android_aar_prebuilt("sentry_android_core_java") {
+  aar_path = "libs/sentry-android-core/sentry-android-core-8.41.0.aar"
+  info_path = "libs/sentry-android-core/sentry-android-core.info"
+  enable_bytecode_checks = false
+  deps = [
+    ":epitaph_java",
+    ":sentry_java",
+    "//third_party/androidx:androidx_core_core_java",
+    "//third_party/androidx:androidx_lifecycle_lifecycle_common_java8_java",
+    "//third_party/androidx:androidx_lifecycle_lifecycle_process_java",
+  ]
+}
+
+# Group d'agrégation : facilite l'import depuis le code Browther.
 group("browther_android_deps") {
+  public_deps = [ ":sentry_android_core_java" ]
 }
