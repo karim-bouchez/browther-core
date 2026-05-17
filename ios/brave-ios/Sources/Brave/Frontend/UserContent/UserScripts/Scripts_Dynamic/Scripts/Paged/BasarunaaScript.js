@@ -32,6 +32,86 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     try { send('metric', JSON.stringify(obj)); } catch (e) {}
   }
 
+  // ─── Video V1 : MSE segment intercept (capture-only) ──────────────────────
+  // Calque le pattern Sawtunaa (cf. SawtunaaScript.js) — monkey-patch
+  // MediaSource.prototype.addSourceBuffer at atDocumentStart to identify video
+  // SourceBuffers via their MIME type, then wrap their appendBuffer to log
+  // every chunk's metadata (mime, size, current time, paused state).
+  //
+  // V1 = capture-only : aucun byte n'est envoyé à Swift, on valide juste que
+  // l'interception MSE marche sur WebKit iOS pour la vidéo (déjà éprouvé pour
+  // Opus audio chez Sawtunaa). V2 décodera via VideoToolbox côté Swift.
+  (function() {
+    var hasMS = typeof MediaSource !== 'undefined';
+    var hasMMS = typeof ManagedMediaSource !== 'undefined';
+    if (!hasMS && !hasMMS) {
+      metric('mse_video_abort', { reason: 'no_mse' });
+      return;
+    }
+    var seqByMime = {};
+    function wrapAppendBuffer(sb, mimeType) {
+      var original = sb.appendBuffer;
+      if (typeof original !== 'function') return;
+      sb.appendBuffer = function(buffer) {
+        try {
+          var byteLength = 0;
+          if (buffer && typeof buffer.byteLength === 'number') {
+            byteLength = buffer.byteLength;
+          } else if (buffer && buffer.buffer && typeof buffer.buffer.byteLength === 'number') {
+            byteLength = buffer.buffer.byteLength;
+          }
+          var seq = (seqByMime[mimeType] = (seqByMime[mimeType] || 0) + 1);
+          var videos = document.getElementsByTagName('video');
+          var currentTimeMs = -1;
+          var paused = true;
+          var dur = -1;
+          if (videos.length > 0) {
+            var v = videos[0];
+            currentTimeMs = Math.round((v.currentTime || 0) * 1000);
+            paused = !!v.paused;
+            dur = isFinite(v.duration) ? Math.round(v.duration * 1000) : -1;
+          }
+          metric('mse_video_chunk', {
+            seq: seq,
+            mime: mimeType,
+            size: byteLength,
+            ct_ms: currentTimeMs,
+            dur_ms: dur,
+            paused: paused
+          });
+        } catch (e) {
+          metric('mse_video_chunk_error', { msg: '' + e });
+        }
+        return original.apply(this, arguments);
+      };
+    }
+    function wrapAddSourceBuffer(ctor, ctorName) {
+      if (!ctor || !ctor.prototype || !ctor.prototype.addSourceBuffer) return;
+      var originalASB = ctor.prototype.addSourceBuffer;
+      ctor.prototype.addSourceBuffer = function(mimeType) {
+        var sb = originalASB.apply(this, arguments);
+        var isVideo = typeof mimeType === 'string' && /^video\//i.test(mimeType);
+        if (isVideo) {
+          seqByMime[mimeType] = 0;
+          metric('mse_video_sb_added', { ctor: ctorName, mime: mimeType });
+          wrapAppendBuffer(sb, mimeType);
+        } else {
+          metric('mse_sb_skip', { ctor: ctorName, mime: mimeType || '' });
+        }
+        return sb;
+      };
+    }
+    if (hasMS) wrapAddSourceBuffer(MediaSource, 'MediaSource');
+    if (hasMMS) wrapAddSourceBuffer(ManagedMediaSource, 'ManagedMediaSource');
+    metric('mse_video_init', {
+      hasMS: hasMS,
+      hasMMS: hasMMS,
+      url: location.href,
+      isYoutube: /(?:youtube\.com|youtu\.be)/.test(location.host)
+    });
+  })();
+  // ─── End video V1 ─────────────────────────────────────────────────────────
+
   // ─── Config ───
   // V1: hard-coded blur intensity. V2 will read Preferences.Basarunaa.blurStrength
   // from Swift via an initial postMessage round-trip.
