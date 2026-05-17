@@ -1278,90 +1278,131 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     });
   }
 
-  // Draw the bottom black strip with one column per detected person
-  // (body crop 100×133, face crop 96×96, classifier label). Wait for all
-  // crop decodes to finish before encoding the canvas to a blob so the
-  // strip is fully rendered when we replace the <img>.
+  // Draw the bottom black strip — face + body side by side per person, with
+  // labels in gender colours like the macOS POC `_drawCropStrip` :
+  //
+  //   [face 96×96][body 100×133]    ← 4px gap between, yellow border face
+  //   [male 95%]  [male 91%]        ← yellow under face, gender colour under body
+  //   M 95% [insightface (partial body)]   ← gender colour, classifier suffix
   function drawCropStripAndEncode(canvas, ctx, persons, imgW, imgH, stripH, sourceImg) {
-    // Fill strip background.
     ctx.fillStyle = '#000';
     ctx.fillRect(0, imgH, imgW, stripH);
 
-    // Decode all crop dataUrls in parallel.
+    // Decode all crops in parallel.
     var jobs = [];
     for (var i = 0; i < persons.length; i++) {
-      var p = persons[i];
-      jobs.push(decodeDataUrl(p.faceCropDataUrl));
-      jobs.push(decodeDataUrl(p.bodyCropDataUrl));
+      jobs.push(decodeDataUrl(persons[i].faceCropDataUrl));
+      jobs.push(decodeDataUrl(persons[i].bodyCropDataUrl));
     }
     return Promise.all(jobs).then(function(images) {
-      var COL_W = 110;  // body crop displayed at 100×133, + 5px padding each side
-      var GAP = 6;
       var FACE_DISPLAY = 96;
       var BODY_DISPLAY_W = 100;
       var BODY_DISPLAY_H = 133;
+      var INNER_GAP = 4;  // face-body gap inside a column
+      var COL_W = FACE_DISPLAY + INNER_GAP + BODY_DISPLAY_W;   // 200
+      var COL_GAP = 12;
+      var TOP_PAD = 6;
       var x = 6;
       var stripTop = imgH;
+      // Female / male palette indices reset per strip — match drawDebugDetections.
+      var femaleIdx = 0;
+      var maleIdx = 0;
+
       for (var pi = 0; pi < persons.length; pi++) {
         var person = persons[pi];
         var face = images[pi * 2];
         var body = images[pi * 2 + 1];
-        // Label face softmax
-        var faceLabel = '';
+
+        // Person colour from the same palettes as the bbox overlay.
+        var personColor;
+        if (person.gender === 'female') {
+          personColor = FEMALE_COLORS[femaleIdx % FEMALE_COLORS.length];
+          femaleIdx++;
+        } else {
+          personColor = MALE_COLORS[maleIdx % MALE_COLORS.length];
+          maleIdx++;
+        }
+
+        // Derive per-classifier gender + conf for the labels (POC reports
+        // both face and body classifier outputs even when one didn't run).
+        var faceGenderLabel = '';
         if (person.facePFemale != null && person.facePMale != null) {
-          var fF = Math.round(person.facePFemale * 100);
-          var fM = Math.round(person.facePMale * 100);
-          faceLabel = 'F:' + fF + '% M:' + fM + '%';
+          var faceIsFemale = person.facePFemale >= person.facePMale;
+          var faceConf = faceIsFemale ? person.facePFemale : person.facePMale;
+          faceGenderLabel = (faceIsFemale ? 'female ' : 'male ')
+            + Math.round(faceConf * 100) + '%';
         } else {
-          faceLabel = 'face:n/a';
+          faceGenderLabel = 'face';
         }
-        // Label body softmax
-        var bodyLabel = '';
+        var bodyGenderLabel = '';
         if (person.bodyPFemale != null && person.bodyPMale != null) {
-          var bF = Math.round(person.bodyPFemale * 100);
-          var bM = Math.round(person.bodyPMale * 100);
-          bodyLabel = 'F:' + bF + '% M:' + bM + '%';
+          var bodyIsFemale = person.bodyPFemale >= person.bodyPMale;
+          var bodyConf = bodyIsFemale ? person.bodyPFemale : person.bodyPMale;
+          bodyGenderLabel = (bodyIsFemale ? 'female ' : 'male ')
+            + Math.round(bodyConf * 100) + '%';
         } else {
-          bodyLabel = 'body:n/a';
+          bodyGenderLabel = 'body';
         }
-        var classLabel = (person.classifierUsed || '') + (person.isSyntheticBody ? ' SYNTH' : '');
+        // Final winner label (matches the bbox label format).
+        var gShort = person.gender === 'female' ? 'F'
+                   : person.gender === 'male'   ? 'M'
+                   : '?';
+        var winnerConf = person.genderConfidence != null
+          ? Math.round(person.genderConfidence * 100) + '%'
+          : '';
+        var classLabel = gShort + ' ' + winnerConf
+          + (person.classifierUsed ? ' [' + person.classifierUsed + ']' : '');
 
-        var y = stripTop + 6;
-        // Face vignette (96×96) avec label au-dessus
-        ctx.font = 'bold 11px monospace';
-        ctx.fillStyle = '#FFD700';
-        ctx.fillText(faceLabel, x, y + 11);
+        var y = stripTop + TOP_PAD;
+        // 1) Face + body side by side
         if (face) {
-          ctx.drawImage(face, x, y + 14, FACE_DISPLAY, FACE_DISPLAY);
+          ctx.drawImage(face, x, y, FACE_DISPLAY, FACE_DISPLAY);
+          // Yellow border on face (POC parity).
+          ctx.strokeStyle = '#FFD700';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
         } else {
-          ctx.strokeStyle = '#444';
-          ctx.strokeRect(x, y + 14, FACE_DISPLAY, FACE_DISPLAY);
-          ctx.fillStyle = '#888';
-          ctx.fillText('—', x + 40, y + 60);
+          ctx.fillStyle = '#222';
+          ctx.fillRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
         }
-        y += 14 + FACE_DISPLAY + 4;
-        // Body vignette (100×133) avec label au-dessus
-        ctx.font = 'bold 11px monospace';
-        ctx.fillStyle = '#FF69B4';
-        ctx.fillText(bodyLabel, x, y + 11);
+        var bx = x + FACE_DISPLAY + INNER_GAP;
+        // Center body vertically with face (both bottoms aligned).
+        var bodyY = y + (FACE_DISPLAY - BODY_DISPLAY_H);  // negative for taller body
+        // If body is taller than face, draw it from y and let it extend below.
+        // Otherwise align tops. POC stacks bottoms; we do the same.
+        var bodyDrawY = y + Math.max(0, FACE_DISPLAY - BODY_DISPLAY_H);
+        if (BODY_DISPLAY_H >= FACE_DISPLAY) bodyDrawY = y;
         if (body) {
-          ctx.drawImage(body, x, y + 14, BODY_DISPLAY_W, BODY_DISPLAY_H);
+          ctx.drawImage(body, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
+          // Person-colour border on body.
+          ctx.strokeStyle = personColor;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
         } else {
-          ctx.strokeStyle = '#444';
-          ctx.strokeRect(x, y + 14, BODY_DISPLAY_W, BODY_DISPLAY_H);
-          ctx.fillStyle = '#888';
-          ctx.fillText('—', x + 42, y + 80);
+          ctx.fillStyle = '#222';
+          ctx.fillRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
         }
-        y += 14 + BODY_DISPLAY_H + 4;
-        // Classifier label
-        ctx.font = 'bold 10px monospace';
-        ctx.fillStyle = '#0f0';
-        ctx.fillText(classLabel.slice(0, 18), x, y + 10);
 
-        x += COL_W + GAP;
-        if (x + COL_W > imgW) break;  // skip if no room
+        // 2) Labels under each vignette
+        var labelY = y + Math.max(FACE_DISPLAY, BODY_DISPLAY_H) + 12;
+        ctx.font = 'bold 11px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#FFD700';
+        ctx.fillText(faceGenderLabel, x + FACE_DISPLAY / 2, labelY);
+        ctx.fillStyle = personColor;
+        ctx.fillText(bodyGenderLabel, bx + BODY_DISPLAY_W / 2, labelY);
+
+        // 3) Final winner label (gender colour) under the column
+        ctx.font = 'bold 12px monospace';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = personColor;
+        ctx.fillText(classLabel, x, labelY + 16);
+
+        x += COL_W + COL_GAP;
+        if (x + COL_W > imgW) break;
       }
-      // Encode the full canvas (image + strip) to a blob and replace the img.
+      ctx.textAlign = 'left';  // restore
+
       var srcLower = (sourceImg.currentSrc || sourceImg.src || '').toLowerCase();
       var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
         || srcLower.indexOf('data:image/png') === 0;
@@ -1439,10 +1480,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         var isFullDebug = debugMode === 'debug';
         var stripH = 0;
         if (isFullDebug) {
-          // Compute strip height : tallest vignette + label area.
-          // Body crop displayed at 100×133 (aspect 192:256), face 96×96.
-          // + 18px label above each + 4px padding.
-          stripH = 96 + 133 + 18 + 18 + 16;
+          // POC parity layout : face 96×96 + body 100×133 side-by-side.
+          // top pad + max(face,body) + per-vignette label + winner label + pad
+          stripH = 6 + 133 + 12 + 11 + 16 + 12 + 10;  // ≈200
         }
         var canvas = document.createElement('canvas');
         canvas.width = w;

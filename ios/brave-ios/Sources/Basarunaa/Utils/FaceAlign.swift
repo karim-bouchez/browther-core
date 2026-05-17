@@ -5,6 +5,7 @@
 
 import CoreGraphics
 import Foundation
+import UIKit
 
 /// Face alignment for the InsightFace genderage classifier.
 ///
@@ -103,13 +104,17 @@ enum FaceAlign {
 
   // MARK: - Internals
 
-  /// Build a BGRA CGContext, apply transforms mirroring the POC web
-  /// (`translate(out/2) → rotate(±angle) → scale → translate(-cx, -cy)`),
+  /// Apply transforms mirroring the POC web
+  /// (`translate(out/2) → rotate(-angle) → scale → translate(-cx, -cy)`),
   /// draw the source image, return the resulting CGImage.
   ///
-  /// The exact rotation sign that matches the POC is empirically derived —
-  /// we expose the rendered crop in the debug strip so the user can see
-  /// what InsightFace receives and we can iterate quickly.
+  /// Use `UIGraphicsImageRenderer` + `UIImage.draw(at:)` so we get a
+  /// UIKit-style top-left coord system and orientation-correct drawing
+  /// automatically — every previous attempt mixing raw `CGContext` flips
+  /// + transforms ended up with the face misplaced or upside-down in the
+  /// 96×96 buffer (debug strip showed torso instead of face,
+  /// 2026-05-16). The UIKit renderer matches Canvas2D semantics directly,
+  /// so the transforms compose like the POC JS.
   private static func renderAffine(
     image: CGImage,
     outSize: Int,
@@ -118,45 +123,39 @@ enum FaceAlign {
     cx: CGFloat,
     cy: CGFloat
   ) -> CGImage? {
-    guard let ctx = makeBGRAContext(size: outSize) else { return nil }
-    let half = CGFloat(outSize) / 2.0
-    ctx.translateBy(x: half, y: half)
-    ctx.rotate(by: angle)
-    ctx.scaleBy(x: scale, y: scale)
-    ctx.translateBy(x: -cx, y: -cy)
-    ctx.draw(
-      image,
-      in: CGRect(x: 0, y: 0, width: image.width, height: image.height)
-    )
-    return ctx.makeImage()
+    let size = CGSize(width: outSize, height: outSize)
+    let format = UIGraphicsImageRendererFormat.default()
+    format.scale = 1   // 1 pixel per point — we want exact 96×96 pixels
+    format.opaque = true
+    let renderer = UIGraphicsImageRenderer(size: size, format: format)
+    let uiImage = UIImage(cgImage: image)
+    let rendered = renderer.image { ctx in
+      let cgCtx = ctx.cgContext
+      let half = CGFloat(outSize) / 2.0
+      cgCtx.translateBy(x: half, y: half)
+      cgCtx.rotate(by: -angle)
+      cgCtx.scaleBy(x: scale, y: scale)
+      cgCtx.translateBy(x: -cx, y: -cy)
+      // UIImage.draw uses the UIKit coord system (top-left) and respects
+      // the current CGContext transforms — no Y-flip arithmetic needed.
+      uiImage.draw(at: .zero)
+    }
+    return rendered.cgImage
   }
 
   /// Plain resize of an already-cropped patch into a fresh BGRA buffer
-  /// (fallback path when rotation conditions aren't met).
+  /// (fallback path when rotation conditions aren't met). Uses the same
+  /// UIGraphicsImageRenderer plumbing for orientation consistency.
   private static func renderResize(image: CGImage, outSize: Int) -> CGImage? {
-    guard let ctx = makeBGRAContext(size: outSize) else { return nil }
-    ctx.draw(
-      image,
-      in: CGRect(x: 0, y: 0, width: outSize, height: outSize)
-    )
-    return ctx.makeImage()
-  }
-
-  /// CGContext that produces a BGRA byte order buffer. CoreML reads the
-  /// 3 first bytes per pixel — with `color_layout="BGR"` on the converted
-  /// model this layout feeds the right channels to InsightFace.
-  private static func makeBGRAContext(size: Int) -> CGContext? {
-    let cs = CGColorSpaceCreateDeviceRGB()
-    let bitmapInfo = CGBitmapInfo.byteOrder32Little.rawValue
-      | CGImageAlphaInfo.premultipliedFirst.rawValue
-    return CGContext(
-      data: nil,
-      width: size,
-      height: size,
-      bitsPerComponent: 8,
-      bytesPerRow: size * 4,
-      space: cs,
-      bitmapInfo: bitmapInfo
-    )
+    let size = CGSize(width: outSize, height: outSize)
+    let format = UIGraphicsImageRendererFormat.default()
+    format.scale = 1
+    format.opaque = true
+    let renderer = UIGraphicsImageRenderer(size: size, format: format)
+    let uiImage = UIImage(cgImage: image)
+    let rendered = renderer.image { _ in
+      uiImage.draw(in: CGRect(origin: .zero, size: size))
+    }
+    return rendered.cgImage
   }
 }
