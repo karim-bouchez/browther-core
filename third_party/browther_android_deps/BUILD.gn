@@ -40,12 +40,14 @@ android_aar_prebuilt("sentry_android_core_java") {
   aar_path = "libs/sentry-android-core/sentry-android-core-8.41.0.aar"
   info_path = "libs/sentry-android-core/sentry-android-core.info"
   enable_bytecode_checks = false
+  # Note : les transitives androidx (core, lifecycle_common_java8,
+  # lifecycle_process) sont déjà dans `chrome_java` via Chromium, mais leur
+  # visibility GN ne permet pas qu'on les ajoute en deps directes ici. Ce
+  # n'est pas bloquant : chrome_java les expose à BrowtherSentry à la
+  # compilation Java, et à l'exécution elles sont dans libchrome.so.
   deps = [
     ":epitaph_java",
     ":sentry_java",
-    "//third_party/androidx:androidx_core_core_java",
-    "//third_party/androidx:androidx_lifecycle_lifecycle_common_java8_java",
-    "//third_party/androidx:androidx_lifecycle_lifecycle_process_java",
   ]
 }
 
