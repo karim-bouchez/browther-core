@@ -404,7 +404,7 @@ Some features may be unavailable and changes to preferences won't be saved.</tra
 <translation id="5823076755666406442">{0,plural, =0{A Browther update is available}=1{A Browther update is available}other{A Browther update has been available for # days}}</translation>
 <translation id="8414129876440043675">Always delete site data from your device when you close Browther</translation>
 <translation id="5156991567152325333">Please restart Browther now</translation>
-<translation id="5710072384986281834">Browther LLC</translation>
+<translation id="5710072384986281834">dev&amp;din Inc</translation>
 <translation id="1536693367017293028">Display Browther in this language</translation>
 <translation id="569897634095159764">Unable to connect to the Internet. Proxy server requires authentication.</translation>
 <translation id="4215338057953170891">Browther profiles let you keep personal browsing and work apart. Add a new profile now.</translation>
@@ -677,7 +677,7 @@ Browther is unable to recover your settings.</translation>
 <translation id="856656450041460113">Search language list</translation>
 <translation id="75470458211269379">Browther can check your passwords when you sign in with your Browther sync chain</translation>
 <translation id="2108930010779660436">Multiple organisations manage Browther</translation>
-<translation id="7209630341463003999">Copyright © <ph name="YEAR"/> The Browther Authors. All rights reserved.</translation>
+<translation id="7209630341463003999">Copyright © <ph name="YEAR"/> dev&amp;din. All rights reserved.</translation>
 <translation id="8601359445272098721">New! You can translate both text and images on your screen by selecting the 'translate screen' button</translation>
 <translation id="782928371899183269">Launching Browther...</translation>
 <translation id="8624541899164515475">Settings, opens in new tab.</translation>
