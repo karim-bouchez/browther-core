@@ -33,29 +33,14 @@ class BasarunaaScriptHandler: TabContentScript {
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
 
-  /// Serial queue qui sérialise tout le traitement vidéo (base64 decode,
-  /// demuxer feed, mutation de `videoSources`). Indispensable car
-  /// `tab(message:replyHandler:)` est livré sur le main thread par WebKit ;
-  /// faire le parsing EBML inline bloquerait le main → WebKit watchdog tue
-  /// le process (cf. crash V2.b 2026-05-17, pattern parallèle au pipeline
-  /// preprocessQueue de Sawtunaa).
-  private let videoQueue = DispatchQueue(
-    label: "com.devndin.browther.basarunaa.video", qos: .userInitiated)
-
-  /// Lifetime state for one MSE video SourceBuffer wrapped on the JS side.
-  /// V2.a : bridge bytes validé (canal JS→Swift restitue l'intégralité).
-  /// V2.b : demuxer WebM streaming branché ⇒ on extrait les frames VP9 +
-  ///        PTS. V2.c branchera VTDecompressionSession pour décoder.
-  private struct VideoSourceState {
-    let mime: String
-    let demuxer: WebMDemuxer
-    var totalBytes: Int = 0
-    var chunkCount: Int = 0
-    var frameCount: Int = 0
-    var keyframeCount: Int = 0
-    let createdAt: Date = Date()
-  }
-  private var videoSources: [Int: VideoSourceState] = [:]
+  /// PTS (en ms média) de la dernière frame analysée, par `videoId` côté JS.
+  /// Permet un échantillonnage 1 / s indépendant du framerate du `<video>`.
+  /// Sur main thread (handler delivery) — pas de lock nécessaire.
+  /// Pivot V2 (2026-05-17) : VTDecompressionSession + VP9 est bloqué par
+  /// un entitlement Apple privé ⇒ on récupère les pixels rendus côté JS via
+  /// `canvas.drawImage(video)` puis on bridge en JPEG.
+  private var lastAnalyzedAtByVideo: [Int: Int64] = [:]
+  private let analyzeIntervalMs: Int64 = 1000
 
   static let scriptName = "BasarunaaScript"
   static let scriptId = UUID().uuidString
@@ -128,42 +113,64 @@ class BasarunaaScriptHandler: TabContentScript {
 
     case "pageReset":
       isActive = false
-      videoQueue.async { [weak self] in
-        self?.videoSources.removeAll()
-      }
+      lastAnalyzedAtByVideo.removeAll()
       log.info("page_reset url=\(data, privacy: .public)")
 
-    case "videoSourceAdded":
-      // data = "<sbId>|<mime>"
-      let parts = data.split(separator: "|", maxSplits: 1)
-      guard parts.count == 2, let sbId = Int(parts[0]) else {
-        log.error("videoSourceAdded parse failed: \(data, privacy: .public)")
+    case "videoFrame":
+      // data = "<videoId>|<ct_ms>|<w>|<h>|<base64Jpeg>"
+      // Le base64 peut être gros (10+ KB) → on évite toute opération inutile
+      // sur le data string en main thread (split est O(N)). On récupère
+      // l'en-tête en cherchant les pipes à la main, puis on extrait le b64
+      // en slice de String.
+      var pipePositions: [String.Index] = []
+      pipePositions.reserveCapacity(4)
+      var idx = data.startIndex
+      while pipePositions.count < 4, let next = data[idx...].firstIndex(of: "|") {
+        pipePositions.append(next)
+        idx = data.index(after: next)
+      }
+      guard pipePositions.count == 4 else {
+        log.error("videoFrame parse failed (no 4 pipes)")
         return
       }
-      let mime = String(parts[1])
-      let weakLog = self.log
-      videoQueue.async { [weak self] in
-        let demuxer = WebMDemuxer(label: "sb\(sbId)")
-        self?.videoSources[sbId] = VideoSourceState(mime: mime, demuxer: demuxer)
-        weakLog.info("video_source_added sbId=\(sbId, privacy: .public) mime=\(mime, privacy: .public)")
-      }
-
-    case "videoSegment":
-      // data = "<sbId>|<seq>|<ct_ms>|<base64>"
-      // Le parsing du préfixe est rapide ; on délègue le base64 decode + le
-      // demuxer feed à la videoQueue pour ne pas bloquer le main thread.
-      let parts = data.split(separator: "|", maxSplits: 3)
-      guard parts.count == 4,
-        let sbId = Int(parts[0]),
-        let seq = Int(parts[1]),
-        let ctMs = Int(parts[2])
+      let v1Start = data.startIndex
+      let v1End = pipePositions[0]
+      let v2Start = data.index(after: pipePositions[0])
+      let v2End = pipePositions[1]
+      let v3Start = data.index(after: pipePositions[1])
+      let v3End = pipePositions[2]
+      let v4Start = data.index(after: pipePositions[2])
+      let v4End = pipePositions[3]
+      let v5Start = data.index(after: pipePositions[3])
+      guard let videoId = Int(data[v1Start..<v1End]),
+        let ctMs = Int64(data[v2Start..<v2End]),
+        let w = Int(data[v3Start..<v3End]),
+        let h = Int(data[v4Start..<v4End])
       else {
-        log.error("videoSegment parse failed (parts=\(data.split(separator: "|").count, privacy: .public))")
+        log.error("videoFrame header parse failed")
         return
       }
-      let b64 = String(parts[3])
-      videoQueue.async { [weak self] in
-        self?.processVideoSegment(sbId: sbId, seq: seq, ctMs: ctMs, b64: b64)
+      // Skip si la dernière analyse pour ce videoId est trop récente. On
+      // pose `.max` à l'enqueue pour que les frames qui arrivent pendant
+      // l'analyse soient drop, puis on remet le PTS réel à la fin. Garantit
+      // une seule Task en vol par <video> et évite l'accumulation.
+      //
+      // ⚠️ Ne *jamais* utiliser `?? Int64.min` ici : `ctMs - Int64.min`
+      // overflow Int64 et Swift trappe via precondition (EXC_BREAKPOINT,
+      // crashes 2026-05-17 19:21 / 19:36). On guarde explicitement le cas
+      // "1ère frame pour ce videoId" par if-let.
+      if let last = lastAnalyzedAtByVideo[videoId] {
+        if last == .max { return }
+        if ctMs - last < analyzeIntervalMs { return }
+      }
+      lastAnalyzedAtByVideo[videoId] = .max
+      let b64 = String(data[v5Start...])
+      let typeErasedTab: any TabState = tab
+      Task.detached { [weak self] in
+        await self?.processVideoFrame(
+          videoId: videoId, ctMs: ctMs, width: w, height: h, b64: b64,
+          tab: typeErasedTab
+        )
       }
 
     default:
@@ -171,50 +178,48 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
-  // MARK: - Video segment processing (videoQueue)
+  // MARK: - Video frame processing (pivot D)
 
-  /// Decode + demuxer feed un segment vidéo MSE. **Exclusivement appelé sur
-  /// `videoQueue`** — `videoSources` n'a pas de protection multi-thread.
-  private func processVideoSegment(sbId: Int, seq: Int, ctMs: Int, b64: String) {
-    guard let bytes = Data(base64Encoded: b64) else {
-      log.error("videoSegment base64 decode failed sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public)")
-      return
-    }
-    guard var state = videoSources[sbId] else {
-      log.error("videoSegment unknown sbId=\(sbId, privacy: .public)")
-      return
-    }
-    state.totalBytes += bytes.count
-    state.chunkCount += 1
-
-    // Pousse au demuxer, récupère les frames VP9 nouvellement complètes.
-    // Log clairsemé pour éviter la pression I/O (1ères 5 + 1 / 120 ≈ 4 s
-    // à 30 fps).
-    let frames = state.demuxer.feed(bytes)
-    for frame in frames {
-      state.frameCount += 1
-      if frame.isKeyframe { state.keyframeCount += 1 }
-      if state.frameCount <= 5 || state.frameCount % 120 == 0 {
-        log.info(
-          """
-          webm_frame sbId=\(sbId, privacy: .public) n=\(state.frameCount, privacy: .public) \
-          pts_ms=\(frame.ptsMs, privacy: .public) key=\(frame.isKeyframe, privacy: .public) \
-          size=\(frame.data.count, privacy: .public)
-          """
-        )
+  /// Décompresse un JPEG capturé par JS (`canvas.drawImage(video)`), invoque
+  /// `BasarunaaPipeline.analyze`. V3 ajoutera le retour des polygones de
+  /// blur au JS pour overlay.
+  private func processVideoFrame(
+    videoId: Int, ctMs: Int64, width: Int, height: Int, b64: String,
+    tab: any TabState
+  ) async {
+    let start = Date()
+    defer {
+      // Toujours réouvrir le slot pour ce videoId : on remet `ctMs` réel
+      // pour que les frames suivantes soient throttlées par `analyzeIntervalMs`.
+      Task { @MainActor [weak self] in
+        self?.lastAnalyzedAtByVideo[videoId] = ctMs
       }
     }
-    videoSources[sbId] = state
-
-    // Log segment cumul : 5 premiers chunks + 1 / 50.
-    if state.chunkCount <= 5 || state.chunkCount % 50 == 0 {
+    guard let jpegData = Data(base64Encoded: b64) else {
+      log.error("videoFrame base64 decode failed videoId=\(videoId, privacy: .public)")
+      return
+    }
+    guard let uiImage = UIImage(data: jpegData), let cgImage = uiImage.cgImage else {
+      log.error(
+        "videoFrame jpeg decode failed videoId=\(videoId, privacy: .public) bytes=\(jpegData.count, privacy: .public)"
+      )
+      return
+    }
+    do {
+      let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+      let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
-        video_segment sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public) \
-        chunks=\(state.chunkCount, privacy: .public) size=\(bytes.count, privacy: .public) \
-        total=\(state.totalBytes, privacy: .public) frames=\(state.frameCount, privacy: .public) \
-        key=\(state.keyframeCount, privacy: .public) ct_ms=\(ctMs, privacy: .public)
+        video_analyzed videoId=\(videoId, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
+        w=\(width, privacy: .public) h=\(height, privacy: .public) \
+        persons=\(result.persons.count, privacy: .public) nsfw=\(result.isNsfw, privacy: .public) \
+        elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
         """
+      )
+      _ = tab  // V3 utilisera tab pour pousser les polygones à JS
+    } catch {
+      log.error(
+        "videoFrame analyze failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
       )
     }
   }

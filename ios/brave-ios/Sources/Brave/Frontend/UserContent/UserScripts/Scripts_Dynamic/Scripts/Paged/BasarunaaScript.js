@@ -32,101 +32,135 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     try { send('metric', JSON.stringify(obj)); } catch (e) {}
   }
 
-  // ─── Video V2 : MSE segment intercept + bytes bridge to Swift ─────────────
-  // Calque le pattern Sawtunaa (cf. SawtunaaScript.js) — monkey-patch
-  // MediaSource/ManagedMediaSource.addSourceBuffer at atDocumentStart pour
-  // identifier les SourceBuffers vidéo via leur MIME type, puis wrap leur
-  // appendBuffer pour envoyer chaque chunk compressé en base64 à Swift
-  // (action `videoSegment`). Swift accumule et délègue à VideoToolbox (V2.b+).
+  // ─── Video (pivot D, 2026-05-17) : drawImage(video) sampling ──────────────
   //
-  // V1 (validé 2026-05-17) — capture-only via metric() : ManagedMediaSource +
-  // VP9 confirmés sur iPhone 13 / YouTube.
+  // VTDecompressionSession + VP9 sur iOS est gated par un entitlement Apple
+  // privé (cf. memory feedback_ios_vtdecompression_vp9_blocked.md) — on
+  // n'aura pas accès au décodage côté Swift. À la place, on laisse WebKit
+  // décoder dans le `<video>` natif et on récupère les pixels rendus via
+  // `canvas.drawImage(video)`. Les `<video>` alimentés par MSE (YouTube,
+  // Vimeo, Twitch) ne sont pas CORS-tainted ⇒ drawImage marche.
+  //
+  // Sample 1 frame / s par <video> visible, encode JPEG q=0.6 (downscale max
+  // 640 px largeur pour limiter la bande passante du bridge JS→Swift),
+  // envoie via action `videoFrame`. Swift décode, appelle BasarunaaPipeline.
+  // V3 ajoutera le retour des polygones de blur + overlay canvas.
   (function() {
-    var hasMS = typeof MediaSource !== 'undefined';
-    var hasMMS = typeof ManagedMediaSource !== 'undefined';
-    if (!hasMS && !hasMMS) {
-      metric('mse_video_abort', { reason: 'no_mse' });
+    var hasVRC = typeof HTMLVideoElement !== 'undefined'
+      && typeof HTMLVideoElement.prototype.requestVideoFrameCallback === 'function';
+    if (!hasVRC) {
+      metric('video_pivot_abort', { reason: 'no_requestVideoFrameCallback' });
       return;
     }
-    var sbIdCounter = 0;
 
-    // Convert a Uint8Array / ArrayBuffer / BufferSource to base64.
-    // String.fromCharCode.apply has a call-stack limit (~120k args), so we
-    // chunk by 32 KB to stay safe across browsers. For typical YouTube chunks
-    // (30-230 KB) this is ~1-8 calls.
-    function bufferSourceToBase64(buffer) {
-      var u8;
-      if (buffer instanceof Uint8Array) {
-        u8 = buffer;
-      } else if (buffer instanceof ArrayBuffer) {
-        u8 = new Uint8Array(buffer);
-      } else if (buffer && buffer.buffer instanceof ArrayBuffer) {
-        // Typed array view : honour byteOffset/byteLength.
-        u8 = new Uint8Array(buffer.buffer, buffer.byteOffset || 0, buffer.byteLength);
-      } else {
-        return null;
-      }
-      var CHUNK = 0x8000;
-      var parts = [];
-      for (var i = 0; i < u8.length; i += CHUNK) {
-        parts.push(String.fromCharCode.apply(null, u8.subarray(i, i + CHUNK)));
-      }
-      return btoa(parts.join(''));
-    }
+    var nextVideoId = 1;
+    var wired = new WeakSet();
+    var taintedVideos = new WeakSet();
+    var lastSentAtMs = new WeakMap();   // <video> → wall-clock ms du dernier send
+    // V2-pivot Δ-2 (2026-05-17 19:21 crash) : on baisse la charge à fond pour
+    // diagnostiquer. 2 s + 320 px + q 0.5 ⇒ payload ~10-20 KB base64 vs
+    // 40-110 KB précédemment. On remonte progressivement après confirmation
+    // de stabilité.
+    var SAMPLE_INTERVAL_MS = 2000;
+    var MAX_WIDTH = 320;
+    var JPEG_QUALITY = 0.5;
 
-    function wrapAppendBuffer(sb, sbId, mimeType) {
-      var original = sb.appendBuffer;
-      if (typeof original !== 'function') return;
-      var seq = 0;
-      sb.appendBuffer = function(buffer) {
+    // Canvas partagé — recyclé, redimensionné on-demand. `willReadFrequently:false`
+    // car on n'extrait pas les pixels, on encode juste en JPEG via toDataURL.
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    function wireVideo(video) {
+      if (wired.has(video) || taintedVideos.has(video)) return;
+      wired.add(video);
+      var videoId = nextVideoId++;
+      metric('video_wired', {
+        videoId: videoId,
+        src: (video.currentSrc || video.src || '').slice(0, 100)
+      });
+
+      function tick() {
+        if (taintedVideos.has(video)) return;
+        // Ne tente pas de capture si la vidéo n'est pas en lecture / pas
+        // encore prête (videoWidth = 0 tant qu'aucune frame n'est rendue).
+        var vw = video.videoWidth || 0;
+        var vh = video.videoHeight || 0;
+        if (vw === 0 || vh === 0 || video.paused || video.ended) {
+          video.requestVideoFrameCallback(tick);
+          return;
+        }
+        var nowMs = (typeof performance !== 'undefined' && performance.now)
+          ? performance.now() : Date.now();
+        var last = lastSentAtMs.get(video) || 0;
+        if (nowMs - last < SAMPLE_INTERVAL_MS) {
+          video.requestVideoFrameCallback(tick);
+          return;
+        }
         try {
-          seq++;
-          var b64 = bufferSourceToBase64(buffer);
-          var videos = document.getElementsByTagName('video');
-          var currentTimeMs = -1;
-          if (videos.length > 0) {
-            currentTimeMs = Math.round((videos[0].currentTime || 0) * 1000);
-          }
-          if (b64 !== null) {
-            // Format: "<sbId>|<seq>|<ct_ms>|<base64>"
-            send('videoSegment', sbId + '|' + seq + '|' + currentTimeMs + '|' + b64);
-          } else {
-            metric('mse_video_chunk_error', { sbId: sbId, seq: seq, msg: 'unsupported_buffer_type' });
+          var scale = Math.min(1, MAX_WIDTH / vw);
+          var w = Math.round(vw * scale);
+          var h = Math.round(vh * scale);
+          if (canvas.width !== w) canvas.width = w;
+          if (canvas.height !== h) canvas.height = h;
+          ctx.drawImage(video, 0, 0, w, h);
+          var dataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
+          var comma = dataUrl.indexOf(',');
+          if (comma > 0) {
+            var b64 = dataUrl.substring(comma + 1);
+            var ctMs = Math.round((video.currentTime || 0) * 1000);
+            // Format: "<videoId>|<ct_ms>|<w>|<h>|<base64Jpeg>"
+            send('videoFrame', videoId + '|' + ctMs + '|' + w + '|' + h + '|' + b64);
+            lastSentAtMs.set(video, nowMs);
           }
         } catch (e) {
-          metric('mse_video_chunk_error', { sbId: sbId, msg: '' + e });
+          // SecurityError (CORS taint) ou autre — on stoppe pour ce <video>
+          // mais on n'essaie pas de re-wirer (taintedVideos évite la boucle
+          // dans le MutationObserver).
+          taintedVideos.add(video);
+          metric('video_draw_error', {
+            videoId: videoId,
+            msg: ('' + e).slice(0, 200)
+          });
+          return;
         }
-        return original.apply(this, arguments);
-      };
+        video.requestVideoFrameCallback(tick);
+      }
+      video.requestVideoFrameCallback(tick);
     }
-    function wrapAddSourceBuffer(ctor, ctorName) {
-      if (!ctor || !ctor.prototype || !ctor.prototype.addSourceBuffer) return;
-      var originalASB = ctor.prototype.addSourceBuffer;
-      ctor.prototype.addSourceBuffer = function(mimeType) {
-        var sb = originalASB.apply(this, arguments);
-        var isVideo = typeof mimeType === 'string' && /^video\//i.test(mimeType);
-        if (isVideo) {
-          var sbId = ++sbIdCounter;
-          // Format: "<sbId>|<mime>"
-          send('videoSourceAdded', sbId + '|' + mimeType);
-          metric('mse_video_sb_added', { sbId: sbId, ctor: ctorName, mime: mimeType });
-          wrapAppendBuffer(sb, sbId, mimeType);
-        } else {
-          metric('mse_sb_skip', { ctor: ctorName, mime: mimeType || '' });
-        }
-        return sb;
-      };
+
+    function scanAndWire() {
+      var videos = document.getElementsByTagName('video');
+      for (var i = 0; i < videos.length; i++) {
+        wireVideo(videos[i]);
+      }
     }
-    if (hasMS) wrapAddSourceBuffer(MediaSource, 'MediaSource');
-    if (hasMMS) wrapAddSourceBuffer(ManagedMediaSource, 'ManagedMediaSource');
-    metric('mse_video_init', {
-      hasMS: hasMS,
-      hasMMS: hasMMS,
+
+    // Scan immédiat + observer pour les <video> ajoutés dynamiquement
+    // (YouTube SPA recrée l'élément à chaque navigation interne).
+    function init() {
+      scanAndWire();
+      try {
+        var mo = new MutationObserver(scanAndWire);
+        mo.observe(document.documentElement || document.body, {
+          childList: true,
+          subtree: true
+        });
+      } catch (e) {
+        metric('video_observer_error', { msg: '' + e });
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+
+    metric('video_pivot_init', {
       url: location.href,
       isYoutube: /(?:youtube\.com|youtu\.be)/.test(location.host)
     });
   })();
-  // ─── End video V2 ─────────────────────────────────────────────────────────
+  // ─── End video pivot D ────────────────────────────────────────────────────
 
   // ─── Config ───
   // V1: hard-coded blur intensity. V2 will read Preferences.Basarunaa.blurStrength
