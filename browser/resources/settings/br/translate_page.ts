@@ -3,19 +3,29 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-import {html, RegisterStyleOverride} from 'chrome://resources/brave/polymer_overriding.js'
+import {
+  RegisterPolymerTemplateModifications
+} from 'chrome://resources/brave/polymer_overriding.js'
 
-// Browther: cache le toggle "Use Translate" / "Offer translation for languages
-// you don't read" dans chrome://settings/languages. La pref kOfferTranslateEnabled
-// est déjà à false par défaut côté C++ (cf. brave_profile_prefs.cc), mais le
-// toggle restait visible pour réactiver. Browther utilise pas Brave Translate.
-RegisterStyleOverride(
-  'settings-translate-page',
-  html`
-    <style>
-      #offerTranslateOtherLanguages {
-        display: none !important;
-      }
-    </style>
-  ` as HTMLTemplateElement
-)
+// Browther: cache la section "Brave Translate" dans chrome://settings/languages.
+// La pref kOfferTranslateEnabled est déjà à false par défaut côté C++
+// (cf. brave_profile_prefs.cc), mais la section avec le toggle "Use Brave
+// Translate" restait visible. Browther n'utilise pas Brave Translate.
+//
+// On set un style="display:none" inline sur le `<settings-translate-page>` sans
+// le retirer du DOM (sinon le parent appelle switchViews(['languages',
+// 'spellCheck', 'translate']) qui plante car la view doit exister).
+//
+// Note : on n'utilise pas RegisterStyleOverride qui ne semble pas s'appliquer
+// correctement à ce composant (peut-être lazy-load mismatch — testé avec
+// `:host` et avec `#translate` sur le parent, sans succès).
+RegisterPolymerTemplateModifications({
+  'settings-languages-page-index': (templateContent) => {
+    const translatePage = templateContent.querySelector('settings-translate-page')
+    if (translatePage) {
+      const existingStyle = translatePage.getAttribute('style') ?? ''
+      translatePage.setAttribute('style',
+        `${existingStyle}; display: none !important;`)
+    }
+  }
+})

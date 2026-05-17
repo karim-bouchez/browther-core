@@ -92,7 +92,9 @@ function getPageVisibility () {
     appearance: alwaysTrueProxy,
     privacy: alwaysTrueProxy,
     // custom properties
-    braveSync: !loadTimeData.getBoolean('isSyncDisabled'),
+    // Browther: Sync désactivé (brave_sync_endpoint est en dummy dans buildArgs.ts).
+    // Force `braveSync: false` retire la route /braveSync et le subpage entier.
+    braveSync: false,
     // <if expr="enable_brave_wallet">
     braveWallet: loadTimeData.getBoolean('isBraveWalletAllowed'),
     // </if>
