@@ -680,10 +680,15 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   function compositePerPersonBlur(img, persons) {
     if (!persons || persons.length === 0) return Promise.resolve(false);
     var id = img.getAttribute(ID_ATTR);
+    // Convert keypoints from [x,y,conf] arrays to {x,y,confidence} objects
+    // so `buildBodyPolygon` can read kp.confidence. Without this normalise,
+    // the polygon path silently falls back to a bbox rectangle (the blur
+    // looks rectangular instead of following the silhouette).
+    var normalised = normalisePersons(persons);
     metric('composite_start', {
       id: id,
       naturalW: img.naturalWidth, naturalH: img.naturalHeight,
-      persons: persons.length,
+      persons: normalised.length,
     });
     return getCompositingSource(img).then(function(source) {
       var sourceType = (source && source.constructor) ? source.constructor.name : 'unknown';
@@ -702,8 +707,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         ctx.drawImage(source, 0, 0, w, h);
         var blur = Math.max(25, Math.round(Math.max(w, h) * 0.04));
         var blurredCanvas = createEdgeClampedBlur(source, w, h, blur);
-        for (var pi = 0; pi < persons.length; pi++) {
-          drawFeatheredBlur(ctx, blurredCanvas, persons[pi], w, h);
+        for (var pi = 0; pi < normalised.length; pi++) {
+          drawFeatheredBlur(ctx, blurredCanvas, normalised[pi], w, h);
         }
         var srcLower = (img.currentSrc || img.src || '').toLowerCase();
         var needsAlpha = /\.png(\?|$)/.test(srcLower) || /\.webp(\?|$)/.test(srcLower)
