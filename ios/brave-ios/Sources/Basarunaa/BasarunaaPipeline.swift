@@ -120,20 +120,12 @@ public actor BasarunaaPipeline {
     }
   }
 
-  public func analyze(image: CGImage) async throws -> BasarunaaResult {
-    let bodyThreshold = Preferences.Basarunaa.confBody.value
-    let faceThreshold = Preferences.Basarunaa.confFace.value
-    let genderCertainty = Preferences.Basarunaa.genderCertainty.value
-    let debugMode = Preferences.Basarunaa.debugMode.value
-    let wantsCrops = debugMode == "debug"
-
-    let (pose, face, classifier, bodyClassifier, nsfwClassifier, nudeNetDetector) =
-      try await loadModelsIfNeeded()
-
-    let imageSize = CGSize(width: image.width, height: image.height)
-    let totalStart = Date()
-
-    // 1) NSFW pre-check.
+  /// Phase 2 — NSFW check. Run async background after `analyze()` returns.
+  /// Returns (isNsfw, marqoScore, latencyMs). Matches macOS POC where NSFW
+  /// is a LOW priority enqueue that fires a separate notification only if
+  /// positive (cf. offscreen.js Phase 1 / Phase 2 split).
+  public func checkNsfw(image: CGImage) async throws -> (isNsfw: Bool, score: Double?, latencyMs: Double) {
+    let (_, _, _, _, nsfwClassifier, nudeNetDetector) = try await loadModelsIfNeeded()
     let nsfwStart = Date()
     let marqoResult = try? nsfwClassifier.classify(image: image)
     let nudeDetections = (try? nudeNetDetector.detect(image: image)) ?? []
@@ -143,31 +135,37 @@ public actor BasarunaaPipeline {
     }
     let marqoIsNsfw = marqoResult?.isNsfw ?? false
     let nsfwScore = marqoResult?.score
+    let latencyMs = Date().timeIntervalSince(nsfwStart) * 1000
     let isNsfw = marqoIsNsfw || exposedHit
-    let nsfwLatencyMs = Date().timeIntervalSince(nsfwStart) * 1000
-
     if isNsfw {
-      let totalLatencyMs = Date().timeIntervalSince(totalStart) * 1000
       let trigger = marqoIsNsfw
         ? "marqo=\(String(format: "%.2f", nsfwScore ?? 0))"
         : "nudenet_exposed"
       log.info(
-        """
-        analyze NSFW short-circuit: \(trigger, privacy: .public) \
-        nsfw=\(String(format: "%.1f", nsfwLatencyMs), privacy: .public)ms \
-        total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
-        """
+        "checkNsfw POSITIVE: \(trigger, privacy: .public) (\(String(format: "%.1f", latencyMs), privacy: .public)ms)"
       )
-      return BasarunaaResult(
-        persons: [],
-        totalLatencyMs: totalLatencyMs,
-        poseLatencyMs: 0,
-        classifyLatencyMs: nsfwLatencyMs,
-        imageSize: imageSize,
-        isNsfw: true,
-        nsfwScore: nsfwScore
-      )
+    } else {
+      log.info("checkNsfw negative (\(String(format: "%.1f", latencyMs), privacy: .public)ms)")
     }
+    return (isNsfw: isNsfw, score: nsfwScore, latencyMs: latencyMs)
+  }
+
+  /// Phase 1 — person detection + gender classification. Returns ASAP so
+  /// the JS side can apply per-person blur without waiting on NSFW. The
+  /// caller is expected to fire `checkNsfw` in parallel and notify the JS
+  /// separately when (and only if) the result is positive.
+  public func analyze(image: CGImage) async throws -> BasarunaaResult {
+    let bodyThreshold = Preferences.Basarunaa.confBody.value
+    let faceThreshold = Preferences.Basarunaa.confFace.value
+    let genderCertainty = Preferences.Basarunaa.genderCertainty.value
+    let debugMode = Preferences.Basarunaa.debugMode.value
+    let wantsCrops = debugMode == "debug"
+
+    let (pose, face, classifier, bodyClassifier, _, _) =
+      try await loadModelsIfNeeded()
+
+    let imageSize = CGSize(width: image.width, height: image.height)
+    let totalStart = Date()
 
     // 2) Body + face detection (sequential — CoreML compute scheduling).
     let bodyStart = Date()
@@ -239,11 +237,10 @@ public actor BasarunaaPipeline {
       analyze done: persons=\(results.count, privacy: .public) \
       bodies=\(bodies.count, privacy: .public) faces=\(faces.count, privacy: .public) \
       synthBodies=\(faces.count - matchedFaceIndices.count, privacy: .public)
-      nsfw=\(String(format: "%.1f", nsfwLatencyMs), privacy: .public)ms \
       detect=\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms (body=\(String(format: "%.1f", bodyMs), privacy: .public) face=\(String(format: "%.1f", faceMs), privacy: .public)) \
       match=\(String(format: "%.1f", matchMs), privacy: .public)ms \
       classify=\(String(format: "%.1f", classifyLatencyMs), privacy: .public)ms \
-      total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
+      total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms (NSFW Phase 2 async)
       """
     )
     for (i, t) in personTimings.enumerated() {
@@ -265,7 +262,7 @@ public actor BasarunaaPipeline {
       classifyLatencyMs: classifyLatencyMs,
       imageSize: imageSize,
       isNsfw: false,
-      nsfwScore: nsfwScore
+      nsfwScore: nil
     )
   }
 

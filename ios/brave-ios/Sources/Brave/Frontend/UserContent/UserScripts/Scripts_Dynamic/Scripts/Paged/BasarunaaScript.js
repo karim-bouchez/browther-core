@@ -1640,6 +1640,34 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
   };
 
+  // ─── Phase 2 NSFW notification ───
+  // Swift fires `window.__basarunaaApplyNsfw(id, score)` *after* the
+  // per-person blur is already applied, only when NSFW is positive. POC
+  // parity (cf. offscreen.js Phase 2). We force a full-image CSS blur on
+  // top of whatever the per-person composite produced — cheap & safe.
+  window.__basarunaaApplyNsfw = function(id, score) {
+    try {
+      var img = findById(id);
+      metric('apply_nsfw', {
+        id: id, score: score, found: !!img,
+      });
+      if (img) {
+        // Re-apply the default full-image blur with !important. This
+        // wins over the blob URL replacement done by the composite path.
+        img.style.setProperty(
+          'filter',
+          'blur(' + BLUR_RADIUS_PX + 'px)',
+          'important'
+        );
+        img.setAttribute(BLUR_MARKER, '1');
+        img.setAttribute(STATE_ATTR, 'keep');
+        setCachedDecision(imgUrl(img), 'keep');
+      }
+    } catch (e) {
+      metric('apply_nsfw_error', { msg: '' + e });
+    }
+  };
+
   // ─── IntersectionObserver — only analyze visible images ───
   //
   // Pages can have 50-100+ images, most below the fold. Analyzing all of them

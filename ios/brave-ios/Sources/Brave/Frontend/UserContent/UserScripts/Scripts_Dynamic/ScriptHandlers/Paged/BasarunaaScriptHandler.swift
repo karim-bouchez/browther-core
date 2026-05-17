@@ -176,9 +176,52 @@ class BasarunaaScriptHandler: TabContentScript {
         debugMode: debugMode,
         elapsedMs: elapsedMs
       )
+
+      // Phase 2 (POC parity) — fire NSFW check in the background. Only
+      // notify JS when the result is positive ; the per-person blur is
+      // already applied and that's the right default on safe images.
+      let weakLog = self.log
+      Task.detached { [weak tab] in
+        do {
+          let nsfwResult = try await BasarunaaPipeline.shared.checkNsfw(image: cgImage)
+          if nsfwResult.isNsfw, let tab {
+            await Self.applyNsfwOverlay(
+              tab: tab,
+              id: id,
+              score: nsfwResult.score ?? 1.0,
+              log: weakLog
+            )
+          }
+        } catch {
+          weakLog.error("checkNsfw[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
+        }
+      }
     } catch {
       log.error("analyze[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
       await reply(tab: tab, id: id, decision: .keep, persons: [], shouldBlurFlags: [], debugMode: "none", elapsedMs: 0)
+    }
+  }
+
+  /// Phase 2 notification — fires `window.__basarunaaApplyNsfw(id, score)`
+  /// on the page so the JS can replace the per-person blur with a full
+  /// image blur (or any UI it wants). Called only when NSFW is positive.
+  @MainActor
+  private static func applyNsfwOverlay(
+    tab: any TabState,
+    id: Int,
+    score: Double,
+    log: Logger
+  ) async {
+    do {
+      _ = try await tab.evaluateJavaScript(
+        functionName: "window.__basarunaaApplyNsfw",
+        args: [id, score],
+        contentWorld: BasarunaaScriptHandler.scriptSandbox
+      )
+    } catch {
+      log.error(
+        "applyNsfwOverlay failed for id=\(id, privacy: .public): \(String(describing: error), privacy: .public)"
+      )
     }
   }
 
