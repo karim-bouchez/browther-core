@@ -175,19 +175,19 @@ RegisterPolymerTemplateModifications({
         </template>
       `)
 
-    // Insert the Sawtunaa page into the view manager (Browther)
-    switcher.appendChild(
-      html`
-        <div slot="view" id="sawtunaa" class="cr-centered-card-container">
-          <template is="dom-if" if="[[renderPlugin_(
-        routes_.SAWTUNAA, lastRoute_, inSearchMode_)]]">
-            <settings-sawtunaa-page
-              prefs="{{prefs}}"
-              in-search-mode="[[inSearchMode_]]">
-            </settings-sawtunaa-page>
-          </template>
-        </div>
-      `)
+    // Browther: page Sawtunaa retirée (popup toolbar suffit, 2026-05-17).
+    // switcher.appendChild(
+    //   html`
+    //     <div slot="view" id="sawtunaa" class="cr-centered-card-container">
+    //       <template is="dom-if" if="[[renderPlugin_(
+    //     routes_.SAWTUNAA, lastRoute_, inSearchMode_)]]">
+    //         <settings-sawtunaa-page
+    //           prefs="{{prefs}}"
+    //           in-search-mode="[[inSearchMode_]]">
+    //         </settings-sawtunaa-page>
+    //       </template>
+    //     </div>
+    //   `)
 
     // Insert the extensions page into the view manager
     switcher.appendChild(

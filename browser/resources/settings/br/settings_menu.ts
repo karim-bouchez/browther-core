@@ -320,16 +320,18 @@ RegisterPolymerTemplateModifications({
       searchEl.insertAdjacentElement('afterend', extensionEl)
     }
 
-    // Add Sawtunaa item (Browther)
-    const sawtunaaEl = createMenuElement(
-      loadTimeData.getString('sawtunaaTitle'),
-      '/sawtunaa',
-      'media-visualizer',
-      'sawtunaa' as keyof typeof pageVisibility,
-    )
-    if (extensionEl) {
-      extensionEl.insertAdjacentElement('afterend', sawtunaaEl)
-    }
+    // Browther: page Sawtunaa retirée — la popup toolbar suffit (décision
+    // 2026-05-17). Menu item retiré + route retirée dans brave_routes.ts +
+    // import retiré dans basic_page.ts.
+    // const sawtunaaEl = createMenuElement(
+    //   loadTimeData.getString('sawtunaaTitle'),
+    //   '/sawtunaa',
+    //   'media-visualizer',
+    //   'sawtunaa' as keyof typeof pageVisibility,
+    // )
+    // if (extensionEl) {
+    //   extensionEl.insertAdjacentElement('afterend', sawtunaaEl)
+    // }
 
     // Move autofill to advanced
     const autofillEl = getMenuElement(templateContent, '/autofill')

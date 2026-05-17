@@ -13,7 +13,8 @@ import '../brave_content_page/playlist.js'
 import '../brave_content_page/speedreader.js'
 // </if>
 import '../brave_data_collection_page/brave_data_collection_page.js'
-import '../sawtunaa_page/sawtunaa_page.js'
+// Browther: page Sawtunaa retirée (popup toolbar suffit, 2026-05-17).
+// import '../sawtunaa_page/sawtunaa_page.js'
 import '../brave_default_extensions_page/brave_default_extensions_page.js'
 import '../brave_new_tab_page/brave_new_tab_page.js'
 import '../brave_origin_page/brave_origin_page.js'
