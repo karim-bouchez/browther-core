@@ -33,14 +33,26 @@ class BasarunaaScriptHandler: TabContentScript {
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
 
+  /// Serial queue qui sérialise tout le traitement vidéo (base64 decode,
+  /// demuxer feed, mutation de `videoSources`). Indispensable car
+  /// `tab(message:replyHandler:)` est livré sur le main thread par WebKit ;
+  /// faire le parsing EBML inline bloquerait le main → WebKit watchdog tue
+  /// le process (cf. crash V2.b 2026-05-17, pattern parallèle au pipeline
+  /// preprocessQueue de Sawtunaa).
+  private let videoQueue = DispatchQueue(
+    label: "com.devndin.browther.basarunaa.video", qos: .userInitiated)
+
   /// Lifetime state for one MSE video SourceBuffer wrapped on the JS side.
-  /// V2.a (bridge bytes) : on accumule juste les métadonnées pour valider que
-  /// le canal JS→Swift restitue l'intégralité des segments envoyés. V2.b
-  /// déléguera à un demuxer EBML + VTDecompressionSession.
+  /// V2.a : bridge bytes validé (canal JS→Swift restitue l'intégralité).
+  /// V2.b : demuxer WebM streaming branché ⇒ on extrait les frames VP9 +
+  ///        PTS. V2.c branchera VTDecompressionSession pour décoder.
   private struct VideoSourceState {
     let mime: String
+    let demuxer: WebMDemuxer
     var totalBytes: Int = 0
     var chunkCount: Int = 0
+    var frameCount: Int = 0
+    var keyframeCount: Int = 0
     let createdAt: Date = Date()
   }
   private var videoSources: [Int: VideoSourceState] = [:]
@@ -116,7 +128,9 @@ class BasarunaaScriptHandler: TabContentScript {
 
     case "pageReset":
       isActive = false
-      videoSources.removeAll()
+      videoQueue.async { [weak self] in
+        self?.videoSources.removeAll()
+      }
       log.info("page_reset url=\(data, privacy: .public)")
 
     case "videoSourceAdded":
@@ -127,11 +141,17 @@ class BasarunaaScriptHandler: TabContentScript {
         return
       }
       let mime = String(parts[1])
-      videoSources[sbId] = VideoSourceState(mime: mime)
-      log.info("video_source_added sbId=\(sbId, privacy: .public) mime=\(mime, privacy: .public)")
+      let weakLog = self.log
+      videoQueue.async { [weak self] in
+        let demuxer = WebMDemuxer(label: "sb\(sbId)")
+        self?.videoSources[sbId] = VideoSourceState(mime: mime, demuxer: demuxer)
+        weakLog.info("video_source_added sbId=\(sbId, privacy: .public) mime=\(mime, privacy: .public)")
+      }
 
     case "videoSegment":
       // data = "<sbId>|<seq>|<ct_ms>|<base64>"
+      // Le parsing du préfixe est rapide ; on délègue le base64 decode + le
+      // demuxer feed à la videoQueue pour ne pas bloquer le main thread.
       let parts = data.split(separator: "|", maxSplits: 3)
       guard parts.count == 4,
         let sbId = Int(parts[0]),
@@ -141,30 +161,61 @@ class BasarunaaScriptHandler: TabContentScript {
         log.error("videoSegment parse failed (parts=\(data.split(separator: "|").count, privacy: .public))")
         return
       }
-      guard let bytes = Data(base64Encoded: String(parts[3])) else {
-        log.error("videoSegment base64 decode failed sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public)")
-        return
-      }
-      var state = videoSources[sbId] ?? VideoSourceState(mime: "unknown")
-      state.totalBytes += bytes.count
-      state.chunkCount += 1
-      videoSources[sbId] = state
-      // Log les 5 premiers chunks + 1 / 20 ensuite (verbose au démarrage,
-      // calme en cruise).
-      let shouldLog = state.chunkCount <= 5 || state.chunkCount % 20 == 0
-      if shouldLog {
-        log.info(
-          """
-          video_segment sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public) \
-          chunks=\(state.chunkCount, privacy: .public) size=\(bytes.count, privacy: .public) \
-          total=\(state.totalBytes, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
-          mime=\(state.mime, privacy: .public)
-          """
-        )
+      let b64 = String(parts[3])
+      videoQueue.async { [weak self] in
+        self?.processVideoSegment(sbId: sbId, seq: seq, ctMs: ctMs, b64: b64)
       }
 
     default:
       log.info("unknown_action=\(action, privacy: .public)")
+    }
+  }
+
+  // MARK: - Video segment processing (videoQueue)
+
+  /// Decode + demuxer feed un segment vidéo MSE. **Exclusivement appelé sur
+  /// `videoQueue`** — `videoSources` n'a pas de protection multi-thread.
+  private func processVideoSegment(sbId: Int, seq: Int, ctMs: Int, b64: String) {
+    guard let bytes = Data(base64Encoded: b64) else {
+      log.error("videoSegment base64 decode failed sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public)")
+      return
+    }
+    guard var state = videoSources[sbId] else {
+      log.error("videoSegment unknown sbId=\(sbId, privacy: .public)")
+      return
+    }
+    state.totalBytes += bytes.count
+    state.chunkCount += 1
+
+    // Pousse au demuxer, récupère les frames VP9 nouvellement complètes.
+    // Log clairsemé pour éviter la pression I/O (1ères 5 + 1 / 120 ≈ 4 s
+    // à 30 fps).
+    let frames = state.demuxer.feed(bytes)
+    for frame in frames {
+      state.frameCount += 1
+      if frame.isKeyframe { state.keyframeCount += 1 }
+      if state.frameCount <= 5 || state.frameCount % 120 == 0 {
+        log.info(
+          """
+          webm_frame sbId=\(sbId, privacy: .public) n=\(state.frameCount, privacy: .public) \
+          pts_ms=\(frame.ptsMs, privacy: .public) key=\(frame.isKeyframe, privacy: .public) \
+          size=\(frame.data.count, privacy: .public)
+          """
+        )
+      }
+    }
+    videoSources[sbId] = state
+
+    // Log segment cumul : 5 premiers chunks + 1 / 50.
+    if state.chunkCount <= 5 || state.chunkCount % 50 == 0 {
+      log.info(
+        """
+        video_segment sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public) \
+        chunks=\(state.chunkCount, privacy: .public) size=\(bytes.count, privacy: .public) \
+        total=\(state.totalBytes, privacy: .public) frames=\(state.frameCount, privacy: .public) \
+        key=\(state.keyframeCount, privacy: .public) ct_ms=\(ctMs, privacy: .public)
+        """
+      )
     }
   }
 
