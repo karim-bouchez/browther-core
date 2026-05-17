@@ -1350,8 +1350,25 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         var winnerConf = person.genderConfidence != null
           ? Math.round(person.genderConfidence * 100) + '%'
           : '';
-        var classLabel = gShort + ' ' + winnerConf
-          + (person.classifierUsed ? ' [' + person.classifierUsed + ']' : '');
+        // Shorten classifier names so the label fits in the column width
+        // (POC uses long labels but desktop has more horizontal space).
+        var classSuffix = '';
+        if (person.classifierUsed) {
+          classSuffix = ' ['
+            + person.classifierUsed
+              .replace('insightface (partial body)', 'IF (part)')
+              .replace('insightface (synth body)', 'IF (synth)')
+              .replace('insightface (conflict)', 'IF (cnflct)')
+              .replace('insightface (align fail)', 'IF (align)')
+              .replace('pplcnet (synth body)', 'PP (synth)')
+              .replace('pplcnet (no face)', 'PP (no face)')
+              .replace('pplcnet (best)', 'PP (best)')
+              .replace('pplcnet (align fail)', 'PP (align)')
+              .replace('insightface', 'IF')
+              .replace('pplcnet', 'PP')
+            + ']';
+        }
+        var classLabel = gShort + ' ' + winnerConf + classSuffix;
 
         var y = stripTop + TOP_PAD;
         // 1) Face + body side by side
@@ -1392,11 +1409,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         ctx.fillStyle = personColor;
         ctx.fillText(bodyGenderLabel, bx + BODY_DISPLAY_W / 2, labelY);
 
-        // 3) Final winner label (gender colour) under the column
-        ctx.font = 'bold 12px monospace';
-        ctx.textAlign = 'left';
+        // 3) Final winner label (gender colour) centered under the column,
+        // clipped to column width so it never overlaps the next person.
+        ctx.font = 'bold 11px monospace';
+        ctx.textAlign = 'center';
         ctx.fillStyle = personColor;
-        ctx.fillText(classLabel, x, labelY + 16);
+        var classLabelClipped = classLabel;
+        var maxLabelW = COL_W - 4;
+        while (classLabelClipped.length > 6
+               && ctx.measureText(classLabelClipped).width > maxLabelW) {
+          classLabelClipped = classLabelClipped.slice(0, -1);
+        }
+        ctx.fillText(classLabelClipped, x + COL_W / 2, labelY + 16);
 
         x += COL_W + COL_GAP;
         if (x + COL_W > imgW) break;

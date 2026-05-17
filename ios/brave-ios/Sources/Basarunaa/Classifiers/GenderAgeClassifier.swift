@@ -24,9 +24,12 @@ struct GenderClassification {
   let cropImage: CGImage?
 }
 
-/// InsightFace genderage classifier (96×96 BGR raw). The CoreML model was
-/// converted with `color_layout="BGR"` so we feed RGB pixels directly and the
-/// model handles the channel swap internally.
+/// InsightFace genderage classifier (96×96 RGB raw [0,255]). The CoreML
+/// model is converted with `color_layout="RGB"` (cf. convert-to-coreml.py).
+/// We feed a `kCVPixelFormatType_32BGRA` pixel buffer ; CoreML reorders the
+/// channels to RGB internally. The variant of `genderage.onnx` shipped here
+/// was trained on RGB pixels (POC `normalization='raw'`) — using BGR would
+/// flip the softmax on borderline faces.
 final class GenderAgeClassifier {
   static let inputSize: CGFloat = 96
 

@@ -45,7 +45,7 @@
       "name" : "MLModelType_mlProgram"
     },
     "userDefinedMetadata" : {
-      "com.github.apple.coremltools.conversion_date" : "2026-05-16",
+      "com.github.apple.coremltools.conversion_date" : "2026-05-17",
       "com.github.apple.coremltools.source" : "torch==2.8.0",
       "com.github.apple.coremltools.version" : "9.0",
       "com.github.apple.coremltools.source_dialect" : "TorchScript"
@@ -53,7 +53,7 @@
     "inputSchema" : [
       {
         "height" : "96",
-        "colorspace" : "BGR",
+        "colorspace" : "RGB",
         "isOptional" : "0",
         "width" : "96",
         "isColor" : "1",
