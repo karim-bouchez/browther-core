@@ -67,6 +67,20 @@ public enum BasarunaaError: Error {
   case invalidImage
 }
 
+/// Internal per-person timing collector. The pipeline logs each value so we
+/// can pinpoint hot spots vs the macOS POC.
+private struct PersonTiming {
+  var isSynth: Bool
+  var totalMs: Double = 0
+  /// Polygon build + rasterise on the body bbox.
+  var bodyPolyMs: Double = 0
+  /// PPLCNet pre-process + inference.
+  var bodyClfMs: Double = 0
+  /// InsightFace genderage pre-process + inference (when a face was matched
+  /// / direct face on synth).
+  var faceClfMs: Double = 0
+}
+
 /// End-to-end Basarunaa pipeline on iOS. Reproduces the macOS dual-detector
 /// flow from `private/extensions/basarunaa/src/pipeline.js#_processDual` :
 ///
@@ -156,23 +170,28 @@ public actor BasarunaaPipeline {
     }
 
     // 2) Body + face detection (sequential — CoreML compute scheduling).
-    let detectStart = Date()
+    let bodyStart = Date()
     let bodies = try pose.detect(image: image, bodyScoreThreshold: bodyThreshold)
+    let bodyMs = Date().timeIntervalSince(bodyStart) * 1000
+    let faceStart = Date()
     let faces = (try? face.detect(image: image, confThreshold: faceThreshold)) ?? []
-    let poseLatencyMs = Date().timeIntervalSince(detectStart) * 1000
-    log.info(
-      "detect bodies=\(bodies.count, privacy: .public) faces=\(faces.count, privacy: .public) (\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms)"
-    )
+    let faceMs = Date().timeIntervalSince(faceStart) * 1000
+    let poseLatencyMs = bodyMs + faceMs
 
     // 3) Match faces ⇄ bodies (greedy by distance).
+    let matchStart = Date()
     let matches = matchFacesToBodies(bodies: bodies, faces: faces)
+    let matchMs = Date().timeIntervalSince(matchStart) * 1000
 
-    // 4) Classify each body.
+    // 4) Classify each body. Collect per-person timing via a stats array.
     let classifyStart = Date()
     var results: [DetectedPerson] = []
+    var personTimings: [PersonTiming] = []
 
     for (bi, body) in bodies.enumerated() {
       let matched = matches[bi]
+      let pStart = Date()
+      var timing = PersonTiming(isSynth: false)
       let person = classifyMatched(
         index: bi,
         body: body,
@@ -183,8 +202,11 @@ public actor BasarunaaPipeline {
         bodyClassifier: bodyClassifier,
         faceThreshold: faceThreshold,
         genderCertainty: genderCertainty,
-        wantsCrops: wantsCrops
+        wantsCrops: wantsCrops,
+        timing: &timing
       )
+      timing.totalMs = Date().timeIntervalSince(pStart) * 1000
+      personTimings.append(timing)
       results.append(person)
     }
 
@@ -192,6 +214,8 @@ public actor BasarunaaPipeline {
     let matchedFaceIndices = Set(matches.values.map { $0.0 })
     for (fi, faceDet) in faces.enumerated() {
       if matchedFaceIndices.contains(fi) { continue }
+      let pStart = Date()
+      var timing = PersonTiming(isSynth: true)
       let person = classifyUnmatchedFace(
         face: faceDet,
         image: image,
@@ -199,23 +223,34 @@ public actor BasarunaaPipeline {
         faceClassifier: classifier,
         bodyClassifier: bodyClassifier,
         genderCertainty: genderCertainty,
-        wantsCrops: wantsCrops
+        wantsCrops: wantsCrops,
+        timing: &timing
       )
+      timing.totalMs = Date().timeIntervalSince(pStart) * 1000
+      personTimings.append(timing)
       results.append(person)
     }
 
     let classifyLatencyMs = Date().timeIntervalSince(classifyStart) * 1000
     let totalLatencyMs = Date().timeIntervalSince(totalStart) * 1000
+
     log.info(
       """
       analyze done: persons=\(results.count, privacy: .public) \
       bodies=\(bodies.count, privacy: .public) faces=\(faces.count, privacy: .public) \
-      synthBodies=\(faces.count - matchedFaceIndices.count, privacy: .public) \
-      detect=\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms \
+      synthBodies=\(faces.count - matchedFaceIndices.count, privacy: .public)
+      nsfw=\(String(format: "%.1f", nsfwLatencyMs), privacy: .public)ms \
+      detect=\(String(format: "%.1f", poseLatencyMs), privacy: .public)ms (body=\(String(format: "%.1f", bodyMs), privacy: .public) face=\(String(format: "%.1f", faceMs), privacy: .public)) \
+      match=\(String(format: "%.1f", matchMs), privacy: .public)ms \
       classify=\(String(format: "%.1f", classifyLatencyMs), privacy: .public)ms \
       total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms
       """
     )
+    for (i, t) in personTimings.enumerated() {
+      log.info(
+        "  perf[\(i, privacy: .public)]\(t.isSynth ? " synth" : "", privacy: .public): total=\(String(format: "%.1f", t.totalMs), privacy: .public) bodyPoly=\(String(format: "%.1f", t.bodyPolyMs), privacy: .public) bodyClf=\(String(format: "%.1f", t.bodyClfMs), privacy: .public) faceClf=\(String(format: "%.1f", t.faceClfMs), privacy: .public)"
+      )
+    }
     for (i, p) in results.enumerated() {
       let g = p.gender.map { "\($0.rawValue)@\(String(format: "%.2f", p.genderConfidence ?? 0))" } ?? "n/a"
       log.info(
@@ -319,9 +354,11 @@ public actor BasarunaaPipeline {
     bodyClassifier: PPLCNetClassifier,
     faceThreshold: Double,
     genderCertainty: Double,
-    wantsCrops: Bool
+    wantsCrops: Bool,
+    timing: inout PersonTiming
   ) -> DetectedPerson {
     // Body polygon mask for PPLCNet.
+    let polyStart = Date()
     let poly = BodyPolygon.buildPolygon(
       keypoints: body.keypoints,
       bbox: body.bbox,
@@ -334,13 +371,16 @@ public actor BasarunaaPipeline {
         imageHeight: Int(imageSize.height)
       )
       : nil
+    timing.bodyPolyMs = Date().timeIntervalSince(polyStart) * 1000
 
+    let bodyClfStart = Date()
     let bodyResult = (try? bodyClassifier.classify(
       image: image,
       bodyBbox: body.bbox,
       bodyMask: bodyMask,
       wantsCropImage: wantsCrops
     )) ?? nil
+    timing.bodyClfMs = Date().timeIntervalSince(bodyClfStart) * 1000
 
     // Has-legs check uses the body keypoints (13..16 = knees + ankles).
     let hasLegs = (13...16).contains { idx in
@@ -355,12 +395,14 @@ public actor BasarunaaPipeline {
     if let (_, faceDet) = matchedFace {
       // Run InsightFace genderage on the matched face. Use the face bbox
       // directly from YOLOv8n-face (not derived from body keypoints).
+      let faceClfStart = Date()
       faceResult = (try? faceClassifier.classify(
         image: image,
         faceBbox: faceDet.faceBbox,
         keypoints: faceDet.keypoints,
         wantsCropImage: wantsCrops
       )) ?? nil
+      timing.faceClfMs = Date().timeIntervalSince(faceClfStart) * 1000
 
       if let face = faceResult {
         if !hasLegs {
@@ -433,7 +475,8 @@ public actor BasarunaaPipeline {
     faceClassifier: GenderAgeClassifier,
     bodyClassifier: PPLCNetClassifier,
     genderCertainty: Double,
-    wantsCrops: Bool
+    wantsCrops: Bool,
+    timing: inout PersonTiming
   ) -> DetectedPerson {
     // POC formula: 4× face width, 7× face height downward from face top.
     let fb = face.faceBbox
@@ -455,18 +498,22 @@ public actor BasarunaaPipeline {
     )
 
     // POC: no body keypoints for synth → no mask, no polygon gray-out.
+    let bodyClfStart = Date()
     let synthBodyResult = (try? bodyClassifier.classify(
       image: image,
       bodyBbox: synthBbox,
       bodyMask: nil,
       wantsCropImage: wantsCrops
     )) ?? nil
+    timing.bodyClfMs = Date().timeIntervalSince(bodyClfStart) * 1000
+    let faceClfStart = Date()
     let faceResult = (try? faceClassifier.classify(
       image: image,
       faceBbox: fb,
       keypoints: face.keypoints,
       wantsCropImage: wantsCrops
     )) ?? nil
+    timing.faceClfMs = Date().timeIntervalSince(faceClfStart) * 1000
 
     var winnerGender: Gender? = nil
     var winnerConf: Double? = nil

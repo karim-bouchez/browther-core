@@ -1487,9 +1487,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // POC parity: in debug mode, the per-person blur from the active mode
     // is still applied — the overlay just draws on top so the user sees
     // *both* the production behaviour and what the pipeline detected.
+    // Pick the normalised entries (objects with kp.confidence) so
+    // drawFeatheredBlur's buildBodyPolygon can read keypoints correctly.
     var toBlur = [];
     for (var bi = 0; bi < persons.length; bi++) {
-      if (persons[bi].shouldBlur) toBlur.push(persons[bi]);
+      if (persons[bi].shouldBlur) toBlur.push(normalised[bi]);
     }
     metric('debug_overlay_start', {
       id: id, persons: normalised.length, toBlur: toBlur.length, mode: '' + debugMode,
