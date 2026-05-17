@@ -113,6 +113,22 @@ public actor BasarunaaPipeline {
 
   public func warmup() async {
     do {
+      // Log the compute devices CoreML has access to. iOS 17+ exposes
+      // availableComputeDevices on MLModel — each device is .cpu, .gpu or
+      // .neuralEngine. With computeUnits = .all (set on every model below)
+      // CoreML routes each op to whichever device is fastest. A model that
+      // contains an op not implemented on ANE will partially fall back to
+      // GPU/CPU automatically.
+      let devices = MLModel.availableComputeDevices
+      let labels = devices.map { d -> String in
+        switch d {
+        case .cpu: return "cpu"
+        case .gpu: return "gpu"
+        case .neuralEngine: return "ane"
+        @unknown default: return "unknown"
+        }
+      }
+      log.info("CoreML compute devices: [\(labels.joined(separator: ", "), privacy: .public)]")
       _ = try await loadModelsIfNeeded()
       log.info("warmup done")
     } catch {

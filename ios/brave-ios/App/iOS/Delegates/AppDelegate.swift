@@ -4,6 +4,7 @@
 
 import AIChat
 import AVFoundation
+import Basarunaa
 import Brave
 import BraveCore
 import BraveNews
@@ -149,6 +150,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         "locale": Locale.current.identifier,
       ]
     )
+
+    // Browther: pré-warmup Basarunaa pipeline si la feature est activée.
+    // Charge les 6 modèles CoreML (~5s cold) en background pour qu'à la
+    // première image rencontrée la pipeline soit prête (gain ~17ms sur
+    // la 1re analyse + ~5s sur le très premier load).
+    if Preferences.Basarunaa.enabled.value {
+      Task.detached(priority: .utility) {
+        await BasarunaaPipeline.shared.warmup()
+      }
+    }
 
     // Run migrations that need access to Data
     Migration.postDataLoadMigration()
