@@ -114,7 +114,9 @@ class SettingsBraveAppearanceToolbarElement extends SettingsBraveAppearanceToolb
 
   // <if expr="enable_ai_chat">
   private showLeoAssistant_() {
-    return loadTimeData.getBoolean('isLeoAssistantAllowed')
+    // Browther: Leo désactivé → retire la checkbox "Leo AI Assistant" du
+    // autocomplete address bar.
+    return false
   }
   // </if>
 

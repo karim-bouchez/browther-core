@@ -93,7 +93,8 @@ class BraveSearchEnginesPage extends BraveSearchEnginesPageBase {
   }
 
   private shouldShowSearchSuggestToggle_() {
-    return !loadTimeData.getBoolean('isGuest')
+    // Browther: pas pertinent — toggle "Improve search suggestions" retiré.
+    return false
   }
 
   private shouldShowPrivateSearchProvider_(

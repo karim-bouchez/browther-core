@@ -92,31 +92,36 @@ function getPageVisibility () {
     appearance: alwaysTrueProxy,
     privacy: alwaysTrueProxy,
     // custom properties
-    // Browther: Sync désactivé (brave_sync_endpoint est en dummy dans buildArgs.ts).
-    // Force `braveSync: false` retire la route /braveSync et le subpage entier.
+    // Browther: features Brave désactivées (cf. enable_* build flags + dummies
+    // dans buildArgs.ts). On force `false` ici pour retirer leurs routes/subpages
+    // de chrome://settings (la pref ne suffit pas — sans ça les pages restent
+    // accessibles via URL directe : /braveSync, /leo-ai, /web3, etc.).
     braveSync: false,
     // <if expr="enable_brave_wallet">
-    braveWallet: loadTimeData.getBoolean('isBraveWalletAllowed'),
+    braveWallet: false,
     // </if>
     // <if expr="enable_ai_chat">
-    leoAssistant: loadTimeData.getBoolean('isLeoAssistantAllowed'),
-    leoPersonalization: loadTimeData.getBoolean('isLeoAssistantAllowed'),
-    leoModels: loadTimeData.getBoolean('isLeoAssistantAllowed'),
+    leoAssistant: false,
+    leoPersonalization: false,
+    leoModels: false,
     // </if>
-    surveyPanelist: loadTimeData.getBoolean('isSurveyPanelistAllowed'),
+    surveyPanelist: false,
     // <if expr="enable_containers">
     containers: loadTimeData.getBoolean('isContainersEnabled'),
     // </if>
     content: alwaysTrueProxy,
+    // Browther: Playlist gardé — feature locale (player vidéo), pas de
+    // dépendance serveur Brave.
     playlist: loadTimeData.getBoolean('isPlaylistAllowed'),
     // <if expr="enable_speedreader">
     speedreader: loadTimeData.getBoolean('isSpeedreaderAllowed'),
     // </if>
     // <if expr="enable_tor">
+    // Browther: Tor gardé (feature utile pour la communauté musulmane).
     braveTor: !loadTimeData.getBoolean('braveTorDisabledByPolicy') ||
               loadTimeData.getBoolean('shouldExposeElementsForTesting'),
     // </if>
-    origin: loadTimeData.getBoolean('isOriginAllowed'),
+    origin: false,
   }
   // Proxy so we can respond to any other property
   return new Proxy(staticProps, {

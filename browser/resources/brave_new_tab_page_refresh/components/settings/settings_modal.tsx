@@ -11,7 +11,8 @@ import NavigationItem from '@brave/leo/react/navigationItem'
 
 import { useBraveNews } from '../../../../../components/brave_news/browser/resources/shared/Context'
 
-import { useNewTabState } from '../../context/new_tab_context'
+// Browther: useNewTabState no longer used (aiChatInputEnabled + newsFeatureEnabled forcés)
+// import { useNewTabState } from '../../context/new_tab_context'
 import { useSearchState } from '../../context/search_context'
 import { BackgroundPanel } from './background_panel'
 import { SearchPanel } from './search_panel'
@@ -39,8 +40,10 @@ interface Props {
 export function SettingsModal(props: Props) {
   const braveNews = useBraveNews()
   const searchFeatureEnabled = useSearchState((s) => s.searchFeatureEnabled)
-  const aiChatInputEnabled = useNewTabState((s) => s.aiChatInputEnabled)
-  const newsFeatureEnabled = useNewTabState((s) => s.newsFeatureEnabled)
+  // Browther: aiChatInputEnabled no longer read (Leo désactivé, titre forcé à "Search")
+  // const aiChatInputEnabled = useNewTabState((s) => s.aiChatInputEnabled)
+  // Browther: newsFeatureEnabled no longer read (onglet "Browther News" forcé caché)
+  // const newsFeatureEnabled = useNewTabState((s) => s.newsFeatureEnabled)
 
   const [currentView, setCurrentView] = React.useState<SettingsView>(
     props.initialView || 'background',
@@ -61,8 +64,10 @@ export function SettingsModal(props: Props) {
     switch (view) {
       case 'search':
         return searchFeatureEnabled
+      // Browther: retire l'onglet "Browther News" (feature Brave News
+      // désactivée entièrement dans Browther).
       case 'news':
-        return newsFeatureEnabled
+        return false
       // Browther: retire l'onglet "Cards" (widgets Talk/Rewards/VPN/News/Stats).
       // Les features Brave sont désactivées, l'onglet n'a plus de sens.
       case 'widgets':
@@ -97,9 +102,8 @@ export function SettingsModal(props: Props) {
       case 'background':
         return getString(S.NEW_TAB_BACKGROUND_SETTINGS_TITLE)
       case 'search':
-        return aiChatInputEnabled
-          ? getString(S.NEW_TAB_SEARCH_AND_CHAT_SETTINGS_TITLE)
-          : getString(S.NEW_TAB_SEARCH_SETTINGS_TITLE)
+        // Browther: Leo désactivé → titre toujours "Search" (pas "Search and AI").
+        return getString(S.NEW_TAB_SEARCH_SETTINGS_TITLE)
       case 'top-sites':
         return getString(S.NEW_TAB_TOP_SITES_SETTINGS_TITLE)
       case 'news':

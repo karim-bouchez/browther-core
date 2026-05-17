@@ -170,12 +170,12 @@ ConversionType GetConversionType(PrefService* prefs,
 
 void RegisterPrefs(PrefRegistrySimple* registry) {
   registry->RegisterBooleanPref(prefs::kDismissed, false);
-  // Browther: SearchBox NTP désactivée par défaut (omnibox du haut suffit,
-  // évite redondance + branding Brave/Leo).
-  registry->RegisterBooleanPref(prefs::kShowNTPSearchBox, false);
+  // Browther: SearchBox NTP activée par défaut (décision 2026-05-17).
+  // ChatInput (Leo widget) reste désactivé. Engine par défaut : Google.
+  registry->RegisterBooleanPref(prefs::kShowNTPSearchBox, true);
   registry->RegisterBooleanPref(prefs::kShowNTPChatInput, false);
   registry->RegisterStringPref(prefs::kLastUsedNTPSearchEngine,
-                               "search.brave.com");
+                               "www.google.com");
   registry->RegisterBooleanPref(prefs::kPromptEnableSuggestions, true);
   registry->RegisterTimePref(prefs::kMaybeLaterClickedTime, base::Time());
   registry->RegisterIntegerPref(prefs::kDDGBannerTypeIndex, 0);
