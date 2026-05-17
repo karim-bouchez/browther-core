@@ -207,16 +207,35 @@ class BasarunaaScriptHandler: TabContentScript {
     }
     do {
       let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+      let mode = Preferences.Basarunaa.effectiveMode
+      let (_, personsToBlur) = decide(from: result.persons, mode: mode)
       let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
         video_analyzed videoId=\(videoId, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
         w=\(width, privacy: .public) h=\(height, privacy: .public) \
-        persons=\(result.persons.count, privacy: .public) nsfw=\(result.isNsfw, privacy: .public) \
-        elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
+        persons=\(result.persons.count, privacy: .public) \
+        toBlur=\(personsToBlur.count, privacy: .public) mode=\(mode, privacy: .public) \
+        nsfw=\(result.isNsfw, privacy: .public) elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
         """
       )
-      _ = tab  // V3 utilisera tab pour pousser les polygones à JS
+      // V3 — push les bboxes des personnes à flouter au JS overlay.
+      // bbox = [x1, y1, x2, y2] en coords analyse (= dimensions JPEG envoyé,
+      // pas les dims du <video> à l'écran). JS rescale via getBoundingClientRect.
+      let bboxes: [[Double]] = personsToBlur.map {
+        [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY]
+      }
+      do {
+        _ = try await tab.evaluateJavaScript(
+          functionName: "window.__basarunaaApplyVideo",
+          args: [videoId, ctMs, width, height, bboxes, result.isNsfw],
+          contentWorld: Self.scriptSandbox
+        )
+      } catch {
+        log.error(
+          "videoFrame evaluateJS failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
+        )
+      }
     } catch {
       log.error(
         "videoFrame analyze failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"

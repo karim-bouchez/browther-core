@@ -32,19 +32,24 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     try { send('metric', JSON.stringify(obj)); } catch (e) {}
   }
 
-  // ─── Video (pivot D, 2026-05-17) : drawImage(video) sampling ──────────────
+  // ─── Video (pivot E, 2026-05-17) : canvas-as-display ──────────────────────
   //
-  // VTDecompressionSession + VP9 sur iOS est gated par un entitlement Apple
-  // privé (cf. memory feedback_ios_vtdecompression_vp9_blocked.md) — on
-  // n'aura pas accès au décodage côté Swift. À la place, on laisse WebKit
-  // décoder dans le `<video>` natif et on récupère les pixels rendus via
-  // `canvas.drawImage(video)`. Les `<video>` alimentés par MSE (YouTube,
-  // Vimeo, Twitch) ne sont pas CORS-tainted ⇒ drawImage marche.
+  // Architecture finale après les pivots D→E :
+  //   - VTDecompressionSession+VP9 bloqué par entitlement Apple (cf. memory)
+  //   - Overlay HTML backdrop-filter (pivot D) marche mais ne survit pas au
+  //     fullscreen iOS natif → bypass trivial
+  //   - **Pivot E** : un <canvas> par <video> wiré, posé par-dessus avec le
+  //     <video> à `opacity:0` derrière. À chaque `requestVideoFrameCallback`,
+  //     drawImage(video) sur le canvas puis blur 2-pass downsample-upsample
+  //     sur les bboxes courantes → le pixel rendu inclut déjà le flou. En
+  //     fullscreen, c'est le canvas qui passe en fullscreen (Web API
+  //     requestFullscreen sur iOS 16.4+) → blur reste actif.
   //
-  // Sample 1 frame / s par <video> visible, encode JPEG q=0.6 (downscale max
-  // 640 px largeur pour limiter la bande passante du bridge JS→Swift),
-  // envoie via action `videoFrame`. Swift décode, appelle BasarunaaPipeline.
-  // V3 ajoutera le retour des polygones de blur + overlay canvas.
+  // ML pipeline : sample du canvas display **avant** blur, throttlé via
+  // SAMPLE_INTERVAL_MS, encodé JPEG q=0.5 max 320 px largeur, envoyé via
+  // `videoFrame`. Swift appelle BasarunaaPipeline puis push les bboxes des
+  // personnes à flouter via `__basarunaaApplyVideo` (variable globale lue
+  // par le render loop à chaque frame).
   (function() {
     var hasVRC = typeof HTMLVideoElement !== 'undefined'
       && typeof HTMLVideoElement.prototype.requestVideoFrameCallback === 'function';
@@ -56,67 +61,127 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var nextVideoId = 1;
     var wired = new WeakSet();
     var taintedVideos = new WeakSet();
+    var videosById = {};                // videoId → <video>
+    var displayCanvasById = {};         // videoId → <canvas> overlay display
     var lastSentAtMs = new WeakMap();   // <video> → wall-clock ms du dernier send
-    // V2-pivot Δ-2 (2026-05-17 19:21 crash) : on baisse la charge à fond pour
-    // diagnostiquer. 2 s + 320 px + q 0.5 ⇒ payload ~10-20 KB base64 vs
-    // 40-110 KB précédemment. On remonte progressivement après confirmation
-    // de stabilité.
-    var SAMPLE_INTERVAL_MS = 2000;
-    var MAX_WIDTH = 320;
-    var JPEG_QUALITY = 0.5;
+    // Bboxes courantes à flouter, partagées entre le tick render (rVFC) et
+    // les updates Swift via `__basarunaaApplyVideo`. La key NSFW remplace
+    // toutes les bboxes par un full-frame blur.
+    var currentBboxesById = {};         // videoId → [[x1,y1,x2,y2], ...]
+    var currentBboxMetaById = {};       // videoId → { analyseW, analyseH }
 
-    // Canvas partagé — recyclé, redimensionné on-demand. `willReadFrequently:false`
-    // car on n'extrait pas les pixels, on encode juste en JPEG via toDataURL.
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
+    var SAMPLE_INTERVAL_MS = 2000;      // ML sample throttle (PTS-based)
+    var MAX_SAMPLE_WIDTH = 320;         // resize avant JPEG pour bridge
+    var JPEG_QUALITY = 0.5;
+    var BLUR_DOWNSAMPLE = 20;           // 20× downsample : flou très visible
+    var DEBUG_BBOX_STROKE = true;       // dessine un cadre rouge autour
+                                        // de chaque bbox floutée (V3-E iter 1)
+
+    // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
+    var sampleCanvas = document.createElement('canvas');
+    var sctx = sampleCanvas.getContext('2d');
+    var blurCanvas = document.createElement('canvas');
+    var bctx = blurCanvas.getContext('2d');
 
     function wireVideo(video) {
       if (wired.has(video) || taintedVideos.has(video)) return;
       wired.add(video);
       var videoId = nextVideoId++;
+      videosById[videoId] = video;
       metric('video_wired', {
         videoId: videoId,
         src: (video.currentSrc || video.src || '').slice(0, 100)
       });
 
+      // Canvas display attaché à document.body en position:fixed et
+      // repositionné en continu (cf. setInterval plus bas). C'est le seul
+      // pattern observé qui marche sur YouTube mobile — append dans le
+      // parent du <video> peut tomber dans un stacking context isolé
+      // (transform/will-change YouTube) qui masque le canvas. Pour le
+      // fullscreen on interceptera `webkitEnterFullscreen` (V4) et on
+      // fera un canvas.requestFullscreen() séparément.
+      var display = document.createElement('canvas');
+      display.setAttribute('data-basarunaa-display', String(videoId));
+      display.style.cssText = [
+        'position:fixed',
+        'pointer-events:none',
+        'left:0', 'top:0', 'width:0', 'height:0',
+        'z-index:2147483646',    // juste sous l'extrême max — au-dessus de tout YouTube
+        'contain:layout style paint'
+      ].join(';');
+      document.body.appendChild(display);
+      displayCanvasById[videoId] = display;
+
+      var dctx = display.getContext('2d');
+      var firstTickLogged = false;
       function tick() {
         if (taintedVideos.has(video)) return;
-        // Ne tente pas de capture si la vidéo n'est pas en lecture / pas
-        // encore prête (videoWidth = 0 tant qu'aucune frame n'est rendue).
         var vw = video.videoWidth || 0;
         var vh = video.videoHeight || 0;
         if (vw === 0 || vh === 0 || video.paused || video.ended) {
           video.requestVideoFrameCallback(tick);
           return;
         }
-        var nowMs = (typeof performance !== 'undefined' && performance.now)
-          ? performance.now() : Date.now();
-        var last = lastSentAtMs.get(video) || 0;
-        if (nowMs - last < SAMPLE_INTERVAL_MS) {
+        var rect = video.getBoundingClientRect();
+        if (rect.width <= 0 || rect.height <= 0) {
           video.requestVideoFrameCallback(tick);
           return;
         }
+        // Le canvas match la position+taille CSS du <video> dans le viewport.
+        // Résolution physique = taille CSS × devicePixelRatio pour rester net.
+        var dpr = window.devicePixelRatio || 1;
+        var pw = Math.max(1, Math.round(rect.width * dpr));
+        var ph = Math.max(1, Math.round(rect.height * dpr));
+        if (display.width !== pw) display.width = pw;
+        if (display.height !== ph) display.height = ph;
+        display.style.left = rect.left + 'px';
+        display.style.top = rect.top + 'px';
+        display.style.width = rect.width + 'px';
+        display.style.height = rect.height + 'px';
+        if (!firstTickLogged) {
+          metric('video_tick_first', {
+            videoId: videoId,
+            vw: vw, vh: vh,
+            rw: Math.round(rect.width), rh: Math.round(rect.height),
+            dpr: dpr
+          });
+          firstTickLogged = true;
+        }
         try {
-          var scale = Math.min(1, MAX_WIDTH / vw);
-          var w = Math.round(vw * scale);
-          var h = Math.round(vh * scale);
-          if (canvas.width !== w) canvas.width = w;
-          if (canvas.height !== h) canvas.height = h;
-          ctx.drawImage(video, 0, 0, w, h);
-          var dataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
-          var comma = dataUrl.indexOf(',');
-          if (comma > 0) {
-            var b64 = dataUrl.substring(comma + 1);
-            var ctMs = Math.round((video.currentTime || 0) * 1000);
-            // Format: "<videoId>|<ct_ms>|<w>|<h>|<base64Jpeg>"
-            send('videoFrame', videoId + '|' + ctMs + '|' + w + '|' + h + '|' + b64);
+          // Canvas overlay **sélectif** : transparent par défaut, on dessine
+          // UNIQUEMENT les zones blur. Le reste reste transparent → le
+          // <video> natif derrière reste visible avec ses controls. Fix
+          // visuel pour V3-E iter 1 ; l'iter 2 (fullscreen handling) basculera
+          // en mode "canvas opaque qui remplace le <video>".
+          dctx.clearRect(0, 0, pw, ph);
+
+          // Sample pour ML — capture brute via un canvas séparé sur le
+          // <video> source, indépendant du canvas display.
+          var nowMs = (typeof performance !== 'undefined' && performance.now)
+            ? performance.now() : Date.now();
+          var lastSent = lastSentAtMs.get(video) || 0;
+          if (nowMs - lastSent >= SAMPLE_INTERVAL_MS) {
+            sampleForAnalysis(videoId, video);
             lastSentAtMs.set(video, nowMs);
           }
+
+          // Blur bboxes courantes — pour chaque bbox on draw la zone
+          // correspondante du <video> downsamplée puis upscalée → pixel
+          // floué dans le canvas, le reste reste transparent.
+          var bboxes = currentBboxesById[videoId];
+          var meta = currentBboxMetaById[videoId];
+          if (bboxes && bboxes.length && meta) {
+            var sx = pw / meta.analyseW;
+            var sy = ph / meta.analyseH;
+            for (var i = 0; i < bboxes.length; i++) {
+              drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, rect.width * dpr, rect.height * dpr);
+            }
+          }
         } catch (e) {
-          // SecurityError (CORS taint) ou autre — on stoppe pour ce <video>
-          // mais on n'essaie pas de re-wirer (taintedVideos évite la boucle
-          // dans le MutationObserver).
+          // CORS taint, decoder fail, etc. — on stoppe pour ce <video>.
           taintedVideos.add(video);
+          if (display.parentNode) display.parentNode.removeChild(display);
+          delete displayCanvasById[videoId];
           metric('video_draw_error', {
             videoId: videoId,
             msg: ('' + e).slice(0, 200)
@@ -128,12 +193,122 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       video.requestVideoFrameCallback(tick);
     }
 
+    function sampleForAnalysis(videoId, video) {
+      // Capture brute la frame du <video> source dans sampleCanvas (max
+      // 320 px de large) → JPEG q=0.5 → envoie à Swift pour ML analyse.
+      // Indépendant du canvas display (qui est notre overlay sélectif).
+      var vw = video.videoWidth, vh = video.videoHeight;
+      if (vw === 0 || vh === 0) return;
+      var sw = Math.min(MAX_SAMPLE_WIDTH, vw);
+      var sh = Math.max(1, Math.round(vh * sw / vw));
+      if (sampleCanvas.width !== sw) sampleCanvas.width = sw;
+      if (sampleCanvas.height !== sh) sampleCanvas.height = sh;
+      sctx.drawImage(video, 0, 0, sw, sh);
+      var dataUrl = sampleCanvas.toDataURL('image/jpeg', JPEG_QUALITY);
+      var comma = dataUrl.indexOf(',');
+      if (comma > 0) {
+        var b64 = dataUrl.substring(comma + 1);
+        var ctMs = Math.round((video.currentTime || 0) * 1000);
+        send('videoFrame', videoId + '|' + ctMs + '|' + sw + '|' + sh + '|' + b64);
+      }
+    }
+
+    // Pour chaque bbox à flouter, draw la zone correspondante de la
+    // source <video> (en coords pixels natifs `videoWidth × videoHeight`)
+    // downsamplée vers `blurCanvas` puis upscalée dans le canvas display
+    // — résultat : pixel flou dans le canvas, le reste reste transparent.
+    // Le `imageSmoothingEnabled:high` + l'aller-retour BLUR_DOWNSAMPLE× fait
+    // le flou. Pas de `ctx.filter='blur(...)'` (lent en canvas 2D WebKit).
+    //
+    // bboxes en coords analyse (= dim JPEG envoyé) → sx, sy rescale vers
+    // canvas pixel size (pw, ph). On reconvertit ensuite en source <video>
+    // pixel coords pour drawImage(video, srcX, srcY, srcW, srcH, ...).
+    function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH) {
+      var bx = bbox[0] * sx;
+      var by = bbox[1] * sy;
+      var bw = (bbox[2] - bbox[0]) * sx;
+      var bh = (bbox[3] - bbox[1]) * sy;
+      if (bw <= 0 || bh <= 0) return;
+      bx = Math.max(0, Math.floor(bx));
+      by = Math.max(0, Math.floor(by));
+      bw = Math.min(dctx.canvas.width - bx, Math.ceil(bw));
+      bh = Math.min(dctx.canvas.height - by, Math.ceil(bh));
+      if (bw <= 0 || bh <= 0) return;
+      // Source coords sur le <video> natif (videoWidth × videoHeight).
+      var srcSx = vw / canvasW;
+      var srcSy = vh / canvasH;
+      var srcX = bx * srcSx;
+      var srcY = by * srcSy;
+      var srcW = bw * srcSx;
+      var srcH = bh * srcSy;
+      // Downsample vers blurCanvas, puis upscale dans dctx.
+      var tw = Math.max(1, Math.round(bw / BLUR_DOWNSAMPLE));
+      var th = Math.max(1, Math.round(bh / BLUR_DOWNSAMPLE));
+      if (blurCanvas.width !== tw) blurCanvas.width = tw;
+      if (blurCanvas.height !== th) blurCanvas.height = th;
+      bctx.imageSmoothingEnabled = true;
+      bctx.imageSmoothingQuality = 'high';
+      bctx.drawImage(video, srcX, srcY, srcW, srcH, 0, 0, tw, th);
+      dctx.imageSmoothingEnabled = true;
+      dctx.imageSmoothingQuality = 'high';
+      dctx.drawImage(blurCanvas, 0, 0, tw, th, bx, by, bw, bh);
+      if (DEBUG_BBOX_STROKE) {
+        dctx.strokeStyle = 'rgba(255, 80, 80, 0.9)';
+        dctx.lineWidth = Math.max(2, Math.round(2 * (window.devicePixelRatio || 1)));
+        dctx.strokeRect(bx, by, bw, bh);
+      }
+    }
+
     function scanAndWire() {
       var videos = document.getElementsByTagName('video');
       for (var i = 0; i < videos.length; i++) {
         wireVideo(videos[i]);
       }
     }
+
+    // Appelée par Swift via `tab.evaluateJavaScript` à chaque résultat
+    // d'analyse. On stocke les bboxes globalement ; le render loop les
+    // applique à chaque rVFC (~30 fps). Si NSFW, on remplace les bboxes
+    // par un full-frame blur (1 seule bbox couvrant la totale).
+    window.__basarunaaApplyVideo = function(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw) {
+      try {
+        if (!displayCanvasById[videoId]) {
+          metric('video_apply_no_canvas', { videoId: videoId });
+          return;
+        }
+        if (isNsfw) {
+          currentBboxesById[videoId] = [[0, 0, analyseW, analyseH]];
+        } else {
+          currentBboxesById[videoId] = bboxes || [];
+        }
+        currentBboxMetaById[videoId] = { analyseW: analyseW, analyseH: analyseH };
+        metric('video_apply', {
+          videoId: videoId, ct_ms: ctMs,
+          nsfw: !!isNsfw, n: bboxes ? bboxes.length : 0
+        });
+      } catch (e) {
+        metric('video_apply_error', {
+          videoId: videoId, msg: ('' + e).slice(0, 200)
+        });
+      }
+    };
+
+    // GC périodique : si un <video> a été retiré du DOM par YouTube SPA,
+    // on nettoie son canvas display + son state.
+    setInterval(function() {
+      for (var idStr in displayCanvasById) {
+        var id = parseInt(idStr, 10);
+        var v = videosById[id];
+        var c = displayCanvasById[id];
+        if (!v || !document.body.contains(v)) {
+          if (c && c.parentNode) c.parentNode.removeChild(c);
+          delete displayCanvasById[id];
+          delete videosById[id];
+          delete currentBboxesById[id];
+          delete currentBboxMetaById[id];
+        }
+      }
+    }, 1000);
 
     // Scan immédiat + observer pour les <video> ajoutés dynamiquement
     // (YouTube SPA recrée l'élément à chaque navigation interne).
