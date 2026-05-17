@@ -183,14 +183,23 @@ public actor BasarunaaPipeline {
     let imageSize = CGSize(width: image.width, height: image.height)
     let totalStart = Date()
 
-    // 2) Body + face detection (sequential — CoreML compute scheduling).
-    let bodyStart = Date()
-    let bodies = try pose.detect(image: image, bodyScoreThreshold: bodyThreshold)
-    let bodyMs = Date().timeIntervalSince(bodyStart) * 1000
-    let faceStart = Date()
-    let faces = (try? face.detect(image: image, confThreshold: faceThreshold)) ?? []
-    let faceMs = Date().timeIntervalSince(faceStart) * 1000
-    let poseLatencyMs = bodyMs + faceMs
+    // 2) Body + face detection in parallel (best case: body on ANE, face
+    // routed by CoreML to GPU — true concurrency. Worst case both queue on
+    // ANE and serialize — no gain but no loss either).
+    let detectStart = Date()
+    async let bodiesAsync = Self.runBodyDetect(
+      pose: pose, image: image, threshold: bodyThreshold
+    )
+    async let facesAsync = Self.runFaceDetect(
+      face: face, image: image, threshold: faceThreshold
+    )
+    let bodyOut = try await bodiesAsync
+    let faceOut = await facesAsync
+    let bodies = bodyOut.result
+    let faces = faceOut.result
+    let bodyMs = bodyOut.latencyMs
+    let faceMs = faceOut.latencyMs
+    let poseLatencyMs = Date().timeIntervalSince(detectStart) * 1000
 
     // 3) Match faces ⇄ bodies (greedy by distance).
     let matchStart = Date()
@@ -206,7 +215,7 @@ public actor BasarunaaPipeline {
       let matched = matches[bi]
       let pStart = Date()
       var timing = PersonTiming(isSynth: false)
-      let person = classifyMatched(
+      let person = await classifyMatched(
         index: bi,
         body: body,
         matchedFace: matched,
@@ -230,7 +239,7 @@ public actor BasarunaaPipeline {
       if matchedFaceIndices.contains(fi) { continue }
       let pStart = Date()
       var timing = PersonTiming(isSynth: true)
-      let person = classifyUnmatchedFace(
+      let person = await classifyUnmatchedFace(
         face: faceDet,
         image: image,
         imageSize: imageSize,
@@ -369,31 +378,48 @@ public actor BasarunaaPipeline {
     genderCertainty: Double,
     wantsCrops: Bool,
     timing: inout PersonTiming
-  ) -> DetectedPerson {
-    // Body polygon mask for PPLCNet.
+  ) async -> DetectedPerson {
+    // Body polygon for PPLCNet — rasterization happens inside the
+    // classifier, directly into the 192×256 buffer space (~30ms saved
+    // vs full-image mask + per-pixel coord remap, 2026-05-17).
     let polyStart = Date()
     let poly = BodyPolygon.buildPolygon(
       keypoints: body.keypoints,
       bbox: body.bbox,
       imageSize: imageSize
     )
-    let bodyMask: BodyPolygon.Mask? = poly.isBodyShaped
-      ? BodyPolygon.polygonToMask(
-        points: poly.points,
-        imageWidth: Int(imageSize.width),
-        imageHeight: Int(imageSize.height)
-      )
-      : nil
+    let bodyPolygonPoints: [CGPoint]? = poly.isBodyShaped ? poly.points : nil
     timing.bodyPolyMs = Date().timeIntervalSince(polyStart) * 1000
 
-    let bodyClfStart = Date()
-    let bodyResult = (try? bodyClassifier.classify(
+    // Body + face classify in parallel (per person). PPLCNet (192×256) is
+    // heavier than InsightFace genderage (96×96) — running them concurrently
+    // gives CoreML a chance to schedule genderage on the GPU while PPLCNet
+    // occupies the ANE. Worst case: ANE serialization — no loss.
+    let bodyBbox = body.bbox
+    let faceBboxOpt = matchedFace?.1.faceBbox
+    let faceKpsOpt = matchedFace?.1.keypoints
+    let clfStart = Date()
+    async let bodyAsync = Self.runBodyClassify(
+      classifier: bodyClassifier,
       image: image,
-      bodyBbox: body.bbox,
-      bodyMask: bodyMask,
-      wantsCropImage: wantsCrops
-    )) ?? nil
-    timing.bodyClfMs = Date().timeIntervalSince(bodyClfStart) * 1000
+      bbox: bodyBbox,
+      polygonPoints: bodyPolygonPoints,
+      wantsCrop: wantsCrops
+    )
+    async let faceAsync = Self.runFaceClassifyOpt(
+      classifier: faceClassifier,
+      image: image,
+      faceBbox: faceBboxOpt,
+      keypoints: faceKpsOpt,
+      wantsCrop: wantsCrops
+    )
+    let bodyOut = await bodyAsync
+    let faceOut = await faceAsync
+    _ = clfStart
+    timing.bodyClfMs = bodyOut.latencyMs
+    timing.faceClfMs = faceOut.latencyMs
+    let bodyResult = bodyOut.result
+    let faceResult: GenderClassification? = faceOut.result
 
     // Has-legs check uses the body keypoints (13..16 = knees + ankles).
     let hasLegs = (13...16).contains { idx in
@@ -403,19 +429,8 @@ public actor BasarunaaPipeline {
     var winnerGender: Gender? = nil
     var winnerConf: Double? = nil
     var classifierUsed: String = "pplcnet"
-    var faceResult: GenderClassification? = nil
 
-    if let (_, faceDet) = matchedFace {
-      // Run InsightFace genderage on the matched face. Use the face bbox
-      // directly from YOLOv8n-face (not derived from body keypoints).
-      let faceClfStart = Date()
-      faceResult = (try? faceClassifier.classify(
-        image: image,
-        faceBbox: faceDet.faceBbox,
-        keypoints: faceDet.keypoints,
-        wantsCropImage: wantsCrops
-      )) ?? nil
-      timing.faceClfMs = Date().timeIntervalSince(faceClfStart) * 1000
+    if matchedFace != nil {
 
       if let face = faceResult {
         if !hasLegs {
@@ -490,7 +505,7 @@ public actor BasarunaaPipeline {
     genderCertainty: Double,
     wantsCrops: Bool,
     timing: inout PersonTiming
-  ) -> DetectedPerson {
+  ) async -> DetectedPerson {
     // POC formula: 4× face width, 7× face height downward from face top.
     let fb = face.faceBbox
     let faceW = Double(fb.width)
@@ -511,22 +526,28 @@ public actor BasarunaaPipeline {
     )
 
     // POC: no body keypoints for synth → no mask, no polygon gray-out.
-    let bodyClfStart = Date()
-    let synthBodyResult = (try? bodyClassifier.classify(
+    // Body (PPLCNet) + face (InsightFace) in parallel — same gain pattern
+    // as classifyMatched.
+    async let synthBodyAsync = Self.runBodyClassify(
+      classifier: bodyClassifier,
       image: image,
-      bodyBbox: synthBbox,
-      bodyMask: nil,
-      wantsCropImage: wantsCrops
-    )) ?? nil
-    timing.bodyClfMs = Date().timeIntervalSince(bodyClfStart) * 1000
-    let faceClfStart = Date()
-    let faceResult = (try? faceClassifier.classify(
+      bbox: synthBbox,
+      polygonPoints: nil,
+      wantsCrop: wantsCrops
+    )
+    async let faceAsync = Self.runFaceClassifyOpt(
+      classifier: faceClassifier,
       image: image,
       faceBbox: fb,
       keypoints: face.keypoints,
-      wantsCropImage: wantsCrops
-    )) ?? nil
-    timing.faceClfMs = Date().timeIntervalSince(faceClfStart) * 1000
+      wantsCrop: wantsCrops
+    )
+    let synthBodyOut = await synthBodyAsync
+    let faceOut = await faceAsync
+    timing.bodyClfMs = synthBodyOut.latencyMs
+    timing.faceClfMs = faceOut.latencyMs
+    let synthBodyResult = synthBodyOut.result
+    let faceResult = faceOut.result
 
     var winnerGender: Gender? = nil
     var winnerConf: Double? = nil
@@ -573,5 +594,66 @@ public actor BasarunaaPipeline {
       faceCropImage: faceResult?.cropImage,
       bodyCropImage: synthBodyResult?.cropImage
     )
+  }
+
+  // MARK: - Parallel helpers (nonisolated, run in cooperative pool)
+
+  /// Wrap `pose.detect` so it can run via `async let` outside actor isolation.
+  /// MLModel is documented as thread-safe for `prediction(from:)`.
+  private static func runBodyDetect(
+    pose: YOLOPoseDetector,
+    image: CGImage,
+    threshold: Double
+  ) async throws -> (result: [RawPersonDetection], latencyMs: Double) {
+    let start = Date()
+    let result = try pose.detect(image: image, bodyScoreThreshold: threshold)
+    return (result, Date().timeIntervalSince(start) * 1000)
+  }
+
+  private static func runFaceDetect(
+    face: YOLOFaceDetector,
+    image: CGImage,
+    threshold: Double
+  ) async -> (result: [RawFaceDetection], latencyMs: Double) {
+    let start = Date()
+    let result = (try? face.detect(image: image, confThreshold: threshold)) ?? []
+    return (result, Date().timeIntervalSince(start) * 1000)
+  }
+
+  private static func runBodyClassify(
+    classifier: PPLCNetClassifier,
+    image: CGImage,
+    bbox: CGRect,
+    polygonPoints: [CGPoint]?,
+    wantsCrop: Bool
+  ) async -> (result: GenderClassification?, latencyMs: Double) {
+    let start = Date()
+    let result = (try? classifier.classify(
+      image: image,
+      bodyBbox: bbox,
+      bodyPolygonPoints: polygonPoints,
+      wantsCropImage: wantsCrop
+    )) ?? nil
+    return (result, Date().timeIntervalSince(start) * 1000)
+  }
+
+  private static func runFaceClassifyOpt(
+    classifier: GenderAgeClassifier,
+    image: CGImage,
+    faceBbox: CGRect?,
+    keypoints: [(point: CGPoint, confidence: Double)]?,
+    wantsCrop: Bool
+  ) async -> (result: GenderClassification?, latencyMs: Double) {
+    let start = Date()
+    guard let bbox = faceBbox, let kps = keypoints else {
+      return (nil, 0)
+    }
+    let result = (try? classifier.classify(
+      image: image,
+      faceBbox: bbox,
+      keypoints: kps,
+      wantsCropImage: wantsCrop
+    )) ?? nil
+    return (result, Date().timeIntervalSince(start) * 1000)
   }
 }

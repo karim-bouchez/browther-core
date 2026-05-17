@@ -15,7 +15,7 @@ import UIKit
 ///
 /// Input  : 192W × 256H, RGB, ImageNet-normalised (baked into the model).
 /// Output : `[1, 26]` sigmoid logits. Index 22 = Female probability.
-final class PPLCNetClassifier {
+final class PPLCNetClassifier: @unchecked Sendable {
   static let inputWidth: CGFloat = 192
   static let inputHeight: CGFloat = 256
   /// PULC pedestrian-attribute index for the "Female" attribute (sigmoid logit).
@@ -44,12 +44,14 @@ final class PPLCNetClassifier {
   /// `preprocessForClassification`), stretch to 192×256, run inference,
   /// decode the female attribute as a male/female classification.
   ///
-  /// Pass `bodyMask=nil` (synthetic body from face detector, no keypoints)
-  /// to skip the masking step — POC uses the same fallback.
+  /// Pass `bodyPolygonPoints=nil` (synthetic body from face detector, no
+  /// keypoints) to skip the masking step — POC uses the same fallback.
+  /// The polygon is rasterized directly into the 192×256 buffer space
+  /// (no per-pixel coord remap in the inner loop, 2026-05-17).
   func classify(
     image: CGImage,
     bodyBbox: CGRect,
-    bodyMask: BodyPolygon.Mask? = nil,
+    bodyPolygonPoints: [CGPoint]? = nil,
     wantsCropImage: Bool = false
   ) throws -> GenderClassification? {
     let imageSize = CGSize(width: image.width, height: image.height)
@@ -80,13 +82,18 @@ final class PPLCNetClassifier {
     ctx.fill(CGRect(x: 0, y: 0, width: outW, height: outH))
     ctx.draw(cropped, in: CGRect(x: 0, y: 0, width: outW, height: outH))
 
-    if let mask = bodyMask {
+    if let points = bodyPolygonPoints, points.count >= 3 {
+      let localMask = BodyPolygon.rasterizeForCrop(
+        points: points,
+        sourceBbox: cropRect,
+        destWidth: outW,
+        destHeight: outH
+      )
       applyMaskGrayOut(
         contextData: buf,
         contextWidth: outW,
         contextHeight: outH,
-        cropRect: cropRect,
-        mask: mask
+        mask: localMask
       )
     }
 
@@ -136,44 +143,29 @@ final class PPLCNetClassifier {
     return decode(output: array, cropImage: cropImage)
   }
 
-  /// For each destination pixel in the resized crop, sample the polygon mask
-  /// at the corresponding source-image coords. If the source point lies
-  /// outside the polygon, paint the dest pixel gray (#808080) — exactly
-  /// what `preprocessForClassification` does in the POC. The pixel buffer
-  /// is BGRA byte-order so we touch the first 3 bytes per pixel.
+  /// Apply the polygon mask (already rasterized in 192×256 buffer space) to
+  /// gray-out pixels outside the body silhouette (#808080). BGRA byte order
+  /// → touch the first 3 bytes per pixel.
   private func applyMaskGrayOut(
     contextData: UnsafeMutableRawPointer,
     contextWidth: Int,
     contextHeight: Int,
-    cropRect: CGRect,
     mask: BodyPolygon.Mask
   ) {
-    let cropW = Double(cropRect.width)
-    let cropH = Double(cropRect.height)
-    let cropX0 = Double(cropRect.minX)
-    let cropY0 = Double(cropRect.minY)
-    let mw = mask.width
-    let mh = mask.height
+    let ptr = contextData.assumingMemoryBound(to: UInt8.self)
     let outW = contextWidth
     let outH = contextHeight
-    let ptr = contextData.assumingMemoryBound(to: UInt8.self)
-    for py in 0..<outH {
-      let origY = Int((cropY0 + (Double(py) / Double(outH)) * cropH).rounded())
-      for px in 0..<outW {
-        let origX = Int((cropX0 + (Double(px) / Double(outW)) * cropW).rounded())
-        let inside: Bool
-        if origX < 0 || origX >= mw || origY < 0 || origY >= mh {
-          inside = false
-        } else {
-          inside = mask.data[origY * mw + origX] > 0
-        }
-        if !inside {
-          let off = (py * outW + px) * 4
-          // BGRA byte order: bytes [B, G, R, A].
-          ptr[off] = 128
-          ptr[off + 1] = 128
-          ptr[off + 2] = 128
-          // Keep alpha (byte 3) unchanged.
+    mask.data.withUnsafeBufferPointer { mb in
+      guard let mPtr = mb.baseAddress else { return }
+      for py in 0..<outH {
+        let rowOff = py * outW
+        for px in 0..<outW {
+          if mPtr[rowOff + px] == 0 {
+            let off = (rowOff + px) * 4
+            ptr[off] = 128
+            ptr[off + 1] = 128
+            ptr[off + 2] = 128
+          }
         }
       }
     }

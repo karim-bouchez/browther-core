@@ -10,7 +10,7 @@ import OSLog
 import Vision
 
 /// Internal representation of a YOLO-pose detection (one person).
-struct RawPersonDetection {
+struct RawPersonDetection: @unchecked Sendable {
   let bbox: CGRect
   let bodyConfidence: Double
   /// 17 COCO keypoints in original image pixel coords.
@@ -23,7 +23,7 @@ struct RawPersonDetection {
 
 /// YOLO11n-pose detector running via Vision/CoreML on a 640×640 input.
 /// Outputs a `[1, 56, N]` tensor: 4 (xywh) + 1 (objectness) + 51 (17 keypoints × x,y,conf).
-final class YOLOPoseDetector {
+final class YOLOPoseDetector: @unchecked Sendable {
   static let inputSize: CGFloat = 640
   static let numKeypoints = 17
   static let scoreThresholdFallback: Double = 0.25

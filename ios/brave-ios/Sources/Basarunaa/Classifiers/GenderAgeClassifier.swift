@@ -30,7 +30,7 @@ struct GenderClassification {
 /// channels to RGB internally. The variant of `genderage.onnx` shipped here
 /// was trained on RGB pixels (POC `normalization='raw'`) — using BGR would
 /// flip the softmax on borderline faces.
-final class GenderAgeClassifier {
+final class GenderAgeClassifier: @unchecked Sendable {
   static let inputSize: CGFloat = 96
 
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Gender")

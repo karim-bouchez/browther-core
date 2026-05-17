@@ -145,35 +145,56 @@ enum BodyPolygon {
     return Polygon(points: snapped, isBodyShaped: true)
   }
 
-  /// Rasterize the polygon into a binary mask via scanline fill (port direct
-  /// du POC `polygonToMask`). Mask values: 0 = outside, 1 = inside.
-  static func polygonToMask(
+  /// Rasterize the polygon into a binary mask aligned with the PPLCNet
+  /// `destWidth × destHeight` crop. Pre-transforms polygon points from
+  /// image-space to destination-space so the resulting mask can be read
+  /// pixel-by-pixel with `mask[py * destWidth + px]` — no per-pixel
+  /// mapping in the inner loop of `applyMaskGrayOut` (gain ~25-30ms vs
+  /// the full-image mask + per-pixel coord remap, 2026-05-17).
+  static func rasterizeForCrop(
     points: [CGPoint],
-    imageWidth: Int,
-    imageHeight: Int
+    sourceBbox: CGRect,
+    destWidth: Int,
+    destHeight: Int
   ) -> Mask {
-    var data = [UInt8](repeating: 0, count: imageWidth * imageHeight)
-    if points.count < 3 {
-      return Mask(data: data, width: imageWidth, height: imageHeight)
+    var data = [UInt8](repeating: 0, count: destWidth * destHeight)
+    if points.count < 3 || sourceBbox.width <= 0 || sourceBbox.height <= 0 {
+      return Mask(data: data, width: destWidth, height: destHeight)
     }
 
-    var minY = Double(imageHeight), maxY = 0.0
+    // Map each polygon point (in image coords) to the destination buffer.
+    let sx = Double(destWidth) / Double(sourceBbox.width)
+    let sy = Double(destHeight) / Double(sourceBbox.height)
+    let bx = Double(sourceBbox.minX)
+    let by = Double(sourceBbox.minY)
+    var localPoints: [CGPoint] = []
+    localPoints.reserveCapacity(points.count)
     for p in points {
+      localPoints.append(
+        CGPoint(
+          x: (Double(p.x) - bx) * sx,
+          y: (Double(p.y) - by) * sy
+        )
+      )
+    }
+
+    var minY = Double(destHeight), maxY = 0.0
+    for p in localPoints {
       if Double(p.y) < minY { minY = Double(p.y) }
       if Double(p.y) > maxY { maxY = Double(p.y) }
     }
     let yStart = max(0, Int(floor(minY)))
-    let yEnd = min(imageHeight - 1, Int(ceil(maxY)))
+    let yEnd = min(destHeight - 1, Int(ceil(maxY)))
     if yStart > yEnd {
-      return Mask(data: data, width: imageWidth, height: imageHeight)
+      return Mask(data: data, width: destWidth, height: destHeight)
     }
 
     for y in yStart...yEnd {
       var inter: [Double] = []
       let yd = Double(y)
-      for i in 0..<points.count {
-        let a = points[i]
-        let b = points[(i + 1) % points.count]
+      for i in 0..<localPoints.count {
+        let a = localPoints[i]
+        let b = localPoints[(i + 1) % localPoints.count]
         let ay = Double(a.y), by = Double(b.y)
         if (ay <= yd && by > yd) || (by <= yd && ay > yd) {
           let denom = by - ay
@@ -186,16 +207,16 @@ enum BodyPolygon {
       var k = 0
       while k + 1 < inter.count {
         let x1 = max(0, Int(floor(inter[k])))
-        let x2 = min(imageWidth - 1, Int(ceil(inter[k + 1])))
+        let x2 = min(destWidth - 1, Int(ceil(inter[k + 1])))
         if x1 <= x2 {
           for x in x1...x2 {
-            data[y * imageWidth + x] = 1
+            data[y * destWidth + x] = 1
           }
         }
         k += 2
       }
     }
-    return Mask(data: data, width: imageWidth, height: imageHeight)
+    return Mask(data: data, width: destWidth, height: destHeight)
   }
 
   // MARK: - Internals

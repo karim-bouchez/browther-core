@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 /// Internal representation of a YOLOv8-face detection (one face).
-struct RawFaceDetection {
+struct RawFaceDetection: @unchecked Sendable {
   let faceBbox: CGRect
   let confidence: Double
   /// 5 keypoints réorganisés en convention COCO partielle pour matcher la
@@ -27,7 +27,7 @@ struct RawFaceDetection {
 /// Port direct du POC `private/extensions/basarunaa/src/detectors/yolo_face.js`.
 /// 3 FPN heads (strides 8/16/32), output `[1, 80, H, W]` chacun où H=W=640/stride.
 /// Channels: 64 (DFL: 4 distances × 16 bins) + 1 (conf) + 15 (5 landmarks × xyc).
-final class YOLOFaceDetector {
+final class YOLOFaceDetector: @unchecked Sendable {
   static let inputSize: CGFloat = 640
   static let strides: [Int] = [8, 16, 32]
   static let dflBins: Int = 16
