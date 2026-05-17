@@ -33,6 +33,18 @@ class BasarunaaScriptHandler: TabContentScript {
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
 
+  /// Lifetime state for one MSE video SourceBuffer wrapped on the JS side.
+  /// V2.a (bridge bytes) : on accumule juste les métadonnées pour valider que
+  /// le canal JS→Swift restitue l'intégralité des segments envoyés. V2.b
+  /// déléguera à un demuxer EBML + VTDecompressionSession.
+  private struct VideoSourceState {
+    let mime: String
+    var totalBytes: Int = 0
+    var chunkCount: Int = 0
+    let createdAt: Date = Date()
+  }
+  private var videoSources: [Int: VideoSourceState] = [:]
+
   static let scriptName = "BasarunaaScript"
   static let scriptId = UUID().uuidString
   static let messageHandlerName = "\(scriptName)_\(messageUUID)"
@@ -104,7 +116,52 @@ class BasarunaaScriptHandler: TabContentScript {
 
     case "pageReset":
       isActive = false
+      videoSources.removeAll()
       log.info("page_reset url=\(data, privacy: .public)")
+
+    case "videoSourceAdded":
+      // data = "<sbId>|<mime>"
+      let parts = data.split(separator: "|", maxSplits: 1)
+      guard parts.count == 2, let sbId = Int(parts[0]) else {
+        log.error("videoSourceAdded parse failed: \(data, privacy: .public)")
+        return
+      }
+      let mime = String(parts[1])
+      videoSources[sbId] = VideoSourceState(mime: mime)
+      log.info("video_source_added sbId=\(sbId, privacy: .public) mime=\(mime, privacy: .public)")
+
+    case "videoSegment":
+      // data = "<sbId>|<seq>|<ct_ms>|<base64>"
+      let parts = data.split(separator: "|", maxSplits: 3)
+      guard parts.count == 4,
+        let sbId = Int(parts[0]),
+        let seq = Int(parts[1]),
+        let ctMs = Int(parts[2])
+      else {
+        log.error("videoSegment parse failed (parts=\(data.split(separator: "|").count, privacy: .public))")
+        return
+      }
+      guard let bytes = Data(base64Encoded: String(parts[3])) else {
+        log.error("videoSegment base64 decode failed sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public)")
+        return
+      }
+      var state = videoSources[sbId] ?? VideoSourceState(mime: "unknown")
+      state.totalBytes += bytes.count
+      state.chunkCount += 1
+      videoSources[sbId] = state
+      // Log les 5 premiers chunks + 1 / 20 ensuite (verbose au démarrage,
+      // calme en cruise).
+      let shouldLog = state.chunkCount <= 5 || state.chunkCount % 20 == 0
+      if shouldLog {
+        log.info(
+          """
+          video_segment sbId=\(sbId, privacy: .public) seq=\(seq, privacy: .public) \
+          chunks=\(state.chunkCount, privacy: .public) size=\(bytes.count, privacy: .public) \
+          total=\(state.totalBytes, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
+          mime=\(state.mime, privacy: .public)
+          """
+        )
+      }
 
     default:
       log.info("unknown_action=\(action, privacy: .public)")

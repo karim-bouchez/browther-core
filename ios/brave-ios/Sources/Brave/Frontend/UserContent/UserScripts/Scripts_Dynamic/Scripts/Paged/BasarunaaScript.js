@@ -32,15 +32,15 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     try { send('metric', JSON.stringify(obj)); } catch (e) {}
   }
 
-  // ─── Video V1 : MSE segment intercept (capture-only) ──────────────────────
+  // ─── Video V2 : MSE segment intercept + bytes bridge to Swift ─────────────
   // Calque le pattern Sawtunaa (cf. SawtunaaScript.js) — monkey-patch
-  // MediaSource.prototype.addSourceBuffer at atDocumentStart to identify video
-  // SourceBuffers via their MIME type, then wrap their appendBuffer to log
-  // every chunk's metadata (mime, size, current time, paused state).
+  // MediaSource/ManagedMediaSource.addSourceBuffer at atDocumentStart pour
+  // identifier les SourceBuffers vidéo via leur MIME type, puis wrap leur
+  // appendBuffer pour envoyer chaque chunk compressé en base64 à Swift
+  // (action `videoSegment`). Swift accumule et délègue à VideoToolbox (V2.b+).
   //
-  // V1 = capture-only : aucun byte n'est envoyé à Swift, on valide juste que
-  // l'interception MSE marche sur WebKit iOS pour la vidéo (déjà éprouvé pour
-  // Opus audio chez Sawtunaa). V2 décodera via VideoToolbox côté Swift.
+  // V1 (validé 2026-05-17) — capture-only via metric() : ManagedMediaSource +
+  // VP9 confirmés sur iPhone 13 / YouTube.
   (function() {
     var hasMS = typeof MediaSource !== 'undefined';
     var hasMMS = typeof ManagedMediaSource !== 'undefined';
@@ -48,39 +48,53 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       metric('mse_video_abort', { reason: 'no_mse' });
       return;
     }
-    var seqByMime = {};
-    function wrapAppendBuffer(sb, mimeType) {
+    var sbIdCounter = 0;
+
+    // Convert a Uint8Array / ArrayBuffer / BufferSource to base64.
+    // String.fromCharCode.apply has a call-stack limit (~120k args), so we
+    // chunk by 32 KB to stay safe across browsers. For typical YouTube chunks
+    // (30-230 KB) this is ~1-8 calls.
+    function bufferSourceToBase64(buffer) {
+      var u8;
+      if (buffer instanceof Uint8Array) {
+        u8 = buffer;
+      } else if (buffer instanceof ArrayBuffer) {
+        u8 = new Uint8Array(buffer);
+      } else if (buffer && buffer.buffer instanceof ArrayBuffer) {
+        // Typed array view : honour byteOffset/byteLength.
+        u8 = new Uint8Array(buffer.buffer, buffer.byteOffset || 0, buffer.byteLength);
+      } else {
+        return null;
+      }
+      var CHUNK = 0x8000;
+      var parts = [];
+      for (var i = 0; i < u8.length; i += CHUNK) {
+        parts.push(String.fromCharCode.apply(null, u8.subarray(i, i + CHUNK)));
+      }
+      return btoa(parts.join(''));
+    }
+
+    function wrapAppendBuffer(sb, sbId, mimeType) {
       var original = sb.appendBuffer;
       if (typeof original !== 'function') return;
+      var seq = 0;
       sb.appendBuffer = function(buffer) {
         try {
-          var byteLength = 0;
-          if (buffer && typeof buffer.byteLength === 'number') {
-            byteLength = buffer.byteLength;
-          } else if (buffer && buffer.buffer && typeof buffer.buffer.byteLength === 'number') {
-            byteLength = buffer.buffer.byteLength;
-          }
-          var seq = (seqByMime[mimeType] = (seqByMime[mimeType] || 0) + 1);
+          seq++;
+          var b64 = bufferSourceToBase64(buffer);
           var videos = document.getElementsByTagName('video');
           var currentTimeMs = -1;
-          var paused = true;
-          var dur = -1;
           if (videos.length > 0) {
-            var v = videos[0];
-            currentTimeMs = Math.round((v.currentTime || 0) * 1000);
-            paused = !!v.paused;
-            dur = isFinite(v.duration) ? Math.round(v.duration * 1000) : -1;
+            currentTimeMs = Math.round((videos[0].currentTime || 0) * 1000);
           }
-          metric('mse_video_chunk', {
-            seq: seq,
-            mime: mimeType,
-            size: byteLength,
-            ct_ms: currentTimeMs,
-            dur_ms: dur,
-            paused: paused
-          });
+          if (b64 !== null) {
+            // Format: "<sbId>|<seq>|<ct_ms>|<base64>"
+            send('videoSegment', sbId + '|' + seq + '|' + currentTimeMs + '|' + b64);
+          } else {
+            metric('mse_video_chunk_error', { sbId: sbId, seq: seq, msg: 'unsupported_buffer_type' });
+          }
         } catch (e) {
-          metric('mse_video_chunk_error', { msg: '' + e });
+          metric('mse_video_chunk_error', { sbId: sbId, msg: '' + e });
         }
         return original.apply(this, arguments);
       };
@@ -92,9 +106,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         var sb = originalASB.apply(this, arguments);
         var isVideo = typeof mimeType === 'string' && /^video\//i.test(mimeType);
         if (isVideo) {
-          seqByMime[mimeType] = 0;
-          metric('mse_video_sb_added', { ctor: ctorName, mime: mimeType });
-          wrapAppendBuffer(sb, mimeType);
+          var sbId = ++sbIdCounter;
+          // Format: "<sbId>|<mime>"
+          send('videoSourceAdded', sbId + '|' + mimeType);
+          metric('mse_video_sb_added', { sbId: sbId, ctor: ctorName, mime: mimeType });
+          wrapAppendBuffer(sb, sbId, mimeType);
         } else {
           metric('mse_sb_skip', { ctor: ctorName, mime: mimeType || '' });
         }
@@ -110,7 +126,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       isYoutube: /(?:youtube\.com|youtu\.be)/.test(location.host)
     });
   })();
-  // ─── End video V1 ─────────────────────────────────────────────────────────
+  // ─── End video V2 ─────────────────────────────────────────────────────────
 
   // ─── Config ───
   // V1: hard-coded blur intensity. V2 will read Preferences.Basarunaa.blurStrength
