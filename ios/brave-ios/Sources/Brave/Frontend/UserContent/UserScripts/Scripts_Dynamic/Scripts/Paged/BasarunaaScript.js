@@ -464,6 +464,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       document.body.appendChild(fullscreenExitButton);
 
       metric('fs_entered_canvas', { videoId: videoId, mode: 'fakeCss' });
+      try { send('fullscreenEnter'); } catch (e) {}
       return true;
     }
 
@@ -484,6 +485,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
       fullscreenVideoEl = null;
       fullscreenCanvas = null;
+      try { send('fullscreenExit'); } catch (e) {}
     }
 
     // GC périodique : si un <video> a été retiré du DOM par YouTube SPA,

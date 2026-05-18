@@ -15,6 +15,8 @@ import WebKit
 protocol BasarunaaScriptHandlerDelegate: AnyObject {
   func basarunaaDidActivate(tab: (any TabState)?)
   func basarunaaDidApplyBlur(tab: (any TabState)?, imageCount: Int)
+  func basarunaaDidEnterFakeFullscreen(tab: (any TabState)?)
+  func basarunaaDidExitFakeFullscreen(tab: (any TabState)?)
 }
 
 /// Decision returned to the JS after ML analysis.
@@ -115,6 +117,14 @@ class BasarunaaScriptHandler: TabContentScript {
       isActive = false
       lastAnalyzedAtByVideo.removeAll()
       log.info("page_reset url=\(data, privacy: .public)")
+
+    case "fullscreenEnter":
+      delegate?.basarunaaDidEnterFakeFullscreen(tab: tab)
+      log.info("fake_fullscreen_enter")
+
+    case "fullscreenExit":
+      delegate?.basarunaaDidExitFakeFullscreen(tab: tab)
+      log.info("fake_fullscreen_exit")
 
     case "videoFrame":
       // data = "<videoId>|<ct_ms>|<w>|<h>|<base64Jpeg>"
