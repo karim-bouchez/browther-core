@@ -58,6 +58,7 @@ import org.chromium.build.annotations.Nullable;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.BraveConfig;
 import org.chromium.chrome.browser.BraveLocalState;
+import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.customtabs.CustomTabActivity;
 import org.chromium.chrome.browser.day_zero.DayZeroHelper;
 import org.chromium.chrome.browser.metrics.ChangeMetricsReportingStateCalledFrom;
@@ -260,6 +261,9 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
      * meant to avoid transition glitches (for example on foldable state changes).
      */
     private void launchPendingIntentAndFinish() {
+        // Browther: track end-of-onboarding pour PostHog (C++ dédupe via
+        // kOnboardingEventSent — safe à appeler à chaque fin).
+        BrowtherAnalyticsBridge.track("onboarding_completed");
         if (!sendFirstRunCompleteIntent()) {
             finish();
         } else {
@@ -513,6 +517,10 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         assert requestCode == BraveConstants.DEFAULT_BROWSER_ROLE_REQUEST_CODE;
+        if (resultCode == RESULT_OK) {
+            // Browther: user a accepté Browther comme navigateur par défaut.
+            BrowtherAnalyticsBridge.track("default_browser_set");
+        }
         if (isDefaultVariant()) {
             nextOnboardingStepForDefaultVariant();
         }

@@ -2377,7 +2377,9 @@ public abstract class BraveActivity extends ChromeActivity
             }
         } else if (resultCode == RESULT_OK
                 && requestCode == BraveConstants.DEFAULT_BROWSER_ROLE_REQUEST_CODE) {
-            // We don't need to anything with the result here.
+            // Browther: user a accepté Browther comme navigateur par défaut
+            // depuis le flow hors-onboarding (settings, menu, etc.).
+            BrowtherAnalyticsBridge.track("default_browser_set");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
