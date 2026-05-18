@@ -227,3 +227,14 @@
 <activity android:name="org.chromium.chrome.browser.searchwidget.SearchWidgetProviderActivity"
     android:theme="@style/Theme.Chromium.SearchActivity"
     android:exported="true"/>
+
+<!-- Browther: disable Sentry-Android auto-init. Sentry's AAR declares a
+     ContentProvider (SentryInitProvider) that runs before Application.onCreate
+     and crashes with "DSN is required" if no io.sentry.dsn meta-data is set.
+     On veut un init manuel via BrowtherSentry.initialize() avec options
+     customisées (DSN dynamique, pas de PII, pas de tracing), donc on retire
+     l'auto-init via tools:node="remove". -->
+<provider
+    android:name="io.sentry.android.core.SentryInitProvider"
+    android:authorities="${applicationId}.SentryInitProvider"
+    tools:node="remove" />
