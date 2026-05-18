@@ -77,6 +77,22 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var DEBUG_BBOX_STROKE = true;       // dessine un cadre rouge autour
                                         // de chaque bbox floutée (V3-E iter 1)
 
+    // ─── V3.5 — Fake fullscreen CSS ─────────────────────────────────────────
+    // Sur iPhone, Element.requestFullscreen() Web API n'est PAS supporté
+    // (juste iPad 16.4+) ⇒ canvas.requestFullscreen est undefined et la
+    // seule fullscreen native est `<video>.webkitEnterFullscreen()` qui
+    // ouvre AVKit (intouchable). Solution : on intercepte
+    // webkitEnterFullscreen et au lieu d'appeler le natif, on bascule
+    // notre canvas en "fake fullscreen" via CSS (position:fixed; 100vw/vh;
+    // z-index max). Le blur reste préservé puisque le canvas EST la vidéo
+    // affichée. URL bar Safari reste visible — compromis accepté faute de
+    // vraie API disponible.
+    var fullscreenVideoEl = null;       // <video> actuellement en mode fs
+    var fullscreenCanvas = null;        // canvas correspondant
+    var fullscreenExitButton = null;    // bouton X pour sortir
+    var savedCanvasCssText = '';        // restore au exit
+    var savedBodyOverflow = '';         // restore au exit
+
     // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
     var sampleCanvas = document.createElement('canvas');
     var sctx = sampleCanvas.getContext('2d');
@@ -112,6 +128,25 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       document.body.appendChild(display);
       displayCanvasById[videoId] = display;
 
+      // Tap sur le canvas en (fake) fullscreen → exit. Le canvas a
+      // normalement `pointer-events:none` ; on le bascule en `auto` dans
+      // le handler d'entrée fullscreen, donc le click marche.
+      display.addEventListener('click', function() {
+        if (fullscreenCanvas === display) {
+          exitFakeFullscreen('canvas_click');
+        }
+      });
+
+      // Detect quand iOS prend le contrôle (AVKit) sans qu'on ait pu
+      // intercepter — `webkitbeginfullscreen` fire au moment où le <video>
+      // entre en présentation natif.
+      video.addEventListener('webkitbeginfullscreen', function() {
+        metric('fs_webkit_begin', { videoId: videoId });
+      });
+      video.addEventListener('webkitendfullscreen', function() {
+        metric('fs_webkit_end', { videoId: videoId });
+      });
+
       var dctx = display.getContext('2d');
       var firstTickLogged = false;
       function tick() {
@@ -122,22 +157,32 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           video.requestVideoFrameCallback(tick);
           return;
         }
-        var rect = video.getBoundingClientRect();
-        if (rect.width <= 0 || rect.height <= 0) {
-          video.requestVideoFrameCallback(tick);
-          return;
-        }
-        // Le canvas match la position+taille CSS du <video> dans le viewport.
-        // Résolution physique = taille CSS × devicePixelRatio pour rester net.
         var dpr = window.devicePixelRatio || 1;
-        var pw = Math.max(1, Math.round(rect.width * dpr));
-        var ph = Math.max(1, Math.round(rect.height * dpr));
+        var pw, ph;
+        var inFs = (fullscreenVideoEl === video);
+        if (inFs) {
+          // En fullscreen : canvas remplit le viewport ; le browser gère
+          // sa taille CSS (100% du screen). On match juste les pixels
+          // physiques à clientWidth × dpr.
+          var cw = display.clientWidth || window.innerWidth;
+          var ch = display.clientHeight || window.innerHeight;
+          pw = Math.max(1, Math.round(cw * dpr));
+          ph = Math.max(1, Math.round(ch * dpr));
+        } else {
+          var rect = video.getBoundingClientRect();
+          if (rect.width <= 0 || rect.height <= 0) {
+            video.requestVideoFrameCallback(tick);
+            return;
+          }
+          pw = Math.max(1, Math.round(rect.width * dpr));
+          ph = Math.max(1, Math.round(rect.height * dpr));
+          display.style.left = rect.left + 'px';
+          display.style.top = rect.top + 'px';
+          display.style.width = rect.width + 'px';
+          display.style.height = rect.height + 'px';
+        }
         if (display.width !== pw) display.width = pw;
         if (display.height !== ph) display.height = ph;
-        display.style.left = rect.left + 'px';
-        display.style.top = rect.top + 'px';
-        display.style.width = rect.width + 'px';
-        display.style.height = rect.height + 'px';
         if (!firstTickLogged) {
           metric('video_tick_first', {
             videoId: videoId,
@@ -148,12 +193,30 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           firstTickLogged = true;
         }
         try {
-          // Canvas overlay **sélectif** : transparent par défaut, on dessine
-          // UNIQUEMENT les zones blur. Le reste reste transparent → le
-          // <video> natif derrière reste visible avec ses controls. Fix
-          // visuel pour V3-E iter 1 ; l'iter 2 (fullscreen handling) basculera
-          // en mode "canvas opaque qui remplace le <video>".
-          dctx.clearRect(0, 0, pw, ph);
+          // 2 modes :
+          //  - Normal (canvas overlay au-dessus du <video>) : transparent
+          //    par défaut, on dessine UNIQUEMENT les zones blur.
+          //  - Fake-fullscreen (canvas en CSS position:fixed 100vw/vh) :
+          //    opaque, letterbox + drawImage full frame puis blur sur bboxes.
+          var dispOffX = 0, dispOffY = 0, dispW = pw, dispH = ph;
+          if (inFs) {
+            // Letterbox manuel : preserve aspect ratio. Bandes noires aux
+            // bords si le canvas n'a pas le même ratio que la vidéo source.
+            var vAspect = vw / vh;
+            var cAspect = pw / ph;
+            if (vAspect > cAspect) {
+              dispW = pw; dispH = pw / vAspect;
+              dispOffX = 0; dispOffY = (ph - dispH) / 2;
+            } else {
+              dispH = ph; dispW = ph * vAspect;
+              dispOffY = 0; dispOffX = (pw - dispW) / 2;
+            }
+            dctx.fillStyle = '#000';
+            dctx.fillRect(0, 0, pw, ph);
+            dctx.drawImage(video, 0, 0, vw, vh, dispOffX, dispOffY, dispW, dispH);
+          } else {
+            dctx.clearRect(0, 0, pw, ph);
+          }
 
           // Sample pour ML — capture brute via un canvas séparé sur le
           // <video> source, indépendant du canvas display.
@@ -166,15 +229,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           }
 
           // Blur bboxes courantes — pour chaque bbox on draw la zone
-          // correspondante du <video> downsamplée puis upscalée → pixel
-          // floué dans le canvas, le reste reste transparent.
+          // correspondante du <video> downsamplée puis upscalée. En
+          // fullscreen, scale + offset par la zone letterboxée (dispW/H,
+          // dispOffX/Y) ; en mode normal, dispW=pw, dispH=ph, offsets=0.
           var bboxes = currentBboxesById[videoId];
           var meta = currentBboxMetaById[videoId];
           if (bboxes && bboxes.length && meta) {
-            var sx = pw / meta.analyseW;
-            var sy = ph / meta.analyseH;
+            var sx = dispW / meta.analyseW;
+            var sy = dispH / meta.analyseH;
             for (var i = 0; i < bboxes.length; i++) {
-              drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, rect.width * dpr, rect.height * dpr);
+              drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, dispW, dispH, dispOffX, dispOffY);
             }
           }
         } catch (e) {
@@ -223,9 +287,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // bboxes en coords analyse (= dim JPEG envoyé) → sx, sy rescale vers
     // canvas pixel size (pw, ph). On reconvertit ensuite en source <video>
     // pixel coords pour drawImage(video, srcX, srcY, srcW, srcH, ...).
-    function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH) {
-      var bx = bbox[0] * sx;
-      var by = bbox[1] * sy;
+    function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH, offX, offY) {
+      offX = offX || 0;
+      offY = offY || 0;
+      var bx = offX + bbox[0] * sx;
+      var by = offY + bbox[1] * sy;
       var bw = (bbox[2] - bbox[0]) * sx;
       var bh = (bbox[3] - bbox[1]) * sy;
       if (bw <= 0 || bh <= 0) return;
@@ -235,10 +301,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       bh = Math.min(dctx.canvas.height - by, Math.ceil(bh));
       if (bw <= 0 || bh <= 0) return;
       // Source coords sur le <video> natif (videoWidth × videoHeight).
+      // canvasW/H = taille de la zone où la vidéo est rendue (= dispW/H
+      // en fullscreen letterbox, = pw/ph en normal).
       var srcSx = vw / canvasW;
       var srcSy = vh / canvasH;
-      var srcX = bx * srcSx;
-      var srcY = by * srcSy;
+      var srcX = (bx - offX) * srcSx;
+      var srcY = (by - offY) * srcSy;
       var srcW = bw * srcSx;
       var srcH = bh * srcSy;
       // Downsample vers blurCanvas, puis upscale dans dctx.
@@ -292,6 +360,131 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         });
       }
     };
+
+    // Monkey-patches pour intercepter toutes les voies de fullscreen. On
+    // logge TOUT pour identifier ce que YouTube utilise réellement.
+    (function() {
+      if (typeof HTMLVideoElement === 'undefined') return;
+
+      // 1) <video>.webkitEnterFullscreen — chemin iOS natif AVKit
+      var protoFs = HTMLVideoElement.prototype.webkitEnterFullscreen;
+      if (typeof protoFs === 'function') {
+        HTMLVideoElement.prototype.webkitEnterFullscreen = function() {
+          metric('fs_webkit_enter_called', { wired: wired.has(this) });
+          if (wired.has(this)) {
+            if (redirectToCanvasFullscreen(this)) return;
+          }
+          return protoFs.apply(this, arguments);
+        };
+      } else {
+        metric('fs_no_webkitEnterFullscreen', {});
+      }
+
+      // 2) Element.requestFullscreen — chemin Web API standard
+      var elProto = Element.prototype;
+      var origReq = elProto.requestFullscreen;
+      if (typeof origReq === 'function') {
+        elProto.requestFullscreen = function() {
+          var isVideo = this.tagName === 'VIDEO';
+          metric('fs_request_called', {
+            tag: this.tagName, isVideo: isVideo,
+            wired: isVideo && wired.has(this)
+          });
+          if (isVideo && wired.has(this) && redirectToCanvasFullscreen(this)) {
+            return Promise.resolve();
+          }
+          return origReq.apply(this, arguments);
+        };
+      }
+      var origWebkitReq = elProto.webkitRequestFullscreen;
+      if (typeof origWebkitReq === 'function') {
+        elProto.webkitRequestFullscreen = function() {
+          var isVideo = this.tagName === 'VIDEO';
+          metric('fs_webkit_request_called', {
+            tag: this.tagName, isVideo: isVideo,
+            wired: isVideo && wired.has(this)
+          });
+          if (isVideo && wired.has(this) && redirectToCanvasFullscreen(this)) return;
+          return origWebkitReq.apply(this, arguments);
+        };
+      }
+    })();
+
+    function redirectToCanvasFullscreen(video) {
+      var videoId = null;
+      for (var id in videosById) {
+        if (videosById[id] === video) { videoId = parseInt(id, 10); break; }
+      }
+      if (!videoId) return false;
+      var canvas = displayCanvasById[videoId];
+      if (!canvas) return false;
+
+      // Bascule en fake fullscreen CSS (iPhone n'a pas
+      // Element.requestFullscreen).
+      fullscreenVideoEl = video;
+      fullscreenCanvas = canvas;
+      savedCanvasCssText = canvas.style.cssText;
+      savedBodyOverflow = document.body.style.overflow;
+      canvas.style.cssText = [
+        'position:fixed',
+        'top:0', 'left:0',
+        'width:100vw', 'height:100vh',
+        'z-index:2147483646',
+        'background:#000',
+        'pointer-events:auto',
+        'object-fit:contain',
+        'margin:0', 'padding:0'
+      ].join(' !important;') + ' !important;';
+      document.body.style.overflow = 'hidden';
+
+      // Bouton X custom — seul moyen d'exit sans Web API
+      if (!fullscreenExitButton) {
+        fullscreenExitButton = document.createElement('button');
+        fullscreenExitButton.textContent = '×';
+        fullscreenExitButton.style.cssText = [
+          'position:fixed',
+          'top:max(env(safe-area-inset-top, 12px), 12px)',
+          'right:12px',
+          'width:44px', 'height:44px',
+          'border-radius:50%',
+          'background:rgba(0,0,0,0.65)',
+          'color:white',
+          'border:0',
+          'font-size:28px', 'font-weight:300',
+          'line-height:44px',
+          'padding:0',
+          'z-index:2147483647',
+          'cursor:pointer'
+        ].join(' !important;') + ' !important;';
+        fullscreenExitButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          exitFakeFullscreen('exit_button');
+        });
+      }
+      document.body.appendChild(fullscreenExitButton);
+
+      metric('fs_entered_canvas', { videoId: videoId, mode: 'fakeCss' });
+      return true;
+    }
+
+    function exitFakeFullscreen(reason) {
+      if (!fullscreenCanvas) return;
+      // Stack trace pour identifier d'où vient l'appel (debug "sort tout
+      // seul après quelques secondes" reporté 2026-05-17 22:35).
+      var stack = '';
+      try { stack = (new Error()).stack || ''; } catch (e) {}
+      metric('fs_exited', {
+        reason: reason || 'unknown',
+        stack: stack.slice(0, 300)
+      });
+      fullscreenCanvas.style.cssText = savedCanvasCssText;
+      document.body.style.overflow = savedBodyOverflow;
+      if (fullscreenExitButton && fullscreenExitButton.parentNode) {
+        fullscreenExitButton.parentNode.removeChild(fullscreenExitButton);
+      }
+      fullscreenVideoEl = null;
+      fullscreenCanvas = null;
+    }
 
     // GC périodique : si un <video> a été retiré du DOM par YouTube SPA,
     // on nettoie son canvas display + son state.
