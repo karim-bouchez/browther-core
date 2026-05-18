@@ -60,6 +60,26 @@ def AddBraveCredits(root, prune_paths, special_cases, prune_dirs,
         # licence MIT (cf. xcframework). Pas pertinent pour les credits Android.
         os.path.join('brave', 'ios', 'third_party', 'OnnxRuntime'),
 
+        # Browther: brave/engine/ est du code Mozilla/Firefox legacy (xpcom,
+        # mozglue, xpfe, etc.) qui traîne dans le checkout — pas utilisé par
+        # le build brave-core actuel. Exclu en bloc du check de licence.
+        os.path.join('brave', 'engine'),
+
+        # Browther: cache Swift Package Manager iOS (.build/checkouts/...).
+        # Auto-généré quand on a déjà fait un build iOS dans le workspace,
+        # contient des dépendances 3rd party sans metadata pour le check brave.
+        # Pas utilisé par le build macOS/Windows.
+        os.path.join('brave', 'ios', 'brave-ios', '.build'),
+
+        # Browther: deps Android propriétaires (Sentry/PostHog AAR pré-téléchargés,
+        # cf. CLAUDE.md § 3.5 Phase Analytics). À ajouter un README.chromium
+        # plus tard quand on builde Android Release.
+        os.path.join('brave', 'third_party', 'browther_android_deps'),
+
+        # Browther: ONNX Runtime Desktop (Basarunaa). Licence MIT (cf. README.md
+        # dans le dossier). À ajouter un README.chromium proper plus tard.
+        os.path.join('brave', 'third_party', 'onnxruntime'),
+
         # Metadata files for Rust crates are located in the subfolders of
         # brave/third_party/rust/<crate_name>/<v>, the crates themselves in
         # brave/third_party/rust/chromium_crates_io can be skipped.
