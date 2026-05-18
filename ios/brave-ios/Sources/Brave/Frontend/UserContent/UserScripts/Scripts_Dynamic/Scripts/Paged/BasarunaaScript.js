@@ -92,12 +92,44 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var fullscreenExitButton = null;    // bouton X pour sortir
     var savedCanvasCssText = '';        // restore au exit
     var savedBodyOverflow = '';         // restore au exit
+    var savedCanvasParent = null;       // parent d'origine du canvas (YT case)
+    var savedCanvasNextSibling = null;  // sibling de référence pour restore exact
 
     // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
     var sampleCanvas = document.createElement('canvas');
     var sctx = sampleCanvas.getContext('2d');
     var blurCanvas = document.createElement('canvas');
     var bctx = blurCanvas.getContext('2d');
+
+    // ─── Overlay placement (2026-05-18) ────────────────────────────────────
+    // Sur YouTube le `<video>` est probablement en hardware-overlay au-dessus
+    // de tout son stacking context (`.html5-video-container` z=10). Mettre
+    // le canvas dans ce container le rend invisible (sous la video plane).
+    //
+    // Solution : remonter au `#player-container-id` (l'ancêtre qui contient
+    // À LA FOIS `#player` (avec le video) ET les contrôles YT (.player-
+    // controls-background, #player-control-overlay, etc., siblings dans ce
+    // container). On insère notre canvas dans `#player-container-id`, **juste
+    // après `#player` mais avant les contrôles** dans l'ordre DOM → canvas
+    // peint au-dessus du video, contrôles peints au-dessus du canvas.
+    //
+    // Hors YouTube : fallback body + position:fixed + z-index max (comme avant).
+    function findYTOverlayContainer(video) {
+      try { return video.closest('#player-container-id'); } catch (e) { return null; }
+    }
+    function findYTPlayerElement(video) {
+      try { return video.closest('#player'); } catch (e) { return null; }
+    }
+    function firstYTControlChild(container) {
+      try {
+        return container.querySelector(
+          ':scope > .player-controls-background,' +
+          ':scope > .player-controls-background-container,' +
+          ':scope > #player-control-overlay,' +
+          ':scope > .player-control-overlay'
+        );
+      } catch (e) { return null; }
+    }
 
     function wireVideo(video) {
       if (wired.has(video) || taintedVideos.has(video)) return;
@@ -109,23 +141,43 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         src: (video.currentSrc || video.src || '').slice(0, 100)
       });
 
-      // Canvas display attaché à document.body en position:fixed et
-      // repositionné en continu (cf. setInterval plus bas). C'est le seul
-      // pattern observé qui marche sur YouTube mobile — append dans le
-      // parent du <video> peut tomber dans un stacking context isolé
-      // (transform/will-change YouTube) qui masque le canvas. Pour le
-      // fullscreen on interceptera `webkitEnterFullscreen` (V4) et on
-      // fera un canvas.requestFullscreen() séparément.
       var display = document.createElement('canvas');
       display.setAttribute('data-basarunaa-display', String(videoId));
-      display.style.cssText = [
-        'position:fixed',
-        'pointer-events:none',
-        'left:0', 'top:0', 'width:0', 'height:0',
-        'z-index:2147483646',    // juste sous l'extrême max — au-dessus de tout YouTube
-        'contain:layout style paint'
-      ].join(';');
-      document.body.appendChild(display);
+
+      // Sur YouTube : insérer dans `#player-container-id` entre `#player`
+      // et les contrôles. Sinon (autres sites) : body + position:fixed +
+      // z-index max — comportement historique qui marche partout au prix
+      // de masquer les contrôles natifs des autres sites.
+      var ytContainer = findYTOverlayContainer(video);
+      var ytPlayer = ytContainer ? findYTPlayerElement(video) : null;
+      if (ytContainer && ytPlayer && ytPlayer.parentNode === ytContainer) {
+        display.style.cssText = [
+          'position:absolute',
+          'pointer-events:none',
+          'left:0', 'top:0', 'width:0', 'height:0',
+          // pas de z-index → DOM order ; on insère entre #player et les controls
+          'contain:layout style paint'
+        ].join(';');
+        var firstControl = firstYTControlChild(ytContainer);
+        if (firstControl) {
+          ytContainer.insertBefore(display, firstControl);
+        } else {
+          // Pas (encore) de controls : insérer juste après #player ;
+          // les controls viendront probablement après.
+          var afterPlayer = ytPlayer.nextSibling;
+          if (afterPlayer) ytContainer.insertBefore(display, afterPlayer);
+          else ytContainer.appendChild(display);
+        }
+      } else {
+        display.style.cssText = [
+          'position:fixed',
+          'pointer-events:none',
+          'left:0', 'top:0', 'width:0', 'height:0',
+          'z-index:2147483646',
+          'contain:layout style paint'
+        ].join(';');
+        document.body.appendChild(display);
+      }
       displayCanvasById[videoId] = display;
 
       // (Pas de click→exit ici : on veut que les taps sur le canvas en
@@ -171,8 +223,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           }
           pw = Math.max(1, Math.round(rect.width * dpr));
           ph = Math.max(1, Math.round(rect.height * dpr));
-          display.style.left = rect.left + 'px';
-          display.style.top = rect.top + 'px';
+          // Si le canvas est dans un parent positionné (cas YT inside
+          // #player-container-id), les coords doivent être relatives à
+          // ce parent. Sinon (body+fixed), on est en coords viewport.
+          var dp = display.parentElement;
+          if (dp && dp !== document.body) {
+            var pr = dp.getBoundingClientRect();
+            display.style.left = (rect.left - pr.left) + 'px';
+            display.style.top = (rect.top - pr.top) + 'px';
+          } else {
+            display.style.left = rect.left + 'px';
+            display.style.top = rect.top + 'px';
+          }
           display.style.width = rect.width + 'px';
           display.style.height = rect.height + 'px';
         }
@@ -415,11 +477,21 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (!canvas) return false;
 
       // Bascule en fake fullscreen CSS (iPhone n'a pas
-      // Element.requestFullscreen).
+      // Element.requestFullscreen). En mode normal le canvas peut vivre
+      // dans le #player-container-id de YT (entre #player et les
+      // contrôles). Pour le fake fullscreen on le re-parente sur body en
+      // position:fixed pour qu'il couvre vraiment tout l'écran (et
+      // échappe au stacking context de #player-container-id qui est
+      // position:fixed avec z=2 — contraint).
       fullscreenVideoEl = video;
       fullscreenCanvas = canvas;
       savedCanvasCssText = canvas.style.cssText;
       savedBodyOverflow = document.body.style.overflow;
+      savedCanvasParent = canvas.parentElement;
+      savedCanvasNextSibling = canvas.nextSibling;
+      if (canvas.parentElement !== document.body) {
+        document.body.appendChild(canvas);
+      }
       canvas.style.cssText = [
         'position:fixed',
         'top:0', 'left:0',
@@ -475,6 +547,23 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       });
       fullscreenCanvas.style.cssText = savedCanvasCssText;
       document.body.style.overflow = savedBodyOverflow;
+      // Restore le canvas dans son parent d'origine (cas YT) si encore
+      // dispo, sinon fallback : recalculer un placement YT.
+      if (savedCanvasParent && savedCanvasParent.isConnected) {
+        if (savedCanvasNextSibling && savedCanvasNextSibling.parentNode === savedCanvasParent) {
+          savedCanvasParent.insertBefore(fullscreenCanvas, savedCanvasNextSibling);
+        } else {
+          savedCanvasParent.appendChild(fullscreenCanvas);
+        }
+      } else if (fullscreenVideoEl) {
+        var ytContainer = findYTOverlayContainer(fullscreenVideoEl);
+        var firstControl = ytContainer ? firstYTControlChild(ytContainer) : null;
+        if (ytContainer && firstControl) {
+          ytContainer.insertBefore(fullscreenCanvas, firstControl);
+        }
+      }
+      savedCanvasParent = null;
+      savedCanvasNextSibling = null;
       if (fullscreenExitButton && fullscreenExitButton.parentNode) {
         fullscreenExitButton.parentNode.removeChild(fullscreenExitButton);
       }
