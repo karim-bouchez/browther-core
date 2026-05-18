@@ -1,0 +1,19 @@
+diff --git a/build/android/gyp/tracereferences.py b/build/android/gyp/tracereferences.py
+--- a/build/android/gyp/tracereferences.py
++++ b/build/android/gyp/tracereferences.py
+@@ -38,6 +38,15 @@ _SUPPRESSION_PATTERN = '|'.join([
+     # E.g. Missing class android.util.StatsEvent$Builder
+     r'Missing (?:field|method) \S+ android\.',
+     r'Missing class android\.',
++
++    # Browther: sentry-android-core (8.41+) référence des intégrations
++    # optionnelles (Fragment, Replay, Distribution, Timber, Navigation,
++    # Compose) en bytecode. R8 honore les -dontwarn de Sentry pour ces
++    # classes, mais ce step trace-references est un check post-R8 séparé qui
++    # ignore les proguard configs. On les filtre ici pour permettre une
++    # intégration Sentry minimale (crashes only).
++    r'Missing (?:class|field|method) \S* ?io\.sentry\.android\.(?:replay|fragment|distribution|timber|navigation)\.',
++    r'Missing (?:class|field|method) \S* ?io\.sentry\.(?:compose|apollo|apollo3|spotlight)\.',
+
+     # The follow classes are from Android XR system libraries and used on
+     # immersive environment.

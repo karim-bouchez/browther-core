@@ -51,37 +51,16 @@ android_aar_prebuilt("sentry_android_core_java") {
   ]
 }
 
-# ── Sentry sub-modules optionnels ────────────────────────────────────────────
-# Pas utilisés par BrowtherSentry mais sentry-android-core référence leurs
-# classes en bytecode → R8/tracereferences crashe au final_dex step si
-# absents ("DEX contains references to non-existent symbols").
-android_aar_prebuilt("sentry_android_fragment_java") {
-  aar_path = "libs/sentry-android-fragment/sentry-android-fragment-8.41.0.aar"
-  info_path = "libs/sentry-android-fragment/sentry-android-fragment.info"
-  enable_bytecode_checks = false
-  deps = [ ":sentry_android_core_java" ]
-}
-
-android_aar_prebuilt("sentry_android_replay_java") {
-  aar_path = "libs/sentry-android-replay/sentry-android-replay-8.41.0.aar"
-  info_path = "libs/sentry-android-replay/sentry-android-replay.info"
-  enable_bytecode_checks = false
-  deps = [ ":sentry_android_core_java" ]
-}
-
-android_aar_prebuilt("sentry_android_distribution_java") {
-  aar_path = "libs/sentry-android-distribution/sentry-android-distribution-8.41.0.aar"
-  info_path = "libs/sentry-android-distribution/sentry-android-distribution.info"
-  enable_bytecode_checks = false
-  deps = [ ":sentry_android_core_java" ]
-}
+# Note : sentry-android-core référence en bytecode des intégrations
+# optionnelles (Fragment, Replay, Distribution, Timber, Navigation, Compose)
+# qu'on ne veut pas embarquer. R8 honore les -dontwarn de Sentry pour ces
+# classes, MAIS le step trace-references qui suit (Chromium-spécifique)
+# ignore les proguard configs et crashe sur ces refs manquantes. Solution :
+# patch upstream `build/android/gyp/tracereferences.py` pour ajouter
+# io.sentry.android.* à `_SUPPRESSION_PATTERN`. Voir
+# brave/patches/build-android-gyp-tracereferences.py.patch.
 
 # Group d'agrégation : facilite l'import depuis le code Browther.
 group("browther_android_deps") {
-  public_deps = [
-    ":sentry_android_core_java",
-    ":sentry_android_distribution_java",
-    ":sentry_android_fragment_java",
-    ":sentry_android_replay_java",
-  ]
+  public_deps = [ ":sentry_android_core_java" ]
 }
