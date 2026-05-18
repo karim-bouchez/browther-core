@@ -62,6 +62,7 @@ import org.chromium.build.annotations.Nullable;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.brave_news.BraveNewsControllerFactory;
+import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.brave_news.BraveNewsUtils;
 import org.chromium.chrome.browser.brave_news.CardBuilderFeedCard;
 import org.chromium.chrome.browser.brave_news.LinearLayoutManagerWrapper;
@@ -271,6 +272,12 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+
+        // Browther: track page_viewed pour la NTP (jamais d'URL ni de contenu).
+        // Aligné sur iOS (NewTabPageViewController.viewDidAppear) et desktop
+        // (brave_new_tab_page_ui.cc::BraveNewTabPageUI ctor).
+        BrowtherAnalyticsBridge.trackWithProps(
+                "page_viewed", new String[] {"page"}, new String[] {"ntp"});
 
         mShouldShowSponsoredImage = shouldShowSponsoredImage();
         if (mSponsoredTab == null) {
