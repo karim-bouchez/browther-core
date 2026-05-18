@@ -29,8 +29,10 @@
 #include "ui/base/accelerators/accelerator.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 
-#if BUILDFLAG(ENABLE_BRAVE_VPN)
+// Browther: Basarunaa controller is unconditional — feature pas liée à VPN.
 #include "brave/browser/ui/views/toolbar/basarunaa_panel_controller.h"
+
+#if BUILDFLAG(ENABLE_BRAVE_VPN)
 #include "brave/browser/ui/views/toolbar/brave_vpn_panel_controller.h"
 #endif
 
