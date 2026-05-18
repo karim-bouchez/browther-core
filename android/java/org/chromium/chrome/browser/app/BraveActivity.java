@@ -1199,13 +1199,6 @@ public abstract class BraveActivity extends ChromeActivity
     public void finishNativeInitialization() {
         super.finishNativeInitialization();
 
-        // Browther: fire app_launched_android pour le pont JNI vers
-        // BrowtherAnalyticsService. C++ fire déjà app_launched dans
-        // PreMainMessageLoopRun (cross-platform), mais cet event "android"
-        // est utile pour distinguer la distrib Play Store et pour valider
-        // que le pont JNI marche end-to-end.
-        BrowtherAnalyticsBridge.track("app_launched_android");
-
         boolean isFirstInstall = PackageUtils.isFirstInstall(this);
 
         String countryCode = Locale.getDefault().getCountry();
