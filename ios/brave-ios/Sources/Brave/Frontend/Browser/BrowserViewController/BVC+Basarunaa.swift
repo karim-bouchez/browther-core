@@ -10,8 +10,14 @@ import Web
 
 /// State saved before entering fake fullscreen so we can restore on exit.
 /// Keyed off the `BrowserViewController` instance via `ObjectAssociation`.
-private struct BasarunaaFullscreenState {
+private final class BasarunaaFullscreenState {
   let savedBackgroundColor: UIColor?
+  var rotationObserver: NSObjectProtocol?
+  var sizePollTimer: Timer?
+  var lastObservedSize: CGSize = .zero
+  init(savedBackgroundColor: UIColor?) {
+    self.savedBackgroundColor = savedBackgroundColor
+  }
 }
 private var basarunaaFullscreenStateKey: UInt8 = 0
 
@@ -36,14 +42,33 @@ extension BrowserViewController: BasarunaaScriptHandlerDelegate {
   func basarunaaDidEnterFakeFullscreen(tab: (any TabState)?) {
     Task { @MainActor [weak self] in
       guard let self else { return }
-      // Stash le fond actuel de la BVC view — la WKWebView ne s'étend pas
-      // jusqu'aux bords device pendant le fake fullscreen (le canvas DOM en
-      // `100vw/100vh` ne couvre que la WKWebView viewport), donc on voit le
-      // fond BVC autour. On le passe en noir le temps du fake fullscreen pour
-      // que ça se confonde avec le letterbox `object-fit:contain` du canvas.
-      self.basarunaaFullscreenState = BasarunaaFullscreenState(
+      let state = BasarunaaFullscreenState(
         savedBackgroundColor: self.view.backgroundColor
       )
+      state.lastObservedSize = self.view.bounds.size
+      // Poll on view.bounds size (200ms) — `orientationDidChangeNotification`
+      // doesn't fire reliably without `beginGeneratingDeviceOrientationNotifications`,
+      // and we can't hook `viewWillTransition(to:with:)` from an extension
+      // without patching the BVC original file. Polling is the least invasive
+      // way to detect rotation and re-apply `.collapsed` + force WKWebView
+      // re-layout so the canvas `100vw/100vh` matches the new geometry.
+      state.sizePollTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) {
+        [weak self] _ in
+        Task { @MainActor [weak self] in
+          guard let self, let state = self.basarunaaFullscreenState else { return }
+          let currentSize = self.view.bounds.size
+          if currentSize != state.lastObservedSize {
+            state.lastObservedSize = currentSize
+            Self.log.info(
+              "fake_fs_rotation_detected new=\(NSCoder.string(for: currentSize), privacy: .public)"
+            )
+            self.toolbarVisibilityViewModel.toolbarState = .collapsed
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+          }
+        }
+      }
+      self.basarunaaFullscreenState = state
       self.toolbarVisibilityViewModel.toolbarState = .collapsed
       UIView.animate(withDuration: 0.2) {
         self.header.alpha = 0
@@ -57,7 +82,12 @@ extension BrowserViewController: BasarunaaScriptHandlerDelegate {
   func basarunaaDidExitFakeFullscreen(tab: (any TabState)?) {
     Task { @MainActor [weak self] in
       guard let self else { return }
-      let restoredBackgroundColor = self.basarunaaFullscreenState?.savedBackgroundColor
+      let state = self.basarunaaFullscreenState
+      state?.sizePollTimer?.invalidate()
+      if let observer = state?.rotationObserver {
+        NotificationCenter.default.removeObserver(observer)
+      }
+      let restoredBackgroundColor = state?.savedBackgroundColor
       self.basarunaaFullscreenState = nil
       self.toolbarVisibilityViewModel.toolbarState = .expanded
       UIView.animate(withDuration: 0.2) {

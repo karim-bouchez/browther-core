@@ -128,14 +128,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       document.body.appendChild(display);
       displayCanvasById[videoId] = display;
 
-      // Tap sur le canvas en (fake) fullscreen → exit. Le canvas a
-      // normalement `pointer-events:none` ; on le bascule en `auto` dans
-      // le handler d'entrée fullscreen, donc le click marche.
-      display.addEventListener('click', function() {
-        if (fullscreenCanvas === display) {
-          exitFakeFullscreen('canvas_click');
-        }
-      });
+      // (Pas de click→exit ici : on veut que les taps sur le canvas en
+      // fake fullscreen passent aux contrôles YouTube en-dessous. L'exit
+      // se fait via le bouton × custom uniquement.)
 
       // Detect quand iOS prend le contrôle (AVKit) sans qu'on ait pu
       // intercepter — `webkitbeginfullscreen` fire au moment où le <video>
