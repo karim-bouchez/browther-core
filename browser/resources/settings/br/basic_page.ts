@@ -26,18 +26,24 @@ import '../brave_search_engines_page/brave_search_engines_page.js'
 // <if expr="enable_tor">
 import '../brave_tor_page/brave_tor_subpage.js'
 // </if>
+// Browther: Wallet/Web3 désactivés (cf. pageVisibility.braveWallet=false +
+// menu item retiré dans settings_menu.ts). Imports retirés pour empêcher
+// l'accès aux pages via URL directe (chrome://settings/web3, /wallet/networks).
 // <if expr="enable_brave_wallet">
-import '../brave_wallet_page/brave_wallet_page.js'
-import '../brave_web3_domains_page/brave_web3_domains_page.js'
+// import '../brave_wallet_page/brave_wallet_page.js'
+// import '../brave_web3_domains_page/brave_web3_domains_page.js'
 // </if>
 import '../default_brave_shields_page/default_brave_shields_page.js'
 import '../getting_started_page/getting_started.js'
 import '../social_blocking_page/social_blocking_page.js'
 
+// Browther: Leo (AI Chat) désactivé (cf. pageVisibility.leoAssistant=false +
+// menu item retiré dans settings_menu.ts). Imports retirés pour empêcher
+// l'accès aux pages via URL directe (chrome://settings/leo-ai/*).
 // <if expr="enable_ai_chat">
-import '../brave_leo_assistant_page/brave_leo_assistant_page.js'
-import '../brave_leo_assistant_page/model_list_section.js'
-import '../brave_leo_assistant_page/personalization.js'
+// import '../brave_leo_assistant_page/brave_leo_assistant_page.js'
+// import '../brave_leo_assistant_page/model_list_section.js'
+// import '../brave_leo_assistant_page/personalization.js'
 // </if>
 
 // <if expr="enable_containers">

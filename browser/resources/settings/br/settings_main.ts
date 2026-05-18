@@ -18,12 +18,14 @@ import '../brave_default_extensions_page/brave_extensions_page_index.js'
 import '../brave_sync_page/brave_sync_page_index.js'
 import '../brave_system_page/brave_system_page_index.js'
 
+// Browther: Leo (AI Chat) désactivé — cf. basic_page.ts pour le détail.
 // <if expr="enable_ai_chat">
-import '../brave_leo_assistant_page/brave_leo_assistant_page_index.js'
+// import '../brave_leo_assistant_page/brave_leo_assistant_page_index.js'
 // </if>
 
+// Browther: Wallet désactivé — cf. basic_page.ts pour le détail.
 // <if expr="enable_brave_wallet">
-import '../brave_wallet_page/wallet_page_index.js'
+// import '../brave_wallet_page/wallet_page_index.js'
 // </if>
 
 RegisterPolymerTemplateModifications({

@@ -8,3 +8,10 @@
 # builds for non-mobile builds (mac, linux, win)
 
 safe_browsing_mode = 1
+
+# Browther: VPN désactivé sur Desktop. Vire les binaires
+# brave_vpn_helper.exe + brave_vpn_wireguard_service.exe (Windows) et exclut
+# les sources C++ VPN du link. La feature est déjà masquée UI/runtime, ces
+# binaires séparés étaient simplement encore générés au build.
+# Android/iOS ont des paths séparés (pas dans ce fichier).
+enable_brave_vpn = false
