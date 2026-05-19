@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 dev&din. All rights reserved.
+   - This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!--
+  Browther: strings dont l'usage Java a été retiré par les sprints de cleanup
+  (Translate, sponsored ads learn more) mais qui restent dans le .grd (et leurs
+  traductions .xtb dans 50+ langues). On les garde côté ressources pour éviter
+  de toucher massivement aux .xtb upstream — à la place, on demande au lint de
+  ne pas les flagger comme UnusedResources.
+
+  - @string/sponsored_images_learn_more — lien "Learn more" sous le toggle
+    "Show sponsored images" (toggle caché par Browther, lien orphelin masqué
+    aussi via setVisible(false) dans BackgroundImagesPreferences.java).
+  - @string/use_brave_translate — toggle "Use Brave Translate" retiré du menu
+    Languages Settings par le sprint cleanup 2026-05-19 (Translate retiré
+    entièrement, aligné sur macOS).
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@string/sponsored_images_learn_more,@string/use_brave_translate" />
