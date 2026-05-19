@@ -102,6 +102,21 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var fullscreenYTHiddenEls = [];     // [{el, prevDisplay}] cinematics + thumbnail
     var fullscreenLayoutRAF = 0;        // rAF loop id qui re-pose le layout
 
+    // ─── Floating subtitles (YouTube) ──────────────────────────────────
+    // Le `.ytp-caption-window-container` est descendant de `#player`
+    // (deep DOM) tandis que notre canvas est sibling de `#player` after
+    // it → canvas peint above #player et tous ses descendants. Subtitles
+    // masqués par le canvas blur. Pour les libérer, on les déplace vers
+    // `document.body` (sortie du stacking context #player-container-id),
+    // une fois pour toute. Modes :
+    //   - normal : `.basarunaa-caption-normal` + position:fixed sync au
+    //     rect du <video> via setInterval (100ms).
+    //   - fake fs : `.basarunaa-caption-fs` + position:fixed bottom:80px
+    //     (cf. CSS injectée plus haut).
+    // Restauration au pageReset.
+    var floatingSubInfo = null;
+    // { el, parent, nextSibling, syncInterval, video }
+
     // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
     var sampleCanvas = document.createElement('canvas');
     var sctx = sampleCanvas.getContext('2d');
@@ -127,6 +142,92 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     function findYTPlayerElement(video) {
       try { return video.closest('#player'); } catch (e) { return null; }
     }
+    // ─── Floating subtitle helpers ─────────────────────────────────────
+    function setupFloatingSubtitles(video) {
+      if (floatingSubInfo) {
+        // Already moved — just (re-)associate the video and start sync.
+        floatingSubInfo.video = video;
+        startSubtitleSync();
+        return;
+      }
+      var sub;
+      try { sub = document.querySelector('.ytp-caption-window-container'); } catch (e) {}
+      if (!sub || sub.parentElement === document.body) return;
+      floatingSubInfo = {
+        el: sub,
+        parent: sub.parentElement,
+        nextSibling: sub.nextSibling,
+        syncInterval: 0,
+        video: video
+      };
+      document.body.appendChild(sub);
+      sub.classList.add('basarunaa-caption-normal');
+      startSubtitleSync();
+    }
+
+    function startSubtitleSync() {
+      if (!floatingSubInfo || floatingSubInfo.syncInterval) return;
+      floatingSubInfo.syncInterval = setInterval(function() {
+        if (!floatingSubInfo) return;
+        if (!floatingSubInfo.el.classList.contains('basarunaa-caption-normal')) return;
+        var v = floatingSubInfo.video;
+        if (!v || !v.isConnected) return;
+        var rect = v.getBoundingClientRect();
+        if (rect.width <= 0 || rect.height <= 0) return;
+        var el = floatingSubInfo.el;
+        el.style.setProperty('top', rect.top + 'px', 'important');
+        el.style.setProperty('left', rect.left + 'px', 'important');
+        el.style.setProperty('width', rect.width + 'px', 'important');
+        el.style.setProperty('height', rect.height + 'px', 'important');
+      }, 100);
+    }
+
+    function stopSubtitleSync() {
+      if (!floatingSubInfo) return;
+      if (floatingSubInfo.syncInterval) {
+        clearInterval(floatingSubInfo.syncInterval);
+        floatingSubInfo.syncInterval = 0;
+      }
+    }
+
+    function setSubtitleFsMode(isFs) {
+      if (!floatingSubInfo) return;
+      var el = floatingSubInfo.el;
+      if (isFs) {
+        el.classList.remove('basarunaa-caption-normal');
+        el.classList.add('basarunaa-caption-fs');
+        stopSubtitleSync();
+        // Reset inline coords — la CSS `.basarunaa-caption-fs` prend le relais.
+        el.style.removeProperty('top');
+        el.style.removeProperty('left');
+        el.style.removeProperty('width');
+        el.style.removeProperty('height');
+      } else {
+        el.classList.remove('basarunaa-caption-fs');
+        el.classList.add('basarunaa-caption-normal');
+        startSubtitleSync();
+      }
+    }
+
+    function restoreFloatingSubtitles() {
+      if (!floatingSubInfo) return;
+      stopSubtitleSync();
+      var el = floatingSubInfo.el;
+      el.classList.remove('basarunaa-caption-normal');
+      el.classList.remove('basarunaa-caption-fs');
+      el.style.cssText = '';
+      var parent = floatingSubInfo.parent;
+      var nextSibling = floatingSubInfo.nextSibling;
+      if (parent && parent.isConnected) {
+        if (nextSibling && nextSibling.parentNode === parent) {
+          parent.insertBefore(el, nextSibling);
+        } else {
+          parent.appendChild(el);
+        }
+      }
+      floatingSubInfo = null;
+    }
+
     function ensureBasarunaaFsCssInjected() {
       if (document.getElementById('basarunaa-fs-css')) return;
       var style = document.createElement('style');
@@ -172,21 +273,30 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         '#player-container-id[data-basarunaa-fs="1"] .ytp-settings-button{' +
           'display:none!important;' +
         '}' +
-        // Sous-titres : le container est déplacé vers `body` au moment
-        // du fake fs (cf. JS) pour échapper le stacking context
-        // #player-container-id et passer par-dessus le canvas overlay.
-        // Le selector cible le container déplacé via la classe ajoutée.
-        '.ytp-caption-window-container.basarunaa-fs-caption{' +
+        // Sous-titres déplacés vers `body` au wireVideo pour échapper le
+        // stacking context #player-container-id qui les masquait sous le
+        // canvas overlay. 2 modes :
+        //   - basarunaa-caption-normal : suit le rect du <video> via JS
+        //     setInterval (top/left/width/height set inline).
+        //   - basarunaa-caption-fs : position:fixed bottom:80px (au-dessus
+        //     des contrôles YT) pendant le fake fullscreen.
+        '.ytp-caption-window-container.basarunaa-caption-normal,' +
+        '.ytp-caption-window-container.basarunaa-caption-fs{' +
           'position:fixed!important;' +
+          'z-index:2147483647!important;' +
+          'pointer-events:none!important;' +
+        '}' +
+        '.ytp-caption-window-container.basarunaa-caption-fs{' +
           'top:auto!important;' +
           'bottom:80px!important;' +
           'left:0!important;right:0!important;' +
           'width:100vw!important;height:auto!important;' +
-          'z-index:2147483647!important;' +
-          'pointer-events:none!important;' +
         '}' +
-        '.ytp-caption-window-container.basarunaa-fs-caption .caption-window,' +
-        '.ytp-caption-window-container.basarunaa-fs-caption .ytm-mobile-captions{' +
+        // En fake fs (container 100vw × auto), passer les `.caption-window`
+        // en relative pour qu\'ils flow et soient centrés. En mode normal
+        // on garde le positioning YT natif (absolute bottom du container).
+        '.ytp-caption-window-container.basarunaa-caption-fs .caption-window,' +
+        '.ytp-caption-window-container.basarunaa-caption-fs .ytm-mobile-captions{' +
           'position:relative!important;' +
           'left:auto!important;top:auto!important;bottom:auto!important;' +
           'transform:none!important;' +
@@ -195,14 +305,15 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           'pointer-events:none!important;' +
         '}' +
         // YT garde 2 `.caption-window` dupliquées dans le DOM (rolling
-        // buffer normalement superposé en absolute). Avec notre position
-        // relative ils flow verticalement → texte doublé. Hide les
-        // duplicates.
-        '.ytp-caption-window-container.basarunaa-fs-caption .caption-window ~ .caption-window,' +
-        '.ytp-caption-window-container.basarunaa-fs-caption .ytm-mobile-captions ~ .ytm-mobile-captions{' +
+        // buffer). En fake fs avec position relative ils flow vertical →
+        // texte doublé. Hide en mode fs. En mode normal pas besoin :
+        // position YT native les superpose au même endroit.
+        '.ytp-caption-window-container.basarunaa-caption-fs .caption-window ~ .caption-window,' +
+        '.ytp-caption-window-container.basarunaa-caption-fs .ytm-mobile-captions ~ .ytm-mobile-captions{' +
           'display:none!important;' +
         '}' +
-        '.ytp-caption-window-container.basarunaa-fs-caption .ytp-caption-segment{' +
+        '.ytp-caption-window-container.basarunaa-caption-normal .ytp-caption-segment,' +
+        '.ytp-caption-window-container.basarunaa-caption-fs .ytp-caption-segment{' +
           'z-index:2147483647!important;' +
         '}' +
         '#player-container-id[data-basarunaa-fs="1"] .ytp-popup,' +
@@ -486,6 +597,17 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       for (var i = 0; i < videos.length; i++) {
         wireVideo(videos[i]);
       }
+      // Try to setup floating subtitles (idempotent — no-op if déjà fait).
+      // Le subtitle container peut être créé après le wireVideo initial
+      // (lazy YT), donc on retry à chaque MutationObserver tick.
+      if (!floatingSubInfo) {
+        for (var v in videosById) {
+          if (videosById[v]) {
+            setupFloatingSubtitles(videosById[v]);
+            if (floatingSubInfo) break;
+          }
+        }
+      }
     }
 
     // Appelée par Swift via `tab.evaluateJavaScript` à chaque résultat
@@ -600,18 +722,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       var ytContainer = findYTOverlayContainer(video);
       if (ytContainer && canvas.parentElement === ytContainer) {
         fullscreenYTContainer = ytContainer;
-        // Déplacer le subtitle container vers `body` pour le sortir du
-        // stacking context #player-container-id. Sinon il est descendant
-        // de #player (peint avant le canvas) → masqué par le canvas
-        // (peint après dans son SC). En body avec z-index > 2147483646,
-        // il est peint par-dessus tout, y compris le canvas.
-        var subContainer = ytContainer.querySelector('.ytp-caption-window-container');
-        if (subContainer && subContainer.parentElement !== document.body) {
-          savedSubContainerParent = subContainer.parentElement;
-          savedSubContainerNextSibling = subContainer.nextSibling;
-          document.body.appendChild(subContainer);
-          subContainer.classList.add('basarunaa-fs-caption');
-        }
+        // Subtitles : swap vers le mode fake fs (position:fixed bottom:80px).
+        // Le subtitle container a déjà été déplacé vers `body` au wireVideo.
+        setSubtitleFsMode(true);
         // Stratégie : utiliser un `<style>` injecté avec `!important` au
         // lieu de modifier `.style.cssText` inline. Raison : YouTube JS
         // re-écrase régulièrement le style inline du `<video>` (probablement
@@ -759,20 +872,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           fullscreenYTVideoEl = null;
           savedYTVideoCssText = '';
         }
-        // Restore le subtitle container à son parent d'origine.
-        if (savedSubContainerParent && savedSubContainerParent.isConnected) {
-          var sub = document.body.querySelector('.ytp-caption-window-container.basarunaa-fs-caption');
-          if (sub) {
-            sub.classList.remove('basarunaa-fs-caption');
-            if (savedSubContainerNextSibling && savedSubContainerNextSibling.parentNode === savedSubContainerParent) {
-              savedSubContainerParent.insertBefore(sub, savedSubContainerNextSibling);
-            } else {
-              savedSubContainerParent.appendChild(sub);
-            }
-          }
-        }
-        savedSubContainerParent = null;
-        savedSubContainerNextSibling = null;
+        // Subtitles : swap back to mode normal (sync au rect du <video>).
+        setSubtitleFsMode(false);
         fullscreenYTContainer.removeAttribute('data-basarunaa-fs');
         fullscreenYTContainer = null;
       } else {
