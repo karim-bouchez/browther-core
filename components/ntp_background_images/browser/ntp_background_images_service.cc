@@ -35,6 +35,10 @@
 #include "components/variations/service/variations_service_utils.h"
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 
+#if BUILDFLAG(IS_ANDROID)
+#include "chrome/common/chrome_paths.h"
+#endif
+
 namespace ntp_background_images {
 
 namespace {
@@ -217,10 +221,27 @@ void NTPBackgroundImagesService::RegisterBackgroundImagesComponent() {
 
   // Browther: load bundled backgrounds as fallback (Brave's component server
   // won't serve our fork). Check on a background thread to avoid blocking.
+  //
+  // - Desktop : 17 paysages nature copiés dans exe_dir/browther_backgrounds/
+  //   (Mac : Contents/Resources/, Win/Linux : à côté du binaire).
+  // - Android : 10 paysages islamiques bundlés dans l'APK comme
+  //   android_assets, extraits au boot vers DIR_USER_DATA/browther_
+  //   backgrounds_mobile/ par browther_backgrounds_apk_extractor.cc
+  //   (appelé depuis BraveBrowserMainParts::PreMainMessageLoopRun).
+  base::FilePath browther_bg_dir;
+#if BUILDFLAG(IS_ANDROID)
+  base::FilePath user_data;
+  if (base::PathService::Get(chrome::DIR_USER_DATA, &user_data)) {
+    browther_bg_dir = user_data.AppendASCII("browther_backgrounds_mobile");
+  }
+#else
   base::FilePath exe_dir;
   base::PathService::Get(base::DIR_EXE, &exe_dir);
-  base::FilePath browther_bg_dir =
-      exe_dir.AppendASCII("browther_backgrounds");
+  browther_bg_dir = exe_dir.AppendASCII("browther_backgrounds");
+#endif
+  if (browther_bg_dir.empty()) {
+    return;
+  }
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE, {base::MayBlock()},
       base::BindOnce(&base::PathExists,

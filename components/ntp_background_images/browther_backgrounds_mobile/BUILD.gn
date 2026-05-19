@@ -1,0 +1,48 @@
+# Browther: 10 paysages islamiques bundlés en assets APK pour Android.
+# Fichiers déployés par private/assets/deploy-assets.sh depuis
+# private/assets/backgrounds/*.jpg (partagé avec iOS).
+# Pattern Android: extrait au boot vers DIR_USER_DATA par
+# browther_backgrounds_apk_extractor.cc, puis NTPBackgroundImagesService
+# lit photo.json et les .jpg depuis ce dossier sur disque.
+#
+# Desktop (macOS/Win/Linux) utilise un autre dossier (../browther_backgrounds/)
+# avec 17 paysages nature — pas géré par ce BUILD.gn.
+
+if (is_android) {
+  import("//build/config/android/rules.gni")
+
+  android_assets("browther_backgrounds_mobile_android_assets") {
+    sources = [
+      "abdou-faiz-TQipjFceOBg-unsplash.jpg",
+      "agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg",
+      "clarisse-meyer-N88l6zWEhZk-unsplash.jpg",
+      "david-billings-KCEwOduK8ck-unsplash.jpg",
+      "izuddin-helmi-adnan-JFirQekVo3U-unsplash.jpg",
+      "john-fowler-7Ym9rpYtSdA-unsplash.jpg",
+      "localize-eXwQCS2TUUE-unsplash.jpg",
+      "photo.json",
+      "pommelien-da-silva-cosme-nnDgdAGoeAE-unsplash.jpg",
+      "yasmine-arfaoui-R6rh5ttDO-4-unsplash.jpg",
+      "younes-m-zVBWVMontM4-unsplash.jpg",
+    ]
+    renaming_sources = sources
+    renaming_destinations = [
+      "browther_backgrounds_mobile/abdou-faiz-TQipjFceOBg-unsplash.jpg",
+      "browther_backgrounds_mobile/agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg",
+      "browther_backgrounds_mobile/clarisse-meyer-N88l6zWEhZk-unsplash.jpg",
+      "browther_backgrounds_mobile/david-billings-KCEwOduK8ck-unsplash.jpg",
+      "browther_backgrounds_mobile/izuddin-helmi-adnan-JFirQekVo3U-unsplash.jpg",
+      "browther_backgrounds_mobile/john-fowler-7Ym9rpYtSdA-unsplash.jpg",
+      "browther_backgrounds_mobile/localize-eXwQCS2TUUE-unsplash.jpg",
+      "browther_backgrounds_mobile/photo.json",
+      "browther_backgrounds_mobile/pommelien-da-silva-cosme-nnDgdAGoeAE-unsplash.jpg",
+      "browther_backgrounds_mobile/yasmine-arfaoui-R6rh5ttDO-4-unsplash.jpg",
+      "browther_backgrounds_mobile/younes-m-zVBWVMontM4-unsplash.jpg",
+    ]
+
+    # Requis par base::android::OpenApkAsset() : les assets doivent être
+    # stockés non-compressés dans l'APK pour permettre le mmap direct.
+    # Pour des JPEG c'est sans coût (déjà compressés en interne).
+    disable_compression = true
+  }
+}

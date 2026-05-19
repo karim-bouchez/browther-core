@@ -86,6 +86,13 @@ brave_chrome_java_deps = [
   # extractor.cc échoue → 0 ads bloqués.
   "//brave/components/brave_shields/core/browser/shields_bundled_lists:shields_bundled_lists_android_assets",
 
+  # Browther: bundle 10 paysages islamiques dans assets/browther_backgrounds_
+  # mobile/ de l'APK pour la NTP. Même mécanisme que Shields ci-dessus :
+  # extrait au boot vers DIR_USER_DATA par browther_backgrounds_apk_
+  # extractor.cc, puis NTPBackgroundImagesService lit le dossier sur disque
+  # via la branche Android dans RegisterBackgroundImagesComponent().
+  "//brave/components/ntp_background_images/browther_backgrounds_mobile:browther_backgrounds_mobile_android_assets",
+
   "//brave/third_party/zxing:zxing_java",
   "//brave/ui/android:base_java",
   "//third_party/android_deps:com_google_code_gson_gson_java",

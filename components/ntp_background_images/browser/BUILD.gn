@@ -103,6 +103,18 @@ static_library("browser") {
       "ntp_custom_images_source.h",
     ]
   }
+
+  # Browther: extraction des NTP backgrounds bundlés dans l'APK au boot
+  # Android. Sur Desktop/iOS le service C++ charge directement depuis
+  # exe_dir/browther_backgrounds/ ou le bundle iOS, sans extraction.
+  # Même pattern que shields_bundled_apk_extractor (chrome/common/chrome_paths.h
+  # résolu transitivement via les deps existantes).
+  if (is_android) {
+    sources += [
+      "browther_backgrounds_apk_extractor.cc",
+      "browther_backgrounds_apk_extractor.h",
+    ]
+  }
 }
 
 source_set("test_support") {

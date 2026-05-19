@@ -73,6 +73,7 @@
 
 #if BUILDFLAG(IS_ANDROID)
 #include "brave/components/brave_shields/core/browser/shields_bundled_apk_extractor.h"
+#include "brave/components/ntp_background_images/browser/browther_backgrounds_apk_extractor.h"
 #endif
 
 ChromeBrowserMainParts::ChromeBrowserMainParts(bool is_integration_test,
@@ -94,6 +95,13 @@ int ChromeBrowserMainParts::PreMainMessageLoopRun() {
   // AVANT l'init de AdBlockService pour que les providers trouvent les
   // fichiers. Voir private/docs/SHIELDS_BUNDLE.md.
   brave_shields::EnsureBundledShieldsExtracted();
+
+  // Browther: même pattern pour les 10 paysages islamiques NTP — extrait
+  // depuis assets/browther_backgrounds_mobile/ vers DIR_USER_DATA. Doit
+  // tourner AVANT que NTPBackgroundImagesService ne tente de lire le
+  // dossier (RegisterBackgroundImagesComponent, gated DIR_USER_DATA sur
+  // Android).
+  ntp_background_images::EnsureBrowtherBackgroundsExtracted();
 #endif
 
   return ChromeBrowserMainParts_ChromiumImpl::PreMainMessageLoopRun();
