@@ -51,7 +51,31 @@ if (enable_basarunaa_native_ml) {
 
   group("onnxruntime") {
     public_configs = [ ":onnxruntime_config" ]
+    # Browther: `all_dependent_configs` nécessaire pour que `chrome_dll`
+    # reçoive le ldflag transitivement (basarunaa/core consume onnxruntime
+    # mais browser/ui — qui contient les consumers — utilise `deps` simple
+    # vers chrome/browser:browser upstream, qui rompt toute chaîne
+    # `public_deps` propre. Tentative de refactor public_deps faite
+    # 2026-05-19 → undefined symbol au link chrome_dll, reverted. Voir
+    # BROWTHER_PLATFORM_CHECKLIST.md § 11.9). Effet de bord : main binary
+    # `Browther` linke aussi libonnxruntime → `--allow` dans
+    # verify_libraries (post-init-patches.sh) + dylib placée dans
+    # Contents/MacOS/ via install-release.sh.
     all_dependent_configs = [ ":onnxruntime_link" ]
     public_deps = [ ":onnxruntime_dylib" ]
+  }
+
+  if (is_mac) {
+    # Browther: bundle la dylib dans Browther.app/Contents/Frameworks/
+    # Browther Framework.framework/Versions/X/Libraries/libonnxruntime...
+    # Sans ça, le framework chrome_dll crashe au launch avec "Library not
+    # loaded: @rpath/libonnxruntime.1.17.3.dylib". Référencé par le patch
+    # post-init-patches.sh dans chrome/BUILD.gn (bundle_deps du
+    # chrome_framework).
+    bundle_data("onnxruntime_framework_binaries") {
+      sources = [ "$root_out_dir/libonnxruntime.1.17.3.dylib" ]
+      outputs = [ "{{bundle_contents_dir}}/Libraries/{{source_file_part}}" ]
+      public_deps = [ ":onnxruntime_dylib" ]
+    }
   }
 }
