@@ -90,10 +90,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var fullscreenVideoEl = null;       // <video> actuellement en mode fs
     var fullscreenCanvas = null;        // canvas correspondant
     var fullscreenExitButton = null;    // bouton X pour sortir
-    var savedCanvasCssText = '';        // restore au exit
+    var savedCanvasCssText = '';        // restore au exit (cas non-YT)
     var savedBodyOverflow = '';         // restore au exit
-    var savedCanvasParent = null;       // parent d'origine du canvas (YT case)
+    var savedCanvasParent = null;       // parent d'origine du canvas (cas non-YT fallback)
     var savedCanvasNextSibling = null;  // sibling de référence pour restore exact
+    var fullscreenYTContainer = null;   // #player-container-id grandi (cas YT)
+    var savedYTContainerCssText = '';   // cssText d'origine du container YT
+    var fullscreenYTPlayer = null;      // #player (parent direct du video) grandi aussi
+    var savedYTPlayerCssText = '';      // cssText d'origine de #player
+    var fullscreenYTVideoEl = null;     // <video> aussi forcé à taille intrinsèque centrée
+    var savedYTVideoCssText = '';       // cssText d'origine du <video>
+    var fullscreenYTHiddenEls = [];     // [{el, prevDisplay}] cinematics + thumbnail
+    var fullscreenLayoutInterval = null;  // setInterval qui re-pose le layout video
 
     // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
     var sampleCanvas = document.createElement('canvas');
@@ -120,6 +128,37 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     function findYTPlayerElement(video) {
       try { return video.closest('#player'); } catch (e) { return null; }
     }
+    function ensureBasarunaaFsCssInjected() {
+      if (document.getElementById('basarunaa-fs-css')) return;
+      var style = document.createElement('style');
+      style.id = 'basarunaa-fs-css';
+      style.textContent =
+        '#player-container-id[data-basarunaa-fs="1"]{' +
+          'position:fixed!important;top:0!important;left:0!important;' +
+          'right:0!important;bottom:0!important;' +
+          'width:100vw!important;height:100vh!important;' +
+          'z-index:2147483646!important;background:#000!important;' +
+          'margin:0!important;padding:0!important;' +
+        '}' +
+        '#player-container-id[data-basarunaa-fs="1"] #player,' +
+        '#player-container-id[data-basarunaa-fs="1"] #movie_player,' +
+        '#player-container-id[data-basarunaa-fs="1"] .html5-video-container{' +
+          'position:absolute!important;top:0!important;left:0!important;' +
+          'width:100%!important;height:100%!important;' +
+          'max-width:none!important;max-height:none!important;' +
+        '}' +
+        // Pas de rule CSS pour video.video-stream : on la pose en JS via
+        // setProperty('important') + setInterval pour battre YT JS qui
+        // override object-fit / object-position (et son hardware overlay
+        // iOS qui ignore object-position de toute façon).
+        ''+
+        '#player-container-id[data-basarunaa-fs="1"] #player-cinematics-container,' +
+        '#player-container-id[data-basarunaa-fs="1"] #player-thumbnail-overlay{' +
+          'display:none!important;' +
+        '}';
+      (document.head || document.documentElement).appendChild(style);
+    }
+
     function firstYTControlChild(container) {
       try {
         return container.querySelector(
@@ -477,31 +516,121 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (!canvas) return false;
 
       // Bascule en fake fullscreen CSS (iPhone n'a pas
-      // Element.requestFullscreen). En mode normal le canvas peut vivre
-      // dans le #player-container-id de YT (entre #player et les
-      // contrôles). Pour le fake fullscreen on le re-parente sur body en
-      // position:fixed pour qu'il couvre vraiment tout l'écran (et
-      // échappe au stacking context de #player-container-id qui est
-      // position:fixed avec z=2 — contraint).
+      // Element.requestFullscreen).
+      //
+      // Cas YouTube : on grandit `#player-container-id` lui-même à
+      // 100vw/100vh → tout son contenu (video, canvas overlay, contrôles
+      // YT) grandit naturellement, l'empilement DOM reste cohérent
+      // (canvas au-dessus du video, contrôles au-dessus du canvas).
+      //
+      // Cas autres sites : on re-parente le canvas sur `body` en
+      // position:fixed + z-index max (perd les contrôles natifs du site,
+      // à traiter au cas par cas plus tard).
       fullscreenVideoEl = video;
       fullscreenCanvas = canvas;
-      savedCanvasCssText = canvas.style.cssText;
       savedBodyOverflow = document.body.style.overflow;
-      savedCanvasParent = canvas.parentElement;
-      savedCanvasNextSibling = canvas.nextSibling;
-      if (canvas.parentElement !== document.body) {
-        document.body.appendChild(canvas);
+      var ytContainer = findYTOverlayContainer(video);
+      if (ytContainer && canvas.parentElement === ytContainer) {
+        fullscreenYTContainer = ytContainer;
+        // Stratégie : utiliser un `<style>` injecté avec `!important` au
+        // lieu de modifier `.style.cssText` inline. Raison : YouTube JS
+        // re-écrase régulièrement le style inline du `<video>` (probablement
+        // via setAttribute('style', ...) qui shoot toutes nos propriétés
+        // y compris !important). Avec un `<style>` tag externe + selector
+        // attribut + !important, on bat l'inline overwrite.
+        ensureBasarunaaFsCssInjected();
+        ytContainer.setAttribute('data-basarunaa-fs', '1');
+        // Layout du <video> + canvas calculé en JS depuis l'intrinsic
+        // ratio (video.videoWidth × video.videoHeight) et viewport size.
+        // Raison : object-fit:contain + object-position:center via CSS
+        // ne marche pas correctement sur iOS Safari pour le hardware
+        // overlay video (rendu décalé). On positionne le `<video>` à la
+        // bonne taille (aspect-correct, centered) directement en inline
+        // style, et le canvas suit exactement le même rect.
+        //
+        // YT JS peut overwriter notre inline style → setInterval 100ms
+        // pour ré-appliquer en boucle pendant tout le fake fullscreen.
+        fullscreenYTVideoEl = video;
+        savedYTVideoCssText = video.style.cssText;
+        var applyVideoFsLayout = function() {
+          var vw = video.videoWidth || 1920;
+          var vh = video.videoHeight || 1080;
+          var vpW = window.innerWidth;
+          var vpH = window.innerHeight;
+          var ratio = vw / vh;
+          var vpRatio = vpW / vpH;
+          var w, h, x, y;
+          if (ratio > vpRatio) {
+            // video plus large que viewport → fit width, letterbox vertical
+            w = vpW; h = vpW / ratio;
+            x = 0;   y = (vpH - h) / 2;
+          } else {
+            // video plus haute → fit height, letterbox horizontal
+            h = vpH; w = vpH * ratio;
+            y = 0;   x = (vpW - w) / 2;
+          }
+          // <video> à la taille intrinsèque centrée (object-fit:fill car
+          // on a calculé pile-poil la bonne taille → pas de letterbox
+          // CSS nécessaire)
+          video.style.setProperty('position', 'absolute', 'important');
+          video.style.setProperty('top', y + 'px', 'important');
+          video.style.setProperty('left', x + 'px', 'important');
+          video.style.setProperty('width', w + 'px', 'important');
+          video.style.setProperty('height', h + 'px', 'important');
+          video.style.setProperty('object-fit', 'fill', 'important');
+          video.style.setProperty('max-width', 'none', 'important');
+          video.style.setProperty('max-height', 'none', 'important');
+          video.style.setProperty('transform', 'none', 'important');
+          video.style.setProperty('margin', '0', 'important');
+          // Canvas pile au-dessus du video (parent = #player-container-id
+          // qui est maintenant pos:fixed 100vw/100vh, donc coords directes)
+          var parent = canvas.parentElement;
+          if (parent) {
+            var parentRect = parent.getBoundingClientRect();
+            canvas.style.left = (x - parentRect.left) + 'px';
+            canvas.style.top = (y - parentRect.top) + 'px';
+          } else {
+            canvas.style.left = x + 'px';
+            canvas.style.top = y + 'px';
+          }
+          canvas.style.width = w + 'px';
+          canvas.style.height = h + 'px';
+          var dpr = window.devicePixelRatio || 1;
+          var pw = Math.max(1, Math.round(w * dpr));
+          var ph = Math.max(1, Math.round(h * dpr));
+          if (canvas.width !== pw) canvas.width = pw;
+          if (canvas.height !== ph) canvas.height = ph;
+          try {
+            var ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.fillStyle = '#000';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            }
+          } catch (e) {}
+        };
+        void ytContainer.offsetHeight;
+        applyVideoFsLayout();
+        requestAnimationFrame(applyVideoFsLayout);
+        fullscreenLayoutInterval = setInterval(applyVideoFsLayout, 100);
+      } else {
+        savedCanvasCssText = canvas.style.cssText;
+        savedCanvasParent = canvas.parentElement;
+        savedCanvasNextSibling = canvas.nextSibling;
+        if (canvas.parentElement !== document.body) {
+          document.body.appendChild(canvas);
+        }
+        canvas.style.cssText = [
+          'position:fixed',
+          'top:0', 'left:0',
+          'width:100vw', 'height:100vh',
+          'z-index:2147483646',
+          'background:#000',
+          'pointer-events:auto',
+          'object-fit:contain',
+          'margin:0', 'padding:0'
+        ].join(' !important;') + ' !important;';
       }
-      canvas.style.cssText = [
-        'position:fixed',
-        'top:0', 'left:0',
-        'width:100vw', 'height:100vh',
-        'z-index:2147483646',
-        'background:#000',
-        'pointer-events:auto',
-        'object-fit:contain',
-        'margin:0', 'padding:0'
-      ].join(' !important;') + ' !important;';
       document.body.style.overflow = 'hidden';
 
       // Bouton X custom — seul moyen d'exit sans Web API
@@ -545,25 +674,34 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         reason: reason || 'unknown',
         stack: stack.slice(0, 300)
       });
-      fullscreenCanvas.style.cssText = savedCanvasCssText;
       document.body.style.overflow = savedBodyOverflow;
-      // Restore le canvas dans son parent d'origine (cas YT) si encore
-      // dispo, sinon fallback : recalculer un placement YT.
-      if (savedCanvasParent && savedCanvasParent.isConnected) {
-        if (savedCanvasNextSibling && savedCanvasNextSibling.parentNode === savedCanvasParent) {
-          savedCanvasParent.insertBefore(fullscreenCanvas, savedCanvasNextSibling);
-        } else {
-          savedCanvasParent.appendChild(fullscreenCanvas);
+      if (fullscreenYTContainer) {
+        // Stop le re-apply loop + retire l'attribut + restore inline style
+        // du <video> (CSS injecté ne s'applique plus tout seul).
+        if (fullscreenLayoutInterval) {
+          clearInterval(fullscreenLayoutInterval);
+          fullscreenLayoutInterval = null;
         }
-      } else if (fullscreenVideoEl) {
-        var ytContainer = findYTOverlayContainer(fullscreenVideoEl);
-        var firstControl = ytContainer ? firstYTControlChild(ytContainer) : null;
-        if (ytContainer && firstControl) {
-          ytContainer.insertBefore(fullscreenCanvas, firstControl);
+        if (fullscreenYTVideoEl) {
+          fullscreenYTVideoEl.style.cssText = savedYTVideoCssText;
+          fullscreenYTVideoEl = null;
+          savedYTVideoCssText = '';
         }
+        fullscreenYTContainer.removeAttribute('data-basarunaa-fs');
+        fullscreenYTContainer = null;
+      } else {
+        // Cas non-YT : restaurer le canvas (cssText + parent d'origine).
+        fullscreenCanvas.style.cssText = savedCanvasCssText;
+        if (savedCanvasParent && savedCanvasParent.isConnected) {
+          if (savedCanvasNextSibling && savedCanvasNextSibling.parentNode === savedCanvasParent) {
+            savedCanvasParent.insertBefore(fullscreenCanvas, savedCanvasNextSibling);
+          } else {
+            savedCanvasParent.appendChild(fullscreenCanvas);
+          }
+        }
+        savedCanvasParent = null;
+        savedCanvasNextSibling = null;
       }
-      savedCanvasParent = null;
-      savedCanvasNextSibling = null;
       if (fullscreenExitButton && fullscreenExitButton.parentNode) {
         fullscreenExitButton.parentNode.removeChild(fullscreenExitButton);
       }
