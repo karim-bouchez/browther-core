@@ -130,7 +130,11 @@ public class BrowsingModeBottomToolbarCoordinator {
         mBookmarkButton = mToolbarRoot.findViewById(R.id.bottom_bookmark_button);
         if (BottomToolbarVariationManager.isBookmarkButtonOnBottomControls()) {
             mBookmarkButton.setVisibility(View.VISIBLE);
-            getNewTabButtonParent().setVisibility(View.GONE);
+            // Browther: ligne `getNewTabButtonParent().setVisibility(View.GONE)`
+            // retirée — Brave masquait le "+" central quand Bookmark était sur
+            // la bottom bar (un seul bouton central : Search OU NewTab). On a
+            // gone'd SearchAccelerator dans bottom_toolbar_browsing.xml pour
+            // aligner sur iOS (= "+" central), donc on garde le "+" visible ici.
             OnClickListener bookmarkClickHandler =
                     v -> {
                         Tab tab = mTabProvider.get();
