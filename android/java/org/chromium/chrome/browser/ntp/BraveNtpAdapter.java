@@ -194,41 +194,13 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     && mSponsoredTab != null
                     && NTPImageUtil.shouldEnableNTPFeature()) {
                 if (mNtpImage instanceof BackgroundImage) {
-                    BackgroundImage backgroundImage = (BackgroundImage) mNtpImage;
+                    // Browther: tag "Photo de [Auteur]" caché — les 10 paysages
+                    // islamiques NTP sont libres de droit (Unsplash + photos
+                    // Browther), pas d'attribution nécessaire. Le mCreditTv
+                    // upstream affichait R.string.photo_by qui crée du visuel
+                    // sans valeur ajoutée user.
                     imageCreditViewHolder.mSponsoredLogo.setVisibility(View.GONE);
-
-                    if (backgroundImage.getImageCredit() != null) {
-                        String imageCreditStr =
-                                String.format(
-                                        mActivity
-                                                .getResources()
-                                                .getString(
-                                                        R.string.photo_by,
-                                                        backgroundImage
-                                                                .getImageCredit()
-                                                                .getName()));
-
-                        SpannableStringBuilder spannableString =
-                                new SpannableStringBuilder(imageCreditStr);
-                        spannableString.setSpan(
-                                new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                                ((imageCreditStr.length() - 1)
-                                        - (backgroundImage.getImageCredit().getName().length()
-                                                - 1)),
-                                imageCreditStr.length(),
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        imageCreditViewHolder.mCreditTv.setText(spannableString);
-                        imageCreditViewHolder.mCreditTv.setVisibility(View.VISIBLE);
-
-                        imageCreditViewHolder.mCreditTv.setOnClickListener(
-                                view -> {
-                                    if (backgroundImage.getImageCredit() != null) {
-                                        TabUtils.openUrlInSameTab(
-                                                backgroundImage.getImageCredit().getUrl());
-                                    }
-                                });
-                    }
+                    imageCreditViewHolder.mCreditTv.setVisibility(View.GONE);
                 }
             }
             if (mSponsoredLogo != null) {
