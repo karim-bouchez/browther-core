@@ -739,12 +739,8 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                         buildModelForStandardMenuItem(
                                 R.id.find_in_page_id, R.string.menu_find_in_page, 0)));
 
-        // Translate
-        modelList.add(
-                new MVCListAdapter.ListItem(
-                        AppMenuHandler.AppMenuItemType.STANDARD,
-                        buildModelForStandardMenuItem(
-                                R.id.translate_id, R.string.menu_translate, 0)));
+        // Browther: Translate retiré du menu 3-points (aligné sur macOS — Translate
+        // désactivé entièrement, cf. kOfferTranslateEnabled=false + BraveLanguageSettings).
 
         // Shred
         if (ChromeFeatureList.isEnabled(BraveFeatureList.BRAVE_SHRED)) {

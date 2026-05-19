@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "images": [
-    { "name": "abdou-faiz", "source": "abdou-faiz-TQipjFceOBg-unsplash.jpg", "author": "", "link": "" },
-    { "name": "agnieszka-stankiewicz-MVrgqBB", "source": "agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg", "author": "", "link": "" },
-    { "name": "clarisse-meyer", "source": "clarisse-meyer-N88l6zWEhZk-unsplash.jpg", "author": "", "link": "" },
-    { "name": "david-billings", "source": "david-billings-KCEwOduK8ck-unsplash.jpg", "author": "", "link": "" },
-    { "name": "izuddin-helmi-adnan", "source": "izuddin-helmi-adnan-JFirQekVo3U-unsplash.jpg", "author": "", "link": "" },
-    { "name": "john-fowler", "source": "john-fowler-7Ym9rpYtSdA-unsplash.jpg", "author": "", "link": "" },
-    { "name": "localize", "source": "localize-eXwQCS2TUUE-unsplash.jpg", "author": "", "link": "" },
-    { "name": "pommelien-da-silva-cosme", "source": "pommelien-da-silva-cosme-nnDgdAGoeAE-unsplash.jpg", "author": "", "link": "" },
-    { "name": "yasmine-arfaoui-R6rh5ttDO", "source": "yasmine-arfaoui-R6rh5ttDO-4-unsplash.jpg", "author": "", "link": "" },
-    { "name": "younes-m", "source": "younes-m-zVBWVMontM4-unsplash.jpg", "author": "", "link": "" }
+    { "name": "abdou-faiz", "source": "abdou-faiz-TQipjFceOBg-unsplash.jpg", "author": "Abdou Faiz", "link": "https://unsplash.com/photos/TQipjFceOBg" },
+    { "name": "agnieszka-stankiewicz", "source": "agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg", "author": "Agnieszka Stankiewicz", "link": "https://unsplash.com/photos/MVrgqBB-fqU" },
+    { "name": "clarisse-meyer", "source": "clarisse-meyer-N88l6zWEhZk-unsplash.jpg", "author": "Clarisse Meyer", "link": "https://unsplash.com/photos/N88l6zWEhZk" },
+    { "name": "david-billings", "source": "david-billings-KCEwOduK8ck-unsplash.jpg", "author": "David Billings", "link": "https://unsplash.com/photos/KCEwOduK8ck" },
+    { "name": "izuddin-helmi-adnan", "source": "izuddin-helmi-adnan-JFirQekVo3U-unsplash.jpg", "author": "Izuddin Helmi Adnan", "link": "https://unsplash.com/photos/JFirQekVo3U" },
+    { "name": "john-fowler", "source": "john-fowler-7Ym9rpYtSdA-unsplash.jpg", "author": "John Fowler", "link": "https://unsplash.com/photos/7Ym9rpYtSdA" },
+    { "name": "localize", "source": "localize-eXwQCS2TUUE-unsplash.jpg", "author": "Localize", "link": "https://unsplash.com/photos/eXwQCS2TUUE" },
+    { "name": "pommelien-da-silva-cosme", "source": "pommelien-da-silva-cosme-nnDgdAGoeAE-unsplash.jpg", "author": "Pommelien Da Silva Cosme", "link": "https://unsplash.com/photos/nnDgdAGoeAE" },
+    { "name": "yasmine-arfaoui", "source": "yasmine-arfaoui-R6rh5ttDO-4-unsplash.jpg", "author": "Yasmine Arfaoui", "link": "https://unsplash.com/photos/R6rh5ttDO-4" },
+    { "name": "younes-m", "source": "younes-m-zVBWVMontM4-unsplash.jpg", "author": "Younes M", "link": "https://unsplash.com/photos/zVBWVMontM4" }
   ]
 }

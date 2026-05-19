@@ -28,6 +28,10 @@
     <include layout="@layout/brave_bookmark_toolbar" />
     <include layout="@layout/toolbar_space" />
 
+    <!-- Browther: SearchAccelerator (loupe) caché pour aligner sur iOS qui n'a
+         qu'un seul bouton central "+" (new tab) dans la bottom toolbar. Le View
+         reste référencé par BrowsingModeBottomToolbarCoordinator côté Java, on
+         se contente de gone le rendre. -->
     <org.chromium.chrome.browser.toolbar.bottom.SearchAccelerator
         android:id="@+id/search_accelerator"
         android:layout_width="@dimen/search_accelerator_width"
@@ -38,6 +42,7 @@
         android:paddingTop="@dimen/search_accelerator_height_padding"
         android:paddingBottom="@dimen/search_accelerator_height_padding"
         android:contentDescription="@string/accessibility_toolbar_btn_search_accelerator"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_search_21dp"/>
     <include layout="@layout/brave_bottom_new_tab_button" />
 
