@@ -10,10 +10,12 @@
 #include <string>
 #include <vector>
 
+#include "base/functional/callback.h"
 #include "base/memory/raw_ptr.h"
 #include "base/memory/weak_ptr.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page.mojom.h"
 #include "brave/components/brave_ads/core/mojom/brave_ads.mojom.h"
+#include "brave/components/ntp_background_images/browser/ntp_background_images_service.h"
 
 class CustomBackgroundFileManager;
 class PrefService;
@@ -27,7 +29,8 @@ namespace brave_new_tab_page_refresh {
 
 // Provides a simplified interface for accessing background-related APIs from
 // the new tab page.
-class BackgroundFacade {
+class BackgroundFacade
+    : public ntp_background_images::NTPBackgroundImagesService::Observer {
  public:
   BackgroundFacade(
       std::unique_ptr<CustomBackgroundFileManager> custom_file_manager,
@@ -35,10 +38,21 @@ class BackgroundFacade {
       ntp_background_images::NTPBackgroundImagesService* bg_images_service,
       ntp_background_images::ViewCounterService* view_counter_service);
 
-  ~BackgroundFacade();
+  ~BackgroundFacade() override;
 
   BackgroundFacade(const BackgroundFacade&) = delete;
   BackgroundFacade& operator=(const BackgroundFacade&) = delete;
+
+  // Browther: registered by NewTabPageHandler so the WebUI gets notified
+  // (via mojom::NewTabPage::OnBackgroundsUpdated) when our bundled
+  // photo.json finishes loading on the ThreadPool. Without this, the first
+  // GetBraveBackgrounds() call races the async file read and silently falls
+  // back to the Brave preloaded image (Dylan Malval) in the WebUI.
+  void SetBackgroundsLoadedCallback(base::RepeatingClosure callback);
+
+  // ntp_background_images::NTPBackgroundImagesService::Observer:
+  void OnBackgroundImagesDataDidUpdate(
+      ntp_background_images::NTPBackgroundImagesData* data) override;
 
   std::vector<mojom::BraveBackgroundPtr> GetBraveBackgrounds();
 
@@ -74,6 +88,8 @@ class BackgroundFacade {
   raw_ref<PrefService> pref_service_;
   raw_ptr<ntp_background_images::NTPBackgroundImagesService> bg_images_service_;
   raw_ptr<ntp_background_images::ViewCounterService> view_counter_service_;
+  // Browther: see SetBackgroundsLoadedCallback.
+  base::RepeatingClosure backgrounds_loaded_callback_;
   base::WeakPtrFactory<BackgroundFacade> weak_factory_{this};
 };
 

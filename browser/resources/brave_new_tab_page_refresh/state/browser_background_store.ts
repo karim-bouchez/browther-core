@@ -64,8 +64,19 @@ export function createBackgroundStore() {
   }
 
   newTabProxy.addListeners({
+    // Browther: also re-fetch `braveBackgrounds` here. The C++ service loads
+    // our bundled `photo.json` asynchronously on a background thread, so the
+    // first call to `getBraveBackgrounds()` (during `loadData()`) can race
+    // the file read and return []. Without this, the page silently falls
+    // back to `preloadedBackgrounds` (Brave's Dylan Malval) for the lifetime
+    // of the tab. `BackgroundFacade::OnBackgroundImagesDataDidUpdate` fires
+    // `OnBackgroundsUpdated` once the JSON lands; we then refresh the list.
     onBackgroundsUpdated: debounce(async () => {
-      await Promise.all([updateCustomBackgrounds(), updateSelectedBackground()])
+      await Promise.all([
+        updateCustomBackgrounds(),
+        updateSelectedBackground(),
+        updateBraveBackgrounds(),
+      ])
     }, 10),
   })
 

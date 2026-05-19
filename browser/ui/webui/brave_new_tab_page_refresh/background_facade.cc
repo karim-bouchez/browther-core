@@ -104,9 +104,30 @@ BackgroundFacade::BackgroundFacade(
       bg_images_service_(bg_images_service),
       view_counter_service_(view_counter_service) {
   CHECK(custom_file_manager_);
+  // Browther: see header. The service loads photo.json asynchronously on a
+  // background thread, so we observe and notify the WebUI when it lands.
+  if (bg_images_service_) {
+    bg_images_service_->AddObserver(this);
+  }
 }
 
-BackgroundFacade::~BackgroundFacade() = default;
+BackgroundFacade::~BackgroundFacade() {
+  if (bg_images_service_) {
+    bg_images_service_->RemoveObserver(this);
+  }
+}
+
+void BackgroundFacade::SetBackgroundsLoadedCallback(
+    base::RepeatingClosure callback) {
+  backgrounds_loaded_callback_ = std::move(callback);
+}
+
+void BackgroundFacade::OnBackgroundImagesDataDidUpdate(
+    ntp_background_images::NTPBackgroundImagesData* data) {
+  if (backgrounds_loaded_callback_) {
+    backgrounds_loaded_callback_.Run();
+  }
+}
 
 std::vector<mojom::BraveBackgroundPtr> BackgroundFacade::GetBraveBackgrounds() {
   if (!bg_images_service_) {

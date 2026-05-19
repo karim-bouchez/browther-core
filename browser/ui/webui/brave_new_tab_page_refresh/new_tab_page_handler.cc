@@ -76,6 +76,15 @@ NewTabPageHandler::NewTabPageHandler(
 
   update_observer_.SetCallback(base::BindRepeating(&NewTabPageHandler::OnUpdate,
                                                    weak_factory_.GetWeakPtr()));
+
+  // Browther: fire `page_->OnBackgroundsUpdated()` when the bundled photo.json
+  // (Browther backgrounds) is loaded on the ThreadPool. The WebUI's first
+  // `GetBraveBackgrounds()` call races that async read; without this hook the
+  // page falls back to Brave's preloaded image until a full reload.
+  background_facade_->SetBackgroundsLoadedCallback(
+      base::BindRepeating(&NewTabPageHandler::OnUpdate,
+                          weak_factory_.GetWeakPtr(),
+                          UpdateObserver::Source::kBackgrounds));
 }
 
 NewTabPageHandler::~NewTabPageHandler() = default;
