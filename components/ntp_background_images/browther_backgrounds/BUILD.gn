@@ -3,7 +3,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
-# Browther: 17 paysages nature/Unsplash bundlés pour Desktop (macOS/Windows/Linux).
+# Browther: paysages Unsplash bundlés pour Desktop (macOS/Windows/Linux).
 # Le service `NTPBackgroundImagesService` les charge au boot depuis
 # `DIR_EXE/browther_backgrounds/` (cf. ntp_background_images_service.cc).
 #
@@ -12,11 +12,8 @@
 #
 # Android utilise un autre flow (extraction APK), cf. ../browther_backgrounds_mobile/.
 #
-# La liste de sources doit rester alignée avec `photo.json` et avec les
-# fichiers réellement présents dans ce dossier — les deux sont régénérés
-# par `private/scripts/deploy-assets.sh` depuis `private/assets/source/`.
-# Si tu ajoutes/retires une image, mets aussi à jour `_browther_background_files`
-# ci-dessous (GN ne supporte pas les globs).
+# AUTO-GÉNÉRÉ par private/assets/deploy-assets.sh — ne pas éditer à la main,
+# régénère depuis private/assets/backgrounds/desktop/*.jpg.
 
 if (!is_android && !is_ios) {
   _browther_background_files = [
