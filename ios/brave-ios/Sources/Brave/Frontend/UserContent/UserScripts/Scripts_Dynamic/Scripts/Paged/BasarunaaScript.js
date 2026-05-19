@@ -89,7 +89,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // vraie API disponible.
     var fullscreenVideoEl = null;       // <video> actuellement en mode fs
     var fullscreenCanvas = null;        // canvas correspondant
-    var fullscreenExitButton = null;    // bouton X pour sortir
     var savedCanvasCssText = '';        // restore au exit (cas non-YT)
     var savedBodyOverflow = '';         // restore au exit
     var savedCanvasParent = null;       // parent d'origine du canvas (cas non-YT fallback)
@@ -101,7 +100,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var fullscreenYTVideoEl = null;     // <video> aussi forcé à taille intrinsèque centrée
     var savedYTVideoCssText = '';       // cssText d'origine du <video>
     var fullscreenYTHiddenEls = [];     // [{el, prevDisplay}] cinematics + thumbnail
-    var fullscreenLayoutInterval = null;  // setInterval qui re-pose le layout video
+    var fullscreenLayoutRAF = 0;        // rAF loop id qui re-pose le layout
 
     // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
     var sampleCanvas = document.createElement('canvas');
@@ -137,6 +136,10 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           'position:fixed!important;top:0!important;left:0!important;' +
           'right:0!important;bottom:0!important;' +
           'width:100vw!important;height:100vh!important;' +
+          // 100dvh override (iOS 15.4+) — viewport visible réelle, sinon
+          // 100vh inclut l'espace sous la toolbar iOS et les subtitles YT
+          // (positionnés en bottom du container) tombent hors écran.
+          'height:100dvh!important;' +
           'z-index:2147483646!important;background:#000!important;' +
           'margin:0!important;padding:0!important;' +
         '}' +
@@ -146,6 +149,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           'position:absolute!important;top:0!important;left:0!important;' +
           'width:100%!important;height:100%!important;' +
           'max-width:none!important;max-height:none!important;' +
+          // Empêche le swipe-to-dismiss YT qui scrolle la vidéo native
+          // (révèle qu'elle joue à une position différente du canvas).
+          // Les contrôles YT sont siblings de #movie_player dans
+          // #player-container-id donc restent cliquables.
+          'touch-action:none!important;' +
         '}' +
         // Pas de rule CSS pour video.video-stream : on la pose en JS via
         // setProperty('important') + setInterval pour battre YT JS qui
@@ -153,8 +161,57 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // iOS qui ignore object-position de toute façon).
         ''+
         '#player-container-id[data-basarunaa-fs="1"] #player-cinematics-container,' +
-        '#player-container-id[data-basarunaa-fs="1"] #player-thumbnail-overlay{' +
+        '#player-container-id[data-basarunaa-fs="1"] #player-thumbnail-overlay,' +
+        // Settings button : son menu casse le layout en fake fs (rect hors
+        // viewport + state YT corrompu au close). On le cache plutôt que
+        // de tenter de fix le popup positioning.
+        '#player-container-id[data-basarunaa-fs="1"] [aria-label*="Settings" i],' +
+        '#player-container-id[data-basarunaa-fs="1"] [aria-label*="Paramètres" i],' +
+        '#player-container-id[data-basarunaa-fs="1"] .ytmSettingsButtonHost,' +
+        '#player-container-id[data-basarunaa-fs="1"] ytm-settings-button,' +
+        '#player-container-id[data-basarunaa-fs="1"] .ytp-settings-button{' +
           'display:none!important;' +
+        '}' +
+        // Sous-titres : le container est déplacé vers `body` au moment
+        // du fake fs (cf. JS) pour échapper le stacking context
+        // #player-container-id et passer par-dessus le canvas overlay.
+        // Le selector cible le container déplacé via la classe ajoutée.
+        '.ytp-caption-window-container.basarunaa-fs-caption{' +
+          'position:fixed!important;' +
+          'top:auto!important;' +
+          'bottom:80px!important;' +
+          'left:0!important;right:0!important;' +
+          'width:100vw!important;height:auto!important;' +
+          'z-index:2147483647!important;' +
+          'pointer-events:none!important;' +
+        '}' +
+        '.ytp-caption-window-container.basarunaa-fs-caption .caption-window,' +
+        '.ytp-caption-window-container.basarunaa-fs-caption .ytm-mobile-captions{' +
+          'position:relative!important;' +
+          'left:auto!important;top:auto!important;bottom:auto!important;' +
+          'transform:none!important;' +
+          'margin:0 auto!important;' +
+          'z-index:2147483647!important;' +
+          'pointer-events:none!important;' +
+        '}' +
+        // YT garde 2 `.caption-window` dupliquées dans le DOM (rolling
+        // buffer normalement superposé en absolute). Avec notre position
+        // relative ils flow verticalement → texte doublé. Hide les
+        // duplicates.
+        '.ytp-caption-window-container.basarunaa-fs-caption .caption-window ~ .caption-window,' +
+        '.ytp-caption-window-container.basarunaa-fs-caption .ytm-mobile-captions ~ .ytm-mobile-captions{' +
+          'display:none!important;' +
+        '}' +
+        '.ytp-caption-window-container.basarunaa-fs-caption .ytp-caption-segment{' +
+          'z-index:2147483647!important;' +
+        '}' +
+        '#player-container-id[data-basarunaa-fs="1"] .ytp-popup,' +
+        '#player-container-id[data-basarunaa-fs="1"] .ytp-panel,' +
+        '#player-container-id[data-basarunaa-fs="1"] .ytp-tooltip,' +
+        '#player-container-id[data-basarunaa-fs="1"] .ytm-modal-overlay,' +
+        '#player-container-id[data-basarunaa-fs="1"] .player-controls-overlay{' +
+          'z-index:2147483645!important;' +
+          'pointer-events:auto!important;' +
         '}';
       (document.head || document.documentElement).appendChild(style);
     }
@@ -337,6 +394,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
               drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, dispW, dispH, dispOffX, dispOffY);
             }
           }
+
         } catch (e) {
           // CORS taint, decoder fail, etc. — on stoppe pour ce <video>.
           taintedVideos.add(video);
@@ -515,6 +573,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       var canvas = displayCanvasById[videoId];
       if (!canvas) return false;
 
+      // Toggle : YouTube ne sait pas qu'on est en fake fullscreen, donc
+      // son bouton fullscreen affiche toujours "entrer" et re-appelle
+      // `webkitEnterFullscreen` à chaque tap. Si on est déjà en fake fs
+      // pour ce video, on sort (au lieu d'entrer une 2e fois et corrompre
+      // l'état — savedYTVideoCssText perdrait l'original).
+      if (fullscreenVideoEl === video) {
+        exitFakeFullscreen('yt_fs_button_toggle');
+        return true;
+      }
+
       // Bascule en fake fullscreen CSS (iPhone n'a pas
       // Element.requestFullscreen).
       //
@@ -532,6 +600,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       var ytContainer = findYTOverlayContainer(video);
       if (ytContainer && canvas.parentElement === ytContainer) {
         fullscreenYTContainer = ytContainer;
+        // Déplacer le subtitle container vers `body` pour le sortir du
+        // stacking context #player-container-id. Sinon il est descendant
+        // de #player (peint avant le canvas) → masqué par le canvas
+        // (peint après dans son SC). En body avec z-index > 2147483646,
+        // il est peint par-dessus tout, y compris le canvas.
+        var subContainer = ytContainer.querySelector('.ytp-caption-window-container');
+        if (subContainer && subContainer.parentElement !== document.body) {
+          savedSubContainerParent = subContainer.parentElement;
+          savedSubContainerNextSibling = subContainer.nextSibling;
+          document.body.appendChild(subContainer);
+          subContainer.classList.add('basarunaa-fs-caption');
+        }
         // Stratégie : utiliser un `<style>` injecté avec `!important` au
         // lieu de modifier `.style.cssText` inline. Raison : YouTube JS
         // re-écrase régulièrement le style inline du `<video>` (probablement
@@ -552,7 +632,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // pour ré-appliquer en boucle pendant tout le fake fullscreen.
         fullscreenYTVideoEl = video;
         savedYTVideoCssText = video.style.cssText;
-        var applyVideoFsLayout = function() {
+        var applyVideoFsLayout = function(skipDraw) {
           var vw = video.videoWidth || 1920;
           var vh = video.videoHeight || 1080;
           var vpW = window.innerWidth;
@@ -595,24 +675,38 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           }
           canvas.style.width = w + 'px';
           canvas.style.height = h + 'px';
-          var dpr = window.devicePixelRatio || 1;
-          var pw = Math.max(1, Math.round(w * dpr));
-          var ph = Math.max(1, Math.round(h * dpr));
-          if (canvas.width !== pw) canvas.width = pw;
-          if (canvas.height !== ph) canvas.height = ph;
-          try {
-            var ctx = canvas.getContext('2d');
-            if (ctx) {
-              ctx.fillStyle = '#000';
-              ctx.fillRect(0, 0, canvas.width, canvas.height);
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            }
-          } catch (e) {}
+          // canvas.width/height (px backing store) ET drawImage : seulement
+          // au premier call (init). Le rAF loop skip pour ne pas effacer
+          // le blur que le tick rVFC vient de dessiner à chaque frame
+          // (rAF s'exécute à 60fps, vs tick rVFC ~30fps → 2 erase/draw
+          // entre 2 rVFC = blur invisible).
+          if (!skipDraw) {
+            var dpr = window.devicePixelRatio || 1;
+            var pw = Math.max(1, Math.round(w * dpr));
+            var ph = Math.max(1, Math.round(h * dpr));
+            if (canvas.width !== pw) canvas.width = pw;
+            if (canvas.height !== ph) canvas.height = ph;
+            try {
+              var ctx = canvas.getContext('2d');
+              if (ctx) {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              }
+            } catch (e) {}
+          }
         };
         void ytContainer.offsetHeight;
-        applyVideoFsLayout();
-        requestAnimationFrame(applyVideoFsLayout);
-        fullscreenLayoutInterval = setInterval(applyVideoFsLayout, 100);
+        applyVideoFsLayout();          // 1er call : avec drawImage initial
+        // rAF loop : `skipDraw=true` → laisse le tick rVFC normal gérer
+        // le rendering (video + blur). Sinon on écraserait le blur dessiné
+        // par rVFC à 60fps.
+        var loopApply = function() {
+          if (!fullscreenYTContainer) { fullscreenLayoutRAF = 0; return; }
+          applyVideoFsLayout(true);
+          fullscreenLayoutRAF = requestAnimationFrame(loopApply);
+        };
+        fullscreenLayoutRAF = requestAnimationFrame(loopApply);
       } else {
         savedCanvasCssText = canvas.style.cssText;
         savedCanvasParent = canvas.parentElement;
@@ -633,31 +727,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
       document.body.style.overflow = 'hidden';
 
-      // Bouton X custom — seul moyen d'exit sans Web API
-      if (!fullscreenExitButton) {
-        fullscreenExitButton = document.createElement('button');
-        fullscreenExitButton.textContent = '×';
-        fullscreenExitButton.style.cssText = [
-          'position:fixed',
-          'top:max(env(safe-area-inset-top, 12px), 12px)',
-          'right:12px',
-          'width:44px', 'height:44px',
-          'border-radius:50%',
-          'background:rgba(0,0,0,0.65)',
-          'color:white',
-          'border:0',
-          'font-size:28px', 'font-weight:300',
-          'line-height:44px',
-          'padding:0',
-          'z-index:2147483647',
-          'cursor:pointer'
-        ].join(' !important;') + ' !important;';
-        fullscreenExitButton.addEventListener('click', function(e) {
-          e.stopPropagation();
-          exitFakeFullscreen('exit_button');
-        });
-      }
-      document.body.appendChild(fullscreenExitButton);
+      // Pas de bouton × custom : sur YouTube le bouton fullscreen natif
+      // (visible dans les contrôles YT) sert maintenant aussi de toggle
+      // exit grâce à la guarde en début de cette fonction.
 
       metric('fs_entered_canvas', { videoId: videoId, mode: 'fakeCss' });
       try { send('fullscreenEnter'); } catch (e) {}
@@ -678,15 +750,29 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (fullscreenYTContainer) {
         // Stop le re-apply loop + retire l'attribut + restore inline style
         // du <video> (CSS injecté ne s'applique plus tout seul).
-        if (fullscreenLayoutInterval) {
-          clearInterval(fullscreenLayoutInterval);
-          fullscreenLayoutInterval = null;
+        if (fullscreenLayoutRAF) {
+          cancelAnimationFrame(fullscreenLayoutRAF);
+          fullscreenLayoutRAF = 0;
         }
         if (fullscreenYTVideoEl) {
           fullscreenYTVideoEl.style.cssText = savedYTVideoCssText;
           fullscreenYTVideoEl = null;
           savedYTVideoCssText = '';
         }
+        // Restore le subtitle container à son parent d'origine.
+        if (savedSubContainerParent && savedSubContainerParent.isConnected) {
+          var sub = document.body.querySelector('.ytp-caption-window-container.basarunaa-fs-caption');
+          if (sub) {
+            sub.classList.remove('basarunaa-fs-caption');
+            if (savedSubContainerNextSibling && savedSubContainerNextSibling.parentNode === savedSubContainerParent) {
+              savedSubContainerParent.insertBefore(sub, savedSubContainerNextSibling);
+            } else {
+              savedSubContainerParent.appendChild(sub);
+            }
+          }
+        }
+        savedSubContainerParent = null;
+        savedSubContainerNextSibling = null;
         fullscreenYTContainer.removeAttribute('data-basarunaa-fs');
         fullscreenYTContainer = null;
       } else {
@@ -701,9 +787,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         }
         savedCanvasParent = null;
         savedCanvasNextSibling = null;
-      }
-      if (fullscreenExitButton && fullscreenExitButton.parentNode) {
-        fullscreenExitButton.parentNode.removeChild(fullscreenExitButton);
       }
       fullscreenVideoEl = null;
       fullscreenCanvas = null;
