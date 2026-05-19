@@ -87,6 +87,13 @@ static_library("browser") {
     ]
   }
 
+  # Browther: deps sur le target qui copie les 17 paysages dans
+  # $root_out_dir/browther_backgrounds/ au build. Le service lit ensuite
+  # ce dossier au boot (cf. ntp_background_images_service.cc:240).
+  if (!is_android && !is_ios) {
+    data_deps = [ "//brave/components/ntp_background_images/browther_backgrounds:browther_backgrounds_data" ]
+  }
+
   if (enable_brave_ads) {
     deps += [ "//brave/components/brave_ads/core" ]
 

@@ -1,0 +1,73 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+# Browther: 17 paysages nature/Unsplash bundlés pour Desktop (macOS/Windows/Linux).
+# Le service `NTPBackgroundImagesService` les charge au boot depuis
+# `DIR_EXE/browther_backgrounds/` (cf. ntp_background_images_service.cc).
+#
+# Sur macOS, DIR_EXE = `Browther.app/Contents/MacOS/`. Sur Win/Linux,
+# c'est le dossier qui contient le binaire.
+#
+# Android utilise un autre flow (extraction APK), cf. ../browther_backgrounds_mobile/.
+
+if (!is_android && !is_ios) {
+  # Copy targets : déposent les fichiers à côté du binaire (= DIR_EXE) au build.
+  # Marche pour Component build (binaire exécuté depuis out/Component_arm64/).
+  copy("browther_backgrounds_data") {
+    sources = [
+      "aaron-burden-dXYE1d08BiY-unsplash.jpg",
+      "aboodi-vesakaran-YJ9vNlTeN1g-unsplash.jpg",
+      "adam-kool-ndN00KmbJ1c-unsplash.jpg",
+      "andrew-coelho-LUBvSohu6D0-unsplash.jpg",
+      "ekrem-osmanoglu-6OwJWFP6Or8-unsplash.jpg",
+      "grace-zhu-2yZ-CzlBrZ4-unsplash.jpg",
+      "johannes-plenio-RwHv7LgeC7s-unsplash.jpg",
+      "lukasz-szmigiel-jFCViYFYcus-unsplash.jpg",
+      "mark-basarab-1OtUkD_8svc-unsplash.jpg",
+      "mengyu-xu-AJpbLXg65yk-unsplash.jpg",
+      "michal-mancewicz-yQorCngxzwI-unsplash.jpg",
+      "nicholas-bartos-77HxKO-91FA-unsplash.jpg",
+      "olha-ruskykh-pexels.jpg",
+      "patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg",
+      "philippe-wuyts-LDD8KtwOIaA-unsplash.jpg",
+      "qingbao-meng-01_igFr7hd4-unsplash.jpg",
+      "svetlana-gumerova-mFatlXOOyTQ-unsplash.jpg",
+      "photo.json",
+    ]
+    outputs = [ "$root_out_dir/browther_backgrounds/{{source_file_part}}" ]
+  }
+
+  if (is_mac) {
+    # Mac bundle : copie dans Browther.app/Contents/MacOS/browther_backgrounds/.
+    # Le service C++ lit DIR_EXE = Contents/MacOS/ sur macOS.
+    # Référencé par chrome/BUILD.gn bundle_deps du chrome_app.
+    bundle_data("browther_backgrounds_bundle_data") {
+      sources = [
+        "$root_out_dir/browther_backgrounds/aaron-burden-dXYE1d08BiY-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/aboodi-vesakaran-YJ9vNlTeN1g-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/adam-kool-ndN00KmbJ1c-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/andrew-coelho-LUBvSohu6D0-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/ekrem-osmanoglu-6OwJWFP6Or8-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/grace-zhu-2yZ-CzlBrZ4-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/johannes-plenio-RwHv7LgeC7s-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/lukasz-szmigiel-jFCViYFYcus-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/mark-basarab-1OtUkD_8svc-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/mengyu-xu-AJpbLXg65yk-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/michal-mancewicz-yQorCngxzwI-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/nicholas-bartos-77HxKO-91FA-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/olha-ruskykh-pexels.jpg",
+        "$root_out_dir/browther_backgrounds/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/philippe-wuyts-LDD8KtwOIaA-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/qingbao-meng-01_igFr7hd4-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/svetlana-gumerova-mFatlXOOyTQ-unsplash.jpg",
+        "$root_out_dir/browther_backgrounds/photo.json",
+      ]
+      outputs = [
+        "{{bundle_executable_dir}}/browther_backgrounds/{{source_file_part}}",
+      ]
+      public_deps = [ ":browther_backgrounds_data" ]
+    }
+  }
+}
