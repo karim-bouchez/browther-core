@@ -188,8 +188,10 @@ public class BraveSearchEnginesPreferences extends BravePreferenceFragment
 
         boolean autocompleteEnabled =
                 UserPrefs.get(getProfile()).getBoolean(BravePref.AUTOCOMPLETE_ENABLED);
+        // Browther: hide "Improve search suggestions" toggle (envoie les requêtes au search
+        // engine pour des suggestions — non pertinent pour Browther, aligné sur macOS).
         if (mSearchSuggestions != null) {
-            mSearchSuggestions.setVisible(autocompleteEnabled);
+            mSearchSuggestions.setVisible(false);
         }
 
         if (mShowAutocompleteInAddressBar != null) {
@@ -200,19 +202,10 @@ public class BraveSearchEnginesPreferences extends BravePreferenceFragment
                     UserPrefs.get(getProfile()).getBoolean(Pref.SEARCH_SUGGEST_ENABLED));
         }
 
-        if (BraveConfig.WEB_DISCOVERY_ENABLED) {
-            // Check if web discovery is managed by policy
-            boolean isWebDiscoveryManaged =
-                    UserPrefs.get(getProfile())
-                            .isManagedPreference(WebDiscoveryPrefs.WEB_DISCOVERY_ENABLED);
-            if (!isWebDiscoveryManaged) {
-                mSendWebDiscovery =
-                        (ChromeSwitchPreference) findPreference(PREF_SEND_WEB_DISCOVERY);
-                if (mSendWebDiscovery != null) {
-                    mSendWebDiscovery.setOnPreferenceChangeListener(this);
-                }
-            }
-        }
+        // Browther: WDP toggle retiré entièrement (aligné sur macOS — onboarding ne demande
+        // plus le consent WDP, pref `WEB_DISCOVERY_ENABLED` reste à false par défaut → service
+        // inactif). On laisse `mSendWebDiscovery` à null pour que le bloc ci-dessous appelle
+        // `removePreferenceIfPresent(PREF_SEND_WEB_DISCOVERY)`.
 
         if (mSendWebDiscovery != null) {
             mSendWebDiscovery.setTitle(
@@ -292,7 +285,7 @@ public class BraveSearchEnginesPreferences extends BravePreferenceFragment
             UserPrefs.get(getProfile()).setBoolean(Pref.SEARCH_SUGGEST_ENABLED, (boolean) newValue);
         } else if (PREF_SHOW_AUTOCOMPLETE_IN_ADDRESS_BAR.equals(key)) {
             boolean autocompleteEnabled = (boolean) newValue;
-            mSearchSuggestions.setVisible(autocompleteEnabled);
+            // Browther: `mSearchSuggestions` reste hidden (cf. updateSearchEnginePreference).
             UserPrefs.get(getProfile())
                     .setBoolean(BravePref.AUTOCOMPLETE_ENABLED, autocompleteEnabled);
         } else if (PREF_SEND_WEB_DISCOVERY.equals(key)) {

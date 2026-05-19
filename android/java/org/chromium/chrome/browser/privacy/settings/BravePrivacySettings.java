@@ -391,15 +391,24 @@ public class BravePrivacySettings extends PrivacySettings {
         mClearBrowsingDataOnExit = (ChromeSwitchPreference) findPreference(PREF_CLEAR_ON_EXIT);
         mClearBrowsingDataOnExit.setOnPreferenceChangeListener(this);
 
-        // Browther: P3A toggle masqué (télémétrie envoyée à Brave)
-        removePreferenceIfPresent(PREF_SEND_P3A);
-        mSendP3A = null;
+        // Browther: P3A toggle réactivé — gate PostHog Android (`kP3AEnabled`).
+        // L'ancien pipeline Brave P3A reste désactivé côté C++ (default false + .Start()
+        // commentés), seul PostHog lit ce pref via BrowtherAnalyticsBridge.
+        mSendP3A = (ChromeSwitchPreference) findPreference(PREF_SEND_P3A);
+        if (mSendP3A != null) {
+            mSendP3A.setOnPreferenceChangeListener(this);
+        }
 
-        // Browther: Send crash reports toggle masqué (Brave Crashpad)
-        removePreferenceIfPresent(PREF_SEND_CRASH_REPORTS);
-        mSendCrashReports = null;
+        // Browther: Send crash reports toggle réactivé — gate Sentry Android
+        // (`kMetricsReportingEnabled`). Crashpad upstream Brave désactivé (URL Brave
+        // remplacée par Sentry EU minidump endpoint via analytics_config.h).
+        mSendCrashReports = (ChromeSwitchPreference) findPreference(PREF_SEND_CRASH_REPORTS);
+        if (mSendCrashReports != null) {
+            mSendCrashReports.setOnPreferenceChangeListener(this);
+        }
 
-        // Browther: Brave Stats usage ping (DAU) masqué
+        // Browther: Brave Stats usage ping (DAU) masqué — vraie télémétrie Brave,
+        // pas utilisée par Browther.
         removePreferenceIfPresent(PREF_BRAVE_STATS_USAGE_PING);
         mBraveStatsUsagePing = null;
 
