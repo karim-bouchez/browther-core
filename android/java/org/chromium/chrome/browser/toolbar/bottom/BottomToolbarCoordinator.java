@@ -248,9 +248,14 @@ class BottomToolbarCoordinator implements View.OnLongClickListener {
                             mIsInTabSwitcherMode = false;
                             BrowsingModeBottomToolbarCoordinator browsingModeCoordinator =
                                     (BrowsingModeBottomToolbarCoordinator) mBrowsingModeCoordinator;
+                            // Browther: SearchAccelerator caché côté Browther
+                            // (aligné sur iOS, "+" central). Le swap upstream
+                            // Brave réaffichait Search et hide NewTab quand on
+                            // sortait du tab switcher — on inverse : Search
+                            // reste GONE, NewTab reste VISIBLE.
                             browsingModeCoordinator
                                     .getSearchAccelerator()
-                                    .setVisibility(View.VISIBLE);
+                                    .setVisibility(View.GONE);
                             if (BottomToolbarVariationManager.isHomeButtonOnBottomControls()) {
                                 browsingModeCoordinator.getHomeButton().setVisibility(View.VISIBLE);
                             }
@@ -267,7 +272,7 @@ class BottomToolbarCoordinator implements View.OnLongClickListener {
                             if (BottomToolbarVariationManager.isNewTabButtonOnBottomControls()) {
                                 browsingModeCoordinator
                                         .getNewTabButtonParent()
-                                        .setVisibility(View.GONE);
+                                        .setVisibility(View.VISIBLE);
                             }
 
                             mBottomContainerTopShadow.setVisibility(View.VISIBLE);

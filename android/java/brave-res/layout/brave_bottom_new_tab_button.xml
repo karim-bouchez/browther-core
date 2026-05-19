@@ -10,14 +10,30 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical" >
 
+    <!-- Browther: restyled comme les autres boutons SplitToolbar (Bookmark,
+         Home, Tab Switcher) — pas de FAB style (orange/gros) qui détonne. Le
+         MaterialButton est gardé (le code Java fait findViewById<MaterialButton>)
+         mais on annule iconTint orange + background coloré + corner radius. -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bottom_new_tab_button"
-        android:layout_width="@dimen/hub_toolbar_action_button_size"
-        android:layout_height="@dimen/hub_toolbar_action_button_size"
+        android:layout_width="@dimen/split_toolbar_button_width"
+        android:layout_height="@dimen/split_toolbar_button_height"
+        android:layout_gravity="center"
         android:contentDescription="@string/accessibility_toolbar_btn_new_tab"
         android:visibility="gone"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:icon="@drawable/new_tab_icon"
         app:iconGravity="textStart"
-        style="?attr/newTabButtonStyle" />
+        app:iconPadding="0dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/default_icon_color_tint_list"
+        app:backgroundTint="@android:color/transparent"
+        app:strokeWidth="0dp"
+        app:cornerRadius="0dp" />
 
 </LinearLayout>
