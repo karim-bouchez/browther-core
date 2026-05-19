@@ -74,6 +74,18 @@ brave_chrome_java_deps = [
   "//brave/third_party/android_deps:google_play_services_safetynet_java",
   "//brave/third_party/browther_android_deps:sentry_android_core_java",
   "//brave/third_party/browther_android_deps:sentry_java",
+
+  # Browther: bundle Shields filter lists dans assets/adblock_lists/ de
+  # l'APK. Le target android_assets est défini dans
+  # shields_bundled_lists/BUILD.gn (auto-généré par fetch-shields-lists.sh,
+  # gitignored) et est gated `is_android`. On le tire ici depuis
+  # brave_chrome_java_deps (qui finit dans `android_library("chrome_java")`,
+  # voir patches/chrome-android-BUILD.gn.patch) — sinon il ne se propage
+  # pas depuis le static_library C++ qui le référence côté C++. Sans ça,
+  # l'APK ne contient pas assets/adblock_lists/ et shields_bundled_apk_
+  # extractor.cc échoue → 0 ads bloqués.
+  "//brave/components/brave_shields/core/browser/shields_bundled_lists:shields_bundled_lists_android_assets",
+
   "//brave/third_party/zxing:zxing_java",
   "//brave/ui/android:base_java",
   "//third_party/android_deps:com_google_code_gson_gson_java",
