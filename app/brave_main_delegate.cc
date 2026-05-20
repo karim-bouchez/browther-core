@@ -56,12 +56,25 @@ constexpr char kDummyUrl[] = "https://no-thanks.invalid";
 std::string GetUpdateURLHost() {
   const base::CommandLine& command_line =
       *base::CommandLine::ForCurrentProcess();
+  std::string url;
   if (!command_line.HasSwitch(brave_component_updater::kUseGoUpdateDev) &&
       !base::FeatureList::IsEnabled(
           brave_component_updater::kUseDevUpdaterUrl)) {
-    return BUILDFLAG(UPDATER_PROD_ENDPOINT);
+    url = BUILDFLAG(UPDATER_PROD_ENDPOINT);
+  } else {
+    url = BUILDFLAG(UPDATER_DEV_ENDPOINT);
   }
-  return BUILDFLAG(UPDATER_DEV_ENDPOINT);
+  // Browther: si l'endpoint est notre dummy (build Release sans clé Brave),
+  // retourner "" pour ne pas écraser l'URL du Chrome Web Store dans
+  // BraveExtensionsClient::InitializeWebStoreUrls. Sinon le switch
+  // --component-updater=url-source=disabled.browther.local est injecté et
+  // l'install d'extensions hang (le CRX est cherché sur ce host invalide).
+  // Avec "", le switch n'est pas ajouté → BraveExtensionsClient tombe sur
+  // GetDefaultWebstoreUpdateUrl() = clients2.google.com.
+  if (url.find("disabled.browther.local") != std::string::npos) {
+    return std::string();
+  }
+  return url;
 }
 
 }  // namespace
