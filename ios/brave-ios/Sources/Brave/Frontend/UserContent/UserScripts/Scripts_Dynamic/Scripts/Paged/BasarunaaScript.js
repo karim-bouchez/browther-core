@@ -88,6 +88,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var yoloTriggeredBySentinelById = {}; // videoId → bool (consommé au prochain tick YOLO)
     var videoStateById = {};            // videoId → 'safe' | 'tracking' (cadence YOLO adaptative)
     var videoDebugModeById = {};        // videoId → 'none'|'boxes'|'debug' (memoïsé entre 2 YOLO)
+    var videoNsfwById = {};             // videoId → bool (full-frame blur, bypass sentinel reposition)
     var sceneHashById = {};             // videoId → Uint8Array (HASH_SIZE * HASH_SIZE) du dernier hash, ou null
     var sentinelLostCountById = {};     // videoId → nb de sentinels consécutifs avec raw=0 alors qu'on trackait
     var SENTINEL_LOST_THRESHOLD = 1;    // après N sentinels vides → clear blur + trigger YOLO (réactivité 1→0)
@@ -293,6 +294,10 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // L'offset retire le bias systématique de NanoDet (centre torse vs
     // centre YOLO différent) → tracking stable, pas de jitter.
     function _updateBlurFromSentinel(videoId, sentinelPersons) {
+      // NSFW = full-frame blur figé. Pas de reposition sentinel : la bbox
+      // [0, 0, analyseW, analyseH] doit rester intacte jusqu'au prochain
+      // YOLO qui ré-évaluera le verdict NSFW.
+      if (videoNsfwById[videoId]) return;
       var current = currentBboxesById[videoId];
       if (!current || !current.length) return;
       var offsets = yoloOffsetsById[videoId] || [];
@@ -1025,6 +1030,28 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
             for (var i = 0; i < bboxes.length; i++) {
               drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, dispW, dispH, dispOffX, dispOffY, videoDebug);
             }
+            // En mode debug, badge "NSFW" en haut-gauche du canvas pour
+            // distinguer un full-frame blur intentionnel d'un bug. Le
+            // badge est dessiné par-dessus le blur car le bbox full-frame
+            // couvre tout le canvas (snap → hasFeather=false → pas de
+            // rects pointillés dans drawAndBlurRegion).
+            if (videoNsfwById[videoId] && (videoDebug === 'boxes' || videoDebug === 'debug')) {
+              var dpr = window.devicePixelRatio || 1;
+              dctx.save();
+              var pad = 8 * dpr;
+              var fontPx = Math.max(14, Math.round(14 * dpr));
+              dctx.font = 'bold ' + fontPx + 'px -apple-system, system-ui, sans-serif';
+              var label = 'NSFW';
+              var tw_text = dctx.measureText(label).width;
+              var bgW = tw_text + 2 * pad;
+              var bgH = fontPx + 2 * pad;
+              dctx.fillStyle = 'rgba(220, 30, 30, 0.85)';
+              dctx.fillRect(pad, pad, bgW, bgH);
+              dctx.fillStyle = '#fff';
+              dctx.textBaseline = 'middle';
+              dctx.fillText(label, pad * 2, pad + bgH / 2);
+              dctx.restore();
+            }
           }
 
         } catch (e) {
@@ -1311,6 +1338,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           return;
         }
         var safeBboxes = bboxes || [];
+        videoNsfwById[videoId] = !!isNsfw;
         if (isNsfw) {
           currentBboxesById[videoId] = [[0, 0, analyseW, analyseH]];
         } else {
@@ -1358,9 +1386,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // l'utilisent pour décider de l'overlay (boxes/debug).
         videoDebugModeById[videoId] = debugMode || 'none';
         // State machine cadence : tracking si au moins 1 personne à
-        // flouter, safe sinon. Pas de gender info — le natif a déjà
-        // filtré par mode (cf. `decide()` côté Swift).
-        videoStateById[videoId] = safeBboxes.length > 0 ? 'tracking' : 'safe';
+        // flouter OU si NSFW (= re-évaluer rapidement la sortie du NSFW
+        // pour ne pas garder un full-frame blur stale). Safe sinon.
+        // Pas de gender info — le natif a déjà filtré par mode (cf.
+        // `decide()` côté Swift).
+        videoStateById[videoId] = (safeBboxes.length > 0 || isNsfw) ? 'tracking' : 'safe';
         // Reset des tracks sentinel sur full YOLO refresh (le YOLO refait
         // la vérité de base, le tracking sentinel reprend à partir de là).
         sentinelTracksById[videoId] = [];
@@ -1387,6 +1417,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       try {
         sentinelInFlightById[videoId] = false;
         if (!displayCanvasById[videoId]) return;
+        // NSFW = full-frame blur figé jusqu'au prochain YOLO. On skip toute
+        // la logique sentinel (reposition, sentinel-lost, new-person trigger)
+        // pour ne pas casser la bbox full-frame. Le scheduler ré-évaluera
+        // NSFW au prochain YOLO périodique.
+        if (videoNsfwById[videoId]) {
+          metric('video_sentinel_skip_nsfw', { videoId: videoId });
+          return;
+        }
         var meta = currentBboxMetaById[videoId];
         var analyseW = meta ? meta.analyseW : sentinelW;
         var analyseH = meta ? meta.analyseH : sentinelH;
@@ -1788,6 +1826,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           delete videosById[id];
           delete currentBboxesById[id];
           delete currentBboxMetaById[id];
+          delete videoNsfwById[id];
+          delete videoDebugModeById[id];
         }
       }
     }, 1000);
