@@ -208,11 +208,11 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "Brave'i lisamine",
+    "message": "Browther'i lisamine",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {
-    "message": "Eemalda Brave'ist",
+    "message": "Eemalda Browther'ist",
     "description": "Message for removing an extension from Brave"
   },
   "addToChrome": {

@@ -208,7 +208,7 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "Pridať do prehliadača Brave",
+    "message": "Pridať do prehliadača Browther",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {

@@ -208,7 +208,7 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "Dodaj v Brave",
+    "message": "Dodaj v Browther",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {

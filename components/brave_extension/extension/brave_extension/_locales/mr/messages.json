@@ -208,11 +208,11 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "Brave वर जोडा",
+    "message": "Browther वर जोडा",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {
-    "message": "Brave मधून काढा",
+    "message": "Browther मधून काढा",
     "description": "Message for removing an extension from Brave"
   },
   "addToChrome": {

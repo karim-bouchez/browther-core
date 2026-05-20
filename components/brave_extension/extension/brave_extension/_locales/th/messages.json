@@ -208,11 +208,11 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "เพิ่มลงใน Brave",
+    "message": "เพิ่มลงใน Browther",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {
-    "message": "ลบจาก Brave",
+    "message": "ลบจาก Browther",
     "description": "Message for removing an extension from Brave"
   },
   "addToChrome": {

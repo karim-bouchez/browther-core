@@ -208,11 +208,11 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "Dodaj do Brave",
+    "message": "Dodaj do Browther",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {
-    "message": "Usuń z Brave",
+    "message": "Usuń z Browther",
     "description": "Message for removing an extension from Brave"
   },
   "addToChrome": {

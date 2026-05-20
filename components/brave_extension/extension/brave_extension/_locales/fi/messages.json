@@ -208,11 +208,11 @@
     "description": "Message inviting the user to learn more about Shields"
   },
   "addToBrave": {
-    "message": "Lisää Braveiin",
+    "message": "Lisää Browtheriin",
     "description": "Message for adding an extension to Brave"
   },
   "removeFromBrave": {
-    "message": "Poista Bravesta",
+    "message": "Poista Browthersta",
     "description": "Message for removing an extension from Brave"
   },
   "addToChrome": {
