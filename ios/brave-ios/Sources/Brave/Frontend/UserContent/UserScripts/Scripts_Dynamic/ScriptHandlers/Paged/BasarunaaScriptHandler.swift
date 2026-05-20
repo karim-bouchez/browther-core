@@ -33,6 +33,7 @@ class BasarunaaScriptHandler: TabContentScript {
 
   weak var delegate: BasarunaaScriptHandlerDelegate?
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
+  private static let staticLog = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
 
   /// Pivot V2 (2026-05-17) : VTDecompressionSession + VP9 est bloqué par un
@@ -245,6 +246,7 @@ class BasarunaaScriptHandler: TabContentScript {
     var fullPersonsPayload: [[String: Any]] = []
     var poseLatencyMs: Double = 0
     var classifyLatencyMs: Double = 0
+    var nudeClasses: [String] = []
     let debugMode = Preferences.Basarunaa.debugMode.value
 
     decode: do {
@@ -259,23 +261,48 @@ class BasarunaaScriptHandler: TabContentScript {
         break decode
       }
       do {
+        // Pipeline vidéo : `analyze` (persons + gender) + `checkNsfw` (Marqo +
+        // NudeNet) en parallèle — sinon le branch `if isNsfw` côté JS ne fire
+        // jamais (analyze() retourne toujours isNsfw=false par design POC).
+        // Le coût additionnel (~30-60ms NudeNet + Marqo) reste dominé par le
+        // YOLO-pose, et runMobileNet/Marqo tournent ANE ⇒ parallèle effectif.
+        async let nsfwAsync = BasarunaaPipeline.shared.checkNsfw(image: cgImage)
         let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+        let nsfw = try? await nsfwAsync
         let mode = Preferences.Basarunaa.effectiveMode
         let (_, personsToBlur) = decide(from: result.persons, mode: mode)
         // bbox = [x1, y1, x2, y2] en coords analyse (= dimensions JPEG envoyé,
         // pas les dims du <video> à l'écran). JS rescale.
         bboxes = personsToBlur.map { [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY] }
-        isNsfw = result.isNsfw
+        isNsfw = nsfw?.isNsfw ?? false
         personsCount = result.persons.count
         modeLabel = mode
         poseLatencyMs = result.poseLatencyMs
         classifyLatencyMs = result.classifyLatencyMs
+        nudeClasses = nsfw?.nudeClasses ?? []
         // En mode debug, sérialise toutes les persons (avec keypoints) —
         // les `shouldBlurFlags` indiquent celles que `decide()` ciblait.
         if debugMode != "none" {
           let toBlurKeys = Set(personsToBlur.map { bboxKey($0.bbox) })
           let shouldBlurFlags = result.persons.map { toBlurKeys.contains(bboxKey($0.bbox)) }
           fullPersonsPayload = serialize(persons: result.persons, shouldBlurFlags: shouldBlurFlags)
+        }
+        // Capture mode — sauvegarde la frame raw + metadata pour dataset
+        // de régression ML. Activé via le toggle Debug section du panel.
+        if Preferences.Basarunaa.captureMode.value {
+          Self.saveCapture(
+            jpegData: jpegData,
+            videoId: videoId,
+            width: width,
+            height: height,
+            ctMs: ctMs,
+            mode: mode,
+            isNsfw: result.isNsfw,
+            persons: result.persons,
+            personsToBlur: personsToBlur,
+            poseLatencyMs: result.poseLatencyMs,
+            classifyLatencyMs: result.classifyLatencyMs
+          )
         }
       } catch {
         log.error(
@@ -303,7 +330,12 @@ class BasarunaaScriptHandler: TabContentScript {
         args: [
           videoId, ctMs, width, height, bboxes, isNsfw, debugMode,
           fullPersonsPayload,
-          ["poseLatencyMs": poseLatencyMs, "classifyLatencyMs": classifyLatencyMs, "mode": modeLabel] as [String: Any],
+          [
+            "poseLatencyMs": poseLatencyMs,
+            "classifyLatencyMs": classifyLatencyMs,
+            "mode": modeLabel,
+            "nudeClasses": nudeClasses,
+          ] as [String: Any],
         ],
         contentWorld: Self.scriptSandbox
       )
@@ -611,5 +643,85 @@ class BasarunaaScriptHandler: TabContentScript {
 
   deinit {
     log.info("handler_deinit")
+  }
+
+  /// Capture mode — sauvegarde une frame analysée dans `Documents/Basarunaa-capture/`.
+  /// Crée 2 fichiers par capture :
+  ///  - `{ts}-v{videoId}-raw.jpg` : la frame d'entrée envoyée au pipeline ML
+  ///  - `{ts}-v{videoId}-meta.json` : métadonnées (mode, NSFW, bboxes, gender,
+  ///    keypoints, classifierUsed, latency)
+  /// Désactivé par défaut via `Preferences.Basarunaa.captureMode = false`. Utilisé
+  /// pour collecter un dataset de régression ML (POC macOS `_captureAnnotatedFrame`).
+  private static func saveCapture(
+    jpegData: Data,
+    videoId: Int,
+    width: Int,
+    height: Int,
+    ctMs: Int64,
+    mode: String,
+    isNsfw: Bool,
+    persons: [DetectedPerson],
+    personsToBlur: [DetectedPerson],
+    poseLatencyMs: Double,
+    classifyLatencyMs: Double
+  ) {
+    let fm = FileManager.default
+    guard let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+    let dir = docs.appendingPathComponent("Basarunaa-capture", isDirectory: true)
+    do {
+      if !fm.fileExists(atPath: dir.path) {
+        try fm.createDirectory(at: dir, withIntermediateDirectories: true)
+      }
+    } catch {
+      staticLog.error("captureMode mkdir failed: \(String(describing: error), privacy: .public)")
+      return
+    }
+    let ts = Int(Date().timeIntervalSince1970 * 1000)  // ms epoch
+    let base = "\(ts)-v\(videoId)"
+    let rawUrl = dir.appendingPathComponent("\(base)-raw.jpg")
+    let metaUrl = dir.appendingPathComponent("\(base)-meta.json")
+    do {
+      try jpegData.write(to: rawUrl, options: .atomic)
+    } catch {
+      staticLog.error("captureMode raw write failed: \(String(describing: error), privacy: .public)")
+      return
+    }
+    let toBlurKeys = Set(personsToBlur.map { "\($0.bbox.minX),\($0.bbox.minY),\($0.bbox.maxX),\($0.bbox.maxY)" })
+    let personsMeta: [[String: Any]] = persons.map { p in
+      var dict: [String: Any] = [
+        "bbox": [p.bbox.minX, p.bbox.minY, p.bbox.maxX, p.bbox.maxY] as [Double],
+        "bodyConfidence": p.bodyConfidence,
+        "classifierUsed": p.classifierUsed,
+        "isSyntheticBody": p.isSyntheticBody,
+        "shouldBlur": toBlurKeys.contains("\(p.bbox.minX),\(p.bbox.minY),\(p.bbox.maxX),\(p.bbox.maxY)"),
+      ]
+      if let g = p.gender { dict["gender"] = g.rawValue }
+      if let gc = p.genderConfidence { dict["genderConfidence"] = gc }
+      if let f = p.faceBbox {
+        dict["faceBbox"] = [f.minX, f.minY, f.maxX, f.maxY] as [Double]
+      }
+      // Keypoints flat [[x,y,conf], ...] — léger pour JSON.
+      dict["keypoints"] = p.keypoints.map { [$0.point.x, $0.point.y, $0.confidence] }
+      return dict
+    }
+    let meta: [String: Any] = [
+      "videoId": videoId,
+      "ctMs": ctMs,
+      "width": width,
+      "height": height,
+      "mode": mode,
+      "isNsfw": isNsfw,
+      "personsCount": persons.count,
+      "poseLatencyMs": poseLatencyMs,
+      "classifyLatencyMs": classifyLatencyMs,
+      "persons": personsMeta,
+    ]
+    do {
+      let json = try JSONSerialization.data(withJSONObject: meta, options: [.prettyPrinted, .sortedKeys])
+      try json.write(to: metaUrl, options: .atomic)
+    } catch {
+      staticLog.error("captureMode meta write failed: \(String(describing: error), privacy: .public)")
+    }
+    staticLog.info("captureMode saved \(base, privacy: .public)")
   }
 }

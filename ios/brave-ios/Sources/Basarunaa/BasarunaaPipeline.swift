@@ -170,7 +170,7 @@ public actor BasarunaaPipeline {
   /// Returns (isNsfw, marqoScore, latencyMs). Matches macOS POC where NSFW
   /// is a LOW priority enqueue that fires a separate notification only if
   /// positive (cf. offscreen.js Phase 1 / Phase 2 split).
-  public func checkNsfw(image: CGImage) async throws -> (isNsfw: Bool, score: Double?, latencyMs: Double) {
+  public func checkNsfw(image: CGImage) async throws -> (isNsfw: Bool, score: Double?, latencyMs: Double, nudeClasses: [String]) {
     let (_, _, _, _, nsfwClassifier, nudeNetDetector) = try await loadModelsIfNeeded()
     let nsfwStart = Date()
     let marqoResult = try? nsfwClassifier.classify(image: image)
@@ -183,6 +183,12 @@ public actor BasarunaaPipeline {
     let nsfwScore = marqoResult?.score
     let latencyMs = Date().timeIntervalSince(nsfwStart) * 1000
     let isNsfw = marqoIsNsfw || exposedHit
+    // Noms des classes détectées (pour overlay debug "debug" mode). Forme
+    // camelCase short — JS les affichera tels quels dans le HUD.
+    let nudeClasses = nudeDetections.compactMap { d -> String? in
+      guard let cls = NudeNetClass(rawValue: d.classIdx) else { return nil }
+      return String(describing: cls)
+    }
     if isNsfw {
       let trigger = marqoIsNsfw
         ? "marqo=\(String(format: "%.2f", nsfwScore ?? 0))"
@@ -193,7 +199,7 @@ public actor BasarunaaPipeline {
     } else {
       log.info("checkNsfw negative (\(String(format: "%.1f", latencyMs), privacy: .public)ms)")
     }
-    return (isNsfw: isNsfw, score: nsfwScore, latencyMs: latencyMs)
+    return (isNsfw: isNsfw, score: nsfwScore, latencyMs: latencyMs, nudeClasses: nudeClasses)
   }
 
   /// Phase 1 — person detection + gender classification. Returns ASAP so

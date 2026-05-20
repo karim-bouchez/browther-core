@@ -99,6 +99,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var yoloCountSceneById = {};        // videoId → int (YOLO trigerés par scene change)
     var sentinelCountById = {};         // videoId → int (sentinel inferences cumulées)
     var framesSinceYoloById = {};       // videoId → int (= frames rVFC depuis dernier YOLO apply)
+    var videoNudeClassesById = {};      // videoId → ['femaleBreastExposed', 'faceMale', ...] (debug NudeNet)
+    var lastYoloHashById = {};          // videoId → Uint8Array (snapshot du sceneHash au moment du dernier YOLO send)
     var sceneHashById = {};             // videoId → Uint8Array (HASH_SIZE * HASH_SIZE) du dernier hash, ou null
     var sentinelLostCountById = {};     // videoId → nb de sentinels consécutifs avec raw=0 alors qu'on trackait
     var SENTINEL_LOST_THRESHOLD = 1;    // après N sentinels vides → clear blur + trigger YOLO (réactivité 1→0)
@@ -372,6 +374,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var SENTINEL_TRACK_MAX_MISS = 3;        // drop track after N missed sentinel frames
     var SCENE_CHANGE_THRESHOLD = 0.12;      // 8×8 grayscale diff ratio > 12% = scene cut
     var SCENE_DIFF_HASH_SIZE = 8;           // 8×8 = 64 pixels, <1ms compute
+    // Frame diff pré-YOLO — si la frame courante a < 2% de différence vs la
+    // frame du dernier YOLO send, on assume scène statique et on skip le YOLO
+    // périodique (économise CPU/ANE sur vidéos statiques type screencast).
+    // Les YOLO triggered (sentinel new-person, scene cut) bypassent ce check.
+    var FRAME_DIFF_SKIP_THRESHOLD = 0.02;
+    // Force un YOLO au moins toutes les 15s même si la frame n'a pas bougé
+    // (safety net contre un état dérivé qu'on aurait raté).
+    var FRAME_DIFF_FORCE_AFTER_MS = 15000;
 
     var MAX_SAMPLE_WIDTH = 320;         // resize avant JPEG pour bridge (YOLO)
     var JPEG_QUALITY = 0.5;
@@ -992,8 +1002,38 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           var yoloTriggered = !!yoloTriggeredBySentinelById[videoId] || !!yoloTriggeredBySceneById[videoId];
           var yoloCooldownOk = (nowMs - lastYoloMs) >= YOLO_MIN_COOLDOWN_MS;
 
+          // Frame diff pré-YOLO — skip si scène statique (sauf si triggered
+          // ou si dernier YOLO trop ancien). Évite des YOLOs identiques sur
+          // une vidéo paused/statique (cf POC `FrameDiffDetector` pre-check).
+          if (!yoloInFlightById[videoId] && yoloCooldownOk && yoloDue && !yoloTriggered && !videoNsfwById[videoId]) {
+            var curHash = sceneHashById[videoId];
+            var lastHash = lastYoloHashById[videoId];
+            if (curHash && lastHash && curHash.length === lastHash.length) {
+              var totalAbsDiff = 0;
+              for (var hi2 = 0; hi2 < curHash.length; hi2++) {
+                var dh = curHash[hi2] - lastHash[hi2];
+                totalAbsDiff += dh < 0 ? -dh : dh;
+              }
+              var staticDiff = totalAbsDiff / (curHash.length * 255);
+              var sinceForceFire = (nowMs - lastYoloMs) >= FRAME_DIFF_FORCE_AFTER_MS;
+              if (staticDiff < FRAME_DIFF_SKIP_THRESHOLD && !sinceForceFire) {
+                // Décale le timer du tracker pour ré-essayer au prochain tick.
+                lastYoloTimeById[videoId] = nowMs;
+                metric('yolo_skip_static', {
+                  videoId: videoId,
+                  diff: Math.round(staticDiff * 10000) / 10000
+                });
+                yoloDue = false;  // évite la branche fire ci-dessous
+              }
+            }
+          }
+
           if (!yoloInFlightById[videoId] && yoloCooldownOk && (yoloDue || yoloTriggered)) {
             yoloInFlightById[videoId] = true;
+            // Snapshot du sceneHash courant pour le frame-diff pre-YOLO
+            // au prochain tick (= base de comparaison "scène statique").
+            var snapHash = sceneHashById[videoId];
+            lastYoloHashById[videoId] = snapHash ? new Uint8Array(snapHash) : null;
             // Les flags triggered sont consommés dans `__basarunaaApplyVideo`
             // au retour, pour pouvoir comptabiliser par trigger.
             lastYoloTimeById[videoId] = nowMs;
@@ -1451,6 +1491,26 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         var cls = Math.round(timing.classifyLatencyMs || 0);
         lines.push('det: ' + pose + 'ms cls: ' + cls + 'ms');
       }
+      // NudeNet body-parts détectés (mode 'debug' uniquement — encombre
+      // sinon le HUD). Surligné rouge si alwaysFlagged, sinon vert pâle.
+      var nudeClasses = videoNudeClassesById[videoId] || [];
+      var nudeLine = null;
+      var NUDE_ALWAYS_FLAGGED = {
+        buttocksExposed: 1, femaleBreastExposed: 1, femaleGenitaliaExposed: 1,
+        maleBreastExposed: 1, anusExposed: 1, maleGenitaliaExposed: 1
+      };
+      var hasFlagged = false;
+      if (debugMode === 'debug' && nudeClasses.length > 0) {
+        var shortNames = nudeClasses.map(function(c) {
+          // raccourci : femaleBreastExposed → fBreastEx
+          var s = c.replace('female', 'f').replace('male', 'm')
+                   .replace('Exposed', 'Ex').replace('Covered', 'Cov');
+          if (NUDE_ALWAYS_FLAGGED[c]) hasFlagged = true;
+          return s;
+        });
+        nudeLine = 'NudeNet: ' + shortNames.join(' ');
+        lines.push(nudeLine);
+      }
       var fontPx = 11;
       var lineH = fontPx + 3;
       var pad = 5;
@@ -1466,9 +1526,15 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       var boxY = dctx.canvas.height - boxH;
       dctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
       dctx.fillRect(0, boxY, boxW, boxH);
-      dctx.fillStyle = '#0f0';
       dctx.textBaseline = 'alphabetic';
       for (var li2 = 0; li2 < lines.length; li2++) {
+        // Ligne NudeNet en rouge si flagged, orange si juste détection,
+        // vert par défaut pour les autres lignes du HUD.
+        if (nudeLine && lines[li2] === nudeLine) {
+          dctx.fillStyle = hasFlagged ? '#FF4444' : '#FFAA33';
+        } else {
+          dctx.fillStyle = '#0f0';
+        }
         dctx.fillText(lines[li2], pad, boxY + pad + (li2 + 1) * lineH - 3);
       }
       dctx.restore();
@@ -1557,6 +1623,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // Stocke les persons riches (mode debug) + timing pour HUD.
         videoAllPersonsById[videoId] = Array.isArray(fullPersons) ? fullPersons : [];
         videoLastTimingById[videoId] = timing || null;
+        videoNudeClassesById[videoId] = (timing && Array.isArray(timing.nudeClasses)) ? timing.nudeClasses : [];
         // Reset framesSinceYolo — incrémenté à chaque tick rVFC.
         framesSinceYoloById[videoId] = 0;
         // Comptabilise le YOLO selon son trigger (cadence vs sentinel vs scene).
@@ -2028,6 +2095,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           delete yoloCountSceneById[id];
           delete sentinelCountById[id];
           delete framesSinceYoloById[id];
+          delete videoNudeClassesById[id];
+          delete lastYoloHashById[id];
         }
       }
     }, 1000);
