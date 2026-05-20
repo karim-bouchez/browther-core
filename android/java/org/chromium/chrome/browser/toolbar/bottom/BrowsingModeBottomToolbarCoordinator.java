@@ -20,6 +20,7 @@ import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ActivityTabProvider;
+import org.chromium.chrome.browser.ActivityTabProvider.ActivityTabTabObserver;
 import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.layouts.LayoutStateProvider;
 import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
@@ -27,6 +28,7 @@ import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tabmodel.IncognitoStateProvider;
 import org.chromium.chrome.browser.tabmodel.TabModelSelector;
 import org.chromium.chrome.browser.theme.ThemeColorProvider;
+import org.chromium.components.embedder_support.util.UrlUtilities;
 import org.chromium.chrome.browser.toolbar.BraveHomeButton;
 import org.chromium.chrome.browser.toolbar.TabSwitcherButtonCoordinator;
 import org.chromium.chrome.browser.toolbar.TabSwitcherButtonView;
@@ -85,6 +87,11 @@ public class BrowsingModeBottomToolbarCoordinator {
     private final BookmarksButton mBookmarkButton;
     private final MenuButton mMenuButton;
     @Nullable private ThemeColorProvider mThemeColorProvider;
+
+    // Browther: observer qui swap le bouton central Search (sur NTP) /
+    // NewTab "+" (sur les autres pages) selon le tab actif. Aligné sur
+    // iOS qui montre "+" sur les pages normales et "Search" sur la NTP.
+    @Nullable private ActivityTabTabObserver mCenterButtonTabObserver;
 
     BrowsingModeBottomToolbarCoordinator(
             View root,
@@ -153,6 +160,44 @@ public class BrowsingModeBottomToolbarCoordinator {
         }
 
         mMenuButton = mToolbarRoot.findViewById(R.id.menu_button_wrapper);
+
+        // Browther: observer le tab actif pour swap Search/NewTab selon que
+        // l'on est sur la NTP ou non. `shouldTrigger=true` pour synchroniser
+        // l'état initial du bouton central dès l'attache au premier tab.
+        mCenterButtonTabObserver = new ActivityTabTabObserver(tabProvider, true) {
+            @Override
+            public void onUrlUpdated(Tab tab) {
+                updateCenterButtonForTab(tab);
+            }
+
+            @Override
+            protected void onObservingDifferentTab(@Nullable Tab tab) {
+                updateCenterButtonForTab(tab);
+            }
+        };
+    }
+
+    /**
+     * Browther: bascule le bouton central entre SearchAccelerator (icône loupe,
+     * affiché sur la NTP — pour focus l'omnibox) et NewTabButton (icône "+",
+     * affiché sur les pages normales — pour ouvrir un nouvel onglet). Aligné
+     * sur le pattern iOS où la bottom bar montre Search sur la NTP et "+"
+     * partout ailleurs.
+     */
+    private void updateCenterButtonForTab(@Nullable Tab tab) {
+        boolean isNtp = tab != null && UrlUtilities.isNtpUrl(tab.getUrl());
+        mSearchAccelerator.setVisibility(isNtp ? View.VISIBLE : View.GONE);
+        getNewTabButtonParent().setVisibility(isNtp ? View.GONE : View.VISIBLE);
+    }
+
+    /**
+     * Browther: appelable depuis BottomToolbarCoordinator (ex. après sortie
+     * du tab switcher) pour resync le bouton central avec le tab courant.
+     * L'ActivityTabTabObserver ne trigge pas quand on quitte un overlay sans
+     * changer de tab.
+     */
+    void syncCenterButtonForCurrentTab() {
+        updateCenterButtonForTab(mTabProvider.get());
     }
 
     /**
@@ -302,6 +347,11 @@ public class BrowsingModeBottomToolbarCoordinator {
     public void destroy() {
         if (mShareButtonListenerSupplier != null && mShareButtonListenerSupplierCallback != null) {
             mShareButtonListenerSupplier.removeObserver(mShareButtonListenerSupplierCallback);
+        }
+        // Browther: destroy l'observer du bouton central avant les autres deps.
+        if (mCenterButtonTabObserver != null) {
+            mCenterButtonTabObserver.destroy();
+            mCenterButtonTabObserver = null;
         }
         mMediator.destroy();
         mBraveHomeButton.destroy();

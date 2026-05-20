@@ -405,6 +405,16 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
         }
     }
 
+    // Browther: Translate retiré complètement (aligné sur macOS, cf. sprint
+    // cleanup 2026-05-19). Upstream `AppMenuPropertiesDelegateImpl.
+    // shouldShowTranslateMenuItem` était toujours appelé via la chaîne de
+    // build du menu et ré-ajoutait l'item, malgré le retrait du
+    // `buildTranslateMenuItem` explicite dans Brave.
+    @Override
+    public boolean shouldShowTranslateMenuItem(@Nullable Tab currentTab) {
+        return false;
+    }
+
     @Override
     public @Nullable View buildFooterView(AppMenuHandler appMenuHandler) {
         if (isMenuButtonInBottomToolbar() && shouldShowPageMenu()) {

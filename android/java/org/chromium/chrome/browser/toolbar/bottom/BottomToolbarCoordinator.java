@@ -248,14 +248,10 @@ class BottomToolbarCoordinator implements View.OnLongClickListener {
                             mIsInTabSwitcherMode = false;
                             BrowsingModeBottomToolbarCoordinator browsingModeCoordinator =
                                     (BrowsingModeBottomToolbarCoordinator) mBrowsingModeCoordinator;
-                            // Browther: SearchAccelerator caché côté Browther
-                            // (aligné sur iOS, "+" central). Le swap upstream
-                            // Brave réaffichait Search et hide NewTab quand on
-                            // sortait du tab switcher — on inverse : Search
-                            // reste GONE, NewTab reste VISIBLE.
-                            browsingModeCoordinator
-                                    .getSearchAccelerator()
-                                    .setVisibility(View.GONE);
+                            // Browther: bouton central (Search OU "+") géré
+                            // par syncCenterButtonForCurrentTab selon que le
+                            // tab actif est la NTP ou non. Aligné sur iOS.
+                            browsingModeCoordinator.syncCenterButtonForCurrentTab();
                             if (BottomToolbarVariationManager.isHomeButtonOnBottomControls()) {
                                 browsingModeCoordinator.getHomeButton().setVisibility(View.VISIBLE);
                             }
@@ -267,11 +263,6 @@ class BottomToolbarCoordinator implements View.OnLongClickListener {
                             if (BottomToolbarVariationManager.isTabSwitcherOnBottomControls()) {
                                 browsingModeCoordinator
                                         .getTabSwitcherButtonView()
-                                        .setVisibility(View.VISIBLE);
-                            }
-                            if (BottomToolbarVariationManager.isNewTabButtonOnBottomControls()) {
-                                browsingModeCoordinator
-                                        .getNewTabButtonParent()
                                         .setVisibility(View.VISIBLE);
                             }
 
