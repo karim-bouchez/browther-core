@@ -35,14 +35,16 @@ class BasarunaaScriptHandler: TabContentScript {
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
 
-  /// PTS (en ms média) de la dernière frame analysée, par `videoId` côté JS.
-  /// Permet un échantillonnage 1 / s indépendant du framerate du `<video>`.
-  /// Sur main thread (handler delivery) — pas de lock nécessaire.
-  /// Pivot V2 (2026-05-17) : VTDecompressionSession + VP9 est bloqué par
-  /// un entitlement Apple privé ⇒ on récupère les pixels rendus côté JS via
+  /// Pivot V2 (2026-05-17) : VTDecompressionSession + VP9 est bloqué par un
+  /// entitlement Apple privé ⇒ on récupère les pixels rendus côté JS via
   /// `canvas.drawImage(video)` puis on bridge en JPEG.
-  private var lastAnalyzedAtByVideo: [Int: Int64] = [:]
-  private let analyzeIntervalMs: Int64 = 1000
+  ///
+  /// V4 (2026-05-20) : retrait du throttle natif sur `analyzeIntervalMs`. Le
+  /// JS implémente le scheduling two-tier (sentinel + YOLO event-driven),
+  /// le natif ne doit pas mordre par-dessus — sinon les sendings JS sont
+  /// drop silencieusement et `yoloInFlightById` reste figé (= flou freezé).
+  /// Pour la même raison, `processVideoFrame` notifie *toujours* le JS, même
+  /// en cas d'erreur de décodage / d'analyse.
 
   static let scriptName = "BasarunaaScript"
   static let scriptId = UUID().uuidString
@@ -115,7 +117,6 @@ class BasarunaaScriptHandler: TabContentScript {
 
     case "pageReset":
       isActive = false
-      lastAnalyzedAtByVideo.removeAll()
       log.info("page_reset url=\(data, privacy: .public)")
 
     case "fullscreenEnter":
@@ -160,26 +161,58 @@ class BasarunaaScriptHandler: TabContentScript {
         log.error("videoFrame header parse failed")
         return
       }
-      // Skip si la dernière analyse pour ce videoId est trop récente. On
-      // pose `.max` à l'enqueue pour que les frames qui arrivent pendant
-      // l'analyse soient drop, puis on remet le PTS réel à la fin. Garantit
-      // une seule Task en vol par <video> et évite l'accumulation.
-      //
-      // ⚠️ Ne *jamais* utiliser `?? Int64.min` ici : `ctMs - Int64.min`
-      // overflow Int64 et Swift trappe via precondition (EXC_BREAKPOINT,
-      // crashes 2026-05-17 19:21 / 19:36). On guarde explicitement le cas
-      // "1ère frame pour ce videoId" par if-let.
-      if let last = lastAnalyzedAtByVideo[videoId] {
-        if last == .max { return }
-        if ctMs - last < analyzeIntervalMs { return }
-      }
-      lastAnalyzedAtByVideo[videoId] = .max
+      // V4 : pas de throttle natif — le JS pilote sa propre cadence (1s en
+      // tracking, 5s en safe + trigger sentinel). Tout drop natif sans
+      // callback fige `yoloInFlightById` côté JS (= flou freezé).
       let b64 = String(data[v5Start...])
       let typeErasedTab: any TabState = tab
       Task.detached { [weak self] in
         await self?.processVideoFrame(
           videoId: videoId, ctMs: ctMs, width: w, height: h, b64: b64,
           tab: typeErasedTab
+        )
+      }
+
+    case "videoSentinel":
+      // data = "<videoId>|<ct_ms>|<w>|<h>|<base64Jpeg>"
+      // Sentinel léger (NanoDet seul, ~5-20ms). Pas de throttle natif —
+      // le JS pilote sa propre cadence (`SENTINEL_INTERVAL`, cooldown,
+      // `sentinelInFlight` flag) en parité avec le POC macOS
+      // `private/extensions/basarunaa/src/video/video_processor.js`.
+      var sPipes: [String.Index] = []
+      sPipes.reserveCapacity(4)
+      var sIdx = data.startIndex
+      while sPipes.count < 4, let next = data[sIdx...].firstIndex(of: "|") {
+        sPipes.append(next)
+        sIdx = data.index(after: next)
+      }
+      guard sPipes.count == 4 else {
+        log.error("videoSentinel parse failed (no 4 pipes)")
+        return
+      }
+      let sv1Start = data.startIndex
+      let sv1End = sPipes[0]
+      let sv2Start = data.index(after: sPipes[0])
+      let sv2End = sPipes[1]
+      let sv3Start = data.index(after: sPipes[1])
+      let sv3End = sPipes[2]
+      let sv4Start = data.index(after: sPipes[2])
+      let sv4End = sPipes[3]
+      let sv5Start = data.index(after: sPipes[3])
+      guard let sVideoId = Int(data[sv1Start..<sv1End]),
+        let sCtMs = Int64(data[sv2Start..<sv2End]),
+        let sW = Int(data[sv3Start..<sv3End]),
+        let sH = Int(data[sv4Start..<sv4End])
+      else {
+        log.error("videoSentinel header parse failed")
+        return
+      }
+      let sB64 = String(data[sv5Start...])
+      let sTab: any TabState = tab
+      Task.detached { [weak self] in
+        await self?.processVideoSentinel(
+          videoId: sVideoId, ctMs: sCtMs, width: sW, height: sH, b64: sB64,
+          tab: sTab
         )
       }
 
@@ -191,64 +224,129 @@ class BasarunaaScriptHandler: TabContentScript {
   // MARK: - Video frame processing (pivot D)
 
   /// Décompresse un JPEG capturé par JS (`canvas.drawImage(video)`), invoque
-  /// `BasarunaaPipeline.analyze`. V3 ajoutera le retour des polygones de
-  /// blur au JS pour overlay.
+  /// `BasarunaaPipeline.analyze` puis push les bboxes au JS overlay.
+  ///
+  /// V4 (2026-05-20) : appelle TOUJOURS `__basarunaaApplyVideo` côté JS, même
+  /// en cas d'erreur (bboxes vides). Sans ça, le JS reste figé sur
+  /// `yoloInFlightById = true` et le scheduler arrête de fire des YOLO →
+  /// flou freezé jusqu'au pageReset.
   private func processVideoFrame(
     videoId: Int, ctMs: Int64, width: Int, height: Int, b64: String,
     tab: any TabState
   ) async {
     let start = Date()
-    defer {
-      // Toujours réouvrir le slot pour ce videoId : on remet `ctMs` réel
-      // pour que les frames suivantes soient throttlées par `analyzeIntervalMs`.
-      Task { @MainActor [weak self] in
-        self?.lastAnalyzedAtByVideo[videoId] = ctMs
+    var bboxes: [[Double]] = []
+    var isNsfw = false
+    var personsCount = 0
+    var modeLabel = ""
+
+    decode: do {
+      guard let jpegData = Data(base64Encoded: b64) else {
+        log.error("videoFrame base64 decode failed videoId=\(videoId, privacy: .public)")
+        break decode
       }
-    }
-    guard let jpegData = Data(base64Encoded: b64) else {
-      log.error("videoFrame base64 decode failed videoId=\(videoId, privacy: .public)")
-      return
-    }
-    guard let uiImage = UIImage(data: jpegData), let cgImage = uiImage.cgImage else {
-      log.error(
-        "videoFrame jpeg decode failed videoId=\(videoId, privacy: .public) bytes=\(jpegData.count, privacy: .public)"
-      )
-      return
-    }
-    do {
-      let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
-      let mode = Preferences.Basarunaa.effectiveMode
-      let (_, personsToBlur) = decide(from: result.persons, mode: mode)
-      let elapsedMs = Date().timeIntervalSince(start) * 1000
-      log.info(
-        """
-        video_analyzed videoId=\(videoId, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
-        w=\(width, privacy: .public) h=\(height, privacy: .public) \
-        persons=\(result.persons.count, privacy: .public) \
-        toBlur=\(personsToBlur.count, privacy: .public) mode=\(mode, privacy: .public) \
-        nsfw=\(result.isNsfw, privacy: .public) elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
-        """
-      )
-      // V3 — push les bboxes des personnes à flouter au JS overlay.
-      // bbox = [x1, y1, x2, y2] en coords analyse (= dimensions JPEG envoyé,
-      // pas les dims du <video> à l'écran). JS rescale via getBoundingClientRect.
-      let bboxes: [[Double]] = personsToBlur.map {
-        [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY]
+      guard let uiImage = UIImage(data: jpegData), let cgImage = uiImage.cgImage else {
+        log.error(
+          "videoFrame jpeg decode failed videoId=\(videoId, privacy: .public) bytes=\(jpegData.count, privacy: .public)"
+        )
+        break decode
       }
       do {
-        _ = try await tab.evaluateJavaScript(
-          functionName: "window.__basarunaaApplyVideo",
-          args: [videoId, ctMs, width, height, bboxes, result.isNsfw],
-          contentWorld: Self.scriptSandbox
+        let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+        let mode = Preferences.Basarunaa.effectiveMode
+        let (_, personsToBlur) = decide(from: result.persons, mode: mode)
+        // bbox = [x1, y1, x2, y2] en coords analyse (= dimensions JPEG envoyé,
+        // pas les dims du <video> à l'écran). JS rescale.
+        bboxes = personsToBlur.map { [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY] }
+        isNsfw = result.isNsfw
+        personsCount = result.persons.count
+        modeLabel = mode
+      } catch {
+        log.error(
+          "videoFrame analyze failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
+        )
+      }
+    }
+
+    let elapsedMs = Date().timeIntervalSince(start) * 1000
+    log.info(
+      """
+      video_analyzed videoId=\(videoId, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
+      w=\(width, privacy: .public) h=\(height, privacy: .public) \
+      persons=\(personsCount, privacy: .public) \
+      toBlur=\(bboxes.count, privacy: .public) mode=\(modeLabel, privacy: .public) \
+      nsfw=\(isNsfw, privacy: .public) elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
+      """
+    )
+
+    // ALWAYS notify the JS — even on error — to release `yoloInFlightById`.
+    do {
+      _ = try await tab.evaluateJavaScript(
+        functionName: "window.__basarunaaApplyVideo",
+        args: [videoId, ctMs, width, height, bboxes, isNsfw],
+        contentWorld: Self.scriptSandbox
+      )
+    } catch {
+      log.error(
+        "videoFrame evaluateJS failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
+      )
+    }
+  }
+
+  /// Sentinel léger (NanoDet seul) — appelé à ~100ms d'intervalle par le JS
+  /// pour smooth-tracker les positions entre 2 analyses YOLO.
+  ///
+  /// V4 (2026-05-20) : appelle TOUJOURS `__basarunaaApplyVideoSentinel` côté
+  /// JS, même en cas d'erreur (payload vide), pour éviter le freeze de
+  /// `sentinelInFlightById`.
+  private func processVideoSentinel(
+    videoId: Int, ctMs: Int64, width: Int, height: Int, b64: String,
+    tab: any TabState
+  ) async {
+    let start = Date()
+    var payload: [[Double]] = []
+
+    decode: do {
+      guard let jpegData = Data(base64Encoded: b64) else {
+        log.error("videoSentinel base64 decode failed videoId=\(videoId, privacy: .public)")
+        break decode
+      }
+      guard let uiImage = UIImage(data: jpegData), let cgImage = uiImage.cgImage else {
+        log.error(
+          "videoSentinel jpeg decode failed videoId=\(videoId, privacy: .public) bytes=\(jpegData.count, privacy: .public)"
+        )
+        break decode
+      }
+      do {
+        let result = try await BasarunaaPipeline.shared.sentinel(image: cgImage)
+        payload = result.bboxes.map {
+          [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY, $0.confidence]
+        }
+        let elapsedMs = Date().timeIntervalSince(start) * 1000
+        log.info(
+          """
+          video_sentinel videoId=\(videoId, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
+          w=\(width, privacy: .public) h=\(height, privacy: .public) \
+          bboxes=\(result.bboxes.count, privacy: .public) \
+          elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
+          """
         )
       } catch {
         log.error(
-          "videoFrame evaluateJS failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
+          "videoSentinel inference failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
         )
       }
+    }
+
+    do {
+      _ = try await tab.evaluateJavaScript(
+        functionName: "window.__basarunaaApplyVideoSentinel",
+        args: [videoId, ctMs, width, height, payload],
+        contentWorld: Self.scriptSandbox
+      )
     } catch {
       log.error(
-        "videoFrame analyze failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
+        "videoSentinel evaluateJS failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
       )
     }
   }

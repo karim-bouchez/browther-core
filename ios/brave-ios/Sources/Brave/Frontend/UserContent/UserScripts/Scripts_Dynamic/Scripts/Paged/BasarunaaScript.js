@@ -45,11 +45,17 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   //     fullscreen, c'est le canvas qui passe en fullscreen (Web API
   //     requestFullscreen sur iOS 16.4+) → blur reste actif.
   //
-  // ML pipeline : sample du canvas display **avant** blur, throttlé via
-  // SAMPLE_INTERVAL_MS, encodé JPEG q=0.5 max 320 px largeur, envoyé via
-  // `videoFrame`. Swift appelle BasarunaaPipeline puis push les bboxes des
-  // personnes à flouter via `__basarunaaApplyVideo` (variable globale lue
-  // par le render loop à chaque frame).
+  // ML pipeline (V4 two-tier, parité POC macOS) :
+  //   • YOLO heavy via `videoFrame` (320 px max, JPEG q=0.5) — cadence
+  //     adaptative 1s en tracking / 5s en safe + trigger event-driven
+  //     quand le sentinel détecte une nouvelle personne (2 sightings).
+  //   • NanoDet sentinel via `videoSentinel` (480 px, JPEG q=0.6) toutes
+  //     les ~100ms entre 2 YOLO → smooth-track les bboxes (EMA) +
+  //     déclenche un YOLO immédiat si une bbox sentinel ne matche
+  //     aucune bbox YOLO connue (IoU < SENTINEL_IOU_MATCH).
+  //   • Swift push les bboxes via `__basarunaaApplyVideo` (YOLO complet
+  //     post-mode filter) et `__basarunaaApplyVideoSentinel` (bboxes
+  //     bruts NanoDet à utiliser pour smooth tracking).
   (function() {
     var hasVRC = typeof HTMLVideoElement !== 'undefined'
       && typeof HTMLVideoElement.prototype.requestVideoFrameCallback === 'function';
@@ -63,19 +69,311 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var taintedVideos = new WeakSet();
     var videosById = {};                // videoId → <video>
     var displayCanvasById = {};         // videoId → <canvas> overlay display
-    var lastSentAtMs = new WeakMap();   // <video> → wall-clock ms du dernier send
     // Bboxes courantes à flouter, partagées entre le tick render (rVFC) et
     // les updates Swift via `__basarunaaApplyVideo`. La key NSFW remplace
     // toutes les bboxes par un full-frame blur.
     var currentBboxesById = {};         // videoId → [[x1,y1,x2,y2], ...]
     var currentBboxMetaById = {};       // videoId → { analyseW, analyseH }
 
-    var SAMPLE_INTERVAL_MS = 2000;      // ML sample throttle (PTS-based)
-    var MAX_SAMPLE_WIDTH = 320;         // resize avant JPEG pour bridge
+    // ─── Sentinel two-tier state (per videoId) ─────────────────────────────
+    // Tout dans des maps par videoId pour gérer plusieurs <video> en parallèle
+    // sans collision (multi-onglets / multi-players sur une page).
+    var lastYoloTimeById = {};          // videoId → ms du dernier YOLO send
+    var lastSentinelTimeById = {};      // videoId → ms du dernier sentinel send
+    var yoloInFlightById = {};          // videoId → bool (true entre send et apply)
+    var sentinelInFlightById = {};      // videoId → bool
+    var sentinelTracksById = {};        // videoId → [{ bbox:[x1,y1,x2,y2], confidence, missCount, vx, vy, yoloW, yoloH }]
+    var lastYoloBboxesById = {};        // videoId → [[x1,y1,x2,y2], ...] (raw YOLO output, sans pad sentinel)
+    var pendingNewPersonsById = {};     // videoId → [{ bbox, confidence }] vus à la run précédente, en attente du 2e sighting
+    var yoloTriggeredBySentinelById = {}; // videoId → bool (consommé au prochain tick YOLO)
+    var videoStateById = {};            // videoId → 'safe' | 'tracking' (cadence YOLO adaptative)
+    var sceneHashById = {};             // videoId → Uint8Array (HASH_SIZE * HASH_SIZE) du dernier hash, ou null
+    var sentinelLostCountById = {};     // videoId → nb de sentinels consécutifs avec raw=0 alors qu'on trackait
+    var SENTINEL_LOST_THRESHOLD = 1;    // après N sentinels vides → clear blur + trigger YOLO (réactivité 1→0)
+    // YOLO↔sentinel offset par bbox YOLO (parité POC). À chaque YOLO apply,
+    // on calcule le décalage moyen entre la position YOLO et la position
+    // NanoDet sur la MÊME personne (matching centre-distance). On utilise
+    // cet offset dans `_updateBlurFromSentinel` pour corriger les positions
+    // sentinel et obtenir la vraie position YOLO-équivalente → tracking
+    // stable malgré le bias de localisation de NanoDet (qui peut centrer
+    // sur le torse alors que YOLO centre différemment).
+    var yoloOffsetsById = {};           // videoId → [{ offsetX, offsetY, yoloW, yoloH }] aligné avec currentBboxes
+    // Canvas pour le hash 8×8 (parité POC `FrameDiffDetector`). On passe
+    // d'abord par un canvas intermédiaire taille raisonnable parce que
+    // WebKit iOS ne décode pas les pixels d'un `<video>` hardware sur un
+    // canvas trop petit (8×8 ou 64×64 → reste tout noir). 256×256 est
+    // au-dessus du seuil observé (sampleCanvas à 480 marche en routine,
+    // 64 ne marche pas — testé empiriquement 2026-05-20). On downsample
+    // ensuite à 8×8 via un 2e drawImage qui marche normalement entre
+    // 2 canvas.
+    var SCENE_INTERMEDIATE_SIZE = 256;
+    var sceneIntermediateCanvas = document.createElement('canvas');
+    sceneIntermediateCanvas.width = SCENE_INTERMEDIATE_SIZE;
+    sceneIntermediateCanvas.height = SCENE_INTERMEDIATE_SIZE;
+    var sceneIntermediateCtx = sceneIntermediateCanvas.getContext('2d');
+    var sceneHashCanvas = document.createElement('canvas');
+    sceneHashCanvas.width = SCENE_DIFF_HASH_SIZE;
+    sceneHashCanvas.height = SCENE_DIFF_HASH_SIZE;
+    var sceneHashCtx = sceneHashCanvas.getContext('2d', { willReadFrequently: true });
+
+    // Compute 8×8 grayscale hash + diff vs precedent. Returns ratio 0..1.
+    // Première frame retourne 1 (full change) — caller doit ignorer le 1er
+    // appel. Le hash courant est stocké en interne pour la prochaine
+    // comparaison. Parité POC `private/extensions/basarunaa/src/utils/frame_diff.js`.
+    //
+    // Sur iOS WebKit, drawImage(video, 0,0, 8, 8) direct ne dessine RIEN
+    // (le video est en hardware overlay, downsample extrême non supporté).
+    // On passe par un canvas intermédiaire 64×64 d'abord, puis on
+    // downsample à 8×8 via un 2e drawImage.
+    function _computeSceneDiff(videoId, video) {
+      var n = SCENE_DIFF_HASH_SIZE;
+      var mid = SCENE_INTERMEDIATE_SIZE;
+      var size = n * n;
+      try {
+        // WebKit iOS quirk — un canvas réutilisé pour drawImage(<video>)
+        // ne reçoit PAS les pixels du video decoder (canvas reste tout
+        // noir, observé 2026-05-20 hashSum=0 sur des centaines de samples).
+        // Le sampleCanvas marche parce qu'il est resized à chaque sample
+        // (canvas.width = X clear et "refresh" le canvas pour le decoder).
+        // On reproduit ce trick ici : force resize à chaque appel même
+        // si la dimension n'a pas changé.
+        sceneIntermediateCanvas.width = mid;
+        sceneIntermediateCanvas.height = mid;
+        sceneHashCanvas.width = n;
+        sceneHashCanvas.height = n;
+        sceneIntermediateCtx.drawImage(video, 0, 0, mid, mid);
+        sceneHashCtx.imageSmoothingEnabled = true;
+        sceneHashCtx.imageSmoothingQuality = 'high';
+        sceneHashCtx.drawImage(sceneIntermediateCanvas, 0, 0, mid, mid, 0, 0, n, n);
+      } catch (e) {
+        // CORS taint ou video pas prêt — ignore
+        return 0;
+      }
+      var data = sceneHashCtx.getImageData(0, 0, n, n).data;
+      var hash = new Uint8Array(size);
+      for (var i = 0; i < size; i++) {
+        var off = i * 4;
+        hash[i] = (data[off] * 2 + data[off + 1] * 3 + data[off + 2]) / 6;
+      }
+      var last = sceneHashById[videoId];
+      sceneHashById[videoId] = hash;
+      if (!last) return 1;
+      var total = 0;
+      for (var j = 0; j < size; j++) {
+        var d = hash[j] - last[j];
+        total += d < 0 ? -d : d;
+      }
+      return total / (size * 255);
+    }
+
+    // ─── Sentinel helpers (parité POC video_processor.js) ─────────────────
+    function _bboxIoU(a, b) {
+      var x1 = Math.max(a[0], b[0]);
+      var y1 = Math.max(a[1], b[1]);
+      var x2 = Math.min(a[2], b[2]);
+      var y2 = Math.min(a[3], b[3]);
+      var inter = Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
+      if (inter === 0) return 0;
+      var areaA = (a[2] - a[0]) * (a[3] - a[1]);
+      var areaB = (b[2] - b[0]) * (b[3] - b[1]);
+      return inter / (areaA + areaB - inter);
+    }
+
+    function _padBbox(bbox, pad, maxW, maxH) {
+      var x1 = bbox[0], y1 = bbox[1], x2 = bbox[2], y2 = bbox[3];
+      var w = x2 - x1, h = y2 - y1;
+      var px = w * pad, py = h * pad;
+      return [
+        Math.max(0, x1 - px),
+        Math.max(0, y1 - py),
+        Math.min(maxW, x2 + px),
+        Math.min(maxH, y2 + py),
+      ];
+    }
+
+    // EMA-smoothed sentinel track update. Matches incoming raw bboxes to
+    // existing tracks by IoU, blends positions with adaptive alpha (faster
+    // when motion is coherent — cosine similarity with smoothed velocity).
+    // Ports `_smoothSentinelTracks` from the POC (1:1).
+    function _smoothSentinelTracks(videoId, rawPersons, vw, vh) {
+      var tracks = sentinelTracksById[videoId] || [];
+      var used = {};
+      for (var ti = 0; ti < tracks.length; ti++) {
+        var track = tracks[ti];
+        var bestIoU = 0, bestIdx = -1;
+        for (var ri = 0; ri < rawPersons.length; ri++) {
+          if (used[ri]) continue;
+          var iou = _bboxIoU(track.bbox, rawPersons[ri].bbox);
+          if (iou > bestIoU) { bestIoU = iou; bestIdx = ri; }
+        }
+        if (bestIdx >= 0 && bestIoU > 0.2) {
+          used[bestIdx] = true;
+          var newBbox = rawPersons[bestIdx].bbox;
+          var oldCx = (track.bbox[0] + track.bbox[2]) / 2;
+          var oldCy = (track.bbox[1] + track.bbox[3]) / 2;
+          var newCx = (newBbox[0] + newBbox[2]) / 2;
+          var newCy = (newBbox[1] + newBbox[3]) / 2;
+          var trackH = (track.bbox[3] - track.bbox[1]) || 1;
+          var dx = newCx - oldCx;
+          var dy = newCy - oldCy;
+          var displacement = Math.sqrt(dx * dx + dy * dy) / trackH;
+          track.vx = (track.vx || 0) * 0.7 + dx * 0.3;
+          track.vy = (track.vy || 0) * 0.7 + dy * 0.3;
+          if (displacement < SENTINEL_DEAD_ZONE) {
+            track.missCount = 0;
+          } else if (displacement > 0.3) {
+            track.bbox = newBbox.slice();
+            track.yoloW = null;
+            track.yoloH = null;
+            track.vx = 0;
+            track.vy = 0;
+          } else {
+            var velMag = Math.sqrt(track.vx * track.vx + track.vy * track.vy);
+            var movMag = Math.sqrt(dx * dx + dy * dy);
+            var alpha = SENTINEL_SMOOTH_ALPHA;
+            if (velMag > 1 && movMag > 1) {
+              var cosine = (track.vx * dx + track.vy * dy) / (velMag * movMag);
+              if (cosine > 0.3) {
+                alpha = Math.min(0.85, SENTINEL_SMOOTH_ALPHA + cosine * 0.6);
+              }
+            }
+            var w = track.yoloW || (newBbox[2] - newBbox[0]);
+            var h = track.yoloH || (newBbox[3] - newBbox[1]);
+            var smoothCx = oldCx + dx * alpha;
+            var smoothCy = oldCy + dy * alpha;
+            track.bbox = [smoothCx - w / 2, smoothCy - h / 2, smoothCx + w / 2, smoothCy + h / 2];
+          }
+          track.confidence = rawPersons[bestIdx].confidence;
+          track.missCount = 0;
+        } else {
+          track.missCount = (track.missCount || 0) + 1;
+        }
+      }
+      tracks = tracks.filter(function(t) { return t.missCount < SENTINEL_TRACK_MAX_MISS; });
+      for (var ri2 = 0; ri2 < rawPersons.length; ri2++) {
+        if (used[ri2]) continue;
+        tracks.push({
+          bbox: rawPersons[ri2].bbox.slice(),
+          confidence: rawPersons[ri2].confidence,
+          missCount: 0,
+        });
+      }
+      sentinelTracksById[videoId] = tracks;
+      return tracks.map(function(t) {
+        return { bbox: t.bbox.slice(), confidence: t.confidence };
+      });
+    }
+
+    // Sentinel bboxes that don't overlap any of the last YOLO bboxes (IoU
+    // below threshold) are candidates for "new person" YOLO trigger.
+    function _findUnmatchedPersons(sentinelPersons, yoloBboxes) {
+      if (!yoloBboxes || yoloBboxes.length === 0) return sentinelPersons.slice();
+      var unmatched = [];
+      for (var i = 0; i < sentinelPersons.length; i++) {
+        var sp = sentinelPersons[i];
+        var matched = false;
+        for (var j = 0; j < yoloBboxes.length; j++) {
+          if (_bboxIoU(sp.bbox, yoloBboxes[j]) > SENTINEL_IOU_MATCH) {
+            matched = true;
+            break;
+          }
+        }
+        if (!matched) unmatched.push(sp);
+      }
+      return unmatched;
+    }
+
+    // Re-aligns current blur bboxes to fresher sentinel positions (between
+    // 2 YOLO runs). Parité POC `_updateBlurPositions` :
+    //  - Match sentinel ↔ yoloBbox par centre-distance (tolérance 60% hauteur)
+    //  - Position corrigée = sentinelCentre − offset YOLO↔sentinel appris
+    //  - Dead zone : skip si le shift est < 4% de la hauteur YOLO (bruit)
+    //  - Garde les dimensions YOLO d'origine (pas du sentinel paddé)
+    // L'offset retire le bias systématique de NanoDet (centre torse vs
+    // centre YOLO différent) → tracking stable, pas de jitter.
+    function _updateBlurFromSentinel(videoId, sentinelPersons) {
+      var current = currentBboxesById[videoId];
+      if (!current || !current.length) return;
+      var offsets = yoloOffsetsById[videoId] || [];
+      var updated = current.map(function(yoloBbox, idx) {
+        var off = offsets[idx];
+        var yoloW = off ? off.yoloW : (yoloBbox[2] - yoloBbox[0]);
+        var yoloH = off ? off.yoloH : ((yoloBbox[3] - yoloBbox[1]) || 1);
+        var offX = off ? off.offsetX : 0;
+        var offY = off ? off.offsetY : 0;
+        var ypCx = (yoloBbox[0] + yoloBbox[2]) / 2;
+        var ypCy = (yoloBbox[1] + yoloBbox[3]) / 2;
+        var maxDist = yoloH * 0.6;
+        var bestDist = Infinity, bestBbox = null;
+        for (var i = 0; i < sentinelPersons.length; i++) {
+          var t = sentinelPersons[i].bbox;
+          var tCx = (t[0] + t[2]) / 2;
+          var tCy = (t[1] + t[3]) / 2;
+          var dx = ypCx - tCx;
+          var dy = ypCy - tCy;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestBbox = t;
+          }
+        }
+        if (!bestBbox || bestDist > maxDist) return yoloBbox;
+        // Corrige la position sentinel par l'offset appris au dernier YOLO.
+        var sentCx = (bestBbox[0] + bestBbox[2]) / 2;
+        var sentCy = (bestBbox[1] + bestBbox[3]) / 2;
+        var correctedCx = sentCx - offX;
+        var correctedCy = sentCy - offY;
+        var dCx = correctedCx - ypCx;
+        var dCy = correctedCy - ypCy;
+        var disp = Math.sqrt(dCx * dCx + dCy * dCy) / yoloH;
+        if (disp < SENTINEL_DEAD_ZONE) return yoloBbox;
+        return [
+          correctedCx - yoloW / 2, correctedCy - yoloH / 2,
+          correctedCx + yoloW / 2, correctedCy + yoloH / 2
+        ];
+      });
+      currentBboxesById[videoId] = updated;
+    }
+
+    // ─── Sentinel two-tier V4 ──────────────────────────────────────────────
+    // Parité macOS POC `private/extensions/basarunaa/src/video/video_processor.js`
+    // (lignes 22-32). 3 cadences imbriquées + event-driven :
+    //   • Sentinel NanoDet ~100ms → smooth-track les bboxes entre 2 YOLO
+    //   • YOLO 1s en tracking (au moins 1 personne à l'écran)
+    //   • YOLO 5s en safe (écran vide — économie d'inférence)
+    //   • YOLO trigger immédiat si sentinel voit une bbox non-trackée
+    //     (avec confirmation 2 sightings consécutifs pour filtrer les FPs).
+    var YOLO_INTERVAL_TRACKING_MS = 1000;  // YOLO refresh while at least 1 person on-screen
+    var YOLO_INTERVAL_SAFE_MS = 5000;       // YOLO refresh while screen empty
+    var YOLO_MIN_COOLDOWN_MS = 300;         // hard floor between YOLO runs
+    var SENTINEL_INTERVAL_MS = 100;         // NanoDet sentinel target cadence
+    var SENTINEL_MIN_COOLDOWN_MS = 80;      // hard floor between sentinel runs
+    var SENTINEL_CAPTURE_SIZE = 480;        // sentinel capture max dim (vs 320 for YOLO)
+    var SENTINEL_IOU_MATCH = 0.3;           // IoU threshold to match sentinel↔YOLO bbox
+    var SENTINEL_BBOX_PAD = 0.15;           // 15% pad on sentinel bboxes
+    var SENTINEL_SMOOTH_ALPHA = 0.2;        // EMA base smoothing (POC adaptive 0.2-0.85)
+    var SENTINEL_DEAD_ZONE = 0.04;          // ignore <4% bbox height movement (noise)
+    var SENTINEL_TRACK_MAX_MISS = 3;        // drop track after N missed sentinel frames
+    var SCENE_CHANGE_THRESHOLD = 0.12;      // 8×8 grayscale diff ratio > 12% = scene cut
+    var SCENE_DIFF_HASH_SIZE = 8;           // 8×8 = 64 pixels, <1ms compute
+
+    var MAX_SAMPLE_WIDTH = 320;         // resize avant JPEG pour bridge (YOLO)
     var JPEG_QUALITY = 0.5;
-    var BLUR_DOWNSAMPLE = 20;           // 20× downsample : flou très visible
+    var SENTINEL_JPEG_QUALITY = 0.6;        // sentinel q=0.6 (POC parity)
+    var BLUR_DOWNSAMPLE = 50;           // 50× downsample (était 30 — encore plus opaque)
+    var BLUR_PASS2_FACTOR = 3;          // 2e passe re-downsample 3× pour smooth les carrés
+    var BLUR_GAUSSIAN_RADIUS_PX = 5;    // gaussian sur tiny canvas (5px ≈ 30% dim → smooth net)
+    // Mode blur dynamique — togglable via DevTools / console pour A/B test :
+    //   window.__basarunaaBlurMode = 'box'      → 2-pass bilinéaire seul (default actuel)
+    //   window.__basarunaaBlurMode = 'gaussian' → ajoute ctx.filter='blur(2px)' sur tiny canvas
+    // Le mode est lu à chaque blur. Métrique `blur_perf` log les ms p50/p95
+    // par bbox toutes les 60 frames pour qu'on compare data-driven.
     var DEBUG_BBOX_STROKE = true;       // dessine un cadre rouge autour
                                         // de chaque bbox floutée (V3-E iter 1)
+    // Perf measurement — fenêtre glissante sur les derniers blurs pour
+    // déduire p50/p95 du temps de rendu d'une bbox (avec mode courant).
+    var blurPerfSamples = [];
+    var BLUR_PERF_WINDOW = 60;  // ~2s à 30fps
 
     // ─── V3.5 — Fake fullscreen CSS ─────────────────────────────────────────
     // Sur iPhone, Element.requestFullscreen() Web API n'est PAS supporté
@@ -103,25 +401,29 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var fullscreenLayoutRAF = 0;        // rAF loop id qui re-pose le layout
 
     // ─── Floating subtitles (YouTube) ──────────────────────────────────
-    // Le `.ytp-caption-window-container` est descendant de `#player`
-    // (deep DOM) tandis que notre canvas est sibling de `#player` after
-    // it → canvas peint above #player et tous ses descendants. Subtitles
-    // masqués par le canvas blur. Pour les libérer, on les déplace vers
-    // `document.body` (sortie du stacking context #player-container-id),
-    // une fois pour toute. Modes :
-    //   - normal : `.basarunaa-caption-normal` + position:fixed sync au
-    //     rect du <video> via setInterval (100ms).
-    //   - fake fs : `.basarunaa-caption-fs` + position:fixed bottom:80px
-    //     (cf. CSS injectée plus haut).
-    // Restauration au pageReset.
+    // Le `.ytp-caption-window-container` est descendant de `#player` et
+    // peut être recouvert par notre canvas blur OU rester visible dans
+    // les zones non floues → soit invisible soit doublonné avec le clone.
+    //
+    // Stratégie : on hide les subtitles YT natifs en CSS (opacity:0) et
+    // on rend notre propre clone `.basarunaa-caption-clone` au-dessus
+    // du canvas blur (position:fixed, z-index max). On lit les cues
+    // directement depuis `video.textTracks` (WebVTT), fallback DOM.
+    //
+    // On NE touche PAS au DOM YT (pas de move ni d'unmount) : YT JS
+    // s'attend à retrouver son container original pour update son state
+    // (bouton CC visuellement actif, re-position via `top:Npx` inline).
     var floatingSubInfo = null;
-    // { el, parent, nextSibling, syncInterval, video }
+    // { cloneContainer, lastCueText, syncInterval, video, ... }
 
     // Canvas partagés pour l'encode ML + le scratch blur (recyclés).
     var sampleCanvas = document.createElement('canvas');
     var sctx = sampleCanvas.getContext('2d');
     var blurCanvas = document.createElement('canvas');
     var bctx = blurCanvas.getContext('2d');
+    // 2e canvas pour le 2-pass blur (re-downsample du 1er blurCanvas)
+    var blurCanvas2 = document.createElement('canvas');
+    var bctx2 = blurCanvas2.getContext('2d');
 
     // ─── Overlay placement (2026-05-18) ────────────────────────────────────
     // Sur YouTube le `<video>` est probablement en hardware-overlay au-dessus
@@ -143,25 +445,49 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       try { return video.closest('#player'); } catch (e) { return null; }
     }
     // ─── Floating subtitle helpers ─────────────────────────────────────
+    // YT mobile peut afficher des **messages d'info** dans le même
+    // container que les vrais cues (ex: après activation du CC, message
+    // type "Anglais Cliquez sur ⚙ pour accéder aux paramètres."). On
+    // les filtre par mots-clés (l'idéal serait un sélecteur DOM précis
+    // mais YT n'en expose pas). Liste à étendre si on observe d'autres
+    // patterns dans d'autres langues.
+    function isYtInfoMessage(text) {
+      return /Cliquez sur|Tap on|Tap to|Tappez sur|Tippe auf|Toca en|Tocca su|paramètres|settings|Einstellungen|configuración|impostazioni/i.test(text);
+    }
+
     function setupFloatingSubtitles(video) {
       if (floatingSubInfo) {
-        // Already moved — just (re-)associate the video and start sync.
-        floatingSubInfo.video = video;
-        startSubtitleSync();
-        return;
+        if (floatingSubInfo.cloneContainer.isConnected &&
+            floatingSubInfo.video === video) {
+          startSubtitleSync();
+          return;
+        }
+        teardownFloatingSubtitles();
       }
-      var sub;
-      try { sub = document.querySelector('.ytp-caption-window-container'); } catch (e) {}
-      if (!sub || sub.parentElement === document.body) return;
+      // Le CSS porte 2 responsabilités : (1) styler notre clone et
+      // (2) cacher les subs natifs YT. Doit être présent dès qu'un
+      // video est wired, sans attendre l'entrée FS (bug 2026-05-19 :
+      // sans cet appel, subs natifs visibles + clone non stylé tant
+      // que le user n'avait pas tapé FS au moins une fois).
+      ensureBasarunaaCssInjected();
+      // Pipeline de lecture des cues (cf. `startSubtitleSync`) :
+      //  1. WebVTT track API (`video.textTracks`) — standard mais YT
+      //     mobile ne l'utilise pas, c'est défensif pour d'autres sites.
+      //  2. Fallback DOM (`.caption-window` / `.ytm-mobile-captions`) —
+      //     chemin principal sur YT mobile, qui rend les cues dans le
+      //     DOM normal (pas dans le shadow DOM du <video>).
+      // Le texte récupéré est rendu dans un clone <div> positionné
+      // au-dessus du canvas blur (z-index max).
+      var clone = document.createElement('div');
+      clone.className = 'basarunaa-caption-clone ' +
+        (fullscreenYTContainer ? 'basarunaa-caption-fs' : 'basarunaa-caption-normal');
+      document.body.appendChild(clone);
       floatingSubInfo = {
-        el: sub,
-        parent: sub.parentElement,
-        nextSibling: sub.nextSibling,
+        cloneContainer: clone,
+        lastCueText: '',
         syncInterval: 0,
         video: video
       };
-      document.body.appendChild(sub);
-      sub.classList.add('basarunaa-caption-normal');
       startSubtitleSync();
     }
 
@@ -169,16 +495,78 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (!floatingSubInfo || floatingSubInfo.syncInterval) return;
       floatingSubInfo.syncInterval = setInterval(function() {
         if (!floatingSubInfo) return;
-        if (!floatingSubInfo.el.classList.contains('basarunaa-caption-normal')) return;
+        var clone = floatingSubInfo.cloneContainer;
         var v = floatingSubInfo.video;
-        if (!v || !v.isConnected) return;
-        var rect = v.getBoundingClientRect();
-        if (rect.width <= 0 || rect.height <= 0) return;
-        var el = floatingSubInfo.el;
-        el.style.setProperty('top', rect.top + 'px', 'important');
-        el.style.setProperty('left', rect.left + 'px', 'important');
-        el.style.setProperty('width', rect.width + 'px', 'important');
-        el.style.setProperty('height', rect.height + 'px', 'important');
+        if (!clone || !clone.isConnected) return;
+        var isNormal = clone.classList.contains('basarunaa-caption-normal');
+        var isFs = clone.classList.contains('basarunaa-caption-fs');
+        if (!isNormal && !isFs) return;
+        // 1) WebVTT track API (rare sur YT mobile, mais standard).
+        var cueText = '';
+        if (v && v.textTracks) {
+          for (var i = 0; i < v.textTracks.length; i++) {
+            var t = v.textTracks[i];
+            if (t.mode === 'showing' && t.activeCues) {
+              for (var j = 0; j < t.activeCues.length; j++) {
+                var ctext = t.activeCues[j].text || '';
+                cueText += (cueText ? '\n' : '') + ctext;
+              }
+            }
+          }
+        }
+        // 2) Fallback DOM — YT mobile a 2 modes de rendu :
+        //  - Desktop-like (mode FS, parfois mode normal) : structure
+        //    `.caption-window > … > .ytp-caption-segment > #text`.
+        //  - Mobile-compact (souvent mode normal) : innerText direct
+        //    dans `.caption-window` / `.ytm-mobile-captions`.
+        //
+        // Le bouton CC peut aussi afficher des messages d'info
+        // ("Anglais Cliquez sur ⚙ pour accéder aux paramètres.") dans
+        // le même container que les vrais cues — on les filtre par
+        // mots-clés (en plusieurs langues) puisqu'on ne peut pas les
+        // distinguer par sélecteur.
+        if (!cueText) {
+          // Pas `.ytp-caption-window-container` : c'est le wrapper parent
+          // de `.caption-window`, le sélectionner double les lectures.
+          var windows = document.querySelectorAll('.caption-window, .ytm-mobile-captions');
+          var lines = [];
+          for (var w = 0; w < windows.length; w++) {
+            if (windows[w].closest('.basarunaa-caption-clone')) continue;
+            var line = '';
+            var segs = windows[w].querySelectorAll('.ytp-caption-segment');
+            if (segs.length > 0) {
+              // Structure desktop-like : concat les segments propres.
+              for (var s = 0; s < segs.length; s++) {
+                var st = (segs[s].textContent || '').trim();
+                if (st) line += (line ? ' ' : '') + st;
+              }
+            } else {
+              // Structure mobile-compact : innerText direct.
+              line = (windows[w].innerText || windows[w].textContent || '').trim();
+            }
+            // Filtre commun aux 2 chemins : YT rend ses messages d'info
+            // ("Anglais Cliquez sur ⚙…") via la même structure DOM que
+            // les vrais cues, donc on ne peut pas les distinguer par
+            // sélecteur — filtre par mots-clés.
+            if (line && !isYtInfoMessage(line)) lines.push(line);
+          }
+          cueText = lines.join('\n');
+        }
+        if (cueText !== floatingSubInfo.lastCueText) {
+          clone.textContent = cueText;
+          floatingSubInfo.lastCueText = cueText;
+          send('log', 'SUB_CUE len=' + cueText.length + ' preview=' + cueText.slice(0, 80));
+        }
+        // Sync container coords au rect du <video> (mode normal).
+        if (isNormal && v && v.isConnected) {
+          var rect = v.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            clone.style.setProperty('top', rect.top + 'px', 'important');
+            clone.style.setProperty('left', rect.left + 'px', 'important');
+            clone.style.setProperty('width', rect.width + 'px', 'important');
+            clone.style.setProperty('height', rect.height + 'px', 'important');
+          }
+        }
       }, 100);
     }
 
@@ -192,46 +580,34 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
 
     function setSubtitleFsMode(isFs) {
       if (!floatingSubInfo) return;
-      var el = floatingSubInfo.el;
+      var clone = floatingSubInfo.cloneContainer;
       if (isFs) {
-        el.classList.remove('basarunaa-caption-normal');
-        el.classList.add('basarunaa-caption-fs');
-        stopSubtitleSync();
-        // Reset inline coords — la CSS `.basarunaa-caption-fs` prend le relais.
-        el.style.removeProperty('top');
-        el.style.removeProperty('left');
-        el.style.removeProperty('width');
-        el.style.removeProperty('height');
+        clone.classList.remove('basarunaa-caption-normal');
+        clone.classList.add('basarunaa-caption-fs');
+        clone.style.removeProperty('top');
+        clone.style.removeProperty('left');
+        clone.style.removeProperty('width');
+        clone.style.removeProperty('height');
       } else {
-        el.classList.remove('basarunaa-caption-fs');
-        el.classList.add('basarunaa-caption-normal');
-        startSubtitleSync();
+        clone.classList.remove('basarunaa-caption-fs');
+        clone.classList.add('basarunaa-caption-normal');
       }
     }
 
-    function restoreFloatingSubtitles() {
+    function teardownFloatingSubtitles() {
       if (!floatingSubInfo) return;
       stopSubtitleSync();
-      var el = floatingSubInfo.el;
-      el.classList.remove('basarunaa-caption-normal');
-      el.classList.remove('basarunaa-caption-fs');
-      el.style.cssText = '';
-      var parent = floatingSubInfo.parent;
-      var nextSibling = floatingSubInfo.nextSibling;
-      if (parent && parent.isConnected) {
-        if (nextSibling && nextSibling.parentNode === parent) {
-          parent.insertBefore(el, nextSibling);
-        } else {
-          parent.appendChild(el);
-        }
+      var clone = floatingSubInfo.cloneContainer;
+      if (clone && clone.parentElement) {
+        clone.parentElement.removeChild(clone);
       }
       floatingSubInfo = null;
     }
 
-    function ensureBasarunaaFsCssInjected() {
-      if (document.getElementById('basarunaa-fs-css')) return;
+    function ensureBasarunaaCssInjected() {
+      if (document.getElementById('basarunaa-css')) return;
       var style = document.createElement('style');
-      style.id = 'basarunaa-fs-css';
+      style.id = 'basarunaa-css';
       style.textContent =
         '#player-container-id[data-basarunaa-fs="1"]{' +
           'position:fixed!important;top:0!important;left:0!important;' +
@@ -273,48 +649,61 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         '#player-container-id[data-basarunaa-fs="1"] .ytp-settings-button{' +
           'display:none!important;' +
         '}' +
-        // Sous-titres déplacés vers `body` au wireVideo pour échapper le
-        // stacking context #player-container-id qui les masquait sous le
-        // canvas overlay. 2 modes :
-        //   - basarunaa-caption-normal : suit le rect du <video> via JS
-        //     setInterval (top/left/width/height set inline).
-        //   - basarunaa-caption-fs : position:fixed bottom:80px (au-dessus
-        //     des contrôles YT) pendant le fake fullscreen.
-        '.ytp-caption-window-container.basarunaa-caption-normal,' +
-        '.ytp-caption-window-container.basarunaa-caption-fs{' +
+        // Hide les subtitles YT natifs : notre clone (basarunaa-caption-clone)
+        // affiche le même texte au-dessus du flou. Sans cette rule on aurait
+        // un doublon (clone + original visible dans les zones non floues).
+        // `.ytp-caption-segment` non listé : descendant de `.caption-window`,
+        // déjà caché par propagation visibility:hidden.
+        '.ytp-caption-window-container,' +
+        '.caption-window,' +
+        '.ytm-mobile-captions{' +
+          'opacity:0!important;' +
+          'visibility:hidden!important;' +
+        '}' +
+        // Sous-titres : on lit les cues WebVTT du <video>.textTracks et
+        // on rend dans un div clone (sortir du stacking context
+        // #player-container-id qui masquait sous le canvas). Style mimique
+        // les subtitles YT natifs (white text, black bg, drop shadow).
+        '.basarunaa-caption-clone{' +
           'position:fixed!important;' +
           'z-index:2147483647!important;' +
           'pointer-events:none!important;' +
+          'background:transparent!important;' +
+          'display:block!important;' +
+          'opacity:1!important;' +
+          'color:white!important;' +
+          'font-family:sans-serif!important;' +
+          'font-size:18px!important;' +
+          'font-weight:500!important;' +
+          'text-align:center!important;' +
+          'text-shadow:1px 1px 2px black,-1px -1px 2px black,1px -1px 2px black,-1px 1px 2px black!important;' +
+          'white-space:pre-wrap!important;' +
+          'box-sizing:border-box!important;' +
+          'padding:0 12px!important;' +
         '}' +
-        '.ytp-caption-window-container.basarunaa-caption-fs{' +
-          'top:auto!important;' +
-          'bottom:80px!important;' +
-          'left:0!important;right:0!important;' +
-          'width:100vw!important;height:auto!important;' +
+        // Sub container in mode normal : position absolute "row" en bas
+        // de la zone <video>. La height inline (set par JS) matche le rect
+        // du <video>, donc bottom:8% ≈ 8% du video height au-dessus du
+        // bas du video.
+        '.basarunaa-caption-clone.basarunaa-caption-normal{' +
+          /* JS set top/left/width/height inline. On affiche le text au
+             bottom du container via flex bottom alignment. */
+          'display:flex!important;' +
+          'flex-direction:column!important;' +
+          'justify-content:flex-end!important;' +
+          'align-items:center!important;' +
+          'padding-bottom:8%!important;' +
         '}' +
-        // En fake fs (container 100vw × auto), passer les `.caption-window`
-        // en relative pour qu\'ils flow et soient centrés. En mode normal
-        // on garde le positioning YT natif (absolute bottom du container).
-        '.ytp-caption-window-container.basarunaa-caption-fs .caption-window,' +
-        '.ytp-caption-window-container.basarunaa-caption-fs .ytm-mobile-captions{' +
-          'position:relative!important;' +
-          'left:auto!important;top:auto!important;bottom:auto!important;' +
-          'transform:none!important;' +
-          'margin:0 auto!important;' +
-          'z-index:2147483647!important;' +
-          'pointer-events:none!important;' +
-        '}' +
-        // YT garde 2 `.caption-window` dupliquées dans le DOM (rolling
-        // buffer). En fake fs avec position relative ils flow vertical →
-        // texte doublé. Hide en mode fs. En mode normal pas besoin :
-        // position YT native les superpose au même endroit.
-        '.ytp-caption-window-container.basarunaa-caption-fs .caption-window ~ .caption-window,' +
-        '.ytp-caption-window-container.basarunaa-caption-fs .ytm-mobile-captions ~ .ytm-mobile-captions{' +
-          'display:none!important;' +
-        '}' +
-        '.ytp-caption-window-container.basarunaa-caption-normal .ytp-caption-segment,' +
-        '.ytp-caption-window-container.basarunaa-caption-fs .ytp-caption-segment{' +
-          'z-index:2147483647!important;' +
+        // Sub container in fake fs : tout l\'écran, text au bottom.
+        '.basarunaa-caption-clone.basarunaa-caption-fs{' +
+          'top:0!important;left:0!important;' +
+          'right:auto!important;bottom:auto!important;' +
+          'width:100vw!important;height:100vh!important;' +
+          'display:flex!important;' +
+          'flex-direction:column!important;' +
+          'justify-content:flex-end!important;' +
+          'align-items:center!important;' +
+          'padding-bottom:8vh!important;' +
         '}' +
         '#player-container-id[data-basarunaa-fs="1"] .ytp-popup,' +
         '#player-container-id[data-basarunaa-fs="1"] .ytp-panel,' +
@@ -484,12 +873,116 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
 
           // Sample pour ML — capture brute via un canvas séparé sur le
           // <video> source, indépendant du canvas display.
+          //
+          // Two-tier scheduling (parité POC macOS) :
+          //   • YOLO (heavy) toutes les 1s en tracking / 5s en safe,
+          //     ou immédiatement si event-driven par le sentinel.
+          //   • Sentinel (lightweight NanoDet) toutes les ~100ms entre
+          //     2 YOLO. Si !sentinelInFlight && !yoloInFlight.
           var nowMs = (typeof performance !== 'undefined' && performance.now)
             ? performance.now() : Date.now();
-          var lastSent = lastSentAtMs.get(video) || 0;
-          if (nowMs - lastSent >= SAMPLE_INTERVAL_MS) {
+
+          // Scene change detection — 8×8 grayscale hash vs frame précédente
+          // (parité POC `FrameDiffDetector`). Si diff > 12%, reset le state
+          // tracking et trigger un YOLO immédiat. Évite le "flou qui reste
+          // après un cut" + accélère l'apparition du flou sur changement
+          // de plan vs attendre le YOLO périodique (1s).
+          var sceneDiff = _computeSceneDiff(videoId, video);
+          if (sceneDiff > SCENE_CHANGE_THRESHOLD) {
+            sentinelTracksById[videoId] = [];
+            pendingNewPersonsById[videoId] = [];
+            currentBboxesById[videoId] = [];
+            lastYoloBboxesById[videoId] = [];
+            yoloTriggeredBySentinelById[videoId] = true;
+            videoStateById[videoId] = 'safe';
+            metric('scene_change', {
+              videoId: videoId,
+              diff: Math.round(sceneDiff * 1000) / 1000
+            });
+          }
+          // Diagnostic — log la magnitude du diff + signature du hash
+          // (sum + 4 premiers pixels) périodiquement pour debug. Si tous
+          // les pixels du hash sont 0 → canvas vide (drawImage cassé).
+          // Si les pixels sont non-nuls mais identiques entre 2 logs →
+          // canvas figé sur même image (video decoder ne refresh pas).
+          var lastSceneDiag = window.__basarunaaLastSceneDiag || 0;
+          if (nowMs - lastSceneDiag > 1000) {
+            window.__basarunaaLastSceneDiag = nowMs;
+            var hashDbg = sceneHashById[videoId];
+            var hashSum = 0;
+            var hashSample = [];
+            if (hashDbg) {
+              for (var hi = 0; hi < hashDbg.length; hi++) hashSum += hashDbg[hi];
+              hashSample = [hashDbg[0], hashDbg[1], hashDbg[hashDbg.length - 2], hashDbg[hashDbg.length - 1]];
+            }
+            metric('scene_diff_diag', {
+              videoId: videoId,
+              diff: Math.round(sceneDiff * 10000) / 10000,
+              hashSum: hashSum,
+              hashSample: hashSample
+            });
+            // Perf blur — p50/p95 sur fenêtre glissante. Permet de comparer
+            // 'box' (default) vs 'gaussian' (toggle window.__basarunaaBlurMode).
+            if (blurPerfSamples.length >= 10) {
+              var sorted = blurPerfSamples.slice().sort(function(a, b) { return a - b; });
+              var p50 = sorted[Math.floor(sorted.length * 0.5)];
+              var p95 = sorted[Math.floor(sorted.length * 0.95)];
+              var avg = 0;
+              for (var bi = 0; bi < sorted.length; bi++) avg += sorted[bi];
+              avg /= sorted.length;
+              metric('blur_perf', {
+                mode: window.__basarunaaBlurMode || 'gaussian',
+                n: sorted.length,
+                p50_ms: Math.round(p50 * 100) / 100,
+                p95_ms: Math.round(p95 * 100) / 100,
+                avg_ms: Math.round(avg * 100) / 100
+              });
+            }
+          }
+
+          var state = videoStateById[videoId] || 'safe';
+          var yoloInterval = state === 'safe' ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
+          var lastYoloMs = lastYoloTimeById[videoId] || 0;
+          var lastSentinelMs = lastSentinelTimeById[videoId] || 0;
+          var yoloDue = (nowMs - lastYoloMs) >= yoloInterval;
+          var yoloTriggered = !!yoloTriggeredBySentinelById[videoId];
+          var yoloCooldownOk = (nowMs - lastYoloMs) >= YOLO_MIN_COOLDOWN_MS;
+
+          if (!yoloInFlightById[videoId] && yoloCooldownOk && (yoloDue || yoloTriggered)) {
+            yoloInFlightById[videoId] = true;
+            yoloTriggeredBySentinelById[videoId] = false;
+            lastYoloTimeById[videoId] = nowMs;
+            metric('yolo_send', {
+              videoId: videoId, state: state,
+              dueAfterMs: Math.round(nowMs - lastYoloMs),
+              triggered: yoloTriggered
+            });
             sampleForAnalysis(videoId, video);
-            lastSentAtMs.set(video, nowMs);
+          } else if (
+            !yoloInFlightById[videoId]
+            && !sentinelInFlightById[videoId]
+            && (nowMs - lastSentinelMs) >= SENTINEL_INTERVAL_MS
+            && (nowMs - lastSentinelMs) >= SENTINEL_MIN_COOLDOWN_MS
+          ) {
+            sentinelInFlightById[videoId] = true;
+            lastSentinelTimeById[videoId] = nowMs;
+            sampleForSentinel(videoId, video);
+          }
+          // Diagnostic — log uniquement les VRAIS stucks (>3s sans retour
+          // côté JS). Un YOLO normal met 50-100ms à revenir, donc 1s de
+          // seuil triggerait des faux positifs à chaque tick suivant un
+          // send. >3s signale un vrai problème (drop natif silencieux,
+          // crash WebKit, etc.). Rate-limited à 1/s.
+          if (yoloInFlightById[videoId] && (nowMs - lastYoloMs) > 3000) {
+            var lastDiag = window.__basarunaaLastTickDiag || 0;
+            if (nowMs - lastDiag > 1000) {
+              window.__basarunaaLastTickDiag = nowMs;
+              metric('yolo_stuck_in_flight', {
+                videoId: videoId, state: state,
+                msSinceLastYolo: Math.round(nowMs - lastYoloMs),
+                sentinelInFlight: !!sentinelInFlightById[videoId]
+              });
+            }
           }
 
           // Blur bboxes courantes — pour chaque bbox on draw la zone
@@ -542,6 +1035,39 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
     }
 
+    // Sentinel sample — capture plus large (480 px vs 320 pour YOLO, parité
+    // POC `SENTINEL_CAPTURE_SIZE`) en JPEG q=0.6. NanoDet est plus tolérant
+    // au downscale qu'un detector lourd, mais il a aussi besoin d'un peu
+    // plus de détail que la YOLO pour repérer des nouveaux entrants petits.
+    function sampleForSentinel(videoId, video) {
+      var vw = video.videoWidth, vh = video.videoHeight;
+      if (vw === 0 || vh === 0) {
+        sentinelInFlightById[videoId] = false;
+        return;
+      }
+      var aspect = vw / vh;
+      var sw, sh;
+      if (aspect > 1) {
+        sw = SENTINEL_CAPTURE_SIZE;
+        sh = Math.max(1, Math.round(SENTINEL_CAPTURE_SIZE / aspect));
+      } else {
+        sh = SENTINEL_CAPTURE_SIZE;
+        sw = Math.max(1, Math.round(SENTINEL_CAPTURE_SIZE * aspect));
+      }
+      if (sampleCanvas.width !== sw) sampleCanvas.width = sw;
+      if (sampleCanvas.height !== sh) sampleCanvas.height = sh;
+      sctx.drawImage(video, 0, 0, sw, sh);
+      var dataUrl = sampleCanvas.toDataURL('image/jpeg', SENTINEL_JPEG_QUALITY);
+      var comma = dataUrl.indexOf(',');
+      if (comma > 0) {
+        var b64 = dataUrl.substring(comma + 1);
+        var ctMs = Math.round((video.currentTime || 0) * 1000);
+        send('videoSentinel', videoId + '|' + ctMs + '|' + sw + '|' + sh + '|' + b64);
+      } else {
+        sentinelInFlightById[videoId] = false;
+      }
+    }
+
     // Pour chaque bbox à flouter, draw la zone correspondante de la
     // source <video> (en coords pixels natifs `videoWidth × videoHeight`)
     // downsamplée vers `blurCanvas` puis upscalée dans le canvas display
@@ -574,17 +1100,49 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       var srcY = (by - offY) * srcSy;
       var srcW = bw * srcSx;
       var srcH = bh * srcSy;
-      // Downsample vers blurCanvas, puis upscale dans dctx.
+      // 2-pass blur — l'aller-retour downsample-upsample fait une moyenne
+      // bilinéaire de pixels (~box filter). Avec 2 passes successives, on
+      // approxime un gaussian blur smooth. Mode 'gaussian' add `ctx.filter`
+      // sur le tiny canvas pour un vrai gaussian (potentiellement plus lent
+      // sur WebKit, à vérifier via `blur_perf` métric).
+      var blurStart = (typeof performance !== 'undefined' && performance.now)
+        ? performance.now() : Date.now();
+      // Mode default = 'gaussian' depuis la mesure 2026-05-20 : box perf
+      // p50=0ms, avg=0.05ms → coût du gaussian négligeable (~0.5-1ms
+      // attendu sur tiny canvas), qualité supérieure.
+      var blurMode = window.__basarunaaBlurMode || 'gaussian';
+      // Pass 1: video → blurCanvas (downsample fort, BLUR_DOWNSAMPLE×)
       var tw = Math.max(1, Math.round(bw / BLUR_DOWNSAMPLE));
       var th = Math.max(1, Math.round(bh / BLUR_DOWNSAMPLE));
       if (blurCanvas.width !== tw) blurCanvas.width = tw;
       if (blurCanvas.height !== th) blurCanvas.height = th;
       bctx.imageSmoothingEnabled = true;
       bctx.imageSmoothingQuality = 'high';
+      if (blurMode === 'gaussian') {
+        // Gaussian filter sur le tiny canvas — coût ~constant à cette taille.
+        bctx.filter = 'blur(' + BLUR_GAUSSIAN_RADIUS_PX + 'px)';
+      }
       bctx.drawImage(video, srcX, srcY, srcW, srcH, 0, 0, tw, th);
+      if (blurMode === 'gaussian') {
+        bctx.filter = 'none';
+      }
+      // Pass 2: blurCanvas → blurCanvas2 (re-downsample 2× pour lisser)
+      var tw2 = Math.max(1, Math.round(tw / BLUR_PASS2_FACTOR));
+      var th2 = Math.max(1, Math.round(th / BLUR_PASS2_FACTOR));
+      if (blurCanvas2.width !== tw2) blurCanvas2.width = tw2;
+      if (blurCanvas2.height !== th2) blurCanvas2.height = th2;
+      bctx2.imageSmoothingEnabled = true;
+      bctx2.imageSmoothingQuality = 'high';
+      bctx2.drawImage(blurCanvas, 0, 0, tw, th, 0, 0, tw2, th2);
+      // Pass 3: blurCanvas2 → dctx (upscale gros, smooth bilinéaire)
       dctx.imageSmoothingEnabled = true;
       dctx.imageSmoothingQuality = 'high';
-      dctx.drawImage(blurCanvas, 0, 0, tw, th, bx, by, bw, bh);
+      dctx.drawImage(blurCanvas2, 0, 0, tw2, th2, bx, by, bw, bh);
+      // Mesure perf (en ms par bbox) — fenêtre glissante 60 samples.
+      var blurEnd = (typeof performance !== 'undefined' && performance.now)
+        ? performance.now() : Date.now();
+      blurPerfSamples.push(blurEnd - blurStart);
+      if (blurPerfSamples.length > BLUR_PERF_WINDOW) blurPerfSamples.shift();
       if (DEBUG_BBOX_STROKE) {
         dctx.strokeStyle = 'rgba(255, 80, 80, 0.9)';
         dctx.lineWidth = Math.max(2, Math.round(2 * (window.devicePixelRatio || 1)));
@@ -616,22 +1174,172 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // par un full-frame blur (1 seule bbox couvrant la totale).
     window.__basarunaaApplyVideo = function(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw) {
       try {
+        // Libère le flag in-flight quoiqu'il arrive — sinon un display
+        // canvas removed pendant l'analyse fige la state machine sur
+        // "YOLO occupe le slot" et le sentinel ne fire plus jamais.
+        yoloInFlightById[videoId] = false;
         if (!displayCanvasById[videoId]) {
           metric('video_apply_no_canvas', { videoId: videoId });
           return;
         }
+        var safeBboxes = bboxes || [];
         if (isNsfw) {
           currentBboxesById[videoId] = [[0, 0, analyseW, analyseH]];
         } else {
-          currentBboxesById[videoId] = bboxes || [];
+          currentBboxesById[videoId] = safeBboxes;
         }
         currentBboxMetaById[videoId] = { analyseW: analyseW, analyseH: analyseH };
+        // Snapshot des bboxes YOLO (en coords analyse) pour matcher les
+        // détections sentinel. Sentinel travaille dans son propre espace
+        // de capture (SENTINEL_CAPTURE_SIZE) → on doit rescaler côté JS
+        // au moment du `__basarunaaApplyVideoSentinel` pour comparer.
+        lastYoloBboxesById[videoId] = safeBboxes.map(function(b) { return b.slice(); });
+        // Calcule les offsets YOLO↔sentinel AVANT de reset les tracks
+        // (parité POC `runDetection` lignes 715-740). Pour chaque bbox
+        // YOLO, on cherche le track sentinel le plus proche par centre,
+        // dans une tolérance de 60% de la hauteur YOLO. On stocke le
+        // décalage (= bias systématique de NanoDet vs YOLO) + les
+        // dimensions YOLO d'origine. Utilisé par `_updateBlurFromSentinel`
+        // pour corriger les positions sentinel suivantes.
+        var existingTracks = sentinelTracksById[videoId] || [];
+        yoloOffsetsById[videoId] = safeBboxes.map(function(yoloBbox) {
+          var yoloCx = (yoloBbox[0] + yoloBbox[2]) / 2;
+          var yoloCy = (yoloBbox[1] + yoloBbox[3]) / 2;
+          var yoloW = yoloBbox[2] - yoloBbox[0];
+          var yoloH = (yoloBbox[3] - yoloBbox[1]) || 1;
+          var bestDist = Infinity, bestTrack = null;
+          for (var ti = 0; ti < existingTracks.length; ti++) {
+            var t = existingTracks[ti].bbox;
+            var tCx = (t[0] + t[2]) / 2;
+            var tCy = (t[1] + t[3]) / 2;
+            var dx = yoloCx - tCx;
+            var dy = yoloCy - tCy;
+            var d = Math.sqrt(dx * dx + dy * dy);
+            if (d < bestDist) { bestDist = d; bestTrack = t; }
+          }
+          var offX = 0, offY = 0;
+          if (bestTrack && bestDist < yoloH * 0.6) {
+            var stCx = (bestTrack[0] + bestTrack[2]) / 2;
+            var stCy = (bestTrack[1] + bestTrack[3]) / 2;
+            offX = stCx - yoloCx;
+            offY = stCy - yoloCy;
+          }
+          return { offsetX: offX, offsetY: offY, yoloW: yoloW, yoloH: yoloH };
+        });
+        // State machine cadence : tracking si au moins 1 personne à
+        // flouter, safe sinon. Pas de gender info — le natif a déjà
+        // filtré par mode (cf. `decide()` côté Swift).
+        videoStateById[videoId] = safeBboxes.length > 0 ? 'tracking' : 'safe';
+        // Reset des tracks sentinel sur full YOLO refresh (le YOLO refait
+        // la vérité de base, le tracking sentinel reprend à partir de là).
+        sentinelTracksById[videoId] = [];
+        pendingNewPersonsById[videoId] = [];
         metric('video_apply', {
           videoId: videoId, ct_ms: ctMs,
-          nsfw: !!isNsfw, n: bboxes ? bboxes.length : 0
+          nsfw: !!isNsfw, n: safeBboxes.length,
+          state: videoStateById[videoId]
         });
       } catch (e) {
+        yoloInFlightById[videoId] = false;
         metric('video_apply_error', {
+          videoId: videoId, msg: ('' + e).slice(0, 200)
+        });
+      }
+    };
+
+    // Sentinel payload — `bboxes` are `[x1, y1, x2, y2, confidence]` in
+    // capture coords (SENTINEL_CAPTURE_SIZE space). Rescale to last-YOLO
+    // analyse coords for matching (so we can compare against lastYoloBboxes
+    // which live in that space). EMA-smooth, find unmatched, trigger YOLO
+    // if confirmed (2 consecutive sightings), and update blur positions.
+    window.__basarunaaApplyVideoSentinel = function(videoId, ctMs, sentinelW, sentinelH, payload) {
+      try {
+        sentinelInFlightById[videoId] = false;
+        if (!displayCanvasById[videoId]) return;
+        var meta = currentBboxMetaById[videoId];
+        var analyseW = meta ? meta.analyseW : sentinelW;
+        var analyseH = meta ? meta.analyseH : sentinelH;
+        var sx = analyseW / sentinelW;
+        var sy = analyseH / sentinelH;
+        var rawPersons = [];
+        var raw = payload || [];
+        for (var i = 0; i < raw.length; i++) {
+          var b = raw[i];
+          var padded = _padBbox(
+            [b[0] * sx, b[1] * sy, b[2] * sx, b[3] * sy],
+            SENTINEL_BBOX_PAD, analyseW, analyseH
+          );
+          rawPersons.push({ bbox: padded, confidence: b[4] || 0 });
+        }
+        var sentinelPersons = _smoothSentinelTracks(videoId, rawPersons, analyseW, analyseH);
+
+        // Perte de sentinel — si on trackait au moins 1 personne et que
+        // sentinel retourne raw=0, on assume la disparition (cut, perte
+        // de cadre). On fait 2 choses :
+        //   1. Clear le blur immédiatement (currentBboxesById = []) →
+        //      perçu très rapidement vs attendre le YOLO.
+        //   2. Trigger YOLO immédiat pour confirmer / récupérer si FP.
+        // Si YOLO retrouve la personne (sentinel rate ~100ms), il re-apply
+        // le blur. Le risque de flash bref est minime (perte rare en
+        // pratique) et le gain de réactivité est important.
+        var yoloBboxes = lastYoloBboxesById[videoId] || [];
+        var hadTracks = yoloBboxes.length > 0;
+        if (raw.length === 0 && hadTracks) {
+          sentinelLostCountById[videoId] = (sentinelLostCountById[videoId] || 0) + 1;
+          if (sentinelLostCountById[videoId] >= SENTINEL_LOST_THRESHOLD) {
+            yoloTriggeredBySentinelById[videoId] = true;
+            currentBboxesById[videoId] = [];
+            lastYoloBboxesById[videoId] = [];
+          }
+        } else {
+          sentinelLostCountById[videoId] = 0;
+        }
+
+        // Find sentinel bboxes that don't match any current YOLO bbox.
+        var unmatched = _findUnmatchedPersons(sentinelPersons, yoloBboxes);
+
+        // Require 2 consecutive sightings before triggering a YOLO refresh
+        // (filter sentinel false-positives, same as POC).
+        var prevPending = pendingNewPersonsById[videoId] || [];
+        var confirmed = [];
+        for (var u = 0; u < unmatched.length; u++) {
+          var found = false;
+          for (var p = 0; p < prevPending.length; p++) {
+            if (_bboxIoU(prevPending[p].bbox, unmatched[u].bbox) > 0.2) {
+              found = true;
+              break;
+            }
+          }
+          if (found) confirmed.push(unmatched[u]);
+        }
+        pendingNewPersonsById[videoId] = unmatched;
+
+        if (confirmed.length > 0) {
+          yoloTriggeredBySentinelById[videoId] = true;
+        }
+
+        // Smooth-update the current blur bboxes with fresher sentinel
+        // positions (so the per-person blur tracks people 30fps between
+        // 2 YOLO runs even though the gender label was set 800ms ago).
+        _updateBlurFromSentinel(videoId, sentinelPersons);
+
+        // Bbox snapshot pour debug visuel — coords compactes après
+        // _updateBlurFromSentinel donc on voit la vraie position rendue
+        // (pas la bbox YOLO d'origine).
+        var bboxesNow = (currentBboxesById[videoId] || []).map(function(b) {
+          return [Math.round(b[0]), Math.round(b[1]), Math.round(b[2]), Math.round(b[3])];
+        });
+        metric('video_sentinel_apply', {
+          videoId: videoId, ct_ms: ctMs,
+          raw: raw.length, tracks: sentinelPersons.length,
+          unmatched: unmatched.length, confirmed: confirmed.length,
+          lost: sentinelLostCountById[videoId] || 0,
+          state: videoStateById[videoId] || 'safe',
+          bboxes: bboxesNow
+        });
+      } catch (e) {
+        sentinelInFlightById[videoId] = false;
+        metric('video_sentinel_apply_error', {
           videoId: videoId, msg: ('' + e).slice(0, 200)
         });
       }
@@ -731,7 +1439,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // via setAttribute('style', ...) qui shoot toutes nos propriétés
         // y compris !important). Avec un `<style>` tag externe + selector
         // attribut + !important, on bat l'inline overwrite.
-        ensureBasarunaaFsCssInjected();
+        ensureBasarunaaCssInjected();
         ytContainer.setAttribute('data-basarunaa-fs', '1');
         // Layout du <video> + canvas calculé en JS depuis l'intrinsic
         // ratio (video.videoWidth × video.videoHeight) et viewport size.
@@ -793,7 +1501,15 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           // le blur que le tick rVFC vient de dessiner à chaque frame
           // (rAF s'exécute à 60fps, vs tick rVFC ~30fps → 2 erase/draw
           // entre 2 rVFC = blur invisible).
-          if (!skipDraw) {
+          //
+          // Si paused/ended : SKIP le draw aussi. Sinon on écrirait la
+          // frame brute (sans flou) dans le backing store, et comme le
+          // tick rVFC ne fire pas en pause, cette frame brute resterait
+          // visible → exposition d'une personne à flouter. On préserve
+          // le backing store mode normal (frame floue) qui sera stretché
+          // CSS-side jusqu'au prochain play. Symétrique avec
+          // `exitFakeFullscreen`.
+          if (!skipDraw && !video.paused && !video.ended) {
             var dpr = window.devicePixelRatio || 1;
             var pw = Math.max(1, Math.round(w * dpr));
             var ph = Math.max(1, Math.round(h * dpr));
@@ -860,6 +1576,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         stack: stack.slice(0, 300)
       });
       document.body.style.overflow = savedBodyOverflow;
+      // Capture du canvas+video AVANT de null-er les state refs, pour
+      // pouvoir forcer un re-layout du canvas en bas de cette fonction
+      // (le `tick()` rVFC ne fire pas si la vidéo est en pause → sans
+      // ce re-layout, le canvas garderait ses dimensions FS et déborde
+      // visuellement par-dessus le contenu de la page jusqu'au prochain
+      // play).
+      var canvasToRelayout = fullscreenCanvas;
+      var videoToRelayout = fullscreenVideoEl;
       if (fullscreenYTContainer) {
         // Stop le re-apply loop + retire l'attribut + restore inline style
         // du <video> (CSS injecté ne s'applique plus tout seul).
@@ -891,6 +1615,32 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
       fullscreenVideoEl = null;
       fullscreenCanvas = null;
+      // Force le re-layout CSS du canvas si la vidéo est en pause (sinon
+      // `tick()` ne fire pas → canvas garde ses dimensions FS et déborde
+      // visuellement par-dessus la page). On NE reset PAS le backing
+      // store (`canvas.width/height`) : on conserve la frame floue
+      // dessinée pendant le FS, juste shrinkée CSS-side. La frame est
+      // un peu déformée pendant la pause mais le flou reste appliqué
+      // (pas d'exposition de la frame brute). Le prochain `tick()` au
+      // play reset proprement le backing store.
+      if (canvasToRelayout && videoToRelayout && videoToRelayout.isConnected) {
+        try {
+          var rect = videoToRelayout.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            var dp = canvasToRelayout.parentElement;
+            if (dp && dp !== document.body) {
+              var pr = dp.getBoundingClientRect();
+              canvasToRelayout.style.left = (rect.left - pr.left) + 'px';
+              canvasToRelayout.style.top = (rect.top - pr.top) + 'px';
+            } else {
+              canvasToRelayout.style.left = rect.left + 'px';
+              canvasToRelayout.style.top = rect.top + 'px';
+            }
+            canvasToRelayout.style.width = rect.width + 'px';
+            canvasToRelayout.style.height = rect.height + 'px';
+          }
+        } catch (e) {}
+      }
       try { send('fullscreenExit'); } catch (e) {}
     }
 

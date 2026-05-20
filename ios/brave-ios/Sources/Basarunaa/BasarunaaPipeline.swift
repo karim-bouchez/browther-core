@@ -61,6 +61,16 @@ public struct BasarunaaResult: Sendable {
   public let nsfwScore: Double?
 }
 
+/// Lightweight NanoDet sentinel result — bboxes only, no gender, no keypoints.
+/// Used by the video two-tier pipeline to smooth-track persons between two
+/// YOLO runs and to event-trigger a YOLO refresh when a new person enters
+/// the frame.
+public struct BasarunaaSentinelResult: Sendable {
+  public let bboxes: [SentinelBbox]
+  public let latencyMs: Double
+  public let imageSize: CGSize
+}
+
 public enum BasarunaaError: Error {
   case modelLoadFailed(String)
   case inferenceFailed(String)
@@ -108,6 +118,10 @@ public actor BasarunaaPipeline {
   private var bodyClassifier: PPLCNetClassifier?
   private var nsfwClassifier: NSFWClassifier?
   private var nudeNetDetector: NudeNetDetector?
+  /// Lazy-loaded video sentinel. Kept separate from `loadModelsIfNeeded` so
+  /// image-only callers don't pay for a model they never use, and the existing
+  /// 6-tuple return type isn't broken.
+  private var sentinelDetector: NanoDetSentinelDetector?
 
   private init() {}
 
@@ -130,10 +144,26 @@ public actor BasarunaaPipeline {
       }
       log.info("CoreML compute devices: [\(labels.joined(separator: ", "), privacy: .public)]")
       _ = try await loadModelsIfNeeded()
+      _ = try loadSentinelIfNeeded()
       log.info("warmup done")
     } catch {
       log.error("warmup failed: \(String(describing: error), privacy: .public)")
     }
+  }
+
+  /// Phase 0 — lightweight NanoDet sentinel. ~5-20ms typical, no gender,
+  /// no NSFW, no keypoints. The JS video loop calls this every ~100ms to
+  /// track person positions between two heavy `analyze()` calls.
+  public func sentinel(image: CGImage) async throws -> BasarunaaSentinelResult {
+    let detector = try loadSentinelIfNeeded()
+    let imageSize = CGSize(width: image.width, height: image.height)
+    let start = Date()
+    let bboxes = try detector.detect(image: image)
+    let latencyMs = Date().timeIntervalSince(start) * 1000
+    log.info(
+      "sentinel done: bboxes=\(bboxes.count, privacy: .public) latency=\(String(format: "%.1f", latencyMs), privacy: .public)ms"
+    )
+    return BasarunaaSentinelResult(bboxes: bboxes, latencyMs: latencyMs, imageSize: imageSize)
   }
 
   /// Phase 2 — NSFW check. Run async background after `analyze()` returns.
@@ -314,6 +344,13 @@ public actor BasarunaaPipeline {
     self.nsfwClassifier = newNsfwClassifier
     self.nudeNetDetector = newNudeNetDetector
     return (newPose, newFace, newClassifier, newBodyClassifier, newNsfwClassifier, newNudeNetDetector)
+  }
+
+  private func loadSentinelIfNeeded() throws -> NanoDetSentinelDetector {
+    if let sentinelDetector { return sentinelDetector }
+    let newSentinel = try NanoDetSentinelDetector()
+    self.sentinelDetector = newSentinel
+    return newSentinel
   }
 
   // MARK: - Face ⇄ body matching (port direct du POC _matchFacesToBodies)
