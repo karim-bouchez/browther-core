@@ -86,9 +86,19 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var lastYoloBboxesById = {};        // videoId → [[x1,y1,x2,y2], ...] (raw YOLO output, sans pad sentinel)
     var pendingNewPersonsById = {};     // videoId → [{ bbox, confidence }] vus à la run précédente, en attente du 2e sighting
     var yoloTriggeredBySentinelById = {}; // videoId → bool (consommé au prochain tick YOLO)
+    var yoloTriggeredBySceneById = {};    // videoId → bool (scene change cut détecté)
     var videoStateById = {};            // videoId → 'safe' | 'tracking' (cadence YOLO adaptative)
     var videoDebugModeById = {};        // videoId → 'none'|'boxes'|'debug' (memoïsé entre 2 YOLO)
     var videoNsfwById = {};             // videoId → bool (full-frame blur, bypass sentinel reposition)
+    // Debug overlay state (parité macOS POC `renderBlur` debug branch + `_drawHUD`)
+    var videoAllPersonsById = {};       // videoId → [{bbox, keypoints, gender, genderConfidence, shouldBlur, ...}]
+    var videoSentinelPersonsById = {};  // videoId → [{bbox: [x,y,x,y], confidence}] (last sentinel snapshot, en coords analyse)
+    var videoLastTimingById = {};       // videoId → {poseLatencyMs, classifyLatencyMs}
+    var yoloCountPeriodicById = {};     // videoId → int (YOLO trigerés par cadence)
+    var yoloCountSentinelById = {};     // videoId → int (YOLO trigerés par new-person sentinel)
+    var yoloCountSceneById = {};        // videoId → int (YOLO trigerés par scene change)
+    var sentinelCountById = {};         // videoId → int (sentinel inferences cumulées)
+    var framesSinceYoloById = {};       // videoId → int (= frames rVFC depuis dernier YOLO apply)
     var sceneHashById = {};             // videoId → Uint8Array (HASH_SIZE * HASH_SIZE) du dernier hash, ou null
     var sentinelLostCountById = {};     // videoId → nb de sentinels consécutifs avec raw=0 alors qu'on trackait
     var SENTINEL_LOST_THRESHOLD = 1;    // après N sentinels vides → clear blur + trigger YOLO (réactivité 1→0)
@@ -832,6 +842,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           video.requestVideoFrameCallback(tick);
           return;
         }
+        // Compteur "frames since last YOLO apply" pour le HUD debug.
+        framesSinceYoloById[videoId] = (framesSinceYoloById[videoId] || 0) + 1;
         var dpr = window.devicePixelRatio || 1;
         var pw, ph;
         var inFs = (fullscreenVideoEl === video);
@@ -925,7 +937,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
             pendingNewPersonsById[videoId] = [];
             currentBboxesById[videoId] = [];
             lastYoloBboxesById[videoId] = [];
-            yoloTriggeredBySentinelById[videoId] = true;
+            yoloTriggeredBySceneById[videoId] = true;
             videoStateById[videoId] = 'safe';
             metric('scene_change', {
               videoId: videoId,
@@ -977,12 +989,13 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           var lastYoloMs = lastYoloTimeById[videoId] || 0;
           var lastSentinelMs = lastSentinelTimeById[videoId] || 0;
           var yoloDue = (nowMs - lastYoloMs) >= yoloInterval;
-          var yoloTriggered = !!yoloTriggeredBySentinelById[videoId];
+          var yoloTriggered = !!yoloTriggeredBySentinelById[videoId] || !!yoloTriggeredBySceneById[videoId];
           var yoloCooldownOk = (nowMs - lastYoloMs) >= YOLO_MIN_COOLDOWN_MS;
 
           if (!yoloInFlightById[videoId] && yoloCooldownOk && (yoloDue || yoloTriggered)) {
             yoloInFlightById[videoId] = true;
-            yoloTriggeredBySentinelById[videoId] = false;
+            // Les flags triggered sont consommés dans `__basarunaaApplyVideo`
+            // au retour, pour pouvoir comptabiliser par trigger.
             lastYoloTimeById[videoId] = nowMs;
             metric('yolo_send', {
               videoId: videoId, state: state,
@@ -1029,6 +1042,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
             var videoDebug = videoDebugModeById[videoId] || 'none';
             for (var i = 0; i < bboxes.length; i++) {
               drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, dispW, dispH, dispOffX, dispOffY, videoDebug);
+            }
+            // Overlay debug global (sentinel/all-persons/skeleton/HUD).
+            // Dessiné après les drawAndBlurRegion pour rester au-dessus du blur.
+            if (videoDebug === 'boxes' || videoDebug === 'debug') {
+              _drawVideoDebugOverlay(dctx, videoId, videoDebug, dispW, dispH, dispOffX, dispOffY, meta);
             }
             // En mode debug, badge "NSFW" en haut-gauche du canvas pour
             // distinguer un full-frame blur intentionnel d'un bug. Le
@@ -1305,6 +1323,157 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
     }
 
+    // Overlay debug vidéo — parité macOS POC `renderBlur` debug branch +
+    // `_drawHUD`. Appelé 1× par tick après les drawAndBlurRegion. Dessine :
+    //  - Sentinel bboxes (vert dashed) — ce que NanoDet voit
+    //  - All persons bboxes (rose/bleu/jaune par gender) — toutes les
+    //    persons YOLO (pas juste celles à flouter). Label F/M + conf%.
+    //  - Skeleton COCO (mode 'debug' only) — limbs colorés
+    //  - Keypoints (mode 'debug' only) — dots blancs
+    //  - HUD bottom-left : state, blur count, YOLO counters par trigger,
+    //    sentinel count, frames depuis dernier YOLO, latency
+    function _drawVideoDebugOverlay(dctx, videoId, debugMode, dispW, dispH, dispOffX, dispOffY, meta) {
+      if (!meta) return;
+      var sx = dispW / meta.analyseW;
+      var sy = dispH / meta.analyseH;
+
+      // ── Sentinel bboxes (dashed vert) ──
+      var sentinelPersons = videoSentinelPersonsById[videoId] || [];
+      if (sentinelPersons.length > 0) {
+        dctx.save();
+        dctx.strokeStyle = '#00FF00';
+        dctx.lineWidth = 1;
+        dctx.setLineDash([4, 4]);
+        dctx.font = 'bold 10px monospace';
+        for (var i = 0; i < sentinelPersons.length; i++) {
+          var sp = sentinelPersons[i];
+          var sb = sp.bbox;
+          var rx = dispOffX + sb[0] * sx;
+          var ry = dispOffY + sb[1] * sy;
+          var rw = (sb[2] - sb[0]) * sx;
+          var rh = (sb[3] - sb[1]) * sy;
+          dctx.strokeRect(rx, ry, rw, rh);
+          dctx.fillStyle = '#00FF00';
+          var labelY = ry >= 12 ? ry - 3 : ry + 10;
+          dctx.fillText('S ' + Math.round((sp.confidence || 0) * 100) + '%', rx, labelY);
+        }
+        dctx.restore();
+      }
+
+      // ── All persons bboxes (H/F colored) + skeleton (mode 'debug') ──
+      var allPersons = videoAllPersonsById[videoId] || [];
+      var COCO_SKELETON = [
+        [0,1],[0,2],[1,3],[2,4],[5,6],
+        [5,7],[7,9],[6,8],[8,10],
+        [5,11],[6,12],[11,12],
+        [11,13],[13,15],[12,14],[14,16]
+      ];
+      var LIMB_COLORS = [
+        '#FF6B6B','#FF6B6B','#FF6B6B','#FF6B6B','#FFD93D',
+        '#6BCB77','#6BCB77','#4D96FF','#4D96FF',
+        '#FFD93D','#FFD93D','#FFD93D',
+        '#6BCB77','#6BCB77','#4D96FF','#4D96FF'
+      ];
+      var KP_CONF_THRESHOLD = 0.3;
+      for (var pi = 0; pi < allPersons.length; pi++) {
+        var p = allPersons[pi];
+        var pb = p.bbox || [0, 0, 0, 0];
+        var dx = dispOffX + pb[0] * sx;
+        var dy = dispOffY + pb[1] * sy;
+        var dw = (pb[2] - pb[0]) * sx;
+        var dh = (pb[3] - pb[1]) * sy;
+        if (dw <= 0 || dh <= 0) continue;
+        var color = (p.gender === 'female') ? '#FF69B4'
+                  : (p.gender === 'male')   ? '#4169E1'
+                                            : '#FFCC00';
+        dctx.save();
+        dctx.strokeStyle = color;
+        dctx.lineWidth = 2;
+        dctx.strokeRect(dx, dy, dw, dh);
+        var labelTxt = (p.gender === 'female') ? 'F'
+                     : (p.gender === 'male')   ? 'M'
+                                               : '?';
+        if (typeof p.genderConfidence === 'number') {
+          labelTxt += ' ' + Math.round(p.genderConfidence * 100) + '%';
+        }
+        if (p.classifierUsed) labelTxt += ' [' + p.classifierUsed + ']';
+        dctx.fillStyle = color;
+        dctx.font = 'bold 11px monospace';
+        var labelLY = dy >= 14 ? dy - 4 : dy + 14;
+        dctx.fillText(labelTxt, dx, labelLY);
+        if (debugMode === 'debug' && Array.isArray(p.keypoints) && p.keypoints.length >= 17) {
+          var kps = p.keypoints;  // [[x, y, conf], ...]
+          dctx.lineWidth = Math.max(1, Math.round(dw * 0.015));
+          for (var si = 0; si < COCO_SKELETON.length; si++) {
+            var ai = COCO_SKELETON[si][0], bi = COCO_SKELETON[si][1];
+            var ka = kps[ai], kb = kps[bi];
+            if (!ka || !kb) continue;
+            if (ka[2] > KP_CONF_THRESHOLD && kb[2] > KP_CONF_THRESHOLD) {
+              dctx.strokeStyle = LIMB_COLORS[si];
+              dctx.beginPath();
+              dctx.moveTo(dispOffX + ka[0] * sx, dispOffY + ka[1] * sy);
+              dctx.lineTo(dispOffX + kb[0] * sx, dispOffY + kb[1] * sy);
+              dctx.stroke();
+            }
+          }
+          dctx.fillStyle = '#FFFFFF';
+          for (var ki = 0; ki < kps.length; ki++) {
+            if (kps[ki][2] > KP_CONF_THRESHOLD) {
+              dctx.beginPath();
+              dctx.arc(dispOffX + kps[ki][0] * sx, dispOffY + kps[ki][1] * sy, 2.5, 0, Math.PI * 2);
+              dctx.fill();
+            }
+          }
+        }
+        dctx.restore();
+      }
+
+      // ── HUD bottom-left (parité macOS `_drawHUD`) ──
+      var state = videoStateById[videoId] || 'safe';
+      var timing = videoLastTimingById[videoId];
+      var mode = (timing && timing.mode) ? timing.mode : '?';
+      var nBlur = (currentBboxesById[videoId] || []).length;
+      var yp = yoloCountPeriodicById[videoId] || 0;
+      var ys = yoloCountSentinelById[videoId] || 0;
+      var yc = yoloCountSceneById[videoId] || 0;
+      var yTotal = yp + ys + yc;
+      var sc = sentinelCountById[videoId] || 0;
+      var nSentinel = sentinelPersons.length;
+      var fsy = framesSinceYoloById[videoId] || 0;
+      var inFlight = !!yoloInFlightById[videoId];
+      var lines = [
+        state + ' | ' + nBlur + ' blur | ' + mode,
+        'YOLO: ' + yTotal + ' (p:' + yp + ' s:' + ys + ' c:' + yc + ')' + (inFlight ? ' ...' : ''),
+        'Sentinel: ' + sc + ' runs | ' + nSentinel + 'p | ' + fsy + 'f since YOLO'
+      ];
+      if (timing) {
+        var pose = Math.round(timing.poseLatencyMs || 0);
+        var cls = Math.round(timing.classifyLatencyMs || 0);
+        lines.push('det: ' + pose + 'ms cls: ' + cls + 'ms');
+      }
+      var fontPx = 11;
+      var lineH = fontPx + 3;
+      var pad = 5;
+      dctx.save();
+      dctx.font = 'bold ' + fontPx + 'px monospace';
+      var boxW = 0;
+      for (var li = 0; li < lines.length; li++) {
+        var lw = dctx.measureText(lines[li]).width;
+        if (lw > boxW) boxW = lw;
+      }
+      boxW += pad * 2;
+      var boxH = lines.length * lineH + pad * 2;
+      var boxY = dctx.canvas.height - boxH;
+      dctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+      dctx.fillRect(0, boxY, boxW, boxH);
+      dctx.fillStyle = '#0f0';
+      dctx.textBaseline = 'alphabetic';
+      for (var li2 = 0; li2 < lines.length; li2++) {
+        dctx.fillText(lines[li2], pad, boxY + pad + (li2 + 1) * lineH - 3);
+      }
+      dctx.restore();
+    }
+
     function scanAndWire() {
       var videos = document.getElementsByTagName('video');
       for (var i = 0; i < videos.length; i++) {
@@ -1327,7 +1496,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // d'analyse. On stocke les bboxes globalement ; le render loop les
     // applique à chaque rVFC (~30 fps). Si NSFW, on remplace les bboxes
     // par un full-frame blur (1 seule bbox couvrant la totale).
-    window.__basarunaaApplyVideo = function(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw, debugMode) {
+    window.__basarunaaApplyVideo = function(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw, debugMode, fullPersons, timing) {
       try {
         // Libère le flag in-flight quoiqu'il arrive — sinon un display
         // canvas removed pendant l'analyse fige la state machine sur
@@ -1385,6 +1554,26 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // Memoïse le debugMode pour ce videoId — sentinels & ticks suivants
         // l'utilisent pour décider de l'overlay (boxes/debug).
         videoDebugModeById[videoId] = debugMode || 'none';
+        // Stocke les persons riches (mode debug) + timing pour HUD.
+        videoAllPersonsById[videoId] = Array.isArray(fullPersons) ? fullPersons : [];
+        videoLastTimingById[videoId] = timing || null;
+        // Reset framesSinceYolo — incrémenté à chaque tick rVFC.
+        framesSinceYoloById[videoId] = 0;
+        // Comptabilise le YOLO selon son trigger (cadence vs sentinel vs scene).
+        // Les flags sont posés en amont par le scheduler ; `__basarunaaApplyVideo`
+        // est la première occasion sûre de les lire car appelé strictement
+        // après le retour natif.
+        var triggeredBySentinel = !!yoloTriggeredBySentinelById[videoId];
+        var triggeredByScene = !!yoloTriggeredBySceneById[videoId];
+        if (triggeredBySentinel) {
+          yoloCountSentinelById[videoId] = (yoloCountSentinelById[videoId] || 0) + 1;
+          yoloTriggeredBySentinelById[videoId] = false;
+        } else if (triggeredByScene) {
+          yoloCountSceneById[videoId] = (yoloCountSceneById[videoId] || 0) + 1;
+          yoloTriggeredBySceneById[videoId] = false;
+        } else {
+          yoloCountPeriodicById[videoId] = (yoloCountPeriodicById[videoId] || 0) + 1;
+        }
         // State machine cadence : tracking si au moins 1 personne à
         // flouter OU si NSFW (= re-évaluer rapidement la sortie du NSFW
         // pour ne pas garder un full-frame blur stale). Safe sinon.
@@ -1441,6 +1630,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           rawPersons.push({ bbox: padded, confidence: b[4] || 0 });
         }
         var sentinelPersons = _smoothSentinelTracks(videoId, rawPersons, analyseW, analyseH);
+        // Stocke pour overlay debug (parité macOS `lastSentinelPersons`).
+        videoSentinelPersonsById[videoId] = sentinelPersons;
+        sentinelCountById[videoId] = (sentinelCountById[videoId] || 0) + 1;
 
         // Perte de sentinel — si on trackait au moins 1 personne et que
         // sentinel retourne raw=0, on assume la disparition (cut, perte
@@ -1828,6 +2020,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           delete currentBboxMetaById[id];
           delete videoNsfwById[id];
           delete videoDebugModeById[id];
+          delete videoAllPersonsById[id];
+          delete videoSentinelPersonsById[id];
+          delete videoLastTimingById[id];
+          delete yoloCountPeriodicById[id];
+          delete yoloCountSentinelById[id];
+          delete yoloCountSceneById[id];
+          delete sentinelCountById[id];
+          delete framesSinceYoloById[id];
         }
       }
     }, 1000);

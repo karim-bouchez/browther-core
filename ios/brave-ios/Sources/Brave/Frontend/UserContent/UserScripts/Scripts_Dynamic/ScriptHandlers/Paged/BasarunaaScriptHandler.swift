@@ -239,6 +239,13 @@ class BasarunaaScriptHandler: TabContentScript {
     var isNsfw = false
     var personsCount = 0
     var modeLabel = ""
+    // Payload riche pour le debug overlay vidéo (mode != "none"). Inclut
+    // les keypoints, gender, confidence pour TOUTES les persons détectées
+    // (pas juste à flouter, parité macOS POC `renderBlur` debug branch).
+    var fullPersonsPayload: [[String: Any]] = []
+    var poseLatencyMs: Double = 0
+    var classifyLatencyMs: Double = 0
+    let debugMode = Preferences.Basarunaa.debugMode.value
 
     decode: do {
       guard let jpegData = Data(base64Encoded: b64) else {
@@ -261,6 +268,15 @@ class BasarunaaScriptHandler: TabContentScript {
         isNsfw = result.isNsfw
         personsCount = result.persons.count
         modeLabel = mode
+        poseLatencyMs = result.poseLatencyMs
+        classifyLatencyMs = result.classifyLatencyMs
+        // En mode debug, sérialise toutes les persons (avec keypoints) —
+        // les `shouldBlurFlags` indiquent celles que `decide()` ciblait.
+        if debugMode != "none" {
+          let toBlurKeys = Set(personsToBlur.map { bboxKey($0.bbox) })
+          let shouldBlurFlags = result.persons.map { toBlurKeys.contains(bboxKey($0.bbox)) }
+          fullPersonsPayload = serialize(persons: result.persons, shouldBlurFlags: shouldBlurFlags)
+        }
       } catch {
         log.error(
           "videoFrame analyze failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
@@ -279,15 +295,16 @@ class BasarunaaScriptHandler: TabContentScript {
       """
     )
 
-    // Mode debug (pour rendu overlay côté JS : "none"/"boxes"/"debug").
-    // Le JS le mémoïse par videoId entre 2 YOLOs (les sentinels n'envoient
-    // pas de debugMode, ils ré-utilisent celui du dernier apply).
-    let debugMode = Preferences.Basarunaa.debugMode.value
+    // Mode debug + payload riche stoppé côté JS via mémo par videoId.
     // ALWAYS notify the JS — even on error — to release `yoloInFlightById`.
     do {
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApplyVideo",
-        args: [videoId, ctMs, width, height, bboxes, isNsfw, debugMode],
+        args: [
+          videoId, ctMs, width, height, bboxes, isNsfw, debugMode,
+          fullPersonsPayload,
+          ["poseLatencyMs": poseLatencyMs, "classifyLatencyMs": classifyLatencyMs, "mode": modeLabel] as [String: Any],
+        ],
         contentWorld: Self.scriptSandbox
       )
     } catch {
