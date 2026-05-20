@@ -214,13 +214,24 @@ void NTPBackgroundImagesService::CheckSponsoredImagesComponentUpdate(
 
 void NTPBackgroundImagesService::RegisterBackgroundImagesComponent() {
   VLOG(6) << "Registering NTP Background Images component";
-  RegisterNTPBackgroundImagesComponent(
-      component_update_service_,
-      base::BindRepeating(&NTPBackgroundImagesService::OnComponentReady,
-                          weak_factory_.GetWeakPtr()));
+  // Browther: ne PAS enregistrer le component updater Brave pour les NTP
+  // backgrounds. Contrairement aux composants Shields qui exigent
+  // BraveServiceKey (HTTP 403), le composant `aoojcmojmmcbpfgoecoadbdpnagfchel`
+  // (NTP Background Images) ET `jccnodpeafnigonfoeokpkfcapjjgfkg` (NTP
+  // Sponsored Images) sont servis depuis un endpoint public et seraient
+  // donc bien téléchargés. Résultat constaté 2026-05-20 : les fonds Brave
+  // par défaut (aaron-burden, bolivia-inteligente, etc.) écrasent notre
+  // photo.json bundlé via un 2e appel à OnComponentReady avec le path
+  // du user data dir → l'utilisateur voit "Photo by José Ibarra" et
+  // compagnie à la place de nos 17 paysages Browther.
+  //
+  // RegisterNTPBackgroundImagesComponent(
+  //     component_update_service_,
+  //     base::BindRepeating(&NTPBackgroundImagesService::OnComponentReady,
+  //                         weak_factory_.GetWeakPtr()));
 
-  // Browther: load bundled backgrounds as fallback (Brave's component server
-  // won't serve our fork). Check on a background thread to avoid blocking.
+  // Browther: load bundled backgrounds. Check on a background thread to
+  // avoid blocking.
   //
   // - Desktop : 17 paysages nature copiés dans exe_dir/browther_backgrounds/
   //   (Mac : Contents/Resources/, Win/Linux : à côté du binaire).
