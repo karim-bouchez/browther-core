@@ -87,6 +87,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var pendingNewPersonsById = {};     // videoId → [{ bbox, confidence }] vus à la run précédente, en attente du 2e sighting
     var yoloTriggeredBySentinelById = {}; // videoId → bool (consommé au prochain tick YOLO)
     var videoStateById = {};            // videoId → 'safe' | 'tracking' (cadence YOLO adaptative)
+    var videoDebugModeById = {};        // videoId → 'none'|'boxes'|'debug' (memoïsé entre 2 YOLO)
     var sceneHashById = {};             // videoId → Uint8Array (HASH_SIZE * HASH_SIZE) du dernier hash, ou null
     var sentinelLostCountById = {};     // videoId → nb de sentinels consécutifs avec raw=0 alors qu'on trackait
     var SENTINEL_LOST_THRESHOLD = 1;    // après N sentinels vides → clear blur + trigger YOLO (réactivité 1→0)
@@ -368,8 +369,21 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     //   window.__basarunaaBlurMode = 'gaussian' → ajoute ctx.filter='blur(2px)' sur tiny canvas
     // Le mode est lu à chaque blur. Métrique `blur_perf` log les ms p50/p95
     // par bbox toutes les 60 frames pour qu'on compare data-driven.
-    var DEBUG_BBOX_STROKE = true;       // dessine un cadre rouge autour
-                                        // de chaque bbox floutée (V3-E iter 1)
+    // Feather mask vidéo (port `_drawFeatheredBlurVideo` POC macOS) : étend
+    // la zone blur de FEATHER_MARGIN px + composite destination-in avec un
+    // mask blanc blurré → bords du blur en dégradé alpha (transition smooth
+    // avec le reste de la vidéo). Snap aux bords image si bbox proche du
+    // bord (pas de feather sur ce côté — pas de zone à peine floue au bord).
+    // Toggle runtime : `window.__basarunaaFeatherDisabled = true` pour off.
+    // 50px (vs 15 POC macOS) car le blur via downsample-upsample bilinéaire
+    // est moins net qu'un vrai gaussian — il faut une zone plus large pour
+    // que le dégradé soit visible. Togglable runtime via :
+    //   window.__basarunaaFeatherMarginPx = 30  // override
+    var VIDEO_FEATHER_MARGIN_PX_DEFAULT = 50;
+    var VIDEO_FEATHER_PAD_PX = VIDEO_FEATHER_MARGIN_PX_DEFAULT + 5;
+    // V3-E iter 1 — visualisait les bboxes pendant le dev. Désactivé en
+    // prod car le rect rouge net masquait visuellement l'effet feather.
+    var DEBUG_BBOX_STROKE = false;
     // Perf measurement — fenêtre glissante sur les derniers blurs pour
     // déduire p50/p95 du temps de rendu d'une bbox (avec mode courant).
     var blurPerfSamples = [];
@@ -424,6 +438,19 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // 2e canvas pour le 2-pass blur (re-downsample du 1er blurCanvas)
     var blurCanvas2 = document.createElement('canvas');
     var bctx2 = blurCanvas2.getContext('2d');
+    // Canvas dédiés au feather mask vidéo (recyclés entre bboxes).
+    // - featherTemp : blur upscalé à taille bbox étendue puis composite avec mask
+    // - featherMask : rect blanc strict de taille bbox au centre
+    // - featherMaskSmall / featherMaskBlurred : trick downsample-upsample pour
+    //   blurrer le mask (ctx.filter blur est un no-op silencieux sur WebKit iOS)
+    var featherTempCanvas = document.createElement('canvas');
+    var ftCtx = featherTempCanvas.getContext('2d');
+    var featherMaskCanvas = document.createElement('canvas');
+    var fmCtx = featherMaskCanvas.getContext('2d');
+    var featherMaskSmallCanvas = document.createElement('canvas');
+    var fmsCtx = featherMaskSmallCanvas.getContext('2d');
+    var featherMaskBlurredCanvas = document.createElement('canvas');
+    var fmbCtx = featherMaskBlurredCanvas.getContext('2d');
 
     // ─── Overlay placement (2026-05-18) ────────────────────────────────────
     // Sur YouTube le `<video>` est probablement en hardware-overlay au-dessus
@@ -994,8 +1021,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           if (bboxes && bboxes.length && meta) {
             var sx = dispW / meta.analyseW;
             var sy = dispH / meta.analyseH;
+            var videoDebug = videoDebugModeById[videoId] || 'none';
             for (var i = 0; i < bboxes.length; i++) {
-              drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, dispW, dispH, dispOffX, dispOffY);
+              drawAndBlurRegion(dctx, video, bboxes[i], sx, sy, vw, vh, dispW, dispH, dispOffX, dispOffY, videoDebug);
             }
           }
 
@@ -1078,7 +1106,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // bboxes en coords analyse (= dim JPEG envoyé) → sx, sy rescale vers
     // canvas pixel size (pw, ph). On reconvertit ensuite en source <video>
     // pixel coords pour drawImage(video, srcX, srcY, srcW, srcH, ...).
-    function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH, offX, offY) {
+    function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH, offX, offY, debugMode) {
       offX = offX || 0;
       offY = offY || 0;
       var bx = offX + bbox[0] * sx;
@@ -1096,10 +1124,29 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       // en fullscreen letterbox, = pw/ph en normal).
       var srcSx = vw / canvasW;
       var srcSy = vh / canvasH;
-      var srcX = (bx - offX) * srcSx;
-      var srcY = (by - offY) * srcSy;
-      var srcW = bw * srcSx;
-      var srcH = bh * srcSy;
+
+      // ── Feather extend (snap aux bords image) ──────────────────
+      // Si bbox proche d'un bord image, on n'étend PAS de ce côté
+      // (snap → pas de dégradé visible vers le vide). Le clamp final
+      // empêche de sortir du canvas (en cas de coin par ex).
+      var dcw = dctx.canvas.width, dch = dctx.canvas.height;
+      var snapX = dcw * 0.10, snapY = dch * 0.10;
+      var FM = (typeof window.__basarunaaFeatherMarginPx === 'number')
+        ? window.__basarunaaFeatherMarginPx
+        : VIDEO_FEATHER_MARGIN_PX_DEFAULT;
+      var featherEnabled = (window.__basarunaaFeatherDisabled !== true);
+      var exL = (featherEnabled && bx >= snapX) ? FM : 0;
+      var exT = (featherEnabled && by >= snapY) ? FM : 0;
+      var exR = (featherEnabled && (dcw - (bx + bw)) >= snapX) ? FM : 0;
+      var exB = (featherEnabled && (dch - (by + bh)) >= snapY) ? FM : 0;
+      exL = Math.min(exL, bx);
+      exT = Math.min(exT, by);
+      exR = Math.min(exR, dcw - (bx + bw));
+      exB = Math.min(exB, dch - (by + bh));
+      var bxe = bx - exL, bye = by - exT;
+      var bwe = bw + exL + exR, bhe = bh + exT + exB;
+      var hasFeather = (exL + exT + exR + exB) > 0;
+
       // 2-pass blur — l'aller-retour downsample-upsample fait une moyenne
       // bilinéaire de pixels (~box filter). Avec 2 passes successives, on
       // approxime un gaussian blur smooth. Mode 'gaussian' add `ctx.filter`
@@ -1111,9 +1158,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       // p50=0ms, avg=0.05ms → coût du gaussian négligeable (~0.5-1ms
       // attendu sur tiny canvas), qualité supérieure.
       var blurMode = window.__basarunaaBlurMode || 'gaussian';
+      // Coords source vidéo pour la zone étendue (clampé aux bords vidéo).
+      var srcX_e = (bxe - offX) * srcSx;
+      var srcY_e = (bye - offY) * srcSy;
+      var srcW_e = bwe * srcSx;
+      var srcH_e = bhe * srcSy;
+      if (srcX_e < 0) { srcW_e += srcX_e; srcX_e = 0; }
+      if (srcY_e < 0) { srcH_e += srcY_e; srcY_e = 0; }
+      if (srcX_e + srcW_e > vw) srcW_e = vw - srcX_e;
+      if (srcY_e + srcH_e > vh) srcH_e = vh - srcY_e;
       // Pass 1: video → blurCanvas (downsample fort, BLUR_DOWNSAMPLE×)
-      var tw = Math.max(1, Math.round(bw / BLUR_DOWNSAMPLE));
-      var th = Math.max(1, Math.round(bh / BLUR_DOWNSAMPLE));
+      var tw = Math.max(1, Math.round(bwe / BLUR_DOWNSAMPLE));
+      var th = Math.max(1, Math.round(bhe / BLUR_DOWNSAMPLE));
       if (blurCanvas.width !== tw) blurCanvas.width = tw;
       if (blurCanvas.height !== th) blurCanvas.height = th;
       bctx.imageSmoothingEnabled = true;
@@ -1122,7 +1178,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // Gaussian filter sur le tiny canvas — coût ~constant à cette taille.
         bctx.filter = 'blur(' + BLUR_GAUSSIAN_RADIUS_PX + 'px)';
       }
-      bctx.drawImage(video, srcX, srcY, srcW, srcH, 0, 0, tw, th);
+      bctx.drawImage(video, srcX_e, srcY_e, srcW_e, srcH_e, 0, 0, tw, th);
       if (blurMode === 'gaussian') {
         bctx.filter = 'none';
       }
@@ -1134,10 +1190,61 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       bctx2.imageSmoothingEnabled = true;
       bctx2.imageSmoothingQuality = 'high';
       bctx2.drawImage(blurCanvas, 0, 0, tw, th, 0, 0, tw2, th2);
-      // Pass 3: blurCanvas2 → dctx (upscale gros, smooth bilinéaire)
-      dctx.imageSmoothingEnabled = true;
-      dctx.imageSmoothingQuality = 'high';
-      dctx.drawImage(blurCanvas2, 0, 0, tw2, th2, bx, by, bw, bh);
+
+      if (!hasFeather) {
+        // Pas de feather (toggle off ou bbox plaqué aux 4 bords) :
+        // Pass 3 directe — upscale blur vers dctx aux coords étendues
+        // (= coords originales puisque exL/T/R/B = 0).
+        dctx.imageSmoothingEnabled = true;
+        dctx.imageSmoothingQuality = 'high';
+        dctx.drawImage(blurCanvas2, 0, 0, tw2, th2, bxe, bye, bwe, bhe);
+      } else {
+        // ── Feather composite ─────────────────────────────────────
+        // Pass 3a : upscale blur → featherTemp (taille bbox étendue).
+        if (featherTempCanvas.width !== bwe) featherTempCanvas.width = bwe;
+        if (featherTempCanvas.height !== bhe) featherTempCanvas.height = bhe;
+        ftCtx.clearRect(0, 0, bwe, bhe);
+        ftCtx.imageSmoothingEnabled = true;
+        ftCtx.imageSmoothingQuality = 'high';
+        ftCtx.drawImage(blurCanvas2, 0, 0, tw2, th2, 0, 0, bwe, bhe);
+        // Pass 3b : mask blanc strict bbox au centre de l'extended. Le
+        // blur du mask via downsample-upsample par maskFactor = FM donne
+        // un dégradé centré sur le bord du rect (= bord du bbox d'origine).
+        // Donc à la position du bbox d'origine, alpha ≈ 50%, et le
+        // dégradé s'étend de ~FM/2 de chaque côté (intérieur + extérieur).
+        if (featherMaskCanvas.width !== bwe) featherMaskCanvas.width = bwe;
+        if (featherMaskCanvas.height !== bhe) featherMaskCanvas.height = bhe;
+        fmCtx.clearRect(0, 0, bwe, bhe);
+        fmCtx.fillStyle = '#fff';
+        fmCtx.fillRect(exL, exT, bw, bh);
+        // Pass 3c : blur le mask (downsample-upsample, factor ~= FM).
+        // POC macOS utilise `ctx.filter='blur(15px)'` mais c'est un no-op
+        // sur WebKit iOS — on émule via aller-retour bilinéaire. Factor
+        // ~= FM donne un dégradé proche du blur natif macOS (testé 2026-05-20).
+        var maskFactor = Math.max(8, FM);
+        var msW = Math.max(1, Math.floor(bwe / maskFactor));
+        var msH = Math.max(1, Math.floor(bhe / maskFactor));
+        if (featherMaskSmallCanvas.width !== msW) featherMaskSmallCanvas.width = msW;
+        if (featherMaskSmallCanvas.height !== msH) featherMaskSmallCanvas.height = msH;
+        fmsCtx.clearRect(0, 0, msW, msH);
+        fmsCtx.imageSmoothingEnabled = true;
+        fmsCtx.imageSmoothingQuality = 'high';
+        fmsCtx.drawImage(featherMaskCanvas, 0, 0, bwe, bhe, 0, 0, msW, msH);
+        if (featherMaskBlurredCanvas.width !== bwe) featherMaskBlurredCanvas.width = bwe;
+        if (featherMaskBlurredCanvas.height !== bhe) featherMaskBlurredCanvas.height = bhe;
+        fmbCtx.clearRect(0, 0, bwe, bhe);
+        fmbCtx.imageSmoothingEnabled = true;
+        fmbCtx.imageSmoothingQuality = 'high';
+        fmbCtx.drawImage(featherMaskSmallCanvas, 0, 0, msW, msH, 0, 0, bwe, bhe);
+        // Pass 3d : composite mask → bords feathered.
+        ftCtx.globalCompositeOperation = 'destination-in';
+        ftCtx.drawImage(featherMaskBlurredCanvas, 0, 0);
+        ftCtx.globalCompositeOperation = 'source-over';
+        // Pass 3e : draw final sur dctx.
+        dctx.imageSmoothingEnabled = true;
+        dctx.imageSmoothingQuality = 'high';
+        dctx.drawImage(featherTempCanvas, 0, 0, bwe, bhe, bxe, bye, bwe, bhe);
+      }
       // Mesure perf (en ms par bbox) — fenêtre glissante 60 samples.
       var blurEnd = (typeof performance !== 'undefined' && performance.now)
         ? performance.now() : Date.now();
@@ -1147,6 +1254,27 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         dctx.strokeStyle = 'rgba(255, 80, 80, 0.9)';
         dctx.lineWidth = Math.max(2, Math.round(2 * (window.devicePixelRatio || 1)));
         dctx.strokeRect(bx, by, bw, bh);
+      }
+      // En mode debug "boxes" ou "debug" — affiche 2 rects pointillés :
+      // - intérieur (cyan) : zone du blur 100% (= bbox d'origine rétréci
+      //   de FM/2 sur chaque côté feathered, car le dégradé alpha est
+      //   centré sur le bord du bbox d'origine où alpha ≈ 50%)
+      // - extérieur (jaune) : fin du dégradé alpha (= bbox étendue de FM)
+      if ((debugMode === 'boxes' || debugMode === 'debug') && hasFeather) {
+        dctx.save();
+        var dpr = window.devicePixelRatio || 1;
+        dctx.lineWidth = Math.max(1.5, Math.round(1.5 * dpr));
+        dctx.setLineDash([6 * dpr, 4 * dpr]);
+        var halfFM_cyan = Math.floor(FM / 2);
+        var cyanX = bx + (exL > 0 ? halfFM_cyan : 0);
+        var cyanY = by + (exT > 0 ? halfFM_cyan : 0);
+        var cyanW = bw - (exL > 0 ? halfFM_cyan : 0) - (exR > 0 ? halfFM_cyan : 0);
+        var cyanH = bh - (exT > 0 ? halfFM_cyan : 0) - (exB > 0 ? halfFM_cyan : 0);
+        dctx.strokeStyle = 'rgba(80, 220, 255, 0.95)';
+        if (cyanW > 0 && cyanH > 0) dctx.strokeRect(cyanX, cyanY, cyanW, cyanH);
+        dctx.strokeStyle = 'rgba(255, 230, 80, 0.95)';
+        dctx.strokeRect(bxe, bye, bwe, bhe);
+        dctx.restore();
       }
     }
 
@@ -1172,7 +1300,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // d'analyse. On stocke les bboxes globalement ; le render loop les
     // applique à chaque rVFC (~30 fps). Si NSFW, on remplace les bboxes
     // par un full-frame blur (1 seule bbox couvrant la totale).
-    window.__basarunaaApplyVideo = function(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw) {
+    window.__basarunaaApplyVideo = function(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw, debugMode) {
       try {
         // Libère le flag in-flight quoiqu'il arrive — sinon un display
         // canvas removed pendant l'analyse fige la state machine sur
@@ -1226,6 +1354,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           }
           return { offsetX: offX, offsetY: offY, yoloW: yoloW, yoloH: yoloH };
         });
+        // Memoïse le debugMode pour ce videoId — sentinels & ticks suivants
+        // l'utilisent pour décider de l'overlay (boxes/debug).
+        videoDebugModeById[videoId] = debugMode || 'none';
         // State machine cadence : tracking si au moins 1 personne à
         // flouter, safe sinon. Pas de gender info — le natif a déjà
         // filtré par mode (cf. `decide()` côté Swift).

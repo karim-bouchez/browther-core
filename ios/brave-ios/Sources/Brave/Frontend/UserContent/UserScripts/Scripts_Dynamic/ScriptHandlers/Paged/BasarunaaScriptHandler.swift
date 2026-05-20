@@ -279,11 +279,15 @@ class BasarunaaScriptHandler: TabContentScript {
       """
     )
 
+    // Mode debug (pour rendu overlay côté JS : "none"/"boxes"/"debug").
+    // Le JS le mémoïse par videoId entre 2 YOLOs (les sentinels n'envoient
+    // pas de debugMode, ils ré-utilisent celui du dernier apply).
+    let debugMode = Preferences.Basarunaa.debugMode.value
     // ALWAYS notify the JS — even on error — to release `yoloInFlightById`.
     do {
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApplyVideo",
-        args: [videoId, ctMs, width, height, bboxes, isNsfw],
+        args: [videoId, ctMs, width, height, bboxes, isNsfw, debugMode],
         contentWorld: Self.scriptSandbox
       )
     } catch {
