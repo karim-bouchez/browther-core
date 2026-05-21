@@ -12,6 +12,10 @@
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
 #include "brave/components/brave_search/common/brave_search_utils.h"
+#if BUILDFLAG(IS_ANDROID)
+// Browther: Sawtunaa Voie B (Jalon 2.B.4) — Android-only RFO.
+#include "brave/components/sawtunaa/renderer/sawtunaa_render_frame_observer.h"
+#endif
 #include "brave/components/brave_search/renderer/brave_search_render_frame_observer.h"
 #include "brave/components/brave_shields/core/common/features.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
@@ -179,6 +183,14 @@ void BraveContentRendererClient::RenderFrameCreated(
   // DidFinishLoad et envoie un dummy AnalyzeImage IPC pour valider que
   // Mojo+BigBuffer ne crashe pas sous stress depuis un renderer C++.
   new basarunaa::BasarunaaRenderFrameObserver(render_frame);
+
+#if BUILDFLAG(IS_ANDROID)
+  // Browther: Sawtunaa Voie B (Jalon 2.B.4) — RFO C++ qui envoie un ping
+  // `Sawtunaa.LogJs("hello from <url>")` au browser à chaque
+  // DidCommitProvisionalLoad du main frame, pour valider la chaîne Mojo
+  // renderer → browser → TabHelper. JS-side bindings viennent au Jalon 2.C.
+  new sawtunaa::SawtunaaRenderFrameObserver(render_frame);
+#endif
 
   if (brave_search::IsDefaultAPIEnabled()) {
     new brave_search::BraveSearchRenderFrameObserver(
