@@ -58,6 +58,12 @@ brave_chrome_java_deps = [
   "//brave/components/browser_ui/site_settings/android:java",
   "//brave/components/misc_metrics/common:mojom_java",
   "//brave/components/playlist/core/common/mojom:mojom_java",
+  # Browther: Sawtunaa Voie B (Jalon 2.B.2) — bindings Java auto-générés
+  # depuis brave/components/sawtunaa/common/mojom/sawtunaa.mojom
+  # (generate_java = true). Consommés par SawtunaaTabHelper.java au Jalon
+  # 2.B.5. À ce stade, juste valider que gn gen produit les .java sans
+  # casser le build Android.
+  "//brave/components/sawtunaa/common/mojom:mojom_java",
   "//brave/components/safe_browsing/android:brave_safe_browsing_java",
   "//brave/components/skus/common:mojom_java",
   "//brave/components/url_sanitizer/core/common/mojom:mojom_java",
