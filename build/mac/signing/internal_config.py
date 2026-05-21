@@ -30,11 +30,13 @@ class InternalCodeSignConfig(ChromiumCodeSignConfig):
 
     @property
     def distributions(self):
+        # Browther: DMG-only. PKG needs Developer ID Installer cert (separate
+        # purchase). ZIP is redundant with DMG for end-user distribution.
         return [
             Distribution(channel=BRAVE_CHANNEL,
                          package_as_dmg=True,
-                         package_as_pkg=True,
-                         package_as_zip=True)
+                         package_as_pkg=False,
+                         package_as_zip=False)
         ]
 
     @property
@@ -43,15 +45,17 @@ class InternalCodeSignConfig(ChromiumCodeSignConfig):
 
     @property
     def run_spctl_assess(self):
-        # It only makes sense to run spctl assess when the binary was notarized
-        # and stapled. This implementation checks whether that is the case.
+        # Browther: désactivé. Brave's logique d'origine activait spctl assess
+        # dans validate_app() (chrome/installer/mac/signing/signing.py:143)
+        # quand notarize == STAPLE, MAIS validate_app tourne AVANT que la
+        # notarisation Apple soit effectuée dans le pipeline. Sur macOS moderne
+        # (Catalina+), spctl --assess refuse un Developer ID non-notarisé
+        # → "rejected, source=Unnotarized Developer ID" → CalledProcessError
+        # → bug NameError car `subprocess` n'est pas importé dans signing.py.
         #
-        # It's tempting to use self._notarize here, but it does not contain the
-        # correct value: When this object is a DistributionCodeSignConfig, then
-        # its _notarize always has the default value STAPLE instead of the value
-        # from the base config from which it was created. We therefore refer to
-        # invoker.args.notarize, which does contain the correct value.
-        return self.invoker.args.notarize == NotarizeAndStapleLevel.STAPLE
+        # La vraie validation spctl --assess (post-staple) est faite par notre
+        # script private/scripts/sign-release.sh sur le DMG produit.
+        return False
 
     @property
     def app_dir(self):

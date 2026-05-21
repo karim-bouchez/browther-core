@@ -4,11 +4,10 @@
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # Browther: paysages Unsplash bundlés pour Desktop (macOS/Windows/Linux).
-# Le service `NTPBackgroundImagesService` les charge au boot depuis
-# `DIR_EXE/browther_backgrounds/` (cf. ntp_background_images_service.cc).
-#
-# Sur macOS, DIR_EXE = `Browther.app/Contents/MacOS/`. Sur Win/Linux,
-# c'est le dossier qui contient le binaire.
+# Le service `NTPBackgroundImagesService` les charge au boot depuis :
+#   - macOS : `Browther.app/Contents/Resources/browther_backgrounds/`
+#     (PAS Contents/MacOS/ : codesign --deep refuse les non-Mach-O dans MacOS/)
+#   - Win/Linux : `DIR_EXE/browther_backgrounds/` (à côté du binaire)
 #
 # Android utilise un autre flow (extraction APK), cf. ../browther_backgrounds_mobile/.
 #
@@ -45,8 +44,10 @@ if (!is_android && !is_ios) {
   }
 
   if (is_mac) {
-    # Mac bundle : copie dans Browther.app/Contents/MacOS/browther_backgrounds/.
-    # Le service C++ lit DIR_EXE = Contents/MacOS/ sur macOS.
+    # Mac bundle : copie dans Browther.app/Contents/Resources/browther_backgrounds/.
+    # Le service C++ construit ce path explicitement via OuterBundlePath() sur Mac
+    # (cf. ntp_background_images_service.cc). On ne peut PAS utiliser
+    # Contents/MacOS/ car codesign --deep refuse les non-Mach-O dans MacOS/.
     # Référencé par chrome/BUILD.gn deps du chrome_app (cf. post-init-patches.sh).
     bundle_data("browther_backgrounds_bundle_data") {
       sources = []
@@ -54,7 +55,7 @@ if (!is_android && !is_ios) {
         sources += [ "$root_out_dir/browther_backgrounds/$f" ]
       }
       outputs = [
-        "{{bundle_executable_dir}}/browther_backgrounds/{{source_file_part}}",
+        "{{bundle_resources_dir}}/browther_backgrounds/{{source_file_part}}",
       ]
       public_deps = [ ":browther_backgrounds_data" ]
     }

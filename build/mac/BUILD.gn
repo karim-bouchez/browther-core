@@ -23,7 +23,15 @@ packaged_basename =
     "-$chrome_version_full"
 
 dmg_path = "$packaged_basename.dmg"
+# Browther: zip_path n'est plus produit par action("package") (DMG only), mais
+# reste utilisé conditionnellement par compiled_action("crx") en fin de fichier
+# (gaté par dmg_crx_private_key). On garde la déclaration ici pour ne pas
+# fragmenter le code, et on supprime l'erreur GN "unused variable" quand le
+# CRX est désactivé (le cas par défaut chez Browther).
 zip_path = "$packaged_basename.zip"
+if (dmg_crx_private_key == "") {
+  not_needed([ "zip_path" ])
+}
 
 if (is_universal_binary) {
   assert(target_cpu == "arm64")
@@ -293,16 +301,39 @@ if (is_official_build && !skip_signing) {
   }
   copy("copy_provisionprofile") {
     sources = [ "${provisionprofile_basename}.provisionprofile" ]
-    outputs = [ "${packaging_dir}/${provisionprofile_basename}.24b42420108116ac21f215640e39f7d004e51498.provisionprofile" ]
+    # Browther: le suffixe est le SHA-1 du cert Developer ID Application qui va
+    # signer. Chromium's sign_chrome.py construit ce nom à partir du cert actif
+    # et fait rsync depuis ${packaging_dir} (24b4... était le hash du cert
+    # Brave officiel ; remplacé par celui de Chaima Addou - MWBMAMYDUD).
+    # Si on regénère le cert un jour, mettre à jour ce hash (cf.
+    # `security find-identity -v -p codesigning | grep MWBMAMYDUD`).
+    outputs = [ "${packaging_dir}/${provisionprofile_basename}.cbe0168c34c68a6bfe9ce2836adec8bf79be94e6.provisionprofile" ]
   }
 }
 
-action("package") {
-  outputs = [
-    dmg_path,
-    "$packaged_basename.pkg",
-    zip_path,
+# Browther: patch des install_names libonnxruntime sur le .app unsigned AVANT
+# que sign_chrome.py ne le signe. Sans ça, les binaires signés ref `@rpath/...`
+# qui ne résout nulle part → dyld crash au launch. Détails dans le script Python.
+action("patch_onnx_install_names") {
+  script = "browther_patch_onnx_install_names.py"
+  _stamp = "$target_gen_dir/onnx_install_names.stamp"
+  inputs = [ "browther_patch_onnx_install_names.py" ]
+  outputs = [ _stamp ]
+  args = [
+    "--app",
+    rebase_path(unsigned_app_path, root_build_dir),
+    "--stamp",
+    rebase_path(_stamp, root_build_dir),
   ]
+  deps = [ "//chrome:chrome_app" ]
+}
+
+action("package") {
+  # Browther: PKG et ZIP désactivés dans signing/internal_config.py
+  # (package_as_pkg=False, package_as_zip=False). PKG nécessite un Developer
+  # ID Installer cert qu'on n'a pas ; ZIP n'est consommé que par le target
+  # `:crx` gaté par dmg_crx_private_key (vide chez Browther). DMG seul suffit.
+  outputs = [ dmg_path ]
   deps = [
     ":copy_browser_install_script",
     ":copy_dmg_background_image",
@@ -313,6 +344,7 @@ action("package") {
     ":copy_postinstall",
     ":copy_preinstall",
     ":copy_signing_config",
+    ":patch_onnx_install_names",
     "//chrome:chrome_app",
     "//chrome/installer/mac",
   ]
