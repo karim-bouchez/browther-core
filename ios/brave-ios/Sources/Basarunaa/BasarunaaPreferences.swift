@@ -18,9 +18,17 @@ extension Preferences {
   final public class Basarunaa {
     /// Master ON/OFF — when false, the JS script handler keeps the default
     /// CSS blur on but skips ML analysis entirely.
+    ///
+    /// Default `true` to match the desktop default (cf. `private/CLAUDE.md`)
+    /// and the Browther "navigateur pré-configuré" UX. Important : leaving
+    /// this `false` triggers a brave-iOS init-time bug — `UserScriptManager.
+    /// dynamicScripts` is computed ONCE at app launch, and a nil value
+    /// (returned when the pref is false) silently removes the entry. The
+    /// script can then never be injected, even after toggling ON via the
+    /// URL bar, until the app is fully restarted.
     public static let enabled = Option<Bool>(
       key: "basarunaa.enabled",
-      default: false
+      default: true
     )
 
     /// Which persons should stay blurred when ML runs.
