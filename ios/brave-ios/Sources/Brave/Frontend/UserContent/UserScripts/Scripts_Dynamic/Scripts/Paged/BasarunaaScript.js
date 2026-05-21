@@ -87,6 +87,13 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     var pendingNewPersonsById = {};     // videoId → [{ bbox, confidence }] vus à la run précédente, en attente du 2e sighting
     var yoloTriggeredBySentinelById = {}; // videoId → bool (consommé au prochain tick YOLO)
     var yoloTriggeredBySceneById = {};    // videoId → bool (scene change cut détecté)
+    // Browther: flag différé — quand un verdict YOLO arrive après un état
+    // `full_blur`, on attend 1 tick (le canvas overlay doit avoir dessiné les
+    // bboxes opaques) avant de retirer le CSS filter de la <video> native.
+    // Sans ce délai, une frame brute de la <video> est visible entre le
+    // moment où le filter est retiré et le moment où le canvas overlay rend
+    // les bboxes (~16ms à 60fps, mais suffisant pour voir des personnes).
+    var pendingCssReleaseById = {};
     var videoStateById = {};            // videoId → 'safe' | 'tracking' (cadence YOLO adaptative)
     var videoDebugModeById = {};        // videoId → 'none'|'boxes'|'debug' (memoïsé entre 2 YOLO)
     var videoNsfwById = {};             // videoId → bool (full-frame blur, bypass sentinel reposition)
@@ -779,11 +786,49 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       } catch (e) { return null; }
     }
 
+    // ─── Browther: CSS hide-first sur <video> natif ────────────────────────
+    // Le canvas overlay (créé par wireVideo) démarre 0×0 et n'a pas tout de
+    // suite la position correcte → la <video> sous-jacente peut décoder des
+    // frames visibles. Le CSS filter inline sur la <video> masque ces frames
+    // jusqu'à ce que le 1er YOLO valide le contenu.
+    // Parité POC macOS `video.style.setProperty('filter', 'blur()...')`
+    // (video_processor.js:239). Removed au 1er __basarunaaApplyVideo.
+    function _browtherApplyVideoCssBlur(video) {
+      if (!video) return;
+      try {
+        var vw = video.videoWidth || video.clientWidth || 640;
+        var vh = video.videoHeight || video.clientHeight || 360;
+        var r = Math.max(25, Math.round(Math.max(vw, vh) * 0.04));
+        video.style.setProperty('filter', 'blur(' + r + 'px) grayscale(1)', 'important');
+        video.setAttribute('data-basarunaa-cssblur', '1');
+      } catch (e) {}
+    }
+    function _browtherReleaseVideoCssBlur(video) {
+      if (!video) return;
+      try {
+        video.style.removeProperty('filter');
+        video.removeAttribute('data-basarunaa-cssblur');
+      } catch (e) {}
+    }
+
     function wireVideo(video) {
       if (wired.has(video) || taintedVideos.has(video)) return;
       wired.add(video);
       var videoId = nextVideoId++;
       videosById[videoId] = video;
+      // Browther: démarrer en `full_blur` — toute la frame est floutée tant
+      // que le premier YOLO n'a pas répondu. Évite l'exposition entre
+      // l'apparition du <video> et la 1ère analyse (~200ms-5s avant ce fix).
+      // Parité POC macOS `VideoProcessor.setState('full_blur')` (video_processor.js:175).
+      // La transition out se fait dans `__basarunaaApplyVideo` (L~1649).
+      videoStateById[videoId] = 'full_blur';
+      // Appliquer CSS filter directement sur le <video> natif — le canvas
+      // overlay n'est pas encore posé (0×0 initial) et le <video> peut
+      // déjà décoder des frames visibles. Le CSS filter masque ces frames
+      // jusqu'à ce que le canvas overlay prenne le relais ET que le premier
+      // YOLO transitionne hors de full_blur. Removed dans __basarunaaApplyVideo
+      // au premier verdict (cf. helpers `_browtherApplyVideoCssBlur`).
+      try { _browtherApplyVideoCssBlur(video); } catch (e) {}
       metric('video_wired', {
         videoId: videoId,
         src: (video.currentSrc || video.src || '').slice(0, 100)
@@ -948,7 +993,13 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
             currentBboxesById[videoId] = [];
             lastYoloBboxesById[videoId] = [];
             yoloTriggeredBySceneById[videoId] = true;
-            videoStateById[videoId] = 'safe';
+            // Browther: repasser en full_blur + ré-appliquer CSS filter sur
+            // la <video> au scene change. Évite l'exposition pendant la
+            // fenêtre cut → 1er YOLO sur la nouvelle scène (~50-200ms).
+            // Sans ça, le canvas overlay est vidé (currentBboxes=[]) et le
+            // <video> natif est visible derrière jusqu'au prochain verdict.
+            videoStateById[videoId] = 'full_blur';
+            _browtherApplyVideoCssBlur(video);
             metric('scene_change', {
               videoId: videoId,
               diff: Math.round(sceneDiff * 1000) / 1000
@@ -996,6 +1047,10 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
 
           var state = videoStateById[videoId] || 'safe';
           var yoloInterval = state === 'safe' ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
+          // Browther: en `full_blur` (état initial), fire YOLO ASAP — skip
+          // le délai `YOLO_INTERVAL_SAFE_MS=5s` qui sinon laisserait la vidéo
+          // floutée intégralement pendant 5s avant le premier verdict.
+          if (state === 'full_blur') yoloInterval = 0;
           var lastYoloMs = lastYoloTimeById[videoId] || 0;
           var lastSentinelMs = lastSentinelTimeById[videoId] || 0;
           var yoloDue = (nowMs - lastYoloMs) >= yoloInterval;
@@ -1070,6 +1125,23 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
             }
           }
 
+          // Browther: full-frame blur initial. Tant que `state === 'full_blur'`
+          // (= avant le premier verdict YOLO), on floute la frame entière via
+          // le même `drawAndBlurRegion` que les bboxes per-person, en passant
+          // une bbox couvrant tout l'écran. La transition out vers `tracking`
+          // ou `safe` se fait dans `__basarunaaApplyVideo` (L1649) au retour
+          // du premier YOLO. Sans ce branchement, le canvas overlay reste
+          // transparent et la vidéo native sous-jacente est visible jusqu'à
+          // la 1ère analyse (~200ms-5s selon scheduler).
+          if (state === 'full_blur') {
+            drawAndBlurRegion(
+              dctx, video,
+              [0, 0, dispW, dispH], 1, 1,
+              vw, vh, dispW, dispH, dispOffX, dispOffY,
+              'none'
+            );
+          }
+
           // Blur bboxes courantes — pour chaque bbox on draw la zone
           // correspondante du <video> downsamplée puis upscalée. En
           // fullscreen, scale + offset par la zone letterboxée (dispW/H,
@@ -1110,6 +1182,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
               dctx.fillText(label, pad * 2, pad + bgH / 2);
               dctx.restore();
             }
+          }
+
+          // Browther: consommer le flag différé. Le canvas overlay vient de
+          // dessiner (soit full-frame blur si encore full_blur, soit bboxes
+          // tracking, soit rien si safe). Maintenant on peut retirer en
+          // toute sécurité le CSS filter de la <video> native — les pixels
+          // sont déjà couverts (ou la scène est confirmée sans personne).
+          if (pendingCssReleaseById[videoId]) {
+            delete pendingCssReleaseById[videoId];
+            _browtherReleaseVideoCssBlur(video);
           }
 
         } catch (e) {
@@ -1646,7 +1728,19 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         // pour ne pas garder un full-frame blur stale). Safe sinon.
         // Pas de gender info — le natif a déjà filtré par mode (cf.
         // `decide()` côté Swift).
+        var _prevState = videoStateById[videoId];
         videoStateById[videoId] = (safeBboxes.length > 0 || isNsfw) ? 'tracking' : 'safe';
+        // Browther: au premier verdict YOLO (ou après scene change), on
+        // doit retirer le CSS filter posé sur la <video> par
+        // `_browtherApplyVideoCssBlur`. MAIS on diffère au prochain tick :
+        // ici on a juste *stocké* les bboxes dans currentBboxesById ; le
+        // canvas overlay ne les dessine qu'au prochain `requestVideoFrameCallback`
+        // (~16ms). Retirer le filter immédiatement crée une fenêtre où
+        // la <video> native est visible AVANT que le canvas opaque ne
+        // dessine les zones à flouter. On flag, le tick clean.
+        if (_prevState === 'full_blur') {
+          pendingCssReleaseById[videoId] = true;
+        }
         // Reset des tracks sentinel sur full YOLO refresh (le YOLO refait
         // la vérité de base, le tracking sentinel reprend à partir de là).
         sentinelTracksById[videoId] = [];
