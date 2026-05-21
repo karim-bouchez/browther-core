@@ -1,0 +1,63 @@
+// Copyright (c) 2026 The Browther Authors. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// you can obtain one at https://mozilla.org/MPL/2.0/.
+
+module sawtunaa.mojom;
+
+// Interface exposée à l'iframe principal du renderer, bindée par le
+// `SawtunaaContentBinder` (browser-side). Reproduit le contrat de
+// `SawtunaaScriptHandler.swift` iOS — 11 actions JS → audio pipeline.
+//
+// Le renderer (JS injecté par le `SawtunaaRenderFrameObserver`) appelle ces
+// méthodes via `Mojo.bindInterface("sawtunaa.mojom.Sawtunaa", handle)`.
+// Côté browser, l'implémentation transite par `SawtunaaTabHelper` (Java)
+// qui pilote `NSNet2Processor` + `SawtunaaAudioPlayer`.
+//
+// Toutes les méthodes sont fire-and-forget (pas de réponse) — le scheduler
+// JS gère son propre tempo (rVFC + setInterval 30 ms côté iOS).
+interface Sawtunaa {
+  // Plain text log from JS (debug).
+  LogJs(string message);
+
+  // Structured metric (JSON-serialised on JS side). Forwardé à PostHog
+  // via `BrowtherAnalyticsBridge` Java.
+  EmitMetric(string metric_json);
+
+  // Audio chunk : Float32 PCM @ 48 kHz mono, paired with presentation
+  // timestamp (in ms relative to media start). Le browser feed `samples`
+  // à NSNet2 (denoise), puis enqueue les sorties pour playback.
+  // `samples` est passé tel quel via Mojo (sérialisé en `mojo_base.mojom.BigBuffer`
+  // pour les gros buffers — chunk typique 48000 samples = 192 KB).
+  PreprocessChunk(double timestamp_ms, array<float> samples);
+
+  // Schedule playback up to media-time `timestamp_ms`. L'AudioPlayer
+  // côté Java gère le lookahead cap + skip+trim + gap-fill (cf. iOS).
+  PlayAt(double timestamp_ms);
+
+  // Reset playback queue (full clear, garde le model NSNet2 chargé).
+  ClearChunks();
+
+  // SPA navigation ou page refresh — reset complet (clearChunks + reset
+  // GRU states + emit metric). `url` est passé pour debug.
+  PageReset(string url);
+
+  // Seek dans la vidéo : flush la queue jusqu'à `to_ms`.
+  SeekTo(double to_ms);
+
+  // Évince le range [start_ms, end_ms] de la queue (sync MSE evict).
+  EvictRange(double start_ms, double end_ms);
+
+  // Sync la queue avec les ranges actuellement buffered MSE (cleanup
+  // out-of-range).
+  SyncRanges(array<TimeRange> ranges);
+
+  // Pause/resume du playback Java (ne touche pas au scheduler JS).
+  PauseAudio();
+  ResumeAudio();
+};
+
+struct TimeRange {
+  double start_ms;
+  double end_ms;
+};
