@@ -1,0 +1,73 @@
+// Copyright (c) 2026 The Browther Authors. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// you can obtain one at https://mozilla.org/MPL/2.0/.
+
+#ifndef BRAVE_COMPONENTS_SAWTUNAA_BROWSER_SAWTUNAA_TAB_HELPER_H_
+#define BRAVE_COMPONENTS_SAWTUNAA_BROWSER_SAWTUNAA_TAB_HELPER_H_
+
+#include <string>
+#include <vector>
+
+#include "base/memory/raw_ptr.h"
+#include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+#include "content/public/browser/web_contents_user_data.h"
+#include "mojo/public/cpp/bindings/pending_receiver.h"
+#include "mojo/public/cpp/bindings/receiver_set.h"
+
+namespace content {
+class RenderFrameHost;
+class WebContents;
+}  // namespace content
+
+namespace sawtunaa {
+
+// Per-WebContents helper qui implémente l'interface Mojo `Sawtunaa` (côté
+// browser). Pour le Jalon 2.B.3 c'est un stub qui logge chaque action via
+// LOG(INFO) — les pièces audio (NSNet2 + AudioPlayer) sont câblées au
+// Jalon 2.B.5 quand le bridge Java sera en place.
+//
+// Plusieurs RenderFrameHost peuvent partager le même TabHelper (un par
+// WebContents) — chaque frame reçoit son propre Mojo receiver via
+// `ReceiverSet` keyed sur le RFH.
+class SawtunaaTabHelper
+    : public content::WebContentsUserData<SawtunaaTabHelper>,
+      public mojom::Sawtunaa {
+ public:
+  // Binder Mojo : appelé par BraveContentBrowserClient::
+  // RegisterBrowserInterfaceBindersForFrame. Crée le TabHelper si nécessaire.
+  static void BindSawtunaa(
+      content::RenderFrameHost* rfh,
+      mojo::PendingReceiver<mojom::Sawtunaa> receiver);
+
+  SawtunaaTabHelper(const SawtunaaTabHelper&) = delete;
+  SawtunaaTabHelper& operator=(const SawtunaaTabHelper&) = delete;
+  ~SawtunaaTabHelper() override;
+
+  // mojom::Sawtunaa
+  void LogJs(const std::string& message) override;
+  void EmitMetric(const std::string& metric_json) override;
+  void PreprocessChunk(double timestamp_ms,
+                       const std::vector<float>& samples) override;
+  void PlayAt(double timestamp_ms) override;
+  void ClearChunks() override;
+  void PageReset(const std::string& url) override;
+  void SeekTo(double to_ms) override;
+  void EvictRange(double start_ms, double end_ms) override;
+  void SyncRanges(std::vector<mojom::TimeRangePtr> ranges) override;
+  void PauseAudio() override;
+  void ResumeAudio() override;
+
+ private:
+  friend class content::WebContentsUserData<SawtunaaTabHelper>;
+  explicit SawtunaaTabHelper(content::WebContents* web_contents);
+
+  mojo::ReceiverSet<mojom::Sawtunaa, raw_ptr<content::RenderFrameHost>>
+      receivers_;
+
+  WEB_CONTENTS_USER_DATA_KEY_DECL();
+};
+
+}  // namespace sawtunaa
+
+#endif  // BRAVE_COMPONENTS_SAWTUNAA_BROWSER_SAWTUNAA_TAB_HELPER_H_

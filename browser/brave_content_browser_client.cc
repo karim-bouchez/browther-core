@@ -191,6 +191,11 @@
 #include "brave/components/brave_wallet/browser/brave_wallet_utils.h"
 #include "brave/components/brave_wallet/common/brave_wallet.mojom.h"
 #include "brave/components/brave_wallet/common/common_utils.h"
+#if BUILDFLAG(IS_ANDROID)
+// Browther: Sawtunaa Voie B (Jalon 2.B.3) — Android-only Mojo binder.
+#include "brave/components/sawtunaa/browser/sawtunaa_tab_helper.h"
+#include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+#endif
 #include "brave/components/decentralized_dns/content/decentralized_dns_navigation_throttle.h"
 #endif
 
@@ -954,6 +959,16 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
 
   map->Add<skus::mojom::SkusService>(
       base::BindRepeating(&MaybeBindSkusSdkImpl));
+
+#if BUILDFLAG(IS_ANDROID)
+  // Browther: Sawtunaa Voie B (Jalon 2.B.3) — bind l'interface Mojo
+  // `sawtunaa::mojom::Sawtunaa` à un SawtunaaTabHelper par WebContents.
+  // Le renderer (script JS injecté au Jalon 2.B.4) appelle
+  // `Mojo.bindInterface("sawtunaa.mojom.Sawtunaa", ...)` pour obtenir un
+  // remote vers cette impl. Pas encore gated par pref (vient au 2.B.6).
+  map->Add<sawtunaa::mojom::Sawtunaa>(
+      base::BindRepeating(&sawtunaa::SawtunaaTabHelper::BindSawtunaa));
+#endif
 
 #if !BUILDFLAG(IS_ANDROID)
   // Phase 3.1.5 — Étape 2 mini-spike. Bridge C++ Blink RFO → service ML.

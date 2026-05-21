@@ -242,6 +242,11 @@ brave_chrome_browser_deps = [
   "//brave/components/privacy_sandbox",
   "//brave/components/request_otr/common/buildflags",
   "//brave/components/resources",
+  # Browther: Sawtunaa Voie B (Jalon 2.B.3) — Android-only mais le source_set
+  # compile sans flag (purement Mojo + WebContentsUserData). Le bind est gated
+  # `#if BUILDFLAG(IS_ANDROID)` dans brave_content_browser_client.cc.
+  "//brave/components/sawtunaa/browser",
+  "//brave/components/sawtunaa/common/mojom",
   "//brave/components/serp_metrics",
   "//brave/components/serp_metrics:features",
   "//brave/components/serp_metrics:prefs",
