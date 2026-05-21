@@ -1,0 +1,4 @@
+# Modèle NSNet2 (~25 MB) copié à chaque build par
+# private/scripts/fetch-sawtunaa-model.sh depuis le POC desktop
+# (private/extensions/sawtunaa/public/models/). Non versionné.
+*.onnx

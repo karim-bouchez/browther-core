@@ -3964,6 +3964,41 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SAVE_CHANGES_ACTION_TEXT" desc="Save changes action text">
       Save changes
     </message>
+
+    <!-- Browther: Sawtunaa (suppression musique/bruit) — Settings Android -->
+    <message name="IDS_SAWTUNAA_TITLE" desc="Page title for the Sawtunaa preferences screen">
+      Sawtunaa
+    </message>
+    <message name="IDS_SAWTUNAA_SUMMARY" desc="Subtitle / summary of the Sawtunaa enable toggle">
+      Filter out music and background noise from videos
+    </message>
+    <message name="IDS_SAWTUNAA_RUN_BENCHMARK_TITLE" desc="Title of the developer benchmark button">
+      Run inference benchmark
+    </message>
+    <message name="IDS_SAWTUNAA_RUN_BENCHMARK_SUMMARY" desc="Description below the benchmark button">
+      Tap to measure NSNet2 latency on this device (200 iterations, results shown below)
+    </message>
+    <message name="IDS_SAWTUNAA_BENCHMARK_RESULT_TITLE" desc="Title above the benchmark result preference row">
+      Last benchmark result
+    </message>
+    <message name="IDS_SAWTUNAA_BENCHMARK_RESULT_IDLE" desc="Placeholder when the benchmark has not yet been run">
+      Not run yet
+    </message>
+    <message name="IDS_SAWTUNAA_BENCHMARK_RESULT_RUNNING" desc="Status while the benchmark is in flight">
+      Running…
+    </message>
+    <message name="IDS_SAWTUNAA_BENCHMARK_RESULT_ERROR" desc="Status when the benchmark failed. %1$s is the error short description.">
+      Error: <ph name="ERROR_MESSAGE">%1$s<ex>OrtException: NNAPI EP unavailable</ex></ph>
+    </message>
+    <message name="IDS_SAWTUNAA_RUN_FULL_PIPELINE_BENCH_TITLE" desc="Title of the developer button that benchmarks the full audio pipeline">
+      Run full-pipeline benchmark
+    </message>
+    <message name="IDS_SAWTUNAA_RUN_FULL_PIPELINE_BENCH_SUMMARY" desc="Description below the full-pipeline benchmark button">
+      Measures one STFT + ORT + ISTFT + overlap-add per iteration on a 512-sample chunk. Real-time budget is 10.67 ms.
+    </message>
+    <message name="IDS_SAWTUNAA_FULL_PIPELINE_BENCH_RESULT_TITLE" desc="Title above the full-pipeline benchmark result row">
+      Last full-pipeline benchmark
+    </message>
   </messages>
   </release>
 </grit>

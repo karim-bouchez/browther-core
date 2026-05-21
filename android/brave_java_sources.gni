@@ -324,6 +324,10 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/rewards/adaptive_captcha/AdaptiveCaptchaHelper.java",
   "../../brave/android/java/org/chromium/chrome/browser/safe_browsing/settings/BraveStandardProtectionSettingsFragment.java",
   "../../brave/android/java/org/chromium/chrome/browser/safe_browsing/settings/NoGooglePlayServicesDialog.java",
+  # Browther: Sawtunaa Voie B (Jalon 1 = bench + UI, Jalon 2 = NSNet2Processor port complet)
+  "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/NSNet2Processor.java",
+  "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaBenchmark.java",
+  "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPreferences.java",
   "../../brave/android/java/org/chromium/chrome/browser/searchwidget/SearchWidgetProviderActivity.java",
   "../../brave/android/java/org/chromium/chrome/browser/set_default_browser/BraveSetDefaultBrowserUtils.java",
   "../../brave/android/java/org/chromium/chrome/browser/set_default_browser/SetDefaultBrowserBottomSheetFragment.java",

@@ -60,7 +60,30 @@ android_aar_prebuilt("sentry_android_core_java") {
 # io.sentry.android.* à `_SUPPRESSION_PATTERN`. Voir
 # brave/patches/build-android-gyp-tracereferences.py.patch.
 
+# ── ONNX Runtime Android (Sawtunaa Voie B pièce #6) ──────────────────────────
+# AAR full build, version 1.26.0 alignée sur onnxruntime-web (extension
+# Sawtunaa desktop). Le AAR embarque :
+#  - libonnxruntime.so pour arm64-v8a, armeabi-v7a, x86_64, x86 (~45 MB).
+#  - Java JNI bindings (`ai.onnxruntime.*`) — consommés directement par
+#    `BrowtherSawtunaaBridge.java` (cf. spec pièce #3) ou wrappés par notre
+#    propre processeur C++ via dlopen.
+#  - Headers (extraits du AAR si besoin pour le code C++ NDK pièce #4).
+android_aar_prebuilt("onnxruntime_android_java") {
+  aar_path = "libs/onnxruntime-android/onnxruntime-android-1.26.0.aar"
+  info_path = "libs/onnxruntime-android/onnxruntime-android.info"
+  enable_bytecode_checks = false
+  # L'AAR embarque libonnxruntime.so + libonnxruntime4j_jni.so pour 4 ABIs
+  # (arm64-v8a, armeabi-v7a, x86, x86_64). Forcer l'extraction → packagées
+  # dans l'APK final, dispo via System.loadLibrary depuis le code Java
+  # ai.onnxruntime.OrtEnvironment.
+  extract_native_libraries = true
+  # Pas de dep transitive Java externe — l'AAR est self-contained.
+}
+
 # Group d'agrégation : facilite l'import depuis le code Browther.
 group("browther_android_deps") {
-  public_deps = [ ":sentry_android_core_java" ]
+  public_deps = [
+    ":onnxruntime_android_java",
+    ":sentry_android_core_java",
+  ]
 }

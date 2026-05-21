@@ -142,6 +142,15 @@
         android:order="18"
         android:icon="@drawable/ic_window_tab_new"
         android:title="@string/prefs_new_tab_page"/>
+    <!-- Browther: Sawtunaa Voie B — entrée Settings (toggle + benchmarks). -->
+    <org.chromium.components.browser_ui.settings.ChromeBasePreference
+        android:fragment="org.chromium.chrome.browser.sawtunaa.SawtunaaPreferences"
+        android:key="sawtunaa"
+        android:order="19"
+        android:icon="@drawable/ic_media_player"
+        android:title="@string/sawtunaa_title"
+        android:summary="@string/sawtunaa_summary"/>
+
     <org.chromium.components.browser_ui.settings.ChromeSwitchPreference
         android:key="autofill_private_window"
         android:order="21"

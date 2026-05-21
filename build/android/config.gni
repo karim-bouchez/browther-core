@@ -72,6 +72,15 @@ brave_chrome_java_deps = [
   "//brave/third_party/android_deps:com_wireguard_android_J__unpack_aar",
   "//brave/third_party/android_deps:com_wireguard_android_java",
   "//brave/third_party/android_deps:google_play_services_safetynet_java",
+  # Browther: Sawtunaa Voie B (pièce #6) — AAR ORT 1.26.0. Deux entrées
+  # nécessaires : `_java` pour les classes ai.onnxruntime.* + `_J__unpack_aar`
+  # (auto-générée par android_aar_prebuilt quand extract_native_libraries=true)
+  # qui packe libonnxruntime.so + libonnxruntime4j_jni.so dans l'APK pour les
+  # 4 ABIs. Pattern emprunté à `com_wireguard_android_java`. Le bisect du
+  # 2026-05-20 a confirmé que le crash startup 100% est PRE-EXISTING dans le
+  # snapshot v10 (commit d5c0e1674cd), pas lié à ces deps.
+  "//brave/third_party/browther_android_deps:onnxruntime_android_J__unpack_aar",
+  "//brave/third_party/browther_android_deps:onnxruntime_android_java",
   "//brave/third_party/browther_android_deps:sentry_android_core_java",
   "//brave/third_party/browther_android_deps:sentry_java",
 
@@ -92,6 +101,13 @@ brave_chrome_java_deps = [
   # extractor.cc, puis NTPBackgroundImagesService lit le dossier sur disque
   # via la branche Android dans RegisterBackgroundImagesComponent().
   "//brave/components/ntp_background_images/browther_backgrounds_mobile:browther_backgrounds_mobile_android_assets",
+
+  # Browther: Sawtunaa Voie B (pièce #7) — bundle le modèle NSNet2 (~25 MB,
+  # ONNX Protobuf) dans assets/sawtunaa/ de l'APK. Le fichier réel est
+  # gitignored et copié à chaque build par private/scripts/fetch-sawtunaa-
+  # model.sh depuis private/extensions/sawtunaa/public/models/. Lu au
+  # runtime par NSNet2Processor (pièce #4) via AssetManager.openFd.
+  "//brave/components/sawtunaa/android_assets:sawtunaa_model_android_assets",
 
   "//brave/third_party/zxing:zxing_java",
   "//brave/ui/android:base_java",

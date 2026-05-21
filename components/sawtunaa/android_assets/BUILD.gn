@@ -1,0 +1,36 @@
+# Copyright (c) 2026 The Browther Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Sawtunaa Voie B — pièce #7 : bundle le modèle NSNet2 (~25 MB) dans l'APK
+# Android sous `assets/sawtunaa/nsnet2-stateful.onnx`. Lu au runtime par
+# `NSNet2Processor` (pièce #4) via `AssetManager.openFd("sawtunaa/...")`.
+#
+# Le fichier `nsnet2-stateful.onnx` est gitignored : il est copié ici à
+# chaque build par `private/scripts/fetch-sawtunaa-model.sh` (source = le
+# POC desktop `private/extensions/sawtunaa/public/models/`).
+# Relancer ce script après chaque sync upstream (les modèles ne survivent
+# pas à un nouveau worktree).
+#
+# Cible tirée par `brave_chrome_java_deps` (voir
+# `brave/build/android/config.gni`) — sinon la resource Android ne se
+# propage pas à `chrome_java` (Java resource types ne traversent que les
+# targets Android-aware, pas les `static_library` C++).
+
+import("//build/config/android/rules.gni")
+
+assert(is_android)
+
+android_assets("sawtunaa_model_android_assets") {
+  # Uniquement renaming_sources (PAS sources). `sources` ET
+  # `renaming_sources` sont deux listes distinctes qui s'ADDITIONNENT dans
+  # l'APK : utiliser les deux pour le même fichier = doublon de 25 MB sous
+  # `assets/nsnet2-stateful.onnx` + `assets/sawtunaa/nsnet2-stateful.onnx`.
+  renaming_sources = [ "nsnet2-stateful.onnx" ]
+  renaming_destinations = [ "sawtunaa/nsnet2-stateful.onnx" ]
+  # Le modèle ONNX est déjà un format binaire compressé (Protobuf). Pas
+  # besoin d'une compression APK supplémentaire (négligeable + bloquerait
+  # le `openFd()` mmap-friendly côté runtime).
+  disable_compression = true
+}

@@ -109,3 +109,15 @@
 # Keep Play Core App Update classes to prevent ClassNotFoundException during Parcelable deserialization
 -keep class com.google.android.play.core.appupdate.** { *; }
 -keep class com.google.android.play.core.install.** { *; }
+
+# Browther: Sawtunaa Voie B — ONNX Runtime Android AAR (no proguard.txt
+# embedded, has_proguard_flags=false in onnxruntime-android.info). Les classes
+# ai.onnxruntime.* sont reachées via JNI reflection (FindClass + GetMethodID)
+# depuis libonnxruntime4j_jni.so dans OrtSession.run(). Sans ces keeps R8 les
+# obfusque ou les strippe → SIGSEGV/JNIAbort dans convertToTensorInfo+628 au
+# 1er call de run() (validé 2026-05-21 sur device). Le crash startup que je
+# soupçonnais hier soir n'était PAS lié au keep — c'était un état flaky du
+# device (écran verrouillé + monkey).
+-keep class ai.onnxruntime.** { *; }
+-keepclassmembers class ai.onnxruntime.** { *; }
+-keepnames class ai.onnxruntime.**

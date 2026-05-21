@@ -16,6 +16,10 @@
   - @string/use_brave_translate — toggle "Use Brave Translate" retiré du menu
     Languages Settings par le sprint cleanup 2026-05-19 (Translate retiré
     entièrement, aligné sur macOS).
+  - @string/photo_by — crédit "Photo par X" pour les fonds d'écran NTP,
+    référence retirée de BraveNtpAdapter.java (ligne 200) lors du sprint
+    cleanup NTP. Conservée dans le .grd pour ne pas casser les 50+ trads
+    .xtb upstream (charge un build Android lint sinon).
 -->
 <resources xmlns:tools="http://schemas.android.com/tools"
-    tools:keep="@string/sponsored_images_learn_more,@string/use_brave_translate" />
+    tools:keep="@string/sponsored_images_learn_more,@string/use_brave_translate,@string/photo_by" />

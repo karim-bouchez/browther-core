@@ -751,6 +751,8 @@ android_resources("java_resources") {
     "java/brave-res/xml/media_preferences.xml",
     "java/brave-res/xml/qa_preferences.xml",
     "java/brave-res/xml/quick_action_search_and_bookmark_widget_info.xml",
+    # Browther: Sawtunaa Voie B — fragment Settings (toggle + benchmarks).
+    "java/brave-res/xml/sawtunaa_preferences.xml",
     "java/brave-res/xml/sns_preferences.xml",
     "java/brave-res/xml/unstoppable_domains_preferences.xml",
   ]
