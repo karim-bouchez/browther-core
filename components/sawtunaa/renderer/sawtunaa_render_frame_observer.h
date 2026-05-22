@@ -33,6 +33,7 @@ class SawtunaaRenderFrameObserver : public content::RenderFrameObserver {
 
   // content::RenderFrameObserver
   void DidCommitProvisionalLoad(ui::PageTransition transition) override;
+  void DidClearWindowObject() override;
   void OnDestruct() override;
 
  private:
