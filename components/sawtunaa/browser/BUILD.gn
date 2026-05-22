@@ -10,7 +10,10 @@ source_set("browser") {
   ]
   deps = [
     "//base",
+    "//brave/components/constants",
     "//brave/components/sawtunaa/common/mojom",
+    "//components/prefs",
+    "//components/user_prefs",
     "//content/public/browser",
     "//mojo/public/cpp/bindings",
   ]

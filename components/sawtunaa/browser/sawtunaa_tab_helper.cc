@@ -8,7 +8,11 @@
 #include <utility>
 
 #include "base/logging.h"
+#include "brave/components/constants/pref_names.h"
 #include "build/build_config.h"
+#include "components/prefs/pref_service.h"
+#include "components/user_prefs/user_prefs.h"
+#include "content/public/browser/browser_context.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
 
@@ -29,6 +33,16 @@ void SawtunaaTabHelper::BindSawtunaa(
     mojo::PendingReceiver<mojom::Sawtunaa> receiver) {
   auto* web_contents = content::WebContents::FromRenderFrameHost(rfh);
   if (!web_contents) {
+    return;
+  }
+  // Jalon 2.B.6 — pref-gating : si Sawtunaa est OFF, on drop le receiver.
+  // Côté renderer le Remote restera silencieusement disconnected,
+  // les calls sont no-op. Le toggle ON requiert une navigation (reload)
+  // pour qu'un nouveau binder soit demandé — comportement attendu V1,
+  // sera amélioré au Jalon 2.D si nécessaire (push d'un OnPrefChanged
+  // vers le renderer).
+  auto* prefs = user_prefs::UserPrefs::Get(web_contents->GetBrowserContext());
+  if (!prefs || !prefs->GetBoolean(kSawtunaaEnabled)) {
     return;
   }
   SawtunaaTabHelper::CreateForWebContents(web_contents);
