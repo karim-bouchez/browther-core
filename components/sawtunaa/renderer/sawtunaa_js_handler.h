@@ -37,12 +37,15 @@ class SawtunaaJsHandler : public gin::Wrappable<SawtunaaJsHandler> {
 
   static void Install(content::RenderFrame* render_frame);
 
+  // Public pour permettre à cppgc::MakeGarbageCollected<> d'instancier ;
+  // les callers doivent quand même passer par Install() — ne pas appeler
+  // directement.
+  explicit SawtunaaJsHandler(content::RenderFrame* render_frame);
   SawtunaaJsHandler(const SawtunaaJsHandler&) = delete;
   SawtunaaJsHandler& operator=(const SawtunaaJsHandler&) = delete;
   ~SawtunaaJsHandler() override;
 
  private:
-  explicit SawtunaaJsHandler(content::RenderFrame* render_frame);
 
   // gin::WrappableBase
   gin::ObjectTemplateBuilder GetObjectTemplateBuilder(
