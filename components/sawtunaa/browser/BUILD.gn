@@ -14,4 +14,11 @@ source_set("browser") {
     "//content/public/browser",
     "//mojo/public/cpp/bindings",
   ]
+
+  if (is_android) {
+    # Browther: Sawtunaa Voie B (Jalon 2.B.5) — jni_headers du bridge C++→Java
+    # généré depuis SawtunaaBridge.java. Le TabHelper appelle Java_Sawtunaa
+    # Bridge_onLogJs/onMetric/… via JNI sous #if BUILDFLAG(IS_ANDROID).
+    deps += [ "//brave/build/android:jni_headers" ]
+  }
 }
