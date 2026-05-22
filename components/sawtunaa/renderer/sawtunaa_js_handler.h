@@ -6,6 +6,7 @@
 #ifndef BRAVE_COMPONENTS_SAWTUNAA_RENDERER_SAWTUNAA_JS_HANDLER_H_
 #define BRAVE_COMPONENTS_SAWTUNAA_RENDERER_SAWTUNAA_JS_HANDLER_H_
 
+#include "base/memory/raw_ptr.h"
 #include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
 #include "content/public/renderer/render_frame.h"
 #include "gin/wrappable.h"
@@ -65,7 +66,7 @@ class SawtunaaJsHandler : public gin::Wrappable<SawtunaaJsHandler> {
   // En pratique, le `Install()` est appelé à DidClearWindowObject donc le
   // handler ne devrait pas survivre la navigation, mais on protège quand
   // même au cas où.
-  content::RenderFrame* render_frame_;
+  raw_ptr<content::RenderFrame> render_frame_;
   mojo::Remote<mojom::Sawtunaa> sawtunaa_;
 };
 
