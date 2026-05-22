@@ -464,13 +464,13 @@ extension BrowserViewController {
       ])
     }
 
-    if Preferences.Sawtunaa.enabled.value {
-      injectedScripts.append(SawtunaaScriptHandler())
-    }
-
-    if Preferences.Basarunaa.enabled.value {
-      injectedScripts.append(BasarunaaScriptHandler())
-    }
+    // Browther: handlers installés inconditionnellement.
+    // Coût négligeable (juste un object Swift) et nécessaire pour le live-toggle :
+    // si le pref était OFF à la création du tab, toggle ON ne pourrait pas
+    // rattacher le handler sans recréer le tab (force-quit). Le handler reste
+    // dormant tant que le user script JS n'est pas injecté.
+    injectedScripts.append(SawtunaaScriptHandler())
+    injectedScripts.append(BasarunaaScriptHandler())
 
     // XXX: Bug 1390200 - Disable NSUserActivity/CoreSpotlight temporarily
     // let spotlightHelper = SpotlightHelper(tab: tab)

@@ -44,13 +44,13 @@ class UserScriptManager {
       scripts.append(.braveLeoAIChat)
     }
 
-    if Preferences.Sawtunaa.enabled.value {
-      scripts.append(.sawtunaa)
-    }
-
-    if Preferences.Basarunaa.enabled.value {
-      scripts.append(.basarunaa)
-    }
+    // Browther: Sawtunaa/Basarunaa NE sont PAS dans `alwaysEnabledScripts`.
+    // Raison : `dynamicScripts` est un `private let` figé au boot ; gater la
+    // valeur sur le pref ici masque la clé du dict (Swift : dict[k] = nil
+    // supprime la clé), ce qui fait que toggle OFF→ON exigeait un force-quit.
+    // À la place, ils sont gérés via le Set `userScripts` (initialisé depuis
+    // `Preferences.*.enabled.value` dans `tabDidCreateWebView`, ré-injecté en
+    // live par `BrowserViewController.preferencesDidChange`).
 
     return scripts
   }
@@ -188,12 +188,13 @@ class UserScriptManager {
       case .braveTranslate:
         return Preferences.UserScript.translate.value && FeatureList.kBraveTranslateEnabled.enabled
           ? BraveTranslateScriptHandler.userScript : nil
-      case .sawtunaa:
-        return Preferences.Sawtunaa.enabled.value
-          ? SawtunaaScriptHandler.userScript : nil
-      case .basarunaa:
-        return Preferences.Basarunaa.enabled.value
-          ? BasarunaaScriptHandler.userScript : nil
+      // Browther: Sawtunaa/Basarunaa retournent TOUJOURS leur user script.
+      // Le pref `enabled` n'est PAS testé ici : le dict `dynamicScripts` est
+      // figé au boot, gater sur le pref ferait disparaître la clé pour toute
+      // la session (cf. note `alwaysEnabledScripts` plus haut). L'activation
+      // live passe par le Set `userScripts` de `TabBrowserData`.
+      case .sawtunaa: return SawtunaaScriptHandler.userScript
+      case .basarunaa: return BasarunaaScriptHandler.userScript
       }
     }
 

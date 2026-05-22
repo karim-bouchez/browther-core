@@ -3,6 +3,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import AIChat
+import Basarunaa
 import BraveCore
 import BraveNews
 import BraveShared
@@ -19,6 +20,7 @@ import Growth
 import NetworkExtension
 import Onboarding
 import Preferences
+import Sawtunaa
 import ScreenTime
 import Shared
 import SnapKit
@@ -477,6 +479,9 @@ public class BrowserViewController: UIViewController {
     Preferences.Shields.blockAdsAndTrackingLevelRaw.observe(from: self)
     Preferences.Privacy.screenTimeEnabled.observe(from: self)
     Preferences.Translate.translateEnabled.observe(from: self)
+    // Browther: features URL bar live-toggle (cf. UserScriptManager)
+    Preferences.Sawtunaa.enabled.observe(from: self)
+    Preferences.Basarunaa.enabled.observe(from: self)
 
     // Observe some Chromium prefs
     prefsChangeRegistrar.addObserver(forPath: BraveRewardsDisabledByPolicyPrefName) {
@@ -2962,6 +2967,22 @@ extension BrowserViewController: PreferencesObserver {
         screenTimeViewController?.suppressUsageRecording = true
         screenTimeViewController = nil
       }
+    case Preferences.Sawtunaa.enabled.key:
+      // Browther: live-toggle Sawtunaa depuis le popover URL bar.
+      // Sans ça, le toggle n'a aucun effet jusqu'à un force-quit (cf. note
+      // `alwaysEnabledScripts` dans UserScriptManager).
+      let isOn = Preferences.Sawtunaa.enabled.value
+      tabManager.allTabs.forEach {
+        $0.browserData?.setScripts(scripts: [.sawtunaa: isOn])
+      }
+      tabManager.reloadSelectedTab()
+    case Preferences.Basarunaa.enabled.key:
+      // Browther: idem Sawtunaa.
+      let isOn = Preferences.Basarunaa.enabled.value
+      tabManager.allTabs.forEach {
+        $0.browserData?.setScripts(scripts: [.basarunaa: isOn])
+      }
+      tabManager.reloadSelectedTab()
     case Preferences.Translate.translateEnabled.key:
       tabManager.selectedTab?.translationState = .unavailable
       tabManager.selectedTab?.browserData?.setScripts(scripts: [

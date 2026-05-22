@@ -20,12 +20,14 @@ extension Preferences {
     /// CSS blur on but skips ML analysis entirely.
     ///
     /// Default `true` to match the desktop default (cf. `private/CLAUDE.md`)
-    /// and the Browther "navigateur pré-configuré" UX. Important : leaving
-    /// this `false` triggers a brave-iOS init-time bug — `UserScriptManager.
-    /// dynamicScripts` is computed ONCE at app launch, and a nil value
-    /// (returned when the pref is false) silently removes the entry. The
-    /// script can then never be injected, even after toggling ON via the
-    /// URL bar, until the app is fully restarted.
+    /// and the Browther "navigateur pré-configuré" UX.
+    ///
+    /// Note historique : avant 2026-05-22, le piège `UserScriptManager.
+    /// dynamicScripts` (dict figé au boot, valeur nil = clé supprimée) faisait
+    /// que `false` au lancement bloquait toute activation ultérieure jusqu'à
+    /// un force-quit. Fixé en sortant `.basarunaa` de `alwaysEnabledScripts`,
+    /// en l'ajoutant au `scriptPreferences` de `tabDidCreateWebView`, et en
+    /// observant le pref dans `BrowserViewController.preferencesDidChange`.
     public static let enabled = Option<Bool>(
       key: "basarunaa.enabled",
       default: true

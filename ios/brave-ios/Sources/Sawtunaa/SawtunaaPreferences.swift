@@ -10,11 +10,13 @@ extension Preferences {
   final public class Sawtunaa {
     /// Whether Sawtunaa (music/noise removal) is enabled.
     ///
-    /// Default `true` to match desktop + Browther "navigateur pré-configuré"
-    /// UX. See `BasarunaaPreferences.enabled` for why leaving `false`
-    /// breaks injection until app restart (brave-iOS `UserScriptManager.
-    /// dynamicScripts` is initialised once at launch, a nil value silently
-    /// removes the entry so URL bar toggles can't re-attach the script).
+    /// Default `true` to match desktop + Browther "navigateur pré-configuré" UX.
+    ///
+    /// Note historique : avant 2026-05-22 le piège `UserScriptManager.
+    /// dynamicScripts` (dict figé au boot, valeur nil = clé supprimée)
+    /// bloquait toute activation après un boot avec `false`. Fixé en sortant
+    /// `.sawtunaa` de `alwaysEnabledScripts` et en observant le pref dans
+    /// `BrowserViewController.preferencesDidChange`.
     public static let enabled = Option<Bool>(
       key: "sawtunaa.enabled",
       default: true

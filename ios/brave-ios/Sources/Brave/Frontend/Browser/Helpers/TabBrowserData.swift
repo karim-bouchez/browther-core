@@ -405,6 +405,10 @@ class TabBrowserData: NSObject, TabObserver {
       .mediaBackgroundPlay: Preferences.General.mediaAutoBackgrounding.value,
       .nightMode: Preferences.General.nightModeEnabled.value,
       .braveTranslate: Preferences.Translate.translateEnabled.value != false,
+      // Browther: tracés via userScripts pour permettre le live-toggle URL bar
+      // sans force-quit (cf. note `alwaysEnabledScripts` dans UserScriptManager).
+      .sawtunaa: Preferences.Sawtunaa.enabled.value,
+      .basarunaa: Preferences.Basarunaa.enabled.value,
     ]
 
     userScripts = Set(scriptPreferences.filter({ $0.value }).map({ $0.key }))
