@@ -5,8 +5,12 @@
 
 #include "brave/components/sawtunaa/renderer/sawtunaa_js_handler.h"
 
+#include <cstring>
 #include <string>
+#include <utility>
+#include <vector>
 
+#include "base/base64.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/string_split.h"
 #include "content/public/renderer/render_frame.h"
@@ -143,9 +147,56 @@ void SawtunaaJsHandler::Send(gin::Arguments* args) {
     sawtunaa_->ResumeAudio();
     return;
   }
-  // "preprocess" (Float32 binary base64) et "syncRanges" (multi-range) sont
-  // câblées au Jalon 2.C.2 — pour 2.C.1 elles sont no-op.
-  if (action == "preprocess" || action == "syncRanges") {
+  if (action == "preprocess") {
+    // Format iOS : "timestampMs|base64Float32Binary". Pipeline :
+    //   1. split sur '|' (maxsplit=1, le base64 ne contient pas de '|')
+    //   2. parseDouble(parts[0]) → timestamp
+    //   3. base64decode(parts[1]) → bytes
+    //   4. reinterpret bytes en float32 little-endian → std::vector<float>
+    //   5. Mojo PreprocessChunk(ts, samples)
+    auto sep = data.find('|');
+    if (sep == std::string::npos) {
+      return;
+    }
+    double ts = 0.0;
+    if (!base::StringToDouble(data.substr(0, sep), &ts)) {
+      return;
+    }
+    std::string decoded;
+    if (!base::Base64Decode(data.substr(sep + 1), &decoded)) {
+      return;
+    }
+    // V8 Float32Array est little-endian sur toutes les plateformes Chromium
+    // que Browther target (arm64 Android = LE, x86_64 = LE). Bytes alignement :
+    // base64 décodé doit faire multiple de 4. Sinon on drop.
+    if (decoded.size() % sizeof(float) != 0) {
+      return;
+    }
+    const size_t n_floats = decoded.size() / sizeof(float);
+    std::vector<float> samples(n_floats);
+    if (n_floats > 0) {
+      std::memcpy(samples.data(), decoded.data(), decoded.size());
+    }
+    sawtunaa_->PreprocessChunk(ts, std::move(samples));
+    return;
+  }
+  if (action == "syncRanges") {
+    // Format iOS : "s|e,s|e,s|e". Split commas, puis chaque range split '|'.
+    std::vector<mojom::TimeRangePtr> ranges;
+    auto chunks = base::SplitString(
+        data, ",", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
+    ranges.reserve(chunks.size());
+    for (const auto& chunk : chunks) {
+      auto parts = base::SplitString(
+          chunk, "|", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
+      double s = 0.0;
+      double e = 0.0;
+      if (parts.size() == 2 && base::StringToDouble(parts[0], &s) &&
+          base::StringToDouble(parts[1], &e)) {
+        ranges.push_back(mojom::TimeRange::New(s, e));
+      }
+    }
+    sawtunaa_->SyncRanges(std::move(ranges));
     return;
   }
   // Action inconnue — on logge dans la console JS plutôt que silencieux.

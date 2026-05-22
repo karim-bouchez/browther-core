@@ -7,6 +7,7 @@
 
 #include "base/strings/strcat.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_js_handler.h"
+#include "brave/components/sawtunaa/renderer/sawtunaa_script_generated.h"
 #include "content/public/renderer/render_frame.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
 #include "third_party/blink/public/platform/web_string.h"
@@ -63,13 +64,13 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
   // mais avant exécution de tout script utilisateur).
   SawtunaaJsHandler::Install(render_frame);
 
-  // Test ping depuis JS pour valider le binding. À retirer au Jalon
-  // 2.C.3 quand SawtunaaScript.js prendra le relais.
+  // Jalon 2.C.5 — injection du SawtunaaScript.js porté (843 lignes,
+  // header auto-généré via generate_script_header.py). Le script abort
+  // immédiatement avec metric `script_abort no_opus` tant que
+  // OpusDecoderLib (WASM) n'est pas injecté en amont — c'est attendu
+  // jusqu'au Jalon 2.C.4.
   render_frame->GetWebFrame()->ExecuteScript(blink::WebScriptSource(
-      blink::WebString::FromUTF8(
-          "try { window.__sawtunaa && window.__sawtunaa.send && "
-          "window.__sawtunaa.send('log', '[from JS] ' + location.href); } "
-          "catch(e) {}")));
+      blink::WebString::FromUTF8(kSawtunaaScript)));
 }
 
 void SawtunaaRenderFrameObserver::OnDestruct() {
