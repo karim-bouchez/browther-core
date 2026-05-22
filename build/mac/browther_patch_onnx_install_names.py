@@ -81,23 +81,40 @@ def main():
             stderr=subprocess.DEVNULL,
         )
 
-    # 3) Re-sign le contenu du BrowtherUpdater.app avec notre Developer ID
-    # (sinon Apple refuse la notarisation — sign_chrome.py ne touche pas
-    # ce sous-bundle). Inner-most first pour que les signatures parent
-    # incluent les hashes corrects.
-    updater_root = (app / "Contents" / "Frameworks"
-                    / "Browther Framework.framework" / "Versions" / "Current"
-                    / "Helpers" / "BrowtherUpdater.app")
+    # 3) Re-sign les binaires tiers qui restent à leur signature d'origine
+    # après sign_chrome.py. Le launcher Browther a `library-validation`
+    # activé (hardened runtime), qui exige que toute dylib chargée soit
+    # signée par notre Team (MWBMAMYDUD) ou par Apple. Sans ça, dyld
+    # refuse de charger et l'app crashe au lancement (sans message visible).
+    #
+    # Concrètement :
+    #   - libonnxruntime.1.17.3.dylib : pre-built Microsoft, signée par
+    #     Microsoft Corporation (UBF8T346G9). sign_chrome.py ne la connaît
+    #     pas → reste signée Microsoft → library-validation refuse.
+    #   - BrowtherUpdater.app + helpers : pré-signés Brave (KL8N8XSYF4).
+    #     Apple notarytool refuse car pas notre Team.
+    #
+    # Inner-most first pour que les signatures parent incluent les hashes.
+    targets = []
+
+    fw_versions = app / "Contents" / "Frameworks" / "Browther Framework.framework" / "Versions" / "Current"
+    onnx_lib = fw_versions / "Libraries" / DYLIB
+    if onnx_lib.exists():
+        targets.append(onnx_lib)
+
+    updater_root = fw_versions / "Helpers" / "BrowtherUpdater.app"
     if updater_root.exists():
         bundle = updater_root / "Contents" / "Helpers" / "BraveSoftwareUpdate.bundle"
-        targets = [
+        targets.extend([
             bundle / "Contents" / "Helpers" / "ksinstall",
             bundle / "Contents" / "Helpers" / "ksadmin",
             bundle / "Contents" / "MacOS" / "BraveSoftwareUpdate",
             bundle,
             updater_root / "Contents" / "Helpers" / "launcher",
             updater_root,
-        ]
+        ])
+
+    if targets:
         for target in targets:
             if not target.exists():
                 continue

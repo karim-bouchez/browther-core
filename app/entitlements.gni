@@ -5,7 +5,28 @@
 
 brave_entitlements_templates = []
 
-if (is_official_build) {
+# Browther: désactivé en attendant les entitlements Apple.
+# Ces 2 plists demandent des entitlements RESTREINTS qui ne sont accordés
+# que si :
+#   1. Le provisioning profile les inclut, ET
+#   2. Apple a explicitement autorisé l'équipe à les utiliser.
+#
+# app-entitlements-brave.plist :
+#   - com.apple.developer.networking.vpn.api (Brave VPN — pas chez Browther)
+#
+# chrome/app/app-entitlements-chrome.plist :
+#   - com.apple.developer.associated-domains.applinks.read-write (Universal Links)
+#   - com.apple.developer.web-browser.public-key-credential (WebAuthn passkeys,
+#     lié au Default Browser Entitlement Apple — form 3-7j à soumettre)
+#
+# Sans ces autorisations, l'app crash au launch avec AMFI "No matching profile
+# found" (cf. console : amfid: ... unsatisfiedEntitlements: ...).
+#
+# À réactiver feature par feature quand on aura les approbations Apple :
+#   1. Demander la capability sur le Bundle ID developer.apple.com
+#   2. Régénérer le provisioning profile (release.provisionprofile)
+#   3. Remettre la ligne correspondante ci-dessous
+if (false && is_official_build) {
   brave_entitlements_templates += [
     "//brave/app/app-entitlements-brave.plist",
     "//chrome/app/app-entitlements-chrome.plist",
