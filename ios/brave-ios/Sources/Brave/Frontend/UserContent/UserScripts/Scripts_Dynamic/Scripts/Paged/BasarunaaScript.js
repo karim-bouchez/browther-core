@@ -1667,24 +1667,33 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       const isNormal = clone.classList.contains("basarunaa-caption-normal");
       const isFs = clone.classList.contains("basarunaa-caption-fs");
       if (!isNormal && !isFs) return;
-      let cueText = "";
+      const dedupKey = (s) => s.replace(/\s+/g, " ").trim().toLowerCase();
+      const seen = /* @__PURE__ */ new Set();
+      const collected = [];
+      const addUnique = (raw) => {
+        const text = raw.trim();
+        if (!text) return;
+        const key = dedupKey(text);
+        if (seen.has(key)) return;
+        seen.add(key);
+        collected.push(text);
+      };
       if (v && v.textTracks) {
         for (let i = 0; i < v.textTracks.length; i++) {
           const t = v.textTracks[i];
           if (t.mode === "showing" && t.activeCues) {
             for (let j = 0; j < t.activeCues.length; j++) {
               const cue = t.activeCues[j];
-              const ctext = cue.text || "";
-              cueText += (cueText ? "\n" : "") + ctext;
+              addUnique(cue.text || "");
             }
           }
         }
       }
+      let cueText = collected.join("\n");
       if (!cueText) {
         const windows = document.querySelectorAll(
           ".caption-window, .ytm-mobile-captions"
         );
-        const lines = [];
         windows.forEach((win) => {
           if (win.closest(".basarunaa-caption-clone")) return;
           let line = "";
@@ -1697,9 +1706,10 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           } else {
             line = (win.innerText || win.textContent || "").trim();
           }
-          if (line && !isYtInfoMessage(line)) lines.push(line);
+          if (!line || isYtInfoMessage(line)) return;
+          addUnique(line);
         });
-        cueText = lines.join("\n");
+        cueText = collected.join("\n");
       }
       if (cueText !== info.lastCueText) {
         clone.textContent = cueText;
