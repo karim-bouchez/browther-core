@@ -162,9 +162,12 @@ public class SearchEngines {
   func setInitialDefaultEngine(_ engine: String) {
     // update engine
     DefaultEngineType.standard.option.value = engine
-    // set Brave Search as the DSE for private mode
+    // Browther: Google comme DSE pour le mode privé aussi (parité Desktop+Android,
+    // cf. `chromium_src/.../search_engine_provider_util.cc` qui force `prepopulate_id 1`
+    // dans `SetBraveAsDefaultPrivateSearchProvider`). Brave Search reste dispo dans
+    // les choix.
     DefaultEngineType.privateMode.option.value =
-      InitialSearchEngines.SearchEngineID.braveSearch.rawValue
+      InitialSearchEngines.SearchEngineID.google.rawValue
 
     let priorityEngine = initialSearchEngines.priorityEngine?.rawValue
     let defEngine = defaultEngine(forType: .standard)

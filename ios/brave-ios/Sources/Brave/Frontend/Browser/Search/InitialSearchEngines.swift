@@ -179,9 +179,14 @@ class InitialSearchEngines {
       replaceOrInsert(engineId: .ecosia, customId: nil)
     }
 
-    if braveSearchDefaultRegions.contains(region) {
-      defaultSearchEngine = .braveSearch
-    }
+    // Browther: Google par défaut partout (l'utilisateur peut changer ensuite).
+    // Parité Desktop/Android : `chromium_src/components/search_engines/
+    // template_url_prepopulate_data.cc::GetPrepopulatedFallbackSearch` force
+    // Google sur les nouveaux profils — iOS a son propre stack Swift, on
+    // neutralise ici le même comportement.
+    // if braveSearchDefaultRegions.contains(region) {
+    //   defaultSearchEngine = .braveSearch
+    // }
 
     if naverDefaultRegions.contains(region) {
       defaultSearchEngine = .naver
