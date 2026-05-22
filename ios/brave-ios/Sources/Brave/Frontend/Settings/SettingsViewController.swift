@@ -645,24 +645,10 @@ class SettingsViewController: TableViewController {
       )
     }
 
-    // Browther: Sawtunaa (music/noise removal)
-    section.rows.append(
-      Row(
-        text: "Sawtunaa",
-        detailText: "Suppression musique et bruit de fond",
-        accessory: .switchToggle(
-          value: Preferences.Sawtunaa.enabled.value,
-          { newValue in
-            Preferences.Sawtunaa.enabled.value = newValue
-            // Browther: analytics
-            BrowtherAnalyticsService.shared.track(
-              event: "feature_toggled",
-              properties: ["feature": "sawtunaa", "enabled": newValue]
-            )
-          }
-        )
-      )
-    )
+    // Browther: Sawtunaa toggle retiré des Settings (2026-05-22) — le toggle
+    // est accessible directement depuis le popover URL bar (`SawtunaaPanelView`),
+    // pas besoin de dupliquer ici. La pref `Preferences.Sawtunaa.enabled`
+    // reste source de vérité.
 
     // Browther: Brave Translate disabled (uses Brave servers) — hide settings row
     if false, FeatureList.kBraveTranslateEnabled.enabled {

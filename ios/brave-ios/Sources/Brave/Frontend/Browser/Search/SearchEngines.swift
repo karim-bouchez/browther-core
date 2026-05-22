@@ -67,6 +67,22 @@ public class SearchEngines {
 
     self.locale = locale
     self.disabledEngineNames = getDisabledEngineNames()
+
+    // Browther: forcer Google comme DSE par défaut (standard + privé).
+    // Brave n'appelle jamais `searchEngineSetup()` au boot, donc les prefs
+    // restent `nil` et le fallback `orderedEngines.first` dépend de l'ordre
+    // exact des XMLs chargés depuis `SearchPlugins/` — Brave Search arrive
+    // en premier. On set les prefs explicitement seulement si elles sont
+    // encore vierges (parité chromium_src Desktop/Android, n'override jamais
+    // un choix utilisateur).
+    if Preferences.Search.defaultEngineName.value == nil {
+      Preferences.Search.defaultEngineName.value =
+        InitialSearchEngines.SearchEngineID.google.rawValue
+    }
+    if Preferences.Search.defaultPrivateEngineName.value == nil {
+      Preferences.Search.defaultPrivateEngineName.value =
+        InitialSearchEngines.SearchEngineID.google.rawValue
+    }
   }
 
   public func searchEngineSetup() {
