@@ -133,12 +133,12 @@ void ChromeAutocompleteProviderClient::OpenLeo(const std::u16string& query) {
 }
 
 bool ChromeAutocompleteProviderClient::IsLeoProviderEnabled() {
-#if BUILDFLAG(IS_ANDROID)
+  // Browther: Leo (l'assistant IA de Brave) est désactivé partout dans
+  // Browther (menu, toolbar, settings, callouts onboarding — cf. Phase 2.1
+  // CLAUDE.md). Mais le LeoProvider de l'omnibox n'était pas gaté → l'item
+  // "test query - Ask Leo" apparaissait quand même dans les suggestions de
+  // recherche (observé 2026-05-23). Force le check à `false` côté desktop
+  // comme côté Android pour aligner l'UX.
   return false;
-#else
-  return profile_->IsRegularProfile() &&
-         GetPrefs()->GetBoolean(
-             ai_chat::prefs::kBraveChatAutocompleteProviderEnabled);
-#endif
 }
 #endif

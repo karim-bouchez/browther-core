@@ -20,13 +20,18 @@ from uuid import uuid4
 
 
 def main():
-    for brand, brand_suffix in (('Browser', ''), ('Origin', '.origin')):
-        bg_file = f'../dmg-background{brand_suffix}.png'
-        for channel in ('', 'Nightly', 'Beta', 'Release'):
-            app_name = f'Brave {brand}' + (f' {channel}' if channel else '')
-            suffix = f'.{channel.lower()}' if channel else ''
-            ds_store = f'DS_Store{brand_suffix}{suffix}'
-            create_ds_store(app_name, bg_file, ds_store)
+    # Browther: notre BRANDING garde PRODUCT_FULLNAME="Browther" pour tous les
+    # channels (cf. brave/app/theme/brave/BRANDING), donc l'app dans le DMG
+    # s'appelle toujours `Browther.app` peu importe le channel. Pas besoin de
+    # suffixer par channel le nom de l'app — seulement le nom du fichier
+    # DS_Store (que BUILD.gn:434 sélectionne par is_release_channel).
+    # On retire aussi la branche "Origin" : Browther n'a pas de variante Origin.
+    app_name = 'Browther'
+    bg_file = '../dmg-background.png'
+    for channel in ('', 'Nightly', 'Beta', 'Release'):
+        suffix = f'.{channel.lower()}' if channel else ''
+        ds_store = f'DS_Store{suffix}'
+        create_ds_store(app_name, bg_file, ds_store)
 
 
 def create_ds_store(app_name, bg_file, ds_store_path):
