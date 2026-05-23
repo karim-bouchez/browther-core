@@ -17,4 +17,12 @@ BASE_BUNDLE_ID = $(FRAMEWORK_BASE_BUNDLE_ID).ios
 
 DEVELOPMENT_TEAM = MWBMAMYDUD
 
+// Browther: défaut signing automatic pour TOUTES les configs (Release, Beta,
+// Nightly, Debug AppStore, etc.) sauf override explicite dans pbxproj.
+// Sans ça, les configs qui n'ont pas CODE_SIGN_STYLE dans pbxproj tombent
+// sur le défaut Xcode = Manual, ce qui bloque `-allowProvisioningUpdates`.
+// Release-AppStore.xcconfig override avec Manual + Apple Distribution si
+// jamais on veut un signing manuel pour l'App Store ; sinon Automatic suffit.
+CODE_SIGN_STYLE = Automatic
+
 BRAVE_URL_SCHEME = browther

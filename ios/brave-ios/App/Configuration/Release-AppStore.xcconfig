@@ -4,10 +4,9 @@
 
 #include "Release.xcconfig"
 
-// Manual Code-Signing
-// Browther: cert "Apple Distribution: Chaima Addou (MWBMAMYDUD)" à créer côté
-// developer.apple.com → Certificates → Apple Distribution (Team MWBMAMYDUD).
-// Tant que ce cert n'est pas dans le Keychain, ce config ne peut pas archiver.
-// Utiliser le scheme `Release` (non-AppStore) pour les builds Apple Development en attendant.
-CODE_SIGN_IDENTITY = Apple Distribution: Chaima Addou (MWBMAMYDUD)
-CODE_SIGN_STYLE = Manual
+// Browther: Automatic signing (héritage Base.xcconfig). Xcode utilise le cert
+// `Apple Distribution: Chaima Addou (MWBMAMYDUD)` automatiquement quand on
+// archive en Release (AppStore) et génère les profiles Distribution via
+// `-allowProvisioningUpdates`. L'upstream Brave forçait Manual + leur cert
+// nommé "Apple Distribution: Brave Software, Inc." + profiles "Brave iOS
+// Release ..." qu'on n'a pas. En Automatic, plus simple et plus portable.

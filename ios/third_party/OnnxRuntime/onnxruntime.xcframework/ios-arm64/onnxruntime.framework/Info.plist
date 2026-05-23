@@ -16,5 +16,7 @@
 	<string>????</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
+	<key>MinimumOSVersion</key>
+	<string>17.0</string>
 </dict>
 </plist>
