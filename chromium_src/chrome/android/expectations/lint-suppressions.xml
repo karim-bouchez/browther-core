@@ -65,6 +65,13 @@
         <ignore regexp="The resource `R.string.autofill_bnpl_tos_link_text` appears to be unused" />
         <ignore regexp="The resource `R.string.autofill_bnpl_tos_unlinked_title` appears to be unused" />
         <ignore regexp="The resource `R.string.autofill_bnpl_tos_linked_title` appears to be unused" />
+
+        <!-- Browther: photo_by (crédit "Photo par X" pour les fonds NTP) gardé
+             dans le .grd Brave mais le code Java qui l'affichait a été retiré
+             (cf. BraveNtpAdapter.java commentaire). On garde la string pour
+             ne pas casser les traductions et préserver la possibilité de
+             réactiver le crédit photo plus tard. -->
+        <ignore regexp="The resource `R.string.photo_by` appears to be unused" />
         
         <!-- Ignore these because we had replaced chrome/android/java/res/drawable/incognito_history_placeholder_image.xml -->
         <ignore regexp="The resource `R.color.incognito_history_placeholder_bottom_circle_color` appears to be unused" />
