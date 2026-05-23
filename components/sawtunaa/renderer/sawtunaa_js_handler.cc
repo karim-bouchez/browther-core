@@ -5,12 +5,12 @@
 
 #include "brave/components/sawtunaa/renderer/sawtunaa_js_handler.h"
 
-#include <cstring>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "base/base64.h"
+#include "base/containers/span.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/string_split.h"
 #include "content/public/renderer/render_frame.h"
@@ -175,7 +175,11 @@ void SawtunaaJsHandler::Send(gin::Arguments* args) {
     const size_t n_floats = decoded.size() / sizeof(float);
     std::vector<float> samples(n_floats);
     if (n_floats > 0) {
-      std::memcpy(samples.data(), decoded.data(), decoded.size());
+      // base::span copy_from = safe alternative à std::memcpy (Chromium
+      // -Wunsafe-buffer-usage-in-libc-call). Vérifie l'égalité de taille
+      // en CHECK donc on safety-clamp avant.
+      base::as_writable_byte_span(samples)
+          .copy_from(base::as_byte_span(decoded));
     }
     sawtunaa_->PreprocessChunk(ts, std::move(samples));
     return;
