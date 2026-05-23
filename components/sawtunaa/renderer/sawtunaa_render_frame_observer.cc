@@ -64,11 +64,10 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
   // mais avant exécution de tout script utilisateur).
   SawtunaaJsHandler::Install(render_frame);
 
-  // Jalon 2.C.5 — injection du SawtunaaScript.js porté (843 lignes,
-  // header auto-généré via generate_script_header.py). Le script abort
-  // immédiatement avec metric `script_abort no_opus` tant que
-  // OpusDecoderLib (WASM) n'est pas injecté en amont — c'est attendu
-  // jusqu'au Jalon 2.C.4.
+  // Jalon 2.C.4+5 — injection du bundle complet (Opus decoder ~105 KB
+  // + SawtunaaScript ~33 KB, ~1730 lignes total) en un seul ExecuteScript.
+  // Le header auto-généré concatène les deux dans l'ordre iOS :
+  // OpusDecoderLib défini globalement avant l'interception MSE.
   render_frame->GetWebFrame()->ExecuteScript(blink::WebScriptSource(
       blink::WebString::FromUTF8(kSawtunaaScript)));
 }

@@ -3,15 +3,21 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # you can obtain one at https://mozilla.org/MPL/2.0/.
 
-# Action GN qui génère sawtunaa_script_generated.h depuis sawtunaa_script.js
-# (le .js reste source de vérité, le .h est un raw-string-literal wrapper
-# autogénéré à chaque build). Pattern Brave R"JS(...)JS" mais externalisé
-# pour éviter d'avoir 843 lignes de JS embedded dans un .cc.
+# Action GN qui génère sawtunaa_script_generated.h en concaténant le bundle
+# Opus decoder (définit `OpusDecoderLib` global, ~105 KB / 888 l) + le
+# SawtunaaScript principal (~33 KB / 843 l). Pattern reproduit du loading
+# iOS (SawtunaaScriptHandler.swift : `script = opusSource + "\n" + script`).
+# Les .js restent sources de vérité, le .h est un raw-string-literal wrapper
+# autogénéré à chaque build.
 action("generate_sawtunaa_script_header") {
   script = "generate_script_header.py"
-  inputs = [ "sawtunaa_script.js" ]
+  inputs = [
+    "sawtunaa_opus_decoder_bundle.js",
+    "sawtunaa_script.js",
+  ]
   outputs = [ "$target_gen_dir/sawtunaa_script_generated.h" ]
   args = [
+    rebase_path("sawtunaa_opus_decoder_bundle.js", root_build_dir),
     rebase_path("sawtunaa_script.js", root_build_dir),
     rebase_path("$target_gen_dir/sawtunaa_script_generated.h", root_build_dir),
   ]
