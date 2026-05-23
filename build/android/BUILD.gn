@@ -229,10 +229,13 @@ generate_jni("jni_headers") {
     "//brave/android/java/org/chromium/chrome/browser/informers/BraveSyncAccountDeletedInformer.java",
     "//brave/android/java/org/chromium/chrome/browser/notifications/channels/BraveSiteChannelsManagerBridge.java",
     "//brave/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsBridge.java",
-    # Browther: Sawtunaa Voie B (Jalon 2.B.5) — bridge C++ -> Java via
-    # @CalledByNative (LogJs, EmitMetric, PlayAt, …). Le SawtunaaTabHelper
-    # cross-platform appelle les méthodes Java via JNI uniquement sur Android.
+    # Browther: Sawtunaa Voie B (Jalons 2.B.5 + 2.D) — bridge C++ -> Java via
+    # @CalledByNative. SawtunaaBridge.java = factory + statiques de logging.
+    # SawtunaaPlayer.java = instance par WebContents qui pilote AudioTrack +
+    # NSNet2 (port direct du Swift). Le SawtunaaTabHelper cross-platform
+    # appelle Java via JNI uniquement sur Android.
     "//brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaBridge.java",
+    "//brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPlayer.java",
     "//brave/android/java/org/chromium/chrome/browser/preferences/BravePrefServiceBridge.java",
     "//brave/android/java/org/chromium/chrome/browser/signin/BraveSigninManager.java",
     "//brave/android/java/org/chromium/chrome/browser/util/TabUtils.java",

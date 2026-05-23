@@ -11,24 +11,16 @@ import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
 /**
- * Bridge C++ → Java pour le pipeline Sawtunaa (Jalon 2.B.5).
+ * Bridge C++ → Java statique pour Sawtunaa (logging only).
  *
- * <p>Le SawtunaaTabHelper C++ (composant cross-platform) appelle ces
- * méthodes via JNI à chaque action Mojo reçue du renderer. Pour le Jalon
- * 2.B.5 c'est purement du logging — l'objectif est de valider que la
- * chaîne renderer JS → Mojo → C++ TabHelper → JNI → Java atteint bien
- * la couche managée Android.
- *
- * <p>Les méthodes audio lourdes (preprocess avec Float32 samples, sync
- * ranges multi-éléments) reçoivent des arguments simplifiés (count/size
- * seulement) ; le marshaling complet (float[] + Vec<TimeRange>) arrivera
- * au Jalon 2.D quand on branchera réellement {@link NSNet2Processor} +
- * SawtunaaAudioPlayer derrière le bridge.
- *
- * <p>Toutes les méthodes sont statiques no-op-friendly — pas d'état Java
- * partagé, pas de référence native, pas de WebContents Java side. Si la
- * pref Sawtunaa est OFF le binder browser-side ne fire jamais, donc on
- * n'arrive pas ici.
+ * <p>Les actions audio (preprocessChunk, playAt, pauseAudio, etc.) sont
+ * routées par le {@code SawtunaaTabHelper} C++ vers une instance Java
+ * {@link SawtunaaPlayer} per-WebContents — pas via ce bridge. On garde
+ * ce point d'entrée uniquement pour les deux endpoints log-only qui
+ * traversent toute la pile renderer → browser : {@link #onLogJs} et
+ * {@link #onMetric}. Ils peuvent rester statiques car ils n'ont aucun
+ * état partagé et le routing par WebContents n'apporte rien (le tag
+ * de log permet déjà de filtrer par tab si besoin).
  */
 @NullMarked
 public final class SawtunaaBridge {
@@ -44,50 +36,5 @@ public final class SawtunaaBridge {
     @CalledByNative
     public static void onMetric(String metricJson) {
         Log.i(TAG, "[Java/Metric] %s", metricJson);
-    }
-
-    @CalledByNative
-    public static void onPreprocessChunk(double timestampMs, int sampleCount) {
-        Log.i(TAG, "[Java/Chunk] ts=%.2f n=%d", timestampMs, sampleCount);
-    }
-
-    @CalledByNative
-    public static void onPlayAt(double timestampMs) {
-        Log.i(TAG, "[Java/PlayAt] ms=%.2f", timestampMs);
-    }
-
-    @CalledByNative
-    public static void onClearChunks() {
-        Log.i(TAG, "[Java/ClearChunks]");
-    }
-
-    @CalledByNative
-    public static void onPageReset(String url) {
-        Log.i(TAG, "[Java/PageReset] %s", url);
-    }
-
-    @CalledByNative
-    public static void onSeekTo(double toMs) {
-        Log.i(TAG, "[Java/SeekTo] ms=%.2f", toMs);
-    }
-
-    @CalledByNative
-    public static void onEvictRange(double startMs, double endMs) {
-        Log.i(TAG, "[Java/EvictRange] %.2f -> %.2f", startMs, endMs);
-    }
-
-    @CalledByNative
-    public static void onSyncRanges(int count) {
-        Log.i(TAG, "[Java/SyncRanges] n=%d", count);
-    }
-
-    @CalledByNative
-    public static void onPauseAudio() {
-        Log.i(TAG, "[Java/PauseAudio]");
-    }
-
-    @CalledByNative
-    public static void onResumeAudio() {
-        Log.i(TAG, "[Java/ResumeAudio]");
     }
 }

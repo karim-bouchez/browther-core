@@ -11,9 +11,14 @@
 
 #include "base/memory/raw_ptr.h"
 #include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+#include "build/build_config.h"
 #include "content/public/browser/web_contents_user_data.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
 #include "mojo/public/cpp/bindings/receiver_set.h"
+
+#if BUILDFLAG(IS_ANDROID)
+#include "base/android/scoped_java_ref.h"
+#endif
 
 namespace content {
 class RenderFrameHost;
@@ -64,6 +69,14 @@ class SawtunaaTabHelper
 
   mojo::ReceiverSet<mojom::Sawtunaa, raw_ptr<content::RenderFrameHost>>
       receivers_;
+
+#if BUILDFLAG(IS_ANDROID)
+  // Instance Java SawtunaaPlayer associée à ce WebContents. Créée au
+  // constructeur via `Java_SawtunaaPlayer_create(instance_id)`, détruite au
+  // destructeur. C'est elle qui pilote AudioTrack + NSNet2 — la couche
+  // C++ ne fait que router les actions Mojo vers les @CalledByNative.
+  base::android::ScopedJavaGlobalRef<jobject> java_player_;
+#endif
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 };
