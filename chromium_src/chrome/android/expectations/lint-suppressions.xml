@@ -70,8 +70,10 @@
              dans le .grd Brave mais le code Java qui l'affichait a été retiré
              (cf. BraveNtpAdapter.java commentaire). On garde la string pour
              ne pas casser les traductions et préserver la possibilité de
-             réactiver le crédit photo plus tard. -->
-        <ignore regexp="The resource `R.string.photo_by` appears to be unused" />
+             réactiver le crédit photo plus tard. Le lint emit le warning
+             SANS backticks dans cette version du toolchain, donc on match
+             le format brut (cf. log build 2026-05-23). -->
+        <ignore regexp="The resource R.string.photo_by appears to be unused" />
         
         <!-- Ignore these because we had replaced chrome/android/java/res/drawable/incognito_history_placeholder_image.xml -->
         <ignore regexp="The resource `R.color.incognito_history_placeholder_bottom_circle_color` appears to be unused" />
