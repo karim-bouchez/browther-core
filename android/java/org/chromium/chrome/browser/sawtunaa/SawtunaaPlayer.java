@@ -103,20 +103,14 @@ public final class SawtunaaPlayer {
     // --- NSNet2 preprocess ---
 
     @Nullable private NSNet2Processor mNsnet2;
+    // ExecutorService factory : on nomme les threads pour le debug logcat ;
+    // pas de setPriority (Chromium ThreadPriorityCheck errorprone discourage).
     private final ExecutorService mPreprocessExec =
-            Executors.newSingleThreadExecutor(r -> {
-                Thread t = new Thread(r, "Sawtunaa-NSNet2");
-                t.setPriority(Thread.NORM_PRIORITY);
-                return t;
-            });
+            Executors.newSingleThreadExecutor(r -> new Thread(r, "Sawtunaa-NSNet2"));
     // Single-thread main-mirror executor pour cohérence d'état (= main queue
     // Swift). Toutes les mutations d'audioCache/cursors/anchors passent ici.
     private final ExecutorService mMainExec =
-            Executors.newSingleThreadExecutor(r -> {
-                Thread t = new Thread(r, "Sawtunaa-State");
-                t.setPriority(Thread.NORM_PRIORITY + 1);
-                return t;
-            });
+            Executors.newSingleThreadExecutor(r -> new Thread(r, "Sawtunaa-State"));
 
     // --- Cache + cursors (mutés uniquement sur mMainExec) ---
 
@@ -208,7 +202,7 @@ public final class SawtunaaPlayer {
                 Log.e(TAG, "NSNet2 load failed", e);
                 emit("model_load_done",
                         "available", false,
-                        "error", e.getMessage());
+                        "error", String.valueOf(e.getMessage()));
             }
         });
     }
@@ -283,7 +277,8 @@ public final class SawtunaaPlayer {
 
             mWriterRunning.set(true);
             mWriterThread = new Thread(this::writerLoop, "Sawtunaa-Writer");
-            mWriterThread.setPriority(Thread.MAX_PRIORITY);
+            // setPriority retiré (ThreadPriorityCheck errorprone). Le scheduler
+            // Android est suffisant pour ce thread qui write à AudioTrack.
             mWriterThread.start();
 
             emit("engine_start",
@@ -293,7 +288,7 @@ public final class SawtunaaPlayer {
             startStatePolling();
         } catch (Throwable e) {
             Log.e(TAG, "AudioTrack start failed", e);
-            emit("engine_start", "success", false, "error", e.getMessage());
+            emit("engine_start", "success", false, "error", String.valueOf(e.getMessage()));
             mAudioTrack = null;
         }
     }
@@ -501,7 +496,7 @@ public final class SawtunaaPlayer {
                 emit("chunk_preprocess_drop",
                         "chunk_ts", (long) timestampMs,
                         "reason", "nsnet2_throw",
-                        "error", e.getMessage());
+                        "error", String.valueOf(e.getMessage()));
                 return;
             }
             long nsnet2Ms = (SystemClock.elapsedRealtimeNanos() - t0) / 1_000_000L;
@@ -553,7 +548,8 @@ public final class SawtunaaPlayer {
     private void insertSorted(PcmChunk entry) {
         // Recherche dichotomique sur timestampMs. Le cache est petit (≤600)
         // mais des chunks peuvent arriver hors ordre suite à NSNet2 sur thread.
-        int lo = 0, hi = mAudioCache.size();
+        int lo = 0;
+        int hi = mAudioCache.size();
         while (lo < hi) {
             int mid = (lo + hi) >>> 1;
             PcmChunk midChunk = mAudioCache.get(mid);
