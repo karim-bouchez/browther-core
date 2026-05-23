@@ -5,5 +5,9 @@
 #include "Release.xcconfig"
 
 // Manual Code-Signing
-CODE_SIGN_IDENTITY = Apple Distribution: Brave Software, Inc.
+// Browther: cert "Apple Distribution: Chaima Addou (MWBMAMYDUD)" à créer côté
+// developer.apple.com → Certificates → Apple Distribution (Team MWBMAMYDUD).
+// Tant que ce cert n'est pas dans le Keychain, ce config ne peut pas archiver.
+// Utiliser le scheme `Release` (non-AppStore) pour les builds Apple Development en attendant.
+CODE_SIGN_IDENTITY = Apple Distribution: Chaima Addou (MWBMAMYDUD)
 CODE_SIGN_STYLE = Manual

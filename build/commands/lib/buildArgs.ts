@@ -190,7 +190,15 @@ export function getBuildArgs(config: Config) {
     // Mojo targets are rebuilt (~23000) on each version bump.
     args.enable_mojom_message_id_scrambling = false
 
-    if (process.platform === 'darwin' && args.is_official_build) {
+    if (process.platform === 'darwin' && args.is_official_build
+        && config.targetOS !== 'ios') {
+      // Browther: exclure iOS — sinon `enable_dsyms=false` + `enable_stripping=true`
+      // (défaut Release) déclenche `save_unstripped_output=true` qui déclare
+      // `.unstripped` en output dans le toolchain Apple `solink`/`link` SANS jamais
+      // passer `-Wcrl,unstripped,...` au `linker_driver.py` → output fantôme,
+      // ninja fail à 96% sur "missing local outputs PartitionAllocSupport.unstripped".
+      // Garder dSYMs sur iOS Release : pas de bloat (séparés), utile pour Sentry.
+      //
       // Don't create dSYMs in non-true Release builds. dSYMs should be disabled
       // in order to have relocatable compilation so RBE can share the cache
       // across multiple build directories. Enabled dSYMs enforce absolute
