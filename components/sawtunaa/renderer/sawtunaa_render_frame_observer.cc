@@ -5,11 +5,14 @@
 
 #include "brave/components/sawtunaa/renderer/sawtunaa_render_frame_observer.h"
 
+#include "base/containers/span.h"
 #include "base/strings/strcat.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_js_handler.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_script_generated.h"
 #include "content/public/renderer/render_frame.h"
+#include "third_party/blink/public/mojom/script/script_evaluation_params.mojom.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
+#include "third_party/blink/public/platform/web_isolated_world_info.h"
 #include "third_party/blink/public/platform/web_string.h"
 #include "third_party/blink/public/web/web_document.h"
 #include "third_party/blink/public/web/web_local_frame.h"
@@ -65,11 +68,24 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
   SawtunaaJsHandler::Install(render_frame);
 
   // Jalon 2.C.4+5 — injection du bundle complet (Opus decoder ~105 KB
-  // + SawtunaaScript ~33 KB, ~1730 lignes total) en un seul ExecuteScript.
-  // Le header auto-généré concatène les deux dans l'ordre iOS :
-  // OpusDecoderLib défini globalement avant l'interception MSE.
-  render_frame->GetWebFrame()->ExecuteScript(blink::WebScriptSource(
-      blink::WebString::FromUTF8(kSawtunaaScript)));
+  // + SawtunaaScript ~33 KB, ~1730 lignes total).
+  //
+  // ATTENTION : ExecuteScript() legacy etait un no-op silencieux dans le
+  // contexte DidClearWindowObject (Chromium 146 Android, validé device
+  // 2026-05-24 : window.__sawtunaa installé OK mais OpusDecoderLib
+  // undefined cote console DevTools). Utiliser RequestExecuteScript()
+  // qui est l'API moderne utilisée par tout Brave + Chromium upstream.
+  blink::WebScriptSource source(blink::WebString::FromUTF8(kSawtunaaScript));
+  render_frame->GetWebFrame()->RequestExecuteScript(
+      blink::kMainDOMWorldId,
+      base::span_from_ref(source),
+      blink::mojom::UserActivationOption::kDoNotActivate,
+      blink::mojom::EvaluationTiming::kSynchronous,
+      blink::mojom::LoadEventBlockingOption::kDoNotBlock,
+      /*callback=*/blink::WebScriptExecutionCallback(),
+      blink::BackForwardCacheAware::kAllow,
+      blink::mojom::WantResultOption::kNoResult,
+      blink::mojom::PromiseResultOption::kDoNotWait);
 }
 
 void SawtunaaRenderFrameObserver::OnDestruct() {
