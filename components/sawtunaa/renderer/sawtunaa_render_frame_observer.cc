@@ -6,6 +6,7 @@
 #include "brave/components/sawtunaa/renderer/sawtunaa_render_frame_observer.h"
 
 #include <optional>
+#include <string_view>
 
 #include "base/containers/span.h"
 #include "base/logging.h"
@@ -73,13 +74,16 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
 
   // Jalon 2.C.4+5 — injection du bundle complet (Opus decoder ~105 KB
   // + SawtunaaScript ~33 KB, ~1730 lignes total).
-  // Debug 2026-05-24 : on log la taille + le resultat du callback pour
-  // diagnostiquer pourquoi RequestExecuteScript ne s'evalue pas (window.
-  // __sawtunaa OK mais OpusDecoderLib reste undefined).
-  const size_t script_len = std::char_traits<char>::length(kSawtunaaScript);
+  //
+  // ATTENTION : le bundle Opus (~888 null bytes \x00 dans les tables
+  // binaires) faisait stopper FromUTF8(const char*) au premier \0 →
+  // script tronqué à 21 KB. On passe par std::string_view pour avoir
+  // une longueur explicite (= sizeof(array) - 1). Fix 2026-05-24.
+  constexpr std::string_view script_view(
+      kSawtunaaScript, sizeof(kSawtunaaScript) - 1);
   LOG(INFO) << "[Sawtunaa/RFO] DidClearWindowObject called, script size="
-            << script_len;
-  blink::WebScriptSource source(blink::WebString::FromUTF8(kSawtunaaScript));
+            << script_view.size();
+  blink::WebScriptSource source(blink::WebString::FromUTF8(script_view));
   render_frame->GetWebFrame()->RequestExecuteScript(
       blink::kMainDOMWorldId,
       base::span_from_ref(source),
