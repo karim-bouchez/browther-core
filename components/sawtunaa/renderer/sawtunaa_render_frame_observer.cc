@@ -5,8 +5,12 @@
 
 #include "brave/components/sawtunaa/renderer/sawtunaa_render_frame_observer.h"
 
+#include <optional>
+
 #include "base/containers/span.h"
+#include "base/logging.h"
 #include "base/strings/strcat.h"
+#include "base/values.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_js_handler.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_script_generated.h"
 #include "content/public/renderer/render_frame.h"
@@ -69,12 +73,12 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
 
   // Jalon 2.C.4+5 — injection du bundle complet (Opus decoder ~105 KB
   // + SawtunaaScript ~33 KB, ~1730 lignes total).
-  //
-  // ATTENTION : ExecuteScript() legacy etait un no-op silencieux dans le
-  // contexte DidClearWindowObject (Chromium 146 Android, validé device
-  // 2026-05-24 : window.__sawtunaa installé OK mais OpusDecoderLib
-  // undefined cote console DevTools). Utiliser RequestExecuteScript()
-  // qui est l'API moderne utilisée par tout Brave + Chromium upstream.
+  // Debug 2026-05-24 : on log la taille + le resultat du callback pour
+  // diagnostiquer pourquoi RequestExecuteScript ne s'evalue pas (window.
+  // __sawtunaa OK mais OpusDecoderLib reste undefined).
+  const size_t script_len = std::char_traits<char>::length(kSawtunaaScript);
+  LOG(INFO) << "[Sawtunaa/RFO] DidClearWindowObject called, script size="
+            << script_len;
   blink::WebScriptSource source(blink::WebString::FromUTF8(kSawtunaaScript));
   render_frame->GetWebFrame()->RequestExecuteScript(
       blink::kMainDOMWorldId,
@@ -82,10 +86,19 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
       blink::mojom::UserActivationOption::kDoNotActivate,
       blink::mojom::EvaluationTiming::kSynchronous,
       blink::mojom::LoadEventBlockingOption::kDoNotBlock,
-      /*callback=*/blink::WebScriptExecutionCallback(),
+      base::BindOnce([](std::optional<base::Value> value,
+                        base::TimeTicks start_time) {
+        if (value.has_value()) {
+          LOG(INFO) << "[Sawtunaa/RFO] script eval result: "
+                    << value->DebugString();
+        } else {
+          LOG(INFO) << "[Sawtunaa/RFO] script eval result: NO VALUE";
+        }
+      }),
       blink::BackForwardCacheAware::kAllow,
-      blink::mojom::WantResultOption::kNoResult,
+      blink::mojom::WantResultOption::kWantResult,
       blink::mojom::PromiseResultOption::kDoNotWait);
+  LOG(INFO) << "[Sawtunaa/RFO] RequestExecuteScript returned (callback async)";
 }
 
 void SawtunaaRenderFrameObserver::OnDestruct() {
