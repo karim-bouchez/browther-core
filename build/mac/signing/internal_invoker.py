@@ -25,6 +25,7 @@ class Invoker(standard_invoker.Invoker):
     def __init__(self, args, config):
         super().__init__(args, config)
         add_preinstall_to_dmg()
+        rename_applications_symlink_in_dmg()
         if args.skip_signing:
             stub_out_signing_in_upstream()
         # The config can use this to access the args:
@@ -54,6 +55,38 @@ def add_preinstall_to_dmg():
             result = _package_dmg_orig(paths, dist, config)
             assert run_command.caught_pkg_dmg
             return result
+        finally:
+            commands.run_command = run_command_orig
+
+    pipeline._package_dmg = _package_dmg
+
+
+# Browther: rewrite le `--symlink /Applications:/ ` (espace) en
+# `--symlink /Applications:/Applications` pour afficher le label
+# "Applications" sous le shortcut (au lieu d'un label vide hérité du
+# pattern Brave qui voulait être universel cross-langues — chez Browther
+# on préfère afficher explicitement "Applications" pour clarifier
+# l'install pour les users moins technique). DS_Store mis à jour en
+# conséquence (cf. ds_store/update_ds_store_files.py qui utilise
+# maintenant la clé 'Applications' au lieu de ' ').
+def rename_applications_symlink_in_dmg():
+    _package_dmg_orig = pipeline._package_dmg
+
+    def _package_dmg(paths, dist, config):
+        run_command_orig = commands.run_command
+
+        def run_command(args, **kwargs):
+            if basename(args[0]) == 'pkg-dmg':
+                args = [
+                    '/Applications:/Applications' if a == '/Applications:/ '
+                    else a
+                    for a in args
+                ]
+            return run_command_orig(args, **kwargs)
+
+        commands.run_command = run_command
+        try:
+            return _package_dmg_orig(paths, dist, config)
         finally:
             commands.run_command = run_command_orig
 

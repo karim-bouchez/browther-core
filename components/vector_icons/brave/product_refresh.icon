@@ -3,12 +3,37 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// Auto-généré depuis /Volumes/SamsungSSD1TB/Dev/Projects/devndin/browther/private/assets/source/icon_shield_white.svg
-// par private/assets/scripts/svg-to-chromium-icon.py
-// canvas=24  scale=0.0432  color=0xFF, 0x7C, 0x91, 0x6F
+// Browther: icône classique flat (carré arrondi vert + shield blanc + B vert).
+// - Pas de dégradé (le vector_icons DSL ne supporte que des couleurs solides
+//   anyway), un seul vert plat #7c916f (Browther brand color).
+// - Shield + slots auto-générés depuis icon_shield_white.svg via
+//   private/assets/scripts/svg-to-chromium-icon.py, ré-arrangés ici en
+//   layering (bg → shield → slots) avec couleurs adaptées :
+//   * Path 0 : carré arrondi vert (radius 5/24 ≈ 21% du côté, proche Apple HIG)
+//   * Path 1 : shield blanc (au-dessus du bg vert)
+//   * Path 2-3 : "B" en vert, même teinte que bg → visuellement le green
+//     transparaît à travers les slots du shield blanc
+// - Visible dans l'infobar "Browther isn't your default browser".
 
 CANVAS_DIMENSIONS, 24,
+
+// Path 0 — Carré arrondi vert Browther (background)
 PATH_COLOR_ARGB, 0xFF, 0x7C, 0x91, 0x6F,
+MOVE_TO, 5, 0,
+LINE_TO, 19, 0,
+CUBIC_TO, 21.76f, 0, 24, 2.24f, 24, 5,
+LINE_TO, 24, 19,
+CUBIC_TO, 24, 21.76f, 21.76f, 24, 19, 24,
+LINE_TO, 5, 24,
+CUBIC_TO, 2.24f, 24, 0, 21.76f, 0, 19,
+LINE_TO, 0, 5,
+CUBIC_TO, 0, 2.24f, 2.24f, 0, 5, 0,
+CLOSE,
+
+NEW_PATH,
+
+// Path 1 — Shield blanc (silhouette, par-dessus le bg)
+PATH_COLOR_ARGB, 0xFF, 0xFF, 0xFF, 0xFF,
 MOVE_TO, 12, 3.432f,
 CUBIC_TO, 11.864f, 3.432f, 11.729f, 3.45f, 11.599f, 3.486f,
 LINE_TO, 4.417f, 5.465f,
@@ -25,16 +50,15 @@ LINE_TO, 12.401f, 3.486f,
 CUBIC_TO, 12.271f, 3.45f, 12.136f, 3.432f, 12, 3.432f,
 LINE_TO, 12, 3.432f,
 CLOSE,
+
 NEW_PATH,
-PATH_COLOR_ARGB, 0xFF, 0xFF, 0xFF, 0xFF,
+
+// Path 2 — Slot haut du B (vert, gravé dans le shield blanc)
+PATH_COLOR_ARGB, 0xFF, 0x7C, 0x91, 0x6F,
 MOVE_TO, 8.629f, 7.603f,
-LINE_TO, 10.999f, 7.603f,
-CUBIC_TO, 10.999f, 7.603f, 10.999f, 7.603f, 10.999f, 7.603f,
 LINE_TO, 14.306f, 7.603f,
 CUBIC_TO, 15.114f, 7.603f, 15.764f, 8.253f, 15.764f, 9.06f,
 CUBIC_TO, 15.764f, 9.867f, 15.114f, 10.517f, 14.306f, 10.517f,
-LINE_TO, 10.999f, 10.517f,
-CUBIC_TO, 10.999f, 10.517f, 10.999f, 10.517f, 10.999f, 10.517f,
 LINE_TO, 8.629f, 10.517f,
 CUBIC_TO, 8.525f, 10.517f, 8.425f, 10.474f, 8.351f, 10.395f,
 CUBIC_TO, 8.278f, 10.317f, 8.236f, 10.211f, 8.236f, 10.101f,
@@ -42,21 +66,19 @@ LINE_TO, 8.236f, 8.019f,
 CUBIC_TO, 8.236f, 7.909f, 8.278f, 7.803f, 8.351f, 7.725f,
 CUBIC_TO, 8.425f, 7.646f, 8.525f, 7.603f, 8.629f, 7.603f,
 CLOSE,
+
 NEW_PATH,
-PATH_COLOR_ARGB, 0xFF, 0xFF, 0xFF, 0xFF,
+
+// Path 3 — Slot bas du B (vert, gravé dans le shield blanc)
+PATH_COLOR_ARGB, 0xFF, 0x7C, 0x91, 0x6F,
 MOVE_TO, 8.629f, 12.974f,
-LINE_TO, 10.999f, 12.974f,
-CUBIC_TO, 10.999f, 12.974f, 10.999f, 12.974f, 10.999f, 12.974f,
 LINE_TO, 14.306f, 12.974f,
 CUBIC_TO, 15.114f, 12.974f, 15.764f, 13.624f, 15.764f, 14.432f,
 CUBIC_TO, 15.764f, 15.239f, 15.114f, 15.889f, 14.306f, 15.889f,
-LINE_TO, 10.999f, 15.889f,
-CUBIC_TO, 10.999f, 15.889f, 10.999f, 15.889f, 10.999f, 15.889f,
 LINE_TO, 8.629f, 15.889f,
 CUBIC_TO, 8.525f, 15.889f, 8.425f, 15.845f, 8.351f, 15.767f,
 CUBIC_TO, 8.278f, 15.689f, 8.236f, 15.583f, 8.236f, 15.473f,
 LINE_TO, 8.236f, 13.391f,
 CUBIC_TO, 8.236f, 13.28f, 8.278f, 13.174f, 8.351f, 13.096f,
 CUBIC_TO, 8.425f, 13.018f, 8.525f, 12.974f, 8.629f, 12.974f,
-LINE_TO, 8.629f, 12.974f,
 CLOSE,

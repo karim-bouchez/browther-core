@@ -41,10 +41,14 @@ def create_ds_store(app_name, bg_file, ds_store_path):
         # github.com/dmgbuild/mac_alias/issues/22#issuecomment-1350790003.
         dmg_path = join(temp_dir, f'{app_name}.dmg')
         with TemporaryDirectory() as empty:
+            # Browther: 8*1024*1024 sectors = 4 GiB est délirant pour un DMG
+            # qui sert juste à générer un .DS_Store. Réduit à 16 MiB
+            # (32768 sectors × 512 octets) → marche sur machine de dev même
+            # quand le disque interne est plein.
             check_call([
                 'hdiutil', 'create', '-fs', 'HFS+', '-format', 'UDRW',
                 '-sectors',
-                str(8 * 1024 * 1024), '-volname', app_name, '-srcfolder',
+                str(32 * 1024), '-volname', app_name, '-srcfolder',
                 empty, '-quiet', dmg_path
             ])
         mount_path = join('/Volumes', basename(__file__) + str(uuid4()))
@@ -63,7 +67,14 @@ def create_ds_store(app_name, bg_file, ds_store_path):
                 # resources online where people partially reverse-engineered
                 # the DS_Store format.
                 d[app_name + '.app']['Iloc'] = (150, 155)
-                d[' ']['Iloc'] = (430, 150)
+                # Browther: clé 'Applications' (au lieu de ' ' espace utilisé
+                # par Brave pour rester universel cross-langues). On préfère
+                # afficher explicitement "Applications" pour clarifier
+                # l'install pour les users moins technique. La pipeline
+                # signing pkg-dmg doit aussi être adaptée pour créer le
+                # symlink avec le nom 'Applications' (cf. pipeline.py:463
+                # qui fait '/Applications:/ '). Patch séparé.
+                d['Applications']['Iloc'] = (430, 150)
                 d['.']['bwsp'] = {
                     'ContainerShowSidebar': False,
                     'ShowPathbar': False,

@@ -3,12 +3,30 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// Auto-généré depuis /Volumes/SamsungSSD1TB/Dev/Projects/devndin/browther/private/assets/source/icon_shield_white.svg
-// par private/assets/scripts/svg-to-chromium-icon.py
-// canvas=32  scale=0.0576  color=0xFF, 0x7C, 0x91, 0x6F
+// Browther: variante 32x32 de l'icône classique flat (carré arrondi vert +
+// shield blanc + B vert). Cf. components/vector_icons/brave/product_refresh.
+// icon pour le contexte et le canvas 24×24. Utilisée par
+// omnibox::kProductChromeRefreshIcon.
 
 CANVAS_DIMENSIONS, 32,
+
+// Path 0 — Carré arrondi vert Browther (background, r=6.67)
 PATH_COLOR_ARGB, 0xFF, 0x7C, 0x91, 0x6F,
+MOVE_TO, 6.67f, 0,
+LINE_TO, 25.33f, 0,
+CUBIC_TO, 29.01f, 0, 32, 2.99f, 32, 6.67f,
+LINE_TO, 32, 25.33f,
+CUBIC_TO, 32, 29.01f, 29.01f, 32, 25.33f, 32,
+LINE_TO, 6.67f, 32,
+CUBIC_TO, 2.99f, 32, 0, 29.01f, 0, 25.33f,
+LINE_TO, 0, 6.67f,
+CUBIC_TO, 0, 2.99f, 2.99f, 0, 6.67f, 0,
+CLOSE,
+
+NEW_PATH,
+
+// Path 1 — Shield blanc (32-canvas, par-dessus le bg vert)
+PATH_COLOR_ARGB, 0xFF, 0xFF, 0xFF, 0xFF,
 MOVE_TO, 16, 4.576f,
 CUBIC_TO, 15.819f, 4.576f, 15.639f, 4.601f, 15.465f, 4.649f,
 LINE_TO, 5.889f, 7.286f,
@@ -25,16 +43,15 @@ LINE_TO, 16.535f, 4.649f,
 CUBIC_TO, 16.361f, 4.601f, 16.181f, 4.576f, 16, 4.576f,
 LINE_TO, 16, 4.576f,
 CLOSE,
+
 NEW_PATH,
-PATH_COLOR_ARGB, 0xFF, 0xFF, 0xFF, 0xFF,
+
+// Path 2 — Slot haut du B (vert, gravé dans le shield blanc)
+PATH_COLOR_ARGB, 0xFF, 0x7C, 0x91, 0x6F,
 MOVE_TO, 11.506f, 10.137f,
-LINE_TO, 14.665f, 10.137f,
-CUBIC_TO, 14.665f, 10.137f, 14.665f, 10.137f, 14.665f, 10.137f,
 LINE_TO, 19.075f, 10.137f,
 CUBIC_TO, 20.151f, 10.137f, 21.018f, 11.003f, 21.018f, 12.08f,
 CUBIC_TO, 21.018f, 13.157f, 20.151f, 14.023f, 19.075f, 14.023f,
-LINE_TO, 14.665f, 14.023f,
-CUBIC_TO, 14.665f, 14.023f, 14.665f, 14.023f, 14.665f, 14.023f,
 LINE_TO, 11.506f, 14.023f,
 CUBIC_TO, 11.367f, 14.023f, 11.233f, 13.965f, 11.135f, 13.861f,
 CUBIC_TO, 11.037f, 13.757f, 10.982f, 13.615f, 10.982f, 13.468f,
@@ -42,21 +59,19 @@ LINE_TO, 10.982f, 10.692f,
 CUBIC_TO, 10.982f, 10.545f, 11.037f, 10.403f, 11.135f, 10.299f,
 CUBIC_TO, 11.233f, 10.195f, 11.367f, 10.137f, 11.506f, 10.137f,
 CLOSE,
+
 NEW_PATH,
-PATH_COLOR_ARGB, 0xFF, 0xFF, 0xFF, 0xFF,
+
+// Path 3 — Slot bas du B (vert, gravé dans le shield blanc)
+PATH_COLOR_ARGB, 0xFF, 0x7C, 0x91, 0x6F,
 MOVE_TO, 11.506f, 17.299f,
-LINE_TO, 14.665f, 17.299f,
-CUBIC_TO, 14.665f, 17.299f, 14.665f, 17.299f, 14.665f, 17.299f,
 LINE_TO, 19.075f, 17.299f,
 CUBIC_TO, 20.151f, 17.299f, 21.018f, 18.166f, 21.018f, 19.242f,
 CUBIC_TO, 21.018f, 20.319f, 20.151f, 21.186f, 19.075f, 21.186f,
-LINE_TO, 14.665f, 21.186f,
-CUBIC_TO, 14.665f, 21.186f, 14.665f, 21.186f, 14.665f, 21.186f,
 LINE_TO, 11.506f, 21.186f,
 CUBIC_TO, 11.367f, 21.186f, 11.233f, 21.127f, 11.135f, 21.023f,
 CUBIC_TO, 11.037f, 20.919f, 10.982f, 20.778f, 10.982f, 20.63f,
 LINE_TO, 10.982f, 17.854f,
 CUBIC_TO, 10.982f, 17.707f, 11.037f, 17.566f, 11.135f, 17.462f,
 CUBIC_TO, 11.233f, 17.358f, 11.367f, 17.299f, 11.506f, 17.299f,
-LINE_TO, 11.506f, 17.299f,
 CLOSE,
