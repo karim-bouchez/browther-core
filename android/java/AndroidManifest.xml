@@ -238,3 +238,14 @@
     android:name="io.sentry.android.core.SentryInitProvider"
     android:authorities="${applicationId}.SentryInitProvider"
     tools:node="remove" />
+
+<!-- Browther: SentryPerformanceProvider doit aussi être removed pour les
+     isolated splits (Release Android bundle) — le bundle sanity check
+     refuse les ContentProviders dans le module "chrome" qui doivent être
+     dans le module "base" (cf. android_isolated_splits.md). Comme on
+     n'utilise pas le tracing auto-instrumentation Sentry (Performance),
+     on retire ce provider aussi. -->
+<provider
+    android:name="io.sentry.android.core.SentryPerformanceProvider"
+    android:authorities="${applicationId}.SentryPerformanceProvider"
+    tools:node="remove" />
