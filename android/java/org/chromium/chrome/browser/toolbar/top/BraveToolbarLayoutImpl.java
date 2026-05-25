@@ -182,8 +182,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private FrameLayout mYouTubePipLayout;
     private BraveShieldsHandler mBraveShieldsHandler;
 
-    // Browther: Sawtunaa toolbar button (mirror of Shields button layout).
-    private @Nullable FrameLayout mSawtunaaLayout;
+    // Browther: Sawtunaa toolbar button. The FrameLayout wrapper is found in
+    // brave_toolbar.xml but we only need a handle on the button + badge views.
     private @Nullable ImageButton mSawtunaaButton;
     private @Nullable View mSawtunaaBadge;
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
@@ -319,7 +319,6 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         }
 
         // Browther: Sawtunaa toolbar button.
-        mSawtunaaLayout = findViewById(R.id.brave_sawtunaa_button_layout);
         mSawtunaaButton = findViewById(R.id.brave_sawtunaa_button);
         mSawtunaaBadge = findViewById(R.id.brave_sawtunaa_badge);
         if (mSawtunaaButton != null) {
