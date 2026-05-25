@@ -17,32 +17,22 @@
     android:paddingTop="20dp"
     android:paddingBottom="22dp">
 
-    <!-- Header: icon + wordmark. Wordmark is a styled TextView since we
-         don't ship a vector wordmark on Android yet. -->
-    <LinearLayout
+    <!-- Header: icon + wordmark. Single TextView with a compound drawable
+         (start) — lint prefers this over a LinearLayout wrapping ImageView
+         + TextView ([UseCompoundDrawables]). -->
+    <TextView
+        android:id="@+id/sawtunaa_panel_wordmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/ic_sawtunaa_with_bg"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_sawtunaa_with_bg"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:id="@+id/sawtunaa_panel_wordmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/sawtunaa_title"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.02" />
-    </LinearLayout>
+        android:text="@string/sawtunaa_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.02" />
 
     <!-- Big animated toggle, 96x52 dp. -->
     <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView

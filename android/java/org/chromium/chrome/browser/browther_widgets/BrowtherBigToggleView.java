@@ -6,6 +6,7 @@
 package org.chromium.chrome.browser.browther_widgets;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,7 +17,6 @@ import android.graphics.Shader;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.PathInterpolator;
 
@@ -80,6 +80,14 @@ public class BrowtherBigToggleView extends View {
     private final Paint mThumbShadowPaint;
     private final RectF mTrackRect = new RectF();
 
+    // Preallocated to keep onDraw() allocation-free where possible. The
+    // RadialGradient itself still needs to be reconstructed each frame since
+    // its color stops change with the gradient cycle and RadialGradient has
+    // no setter for them; that single allocation is OK and the lint
+    // DrawAllocation warning is silenced via @SuppressLint on onDraw().
+    private final int[] mGradientColorsBuf = new int[2];
+    private final float[] mGradientStops = new float[] {0f, 1f};
+
     private boolean mChecked;
     private float mThumbProgress; // 0 = off, 1 = on, interpolated.
     @Nullable private ValueAnimator mThumbAnimator;
@@ -130,15 +138,13 @@ public class BrowtherBigToggleView extends View {
 
     @Override
     public boolean performClick() {
+        // Note: lint expects performClick() to be invoked from onTouchEvent. We
+        // rely on the default View.onTouchEvent (via setClickable(true) in the
+        // constructor) which already calls performClick() on ACTION_UP — no
+        // custom onTouchEvent needed, no DragInteraction here.
         super.performClick();
         toggle();
         return true;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // We accept any touch as a click — no drag interaction.
-        return super.onTouchEvent(event);
     }
 
     /** Sets the listener invoked when the user toggles the switch. */
@@ -221,6 +227,7 @@ public class BrowtherBigToggleView extends View {
         }
     }
 
+    @SuppressLint("DrawAllocation") // RadialGradient must be reconstructed each frame.
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -244,16 +251,16 @@ public class BrowtherBigToggleView extends View {
             float t = mGradientPhase - phaseFloor;
             int[] from = GRADIENT_KEYFRAMES[phaseFloor % GRADIENT_KEYFRAMES.length];
             int[] to = GRADIENT_KEYFRAMES[(phaseFloor + 1) % GRADIENT_KEYFRAMES.length];
-            int innerColor = lerpColor(from[0], to[0], t);
-            int outerColor = lerpColor(from[1], to[1], t);
+            mGradientColorsBuf[0] = lerpColor(from[0], to[0], t);
+            mGradientColorsBuf[1] = lerpColor(from[1], to[1], t);
             // Center bottom-right, spans toward top-left. radius ~= width.
             RadialGradient gradient =
                     new RadialGradient(
                             w * 0.9f,
                             h * 0.85f,
                             w * 1.1f,
-                            new int[] {innerColor, outerColor},
-                            new float[] {0f, 1f},
+                            mGradientColorsBuf,
+                            mGradientStops,
                             Shader.TileMode.CLAMP);
             mTrackPaint.setShader(gradient);
             int alpha = (int) (mThumbProgress * 255f);
