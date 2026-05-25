@@ -71,6 +71,37 @@
           android:contentDescription="@string/accessibility_toolbar_btn_brave_shields" />
   </FrameLayout>
 
+  <!-- Browther: Sawtunaa (music/noise suppression) toolbar button. Mirrors
+       the Brave Shields layout above so it picks up the same modern_toolbar
+       background chain when visible. Visibility is controlled at runtime
+       by BraveToolbarLayoutImpl based on the kSawtunaaEnabled pref existence
+       (pref itself is always allocated) and incognito state. The dot badge
+       reflects feature ON (green) / OFF (red), in line with iOS + macOS. -->
+  <FrameLayout android:id="@+id/brave_sawtunaa_button_layout"
+      android:layout_width="45dp"
+      android:orientation="vertical"
+      android:background="@drawable/modern_toolbar_background_grey_middle_segment"
+      android:layout_marginTop="8dp"
+      android:layout_height="40dp" >
+
+      <ImageButton android:id="@+id/brave_sawtunaa_button"
+          style="@style/ToolbarButton"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:src="@drawable/ic_sawtunaa"
+          android:layout_gravity="center"
+          android:contentDescription="@string/accessibility_toolbar_btn_sawtunaa" />
+
+      <View
+          android:id="@+id/brave_sawtunaa_badge"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginTop="7dp"
+          android:layout_marginEnd="6dp"
+          android:layout_gravity="end"
+          android:background="@drawable/sawtunaa_badge_red" />
+  </FrameLayout>
+
   <FrameLayout android:id="@+id/brave_rewards_button_layout"
       android:layout_width="45dp"
       android:orientation="vertical"

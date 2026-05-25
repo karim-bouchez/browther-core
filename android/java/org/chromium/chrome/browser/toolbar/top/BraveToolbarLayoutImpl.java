@@ -31,9 +31,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.ImageViewCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.brave.playlist.enums.PlaylistOptionsEnum;
 import com.brave.playlist.listener.PlaylistOnboardingActionClickListener;
@@ -79,10 +81,14 @@ import org.chromium.chrome.browser.onboarding.v2.HighlightView;
 import org.chromium.chrome.browser.playlist.PlaylistServiceFactoryAndroid;
 import org.chromium.chrome.browser.playlist.PlaylistServiceObserverImpl;
 import org.chromium.chrome.browser.playlist.PlaylistServiceObserverImpl.PlaylistServiceObserverImplDelegate;
+import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.preferences.ChromeSharedPreferences;
+import org.chromium.chrome.browser.preferences.PrefServiceUtil;
 import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettings;
 import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettingsObserver;
 import org.chromium.chrome.browser.profiles.Profile;
+import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
 import org.chromium.chrome.browser.shields.BraveShieldsMenuObserver;
 import org.chromium.chrome.browser.shields.BraveShieldsUtils;
@@ -114,6 +120,8 @@ import org.chromium.chrome.browser.util.PackageUtils;
 import org.chromium.chrome.browser.youtube_script_injector.BraveYouTubeScriptInjectorNativeHelper;
 import org.chromium.components.embedder_support.util.UrlUtilities;
 import org.chromium.components.feature_engagement.Tracker;
+import org.chromium.components.prefs.PrefChangeRegistrar;
+import org.chromium.components.user_prefs.UserPrefs;
 import org.chromium.content_public.browser.NavigationHandle;
 import org.chromium.mojo.bindings.ConnectionErrorHandler;
 import org.chromium.mojo.system.MojoException;
@@ -173,6 +181,12 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private FrameLayout mRewardsLayout;
     private FrameLayout mYouTubePipLayout;
     private BraveShieldsHandler mBraveShieldsHandler;
+
+    // Browther: Sawtunaa toolbar button (mirror of Shields button layout).
+    private @Nullable FrameLayout mSawtunaaLayout;
+    private @Nullable ImageButton mSawtunaaButton;
+    private @Nullable View mSawtunaaBadge;
+    private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
 
     // TabModelSelectorTabObserver setups observer at the ctor
     @SuppressWarnings("UnusedVariable")
@@ -246,6 +260,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mPlaylistServiceObserver.destroy();
             mPlaylistServiceObserver = null;
         }
+        if (mSawtunaaPrefChangeRegistrar != null) {
+            mSawtunaaPrefChangeRegistrar.destroy();
+            mSawtunaaPrefChangeRegistrar = null;
+        }
         super.destroy();
         if (mBraveRewardsNativeWorker != null) {
             mBraveRewardsNativeWorker.removeObserver(this);
@@ -298,6 +316,19 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mBraveShieldsButton.setOnClickListener(this);
             mBraveShieldsButton.setOnLongClickListener(this);
             BraveTouchUtils.ensureMinTouchTarget(mBraveShieldsButton);
+        }
+
+        // Browther: Sawtunaa toolbar button.
+        mSawtunaaLayout = findViewById(R.id.brave_sawtunaa_button_layout);
+        mSawtunaaButton = findViewById(R.id.brave_sawtunaa_button);
+        mSawtunaaBadge = findViewById(R.id.brave_sawtunaa_badge);
+        if (mSawtunaaButton != null) {
+            mSawtunaaButton.setClickable(true);
+            mSawtunaaButton.setOnClickListener(this);
+            mSawtunaaButton.setOnLongClickListener(this);
+            BraveTouchUtils.ensureMinTouchTarget(mSawtunaaButton);
+            updateSawtunaaBadge();
+            registerSawtunaaPrefObserver();
         }
 
         if (mBraveRewardsButton != null) {
@@ -1200,6 +1231,9 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 }
                 BraveYouTubeScriptInjectorNativeHelper.setFullscreen(currentTab.getWebContents());
             }
+        } else if (mSawtunaaButton == v && mSawtunaaButton != null) {
+            // Browther: open the Sawtunaa panel as a Material BottomSheet.
+            showSawtunaaPanel();
         }
     }
 
@@ -1252,6 +1286,44 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                                                 .getRewardsOnboardingIconInvisibleTiming()));
     }
 
+    // Browther: Sawtunaa panel + badge helpers.
+
+    private void showSawtunaaPanel() {
+        Context context = getContext();
+        FragmentManager fragmentManager = null;
+        if (context instanceof AppCompatActivity) {
+            fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        } else {
+            try {
+                fragmentManager =
+                        BraveActivity.getBraveActivity().getSupportFragmentManager();
+            } catch (BraveActivity.BraveActivityNotFoundException e) {
+                Log.e(TAG, "showSawtunaaPanel " + e);
+            }
+        }
+        if (fragmentManager != null) {
+            SawtunaaPanelBottomSheet.show(fragmentManager);
+        }
+    }
+
+    private void updateSawtunaaBadge() {
+        if (mSawtunaaBadge == null) return;
+        Profile profile = ProfileManager.getLastUsedRegularProfile();
+        if (profile == null) return;
+        boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
+        mSawtunaaBadge.setBackgroundResource(
+                enabled ? R.drawable.sawtunaa_badge_green : R.drawable.sawtunaa_badge_red);
+    }
+
+    private void registerSawtunaaPrefObserver() {
+        if (mSawtunaaPrefChangeRegistrar != null) return;
+        Profile profile = ProfileManager.getLastUsedRegularProfile();
+        if (profile == null) return;
+        mSawtunaaPrefChangeRegistrar = PrefServiceUtil.createFor(profile);
+        mSawtunaaPrefChangeRegistrar.addObserver(
+                BravePref.SAWTUNAA_ENABLED, this::updateSawtunaaBadge);
+    }
+
     private void showShieldsMenu(View mBraveShieldsButton) {
         Tab currentTab = getToolbarDataProvider().getTab();
         if (currentTab == null) {
@@ -1289,6 +1361,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             description = resources.getString(R.string.accessibility_toolbar_btn_brave_wallet);
         } else if (v == mYouTubePipButton) {
             description = resources.getString(R.string.accessibility_toolbar_btn_brave_pip);
+        } else if (v == mSawtunaaButton) {
+            description = resources.getString(R.string.accessibility_toolbar_btn_sawtunaa);
         }
 
         return Toast.showAnchoredToast(context, v, description);

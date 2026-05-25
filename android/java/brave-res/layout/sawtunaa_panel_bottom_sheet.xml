@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
+<!-- Sawtunaa panel shown from the URL bar Sawtunaa button. Layout mirrors
+     iOS SawtunaaPanelView and macOS sawtunaa_bubble_view.cc.
+     Spec: private/docs/UI_UX_FEATURES.md § Sawtunaa. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="22dp">
+
+    <!-- Header: icon + wordmark. Wordmark is a styled TextView since we
+         don't ship a vector wordmark on Android yet. -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_sawtunaa_with_bg"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/sawtunaa_panel_wordmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/sawtunaa_title"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.02" />
+    </LinearLayout>
+
+    <!-- Big animated toggle, 96x52 dp. -->
+    <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView
+        android:id="@+id/sawtunaa_panel_toggle"
+        android:layout_width="96dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Status text: "Suppression de la musique ACTIVÉE/DÉSACTIVÉE". -->
+    <TextView
+        android:id="@+id/sawtunaa_panel_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="13sp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center" />
+
+    <!-- Description: "Pour l'instant, ça fonctionne uniquement sur YouTube.
+         (en savoir plus)" — last part is a clickable underlined span. -->
+    <TextView
+        android:id="@+id/sawtunaa_panel_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="13sp"
+        android:lineSpacingExtra="2dp"
+        android:gravity="start" />
+
+</LinearLayout>

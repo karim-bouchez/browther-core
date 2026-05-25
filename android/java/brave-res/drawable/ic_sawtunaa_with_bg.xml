@@ -1,0 +1,27 @@
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!-- Sawtunaa icon with rounded-square Browther-green background, used in the
+     BottomSheet panel header. Pendant of the iOS `sawtunaa.icon.bg` asset. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="500"
+    android:viewportHeight="500">
+    <!-- Rounded-square background (Browther green). -->
+    <path
+        android:fillColor="#22C55E"
+        android:pathData="M100,30 L400,30 A70,70 0 0 1 470,100 L470,400 A70,70 0 0 1 400,470 L100,470 A70,70 0 0 1 30,400 L30,100 A70,70 0 0 1 100,30 Z" />
+    <group
+        android:translateX="-50"
+        android:translateY="-30">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M278.49254,141.90119 L196.75049,155.52347 C189.71856,156.68597 183.08747,162.99844 183.08747,171.65139 V327.6287 c-9.63662,-5.6146 -20.81126,-8.8385 -32.69241,-8.8385 -35.92268,0 -65.4001,29.4689 -65.4001,65.3916 0,35.9227 29.47738,65.4001 65.4001,65.4001 35.91888,0 65.38535,-29.4707 65.3916,-65.3882 v-198.69352 l 62.70588,-10.45249 z M150.39506,351.4894 c 18.2518,0 32.69238,14.4406 32.69241,32.6924 v 0.01 c -0.003,18.249 -14.44255,32.6924 -32.69241,32.6924 -18.25182,0 -32.70092,-14.4474 -32.70092,-32.6992 0,-18.2518 14.4491,-32.6924 32.70092,-32.6924 z" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.7"
+            android:pathData="M450.4777,113.38888 L388.4602,123.57588 L306.71814,137.19817 v33.14599 l 59.90636,-9.98524 v 0.003 l 68.079,-11.34751 v 136.67787 c -9.6366,-5.61559 -20.8113,-8.8386 -32.6924,-8.8386 -35.9227,0 -65.3984,29.47574 -65.3984,65.39848 0,35.9226 29.4757,65.3915 65.3984,65.3915 35.9227,0 65.3916,-29.4689 65.3916,-65.3915 V 129.72527 C 466.8279,121.05878 459.0297,113.38888 450.4771,113.3901 Z m -48.5265,196.17311 c 18.2518,0 32.6924,14.44741 32.6924,32.69921 0,18.2518 -14.4406,32.6924 -32.6924,32.6924 -18.2518,0 -32.6992,-14.4406 -32.6992,-32.6924 0,-18.2518 14.4474,-32.69921 32.6992,-32.69921 z" />
+    </group>
+</vector>

@@ -3999,6 +3999,33 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SAWTUNAA_FULL_PIPELINE_BENCH_RESULT_TITLE" desc="Title above the full-pipeline benchmark result row">
       Last full-pipeline benchmark
     </message>
+
+    <!-- Browther: Sawtunaa toolbar button + panel (BottomSheet). Strings are
+         in French (Browther primary locale, parity with iOS SawtunaaPanelView). -->
+    <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_SAWTUNAA" desc="Accessibility label for the Sawtunaa toolbar button">
+      Sawtunaa, suppression de la musique et des bruits de fond
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_STATUS_PREFIX" desc="Status sentence prefix shown in the Sawtunaa toolbar panel, followed by IDS_SAWTUNAA_PANEL_STATUS_ON/OFF">
+      Suppression de la musique
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_STATUS_ON" desc="Status when Sawtunaa is enabled. Appended after IDS_SAWTUNAA_PANEL_STATUS_PREFIX.">
+      ACTIVÉE
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_STATUS_OFF" desc="Status when Sawtunaa is disabled. Appended after IDS_SAWTUNAA_PANEL_STATUS_PREFIX.">
+      DÉSACTIVÉE
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_DESCRIPTION" desc="Description below the big toggle in the Sawtunaa panel. The 'learn more' part is appended as a clickable underlined span by the UI.">
+      Pour l'instant, ça fonctionne uniquement sur YouTube.
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_LEARN_MORE" desc="Clickable 'learn more' suffix appended to IDS_SAWTUNAA_PANEL_DESCRIPTION; opens an explanatory dialog.">
+      (en savoir plus)
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_LIMITATIONS_TITLE" desc="Title of the alert dialog explaining why Sawtunaa is YouTube-only on mobile.">
+      Pourquoi seulement YouTube ?
+    </message>
+    <message name="IDS_SAWTUNAA_PANEL_LIMITATIONS_MESSAGE" desc="Message of the alert dialog explaining why Sawtunaa is YouTube-only on mobile.">
+      Les navigateurs mobiles imposent des restrictions techniques qui rendent ce genre de filtrage audio plus complexe que sur ordinateur. On travaille à étendre ça à d'autres sites إن شاء الله.
+    </message>
   </messages>
   </release>
 </grit>

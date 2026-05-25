@@ -324,14 +324,18 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/rewards/adaptive_captcha/AdaptiveCaptchaHelper.java",
   "../../brave/android/java/org/chromium/chrome/browser/safe_browsing/settings/BraveStandardProtectionSettingsFragment.java",
   "../../brave/android/java/org/chromium/chrome/browser/safe_browsing/settings/NoGooglePlayServicesDialog.java",
+  # Browther: shared widgets (big animated toggle reused by feature panels).
+  "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherBigToggleView.java",
   # Browther: Sawtunaa Voie B
   # - Jalon 1 : SawtunaaBenchmark + SawtunaaPreferences (UI)
   # - Jalon 2.A : NSNet2Processor (port Swift → Java)
   # - Jalon 2.B.5 : SawtunaaBridge (@CalledByNative C++→Java)
   # - Jalon 2.D : SawtunaaPlayer (AudioTrack + anti-drift + cache PCM)
+  # - Jalon 2.E (UI) : SawtunaaPanelBottomSheet (URL bar panel)
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/NSNet2Processor.java",
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaBridge.java",
+  "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPanelBottomSheet.java",
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPlayer.java",
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPreferences.java",
   "../../brave/android/java/org/chromium/chrome/browser/searchwidget/SearchWidgetProviderActivity.java",
