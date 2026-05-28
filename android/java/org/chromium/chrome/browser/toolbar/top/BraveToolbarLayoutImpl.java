@@ -332,8 +332,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             // tint; onThemeColorChanged() swaps to light mode for light
             // backgrounds, mirroring mWalletIcon below.
             ImageViewCompat.setImageTintList(mSawtunaaButton, mDarkModeTint);
-            updateSawtunaaBadge();
-            registerSawtunaaPrefObserver();
+            // Pref read + observer registration are deferred to
+            // onNativeLibraryReady() — ProfileManager throws here otherwise
+            // (cf. crash 2026-05-28 "Browser hasn't finished initialization
+            // yet"). Default badge to OFF (red) until the pref is read.
         }
 
         if (mBraveRewardsButton != null) {
@@ -508,6 +510,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     @Override
     protected void onNativeLibraryReady() {
         super.onNativeLibraryReady();
+        // Browther: read kSawtunaaEnabled now that ProfileManager is safe.
+        if (mSawtunaaButton != null) {
+            updateSawtunaaBadge();
+            registerSawtunaaPrefObserver();
+        }
         if (isPlaylistEnabledByPrefsAndFlags()) {
             initPlaylistService();
             mPlaylistServiceObserver = new PlaylistServiceObserverImpl(this);
