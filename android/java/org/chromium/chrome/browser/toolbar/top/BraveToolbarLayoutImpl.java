@@ -318,7 +318,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             BraveTouchUtils.ensureMinTouchTarget(mBraveShieldsButton);
         }
 
-        // Browther: Sawtunaa toolbar button.
+        // Browther: Sawtunaa toolbar button. Uses the same composite
+        // icon-with-bg PNG as the panel header (parity with Brave Shields'
+        // btn_brave.png pattern: image is multi-color and self-contained,
+        // no runtime tint needed).
         mSawtunaaButton = findViewById(R.id.brave_sawtunaa_button);
         mSawtunaaBadge = findViewById(R.id.brave_sawtunaa_badge);
         if (mSawtunaaButton != null) {
@@ -326,12 +329,6 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mSawtunaaButton.setOnClickListener(this);
             mSawtunaaButton.setOnLongClickListener(this);
             BraveTouchUtils.ensureMinTouchTarget(mSawtunaaButton);
-            // The vector drawable is pure-white template — without a runtime
-            // tint it is invisible against the modern toolbar grey segment
-            // (cf. user repro 2026-05-28, "carré gris"). Start in dark mode
-            // tint; onThemeColorChanged() swaps to light mode for light
-            // backgrounds, mirroring mWalletIcon below.
-            ImageViewCompat.setImageTintList(mSawtunaaButton, mDarkModeTint);
             // Pref read + observer registration are deferred to
             // onNativeLibraryReady() — ProfileManager throws here otherwise
             // (cf. crash 2026-05-28 "Browser hasn't finished initialization
@@ -1613,14 +1610,6 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             ImageViewCompat.setImageTintList(mWalletIcon,
                     !ColorUtils.shouldUseLightForegroundOnBackground(color) ? mDarkModeTint
                                                                             : mLightModeTint);
-        }
-        if (mSawtunaaButton != null) {
-            // Browther: keep the Sawtunaa template icon adaptive to theme.
-            ImageViewCompat.setImageTintList(
-                    mSawtunaaButton,
-                    !ColorUtils.shouldUseLightForegroundOnBackground(color)
-                            ? mDarkModeTint
-                            : mLightModeTint);
         }
 
         final int textBoxColor =
