@@ -10,8 +10,12 @@
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="500"
-    android:viewportHeight="500"
-    android:tint="@color/default_icon_color_tint_list">
+    android:viewportHeight="500">
+    <!-- No XML tint here: Vector Drawable's android:tint takes a single Color,
+         not a ColorStateList — using @color/default_icon_color_tint_list here
+         resolves to 0/transparent and the icon disappears (cf. user repro
+         2026-05-28, "carré gris" au lieu de l'icône). Tint is applied
+         dynamically from BraveToolbarLayoutImpl.onFinishInflate(). -->
     <group
         android:translateX="-50"
         android:translateY="-30">

@@ -326,6 +326,12 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mSawtunaaButton.setOnClickListener(this);
             mSawtunaaButton.setOnLongClickListener(this);
             BraveTouchUtils.ensureMinTouchTarget(mSawtunaaButton);
+            // The vector drawable is pure-white template — without a runtime
+            // tint it is invisible against the modern toolbar grey segment
+            // (cf. user repro 2026-05-28, "carré gris"). Start in dark mode
+            // tint; onThemeColorChanged() swaps to light mode for light
+            // backgrounds, mirroring mWalletIcon below.
+            ImageViewCompat.setImageTintList(mSawtunaaButton, mDarkModeTint);
             updateSawtunaaBadge();
             registerSawtunaaPrefObserver();
         }
@@ -1600,6 +1606,14 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             ImageViewCompat.setImageTintList(mWalletIcon,
                     !ColorUtils.shouldUseLightForegroundOnBackground(color) ? mDarkModeTint
                                                                             : mLightModeTint);
+        }
+        if (mSawtunaaButton != null) {
+            // Browther: keep the Sawtunaa template icon adaptive to theme.
+            ImageViewCompat.setImageTintList(
+                    mSawtunaaButton,
+                    !ColorUtils.shouldUseLightForegroundOnBackground(color)
+                            ? mDarkModeTint
+                            : mLightModeTint);
         }
 
         final int textBoxColor =

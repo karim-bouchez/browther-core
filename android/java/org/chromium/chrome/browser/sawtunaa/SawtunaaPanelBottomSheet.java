@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.sawtunaa;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
@@ -25,12 +27,15 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
@@ -62,9 +67,18 @@ import org.chromium.components.user_prefs.UserPrefs;
 public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
     public static final String TAG = "SawtunaaPanel";
 
+    private static final String TAG_LOG = "Sawtunaa";
+
     @Nullable private BrowtherBigToggleView mToggle;
     @Nullable private TextView mStatusText;
     @Nullable private TextView mDescriptionText;
+
+    // Snapshot of the pref state at panel open, used to decide whether to
+    // reload the active tab on dismiss. V1 limitation: the renderer reads
+    // kSawtunaaEnabled once per page; toggling without a reload leaves the
+    // <video> force-muted while the native pipeline is stopped → silence
+    // after ~2-3 s of buffered audio (cf. user repro 2026-05-28).
+    private boolean mInitialEnabled;
 
     /** Convenience: build + show. */
     public static void show(FragmentManager fragmentManager) {
@@ -99,6 +113,7 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
         boolean enabled =
                 UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                         .getBoolean(BravePref.SAWTUNAA_ENABLED);
+        mInitialEnabled = enabled;
 
         if (mToggle != null) {
             mToggle.setCheckedSilently(enabled);
@@ -170,5 +185,27 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                 .setMessage(R.string.sawtunaa_panel_limitations_message)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        boolean currentEnabled =
+                UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
+                        .getBoolean(BravePref.SAWTUNAA_ENABLED);
+        if (currentEnabled == mInitialEnabled) return;
+        // The renderer-side script picks up the pref once at page load, so the
+        // active tab needs to be reloaded for the audio pipeline to start or
+        // stop. Skipping reload would leave the <video> JS force-muted while
+        // the native AudioTrack pipeline is gone → ~2-3 s of buffered audio
+        // then silence.
+        try {
+            Tab tab = BraveActivity.getBraveActivity().getActivityTab();
+            if (tab != null) {
+                tab.reload();
+            }
+        } catch (BraveActivity.BraveActivityNotFoundException e) {
+            Log.e(TAG_LOG, "onDismiss reload " + e);
+        }
     }
 }

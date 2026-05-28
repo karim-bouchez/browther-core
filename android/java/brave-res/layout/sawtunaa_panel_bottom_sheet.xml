@@ -17,22 +17,32 @@
     android:paddingTop="20dp"
     android:paddingBottom="22dp">
 
-    <!-- Header: icon + wordmark. Single TextView with a compound drawable
-         (start) — lint prefers this over a LinearLayout wrapping ImageView
-         + TextView ([UseCompoundDrawables]). -->
-    <TextView
-        android:id="@+id/sawtunaa_panel_wordmark"
+    <!-- Header: real Sawtunaa icon-with-bg PNG + wordmark PNG (parity with
+         iOS SawtunaaPanelView, deployed from private/logo/sawtunaa/). The
+         wordmark PNG ships at the right ratio (2513x716 → ~3.5:1) and we
+         let the ImageView decide its width from the intrinsic ratio. -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:drawableStart="@drawable/ic_sawtunaa_with_bg"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:text="@string/sawtunaa_title"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:letterSpacing="0.02" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/sawtunaa_icon_with_bg"
+            android:contentDescription="@null" />
+
+        <ImageView
+            android:id="@+id/sawtunaa_panel_wordmark"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/sawtunaa_wordmark"
+            android:contentDescription="@null" />
+    </LinearLayout>
 
     <!-- Big animated toggle, 96x52 dp. -->
     <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView
