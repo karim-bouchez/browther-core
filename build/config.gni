@@ -10,8 +10,18 @@ import("//build/util/branding.gni")
 import("//chrome/version.gni")
 
 declare_args() {
+  # Browther: désactivé tant qu'on n'a pas notre propre infra d'update
+  # (appcast XML + DMG signés + serveur). Sans override, Brave compile la
+  # const `base_sparkle_update_url = "https://updates.bravesoftware.com/
+  # sparkle/Brave-Browser"` → Sparkle dans Browther interroge l'appcast
+  # Brave officiel, voit Brave 147.x > Browther 146.x, propose l'update,
+  # télécharge le .dmg Brave et fail à l'extraction parce que la signature
+  # Brave ne match pas la pubkey EdDSA Browther (erreur 12 chez l'user).
+  # À réactiver quand on déploie notre appcast (probablement sur
+  # browther-download.devndin.com/appcast.xml + génération de paires
+  # EdDSA via `sign_update` Sparkle). Voir feedback_sparkle_brave_appcast.
   base_sparkle_update_url = ""
-  enable_sparkle = !is_component_build && is_mac
+  enable_sparkle = false
   build_sparkle = false
 
   sparkle_dsa_private_key_file = ""
