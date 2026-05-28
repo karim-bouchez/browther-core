@@ -18,6 +18,12 @@ packaging_out_dir = "$root_out_dir/packaged"
 
 unsigned_app_path = "$root_out_dir/$brave_exe"
 
+# Note Browther : sign_chrome.py upstream Chromium hardcode chrome_version_full
+# pour le nommage des artefacts signés → impossible d'utiliser browther_version
+# (CalVer) ici sans patcher tout le pipeline upstream. On garde donc
+# chrome_version_full, ET on renomme le DMG en post-build dans
+# private/scripts/sign-release.sh vers Browther-<browther_version>.dmg avant
+# upload R2 + website. C'est la version CalVer qui sera distribuée publiquement.
 packaged_basename =
     "$packaging_out_dir/" + string_replace(chrome_product_full_name, " ", "") +
     "-$chrome_version_full"

@@ -21,6 +21,16 @@ declare_args() {
   # Browther: brave.exe → browther.exe (et binaire Linux). macOS utilise
   # chrome_product_full_name = "Browther" (.app) via la branche is_mac plus bas.
   brave_product_name = "browther"
+
+  # Browther: version CalVer (YYYY.MM.DD) qu'on incrémente à chaque release.
+  # Indépendante de chrome_version_full (= version Brave upstream qu'on
+  # forke). Apparaît dans le nom du DMG (Browther-YYYY.MM.DD.dmg) + sera
+  # exposée plus tard dans la page About + tracking analytics. Bumper
+  # manuellement avant chaque release (ou via script si on en a un). Format
+  # vérifié OK pour Apple notarytool + Mac App Store (3 entiers séparés par
+  # `.`, optionnellement un 4e composant pour hotfixes same-day :
+  # `2026.05.28.1`). Hotfix : ajouter `.N` après la date.
+  browther_version = "2026.05.28"
   brave_exe = ""
   brave_version_major = ""
   brave_version_minor = ""
