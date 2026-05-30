@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
+<!-- Basarunaa panel V1: same layout as Sawtunaa (header lockup + big toggle
+     + status text + description). The "(en savoir plus)" link is replaced by
+     a static "coming soon" notice since the Android ML pipeline is not yet
+     in place; sliders/mode radios from iOS land in V2 (Phase 3.1). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="22dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/basarunaa_icon_with_bg"
+            android:contentDescription="@null" />
+
+        <ImageView
+            android:id="@+id/basarunaa_panel_wordmark"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/basarunaa_wordmark"
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+    <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView
+        android:id="@+id/basarunaa_panel_toggle"
+        android:layout_width="96dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/basarunaa_panel_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="13sp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/basarunaa_panel_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="13sp"
+        android:lineSpacingExtra="2dp"
+        android:gravity="start"
+        android:text="@string/basarunaa_panel_description" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:text="@string/basarunaa_panel_coming_soon" />
+
+</LinearLayout>

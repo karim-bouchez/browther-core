@@ -326,6 +326,8 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/safe_browsing/settings/NoGooglePlayServicesDialog.java",
   # Browther: shared widgets (big animated toggle reused by feature panels).
   "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherBigToggleView.java",
+  # Browther: Basarunaa V1 UI (toggle-only, pipeline ML Android à venir).
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaPanelBottomSheet.java",
   # Browther: Sawtunaa Voie B
   # - Jalon 1 : SawtunaaBenchmark + SawtunaaPreferences (UI)
   # - Jalon 2.A : NSNet2Processor (port Swift → Java)

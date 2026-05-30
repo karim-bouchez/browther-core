@@ -4026,6 +4026,31 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SAWTUNAA_PANEL_LIMITATIONS_MESSAGE" desc="Message of the alert dialog explaining why Sawtunaa is YouTube-only on mobile.">
       Les navigateurs mobiles imposent des restrictions techniques qui rendent ce genre de filtrage audio plus complexe que sur ordinateur. On travaille à étendre ça à d'autres sites إن شاء الله.
     </message>
+
+    <!-- Browther: Basarunaa toolbar button + panel (BottomSheet). V1 = juste
+         le toggle ; les sliders/mode iOS suivront quand le pipeline ML
+         Android sera ported (Phase 3.1 Basarunaa Android). -->
+    <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_BASARUNAA" desc="Accessibility label for the Basarunaa toolbar button">
+      Basarunaa, floutage des personnes par genre
+    </message>
+    <message name="IDS_BASARUNAA_TITLE" desc="Wordmark / page title for Basarunaa">
+      Basarunaa
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_STATUS_PREFIX" desc="Status sentence prefix shown in the Basarunaa toolbar panel">
+      Floutage des personnes
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_STATUS_ON" desc="Status when Basarunaa is enabled">
+      ACTIVÉ
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_STATUS_OFF" desc="Status when Basarunaa is disabled">
+      DÉSACTIVÉ
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_DESCRIPTION" desc="Description below the big toggle in the Basarunaa panel">
+      Floute automatiquement les personnes dans les pages web pour préserver le regard.
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_COMING_SOON" desc="Notice telling the user the ML pipeline is not yet shipped on Android.">
+      Le filtrage ML n'est pas encore actif sur Android — il arrive bientôt إن شاء الله.
+    </message>
   </messages>
   </release>
 </grit>

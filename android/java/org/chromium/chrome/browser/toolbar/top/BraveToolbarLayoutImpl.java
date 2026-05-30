@@ -88,6 +88,7 @@ import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettin
 import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettingsObserver;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.basarunaa.BasarunaaPanelBottomSheet;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
 import org.chromium.chrome.browser.shields.BraveShieldsMenuObserver;
@@ -188,6 +189,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable View mSawtunaaBadge;
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
 
+    // Browther: Basarunaa toolbar button (mirror of Sawtunaa).
+    private @Nullable ImageButton mBasarunaaButton;
+    private @Nullable View mBasarunaaBadge;
+    private @Nullable PrefChangeRegistrar mBasarunaaPrefChangeRegistrar;
+
     // TabModelSelectorTabObserver setups observer at the ctor
     @SuppressWarnings("UnusedVariable")
     private TabModelSelectorTabObserver mTabModelSelectorTabObserver;
@@ -264,6 +270,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mSawtunaaPrefChangeRegistrar.destroy();
             mSawtunaaPrefChangeRegistrar = null;
         }
+        if (mBasarunaaPrefChangeRegistrar != null) {
+            mBasarunaaPrefChangeRegistrar.destroy();
+            mBasarunaaPrefChangeRegistrar = null;
+        }
         super.destroy();
         if (mBraveRewardsNativeWorker != null) {
             mBraveRewardsNativeWorker.removeObserver(this);
@@ -333,6 +343,16 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             // onNativeLibraryReady() — ProfileManager throws here otherwise
             // (cf. crash 2026-05-28 "Browser hasn't finished initialization
             // yet"). Default badge to OFF (red) until the pref is read.
+        }
+
+        // Browther: Basarunaa toolbar button (same pattern as Sawtunaa).
+        mBasarunaaButton = findViewById(R.id.brave_basarunaa_button);
+        mBasarunaaBadge = findViewById(R.id.brave_basarunaa_badge);
+        if (mBasarunaaButton != null) {
+            mBasarunaaButton.setClickable(true);
+            mBasarunaaButton.setOnClickListener(this);
+            mBasarunaaButton.setOnLongClickListener(this);
+            BraveTouchUtils.ensureMinTouchTarget(mBasarunaaButton);
         }
 
         if (mBraveRewardsButton != null) {
@@ -511,6 +531,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         if (mSawtunaaButton != null) {
             updateSawtunaaBadge();
             registerSawtunaaPrefObserver();
+        }
+        if (mBasarunaaButton != null) {
+            updateBasarunaaBadge();
+            registerBasarunaaPrefObserver();
         }
         if (isPlaylistEnabledByPrefsAndFlags()) {
             initPlaylistService();
@@ -1243,6 +1267,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         } else if (mSawtunaaButton == v && mSawtunaaButton != null) {
             // Browther: open the Sawtunaa panel as a Material BottomSheet.
             showSawtunaaPanel();
+        } else if (mBasarunaaButton == v && mBasarunaaButton != null) {
+            showBasarunaaPanel();
         }
     }
 
@@ -1333,6 +1359,44 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 BravePref.SAWTUNAA_ENABLED, this::updateSawtunaaBadge);
     }
 
+    // Browther: Basarunaa panel + badge helpers (mirror of Sawtunaa).
+
+    private void showBasarunaaPanel() {
+        Context context = getContext();
+        FragmentManager fragmentManager = null;
+        if (context instanceof AppCompatActivity) {
+            fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        } else {
+            try {
+                fragmentManager =
+                        BraveActivity.getBraveActivity().getSupportFragmentManager();
+            } catch (BraveActivity.BraveActivityNotFoundException e) {
+                Log.e(TAG, "showBasarunaaPanel " + e);
+            }
+        }
+        if (fragmentManager != null) {
+            BasarunaaPanelBottomSheet.show(fragmentManager);
+        }
+    }
+
+    private void updateBasarunaaBadge() {
+        if (mBasarunaaBadge == null) return;
+        Profile profile = ProfileManager.getLastUsedRegularProfile();
+        if (profile == null) return;
+        boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.BASARUNAA_ENABLED);
+        mBasarunaaBadge.setBackgroundResource(
+                enabled ? R.drawable.sawtunaa_badge_green : R.drawable.sawtunaa_badge_red);
+    }
+
+    private void registerBasarunaaPrefObserver() {
+        if (mBasarunaaPrefChangeRegistrar != null) return;
+        Profile profile = ProfileManager.getLastUsedRegularProfile();
+        if (profile == null) return;
+        mBasarunaaPrefChangeRegistrar = PrefServiceUtil.createFor(profile);
+        mBasarunaaPrefChangeRegistrar.addObserver(
+                BravePref.BASARUNAA_ENABLED, this::updateBasarunaaBadge);
+    }
+
     private void showShieldsMenu(View mBraveShieldsButton) {
         Tab currentTab = getToolbarDataProvider().getTab();
         if (currentTab == null) {
@@ -1372,6 +1436,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             description = resources.getString(R.string.accessibility_toolbar_btn_brave_pip);
         } else if (v == mSawtunaaButton) {
             description = resources.getString(R.string.accessibility_toolbar_btn_sawtunaa);
+        } else if (v == mBasarunaaButton) {
+            description = resources.getString(R.string.accessibility_toolbar_btn_basarunaa);
         }
 
         return Toast.showAnchoredToast(context, v, description);
