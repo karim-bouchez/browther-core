@@ -40,7 +40,7 @@ declare_args() {
   # vérifié OK pour Apple notarytool + Mac App Store (3 entiers séparés par
   # `.`, optionnellement un 4e composant pour hotfixes same-day :
   # `2026.05.28.1`). Hotfix : ajouter `.N` après la date.
-  browther_version = "2026.05.30.3"
+  browther_version = "2026.05.30.4"
   brave_exe = ""
   brave_version_major = ""
   brave_version_minor = ""
@@ -193,8 +193,19 @@ if (is_win) {
     brave_product_dir_name_suffix = "-Development"
   }
 
+  # Browther: user data dir = ~/Library/Application Support/devndin/Browther.
+  # Sans cette modif, Browther hérite de "BraveSoftware/Brave-Browser" =
+  # exactement le même path que Brave Browser. Conséquence : si Brave et
+  # Browther sont installés sur la même machine, ils partagent cookies,
+  # history, bookmarks, passwords, extensions, prefs, etc. Pire, ouvrir
+  # Browther quand Brave tourne déjà spawn une nouvelle fenêtre Brave (et
+  # vice-versa) parce que les 2 process voient le même singleton lock dans
+  # ce dir et font un IPC pour "ouvrir une fenêtre dans l'instance
+  # existante". Bug signalé 2026-05-30. Fix = path distinct.
+  # ⚠️ Les users qui ont déjà installé Browther perdront leurs prefs au
+  # premier launch après ce fix (V1 beta, peu d'users — acceptable).
   brave_product_dir_name =
-      "BraveSoftware/Brave-$_product_brand$brave_product_dir_name_suffix"
+      "devndin/Browther$brave_product_dir_name_suffix"
 
   if (base_sparkle_update_url == "") {
     base_sparkle_update_url =
