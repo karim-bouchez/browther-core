@@ -55,28 +55,12 @@
           android:background="@drawable/brave_rewards_circle"/>
   </FrameLayout>
 
-  <FrameLayout android:id="@+id/brave_shields_button_layout"
-      android:layout_width="45dp"
-      android:orientation="vertical"
-      android:background="@drawable/modern_toolbar_background_grey_middle_segment"
-      android:layout_marginTop="8dp"
-      android:layout_height="40dp" >
-
-      <ImageButton android:id="@+id/brave_shields_button"
-          style="@style/ToolbarButton"
-          android:layout_marginTop="8dp"
-          android:layout_marginBottom="8dp"
-          android:src="@drawable/btn_brave"
-          android:layout_gravity="center"
-          android:contentDescription="@string/accessibility_toolbar_btn_brave_shields" />
-  </FrameLayout>
-
-  <!-- Browther: Sawtunaa (music/noise suppression) toolbar button. Mirrors
-       the Brave Shields layout above so it picks up the same modern_toolbar
-       background chain when visible. Visibility is controlled at runtime
-       by BraveToolbarLayoutImpl based on the kSawtunaaEnabled pref existence
-       (pref itself is always allocated) and incognito state. The dot badge
-       reflects feature ON (green) / OFF (red), in line with iOS + macOS. -->
+  <!-- Browther: Sawtunaa (music/noise suppression) toolbar button. Placed
+       BEFORE Brave Shields so Sawtunaa sits closest to the URL bar and
+       Shields sits on the outer right (user preference 2026-05-30, parity
+       with iOS where Sawtunaa is the leftmost feature panel). Picks up the
+       same modern_toolbar background chain. The dot badge reflects feature
+       ON (green) / OFF (red), in line with iOS + macOS. -->
   <FrameLayout android:id="@+id/brave_sawtunaa_button_layout"
       android:layout_width="45dp"
       android:orientation="vertical"
@@ -100,6 +84,22 @@
           android:layout_marginEnd="6dp"
           android:layout_gravity="end"
           android:background="@drawable/sawtunaa_badge_red" />
+  </FrameLayout>
+
+  <FrameLayout android:id="@+id/brave_shields_button_layout"
+      android:layout_width="45dp"
+      android:orientation="vertical"
+      android:background="@drawable/modern_toolbar_background_grey_middle_segment"
+      android:layout_marginTop="8dp"
+      android:layout_height="40dp" >
+
+      <ImageButton android:id="@+id/brave_shields_button"
+          style="@style/ToolbarButton"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:src="@drawable/btn_brave"
+          android:layout_gravity="center"
+          android:contentDescription="@string/accessibility_toolbar_btn_brave_shields" />
   </FrameLayout>
 
   <FrameLayout android:id="@+id/brave_rewards_button_layout"
