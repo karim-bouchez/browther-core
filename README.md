@@ -1,214 +1,75 @@
-![Brave Browser](./docs/images/brave.svg)
+# Browther
 
-# Brave Core
+**Browther** is a privacy-focused web browser by **dev&din**, built on top of
+[Brave Core](https://github.com/brave/brave-core) (which itself is built on
+Chromium). It targets the Muslim community with two distinguishing built-in
+features:
 
-Brave Core is a set of changes, APIs, and scripts used for customizing Chromium to make the Brave browser. Please also check https://github.com/brave/brave-browser which only holds the issues, releases and the wiki.
+- **Sawtunaa** — removes background music from web audio in real time (YouTube
+  and more), no extension required.
+- **Basarunaa** — blurs out people in images and videos by gender (and full-frame
+  blur on NSFW content), with on-device ML.
 
-## Overview
+> The name "Browther" is a contraction of *browser* and *brother*.
 
-This repository holds the build tools needed to build the Brave desktop browser for all platforms. In particular, it fetches and syncs code from the projects defined in `package.json` and `src/brave/DEPS`:
+## Status
 
-  - [Chromium](https://chromium.googlesource.com/chromium/src.git)
-    - Fetches code via `depot_tools`.
-    - Sets the branch for Chromium (ex: 65.0.3325.181).
-  - [brave-core](https://github.com/brave/brave-core)
-    - Mounted at `src/brave`.
-    - Maintains patches for 3rd party Chromium code.
-  - [adblock-rust](https://github.com/brave/adblock-rust)
-    - Implements Brave's adblock engine.
-    - Linked through [brave/adblock-rust-ffi](https://github.com/brave/brave-core/tree/master/components/adblock_rust_ffi).
+Public beta. macOS builds (Apple Silicon) are distributed signed and notarized
+from [browther.devndin.com/download](https://browther.devndin.com/download).
+Windows, iOS, and Android are in progress.
 
-## Resources
+## Project structure
 
-- [Documentation and guides](https://github.com/brave/brave-core/blob/master/docs/README.md)
-- [Issues](https://github.com/brave/brave-browser/issues)
-- [Releases](https://github.com/brave/brave-browser/releases)
-- [Wiki](https://github.com/brave/brave-browser/wiki)
+This repository (`browther-core`) is the **public**, MPL-2.0-licensed fork of
+`brave/brave-core` that builds Browther for **desktop, iOS, and Android**.
+Modified upstream files stay public here, as required by MPL-2.0.
 
-## Downloads
+The rest of the project lives in private repos:
 
-You can [visit our website](https://brave.com/download) to get the latest stable release.
+- `browther-private` — proprietary code: assets (icons, logos, NTP backgrounds),
+  Sawtunaa and Basarunaa ML pipelines, build/release scripts, infrastructure
+  configs.
+- `browther-website` — the marketing site
+  [browther.devndin.com](https://browther.devndin.com) (Next.js).
 
-## Contributing
+## Build (Browther / macOS)
 
-Please see the [contributing guidelines](./CONTRIBUTING.md).
-
-Our [Wiki](https://github.com/brave/brave-browser/wiki) also has some useful technical information, especially about setting the development environment.
-
-## Security Policy
-
-Please see the [security policy](./SECURITY.md).
-
-## Community
-
-[Join the Q&A community](https://community.brave.app/) if you'd like to get more involved with Brave. You can [ask for help](https://community.brave.app/c/support-and-troubleshooting),
-[discuss features you'd like to see](https://community.brave.app/c/brave-feature-requests), and a lot more. We'd love to have your help so that we can continue improving Brave.
-
-You can also ask questions and interact in the [`community-guest`](https://bravesoftware.slack.com) channel on Brave Software's Slack.
-
-Help us translate Brave to your language by submitting translations at https://explore.transifex.com/brave/brave_en/.
-
-Follow [@brave](https://x.com/brave) on X for important news and announcements.
-
-## Install prerequisites
-
-Follow the instructions for your platform:
-
-- [Android](https://github.com/brave/brave-browser/wiki/Android-Development-Environment)
-- [Linux](https://github.com/brave/brave-browser/wiki/Linux-Development-Environment)
-- [iOS](https://github.com/brave/brave-browser/wiki/iOS-Development-Environment)
-- [macOS](https://github.com/brave/brave-browser/wiki/macOS-Development-Environment)
-- [Windows](https://github.com/brave/brave-browser/wiki/Windows-Development-Environment)
-
-## Clone and initialize
-
-Once you have the prerequisites installed, you can get the code and initialize the build environment.
+Build is driven from the parent workspace (not from this directory). After
+cloning, the high-level recipe is:
 
 ```bash
-git clone git@github.com:brave/brave-core.git path-to-your-project-folder/src/brave
-cd path-to-your-project-folder/src/brave
+# from the parent workspace `browther/desktop/`
 npm install
-
-# the Chromium source is downloaded, which has a large history (gigabytes of data)
-# this might take really long to finish depending on internet speed
-
-npm run init
+npm run init                                     # fetches Chromium (~60 GB)
+bash private/scripts/post-init-patches.sh        # Browther-specific patches
+pnpm build Release --target=create_dist_mac      # produces Browther.app + DMG
 ```
 
-brave-core based android builds should use `npm run init -- --target_os=android --target_arch=arm` (or whichever CPU type you want to build for)
-brave-core based iOS builds should use `npm run init -- --target_os=ios`
+Building for Windows / iOS / Android uses the same workspace with platform
+flags (`--target_os=android`, `--target_os=ios`, etc.). The orchestrator
+scripts that handle the build, signing, and distribution are private — they
+live in `browther-private/scripts/`.
 
-You can also set the target_os and target_arch for init and build using:
+If you only want to reproduce a Browther desktop binary from this fork's
+sources, the build is the standard Brave Core build with our patches applied;
+follow the upstream
+[Brave Core build instructions](https://github.com/brave/brave-core/blob/master/docs/README.md)
+and replace upstream `brave-core` with this fork.
 
-```
-npm config set target_os android
-npm config set target_arch arm
-```
+## Upstream
 
-Additional config needed to build are documented at https://github.com/brave/brave-browser/wiki/Build-configuration
+We sync from [brave/brave-core](https://github.com/brave/brave-core) `master`
+at least once a month and try to keep our modifications fork-friendly
+(separate files when possible, minimal inline patches otherwise).
 
-Internal developers can find more information at https://github.com/brave/internal/wiki/Build-configuration
+## License
 
-## Build Brave
+MPL-2.0, like the upstream `brave-core` it is forked from.
 
-The default build type is component.
+## Links
 
-```
-# start the component build compile
-npm run build
-```
-
-To do a release build:
-
-```
-# start the release compile
-npm run build Release
-```
-
-brave-core based android builds should use `npm run build -- --target_os=android --target_arch=arm` or set the npm config variables as specified above for `init`
-
-brave-core based iOS builds should use the Xcode project found in `ios/brave-ios/App`. You can open this project directly or run `npm run ios_bootstrap -- --open_xcodeproj` to have it opened in Xcode. See the [iOS Developer Environment](https://github.com/brave/brave-browser/wiki/iOS-Development-Environment#Building) for more information on iOS builds.
-
-### Build Configurations
-
-Running a release build with `npm run build Release` can be very slow and use a lot of RAM, especially on Linux with the Gold LLVM plugin.
-
-To run a statically linked build (takes longer to build, but starts faster):
-
-```bash
-npm run build -- Static
-```
-
-To run a debug build (Component build with is_debug=true):
-
-```bash
-npm run build -- Debug
-```
-
-NOTE: the build will take a while to complete. Depending on your processor and memory, it could potentially take a few hours.
-
-## Run Brave
-
-To start the build:
-
-`npm start [Release|Component|Static|Debug]`
-
-## Update Brave
-
-`npm run sync -- [--force] [--init] [--create] [brave_core_ref]`
-
-**This will attempt to stash your local changes in brave-core, but it's safer to commit local changes before running this**
-
-`npm run sync` will (depending on the below flags):
-
-1. 📥 Update sub-projects (chromium, brave-core) to latest commit of a git ref (e.g. tag or branch)
-2. 🤕 Apply patches
-3. 🔄 Update gclient DEPS dependencies
-4. ⏩ Run hooks (e.g. to perform `npm install` on child projects)
-
-| flag | Description |
-|---|---|
-|`[no flags]`|updates chromium if needed and re-applies patches. If the chromium version did not change, it will only re-apply patches that have changed. Will update child dependencies **only if any project needed updating during this script run**. <br> **Use this if you want the script to manage keeping you up to date instead of pulling or switching branches manually. **|
-|`--force`|updates both _Chromium_ and _brave-core_ to the latest remote commit for the current brave-core branch and the _Chromium_ ref specified in brave-core/package.json (e.g. `master` or `74.0.0.103`). Will re-apply all patches. Will force update all child dependencies. <br> **Use this if you're having trouble and want to force the branches back to a known state. **|
-|`--init`|force update both _Chromium_ and _brave-core_ to the versions specified in brave-core/package.json and force updates all dependent repos - same as `npm run init`|
-|`--sync_chromium (true/false)`|Will force or skip the chromium version update when applicable. Useful if you want to avoid a minor update when not ready for the larger build time a chromium update may result in. A warning will be output about the current code state expecting a different chromium version. Your build may fail as a result.|
-|`-D, --delete_unused_deps`|Will delete from the working copy any dependencies that have been removed since the last sync. Mimics `gclient sync -D`.|
-
-Run `npm run sync brave_core_ref` to checkout the specified _brave-core_ ref and update all dependent repos including chromium if needed.
-
-## Scenarios
-
-#### Create a new branch:
-```bash
-> cd src/brave
-src/brave> git checkout -b branch_name
-```
-
-#### Checkout an existing branch or tag:
-```bash
-src/brave> git fetch origin
-src/brave> git checkout [-b] branch_name
-src/brave> npm run sync
-...Updating 2 patches...
-...Updating child dependencies...
-...Running hooks...
-```
-
-#### Update the current branch to the latest remote:
-```bash
-src/brave> git pull
-src/brave> npm run sync
-...Updating 2 patches...
-...Updating child dependencies...
-...Running hooks...
-```
-
-#### Reset to latest brave-core master (via `init`, will always result in a longer build and will remove any pending changes in your brave-core working directory):
-```bash
-src/brave> git checkout master
-src/brave> git pull
-src/brave> npm run sync -- --init
-```
-
-#### When you know that DEPS didn't change, but .patch files did (quickest attempt to perform a mini-sync before a build):
-```bash
-src/brave> git checkout featureB
-src/brave> git pull
-src/brave> npm run apply_patches
-...Applying 2 patches...
-```
-
-## Enabling third-party APIs
-
-1. **Google Safe Browsing**: Get an API key with SafeBrowsing API enabled from https://console.developers.google.com/. Update the `GOOGLE_API_KEY` environment variable with your key as per https://www.chromium.org/developers/how-tos/api-keys to enable Google SafeBrowsing.
-
-## Development
-
-- [Security rules from Chromium](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/security/rules.md)
-- [IPC review guidelines](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/security/ipc-reviews.md) (in particular [this reference](https://docs.google.com/document/d/1Kw4aTuISF7csHnjOpDJGc7JYIjlvOAKRprCTBVWw_E4/edit#heading=h.84bpc1e9z1bg))
-- [Brave's internal security guidelines](https://github.com/brave/internal/wiki/Pull-request-security-audit-checklist) (for employees only)
-- [Rust usage](https://github.com/brave/brave-core/blob/master/docs/rust.md)
-
-## Troubleshooting
-
-See [Troubleshooting](https://github.com/brave/brave-browser/wiki/Troubleshooting) for solutions to common problems.
+- Website & downloads: [browther.devndin.com](https://browther.devndin.com)
+- Privacy: [browther.devndin.com/privacy](https://browther.devndin.com/privacy)
+- Support: [browther.devndin.com/support](https://browther.devndin.com/support)
+- Issues for this fork: [github.com/karim-bouchez/browther-core/issues](https://github.com/karim-bouchez/browther-core/issues)
+- Contact: <karim@devndin.com>
