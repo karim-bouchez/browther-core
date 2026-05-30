@@ -379,7 +379,10 @@ RegisterPolymerTemplateModifications({
 
     const versionEl = document.createElement('span')
     versionEl.setAttribute('class', 'brave-about-item brave-about-menu-version')
-    versionEl.textContent = `v ${loadTimeData.getString('braveProductVersion')}`
+    // Browther: affiche notre CalVer (YYYY.MM.DD[.N]) au lieu de la version
+    // Brave upstream. browtherProductVersion est exposé par
+    // brave/browser/ui/webui/brave_settings_ui.cc.
+    versionEl.textContent = `v ${loadTimeData.getString('browtherProductVersion')}`
 
     parent.appendChild(newAboutEl)
     newAboutEl.appendChild(graphicsEl)

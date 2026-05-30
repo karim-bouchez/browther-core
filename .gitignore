@@ -105,3 +105,11 @@ xcuserdata
 /components/browther_analytics/analytics_config.h
 /ios/brave-ios/Sources/BrowtherAnalytics/AnalyticsConfig.swift
 /android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsConfig.java
+
+# Browther — header généré par private/scripts/post-init-patches.sh à partir
+# de browther_version (build/config.gni) — change à chaque bump CalVer.
+/common/browther_version.h
+
+# Browther — bundle Updater renommé + rebrandé par private/scripts/post-init-patches.sh
+# (anti-collision Brave installé sur la même machine, cf. docs/TODO.md).
+/third_party/updater/mac/BrowtherUpdater.app/

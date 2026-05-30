@@ -14,6 +14,7 @@
 #include "base/feature_list.h"
 #include "base/strings/strcat.h"
 #include "brave/brave_domains/service_domains.h"
+#include "brave/common/browther_version.h"
 #include "brave/browser/brave_account/brave_account_service_factory.h"
 #include "brave/browser/brave_origin/brave_origin_service_factory.h"
 #include "brave/browser/email_aliases/email_aliases_service_factory.h"
@@ -193,6 +194,10 @@ void BraveSettingsUI::AddResources(content::WebUIDataSource* html_source,
   html_source->AddString(
       "braveProductVersion",
       version_info::GetBraveVersionWithoutChromiumMajorVersion());
+  // Browther: notre CalVer (YYYY.MM.DD[.N]) générée à partir de
+  // browther_version (cf. brave/common/browther_version.h). Lue côté JS
+  // dans brave/.../settings_menu.ts (sidebar) et about_page.ts (About).
+  html_source->AddString("browtherProductVersion", BROWTHER_VERSION_STRING);
   html_source->AddBoolean(
       "isIdleDetectionFeatureEnabled",
       base::FeatureList::IsEnabled(features::kIdleDetection));

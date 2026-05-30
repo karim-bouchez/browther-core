@@ -3,7 +3,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+// Browther: réécriture complète du rendu version dans chrome://settings/help.
+// L'original Brave construit un lien cliquable vers brave.com/latest/ avec
+// "Brave X.X.X (Developer Build)" + une seconde ligne "Chromium: Y.Y.Y.Y".
+// On préfère un layout à 3 lignes sans lien externe :
+//   Browther YYYY.MM.DD[.N]
+//   Brave X.X.X
+//   Chromium Y.Y.Y.Y
+// La version Browther vient de loadTimeData.getString('browtherProductVersion')
+// (exposé par brave/browser/ui/webui/brave_settings_ui.cc, valeur de
+// BROWTHER_VERSION_STRING dans brave/common/browther_version.h).
+
 import {html} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js'
+import {loadTimeData} from 'chrome://resources/js/load_time_data.js'
 
 import {
   RegisterPolymerTemplateModifications,
@@ -14,85 +26,96 @@ RegisterStyleOverride(
   'settings-about-page',
   html`
     <style>
-      #release-notes {
+      #browther-version-block {
         display: block;
         margin-inline-start: unset;
+        line-height: 1.45;
+      }
+      #browther-version-block .product-version {
+        font-weight: 500;
+      }
+      #browther-version-block .secondary-version {
+        color: var(--cr-secondary-text-color);
       }
     </style>
   `
 )
 
 const extractVersions = (versionElement: Element) => {
-  const [ _, braveVersion, chromiumVersion, build ] = versionElement
-    .textContent?.match(/(\d+\.\d+(?:\.\d+)*)\D+(\d+\.\d+(?:\.\d+)*)(.*)/) ?? []
-
-  return { braveVersion, build, chromiumVersion }
+  // L'original Chromium produit "1.90.0 Chromium: 146.0.7680.164 (Official Build) (arm64)"
+  // (le suffixe "Chromium:" vient de Brave qui patche GetVersionInformationalSuffix).
+  // Regex strict : 1er numéro = Brave version, 2e numéro = Chromium version,
+  // reste = build (Official Build) + bits (arm64).
+  const text = versionElement.textContent ?? ''
+  const match = text.match(/(\d+\.\d+(?:\.\d+)*)\D+(\d+\.\d+(?:\.\d+)*)(.*)/)
+  if (!match) return { braveVersion: '', chromiumVersion: '', build: '' }
+  return {
+    braveVersion: match[1],
+    chromiumVersion: match[2],
+    build: match[3].trim(),
+  }
 }
 
-const buildBraveVersionLink = (braveVersion: string, build: string) => {
-  const wrapper = document.createElement('a')
-  wrapper.setAttribute('id', 'release-notes')
-  wrapper.setAttribute('target', '_blank')
-  wrapper.setAttribute('rel', 'noopener noreferrer')
-  wrapper.setAttribute('href', 'https://brave.com/latest/')
-  // Browther: rebrand "Brave X.X.X (Developer Build)" → "Browther ..."
-  wrapper.textContent = `Browther ${braveVersion} ${build}`
+const buildBrowtherVersionBlock = (
+  browtherVersion: string,
+  braveVersion: string,
+  chromiumVersion: string,
+  build: string,
+) => {
+  const wrapper = document.createElement('div')
+  wrapper.setAttribute('id', 'browther-version-block')
+
+  const browtherLine = document.createElement('div')
+  browtherLine.classList.add('product-version')
+  browtherLine.textContent = `Browther ${browtherVersion}`
+  wrapper.appendChild(browtherLine)
+
+  const braveLine = document.createElement('div')
+  braveLine.classList.add('secondary-version')
+  braveLine.textContent = build
+    ? `Brave ${braveVersion} ${build}`
+    : `Brave ${braveVersion}`
+  wrapper.appendChild(braveLine)
+
+  const chromiumLine = document.createElement('div')
+  chromiumLine.classList.add('secondary-version')
+  chromiumLine.textContent = `Chromium ${chromiumVersion}`
+  wrapper.appendChild(chromiumLine)
 
   return wrapper
 }
 
-const buildChromiumVersionElement = (chromiumVersion:string) => {
-  const chromiumElement = document.createElement('div')
-  chromiumElement.classList.add("secondary")
-  chromiumElement.textContent = `Chromium: ${chromiumVersion}`
-
-  return chromiumElement
-}
-
 RegisterPolymerTemplateModifications({
   'settings-about-page': (templateContent) => {
-    if (!templateContent.querySelector('a#release-notes')) {
+    if (!templateContent.querySelector('#browther-version-block')) {
       const version =
         templateContent.querySelector('#updateStatusMessage ~ .secondary')
       if (!version) {
         console.error('[Settings] Could not find version div')
         return
       }
-
-      // Remove the class from the version, so we take the link styling.
-      version.removeAttribute('class')
-
-      const wrapper = document.createElement('a')
-      wrapper.setAttribute('id', 'release-notes')
-      wrapper.setAttribute('target', '_blank')
-      wrapper.setAttribute('rel', 'noopener noreferrer')
-      wrapper.setAttribute('href', 'https://brave.com/latest/')
-
-      const parent = version.parentNode
-      parent?.replaceChild(wrapper, version)
-      wrapper.appendChild(version)
-
-      const { braveVersion, build, chromiumVersion } = extractVersions(version)
-      const braveVersionLink = buildBraveVersionLink(braveVersion, build)
-      version.parentNode?.replaceChild(braveVersionLink, version)
-
-      const chromiumVersionElement = buildChromiumVersionElement(chromiumVersion)
-      braveVersionLink.after(chromiumVersionElement)
+      const { braveVersion, chromiumVersion, build } = extractVersions(version)
+      const browtherVersion =
+        loadTimeData.getString('browtherProductVersion')
+      const versionBlock = buildBrowtherVersionBlock(
+        browtherVersion,
+        braveVersion,
+        chromiumVersion,
+        build,
+      )
+      version.parentNode?.replaceChild(versionBlock, version)
     }
 
     // Help link shown if update fails
     const updateStatusMessageLink =
       templateContent.querySelector('#updateStatusMessage a')
     if (updateStatusMessageLink) {
-      // <if expr="is_win">
-      updateStatusMessageLink.href =
-        'https://support.brave.app/hc/en-us/articles/360042816611-Why-isn-t-Brave-updating-automatically-on-Windows-'
-      // </if>
-
-      // <if expr="not is_win">
-        updateStatusMessageLink.href =
-          'https://community.brave.app?p=update_error'
-      // </if>
+      // Browther: redirige vers notre site (l'updater natif Brave/Sparkle
+      // est désactivé en V1, l'aide tient en une page sur browther.devndin.com).
+      updateStatusMessageLink.setAttribute(
+        'href',
+        'https://browther.devndin.com/support'
+      )
     }
   }
 })
