@@ -86,7 +86,11 @@ inline constexpr char kChromeHelpViaKeyboardURL[] =
 
 inline constexpr char kChromeHelpViaMenuURL[] = "https://support.brave.app/";
 
-inline constexpr char kChromeHelpViaWebUIURL[] = "https://support.brave.app/";
+// Browther: "Get help with Browther" depuis chrome://settings/help redirige
+// vers notre page support sur browther.devndin.com (tant qu'on n'a pas
+// d'infra dédiée support.browther.devndin.com).
+inline constexpr char kChromeHelpViaWebUIURL[] =
+    "https://browther.devndin.com/support";
 
 inline constexpr char kRelatedWebsiteSetsLearnMoreURL[] =
     "https://support.brave.app/";

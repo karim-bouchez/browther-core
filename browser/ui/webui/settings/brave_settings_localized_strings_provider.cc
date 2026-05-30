@@ -76,11 +76,18 @@ namespace {
 constexpr char16_t kWebRTCLearnMoreURL[] =
     u"https://support.brave.app/hc/en-us/articles/"
     u"360017989132-How-do-I-change-my-Privacy-Settings-#webrtc";
+// Browther: build instructions et lien vers le source code pointent vers
+// notre repo public (MPL-2.0). Pas de tags par release pour l'instant —
+// on linke vers la branche `main` qui reflète toujours la version courante.
+// Cf. private/docs/TODO.md "About page Browther" pour le suivi cross-OS.
 constexpr char16_t kBraveBuildInstructionsUrl[] =
-    u"https://github.com/brave/brave-browser/wiki";
+    u"https://github.com/karim-bouchez/browther-core/blob/main/README.md";
 constexpr char16_t kBraveLicenseUrl[] = u"https://mozilla.org/MPL/2.0/";
-constexpr char16_t kBraveReleaseTagPrefix[] =
-    u"https://github.com/brave/brave-browser/releases/tag/v";
+// Browther: URL complète (plus de concat avec la version Brave upstream qui
+// produisait .../releases/tag/v1.90.0 qui n'existe pas chez nous). On
+// pointe simplement vers la branche main du fork public.
+constexpr char16_t kBrowtherSourceCodeUrl[] =
+    u"https://github.com/karim-bouchez/browther-core";
 #if BUILDFLAG(ENABLE_CONTAINERS)
 constexpr char16_t kContainersLearnMoreURL[] =
     u"https://support.brave.app/hc/en-us/articles/39077103885325";
@@ -1211,12 +1218,12 @@ void BraveAddResources(content::WebUIDataSource* html_source,
 
 void BraveAddAboutStrings(content::WebUIDataSource* html_source,
                           Profile* profile) {
+  // Browther: 4e arg = lien "source code used to create this copy" → main
+  // (cf. commentaire au-dessus de kBrowtherSourceCodeUrl).
   std::u16string license = l10n_util::GetStringFUTF16(
       IDS_BRAVE_VERSION_UI_LICENSE, kBraveLicenseUrl,
       chrome::kChromeUICreditsURL16, kBraveBuildInstructionsUrl,
-      kBraveReleaseTagPrefix +
-          base::UTF8ToUTF16(
-              version_info::GetBraveVersionWithoutChromiumMajorVersion()));
+      kBrowtherSourceCodeUrl);
   html_source->AddString("aboutProductLicense", license);
 }
 
