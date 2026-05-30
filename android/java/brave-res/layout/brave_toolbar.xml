@@ -88,7 +88,7 @@
           style="@style/ToolbarButton"
           android:layout_marginTop="8dp"
           android:layout_marginBottom="8dp"
-          android:src="@drawable/sawtunaa_icon_with_bg"
+          android:src="@drawable/sawtunaa_icon_toolbar"
           android:layout_gravity="center"
           android:contentDescription="@string/accessibility_toolbar_btn_sawtunaa" />
 
