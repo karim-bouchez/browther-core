@@ -40,7 +40,7 @@ declare_args() {
   # vérifié OK pour Apple notarytool + Mac App Store (3 entiers séparés par
   # `.`, optionnellement un 4e composant pour hotfixes same-day :
   # `2026.05.28.1`). Hotfix : ajouter `.N` après la date.
-  browther_version = "2026.05.28"
+  browther_version = "2026.05.30.1"
   brave_exe = ""
   brave_version_major = ""
   brave_version_minor = ""
