@@ -4033,9 +4033,6 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_BASARUNAA" desc="Accessibility label for the Basarunaa toolbar button">
       Basarunaa, floutage des personnes par genre
     </message>
-    <message name="IDS_BASARUNAA_TITLE" desc="Wordmark / page title for Basarunaa">
-      Basarunaa
-    </message>
     <message name="IDS_BASARUNAA_PANEL_STATUS_PREFIX" desc="Status sentence prefix shown in the Basarunaa toolbar panel">
       Floutage des personnes
     </message>
