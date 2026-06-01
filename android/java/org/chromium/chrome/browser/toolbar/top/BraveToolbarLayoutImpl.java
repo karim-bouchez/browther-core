@@ -189,10 +189,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable ImageButton mSawtunaaButton;
     private @Nullable View mSawtunaaBadge;
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
-    // Browther: Brave Shields status badge (iOS parity 2026-06-01).
-    // V1 leaves the default green state; future enhancement will wire
-    // it to the per-site Shields ON/OFF state via BraveShieldsHandler.
-    @SuppressWarnings("UnusedVariable")
+    // Browther: Brave Shields status badge (iOS parity 2026-06-01). Wired
+    // to per-site Shields ON/OFF state via updateBraveShieldsButtonState().
     private @Nullable View mShieldsBadge;
 
     // Browther: Basarunaa toolbar button (mirror of Sawtunaa).
@@ -1540,6 +1538,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         // The Shields ON/OFF state is now indicated by the bottom-right badge
         // dot (green/red) — same pattern as Sawtunaa/Basarunaa.
         mBraveShieldsButton.setImageResource(R.drawable.shield_icon_toolbar);
+        if (mShieldsBadge != null) {
+            boolean on = tab != null && isShieldsOnForTab(tab);
+            mShieldsBadge.setBackgroundResource(
+                    on ? R.drawable.sawtunaa_badge_green : R.drawable.sawtunaa_badge_red);
+        }
 
         if (mRewardsLayout == null) return;
         if (isIncognito()) {
