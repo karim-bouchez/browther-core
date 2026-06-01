@@ -1109,7 +1109,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     public void reopenShieldsPanel() {
         if (mBraveShieldsHandler != null && mBraveShieldsHandler.isShowing()) {
             mBraveShieldsHandler.hideBraveShieldsMenu();
-            showShieldsMenu(mBraveShieldsButton);
+            showShieldsMenu();
         }
     }
 
@@ -1233,7 +1233,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             return;
         }
         if (mBraveShieldsButton == v && mBraveShieldsButton != null) {
-            showShieldsMenu(mBraveShieldsButton);
+            showShieldsMenu();
         } else if (mBraveRewardsButton == v && mBraveRewardsButton != null) {
             hideRewardsOnboardingIcon();
             OnboardingPrefManager.getInstance().setOnboardingShown(true);
@@ -1398,7 +1398,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 BravePref.BASARUNAA_ENABLED, this::updateBasarunaaBadge);
     }
 
-    private void showShieldsMenu(View mBraveShieldsButton) {
+    private void showShieldsMenu() {
         // Browther: replace the Brave anchored popup with our BottomSheet
         // panel for visual coherence with Sawtunaa/Basarunaa (user request
         // 2026-06-01). Advanced Shields settings remain accessible via
