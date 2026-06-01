@@ -1751,6 +1751,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         }
     }
 
+    @SuppressWarnings("UnusedVariable") // 'rounded' kept for upstream signature compatibility.
     private void updateShieldsLayoutBackground(boolean rounded) {
         if (mShieldsLayout == null) {
             return;
