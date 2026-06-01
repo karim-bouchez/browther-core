@@ -1077,7 +1077,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
 
                 ImageButton braveShieldButton =
                         new ImageButton(getContext(), null, R.style.ToolbarButton);
-                braveShieldButton.setImageResource(R.drawable.btn_brave);
+                braveShieldButton.setImageResource(R.drawable.shield_icon_toolbar);
                 FrameLayout.LayoutParams braveShieldParams =
                         new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                                 FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -1534,12 +1534,12 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             return;
         }
 
-        if (tab == null) {
-            mBraveShieldsButton.setImageResource(R.drawable.btn_brave_off);
-            return;
-        }
-        mBraveShieldsButton.setImageResource(
-                isShieldsOnForTab(tab) ? R.drawable.btn_brave : R.drawable.btn_brave_off);
+        // Browther: use the iOS-aligned monochrome shield_icon_toolbar instead
+        // of the legacy btn_brave/btn_brave_off PNG (which has the green pill
+        // background that breaks visual coherence with Sawtunaa/Basarunaa).
+        // The Shields ON/OFF state is now indicated by the bottom-right badge
+        // dot (green/red) — same pattern as Sawtunaa/Basarunaa.
+        mBraveShieldsButton.setImageResource(R.drawable.shield_icon_toolbar);
 
         if (mRewardsLayout == null) return;
         if (isIncognito()) {
