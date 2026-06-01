@@ -18,30 +18,19 @@
     android:paddingTop="20dp"
     android:paddingBottom="22dp">
 
-    <LinearLayout
+    <!-- Single TextView with compound drawable (start) — lint UseCompoundDrawables. -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/btn_brave"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/shields_panel_title"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.02" />
-    </LinearLayout>
+        android:drawableStart="@drawable/btn_brave"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/shields_panel_title"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.02" />
 
     <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView
         android:id="@+id/shields_panel_toggle"
