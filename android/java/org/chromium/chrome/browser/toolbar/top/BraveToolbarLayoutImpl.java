@@ -189,6 +189,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable ImageButton mSawtunaaButton;
     private @Nullable View mSawtunaaBadge;
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
+    // Browther: Brave Shields status badge (iOS parity 2026-06-01).
+    // V1 leaves the default green state; future enhancement will wire
+    // it to the per-site Shields ON/OFF state via BraveShieldsHandler.
+    @SuppressWarnings("UnusedVariable")
+    private @Nullable View mShieldsBadge;
 
     // Browther: Basarunaa toolbar button (mirror of Sawtunaa).
     private @Nullable ImageButton mBasarunaaButton;
@@ -328,6 +333,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mBraveShieldsButton.setOnLongClickListener(this);
             BraveTouchUtils.ensureMinTouchTarget(mBraveShieldsButton);
         }
+        // Browther: Shields status badge (parity Sawtunaa/Basarunaa 2026-06-01).
+        mShieldsBadge = findViewById(R.id.brave_shields_badge);
 
         // Browther: Sawtunaa toolbar button. Uses the same composite
         // icon-with-bg PNG as the panel header (parity with Brave Shields'

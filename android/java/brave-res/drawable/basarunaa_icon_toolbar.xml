@@ -1,0 +1,33 @@
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!-- Basarunaa toolbar icon, monochrome (parité iOS .alwaysTemplate, 2026-06-01).
+     Source: ios/.../basarunaa.icon.imageset/basarunaa.icon.svg (path1 + path2
+     = eye, path3 = slash). Le path4 décoratif (dashed stroke) est omis car
+     Android Vector Drawable ne supporte pas stroke-dasharray. fillColor =
+     ?attr/colorControlNormal (adaptive theme). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="389.16909"
+    android:viewportHeight="382.6536">
+    <group
+        android:translateX="-1277.7059"
+        android:translateY="-86.485716">
+        <!-- path1: small eye/aperture (closing curve, fill) -->
+        <path
+            android:fillColor="?attr/colorControlNormal"
+            android:pathData="M 1468.9828,192.72674 c 17.5922,0 33.9428,5.35968 47.4952,14.52263 l -23.2099,23.21873 c -7.2855,-3.73757 -15.5283,-5.85907 -24.2853,-5.85907 -29.3583,0 -53.1374,23.77856 -53.1374,53.13681 0,8.76423 2.1256,17.01307 5.8689,24.30291 l -23.2099,23.21925 c -9.1741,-13.55777 -14.5413,-29.91827 -14.5413,-47.52216 0,-46.95993 38.0597,-85.0191 85.0197,-85.0191 z" />
+        <!-- path2: outer eye contour -->
+        <path
+            android:fillColor="?attr/colorControlNormal"
+            android:pathData="M 1469.0489,129.09496 c 37.5081,0 69.7644,11.94854 96.5072,29.05766 l -23.1329,23.14174 c -21.2401,-12.43544 -45.7635,-20.44991 -73.4405,-20.44991 -43.3067,0 -78.9088,19.66071 -106.208,44.96728 -25.5722,23.71242 -43.2403,52.00769 -52.2071,71.93411 9.0333,19.92642 26.7013,48.15577 52.2071,71.93462 1.9738,1.78275 3.9472,3.56576 5.9795,5.34852 l -22.6121,22.62032 c -1.6956,-1.50741 -3.3879,-3.01485 -5.0208,-4.5222 -31.0853,-28.8933 -51.8747,-63.36596 -61.7715,-87.07841 -2.1919,-5.2473 -2.1919,-11.09227 0,-16.33957 9.8968,-23.71242 30.6862,-58.25154 61.7715,-87.07841 31.2844,-29.02614 74.2591,-53.53575 127.9276,-53.53575 z" />
+        <!-- path3: diagonal slash through the eye -->
+        <path
+            android:strokeColor="?attr/colorControlNormal"
+            android:strokeWidth="33.0729"
+            android:strokeLineCap="round"
+            android:pathData="M 1294.2549,452.60286 L 1643.7105,103.02213" />
+    </group>
+</vector>

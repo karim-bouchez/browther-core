@@ -1,0 +1,17 @@
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!-- Brave Shields toolbar icon, monochrome (parité iOS browther.shield.bar).
+     Source: ios/.../browther.shield.bar.imageset/browther.shield.bar.svg.
+     C'est une variante DÉDIÉE URL bar (sans fond), différente du btn_brave.png
+     historique (avec fond pill vert). fillColor adaptive theme. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="555.62498"
+    android:viewportHeight="555.62498">
+    <path
+        android:fillColor="?attr/colorControlNormal"
+        android:pathData="M 277.81252,29.542698 a 43.806097,43.806097 0 0 0 -11.6335,1.572456 L 58.070047,88.440178 A 15.839716,15.839716 0 0 0 46.436559,103.71065 v 185.27622 c 0,6.66432 0.359413,17.46463 1.287968,24.06249 12.128508,86.18061 85.089503,156.5624 218.883413,211.14505 6.1704,2.51719 16.23873,2.51719 22.40914,0 133.79392,-54.58265 206.75546,-124.96444 218.884,-211.14505 0.92857,-6.59786 1.28736,-17.39817 1.28736,-24.06249 V 103.71065 A 15.839716,15.839716 0 0 0 497.55556,88.440178 L 289.446,31.115154 A 43.806097,43.806097 0 0 0 277.81252,29.542698 Z M 180.13418,150.3867 h 68.65854 h 95.84478 c 23.39701,0 42.23288,18.83594 42.23288,42.23296 0,23.39698 -18.83587,42.23279 -42.23288,42.23279 h -95.84478 h -68.65854 a 11.379364,12.066542 0 0 1 -11.37954,-12.06649 v -60.33278 a 11.379364,12.066542 0 0 1 11.37954,-12.06648 z m 0,155.65838 h 68.65854 h 95.84478 c 23.39701,0 42.23288,18.83594 42.23288,42.23292 0,23.39697 -18.83587,42.23291 -42.23288,42.23291 h -95.84478 H 180.13418 A 11.379364,12.066542 0 0 1 168.75464,378.4443 v -60.33275 a 11.379364,12.066542 0 0 1 11.37954,-12.06647 z" />
+</vector>
