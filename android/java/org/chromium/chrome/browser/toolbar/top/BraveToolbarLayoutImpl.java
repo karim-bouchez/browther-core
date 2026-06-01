@@ -1758,12 +1758,13 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         }
 
         // Browther: pas de background carré derrière le bouton Shields (parité
-        // iOS 2026-06-01 — les 3 boutons URL bar Sawtunaa/Basarunaa/Shields
-        // sont visuellement transparents sur le dark theme). Le paramètre
-        // `rounded` originellement servait à arrondir le coin droit quand
-        // Rewards était caché — non pertinent vu que tous nos boutons sont
-        // transparents.
-        mShieldsLayout.setBackground(null);
+        // iOS 2026-06-01). On utilise un ColorDrawable transparent (et NON
+        // setBackground(null)) car `updateModernLocationBarColorImpl(...)`
+        // ci-dessous appelle `setColorFilter` sur le drawable → NPE crash si
+        // null (cf crash 2026-06-01 InflateException toolbar_phone).
+        mShieldsLayout.setBackground(
+                new android.graphics.drawable.ColorDrawable(
+                        android.graphics.Color.TRANSPARENT));
 
         updateModernLocationBarColorImpl(mCurrentToolbarColor);
     }
