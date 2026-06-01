@@ -711,4 +711,29 @@
         <item name="buttonIconTint">@color/brave_checkbox_color_selector</item>
         <item name="android:textSize">@dimen/default_regular</item>
     </style>
+
+    <!-- Browther: row styles for the Shields BottomSheet "Réglages avancés"
+         section (toggle per resource type). Compact, divider-free, mirrors the
+         iOS ShieldsPanelView visual rhythm. -->
+    <style name="ShieldsPanelRowStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="ShieldsPanelRowLabelStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="ShieldsPanelRowSwitchStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

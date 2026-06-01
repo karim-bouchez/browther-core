@@ -4062,11 +4062,29 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SHIELDS_PANEL_STATUS_OFF" desc="Status when Shields is disabled for the current site">
       DÉSACTIVÉS
     </message>
-    <message name="IDS_SHIELDS_PANEL_DESCRIPTION" desc="Description below the toggle in the Shields panel">
-      Bloque automatiquement les pubs, les traqueurs et les scripts malveillants pour ce site.
+    <message name="IDS_SHIELDS_PANEL_BLOCKED_COUNT_LABEL" desc="Label next to the blocked-count number in the Shields panel stats card.">
+      Pubs et traqueurs bloqués
     </message>
-    <message name="IDS_SHIELDS_PANEL_ADVANCED_SETTINGS_HINT" desc="Notice that advanced Shields settings are in Settings.">
-      Réglages avancés disponibles dans Paramètres → Boucliers.
+    <message name="IDS_SHIELDS_PANEL_ADVANCED_TITLE" desc="Section header for the collapsible advanced Shields controls.">
+      Réglages avancés
+    </message>
+    <message name="IDS_SHIELDS_PANEL_BLOCK_TRACKERS" desc="Toggle label: block ads and third-party trackers (cosmetic + ad block).">
+      Bloquer pubs et traqueurs
+    </message>
+    <message name="IDS_SHIELDS_PANEL_BLOCK_SCRIPTS" desc="Toggle label: block all scripts on this site.">
+      Bloquer les scripts
+    </message>
+    <message name="IDS_SHIELDS_PANEL_FINGERPRINT" desc="Toggle label: protect against browser fingerprinting.">
+      Empreinte numérique
+    </message>
+    <message name="IDS_SHIELDS_PANEL_HTTPS_UPGRADE" desc="Toggle label: upgrade HTTP connections to HTTPS.">
+      Forcer la connexion HTTPS
+    </message>
+    <message name="IDS_SHIELDS_PANEL_GLOBAL_SETTINGS" desc="Link/button to open the global Brave Shields settings page.">
+      Paramètres globaux des boucliers
+    </message>
+    <message name="IDS_SHIELDS_PANEL_OFF_HINT" desc="Hint shown when Shields is off for the current site.">
+      Les boucliers sont désactivés pour ce site. Réactivez-les pour bloquer les pubs et traqueurs.
     </message>
   </messages>
   </release>

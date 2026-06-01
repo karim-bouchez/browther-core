@@ -1604,6 +1604,16 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         return false;
     }
 
+    // Browther: expose the per-tab ads + trackers blocked count so the
+    // ShieldsPanelBottomSheet can display it in its stats card without
+    // having to plumb a separate observer (the toolbar already aggregates
+    // resource notifications via addStat()).
+    public int getShieldsAdsAndTrackersBlockedCount(int tabId) {
+        if (mBraveShieldsHandler == null) return 0;
+        return mBraveShieldsHandler.getAdsBlockedCount(tabId)
+                + mBraveShieldsHandler.getTrackersBlockedCount(tabId);
+    }
+
     @Override
     public void onCompleteReset(boolean success) {
         if (success) {

@@ -519,6 +519,7 @@ android_resources("java_resources") {
     "java/brave-res/drawable/selected_dot.xml",
     "java/brave-res/drawable/selected_indicator.xml",
     "java/brave-res/drawable/set_default_rounded_button_disabled.xml",
+    "java/brave-res/drawable/shields_panel_stats_bg.xml",
     "java/brave-res/drawable/shields_tooltip_background.xml",
     "java/brave-res/drawable/stats_bottomsheet_background.xml",
     "java/brave-res/drawable/stats_notification_on_button_bg.xml",

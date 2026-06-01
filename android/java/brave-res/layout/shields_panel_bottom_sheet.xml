@@ -4,66 +4,246 @@
      License, v. 2.0. If a copy of the MPL was not distributed with this
      file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 
-<!-- Shields panel V1: same layout as Sawtunaa/Basarunaa (visual coherence,
-     user request 2026-06-01). Header lockup + big toggle (per-site Shields)
-     + status + description. Advanced Shields settings remain in
-     Settings → Brave Shields. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Shields panel V2 (enriched) — adapts the legacy Brave Shields anchored
+     popup into a BottomSheet for visual coherence with Sawtunaa/Basarunaa.
+     Header + big toggle + status are aligned on the other Browther panels.
+     When Shields is ON for the current site, the user gets a stats card
+     (blocked ads & trackers count) and a collapsible "Réglages avancés"
+     section with per-resource toggles (trackers, scripts, fingerprint,
+     HTTPS upgrade) + a button to open the global Shields settings. When
+     OFF, a footer hint encourages re-enabling. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="22dp">
+    android:fillViewport="true">
 
-    <!-- Single TextView with compound drawable (start) — lint UseCompoundDrawables. -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:drawableStart="@drawable/btn_brave"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:text="@string/shields_panel_title"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:letterSpacing="0.02" />
-
-    <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView
-        android:id="@+id/shields_panel_toggle"
-        android:layout_width="96dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="12dp" />
-
-    <TextView
-        android:id="@+id/shields_panel_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="13sp"
-        android:layout_marginBottom="12dp"
-        android:gravity="center" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="13sp"
-        android:lineSpacingExtra="2dp"
-        android:gravity="start"
-        android:text="@string/shields_panel_description" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="22dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
-        android:lineSpacingExtra="2dp"
-        android:layout_marginTop="8dp"
-        android:gravity="start"
-        android:text="@string/shields_panel_advanced_settings_hint" />
+        <!-- Header lockup: favicon + per-site host. Parity with iOS
+             ShieldsPanelView which renders StyledFaviconImage + URLElidedText.
+             Favicon is fetched async via BraveRewardsHelper.retrieveLargeIcon
+             (same path the legacy Brave shields popup uses); if it never
+             arrives we keep the placeholder shield icon. -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/shields_panel_favicon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/btn_brave" />
+
+            <TextView
+                android:id="@+id/shields_panel_host"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="middle"
+                android:maxWidth="220dp"
+                android:text="@string/shields_panel_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02" />
+        </LinearLayout>
+
+        <!-- Big animated toggle, 96x52 dp. -->
+        <org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView
+            android:id="@+id/shields_panel_toggle"
+            android:layout_width="96dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Status text "Boucliers ACTIVÉS/DÉSACTIVÉS". -->
+        <TextView
+            android:id="@+id/shields_panel_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="13sp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
+
+        <!-- ===== Group visible when Shields is ON ===== -->
+        <LinearLayout
+            android:id="@+id/shields_panel_when_on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Stats card: big blocked count + "pubs et traqueurs bloqués". -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/shields_panel_stats_bg"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
+
+                <TextView
+                    android:id="@+id/shields_panel_blocked_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:gravity="center"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="0" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:lineSpacingExtra="2dp"
+                    android:text="@string/shields_panel_blocked_count_label" />
+            </LinearLayout>
+
+            <!-- Disclosure header: "Réglages avancés ▸". -->
+            <LinearLayout
+                android:id="@+id/shields_panel_advanced_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/shields_panel_advanced_title" />
+
+                <ImageView
+                    android:id="@+id/shields_panel_advanced_chevron"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Advanced section content (collapsed by default). -->
+            <LinearLayout
+                android:id="@+id/shields_panel_advanced_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Block trackers + ads row. -->
+                <LinearLayout
+                    style="@style/ShieldsPanelRowStyle">
+                    <TextView
+                        style="@style/ShieldsPanelRowLabelStyle"
+                        android:text="@string/shields_panel_block_trackers" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/shields_panel_switch_trackers"
+                        style="@style/ShieldsPanelRowSwitchStyle" />
+                </LinearLayout>
+
+                <!-- Block scripts row. -->
+                <LinearLayout
+                    style="@style/ShieldsPanelRowStyle">
+                    <TextView
+                        style="@style/ShieldsPanelRowLabelStyle"
+                        android:text="@string/shields_panel_block_scripts" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/shields_panel_switch_scripts"
+                        style="@style/ShieldsPanelRowSwitchStyle" />
+                </LinearLayout>
+
+                <!-- Fingerprint protection row. -->
+                <LinearLayout
+                    style="@style/ShieldsPanelRowStyle">
+                    <TextView
+                        style="@style/ShieldsPanelRowLabelStyle"
+                        android:text="@string/shields_panel_fingerprint" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/shields_panel_switch_fingerprint"
+                        style="@style/ShieldsPanelRowSwitchStyle" />
+                </LinearLayout>
+
+                <!-- HTTPS upgrade row. -->
+                <LinearLayout
+                    style="@style/ShieldsPanelRowStyle">
+                    <TextView
+                        style="@style/ShieldsPanelRowLabelStyle"
+                        android:text="@string/shields_panel_https_upgrade" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/shields_panel_switch_https"
+                        style="@style/ShieldsPanelRowSwitchStyle" />
+                </LinearLayout>
+
+                <!-- Global Shields settings link. -->
+                <LinearLayout
+                    android:id="@+id/shields_panel_global_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:text="@string/shields_panel_global_settings" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_chevron_right" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== Footer visible when Shields is OFF ===== -->
+        <TextView
+            android:id="@+id/shields_panel_off_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp"
+            android:gravity="start"
+            android:visibility="gone"
+            android:text="@string/shields_panel_off_hint" />
+    </LinearLayout>
+</ScrollView>
