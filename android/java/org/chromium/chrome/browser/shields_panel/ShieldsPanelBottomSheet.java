@@ -99,7 +99,8 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
                                     p,
                                     mCurrentHost,
                                     BraveShieldsContentSettings.RESOURCE_IDENTIFIER_BRAVE_SHIELDS,
-                                    isChecked);
+                                    isChecked,
+                                    /* fromTopShields= */ true);
                             reloadCurrentTab();
                         }
                         updateStatusText(isChecked);
