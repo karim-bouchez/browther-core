@@ -55,16 +55,15 @@
           android:background="@drawable/brave_rewards_circle"/>
   </FrameLayout>
 
-  <!-- Browther: Sawtunaa (music/noise suppression) toolbar button. Placed
-       BEFORE Brave Shields so Sawtunaa sits closest to the URL bar and
-       Shields sits on the outer right (user preference 2026-05-30, parity
-       with iOS where Sawtunaa is the leftmost feature panel). Picks up the
-       same modern_toolbar background chain. The dot badge reflects feature
-       ON (green) / OFF (red), in line with iOS + macOS. -->
+  <!-- Browther: Sawtunaa (music/noise suppression) toolbar button. iOS-parity
+       style (2026-06-01) : pas de background carré (le `baseline_neutral_90`
+       du modern_toolbar_background_grey_middle_segment est gris très clair
+       fixe → ressort en dark theme, c'est pour ça que Shields btn_brave a
+       son propre fond opaque intégré au PNG). Badge dot en bas-droite,
+       width réduite à 38dp pour un spacing plus serré, comme iOS. -->
   <FrameLayout android:id="@+id/brave_sawtunaa_button_layout"
-      android:layout_width="45dp"
+      android:layout_width="38dp"
       android:orientation="vertical"
-      android:background="@drawable/modern_toolbar_background_grey_middle_segment"
       android:layout_marginTop="8dp"
       android:layout_height="40dp" >
 
@@ -80,21 +79,20 @@
           android:id="@+id/brave_sawtunaa_badge"
           android:layout_width="8dp"
           android:layout_height="8dp"
-          android:layout_marginTop="7dp"
-          android:layout_marginEnd="6dp"
-          android:layout_gravity="end"
+          android:layout_marginBottom="6dp"
+          android:layout_marginEnd="4dp"
+          android:layout_gravity="bottom|end"
           android:background="@drawable/sawtunaa_badge_red" />
   </FrameLayout>
 
   <!-- Browther: Basarunaa (gender-aware person blurring) toolbar button.
-       Placed between Sawtunaa and Shields per user preference 2026-05-30.
-       Note: the Android ML pipeline is not implemented yet; the toggle
-       flips the kBasarunaaEnabled pref but no native filtering runs until
-       the C++/native renderer pipeline lands (Phase 3.1 follow-up). -->
+       Same iOS-parity style as Sawtunaa above. Note: the Android ML
+       pipeline is not implemented yet; the toggle flips the
+       kBasarunaaEnabled pref but no native filtering runs until the
+       C++/native renderer pipeline lands (Phase 3.1 follow-up). -->
   <FrameLayout android:id="@+id/brave_basarunaa_button_layout"
-      android:layout_width="45dp"
+      android:layout_width="38dp"
       android:orientation="vertical"
-      android:background="@drawable/modern_toolbar_background_grey_middle_segment"
       android:layout_marginTop="8dp"
       android:layout_height="40dp" >
 
@@ -110,9 +108,9 @@
           android:id="@+id/brave_basarunaa_badge"
           android:layout_width="8dp"
           android:layout_height="8dp"
-          android:layout_marginTop="7dp"
-          android:layout_marginEnd="6dp"
-          android:layout_gravity="end"
+          android:layout_marginBottom="6dp"
+          android:layout_marginEnd="4dp"
+          android:layout_gravity="bottom|end"
           android:background="@drawable/sawtunaa_badge_red" />
   </FrameLayout>
 
