@@ -4048,6 +4048,26 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BASARUNAA_PANEL_COMING_SOON" desc="Notice telling the user the ML pipeline is not yet shipped on Android.">
       Le filtrage ML n'est pas encore actif sur Android — il arrive bientôt إن شاء الله.
     </message>
+
+    <!-- Browther: Shields panel (BottomSheet, alignement Sawtunaa/Basarunaa). -->
+    <message name="IDS_SHIELDS_PANEL_TITLE" desc="Header title for the Browther Shields panel">
+      Bouclier Browther
+    </message>
+    <message name="IDS_SHIELDS_PANEL_STATUS_PREFIX" desc="Status prefix in the Shields panel">
+      Boucliers
+    </message>
+    <message name="IDS_SHIELDS_PANEL_STATUS_ON" desc="Status when Shields is enabled for the current site">
+      ACTIVÉS
+    </message>
+    <message name="IDS_SHIELDS_PANEL_STATUS_OFF" desc="Status when Shields is disabled for the current site">
+      DÉSACTIVÉS
+    </message>
+    <message name="IDS_SHIELDS_PANEL_DESCRIPTION" desc="Description below the toggle in the Shields panel">
+      Bloque automatiquement les pubs, les traqueurs et les scripts malveillants pour ce site.
+    </message>
+    <message name="IDS_SHIELDS_PANEL_ADVANCED_SETTINGS_HINT" desc="Notice that advanced Shields settings are in Settings.">
+      Réglages avancés disponibles dans Paramètres → Boucliers.
+    </message>
   </messages>
   </release>
 </grit>

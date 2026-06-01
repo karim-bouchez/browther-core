@@ -720,6 +720,7 @@ android_resources("java_resources") {
     "java/brave-res/layout/basarunaa_panel_bottom_sheet.xml",
     "java/brave-res/layout/report_error_page_layout.xml",
     "java/brave-res/layout/sawtunaa_panel_bottom_sheet.xml",
+    "java/brave-res/layout/shields_panel_bottom_sheet.xml",
     "java/brave-res/layout/search_preference.xml",
     "java/brave-res/layout/selected_network_item.xml",
     "java/brave-res/layout/toolbar_space.xml",

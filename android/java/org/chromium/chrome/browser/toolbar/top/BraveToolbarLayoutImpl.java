@@ -90,6 +90,7 @@ import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.basarunaa.BasarunaaPanelBottomSheet;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
+import org.chromium.chrome.browser.shields_panel.ShieldsPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
 import org.chromium.chrome.browser.shields.BraveShieldsMenuObserver;
 import org.chromium.chrome.browser.shields.BraveShieldsUtils;
@@ -1398,21 +1399,32 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     }
 
     private void showShieldsMenu(View mBraveShieldsButton) {
+        // Browther: replace the Brave anchored popup with our BottomSheet
+        // panel for visual coherence with Sawtunaa/Basarunaa (user request
+        // 2026-06-01). Advanced Shields settings remain accessible via
+        // Settings → Brave Shields.
         Tab currentTab = getToolbarDataProvider().getTab();
-        if (currentTab == null) {
-            return;
-        }
+        if (currentTab == null) return;
         try {
             URL url = new URL(currentTab.getUrl().getSpec());
-            // Don't show shields popup if protocol is not valid for shields.
-            if (!isValidProtocolForShields(url.getProtocol())) {
-                return;
-            }
-            mBraveShieldsHandler.show(mBraveShieldsButton, currentTab);
+            if (!isValidProtocolForShields(url.getProtocol())) return;
         } catch (Exception e) {
-            // Do nothing if url is invalid.
-            // Just return w/o showing shields popup.
             return;
+        }
+        FragmentManager fragmentManager = null;
+        Context context = getContext();
+        if (context instanceof AppCompatActivity) {
+            fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        } else {
+            try {
+                fragmentManager =
+                        BraveActivity.getBraveActivity().getSupportFragmentManager();
+            } catch (BraveActivity.BraveActivityNotFoundException e) {
+                Log.e(TAG, "showShieldsMenu " + e);
+            }
+        }
+        if (fragmentManager != null) {
+            ShieldsPanelBottomSheet.show(fragmentManager);
         }
     }
 
