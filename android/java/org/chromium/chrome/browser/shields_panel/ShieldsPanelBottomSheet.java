@@ -97,7 +97,6 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
 
     @Nullable private String mUrlSpec;
     @Nullable private String mDisplayHost;
-    private boolean mIsInternal;
     private final android.os.Handler mHandler =
             new android.os.Handler(android.os.Looper.getMainLooper());
 
@@ -156,9 +155,7 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
         // mais en "mode leurre informatif" — Brave gère Shields strictement par
         // site (TOP_ORIGIN_ONLY_SCOPE), pas d'API pour désactiver globalement.
         mUrlSpec = currentTabUrlSpec();
-        mIsInternal = !isWebUrl(mUrlSpec);
-
-        if (mIsInternal) {
+        if (!isWebUrl(mUrlSpec)) {
             applyInternalMode();
             return;
         }
