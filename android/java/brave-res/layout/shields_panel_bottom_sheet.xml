@@ -13,6 +13,7 @@
      HTTPS upgrade) + a button to open the global Shields settings. When
      OFF, a footer hint encourages re-enabling. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true">
@@ -37,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/shields_panel_favicon"
@@ -107,7 +109,7 @@
                     android:textSize="28sp"
                     android:textStyle="bold"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:text="0" />
+                    tools:text="0" />
 
                 <TextView
                     android:layout_width="0dp"
