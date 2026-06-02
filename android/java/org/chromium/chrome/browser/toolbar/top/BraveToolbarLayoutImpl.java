@@ -1568,9 +1568,18 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             return false;
         }
 
+        // Browther: sur les pages internes (NTP, chrome://, etc.) le badge
+        // reste vert par défaut — Shields est globalement actif, c'est juste
+        // que la page n'a pas de site à protéger (parité iOS
+        // TopToolbarView.refreshShieldsStatus + macOS shields_internal_bubble).
+        String spec = tab.getUrl().getSpec();
+        if (!spec.startsWith("http://") && !spec.startsWith("https://")) {
+            return true;
+        }
+
         return BraveShieldsContentSettings.getShields(
                 Profile.fromWebContents(tab.getWebContents()),
-                tab.getUrl().getSpec(),
+                spec,
                 BraveShieldsContentSettings.RESOURCE_IDENTIFIER_BRAVE_SHIELDS);
     }
 
