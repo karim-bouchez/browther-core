@@ -28,7 +28,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
-import org.chromium.chrome.browser.BraveRewardsHelper;
 import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettings;
@@ -37,6 +36,7 @@ import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.settings.SettingsNavigationFactory;
 import org.chromium.chrome.browser.tab.Tab;
+import org.chromium.chrome.browser.tab.TabFavicon;
 import org.chromium.chrome.browser.toolbar.top.BraveToolbarLayoutImpl;
 import org.chromium.components.browser_ui.settings.SettingsNavigation;
 
@@ -83,6 +83,8 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
     @Nullable private TextView mStatusText;
     @Nullable private LinearLayout mWhenOnGroup;
     @Nullable private TextView mOffHint;
+    @Nullable private TextView mInternalDescription;
+    @Nullable private TextView mInternalPerSiteInfo;
     @Nullable private TextView mBlockedCount;
     @Nullable private LinearLayout mAdvancedHeader;
     @Nullable private ImageView mAdvancedChevron;
@@ -95,6 +97,16 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
 
     @Nullable private String mUrlSpec;
     @Nullable private String mDisplayHost;
+    private boolean mIsInternal;
+    private final android.os.Handler mHandler =
+            new android.os.Handler(android.os.Looper.getMainLooper());
+
+    /**
+     * Delay before auto-reverting the toggle to ON when the user tries to
+     * disable Shields from an internal page (parity macOS
+     * {@code shields_internal_bubble.cc::PostDelayedTask(500ms)}).
+     */
+    private static final long INTERNAL_TOGGLE_REVERT_DELAY_MS = 500;
 
     /** Convenience: build + show. */
     public static void show(FragmentManager fragmentManager) {
@@ -127,6 +139,8 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
         mStatusText = view.findViewById(R.id.shields_panel_status);
         mWhenOnGroup = view.findViewById(R.id.shields_panel_when_on);
         mOffHint = view.findViewById(R.id.shields_panel_off_hint);
+        mInternalDescription = view.findViewById(R.id.shields_panel_internal_description);
+        mInternalPerSiteInfo = view.findViewById(R.id.shields_panel_internal_per_site_info);
         mBlockedCount = view.findViewById(R.id.shields_panel_blocked_count);
         mAdvancedHeader = view.findViewById(R.id.shields_panel_advanced_header);
         mAdvancedChevron = view.findViewById(R.id.shields_panel_advanced_chevron);
@@ -137,15 +151,18 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
         mSwitchHttps = view.findViewById(R.id.shields_panel_switch_https);
         mGlobalSettings = view.findViewById(R.id.shields_panel_global_settings);
 
-        // Defensive NTP / internal-URL guard. BraveToolbarLayoutImpl already
-        // skips opening the panel on non-http(s) URLs, but if we somehow get
-        // shown on an internal page we dismiss rather than rendering a
-        // misleading per-site toggle that has no effect.
+        // Internal-URL detection (NTP, chrome://, about:, file:, data:, blob:).
+        // Parité macOS shields_internal_bubble.cc : on ouvre quand même le panel
+        // mais en "mode leurre informatif" — Brave gère Shields strictement par
+        // site (TOP_ORIGIN_ONLY_SCOPE), pas d'API pour désactiver globalement.
         mUrlSpec = currentTabUrlSpec();
-        if (!isWebUrl(mUrlSpec)) {
-            dismissAllowingStateLoss();
+        mIsInternal = !isWebUrl(mUrlSpec);
+
+        if (mIsInternal) {
+            applyInternalMode();
             return;
         }
+
         mDisplayHost = formatDisplayHost(mUrlSpec);
         if (mHostText != null && mDisplayHost != null) {
             mHostText.setText(mDisplayHost);
@@ -183,6 +200,51 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
         applyShieldsState(shieldsOn);
         wireAdvancedDisclosure();
         wireGlobalSettings();
+    }
+
+    /**
+     * Configure le BottomSheet pour les pages internes (NTP, chrome://, etc.).
+     * Le toggle reste visuellement ON ; toute tentative OFF déclenche une
+     * animation 500 ms + label jaune explicatif puis revert auto à ON.
+     * Mirror exact de macOS {@code shields_internal_bubble.cc}.
+     */
+    private void applyInternalMode() {
+        if (mHostText != null) {
+            mHostText.setText(R.string.shields_panel_title);
+        }
+        if (mWhenOnGroup != null) mWhenOnGroup.setVisibility(View.GONE);
+        if (mOffHint != null) mOffHint.setVisibility(View.GONE);
+        if (mInternalDescription != null) {
+            mInternalDescription.setVisibility(View.VISIBLE);
+        }
+        updateStatusText(true);
+
+        if (mToggle != null) {
+            mToggle.setCheckedSilently(true);
+            mToggle.setOnCheckedChangeListener(
+                    (v, isChecked) -> {
+                        if (isChecked) return; // user re-ON : rien à faire
+                        updateStatusText(false);
+                        if (mInternalPerSiteInfo != null) {
+                            mInternalPerSiteInfo.setVisibility(View.VISIBLE);
+                        }
+                        mHandler.postDelayed(
+                                this::restoreInternalToggleOn,
+                                INTERNAL_TOGGLE_REVERT_DELAY_MS);
+                    });
+        }
+    }
+
+    private void restoreInternalToggleOn() {
+        if (mToggle != null) mToggle.setCheckedSilently(true);
+        updateStatusText(true);
+        // Le label jaune reste affiché pour que l'info persiste (parité macOS).
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     /**
@@ -411,25 +473,21 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
     }
 
     /**
-     * Loads the favicon for the active tab using the same LargeIconBridge path
-     * the legacy Brave Shields popup uses. If the icon doesn't arrive in time
-     * (or fetch fails), the placeholder shield icon stays visible — no error
-     * surface needed.
+     * Set the favicon from the tab's already-loaded favicon (parity with the
+     * URL bar / tab strip rendering). {@link TabFavicon#getBitmap} reads
+     * the bitmap parsed from the page's {@code <link rel="icon">} (16x16dp
+     * scaled). Falls back to the placeholder shield drawable in the layout
+     * if no favicon is available (NTP, errors, freshly opened tab).
      */
     private void fetchFavicon() {
-        if (mFaviconView == null || mUrlSpec == null) return;
+        if (mFaviconView == null) return;
         try {
             Tab tab = BraveActivity.getBraveActivity().getActivityTab();
             if (tab == null) return;
-            BraveRewardsHelper helper = new BraveRewardsHelper(tab);
-            helper.retrieveLargeIcon(
-                    mUrlSpec,
-                    (Bitmap icon) -> {
-                        if (icon != null && mFaviconView != null) {
-                            mFaviconView.setImageBitmap(
-                                    BraveRewardsHelper.getCircularBitmap(icon));
-                        }
-                    });
+            Bitmap favicon = TabFavicon.getBitmap(tab);
+            if (favicon != null) {
+                mFaviconView.setImageBitmap(favicon);
+            }
         } catch (BraveActivity.BraveActivityNotFoundException e) {
             Log.e(LOG_TAG, "fetchFavicon " + e);
         }

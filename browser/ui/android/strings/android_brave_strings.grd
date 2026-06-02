@@ -4086,6 +4086,12 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SHIELDS_PANEL_OFF_HINT" desc="Hint shown when Shields is off for the current site.">
       Les boucliers sont désactivés pour ce site. Réactivez-les pour bloquer les pubs et traqueurs.
     </message>
+    <message name="IDS_SHIELDS_PANEL_INTERNAL_DESCRIPTION" desc="Description shown in the Shields panel on internal pages (NTP, chrome://, etc.) — explains what Browther Shields blocks.">
+      Browther Shields bloque les pubs, traqueurs, scripts malveillants et tentatives de fingerprinting sur tous les sites que vous visitez.
+    </message>
+    <message name="IDS_SHIELDS_PANEL_INTERNAL_PER_SITE_INFO" desc="Inline warning shown when the user tries to disable Shields from an internal page — Shields are managed per site, parity with macOS shields_internal_bubble.">
+      Les boucliers se gèrent site par site. Ouvrez le site à exclure et appuyez sur le bouclier en haut à droite.
+    </message>
   </messages>
   </release>
 </grit>

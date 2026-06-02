@@ -13,6 +13,7 @@
      HTTPS upgrade) + a button to open the global Shields settings. When
      OFF, a footer hint encourages re-enabling. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -122,36 +123,48 @@
                     android:text="@string/shields_panel_blocked_count_label" />
             </LinearLayout>
 
-            <!-- Disclosure header: "Réglages avancés ▸". -->
+            <!-- Disclosure header: "Réglages avancés" + chevron tinté +
+                 underline subtil pour signaler l'interactivité. -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="#1F808080" />
+
             <LinearLayout
                 android:id="@+id/shields_panel_advanced_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="?android:attr/textColorPrimary"
                     android:text="@string/shields_panel_advanced_title" />
 
                 <ImageView
                     android:id="@+id/shields_panel_advanced_chevron"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_chevron_right" />
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="?android:attr/textColorSecondary" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1F808080" />
 
             <!-- Advanced section content (collapsed by default). -->
             <LinearLayout
@@ -247,5 +260,35 @@
             android:gravity="start"
             android:visibility="gone"
             android:text="@string/shields_panel_off_hint" />
+
+        <!-- ===== Description visible on internal pages (NTP, chrome://) =====
+             Parité macOS `shields_internal_bubble.cc`. Le toggle reste un
+             leurre informatif : Shields est globalement actif, mais ne peut
+             pas être désactivé via cette surface (Brave gère Shields strictement
+             par-site, TOP_ORIGIN_ONLY_SCOPE). -->
+        <TextView
+            android:id="@+id/shields_panel_internal_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="@string/shields_panel_internal_description" />
+
+        <!-- Yellow info label révélé après tentative de toggle OFF sur page
+             interne. Auto-disparaît avec le revert du toggle 500 ms plus tard. -->
+        <TextView
+            android:id="@+id/shields_panel_internal_per_site_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#F59E0B"
+            android:textSize="12sp"
+            android:lineSpacingExtra="2dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="@string/shields_panel_internal_per_site_info" />
     </LinearLayout>
 </ScrollView>

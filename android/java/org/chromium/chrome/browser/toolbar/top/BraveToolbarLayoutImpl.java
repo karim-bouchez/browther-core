@@ -1406,16 +1406,12 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private void showShieldsMenu() {
         // Browther: replace the Brave anchored popup with our BottomSheet
         // panel for visual coherence with Sawtunaa/Basarunaa (user request
-        // 2026-06-01). Advanced Shields settings remain accessible via
-        // Settings → Brave Shields.
+        // 2026-06-01). Sur pages internes (NTP, chrome://, etc.) on ouvre
+        // quand même le panel en "mode leurre informatif" (parité macOS
+        // shields_internal_bubble) — la détection internal vit dans
+        // ShieldsPanelBottomSheet.
         Tab currentTab = getToolbarDataProvider().getTab();
         if (currentTab == null) return;
-        try {
-            URL url = new URL(currentTab.getUrl().getSpec());
-            if (!isValidProtocolForShields(url.getProtocol())) return;
-        } catch (Exception e) {
-            return;
-        }
         FragmentManager fragmentManager = null;
         Context context = getContext();
         if (context instanceof AppCompatActivity) {
@@ -1576,14 +1572,6 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 Profile.fromWebContents(tab.getWebContents()),
                 tab.getUrl().getSpec(),
                 BraveShieldsContentSettings.RESOURCE_IDENTIFIER_BRAVE_SHIELDS);
-    }
-
-    private boolean isValidProtocolForShields(String protocol) {
-        if (protocol.equals("http") || protocol.equals("https")) {
-            return true;
-        }
-
-        return false;
     }
 
     public void dismissWalletPanelOrDialog() {
