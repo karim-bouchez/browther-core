@@ -22,6 +22,4 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = BRAVE_CHANNEL_NIGHTLY $(brave_swift_active
 
 GCC_PREPROCESSOR_DEFINITIONS= DEBUG=1
 
-// Manual Code-Signing
-CODE_SIGN_IDENTITY = Apple Distribution: Brave Software, Inc.
-CODE_SIGN_STYLE = Manual
+// Browther: héritage Base.xcconfig (Automatic + Team MWBMAMYDUD).

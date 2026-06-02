@@ -12,6 +12,13 @@ brave_version_build = 0
 
 #include "../../../../../out/ios_current_link/args.xcconfig"
 
+// Browther: override le build number APRÈS l'include de args.xcconfig
+// (qui le force à la valeur GN du dernier BraveCore build, typiquement 0).
+// Bumper ici à chaque upload TestFlight/App Store sans devoir rebuild
+// BraveCore.xcframework. Sinon App Store Connect rejette l'upload :
+// "build version must be higher than previous build with same version".
+brave_version_build = 1
+
 FRAMEWORK_BASE_BUNDLE_ID = com.devndin.browther
 BASE_BUNDLE_ID = $(FRAMEWORK_BASE_BUNDLE_ID).ios
 

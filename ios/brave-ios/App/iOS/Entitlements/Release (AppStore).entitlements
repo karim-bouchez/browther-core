@@ -2,22 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Browther: 3 entitlements restreints commentés tant qu'Apple n'a pas
-	     accordé les capabilities correspondantes au Team MWBMAMYDUD. AMFI
-	     refuse de signer un binaire avec un entitlement restreint non accordé.
-	     Réactiver après chaque approbation Apple (parité avec `Release.entitlements`
-	     et `Debug.entitlements` ; voir CLAUDE.md Phase 2.5).
-
+	<!-- Browther: com.apple.developer.web-browser réactivé 2026-05-29 après
+	     approbation Apple (request 35A6Y5Y5RM submitted 2026-05-24).
+	     Les 2 autres entitlements restreints restent commentés (capabilities
+	     non demandées au Team MWBMAMYDUD ; AMFI refuserait de signer).
 	     - com.apple.developer.browser.app-installation : alternative app stores EU
 	     - com.apple.developer.playable-content : CarPlay audio interaction
-	     - com.apple.developer.web-browser : Default Browser (form Apple obligatoire)
 	<key>com.apple.developer.browser.app-installation</key>
 	<true/>
 	<key>com.apple.developer.playable-content</key>
 	<true/>
+	-->
 	<key>com.apple.developer.web-browser</key>
 	<true/>
-	-->
 	<key>com.apple.developer.authentication-services.autofill-credential-provider</key>
 	<true/>
 	<key>com.apple.developer.networking.networkextension</key>
