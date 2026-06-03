@@ -53,6 +53,16 @@ public final class BrowtherAnalyticsBridge {
     }
 
     /**
+     * Incrémente le compteur cumulatif {@code music_seconds} publié sur
+     * browther.devndin.com via {@code /api/stats/ingest} (parité avec iOS
+     * {@code BrowtherStatsReporter.flushSawtunaaSeconds}). No-op si le
+     * service C++ n'est pas init ou si le consent stats est désactivé.
+     */
+    public static void incrementMusicSeconds(int delta) {
+        BrowtherAnalyticsBridgeJni.get().incrementMusicSeconds(delta);
+    }
+
+    /**
      * True si l'user a accepté les "product insights" (PostHog).
      * Lit la pref upstream {@code kP3AEnabled} côté C++.
      */
@@ -73,6 +83,8 @@ public final class BrowtherAnalyticsBridge {
         void track(String eventName);
 
         void trackWithProps(String eventName, String[] keys, String[] values);
+
+        void incrementMusicSeconds(int delta);
 
         boolean isPostHogEnabled();
 

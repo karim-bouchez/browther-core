@@ -18,6 +18,7 @@ import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
+import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -502,12 +503,17 @@ public final class SawtunaaPlayer {
             long nsnet2Ms = (SystemClock.elapsedRealtimeNanos() - t0) / 1_000_000L;
 
             // Stats music_seconds — Browther stats publiques. À 48 kHz on émet
-            // 1 s dès qu'on dépasse 48000 samples accumulés. Branche bridge
-            // analytics arrive Jalon 2.E ; pour l'instant on logge un metric.
+            // 1 s dès qu'on dépasse 48000 samples accumulés (parité iOS
+            // BrowtherStatsReporter.flushSawtunaaSeconds). Le bridge JNI route
+            // vers `BrowtherAnalyticsService::IncrementMusicSeconds` qui
+            // accumule dans la pref `kStatsMusicSecondsPending` et flush
+            // périodiquement via POST `/api/stats/ingest`. No-op si consent
+            // stats OFF (gating côté service C++).
             mStatsAccumulatedSamples += processed.length;
             if (mStatsAccumulatedSamples >= SAMPLE_RATE) {
                 int secondsToReport = (int) (mStatsAccumulatedSamples / SAMPLE_RATE);
                 mStatsAccumulatedSamples -= (long) secondsToReport * SAMPLE_RATE;
+                BrowtherAnalyticsBridge.incrementMusicSeconds(secondsToReport);
                 emit("music_seconds", "delta", secondsToReport);
             }
 

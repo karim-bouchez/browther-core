@@ -68,6 +68,15 @@ void JNI_BrowtherAnalyticsBridge_TrackWithProps(
                  std::move(props));
 }
 
+void JNI_BrowtherAnalyticsBridge_IncrementMusicSeconds(JNIEnv* env,
+                                                       jint jdelta) {
+  auto* service = BrowtherAnalyticsService::GetInstance();
+  if (!service) {
+    return;
+  }
+  service->IncrementMusicSeconds(static_cast<int>(jdelta));
+}
+
 jboolean JNI_BrowtherAnalyticsBridge_IsPostHogEnabled(JNIEnv* env) {
   return ReadLocalStateBool(p3a::kP3AEnabled);
 }
