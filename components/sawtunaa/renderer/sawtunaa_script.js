@@ -524,6 +524,25 @@
   window.addEventListener('sawtunaa-disable', sawtunaaDisable, false);
 
   // ─── Early activation watcher ───
+  //
+  // Deux phases distinctes pour éviter la 1ère seconde d'audio sale audible
+  // pendant que le pipeline (Opus decode + NSNet2 + AudioTrack) se réchauffe :
+  //
+  //   Phase 1 (early-mute) : dès qu'un `<video>` apparaît dans le DOM, on
+  //   pose le force-mute IMMÉDIATEMENT (`forceMuteVideo`). Le son original
+  //   ne sortira jamais — même si NSNet2 met 3s à produire son premier
+  //   chunk PCM, l'user n'entend pas la musique pendant ce délai (silence
+  //   jusqu'à ce que Sawtunaa kick in). Acceptable parce que `forceMuteVideo`
+  //   réinstalle ses Object.defineProperty/listeners idempotemment (guard
+  //   `v.__sawtunaa_mute_listener`).
+  //
+  //   Phase 2 (full activate) : quand on a au moins un chunk PCM décodé,
+  //   on démarre le scheduler de playback (autoActivate). Le scheduler
+  //   décide quand mettre l'audio Sawtunaa-filtré à AudioTrack.
+  //
+  // Sur iOS/macOS le pipeline est plus rapide (CoreML/WebGPU vs ORT NNAPI)
+  // donc la fenêtre Phase 1 est imperceptible. Sur Android (~800-1200ms de
+  // latence) la phase early-mute évite l'audio sale audible.
   var earlyActivationInterval = null;
   function startEarlyActivationWatcher() {
     if (earlyActivationInterval || isActive) return;
@@ -534,7 +553,13 @@
         return;
       }
       var vid = document.querySelector('video');
-      if (vid && !vid.paused && vid.currentTime > 0.05 && decodedSegments.length > 0) {
+      if (!vid) return;
+      // Phase 1 — force-mute immédiat dès qu'on voit le <video>.
+      // `forceMuteVideo` est no-op si déjà installé (guard sur
+      // `__sawtunaa_mute_listener`).
+      forceMuteVideo(vid);
+      // Phase 2 — start playback scheduler quand on a des chunks.
+      if (!vid.paused && vid.currentTime > 0.05 && decodedSegments.length > 0) {
         clearInterval(earlyActivationInterval);
         earlyActivationInterval = null;
         autoActivate();
