@@ -13,6 +13,7 @@
 #include "base/functional/callback_helpers.h"
 #include "base/logging.h"
 #include "base/strings/strcat.h"
+#include "base/task/sequenced_task_runner.h"
 #include "base/values.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_js_handler.h"
 #include "brave/components/sawtunaa/renderer/sawtunaa_script_generated.h"
@@ -70,15 +71,28 @@ void SawtunaaRenderFrameObserver::SetEnabled(bool enabled) {
   if (!render_frame || !render_frame->IsMainFrame()) {
     return;
   }
+  // Le SetEnabled arrive depuis un callback Mojo browser→renderer. À ce moment
+  // précis le LocalFrame peut être provisional (navigation pas encore
+  // committed) → `MainWorldScriptContext()` déclenche DCHECK fail dans
+  // `ToV8ContextMaybeEmpty` (cf. v8_binding_for_core.cc:743). On défère sur le
+  // current sequence pour laisser V8 isolate / frame state se stabiliser
+  // avant de toucher au main world.
   if (enabled) {
     // OFF → ON live. Le window object est déjà cleared depuis longtemps. On
-    // installe le binding + injecte le script maintenant. Le script JS
-    // détectera isEnabled()==true à son démarrage.
-    InstallBindingAndInjectScript();
+    // installe le binding + injecte le script. Le script JS détectera
+    // isEnabled()==true à son démarrage.
+    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+        FROM_HERE,
+        base::BindOnce(
+            &SawtunaaRenderFrameObserver::InstallBindingAndInjectScript,
+            weak_factory_.GetWeakPtr()));
   } else {
     // ON → OFF live. Le script JS est en train de tourner. On lui demande de
     // restaurer le mute natif et de s'arrêter via l'event `sawtunaa-disable`.
-    DispatchDisableEvent();
+    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+        FROM_HERE,
+        base::BindOnce(&SawtunaaRenderFrameObserver::DispatchDisableEvent,
+                       weak_factory_.GetWeakPtr()));
   }
 }
 
@@ -119,6 +133,10 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
 }
 
 void SawtunaaRenderFrameObserver::InstallBindingAndInjectScript() {
+  // Pref a pu être flipped à false pendant le post-task — abort silencieux.
+  if (!enabled_) {
+    return;
+  }
   auto* render_frame = SawtunaaRenderFrameObserver::render_frame();
   if (!render_frame || !render_frame->IsMainFrame()) {
     return;
@@ -165,6 +183,10 @@ void SawtunaaRenderFrameObserver::InstallBindingAndInjectScript() {
 }
 
 void SawtunaaRenderFrameObserver::DispatchDisableEvent() {
+  // Pref a pu être flipped à true pendant le post-task — abort.
+  if (enabled_) {
+    return;
+  }
   auto* render_frame = SawtunaaRenderFrameObserver::render_frame();
   if (!render_frame || !render_frame->IsMainFrame()) {
     return;
