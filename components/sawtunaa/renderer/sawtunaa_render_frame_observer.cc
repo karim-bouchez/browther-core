@@ -78,17 +78,18 @@ void SawtunaaRenderFrameObserver::SetEnabled(bool enabled) {
   // current sequence pour laisser V8 isolate / frame state se stabiliser
   // avant de toucher au main world.
   if (enabled) {
-    // OFF → ON live. Le window object est déjà cleared depuis longtemps. On
-    // installe le binding + injecte le script. Le script JS détectera
-    // isEnabled()==true à son démarrage.
-    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
-        FROM_HERE,
-        base::BindOnce(
-            &SawtunaaRenderFrameObserver::InstallBindingAndInjectScript,
-            weak_factory_.GetWeakPtr()));
+    // OFF → ON : on NE TENTE PAS d'injecter le script ici. Même avec un
+    // PostTask, le frame peut rester provisional plus longtemps qu'on ne
+    // peut deviner (SPA YouTube fait des navs constants). Sans accès à
+    // l'API privée `LocalFrame::IsProvisional()`, le crash DCHECK reste
+    // observable. À la place : le toggle ON côté Java déclenche un
+    // `tab.reload()` qui produit un `DidClearWindowObject` propre, lu
+    // ci-dessous, qui injecte le script avec `enabled_=true` (déjà set).
+    // `enabled_` reste true et sera lu par le prochain DidClearWindowObject.
   } else {
     // ON → OFF live. Le script JS est en train de tourner. On lui demande de
     // restaurer le mute natif et de s'arrêter via l'event `sawtunaa-disable`.
+    // Safe : le frame est committed (sinon le script ne tournerait pas).
     base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
         FROM_HERE,
         base::BindOnce(&SawtunaaRenderFrameObserver::DispatchDisableEvent,

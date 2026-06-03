@@ -25,12 +25,15 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
@@ -52,14 +55,24 @@ import org.chromium.components.user_prefs.UserPrefs;
  * <p>Telemetry: every flip of the toggle fires {@code feature_toggled} via
  * {@link BrowtherAnalyticsBridge} (parity with iOS).
  *
- * <p>Toggle live (sans reload) : le changement de la pref est propagé au
- * renderer via le canal Mojo {@code SawtunaaConfig::SetEnabled(bool)} géré
- * par {@code SawtunaaTabHelper} C++. Le RFO renderer-side injecte ou retire
- * le force-mute à la volée — pas besoin de reload de la page.
+ * <p>Propagation du toggle (V1) :
+ * <ul>
+ *   <li>OFF live : le RFO renderer-side reçoit `SetEnabled(false)` via Mojo
+ *       et dispatche `sawtunaa-disable` au main world. Le script JS restaure
+ *       les descriptors muted/volume natifs sur le `<video>` → audio
+ *       original revient sans reload.</li>
+ *   <li>ON live : reload du tab. Le RFO renderer-side ne peut pas injecter
+ *       le script à la volée parce que le V8 main world peut être en cours
+ *       de navigation (DCHECK fatal dans `MainWorldScriptContext()` si
+ *       frame provisional). Le reload garantit un `DidClearWindowObject`
+ *       propre, qui ré-injecte le script avec la nouvelle pref.</li>
+ * </ul>
  */
 @NullMarked
 public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
     public static final String TAG = "SawtunaaPanel";
+
+    private static final String TAG_LOG = "Sawtunaa";
 
     @Nullable private BrowtherBigToggleView mToggle;
     @Nullable private TextView mStatusText;
@@ -110,11 +123,20 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                                 new String[] {"feature", "enabled"},
                                 new String[] {"sawtunaa", Boolean.toString(isChecked)});
                         updateStatusText(isChecked);
-                        // Pas de reload : `SawtunaaTabHelper` C++ observe la
-                        // pref via `PrefChangeRegistrar` et push aussitôt
-                        // `SawtunaaConfig::SetEnabled(isChecked)` à tous les
-                        // RFH actifs. Le RFO renderer-side installe ou
-                        // retire le force-mute à la volée.
+                        if (isChecked) {
+                            // OFF → ON : reload du tab. Tenter d'injecter le
+                            // script live depuis le RFO crash si le main
+                            // world V8 est en cours de navigation
+                            // (DCHECK dans MainWorldScriptContext). Le reload
+                            // garantit un DidClearWindowObject propre.
+                            reloadActiveTab();
+                        }
+                        // OFF live : pas de reload. Le RFO renderer-side
+                        // reçoit `SawtunaaConfig::SetEnabled(false)` via Mojo
+                        // (poussé par `SawtunaaTabHelper` C++ qui observe la
+                        // pref via `PrefChangeRegistrar`) et dispatche
+                        // `sawtunaa-disable` au main world. Le script JS
+                        // restaure le mute natif live.
                     });
         }
 
@@ -174,5 +196,17 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                 .setMessage(R.string.sawtunaa_panel_limitations_message)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+    }
+
+    private void reloadActiveTab() {
+        try {
+            Tab tab = BraveActivity.getBraveActivity().getActivityTab();
+            if (tab != null) {
+                Log.i(TAG_LOG, "Reloading active tab after Sawtunaa ON toggle");
+                tab.reload();
+            }
+        } catch (BraveActivity.BraveActivityNotFoundException e) {
+            Log.e(TAG_LOG, "reloadActiveTab " + e);
+        }
     }
 }

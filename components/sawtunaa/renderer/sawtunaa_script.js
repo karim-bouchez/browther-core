@@ -499,21 +499,24 @@
     // Demande au browser d'évacuer la queue audio Java pour éviter qu'un
     // chunk déjà preprocess ne sorte après ce point.
     try { send('clearChunks'); } catch(e) {}
-    // Restaure muted/volume natifs sur les <video> existants. On redéfinit
-    // les properties en plain value+writable+configurable pour que YouTube
-    // puisse lire/écrire dessus normalement (les overrides setter posés par
-    // `forceMuteVideo` clampaient toute écriture à mute=true).
+    // Restaure muted/volume natifs sur les <video> existants. Important :
+    // un `Object.defineProperty(v, 'muted', { value: false })` créerait
+    // une OWN property qui masque l'accessor du HTMLMediaElement.prototype
+    // — l'élément natif ne verrait pas ces écritures et resterait mute=true
+    // en interne. Solution : `delete v.muted` pour retirer notre override
+    // setter/getter posé par `forceMuteVideo`, ce qui restaure l'accès au
+    // prototype's accessor ; puis appliquer le mute=false via le setter
+    // natif direct (nativeSetMuted) pour atteindre le state interne.
     try {
       var vs = document.querySelectorAll('video');
       for (var i = 0; i < vs.length; i++) {
         var v = vs[i];
         try {
-          Object.defineProperty(v, 'muted', {
-            value: false, writable: true, configurable: true });
-          Object.defineProperty(v, 'volume', {
-            value: 1, writable: true, configurable: true });
-          v.muted = false;
-          v.volume = 1;
+          delete v.muted;
+          delete v.volume;
+          delete v.__sawtunaa_mute_listener;
+          nativeSetMuted(v, false);
+          nativeSetVolume(v, 1);
         } catch(e) {}
       }
     } catch(e) {}
