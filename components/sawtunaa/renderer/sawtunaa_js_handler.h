@@ -18,10 +18,15 @@ class Arguments;
 
 namespace sawtunaa {
 
-// V8 binding exposing `window.__sawtunaa.send(action, data)` to the main
-// world of every committed frame. The injected `SawtunaaScript.js` (port
-// of iOS, à venir au Jalon 2.C.3) appellera cette méthode pour dispatch
-// les 11 actions audio (log, metric, preprocess, playAt, …) au browser.
+class SawtunaaRenderFrameObserver;
+
+// V8 binding exposing `window.__sawtunaa.send(action, data)` +
+// `window.__sawtunaa.isEnabled()` to the main world of every committed
+// main frame. The injected `SawtunaaScript.js` (port of iOS, Jalon 2.C.3)
+// appellera `send` pour dispatch les 11 actions audio (log, metric,
+// preprocess, playAt, …) au browser, et `isEnabled` pour fail-early si la
+// pref `kSawtunaaEnabled` est OFF (évite d'installer un force-mute qui
+// rendrait le `<video>` muet permanent quand le pipeline Java est coupé).
 //
 // L'instance est gérée par cppgc (V8 garbage collector) : créée par
 // `Install()` à `DidClearWindowObject` et libérée quand le contexte JS
@@ -35,12 +40,14 @@ class SawtunaaJsHandler : public gin::Wrappable<SawtunaaJsHandler> {
   static constexpr gin::WrapperInfo kWrapperInfo = {
       {gin::kEmbedderNativeGin}, gin::kSawtunaaBindings};
 
-  static void Install(content::RenderFrame* render_frame);
+  static void Install(content::RenderFrame* render_frame,
+                      SawtunaaRenderFrameObserver* rfo);
 
   // Public pour permettre à cppgc::MakeGarbageCollected<> d'instancier ;
   // les callers doivent quand même passer par Install() — ne pas appeler
   // directement.
-  explicit SawtunaaJsHandler(content::RenderFrame* render_frame);
+  SawtunaaJsHandler(content::RenderFrame* render_frame,
+                    SawtunaaRenderFrameObserver* rfo);
   SawtunaaJsHandler(const SawtunaaJsHandler&) = delete;
   SawtunaaJsHandler& operator=(const SawtunaaJsHandler&) = delete;
   ~SawtunaaJsHandler() override;
@@ -62,6 +69,11 @@ class SawtunaaJsHandler : public gin::Wrappable<SawtunaaJsHandler> {
   //   ment au Jalon 2.C.2.
   void Send(gin::Arguments* args);
 
+  // window.__sawtunaa.isEnabled() -> bool
+  // Lit l'état courant de la pref `kSawtunaaEnabled` poussé par le browser
+  // au RFO. Permet au script JS de fail-early avant `forceMuteVideo()`.
+  bool IsEnabled();
+
   bool EnsureRemote();
 
   // render_frame_ est non-owned. Le handler peut survivre brièvement à la
@@ -70,6 +82,11 @@ class SawtunaaJsHandler : public gin::Wrappable<SawtunaaJsHandler> {
   // handler ne devrait pas survivre la navigation, mais on protège quand
   // même au cas où.
   raw_ptr<content::RenderFrame> render_frame_;
+  // rfo_ est non-owned. Le RFO survit au handler (le RFO se delete lui-même
+  // sur OnDestruct). Le handler ne survit qu'au sein d'un même JS context
+  // d'un frame existant. Si le frame est gone, le handler est gone aussi
+  // (via cppgc). On peut donc utiliser un raw_ptr sans risque de UAF.
+  raw_ptr<SawtunaaRenderFrameObserver> rfo_;
   mojo::Remote<mojom::Sawtunaa> sawtunaa_;
 };
 

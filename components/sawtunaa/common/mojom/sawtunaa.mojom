@@ -61,3 +61,17 @@ struct TimeRange {
   double start_ms;
   double end_ms;
 };
+
+// Browser → renderer. AssociatedInterface bindée par `SawtunaaRenderFrameObserver`.
+// Le browser push la valeur courante de la pref `kSawtunaaEnabled` à chaque
+// `RenderFrameCreated` et à chaque toggle utilisateur. Le renderer stocke
+// l'état localement et gate l'injection du script + le force-mute sur cette
+// valeur, sans avoir besoin de reload.
+interface SawtunaaConfig {
+  // Push de l'état de la pref. Côté renderer:
+  //  - si transition false → true : injecte le script (auto-activate).
+  //  - si transition true → false : dispatche `sawtunaa-disable` au main world
+  //    (le script JS écoute, restaure les descriptors muted/volume natifs et
+  //    stoppe son scheduler).
+  SetEnabled(bool enabled);
+};

@@ -125,6 +125,11 @@
 #include "brave/browser/brave_news/brave_news_tab_helper.h"
 #endif
 
+// Browther: Sawtunaa pipeline (Voie B Android). Attaché systématiquement pour
+// que la pref `kSawtunaaEnabled` puisse être propagée live au renderer même
+// quand elle est OFF au boot. Cf. brave/components/sawtunaa/.
+#include "brave/components/sawtunaa/browser/sawtunaa_tab_helper.h"
+
 namespace brave {
 
 void AttachTabHelpers(content::WebContents* web_contents) {
@@ -134,6 +139,11 @@ void AttachTabHelpers(content::WebContents* web_contents) {
 
 #if BUILDFLAG(IS_ANDROID)
   YouTubeScriptInjectorTabHelper::CreateForWebContents(web_contents);
+  // Browther: Sawtunaa pipeline Android. Crée TabHelper + Java Player +
+  // PrefChangeRegistrar(kSawtunaaEnabled). Doit être créé même si la pref
+  // est OFF au boot pour pouvoir push SetEnabled(true) au renderer si le
+  // user toggle ON live (sans reload).
+  sawtunaa::SawtunaaTabHelper::CreateForWebContents(web_contents);
 #else
   // Add tab helpers here unless they are intended for android too
   brave_shields::BraveShieldsTabHelper::CreateForWebContents(web_contents);

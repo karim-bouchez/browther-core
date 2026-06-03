@@ -43,6 +43,25 @@
     return;
   }
 
+  // Gating sur la pref `kSawtunaaEnabled` poussée par le browser via
+  // `SawtunaaConfig::SetEnabled` au RFO. Si OFF, on n'installe ni
+  // force-mute ni MSE hooks — Browther se comporte comme Chromium standard
+  // sur les <video>. Au toggle live ON, le RFO re-injecte ce script entier,
+  // ce check repasse à true et autoActivate démarre. Au toggle live OFF,
+  // l'event `sawtunaa-disable` est dispatché par le RFO et un listener
+  // (plus bas) restaure le mute natif + stoppe le scheduler.
+  var sawtunaaEnabled = false;
+  try {
+    if (window.__sawtunaa &&
+        typeof window.__sawtunaa.isEnabled === 'function') {
+      sawtunaaEnabled = window.__sawtunaa.isEnabled();
+    }
+  } catch(e) {}
+  if (!sawtunaaEnabled) {
+    metric('script_abort', { reason: 'pref_off' });
+    return;
+  }
+
   metric('script_init', {
     hasMS: hasMS,
     hasMMS: hasMMS,
@@ -359,6 +378,12 @@
 
   function forceMuteVideo(v) {
     if (!v) return;
+    // Si la pref est passée OFF en cours de session, le RFO a dispatché
+    // `sawtunaa-disable` et posé ce flag avant le listener — re-check ici
+    // pour empêcher toute attache de force-mute post-désactivation (cas du
+    // <video> swap SPA YouTube qui ferait re-passer dans cette fonction
+    // depuis le scheduler ou onUrlChange).
+    if (window.__sawtunaa_disabled) return;
     if (v.__sawtunaa_mute_listener) return;
     v.__sawtunaa_mute_listener = true;
 
@@ -436,6 +461,7 @@
   // ─── Auto-activate: mute video, start scheduler ───
   function autoActivate() {
     if (isActive) return;
+    if (window.__sawtunaa_disabled) return;
     isActive = true;
     var v = document.querySelector('video');
     forceMuteVideo(v);
@@ -445,6 +471,54 @@
       decoded_segments: decodedSegments.length
     });
   }
+
+  // ─── Live disable (browser→renderer via SawtunaaConfig::SetEnabled(false)) ───
+  // Le RFO C++ dispatche `sawtunaa-disable` sur `window` quand la pref passe
+  // à OFF. On restaure les descriptors muted/volume natifs sur tous les
+  // <video> (sinon YouTube reste muet), on stoppe les schedulers et on pose
+  // un flag global qui inhibe les futurs forceMuteVideo / autoActivate.
+  // Les hooks MSE déjà posés restent installés (pas de cleanup possible
+  // sans casser l'état SourceBuffer) mais deviennent passifs : le flag
+  // empêche les chunks d'arriver jusqu'à `send('preprocess', ...)`.
+  function sawtunaaDisable() {
+    metric('sawtunaa_disable_received');
+    window.__sawtunaa_disabled = true;
+    isActive = false;
+    try {
+      if (earlyActivationInterval) {
+        clearInterval(earlyActivationInterval);
+        earlyActivationInterval = null;
+      }
+    } catch(e) {}
+    try {
+      if (schedulerInterval) {
+        clearInterval(schedulerInterval);
+        schedulerInterval = null;
+      }
+    } catch(e) {}
+    // Demande au browser d'évacuer la queue audio Java pour éviter qu'un
+    // chunk déjà preprocess ne sorte après ce point.
+    try { send('clearChunks'); } catch(e) {}
+    // Restaure muted/volume natifs sur les <video> existants. On redéfinit
+    // les properties en plain value+writable+configurable pour que YouTube
+    // puisse lire/écrire dessus normalement (les overrides setter posés par
+    // `forceMuteVideo` clampaient toute écriture à mute=true).
+    try {
+      var vs = document.querySelectorAll('video');
+      for (var i = 0; i < vs.length; i++) {
+        var v = vs[i];
+        try {
+          Object.defineProperty(v, 'muted', {
+            value: false, writable: true, configurable: true });
+          Object.defineProperty(v, 'volume', {
+            value: 1, writable: true, configurable: true });
+          v.muted = false;
+          v.volume = 1;
+        } catch(e) {}
+      }
+    } catch(e) {}
+  }
+  window.addEventListener('sawtunaa-disable', sawtunaaDisable, false);
 
   // ─── Early activation watcher ───
   var earlyActivationInterval = null;

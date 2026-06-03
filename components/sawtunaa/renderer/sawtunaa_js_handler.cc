@@ -10,6 +10,8 @@
 #include <utility>
 #include <vector>
 
+#include "brave/components/sawtunaa/renderer/sawtunaa_render_frame_observer.h"
+
 #include "base/base64.h"
 #include "base/compiler_specific.h"
 #include "base/strings/string_number_conversions.h"
@@ -29,14 +31,17 @@
 
 namespace sawtunaa {
 
-SawtunaaJsHandler::SawtunaaJsHandler(content::RenderFrame* render_frame)
-    : render_frame_(render_frame) {}
+SawtunaaJsHandler::SawtunaaJsHandler(content::RenderFrame* render_frame,
+                                     SawtunaaRenderFrameObserver* rfo)
+    : render_frame_(render_frame), rfo_(rfo) {}
 
 SawtunaaJsHandler::~SawtunaaJsHandler() = default;
 
 // static
-void SawtunaaJsHandler::Install(content::RenderFrame* render_frame) {
+void SawtunaaJsHandler::Install(content::RenderFrame* render_frame,
+                                SawtunaaRenderFrameObserver* rfo) {
   CHECK(render_frame);
+  CHECK(rfo);
   v8::Isolate* isolate =
       render_frame->GetWebFrame()->GetAgentGroupScheduler()->Isolate();
   v8::HandleScope handle_scope(isolate);
@@ -51,7 +56,7 @@ void SawtunaaJsHandler::Install(content::RenderFrame* render_frame) {
 
   // window.__sawtunaa : nouvelle instance par DidClearWindowObject.
   SawtunaaJsHandler* handler = cppgc::MakeGarbageCollected<SawtunaaJsHandler>(
-      isolate->GetCppHeap()->GetAllocationHandle(), render_frame);
+      isolate->GetCppHeap()->GetAllocationHandle(), render_frame, rfo);
 
   v8::PropertyDescriptor desc(handler->GetWrapper(isolate).ToLocalChecked(),
                               /*writable=*/false);
@@ -70,7 +75,12 @@ const gin::WrapperInfo* SawtunaaJsHandler::wrapper_info() const {
 gin::ObjectTemplateBuilder SawtunaaJsHandler::GetObjectTemplateBuilder(
     v8::Isolate* isolate) {
   return gin::Wrappable<SawtunaaJsHandler>::GetObjectTemplateBuilder(isolate)
-      .SetMethod("send", &SawtunaaJsHandler::Send);
+      .SetMethod("send", &SawtunaaJsHandler::Send)
+      .SetMethod("isEnabled", &SawtunaaJsHandler::IsEnabled);
+}
+
+bool SawtunaaJsHandler::IsEnabled() {
+  return rfo_ && rfo_->is_enabled();
 }
 
 bool SawtunaaJsHandler::EnsureRemote() {

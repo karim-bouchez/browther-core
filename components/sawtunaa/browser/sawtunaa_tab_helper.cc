@@ -7,6 +7,7 @@
 
 #include <utility>
 
+#include "base/functional/bind.h"
 #include "base/logging.h"
 #include "brave/components/constants/pref_names.h"
 #include "build/build_config.h"
@@ -15,6 +16,8 @@
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
+#include "mojo/public/cpp/bindings/associated_remote.h"
+#include "third_party/blink/public/common/associated_interfaces/associated_interface_provider.h"
 
 #if BUILDFLAG(IS_ANDROID)
 // Browther: Sawtunaa Voie B (Jalons 2.B.5 + 2.D) — bridges C++→Java générés
@@ -45,17 +48,12 @@ void SawtunaaTabHelper::BindSawtunaa(
   if (!web_contents) {
     return;
   }
-  // Jalon 2.B.6 — pref-gating : si Sawtunaa est OFF, on drop le receiver.
-  // Côté renderer le Remote restera silencieusement disconnected,
-  // les calls sont no-op. Le toggle ON requiert une navigation (reload)
-  // pour qu'un nouveau binder soit demandé — comportement attendu V1,
-  // sera amélioré au Jalon 2.D si nécessaire (push d'un OnPrefChanged
-  // vers le renderer).
-  auto* prefs = user_prefs::UserPrefs::Get(web_contents->GetBrowserContext());
-  if (!prefs || !prefs->GetBoolean(kSawtunaaEnabled)) {
-    return;
-  }
-  SawtunaaTabHelper::CreateForWebContents(web_contents);
+  // Pas de gating sur la pref ici : le renderer ne demande `mojom::Sawtunaa`
+  // que si son `window.__sawtunaa.isEnabled()` retourne true (lui-même
+  // contrôlé par le push `SawtunaaConfig::SetEnabled` depuis ici). Si la
+  // pref est OFF, le binder est appelé seulement si le user vient de
+  // toggler ON (on doit accepter le receiver, sinon impasse).
+  // Le TabHelper existe systématiquement (créé via AttachTabHelpers).
   auto* helper = SawtunaaTabHelper::FromWebContents(web_contents);
   if (!helper) {
     return;
@@ -64,15 +62,62 @@ void SawtunaaTabHelper::BindSawtunaa(
 }
 
 SawtunaaTabHelper::SawtunaaTabHelper(content::WebContents* web_contents)
-    : content::WebContentsUserData<SawtunaaTabHelper>(*web_contents) {
+    : content::WebContentsObserver(web_contents),
+      content::WebContentsUserData<SawtunaaTabHelper>(*web_contents) {
   LOG(INFO) << "[Sawtunaa] TabHelper created for WebContents";
+
+  // Observer la pref `kSawtunaaEnabled` : à chaque changement, on push aux
+  // renderers via `SawtunaaConfig::SetEnabled`, ce qui (a) restaure ou
+  // installe le force-mute côté JS, (b) injecte/désactive le script.
+  auto* prefs = user_prefs::UserPrefs::Get(web_contents->GetBrowserContext());
+  if (prefs) {
+    pref_change_registrar_.Init(prefs);
+    pref_change_registrar_.Add(
+        kSawtunaaEnabled,
+        base::BindRepeating(&SawtunaaTabHelper::OnEnabledPrefChanged,
+                            base::Unretained(this)));
+  }
+
 #if BUILDFLAG(IS_ANDROID)
   // Jalon 2.D — crée l'instance Java SawtunaaPlayer associée à ce tab.
   // C'est elle qui pilote AudioTrack + NSNet2 (port direct du Swift).
+  // Coût : ~25 MB modèle ONNX. On la crée pour tous les WC pour préserver
+  // la simplicité (pas de re-create au toggle live ON). Optim future
+  // possible : lazy au premier preprocessChunk.
   JNIEnv* env = base::android::AttachCurrentThread();
   int instance_id = ++g_next_player_instance_id;
   java_player_.Reset(Java_SawtunaaPlayer_create(env, instance_id));
 #endif
+}
+
+void SawtunaaTabHelper::RenderFrameCreated(content::RenderFrameHost* rfh) {
+  // Push la valeur initiale dès qu'un nouveau frame existe. Le RFO
+  // renderer-side a déjà enregistré son receiver SawtunaaConfig au ctor,
+  // donc le Mojo channel est dispo. `GetRemoteAssociatedInterfaces()`
+  // bind le pipe.
+  PushEnabledToFrame(rfh);
+}
+
+void SawtunaaTabHelper::PushEnabledToFrame(content::RenderFrameHost* rfh) {
+  if (!rfh) {
+    return;
+  }
+  auto* prefs = user_prefs::UserPrefs::Get(
+      web_contents()->GetBrowserContext());
+  const bool enabled = prefs && prefs->GetBoolean(kSawtunaaEnabled);
+  mojo::AssociatedRemote<mojom::SawtunaaConfig> config;
+  rfh->GetRemoteAssociatedInterfaces()->GetInterface(&config);
+  config->SetEnabled(enabled);
+  LOG(INFO) << "[Sawtunaa] Pushed SetEnabled(" << (enabled ? "true" : "false")
+            << ") to RFH " << rfh->GetGlobalId();
+}
+
+void SawtunaaTabHelper::OnEnabledPrefChanged() {
+  // Itère tous les RFH du WebContents et push la nouvelle valeur.
+  web_contents()->ForEachRenderFrameHost(
+      [this](content::RenderFrameHost* rfh) {
+        PushEnabledToFrame(rfh);
+      });
 }
 
 SawtunaaTabHelper::~SawtunaaTabHelper() {
