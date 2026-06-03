@@ -1,0 +1,55 @@
+# Copyright (c) 2026 The Browther Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Basarunaa Android — Jalon 1 (bench ML runtime).
+#
+# Bundle les 4 modèles ONNX critiques du pipeline Basarunaa sous
+# `assets/basarunaa/*.onnx` dans l'APK. Lus au runtime par
+# `BasarunaaBenchmark` (et plus tard le pipeline production) via
+# `AssetManager.open("basarunaa/...")`.
+#
+# Les fichiers .onnx sont gitignored : ils sont copiés ici à chaque build
+# par `private/scripts/fetch-basarunaa-models.sh` (source = le POC
+# `private/extensions/basarunaa/public/models/`). Relancer ce script après
+# chaque sync upstream (les modèles ne survivent pas à un nouveau worktree).
+#
+# Cible tirée par `brave_chrome_java_deps` (voir
+# `brave/build/android/config.gni`) — sinon la resource Android ne se
+# propage pas à `chrome_java`.
+#
+# 4 modèles bundlés (~30 MB total) :
+#   - yolo11n-pose.onnx        (12 MB) — body detection + 17 keypoints COCO
+#   - yolov8n-face.onnx        (12 MB) — face detection + 5 landmarks
+#   - genderage.onnx           (1.3 MB) — InsightFace gender classification
+#   - nanodet-plus-m_320.onnx  (4.8 MB) — sentinel two-tier vidéo
+#
+# Les 3 modèles secondaires (PPLCNet body fallback, NSFW Marqo, NudeNet)
+# seront ajoutés en V2 — non critiques pour le bench Jalon 1.
+
+import("//build/config/android/rules.gni")
+
+assert(is_android)
+
+android_assets("basarunaa_models_android_assets") {
+  # Uniquement renaming_sources (PAS sources). `sources` ET
+  # `renaming_sources` sont deux listes distinctes qui s'ADDITIONNENT dans
+  # l'APK : utiliser les deux pour le même fichier = doublons.
+  renaming_sources = [
+    "genderage.onnx",
+    "nanodet-plus-m_320.onnx",
+    "yolo11n-pose.onnx",
+    "yolov8n-face.onnx",
+  ]
+  renaming_destinations = [
+    "basarunaa/genderage.onnx",
+    "basarunaa/nanodet-plus-m_320.onnx",
+    "basarunaa/yolo11n-pose.onnx",
+    "basarunaa/yolov8n-face.onnx",
+  ]
+  # Les modèles ONNX sont déjà des Protobuf binaires compressés. Pas besoin
+  # d'une compression APK supplémentaire (négligeable + bloquerait le
+  # mmap-friendly openFd() côté runtime).
+  disable_compression = true
+}

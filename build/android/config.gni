@@ -115,6 +115,13 @@ brave_chrome_java_deps = [
   # runtime par NSNet2Processor (pièce #4) via AssetManager.openFd.
   "//brave/components/sawtunaa/android_assets:sawtunaa_model_android_assets",
 
+  # Browther: Basarunaa Android — Jalon 1 (bench ML runtime). Bundle les 4
+  # modèles ONNX critiques (~30 MB) dans assets/basarunaa/ de l'APK :
+  # yolo11n-pose, yolov8n-face, genderage, nanodet-plus-m_320. Modèles
+  # gitignored, copiés par private/scripts/fetch-basarunaa-models.sh.
+  # Lus par BasarunaaBenchmark via AssetManager.open().
+  "//brave/components/basarunaa/android_assets:basarunaa_models_android_assets",
+
   "//brave/third_party/zxing:zxing_java",
   "//brave/ui/android:base_java",
   "//third_party/android_deps:com_google_code_gson_gson_java",

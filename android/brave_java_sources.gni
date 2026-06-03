@@ -326,7 +326,11 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/safe_browsing/settings/NoGooglePlayServicesDialog.java",
   # Browther: shared widgets (big animated toggle reused by feature panels).
   "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherBigToggleView.java",
-  # Browther: Basarunaa V1 UI (toggle-only, pipeline ML Android à venir).
+  # Browther: Basarunaa Android
+  # - V1 UI (toggle-only, pipeline ML Android à venir).
+  # - Jalon 1 (bench ML runtime) : BasarunaaBenchmark + déclenché depuis
+  #   SawtunaaPreferences temporairement (cf. Phase 3.1 § Étape 4 Android).
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaPanelBottomSheet.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
   "../../brave/android/java/org/chromium/chrome/browser/shields_panel/ShieldsPanelBottomSheet.java",

@@ -15,6 +15,7 @@ import org.chromium.base.supplier.SettableMonotonicObservableSupplier;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.basarunaa.BasarunaaBenchmark;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.settings.BravePreferenceFragment;
@@ -45,6 +46,9 @@ public class SawtunaaPreferences extends BravePreferenceFragment {
             "sawtunaa_run_full_pipeline_bench";
     public static final String PREF_SAWTUNAA_FULL_PIPELINE_BENCH_RESULT =
             "sawtunaa_full_pipeline_bench_result";
+    // Browther: Basarunaa Jalon 1 — bench ML runtime piggyback sur cette page.
+    public static final String PREF_BASARUNAA_RUN_BENCHMARK = "basarunaa_run_benchmark";
+    public static final String PREF_BASARUNAA_BENCHMARK_RESULT = "basarunaa_benchmark_result";
 
     private final SettableMonotonicObservableSupplier<String> mPageTitle =
             ObservableSuppliers.createMonotonic();
@@ -54,8 +58,11 @@ public class SawtunaaPreferences extends BravePreferenceFragment {
     @Nullable private Preference mBenchmarkResultPref;
     @Nullable private Preference mRunFullPipelinePref;
     @Nullable private Preference mFullPipelineResultPref;
+    @Nullable private Preference mRunBasarunaaBenchPref;
+    @Nullable private Preference mBasarunaaBenchResultPref;
     private boolean mBenchRunning;
     private boolean mFullPipelineRunning;
+    private boolean mBasarunaaBenchRunning;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +110,16 @@ public class SawtunaaPreferences extends BravePreferenceFragment {
             mRunFullPipelinePref.setOnPreferenceClickListener(
                     pref -> {
                         startFullPipelineBenchmark();
+                        return true;
+                    });
+        }
+
+        mRunBasarunaaBenchPref = findPreference(PREF_BASARUNAA_RUN_BENCHMARK);
+        mBasarunaaBenchResultPref = findPreference(PREF_BASARUNAA_BENCHMARK_RESULT);
+        if (mRunBasarunaaBenchPref != null) {
+            mRunBasarunaaBenchPref.setOnPreferenceClickListener(
+                    pref -> {
+                        startBasarunaaBenchmark();
                         return true;
                     });
         }
@@ -160,6 +177,77 @@ public class SawtunaaPreferences extends BravePreferenceFragment {
                                         R.string.sawtunaa_benchmark_result_error,
                                         error == null ? "?" : error));
                     }
+                });
+    }
+
+    /**
+     * Browther — Basarunaa Jalon 1 : bench séquentiel des 4 modèles ONNX × 2
+     * backends (CPU puis NNAPI), agrège les résultats dans le summary du
+     * preference. Pas de loc côté résultats — texte ASCII multi-lignes destiné
+     * au copier-coller logcat/dashboard.
+     */
+    private void startBasarunaaBenchmark() {
+        if (mBasarunaaBenchRunning) return;
+        mBasarunaaBenchRunning = true;
+        if (mRunBasarunaaBenchPref != null) {
+            mRunBasarunaaBenchPref.setEnabled(false);
+        }
+        if (mBasarunaaBenchResultPref != null) {
+            mBasarunaaBenchResultPref.setSummary(
+                    getString(R.string.sawtunaa_benchmark_result_running));
+        }
+
+        final BasarunaaBenchmark.Model[] models = BasarunaaBenchmark.Model.values();
+        final BasarunaaBenchmark.Backend[] backends = {
+            BasarunaaBenchmark.Backend.CPU, BasarunaaBenchmark.Backend.NNAPI
+        };
+        final StringBuilder report = new StringBuilder();
+        runBasarunaaBenchSequence(models, backends, 0, 0, report);
+    }
+
+    private void runBasarunaaBenchSequence(
+            BasarunaaBenchmark.Model[] models,
+            BasarunaaBenchmark.Backend[] backends,
+            int modelIdx,
+            int backendIdx,
+            StringBuilder report) {
+        if (modelIdx >= models.length) {
+            // Done — display.
+            mBasarunaaBenchRunning = false;
+            if (mRunBasarunaaBenchPref != null) {
+                mRunBasarunaaBenchPref.setEnabled(true);
+            }
+            if (mBasarunaaBenchResultPref != null) {
+                mBasarunaaBenchResultPref.setSummary(report.toString());
+            }
+            return;
+        }
+        BasarunaaBenchmark.run(
+                models[modelIdx],
+                backends[backendIdx],
+                (result, error) -> {
+                    if (result != null) {
+                        report.append(result.formatted()).append('\n');
+                    } else {
+                        report.append(models[modelIdx].name())
+                                .append(" [")
+                                .append(backends[backendIdx].name())
+                                .append("] FAILED: ")
+                                .append(error == null ? "?" : error)
+                                .append('\n');
+                    }
+                    int nextBackend = backendIdx + 1;
+                    int nextModel = modelIdx;
+                    if (nextBackend >= backends.length) {
+                        nextBackend = 0;
+                        nextModel = modelIdx + 1;
+                    }
+                    // Live update du summary pour montrer la progression.
+                    if (mBasarunaaBenchResultPref != null) {
+                        mBasarunaaBenchResultPref.setSummary(report.toString());
+                    }
+                    runBasarunaaBenchSequence(
+                            models, backends, nextModel, nextBackend, report);
                 });
     }
 }

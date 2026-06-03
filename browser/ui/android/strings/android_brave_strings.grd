@@ -4000,6 +4000,19 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Last full-pipeline benchmark
     </message>
 
+    <!-- Browther: Basarunaa Android — Jalon 1 (bench ML runtime). Strings
+         vivent dans la page Sawtunaa settings temporairement (la vraie page
+         Basarunaa arrivera au Jalon 4). -->
+    <message name="IDS_BASARUNAA_RUN_BENCHMARK_TITLE" desc="Title of the developer Basarunaa benchmark button">
+      Run Basarunaa ML benchmark
+    </message>
+    <message name="IDS_BASARUNAA_RUN_BENCHMARK_SUMMARY" desc="Description below the Basarunaa benchmark button">
+      Tap to bench the 4 critical ONNX models on CPU then NNAPI (yolo-pose, yolo-face, genderage, nanodet). Results shown below.
+    </message>
+    <message name="IDS_BASARUNAA_BENCHMARK_RESULT_TITLE" desc="Title above the Basarunaa benchmark result preference row">
+      Last Basarunaa benchmark
+    </message>
+
     <!-- Browther: Sawtunaa toolbar button + panel (BottomSheet). Strings are
          in French (Browther primary locale, parity with iOS SawtunaaPanelView). -->
     <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_SAWTUNAA" desc="Accessibility label for the Sawtunaa toolbar button">

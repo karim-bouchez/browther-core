@@ -33,4 +33,17 @@
         android:summary="@string/sawtunaa_benchmark_result_idle"
         android:selectable="false" />
 
+    <!-- Browther: Basarunaa Jalon 1 — bench ML runtime. Sera retiré quand
+         Basarunaa aura sa propre page settings (Jalon 4). -->
+    <androidx.preference.Preference
+        android:key="basarunaa_run_benchmark"
+        android:title="@string/basarunaa_run_benchmark_title"
+        android:summary="@string/basarunaa_run_benchmark_summary" />
+
+    <androidx.preference.Preference
+        android:key="basarunaa_benchmark_result"
+        android:title="@string/basarunaa_benchmark_result_title"
+        android:summary="@string/sawtunaa_benchmark_result_idle"
+        android:selectable="false" />
+
 </PreferenceScreen>

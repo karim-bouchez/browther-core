@@ -1,0 +1,4 @@
+# Modèles ONNX Basarunaa (~30 MB) copiés à chaque build par
+# private/scripts/fetch-basarunaa-models.sh depuis le POC desktop
+# (private/extensions/basarunaa/public/models/). Non versionnés.
+*.onnx
