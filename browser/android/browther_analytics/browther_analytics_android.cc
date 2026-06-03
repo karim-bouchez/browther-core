@@ -10,6 +10,8 @@
 
 #include "base/android/jni_array.h"
 #include "base/android/jni_string.h"
+#include "base/functional/bind.h"
+#include "base/task/single_thread_task_runner.h"
 #include "base/values.h"
 #include "brave/build/android/jni_headers/BrowtherAnalyticsBridge_jni.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
@@ -17,6 +19,7 @@
 #include "chrome/browser/browser_process.h"
 #include "components/metrics/metrics_pref_names.h"
 #include "components/prefs/pref_service.h"
+#include "content/public/browser/browser_thread.h"
 
 namespace browther_analytics::android {
 
@@ -70,11 +73,21 @@ void JNI_BrowtherAnalyticsBridge_TrackWithProps(
 
 void JNI_BrowtherAnalyticsBridge_IncrementMusicSeconds(JNIEnv* env,
                                                        jint jdelta) {
-  auto* service = BrowtherAnalyticsService::GetInstance();
-  if (!service) {
-    return;
-  }
-  service->IncrementMusicSeconds(static_cast<int>(jdelta));
+  // `SawtunaaPlayer.java` appelle ce bridge depuis son `Sawtunaa-NSNet2`
+  // preprocess thread. `BrowtherAnalyticsService::IncrementMusicSeconds`
+  // touche `PrefService` (kStatsMusicSecondsPending) qui a un
+  // SequenceChecker bound au UI thread → DCHECK fatal sinon. On post sur
+  // l'UI thread pour respecter le contrat (parité avec les autres callers
+  // C++ qui hookent déjà UI-thread-side).
+  const int delta = static_cast<int>(jdelta);
+  content::GetUIThreadTaskRunner({})->PostTask(
+      FROM_HERE, base::BindOnce([](int d) {
+        auto* service = BrowtherAnalyticsService::GetInstance();
+        if (!service) {
+          return;
+        }
+        service->IncrementMusicSeconds(d);
+      }, delta));
 }
 
 jboolean JNI_BrowtherAnalyticsBridge_IsPostHogEnabled(JNIEnv* env) {
