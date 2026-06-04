@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.basarunaa;
 
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
+import org.chromium.build.annotations.Nullable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,7 +40,7 @@ public final class BasarunaaEngine {
     public static final ExecutorService PIPELINE_EXEC =
             Executors.newSingleThreadExecutor(r -> new Thread(r, "Basarunaa-Pipeline"));
 
-    private static volatile BasarunaaEngine sInstance;
+    @Nullable private static volatile BasarunaaEngine sInstance;
 
     public static BasarunaaEngine getInstance() {
         BasarunaaEngine local = sInstance;
