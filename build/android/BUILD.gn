@@ -236,6 +236,12 @@ generate_jni("jni_headers") {
     # appelle Java via JNI uniquement sur Android.
     "//brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaBridge.java",
     "//brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPlayer.java",
+    # Browther: Basarunaa Android Jalon 2.D — bridges JNI symétriques au pattern
+    # Sawtunaa. BasarunaaBridge.java = statiques de logging. BasarunaaTabAnalyzer
+    # .java = instance par WebContents + @NativeMethods.onAnalyzeReply pour le
+    # callback Java→C++ vers BasarunaaTabHelper::OnAnalyzeReply.
+    "//brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
+    "//brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTabAnalyzer.java",
     "//brave/android/java/org/chromium/chrome/browser/preferences/BravePrefServiceBridge.java",
     "//brave/android/java/org/chromium/chrome/browser/signin/BraveSigninManager.java",
     "//brave/android/java/org/chromium/chrome/browser/util/TabUtils.java",

@@ -22,8 +22,7 @@ source_set("browser") {
     "//third_party/blink/public/common",
   ]
 
-  # Browther: Basarunaa Jalon 2.D ajoutera deps += [
-  #   "//brave/build/android:jni_headers" ] pour les bridges JNI vers
-  # BasarunaaBridge.java + BasarunaaTabAnalyzer.java. À 2.C les méthodes
-  # Mojo loggent seulement, pas de JNI.
+  # Browther: Basarunaa Jalon 2.D — bridges JNI vers BasarunaaBridge.java
+  # + BasarunaaTabAnalyzer.java générés par brave/build/android:jni_headers.
+  deps += [ "//brave/build/android:jni_headers" ]
 }

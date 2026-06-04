@@ -20,6 +20,26 @@
 #include "mojo/public/cpp/bindings/associated_remote.h"
 #include "third_party/blink/public/common/associated_interfaces/associated_interface_provider.h"
 
+#if BUILDFLAG(IS_ANDROID)
+// Browther: Basarunaa Android Jalon 2.D — bridges C++↔Java générés par
+// generate_jni dans brave/build/android/BUILD.gn :
+// - BasarunaaBridge_jni.h : log statique (LogJs / EmitMetric)
+// - BasarunaaTabAnalyzer_jni.h : instance per-WebContents (analyzeImage,
+//   cancel, pageReset, destroy)
+#include "base/android/jni_android.h"
+#include "base/android/jni_array.h"
+#include "base/android/jni_string.h"
+#include "brave/build/android/jni_headers/BasarunaaBridge_jni.h"
+#include "brave/build/android/jni_headers/BasarunaaTabAnalyzer_jni.h"
+#endif
+
+namespace {
+#if BUILDFLAG(IS_ANDROID)
+// Compteur monotone pour identifier les Analyzers Java côté logs.
+int g_next_analyzer_instance_id = 0;
+#endif
+}  // namespace
+
 namespace basarunaa {
 
 // static
@@ -43,8 +63,7 @@ BasarunaaTabHelper::BasarunaaTabHelper(content::WebContents* web_contents)
   LOG(INFO) << "[Basarunaa] TabHelper created for WebContents";
 
   // Observer toutes les prefs Basarunaa. On factorise sur une seule callback
-  // qui re-push l'intégralité de la config (cheap : 6 fields struct passés
-  // en Mojo, négligeable vs un round-trip par pref).
+  // qui re-push l'intégralité de la config.
   auto* prefs = user_prefs::UserPrefs::Get(web_contents->GetBrowserContext());
   if (prefs) {
     pref_change_registrar_.Init(prefs);
@@ -58,12 +77,37 @@ BasarunaaTabHelper::BasarunaaTabHelper(content::WebContents* web_contents)
     pref_change_registrar_.Add(kBasarunaaDebugMode, cb);
   }
 
-  // Jalon 2.D créera l'instance Java BasarunaaTabAnalyzer ici. Pour 2.C,
-  // java_analyzer_ reste null et les méthodes Mojo loggent seulement.
+#if BUILDFLAG(IS_ANDROID)
+  // Jalon 2.D — crée l'instance Java BasarunaaTabAnalyzer associée à ce tab.
+  // Le pointer `this` est passé pour permettre les callbacks Java→C++ via
+  // OnAnalyzeReply (cf. BasarunaaTabAnalyzerJni::onAnalyzeReply). Coût léger
+  // (juste l'objet Java + un long natif), l'engine ML est lazy (singleton
+  // chargé au premier analyzeImage, cf. BasarunaaEngine.getInstance).
+  JNIEnv* env = base::android::AttachCurrentThread();
+  int instance_id = ++g_next_analyzer_instance_id;
+  java_analyzer_.Reset(Java_BasarunaaTabAnalyzer_create(
+      env, instance_id, reinterpret_cast<jlong>(this)));
+#endif
 }
 
 void BasarunaaTabHelper::RenderFrameCreated(content::RenderFrameHost* rfh) {
   PushConfigToFrame(rfh);
+}
+
+void BasarunaaTabHelper::RenderFrameDeleted(content::RenderFrameHost* rfh) {
+#if BUILDFLAG(IS_ANDROID)
+  // Cleanup pending_analyses_ pour éviter des entrées dangling. La reply
+  // de BasarunaaTabAnalyzer arrivera après destruction du RFH = no-op
+  // côté OnAnalyzeReply (RFH not found dans la map).
+  const auto rfh_id = rfh->GetGlobalId();
+  for (auto it = pending_analyses_.begin(); it != pending_analyses_.end();) {
+    if (it->second == rfh_id) {
+      it = pending_analyses_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+#endif
 }
 
 void BasarunaaTabHelper::PushConfigToFrame(content::RenderFrameHost* rfh) {
@@ -97,34 +141,166 @@ void BasarunaaTabHelper::OnAnyBasarunaaPrefChanged() {
 }
 
 BasarunaaTabHelper::~BasarunaaTabHelper() {
-  // Jalon 2.D détruira l'instance Java ici.
+#if BUILDFLAG(IS_ANDROID)
+  if (!java_analyzer_.is_null()) {
+    JNIEnv* env = base::android::AttachCurrentThread();
+    Java_BasarunaaTabAnalyzer_destroy(env, java_analyzer_);
+    java_analyzer_.Reset();
+  }
+#endif
 }
 
-// --- android::mojom::BasarunaaAndroid stubs (Jalon 2.C — log-only) ---
-// Le bridge Java vers BasarunaaTabAnalyzer arrive en 2.D.
+// --- android::mojom::BasarunaaAndroid impl ---
 
 void BasarunaaTabHelper::LogJs(const std::string& message) {
   LOG(INFO) << "[Basarunaa/JS] " << message;
+#if BUILDFLAG(IS_ANDROID)
+  JNIEnv* env = base::android::AttachCurrentThread();
+  Java_BasarunaaBridge_onLogJs(
+      env, base::android::ConvertUTF8ToJavaString(env, message));
+#endif
 }
 
 void BasarunaaTabHelper::EmitMetric(const std::string& metric_json) {
   LOG(INFO) << "[Basarunaa/metric] " << metric_json;
+#if BUILDFLAG(IS_ANDROID)
+  JNIEnv* env = base::android::AttachCurrentThread();
+  Java_BasarunaaBridge_onMetric(
+      env, base::android::ConvertUTF8ToJavaString(env, metric_json));
+#endif
 }
 
-void BasarunaaTabHelper::AnalyzeImage(int32_t image_id,
-                                      const std::vector<uint8_t>& image_bytes) {
+void BasarunaaTabHelper::AnalyzeImage(
+    int32_t image_id,
+    const std::vector<uint8_t>& image_bytes) {
   LOG(INFO) << "[Basarunaa/AnalyzeImage] id=" << image_id
             << " bytes=" << image_bytes.size();
-  // Jalon 2.D : PostTask Java pool + appel Java_BasarunaaTabAnalyzer_analyzeImage.
+#if BUILDFLAG(IS_ANDROID)
+  if (java_analyzer_.is_null()) {
+    return;
+  }
+  // Mémorise le RFH source pour pouvoir router le verdict ML.
+  content::RenderFrameHost* rfh = receivers_.current_context();
+  if (!rfh) {
+    return;
+  }
+  pending_analyses_[image_id] = rfh->GetGlobalId();
+
+  auto* prefs =
+      user_prefs::UserPrefs::Get(web_contents()->GetBrowserContext());
+  if (!prefs) {
+    return;
+  }
+
+  JNIEnv* env = base::android::AttachCurrentThread();
+  base::android::ScopedJavaLocalRef<jbyteArray> j_bytes =
+      base::android::ToJavaByteArray(env, image_bytes);
+  Java_BasarunaaTabAnalyzer_analyzeImage(
+      env, java_analyzer_, image_id, j_bytes,
+      base::android::ConvertUTF8ToJavaString(env,
+                                             prefs->GetString(kBasarunaaMode)),
+      prefs->GetDouble(kBasarunaaConfBody),
+      prefs->GetDouble(kBasarunaaConfFace),
+      prefs->GetDouble(kBasarunaaGenderCertainty));
+#endif
 }
 
 void BasarunaaTabHelper::CancelAnalyze(int32_t image_id) {
   LOG(INFO) << "[Basarunaa/CancelAnalyze] id=" << image_id;
+#if BUILDFLAG(IS_ANDROID)
+  pending_analyses_.erase(image_id);
+  if (java_analyzer_.is_null()) {
+    return;
+  }
+  Java_BasarunaaTabAnalyzer_cancelAnalyze(
+      base::android::AttachCurrentThread(), java_analyzer_, image_id);
+#endif
 }
 
 void BasarunaaTabHelper::PageReset(const std::string& url) {
   LOG(INFO) << "[Basarunaa/PageReset] " << url;
+#if BUILDFLAG(IS_ANDROID)
+  // Clear seul les pending de ce RFH (PageReset vient d'un frame spécifique).
+  // Si on clear tout, on casse les autres frames qui peuvent tourner.
+  content::RenderFrameHost* rfh = receivers_.current_context();
+  if (rfh) {
+    const auto rfh_id = rfh->GetGlobalId();
+    for (auto it = pending_analyses_.begin(); it != pending_analyses_.end();) {
+      if (it->second == rfh_id) {
+        it = pending_analyses_.erase(it);
+      } else {
+        ++it;
+      }
+    }
+  }
+  if (java_analyzer_.is_null()) {
+    return;
+  }
+  JNIEnv* env = base::android::AttachCurrentThread();
+  Java_BasarunaaTabAnalyzer_pageReset(
+      env, java_analyzer_,
+      base::android::ConvertUTF8ToJavaString(env, url));
+#endif
 }
+
+#if BUILDFLAG(IS_ANDROID)
+void BasarunaaTabHelper::OnAnalyzeReply(int32_t image_id,
+                                        const std::string& decision,
+                                        const std::string& persons_json,
+                                        double elapsed_ms) {
+  auto it = pending_analyses_.find(image_id);
+  if (it == pending_analyses_.end()) {
+    LOG(WARNING) << "[Basarunaa/reply] dropped: no pending RFH for image_id="
+                 << image_id << " (rfh deleted during inference?)";
+    return;
+  }
+  const auto rfh_id = it->second;
+  pending_analyses_.erase(it);
+
+  content::RenderFrameHost* rfh = content::RenderFrameHost::FromID(rfh_id);
+  if (!rfh) {
+    LOG(WARNING) << "[Basarunaa/reply] dropped: RFH gone for image_id="
+                 << image_id;
+    return;
+  }
+
+  auto* prefs =
+      user_prefs::UserPrefs::Get(web_contents()->GetBrowserContext());
+  const std::string debug_mode =
+      prefs ? prefs->GetString(kBasarunaaDebugMode) : "none";
+
+  mojo::AssociatedRemote<android::mojom::BasarunaaApply> apply;
+  rfh->GetRemoteAssociatedInterfaces()->GetInterface(&apply);
+  apply->Apply(image_id, decision, persons_json, debug_mode, elapsed_ms);
+  LOG(INFO) << "[Basarunaa/reply] image_id=" << image_id
+            << " decision=" << decision
+            << " elapsed_ms=" << elapsed_ms;
+}
+
+// Browther: jni_zero @NativeMethods binding. Pattern Chromium standard
+// (cf. browther_analytics_android.cc) : l'annotation `@JNINamespace("basarunaa")`
+// côté Java place le binding C++ dans `namespace basarunaa`. Le nom de la
+// fonction est dérivé du nom classe Java + méthode (PascalCase). Le include
+// `BasarunaaTabAnalyzer_jni.h` génère le glue qui appelle cette fonction
+// depuis la `Natives` interface Java.
+void JNI_BasarunaaTabAnalyzer_OnAnalyzeReply(
+    JNIEnv* env,
+    jlong nativeHelper,
+    jint imageId,
+    const base::android::JavaRef<jstring>& jDecision,
+    const base::android::JavaRef<jstring>& jPersonsJson,
+    jdouble elapsedMs) {
+  auto* helper = reinterpret_cast<BasarunaaTabHelper*>(nativeHelper);
+  if (!helper) {
+    return;
+  }
+  helper->OnAnalyzeReply(
+      imageId,
+      base::android::ConvertJavaStringToUTF8(env, jDecision),
+      base::android::ConvertJavaStringToUTF8(env, jPersonsJson),
+      elapsedMs);
+}
+#endif
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaTabHelper);
 

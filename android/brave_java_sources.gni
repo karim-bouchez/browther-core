@@ -330,8 +330,15 @@ brave_java_sources = [
   # - V1 UI (toggle-only, pipeline ML Android à venir).
   # - Jalon 1 (bench ML runtime) : BasarunaaBenchmark + déclenché depuis
   #   SawtunaaPreferences temporairement (cf. Phase 3.1 § Étape 4 Android).
+  # - Jalon 2.D : BasarunaaBridge (statique log JNI), BasarunaaTabAnalyzer
+  #   (per-WebContents @CalledByNative + reply onAnalyzeReply via
+  #   NativeMethods), BasarunaaEngine (singleton stub), BasarunaaResult (POJO).
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaPanelBottomSheet.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaResult.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTabAnalyzer.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
   "../../brave/android/java/org/chromium/chrome/browser/shields_panel/ShieldsPanelBottomSheet.java",
   # Browther: Sawtunaa Voie B

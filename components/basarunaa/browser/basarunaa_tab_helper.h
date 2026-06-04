@@ -7,6 +7,7 @@
 #define BRAVE_COMPONENTS_BASARUNAA_BROWSER_BASARUNAA_TAB_HELPER_H_
 
 #include <cstdint>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -14,8 +15,10 @@
 #include "brave/components/basarunaa/common/mojom/basarunaa_android.mojom.h"
 #include "build/build_config.h"
 #include "components/prefs/pref_change_registrar.h"
+#include "content/public/browser/global_routing_id.h"
 #include "content/public/browser/web_contents_observer.h"
 #include "content/public/browser/web_contents_user_data.h"
+#include "mojo/public/cpp/bindings/associated_remote.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
 #include "mojo/public/cpp/bindings/receiver_set.h"
 
@@ -74,6 +77,7 @@ class BasarunaaTabHelper
 
   // content::WebContentsObserver
   void RenderFrameCreated(content::RenderFrameHost* rfh) override;
+  void RenderFrameDeleted(content::RenderFrameHost* rfh) override;
 
   // android::mojom::BasarunaaAndroid
   void LogJs(const std::string& message) override;
@@ -82,6 +86,16 @@ class BasarunaaTabHelper
                     const std::vector<uint8_t>& image_bytes) override;
   void CancelAnalyze(int32_t image_id) override;
   void PageReset(const std::string& url) override;
+
+#if BUILDFLAG(IS_ANDROID)
+  // Appelé par BasarunaaTabAnalyzer.java via JNI (BasarunaaTabAnalyzerJni
+  // ::onAnalyzeReply). Trouve le RFH source de l'AnalyzeImage initial dans
+  // `pending_analyses_` et push `BasarunaaApply::Apply` au renderer.
+  void OnAnalyzeReply(int32_t image_id,
+                      const std::string& decision,
+                      const std::string& persons_json,
+                      double elapsed_ms);
+#endif
 
  private:
   friend class content::WebContentsUserData<BasarunaaTabHelper>;
@@ -104,9 +118,15 @@ class BasarunaaTabHelper
       receivers_;
 
 #if BUILDFLAG(IS_ANDROID)
-  // Instance Java BasarunaaTabAnalyzer associée à ce WebContents. Créée en
-  // Jalon 2.D — pour 2.C la ref reste null (les méthodes JNI sont stubbées).
+  // Instance Java BasarunaaTabAnalyzer associée à ce WebContents. Créée
+  // dans le ctor via Java_BasarunaaTabAnalyzer_create(instance_id, this),
+  // détruite dans le dtor via Java_BasarunaaTabAnalyzer_destroy.
   base::android::ScopedJavaGlobalRef<jobject> java_analyzer_;
+
+  // image_id (côté JS) → RFH source du AnalyzeImage initial. Permet à
+  // OnAnalyzeReply (callback Java) de router la reply BasarunaaApply::Apply
+  // au bon renderer. Cleanup au RenderFrameDeleted pour éviter dangling.
+  std::map<int32_t, content::GlobalRenderFrameHostId> pending_analyses_;
 #endif
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
