@@ -6,8 +6,6 @@
 package org.chromium.chrome.browser.basarunaa;
 
 import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
@@ -18,16 +16,15 @@ import org.chromium.build.annotations.NullMarked;
  * <p>Reçoit les actions du JS via Mojo → {@code BasarunaaTabHelper} C++ → JNI :
  * {@link #analyzeImage}, {@link #cancelAnalyze}, {@link #pageReset}. Dispatch
  * vers le {@link BasarunaaEngine} singleton sur son pool single-thread global,
- * et retourne le verdict via JNI {@code onAnalyzeReply} → C++ → push Mojo
- * {@code BasarunaaApply::Apply} au renderer source.
+ * et retourne le verdict via {@link BasarunaaBridge#notifyAnalyzeReply} →
+ * C++ → push Mojo {@code BasarunaaApply::Apply} au renderer source.
  *
  * <p>{@code mNativeHelper} = pointer brute du {@code BasarunaaTabHelper}
  * passé au constructeur. Stocké pour permettre le callback C++ via
- * {@link Natives#onAnalyzeReply}. Le tab helper se charge d'invalider ce
+ * {@link BasarunaaBridge}. Le tab helper se charge d'invalider ce
  * pointeur en cas de destruction (via {@link #destroy}).
  */
 @NullMarked
-@JNINamespace("basarunaa")
 public final class BasarunaaTabAnalyzer {
     private static final String TAG = "Basarunaa";
 
@@ -56,7 +53,7 @@ public final class BasarunaaTabAnalyzer {
     /**
      * Reçoit une image encodée du JS via Mojo → C++ → JNI. Dispatch sur le
      * pool {@link BasarunaaEngine#PIPELINE_EXEC} pour ne pas bloquer le
-     * browser UI thread, et reply via {@link Natives#onAnalyzeReply}.
+     * browser UI thread, et reply via {@link BasarunaaBridge#notifyAnalyzeReply}.
      *
      * @param imageId data-basarunaa-id côté DOM (unique par page)
      * @param bytes JPEG/PNG/WEBP encodés
@@ -72,22 +69,23 @@ public final class BasarunaaTabAnalyzer {
         // Snapshot le pointer pour le test après retour du pipeline (tab peut
         // disparaitre entre temps).
         final long nativeHelperSnapshot = mNativeHelper;
+        final int instanceId = mInstanceId;
         BasarunaaEngine.PIPELINE_EXEC.execute(() -> {
             BasarunaaResult result;
             try {
                 result = BasarunaaEngine.getInstance()
                         .analyze(imageId, bytes, mode, confBody, confFace, genderCertainty);
             } catch (Throwable t) {
-                Log.e(TAG, "[Analyzer#" + mInstanceId + "] analyze failed", t);
+                Log.e(TAG, "[Analyzer#" + instanceId + "] analyze failed", t);
                 result = BasarunaaResult.empty(imageId);
             }
             // mNativeHelper peut être 0 si destroy() a tourné pendant l'inférence.
             // Snapshot ci-dessus + check final = race-free.
             if (nativeHelperSnapshot == 0 || mNativeHelper == 0) {
-                Log.w(TAG, "[Analyzer#%d] reply dropped (native invalidated)", mInstanceId);
+                Log.w(TAG, "[Analyzer#%d] reply dropped (native invalidated)", instanceId);
                 return;
             }
-            BasarunaaTabAnalyzerJni.get().onAnalyzeReply(
+            BasarunaaBridge.notifyAnalyzeReply(
                     nativeHelperSnapshot,
                     result.imageId,
                     result.decision,
@@ -108,16 +106,5 @@ public final class BasarunaaTabAnalyzer {
     public void pageReset(String url) {
         Log.i(TAG, "[Analyzer#%d] pageReset url=%s", mInstanceId, url);
         // Jalon 2.E : clear decision cache local éventuel + drop pending.
-    }
-
-    @NativeMethods
-    interface Natives {
-        /**
-         * Callback Java → C++. Le {@code nativeHelper} est passé tel quel
-         * (pointer brute) car on garantit déjà sa validité côté Java (check
-         * de {@code mNativeHelper != 0} avant l'appel).
-         */
-        void onAnalyzeReply(long nativeHelper, int imageId, String decision,
-                            String personsJson, double elapsedMs);
     }
 }

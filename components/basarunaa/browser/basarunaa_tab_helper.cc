@@ -23,7 +23,9 @@
 #if BUILDFLAG(IS_ANDROID)
 // Browther: Basarunaa Android Jalon 2.D — bridges C++↔Java générés par
 // generate_jni dans brave/build/android/BUILD.gn :
-// - BasarunaaBridge_jni.h : log statique (LogJs / EmitMetric)
+// - BasarunaaBridge_jni.h : log statique (LogJs / EmitMetric) +
+//   onAnalyzeReply (Java → C++ callback du verdict ML, @NativeMethods
+//   centralisé ici pour passer R8, cf. note plus bas).
 // - BasarunaaTabAnalyzer_jni.h : instance per-WebContents (analyzeImage,
 //   cancel, pageReset, destroy)
 #include "base/android/jni_android.h"
@@ -281,9 +283,15 @@ void BasarunaaTabHelper::OnAnalyzeReply(int32_t image_id,
 // (cf. browther_analytics_android.cc) : l'annotation `@JNINamespace("basarunaa")`
 // côté Java place le binding C++ dans `namespace basarunaa`. Le nom de la
 // fonction est dérivé du nom classe Java + méthode (PascalCase). Le include
-// `BasarunaaTabAnalyzer_jni.h` génère le glue qui appelle cette fonction
-// depuis la `Natives` interface Java.
-void JNI_BasarunaaTabAnalyzer_OnAnalyzeReply(
+// `BasarunaaBridge_jni.h` génère le glue qui appelle cette fonction depuis
+// la `Natives` interface Java.
+//
+// Note 2026-06-04 : le @NativeMethods vit sur BasarunaaBridge (statique
+// reachable depuis BasarunaaTabAnalyzer.analyzeImage) plutôt que sur
+// BasarunaaTabAnalyzer directement. Sans ça R8 strip le binding `*Jni`
+// car aucune classe Java reachable ne le référence — cf. message d'erreur
+// "Unneeded Java files: BasarunaaTabAnalyzer.java" du build précédent.
+void JNI_BasarunaaBridge_OnAnalyzeReply(
     JNIEnv* env,
     jlong nativeHelper,
     jint imageId,

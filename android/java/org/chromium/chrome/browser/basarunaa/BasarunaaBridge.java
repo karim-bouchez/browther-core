@@ -6,20 +6,33 @@
 package org.chromium.chrome.browser.basarunaa;
 
 import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
 /**
- * Bridge C++ → Java statique pour Basarunaa (logging only). Mirror du pattern
- * {@code SawtunaaBridge}.
+ * Bridge C++ ↔ Java pour Basarunaa.
  *
- * <p>Les actions image (analyzeImage, cancelAnalyze, pageReset) sont routées
- * par le {@code BasarunaaTabHelper} C++ vers une instance Java
- * {@link BasarunaaTabAnalyzer} per-WebContents — pas via ce bridge. On garde
- * ce point d'entrée uniquement pour {@link #onLogJs} et {@link #onMetric},
- * qui n'ont aucun état partagé et bénéficient du tag logcat global.
+ * <p>Pattern parité {@code BrowtherAnalyticsBridge} : la classe est statique
+ * et référencée depuis du Java reachable, donc R8 la garde dans le dex avec
+ * ses bindings {@code @NativeMethods} (le binding {@code @NativeMethods}
+ * porté par un {@code BasarunaaTabAnalyzer} non-reachable est strippé par
+ * R8 alors que les `@CalledByNative` côté analyzer survivent — incident
+ * observé au premier build 2026-06-04, fix par centralisation ici).
+ *
+ * <p>Direction <b>C++ → Java</b> ({@code @CalledByNative}) :
+ *   - {@link #onLogJs(String)}
+ *   - {@link #onMetric(String)}
+ *
+ * <p>Direction <b>Java → C++</b> ({@code @NativeMethods}) :
+ *   - {@link #notifyAnalyzeReply} : appelée par {@link BasarunaaTabAnalyzer}
+ *     après inférence ML pour reporter le verdict au tab helper C++. Le
+ *     pointer natif est passé tel quel ; sa validité est garantie côté
+ *     Java par l'appelant (check de {@code mNativeHelper != 0}).
  */
+@JNINamespace("basarunaa")
 @NullMarked
 public final class BasarunaaBridge {
     private static final String TAG = "Basarunaa";
@@ -34,5 +47,27 @@ public final class BasarunaaBridge {
     @CalledByNative
     public static void onMetric(String metricJson) {
         Log.i(TAG, "[Java/Metric] %s", metricJson);
+    }
+
+    /**
+     * Reporte le verdict ML au C++ pour push vers le renderer source via
+     * {@code BasarunaaApply::Apply}.
+     */
+    public static void notifyAnalyzeReply(long nativeHelper, int imageId,
+                                          String decision, String personsJson,
+                                          double elapsedMs) {
+        BasarunaaBridgeJni.get().onAnalyzeReply(
+                nativeHelper, imageId, decision, personsJson, elapsedMs);
+    }
+
+    @NativeMethods
+    interface Natives {
+        /**
+         * Callback Java → C++ vers {@code BasarunaaTabHelper::OnAnalyzeReply}.
+         * Le {@code nativeHelper} est un pointer brute du tab helper, sa
+         * validité est garantie côté Java par le check de l'appelant.
+         */
+        void onAnalyzeReply(long nativeHelper, int imageId, String decision,
+                            String personsJson, double elapsedMs);
     }
 }
