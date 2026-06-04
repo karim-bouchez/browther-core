@@ -15,6 +15,8 @@
 #if BUILDFLAG(IS_ANDROID)
 // Browther: Sawtunaa Voie B (Jalon 2.B.4) — Android-only RFO.
 #include "brave/components/sawtunaa/renderer/sawtunaa_render_frame_observer.h"
+// Browther: Basarunaa Android Jalon 2.F — V8 binding + RFO Android.
+#include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer_android.h"
 #endif
 #include "brave/components/brave_search/renderer/brave_search_render_frame_observer.h"
 #include "brave/components/brave_shields/core/common/features.h"
@@ -190,6 +192,11 @@ void BraveContentRendererClient::RenderFrameCreated(
   // DidCommitProvisionalLoad du main frame, pour valider la chaîne Mojo
   // renderer → browser → TabHelper. JS-side bindings viennent au Jalon 2.C.
   new sawtunaa::SawtunaaRenderFrameObserver(render_frame);
+
+  // Browther: Basarunaa Android Jalon 2.F — RFO + V8 binding
+  // `window.__basarunaa` qui pousse les events JS au browser via Mojo et
+  // reçoit le verdict ML via AssociatedInterface `BasarunaaApply`.
+  new basarunaa::android::BasarunaaRenderFrameObserverAndroid(render_frame);
 #endif
 
   if (brave_search::IsDefaultAPIEnabled()) {

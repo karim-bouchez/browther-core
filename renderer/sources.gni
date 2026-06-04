@@ -81,6 +81,8 @@ if (is_android) {
     # Browther: Sawtunaa Voie B (Jalon 2.B.4) — RFO Android-only qui ping le
     # browser-side TabHelper via Mojo au commit du main frame.
     "//brave/components/sawtunaa/renderer",
+    # Browther: Basarunaa Android Jalon 2.F — V8 binding + RFO Android.
+    "//brave/components/basarunaa/renderer:renderer_android",
   ]
 }
 

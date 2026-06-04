@@ -3,6 +3,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
+# Spike Desktop M2 (`ImageAnalyzer`) — pattern Mojo IPC renderer→browser pour
+# tester BigBuffer + raw image bytes sous stress. Cohabite avec la target
+# Android `:renderer_android` plus bas (qui implémente le pipeline réel via
+# V8 binding `window.__basarunaa`).
 source_set("renderer") {
   sources = [
     "basarunaa_render_frame_observer.cc",
@@ -17,4 +21,43 @@ source_set("renderer") {
     "//mojo/public/cpp/bindings",
     "//third_party/blink/public:blink",
   ]
+}
+
+# Browther: Basarunaa Android Jalon 2.F — V8 binding `window.__basarunaa` +
+# RFO `BasarunaaRenderFrameObserverAndroid` + script main world. Pattern
+# dupliqué de Sawtunaa. Le bundle JS Jalon 2.F est un STUB (port complet du
+# userscript core en 2.G).
+if (is_android) {
+  action("generate_basarunaa_script_android_header") {
+    script = "generate_script_header.py"
+    inputs = [ "basarunaa_script_android.js" ]
+    outputs =
+        [ "$target_gen_dir/basarunaa_script_android_generated.h" ]
+    args = [
+      rebase_path("basarunaa_script_android.js", root_build_dir),
+      rebase_path("$target_gen_dir/basarunaa_script_android_generated.h",
+                  root_build_dir),
+    ]
+  }
+
+  source_set("renderer_android") {
+    sources = [
+      "basarunaa_js_handler.cc",
+      "basarunaa_js_handler.h",
+      "basarunaa_render_frame_observer_android.cc",
+      "basarunaa_render_frame_observer_android.h",
+    ]
+
+    deps = [
+      ":generate_basarunaa_script_android_header",
+      "//base",
+      "//brave/components/basarunaa/common/mojom:mojom_android",
+      "//content/public/renderer",
+      "//gin",
+      "//mojo/public/cpp/bindings",
+      "//third_party/blink/public:blink",
+      "//third_party/blink/public:blink_headers",
+      "//v8",
+    ]
+  }
 }
