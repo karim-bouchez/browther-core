@@ -9,12 +9,14 @@
 
 #include "base/functional/bind.h"
 #include "base/logging.h"
+#include "base/task/sequenced_task_runner.h"
 #include "brave/components/basarunaa/common/mojom/basarunaa_android.mojom.h"
 #include "brave/components/constants/pref_names.h"
 #include "build/build_config.h"
 #include "components/prefs/pref_service.h"
 #include "components/user_prefs/user_prefs.h"
 #include "content/public/browser/browser_context.h"
+#include "content/public/browser/browser_thread.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
 #include "mojo/public/cpp/bindings/associated_remote.h"
@@ -286,16 +288,38 @@ void BasarunaaTabHelper::OnAnalyzeReply(int32_t image_id,
 //   _ptr->OnAnalyzeReply(env, imageId, decision_ref, personsJson_ref, elapsedMs);
 // dans `BasarunaaBridge_jni.h`. Le `using Helper = BasarunaaTabHelper` est juste
 // avant le `DEFINE_JNI(BasarunaaBridge)` plus bas.
+//
+// Appelée depuis le thread Java `Basarunaa-Pipeline` (worker single-thread du
+// BasarunaaEngine). Hop obligatoire vers UI thread parce que l'overload
+// std::string touche `pending_analyses_` (membre std::map) + appelle
+// `RenderFrameHost::FromID` + `rfh->GetRemoteAssociatedInterfaces()` qui
+// DCHECK_CURRENTLY_ON(UI). Sans ce hop : crash SIGABRT
+// "DCHECK failed: checker.CalledOnValidBrowserThread(thread_identifier).
+//  Must be called on Chrome_UIThread; actually called on Unknown Thread."
+// (incident 2026-06-04 au premier round-trip après fix DEFINE_JNI + JavaRef).
 void BasarunaaTabHelper::OnAnalyzeReply(
     JNIEnv* env,
     jint image_id,
     const base::android::JavaRef<jstring>& j_decision,
     const base::android::JavaRef<jstring>& j_persons_json,
     jdouble elapsed_ms) {
-  OnAnalyzeReply(image_id,
-                 base::android::ConvertJavaStringToUTF8(env, j_decision),
-                 base::android::ConvertJavaStringToUTF8(env, j_persons_json),
-                 elapsed_ms);
+  std::string decision =
+      base::android::ConvertJavaStringToUTF8(env, j_decision);
+  std::string persons_json =
+      base::android::ConvertJavaStringToUTF8(env, j_persons_json);
+
+  // Cast pour disambiguer entre les 2 overloads OnAnalyzeReply (la JNI et la
+  // std::string).
+  using StringOverload = void (BasarunaaTabHelper::*)(
+      int32_t, const std::string&, const std::string&, double);
+
+  content::GetUIThreadTaskRunner({})->PostTask(
+      FROM_HERE,
+      base::BindOnce(static_cast<StringOverload>(
+                         &BasarunaaTabHelper::OnAnalyzeReply),
+                     weak_factory_.GetWeakPtr(), int32_t{image_id},
+                     std::move(decision), std::move(persons_json),
+                     double{elapsed_ms}));
 }
 
 // Alias requis par jni_zero pattern "long native pointer" — le `_jni.h` généré

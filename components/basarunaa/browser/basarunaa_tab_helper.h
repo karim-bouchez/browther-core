@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "base/memory/raw_ptr.h"
+#include "base/memory/weak_ptr.h"
 #include "brave/components/basarunaa/common/mojom/basarunaa_android.mojom.h"
 #include "build/build_config.h"
 #include "components/prefs/pref_change_registrar.h"
@@ -144,6 +145,12 @@ class BasarunaaTabHelper
   // au bon renderer. Cleanup au RenderFrameDeleted pour éviter dangling.
   std::map<int32_t, content::GlobalRenderFrameHostId> pending_analyses_;
 #endif
+
+  // WeakPtrFactory pour PostTask Java-thread → UI-thread depuis la JNI
+  // overload de OnAnalyzeReply. Doit être déclarée en DERNIER (les weak
+  // ptrs sont invalidés au début du destructor, avant que les autres
+  // membres soient détruits).
+  base::WeakPtrFactory<BasarunaaTabHelper> weak_factory_{this};
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 };
