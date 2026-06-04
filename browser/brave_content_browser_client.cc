@@ -195,6 +195,9 @@
 // Browther: Sawtunaa Voie B (Jalon 2.B.3) — Android-only Mojo binder.
 #include "brave/components/sawtunaa/browser/sawtunaa_tab_helper.h"
 #include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+// Browther: Basarunaa Android Jalon 2.C — Android-only Mojo binder.
+#include "brave/components/basarunaa/browser/basarunaa_tab_helper.h"
+#include "brave/components/basarunaa/common/mojom/basarunaa_android.mojom.h"
 #endif
 #include "brave/components/decentralized_dns/content/decentralized_dns_navigation_throttle.h"
 #endif
@@ -968,6 +971,15 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
   // remote vers cette impl. Pas encore gated par pref (vient au 2.B.6).
   map->Add<sawtunaa::mojom::Sawtunaa>(
       base::BindRepeating(&sawtunaa::SawtunaaTabHelper::BindSawtunaa));
+
+  // Browther: Basarunaa Android Jalon 2.C — bind
+  // `basarunaa::android::mojom::BasarunaaAndroid` à un BasarunaaTabHelper
+  // par WebContents. Pattern parité Sawtunaa. Le renderer (script JS injecté
+  // au Jalon 2.G) appellera `Mojo.bindInterface("basarunaa.android.mojom.
+  // BasarunaaAndroid", ...)`. Pas de gating pref ici (cf. comment dans
+  // BindBasarunaaAndroid pour l'impasse toggle ON live).
+  map->Add<basarunaa::android::mojom::BasarunaaAndroid>(
+      base::BindRepeating(&basarunaa::BasarunaaTabHelper::BindBasarunaaAndroid));
 #endif
 
 #if !BUILDFLAG(IS_ANDROID)

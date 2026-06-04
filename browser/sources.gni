@@ -562,6 +562,12 @@ if (is_android) {
     "//brave/browser/password_entry_edit/android",
     "//brave/browser/ui/webui/new_tab_takeover/android:new_tab_takeover",
     "//brave/build/android:jni_headers",
+    # Browther: Basarunaa Android Jalon 2.C — pipeline image natif. Le
+    # source_set assert is_android dans son BUILD.gn (purement
+    # WebContentsUserData + Mojo + PrefChangeRegistrar Java JNI). Le bind est
+    # gated `#if BUILDFLAG(IS_ANDROID)` dans brave_content_browser_client.cc.
+    "//brave/components/basarunaa/browser",
+    "//brave/components/basarunaa/common/mojom:mojom_android",
     "//brave/components/brave_sync:sync_service_impl_helper",
     "//chrome/android:jni_headers",
     "//chrome/browser/password_manager/android:jni_headers",

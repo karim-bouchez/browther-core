@@ -22,3 +22,13 @@ mojom("mojom") {
 
   public_deps = [ "//mojo/public/mojom/base" ]
 }
+
+# Browther: Jalon 2 port natif Android. IDL séparé pour ne pas mélanger
+# avec le WebUI panel desktop + M2 spike ImageAnalyzer. generate_java=true
+# pour exposer les types via Java/JNI au BasarunaaTabAnalyzer + bridge.
+if (is_android) {
+  mojom("mojom_android") {
+    generate_java = true
+    sources = [ "basarunaa_android.mojom" ]
+  }
+}

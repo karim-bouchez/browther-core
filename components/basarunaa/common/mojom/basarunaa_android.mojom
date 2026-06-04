@@ -1,0 +1,120 @@
+// Copyright (c) 2026 The Browther Authors. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// you can obtain one at https://mozilla.org/MPL/2.0/.
+
+// Module séparé du `basarunaa.mojom` existant (qui sert le WebUI panel
+// desktop + le M2 spike `ImageAnalyzer`). On préfixe avec `.android` pour
+// éviter toute collision de noms et signaler que ce contrat est Android-
+// only (le port Desktop/macOS de Basarunaa pour la migration native passera
+// par le spike `ImageAnalyzer` ou son successeur, pas par cet IDL).
+module basarunaa.android.mojom;
+
+// Settings que le browser push au renderer (état de la pref `kBasarunaaEnabled`
+// + sliders + mode + debug). Sérialisé en un seul message pour limiter les
+// round-trips quand plusieurs prefs changent ensemble (panel debug, capture
+// mode, etc.).
+struct BasarunaaSettings {
+  bool enabled;
+  // "blur-female" | "blur-male" | "blur-all" (cf. UserPrefs.mode du core POC).
+  string mode;
+  // Détection thresholds [0.0, 1.0]. Defaults POC : 0.25 / 0.30 / 0.70.
+  double conf_body;
+  double conf_face;
+  double gender_certainty;
+  // "none" | "boxes" | "debug".
+  string debug_mode;
+};
+
+// Renderer → browser. 1 receiver par RenderFrameHost via ReceiverSet keyed
+// sur le RFH (pattern Sawtunaa). Bindée par `BindBasarunaaAndroid` dans
+// `brave_content_browser_client.cc` (gated `BUILDFLAG(IS_ANDROID)`).
+//
+// Toutes les méthodes sont fire-and-forget — la réponse (verdict ML pour
+// `AnalyzeImage`) revient par l'AssociatedInterface `BasarunaaApply` (cf.
+// plus bas), pas en `=>` réponse Mojo. Raison : le verdict transite par
+// Java (ORT inférence), donc on a besoin de PostTask UI thread → Java
+// thread → reply, et le pattern AssociatedInterface est plus propre que
+// pending_receiver/pending_remote chainés.
+interface BasarunaaAndroid {
+  // Plain text log JS (debug). Forwardé à `LOG(INFO)` côté browser.
+  LogJs(string message);
+
+  // Structured metric (JSON-serialised côté JS). Forwardé à PostHog via
+  // `BrowtherAnalyticsBridge` Java. Gating consent côté `BrowtherAnalyticsService`.
+  EmitMetric(string metric_json);
+
+  // Décode + classifie une image. `image_id` est unique par page (côté JS,
+  // `data-basarunaa-id` attribut). `image_bytes` = JPEG/PNG/WEBP encodés
+  // récupérés via fetch CORS (force-cache) côté JS, fallback canvas
+  // `toDataURL("image/jpeg", 0.85)` si CORS-tainted. Mojo sérialise auto en
+  // `BigBuffer` (shared memory) si >64 KB, sinon inline.
+  //
+  // Pas de réponse Mojo — le verdict arrive via `BasarunaaApply.Apply(...)`
+  // une fois Java + ORT terminés.
+  AnalyzeImage(int32 image_id, array<uint8> image_bytes);
+
+  // Annule une analyse en cours (img sorti du DOM ou viewport). Best-effort
+  // — si l'inférence a déjà commencé côté ORT, on consomme le résultat.
+  CancelAnalyze(int32 image_id);
+
+  // SPA navigation côté JS (équivalent du PageReset Sawtunaa). Clear le
+  // decision cache + drop les inférences en cours pour ce frame.
+  PageReset(string url);
+};
+
+// Browser → renderer (AssociatedInterface, mêmes garanties de routing que
+// `SawtunaaConfig`). Bindée par le `BasarunaaRenderFrameObserverAndroid` via
+// `AssociatedInterfaceRegistry`.
+//
+// Pousse l'état pref enabled + mode + thresholds. Le renderer stocke
+// localement et :
+//  - si `enabled=false` au boot/navigate : n'injecte PAS le script.
+//  - si transition true → false en live : dispatche `basarunaa-disable` au
+//    main world (le script JS écoute, restaure les images via
+//    `releaseHideFirst` et stoppe le scanner).
+//  - si transition false → true en live : le panel BottomSheet reload
+//    l'onglet courant (pitfall MainWorldScriptContext provisional).
+interface BasarunaaConfig {
+  SetConfig(BasarunaaSettings settings);
+};
+
+// Browser → renderer (AssociatedInterface). Pousse le verdict ML d'une
+// `AnalyzeImage` antérieure. Le frame qui a émis le `AnalyzeImage` initial
+// est l'unique destinataire de l'`Apply` correspondant (le browser garde
+// une map `image_id → GlobalRenderFrameHostId` pour router).
+//
+// Côté renderer, le RFO appelle
+//   `window.__basarunaaApply(image_id, decision, JSON.parse(persons_json),
+//                            debug_mode, elapsed_ms)`
+// via `WebLocalFrame::RequestExecuteScriptInMainWorld`. Le main world script
+// (cf. `basarunaa_script.js`) consomme et applique le compositing (polygon
+// mask + feathered blur) côté JS.
+interface BasarunaaApply {
+  // `decision` : "keep" | "blur" | "nsfw". "keep" = aucune personne à
+  // flouter (toutes hommes en mode `blur-female`, ou image vide). "blur"
+  // = applique compositing par personne (`persons_json` contient les bbox
+  // + keypoints + gender). "nsfw" = full-image blur (cf. `ApplyNsfw` aussi
+  // bien, gardé pour symétrie historique).
+  //
+  // `persons_json` = JSON array conforme au type `Person` du core POC TS
+  // (cf. `src/core/types.ts`). Vide si `decision != "blur"`.
+  //
+  // `debug_mode` mirror de la `BasarunaaSettings.debug_mode` courante —
+  // évite un round-trip JS↔browser pour lire la pref au moment du
+  // compositing.
+  //
+  // `elapsed_ms` = temps total côté Java (décodage Bitmap + inférences ORT +
+  // matching + sérialisation). Loggué côté JS dans le debug overlay.
+  Apply(int32 image_id,
+        string decision,
+        string persons_json,
+        string debug_mode,
+        double elapsed_ms);
+
+  // Variante NSFW : full-image blur. Différé au Jalon 2bis (modèles Marqo +
+  // NudeNet pas encore bundlés), mais signature posée maintenant pour ne
+  // pas casser l'IDL au moment du wiring. Côté JS : applique un blur
+  // gaussien sur toute l'image (pas par personne).
+  ApplyNsfw(int32 image_id, double score);
+};

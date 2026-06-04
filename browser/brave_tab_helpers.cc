@@ -130,6 +130,13 @@
 // quand elle est OFF au boot. Cf. brave/components/sawtunaa/.
 #include "brave/components/sawtunaa/browser/sawtunaa_tab_helper.h"
 
+// Browther: Basarunaa pipeline image natif Android (Jalon 2). Même rationale
+// que Sawtunaa : attaché systématiquement pour pouvoir propager le toggle
+// live au renderer. Cf. brave/components/basarunaa/.
+#if BUILDFLAG(IS_ANDROID)
+#include "brave/components/basarunaa/browser/basarunaa_tab_helper.h"
+#endif
+
 namespace brave {
 
 void AttachTabHelpers(content::WebContents* web_contents) {
@@ -144,6 +151,10 @@ void AttachTabHelpers(content::WebContents* web_contents) {
   // est OFF au boot pour pouvoir push SetEnabled(true) au renderer si le
   // user toggle ON live (sans reload).
   sawtunaa::SawtunaaTabHelper::CreateForWebContents(web_contents);
+  // Browther: Basarunaa pipeline image natif Android (Jalon 2). Même
+  // pattern que Sawtunaa : TabHelper + (à venir 2.D) Java TabAnalyzer +
+  // PrefChangeRegistrar sur les 6 prefs Basarunaa. Toggle live sans reload.
+  basarunaa::BasarunaaTabHelper::CreateForWebContents(web_contents);
 #else
   // Add tab helpers here unless they are intended for android too
   brave_shields::BraveShieldsTabHelper::CreateForWebContents(web_contents);
