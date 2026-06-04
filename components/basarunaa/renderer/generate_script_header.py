@@ -23,7 +23,9 @@ def main():
     with open(script_path, encoding="utf-8") as f:
         script_js = f.read()
 
-    delim = "BASARUNAA_JS_BLOB"
+    # Raw-string delimiters maxent à 16 chars (C++ standard). `BASARUNAA_JS_BLOB`
+    # = 17 → compile error. On raccourcit.
+    delim = "BASARUNAA_BLOB"
     if delim in script_js:
         sys.stderr.write(
             "Error: delimiter {!r} unexpectedly present in source\n".format(delim)
