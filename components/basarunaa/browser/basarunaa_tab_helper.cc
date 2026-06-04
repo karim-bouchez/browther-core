@@ -279,37 +279,42 @@ void BasarunaaTabHelper::OnAnalyzeReply(int32_t image_id,
             << " elapsed_ms=" << elapsed_ms;
 }
 
-// Browther: jni_zero @NativeMethods binding. Pattern Chromium standard
-// (cf. browther_analytics_android.cc) : l'annotation `@JNINamespace("basarunaa")`
-// côté Java place le binding C++ dans `namespace basarunaa`. Le nom de la
-// fonction est dérivé du nom classe Java + méthode (PascalCase). Le include
-// `BasarunaaBridge_jni.h` génère le glue qui appelle cette fonction depuis
-// la `Natives` interface Java.
-//
-// Note 2026-06-04 : le @NativeMethods vit sur BasarunaaBridge (statique
-// reachable depuis BasarunaaTabAnalyzer.analyzeImage) plutôt que sur
-// BasarunaaTabAnalyzer directement. Sans ça R8 strip le binding `*Jni`
-// car aucune classe Java reachable ne le référence — cf. message d'erreur
-// "Unneeded Java files: BasarunaaTabAnalyzer.java" du build précédent.
-void JNI_BasarunaaBridge_OnAnalyzeReply(
+// Overload JNI : signature attendue par jni_zero pour
+// `@NativeMethods.onAnalyzeReply(long nativeHelper, int, String, String, double)`.
+// jni_zero détecte le `long native*` 1er param → génère
+//   Helper* _ptr = reinterpret_cast<Helper*>(nativeHelper);
+//   _ptr->OnAnalyzeReply(env, imageId, decision_ref, personsJson_ref, elapsedMs);
+// dans `BasarunaaBridge_jni.h`. Le `using Helper = BasarunaaTabHelper` est juste
+// avant le `DEFINE_JNI(BasarunaaBridge)` plus bas.
+void BasarunaaTabHelper::OnAnalyzeReply(
     JNIEnv* env,
-    jlong nativeHelper,
-    jint imageId,
-    const base::android::JavaRef<jstring>& jDecision,
-    const base::android::JavaRef<jstring>& jPersonsJson,
-    jdouble elapsedMs) {
-  auto* helper = reinterpret_cast<BasarunaaTabHelper*>(nativeHelper);
-  if (!helper) {
-    return;
-  }
-  helper->OnAnalyzeReply(
-      imageId,
-      base::android::ConvertJavaStringToUTF8(env, jDecision),
-      base::android::ConvertJavaStringToUTF8(env, jPersonsJson),
-      elapsedMs);
+    jint image_id,
+    const base::android::JavaParamRef<jstring>& j_decision,
+    const base::android::JavaParamRef<jstring>& j_persons_json,
+    jdouble elapsed_ms) {
+  OnAnalyzeReply(image_id,
+                 base::android::ConvertJavaStringToUTF8(env, j_decision),
+                 base::android::ConvertJavaStringToUTF8(env, j_persons_json),
+                 elapsed_ms);
 }
-#endif
+
+// Alias requis par jni_zero pattern "long native pointer" — le `_jni.h` généré
+// fait `Helper* _ptr = reinterpret_cast<Helper*>(nativeHelper)` puis
+// `_ptr->OnAnalyzeReply(...)`. Doit être dans namespace basarunaa parce que
+// l'@JNINamespace("basarunaa") Java fait `using namespace basarunaa` côté C++.
+using Helper = BasarunaaTabHelper;
+#endif  // BUILDFLAG(IS_ANDROID)
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaTabHelper);
 
 }  // namespace basarunaa
+
+#if BUILDFLAG(IS_ANDROID)
+// Macro jni_zero qui génère `Java_J_N_M*` (la fonction native side Java→C++)
+// dans libchrome.so. Sans ça, le runtime ART lève
+// `UnsatisfiedLinkError: No implementation found for J.N.M*` (cf. crash 2026-06-04
+// à l'appel BasarunaaBridge.notifyAnalyzeReply). Doit être HORS du namespace
+// `basarunaa` et après l'include du `BasarunaaBridge_jni.h`. Cf.
+// `chrome/browser/android/httpclient/http_client_bridge.cc:DEFINE_JNI(SimpleHttpClient)`.
+DEFINE_JNI(BasarunaaBridge)
+#endif

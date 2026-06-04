@@ -23,6 +23,7 @@
 #include "mojo/public/cpp/bindings/receiver_set.h"
 
 #if BUILDFLAG(IS_ANDROID)
+#include "base/android/jni_android.h"
 #include "base/android/scoped_java_ref.h"
 #endif
 
@@ -88,13 +89,28 @@ class BasarunaaTabHelper
   void PageReset(const std::string& url) override;
 
 #if BUILDFLAG(IS_ANDROID)
-  // Appelé par BasarunaaTabAnalyzer.java via JNI (BasarunaaTabAnalyzerJni
-  // ::onAnalyzeReply). Trouve le RFH source de l'AnalyzeImage initial dans
-  // `pending_analyses_` et push `BasarunaaApply::Apply` au renderer.
+  // Appelé par BasarunaaTabAnalyzer.java via BasarunaaBridge.notifyAnalyzeReply.
+  // Trouve le RFH source de l'AnalyzeImage initial dans `pending_analyses_`
+  // et push `BasarunaaApply::Apply` au renderer.
   void OnAnalyzeReply(int32_t image_id,
                       const std::string& decision,
                       const std::string& persons_json,
                       double elapsed_ms);
+
+  // Overload JNI : signature attendue par jni_zero pour le @NativeMethods
+  // `onAnalyzeReply(long nativeHelper, int imageId, String, String, double)`
+  // de BasarunaaBridge.java. jni_zero détecte le pattern `long native*` en
+  // 1er param et génère `Helper::OnAnalyzeReply(JNIEnv*, ...)` (cf. fichier
+  // BasarunaaBridge_jni.h généré). Cette overload convertit les jstring vers
+  // std::string et délègue à l'overload du dessus.
+  //
+  // Le `using Helper = BasarunaaTabHelper` requis par jni_zero est dans le
+  // .cc, juste avant le `DEFINE_JNI(BasarunaaBridge)` final.
+  void OnAnalyzeReply(JNIEnv* env,
+                      jint image_id,
+                      const base::android::JavaParamRef<jstring>& j_decision,
+                      const base::android::JavaParamRef<jstring>& j_persons_json,
+                      jdouble elapsed_ms);
 #endif
 
  private:
