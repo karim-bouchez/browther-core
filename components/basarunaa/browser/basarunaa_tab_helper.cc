@@ -289,8 +289,8 @@ void BasarunaaTabHelper::OnAnalyzeReply(int32_t image_id,
 void BasarunaaTabHelper::OnAnalyzeReply(
     JNIEnv* env,
     jint image_id,
-    const base::android::JavaParamRef<jstring>& j_decision,
-    const base::android::JavaParamRef<jstring>& j_persons_json,
+    const base::android::JavaRef<jstring>& j_decision,
+    const base::android::JavaRef<jstring>& j_persons_json,
     jdouble elapsed_ms) {
   OnAnalyzeReply(image_id,
                  base::android::ConvertJavaStringToUTF8(env, j_decision),

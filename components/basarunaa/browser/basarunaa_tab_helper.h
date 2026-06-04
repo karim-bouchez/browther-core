@@ -108,8 +108,8 @@ class BasarunaaTabHelper
   // .cc, juste avant le `DEFINE_JNI(BasarunaaBridge)` final.
   void OnAnalyzeReply(JNIEnv* env,
                       jint image_id,
-                      const base::android::JavaParamRef<jstring>& j_decision,
-                      const base::android::JavaParamRef<jstring>& j_persons_json,
+                      const base::android::JavaRef<jstring>& j_decision,
+                      const base::android::JavaRef<jstring>& j_persons_json,
                       jdouble elapsed_ms);
 #endif
 
