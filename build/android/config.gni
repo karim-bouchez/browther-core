@@ -184,6 +184,13 @@ brave_jni_headers_sources = [
   "//brave/android/java/org/chromium/chrome/browser/BraveRewardsNativeWorker.java",
   "//brave/android/java/org/chromium/chrome/browser/BraveSyncWorker.java",
   "//brave/android/java/org/chromium/chrome/browser/app/BraveActivity.java",
+  # Browther: Basarunaa Android Jalon 2.D — BasarunaaBridge a @NativeMethods
+  # (onAnalyzeReply Java→C++). Sans cet ajout à brave_jni_headers_sources,
+  # le walk metadata du libchrome__jni_registration ne le voit pas, et le
+  # check jni_zero `Unneeded Java files` trip. BasarunaaTabAnalyzer.java
+  # n'a que @CalledByNative (C++→Java) → inutile ici. SawtunaaBridge/Player
+  # idem : pas dans cette liste car pas de @NativeMethods.
+  "//brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "//brave/android/java/org/chromium/chrome/browser/bookmarks/BraveBookmarkBridge.java",
   "//brave/android/java/org/chromium/chrome/browser/brave_account/BraveAccountServiceFactory.java",
   "//brave/android/java/org/chromium/chrome/browser/brave_leo/BraveLeoMojomHelper.java",
