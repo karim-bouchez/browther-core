@@ -3,79 +3,128 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Browther Basarunaa Android — script main world STUB (Jalon 2.F).
-//
-// Ce fichier est un STUB destiné à valider la chaîne complète V8 binding +
-// Mojo + Apply round-trip côté JS. Le port complet du userscript Basarunaa
-// (intercepteur DOM <img>/<video>, hide-first, decision cache, compositing
-// polygon mask, debug overlay) sera fait au Jalon 2.G en réutilisant le
-// bundle TS partagé `private/extensions/basarunaa/src/core/` (cf. CLAUDE.md).
-//
-// Objectifs du STUB :
-//   1. Définir `window.__basarunaaApply(...)` et `window.__basarunaaApplyNsfw(...)`
-//      pour que les Apply Mojo arrivent bien au JS (loggué dans console).
-//   2. Écouter `basarunaa-disable` et logger l'état.
-//   3. Écouter `basarunaa-config-changed` et re-fetcher `getConfig()`.
-//   4. Émettre 1 PageReset au load pour valider le rétro-chemin renderer→browser.
-//   5. Logger la config courante à l'init pour validation du push browser→renderer.
+// AUTO-GENERATED from private/extensions/basarunaa/src/android/userscript.ts
+// by private/scripts/deploy-basarunaa-script-android.sh. DO NOT EDIT.
+// Modifier le .ts source à la place, puis re-run le deploy script.
+
 (function () {
   'use strict';
 
-  if (typeof window.__basarunaa === 'undefined') {
-    // V8 binding pas installé : RFO a skip (frame iframe / about:blank /
-    // window object intermédiaire). Abort silencieux.
-    return;
+  function getBinding() {
+    if (typeof window === "undefined") return null;
+    return window.__basarunaa ?? null;
+  }
+  function send(action, data = "") {
+    const b = getBinding();
+    if (!b) return;
+    try {
+      b.send(action, data);
+    } catch {
+    }
+  }
+  function getConfig() {
+    const b = getBinding();
+    if (!b) return null;
+    try {
+      return b.getConfig();
+    } catch {
+      return null;
+    }
+  }
+  function isEnabled() {
+    const b = getBinding();
+    if (!b) return false;
+    try {
+      return b.isEnabled();
+    } catch {
+      return false;
+    }
+  }
+  const sessionStart = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  function now() {
+    return typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  }
+  function metric(event, kvs) {
+    const payload = {
+      t: Math.round(now() - sessionStart),
+      event,
+      src: "js"
+    };
+    if (kvs) {
+      for (const k in kvs) payload[k] = kvs[k];
+    }
+    try {
+      send("metric", JSON.stringify(payload));
+    } catch {
+    }
   }
 
-  if (window.__basarunaa_initialized) {
-    return;
-  }
-  window.__basarunaa_initialized = true;
-
-  var binding = window.__basarunaa;
-
+  let started = false;
   function logInfo(msg) {
-    try {
-      binding.send('log', '[basarunaa-stub] ' + msg);
-    } catch (e) {}
+    send("log", `[basarunaa-android] ${msg}`);
   }
-
-  // 1. Snapshot config initial.
-  var config = null;
-  try {
-    config = binding.getConfig();
-  } catch (e) {
-    logInfo('getConfig threw: ' + e);
+  const applyHandler = (imageId, decision, persons, debugMode, elapsedMs) => {
+    const personCount = Array.isArray(persons) ? persons.length : 0;
+    logInfo(
+      `Apply id=${imageId} decision=${decision} persons=${personCount} debug=${debugMode} elapsed=${elapsedMs}ms`
+    );
+  };
+  const applyNsfwHandler = (imageId, score) => {
+    logInfo(`ApplyNsfw id=${imageId} score=${score.toFixed(3)}`);
+  };
+  function start() {
+    if (started) return;
+    started = true;
+    const config = getConfig();
+    if (!config) {
+      return;
+    }
+    if (!config.enabled || !isEnabled()) {
+      logInfo("pref OFF at bootstrap, skipping");
+      return;
+    }
+    window.__basarunaaApply = applyHandler;
+    window.__basarunaaApplyNsfw = applyNsfwHandler;
+    window.__browtherBasarunaa = {
+      phase: 2,
+      config,
+      initializedAt: typeof performance !== "undefined" && performance.now ? performance.now() : Date.now()
+    };
+    logInfo(
+      `init mode=${config.mode} confBody=${config.confBody} confFace=${config.confFace} genderCertainty=${config.genderCertainty} debug=${config.debugMode}`
+    );
+    send("pageReset", location.href);
+    metric("script_init", { url: location.href, jalon: "2G.step1" });
   }
-  logInfo('script loaded, config=' + JSON.stringify(config));
+  function attachDisableListener() {
+    window.addEventListener(
+      "basarunaa-disable",
+      () => {
+        logInfo("received basarunaa-disable, releasing (stub)");
+      },
+      false
+    );
+    window.addEventListener(
+      "basarunaa-config-changed",
+      () => {
+        const cfg = getConfig();
+        if (!cfg) return;
+        logInfo(`config-changed mode=${cfg.mode} debug=${cfg.debugMode}`);
+      },
+      false
+    );
+  }
+  (function bootstrap() {
+    if (typeof window === "undefined") return;
+    const w = window;
+    if (w.__basarunaa_initialized) return;
+    w.__basarunaa_initialized = true;
+    attachDisableListener();
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start, { once: true });
+    } else {
+      start();
+    }
+  })();
 
-  // 2. Apply callbacks (Mojo browser → renderer → ce JS).
-  window.__basarunaaApply = function (imageId, decision, persons, debugMode, elapsedMs) {
-    logInfo('Apply imageId=' + imageId + ' decision=' + decision +
-            ' persons=' + (persons ? persons.length : 'null') +
-            ' debugMode=' + debugMode + ' elapsedMs=' + elapsedMs);
-  };
-  window.__basarunaaApplyNsfw = function (imageId, score) {
-    logInfo('ApplyNsfw imageId=' + imageId + ' score=' + score);
-  };
-
-  // 3. Disable event (browser → renderer pref ON → OFF live).
-  window.addEventListener('basarunaa-disable', function () {
-    logInfo('received basarunaa-disable, releasing hide-first (stub)');
-  }, false);
-
-  // 4. Config changed (sliders / mode toggle live sans flip enabled).
-  window.addEventListener('basarunaa-config-changed', function () {
-    try {
-      config = binding.getConfig();
-      logInfo('config-changed, new config=' + JSON.stringify(config));
-    } catch (e) {}
-  }, false);
-
-  // 5. PageReset ping pour valider le sens renderer → browser.
-  try {
-    binding.send('pageReset', location.href);
-  } catch (e) {}
-
-  logInfo('init complete');
 })();
