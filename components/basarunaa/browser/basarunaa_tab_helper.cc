@@ -185,11 +185,12 @@ void BasarunaaTabHelper::EmitMetric(const std::string& metric_json) {
   //    "elapsed_ms":...}
   // EmitMetric tourne UI thread (Mojo binder context) → safe pour
   // BrowtherAnalyticsService (PrefService UI-thread-bound).
-  std::optional<base::Value> parsed = base::JSONReader::Read(metric_json);
-  if (!parsed || !parsed->is_dict()) {
+  std::optional<base::DictValue> parsed =
+      base::JSONReader::ReadDict(metric_json, base::JSON_PARSE_RFC);
+  if (!parsed) {
     return;
   }
-  const base::Value::Dict& dict = parsed->GetDict();
+  const base::DictValue& dict = *parsed;
   const std::string* event = dict.FindString("event");
   const std::string* decision = dict.FindString("decision");
   if (!event || *event != "analyze_decision" || !decision ||
