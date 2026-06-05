@@ -356,7 +356,7 @@ public final class BasarunaaEngine {
             return o;
         }
 
-        private static JSONArray bboxToJson(Bbox b) {
+        private static JSONArray bboxToJson(Bbox b) throws JSONException {
             final JSONArray a = new JSONArray();
             a.put(b.x1).put(b.y1).put(b.x2).put(b.y2);
             return a;
