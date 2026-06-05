@@ -34,18 +34,22 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.PersonDetection;
  * <p>Pipeline V1 image (parité POC {@code _processDual}) :
  * <ol>
  *   <li>Décodage byte[] → Bitmap</li>
+ *   <li>{@link NudeNetDetector} NSFW check (court-circuit full-frame
+ *       si une classe EXPOSED dépasse 0.3). Skip Marqo (pas bundlé).</li>
  *   <li>YOLO-pose (body bbox + 17 keypoints + faceBbox dérivée)</li>
  *   <li>YOLO-face (face bbox + 5 landmarks)</li>
  *   <li>{@link PersonMatcher} face↔body global optimal</li>
  *   <li>Pour chaque body matched : {@link FaceAlign} + {@link
  *       GenderAgeClassifier}</li>
  *   <li>Pour chaque face unmatched : synthetic body bbox + face classifier</li>
- *   <li>Décision {@code "keep" | "blur"} selon mode + gender</li>
+ *   <li>Décision {@code "keep" | "blur" | "nsfw"} selon mode + gender +
+ *       NSFW flag</li>
  * </ol>
  *
  * <p><b>Skipped V1 :</b> PPLCNet body fallback (dos), body polygon mask,
- * NudeNet NSFW full-frame, NanoDet sentinel two-tier vidéo. Tous bundlés
- * dans l'APK (Jalon 2.E.1) mais câblés en V2 post-launch.
+ * Marqo NSFW whole-image scoring (active les classes COVERED), NanoDet
+ * sentinel two-tier vidéo. Tous bundlés/dispo (sauf Marqo) mais câblés
+ * en V2 post-launch.
  *
  * <p>Sessions ORT chargées paresseusement au premier {@link #analyze} via
  * double-checked locking. Séquentiel single-thread sur
@@ -83,10 +87,11 @@ public final class BasarunaaEngine {
     @Nullable private YoloPoseDetector poseDetector;
     @Nullable private YoloFaceDetector faceDetector;
     @Nullable private GenderAgeClassifier genderClassifier;
+    @Nullable private NudeNetDetector nudeNetDetector;
     private boolean modelsFailed = false;
 
     private BasarunaaEngine() {
-        Log.i(TAG, "[Engine] singleton created (Jalon 2.E.5 — V1 image pipeline)");
+        Log.i(TAG, "[Engine] singleton created (Jalon 2.E.6 — V1 image pipeline + NSFW)");
     }
 
     /**
@@ -129,13 +134,17 @@ public final class BasarunaaEngine {
     }
 
     private void ensureModelsLoaded() {
-        if (poseDetector != null && faceDetector != null && genderClassifier != null) {
+        if (poseDetector != null
+                && faceDetector != null
+                && genderClassifier != null
+                && nudeNetDetector != null) {
             return;
         }
         try {
             if (poseDetector == null) poseDetector = new YoloPoseDetector();
             if (faceDetector == null) faceDetector = new YoloFaceDetector();
             if (genderClassifier == null) genderClassifier = new GenderAgeClassifier();
+            if (nudeNetDetector == null) nudeNetDetector = new NudeNetDetector();
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] models load failed; switching to no-op", t);
             modelsFailed = true;
@@ -152,6 +161,17 @@ public final class BasarunaaEngine {
             long t0Nanos) throws Exception {
         final int imgW = src.getWidth();
         final int imgH = src.getHeight();
+
+        // NSFW check en premier : court-circuite tout le pipeline body/face
+        // si l'image contient une classe EXPOSED. Retourne decision="nsfw"
+        // + personsJson vide (full-frame blur côté JS).
+        final NudeNetDetector.Result nsfw = nudeNetDetector.check(src);
+        if (nsfw.isNsfw) {
+            final double elapsedMs = (System.nanoTime() - t0Nanos) / 1_000_000.0;
+            Log.i(TAG, "[Engine] analyze imageId=%d NSFW=true classes=%s %.1fms",
+                    imageId, nsfw.flaggedClasses, elapsedMs);
+            return new BasarunaaResult(imageId, "nsfw", "[]", elapsedMs);
+        }
 
         // Étapes 2 + 3 : YOLO-pose + YOLO-face séquentiels (single-thread).
         final List<PersonDetection> bodies =

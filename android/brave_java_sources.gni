@@ -345,6 +345,8 @@ brave_java_sources = [
   #   BasarunaaEngine réécrit V1 pipeline image (orchestration YOLO-pose
   #   + YOLO-face + match + align + classify + synthetic body fallback
   #   + decision).
+  # - Jalon 2.E.6 : NudeNetDetector NSFW (sans Marqo, classes EXPOSED
+  #   only). Câblé dans BasarunaaEngine en step 0 (court-circuit).
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
@@ -356,6 +358,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderAgeClassifier.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Nms.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/NudeNetDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/PersonMatcher.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloFaceDetector.java",
