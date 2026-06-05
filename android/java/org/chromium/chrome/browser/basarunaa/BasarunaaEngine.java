@@ -312,7 +312,7 @@ public final class BasarunaaEngine {
         }
 
         static Person forBody(PersonDetection body, @Nullable FaceDetection matchedFace,
-                              @Nullable GenderAgeClassifier.Result cls) {
+                              GenderAgeClassifier.@Nullable Result cls) {
             final String classifierUsed = cls != null ? "face" : "none";
             return new Person(
                     body.bbox,
@@ -327,7 +327,7 @@ public final class BasarunaaEngine {
         }
 
         static Person forUnmatchedFace(Bbox synth, FaceDetection face,
-                                       @Nullable GenderAgeClassifier.Result cls) {
+                                       GenderAgeClassifier.@Nullable Result cls) {
             return new Person(
                     synth,
                     face.bbox,
