@@ -335,13 +335,21 @@ brave_java_sources = [
   #   NativeMethods), BasarunaaEngine (singleton stub), BasarunaaResult (POJO).
   # - Jalon 2.E.2 : OrtRuntime (wrapper ORT session creation partagé entre
   #   tous les détecteurs et BasarunaaBenchmark).
+  # - Jalon 2.E.3 : BasarunaaTypes (POJOs Bbox/Keypoint/Detection), Letterbox
+  #   (preprocess CHW float32), Nms (générique), YoloPoseDetector,
+  #   YoloFaceDetector (ports natifs des detectors POC).
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaPanelBottomSheet.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaResult.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTabAnalyzer.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTypes.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Nms.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloFaceDetector.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloPoseDetector.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
   "../../brave/android/java/org/chromium/chrome/browser/shields_panel/ShieldsPanelBottomSheet.java",
   # Browther: Sawtunaa Voie B
