@@ -338,6 +338,9 @@ brave_java_sources = [
   # - Jalon 2.E.3 : BasarunaaTypes (POJOs Bbox/Keypoint/Detection), Letterbox
   #   (preprocess CHW float32), Nms (générique), YoloPoseDetector,
   #   YoloFaceDetector (ports natifs des detectors POC).
+  # - Jalon 2.E.4 : FaceAlign (rotation eyes-horizontal + crop 96×96),
+  #   GenderAgeClassifier (InsightFace genderage, raw 0-255 RGB,
+  #   binary_softmax femaleIndex=0).
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
@@ -345,6 +348,8 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaResult.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTabAnalyzer.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTypes.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/FaceAlign.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderAgeClassifier.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Nms.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
