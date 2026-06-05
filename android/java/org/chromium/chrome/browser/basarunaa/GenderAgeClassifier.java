@@ -109,8 +109,13 @@ public final class GenderAgeClassifier implements AutoCloseable {
         try (OnnxTensor input = OnnxTensor.createTensor(
                 OrtRuntime.env(), chw, new long[] {1, 3, INPUT_SIZE, INPUT_SIZE});
                 OrtSession.Result result = session.run(Map.of(inputName, input))) {
-            final float[][] output = (float[][]) result.get(0).getValue(); // shape [1, N]
-            final float[] logits = output[0];
+            // Output shape [1, N] (rank 2). Flat buffer pour rester robuste.
+            final OnnxTensor outTensor = (OnnxTensor) result.get(0);
+            final FloatBuffer flat = outTensor.getFloatBuffer();
+            final long[] dims = outTensor.getInfo().getShape();
+            final int n = (int) dims[dims.length - 1];
+            final float[] logits = new float[n];
+            flat.get(logits);
             return parseBinarySoftmax(logits);
         }
     }

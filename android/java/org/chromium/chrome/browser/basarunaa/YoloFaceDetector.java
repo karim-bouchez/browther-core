@@ -8,7 +8,6 @@ package org.chromium.chrome.browser.basarunaa;
 import android.graphics.Bitmap;
 
 import ai.onnxruntime.OnnxTensor;
-import ai.onnxruntime.OnnxValue;
 import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
 
@@ -16,6 +15,7 @@ import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -80,20 +80,21 @@ public final class YoloFaceDetector implements AutoCloseable {
         try (OnnxTensor input = OnnxTensor.createTensor(
                 OrtRuntime.env(), lb.tensor, new long[] {1, 3, INPUT_SIZE, INPUT_SIZE});
                 OrtSession.Result result = session.run(Map.of(inputName, input))) {
-            // 3 sorties [1, 80, H, W] — on les unpacke en float[1][80][H][W].
-            final float[][][][][] outs = new float[3][][][][];
+            // 3 sorties FPN, chacune shape [1, 80, gridH, gridW]. On accède
+            // via FloatBuffer flat pour rester robuste au rank (3 ou 4).
+            final FloatBuffer[] flats = new FloatBuffer[3];
             final long[][] dims = new long[3][];
             for (int fpn = 0; fpn < 3; fpn++) {
-                final OnnxValue val = result.get(fpn);
-                outs[fpn] = new float[][][][] {(float[][][]) val.getValue()};
-                dims[fpn] = ((OnnxTensor) val).getInfo().getShape();
+                final OnnxTensor outTensor = (OnnxTensor) result.get(fpn);
+                flats[fpn] = outTensor.getFloatBuffer();
+                dims[fpn] = outTensor.getInfo().getShape();
             }
-            return postprocess(outs, dims, lb, srcW, srcH, confThreshold, iouThreshold);
+            return postprocess(flats, dims, lb, srcW, srcH, confThreshold, iouThreshold);
         }
     }
 
     private static List<FaceDetection> postprocess(
-            float[][][][][] outs,
+            FloatBuffer[] flats,
             long[][] dims,
             Letterbox.Result lb,
             int srcW,
@@ -104,17 +105,19 @@ public final class YoloFaceDetector implements AutoCloseable {
 
         for (int fpn = 0; fpn < 3; fpn++) {
             final int stride = STRIDES[fpn];
-            // shape [1, 80, gridH, gridW] : outs[fpn][0][channel][gy][gx]
-            final float[][][] data = outs[fpn][0];
-            final int gridH = (int) dims[fpn][2];
-            final int gridW = (int) dims[fpn][3];
+            final FloatBuffer data = flats[fpn];
+            // Dernières 2 dims = gridH, gridW (rank 3 ou 4 selon export).
+            final int gridH = (int) dims[fpn][dims[fpn].length - 2];
+            final int gridW = (int) dims[fpn][dims[fpn].length - 1];
+            final int gridArea = gridH * gridW;
 
             for (int gy = 0; gy < gridH; gy++) {
                 for (int gx = 0; gx < gridW; gx++) {
-                    final float conf = sigmoid(data[CONF_CHANNEL][gy][gx]);
+                    final int spatialIdx = gy * gridW + gx;
+                    final float conf = sigmoid(data.get(CONF_CHANNEL * gridArea + spatialIdx));
                     if (conf < confThreshold) continue;
 
-                    final float[] dists = decodeDfl(data, gx, gy);
+                    final float[] dists = decodeDfl(data, gridArea, spatialIdx);
                     final float ax = (gx + 0.5f) * stride;
                     final float ay = (gy + 0.5f) * stride;
 
@@ -133,9 +136,9 @@ public final class YoloFaceDetector implements AutoCloseable {
                     final Keypoint[] landmarks = new Keypoint[5];
                     for (int l = 0; l < 5; l++) {
                         final int baseChannel = LANDMARK_START + l * 3;
-                        final float lx = data[baseChannel][gy][gx];
-                        final float ly = data[baseChannel + 1][gy][gx];
-                        final float lv = data[baseChannel + 2][gy][gx];
+                        final float lx = data.get(baseChannel * gridArea + spatialIdx);
+                        final float ly = data.get((baseChannel + 1) * gridArea + spatialIdx);
+                        final float lv = data.get((baseChannel + 2) * gridArea + spatialIdx);
 
                         final float origX = ((lx * stride + ax) - lb.padX) / lb.scale;
                         final float origY = ((ly * stride + ay) - lb.padY) / lb.scale;
@@ -153,7 +156,7 @@ public final class YoloFaceDetector implements AutoCloseable {
      * Décode DFL pour une position anchor : 64 channels = 4 distances × 16 bins.
      * Softmax par distance, puis somme pondérée par index du bin → expected value.
      */
-    private static float[] decodeDfl(float[][][] data, int gx, int gy) {
+    private static float[] decodeDfl(FloatBuffer data, int gridArea, int spatialIdx) {
         final float[] dists = new float[4];
         final float[] vals = new float[DFL_BINS];
         final float[] exps = new float[DFL_BINS];
@@ -162,7 +165,7 @@ public final class YoloFaceDetector implements AutoCloseable {
             float maxVal = Float.NEGATIVE_INFINITY;
             for (int b = 0; b < DFL_BINS; b++) {
                 final int ch = d * DFL_BINS + b;
-                final float v = data[ch][gy][gx];
+                final float v = data.get(ch * gridArea + spatialIdx);
                 vals[b] = v;
                 if (v > maxVal) maxVal = v;
             }

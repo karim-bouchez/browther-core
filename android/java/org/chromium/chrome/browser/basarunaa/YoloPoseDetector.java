@@ -8,7 +8,6 @@ package org.chromium.chrome.browser.basarunaa;
 import android.graphics.Bitmap;
 
 import ai.onnxruntime.OnnxTensor;
-import ai.onnxruntime.OnnxValue;
 import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
 
@@ -17,6 +16,7 @@ import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -77,19 +77,20 @@ public final class YoloPoseDetector implements AutoCloseable {
         try (OnnxTensor input = OnnxTensor.createTensor(
                 OrtRuntime.env(), lb.tensor, new long[] {1, 3, INPUT_SIZE, INPUT_SIZE});
                 OrtSession.Result result = session.run(Map.of(inputName, input))) {
-            final OnnxValue out = result.get(0);
-            final long[] dims = ((OnnxTensor) out).getInfo().getShape();
-            final float[][][] raw = (float[][][]) out.getValue(); // shape [1, 56, N]
-            final int numDetections = (int) dims[2];
-            final float[][] features = raw[0]; // shape [56, N]
-
-            return postprocess(
-                    features, numDetections, lb, srcW, srcH, confThreshold, iouThreshold);
+            // Output shape varie selon l'export ONNX : [1, 56, N] (rank 3) ou
+            // [1, 1, 56, N] (rank 4). On lit le buffer flat + dernière dim
+            // pour rester robuste au rank.
+            final OnnxTensor outTensor = (OnnxTensor) result.get(0);
+            final long[] dims = outTensor.getInfo().getShape();
+            final int numDetections = (int) dims[dims.length - 1];
+            final FloatBuffer flat = outTensor.getFloatBuffer();
+            return postprocess(flat, numDetections, lb, srcW, srcH, confThreshold,
+                    iouThreshold);
         }
     }
 
     private static List<PersonDetection> postprocess(
-            float[][] data,
+            FloatBuffer flat,
             int numDetections,
             Letterbox.Result lb,
             int srcW,
@@ -98,15 +99,17 @@ public final class YoloPoseDetector implements AutoCloseable {
             float iouThreshold) {
         if (numDetections == 0) return Collections.emptyList();
 
+        // Layout C-major : flat[f * numDetections + i] = features[f][i].
+        // 56 features = 4 (xywh) + 1 (score) + 51 (17 keypoints × 3).
         final ArrayList<PersonDetection> boxes = new ArrayList<>();
         for (int i = 0; i < numDetections; i++) {
-            final float score = data[4][i];
+            final float score = flat.get(4 * numDetections + i);
             if (score < confThreshold) continue;
 
-            final float cx = data[0][i];
-            final float cy = data[1][i];
-            final float w = data[2][i];
-            final float h = data[3][i];
+            final float cx = flat.get(i);
+            final float cy = flat.get(numDetections + i);
+            final float w = flat.get(2 * numDetections + i);
+            final float h = flat.get(3 * numDetections + i);
 
             final float x1 = Math.max(0f, (cx - w / 2f - lb.padX) / lb.scale);
             final float y1 = Math.max(0f, (cy - h / 2f - lb.padY) / lb.scale);
@@ -116,9 +119,9 @@ public final class YoloPoseDetector implements AutoCloseable {
             final Keypoint[] keypoints = new Keypoint[NUM_KEYPOINTS];
             for (int k = 0; k < NUM_KEYPOINTS; k++) {
                 final int base = 5 + k * 3;
-                final float kx = (data[base][i] - lb.padX) / lb.scale;
-                final float ky = (data[base + 1][i] - lb.padY) / lb.scale;
-                final float kc = data[base + 2][i];
+                final float kx = (flat.get(base * numDetections + i) - lb.padX) / lb.scale;
+                final float ky = (flat.get((base + 1) * numDetections + i) - lb.padY) / lb.scale;
+                final float kc = flat.get((base + 2) * numDetections + i);
                 keypoints[k] = new Keypoint(kx, ky, kc);
             }
 

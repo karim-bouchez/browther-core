@@ -8,7 +8,6 @@ package org.chromium.chrome.browser.basarunaa;
 import android.graphics.Bitmap;
 
 import ai.onnxruntime.OnnxTensor;
-import ai.onnxruntime.OnnxValue;
 import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
 
@@ -16,6 +15,7 @@ import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -134,24 +134,27 @@ public final class NudeNetDetector implements AutoCloseable {
         try (OnnxTensor input = OnnxTensor.createTensor(
                 OrtRuntime.env(), lb.tensor, new long[] {1, 3, INPUT_SIZE, INPUT_SIZE});
                 OrtSession.Result result = session.run(Map.of(inputName, input))) {
-            final OnnxValue out = result.get(0);
-            final long[] dims = ((OnnxTensor) out).getInfo().getShape();
-            final float[][][] raw = (float[][][]) out.getValue(); // [1, 22, N]
-            final int numDetections = (int) dims[2];
-            final float[][] features = raw[0]; // [22, N]
-            return postprocess(features, numDetections);
+            // Output shape [1, 22, N] (rank 3) ou [1, 1, 22, N] (rank 4) selon
+            // export. Flat buffer + dernière dim → robuste.
+            final OnnxTensor outTensor = (OnnxTensor) result.get(0);
+            final long[] dims = outTensor.getInfo().getShape();
+            final int numDetections = (int) dims[dims.length - 1];
+            final FloatBuffer flat = outTensor.getFloatBuffer();
+            return postprocess(flat, numDetections);
         }
     }
 
-    private static Result postprocess(float[][] data, int numDetections) {
+    private static Result postprocess(FloatBuffer flat, int numDetections) {
         final ArrayList<String> flagged = new ArrayList<>();
         final HashSet<Integer> seenIndices = new HashSet<>();
 
+        // Layout C-major : flat[f * numDetections + i] = features[f][i].
+        // 22 features = 4 (xywh) + 18 classes.
         for (int i = 0; i < numDetections; i++) {
             int bestClass = 0;
             float bestConf = 0f;
             for (int c = 0; c < NUM_CLASSES; c++) {
-                final float conf = data[4 + c][i];
+                final float conf = flat.get((4 + c) * numDetections + i);
                 if (conf > bestConf) {
                     bestConf = conf;
                     bestClass = c;
