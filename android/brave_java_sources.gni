@@ -341,6 +341,10 @@ brave_java_sources = [
   # - Jalon 2.E.4 : FaceAlign (rotation eyes-horizontal + crop 96×96),
   #   GenderAgeClassifier (InsightFace genderage, raw 0-255 RGB,
   #   binary_softmax femaleIndex=0).
+  # - Jalon 2.E.5 : PersonMatcher (face↔body global optimal),
+  #   BasarunaaEngine réécrit V1 pipeline image (orchestration YOLO-pose
+  #   + YOLO-face + match + align + classify + synthetic body fallback
+  #   + decision).
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
@@ -353,6 +357,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Nms.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/PersonMatcher.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloFaceDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloPoseDetector.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
