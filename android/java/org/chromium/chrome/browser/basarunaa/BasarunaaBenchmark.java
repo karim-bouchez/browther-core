@@ -66,7 +66,9 @@ public final class BasarunaaBenchmark {
         YOLO_POSE("yolo11n-pose.onnx", "yolo-pose"),
         YOLO_FACE("yolov8n-face.onnx", "yolo-face"),
         GENDERAGE("genderage.onnx", "genderage"),
-        NANODET("nanodet-plus-m_320.onnx", "nanodet");
+        NANODET("nanodet-plus-m_320.onnx", "nanodet"),
+        PPLCNET("pplcnet_pedestrian_attribute.onnx", "pplcnet"),
+        NUDENET("nudenet-320.onnx", "nudenet");
 
         final String assetFilename;
         final String shortName;
