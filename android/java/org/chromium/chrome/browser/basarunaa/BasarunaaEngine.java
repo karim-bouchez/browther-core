@@ -88,7 +88,7 @@ public final class BasarunaaEngine {
     @Nullable private YoloFaceDetector faceDetector;
     @Nullable private GenderAgeClassifier genderClassifier;
     @Nullable private NudeNetDetector nudeNetDetector;
-    private boolean modelsFailed = false;
+    private boolean modelsFailed;
 
     private BasarunaaEngine() {
         Log.i(TAG, "[Engine] singleton created (Jalon 2.E.6 — V1 image pipeline + NSFW)");
@@ -151,6 +151,7 @@ public final class BasarunaaEngine {
         }
     }
 
+    @SuppressWarnings("NullAway") // null-checks manuels avant chaque deref
     private BasarunaaResult processImage(
             int imageId,
             Bitmap src,
@@ -159,13 +160,22 @@ public final class BasarunaaEngine {
             float confFace,
             float genderCertainty,
             long t0Nanos) throws Exception {
+        // Copies locales non-null après ensureModelsLoaded (NullAway ne sait
+        // pas que modelsFailed=false implique tous les fields non-null).
+        final NudeNetDetector nudenet =
+                java.util.Objects.requireNonNull(nudeNetDetector);
+        final YoloPoseDetector pose = java.util.Objects.requireNonNull(poseDetector);
+        final YoloFaceDetector face = java.util.Objects.requireNonNull(faceDetector);
+        final GenderAgeClassifier gender =
+                java.util.Objects.requireNonNull(genderClassifier);
+
         final int imgW = src.getWidth();
         final int imgH = src.getHeight();
 
         // NSFW check en premier : court-circuite tout le pipeline body/face
         // si l'image contient une classe EXPOSED. Retourne decision="nsfw"
         // + personsJson vide (full-frame blur côté JS).
-        final NudeNetDetector.Result nsfw = nudeNetDetector.check(src);
+        final NudeNetDetector.Result nsfw = nudenet.check(src);
         if (nsfw.isNsfw) {
             final double elapsedMs = (System.nanoTime() - t0Nanos) / 1_000_000.0;
             Log.i(TAG, "[Engine] analyze imageId=%d NSFW=true classes=%s %.1fms",
@@ -175,9 +185,9 @@ public final class BasarunaaEngine {
 
         // Étapes 2 + 3 : YOLO-pose + YOLO-face séquentiels (single-thread).
         final List<PersonDetection> bodies =
-                poseDetector.detect(src, confBody, NMS_IOU_THRESHOLD);
+                pose.detect(src, confBody, NMS_IOU_THRESHOLD);
         final List<FaceDetection> faces =
-                faceDetector.detect(src, confFace, NMS_IOU_THRESHOLD);
+                face.detect(src, confFace, NMS_IOU_THRESHOLD);
 
         // Étape 4 : matching.
         final Map<Integer, PersonMatcher.Match> matched = PersonMatcher.match(bodies, faces);
@@ -189,20 +199,19 @@ public final class BasarunaaEngine {
             final PersonMatcher.Match m = matched.get(bi);
 
             if (m != null) {
-                final FaceDetection face = m.face;
+                final FaceDetection matchedFace = m.face;
                 final Bitmap aligned = FaceAlign.align(
-                        src, body.keypoints, face.bbox, ALIGN_OUTPUT_SIZE);
+                        src, body.keypoints, matchedFace.bbox, ALIGN_OUTPUT_SIZE);
                 if (aligned != null) {
                     try {
-                        final GenderAgeClassifier.Result cls =
-                                genderClassifier.classify(aligned);
-                        persons.add(Person.forBody(body, face, cls));
+                        final GenderAgeClassifier.Result cls = gender.classify(aligned);
+                        persons.add(Person.forBody(body, matchedFace, cls));
                     } finally {
                         aligned.recycle();
                     }
                 } else {
                     // Alignement impossible : on garde le body sans gender.
-                    persons.add(Person.forBody(body, face, null));
+                    persons.add(Person.forBody(body, matchedFace, null));
                 }
             } else {
                 // Body sans face matchée : V1 keep le body sans gender.
@@ -217,18 +226,19 @@ public final class BasarunaaEngine {
         }
         for (int fi = 0; fi < faces.size(); fi++) {
             if (usedFaceIndices.contains(fi)) continue;
-            final FaceDetection face = faces.get(fi);
-            final Bbox synth = syntheticBody(face.bbox, imgW, imgH);
-            final Bitmap aligned = FaceAlign.align(src, null, face.bbox, ALIGN_OUTPUT_SIZE);
-            GenderAgeClassifier.Result cls = null;
+            final FaceDetection unmatchedFace = faces.get(fi);
+            final Bbox synth = syntheticBody(unmatchedFace.bbox, imgW, imgH);
+            final Bitmap aligned =
+                    FaceAlign.align(src, null, unmatchedFace.bbox, ALIGN_OUTPUT_SIZE);
+            GenderAgeClassifier.@Nullable Result cls = null;
             if (aligned != null) {
                 try {
-                    cls = genderClassifier.classify(aligned);
+                    cls = gender.classify(aligned);
                 } finally {
                     aligned.recycle();
                 }
             }
-            persons.add(Person.forUnmatchedFace(synth, face, cls));
+            persons.add(Person.forUnmatchedFace(synth, unmatchedFace, cls));
         }
 
         // Étape 7 : decision globale.
@@ -288,7 +298,7 @@ public final class BasarunaaEngine {
     private static final class Person {
         final Bbox bbox;
         @Nullable final Bbox faceBbox;
-        @Nullable final Keypoint[] keypoints;
+        final Keypoint @Nullable [] keypoints;
         @Nullable final String gender; // "F" | "M"
         final float genderConfidence;
         final String classifierUsed; // "face" | "unmatched" | "none"
@@ -296,7 +306,8 @@ public final class BasarunaaEngine {
         final float bodyConfidence;
         final float faceConfidence;
 
-        private Person(Bbox bbox, @Nullable Bbox faceBbox, @Nullable Keypoint[] keypoints,
+        private Person(Bbox bbox, @Nullable Bbox faceBbox,
+                       Keypoint @Nullable [] keypoints,
                        @Nullable String gender, float genderConfidence,
                        String classifierUsed, boolean isSyntheticBody,
                        float bodyConfidence, float faceConfidence) {
@@ -340,6 +351,7 @@ public final class BasarunaaEngine {
                     face.confidence);
         }
 
+        @SuppressWarnings("NullAway") // null-checks explicites sur faceBbox/keypoints/gender
         JSONObject toJson() throws JSONException {
             final JSONObject o = new JSONObject();
             o.put("bbox", bboxToJson(bbox));

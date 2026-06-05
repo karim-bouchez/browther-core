@@ -66,9 +66,10 @@ public final class FaceAlign {
      * @param outputSize côté du carré sortie (96 pour InsightFace genderage)
      */
     @Nullable
+    @SuppressWarnings("NullAway") // hasEyes garantit keypoints != null + length≥3 avant deref
     public static Bitmap align(
             Bitmap src,
-            @Nullable Keypoint[] keypoints,
+            Keypoint @Nullable [] keypoints,
             @Nullable Bbox faceBbox,
             int outputSize) {
         // Tente la rotation si on a les 2 yeux visibles.
