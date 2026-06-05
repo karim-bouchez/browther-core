@@ -5,8 +5,6 @@
 
 package org.chromium.chrome.browser.basarunaa;
 
-import android.content.Context;
-
 import ai.onnxruntime.NodeInfo;
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
@@ -14,7 +12,6 @@ import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
 import ai.onnxruntime.TensorInfo;
 
-import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.task.PostTask;
@@ -22,9 +19,7 @@ import org.chromium.base.task.TaskTraits;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,17 +27,16 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Benchmark ORT inference latency on-device for the 4 critical Basarunaa
- * models — Jalon 1 du port natif Android.
+ * Benchmark ORT inference latency on-device pour les 6 modèles Basarunaa —
+ * Jalon 1 du port natif Android.
  *
  * <p>Charge le modèle ONNX depuis les assets bundlés ({@code assets/basarunaa/
- * <name>.onnx}, cf. {@code components/basarunaa/android_assets/BUILD.gn}),
- * exécute 10 warmups + N itérations sur des entrées random, et rapporte
- * {@code avg / p50 / p95 / max} en millisecondes par inférence.
+ * <name>.onnx}, cf. {@code components/basarunaa/android_assets/BUILD.gn}) via
+ * {@link OrtRuntime#loadModel}, exécute 5 warmups + N itérations sur des
+ * entrées random, et rapporte {@code avg / p50 / p95 / max} en millisecondes
+ * par inférence.
  *
- * <p>Réutilise le pattern de {@link
- * org.chromium.chrome.browser.sawtunaa.SawtunaaBenchmark} en le rendant
- * générique : la shape d'entrée est découverte à l'exécution via
+ * <p>Générique : la shape d'entrée est découverte à l'exécution via
  * {@link OrtSession#getInputInfo}, donc on ajoute un modèle sans le
  * hardcoder ici. Les entrées dynamiques (dim = -1 ou 0) sont substituées
  * avec leur valeur réelle ({@link #DEFAULT_BATCH} pour la batch dim) avant
@@ -76,10 +70,6 @@ public final class BasarunaaBenchmark {
         Model(String assetFilename, String shortName) {
             this.assetFilename = assetFilename;
             this.shortName = shortName;
-        }
-
-        String assetPath() {
-            return "basarunaa/" + assetFilename;
         }
     }
 
@@ -175,22 +165,18 @@ public final class BasarunaaBenchmark {
 
     private static Result runBlocking(Model model, Backend backend, int iters)
             throws OrtException, IOException {
-        final Context ctx = ContextUtils.getApplicationContext();
-        final byte[] modelBytes = loadAsset(ctx, model.assetPath());
-        Log.i(TAG, "Loaded %s: %d bytes", model.shortName, modelBytes.length);
-
-        final OrtEnvironment env = OrtEnvironment.getEnvironment();
-        final OrtSession.SessionOptions opts = new OrtSession.SessionOptions();
-        opts.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.BASIC_OPT);
-        final int threads = Math.min(4, Math.max(1, Runtime.getRuntime().availableProcessors()));
-        opts.setIntraOpNumThreads(threads);
+        final OrtEnvironment env = OrtRuntime.env();
+        final OrtSession.SessionOptions opts = OrtRuntime.defaultOptions();
+        final int threads = OrtRuntime.intraOpThreads();
 
         if (backend == Backend.NNAPI) {
             // Falls back to CPU internally if ops aren't supported.
             opts.addNnapi();
         }
 
-        try (OrtSession session = env.createSession(modelBytes, opts)) {
+        final long modelSizeBytes = OrtRuntime.assetSizeBytes(model.assetFilename);
+
+        try (OrtSession session = OrtRuntime.loadModel(model.assetFilename, opts)) {
             Log.i(
                     TAG,
                     "Session ready %s [%s] threads=%d inputs=%s outputs=%s",
@@ -229,7 +215,7 @@ public final class BasarunaaBenchmark {
                 final double maxMs = nanos[iters - 1] / 1_000_000.0;
                 return new Result(
                         model, backend, iters, avgMs, p50Ms, p95Ms, maxMs, threads,
-                        modelBytes.length);
+                        modelSizeBytes);
             } finally {
                 for (OnnxTensor t : inputs.values()) {
                     t.close();
@@ -277,15 +263,4 @@ public final class BasarunaaBenchmark {
         return result;
     }
 
-    private static byte[] loadAsset(Context ctx, String path) throws IOException {
-        try (InputStream is = ctx.getAssets().open(path);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream(16 * 1024 * 1024)) {
-            final byte[] buf = new byte[64 * 1024];
-            int n;
-            while ((n = is.read(buf)) > 0) {
-                baos.write(buf, 0, n);
-            }
-            return baos.toByteArray();
-        }
-    }
 }
