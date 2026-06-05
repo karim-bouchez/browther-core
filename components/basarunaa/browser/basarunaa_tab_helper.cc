@@ -8,9 +8,12 @@
 #include <utility>
 
 #include "base/functional/bind.h"
+#include "base/json/json_reader.h"
 #include "base/logging.h"
 #include "base/task/sequenced_task_runner.h"
+#include "base/values.h"
 #include "brave/components/basarunaa/common/mojom/basarunaa_android.mojom.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "build/build_config.h"
 #include "components/prefs/pref_service.h"
@@ -172,6 +175,35 @@ void BasarunaaTabHelper::EmitMetric(const std::string& metric_json) {
   Java_BasarunaaBridge_onMetric(
       env, base::android::ConvertUTF8ToJavaString(env, metric_json));
 #endif
+
+  // Jalon 2.H stats : si c'est un event analyze_decision avec
+  // decision=blur, on incrémente le compteur global persons_blurred
+  // (BrowtherAnalyticsService flush vers /api/stats/ingest).
+  // Format payload (cf. android/bridge.ts#metric) :
+  //   {"t":..., "event":"analyze_decision", "src":"js", "id":...,
+  //    "decision":"blur", "persons":N, "found":..., "debug":...,
+  //    "elapsed_ms":...}
+  // EmitMetric tourne UI thread (Mojo binder context) → safe pour
+  // BrowtherAnalyticsService (PrefService UI-thread-bound).
+  std::optional<base::Value> parsed = base::JSONReader::Read(metric_json);
+  if (!parsed || !parsed->is_dict()) {
+    return;
+  }
+  const base::Value::Dict& dict = parsed->GetDict();
+  const std::string* event = dict.FindString("event");
+  const std::string* decision = dict.FindString("decision");
+  if (!event || *event != "analyze_decision" || !decision ||
+      *decision != "blur") {
+    return;
+  }
+  const std::optional<int> persons = dict.FindInt("persons");
+  if (!persons || *persons <= 0) {
+    return;
+  }
+  auto* analytics = browther_analytics::BrowtherAnalyticsService::GetInstance();
+  if (analytics) {
+    analytics->IncrementPersonsBlurred(*persons);
+  }
 }
 
 void BasarunaaTabHelper::AnalyzeImage(
