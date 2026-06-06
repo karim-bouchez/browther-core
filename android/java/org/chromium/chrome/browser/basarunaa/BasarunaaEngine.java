@@ -46,10 +46,10 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.PersonDetection;
  *       NSFW flag</li>
  * </ol>
  *
- * <p><b>Skipped V1 :</b> PPLCNet body fallback (dos), body polygon mask,
- * Marqo NSFW whole-image scoring (active les classes COVERED), NanoDet
- * sentinel two-tier vidéo. Tous bundlés/dispo (sauf Marqo) mais câblés
- * en V2 post-launch.
+ * <p><b>Skipped V1 :</b> body polygon mask (PPLCNet sans mask : V2 si gender
+ * dégradé sur dos visible), Marqo NSFW whole-image scoring (active les
+ * classes COVERED, pas bundlé), NanoDet sentinel two-tier vidéo (bundlé,
+ * câblé en V2).
  *
  * <p>Sessions ORT chargées paresseusement au premier {@link #analyze} via
  * double-checked locking. Séquentiel single-thread sur
@@ -88,6 +88,7 @@ public final class BasarunaaEngine {
     @Nullable private YoloFaceDetector faceDetector;
     @Nullable private GenderAgeClassifier genderClassifier;
     @Nullable private NudeNetDetector nudeNetDetector;
+    @Nullable private PplcNetClassifier bodyClassifier;
     private boolean modelsFailed;
 
     private BasarunaaEngine() {
@@ -137,7 +138,8 @@ public final class BasarunaaEngine {
         if (poseDetector != null
                 && faceDetector != null
                 && genderClassifier != null
-                && nudeNetDetector != null) {
+                && nudeNetDetector != null
+                && bodyClassifier != null) {
             return;
         }
         try {
@@ -145,6 +147,7 @@ public final class BasarunaaEngine {
             if (faceDetector == null) faceDetector = new YoloFaceDetector();
             if (genderClassifier == null) genderClassifier = new GenderAgeClassifier();
             if (nudeNetDetector == null) nudeNetDetector = new NudeNetDetector();
+            if (bodyClassifier == null) bodyClassifier = new PplcNetClassifier();
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] models load failed; switching to no-op", t);
             modelsFailed = true;
@@ -168,6 +171,8 @@ public final class BasarunaaEngine {
         final YoloFaceDetector face = java.util.Objects.requireNonNull(faceDetector);
         final GenderAgeClassifier gender =
                 java.util.Objects.requireNonNull(genderClassifier);
+        final PplcNetClassifier body =
+                java.util.Objects.requireNonNull(bodyClassifier);
 
         final int imgW = src.getWidth();
         final int imgH = src.getHeight();
@@ -192,30 +197,39 @@ public final class BasarunaaEngine {
         // Étape 4 : matching.
         final Map<Integer, PersonMatcher.Match> matched = PersonMatcher.match(bodies, faces);
 
-        // Étape 5 : classify bodies matchés.
+        // Étape 5 : classify bodies matchés (face) + body sans face → PPLCNet.
+        // Dual vote face vs body en cas de match : prend le plus confiant.
         final ArrayList<Person> persons = new ArrayList<>();
         for (int bi = 0; bi < bodies.size(); bi++) {
-            final PersonDetection body = bodies.get(bi);
+            final PersonDetection bodyDet = bodies.get(bi);
             final PersonMatcher.Match m = matched.get(bi);
+
+            final GenderAgeClassifier.@Nullable Result bodyResult =
+                    classifyBodySafe(body, src, bodyDet.bbox);
 
             if (m != null) {
                 final FaceDetection matchedFace = m.face;
                 final Bitmap aligned = FaceAlign.align(
-                        src, body.keypoints, matchedFace.bbox, ALIGN_OUTPUT_SIZE);
+                        src, bodyDet.keypoints, matchedFace.bbox, ALIGN_OUTPUT_SIZE);
+                GenderAgeClassifier.@Nullable Result faceResult = null;
                 if (aligned != null) {
                     try {
-                        final GenderAgeClassifier.Result cls = gender.classify(aligned);
-                        persons.add(Person.forBody(body, matchedFace, cls));
+                        faceResult = gender.classify(aligned);
                     } finally {
                         aligned.recycle();
                     }
-                } else {
-                    // Alignement impossible : on garde le body sans gender.
-                    persons.add(Person.forBody(body, matchedFace, null));
                 }
+                // Dual vote : si les 2 sont dispo, prend le plus confiant.
+                // (Parité POC pipeline.js#_processDual L191-200.)
+                final GenderAgeClassifier.@Nullable Result picked =
+                        pickBestGender(faceResult, bodyResult);
+                final String classifierUsed =
+                        picked == null ? "none" : (picked == faceResult ? "face" : "body");
+                persons.add(Person.forBody(bodyDet, matchedFace, picked, classifierUsed));
             } else {
-                // Body sans face matchée : V1 keep le body sans gender.
-                persons.add(Person.forBody(body, null, null));
+                // Body sans face matchée → PPLCNet seul.
+                final String classifierUsed = bodyResult != null ? "body" : "none";
+                persons.add(Person.forBody(bodyDet, null, bodyResult, classifierUsed));
             }
         }
 
@@ -249,7 +263,55 @@ public final class BasarunaaEngine {
         Log.i(TAG, "[Engine] analyze imageId=%d %dx%d bodies=%d faces=%d → %s %.1fms",
                 imageId, imgW, imgH, bodies.size(), faces.size(), decision, elapsedMs);
 
+        // Log structured pour diag device : gender/conf/cu par person + bbox.
+        // Tronqué à 800 char pour limiter la spam logcat sur images denses.
+        if (!persons.isEmpty()) {
+            final StringBuilder sb = new StringBuilder("[Engine] persons=[");
+            for (int i = 0; i < persons.size(); i++) {
+                final Person p = persons.get(i);
+                if (i > 0) sb.append(", ");
+                sb.append(String.format(java.util.Locale.US,
+                        "{g=%s c=%.2f cu=%s bbox=[%.0f,%.0f,%.0f,%.0f]}",
+                        p.gender == null ? "?" : p.gender,
+                        p.genderConfidence,
+                        p.classifierUsed,
+                        p.bbox.x1, p.bbox.y1, p.bbox.x2, p.bbox.y2));
+                if (sb.length() > 800) {
+                    sb.append(", …");
+                    break;
+                }
+            }
+            sb.append("]");
+            Log.i(TAG, sb.toString());
+        }
+
         return new BasarunaaResult(imageId, decision, personsJson, elapsedMs);
+    }
+
+    /**
+     * Classify body via PPLCNet en swallowing les exceptions ORT (best-effort
+     * fallback : un body sans gender vaut mieux qu'un crash pipeline).
+     */
+    private static GenderAgeClassifier.@Nullable Result classifyBodySafe(
+            PplcNetClassifier classifier, Bitmap src, Bbox bbox) {
+        try {
+            return classifier.classify(src, bbox);
+        } catch (Throwable t) {
+            Log.w(TAG, "[Engine] body classify failed: " + t.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Choisit le verdict le plus confiant entre face et body. Si l'un est
+     * null, retourne l'autre. Parité POC pipeline.js#_processDual.
+     */
+    private static GenderAgeClassifier.@Nullable Result pickBestGender(
+            GenderAgeClassifier.@Nullable Result face,
+            GenderAgeClassifier.@Nullable Result body) {
+        if (face == null) return body;
+        if (body == null) return face;
+        return face.confidence >= body.confidence ? face : body;
     }
 
     /** Synthetic body bbox depuis une face unmatched (parité POC). */
@@ -323,8 +385,8 @@ public final class BasarunaaEngine {
         }
 
         static Person forBody(PersonDetection body, @Nullable FaceDetection matchedFace,
-                              GenderAgeClassifier.@Nullable Result cls) {
-            final String classifierUsed = cls != null ? "face" : "none";
+                              GenderAgeClassifier.@Nullable Result cls,
+                              String classifierUsed) {
             return new Person(
                     body.bbox,
                     matchedFace != null ? matchedFace.bbox : body.faceBbox,

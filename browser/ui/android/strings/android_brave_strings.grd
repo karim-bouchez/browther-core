@@ -4061,6 +4061,45 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BASARUNAA_PANEL_COMING_SOON" desc="Notice telling the user the ML pipeline is not yet shipped on Android.">
       Le filtrage ML n'est pas encore actif sur Android — il arrive bientôt إن شاء الله.
     </message>
+    <message name="IDS_BASARUNAA_PANEL_SECTION_MODE" desc="Section title for the blur mode radio group">
+      Mode
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_MODE_FEMALE" desc="Radio option: blur women">
+      Flouter les femmes
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_MODE_MALE" desc="Radio option: blur men">
+      Flouter les hommes
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_MODE_ALL" desc="Radio option: blur all people">
+      Flouter tout le monde
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_SECTION_DETECTION" desc="Section title for the detection threshold sliders">
+      Détection
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_CONF_BODY_FMT" desc="Slider label: body detection confidence, %1$d is a percent value 0-100">
+      Confiance détection corps : <ph name="VALUE">%1$d<ex>25</ex></ph> / 100
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_CONF_FACE_FMT" desc="Slider label: face detection confidence, %1$d is a percent value 0-100">
+      Confiance détection visage : <ph name="VALUE">%1$d<ex>30</ex></ph> / 100
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_GENDER_FMT" desc="Slider label: gender classification certainty, %1$d is a percent value 0-100">
+      Certitude genre : <ph name="VALUE">%1$d<ex>70</ex></ph> / 100
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_SECTION_DEBUG" desc="Section title for the debug controls">
+      Debug
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_DEBUG_NONE" desc="Radio option: no debug overlay">
+      Désactivé
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_DEBUG_BOXES" desc="Radio option: show bounding boxes only">
+      Boîtes de détection
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_DEBUG_FULL" desc="Radio option: show full debug overlay (boxes + skeleton + labels)">
+      Overlay complet (boîtes + squelette)
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_CAPTURE_MODE" desc="Toggle: enable capture mode (saves images for regression datasets)">
+      Mode capture (datasets régression)
+    </message>
 
     <!-- Browther: Shields panel (BottomSheet, alignement Sawtunaa/Basarunaa). -->
     <message name="IDS_SHIELDS_PANEL_TITLE" desc="Header title for the Browther Shields panel">

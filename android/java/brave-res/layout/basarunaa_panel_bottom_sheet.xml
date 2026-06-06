@@ -4,15 +4,18 @@
      License, v. 2.0. If a copy of the MPL was not distributed with this
      file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 
-<!-- Basarunaa panel V1: same layout as Sawtunaa (header lockup + big toggle
-     + status text + description). The "(en savoir plus)" link is replaced by
-     a static "coming soon" notice since the Android ML pipeline is not yet
-     in place; sliders/mode radios from iOS land in V2 (Phase 3.1). -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Basarunaa panel : big toggle + section sliders + section debug.
+     Parité partielle avec le panel WebUI macOS (mode radios + sliders +
+     debug radios + capture toggle). -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:paddingTop="20dp"
@@ -22,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
@@ -45,12 +49,14 @@
         android:id="@+id/basarunaa_panel_toggle"
         android:layout_width="96dp"
         android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="12dp" />
 
     <TextView
         android:id="@+id/basarunaa_panel_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="13sp"
         android:layout_marginBottom="12dp"
@@ -66,14 +72,143 @@
         android:gravity="start"
         android:text="@string/basarunaa_panel_description" />
 
+    <!-- Section : Mode -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/basarunaa_panel_section_mode"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="13sp" />
+
+    <RadioGroup
+        android:id="@+id/basarunaa_panel_mode_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/basarunaa_panel_mode_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basarunaa_panel_mode_female"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/basarunaa_panel_mode_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basarunaa_panel_mode_male"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/basarunaa_panel_mode_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basarunaa_panel_mode_all"
+            android:textSize="13sp" />
+    </RadioGroup>
+
+    <!-- Section : Détection (sliders) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/basarunaa_panel_section_detection"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/basarunaa_panel_conf_body_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
-        android:lineSpacingExtra="2dp"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/basarunaa_panel_conf_body_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/basarunaa_panel_conf_face_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:gravity="start"
-        android:text="@string/basarunaa_panel_coming_soon" />
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/basarunaa_panel_conf_face_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/basarunaa_panel_gender_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/basarunaa_panel_gender_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100" />
+
+    <!-- Section : Debug -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/basarunaa_panel_section_debug"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textSize="13sp" />
+
+    <RadioGroup
+        android:id="@+id/basarunaa_panel_debug_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/basarunaa_panel_debug_none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basarunaa_panel_debug_none"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/basarunaa_panel_debug_boxes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basarunaa_panel_debug_boxes"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/basarunaa_panel_debug_full"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basarunaa_panel_debug_full"
+            android:textSize="13sp" />
+    </RadioGroup>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/basarunaa_panel_capture_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/basarunaa_panel_capture_mode"
+        android:textSize="13sp" />
 
 </LinearLayout>
+</ScrollView>

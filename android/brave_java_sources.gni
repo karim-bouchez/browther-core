@@ -361,6 +361,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/NudeNetDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/PersonMatcher.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/PplcNetClassifier.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloFaceDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloPoseDetector.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
