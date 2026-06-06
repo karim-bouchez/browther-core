@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.basarunaa;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
@@ -205,35 +206,60 @@ public final class BasarunaaEngine {
             final PersonDetection bodyDet = bodies.get(bi);
             final PersonMatcher.Match m = matched.get(bi);
 
+            // Polygon mask body (parité POC core/body-polygon.ts) — grayer
+            // le background avant que PPLCNet ne classifie.
+            final BodyPolygon.Result polyResult =
+                    BodyPolygon.build(bodyDet.keypoints, bodyDet.bbox, imgW, imgH);
+            final List<PointF> bodyMask =
+                    polyResult.isBodyShaped ? polyResult.points : null;
+
             if (m != null) {
                 final FaceDetection matchedFace = m.face;
                 final Bitmap aligned = FaceAlign.align(
                         src, bodyDet.keypoints, matchedFace.bbox, ALIGN_OUTPUT_SIZE);
                 GenderAgeClassifier.@Nullable Result faceResult = null;
+                @Nullable String faceCropDataUrl = null;
                 if (aligned != null) {
                     try {
                         faceResult = gender.classify(aligned);
+                        faceCropDataUrl = BitmapDataUrl.encodeJpeg(aligned);
                     } finally {
                         aligned.recycle();
                     }
                 }
                 final boolean strongFace =
                         faceResult != null && faceResult.confidence >= genderCertainty;
+                final Bitmap[] bodyCropOut = new Bitmap[1];
                 final GenderAgeClassifier.@Nullable Result bodyResult =
-                        strongFace ? null : classifyBodySafe(body, src, bodyDet.bbox);
-                // Dual vote : si les 2 sont dispo, prend le plus confiant
-                // (parité POC pipeline.js#_processDual L191-200).
+                        strongFace
+                                ? null
+                                : classifyBodySafe(
+                                        body, src, bodyDet.bbox, bodyMask, bodyCropOut);
+                @Nullable String bodyCropDataUrl = null;
+                if (bodyCropOut[0] != null) {
+                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCropOut[0]);
+                    bodyCropOut[0].recycle();
+                }
                 final GenderAgeClassifier.@Nullable Result picked =
                         pickBestGender(faceResult, bodyResult);
                 final String classifierUsed =
                         picked == null ? "none" : (picked == faceResult ? "face" : "body");
-                persons.add(Person.forBody(bodyDet, matchedFace, picked, classifierUsed));
+                persons.add(Person.forBody(
+                        bodyDet, matchedFace, picked, classifierUsed,
+                        faceCropDataUrl, bodyCropDataUrl));
             } else {
                 // Body sans face matchée → PPLCNet seul.
+                final Bitmap[] bodyCropOut = new Bitmap[1];
                 final GenderAgeClassifier.@Nullable Result bodyResult =
-                        classifyBodySafe(body, src, bodyDet.bbox);
+                        classifyBodySafe(body, src, bodyDet.bbox, bodyMask, bodyCropOut);
+                @Nullable String bodyCropDataUrl = null;
+                if (bodyCropOut[0] != null) {
+                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCropOut[0]);
+                    bodyCropOut[0].recycle();
+                }
                 final String classifierUsed = bodyResult != null ? "body" : "none";
-                persons.add(Person.forBody(bodyDet, null, bodyResult, classifierUsed));
+                persons.add(Person.forBody(
+                        bodyDet, null, bodyResult, classifierUsed, null, bodyCropDataUrl));
             }
         }
 
@@ -249,14 +275,16 @@ public final class BasarunaaEngine {
             final Bitmap aligned =
                     FaceAlign.align(src, null, unmatchedFace.bbox, ALIGN_OUTPUT_SIZE);
             GenderAgeClassifier.@Nullable Result cls = null;
+            @Nullable String faceCropDataUrl = null;
             if (aligned != null) {
                 try {
                     cls = gender.classify(aligned);
+                    faceCropDataUrl = BitmapDataUrl.encodeJpeg(aligned);
                 } finally {
                     aligned.recycle();
                 }
             }
-            persons.add(Person.forUnmatchedFace(synth, unmatchedFace, cls));
+            persons.add(Person.forUnmatchedFace(synth, unmatchedFace, cls, faceCropDataUrl));
         }
 
         // Étape 7 : decision globale.
@@ -297,9 +325,13 @@ public final class BasarunaaEngine {
      * fallback : un body sans gender vaut mieux qu'un crash pipeline).
      */
     private static GenderAgeClassifier.@Nullable Result classifyBodySafe(
-            PplcNetClassifier classifier, Bitmap src, Bbox bbox) {
+            PplcNetClassifier classifier,
+            Bitmap src,
+            Bbox bbox,
+            @Nullable List<PointF> polygon,
+            Bitmap @Nullable [] outCrop) {
         try {
-            return classifier.classify(src, bbox);
+            return classifier.classify(src, bbox, polygon, outCrop);
         } catch (Throwable t) {
             Log.w(TAG, "[Engine] body classify failed: " + t.getMessage());
             return null;
@@ -365,18 +397,22 @@ public final class BasarunaaEngine {
         final Bbox bbox;
         @Nullable final Bbox faceBbox;
         final Keypoint @Nullable [] keypoints;
-        @Nullable final String gender; // "F" | "M"
+        @Nullable final String gender; // "female" | "male"
         final float genderConfidence;
-        final String classifierUsed; // "face" | "unmatched" | "none"
+        final String classifierUsed; // "face" | "body" | "unmatched" | "none"
         final boolean isSyntheticBody;
         final float bodyConfidence;
         final float faceConfidence;
+        @Nullable final String faceCropDataUrl;
+        @Nullable final String bodyCropDataUrl;
 
         private Person(Bbox bbox, @Nullable Bbox faceBbox,
                        Keypoint @Nullable [] keypoints,
                        @Nullable String gender, float genderConfidence,
                        String classifierUsed, boolean isSyntheticBody,
-                       float bodyConfidence, float faceConfidence) {
+                       float bodyConfidence, float faceConfidence,
+                       @Nullable String faceCropDataUrl,
+                       @Nullable String bodyCropDataUrl) {
             this.bbox = bbox;
             this.faceBbox = faceBbox;
             this.keypoints = keypoints;
@@ -386,11 +422,15 @@ public final class BasarunaaEngine {
             this.isSyntheticBody = isSyntheticBody;
             this.bodyConfidence = bodyConfidence;
             this.faceConfidence = faceConfidence;
+            this.faceCropDataUrl = faceCropDataUrl;
+            this.bodyCropDataUrl = bodyCropDataUrl;
         }
 
         static Person forBody(PersonDetection body, @Nullable FaceDetection matchedFace,
                               GenderAgeClassifier.@Nullable Result cls,
-                              String classifierUsed) {
+                              String classifierUsed,
+                              @Nullable String faceCropDataUrl,
+                              @Nullable String bodyCropDataUrl) {
             return new Person(
                     body.bbox,
                     matchedFace != null ? matchedFace.bbox : body.faceBbox,
@@ -400,11 +440,14 @@ public final class BasarunaaEngine {
                     classifierUsed,
                     false,
                     body.confidence,
-                    matchedFace != null ? matchedFace.confidence : 0f);
+                    matchedFace != null ? matchedFace.confidence : 0f,
+                    faceCropDataUrl,
+                    bodyCropDataUrl);
         }
 
         static Person forUnmatchedFace(Bbox synth, FaceDetection face,
-                                       GenderAgeClassifier.@Nullable Result cls) {
+                                       GenderAgeClassifier.@Nullable Result cls,
+                                       @Nullable String faceCropDataUrl) {
             return new Person(
                     synth,
                     face.bbox,
@@ -414,7 +457,9 @@ public final class BasarunaaEngine {
                     "unmatched",
                     true,
                     0f,
-                    face.confidence);
+                    face.confidence,
+                    faceCropDataUrl,
+                    null);
         }
 
         @SuppressWarnings("NullAway") // null-checks explicites sur faceBbox/keypoints/gender
@@ -431,6 +476,8 @@ public final class BasarunaaEngine {
             if (isSyntheticBody) o.put("isSyntheticBody", true);
             if (bodyConfidence > 0f) o.put("bodyConfidence", bodyConfidence);
             if (faceConfidence > 0f) o.put("faceConfidence", faceConfidence);
+            if (faceCropDataUrl != null) o.put("faceCropDataUrl", faceCropDataUrl);
+            if (bodyCropDataUrl != null) o.put("bodyCropDataUrl", bodyCropDataUrl);
             return o;
         }
 

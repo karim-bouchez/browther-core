@@ -354,6 +354,8 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaResult.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTabAnalyzer.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTypes.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BitmapDataUrl.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BodyPolygon.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/FaceAlign.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderAgeClassifier.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
