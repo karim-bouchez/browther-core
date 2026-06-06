@@ -4058,9 +4058,6 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BASARUNAA_PANEL_DESCRIPTION" desc="Description below the big toggle in the Basarunaa panel">
       Floute automatiquement les personnes dans les pages web pour préserver le regard.
     </message>
-    <message name="IDS_BASARUNAA_PANEL_COMING_SOON" desc="Notice telling the user the ML pipeline is not yet shipped on Android.">
-      Le filtrage ML n'est pas encore actif sur Android — il arrive bientôt إن شاء الله.
-    </message>
     <message name="IDS_BASARUNAA_PANEL_SECTION_MODE" desc="Section title for the blur mode radio group">
       Mode
     </message>
