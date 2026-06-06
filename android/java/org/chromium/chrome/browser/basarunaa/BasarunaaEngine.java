@@ -198,14 +198,12 @@ public final class BasarunaaEngine {
         final Map<Integer, PersonMatcher.Match> matched = PersonMatcher.match(bodies, faces);
 
         // Étape 5 : classify bodies matchés (face) + body sans face → PPLCNet.
-        // Dual vote face vs body en cas de match : prend le plus confiant.
+        // Optim : skip PPLCNet quand la face est déjà très confiante
+        // (>= genderCertainty seuil), économise ~150ms × person.
         final ArrayList<Person> persons = new ArrayList<>();
         for (int bi = 0; bi < bodies.size(); bi++) {
             final PersonDetection bodyDet = bodies.get(bi);
             final PersonMatcher.Match m = matched.get(bi);
-
-            final GenderAgeClassifier.@Nullable Result bodyResult =
-                    classifyBodySafe(body, src, bodyDet.bbox);
 
             if (m != null) {
                 final FaceDetection matchedFace = m.face;
@@ -219,8 +217,12 @@ public final class BasarunaaEngine {
                         aligned.recycle();
                     }
                 }
-                // Dual vote : si les 2 sont dispo, prend le plus confiant.
-                // (Parité POC pipeline.js#_processDual L191-200.)
+                final boolean strongFace =
+                        faceResult != null && faceResult.confidence >= genderCertainty;
+                final GenderAgeClassifier.@Nullable Result bodyResult =
+                        strongFace ? null : classifyBodySafe(body, src, bodyDet.bbox);
+                // Dual vote : si les 2 sont dispo, prend le plus confiant
+                // (parité POC pipeline.js#_processDual L191-200).
                 final GenderAgeClassifier.@Nullable Result picked =
                         pickBestGender(faceResult, bodyResult);
                 final String classifierUsed =
@@ -228,6 +230,8 @@ public final class BasarunaaEngine {
                 persons.add(Person.forBody(bodyDet, matchedFace, picked, classifierUsed));
             } else {
                 // Body sans face matchée → PPLCNet seul.
+                final GenderAgeClassifier.@Nullable Result bodyResult =
+                        classifyBodySafe(body, src, bodyDet.bbox);
                 final String classifierUsed = bodyResult != null ? "body" : "none";
                 persons.add(Person.forBody(bodyDet, null, bodyResult, classifierUsed));
             }
@@ -343,8 +347,8 @@ public final class BasarunaaEngine {
         if ("blur-all".equals(mode)) return true;
         if (p.gender == null) return false;
         if (p.genderConfidence < genderCertainty) return false;
-        if ("blur-female".equals(mode)) return "F".equals(p.gender);
-        if ("blur-male".equals(mode)) return "M".equals(p.gender);
+        if ("blur-female".equals(mode)) return "female".equals(p.gender);
+        if ("blur-male".equals(mode)) return "male".equals(p.gender);
         return false;
     }
 
@@ -391,7 +395,7 @@ public final class BasarunaaEngine {
                     body.bbox,
                     matchedFace != null ? matchedFace.bbox : body.faceBbox,
                     body.keypoints,
-                    cls != null ? (cls.isFemale ? "F" : "M") : null,
+                    cls != null ? (cls.isFemale ? "female" : "male") : null,
                     cls != null ? cls.confidence : 0f,
                     classifierUsed,
                     false,
@@ -405,7 +409,7 @@ public final class BasarunaaEngine {
                     synth,
                     face.bbox,
                     null,
-                    cls != null ? (cls.isFemale ? "F" : "M") : null,
+                    cls != null ? (cls.isFemale ? "female" : "male") : null,
                     cls != null ? cls.confidence : 0f,
                     "unmatched",
                     true,
