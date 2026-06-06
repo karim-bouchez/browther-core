@@ -148,8 +148,10 @@ public final class BodyPolygon {
         if (hull.size() < 3) return bboxFallback(bbox);
 
         // Rescale pour remplir la bbox.
-        float polyMinX = Float.POSITIVE_INFINITY, polyMaxX = Float.NEGATIVE_INFINITY;
-        float polyMinY = Float.POSITIVE_INFINITY, polyMaxY = Float.NEGATIVE_INFINITY;
+        float polyMinX = Float.POSITIVE_INFINITY;
+        float polyMaxX = Float.NEGATIVE_INFINITY;
+        float polyMinY = Float.POSITIVE_INFINITY;
+        float polyMaxY = Float.NEGATIVE_INFINITY;
         for (PointF p : hull) {
             if (p.x < polyMinX) polyMinX = p.x;
             if (p.x > polyMaxX) polyMaxX = p.x;
@@ -243,8 +245,10 @@ public final class BodyPolygon {
         final boolean snapRight = bbox.x2 / imgW > (1f - EDGE_SNAP_THRESHOLD);
         if (!snapBottom && !snapTop && !snapLeft && !snapRight) return points;
 
-        float minX = Float.POSITIVE_INFINITY, maxX = Float.NEGATIVE_INFINITY;
-        float minY = Float.POSITIVE_INFINITY, maxY = Float.NEGATIVE_INFINITY;
+        float minX = Float.POSITIVE_INFINITY;
+        float maxX = Float.NEGATIVE_INFINITY;
+        float minY = Float.POSITIVE_INFINITY;
+        float maxY = Float.NEGATIVE_INFINITY;
         for (PointF p : points) {
             if (p.x < minX) minX = p.x;
             if (p.x > maxX) maxX = p.x;
