@@ -359,6 +359,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/FaceAlign.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderAgeClassifier.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/NanoDetSentinelDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Nms.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/NudeNetDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",

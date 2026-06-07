@@ -122,7 +122,15 @@ public final class BasarunaaEngine {
     @Nullable private GenderAgeClassifier genderClassifier;
     @Nullable private NudeNetDetector nudeNetDetector;
     @Nullable private PplcNetClassifier bodyClassifier;
+    /**
+     * Sentinel detector lazy-loadé séparément des 5 sessions image-pipeline.
+     * Le caller image-only ne paie pas le coût (~16 MB modèle) tant qu'aucune
+     * vidéo n'a été tappée. Parité iOS {@code loadSentinelIfNeeded}
+     * (BasarunaaPipeline.swift#L355-L360).
+     */
+    @Nullable private NanoDetSentinelDetector sentinelDetector;
     private boolean modelsFailed;
+    private boolean sentinelFailed;
 
     private BasarunaaEngine() {
         Log.i(TAG, "[Engine] singleton created (Jalon 2.E.6 — V1 image pipeline + NSFW)");
@@ -141,11 +149,15 @@ public final class BasarunaaEngine {
         PIPELINE_EXEC.execute(() -> {
             final long t0 = System.nanoTime();
             ensureModelsLoaded();
+            // Sentinel chargé en même temps (le scheduler vidéo va le frapper
+            // au tout début de la 1ʳᵉ vidéo détectée — éviter un 2ᵉ stall).
+            ensureSentinelLoaded();
             final double ms = (System.nanoTime() - t0) / 1_000_000.0;
             if (modelsFailed) {
                 Log.w(TAG, "[Engine] warmup failed after %.1fms", ms);
             } else {
-                Log.i(TAG, "[Engine] warmup done in %.1fms", ms);
+                Log.i(TAG, "[Engine] warmup done in %.1fms (sentinel=%s)",
+                        ms, sentinelFailed ? "fail" : "ok");
             }
         });
     }
@@ -206,6 +218,62 @@ public final class BasarunaaEngine {
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] models load failed; switching to no-op", t);
             modelsFailed = true;
+        }
+    }
+
+    /**
+     * Lazy-init du sentinel detector — séparé de {@link #ensureModelsLoaded}
+     * pour rester aligné iOS (image-only callers payent pas le coût). Retourne
+     * {@code null} si le load fail (sentinel devient no-op).
+     */
+    private @Nullable NanoDetSentinelDetector ensureSentinelLoaded() {
+        if (sentinelDetector != null) return sentinelDetector;
+        if (sentinelFailed) return null;
+        try {
+            sentinelDetector = new NanoDetSentinelDetector();
+            return sentinelDetector;
+        } catch (Throwable t) {
+            Log.e(TAG, "[Engine] sentinel load failed; switching to no-op", t);
+            sentinelFailed = true;
+            return null;
+        }
+    }
+
+    /**
+     * Sentinel light-weight inference pour le scheduler vidéo two-tier
+     * (parité iOS {@code BasarunaaPipeline.sentinel} L157-L167). Retourne
+     * juste les bboxes person (pas de gender, pas de NSFW, pas de keypoint).
+     * Doit être appelé depuis {@link #PIPELINE_EXEC} (sérialisation avec les
+     * AnalyzeImage en cours).
+     *
+     * @return liste bboxes en coords image source, ou liste vide en cas
+     *         d'erreur (best-effort fallback)
+     */
+    public List<Bbox> sentinel(byte[] bytes, double confThreshold) {
+        final long t0 = System.nanoTime();
+        try {
+            final NanoDetSentinelDetector det = ensureSentinelLoaded();
+            if (det == null) return java.util.Collections.emptyList();
+
+            final Bitmap src = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            if (src == null) {
+                Log.w(TAG, "[Engine] sentinel decode failed");
+                return java.util.Collections.emptyList();
+            }
+            try {
+                final List<Bbox> bboxes = det.detect(src, (float) confThreshold);
+                final double elapsedMs = (System.nanoTime() - t0) / 1_000_000.0;
+                Log.i(TAG, "[Engine] sentinel %dx%d bboxes=%d %.1fms",
+                        src.getWidth(), src.getHeight(), bboxes.size(), elapsedMs);
+                return bboxes;
+            } finally {
+                src.recycle();
+            }
+        } catch (Throwable t) {
+            final double elapsedMs = (System.nanoTime() - t0) / 1_000_000.0;
+            Log.e(TAG, "[Engine] sentinel failed after "
+                    + String.format(java.util.Locale.US, "%.1fms", elapsedMs), t);
+            return java.util.Collections.emptyList();
         }
     }
 
