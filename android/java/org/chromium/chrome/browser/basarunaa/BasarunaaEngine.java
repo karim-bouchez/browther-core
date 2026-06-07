@@ -116,6 +116,28 @@ public final class BasarunaaEngine {
     }
 
     /**
+     * Warmup ML async (port iOS BasarunaaPipeline.swift#warmup) — charge
+     * les 5 sessions ORT sur PIPELINE_EXEC avant la première AnalyzeImage,
+     * pour éviter le hit de 750ms cumulé qui rend le 1er hit ~2s sur device.
+     * À appeler dès qu'on sait que la feature est ENABLED (Bridge / TabAnalyzer
+     * created), pas en hot path.
+     *
+     * <p>No-op si déjà loadé ou en cours de load.
+     */
+    public void warmupAsync() {
+        PIPELINE_EXEC.execute(() -> {
+            final long t0 = System.nanoTime();
+            ensureModelsLoaded();
+            final double ms = (System.nanoTime() - t0) / 1_000_000.0;
+            if (modelsFailed) {
+                Log.w(TAG, "[Engine] warmup failed after %.1fms", ms);
+            } else {
+                Log.i(TAG, "[Engine] warmup done in %.1fms", ms);
+            }
+        });
+    }
+
+    /**
      * Analyse une image encodée et retourne le verdict ML.
      *
      * <p>Appelé depuis {@code BasarunaaTabAnalyzer.runAnalyze} sur

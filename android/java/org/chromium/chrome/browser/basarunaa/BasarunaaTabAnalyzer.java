@@ -35,6 +35,10 @@ public final class BasarunaaTabAnalyzer {
     @CalledByNative
     public static BasarunaaTabAnalyzer create(int instanceId, long nativeHelper) {
         Log.i(TAG, "[Analyzer#%d] created (native=%d)", instanceId, nativeHelper);
+        // Warmup async dès la création du 1er analyzer pour éviter le hit de
+        // ~750ms cumulé de lazy-init des sessions ORT au 1er AnalyzeImage
+        // (parité iOS BasarunaaPipeline.swift#warmup). No-op si déjà chargé.
+        BasarunaaEngine.getInstance().warmupAsync();
         return new BasarunaaTabAnalyzer(instanceId, nativeHelper);
     }
 
