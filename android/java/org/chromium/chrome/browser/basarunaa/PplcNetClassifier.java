@@ -79,98 +79,104 @@ public final class PplcNetClassifier implements AutoCloseable {
     }
 
     /**
-     * Classifie un body crop. Retourne un Result avec isFemale + confidence
-     * (probabilité de la classe gagnante, ∈ [0.5, 1.0]).
+     * Génère le crop body 192×256 avec polygon mask appliqué, SANS inférence
+     * ORT. Pattern split iOS Swift {@code PPLCNetClassifier.swift#wantsCropImage} :
+     * le crop est cheap (~3ms), l'inférence est ~150ms. On peut donc générer
+     * le crop pour le debug overlay même quand on skip l'inférence (face
+     * confiance suffisante).
+     *
+     * <p>À l'appelant de {@code recycle()} le bitmap retourné.
      *
      * @param src image source complète
      * @param bbox bbox du body en coords source
-     * @param polygon polygone body (BodyPolygon) en coords source pour grayer
-     *     le background ; null = utilise toute la bbox sans mask
+     * @param polygon polygone body en coords source (mask gris hors silhouette)
+     *     ou null pour pas de mask
      */
-    public GenderAgeClassifier.Result classify(
-            Bitmap src, Bbox bbox, @Nullable List<PointF> polygon) throws OrtException {
-        return classify(src, bbox, polygon, null);
-    }
-
-    /**
-     * Variante qui remplit aussi {@code outCrop[0]} avec le bitmap 192×256
-     * masqué (utile pour debug overlay {@code bodyCropDataUrl}). À l'appelant
-     * de le recycler.
-     */
-    public GenderAgeClassifier.Result classify(
-            Bitmap src, Bbox bbox, @Nullable List<PointF> polygon,
-            Bitmap @Nullable [] outCrop) throws OrtException {
-        // Crop + resize 192×256 (W×H) sur fond gris (parité POC
-        // preprocessForClassification).
+    public static Bitmap cropBody(
+            Bitmap src, Bbox bbox, @Nullable List<PointF> polygon) {
         final Bitmap target = Bitmap.createBitmap(INPUT_W, INPUT_H, Bitmap.Config.ARGB_8888);
-        try {
-            final Canvas canvas = new Canvas(target);
-            canvas.drawColor(Color.rgb(0x80, 0x80, 0x80));
-            final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
-            final Rect srcRect = new Rect(
-                    Math.max(0, (int) bbox.x1),
-                    Math.max(0, (int) bbox.y1),
-                    Math.min(src.getWidth(), (int) bbox.x2),
-                    Math.min(src.getHeight(), (int) bbox.y2));
-            final Rect dstRect = new Rect(0, 0, INPUT_W, INPUT_H);
-            canvas.drawBitmap(src, srcRect, dstRect, paint);
+        final Canvas canvas = new Canvas(target);
+        canvas.drawColor(Color.rgb(0x80, 0x80, 0x80));
+        final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
+        final Rect srcRect = new Rect(
+                Math.max(0, (int) bbox.x1),
+                Math.max(0, (int) bbox.y1),
+                Math.min(src.getWidth(), (int) bbox.x2),
+                Math.min(src.getHeight(), (int) bbox.y2));
+        final Rect dstRect = new Rect(0, 0, INPUT_W, INPUT_H);
+        canvas.drawBitmap(src, srcRect, dstRect, paint);
 
+        if (polygon != null && polygon.size() >= 3) {
             final int area = INPUT_W * INPUT_H;
             final int[] argb = new int[area];
             target.getPixels(argb, 0, INPUT_W, 0, 0, INPUT_W, INPUT_H);
-
-            // Applique le body polygon mask : grayer les pixels hors polygone.
-            // Le polygone est en coords source, on remappe le pixel du crop
-            // (px, py) → coords source via inverse crop/resize.
-            if (polygon != null && polygon.size() >= 3) {
-                final float cropW = bbox.width();
-                final float cropH = bbox.height();
-                for (int py = 0; py < INPUT_H; py++) {
-                    final float origY = bbox.y1 + (py / (float) INPUT_H) * cropH;
-                    for (int px = 0; px < INPUT_W; px++) {
-                        final float origX = bbox.x1 + (px / (float) INPUT_W) * cropW;
-                        if (!BodyPolygon.contains(polygon, origX, origY)) {
-                            argb[py * INPUT_W + px] = 0xFF808080; // gris
-                        }
+            final float cropW = bbox.width();
+            final float cropH = bbox.height();
+            for (int py = 0; py < INPUT_H; py++) {
+                final float origY = bbox.y1 + (py / (float) INPUT_H) * cropH;
+                for (int px = 0; px < INPUT_W; px++) {
+                    final float origX = bbox.x1 + (px / (float) INPUT_W) * cropW;
+                    if (!BodyPolygon.contains(polygon, origX, origY)) {
+                        argb[py * INPUT_W + px] = 0xFF808080;
                     }
                 }
-                target.setPixels(argb, 0, INPUT_W, 0, 0, INPUT_W, INPUT_H);
             }
+            target.setPixels(argb, 0, INPUT_W, 0, 0, INPUT_W, INPUT_H);
+        }
+        return target;
+    }
 
-            // Émet le crop debug (copie) si demandé.
-            if (outCrop != null) {
-                outCrop[0] = target.copy(Bitmap.Config.ARGB_8888, false);
-            }
+    /**
+     * Run l'inférence ORT sur un body crop pré-généré. Pattern parité iOS
+     * Swift {@code PPLCNetClassifier.decode(output:cropImage:)}.
+     */
+    public GenderAgeClassifier.Result classifyCrop(Bitmap bodyCrop) throws OrtException {
+        if (bodyCrop.getWidth() != INPUT_W || bodyCrop.getHeight() != INPUT_H) {
+            throw new IllegalArgumentException(
+                    "PplcNet expects " + INPUT_W + "×" + INPUT_H + " crop, got "
+                            + bodyCrop.getWidth() + "×" + bodyCrop.getHeight());
+        }
+        final int area = INPUT_W * INPUT_H;
+        final int[] argb = new int[area];
+        bodyCrop.getPixels(argb, 0, INPUT_W, 0, 0, INPUT_W, INPUT_H);
 
-            final FloatBuffer chw = FloatBuffer.allocate(3 * area);
-            final float[] r = new float[area];
-            final float[] g = new float[area];
-            final float[] b = new float[area];
-            for (int i = 0; i < area; i++) {
-                final int px = argb[i];
-                r[i] = (((px >> 16) & 0xFF) / 255f - MEAN_R) / STD_R;
-                g[i] = (((px >> 8) & 0xFF) / 255f - MEAN_G) / STD_G;
-                b[i] = ((px & 0xFF) / 255f - MEAN_B) / STD_B;
-            }
-            chw.put(r);
-            chw.put(g);
-            chw.put(b);
-            chw.flip();
+        final FloatBuffer chw = FloatBuffer.allocate(3 * area);
+        final float[] r = new float[area];
+        final float[] g = new float[area];
+        final float[] b = new float[area];
+        for (int i = 0; i < area; i++) {
+            final int px = argb[i];
+            r[i] = (((px >> 16) & 0xFF) / 255f - MEAN_R) / STD_R;
+            g[i] = (((px >> 8) & 0xFF) / 255f - MEAN_G) / STD_G;
+            b[i] = ((px & 0xFF) / 255f - MEAN_B) / STD_B;
+        }
+        chw.put(r);
+        chw.put(g);
+        chw.put(b);
+        chw.flip();
 
-            try (OnnxTensor input = OnnxTensor.createTensor(
-                    OrtRuntime.env(), chw, new long[] {1, 3, INPUT_H, INPUT_W});
-                    OrtSession.Result result = session.run(Map.of(inputName, input))) {
-                final OnnxTensor outTensor = (OnnxTensor) result.get(0);
-                final FloatBuffer flat = outTensor.getFloatBuffer();
-                // Output sigmoid déjà appliqué dans le graph PULC → probabilités.
-                // Index 22 = Female.
-                final float femaleProb = flat.get(FEMALE_ATTR_INDEX);
-                final boolean isFemale = femaleProb > THRESHOLD;
-                final float confidence = isFemale ? femaleProb : 1f - femaleProb;
-                return new GenderAgeClassifier.Result(isFemale, confidence);
-            }
+        try (OnnxTensor input = OnnxTensor.createTensor(
+                OrtRuntime.env(), chw, new long[] {1, 3, INPUT_H, INPUT_W});
+                OrtSession.Result result = session.run(Map.of(inputName, input))) {
+            final OnnxTensor outTensor = (OnnxTensor) result.get(0);
+            final FloatBuffer flat = outTensor.getFloatBuffer();
+            // Output sigmoid déjà appliqué dans le graph PULC → probabilités.
+            // Index 22 = Female.
+            final float femaleProb = flat.get(FEMALE_ATTR_INDEX);
+            final boolean isFemale = femaleProb > THRESHOLD;
+            final float confidence = isFemale ? femaleProb : 1f - femaleProb;
+            return new GenderAgeClassifier.Result(isFemale, confidence);
+        }
+    }
+
+    /** Convenience : crop + classify en un seul appel. */
+    public GenderAgeClassifier.Result classify(
+            Bitmap src, Bbox bbox, @Nullable List<PointF> polygon) throws OrtException {
+        final Bitmap crop = cropBody(src, bbox, polygon);
+        try {
+            return classifyCrop(crop);
         } finally {
-            target.recycle();
+            crop.recycle();
         }
     }
 }

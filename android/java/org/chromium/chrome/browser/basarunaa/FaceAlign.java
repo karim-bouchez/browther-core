@@ -80,8 +80,23 @@ public final class FaceAlign {
                         && keypoints[2].confidence > EYE_CONF_MIN;
 
         if (hasEyes) {
-            final Keypoint leftEye = keypoints[1];
-            final Keypoint rightEye = keypoints[2];
+            // Order eyes by image x — port du fix iOS Swift
+            // FaceAlign.swift#L52-60 (commentaire iOS : "without this, a
+            // face-camera person triggers atan2(0, -dx) ≈ 180° and the crop
+            // renders upside-down → softmax biases everyone to female").
+            // YOLO11n-pose retourne les keypoints en COCO order où "left_eye"
+            // est du POV de la personne (donc visuellement à droite pour un
+            // visage frontal). On normalise en image-coords pour avoir un
+            // angle dans [-90°, +90°] et pas ±180°.
+            Keypoint leftEye;
+            Keypoint rightEye;
+            if (keypoints[1].x <= keypoints[2].x) {
+                leftEye = keypoints[1];
+                rightEye = keypoints[2];
+            } else {
+                leftEye = keypoints[2];
+                rightEye = keypoints[1];
+            }
             final float dx = rightEye.x - leftEye.x;
             final float dy = rightEye.y - leftEye.y;
             final float eyeDist = (float) Math.hypot(dx, dy);

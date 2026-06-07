@@ -227,18 +227,20 @@ public final class BasarunaaEngine {
                         aligned.recycle();
                     }
                 }
-                final boolean strongFace =
-                        faceResult != null && faceResult.confidence >= genderCertainty;
-                final Bitmap[] bodyCropOut = new Bitmap[1];
-                final GenderAgeClassifier.@Nullable Result bodyResult =
-                        strongFace
-                                ? null
-                                : classifyBodySafe(
-                                        body, src, bodyDet.bbox, bodyMask, bodyCropOut);
-                @Nullable String bodyCropDataUrl = null;
-                if (bodyCropOut[0] != null) {
-                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCropOut[0]);
-                    bodyCropOut[0].recycle();
+                // Split crop / classify (pattern iOS) : génère TOUJOURS le
+                // crop (cheap ~3ms) pour le debug overlay, mais skip
+                // l'inférence ORT (~150ms) si la face est déjà confiante.
+                final Bitmap bodyCrop =
+                        PplcNetClassifier.cropBody(src, bodyDet.bbox, bodyMask);
+                final String bodyCropDataUrl;
+                final GenderAgeClassifier.@Nullable Result bodyResult;
+                try {
+                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCrop);
+                    final boolean strongFace =
+                            faceResult != null && faceResult.confidence >= genderCertainty;
+                    bodyResult = strongFace ? null : classifyCropSafe(body, bodyCrop);
+                } finally {
+                    bodyCrop.recycle();
                 }
                 final GenderAgeClassifier.@Nullable Result picked =
                         pickBestGender(faceResult, bodyResult);
@@ -248,14 +250,17 @@ public final class BasarunaaEngine {
                         bodyDet, matchedFace, picked, classifierUsed,
                         faceCropDataUrl, bodyCropDataUrl));
             } else {
-                // Body sans face matchée → PPLCNet seul.
-                final Bitmap[] bodyCropOut = new Bitmap[1];
-                final GenderAgeClassifier.@Nullable Result bodyResult =
-                        classifyBodySafe(body, src, bodyDet.bbox, bodyMask, bodyCropOut);
-                @Nullable String bodyCropDataUrl = null;
-                if (bodyCropOut[0] != null) {
-                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCropOut[0]);
-                    bodyCropOut[0].recycle();
+                // Body sans face matchée → PPLCNet seul. Toujours crop +
+                // inférence (pas de face confiante pour skip).
+                final Bitmap bodyCrop =
+                        PplcNetClassifier.cropBody(src, bodyDet.bbox, bodyMask);
+                final String bodyCropDataUrl;
+                final GenderAgeClassifier.@Nullable Result bodyResult;
+                try {
+                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCrop);
+                    bodyResult = classifyCropSafe(body, bodyCrop);
+                } finally {
+                    bodyCrop.recycle();
                 }
                 final String classifierUsed = bodyResult != null ? "body" : "none";
                 persons.add(Person.forBody(
@@ -321,17 +326,15 @@ public final class BasarunaaEngine {
     }
 
     /**
-     * Classify body via PPLCNet en swallowing les exceptions ORT (best-effort
-     * fallback : un body sans gender vaut mieux qu'un crash pipeline).
+     * Classify body via PPLCNet (inférence ORT sur crop pré-généré) en
+     * swallowing les exceptions (best-effort fallback). Pattern split
+     * porté de iOS Swift {@code BasarunaaPipeline} : on génère le crop
+     * une fois et on décide de runner ORT après.
      */
-    private static GenderAgeClassifier.@Nullable Result classifyBodySafe(
-            PplcNetClassifier classifier,
-            Bitmap src,
-            Bbox bbox,
-            @Nullable List<PointF> polygon,
-            Bitmap @Nullable [] outCrop) {
+    private static GenderAgeClassifier.@Nullable Result classifyCropSafe(
+            PplcNetClassifier classifier, Bitmap crop) {
         try {
-            return classifier.classify(src, bbox, polygon, outCrop);
+            return classifier.classifyCrop(crop);
         } catch (Throwable t) {
             Log.w(TAG, "[Engine] body classify failed: " + t.getMessage());
             return null;
