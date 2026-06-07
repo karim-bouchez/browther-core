@@ -21,8 +21,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.FaceDetection;
@@ -66,6 +68,23 @@ public final class BasarunaaEngine {
     /** Pool single-thread global : 1 inférence ML à la fois sur tout le browser. */
     public static final ExecutorService PIPELINE_EXEC =
             Executors.newSingleThreadExecutor(r -> new Thread(r, "Basarunaa-Pipeline"));
+
+    /**
+     * Pool 2-thread pour parallel YOLO-pose + YOLO-face détection
+     * (parité iOS BasarunaaPipeline.swift L222-233 — async let bodiesAsync /
+     * facesAsync). Sessions ORT distinctes donc thread-safe : Huawei 8 cores
+     * avec {@code intraOpThreads=4} → 8 threads OS partagés sur 8 cores en
+     * parallel. Gain mesuré attendu : ~300ms par analyze (cf. 1099ms → ~700ms
+     * sur image dense).
+     *
+     * <p>Daemon threads pour pas bloquer le shutdown du process.
+     */
+    public static final ExecutorService PARALLEL_EXEC =
+            Executors.newFixedThreadPool(2, r -> {
+                final Thread t = new Thread(r, "Basarunaa-Parallel");
+                t.setDaemon(true);
+                return t;
+            });
 
     @Nullable private static volatile BasarunaaEngine sInstance;
 
@@ -189,11 +208,14 @@ public final class BasarunaaEngine {
             return new BasarunaaResult(imageId, "nsfw", "[]", elapsedMs);
         }
 
-        // Étapes 2 + 3 : YOLO-pose + YOLO-face séquentiels (single-thread).
-        final List<PersonDetection> bodies =
-                pose.detect(src, confBody, NMS_IOU_THRESHOLD);
-        final List<FaceDetection> faces =
-                face.detect(src, confFace, NMS_IOU_THRESHOLD);
+        // Étapes 2 + 3 : YOLO-pose + YOLO-face en PARALLEL sur 2 threads
+        // (parité iOS — sessions ORT distinctes, thread-safe).
+        final Future<List<PersonDetection>> bodiesFuture = PARALLEL_EXEC.submit(
+                () -> pose.detect(src, confBody, NMS_IOU_THRESHOLD));
+        final Future<List<FaceDetection>> facesFuture = PARALLEL_EXEC.submit(
+                () -> face.detect(src, confFace, NMS_IOU_THRESHOLD));
+        final List<PersonDetection> bodies = awaitFuture(bodiesFuture);
+        final List<FaceDetection> faces = awaitFuture(facesFuture);
 
         // Étape 4 : matching.
         final Map<Integer, PersonMatcher.Match> matched = PersonMatcher.match(bodies, faces);
@@ -323,6 +345,21 @@ public final class BasarunaaEngine {
         }
 
         return new BasarunaaResult(imageId, decision, personsJson, elapsedMs);
+    }
+
+    /**
+     * Unwrap un Future en propageant Exception ↦ rethrow propre. Évite la
+     * pollution InterruptedException + ExecutionException dans le caller.
+     */
+    private static <T> T awaitFuture(Future<T> future) throws Exception {
+        try {
+            return future.get();
+        } catch (ExecutionException e) {
+            final Throwable cause = e.getCause();
+            if (cause instanceof Exception) throw (Exception) cause;
+            if (cause instanceof Error) throw (Error) cause;
+            throw e;
+        }
     }
 
     /**
