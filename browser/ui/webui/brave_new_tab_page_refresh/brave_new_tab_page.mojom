@@ -71,8 +71,16 @@ enum TopSitesListKind {
 enum ClockFormat { kAuto, k12, k24 };
 
 struct ShieldsStats {
+  // Trackers/ads bloqués via Shields (kAdsBlocked + kTrackersBlocked, profile).
   double ads_blocked;
+  // Conservé pour compat ABI mojo, plus consommé par le widget Browther.
   double bandwidth_saved_bytes;
+  // Browther : secondes cumulées de musique retirée par Sawtunaa (local_state,
+  // kStatsMusicSecondsTotal). Affiché sur la NTP.
+  double music_seconds_removed;
+  // Browther : personnes cumulées floutées par Basarunaa (local_state,
+  // kStatsPersonsBlurredTotal). Affiché sur la NTP.
+  double persons_blurred;
 };
 
 // WebUI-side handler for notifications from the browser.

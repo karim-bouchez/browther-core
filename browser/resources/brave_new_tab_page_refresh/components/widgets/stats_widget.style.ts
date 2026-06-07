@@ -34,12 +34,16 @@ export const style = scoped.css`
     }
   }
 
-  .ads-blocked {
-    --self-value-color: ${color.primitive.orange[70]};
+  .music-removed {
+    --self-value-color: ${color.primitive.green[60]};
   }
 
-  .bandwidth-saved {
-    --self-value-color: ${color.primitive.primary[70]};
+  .persons-blurred {
+    --self-value-color: ${color.primitive.pink[60]};
+  }
+
+  .ads-blocked {
+    --self-value-color: ${color.primitive.orange[70]};
   }
 
   .value {

@@ -33,6 +33,16 @@ inline constexpr char kStatsAdsBlockedPending[] =
 inline constexpr char kStatsAdsBlockedLastSeen[] =
     "browther.analytics.stats.ads_blocked_last_seen";
 
+// Compteurs cumulatifs locaux affichés sur la NTP ("musique retirée" et
+// "personnes floutées"). Jamais reset, indépendants du consentement analytics
+// (c'est une stat utilisateur, pas un envoi backend). Incrémentés en parallèle
+// des compteurs `_pending` à chaque appel à `IncrementMusicSeconds` /
+// `IncrementPersonsBlurred`.
+inline constexpr char kStatsMusicSecondsTotal[] =
+    "browther.stats.music_seconds_total";
+inline constexpr char kStatsPersonsBlurredTotal[] =
+    "browther.stats.persons_blurred_total";
+
 }  // namespace browther_analytics::prefs
 
 #endif  // BRAVE_COMPONENTS_BROWTHER_ANALYTICS_PREF_NAMES_H_

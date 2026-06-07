@@ -19,7 +19,9 @@
 #include "brave/components/brave_perf_predictor/common/pref_names.h"
 #include "brave/components/brave_search_conversion/pref_names.h"
 #include "brave/components/brave_talk/buildflags/buildflags.h"
+#include "brave/components/browther_analytics/pref_names.h"
 #include "brave/components/constants/pref_names.h"
+#include "chrome/browser/browser_process.h"
 #include "brave/components/misc_metrics/brave_search_metrics.h"
 #include "brave/components/misc_metrics/navigation_source_metrics.h"
 #include "brave/components/misc_metrics/new_tab_metrics.h"
@@ -484,6 +486,17 @@ void NewTabPageHandler::GetShieldsStats(GetShieldsStatsCallback callback) {
                        pref_service_->GetUint64(kTrackersBlocked);
   stats->bandwidth_saved_bytes = pref_service_->GetUint64(
       brave_perf_predictor::prefs::kBandwidthSavedBytes);
+  // Browther stats — compteurs cumulatifs stockés dans local_state par
+  // BrowtherAnalyticsService (cf. components/browther_analytics).
+  auto* local_state = g_browser_process->local_state();
+  stats->music_seconds_removed =
+      local_state
+          ? local_state->GetUint64(browther_analytics::prefs::kStatsMusicSecondsTotal)
+          : 0;
+  stats->persons_blurred =
+      local_state
+          ? local_state->GetUint64(browther_analytics::prefs::kStatsPersonsBlurredTotal)
+          : 0;
   std::move(callback).Run(std::move(stats));
 }
 

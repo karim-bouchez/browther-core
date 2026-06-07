@@ -23,6 +23,21 @@ namespace {
 
 BrowtherAnalyticsService* g_instance = nullptr;
 
+// Incrémente une pref Uint64 en saturant à uint64_max pour éviter le wrap.
+// Utilisé pour les compteurs cumulatifs NTP (kStats*Total).
+void IncrementUint64Pref(PrefService* prefs,
+                         const std::string& path,
+                         int delta) {
+  if (delta <= 0 || !prefs) {
+    return;
+  }
+  const uint64_t current = prefs->GetUint64(path);
+  const uint64_t increment = static_cast<uint64_t>(delta);
+  prefs->SetUint64(path, current > UINT64_MAX - increment
+                             ? UINT64_MAX
+                             : current + increment);
+}
+
 }  // namespace
 
 // static
@@ -116,6 +131,9 @@ bool BrowtherAnalyticsService::IsStatsEnabled() const {
 }
 
 void BrowtherAnalyticsService::IncrementMusicSeconds(int delta) {
+  // Compteur cumulatif local pour la NTP : pas de gate analytics, c'est une
+  // stat utilisateur visible localement et n'envoie rien sur le réseau.
+  IncrementUint64Pref(local_state_, prefs::kStatsMusicSecondsTotal, delta);
   if (!IsStatsEnabled()) {
     return;
   }
@@ -123,6 +141,8 @@ void BrowtherAnalyticsService::IncrementMusicSeconds(int delta) {
 }
 
 void BrowtherAnalyticsService::IncrementPersonsBlurred(int delta) {
+  // Idem (cf. IncrementMusicSeconds).
+  IncrementUint64Pref(local_state_, prefs::kStatsPersonsBlurredTotal, delta);
   if (!IsStatsEnabled()) {
     return;
   }

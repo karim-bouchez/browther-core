@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import Basarunaa
+import BrowtherAnalytics
 import Foundation
 import OSLog
 import Preferences
@@ -276,6 +277,13 @@ class BasarunaaScriptHandler: TabContentScript {
         bboxes = personsToBlur.map { [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY] }
         isNsfw = nsfw?.isNsfw ?? false
         personsCount = result.persons.count
+        // Browther stats : compteur cumulatif "personnes floutées" affiché
+        // sur la NTP (parité Sawtunaa addMusicSeconds). On compte les
+        // personnes réellement floutées (post-filtre `decide()`), pas toutes
+        // les personnes détectées.
+        if !personsToBlur.isEmpty {
+          BrowtherStatsReporter.shared.addPersonsBlurred(personsToBlur.count)
+        }
         modeLabel = mode
         poseLatencyMs = result.poseLatencyMs
         classifyLatencyMs = result.classifyLatencyMs

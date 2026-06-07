@@ -63,6 +63,33 @@ public final class BrowtherAnalyticsBridge {
     }
 
     /**
+     * Incrémente le compteur cumulatif {@code persons_blurred} (Basarunaa
+     * Android). À appeler depuis le pipeline de détection quand des personnes
+     * sont effectivement floutées. No-op si service non init / consent off.
+     */
+    public static void incrementPersonsBlurred(int delta) {
+        BrowtherAnalyticsBridgeJni.get().incrementPersonsBlurred(delta);
+    }
+
+    /**
+     * Lit le compteur cumulatif local de secondes de musique retirées
+     * ({@code kStatsMusicSecondsTotal} dans local_state). Utilisé par la NTP
+     * pour afficher la stat "Music removed". Retourne 0 si le local_state
+     * n'est pas encore prêt.
+     */
+    public static long getMusicSecondsTotal() {
+        return BrowtherAnalyticsBridgeJni.get().getMusicSecondsTotal();
+    }
+
+    /**
+     * Lit le compteur cumulatif local de personnes floutées
+     * ({@code kStatsPersonsBlurredTotal}). Utilisé par la NTP.
+     */
+    public static long getPersonsBlurredTotal() {
+        return BrowtherAnalyticsBridgeJni.get().getPersonsBlurredTotal();
+    }
+
+    /**
      * True si l'user a accepté les "product insights" (PostHog).
      * Lit la pref upstream {@code kP3AEnabled} côté C++.
      */
@@ -85,6 +112,12 @@ public final class BrowtherAnalyticsBridge {
         void trackWithProps(String eventName, String[] keys, String[] values);
 
         void incrementMusicSeconds(int delta);
+
+        void incrementPersonsBlurred(int delta);
+
+        long getMusicSecondsTotal();
+
+        long getPersonsBlurredTotal();
 
         boolean isPostHogEnabled();
 

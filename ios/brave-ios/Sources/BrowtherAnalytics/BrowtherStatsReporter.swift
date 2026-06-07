@@ -36,6 +36,13 @@ public final class BrowtherStatsReporter {
   // Pending deltas — chargés au démarrage, flushés toutes les 60s.
   private static let kPendingMusicKey = "browther.stats.pending.music_seconds"
   private static let kPendingAdsKey = "browther.stats.pending.ads_blocked"
+  private static let kPendingPersonsKey = "browther.stats.pending.persons_blurred"
+
+  // Compteurs cumulatifs locaux affichés sur la NTP (jamais reset). Parité
+  // avec les prefs C++ Desktop/Android `kStatsMusicSecondsTotal` /
+  // `kStatsPersonsBlurredTotal`.
+  private static let kTotalMusicKey = "browther.stats.total.music_seconds"
+  private static let kTotalPersonsKey = "browther.stats.total.persons_blurred"
 
   private static let kFlushIntervalSeconds: TimeInterval = 60
 
@@ -67,6 +74,10 @@ public final class BrowtherStatsReporter {
   public func addMusicSeconds(_ delta: Int) {
     guard delta > 0 else { return }
     queue.async {
+      // Total cumulatif (NTP) — toujours incrémenté, jamais reset.
+      let total = UserDefaults.standard.integer(forKey: Self.kTotalMusicKey)
+      UserDefaults.standard.set(total + delta, forKey: Self.kTotalMusicKey)
+      // Pending (backend) — reset après flush HTTP 200.
       let cur = UserDefaults.standard.integer(forKey: Self.kPendingMusicKey)
       UserDefaults.standard.set(cur + delta, forKey: Self.kPendingMusicKey)
     }
@@ -82,12 +93,38 @@ public final class BrowtherStatsReporter {
     }
   }
 
+  /// À appeler quand des personnes sont effectivement floutées par Basarunaa.
+  /// Incrémente le total local (affiché NTP) ET le pending backend.
+  public func addPersonsBlurred(_ delta: Int) {
+    guard delta > 0 else { return }
+    queue.async {
+      let total = UserDefaults.standard.integer(forKey: Self.kTotalPersonsKey)
+      UserDefaults.standard.set(total + delta, forKey: Self.kTotalPersonsKey)
+      let cur = UserDefaults.standard.integer(forKey: Self.kPendingPersonsKey)
+      UserDefaults.standard.set(cur + delta, forKey: Self.kPendingPersonsKey)
+    }
+  }
+
+  // MARK: - Lecture (NTP widget)
+
+  /// Total cumulatif de secondes de musique retirées. Lisible depuis le main
+  /// thread (UserDefaults thread-safe en lecture).
+  public var musicSecondsTotal: Int {
+    return UserDefaults.standard.integer(forKey: Self.kTotalMusicKey)
+  }
+
+  /// Total cumulatif de personnes floutées.
+  public var personsBlurredTotal: Int {
+    return UserDefaults.standard.integer(forKey: Self.kTotalPersonsKey)
+  }
+
   // MARK: - Flush
 
   private func performFlush() {
     let music = UserDefaults.standard.integer(forKey: Self.kPendingMusicKey)
     let ads = UserDefaults.standard.integer(forKey: Self.kPendingAdsKey)
-    guard music > 0 || ads > 0 else { return }
+    let persons = UserDefaults.standard.integer(forKey: Self.kPendingPersonsKey)
+    guard music > 0 || ads > 0 || persons > 0 else { return }
 
     let url = AnalyticsConfig.browtherApiUrl
     guard !url.isEmpty, let endpoint = URL(string: "\(url)/api/stats/ingest") else {
@@ -100,7 +137,7 @@ public final class BrowtherStatsReporter {
       "platform": "ios",
       "musicSecondsDelta": music,
       "adsBlockedDelta": ads,
-      "personsBlurredDelta": 0,
+      "personsBlurredDelta": persons,
     ]
 
     guard let json = try? JSONSerialization.data(withJSONObject: body) else { return }
@@ -122,12 +159,17 @@ public final class BrowtherStatsReporter {
         self.log.error("Stats flush KO HTTP \(code, privacy: .public) — pending conservés")
         return
       }
-      // Succès → reset les compteurs (sur la queue interne pour éviter race)
+      // Succès → soustraire ce qu'on vient d'envoyer (préserve les Add
+      // arrivés pendant le flush, parité avec stats_client.cc Desktop).
       self.queue.async {
-        UserDefaults.standard.set(0, forKey: Self.kPendingMusicKey)
-        UserDefaults.standard.set(0, forKey: Self.kPendingAdsKey)
+        let curMusic = UserDefaults.standard.integer(forKey: Self.kPendingMusicKey)
+        UserDefaults.standard.set(max(0, curMusic - music), forKey: Self.kPendingMusicKey)
+        let curAds = UserDefaults.standard.integer(forKey: Self.kPendingAdsKey)
+        UserDefaults.standard.set(max(0, curAds - ads), forKey: Self.kPendingAdsKey)
+        let curPersons = UserDefaults.standard.integer(forKey: Self.kPendingPersonsKey)
+        UserDefaults.standard.set(max(0, curPersons - persons), forKey: Self.kPendingPersonsKey)
       }
-      self.log.info("Stats flushées : music=\(music), ads=\(ads)")
+      self.log.info("Stats flushées : music=\(music), ads=\(ads), persons=\(persons)")
     }.resume()
   }
 }

@@ -1718,8 +1718,14 @@ Are you sure you want to do this?
       <message name="IDS_ADDRESS_HAS_BEEN_COPIED" desc="Copy to clipboard toast text.">
         Public address has been copied to the clipboard.
       </message>
-      <message name="IDS_PRIVACY_STATS" desc="Private stats title text.">
-        Privacy Stats
+      <message name="IDS_PRIVACY_STATS" desc="Stats card title on the New Tab Page.">
+        Stats
+      </message>
+      <message name="IDS_MUSIC_REMOVED_TEXT" desc="Stats: music removed by Sawtunaa.">
+        Music\nremoved
+      </message>
+      <message name="IDS_PEOPLE_BLURRED_TEXT" desc="Stats: people blurred by Basarunaa.">
+        People\nblurred
       </message>
       <message name="IDS_PRIVACY_POLICY" desc="Brave rewards tos text">
         Privacy Policy

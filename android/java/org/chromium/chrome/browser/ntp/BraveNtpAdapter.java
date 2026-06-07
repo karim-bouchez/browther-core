@@ -36,6 +36,7 @@ import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.brave_news.CardBuilderFeedCard;
 import org.chromium.chrome.browser.brave_news.models.FeedItemsCard;
 import org.chromium.chrome.browser.brave_stats.BraveStatsUtil;
+import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.ntp_background_images.NTPBackgroundImagesBridge;
 import org.chromium.chrome.browser.ntp_background_images.model.BackgroundImage;
 import org.chromium.chrome.browser.ntp_background_images.model.NTPImage;
@@ -124,20 +125,24 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof StatsViewHolder) {
             StatsViewHolder statsViewHolder = (StatsViewHolder) holder;
 
-            statsViewHolder.mHideStatsImg.setOnClickListener(
-                    view -> {
-                        ChromeSharedPreferences.getInstance()
-                                .writeBoolean(
-                                        BackgroundImagesPreferences.PREF_SHOW_BRAVE_STATS, false);
-                    });
-            List<Pair<String, String>> statsPairs = BraveStatsUtil.getStatsPairs();
+            // Browther : stats Browther (musique / personnes / trackers) à la
+            // place de (trackers / data / time). Mapping des ids XML conservé
+            // pour minimiser le diff :
+            //   col1 (ex-ads_count)  → musique retirée (Sawtunaa)
+            //   col2 (ex-data_saved) → personnes floutées (Basarunaa)
+            //   col3 (ex-time_count) → trackers & ads bloqués (Shields)
+            Pair<String, String> musicPair =
+                    BraveStatsUtil.getBraveStatsStringFromTime(
+                            BrowtherAnalyticsBridge.getMusicSecondsTotal());
+            long personsBlurred = BrowtherAnalyticsBridge.getPersonsBlurredTotal();
+            Pair<String, String> adsTrackersPair = BraveStatsUtil.getAdsTrackersBlocked();
 
-            statsViewHolder.mAdsBlockedCountTv.setText(statsPairs.get(0).first);
-            statsViewHolder.mDataSavedValueTv.setText(statsPairs.get(1).first);
-            statsViewHolder.mEstTimeSavedCountTv.setText(statsPairs.get(2).first);
-            statsViewHolder.mAdsBlockedCountTextTv.setText(statsPairs.get(0).second);
-            statsViewHolder.mDataSavedValueTextTv.setText(statsPairs.get(1).second);
-            statsViewHolder.mEstTimeSavedCountTextTv.setText(statsPairs.get(2).second);
+            statsViewHolder.mAdsBlockedCountTv.setText(musicPair.first);
+            statsViewHolder.mAdsBlockedCountTextTv.setText(musicPair.second);
+            statsViewHolder.mDataSavedValueTv.setText(String.valueOf(personsBlurred));
+            statsViewHolder.mDataSavedValueTextTv.setText("");
+            statsViewHolder.mEstTimeSavedCountTv.setText(adsTrackersPair.first);
+            statsViewHolder.mEstTimeSavedCountTextTv.setText(adsTrackersPair.second);
 
             LinearLayout.LayoutParams layoutParams =
                     new LinearLayout.LayoutParams(
@@ -564,7 +569,8 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class StatsViewHolder extends RecyclerView.ViewHolder {
         LinearLayout mNtpStatsLayout;
         LinearLayout mTitleLayout;
-        ImageView mHideStatsImg;
+        // Browther : mHideStatsImg retiré, le bouton "hide stats card" n'existe
+        // plus dans brave_stats_layout.xml — widget toujours visible.
         TextView mAdsBlockedCountTv;
         TextView mAdsBlockedCountTextTv;
         TextView mDataSavedValueTv;
@@ -576,7 +582,6 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             this.mNtpStatsLayout = (LinearLayout) itemView.findViewById(R.id.ntp_stats_layout);
             this.mTitleLayout = (LinearLayout) itemView.findViewById(R.id.brave_stats_title_layout);
-            this.mHideStatsImg = (ImageView) itemView.findViewById(R.id.widget_more_option);
             this.mAdsBlockedCountTv =
                     (TextView) itemView.findViewById(R.id.brave_stats_text_ads_count);
             this.mAdsBlockedCountTextTv =
@@ -589,7 +594,6 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     (TextView) itemView.findViewById(R.id.brave_stats_text_time_count);
             this.mEstTimeSavedCountTextTv =
                     (TextView) itemView.findViewById(R.id.brave_stats_text_time_count_text);
-            BraveTouchUtils.ensureMinTouchTarget(this.mHideStatsImg);
         }
     }
 

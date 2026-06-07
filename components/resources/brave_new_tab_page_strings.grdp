@@ -273,6 +273,14 @@
     Time saved
   </message>
 
+  <message name="IDS_NEW_TAB_STATS_MUSIC_REMOVED_TEXT" desc="Text for music removed stat (Sawtunaa)" formatter_data="webui=BraveNewTabPage">
+    Music removed
+  </message>
+
+  <message name="IDS_NEW_TAB_STATS_PERSONS_BLURRED_TEXT" desc="Text for persons blurred stat (Basarunaa)" formatter_data="webui=BraveNewTabPage">
+    People blurred
+  </message>
+
   <message name="IDS_NEW_TAB_STATS_TITLE" desc="Title for Brave Stats widget" formatter_data="webui=BraveNewTabPage">
     STATS
   </message>

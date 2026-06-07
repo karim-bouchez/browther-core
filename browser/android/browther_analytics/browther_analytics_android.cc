@@ -15,6 +15,7 @@
 #include "base/values.h"
 #include "brave/build/android/jni_headers/BrowtherAnalyticsBridge_jni.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "brave/components/browther_analytics/pref_names.h"
 #include "brave/components/p3a/pref_names.h"
 #include "chrome/browser/browser_process.h"
 #include "components/metrics/metrics_pref_names.h"
@@ -36,6 +37,19 @@ bool ReadLocalStateBool(const char* pref_name) {
     return false;
   }
   return local_state->GetBoolean(pref_name);
+}
+
+// Lit un compteur cumulatif kStats*Total (Uint64) depuis local_state.
+// Retourne 0 si pas init. Utilisé par la NTP pour afficher musique/floutées.
+uint64_t ReadLocalStateUint64(const char* pref_name) {
+  if (!g_browser_process) {
+    return 0;
+  }
+  PrefService* local_state = g_browser_process->local_state();
+  if (!local_state) {
+    return 0;
+  }
+  return local_state->GetUint64(pref_name);
 }
 
 }  // namespace
@@ -88,6 +102,31 @@ void JNI_BrowtherAnalyticsBridge_IncrementMusicSeconds(JNIEnv* env,
         }
         service->IncrementMusicSeconds(d);
       }, delta));
+}
+
+void JNI_BrowtherAnalyticsBridge_IncrementPersonsBlurred(JNIEnv* env,
+                                                         jint jdelta) {
+  // Même contrat que IncrementMusicSeconds : caller peut être hors UI thread
+  // (pipeline Basarunaa Android), service touche PrefService UI-bound.
+  const int delta = static_cast<int>(jdelta);
+  content::GetUIThreadTaskRunner({})->PostTask(
+      FROM_HERE, base::BindOnce([](int d) {
+        auto* service = BrowtherAnalyticsService::GetInstance();
+        if (!service) {
+          return;
+        }
+        service->IncrementPersonsBlurred(d);
+      }, delta));
+}
+
+jlong JNI_BrowtherAnalyticsBridge_GetMusicSecondsTotal(JNIEnv* env) {
+  // Synchrone (read-only). Appelé depuis le UI thread (BraveNtpAdapter).
+  return static_cast<jlong>(ReadLocalStateUint64(prefs::kStatsMusicSecondsTotal));
+}
+
+jlong JNI_BrowtherAnalyticsBridge_GetPersonsBlurredTotal(JNIEnv* env) {
+  return static_cast<jlong>(
+      ReadLocalStateUint64(prefs::kStatsPersonsBlurredTotal));
 }
 
 jboolean JNI_BrowtherAnalyticsBridge_IsPostHogEnabled(JNIEnv* env) {

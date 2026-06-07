@@ -49,7 +49,9 @@ export function WidgetStack(props: Props) {
         case 'vpn':
           return vpnFeatureEnabled && showVpnWidget
         case 'stats':
-          return showShieldsStats
+          // Browther : stats toujours visibles (pas de "hide stats card").
+          // showShieldsStats référencé en deps pour respecter exhaustive-deps.
+          return true || showShieldsStats
         case 'news':
           return newsFeatureEnabled && showNews
       }

@@ -62,6 +62,19 @@ extension Strings {
       value: "d",
       comment: "Time Saved Days"
     )
+    // Browther : labels NTP stats Sawtunaa / Basarunaa.
+    public static let musicRemovedStat = NSLocalizedString(
+      "MusicRemovedStat",
+      bundle: .module,
+      value: "Music \nremoved",
+      comment: "Browther: Music removed by Sawtunaa"
+    )
+    public static let peopleBlurredStat = NSLocalizedString(
+      "PeopleBlurredStat",
+      bundle: .module,
+      value: "People \nblurred",
+      comment: "Browther: People blurred by Basarunaa"
+    )
   }
 }
 

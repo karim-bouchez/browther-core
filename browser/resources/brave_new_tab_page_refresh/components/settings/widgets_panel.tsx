@@ -24,7 +24,8 @@ export function WidgetsPanel() {
   const rewardsActions = useRewardsActions()
   const vpnActions = useVpnActions()
 
-  const showStats = useNewTabState((s) => s.showShieldsStats)
+  // Browther : pas de toggle "Browther Stats" — le widget stats est toujours
+  // visible (musique retirée, personnes floutées, trackers bloqués).
   const talkFeatureEnabled = useNewTabState((s) => s.talkFeatureEnabled)
   const showTalkWidget = useNewTabState((s) => s.showTalkWidget)
   const newsFeatureEnabled = useNewTabState((s) => s.newsFeatureEnabled)
@@ -35,16 +36,6 @@ export function WidgetsPanel() {
 
   return (
     <div data-css-scope={style.scope}>
-      <Toggle
-        className='toggle-row'
-        size='small'
-        checked={showStats}
-        onChange={({ checked }) => {
-          newTabActions.setShowShieldsStats(checked)
-        }}
-      >
-        <span className='label'>{getString(S.NEW_TAB_SHOW_STATS_LABEL)}</span>
-      </Toggle>
       {vpnFeatureEnabled && (
         <Toggle
           className='toggle-row'

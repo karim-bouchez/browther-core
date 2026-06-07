@@ -36,6 +36,7 @@ import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.task.AsyncTask;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.local_database.DatabaseHelper;
 import org.chromium.chrome.browser.night_mode.GlobalNightModeStateProviderHolder;
 import org.chromium.chrome.browser.notifications.BravePermissionUtils;
@@ -286,49 +287,35 @@ public class BraveStatsBottomSheetDialogFragment extends BottomSheetDialogFragme
             protected void onPostExecute(Void result) {
                 assert ThreadUtils.runningOnUiThread();
                 if (isCancelled()) return;
+                // Browther : 3 cards en haut alignées sur le widget NTP et le
+                // desktop. Ids XML conservés (ads/data/time) mais sémantique
+                // = musique/floutées/trackers. Le bas (radio + listes) reste
+                // la stat upstream Trackers&Ads (cf. mAdsTrackersCount).
+                Pair<String, String> musicPair =
+                        BraveStatsUtil.getBraveStatsStringFromTime(
+                                BrowtherAnalyticsBridge.getMusicSecondsTotal());
+                mAdsTrackersCountText.setText(
+                        String.format(
+                                mContext.getResources().getString(R.string.ntp_stat_text),
+                                musicPair.first,
+                                musicPair.second));
+                mAdsTrackersText.setText(
+                        mContext.getResources().getString(R.string.music_removed_text));
+
+                long personsBlurred = BrowtherAnalyticsBridge.getPersonsBlurredTotal();
+                mDataSavedCountText.setText(String.valueOf(personsBlurred));
+                mDataSavedText.setText(
+                        mContext.getResources().getString(R.string.people_blurred_text));
+
                 Pair<String, String> adsTrackersPair =
                         BraveStatsUtil.getBraveStatsStringFormNumberPair(mAdsTrackersCount, false);
-                mAdsTrackersCountText.setText(
+                mTimeSavedCountText.setText(
                         String.format(
                                 mContext.getResources().getString(R.string.ntp_stat_text),
                                 adsTrackersPair.first,
                                 adsTrackersPair.second));
-
-                Pair<String, String> dataSavedPair =
-                        BraveStatsUtil.getBraveStatsStringFormNumberPair(
-                                mTotalSavedBandwidth, true);
-                mDataSavedCountText.setText(dataSavedPair.first);
-                boolean isTablet = DeviceFormFactor.isNonMultiDisplayContextOnTablet(mContext);
-                if (isTablet) {
-                    mAdsTrackersText.setText(
-                            String.format(
-                                    mContext.getResources().getString(R.string.trackers_and_ads),
-                                    dataSavedPair.second));
-                    mDataSavedText.setText(
-                            String.format(
-                                    mContext.getResources()
-                                            .getString(R.string.data_saved_tablet_text),
-                                    dataSavedPair.second));
-                } else {
-                    mAdsTrackersText.setText(
-                            String.format(
-                                    mContext.getResources().getString(R.string.ads_trackers_text),
-                                    dataSavedPair.second));
-                    mDataSavedText.setText(
-                            String.format(
-                                    mContext.getResources().getString(R.string.data_saved_text),
-                                    dataSavedPair.second));
-                }
-
-                long timeSavedCount = mAdsTrackersCount * BraveStatsUtil.MILLISECONDS_PER_ITEM;
-                Pair<String, String> timeSavedPair =
-                        BraveStatsUtil.getBraveStatsStringFromTime(timeSavedCount / 1000);
-                mTimeSavedCountText.setText(
-                        String.format(
-                                mContext.getResources().getString(R.string.ntp_stat_text),
-                                timeSavedPair.first,
-                                timeSavedPair.second));
-                mTimeSavedText.setText(mContext.getResources().getString(R.string.time_saved_text));
+                mTimeSavedText.setText(
+                        mContext.getResources().getString(R.string.ads_trackers_text));
 
                 if (mAdsTrackersCount > 0) {
                     mEmptyDataLayout.setVisibility(View.GONE);

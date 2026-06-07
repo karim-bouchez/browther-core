@@ -14,8 +14,10 @@
 #include "brave/components/brave_search_conversion/pref_names.h"
 #include "brave/components/brave_talk/buildflags/buildflags.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
+#include "brave/components/browther_analytics/pref_names.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/ntp_background_images/common/pref_names.h"
+#include "chrome/browser/browser_process.h"
 #include "chrome/browser/ui/webui/new_tab_page/ntp_pref_names.h"
 #include "chrome/common/pref_names.h"
 
@@ -28,6 +30,12 @@ namespace brave_new_tab_page_refresh {
 UpdateObserver::UpdateObserver(PrefService& pref_service,
                                TopSitesFacade* top_sites_facade) {
   pref_change_registrar_.Init(&pref_service);
+  // Browther : init du registrar local_state pour les compteurs cumulatifs
+  // (kStatsMusicSecondsTotal, kStatsPersonsBlurredTotal). g_browser_process
+  // peut être nul en test ; AddLocalStatePrefListener no-op dans ce cas.
+  if (g_browser_process && g_browser_process->local_state()) {
+    local_state_change_registrar_.Init(g_browser_process->local_state());
+  }
 
   AddPrefListener(ntp_background_images::prefs::kNewTabPageShowBackgroundImage,
                   Source::kBackgrounds);
@@ -54,6 +62,11 @@ UpdateObserver::UpdateObserver(PrefService& pref_service,
   AddPrefListener(kTrackersBlocked, Source::kShieldsStats);
   AddPrefListener(brave_perf_predictor::prefs::kBandwidthSavedBytes,
                   Source::kShieldsStats);
+  // Browther : compteurs cumulatifs Sawtunaa/Basarunaa dans local_state.
+  AddLocalStatePrefListener(browther_analytics::prefs::kStatsMusicSecondsTotal,
+                            Source::kShieldsStats);
+  AddLocalStatePrefListener(browther_analytics::prefs::kStatsPersonsBlurredTotal,
+                            Source::kShieldsStats);
 
 #if BUILDFLAG(ENABLE_BRAVE_TALK)
   AddPrefListener(brave_talk::prefs::kNewTabPageShowBraveTalk, Source::kTalk);
@@ -95,6 +108,18 @@ void UpdateObserver::OnPrefChanged(Source update_kind,
 void UpdateObserver::AddPrefListener(const std::string& path,
                                      Source update_source) {
   pref_change_registrar_.Add(
+      path, base::BindRepeating(&UpdateObserver::OnPrefChanged,
+                                weak_factory_.GetWeakPtr(), update_source));
+}
+
+void UpdateObserver::AddLocalStatePrefListener(const std::string& path,
+                                               Source update_source) {
+  // No-op si Init() n'a pas été appelé (g_browser_process indisponible en
+  // contexte test). Évite un CHECK fatal côté PrefChangeRegistrar.
+  if (!local_state_change_registrar_.prefs()) {
+    return;
+  }
+  local_state_change_registrar_.Add(
       path, base::BindRepeating(&UpdateObserver::OnPrefChanged,
                                 weak_factory_.GetWeakPtr(), update_source));
 }

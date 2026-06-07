@@ -97,6 +97,9 @@ void StatsClient::RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
   registry->RegisterIntegerPref(prefs::kStatsPersonsBlurredPending, 0);
   registry->RegisterIntegerPref(prefs::kStatsAdsBlockedPending, 0);
   registry->RegisterIntegerPref(prefs::kStatsAdsBlockedLastSeen, 0);
+  // Totaux cumulatifs affichés sur la NTP (Uint64 — pas de cap pratique).
+  registry->RegisterUint64Pref(prefs::kStatsMusicSecondsTotal, 0);
+  registry->RegisterUint64Pref(prefs::kStatsPersonsBlurredTotal, 0);
 }
 
 void StatsClient::IncrementPref(const char* pref_name, int delta) {

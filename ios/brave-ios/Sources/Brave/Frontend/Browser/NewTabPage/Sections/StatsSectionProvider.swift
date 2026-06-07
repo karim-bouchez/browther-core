@@ -6,6 +6,7 @@
 import BraveShields
 import BraveStrings
 import BraveUI
+import BrowtherAnalytics
 import Foundation
 import Preferences
 import Shared
@@ -43,7 +44,8 @@ class StatsSectionProvider: NSObject, NTPSectionProvider {
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
   ) -> Int {
-    return Preferences.NewTabPage.showNewTabPrivacyHub.value ? 1 : 0
+    // Browther : widget stats toujours visible (pas de toggle "hide stats").
+    return 1
   }
 
   func registerCells(to collectionView: UICollectionView) {
@@ -102,24 +104,27 @@ class BraveShieldStatsView: SpringButton {
   var openPrivacyHubPressed: (() -> Void)?
   var hidePrivacyHubPressed: (() -> Void)?
 
-  private lazy var adsStatView: StatView = {
-    let statView = StatView(frame: CGRect.zero)
-    statView.title = Strings.Shields.shieldsAdAndTrackerStats.capitalized
-    statView.color = .statsAdsBlockedTint
-    return statView
-  }()
-
-  private lazy var dataSavedStatView: StatView = {
+  // Browther : ordre musique → personnes → trackers. Couleurs conservées
+  // (statsDataSavedTint = ~vert/turquoise, statsTimeSavedTint = clair,
+  // statsAdsBlockedTint = orange) pour parité visuelle avec Desktop NTP.
+  private lazy var musicStatView: StatView = {
     let statView = StatView(frame: .zero)
-    statView.title = Strings.Shields.dataSavedStat
+    statView.title = Strings.Shields.musicRemovedStat
     statView.color = .statsDataSavedTint
     return statView
   }()
 
-  private lazy var timeStatView: StatView = {
+  private lazy var personsBlurredStatView: StatView = {
     let statView = StatView(frame: .zero)
-    statView.title = Strings.Shields.shieldsTimeStats
+    statView.title = Strings.Shields.peopleBlurredStat
     statView.color = .statsTimeSavedTint
+    return statView
+  }()
+
+  private lazy var adsBlockedStatView: StatView = {
+    let statView = StatView(frame: CGRect.zero)
+    statView.title = Strings.Shields.shieldsAdAndTrackerStats.capitalized
+    statView.color = .statsAdsBlockedTint
     return statView
   }()
 
@@ -178,9 +183,9 @@ class BraveShieldStatsView: SpringButton {
     super.init(frame: .zero)
 
     statsStackView.addStackViewItems(
-      .view(adsStatView),
-      .view(dataSavedStatView),
-      .view(timeStatView)
+      .view(musicStatView),
+      .view(personsBlurredStatView),
+      .view(adsBlockedStatView)
     )
     contentStackView.addStackViewItems(.view(topStackView), .view(statsStackView))
     addSubview(contentStackView)
@@ -210,7 +215,10 @@ class BraveShieldStatsView: SpringButton {
         return
       }
 
-      if !isPrivateBrowsing && Preferences.NewTabPage.showNewTabPrivacyHub.value {
+      // Browther : on retire le check `showNewTabPrivacyHub.value` (widget
+      // toujours visible) et le menu 3-dot "Hide Privacy Hub" / "Open Privacy
+      // Hub" — parité avec le widget Desktop refresh.
+      if !isPrivateBrowsing {
         backgroundView.backgroundColor = .init(white: 0, alpha: 0.25)
         backgroundView.layer.cornerRadius = 12
         backgroundView.layer.cornerCurve = .continuous
@@ -220,40 +228,7 @@ class BraveShieldStatsView: SpringButton {
           $0.edges.equalToSuperview()
         }
 
-        let settingsButton = BraveButton(type: .system).then {
-          $0.setImage(
-            UIImage(named: "privacy_reports_3dots", in: .module, compatibleWith: nil)!.template,
-            for: .normal
-          )
-          $0.tintColor = .white
-          $0.hitTestSlop = UIEdgeInsets(equalInset: -25)
-        }
-
-        let hidePrivacyHub = UIAction(
-          title: Strings.PrivacyHub.hidePrivacyHubWidgetActionTitle,
-          image: UIImage(braveSystemNamed: "leo.eye.off"),
-          handler: UIAction.deferredActionHandler { [unowned self] _ in
-            self.hidePrivacyHubPressed?()
-          }
-        )
-
-        let showPrivacyHub = UIAction(
-          title: Strings.PrivacyHub.openPrivacyHubWidgetActionTitle,
-          image: UIImage(named: "privacy_reports_shield", in: .module, compatibleWith: nil)?
-            .template,
-          handler: UIAction.deferredActionHandler { [unowned self] _ in
-            self.openPrivacyHubPressed?()
-          }
-        )
-
-        settingsButton.menu = UIMenu(
-          title: "",
-          options: .displayInline,
-          children: [hidePrivacyHub, showPrivacyHub]
-        )
-        settingsButton.showsMenuAsPrimaryAction = true
-
-        topStackView.addStackViewItems(.view(privacyReportLabel), .view(settingsButton))
+        topStackView.addStackViewItems(.view(privacyReportLabel))
       }
     }
   }
@@ -263,11 +238,28 @@ class BraveShieldStatsView: SpringButton {
   }
 
   @objc private func update() {
-    adsStatView.stat =
+    musicStatView.stat = Self.formatSeconds(BrowtherStatsReporter.shared.musicSecondsTotal)
+    personsBlurredStatView.stat = BrowtherStatsReporter.shared.personsBlurredTotal.kFormattedNumber
+    adsBlockedStatView.stat =
       (BraveGlobalShieldStats.shared.adblock + BraveGlobalShieldStats.shared.trackingProtection)
       .kFormattedNumber
-    dataSavedStatView.stat = BraveGlobalShieldStats.shared.dataSaved
-    timeStatView.stat = BraveGlobalShieldStats.shared.timeSaved
+  }
+
+  /// Formate des secondes cumulées (s/min/h/j) en alignement avec le widget
+  /// Desktop `formatTimeFromSeconds`. Pas d'arrondi fancy, un chiffre + unit.
+  private static func formatSeconds(_ seconds: Int) -> String {
+    if seconds < 60 {
+      return "\(seconds)\(Strings.Shields.shieldsTimeStatsSeconds)"
+    }
+    if seconds < 3600 {
+      return "\(seconds / 60)\(Strings.Shields.shieldsTimeStatsMinutes)"
+    }
+    if seconds < 86400 {
+      let hours = Double(seconds) / 3600.0
+      return String(format: "%.1f%@", hours, Strings.Shields.shieldsTimeStatsHour)
+    }
+    let days = Double(seconds) / 86400.0
+    return String(format: "%.1f%@", days, Strings.Shields.shieldsTimeStatsDays)
   }
 }
 

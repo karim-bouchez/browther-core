@@ -48,8 +48,13 @@ class UpdateObserver {
   void OnUpdate(Source update_source);
   void OnPrefChanged(Source update_source, const std::string& path);
   void AddPrefListener(const std::string& path, Source update_source);
+  // Browther : ajoute un listener sur g_browser_process->local_state() pour
+  // suivre les compteurs cumulatifs Browther (kStats*Total dans local_state).
+  void AddLocalStatePrefListener(const std::string& path, Source update_source);
 
   PrefChangeRegistrar pref_change_registrar_;
+  // Browther : registrar séparé pour local_state (compteurs cumulatifs NTP).
+  PrefChangeRegistrar local_state_change_registrar_;
   base::RepeatingCallback<void(Source)> callback_;
   base::WeakPtrFactory<UpdateObserver> weak_factory_{this};
 };
