@@ -76,11 +76,19 @@ namespace {
 
 using regional_capabilities::RegionalCapabilitiesServiceFactory;
 
-constexpr char kBraveSearchHost[] = "search.brave.com";
 constexpr char kYahooSearchHost[] = "search.yahoo.co.jp";
+// Browther: Google a un host vide côté TemplateURL (l'URL utilise
+// {google:baseURL} qui parse en hôte vide). Le frontend NTP traite déjà
+// cette clé "" comme valide (cf. EngineContext.tsx + SearchEngineIcon.tsx).
+constexpr char kGoogleSearchHost[] = "";
 
 }  // namespace
 
+// Browther: Google par défaut sur le widget NTP (parité avec le DSE forcé
+// dans chromium_src/components/search_engines/template_url_prepopulate_data.cc
+// ::GetPrepopulatedFallbackSearch). Le widget NTP a sa propre liste "Enabled
+// search engines" indépendante du DSE de l'omnibox, on doit donc patcher ici
+// aussi sinon Brave Search reste coché par défaut dans la NTP.
 std::string_view GetSearchDefaultHost(
     regional_capabilities::RegionalCapabilitiesService* regional_capabilities) {
   CHECK(regional_capabilities);
@@ -92,7 +100,7 @@ std::string_view GetSearchDefaultHost(
     return kYahooSearchHost;
   }
 
-  return kBraveSearchHost;
+  return kGoogleSearchHost;
 }
 
 NewTabPageInitializer::NewTabPageInitializer(content::WebUI& web_ui)

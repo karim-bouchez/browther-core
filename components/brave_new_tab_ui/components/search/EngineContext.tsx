@@ -30,7 +30,9 @@ const searchEngineConfig = () => {
     return JSON.parse(localStorageValue);
   }
   return {
-    // Default to enabling Brave Search
+    // Browther: defaultSearchHost = Google (empty string) côté C++
+    // (cf. new_tab_page_initializer.cc::GetSearchDefaultHost), donc on
+    // active Google par défaut au lieu de Brave Search.
     [defaultSearchHost]: true
   };
 }
@@ -55,7 +57,7 @@ export function EngineContextProvider(props: React.PropsWithChildren<{}>) {
     }
 
     // If the last search engine we used has been disabled or doesn't exist in the config, return the first enabled
-    // one, or Brave Search.
+    // one, or the default host (Google on Browther, cf. defaultSearchHost).
     // Note: The key for `Google` is the empty string which is falsey so we need
     // to check for undefined here.
     if (last === undefined || !config[last]) {
