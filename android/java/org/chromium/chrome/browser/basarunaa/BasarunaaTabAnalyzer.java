@@ -9,6 +9,9 @@ import org.jni_zero.CalledByNative;
 
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
+import org.chromium.chrome.browser.preferences.BravePref;
+import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.components.user_prefs.UserPrefs;
 
 /**
  * Per-WebContents Java analyzer (mirror du pattern {@code SawtunaaPlayer}).
@@ -74,11 +77,18 @@ public final class BasarunaaTabAnalyzer {
         // disparaitre entre temps).
         final long nativeHelperSnapshot = mNativeHelper;
         final int instanceId = mInstanceId;
+        // Lecture pref debug-mode AVANT dispatch sur PIPELINE_EXEC (UserPrefs
+        // / ProfileManager requiert browser UI thread). Port iOS wantsCrops =
+        // debugMode == "debug" (BasarunaaPipeline.swift#L213-214) — quand off,
+        // skip BitmapDataUrl.encodeJpeg = ~300ms gagnés sur image dense.
+        final String debugMode = UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
+                .getString(BravePref.BASARUNAA_DEBUG_MODE);
         BasarunaaEngine.PIPELINE_EXEC.execute(() -> {
             BasarunaaResult result;
             try {
                 result = BasarunaaEngine.getInstance()
-                        .analyze(imageId, bytes, mode, confBody, confFace, genderCertainty);
+                        .analyze(imageId, bytes, mode, confBody, confFace,
+                                genderCertainty, debugMode);
             } catch (Throwable t) {
                 Log.e(TAG, "[Analyzer#" + instanceId + "] analyze failed", t);
                 result = BasarunaaResult.empty(imageId);

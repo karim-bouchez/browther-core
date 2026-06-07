@@ -70,17 +70,30 @@ public final class BasarunaaEngine {
             Executors.newSingleThreadExecutor(r -> new Thread(r, "Basarunaa-Pipeline"));
 
     /**
-     * Pool 2-thread pour parallel YOLO-pose + YOLO-face détection
-     * (parité iOS BasarunaaPipeline.swift L222-233 — async let bodiesAsync /
-     * facesAsync). Sessions ORT distinctes donc thread-safe : Huawei 8 cores
-     * avec {@code intraOpThreads=4} → 8 threads OS partagés sur 8 cores en
-     * parallel. Gain mesuré attendu : ~300ms par analyze (cf. 1099ms → ~700ms
-     * sur image dense).
+     * Pool 3-thread pour parallel NudeNet NSFW + YOLO-pose + YOLO-face
+     * détection. Port iOS BasarunaaPipeline.swift Phase 1 (detect) + Phase 2
+     * (checkNsfw async, L173-203). On lance les 3 sessions concurrentes :
+     *
+     * <ul>
+     *   <li>YOLO-pose (~80ms)</li>
+     *   <li>YOLO-face (~80ms)</li>
+     *   <li>NudeNet NSFW (~250ms)</li>
+     * </ul>
+     *
+     * <p>Le pipeline body+face continue dès que les 2 YOLO finissent ; le
+     * verdict NSFW est consommé à la fin (override si positif). Vs iOS on
+     * retourne 1 seul reply au JS (pas 2 réponses séparées Phase 1+2) — gain
+     * équivalent côté wall-clock.
+     *
+     * <p>Sessions ORT distinctes donc thread-safe. Huawei 8 cores avec
+     * {@code intraOpThreads=4} → 12 threads OS partagés sur 8 cores en
+     * parallel. Gain mesuré attendu : ~250ms par analyze sur image dense
+     * (NSFW masqué par le matching+classify séquentiel).
      *
      * <p>Daemon threads pour pas bloquer le shutdown du process.
      */
     public static final ExecutorService PARALLEL_EXEC =
-            Executors.newFixedThreadPool(2, r -> {
+            Executors.newFixedThreadPool(3, r -> {
                 final Thread t = new Thread(r, "Basarunaa-Parallel");
                 t.setDaemon(true);
                 return t;
@@ -145,7 +158,7 @@ public final class BasarunaaEngine {
      */
     public BasarunaaResult analyze(int imageId, byte[] bytes, String mode,
                                    double confBody, double confFace,
-                                   double genderCertainty) {
+                                   double genderCertainty, String debugMode) {
         final long t0 = System.nanoTime();
         try {
             ensureModelsLoaded();
@@ -162,7 +175,7 @@ public final class BasarunaaEngine {
 
             try {
                 return processImage(imageId, src, mode, (float) confBody,
-                        (float) confFace, (float) genderCertainty, t0);
+                        (float) confFace, (float) genderCertainty, debugMode, t0);
             } finally {
                 src.recycle();
             }
@@ -204,7 +217,12 @@ public final class BasarunaaEngine {
             float confBody,
             float confFace,
             float genderCertainty,
+            String debugMode,
             long t0Nanos) throws Exception {
+        // Port iOS BasarunaaPipeline.swift L214 — quand le panel debug est
+        // off, on skip toutes les encodeJpeg (BitmapDataUrl) qui coûtent
+        // ~30-80ms × person. Cumulé ~300ms gagnés sur image dense.
+        final boolean wantsCrops = "debug".equals(debugMode);
         // Copies locales non-null après ensureModelsLoaded (NullAway ne sait
         // pas que modelsFailed=false implique tous les fields non-null).
         final NudeNetDetector nudenet =
@@ -219,19 +237,14 @@ public final class BasarunaaEngine {
         final int imgW = src.getWidth();
         final int imgH = src.getHeight();
 
-        // NSFW check en premier : court-circuite tout le pipeline body/face
-        // si l'image contient une classe EXPOSED. Retourne decision="nsfw"
-        // + personsJson vide (full-frame blur côté JS).
-        final NudeNetDetector.Result nsfw = nudenet.check(src);
-        if (nsfw.isNsfw) {
-            final double elapsedMs = (System.nanoTime() - t0Nanos) / 1_000_000.0;
-            Log.i(TAG, "[Engine] analyze imageId=%d NSFW=true classes=%s %.1fms",
-                    imageId, nsfw.flaggedClasses, elapsedMs);
-            return new BasarunaaResult(imageId, "nsfw", "[]", elapsedMs);
-        }
-
-        // Étapes 2 + 3 : YOLO-pose + YOLO-face en PARALLEL sur 2 threads
-        // (parité iOS — sessions ORT distinctes, thread-safe).
+        // Étapes 2 + 3 + NSFW : 3 inférences en PARALLEL sur 3 threads.
+        // Port iOS Phase 1/Phase 2 split — sauf qu'on retourne 1 seul reply
+        // au JS (pas 2 réponses séparées). NSFW (~250ms) masqué par les
+        // ~80ms YOLO + matching + classify séquentiel qui tournent ensuite.
+        // Si NSFW positif : on jette le travail body/face (acceptable, ~waste
+        // léger vs simplicité de pas avoir à cancel les Futures).
+        final Future<NudeNetDetector.Result> nsfwFuture = PARALLEL_EXEC.submit(
+                () -> nudenet.check(src));
         final Future<List<PersonDetection>> bodiesFuture = PARALLEL_EXEC.submit(
                 () -> pose.detect(src, confBody, NMS_IOU_THRESHOLD));
         final Future<List<FaceDetection>> facesFuture = PARALLEL_EXEC.submit(
@@ -266,20 +279,20 @@ public final class BasarunaaEngine {
                 if (aligned != null) {
                     try {
                         faceResult = gender.classify(aligned);
-                        faceCropDataUrl = BitmapDataUrl.encodeJpeg(aligned);
+                        faceCropDataUrl = wantsCrops ? BitmapDataUrl.encodeJpeg(aligned) : null;
                     } finally {
                         aligned.recycle();
                     }
                 }
                 // Split crop / classify (pattern iOS) : génère TOUJOURS le
-                // crop (cheap ~3ms) pour le debug overlay, mais skip
-                // l'inférence ORT (~150ms) si la face est déjà confiante.
+                // crop (cheap ~3ms) pour l'inférence ORT, mais skip
+                // BitmapDataUrl.encodeJpeg (~30-80ms) quand debug off.
                 final Bitmap bodyCrop =
                         PplcNetClassifier.cropBody(src, bodyDet.bbox, bodyMask);
                 final String bodyCropDataUrl;
                 final GenderAgeClassifier.@Nullable Result bodyResult;
                 try {
-                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCrop);
+                    bodyCropDataUrl = wantsCrops ? BitmapDataUrl.encodeJpeg(bodyCrop) : null;
                     final boolean strongFace =
                             faceResult != null && faceResult.confidence >= genderCertainty;
                     bodyResult = strongFace ? null : classifyCropSafe(body, bodyCrop);
@@ -301,7 +314,7 @@ public final class BasarunaaEngine {
                 final String bodyCropDataUrl;
                 final GenderAgeClassifier.@Nullable Result bodyResult;
                 try {
-                    bodyCropDataUrl = BitmapDataUrl.encodeJpeg(bodyCrop);
+                    bodyCropDataUrl = wantsCrops ? BitmapDataUrl.encodeJpeg(bodyCrop) : null;
                     bodyResult = classifyCropSafe(body, bodyCrop);
                 } finally {
                     bodyCrop.recycle();
@@ -328,7 +341,7 @@ public final class BasarunaaEngine {
             if (aligned != null) {
                 try {
                     cls = gender.classify(aligned);
-                    faceCropDataUrl = BitmapDataUrl.encodeJpeg(aligned);
+                    faceCropDataUrl = wantsCrops ? BitmapDataUrl.encodeJpeg(aligned) : null;
                 } finally {
                     aligned.recycle();
                 }
@@ -336,11 +349,24 @@ public final class BasarunaaEngine {
             persons.add(Person.forUnmatchedFace(synth, unmatchedFace, cls, faceCropDataUrl));
         }
 
-        // Étape 7 : decision globale.
-        final String decision = decide(mode, persons, (float) genderCertainty);
+        // Étape 7 : decision globale — court-circuitée si NSFW positif.
+        // On consume nsfwFuture EN DERNIER pour laisser le pipeline tourner
+        // en parallèle. Si positif → override decision="nsfw" + persons vide
+        // (full-frame blur côté JS), le travail body/face est jeté.
+        final NudeNetDetector.Result nsfw = awaitFuture(nsfwFuture);
+        final String decision;
+        final String personsJson;
+        if (nsfw.isNsfw) {
+            decision = "nsfw";
+            personsJson = "[]";
+            Log.i(TAG, "[Engine] analyze imageId=%d NSFW=true classes=%s (overrides %d persons)",
+                    imageId, nsfw.flaggedClasses, persons.size());
+        } else {
+            decision = decide(mode, persons, (float) genderCertainty);
+            personsJson = serializePersons(persons);
+        }
 
         final double elapsedMs = (System.nanoTime() - t0Nanos) / 1_000_000.0;
-        final String personsJson = serializePersons(persons);
         Log.i(TAG, "[Engine] analyze imageId=%d %dx%d bodies=%d faces=%d → %s %.1fms",
                 imageId, imgW, imgH, bodies.size(), faces.size(), decision, elapsedMs);
 
