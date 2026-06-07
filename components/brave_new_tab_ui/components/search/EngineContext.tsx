@@ -26,13 +26,22 @@ const EngineContext = React.createContext<Engine>({
 
 const searchEngineConfig = () => {
   const localStorageValue = localStorage.getItem(ENABLED_SEARCH_ENGINES_KEY);
+  // Browther: defaultSearchHost = Google (empty string) côté C++
+  // (cf. new_tab_page_initializer.cc::GetSearchDefaultHost), donc on
+  // active Google par défaut au lieu de Brave Search.
   if (localStorageValue) {
-    return JSON.parse(localStorageValue);
+    const parsed: Record<string, boolean> = JSON.parse(localStorageValue);
+    // Browther: safety net — si aucun moteur n'est activé (profil legacy
+    // où Brave était le défaut et a été décoché, ou état incohérent),
+    // on réactive le défaut Google pour éviter un widget "Search the web"
+    // sans engine ni logo.
+    if (!Object.keys(parsed).some(k => parsed[k])) {
+      parsed[defaultSearchHost] = true;
+      localStorage.setItem(ENABLED_SEARCH_ENGINES_KEY, JSON.stringify(parsed));
+    }
+    return parsed;
   }
   return {
-    // Browther: defaultSearchHost = Google (empty string) côté C++
-    // (cf. new_tab_page_initializer.cc::GetSearchDefaultHost), donc on
-    // active Google par défaut au lieu de Brave Search.
     [defaultSearchHost]: true
   };
 }
