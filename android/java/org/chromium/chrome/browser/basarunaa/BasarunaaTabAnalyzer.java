@@ -108,6 +108,60 @@ public final class BasarunaaTabAnalyzer {
         });
     }
 
+    /**
+     * V2.5 — reçoit un frame video pour sentinel léger (NanoDet) depuis le
+     * scheduler JS via Mojo → C++ → JNI. Dispatch sur le pool
+     * {@link BasarunaaEngine#PIPELINE_EXEC} comme {@link #analyzeImage} pour
+     * sérialiser les inférences ORT (1 à la fois sur le browser). Reply via
+     * {@link BasarunaaBridge#notifySentinelReply} → C++ → push Mojo
+     * {@code BasarunaaApply::ApplyVideoSentinel} au renderer source.
+     *
+     * @param frameId compteur unique côté scheduler vidéo JS (pas confusion
+     *                avec imageId du pipeline image)
+     * @param bytes JPEG/PNG/WEBP de la frame vidéo capturée
+     * @param confBody seuil de confiance person (pref slider, partagé avec
+     *                 YOLO body)
+     */
+    @CalledByNative
+    public void sentinelFrame(int frameId, byte[] bytes, double confBody) {
+        final long nativeHelperSnapshot = mNativeHelper;
+        final int instanceId = mInstanceId;
+        BasarunaaEngine.PIPELINE_EXEC.execute(() -> {
+            String bboxesJson;
+            try {
+                final java.util.List<BasarunaaTypes.Bbox> bboxes =
+                        BasarunaaEngine.getInstance().sentinel(bytes, confBody);
+                bboxesJson = serializeBboxes(bboxes);
+            } catch (Throwable t) {
+                Log.e(TAG, "[Analyzer#" + instanceId + "] sentinel failed", t);
+                bboxesJson = "[]";
+            }
+            if (nativeHelperSnapshot == 0 || mNativeHelper == 0) {
+                Log.w(TAG, "[Analyzer#%d] sentinel reply dropped (native invalidated)",
+                        instanceId);
+                return;
+            }
+            BasarunaaBridge.notifySentinelReply(
+                    nativeHelperSnapshot, frameId, bboxesJson);
+        });
+    }
+
+    private static String serializeBboxes(java.util.List<BasarunaaTypes.Bbox> bboxes) {
+        final StringBuilder sb = new StringBuilder(bboxes.size() * 32);
+        sb.append('[');
+        for (int i = 0; i < bboxes.size(); i++) {
+            final BasarunaaTypes.Bbox b = bboxes.get(i);
+            if (i > 0) sb.append(',');
+            sb.append('[')
+                    .append(b.x1).append(',')
+                    .append(b.y1).append(',')
+                    .append(b.x2).append(',')
+                    .append(b.y2).append(']');
+        }
+        sb.append(']');
+        return sb.toString();
+    }
+
     @CalledByNative
     public void cancelAnalyze(int imageId) {
         Log.i(TAG, "[Analyzer#%d] cancelAnalyze id=%d (best-effort, no-op in stub)",

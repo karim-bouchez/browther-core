@@ -1570,7 +1570,254 @@
     };
   }
 
+  const SENTINEL_MIN_INTERVAL_MS = 100;
+  const MIN_VIDEO_SIZE = 120;
+  const CANVAS_CLASS = "basarunaa-video-overlay";
+  let nextFrameId = 1;
+  const pendingByFrameId = /* @__PURE__ */ new Map();
+  let mutationObserver = null;
+  const trackers = /* @__PURE__ */ new WeakMap();
+  const allTrackers = /* @__PURE__ */ new Set();
+  let started$1 = false;
+  function logInfo$1(msg) {
+    send("log", `[basarunaa-android/video] ${msg}`);
+  }
+  function isVideoCandidate(el) {
+    if (el.tagName !== "VIDEO") return false;
+    const v = el;
+    const w = v.videoWidth || v.clientWidth;
+    const h = v.videoHeight || v.clientHeight;
+    if (w && h && (w < MIN_VIDEO_SIZE || h < MIN_VIDEO_SIZE)) return false;
+    return true;
+  }
+  function attachCanvas(video) {
+    const canvas = document.createElement("canvas");
+    canvas.className = CANVAS_CLASS;
+    canvas.style.position = "absolute";
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = "2147483646";
+    canvas.style.display = "none";
+    document.body.appendChild(canvas);
+    return canvas;
+  }
+  function syncCanvasToVideo(t) {
+    const r = t.video.getBoundingClientRect();
+    const scrollX = window.scrollX || window.pageXOffset || 0;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    t.canvas.style.left = `${r.left + scrollX}px`;
+    t.canvas.style.top = `${r.top + scrollY}px`;
+    t.canvas.style.width = `${r.width}px`;
+    t.canvas.style.height = `${r.height}px`;
+    const vw = t.video.videoWidth || Math.round(r.width);
+    const vh = t.video.videoHeight || Math.round(r.height);
+    if (t.canvas.width !== vw) t.canvas.width = vw;
+    if (t.canvas.height !== vh) t.canvas.height = vh;
+  }
+  function applyState(t) {
+    const cfg = getConfig();
+    const isDebug = cfg?.debugMode === "debug" || cfg?.debugMode === "boxes";
+    if (t.state === "safe") {
+      t.canvas.style.display = isDebug ? "" : "none";
+      t.video.style.removeProperty("filter");
+      return;
+    }
+    if (t.state === "full_blur") {
+      const vw = t.video.videoWidth || t.video.clientWidth || 720;
+      const r = Math.max(20, Math.min(60, Math.round(vw / 36)));
+      t.video.style.setProperty(
+        "filter",
+        `blur(${r}px) grayscale(1)`,
+        "important"
+      );
+      t.canvas.style.display = isDebug ? "" : "none";
+      return;
+    }
+    t.video.style.removeProperty("filter");
+    t.canvas.style.display = "";
+    renderTracking(t, isDebug);
+  }
+  function renderTracking(t, isDebug) {
+    const ctx = t.ctx;
+    if (!ctx) return;
+    ctx.clearRect(0, 0, t.canvas.width, t.canvas.height);
+    for (const b of t.lastBboxes) {
+      const [x1, y1, x2, y2] = b;
+      const w = x2 - x1;
+      const h = y2 - y1;
+      if (w <= 0 || h <= 0) continue;
+      const r = Math.max(12, Math.min(40, Math.round(Math.min(w, h) / 4)));
+      ctx.save();
+      ctx.filter = `blur(${r}px)`;
+      try {
+        ctx.drawImage(t.video, x1, y1, w, h, x1, y1, w, h);
+      } catch {
+      }
+      ctx.restore();
+      if (isDebug) {
+        ctx.strokeStyle = "rgba(255, 0, 0, 0.7)";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x1, y1, w, h);
+      }
+    }
+  }
+  function captureFrameJpeg(t) {
+    const w = t.video.videoWidth;
+    const h = t.video.videoHeight;
+    if (!w || !h) return null;
+    const cap = document.createElement("canvas");
+    cap.width = w;
+    cap.height = h;
+    const c = cap.getContext("2d");
+    if (!c) return null;
+    try {
+      c.drawImage(t.video, 0, 0, w, h);
+    } catch {
+      return null;
+    }
+    try {
+      return cap.toDataURL("image/jpeg", 0.7);
+    } catch {
+      return null;
+    }
+  }
+  function tickFrame(t) {
+    if (t.destroyed) return;
+    syncCanvasToVideo(t);
+    applyState(t);
+    const now = performance.now();
+    if (!t.sentinelPending && now - t.lastSentinelSentAt >= SENTINEL_MIN_INTERVAL_MS && t.video.readyState >= 2 && !t.video.paused) {
+      const dataUrl = captureFrameJpeg(t);
+      if (dataUrl) {
+        const base64 = dataUrl.substring(dataUrl.indexOf(",") + 1);
+        const frameId = nextFrameId++;
+        pendingByFrameId.set(frameId, t);
+        t.sentinelPending = true;
+        t.lastSentinelSentAt = now;
+        send("sentinelFrame", `${frameId}|${base64}`);
+      }
+    }
+    scheduleNextTick(t);
+  }
+  function scheduleNextTick(t) {
+    const vEl = t.video;
+    if (typeof vEl.requestVideoFrameCallback === "function") {
+      t.rvfcHandle = vEl.requestVideoFrameCallback(() => tickFrame(t));
+    } else {
+      t.rvfcHandle = requestAnimationFrame(() => tickFrame(t));
+    }
+  }
+  function startTracker(video) {
+    if (trackers.has(video)) return;
+    if (!isVideoCandidate(video)) return;
+    const canvas = attachCanvas();
+    const ctx = canvas.getContext("2d");
+    const t = {
+      video,
+      canvas,
+      ctx,
+      state: "full_blur",
+      lastBboxes: [],
+      lastSentinelSentAt: 0,
+      sentinelPending: false,
+      rvfcHandle: null,
+      destroyed: false
+    };
+    trackers.set(video, t);
+    allTrackers.add(t);
+    logInfo$1(`startTracker ${video.videoWidth || "?"}x${video.videoHeight || "?"}`);
+    applyState(t);
+    scheduleNextTick(t);
+  }
+  function destroyTracker(t) {
+    if (t.destroyed) return;
+    t.destroyed = true;
+    try {
+      t.video.style.removeProperty("filter");
+    } catch {
+    }
+    try {
+      t.canvas.remove();
+    } catch {
+    }
+    allTrackers.delete(t);
+    trackers.delete(t.video);
+  }
+  function scanInitial(root) {
+    root.querySelectorAll("video").forEach((v) => startTracker(v));
+  }
+  function onMutations(muts) {
+    for (const m of muts) {
+      m.addedNodes.forEach((n) => {
+        if (n.nodeType !== 1) return;
+        const el = n;
+        if (el.tagName === "VIDEO") {
+          startTracker(el);
+        } else {
+          el.querySelectorAll?.("video").forEach(
+            (v) => startTracker(v)
+          );
+        }
+      });
+      m.removedNodes.forEach((n) => {
+        if (n.nodeType !== 1) return;
+        const el = n;
+        if (el.tagName === "VIDEO") {
+          const t = trackers.get(el);
+          if (t) destroyTracker(t);
+        } else {
+          el.querySelectorAll?.("video").forEach((v) => {
+            const t = trackers.get(v);
+            if (t) destroyTracker(t);
+          });
+        }
+      });
+    }
+  }
+  function installApplyHandler() {
+    window.__basarunaaApplyVideoSentinel = (frameId, bboxes) => {
+      const t = pendingByFrameId.get(frameId);
+      pendingByFrameId.delete(frameId);
+      if (!t || t.destroyed) return;
+      t.sentinelPending = false;
+      t.lastBboxes = Array.isArray(bboxes) ? bboxes : [];
+      if (t.lastBboxes.length === 0) {
+        t.state = "safe";
+      } else {
+        t.state = "tracking";
+      }
+      applyState(t);
+    };
+  }
+  function createVideoPipeline() {
+    if (started$1) {
+      return { stop: stopVideoPipeline };
+    }
+    started$1 = true;
+    installApplyHandler();
+    scanInitial(document);
+    mutationObserver = new MutationObserver(onMutations);
+    mutationObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+    logInfo$1("video pipeline started");
+    return { stop: stopVideoPipeline };
+  }
+  function stopVideoPipeline() {
+    if (!started$1) return;
+    started$1 = false;
+    mutationObserver?.disconnect();
+    mutationObserver = null;
+    for (const t of Array.from(allTrackers)) destroyTracker(t);
+    pendingByFrameId.clear();
+    try {
+      delete window.__basarunaaApplyVideoSentinel;
+    } catch {
+    }
+  }
+
   let pipeline = null;
+  let videoPipeline = null;
   let started = false;
   function logInfo(msg) {
     send("log", `[basarunaa-android] ${msg}`);
@@ -1579,6 +1826,10 @@
     if (pipeline) {
       pipeline.stop();
       pipeline = null;
+    }
+    if (videoPipeline) {
+      videoPipeline.stop();
+      videoPipeline = null;
     }
   }
   function start() {
@@ -1592,6 +1843,7 @@
     }
     pipeline = createImagePipeline();
     pipeline.scanner.start();
+    videoPipeline = createVideoPipeline();
     window.__browtherBasarunaaAndroid = {
       phase: 2,
       config,

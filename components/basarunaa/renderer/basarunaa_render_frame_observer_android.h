@@ -64,6 +64,8 @@ class BasarunaaRenderFrameObserverAndroid
              const std::string& debug_mode,
              double elapsed_ms) override;
   void ApplyNsfw(int32_t image_id, double score) override;
+  void ApplyVideoSentinel(int32_t frame_id,
+                          const std::string& bboxes_json) override;
 
   // Lecture sync des champs config pour le JsHandler / le script JS.
   bool is_enabled() const { return settings_ && settings_->enabled; }

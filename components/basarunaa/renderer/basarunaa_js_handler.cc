@@ -185,6 +185,29 @@ void BasarunaaJsHandler::Send(gin::Arguments* args) {
     basarunaa_->PageReset(data);
     return;
   }
+  if (action == "sentinelFrame") {
+    // V2.5 — même encodage que analyzeImage : "frameId|base64(bytes)".
+    auto sep = data.find('|');
+    if (sep == std::string::npos) {
+      return;
+    }
+    int frame_id = 0;
+    if (!base::StringToInt(data.substr(0, sep), &frame_id)) {
+      return;
+    }
+    std::string decoded;
+    if (!base::Base64Decode(data.substr(sep + 1), &decoded)) {
+      return;
+    }
+    std::vector<uint8_t> bytes(decoded.size());
+    if (!decoded.empty()) {
+      // SAFETY: bytes resize à decoded.size(). Owned buffers, pas d'aliasing.
+      UNSAFE_BUFFERS(
+          std::memcpy(bytes.data(), decoded.data(), decoded.size()));
+    }
+    basarunaa_->SentinelFrame(frame_id, std::move(bytes));
+    return;
+  }
   // Action inconnue → ThrowError plutôt que silencieux.
   args->isolate()->ThrowError(
       v8::String::NewFromUtf8(args->isolate(), "basarunaa: unknown action",

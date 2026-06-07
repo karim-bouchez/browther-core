@@ -103,13 +103,20 @@ void BasarunaaTabHelper::RenderFrameCreated(content::RenderFrameHost* rfh) {
 
 void BasarunaaTabHelper::RenderFrameDeleted(content::RenderFrameHost* rfh) {
 #if BUILDFLAG(IS_ANDROID)
-  // Cleanup pending_analyses_ pour éviter des entrées dangling. La reply
-  // de BasarunaaTabAnalyzer arrivera après destruction du RFH = no-op
-  // côté OnAnalyzeReply (RFH not found dans la map).
+  // Cleanup pending_analyses_ + pending_sentinels_ pour éviter des entrées
+  // dangling. La reply de BasarunaaTabAnalyzer arrivera après destruction
+  // du RFH = no-op côté OnAnalyzeReply/OnSentinelReply (RFH not found).
   const auto rfh_id = rfh->GetGlobalId();
   for (auto it = pending_analyses_.begin(); it != pending_analyses_.end();) {
     if (it->second == rfh_id) {
       it = pending_analyses_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+  for (auto it = pending_sentinels_.begin(); it != pending_sentinels_.end();) {
+    if (it->second == rfh_id) {
+      it = pending_sentinels_.erase(it);
     } else {
       ++it;
     }
@@ -254,6 +261,32 @@ void BasarunaaTabHelper::CancelAnalyze(int32_t image_id) {
 #endif
 }
 
+void BasarunaaTabHelper::SentinelFrame(
+    int32_t frame_id,
+    const std::vector<uint8_t>& frame_bytes) {
+#if BUILDFLAG(IS_ANDROID)
+  if (java_analyzer_.is_null()) {
+    return;
+  }
+  content::RenderFrameHost* rfh = receivers_.current_context();
+  if (!rfh) {
+    return;
+  }
+  pending_sentinels_[frame_id] = rfh->GetGlobalId();
+
+  auto* prefs =
+      user_prefs::UserPrefs::Get(web_contents()->GetBrowserContext());
+  const double conf_body =
+      prefs ? prefs->GetDouble(kBasarunaaConfBody) : 0.3;
+
+  JNIEnv* env = base::android::AttachCurrentThread();
+  base::android::ScopedJavaLocalRef<jbyteArray> j_bytes =
+      base::android::ToJavaByteArray(env, frame_bytes);
+  Java_BasarunaaTabAnalyzer_sentinelFrame(
+      env, java_analyzer_, frame_id, j_bytes, conf_body);
+#endif
+}
+
 void BasarunaaTabHelper::PageReset(const std::string& url) {
   LOG(INFO) << "[Basarunaa/PageReset] " << url;
 #if BUILDFLAG(IS_ANDROID)
@@ -265,6 +298,14 @@ void BasarunaaTabHelper::PageReset(const std::string& url) {
     for (auto it = pending_analyses_.begin(); it != pending_analyses_.end();) {
       if (it->second == rfh_id) {
         it = pending_analyses_.erase(it);
+      } else {
+        ++it;
+      }
+    }
+    for (auto it = pending_sentinels_.begin();
+         it != pending_sentinels_.end();) {
+      if (it->second == rfh_id) {
+        it = pending_sentinels_.erase(it);
       } else {
         ++it;
       }
@@ -353,6 +394,47 @@ void BasarunaaTabHelper::OnAnalyzeReply(
                      weak_factory_.GetWeakPtr(), int32_t{image_id},
                      std::move(decision), std::move(persons_json),
                      double{elapsed_ms}));
+}
+
+// V2.5 — sentinel reply C++ side. Pattern identique à OnAnalyzeReply mais
+// push BasarunaaApply::ApplyVideoSentinel au lieu de Apply.
+void BasarunaaTabHelper::OnSentinelReply(int32_t frame_id,
+                                          const std::string& bboxes_json) {
+  auto it = pending_sentinels_.find(frame_id);
+  if (it == pending_sentinels_.end()) {
+    LOG(WARNING) << "[Basarunaa/sentinel-reply] dropped: no pending RFH for "
+                    "frame_id=" << frame_id;
+    return;
+  }
+  const auto rfh_id = it->second;
+  pending_sentinels_.erase(it);
+
+  content::RenderFrameHost* rfh = content::RenderFrameHost::FromID(rfh_id);
+  if (!rfh) {
+    LOG(WARNING) << "[Basarunaa/sentinel-reply] dropped: RFH gone for frame_id="
+                 << frame_id;
+    return;
+  }
+
+  mojo::AssociatedRemote<android::mojom::BasarunaaApply> apply;
+  rfh->GetRemoteAssociatedInterfaces()->GetInterface(&apply);
+  apply->ApplyVideoSentinel(frame_id, bboxes_json);
+}
+
+void BasarunaaTabHelper::OnSentinelReply(
+    JNIEnv* env,
+    jint frame_id,
+    const base::android::JavaRef<jstring>& j_bboxes_json) {
+  std::string bboxes_json =
+      base::android::ConvertJavaStringToUTF8(env, j_bboxes_json);
+  using StringOverload =
+      void (BasarunaaTabHelper::*)(int32_t, const std::string&);
+  content::GetUIThreadTaskRunner({})->PostTask(
+      FROM_HERE,
+      base::BindOnce(static_cast<StringOverload>(
+                         &BasarunaaTabHelper::OnSentinelReply),
+                     weak_factory_.GetWeakPtr(), int32_t{frame_id},
+                     std::move(bboxes_json)));
 }
 
 // Alias requis par jni_zero pattern "long native pointer" — le `_jni.h` généré
