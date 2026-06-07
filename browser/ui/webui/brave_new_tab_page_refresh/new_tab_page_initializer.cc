@@ -77,10 +77,14 @@ namespace {
 using regional_capabilities::RegionalCapabilitiesServiceFactory;
 
 constexpr char kYahooSearchHost[] = "search.yahoo.co.jp";
-// Browther: Google a un host vide côté TemplateURL (l'URL utilise
-// {google:baseURL} qui parse en hôte vide). Le frontend NTP traite déjà
-// cette clé "" comme valide (cf. EngineContext.tsx + SearchEngineIcon.tsx).
-constexpr char kGoogleSearchHost[] = "";
+// Browther: sur le refresh NTP, le vrai host Google est "www.google.com"
+// (cf. state/browser_search_store.ts: `''` et `'google.com'` sont marqués
+// `deprecatedGoogleSearchHosts` et migrés vers `googleSearchHost`).
+// Sur l'ancien NTP (BraveNewTabUI), `engine.host` est `""` car {google:baseURL}
+// parse en host vide via GURL — donc utiliser "" ici cassait le refresh NTP.
+// On retourne le host canonique du refresh (l'ancien NTP n'est plus le défaut
+// depuis kBraveNewTabPageRefreshEnabled=ENABLED_BY_DEFAULT).
+constexpr char kGoogleSearchHost[] = "www.google.com";
 
 }  // namespace
 
