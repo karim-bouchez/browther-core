@@ -39,9 +39,9 @@ bool ReadLocalStateBool(const char* pref_name) {
   return local_state->GetBoolean(pref_name);
 }
 
-// Lit un compteur cumulatif kStats*Total (Uint64) depuis local_state.
+// Lit un compteur cumulatif kStats*Total (Integer = Int32) depuis local_state.
 // Retourne 0 si pas init. Utilisé par la NTP pour afficher musique/floutées.
-uint64_t ReadLocalStateUint64(const char* pref_name) {
+int ReadLocalStateInteger(const char* pref_name) {
   if (!g_browser_process) {
     return 0;
   }
@@ -49,7 +49,7 @@ uint64_t ReadLocalStateUint64(const char* pref_name) {
   if (!local_state) {
     return 0;
   }
-  return local_state->GetUint64(pref_name);
+  return local_state->GetInteger(pref_name);
 }
 
 }  // namespace
@@ -121,12 +121,13 @@ void JNI_BrowtherAnalyticsBridge_IncrementPersonsBlurred(JNIEnv* env,
 
 jlong JNI_BrowtherAnalyticsBridge_GetMusicSecondsTotal(JNIEnv* env) {
   // Synchrone (read-only). Appelé depuis le UI thread (BraveNtpAdapter).
-  return static_cast<jlong>(ReadLocalStateUint64(prefs::kStatsMusicSecondsTotal));
+  // long Java cast OK : Integer Int32 ≤ jlong Int64.
+  return static_cast<jlong>(ReadLocalStateInteger(prefs::kStatsMusicSecondsTotal));
 }
 
 jlong JNI_BrowtherAnalyticsBridge_GetPersonsBlurredTotal(JNIEnv* env) {
   return static_cast<jlong>(
-      ReadLocalStateUint64(prefs::kStatsPersonsBlurredTotal));
+      ReadLocalStateInteger(prefs::kStatsPersonsBlurredTotal));
 }
 
 jboolean JNI_BrowtherAnalyticsBridge_IsPostHogEnabled(JNIEnv* env) {

@@ -487,15 +487,16 @@ void NewTabPageHandler::GetShieldsStats(GetShieldsStatsCallback callback) {
   stats->bandwidth_saved_bytes = pref_service_->GetUint64(
       brave_perf_predictor::prefs::kBandwidthSavedBytes);
   // Browther stats — compteurs cumulatifs stockés dans local_state par
-  // BrowtherAnalyticsService (cf. components/browther_analytics).
+  // BrowtherAnalyticsService (cf. components/browther_analytics). Integer
+  // (Int32) plutôt que Uint64 pour partage avec chrome.settingsPrivate.
   auto* local_state = g_browser_process->local_state();
   stats->music_seconds_removed =
       local_state
-          ? local_state->GetUint64(browther_analytics::prefs::kStatsMusicSecondsTotal)
+          ? local_state->GetInteger(browther_analytics::prefs::kStatsMusicSecondsTotal)
           : 0;
   stats->persons_blurred =
       local_state
-          ? local_state->GetUint64(browther_analytics::prefs::kStatsPersonsBlurredTotal)
+          ? local_state->GetInteger(browther_analytics::prefs::kStatsPersonsBlurredTotal)
           : 0;
   std::move(callback).Run(std::move(stats));
 }

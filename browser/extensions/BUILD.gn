@@ -110,6 +110,7 @@ source_set("extensions") {
     "//brave/components/brave_vpn/common/buildflags",
     "//brave/components/brave_wallet/common/buildflags",
     "//brave/components/brave_wayback_machine/buildflags",
+    "//brave/components/browther_analytics",
     "//brave/components/constants",
     "//brave/components/de_amp/common",
     "//brave/components/debounce/core/common",

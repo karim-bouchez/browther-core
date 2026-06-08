@@ -9,6 +9,7 @@
 #include "brave/common/pref_names.h"
 #include "brave/components/ai_chat/core/common/pref_names.h"
 #include "brave/components/brave_news/common/buildflags/buildflags.h"
+#include "brave/components/browther_analytics/pref_names.h"
 #include "brave/components/brave_rewards/core/pref_names.h"
 #include "brave/components/brave_shields/core/common/pref_names.h"
 #include "brave/components/brave_talk/buildflags/buildflags.h"
@@ -105,6 +106,14 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
       settings_api::PrefType::kBoolean;  // Browther: Sawtunaa
   (*s_brave_allowlist)[kBasarunaaEnabled] =
       settings_api::PrefType::kBoolean;  // Browther: Basarunaa
+  // Browther : compteurs cumulatifs locaux NTP, écrits par les extensions MV3
+  // Sawtunaa/Basarunaa via `chrome.settingsPrivate.setPref` (read-modify-write).
+  // Stockés en local_state, exposés via PrefsUtil::FindServiceForPref qui
+  // résout local_state si la pref n'est pas dans le profile.
+  (*s_brave_allowlist)[browther_analytics::prefs::kStatsMusicSecondsTotal] =
+      settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[browther_analytics::prefs::kStatsPersonsBlurredTotal] =
+      settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaMode] =
       settings_api::PrefType::kString;  // Browther: Basarunaa mode
   (*s_brave_allowlist)[kBasarunaaConfBody] = settings_api::PrefType::kNumber;

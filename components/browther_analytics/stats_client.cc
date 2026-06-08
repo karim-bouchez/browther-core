@@ -97,9 +97,13 @@ void StatsClient::RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
   registry->RegisterIntegerPref(prefs::kStatsPersonsBlurredPending, 0);
   registry->RegisterIntegerPref(prefs::kStatsAdsBlockedPending, 0);
   registry->RegisterIntegerPref(prefs::kStatsAdsBlockedLastSeen, 0);
-  // Totaux cumulatifs affichés sur la NTP (Uint64 — pas de cap pratique).
-  registry->RegisterUint64Pref(prefs::kStatsMusicSecondsTotal, 0);
-  registry->RegisterUint64Pref(prefs::kStatsPersonsBlurredTotal, 0);
+  // Totaux cumulatifs affichés sur la NTP (Integer = Int32 ; saturent à
+  // INT_MAX = 2^31-1 ≈ 2.1 milliards, soit ~68 ans de musique continue ou
+  // 2.1 G de personnes floutées — overflow théorique). Type Integer plutôt
+  // que Uint64 pour pouvoir être exposé via `chrome.settingsPrivate` aux
+  // extensions MV3 Sawtunaa/Basarunaa.
+  registry->RegisterIntegerPref(prefs::kStatsMusicSecondsTotal, 0);
+  registry->RegisterIntegerPref(prefs::kStatsPersonsBlurredTotal, 0);
 }
 
 void StatsClient::IncrementPref(const char* pref_name, int delta) {
