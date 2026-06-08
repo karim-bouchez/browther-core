@@ -582,6 +582,67 @@
     ctx.restore();
   }
 
+  function createVideoStateController(video, overlayCanvas, opts) {
+    let state = "full_blur";
+    let stateChangeTime = performance.now();
+    const createdAt = performance.now();
+    let firstRevealLogged = false;
+    let fullBlurStart = performance.now();
+    const applyFilter = () => {
+      const isDebug = opts.isDebug();
+      if (state === "safe") {
+        overlayCanvas.style.display = isDebug ? "" : "none";
+        video.style.removeProperty("filter");
+      } else if (state === "full_blur") {
+        overlayCanvas.style.display = isDebug ? "" : "none";
+        const vw = video.videoWidth || video.clientWidth;
+        const vh = video.videoHeight || video.clientHeight;
+        const r = blurRadiusForImage(vw, vh);
+        video.style.setProperty(
+          "filter",
+          `blur(${r}px) grayscale(1)`,
+          "important"
+        );
+      } else if (state === "tracking") {
+        overlayCanvas.style.display = "";
+        video.style.removeProperty("filter");
+      }
+    };
+    applyFilter();
+    return {
+      get state() {
+        return state;
+      },
+      setState(next) {
+        if (next === state) return;
+        const prev = state;
+        state = next;
+        const now = performance.now();
+        const since = now - stateChangeTime;
+        stateChangeTime = now;
+        opts.hooks?.onStateChange?.(prev, next, since);
+        if (prev === "full_blur" && (next === "tracking" || next === "safe") && !firstRevealLogged) {
+          firstRevealLogged = true;
+          const sinceCreate = now - createdAt;
+          console.log(
+            `[Basarunaa:video] ⏱ FIRST REVEAL: ${sinceCreate.toFixed(0)}ms (was full_blur for ${(now - fullBlurStart).toFixed(0)}ms)`
+          );
+        }
+        if (next === "full_blur") fullBlurStart = now;
+        applyFilter();
+      },
+      isDebug() {
+        return opts.isDebug();
+      },
+      destroy() {
+        try {
+          video.style.removeProperty("filter");
+        } catch {
+        }
+      }
+    };
+  }
+
   const FEMALE_COLORS = [
     "#FF69B4",
     "#FF1493",
@@ -596,6 +657,7 @@
     "#4682B4",
     "#0047AB"
   ];
+  const UNKNOWN_COLOR = "#FFCC00";
   const COCO_SKELETON = [
     [0, 1],
     [0, 2],
@@ -648,6 +710,110 @@
     "#4D96FF"
     // right leg: blue
   ];
+  const KP_DOT_COLORS$1 = [
+    "#FF0000",
+    "#00FF00",
+    "#0000FF",
+    "#FFFF00",
+    "#FF00FF",
+    "#00FFFF",
+    "#FFA500",
+    "#FF69B4",
+    "#7FFF00",
+    "#DC143C",
+    "#00CED1",
+    "#FFD700",
+    "#8A2BE2",
+    "#32CD32",
+    "#FF4500",
+    "#1E90FF",
+    "#FF1493"
+  ];
+  function genderColor(gender, idx) {
+    if (gender === "F") {
+      return FEMALE_COLORS[idx % FEMALE_COLORS.length];
+    }
+    if (gender === "M") {
+      return MALE_COLORS[idx % MALE_COLORS.length];
+    }
+    return UNKNOWN_COLOR;
+  }
+  function drawBbox(ctx, bbox, color, scale = { sx: 1, sy: 1 }, lineWidth = 3, dashed = false) {
+    const [x1, y1, x2, y2] = bbox;
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    if (dashed) ctx.setLineDash([6, 4]);
+    ctx.strokeRect(x1 * scale.sx, y1 * scale.sy, (x2 - x1) * scale.sx, (y2 - y1) * scale.sy);
+    ctx.restore();
+  }
+  function drawSentinelBbox(ctx, bbox, confidence, scale = { sx: 1, sy: 1 }) {
+    drawBbox(ctx, bbox, "#00FF00", scale, 2, true);
+    const [x1, y1] = bbox;
+    ctx.save();
+    ctx.font = "bold 11px monospace";
+    ctx.fillStyle = "#00FF00";
+    ctx.fillText(
+      `s ${(confidence * 100).toFixed(0)}%`,
+      x1 * scale.sx + 2,
+      y1 * scale.sy - 4
+    );
+    ctx.restore();
+  }
+  function drawSkeleton(ctx, keypoints, scale = { sx: 1, sy: 1 }, baseSize = 100) {
+    if (!keypoints || keypoints.length === 0) return;
+    const sx = scale.sx;
+    const sy = scale.sy;
+    const lineWidth = Math.max(1, Math.round(baseSize * 0.012));
+    const kpRadius = Math.max(1.5, Math.min(4, baseSize * 0.025));
+    ctx.save();
+    ctx.lineWidth = lineWidth;
+    for (let si = 0; si < COCO_SKELETON.length; si++) {
+      const limb = COCO_SKELETON[si];
+      const a = keypoints[limb[0]];
+      const b = keypoints[limb[1]];
+      if (a && b && a.confidence > KP_CONFIDENCE && b.confidence > KP_CONFIDENCE) {
+        ctx.strokeStyle = LIMB_COLORS[si];
+        ctx.beginPath();
+        ctx.moveTo(a.x * sx, a.y * sy);
+        ctx.lineTo(b.x * sx, b.y * sy);
+        ctx.stroke();
+      }
+    }
+    for (let ki = 0; ki < keypoints.length; ki++) {
+      const kp = keypoints[ki];
+      if (kp && kp.confidence > KP_CONFIDENCE) {
+        ctx.beginPath();
+        ctx.arc(kp.x * sx, kp.y * sy, kpRadius, 0, Math.PI * 2);
+        ctx.fillStyle = KP_DOT_COLORS$1[ki % KP_DOT_COLORS$1.length];
+        ctx.fill();
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+  function drawPersonLabel(ctx, person, color, opts = {}) {
+    const scale = opts.scale ?? { sx: 1, sy: 1 };
+    const [x1, y1] = person.bbox;
+    const dx = x1 * scale.sx;
+    const dy = y1 * scale.sy;
+    const gShort = person.gender ?? "?";
+    const conf = person.genderConfidence != null ? `${(person.genderConfidence * 100).toFixed(0)}%` : "";
+    const cls = opts.showClassifier && person.classifierUsed ? ` [${person.classifierUsed}]` : "";
+    const label = `${gShort} ${conf}${cls}`;
+    ctx.save();
+    ctx.font = "bold 13px monospace";
+    const tw = ctx.measureText(label).width + 6;
+    const lh = 18;
+    const ly = dy >= lh ? dy - lh : dy;
+    ctx.fillStyle = color;
+    ctx.fillRect(dx, ly, tw, lh);
+    ctx.fillStyle = "#fff";
+    ctx.fillText(label, dx + 3, ly + lh - 4);
+    ctx.restore();
+  }
 
   function getBinding() {
     if (typeof window === "undefined") return null;
@@ -1575,7 +1741,6 @@
   const YOLO_INTERVAL_SAFE_MS = 5e3;
   const YOLO_IOU_MATCH_THRESHOLD = 0.3;
   const MIN_VIDEO_SIZE = 120;
-  const CANVAS_CLASS = "basarunaa-video-overlay";
   const VIDEO_ID_OFFSET = 1e6;
   let nextFrameId = 1;
   let nextYoloFrameId = VIDEO_ID_OFFSET;
@@ -1596,13 +1761,15 @@
     if (w && h && (w < MIN_VIDEO_SIZE || h < MIN_VIDEO_SIZE)) return false;
     return true;
   }
-  function attachCanvas(video) {
+  function attachCanvas() {
     const canvas = document.createElement("canvas");
-    canvas.className = CANVAS_CLASS;
-    canvas.style.position = "absolute";
-    canvas.style.pointerEvents = "none";
-    canvas.style.zIndex = "2147483646";
-    canvas.style.display = "none";
+    canvas.setAttribute("data-basarunaa-display", "video");
+    canvas.style.cssText = [
+      "position:absolute",
+      "pointer-events:none",
+      "z-index:2147483646",
+      "contain:layout style paint"
+    ].join(";");
     document.body.appendChild(canvas);
     return canvas;
   }
@@ -1619,29 +1786,6 @@
     if (t.canvas.width !== vw) t.canvas.width = vw;
     if (t.canvas.height !== vh) t.canvas.height = vh;
   }
-  function applyState(t) {
-    const cfg = getConfig();
-    const isDebug = cfg?.debugMode === "debug" || cfg?.debugMode === "boxes";
-    if (t.state === "safe") {
-      t.canvas.style.display = isDebug ? "" : "none";
-      t.video.style.removeProperty("filter");
-      return;
-    }
-    if (t.state === "full_blur") {
-      const vw = t.video.videoWidth || t.video.clientWidth || 720;
-      const r = Math.max(20, Math.min(60, Math.round(vw / 36)));
-      t.video.style.setProperty(
-        "filter",
-        `blur(${r}px) grayscale(1)`,
-        "important"
-      );
-      t.canvas.style.display = isDebug ? "" : "none";
-      return;
-    }
-    t.video.style.removeProperty("filter");
-    t.canvas.style.display = "";
-    renderTracking(t, isDebug);
-  }
   function iou(a, b) {
     const x1 = Math.max(a[0], b[0]);
     const y1 = Math.max(a[1], b[1]);
@@ -1653,9 +1797,9 @@
     const bArea = (b[2] - b[0]) * (b[3] - b[1]);
     return inter / (aArea + bArea - inter);
   }
-  function inferGender(bbox, yoloPersons) {
-    let bestIoU = YOLO_IOU_MATCH_THRESHOLD;
+  function nearestYoloPerson(bbox, yoloPersons) {
     let best = null;
+    let bestIoU = YOLO_IOU_MATCH_THRESHOLD;
     for (const p of yoloPersons) {
       const o = iou(bbox, p.bbox);
       if (o > bestIoU) {
@@ -1663,47 +1807,69 @@
         best = p;
       }
     }
-    return best?.gender ?? null;
+    return best;
   }
   function shouldBlur(gender, mode) {
     if (mode === "blur-all") return true;
     if (gender == null) return true;
-    if (mode === "blur-female") return gender === "female";
-    if (mode === "blur-male") return gender === "male";
+    if (mode === "blur-female") return gender === "F";
+    if (mode === "blur-male") return gender === "M";
     return false;
   }
   function renderTracking(t, isDebug) {
     const ctx = t.ctx;
     if (!ctx) return;
-    ctx.clearRect(0, 0, t.canvas.width, t.canvas.height);
+    const w = t.canvas.width;
+    const h = t.canvas.height;
+    ctx.clearRect(0, 0, w, h);
     const cfg = getConfig();
     const mode = cfg?.mode || "blur-female";
-    for (const b of t.lastBboxes) {
-      const [x1, y1, x2, y2] = b;
-      const w = x2 - x1;
-      const h = y2 - y1;
-      if (w <= 0 || h <= 0) continue;
-      const gender = inferGender(b, t.lastYoloPersons);
-      const blur = shouldBlur(gender, mode);
-      const r = Math.max(12, Math.min(40, Math.round(Math.min(w, h) / 4)));
-      if (blur) {
-        ctx.save();
-        ctx.filter = `blur(${r}px)`;
-        try {
-          ctx.drawImage(t.video, x1, y1, w, h, x1, y1, w, h);
-        } catch {
-        }
-        ctx.restore();
+    const renderables = [];
+    for (const b of t.lastSentinelBboxes) {
+      const bbox = [b[0], b[1], b[2], b[3]];
+      const match = nearestYoloPerson(bbox, t.lastYoloPersons);
+      const gender = match?.gender;
+      const person = {
+        bbox,
+        keypoints: match?.keypoints,
+        gender,
+        genderConfidence: match?.genderConfidence
+      };
+      renderables.push({ person, blur: shouldBlur(gender, mode), matchedYolo: match });
+    }
+    let blurredFull = null;
+    try {
+      const cap = document.createElement("canvas");
+      cap.width = w;
+      cap.height = h;
+      const cctx = cap.getContext("2d");
+      if (cctx) {
+        cctx.drawImage(t.video, 0, 0, w, h);
+        const blurPx = blurRadiusForImage(w, h);
+        blurredFull = createEdgeClampedBlur(cap, w, h, blurPx);
       }
-      if (isDebug) {
-        const color = blur ? "rgba(255, 0, 0, 0.7)" : "rgba(0, 255, 0, 0.7)";
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
-        ctx.strokeRect(x1, y1, w, h);
-        if (gender) {
-          ctx.fillStyle = color;
-          ctx.font = "14px sans-serif";
-          ctx.fillText(gender, x1 + 4, y1 + 16);
+    } catch {
+    }
+    if (blurredFull) {
+      for (const r of renderables) {
+        if (!r.blur) continue;
+        drawFeatheredBlur(ctx, blurredFull, r.person, w, h, {
+          showDebug: isDebug
+        });
+      }
+    }
+    if (isDebug) {
+      for (let i = 0; i < renderables.length; i++) {
+        const { person, blur, matchedYolo } = renderables[i];
+        const idx = i;
+        const color = blur ? genderColor(person.gender, idx) : UNKNOWN_COLOR;
+        drawBbox(ctx, person.bbox, color);
+        if (person.keypoints && person.keypoints.length > 0) {
+          drawSkeleton(ctx, person.keypoints, { sx: 1, sy: 1 }, Math.min(w, h));
+        }
+        drawPersonLabel(ctx, person, color);
+        if (!matchedYolo) {
+          drawSentinelBbox(ctx, person.bbox, 0.5);
         }
       }
     }
@@ -1731,14 +1897,19 @@
   function tickFrame(t) {
     if (t.destroyed) return;
     syncCanvasToVideo(t);
-    applyState(t);
+    const isDebug = t.stateController.isDebug();
+    if (t.stateController.state === "tracking") {
+      renderTracking(t, isDebug);
+    } else if (isDebug) {
+      t.ctx?.clearRect(0, 0, t.canvas.width, t.canvas.height);
+    }
     const now = performance.now();
     const videoReady = t.video.readyState >= 2 && !t.video.paused;
     if (!videoReady) {
       scheduleNextTick(t);
       return;
     }
-    const yoloInterval = t.state === "safe" ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
+    const yoloInterval = t.stateController.state === "safe" ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
     const wantsYolo = !t.yoloPending && now - t.lastYoloSentAt >= yoloInterval;
     const wantsSentinel = !t.sentinelPending && now - t.lastSentinelSentAt >= SENTINEL_MIN_INTERVAL_MS;
     if (wantsYolo || wantsSentinel) {
@@ -1765,41 +1936,53 @@
   function scheduleNextTick(t) {
     const vEl = t.video;
     if (typeof vEl.requestVideoFrameCallback === "function") {
-      t.rvfcHandle = vEl.requestVideoFrameCallback(() => tickFrame(t));
+      vEl.requestVideoFrameCallback(() => tickFrame(t));
     } else {
-      t.rvfcHandle = requestAnimationFrame(() => tickFrame(t));
+      requestAnimationFrame(() => tickFrame(t));
     }
+  }
+  function isDebugMode() {
+    const cfg = getConfig();
+    return cfg?.debugMode === "debug" || cfg?.debugMode === "boxes";
   }
   function startTracker(video) {
     if (trackers.has(video)) return;
     if (!isVideoCandidate(video)) return;
     const canvas = attachCanvas();
     const ctx = canvas.getContext("2d");
+    const stateController = createVideoStateController(video, canvas, {
+      isDebug: isDebugMode,
+      hooks: {
+        onStateChange(prev, next, sinceMs) {
+          logInfo$1(`state ${prev} → ${next} (${Math.round(sinceMs)} ms)`);
+        }
+      }
+    });
     const t = {
       video,
       canvas,
       ctx,
-      state: "full_blur",
-      lastBboxes: [],
+      stateController,
+      lastSentinelBboxes: [],
       lastYoloPersons: [],
       lastSentinelSentAt: 0,
       lastYoloSentAt: 0,
       sentinelPending: false,
       yoloPending: false,
-      rvfcHandle: null,
       destroyed: false
     };
     trackers.set(video, t);
     allTrackers.add(t);
-    logInfo$1(`startTracker ${video.videoWidth || "?"}x${video.videoHeight || "?"}`);
-    applyState(t);
+    logInfo$1(
+      `startTracker ${video.videoWidth || "?"}x${video.videoHeight || "?"}`
+    );
     scheduleNextTick(t);
   }
   function destroyTracker(t) {
     if (t.destroyed) return;
     t.destroyed = true;
     try {
-      t.video.style.removeProperty("filter");
+      t.stateController.destroy();
     } catch {
     }
     try {
@@ -1860,13 +2043,30 @@
       if (!Array.isArray(bbox) || bbox.length !== 4) continue;
       if (bbox.some((v) => typeof v !== "number")) continue;
       const g = obj.gender;
-      const gender = g === "male" || g === "female" ? g : null;
+      let gender;
+      if (g === "female" || g === "F") gender = "F";
+      else if (g === "male" || g === "M") gender = "M";
       const gc = obj.genderConfidence;
-      const genderConfidence = typeof gc === "number" ? gc : null;
+      const bc = obj.bodyConfidence;
+      const fc = obj.faceConfidence;
+      const kps = obj.keypoints;
+      let keypoints;
+      if (Array.isArray(kps)) {
+        keypoints = kps.filter(
+          (k) => !!k && typeof k.x === "number" && typeof k.y === "number" && typeof k.confidence === "number"
+        ).map((k) => ({ x: k.x, y: k.y, confidence: k.confidence }));
+      }
+      const faceBboxRaw = obj.faceBbox;
+      const faceBbox = Array.isArray(faceBboxRaw) && faceBboxRaw.length === 4 && faceBboxRaw.every((v) => typeof v === "number") ? faceBboxRaw : void 0;
       out.push({
         bbox,
+        keypoints,
+        faceBbox,
         gender,
-        genderConfidence
+        genderConfidence: typeof gc === "number" ? gc : void 0,
+        bodyConfidence: typeof bc === "number" ? bc : void 0,
+        faceConfidence: typeof fc === "number" ? fc : void 0,
+        detectionConfidence: typeof bc === "number" && bc > 0 ? bc : typeof fc === "number" ? fc : 0
       });
     }
     return out;
@@ -1878,13 +2078,12 @@
       pendingByFrameId.delete(frameId);
       if (!t || t.destroyed) return;
       t.sentinelPending = false;
-      t.lastBboxes = Array.isArray(bboxes) ? bboxes : [];
-      if (t.lastBboxes.length === 0 && t.lastYoloPersons.length === 0) {
-        t.state = "safe";
-      } else if (t.lastBboxes.length > 0) {
-        t.state = "tracking";
+      t.lastSentinelBboxes = Array.isArray(bboxes) ? bboxes : [];
+      if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length === 0) {
+        t.stateController.setState("safe");
+      } else if (t.lastSentinelBboxes.length > 0) {
+        t.stateController.setState("tracking");
       }
-      applyState(t);
     };
     const prevApply = window.__basarunaaApply;
     window.__basarunaaApply = function basarunaaApplyRouter(id, decision, persons, debugMode, elapsedMs) {
@@ -1896,23 +2095,28 @@
         if (decision === "nsfw") {
           const w0 = t.video.videoWidth || 1;
           const h0 = t.video.videoHeight || 1;
-          t.lastBboxes = [[0, 0, w0, h0]];
+          t.lastSentinelBboxes = [[0, 0, w0, h0]];
           t.lastYoloPersons = [
-            { bbox: [0, 0, w0, h0], gender: null, genderConfidence: null }
+            {
+              bbox: [0, 0, w0, h0],
+              gender: void 0,
+              detectionConfidence: 1
+            }
           ];
-          t.state = "tracking";
+          t.stateController.setState("tracking");
         } else {
           t.lastYoloPersons = parseYoloPersons(persons);
-          if (t.lastBboxes.length === 0 && t.lastYoloPersons.length > 0) {
-            t.lastBboxes = t.lastYoloPersons.map((p) => p.bbox);
+          if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length > 0) {
+            t.lastSentinelBboxes = t.lastYoloPersons.map(
+              (p) => [p.bbox[0], p.bbox[1], p.bbox[2], p.bbox[3]]
+            );
           }
-          if (t.lastBboxes.length === 0 && t.lastYoloPersons.length === 0) {
-            t.state = "safe";
+          if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length === 0) {
+            t.stateController.setState("safe");
           } else {
-            t.state = "tracking";
+            t.stateController.setState("tracking");
           }
         }
-        applyState(t);
         return;
       }
       if (prevApply) {
