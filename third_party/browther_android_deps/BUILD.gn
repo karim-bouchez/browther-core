@@ -101,19 +101,22 @@ android_aar_prebuilt("onnxruntime_android_java") {
 # depuis le code Java org.tensorflow.lite.*.
 
 # Interfaces TFLite (InterpreterApi/Tensor/Delegate). Java pur, pas de .so.
+# Pas de chaîne de `deps` sur les android_aar_prebuilt — toutes les targets
+# sont déclarées flat dans brave_chrome_java_deps (config.gni). Mettre des
+# deps inter-AAR bloque la propagation des native libs (.so) jusqu'au
+# chrome_public_apk (incident 2026-06-09 : .so absents de l'APK).
 android_aar_prebuilt("tflite_api_android_java") {
   aar_path = "libs/tensorflow-lite-api/tensorflow-lite-api-2.16.1.aar"
   info_path = "libs/tensorflow-lite-api/tensorflow-lite-api.info"
   enable_bytecode_checks = false
 }
 
-# Runtime core (Interpreter + JNI .so). Dépend de l'API.
+# Runtime core (Interpreter + JNI .so).
 android_aar_prebuilt("tflite_android_java") {
   aar_path = "libs/tensorflow-lite/tensorflow-lite-2.16.1.aar"
   info_path = "libs/tensorflow-lite/tensorflow-lite.info"
   enable_bytecode_checks = false
   extract_native_libraries = true
-  deps = [ ":tflite_api_android_java" ]
 }
 
 # Interfaces partagées GPU (CompatibilityList + GpuDelegateFactory.Options,
@@ -124,7 +127,6 @@ android_aar_prebuilt("tflite_gpu_api_android_java") {
   aar_path = "libs/tensorflow-lite-gpu-api/tensorflow-lite-gpu-api-2.16.1.aar"
   info_path = "libs/tensorflow-lite-gpu-api/tensorflow-lite-gpu-api.info"
   enable_bytecode_checks = false
-  deps = [ ":tflite_api_android_java" ]
 }
 
 # GPU delegate (OpenGL ES / Vulkan compute selon device).
@@ -133,10 +135,6 @@ android_aar_prebuilt("tflite_gpu_android_java") {
   info_path = "libs/tensorflow-lite-gpu/tensorflow-lite-gpu.info"
   enable_bytecode_checks = false
   extract_native_libraries = true
-  deps = [
-    ":tflite_android_java",
-    ":tflite_gpu_api_android_java",
-  ]
 }
 
 # Group d'agrégation : facilite l'import depuis le code Browther.
