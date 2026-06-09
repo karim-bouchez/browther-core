@@ -84,22 +84,47 @@ android_aar_prebuilt("onnxruntime_android_java") {
 # AAR 2.16.1 runtime + GPU delegate. Cf. private/docs/TODO.md
 # § "V3 Basarunaa Android : runtime GPU via TFLite + GPU delegate".
 #
-# 3 AAR :
-#  - tensorflow-lite : runtime core, libtensorflowlite_jni.so + Java Interpreter
+# 4 AAR :
+#  - tensorflow-lite-api : interfaces abstraites InterpreterApi / Tensor /
+#    Delegate. Dépendance transitive Maven de tensorflow-lite et -gpu mais
+#    android_aar_prebuilt n'embarque PAS les transitives → faut un target
+#    séparé sinon "class file for InterpreterApi not found" au compile.
+#  - tensorflow-lite : runtime core, libtensorflowlite_jni.so + Interpreter
+#    (extends InterpreterApi)
 #  - tensorflow-lite-gpu : GPU delegate, libtensorflowlite_gpu_jni.so (4 ABIs)
-#  - tensorflow-lite-gpu-api : interfaces Java pur (CompatibilityList)
+#  - tensorflow-lite-gpu-api : interfaces partagées GPU (CompatibilityList +
+#    GpuDelegateFactory.Options, Java pur)
 #
 # Pattern emprunté à onnxruntime_android_java + com_wireguard_android_java :
 # extract_native_libraries = true → .so packagées dans l'APK pour les 4 ABIs
 # (arm64-v8a, armeabi-v7a, x86_64, x86), accessibles via System.loadLibrary
 # depuis le code Java org.tensorflow.lite.*.
 
-# Runtime core (Interpreter API + JNI .so).
+# Interfaces TFLite (InterpreterApi/Tensor/Delegate). Java pur, pas de .so.
+android_aar_prebuilt("tflite_api_android_java") {
+  aar_path = "libs/tensorflow-lite-api/tensorflow-lite-api-2.16.1.aar"
+  info_path = "libs/tensorflow-lite-api/tensorflow-lite-api.info"
+  enable_bytecode_checks = false
+}
+
+# Runtime core (Interpreter + JNI .so). Dépend de l'API.
 android_aar_prebuilt("tflite_android_java") {
   aar_path = "libs/tensorflow-lite/tensorflow-lite-2.16.1.aar"
   info_path = "libs/tensorflow-lite/tensorflow-lite.info"
   enable_bytecode_checks = false
   extract_native_libraries = true
+  deps = [ ":tflite_api_android_java" ]
+}
+
+# Interfaces partagées GPU (CompatibilityList + GpuDelegateFactory.Options,
+# Java pur, pas de .so). Sert à vérifier que le delegate GPU est supporté
+# AVANT d'instancier le GpuDelegate (évite un crash sur device avec drivers
+# GPU castrés) et fournit le builder GpuDelegateFactory.Options.
+android_aar_prebuilt("tflite_gpu_api_android_java") {
+  aar_path = "libs/tensorflow-lite-gpu-api/tensorflow-lite-gpu-api-2.16.1.aar"
+  info_path = "libs/tensorflow-lite-gpu-api/tensorflow-lite-gpu-api.info"
+  enable_bytecode_checks = false
+  deps = [ ":tflite_api_android_java" ]
 }
 
 # GPU delegate (OpenGL ES / Vulkan compute selon device).
@@ -108,16 +133,10 @@ android_aar_prebuilt("tflite_gpu_android_java") {
   info_path = "libs/tensorflow-lite-gpu/tensorflow-lite-gpu.info"
   enable_bytecode_checks = false
   extract_native_libraries = true
-  deps = [ ":tflite_android_java" ]
-}
-
-# Interfaces partagées (CompatibilityList côté Java pur, pas de .so).
-# Sert à vérifier que le delegate GPU est supporté AVANT d'instancier le
-# GpuDelegate (évite un crash sur device avec drivers GPU castrés).
-android_aar_prebuilt("tflite_gpu_api_android_java") {
-  aar_path = "libs/tensorflow-lite-gpu-api/tensorflow-lite-gpu-api-2.16.1.aar"
-  info_path = "libs/tensorflow-lite-gpu-api/tensorflow-lite-gpu-api.info"
-  enable_bytecode_checks = false
+  deps = [
+    ":tflite_android_java",
+    ":tflite_gpu_api_android_java",
+  ]
 }
 
 # Group d'agrégation : facilite l'import depuis le code Browther.
@@ -126,6 +145,7 @@ group("browther_android_deps") {
     ":onnxruntime_android_java",
     ":sentry_android_core_java",
     ":tflite_android_java",
+    ":tflite_api_android_java",
     ":tflite_gpu_android_java",
     ":tflite_gpu_api_android_java",
   ]

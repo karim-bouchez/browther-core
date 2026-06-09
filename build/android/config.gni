@@ -91,12 +91,14 @@ brave_chrome_java_deps = [
   "//brave/third_party/browther_android_deps:sentry_java",
 
   # Browther: Basarunaa V3 — TFLite + GPU delegate (gain perf 2-4× vs ORT
-  # XNNPACK CPU sur Huawei Kirin, cf. private/docs/TODO.md). Trois targets :
-  # `_java` pour les classes org.tensorflow.lite.* (Interpreter, Tensor,
-  # GpuDelegate, CompatibilityList) ; `_J__unpack_aar` (auto-générée par
-  # android_aar_prebuilt quand extract_native_libraries=true) pour packer
-  # libtensorflowlite_jni.so + libtensorflowlite_gpu_jni.so dans l'APK aux
-  # 4 ABIs. Le `gpu_api` n'a pas de .so → pas de _J__unpack_aar.
+  # XNNPACK CPU sur Huawei Kirin, cf. private/docs/TODO.md). Quatre targets :
+  # `_java` pour les classes org.tensorflow.lite.* (InterpreterApi/Tensor/
+  # Delegate dans -api, Interpreter dans core, GpuDelegate, CompatibilityList) ;
+  # `_J__unpack_aar` (auto-générée par android_aar_prebuilt quand
+  # extract_native_libraries=true) pour packer libtensorflowlite_jni.so +
+  # libtensorflowlite_gpu_jni.so dans l'APK aux 4 ABIs. Les -api Java pur
+  # n'ont pas de .so → pas de _J__unpack_aar.
+  "//brave/third_party/browther_android_deps:tflite_api_android_java",
   "//brave/third_party/browther_android_deps:tflite_android_J__unpack_aar",
   "//brave/third_party/browther_android_deps:tflite_android_java",
   "//brave/third_party/browther_android_deps:tflite_gpu_android_J__unpack_aar",

@@ -15,6 +15,7 @@ import org.chromium.build.annotations.Nullable;
 
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
+import org.tensorflow.lite.gpu.GpuDelegateFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -105,10 +106,13 @@ public final class TfliteRuntime {
         @Nullable GpuDelegate gpuDelegate = null;
         if (backend.isGpu()) {
             try {
-                final GpuDelegate.Options gpuOpts = new GpuDelegate.Options()
+                // TFLite 2.16 : les builder fluent setX() retournent
+                // GpuDelegateFactory.Options (super-classe), pas
+                // GpuDelegate.Options — d'où le type explicite.
+                final GpuDelegateFactory.Options gpuOpts = new GpuDelegate.Options()
                         .setPrecisionLossAllowed(backend.isFp16())
                         .setInferencePreference(
-                                GpuDelegate.Options.INFERENCE_PREFERENCE_SUSTAINED_SPEED);
+                                GpuDelegateFactory.Options.INFERENCE_PREFERENCE_SUSTAINED_SPEED);
                 gpuDelegate = new GpuDelegate(gpuOpts);
                 opts.addDelegate(gpuDelegate);
             } catch (Throwable t) {
