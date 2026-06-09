@@ -12,7 +12,8 @@ import type { Route } from '../router.js';
 import { routes } from '../route.js';
 import { loadTimeData } from "../i18n_setup.js"
 import { pageVisibility } from './page_visibility.js'
-import '../brave_survey_panelist_page/brave_survey_panelist_page.js'
+// Browther: survey panelist gated to false via pageVisibility — import retiré (route absente)
+// import '../brave_survey_panelist_page/brave_survey_panelist_page.js'
 import '../site_settings/site_settings_autoplay.js'
 // <if expr="enable_brave_wallet">
 import '../site_settings/site_settings_cardano.js'
@@ -90,15 +91,10 @@ RegisterPolymerTemplateModifications({
       in-search-mode="[[inSearchMode_]]">
     </settings-brave-data-collection-subpage>`)
 
-    if (loadTimeData.getBoolean('isSurveyPanelistAllowed')) {
-      viewManager.appendChild(html`<settings-brave-survey-panelist-page
-        id="surveyPanelist"
-        data-parent-view-id="dataCollection"
-        slot="view"
-        prefs="{{prefs}}"
-        in-search-mode="[[inSearchMode_]]">
-      </settings-brave-survey-panelist-page>`)
-    }
+    // Browther: survey panelist subpage retirée (page gated false + import retiré)
+    // if (loadTimeData.getBoolean('isSurveyPanelistAllowed')) {
+    //   viewManager.appendChild(html`<settings-brave-survey-panelist-page ...></settings-brave-survey-panelist-page>`)
+    // }
 
     if (loadTimeData.getBoolean('isGoogleSignInFeatureEnabled')) {
       viewManager.appendChild(html`
