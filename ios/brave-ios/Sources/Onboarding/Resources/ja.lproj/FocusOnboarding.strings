@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "続ける";
 
-/* The subtitle of the screen that requests user to set Brave as default */
+/* The subtitle of the screen that requests user to set Browther as default */
 "focusOnboarding.defaultBrowserScreenDescription" = "Braveを今すぐデフォルトブラウザに設定。";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "アクセスするすべてのサイトで広告をブロック";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "閲覧するすべてのサイトで音楽、ハラーム画像、広告をブロック";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "後で";

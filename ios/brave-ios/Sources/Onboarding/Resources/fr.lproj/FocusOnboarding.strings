@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Continuer";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Définissez Brave comme votre navigateur par défaut !";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Définissez Browther comme votre navigateur par défaut !";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Bloquez les publicités sur tous les sites que vous consultez";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Bloquez la musique, les images haram, ainsi que les publicités sur tous les sites que vous consultez";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Pas maintenant";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Indiquez-nous les fonctionnalités que vous préférez.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Aidez-nous à améliorer Brave";
+"focusOnboarding.p3aScreenTitle" = "Aidez-nous à améliorer Browther";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Vous pouvez vous désinscrire à tout moment dans les paramètres sous **Boucliers et confidentialité**. [En savoir plus](#p3a-learn-more) sur l'analyse anonyme des données d'utilisation.";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "Regardez vos vidéos sans pubs ni traqueurs.";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Constatez la différence avec Brave";
+"focusOnboarding.urlBarIndicatorTitle" = "Constatez la différence avec Browther";
 

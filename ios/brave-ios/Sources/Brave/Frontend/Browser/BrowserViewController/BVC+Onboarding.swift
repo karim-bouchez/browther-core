@@ -60,7 +60,8 @@ extension BrowserViewController {
 
     var controller: UIViewController & PopoverContentComponent
 
-    if Preferences.FocusOnboarding.urlBarIndicatorShowBeShown.value {
+    // Browther: post-onboarding URL bar hint retiré (redondant avec l'onboarding lui-même)
+    if false, Preferences.FocusOnboarding.urlBarIndicatorShowBeShown.value {
       Preferences.FocusOnboarding.urlBarIndicatorShowBeShown.reset()
 
       controller = FocusNTPOnboardingViewController().then {
@@ -314,6 +315,8 @@ extension BrowserViewController {
         attributionManager: attributionManager
       ),
       steps: steps,
+      showSplashScreen: false,  // Browther: skip Brave wordmark splash
+
       onCompletion: {
         Preferences.Onboarding.basicOnboardingCompleted.value = OnboardingState.completed.rawValue
         Preferences.AppState.shouldDeferPromotedPurchase.value = false

@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Jatka";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Aseta Brave oletusselaimeksi jo tänään.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Aseta Browther oletusselaimeksi jo tänään.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Mainokset estetään jokaisella sivustolla, jolla käyt";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Estä musiikki, haram-kuvat ja mainokset jokaisella vierailemallasi sivustolla";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Ei nyt";

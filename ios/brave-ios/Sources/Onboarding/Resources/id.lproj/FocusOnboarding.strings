@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Lanjutkan";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Atur Brave sebagai browser default Anda sekarang.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Atur Browther sebagai browser default Anda sekarang.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Dapatkan Pemblokiran Iklan di Setiap Situs yang Anda Kunjungi";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Blokir musik, gambar haram, dan iklan di setiap situs yang Anda kunjungi";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Jangan Sekarang";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Beri tahu kami fitur mana yang paling Anda sukai.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Buat Brave Lebih Baik";
+"focusOnboarding.p3aScreenTitle" = "Buat Browther Lebih Baik";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Anda bisa memilih menonaktifkan pengaturan kapan saja di bagian **Perisai dan Privasi**. [Pelajari selengkapnya](#p3a-learn-more) tentang Analisis Produk Penjaga Privasi (P3A)";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "Mulai streaming dan nikmati lebih sedikit iklan & pelacak.";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Lihat perbedaan yang diberikan Brave";
+"focusOnboarding.urlBarIndicatorTitle" = "Lihat perbedaan yang diberikan Browther";
 

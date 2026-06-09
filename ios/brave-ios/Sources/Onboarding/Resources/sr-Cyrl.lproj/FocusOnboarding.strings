@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Настави";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Подесите Brave као подразумевани прегледач.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Подесите Browther као подразумевани прегледач.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Блокирајте огласе на сваком сајту који посетите";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Блокирајте музику, харам слике и рекламе на сваком посјећеном сајту";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Не сада";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Реците нам у којим функцијама највише уживате.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Учините Brave бољим";
+"focusOnboarding.p3aScreenTitle" = "Учините Browther бољим";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Можете искључити ову опцију у било ком тренутку у подешавањима под опцијом **Штитови и приватност**. [Сазнајте више](#p3a-learn-more) о нашој аналитици производа којом се штити приватност.";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "Уживајте у стримовању са мање огласа и праћења.";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Видите разлику уз Brave";
+"focusOnboarding.urlBarIndicatorTitle" = "Видите разлику уз Browther";
 

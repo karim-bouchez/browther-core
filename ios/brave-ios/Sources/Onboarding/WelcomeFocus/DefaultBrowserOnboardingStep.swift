@@ -7,30 +7,57 @@ import AVFoundation
 import AVKit
 import BrowtherAnalytics
 import DesignSystem
-import Lottie
 import SwiftUI
 
-// TODO(browther): les .lottie actuels (browser-default-{light,dark}.lottie)
-// affichent toujours le logo Brave. Plan : remplacer cette LottieView par un
-// AVPlayer qui joue le même MP4 que le Picture-in-Picture (set-default-pip-*.mp4)
-// en boucle muette → 1 seul enregistrement à recréer (cf. CLAUDE.md Phase 2.4).
-// L'enregistrement nécessite Browther = navigateur par défaut, donc bloqué tant
-// que l'entitlement com.apple.developer.web-browser n'est pas approuvé par Apple.
+// Browther: les .lottie d'origine (browser-default-{light,dark}.lottie) montraient
+// le logo Brave. Remplacés par un AVPlayer qui boucle le même MP4 que la PiP
+// (set-default-pip-*.mp4) → un seul enregistrement à recréer pour Lottie + PiP.
 struct DefaultBrowserGraphicView: View {
   @Environment(\.colorScheme) private var colorScheme
 
   var body: some View {
-    LottieView {
-      try await DotLottieFile.named(
-        colorScheme == .dark ? "browser-default-dark" : "browser-default-light",
-        bundle: .module,
-        subdirectory: Locale.current.language.languageCode == "en"
-          ? "LottieAssets/en" : "LottieAssets"
-      )
-    }
-    .resizable()
-    .playing(loopMode: .loop)
+    LoopingMutedVideoPlayer(
+      videoName: colorScheme == .dark ? "set-default-pip-dark" : "set-default-pip-light"
+    )
     .id(colorScheme)
+  }
+}
+
+@MainActor
+private struct LoopingMutedVideoPlayer: UIViewControllerRepresentable {
+  let videoName: String
+
+  func makeUIViewController(context: Context) -> AVPlayerViewController {
+    let controller = AVPlayerViewController()
+    controller.showsPlaybackControls = false
+    controller.videoGravity = .resizeAspect
+    controller.view.backgroundColor = .clear
+
+    guard let url = Bundle.module.url(
+      forResource: videoName,
+      withExtension: "mp4",
+      subdirectory: "Videos"
+    ) else { return controller }
+
+    let item = AVPlayerItem(url: url)
+    let player = AVQueuePlayer()
+    let looper = AVPlayerLooper(player: player, templateItem: item)
+    context.coordinator.looper = looper
+    player.isMuted = true
+    player.actionAtItemEnd = .none
+    controller.player = player
+    player.play()
+
+    return controller
+  }
+
+  func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {}
+
+  func makeCoordinator() -> Coordinator { Coordinator() }
+
+  @MainActor
+  final class Coordinator {
+    var looper: AVPlayerLooper?
   }
 }
 

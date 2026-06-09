@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Continuar";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Defina o Brave como o seu navegador padrão.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Defina o Browther como o seu navegador padrão.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Bloqueie Anúncios em Todos os Websites que Visitar";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Bloqueie música, imagens haram e anúncios em todos os sites que visita";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Não agora";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Conte para a gente quais recursos você mais gosta.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Torne o Brave Melhor";
+"focusOnboarding.p3aScreenTitle" = "Torne o Browther Melhor";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Pode optar por desativar em qualquer altura, nas Definições, em **Escudos e Privacidade**. [Saiba mais](#p3a-learn-more) sobre os nossos Dados de Produtos que Preservam a Privacidade.";

@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "जारी रखें";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "आज ही Brave को अपना डिफ़ॉल्ट ब्राउज़र सेट करें।";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "आज ही Browther को अपना डिफ़ॉल्ट ब्राउज़र सेट करें।";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "आप जिस भी साइट पर जाते हैं उस पर ऐड ब्लॉकिंग पाएँ";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "हर साइट पर संगीत, हराम छवियों और विज्ञापनों को ब्लॉक करें";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "अभी नहीं";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "हमें बताएँ कि आप किन फ़ीचर्स का सबसे ज़्यादा लुत्फ़ उठाते हैं।";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Brave को बेहतर बनाएँ";
+"focusOnboarding.p3aScreenTitle" = "Browther को बेहतर बनाएँ";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "आप **Shields और प्राइवेसी** में जाकर सेटिंग में कभी भी ऑप्ट-आउट कर सकते हैं। अपनी प्राइवेसी संरक्षण प्रोडक्ट अनलिटिक्स के बारे में [ज़्यादा जानें](#p3a-learn-more)।";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "स्ट्रीम करना शुरू करें और कम ऐड्स & ट्रैकर्स का आनंद लें।";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Brave का कमाल देखें";
+"focusOnboarding.urlBarIndicatorTitle" = "Browther का कमाल देखें";
 

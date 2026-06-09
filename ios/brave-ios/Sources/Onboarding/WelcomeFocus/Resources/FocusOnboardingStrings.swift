@@ -71,8 +71,8 @@ extension Strings {
       "focusOnboarding.defaultBrowserScreenTitle",
       tableName: "FocusOnboarding",
       bundle: .module,
-      value: "Get Adblocking With Every Site You Visit",
-      comment: "The title of the screen that requests user to set Brave as default"
+      value: "Block music, haram images, and ads on every site you visit",
+      comment: "The title of the screen that requests user to set Browther as default"
     )
 
     public static let defaultBrowserScreenDescription = NSLocalizedString(

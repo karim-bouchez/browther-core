@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Pokračovat";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Nastavte si ještě dnes Brave jako výchozí prohlížeč.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Nastavte si ještě dnes Browther jako výchozí prohlížeč.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Získejte blokování reklam na každém navštíveném webu";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Blokujte hudbu, haram obrázky a reklamy na všech navštívených webech";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Teď ne";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Dejte nám vědět, které funkce se vám líbí nejvíce.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Vylepšete Brave";
+"focusOnboarding.p3aScreenTitle" = "Vylepšete Browther";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Tuto funkci můžete kdykoli vypnout v Nastavení v části **Štíty Browther a soukromí**. [Zjistit více](#p3a-learn-more) o naší produktové analýze uchovávající soukromí.";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "Začněte streamovat s menším množstvím reklam a trackerů.";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Brave je jiný";
+"focusOnboarding.urlBarIndicatorTitle" = "Browther je jiný";
 

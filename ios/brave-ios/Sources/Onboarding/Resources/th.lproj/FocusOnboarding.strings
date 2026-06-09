@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "ดำเนินการต่อ";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "ตั้ง Brave เป็นเบราว์เซอร์เริ่มต้นของคุณวันนี้";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "ตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นของคุณวันนี้";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "บล็อกโฆษณาทุกครั้งที่คุณเยี่ยมชมเว็บไซต์";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "บล็อกเพลง รูปภาพต้องห้าม และโฆษณาบนทุกเว็บไซต์ที่คุณเยี่ยมชม";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "ไม่ใช่ตอนนี้";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "บอกให้เราทราบทีว่าฟีเจอร์ใดที่คุณชื่นชอบที่สุด";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "ปรับปรุง Brave ให้ดีขึ้น";
+"focusOnboarding.p3aScreenTitle" = "ปรับปรุง Browther ให้ดีขึ้น";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "คุณสามารถเลือกยกเลิกได้ตลอดเวลาในการตั้งค่าภายใต้ **Shields and Privacy** [เรียนรู้เพิ่มเติม] (#p3a-learn-more) เกี่ยวกับการวิเคราะห์ผลิตภัณฑ์ที่รักษาความเป็นส่วนตัวของเรา";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "เริ่มสตรีมและสนุกกับโฆษณา& และตัวติดตามที่น้อยลง";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "ดูความแตกต่างของ Brave";
+"focusOnboarding.urlBarIndicatorTitle" = "ดูความแตกต่างของ Browther";
 

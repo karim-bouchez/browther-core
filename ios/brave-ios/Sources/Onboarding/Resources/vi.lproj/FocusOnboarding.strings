@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Tiếp tục";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Đặt Brave làm trình duyệt mặc định của bạn ngay hôm nay.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Đặt Browther làm trình duyệt mặc định của bạn ngay hôm nay.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Chặn quảng cáo trên mọi trang bạn truy cập";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Chặn nhạc, hình ảnh haram và quảng cáo trên mọi trang web bạn truy cập";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Không phải Bây giờ";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Hãy cho chúng tôi biết bạn thích nhất tính năng nào.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Giúp cải thiện Brave";
+"focusOnboarding.p3aScreenTitle" = "Giúp cải thiện Browther";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Bạn có thể chọn không tham gia bất cứ lúc nào trong phần Cài đặt của **Lá chắn và Quyền riêng tư**. [Tìm hiểu thêm](#p3a-learn-more) về Phân tích Sản phẩm bảo vệ quyền riêng tư.";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "Tận hưởng nội dung trực tuyến với ít quảng cáo & trình theo dõi hơn.";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Sự khác biệt mang tên Brave";
+"focusOnboarding.urlBarIndicatorTitle" = "Sự khác biệt mang tên Browther";
 

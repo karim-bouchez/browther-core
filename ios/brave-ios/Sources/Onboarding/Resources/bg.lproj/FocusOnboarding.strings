@@ -1,11 +1,11 @@
 /* The title of the button that changes the screen to next */
 "focusOnboarding.continueButtonTitle" = "Продължи";
 
-/* The subtitle of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "Задай Brave като браузъра си по подразбиране още днес.";
+/* The subtitle of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenDescription" = "Задай Browther като браузъра си по подразбиране още днес.";
 
-/* The title of the screen that requests user to set Brave as default */
-"focusOnboarding.defaultBrowserScreenTitle" = "Блокирай рекламите на всеки сайт, който посетиш";
+/* The title of the screen that requests user to set Browther as default */
+"focusOnboarding.defaultBrowserScreenTitle" = "Блокирайте музиката, харам изображенията и рекламите на всеки сайт, който посещавате";
 
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Не сега";
@@ -20,7 +20,7 @@
 "focusOnboarding.p3aScreenDescription" = "Каиж ни кои функции ти харесват най-много.";
 
 /* The title of the screen which asks user to enable privacy preserving analytics. */
-"focusOnboarding.p3aScreenTitle" = "Направи Brave по-добър";
+"focusOnboarding.p3aScreenTitle" = "Направи Browther по-добър";
 
 /* The description shown below the toggle for enabling privacy preserving analytics. This uses standard markdown syntax. The Learn More is a link and #p3a-learn-more is a URL fragment */
 "focusOnboarding.p3aToggleDescription" = "Можете да се откажеш по всяко време в раздел **Защити и поверителност** от настройките. [Научи повече](#p3a-learn-more) за нашия продуктов анализ, предпазващ поверителността.";
@@ -38,5 +38,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "Започни потока на живо и се радвай на по-малко реклами и тракери.";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Виж разликата с Brave";
+"focusOnboarding.urlBarIndicatorTitle" = "Виж разликата с Browther";
 
