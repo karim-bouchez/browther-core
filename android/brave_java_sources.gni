@@ -347,6 +347,7 @@ brave_java_sources = [
   #   + decision).
   # - Jalon 2.E.6 : NudeNetDetector NSFW (sans Marqo, classes EXPOSED
   #   only). Câblé dans BasarunaaEngine en step 0 (court-circuit).
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBackend.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBenchmark.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
@@ -365,8 +366,16 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/PersonMatcher.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/PplcNetClassifier.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/TfliteRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloFaceDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloPoseDetector.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/BodyClassifier.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/DetectorFactory.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/FaceDetector.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/GenderClassifier.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/NudeDetector.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/PoseDetector.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/SentinelDetector.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
   "../../brave/android/java/org/chromium/chrome/browser/shields_panel/ShieldsPanelBottomSheet.java",
   # Browther: Sawtunaa Voie B

@@ -14,6 +14,8 @@ import ai.onnxruntime.OrtSession;
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
+import org.chromium.chrome.browser.basarunaa.detectors.GenderClassifier;
+
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.Map;
@@ -36,7 +38,7 @@ import java.util.Map;
  * <p>L'entrée attendue est un Bitmap 96×96 déjà aligné par {@link FaceAlign}.
  */
 @NullMarked
-public final class GenderAgeClassifier implements AutoCloseable {
+public final class GenderAgeClassifier implements GenderClassifier {
     private static final String TAG = "Basarunaa";
     private static final String MODEL = "genderage.onnx";
     private static final int INPUT_SIZE = 96;

@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Keypoint;
+import org.chromium.chrome.browser.basarunaa.detectors.BodyClassifier;
 
 /**
  * Classifier PP-LCNet pedestrian attribute — port natif de
@@ -46,7 +47,7 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Keypoint;
  * prévue V2 si on observe des dégradations gender sur dos visible.
  */
 @NullMarked
-public final class PplcNetClassifier implements AutoCloseable {
+public final class PplcNetClassifier implements BodyClassifier {
     private static final String TAG = "Basarunaa";
     private static final String MODEL = "pplcnet_pedestrian_attribute.onnx";
     private static final int INPUT_H = 256;

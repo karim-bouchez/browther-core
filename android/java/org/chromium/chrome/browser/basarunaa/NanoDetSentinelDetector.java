@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
+import org.chromium.chrome.browser.basarunaa.detectors.SentinelDetector;
 
 /**
  * NanoDet-Plus-m 320 sentinel detector — anchor-free, 4 stride levels
@@ -42,7 +43,7 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
  * full pose.
  */
 @NullMarked
-public final class NanoDetSentinelDetector implements AutoCloseable {
+public final class NanoDetSentinelDetector implements SentinelDetector {
     private static final String TAG = "Basarunaa";
     private static final String MODEL = "nanodet-plus-m_320.onnx";
     private static final int INPUT_SIZE = 320;

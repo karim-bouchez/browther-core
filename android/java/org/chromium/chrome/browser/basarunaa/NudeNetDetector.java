@@ -14,6 +14,8 @@ import ai.onnxruntime.OrtSession;
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
+import org.chromium.chrome.browser.basarunaa.detectors.NudeDetector;
+
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ import java.util.Set;
  * le debug overlay POC, non câblé Android V1).
  */
 @NullMarked
-public final class NudeNetDetector implements AutoCloseable {
+public final class NudeNetDetector implements NudeDetector {
     private static final String TAG = "Basarunaa";
     private static final String MODEL = "nudenet-320.onnx";
     private static final int INPUT_SIZE = 320;

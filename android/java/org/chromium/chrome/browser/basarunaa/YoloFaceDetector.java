@@ -24,6 +24,7 @@ import java.util.Map;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.FaceDetection;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Keypoint;
+import org.chromium.chrome.browser.basarunaa.detectors.FaceDetector;
 
 /**
  * Détecteur YOLOv8n-Face : bbox visage + 5 landmarks (left_eye, right_eye,
@@ -41,7 +42,7 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Keypoint;
  * principal du YOLOv8-face dans le POC.
  */
 @NullMarked
-public final class YoloFaceDetector implements AutoCloseable {
+public final class YoloFaceDetector implements FaceDetector {
     private static final String TAG = "Basarunaa";
     private static final String MODEL = "yolov8n-face.onnx";
     private static final int INPUT_SIZE = 640;

@@ -30,6 +30,13 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.FaceDetection;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Keypoint;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.PersonDetection;
+import org.chromium.chrome.browser.basarunaa.detectors.BodyClassifier;
+import org.chromium.chrome.browser.basarunaa.detectors.DetectorFactory;
+import org.chromium.chrome.browser.basarunaa.detectors.FaceDetector;
+import org.chromium.chrome.browser.basarunaa.detectors.GenderClassifier;
+import org.chromium.chrome.browser.basarunaa.detectors.NudeDetector;
+import org.chromium.chrome.browser.basarunaa.detectors.PoseDetector;
+import org.chromium.chrome.browser.basarunaa.detectors.SentinelDetector;
 
 /**
  * Singleton ML engine pour Basarunaa Android (Jalon 2.E.5).
@@ -137,18 +144,21 @@ public final class BasarunaaEngine {
 
     // Lazy-init sessions. Tous les accès depuis PIPELINE_EXEC donc pas besoin
     // de synchronization au-delà de l'init (assertion implicite : 1 thread).
-    @Nullable private YoloPoseDetector poseDetector;
-    @Nullable private YoloFaceDetector faceDetector;
-    @Nullable private GenderAgeClassifier genderClassifier;
-    @Nullable private NudeNetDetector nudeNetDetector;
-    @Nullable private PplcNetClassifier bodyClassifier;
+    //
+    // Le type effectif (ORT vs TFLite) dépend du {@link BasarunaaBackend} retenu
+    // au load — choisi par {@link #pickBackend()}. Cf. {@link DetectorFactory}.
+    @Nullable private PoseDetector poseDetector;
+    @Nullable private FaceDetector faceDetector;
+    @Nullable private GenderClassifier genderClassifier;
+    @Nullable private NudeDetector nudeNetDetector;
+    @Nullable private BodyClassifier bodyClassifier;
     /**
      * Sentinel detector lazy-loadé séparément des 5 sessions image-pipeline.
      * Le caller image-only ne paie pas le coût (~16 MB modèle) tant qu'aucune
      * vidéo n'a été tappée. Parité iOS {@code loadSentinelIfNeeded}
      * (BasarunaaPipeline.swift#L355-L360).
      */
-    @Nullable private NanoDetSentinelDetector sentinelDetector;
+    @Nullable private SentinelDetector sentinelDetector;
     private boolean modelsFailed;
     private boolean sentinelFailed;
 
@@ -238,12 +248,15 @@ public final class BasarunaaEngine {
                 && bodyClassifier != null) {
             return;
         }
+        final BasarunaaBackend backend = pickBackend();
         try {
-            if (poseDetector == null) poseDetector = new YoloPoseDetector();
-            if (faceDetector == null) faceDetector = new YoloFaceDetector();
-            if (genderClassifier == null) genderClassifier = new GenderAgeClassifier();
-            if (nudeNetDetector == null) nudeNetDetector = new NudeNetDetector();
-            if (bodyClassifier == null) bodyClassifier = new PplcNetClassifier();
+            if (poseDetector == null) poseDetector = DetectorFactory.createPose(backend);
+            if (faceDetector == null) faceDetector = DetectorFactory.createFace(backend);
+            if (genderClassifier == null) {
+                genderClassifier = DetectorFactory.createGender(backend);
+            }
+            if (nudeNetDetector == null) nudeNetDetector = DetectorFactory.createNude(backend);
+            if (bodyClassifier == null) bodyClassifier = DetectorFactory.createBody(backend);
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] models load failed; switching to no-op", t);
             modelsFailed = true;
@@ -251,15 +264,26 @@ public final class BasarunaaEngine {
     }
 
     /**
+     * Backend ML retenu pour l'init des sessions. Phase 3 : retourne toujours
+     * {@link BasarunaaBackend#ORT_CPU} (parité comportement V2). Phase 7 lira
+     * la pref {@code brave.basarunaa.tflite_gpu_enabled} via {@code UserPrefs}
+     * pour ouvrir le switch TFLite + GPU une fois le sanity check Huawei OK.
+     */
+    private BasarunaaBackend pickBackend() {
+        // TODO Phase 7 : lire la pref brave.basarunaa.tflite_gpu_enabled
+        return BasarunaaBackend.ORT_CPU;
+    }
+
+    /**
      * Lazy-init du sentinel detector — séparé de {@link #ensureModelsLoaded}
      * pour rester aligné iOS (image-only callers payent pas le coût). Retourne
      * {@code null} si le load fail (sentinel devient no-op).
      */
-    private @Nullable NanoDetSentinelDetector ensureSentinelLoaded() {
+    private @Nullable SentinelDetector ensureSentinelLoaded() {
         if (sentinelDetector != null) return sentinelDetector;
         if (sentinelFailed) return null;
         try {
-            sentinelDetector = new NanoDetSentinelDetector();
+            sentinelDetector = DetectorFactory.createSentinel(pickBackend());
             return sentinelDetector;
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] sentinel load failed; switching to no-op", t);
@@ -281,7 +305,7 @@ public final class BasarunaaEngine {
     public List<Bbox> sentinel(byte[] bytes, double confThreshold) {
         final long t0 = System.nanoTime();
         try {
-            final NanoDetSentinelDetector det = ensureSentinelLoaded();
+            final SentinelDetector det = ensureSentinelLoaded();
             if (det == null) return java.util.Collections.emptyList();
 
             final Bitmap src = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -322,14 +346,11 @@ public final class BasarunaaEngine {
         final boolean wantsCrops = "debug".equals(debugMode);
         // Copies locales non-null après ensureModelsLoaded (NullAway ne sait
         // pas que modelsFailed=false implique tous les fields non-null).
-        final NudeNetDetector nudenet =
-                java.util.Objects.requireNonNull(nudeNetDetector);
-        final YoloPoseDetector pose = java.util.Objects.requireNonNull(poseDetector);
-        final YoloFaceDetector face = java.util.Objects.requireNonNull(faceDetector);
-        final GenderAgeClassifier gender =
-                java.util.Objects.requireNonNull(genderClassifier);
-        final PplcNetClassifier body =
-                java.util.Objects.requireNonNull(bodyClassifier);
+        final NudeDetector nudenet = java.util.Objects.requireNonNull(nudeNetDetector);
+        final PoseDetector pose = java.util.Objects.requireNonNull(poseDetector);
+        final FaceDetector face = java.util.Objects.requireNonNull(faceDetector);
+        final GenderClassifier gender = java.util.Objects.requireNonNull(genderClassifier);
+        final BodyClassifier body = java.util.Objects.requireNonNull(bodyClassifier);
 
         final int imgW = src.getWidth();
         final int imgH = src.getHeight();
@@ -514,7 +535,7 @@ public final class BasarunaaEngine {
      * une fois et on décide de runner ORT après.
      */
     private static GenderAgeClassifier.@Nullable Result classifyCropSafe(
-            PplcNetClassifier classifier, Bitmap crop) {
+            BodyClassifier classifier, Bitmap crop) {
         try {
             return classifier.classifyCrop(crop);
         } catch (Throwable t) {

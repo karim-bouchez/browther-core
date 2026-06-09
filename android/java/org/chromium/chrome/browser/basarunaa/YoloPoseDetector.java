@@ -25,6 +25,7 @@ import java.util.Map;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Keypoint;
 import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.PersonDetection;
+import org.chromium.chrome.browser.basarunaa.detectors.PoseDetector;
 
 /**
  * Détecteur YOLO11n-Pose : bbox personne + 17 keypoints COCO.
@@ -37,7 +38,7 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.PersonDetection;
  * 2 keypoints visibles (confidence > 0.3).
  */
 @NullMarked
-public final class YoloPoseDetector implements AutoCloseable {
+public final class YoloPoseDetector implements PoseDetector {
     private static final String TAG = "Basarunaa";
     private static final String MODEL = "yolo11n-pose.onnx";
     private static final int INPUT_SIZE = 640;
