@@ -123,6 +123,12 @@ public final class TfliteRuntime {
         }
 
         final Interpreter interpreter = new Interpreter(model, opts);
+        // allocateTensors() force la résolution des shapes dynamiques. Sans
+        // ça, getInput/OutputTensor().shape() retourne une shape placeholder
+        // (souvent 1 sur les dims dynamiques) → BufferOverflowException quand
+        // TFLite écrit au runtime des shapes réelles plus grandes. Cf.
+        // incident 2026-06-09 yolo-pose [1, 56, 8400] reporté en [1, 56, 1].
+        interpreter.allocateTensors();
         final double loadMs = (System.nanoTime() - t0) / 1_000_000.0;
         Log.i(TAG, "[Tflite] loaded %s in %.1fms (%.1f MB, backend=%s, gpu=%s)",
                 assetName, loadMs, model.capacity() / (1024.0 * 1024.0),
