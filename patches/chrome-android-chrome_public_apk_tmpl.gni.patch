@@ -1,5 +1,5 @@
 diff --git a/chrome/android/chrome_public_apk_tmpl.gni b/chrome/android/chrome_public_apk_tmpl.gni
-index 6bd4fc5504337705757f4f1e8683e5bcb8d4043a..8dd4d3a82087251ae4a8ccda09177d560451b5a1 100644
+index 6bd4fc5504337..2e986050cdc9a 100644
 --- a/chrome/android/chrome_public_apk_tmpl.gni
 +++ b/chrome/android/chrome_public_apk_tmpl.gni
 @@ -291,6 +291,7 @@ template("chrome_common_apk_or_module_tmpl") {
@@ -18,7 +18,7 @@ index 6bd4fc5504337705757f4f1e8683e5bcb8d4043a..8dd4d3a82087251ae4a8ccda09177d56
        if (_is_test) {
          proguard_configs += [ "//chrome/android/proguard/apk_for_test.flags" ]
        }
-@@ -666,6 +668,10 @@ template("chrome_common_apk_or_module_tmpl") {
+@@ -666,6 +668,13 @@ template("chrome_common_apk_or_module_tmpl") {
                                   "version_code",
                                   "version_name",
                                 ])
@@ -26,6 +26,9 @@ index 6bd4fc5504337705757f4f1e8683e5bcb8d4043a..8dd4d3a82087251ae4a8ccda09177d56
 +    # Browther: Sawtunaa Voie B (pièce #6) — pattern wireguard pour packager
 +    # libonnxruntime.so + libonnxruntime4j_jni.so dans chrome_public_apk.
 +    _ort_target = "//brave/third_party/browther_android_deps:onnxruntime_android_J__unpack_aar" deps += [ _ort_target ] _libort_dir = get_label_info("//brave/third_party/browther_android_deps:onnxruntime_android($default_toolchain)","target_out_dir") + "/onnxruntime_android_java/jni" loadable_modules += [ "$_libort_dir/$android_app_abi/libonnxruntime.so", "$_libort_dir/$android_app_abi/libonnxruntime4j_jni.so" ]
++    # Browther: Basarunaa V3 — packager libtensorflowlite_jni.so + libtensorflowlite_gpu_jni.so dans chrome_public_apk (parité pattern ORT). Sans ça : UnsatisfiedLinkError "Failed to load native TensorFlow Lite methods" car les .so extraites par _J__unpack_aar n'arrivent pas via brave_chrome_java_deps (Java-only).
++    _tflite_target = "//brave/third_party/browther_android_deps:tflite_android_J__unpack_aar" deps += [ _tflite_target ] _libtflite_dir = get_label_info("//brave/third_party/browther_android_deps:tflite_android($default_toolchain)","target_out_dir") + "/tflite_android_java/jni" loadable_modules += [ "$_libtflite_dir/$android_app_abi/libtensorflowlite_jni.so" ]
++    _tflite_gpu_target = "//brave/third_party/browther_android_deps:tflite_gpu_android_J__unpack_aar" deps += [ _tflite_gpu_target ] _libtflite_gpu_dir = get_label_info("//brave/third_party/browther_android_deps:tflite_gpu_android($default_toolchain)","target_out_dir") + "/tflite_gpu_android_java/jni" loadable_modules += [ "$_libtflite_gpu_dir/$android_app_abi/libtensorflowlite_gpu_jni.so" ]
    }
  }
  
