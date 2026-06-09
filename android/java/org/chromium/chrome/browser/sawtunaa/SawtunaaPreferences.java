@@ -198,8 +198,16 @@ public class SawtunaaPreferences extends BravePreferenceFragment {
         }
 
         final BasarunaaBenchmark.Model[] models = BasarunaaBenchmark.Model.values();
+        // V3 (2026-06-09) : matrice étendue TFLite. NNAPI gardé comme garde-fou
+        // (memory feedback_basarunaa_android_nnapi_useless — référence Huawei
+        // 5-23× plus lent). Les 4 backends TFLite tomberont en FAILED pour
+        // YOLO_FACE et NUDENET (pas de variante TFLite, cf. V3 Phase 1).
         final BasarunaaBenchmark.Backend[] backends = {
-            BasarunaaBenchmark.Backend.CPU, BasarunaaBenchmark.Backend.NNAPI
+            BasarunaaBenchmark.Backend.CPU,
+            BasarunaaBenchmark.Backend.NNAPI,
+            BasarunaaBenchmark.Backend.TFLITE_CPU,
+            BasarunaaBenchmark.Backend.TFLITE_GPU_FP32,
+            BasarunaaBenchmark.Backend.TFLITE_GPU_FP16,
         };
         final StringBuilder report = new StringBuilder();
         runBasarunaaBenchSequence(models, backends, 0, 0, report);
