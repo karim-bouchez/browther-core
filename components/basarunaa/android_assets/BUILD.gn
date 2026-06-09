@@ -29,6 +29,12 @@
 #
 # Le modèle nsfw-marqo-vit-384 (23 MB) reste hors-bundle : POC macOS l'a
 # remplacé par NudeNet (2× plus léger + équivalent recall).
+#
+# V3 (2026-06-09) — 4 modèles .tflite additionnels (~22 MB) pour le runtime
+# TFLite + GpuDelegate. Les 2 modèles non-convertibles (yolov8n-face,
+# nudenet-320) restent en ONNX et sont chargés par leurs détecteurs ORT
+# respectifs (cf. private/docs/V3_GPU_BENCH.md § Phase 1). yolo11n-pose en
+# FP32 seulement (FP16 KO, max_diff 3.27 cf. mêmes notes).
 
 import("//build/config/android/rules.gni")
 
@@ -39,23 +45,32 @@ android_assets("basarunaa_models_android_assets") {
   # `renaming_sources` sont deux listes distinctes qui s'ADDITIONNENT dans
   # l'APK : utiliser les deux pour le même fichier = doublons.
   renaming_sources = [
+    "genderage.fp16.tflite",
     "genderage.onnx",
+    "nanodet-plus-m_320.fp32.tflite",
     "nanodet-plus-m_320.onnx",
     "nudenet-320.onnx",
+    "pplcnet_pedestrian_attribute.fp16.tflite",
     "pplcnet_pedestrian_attribute.onnx",
+    "yolo11n-pose.fp32.tflite",
     "yolo11n-pose.onnx",
     "yolov8n-face.onnx",
   ]
   renaming_destinations = [
+    "basarunaa/genderage.fp16.tflite",
     "basarunaa/genderage.onnx",
+    "basarunaa/nanodet-plus-m_320.fp32.tflite",
     "basarunaa/nanodet-plus-m_320.onnx",
     "basarunaa/nudenet-320.onnx",
+    "basarunaa/pplcnet_pedestrian_attribute.fp16.tflite",
     "basarunaa/pplcnet_pedestrian_attribute.onnx",
+    "basarunaa/yolo11n-pose.fp32.tflite",
     "basarunaa/yolo11n-pose.onnx",
     "basarunaa/yolov8n-face.onnx",
   ]
-  # Les modèles ONNX sont déjà des Protobuf binaires compressés. Pas besoin
-  # d'une compression APK supplémentaire (négligeable + bloquerait le
+  # Les modèles ONNX et TFLite sont déjà des blobs binaires compressés
+  # (Protobuf pour ONNX, FlatBuffer pour TFLite). Pas besoin d'une
+  # compression APK supplémentaire (négligeable + bloquerait le
   # mmap-friendly openFd() côté runtime).
   disable_compression = true
 }

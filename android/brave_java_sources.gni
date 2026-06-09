@@ -369,6 +369,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/TfliteRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloFaceDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloPoseDetector.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/YoloPoseTfliteDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/BodyClassifier.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/DetectorFactory.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/FaceDetector.java",

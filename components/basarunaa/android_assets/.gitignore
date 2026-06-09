@@ -1,4 +1,5 @@
-# Modèles ONNX Basarunaa (~49 MB) copiés à chaque build par
+# Modèles ML Basarunaa (ONNX ~49 MB + TFLite ~22 MB) copiés à chaque build par
 # private/scripts/fetch-basarunaa-models.sh depuis le POC desktop
-# (private/extensions/basarunaa/public/models/). Non versionnés.
+# (private/extensions/basarunaa/public/models/{,tflite/}). Non versionnés.
 *.onnx
+*.tflite

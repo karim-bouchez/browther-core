@@ -15,6 +15,7 @@ import org.chromium.chrome.browser.basarunaa.NudeNetDetector;
 import org.chromium.chrome.browser.basarunaa.PplcNetClassifier;
 import org.chromium.chrome.browser.basarunaa.YoloFaceDetector;
 import org.chromium.chrome.browser.basarunaa.YoloPoseDetector;
+import org.chromium.chrome.browser.basarunaa.YoloPoseTfliteDetector;
 
 /**
  * Factory unique des détecteurs Basarunaa — choisit l'implémentation ORT vs
@@ -48,8 +49,7 @@ public final class DetectorFactory {
 
     public static PoseDetector createPose(BasarunaaBackend backend) throws Exception {
         if (backend.isTflite()) {
-            // TODO Phase 4 : return new YoloPoseTfliteDetector(backend);
-            Log.d(TAG, "[Factory] pose: TFLite impl pending (Phase 4), using ORT");
+            return new YoloPoseTfliteDetector(backend);
         }
         return new YoloPoseDetector();
     }

@@ -113,4 +113,53 @@ public final class Letterbox {
 
         return new Result(chw, targetSize, scale, padX, padY);
     }
+
+    /**
+     * Variante NHWC pour les détecteurs TFLite (pendant TFLite de {@link
+     * #apply}). Layout {@code [H, W, 3]} en R/G/B interleavés pixel par
+     * pixel, normalisé /255. Sémantique strictement identique à {@link
+     * #apply} sinon — même {@code scale/padX/padY}, même couleur de fond,
+     * même normalisation.
+     *
+     * <p>Onnx2tf transpose en NHWC les inputs 4D image lors de la conversion,
+     * donc tous les modèles TFLite issus du POC attendent {@code [1, H, W, 3]}.
+     */
+    public static Result applyNhwc(Bitmap src, int targetSize) {
+        final int srcW = src.getWidth();
+        final int srcH = src.getHeight();
+        final float scale = Math.min((float) targetSize / srcW, (float) targetSize / srcH);
+        final int newW = Math.round(srcW * scale);
+        final int newH = Math.round(srcH * scale);
+        final float padX = (targetSize - newW) / 2f;
+        final float padY = (targetSize - newH) / 2f;
+
+        final Bitmap target = Bitmap.createBitmap(targetSize, targetSize, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(target);
+        canvas.drawColor(Color.rgb(0x80, 0x80, 0x80));
+
+        final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
+        final Rect srcRect = new Rect(0, 0, srcW, srcH);
+        final Rect dstRect = new Rect(
+                Math.round(padX),
+                Math.round(padY),
+                Math.round(padX) + newW,
+                Math.round(padY) + newH);
+        canvas.drawBitmap(src, srcRect, dstRect, paint);
+
+        final int area = targetSize * targetSize;
+        final int[] argb = new int[area];
+        target.getPixels(argb, 0, targetSize, 0, 0, targetSize, targetSize);
+        target.recycle();
+
+        final FloatBuffer nhwc = FloatBuffer.allocate(3 * area);
+        for (int i = 0; i < area; i++) {
+            final int px = argb[i];
+            nhwc.put(((px >> 16) & 0xFF) / 255f);
+            nhwc.put(((px >> 8) & 0xFF) / 255f);
+            nhwc.put((px & 0xFF) / 255f);
+        }
+        nhwc.flip();
+
+        return new Result(nhwc, targetSize, scale, padX, padY);
+    }
 }

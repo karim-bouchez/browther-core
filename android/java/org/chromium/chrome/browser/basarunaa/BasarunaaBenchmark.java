@@ -19,7 +19,11 @@ import org.chromium.base.task.TaskTraits;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 
+import org.tensorflow.lite.Tensor;
+
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -57,26 +61,56 @@ public final class BasarunaaBenchmark {
 
     /** Modèles bundlés sous {@code assets/basarunaa/} de l'APK. */
     public enum Model {
-        YOLO_POSE("yolo11n-pose.onnx", "yolo-pose"),
-        YOLO_FACE("yolov8n-face.onnx", "yolo-face"),
-        GENDERAGE("genderage.onnx", "genderage"),
-        NANODET("nanodet-plus-m_320.onnx", "nanodet"),
-        PPLCNET("pplcnet_pedestrian_attribute.onnx", "pplcnet"),
-        NUDENET("nudenet-320.onnx", "nudenet");
+        // Le 3e arg est le nom de base TFLite (sans .fp32/.fp16/.tflite) — null
+        // si pas de variante TFLite (yolov8n-face, nudenet-320 KO conversion).
+        YOLO_POSE("yolo11n-pose.onnx", "yolo-pose", "yolo11n-pose"),
+        YOLO_FACE("yolov8n-face.onnx", "yolo-face", null),
+        GENDERAGE("genderage.onnx", "genderage", "genderage"),
+        NANODET("nanodet-plus-m_320.onnx", "nanodet", "nanodet-plus-m_320"),
+        PPLCNET("pplcnet_pedestrian_attribute.onnx", "pplcnet", "pplcnet_pedestrian_attribute"),
+        NUDENET("nudenet-320.onnx", "nudenet", null);
 
         final String assetFilename;
         final String shortName;
+        @Nullable final String tfliteBaseName;
 
-        Model(String assetFilename, String shortName) {
+        Model(String assetFilename, String shortName, @Nullable String tfliteBaseName) {
             this.assetFilename = assetFilename;
             this.shortName = shortName;
+            this.tfliteBaseName = tfliteBaseName;
+        }
+
+        boolean hasTflite() {
+            return tfliteBaseName != null;
         }
     }
 
-    /** Backend ORT à utiliser pour la session. */
+    /** Backend à utiliser pour la session — ORT (CPU/NNAPI) ou TFLite (CPU/GPU). */
     public enum Backend {
         CPU,
         NNAPI,
+        TFLITE_CPU,
+        TFLITE_GPU_FP32,
+        TFLITE_GPU_FP16;
+
+        boolean isTflite() {
+            return this == TFLITE_CPU
+                    || this == TFLITE_GPU_FP32
+                    || this == TFLITE_GPU_FP16;
+        }
+
+        BasarunaaBackend toRuntime() {
+            switch (this) {
+                case TFLITE_CPU:
+                    return BasarunaaBackend.TFLITE_CPU;
+                case TFLITE_GPU_FP32:
+                    return BasarunaaBackend.TFLITE_GPU_FP32;
+                case TFLITE_GPU_FP16:
+                    return BasarunaaBackend.TFLITE_GPU_FP16;
+                default:
+                    return BasarunaaBackend.ORT_CPU;
+            }
+        }
     }
 
     private static final int WARMUP_ITERS = 5;
@@ -165,6 +199,9 @@ public final class BasarunaaBenchmark {
 
     private static Result runBlocking(Model model, Backend backend, int iters)
             throws OrtException, IOException {
+        if (backend.isTflite()) {
+            return runBlockingTflite(model, backend, iters);
+        }
         final OrtEnvironment env = OrtRuntime.env();
         final OrtSession.SessionOptions opts = OrtRuntime.defaultOptions();
         final int threads = OrtRuntime.intraOpThreads();
@@ -221,6 +258,85 @@ public final class BasarunaaBenchmark {
                     t.close();
                 }
             }
+        }
+    }
+
+    /**
+     * Variante TFLite — pendant de {@link #runBlocking} pour les backends
+     * {@code TFLITE_*}. Génère des inputs random à partir des shapes
+     * découvertes via {@link Tensor#shape()}, run warmup + N iters,
+     * rapporte les mêmes statistiques avg/p50/p95/max.
+     */
+    private static Result runBlockingTflite(Model model, Backend backend, int iters)
+            throws IOException {
+        if (!model.hasTflite()) {
+            throw new IllegalArgumentException(
+                    "Model " + model.shortName + " has no TFLite variant (onnx2tf KO)");
+        }
+        final BasarunaaBackend runtime = backend.toRuntime();
+        final String assetName = TfliteRuntime.assetNameFor(model.tfliteBaseName, runtime);
+        final long modelSizeBytes = TfliteRuntime.assetSizeBytes(assetName);
+        final int threads = OrtRuntime.intraOpThreads();
+
+        try (TfliteRuntime.LoadedModel loaded = TfliteRuntime.loadModel(assetName, runtime)) {
+            // Allocation directe (native order) — TFLite exige ByteBuffer direct.
+            final int numInputs = loaded.interpreter.getInputTensorCount();
+            final int numOutputs = loaded.interpreter.getOutputTensorCount();
+            final Random rnd = new Random(42);
+            final ByteBuffer[] inputs = new ByteBuffer[numInputs];
+            for (int i = 0; i < numInputs; i++) {
+                final int[] shape = loaded.interpreter.getInputTensor(i).shape();
+                int totalElements = 1;
+                for (int d : shape) {
+                    final int dim = d <= 0 ? (int) DEFAULT_BATCH : d;
+                    totalElements *= dim;
+                }
+                final ByteBuffer buf = ByteBuffer.allocateDirect(4 * totalElements)
+                        .order(ByteOrder.nativeOrder());
+                final FloatBuffer fb = buf.asFloatBuffer();
+                for (int j = 0; j < totalElements; j++) {
+                    fb.put(rnd.nextFloat() * 2f - 1f);
+                }
+                inputs[i] = buf;
+            }
+            final Map<Integer, Object> outputs = new HashMap<>();
+            for (int o = 0; o < numOutputs; o++) {
+                final int[] shape = loaded.interpreter.getOutputTensor(o).shape();
+                int totalElements = 1;
+                for (int d : shape) {
+                    final int dim = d <= 0 ? (int) DEFAULT_BATCH : d;
+                    totalElements *= dim;
+                }
+                final ByteBuffer outBuf = ByteBuffer.allocateDirect(4 * totalElements)
+                        .order(ByteOrder.nativeOrder());
+                outputs.put(o, outBuf);
+            }
+
+            Log.i(TAG, "Session ready %s [%s] threads=%d delegateGpu=%s",
+                    model.shortName, backend, threads, loaded.gpuDelegate != null);
+
+            // Warmup — GPU delegate compile shaders au 1er run, ne pas
+            // compter dans les iters.
+            for (int i = 0; i < WARMUP_ITERS; i++) {
+                loaded.interpreter.runForMultipleInputsOutputs(inputs, outputs);
+            }
+
+            final long[] nanos = new long[iters];
+            for (int i = 0; i < iters; i++) {
+                final long t0 = System.nanoTime();
+                loaded.interpreter.runForMultipleInputsOutputs(inputs, outputs);
+                nanos[i] = System.nanoTime() - t0;
+            }
+
+            Arrays.sort(nanos);
+            long sum = 0L;
+            for (long n : nanos) sum += n;
+            final double avgMs = (sum / (double) iters) / 1_000_000.0;
+            final double p50Ms = nanos[(int) (iters * 0.5)] / 1_000_000.0;
+            final double p95Ms = nanos[(int) (iters * 0.95)] / 1_000_000.0;
+            final double maxMs = nanos[iters - 1] / 1_000_000.0;
+            return new Result(
+                    model, backend, iters, avgMs, p50Ms, p95Ms, maxMs, threads, modelSizeBytes);
         }
     }
 
