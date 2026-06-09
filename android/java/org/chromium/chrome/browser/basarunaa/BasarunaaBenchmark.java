@@ -280,34 +280,34 @@ public final class BasarunaaBenchmark {
 
         try (TfliteRuntime.LoadedModel loaded = TfliteRuntime.loadModel(assetName, runtime)) {
             // Allocation directe (native order) — TFLite exige ByteBuffer direct.
+            // Utiliser Tensor.numBytes() au lieu de calculer shape × 4 : ça gère
+            // les tensors fp16 (2 bytes/elem), int8, etc. et les shapes déjà
+            // résolues par allocateTensors().
             final int numInputs = loaded.interpreter.getInputTensorCount();
             final int numOutputs = loaded.interpreter.getOutputTensorCount();
             final Random rnd = new Random(42);
             final ByteBuffer[] inputs = new ByteBuffer[numInputs];
             for (int i = 0; i < numInputs; i++) {
-                final int[] shape = loaded.interpreter.getInputTensor(i).shape();
-                int totalElements = 1;
-                for (int d : shape) {
-                    final int dim = d <= 0 ? (int) DEFAULT_BATCH : d;
-                    totalElements *= dim;
-                }
-                final ByteBuffer buf = ByteBuffer.allocateDirect(4 * totalElements)
+                final Tensor tensor = loaded.interpreter.getInputTensor(i);
+                final int numBytes = tensor.numBytes();
+                final ByteBuffer buf = ByteBuffer.allocateDirect(numBytes)
                         .order(ByteOrder.nativeOrder());
+                // Remplit avec du random float32 — tous les inputs du POC sont
+                // float32 (cf. POC JS detectors). Si jamais un futur modèle a
+                // un input fp16, le buf est dimensionné en bytes donc OK, mais
+                // les .put() vont consommer 2× plus de slots qu'attendu.
+                // Pour la V1 bench, on assume float32 input.
                 final FloatBuffer fb = buf.asFloatBuffer();
-                for (int j = 0; j < totalElements; j++) {
+                final int floatCount = numBytes / 4;
+                for (int j = 0; j < floatCount; j++) {
                     fb.put(rnd.nextFloat() * 2f - 1f);
                 }
                 inputs[i] = buf;
             }
             final Map<Integer, Object> outputs = new HashMap<>();
             for (int o = 0; o < numOutputs; o++) {
-                final int[] shape = loaded.interpreter.getOutputTensor(o).shape();
-                int totalElements = 1;
-                for (int d : shape) {
-                    final int dim = d <= 0 ? (int) DEFAULT_BATCH : d;
-                    totalElements *= dim;
-                }
-                final ByteBuffer outBuf = ByteBuffer.allocateDirect(4 * totalElements)
+                final Tensor tensor = loaded.interpreter.getOutputTensor(o);
+                final ByteBuffer outBuf = ByteBuffer.allocateDirect(tensor.numBytes())
                         .order(ByteOrder.nativeOrder());
                 outputs.put(o, outBuf);
             }

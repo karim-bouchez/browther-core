@@ -46,11 +46,13 @@ android_assets("basarunaa_models_android_assets") {
   # l'APK : utiliser les deux pour le même fichier = doublons.
   renaming_sources = [
     "genderage.fp16.tflite",
+    "genderage.fp32.tflite",
     "genderage.onnx",
     "nanodet-plus-m_320.fp32.tflite",
     "nanodet-plus-m_320.onnx",
     "nudenet-320.onnx",
     "pplcnet_pedestrian_attribute.fp16.tflite",
+    "pplcnet_pedestrian_attribute.fp32.tflite",
     "pplcnet_pedestrian_attribute.onnx",
     "yolo11n-pose.fp32.tflite",
     "yolo11n-pose.onnx",
@@ -58,11 +60,13 @@ android_assets("basarunaa_models_android_assets") {
   ]
   renaming_destinations = [
     "basarunaa/genderage.fp16.tflite",
+    "basarunaa/genderage.fp32.tflite",
     "basarunaa/genderage.onnx",
     "basarunaa/nanodet-plus-m_320.fp32.tflite",
     "basarunaa/nanodet-plus-m_320.onnx",
     "basarunaa/nudenet-320.onnx",
     "basarunaa/pplcnet_pedestrian_attribute.fp16.tflite",
+    "basarunaa/pplcnet_pedestrian_attribute.fp32.tflite",
     "basarunaa/pplcnet_pedestrian_attribute.onnx",
     "basarunaa/yolo11n-pose.fp32.tflite",
     "basarunaa/yolo11n-pose.onnx",
