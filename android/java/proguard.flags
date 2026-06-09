@@ -121,3 +121,12 @@
 -keep class ai.onnxruntime.** { *; }
 -keepclassmembers class ai.onnxruntime.** { *; }
 -keepnames class ai.onnxruntime.**
+
+# Browther: Basarunaa V3 — TensorFlow Lite Android AAR. Pattern identique à
+# ORT : libtensorflowlite_jni.so + libtensorflowlite_gpu_jni.so utilisent
+# FindClass/GetMethodID via JNI reflection sur les classes org.tensorflow.lite.*
+# (Tensor, Interpreter, GpuDelegate, CompatibilityList). Sans keeps R8 strip
+# → JNI lookup KO au premier Interpreter.run() ou GpuDelegate ctor.
+-keep class org.tensorflow.lite.** { *; }
+-keepclassmembers class org.tensorflow.lite.** { *; }
+-keepnames class org.tensorflow.lite.**
