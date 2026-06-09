@@ -65,9 +65,29 @@ public final class BasarunaaEngine {
     private static final float NMS_IOU_THRESHOLD = 0.5f;
     private static final int ALIGN_OUTPUT_SIZE = 96;
 
-    /** Pool single-thread global : 1 inférence ML à la fois sur tout le browser. */
+    /** Pool single-thread pour le pipeline full analyze (YOLO + NudeNet +
+     *  classifiers). 1 inférence "lourde" à la fois sur tout le browser. */
     public static final ExecutorService PIPELINE_EXEC =
             Executors.newSingleThreadExecutor(r -> new Thread(r, "Basarunaa-Pipeline"));
+
+    /**
+     * Pool single-thread DÉDIÉ au sentinel vidéo (V2.5). Sentinel et analyze
+     * full doivent rouler en parallèle pour la fluidité vidéo : si on les
+     * sérialise sur PIPELINE_EXEC, le sentinel attend pendant le YOLO full
+     * (~1 s sur Huawei CPU) → 1 résultat toutes les ~2 s, complètement
+     * décalé visuellement (incident remonté device 2026-06-09).
+     *
+     * <p>Thread-safe : {@link #sentinelDetector} (session ORT NanoDet) est
+     * accédé uniquement depuis ce pool, les détecteurs/classifiers du
+     * pipeline analyze (pose/face/gender/nude/body) sont accédés uniquement
+     * depuis {@link #PIPELINE_EXEC}.
+     */
+    public static final ExecutorService SENTINEL_EXEC =
+            Executors.newSingleThreadExecutor(r -> {
+                final Thread t = new Thread(r, "Basarunaa-Sentinel");
+                t.setDaemon(true);
+                return t;
+            });
 
     /**
      * Pool 3-thread pour parallel NudeNet NSFW + YOLO-pose + YOLO-face
@@ -149,15 +169,24 @@ public final class BasarunaaEngine {
         PIPELINE_EXEC.execute(() -> {
             final long t0 = System.nanoTime();
             ensureModelsLoaded();
-            // Sentinel chargé en même temps (le scheduler vidéo va le frapper
-            // au tout début de la 1ʳᵉ vidéo détectée — éviter un 2ᵉ stall).
-            ensureSentinelLoaded();
             final double ms = (System.nanoTime() - t0) / 1_000_000.0;
             if (modelsFailed) {
-                Log.w(TAG, "[Engine] warmup failed after %.1fms", ms);
+                Log.w(TAG, "[Engine] warmup pipeline failed after %.1fms", ms);
             } else {
-                Log.i(TAG, "[Engine] warmup done in %.1fms (sentinel=%s)",
-                        ms, sentinelFailed ? "fail" : "ok");
+                Log.i(TAG, "[Engine] warmup pipeline done in %.1fms", ms);
+            }
+        });
+        // Sentinel chargé sur son propre thread pour qu'il ne bloque pas la
+        // 1ʳᵉ frame vidéo (et qu'il ne soit pas bloqué par l'init du pipeline
+        // full qui charge 5 sessions ORT en série).
+        SENTINEL_EXEC.execute(() -> {
+            final long t0 = System.nanoTime();
+            ensureSentinelLoaded();
+            final double ms = (System.nanoTime() - t0) / 1_000_000.0;
+            if (sentinelFailed) {
+                Log.w(TAG, "[Engine] warmup sentinel failed after %.1fms", ms);
+            } else {
+                Log.i(TAG, "[Engine] warmup sentinel done in %.1fms", ms);
             }
         });
     }

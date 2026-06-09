@@ -126,7 +126,10 @@ public final class BasarunaaTabAnalyzer {
     public void sentinelFrame(int frameId, byte[] bytes, double confBody) {
         final long nativeHelperSnapshot = mNativeHelper;
         final int instanceId = mInstanceId;
-        BasarunaaEngine.PIPELINE_EXEC.execute(() -> {
+        // SENTINEL_EXEC (séparé de PIPELINE_EXEC qui sérialise les YOLO/NSFW
+        // ~1 s sur Huawei CPU). Sans ça → sentinel attend la fin du pipeline
+        // full → 1 résultat toutes les ~2 s, décalage visible (fix 2026-06-09).
+        BasarunaaEngine.SENTINEL_EXEC.execute(() -> {
             String bboxesJson;
             try {
                 final java.util.List<BasarunaaTypes.Bbox> bboxes =
