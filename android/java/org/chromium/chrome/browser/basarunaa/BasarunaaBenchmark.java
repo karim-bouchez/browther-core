@@ -316,7 +316,11 @@ public final class BasarunaaBenchmark {
                 // 1.9 MB, plus gros modèle bundlé). Ne PAS reprendre ce pattern
                 // en prod détecteur : utiliser un float[] primitif et laisser
                 // TFLite allouer la taille exacte.
-                final int paddedBytes = Math.max(tensor.numBytes() * 8, 32 * 1024 * 1024);
+                // 128 MB brute pour couvrir le GPU delegate qui semble allouer
+                // bien plus que ce que numBytes() rapporte (GPU memory layout
+                // texture-based avec padding ?). Cost = 128 MB d'alloc unique
+                // par bench session, OK sur 8 GB phone RAM.
+                final int paddedBytes = Math.max(tensor.numBytes() * 8, 128 * 1024 * 1024);
                 final ByteBuffer outBuf = ByteBuffer.allocateDirect(paddedBytes)
                         .order(ByteOrder.nativeOrder());
                 outputs.put(o, outBuf);
