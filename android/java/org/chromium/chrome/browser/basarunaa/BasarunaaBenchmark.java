@@ -308,14 +308,15 @@ public final class BasarunaaBenchmark {
             for (int o = 0; o < numOutputs; o++) {
                 final Tensor tensor = loaded.interpreter.getOutputTensor(o);
                 // BufferOverflowException observée même après allocateTensors :
-                // certains backends (GPU delegate) resize les tensors entre
-                // l'init et le run, ou copyTo écrit plus que numBytes() rapporte
-                // pour les quantized outputs. Pour le bench où on jette le
-                // résultat, oversize 8× le buffer (~16 MB max) garantit qu'il
-                // fit + n'a aucun impact sur la mesure latency (alloc one-shot
-                // hors timer). Ne PAS reprendre ce pattern en prod détecteur :
-                // utiliser un float[] primitif et laisser TFLite allouer.
-                final int paddedBytes = Math.max(tensor.numBytes() * 8, 64 * 1024);
+                // pour les modèles avec une dim de sortie dynamique (YOLO-pose
+                // [1, 56, N] où N=8400 réel mais reporté ≈ 0 par numBytes() avant
+                // 1st run), numBytes() ment. Pour le bench où on jette le
+                // résultat, on alloue 32 MB plat — coût alloc one-shot hors
+                // timer, garantit qu'on couvre tous les cas (YOLO-pose réel =
+                // 1.9 MB, plus gros modèle bundlé). Ne PAS reprendre ce pattern
+                // en prod détecteur : utiliser un float[] primitif et laisser
+                // TFLite allouer la taille exacte.
+                final int paddedBytes = Math.max(tensor.numBytes() * 8, 32 * 1024 * 1024);
                 final ByteBuffer outBuf = ByteBuffer.allocateDirect(paddedBytes)
                         .order(ByteOrder.nativeOrder());
                 outputs.put(o, outBuf);
