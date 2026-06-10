@@ -10,23 +10,27 @@ import("//build/util/branding.gni")
 import("//chrome/version.gni")
 
 declare_args() {
-  # Browther: désactivé tant qu'on n'a pas notre propre infra d'update
-  # (appcast XML + DMG signés + serveur). Sans override, Brave compile la
-  # const `base_sparkle_update_url = "https://updates.bravesoftware.com/
-  # sparkle/Brave-Browser"` → Sparkle dans Browther interroge l'appcast
-  # Brave officiel, voit Brave 147.x > Browther 146.x, propose l'update,
-  # télécharge le .dmg Brave et fail à l'extraction parce que la signature
-  # Brave ne match pas la pubkey EdDSA Browther (erreur 12 chez l'user).
-  # À réactiver quand on déploie notre appcast (probablement sur
-  # browther-download.devndin.com/appcast.xml + génération de paires
-  # EdDSA via `sign_update` Sparkle). Voir feedback_sparkle_brave_appcast.
-  base_sparkle_update_url = ""
-  enable_sparkle = false
+  # Browther: Sparkle activé 2026-06-10 avec infra Browther.
+  # - Appcast hébergé sur https://browther-download.devndin.com/sparkle/appcast.xml
+  #   (Cloudflare R2, même bucket que les DMG)
+  # - Paire EdDSA générée via `desktop/src/build/mac_files/sparkle_binaries/generate_keys`
+  #   le 2026-06-10, privkey dans Keychain login + backup Bitwarden Secure Note
+  #   "Browther Sparkle EdDSA". `sign_update` lit la privkey automatiquement
+  #   depuis le Keychain pour signer le DMG, et passe la signature à
+  #   `private/scripts/append-appcast.py` qui prepend l'entry au XML R2.
+  # Pré-2026-06-10 : enable_sparkle=false parce qu'on n'avait pas d'appcast,
+  # Sparkle dans Browther interrogeait l'appcast Brave officiel (`updates.
+  # bravesoftware.com/sparkle/Brave-Browser` = default upstream), voyait Brave
+  # 147.x > Browther 146.x, et failait l'extraction avec erreur 12 (signature
+  # EdDSA Brave qui ne match pas notre pubkey). Voir feedback_sparkle_brave_appcast.
+  base_sparkle_update_url =
+      "https://browther-download.devndin.com/sparkle/Browther"
+  enable_sparkle = true
   build_sparkle = false
 
   sparkle_dsa_private_key_file = ""
   sparkle_eddsa_private_key = ""
-  sparkle_eddsa_public_key = ""
+  sparkle_eddsa_public_key = "dWqZdSItV/dwpkK0jrHHhBSH8OEh/CwPkqR1LI/FuE0="
 
   # Browther: brave.exe → browther.exe (et binaire Linux). macOS utilise
   # chrome_product_full_name = "Browther" (.app) via la branche is_mac plus bas.

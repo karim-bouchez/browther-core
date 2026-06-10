@@ -465,14 +465,17 @@ std::string GetDescriptionFromAppcastItem(id item) {
         command->GetSwitchValueASCII(switches::kUpdateFeedURL));
   }
 
-  return [NSString stringWithFormat:@"https://updates.bravesoftware.com/"
-                                    @"sparkle/%@/%s/appcast.xml",
-#if BUILDFLAG(IS_BRAVE_ORIGIN_BRANDED)
-                                    @"Brave-Origin",
-#else
-                                    @"Brave-Browser",
-#endif
-                                    GetUpdateChannel().c_str()];
+  // Browther: appcast hébergé sur Cloudflare R2 sous browther-download.devndin.com.
+  // L'URL Brave d'origine ("https://updates.bravesoftware.com/sparkle/Brave-Browser/...")
+  // est inutilisable pour nous : Sparkle DL le DMG Brave 147 (signé par leur
+  // pubkey EdDSA) et fail l'extraction côté user (erreur 12, signature mismatch).
+  // Path final : https://browther-download.devndin.com/sparkle/Browther/<channel>/appcast.xml
+  // Channel = "stable-arm64" en release, "development-arm64" en debug
+  // (GetUpdateChannel(), inchangé). Cf. build/config.gni base_sparkle_update_url.
+  return [NSString
+      stringWithFormat:@"https://browther-download.devndin.com/sparkle/"
+                       @"Browther/%s/appcast.xml",
+                       GetUpdateChannel().c_str()];
 }
 @end
 
