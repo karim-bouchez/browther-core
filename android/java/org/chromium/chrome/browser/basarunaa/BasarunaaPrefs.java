@@ -30,20 +30,18 @@ public final class BasarunaaPrefs {
     private BasarunaaPrefs() {}
 
     /**
-     * Lit la pref {@link #PREF_TFLITE_GPU_ENABLED} (default true côté C++ via
-     * {@code brave_profile_prefs.cc}). Retourne true si la pref est active et
-     * que la lecture profile est OK ; en cas d'exception (profile not ready),
-     * retourne le default {@code true} — comportement parité comportement V2
-     * jusqu'à ce que le profile soit dispo, puis switch transparent à la
-     * volée au prochain {@link BasarunaaEngine#ensureModelsLoaded}.
+     * Lit la pref {@link #PREF_TFLITE_GPU_ENABLED} (default false côté C++ via
+     * {@code brave_profile_prefs.cc} — voir le commentaire sur le default
+     * pourquoi pas true post-Phase 6 incident). En cas d'exception (profile
+     * not ready au boot), fallback false pour rester sur ORT_CPU sain.
      */
     public static boolean tfliteGpuEnabled() {
         try {
             return UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                     .getBoolean(PREF_TFLITE_GPU_ENABLED);
         } catch (Throwable t) {
-            Log.w(TAG, "[Prefs] read tflite_gpu_enabled failed, default true", t);
-            return true;
+            Log.w(TAG, "[Prefs] read tflite_gpu_enabled failed, default false", t);
+            return false;
         }
     }
 }

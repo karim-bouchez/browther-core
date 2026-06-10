@@ -443,7 +443,13 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);
   registry->RegisterStringPref(kBasarunaaDebugMode, "none");
   registry->RegisterBooleanPref(kBasarunaaCaptureMode, false);
-  registry->RegisterBooleanPref(kBasarunaaTfliteGpuEnabled, true);  // Browther: V3 Android TFLite GPU yolo-pose
+  // Default FALSE post-validation device 2026-06-10 : bench inference YOLO-pose
+  // GPU FP32 = 88ms (4.6× vs CPU 410ms), mais sortie produit ~12 détections
+  // pour 5 personnes (faux positifs car coords TFLite max_diff 1.86e-3 vs ONNX
+  // empêchent le NMS IoU 0.5 de merger). Pipeline complet plus lent que CPU
+  // jusqu'à fix du parser (Phase 6.1). User peut activer manuellement la pref
+  // via chrome://flags/settingsPrivate après les fixes accuracy.
+  registry->RegisterBooleanPref(kBasarunaaTfliteGpuEnabled, false);
   registry->RegisterBooleanPref(kGoogleLoginControlType, true);
   registry->RegisterBooleanPref(
       query_filter::kTrackingQueryParametersFilteringEnabled, true);
