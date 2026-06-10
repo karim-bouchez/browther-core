@@ -45,6 +45,10 @@ public enum BasarunaaBackend {
 
     private static final String TAG = "Basarunaa";
 
+    // Memoize la décision GPU pour éviter d'instancier CompatibilityList
+    // (charge des classes TFLite) à chaque pickBest. Volatile = thread-safe.
+    private static volatile @org.chromium.build.annotations.Nullable Boolean sGpuSupportedCache;
+
     public boolean isTflite() {
         return this != ORT_CPU;
     }
@@ -55,6 +59,28 @@ public enum BasarunaaBackend {
 
     public boolean isFp16() {
         return this == TFLITE_GPU_FP16;
+    }
+
+    /**
+     * True si {@code CompatibilityList().isDelegateSupportedOnThisDevice()}.
+     * Memoize le résultat (la liste interne TFLite est statique au boot — pas
+     * besoin de re-checker à chaque {@link DetectorFactory#createPose} call).
+     * Tout throwable (classe non chargeable, init crash) → false fallback.
+     */
+    public static boolean gpuSupported() {
+        Boolean cached = sGpuSupportedCache;
+        if (cached != null) return cached;
+        boolean supported;
+        try {
+            supported = new org.tensorflow.lite.gpu.CompatibilityList()
+                    .isDelegateSupportedOnThisDevice();
+            Log.i(TAG, "[Backend] CompatibilityList.gpuSupported=%b", supported);
+        } catch (Throwable t) {
+            Log.w(TAG, "[Backend] gpuSupported check failed; returning false", t);
+            supported = false;
+        }
+        sGpuSupportedCache = supported;
+        return supported;
     }
 
     /**

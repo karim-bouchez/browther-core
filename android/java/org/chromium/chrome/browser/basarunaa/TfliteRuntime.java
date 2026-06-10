@@ -17,6 +17,7 @@ import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
 import org.tensorflow.lite.gpu.GpuDelegateFactory;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
@@ -109,10 +110,23 @@ public final class TfliteRuntime {
                 // TFLite 2.16 : les builder fluent setX() retournent
                 // GpuDelegateFactory.Options (super-classe), pas
                 // GpuDelegate.Options — d'où le type explicite.
+                //
+                // Shader cache : compile GLSL coûte ~26s pour yolo-pose au
+                // 1er load (mesure Huawei 2026-06-10). setSerializationParams
+                // persiste les binaires shaders compilés dans cache/ — au 2e
+                // boot, le load est < 1s. modelToken = base name pour clé
+                // unique par modèle. Cf. memory à créer si autre device
+                // exige un comportement différent.
+                final File shaderCacheDir = new File(
+                        ContextUtils.getApplicationContext().getCacheDir(),
+                        "basarunaa_tflite_gpu");
+                if (!shaderCacheDir.exists()) shaderCacheDir.mkdirs();
                 final GpuDelegateFactory.Options gpuOpts = new GpuDelegate.Options()
                         .setPrecisionLossAllowed(backend.isFp16())
                         .setInferencePreference(
-                                GpuDelegateFactory.Options.INFERENCE_PREFERENCE_SUSTAINED_SPEED);
+                                GpuDelegateFactory.Options.INFERENCE_PREFERENCE_SUSTAINED_SPEED)
+                        .setSerializationParams(
+                                shaderCacheDir.getAbsolutePath(), assetName);
                 gpuDelegate = new GpuDelegate(gpuOpts);
                 opts.addDelegate(gpuDelegate);
             } catch (Throwable t) {

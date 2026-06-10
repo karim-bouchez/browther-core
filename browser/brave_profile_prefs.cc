@@ -443,6 +443,7 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);
   registry->RegisterStringPref(kBasarunaaDebugMode, "none");
   registry->RegisterBooleanPref(kBasarunaaCaptureMode, false);
+  registry->RegisterBooleanPref(kBasarunaaTfliteGpuEnabled, true);  // Browther: V3 Android TFLite GPU yolo-pose
   registry->RegisterBooleanPref(kGoogleLoginControlType, true);
   registry->RegisterBooleanPref(
       query_filter::kTrackingQueryParametersFilteringEnabled, true);

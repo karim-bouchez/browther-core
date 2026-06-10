@@ -352,6 +352,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaBridge.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaEngine.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaPanelBottomSheet.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaPrefs.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaResult.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTabAnalyzer.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/BasarunaaTypes.java",

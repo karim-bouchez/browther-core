@@ -9,6 +9,7 @@ import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 
 import org.chromium.chrome.browser.basarunaa.BasarunaaBackend;
+import org.chromium.chrome.browser.basarunaa.BasarunaaPrefs;
 import org.chromium.chrome.browser.basarunaa.GenderAgeClassifier;
 import org.chromium.chrome.browser.basarunaa.NanoDetSentinelDetector;
 import org.chromium.chrome.browser.basarunaa.NudeNetDetector;
@@ -47,10 +48,30 @@ public final class DetectorFactory {
 
     private DetectorFactory() {}
 
+    /**
+     * Choisit dynamiquement le PoseDetector. Phase 5 bench Huawei a établi
+     * que TFLite GPU FP32 sur yolo-pose donne 4.6× (410ms→88ms vs ORT CPU) —
+     * <b>le seul modèle où on a un gain GPU prouvé</b>. Sur les autres
+     * modèles, ORT CPU bat TFLite GPU (overhead launch > calcul).
+     *
+     * <p>Décision :
+     * <ol>
+     *   <li>Si la pref {@code brave.basarunaa.tflite_gpu_enabled} est ON
+     *       (default true) ET le device supporte le GPU delegate (via
+     *       {@link BasarunaaBackend#gpuSupported}) → TFLITE_GPU_FP32.</li>
+     *   <li>Sinon → ORT_CPU (fallback safe — bench Phase 5 ref).</li>
+     * </ol>
+     *
+     * <p>Le {@code backend} param est ignoré pour ce modèle (les autres
+     * createXxx l'utilisent encore pour cohérence API ; un futur Phase 6.2
+     * micro-bench par device pourra unifier).
+     */
     public static PoseDetector createPose(BasarunaaBackend backend) throws Exception {
-        if (backend.isTflite()) {
-            return new YoloPoseTfliteDetector(backend);
+        if (BasarunaaPrefs.tfliteGpuEnabled() && BasarunaaBackend.gpuSupported()) {
+            Log.i(TAG, "[Factory] pose: TFLite GPU FP32 (pref ON, gpuSupported=true)");
+            return new YoloPoseTfliteDetector(BasarunaaBackend.TFLITE_GPU_FP32);
         }
+        Log.d(TAG, "[Factory] pose: ORT_CPU (pref OFF or gpu unsupported)");
         return new YoloPoseDetector();
     }
 

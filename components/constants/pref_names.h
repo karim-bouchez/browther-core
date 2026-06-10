@@ -77,6 +77,13 @@ inline constexpr char kBasarunaaGenderCertainty[] =
 // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture mode.
 inline constexpr char kBasarunaaDebugMode[] = "brave.basarunaa.debug_mode";
 inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";
+// Android-only V3 (2026-06-10) : TFLite + GpuDelegate pour yolo-pose. Bench
+// Huawei Mali-G76 = 4.6× speedup (410ms → 88ms). Default true ; le runtime
+// fallback ORT_CPU si CompatibilityList().isDelegateSupportedOnThisDevice()
+// retourne false (driver GPU castré). Les autres détecteurs restent ORT_CPU
+// quoi qu'il arrive (bench montre overhead GPU > calcul sur petits modèles).
+inline constexpr char kBasarunaaTfliteGpuEnabled[] =
+    "brave.basarunaa.tflite_gpu_enabled";
 inline constexpr char kGoogleLoginControlType[] = "brave.google_login_default";
 // Deprecated
 inline constexpr char kWebTorrentEnabled[] = "brave.webtorrent_enabled";
