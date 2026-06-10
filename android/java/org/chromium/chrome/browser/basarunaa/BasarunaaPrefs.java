@@ -27,6 +27,14 @@ public final class BasarunaaPrefs {
     /** {@code kBasarunaaTfliteGpuEnabled} — Android V3 toggle TFLite GPU yolo-pose. */
     public static final String PREF_TFLITE_GPU_ENABLED = "brave.basarunaa.tflite_gpu_enabled";
 
+    /**
+     * {@code kBasarunaaTfliteCompareMode} — Phase 6.1 debug. Quand ON ET
+     * {@link #PREF_TFLITE_GPU_ENABLED} ON, le factory wrap le YoloPose TFLite
+     * dans un {@code ComparePoseDetector} qui run aussi ORT_CPU pour mesurer le
+     * drift Mali-G76 GPU FP32 vs CPU sur le device user.
+     */
+    public static final String PREF_TFLITE_COMPARE_MODE = "brave.basarunaa.tflite_compare_mode";
+
     private BasarunaaPrefs() {}
 
     /**
@@ -41,6 +49,21 @@ public final class BasarunaaPrefs {
                     .getBoolean(PREF_TFLITE_GPU_ENABLED);
         } catch (Throwable t) {
             Log.w(TAG, "[Prefs] read tflite_gpu_enabled failed, default false", t);
+            return false;
+        }
+    }
+
+    /**
+     * Lit la pref {@link #PREF_TFLITE_COMPARE_MODE} (default false). À activer
+     * manuellement (avec {@link #tfliteGpuEnabled()} ON) pour comparer ORT vs
+     * TFLite sur device. Coût ~410ms par inférence — ne PAS laisser ON en prod.
+     */
+    public static boolean tfliteCompareMode() {
+        try {
+            return UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
+                    .getBoolean(PREF_TFLITE_COMPARE_MODE);
+        } catch (Throwable t) {
+            Log.w(TAG, "[Prefs] read tflite_compare_mode failed, default false", t);
             return false;
         }
     }

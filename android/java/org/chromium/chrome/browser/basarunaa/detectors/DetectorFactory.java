@@ -10,6 +10,7 @@ import org.chromium.build.annotations.NullMarked;
 
 import org.chromium.chrome.browser.basarunaa.BasarunaaBackend;
 import org.chromium.chrome.browser.basarunaa.BasarunaaPrefs;
+import org.chromium.chrome.browser.basarunaa.ComparePoseDetector;
 import org.chromium.chrome.browser.basarunaa.GenderAgeClassifier;
 import org.chromium.chrome.browser.basarunaa.NanoDetSentinelDetector;
 import org.chromium.chrome.browser.basarunaa.NudeNetDetector;
@@ -68,8 +69,15 @@ public final class DetectorFactory {
      */
     public static PoseDetector createPose(BasarunaaBackend backend) throws Exception {
         if (BasarunaaPrefs.tfliteGpuEnabled() && BasarunaaBackend.gpuSupported()) {
+            final PoseDetector tflitePose =
+                    new YoloPoseTfliteDetector(BasarunaaBackend.TFLITE_GPU_FP32);
+            if (BasarunaaPrefs.tfliteCompareMode()) {
+                Log.i(TAG, "[Factory] pose: TFLite GPU FP32 + ComparePoseDetector"
+                        + " (Phase 6.1 debug — coût +ORT ~410ms/img)");
+                return new ComparePoseDetector(tflitePose, new YoloPoseDetector());
+            }
             Log.i(TAG, "[Factory] pose: TFLite GPU FP32 (pref ON, gpuSupported=true)");
-            return new YoloPoseTfliteDetector(BasarunaaBackend.TFLITE_GPU_FP32);
+            return tflitePose;
         }
         Log.d(TAG, "[Factory] pose: ORT_CPU (pref OFF or gpu unsupported)");
         return new YoloPoseDetector();

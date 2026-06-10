@@ -450,6 +450,11 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   // jusqu'à fix du parser (Phase 6.1). User peut activer manuellement la pref
   // via chrome://flags/settingsPrivate après les fixes accuracy.
   registry->RegisterBooleanPref(kBasarunaaTfliteGpuEnabled, false);
+  // Phase 6.1 debug : default false, à activer manuellement (avec
+  // kBasarunaaTfliteGpuEnabled aussi ON) pour mesurer en device le drift
+  // ORT_CPU vs TFLITE_GPU_FP32 sur yolo-pose. Allume les 2 prefs, ouvre l'image
+  // dense qui a triggé le bug, et `adb logcat -s Basarunaa` log les écarts.
+  registry->RegisterBooleanPref(kBasarunaaTfliteCompareMode, false);
   registry->RegisterBooleanPref(kGoogleLoginControlType, true);
   registry->RegisterBooleanPref(
       query_filter::kTrackingQueryParametersFilteringEnabled, true);

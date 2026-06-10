@@ -84,6 +84,12 @@ inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";
 // quoi qu'il arrive (bench montre overhead GPU > calcul sur petits modèles).
 inline constexpr char kBasarunaaTfliteGpuEnabled[] =
     "brave.basarunaa.tflite_gpu_enabled";
+// Android-only V3 Phase 6.1 debug : quand ON ET tflite_gpu_enabled ON, le
+// factory wrap le YoloPoseTfliteDetector dans un ComparePoseDetector qui run
+// aussi ORT_CPU sur la même bitmap et log les écarts pré/post-NMS (drift
+// Mali-G76 GPU FP32 vs CPU). Default false — coût ~410ms de plus par inférence.
+inline constexpr char kBasarunaaTfliteCompareMode[] =
+    "brave.basarunaa.tflite_compare_mode";
 inline constexpr char kGoogleLoginControlType[] = "brave.google_login_default";
 // Deprecated
 inline constexpr char kWebTorrentEnabled[] = "brave.webtorrent_enabled";

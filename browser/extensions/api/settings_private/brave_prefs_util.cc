@@ -125,6 +125,8 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
       settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaTfliteGpuEnabled] =
       settings_api::PrefType::kBoolean;
+  (*s_brave_allowlist)[kBasarunaaTfliteCompareMode] =
+      settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kAdControlType] = settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kGoogleLoginControlType] =
       settings_api::PrefType::kBoolean;
