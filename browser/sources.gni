@@ -475,7 +475,7 @@ if (is_mac) {
   brave_chrome_framework_contents = []
 }
 
-if (enable_sparkle) {
+if (is_mac && enable_sparkle) {
   brave_chrome_browser_sources += [
     "//brave/browser/mac/sparkle_glue.h",
     "//brave/browser/mac/sparkle_glue.mm",
