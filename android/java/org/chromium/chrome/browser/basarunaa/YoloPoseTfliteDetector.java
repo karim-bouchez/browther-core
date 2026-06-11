@@ -99,6 +99,17 @@ public final class YoloPoseTfliteDetector implements PoseDetector {
         model.close();
     }
 
+    /**
+     * Bump conf threshold sur path TFLite GPU pour compenser le drift Mali
+     * FP24 (Phase 6.1 fix v3). Mesure device Huawei UBV0218815000852 sur image
+     * dense : vraies personnes scorent 0.72-0.91, fantômes drift 0.27-0.62.
+     * Gap = 0.10. On bump de +0.20 pour rester safe (tue tout fantôme < 0.45,
+     * préserve les vraies personnes en bordure de visibilité 0.5+). Sur les
+     * devices sans drift (futurs Snapdragon/Tensor benchés en Phase 6.2),
+     * cette marge est gratuite — quasi tous les anchors restent au-dessus.
+     */
+    private static final float TFLITE_CONF_BUMP = 0.20f;
+
     @Override
     public List<PersonDetection> detect(Bitmap src, float confThreshold, float iouThreshold) {
         final int srcW = src.getWidth();
@@ -118,7 +129,7 @@ public final class YoloPoseTfliteDetector implements PoseDetector {
 
         outputBuf.rewind();
         final FloatBuffer flat = outputBuf.asFloatBuffer();
-        return postprocess(flat, lb, srcW, srcH, confThreshold, iouThreshold);
+        return postprocess(flat, lb, srcW, srcH, confThreshold + TFLITE_CONF_BUMP, iouThreshold);
     }
 
     private List<PersonDetection> postprocess(
