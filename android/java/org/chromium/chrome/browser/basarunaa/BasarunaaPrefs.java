@@ -6,6 +6,7 @@
 package org.chromium.chrome.browser.basarunaa;
 
 import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.components.user_prefs.UserPrefs;
@@ -42,15 +43,16 @@ public final class BasarunaaPrefs {
      * {@code brave_profile_prefs.cc} — voir le commentaire sur le default
      * pourquoi pas true post-Phase 6 incident). En cas d'exception (profile
      * not ready au boot), fallback false pour rester sur ORT_CPU sain.
+     *
+     * <p><b>Thread-safe</b> : la lecture {@code UserPrefs.get(ProfileManager
+     * .getLastUsedRegularProfile())} exige le UI thread (assert dans
+     * ProfileManager). {@code BasarunaaEngine.ensureModelsLoaded()} tourne sur
+     * {@code PIPELINE_EXEC} (worker), donc on bounce via
+     * {@link ThreadUtils#runOnUiThreadBlocking}. Pas de risque de deadlock —
+     * le UI thread n'attend jamais PIPELINE_EXEC.
      */
     public static boolean tfliteGpuEnabled() {
-        try {
-            return UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
-                    .getBoolean(PREF_TFLITE_GPU_ENABLED);
-        } catch (Throwable t) {
-            Log.w(TAG, "[Prefs] read tflite_gpu_enabled failed, default false", t);
-            return false;
-        }
+        return readBoolPrefOnUiThread(PREF_TFLITE_GPU_ENABLED, "tflite_gpu_enabled");
     }
 
     /**
@@ -59,11 +61,20 @@ public final class BasarunaaPrefs {
      * TFLite sur device. Coût ~410ms par inférence — ne PAS laisser ON en prod.
      */
     public static boolean tfliteCompareMode() {
+        return readBoolPrefOnUiThread(PREF_TFLITE_COMPARE_MODE, "tflite_compare_mode");
+    }
+
+    private static boolean readBoolPrefOnUiThread(String prefKey, String label) {
         try {
-            return UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
-                    .getBoolean(PREF_TFLITE_COMPARE_MODE);
+            if (ThreadUtils.runningOnUiThread()) {
+                return UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
+                        .getBoolean(prefKey);
+            }
+            return ThreadUtils.runOnUiThreadBlocking(
+                    () -> UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
+                            .getBoolean(prefKey));
         } catch (Throwable t) {
-            Log.w(TAG, "[Prefs] read tflite_compare_mode failed, default false", t);
+            Log.w(TAG, "[Prefs] read %s failed, default false", label, t);
             return false;
         }
     }
