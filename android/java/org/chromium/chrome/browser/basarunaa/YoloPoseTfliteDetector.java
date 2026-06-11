@@ -141,18 +141,23 @@ public final class YoloPoseTfliteDetector implements PoseDetector {
             final float w = readFeature(flat, 2, i);
             final float h = readFeature(flat, 3, i);
 
-            // GPU drift filter (Phase 6.1) : Mali-G76 GPU FP32 (compute shader
-            // OpenGL ES interne FP24) produit des w/h négatives sur les anchors
-            // low-conf borderline. Bboxes dégénérées (area=0) ont IoU=0 avec
-            // tout → NMS jamais merge → 15+ fantômes survivent. Skip ici plutôt
-            // que dans Nms (qui doit rester générique). ORT CPU n'a jamais ce
-            // bug ; YoloPoseDetector.postprocess ne filtre pas par parité POC.
-            if (w < 1f || h < 1f) continue;
-
             final float x1 = Math.max(0f, (cx - w / 2f - lb.padX) / lb.scale);
             final float y1 = Math.max(0f, (cy - h / 2f - lb.padY) / lb.scale);
             final float x2 = Math.min((float) srcW, (cx + w / 2f - lb.padX) / lb.scale);
             final float y2 = Math.min((float) srcH, (cy + h / 2f - lb.padY) / lb.scale);
+
+            // GPU drift filter (Phase 6.1) : Mali-G76 GPU FP32 (compute shader
+            // OpenGL ES interne FP24) produit des anchors low-conf dont le
+            // centre prédit (cx,cy) tombe HORS de l'image actuelle (dans la
+            // zone de padding gris #808080). Le clamping max(0)/min(srcW/H)
+            // ci-dessus convertit ça en bbox dégénérée (x1>x2 ou y1>y2 si la
+            // bbox passe entièrement à côté de l'image, OU x2-x1≈0 si elle
+            // chevauche un bord). Area=0 → IoU=0 avec tout → NMS jamais merge
+            // → 15+ fantômes survivent. Filtre post-conversion ici car raw w/h
+            // sont positives normales — c'est cx/cy qui sortent. ORT CPU n'a
+            // jamais ce bug ; YoloPoseDetector.postprocess ne filtre pas par
+            // parité POC.
+            if (x2 - x1 < 1f || y2 - y1 < 1f) continue;
 
             final Keypoint[] keypoints = new Keypoint[NUM_KEYPOINTS];
             for (int k = 0; k < NUM_KEYPOINTS; k++) {
