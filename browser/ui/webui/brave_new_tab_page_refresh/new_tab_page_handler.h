@@ -16,6 +16,7 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page.mojom.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/update_observer.h"
 #include "brave/components/brave_talk/buildflags/buildflags.h"
+#include "brave/components/browther_ads/ads_client.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
 #include "mojo/public/cpp/bindings/pending_remote.h"
 #include "mojo/public/cpp/bindings/receiver.h"
@@ -54,6 +55,7 @@ class NewTabPageHandler : public mojom::NewTabPageHandler {
                     std::unique_ptr<BackgroundFacade> background_facade,
                     std::unique_ptr<TopSitesFacade> top_sites_facade,
                     std::unique_ptr<VPNFacade> vpn_facade,
+                    std::unique_ptr<browther_ads::AdsClient> ads_client,
                     content::WebContents& web_contents,
                     PrefService& pref_service,
                     TemplateURLService& template_url_service,
@@ -166,6 +168,13 @@ class NewTabPageHandler : public mojom::NewTabPageHandler {
   void SetShowShieldsStats(bool show_shields_stats,
                            SetShowShieldsStatsCallback callback) override;
   void GetShieldsStats(GetShieldsStatsCallback callback) override;
+  void GetBrowtherAds(GetBrowtherAdsCallback callback) override;
+  void NotifyBrowtherAdVisible(
+      const std::string& id,
+      NotifyBrowtherAdVisibleCallback callback) override;
+  void NotifyBrowtherAdClicked(
+      const std::string& id,
+      NotifyBrowtherAdClickedCallback callback) override;
 #if BUILDFLAG(ENABLE_BRAVE_TALK)
   void GetShowTalkWidget(GetShowTalkWidgetCallback callback) override;
   void SetShowTalkWidget(bool show_talk_widget,
@@ -190,6 +199,8 @@ class NewTabPageHandler : public mojom::NewTabPageHandler {
 
   void OnUpdate(UpdateObserver::Source update_source);
   void OpenGURL(const GURL& gurl, WindowOpenDisposition disposition);
+  void OnBrowtherAdsServed(GetBrowtherAdsCallback callback,
+                           std::vector<browther_ads::ServedAd> ads);
 
   mojo::Receiver<mojom::NewTabPageHandler> receiver_;
   mojo::Remote<mojom::NewTabPage> page_;
@@ -198,6 +209,7 @@ class NewTabPageHandler : public mojom::NewTabPageHandler {
   std::unique_ptr<BackgroundFacade> background_facade_;
   std::unique_ptr<TopSitesFacade> top_sites_facade_;
   std::unique_ptr<VPNFacade> vpn_facade_;
+  std::unique_ptr<browther_ads::AdsClient> ads_client_;
   raw_ref<content::WebContents> web_contents_;
   raw_ref<PrefService> pref_service_;
   raw_ref<TemplateURLService> template_url_service_;

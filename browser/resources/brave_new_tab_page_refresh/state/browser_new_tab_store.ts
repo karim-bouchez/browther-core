@@ -38,6 +38,13 @@ export function createNewTabStore() {
     store.update({ showShieldsStats, shieldsStats })
   }
 
+  async function updateBrowtherAds() {
+    // Browther: serve signé HMAC côté navigateur ; tableau vide = pas de pub
+    // (non configuré / réseau KO / aucune éligible) → bannière masquée.
+    const { ads } = await handler.getBrowtherAds()
+    store.update({ browtherAds: ads })
+  }
+
   async function updateTalkPrefs() {
     if (talkFeatureEnabled && 'getShowTalkWidget' in handler) {
       // Cast needed because getShowTalkWidget is conditionally enabled via
@@ -62,7 +69,11 @@ export function createNewTabStore() {
   newTabProxy.addListeners(listeners)
 
   async function loadData() {
-    const promises = [updateClockPrefs(), updateShieldsStats()]
+    const promises = [
+      updateClockPrefs(),
+      updateShieldsStats(),
+      updateBrowtherAds(),
+    ]
 
     if (talkFeatureEnabled) {
       promises.push(updateTalkPrefs())
@@ -94,6 +105,14 @@ export function createNewTabStore() {
         // buildflag.
         ;(handler as any).setShowTalkWidget(showTalkWidget)
       }
+    },
+
+    markBrowtherAdVisible(id) {
+      handler.notifyBrowtherAdVisible(id)
+    },
+
+    clickBrowtherAd(id) {
+      handler.notifyBrowtherAdClicked(id)
     },
   }
 

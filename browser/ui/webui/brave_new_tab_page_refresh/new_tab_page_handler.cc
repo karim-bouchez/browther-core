@@ -49,6 +49,7 @@ NewTabPageHandler::NewTabPageHandler(
     std::unique_ptr<BackgroundFacade> background_facade,
     std::unique_ptr<TopSitesFacade> top_sites_facade,
     std::unique_ptr<VPNFacade> vpn_facade,
+    std::unique_ptr<browther_ads::AdsClient> ads_client,
     content::WebContents& web_contents,
     PrefService& pref_service,
     TemplateURLService& template_url_service,
@@ -61,6 +62,7 @@ NewTabPageHandler::NewTabPageHandler(
       background_facade_(std::move(background_facade)),
       top_sites_facade_(std::move(top_sites_facade)),
       vpn_facade_(std::move(vpn_facade)),
+      ads_client_(std::move(ads_client)),
       web_contents_(web_contents),
       pref_service_(pref_service),
       template_url_service_(template_url_service),
@@ -499,6 +501,53 @@ void NewTabPageHandler::GetShieldsStats(GetShieldsStatsCallback callback) {
           ? local_state->GetInteger(browther_analytics::prefs::kStatsPersonsBlurredTotal)
           : 0;
   std::move(callback).Run(std::move(stats));
+}
+
+void NewTabPageHandler::GetBrowtherAds(GetBrowtherAdsCallback callback) {
+  if (!ads_client_) {
+    std::move(callback).Run({});
+    return;
+  }
+  // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio 3.2:1).
+  ads_client_->Serve(
+      "browther-ntp-banner", /*count=*/3,
+      base::BindOnce(&NewTabPageHandler::OnBrowtherAdsServed,
+                     weak_factory_.GetWeakPtr(), std::move(callback)));
+}
+
+void NewTabPageHandler::OnBrowtherAdsServed(
+    GetBrowtherAdsCallback callback,
+    std::vector<browther_ads::ServedAd> ads) {
+  std::vector<mojom::BrowtherAdPtr> result;
+  result.reserve(ads.size());
+  for (const auto& ad : ads) {
+    auto mojo_ad = mojom::BrowtherAd::New();
+    mojo_ad->id = ad.id;
+    mojo_ad->image_url = ad.image_url;
+    result.push_back(std::move(mojo_ad));
+  }
+  std::move(callback).Run(std::move(result));
+}
+
+void NewTabPageHandler::NotifyBrowtherAdVisible(
+    const std::string& id,
+    NotifyBrowtherAdVisibleCallback callback) {
+  if (ads_client_) {
+    ads_client_->MarkVisible(id);
+  }
+  std::move(callback).Run();
+}
+
+void NewTabPageHandler::NotifyBrowtherAdClicked(
+    const std::string& id,
+    NotifyBrowtherAdClickedCallback callback) {
+  if (ads_client_) {
+    const GURL click_url = ads_client_->GetClickURL(id);
+    if (click_url.is_valid()) {
+      OpenGURL(click_url, WindowOpenDisposition::NEW_FOREGROUND_TAB);
+    }
+  }
+  std::move(callback).Run();
 }
 
 #if BUILDFLAG(ENABLE_BRAVE_TALK)

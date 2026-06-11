@@ -1,0 +1,21 @@
+# Copyright (c) 2026 The Browther Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+
+source_set("browther_ads") {
+  sources = [
+    "ads_client.cc",
+    "ads_client.h",
+    "ads_config.h",
+  ]
+
+  deps = [
+    "//base",
+    "//crypto",
+    "//net/traffic_annotation",
+    "//services/network/public/cpp",
+    "//services/network/public/mojom",
+    "//url",
+  ]
+}

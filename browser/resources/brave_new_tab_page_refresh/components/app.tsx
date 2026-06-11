@@ -15,6 +15,7 @@ import { TopSites } from './top_sites/top_sites'
 import { Clock } from './common/clock'
 // Browther: News disabled — LazyNewsFeed not imported.
 import { WidgetStack } from './widgets/widget_stack'
+import { BrowtherAdBanner } from './widgets/browther_ad_banner'
 import { useSearchLayoutReady, useWidgetLayoutReady } from './app_layout_ready'
 
 import { style } from './app.style'
@@ -59,6 +60,13 @@ export function App() {
         </button>
         <div className='topsites-container'>
           <TopSites />
+        </div>
+        {/* Browther: bannière pub devndin-ads sous les favoris. Wrapper en
+            scope app (pas le scope propre de la bannière) pour hériter du fade
+            `main > *` quand la search box s'agrandit ; `:empty` (aucune pub
+            servie → BrowtherAdBanner rend null) le retire du flux, pas de gap. */}
+        <div className='ad-banner-container'>
+          <BrowtherAdBanner />
         </div>
         <div className='searchbox-container'>
           {searchLayoutReady && (

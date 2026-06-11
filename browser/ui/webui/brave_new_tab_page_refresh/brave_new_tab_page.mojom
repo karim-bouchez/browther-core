@@ -70,6 +70,14 @@ enum TopSitesListKind {
 
 enum ClockFormat { kAuto, k12, k24 };
 
+// Browther: une bannière pub servie par la régie devndin-ads pour le
+// placement NTP. Seuls `id` + `image_url` traversent vers le renderer ; le
+// token d'impression et l'URL de click restent côté navigateur (AdsClient).
+struct BrowtherAd {
+  string id;
+  string image_url;
+};
+
 struct ShieldsStats {
   // Trackers/ads bloqués via Shields (kAdsBlocked + kTrackersBlocked, profile).
   double ads_blocked;
@@ -230,6 +238,18 @@ interface NewTabPageHandler {
 
   // Returns shields browsing stats for the current user.
   GetShieldsStats() => (ShieldsStats shields_stats);
+
+  // Browther: récupère les bannières pub devndin-ads pour le placement NTP.
+  // Tableau vide = aucune pub éligible / non configuré → masquer la bannière.
+  GetBrowtherAds() => (array<BrowtherAd> ads);
+
+  // Browther: signale qu'une pub (par id) est devenue réellement visible. Le
+  // navigateur batch + flush l'impression token vers la régie.
+  NotifyBrowtherAdVisible(string id) => ();
+
+  // Browther: signale un click sur une pub (par id). Ouvre l'URL de click
+  // (302 → destination + log) dans un nouvel onglet.
+  NotifyBrowtherAdClicked(string id) => ();
 
   // Gets or sets whether the Brave Talk widget is displayed.
   [EnableIf=enable_brave_talk]

@@ -106,6 +106,9 @@ xcuserdata
 /ios/brave-ios/Sources/BrowtherAnalytics/AnalyticsConfig.swift
 /android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsConfig.java
 
+# Browther — ads config header (généré, contient le secret publisher devndin-ads)
+/components/browther_ads/ads_config.h
+
 # Browther — header généré par private/scripts/post-init-patches.sh à partir
 # de browther_version (build/config.gni) — change à chaque bump CalVer.
 /common/browther_version.h

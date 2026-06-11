@@ -21,6 +21,7 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/top_sites_facade.h"
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/vpn_facade.h"
 #include "base/values.h"
+#include "brave/components/browther_ads/ads_client.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/brave_ads/buildflags/buildflags.h"
 #include "brave/components/brave_news/common/buildflags/buildflags.h"
@@ -125,6 +126,10 @@ void BraveNewTabPageUI::BindInterface(
   auto vpn_facade = std::make_unique<VPNFacade>();
 #endif
 
+  // Browther: client régie pub devndin-ads (serve signé HMAC côté navigateur).
+  auto ads_client = std::make_unique<browther_ads::AdsClient>(
+      profile->GetURLLoaderFactory());
+
   auto* profile_metrics =
       misc_metrics::ProfileMiscMetricsServiceFactory::GetServiceForContext(
           profile);
@@ -134,7 +139,7 @@ void BraveNewTabPageUI::BindInterface(
   page_handler_ = std::make_unique<NewTabPageHandler>(
       std::move(receiver), std::move(image_chooser),
       std::move(background_facade), std::move(top_sites_facade),
-      std::move(vpn_facade), *web_contents, *prefs,
+      std::move(vpn_facade), std::move(ads_client), *web_contents, *prefs,
       *TemplateURLServiceFactory::GetForProfile(profile),
       *g_brave_browser_process->process_misc_metrics()->new_tab_metrics(),
       page_metrics, was_restored_);

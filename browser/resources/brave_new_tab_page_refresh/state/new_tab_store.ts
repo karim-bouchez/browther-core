@@ -8,9 +8,10 @@ import { StateStore, createStateStore } from '$web-common/state_store'
 import {
   ShieldsStats,
   ClockFormat,
+  BrowtherAd,
 } from 'gen/brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page.mojom.m.js'
 
-export { ShieldsStats, ClockFormat }
+export { ShieldsStats, ClockFormat, BrowtherAd }
 
 export interface NewTabState {
   initialized: boolean
@@ -22,6 +23,8 @@ export interface NewTabState {
   talkFeatureEnabled: boolean
   newsFeatureEnabled: boolean
   aiChatInputEnabled: boolean
+  // Browther: bannières pub devndin-ads servies pour le placement NTP.
+  browtherAds: BrowtherAd[]
   actions: NewTabActions
 }
 
@@ -38,11 +41,14 @@ export function defaultNewTabStore(): NewTabStore {
     talkFeatureEnabled: false,
     newsFeatureEnabled: false,
     aiChatInputEnabled: false,
+    browtherAds: [],
     actions: {
       setShowClock(showClock) {},
       setClockFormat(format) {},
       setShowShieldsStats(showShieldsStats) {},
       setShowTalkWidget(showTalkWidget) {},
+      markBrowtherAdVisible(id) {},
+      clickBrowtherAd(id) {},
     },
   })
 }
@@ -52,4 +58,7 @@ export interface NewTabActions {
   setClockFormat: (format: ClockFormat) => void
   setShowShieldsStats: (showShieldsStats: boolean) => void
   setShowTalkWidget: (showTalkWidget: boolean) => void
+  // Browther: pub vue (intersection) → impression ; pub cliquée → ouvre click.
+  markBrowtherAdVisible: (id: string) => void
+  clickBrowtherAd: (id: string) => void
 }

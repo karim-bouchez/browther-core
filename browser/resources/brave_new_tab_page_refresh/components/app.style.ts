@@ -175,6 +175,18 @@ export const style = scoped.css`
     gap: 16px;
   }
 
+  .ad-banner-container {
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Aucune pub servie (BrowtherAdBanner rend null) → retire du flux, sinon le
+     gap 16px de main laisserait un trou entre favoris et search box. */
+  .ad-banner-container:empty {
+    display: none;
+  }
+
   .searchbox-container {
     align-self: stretch;
 
