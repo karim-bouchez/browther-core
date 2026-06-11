@@ -1,148 +1,74 @@
 // Copyright 2026 dev&din. All rights reserved.
-// Browther — NTP ad banner section
+// Browther — NTP ad banner section (régie devndin-ads)
 
 import BraveUI
+import BrowtherAnalytics
 import Foundation
 import SnapKit
 import UIKit
 
-/// Ad response from browther-api
-private struct BrowtheAd: Codable {
-  let id: Int
-  let image_url: String
-  let click_url: String
-  let alt_text: String?
-}
-
-/// Displays a single ad banner (320×100 ratio) below favorites on the NTP.
+/// Bannière pub devndin-ads sous les favoris du NTP. Carousel ratio 3.2:1,
+/// parité desktop `browther_ad_banner.tsx` + `ads/docs/INTEGRATION.md`.
+///
+/// Le serve signé HMAC, le batching des impressions et la résolution du click
+/// URL vivent dans `BrowtherAdsClient` (module BrowtherAnalytics) — le secret
+/// publisher ne touche jamais ce provider. Seuls `id` + `imageURL` traversent
+/// jusqu'ici (parité mojom `BrowtherAd` desktop).
 class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
-  private static let apiBaseURL = "https://browther-api.devndin.com"
-  private static let cacheDuration: TimeInterval = 60
+  private static let placement = "browther-ntp-banner"
 
-  private var cachedAd: BrowtheAd?
-  private var lastFetchDate: Date?
-  private var isFetching = false
-  private var impressionReported = false
+  private var ads: [BrowtherServedAd] = []
 
   var onAdTapped: ((_ url: URL) -> Void)?
-  /// Called when an ad is fetched and the section needs to reload
+  /// Appelé quand des pubs sont récupérées et que la section doit se recharger.
   var onAdLoaded: (() -> Void)?
 
   override init() {
     super.init()
-    fetchAdIfNeeded()
+    fetchAds()
   }
 
   // MARK: - API
 
-  private func fetchAdIfNeeded() {
-    if let lastFetch = lastFetchDate,
-      Date().timeIntervalSince(lastFetch) < Self.cacheDuration
-    {
-      return
+  private func fetchAds() {
+    BrowtherAdsClient.shared.serve(placement: Self.placement, count: 3) { [weak self] ads in
+      guard let self, !ads.isEmpty else { return }
+      self.ads = ads
+      self.onAdLoaded?()
     }
-    guard !isFetching else { return }
-    isFetching = true
-
-    let platform = "ios"
-    let locale = Locale.current.language.languageCode?.identifier ?? "en"
-    let urlString = "\(Self.apiBaseURL)/api/ad?platform=\(platform)&locale=\(locale)"
-
-    guard let url = URL(string: urlString) else {
-      isFetching = false
-      return
-    }
-
-    var request = URLRequest(url: url)
-    request.timeoutInterval = 5
-
-    URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-      defer { self?.isFetching = false }
-      guard let self = self else { return }
-
-      guard let data = data,
-        let httpResponse = response as? HTTPURLResponse,
-        httpResponse.statusCode == 200
-      else {
-        return
-      }
-
-      do {
-        let ad = try JSONDecoder().decode(BrowtheAd.self, from: data)
-        DispatchQueue.main.async {
-          self.cachedAd = ad
-          self.lastFetchDate = Date()
-          self.impressionReported = false
-          self.onAdLoaded?()
-        }
-      } catch {
-        // Silently fail — no ad shown
-      }
-    }.resume()
-  }
-
-  private func reportImpression(adId: Int) {
-    guard !impressionReported else { return }
-    impressionReported = true
-
-    guard let url = URL(string: "\(Self.apiBaseURL)/api/ad/\(adId)/impression") else { return }
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-    let body: [String: String] = ["platform": "ios"]
-    request.httpBody = try? JSONEncoder().encode(body)
-
-    URLSession.shared.dataTask(with: request) { _, _, _ in }.resume()
-  }
-
-  private func reportClick(adId: Int) {
-    guard let url = URL(string: "\(Self.apiBaseURL)/api/ad/\(adId)/click") else { return }
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.httpBody = try? JSONEncoder().encode([String: String]())
-
-    URLSession.shared.dataTask(with: request) { _, _, _ in }.resume()
   }
 
   // MARK: - NTPSectionProvider
 
   func registerCells(to collectionView: UICollectionView) {
-    collectionView.register(BrowtheAdCell.self)
+    collectionView.register(BrowtheAdCarouselCell.self)
   }
 
   func collectionView(
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
   ) -> Int {
-    guard cachedAd != nil else {
-      return 0
-    }
-    return 1
+    ads.isEmpty ? 0 : 1
   }
 
   func collectionView(
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(for: indexPath) as BrowtheAdCell
-
-    if let ad = cachedAd {
-      cell.configure(imageURL: ad.image_url, altText: ad.alt_text)
-      reportImpression(adId: ad.id)
-    }
-
+    let cell = collectionView.dequeueReusableCell(for: indexPath) as BrowtheAdCarouselCell
+    cell.configure(
+      ads: ads,
+      onVisible: { id in
+        // Impression à visibilité réelle (≥ page centrée), une fois par pub
+        // servie — batching + idempotence gérés côté client.
+        BrowtherAdsClient.shared.markVisible(id: id)
+      },
+      onTap: { [weak self] id in
+        guard let url = BrowtherAdsClient.shared.clickURL(id: id) else { return }
+        self?.onAdTapped?(url)
+      }
+    )
     return cell
-  }
-
-  func collectionView(
-    _ collectionView: UICollectionView,
-    didSelectItemAt indexPath: IndexPath
-  ) {
-    guard let ad = cachedAd, let url = URL(string: ad.click_url) else { return }
-    reportClick(adId: ad.id)
-    onAdTapped?(url)
   }
 
   func collectionView(
@@ -151,8 +77,8 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
     let width = fittingSizeForCollectionView(collectionView, section: indexPath.section).width
-    // 16:5 ratio for the banner
-    let height = width * (5.0 / 16.0)
+    // Ratio 3.2:1 (parité desktop, cf. ads/docs/INTEGRATION.md § 3).
+    let height = width / 3.2
     return CGSize(width: width, height: height)
   }
 
@@ -161,37 +87,63 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     layout collectionViewLayout: UICollectionViewLayout,
     insetForSectionAt section: Int
   ) -> UIEdgeInsets {
-    return UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+    UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
   }
 }
 
-// MARK: - BrowtheAdCell
+// MARK: - BrowtheAdCarouselCell
 
-private class BrowtheAdCell: UICollectionViewCell, CollectionViewReusable {
-  private let imageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFill
-    $0.clipsToBounds = true
-    $0.layer.cornerRadius = 12
-    $0.backgroundColor = UIColor(white: 0.2, alpha: 0.8)
+/// Cellule NTP unique hébergeant le carousel paginé des pubs servies (une pub
+/// pleine largeur par page, snap centré — parité `scroll-snap` desktop).
+private class BrowtheAdCarouselCell: UICollectionViewCell, CollectionViewReusable {
+  private var ads: [BrowtherServedAd] = []
+  private var onVisible: ((String) -> Void)?
+  private var onTap: ((String) -> Void)?
+
+  // Ids déjà signalés visibles dans cette instance (le client dédup aussi).
+  private var markedVisible = Set<String>()
+  private var didMarkInitial = false
+  private var lastLaidOutSize: CGSize = .zero
+
+  private let layout = UICollectionViewFlowLayout().then {
+    $0.scrollDirection = .horizontal
+    $0.minimumLineSpacing = 0
+    $0.minimumInteritemSpacing = 0
+    $0.sectionInset = .zero
   }
 
-  private let placeholderLabel = UILabel().then {
-    $0.text = "Browther"
-    $0.textColor = .white
-    $0.font = .systemFont(ofSize: 14, weight: .medium)
-    $0.textAlignment = .center
+  private lazy var carousel = UICollectionView(
+    frame: .zero,
+    collectionViewLayout: layout
+  ).then {
+    $0.isPagingEnabled = true
+    $0.showsHorizontalScrollIndicator = false
+    $0.backgroundColor = .clear
+    $0.dataSource = self
+    $0.delegate = self
+    $0.contentInsetAdjustmentBehavior = .never
+    $0.register(BrowtheAdImageCell.self)
+  }
+
+  private let pageControl = UIPageControl().then {
+    $0.hidesForSinglePage = true
+    $0.isUserInteractionEnabled = false
+    $0.currentPageIndicatorTintColor = .white
+    $0.pageIndicatorTintColor = UIColor(white: 1, alpha: 0.4)
   }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    contentView.addSubview(imageView)
-    imageView.addSubview(placeholderLabel)
-    imageView.snp.makeConstraints {
+    contentView.addSubview(carousel)
+    contentView.addSubview(pageControl)
+
+    carousel.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
-    placeholderLabel.snp.makeConstraints {
-      $0.center.equalToSuperview()
+    pageControl.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.bottom.equalToSuperview().inset(6)
     }
   }
 
@@ -200,23 +152,164 @@ private class BrowtheAdCell: UICollectionViewCell, CollectionViewReusable {
     fatalError()
   }
 
-  func configure(imageURL: String, altText: String?) {
-    imageView.accessibilityLabel = altText
-    imageView.image = nil
+  func configure(
+    ads: [BrowtherServedAd],
+    onVisible: @escaping (String) -> Void,
+    onTap: @escaping (String) -> Void
+  ) {
+    self.ads = ads
+    self.onVisible = onVisible
+    self.onTap = onTap
+    pageControl.numberOfPages = ads.count
+    pageControl.currentPage = 0
+    didMarkInitial = false
+    carousel.reloadData()
+    carousel.setContentOffset(.zero, animated: false)
+    setNeedsLayout()
+  }
 
-    guard let url = URL(string: imageURL) else { return }
-
-    URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-      guard let data = data, let image = UIImage(data: data) else { return }
-      DispatchQueue.main.async {
-        self?.imageView.image = image
-        self?.placeholderLabel.isHidden = true
-      }
-    }.resume()
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    if carousel.bounds.size != lastLaidOutSize {
+      lastLaidOutSize = carousel.bounds.size
+      layout.invalidateLayout()
+    }
+    // Marque la 1ère pub visible une fois le layout valide (parité
+    // IntersectionObserver : on ne compte que des pages réellement affichées).
+    if !didMarkInitial, carousel.bounds.width > 0, !ads.isEmpty {
+      didMarkInitial = true
+      markVisiblePage()
+    }
   }
 
   override func prepareForReuse() {
     super.prepareForReuse()
+    ads = []
+    onVisible = nil
+    onTap = nil
+    markedVisible.removeAll()
+    didMarkInitial = false
+  }
+
+  // MARK: - Helpers
+
+  private func currentPage() -> Int {
+    guard carousel.bounds.width > 0 else { return 0 }
+    let page = Int((carousel.contentOffset.x + carousel.bounds.width / 2) / carousel.bounds.width)
+    return min(max(page, 0), max(ads.count - 1, 0))
+  }
+
+  private func markVisiblePage() {
+    let page = currentPage()
+    guard ads.indices.contains(page) else { return }
+    let id = ads[page].id
+    guard !markedVisible.contains(id) else { return }
+    markedVisible.insert(id)
+    onVisible?(id)
+  }
+}
+
+// MARK: - Carousel data source / delegate
+
+extension BrowtheAdCarouselCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    numberOfItemsInSection section: Int
+  ) -> Int {
+    ads.count
+  }
+
+  func collectionView(
+    _ collectionView: UICollectionView,
+    cellForItemAt indexPath: IndexPath
+  ) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(for: indexPath) as BrowtheAdImageCell
+    if ads.indices.contains(indexPath.item) {
+      cell.configure(imageURL: ads[indexPath.item].imageURL)
+    }
+    return cell
+  }
+
+  func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    sizeForItemAt indexPath: IndexPath
+  ) -> CGSize {
+    // Une pub par page, pleine largeur du carousel.
+    collectionView.bounds.size
+  }
+
+  func collectionView(
+    _ collectionView: UICollectionView,
+    didSelectItemAt indexPath: IndexPath
+  ) {
+    guard ads.indices.contains(indexPath.item) else { return }
+    onTap?(ads[indexPath.item].id)
+  }
+
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    pageControl.currentPage = currentPage()
+    markVisiblePage()
+  }
+
+  func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    pageControl.currentPage = currentPage()
+    markVisiblePage()
+  }
+}
+
+// MARK: - BrowtheAdImageCell
+
+private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
+  private let imageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFill
+    $0.clipsToBounds = true
+    $0.layer.cornerRadius = 16
+    $0.layer.cornerCurve = .continuous
+    $0.backgroundColor = UIColor(white: 0.2, alpha: 0.8)
+  }
+
+  private var imageTask: URLSessionDataTask?
+  private var currentURL: String?
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    contentView.addSubview(imageView)
+    imageView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError()
+  }
+
+  func configure(imageURL: String) {
+    currentURL = imageURL
     imageView.image = nil
+    imageView.alpha = 0
+
+    guard let url = URL(string: imageURL) else { return }
+
+    imageTask?.cancel()
+    imageTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+      guard let data, let image = UIImage(data: data) else { return }
+      DispatchQueue.main.async {
+        guard let self, self.currentURL == imageURL else { return }
+        self.imageView.image = image
+        UIView.animate(withDuration: 0.2) { self.imageView.alpha = 1 }
+      }
+    }
+    imageTask?.resume()
+  }
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    imageTask?.cancel()
+    imageTask = nil
+    currentURL = nil
+    imageView.image = nil
+    imageView.alpha = 0
   }
 }
