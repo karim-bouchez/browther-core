@@ -36,6 +36,7 @@ import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.brave_news.CardBuilderFeedCard;
 import org.chromium.chrome.browser.brave_news.models.FeedItemsCard;
 import org.chromium.chrome.browser.brave_stats.BraveStatsUtil;
+import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.ntp_background_images.NTPBackgroundImagesBridge;
 import org.chromium.chrome.browser.ntp_background_images.model.BackgroundImage;
@@ -74,6 +75,9 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean mIsNewContentLoading;
     private boolean mIsTopSitesEnabled;
     private boolean mIsBraveStatsEnabled;
+    // Browther : bannière pub devndin-ads (sous les favoris). Vide tant que le
+    // serve async n'a rien renvoyé → getAdsCount() == 0 → pas d'item.
+    private BrowtherAdsBridge.Ad[] mAds = new BrowtherAdsBridge.Ad[0];
     private int mRecyclerViewHeight;
     private int mStatsHeight;
     private int mTopSitesHeight;
@@ -89,6 +93,9 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_NEWS_LOADING = 6;
     private static final int TYPE_NEWS = 7;
     private static final int TYPE_NEWS_NO_CONTENT_SOURCES = 8;
+    // Browther : bannière pub devndin-ads, insérée sous les favoris (après
+    // top sites, avant l'image credit / la news).
+    private static final int TYPE_BROWTHER_ADS = 9;
 
     private static final int ONE_ITEM_SPACE = 1;
     private static final int TWO_ITEMS_SPACE = 2;
@@ -157,6 +164,21 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     });
 
             mStatsHeight = NTPImageUtil.getViewHeight(statsViewHolder.itemView) + margin;
+
+        } else if (holder instanceof AdsViewHolder) {
+            AdsViewHolder adsViewHolder = (AdsViewHolder) holder;
+
+            LinearLayout.LayoutParams layoutParams =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+            int margin = dpToPx(mActivity, 16);
+            layoutParams.setMargins(margin, margin, margin, 0);
+            adsViewHolder.mBannerView.setLayoutParams(layoutParams);
+
+            // La vue gère elle-même serve→affichage, impressions à visibilité
+            // réelle et click (parité iOS BrowtheAdSectionProvider).
+            adsViewHolder.mBannerView.setAds(mAds, mGlide);
 
         } else if (holder instanceof TopSitesViewHolder) {
             LinearLayout.LayoutParams layoutParams =
@@ -294,6 +316,7 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     position
                             - getStatsCount()
                             - getTopSitesCount()
+                            - getAdsCount()
                             - ONE_ITEM_SPACE
                             - getNewContentCount()
                             - newsLoadingCount;
@@ -333,9 +356,10 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         int statsCount = getStatsCount();
         int topSitesCount = getTopSitesCount();
+        int adsCount = getAdsCount();
         int newsLoadingCount = shouldDisplayNewsLoading() ? 1 : 0;
         if (mIsDisplayNewsOptin) {
-            return statsCount + topSitesCount + TWO_ITEMS_SPACE + newsLoadingCount;
+            return statsCount + topSitesCount + adsCount + TWO_ITEMS_SPACE + newsLoadingCount;
         } else if (mIsDisplayNewsFeed) {
             int newsCount = 0;
             if (mNewsItems.size() > 0) {
@@ -343,10 +367,10 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else if (newsLoadingCount == 0) {
                 newsCount = 1;
             }
-            return statsCount + topSitesCount + ONE_ITEM_SPACE + getNewContentCount()
+            return statsCount + topSitesCount + adsCount + ONE_ITEM_SPACE + getNewContentCount()
                     + newsLoadingCount + newsCount;
         } else {
-            return statsCount + topSitesCount + ONE_ITEM_SPACE + newsLoadingCount;
+            return statsCount + topSitesCount + adsCount + ONE_ITEM_SPACE + newsLoadingCount;
         }
     }
 
@@ -358,6 +382,11 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view = LayoutInflater.from(parent.getContext())
                            .inflate(R.layout.brave_stats_layout, parent, false);
             return new StatsViewHolder(view);
+
+        } else if (viewType == TYPE_BROWTHER_ADS) {
+            view = LayoutInflater.from(parent.getContext())
+                           .inflate(R.layout.browther_ad_banner, parent, false);
+            return new AdsViewHolder(view);
 
         } else if (viewType == TYPE_TOP_SITES) {
             return new TopSitesViewHolder(mMvTilesContainerLayout);
@@ -398,21 +427,27 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemViewType(int position) {
         int statsCount = getStatsCount();
         int topSitesCount = getTopSitesCount();
+        int adsCount = getAdsCount();
+        // Base des items en aval (new content / image credit / news) : décalée
+        // par la bannière pub insérée après les top sites.
+        int base = statsCount + topSitesCount + adsCount;
 
         if (position == 0 && statsCount == 1) {
             return TYPE_STATS;
         } else if (topSitesCount == 1 && position == statsCount) {
             return TYPE_TOP_SITES;
-        } else if (position == statsCount + topSitesCount && mIsNewContent) {
+        } else if (adsCount == 1 && position == statsCount + topSitesCount) {
+            return TYPE_BROWTHER_ADS;
+        } else if (position == base && mIsNewContent) {
             return TYPE_NEW_CONTENT;
-        } else if ((position == statsCount + topSitesCount && !mIsNewContent)
-                || (position == statsCount + topSitesCount + ONE_ITEM_SPACE && mIsNewContent)) {
+        } else if ((position == base && !mIsNewContent)
+                || (position == base + ONE_ITEM_SPACE && mIsNewContent)) {
             return TYPE_IMAGE_CREDIT;
-        } else if (position == statsCount + topSitesCount + ONE_ITEM_SPACE
+        } else if (position == base + ONE_ITEM_SPACE
                 && mIsDisplayNewsOptin
                 && !mIsNewContent) {
             return TYPE_NEWS_OPTIN;
-        } else if (position == statsCount + topSitesCount + ONE_ITEM_SPACE
+        } else if (position == base + ONE_ITEM_SPACE
                 && shouldDisplayNewsLoading()
                 && !mIsNewContent) {
             return TYPE_NEWS_LOADING;
@@ -436,6 +471,28 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mIsTopSitesEnabled ? 1 : 0;
     }
 
+    public int getAdsCount() {
+        return mAds.length > 0 ? 1 : 0;
+    }
+
+    /**
+     * Renseigne les pubs servies (serve async terminé). Insère / met à jour la
+     * bannière sous les favoris (position {@code statsCount + topSitesCount}).
+     */
+    public void setAds(BrowtherAdsBridge.Ad[] ads) {
+        boolean had = getAdsCount() == 1;
+        mAds = ads != null ? ads : new BrowtherAdsBridge.Ad[0];
+        boolean has = getAdsCount() == 1;
+        int position = getStatsCount() + getTopSitesCount();
+        if (has && !had) {
+            notifyItemInserted(position);
+        } else if (!has && had) {
+            notifyItemRemoved(position);
+        } else if (has) {
+            notifyItemChanged(position);
+        }
+    }
+
     public void setTopSitesEnabled(boolean isTopSitesEnabled) {
         if (mIsTopSitesEnabled != isTopSitesEnabled) {
             mIsTopSitesEnabled = isTopSitesEnabled;
@@ -445,7 +502,8 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 notifyItemRemoved(getStatsCount());
             }
             notifyItemRangeChanged(getStatsCount(),
-                    getStatsCount() + getTopSitesCount() + getNewContentCount() + ONE_ITEM_SPACE);
+                    getStatsCount() + getTopSitesCount() + getAdsCount() + getNewContentCount()
+                            + ONE_ITEM_SPACE);
         }
     }
 
@@ -464,17 +522,19 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (mIsDisplayNewsFeed != isDisplayNewsFeed) {
             mIsDisplayNewsFeed = isDisplayNewsFeed;
             if (mIsDisplayNewsFeed) {
-                notifyItemRangeChanged(getStatsCount() + getTopSitesCount(), TWO_ITEMS_SPACE);
+                notifyItemRangeChanged(
+                        getStatsCount() + getTopSitesCount() + getAdsCount(), TWO_ITEMS_SPACE);
             } else {
                 notifyItemRangeRemoved(
-                        getStatsCount() + getTopSitesCount() + ONE_ITEM_SPACE, mNewsItems.size());
+                        getStatsCount() + getTopSitesCount() + getAdsCount() + ONE_ITEM_SPACE,
+                        mNewsItems.size());
             }
         }
     }
 
     public void removeNewsOptin() {
         mIsDisplayNewsOptin = false;
-        notifyItemRemoved(getStatsCount() + getTopSitesCount() + ONE_ITEM_SPACE);
+        notifyItemRemoved(getStatsCount() + getTopSitesCount() + getAdsCount() + ONE_ITEM_SPACE);
     }
 
     public boolean shouldDisplayNewsLoading() {
@@ -488,17 +548,18 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setNewsLoading(boolean isNewsLoading) {
         mIsNewsLoading = isNewsLoading;
         if (isNewsLoading) {
-            notifyItemInserted(getStatsCount() + getTopSitesCount() + ONE_ITEM_SPACE);
+            notifyItemInserted(getStatsCount() + getTopSitesCount() + getAdsCount() + ONE_ITEM_SPACE);
         } else {
-            notifyItemRemoved(getStatsCount() + getTopSitesCount() + ONE_ITEM_SPACE);
+            notifyItemRemoved(getStatsCount() + getTopSitesCount() + getAdsCount() + ONE_ITEM_SPACE);
         }
-        notifyItemRangeChanged(getStatsCount() + getTopSitesCount(), TWO_ITEMS_SPACE);
+        notifyItemRangeChanged(
+                getStatsCount() + getTopSitesCount() + getAdsCount(), TWO_ITEMS_SPACE);
     }
 
     public void setNewContent(boolean isNewContent) {
         if (mIsNewContent != isNewContent) {
             mIsNewContent = isNewContent;
-            int newContentPosition = getStatsCount() + getTopSitesCount();
+            int newContentPosition = getStatsCount() + getTopSitesCount() + getAdsCount();
             if (!isNewContent) {
                 mIsNewContentLoading = false;
                 notifyItemRemoved(newContentPosition);
@@ -516,7 +577,7 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void setNewContentLoading(boolean isNewContentLoading) {
         mIsNewContentLoading = isNewContentLoading;
-        notifyItemChanged(getStatsCount() + getTopSitesCount());
+        notifyItemChanged(getStatsCount() + getTopSitesCount() + getAdsCount());
     }
 
     public int getNewContentCount() {
@@ -526,18 +587,20 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setSponsoredLogo(Wallpaper wallpaper, Bitmap sponsoredLogo) {
         mWallpaper = wallpaper;
         mSponsoredLogo = sponsoredLogo;
-        notifyItemChanged(getStatsCount() + getTopSitesCount() + getNewContentCount());
+        notifyItemChanged(
+                getStatsCount() + getTopSitesCount() + getAdsCount() + getNewContentCount());
     }
 
     public void setNtpImage(NTPImage ntpImage) {
         mNtpImage = ntpImage;
-        notifyItemChanged(getStatsCount() + getTopSitesCount() + getNewContentCount());
+        notifyItemChanged(
+                getStatsCount() + getTopSitesCount() + getAdsCount() + getNewContentCount());
     }
 
     public void setBraveNewsController(BraveNewsController braveNewsController) {
         mBraveNewsController = braveNewsController;
-        notifyItemChanged(
-                getStatsCount() + getTopSitesCount() + getNewContentCount() + ONE_ITEM_SPACE);
+        notifyItemChanged(getStatsCount() + getTopSitesCount() + getAdsCount()
+                + getNewContentCount() + ONE_ITEM_SPACE);
     }
 
     public void setImageCreditAlpha(float alpha) {
@@ -550,7 +613,8 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         PostTask.postTask(TaskTraits.UI_DEFAULT, () -> {
             mImageCreditAlpha = alpha;
             try {
-                notifyItemChanged(getStatsCount() + getTopSitesCount() + getNewContentCount());
+                notifyItemChanged(
+                        getStatsCount() + getTopSitesCount() + getAdsCount() + getNewContentCount());
             } catch (IllegalStateException e) {
                 Log.e(TAG, "setImageCreditAlpha: " + e.getMessage());
             }
@@ -559,7 +623,8 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void setRecyclerViewHeight(int recyclerViewHeight) {
         mRecyclerViewHeight = recyclerViewHeight;
-        int count = getStatsCount() + getTopSitesCount() + getNewContentCount() + ONE_ITEM_SPACE;
+        int count = getStatsCount() + getTopSitesCount() + getAdsCount() + getNewContentCount()
+                + ONE_ITEM_SPACE;
         if (getItemCount() > count) {
             count += 1;
         }
@@ -600,6 +665,15 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class TopSitesViewHolder extends RecyclerView.ViewHolder {
         TopSitesViewHolder(View itemView) {
             super(itemView);
+        }
+    }
+
+    public static class AdsViewHolder extends RecyclerView.ViewHolder {
+        final BrowtherAdBannerView mBannerView;
+
+        AdsViewHolder(View itemView) {
+            super(itemView);
+            this.mBannerView = (BrowtherAdBannerView) itemView;
         }
     }
 

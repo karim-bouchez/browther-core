@@ -69,6 +69,7 @@ import org.chromium.chrome.browser.brave_news.LinearLayoutManagerWrapper;
 import org.chromium.chrome.browser.brave_news.models.FeedItemCard;
 import org.chromium.chrome.browser.brave_news.models.FeedItemsCard;
 import org.chromium.chrome.browser.brave_stats.BraveStatsUtil;
+import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
 import org.chromium.chrome.browser.feed.FeedSurfaceScrollDelegate;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.local_database.DatabaseHelper;
@@ -256,6 +257,8 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                                                             mNtpAdapter.notifyItemRangeChanged(
                                                                     mNtpAdapter.getStatsCount(),
                                                                     mNtpAdapter.getNewContentCount()
+                                                                            + mNtpAdapter
+                                                                                    .getAdsCount()
                                                                             + 2);
                                                         });
                                     }
@@ -380,6 +383,10 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                         mIsDisplayNewsOptin);
 
                 mRecyclerView.setAdapter(mNtpAdapter);
+
+                // Browther : récupère les pubs devndin-ads (serve async signé
+                // HMAC côté natif) et affiche la bannière sous les favoris.
+                fetchBrowtherAds();
 
                 if (mRecyclerView.getItemAnimator() != null) {
                     RecyclerView.ItemAnimator itemAnimator = mRecyclerView.getItemAnimator();
@@ -755,6 +762,7 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                                     && lastVisibleItemPosition
                                             > mNtpAdapter.getStatsCount()
                                                     + mNtpAdapter.getTopSitesCount()
+                                                    + mNtpAdapter.getAdsCount()
                                                     + mNtpAdapter.getNewContentCount()) {
                                 if (mNewsSettingsBar.getVisibility() != View.VISIBLE) {
                                     mNewsSettingsBar.setVisibility(View.VISIBLE);
@@ -773,7 +781,8 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
 
                                 if (firstVisibleItemPosition
                                         >= mNtpAdapter.getStatsCount()
-                                                + mNtpAdapter.getTopSitesCount()) {
+                                                + mNtpAdapter.getTopSitesCount()
+                                                + mNtpAdapter.getAdsCount()) {
                                     mNewContentLayout.setVisibility(View.VISIBLE);
                                 } else {
                                     mNewContentLayout.setVisibility(View.GONE);
@@ -826,6 +835,7 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                                             if (itemPosition
                                                     == mNtpAdapter.getStatsCount()
                                                             + mNtpAdapter.getTopSitesCount()
+                                                            + mNtpAdapter.getAdsCount()
                                                             + mNtpAdapter.getNewContentCount()) {
                                                 offsetPosition -=
                                                         mNtpAdapter.getTopMarginImageCredit();
@@ -845,10 +855,28 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
         }
     }
 
+    /**
+     * Récupère les pubs devndin-ads et les pousse dans l'adapter (bannière sous
+     * les favoris). Le serve est signé HMAC côté natif (secret jamais en Java) ;
+     * le callback arrive sur le UI thread. Best effort : non configuré / tableau
+     * vide / erreur réseau ⇒ aucune bannière (jamais d'échec dur).
+     */
+    private void fetchBrowtherAds() {
+        if (!BrowtherAdsBridge.isConfigured()) {
+            return;
+        }
+        BrowtherAdsBridge.serve(
+                ads -> {
+                    if (mNtpAdapter != null && ads.length > 0) {
+                        mNtpAdapter.setAds(ads);
+                    }
+                });
+    }
+
     private int firstNewsFeedPosition() {
         if (mNtpAdapter != null) {
             return mNtpAdapter.getStatsCount() + mNtpAdapter.getTopSitesCount()
-                    + mNtpAdapter.getNewContentCount() + 1;
+                    + mNtpAdapter.getAdsCount() + mNtpAdapter.getNewContentCount() + 1;
         }
         return 0;
     }
@@ -1049,6 +1077,7 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                             mNtpAdapter.notifyItemRangeRemoved(
                                     mNtpAdapter.getStatsCount()
                                             + mNtpAdapter.getTopSitesCount()
+                                            + mNtpAdapter.getAdsCount()
                                             + 1,
                                     newsItemsFeedCardSize);
                         });
@@ -1172,10 +1201,12 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                             if (mNewsItemsFeedCard != null && mNewsItemsFeedCard.size() > 0) {
                                 mNtpAdapter.notifyItemRangeChanged(
                                         mNtpAdapter.getStatsCount()
-                                                + mNtpAdapter.getTopSitesCount(),
+                                                + mNtpAdapter.getTopSitesCount()
+                                                + mNtpAdapter.getAdsCount(),
                                         mNtpAdapter.getItemCount()
                                                 - mNtpAdapter.getStatsCount()
-                                                - mNtpAdapter.getTopSitesCount());
+                                                - mNtpAdapter.getTopSitesCount()
+                                                - mNtpAdapter.getAdsCount());
                             }
 
                             if (isNewContent) {
@@ -1190,6 +1221,7 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                                     linearLayoutManager.scrollToPositionWithOffset(
                                             mNtpAdapter.getStatsCount()
                                                     + mNtpAdapter.getTopSitesCount()
+                                                    + mNtpAdapter.getAdsCount()
                                                     + 1,
                                             dpToPx(mActivity, 60));
                                 }
@@ -1218,7 +1250,8 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                             linearLayoutManager.findFirstVisibleItemPosition();
 
                     if (firstVisibleItemPosition
-                            >= mNtpAdapter.getStatsCount() + mNtpAdapter.getTopSitesCount()) {
+                            >= mNtpAdapter.getStatsCount() + mNtpAdapter.getTopSitesCount()
+                                    + mNtpAdapter.getAdsCount()) {
                         mNewContentLayout.setVisibility(View.VISIBLE);
                     }
                 }

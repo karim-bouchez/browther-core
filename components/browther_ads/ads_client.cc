@@ -45,9 +45,12 @@ constexpr base::TimeDelta kImpressionFlushDelay = base::Seconds(10);
 constexpr size_t kMaxImpressionBatch = 50;
 
 // Plateforme envoyée au serve (alimente le breakdown dashboard). Le même code
-// C++ build pour macOS et Windows desktop ; on reporte la vraie plateforme.
+// C++ build pour macOS, Windows desktop et Android ; on reporte la vraie
+// plateforme.
 constexpr char kPlatform[] =
-#if BUILDFLAG(IS_MAC)
+#if BUILDFLAG(IS_ANDROID)
+    "android";
+#elif BUILDFLAG(IS_MAC)
     "macos";
 #elif BUILDFLAG(IS_WIN)
     "windows";

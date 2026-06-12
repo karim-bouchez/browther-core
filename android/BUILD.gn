@@ -636,6 +636,8 @@ android_resources("java_resources") {
     "java/brave-res/layout/brave_wallet_reset_content.xml",
     "java/brave-res/layout/brave_wallet_toolbar.xml",
     "java/brave-res/layout/brave_webrtc_policy_preference.xml",
+    "java/brave-res/layout/browther_ad_banner.xml",
+    "java/brave-res/layout/browther_ad_banner_item.xml",
     "java/brave-res/layout/custom_layout_preference.xml",
     "java/brave-res/layout/dapps_dialog.xml",
     "java/brave-res/layout/dialog_skip_onboarding.xml",

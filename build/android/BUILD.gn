@@ -228,6 +228,7 @@ generate_jni("jni_headers") {
     "//brave/android/java/org/chromium/chrome/browser/day_zero/DayZeroHelper.java",
     "//brave/android/java/org/chromium/chrome/browser/informers/BraveSyncAccountDeletedInformer.java",
     "//brave/android/java/org/chromium/chrome/browser/notifications/channels/BraveSiteChannelsManagerBridge.java",
+    "//brave/android/java/org/chromium/chrome/browser/browther_ads/BrowtherAdsBridge.java",
     "//brave/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsBridge.java",
     # Browther: Sawtunaa Voie B (Jalons 2.B.5 + 2.D) — bridge C++ -> Java via
     # @CalledByNative. SawtunaaBridge.java = factory + statiques de logging.
