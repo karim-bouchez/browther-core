@@ -14,6 +14,7 @@
 #include "base/android/jni_string.h"
 #include "base/android/scoped_java_ref.h"
 #include "base/functional/bind.h"
+#include "base/logging.h"
 #include "base/memory/scoped_refptr.h"
 #include "base/no_destructor.h"
 #include "brave/build/android/jni_headers/BrowtherAdsBridge_jni.h"
@@ -66,6 +67,8 @@ void OnAdsServed(const base::android::ScopedJavaGlobalRef<jobject>& callback,
     ids.push_back(ad.id);
     image_urls.push_back(ad.image_url);
   }
+  // [BrowtherAds][debug] trace bout-en-bout (logcat tag "chromium").
+  LOG(INFO) << "[BrowtherAds] OnAdsServed: " << ads.size() << " ad(s)";
   Java_BrowtherAdsBridge_onAdsServed(
       env, callback, base::android::ToJavaArrayOfStrings(env, ids),
       base::android::ToJavaArrayOfStrings(env, image_urls));
@@ -82,6 +85,9 @@ void JNI_BrowtherAdsBridge_Serve(
     const base::android::JavaRef<jobject>& jcallback) {
   base::android::ScopedJavaGlobalRef<jobject> callback(jcallback);
   AdsClient* client = GetAdsClient();
+  LOG(INFO) << "[BrowtherAds] JNI Serve called: configured="
+            << AdsClient::IsConfigured() << " client=" << (client != nullptr)
+            << " browser_process=" << (g_browser_process != nullptr);
   if (!client) {
     // Best effort : rappelle le callback avec un tableau vide (bannière masquée).
     OnAdsServed(callback, {});

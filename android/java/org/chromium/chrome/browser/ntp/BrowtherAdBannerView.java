@@ -18,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.RequestManager;
 
+import org.chromium.base.Log;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
 import org.chromium.chrome.browser.util.TabUtils;
@@ -79,6 +80,8 @@ public class BrowtherAdBannerView extends LinearLayout {
      */
     public void setAds(BrowtherAdsBridge.Ad[] ads, RequestManager glide) {
         mAds = ads != null ? ads : new BrowtherAdsBridge.Ad[0];
+        Log.i("BrowtherAds", "BannerView.setAds: n=" + mAds.length
+                + " width=" + getWidth() + " pagerH=" + mPagerHeight);
         mMarkedVisible.clear();
         mPager.setAdapter(new BrowtherAdPagerAdapter(mAds, glide, this::onAdClicked));
         buildDots(mAds.length);
@@ -128,17 +131,22 @@ public class BrowtherAdBannerView extends LinearLayout {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        // Hauteur du pager = largeur / 3.2 (image ratio fixe, largeur fluide).
-        int pagerWidth = w - getPaddingLeft() - getPaddingRight();
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // Hauteur du pager = largeur / 3.2 (ratio image fixe, largeur fluide).
+        // Calée AVANT de mesurer les enfants (plus déterministe qu'onSizeChanged
+        // qui dépend d'un 2e passage de layout dans une RecyclerView).
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int pagerWidth = width - getPaddingLeft() - getPaddingRight();
         int targetHeight = Math.round(pagerWidth / AD_RATIO);
-        if (targetHeight > 0 && targetHeight != mPagerHeight && mPager != null) {
+        if (mPager != null && targetHeight > 0 && targetHeight != mPagerHeight) {
             mPagerHeight = targetHeight;
             ViewGroup.LayoutParams lp = mPager.getLayoutParams();
             lp.height = targetHeight;
             mPager.setLayoutParams(lp);
+            Log.i("BrowtherAds", "BannerView.onMeasure: width=" + width
+                    + " → pagerHeight=" + targetHeight);
         }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     private void buildDots(int count) {

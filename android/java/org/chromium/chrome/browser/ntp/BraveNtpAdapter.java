@@ -167,6 +167,7 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         } else if (holder instanceof AdsViewHolder) {
             AdsViewHolder adsViewHolder = (AdsViewHolder) holder;
+            Log.i("BrowtherAds", "onBindViewHolder ADS @pos=" + position + " n=" + mAds.length);
 
             LinearLayout.LayoutParams layoutParams =
                     new LinearLayout.LayoutParams(
@@ -484,6 +485,10 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mAds = ads != null ? ads : new BrowtherAdsBridge.Ad[0];
         boolean has = getAdsCount() == 1;
         int position = getStatsCount() + getTopSitesCount();
+        Log.i(
+                "BrowtherAds",
+                "adapter.setAds: n=" + mAds.length + " had=" + had + " has=" + has
+                        + " pos=" + position + " itemCount=" + getItemCount());
         if (has && !had) {
             notifyItemInserted(position);
         } else if (!has && had) {

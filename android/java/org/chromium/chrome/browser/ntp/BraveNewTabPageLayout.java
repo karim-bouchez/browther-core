@@ -862,11 +862,19 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
      * vide / erreur réseau ⇒ aucune bannière (jamais d'échec dur).
      */
     private void fetchBrowtherAds() {
-        if (!BrowtherAdsBridge.isConfigured()) {
+        boolean configured = BrowtherAdsBridge.isConfigured();
+        Log.i("BrowtherAds", "fetchBrowtherAds: configured=" + configured);
+        if (!configured) {
             return;
         }
         BrowtherAdsBridge.serve(
                 ads -> {
+                    Log.i(
+                            "BrowtherAds",
+                            "serve callback: received "
+                                    + (ads != null ? ads.length : -1)
+                                    + " ad(s), adapter="
+                                    + (mNtpAdapter != null));
                     if (mNtpAdapter != null && ads.length > 0) {
                         mNtpAdapter.setAds(ads);
                     }
