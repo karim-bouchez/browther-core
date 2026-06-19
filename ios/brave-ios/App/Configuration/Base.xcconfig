@@ -19,6 +19,16 @@ brave_version_build = 0
 // "build version must be higher than previous build with same version".
 brave_version_build = 1
 
+// Browther: version marketing en CalVer (parité Desktop "Browther 2026.MM.JJ").
+// App Store Connect impose CFBundleShortVersionString = au plus 3 entiers SANS
+// zéro initial → impossible de répliquer tel quel le 4-parties zéro-paddé du DMG
+// mac (2026.05.30.4). Mapping retenu : marketing = AAAA.M.J (date du build) +
+// build counter = brave_version_build ci-dessus (l'équivalent du ".N" mac).
+// Override APRÈS l'include (sinon args.xcconfig force la version Brave 1.90).
+// ⚠️ Bumper la date à chaque soumission ; App Store compare composante par
+// composante (2026.x > 1.90, donc la transition depuis 1.90 est valide).
+brave_ios_marketing_version = 2026.6.19
+
 FRAMEWORK_BASE_BUNDLE_ID = com.devndin.browther
 BASE_BUNDLE_ID = $(FRAMEWORK_BASE_BUNDLE_ID).ios
 
