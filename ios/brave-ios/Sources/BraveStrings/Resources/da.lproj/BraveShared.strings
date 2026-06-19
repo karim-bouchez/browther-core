@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Kviksøgemaskiner";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Bedøm Brave ";
+"RateBrave" = "Bedøm Browther ";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Gør teksten større";

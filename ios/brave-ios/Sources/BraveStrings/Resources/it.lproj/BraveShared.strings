@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Motori di ricerca rapida";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Valuta Brave";
+"RateBrave" = "Valuta Browther";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Aumenta dimensioni testo";

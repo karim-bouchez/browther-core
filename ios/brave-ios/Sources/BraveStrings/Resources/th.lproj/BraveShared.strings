@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "เครื่องมือค้นหาด่วน";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "ให้คะแนน Brave";
+"RateBrave" = "ให้คะแนน Browther";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "เพิ่มขนาดตัวอักษร";

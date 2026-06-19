@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Μηχανές γρήγορης αναζήτησης";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Αξιολογήστε το Brave";
+"RateBrave" = "Αξιολογήστε το Browther";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Αύξηση μεγέθους κειμένου";

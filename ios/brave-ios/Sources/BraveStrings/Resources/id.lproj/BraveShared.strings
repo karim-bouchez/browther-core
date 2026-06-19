@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Mesin Pencarian Cepat";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Nilai Brave";
+"RateBrave" = "Nilai Browther";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Tambah ukuran teks";

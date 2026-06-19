@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "क्विक सर्च इंजन";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Brave का मूल्यांकन करें";
+"RateBrave" = "Browther का मूल्यांकन करें";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "टेक्स्ट का आकार बढ़ाएँ";

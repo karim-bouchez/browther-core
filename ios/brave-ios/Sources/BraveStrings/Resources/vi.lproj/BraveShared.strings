@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Tìm nhanh công cụ tìm kiếm";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Đánh giá Brave";
+"RateBrave" = "Đánh giá Browther";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Tăng kích thước chữ";

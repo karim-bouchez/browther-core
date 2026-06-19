@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Pikahakukoneet";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Arvostele Brave";
+"RateBrave" = "Arvostele Browther";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Suurenna tekstin kokoa";

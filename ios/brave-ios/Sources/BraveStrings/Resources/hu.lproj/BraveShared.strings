@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Gyorskeresők";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Értékeld a Brave-et";
+"RateBrave" = "Értékeld a Browther-et";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Szövegméret növelése";

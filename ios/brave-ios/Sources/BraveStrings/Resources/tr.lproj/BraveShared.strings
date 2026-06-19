@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "Hızlı Arama Motorları";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Brave'i Değerlendirin";
+"RateBrave" = "Browther'i Değerlendirin";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "Metin boyutunu büyüt";

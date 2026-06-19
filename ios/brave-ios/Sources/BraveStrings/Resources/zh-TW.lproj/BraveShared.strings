@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "快速搜尋引擎";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "為 Brave 評分";
+"RateBrave" = "為 Browther 評分";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "調大字體";

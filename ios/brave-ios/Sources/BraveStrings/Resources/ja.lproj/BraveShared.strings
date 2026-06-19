@@ -1808,7 +1808,7 @@
 "QuickSearchEngines" = "クイック検索エンジン";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Braveを評価する";
+"RateBrave" = "Browtherを評価する";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "テキストサイズを大きくする";

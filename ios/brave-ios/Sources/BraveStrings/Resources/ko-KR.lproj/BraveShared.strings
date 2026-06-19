@@ -2000,7 +2000,7 @@
 "QuickSearchEngines" = "빠른 검색 엔진";
 
 /* Open the App Store to rate Brave. */
-"RateBrave" = "Brave 평가하기";
+"RateBrave" = "Browther 평가하기";
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "ReaderModeBiggerFontButtonAccessibilityLabel" = "텍스트 크기 확대";
