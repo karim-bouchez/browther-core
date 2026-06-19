@@ -93,8 +93,8 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_NEWS_LOADING = 6;
     private static final int TYPE_NEWS = 7;
     private static final int TYPE_NEWS_NO_CONTENT_SOURCES = 8;
-    // Browther : bannière pub devndin-ads, insérée sous les favoris (après
-    // top sites, avant l'image credit / la news).
+    // Browther : bannière pub devndin-ads, insérée entre les stats et les
+    // favoris (mobile : au-dessus des favoris, parité iOS).
     private static final int TYPE_BROWTHER_ADS = 9;
 
     private static final int ONE_ITEM_SPACE = 1;
@@ -167,7 +167,6 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         } else if (holder instanceof AdsViewHolder) {
             AdsViewHolder adsViewHolder = (AdsViewHolder) holder;
-            Log.i("BrowtherAds", "onBindViewHolder ADS @pos=" + position + " n=" + mAds.length);
 
             LinearLayout.LayoutParams layoutParams =
                     new LinearLayout.LayoutParams(
@@ -430,15 +429,17 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int topSitesCount = getTopSitesCount();
         int adsCount = getAdsCount();
         // Base des items en aval (new content / image credit / news) : décalée
-        // par la bannière pub insérée après les top sites.
+        // par la bannière pub. La somme stats+ads+topsites est invariante quel
+        // que soit l'ordre relatif ads/topsites → la base reste identique.
         int base = statsCount + topSitesCount + adsCount;
 
+        // Ordre mobile (parité iOS) : Stats → Pub → Favoris → ...
         if (position == 0 && statsCount == 1) {
             return TYPE_STATS;
-        } else if (topSitesCount == 1 && position == statsCount) {
-            return TYPE_TOP_SITES;
-        } else if (adsCount == 1 && position == statsCount + topSitesCount) {
+        } else if (adsCount == 1 && position == statsCount) {
             return TYPE_BROWTHER_ADS;
+        } else if (topSitesCount == 1 && position == statsCount + adsCount) {
+            return TYPE_TOP_SITES;
         } else if (position == base && mIsNewContent) {
             return TYPE_NEW_CONTENT;
         } else if ((position == base && !mIsNewContent)
@@ -478,17 +479,14 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     /**
      * Renseigne les pubs servies (serve async terminé). Insère / met à jour la
-     * bannière sous les favoris (position {@code statsCount + topSitesCount}).
+     * bannière entre les stats et les favoris (position {@code statsCount},
+     * parité iOS mobile — au-dessus des favoris).
      */
     public void setAds(BrowtherAdsBridge.Ad[] ads) {
         boolean had = getAdsCount() == 1;
         mAds = ads != null ? ads : new BrowtherAdsBridge.Ad[0];
         boolean has = getAdsCount() == 1;
-        int position = getStatsCount() + getTopSitesCount();
-        Log.i(
-                "BrowtherAds",
-                "adapter.setAds: n=" + mAds.length + " had=" + had + " has=" + has
-                        + " pos=" + position + " itemCount=" + getItemCount());
+        int position = getStatsCount();
         if (has && !had) {
             notifyItemInserted(position);
         } else if (!has && had) {
@@ -501,10 +499,11 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setTopSitesEnabled(boolean isTopSitesEnabled) {
         if (mIsTopSitesEnabled != isTopSitesEnabled) {
             mIsTopSitesEnabled = isTopSitesEnabled;
+            // Les top sites sont maintenant après la pub (Stats → Pub → Favoris).
             if (mIsTopSitesEnabled) {
-                notifyItemInserted(getStatsCount());
+                notifyItemInserted(getStatsCount() + getAdsCount());
             } else {
-                notifyItemRemoved(getStatsCount());
+                notifyItemRemoved(getStatsCount() + getAdsCount());
             }
             notifyItemRangeChanged(getStatsCount(),
                     getStatsCount() + getTopSitesCount() + getAdsCount() + getNewContentCount()

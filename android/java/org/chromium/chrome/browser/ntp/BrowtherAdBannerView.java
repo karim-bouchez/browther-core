@@ -18,7 +18,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.RequestManager;
 
-import org.chromium.base.Log;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
 import org.chromium.chrome.browser.util.TabUtils;
@@ -28,8 +27,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Bannière pub devndin-ads sous les favoris du NTP. Carousel paginé ratio 3.2:1
- * (parité desktop {@code browther_ad_banner.tsx} + iOS {@code BrowtheAdSectionProvider}).
+ * Bannière pub devndin-ads sur le NTP (mobile : au-dessus des favoris, entre
+ * les stats et les favoris — parité iOS {@code BrowtheAdSectionProvider}).
+ * Carousel paginé ratio 3.2:1 (parité desktop {@code browther_ad_banner.tsx}).
  *
  * <p>Le serve signé HMAC, le batching des impressions et la résolution du click
  * URL vivent dans {@link BrowtherAdsBridge} (client C++) — le secret publisher
@@ -80,8 +80,6 @@ public class BrowtherAdBannerView extends LinearLayout {
      */
     public void setAds(BrowtherAdsBridge.Ad[] ads, RequestManager glide) {
         mAds = ads != null ? ads : new BrowtherAdsBridge.Ad[0];
-        Log.i("BrowtherAds", "BannerView.setAds: n=" + mAds.length
-                + " width=" + getWidth() + " pagerH=" + mPagerHeight);
         mMarkedVisible.clear();
         mPager.setAdapter(new BrowtherAdPagerAdapter(mAds, glide, this::onAdClicked));
         buildDots(mAds.length);
@@ -143,8 +141,6 @@ public class BrowtherAdBannerView extends LinearLayout {
             ViewGroup.LayoutParams lp = mPager.getLayoutParams();
             lp.height = targetHeight;
             mPager.setLayoutParams(lp);
-            Log.i("BrowtherAds", "BannerView.onMeasure: width=" + width
-                    + " → pagerHeight=" + targetHeight);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

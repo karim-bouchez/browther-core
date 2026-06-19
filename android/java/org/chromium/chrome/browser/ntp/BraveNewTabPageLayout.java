@@ -385,7 +385,7 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
                 mRecyclerView.setAdapter(mNtpAdapter);
 
                 // Browther : récupère les pubs devndin-ads (serve async signé
-                // HMAC côté natif) et affiche la bannière sous les favoris.
+                // HMAC côté natif) et affiche la bannière entre stats et favoris.
                 fetchBrowtherAds();
 
                 if (mRecyclerView.getItemAnimator() != null) {
@@ -856,25 +856,17 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
     }
 
     /**
-     * Récupère les pubs devndin-ads et les pousse dans l'adapter (bannière sous
-     * les favoris). Le serve est signé HMAC côté natif (secret jamais en Java) ;
+     * Récupère les pubs devndin-ads et les pousse dans l'adapter (bannière entre
+     * stats et favoris). Le serve est signé HMAC côté natif (secret jamais en Java) ;
      * le callback arrive sur le UI thread. Best effort : non configuré / tableau
      * vide / erreur réseau ⇒ aucune bannière (jamais d'échec dur).
      */
     private void fetchBrowtherAds() {
-        boolean configured = BrowtherAdsBridge.isConfigured();
-        Log.i("BrowtherAds", "fetchBrowtherAds: configured=" + configured);
-        if (!configured) {
+        if (!BrowtherAdsBridge.isConfigured()) {
             return;
         }
         BrowtherAdsBridge.serve(
                 ads -> {
-                    Log.i(
-                            "BrowtherAds",
-                            "serve callback: received "
-                                    + (ads != null ? ads.length : -1)
-                                    + " ad(s), adapter="
-                                    + (mNtpAdapter != null));
                     if (mNtpAdapter != null && ads.length > 0) {
                         mNtpAdapter.setAds(ads);
                     }

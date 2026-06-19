@@ -211,13 +211,6 @@ void AdsClient::OnServeComplete(
           ? loader->ResponseInfo()->headers->response_code()
           : 0;
 
-#if BUILDFLAG(IS_ANDROID)
-  // [BrowtherAds][debug Android] visibilité serve dans logcat (tag "chromium").
-  LOG(INFO) << "[BrowtherAds] serve complete: net_error=" << net_error
-            << " http=" << response_code
-            << " body_bytes=" << (response_body ? response_body->size() : 0);
-#endif
-
   if (net_error != net::OK || response_code < 200 || response_code >= 300 ||
       !response_body) {
     VLOG(1) << "[BrowtherAds] serve failed: net_error=" << net_error
