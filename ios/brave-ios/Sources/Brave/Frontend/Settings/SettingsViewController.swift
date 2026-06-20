@@ -1310,11 +1310,10 @@ class SettingsViewController: TableViewController {
         Row(
           text: Strings.rateBrave,
           selection: { [unowned self] in
-            // Browther: TODO remplacer l'App Store ID Brave (1052879175) par celui de
-            // Browther une fois la fiche App Store Connect créée. Cf. docs/TODO.md.
+            // Browther: App Store ID de Browther (fiche App Store Connect, 2026-06).
             guard
               let writeReviewURL = URL(
-                string: "https://itunes.apple.com/app/id1052879175?action=write-review"
+                string: "https://itunes.apple.com/app/id6772585474?action=write-review"
               )
             else { return }
             UIApplication.shared.open(writeReviewURL)
