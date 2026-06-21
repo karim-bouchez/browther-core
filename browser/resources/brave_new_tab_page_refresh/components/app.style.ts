@@ -208,6 +208,16 @@ export const style = scoped.css`
     @container (width > ${narrowBreakpoint}) {
       min-height: 200px;
     }
+
+    /* Browther : le @container ci-dessus est basé sur la LARGEUR, donc il
+       impose 200px de plancher même sur une fenêtre large mais courte. Avec la
+       bannière pub (+160px) ça pousse le widget stats sous la ligne de flottaison
+       et force un scroll inutile. Sur les viewports courts on retire le plancher :
+       le flex-grow remplit de toute façon l'espace dispo (aucun changement sur
+       grand écran, où le spacer dépasse déjà 200px). */
+    @media (max-height: 800px) {
+      min-height: 0;
+    }
   }
 
   .caption-container {
