@@ -79,6 +79,10 @@ def Main():
                         help='Public EdDSA key for update')
     parser.add_argument('--brave_version', dest='brave_version', action='store',
         default=None, help='brave version string')
+    parser.add_argument('--browther_version', dest='browther_version',
+        action='store', default=None,
+        help='Browther CalVer string forced into CFBundleVersion so Sparkle '
+             'compares the same scale as the appcast sparkle:version')
     parser.add_argument('--format', choices=('binary1', 'xml1', 'json'),
         default='xml1', help='Format to use when writing property list '
             '(default: %(default)s)')
@@ -121,6 +125,16 @@ def Main():
         plist['SUPublicEDKey'] = args.brave_eddsa_key
 
     _OverrideVersionKey(plist, args.brave_version)
+
+    # Browther: force CFBundleVersion to the Browther CalVer (browther_version)
+    # so Sparkle compares the same scale as the appcast's sparkle:version.
+    # Otherwise CFBundleVersion stays the Brave-derived value (e.g. "190.0"),
+    # which is always lower than the CalVer (e.g. "2026.6.21.1") and makes
+    # Sparkle endlessly offer an update (and even a feature downgrade to an
+    # older CalVer that happens to be > 190.0). Applied after _OverrideVersionKey
+    # so it wins. Empty/None => upstream behaviour preserved.
+    if args.browther_version:
+        plist['CFBundleVersion'] = args.browther_version
 
     # Explicitly disable profiling
     plist['SUEnableSystemProfiling'] = False

@@ -710,6 +710,7 @@ if (is_mac) {
       "--brave_channel=" + brave_channel,
       "--brave_product_dir_name=" + brave_product_dir_name,
       "--brave_version=" + brave_version,
+      "--browther_version=" + browther_version,
       "--brave_eddsa_key=" + sparkle_eddsa_public_key,
     ]
 
@@ -731,6 +732,7 @@ if (is_mac) {
       "--brave_channel=" + brave_channel,
       "--brave_product_dir_name=" + brave_product_dir_name,
       "--brave_version=" + brave_version,
+      "--browther_version=" + browther_version,
     ]
 
     deps = [ "//chrome:chrome_helper_plist" ]

@@ -47,10 +47,18 @@ declare_args() {
   # forke). Apparaît dans le nom du DMG (Browther-YYYY.MM.DD.dmg) + sera
   # exposée plus tard dans la page About + tracking analytics. Bumper
   # manuellement avant chaque release (ou via script si on en a un). Format
-  # vérifié OK pour Apple notarytool + Mac App Store (3 entiers séparés par
-  # `.`, optionnellement un 4e composant pour hotfixes same-day :
-  # `2026.05.28.1`). Hotfix : ajouter `.N` après la date.
-  browther_version = "2026.05.30.4"
+  # vérifié OK pour Apple notarytool (entiers séparés par `.`, +1 composant
+  # optionnel pour hotfixes same-day).
+  #
+  # ⚠️ Browther: cette valeur est AUSSI injectée dans CFBundleVersion (via
+  # brave/build/mac/tweak_info_plist.py) ET utilisée comme sparkle:version dans
+  # l'appcast. Sparkle compare CFBundleVersion (app) vs sparkle:version
+  # (appcast) avec SUStandardVersionComparator → les deux DOIVENT être ce même
+  # string. Règles : (1) entiers SANS zéro initial (CFBundleVersion-safe, ex
+  # `2026.6.21.1` et non `2026.06.21.1`), (2) STRICTEMENT croissant composant
+  # par composant à chaque release (sinon Sparkle ne proposera jamais l'update,
+  # ou bouclera). Hotfix same-day : incrémenter le dernier `.N`.
+  browther_version = "2026.6.21.1"
   brave_exe = ""
   brave_version_major = ""
   brave_version_minor = ""
