@@ -42,7 +42,7 @@ struct SawtunaaPanelView: View {
           + Text(enabled.value ? "ACTIVÉE" : "DÉSACTIVÉE").bold()
       }
       .font(.footnote)
-      .foregroundStyle(Color(.secondaryBraveLabel))
+      .foregroundStyle(Color(.braveLabel))
 
       Button {
         showLimitations = true
@@ -84,9 +84,11 @@ struct SawtunaaPanelView: View {
         .aspectRatio(contentMode: .fit)
         .frame(width: 32, height: 32)
       Image("sawtunaa.wordmark", bundle: .module)
+        .renderingMode(.template)
         .resizable()
         .aspectRatio(contentMode: .fit)
         .frame(height: 24)
+        .foregroundStyle(Color(.braveLabel))
     }
     .frame(minWidth: .zero, alignment: .center)
     .padding(.horizontal)
@@ -151,7 +153,7 @@ struct BasarunaaPanelView: View {
             + Text(enabled.value ? "ACTIVÉ" : "DÉSACTIVÉ").bold()
         }
         .font(.footnote)
-        .foregroundStyle(Color(.secondaryBraveLabel))
+        .foregroundStyle(Color(.braveLabel))
 
         // MARK: Mode
         section(title: "Mode") {
@@ -316,9 +318,11 @@ struct BasarunaaPanelView: View {
         .aspectRatio(contentMode: .fit)
         .frame(width: 32, height: 32)
       Image("basarunaa.wordmark", bundle: .module)
+        .renderingMode(.template)
         .resizable()
         .aspectRatio(contentMode: .fit)
         .frame(height: 24)
+        .foregroundStyle(Color(.braveLabel))
     }
     .frame(minWidth: .zero, alignment: .center)
     .padding(.horizontal)
