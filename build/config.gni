@@ -25,7 +25,13 @@ declare_args() {
   # EdDSA Brave qui ne match pas notre pubkey). Voir feedback_sparkle_brave_appcast.
   base_sparkle_update_url =
       "https://browther-download.devndin.com/sparkle/Browther"
-  enable_sparkle = true
+  # Browther: Mac-only. Sparkle = updater macOS uniquement. Sur Windows/Linux,
+  # ENABLE_SPARKLE=true compile les chemins Mac de brave_browser_view.cc /
+  # application_lifetime_desktop.cc qui appellent UpdateRecommendedMessageBoxMac::
+  # Show + brave_relaunch_handler::RelaunchOnMac (définis seulement dans des .mm
+  # Mac) → undefined symbols au link de chrome.dll (fix Windows 2026-06-21, même
+  # classe que la régression Android e2c9dd3 gatée is_mac).
+  enable_sparkle = is_mac
   build_sparkle = false
 
   sparkle_dsa_private_key_file = ""
