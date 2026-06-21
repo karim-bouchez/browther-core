@@ -200,9 +200,22 @@ export const style = scoped.css`
        à ce stade), on masque la barre de recherche centrale — redondante avec
        l'omnibox de la toolbar — plutôt que de laisser favoris + bannière + stats
        déborder de l'écran. display:none la retire aussi comme flex item, donc
-       son gap de 16px disparaît avec elle. */
-    @media (max-height: 540px) {
-      display: none;
+       son gap de 16px disparaît avec elle.
+
+       Le seuil dépend de la présence de la bannière pub : quand une pub est
+       servie elle occupe ~176px (image 160px en ratio 3.2:1 + gap 16px), donc
+       on manque de place plus tôt. Sans pub (.ad-banner-container:empty), on a
+       ces ~176px en plus → la barre de recherche peut rester bien plus bas. */
+    main:has(.ad-banner-container:not(:empty)) & {
+      @media (max-height: 540px) {
+        display: none;
+      }
+    }
+
+    main:has(.ad-banner-container:empty) & {
+      @media (max-height: 380px) {
+        display: none;
+      }
     }
   }
 
