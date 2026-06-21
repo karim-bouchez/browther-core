@@ -195,6 +195,15 @@ export const style = scoped.css`
       transform: none;
       visibility: visible;
     }
+
+    /* Browther : sur un écran vraiment court (le plancher du spacer est déjà à 0
+       à ce stade), on masque la barre de recherche centrale — redondante avec
+       l'omnibox de la toolbar — plutôt que de laisser favoris + bannière + stats
+       déborder de l'écran. display:none la retire aussi comme flex item, donc
+       son gap de 16px disparaît avec elle. */
+    @media (max-height: 540px) {
+      display: none;
+    }
   }
 
   .spacer {
