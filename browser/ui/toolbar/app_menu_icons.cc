@@ -75,7 +75,10 @@ constexpr auto kCommandIcons =
         {IDC_RECENT_TABS_NO_DEVICE_TABS, &kLeoSmartphoneLaptopIcon},
 
         // The `Help` submenu
-        {IDC_ABOUT, &kLeoBraveIconMonochromeIcon},
+        // Browther: l'icône « About » Brave (kLeoBraveIconMonochromeIcon =
+        // lion) est remplacée par le bouclier Browther (kProductRefreshIcon,
+        // défini par brave/product_refresh.icon, cf. vector_icons/BUILD.gn).
+        {IDC_ABOUT, &kProductRefreshIcon},
         {IDC_HELP_PAGE_VIA_MENU, &kLeoHelpOutlineIcon},
         {IDC_SHOW_BRAVE_WEBCOMPAT_REPORTER, &kLeoWarningTriangleOutlineIcon},
 

@@ -16,6 +16,11 @@ aggregate_vector_icons("brave_components_vector_icons") {
     "app_menu_color.icon",
     "app_menu_outline.icon",
     "autoplay_status.icon",
+
+    # Browther: bouclier vert (carré arrondi + shield blanc + B). Génère
+    # `kProductRefreshIcon`, utilisé pour IDC_ABOUT (menu « About Browther »)
+    # à la place du lion Brave. Cf. browser/ui/toolbar/app_menu_icons.cc.
+    "brave/product_refresh.icon",
   ]
 
   # The Skia icon names are transformed to make them easier to use in Brave Core
