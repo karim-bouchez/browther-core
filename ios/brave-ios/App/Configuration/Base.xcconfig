@@ -17,7 +17,9 @@ brave_version_build = 0
 // Bumper ici à chaque upload TestFlight/App Store sans devoir rebuild
 // BraveCore.xcframework. Sinon App Store Connect rejette l'upload :
 // "build version must be higher than previous build with same version".
-brave_version_build = 1
+// build 2 = resoumission 2026-06-23 (fix refus MFi com.yubico.ylp 2.1.0,
+// même version marketing 2026.6.19 car même cycle de review).
+brave_version_build = 2
 
 // Browther: version marketing en CalVer (parité Desktop "Browther 2026.MM.JJ").
 // App Store Connect impose CFBundleShortVersionString = au plus 3 entiers SANS
