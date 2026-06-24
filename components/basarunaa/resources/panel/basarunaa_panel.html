@@ -16,6 +16,11 @@
     html, body { margin: 0; padding: 0; }
     body {
       width: 320px;
+      /* Borne la hauteur de la bubble + scroll interne : avec 7 sliders +
+         descriptions + section debug, le contenu dépasse la hauteur écran. */
+      max-height: 640px;
+      overflow-y: auto;
+      box-sizing: border-box;
       padding: 20px 20px 22px;
       font-family: var(--leo-font-default-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
       background: var(--leo-color-container-background, #1a1a2e);
