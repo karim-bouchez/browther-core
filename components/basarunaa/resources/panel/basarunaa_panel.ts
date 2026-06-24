@@ -38,6 +38,7 @@ async function refreshState() {
     setUISlider('nudenet-conf', sliders.nudenetConf)
     setUIDebugMode(dev.debugMode)
     setUICapture(dev.captureMode)
+    setUIBlurEnabled(dev.blurEnabled)
   } catch (err) {
     console.error('[basarunaa-panel] refreshState failed', err)
   }
@@ -50,6 +51,11 @@ function setUIDebugMode(mode: string) {
 
 function setUICapture(enabled: boolean) {
   const toggle = document.getElementById('capture-toggle') as HTMLInputElement | null
+  if (toggle) toggle.checked = enabled
+}
+
+function setUIBlurEnabled(enabled: boolean) {
+  const toggle = document.getElementById('blur-toggle') as HTMLInputElement | null
   if (toggle) toggle.checked = enabled
 }
 
@@ -155,6 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
       api().setCaptureMode(captureToggle.checked)
     } catch (err) {
       console.error('[basarunaa-panel] setCaptureMode failed', err)
+    }
+  })
+
+  const blurToggle = document.getElementById('blur-toggle') as HTMLInputElement | null
+  blurToggle?.addEventListener('change', () => {
+    try {
+      api().setBlurEnabled(blurToggle.checked)
+    } catch (err) {
+      console.error('[basarunaa-panel] setBlurEnabled failed', err)
     }
   })
 })

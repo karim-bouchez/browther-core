@@ -53,11 +53,13 @@ interface PanelHandler {
   SetNsfwConf(double value);
   SetNudenetConf(double value);
 
-  // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture
-  // mode (saves analyzed images to ~/Downloads/basarunaa-capture/).
-  GetDevSettings() => (string debug_mode, bool capture_mode);
+  // Dev-only: debug overlay mode ("none" | "boxes" | "debug"), capture mode
+  // (saves analyzed images to ~/Downloads/basarunaa-capture/), et blur_enabled
+  // (false = coupe le floutage en gardant l'analyse + l'overlay debug).
+  GetDevSettings() => (string debug_mode, bool capture_mode, bool blur_enabled);
   SetDebugMode(string mode);
   SetCaptureMode(bool enabled);
+  SetBlurEnabled(bool enabled);
 };
 
 // Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). On recrée l'interface

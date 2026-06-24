@@ -449,6 +449,7 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterDoublePref(kBasarunaaNudenetConf, 0.50);
   registry->RegisterStringPref(kBasarunaaDebugMode, "none");
   registry->RegisterBooleanPref(kBasarunaaCaptureMode, false);
+  registry->RegisterBooleanPref(kBasarunaaBlurEnabled, true);  // dev: couper le flou
   // Default FALSE post-validation device 2026-06-10 : bench inference YOLO-pose
   // GPU FP32 = 88ms (4.6× vs CPU 410ms), mais sortie produit ~12 détections
   // pour 5 personnes (faux positifs car coords TFLite max_diff 1.86e-3 vs ONNX

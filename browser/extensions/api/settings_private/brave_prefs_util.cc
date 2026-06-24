@@ -128,6 +128,8 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
   (*s_brave_allowlist)[kBasarunaaDebugMode] = settings_api::PrefType::kString;
   (*s_brave_allowlist)[kBasarunaaCaptureMode] =
       settings_api::PrefType::kBoolean;
+  (*s_brave_allowlist)[kBasarunaaBlurEnabled] =
+      settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaTfliteGpuEnabled] =
       settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaTfliteCompareMode] =

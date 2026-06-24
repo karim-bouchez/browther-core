@@ -91,7 +91,8 @@ void BasarunaaPanelHandler::SetNudenetConf(double value) {
 void BasarunaaPanelHandler::GetDevSettings(GetDevSettingsCallback callback) {
   auto* prefs = profile_->GetPrefs();
   std::move(callback).Run(prefs->GetString(kBasarunaaDebugMode),
-                          prefs->GetBoolean(kBasarunaaCaptureMode));
+                          prefs->GetBoolean(kBasarunaaCaptureMode),
+                          prefs->GetBoolean(kBasarunaaBlurEnabled));
 }
 
 void BasarunaaPanelHandler::SetDebugMode(const std::string& mode) {
@@ -100,4 +101,8 @@ void BasarunaaPanelHandler::SetDebugMode(const std::string& mode) {
 
 void BasarunaaPanelHandler::SetCaptureMode(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaCaptureMode, enabled);
+}
+
+void BasarunaaPanelHandler::SetBlurEnabled(bool enabled) {
+  profile_->GetPrefs()->SetBoolean(kBasarunaaBlurEnabled, enabled);
 }

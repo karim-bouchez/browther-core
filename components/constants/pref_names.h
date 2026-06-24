@@ -86,6 +86,9 @@ inline constexpr char kBasarunaaNudenetConf[] = "brave.basarunaa.nudenet_conf";
 // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture mode.
 inline constexpr char kBasarunaaDebugMode[] = "brave.basarunaa.debug_mode";
 inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";
+// Dev-only: couper UNIQUEMENT le floutage tout en gardant l'analyse + l'overlay
+// debug (voir l'image d'origine avec les boxes). Default true (floutage actif).
+inline constexpr char kBasarunaaBlurEnabled[] = "brave.basarunaa.blur_enabled";
 // Android-only V3 (2026-06-10) : TFLite + GpuDelegate pour yolo-pose. Bench
 // Huawei Mali-G76 = 4.6× speedup (410ms → 88ms). Default true ; le runtime
 // fallback ORT_CPU si CompatibilityList().isDelegateSupportedOnThisDevice()
