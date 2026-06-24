@@ -69,6 +69,8 @@
 	<string>This lets you take and upload photos.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This authenticates your access to Brave</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Browther allows the websites you visit to use real-time features such as video and voice calls, which may need to find and connect to other devices on your local network — for example, to connect a video call between two people on the same Wi-Fi network. It is also used to stream media you play to nearby devices, such as an Apple TV.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Websites you visit may request your location.</string>
 	<key>NSMicrophoneUsageDescription</key>

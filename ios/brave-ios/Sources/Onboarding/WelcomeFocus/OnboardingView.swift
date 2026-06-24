@@ -116,15 +116,13 @@ public struct OnboardingRootView: View {
     @Namespace private var namespace
 
     private func layoutStyle(for size: CGSize) -> OnboardingLayoutStyle {
-      if horizontalSizeClass == .regular {
-        if interfaceOrientation.isLandscape {
-          return .columnInset
-        }
-        return .inset
-      }
-      if size.height > 1000 {
-        return .inset
-      }
+      // Browther: onboarding plein écran partout (iPhone ET iPad).
+      // Le layout `.inset`/`.columnInset` (carte centrée) cassait sur iPad : le
+      // wordmark de l'en-tête (brave.wordmark, SVG à grande taille intrinsèque)
+      // n'était pas contraint et débordait, poussant les boutons hors écran
+      // (refus Apple 2.1(a) du 2026-06-23, testé sur iPad Pro 11"). Le plein
+      // écran utilise l'en-tête BraveAppIcon à taille fixe (ne déborde pas) et
+      // remplit l'écran comme attendu sur iPad.
       return .fullscreen
     }
 
