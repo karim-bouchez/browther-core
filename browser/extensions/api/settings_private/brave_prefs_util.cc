@@ -120,6 +120,11 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
   (*s_brave_allowlist)[kBasarunaaConfFace] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaGenderCertainty] =
       settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[kBasarunaaSentinelConf] =
+      settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[kBasarunaaMinSkeleton] = settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[kBasarunaaNsfwConf] = settings_api::PrefType::kNumber;
+  (*s_brave_allowlist)[kBasarunaaNudenetConf] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaDebugMode] = settings_api::PrefType::kString;
   (*s_brave_allowlist)[kBasarunaaCaptureMode] =
       settings_api::PrefType::kBoolean;

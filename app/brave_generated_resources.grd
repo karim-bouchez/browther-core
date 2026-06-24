@@ -1523,6 +1523,18 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_PANEL_GENDER_CERTAINTY" desc="Slider label for gender-classification certainty threshold in the Basarunaa panel">
         Gender certainty
       </message>
+      <message name="IDS_BASARUNAA_PANEL_SENTINEL_CONF" desc="Slider label for the NanoDet sentinel detection confidence threshold in the Basarunaa panel">
+        Sentinel confidence
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_MIN_SKELETON" desc="Slider label for the minimum body-skeleton threshold (anti false-positive) in the Basarunaa panel">
+        Min skeleton
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_NSFW_CONF" desc="Slider label for the NSFW (Marqo) full-image threshold in the Basarunaa panel">
+        NSFW (Marqo)
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_NUDENET_CONF" desc="Slider label for the NudeNet explicit-parts threshold in the Basarunaa panel">
+        NudeNet
+      </message>
       <message name="IDS_BASARUNAA_PANEL_LOADING" desc="Loading text shown while the Basarunaa panel fetches its initial state">
         Loading…
       </message>

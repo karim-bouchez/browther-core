@@ -441,6 +441,12 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterDoublePref(kBasarunaaConfBody, 0.25);
   registry->RegisterDoublePref(kBasarunaaConfFace, 0.30);
   registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);
+  // Browther dev tuning (défauts = valeurs hardcodées actuelles → comportement
+  // par défaut inchangé). min_skeleton 0.0 = filtre désactivé.
+  registry->RegisterDoublePref(kBasarunaaSentinelConf, 0.40);
+  registry->RegisterDoublePref(kBasarunaaMinSkeleton, 0.0);
+  registry->RegisterDoublePref(kBasarunaaNsfwConf, 0.50);
+  registry->RegisterDoublePref(kBasarunaaNudenetConf, 0.30);
   registry->RegisterStringPref(kBasarunaaDebugMode, "none");
   registry->RegisterBooleanPref(kBasarunaaCaptureMode, false);
   // Default FALSE post-validation device 2026-06-10 : bench inference YOLO-pose

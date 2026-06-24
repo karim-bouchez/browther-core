@@ -144,6 +144,12 @@
     }
     body[data-disabled="true"] .section { opacity: 0.4; pointer-events: none; }
     .slider-row { padding: 6px 0; }
+    .slider-row .slider-desc {
+      font-size: 11px;
+      opacity: 0.6;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
     .slider-row .slider-head {
       display: flex; justify-content: space-between;
       font-size: 13px; margin-bottom: 4px;
@@ -257,6 +263,7 @@
         <span class="slider-value" id="conf-body-value">—</span>
       </div>
       <input type="range" id="conf-body" min="0" max="100" step="1">
+      <div class="slider-desc">Seuil pour qu'un corps détecté (YOLO) soit retenu. Plus haut = ignore les détections peu sûres (mains, objets) ; plus bas = détecte plus large.</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">
@@ -264,6 +271,23 @@
         <span class="slider-value" id="conf-face-value">—</span>
       </div>
       <input type="range" id="conf-face" min="0" max="100" step="1">
+      <div class="slider-desc">Seuil pour qu'un visage détecté soit retenu. Sert surtout à associer visage ↔ corps pour bien classer le genre.</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-head">
+        <span>$i18n{sentinelConf}</span>
+        <span class="slider-value" id="sentinel-conf-value">—</span>
+      </div>
+      <input type="range" id="sentinel-conf" min="0" max="100" step="1">
+      <div class="slider-desc">Seuil du détecteur léger NanoDet utilisé pour le suivi vidéo. Sans effet sur les images fixes.</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-head">
+        <span>$i18n{minSkeleton}</span>
+        <span class="slider-value" id="min-skeleton-value">—</span>
+      </div>
+      <input type="range" id="min-skeleton" min="0" max="100" step="1">
+      <div class="slider-desc">Rejette les détections sans assez de points du corps (épaules, hanches, jambes). Anti mains/objets pris pour des personnes. 0 % = désactivé.</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">
@@ -271,6 +295,23 @@
         <span class="slider-value" id="gender-certainty-value">—</span>
       </div>
       <input type="range" id="gender-certainty" min="0" max="100" step="1">
+      <div class="slider-desc">Si la certitude du genre est sous ce seuil, la personne est floutée par précaution (dans le doute = flou).</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-head">
+        <span>$i18n{nsfwConf}</span>
+        <span class="slider-value" id="nsfw-conf-value">—</span>
+      </div>
+      <input type="range" id="nsfw-conf" min="0" max="100" step="1">
+      <div class="slider-desc">Seuil du classifieur NSFW global. Au-dessus, l'image entière est floutée.</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-head">
+        <span>$i18n{nudenetConf}</span>
+        <span class="slider-value" id="nudenet-conf-value">—</span>
+      </div>
+      <input type="range" id="nudenet-conf" min="0" max="100" step="1">
+      <div class="slider-desc">Seuil de détection des parties explicites du corps (NudeNet). Plus bas = plus sensible.</div>
     </div>
   </div>
 

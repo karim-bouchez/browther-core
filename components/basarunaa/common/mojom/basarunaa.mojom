@@ -36,10 +36,22 @@ interface PanelHandler {
   SetMode(string mode);
 
   // Detection threshold sliders (double in [0.0, 1.0]).
-  GetSliders() => (double conf_body, double conf_face, double gender_certainty);
+  // Browther dev tuning : sentinel_conf (NanoDet vidéo), min_skeleton (filtre
+  // anti-faux-positifs), nsfw_conf (Marqo), nudenet_conf (parties explicites).
+  GetSliders() => (double conf_body,
+                   double conf_face,
+                   double gender_certainty,
+                   double sentinel_conf,
+                   double min_skeleton,
+                   double nsfw_conf,
+                   double nudenet_conf);
   SetConfBody(double value);
   SetConfFace(double value);
   SetGenderCertainty(double value);
+  SetSentinelConf(double value);
+  SetMinSkeleton(double value);
+  SetNsfwConf(double value);
+  SetNudenetConf(double value);
 
   // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture
   // mode (saves analyzed images to ~/Downloads/basarunaa-capture/).

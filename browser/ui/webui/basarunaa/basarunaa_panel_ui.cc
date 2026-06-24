@@ -58,6 +58,10 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
       {"confBody", IDS_BASARUNAA_PANEL_CONF_BODY},
       {"confFace", IDS_BASARUNAA_PANEL_CONF_FACE},
       {"genderCertainty", IDS_BASARUNAA_PANEL_GENDER_CERTAINTY},
+      {"sentinelConf", IDS_BASARUNAA_PANEL_SENTINEL_CONF},
+      {"minSkeleton", IDS_BASARUNAA_PANEL_MIN_SKELETON},
+      {"nsfwConf", IDS_BASARUNAA_PANEL_NSFW_CONF},
+      {"nudenetConf", IDS_BASARUNAA_PANEL_NUDENET_CONF},
       {"loading", IDS_BASARUNAA_PANEL_LOADING},
       {"toggleAria", IDS_BASARUNAA_PANEL_TOGGLE_ARIA},
   };

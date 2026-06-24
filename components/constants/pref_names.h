@@ -74,6 +74,15 @@ inline constexpr char kBasarunaaConfBody[] = "brave.basarunaa.conf_body";
 inline constexpr char kBasarunaaConfFace[] = "brave.basarunaa.conf_face";
 inline constexpr char kBasarunaaGenderCertainty[] =
     "brave.basarunaa.gender_certainty";
+// Browther dev tuning sliders (double in [0.0, 1.0]) — exposés temporairement
+// pour calibrer, destinés à être retirés (figés) en prod.
+// NanoDet sentinel (vidéo), filtre squelette anti-faux-positifs, NSFW Marqo,
+// NudeNet parties explicites.
+inline constexpr char kBasarunaaSentinelConf[] =
+    "brave.basarunaa.sentinel_conf";
+inline constexpr char kBasarunaaMinSkeleton[] = "brave.basarunaa.min_skeleton";
+inline constexpr char kBasarunaaNsfwConf[] = "brave.basarunaa.nsfw_conf";
+inline constexpr char kBasarunaaNudenetConf[] = "brave.basarunaa.nudenet_conf";
 // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture mode.
 inline constexpr char kBasarunaaDebugMode[] = "brave.basarunaa.debug_mode";
 inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";

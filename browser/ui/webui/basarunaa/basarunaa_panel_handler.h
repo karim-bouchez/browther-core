@@ -40,6 +40,10 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void SetConfBody(double value) override;
   void SetConfFace(double value) override;
   void SetGenderCertainty(double value) override;
+  void SetSentinelConf(double value) override;
+  void SetMinSkeleton(double value) override;
+  void SetNsfwConf(double value) override;
+  void SetNudenetConf(double value) override;
   void GetDevSettings(GetDevSettingsCallback callback) override;
   void SetDebugMode(const std::string& mode) override;
   void SetCaptureMode(bool enabled) override;

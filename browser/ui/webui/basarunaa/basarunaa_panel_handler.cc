@@ -53,7 +53,11 @@ void BasarunaaPanelHandler::GetSliders(GetSlidersCallback callback) {
   auto* prefs = profile_->GetPrefs();
   std::move(callback).Run(prefs->GetDouble(kBasarunaaConfBody),
                           prefs->GetDouble(kBasarunaaConfFace),
-                          prefs->GetDouble(kBasarunaaGenderCertainty));
+                          prefs->GetDouble(kBasarunaaGenderCertainty),
+                          prefs->GetDouble(kBasarunaaSentinelConf),
+                          prefs->GetDouble(kBasarunaaMinSkeleton),
+                          prefs->GetDouble(kBasarunaaNsfwConf),
+                          prefs->GetDouble(kBasarunaaNudenetConf));
 }
 
 void BasarunaaPanelHandler::SetConfBody(double value) {
@@ -66,6 +70,22 @@ void BasarunaaPanelHandler::SetConfFace(double value) {
 
 void BasarunaaPanelHandler::SetGenderCertainty(double value) {
   profile_->GetPrefs()->SetDouble(kBasarunaaGenderCertainty, value);
+}
+
+void BasarunaaPanelHandler::SetSentinelConf(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaSentinelConf, value);
+}
+
+void BasarunaaPanelHandler::SetMinSkeleton(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaMinSkeleton, value);
+}
+
+void BasarunaaPanelHandler::SetNsfwConf(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaNsfwConf, value);
+}
+
+void BasarunaaPanelHandler::SetNudenetConf(double value) {
+  profile_->GetPrefs()->SetDouble(kBasarunaaNudenetConf, value);
 }
 
 void BasarunaaPanelHandler::GetDevSettings(GetDevSettingsCallback callback) {

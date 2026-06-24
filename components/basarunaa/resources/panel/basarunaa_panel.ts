@@ -32,6 +32,10 @@ async function refreshState() {
     setUISlider('conf-body', sliders.confBody)
     setUISlider('conf-face', sliders.confFace)
     setUISlider('gender-certainty', sliders.genderCertainty)
+    setUISlider('sentinel-conf', sliders.sentinelConf)
+    setUISlider('min-skeleton', sliders.minSkeleton)
+    setUISlider('nsfw-conf', sliders.nsfwConf)
+    setUISlider('nudenet-conf', sliders.nudenetConf)
     setUIDebugMode(dev.debugMode)
     setUICapture(dev.captureMode)
   } catch (err) {
@@ -129,6 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
   bindSlider('conf-body', v => api().setConfBody(v))
   bindSlider('conf-face', v => api().setConfFace(v))
   bindSlider('gender-certainty', v => api().setGenderCertainty(v))
+  bindSlider('sentinel-conf', v => api().setSentinelConf(v))
+  bindSlider('min-skeleton', v => api().setMinSkeleton(v))
+  bindSlider('nsfw-conf', v => api().setNsfwConf(v))
+  bindSlider('nudenet-conf', v => api().setNudenetConf(v))
 
   document.querySelectorAll<HTMLInputElement>('input[name="debug-mode"]').forEach(radio => {
     radio.addEventListener('change', () => {
