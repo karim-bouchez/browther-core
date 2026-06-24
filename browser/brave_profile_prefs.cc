@@ -446,7 +446,7 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterDoublePref(kBasarunaaSentinelConf, 0.40);
   registry->RegisterDoublePref(kBasarunaaMinSkeleton, 0.0);
   registry->RegisterDoublePref(kBasarunaaNsfwConf, 0.50);
-  registry->RegisterDoublePref(kBasarunaaNudenetConf, 0.30);
+  registry->RegisterDoublePref(kBasarunaaNudenetConf, 0.50);
   registry->RegisterStringPref(kBasarunaaDebugMode, "none");
   registry->RegisterBooleanPref(kBasarunaaCaptureMode, false);
   // Default FALSE post-validation device 2026-06-10 : bench inference YOLO-pose
