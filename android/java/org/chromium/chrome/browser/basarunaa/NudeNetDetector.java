@@ -51,7 +51,7 @@ public final class NudeNetDetector implements NudeDetector {
     private static final String MODEL = "nudenet-320.onnx";
     private static final int INPUT_SIZE = 320;
     private static final int NUM_CLASSES = 18;
-    private static final float CONF_THRESHOLD = 0.3f;
+    private static final float CONF_THRESHOLD = 0.5f; // parité nsfw.js (0.3 → 0.5 : faux positifs objets allongés)
 
     /** 18 classes NudeNet (cf. nsfw.js POC). */
     public static final String[] CLASSES = {

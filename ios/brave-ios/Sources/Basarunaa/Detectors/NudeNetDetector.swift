@@ -55,7 +55,7 @@ struct NudeNetDetection: Sendable {
 final class NudeNetDetector {
   static let inputSize: CGFloat = 320
   static let numClasses = 18
-  static let confidenceThreshold: Double = 0.3
+  static let confidenceThreshold: Double = 0.5  // parité nsfw.js (0.3 → 0.5 : faux positifs objets allongés)
 
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.NudeNet")
   private let model: MLModel
