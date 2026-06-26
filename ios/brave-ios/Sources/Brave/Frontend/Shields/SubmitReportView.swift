@@ -6,7 +6,6 @@
 import BraveCore
 import BraveShields
 import BraveUI
-import BraveVPN
 import Data
 import DesignSystem
 import Preferences
@@ -221,7 +220,7 @@ struct SubmitReportView: View {
         adBlockListNames: adblkList,
         languages: Locale.current.language.languageCode?.identifier,
         languageFarbling: String(true),
-        braveVpnConnected: String(BraveVPN.isConnected),
+        braveVpnConnected: "false",
         category: selectedCategory?.value,
         details: additionalDetails,
         contact: contactDetails,

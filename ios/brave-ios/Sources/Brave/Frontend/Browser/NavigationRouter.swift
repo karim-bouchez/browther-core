@@ -89,7 +89,7 @@ public enum NavigationPath: Equatable {
   private static func handleDeepLink(_ link: DeepLink, with bvc: BrowserViewController) {
     switch link {
     case .vpnCrossPlatformPromo:
-      bvc.presentVPNInAppEventCallout()
+      break  // Browther: VPN retirée
     case .braveLeo:
       bvc.presentBraveLeoDeepLink()
     case .playlist:

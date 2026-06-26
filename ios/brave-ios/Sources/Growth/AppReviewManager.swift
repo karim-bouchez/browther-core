@@ -3,7 +3,6 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import BraveVPN
 import Combine
 import Foundation
 import Preferences
@@ -76,11 +75,11 @@ public class AppReviewManager: ObservableObject {
         return []
       case .revised:
         return [
-          .numberOfBookmarks, .paidVPNSubscription, .walletConnectedDapp,
+          .numberOfBookmarks, .walletConnectedDapp,
           .numberOfPlaylistItems, .syncEnabledWithTabSync,
         ]
       case .revisedCrossPlatform:
-        return [.numberOfBookmarks, .paidVPNSubscription]
+        return [.numberOfBookmarks]
       case .newsRatingCard:
         return []
       }
@@ -99,7 +98,6 @@ public class AppReviewManager: ObservableObject {
   /// A sub-criteria that should be satisfied if all main criterias are valid
   public enum AppReviewSubCriteriaType: CaseIterable {
     case numberOfBookmarks
-    case paidVPNSubscription
     case walletConnectedDapp
     case numberOfPlaylistItems
     case syncEnabledWithTabSync
@@ -134,7 +132,9 @@ public class AppReviewManager: ObservableObject {
       }
 
       DispatchQueue.main.async {
-        if let windowScene = controller.currentScene {
+        // Browther: currentScene (BraveUI) arrivait via import BraveVPN (retiré) ;
+        // Growth ne dépend pas de BraveUI → API UIKit standard.
+        if let windowScene = controller.view.window?.windowScene {
           SKStoreReviewController.requestReview(in: windowScene)
         }
       }
@@ -293,11 +293,6 @@ public class AppReviewManager: ObservableObject {
     switch type {
     case .numberOfBookmarks:
       return Preferences.Review.numberBookmarksAdded.value >= Constants.bookmarksCountLimit
-    case .paidVPNSubscription:
-      if case .purchased(_) = BraveVPN.vpnState {
-        return true
-      }
-      return false
     case .walletConnectedDapp:
       guard let connectedDappDate = Preferences.Review.dateWalletConnectedToDapp.value else {
         return false

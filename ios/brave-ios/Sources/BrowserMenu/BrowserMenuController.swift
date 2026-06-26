@@ -3,13 +3,11 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import BraveVPN
 import Foundation
 import SwiftUI
 
 public enum BrowserMenuPresentation {
   case settings
-  case vpnRegionPicker
 }
 
 public class BrowserMenuController: UIHostingController<BrowserMenu> {
@@ -20,9 +18,7 @@ public class BrowserMenuController: UIHostingController<BrowserMenu> {
     super.init(
       rootView: BrowserMenu(
         model: .init(
-          actions: actions,
-          vpnStatus: .liveVPNStatus,
-          vpnStatusPublisher: .liveVPNStatus
+          actions: actions
         ),
         handlePresentation: handlePresentation
       )

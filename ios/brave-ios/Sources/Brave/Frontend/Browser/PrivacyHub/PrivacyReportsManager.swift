@@ -3,7 +3,6 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import BraveVPN
 import Data
 import Foundation
 import Preferences
@@ -31,7 +30,6 @@ public struct PrivacyReportsManager {
   }
 
   private static var saveBlockedResourcesTimer: Timer?
-  private static var vpnAlertsTimer: Timer?
 
   public static func scheduleProcessingBlockedRequests(isPrivateBrowsing: Bool) {
     saveBlockedResourcesTimer?.invalidate()
@@ -46,21 +44,7 @@ public struct PrivacyReportsManager {
     }
   }
 
-  public static func scheduleVPNAlertsTask() {
-    vpnAlertsTimer?.invalidate()
-
-    // Because fetching VPN alerts involves making a url request,
-    // the time interval to fetch them is longer than the local on-device blocked request processing.
-    let timeInterval = AppConstants.isOfficialBuild ? 5.minutes : 1.minutes
-    vpnAlertsTimer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true) { _ in
-      if Preferences.PrivacyReports.captureVPNAlerts.value {
-        BraveVPN.processVPNAlerts()
-      }
-    }
-  }
-
   public static func clearAllData() {
-    BraveVPNAlert.clearData()
     BlockedResource.clearData()
   }
 
@@ -78,14 +62,12 @@ public struct PrivacyReportsManager {
     Preferences.PrivacyReports.nextConsolidationDate.value = Date().advanced(by: 7.days)
 
     BlockedResource.consolidateData(olderThan: range)
-    BraveVPNAlert.consolidateData(olderThan: range)
   }
 
   // MARK: - View
   /// Fetches required data to present the privacy reports view and returns the view.
   static func prepareView(isPrivateBrowsing: Bool) -> PrivacyReportsView {
-    let last = BraveVPNAlert.last(3)
-    let view = PrivacyReportsView(lastVPNAlerts: last, isPrivateBrowsing: isPrivateBrowsing)
+    let view = PrivacyReportsView(lastVPNAlerts: nil, isPrivateBrowsing: isPrivateBrowsing)
 
     Preferences.PrivacyReports.ntpOnboardingCompleted.value = true
 

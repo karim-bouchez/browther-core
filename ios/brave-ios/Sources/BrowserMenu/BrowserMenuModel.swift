@@ -5,8 +5,6 @@
 
 import Combine
 import Foundation
-import GuardianConnect
-import NetworkExtension
 import Preferences
 import SwiftUI
 
@@ -16,8 +14,6 @@ import SwiftUI
   @Published var visibleActions: [Action] = []
   /// The list of hidden actions shown only when the user expands the "More Actions"
   @Published var hiddenActions: [Action] = []
-  /// The connected VPN region
-  @Published private(set) var vpnStatus: VPNStatus = .disconnected
 
   private var actions: [Action]
   private var actionVisibility: Preferences.Option<[String: Bool]>
@@ -26,14 +22,11 @@ import SwiftUI
 
   init(
     actions: [Action],
-    vpnStatus: VPNStatus = .disconnected,
-    vpnStatusPublisher: AnyPublisher<VPNStatus, Never>? = nil,
     actionVisibility: Preferences.Option<[String: Bool]> = Preferences.BrowserMenu
       .actionVisibility,
     actionRanks: Preferences.Option<[String: Double]> = Preferences.BrowserMenu.actionRanks
   ) {
     self.actions = actions
-    self.vpnStatus = vpnStatus
     self.actionVisibility = actionVisibility
     self.actionRanks = actionRanks
 
@@ -42,17 +35,6 @@ import SwiftUI
       .filter { $1.count > 1 }
     assert(duplicates.isEmpty, "Multiple action IDs have the same default rank: \(duplicates)")
     #endif
-
-    vpnStatusPublisher?
-      .receive(on: RunLoop.main)
-      .sink(receiveValue: { [weak self] status in
-        MainActor.assumeIsolated {
-          withAnimation {
-            self?.vpnStatus = status
-          }
-        }
-      })
-      .store(in: &cancellables)
 
     reloadActions()
   }
@@ -139,29 +121,8 @@ import SwiftUI
 
 extension BrowserMenuModel {
   static var mock: BrowserMenuModel {
-    let mockStatus: VPNStatus = .connected(
-      activeRegion: .init(
-        countryCode: "CA",
-        displayName: "Canada",
-        smartProxySupported: false
-      ),
-      isSmartProxyRoutingEnabled: false
-    )
-    let vpnStatusPublisher = CurrentValueSubject<VPNStatus, Never>(mockStatus)
     let model = BrowserMenuModel(
       actions: [
-        .init(
-          id: .vpn,
-          title: "VPN On",
-          traits: .init(badgeColor: UIColor(braveSystemName: .primary50)),
-          state: true
-        ) { action in
-          var actionCopy = action
-          actionCopy.state?.toggle()
-          actionCopy.title = "VPN \(actionCopy.state! ? "On" : "Off")"
-          vpnStatusPublisher.send(actionCopy.state! ? mockStatus : .disconnected)
-          return .updateAction(actionCopy)
-        },
         .init(id: .addBookmark, attributes: .disabled),
         .init(id: .history),
         .init(id: .braveLeo),
@@ -181,7 +142,6 @@ extension BrowserMenuModel {
         .init(id: .createPDF),
         .init(id: .pageZoom),
       ],
-      vpnStatusPublisher: vpnStatusPublisher.eraseToAnyPublisher(),
       actionVisibility: {
         let pref = Preferences.Option<[String: Bool]>(
           key: "browser-menu-mock-action-visibility",

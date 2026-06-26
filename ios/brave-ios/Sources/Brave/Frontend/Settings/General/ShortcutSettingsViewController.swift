@@ -28,8 +28,8 @@ struct ShortcutSettingsView: View {
 
   var body: some View {
     Form {
-      // Browther: filter out disabled features (VPN, News)
-      ForEach(ActivityType.allCases.filter { $0 != .enableBraveVPN && $0 != .openBraveNews }, id: \.identifier) { activityType in
+      // Browther: filter out disabled features (News)
+      ForEach(ActivityType.allCases.filter { $0 != .openBraveNews }, id: \.identifier) { activityType in
         Section {
           Button {
             Task { @MainActor in
@@ -127,8 +127,6 @@ extension ActivityType {
       return Strings.Shortcuts.shortcutSettingsOpenHistoryListTitle
     case .clearBrowsingHistory:
       return Strings.Shortcuts.shortcutSettingsClearBrowserHistoryTitle
-    case .enableBraveVPN:
-      return Strings.Shortcuts.shortcutSettingsEnableVPNTitle
     case .openBraveNews:
       return Strings.Shortcuts.shortcutSettingsOpenBraveNewsTitle
     case .openPlayList:
@@ -150,8 +148,6 @@ extension ActivityType {
       return Strings.Shortcuts.shortcutSettingsOpenHistoryListDescription
     case .clearBrowsingHistory:
       return Strings.Shortcuts.shortcutSettingsClearBrowserHistoryDescription
-    case .enableBraveVPN:
-      return Strings.Shortcuts.shortcutSettingsEnableVPNDescription
     case .openBraveNews:
       return Strings.Shortcuts.shortcutSettingsOpenBraveNewsDescription
     case .openPlayList:

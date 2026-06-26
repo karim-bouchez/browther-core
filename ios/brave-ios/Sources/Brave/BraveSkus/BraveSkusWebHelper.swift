@@ -4,7 +4,6 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveShared
-import BraveVPN
 import Foundation
 import Shared
 import os.log
@@ -16,11 +15,9 @@ class BraveSkusWebHelper {
   ]
   /// Which parameters have to be present before we expose the iOS receipt.
   private let requiredQueryItems: [URLQueryItem] =
-    [.init(name: "intent", value: "connect-receipt"), .init(name: "product", value: "vpn")]
+    [.init(name: "intent", value: "connect-receipt")]
   /// What key should be used to pass the receipt in session storage.
   private let storageKey = "braveVpn.receipt"
-  /// Value to pass to the json file's 'subscription_id' property. This is not related to the IAPs product ID.
-  private let receiptJsonSubscriptionId = "brave-firewall-vpn-premium"
 
   private let url: URL
 
@@ -66,20 +63,17 @@ class BraveSkusWebHelper {
       let type: String
       let rawReceipt: String
       let package: String
-      let subscriptionId: String
 
       enum CodingKeys: String, CodingKey {
         case type, package
         case rawReceipt = "raw_receipt"
-        case subscriptionId = "subscription_id"
       }
     }
 
     let json = ReceiptDataJson(
       type: "ios",
       rawReceipt: receipt,
-      package: bundleId,
-      subscriptionId: receiptJsonSubscriptionId
+      package: bundleId
     )
 
     do {
@@ -101,42 +95,13 @@ class BraveSkusWebHelper {
 
   static func environment(domain: String) -> String? {
     switch domain {
-    case "account.brave.software", "vpn.brave.software": return SkusEnvironment.development.rawValue
-    case "account.bravesoftware.com", "vpn.bravesoftware.com":
+    case "account.brave.software": return SkusEnvironment.development.rawValue
+    case "account.bravesoftware.com":
       return SkusEnvironment.staging.rawValue
-    case "account.brave.com", "vpn.brave.com": return SkusEnvironment.production.rawValue
+    case "account.brave.com": return SkusEnvironment.production.rawValue
     default:
       return nil
     }
-  }
-
-  /// Takes credential passed from the Brave SKUs and extract a proper credential to pass to the GuardianConnect framework.
-  static func fetchVPNCredential(_ credential: String, domain: String) -> BraveVPNSkusCredential? {
-    guard let unescapedCredential = credential.unescape(),
-      let env = environment(domain: domain),
-      let sampleUrl = URL(string: "https://brave.com")
-    else { return nil }
-
-    guard
-      let cookie = HTTPCookie.cookies(
-        withResponseHeaderFields: ["Set-Cookie": unescapedCredential],
-        for: sampleUrl
-      ).first
-    else {
-      return nil
-    }
-
-    let guardianCredential = cookie.value
-
-    guard let expirationDate = cookie.expiresDate else {
-      return nil
-    }
-
-    return .init(
-      guardianCredential: guardianCredential,
-      environment: env,
-      expirationDate: expirationDate
-    )
   }
 
   static func milisecondsOptionalDate(from stringDate: String) -> Date? {

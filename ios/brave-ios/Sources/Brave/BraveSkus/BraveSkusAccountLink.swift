@@ -47,12 +47,6 @@ class BraveSkusAccountLink {
 
   @MainActor
   static func injectLocalStorage(tab: some TabState) async {
-    if let vpnSubscriptionProductId = Preferences.VPN.subscriptionProductId.value,
-      let product = BraveStoreProduct(rawValue: vpnSubscriptionProductId)
-    {
-      await BraveSkusAccountLink.injectLocalStorage(tab: tab, product: product)
-    }
-
     if let aiChatSubscriptionProductId = Preferences.AIChat.subscriptionProductId.value,
       let product = BraveStoreProduct(rawValue: aiChatSubscriptionProductId)
     {

@@ -109,7 +109,6 @@ var package = Package(
         "Then",
         "BrowserIntentsModels",
         "BraveWidgetsModels",
-        "BraveVPN",
         "BraveNews",
         "AIChat",
         "BraveStore",
@@ -309,7 +308,7 @@ var package = Package(
     .target(
       name: "Growth",
       dependencies: [
-        "BraveVPN", "Shared", "BraveShared", "Strings", "SnapKit", "CertificateUtilities",
+        "Shared", "BraveShared", "Strings", "SnapKit", "CertificateUtilities",
         .product(name: "OrderedCollections", package: "swift-collections"),
       ],
       plugins: ["LoggerPlugin"]
@@ -682,7 +681,7 @@ var package = Package(
     .testTarget(name: "PrivateCDNTests", dependencies: ["PrivateCDN"]),
     .testTarget(
       name: "GrowthTests",
-      dependencies: ["Growth", "Shared", "BraveShared", "BraveVPN"]
+      dependencies: ["Growth", "Shared", "BraveShared"]
     ),
     .target(
       name: "PlaylistUI",
@@ -701,8 +700,8 @@ var package = Package(
     .target(
       name: "BrowserMenu",
       dependencies: [
-        "DesignSystem", "BraveUI", "Preferences", "Strings", "BraveStrings", "BraveVPN",
-        "GuardianConnect", "BraveWallet", "BraveShields",
+        "DesignSystem", "BraveUI", "Preferences", "Strings", "BraveStrings",
+        "BraveWallet", "BraveShields",
       ]
     ),
     .target(

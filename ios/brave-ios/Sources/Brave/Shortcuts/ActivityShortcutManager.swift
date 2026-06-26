@@ -5,7 +5,6 @@
 
 import BraveCore
 import BraveNews
-import BraveVPN
 import BrowserIntentsModels
 import CoreSpotlight
 import Data
@@ -27,7 +26,6 @@ public enum ActivityType: String, CaseIterable {
   case openBookmarks = "OpenBookmarks"
   case openHistoryList = "OpenHistoryList"
   case clearBrowsingHistory = "ClearBrowsingHistory"
-  case enableBraveVPN = "EnableBraveVPN"
   case openBraveNews = "OpenBraveNews"
   case openPlayList = "OpenPlayList"
   case openSyncedTabs = "OpenSyncedTabs"
@@ -49,8 +47,6 @@ public enum ActivityType: String, CaseIterable {
       return Strings.Shortcuts.activityTypeOpenHistoryListTitle
     case .clearBrowsingHistory:
       return Strings.Shortcuts.activityTypeClearHistoryTitle
-    case .enableBraveVPN:
-      return Strings.Shortcuts.activityTypeEnableVPNTitle
     case .openBraveNews:
       return Strings.Shortcuts.activityTypeOpenBraveNewsTitle
     case .openPlayList:
@@ -71,8 +67,6 @@ public enum ActivityType: String, CaseIterable {
       return Strings.Shortcuts.activityTypeOpenBookmarksDescription
     case .clearBrowsingHistory:
       return Strings.Shortcuts.activityTypeClearHistoryDescription
-    case .enableBraveVPN:
-      return Strings.Shortcuts.activityTypeEnableVPNDescription
     case .openBraveNews:
       return Strings.Shortcuts.activityTypeBraveNewsDescription
     case .openPlayList:
@@ -95,8 +89,6 @@ public enum ActivityType: String, CaseIterable {
       return Strings.Shortcuts.activityTypeOpenHistoryListSuggestedPhrase
     case .clearBrowsingHistory:
       return Strings.Shortcuts.activityTypeClearHistorySuggestedPhrase
-    case .enableBraveVPN:
-      return Strings.Shortcuts.activityTypeEnableVPNSuggestedPhrase
     case .openBraveNews:
       return Strings.Shortcuts.activityTypeOpenBraveNewsSuggestedPhrase
     case .openPlayList:
@@ -185,18 +177,6 @@ public class ActivityShortcutManager: NSObject {
       bvc.navigationHelper.openHistory(isModal: true)
     case .clearBrowsingHistory:
       bvc.clearHistoryAndOpenNewTab()
-    case .enableBraveVPN:
-      // need to stay in NTP for Brave VPN flow
-      openExternalNewTab(bvc.privateBrowsingManager.isPrivateBrowsing, false)
-
-      switch BraveVPN.vpnState {
-      case .notPurchased, .expired:
-        bvc.presentCorrespondingVPNViewController()
-      case .purchased(let connected):
-        if !connected {
-          BraveVPN.reconnect()
-        }
-      }
     case .openBraveNews:
       // Do nothing as browser when browser to PB only and Brave News isn't available on private tabs
       guard !Preferences.Privacy.privateBrowsingOnly.value else {

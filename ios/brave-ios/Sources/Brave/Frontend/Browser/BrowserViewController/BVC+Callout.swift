@@ -6,7 +6,6 @@
 import BraveCore
 import BraveShared
 import BraveUI
-import BraveVPN
 import DataImporter
 import Onboarding
 import Preferences
@@ -22,11 +21,9 @@ extension BrowserViewController {
   ///
   /// Priority:
   /// - P3A
-  /// - VPN Update Billing
   /// - Bottom Bar
   /// - Default Browser
   /// - Rewards
-  /// - VPN Link Receipt
   func presentFullScreenCallouts() {
     for type in FullScreenCalloutType.allCases {
       presentScreenCallout(for: type)
@@ -48,8 +45,9 @@ extension BrowserViewController {
       presentDefaultBrowserScreenCallout(skipSafeGuards: skipSafeGuards)
     case .rewards:
       presentBraveRewardsScreenCallout(skipSafeGuards: skipSafeGuards)
-    case .vpnLinkReceipt:
-      presentVPNLinkReceiptCallout(skipSafeGuards: skipSafeGuards)
+    default:
+      // Browther: firewall link-receipt callout removed (App Store policy)
+      break
     }
   }
 
@@ -140,51 +138,7 @@ extension BrowserViewController {
     present(controller, animated: true)
   }
 
-  private func presentVPNLinkReceiptCallout(skipSafeGuards: Bool = false) {
-    // Browther: VPN disabled — skip callout
-    if false, !skipSafeGuards {
-      // Show this onboarding only if the VPN has been purchased
-      guard case .purchased = BraveVPN.vpnState else {
-        return
-      }
-
-      if Preferences.Onboarding.basicOnboardingCompleted.value != OnboardingState.completed.rawValue
-      {
-        return
-      }
-    }
-
-    var linkReceiptView = VPNLinkReceiptView()
-    linkReceiptView.linkReceiptAction = {
-      self.openURLInNewTab(
-        .brave.braveVPNLinkReceiptProd,
-        isPrivate: self.privateBrowsingManager.isPrivateBrowsing,
-        isPrivileged: false
-      )
-    }
-    let popup = PopupViewController(rootView: linkReceiptView, isDismissable: true)
-
-    isOnboardingOrFullScreenCalloutPresented = true
-    present(popup, animated: false)
-  }
-
   // MARK: Helper Methods for Presentation
-
-  private func presentVPNChurnPromoCallout(
-    for type: VPNChurnPromoType,
-    completion: @escaping () -> Void
-  ) {
-    var vpnChurnPromoView = VPNChurnPromoView(churnPromoType: type)
-
-    vpnChurnPromoView.renewAction = {
-      completion()
-    }
-
-    let popup = PopupViewController(rootView: vpnChurnPromoView, isDismissable: true)
-
-    isOnboardingOrFullScreenCalloutPresented = true
-    present(popup, animated: false)
-  }
 
   private func shouldShowCallout(calloutType: FullScreenCalloutType, skipSafeGuards: Bool) -> Bool {
     if skipSafeGuards {
@@ -212,35 +166,6 @@ extension BrowserViewController {
   }
 
   // MARK: Non-Conditional Callouts Methods
-
-  func presentVPNInAppEventCallout() {
-    // If the onboarding has not completed or VPN is not available we do not show any promo screens.
-    // This will most likely be the case for users who have not installed the app yet.
-    if profileController.profile.prefs.isBraveVPNAvailable,
-      Preferences.Onboarding.basicOnboardingCompleted.value != OnboardingState.completed.rawValue
-    {
-      return
-    }
-
-    switch BraveVPN.vpnState {
-    case .purchased:
-      presentVPNLinkReceiptCallout(skipSafeGuards: true)
-    case .expired, .notPurchased:
-      if BraveVPNProductInfo.isComplete {
-        presentCorrespondingVPNViewController()
-      } else {
-        // This is flaky. We fetch VPN prices from Apple asynchronously and it makes no sense to
-        // show anything if there's no price data. We try to wait one second and see if the price data is there.
-        // If not we do not show anything.
-        // This can happen if the app is not in memory and we have to fresh launch it upon tapping on the in app event.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-          if BraveVPNProductInfo.isComplete {
-            presentCorrespondingVPNViewController()
-          }
-        }
-      }
-    }
-  }
 
   func presentBraveLeoDeepLink() {
     // If the onboarding has not completed we do not show any promo screens.

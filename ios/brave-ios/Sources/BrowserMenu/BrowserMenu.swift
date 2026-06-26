@@ -6,7 +6,6 @@
 import BraveShared
 import BraveUI
 import DesignSystem
-import GuardianConnect
 import Preferences
 import Strings
 import SwiftUI
@@ -108,39 +107,6 @@ public struct BrowserMenu: View {
             handleAction($action)
           }
         )
-        if case .connected(let region, let isSmartProxyEnabled) = model.vpnStatus {
-          Button {
-            handlePresentation(.vpnRegionPicker)
-          } label: {
-            Label {
-              HStack {
-                Text(Strings.BrowserMenu.vpnButtonTitle)
-                Spacer()
-                Text(region.flag)
-                Text(region.displayName)
-                if region.smartProxySupported && isSmartProxyEnabled {
-                  Image(braveSystemName: "leo.smart.proxy-routing")
-                    .resizable()
-                    .renderingMode(.template)
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(Color(braveSystemName: .iconDefault))
-                    .frame(width: 14, height: 14)
-                    .padding(4)
-                    .background(
-                      Color(braveSystemName: .containerHighlight),
-                      in: .rect(cornerRadius: 4, style: .continuous)
-                    )
-                }
-              }
-            } icon: {
-              Image(braveSystemName: "leo.product.vpn")
-            }
-          }
-          .buttonStyle(MenuRowButtonStyle())
-          .background(Color(braveSystemName: .schemesSurfaceBright))
-          .clipShape(.rect(cornerRadius: 14, style: .continuous))
-          .transition(.blurReplace())
-        }
         Button {
           handlePresentation(.settings)
         } label: {

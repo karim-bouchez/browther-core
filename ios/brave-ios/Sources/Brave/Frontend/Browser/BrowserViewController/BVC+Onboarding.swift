@@ -6,7 +6,6 @@
 import BraveCore
 import BraveShields
 import BraveUI
-import BraveVPN
 import BrowtherAnalytics
 import Onboarding
 import Preferences
@@ -27,7 +26,6 @@ extension BrowserViewController {
 
   func showNTPOnboarding() {
     Preferences.AppState.shouldDeferPromotedPurchase.value = false
-    iapObserver.savedPayment = nil
 
     if !topToolbar.inOverlayMode,
       topToolbar.currentURL == nil,
@@ -75,7 +73,7 @@ extension BrowserViewController {
         controller: controller,
         onDismiss: { [weak self] in
           guard let self = self else { return }
-          self.triggerPromotedInAppPurchase(savedPayment: self.iapObserver.savedPayment)
+          self.triggerPromotedInAppPurchase(savedPayment: nil)
         }
       )
     }
@@ -114,12 +112,7 @@ extension BrowserViewController {
   }
 
   private func triggerPromotedInAppPurchase(savedPayment: SKPayment?) {
-    guard let productPayment = savedPayment else {
-      return
-    }
-
-    navigationHelper.openVPNBuyScreen(iapObserver: iapObserver)
-    BraveVPN.activatePaymentTypeForStoredPromotion(savedPayment: productPayment)
+    // Browther: firewall removed — promoted in-app purchase no longer handled
   }
 
   private func showPrivacyReportsOnboardingIfNeeded() {

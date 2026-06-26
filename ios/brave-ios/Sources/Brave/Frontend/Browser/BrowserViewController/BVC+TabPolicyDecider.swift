@@ -110,15 +110,6 @@ extension BrowserViewController: TabPolicyDecider {
       return .cancel
     }
 
-    // Universal links do not work if the request originates from the app, manual handling is required.
-    if let mainDocURL = request.mainDocumentURL,
-      let universalLink = UniversalLinkManager.universalLinkType(for: mainDocURL, checkPath: true),
-      universalLink == .buyVPN
-    {
-      presentCorrespondingVPNViewController()
-      return .cancel
-    }
-
     // First special case are some schemes that are about Calling. We prompt the user to confirm this action. This
     // gives us the exact same behaviour as Safari.
     // tel:, facetime:, facetime-audio:, already has its own native alert displayed by the OS!

@@ -4,7 +4,6 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveShared
-import BraveVPN
 import Foundation
 import Preferences
 import Shared
@@ -108,50 +107,6 @@ class BrowserNavigationHelper {
       )
     )
     bvc.present(vc, animated: true)
-  }
-
-  func openVPNBuyScreen(iapObserver: BraveVPNInAppPurchaseObserver) {
-    guard BraveVPN.vpnState.isPaywallEnabled else { return }
-
-    let vpnPaywallView = BraveVPNPaywallView(
-      openVPNAuthenticationInNewTab: { [weak bvc] in
-        guard let bvc = bvc else { return }
-
-        bvc.popToBVC()
-
-        bvc.openURLInNewTab(
-          .brave.braveVPNRefreshCredentials,
-          isPrivate: bvc.privateBrowsingManager.isPrivateBrowsing,
-          isPrivileged: false
-        )
-      },
-      openDirectCheckoutInNewTab: { [weak bvc] in
-        guard let bvc else { return }
-        bvc.popToBVC()
-        bvc.openURLInNewTab(
-          .brave.braveVPNCheckoutURL,
-          isPrivate: bvc.privateBrowsingManager.isPrivateBrowsing,
-          isPrivileged: false
-        )
-      },
-      openLearnMoreInNewTab: { [weak bvc] in
-        guard let bvc else { return }
-        bvc.popToBVC()
-        bvc.openURLInNewTab(
-          .brave.braveVPNLearnMoreURL,
-          isPrivate: bvc.privateBrowsingManager.isPrivateBrowsing,
-          isPrivileged: false
-        )
-      },
-      installVPNProfile: { [weak bvc] in
-        guard let bvc = bvc else { return }
-        bvc.popToBVC()
-        bvc.openInsideSettingsNavigation(with: BraveVPNInstallViewController())
-      }
-    )
-
-    let vpnPaywallHostingVC = BraveVPNPaywallHostingController(paywallView: vpnPaywallView)
-    bvc?.present(UINavigationController(rootViewController: vpnPaywallHostingVC), animated: true)
   }
 
   func openShareSheet() {

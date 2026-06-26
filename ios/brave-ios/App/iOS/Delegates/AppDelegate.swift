@@ -12,7 +12,6 @@ import BraveShared
 import BraveShields
 import BraveStore
 import BraveTalk
-import BraveVPN
 import BraveWallet
 import BraveWidgetsModels
 import BrowtherAnalytics
@@ -282,11 +281,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       let currentDate = Date()
       Preferences.DAU.installationDate.value = currentDate
       Preferences.P3A.installationDate.value = currentDate
-
-      // VPN credentials are kept in keychain and persist between app reinstalls.
-      // To avoid unexpected problems we clear all vpn keychain items.
-      // New set of keychain items will be created on purchase or iap restoration.
-      BraveVPN.clearCredentials()
 
       // Always load YouTube in Brave for new users
       Preferences.General.keepYouTubeInBrave.value = true

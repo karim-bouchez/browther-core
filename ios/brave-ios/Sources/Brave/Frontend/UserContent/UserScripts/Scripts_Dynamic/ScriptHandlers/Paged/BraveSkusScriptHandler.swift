@@ -7,7 +7,6 @@ import AIChat
 import BraveCore
 import BraveShared
 import BraveStore
-import BraveVPN
 import Foundation
 import Preferences
 import Shared
@@ -113,16 +112,6 @@ class BraveSkusScriptHandler: TabContentScript {
 
     case .setLocalStorageReceipt:
       let storeMessage = try StoreReceiptMessage.from(message: message)
-      if storeMessage.message == "vpn" {
-        if let vpnSubscriptionProductId = Preferences.VPN.subscriptionProductId.value,
-          let product = BraveStoreProduct(rawValue: vpnSubscriptionProductId)
-        {
-          let storageKey = product.localStorageKey
-          let receipt = try AppStoreReceipt.receipt(for: product)
-          return ["key": storageKey, "data": receipt]
-        }
-      }
-
       if storeMessage.message == "leo" {
         if let aiChatSubscriptionProductId = Preferences.AIChat.subscriptionProductId.value,
           let orderId = Preferences.AIChat.subscriptionOrderId.value,

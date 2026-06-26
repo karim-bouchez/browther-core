@@ -7,7 +7,6 @@ import Brave
 import BraveCore
 import BraveNews
 import BraveShared
-import BraveVPN
 import BraveWidgetsModels
 import BrowserIntentsModels
 import Combine
@@ -213,7 +212,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     if let browserViewController = scene.browserViewController {
       Preferences.AppState.backgroundedCleanly.value = false
       sendDAUPingIfNeeded()
-      refreshSKUsCredentials(in: scene)
       handleQuickActionsIfNeeded(browserViewController: browserViewController)
     }
   }
@@ -226,7 +224,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func sceneDidEnterBackground(_ scene: UIScene) {
-    BraveVPN.sendVPNWorksInBackgroundNotification()
   }
 
   func scene(_ scene: UIScene, openURLContexts contexts: Set<UIOpenURLContext>) {
@@ -458,7 +455,6 @@ extension SceneDelegate {
     PrivacyReportsManager.scheduleProcessingBlockedRequests(
       isPrivateBrowsing: browserViewController.privateBrowsingManager.isPrivateBrowsing
     )
-    PrivacyReportsManager.scheduleVPNAlertsTask()
 
     // Handle Custom Activity and Intents
     if let currentActivity = sceneState.connectionOptions.userActivities.first {
@@ -469,7 +465,6 @@ extension SceneDelegate {
       // Perform any actions that would also execute in sceneDidBecomeActive
       Preferences.AppState.backgroundedCleanly.value = false
       sendDAUPingIfNeeded()
-      refreshSKUsCredentials(in: sceneState.windowScene)
       handleQuickActionsIfNeeded(browserViewController: browserViewController)
     }
   }
@@ -492,14 +487,6 @@ extension SceneDelegate {
     // Also send the ping only after install attribution has processed.
     if Preferences.URP.installAttributionLookupOutstanding.value == false {
       profileState.dau.sendPingToServer()
-    }
-  }
-
-  private func refreshSKUsCredentials(in scene: UIWindowScene) {
-    Task { @MainActor in
-      let isPrivateBrowsing =
-        scene.browserViewController?.privateBrowsingManager.isPrivateBrowsing == true
-      await BraveSkusManager(isPrivateMode: isPrivateBrowsing)?.refreshVPNCredentials()
     }
   }
 
@@ -575,15 +562,6 @@ extension SceneDelegate {
       }
 
       return
-    case ActivityType.enableBraveVPN.identifier:
-      if let browserViewController = scene.browserViewController {
-        ActivityShortcutManager.shared.performShortcutActivity(
-          type: .enableBraveVPN,
-          using: browserViewController
-        )
-      }
-
-      return
     case ActivityType.openBraveNews.identifier:
       let isNewsAvailable =
         AppState.shared.braveCore.profileController?.profile.prefs.isBraveNewsAvailable ?? true
@@ -616,14 +594,6 @@ extension SceneDelegate {
     }
 
     if let url = userActivity.webpageURL {
-      switch UniversalLinkManager.universalLinkType(for: url, checkPath: false) {
-      case .buyVPN:
-        scene.browserViewController?.presentCorrespondingVPNViewController()
-        return
-      case .none:
-        break
-      }
-
       let isPrivateBrowsing =
         scene.browserViewController?.privateBrowsingManager.isPrivateBrowsing == true
       scene.browserViewController?.switchToTabForURLOrOpen(
