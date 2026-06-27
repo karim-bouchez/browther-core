@@ -25,3 +25,9 @@
 /* Shields Trackers Stat */
 "TrackersrBlocked" = "Blokkolt\nnyomkövetők";
 
+
+/* Browther: Music removed by Sawtunaa */
+"MusicRemovedStat" = "Zene \neltávolítva";
+
+/* Browther: People blurred by Basarunaa */
+"PeopleBlurredStat" = "Személyek \nelmosva";

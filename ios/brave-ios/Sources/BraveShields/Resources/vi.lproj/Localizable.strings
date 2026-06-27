@@ -25,3 +25,9 @@
 /* Shields Trackers Stat */
 "TrackersrBlocked" = "Trình theo dõi\nđã chặn";
 
+
+/* Browther: Music removed by Sawtunaa */
+"MusicRemovedStat" = "Đã xóa \nnhạc";
+
+/* Browther: People blurred by Basarunaa */
+"PeopleBlurredStat" = "Đã làm mờ \nngười";

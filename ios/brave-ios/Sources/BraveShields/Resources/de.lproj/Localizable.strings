@@ -25,3 +25,9 @@
 /* Shields Trackers Stat */
 "TrackersrBlocked" = "Blockierte \nTracker";
 
+
+/* Browther: Music removed by Sawtunaa */
+"MusicRemovedStat" = "Musik \nentfernt";
+
+/* Browther: People blurred by Basarunaa */
+"PeopleBlurredStat" = "Personen \nverpixelt";

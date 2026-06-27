@@ -25,3 +25,9 @@
 /* Shields Trackers Stat */
 "TrackersrBlocked" = "Penjejak\nDisekat";
 
+
+/* Browther: Music removed by Sawtunaa */
+"MusicRemovedStat" = "Muzik \ndialih keluar";
+
+/* Browther: People blurred by Basarunaa */
+"PeopleBlurredStat" = "Orang \ndikaburkan";
