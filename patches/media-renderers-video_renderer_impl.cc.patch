@@ -1,0 +1,27 @@
+diff --git a/media/renderers/video_renderer_impl.cc b/media/renderers/video_renderer_impl.cc
+index a342b81050aca..8d3eae8652338 100644
+--- a/media/renderers/video_renderer_impl.cc
++++ b/media/renderers/video_renderer_impl.cc
+@@ -625,6 +625,22 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
+   last_decoder_stream_avg_duration_ = video_decoder_stream_->AverageDuration();
+ 
+   const bool is_eos = frame->metadata().end_of_stream;
++  // [Browther/Basarunaa] decode-ahead spike (voie native, plan A) — prouve que le
++  // renderer décode les frames EN AVANCE de l'affichage : log périodique du temps
++  // média de la frame décodée + profondeur de file (≈ avance). Point de tap pour
++  // le futur flou anticipé. Visible dans chrome://media-internals.
++  if (!is_eos && algorithm_) {
++    static int bsr_da_n = 0;
++    if ((bsr_da_n++ % 30) == 0) {
++      MEDIA_LOG(INFO, media_log_)
++          << "[bsrDA] decoded media_ts=" << frame->timestamp().InMilliseconds()
++          << "ms queued=" << algorithm_->frames_queued() << " (~lead="
++          << (static_cast<int64_t>(algorithm_->frames_queued()) *
++              algorithm_->average_frame_duration().InMilliseconds())
++          << "ms) min_buf=" << min_buffered_frames_
++          << " max_buf=" << max_buffered_frames_;
++    }
++  }
+   const bool is_before_start_time = !is_eos && IsBeforeStartTime(*frame);
+   const bool cant_read = !video_decoder_stream_->CanReadWithoutStalling();
+   const bool has_best_first_frame = !is_eos && HasBestFirstFrame(*frame);
