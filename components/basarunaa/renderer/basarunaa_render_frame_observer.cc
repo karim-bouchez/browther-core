@@ -29,7 +29,9 @@ namespace {
 
 BasarunaaRenderFrameObserver::BasarunaaRenderFrameObserver(
     content::RenderFrame* render_frame)
-    : content::RenderFrameObserver(render_frame) {}
+    : content::RenderFrameObserver(render_frame),
+      content::RenderFrameObserverTracker<BasarunaaRenderFrameObserver>(
+          render_frame) {}
 
 BasarunaaRenderFrameObserver::~BasarunaaRenderFrameObserver() = default;
 
@@ -59,6 +61,29 @@ void BasarunaaRenderFrameObserver::DidFinishLoad() {
   //     mojom::ImageFormat::kRgba8,
   //     base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
   //                    weak_ptr_factory_.GetWeakPtr()));
+}
+
+base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
+BasarunaaRenderFrameObserver::GetVideoLeadFrameSink() {
+  return base::BindRepeating(
+      &BasarunaaRenderFrameObserver::OnVideoLeadFrame,
+      weak_ptr_factory_.GetWeakPtr());
+}
+
+void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
+                                                    int width,
+                                                    int height,
+                                                    base::TimeDelta media_time) {
+  // ③a : plomberie renderer→browser. Le buffer vient déjà en BGRA
+  // (kN32 Apple, cf. WebMediaPlayerImpl::OnLeadFrame étape ②).
+  if (!EnsureConnected()) {
+    return;
+  }
+  mojo_base::BigBuffer buffer{base::span<const uint8_t>(bgra)};
+  image_analyzer_->AnalyzeImage(
+      std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
+      base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
+                     weak_ptr_factory_.GetWeakPtr()));
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(

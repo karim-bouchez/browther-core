@@ -1,0 +1,27 @@
+diff --git a/content/renderer/media/media_factory.cc b/content/renderer/media/media_factory.cc
+index 123ac44c61606..073da5ba953fd 100644
+--- a/content/renderer/media/media_factory.cc
++++ b/content/renderer/media/media_factory.cc
+@@ -479,6 +479,12 @@ std::unique_ptr<blink::WebMediaPlayer> MediaFactory::CreateMediaPlayer(
+             blink::TaskType::kNetworkingUnfreezable));
+   }
+ 
++  // [Browther/Basarunaa] decode-ahead : sink optionnel fourni par l'embedder
++  // pour recevoir les frames décodées-en-avance (readback CPU/BGRA) et lancer
++  // l'analyse ML. Null par défaut (Chromium en amont).
++  auto video_lead_frame_sink =
++      GetContentClient()->renderer()->GetVideoLeadFrameSink(render_frame_);
++
+   return media_player_builder_->Build(
+       web_frame, client, encrypted_client, delegate,
+       std::move(factory_selector), std::move(submitter), std::move(media_log),
+@@ -503,7 +509,8 @@ std::unique_ptr<blink::WebMediaPlayer> MediaFactory::CreateMediaPlayer(
+       render_frame_->GetRenderFrameMediaPlaybackOptions()
+           .is_background_video_track_optimization_supported,
+       std::move(demuxer_override),
+-      blink::Platform::Current()->GetBrowserInterfaceBroker());
++      blink::Platform::Current()->GetBrowserInterfaceBroker(),
++      std::move(video_lead_frame_sink));
+ }
+ 
+ blink::WebEncryptedMediaClient* MediaFactory::EncryptedMediaClient() {

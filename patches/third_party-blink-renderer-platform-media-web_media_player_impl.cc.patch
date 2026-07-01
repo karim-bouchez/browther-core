@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..cc078ebc3f2fa 100644
+index 2f77f8cc774f4..7be9852b58619 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -54,6 +54,10 @@
@@ -13,7 +13,30 @@ index 2f77f8cc774f4..cc078ebc3f2fa 100644
  #include "media/filters/chunk_demuxer.h"
  #include "media/filters/ffmpeg_demuxer.h"
  #include "media/filters/memory_data_source.h"
-@@ -2929,6 +2933,17 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
+@@ -443,7 +447,9 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
+     bool is_background_video_playback_enabled,
+     bool is_background_video_track_optimization_supported,
+     std::unique_ptr<media::Demuxer> demuxer_override,
+-    scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces)
++    scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces,
++    base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
++        video_lead_frame_sink)
+     : frame_(frame),
+       main_task_runner_(frame->GetTaskRunner(TaskType::kMediaElementEvent)),
+       media_task_runner_(std::move(media_task_runner)),
+@@ -490,6 +496,11 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
+   DCHECK(client_);
+   DCHECK(delegate_);
+ 
++  // [Browther/Basarunaa] decode-ahead : sink fourni par l'embedder (via
++  // ContentRendererClient::GetVideoLeadFrameSink). Assigné en corps pour ne pas
++  // dépendre de l'ordre de déclaration des membres (-Wreorder).
++  lead_frame_sink_ = std::move(video_lead_frame_sink);
++
+   if (base::FeatureList::IsEnabled(media::kMediaPowerExperiment)) {
+     // The battery monitor is only available through the blink provider.
+     DCHECK(remote_interfaces);
+@@ -2929,6 +2940,17 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
      CreateWatchTimeReporter();
    }
  
@@ -31,7 +54,7 @@ index 2f77f8cc774f4..cc078ebc3f2fa 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3643,83 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3650,86 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
@@ -98,18 +121,21 @@ index 2f77f8cc774f4..cc078ebc3f2fa 100644
 +      kN32_SkColorType, /*premultiply_alpha=*/false,
 +      media::PaintCanvasVideoRenderer::kFilterNone, /*disable_threading=*/true);
 +
-+  // 4) Checksum léger (échantillonné) pour prouver qu'on a de vrais pixels.
-+  uint32_t checksum = 0;
-+  for (size_t i = 0; i < rgba.size(); i += 257)
-+    checksum = checksum * 31u + rgba[i];
-+
++  // 4) Étape ③ : remettre le buffer BGRA à l'embedder (RFO Basarunaa -> Mojo
++  // ImageAnalyzer -> ML browser process). Le sink prend possession du vecteur.
++  // Sink null (embedder sans analyse) -> on ne fait rien de plus.
 +  MEDIA_LOG(INFO, media_log_.get())
 +      << "[bsrDA] readback OK src=" << src.width() << "x" << src.height()
-+      << (frame->HasSharedImage() ? " (gpu)" : " (cpu)") << " -> rgba="
++      << (frame->HasSharedImage() ? " (gpu)" : " (cpu)") << " -> bgra="
 +      << rgba_size.width() << "x" << rgba_size.height()
 +      << (scaled ? "" : " NOSCALE") << " bytes=" << rgba.size()
-+      << " checksum=" << checksum
++      << " sink=" << (lead_frame_sink_ ? "on" : "off")
 +      << " ts=" << cpu_frame->timestamp().InMilliseconds() << "ms";
++
++  if (lead_frame_sink_) {
++    lead_frame_sink_.Run(std::move(rgba), rgba_size.width(),
++                         rgba_size.height(), cpu_frame->timestamp());
++  }
 +}
 +
  std::unique_ptr<WebMediaPlayer::VideoFramePresentationMetadata>

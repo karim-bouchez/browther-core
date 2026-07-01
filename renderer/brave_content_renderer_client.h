@@ -6,8 +6,12 @@
 #ifndef BRAVE_RENDERER_BRAVE_CONTENT_RENDERER_CLIENT_H_
 #define BRAVE_RENDERER_BRAVE_CONTENT_RENDERER_CLIENT_H_
 
+#include <cstdint>
 #include <memory>
+#include <vector>
 
+#include "base/functional/callback.h"
+#include "base/time/time.h"
 #include "brave/components/brave_search/renderer/brave_search_service_worker_holder.h"
 #include "chrome/renderer/chrome_content_renderer_client.h"
 #include "v8/include/v8.h"
@@ -50,6 +54,11 @@ class BraveContentRendererClient : public ChromeContentRendererClient {
   std::unique_ptr<blink::URLLoaderThrottleProvider>
   CreateURLLoaderThrottleProvider(
       blink::URLLoaderThrottleProviderType provider_type) override;
+
+  // [Browther/Basarunaa] decode-ahead ③ : fournit le sink lead-frame au
+  // WebMediaPlayerImpl, bindé sur le BasarunaaRenderFrameObserver de ce frame.
+  base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
+  GetVideoLeadFrameSink(content::RenderFrame* render_frame) override;
 
   bool IsOnionAllowed() const;
 

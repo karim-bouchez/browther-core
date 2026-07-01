@@ -1,0 +1,30 @@
+diff --git a/third_party/blink/public/platform/media/web_media_player_builder.h b/third_party/blink/public/platform/media/web_media_player_builder.h
+index 69901bda4a177..349cccb09609f 100644
+--- a/third_party/blink/public/platform/media/web_media_player_builder.h
++++ b/third_party/blink/public/platform/media/web_media_player_builder.h
+@@ -8,9 +8,12 @@
+ #include <stdint.h>
+ 
+ #include <memory>
++#include <vector>
+ 
++#include "base/functional/callback.h"  // [Browther/Basarunaa] lead-frame sink
+ #include "base/functional/callback_forward.h"
+ #include "base/memory/scoped_refptr.h"
++#include "base/time/time.h"  // [Browther/Basarunaa] lead-frame sink
+ #include "base/memory/weak_ptr.h"
+ #include "cc/layers/surface_layer.h"
+ #include "media/base/media_player_logging_id.h"
+@@ -98,7 +101,11 @@ class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
+       bool is_background_video_playback_enabled,
+       bool is_background_video_track_optimization_supported,
+       std::unique_ptr<media::Demuxer> demuxer_override,
+-      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces);
++      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces,
++      // [Browther/Basarunaa] decode-ahead sink (POD; null = disabled).
++      base::RepeatingCallback<void(std::vector<uint8_t>, int, int,
++                                   base::TimeDelta)>
++          video_lead_frame_sink);
+ 
+  private:
+   // Media resource cache.
