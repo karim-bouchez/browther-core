@@ -1,0 +1,117 @@
+diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
+index 2f77f8cc774f4..cc078ebc3f2fa 100644
+--- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
++++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
+@@ -54,6 +54,10 @@
+ #include "media/base/supported_types.h"
+ #include "media/base/timestamp_constants.h"
+ #include "media/base/video_frame.h"
++#include "media/base/video_frame_converter.h"  // [Browther/Basarunaa]
++#include "media/base/video_frame_pool.h"        // [Browther/Basarunaa]
++#include "media/base/video_util.h"              // [Browther/Basarunaa]
++#include "media/renderers/renderer_impl_factory.h"  // [Browther/Basarunaa]
+ #include "media/filters/chunk_demuxer.h"
+ #include "media/filters/ffmpeg_demuxer.h"
+ #include "media/filters/memory_data_source.h"
+@@ -2929,6 +2933,17 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
+     CreateWatchTimeReporter();
+   }
+ 
++  // [Browther/Basarunaa] decode-ahead : installe le callback lead-frame sur la
++  // factory in-process (RendererImplFactory <-> kRendererImpl). Le downcast est
++  // sûr sous cette garde (GetCurrentFactory() correspond à renderer_type_).
++  // BindPostTaskToCurrentDefault fait le hop thread média -> main thread.
++  if (renderer_type_ == media::RendererType::kRendererImpl) {
++    static_cast<media::RendererImplFactory*>(
++        renderer_factory_selector_->GetCurrentFactory())
++        ->SetLeadFrameCB(base::BindPostTaskToCurrentDefault(
++            base::BindRepeating(&WebMediaPlayerImpl::OnLeadFrame, weak_this_)));
++  }
++
+   return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
+       media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
+       compositor_.get(), std::move(request_overlay_info_cb),
+@@ -3628,6 +3643,83 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+   client_->OnRequestVideoFrameCallback();
+ }
+ 
++void WebMediaPlayerImpl::OnLeadFrame(scoped_refptr<media::VideoFrame> frame) {
++  // [Browther/Basarunaa] decode-ahead — checkpoint ② : prouve la sortie CPU
++  // native (readback GPU->CPU + downscale + RGBA). Pas encore de ML (étape ③).
++  DCHECK(main_task_runner_->BelongsToCurrentThread());
++  if (!frame)
++    return;
++
++  const gfx::Size src = frame->visible_rect().size();
++
++  // 1) GPU -> CPU. Frame VideoToolbox = texture/shared image -> readback via le
++  // RasterInterface (main render thread). Frame déjà mappable (SW/dav1d) = pas de
++  // readback. |raster_context_provider_| peut être null (audio-only / non
++  // composité) -> pas de readback possible.
++  scoped_refptr<media::VideoFrame> cpu_frame;
++  if (frame->HasSharedImage()) {
++    if (!raster_context_provider_) {
++      MEDIA_LOG(INFO, media_log_.get())
++          << "[bsrDA] readback skip: pas de raster_context_provider_";
++      return;
++    }
++    if (!lead_frame_pool_)
++      lead_frame_pool_ = std::make_unique<media::VideoFramePool>();
++    cpu_frame = media::ReadbackTextureBackedFrameToMemorySync(
++        *frame, raster_context_provider_->RasterInterface(),
++        lead_frame_pool_.get());
++  } else if (frame->IsMappable()) {
++    cpu_frame = frame;
++  }
++  if (!cpu_frame) {
++    MEDIA_LOG(INFO, media_log_.get())
++        << "[bsrDA] readback FAILED (has_si=" << frame->HasSharedImage()
++        << " mappable=" << frame->IsMappable()
++        << " storage=" << static_cast<int>(frame->storage_type()) << ")";
++    return;
++  }
++
++  // 2) Downscale -> I420 ~256px de large (préparation entrée ML). Dimensions
++  // paires (contrainte de sous-échantillonnage I420).
++  const int dst_w = 256;
++  const int dst_h =
++      std::max(2, src.height() * dst_w / std::max(1, src.width()));
++  const gfx::Size dst_size((dst_w + 1) & ~1, (dst_h + 1) & ~1);
++  scoped_refptr<media::VideoFrame> small = media::VideoFrame::CreateFrame(
++      media::PIXEL_FORMAT_I420, dst_size, gfx::Rect(dst_size), dst_size,
++      cpu_frame->timestamp());
++  if (!lead_frame_converter_)
++    lead_frame_converter_ = std::make_unique<media::VideoFrameConverter>();
++  const bool scaled =
++      small && lead_frame_converter_->ConvertAndScale(*cpu_frame, *small).is_ok();
++  media::VideoFrame* rgba_src = scaled ? small.get() : cpu_frame.get();
++
++  // 3) -> packé 4 octets/pixel (ce que le ML consommera en étape ③). NB :
++  // ConvertVideoFrameToRGBPixels n'accepte QUE kN32_SkColorType pour les YUV
++  // (CHECK dans paint_canvas_video_renderer.cc) = BGRA sur Apple little-endian.
++  // En ③ on passera donc ImageFormat::kBgra8 au Mojo AnalyzeImage.
++  const gfx::Size rgba_size = rgba_src->visible_rect().size();
++  std::vector<uint8_t> rgba(static_cast<size_t>(rgba_size.width()) *
++                            rgba_size.height() * 4);
++  media::PaintCanvasVideoRenderer::ConvertVideoFrameToRGBPixels(
++      rgba_src, rgba, static_cast<size_t>(rgba_size.width()) * 4,
++      kN32_SkColorType, /*premultiply_alpha=*/false,
++      media::PaintCanvasVideoRenderer::kFilterNone, /*disable_threading=*/true);
++
++  // 4) Checksum léger (échantillonné) pour prouver qu'on a de vrais pixels.
++  uint32_t checksum = 0;
++  for (size_t i = 0; i < rgba.size(); i += 257)
++    checksum = checksum * 31u + rgba[i];
++
++  MEDIA_LOG(INFO, media_log_.get())
++      << "[bsrDA] readback OK src=" << src.width() << "x" << src.height()
++      << (frame->HasSharedImage() ? " (gpu)" : " (cpu)") << " -> rgba="
++      << rgba_size.width() << "x" << rgba_size.height()
++      << (scaled ? "" : " NOSCALE") << " bytes=" << rgba.size()
++      << " checksum=" << checksum
++      << " ts=" << cpu_frame->timestamp().InMilliseconds() << "ms";
++}
++
+ std::unique_ptr<WebMediaPlayer::VideoFramePresentationMetadata>
+ WebMediaPlayerImpl::GetVideoFramePresentationMetadata() {
+   return compositor_->GetLastPresentedFrameMetadata();

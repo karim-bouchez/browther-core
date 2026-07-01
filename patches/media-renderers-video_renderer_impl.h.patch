@@ -1,0 +1,29 @@
+diff --git a/media/renderers/video_renderer_impl.h b/media/renderers/video_renderer_impl.h
+index 8ad331101c45a..168a26612aeed 100644
+--- a/media/renderers/video_renderer_impl.h
++++ b/media/renderers/video_renderer_impl.h
+@@ -63,7 +63,11 @@ class MEDIA_EXPORT VideoRendererImpl
+       bool drop_frames,
+       MediaLog* media_log,
+       std::unique_ptr<MappableSharedImageVideoFramePool> mappable_si_pool,
+-      MediaPlayerLoggingID media_player_id);
++      MediaPlayerLoggingID media_player_id,
++      // [Browther/Basarunaa] decode-ahead : appelé (throttlé) sur le thread média
++      // avec chaque frame décodée en avance de l'affichage. Null = désactivé
++      // (un RepeatingCallback par défaut est null).
++      LeadFrameCB lead_frame_cb = LeadFrameCB());
+ 
+   VideoRendererImpl(const VideoRendererImpl&) = delete;
+   VideoRendererImpl& operator=(const VideoRendererImpl&) = delete;
+@@ -221,6 +225,11 @@ class MEDIA_EXPORT VideoRendererImpl
+ 
+   scoped_refptr<base::SequencedTaskRunner> task_runner_;
+ 
++  // [Browther/Basarunaa] decode-ahead : callback appelé (throttlé) avec chaque
++  // frame décodée en avance, + compteur de throttle. Accès sur |task_runner_|.
++  LeadFrameCB lead_frame_cb_;
++  uint64_t lead_frame_count_ = 0;
++
+   // Sink which calls into VideoRendererImpl via Render() for video frames.  Do
+   // not call any methods on the sink while |lock_| is held or the two threads
+   // might deadlock. Do not call Start() or Stop() on the sink directly, use

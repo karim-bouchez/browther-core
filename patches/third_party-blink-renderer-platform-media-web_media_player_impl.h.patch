@@ -1,0 +1,39 @@
+diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
+index 57c8960bcdb25..38b7739728373 100644
+--- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
++++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
+@@ -84,6 +84,8 @@ class MediaLog;
+ class MemoryDumpProviderProxy;
+ class PipelineController;
+ class SwitchableAudioRendererSink;
++class VideoFrameConverter;  // [Browther/Basarunaa] decode-ahead
++class VideoFramePool;       // [Browther/Basarunaa] decode-ahead
+ }  // namespace media
+ 
+ namespace viz {
+@@ -710,6 +712,12 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+   // RequestAnimationFrame() is called.
+   void OnNewFramePresentedCallback();
+ 
++  // [Browther/Basarunaa] decode-ahead : reçoit (sur le main thread, via
++  // BindPostTaskToCurrentDefault depuis VideoRendererImpl::FrameReady) une frame
++  // décodée EN AVANCE de l'affichage, en fait le readback GPU->CPU + downscale +
++  // RGBA, et (à terme) la passe au ML. Pour l'instant : log dims + checksum.
++  void OnLeadFrame(scoped_refptr<media::VideoFrame> frame);
++
+   // Notifies |demuxer_manager_| of playback and rate changes which may increase
+   // the amount of data the DataSource buffers. Does nothing prior to reaching
+   // kReadyStateHaveEnoughData for the first time.
+@@ -884,6 +892,12 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+       compositor_;  // Deleted on |vfc_task_runner_|.
+   media::PaintCanvasVideoRenderer video_renderer_;
+ 
++  // [Browther/Basarunaa] decode-ahead : scratch pour le readback GPU->CPU + le
++  // downscale des frames lead. Créés paresseusement dans OnLeadFrame (main
++  // thread). |lead_frame_pool_| recycle les frames CPU issues du readback.
++  std::unique_ptr<media::VideoFramePool> lead_frame_pool_;
++  std::unique_ptr<media::VideoFrameConverter> lead_frame_converter_;
++
+   // The compositor layer for displaying the video content when using composited
+   // playback.
+   scoped_refptr<cc::VideoLayer> video_layer_;

@@ -1,0 +1,56 @@
+diff --git a/media/renderers/renderer_impl_factory.h b/media/renderers/renderer_impl_factory.h
+index c938b43d0367c..b5ef0101f616e 100644
+--- a/media/renderers/renderer_impl_factory.h
++++ b/media/renderers/renderer_impl_factory.h
+@@ -6,6 +6,7 @@
+ #define MEDIA_RENDERERS_RENDERER_IMPL_FACTORY_H_
+ 
+ #include <memory>
++#include <utility>
+ #include <vector>
+ 
+ #include "base/functional/callback.h"
+@@ -29,6 +30,7 @@ class DecoderFactory;
+ class GpuVideoAcceleratorFactories;
+ class MediaLog;
+ class VideoDecoder;
++class VideoFrame;
+ class VideoRendererSink;
+ 
+ using CreateAudioDecodersCB =
+@@ -36,6 +38,12 @@ using CreateAudioDecodersCB =
+ using CreateVideoDecodersCB =
+     base::RepeatingCallback<std::vector<std::unique_ptr<VideoDecoder>>()>;
+ 
++// [Browther/Basarunaa] Callback invoqué (sur le thread média) avec chaque frame
++// décodée disponible EN AVANCE de l'affichage (decode-ahead). Le readback
++// GPU->CPU se fait côté sink (WebMediaPlayerImpl, qui possède le raster context)
++// après un hop vers le main thread. Défaut null = feature désactivée.
++using LeadFrameCB = base::RepeatingCallback<void(scoped_refptr<VideoFrame>)>;
++
+ // The default factory class for creating RendererImpl.
+ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
+  public:
+@@ -69,6 +77,12 @@ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
+       RequestOverlayInfoCB request_overlay_info_cb,
+       const gfx::ColorSpace& target_color_space) final;
+ 
++  // [Browther/Basarunaa] Installe le callback decode-ahead. Doit être appelé
++  // AVANT CreateRenderer() (le VideoRendererImpl le capture à la construction).
++  void SetLeadFrameCB(LeadFrameCB lead_frame_cb) {
++    lead_frame_cb_ = std::move(lead_frame_cb);
++  }
++
+  private:
+   std::vector<std::unique_ptr<AudioDecoder>> CreateAudioDecoders(
+       const scoped_refptr<base::SequencedTaskRunner>& media_task_runner);
+@@ -90,6 +104,9 @@ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
+   // WebMediaPlayerImpl id.
+   MediaPlayerLoggingID media_player_id_;
+ 
++  // [Browther/Basarunaa] Callback decode-ahead passé à chaque VideoRendererImpl.
++  LeadFrameCB lead_frame_cb_;
++
+ #if !BUILDFLAG(IS_ANDROID)
+   std::unique_ptr<SpeechRecognitionClient> speech_recognition_client_;
+ #endif

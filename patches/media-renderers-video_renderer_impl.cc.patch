@@ -1,5 +1,5 @@
 diff --git a/media/renderers/video_renderer_impl.cc b/media/renderers/video_renderer_impl.cc
-index a342b81050aca..220d3e66b9560 100644
+index a342b81050aca..efe8de293c193 100644
 --- a/media/renderers/video_renderer_impl.cc
 +++ b/media/renderers/video_renderer_impl.cc
 @@ -40,7 +40,11 @@ namespace {
@@ -15,7 +15,19 @@ index a342b81050aca..220d3e66b9560 100644
  
  }  // namespace
  
-@@ -200,6 +204,19 @@ void VideoRendererImpl::Initialize(
+@@ -51,8 +55,10 @@ VideoRendererImpl::VideoRendererImpl(
+     bool drop_frames,
+     MediaLog* media_log,
+     std::unique_ptr<MappableSharedImageVideoFramePool> mappable_si_pool,
+-    MediaPlayerLoggingID media_player_id)
++    MediaPlayerLoggingID media_player_id,
++    LeadFrameCB lead_frame_cb)
+     : task_runner_(media_task_runner),
++      lead_frame_cb_(std::move(lead_frame_cb)),
+       sink_(sink),
+       sink_started_(false),
+       client_(nullptr),
+@@ -200,6 +206,19 @@ void VideoRendererImpl::Initialize(
      min_buffered_frames_ = 1;
    }
  
@@ -35,7 +47,7 @@ index a342b81050aca..220d3e66b9560 100644
    // Always post |init_cb_| because |this| could be destroyed if initialization
    // failed.
    init_cb_ = base::BindPostTaskToCurrentDefault(std::move(init_cb));
-@@ -625,6 +642,22 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
+@@ -625,6 +644,30 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
    last_decoder_stream_avg_duration_ = video_decoder_stream_->AverageDuration();
  
    const bool is_eos = frame->metadata().end_of_stream;
@@ -54,6 +66,14 @@ index a342b81050aca..220d3e66b9560 100644
 +          << "ms) min_buf=" << min_buffered_frames_
 +          << " max_buf=" << max_buffered_frames_;
 +    }
++  }
++  // [Browther/Basarunaa] decode-ahead : livre une frame lead ÉCHANTILLONNÉE au
++  // sink (WebMediaPlayerImpl, main thread via BindPostTaskToCurrentDefault) pour
++  // readback GPU->CPU + analyse ML. Throttle ~2/s : le readback synchrone bloque
++  // le main thread, et ~0,7 s d'avance laisse largement le temps d'analyser un
++  // sous-échantillon. La frame reste vivante (scoped_refptr copié dans la tâche).
++  if (lead_frame_cb_ && !is_eos && (lead_frame_count_++ % 15) == 0) {
++    lead_frame_cb_.Run(frame);
 +  }
    const bool is_before_start_time = !is_eos && IsBeforeStartTime(*frame);
    const bool cant_read = !video_decoder_stream_->CanReadWithoutStalling();

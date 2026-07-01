@@ -1,0 +1,15 @@
+diff --git a/media/renderers/renderer_impl_factory.cc b/media/renderers/renderer_impl_factory.cc
+index 90b3aba548ab4..ebe7a69d9fc35 100644
+--- a/media/renderers/renderer_impl_factory.cc
++++ b/media/renderers/renderer_impl_factory.cc
+@@ -128,7 +128,9 @@ std::unique_ptr<Renderer> RendererImplFactory::CreateRenderer(
+                           base::Unretained(this), media_task_runner,
+                           std::move(request_overlay_info_cb),
+                           target_color_space, gpu_factories),
+-      true, media_log_, std::move(mappable_si_pool), media_player_id_));
++      true, media_log_, std::move(mappable_si_pool), media_player_id_,
++      // [Browther/Basarunaa] decode-ahead : callback installé par WMPI.
++      lead_frame_cb_));
+ 
+   return std::make_unique<RendererImpl>(
+       media_task_runner, std::move(audio_renderer), std::move(video_renderer));
