@@ -6,6 +6,9 @@
 #ifndef BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 #define BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 
+#include <vector>
+
+#include "base/memory/weak_ptr.h"
 #include "brave/components/basarunaa/common/mojom/basarunaa.mojom.h"
 #include "content/public/browser/web_contents_user_data.h"
 #include "mojo/public/cpp/base/big_buffer.h"
@@ -56,9 +59,17 @@ class BasarunaaImageAnalyzer
                     mojom::ImageFormat format,
                     AnalyzeImageCallback callback) override;
 
+  // Reçoit le résultat YOLO (calculé sur le ThreadPool) et répond au renderer
+  // sur le thread UI. Gate WeakPtr : si l'analyzer est détruit entretemps, la
+  // réponse Mojo est simplement abandonnée (pipe fermé).
+  void OnAnalyzeDone(AnalyzeImageCallback callback,
+                     std::vector<mojom::AnalyzedPersonPtr> persons);
+
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
+
+  base::WeakPtrFactory<BasarunaaImageAnalyzer> weak_factory_{this};
 };
 
 }  // namespace basarunaa
