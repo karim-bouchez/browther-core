@@ -18,6 +18,7 @@
 #include "chrome/browser/profiles/profile.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
+#include "mojo/public/cpp/bindings/callback_helpers.h"
 
 namespace basarunaa {
 
@@ -25,7 +26,7 @@ namespace {
 
 // Exécuté sur le ThreadPool (YOLO ~100-230 ms, ne doit PAS bloquer le thread
 // UI). Le service est profile-keyed et vit toute la session ; AnalyzeImageRgba
-// est thread-safe (std::call_once + Ort::Session::Run réentrant, cf. header).
+// est sérialisé globalement (analyze_mutex_, cf. header du service).
 std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
                                                     std::vector<uint8_t> pixels,
                                                     int width,
@@ -108,6 +109,16 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const auto src = base::span(pixels).first(expected);
   std::vector<uint8_t> buf(src.begin(), src.end());
 
+  // ⚠️ Le reply est gaté par WeakPtr : si ce WebContentsUserData est détruit
+  // (fermeture d'onglet) pendant que la tâche est en vol, OnAnalyzeDone ne tourne
+  // PAS et le callback Mojo serait détruit SANS être exécuté → use-after-free du
+  // responder Mojo au teardown (corruption de tas confirmée Sentry, bisect
+  // 2026-07-02). WrapCallbackWithDefaultInvokeIfNotRun garantit que le callback
+  // est TOUJOURS invoqué (avec un résultat vide s'il est droppé) → jamais de
+  // responder dangling.
+  auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
+      std::move(callback), std::vector<mojom::AnalyzedPersonPtr>());
+
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
       {base::MayBlock(), base::TaskPriority::USER_VISIBLE,
@@ -115,7 +126,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
                      width, height, bgra),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
-                     weak_factory_.GetWeakPtr(), std::move(callback)));
+                     weak_factory_.GetWeakPtr(), std::move(safe_callback)));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(

@@ -225,6 +225,11 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   if (!rgba || width <= 0 || height <= 0) {
     return {};
   }
+  // [Browther/Basarunaa] Sérialisation GLOBALE (cf. analyze_mutex_ dans le
+  // header) : une seule inférence à la fois sur la session ORT partagée, tous
+  // WebContents confondus. Corrige la corruption de tas cross-onglet que le cap
+  // per-WebContents de BasarunaaImageAnalyzer ne couvrait pas.
+  std::lock_guard<std::mutex> lock(analyze_mutex_);
   // One-time init across worker threads (see init_flag_ docs in header).
   std::call_once(init_flag_, [this]() { LoadYoloPoseModel(); });
   if (!yolo_pose_ready_) {

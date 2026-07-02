@@ -106,6 +106,16 @@ class BasarunaaService : public KeyedService {
   std::once_flag init_flag_;
   std::unique_ptr<Ort::Session> yolo_pose_session_;
   bool yolo_pose_ready_ = false;
+
+  // [Browther/Basarunaa] Sérialise GLOBALEMENT AnalyzeImageRgba. Le service est
+  // profile-keyed et partagé entre TOUS les WebContents ; le cap "1 en vol" de
+  // BasarunaaImageAnalyzer est per-WebContents, donc plusieurs onglets peuvent
+  // entrer ici concurremment sur la MÊME Ort::Session + le MÊME allocateur ORT
+  // par défaut (GetInputNameAllocated) → corruption de tas ("free block",
+  // confirmée Sentry BROWTHER-1Q). Ce mutex garantit une seule inférence à la
+  // fois, tous onglets confondus. Toujours pris sur le ThreadPool (jamais le
+  // thread UI) → pas de blocage UI.
+  std::mutex analyze_mutex_;
 #endif
 };
 
