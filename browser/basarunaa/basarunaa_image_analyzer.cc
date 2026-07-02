@@ -85,6 +85,13 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     return;
   }
 
+  // Cap 1 analyse en vol : DROP les frames qui arrivent pendant qu'une YOLO
+  // tourne (évite AnalyzeImageRgba concurrentes + cap design §11).
+  if (analysis_in_flight_) {
+    std::move(callback).Run({});
+    return;
+  }
+
   auto* profile =
       Profile::FromBrowserContext(GetWebContents().GetBrowserContext());
   auto* service =
@@ -93,6 +100,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     std::move(callback).Run({});
     return;
   }
+  analysis_in_flight_ = true;
 
   // Copie le buffer (BigBuffer peut être en mémoire partagée) dans un vector
   // possédé par la tâche pool. BigBuffer -> span (conversion implicite), puis
@@ -113,6 +121,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
     AnalyzeImageCallback callback,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
+  analysis_in_flight_ = false;
   LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
   std::move(callback).Run(std::move(persons));
 }

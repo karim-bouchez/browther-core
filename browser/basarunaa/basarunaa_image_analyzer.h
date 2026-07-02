@@ -67,6 +67,12 @@ class BasarunaaImageAnalyzer
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
 
+  // ④ : cap 1 analyse YOLO en vol (thread UI). Les frames qui arrivent pendant
+  // qu'une analyse tourne sur le ThreadPool sont DROPPÉES (répondent []), ce qui
+  // (a) évite deux AnalyzeImageRgba concurrentes (crash flaky observé) et
+  // (b) implémente le cap "frames en vol" du design §11. Accès UI thread only.
+  bool analysis_in_flight_ = false;
+
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 
   base::WeakPtrFactory<BasarunaaImageAnalyzer> weak_factory_{this};
