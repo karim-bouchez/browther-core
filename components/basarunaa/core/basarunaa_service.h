@@ -12,8 +12,15 @@
 #include <string>
 #include <vector>
 
+#include "base/containers/span.h"
 #include "components/keyed_service/core/keyed_service.h"
 
+// ⚠️ ODR : `BASARUNAA_NATIVE_ML` conditionne des MEMBRES de BasarunaaService
+// ci-dessous → il change le sizeof de la classe. TOUT target GN qui inclut ce
+// header ET alloue/possède un BasarunaaService (`make_unique`, membre par
+// valeur…) DOIT définir ce macro de façon identique au target `core`, sinon
+// débordement de tas (crash malloc free-block, incident 2026-07-02). Défini
+// pour `//brave/components/basarunaa/core` ET `//brave/browser/basarunaa`.
 #if defined(BASARUNAA_NATIVE_ML)
 namespace Ort {
 struct Env;
@@ -39,6 +46,11 @@ struct DetectedFaceBbox {
   float y2 = 0.f;
 };
 
+// Résultat de la classification genderage (InsightFace). kUnknown = pas de
+// visage exploitable → NON classifié (≠ classifié incertain). Mirror des
+// valeurs 'male'/'female' du POC JS (classifiers/onnx_generic.js).
+enum class Gender { kUnknown = -1, kMale = 0, kFemale = 1 };
+
 // Phase 3.1.5 — M1.4. One detection per person : bbox + score + 17 keypoints
 // (nécessaires au pipeline MV3 pour matching face↔body et alignement face
 // InsightFace) + faceBbox dérivé des keypoints 0-4.
@@ -62,6 +74,12 @@ struct DetectedPerson {
   // Derived from keypoints 0-4 (nose + eyes + ears) with 40% padding;
   // nullopt if < 2 keypoints visible (confidence > 0.3).
   std::optional<DetectedFaceBbox> face_bbox;
+
+  // Classification genderage (M-genre). kUnknown si pas de visage alignable
+  // (aucune classification tentée). gender_conf = confiance [0,1] du genre
+  // retenu (max(femaleProb, 1-femaleProb)), ou -1.f si non classifié.
+  Gender gender = Gender::kUnknown;
+  float gender_conf = -1.f;
 };
 
 class BasarunaaService : public KeyedService {
@@ -87,6 +105,17 @@ class BasarunaaService : public KeyedService {
  private:
 #if defined(BASARUNAA_NATIVE_ML)
   void LoadYoloPoseModel();
+  // Charge genderage.onnx (InsightFace, 96x96). Best-effort : si absent/échec,
+  // gender reste kUnknown et le YOLO fonctionne toujours.
+  void LoadGenderAgeModel();
+  // Aligne + classifie le visage d'une personne (port de utils/face_align.js +
+  // classifiers/onnx_generic.js). Renseigne person.gender / person.gender_conf.
+  // No-op si genderage indisponible ou pas de visage exploitable.
+  void ClassifyGender(base::span<const uint8_t> rgba,
+                      int width,
+                      int height,
+                      bool bgra,
+                      DetectedPerson& person);
 
   // ort_env_ peut être créé concurremment par LoadYoloPoseModel et
   // LoadYoloFaceModel (deux call_once sur des flags différents). On
@@ -106,6 +135,12 @@ class BasarunaaService : public KeyedService {
   std::once_flag init_flag_;
   std::unique_ptr<Ort::Session> yolo_pose_session_;
   bool yolo_pose_ready_ = false;
+
+  // Session genderage (chargée dans le même std::call_once(init_flag_) que le
+  // YOLO, donc sous la même sérialisation). Run() est thread-safe une fois
+  // prête ; l'unique appelant tient déjà analyze_mutex_.
+  std::unique_ptr<Ort::Session> genderage_session_;
+  bool genderage_ready_ = false;
 
   // [Browther/Basarunaa] Sérialise GLOBALEMENT AnalyzeImageRgba. Le service est
   // profile-keyed et partagé entre TOUS les WebContents ; le cap "1 en vol" de

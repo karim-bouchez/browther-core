@@ -15,7 +15,9 @@
 #include "base/task/thread_pool.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
+#include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
+#include "components/prefs/pref_service.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
 #include "mojo/public/cpp/bindings/callback_helpers.h"
@@ -24,19 +26,55 @@ namespace basarunaa {
 
 namespace {
 
-// Exécuté sur le ThreadPool (YOLO ~100-230 ms, ne doit PAS bloquer le thread
-// UI). Le service est profile-keyed et vit toute la session ; AnalyzeImageRgba
-// est sérialisé globalement (analyze_mutex_, cf. header du service).
+// Décision de floutage, port de VIDEO_V2.md §4 (chemin VIDÉO, plus prudent que
+// content.js image) : flouter si `gender===target` OU `genderConf < certainty`
+// OU `gender==null`. « Inconnu = sûr » : une personne sans visage exploitable
+// (dos tourné, floue…) a gender_conf = -1, donc captée par le filet
+// `conf < certainty` → floutée. Seuls les NON-cibles classifiés avec confiance
+// (ex. homme sûr en mode blur-female) sont épargnés.
+bool ShouldBlur(const DetectedPerson& p,
+                const std::string& mode,
+                double certainty) {
+  if (mode == "blur-all") {
+    return true;
+  }
+  const bool female_target = (mode == "blur-female");
+  const bool male_target = (mode == "blur-male");
+  if (!female_target && !male_target) {
+    return false;  // mode inattendu → ne floute rien
+  }
+  const Gender target = female_target ? Gender::kFemale : Gender::kMale;
+  if (p.gender == target) {
+    return true;
+  }
+  // Filet privacy : non-cible peu sûr OU non classifié (conf -1) → floute.
+  if (p.gender_conf < certainty) {
+    return true;
+  }
+  return false;
+}
+
+// Exécuté sur le ThreadPool (YOLO ~100-230 ms + genderage par visage, ne doit
+// PAS bloquer le thread UI). Le service est profile-keyed et vit toute la
+// session ; AnalyzeImageRgba est sérialisé globalement (analyze_mutex_, cf.
+// header du service). `mode` + `certainty` sont lus côté UI et capturés ici
+// pour ne renvoyer QUE les personnes à flouter (filtrage genre en amont de
+// l'overlay, qui reste "bête").
 std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
                                                     std::vector<uint8_t> pixels,
                                                     int width,
                                                     int height,
-                                                    bool bgra) {
+                                                    bool bgra,
+                                                    std::string mode,
+                                                    double certainty) {
   std::vector<mojom::AnalyzedPersonPtr> out;
   const std::vector<DetectedPerson> persons =
       service->AnalyzeImageRgba(pixels.data(), width, height, bgra);
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
+    if (!ShouldBlur(p, mode, certainty)) {
+      continue;
+    }
     auto ap = mojom::AnalyzedPerson::New();
     ap->x = p.x;
     ap->y = p.y;
@@ -103,6 +141,15 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   }
   analysis_in_flight_ = true;
 
+  // Prefs lues sur le thread UI (obligatoire) puis capturées pour le pool :
+  // mode de floutage + seuil de certitude de genre. Défauts = ceux du POC.
+  std::string mode = "blur-female";
+  double certainty = 0.70;
+  if (auto* prefs = profile->GetPrefs()) {
+    mode = prefs->GetString(kBasarunaaMode);
+    certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
+  }
+
   // Copie le buffer (BigBuffer peut être en mémoire partagée) dans un vector
   // possédé par la tâche pool. BigBuffer -> span (conversion implicite), puis
   // itérateurs sûrs -> pas d'arithmétique de pointeur (-Wunsafe-buffer-usage).
@@ -124,7 +171,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
       {base::MayBlock(), base::TaskPriority::USER_VISIBLE,
        base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN},
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
-                     width, height, bgra),
+                     width, height, bgra, std::move(mode), certainty),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback)));
 }

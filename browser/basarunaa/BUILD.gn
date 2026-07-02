@@ -3,6 +3,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import("//brave/third_party/onnxruntime/onnxruntime.gni")
+
 static_library("basarunaa") {
   sources = [
     "basarunaa_image_analyzer.cc",
@@ -22,4 +24,15 @@ static_library("basarunaa") {
     "//mojo/public/cpp/base",
     "//mojo/public/cpp/bindings",
   ]
+
+  # ⚠️ ODR : ce macro conditionne le LAYOUT de BasarunaaService (membres ORT
+  # sous `#if defined(BASARUNAA_NATIVE_ML)`). `basarunaa_service_factory.cc`
+  # fait `make_unique<BasarunaaService>()` → DOIT voir la même taille que le
+  # target `core` qui définit le constructeur/destructeur, sinon débordement
+  # de tas (crash `_xzm_xzone_malloc_freelist_outlined`, 2026-07-02). Aucun
+  # symbole ORT n'est référencé ici (types juste forward-declared) → pas besoin
+  # de la dep onnxruntime, juste du define pour le sizeof.
+  if (enable_basarunaa_native_ml) {
+    defines = [ "BASARUNAA_NATIVE_ML=1" ]
+  }
 }

@@ -45,6 +45,14 @@ constexpr float kYoloPad = 114.0f / 255.0f;
 constexpr float kScoreThreshold = 0.25f;
 constexpr float kNmsIou = 0.5f;
 
+// genderage.onnx (InsightFace). Entrée 1x3x96x96, RGB 0-255 (raw, PAS de
+// normalisation ImageNet), NCHW. Sortie [1,>=2] : 2 logits genre (index 0 =
+// female) suivis de l'age. Port de classifiers/onnx_generic.js (inputH/W:96,
+// normalization:'raw', outputMode:'binary_softmax', femaleIndex:0).
+constexpr base::FilePath::CharType kGenderAgeRelPath[] =
+    FILE_PATH_LITERAL("basarunaa/models/genderage.onnx");
+constexpr int kGenderInputSize = 96;
+
 std::string ShapeToString(const std::vector<int64_t>& shape) {
   std::string out = "[";
   for (size_t i = 0; i < shape.size(); ++i) {
@@ -176,6 +184,146 @@ std::vector<DetectedPerson> NonMaxSuppression(
   return kept;
 }
 
+// Port FIDÈLE de utils/face_align.js (alignFace + _cropFromBbox). Remplit `out`
+// avec un tenseur RGB 0-255 NCHW (3*96*96) prêt pour genderage. Retourne false
+// si aucun visage exploitable (ni yeux fiables ni face_bbox).
+//
+// ⚠️ La ROTATION (aligner les yeux à l'horizontale) est la partie critique :
+// un simple crop carré casse la classification quand les yeux ne sont pas déjà
+// horizontaux (précédent FaceAlign.swift 2026-05-16, photo TF1 famille-repas).
+// Les yeux = keypoints COCO 1 (left_eye) / 2 (right_eye) du YOLO11n-pose.
+bool BuildAlignedFaceTensor(base::span<const uint8_t> rgba,
+                            int width,
+                            int height,
+                            bool bgra,
+                            const DetectedPerson& person,
+                            std::vector<float>& out) {
+  const size_t r_idx = bgra ? 2 : 0;
+  const size_t b_idx = bgra ? 0 : 2;
+  // Échantillon bilinéaire, RGB 0-255, padding NOIR (0) hors image — mirror du
+  // drawImage canvas (les zones hors source restent transparentes/0).
+  auto sample = [&](float sx, float sy, float& r, float& g, float& b) {
+    if (sx < 0 || sy < 0 || sx >= width || sy >= height) {
+      r = g = b = 0.f;
+      return;
+    }
+    const int x0 = static_cast<int>(std::floor(sx));
+    const int y0 = static_cast<int>(std::floor(sy));
+    const int x1 = std::min(x0 + 1, width - 1);
+    const int y1 = std::min(y0 + 1, height - 1);
+    const float fx = sx - x0;
+    const float fy = sy - y0;
+    auto px = [&](int xx, int yy, float& rr, float& gg, float& bb) {
+      const size_t off = static_cast<size_t>(yy * width + xx) * 4;
+      rr = rgba[off + r_idx];
+      gg = rgba[off + 1];
+      bb = rgba[off + b_idx];
+    };
+    float r00, g00, b00, r10, g10, b10, r01, g01, b01, r11, g11, b11;
+    px(x0, y0, r00, g00, b00);
+    px(x1, y0, r10, g10, b10);
+    px(x0, y1, r01, g01, b01);
+    px(x1, y1, r11, g11, b11);
+    const float w00 = (1 - fx) * (1 - fy);
+    const float w10 = fx * (1 - fy);
+    const float w01 = (1 - fx) * fy;
+    const float w11 = fx * fy;
+    r = r00 * w00 + r10 * w10 + r01 * w01 + r11 * w11;
+    g = g00 * w00 + g10 * w10 + g01 * w01 + g11 * w11;
+    b = b00 * w00 + b10 * w10 + b01 * w01 + b11 * w11;
+  };
+
+  const int kS = kGenderInputSize;
+  out.assign(3 * kS * kS, 0.f);
+  const int plane = kS * kS;
+  auto write = [&](int dx, int dy, float r, float g, float b) {
+    const int idx = dy * kS + dx;
+    out[0 * plane + idx] = r;
+    out[1 * plane + idx] = g;
+    out[2 * plane + idx] = b;
+  };
+
+  const bool has_face = person.face_bbox.has_value();
+  // Yeux : keypoints COCO 1 (left_eye) et 2 (right_eye).
+  const bool has_kps = person.keypoints.size() > 2;
+  const DetectedKeyPoint* le = has_kps ? &person.keypoints[1] : nullptr;
+  const DetectedKeyPoint* re = has_kps ? &person.keypoints[2] : nullptr;
+  const bool has_eyes =
+      le && re && le->confidence > 0.3f && re->confidence > 0.3f;
+
+  if (has_eyes) {
+    const float eye_dist = std::hypot(re->x - le->x, re->y - le->y);
+    const float face_w = has_face
+                             ? (person.face_bbox->x2 - person.face_bbox->x1)
+                             : eye_dist * 2.8f;
+    // Skip rotation si yeux trop proches (<5px) ou visage trop petit (<35px) :
+    // les artefacts d'interpolation dégradent l'accuracy (cf. face_align.js).
+    if (eye_dist >= 5.f && face_w >= 35.f) {
+      const float angle = std::atan2(re->y - le->y, re->x - le->x);
+      float cx, cy, face_size;
+      if (has_face) {
+        cx = (person.face_bbox->x1 + person.face_bbox->x2) * 0.5f;
+        cy = (person.face_bbox->y1 + person.face_bbox->y2) * 0.5f;
+        face_size =
+            std::max(person.face_bbox->x2 - person.face_bbox->x1,
+                     person.face_bbox->y2 - person.face_bbox->y1) *
+            1.1f;
+      } else {
+        cx = (le->x + re->x) * 0.5f;
+        cy = (le->y + re->y) * 0.5f + eye_dist * 0.15f;
+        face_size = eye_dist * 2.8f;
+      }
+      const float scale = kS / face_size;
+      const float ca = std::cos(angle);
+      const float sa = std::sin(angle);
+      // Pour chaque pixel de sortie, inverse de la CTM canvas
+      // translate(S/2)·rotate(-angle)·scale·translate(-c) appliquée à (ix,iy).
+      for (int dy = 0; dy < kS; ++dy) {
+        for (int dx = 0; dx < kS; ++dx) {
+          const float rx = dx - kS / 2.0f;
+          const float ry = dy - kS / 2.0f;
+          const float qx = rx * ca - ry * sa;
+          const float qy = rx * sa + ry * ca;
+          const float ix = qx / scale + cx;
+          const float iy = qy / scale + cy;
+          float r, g, b;
+          sample(ix, iy, r, g, b);
+          write(dx, dy, r, g, b);
+        }
+      }
+      return true;
+    }
+  }
+
+  // Repli _cropFromBbox : crop axis-aligned depuis face_bbox + 15% padding.
+  if (!has_face) {
+    return false;
+  }
+  const float fx1 = person.face_bbox->x1;
+  const float fy1 = person.face_bbox->y1;
+  const float fx2 = person.face_bbox->x2;
+  const float fy2 = person.face_bbox->y2;
+  const float fw = fx2 - fx1;
+  const float fh = fy2 - fy1;
+  const float max_dim = std::max(fw, fh);
+  const float padding = max_dim * 0.15f;
+  const float face_size = max_dim + padding * 2.f;
+  const float cx = (fx1 + fx2) * 0.5f;
+  const float cy = (fy1 + fy2) * 0.5f;
+  const float sx0 = cx - face_size * 0.5f;
+  const float sy0 = cy - face_size * 0.5f;
+  for (int dy = 0; dy < kS; ++dy) {
+    for (int dx = 0; dx < kS; ++dx) {
+      const float ix = sx0 + (dx / static_cast<float>(kS)) * face_size;
+      const float iy = sy0 + (dy / static_cast<float>(kS)) * face_size;
+      float r, g, b;
+      sample(ix, iy, r, g, b);
+      write(dx, dy, r, g, b);
+    }
+  }
+  return true;
+}
+
 }  // namespace
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
@@ -231,7 +379,12 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   // per-WebContents de BasarunaaImageAnalyzer ne couvrait pas.
   std::lock_guard<std::mutex> lock(analyze_mutex_);
   // One-time init across worker threads (see init_flag_ docs in header).
-  std::call_once(init_flag_, [this]() { LoadYoloPoseModel(); });
+  // genderage chargé dans le même call_once (best-effort : son échec ne bloque
+  // pas le YOLO, le genre reste juste kUnknown).
+  std::call_once(init_flag_, [this]() {
+    LoadYoloPoseModel();
+    LoadGenderAgeModel();
+  });
   if (!yolo_pose_ready_) {
     return {};
   }
@@ -355,6 +508,15 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   }
 
   auto nms = NonMaxSuppression(std::move(raw));
+
+  // Classification genderage par personne (aligne le visage puis InsightFace).
+  // Les personnes sans visage exploitable restent Gender::kUnknown / conf -1
+  // (= NON classifiées). La décision shouldBlur (côté browser, VIDEO_V2.md §4)
+  // les FLOUTE quand même en mode blur-female/male (« inconnu = sûr »).
+  for (auto& person : nms) {
+    ClassifyGender(rgba_span, width, height, bgra, person);
+  }
+
   const auto elapsed_ms = (base::TimeTicks::Now() - start).InMillisecondsF();
   LOG(INFO) << "[Basarunaa] inference: " << width << "x" << height << " → "
             << nms.size() << " persons (" << elapsed_ms << " ms)";
@@ -425,6 +587,91 @@ void BasarunaaService::LoadYoloPoseModel() {
 
   yolo_pose_ready_ = true;
   LOG(INFO) << "[Basarunaa] YOLO11n-pose session ready";
+}
+
+void BasarunaaService::LoadGenderAgeModel() {
+  base::FilePath exe_dir;
+  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
+    return;
+  }
+  const base::FilePath model_path = exe_dir.Append(kGenderAgeRelPath);
+  if (!base::PathExists(model_path)) {
+    LOG(WARNING) << "[Basarunaa] genderage model not found at "
+                 << model_path.value() << " — gender stays unknown";
+    return;
+  }
+  EnsureOrtEnv();
+  if (!ort_env_) {
+    return;
+  }
+  try {
+    Ort::SessionOptions opts;
+    opts.SetIntraOpNumThreads(1);
+    opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
+    genderage_session_ = std::make_unique<Ort::Session>(
+        *ort_env_, model_path.value().c_str(), opts);
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] genderage session creation failed: " << e.what();
+    genderage_session_.reset();
+    return;
+  }
+  genderage_ready_ = true;
+  LOG(INFO) << "[Basarunaa] genderage session ready";
+}
+
+void BasarunaaService::ClassifyGender(base::span<const uint8_t> rgba,
+                                      int width,
+                                      int height,
+                                      bool bgra,
+                                      DetectedPerson& person) {
+  if (!genderage_ready_) {
+    return;
+  }
+  std::vector<float> tensor;
+  if (!BuildAlignedFaceTensor(rgba, width, height, bgra, person, tensor)) {
+    return;  // pas de visage exploitable → reste kUnknown / -1
+  }
+  try {
+    auto memory_info =
+        Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
+    const std::array<int64_t, 4> shape = {1, 3, kGenderInputSize,
+                                          kGenderInputSize};
+    Ort::Value input = Ort::Value::CreateTensor<float>(
+        memory_info, tensor.data(), tensor.size(), shape.data(), shape.size());
+
+    Ort::AllocatorWithDefaultOptions alloc;
+    auto in_name = genderage_session_->GetInputNameAllocated(0, alloc);
+    auto out_name = genderage_session_->GetOutputNameAllocated(0, alloc);
+    const char* in_names[] = {in_name.get()};
+    const char* out_names[] = {out_name.get()};
+
+    auto outputs = genderage_session_->Run(Ort::RunOptions{nullptr}, in_names,
+                                           &input, 1, out_names, 1);
+    const size_t out_len =
+        outputs[0].GetTensorTypeAndShapeInfo().GetElementCount();
+    if (out_len < 2) {
+      return;
+    }
+    const auto out_span = UNSAFE_BUFFERS(
+        base::span<const float>(outputs[0].GetTensorData<float>(), out_len));
+    // binary_softmax sur les 2 premiers logits, femaleIndex=0 (cf.
+    // _parseOutput du POC : argmax(pred[:2]), female = probs[0]).
+    const float l0 = out_span[0];
+    const float l1 = out_span[1];
+    const float m = std::max(l0, l1);
+    const float e0 = std::exp(l0 - m);
+    const float e1 = std::exp(l1 - m);
+    const float female_prob = e0 / (e0 + e1);
+    if (female_prob > 0.5f) {
+      person.gender = Gender::kFemale;
+      person.gender_conf = female_prob;
+    } else {
+      person.gender = Gender::kMale;
+      person.gender_conf = 1.f - female_prob;
+    }
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] genderage inference failed: " << e.what();
+  }
 }
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
