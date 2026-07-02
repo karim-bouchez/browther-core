@@ -51,6 +51,10 @@ struct DetectedFaceBbox {
 // valeurs 'male'/'female' du POC JS (classifiers/onnx_generic.js).
 enum class Gender { kUnknown = -1, kMale = 0, kFemale = 1 };
 
+// D'où vient la classification de genre : kFace = genderage sur le visage,
+// kBody = repli pplcnet sur le corps, kNone = non classifié.
+enum class GenderSource { kNone = 0, kFace = 1, kBody = 2 };
+
 // Phase 3.1.5 — M1.4. One detection per person : bbox + score + 17 keypoints
 // (nécessaires au pipeline MV3 pour matching face↔body et alignement face
 // InsightFace) + faceBbox dérivé des keypoints 0-4.
@@ -80,6 +84,8 @@ struct DetectedPerson {
   // retenu (max(femaleProb, 1-femaleProb)), ou -1.f si non classifié.
   Gender gender = Gender::kUnknown;
   float gender_conf = -1.f;
+  // Source de la classification (visage/corps) — pour l'overlay debug.
+  GenderSource gender_source = GenderSource::kNone;
 };
 
 class BasarunaaService : public KeyedService {
@@ -116,6 +122,17 @@ class BasarunaaService : public KeyedService {
                       int height,
                       bool bgra,
                       DetectedPerson& person);
+  // Charge pplcnet_pedestrian_attribute.onnx (PP-LCNet, 256x192). Best-effort.
+  void LoadPplcnetModel();
+  // Repli CORPS (personne sans visage exploitable, dos tourné…) : masque
+  // polygone corps + classification pplcnet (port de classifiers/pplcnet.js +
+  // utils/body_polygon.js + utils/preprocessing.js). Renseigne person.gender /
+  // person.gender_conf. À n'appeler QUE si ClassifyGender a laissé kUnknown.
+  void ClassifyBodyGender(base::span<const uint8_t> rgba,
+                          int width,
+                          int height,
+                          bool bgra,
+                          DetectedPerson& person);
 
   // ort_env_ peut être créé concurremment par LoadYoloPoseModel et
   // LoadYoloFaceModel (deux call_once sur des flags différents). On
@@ -141,6 +158,10 @@ class BasarunaaService : public KeyedService {
   // prête ; l'unique appelant tient déjà analyze_mutex_.
   std::unique_ptr<Ort::Session> genderage_session_;
   bool genderage_ready_ = false;
+
+  // Session pplcnet (repli corps). Même call_once/sérialisation.
+  std::unique_ptr<Ort::Session> pplcnet_session_;
+  bool pplcnet_ready_ = false;
 
   // [Browther/Basarunaa] Sérialise GLOBALEMENT AnalyzeImageRgba. Le service est
   // profile-keyed et partagé entre TOUS les WebContents ; le cap "1 en vol" de

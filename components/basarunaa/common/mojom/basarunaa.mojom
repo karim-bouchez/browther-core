@@ -83,11 +83,25 @@ struct AnalyzedPerson {
   float h;
   // Score de classe "person" dans [0, 1].
   float score;
+  // Genre classifié : -1 inconnu, 0 homme, 1 femme.
+  int8 gender;
+  // Source de la classification : 0 aucune, 1 visage, 2 corps.
+  int8 gender_source;
+  // Confiance du genre retenu dans [0, 1] ; < 0 si non classifié.
+  float gender_conf;
+  // Décision shouldBlur du browser (mode + certitude). Indépendante de
+  // blur_enabled (le rendu du flou est gaté séparément côté overlay) : sert
+  // aussi au label debug « serait floutée ».
+  bool blur;
 };
 
 interface ImageAnalyzer {
+  // Renvoie TOUTES les personnes détectées (pas seulement celles à flouter,
+  // pour permettre l'overlay debug) + le mode debug courant ("none"|"boxes"|
+  // "debug") + l'état de blur_enabled, tous deux lus dans les prefs profil.
   AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
                int32 width,
                int32 height,
-               ImageFormat format) => (array<AnalyzedPerson> persons);
+               ImageFormat format)
+      => (array<AnalyzedPerson> persons, string debug_mode, bool blur_enabled);
 };

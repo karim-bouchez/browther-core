@@ -61,7 +61,9 @@ class BasarunaaRenderFrameObserver final
   void OnAnalyzed(base::TimeDelta media_time,
                   int width,
                   int height,
-                  std::vector<mojom::AnalyzedPersonPtr> persons);
+                  std::vector<mojom::AnalyzedPersonPtr> persons,
+                  const std::string& debug_mode,
+                  bool blur_enabled);
   // Exécute le dispatch JS. Posté en tâche fraîche (pas dans le callback Mojo)
   // pour éviter un ExecuteScript en zone ScriptForbiddenScope.
   void DispatchResultToPage(std::string script);

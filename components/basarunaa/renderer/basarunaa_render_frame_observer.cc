@@ -75,9 +75,14 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     base::TimeDelta media_time,
     int width,
     int height,
-    std::vector<mojom::AnalyzedPersonPtr> persons) {
+    std::vector<mojom::AnalyzedPersonPtr> persons,
+    const std::string& debug_mode,
+    bool blur_enabled) {
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
   // scale à l'affichage). detail = string JSON (traverse proprement les mondes).
+  // Chaque personne : [nx, ny, nw, nh, score, gender(-1|0|1), gender_conf,
+  // blur, gender_source(0 aucune|1 visage|2 corps)]. `debug` (mode overlay) +
+  // `be` (blur_enabled) pilotent le rendu JS.
   const double w = width > 0 ? width : 1;
   const double h = height > 0 ? height : 1;
   base::ListValue boxes;
@@ -88,10 +93,16 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     box.Append(p->w / w);
     box.Append(p->h / h);
     box.Append(static_cast<double>(p->score));
+    box.Append(static_cast<int>(p->gender));
+    box.Append(static_cast<double>(p->gender_conf));
+    box.Append(p->blur);
+    box.Append(static_cast<int>(p->gender_source));
     boxes.Append(std::move(box));
   }
   base::DictValue dict;
   dict.Set("t", static_cast<double>(media_time.InMilliseconds()));
+  dict.Set("debug", debug_mode);
+  dict.Set("be", blur_enabled);
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);

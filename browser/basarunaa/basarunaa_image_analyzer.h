@@ -6,6 +6,7 @@
 #ifndef BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 #define BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 
+#include <string>
 #include <vector>
 
 #include "base/memory/weak_ptr.h"
@@ -62,8 +63,11 @@ class BasarunaaImageAnalyzer
 
   // Reçoit le résultat YOLO (calculé sur le ThreadPool) et répond au renderer
   // sur le thread UI. Gate WeakPtr : si l'analyzer est détruit entretemps, la
-  // réponse Mojo est simplement abandonnée (pipe fermé).
+  // réponse Mojo est simplement abandonnée (pipe fermé). debug_mode +
+  // blur_enabled sont lus côté UI et renvoyés tels quels au renderer (overlay).
   void OnAnalyzeDone(AnalyzeImageCallback callback,
+                     std::string debug_mode,
+                     bool blur_enabled,
                      std::vector<mojom::AnalyzedPersonPtr> persons);
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;

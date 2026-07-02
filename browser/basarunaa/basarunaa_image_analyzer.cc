@@ -54,12 +54,23 @@ bool ShouldBlur(const DetectedPerson& p,
   return false;
 }
 
-// Exécuté sur le ThreadPool (YOLO ~100-230 ms + genderage par visage, ne doit
-// PAS bloquer le thread UI). Le service est profile-keyed et vit toute la
-// session ; AnalyzeImageRgba est sérialisé globalement (analyze_mutex_, cf.
-// header du service). `mode` + `certainty` sont lus côté UI et capturés ici
-// pour ne renvoyer QUE les personnes à flouter (filtrage genre en amont de
-// l'overlay, qui reste "bête").
+int8_t GenderToInt(Gender g) {
+  switch (g) {
+    case Gender::kFemale:
+      return 1;
+    case Gender::kMale:
+      return 0;
+    default:
+      return -1;
+  }
+}
+
+// Exécuté sur le ThreadPool (YOLO ~100-230 ms + genderage/pplcnet, ne doit PAS
+// bloquer le thread UI). Le service est profile-keyed et vit toute la session ;
+// AnalyzeImageRgba est sérialisé globalement (analyze_mutex_, cf. header). On
+// renvoie TOUTES les personnes (pas seulement celles à flouter) avec leur genre
+// + conf + le flag `blur` (décision shouldBlur) : l'overlay a besoin de tout
+// pour le mode debug ; en mode normal il ne floute que `blur==true`.
 std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
                                                     std::vector<uint8_t> pixels,
                                                     int width,
@@ -72,15 +83,16 @@ std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
       service->AnalyzeImageRgba(pixels.data(), width, height, bgra);
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
-    if (!ShouldBlur(p, mode, certainty)) {
-      continue;
-    }
     auto ap = mojom::AnalyzedPerson::New();
     ap->x = p.x;
     ap->y = p.y;
     ap->w = p.w;
     ap->h = p.h;
     ap->score = p.score;
+    ap->gender = GenderToInt(p.gender);
+    ap->gender_source = static_cast<int8_t>(p.gender_source);
+    ap->gender_conf = p.gender_conf;
+    ap->blur = ShouldBlur(p, mode, certainty);
     out.push_back(std::move(ap));
   }
   return out;
@@ -120,14 +132,14 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const size_t expected = static_cast<size_t>(width) *
                           static_cast<size_t>(height) * 4u;
   if (width <= 0 || height <= 0 || pixels.size() < expected) {
-    std::move(callback).Run({});
+    std::move(callback).Run({}, "", false);
     return;
   }
 
   // Cap 1 analyse en vol : DROP les frames qui arrivent pendant qu'une YOLO
   // tourne (évite AnalyzeImageRgba concurrentes + cap design §11).
   if (analysis_in_flight_) {
-    std::move(callback).Run({});
+    std::move(callback).Run({}, "", false);
     return;
   }
 
@@ -136,18 +148,23 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   auto* service =
       profile ? BasarunaaServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
-    std::move(callback).Run({});
+    std::move(callback).Run({}, "", false);
     return;
   }
   analysis_in_flight_ = true;
 
-  // Prefs lues sur le thread UI (obligatoire) puis capturées pour le pool :
-  // mode de floutage + seuil de certitude de genre. Défauts = ceux du POC.
+  // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
+  // du flag blur). debug_mode + blur_enabled → renvoyés au renderer (overlay :
+  // dessin des boîtes debug + gating du flou). Défauts = ceux du POC.
   std::string mode = "blur-female";
   double certainty = 0.70;
+  std::string debug_mode = "none";
+  bool blur_enabled = true;
   if (auto* prefs = profile->GetPrefs()) {
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
+    debug_mode = prefs->GetString(kBasarunaaDebugMode);
+    blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
   }
 
   // Copie le buffer (BigBuffer peut être en mémoire partagée) dans un vector
@@ -164,7 +181,8 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // est TOUJOURS invoqué (avec un résultat vide s'il est droppé) → jamais de
   // responder dangling.
   auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
-      std::move(callback), std::vector<mojom::AnalyzedPersonPtr>());
+      std::move(callback), std::vector<mojom::AnalyzedPersonPtr>(),
+      std::string(), false);
 
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
@@ -173,15 +191,19 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
                      width, height, bgra, std::move(mode), certainty),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
-                     weak_factory_.GetWeakPtr(), std::move(safe_callback)));
+                     weak_factory_.GetWeakPtr(), std::move(safe_callback),
+                     std::move(debug_mode), blur_enabled));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
     AnalyzeImageCallback callback,
+    std::string debug_mode,
+    bool blur_enabled,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
   analysis_in_flight_ = false;
   LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
-  std::move(callback).Run(std::move(persons));
+  std::move(callback).Run(std::move(persons), std::move(debug_mode),
+                          blur_enabled);
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);
