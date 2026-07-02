@@ -1,0 +1,39 @@
+diff --git a/media/base/video_util.h b/media/base/video_util.h
+index 0ec17d534c0e5..70242d160b56b 100644
+--- a/media/base/video_util.h
++++ b/media/base/video_util.h
+@@ -171,20 +171,31 @@ MEDIA_EXPORT void ConvertToMemoryMappedFrameAsync(
+ // TODO(crbug.com/40162806): Combine this function with
+ // media::ConvertAndScaleFrame and put it into a new class
+ // media:FrameSizeAndFormatConverter.
++// [Browther/Basarunaa] |update_source_release_token| : par défaut (true) le
++// readback écrase le release sync-token de |txt_frame| (WaitAndReplaceSyncToken)
++// pour signaler au propriétaire "ne recycle pas avant la fin de ma lecture".
++// C'est correct pour une frame qu'on possède, mais crée une COURSE si la frame
++// est encore possédée par un autre pipeline (ex : frame décodée-en-avance
++// destinée à l'affichage — le tap decode-ahead Basarunaa). Passer false laisse
++// le sync-token de la source INTACT : sûr uniquement si le readback reste
++// synchrone (il l'est) ET si l'appelant garde la frame vivante pendant l'appel.
+ MEDIA_EXPORT scoped_refptr<VideoFrame> ReadbackTextureBackedFrameToMemorySync(
+     VideoFrame& txt_frame,
+     gpu::raster::RasterInterface* ri,
+-    VideoFramePool* pool = nullptr);
++    VideoFramePool* pool = nullptr,
++    bool update_source_release_token = true);
+ 
+ // Synchronously reads a single plane. |src_rect| is relative to the plane,
+-// which may be smaller than |frame| due to subsampling.
++// which may be smaller than |frame| due to subsampling. |update_source_release_token|
++// : cf. ReadbackTextureBackedFrameToMemorySync ci-dessus.
+ MEDIA_EXPORT bool ReadbackTexturePlaneToMemorySync(
+     VideoFrame& src_frame,
+     size_t src_plane,
+     gfx::Rect& src_rect,
+     uint8_t* dest_pixels,
+     size_t dest_stride,
+-    gpu::raster::RasterInterface* ri);
++    gpu::raster::RasterInterface* ri,
++    bool update_source_release_token = true);
+ 
+ // Converts a frame with I420A format into I420 by dropping alpha channel.
+ MEDIA_EXPORT scoped_refptr<VideoFrame> WrapAsI420VideoFrame(

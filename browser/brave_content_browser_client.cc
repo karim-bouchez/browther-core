@@ -1129,12 +1129,12 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     command_line->CopySwitchesFrom(browser_command_line, kSwitchNames);
 
     // [Browther/Basarunaa] Quand la feature de rollout est ON ET la pref
-    // Basarunaa est ON pour le profil de ce renderer :
-    // (1) --basarunaa-video-tap active le tap vidéo natif côté renderer ;
-    // (2) --disable-accelerated-video-decode force le décodage SW -> frames
-    // CPU-mappables -> WebMediaPlayerImpl::OnLeadFrame évite le readback GPU
-    // (contourne le bug A : le readback mute le sync-token d'une frame encore
-    // possédée par le pipeline décodé-en-avance). Toggle -> restart requis.
+    // Basarunaa est ON pour le profil de ce renderer, active le tap vidéo natif
+    // (decode-ahead -> readback -> YOLO -> overlay) via --basarunaa-video-tap.
+    // Le readback ne mute plus le sync-token de la frame source (bug A fixé, cf.
+    // media/base/video_util.cc, param update_source_release_token=false) -> le
+    // décodage MATÉRIEL est préservé (plus de --disable-accelerated-video-decode
+    // forcé). Toggle -> restart requis (tap lu à l'init du renderer).
     if (base::FeatureList::IsEnabled(kBasarunaaVideoDecodeAhead)) {
       if (content::RenderProcessHost* process =
               content::RenderProcessHost::FromID(child_process_id)) {
@@ -1142,7 +1142,6 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
         if (prefs && prefs->FindPreference(kBasarunaaEnabled) &&
             prefs->GetBoolean(kBasarunaaEnabled)) {
           command_line->AppendSwitch(switches::kBasarunaaVideoTap);
-          command_line->AppendSwitch(switches::kDisableAcceleratedVideoDecode);
         }
       }
     }

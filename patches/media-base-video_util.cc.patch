@@ -1,0 +1,50 @@
+diff --git a/media/base/video_util.cc b/media/base/video_util.cc
+index 22ca6f7204df2..f90ee10e72b47 100644
+--- a/media/base/video_util.cc
++++ b/media/base/video_util.cc
+@@ -679,7 +679,8 @@ bool I420CopyWithPadding(const VideoFrame& src_frame, VideoFrame* dst_frame) {
+ scoped_refptr<VideoFrame> ReadbackTextureBackedFrameToMemorySync(
+     VideoFrame& txt_frame,
+     gpu::raster::RasterInterface* ri,
+-    VideoFramePool* pool) {
++    VideoFramePool* pool,
++    bool update_source_release_token) {
+   DCHECK(ri);
+ 
+   TRACE_EVENT1("media", "ReadbackTextureBackedFrameToMemorySync", "timestamp",
+@@ -711,7 +712,8 @@ scoped_refptr<VideoFrame> ReadbackTextureBackedFrameToMemorySync(
+     gfx::Rect src_rect(0, 0, txt_frame.columns(plane), txt_frame.rows(plane));
+     if (!ReadbackTexturePlaneToMemorySync(txt_frame, plane, src_rect,
+                                           result->writable_data(plane),
+-                                          result->stride(plane), ri)) {
++                                          result->stride(plane), ri,
++                                          update_source_release_token)) {
+       return nullptr;
+     }
+   }
+@@ -723,7 +725,8 @@ bool ReadbackTexturePlaneToMemorySync(VideoFrame& src_frame,
+                                       gfx::Rect& src_rect,
+                                       uint8_t* dest_pixels,
+                                       size_t dest_stride,
+-                                      gpu::raster::RasterInterface* ri) {
++                                      gpu::raster::RasterInterface* ri,
++                                      bool update_source_release_token) {
+   DCHECK(ri);
+   VideoPixelFormat format = ReadbackFormat(src_frame);
+   if (format == PIXEL_FORMAT_UNKNOWN) {
+@@ -752,10 +755,14 @@ bool ReadbackTexturePlaneToMemorySync(VideoFrame& src_frame,
+   bool result = readback_result &&
+                 ri->GetGraphicsResetStatusKHR() == GL_NO_ERROR &&
+                 ri->GetError() == GL_NO_ERROR;
+-  if (result) {
++  if (result && update_source_release_token) {
+     WaitAndReplaceSyncTokenClient client(ri, std::move(ri_access));
+     src_frame.UpdateReleaseSyncToken(&client);
+   } else {
++    // [Browther/Basarunaa] Chemin non-mutant : on TERMINE notre accès raster
++    // (readonly) sans écraser le release sync-token de la source. Utilisé aussi
++    // sur échec. Sûr car ReadbackImagePixels est synchrone (GPU read fini au
++    // retour) et l'appelant garde la frame vivante pendant l'appel.
+     gpu::RasterScopedAccess::EndAccess(std::move(ri_access));
+   }
+ 

@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..a1d9e8195b6d5 100644
+index 2f77f8cc774f4..93398f8b74eda 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -54,6 +54,16 @@
@@ -19,7 +19,7 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
  #include "media/filters/chunk_demuxer.h"
  #include "media/filters/ffmpeg_demuxer.h"
  #include "media/filters/memory_data_source.h"
-@@ -407,6 +417,58 @@ WebMediaPlayer::NetworkState PipelineErrorToNetworkState(
+@@ -407,6 +417,63 @@ WebMediaPlayer::NetworkState PipelineErrorToNetworkState(
  
  }  // namespace
  
@@ -44,8 +44,13 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
 +    if (!frame || !LazyInitialize()) {
 +      return nullptr;
 +    }
++    // update_source_release_token=false : la lead frame est ENCORE possédée par
++    // le pipeline d'affichage (elle sera composée ~0,7 s plus tard) -> NE PAS
++    // écraser son release sync-token (course = bug A). Sûr ici : le readback est
++    // synchrone et |frame| (scoped_refptr par valeur) reste vivant tout l'appel.
 +    return media::ReadbackTextureBackedFrameToMemorySync(
-+        *frame, context_provider_->RasterInterface(), &pool_);
++        *frame, context_provider_->RasterInterface(), &pool_,
++        /*update_source_release_token=*/false);
 +  }
 +
 + private:
@@ -78,7 +83,7 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
  STATIC_ASSERT_ENUM(WebMediaPlayer::kCorsModeUnspecified,
                     UrlData::CORS_UNSPECIFIED);
  STATIC_ASSERT_ENUM(WebMediaPlayer::kCorsModeAnonymous, UrlData::CORS_ANONYMOUS);
-@@ -443,7 +505,9 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
+@@ -443,7 +510,9 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
      bool is_background_video_playback_enabled,
      bool is_background_video_track_optimization_supported,
      std::unique_ptr<media::Demuxer> demuxer_override,
@@ -89,7 +94,7 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
      : frame_(frame),
        main_task_runner_(frame->GetTaskRunner(TaskType::kMediaElementEvent)),
        media_task_runner_(std::move(media_task_runner)),
-@@ -490,6 +554,11 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
+@@ -490,6 +559,11 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
    DCHECK(client_);
    DCHECK(delegate_);
  
@@ -101,7 +106,7 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
    if (base::FeatureList::IsEnabled(media::kMediaPowerExperiment)) {
      // The battery monitor is only available through the blink provider.
      DCHECK(remote_interfaces);
-@@ -610,6 +679,12 @@ WebMediaPlayerImpl::~WebMediaPlayerImpl() {
+@@ -610,6 +684,12 @@ WebMediaPlayerImpl::~WebMediaPlayerImpl() {
    DVLOG(1) << __func__;
    DCHECK(main_task_runner_->BelongsToCurrentThread());
  
@@ -114,7 +119,7 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
    ReportSessionUMAs();
  
    if (set_cdm_result_) {
-@@ -2929,6 +3004,17 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
+@@ -2929,6 +3009,17 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
      CreateWatchTimeReporter();
    }
  
@@ -132,7 +137,7 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3714,102 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3719,102 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
