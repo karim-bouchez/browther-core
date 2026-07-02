@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..5b2d30bfc0e45 100644
+index 2f77f8cc774f4..54dc91b103d2d 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -54,6 +54,10 @@
@@ -54,7 +54,7 @@ index 2f77f8cc774f4..5b2d30bfc0e45 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3650,88 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3650,94 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
@@ -63,6 +63,12 @@ index 2f77f8cc774f4..5b2d30bfc0e45 100644
 +  // native (readback GPU->CPU + downscale + RGBA). Pas encore de ML (étape ③).
 +  DCHECK(main_task_runner_->BelongsToCurrentThread());
 +  if (!frame)
++    return;
++
++  // [Browther/Basarunaa] Sink absent (embedder sans analyse OU kill-switch
++  // --disable-basarunaa-video-tap) -> ne rien faire : PAS de readback GPU->CPU.
++  // Sert à isoler si le tap natif déclenche l'instabilité graphique macOS.
++  if (!lead_frame_sink_)
 +    return;
 +
 +  const gfx::Size src = frame->visible_rect().size();

@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <utility>
 
+#include "base/environment.h"
 #include "base/feature_list.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
@@ -275,6 +276,17 @@ BraveContentRendererClient::GetSupportedKeySystems(
 base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
 BraveContentRendererClient::GetVideoLeadFrameSink(
     content::RenderFrame* render_frame) {
+  // ⚠️ Tap natif OFF PAR DÉFAUT (opt-in). Le readback GPU->CPU synchrone sur le
+  // main render thread (WebMediaPlayerImpl::OnLeadFrame, ~2/s) déstabilise la
+  // couche graphique macOS en lecture vidéo -> crash reproductible (piles
+  // ImageIO / WindowManagement, cf. isolation 2026-07-02 via kill-switch). ①②③
+  // restent committés mais désactivés tant que le readback n'est pas déplacé sur
+  // une séquence dédiée (hors main thread, RasterInterface propre — pattern
+  // WebCodecs background_readback). Activer pour dev/fix : BROWTHER_ENABLE_VIDEO_TAP=1
+  // (env var car héritée par le process renderer, contrairement à un switch CLI).
+  if (!base::Environment::Create()->HasVar("BROWTHER_ENABLE_VIDEO_TAP")) {
+    return {};
+  }
   auto* observer =
       basarunaa::BasarunaaRenderFrameObserver::Get(render_frame);
   if (!observer) {
