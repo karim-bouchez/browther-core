@@ -114,13 +114,21 @@ class BasarunaaService : public KeyedService {
   // Charge genderage.onnx (InsightFace, 96x96). Best-effort : si absent/échec,
   // gender reste kUnknown et le YOLO fonctionne toujours.
   void LoadGenderAgeModel();
-  // Aligne + classifie le visage d'une personne (port de utils/face_align.js +
-  // classifiers/onnx_generic.js). Renseigne person.gender / person.gender_conf.
-  // No-op si genderage indisponible ou pas de visage exploitable.
+  // Charge yolov8n-face.onnx (détecteur de visages dédié, 640x640, 3 têtes FPN
+  // + landmarks). Best-effort.
+  void LoadYoloFaceModel();
+  // Aligne + classifie un VISAGE (détecté par yolov8n-face) : rotation yeux +
+  // crop -> genderage. Reçoit les yeux (landmarks 1/2) + la bbox du visage
+  // (port utils/face_align.js + classifiers/onnx_generic.js). Renseigne
+  // person.gender / gender_conf / gender_source=kFace. No-op si genderage
+  // indisponible ou visage non alignable.
   void ClassifyGender(base::span<const uint8_t> rgba,
                       int width,
                       int height,
                       bool bgra,
+                      const DetectedKeyPoint& left_eye,
+                      const DetectedKeyPoint& right_eye,
+                      const DetectedFaceBbox& face_bbox,
                       DetectedPerson& person);
   // Charge pplcnet_pedestrian_attribute.onnx (PP-LCNet, 256x192). Best-effort.
   void LoadPplcnetModel();
@@ -162,6 +170,10 @@ class BasarunaaService : public KeyedService {
   // Session pplcnet (repli corps). Même call_once/sérialisation.
   std::unique_ptr<Ort::Session> pplcnet_session_;
   bool pplcnet_ready_ = false;
+
+  // Session yolov8n-face (détecteur visages dédié). Même call_once.
+  std::unique_ptr<Ort::Session> yolo_face_session_;
+  bool yolo_face_ready_ = false;
 
   // [Browther/Basarunaa] Sérialise GLOBALEMENT AnalyzeImageRgba. Le service est
   // profile-keyed et partagé entre TOUS les WebContents ; le cap "1 en vol" de

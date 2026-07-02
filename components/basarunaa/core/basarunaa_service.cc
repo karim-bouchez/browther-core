@@ -63,6 +63,30 @@ constexpr int kPplcnetInputH = 256;
 constexpr int kPplcnetInputW = 192;
 constexpr int kPplcnetFemaleAttr = 22;
 
+// yolov8n-face.onnx (détecteur visages). Entrée 640x640 (même letterbox que le
+// pose). 3 sorties = 3 têtes FPN [1,80,H,W] (strides 8/16/32) ; 80 = 64 (DFL
+// bbox 4×16 bins) + 1 conf + 15 (5 landmarks ×3). Port de detectors/yolo_face.js.
+constexpr base::FilePath::CharType kYoloFaceRelPath[] =
+    FILE_PATH_LITERAL("basarunaa/models/yolov8n-face.onnx");
+constexpr int kYoloFaceDflBins = 16;
+constexpr float kYoloFaceConf = 0.5f;
+constexpr float kYoloFaceIou = 0.4f;
+
+float Sigmoid(float x) {
+  return 1.f / (1.f + std::exp(-x));
+}
+
+// Visage détecté par yolov8n-face : bbox + 5 landmarks en ordre COCO
+// (0 nose, 1 left_eye, 2 right_eye, 3 left_mouth, 4 right_mouth).
+struct DetectedFace {
+  float x1 = 0.f;
+  float y1 = 0.f;
+  float x2 = 0.f;
+  float y2 = 0.f;
+  float conf = 0.f;
+  std::array<DetectedKeyPoint, 5> landmarks;
+};
+
 std::string ShapeToString(const std::vector<int64_t>& shape) {
   std::string out = "[";
   for (size_t i = 0; i < shape.size(); ++i) {
@@ -195,18 +219,20 @@ std::vector<DetectedPerson> NonMaxSuppression(
 }
 
 // Port FIDÈLE de utils/face_align.js (alignFace + _cropFromBbox). Remplit `out`
-// avec un tenseur RGB 0-255 NCHW (3*96*96) prêt pour genderage. Retourne false
-// si aucun visage exploitable (ni yeux fiables ni face_bbox).
+// avec un tenseur RGB 0-255 NCHW (3*96*96) prêt pour genderage. Reçoit les yeux
+// (landmarks left/right du détecteur de visages) + la bbox visage. Retourne
+// toujours true (la bbox est toujours fournie) — false réservé aux cas dégénérés.
 //
 // ⚠️ La ROTATION (aligner les yeux à l'horizontale) est la partie critique :
 // un simple crop carré casse la classification quand les yeux ne sont pas déjà
 // horizontaux (précédent FaceAlign.swift 2026-05-16, photo TF1 famille-repas).
-// Les yeux = keypoints COCO 1 (left_eye) / 2 (right_eye) du YOLO11n-pose.
 bool BuildAlignedFaceTensor(base::span<const uint8_t> rgba,
                             int width,
                             int height,
                             bool bgra,
-                            const DetectedPerson& person,
+                            const DetectedKeyPoint& le,
+                            const DetectedKeyPoint& re,
+                            const DetectedFaceBbox& fb,
                             std::vector<float>& out) {
   const size_t r_idx = bgra ? 2 : 0;
   const size_t b_idx = bgra ? 0 : 2;
@@ -253,36 +279,19 @@ bool BuildAlignedFaceTensor(base::span<const uint8_t> rgba,
     out[2 * plane + idx] = b;
   };
 
-  const bool has_face = person.face_bbox.has_value();
-  // Yeux : keypoints COCO 1 (left_eye) et 2 (right_eye).
-  const bool has_kps = person.keypoints.size() > 2;
-  const DetectedKeyPoint* le = has_kps ? &person.keypoints[1] : nullptr;
-  const DetectedKeyPoint* re = has_kps ? &person.keypoints[2] : nullptr;
-  const bool has_eyes =
-      le && re && le->confidence > 0.3f && re->confidence > 0.3f;
+  const bool has_eyes = le.confidence > 0.3f && re.confidence > 0.3f;
 
   if (has_eyes) {
-    const float eye_dist = std::hypot(re->x - le->x, re->y - le->y);
-    const float face_w = has_face
-                             ? (person.face_bbox->x2 - person.face_bbox->x1)
-                             : eye_dist * 2.8f;
+    const float eye_dist = std::hypot(re.x - le.x, re.y - le.y);
+    const float face_w = fb.x2 - fb.x1;
     // Skip rotation si yeux trop proches (<5px) ou visage trop petit (<35px) :
     // les artefacts d'interpolation dégradent l'accuracy (cf. face_align.js).
     if (eye_dist >= 5.f && face_w >= 35.f) {
-      const float angle = std::atan2(re->y - le->y, re->x - le->x);
-      float cx, cy, face_size;
-      if (has_face) {
-        cx = (person.face_bbox->x1 + person.face_bbox->x2) * 0.5f;
-        cy = (person.face_bbox->y1 + person.face_bbox->y2) * 0.5f;
-        face_size =
-            std::max(person.face_bbox->x2 - person.face_bbox->x1,
-                     person.face_bbox->y2 - person.face_bbox->y1) *
-            1.1f;
-      } else {
-        cx = (le->x + re->x) * 0.5f;
-        cy = (le->y + re->y) * 0.5f + eye_dist * 0.15f;
-        face_size = eye_dist * 2.8f;
-      }
+      const float angle = std::atan2(re.y - le.y, re.x - le.x);
+      const float cx = (fb.x1 + fb.x2) * 0.5f;
+      const float cy = (fb.y1 + fb.y2) * 0.5f;
+      const float face_size =
+          std::max(fb.x2 - fb.x1, fb.y2 - fb.y1) * 1.1f;
       const float scale = kS / face_size;
       const float ca = std::cos(angle);
       const float sa = std::sin(angle);
@@ -306,13 +315,10 @@ bool BuildAlignedFaceTensor(base::span<const uint8_t> rgba,
   }
 
   // Repli _cropFromBbox : crop axis-aligned depuis face_bbox + 15% padding.
-  if (!has_face) {
-    return false;
-  }
-  const float fx1 = person.face_bbox->x1;
-  const float fy1 = person.face_bbox->y1;
-  const float fx2 = person.face_bbox->x2;
-  const float fy2 = person.face_bbox->y2;
+  const float fx1 = fb.x1;
+  const float fy1 = fb.y1;
+  const float fx2 = fb.x2;
+  const float fy2 = fb.y2;
   const float fw = fx2 - fx1;
   const float fh = fy2 - fy1;
   const float max_dim = std::max(fw, fh);
@@ -620,6 +626,191 @@ std::vector<uint8_t> PolygonToMask(const std::vector<PolyPoint>& points,
   return data;
 }
 
+// ---- Détecteur de visages yolov8n-face (port detectors/yolo_face.js) ----
+
+// NMS glouton sur des visages (bbox + conf), port utils/nms.js.
+std::vector<DetectedFace> NmsFaces(std::vector<DetectedFace> faces,
+                                   float iou_thr) {
+  std::sort(faces.begin(), faces.end(),
+            [](const DetectedFace& a, const DetectedFace& b) {
+              return a.conf > b.conf;
+            });
+  auto iou = [](const DetectedFace& a, const DetectedFace& b) {
+    const float x1 = std::max(a.x1, b.x1);
+    const float y1 = std::max(a.y1, b.y1);
+    const float x2 = std::min(a.x2, b.x2);
+    const float y2 = std::min(a.y2, b.y2);
+    const float inter = std::max(0.f, x2 - x1) * std::max(0.f, y2 - y1);
+    const float ua = (a.x2 - a.x1) * (a.y2 - a.y1) +
+                     (b.x2 - b.x1) * (b.y2 - b.y1) - inter;
+    return ua > 0.f ? inter / ua : 0.f;
+  };
+  std::vector<DetectedFace> kept;
+  std::vector<bool> suppressed(faces.size(), false);
+  for (size_t i = 0; i < faces.size(); ++i) {
+    if (suppressed[i]) {
+      continue;
+    }
+    kept.push_back(faces[i]);
+    for (size_t j = i + 1; j < faces.size(); ++j) {
+      if (!suppressed[j] && iou(faces[i], faces[j]) > iou_thr) {
+        suppressed[j] = true;
+      }
+    }
+  }
+  return kept;
+}
+
+// Décode les 3 têtes FPN (DFL bbox + conf + 5 landmarks), port _postprocess.
+std::vector<DetectedFace> RunYoloFaceImpl(Ort::Session* session,
+                                          base::span<const uint8_t> rgba,
+                                          int width,
+                                          int height,
+                                          bool bgra) {
+  std::vector<float> nchw;
+  float scale = 1.f, pad_x = 0.f, pad_y = 0.f;
+  LetterboxRgbaToNchw(rgba, width, height, bgra, nchw, scale, pad_x, pad_y);
+  std::vector<DetectedFace> faces;
+  try {
+    auto mem = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
+    const std::array<int64_t, 4> shape = {1, 3, kYoloInputSize, kYoloInputSize};
+    Ort::Value input = Ort::Value::CreateTensor<float>(
+        mem, nchw.data(), nchw.size(), shape.data(), shape.size());
+    Ort::AllocatorWithDefaultOptions alloc;
+    auto in_name = session->GetInputNameAllocated(0, alloc);
+    const char* in_names[] = {in_name.get()};
+    const size_t n_out = session->GetOutputCount();
+    std::vector<Ort::AllocatedStringPtr> out_name_holders;
+    std::vector<const char*> out_names;
+    out_name_holders.reserve(n_out);
+    out_names.reserve(n_out);
+    for (size_t i = 0; i < n_out; ++i) {
+      out_name_holders.push_back(session->GetOutputNameAllocated(i, alloc));
+      out_names.push_back(out_name_holders.back().get());
+    }
+    auto outputs = session->Run(Ort::RunOptions{nullptr}, in_names, &input, 1,
+                                out_names.data(), n_out);
+    for (auto& output : outputs) {
+      const auto dims = output.GetTensorTypeAndShapeInfo().GetShape();
+      if (dims.size() != 4 || dims[1] != 80) {
+        continue;
+      }
+      const int grid_h = static_cast<int>(dims[2]);
+      const int grid_w = static_cast<int>(dims[3]);
+      if (grid_h <= 0 || grid_w <= 0) {
+        continue;
+      }
+      const int stride = kYoloInputSize / grid_h;  // 8, 16, 32
+      const float stridef = static_cast<float>(stride);
+      const size_t plane = static_cast<size_t>(grid_h) * grid_w;
+      const auto data = UNSAFE_BUFFERS(
+          base::span<const float>(output.GetTensorData<float>(), 80 * plane));
+      for (int gy = 0; gy < grid_h; ++gy) {
+        for (int gx = 0; gx < grid_w; ++gx) {
+          const size_t cell = static_cast<size_t>(gy) * grid_w + gx;
+          const float conf = Sigmoid(data[64 * plane + cell]);
+          if (conf < kYoloFaceConf) {
+            continue;
+          }
+          // DFL : 4 distances (softmax sur 16 bins → somme pondérée).
+          std::array<float, 4> dist = {0.f, 0.f, 0.f, 0.f};
+          for (int d = 0; d < 4; ++d) {
+            float maxv = -std::numeric_limits<float>::infinity();
+            for (int b = 0; b < kYoloFaceDflBins; ++b) {
+              maxv = std::max(
+                  maxv, data[(d * kYoloFaceDflBins + b) * plane + cell]);
+            }
+            float sum = 0.f, wsum = 0.f;
+            for (int b = 0; b < kYoloFaceDflBins; ++b) {
+              const float e =
+                  std::exp(data[(d * kYoloFaceDflBins + b) * plane + cell] -
+                           maxv);
+              sum += e;
+              wsum += e * static_cast<float>(b);
+            }
+            dist[d] = sum > 0.f ? wsum / sum : 0.f;
+          }
+          const float ax = (gx + 0.5f) * stridef;
+          const float ay = (gy + 0.5f) * stridef;
+          DetectedFace f;
+          f.x1 = std::max(0.f, (ax - dist[0] * stridef - pad_x) / scale);
+          f.y1 = std::max(0.f, (ay - dist[1] * stridef - pad_y) / scale);
+          f.x2 = std::min(static_cast<float>(width),
+                          (ax + dist[2] * stridef - pad_x) / scale);
+          f.y2 = std::min(static_cast<float>(height),
+                          (ay + dist[3] * stridef - pad_y) / scale);
+          f.conf = conf;
+          // 5 landmarks bruts (left_eye, right_eye, nose, l_mouth, r_mouth).
+          std::array<DetectedKeyPoint, 5> raw;
+          for (int l = 0; l < 5; ++l) {
+            const int bc = 65 + l * 3;
+            const float lx = data[bc * plane + cell];
+            const float ly = data[(bc + 1) * plane + cell];
+            const float lv = data[(bc + 2) * plane + cell];
+            raw[l].x = (lx * stridef + ax - pad_x) / scale;
+            raw[l].y = (ly * stridef + ay - pad_y) / scale;
+            raw[l].confidence = Sigmoid(lv);
+          }
+          // → ordre COCO [nose, left_eye, right_eye, l_mouth, r_mouth].
+          f.landmarks[0] = raw[2];
+          f.landmarks[1] = raw[0];
+          f.landmarks[2] = raw[1];
+          f.landmarks[3] = raw[3];
+          f.landmarks[4] = raw[4];
+          faces.push_back(f);
+        }
+      }
+    }
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] yolo-face inference failed: " << e.what();
+    return {};
+  }
+  return NmsFaces(std::move(faces), kYoloFaceIou);
+}
+
+// Matche chaque visage à une personne (port _matchFacesToBodies) : visage
+// entièrement DANS la bbox personne ; assignation gloutonne par distance
+// (centre visage ↔ haut-centre du corps). Retourne, par personne, l'index de
+// visage matché (ou -1).
+std::vector<int> MatchFacesToPersons(const std::vector<DetectedPerson>& persons,
+                                     const std::vector<DetectedFace>& faces) {
+  struct Pair {
+    int pi;
+    int fi;
+    float dist;
+  };
+  std::vector<Pair> pairs;
+  for (int pi = 0; pi < static_cast<int>(persons.size()); ++pi) {
+    const float bx1 = persons[pi].x;
+    const float by1 = persons[pi].y;
+    const float bx2 = bx1 + persons[pi].w;
+    const float by2 = by1 + persons[pi].h;
+    const float bcx = (bx1 + bx2) * 0.5f;
+    const float bfy = by1 + (by2 - by1) * 0.15f;
+    for (int fi = 0; fi < static_cast<int>(faces.size()); ++fi) {
+      const DetectedFace& f = faces[fi];
+      if (f.x1 < bx1 || f.y1 < by1 || f.x2 > bx2 || f.y2 > by2) {
+        continue;
+      }
+      const float fcx = (f.x1 + f.x2) * 0.5f;
+      const float fcy = (f.y1 + f.y2) * 0.5f;
+      pairs.push_back({pi, fi, std::hypot(fcx - bcx, fcy - bfy)});
+    }
+  }
+  std::sort(pairs.begin(), pairs.end(),
+            [](const Pair& a, const Pair& b) { return a.dist < b.dist; });
+  std::vector<int> result(persons.size(), -1);
+  std::vector<bool> used_face(faces.size(), false);
+  for (const auto& p : pairs) {
+    if (result[p.pi] != -1 || used_face[p.fi]) {
+      continue;
+    }
+    result[p.pi] = p.fi;
+    used_face[p.fi] = true;
+  }
+  return result;
+}
+
 }  // namespace
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
@@ -679,6 +870,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   // pas le YOLO, le genre reste juste kUnknown).
   std::call_once(init_flag_, [this]() {
     LoadYoloPoseModel();
+    LoadYoloFaceModel();
     LoadGenderAgeModel();
     LoadPplcnetModel();
   });
@@ -806,13 +998,34 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
 
   auto nms = NonMaxSuppression(std::move(raw));
 
-  // Classification par personne : d'abord le VISAGE (genderage/InsightFace) ;
-  // si pas de visage exploitable (dos tourné, flou…), repli CORPS (pplcnet).
-  // Mirror du dual pipeline JS (_processDual) branche « no face → body only ».
-  // Une personne qui reste kUnknown (ni visage ni corps classables) est
-  // FLOUTÉE côté browser (« inconnu = sûr », VIDEO_V2.md §4).
-  for (auto& person : nms) {
-    ClassifyGender(rgba_span, width, height, bgra, person);
+  // Détection de VISAGES dédiée (yolov8n-face) + matching visage↔personne.
+  // Un vrai détecteur ne se déclenche que sur un visage réellement visible →
+  // une personne de dos n'a PAS de visage matché → repli corps (pplcnet).
+  std::vector<DetectedFace> faces;
+  if (yolo_face_ready_) {
+    faces = RunYoloFaceImpl(yolo_face_session_.get(), rgba_span, width, height,
+                            bgra);
+  }
+  const std::vector<int> face_of = MatchFacesToPersons(nms, faces);
+
+  // Classification par personne : VISAGE (genderage sur les landmarks du
+  // détecteur de visages) si un visage est matché, sinon/échec → CORPS
+  // (pplcnet). Mirror du dual pipeline JS (_processDual, branche no-face→body).
+  // Reste kUnknown (ni visage ni corps classables) → FLOUTÉE côté browser
+  // (« inconnu = sûr », VIDEO_V2.md §4).
+  for (size_t i = 0; i < nms.size(); ++i) {
+    DetectedPerson& person = nms[i];
+    const int fi = face_of[i];
+    if (fi >= 0) {
+      const DetectedFace& f = faces[fi];
+      DetectedFaceBbox fb;
+      fb.x1 = f.x1;
+      fb.y1 = f.y1;
+      fb.x2 = f.x2;
+      fb.y2 = f.y2;
+      ClassifyGender(rgba_span, width, height, bgra, f.landmarks[1],
+                     f.landmarks[2], fb, person);
+    }
     if (person.gender == Gender::kUnknown) {
       ClassifyBodyGender(rgba_span, width, height, bgra, person);
     }
@@ -890,6 +1103,36 @@ void BasarunaaService::LoadYoloPoseModel() {
   LOG(INFO) << "[Basarunaa] YOLO11n-pose session ready";
 }
 
+void BasarunaaService::LoadYoloFaceModel() {
+  base::FilePath exe_dir;
+  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
+    return;
+  }
+  const base::FilePath model_path = exe_dir.Append(kYoloFaceRelPath);
+  if (!base::PathExists(model_path)) {
+    LOG(WARNING) << "[Basarunaa] yolo-face model not found at "
+                 << model_path.value() << " — body fallback only";
+    return;
+  }
+  EnsureOrtEnv();
+  if (!ort_env_) {
+    return;
+  }
+  try {
+    Ort::SessionOptions opts;
+    opts.SetIntraOpNumThreads(1);
+    opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
+    yolo_face_session_ = std::make_unique<Ort::Session>(
+        *ort_env_, model_path.value().c_str(), opts);
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] yolo-face session creation failed: " << e.what();
+    yolo_face_session_.reset();
+    return;
+  }
+  yolo_face_ready_ = true;
+  LOG(INFO) << "[Basarunaa] yolov8n-face session ready";
+}
+
 void BasarunaaService::LoadGenderAgeModel() {
   base::FilePath exe_dir;
   if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
@@ -924,25 +1167,20 @@ void BasarunaaService::ClassifyGender(base::span<const uint8_t> rgba,
                                       int width,
                                       int height,
                                       bool bgra,
+                                      const DetectedKeyPoint& left_eye,
+                                      const DetectedKeyPoint& right_eye,
+                                      const DetectedFaceBbox& face_bbox,
                                       DetectedPerson& person) {
   if (!genderage_ready_) {
     return;
   }
-  // Garde-fou anti-dos : n'emprunter la voie VISAGE que si le NEZ (keypoint
-  // COCO 0) est franchement visible. YOLO pose HALLUCINE des keypoints de
-  // visage (yeux/oreilles) même pour une personne de dos → sans ce filtre,
-  // genderage tournait sur l'arrière du crâne et l'étiquetait « visage » à
-  // tort. De dos, le nez est occlus (conf basse) → on laisse kUnknown → le
-  // repli pplcnet (« corps ») prend le relais. Interim : le vrai fix est le
-  // détecteur yolov8n-face dédié (cf. TODO §Étapes 3-4).
-  constexpr float kNoseVisibleConf = 0.5f;
-  if (person.keypoints.empty() ||
-      person.keypoints[0].confidence < kNoseVisibleConf) {
-    return;
-  }
+  // Le visage vient du détecteur DÉDIÉ yolov8n-face (il ne se déclenche que sur
+  // un vrai visage visible → plus de faux « visage » sur les gens de dos, plus
+  // besoin de garde-fou nez). On aligne depuis SES landmarks (yeux) + sa bbox.
   std::vector<float> tensor;
-  if (!BuildAlignedFaceTensor(rgba, width, height, bgra, person, tensor)) {
-    return;  // pas de visage exploitable → reste kUnknown / -1
+  if (!BuildAlignedFaceTensor(rgba, width, height, bgra, left_eye, right_eye,
+                              face_bbox, tensor)) {
+    return;  // visage non alignable → reste kUnknown / -1
   }
   try {
     auto memory_info =
