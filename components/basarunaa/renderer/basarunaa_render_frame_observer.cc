@@ -5,16 +5,26 @@
 
 #include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
 
+#include <optional>
+#include <string>
 #include <utility>
 #include <vector>
 
 #include "base/compiler_specific.h"
 #include "base/containers/span.h"
 #include "base/functional/bind.h"
+#include "base/json/json_writer.h"
+#include "base/location.h"
 #include "base/logging.h"
+#include "base/task/single_thread_task_runner.h"
+#include "base/values.h"
 #include "content/public/renderer/render_frame.h"
 #include "mojo/public/cpp/base/big_buffer.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
+#include "third_party/blink/public/platform/task_type.h"
+#include "third_party/blink/public/platform/web_string.h"
+#include "third_party/blink/public/web/web_local_frame.h"
+#include "third_party/blink/public/web/web_script_source.h"
 
 namespace basarunaa {
 
@@ -80,16 +90,72 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
     return;
   }
   mojo_base::BigBuffer buffer{base::span<const uint8_t>(bgra)};
+  // ④a : garde media_time + dims analysées pour horodater/normaliser côté JS.
   image_analyzer_->AnalyzeImage(
       std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
-                     weak_ptr_factory_.GetWeakPtr()));
+                     weak_ptr_factory_.GetWeakPtr(), media_time, width, height));
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(
+    base::TimeDelta media_time,
+    int width,
+    int height,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
-  LOG(INFO) << "[Basarunaa-spike] AnalyzeImage reply: " << persons.size()
-            << " persons";
+  // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
+  // scale à l'affichage). detail = string JSON (traverse proprement les mondes).
+  const double w = width > 0 ? width : 1;
+  const double h = height > 0 ? height : 1;
+  base::ListValue boxes;
+  for (const auto& p : persons) {
+    base::ListValue box;
+    box.Append(p->x / w);
+    box.Append(p->y / h);
+    box.Append(p->w / w);
+    box.Append(p->h / h);
+    box.Append(static_cast<double>(p->score));
+    boxes.Append(std::move(box));
+  }
+  base::DictValue dict;
+  dict.Set("t", static_cast<double>(media_time.InMilliseconds()));
+  dict.Set("p", std::move(boxes));
+
+  std::optional<std::string> json = base::WriteJson(dict);
+  if (!json) {
+    return;
+  }
+  // JSON-encode la string une 2e fois -> littéral JS échappé pour |detail|.
+  std::optional<std::string> js_literal = base::WriteJson(base::Value(*json));
+  if (!js_literal) {
+    return;
+  }
+  std::string script =
+      "document.dispatchEvent(new CustomEvent('bsr-native-result',{detail:" +
+      *js_literal + "}))";
+  content::RenderFrame* rf = render_frame();
+  if (!rf) {
+    return;
+  }
+  // ⚠️ NE PAS ExecuteScript ici (callback Mojo) : on poste une tâche fraîche.
+  rf->GetTaskRunner(blink::TaskType::kInternalDefault)
+      ->PostTask(
+          FROM_HERE,
+          base::BindOnce(&BasarunaaRenderFrameObserver::DispatchResultToPage,
+                         weak_ptr_factory_.GetWeakPtr(), std::move(script)));
+}
+
+void BasarunaaRenderFrameObserver::DispatchResultToPage(std::string script) {
+  content::RenderFrame* rf = render_frame();
+  if (!rf) {
+    return;
+  }
+  blink::WebLocalFrame* web_frame = rf->GetWebFrame();
+  if (!web_frame || web_frame->IsProvisional()) {
+    return;
+  }
+  // Main world : le content script (monde isolé) reçoit l'event DOM.
+  web_frame->ExecuteScript(
+      blink::WebScriptSource(blink::WebString::FromUTF8(script)));
 }
 
 void BasarunaaRenderFrameObserver::OnDestruct() {

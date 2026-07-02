@@ -62,7 +62,16 @@ class BasarunaaRenderFrameObserver final
                         int width,
                         int height,
                         base::TimeDelta media_time);
-  void OnAnalyzed(std::vector<mojom::AnalyzedPersonPtr> persons);
+  // ④a : reçoit le verdict ML (bboxes en pixels de l'image analysée
+  // |width|×|height|) + le temps média, et pousse le résultat au JS de la page
+  // (CustomEvent 'bsr-native-result', detail = string JSON, coords normalisées).
+  void OnAnalyzed(base::TimeDelta media_time,
+                  int width,
+                  int height,
+                  std::vector<mojom::AnalyzedPersonPtr> persons);
+  // Exécute le dispatch JS. Posté en tâche fraîche (pas dans le callback Mojo)
+  // pour éviter un ExecuteScript en zone ScriptForbiddenScope.
+  void DispatchResultToPage(std::string script);
 
   mojo::Remote<mojom::ImageAnalyzer> image_analyzer_;
   base::WeakPtrFactory<BasarunaaRenderFrameObserver> weak_ptr_factory_{this};
