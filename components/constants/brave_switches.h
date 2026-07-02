@@ -11,6 +11,14 @@ namespace switches {
 // All switches in alphabetical order. The switches should be documented
 // alongside the definition of their values in the .cc file.
 
+// [Browther/Basarunaa] Active le tap vidéo natif (decode-ahead -> readback ->
+// YOLO -> overlay) pour ce process renderer. Injecté par le browser
+// (BraveContentBrowserClient::AppendExtraCommandLineSwitches) quand la pref
+// kBasarunaaEnabled est ON, jamais passé manuellement. Le browser force aussi
+// --disable-accelerated-video-decode dans ce cas (frames CPU-mappables -> pas
+// de readback GPU, cf. bug A). Toggle de la pref -> restart requis.
+inline constexpr char kBasarunaaVideoTap[] = "basarunaa-video-tap";
+
 // Use custom update interval in sec
 inline constexpr char kComponentUpdateIntervalInSec[] =
     "component-update-interval-in-sec";

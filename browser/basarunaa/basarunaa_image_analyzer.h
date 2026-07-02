@@ -22,17 +22,18 @@ class WebContents;
 
 namespace basarunaa {
 
-// Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). Browser-side handler de
-// l'interface ImageAnalyzer pour le hook renderer C++ (M2.2).
+// Browser-side handler de l'interface Mojo ImageAnalyzer, appelé par le RFO
+// renderer avec les frames vidéo décodées-en-avance (BGRA). Fait tourner le
+// vrai ML (YOLO11n-pose via BasarunaaService::AnalyzeImageRgba) sur le
+// ThreadPool et répond les personnes détectées au renderer (-> overlay de flou).
 //
-// **Stub V1** : retourne toujours un vector vide. Le but ici est de valider
-// que le pattern Mojo IPC C++ → C++ ne crashe pas sous stress, indépendamment
-// de l'inférence ML. Quand le pattern est validé, on branchera
-// BasarunaaService::AnalyzeImageRgba (M2.2c).
+// Canal Mojo non-associé (`mojo::ReceiverSet`, pattern Skus) : le bridge V1
+// précédent utilisait `AssociatedRemote` côté JS+V8 et crashait sous stress
+// (chaîne V8/cppgc) — ce canal C++→C++ dédié s'est avéré stable.
 //
-// Non-associated `mojo::ReceiverSet` (canal Mojo dédié, pattern Skus). Le
-// précédent bridge utilisait `AssociatedRemote` côté JS+V8 et a crashé sous
-// stress — hypothèse : la chaîne V8/cppgc, pas Mojo. À confirmer ici.
+// Cap 1 analyse YOLO en vol (|analysis_in_flight_|) : les frames qui arrivent
+// pendant qu'une analyse tourne sont droppées (évite deux AnalyzeImageRgba
+// concurrentes = crash flaky, + cap "frames en vol" du design §11).
 class BasarunaaImageAnalyzer
     : public content::WebContentsUserData<BasarunaaImageAnalyzer>,
       public mojom::ImageAnalyzer {

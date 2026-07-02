@@ -137,15 +137,15 @@ index 2f77f8cc774f4..a1d9e8195b6d5 100644
  }
  
 +void WebMediaPlayerImpl::OnLeadFrame(scoped_refptr<media::VideoFrame> frame) {
-+  // [Browther/Basarunaa] decode-ahead — checkpoint ② : prouve la sortie CPU
-+  // native (readback GPU->CPU + downscale + RGBA). Pas encore de ML (étape ③).
++  // [Browther/Basarunaa] decode-ahead ② : readback GPU->CPU d'une frame décodée
++  // en avance + downscale + RGBA, relayé au sink (-> RFO renderer -> ML ③).
 +  DCHECK(main_task_runner_->BelongsToCurrentThread());
 +  if (!frame)
 +    return;
 +
-+  // [Browther/Basarunaa] Sink absent (embedder sans analyse OU kill-switch
-+  // --disable-basarunaa-video-tap) -> ne rien faire : PAS de readback GPU->CPU.
-+  // Sert à isoler si le tap natif déclenche l'instabilité graphique macOS.
++  // [Browther/Basarunaa] Sink absent = pref Basarunaa OFF pour ce renderer (le
++  // browser n'a pas injecté --basarunaa-video-tap) OU embedder sans analyse ->
++  // ne rien faire : PAS de readback GPU->CPU. Gate normal du tap, pas un debug.
 +  if (!lead_frame_sink_)
 +    return;
 +

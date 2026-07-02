@@ -72,6 +72,7 @@
 #include "brave/components/brave_shields/core/common/shields_settings.mojom.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
 #include "brave/components/brave_wallet/common/buildflags/buildflags.h"
+#include "brave/components/constants/brave_switches.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/constants/webui_url_constants.h"
 #include "brave/components/containers/buildflags/buildflags.h"
@@ -347,6 +348,16 @@ using extensions::ChromeContentBrowserClientExtensionsPart;
 #endif
 
 namespace {
+
+// [Browther/Basarunaa] Gate de rollout du pipeline vidéo decode-ahead
+// (tap natif + décodage SW forcé). OFF par défaut : la pref kBasarunaaEnabled
+// est ON par défaut (flou images), or forcer le SW decode pour TOUS les users
+// tant que le pipeline vidéo est expérimental serait une régression perf. Dev :
+// --enable-features=BasarunaaVideoDecodeAhead. Quand mûr : passer ON (ou Finch)
+// -> le toggle Basarunaa utilisateur pilotera alors le flou vidéo tout seul.
+BASE_FEATURE(kBasarunaaVideoDecodeAhead,
+             "BasarunaaVideoDecodeAhead",
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 void BindCosmeticFiltersResourcesOnTaskRunner(
     mojo::PendingReceiver<cosmetic_filters::mojom::CosmeticFiltersResources>
@@ -1116,6 +1127,25 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
         translate::switches::kBraveTranslateUseGoogleEndpoint,
     };
     command_line->CopySwitchesFrom(browser_command_line, kSwitchNames);
+
+    // [Browther/Basarunaa] Quand la feature de rollout est ON ET la pref
+    // Basarunaa est ON pour le profil de ce renderer :
+    // (1) --basarunaa-video-tap active le tap vidéo natif côté renderer ;
+    // (2) --disable-accelerated-video-decode force le décodage SW -> frames
+    // CPU-mappables -> WebMediaPlayerImpl::OnLeadFrame évite le readback GPU
+    // (contourne le bug A : le readback mute le sync-token d'une frame encore
+    // possédée par le pipeline décodé-en-avance). Toggle -> restart requis.
+    if (base::FeatureList::IsEnabled(kBasarunaaVideoDecodeAhead)) {
+      if (content::RenderProcessHost* process =
+              content::RenderProcessHost::FromID(child_process_id)) {
+        auto* prefs = user_prefs::UserPrefs::Get(process->GetBrowserContext());
+        if (prefs && prefs->FindPreference(kBasarunaaEnabled) &&
+            prefs->GetBoolean(kBasarunaaEnabled)) {
+          command_line->AppendSwitch(switches::kBasarunaaVideoTap);
+          command_line->AppendSwitch(switches::kDisableAcceleratedVideoDecode);
+        }
+      }
+    }
   }
 }
 

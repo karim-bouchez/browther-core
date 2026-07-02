@@ -19,17 +19,11 @@
 
 namespace basarunaa {
 
-// Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). RFO C++ pur (pas de V8)
-// qui valide le pattern Mojo IPC renderer→browser pour Basarunaa.
-//
-// **Spike V1** : sur `DidFinishLoad`, envoie 1 IPC `AnalyzeImage` avec un
-// dummy buffer 128×128 RGBA noir. Le browser-side stub log + répond [].
-// On vérifie que sous stress (rechargements rapides Google Images), aucun
-// crash n'apparaît — ce qui confirmera que le bug du bridge V1 venait bien
-// de la chaîne V8/cppgc et pas de Mojo+BigBuffer.
-//
-// Quand validé, M2.2 remplacera ce stub par un vrai hook sur les
-// évènements Blink image (`ImageNotifyFinished`).
+// RFO C++ pur (pas de V8) du pipeline vidéo decode-ahead Basarunaa. Expose un
+// sink (GetVideoLeadFrameSink) que WebMediaPlayerImpl appelle avec chaque frame
+// décodée-en-avance ; relaie le buffer BGRA au ML browser via Mojo AnalyzeImage
+// (kBgra8), puis pousse le verdict (bboxes normalisées + temps média) au JS de
+// la page via CustomEvent 'bsr-native-result' pour l'overlay de flou.
 class BasarunaaRenderFrameObserver final
     : public content::RenderFrameObserver,
       public content::RenderFrameObserverTracker<
@@ -52,7 +46,6 @@ class BasarunaaRenderFrameObserver final
   ~BasarunaaRenderFrameObserver() override;
 
   // RenderFrameObserver:
-  void DidFinishLoad() override;
   void OnDestruct() override;
 
   bool EnsureConnected();
