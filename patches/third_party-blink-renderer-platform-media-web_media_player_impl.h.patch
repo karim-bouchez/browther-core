@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-index 57c8960bcdb25..40f4d0af230da 100644
+index 57c8960bcdb25..354927f5045e5 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
 @@ -84,6 +84,8 @@ class MediaLog;
@@ -11,7 +11,15 @@ index 57c8960bcdb25..40f4d0af230da 100644
  }  // namespace media
  
  namespace viz {
-@@ -160,7 +162,10 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -104,6 +106,7 @@ class WebAudioSourceProviderImpl;
+ class WebContentDecryptionModule;
+ class WebLocalFrame;
+ class WebMediaPlayerEncryptedMediaClient;
++class LeadFrameReadbackThread;  // [Browther/Basarunaa] decode-ahead
+ 
+ // The set of split histograms that are supported. Keeping them in an enum
+ // helps prevent raw strings from being scattered throughout the source, and
+@@ -160,7 +163,10 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        bool is_background_video_play_enabled,
        bool is_background_video_track_optimization_supported,
        std::unique_ptr<media::Demuxer> demuxer_override,
@@ -23,7 +31,7 @@ index 57c8960bcdb25..40f4d0af230da 100644
    WebMediaPlayerImpl(const WebMediaPlayerImpl&) = delete;
    WebMediaPlayerImpl& operator=(const WebMediaPlayerImpl&) = delete;
    ~WebMediaPlayerImpl() override;
-@@ -710,6 +715,12 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -710,6 +716,18 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
    // RequestAnimationFrame() is called.
    void OnNewFramePresentedCallback();
  
@@ -32,11 +40,17 @@ index 57c8960bcdb25..40f4d0af230da 100644
 +  // décodée EN AVANCE de l'affichage, en fait le readback GPU->CPU + downscale +
 +  // RGBA, et (à terme) la passe au ML. Pour l'instant : log dims + checksum.
 +  void OnLeadFrame(scoped_refptr<media::VideoFrame> frame);
++  // [Browther/Basarunaa] decode-ahead : suite de OnLeadFrame une fois la frame
++  // en CPU (soit inline pour une frame mappable, soit via le reply du readback
++  // sur la séquence dédiée pour une frame GPU). Downscale + RGBA + sink, sur le
++  // main thread (opérations CPU only, sûres). |src| = taille source d'origine.
++  void ProcessLeadCpuFrame(gfx::Size src,
++                           scoped_refptr<media::VideoFrame> cpu_frame);
 +
    // Notifies |demuxer_manager_| of playback and rate changes which may increase
    // the amount of data the DataSource buffers. Does nothing prior to reaching
    // kReadyStateHaveEnoughData for the first time.
-@@ -884,6 +895,16 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -884,6 +902,21 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        compositor_;  // Deleted on |vfc_task_runner_|.
    media::PaintCanvasVideoRenderer video_renderer_;
  
@@ -49,6 +63,11 @@ index 57c8960bcdb25..40f4d0af230da 100644
 +  // l'embedder (RFO Basarunaa -> Mojo ImageAnalyzer). Null = pas d'analyse.
 +  base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
 +      lead_frame_sink_;
++  // [Browther/Basarunaa] decode-ahead : séquence dédiée + impl pour le readback
++  // GPU->CPU hors main thread (frames GPU-backed). Créés paresseusement au 1er
++  // besoin ; |lead_readback_impl_| est détruit via ReleaseSoon sur son runner.
++  scoped_refptr<base::SingleThreadTaskRunner> lead_readback_runner_;
++  scoped_refptr<LeadFrameReadbackThread> lead_readback_impl_;
 +
    // The compositor layer for displaying the video content when using composited
    // playback.
