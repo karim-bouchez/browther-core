@@ -6,6 +6,8 @@
 #ifndef BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 #define BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 
+#include <array>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -77,6 +79,16 @@ class BasarunaaImageAnalyzer
   // (a) évite deux AnalyzeImageRgba concurrentes (crash flaky observé) et
   // (b) implémente le cap "frames en vol" du design §11. Accès UI thread only.
   bool analysis_in_flight_ = false;
+
+  // Scene-gating (frame-diff) : hash 8×8 grayscale de la dernière frame
+  // ANALYSÉE + son résultat. Si la nouvelle frame diffère peu (scène statique),
+  // on SKIP l'analyse (2 YOLO + classifs) et on réutilise |last_persons_|. Port
+  // de core/video/frame-diff.ts. |skip_count_| force un refresh périodique même
+  // sur du statique. Accès UI thread only.
+  std::array<uint8_t, 64> last_hash_ = {};
+  bool has_last_hash_ = false;
+  int skip_count_ = 0;
+  std::vector<mojom::AnalyzedPersonPtr> last_persons_;
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 

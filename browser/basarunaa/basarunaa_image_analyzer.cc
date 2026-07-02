@@ -5,6 +5,8 @@
 
 #include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
 
+#include <algorithm>
+#include <array>
 #include <cstdint>
 #include <utility>
 #include <vector>
@@ -25,6 +27,46 @@
 namespace basarunaa {
 
 namespace {
+
+// Hash 8×8 grayscale (moyenne par bloc) — port de core/video/frame-diff.ts.
+// Grayscale pondéré (R*2 + G*3 + B)/6 comme la v1. Buffer packé BGRA/RGBA.
+std::array<uint8_t, 64> ComputeHash8x8(base::span<const uint8_t> px,
+                                       int w,
+                                       int h,
+                                       bool bgra) {
+  std::array<uint64_t, 64> sum = {};
+  std::array<uint32_t, 64> cnt = {};
+  const size_t r_idx = bgra ? 2 : 0;
+  const size_t b_idx = bgra ? 0 : 2;
+  for (int y = 0; y < h; ++y) {
+    const int cy = std::min(7, y * 8 / h);
+    for (int x = 0; x < w; ++x) {
+      const int cx = std::min(7, x * 8 / w);
+      const size_t off = (static_cast<size_t>(y) * w + x) * 4;
+      const uint32_t gray =
+          (px[off + r_idx] * 2u + px[off + 1] * 3u + px[off + b_idx]) / 6u;
+      const int cell = cy * 8 + cx;
+      sum[cell] += gray;
+      cnt[cell] += 1;
+    }
+  }
+  std::array<uint8_t, 64> hash = {};
+  for (int i = 0; i < 64; ++i) {
+    hash[i] = cnt[i] ? static_cast<uint8_t>(sum[i] / cnt[i]) : 0;
+  }
+  return hash;
+}
+
+// Ratio de diff [0,1] entre deux hash (somme des |Δ| / (64*255)).
+float HashDiff(const std::array<uint8_t, 64>& a,
+               const std::array<uint8_t, 64>& b) {
+  int total = 0;
+  for (int i = 0; i < 64; ++i) {
+    const int d = static_cast<int>(a[i]) - static_cast<int>(b[i]);
+    total += d < 0 ? -d : d;
+  }
+  return total / (64.f * 255.f);
+}
 
 // Décision de floutage, port de VIDEO_V2.md §4 (chemin VIDÉO, plus prudent que
 // content.js image) : flouter si `gender===target` OU `genderConf < certainty`
@@ -151,8 +193,6 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     std::move(callback).Run({}, "", false);
     return;
   }
-  analysis_in_flight_ = true;
-
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
   // du flag blur). debug_mode + blur_enabled → renvoyés au renderer (overlay :
   // dessin des boîtes debug + gating du flou). Défauts = ceux du POC.
@@ -167,11 +207,38 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
   }
 
+  // BigBuffer -> span (conversion implicite), bornée à |expected|.
+  const auto full = base::span(pixels).first(expected);
+
+  // Scene-gating (frame-diff, port core/video/frame-diff.ts) : si la scène n'a
+  // quasiment pas bougé depuis la dernière analyse, on SKIP les 2 YOLO +
+  // classifs et on réutilise le dernier résultat (persons toujours valides sur
+  // du statique). |skip_count_| force un refresh périodique. → sur du contenu
+  // statique (plan fixe, tête qui parle), les YOLO ne retournent quasiment pas.
+  const std::array<uint8_t, 64> hash =
+      ComputeHash8x8(full, width, height, bgra);
+  constexpr float kSceneSkipThreshold = 0.02f;
+  constexpr int kMaxConsecutiveSkips = 20;  // ~10 s à 2 analyses/s
+  if (has_last_hash_ && skip_count_ < kMaxConsecutiveSkips &&
+      HashDiff(hash, last_hash_) < kSceneSkipThreshold) {
+    ++skip_count_;
+    std::vector<mojom::AnalyzedPersonPtr> clone;
+    clone.reserve(last_persons_.size());
+    for (const auto& p : last_persons_) {
+      clone.push_back(p->Clone());
+    }
+    std::move(callback).Run(std::move(clone), debug_mode, blur_enabled);
+    return;
+  }
+  skip_count_ = 0;
+  last_hash_ = hash;
+  has_last_hash_ = true;
+  analysis_in_flight_ = true;
+
   // Copie le buffer (BigBuffer peut être en mémoire partagée) dans un vector
-  // possédé par la tâche pool. BigBuffer -> span (conversion implicite), puis
-  // itérateurs sûrs -> pas d'arithmétique de pointeur (-Wunsafe-buffer-usage).
-  const auto src = base::span(pixels).first(expected);
-  std::vector<uint8_t> buf(src.begin(), src.end());
+  // possédé par la tâche pool. Itérateurs sûrs -> pas d'arithmétique de
+  // pointeur (-Wunsafe-buffer-usage).
+  std::vector<uint8_t> buf(full.begin(), full.end());
 
   // ⚠️ Le reply est gaté par WeakPtr : si ce WebContentsUserData est détruit
   // (fermeture d'onglet) pendant que la tâche est en vol, OnAnalyzeDone ne tourne
@@ -201,6 +268,13 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
     bool blur_enabled,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
   analysis_in_flight_ = false;
+  // Cache le résultat pour le scene-gating : réutilisé tant que la scène reste
+  // statique (frame-diff < seuil). |last_hash_| a déjà été posé dans AnalyzeImage.
+  last_persons_.clear();
+  last_persons_.reserve(persons.size());
+  for (const auto& p : persons) {
+    last_persons_.push_back(p->Clone());
+  }
   LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
   std::move(callback).Run(std::move(persons), std::move(debug_mode),
                           blur_enabled);
