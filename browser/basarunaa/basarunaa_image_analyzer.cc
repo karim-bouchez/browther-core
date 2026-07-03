@@ -174,14 +174,14 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const size_t expected = static_cast<size_t>(width) *
                           static_cast<size_t>(height) * 4u;
   if (width <= 0 || height <= 0 || pixels.size() < expected) {
-    std::move(callback).Run({}, "", false);
+    std::move(callback).Run({}, "", false, false);
     return;
   }
 
   // Cap 1 analyse en vol : DROP les frames qui arrivent pendant qu'une YOLO
   // tourne (évite AnalyzeImageRgba concurrentes + cap design §11).
   if (analysis_in_flight_) {
-    std::move(callback).Run({}, "", false);
+    std::move(callback).Run({}, "", false, false);
     return;
   }
 
@@ -190,7 +190,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   auto* service =
       profile ? BasarunaaServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
-    std::move(callback).Run({}, "", false);
+    std::move(callback).Run({}, "", false, false);
     return;
   }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
@@ -217,19 +217,24 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // statique (plan fixe, tête qui parle), les YOLO ne retournent quasiment pas.
   const std::array<uint8_t, 64> hash =
       ComputeHash8x8(full, width, height, bgra);
-  constexpr float kSceneSkipThreshold = 0.02f;
-  constexpr int kMaxConsecutiveSkips = 20;  // ~10 s à 2 analyses/s
+  constexpr float kSceneSkipThreshold = 0.02f;  // scène ~statique → skip
+  constexpr float kSceneCutThreshold = 0.12f;   // > = changement de scène (v1)
+  constexpr int kMaxConsecutiveSkips = 20;      // ~10 s à 2 analyses/s
+  const float diff = has_last_hash_ ? HashDiff(hash, last_hash_) : 1.f;
   if (has_last_hash_ && skip_count_ < kMaxConsecutiveSkips &&
-      HashDiff(hash, last_hash_) < kSceneSkipThreshold) {
+      diff < kSceneSkipThreshold) {
     ++skip_count_;
     std::vector<mojom::AnalyzedPersonPtr> clone;
     clone.reserve(last_persons_.size());
     for (const auto& p : last_persons_) {
       clone.push_back(p->Clone());
     }
-    std::move(callback).Run(std::move(clone), debug_mode, blur_enabled);
+    // Scène statique = pas un cut → l'overlay peut interpoler normalement.
+    std::move(callback).Run(std::move(clone), debug_mode, blur_enabled, false);
     return;
   }
+  // Nouvelle analyse : cut si la scène a beaucoup changé (ou 1ʳᵉ frame, diff=1).
+  const bool scene_cut = diff > kSceneCutThreshold;
   skip_count_ = 0;
   last_hash_ = hash;
   has_last_hash_ = true;
@@ -249,7 +254,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // responder dangling.
   auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
       std::move(callback), std::vector<mojom::AnalyzedPersonPtr>(),
-      std::string(), false);
+      std::string(), false, false);
 
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
@@ -259,13 +264,14 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
                      width, height, bgra, std::move(mode), certainty),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
-                     std::move(debug_mode), blur_enabled));
+                     std::move(debug_mode), blur_enabled, scene_cut));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
     AnalyzeImageCallback callback,
     std::string debug_mode,
     bool blur_enabled,
+    bool scene_cut,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
   analysis_in_flight_ = false;
   // Cache le résultat pour le scene-gating : réutilisé tant que la scène reste
@@ -277,7 +283,7 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
   }
   LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
   std::move(callback).Run(std::move(persons), std::move(debug_mode),
-                          blur_enabled);
+                          blur_enabled, scene_cut);
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);

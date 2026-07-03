@@ -70,6 +70,7 @@ class BasarunaaImageAnalyzer
   void OnAnalyzeDone(AnalyzeImageCallback callback,
                      std::string debug_mode,
                      bool blur_enabled,
+                     bool scene_cut,
                      std::vector<mojom::AnalyzedPersonPtr> persons);
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;

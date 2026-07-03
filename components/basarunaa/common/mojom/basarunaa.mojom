@@ -99,9 +99,13 @@ interface ImageAnalyzer {
   // Renvoie TOUTES les personnes détectées (pas seulement celles à flouter,
   // pour permettre l'overlay debug) + le mode debug courant ("none"|"boxes"|
   // "debug") + l'état de blur_enabled, tous deux lus dans les prefs profil.
+  // `scene_cut` = frame-diff > seuil de changement de scène (0.12, comme la v1)
+  // vs la dernière frame analysée → le renderer ne doit PAS interpoler à travers
+  // ce résultat (nouvelle scène).
   AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
                int32 width,
                int32 height,
                ImageFormat format)
-      => (array<AnalyzedPerson> persons, string debug_mode, bool blur_enabled);
+      => (array<AnalyzedPerson> persons, string debug_mode, bool blur_enabled,
+          bool scene_cut);
 };

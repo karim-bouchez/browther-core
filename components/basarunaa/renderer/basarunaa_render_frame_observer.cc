@@ -77,7 +77,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     int height,
     std::vector<mojom::AnalyzedPersonPtr> persons,
     const std::string& debug_mode,
-    bool blur_enabled) {
+    bool blur_enabled,
+    bool scene_cut) {
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
   // scale à l'affichage). detail = string JSON (traverse proprement les mondes).
   // Chaque personne : [nx, ny, nw, nh, score, gender(-1|0|1), gender_conf,
@@ -103,6 +104,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("t", static_cast<double>(media_time.InMilliseconds()));
   dict.Set("debug", debug_mode);
   dict.Set("be", blur_enabled);
+  dict.Set("cut", scene_cut);
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);
