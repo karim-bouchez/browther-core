@@ -96,16 +96,17 @@ struct AnalyzedPerson {
 };
 
 interface ImageAnalyzer {
-  // Renvoie TOUTES les personnes détectées (pas seulement celles à flouter,
-  // pour permettre l'overlay debug) + le mode debug courant ("none"|"boxes"|
-  // "debug") + l'état de blur_enabled, tous deux lus dans les prefs profil.
-  // `scene_cut` = frame-diff > seuil de changement de scène (0.12, comme la v1)
-  // vs la dernière frame analysée → le renderer ne doit PAS interpoler à travers
-  // ce résultat (nouvelle scène).
+  // Analyse INCONDITIONNELLE : le browser analyse TOUTE frame qu'il reçoit (plus
+  // de cadence/skip côté browser — c'est le RFO renderer qui décide quoi envoyer :
+  // keyframes à cadence garantie + paires n-1/n aux cuts, cf. refonte 2026-07-04).
+  // Renvoie TOUTES les personnes détectées (pas seulement celles à flouter, pour
+  // l'overlay debug) + le mode debug ("none"|"boxes"|"debug") + blur_enabled, lus
+  // dans les prefs profil. La nature de la frame (keyframe / avant-cut / après-cut)
+  // n'est PAS transmise ici : elle est connue du RFO qui a décidé le tap, et
+  // rattachée côté renderer au dispatch vers la page (via le callback lié).
   AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
                int32 width,
                int32 height,
                ImageFormat format)
-      => (array<AnalyzedPerson> persons, string debug_mode, bool blur_enabled,
-          bool scene_cut);
+      => (array<AnalyzedPerson> persons, string debug_mode, bool blur_enabled);
 };

@@ -6,7 +6,6 @@
 #ifndef BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 #define BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 
-#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -34,9 +33,11 @@ namespace basarunaa {
 // précédent utilisait `AssociatedRemote` côté JS+V8 et crashait sous stress
 // (chaîne V8/cppgc) — ce canal C++→C++ dédié s'est avéré stable.
 //
-// Cap 1 analyse YOLO en vol (|analysis_in_flight_|) : les frames qui arrivent
-// pendant qu'une analyse tourne sont droppées (évite deux AnalyzeImageRgba
-// concurrentes = crash flaky, + cap "frames en vol" du design §11).
+// Refonte 2026-07-04 : plus AUCUNE cadence ici. Le browser analyse
+// inconditionnellement chaque frame reçue (le RFO renderer a déjà filtré :
+// keyframes + frontières de cut). La non-concurrence des inférences est garantie
+// par BasarunaaService::analyze_mutex_ (global), donc pas de cap "1 en vol" (qui
+// droppait fautivement la 2e frame d'une paire n-1/n de cut).
 class BasarunaaImageAnalyzer
     : public content::WebContentsUserData<BasarunaaImageAnalyzer>,
       public mojom::ImageAnalyzer {
@@ -70,26 +71,9 @@ class BasarunaaImageAnalyzer
   void OnAnalyzeDone(AnalyzeImageCallback callback,
                      std::string debug_mode,
                      bool blur_enabled,
-                     bool scene_cut,
                      std::vector<mojom::AnalyzedPersonPtr> persons);
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
-
-  // ④ : cap 1 analyse YOLO en vol (thread UI). Les frames qui arrivent pendant
-  // qu'une analyse tourne sur le ThreadPool sont DROPPÉES (répondent []), ce qui
-  // (a) évite deux AnalyzeImageRgba concurrentes (crash flaky observé) et
-  // (b) implémente le cap "frames en vol" du design §11. Accès UI thread only.
-  bool analysis_in_flight_ = false;
-
-  // Scene-gating (frame-diff) : hash 8×8 grayscale de la dernière frame
-  // ANALYSÉE + son résultat. Si la nouvelle frame diffère peu (scène statique),
-  // on SKIP l'analyse (2 YOLO + classifs) et on réutilise |last_persons_|. Port
-  // de core/video/frame-diff.ts. |skip_count_| force un refresh périodique même
-  // sur du statique. Accès UI thread only.
-  std::array<uint8_t, 64> last_hash_ = {};
-  bool has_last_hash_ = false;
-  int skip_count_ = 0;
-  std::vector<mojom::AnalyzedPersonPtr> last_persons_;
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 

@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..93398f8b74eda 100644
+index 2f77f8cc774f4..35a230f42cb1a 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -54,6 +54,16 @@
@@ -137,7 +137,7 @@ index 2f77f8cc774f4..93398f8b74eda 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3719,102 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3719,141 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
@@ -156,6 +156,16 @@ index 2f77f8cc774f4..93398f8b74eda 100644
 +
 +  const gfx::Size src = frame->visible_rect().size();
 +
++  // [Browther/Basarunaa] Mesure : avance RÉELLE de la frame tapée vs lecture
++  // courante. LE chiffre clé : si lead@tap reste ~+2000 ms, l'avance decode-ahead
++  // survit sous charge et la latence est dans NOTRE chaîne ; s'il décroît, c'est
++  // le lead média lui-même qui rétrécit (autre problème). Loggé pour toutes les
++  // frames candidates, AVANT le drop, pour voir aussi le taux de drop.
++  LOG(INFO) << "[bsrLAT] tap media_ts=" << frame->timestamp().InMilliseconds()
++            << "ms lead@tap="
++            << (frame->timestamp() - GetCurrentTimeInternal()).InMilliseconds()
++            << "ms inflight=" << lead_readback_in_flight_;
++
 +  // 1) GPU -> CPU. Frame GPU-backed (VideoToolbox) : le readback synchrone
 +  // BLOQUE le main render thread et déstabilise la couche graphique macOS
 +  // (crash ImageIO/WindowManagement, isolé 2026-07-02) -> on le déporte sur une
@@ -163,12 +173,22 @@ index 2f77f8cc774f4..93398f8b74eda 100644
 +  // reply revient sur le main thread. Frame déjà mappable (SW/dav1d) = pas de
 +  // readback -> on traite inline (opérations CPU only, sûres sur le main thread).
 +  if (frame->HasSharedImage()) {
++    // [Browther/Basarunaa] Garde-fou "1 readback en vol" : si un readback est
++    // déjà en cours, on DROP cette frame au lieu de l'empiler (sinon file non
++    // bornée -> avance décroissante -> flou full-screen ; cf.
++    // |lead_readback_in_flight_| dans le header). On préfère la fraîcheur au
++    // volume : moins de fulls, mais chacun reste ~2 s en avance.
++    if (lead_readback_in_flight_) {
++      return;
++    }
 +    if (!lead_readback_runner_) {
 +      lead_readback_runner_ = base::ThreadPool::CreateSingleThreadTaskRunner(
 +          {base::WithBaseSyncPrimitives()},
 +          base::SingleThreadTaskRunnerThreadMode::DEDICATED);
 +      lead_readback_impl_ = base::MakeRefCounted<LeadFrameReadbackThread>();
 +    }
++    lead_readback_in_flight_ = true;
++    lead_tap_ticks_ = base::TimeTicks::Now();
 +    lead_readback_runner_->PostTaskAndReplyWithResult(
 +        FROM_HERE,
 +        base::BindOnce(&LeadFrameReadbackThread::ReadbackToFrame,
@@ -178,6 +198,7 @@ index 2f77f8cc774f4..93398f8b74eda 100644
 +    return;
 +  }
 +  if (frame->IsMappable()) {
++    lead_tap_ticks_ = base::TimeTicks::Now();
 +    ProcessLeadCpuFrame(src, std::move(frame));
 +    return;
 +  }
@@ -191,6 +212,14 @@ index 2f77f8cc774f4..93398f8b74eda 100644
 +    gfx::Size src,
 +    scoped_refptr<media::VideoFrame> cpu_frame) {
 +  DCHECK(main_task_runner_->BelongsToCurrentThread());
++  // [Browther/Basarunaa] Reply du readback GPU->CPU : on libère le garde-fou
++  // "1 en vol" pour autoriser la prochaine frame (voir OnLeadFrame). No-op pour
++  // le chemin SW/mappable (le flag n'y est jamais posé). On le remet à false
++  // AVANT le early-return d'échec pour ne pas rester bloqué sur un readback raté.
++  lead_readback_in_flight_ = false;
++  // [Browther/Basarunaa] Mesure : durée readback GPU->CPU (tap -> reply).
++  const double readback_ms =
++      (base::TimeTicks::Now() - lead_tap_ticks_).InMillisecondsF();
 +  if (!cpu_frame) {
 +    MEDIA_LOG(INFO, media_log_.get()) << "[bsrDA] readback FAILED (worker)";
 +    return;
@@ -235,6 +264,16 @@ index 2f77f8cc774f4..93398f8b74eda 100644
 +
 +  lead_frame_sink_.Run(std::move(rgba), rgba_size.width(), rgba_size.height(),
 +                       cpu_frame->timestamp());
++
++  // [Browther/Basarunaa] Mesure : budget renderer complet (tap -> sink). readback
++  // = GPU->CPU (thread dédié) ; convert+chain = downscale + RGBA + dispatch (main
++  // thread). Ce que NOTRE renderer ajoute à l'avance, avant Mojo+analyse browser.
++  const double total_ms =
++      (base::TimeTicks::Now() - lead_tap_ticks_).InMillisecondsF();
++  LOG(INFO) << "[bsrLAT] renderer readback=" << readback_ms
++            << "ms convert+chain=" << (total_ms - readback_ms)
++            << "ms total=" << total_ms
++            << "ms media_ts=" << cpu_frame->timestamp().InMilliseconds();
 +}
 +
  std::unique_ptr<WebMediaPlayer::VideoFramePresentationMetadata>

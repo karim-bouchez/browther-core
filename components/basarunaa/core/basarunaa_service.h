@@ -55,6 +55,17 @@ enum class Gender { kUnknown = -1, kMale = 0, kFemale = 1 };
 // kBody = repli pplcnet sur le corps, kNone = non classifié.
 enum class GenderSource { kNone = 0, kFace = 1, kBody = 2 };
 
+// Mode d'analyse de AnalyzeImageRgba :
+//  - kFull : pipeline complet (YOLO-pose + visage + genre + corps) → personnes
+//    avec genre. Coûteux (~30-50 ms). Cadence ~2/s (décidée par l'analyzer).
+//  - kSentinel : détecteur LÉGER NanoDet seul → bboxes personnes SANS genre
+//    (gender=kUnknown). Rapide (~10 ms). Cadence plus élevée (~4/s). But :
+//    repérer une personne apparue ENTRE deux analyses full, fournir des cibles
+//    d'interpolation avant/après un cut, et détecter les cuts plus vite. Le
+//    genre est reporté par IDENTITÉ (IoU) côté analyzer depuis la dernière
+//    analyse full, jamais reclassifié sur la sentinelle.
+enum class AnalyzeMode { kFull = 0, kSentinel = 1 };
+
 // Phase 3.1.5 — M1.4. One detection per person : bbox + score + 17 keypoints
 // (nécessaires au pipeline MV3 pour matching face↔body et alignement face
 // InsightFace) + faceBbox dérivé des keypoints 0-4.
@@ -98,15 +109,23 @@ class BasarunaaService : public KeyedService {
   std::string GetVersion() const;
   bool Ping() const;
 
+  // True si le détecteur sentinelle (NanoDet) est chargé et utilisable. Ne
+  // devient stable qu'après la première analyse (call_once du chargement). Les
+  // appelants (analyzer) ne l'interrogent qu'APRÈS un premier full, garantissant
+  // que le chargement est terminé. Toujours false en build non-natif.
+  bool SentinelAvailable() const;
+
   // Phase 3.1.5 — M1.3: run YOLO11n-pose on a packed 4-channel buffer and
   // return detected persons. Empty vector on error or if the model is not
   // loaded. Caller-owned buffer; must be `width * height * 4` bytes.
   // `bgra` true means byte order [B, G, R, A] (typical for SkBitmap on
   // macOS), false means [R, G, B, A].
-  std::vector<DetectedPerson> AnalyzeImageRgba(const uint8_t* rgba,
-                                               int width,
-                                               int height,
-                                               bool bgra = false);
+  std::vector<DetectedPerson> AnalyzeImageRgba(
+      const uint8_t* rgba,
+      int width,
+      int height,
+      bool bgra = false,
+      AnalyzeMode mode = AnalyzeMode::kFull);
 
  private:
 #if defined(BASARUNAA_NATIVE_ML)
@@ -117,6 +136,10 @@ class BasarunaaService : public KeyedService {
   // Charge yolov8n-face.onnx (détecteur de visages dédié, 640x640, 3 têtes FPN
   // + landmarks). Best-effort.
   void LoadYoloFaceModel();
+  // Charge nanodet-plus-m_320.onnx (détecteur personnes LÉGER pour la
+  // sentinelle, 320x320, GFL/DFL). Best-effort : si absent/échec, le mode
+  // kSentinel retourne vide et seul le full pipeline tourne.
+  void LoadNanodetModel();
   // Aligne + classifie un VISAGE (détecté par yolov8n-face) : rotation yeux +
   // crop -> genderage. Reçoit les yeux (landmarks 1/2) + la bbox du visage
   // (port utils/face_align.js + classifiers/onnx_generic.js). Renseigne
@@ -174,6 +197,10 @@ class BasarunaaService : public KeyedService {
   // Session yolov8n-face (détecteur visages dédié). Même call_once.
   std::unique_ptr<Ort::Session> yolo_face_session_;
   bool yolo_face_ready_ = false;
+
+  // Session NanoDet (sentinelle : détecteur personnes léger). Même call_once.
+  std::unique_ptr<Ort::Session> nanodet_session_;
+  bool nanodet_ready_ = false;
 
   // [Browther/Basarunaa] Sérialise GLOBALEMENT AnalyzeImageRgba. Le service est
   // profile-keyed et partagé entre TOUS les WebContents ; le cap "1 en vol" de

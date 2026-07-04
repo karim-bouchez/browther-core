@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-index 57c8960bcdb25..354927f5045e5 100644
+index 57c8960bcdb25..696a786da2186 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
 @@ -84,6 +84,8 @@ class MediaLog;
@@ -50,7 +50,7 @@ index 57c8960bcdb25..354927f5045e5 100644
    // Notifies |demuxer_manager_| of playback and rate changes which may increase
    // the amount of data the DataSource buffers. Does nothing prior to reaching
    // kReadyStateHaveEnoughData for the first time.
-@@ -884,6 +902,21 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -884,6 +902,36 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        compositor_;  // Deleted on |vfc_task_runner_|.
    media::PaintCanvasVideoRenderer video_renderer_;
  
@@ -68,6 +68,21 @@ index 57c8960bcdb25..354927f5045e5 100644
 +  // besoin ; |lead_readback_impl_| est détruit via ReleaseSoon sur son runner.
 +  scoped_refptr<base::SingleThreadTaskRunner> lead_readback_runner_;
 +  scoped_refptr<LeadFrameReadbackThread> lead_readback_impl_;
++  // [Browther/Basarunaa] decode-ahead : garde-fou "1 readback en vol". Le
++  // readback GPU->CPU plein-résolution coûte plus cher (~200 ms/frame HW) que
++  // l'intervalle de tap (160 ms) -> sans garde, PostTaskAndReplyWithResult
++  // EMPILE les frames sur la séquence de readback : file non bornée, chaque
++  // frame analysée de plus en plus vieille -> avance qui décroît sans fin puis
++  // flou full-screen (résultats périmés). Avec le garde, on DROP la frame si un
++  // readback est déjà en cours (borne la latence ~1 readback) au lieu d'empiler.
++  // Posé sur le main thread (OnLeadFrame), remis à false quand le reply
++  // (ProcessLeadCpuFrame) revient. Le throughput baisse (moins de fulls) mais
++  // c'est voulu : on veut de la fraîcheur, pas du volume.
++  bool lead_readback_in_flight_ = false;
++  // [Browther/Basarunaa] Instrumentation latence (mesure, pas prod) : wall-clock
++  // au moment du tap de la frame en cours de readback, pour chiffrer readback +
++  // chaîne renderer dans ProcessLeadCpuFrame. Main thread only.
++  base::TimeTicks lead_tap_ticks_;
 +
    // The compositor layer for displaying the video content when using composited
    // playback.

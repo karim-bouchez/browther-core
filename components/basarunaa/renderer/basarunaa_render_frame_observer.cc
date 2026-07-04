@@ -5,6 +5,8 @@
 
 #include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
 
+#include <algorithm>
+#include <array>
 #include <optional>
 #include <string>
 #include <utility>
@@ -26,6 +28,65 @@
 #include "third_party/blink/public/web/web_script_source.h"
 
 namespace basarunaa {
+
+namespace {
+
+// Refonte 2026-07-04 — politique de tap DANS LE RENDERER (le browser n'a plus de
+// cadence). On reçoit chaque frame décodée-en-avance (~2 s), on calcule un hash
+// 8×8, et on décide QUOI envoyer à l'analyse ML :
+//   - un KEYFRAME à cadence GARANTIE (toutes les kKeyframeIntervalMs), même en
+//     plan statique → le store côté overlay ne gèle jamais (fix de l'avance qui
+//     décroît : cf. BASARUNAA_VIDEO_NATIVE_PLAN.md).
+//   - sur un CUT (diff hash > seuil), la paire n-1 / n (dernière frame ancienne
+//     scène + première nouvelle) → bornes d'interpolation nettes pour l'overlay.
+// Les autres frames sont droppées (l'overlay interpole entre deux keyframes).
+constexpr int kKeyframeIntervalMs = 1000;
+constexpr float kCutThreshold = 0.12f;  // seuil scène (v1)
+
+// Hash 8×8 grayscale (moyenne par bloc) — port de core/video/frame-diff.ts.
+// Grayscale pondéré (R*2 + G*3 + B)/6 comme la v1. Le sink délivre du BGRA
+// (kN32 Apple, cf. WebMediaPlayerImpl::OnLeadFrame) → r_idx=2, b_idx=0.
+std::array<uint8_t, 64> ComputeHash8x8(base::span<const uint8_t> px,
+                                       int w,
+                                       int h) {
+  std::array<uint64_t, 64> sum = {};
+  std::array<uint32_t, 64> cnt = {};
+  constexpr size_t r_idx = 2;  // BGRA
+  constexpr size_t b_idx = 0;
+  for (int y = 0; y < h; ++y) {
+    const int cy = std::min(7, y * 8 / std::max(1, h));
+    for (int x = 0; x < w; ++x) {
+      const int cx = std::min(7, x * 8 / std::max(1, w));
+      const size_t off = (static_cast<size_t>(y) * w + x) * 4;
+      if (off + 2 >= px.size()) {
+        continue;
+      }
+      const uint32_t gray =
+          (px[off + r_idx] * 2u + px[off + 1] * 3u + px[off + b_idx]) / 6u;
+      const int cell = cy * 8 + cx;
+      sum[cell] += gray;
+      cnt[cell] += 1;
+    }
+  }
+  std::array<uint8_t, 64> hash = {};
+  for (int i = 0; i < 64; ++i) {
+    hash[i] = cnt[i] ? static_cast<uint8_t>(sum[i] / cnt[i]) : 0;
+  }
+  return hash;
+}
+
+// Ratio de diff [0,1] entre deux hash (somme des |Δ| / (64*255)).
+float HashDiff(const std::array<uint8_t, 64>& a,
+               const std::array<uint8_t, 64>& b) {
+  int total = 0;
+  for (int i = 0; i < 64; ++i) {
+    const int d = static_cast<int>(a[i]) - static_cast<int>(b[i]);
+    total += d < 0 ? -d : d;
+  }
+  return total / (64.f * 255.f);
+}
+
+}  // namespace
 
 BasarunaaRenderFrameObserver::BasarunaaRenderFrameObserver(
     content::RenderFrame* render_frame)
@@ -54,36 +115,80 @@ BasarunaaRenderFrameObserver::GetVideoLeadFrameSink() {
       weak_ptr_factory_.GetWeakPtr());
 }
 
+void BasarunaaRenderFrameObserver::ForwardForAnalysis(
+    base::span<const uint8_t> bgra,
+    int width,
+    int height,
+    base::TimeDelta media_time,
+    FrameKind kind) {
+  if (!EnsureConnected()) {
+    return;
+  }
+  mojo_base::BigBuffer buffer{bgra};
+  image_analyzer_->AnalyzeImage(
+      std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
+      base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
+                     weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
+                     kind));
+}
+
 void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
                                                     int width,
                                                     int height,
                                                     base::TimeDelta media_time) {
-  // ③a : plomberie renderer→browser. Le buffer vient déjà en BGRA
-  // (kN32 Apple, cf. WebMediaPlayerImpl::OnLeadFrame étape ②).
-  if (!EnsureConnected()) {
-    return;
+  // ③a : reçoit une frame BGRA décodée-en-avance. On décide QUOI analyser
+  // (keyframe garanti + paire n-1/n de cut) et on forwarde sélectivement.
+  const auto span = base::span<const uint8_t>(bgra);
+  const std::array<uint8_t, 64> hash = ComputeHash8x8(span, width, height);
+  const float diff = has_prev_hash_ ? HashDiff(hash, prev_hash_) : 1.f;
+
+  const bool is_cut = has_prev_hash_ && diff > kCutThreshold;
+  const bool due_keyframe =
+      !has_prev_hash_ ||
+      (media_time - last_keyframe_ts_) >=
+          base::Milliseconds(kKeyframeIntervalMs);
+
+  if (is_cut) {
+    // Frontière de cut : la DERNIÈRE frame de l'ancienne scène (n-1, gardée) PUIS
+    // la première de la nouvelle (n). L'overlay interpole l'ancienne scène
+    // jusqu'à n-1 puis snap à n → pas de flash full-blur au cut.
+    if (has_prev_frame_) {
+      ForwardForAnalysis(base::span<const uint8_t>(prev_bgra_), prev_width_,
+                         prev_height_, prev_media_time_, FrameKind::kCutBefore);
+    }
+    ForwardForAnalysis(span, width, height, media_time, FrameKind::kCutAfter);
+    last_keyframe_ts_ = media_time;  // le cut réarme la cadence keyframe
+  } else if (due_keyframe) {
+    ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe);
+    last_keyframe_ts_ = media_time;
   }
-  mojo_base::BigBuffer buffer{base::span<const uint8_t>(bgra)};
-  // ④a : garde media_time + dims analysées pour horodater/normaliser côté JS.
-  image_analyzer_->AnalyzeImage(
-      std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
-      base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
-                     weak_ptr_factory_.GetWeakPtr(), media_time, width, height));
+  // Sinon : drop (interpolation overlay entre keyframes).
+
+  // Mémorise la frame courante comme "précédente" (candidate n-1 d'un futur cut).
+  // Le hash/forward ci-dessus n'ont pas consommé |bgra| (BigBuffer copie depuis
+  // le span) → on peut le move ici.
+  prev_hash_ = hash;
+  has_prev_hash_ = true;
+  prev_bgra_ = std::move(bgra);
+  prev_width_ = width;
+  prev_height_ = height;
+  prev_media_time_ = media_time;
+  has_prev_frame_ = true;
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(
     base::TimeDelta media_time,
     int width,
     int height,
+    FrameKind kind,
     std::vector<mojom::AnalyzedPersonPtr> persons,
     const std::string& debug_mode,
-    bool blur_enabled,
-    bool scene_cut) {
+    bool blur_enabled) {
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
-  // scale à l'affichage). detail = string JSON (traverse proprement les mondes).
-  // Chaque personne : [nx, ny, nw, nh, score, gender(-1|0|1), gender_conf,
-  // blur, gender_source(0 aucune|1 visage|2 corps)]. `debug` (mode overlay) +
-  // `be` (blur_enabled) pilotent le rendu JS.
+  // scale à l'affichage). detail = string JSON. Chaque personne : [nx, ny, nw,
+  // nh, score, gender(-1|0|1), gender_conf, blur, gender_source]. `k` = nature de
+  // la frame (0 keyframe | 1 avant-cut | 2 après-cut) → l'overlay borne
+  // l'interpolation et snap au cut.
   const double w = width > 0 ? width : 1;
   const double h = height > 0 ? height : 1;
   base::ListValue boxes;
@@ -104,7 +209,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("t", static_cast<double>(media_time.InMilliseconds()));
   dict.Set("debug", debug_mode);
   dict.Set("be", blur_enabled);
-  dict.Set("cut", scene_cut);
+  dict.Set("k", static_cast<int>(kind));
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);
