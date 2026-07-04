@@ -79,25 +79,8 @@ constexpr int kYoloFaceDflBins = 16;
 constexpr float kYoloFaceConf = 0.5f;
 constexpr float kYoloFaceIou = 0.4f;
 
-// nanodet-plus-m_320.onnx (sentinelle, détecteur personnes léger). Entrée
-// "data" [1,3,320,320] NCHW, BGR normalisé mean/std ImageNet (PAS de /255, PAS
-// de letterbox 114). Sortie "output" [1,2125,112] : 2125 anchors sur 4 niveaux
-// FPN (strides 8/16/32/64 → 40²+20²+10²+5² = 1600+400+100+25). Par anchor :
-// 80 scores de classe DÉJÀ sigmoïdés (classe 0 = personne, COCO) + 32 valeurs
-// DFL brutes (4 côtés × 8 bins, reg_max=7 → softmax+intégrale). Anchors ordonnés
-// niveau par niveau, ligne par ligne (gy, gx).
-constexpr base::FilePath::CharType kNanodetRelPath[] =
-    FILE_PATH_LITERAL("basarunaa/models/nanodet-plus-m_320.onnx");
-constexpr int kNanodetInputSize = 320;
-constexpr int kNanodetNumClasses = 80;
-constexpr int kNanodetRegBins = 8;  // reg_max(7) + 1
-constexpr int kNanodetChannels = kNanodetNumClasses + 4 * kNanodetRegBins;  // 112
-constexpr std::array<int, 4> kNanodetStrides = {8, 16, 32, 64};
-constexpr float kNanodetConf = 0.3f;
-constexpr float kNanodetMinBox = 8.f;  // rejette les bboxes < 8px (comme la v1)
-// Normalisation NanoDet (BGR) : (px - mean) / std, mean/std ImageNet BGR.
-constexpr std::array<float, 3> kNanodetMeanBgr = {103.53f, 116.28f, 123.675f};
-constexpr std::array<float, 3> kNanodetStdBgr = {57.375f, 57.12f, 58.395f};
+// NanoDet (sentinelle légère) retiré à la refonte 2026-07-04 : trop bruité, et
+// le nouveau flow (keyframe garanti + cut n-1/n côté renderer) n'en a plus besoin.
 
 // Threads intra-op pour les DÉTECTEURS lourds (YOLO-pose + yolo-face, ~640²).
 // L'inférence est sérialisée globalement (analyze_mutex_) → une seule tourne à
@@ -878,164 +861,6 @@ std::vector<int> MatchFacesToPersons(const std::vector<DetectedPerson>& persons,
   return result;
 }
 
-// Préproc NanoDet : letterbox (garde le ratio) vers 320, pad = pixel 0, puis
-// normalisation BGR mean/std → tensor NCHW [1,3,320,320] (plane 0=B, 1=G, 2=R,
-// ordre BGR attendu par NanoDet). scale/pad_x/pad_y renseignés pour remonter
-// les bboxes en pixels image d'origine.
-void PreprocessNanodet(base::span<const uint8_t> px,
-                       int width,
-                       int height,
-                       bool bgra,
-                       std::vector<float>& nchw,
-                       float& scale_out,
-                       float& pad_x_out,
-                       float& pad_y_out) {
-  const float scale =
-      std::min(static_cast<float>(kNanodetInputSize) / width,
-               static_cast<float>(kNanodetInputSize) / height);
-  const int new_w = static_cast<int>(std::round(width * scale));
-  const int new_h = static_cast<int>(std::round(height * scale));
-  const float pad_x = (kNanodetInputSize - new_w) / 2.0f;
-  const float pad_y = (kNanodetInputSize - new_h) / 2.0f;
-  const int plane = kNanodetInputSize * kNanodetInputSize;
-  nchw.assign(3 * plane, 0.f);
-  // Région hors image = gris 128 normalisé (comme le pad #808080 de la v1).
-  for (int c = 0; c < 3; ++c) {
-    const float padv = (128.f - kNanodetMeanBgr[c]) / kNanodetStdBgr[c];
-    std::fill(nchw.begin() + static_cast<size_t>(c) * plane,
-              nchw.begin() + static_cast<size_t>(c + 1) * plane, padv);
-  }
-  const size_t r_idx = bgra ? 2 : 0;
-  const size_t b_idx = bgra ? 0 : 2;
-  for (int dy = 0; dy < kNanodetInputSize; ++dy) {
-    for (int dx = 0; dx < kNanodetInputSize; ++dx) {
-      const float sx = (dx - pad_x) / scale;
-      const float sy = (dy - pad_y) / scale;
-      if (sx < 0 || sy < 0 || sx >= width || sy >= height) {
-        continue;  // pad déjà posé
-      }
-      // Bilinéaire sur les octets bruts (0-255).
-      const int x0 = static_cast<int>(std::floor(sx));
-      const int y0 = static_cast<int>(std::floor(sy));
-      const int x1 = std::min(x0 + 1, width - 1);
-      const int y1 = std::min(y0 + 1, height - 1);
-      const float fx = sx - x0;
-      const float fy = sy - y0;
-      const float w00 = (1 - fx) * (1 - fy);
-      const float w10 = fx * (1 - fy);
-      const float w01 = (1 - fx) * fy;
-      const float w11 = fx * fy;
-      auto bilerp = [&](size_t ch) -> float {
-        const size_t o00 = (static_cast<size_t>(y0) * width + x0) * 4 + ch;
-        const size_t o10 = (static_cast<size_t>(y0) * width + x1) * 4 + ch;
-        const size_t o01 = (static_cast<size_t>(y1) * width + x0) * 4 + ch;
-        const size_t o11 = (static_cast<size_t>(y1) * width + x1) * 4 + ch;
-        return px[o00] * w00 + px[o10] * w10 + px[o01] * w01 + px[o11] * w11;
-      };
-      const float bb = bilerp(b_idx);
-      const float gg = bilerp(1);
-      const float rr = bilerp(r_idx);
-      const int idx = dy * kNanodetInputSize + dx;
-      nchw[0 * plane + idx] = (bb - kNanodetMeanBgr[0]) / kNanodetStdBgr[0];
-      nchw[1 * plane + idx] = (gg - kNanodetMeanBgr[1]) / kNanodetStdBgr[1];
-      nchw[2 * plane + idx] = (rr - kNanodetMeanBgr[2]) / kNanodetStdBgr[2];
-    }
-  }
-  scale_out = scale;
-  pad_x_out = pad_x;
-  pad_y_out = pad_y;
-}
-
-// Sentinelle : décode la sortie NanoDet [1,2125,112] → personnes (bbox + score,
-// SANS genre). Anchors ordonnés niveau par niveau (strides 8/16/32/64), ligne
-// par ligne (gy, gx). Par anchor : classe 0 (personne, déjà sigmoïdée) + DFL
-// (4 côtés × 8 bins → softmax+intégrale). distance2bbox depuis le centre anchor.
-std::vector<DetectedPerson> RunNanodetImpl(Ort::Session* session,
-                                           base::span<const uint8_t> rgba,
-                                           int width,
-                                           int height,
-                                           bool bgra) {
-  std::vector<float> nchw;
-  float scale = 1.f, pad_x = 0.f, pad_y = 0.f;
-  PreprocessNanodet(rgba, width, height, bgra, nchw, scale, pad_x, pad_y);
-  std::vector<DetectedPerson> raw;
-  raw.reserve(64);
-  try {
-    auto mem = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
-    const std::array<int64_t, 4> shape = {1, 3, kNanodetInputSize,
-                                          kNanodetInputSize};
-    Ort::Value input = Ort::Value::CreateTensor<float>(
-        mem, nchw.data(), nchw.size(), shape.data(), shape.size());
-    Ort::AllocatorWithDefaultOptions alloc;
-    auto in_name = session->GetInputNameAllocated(0, alloc);
-    auto out_name = session->GetOutputNameAllocated(0, alloc);
-    const char* in_names[] = {in_name.get()};
-    const char* out_names[] = {out_name.get()};
-    auto outputs = session->Run(Ort::RunOptions{nullptr}, in_names, &input, 1,
-                                out_names, 1);
-    const size_t total =
-        outputs[0].GetTensorTypeAndShapeInfo().GetElementCount();
-    const auto data = UNSAFE_BUFFERS(
-        base::span<const float>(outputs[0].GetTensorData<float>(), total));
-    const float fwidth = static_cast<float>(width);
-    const float fheight = static_cast<float>(height);
-    int anchor = 0;
-    for (int level = 0; level < 4; ++level) {
-      const int stride = kNanodetStrides[level];
-      const float stridef = static_cast<float>(stride);
-      const int grid = kNanodetInputSize / stride;  // 40, 20, 10, 5
-      for (int gy = 0; gy < grid; ++gy) {
-        for (int gx = 0; gx < grid; ++gx, ++anchor) {
-          const size_t off = static_cast<size_t>(anchor) * kNanodetChannels;
-          const float score = data[off + 0];  // classe 0 = personne (sigmoïdée)
-          if (score < kNanodetConf) {
-            continue;
-          }
-          // DFL : 4 côtés (l, t, r, b), softmax sur 8 bins → intégrale.
-          std::array<float, 4> dist = {0.f, 0.f, 0.f, 0.f};
-          for (int s = 0; s < 4; ++s) {
-            const size_t roff = off + kNanodetNumClasses +
-                                static_cast<size_t>(s) * kNanodetRegBins;
-            float maxv = -std::numeric_limits<float>::infinity();
-            for (int b = 0; b < kNanodetRegBins; ++b) {
-              maxv = std::max(maxv, data[roff + b]);
-            }
-            float sum = 0.f, wsum = 0.f;
-            for (int b = 0; b < kNanodetRegBins; ++b) {
-              const float e = std::exp(data[roff + b] - maxv);
-              sum += e;
-              wsum += e * static_cast<float>(b);
-            }
-            dist[s] = (sum > 0.f ? wsum / sum : 0.f) * stridef;
-          }
-          // Centre anchor : (gx+0.5)*stride, (gy+0.5)*stride (comme la v1).
-          const float cx = (gx + 0.5f) * stridef;
-          const float cy = (gy + 0.5f) * stridef;
-          // distance2bbox puis letterbox inverse → pixels image.
-          const float x1 = (cx - dist[0] - pad_x) / scale;
-          const float y1 = (cy - dist[1] - pad_y) / scale;
-          const float x2 = (cx + dist[2] - pad_x) / scale;
-          const float y2 = (cy + dist[3] - pad_y) / scale;
-          DetectedPerson d;
-          d.x = std::max(0.f, x1);
-          d.y = std::max(0.f, y1);
-          d.w = std::min(fwidth, x2) - d.x;
-          d.h = std::min(fheight, y2) - d.y;
-          d.score = score;
-          // Sentinelle : genre laissé kUnknown (reporté par IoU côté analyzer).
-          if (d.w >= kNanodetMinBox && d.h >= kNanodetMinBox) {
-            raw.push_back(std::move(d));
-          }
-        }
-      }
-    }
-  } catch (const Ort::Exception& e) {
-    LOG(ERROR) << "[Basarunaa] nanodet inference failed: " << e.what();
-    return {};
-  }
-  return NonMaxSuppression(std::move(raw));
-}
-
 }  // namespace
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
@@ -1076,20 +901,11 @@ bool BasarunaaService::Ping() const {
 #endif
 }
 
-bool BasarunaaService::SentinelAvailable() const {
-#if defined(BASARUNAA_NATIVE_ML)
-  return nanodet_ready_;
-#else
-  return false;
-#endif
-}
-
 std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     const uint8_t* rgba,
     int width,
     int height,
-    bool bgra,
-    AnalyzeMode mode) {
+    bool bgra) {
 #if defined(BASARUNAA_NATIVE_ML)
   if (!rgba || width <= 0 || height <= 0) {
     return {};
@@ -1100,13 +916,8 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   // per-WebContents de BasarunaaImageAnalyzer ne couvrait pas.
   std::lock_guard<std::mutex> lock(analyze_mutex_);
   // One-time init across worker threads (see init_flag_ docs in header).
-  // genderage chargé dans le même call_once (best-effort : son échec ne bloque
-  // pas le YOLO, le genre reste juste kUnknown). NanoDet (sentinelle) aussi.
-  // NanoDet (sentinelle) N'EST PLUS chargé : la sentinelle légère est abandonnée
-  // (trop de bruit, cf. session 2026-07-03). On fait du FULL plus souvent à la
-  // place (le genre ne coûte que ~0,6 ms de plus qu'une détection, l'essentiel
-  // = les 2 YOLO, rendus rapides par kOrtDetectorThreads). Code NanoDet gardé
-  // dormant (LoadNanodetModel / RunNanodetImpl / AnalyzeMode::kSentinel).
+  // genderage/pplcnet chargés dans le même call_once (best-effort : leur échec ne
+  // bloque pas le YOLO, le genre reste juste kUnknown).
   std::call_once(init_flag_, [this]() {
     LoadYoloPoseModel();
     LoadYoloFaceModel();
@@ -1119,23 +930,6 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   // UNSAFE_BUFFERS to acknowledge the construction.
   const auto rgba_span = UNSAFE_BUFFERS(base::span<const uint8_t>(
       rgba, static_cast<size_t>(width) * height * 4));
-
-  // Mode SENTINELLE : NanoDet seul (bboxes personnes, SANS genre). Rapide, sert
-  // à densifier l'échantillonnage entre deux analyses full (nouvelle personne,
-  // cibles d'interpolation, cut détecté plus vite). Le genre est reporté par
-  // IoU côté analyzer depuis la dernière analyse full.
-  if (mode == AnalyzeMode::kSentinel) {
-    if (!nanodet_ready_) {
-      return {};
-    }
-    const auto s_start = base::TimeTicks::Now();
-    std::vector<DetectedPerson> persons =
-        RunNanodetImpl(nanodet_session_.get(), rgba_span, width, height, bgra);
-    const auto s_ms = (base::TimeTicks::Now() - s_start).InMillisecondsF();
-    LOG(INFO) << "[Basarunaa] sentinelle: " << width << "x" << height << " → "
-              << persons.size() << " personnes (" << s_ms << " ms)";
-    return persons;
-  }
 
   if (!yolo_pose_ready_) {
     return {};
@@ -1391,36 +1185,6 @@ void BasarunaaService::LoadYoloFaceModel() {
   }
   yolo_face_ready_ = true;
   LOG(INFO) << "[Basarunaa] yolov8n-face session ready";
-}
-
-void BasarunaaService::LoadNanodetModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kNanodetRelPath);
-  if (!base::PathExists(model_path)) {
-    LOG(WARNING) << "[Basarunaa] nanodet model not found at "
-                 << model_path.value() << " — sentinelle désactivée";
-    return;
-  }
-  EnsureOrtEnv();
-  if (!ort_env_) {
-    return;
-  }
-  try {
-    Ort::SessionOptions opts;
-    opts.SetIntraOpNumThreads(1);
-    opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
-    nanodet_session_ = std::make_unique<Ort::Session>(
-        *ort_env_, model_path.value().c_str(), opts);
-  } catch (const Ort::Exception& e) {
-    LOG(ERROR) << "[Basarunaa] nanodet session creation failed: " << e.what();
-    nanodet_session_.reset();
-    return;
-  }
-  nanodet_ready_ = true;
-  LOG(INFO) << "[Basarunaa] nanodet-plus-m_320 session ready";
 }
 
 void BasarunaaService::LoadGenderAgeModel() {
