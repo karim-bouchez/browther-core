@@ -35,6 +35,10 @@ class BasarunaaServiceFactory : public ProfileKeyedServiceFactory {
   // ProfileKeyedServiceFactory:
   std::unique_ptr<KeyedService> BuildServiceInstanceForBrowserContext(
       content::BrowserContext* context) const override;
+  // Eager-create le service au démarrage du profil quand le pipeline vidéo
+  // decode-ahead est actif, pour que le warmup ML (chargement des 6 modèles +
+  // compilation CoreML ~2s) tourne AVANT que l'utilisateur n'ouvre une vidéo.
+  bool ServiceIsCreatedWithBrowserContext() const override;
 };
 
 }  // namespace basarunaa

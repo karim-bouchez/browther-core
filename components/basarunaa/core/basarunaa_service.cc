@@ -17,8 +17,11 @@
 #if defined(BASARUNAA_NATIVE_ML)
 #include "base/files/file_path.h"
 #include "base/files/file_util.h"
+#include "base/functional/bind.h"
+#include "base/location.h"
 #include "base/path_service.h"
 #include "base/strings/string_number_conversions.h"
+#include "base/task/thread_pool.h"
 #include "base/time/time.h"
 #include "build/build_config.h"
 #include "onnxruntime_cxx_api.h"
@@ -1036,10 +1039,18 @@ DetectedPerson::~DetectedPerson() = default;
 
 BasarunaaService::BasarunaaService() {
 #if defined(BASARUNAA_NATIVE_ML)
-  // Lazy: ORT version log + YOLO load run on first inference call (worker
-  // pool, where blocking I/O is allowed). Doing it eagerly on the UI thread
-  // at profile init triggered intermittent SEGVs in ORT thread spawn.
-  LOG(INFO) << "[Basarunaa] service constructed (lazy init)";
+  LOG(INFO) << "[Basarunaa] service constructed (eager warmup posted)";
+  // [Browther/Basarunaa] Eager-load : la factory ne crée ce service au
+  // démarrage du profil QUE si la feature vidéo est active
+  // (ServiceIsCreatedWithBrowserContext). On poste alors le warmup (chargement
+  // des modèles + compilation CoreML ~2s) sur le ThreadPool — jamais le thread
+  // UI (l'init ORT sur UI provoquait des SEGV au spawn de threads ORT) — pour
+  // que la 1re vidéo soit déjà chaude. base::Unretained : le service est
+  // profile-keyed et survit à la tâche (même contrat que RunYoloOnPool).
+  base::ThreadPool::PostTask(
+      FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
+      base::BindOnce(&BasarunaaService::WarmUpModels,
+                     base::Unretained(this)));
 #endif
 }
 BasarunaaService::~BasarunaaService() = default;
@@ -1089,17 +1100,10 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   // WebContents confondus. Corrige la corruption de tas cross-onglet que le cap
   // per-WebContents de BasarunaaImageAnalyzer ne couvrait pas.
   std::lock_guard<std::mutex> lock(analyze_mutex_);
-  // One-time init across worker threads (see init_flag_ docs in header).
-  // genderage/pplcnet chargés dans le même call_once (best-effort : leur échec ne
-  // bloque pas le YOLO, le genre reste juste kUnknown).
-  std::call_once(init_flag_, [this]() {
-    LoadYoloPoseModel();
-    LoadYoloFaceModel();
-    LoadGenderAgeModel();
-    LoadPplcnetModel();
-    LoadMarqoModel();
-    LoadNudenetModel();
-  });
+  // One-time init across worker threads (see init_flag_ docs in header). Peut
+  // déjà avoir tourné via le warmup eager (WarmUpModels) — call_once garantit
+  // un seul chargement.
+  LoadAllModelsOnce();
 
   // Wrap caller-owned buffer in a span for safe indexing. The raw pointer
   // comes from a public C-style API (or SkBitmap::getPixels) so we lean on
@@ -1314,6 +1318,101 @@ void BasarunaaService::EnsureOrtEnv() {
       LOG(ERROR) << "[Basarunaa] ORT env creation failed: " << e.what();
     }
   });
+}
+
+void BasarunaaService::LoadAllModelsOnce() {
+  // genderage/pplcnet/marqo/nudenet chargés dans le même call_once que le YOLO
+  // (best-effort : leur échec ne bloque pas le YOLO — le genre reste kUnknown,
+  // le NSFW off). init_flag_ garantit un seul chargement (warmup vs 1re analyse).
+  std::call_once(init_flag_, [this]() {
+    LoadYoloPoseModel();
+    LoadYoloFaceModel();
+    LoadGenderAgeModel();
+    LoadPplcnetModel();
+    LoadMarqoModel();
+    LoadNudenetModel();
+  });
+}
+
+void BasarunaaService::WarmUpModels() {
+  // Sérialisé avec l'inférence (analyze_mutex_) : si une vraie analyse démarre
+  // en parallèle du warmup, l'un charge, l'autre attend, puis les deux voient
+  // les sessions prêtes. Toujours sur le ThreadPool (posté par le constructeur).
+  std::lock_guard<std::mutex> lock(analyze_mutex_);
+  const auto t0 = base::TimeTicks::Now();
+  LoadAllModelsOnce();
+  // Force la compilation CoreML de chaque modèle : le 1er Run compile le graphe
+  // ANE (~2s cumulés), c'est CE coût qui plombait la 1re frame. On le paie ici,
+  // au démarrage du profil, plutôt que sur la 1re vidéo de l'utilisateur.
+  WarmUpSession(yolo_pose_session_.get(), yolo_pose_ready_, "pose");
+  WarmUpSession(yolo_face_session_.get(), yolo_face_ready_, "face");
+  WarmUpSession(genderage_session_.get(), genderage_ready_, "genderage");
+  WarmUpSession(pplcnet_session_.get(), pplcnet_ready_, "pplcnet");
+  WarmUpSession(marqo_session_.get(), marqo_ready_, "marqo");
+  WarmUpSession(nudenet_session_.get(), nudenet_ready_, "nudenet");
+  LOG(INFO) << "[Basarunaa] eager warmup done in "
+            << (base::TimeTicks::Now() - t0).InMillisecondsF() << " ms";
+}
+
+void BasarunaaService::WarmUpSession(Ort::Session* session,
+                                     bool ready,
+                                     const char* tag) {
+  if (!session || !ready) {
+    return;
+  }
+  try {
+    Ort::AllocatorWithDefaultOptions alloc;
+    const size_t n_in = session->GetInputCount();
+    const size_t n_out = session->GetOutputCount();
+    auto mem = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
+
+    std::vector<Ort::AllocatedStringPtr> in_holders;
+    std::vector<const char*> in_names;
+    std::vector<Ort::Value> inputs;
+    // reserve(n_in) : pas de réallocation → les pointeurs passés à CreateTensor
+    // (buffers.back().data()) restent valides jusqu'au Run.
+    std::vector<std::vector<float>> buffers;
+    in_holders.reserve(n_in);
+    in_names.reserve(n_in);
+    inputs.reserve(n_in);
+    buffers.reserve(n_in);
+
+    for (size_t i = 0; i < n_in; ++i) {
+      in_holders.push_back(session->GetInputNameAllocated(i, alloc));
+      in_names.push_back(in_holders.back().get());
+      auto shape = session->GetInputTypeInfo(i)
+                       .GetTensorTypeAndShapeInfo()
+                       .GetShape();
+      int64_t count = 1;
+      for (auto& d : shape) {
+        if (d < 0) {
+          d = 1;  // dim dynamique (batch) → 1
+        }
+        count *= d;
+      }
+      if (count <= 0) {
+        return;  // forme inattendue → on laisse le lazy warmer ce modèle
+      }
+      buffers.emplace_back(static_cast<size_t>(count), 0.f);
+      inputs.push_back(Ort::Value::CreateTensor<float>(
+          mem, buffers.back().data(), buffers.back().size(), shape.data(),
+          shape.size()));
+    }
+
+    std::vector<Ort::AllocatedStringPtr> out_holders;
+    std::vector<const char*> out_names;
+    out_holders.reserve(n_out);
+    out_names.reserve(n_out);
+    for (size_t i = 0; i < n_out; ++i) {
+      out_holders.push_back(session->GetOutputNameAllocated(i, alloc));
+      out_names.push_back(out_holders.back().get());
+    }
+
+    session->Run(Ort::RunOptions{nullptr}, in_names.data(), inputs.data(), n_in,
+                 out_names.data(), n_out);
+  } catch (const Ort::Exception& e) {
+    LOG(WARNING) << "[Basarunaa] warmup (" << tag << ") failed: " << e.what();
+  }
 }
 
 void BasarunaaService::LoadYoloPoseModel() {

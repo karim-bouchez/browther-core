@@ -7,6 +7,8 @@ import("//brave/third_party/onnxruntime/onnxruntime.gni")
 
 static_library("core") {
   sources = [
+    "basarunaa_features.cc",
+    "basarunaa_features.h",
     "basarunaa_service.cc",
     "basarunaa_service.h",
   ]

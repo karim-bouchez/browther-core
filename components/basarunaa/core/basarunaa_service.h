@@ -132,6 +132,20 @@ class BasarunaaService : public KeyedService {
 
  private:
 #if defined(BASARUNAA_NATIVE_ML)
+  // Charge les 6 modèles une seule fois (std::call_once(init_flag_)), sous le
+  // même verrou que l'inférence. Appelé lazy par AnalyzeImageRgba ET eager par
+  // WarmUpModels (le 1er qui passe charge, l'autre attend).
+  void LoadAllModelsOnce();
+  // [Browther/Basarunaa] Eager warmup, posté par le constructeur sur le
+  // ThreadPool (JAMAIS le thread UI : l'init ORT sur UI provoquait des SEGV au
+  // spawn de threads ORT). Charge les modèles PUIS force la compilation CoreML
+  // (le 1er Run compile le modèle ANE, ~2s) en lançant chaque session une fois
+  // sur un tenseur zéro → la 1re vraie analyse est déjà chaude.
+  void WarmUpModels();
+  // Fait tourner `session` une fois sur des entrées zéro (formes lues du modèle,
+  // batch dynamique -1 → 1) pour déclencher la compilation CoreML. No-op si la
+  // session n'est pas prête. Best-effort : toute exception ORT est avalée.
+  void WarmUpSession(Ort::Session* session, bool ready, const char* tag);
   void LoadYoloPoseModel();
   // Charge genderage.onnx (InsightFace, 96x96). Best-effort : si absent/échec,
   // gender reste kUnknown et le YOLO fonctionne toujours.

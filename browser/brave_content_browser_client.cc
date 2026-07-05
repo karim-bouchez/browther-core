@@ -160,6 +160,7 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page_ui.h"
 #include "brave/browser/ui/webui/brave_settings_ui.h"
 #include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
+#include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/browser/ui/webui/brave_shields/shields_panel_ui.h"
 #include "brave/browser/ui/webui/email_aliases/email_aliases_panel_ui.h"
@@ -348,16 +349,6 @@ using extensions::ChromeContentBrowserClientExtensionsPart;
 #endif
 
 namespace {
-
-// [Browther/Basarunaa] Gate de rollout du pipeline vidéo decode-ahead
-// (tap natif + décodage SW forcé). OFF par défaut : la pref kBasarunaaEnabled
-// est ON par défaut (flou images), or forcer le SW decode pour TOUS les users
-// tant que le pipeline vidéo est expérimental serait une régression perf. Dev :
-// --enable-features=BasarunaaVideoDecodeAhead. Quand mûr : passer ON (ou Finch)
-// -> le toggle Basarunaa utilisateur pilotera alors le flou vidéo tout seul.
-BASE_FEATURE(kBasarunaaVideoDecodeAhead,
-             "BasarunaaVideoDecodeAhead",
-             base::FEATURE_DISABLED_BY_DEFAULT);
 
 void BindCosmeticFiltersResourcesOnTaskRunner(
     mojo::PendingReceiver<cosmetic_filters::mojom::CosmeticFiltersResources>
@@ -1135,7 +1126,7 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     // media/base/video_util.cc, param update_source_release_token=false) -> le
     // décodage MATÉRIEL est préservé (plus de --disable-accelerated-video-decode
     // forcé). Toggle -> restart requis (tap lu à l'init du renderer).
-    if (base::FeatureList::IsEnabled(kBasarunaaVideoDecodeAhead)) {
+    if (base::FeatureList::IsEnabled(basarunaa::kBasarunaaVideoDecodeAhead)) {
       if (content::RenderProcessHost* process =
               content::RenderProcessHost::FromID(child_process_id)) {
         auto* prefs = user_prefs::UserPrefs::Get(process->GetBrowserContext());

@@ -5,7 +5,9 @@
 
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
 
+#include "base/feature_list.h"
 #include "base/no_destructor.h"
+#include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_selections.h"
@@ -35,6 +37,14 @@ std::unique_ptr<KeyedService>
 BasarunaaServiceFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
   return std::make_unique<BasarunaaService>();
+}
+
+bool BasarunaaServiceFactory::ServiceIsCreatedWithBrowserContext() const {
+  // Sans la feature vidéo, le service n'est jamais utilisé (le RFO ne tap
+  // aucune frame) → inutile de charger 6 modèles ONNX à chaque lancement. Avec
+  // la feature, on crée le service dès l'init du profil : son constructeur
+  // poste le warmup (ThreadPool) et la 1re vidéo est déjà chaude.
+  return base::FeatureList::IsEnabled(kBasarunaaVideoDecodeAhead);
 }
 
 }  // namespace basarunaa
