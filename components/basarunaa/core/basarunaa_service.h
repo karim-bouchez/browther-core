@@ -79,13 +79,22 @@ struct DetectedPerson {
   // nullopt if < 2 keypoints visible (confidence > 0.3).
   std::optional<DetectedFaceBbox> face_bbox;
 
-  // Classification genderage (M-genre). kUnknown si pas de visage alignable
-  // (aucune classification tentée). gender_conf = confiance [0,1] du genre
-  // retenu (max(femaleProb, 1-femaleProb)), ou -1.f si non classifié.
+  // Genre FUSIONNÉ (repli simple : visage si dispo, sinon corps). kUnknown si
+  // aucun des deux classé. gender_conf = confiance [0,1], ou -1.f si non classifié.
+  // La VRAIE fusion + le vote temporel se font côté overlay (POC JS) à partir des
+  // sorties brutes face_/body_ ci-dessous.
   Gender gender = Gender::kUnknown;
   float gender_conf = -1.f;
-  // Source de la classification (visage/corps) — pour l'overlay debug.
   GenderSource gender_source = GenderSource::kNone;
+
+  // Sorties BRUTES par-modèle, SÉPARÉES (les DEUX tournent maintenant par
+  // personne, plus de repli conditionnel) — pour fusion+vote+debug côté overlay.
+  Gender face_gender = Gender::kUnknown;  // genderage (visage aligné)
+  float face_conf = -1.f;
+  Gender body_gender = Gender::kUnknown;  // pplcnet (corps)
+  float body_conf = -1.f;
+  // Corps entier visible (keypoints jambes 13-16 conf>0.3) → pplcnet fiable.
+  bool has_legs = false;
 };
 
 class BasarunaaService : public KeyedService {
@@ -121,8 +130,8 @@ class BasarunaaService : public KeyedService {
   // Aligne + classifie un VISAGE (détecté par yolov8n-face) : rotation yeux +
   // crop -> genderage. Reçoit les yeux (landmarks 1/2) + la bbox du visage
   // (port utils/face_align.js + classifiers/onnx_generic.js). Renseigne
-  // person.gender / gender_conf / gender_source=kFace. No-op si genderage
-  // indisponible ou visage non alignable.
+  // person.face_gender / face_conf (sortie BRUTE visage, pas la fusion). No-op si
+  // genderage indisponible ou visage non alignable (face_gender reste kUnknown).
   void ClassifyGender(base::span<const uint8_t> rgba,
                       int width,
                       int height,
@@ -133,10 +142,10 @@ class BasarunaaService : public KeyedService {
                       DetectedPerson& person);
   // Charge pplcnet_pedestrian_attribute.onnx (PP-LCNet, 256x192). Best-effort.
   void LoadPplcnetModel();
-  // Repli CORPS (personne sans visage exploitable, dos tourné…) : masque
-  // polygone corps + classification pplcnet (port de classifiers/pplcnet.js +
-  // utils/body_polygon.js + utils/preprocessing.js). Renseigne person.gender /
-  // person.gender_conf. À n'appeler QUE si ClassifyGender a laissé kUnknown.
+  // Classification CORPS pplcnet : masque polygone corps + pplcnet (port de
+  // classifiers/pplcnet.js + utils/body_polygon.js + utils/preprocessing.js).
+  // Renseigne person.body_gender / body_conf (sortie BRUTE corps). Tourne
+  // TOUJOURS (plus de repli conditionnel) : la fusion visage/corps est côté overlay.
   void ClassifyBodyGender(base::span<const uint8_t> rgba,
                           int width,
                           int height,

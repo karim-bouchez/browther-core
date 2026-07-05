@@ -235,7 +235,9 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     base::TimeTicks sent,
     std::vector<mojom::AnalyzedPersonPtr> persons,
     const std::string& debug_mode,
-    bool blur_enabled) {
+    bool blur_enabled,
+    const std::string& mode,
+    double gender_certainty) {
   // Round-trip d'analyse (keyframes seulement : espacés, non queués derrière une
   // paire de cut → coût d'UNE analyse). Alimente l'intervalle keyframe adaptatif.
   if (kind == FrameKind::kKeyframe) {
@@ -246,9 +248,12 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   }
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
   // scale à l'affichage). detail = string JSON. Chaque personne : [nx, ny, nw,
-  // nh, score, gender(-1|0|1), gender_conf, blur, gender_source]. `k` = nature de
-  // la frame (0 keyframe | 1 avant-cut | 2 après-cut) → l'overlay borne
-  // l'interpolation et snap au cut.
+  // nh, score, gender(-1|0|1), gender_conf, blur, gender_source, face_gender,
+  // face_conf, body_gender, body_conf, has_legs] — les 5 derniers = sorties
+  // BRUTES par-modèle pour la fusion + le vote temporel + le debug côté overlay.
+  // `k` = nature de la frame (0 keyframe | 1 avant-cut | 2 après-cut) → l'overlay
+  // borne l'interpolation et snap au cut. `m`/`gc` = mode + certitude (recalcul
+  // shouldBlur depuis le genre voté).
   const double w = width > 0 ? width : 1;
   const double h = height > 0 ? height : 1;
   base::ListValue boxes;
@@ -263,6 +268,11 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     box.Append(static_cast<double>(p->gender_conf));
     box.Append(p->blur);
     box.Append(static_cast<int>(p->gender_source));
+    box.Append(static_cast<int>(p->face_gender));
+    box.Append(static_cast<double>(p->face_conf));
+    box.Append(static_cast<int>(p->body_gender));
+    box.Append(static_cast<double>(p->body_conf));
+    box.Append(p->has_legs);
     boxes.Append(std::move(box));
   }
   base::DictValue dict;
@@ -274,6 +284,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("r", static_cast<double>(ratio));  // pic vs baseline EMA (×)
   dict.Set("iv", KeyframeInterval().InMillisecondsF());  // intervalle keyframe adaptatif
   dict.Set("lat", analysis_ema_init_ ? analysis_ema_ms_ : -1.0);  // round-trip analyse (ms)
+  dict.Set("m", mode);                        // mode flou (recalcul shouldBlur voté)
+  dict.Set("gc", gender_certainty);           // certitude genre
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);

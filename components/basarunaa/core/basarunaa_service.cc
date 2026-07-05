@@ -1060,11 +1060,15 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   }
   const std::vector<int> face_of = MatchFacesToPersons(nms, faces);
 
-  // Classification par personne : VISAGE (genderage sur les landmarks du
-  // détecteur de visages) si un visage est matché, sinon/échec → CORPS
-  // (pplcnet). Mirror du dual pipeline JS (_processDual, branche no-face→body).
-  // Reste kUnknown (ni visage ni corps classables) → FLOUTÉE côté browser
-  // (« inconnu = sûr », VIDEO_V2.md §4).
+  // Classification par personne : on lance TOUJOURS les DEUX modèles quand ils
+  // s'appliquent — VISAGE (genderage) si un visage est matché ET CORPS (pplcnet)
+  // systématiquement — et on remonte les DEUX sorties brutes séparées
+  // (face_gender / body_gender). La VRAIE fusion visage/corps + le vote temporel
+  // se font côté overlay (port _processDual + video_tracker, source de vérité JS).
+  // Ici on ne calcule qu'une fusion-repli triviale (gender = visage si dispo,
+  // sinon corps) pour le flag `blur` repli + le label. Reste kUnknown (aucun
+  // classable) → FLOUTÉE côté browser (« inconnu = sûr », VIDEO_V2.md §4).
+  constexpr float kLegKpVisibilityThreshold = 0.3f;
   for (size_t i = 0; i < nms.size(); ++i) {
     DetectedPerson& person = nms[i];
     const int fi = face_of[i];
@@ -1078,8 +1082,28 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
       ClassifyGender(rgba_span, width, height, bgra, f.landmarks[1],
                      f.landmarks[2], fb, person);
     }
-    if (person.gender == Gender::kUnknown) {
-      ClassifyBodyGender(rgba_span, width, height, bgra, person);
+    ClassifyBodyGender(rgba_span, width, height, bgra, person);
+
+    // has_legs : corps entier visible (genoux/chevilles COCO 13-16) → pplcnet
+    // fiable (cf. _processDual). Pilote la branche « corps partiel » de la fusion
+    // overlay. Squelette absent (synthetic/incomplet) → false.
+    for (int kp : {13, 14, 15, 16}) {
+      if (kp < static_cast<int>(person.keypoints.size()) &&
+          person.keypoints[kp].confidence > kLegKpVisibilityThreshold) {
+        person.has_legs = true;
+        break;
+      }
+    }
+
+    // Fusion-repli triviale (le vrai cerveau est côté overlay).
+    if (person.face_gender != Gender::kUnknown) {
+      person.gender = person.face_gender;
+      person.gender_conf = person.face_conf;
+      person.gender_source = GenderSource::kFace;
+    } else if (person.body_gender != Gender::kUnknown) {
+      person.gender = person.body_gender;
+      person.gender_conf = person.body_conf;
+      person.gender_source = GenderSource::kBody;
     }
   }
 
@@ -1267,14 +1291,15 @@ void BasarunaaService::ClassifyGender(base::span<const uint8_t> rgba,
     const float e0 = std::exp(l0 - m);
     const float e1 = std::exp(l1 - m);
     const float female_prob = e0 / (e0 + e1);
+    // Sortie BRUTE visage (face_gender/face_conf) : la fusion visage/corps est
+    // désormais côté overlay (POC JS). On n'écrit PAS person.gender ici.
     if (female_prob > 0.5f) {
-      person.gender = Gender::kFemale;
-      person.gender_conf = female_prob;
+      person.face_gender = Gender::kFemale;
+      person.face_conf = female_prob;
     } else {
-      person.gender = Gender::kMale;
-      person.gender_conf = 1.f - female_prob;
+      person.face_gender = Gender::kMale;
+      person.face_conf = 1.f - female_prob;
     }
-    person.gender_source = GenderSource::kFace;
   } catch (const Ort::Exception& e) {
     LOG(ERROR) << "[Basarunaa] genderage inference failed: " << e.what();
   }
@@ -1423,15 +1448,15 @@ void BasarunaaService::ClassifyBodyGender(base::span<const uint8_t> rgba,
     const auto out_span = UNSAFE_BUFFERS(
         base::span<const float>(outputs[0].GetTensorData<float>(), out_len));
     // Sortie déjà en probas sigmoïde ; index 22 = Female (cf. pplcnet.js).
+    // Sortie BRUTE corps (body_gender/body_conf) : fusion côté overlay.
     const float female_prob = out_span[kPplcnetFemaleAttr];
     if (female_prob > 0.5f) {
-      person.gender = Gender::kFemale;
-      person.gender_conf = female_prob;
+      person.body_gender = Gender::kFemale;
+      person.body_conf = female_prob;
     } else {
-      person.gender = Gender::kMale;
-      person.gender_conf = 1.f - female_prob;
+      person.body_gender = Gender::kMale;
+      person.body_conf = 1.f - female_prob;
     }
-    person.gender_source = GenderSource::kBody;
   } catch (const Ort::Exception& e) {
     LOG(ERROR) << "[Basarunaa] pplcnet inference failed: " << e.what();
   }

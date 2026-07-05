@@ -83,16 +83,29 @@ struct AnalyzedPerson {
   float h;
   // Score de classe "person" dans [0, 1].
   float score;
-  // Genre classifié : -1 inconnu, 0 homme, 1 femme.
+  // Genre classifié FUSIONNÉ (repli simple browser : visage si dispo, sinon
+  // corps). -1 inconnu, 0 homme, 1 femme. La VRAIE fusion + le vote temporel se
+  // font côté overlay (source de vérité = POC JS) à partir des sorties brutes
+  // ci-dessous ; ce champ ne sert plus qu'au repli cold-start + label.
   int8 gender;
-  // Source de la classification : 0 aucune, 1 visage, 2 corps.
+  // Source de la classification fusionnée : 0 aucune, 1 visage, 2 corps.
   int8 gender_source;
-  // Confiance du genre retenu dans [0, 1] ; < 0 si non classifié.
+  // Confiance du genre fusionné dans [0, 1] ; < 0 si non classifié.
   float gender_conf;
-  // Décision shouldBlur du browser (mode + certitude). Indépendante de
-  // blur_enabled (le rendu du flou est gaté séparément côté overlay) : sert
-  // aussi au label debug « serait floutée ».
+  // Décision shouldBlur du browser (repli). L'overlay la RECALCULE depuis le
+  // genre VOTÉ (plus stable) ; ce flag sert de repli avant que le vote soit prêt.
   bool blur;
+
+  // Sorties BRUTES par-modèle, SÉPARÉES (visage genderage / corps pplcnet), pour
+  // la fusion par-frame + le vote temporel + le debug par-box (overlay). Toujours
+  // renseignées quand le modèle a tourné : -1 inconnu, 0 homme, 1 femme.
+  int8 face_gender;
+  float face_conf;
+  int8 body_gender;
+  float body_conf;
+  // Corps entier visible (keypoints jambes conf>0.3) → pplcnet fiable. Pilote la
+  // branche « corps partiel » de la fusion overlay (port _processDual).
+  bool has_legs;
 };
 
 interface ImageAnalyzer {
@@ -104,9 +117,16 @@ interface ImageAnalyzer {
   // dans les prefs profil. La nature de la frame (keyframe / avant-cut / après-cut)
   // n'est PAS transmise ici : elle est connue du RFO qui a décidé le tap, et
   // rattachée côté renderer au dispatch vers la page (via le callback lié).
+  // Le reply porte aussi `mode` (blur-female|blur-male|blur-all) + `gender_certainty`
+  // pour que l'overlay RECALCULE shouldBlur depuis le genre VOTÉ (le vote vivant
+  // côté overlay, pas ici). Ce sont les mêmes prefs qui servent au flag `blur` repli.
   AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
                int32 width,
                int32 height,
                ImageFormat format)
-      => (array<AnalyzedPerson> persons, string debug_mode, bool blur_enabled);
+      => (array<AnalyzedPerson> persons,
+          string debug_mode,
+          bool blur_enabled,
+          string mode,
+          double gender_certainty);
 };

@@ -94,6 +94,12 @@ std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
     ap->gender_source = static_cast<int8_t>(p.gender_source);
     ap->gender_conf = p.gender_conf;
     ap->blur = ShouldBlur(p, mode, certainty);
+    // Sorties BRUTES par-modèle → fusion + vote temporel + debug côté overlay.
+    ap->face_gender = GenderToInt(p.face_gender);
+    ap->face_conf = p.face_conf;
+    ap->body_gender = GenderToInt(p.body_gender);
+    ap->body_conf = p.body_conf;
+    ap->has_legs = p.has_legs;
     out.push_back(std::move(ap));
   }
   return out;
@@ -138,7 +144,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const size_t expected =
       static_cast<size_t>(width) * static_cast<size_t>(height) * 4u;
   if (width <= 0 || height <= 0 || pixels.size() < expected) {
-    std::move(callback).Run({}, "", false);
+    std::move(callback).Run({}, "", false, "", 0.0);
     return;
   }
 
@@ -147,12 +153,13 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   auto* service =
       profile ? BasarunaaServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
-    std::move(callback).Run({}, "", false);
+    std::move(callback).Run({}, "", false, "", 0.0);
     return;
   }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
-  // du flag blur). debug_mode + blur_enabled → renvoyés au renderer (overlay :
-  // dessin des boîtes debug + gating du flou). Défauts = ceux du POC.
+  // du flag blur repli) ET renvoyés au renderer (overlay : recalcul de shouldBlur
+  // depuis le genre VOTÉ). debug_mode + blur_enabled → renderer (dessin boîtes
+  // debug + gating du flou). Défauts = ceux du POC.
   std::string mode = "blur-female";
   double certainty = 0.70;
   std::string debug_mode = "none";
@@ -163,6 +170,8 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     debug_mode = prefs->GetString(kBasarunaaDebugMode);
     blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
   }
+  // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
+  std::string mode_reply = mode;
 
   // BigBuffer -> span (conversion implicite) bornée à |expected|, puis copie
   // dans un vector possédé par la tâche pool (itérateurs sûrs, pas
@@ -176,7 +185,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // bisect 2026-07-02).
   auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
       std::move(callback), std::vector<mojom::AnalyzedPersonPtr>(),
-      std::string(), false);
+      std::string(), false, std::string(), 0.0);
 
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
@@ -186,17 +195,20 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
                      width, height, bgra, std::move(mode), certainty),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
-                     std::move(debug_mode), blur_enabled));
+                     std::move(debug_mode), blur_enabled,
+                     std::move(mode_reply), certainty));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
     AnalyzeImageCallback callback,
     std::string debug_mode,
     bool blur_enabled,
+    std::string mode,
+    double gender_certainty,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
   LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
   std::move(callback).Run(std::move(persons), std::move(debug_mode),
-                          blur_enabled);
+                          blur_enabled, std::move(mode), gender_certainty);
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);

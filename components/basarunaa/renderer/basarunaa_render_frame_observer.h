@@ -93,7 +93,9 @@ class BasarunaaRenderFrameObserver final
                   base::TimeTicks sent,
                   std::vector<mojom::AnalyzedPersonPtr> persons,
                   const std::string& debug_mode,
-                  bool blur_enabled);
+                  bool blur_enabled,
+                  const std::string& mode,
+                  double gender_certainty);
   // Exécute le dispatch JS. Posté en tâche fraîche (pas dans le callback Mojo)
   // pour éviter un ExecuteScript en zone ScriptForbiddenScope.
   void DispatchResultToPage(std::string script);

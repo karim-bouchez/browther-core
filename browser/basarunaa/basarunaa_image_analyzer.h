@@ -66,11 +66,14 @@ class BasarunaaImageAnalyzer
 
   // Reçoit le résultat YOLO (calculé sur le ThreadPool) et répond au renderer
   // sur le thread UI. Gate WeakPtr : si l'analyzer est détruit entretemps, la
-  // réponse Mojo est simplement abandonnée (pipe fermé). debug_mode +
-  // blur_enabled sont lus côté UI et renvoyés tels quels au renderer (overlay).
+  // réponse Mojo est simplement abandonnée (pipe fermé). debug_mode,
+  // blur_enabled, mode + gender_certainty sont lus côté UI et renvoyés tels quels
+  // au renderer (overlay : dessin debug, gating flou, recalcul shouldBlur voté).
   void OnAnalyzeDone(AnalyzeImageCallback callback,
                      std::string debug_mode,
                      bool blur_enabled,
+                     std::string mode,
+                     double gender_certainty,
                      std::vector<mojom::AnalyzedPersonPtr> persons);
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
