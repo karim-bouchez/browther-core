@@ -61,6 +61,9 @@ constexpr float kCutThreshold = 0.12f;   // seuil absolu (fallback fort)
 constexpr float kCutAbsFloor = 0.02f;    // sous ce diff, un pic est ignoré (bruit)
 constexpr float kCutSpikeFactor = 4.0f;  // diff > EMA × ce facteur = pic = cut
 constexpr float kCutEmaAlpha = 0.15f;    // lissage baseline (hors frames de cut)
+// Cadence du check NSFW (Marqo ~120ms) : ~1/s + sur chaque cut. Le NSFW ne change
+// pas d'une frame à l'autre → inutile de le payer à chaque keyframe.
+constexpr double kNsfwIntervalMs = 1000.0;
 
 // Hash 8×8 grayscale (moyenne par bloc) — port de core/video/frame-diff.ts.
 // Grayscale pondéré (R*2 + G*3 + B)/6 comme la v1. Le sink délivre du BGRA
@@ -148,7 +151,8 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     base::TimeDelta media_time,
     FrameKind kind,
     float diff,
-    float ratio) {
+    float ratio,
+    bool want_nsfw) {
   if (!EnsureConnected()) {
     return;
   }
@@ -157,7 +161,7 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
   // l'intervalle keyframe adaptatif).
   const base::TimeTicks sent = base::TimeTicks::Now();
   image_analyzer_->AnalyzeImage(
-      std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
+      std::move(buffer), width, height, mojom::ImageFormat::kBgra8, want_nsfw,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
                      weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
                      kind, diff, ratio, sent));
@@ -201,6 +205,13 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   const bool due_keyframe =
       !has_prev_hash_ || (media_time - last_keyframe_ts_) >= KeyframeInterval();
 
+  // Throttle NSFW (Marqo, ~120ms) : on ne le calcule que sur les CUTS (nouvelle
+  // scène → re-check obligatoire) + à cadence lâche ~1/s ailleurs (le NSFW ne
+  // change pas d'une frame à l'autre). Entre deux, l'overlay gèle le verdict.
+  const bool due_nsfw =
+      !nsfw_ts_init_ ||
+      (media_time - last_nsfw_ts_) >= base::Milliseconds(kNsfwIntervalMs);
+
   if (is_cut) {
     // Frontière de cut : la DERNIÈRE frame de l'ancienne scène (n-1, gardée) PUIS
     // la première de la nouvelle (n). L'overlay interpole l'ancienne scène
@@ -208,15 +219,22 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
     if (has_prev_frame_) {
       ForwardForAnalysis(base::span<const uint8_t>(prev_bgra_), prev_width_,
                          prev_height_, prev_media_time_, FrameKind::kCutBefore,
-                         prev_diff_, prev_ratio_);
+                         prev_diff_, prev_ratio_, /*want_nsfw=*/false);
     }
+    // Le cut-after ouvre une nouvelle scène → NSFW toujours re-checké.
     ForwardForAnalysis(span, width, height, media_time, FrameKind::kCutAfter,
-                       diff, ratio);
+                       diff, ratio, /*want_nsfw=*/true);
     last_keyframe_ts_ = media_time;  // le cut réarme la cadence keyframe
+    last_nsfw_ts_ = media_time;
+    nsfw_ts_init_ = true;
   } else if (due_keyframe) {
     ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe,
-                       diff, ratio);
+                       diff, ratio, due_nsfw);
     last_keyframe_ts_ = media_time;
+    if (due_nsfw) {
+      last_nsfw_ts_ = media_time;
+      nsfw_ts_init_ = true;
+    }
   }
   // Sinon : drop (interpolation overlay entre keyframes).
 

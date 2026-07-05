@@ -79,7 +79,8 @@ class BasarunaaRenderFrameObserver final
                           base::TimeDelta media_time,
                           FrameKind kind,
                           float diff,
-                          float ratio);
+                          float ratio,
+                          bool want_nsfw);
   // ④a : reçoit le verdict ML (bboxes en pixels de l'image analysée
   // |width|×|height|) + le temps média + la nature |kind| + diff/ratio de la
   // frame, et pousse le résultat au JS de la page (CustomEvent 'bsr-native-result',
@@ -129,6 +130,9 @@ class BasarunaaRenderFrameObserver final
   // Intervalle keyframe adaptatif : EMA du round-trip d'analyse (keyframes).
   double analysis_ema_ms_ = 0.0;
   bool analysis_ema_init_ = false;
+  // Throttle du check NSFW (Marqo lourd) : dernier temps média où on l'a demandé.
+  base::TimeDelta last_nsfw_ts_;
+  bool nsfw_ts_init_ = false;
 
   base::WeakPtrFactory<BasarunaaRenderFrameObserver> weak_ptr_factory_{this};
 };

@@ -133,10 +133,15 @@ interface ImageAnalyzer {
   // Le reply porte aussi `mode` (blur-female|blur-male|blur-all) + `gender_certainty`
   // pour que l'overlay RECALCULE shouldBlur depuis le genre VOTÉ (le vote vivant
   // côté overlay, pas ici). Ce sont les mêmes prefs qui servent au flag `blur` repli.
+  // want_nsfw : le RFO throttle le check NSFW (Marqo) à ~1/s + sur les cuts (le
+  // NSFW ne change pas d'une frame à l'autre) → il n'est calculé que sur ces
+  // frames-là ; ailleurs nsfw_score revient < 0 et l'overlay gèle le dernier
+  // verdict. Évite de payer Marqo (~120ms) à chaque analyse.
   AnalyzeImage(mojo_base.mojom.BigBuffer pixels,
                int32 width,
                int32 height,
-               ImageFormat format)
+               ImageFormat format,
+               bool want_nsfw)
       => (array<AnalyzedPerson> persons,
           string debug_mode,
           bool blur_enabled,

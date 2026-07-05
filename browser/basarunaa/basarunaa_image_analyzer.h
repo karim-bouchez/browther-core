@@ -77,6 +77,7 @@ class BasarunaaImageAnalyzer
                     int32_t width,
                     int32_t height,
                     mojom::ImageFormat format,
+                    bool want_nsfw,
                     AnalyzeImageCallback callback) override;
 
   // Reçoit le résultat YOLO (calculé sur le ThreadPool) et répond au renderer

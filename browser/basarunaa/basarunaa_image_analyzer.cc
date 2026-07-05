@@ -80,13 +80,16 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
                          std::string mode,
                          double certainty,
                          double conf_body,
-                         double conf_face) {
+                         double conf_face,
+                         bool want_nsfw) {
   PoolResult res;
   std::vector<mojom::AnalyzedPersonPtr>& out = res.persons;
   float nsfw_score = -1.f;
+  // Marqo (NSFW, ~120ms) seulement quand le RFO le demande (throttle ~1/s + cuts) :
+  // sinon on passe nullptr → le service saute Marqo (out reste -1 → overlay gèle).
   const std::vector<DetectedPerson> persons = service->AnalyzeImageRgba(
       pixels.data(), width, height, bgra, static_cast<float>(conf_body),
-      static_cast<float>(conf_face), &nsfw_score);
+      static_cast<float>(conf_face), want_nsfw ? &nsfw_score : nullptr);
   res.nsfw_score = nsfw_score;
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
@@ -155,6 +158,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
                                           int32_t width,
                                           int32_t height,
                                           mojom::ImageFormat format,
+                                          bool want_nsfw,
                                           AnalyzeImageCallback callback) {
   // Refonte 2026-07-04 : le browser n'a PLUS AUCUNE cadence. Le RFO renderer a
   // déjà décidé que cette frame vaut une analyse (keyframe à cadence garantie OU
@@ -225,7 +229,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
        base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN},
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
                      width, height, bgra, std::move(mode), certainty, conf_body,
-                     conf_face),
+                     conf_face, want_nsfw),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,
