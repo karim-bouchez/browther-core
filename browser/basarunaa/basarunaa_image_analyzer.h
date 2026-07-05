@@ -24,6 +24,21 @@ class WebContents;
 
 namespace basarunaa {
 
+// Résultat de la tâche pool (RunYoloOnPool → OnAnalyzeDone) : personnes +
+// score NSFW image entière (Marqo). Doit être visible ici car c'est le type de
+// retour passé à OnAnalyzeDone par PostTaskAndReplyWithResult. Move-only (le
+// vecteur de StructPtr Mojo n'est pas copiable).
+struct PoolResult {
+  PoolResult();
+  PoolResult(PoolResult&&) noexcept;
+  PoolResult& operator=(PoolResult&&) noexcept;
+  PoolResult(const PoolResult&) = delete;
+  PoolResult& operator=(const PoolResult&) = delete;
+  ~PoolResult();
+  std::vector<mojom::AnalyzedPersonPtr> persons;
+  float nsfw_score = -1.f;
+};
+
 // Browser-side handler de l'interface Mojo ImageAnalyzer, appelé par le RFO
 // renderer avec les frames vidéo décodées-en-avance (BGRA). Fait tourner le
 // vrai ML (YOLO11n-pose via BasarunaaService::AnalyzeImageRgba) sur le
@@ -75,7 +90,8 @@ class BasarunaaImageAnalyzer
                      std::string mode,
                      double gender_certainty,
                      double min_skeleton,
-                     std::vector<mojom::AnalyzedPersonPtr> persons);
+                     double nsfw_conf,
+                     PoolResult result);
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
 

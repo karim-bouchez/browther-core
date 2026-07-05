@@ -72,19 +72,22 @@ int8_t GenderToInt(Gender g) {
 // (pas seulement celles à flouter) avec leur genre + conf + le flag `blur`
 // (décision shouldBlur) : l'overlay a besoin de tout pour le mode debug ; en
 // mode normal il ne floute que `blur==true`.
-std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
-                                                    std::vector<uint8_t> pixels,
-                                                    int width,
-                                                    int height,
-                                                    bool bgra,
-                                                    std::string mode,
-                                                    double certainty,
-                                                    double conf_body,
-                                                    double conf_face) {
-  std::vector<mojom::AnalyzedPersonPtr> out;
+PoolResult RunYoloOnPool(BasarunaaService* service,
+                         std::vector<uint8_t> pixels,
+                         int width,
+                         int height,
+                         bool bgra,
+                         std::string mode,
+                         double certainty,
+                         double conf_body,
+                         double conf_face) {
+  PoolResult res;
+  std::vector<mojom::AnalyzedPersonPtr>& out = res.persons;
+  float nsfw_score = -1.f;
   const std::vector<DetectedPerson> persons = service->AnalyzeImageRgba(
       pixels.data(), width, height, bgra, static_cast<float>(conf_body),
-      static_cast<float>(conf_face));
+      static_cast<float>(conf_face), &nsfw_score);
+  res.nsfw_score = nsfw_score;
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
     auto ap = mojom::AnalyzedPerson::New();
@@ -117,10 +120,15 @@ std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
     }
     out.push_back(std::move(ap));
   }
-  return out;
+  return res;
 }
 
 }  // namespace
+
+PoolResult::PoolResult() = default;
+PoolResult::PoolResult(PoolResult&&) noexcept = default;
+PoolResult& PoolResult::operator=(PoolResult&&) noexcept = default;
+PoolResult::~PoolResult() = default;
 
 // static
 void BasarunaaImageAnalyzer::BindReceiver(
@@ -159,7 +167,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const size_t expected =
       static_cast<size_t>(width) * static_cast<size_t>(height) * 4u;
   if (width <= 0 || height <= 0 || pixels.size() < expected) {
-    std::move(callback).Run({}, "", false, "", 0.0, 0.0);
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f);
     return;
   }
 
@@ -168,7 +176,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   auto* service =
       profile ? BasarunaaServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
-    std::move(callback).Run({}, "", false, "", 0.0, 0.0);
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f);
     return;
   }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
@@ -183,6 +191,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   double conf_body = 0.25;
   double conf_face = 0.30;
   double min_skeleton = 0.0;
+  double nsfw_conf = 0.50;
   if (auto* prefs = profile->GetPrefs()) {
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
@@ -191,6 +200,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     conf_body = prefs->GetDouble(kBasarunaaConfBody);
     conf_face = prefs->GetDouble(kBasarunaaConfFace);
     min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
+    nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
   }
   // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
   std::string mode_reply = mode;
@@ -207,7 +217,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // bisect 2026-07-02).
   auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
       std::move(callback), std::vector<mojom::AnalyzedPersonPtr>(),
-      std::string(), false, std::string(), 0.0, 0.0);
+      std::string(), false, std::string(), 0.0, 0.0, false, -1.0f);
 
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
@@ -219,7 +229,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,
-                     std::move(mode_reply), certainty, min_skeleton));
+                     std::move(mode_reply), certainty, min_skeleton, nsfw_conf));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
@@ -229,11 +239,16 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
     std::string mode,
     double gender_certainty,
     double min_skeleton,
-    std::vector<mojom::AnalyzedPersonPtr> persons) {
-  LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
-  std::move(callback).Run(std::move(persons), std::move(debug_mode),
+    double nsfw_conf,
+    PoolResult result) {
+  LOG(INFO) << "[Basarunaa/YOLO] " << result.persons.size() << " persons"
+            << " nsfw=" << result.nsfw_score;
+  // NSFW image entière : flou plein cadre si le score Marqo dépasse le seuil.
+  const bool nsfw = result.nsfw_score >= 0.f &&
+                    result.nsfw_score >= static_cast<float>(nsfw_conf);
+  std::move(callback).Run(std::move(result.persons), std::move(debug_mode),
                           blur_enabled, std::move(mode), gender_certainty,
-                          min_skeleton);
+                          min_skeleton, nsfw, result.nsfw_score);
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);

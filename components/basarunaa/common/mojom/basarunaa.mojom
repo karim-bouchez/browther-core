@@ -142,5 +142,9 @@ interface ImageAnalyzer {
           bool blur_enabled,
           string mode,
           double gender_certainty,
-          double min_skeleton);
+          double min_skeleton,
+          // NSFW image entière (Marqo) : nsfw = flou plein cadre à appliquer ;
+          // nsfw_score [0,1] pour le HUD debug (< 0 si Marqo indispo).
+          bool nsfw,
+          float nsfw_score);
 };

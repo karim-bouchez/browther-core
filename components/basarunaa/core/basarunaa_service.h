@@ -114,14 +114,16 @@ class BasarunaaService : public KeyedService {
   // macOS), false means [R, G, B, A].
   // person_conf / face_conf : seuils de confiance des détecteurs (pose / visage),
   // branchés sur les prefs conf_body / conf_face (le panel les pilote). Défauts =
-  // valeurs des prefs par défaut.
+  // valeurs des prefs par défaut. out_nsfw_score (nullable) : score NSFW Marqo
+  // [0,1] de l'image ENTIÈRE (-1 si Marqo indispo) → flou plein cadre côté overlay.
   std::vector<DetectedPerson> AnalyzeImageRgba(
       const uint8_t* rgba,
       int width,
       int height,
       bool bgra = false,
       float person_conf = 0.25f,
-      float face_conf = 0.30f);
+      float face_conf = 0.30f,
+      float* out_nsfw_score = nullptr);
 
  private:
 #if defined(BASARUNAA_NATIVE_ML)
@@ -147,6 +149,8 @@ class BasarunaaService : public KeyedService {
                       DetectedPerson& person);
   // Charge pplcnet_pedestrian_attribute.onnx (PP-LCNet, 256x192). Best-effort.
   void LoadPplcnetModel();
+  // Charge nsfw-marqo-vit-384.onnx (Marqo ViT NSFW image entière). Best-effort.
+  void LoadMarqoModel();
   // Classification CORPS pplcnet : masque polygone corps + pplcnet (port de
   // classifiers/pplcnet.js + utils/body_polygon.js + utils/preprocessing.js).
   // Renseigne person.body_gender / body_conf (sortie BRUTE corps). Tourne
@@ -189,6 +193,10 @@ class BasarunaaService : public KeyedService {
   // Session yolov8n-face (détecteur visages dédié). Même call_once.
   std::unique_ptr<Ort::Session> yolo_face_session_;
   bool yolo_face_ready_ = false;
+
+  // Session Marqo ViT NSFW (image entière → score NSFW). Même call_once. Best-effort.
+  std::unique_ptr<Ort::Session> marqo_session_;
+  bool marqo_ready_ = false;
 
   // [Browther/Basarunaa] Sérialise GLOBALEMENT AnalyzeImageRgba. Le service est
   // profile-keyed et partagé entre TOUS les WebContents ; le cap "1 en vol" de

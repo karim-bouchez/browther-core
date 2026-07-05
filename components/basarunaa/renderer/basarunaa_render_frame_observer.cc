@@ -248,7 +248,9 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     bool blur_enabled,
     const std::string& mode,
     double gender_certainty,
-    double min_skeleton) {
+    double min_skeleton,
+    bool nsfw,
+    float nsfw_score) {
   // Round-trip d'analyse (keyframes seulement : espacés, non queués derrière une
   // paire de cut → coût d'UNE analyse). Alimente l'intervalle keyframe adaptatif.
   if (kind == FrameKind::kKeyframe) {
@@ -309,6 +311,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("m", mode);                        // mode flou (recalcul shouldBlur voté)
   dict.Set("gc", gender_certainty);           // certitude genre
   dict.Set("ms", min_skeleton);               // seuil min-squelette (filtre overlay)
+  dict.Set("nsfw", nsfw);                      // flou plein cadre NSFW (Marqo)
+  dict.Set("nsc", static_cast<double>(nsfw_score));  // score NSFW (HUD debug)
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);

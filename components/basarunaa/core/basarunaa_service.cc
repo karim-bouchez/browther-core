@@ -72,6 +72,11 @@ constexpr int kPplcnetInputH = 256;
 constexpr int kPplcnetInputW = 192;
 constexpr int kPplcnetFemaleAttr = 22;
 
+// Marqo ViT NSFW (image entière → [NSFW, SFW] logits). Input 384×384.
+constexpr base::FilePath::CharType kMarqoRelPath[] =
+    FILE_PATH_LITERAL("basarunaa/models/nsfw-marqo-vit-384.onnx");
+constexpr int kMarqoInputSize = 384;
+
 // yolov8n-face.onnx (détecteur visages). Entrée 640x640 (même letterbox que le
 // pose). 3 sorties = 3 têtes FPN [1,80,H,W] (strides 8/16/32) ; 80 = 64 (DFL
 // bbox 4×16 bins) + 1 conf + 15 (5 landmarks ×3). Port de detectors/yolo_face.js.
@@ -865,6 +870,63 @@ std::vector<int> MatchFacesToPersons(const std::vector<DetectedPerson>& persons,
   return result;
 }
 
+// Marqo ViT NSFW (image ENTIÈRE). Port de _runMarqo (classifiers/nsfw.js) : stretch
+// 384×384, NCHW, normalisation (px/255 − 0.5)/0.5 RGB, softmax sur [NSFW=0, SFW=1].
+// Retourne le score NSFW [0,1], ou -1.f en cas d'échec. `bgra` géré par le sampler.
+float RunMarqoNsfwScore(Ort::Session* session,
+                        base::span<const uint8_t> rgba,
+                        int width,
+                        int height,
+                        bool bgra) {
+  const int size = kMarqoInputSize;
+  const int plane = size * size;
+  std::vector<float> nchw(3 * plane);
+  for (int y = 0; y < size; ++y) {
+    for (int x = 0; x < size; ++x) {
+      // Stretch : image entière → 384×384 (align-centres, cf. drawImage v1).
+      const float sx = (x + 0.5f) * width / size - 0.5f;
+      const float sy = (y + 0.5f) * height / size - 0.5f;
+      float r, g, b;
+      BilinearSampleRgba(rgba, width, height, sx, sy, bgra, r, g, b);
+      const int idx = y * size + x;
+      nchw[idx] = (r - 0.5f) / 0.5f;
+      nchw[plane + idx] = (g - 0.5f) / 0.5f;
+      nchw[2 * plane + idx] = (b - 0.5f) / 0.5f;
+    }
+  }
+  try {
+    auto memory_info =
+        Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
+    const std::array<int64_t, 4> shape = {1, 3, size, size};
+    Ort::Value input = Ort::Value::CreateTensor<float>(
+        memory_info, nchw.data(), nchw.size(), shape.data(), shape.size());
+    Ort::AllocatorWithDefaultOptions alloc;
+    auto in_name = session->GetInputNameAllocated(0, alloc);
+    auto out_name = session->GetOutputNameAllocated(0, alloc);
+    const char* in_names[] = {in_name.get()};
+    const char* out_names[] = {out_name.get()};
+    auto outputs = session->Run(Ort::RunOptions{nullptr}, in_names, &input, 1,
+                                out_names, 1);
+    const size_t out_len =
+        outputs[0].GetTensorTypeAndShapeInfo().GetElementCount();
+    if (out_len < 2) {
+      return -1.f;
+    }
+    const auto out = UNSAFE_BUFFERS(
+        base::span<const float>(outputs[0].GetTensorData<float>(), out_len));
+    // Softmax [NSFW=0, SFW=1] → proba NSFW.
+    const float l0 = out[0];
+    const float l1 = out[1];
+    const float m = std::max(l0, l1);
+    const float e0 = std::exp(l0 - m);
+    const float e1 = std::exp(l1 - m);
+    return e0 / (e0 + e1);
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] marqo inference failed: " << e.what();
+    return -1.f;
+  }
+}
+
 }  // namespace
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
@@ -911,8 +973,12 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     int height,
     bool bgra,
     float person_conf,
-    float face_conf) {
+    float face_conf,
+    float* out_nsfw_score) {
 #if defined(BASARUNAA_NATIVE_ML)
+  if (out_nsfw_score) {
+    *out_nsfw_score = -1.f;
+  }
   if (!rgba || width <= 0 || height <= 0) {
     return {};
   }
@@ -929,6 +995,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     LoadYoloFaceModel();
     LoadGenderAgeModel();
     LoadPplcnetModel();
+    LoadMarqoModel();
   });
 
   // Wrap caller-owned buffer in a span for safe indexing. The raw pointer
@@ -1111,6 +1178,13 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
       person.gender_conf = person.body_conf;
       person.gender_source = GenderSource::kBody;
     }
+  }
+
+  // NSFW image entière (Marqo) : score [0,1] via out-param → flou plein cadre
+  // décidé côté overlay (seuil nsfw_conf). Best-effort : Marqo indispo → -1.
+  if (out_nsfw_score && marqo_ready_) {
+    *out_nsfw_score =
+        RunMarqoNsfwScore(marqo_session_.get(), rgba_span, width, height, bgra);
   }
 
   const auto elapsed_ms = (base::TimeTicks::Now() - start).InMillisecondsF();
@@ -1345,6 +1419,37 @@ void BasarunaaService::LoadPplcnetModel() {
   }
   pplcnet_ready_ = true;
   LOG(INFO) << "[Basarunaa] pplcnet session ready";
+}
+
+void BasarunaaService::LoadMarqoModel() {
+  base::FilePath exe_dir;
+  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
+    return;
+  }
+  const base::FilePath model_path = exe_dir.Append(kMarqoRelPath);
+  if (!base::PathExists(model_path)) {
+    LOG(WARNING) << "[Basarunaa] marqo model not found at " << model_path.value()
+                 << " — no NSFW full-frame blur";
+    return;
+  }
+  EnsureOrtEnv();
+  if (!ort_env_) {
+    return;
+  }
+  try {
+    Ort::SessionOptions opts;
+    opts.SetIntraOpNumThreads(1);
+    opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
+    AppendGpuEP(opts, "marqo");
+    marqo_session_ = std::make_unique<Ort::Session>(
+        *ort_env_, model_path.value().c_str(), opts);
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] marqo session creation failed: " << e.what();
+    marqo_session_.reset();
+    return;
+  }
+  marqo_ready_ = true;
+  LOG(INFO) << "[Basarunaa] marqo session ready";
 }
 
 void BasarunaaService::ClassifyBodyGender(base::span<const uint8_t> rgba,
