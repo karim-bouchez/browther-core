@@ -164,7 +164,7 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
       std::move(buffer), width, height, mojom::ImageFormat::kBgra8, want_nsfw,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
                      weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
-                     kind, diff, ratio, sent));
+                     kind, diff, ratio, sent, want_nsfw));
 }
 
 void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
@@ -261,6 +261,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     float diff,
     float ratio,
     base::TimeTicks sent,
+    bool want_nsfw,
     std::vector<mojom::AnalyzedPersonPtr> persons,
     const std::string& debug_mode,
     bool blur_enabled,
@@ -271,7 +272,9 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     float nsfw_score) {
   // Round-trip d'analyse (keyframes seulement : espacés, non queués derrière une
   // paire de cut → coût d'UNE analyse). Alimente l'intervalle keyframe adaptatif.
-  if (kind == FrameKind::kKeyframe) {
+  // EXCLUT les frames NSFW-checkées (Marqo/NudeNet ~120ms throttlés ~1/s) : l'EMA
+  // doit refléter le coût de BASE (pose+visage+genre), pas le pic NSFW ponctuel.
+  if (kind == FrameKind::kKeyframe && !want_nsfw) {
     const double rt = (base::TimeTicks::Now() - sent).InMillisecondsF();
     analysis_ema_ms_ =
         analysis_ema_init_ ? analysis_ema_ms_ * 0.9 + rt * 0.1 : rt;

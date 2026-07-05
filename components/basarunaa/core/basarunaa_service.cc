@@ -77,6 +77,15 @@ constexpr base::FilePath::CharType kMarqoRelPath[] =
     FILE_PATH_LITERAL("basarunaa/models/nsfw-marqo-vit-384.onnx");
 constexpr int kMarqoInputSize = 384;
 
+// NudeNet (détecteur parties du corps, YOLO-style [1,22,2100]). Input 320×320.
+// 22 = 4 (cx,cy,w,h) + 18 classes. Indices des parties EXPOSÉES (déclenchent le
+// flou même sans Marqo) : cf. FLAGGED_CLASSES v1 (classifiers/nsfw.js).
+constexpr base::FilePath::CharType kNudenetRelPath[] =
+    FILE_PATH_LITERAL("basarunaa/models/nudenet-320.onnx");
+constexpr int kNudenetInputSize = 320;
+constexpr int kNudenetNumClasses = 18;
+constexpr std::array<int, 6> kNudenetExposedClasses = {2, 3, 4, 5, 6, 14};
+
 // yolov8n-face.onnx (détecteur visages). Entrée 640x640 (même letterbox que le
 // pose). 3 sorties = 3 têtes FPN [1,80,H,W] (strides 8/16/32) ; 80 = 64 (DFL
 // bbox 4×16 bins) + 1 conf + 15 (5 landmarks ×3). Port de detectors/yolo_face.js.
@@ -927,6 +936,94 @@ float RunMarqoNsfwScore(Ort::Session* session,
   }
 }
 
+// NudeNet : détecte-t-il une partie EXPOSÉE (≥ conf) ? Port de _runNudenet
+// (classifiers/nsfw.js) réduit au booléen (pas de décodage bbox/NMS : pour le flou
+// PLEIN CADRE on n'a besoin que de « une partie exposée existe »). Preprocess :
+// letterbox 320 (gris 128), NCHW RGB /255. Sortie [1, 22, 2100] : canaux 0-3 =
+// bbox, 4-21 = 18 classes ; layout data[canal*2100 + anchor].
+bool RunNudenetHasExposed(Ort::Session* session,
+                          base::span<const uint8_t> rgba,
+                          int width,
+                          int height,
+                          bool bgra,
+                          float nudenet_conf) {
+  const int size = kNudenetInputSize;
+  const int plane = size * size;
+  const float scale =
+      std::min(static_cast<float>(size) / width,
+               static_cast<float>(size) / height);
+  const float scaled_w = width * scale;
+  const float scaled_h = height * scale;
+  const float pad_x = (size - scaled_w) / 2.f;
+  const float pad_y = (size - scaled_h) / 2.f;
+  std::vector<float> nchw(3 * plane);
+  for (int y = 0; y < size; ++y) {
+    for (int x = 0; x < size; ++x) {
+      // Letterbox inverse : pixel destination → source (gris 128 hors image).
+      const float sx = (x - pad_x) / scale;
+      const float sy = (y - pad_y) / scale;
+      float r, g, b;
+      if (sx < 0 || sy < 0 || sx >= width || sy >= height) {
+        r = g = b = 128.f / 255.f;
+      } else {
+        BilinearSampleRgba(rgba, width, height, sx, sy, bgra, r, g, b);
+      }
+      const int idx = y * size + x;
+      nchw[idx] = r;
+      nchw[plane + idx] = g;
+      nchw[2 * plane + idx] = b;
+    }
+  }
+  try {
+    auto memory_info =
+        Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
+    const std::array<int64_t, 4> shape = {1, 3, size, size};
+    Ort::Value input = Ort::Value::CreateTensor<float>(
+        memory_info, nchw.data(), nchw.size(), shape.data(), shape.size());
+    Ort::AllocatorWithDefaultOptions alloc;
+    auto in_name = session->GetInputNameAllocated(0, alloc);
+    auto out_name = session->GetOutputNameAllocated(0, alloc);
+    const char* in_names[] = {in_name.get()};
+    const char* out_names[] = {out_name.get()};
+    auto outputs = session->Run(Ort::RunOptions{nullptr}, in_names, &input, 1,
+                                out_names, 1);
+    const auto info = outputs[0].GetTensorTypeAndShapeInfo();
+    const auto dims = info.GetShape();
+    if (dims.size() != 3) {
+      return false;
+    }
+    const int num_anchors = static_cast<int>(dims[2]);  // 2100
+    const size_t total = info.GetElementCount();
+    const auto data = UNSAFE_BUFFERS(
+        base::span<const float>(outputs[0].GetTensorData<float>(), total));
+    // Pour chaque anchor : argmax des 18 classes ; si la meilleure ≥ conf ET
+    // c'est une classe EXPOSÉE → flou plein cadre (court-circuit).
+    for (int i = 0; i < num_anchors; ++i) {
+      int best_class = 0;
+      float best_conf = 0.f;
+      for (int c = 0; c < kNudenetNumClasses; ++c) {
+        const float conf = data[(4 + c) * num_anchors + i];
+        if (conf > best_conf) {
+          best_conf = conf;
+          best_class = c;
+        }
+      }
+      if (best_conf < nudenet_conf) {
+        continue;
+      }
+      for (int ec : kNudenetExposedClasses) {
+        if (best_class == ec) {
+          return true;
+        }
+      }
+    }
+    return false;
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] nudenet inference failed: " << e.what();
+    return false;
+  }
+}
+
 }  // namespace
 #endif  // defined(BASARUNAA_NATIVE_ML)
 
@@ -974,10 +1071,15 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     bool bgra,
     float person_conf,
     float face_conf,
-    float* out_nsfw_score) {
+    float* out_nsfw_score,
+    bool* out_nsfw_exposed,
+    float nudenet_conf) {
 #if defined(BASARUNAA_NATIVE_ML)
   if (out_nsfw_score) {
     *out_nsfw_score = -1.f;
+  }
+  if (out_nsfw_exposed) {
+    *out_nsfw_exposed = false;
   }
   if (!rgba || width <= 0 || height <= 0) {
     return {};
@@ -996,6 +1098,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     LoadGenderAgeModel();
     LoadPplcnetModel();
     LoadMarqoModel();
+    LoadNudenetModel();
   });
 
   // Wrap caller-owned buffer in a span for safe indexing. The raw pointer
@@ -1180,11 +1283,16 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     }
   }
 
-  // NSFW image entière (Marqo) : score [0,1] via out-param → flou plein cadre
-  // décidé côté overlay (seuil nsfw_conf). Best-effort : Marqo indispo → -1.
+  // NSFW image entière (Marqo, score) + NudeNet (partie exposée). Best-effort.
+  // Décision finale (score≥nsfw_conf OU exposé) faite côté analyzer. Ne tourne que
+  // si le RFO l'a demandé (out non-nuls = throttle ~1/s + cuts).
   if (out_nsfw_score && marqo_ready_) {
     *out_nsfw_score =
         RunMarqoNsfwScore(marqo_session_.get(), rgba_span, width, height, bgra);
+  }
+  if (out_nsfw_exposed && nudenet_ready_) {
+    *out_nsfw_exposed = RunNudenetHasExposed(nudenet_session_.get(), rgba_span,
+                                             width, height, bgra, nudenet_conf);
   }
 
   const auto elapsed_ms = (base::TimeTicks::Now() - start).InMillisecondsF();
@@ -1450,6 +1558,37 @@ void BasarunaaService::LoadMarqoModel() {
   }
   marqo_ready_ = true;
   LOG(INFO) << "[Basarunaa] marqo session ready";
+}
+
+void BasarunaaService::LoadNudenetModel() {
+  base::FilePath exe_dir;
+  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
+    return;
+  }
+  const base::FilePath model_path = exe_dir.Append(kNudenetRelPath);
+  if (!base::PathExists(model_path)) {
+    LOG(WARNING) << "[Basarunaa] nudenet model not found at "
+                 << model_path.value() << " — no explicit-part NSFW";
+    return;
+  }
+  EnsureOrtEnv();
+  if (!ort_env_) {
+    return;
+  }
+  try {
+    Ort::SessionOptions opts;
+    opts.SetIntraOpNumThreads(1);
+    opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
+    AppendGpuEP(opts, "nudenet");
+    nudenet_session_ = std::make_unique<Ort::Session>(
+        *ort_env_, model_path.value().c_str(), opts);
+  } catch (const Ort::Exception& e) {
+    LOG(ERROR) << "[Basarunaa] nudenet session creation failed: " << e.what();
+    nudenet_session_.reset();
+    return;
+  }
+  nudenet_ready_ = true;
+  LOG(INFO) << "[Basarunaa] nudenet session ready";
 }
 
 void BasarunaaService::ClassifyBodyGender(base::span<const uint8_t> rgba,

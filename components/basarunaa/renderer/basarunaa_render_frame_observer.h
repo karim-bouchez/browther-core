@@ -92,6 +92,7 @@ class BasarunaaRenderFrameObserver final
                   float diff,
                   float ratio,
                   base::TimeTicks sent,
+                  bool want_nsfw,
                   std::vector<mojom::AnalyzedPersonPtr> persons,
                   const std::string& debug_mode,
                   bool blur_enabled,

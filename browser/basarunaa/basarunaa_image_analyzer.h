@@ -36,7 +36,8 @@ struct PoolResult {
   PoolResult& operator=(const PoolResult&) = delete;
   ~PoolResult();
   std::vector<mojom::AnalyzedPersonPtr> persons;
-  float nsfw_score = -1.f;
+  float nsfw_score = -1.f;   // Marqo (image entière), < 0 si non checké/indispo
+  bool nsfw_exposed = false;  // NudeNet : partie exposée détectée
 };
 
 // Browser-side handler de l'interface Mojo ImageAnalyzer, appelé par le RFO

@@ -81,16 +81,21 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
                          double certainty,
                          double conf_body,
                          double conf_face,
-                         bool want_nsfw) {
+                         bool want_nsfw,
+                         double nudenet_conf) {
   PoolResult res;
   std::vector<mojom::AnalyzedPersonPtr>& out = res.persons;
   float nsfw_score = -1.f;
-  // Marqo (NSFW, ~120ms) seulement quand le RFO le demande (throttle ~1/s + cuts) :
-  // sinon on passe nullptr → le service saute Marqo (out reste -1 → overlay gèle).
+  bool nsfw_exposed = false;
+  // Marqo + NudeNet (NSFW, ~120ms) seulement quand le RFO le demande (throttle
+  // ~1/s + cuts) : sinon out-params nullptr → le service saute les 2 modèles
+  // (score reste -1, exposed false → l'overlay gèle le dernier verdict).
   const std::vector<DetectedPerson> persons = service->AnalyzeImageRgba(
       pixels.data(), width, height, bgra, static_cast<float>(conf_body),
-      static_cast<float>(conf_face), want_nsfw ? &nsfw_score : nullptr);
+      static_cast<float>(conf_face), want_nsfw ? &nsfw_score : nullptr,
+      want_nsfw ? &nsfw_exposed : nullptr, static_cast<float>(nudenet_conf));
   res.nsfw_score = nsfw_score;
+  res.nsfw_exposed = nsfw_exposed;
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
     auto ap = mojom::AnalyzedPerson::New();
@@ -196,6 +201,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   double conf_face = 0.30;
   double min_skeleton = 0.0;
   double nsfw_conf = 0.50;
+  double nudenet_conf = 0.50;
   if (auto* prefs = profile->GetPrefs()) {
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
@@ -205,6 +211,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     conf_face = prefs->GetDouble(kBasarunaaConfFace);
     min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
     nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
+    nudenet_conf = prefs->GetDouble(kBasarunaaNudenetConf);
   }
   // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
   std::string mode_reply = mode;
@@ -229,7 +236,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
        base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN},
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
                      width, height, bgra, std::move(mode), certainty, conf_body,
-                     conf_face, want_nsfw),
+                     conf_face, want_nsfw, nudenet_conf),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,
@@ -246,10 +253,14 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
     double nsfw_conf,
     PoolResult result) {
   LOG(INFO) << "[Basarunaa/YOLO] " << result.persons.size() << " persons"
-            << " nsfw=" << result.nsfw_score;
-  // NSFW image entière : flou plein cadre si le score Marqo dépasse le seuil.
-  const bool nsfw = result.nsfw_score >= 0.f &&
-                    result.nsfw_score >= static_cast<float>(nsfw_conf);
+            << " nsfw=" << result.nsfw_score
+            << " exposed=" << result.nsfw_exposed;
+  // NSFW plein cadre = Marqo au-dessus du seuil OU NudeNet a vu une partie exposée
+  // (port v1 : isNsfw = marqo.isNsfw || exposed). L'exposé déclenche même si Marqo
+  // (image entière) ne flag pas — gros plans de parties explicites.
+  const bool nsfw = (result.nsfw_score >= 0.f &&
+                     result.nsfw_score >= static_cast<float>(nsfw_conf)) ||
+                    result.nsfw_exposed;
   std::move(callback).Run(std::move(result.persons), std::move(debug_mode),
                           blur_enabled, std::move(mode), gender_certainty,
                           min_skeleton, nsfw, result.nsfw_score);
