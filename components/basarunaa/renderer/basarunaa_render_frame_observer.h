@@ -67,20 +67,26 @@ class BasarunaaRenderFrameObserver final
                         int height,
                         base::TimeDelta media_time);
   // Envoie une frame à l'analyse ML (Mojo AnalyzeImage, kBgra8) en taguant sa
-  // nature |kind| (rattachée au résultat via le callback lié → jamais sur le fil).
+  // nature |kind| + le diff hash |diff| et le pic |ratio| de cette frame
+  // (rattachés au résultat via le callback lié → jamais sur le fil ; servent au
+  // HUD debug pour régler la détection de cut adaptative).
   void ForwardForAnalysis(base::span<const uint8_t> bgra,
                           int width,
                           int height,
                           base::TimeDelta media_time,
-                          FrameKind kind);
+                          FrameKind kind,
+                          float diff,
+                          float ratio);
   // ④a : reçoit le verdict ML (bboxes en pixels de l'image analysée
-  // |width|×|height|) + le temps média + la nature |kind| de la frame, et pousse
-  // le résultat au JS de la page (CustomEvent 'bsr-native-result', detail = JSON,
-  // coords normalisées).
+  // |width|×|height|) + le temps média + la nature |kind| + diff/ratio de la
+  // frame, et pousse le résultat au JS de la page (CustomEvent 'bsr-native-result',
+  // detail = JSON, coords normalisées).
   void OnAnalyzed(base::TimeDelta media_time,
                   int width,
                   int height,
                   FrameKind kind,
+                  float diff,
+                  float ratio,
                   std::vector<mojom::AnalyzedPersonPtr> persons,
                   const std::string& debug_mode,
                   bool blur_enabled);
@@ -101,6 +107,12 @@ class BasarunaaRenderFrameObserver final
   base::TimeDelta prev_media_time_;
   bool has_prev_frame_ = false;
   base::TimeDelta last_keyframe_ts_;
+  // Détection de cut adaptative : baseline EMA du diff hash + diff/ratio de la
+  // frame précédente (rattachés à n-1 quand on tape une paire de cut).
+  float ema_diff_ = 0.f;
+  bool ema_init_ = false;
+  float prev_diff_ = 0.f;
+  float prev_ratio_ = 0.f;
 
   base::WeakPtrFactory<BasarunaaRenderFrameObserver> weak_ptr_factory_{this};
 };

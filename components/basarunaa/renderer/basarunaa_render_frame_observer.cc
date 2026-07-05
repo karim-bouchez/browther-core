@@ -41,7 +41,15 @@ namespace {
 //     scène + première nouvelle) → bornes d'interpolation nettes pour l'overlay.
 // Les autres frames sont droppées (l'overlay interpole entre deux keyframes).
 constexpr int kKeyframeIntervalMs = 1000;
-constexpr float kCutThreshold = 0.12f;  // seuil scène (v1)
+// Détection de cut. Le seuil ABSOLU 0.12 (v1) est aveugle sur fond monotone (le
+// diff hash ne l'atteint jamais → cut réel raté, cf. 2026-07-05). On ajoute un
+// seuil ADAPTATIF : un cut = un PIC du diff vs sa moyenne récente (EMA), même en
+// valeur absolue faible. Sur plan statique fond noir, baseline ≈ 0 → un cut pique
+// et est capté ; sur plan animé, baseline plus haute → pas de faux positif.
+constexpr float kCutThreshold = 0.12f;   // seuil absolu (fallback fort)
+constexpr float kCutAbsFloor = 0.02f;    // sous ce diff, un pic est ignoré (bruit)
+constexpr float kCutSpikeFactor = 4.0f;  // diff > EMA × ce facteur = pic = cut
+constexpr float kCutEmaAlpha = 0.15f;    // lissage baseline (hors frames de cut)
 
 // Hash 8×8 grayscale (moyenne par bloc) — port de core/video/frame-diff.ts.
 // Grayscale pondéré (R*2 + G*3 + B)/6 comme la v1. Le sink délivre du BGRA
@@ -120,7 +128,9 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     int width,
     int height,
     base::TimeDelta media_time,
-    FrameKind kind) {
+    FrameKind kind,
+    float diff,
+    float ratio) {
   if (!EnsureConnected()) {
     return;
   }
@@ -129,7 +139,7 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
       std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
                      weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
-                     kind));
+                     kind, diff, ratio));
 }
 
 void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
@@ -142,7 +152,23 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   const std::array<uint8_t, 64> hash = ComputeHash8x8(span, width, height);
   const float diff = has_prev_hash_ ? HashDiff(hash, prev_hash_) : 1.f;
 
-  const bool is_cut = has_prev_hash_ && diff > kCutThreshold;
+  // Cut = seuil absolu OU pic adaptatif (diff >> baseline EMA). Voir constantes.
+  float ratio = 0.f;
+  bool is_cut = false;
+  if (has_prev_hash_) {
+    const float baseline = ema_init_ ? ema_diff_ : diff;
+    ratio = baseline > 1e-4f ? diff / baseline : (diff > 0.f ? 999.f : 0.f);
+    is_cut = diff > kCutThreshold ||
+             (diff > kCutAbsFloor && ratio > kCutSpikeFactor);
+    // Baseline mise à jour HORS frames de cut (sinon le cut gonfle la moyenne).
+    if (!is_cut) {
+      ema_diff_ = ema_init_
+                      ? ema_diff_ * (1.f - kCutEmaAlpha) + diff * kCutEmaAlpha
+                      : diff;
+      ema_init_ = true;
+    }
+  }
+
   const bool due_keyframe =
       !has_prev_hash_ ||
       (media_time - last_keyframe_ts_) >=
@@ -154,12 +180,15 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
     // jusqu'à n-1 puis snap à n → pas de flash full-blur au cut.
     if (has_prev_frame_) {
       ForwardForAnalysis(base::span<const uint8_t>(prev_bgra_), prev_width_,
-                         prev_height_, prev_media_time_, FrameKind::kCutBefore);
+                         prev_height_, prev_media_time_, FrameKind::kCutBefore,
+                         prev_diff_, prev_ratio_);
     }
-    ForwardForAnalysis(span, width, height, media_time, FrameKind::kCutAfter);
+    ForwardForAnalysis(span, width, height, media_time, FrameKind::kCutAfter,
+                       diff, ratio);
     last_keyframe_ts_ = media_time;  // le cut réarme la cadence keyframe
   } else if (due_keyframe) {
-    ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe);
+    ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe,
+                       diff, ratio);
     last_keyframe_ts_ = media_time;
   }
   // Sinon : drop (interpolation overlay entre keyframes).
@@ -173,6 +202,8 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   prev_width_ = width;
   prev_height_ = height;
   prev_media_time_ = media_time;
+  prev_diff_ = diff;
+  prev_ratio_ = ratio;
   has_prev_frame_ = true;
 }
 
@@ -181,6 +212,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     int width,
     int height,
     FrameKind kind,
+    float diff,
+    float ratio,
     std::vector<mojom::AnalyzedPersonPtr> persons,
     const std::string& debug_mode,
     bool blur_enabled) {
@@ -210,6 +243,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("debug", debug_mode);
   dict.Set("be", blur_enabled);
   dict.Set("k", static_cast<int>(kind));
+  dict.Set("d", static_cast<double>(diff));   // diff hash pixel de cette frame
+  dict.Set("r", static_cast<double>(ratio));  // pic vs baseline EMA (×)
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);
