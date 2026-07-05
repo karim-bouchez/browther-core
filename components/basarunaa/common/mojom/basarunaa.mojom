@@ -75,6 +75,16 @@ enum ImageFormat {
   kBgra8,
 };
 
+// Un keypoint COCO (17 par personne, ordre YOLO-pose). x/y NORMALISÉS [0,1] sur
+// l'image analysée. Sert à l'overlay pour : dessiner le squelette (debug), le
+// filtre min-squelette (anti faux-positif main/objet), et le flou en forme de
+// corps (polygone). confidence < seuil = keypoint non fiable.
+struct KeyPoint {
+  float x;
+  float y;
+  float confidence;
+};
+
 struct AnalyzedPerson {
   // Bbox dans coords pixel image originale (top-left + w,h).
   float x;
@@ -106,6 +116,9 @@ struct AnalyzedPerson {
   // Corps entier visible (keypoints jambes conf>0.3) → pplcnet fiable. Pilote la
   // branche « corps partiel » de la fusion overlay (port _processDual).
   bool has_legs;
+  // 17 keypoints COCO (x/y normalisés) → squelette debug + filtre min-squelette +
+  // flou polygone côté overlay. Vide si le décodage pose a échoué.
+  array<KeyPoint> keypoints;
 };
 
 interface ImageAnalyzer {
@@ -128,5 +141,6 @@ interface ImageAnalyzer {
           string debug_mode,
           bool blur_enabled,
           string mode,
-          double gender_certainty);
+          double gender_certainty,
+          double min_skeleton);
 };

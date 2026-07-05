@@ -46,10 +46,12 @@ constexpr base::FilePath::CharType kYoloPoseRelPath[] =
 constexpr int kYoloInputSize = 640;
 constexpr int kYoloOutputChannels = 56;
 constexpr int kYoloAnchors = 8400;
-constexpr float kYoloPad = 114.0f / 255.0f;
+// Gris 128 (comme la v1 : `#808080`), pas 114 (ultralytics) — colle aux
+// benchmarks accuracy faits sur la v1.
+constexpr float kYoloPad = 128.0f / 255.0f;
 
-// Tunables — match the POC defaults.
-constexpr float kScoreThreshold = 0.25f;
+// Tunables — match the POC defaults. (Le seuil de score personne est désormais
+// un paramètre `person_conf` branché sur la pref conf_body.)
 constexpr float kNmsIou = 0.5f;
 
 // genderage.onnx (InsightFace). Entrée 1x3x96x96, RGB 0-255 (raw, PAS de
@@ -76,7 +78,8 @@ constexpr int kPplcnetFemaleAttr = 22;
 constexpr base::FilePath::CharType kYoloFaceRelPath[] =
     FILE_PATH_LITERAL("basarunaa/models/yolov8n-face.onnx");
 constexpr int kYoloFaceDflBins = 16;
-constexpr float kYoloFaceConf = 0.5f;
+// (Le seuil de confiance visage est désormais un paramètre `face_conf` branché
+// sur la pref conf_face — plus de constante hardcodée à 0.5.)
 constexpr float kYoloFaceIou = 0.4f;
 
 // NanoDet (sentinelle légère) retiré à la refonte 2026-07-04 : trop bruité, et
@@ -716,7 +719,8 @@ std::vector<DetectedFace> RunYoloFaceImpl(Ort::Session* session,
                                           base::span<const uint8_t> rgba,
                                           int width,
                                           int height,
-                                          bool bgra) {
+                                          bool bgra,
+                                          float face_conf) {
   std::vector<float> nchw;
   float scale = 1.f, pad_x = 0.f, pad_y = 0.f;
   LetterboxRgbaToNchw(rgba, width, height, bgra, nchw, scale, pad_x, pad_y);
@@ -759,7 +763,7 @@ std::vector<DetectedFace> RunYoloFaceImpl(Ort::Session* session,
         for (int gx = 0; gx < grid_w; ++gx) {
           const size_t cell = static_cast<size_t>(gy) * grid_w + gx;
           const float conf = Sigmoid(data[64 * plane + cell]);
-          if (conf < kYoloFaceConf) {
+          if (conf < face_conf) {
             continue;
           }
           // DFL : 4 distances (softmax sur 16 bins → somme pondérée).
@@ -905,7 +909,9 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     const uint8_t* rgba,
     int width,
     int height,
-    bool bgra) {
+    bool bgra,
+    float person_conf,
+    float face_conf) {
 #if defined(BASARUNAA_NATIVE_ML)
   if (!rgba || width <= 0 || height <= 0) {
     return {};
@@ -984,7 +990,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   raw.reserve(64);
   for (int i = 0; i < kYoloAnchors; ++i) {
     const float score = output_data[4 * kYoloAnchors + i];
-    if (score < kScoreThreshold) {
+    if (score < person_conf) {
       continue;
     }
     const float cx = output_data[0 * kYoloAnchors + i];
@@ -1056,7 +1062,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   std::vector<DetectedFace> faces;
   if (yolo_face_ready_) {
     faces = RunYoloFaceImpl(yolo_face_session_.get(), rgba_span, width, height,
-                            bgra);
+                            bgra, face_conf);
   }
   const std::vector<int> face_of = MatchFacesToPersons(nms, faces);
 

@@ -78,10 +78,13 @@ std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
                                                     int height,
                                                     bool bgra,
                                                     std::string mode,
-                                                    double certainty) {
+                                                    double certainty,
+                                                    double conf_body,
+                                                    double conf_face) {
   std::vector<mojom::AnalyzedPersonPtr> out;
-  const std::vector<DetectedPerson> persons =
-      service->AnalyzeImageRgba(pixels.data(), width, height, bgra);
+  const std::vector<DetectedPerson> persons = service->AnalyzeImageRgba(
+      pixels.data(), width, height, bgra, static_cast<float>(conf_body),
+      static_cast<float>(conf_face));
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
     auto ap = mojom::AnalyzedPerson::New();
@@ -100,6 +103,18 @@ std::vector<mojom::AnalyzedPersonPtr> RunYoloOnPool(BasarunaaService* service,
     ap->body_gender = GenderToInt(p.body_gender);
     ap->body_conf = p.body_conf;
     ap->has_legs = p.has_legs;
+    // Keypoints normalisés [0,1] → squelette debug + filtre min-squelette + flou
+    // polygone côté overlay.
+    ap->keypoints.reserve(p.keypoints.size());
+    const float fw = width > 0 ? width : 1;
+    const float fh = height > 0 ? height : 1;
+    for (const DetectedKeyPoint& kp : p.keypoints) {
+      auto mk = mojom::KeyPoint::New();
+      mk->x = kp.x / fw;
+      mk->y = kp.y / fh;
+      mk->confidence = kp.confidence;
+      ap->keypoints.push_back(std::move(mk));
+    }
     out.push_back(std::move(ap));
   }
   return out;
@@ -144,7 +159,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const size_t expected =
       static_cast<size_t>(width) * static_cast<size_t>(height) * 4u;
   if (width <= 0 || height <= 0 || pixels.size() < expected) {
-    std::move(callback).Run({}, "", false, "", 0.0);
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0);
     return;
   }
 
@@ -153,22 +168,29 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   auto* service =
       profile ? BasarunaaServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
-    std::move(callback).Run({}, "", false, "", 0.0);
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0);
     return;
   }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
   // du flag blur repli) ET renvoyés au renderer (overlay : recalcul de shouldBlur
-  // depuis le genre VOTÉ). debug_mode + blur_enabled → renderer (dessin boîtes
-  // debug + gating du flou). Défauts = ceux du POC.
+  // depuis le genre VOTÉ). conf_body/conf_face → seuils des détecteurs (pool).
+  // debug_mode + blur_enabled + min_skeleton → renderer (dessin/gating/filtre).
+  // Défauts = ceux du POC.
   std::string mode = "blur-female";
   double certainty = 0.70;
   std::string debug_mode = "none";
   bool blur_enabled = true;
+  double conf_body = 0.25;
+  double conf_face = 0.30;
+  double min_skeleton = 0.0;
   if (auto* prefs = profile->GetPrefs()) {
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
     debug_mode = prefs->GetString(kBasarunaaDebugMode);
     blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
+    conf_body = prefs->GetDouble(kBasarunaaConfBody);
+    conf_face = prefs->GetDouble(kBasarunaaConfFace);
+    min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
   }
   // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
   std::string mode_reply = mode;
@@ -185,18 +207,19 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // bisect 2026-07-02).
   auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
       std::move(callback), std::vector<mojom::AnalyzedPersonPtr>(),
-      std::string(), false, std::string(), 0.0);
+      std::string(), false, std::string(), 0.0, 0.0);
 
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
       {base::MayBlock(), base::TaskPriority::USER_VISIBLE,
        base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN},
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
-                     width, height, bgra, std::move(mode), certainty),
+                     width, height, bgra, std::move(mode), certainty, conf_body,
+                     conf_face),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,
-                     std::move(mode_reply), certainty));
+                     std::move(mode_reply), certainty, min_skeleton));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
@@ -205,10 +228,12 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
     bool blur_enabled,
     std::string mode,
     double gender_certainty,
+    double min_skeleton,
     std::vector<mojom::AnalyzedPersonPtr> persons) {
   LOG(INFO) << "[Basarunaa/YOLO] " << persons.size() << " persons";
   std::move(callback).Run(std::move(persons), std::move(debug_mode),
-                          blur_enabled, std::move(mode), gender_certainty);
+                          blur_enabled, std::move(mode), gender_certainty,
+                          min_skeleton);
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);

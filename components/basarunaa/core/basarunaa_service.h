@@ -112,11 +112,16 @@ class BasarunaaService : public KeyedService {
   // loaded. Caller-owned buffer; must be `width * height * 4` bytes.
   // `bgra` true means byte order [B, G, R, A] (typical for SkBitmap on
   // macOS), false means [R, G, B, A].
+  // person_conf / face_conf : seuils de confiance des détecteurs (pose / visage),
+  // branchés sur les prefs conf_body / conf_face (le panel les pilote). Défauts =
+  // valeurs des prefs par défaut.
   std::vector<DetectedPerson> AnalyzeImageRgba(
       const uint8_t* rgba,
       int width,
       int height,
-      bool bgra = false);
+      bool bgra = false,
+      float person_conf = 0.25f,
+      float face_conf = 0.30f);
 
  private:
 #if defined(BASARUNAA_NATIVE_ML)

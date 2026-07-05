@@ -74,6 +74,7 @@ class BasarunaaImageAnalyzer
                      bool blur_enabled,
                      std::string mode,
                      double gender_certainty,
+                     double min_skeleton,
                      std::vector<mojom::AnalyzedPersonPtr> persons);
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;

@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <optional>
 #include <string>
 #include <utility>
@@ -246,7 +247,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     const std::string& debug_mode,
     bool blur_enabled,
     const std::string& mode,
-    double gender_certainty) {
+    double gender_certainty,
+    double min_skeleton) {
   // Round-trip d'analyse (keyframes seulement : espacés, non queués derrière une
   // paire de cut → coût d'UNE analyse). Alimente l'intervalle keyframe adaptatif.
   if (kind == FrameKind::kKeyframe) {
@@ -282,6 +284,17 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     box.Append(static_cast<int>(p->body_gender));
     box.Append(static_cast<double>(p->body_conf));
     box.Append(p->has_legs);
+    // b[14] = keypoints [[x,y,c],…] normalisés (squelette debug + min-squelette +
+    // flou polygone côté overlay). Arrondi 3 déc. pour limiter la taille du JSON.
+    base::ListValue kps;
+    for (const auto& kp : p->keypoints) {
+      base::ListValue t;
+      t.Append(std::round(kp->x * 1000.0) / 1000.0);
+      t.Append(std::round(kp->y * 1000.0) / 1000.0);
+      t.Append(std::round(kp->confidence * 100.0) / 100.0);
+      kps.Append(std::move(t));
+    }
+    box.Append(std::move(kps));
     boxes.Append(std::move(box));
   }
   base::DictValue dict;
@@ -295,6 +308,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("lat", analysis_ema_init_ ? analysis_ema_ms_ : -1.0);  // round-trip analyse (ms)
   dict.Set("m", mode);                        // mode flou (recalcul shouldBlur voté)
   dict.Set("gc", gender_certainty);           // certitude genre
+  dict.Set("ms", min_skeleton);               // seuil min-squelette (filtre overlay)
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);

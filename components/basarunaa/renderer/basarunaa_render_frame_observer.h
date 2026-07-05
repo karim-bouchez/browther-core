@@ -95,7 +95,8 @@ class BasarunaaRenderFrameObserver final
                   const std::string& debug_mode,
                   bool blur_enabled,
                   const std::string& mode,
-                  double gender_certainty);
+                  double gender_certainty,
+                  double min_skeleton);
   // Exécute le dispatch JS. Posté en tâche fraîche (pas dans le callback Mojo)
   // pour éviter un ExecuteScript en zone ScriptForbiddenScope.
   void DispatchResultToPage(std::string script);
