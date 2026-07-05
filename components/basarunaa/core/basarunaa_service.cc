@@ -1236,6 +1236,9 @@ void BasarunaaService::LoadGenderAgeModel() {
     Ort::SessionOptions opts;
     opts.SetIntraOpNumThreads(1);
     opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
+    // GPU (CoreML) comme les YOLO : genderage tourne par visage → le CPU coûtait
+    // cher quand plusieurs personnes (cf. régression analyse ~60→400ms 2026-07-05).
+    AppendGpuEP(opts, "genderage");
     genderage_session_ = std::make_unique<Ort::Session>(
         *ort_env_, model_path.value().c_str(), opts);
   } catch (const Ort::Exception& e) {
@@ -1330,6 +1333,9 @@ void BasarunaaService::LoadPplcnetModel() {
     Ort::SessionOptions opts;
     opts.SetIntraOpNumThreads(1);
     opts.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
+    // GPU (CoreML) : pplcnet (256×192) tourne pour CHAQUE personne (vote) → le CPU
+    // était le gros du coût (régression analyse ~60→400ms 2026-07-05).
+    AppendGpuEP(opts, "pplcnet");
     pplcnet_session_ = std::make_unique<Ort::Session>(
         *ort_env_, model_path.value().c_str(), opts);
   } catch (const Ort::Exception& e) {
