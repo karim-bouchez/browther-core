@@ -172,16 +172,24 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   const std::array<uint8_t, 64> hash = ComputeHash8x8(span, width, height);
   const float diff = has_prev_hash_ ? HashDiff(hash, prev_hash_) : 1.f;
 
-  // Cut = seuil absolu OU pic adaptatif (diff >> baseline EMA). Voir constantes.
+  // Pic pixel = seuil absolu OU pic adaptatif (diff >> baseline EMA).
   float ratio = 0.f;
-  bool is_cut = false;
+  bool spike = false;   // pic pixel brut de CETTE frame
+  bool is_cut = false;  // vrai cut CONFIRMÉ (voir confirmation temporelle ci-dessous)
   if (has_prev_hash_) {
     const float baseline = ema_init_ ? ema_diff_ : diff;
     ratio = baseline > 1e-4f ? diff / baseline : (diff > 0.f ? 999.f : 0.f);
-    is_cut = diff > kCutThreshold ||
-             (diff > kCutAbsFloor && ratio > kCutSpikeFactor);
-    // Baseline mise à jour HORS frames de cut (sinon le cut gonfle la moyenne).
-    if (!is_cut) {
+    spike = diff > kCutThreshold ||
+            (diff > kCutAbsFloor && ratio > kCutSpikeFactor);
+    // CONFIRMATION TEMPORELLE (2026-07-05) : un VRAI cut = pic ISOLÉ (front
+    // montant). Un mouvement caméra (pan / zoom) produit des pics SOUTENUS sur
+    // des frames consécutives → seule la 1re passe, les suivantes sont supprimées
+    // (la précédente était déjà un pic). Tue les faux cuts en rafale du pan/zoom
+    // sans latence (pas de deferral) ni famine keyframe (les frames de pan
+    // retombent en cadence keyframe normale).
+    is_cut = spike && !prev_was_spike_;
+    // Baseline mise à jour hors de TOUT pic (même supprimé) sinon le pan la gonfle.
+    if (!spike) {
       ema_diff_ = ema_init_
                       ? ema_diff_ * (1.f - kCutEmaAlpha) + diff * kCutEmaAlpha
                       : diff;
@@ -222,6 +230,7 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   prev_media_time_ = media_time;
   prev_diff_ = diff;
   prev_ratio_ = ratio;
+  prev_was_spike_ = spike;  // pour la confirmation temporelle du cut (front montant)
   has_prev_frame_ = true;
 }
 

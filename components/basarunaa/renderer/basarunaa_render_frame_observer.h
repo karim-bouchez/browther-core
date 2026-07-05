@@ -119,6 +119,10 @@ class BasarunaaRenderFrameObserver final
   bool ema_init_ = false;
   float prev_diff_ = 0.f;
   float prev_ratio_ = 0.f;
+  // Confirmation temporelle du cut : la frame précédente était-elle un pic ? Un
+  // vrai cut ne se déclenche que sur le FRONT MONTANT (pic isolé) → supprime les
+  // faux cuts en rafale d'un pan/zoom (pics soutenus).
+  bool prev_was_spike_ = false;
   // Intervalle keyframe adaptatif : EMA du round-trip d'analyse (keyframes).
   double analysis_ema_ms_ = 0.0;
   bool analysis_ema_init_ = false;
