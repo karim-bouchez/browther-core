@@ -66,6 +66,9 @@ class BasarunaaRenderFrameObserver final
                         int width,
                         int height,
                         base::TimeDelta media_time);
+  // Intervalle keyframe ADAPTATIF : borné [MIN, MAX], = round-trip d'analyse
+  // mesuré × facteur (défaut avant la 1re mesure). Cf. .cc.
+  base::TimeDelta KeyframeInterval() const;
   // Envoie une frame à l'analyse ML (Mojo AnalyzeImage, kBgra8) en taguant sa
   // nature |kind| + le diff hash |diff| et le pic |ratio| de cette frame
   // (rattachés au résultat via le callback lié → jamais sur le fil ; servent au
@@ -87,6 +90,7 @@ class BasarunaaRenderFrameObserver final
                   FrameKind kind,
                   float diff,
                   float ratio,
+                  base::TimeTicks sent,
                   std::vector<mojom::AnalyzedPersonPtr> persons,
                   const std::string& debug_mode,
                   bool blur_enabled);
@@ -113,6 +117,9 @@ class BasarunaaRenderFrameObserver final
   bool ema_init_ = false;
   float prev_diff_ = 0.f;
   float prev_ratio_ = 0.f;
+  // Intervalle keyframe adaptatif : EMA du round-trip d'analyse (keyframes).
+  double analysis_ema_ms_ = 0.0;
+  bool analysis_ema_init_ = false;
 
   base::WeakPtrFactory<BasarunaaRenderFrameObserver> weak_ptr_factory_{this};
 };

@@ -40,7 +40,17 @@ namespace {
 //   - sur un CUT (diff hash > seuil), la paire n-1 / n (dernière frame ancienne
 //     scène + première nouvelle) → bornes d'interpolation nettes pour l'overlay.
 // Les autres frames sont droppées (l'overlay interpole entre deux keyframes).
-constexpr int kKeyframeIntervalMs = 1000;
+// Intervalle keyframe ADAPTATIF (2026-07-05) : au lieu d'un 1 s fixe, on mesure
+// le round-trip réel d'une analyse sur CETTE machine (temps entre l'envoi
+// AnalyzeImage et le retour OnAnalyzed, keyframes seulement) et on fixe
+// l'intervalle = round-trip × facteur, borné [MIN, MAX]. Bon PC (analyse ~55 ms)
+// → plancher MIN (keyframes denses = meilleur suivi, petit trou « entrant »).
+// PC lent (analyse ~400 ms) → plafond MAX (ne sature pas → pas de backlog, le
+// bug qu'on a tué). Avant la 1re mesure : défaut.
+constexpr double kKeyframeMinMs = 400.0;
+constexpr double kKeyframeMaxMs = 1200.0;
+constexpr double kKeyframeDefaultMs = 700.0;
+constexpr double kKeyframeLatencyFactor = 3.0;  // intervalle ≈ 3× coût d'analyse
 // Détection de cut. Le seuil ABSOLU 0.12 (v1) est aveugle sur fond monotone (le
 // diff hash ne l'atteint jamais → cut réel raté, cf. 2026-07-05). On ajoute un
 // seuil ADAPTATIF : un cut = un PIC du diff vs sa moyenne récente (EMA), même en
@@ -123,6 +133,13 @@ BasarunaaRenderFrameObserver::GetVideoLeadFrameSink() {
       weak_ptr_factory_.GetWeakPtr());
 }
 
+base::TimeDelta BasarunaaRenderFrameObserver::KeyframeInterval() const {
+  double iv = analysis_ema_init_ ? analysis_ema_ms_ * kKeyframeLatencyFactor
+                                 : kKeyframeDefaultMs;
+  iv = std::clamp(iv, kKeyframeMinMs, kKeyframeMaxMs);
+  return base::Milliseconds(iv);
+}
+
 void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     base::span<const uint8_t> bgra,
     int width,
@@ -135,11 +152,14 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     return;
   }
   mojo_base::BigBuffer buffer{bgra};
+  // Horodatage d'envoi → mesure du round-trip d'analyse dans OnAnalyzed (sert à
+  // l'intervalle keyframe adaptatif).
+  const base::TimeTicks sent = base::TimeTicks::Now();
   image_analyzer_->AnalyzeImage(
       std::move(buffer), width, height, mojom::ImageFormat::kBgra8,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
                      weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
-                     kind, diff, ratio));
+                     kind, diff, ratio, sent));
 }
 
 void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
@@ -170,9 +190,7 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   }
 
   const bool due_keyframe =
-      !has_prev_hash_ ||
-      (media_time - last_keyframe_ts_) >=
-          base::Milliseconds(kKeyframeIntervalMs);
+      !has_prev_hash_ || (media_time - last_keyframe_ts_) >= KeyframeInterval();
 
   if (is_cut) {
     // Frontière de cut : la DERNIÈRE frame de l'ancienne scène (n-1, gardée) PUIS
@@ -214,9 +232,18 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     FrameKind kind,
     float diff,
     float ratio,
+    base::TimeTicks sent,
     std::vector<mojom::AnalyzedPersonPtr> persons,
     const std::string& debug_mode,
     bool blur_enabled) {
+  // Round-trip d'analyse (keyframes seulement : espacés, non queués derrière une
+  // paire de cut → coût d'UNE analyse). Alimente l'intervalle keyframe adaptatif.
+  if (kind == FrameKind::kKeyframe) {
+    const double rt = (base::TimeTicks::Now() - sent).InMillisecondsF();
+    analysis_ema_ms_ =
+        analysis_ema_init_ ? analysis_ema_ms_ * 0.9 + rt * 0.1 : rt;
+    analysis_ema_init_ = true;
+  }
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
   // scale à l'affichage). detail = string JSON. Chaque personne : [nx, ny, nw,
   // nh, score, gender(-1|0|1), gender_conf, blur, gender_source]. `k` = nature de
@@ -245,6 +272,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("k", static_cast<int>(kind));
   dict.Set("d", static_cast<double>(diff));   // diff hash pixel de cette frame
   dict.Set("r", static_cast<double>(ratio));  // pic vs baseline EMA (×)
+  dict.Set("iv", KeyframeInterval().InMillisecondsF());  // intervalle keyframe adaptatif
+  dict.Set("lat", analysis_ema_init_ ? analysis_ema_ms_ : -1.0);  // round-trip analyse (ms)
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);
