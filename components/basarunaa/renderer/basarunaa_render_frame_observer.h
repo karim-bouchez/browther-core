@@ -134,6 +134,10 @@ class BasarunaaRenderFrameObserver final
   // Throttle du check NSFW (Marqo lourd) : dernier temps média où on l'a demandé.
   base::TimeDelta last_nsfw_ts_;
   bool nsfw_ts_init_ = false;
+  // Safe-state (#10) : keyframes/cut-after consécutifs SANS aucune personne. Au
+  // seuil kSafeEmptyFrames, KeyframeInterval() ralentit la cadence (scène vide →
+  // inutile de recalculer souvent). Reset par un cut ou un résultat ≥1 personne.
+  int consecutive_empty_frames_ = 0;
 
   base::WeakPtrFactory<BasarunaaRenderFrameObserver> weak_ptr_factory_{this};
 };

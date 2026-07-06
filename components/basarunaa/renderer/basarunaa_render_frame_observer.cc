@@ -65,6 +65,16 @@ constexpr float kCutEmaAlpha = 0.15f;    // lissage baseline (hors frames de cut
 // pas d'une frame à l'autre → inutile de le payer à chaque keyframe.
 constexpr double kNsfwIntervalMs = 1000.0;
 
+// Safe-state (#10) : quand N keyframes consécutifs ne trouvent AUCUNE personne
+// (scène vide confirmée), on RALENTIT la cadence keyframe (× facteur, cap dur)
+// pour ne pas gâcher du calcul sur une scène sans personne. Réveil immédiat :
+// un cut (une personne qui entre une scène statique EN EST un → capté frame à
+// frame) OU un pic pixel en safe-state force une analyse malgré la cadence
+// ralentie → borne la latence de détection d'une personne qui apparaît.
+constexpr int kSafeEmptyFrames = 3;
+constexpr double kSafeStateFactor = 2.5;
+constexpr double kKeyframeSafeMaxMs = 2500.0;
+
 // Hash 8×8 grayscale (moyenne par bloc) — port de core/video/frame-diff.ts.
 // Grayscale pondéré (R*2 + G*3 + B)/6 comme la v1. Le sink délivre du BGRA
 // (kN32 Apple, cf. WebMediaPlayerImpl::OnLeadFrame) → r_idx=2, b_idx=0.
@@ -141,6 +151,10 @@ base::TimeDelta BasarunaaRenderFrameObserver::KeyframeInterval() const {
   double iv = analysis_ema_init_ ? analysis_ema_ms_ * kKeyframeLatencyFactor
                                  : kKeyframeDefaultMs;
   iv = std::clamp(iv, kKeyframeMinMs, kKeyframeMaxMs);
+  // Safe-state : scène vide confirmée → cadence ralentie (bornée par cap dur).
+  if (consecutive_empty_frames_ >= kSafeEmptyFrames) {
+    iv = std::min(iv * kSafeStateFactor, kKeyframeSafeMaxMs);
+  }
   return base::Milliseconds(iv);
 }
 
@@ -227,7 +241,9 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
     last_keyframe_ts_ = media_time;  // le cut réarme la cadence keyframe
     last_nsfw_ts_ = media_time;
     nsfw_ts_init_ = true;
-  } else if (due_keyframe) {
+    consecutive_empty_frames_ = 0;  // nouvelle scène → cadence normale
+  } else if (due_keyframe ||
+             (consecutive_empty_frames_ >= kSafeEmptyFrames && spike)) {
     ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe,
                        diff, ratio, due_nsfw);
     last_keyframe_ts_ = media_time;
@@ -279,6 +295,17 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     analysis_ema_ms_ =
         analysis_ema_init_ ? analysis_ema_ms_ * 0.9 + rt * 0.1 : rt;
     analysis_ema_init_ = true;
+  }
+  // Safe-state (#10) : compte les keyframes / cut-after SANS aucune personne
+  // (scène vide, comptage sur les détections BRUTES YOLO — conservateur : le
+  // moindre faux positif garde la cadence rapide). ≥1 personne → reset. Un cut
+  // reset aussi (OnVideoLeadFrame). Cf. KeyframeInterval().
+  if (kind == FrameKind::kKeyframe || kind == FrameKind::kCutAfter) {
+    if (persons.empty()) {
+      ++consecutive_empty_frames_;
+    } else {
+      consecutive_empty_frames_ = 0;
+    }
   }
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
   // scale à l'affichage). detail = string JSON. Chaque personne : [nx, ny, nw,
