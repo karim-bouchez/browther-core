@@ -17,6 +17,7 @@ static_library("basarunaa") {
     "//base",
     "//brave/components/basarunaa/common/mojom",
     "//brave/components/basarunaa/core",
+    "//brave/components/browther_analytics",
     "//chrome/browser/profiles:profile",
     "//components/keyed_service/content",
     "//components/keyed_service/core",

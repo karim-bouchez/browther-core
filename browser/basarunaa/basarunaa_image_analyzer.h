@@ -6,6 +6,7 @@
 #ifndef BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 #define BRAVE_BROWSER_BASARUNAA_BASARUNAA_IMAGE_ANALYZER_H_
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -94,6 +95,15 @@ class BasarunaaImageAnalyzer
                      double min_skeleton,
                      double nsfw_conf,
                      PoolResult result);
+
+  // #18 : compte les personnes floutées (genre fusionné browser, `p->blur`) et
+  // incrémente le compteur cumulatif NTP, dédupliqué par IoU vs l'analyse
+  // précédente (sinon +N à chaque keyframe). Voir .cc pour la sémantique.
+  void CountBlurredPersons(
+      const std::vector<mojom::AnalyzedPersonPtr>& persons,
+      bool blur_enabled);
+  // Bbox {x, y, w, h} (pixels) des personnes floutées à l'analyse précédente.
+  std::vector<std::array<float, 4>> prev_blurred_boxes_;
 
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
 

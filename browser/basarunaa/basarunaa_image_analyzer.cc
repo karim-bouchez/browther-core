@@ -5,6 +5,8 @@
 
 #include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
 
+#include <algorithm>
+#include <array>
 #include <cstdint>
 #include <utility>
 #include <vector>
@@ -15,6 +17,7 @@
 #include "base/task/thread_pool.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "components/prefs/pref_service.h"
@@ -25,6 +28,21 @@
 namespace basarunaa {
 
 namespace {
+
+// #18 stats : IoU de deux bbox {x, y, w, h} (pixels). Sert à dédupliquer les
+// personnes floutées entre analyses successives (même seuil que l'overlay).
+constexpr float kBlurTrackIoU = 0.2f;
+float BoxIoU(const std::array<float, 4>& a, const std::array<float, 4>& b) {
+  const float ix1 = std::max(a[0], b[0]);
+  const float iy1 = std::max(a[1], b[1]);
+  const float ix2 = std::min(a[0] + a[2], b[0] + b[2]);
+  const float iy2 = std::min(a[1] + a[3], b[1] + b[3]);
+  const float iw = std::max(0.f, ix2 - ix1);
+  const float ih = std::max(0.f, iy2 - iy1);
+  const float inter = iw * ih;
+  const float uni = a[2] * a[3] + b[2] * b[3] - inter;
+  return uni > 0.f ? inter / uni : 0.f;
+}
 
 // Décision de floutage, port de VIDEO_V2.md §4 (chemin VIDÉO, plus prudent que
 // content.js image) : flouter si `gender===target` OU `genderConf < certainty`
@@ -261,9 +279,56 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
   const bool nsfw = (result.nsfw_score >= 0.f &&
                      result.nsfw_score >= static_cast<float>(nsfw_conf)) ||
                     result.nsfw_exposed;
+  // #18 stats « personnes floutées » (parité Android) : compte les personnes
+  // floutées AVANT de move les persons dans le callback.
+  CountBlurredPersons(result.persons, blur_enabled);
   std::move(callback).Run(std::move(result.persons), std::move(debug_mode),
                           blur_enabled, std::move(mode), gender_certainty,
                           min_skeleton, nsfw, result.nsfw_score);
+}
+
+void BasarunaaImageAnalyzer::CountBlurredPersons(
+    const std::vector<mojom::AnalyzedPersonPtr>& persons,
+    bool blur_enabled) {
+  // #18 : alimente le compteur cumulatif NTP « personnes floutées » (widget
+  // Stats), à parité avec Android/image. On compte le genre FUSIONNÉ browser
+  // (`p->blur` = ShouldBlur, MÊME base que le compteur image — pas le vote
+  // overlay, video-spécifique). Dédup par IoU vs l'analyse PRÉCÉDENTE : sans ça,
+  // une personne statique serait recomptée à CHAQUE keyframe (~1/s). Un cut fait
+  // chuter tous les IoU → la nouvelle scène est comptée (correct). Approximation
+  // assumée (mouvement rapide entre 2 keyframes peut re-compter). UI thread
+  // (réponse Mojo) → OK pour BrowtherAnalyticsService (PrefService UI-bound).
+  if (!blur_enabled) {
+    prev_blurred_boxes_.clear();
+    return;
+  }
+  std::vector<std::array<float, 4>> cur;
+  for (const auto& p : persons) {
+    if (p->blur) {
+      cur.push_back({p->x, p->y, p->w, p->h});
+    }
+  }
+  int delta = 0;
+  for (const auto& c : cur) {
+    bool matched = false;
+    for (const auto& prev : prev_blurred_boxes_) {
+      if (BoxIoU(c, prev) >= kBlurTrackIoU) {
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      ++delta;
+    }
+  }
+  prev_blurred_boxes_ = std::move(cur);
+  if (delta > 0) {
+    auto* analytics =
+        browther_analytics::BrowtherAnalyticsService::GetInstance();
+    if (analytics) {
+      analytics->IncrementPersonsBlurred(delta);
+    }
+  }
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BasarunaaImageAnalyzer);
