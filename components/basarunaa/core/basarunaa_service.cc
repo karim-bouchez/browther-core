@@ -1287,6 +1287,66 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     }
   }
 
+  // #2 : VISAGES NON-MATCHÉS → CORPS SYNTHÉTIQUE. Un visage détecté (yolov8n-face)
+  // qui n'est matché à AUCUNE personne YOLO-pose (headshot, personne de profil,
+  // pose ratée) serait sinon DROPPÉ → fuite (visage non flouté). On crée une
+  // personne synthétique : bbox ~4× largeur visage, de y1-0.3·faceH à y1+7·faceH
+  // (port fidèle pipeline.js § "unmatched faces"), classée genderage(visage aligné)
+  // + pplcnet(corps synth). keypoints VIDES → l'overlay la garde (clause
+  // `keypoints.length===0` du filtre min-squelette) et la floute en ellipse (#13).
+  {
+    std::vector<bool> face_used(faces.size(), false);
+    for (int fi : face_of) {
+      if (fi >= 0) {
+        face_used[fi] = true;
+      }
+    }
+    for (size_t fi = 0; fi < faces.size(); ++fi) {
+      if (face_used[fi]) {
+        continue;
+      }
+      const DetectedFace& f = faces[fi];
+      const float face_w = f.x2 - f.x1;
+      const float face_h = f.y2 - f.y1;
+      if (face_w <= 0.f || face_h <= 0.f) {
+        continue;
+      }
+      const float cx = (f.x1 + f.x2) * 0.5f;
+      const float body_w = face_w * 4.f;
+      const float sx1 = std::max(0.f, cx - body_w * 0.5f);
+      const float sy1 = std::max(0.f, f.y1 - face_h * 0.3f);
+      const float sx2 = std::min(static_cast<float>(width), cx + body_w * 0.5f);
+      const float sy2 = std::min(static_cast<float>(height), f.y1 + face_h * 7.f);
+      DetectedPerson person;
+      person.x = sx1;
+      person.y = sy1;
+      person.w = std::max(0.f, sx2 - sx1);
+      person.h = std::max(0.f, sy2 - sy1);
+      person.score = f.conf;
+      person.has_legs = false;  // corps synthétique → pas de jambes fiables
+      // keypoints laissés VIDES (repli bbox overlay + exemption min-squelette).
+      DetectedFaceBbox fb;
+      fb.x1 = f.x1;
+      fb.y1 = f.y1;
+      fb.x2 = f.x2;
+      fb.y2 = f.y2;
+      person.face_bbox = fb;
+      ClassifyGender(rgba_span, width, height, bgra, f.landmarks[1],
+                     f.landmarks[2], fb, person);
+      ClassifyBodyGender(rgba_span, width, height, bgra, person);
+      if (person.face_gender != Gender::kUnknown) {
+        person.gender = person.face_gender;
+        person.gender_conf = person.face_conf;
+        person.gender_source = GenderSource::kFace;
+      } else if (person.body_gender != Gender::kUnknown) {
+        person.gender = person.body_gender;
+        person.gender_conf = person.body_conf;
+        person.gender_source = GenderSource::kBody;
+      }
+      nms.push_back(std::move(person));
+    }
+  }
+
   // NSFW image entière (Marqo, score) + NudeNet (partie exposée). Best-effort.
   // Décision finale (score≥nsfw_conf OU exposé) faite côté analyzer. Ne tourne que
   // si le RFO l'a demandé (out non-nuls = throttle ~1/s + cuts).
