@@ -254,6 +254,7 @@ public actor BasarunaaPipeline {
       let person = await classifyMatched(
         index: bi,
         body: body,
+        crowded: bboxCrowded(bodies, bi),
         matchedFace: matched,
         image: image,
         imageSize: imageSize,
@@ -409,9 +410,30 @@ public actor BasarunaaPipeline {
 
   // MARK: - Classification for matched bodies
 
+  /// Fraction du crop d'une personne envahie par une AUTRE personne au-delà de
+  /// laquelle le crop est "en foule" → le masque body-polygon devient utile.
+  /// Miroir de pipeline.js MASK_CROWD_OVERLAP.
+  private static let maskCrowdOverlap: CGFloat = 0.15
+
+  /// True si une autre bbox recouvre ≥ maskCrowdOverlap de la bbox de `selfIndex`
+  /// (intersection / aire propre). Sert à ne masquer PPLCNet qu'en foule.
+  private func bboxCrowded(_ bodies: [RawPersonDetection], _ selfIndex: Int) -> Bool {
+    guard selfIndex < bodies.count else { return false }
+    let me = bodies[selfIndex].bbox
+    let area = max(1, me.width * me.height)
+    for (j, other) in bodies.enumerated() where j != selfIndex {
+      let inter = me.intersection(other.bbox)
+      if !inter.isNull, (inter.width * inter.height) / area > Self.maskCrowdOverlap {
+        return true
+      }
+    }
+    return false
+  }
+
   private func classifyMatched(
     index: Int,
     body: RawPersonDetection,
+    crowded: Bool,
     matchedFace: (Int, RawFaceDetection)?,
     image: CGImage,
     imageSize: CGSize,
@@ -425,13 +447,17 @@ public actor BasarunaaPipeline {
     // Body polygon for PPLCNet — rasterization happens inside the
     // classifier, directly into the 192×256 buffer space (~30ms saved
     // vs full-image mask + per-pixel coord remap, 2026-05-17).
+    // Masque appliqué SEULEMENT si le crop est envahi par une autre personne
+    // (`crowded`) : isolé → pas de masque, sinon PPLCNet décroche hors
+    // distribution, surtout de dos. Cf. pipeline.js bboxCrowdedBy.
     let polyStart = Date()
     let poly = BodyPolygon.buildPolygon(
       keypoints: body.keypoints,
       bbox: body.bbox,
       imageSize: imageSize
     )
-    let bodyPolygonPoints: [CGPoint]? = poly.isBodyShaped ? poly.points : nil
+    let bodyPolygonPoints: [CGPoint]? =
+      (poly.isBodyShaped && crowded) ? poly.points : nil
     timing.bodyPolyMs = Date().timeIntervalSince(polyStart) * 1000
 
     // Body + face classify in parallel (per person). PPLCNet (192×256) is

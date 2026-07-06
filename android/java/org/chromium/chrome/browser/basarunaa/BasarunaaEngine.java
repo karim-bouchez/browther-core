@@ -70,6 +70,9 @@ import org.chromium.chrome.browser.basarunaa.detectors.SentinelDetector;
 public final class BasarunaaEngine {
     private static final String TAG = "Basarunaa";
     private static final float NMS_IOU_THRESHOLD = 0.5f;
+    // Fraction du crop envahie par une autre personne au-delà de laquelle on
+    // masque PPLCNet (foule). Miroir de pipeline.js MASK_CROWD_OVERLAP.
+    private static final float MASK_CROWD_OVERLAP = 0.15f;
     private static final int ALIGN_OUTPUT_SIZE = 96;
 
     /** Pool single-thread pour le pipeline full analyze (YOLO + NudeNet +
@@ -382,11 +385,15 @@ public final class BasarunaaEngine {
             final PersonMatcher.Match m = matched.get(bi);
 
             // Polygon mask body (parité POC core/body-polygon.ts) — grayer
-            // le background avant que PPLCNet ne classifie.
+            // le background avant que PPLCNet ne classifie. Appliqué SEULEMENT si
+            // une autre personne empiète sur ce crop (foule) : isolé → pas de
+            // masque, sinon PPLCNet décroche hors distribution, surtout de dos
+            // (cf. pipeline.js bboxCrowdedBy).
             final BodyPolygon.Result polyResult =
                     BodyPolygon.build(bodyDet.keypoints, bodyDet.bbox, imgW, imgH);
+            final boolean crowded = bboxCrowded(bodies, bi);
             final List<PointF> bodyMask =
-                    polyResult.isBodyShaped ? polyResult.points : null;
+                    (polyResult.isBodyShaped && crowded) ? polyResult.points : null;
 
             if (m != null) {
                 final FaceDetection matchedFace = m.face;
@@ -554,6 +561,27 @@ public final class BasarunaaEngine {
         if (face == null) return body;
         if (body == null) return face;
         return face.confidence >= body.confidence ? face : body;
+    }
+
+    /**
+     * Vrai si une AUTRE personne recouvre ≥ MASK_CROWD_OVERLAP de la bbox de
+     * {@code self} (intersection / aire propre) → crop "en foule", le masque
+     * body-polygon devient utile. Sert à ne masquer PPLCNet qu'en foule.
+     */
+    private static boolean bboxCrowded(List<PersonDetection> bodies, int self) {
+        if (self < 0 || self >= bodies.size()) return false;
+        final Bbox me = bodies.get(self).bbox;
+        final float area = Math.max(1f, me.width() * me.height());
+        for (int j = 0; j < bodies.size(); j++) {
+            if (j == self) continue;
+            final Bbox o = bodies.get(j).bbox;
+            final float iw = Math.min(me.x2, o.x2) - Math.max(me.x1, o.x1);
+            final float ih = Math.min(me.y2, o.y2) - Math.max(me.y1, o.y1);
+            if (iw > 0f && ih > 0f && (iw * ih) / area > MASK_CROWD_OVERLAP) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Synthetic body bbox depuis une face unmatched (parité POC). */

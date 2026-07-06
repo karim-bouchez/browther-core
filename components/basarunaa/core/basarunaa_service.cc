@@ -15,6 +15,7 @@
 #include "base/logging.h"
 
 #if defined(BASARUNAA_NATIVE_ML)
+#include "base/command_line.h"
 #include "base/files/file_path.h"
 #include "base/files/file_util.h"
 #include "base/functional/bind.h"
@@ -410,6 +411,37 @@ bool BuildAlignedFaceTensor(base::span<const uint8_t> rgba,
   return true;
 }
 
+// [Browther/Basarunaa] DEBUG A/B résolution (switch --basarunaa-resolution-ab) :
+// renvoie une copie de la frame RGBA « demi-résolution » (moyenne de chaque bloc
+// 2×2 répliquée aux 4 pixels). Sert à SIMULER, sur la MÊME frame, ce que verraient
+// genderage/pplcnet à moitié de la résolution source → on mesure la sensibilité de
+// la classification à la résolution sans avoir à rejouer la vidéo.
+std::vector<uint8_t> HalfResBlur(base::span<const uint8_t> rgba,
+                                 int width,
+                                 int height) {
+  std::vector<uint8_t> out(rgba.size());
+  for (int y = 0; y < height; ++y) {
+    const int sy = y & ~1;
+    const int sy1 = std::min(sy + 1, height - 1);
+    for (int x = 0; x < width; ++x) {
+      const int sx = x & ~1;
+      const int sx1 = std::min(sx + 1, width - 1);
+      const size_t o00 = static_cast<size_t>(sy * width + sx) * 4;
+      const size_t o10 = static_cast<size_t>(sy * width + sx1) * 4;
+      const size_t o01 = static_cast<size_t>(sy1 * width + sx) * 4;
+      const size_t o11 = static_cast<size_t>(sy1 * width + sx1) * 4;
+      const size_t dst = static_cast<size_t>(y * width + x) * 4;
+      for (int c = 0; c < 4; ++c) {
+        const int avg = (rgba[o00 + c] + rgba[o10 + c] + rgba[o01 + c] +
+                         rgba[o11 + c]) /
+                        4;
+        out[dst + c] = static_cast<uint8_t>(avg);
+      }
+    }
+  }
+  return out;
+}
+
 // ---- Repli corps pplcnet : polygone corps + masque (port body_polygon.js) ----
 
 struct PolyPoint {
@@ -694,6 +726,38 @@ std::vector<uint8_t> PolygonToMask(const std::vector<PolyPoint>& points,
     }
   }
   return data;
+}
+
+// Fraction du crop d'une personne envahie par une AUTRE personne au-delà de
+// laquelle le crop est "en foule" → le masque body-polygon devient utile (isole
+// la silhouette des voisins). En dessous (personne isolée), on NE masque PAS :
+// griser le fond pousse pplcnet hors distribution (entraîné sur crops
+// rectangulaires AVEC fond) et dégrade la lecture de genre, nettement de dos.
+// Miroir de pipeline.js MASK_CROWD_OVERLAP / bboxCrowdedBy.
+constexpr float kMaskCrowdOverlap = 0.15f;
+
+bool BodyBboxCrowded(const std::vector<DetectedPerson>& persons, size_t self) {
+  if (self >= persons.size()) {
+    return false;
+  }
+  const DetectedPerson& p = persons[self];
+  const float x1 = p.x;
+  const float y1 = p.y;
+  const float x2 = p.x + p.w;
+  const float y2 = p.y + p.h;
+  const float area = std::max(1.f, p.w * p.h);
+  for (size_t j = 0; j < persons.size(); ++j) {
+    if (j == self) {
+      continue;
+    }
+    const DetectedPerson& o = persons[j];
+    const float iw = std::min(x2, o.x + o.w) - std::max(x1, o.x);
+    const float ih = std::min(y2, o.y + o.h) - std::max(y1, o.y);
+    if (iw > 0.f && ih > 0.f && (iw * ih) / area > kMaskCrowdOverlap) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // ---- Détecteur de visages yolov8n-face (port detectors/yolo_face.js) ----
@@ -1249,8 +1313,24 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   // sinon corps) pour le flag `blur` repli + le label. Reste kUnknown (aucun
   // classable) → FLOUTÉE côté browser (« inconnu = sûr », VIDEO_V2.md §4).
   constexpr float kLegKpVisibilityThreshold = 0.3f;
+  // [Browther/Basarunaa] DEBUG A/B résolution (switch --basarunaa-resolution-ab) :
+  // prépare UNE copie demi-résolution de la frame → on re-classe chaque personne
+  // (visage + corps) en LO et on logge HI (pleine réso) vs LO pour mesurer la
+  // sensibilité de la classif à la résolution. À retirer après mesure.
+  const bool ab_res = base::CommandLine::ForCurrentProcess()->HasSwitch(
+      "basarunaa-resolution-ab");
+  std::vector<uint8_t> ab_blur;
+  if (ab_res) {
+    ab_blur = HalfResBlur(rgba_span, width, height);
+  }
+  const auto ab_span = base::span<const uint8_t>(ab_blur);
+  auto ab_tag = [](Gender g) {
+    return g == Gender::kFemale ? "F" : g == Gender::kMale ? "H" : "?";
+  };
   for (size_t i = 0; i < nms.size(); ++i) {
     DetectedPerson& person = nms[i];
+    // Masque pplcnet appliqué seulement si une autre personne empiète (foule).
+    const bool crowded = BodyBboxCrowded(nms, i);
     const int fi = face_of[i];
     if (fi >= 0) {
       const DetectedFace& f = faces[fi];
@@ -1262,7 +1342,52 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
       ClassifyGender(rgba_span, width, height, bgra, f.landmarks[1],
                      f.landmarks[2], fb, person);
     }
-    ClassifyBodyGender(rgba_span, width, height, bgra, person);
+    ClassifyBodyGender(rgba_span, width, height, bgra, person, crowded);
+
+    // DEBUG A/B résolution : re-classe sur la frame demi-réso, logge HI vs LO,
+    // puis RESTAURE person (transparent pour la suite : has_legs, fusion, vote).
+    if (ab_res) {
+      const Gender fH = person.face_gender;
+      const float fcH = person.face_conf;
+      const Gender bH = person.body_gender;
+      const float bcH = person.body_conf;
+      Gender fL = Gender::kUnknown;
+      float fcL = -1.f;
+      float face_px = -1.f;
+      if (fi >= 0) {
+        const DetectedFace& f = faces[fi];
+        face_px = f.x2 - f.x1;
+        DetectedFaceBbox fb2;
+        fb2.x1 = f.x1;
+        fb2.y1 = f.y1;
+        fb2.x2 = f.x2;
+        fb2.y2 = f.y2;
+        person.face_gender = Gender::kUnknown;
+        person.face_conf = -1.f;
+        ClassifyGender(ab_span, width, height, bgra, f.landmarks[1],
+                       f.landmarks[2], fb2, person);
+        fL = person.face_gender;
+        fcL = person.face_conf;
+      }
+      person.body_gender = Gender::kUnknown;
+      person.body_conf = -1.f;
+      ClassifyBodyGender(ab_span, width, height, bgra, person, crowded);
+      const Gender bL = person.body_gender;
+      const float bcL = person.body_conf;
+      person.face_gender = fH;
+      person.face_conf = fcH;
+      person.body_gender = bH;
+      person.body_conf = bcH;
+      // Encode le LO signe×conf pour le label debug overlay (+femme/-homme).
+      person.face_lo =
+          fL == Gender::kFemale ? fcL : fL == Gender::kMale ? -fcL : 0.f;
+      person.body_lo =
+          bL == Gender::kFemale ? bcL : bL == Gender::kMale ? -bcL : 0.f;
+      LOG(INFO) << "[bsrRES] faceW=" << face_px << " bodyW=" << person.w
+                << " | face HI=" << ab_tag(fH) << fcH << " LO=" << ab_tag(fL)
+                << fcL << " | body HI=" << ab_tag(bH) << bcH
+                << " LO=" << ab_tag(bL) << bcL;
+    }
 
     // has_legs : corps entier visible (genoux/chevilles COCO 13-16) → pplcnet
     // fiable (cf. _processDual). Pilote la branche « corps partiel » de la fusion
@@ -1333,7 +1458,9 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
       person.face_bbox = fb;
       ClassifyGender(rgba_span, width, height, bgra, f.landmarks[1],
                      f.landmarks[2], fb, person);
-      ClassifyBodyGender(rgba_span, width, height, bgra, person);
+      // Corps synthétique : keypoints vides → jamais "body shaped" → pas de masque.
+      ClassifyBodyGender(rgba_span, width, height, bgra, person,
+                         /*crowded=*/false);
       if (person.face_gender != Gender::kUnknown) {
         person.gender = person.face_gender;
         person.gender_conf = person.face_conf;
@@ -1754,7 +1881,8 @@ void BasarunaaService::ClassifyBodyGender(base::span<const uint8_t> rgba,
                                           int width,
                                           int height,
                                           bool bgra,
-                                          DetectedPerson& person) {
+                                          DetectedPerson& person,
+                                          bool crowded) {
   if (!pplcnet_ready_) {
     return;
   }
@@ -1768,13 +1896,15 @@ void BasarunaaService::ClassifyBodyGender(base::span<const uint8_t> rgba,
     return;
   }
 
-  // Masque polygone corps (grise le fond), seulement si "body shaped".
+  // Masque polygone corps (grise le fond) : seulement si "body shaped" ET si le
+  // crop est envahi par une autre personne (foule). Isolé → pas de masque (sinon
+  // pplcnet décroche hors distribution, surtout de dos). Cf. bboxCrowdedBy.
   bool is_body_shaped = false;
   std::vector<PolyPoint> poly = BuildBodyPolygon(person.keypoints, x1, y1, x2,
                                                  y2, width, height,
                                                  is_body_shaped);
   std::vector<uint8_t> mask;
-  if (is_body_shaped) {
+  if (is_body_shaped && crowded) {
     mask = PolygonToMask(poly, width, height);
   }
   const bool use_mask = !mask.empty();

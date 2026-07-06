@@ -95,6 +95,11 @@ struct DetectedPerson {
   float body_conf = -1.f;
   // Corps entier visible (keypoints jambes 13-16 conf>0.3) → pplcnet fiable.
   bool has_legs = false;
+
+  // DEBUG A/B résolution (--basarunaa-resolution-ab) : classif visage/corps refaite
+  // en demi-réso, encodée signe×conf (+femme/-homme, 0=non classé/hors A/B).
+  float face_lo = 0.f;
+  float body_lo = 0.f;
 };
 
 class BasarunaaService : public KeyedService {
@@ -176,11 +181,15 @@ class BasarunaaService : public KeyedService {
   // classifiers/pplcnet.js + utils/body_polygon.js + utils/preprocessing.js).
   // Renseigne person.body_gender / body_conf (sortie BRUTE corps). Tourne
   // TOUJOURS (plus de repli conditionnel) : la fusion visage/corps est côté overlay.
+  // `crowded` : le masque body-polygon (grise le fond) n'est appliqué QUE si une
+  // autre personne empiète sur ce crop — sinon il pousse pplcnet hors distribution
+  // et dégrade le genre (surtout de dos). Cf. pipeline.js bboxCrowdedBy.
   void ClassifyBodyGender(base::span<const uint8_t> rgba,
                           int width,
                           int height,
                           bool bgra,
-                          DetectedPerson& person);
+                          DetectedPerson& person,
+                          bool crowded);
 
   // ort_env_ peut être créé concurremment par LoadYoloPoseModel et
   // LoadYoloFaceModel (deux call_once sur des flags différents). On
