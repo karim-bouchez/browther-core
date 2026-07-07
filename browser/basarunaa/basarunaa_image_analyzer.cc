@@ -24,6 +24,7 @@
 #include "base/task/thread_pool.h"
 #include "base/time/time.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
+#include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "third_party/skia/include/core/SkBitmap.h"
@@ -374,17 +375,26 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   double nsfw_conf = 0.50;
   double nudenet_conf = 0.50;
   bool capture_mode = false;
+  // Debug-UI verrouillé (prod sans --basarunaa-debug-ui) → on IGNORE les prefs
+  // debug et on garde les défauts sûrs : debug_mode="none" (aucun overlay),
+  // capture_mode=false (aucune écriture ~/Downloads), blur_enabled=true (le
+  // floutage ne peut PAS être coupé par un pref resté d'un test). Sinon un
+  // utilisateur final avec un pref « boxes »/blur-off stocké verrait
+  // l'outillage ou perdrait le flou.
+  const bool debug_ui = IsBasarunaaDebugUiEnabled();
   if (auto* prefs = profile->GetPrefs()) {
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
-    debug_mode = prefs->GetString(kBasarunaaDebugMode);
-    blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
     conf_body = prefs->GetDouble(kBasarunaaConfBody);
     conf_face = prefs->GetDouble(kBasarunaaConfFace);
     min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
     nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
     nudenet_conf = prefs->GetDouble(kBasarunaaNudenetConf);
-    capture_mode = prefs->GetBoolean(kBasarunaaCaptureMode);
+    if (debug_ui) {
+      debug_mode = prefs->GetString(kBasarunaaDebugMode);
+      blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
+      capture_mode = prefs->GetBoolean(kBasarunaaCaptureMode);
+    }
   }
   // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
   std::string mode_reply = mode;

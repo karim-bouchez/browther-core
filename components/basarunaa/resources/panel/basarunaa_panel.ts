@@ -114,9 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshState()
   document.addEventListener('visibilitychange', onVisibilityChange)
 
-  // Section Debug visible uniquement sur les builds non-officiels (dev).
-  // Les prefs debug restent à leurs défauts (none/false) chez les users.
-  if (loadTimeData.getBoolean('devBuild')) {
+  // Section Debug visible seulement si le debug-UI est débloqué (Component dev,
+  // ou build prod lancé avec --basarunaa-debug-ui). Sinon cachée + le rendu
+  // ignore les prefs debug (forcés none/off côté browser).
+  if (loadTimeData.getBoolean('debugUi')) {
     document.getElementById('dev-section')?.removeAttribute('hidden')
   }
 

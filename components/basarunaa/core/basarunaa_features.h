@@ -10,16 +10,29 @@
 
 namespace basarunaa {
 
-// [Browther/Basarunaa] Gate de rollout du pipeline vidéo decode-ahead (tap
-// natif + décodage SW forcé + eager-load des modèles ML au démarrage du
-// profil). OFF par défaut : la pref kBasarunaaEnabled est ON (flou images), or
-// forcer le SW decode + charger 6 modèles ONNX pour TOUS les users tant que le
-// pipeline vidéo est expérimental serait une régression perf. Dev :
-// --enable-features=BasarunaaVideoDecodeAhead. Quand mûr : passer ON (ou Finch).
+// [Browther/Basarunaa] Gate du pipeline vidéo decode-ahead (tap natif +
+// analyse ML + overlay). ON PAR DÉFAUT depuis 2026-07-07 (décision Karim :
+// ship le flou vidéo ; un user qui n'en veut pas désactive l'extension). Le
+// coût (tap + latency-hint 2 s + warmup des modèles) est protégé par la pref
+// kBasarunaaEnabled : rien n'est injecté/chargé si l'extension est OFF (cf.
+// brave_content_browser_client.cc gate pref, basarunaa_service_factory warmup
+// gate). Donc feature ON = « disponible » ; pref = « utilisé ».
+// Pour désactiver globalement en debug : --disable-features=BasarunaaVideoDecodeAhead.
 //
 // Extrait de brave_content_browser_client.cc (où il était en anon-namespace)
 // pour être visible par la factory (eager-create + warmup) et le RFO.
 BASE_DECLARE_FEATURE(kBasarunaaVideoDecodeAhead);
+
+// [Browther/Basarunaa] L'outillage de debug (overlays boxes/debug, capture des
+// analyses vers ~/Downloads, toggle "floutage actif") ne doit JAMAIS être
+// exposé ni actif pour l'utilisateur final. Débloqué si :
+//   - build NON-officiel (Component dev) : toujours dispo, ou
+//   - switch --basarunaa-debug-ui présent (permet de tester sur le DMG prod).
+// Gate à DEUX niveaux : (1) l'UI (section Debug du panel) n'apparaît que si
+// true ; (2) le RENDU (basarunaa_image_analyzer) force debug_mode="none" /
+// capture=false / blur_enabled=true quand false — sinon un pref stocké
+// (« boxes » resté d'un test) fuirait chez l'utilisateur final.
+bool IsBasarunaaDebugUiEnabled();
 
 }  // namespace basarunaa
 

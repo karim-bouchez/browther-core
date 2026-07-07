@@ -10,6 +10,7 @@
 #include <utility>
 
 #include "base/check.h"
+#include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/components/basarunaa/resources/panel/grit/basarunaa_panel_generated_map.h"
 #include "brave/components/constants/webui_url_constants.h"
 #include "brave/grit/brave_generated_resources.h"
@@ -70,13 +71,11 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
   }
 
   // Browther: la section Debug du panel (overlays, capture ~/Downloads,
-  // slider sentinel) n'est visible que sur les builds NON-officiels
-  // (Component = dev quotidien). Les users Release ne voient pas l'outillage.
-#if defined(OFFICIAL_BUILD)
-  source->AddBoolean("devBuild", false);
-#else
-  source->AddBoolean("devBuild", true);
-#endif
+  // slider sentinel, toggle floutage) n'est visible que si le debug-UI est
+  // débloqué : Component dev toujours, ou build prod lancé avec
+  // --basarunaa-debug-ui (pour que Karim teste sur le DMG sans exposer
+  // l'outillage à l'utilisateur final). Cf. IsBasarunaaDebugUiEnabled().
+  source->AddBoolean("debugUi", basarunaa::IsBasarunaaDebugUiEnabled());
 
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::StyleSrc,
