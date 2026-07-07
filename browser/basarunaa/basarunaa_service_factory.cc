@@ -9,6 +9,8 @@
 #include "base/no_destructor.h"
 #include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
+#include "brave/components/constants/pref_names.h"
+#include "components/prefs/pref_service.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_selections.h"
 
@@ -36,7 +38,13 @@ BasarunaaServiceFactory::~BasarunaaServiceFactory() = default;
 std::unique_ptr<KeyedService>
 BasarunaaServiceFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
-  return std::make_unique<BasarunaaService>();
+  // Warmup eager seulement si l'utilisateur a Basarunaa activé — sinon le
+  // service reste froid (chargement lazy à la 1re analyse). Évite ~2 s de
+  // compilation CoreML + la RAM des 6 modèles au boot des profils OFF.
+  const bool eager_warmup =
+      Profile::FromBrowserContext(context)->GetPrefs()->GetBoolean(
+          kBasarunaaEnabled);
+  return std::make_unique<BasarunaaService>(eager_warmup);
 }
 
 bool BasarunaaServiceFactory::ServiceIsCreatedWithBrowserContext() const {

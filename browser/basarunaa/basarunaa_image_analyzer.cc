@@ -425,7 +425,7 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
     double min_skeleton,
     double nsfw_conf,
     PoolResult result) {
-  LOG(INFO) << "[Basarunaa/YOLO] " << result.persons.size() << " persons"
+  VLOG(1) << "[Basarunaa/YOLO] " << result.persons.size() << " persons"
             << " nsfw=" << result.nsfw_score
             << " exposed=" << result.nsfw_exposed;
   // NSFW plein cadre = Marqo au-dessus du seuil OU NudeNet a vu une partie exposée

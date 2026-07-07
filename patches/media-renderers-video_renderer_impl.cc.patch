@@ -1,18 +1,23 @@
 diff --git a/media/renderers/video_renderer_impl.cc b/media/renderers/video_renderer_impl.cc
-index a342b81050aca..4b403bb293f28 100644
+index a342b81050aca..b1a1d1a27f21f 100644
 --- a/media/renderers/video_renderer_impl.cc
 +++ b/media/renderers/video_renderer_impl.cc
-@@ -40,7 +40,20 @@ namespace {
+@@ -40,7 +40,25 @@ namespace {
  // = 3 * 2 * 4
  // Today, |min_buffered_frames_| can go down (as low as 1) and up in response to
  // SetLatencyHint(), so we needed to peg this with a constant.
 -constexpr int kAbsoluteMaxFrames = 24;
-+// [Browther/Basarunaa] relevé de 24 -> 120 pour le decode-ahead (voie native,
-+// plan A). Le hint est à 2 s (cf. plus bas) : à 60 fps ça demande ~120 frames
-+// bufferisées, à 30 fps ~60. On plafonne à 120 pour atteindre la cible 2 s
-+// quel que soit le fps. Coût = frames décodées en mémoire (~ok VOD desktop).
-+// Reversible (upstream = 24).
-+constexpr int kAbsoluteMaxFrames = 120;
++// [Browther/Basarunaa] 120 (au lieu de 24 upstream) UNIQUEMENT quand le tap
++// decode-ahead est branché (lead_frame_cb_) : le hint 2 s demande ~120 frames
++// à 60 fps. Tap OFF → cap upstream intact (pas de surcoût mémoire pour les
++// vidéos de tous les jours). Coût tap ON = frames décodées en mémoire (~ok
++// VOD desktop).
++constexpr int kAbsoluteMaxFramesUpstream = 24;
++constexpr int kAbsoluteMaxFramesBasarunaa = 120;
++
++int AbsoluteMaxFrames(bool basarunaa_tap) {
++  return basarunaa_tap ? kAbsoluteMaxFramesBasarunaa : kAbsoluteMaxFramesUpstream;
++}
 +
 +// [Browther/Basarunaa] Intervalle MINIMUM entre deux frames lead livrées au sink
 +// (readback + analyse ML). Basé sur le temps MÉDIA (fps-indépendant, ≈6,25/s à
@@ -24,7 +29,7 @@ index a342b81050aca..4b403bb293f28 100644
  
  }  // namespace
  
-@@ -51,8 +64,10 @@ VideoRendererImpl::VideoRendererImpl(
+@@ -51,8 +69,10 @@ VideoRendererImpl::VideoRendererImpl(
      bool drop_frames,
      MediaLog* media_log,
      std::unique_ptr<MappableSharedImageVideoFramePool> mappable_si_pool,
@@ -36,29 +41,44 @@ index a342b81050aca..4b403bb293f28 100644
        sink_(sink),
        sink_started_(false),
        client_(nullptr),
-@@ -200,6 +215,21 @@ void VideoRendererImpl::Initialize(
+@@ -200,6 +220,24 @@ void VideoRendererImpl::Initialize(
      min_buffered_frames_ = 1;
    }
  
-+  // [Browther/Basarunaa] decode-ahead spike (voie native, plan A) — force une
-+  // fenêtre d'anticipation de ~2 s côté renderer pour laisser une marge large à
-+  // l'analyse ML (2 YOLO + classifs ~330 ms) + interpolation. On réutilise le
-+  // mécanisme natif du latency hint : min_buffered_frames_ sera recalculé à
-+  // ~2 s / durée_frame au fil des frames (UpdateLatencyHintBufferingCaps).
-+  // low_delay_ est désactivé comme dans SetLatencyHint() (l'app prend la main sur
-+  // le buffering). Coût = ~2 s de latence au démarrage/seek (couvert par le
-+  // full-blur cold-start). OK VOD (le décodeur tient 2 s d'avance depuis le
-+  // buffer) ; pas live/low-latency. Reversible (retirer ce bloc).
-+  latency_hint_ = base::Milliseconds(2000);
-+  low_delay_ = false;
-+  is_latency_hint_media_logged_ = false;
-+  MEDIA_LOG(INFO, media_log_)
-+      << "[bsrDA] forcing decode-ahead latency hint = 700ms (spike, plan A)";
++  // [Browther/Basarunaa] decode-ahead — force une fenêtre d'anticipation de
++  // ~2 s côté renderer pour laisser une marge large à l'analyse ML (2 YOLO +
++  // classifs) + interpolation. On réutilise le mécanisme natif du latency
++  // hint : min_buffered_frames_ sera recalculé à ~2 s / durée_frame au fil des
++  // frames (UpdateLatencyHintBufferingCaps). low_delay_ est désactivé comme
++  // dans SetLatencyHint() (l'app prend la main sur le buffering). Coût = ~2 s
++  // de latence au démarrage/seek (couvert par le full-blur cold-start).
++  // GATE : uniquement quand le tap Basarunaa est branché (lead_frame_cb_,
++  // c.-à-d. --basarunaa-video-tap = feature ET pref ON). Basarunaa OFF →
++  // comportement upstream intact pour toutes les vidéos.
++  if (lead_frame_cb_) {
++    latency_hint_ = base::Milliseconds(2000);
++    low_delay_ = false;
++    is_latency_hint_media_logged_ = false;
++    MEDIA_LOG(INFO, media_log_)
++        << "[bsrDA] forcing decode-ahead latency hint = 2000ms (video tap on)";
++  }
 +
    // Always post |init_cb_| because |this| could be destroyed if initialization
    // failed.
    init_cb_ = base::BindPostTaskToCurrentDefault(std::move(init_cb));
-@@ -625,6 +655,37 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
+@@ -553,8 +591,9 @@ void VideoRendererImpl::UpdateLatencyHintBufferingCaps_Locked(
+       base::ClampRound(*latency_hint_ / average_frame_duration);
+ 
+   std::string clamp_string;
+-  if (latency_hint_frames > kAbsoluteMaxFrames) {
+-    min_buffered_frames_ = kAbsoluteMaxFrames;
++  const int absolute_max_frames = AbsoluteMaxFrames(!!lead_frame_cb_);
++  if (latency_hint_frames > absolute_max_frames) {
++    min_buffered_frames_ = absolute_max_frames;
+     clamp_string = " (clamped to max)";
+   } else if (latency_hint_frames < 1) {
+     min_buffered_frames_ = 1;
+@@ -625,6 +664,37 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
    last_decoder_stream_avg_duration_ = video_decoder_stream_->AverageDuration();
  
    const bool is_eos = frame->metadata().end_of_stream;
@@ -66,7 +86,7 @@ index a342b81050aca..4b403bb293f28 100644
 +  // renderer décode les frames EN AVANCE de l'affichage : log périodique du temps
 +  // média de la frame décodée + profondeur de file (≈ avance). Point de tap pour
 +  // le futur flou anticipé. Visible dans chrome://media-internals.
-+  if (!is_eos && algorithm_) {
++  if (lead_frame_cb_ && !is_eos && algorithm_) {
 +    static int bsr_da_n = 0;
 +    if ((bsr_da_n++ % 30) == 0) {
 +      MEDIA_LOG(INFO, media_log_)
@@ -96,3 +116,13 @@ index a342b81050aca..4b403bb293f28 100644
    const bool is_before_start_time = !is_eos && IsBeforeStartTime(*frame);
    const bool cant_read = !video_decoder_stream_->CanReadWithoutStalling();
    const bool has_best_first_frame = !is_eos && HasBestFirstFrame(*frame);
+@@ -897,7 +967,8 @@ bool VideoRendererImpl::HaveReachedBufferingCap(size_t buffering_cap) const {
+   // queued may be much smaller than the actual number of frames queued.  Here
+   // we ensure that frames_queued() doesn't get excessive.
+   return algorithm_->effective_frames_queued() >= buffering_cap ||
+-         algorithm_->frames_queued() >= kAbsoluteMaxFrames;
++         algorithm_->frames_queued() >=
++             static_cast<size_t>(AbsoluteMaxFrames(!!lead_frame_cb_));
+ }
+ 
+ void VideoRendererImpl::StartSink() {

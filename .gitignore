@@ -113,6 +113,12 @@ xcuserdata
 # de browther_version (build/config.gni) — change à chaque bump CalVer.
 /common/browther_version.h
 
+# Browther — staging des extensions built-in (code propriétaire browther-private,
+# JAMAIS versionné ici : repo public MPL). Peuplé + BUILD.gn généré par
+# private/scripts/deploy-extensions.sh --staging ; bundle_data branché au
+# chrome_app par post-init-patches.sh (→ Contents/Resources/<ext>/ du DMG).
+/browther_extensions/
+
 # Browther — bundle Updater renommé + rebrandé par private/scripts/post-init-patches.sh
 # (anti-collision Brave installé sur la même machine, cf. docs/TODO.md).
 /third_party/updater/mac/BrowtherUpdater.app/

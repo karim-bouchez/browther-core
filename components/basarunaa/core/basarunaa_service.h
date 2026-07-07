@@ -104,13 +104,13 @@ struct DetectedPerson {
 
 class BasarunaaService : public KeyedService {
  public:
-  BasarunaaService();
+  // `eager_warmup` : précharge les modèles ONNX au boot du profil (posté sur
+  // ThreadPool). La factory le passe à true seulement si la pref utilisateur
+  // kBasarunaaEnabled est ON ; sinon chargement lazy à la 1re analyse.
+  explicit BasarunaaService(bool eager_warmup);
   BasarunaaService(const BasarunaaService&) = delete;
   BasarunaaService& operator=(const BasarunaaService&) = delete;
   ~BasarunaaService() override;
-
-  std::string GetVersion() const;
-  bool Ping() const;
 
   // Phase 3.1.5 — M1.3: run YOLO11n-pose on a packed 4-channel buffer and
   // return detected persons. Empty vector on error or if the model is not

@@ -45,12 +45,14 @@ struct ServedAd {
 
 // Client HTTP minimal pour la régie pub dev&din (https://ads-api.devndin.com).
 //
-// - `Serve()` : POST /v1/serve signé HMAC (le secret publisher ne quitte
-//   jamais le process navigateur). Met en cache les pubs servies par `id`.
+// - `Serve()` : POST /v1/serve en mode publisher PUBLIC (X-Publisher-Id seul,
+//   AUCUN secret embarqué — un binaire distribué ne peut pas en détenir un ;
+//   l'anti-fraude vit côté serveur : serve tokens signés serveur, TTL, dédup,
+//   rate limiting). Met en cache les pubs servies par `id`.
 // - `MarkVisible()` : batch les impression tokens et flush /v1/track/impressions.
 // - `GetClickURL()` : résout l'URL de click (302 → targetUrl) d'une pub servie.
 //
-// Le secret/url/publisher sont embarqués via ads_config.h (généré depuis
+// L'url/publisher sont embarqués via ads_config.h (généré depuis
 // private/configs/analytics.env). Une config vide → IsConfigured() false →
 // aucune requête réseau, bannière masquée proprement.
 //
@@ -64,7 +66,7 @@ class AdsClient {
   AdsClient(const AdsClient&) = delete;
   AdsClient& operator=(const AdsClient&) = delete;
 
-  // True si publisher id + secret + url sont configurés (Bitwarden → env).
+  // True si publisher id + url sont configurés (analytics.env).
   static bool IsConfigured();
 
   using ServeCallback = base::OnceCallback<void(std::vector<ServedAd>)>;

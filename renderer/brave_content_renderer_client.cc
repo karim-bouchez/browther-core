@@ -280,11 +280,11 @@ BraveContentRendererClient::GetVideoLeadFrameSink(
   // Tap natif gaté sur la pref Basarunaa : le browser injecte
   // --basarunaa-video-tap dans la command-line de ce renderer quand
   // kBasarunaaEnabled est ON (BraveContentBrowserClient::
-  // AppendExtraCommandLineSwitches), et force en même temps le décodage SW
-  // (--disable-accelerated-video-decode) pour que les frames soient
-  // CPU-mappables -> OnLeadFrame évite le readback GPU (contourne le bug A :
-  // le readback mute le sync-token d'une frame encore possédée par le pipeline
-  // décodé-en-avance). Toggle de la pref -> restart requis.
+  // AppendExtraCommandLineSwitches). Le décodage MATÉRIEL est préservé
+  // (plus de --disable-accelerated-video-decode depuis le fix sync-token du
+  // 2026-07-02, browther-core 7eba9042164) : les frames GPU-backed passent
+  // par le readback non-mutant de LeadFrameReadbackThread. Toggle de la
+  // pref -> restart requis.
   if (!base::CommandLine::ForCurrentProcess()->HasSwitch(
           switches::kBasarunaaVideoTap)) {
     return {};

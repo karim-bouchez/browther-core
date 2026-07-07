@@ -14,10 +14,19 @@ namespace switches {
 // [Browther/Basarunaa] Active le tap vidéo natif (decode-ahead -> readback ->
 // YOLO -> overlay) pour ce process renderer. Injecté par le browser
 // (BraveContentBrowserClient::AppendExtraCommandLineSwitches) quand la pref
-// kBasarunaaEnabled est ON, jamais passé manuellement. Le browser force aussi
-// --disable-accelerated-video-decode dans ce cas (frames CPU-mappables -> pas
-// de readback GPU, cf. bug A). Toggle de la pref -> restart requis.
+// kBasarunaaEnabled est ON, jamais passé manuellement. Le décodage matériel
+// est préservé (readback non-mutant depuis le fix sync-token 2026-07-02).
+// Toggle de la pref -> restart requis.
 inline constexpr char kBasarunaaVideoTap[] = "basarunaa-video-tap";
+
+// [Browther/Sawtunaa] Resync A/V option A : latence (ms) que les
+// FakeAudioOutputStream (horloge vidéo des onglets tabCapture) ajoutent à
+// leur delay -> le lecteur retarde sa vidéo d'autant (lip-sync). Posé sur les
+// process utility (service audio) par le browser quand kSawtunaaEnabled est
+// ON sur un profil chargé. Valeur = latence du pipeline extension (ring
+// 16384 samples @48 kHz ~341 ms + hop STFT/inférence). Toggle de la pref ->
+// effet au prochain démarrage du service audio. Cf. docs/sawtunaa/AV_SYNC.md.
+inline constexpr char kSawtunaaAvSyncDelayMs[] = "sawtunaa-av-sync-delay-ms";
 
 // Use custom update interval in sec
 inline constexpr char kComponentUpdateIntervalInSec[] =

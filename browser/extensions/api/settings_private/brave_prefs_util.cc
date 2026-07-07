@@ -22,6 +22,7 @@
 #include "brave/components/decentralized_dns/core/pref_names.h"
 #include "brave/components/ntp_background_images/common/pref_names.h"
 #include "brave/components/omnibox/browser/brave_omnibox_prefs.h"
+#include "brave/components/p3a/pref_names.h"
 #include "brave/components/playlist/core/common/pref_names.h"
 #include "brave/components/request_otr/common/pref_names.h"
 #include "brave/components/speedreader/common/buildflags/buildflags.h"
@@ -114,12 +115,18 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
       settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[browther_analytics::prefs::kStatsPersonsBlurredTotal] =
       settings_api::PrefType::kNumber;
+  // Browther : consentement analytics (opt-out, local_state). Lu par les
+  // extensions built-in Sawtunaa/Basarunaa pour gater le POST des stats
+  // publiques (/api/stats/ingest) — même toggle que PostHog natif.
+  (*s_brave_allowlist)[p3a::kP3AEnabled] = settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaMode] =
       settings_api::PrefType::kString;  // Browther: Basarunaa mode
   (*s_brave_allowlist)[kBasarunaaConfBody] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaConfFace] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaGenderCertainty] =
       settings_api::PrefType::kNumber;
+  // Dev/debug : seuil NanoDet (overlay debug image MV3 + Android). Le slider
+  // vit dans la section Debug du panel (builds non-officiels uniquement).
   (*s_brave_allowlist)[kBasarunaaSentinelConf] =
       settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaMinSkeleton] = settings_api::PrefType::kNumber;

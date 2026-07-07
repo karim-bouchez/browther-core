@@ -27,6 +27,7 @@
 #include "build/build_config.h"
 #include "onnxruntime_cxx_api.h"
 #if BUILDFLAG(IS_MAC)
+#include "base/apple/bundle_locations.h"
 // EP GPU/ANE : le CoreML EP est compilé dans la dylib bundlée (symbole
 // OrtSessionOptionsAppendExecutionProvider_CoreML exporté ; la dylib linke déjà
 // CoreML.framework/Foundation → aucun ldflag à ajouter côté chrome_dll).
@@ -40,9 +41,33 @@ namespace basarunaa {
 namespace {
 
 // MV3 extension bundle path during the Phase 3.1.5 migration. Will move under
-// component-updater / app Resources when Étape 5 deletes the extension.
+// component-updater when Étape 5 deletes the extension.
 constexpr base::FilePath::CharType kYoloPoseRelPath[] =
     FILE_PATH_LITERAL("basarunaa/models/yolo11n-pose.onnx");
+
+// Resolve a model path shipped with the built-in extension. Mirrors
+// ResolveBrowtherExtensionPath (brave_component_loader.cc):
+//   1. DIR_EXE/<rel> — dev Component builds (deploy-extensions.sh) + Win/Linux.
+//   2. macOS: Browther.app/Contents/Resources/<rel> — GN bundle_data staging
+//      (brave/browther_extensions/), the only layout present in signed
+//      Release/DMG builds (codesign rejects non-Mach-O data in Contents/MacOS).
+base::FilePath ResolveModelPath(const base::FilePath::CharType* rel_path) {
+  base::FilePath exe_dir;
+  if (base::PathService::Get(base::DIR_EXE, &exe_dir)) {
+    base::FilePath exe_path = exe_dir.Append(rel_path);
+    if (base::PathExists(exe_path)) {
+      return exe_path;
+    }
+  }
+#if BUILDFLAG(IS_MAC)
+  return base::apple::OuterBundlePath()
+      .Append("Contents")
+      .Append("Resources")
+      .Append(rel_path);
+#else
+  return exe_dir.Append(rel_path);
+#endif
+}
 
 // YOLO11n-pose constants. Input is fixed 640x640 RGB float32 NCHW; output is
 // [1, 56, 8400] = [1, 4 bbox + 1 person score + 17 kpts × 3, anchors]. We do
@@ -135,7 +160,7 @@ void AppendGpuEP(Ort::SessionOptions& opts, const char* tag) {
   try {
     Ort::ThrowOnError(
         OrtSessionOptionsAppendExecutionProvider_CoreML(opts, kCoreMLFlags));
-    LOG(INFO) << "[Basarunaa] CoreML EP activé (" << tag << ")";
+    VLOG(1) << "[Basarunaa] CoreML EP activé (" << tag << ")";
   } catch (const Ort::Exception& e) {
     LOG(WARNING) << "[Basarunaa] CoreML EP indisponible (" << tag
                  << "), repli CPU: " << e.what();
@@ -1101,43 +1126,27 @@ DetectedPerson& DetectedPerson::operator=(const DetectedPerson&) = default;
 DetectedPerson& DetectedPerson::operator=(DetectedPerson&&) noexcept = default;
 DetectedPerson::~DetectedPerson() = default;
 
-BasarunaaService::BasarunaaService() {
+BasarunaaService::BasarunaaService(bool eager_warmup) {
 #if defined(BASARUNAA_NATIVE_ML)
-  LOG(INFO) << "[Basarunaa] service constructed (eager warmup posted)";
-  // [Browther/Basarunaa] Eager-load : la factory ne crée ce service au
-  // démarrage du profil QUE si la feature vidéo est active
-  // (ServiceIsCreatedWithBrowserContext). On poste alors le warmup (chargement
-  // des modèles + compilation CoreML ~2s) sur le ThreadPool — jamais le thread
-  // UI (l'init ORT sur UI provoquait des SEGV au spawn de threads ORT) — pour
-  // que la 1re vidéo soit déjà chaude. base::Unretained : le service est
-  // profile-keyed et survit à la tâche (même contrat que RunYoloOnPool).
-  base::ThreadPool::PostTask(
-      FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
-      base::BindOnce(&BasarunaaService::WarmUpModels,
-                     base::Unretained(this)));
+  // [Browther/Basarunaa] Eager-load : la factory ne demande le warmup
+  // (chargement des 6 modèles + compilation CoreML ~2s) QUE si la feature
+  // vidéo ET la pref utilisateur kBasarunaaEnabled sont ON — sinon un profil
+  // Basarunaa-OFF payait RAM + CPU au boot pour rien. Pref OFF → service
+  // froid ; le premier AnalyzeImageRgba charge lazy (LoadAllModelsOnce).
+  // Warmup posté sur le ThreadPool — jamais le thread UI (l'init ORT sur UI
+  // provoquait des SEGV au spawn de threads ORT). base::Unretained : le
+  // service est profile-keyed et survit à la tâche (même contrat que
+  // RunYoloOnPool).
+  if (eager_warmup) {
+    VLOG(1) << "[Basarunaa] service constructed (eager warmup posted)";
+    base::ThreadPool::PostTask(
+        FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
+        base::BindOnce(&BasarunaaService::WarmUpModels,
+                       base::Unretained(this)));
+  }
 #endif
 }
 BasarunaaService::~BasarunaaService() = default;
-
-std::string BasarunaaService::GetVersion() const {
-#if defined(BASARUNAA_NATIVE_ML)
-  std::string v = "scaffold-v0+ort-" + Ort::GetVersionString();
-  if (yolo_pose_ready_) {
-    v += "+yolo";
-  }
-  return v;
-#else
-  return "scaffold-v0";
-#endif
-}
-
-bool BasarunaaService::Ping() const {
-#if defined(BASARUNAA_NATIVE_ML)
-  return yolo_pose_ready_;
-#else
-  return true;
-#endif
-}
 
 std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
     const uint8_t* rgba,
@@ -1383,7 +1392,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
           fL == Gender::kFemale ? fcL : fL == Gender::kMale ? -fcL : 0.f;
       person.body_lo =
           bL == Gender::kFemale ? bcL : bL == Gender::kMale ? -bcL : 0.f;
-      LOG(INFO) << "[bsrRES] faceW=" << face_px << " bodyW=" << person.w
+      VLOG(1) << "[bsrRES] faceW=" << face_px << " bodyW=" << person.w
                 << " | face HI=" << ab_tag(fH) << fcH << " LO=" << ab_tag(fL)
                 << fcL << " | body HI=" << ab_tag(bH) << bcH
                 << " LO=" << ab_tag(bL) << bcL;
@@ -1487,7 +1496,7 @@ std::vector<DetectedPerson> BasarunaaService::AnalyzeImageRgba(
   }
 
   const auto elapsed_ms = (base::TimeTicks::Now() - start).InMillisecondsF();
-  LOG(INFO) << "[Basarunaa] inference: " << width << "x" << height << " → "
+  VLOG(1) << "[Basarunaa] inference: " << width << "x" << height << " → "
             << nms.size() << " persons (" << elapsed_ms << " ms)";
   return nms;
 #else
@@ -1603,12 +1612,7 @@ void BasarunaaService::WarmUpSession(Ort::Session* session,
 }
 
 void BasarunaaService::LoadYoloPoseModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    LOG(ERROR) << "[Basarunaa] base::DIR_EXE lookup failed";
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kYoloPoseRelPath);
+  const base::FilePath model_path = ResolveModelPath(kYoloPoseRelPath);
   if (!base::PathExists(model_path)) {
     LOG(WARNING) << "[Basarunaa] YOLO model not found at " << model_path.value()
                  << " (deploy-extensions.sh must have run)";
@@ -1638,7 +1642,7 @@ void BasarunaaService::LoadYoloPoseModel() {
     auto name = yolo_pose_session_->GetInputNameAllocated(i, alloc);
     auto type_info = yolo_pose_session_->GetInputTypeInfo(i);
     const auto shape = type_info.GetTensorTypeAndShapeInfo().GetShape();
-    LOG(INFO) << "[Basarunaa] YOLO input[" << i << "] name=" << name.get()
+    VLOG(1) << "[Basarunaa] YOLO input[" << i << "] name=" << name.get()
               << " shape=" << ShapeToString(shape);
   }
   const size_t outputs = yolo_pose_session_->GetOutputCount();
@@ -1646,20 +1650,16 @@ void BasarunaaService::LoadYoloPoseModel() {
     auto name = yolo_pose_session_->GetOutputNameAllocated(i, alloc);
     auto type_info = yolo_pose_session_->GetOutputTypeInfo(i);
     const auto shape = type_info.GetTensorTypeAndShapeInfo().GetShape();
-    LOG(INFO) << "[Basarunaa] YOLO output[" << i << "] name=" << name.get()
+    VLOG(1) << "[Basarunaa] YOLO output[" << i << "] name=" << name.get()
               << " shape=" << ShapeToString(shape);
   }
 
   yolo_pose_ready_ = true;
-  LOG(INFO) << "[Basarunaa] YOLO11n-pose session ready";
+  VLOG(1) << "[Basarunaa] YOLO11n-pose session ready";
 }
 
 void BasarunaaService::LoadYoloFaceModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kYoloFaceRelPath);
+  const base::FilePath model_path = ResolveModelPath(kYoloFaceRelPath);
   if (!base::PathExists(model_path)) {
     LOG(WARNING) << "[Basarunaa] yolo-face model not found at "
                  << model_path.value() << " — body fallback only";
@@ -1682,15 +1682,11 @@ void BasarunaaService::LoadYoloFaceModel() {
     return;
   }
   yolo_face_ready_ = true;
-  LOG(INFO) << "[Basarunaa] yolov8n-face session ready";
+  VLOG(1) << "[Basarunaa] yolov8n-face session ready";
 }
 
 void BasarunaaService::LoadGenderAgeModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kGenderAgeRelPath);
+  const base::FilePath model_path = ResolveModelPath(kGenderAgeRelPath);
   if (!base::PathExists(model_path)) {
     LOG(WARNING) << "[Basarunaa] genderage model not found at "
                  << model_path.value() << " — gender stays unknown";
@@ -1715,7 +1711,7 @@ void BasarunaaService::LoadGenderAgeModel() {
     return;
   }
   genderage_ready_ = true;
-  LOG(INFO) << "[Basarunaa] genderage session ready";
+  VLOG(1) << "[Basarunaa] genderage session ready";
 }
 
 void BasarunaaService::ClassifyGender(base::span<const uint8_t> rgba,
@@ -1783,11 +1779,7 @@ void BasarunaaService::ClassifyGender(base::span<const uint8_t> rgba,
 }
 
 void BasarunaaService::LoadPplcnetModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kPplcnetRelPath);
+  const base::FilePath model_path = ResolveModelPath(kPplcnetRelPath);
   if (!base::PathExists(model_path)) {
     LOG(WARNING) << "[Basarunaa] pplcnet model not found at "
                  << model_path.value() << " — no body-gender fallback";
@@ -1812,15 +1804,11 @@ void BasarunaaService::LoadPplcnetModel() {
     return;
   }
   pplcnet_ready_ = true;
-  LOG(INFO) << "[Basarunaa] pplcnet session ready";
+  VLOG(1) << "[Basarunaa] pplcnet session ready";
 }
 
 void BasarunaaService::LoadMarqoModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kMarqoRelPath);
+  const base::FilePath model_path = ResolveModelPath(kMarqoRelPath);
   if (!base::PathExists(model_path)) {
     LOG(WARNING) << "[Basarunaa] marqo model not found at " << model_path.value()
                  << " — no NSFW full-frame blur";
@@ -1843,15 +1831,11 @@ void BasarunaaService::LoadMarqoModel() {
     return;
   }
   marqo_ready_ = true;
-  LOG(INFO) << "[Basarunaa] marqo session ready";
+  VLOG(1) << "[Basarunaa] marqo session ready";
 }
 
 void BasarunaaService::LoadNudenetModel() {
-  base::FilePath exe_dir;
-  if (!base::PathService::Get(base::DIR_EXE, &exe_dir)) {
-    return;
-  }
-  const base::FilePath model_path = exe_dir.Append(kNudenetRelPath);
+  const base::FilePath model_path = ResolveModelPath(kNudenetRelPath);
   if (!base::PathExists(model_path)) {
     LOG(WARNING) << "[Basarunaa] nudenet model not found at "
                  << model_path.value() << " — no explicit-part NSFW";
@@ -1874,7 +1858,7 @@ void BasarunaaService::LoadNudenetModel() {
     return;
   }
   nudenet_ready_ = true;
-  LOG(INFO) << "[Basarunaa] nudenet session ready";
+  VLOG(1) << "[Basarunaa] nudenet session ready";
 }
 
 void BasarunaaService::ClassifyBodyGender(base::span<const uint8_t> rgba,

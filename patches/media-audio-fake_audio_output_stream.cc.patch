@@ -1,0 +1,67 @@
+diff --git a/media/audio/fake_audio_output_stream.cc b/media/audio/fake_audio_output_stream.cc
+index 4ef935abbc47e..9e5cdae0dba28 100644
+--- a/media/audio/fake_audio_output_stream.cc
++++ b/media/audio/fake_audio_output_stream.cc
+@@ -5,8 +5,10 @@
+ #include "media/audio/fake_audio_output_stream.h"
+ 
+ #include "base/check.h"
++#include "base/command_line.h"
+ #include "base/functional/bind.h"
+ #include "base/functional/callback_helpers.h"
++#include "base/strings/string_number_conversions.h"
+ #include "base/task/single_thread_task_runner.h"
+ #include "base/time/time.h"
+ #include "media/audio/audio_manager_base.h"
+@@ -14,6 +16,41 @@
+ 
+ namespace media {
+ 
++namespace {
++
++// [Browther/Sawtunaa] Resync A/V option A (cf. browther-private
++// docs/sawtunaa/AV_SYNC.md) : le fake stream est l'horloge vidéo d'un onglet
++// capturé via tabCapture. Quand le browser pose --sawtunaa-av-sync-delay-ms
++// sur le service audio (pref kSawtunaaEnabled ON), on ajoute la latence du
++// traitement Sawtunaa au delay rapporté -> AudioClock recale la vidéo
++// d'autant -> lip-sync. Sans le switch (Sawtunaa OFF) : comportement
++// upstream inchangé (switch absent -> délai nul).
++//
++// LIMITE V1 CONNUE : le switch est process-wide, donc quand un profil a
++// Sawtunaa ON, TOUS les FakeAudioOutputStream du service audio prennent ce
++// délai — y compris ceux hors tabCapture (fallback quand le device physique
++// échoue, --mute-audio). Effet borné aux users Sawtunaa-ON (zéro impact
++// sinon) et sans traitement audio réel dans ces cas ; le décalage vidéo qui
++// en résulte est le prix d'Option A. Le gating par-stream (savoir si le
++// stream vient du diverting tabCapture) = Option B (traitement natif), V2.
++base::TimeDelta GetSawtunaaAvSyncDelay() {
++  constexpr char kSwitchName[] = "sawtunaa-av-sync-delay-ms";
++  const base::CommandLine& command_line =
++      *base::CommandLine::ForCurrentProcess();
++  if (!command_line.HasSwitch(kSwitchName)) {
++    return base::TimeDelta();
++  }
++  int delay_ms = 0;
++  if (!base::StringToInt(command_line.GetSwitchValueASCII(kSwitchName),
++                         &delay_ms) ||
++      delay_ms <= 0 || delay_ms > 10000) {
++    return base::TimeDelta();
++  }
++  return base::Milliseconds(delay_ms);
++}
++
++}  // namespace
++
+ // static
+ AudioOutputStream* FakeAudioOutputStream::MakeFakeStream(
+     AudioManagerBase* manager, const AudioParameters& params) {
+@@ -23,7 +60,8 @@ AudioOutputStream* FakeAudioOutputStream::MakeFakeStream(
+ FakeAudioOutputStream::FakeAudioOutputStream(AudioManagerBase* manager,
+                                              const AudioParameters& params)
+     : audio_manager_(manager),
+-      fixed_data_delay_(FakeAudioWorker::ComputeFakeOutputDelay(params)),
++      fixed_data_delay_(FakeAudioWorker::ComputeFakeOutputDelay(params) +
++                        GetSawtunaaAvSyncDelay()),
+       callback_(nullptr),
+       fake_worker_(manager->GetWorkerTaskRunner(), params),
+       audio_bus_(AudioBus::Create(params)) {}

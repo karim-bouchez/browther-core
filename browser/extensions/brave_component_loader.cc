@@ -35,7 +35,46 @@
 #include "brave/components/web_discovery/common/features.h"
 #endif
 
+#if BUILDFLAG(IS_MAC)
+#include "base/apple/bundle_locations.h"
+#endif
+
 namespace extensions {
+
+namespace {
+
+// Browther: resolve the on-disk directory of a built-in extension.
+// Priority:
+//   1. --<name>-extension-path=<dir> command-line override.
+//   2. DIR_EXE/<name>/ — dev Component builds (deploy-extensions.sh copies
+//      into Contents/MacOS/ for fast iteration) and Windows/Linux layout.
+//   3. macOS only: Browther.app/Contents/Resources/<name>/ — where the GN
+//      bundle_data (brave/browther_extensions/, cf. deploy-extensions.sh
+//      --staging) places extensions for signed Release/DMG builds. Data
+//      files cannot live in Contents/MacOS/ (codesign rejects non-Mach-O).
+base::FilePath ResolveBrowtherExtensionPath(const std::string& name) {
+  const base::CommandLine& command_line =
+      *base::CommandLine::ForCurrentProcess();
+  const std::string switch_name = name + "-extension-path";
+  if (command_line.HasSwitch(switch_name)) {
+    return command_line.GetSwitchValuePath(switch_name);
+  }
+
+  base::FilePath exe_dir;
+  base::PathService::Get(base::DIR_EXE, &exe_dir);
+  base::FilePath exe_path = exe_dir.AppendASCII(name);
+#if BUILDFLAG(IS_MAC)
+  if (!base::PathExists(exe_path.AppendASCII("manifest.json"))) {
+    return base::apple::OuterBundlePath()
+        .Append("Contents")
+        .Append("Resources")
+        .AppendASCII(name);
+  }
+#endif
+  return exe_path;
+}
+
+}  // namespace
 
 BraveComponentLoader::BraveComponentLoader(Profile* profile)
     : ComponentLoader(profile),
@@ -67,16 +106,7 @@ void BraveComponentLoader::AddDefaultComponentExtensions(
 
   // Browther: Sawtunaa — read manifest from disk at startup (blocking allowed here)
   {
-    const base::CommandLine& command_line =
-        *base::CommandLine::ForCurrentProcess();
-    if (command_line.HasSwitch("sawtunaa-extension-path")) {
-      sawtunaa_path_ =
-          command_line.GetSwitchValuePath("sawtunaa-extension-path");
-    } else {
-      base::FilePath exe_dir;
-      base::PathService::Get(base::DIR_EXE, &exe_dir);
-      sawtunaa_path_ = exe_dir.AppendASCII("sawtunaa");
-    }
+    sawtunaa_path_ = ResolveBrowtherExtensionPath("sawtunaa");
 
     base::FilePath manifest_path =
         sawtunaa_path_.AppendASCII("manifest.json");
@@ -101,16 +131,7 @@ void BraveComponentLoader::AddDefaultComponentExtensions(
 
   // Browther: Basarunaa — read manifest from disk at startup (blocking allowed here)
   {
-    const base::CommandLine& command_line =
-        *base::CommandLine::ForCurrentProcess();
-    if (command_line.HasSwitch("basarunaa-extension-path")) {
-      basarunaa_path_ =
-          command_line.GetSwitchValuePath("basarunaa-extension-path");
-    } else {
-      base::FilePath exe_dir;
-      base::PathService::Get(base::DIR_EXE, &exe_dir);
-      basarunaa_path_ = exe_dir.AppendASCII("basarunaa");
-    }
+    basarunaa_path_ = ResolveBrowtherExtensionPath("basarunaa");
 
     base::FilePath manifest_path =
         basarunaa_path_.AppendASCII("manifest.json");

@@ -46,7 +46,15 @@ template("rust_to_wasm") {
     # - causes a race condition between the processes (that action_foreach forks) for wasm-pack's cache directory (if wasm-pack is run for the first time),
     # - makes our approach less self-contained.
     response_file_contents = [
-      "PATH=./" + host_path_sep + getenv("PATH"),
+      # Browther: préfixe le PATH avec le cargo VENDORED (binaire réel) —
+      # sinon wasm-pack résout `cargo` via le PATH capturé au gn gen, et le
+      # shim rustup utilisateur (~/.cargo/bin/cargo) échoue sous siso avec
+      # RUSTUP_HOME=third_party/rust-toolchain ("no default configured" : la
+      # toolchain vendorée n'a pas de layout rustup). Déterministe quel que
+      # soit l'environnement du shell qui a lancé gn gen.
+      "PATH=./" + host_path_sep +
+          rebase_path("//third_party/rust-toolchain/bin") + host_path_sep +
+          getenv("PATH"),
       rebase_path("$root_build_dir/wasm-pack$host_exe_suffix"),
       "--log-level",
       "warn",

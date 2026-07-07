@@ -17,11 +17,9 @@
 #include "base/strings/strcat.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/time/time.h"
-#include "base/uuid.h"
 #include "base/values.h"
 #include "brave/components/browther_ads/ads_config.h"
 #include "build/build_config.h"
-#include "crypto/hmac.h"
 #include "net/base/load_flags.h"
 #include "net/http/http_request_headers.h"
 #include "net/http/http_response_headers.h"
@@ -72,8 +70,8 @@ constexpr net::NetworkTrafficAnnotationTag kServeTrafficAnnotation =
           trigger:
             "Opening a new tab page."
           data:
-            "Placement identifier, platform name, requested ad count, and an "
-            "HMAC signature computed from the embedded publisher key."
+            "Placement identifier, platform name, requested ad count, and the "
+            "public publisher id (no secret is embedded in the binary)."
           destination: OTHER
           destination_other: "ads-api.devndin.com (self-hosted on OVH)"
         }
@@ -111,24 +109,6 @@ constexpr net::NetworkTrafficAnnotationTag kTrackTrafficAnnotation =
             "Not implemented, consumer-facing browser."
         })ANNOT");
 
-// epoch UNIX en secondes (fenêtre serveur ±5 min).
-std::string UnixTimestampSeconds() {
-  return base::NumberToString(
-      (base::Time::Now() - base::Time::UnixEpoch()).InSeconds());
-}
-
-// hex(HMAC-SHA256(secret, "{timestamp}.{nonce}.{rawBody}")) — lowercase.
-std::string SignBody(std::string_view timestamp,
-                     std::string_view nonce,
-                     std::string_view raw_body) {
-  const std::string message =
-      base::StrCat({timestamp, ".", nonce, ".", raw_body});
-  const std::array<uint8_t, 32> signature = crypto::hmac::SignSha256(
-      base::as_byte_span(std::string_view(kAdsPublisherSecret)),
-      base::as_byte_span(message));
-  return base::HexEncodeLower(signature);
-}
-
 }  // namespace
 
 ServedAd::ServedAd() = default;
@@ -150,8 +130,7 @@ AdsClient::~AdsClient() {
 // static
 bool AdsClient::IsConfigured() {
   return !std::string_view(kAdsApiUrl).empty() &&
-         !std::string_view(kAdsPublisherId).empty() &&
-         !std::string_view(kAdsPublisherSecret).empty();
+         !std::string_view(kAdsPublisherId).empty();
 }
 
 void AdsClient::Serve(const std::string& placement,
@@ -173,24 +152,19 @@ void AdsClient::Serve(const std::string& placement,
     return;
   }
 
-  const std::string timestamp = UnixTimestampSeconds();
-  const std::string nonce =
-      base::Uuid::GenerateRandomV4().AsLowercaseString();
-  const std::string signature = SignBody(timestamp, nonce, body);
-
+  // Publisher en mode PUBLIC : aucun secret embarqué (un binaire distribué ne
+  // peut pas en détenir un — extractible = signatures forgeables, cf. bascule
+  // 2026-07-07). L'anti-fraude vit côté serveur : serve tokens signés serveur
+  // (TTL + dédup par serve_id sur impressions/clics) + rate limiting.
   auto request = std::make_unique<network::ResourceRequest>();
   request->url = GURL(base::StrCat({kAdsApiUrl, "/v1/serve"}));
   request->method = "POST";
   request->credentials_mode = network::mojom::CredentialsMode::kOmit;
   request->load_flags = net::LOAD_DO_NOT_SAVE_COOKIES;
   request->headers.SetHeader("X-Publisher-Id", kAdsPublisherId);
-  request->headers.SetHeader("X-Timestamp", timestamp);
-  request->headers.SetHeader("X-Nonce", nonce);
-  request->headers.SetHeader("X-Signature", signature);
 
   auto loader = network::SimpleURLLoader::Create(std::move(request),
                                                  kServeTrafficAnnotation);
-  // `body` doit être exactement les octets signés.
   loader->AttachStringForUpload(body, "application/json");
 
   auto* loader_ptr = loader.get();

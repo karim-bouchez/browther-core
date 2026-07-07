@@ -69,6 +69,15 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
     source->AddLocalizedString(s.name, s.id);
   }
 
+  // Browther: la section Debug du panel (overlays, capture ~/Downloads,
+  // slider sentinel) n'est visible que sur les builds NON-officiels
+  // (Component = dev quotidien). Les users Release ne voient pas l'outillage.
+#if defined(OFFICIAL_BUILD)
+  source->AddBoolean("devBuild", false);
+#else
+  source->AddBoolean("devBuild", true);
+#endif
+
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::StyleSrc,
       std::string("style-src chrome-untrusted://resources "

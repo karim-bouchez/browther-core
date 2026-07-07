@@ -112,6 +112,7 @@
 #include "chrome/browser/content_settings/cookie_settings_factory.h"
 #include "chrome/browser/content_settings/host_content_settings_map_factory.h"
 #include "chrome/browser/profiles/profile.h"
+#include "chrome/browser/profiles/profile_manager.h"
 #include "chrome/browser/profiles/profile_io_data.h"
 #include "chrome/browser/search_engines/template_url_service_factory.h"
 #include "chrome/common/url_constants.h"
@@ -1133,6 +1134,26 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
         if (prefs && prefs->FindPreference(kBasarunaaEnabled) &&
             prefs->GetBoolean(kBasarunaaEnabled)) {
           command_line->AppendSwitch(switches::kBasarunaaVideoTap);
+        }
+      }
+    }
+  } else if (process_type == switches::kUtilityProcess) {
+    // [Browther/Sawtunaa] Resync A/V option A (cf. docs/sawtunaa/AV_SYNC.md) :
+    // si Sawtunaa est activé sur au moins un profil chargé, le service audio
+    // (process utility) fait rapporter aux FakeAudioOutputStream — l'horloge
+    // vidéo des onglets tabCapture — la latence du traitement Sawtunaa, et le
+    // lecteur retarde sa vidéo d'autant (lip-sync). Posé sur tous les utility
+    // (seul le fake stream lit ce switch). Valeur fixe V1 : ring extension
+    // 16384 samples @48 kHz ≈ 341 ms + hop STFT/inférence ≈ 20 ms.
+    if (g_browser_process && g_browser_process->profile_manager()) {
+      for (Profile* profile :
+           g_browser_process->profile_manager()->GetLoadedProfiles()) {
+        PrefService* prefs = profile->GetPrefs();
+        if (prefs && prefs->FindPreference(kSawtunaaEnabled) &&
+            prefs->GetBoolean(kSawtunaaEnabled)) {
+          command_line->AppendSwitchASCII(switches::kSawtunaaAvSyncDelayMs,
+                                          "360");
+          break;
         }
       }
     }

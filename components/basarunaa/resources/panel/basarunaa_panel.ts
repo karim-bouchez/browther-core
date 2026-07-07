@@ -114,6 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshState()
   document.addEventListener('visibilitychange', onVisibilityChange)
 
+  // Section Debug visible uniquement sur les builds non-officiels (dev).
+  // Les prefs debug restent à leurs défauts (none/false) chez les users.
+  if (loadTimeData.getBoolean('devBuild')) {
+    document.getElementById('dev-section')?.removeAttribute('hidden')
+  }
+
   const toggle = document.getElementById('enabled-toggle') as HTMLButtonElement | null
   toggle?.addEventListener('click', () => {
     const enabled = !toggle.classList.contains('on')
