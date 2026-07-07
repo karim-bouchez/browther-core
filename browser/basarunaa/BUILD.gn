@@ -24,6 +24,10 @@ static_library("basarunaa") {
     "//content/public/browser",
     "//mojo/public/cpp/base",
     "//mojo/public/cpp/bindings",
+    "//skia",
+    "//ui/gfx",
+    "//ui/gfx/codec",
+    "//ui/gfx/geometry",
   ]
 
   # ⚠️ ODR : ce macro conditionne le LAYOUT de BasarunaaService (membres ORT

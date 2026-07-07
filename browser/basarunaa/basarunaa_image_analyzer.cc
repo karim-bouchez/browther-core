@@ -11,16 +11,35 @@
 #include <utility>
 #include <vector>
 
+#include "base/atomic_sequence_num.h"
+#include "base/base_paths.h"
 #include "base/containers/span.h"
+#include "base/files/file_path.h"
+#include "base/files/file_util.h"
 #include "base/functional/bind.h"
 #include "base/logging.h"
+#include "base/path_service.h"
+#include "base/strings/stringprintf.h"
+#include "base/strings/utf_string_conversions.h"
 #include "base/task/thread_pool.h"
+#include "base/time/time.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "third_party/skia/include/core/SkBitmap.h"
+#include "third_party/skia/include/core/SkColor.h"
+#include "third_party/skia/include/core/SkImageInfo.h"
+#include "ui/gfx/canvas.h"
+#include "ui/gfx/codec/png_codec.h"
+#include "ui/gfx/font_list.h"
+#include "ui/gfx/geometry/rect.h"
+#include "ui/gfx/geometry/rect_f.h"
+#include "ui/gfx/geometry/size.h"
+#include "ui/gfx/image/image_skia.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "components/prefs/pref_service.h"
+#include "content/public/browser/browser_thread.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
 #include "mojo/public/cpp/bindings/callback_helpers.h"
@@ -42,6 +61,100 @@ float BoxIoU(const std::array<float, 4>& a, const std::array<float, 4>& b) {
   const float inter = iw * ih;
   const float uni = a[2] * a[3] + b[2] * b[3] - inter;
   return uni > 0.f ? inter / uni : 0.f;
+}
+
+// [Browther/Basarunaa] Capture mode (pref kBasarunaaCaptureMode) : sauve la frame
+// vidéo analysée dans ~/Downloads/basarunaa-capture/ en 2 PNG — RAW (propre, pour
+// rouvrir comme IMAGE et la reclasser via le flow image) + ANNOTÉE (box par genre
+// + LABEL texte : genre fusionné + conf, sorties visage/corps). Le label est
+// dessiné via gfx::Canvas (gère les fonts) ; on reformate les valeurs déjà
+// calculées côté service. Écrit depuis le ThreadPool du process browser (non
+// sandboxé macOS → accès Downloads OK).
+// Écrit le RAW (frame propre) et renvoie l'index (pour nommer l'annotée du même
+// numéro). Sûr sur le ThreadPool (aucun font). -1 si échec dossier.
+int SaveCaptureRaw(const std::vector<uint8_t>& bgra, int width, int height) {
+  base::FilePath home;
+  if (!base::PathService::Get(base::DIR_HOME, &home)) {
+    return -1;
+  }
+  const base::FilePath dir =
+      home.Append("Downloads").Append("basarunaa-capture");
+  if (!base::CreateDirectory(dir)) {
+    return -1;
+  }
+  static base::AtomicSequenceNumber seq;
+  const int n = seq.GetNext();
+  if (auto png = gfx::PNGCodec::Encode(bgra.data(), gfx::PNGCodec::FORMAT_BGRA,
+                                       gfx::Size(width, height), width * 4,
+                                       /*discard_transparency=*/false, {})) {
+    base::WriteFile(dir.Append(base::StringPrintf("raw_%05d.png", n)), *png);
+  }
+  return n;
+}
+
+// Une box à annoter (couleur genre + label texte), passée du pool au thread UI.
+struct CaptureBox {
+  float x = 0.f;
+  float y = 0.f;
+  float w = 0.f;
+  float h = 0.f;
+  SkColor color = SK_ColorWHITE;
+  std::string label;
+};
+
+// Rend l'ANNOTÉE (frame + box + labels) SUR LE THREAD UI (gfx::FontList → cache
+// de fonts lié à la séquence UI ; sur le ThreadPool = DCHECK CalledOnValidSequence,
+// crash 2026-07-06). L'écriture fichier (bloquante, interdite sur UI) est
+// re-postée sur le ThreadPool. bgra/boxes reçus PAR VALEUR (copie possédée).
+void RenderAnnotatedCaptureOnUI(std::vector<uint8_t> bgra,
+                                int width,
+                                int height,
+                                int n,
+                                std::vector<CaptureBox> boxes,
+                                std::string footer) {
+  if (n < 0) {
+    return;
+  }
+  base::FilePath home;
+  if (!base::PathService::Get(base::DIR_HOME, &home)) {
+    return;
+  }
+  const base::FilePath path = home.Append("Downloads")
+                                  .Append("basarunaa-capture")
+                                  .Append(base::StringPrintf("annot_%05d.png", n));
+  SkBitmap frame;
+  frame.installPixels(
+      SkImageInfo::Make(width, height, kBGRA_8888_SkColorType,
+                        kUnpremul_SkAlphaType),
+      bgra.data(), static_cast<size_t>(width) * 4);
+  gfx::Canvas canvas(gfx::Size(width, height), 1.0f, /*is_opaque=*/true);
+  canvas.DrawImageInt(gfx::ImageSkia::CreateFromBitmap(frame, 1.0f), 0, 0);
+  const gfx::FontList font;
+  for (const auto& b : boxes) {
+    canvas.DrawSolidFocusRect(gfx::RectF(b.x, b.y, b.w, b.h), b.color, 3);
+    const int ty = std::max(0, static_cast<int>(b.y) - 15);
+    const gfx::Rect lr(static_cast<int>(b.x), ty, width, 15);
+    canvas.FillRect(lr, SkColorSetARGB(170, 0, 0, 0));
+    canvas.DrawStringRect(base::UTF8ToUTF16(b.label), font, SK_ColorWHITE, lr);
+  }
+  // Footer bas-gauche : temps modèles + résolution.
+  if (!footer.empty()) {
+    const gfx::Rect fr(4, height - 18, width - 8, 16);
+    canvas.FillRect(fr, SkColorSetARGB(190, 0, 0, 0));
+    canvas.DrawStringRect(base::UTF8ToUTF16(footer), font,
+                          SkColorSetRGB(120, 255, 120), fr);
+  }
+  auto png = gfx::PNGCodec::EncodeBGRASkBitmap(canvas.GetBitmap(),
+                                               /*discard_transparency=*/false);
+  if (png) {
+    base::ThreadPool::PostTask(
+        FROM_HERE, {base::MayBlock()},
+        base::BindOnce(
+            [](base::FilePath p, std::vector<uint8_t> d) {
+              base::WriteFile(p, d);
+            },
+            path, std::move(*png)));
+  }
 }
 
 // Décision de floutage, port de VIDEO_V2.md §4 (chemin VIDÉO, plus prudent que
@@ -100,7 +213,8 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
                          double conf_body,
                          double conf_face,
                          bool want_nsfw,
-                         double nudenet_conf) {
+                         double nudenet_conf,
+                         bool capture) {
   PoolResult res;
   std::vector<mojom::AnalyzedPersonPtr>& out = res.persons;
   float nsfw_score = -1.f;
@@ -108,12 +222,49 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
   // Marqo + NudeNet (NSFW, ~120ms) seulement quand le RFO le demande (throttle
   // ~1/s + cuts) : sinon out-params nullptr → le service saute les 2 modèles
   // (score reste -1, exposed false → l'overlay gèle le dernier verdict).
+  const auto t_analyze = base::TimeTicks::Now();
   const std::vector<DetectedPerson> persons = service->AnalyzeImageRgba(
       pixels.data(), width, height, bgra, static_cast<float>(conf_body),
       static_cast<float>(conf_face), want_nsfw ? &nsfw_score : nullptr,
       want_nsfw ? &nsfw_exposed : nullptr, static_cast<float>(nudenet_conf));
   res.nsfw_score = nsfw_score;
   res.nsfw_exposed = nsfw_exposed;
+  const double analyze_ms =
+      (base::TimeTicks::Now() - t_analyze).InMillisecondsF();
+  // Capture mode : RAW (frame propre) écrit ici sur le pool ; l'ANNOTÉE (labels
+  // texte via gfx::FontList) est rendue sur le thread UI (obligatoire), puis
+  // ré-écrite sur le pool. Chaque analyse (~1/s) tant que la pref est ON.
+  if (capture) {
+    const int n = SaveCaptureRaw(pixels, width, height);
+    // Footer bas-gauche : temps de TOUS les modèles + résolution d'analyse.
+    const std::string footer = base::StringPrintf(
+        "analyse %.0f ms · %dx%d · pose+visage+genre+corps%s", analyze_ms,
+        width, height, want_nsfw ? "+nsfw" : "");
+    std::vector<CaptureBox> boxes;
+    boxes.reserve(persons.size());
+    auto tag = [](Gender g) {
+      return g == Gender::kFemale ? "F" : g == Gender::kMale ? "H" : "?";
+    };
+    for (const DetectedPerson& p : persons) {
+      CaptureBox b;
+      b.x = p.x;
+      b.y = p.y;
+      b.w = p.w;
+      b.h = p.h;
+      b.color = p.gender == Gender::kFemale ? SkColorSetRGB(255, 20, 147)
+                : p.gender == Gender::kMale ? SkColorSetRGB(30, 144, 255)
+                                            : SkColorSetRGB(255, 204, 0);
+      b.label = base::StringPrintf(
+          "%s %.0f%% | vis %s %.0f%% cor %s %.0f%%", tag(p.gender),
+          (p.gender_conf >= 0 ? p.gender_conf : 0.f) * 100, tag(p.face_gender),
+          (p.face_conf >= 0 ? p.face_conf : 0.f) * 100, tag(p.body_gender),
+          (p.body_conf >= 0 ? p.body_conf : 0.f) * 100);
+      boxes.push_back(std::move(b));
+    }
+    content::GetUIThreadTaskRunner({})->PostTask(
+        FROM_HERE, base::BindOnce(&RenderAnnotatedCaptureOnUI, pixels, width,
+                                  height, n, std::move(boxes), footer));
+  }
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
     auto ap = mojom::AnalyzedPerson::New();
@@ -132,6 +283,8 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
     ap->body_gender = GenderToInt(p.body_gender);
     ap->body_conf = p.body_conf;
     ap->has_legs = p.has_legs;
+    ap->face_lo = p.face_lo;  // DEBUG A/B résolution (0 hors mode)
+    ap->body_lo = p.body_lo;
     // Keypoints normalisés [0,1] → squelette debug + filtre min-squelette + flou
     // polygone côté overlay.
     ap->keypoints.reserve(p.keypoints.size());
@@ -220,6 +373,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   double min_skeleton = 0.0;
   double nsfw_conf = 0.50;
   double nudenet_conf = 0.50;
+  bool capture_mode = false;
   if (auto* prefs = profile->GetPrefs()) {
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
@@ -230,6 +384,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
     nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
     nudenet_conf = prefs->GetDouble(kBasarunaaNudenetConf);
+    capture_mode = prefs->GetBoolean(kBasarunaaCaptureMode);
   }
   // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
   std::string mode_reply = mode;
@@ -254,7 +409,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
        base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN},
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
                      width, height, bgra, std::move(mode), certainty, conf_body,
-                     conf_face, want_nsfw, nudenet_conf),
+                     conf_face, want_nsfw, nudenet_conf, capture_mode),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,

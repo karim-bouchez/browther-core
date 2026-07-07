@@ -119,6 +119,13 @@ struct AnalyzedPerson {
   // 17 keypoints COCO (x/y normalisés) → squelette debug + filtre min-squelette +
   // flou polygone côté overlay. Vide si le décodage pose a échoué.
   array<KeyPoint> keypoints;
+
+  // DEBUG A/B résolution (switch --basarunaa-resolution-ab) : classif VISAGE et
+  // CORPS refaite en demi-résolution (320 simulé), encodée en 1 float = signe×conf
+  // (+conf=femme, -conf=homme, 0=non classé). 0 hors mode A/B. Affiché au label
+  // debug (HI vs LO) pour juger la sensibilité à la résolution sur l'image réelle.
+  float face_lo;
+  float body_lo;
 };
 
 interface ImageAnalyzer {

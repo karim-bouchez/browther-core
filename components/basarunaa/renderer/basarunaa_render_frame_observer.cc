@@ -345,6 +345,10 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
       kps.Append(std::move(t));
     }
     box.Append(std::move(kps));
+    // b[15]/b[16] = DEBUG A/B résolution : classif visage/corps en demi-réso,
+    // encodée signe×conf (+femme/-homme, 0 hors mode --basarunaa-resolution-ab).
+    box.Append(static_cast<double>(p->face_lo));
+    box.Append(static_cast<double>(p->body_lo));
     boxes.Append(std::move(box));
   }
   base::DictValue dict;
