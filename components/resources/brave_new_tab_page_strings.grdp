@@ -281,6 +281,10 @@
     People blurred
   </message>
 
+  <message name="IDS_NEW_TAB_BROWTHER_AD_LABEL" desc="Label shown on a third-party ad creative in the Browther NTP ad banner, to identify it as an advertisement (only when the ad server flags the creative as external via showAdLabel)" formatter_data="webui=BraveNewTabPage">
+    Ad
+  </message>
+
   <message name="IDS_NEW_TAB_STATS_TITLE" desc="Title for Brave Stats widget" formatter_data="webui=BraveNewTabPage">
     STATS
   </message>

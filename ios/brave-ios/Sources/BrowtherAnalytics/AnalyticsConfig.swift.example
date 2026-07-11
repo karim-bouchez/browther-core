@@ -26,10 +26,7 @@ enum AnalyticsConfig {
   /// Régie pub devndin-ads — base URL (POST /v1/serve, /v1/track/impressions)
   static let adsApiUrl: String = "https://ads-api.devndin.com"
 
-  /// Identifiant publisher (dashboard devndin-ads)
+  /// Identifiant publisher (dashboard devndin-ads). Mode public : aucun
+  /// secret (HMAC retiré 2026-07-11). Vide ⇒ bannière NTP masquée.
   static let adsPublisherId: String = "browther"
-
-  /// Secret HMAC publisher (Bitwarden). Signe le serve côté natif Swift — ne
-  /// touche jamais la WebView. Vide ⇒ bannière NTP masquée (aucune requête).
-  static let adsPublisherSecret: String = ""
 }

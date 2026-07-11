@@ -508,7 +508,8 @@ void NewTabPageHandler::GetBrowtherAds(GetBrowtherAdsCallback callback) {
     std::move(callback).Run({});
     return;
   }
-  // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio 3.2:1).
+  // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio piloté
+  // par le champ `ratio` du serve). Re-serve throttlé ~10 min (cache AdsClient).
   ads_client_->Serve(
       "browther-ntp-banner", /*count=*/3,
       base::BindOnce(&NewTabPageHandler::OnBrowtherAdsServed,
@@ -524,6 +525,8 @@ void NewTabPageHandler::OnBrowtherAdsServed(
     auto mojo_ad = mojom::BrowtherAd::New();
     mojo_ad->id = ad.id;
     mojo_ad->image_url = ad.image_url;
+    mojo_ad->ratio = ad.ratio;
+    mojo_ad->show_ad_label = ad.show_ad_label;
     result.push_back(std::move(mojo_ad));
   }
   std::move(callback).Run(std::move(result));

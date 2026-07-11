@@ -3,31 +3,39 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import CryptoKit
 import Foundation
 import UIKit
 import os.log
 
-/// Une pub servie par la régie devndin-ads. Seuls `id` + `imageURL` sont
-/// exposés à l'UI (parité mojom `BrowtherAd` desktop) ; le click URL et
-/// l'impression token restent dans le client (jamais affichés/loggés/dans la
-/// WebView).
+/// Une pub servie par la régie devndin-ads. `id`, `imageURL`, `ratio` et
+/// `showAdLabel` sont exposés à l'UI (parité mojom `BrowtherAd` desktop) ; le
+/// click URL et l'impression token restent dans le client (jamais
+/// affichés/loggés/dans la WebView).
 public struct BrowtherServedAd: Equatable {
   public let id: String
   public let imageURL: String
+  /// Format renvoyé par le serve (ex "3.2:1") — pilote l'aspect-ratio côté UI
+  /// (pas de valeur en dur, INTEGRATION.md § 3). Vide si absent (fallback UI).
+  public let ratio: String
+  /// true = annonceur externe → label « Pub » obligatoire sur cette créa ;
+  /// false = house ad dev&din, pas de label. Décision par slide.
+  public let showAdLabel: Bool
 }
 
 /// Client HTTP de la régie pub dev&din (`https://ads-api.devndin.com`).
 ///
-/// Port Swift natif de `components/browther_ads/ads_client.cc` (desktop). La
-/// signature HMAC du serve se fait dans le code natif : le secret publisher ne
-/// touche jamais la WebView (parité avec la règle "web → server-side only" de
-/// `ads/docs/INTEGRATION.md`).
+/// Port Swift natif de `components/browther_ads/ads_client.cc` (desktop).
+/// Mode publisher PUBLIC : header `X-Publisher-Id` seul, aucun secret embarqué
+/// (HMAC publisher retiré le 2026-07-11 — un binaire distribué ne peut pas
+/// garder un secret ; l'anti-fraude vit côté serveur : serve tokens signés
+/// serveur, TTL, dédup, rate limiting).
 ///
-/// - `serve(placement:count:)` : `POST /v1/serve` signé HMAC-SHA256, met en
-///   cache les pubs servies par `id`.
+/// - `serve(placement:count:)` : `POST /v1/serve`, re-serve throttlé à ~10 min
+///   par placement (définition officielle de l'impression, INTEGRATION.md § 4)
+///   — entre deux, le lot en cache est resservi sans requête réseau et sans
+///   re-tracker.
 /// - `markVisible(id:)` : batch les impression tokens (≤ 50 toutes les ~10 s,
-///   idempotent par `id`) puis flush `POST /v1/track/impressions`.
+///   idempotent par pub servie) puis flush `POST /v1/track/impressions`.
 /// - `clickURL(id:)` : résout l'URL de click (302 → targetUrl + log) d'une pub.
 ///
 /// Config embarquée via `AnalyticsConfig` (généré depuis `analytics.env`). Une
@@ -42,6 +50,9 @@ public final class BrowtherAdsClient {
   private static let flushDelay: TimeInterval = 10
   // Cap serveur : 50 tokens par POST (parité `kMaxImpressionBatch`).
   private static let maxImpressionBatch = 50
+  // Throttle de re-serve par placement (parité `kServeCacheTtl` desktop,
+  // INTEGRATION.md § 4). Les tokens expirent en 30 min > TTL.
+  private static let serveCacheTtl: TimeInterval = 10 * 60
 
   private let log = Logger(
     subsystem: Bundle.main.bundleIdentifier ?? "com.devndin.browther",
@@ -67,11 +78,20 @@ public final class BrowtherAdsClient {
     let impressionToken: String
   }
 
+  // Lot servi par placement, pour le throttle de re-serve 10 min.
+  private struct CachedServe {
+    let servedAt: Date
+    let ads: [BrowtherServedAd]
+  }
+
   // Pubs servies, indexées par id (résout impression token + click URL).
   private var served: [String: CachedAd] = [:]
-  // Impression tokens en attente de flush + ids déjà comptés (anti double).
+  // Cache de re-serve par placement (throttle ~10 min, INTEGRATION.md § 4).
+  private var serveCache: [String: CachedServe] = [:]
+  // Impression tokens en attente de flush + tokens déjà consommés (anti
+  // double : une pub resservie depuis le cache garde son token consommé).
   private var pendingImpressions: [String] = []
-  private var reportedIds: Set<String> = []
+  private var consumedTokens: Set<String> = []
   private var flushWorkItem: DispatchWorkItem?
 
   private init() {
@@ -87,11 +107,10 @@ public final class BrowtherAdsClient {
 
   // MARK: - Config
 
-  /// True si publisher id + secret + url sont configurés (Bitwarden → env).
+  /// True si publisher id + url sont configurés (analytics.env).
   public var isConfigured: Bool {
     !AnalyticsConfig.adsApiUrl.isEmpty
       && !AnalyticsConfig.adsPublisherId.isEmpty
-      && !AnalyticsConfig.adsPublisherSecret.isEmpty
   }
 
   // MARK: - Serve
@@ -110,8 +129,21 @@ public final class BrowtherAdsClient {
       return
     }
 
-    // Body : sérialisé une fois, signé, envoyé tel quel (INTEGRATION § 2 — la
-    // signature porte sur les octets exacts envoyés).
+    // Throttle 10 min : lot encore frais → resservi sans requête réseau (les
+    // tokens déjà consommés le restent, `consumedTokens` dédup).
+    let cachedAds: [BrowtherServedAd]? = queue.sync {
+      guard let cached = serveCache[placement],
+        Date().timeIntervalSince(cached.servedAt) < Self.serveCacheTtl
+      else {
+        return nil
+      }
+      return cached.ads
+    }
+    if let cachedAds {
+      DispatchQueue.main.async { completion(cachedAds) }
+      return
+    }
+
     let bodyDict: [String: Any] = [
       "placement": placement,
       "platform": "ios",
@@ -125,39 +157,29 @@ public final class BrowtherAdsClient {
       return
     }
 
-    // timestamp : epoch secondes (tolérance serveur ±5 min). nonce : UUID.
-    let timestamp = String(Int(Date().timeIntervalSince1970))
-    let nonce = UUID().uuidString.lowercased()
-    let signature = sign(timestamp: timestamp, nonce: nonce, body: bodyData)
-
+    // Mode publisher public : X-Publisher-Id seul, aucune signature (HMAC
+    // retiré 2026-07-11 — parité `ads_client.cc` desktop/Android).
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.httpBody = bodyData  // ⚠️ exactement les octets signés
+    request.httpBody = bodyData
     request.httpShouldHandleCookies = false
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue(AnalyticsConfig.adsPublisherId, forHTTPHeaderField: "X-Publisher-Id")
-    request.setValue(timestamp, forHTTPHeaderField: "X-Timestamp")
-    request.setValue(nonce, forHTTPHeaderField: "X-Nonce")
-    request.setValue(signature, forHTTPHeaderField: "X-Signature")
 
     session.dataTask(with: request) { [weak self] data, response, error in
-      let ads = self?.parseServeResponse(data: data, response: response, error: error) ?? []
+      let ads =
+        self?.parseServeResponse(
+          placement: placement,
+          data: data,
+          response: response,
+          error: error
+        ) ?? []
       DispatchQueue.main.async { completion(ads) }
     }.resume()
   }
 
-  /// hex(HMAC-SHA256(secret, "{timestamp}.{nonce}.{rawBody}")) — lowercase.
-  /// Le préfixe est de l'ASCII ; on lui concatène les octets bruts du body pour
-  /// reproduire à l'octet près le `StrCat` desktop (`ads_client.cc::SignBody`).
-  private func sign(timestamp: String, nonce: String, body: Data) -> String {
-    var message = Data("\(timestamp).\(nonce).".utf8)
-    message.append(body)
-    let key = SymmetricKey(data: Data(AnalyticsConfig.adsPublisherSecret.utf8))
-    let mac = HMAC<SHA256>.authenticationCode(for: message, using: key)
-    return Data(mac).map { String(format: "%02x", $0) }.joined()
-  }
-
   private func parseServeResponse(
+    placement: String,
     data: Data?,
     response: URLResponse?,
     error: Error?
@@ -189,17 +211,24 @@ public final class BrowtherAdsClient {
       }
       let clickURL = ad["clickUrl"] as? String ?? ""
       let token = ad["impressionToken"] as? String ?? ""
+      // Champ absent (vieux cache serveur) → house ad, pas de label.
+      let showAdLabel = ad["showAdLabel"] as? Bool ?? false
+      let ratio = ad["ratio"] as? String ?? ""
       freshCache[id] = CachedAd(clickURL: clickURL, impressionToken: token)
-      result.append(BrowtherServedAd(id: id, imageURL: imageURL))
+      result.append(
+        BrowtherServedAd(id: id, imageURL: imageURL, ratio: ratio, showAdLabel: showAdLabel)
+      )
     }
 
-    // Met à jour le cache sur la queue (thread-safe). Enqueué avant que la
+    // Met à jour les caches sur la queue (thread-safe). Enqueué avant que la
     // completion main n'arrive → `markVisible`/`clickURL` voient bien le cache.
     queue.async { [weak self] in
       guard let self else { return }
       for (id, cached) in freshCache {
         self.served[id] = cached
       }
+      // Alimente le throttle 10 min de re-serve pour ce placement.
+      self.serveCache[placement] = CachedServe(servedAt: Date(), ads: result)
     }
     return result
   }
@@ -207,13 +236,15 @@ public final class BrowtherAdsClient {
   // MARK: - Impressions
 
   /// Signale qu'une pub (par `id`) est devenue réellement visible. Batch +
-  /// flush différé des impression tokens. Idempotent par `id`.
+  /// flush différé des impression tokens. Idempotent par pub SERVIE : une pub
+  /// resservie depuis le cache 10 min garde le même token, déjà consommé si
+  /// elle a déjà été vue.
   public func markVisible(id: String) {
     queue.async { [weak self] in
       guard let self else { return }
       guard let cached = self.served[id], !cached.impressionToken.isEmpty else { return }
-      guard !self.reportedIds.contains(id) else { return }
-      self.reportedIds.insert(id)
+      guard !self.consumedTokens.contains(cached.impressionToken) else { return }
+      self.consumedTokens.insert(cached.impressionToken)
       self.pendingImpressions.append(cached.impressionToken)
       self.scheduleFlushLocked()
     }

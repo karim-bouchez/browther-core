@@ -1,19 +1,23 @@
 // Copyright 2026 dev&din. All rights reserved.
 // Browther — NTP ad banner section (régie devndin-ads)
 
+import BraveShields
+import BraveStrings
 import BraveUI
 import BrowtherAnalytics
 import Foundation
 import SnapKit
 import UIKit
 
-/// Bannière pub devndin-ads sous les favoris du NTP. Carousel ratio 3.2:1,
-/// parité desktop `browther_ad_banner.tsx` + `ads/docs/INTEGRATION.md`.
+/// Bannière pub devndin-ads sous les favoris du NTP. Carousel paginé,
+/// aspect-ratio piloté par le champ `ratio` du serve, label « Pub » par slide
+/// si `showAdLabel` (annonceur externe) — parité desktop
+/// `browther_ad_banner.tsx` + `ads/docs/INTEGRATION.md` § 3.
 ///
-/// Le serve signé HMAC, le batching des impressions et la résolution du click
-/// URL vivent dans `BrowtherAdsClient` (module BrowtherAnalytics) — le secret
-/// publisher ne touche jamais ce provider. Seuls `id` + `imageURL` traversent
-/// jusqu'ici (parité mojom `BrowtherAd` desktop).
+/// Le serve (mode public X-Publisher-Id, re-serve throttlé ~10 min), le
+/// batching des impressions et la résolution du click URL vivent dans
+/// `BrowtherAdsClient` (module BrowtherAnalytics). Seuls `id`, `imageURL`,
+/// `ratio` et `showAdLabel` traversent jusqu'ici (parité mojom `BrowtherAd`).
 class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
   private static let placement = "browther-ntp-banner"
 
@@ -77,8 +81,10 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
     let width = fittingSizeForCollectionView(collectionView, section: indexPath.section).width
-    // Ratio 3.2:1 (parité desktop, cf. ads/docs/INTEGRATION.md § 3).
-    let height = width / 3.2
+    // Aspect-ratio piloté par le champ `ratio` du serve (pas de valeur en
+    // dur, cf. ads/docs/INTEGRATION.md § 3) ; le placement a un format
+    // unique, toutes les pubs du lot partagent le même ratio.
+    let height = width / Self.aspect(of: ads.first)
     return CGSize(width: width, height: height)
   }
 
@@ -88,6 +94,18 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     insetForSectionAt section: Int
   ) -> UIEdgeInsets {
     UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+  }
+
+  /// "3.2:1" → 3.2 ; fallback si champ absent/illisible (vieux cache serveur).
+  private static func aspect(of ad: BrowtherServedAd?) -> CGFloat {
+    let parts = (ad?.ratio ?? "").split(separator: ":")
+    guard parts.count == 2,
+      let w = Double(parts[0]), let h = Double(parts[1]),
+      w > 0, h > 0
+    else {
+      return 3.2
+    }
+    return CGFloat(w / h)
   }
 }
 
@@ -225,7 +243,8 @@ extension BrowtheAdCarouselCell: UICollectionViewDataSource, UICollectionViewDel
   ) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(for: indexPath) as BrowtheAdImageCell
     if ads.indices.contains(indexPath.item) {
-      cell.configure(imageURL: ads[indexPath.item].imageURL)
+      let ad = ads[indexPath.item]
+      cell.configure(imageURL: ad.imageURL, showAdLabel: ad.showAdLabel)
     }
     return cell
   }
@@ -269,14 +288,41 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     $0.backgroundColor = UIColor(white: 0.2, alpha: 0.8)
   }
 
+  /// UILabel avec padding horizontal (chip).
+  private class PaddedLabel: UILabel {
+    override var intrinsicContentSize: CGSize {
+      let size = super.intrinsicContentSize
+      return CGSize(width: size.width + 14, height: size.height + 4)
+    }
+  }
+
+  /// Label « Pub » (annonceur externe, `showAdLabel`) : chip semi-transparente
+  /// coin supérieur, posée DANS la slide — elle glisse avec sa créa
+  /// (INTEGRATION.md § 3, exécution mobile de référence).
+  private let adLabel: UILabel = PaddedLabel().then {
+    $0.text = Strings.Shields.browtherAdLabel
+    $0.font = .systemFont(ofSize: 11, weight: .semibold)
+    $0.textColor = .white
+    $0.backgroundColor = UIColor(white: 0, alpha: 0.6)
+    $0.textAlignment = .center
+    $0.layer.cornerRadius = 6
+    $0.layer.cornerCurve = .continuous
+    $0.clipsToBounds = true
+    $0.isHidden = true
+  }
+
   private var imageTask: URLSessionDataTask?
   private var currentURL: String?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
     contentView.addSubview(imageView)
+    contentView.addSubview(adLabel)
     imageView.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+    adLabel.snp.makeConstraints {
+      $0.top.leading.equalToSuperview().inset(10)
     }
   }
 
@@ -285,10 +331,11 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     fatalError()
   }
 
-  func configure(imageURL: String) {
+  func configure(imageURL: String, showAdLabel: Bool) {
     currentURL = imageURL
     imageView.image = nil
     imageView.alpha = 0
+    adLabel.isHidden = !showAdLabel
 
     guard let url = URL(string: imageURL) else { return }
 
@@ -311,5 +358,6 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     currentURL = nil
     imageView.image = nil
     imageView.alpha = 0
+    adLabel.isHidden = true
   }
 }

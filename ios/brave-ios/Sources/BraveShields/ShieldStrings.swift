@@ -62,6 +62,15 @@ extension Strings {
       value: "d",
       comment: "Time Saved Days"
     )
+    // Browther : label « Pub » de la bannière devndin-ads (NTP). Affiché
+    // uniquement quand la régie flague la créa `showAdLabel` (annonceur
+    // externe) — cf. ads/docs/INTEGRATION.md § 3.
+    public static let browtherAdLabel = NSLocalizedString(
+      "BrowtherAdLabel",
+      bundle: .module,
+      value: "Ad",
+      comment: "Browther: label identifying a third-party ad creative in the NTP ad banner"
+    )
     // Browther : labels NTP stats Sawtunaa / Basarunaa.
     public static let musicRemovedStat = NSLocalizedString(
       "MusicRemovedStat",

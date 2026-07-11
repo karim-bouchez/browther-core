@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,10 @@ class BrowtherAdPagerAdapter extends RecyclerView.Adapter<BrowtherAdPagerAdapter
                 CORNER_RADIUS_DP,
                 holder.mImageView,
                 /* callback= */ null);
+        // Label « Pub » par slide : uniquement si showAdLabel (annonceur
+        // externe) — les house ads dev&din n'en portent pas. Décision par
+        // slide, un lot peut mélanger (INTEGRATION.md § 3).
+        holder.mLabelView.setVisibility(ad.showAdLabel ? View.VISIBLE : View.GONE);
         // Click → l'API log puis 302 vers la destination (résolu par le client C++).
         holder.itemView.setOnClickListener(view -> mClickListener.onAdClick(ad.id));
     }
@@ -74,10 +79,12 @@ class BrowtherAdPagerAdapter extends RecyclerView.Adapter<BrowtherAdPagerAdapter
 
     static class AdViewHolder extends RecyclerView.ViewHolder {
         final ImageView mImageView;
+        final TextView mLabelView;
 
         AdViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.browther_ad_image);
+            mLabelView = (TextView) itemView.findViewById(R.id.browther_ad_label);
         }
     }
 }

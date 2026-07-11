@@ -14,6 +14,7 @@
 #include "base/json/json_reader.h"
 #include "base/json/json_writer.h"
 #include "base/logging.h"
+#include "base/no_destructor.h"
 #include "base/strings/strcat.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/time/time.h"
@@ -41,6 +42,34 @@ constexpr base::TimeDelta kImpressionFlushDelay = base::Seconds(10);
 
 // Cap serveur : 50 tokens par POST /v1/track/impressions.
 constexpr size_t kMaxImpressionBatch = 50;
+
+// Throttle de re-serve par placement (INTEGRATION.md § 4 : « 1 impression =
+// un affichage réellement vu, max ~1 par tranche de 10 min par appareil et
+// par placement »). Entre deux serves, on ressert le même lot depuis un cache
+// process-wide, sans requête réseau. Les tokens expirent en 30 min > TTL.
+constexpr base::TimeDelta kServeCacheTtl = base::Minutes(10);
+
+// Lot servi mis en cache pour le throttle ci-dessus.
+struct CachedServe {
+  base::TimeTicks served_at;
+  std::vector<ServedAd> ads;
+};
+
+// Caches process-wide (UI thread uniquement — desktop instancie un AdsClient
+// par NTP, Android un singleton ; les deux appellent depuis le UI thread) :
+// - lot servi par placement (throttle 10 min) ;
+// - tokens d'impression déjà consommés (une pub resservie depuis le cache par
+//   un autre onglet ne re-tracke pas — le serveur dédupliquerait de toute
+//   façon par serve_id, on évite juste le trafic inutile).
+base::flat_map<std::string, CachedServe>& GetServeCache() {
+  static base::NoDestructor<base::flat_map<std::string, CachedServe>> cache;
+  return *cache;
+}
+
+base::flat_map<std::string, bool>& GetConsumedTokens() {
+  static base::NoDestructor<base::flat_map<std::string, bool>> tokens;
+  return *tokens;
+}
 
 // Plateforme envoyée au serve (alimente le breakdown dashboard). Le même code
 // C++ build pour macOS, Windows desktop et Android ; on reporte la vraie
@@ -141,6 +170,19 @@ void AdsClient::Serve(const std::string& placement,
     return;
   }
 
+  // Throttle 10 min : lot encore frais → resservi sans requête réseau. On
+  // réindexe les pubs dans cette instance pour que MarkVisible/GetClickURL
+  // fonctionnent aussi dans un onglet qui n'a pas fait le serve d'origine.
+  auto cached = GetServeCache().find(placement);
+  if (cached != GetServeCache().end() &&
+      base::TimeTicks::Now() - cached->second.served_at < kServeCacheTtl) {
+    for (const ServedAd& ad : cached->second.ads) {
+      served_[ad.id] = ad;
+    }
+    std::move(callback).Run(cached->second.ads);
+    return;
+  }
+
   base::DictValue payload;
   payload.Set("placement", placement);
   payload.Set("platform", kPlatform);
@@ -171,11 +213,12 @@ void AdsClient::Serve(const std::string& placement,
   loader_ptr->DownloadToString(
       url_loader_factory_.get(),
       base::BindOnce(&AdsClient::OnServeComplete, weak_factory_.GetWeakPtr(),
-                     std::move(callback), std::move(loader)),
+                     placement, std::move(callback), std::move(loader)),
       /*max_body_size=*/64 * 1024);
 }
 
 void AdsClient::OnServeComplete(
+    const std::string& placement,
     ServeCallback callback,
     std::unique_ptr<network::SimpleURLLoader> loader,
     std::optional<std::string> response_body) {
@@ -216,6 +259,7 @@ void AdsClient::OnServeComplete(
     const std::string* image_url = ad->FindString("imageUrl");
     const std::string* click_url = ad->FindString("clickUrl");
     const std::string* impression_token = ad->FindString("impressionToken");
+    const std::string* ratio = ad->FindString("ratio");
     if (!id || !image_url || id->empty() || image_url->empty()) {
       continue;
     }
@@ -226,9 +270,16 @@ void AdsClient::OnServeComplete(
     served.click_url = click_url ? *click_url : std::string();
     served.impression_token =
         impression_token ? *impression_token : std::string();
+    served.ratio = ratio ? *ratio : std::string();
+    // Champ absent (vieux cache serveur) → house ad, pas de label.
+    served.show_ad_label = ad->FindBool("showAdLabel").value_or(false);
     served_[served.id] = served;
     result.push_back(std::move(served));
   }
+
+  // Alimente le throttle 10 min : le prochain serve de ce placement (autre
+  // onglet, même onglet) resservira ce lot sans requête réseau.
+  GetServeCache()[placement] = {base::TimeTicks::Now(), result};
 
   std::move(callback).Run(std::move(result));
 }
@@ -238,12 +289,15 @@ void AdsClient::MarkVisible(const std::string& id) {
   if (it == served_.end() || it->second.impression_token.empty()) {
     return;
   }
-  // Idempotent : une impression par pub servie.
-  if (reported_ids_.contains(id)) {
+  // Idempotent process-wide par token : une impression par pub SERVIE (pas
+  // par affichage) — une pub resservie depuis le cache 10 min garde le même
+  // token, déjà consommé si elle a déjà été vue dans un autre onglet.
+  const std::string& token = it->second.impression_token;
+  if (GetConsumedTokens().contains(token)) {
     return;
   }
-  reported_ids_[id] = true;
-  pending_impressions_.push_back(it->second.impression_token);
+  GetConsumedTokens()[token] = true;
+  pending_impressions_.push_back(token);
   ScheduleImpressionFlush();
 }
 

@@ -53,22 +53,31 @@ AdsClient* GetAdsClient() {
   return client->get();
 }
 
-// Renvoie les pubs servies au Java : seuls id + image_url traversent le JNI
-// (parité mojom BrowtherAd desktop ; click_url + impression_token restent ici).
+// Renvoie les pubs servies au Java : id + image_url + ratio + show_ad_label
+// traversent le JNI (parité mojom BrowtherAd desktop ; click_url +
+// impression_token restent ici).
 void OnAdsServed(const base::android::ScopedJavaGlobalRef<jobject>& callback,
                  std::vector<ServedAd> ads) {
   JNIEnv* env = base::android::AttachCurrentThread();
   std::vector<std::string> ids;
   std::vector<std::string> image_urls;
+  std::vector<std::string> ratios;
+  std::vector<bool> show_ad_labels;
   ids.reserve(ads.size());
   image_urls.reserve(ads.size());
+  ratios.reserve(ads.size());
+  show_ad_labels.reserve(ads.size());
   for (const ServedAd& ad : ads) {
     ids.push_back(ad.id);
     image_urls.push_back(ad.image_url);
+    ratios.push_back(ad.ratio);
+    show_ad_labels.push_back(ad.show_ad_label);
   }
   Java_BrowtherAdsBridge_onAdsServed(
       env, callback, base::android::ToJavaArrayOfStrings(env, ids),
-      base::android::ToJavaArrayOfStrings(env, image_urls));
+      base::android::ToJavaArrayOfStrings(env, image_urls),
+      base::android::ToJavaArrayOfStrings(env, ratios),
+      base::android::ToJavaBooleanArray(env, show_ad_labels));
 }
 
 }  // namespace
@@ -87,7 +96,8 @@ void JNI_BrowtherAdsBridge_Serve(
     OnAdsServed(callback, {});
     return;
   }
-  // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio 3.2:1),
+  // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio piloté
+  // par le champ `ratio` du serve), re-serve throttlé ~10 min (cache AdsClient),
   // parité NewTabPageHandler::GetBrowtherAds desktop.
   client->Serve("browther-ntp-banner", /*count=*/3,
                 base::BindOnce(&OnAdsServed, std::move(callback)));

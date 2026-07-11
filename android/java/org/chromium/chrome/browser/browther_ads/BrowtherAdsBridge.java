@@ -15,11 +15,12 @@ import org.chromium.build.annotations.NullMarked;
  * Bridge JNI vers le client C++ {@code browther_ads::AdsClient} (régie pub
  * dev&din {@code ads-api.devndin.com}).
  *
- * <p>Le serve est <b>signé HMAC-SHA256 côté natif</b> : le secret publisher
- * (embarqué dans {@code ads_config.h}) ne touche jamais le Java. Seuls
- * {@code id} + {@code imageUrl} d'une pub traversent le JNI (parité mojom
- * {@code BrowtherAd} desktop + port iOS {@code BrowtherServedAd}) ; le click URL
- * et l'impression token restent dans le client C++.
+ * <p>Serve en mode publisher <b>public</b> ({@code X-Publisher-Id} seul, aucun
+ * secret embarqué — HMAC retiré 2026-07-07, l'anti-fraude vit côté serveur).
+ * Seuls {@code id}, {@code imageUrl}, {@code ratio} et {@code showAdLabel}
+ * traversent le JNI (parité mojom {@code BrowtherAd} desktop + port iOS
+ * {@code BrowtherServedAd}) ; le click URL et l'impression token restent dans
+ * le client C++.
  *
  * <p>Sémantique (parité {@code components/browther_ads/ads_client.cc}) :
  * <ul>
@@ -40,16 +41,31 @@ public final class BrowtherAdsBridge {
     private BrowtherAdsBridge() {}
 
     /**
-     * Une pub servie exposée à l'UI. Seuls {@code id} + {@code imageUrl}
-     * traversent le JNI (parité mojom {@code BrowtherAd}).
+     * Une pub servie exposée à l'UI (parité mojom {@code BrowtherAd}) ; le
+     * click URL et l'impression token restent côté C++.
      */
     public static final class Ad {
         public final String id;
         public final String imageUrl;
 
-        Ad(String id, String imageUrl) {
+        /**
+         * Format renvoyé par le serve (ex {@code "3.2:1"}) — pilote
+         * l'aspect-ratio côté UI (pas de valeur en dur, INTEGRATION.md § 3).
+         * Chaîne vide si absent (fallback UI).
+         */
+        public final String ratio;
+
+        /**
+         * true = annonceur externe → label « Pub » obligatoire sur cette créa ;
+         * false = house ad dev&din, pas de label. Décision par slide.
+         */
+        public final boolean showAdLabel;
+
+        Ad(String id, String imageUrl, String ratio, boolean showAdLabel) {
             this.id = id;
             this.imageUrl = imageUrl;
+            this.ratio = ratio;
+            this.showAdLabel = showAdLabel;
         }
     }
 
@@ -60,7 +76,7 @@ public final class BrowtherAdsBridge {
     }
 
     /**
-     * True si la régie est configurée (publisher id + secret + url embarqués).
+     * True si la régie est configurée (publisher id + url embarqués).
      * Sinon inutile de {@link #serve(AdsCallback)} : aucune requête ne partira.
      */
     public static boolean isConfigured() {
@@ -69,8 +85,10 @@ public final class BrowtherAdsBridge {
 
     /**
      * Récupère jusqu'à 3 pubs pour le placement {@code browther-ntp-banner}.
-     * {@code POST /v1/serve} signé HMAC côté natif. Best effort : {@code callback}
-     * reçoit un tableau vide sur erreur / config absente (jamais d'échec dur).
+     * {@code POST /v1/serve} côté natif, re-serve throttlé à ~10 min par
+     * placement (cache C++ process-wide, INTEGRATION.md § 4). Best effort :
+     * {@code callback} reçoit un tableau vide sur erreur / config absente
+     * (jamais d'échec dur).
      */
     public static void serve(AdsCallback callback) {
         BrowtherAdsBridgeJni.get().serve(callback);
@@ -93,11 +111,21 @@ public final class BrowtherAdsBridge {
     }
 
     @CalledByNative
-    private static void onAdsServed(AdsCallback callback, String[] ids, String[] imageUrls) {
+    private static void onAdsServed(
+            AdsCallback callback,
+            String[] ids,
+            String[] imageUrls,
+            String[] ratios,
+            boolean[] showAdLabels) {
         int count = Math.min(ids.length, imageUrls.length);
         Ad[] ads = new Ad[count];
         for (int i = 0; i < count; i++) {
-            ads[i] = new Ad(ids[i], imageUrls[i]);
+            ads[i] =
+                    new Ad(
+                            ids[i],
+                            imageUrls[i],
+                            i < ratios.length ? ratios[i] : "",
+                            i < showAdLabels.length && showAdLabels[i]);
         }
         callback.onAdsReceived(ads);
     }

@@ -76,6 +76,12 @@ enum ClockFormat { kAuto, k12, k24 };
 struct BrowtherAd {
   string id;
   string image_url;
+  // Format renvoyé par le serve (ex "3.2:1") — pilote l'aspect-ratio côté UI
+  // (pas de valeur en dur, cf. ads/docs/INTEGRATION.md § 3).
+  string ratio;
+  // true = annonceur externe → label « Pub » obligatoire sur cette créa ;
+  // false = house ad dev&din, pas de label. Décision par slide.
+  bool show_ad_label;
 };
 
 struct ShieldsStats {

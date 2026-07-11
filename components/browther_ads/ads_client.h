@@ -41,6 +41,13 @@ struct ServedAd {
   std::string image_url;
   std::string click_url;
   std::string impression_token;
+  // Format du placement renvoyé par le serve (ex "3.2:1") — pilote
+  // l'aspect-ratio côté UI (jamais de valeur en dur, cf. INTEGRATION.md § 3).
+  std::string ratio;
+  // true = annonceur externe → le label « Pub » DOIT être affiché sur cette
+  // créa ; false/absent = house ad dev&din, pas de label. Décision par pub
+  // (un carousel peut mélanger), pilotée par le dashboard de la régie.
+  bool show_ad_label = false;
 };
 
 // Client HTTP minimal pour la régie pub dev&din (https://ads-api.devndin.com).
@@ -56,7 +63,7 @@ struct ServedAd {
 // private/configs/analytics.env). Une config vide → IsConfigured() false →
 // aucune requête réseau, bannière masquée proprement.
 //
-// Pas de SDK : signature HMAC-SHA256 + POST JSON, calqué sur INTEGRATION.md.
+// Pas de SDK : de simples POST JSON, calqués sur INTEGRATION.md.
 class AdsClient {
  public:
   explicit AdsClient(
@@ -74,6 +81,11 @@ class AdsClient {
   // Récupère jusqu'à `count` pubs pour `placement`. Best effort : sur erreur
   // réseau / 4xx / config absente, renvoie un vecteur vide (jamais d'échec dur
   // — l'UI masque simplement la bannière).
+  //
+  // Re-serve throttlé à ~10 min par placement (définition officielle de
+  // l'impression, INTEGRATION.md § 4) : le lot servi est mis en cache
+  // process-wide ; entre deux, on ressert les mêmes pubs sans requête réseau
+  // et sans re-tracker (les tokens déjà consommés le restent, dédup globale).
   void Serve(const std::string& placement, int count, ServeCallback callback);
 
   // Signale qu'une pub (par `id`) est devenue réellement visible. Batch +
@@ -84,7 +96,8 @@ class AdsClient {
   GURL GetClickURL(const std::string& id) const;
 
  private:
-  void OnServeComplete(ServeCallback callback,
+  void OnServeComplete(const std::string& placement,
+                       ServeCallback callback,
                        std::unique_ptr<network::SimpleURLLoader> loader,
                        std::optional<std::string> response_body);
   void ScheduleImpressionFlush();
@@ -99,9 +112,10 @@ class AdsClient {
   // Pubs servies dans cet onglet, indexées par id (résout impression/click).
   base::flat_map<std::string, ServedAd> served_;
 
-  // Impression tokens en attente de flush + ids déjà comptés (anti double).
+  // Impression tokens en attente de flush. L'anti-double vit dans un set
+  // process-wide de tokens consommés (cf. .cc) : une pub resservie depuis le
+  // cache 10 min par un autre onglet ne re-tracke pas.
   std::vector<std::string> pending_impressions_;
-  base::flat_map<std::string, bool> reported_ids_;
   base::OneShotTimer flush_timer_;
 
   base::WeakPtrFactory<AdsClient> weak_factory_{this};
