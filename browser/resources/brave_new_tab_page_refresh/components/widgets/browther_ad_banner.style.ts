@@ -83,25 +83,40 @@ export const style = scoped.css`
     pointer-events: none;
   }
 
-  /* Flèches : toujours visibles (pas de hover-only), à cheval sur les bords
-     de la créa, style contrôle de l'app. Rendues seulement hors extrémités
-     et si plusieurs pubs (cf. tsx). */
+  /* Flèches : au survol du carousel uniquement, en overlay DANS la créa,
+     style scrim (rond sombre semi-transparent — langage universel de contrôle
+     de carousel, non confondable avec un CTA de la pub ; exécution validée
+     Darsunaa web, cf. INTEGRATION.md § 3 principe 3). Rendues seulement hors
+     extrémités et si plusieurs pubs (cf. tsx). */
   .arrow {
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     padding: 0;
-    border: 1px solid ${color.divider.subtle};
+    border: none;
     border-radius: 50%;
-    background: ${color.container.background};
-    color: ${color.icon.default};
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms, background 150ms;
+  }
+
+  .carousel-wrapper:hover .arrow,
+  .arrow:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .arrow svg {
@@ -110,13 +125,11 @@ export const style = scoped.css`
   }
 
   .arrow-prev {
-    inset-inline-start: 0;
-    transform: translate(-50%, -50%);
+    inset-inline-start: 8px;
   }
 
   .arrow-next {
-    inset-inline-end: 0;
-    transform: translate(50%, -50%);
+    inset-inline-end: 8px;
   }
 
   /* Dots : overlay bas-centre de la créa, nus (pas de pastille de fond),
