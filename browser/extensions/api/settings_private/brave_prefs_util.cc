@@ -121,6 +121,10 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
   (*s_brave_allowlist)[p3a::kP3AEnabled] = settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaMode] =
       settings_api::PrefType::kString;  // Browther: Basarunaa mode
+  (*s_brave_allowlist)[kBasarunaaNsfwEnabled] =
+      settings_api::PrefType::kBoolean;
+  (*s_brave_allowlist)[kBasarunaaCensorEyes] =
+      settings_api::PrefType::kBoolean;  // Browther: censure des yeux
   (*s_brave_allowlist)[kBasarunaaConfBody] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaConfFace] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaGenderCertainty] =

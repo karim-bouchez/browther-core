@@ -367,6 +367,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   double min_skeleton = 0.0;
   double nsfw_conf = 0.50;
   double nudenet_conf = 0.50;
+  bool nsfw_enabled = false;  // détection NSFW opt-in (off = latence optimale)
   bool capture_mode = false;
   // Debug-UI verrouillé (prod sans --basarunaa-debug-ui) → on IGNORE les prefs
   // debug et on garde les défauts sûrs : debug_mode="none" (aucun overlay),
@@ -382,12 +383,18 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
     nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
     nudenet_conf = prefs->GetDouble(kBasarunaaNudenetConf);
+    nsfw_enabled = prefs->GetBoolean(kBasarunaaNsfwEnabled);
     if (debug_ui) {
       debug_mode = prefs->GetString(kBasarunaaDebugMode);
       blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
       capture_mode = prefs->GetBoolean(kBasarunaaCaptureMode);
     }
   }
+  // NSFW opt-in : si la pref est off, on n'exécute JAMAIS Marqo+NudeNet (le RFO
+  // peut demander want_nsfw sur les cuts/1s, mais Marqo est CPU-bound ~120ms et
+  // sérialise sur analyze_mutex_ → sinon il starve la détection de genre ~14ms).
+  want_nsfw = want_nsfw && nsfw_enabled;
+
   // Copie pour le reply (le pool consomme `mode` par move pour le flag repli).
   std::string mode_reply = mode;
 

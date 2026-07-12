@@ -205,16 +205,18 @@
       content: '🛠';
       font-size: 14px;
     }
-    .dev-section .toggle-row {
+    /* Layout des toggle-rows (utilisé par « Ignorer les mains seules »,
+       « Censurer les yeux » dans les sections user + les toggles debug). */
+    .section .toggle-row {
       display: flex; align-items: flex-start;
       justify-content: space-between; gap: 12px;
       margin-top: 10px;
     }
-    .dev-section .text { flex: 1; }
-    .dev-section .label {
+    .section .text { flex: 1; }
+    .section .label {
       font-size: 13px; font-weight: 500;
     }
-    .dev-section .desc-small {
+    .section .desc-small {
       font-size: 11px; opacity: 0.7; margin-top: 2px;
     }
     /* Toggle compact pour la section debug. */
@@ -265,6 +267,20 @@
       <label><input type="radio" name="mode" value="blur-female">$i18n{modeFemale}</label>
       <label><input type="radio" name="mode" value="blur-male">$i18n{modeMale}</label>
       <label><input type="radio" name="mode" value="blur-all">$i18n{modeAll}</label>
+    </div>
+    <div class="toggle-row">
+      <div class="text">
+        <div class="label">Censurer les yeux</div>
+        <div class="desc-small">Efface les yeux de toutes les personnes visibles (hommes, femmes, enfants) en reconstruisant la peau — indépendamment du mode ci-dessus. Les personnes déjà floutées par le mode ne sont pas concernées.</div>
+      </div>
+      <input type="checkbox" class="small-toggle" id="censor-eyes-toggle" aria-label="Censurer les yeux">
+    </div>
+    <div class="toggle-row">
+      <div class="text">
+        <div class="label">Détection NSFW</div>
+        <div class="desc-small">Floute l'image entière si un contenu explicite est détecté (photos de nu, parties intimes). Désactivé par défaut pour une meilleure réactivité — activez-le si vous le souhaitez.</div>
+      </div>
+      <input type="checkbox" class="small-toggle" id="nsfw-toggle" aria-label="Détection NSFW">
     </div>
   </div>
 

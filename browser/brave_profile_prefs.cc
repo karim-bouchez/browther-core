@@ -438,6 +438,8 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kSawtunaaEnabled, false);  // Browther: Sawtunaa
   registry->RegisterBooleanPref(kBasarunaaEnabled, true);  // Browther: Basarunaa (default ON, blur women)
   registry->RegisterStringPref(kBasarunaaMode, "blur-female");  // Browther: Basarunaa mode
+  registry->RegisterBooleanPref(kBasarunaaCensorEyes, false);  // Browther: censure des yeux (opt-in)
+  registry->RegisterBooleanPref(kBasarunaaNsfwEnabled, false);  // Browther: détection NSFW (opt-in, off = meilleure latence)
   registry->RegisterDoublePref(kBasarunaaConfBody, 0.25);
   registry->RegisterDoublePref(kBasarunaaConfFace, 0.30);
   registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);

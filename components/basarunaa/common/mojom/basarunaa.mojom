@@ -41,6 +41,12 @@ interface PanelHandler {
   GetCensorEyes() => (bool enabled);
   SetCensorEyes(bool enabled);
 
+  // Read/write NSFW detection (Marqo plein cadre + NudeNet). Opt-in, default off :
+  // Marqo est CPU-bound (~120ms) → off = latence optimale (genre seul). L'utilisateur
+  // l'active s'il veut le flou plein cadre sur contenu explicite.
+  GetNsfwEnabled() => (bool enabled);
+  SetNsfwEnabled(bool enabled);
+
   // Detection threshold sliders (double in [0.0, 1.0]).
   // Browther dev tuning : sentinel_conf (NanoDet vidéo), min_skeleton (filtre
   // anti-faux-positifs), nsfw_conf (Marqo), nudenet_conf (parties explicites).

@@ -49,6 +49,24 @@ void BasarunaaPanelHandler::SetMode(const std::string& mode) {
   profile_->GetPrefs()->SetString(kBasarunaaMode, mode);
 }
 
+void BasarunaaPanelHandler::GetCensorEyes(GetCensorEyesCallback callback) {
+  std::move(callback).Run(
+      profile_->GetPrefs()->GetBoolean(kBasarunaaCensorEyes));
+}
+
+void BasarunaaPanelHandler::SetCensorEyes(bool enabled) {
+  profile_->GetPrefs()->SetBoolean(kBasarunaaCensorEyes, enabled);
+}
+
+void BasarunaaPanelHandler::GetNsfwEnabled(GetNsfwEnabledCallback callback) {
+  std::move(callback).Run(
+      profile_->GetPrefs()->GetBoolean(kBasarunaaNsfwEnabled));
+}
+
+void BasarunaaPanelHandler::SetNsfwEnabled(bool enabled) {
+  profile_->GetPrefs()->SetBoolean(kBasarunaaNsfwEnabled, enabled);
+}
+
 void BasarunaaPanelHandler::GetSliders(GetSlidersCallback callback) {
   auto* prefs = profile_->GetPrefs();
   std::move(callback).Run(prefs->GetDouble(kBasarunaaConfBody),

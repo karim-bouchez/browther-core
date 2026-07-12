@@ -83,6 +83,14 @@ inline constexpr char kBasarunaaSentinelConf[] =
 inline constexpr char kBasarunaaMinSkeleton[] = "brave.basarunaa.min_skeleton";
 inline constexpr char kBasarunaaNsfwConf[] = "brave.basarunaa.nsfw_conf";
 inline constexpr char kBasarunaaNudenetConf[] = "brave.basarunaa.nudenet_conf";
+// Browther: détection NSFW (Marqo plein cadre + NudeNet parties exposées) —
+// opt-in, default false. Marqo est CPU-bound (~120ms, CoreML ne l'accélère pas)
+// → coupé par défaut pour garder une latence optimale (genre seul ~14ms).
+inline constexpr char kBasarunaaNsfwEnabled[] = "brave.basarunaa.nsfw_enabled";
+// Browther: censure des yeux — reconstruction de peau (heal) sur la bande des
+// yeux de TOUTE personne détectée, indépendamment du mode/genre. Opt-in, default
+// false. Ne s'applique qu'aux personnes NON déjà floutées par genre.
+inline constexpr char kBasarunaaCensorEyes[] = "brave.basarunaa.censor_eyes";
 // Dev-only: debug overlay mode ("none" | "boxes" | "debug") and capture mode.
 inline constexpr char kBasarunaaDebugMode[] = "brave.basarunaa.debug_mode";
 inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";

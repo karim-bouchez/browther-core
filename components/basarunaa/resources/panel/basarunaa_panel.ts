@@ -21,14 +21,18 @@ function notifyShowUI() {
 
 async function refreshState() {
   try {
-    const [{ enabled }, { mode }, sliders, dev] = await Promise.all([
+    const [{ enabled }, { mode }, censorEyes, nsfw, sliders, dev] = await Promise.all([
       api().getEnabled(),
       api().getMode(),
+      api().getCensorEyes(),
+      api().getNsfwEnabled(),
       api().getSliders(),
       api().getDevSettings(),
     ])
     setUIEnabled(enabled)
     setUIMode(mode)
+    setUICensorEyes(censorEyes.enabled)
+    setUINsfw(nsfw.enabled)
     setUISlider('conf-body', sliders.confBody)
     setUISlider('gender-certainty', sliders.genderCertainty)
     setUIHandFilter(sliders.minSkeleton > 0)
@@ -73,6 +77,16 @@ function setUIEnabled(enabled: boolean) {
 function setUIMode(mode: string) {
   const radios = document.querySelectorAll<HTMLInputElement>('input[name="mode"]')
   radios.forEach(r => { r.checked = (r.value === mode) })
+}
+
+function setUICensorEyes(enabled: boolean) {
+  const toggle = document.getElementById('censor-eyes-toggle') as HTMLInputElement | null
+  if (toggle) toggle.checked = enabled
+}
+
+function setUINsfw(enabled: boolean) {
+  const toggle = document.getElementById('nsfw-toggle') as HTMLInputElement | null
+  if (toggle) toggle.checked = enabled
 }
 
 function setUISlider(id: string, value: number) {
@@ -158,6 +172,24 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('[basarunaa-panel] setMode failed', err)
       }
     })
+  })
+
+  const censorEyesToggle = document.getElementById('censor-eyes-toggle') as HTMLInputElement | null
+  censorEyesToggle?.addEventListener('change', () => {
+    try {
+      api().setCensorEyes(censorEyesToggle.checked)
+    } catch (err) {
+      console.error('[basarunaa-panel] setCensorEyes failed', err)
+    }
+  })
+
+  const nsfwToggle = document.getElementById('nsfw-toggle') as HTMLInputElement | null
+  nsfwToggle?.addEventListener('change', () => {
+    try {
+      api().setNsfwEnabled(nsfwToggle.checked)
+    } catch (err) {
+      console.error('[basarunaa-panel] setNsfwEnabled failed', err)
+    }
   })
 
   bindSlider('conf-body', v => api().setConfBody(v))
