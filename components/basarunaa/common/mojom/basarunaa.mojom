@@ -149,5 +149,9 @@ interface ImageAnalyzer {
           // NSFW image entière (Marqo) : nsfw = flou plein cadre à appliquer ;
           // nsfw_score [0,1] pour le HUD debug (< 0 si Marqo indispo).
           bool nsfw,
-          float nsfw_score);
+          float nsfw_score,
+          // Browther : pref « censure des yeux » (opt-in). L'overlay dessine une
+          // bande floutée forte (backdrop-filter, masquée en ellipse) sur les yeux
+          // de chaque personne NON floutée par genre — indépendamment du mode.
+          bool censor_eyes);
 };

@@ -342,7 +342,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   const size_t expected =
       static_cast<size_t>(width) * static_cast<size_t>(height) * 4u;
   if (width <= 0 || height <= 0 || pixels.size() < expected) {
-    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f);
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f, false);
     return;
   }
 
@@ -351,7 +351,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   auto* service =
       profile ? BasarunaaServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
-    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f);
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f, false);
     return;
   }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
@@ -368,6 +368,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   double nsfw_conf = 0.50;
   double nudenet_conf = 0.50;
   bool nsfw_enabled = false;  // détection NSFW opt-in (off = latence optimale)
+  bool censor_eyes = false;   // censure des yeux opt-in (overlay dessine la bande)
   bool capture_mode = false;
   // Debug-UI verrouillé (prod sans --basarunaa-debug-ui) → on IGNORE les prefs
   // debug et on garde les défauts sûrs : debug_mode="none" (aucun overlay),
@@ -384,6 +385,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
     nudenet_conf = prefs->GetDouble(kBasarunaaNudenetConf);
     nsfw_enabled = prefs->GetBoolean(kBasarunaaNsfwEnabled);
+    censor_eyes = prefs->GetBoolean(kBasarunaaCensorEyes);
     if (debug_ui) {
       debug_mode = prefs->GetString(kBasarunaaDebugMode);
       blur_enabled = prefs->GetBoolean(kBasarunaaBlurEnabled);
@@ -410,7 +412,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   // bisect 2026-07-02).
   auto safe_callback = mojo::WrapCallbackWithDefaultInvokeIfNotRun(
       std::move(callback), std::vector<mojom::AnalyzedPersonPtr>(),
-      std::string(), false, std::string(), 0.0, 0.0, false, -1.0f);
+      std::string(), false, std::string(), 0.0, 0.0, false, -1.0f, false);
 
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE,
@@ -422,7 +424,8 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,
-                     std::move(mode_reply), certainty, min_skeleton, nsfw_conf));
+                     std::move(mode_reply), certainty, min_skeleton, nsfw_conf,
+                     censor_eyes));
 }
 
 void BasarunaaImageAnalyzer::OnAnalyzeDone(
@@ -433,6 +436,7 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
     double gender_certainty,
     double min_skeleton,
     double nsfw_conf,
+    bool censor_eyes,
     PoolResult result) {
   VLOG(1) << "[Basarunaa/YOLO] " << result.persons.size() << " persons"
             << " nsfw=" << result.nsfw_score
@@ -448,7 +452,7 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
   CountBlurredPersons(result.persons, blur_enabled);
   std::move(callback).Run(std::move(result.persons), std::move(debug_mode),
                           blur_enabled, std::move(mode), gender_certainty,
-                          min_skeleton, nsfw, result.nsfw_score);
+                          min_skeleton, nsfw, result.nsfw_score, censor_eyes);
 }
 
 void BasarunaaImageAnalyzer::CountBlurredPersons(

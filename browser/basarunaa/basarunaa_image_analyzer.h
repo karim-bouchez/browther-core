@@ -94,6 +94,7 @@ class BasarunaaImageAnalyzer
                      double gender_certainty,
                      double min_skeleton,
                      double nsfw_conf,
+                     bool censor_eyes,
                      PoolResult result);
 
   // #18 : compte les personnes floutées (genre fusionné browser, `p->blur`) et

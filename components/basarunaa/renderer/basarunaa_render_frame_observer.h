@@ -100,7 +100,8 @@ class BasarunaaRenderFrameObserver final
                   double gender_certainty,
                   double min_skeleton,
                   bool nsfw,
-                  float nsfw_score);
+                  float nsfw_score,
+                  bool censor_eyes);
   // Exécute le dispatch JS. Posté en tâche fraîche (pas dans le callback Mojo)
   // pour éviter un ExecuteScript en zone ScriptForbiddenScope.
   void DispatchResultToPage(std::string script);

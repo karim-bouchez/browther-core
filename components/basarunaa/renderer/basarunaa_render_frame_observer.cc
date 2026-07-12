@@ -285,7 +285,8 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     double gender_certainty,
     double min_skeleton,
     bool nsfw,
-    float nsfw_score) {
+    float nsfw_score,
+    bool censor_eyes) {
   // Round-trip d'analyse (keyframes seulement : espacés, non queués derrière une
   // paire de cut → coût d'UNE analyse). Alimente l'intervalle keyframe adaptatif.
   // EXCLUT les frames NSFW-checkées (Marqo/NudeNet ~120ms throttlés ~1/s) : l'EMA
@@ -354,6 +355,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("ms", min_skeleton);               // seuil min-squelette (filtre overlay)
   dict.Set("nsfw", nsfw);                      // flou plein cadre NSFW (Marqo)
   dict.Set("nsc", static_cast<double>(nsfw_score));  // score NSFW (HUD debug)
+  dict.Set("ce", censor_eyes);                 // censure des yeux (bande floutée overlay)
   dict.Set("p", std::move(boxes));
 
   std::optional<std::string> json = base::WriteJson(dict);
