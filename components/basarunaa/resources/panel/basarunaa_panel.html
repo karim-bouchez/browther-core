@@ -268,22 +268,6 @@
     <div class="section-label">$i18n{detectionLabel}</div>
     <div class="slider-row">
       <div class="slider-head">
-        <span>$i18n{confBody}</span>
-        <span class="slider-value" id="conf-body-value">—</span>
-      </div>
-      <input type="range" id="conf-body" min="0" max="100" step="1">
-      <div class="slider-desc">Seuil pour qu'un corps détecté (YOLO) soit retenu. Plus haut = ignore les détections peu sûres (mains, objets) ; plus bas = détecte plus large.</div>
-    </div>
-    <div class="slider-row">
-      <div class="slider-head">
-        <span>$i18n{confFace}</span>
-        <span class="slider-value" id="conf-face-value">—</span>
-      </div>
-      <input type="range" id="conf-face" min="0" max="100" step="1">
-      <div class="slider-desc">Seuil pour qu'un visage détecté soit retenu. Sert surtout à associer visage ↔ corps pour bien classer le genre.</div>
-    </div>
-    <div class="slider-row">
-      <div class="slider-head">
         <span>$i18n{minSkeleton}</span>
         <span class="slider-value" id="min-skeleton-value">—</span>
       </div>
@@ -296,7 +280,7 @@
         <span class="slider-value" id="gender-certainty-value">—</span>
       </div>
       <input type="range" id="gender-certainty" min="0" max="100" step="1">
-      <div class="slider-desc">Si la certitude du genre est sous ce seuil, la personne est floutée par précaution (dans le doute = flou).</div>
+      <div class="slider-desc">LE seuil principal : il se compare directement au % affiché sur chaque personne (label debug). En dessous → floutée par précaution (dans le doute = flou) ; au-dessus → la classe décide (femme floutée, homme/enfant non).</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">
@@ -320,11 +304,11 @@
     <div class="section-label">Debug</div>
     <div class="slider-row">
       <div class="slider-head">
-        <span>$i18n{sentinelConf}</span>
-        <span class="slider-value" id="sentinel-conf-value">—</span>
+        <span>$i18n{confBody}</span>
+        <span class="slider-value" id="conf-body-value">—</span>
       </div>
-      <input type="range" id="sentinel-conf" min="0" max="100" step="1">
-      <div class="slider-desc">Seuil du détecteur NanoDet (overlay debug image ; suivi vidéo Android). Le pipeline vidéo desktop ne l'utilise plus.</div>
+      <input type="range" id="conf-body" min="0" max="100" step="1">
+      <div class="slider-desc">Plancher de détection (avancé). Depuis le modèle single-shot, ce score EST le % affiché sur les labels debug — le monter fait disparaître des personnes entières. Laisser à 25 % ; le floutage des cas douteux se règle avec « Certitude genre ».</div>
     </div>
     <div class="radio-group">
       <label><input type="radio" name="debug-mode" value="none">Aucun</label>
