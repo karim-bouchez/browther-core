@@ -158,8 +158,11 @@ This file contains all "about" strings.  It is set to NOT be translated, in tran
       <message name="IDS_CONTEXTMENU_COPY_CLEAN_LINK"  desc="Text for Copy clean link">
         Copy clean link
       </message>
-      <message name="IDS_BROWTHER_AD_LABEL" desc="Label shown on a third-party ad creative in the Browther NTP ad banner, to identify it as an advertisement (only when the ad server flags the creative as external via showAdLabel)">
+      <message name="IDS_BROWTHER_AD_LABEL" desc="Label shown on a third-party ad creative in the Browther NTP ad banner, to identify it as an advertisement (when the ad server flags the creative as external via showAdLabel=true)">
         Ad
+      </message>
+      <message name="IDS_BROWTHER_AD_HOUSE_LABEL" desc="Cross-promo label shown on an internal dev&amp;din creative in the Browther NTP ad banner (when showAdLabel=false). Not an advertisement label — dev&amp;din presenting its own other projects. Compact form for the chip. dev&amp;din is a brand name, keep it as-is.">
+        Also by dev&amp;din
       </message>
       <message name="IDS_PASSWORD_SETTINGS_IMPORT_ACTION_TITLE" desc="Title for the password import action in Android settings">
         Import passwords

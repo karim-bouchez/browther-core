@@ -66,20 +66,26 @@ export const style = scoped.css`
     opacity: 1;
   }
 
-  /* Label « Pub » (annonceur externe, showAdLabel) : onglet à cheval sur le
-     coin haut de la créa, langage visuel du chrome de l'app (fond + bordure)
-     pour ne pas être confondu avec un élément de la pub. */
+  /* Label de la créa : onglet à cheval sur le coin haut, langage visuel du
+     chrome de l'app (fond + bordure) pour ne pas être confondu avec un
+     élément de la pub. Toujours affiché — « Pub » (annonceur externe,
+     showAdLabel) ou tag cross-promo « Découvrez aussi chez dev&din »
+     (house ad, variante .house). */
   .ad-label {
     position: absolute;
     top: -10px;
     inset-inline-start: 12px;
     z-index: 1;
+    max-width: calc(100% - 24px);
     padding: 2px 8px;
     font: ${font.xSmall.semibold};
     color: ${color.text.secondary};
     background: ${color.container.background};
     border: 1px solid ${color.divider.subtle};
     border-radius: ${radius.s};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     pointer-events: none;
   }
 

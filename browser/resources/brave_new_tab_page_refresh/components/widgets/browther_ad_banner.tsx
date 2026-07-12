@@ -32,8 +32,10 @@ function aspectOf(ratio: string): number {
 // - Flèches toujours visibles sur desktop (à cheval sur les bords, style
 //   chrome de l'app), masquées aux extrémités et si une seule pub. Pas
 //   d'auto-défilement : emplacement éphémère (NTP), optionnel selon la doc.
-// - Label « Pub » par slide quand `showAdLabel` (annonceur externe) : onglet
-//   à cheval sur le coin haut de la créa, il glisse avec sa slide.
+// - Label par slide (onglet à cheval sur le coin haut de la créa, il glisse
+//   avec sa slide) : « Pub » si `showAdLabel` (annonceur externe), sinon le
+//   tag cross-promo « Découvrez aussi chez dev&din » (house ad — cf.
+//   INTEGRATION.md § 3 « Label de la créa »). Toujours affiché, jamais absent.
 // - Aspect-ratio piloté par le champ `ratio` renvoyé par le serve.
 // L'image distante passe par chrome://brave-image (sanitized image source).
 // Impression trackée à visibilité réelle (≥ 50 %), une fois par pub servie.
@@ -120,11 +122,13 @@ export function BrowtherAdBanner() {
               style={{ aspectRatio: String(aspectOf(ad.ratio)) }}
               onClick={() => actions.clickBrowtherAd(ad.id)}
             >
-              {ad.showAdLabel && (
-                <span className='ad-label'>
-                  {getString(S.NEW_TAB_BROWTHER_AD_LABEL)}
-                </span>
-              )}
+              <span className={ad.showAdLabel ? 'ad-label' : 'ad-label house'}>
+                {getString(
+                  ad.showAdLabel
+                    ? S.NEW_TAB_BROWTHER_AD_LABEL
+                    : S.NEW_TAB_BROWTHER_AD_HOUSE_LABEL,
+                )}
+              </span>
               <SafeImage
                 src={ad.imageUrl}
                 targetSize={{ width: 512, height: 160 }}

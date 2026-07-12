@@ -64,10 +64,12 @@ class BrowtherAdPagerAdapter extends RecyclerView.Adapter<BrowtherAdPagerAdapter
                 CORNER_RADIUS_DP,
                 holder.mImageView,
                 /* callback= */ null);
-        // Label « Pub » par slide : uniquement si showAdLabel (annonceur
-        // externe) — les house ads dev&din n'en portent pas. Décision par
-        // slide, un lot peut mélanger (INTEGRATION.md § 3).
-        holder.mLabelView.setVisibility(ad.showAdLabel ? View.VISIBLE : View.GONE);
+        // Label par slide, toujours affiché (INTEGRATION.md § 3 « Label de la
+        // créa ») : « Pub » si showAdLabel (annonceur externe), sinon le tag
+        // cross-promo « Aussi chez dev&din » (house ad). Décision par slide.
+        holder.mLabelView.setText(
+                ad.showAdLabel ? R.string.browther_ad_label : R.string.browther_ad_house_label);
+        holder.mLabelView.setVisibility(View.VISIBLE);
         // Click → l'API log puis 302 vers la destination (résolu par le client C++).
         holder.itemView.setOnClickListener(view -> mClickListener.onAdClick(ad.id));
     }

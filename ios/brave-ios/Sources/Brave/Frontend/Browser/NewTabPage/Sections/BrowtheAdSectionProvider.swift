@@ -296,11 +296,11 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     }
   }
 
-  /// Label « Pub » (annonceur externe, `showAdLabel`) : chip semi-transparente
-  /// coin supérieur, posée DANS la slide — elle glisse avec sa créa
-  /// (INTEGRATION.md § 3, exécution mobile de référence).
+  /// Label de la créa : chip semi-transparente coin supérieur, posée DANS la
+  /// slide — elle glisse avec sa créa (INTEGRATION.md § 3). Toujours affichée,
+  /// texte posé au `configure` : « Pub » (externe, `showAdLabel`) ou tag
+  /// cross-promo « Aussi chez dev&din » (house ad).
   private let adLabel: UILabel = PaddedLabel().then {
-    $0.text = Strings.Shields.browtherAdLabel
     $0.font = .systemFont(ofSize: 11, weight: .semibold)
     $0.textColor = .white
     $0.backgroundColor = UIColor(white: 0, alpha: 0.6)
@@ -308,7 +308,6 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     $0.layer.cornerRadius = 6
     $0.layer.cornerCurve = .continuous
     $0.clipsToBounds = true
-    $0.isHidden = true
   }
 
   private var imageTask: URLSessionDataTask?
@@ -335,7 +334,9 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     currentURL = imageURL
     imageView.image = nil
     imageView.alpha = 0
-    adLabel.isHidden = !showAdLabel
+    // Label toujours affiché : « Pub » (externe) ou cross-promo (house ad).
+    adLabel.text =
+      showAdLabel ? Strings.Shields.browtherAdLabel : Strings.Shields.browtherAdHouseLabel
 
     guard let url = URL(string: imageURL) else { return }
 
@@ -358,6 +359,6 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     currentURL = nil
     imageView.image = nil
     imageView.alpha = 0
-    adLabel.isHidden = true
+    adLabel.text = nil
   }
 }

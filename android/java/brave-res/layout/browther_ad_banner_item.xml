@@ -6,9 +6,10 @@
 
 <!-- Une page du carousel pub : image pleine largeur (ratio porté par la
      hauteur du ViewPager2, pilotée par le champ `ratio` du serve) + chip
-     « Pub » semi-transparente coin supérieur, affichée seulement si
-     showAdLabel (annonceur externe) — le label appartient à la slide, il
-     glisse avec sa créa (INTEGRATION.md § 3). ViewPager2 force match_parent. -->
+     label semi-transparente coin supérieur, TOUJOURS affichée — texte posé
+     en code : « Pub » (externe, showAdLabel) ou « Aussi chez dev&din » (house
+     ad). Le label appartient à la slide, il glisse avec sa créa
+     (INTEGRATION.md § 3). ViewPager2 force match_parent. -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

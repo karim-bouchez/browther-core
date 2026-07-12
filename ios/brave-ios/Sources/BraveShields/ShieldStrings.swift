@@ -71,6 +71,15 @@ extension Strings {
       value: "Ad",
       comment: "Browther: label identifying a third-party ad creative in the NTP ad banner"
     )
+    // Browther : tag cross-promo affiché sur une créa interne dev&din (house
+    // ad, `showAdLabel == false`) — ce n'est PAS de la pub tierce, c'est le
+    // studio qui présente ses autres projets. Forme compacte pour la chip.
+    public static let browtherAdHouseLabel = NSLocalizedString(
+      "BrowtherAdHouseLabel",
+      bundle: .module,
+      value: "Also by dev&din",
+      comment: "Browther: cross-promo label on an internal dev&din creative in the NTP ad banner. dev&din is a brand name, keep as-is."
+    )
     // Browther : labels NTP stats Sawtunaa / Basarunaa.
     public static let musicRemovedStat = NSLocalizedString(
       "MusicRemovedStat",
