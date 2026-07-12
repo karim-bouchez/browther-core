@@ -271,8 +271,8 @@
         <span>$i18n{minSkeleton}</span>
         <span class="slider-value" id="min-skeleton-value">—</span>
       </div>
-      <input type="range" id="min-skeleton" min="0" max="100" step="1">
-      <div class="slider-desc">Rejette les détections sans assez de points du corps (épaules, hanches, jambes). Anti mains/objets pris pour des personnes. 0 % = désactivé.</div>
+      <input type="range" id="min-skeleton" min="0" max="8" step="1">
+      <div class="slider-desc">Points de corps minimum, sur les 8 comptés par le filtre : épaules, hanches, genoux, chevilles (visage et bras exclus — même échelle que « skel: N/8 » du label debug). Rejette les détections qui en ont moins. Anti mains/objets pris pour des personnes. 0 = désactivé.</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">

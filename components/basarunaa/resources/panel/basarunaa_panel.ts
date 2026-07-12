@@ -31,7 +31,7 @@ async function refreshState() {
     setUIMode(mode)
     setUISlider('conf-body', sliders.confBody)
     setUISlider('gender-certainty', sliders.genderCertainty)
-    setUISlider('min-skeleton', sliders.minSkeleton)
+    setUISkeletonSlider(sliders.minSkeleton)
     setUISlider('nsfw-conf', sliders.nsfwConf)
     setUISlider('nudenet-conf', sliders.nudenetConf)
     setUIDebugMode(dev.debugMode)
@@ -81,6 +81,32 @@ function setUISlider(id: string, value: number) {
   const pct = Math.round(value * 100)
   if (slider) slider.value = String(pct)
   if (label) label.textContent = `${pct}%`
+}
+
+// Le slider squelette est en POINTS /8 (même échelle que le label debug
+// « skel: N/8 ») ; la pref native reste une fraction 0-1 (N/8).
+function setUISkeletonSlider(value: number) {
+  const slider = document.getElementById('min-skeleton') as HTMLInputElement | null
+  const label = document.getElementById('min-skeleton-value')
+  const pts = Math.round(value * 8)
+  if (slider) slider.value = String(pts)
+  if (label) label.textContent = `${pts}/8`
+}
+
+function bindSkeletonSlider(setter: (v: number) => void) {
+  const slider = document.getElementById('min-skeleton') as HTMLInputElement | null
+  const label = document.getElementById('min-skeleton-value')
+  if (!slider) return
+  slider.addEventListener('input', () => {
+    if (label) label.textContent = `${slider.value}/8`
+  })
+  slider.addEventListener('change', () => {
+    try {
+      setter(Number(slider.value) / 8)
+    } catch (err) {
+      console.error('[basarunaa-panel] set min-skeleton failed', err)
+    }
+  })
 }
 
 function bindSlider(id: string, setter: (v: number) => void) {
@@ -143,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   bindSlider('conf-body', v => api().setConfBody(v))
   bindSlider('gender-certainty', v => api().setGenderCertainty(v))
-  bindSlider('min-skeleton', v => api().setMinSkeleton(v))
+  bindSkeletonSlider(v => api().setMinSkeleton(v))
   bindSlider('nsfw-conf', v => api().setNsfwConf(v))
   bindSlider('nudenet-conf', v => api().setNudenetConf(v))
 
