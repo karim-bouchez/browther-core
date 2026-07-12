@@ -160,10 +160,10 @@ void RenderAnnotatedCaptureOnUI(std::vector<uint8_t> bgra,
 
 // Décision de floutage, port de VIDEO_V2.md §4 (chemin VIDÉO, plus prudent que
 // content.js image) : flouter si `gender===target` OU `genderConf < certainty`
-// OU `gender==null`. « Inconnu = sûr » : une personne sans visage exploitable
-// (dos tourné, floue…) a gender_conf = -1, donc captée par le filet
-// `conf < certainty` → floutée. Seuls les NON-cibles classifiés avec confiance
-// (ex. homme sûr en mode blur-female) sont épargnés.
+// OU `gender==null`. « Inconnu = sûr » : une personne non détectable a
+// gender_conf = -1, donc captée par le filet `conf < certainty` → floutée. Les
+// NON-cibles confiants (homme sûr en mode blur-female, ENFANT sûr dans tout mode
+// genré) sont épargnés — l'enfant n'est jamais une cible, cf. parité image.
 bool ShouldBlur(const DetectedPerson& p,
                 const std::string& mode,
                 double certainty) {
@@ -188,12 +188,14 @@ bool ShouldBlur(const DetectedPerson& p,
 
 int8_t GenderToInt(Gender g) {
   switch (g) {
-    case Gender::kFemale:
-      return 1;
     case Gender::kMale:
       return 0;
+    case Gender::kFemale:
+      return 1;
+    case Gender::kChild:
+      return 2;
     default:
-      return -1;
+      return -1;  // kUnknown
   }
 }
 
@@ -212,7 +214,6 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
                          std::string mode,
                          double certainty,
                          double conf_body,
-                         double conf_face,
                          bool want_nsfw,
                          double nudenet_conf,
                          bool capture) {
@@ -226,8 +227,8 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
   const auto t_analyze = base::TimeTicks::Now();
   const std::vector<DetectedPerson> persons = service->AnalyzeImageRgba(
       pixels.data(), width, height, bgra, static_cast<float>(conf_body),
-      static_cast<float>(conf_face), want_nsfw ? &nsfw_score : nullptr,
-      want_nsfw ? &nsfw_exposed : nullptr, static_cast<float>(nudenet_conf));
+      want_nsfw ? &nsfw_score : nullptr, want_nsfw ? &nsfw_exposed : nullptr,
+      static_cast<float>(nudenet_conf));
   res.nsfw_score = nsfw_score;
   res.nsfw_exposed = nsfw_exposed;
   const double analyze_ms =
@@ -237,14 +238,17 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
   // ré-écrite sur le pool. Chaque analyse (~1/s) tant que la pref est ON.
   if (capture) {
     const int n = SaveCaptureRaw(pixels, width, height);
-    // Footer bas-gauche : temps de TOUS les modèles + résolution d'analyse.
-    const std::string footer = base::StringPrintf(
-        "analyse %.0f ms · %dx%d · pose+visage+genre+corps%s", analyze_ms,
-        width, height, want_nsfw ? "+nsfw" : "");
+    // Footer bas-gauche : temps du modèle + résolution d'analyse.
+    const std::string footer =
+        base::StringPrintf("analyse %.0f ms · %dx%d · gender-v2n%s", analyze_ms,
+                           width, height, want_nsfw ? "+nsfw" : "");
     std::vector<CaptureBox> boxes;
     boxes.reserve(persons.size());
     auto tag = [](Gender g) {
-      return g == Gender::kFemale ? "F" : g == Gender::kMale ? "H" : "?";
+      return g == Gender::kFemale  ? "F"
+             : g == Gender::kMale  ? "H"
+             : g == Gender::kChild ? "E"
+                                   : "?";
     };
     for (const DetectedPerson& p : persons) {
       CaptureBox b;
@@ -252,14 +256,13 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
       b.y = p.y;
       b.w = p.w;
       b.h = p.h;
-      b.color = p.gender == Gender::kFemale ? SkColorSetRGB(255, 20, 147)
-                : p.gender == Gender::kMale ? SkColorSetRGB(30, 144, 255)
-                                            : SkColorSetRGB(255, 204, 0);
+      b.color = p.gender == Gender::kFemale  ? SkColorSetRGB(255, 20, 147)
+                : p.gender == Gender::kMale  ? SkColorSetRGB(30, 144, 255)
+                : p.gender == Gender::kChild ? SkColorSetRGB(0, 200, 83)
+                                             : SkColorSetRGB(255, 204, 0);
       b.label = base::StringPrintf(
-          "%s %.0f%% | vis %s %.0f%% cor %s %.0f%%", tag(p.gender),
-          (p.gender_conf >= 0 ? p.gender_conf : 0.f) * 100, tag(p.face_gender),
-          (p.face_conf >= 0 ? p.face_conf : 0.f) * 100, tag(p.body_gender),
-          (p.body_conf >= 0 ? p.body_conf : 0.f) * 100);
+          "%s %.0f%%", tag(p.gender),
+          (p.gender_conf >= 0 ? p.gender_conf : 0.f) * 100);
       boxes.push_back(std::move(b));
     }
     content::GetUIThreadTaskRunner({})->PostTask(
@@ -275,17 +278,8 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
     ap->h = p.h;
     ap->score = p.score;
     ap->gender = GenderToInt(p.gender);
-    ap->gender_source = static_cast<int8_t>(p.gender_source);
     ap->gender_conf = p.gender_conf;
     ap->blur = ShouldBlur(p, mode, certainty);
-    // Sorties BRUTES par-modèle → fusion + vote temporel + debug côté overlay.
-    ap->face_gender = GenderToInt(p.face_gender);
-    ap->face_conf = p.face_conf;
-    ap->body_gender = GenderToInt(p.body_gender);
-    ap->body_conf = p.body_conf;
-    ap->has_legs = p.has_legs;
-    ap->face_lo = p.face_lo;  // DEBUG A/B résolution (0 hors mode)
-    ap->body_lo = p.body_lo;
     // Keypoints normalisés [0,1] → squelette debug + filtre min-squelette + flou
     // polygone côté overlay.
     ap->keypoints.reserve(p.keypoints.size());
@@ -362,7 +356,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
   // du flag blur repli) ET renvoyés au renderer (overlay : recalcul de shouldBlur
-  // depuis le genre VOTÉ). conf_body/conf_face → seuils des détecteurs (pool).
+  // depuis le genre VOTÉ). conf_body → plancher de score du modèle (pool).
   // debug_mode + blur_enabled + min_skeleton → renderer (dessin/gating/filtre).
   // Défauts = ceux du POC.
   std::string mode = "blur-female";
@@ -370,7 +364,6 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
   std::string debug_mode = "none";
   bool blur_enabled = true;
   double conf_body = 0.25;
-  double conf_face = 0.30;
   double min_skeleton = 0.0;
   double nsfw_conf = 0.50;
   double nudenet_conf = 0.50;
@@ -386,7 +379,6 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     mode = prefs->GetString(kBasarunaaMode);
     certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
     conf_body = prefs->GetDouble(kBasarunaaConfBody);
-    conf_face = prefs->GetDouble(kBasarunaaConfFace);
     min_skeleton = prefs->GetDouble(kBasarunaaMinSkeleton);
     nsfw_conf = prefs->GetDouble(kBasarunaaNsfwConf);
     nudenet_conf = prefs->GetDouble(kBasarunaaNudenetConf);
@@ -419,7 +411,7 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
        base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN},
       base::BindOnce(&RunYoloOnPool, base::Unretained(service), std::move(buf),
                      width, height, bgra, std::move(mode), certainty, conf_body,
-                     conf_face, want_nsfw, nudenet_conf, capture_mode),
+                     want_nsfw, nudenet_conf, capture_mode),
       base::BindOnce(&BasarunaaImageAnalyzer::OnAnalyzeDone,
                      weak_factory_.GetWeakPtr(), std::move(safe_callback),
                      std::move(debug_mode), blur_enabled,

@@ -8,7 +8,6 @@
 
 #include <memory>
 #include <mutex>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -38,26 +37,15 @@ struct DetectedKeyPoint {
   float confidence = 0.f;
 };
 
-// Bbox visage déduite des keypoints face (M1.4).
-struct DetectedFaceBbox {
-  float x1 = 0.f;
-  float y1 = 0.f;
-  float x2 = 0.f;
-  float y2 = 0.f;
-};
+// Genre issu du modèle single-shot gender-v2n : UNE classe par personne
+// (argmax). kUnknown = aucune détection classable (repli privacy). male/female/
+// child = les 3 classes du modèle (yolo11-pose fine-tuné, Open Images). child
+// ≠ cible en mode genré → NON flouté si confiant, flouté par le filet certainty
+// si incertain (parité avec le pipeline image, cf. content.js).
+enum class Gender { kUnknown = -1, kMale = 0, kFemale = 1, kChild = 2 };
 
-// Résultat de la classification genderage (InsightFace). kUnknown = pas de
-// visage exploitable → NON classifié (≠ classifié incertain). Mirror des
-// valeurs 'male'/'female' du POC JS (classifiers/onnx_generic.js).
-enum class Gender { kUnknown = -1, kMale = 0, kFemale = 1 };
-
-// D'où vient la classification de genre : kFace = genderage sur le visage,
-// kBody = repli pplcnet sur le corps, kNone = non classifié.
-enum class GenderSource { kNone = 0, kFace = 1, kBody = 2 };
-
-// Phase 3.1.5 — M1.4. One detection per person : bbox + score + 17 keypoints
-// (nécessaires au pipeline MV3 pour matching face↔body et alignement face
-// InsightFace) + faceBbox dérivé des keypoints 0-4.
+// Une détection par personne : bbox + score + genre (single-shot) + 17 keypoints
+// (filtre min-squelette, flou polygone, squelette debug côté overlay).
 struct DetectedPerson {
   DetectedPerson();
   DetectedPerson(const DetectedPerson&);
@@ -71,35 +59,16 @@ struct DetectedPerson {
   float y = 0.f;
   float w = 0.f;
   float h = 0.f;
-  // Person class score in [0, 1].
+  // Score de la classe gagnante dans [0, 1] (= gender_conf).
   float score = 0.f;
-  // 17 keypoints, indexed COCO order. Empty if pose decoding failed.
+  // 17 keypoints, ordre COCO. Vide si le décodage pose a échoué.
   std::vector<DetectedKeyPoint> keypoints;
-  // Derived from keypoints 0-4 (nose + eyes + ears) with 40% padding;
-  // nullopt if < 2 keypoints visible (confidence > 0.3).
-  std::optional<DetectedFaceBbox> face_bbox;
 
-  // Genre FUSIONNÉ (repli simple : visage si dispo, sinon corps). kUnknown si
-  // aucun des deux classé. gender_conf = confiance [0,1], ou -1.f si non classifié.
-  // La VRAIE fusion + le vote temporel se font côté overlay (POC JS) à partir des
-  // sorties brutes face_/body_ ci-dessous.
+  // Genre + confiance DIRECTS du modèle single-shot (classe argmax) : plus de
+  // fusion visage/corps ni de vote côté service. gender_conf = score de la
+  // classe ([0,1], -1 si non détecté). Le vote temporel vit côté overlay.
   Gender gender = Gender::kUnknown;
   float gender_conf = -1.f;
-  GenderSource gender_source = GenderSource::kNone;
-
-  // Sorties BRUTES par-modèle, SÉPARÉES (les DEUX tournent maintenant par
-  // personne, plus de repli conditionnel) — pour fusion+vote+debug côté overlay.
-  Gender face_gender = Gender::kUnknown;  // genderage (visage aligné)
-  float face_conf = -1.f;
-  Gender body_gender = Gender::kUnknown;  // pplcnet (corps)
-  float body_conf = -1.f;
-  // Corps entier visible (keypoints jambes 13-16 conf>0.3) → pplcnet fiable.
-  bool has_legs = false;
-
-  // DEBUG A/B résolution (--basarunaa-resolution-ab) : classif visage/corps refaite
-  // en demi-réso, encodée signe×conf (+femme/-homme, 0=non classé/hors A/B).
-  float face_lo = 0.f;
-  float body_lo = 0.f;
 };
 
 class BasarunaaService : public KeyedService {
@@ -117,29 +86,28 @@ class BasarunaaService : public KeyedService {
   // loaded. Caller-owned buffer; must be `width * height * 4` bytes.
   // `bgra` true means byte order [B, G, R, A] (typical for SkBitmap on
   // macOS), false means [R, G, B, A].
-  // person_conf / face_conf : seuils de confiance des détecteurs (pose / visage),
-  // branchés sur les prefs conf_body / conf_face (le panel les pilote). Défauts =
-  // valeurs des prefs par défaut. out_nsfw_score (nullable) : score NSFW Marqo
-  // [0,1] de l'image ENTIÈRE (-1 si Marqo indispo). out_nsfw_exposed (nullable) :
-  // true si NudeNet détecte une partie EXPOSÉE (≥ nudenet_conf) → flou plein cadre
-  // même si Marqo ne flag pas. Les deux out non-nuls = le RFO veut le check NSFW
-  // (throttle) ; nuls = on saute Marqo+NudeNet.
+  // person_conf : plancher de score de la classe (branché sur la pref conf_body ;
+  // depuis gender-v2n ce score EST le % du label → laisser bas). out_nsfw_score
+  // (nullable) : score NSFW Marqo [0,1] de l'image ENTIÈRE (-1 si Marqo indispo).
+  // out_nsfw_exposed (nullable) : true si NudeNet détecte une partie EXPOSÉE
+  // (≥ nudenet_conf) → flou plein cadre même si Marqo ne flag pas. Les deux out
+  // non-nuls = le RFO veut le check NSFW (throttle) ; nuls = on saute Marqo+NudeNet.
   std::vector<DetectedPerson> AnalyzeImageRgba(
       const uint8_t* rgba,
       int width,
       int height,
       bool bgra = false,
       float person_conf = 0.25f,
-      float face_conf = 0.30f,
       float* out_nsfw_score = nullptr,
       bool* out_nsfw_exposed = nullptr,
       float nudenet_conf = 0.50f);
 
  private:
 #if defined(BASARUNAA_NATIVE_ML)
-  // Charge les 6 modèles une seule fois (std::call_once(init_flag_)), sous le
-  // même verrou que l'inférence. Appelé lazy par AnalyzeImageRgba ET eager par
-  // WarmUpModels (le 1er qui passe charge, l'autre attend).
+  // Charge les 3 modèles une seule fois (std::call_once(init_flag_)), sous le
+  // même verrou que l'inférence : gender-v2n (single-shot) + Marqo + NudeNet
+  // (NSFW). Appelé lazy par AnalyzeImageRgba ET eager par WarmUpModels (le 1er
+  // qui passe charge, l'autre attend).
   void LoadAllModelsOnce();
   // [Browther/Basarunaa] Eager warmup, posté par le constructeur sur le
   // ThreadPool (JAMAIS le thread UI : l'init ORT sur UI provoquait des SEGV au
@@ -151,49 +119,16 @@ class BasarunaaService : public KeyedService {
   // batch dynamique -1 → 1) pour déclencher la compilation CoreML. No-op si la
   // session n'est pas prête. Best-effort : toute exception ORT est avalée.
   void WarmUpSession(Ort::Session* session, bool ready, const char* tag);
+  // Charge gender-v2n-640.onnx (single-shot : bbox + classe male/female/child +
+  // 17 keypoints). CRITIQUE : sans lui, AnalyzeImageRgba renvoie vide.
   void LoadYoloPoseModel();
-  // Charge genderage.onnx (InsightFace, 96x96). Best-effort : si absent/échec,
-  // gender reste kUnknown et le YOLO fonctionne toujours.
-  void LoadGenderAgeModel();
-  // Charge yolov8n-face.onnx (détecteur de visages dédié, 640x640, 3 têtes FPN
-  // + landmarks). Best-effort.
-  void LoadYoloFaceModel();
-  // Aligne + classifie un VISAGE (détecté par yolov8n-face) : rotation yeux +
-  // crop -> genderage. Reçoit les yeux (landmarks 1/2) + la bbox du visage
-  // (port utils/face_align.js + classifiers/onnx_generic.js). Renseigne
-  // person.face_gender / face_conf (sortie BRUTE visage, pas la fusion). No-op si
-  // genderage indisponible ou visage non alignable (face_gender reste kUnknown).
-  void ClassifyGender(base::span<const uint8_t> rgba,
-                      int width,
-                      int height,
-                      bool bgra,
-                      const DetectedKeyPoint& left_eye,
-                      const DetectedKeyPoint& right_eye,
-                      const DetectedFaceBbox& face_bbox,
-                      DetectedPerson& person);
-  // Charge pplcnet_pedestrian_attribute.onnx (PP-LCNet, 256x192). Best-effort.
-  void LoadPplcnetModel();
   // Charge nsfw-marqo-vit-384.onnx (Marqo ViT NSFW image entière). Best-effort.
   void LoadMarqoModel();
   // Charge nudenet-320.onnx (détecteur de parties explicites). Best-effort.
   void LoadNudenetModel();
-  // Classification CORPS pplcnet : masque polygone corps + pplcnet (port de
-  // classifiers/pplcnet.js + utils/body_polygon.js + utils/preprocessing.js).
-  // Renseigne person.body_gender / body_conf (sortie BRUTE corps). Tourne
-  // TOUJOURS (plus de repli conditionnel) : la fusion visage/corps est côté overlay.
-  // `crowded` : le masque body-polygon (grise le fond) n'est appliqué QUE si une
-  // autre personne empiète sur ce crop — sinon il pousse pplcnet hors distribution
-  // et dégrade le genre (surtout de dos). Cf. pipeline.js bboxCrowdedBy.
-  void ClassifyBodyGender(base::span<const uint8_t> rgba,
-                          int width,
-                          int height,
-                          bool bgra,
-                          DetectedPerson& person,
-                          bool crowded);
 
-  // ort_env_ peut être créé concurremment par LoadYoloPoseModel et
-  // LoadYoloFaceModel (deux call_once sur des flags différents). On
-  // sérialise sa création via env_init_flag_ pour éviter la race.
+  // ort_env_ créé une fois, sérialisé via env_init_flag_ (les loads best-effort
+  // peuvent racer sur sa création).
   void EnsureOrtEnv();
   std::once_flag env_init_flag_;
   std::unique_ptr<Ort::Env> ort_env_;
@@ -207,22 +142,10 @@ class BasarunaaService : public KeyedService {
   // we never fully diagnosed). Once `yolo_pose_ready_` is true,
   // `Ort::Session::Run` itself is thread-safe.
   std::once_flag init_flag_;
+  // Session gender-v2n (single-shot bbox + genre + keypoints). CRITIQUE : Run()
+  // thread-safe une fois prête ; l'unique appelant tient déjà analyze_mutex_.
   std::unique_ptr<Ort::Session> yolo_pose_session_;
   bool yolo_pose_ready_ = false;
-
-  // Session genderage (chargée dans le même std::call_once(init_flag_) que le
-  // YOLO, donc sous la même sérialisation). Run() est thread-safe une fois
-  // prête ; l'unique appelant tient déjà analyze_mutex_.
-  std::unique_ptr<Ort::Session> genderage_session_;
-  bool genderage_ready_ = false;
-
-  // Session pplcnet (repli corps). Même call_once/sérialisation.
-  std::unique_ptr<Ort::Session> pplcnet_session_;
-  bool pplcnet_ready_ = false;
-
-  // Session yolov8n-face (détecteur visages dédié). Même call_once.
-  std::unique_ptr<Ort::Session> yolo_face_session_;
-  bool yolo_face_ready_ = false;
 
   // Session Marqo ViT NSFW (image entière → score NSFW). Même call_once. Best-effort.
   std::unique_ptr<Ort::Session> marqo_session_;

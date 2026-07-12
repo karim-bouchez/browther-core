@@ -308,13 +308,12 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     }
   }
   // ④a : pousse le verdict au JS de la page. Coords normalisées [0,1] (le JS
-  // scale à l'affichage). detail = string JSON. Chaque personne : [nx, ny, nw,
-  // nh, score, gender(-1|0|1), gender_conf, blur, gender_source, face_gender,
-  // face_conf, body_gender, body_conf, has_legs] — les 5 derniers = sorties
-  // BRUTES par-modèle pour la fusion + le vote temporel + le debug côté overlay.
-  // `k` = nature de la frame (0 keyframe | 1 avant-cut | 2 après-cut) → l'overlay
-  // borne l'interpolation et snap au cut. `m`/`gc` = mode + certitude (recalcul
-  // shouldBlur depuis le genre voté).
+  // scale à l'affichage). detail = string JSON. Chaque personne (single-shot
+  // gender-v2n) : [nx, ny, nw, nh, score, gender(-1|0|1|2), gender_conf, blur,
+  // keypoints]. gender 2 = enfant (non flouté si confiant). Le vote temporel +
+  // le recalcul shouldBlur vivent côté overlay. `k` = nature de la frame
+  // (0 keyframe | 1 avant-cut | 2 après-cut) → l'overlay borne l'interpolation
+  // et snap au cut. `m`/`gc` = mode + certitude.
   const double w = width > 0 ? width : 1;
   const double h = height > 0 ? height : 1;
   base::ListValue boxes;
@@ -328,13 +327,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     box.Append(static_cast<int>(p->gender));
     box.Append(static_cast<double>(p->gender_conf));
     box.Append(p->blur);
-    box.Append(static_cast<int>(p->gender_source));
-    box.Append(static_cast<int>(p->face_gender));
-    box.Append(static_cast<double>(p->face_conf));
-    box.Append(static_cast<int>(p->body_gender));
-    box.Append(static_cast<double>(p->body_conf));
-    box.Append(p->has_legs);
-    // b[14] = keypoints [[x,y,c],…] normalisés (squelette debug + min-squelette +
+    // b[8] = keypoints [[x,y,c],…] normalisés (squelette debug + min-squelette +
     // flou polygone côté overlay). Arrondi 3 déc. pour limiter la taille du JSON.
     base::ListValue kps;
     for (const auto& kp : p->keypoints) {
@@ -345,10 +338,6 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
       kps.Append(std::move(t));
     }
     box.Append(std::move(kps));
-    // b[15]/b[16] = DEBUG A/B résolution : classif visage/corps en demi-réso,
-    // encodée signe×conf (+femme/-homme, 0 hors mode --basarunaa-resolution-ab).
-    box.Append(static_cast<double>(p->face_lo));
-    box.Append(static_cast<double>(p->body_lo));
     boxes.Append(std::move(box));
   }
   base::DictValue dict;

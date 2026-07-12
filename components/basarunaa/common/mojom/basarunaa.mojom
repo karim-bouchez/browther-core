@@ -35,6 +35,12 @@ interface PanelHandler {
   GetMode() => (string mode);
   SetMode(string mode);
 
+  // Read/write the "censure des yeux" pref (opt-in, default false). Quand ON,
+  // l'extension reconstruit la peau sur la bande des yeux de TOUTE personne non
+  // déjà floutée par genre — indépendamment du mode.
+  GetCensorEyes() => (bool enabled);
+  SetCensorEyes(bool enabled);
+
   // Detection threshold sliders (double in [0.0, 1.0]).
   // Browther dev tuning : sentinel_conf (NanoDet vidéo), min_skeleton (filtre
   // anti-faux-positifs), nsfw_conf (Marqo), nudenet_conf (parties explicites).
@@ -91,41 +97,20 @@ struct AnalyzedPerson {
   float y;
   float w;
   float h;
-  // Score de classe "person" dans [0, 1].
+  // Score de la classe gagnante dans [0, 1] (= gender_conf).
   float score;
-  // Genre classifié FUSIONNÉ (repli simple browser : visage si dispo, sinon
-  // corps). -1 inconnu, 0 homme, 1 femme. La VRAIE fusion + le vote temporel se
-  // font côté overlay (source de vérité = POC JS) à partir des sorties brutes
-  // ci-dessous ; ce champ ne sert plus qu'au repli cold-start + label.
+  // Genre single-shot gender-v2n : -1 inconnu, 0 homme, 1 femme, 2 enfant.
+  // L'enfant (2) n'est pas une cible en mode genré → non flouté si confiant
+  // (flouté par le filet gender_certainty s'il est incertain). Parité image.
   int8 gender;
-  // Source de la classification fusionnée : 0 aucune, 1 visage, 2 corps.
-  int8 gender_source;
-  // Confiance du genre fusionné dans [0, 1] ; < 0 si non classifié.
+  // Confiance du genre (= score de la classe) dans [0, 1] ; < 0 si non détecté.
   float gender_conf;
-  // Décision shouldBlur du browser (repli). L'overlay la RECALCULE depuis le
-  // genre VOTÉ (plus stable) ; ce flag sert de repli avant que le vote soit prêt.
+  // Décision shouldBlur du browser (repli + stats NTP). L'overlay la RECALCULE
+  // depuis le genre VOTÉ (plus stable) ; ce flag sert de repli avant le 1er vote.
   bool blur;
-
-  // Sorties BRUTES par-modèle, SÉPARÉES (visage genderage / corps pplcnet), pour
-  // la fusion par-frame + le vote temporel + le debug par-box (overlay). Toujours
-  // renseignées quand le modèle a tourné : -1 inconnu, 0 homme, 1 femme.
-  int8 face_gender;
-  float face_conf;
-  int8 body_gender;
-  float body_conf;
-  // Corps entier visible (keypoints jambes conf>0.3) → pplcnet fiable. Pilote la
-  // branche « corps partiel » de la fusion overlay (port _processDual).
-  bool has_legs;
   // 17 keypoints COCO (x/y normalisés) → squelette debug + filtre min-squelette +
   // flou polygone côté overlay. Vide si le décodage pose a échoué.
   array<KeyPoint> keypoints;
-
-  // DEBUG A/B résolution (switch --basarunaa-resolution-ab) : classif VISAGE et
-  // CORPS refaite en demi-résolution (320 simulé), encodée en 1 float = signe×conf
-  // (+conf=femme, -conf=homme, 0=non classé). 0 hors mode A/B. Affiché au label
-  // debug (HI vs LO) pour juger la sensibilité à la résolution sur l'image réelle.
-  float face_lo;
-  float body_lo;
 };
 
 interface ImageAnalyzer {
