@@ -31,7 +31,7 @@ async function refreshState() {
     setUIMode(mode)
     setUISlider('conf-body', sliders.confBody)
     setUISlider('gender-certainty', sliders.genderCertainty)
-    setUISkeletonSlider(sliders.minSkeleton)
+    setUIHandFilter(sliders.minSkeleton > 0)
     setUISlider('nsfw-conf', sliders.nsfwConf)
     setUISlider('nudenet-conf', sliders.nudenetConf)
     setUIDebugMode(dev.debugMode)
@@ -83,26 +83,19 @@ function setUISlider(id: string, value: number) {
   if (label) label.textContent = `${pct}%`
 }
 
-// Le slider squelette est en POINTS /8 (même échelle que le label debug
-// « skel: N/8 ») ; la pref native reste une fraction 0-1 (N/8).
-function setUISkeletonSlider(value: number) {
-  const slider = document.getElementById('min-skeleton') as HTMLInputElement | null
-  const label = document.getElementById('min-skeleton-value')
-  const pts = Math.round(value * 8)
-  if (slider) slider.value = String(pts)
-  if (label) label.textContent = `${pts}/8`
+// Le filtre « main seule » est un booléen côté UI ; la pref native min_skeleton
+// reste un double (0 = off, > 0 = on — pas de nouvelle pref à migrer).
+function setUIHandFilter(on: boolean) {
+  const toggle = document.getElementById('hand-filter-toggle') as HTMLInputElement | null
+  if (toggle) toggle.checked = on
 }
 
-function bindSkeletonSlider(setter: (v: number) => void) {
-  const slider = document.getElementById('min-skeleton') as HTMLInputElement | null
-  const label = document.getElementById('min-skeleton-value')
-  if (!slider) return
-  slider.addEventListener('input', () => {
-    if (label) label.textContent = `${slider.value}/8`
-  })
-  slider.addEventListener('change', () => {
+function bindHandFilterToggle(setter: (v: number) => void) {
+  const toggle = document.getElementById('hand-filter-toggle') as HTMLInputElement | null
+  if (!toggle) return
+  toggle.addEventListener('change', () => {
     try {
-      setter(Number(slider.value) / 8)
+      setter(toggle.checked ? 1 : 0)
     } catch (err) {
       console.error('[basarunaa-panel] set min-skeleton failed', err)
     }
@@ -169,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   bindSlider('conf-body', v => api().setConfBody(v))
   bindSlider('gender-certainty', v => api().setGenderCertainty(v))
-  bindSkeletonSlider(v => api().setMinSkeleton(v))
+  bindHandFilterToggle(v => api().setMinSkeleton(v))
   bindSlider('nsfw-conf', v => api().setNsfwConf(v))
   bindSlider('nudenet-conf', v => api().setNudenetConf(v))
 

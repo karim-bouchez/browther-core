@@ -266,13 +266,12 @@
 
   <div class="section" id="sliders-section">
     <div class="section-label">$i18n{detectionLabel}</div>
-    <div class="slider-row">
-      <div class="slider-head">
-        <span>$i18n{minSkeleton}</span>
-        <span class="slider-value" id="min-skeleton-value">—</span>
+    <div class="toggle-row">
+      <div class="text">
+        <div class="label">Ignorer les mains seules</div>
+        <div class="desc-small">Ne floute pas quand seule une main est visible (ex. tutos vidéo). Dès qu'on voit plus — visage, bras avec coude, jambe, corps — le flou s'applique normalement.</div>
       </div>
-      <input type="range" id="min-skeleton" min="0" max="8" step="1">
-      <div class="slider-desc">Anti « main seule » : rejette une détection qui n'a NI ce minimum de points de corps (sur 8 : épaules, hanches, genoux, chevilles — échelle du « skel: N/8 » debug), NI visage visible, NI coude. Un gros plan de visage ou une main+bras restent floutables. 0 = désactivé.</div>
+      <input type="checkbox" class="small-toggle" id="hand-filter-toggle" aria-label="Ignorer les mains seules">
     </div>
     <div class="slider-row">
       <div class="slider-head">
