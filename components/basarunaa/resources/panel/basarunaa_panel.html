@@ -166,6 +166,10 @@
       font-variant-numeric: tabular-nums;
       opacity: 0.75;
     }
+    .slider-row .slider-scale {
+      display: flex; justify-content: space-between;
+      font-size: 10px; color: var(--desc-color, #888); margin-top: 2px;
+    }
     .slider-row input[type="range"] {
       appearance: none;
       width: 100%; height: 4px;
@@ -279,7 +283,8 @@
         <span class="slider-value" id="gender-certainty-value">—</span>
       </div>
       <input type="range" id="gender-certainty" min="0" max="100" step="1">
-      <div class="slider-desc">LE seuil principal : il se compare directement au % affiché sur chaque personne (label debug). En dessous → floutée par précaution (dans le doute = flou) ; au-dessus → la classe décide (femme floutée, homme/enfant non).</div>
+      <div class="slider-scale"><span>Moins de flou</span><span>Plus prudent</span></div>
+      <div class="slider-desc">Chaque personne détectée reçoit un score de certitude (le % affiché sur son label en debug). Sous ce seuil, elle est floutée par précaution — dans le doute, flou. Au-dessus, sa classe décide (femme → floutée, homme/enfant → non).</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">

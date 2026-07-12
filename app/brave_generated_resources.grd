@@ -1514,14 +1514,14 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_PANEL_DETECTION_LABEL" desc="Section label for detection thresholds in the Basarunaa panel">
         Detection
       </message>
-      <message name="IDS_BASARUNAA_PANEL_CONF_BODY" desc="Slider label for body-detection confidence threshold in the Basarunaa panel">
-        Body confidence
+      <message name="IDS_BASARUNAA_PANEL_CONF_BODY" desc="Debug-section slider label for the advanced detection floor (below this score a detection is discarded entirely) in the Basarunaa panel">
+        Detection floor (advanced)
       </message>
       <message name="IDS_BASARUNAA_PANEL_CONF_FACE" desc="Slider label for face-detection confidence threshold in the Basarunaa panel">
         Face confidence
       </message>
-      <message name="IDS_BASARUNAA_PANEL_GENDER_CERTAINTY" desc="Slider label for gender-classification certainty threshold in the Basarunaa panel">
-        Gender certainty
+      <message name="IDS_BASARUNAA_PANEL_GENDER_CERTAINTY" desc="Main slider label: below this certainty a detected person is blurred as a precaution in the Basarunaa panel">
+        Blur caution level
       </message>
       <message name="IDS_BASARUNAA_PANEL_SENTINEL_CONF" desc="Slider label for the NanoDet sentinel detection confidence threshold in the Basarunaa panel">
         Sentinel confidence
