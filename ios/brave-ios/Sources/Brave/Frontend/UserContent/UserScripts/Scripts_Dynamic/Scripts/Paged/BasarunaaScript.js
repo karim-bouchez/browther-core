@@ -390,6 +390,48 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     return { data, width: imgW, height: imgH };
   }
 
+  const GenderClass = {
+    Unknown: -1,
+    Male: 0,
+    Female: 1,
+    Child: 2
+  };
+  function genderFromWord(word) {
+    switch (word) {
+      case "male":
+        return GenderClass.Male;
+      case "female":
+        return GenderClass.Female;
+      case "child":
+        return GenderClass.Child;
+      default:
+        return GenderClass.Unknown;
+    }
+  }
+
+  const MALE = 0;
+  const FEMALE = 1;
+  const WRIST_KP_INDICES = [9, 10];
+  const HAND_ONLY_KP_CONF = 0.3;
+  function shouldBlur(gender, conf, mode, certainty) {
+    if (mode === "blur-all") return true;
+    const target = mode === "blur-male" ? MALE : mode === "blur-female" ? FEMALE : null;
+    if (target === null) return false;
+    if (gender === target) return true;
+    if (conf < certainty) return true;
+    return false;
+  }
+  function isHandOnly(kpConfidences, threshold = HAND_ONLY_KP_CONF) {
+    if (!kpConfidences || kpConfidences.length === 0) return false;
+    return !kpConfidences.some(
+      (c, i) => !WRIST_KP_INDICES.includes(i) && (c ?? 0) > threshold
+    );
+  }
+  function wouldBlur(input) {
+    if (input.minSkeletonActive && isHandOnly(input.kpConfidences)) return false;
+    return shouldBlur(input.gender, input.conf, input.mode, input.certainty);
+  }
+
   const MIN_BLUR_PX = 25;
   const FEATHER_EXPAND = 20;
   const FEATHER_BLUR = 10;
@@ -615,6 +657,8 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     "#4682B4",
     "#0047AB"
   ];
+  const UNKNOWN_COLOR = "#FFCC00";
+  const CHILD_COLOR = "#32CD32";
   const COCO_SKELETON$1 = [
     [0, 1],
     [0, 2],
@@ -857,6 +901,18 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     });
   }
 
+  function pickPersonColor(gc, idx) {
+    if (gc === GenderClass.Female) return FEMALE_COLORS[idx.f++ % FEMALE_COLORS.length];
+    if (gc === GenderClass.Male) return MALE_COLORS[idx.m++ % MALE_COLORS.length];
+    if (gc === GenderClass.Child) return CHILD_COLOR;
+    return UNKNOWN_COLOR;
+  }
+  function genderShort(gc) {
+    if (gc === GenderClass.Female) return "F";
+    if (gc === GenderClass.Male) return "M";
+    if (gc === GenderClass.Child) return "E";
+    return "?";
+  }
   const KP_DOT_COLORS = [
     "#FF0000",
     "#00FF00",
@@ -938,22 +994,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   }
   function drawDebugDetections(ctx, persons, imgW, imgH, debugMode) {
     const isLite = debugMode === "boxes";
-    let femaleIdx = 0;
-    let maleIdx = 0;
+    const idx = { f: 0, m: 0 };
     for (const person of persons) {
       const bb = person.bbox;
       if (!bb || bb.length !== 4) continue;
       const [x1, y1, x2, y2] = bb;
       const dw = x2 - x1;
       const dh = y2 - y1;
-      let color;
-      if (person.gender === "F") {
-        color = FEMALE_COLORS[femaleIdx % FEMALE_COLORS.length];
-        femaleIdx++;
-      } else {
-        color = MALE_COLORS[maleIdx % MALE_COLORS.length];
-        maleIdx++;
-      }
+      const color = pickPersonColor(person.genderClass, idx);
       if (!isLite && person.keypoints && person.keypoints.length === 17) {
         try {
           const poly = buildBodyPolygon(person.keypoints, bb, imgW, imgH);
@@ -1006,7 +1054,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           }
         }
       }
-      const gShort = person.gender ?? "?";
+      const gShort = genderShort(person.genderClass);
       const classRaw = person.classifierUsedRaw || "";
       const classLabel = classRaw ? ` [${classRaw}]` : "";
       if (isLite) {
@@ -1078,20 +1126,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       const TOP_PAD = 6;
       let x = 6;
       const stripTop = imgH;
-      let femaleIdx = 0;
-      let maleIdx = 0;
+      const idx = { f: 0, m: 0 };
       for (let pi = 0; pi < persons.length; pi++) {
         const person = persons[pi];
         const face = images[pi * 2];
         const body = images[pi * 2 + 1];
-        let personColor;
-        if (person.gender === "F") {
-          personColor = FEMALE_COLORS[femaleIdx % FEMALE_COLORS.length];
-          femaleIdx++;
-        } else {
-          personColor = MALE_COLORS[maleIdx % MALE_COLORS.length];
-          maleIdx++;
-        }
+        const personColor = pickPersonColor(person.genderClass, idx);
         let faceGenderLabel = "face";
         if (person.facePFemale != null && person.facePMale != null) {
           const faceIsFemale = person.facePFemale >= person.facePMale;
@@ -1104,7 +1144,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           const bodyConf = bodyIsFemale ? person.bodyPFemale : person.bodyPMale;
           bodyGenderLabel = `${bodyIsFemale ? "female " : "male "}${Math.round(bodyConf * 100)}%`;
         }
-        const gShort = person.gender ?? "?";
+        const gShort = genderShort(person.genderClass);
         const winnerConf = person.genderConfidence != null ? `${Math.round(person.genderConfidence * 100)}%` : "";
         const classRaw = person.classifierUsedRaw || "";
         const classSuffix = classRaw ? ` [${shortenClassifier(classRaw)}]` : "";
@@ -1235,11 +1275,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
     return kps.length > 0 ? kps : void 0;
   }
-  function mapGender(g) {
-    if (g === "female") return "F";
-    if (g === "male") return "M";
-    return void 0;
-  }
   function normalisePersons(persons) {
     const out = [];
     for (const p of persons) {
@@ -1248,23 +1283,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         bbox: p.bbox,
         ...p.faceBbox ? { faceBbox: p.faceBbox } : {},
         ...kps ? { keypoints: kps } : {},
-        ...typeof p.bodyConfidence === "number" ? { bodyConfidence: p.bodyConfidence } : {},
-        ...p.gender ? { gender: mapGender(p.gender) } : {},
         ...typeof p.genderConfidence === "number" ? { genderConfidence: p.genderConfidence } : {},
-        ...p.isSyntheticBody ? { isSyntheticBody: true } : {},
-        // classifierUsed: the core type is restricted to face/body/unmatched
-        // but Swift sends free-form strings ("insightface (partial body)",
-        // "pplcnet (synth body)", etc.). We keep the raw string on the
-        // normalised payload for debug labels.
-        facePFemale: typeof p.facePFemale === "number" ? p.facePFemale : null,
-        facePMale: typeof p.facePMale === "number" ? p.facePMale : null,
-        bodyPFemale: typeof p.bodyPFemale === "number" ? p.bodyPFemale : null,
-        bodyPMale: typeof p.bodyPMale === "number" ? p.bodyPMale : null,
-        faceCropDataUrl: typeof p.faceCropDataUrl === "string" ? p.faceCropDataUrl : null,
-        bodyCropDataUrl: typeof p.bodyCropDataUrl === "string" ? p.bodyCropDataUrl : null,
-        shouldBlur: !!p.shouldBlur
+        genderClass: genderFromWord(p.gender),
+        facePFemale: null,
+        facePMale: null,
+        bodyPFemale: null,
+        bodyPMale: null,
+        faceCropDataUrl: null,
+        bodyCropDataUrl: null,
+        shouldBlur: false
       };
-      person.classifierUsedRaw = typeof p.classifierUsed === "string" ? p.classifierUsed : "";
       out.push(person);
     }
     return out;
@@ -1438,16 +1466,33 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   function imgUrl(img) {
     return img.currentSrc || img.src || "";
   }
+  function applyPolicy(persons, prefs) {
+    for (const p of persons) {
+      const kpConfidences = p.keypoints ? p.keypoints.map((k) => k.confidence) : null;
+      p.shouldBlur = wouldBlur({
+        gender: p.genderClass,
+        conf: typeof p.genderConfidence === "number" ? p.genderConfidence : 0,
+        mode: prefs.mode,
+        certainty: prefs.genderCertainty,
+        minSkeletonActive: !!prefs.minSkeletonActive,
+        kpConfidences
+      });
+    }
+  }
   function installReplyHandlers(deps) {
-    window.__basarunaaApply = function basarunaaApply(id, decision, persons, debugMode, elapsedMs) {
+    window.__basarunaaApply = function basarunaaApply(id, persons, prefs, debugMode, elapsedMs) {
       try {
         const img = findImageById(id);
-        const personCount = persons?.length ?? 0;
         const isDebug = debugMode === "boxes" || debugMode === "debug";
+        const normalised = normalisePersons(persons ?? []);
+        applyPolicy(normalised, prefs);
+        const toBlur = normalised.filter((p) => p.shouldBlur);
+        const decision = toBlur.length > 0 ? "keep" : "remove";
         metric("analyze_decision", {
           id,
           decision: String(decision),
-          persons: personCount,
+          persons: normalised.length,
+          toBlur: toBlur.length,
           found: !!img,
           debug: String(debugMode || "none")
         });
@@ -1455,17 +1500,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           img.setAttribute(STATE_ATTR, decision);
           if (isDebug) {
             releaseHideFirst(img);
-            if (personCount > 0) {
-              const normalised = normalisePersons(persons);
+            if (normalised.length > 0) {
               void compositeDebugOverlay(img, normalised, debugMode, elapsedMs);
             }
           } else if (decision === "remove") {
             releaseHideFirst(img);
             deps.decisionCache.set(imgUrl(img), decision);
-          } else if (decision === "keep" && personCount > 0) {
-            const normalised = normalisePersons(persons);
-            void compositePerPersonBlur(img, normalised);
+          } else if (toBlur.length > 0) {
+            void compositePerPersonBlur(img, toBlur);
             deps.decisionCache.set(imgUrl(img), decision);
+            send("statsBlurred", String(toBlur.length));
           } else {
             deps.decisionCache.set(imgUrl(img), decision);
           }
@@ -2054,11 +2098,36 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   }
 
   function installVideoReplyHandlers(deps) {
-    window.__basarunaaApplyVideo = function basarunaaApplyVideo(videoId, ctMs, analyseW, analyseH, bboxes, isNsfw, debugMode, fullPersons, timing) {
+    window.__basarunaaApplyVideo = function basarunaaApplyVideo(videoId, ctMs, analyseW, analyseH, persons, isNsfw, debugMode, prefs, timing) {
       const proc = deps.findProcessor(videoId);
       if (!proc) {
         metric("video_apply_no_canvas", { videoId });
         return;
+      }
+      const list = persons ?? [];
+      const bboxes = [];
+      const fullPersons = [];
+      for (const p of list) {
+        const kps = [];
+        if (p.keypoints) {
+          for (const k of p.keypoints) if (k) kps.push(k);
+        }
+        const kpConfidences = kps.length > 0 ? kps.map((k) => k[2]) : null;
+        const blur = wouldBlur({
+          gender: genderFromWord(p.gender),
+          conf: typeof p.genderConfidence === "number" ? p.genderConfidence : 0,
+          mode: prefs.mode,
+          certainty: prefs.genderCertainty,
+          minSkeletonActive: !!prefs.minSkeletonActive,
+          kpConfidences
+        });
+        if (blur) bboxes.push(p.bbox);
+        fullPersons.push({
+          bbox: p.bbox,
+          ...kps.length > 0 ? { keypoints: kps } : {},
+          gender: p.gender ?? null,
+          genderConfidence: p.genderConfidence ?? null
+        });
       }
       proc.onYoloApply({
         ctMs,
@@ -2070,6 +2139,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         fullPersons,
         timing
       });
+      if (bboxes.length > 0) send("statsBlurred", String(bboxes.length));
     };
     window.__basarunaaApplyVideoSentinel = function basarunaaApplyVideoSentinel(videoId, ctMs, sentinelW, sentinelH, payload) {
       const proc = deps.findProcessor(videoId);
@@ -2129,6 +2199,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
 
   const COLOR_FEMALE = "#FF69B4";
   const COLOR_MALE = "#4169E1";
+  const COLOR_CHILD = "#32CD32";
   const COLOR_UNKNOWN = "#FFCC00";
   const COCO_SKELETON = [
     [0, 1],
@@ -2204,12 +2275,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       const dw = (x2 - x1) * sx;
       const dh = (y2 - y1) * sy;
       if (dw <= 0 || dh <= 0) continue;
-      const color = p.gender === "female" ? COLOR_FEMALE : p.gender === "male" ? COLOR_MALE : COLOR_UNKNOWN;
+      const color = p.gender === "female" ? COLOR_FEMALE : p.gender === "male" ? COLOR_MALE : p.gender === "child" ? COLOR_CHILD : COLOR_UNKNOWN;
       dctx.save();
       dctx.strokeStyle = color;
       dctx.lineWidth = 2;
       dctx.strokeRect(dx, dy, dw, dh);
-      let labelTxt = p.gender === "female" ? "F" : p.gender === "male" ? "M" : "?";
+      let labelTxt = p.gender === "female" ? "F" : p.gender === "male" ? "M" : p.gender === "child" ? "E" : "?";
       if (typeof p.genderConfidence === "number") {
         labelTxt += ` ${Math.round(p.genderConfidence * 100)}%`;
       }
