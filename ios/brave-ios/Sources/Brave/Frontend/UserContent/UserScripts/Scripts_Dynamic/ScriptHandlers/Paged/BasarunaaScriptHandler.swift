@@ -20,16 +20,16 @@ protocol BasarunaaScriptHandlerDelegate: AnyObject {
   func basarunaaDidExitFakeFullscreen(tab: (any TabState)?)
 }
 
-/// Decision returned to the JS after ML analysis.
-private enum BlurDecision: String {
-  case keep      // keep the default blur (target person detected, or analysis failed)
-  case remove    // remove the default blur (no target detected)
-}
-
 /// V1 (étape A) : pas de ML. Le script JS injecté applique un `filter: blur()`
 /// CSS sur toutes les `<img>` au pageload, et observe les images chargées
 /// dynamiquement via `MutationObserver`. Ce handler gère uniquement le
 /// lifecycle (page reset, métriques) en attendant le couplage ML de l'étape B.
+///
+/// Migration gender-v2n (2026-07-13) : le natif est désormais un **PUR
+/// EXTRACTEUR** (cf. `private/docs/BASARUNAA_MOBILE_GENDER_V2N.md`). Il envoie
+/// TOUTES les persons détectées (genre 3 classes + conf brute + keypoints) +
+/// les prefs (mode/certitude) au JS. La **décision de flou vit dans
+/// `core/policy.ts`**, appliquée côté bundle webkit — plus de `decide()` natif.
 class BasarunaaScriptHandler: TabContentScript {
 
   weak var delegate: BasarunaaScriptHandlerDelegate?
@@ -105,6 +105,14 @@ class BasarunaaScriptHandler: TabContentScript {
       let count = Int(data) ?? 0
       delegate?.basarunaaDidApplyBlur(tab: tab, imageCount: count)
       log.info("blur_applied count=\(count, privacy: .public)")
+
+    case "statsBlurred":
+      // data = "<count>" — le JS a décidé (core/policy) et floute N persons.
+      // Compteur cumulatif "personnes floutées" de la NTP (parité Sawtunaa).
+      let count = Int(data) ?? 0
+      if count > 0 {
+        BrowtherStatsReporter.shared.addPersonsBlurred(count)
+      }
 
     case "analyzeImage":
       // data = "<id>|<base64Jpeg>"
@@ -223,13 +231,27 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
+  // MARK: - Prefs envoyées au JS (la policy vit dans core/policy.ts)
+
+  /// Payload prefs pour le JS : mode + seuil de certitude + filtre main-seule.
+  /// iOS n'expose pas (encore) le toggle `min_skeleton` → `minSkeletonActive`
+  /// = false (le filtre main-seule est skip, parité conservatrice).
+  private func prefsPayload() -> [String: Any] {
+    [
+      "mode": Preferences.Basarunaa.effectiveMode,
+      "genderCertainty": Preferences.Basarunaa.genderCertainty.value,
+      "minSkeletonActive": false,
+    ]
+  }
+
   // MARK: - Video frame processing (pivot D)
 
   /// Décompresse un JPEG capturé par JS (`canvas.drawImage(video)`), invoque
-  /// `BasarunaaPipeline.analyze` puis push les bboxes au JS overlay.
+  /// `BasarunaaPipeline.analyze` (single-shot gender-v2n) puis push TOUTES les
+  /// persons + les prefs au JS overlay, qui applique la policy (core/policy).
   ///
   /// V4 (2026-05-20) : appelle TOUJOURS `__basarunaaApplyVideo` côté JS, même
-  /// en cas d'erreur (bboxes vides). Sans ça, le JS reste figé sur
+  /// en cas d'erreur (persons vides). Sans ça, le JS reste figé sur
   /// `yoloInFlightById = true` et le scheduler arrête de fire des YOLO →
   /// flou freezé jusqu'au pageReset.
   private func processVideoFrame(
@@ -237,14 +259,9 @@ class BasarunaaScriptHandler: TabContentScript {
     tab: any TabState
   ) async {
     let start = Date()
-    var bboxes: [[Double]] = []
+    var personsPayload: [[String: Any]] = []
     var isNsfw = false
     var personsCount = 0
-    var modeLabel = ""
-    // Payload riche pour le debug overlay vidéo (mode != "none"). Inclut
-    // les keypoints, gender, confidence pour TOUTES les persons détectées
-    // (pas juste à flouter, parité macOS POC `renderBlur` debug branch).
-    var fullPersonsPayload: [[String: Any]] = []
     var poseLatencyMs: Double = 0
     var classifyLatencyMs: Double = 0
     var nudeClasses: [String] = []
@@ -264,39 +281,19 @@ class BasarunaaScriptHandler: TabContentScript {
       do {
         // Pipeline vidéo : `analyze` (persons + gender) + `checkNsfw` (Marqo +
         // NudeNet) en parallèle — sinon le branch `if isNsfw` côté JS ne fire
-        // jamais (analyze() retourne toujours isNsfw=false par design POC).
-        // Le coût additionnel (~30-60ms NudeNet + Marqo) reste dominé par le
-        // YOLO-pose, et runMobileNet/Marqo tournent ANE ⇒ parallèle effectif.
+        // jamais (analyze() retourne toujours isNsfw=false par design).
         async let nsfwAsync = BasarunaaPipeline.shared.checkNsfw(image: cgImage)
         let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
         let nsfw = try? await nsfwAsync
-        let mode = Preferences.Basarunaa.effectiveMode
-        let (_, personsToBlur) = decide(from: result.persons, mode: mode)
-        // bbox = [x1, y1, x2, y2] en coords analyse (= dimensions JPEG envoyé,
-        // pas les dims du <video> à l'écran). JS rescale.
-        bboxes = personsToBlur.map { [$0.bbox.minX, $0.bbox.minY, $0.bbox.maxX, $0.bbox.maxY] }
+        // PUR EXTRACTEUR : on envoie TOUTES les persons ; le JS (core/policy)
+        // décide lesquelles flouter et remonte le compte via "statsBlurred".
+        personsPayload = serialize(persons: result.persons)
         isNsfw = nsfw?.isNsfw ?? false
         personsCount = result.persons.count
-        // Browther stats : compteur cumulatif "personnes floutées" affiché
-        // sur la NTP (parité Sawtunaa addMusicSeconds). On compte les
-        // personnes réellement floutées (post-filtre `decide()`), pas toutes
-        // les personnes détectées.
-        if !personsToBlur.isEmpty {
-          BrowtherStatsReporter.shared.addPersonsBlurred(personsToBlur.count)
-        }
-        modeLabel = mode
         poseLatencyMs = result.poseLatencyMs
         classifyLatencyMs = result.classifyLatencyMs
         nudeClasses = nsfw?.nudeClasses ?? []
-        // En mode debug, sérialise toutes les persons (avec keypoints) —
-        // les `shouldBlurFlags` indiquent celles que `decide()` ciblait.
-        if debugMode != "none" {
-          let toBlurKeys = Set(personsToBlur.map { bboxKey($0.bbox) })
-          let shouldBlurFlags = result.persons.map { toBlurKeys.contains(bboxKey($0.bbox)) }
-          fullPersonsPayload = serialize(persons: result.persons, shouldBlurFlags: shouldBlurFlags)
-        }
-        // Capture mode — sauvegarde la frame raw + metadata pour dataset
-        // de régression ML. Activé via le toggle Debug section du panel.
+        // Capture mode — sauvegarde la frame raw + metadata pour dataset ML.
         if Preferences.Basarunaa.captureMode.value {
           Self.saveCapture(
             jpegData: jpegData,
@@ -304,10 +301,9 @@ class BasarunaaScriptHandler: TabContentScript {
             width: width,
             height: height,
             ctMs: ctMs,
-            mode: mode,
-            isNsfw: result.isNsfw,
+            mode: Preferences.Basarunaa.effectiveMode,
+            isNsfw: isNsfw,
             persons: result.persons,
-            personsToBlur: personsToBlur,
             poseLatencyMs: result.poseLatencyMs,
             classifyLatencyMs: result.classifyLatencyMs
           )
@@ -325,23 +321,24 @@ class BasarunaaScriptHandler: TabContentScript {
       video_analyzed videoId=\(videoId, privacy: .public) ct_ms=\(ctMs, privacy: .public) \
       w=\(width, privacy: .public) h=\(height, privacy: .public) \
       persons=\(personsCount, privacy: .public) \
-      toBlur=\(bboxes.count, privacy: .public) mode=\(modeLabel, privacy: .public) \
       nsfw=\(isNsfw, privacy: .public) elapsed=\(String(format: "%.0f", elapsedMs), privacy: .public)ms
       """
     )
 
-    // Mode debug + payload riche stoppé côté JS via mémo par videoId.
     // ALWAYS notify the JS — even on error — to release `yoloInFlightById`.
+    // Nouveau contrat : on envoie `persons` (toutes) + `prefs` au lieu de
+    // `bboxes` — le JS calcule les régions à flouter via core/policy.
+    let prefs = prefsPayload()
     do {
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApplyVideo",
         args: [
-          videoId, ctMs, width, height, bboxes, isNsfw, debugMode,
-          fullPersonsPayload,
+          videoId, ctMs, width, height, personsPayload, isNsfw, debugMode,
+          prefs,
           [
             "poseLatencyMs": poseLatencyMs,
             "classifyLatencyMs": classifyLatencyMs,
-            "mode": modeLabel,
+            "mode": Preferences.Basarunaa.effectiveMode,
             "nudeClasses": nudeClasses,
           ] as [String: Any],
         ],
@@ -412,7 +409,7 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
-  // MARK: - ML coupling
+  // MARK: - ML coupling (image)
 
   private func processImage(id: Int, base64: String, tab: any TabState) async {
     let start = Date()
@@ -421,66 +418,33 @@ class BasarunaaScriptHandler: TabContentScript {
       let cgImage = uiImage.cgImage
     else {
       log.error("analyze[\(id, privacy: .public)] failed to decode base64")
-      await reply(tab: tab, id: id, decision: .keep, persons: [], shouldBlurFlags: [], debugMode: "none", elapsedMs: 0)
+      await reply(tab: tab, id: id, persons: [], debugMode: "none", elapsedMs: 0)
       return
     }
 
     do {
       let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
-      let mode = Preferences.Basarunaa.effectiveMode
       let debugMode = Preferences.Basarunaa.debugMode.value
-      let isDebug = debugMode == "boxes" || debugMode == "debug"
-
-      // Persons the active mode would normally blur. Reused in debug mode
-      // as the per-person `shouldBlur` metadata so the overlay shows the
-      // same blur the user would see in production (macOS POC parity).
-      let (modeDecision, modePersonsToBlur) = decide(from: result.persons, mode: mode)
-
-      let decision: BlurDecision
-      let personsPayload: [DetectedPerson]
-      let shouldBlurFlags: [Bool]
-      if isDebug {
-        // Debug overlay (POC parity): keep the per-person blur that the
-        // active mode would apply, draw bboxes/labels on top. We send
-        // *every* detected person plus a per-person `shouldBlur` flag —
-        // JS composites blur first, overlay on top.
-        decision = result.persons.isEmpty ? .remove : .keep
-        personsPayload = result.persons
-        let blurredBboxes = Set(modePersonsToBlur.map { bboxKey($0.bbox) })
-        shouldBlurFlags = result.persons.map { blurredBboxes.contains(bboxKey($0.bbox)) }
-      } else if result.isNsfw {
-        // NSFW short-circuit: full-image blur regardless of mode. No per-person
-        // payload — JS keeps the default full-image blur in place.
-        decision = .keep
-        personsPayload = []
-        shouldBlurFlags = []
-      } else {
-        decision = modeDecision
-        personsPayload = modePersonsToBlur
-        shouldBlurFlags = Array(repeating: true, count: modePersonsToBlur.count)
-      }
+      // PUR EXTRACTEUR : on envoie TOUTES les persons + prefs. Le JS
+      // (core/policy) décide keep/remove et lesquelles flouter.
+      let personsPayload = serialize(persons: result.persons)
       let elapsedMs = Date().timeIntervalSince(start) * 1000
       log.info(
         """
-        analyze[\(id, privacy: .public)] nsfw=\(result.isNsfw, privacy: .public) \
-        persons=\(result.persons.count, privacy: .public) toBlur=\(modePersonsToBlur.count, privacy: .public) \
-        mode=\(mode, privacy: .public) debug=\(debugMode, privacy: .public) → \(decision.rawValue, privacy: .public) \
-        (\(String(format: "%.0f", elapsedMs), privacy: .public)ms)
+        analyze[\(id, privacy: .public)] persons=\(result.persons.count, privacy: .public) \
+        debug=\(debugMode, privacy: .public) (\(String(format: "%.0f", elapsedMs), privacy: .public)ms)
         """
       )
       await reply(
         tab: tab,
         id: id,
-        decision: decision,
         persons: personsPayload,
-        shouldBlurFlags: shouldBlurFlags,
         debugMode: debugMode,
         elapsedMs: elapsedMs
       )
 
       // Phase 2 (POC parity) — fire NSFW check in the background. Only
-      // notify JS when the result is positive ; the per-person blur is
-      // already applied and that's the right default on safe images.
+      // notify JS when the result is positive.
       let weakLog = self.log
       Task.detached { [weak tab] in
         do {
@@ -499,13 +463,13 @@ class BasarunaaScriptHandler: TabContentScript {
       }
     } catch {
       log.error("analyze[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
-      await reply(tab: tab, id: id, decision: .keep, persons: [], shouldBlurFlags: [], debugMode: "none", elapsedMs: 0)
+      await reply(tab: tab, id: id, persons: [], debugMode: "none", elapsedMs: 0)
     }
   }
 
   /// Phase 2 notification — fires `window.__basarunaaApplyNsfw(id, score)`
   /// on the page so the JS can replace the per-person blur with a full
-  /// image blur (or any UI it wants). Called only when NSFW is positive.
+  /// image blur. Called only when NSFW is positive.
   @MainActor
   private static func applyNsfwOverlay(
     tab: any TabState,
@@ -526,58 +490,18 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
-  /// Stable string key for a person's body bbox — used to match persons
-  /// across `decide()` output and the full detected list when building the
-  /// per-person `shouldBlur` flags in debug mode.
-  private func bboxKey(_ rect: CGRect) -> String {
-    "\(rect.minX),\(rect.minY),\(rect.maxX),\(rect.maxY)"
-  }
-
-  /// Decision policy + which persons trigger the blur (POC modes).
-  ///
-  /// - `blur-all`    : every detected person is blurred (bbox + keypoints
-  ///                   sent so JS composites a per-person mask).
-  /// - `blur-male`   : only persons confidently classified as male are
-  ///                   blurred. Unknown gender stays visible.
-  /// - `blur-female` : female-classified persons, plus those with
-  ///                   `gender == nil` (POC's "safer default to keep" — body
-  ///                   detected but face too small/blurry / classification
-  ///                   below the `gender-certainty` threshold).
-  private func decide(
-    from persons: [DetectedPerson],
-    mode: String
-  ) -> (BlurDecision, [DetectedPerson]) {
-    if persons.isEmpty { return (.remove, []) }
-    let toBlur: [DetectedPerson]
-    switch mode {
-    case "blur-all":
-      toBlur = persons
-    case "blur-male":
-      toBlur = persons.filter { $0.gender == .male }
-    case "blur-female", _:
-      toBlur = persons.filter { p in
-        if p.gender == nil { return true }      // safer default to keep
-        return p.gender == .female
-      }
-    }
-    return toBlur.isEmpty ? (.remove, []) : (.keep, toBlur)
-  }
-
   @MainActor
   private func reply(
     tab: any TabState,
     id: Int,
-    decision: BlurDecision,
-    persons: [DetectedPerson],
-    shouldBlurFlags: [Bool],
+    persons: [[String: Any]],
     debugMode: String,
     elapsedMs: Double
   ) async {
     do {
-      let serialized = serialize(persons: persons, shouldBlurFlags: shouldBlurFlags)
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApply",
-        args: [id, decision.rawValue, serialized, debugMode, elapsedMs],
+        args: [id, persons, prefsPayload(), debugMode, elapsedMs],
         contentWorld: Self.scriptSandbox
       )
     } catch {
@@ -587,66 +511,29 @@ class BasarunaaScriptHandler: TabContentScript {
     }
   }
 
-  /// Compact representation for the JS side. Sends per-person :
-  /// - `bbox` `[x1, y1, x2, y2]` (POC convention)
-  /// - `keypoints` 17 COCO points as `[x, y, conf]` (so JS rebuilds the
-  ///   body polygon mask à la POC macOS `buildBodyPolygon`)
-  /// - `faceBbox` (if any)
-  /// - `gender` + `genderConfidence` (if classified)
-  /// - `bodyConfidence` (YOLO score)
-  /// - `shouldBlur` — set in debug mode for the persons the active mode
-  ///   would normally blur, so JS composites the blur and draws the
-  ///   overlay on top (POC parity).
-  private func serialize(persons: [DetectedPerson], shouldBlurFlags: [Bool]) -> [[String: Any]] {
-    persons.enumerated().map { (idx, p) in
-      let x1 = p.bbox.minX
-      let y1 = p.bbox.minY
-      let x2 = p.bbox.maxX
-      let y2 = p.bbox.maxY
+  /// Représentation compacte pour le JS (pur extracteur, single-shot gender-v2n).
+  /// Envoie par personne :
+  /// - `bbox` `[x1, y1, x2, y2]`
+  /// - `keypoints` 17 COCO points `[x, y, conf]` (JS rebuild le body-polygon)
+  /// - `faceBbox` (si dérivée)
+  /// - `gender` `'male' | 'female' | 'child'` (classe argmax brute)
+  /// - `genderConfidence` (score de la classe = score de détection)
+  private func serialize(persons: [DetectedPerson]) -> [[String: Any]] {
+    persons.map { p in
       let kps = p.keypoints.map { kp -> [Double] in
         [kp.point.x, kp.point.y, kp.confidence]
       }
       var dict: [String: Any] = [
-        "bbox": [x1, y1, x2, y2] as [Double],
+        "bbox": [p.bbox.minX, p.bbox.minY, p.bbox.maxX, p.bbox.maxY] as [Double],
         "keypoints": kps,
-        "bodyConfidence": p.bodyConfidence,
-        "shouldBlur": idx < shouldBlurFlags.count ? shouldBlurFlags[idx] : true,
-        "isSyntheticBody": p.isSyntheticBody,
-        "classifierUsed": p.classifierUsed,
+        "gender": p.gender.rawValue,
+        "genderConfidence": p.genderConfidence,
       ]
       if let face = p.faceBbox {
         dict["faceBbox"] = [face.minX, face.minY, face.maxX, face.maxY] as [Double]
       }
-      if let g = p.gender {
-        dict["gender"] = g.rawValue
-      }
-      if let gc = p.genderConfidence {
-        dict["genderConfidence"] = gc
-      }
-      if let fp = p.faceProb {
-        dict["facePFemale"] = fp.female
-        dict["facePMale"] = fp.male
-      }
-      if let bp = p.bodyProb {
-        dict["bodyPFemale"] = bp.female
-        dict["bodyPMale"] = bp.male
-      }
-      if let img = p.faceCropImage, let dataUrl = encodeCGImagePNG(img) {
-        dict["faceCropDataUrl"] = dataUrl
-      }
-      if let img = p.bodyCropImage, let dataUrl = encodeCGImagePNG(img) {
-        dict["bodyCropDataUrl"] = dataUrl
-      }
       return dict
     }
-  }
-
-  /// Encode a CGImage as a `data:image/png;base64,...` URL. Returns nil
-  /// if encoding fails. Used to ship the debug crops to the JS overlay.
-  private func encodeCGImagePNG(_ image: CGImage) -> String? {
-    let uiImage = UIImage(cgImage: image)
-    guard let data = uiImage.pngData() else { return nil }
-    return "data:image/png;base64,\(data.base64EncodedString())"
   }
 
   deinit {
@@ -654,12 +541,8 @@ class BasarunaaScriptHandler: TabContentScript {
   }
 
   /// Capture mode — sauvegarde une frame analysée dans `Documents/Basarunaa-capture/`.
-  /// Crée 2 fichiers par capture :
-  ///  - `{ts}-v{videoId}-raw.jpg` : la frame d'entrée envoyée au pipeline ML
-  ///  - `{ts}-v{videoId}-meta.json` : métadonnées (mode, NSFW, bboxes, gender,
-  ///    keypoints, classifierUsed, latency)
-  /// Désactivé par défaut via `Preferences.Basarunaa.captureMode = false`. Utilisé
-  /// pour collecter un dataset de régression ML (POC macOS `_captureAnnotatedFrame`).
+  /// Crée 2 fichiers par capture : `{ts}-v{videoId}-raw.jpg` + `-meta.json`
+  /// (mode, NSFW, bboxes, gender 3-classes, keypoints, latency). Dataset ML.
   private static func saveCapture(
     jpegData: Data,
     videoId: Int,
@@ -669,7 +552,6 @@ class BasarunaaScriptHandler: TabContentScript {
     mode: String,
     isNsfw: Bool,
     persons: [DetectedPerson],
-    personsToBlur: [DetectedPerson],
     poseLatencyMs: Double,
     classifyLatencyMs: Double
   ) {
@@ -694,21 +576,15 @@ class BasarunaaScriptHandler: TabContentScript {
       staticLog.error("captureMode raw write failed: \(String(describing: error), privacy: .public)")
       return
     }
-    let toBlurKeys = Set(personsToBlur.map { "\($0.bbox.minX),\($0.bbox.minY),\($0.bbox.maxX),\($0.bbox.maxY)" })
     let personsMeta: [[String: Any]] = persons.map { p in
       var dict: [String: Any] = [
         "bbox": [p.bbox.minX, p.bbox.minY, p.bbox.maxX, p.bbox.maxY] as [Double],
-        "bodyConfidence": p.bodyConfidence,
-        "classifierUsed": p.classifierUsed,
-        "isSyntheticBody": p.isSyntheticBody,
-        "shouldBlur": toBlurKeys.contains("\(p.bbox.minX),\(p.bbox.minY),\(p.bbox.maxX),\(p.bbox.maxY)"),
+        "gender": p.gender.rawValue,
+        "genderConfidence": p.genderConfidence,
       ]
-      if let g = p.gender { dict["gender"] = g.rawValue }
-      if let gc = p.genderConfidence { dict["genderConfidence"] = gc }
       if let f = p.faceBbox {
         dict["faceBbox"] = [f.minX, f.minY, f.maxX, f.maxY] as [Double]
       }
-      // Keypoints flat [[x,y,conf], ...] — léger pour JSON.
       dict["keypoints"] = p.keypoints.map { [$0.point.x, $0.point.y, $0.confidence] }
       return dict
     }
@@ -733,3 +609,4 @@ class BasarunaaScriptHandler: TabContentScript {
     staticLog.info("captureMode saved \(base, privacy: .public)")
   }
 }
+</content>
