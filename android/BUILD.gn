@@ -279,6 +279,7 @@ android_resources("java_resources") {
     "java/brave-res/drawable/brave_sync_top_rounded.xml",
     "java/brave-res/drawable/brave_sync_top_rounded_light.xml",
     "java/brave-res/drawable/browser_group.xml",
+    "java/brave-res/drawable/browther_ad_label_bg.xml",
     "java/brave-res/drawable/btn_right_tablet.xml",
     "java/brave-res/drawable/button_full.xml",
     "java/brave-res/drawable/button_outline.xml",
