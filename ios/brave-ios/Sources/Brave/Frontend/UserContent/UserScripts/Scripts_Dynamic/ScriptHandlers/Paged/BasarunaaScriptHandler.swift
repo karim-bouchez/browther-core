@@ -609,4 +609,3 @@ class BasarunaaScriptHandler: TabContentScript {
     staticLog.info("captureMode saved \(base, privacy: .public)")
   }
 }
-</content>

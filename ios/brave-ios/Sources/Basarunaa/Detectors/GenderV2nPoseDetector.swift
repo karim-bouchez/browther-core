@@ -106,4 +106,3 @@ final class GenderV2nPoseDetector: @unchecked Sendable {
     return persons
   }
 }
-</content>
