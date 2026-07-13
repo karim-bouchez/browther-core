@@ -1127,6 +1127,11 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     // media/base/video_util.cc, param update_source_release_token=false) -> le
     // décodage MATÉRIEL est préservé (plus de --disable-accelerated-video-decode
     // forcé). Toggle -> restart requis (tap lu à l'init du renderer).
+    // Desktop-only : sur Android le pipeline vidéo Basarunaa passe par le RFO
+    // JS (pas de tap natif) et `kBasarunaaVideoDecodeAhead`/`basarunaa_features.h`
+    // ne sont pas dans le graphe (include gaté `#if !IS_ANDROID` ci-dessus) →
+    // référence gatée aussi, sinon « no member 'kBasarunaaVideoDecodeAhead' ».
+#if !BUILDFLAG(IS_ANDROID)
     if (base::FeatureList::IsEnabled(basarunaa::kBasarunaaVideoDecodeAhead)) {
       if (content::RenderProcessHost* process =
               content::RenderProcessHost::FromID(child_process_id)) {
@@ -1137,6 +1142,7 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
         }
       }
     }
+#endif  // !BUILDFLAG(IS_ANDROID)
   } else if (process_type == switches::kUtilityProcess) {
     // [Browther/Sawtunaa] Resync A/V option A (cf. docs/sawtunaa/AV_SYNC.md) :
     // si Sawtunaa est activé sur au moins un profil chargé, le service audio
