@@ -48,6 +48,11 @@ struct ServedAd {
   // créa ; false/absent = house ad dev&din, pas de label. Décision par pub
   // (un carousel peut mélanger), pilotée par le dashboard de la régie.
   bool show_ad_label = false;
+  // Langue de la créa renvoyée par le serve ("fr"/"en"/"ar") — vide si créa
+  // neutre / champ absent. Pilote le sens de lecture (ar → RTL) et l'attribut
+  // a11y `lang` côté UI. La régie ne sert QUE la langue demandée (+ neutres),
+  // donc en usage normal `locale` == la langue envoyée ou vide.
+  std::string locale;
 };
 
 // Client HTTP minimal pour la régie pub dev&din (https://ads-api.devndin.com).
@@ -78,15 +83,24 @@ class AdsClient {
 
   using ServeCallback = base::OnceCallback<void(std::vector<ServedAd>)>;
 
-  // Récupère jusqu'à `count` pubs pour `placement`. Best effort : sur erreur
-  // réseau / 4xx / config absente, renvoie un vecteur vide (jamais d'échec dur
-  // — l'UI masque simplement la bannière).
+  // Récupère jusqu'à `count` pubs pour `placement` dans la langue d'affichage
+  // `lang` (la régie cible les créas par langue et ne renvoie que celles de la
+  // langue demandée + d'éventuelles créas neutres). `lang` = langue d'affichage
+  // courante de l'app (BCP-47 accepté, ex "fr-FR" ; réduit ici à son sous-tag
+  // primaire "fr"/"en"/"ar" pour le body et la clé de cache). Best effort : sur
+  // erreur réseau / 4xx / config absente, renvoie un vecteur vide (jamais
+  // d'échec dur — l'UI masque simplement la bannière).
   //
-  // Re-serve throttlé à ~10 min par placement (définition officielle de
-  // l'impression, INTEGRATION.md § 4) : le lot servi est mis en cache
-  // process-wide ; entre deux, on ressert les mêmes pubs sans requête réseau
-  // et sans re-tracker (les tokens déjà consommés le restent, dédup globale).
-  void Serve(const std::string& placement, int count, ServeCallback callback);
+  // Re-serve throttlé à ~10 min par (placement, langue) (définition officielle
+  // de l'impression, INTEGRATION.md § 4) : le lot servi est mis en cache
+  // process-wide, clé = placement + langue ; entre deux, on ressert les mêmes
+  // pubs sans requête réseau et sans re-tracker (les tokens déjà consommés le
+  // restent, dédup globale). Un changement de langue repart donc sur un serve
+  // neuf (clé de cache différente).
+  void Serve(const std::string& placement,
+             const std::string& lang,
+             int count,
+             ServeCallback callback);
 
   // Signale qu'une pub (par `id`) est devenue réellement visible. Batch +
   // flush différé des impression tokens. Idempotent par `id`.
@@ -96,7 +110,7 @@ class AdsClient {
   GURL GetClickURL(const std::string& id) const;
 
  private:
-  void OnServeComplete(const std::string& placement,
+  void OnServeComplete(const std::string& cache_key,
                        ServeCallback callback,
                        std::unique_ptr<network::SimpleURLLoader> loader,
                        std::optional<std::string> response_body);

@@ -20,6 +20,9 @@ public struct BrowtherServedAd: Equatable {
   /// true = annonceur externe → label « Pub » obligatoire sur cette créa ;
   /// false = house ad dev&din, pas de label. Décision par slide.
   public let showAdLabel: Bool
+  /// Langue de la créa ("fr"/"en"/"ar") renvoyée par le serve ; vide pour une
+  /// créa neutre. Pilote le sens de lecture (ar → RTL) côté UI (parité desktop).
+  public let locale: String
 }
 
 /// Client HTTP de la régie pub dev&din (`https://ads-api.devndin.com`).
@@ -115,12 +118,29 @@ public final class BrowtherAdsClient {
 
   // MARK: - Serve
 
-  /// Récupère jusqu'à `count` pubs pour `placement`. Best effort : sur config
+  /// Réduit une langue d'affichage (ex "fr-FR", "en_US", "ar") à son sous-tag
+  /// primaire minuscule ("fr"/"en"/"ar"). La régie ne garde de toute façon que
+  /// le sous-tag primaire ; on le réduit ici pour un body propre et une clé de
+  /// cache stable (fr-FR et fr-CA partagent le même lot). Parité C++
+  /// `PrimaryLanguageSubtag`.
+  private static func primaryLanguageSubtag(_ locale: String) -> String {
+    let lower = locale.lowercased()
+    if let sep = lower.firstIndex(where: { $0 == "-" || $0 == "_" }) {
+      return String(lower[..<sep])
+    }
+    return lower
+  }
+
+  /// Récupère jusqu'à `count` pubs pour `placement` dans la langue d'affichage
+  /// `lang` (la régie cible les créas par langue et ne renvoie que celles-ci +
+  /// d'éventuelles créas neutres). `lang` = langue d'affichage courante de l'app
+  /// (BCP-47 accepté, réduit ici au sous-tag primaire). Best effort : sur config
   /// absente / erreur réseau / 4xx, renvoie un tableau vide (jamais d'échec dur
   /// — l'UI masque simplement la bannière). `completion` est appelé sur la main
   /// queue.
   public func serve(
     placement: String,
+    lang: String,
     count: Int,
     completion: @escaping ([BrowtherServedAd]) -> Void
   ) {
@@ -129,10 +149,16 @@ public final class BrowtherAdsClient {
       return
     }
 
-    // Throttle 10 min : lot encore frais → resservi sans requête réseau (les
-    // tokens déjà consommés le restent, `consumedTokens` dédup).
+    // Langue réduite au sous-tag primaire ; entre dans le body ET la clé de
+    // cache (un changement de langue repart sur un serve neuf).
+    let primaryLang = Self.primaryLanguageSubtag(lang)
+    let cacheKey = "\(placement)|\(primaryLang)"
+
+    // Throttle 10 min : lot encore frais (même placement ET même langue) →
+    // resservi sans requête réseau (les tokens déjà consommés le restent,
+    // `consumedTokens` dédup).
     let cachedAds: [BrowtherServedAd]? = queue.sync {
-      guard let cached = serveCache[placement],
+      guard let cached = serveCache[cacheKey],
         Date().timeIntervalSince(cached.servedAt) < Self.serveCacheTtl
       else {
         return nil
@@ -148,6 +174,9 @@ public final class BrowtherAdsClient {
       "placement": placement,
       "platform": "ios",
       "count": count,
+      // Langue ciblée par la régie : le serveur ne renvoie que les créas de
+      // cette langue (+ neutres).
+      "lang": primaryLang,
     ]
     guard
       let bodyData = try? JSONSerialization.data(withJSONObject: bodyDict),
@@ -169,7 +198,7 @@ public final class BrowtherAdsClient {
     session.dataTask(with: request) { [weak self] data, response, error in
       let ads =
         self?.parseServeResponse(
-          placement: placement,
+          cacheKey: cacheKey,
           data: data,
           response: response,
           error: error
@@ -179,7 +208,7 @@ public final class BrowtherAdsClient {
   }
 
   private func parseServeResponse(
-    placement: String,
+    cacheKey: String,
     data: Data?,
     response: URLResponse?,
     error: Error?
@@ -189,6 +218,22 @@ public final class BrowtherAdsClient {
       return []
     }
     let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+    // Un 400 vient de NOTRE serve : on a envoyé quelque chose que la régie
+    // refuse (ex. `{"error":"Langue \"xx\" non supportée …"}` si la langue n'est
+    // pas gérée). Ce n'est PAS le cas normal `ads: []` (200) : c'est un bug de
+    // config à REMONTER (log.error → console/Sentry iOS), pas à absorber en
+    // silence. On masque quand même la bannière (best effort).
+    if code == 400 {
+      var detail = ""
+      if let data,
+        let root = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        let msg = root["error"] as? String
+      {
+        detail = msg
+      }
+      log.error("serve rejeté (400, bug de config régie) : \(detail, privacy: .public)")
+      return []
+    }
     guard (200..<300).contains(code), let data else {
       log.debug("serve KO http=\(code, privacy: .public)")
       return []
@@ -214,9 +259,17 @@ public final class BrowtherAdsClient {
       // Champ absent (vieux cache serveur) → house ad, pas de label.
       let showAdLabel = ad["showAdLabel"] as? Bool ?? false
       let ratio = ad["ratio"] as? String ?? ""
+      // Langue de la créa ("fr"/"en"/"ar") — absente/null pour une créa neutre.
+      let locale = ad["locale"] as? String ?? ""
       freshCache[id] = CachedAd(clickURL: clickURL, impressionToken: token)
       result.append(
-        BrowtherServedAd(id: id, imageURL: imageURL, ratio: ratio, showAdLabel: showAdLabel)
+        BrowtherServedAd(
+          id: id,
+          imageURL: imageURL,
+          ratio: ratio,
+          showAdLabel: showAdLabel,
+          locale: locale
+        )
       )
     }
 
@@ -227,8 +280,8 @@ public final class BrowtherAdsClient {
       for (id, cached) in freshCache {
         self.served[id] = cached
       }
-      // Alimente le throttle 10 min de re-serve pour ce placement.
-      self.serveCache[placement] = CachedServe(servedAt: Date(), ads: result)
+      // Alimente le throttle 10 min de re-serve pour ce (placement, langue).
+      self.serveCache[cacheKey] = CachedServe(servedAt: Date(), ads: result)
     }
     return result
   }

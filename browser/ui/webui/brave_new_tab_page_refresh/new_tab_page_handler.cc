@@ -510,8 +510,13 @@ void NewTabPageHandler::GetBrowtherAds(GetBrowtherAdsCallback callback) {
   }
   // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio piloté
   // par le champ `ratio` du serve). Re-serve throttlé ~10 min (cache AdsClient).
+  // Langue = langue d'affichage COURANTE du navigateur (pas la locale système
+  // brute) : la régie cible les créas par langue et ne renvoie que celles-ci.
+  // AdsClient la réduit au sous-tag primaire ("fr"/"en"/"ar") et l'inclut dans
+  // sa clé de cache (changement de langue au relancement → serve neuf).
   ads_client_->Serve(
-      "browther-ntp-banner", /*count=*/3,
+      "browther-ntp-banner", g_browser_process->GetApplicationLocale(),
+      /*count=*/3,
       base::BindOnce(&NewTabPageHandler::OnBrowtherAdsServed,
                      weak_factory_.GetWeakPtr(), std::move(callback)));
 }
@@ -527,6 +532,7 @@ void NewTabPageHandler::OnBrowtherAdsServed(
     mojo_ad->image_url = ad.image_url;
     mojo_ad->ratio = ad.ratio;
     mojo_ad->show_ad_label = ad.show_ad_label;
+    mojo_ad->locale = ad.locale;
     result.push_back(std::move(mojo_ad));
   }
   std::move(callback).Run(std::move(result));

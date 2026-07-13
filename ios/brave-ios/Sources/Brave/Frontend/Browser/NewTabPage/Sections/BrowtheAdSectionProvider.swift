@@ -35,7 +35,13 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
   // MARK: - API
 
   private func fetchAds() {
-    BrowtherAdsClient.shared.serve(placement: Self.placement, count: 3) { [weak self] ads in
+    // Langue d'affichage COURANTE de l'app (localisation effective des bundles,
+    // pas la locale système brute) : la régie cible les créas par langue et ne
+    // renvoie que celles-ci. `BrowtherAdsClient` la réduit au sous-tag primaire
+    // et l'inclut dans sa clé de cache (parité desktop/Android).
+    let lang = Bundle.main.preferredLocalizations.first ?? "en"
+    BrowtherAdsClient.shared.serve(placement: Self.placement, lang: lang, count: 3) {
+      [weak self] ads in
       guard let self, !ads.isEmpty else { return }
       self.ads = ads
       self.onAdLoaded?()
@@ -244,7 +250,7 @@ extension BrowtheAdCarouselCell: UICollectionViewDataSource, UICollectionViewDel
     let cell = collectionView.dequeueReusableCell(for: indexPath) as BrowtheAdImageCell
     if ads.indices.contains(indexPath.item) {
       let ad = ads[indexPath.item]
-      cell.configure(imageURL: ad.imageURL, showAdLabel: ad.showAdLabel)
+      cell.configure(imageURL: ad.imageURL, showAdLabel: ad.showAdLabel, locale: ad.locale)
     }
     return cell
   }
@@ -330,10 +336,15 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     fatalError()
   }
 
-  func configure(imageURL: String, showAdLabel: Bool) {
+  func configure(imageURL: String, showAdLabel: Bool, locale: String) {
     currentURL = imageURL
     imageView.image = nil
     imageView.alpha = 0
+    // Sens de lecture piloté par la langue de la créa renvoyée par le serve
+    // (parité desktop dir="rtl") : `ar` → RTL, le chip label `leading` glisse au
+    // coin haut-droit. Créa neutre (locale vide) → LTR par défaut.
+    contentView.semanticContentAttribute =
+      locale == "ar" ? .forceRightToLeft : .forceLeftToRight
     // Label toujours affiché : « Pub » (externe) ou cross-promo (house ad).
     adLabel.text =
       showAdLabel ? Strings.Shields.browtherAdLabel : Strings.Shields.browtherAdHouseLabel

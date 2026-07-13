@@ -82,6 +82,9 @@ struct BrowtherAd {
   // true = annonceur externe → label « Pub » obligatoire sur cette créa ;
   // false = house ad dev&din, pas de label. Décision par slide.
   bool show_ad_label;
+  // Langue de la créa ("fr"/"en"/"ar") ; vide pour une créa neutre. Pilote le
+  // sens de lecture (ar → conteneur dir="rtl") et l'attribut a11y `lang`.
+  string locale;
 };
 
 struct ShieldsStats {

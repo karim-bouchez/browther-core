@@ -70,6 +70,13 @@ class BrowtherAdPagerAdapter extends RecyclerView.Adapter<BrowtherAdPagerAdapter
         holder.mLabelView.setText(
                 ad.showAdLabel ? R.string.browther_ad_label : R.string.browther_ad_house_label);
         holder.mLabelView.setVisibility(View.VISIBLE);
+        // Sens de lecture piloté par la langue de la créa renvoyée par le serve
+        // (parité desktop dir="rtl") : `ar` → RTL, le label `start` glisse au
+        // coin haut-droit. Créa neutre (locale vide) → LTR par défaut.
+        holder.itemView.setLayoutDirection(
+                "ar".equals(ad.locale)
+                        ? View.LAYOUT_DIRECTION_RTL
+                        : View.LAYOUT_DIRECTION_LTR);
         // Click → l'API log puis 302 vers la destination (résolu par le client C++).
         holder.itemView.setOnClickListener(view -> mClickListener.onAdClick(ad.id));
     }

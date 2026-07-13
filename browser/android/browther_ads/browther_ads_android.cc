@@ -53,8 +53,8 @@ AdsClient* GetAdsClient() {
   return client->get();
 }
 
-// Renvoie les pubs servies au Java : id + image_url + ratio + show_ad_label
-// traversent le JNI (parité mojom BrowtherAd desktop ; click_url +
+// Renvoie les pubs servies au Java : id + image_url + ratio + show_ad_label +
+// locale traversent le JNI (parité mojom BrowtherAd desktop ; click_url +
 // impression_token restent ici).
 void OnAdsServed(const base::android::ScopedJavaGlobalRef<jobject>& callback,
                  std::vector<ServedAd> ads) {
@@ -62,21 +62,25 @@ void OnAdsServed(const base::android::ScopedJavaGlobalRef<jobject>& callback,
   std::vector<std::string> ids;
   std::vector<std::string> image_urls;
   std::vector<std::string> ratios;
+  std::vector<std::string> locales;
   std::vector<bool> show_ad_labels;
   ids.reserve(ads.size());
   image_urls.reserve(ads.size());
   ratios.reserve(ads.size());
+  locales.reserve(ads.size());
   show_ad_labels.reserve(ads.size());
   for (const ServedAd& ad : ads) {
     ids.push_back(ad.id);
     image_urls.push_back(ad.image_url);
     ratios.push_back(ad.ratio);
+    locales.push_back(ad.locale);
     show_ad_labels.push_back(ad.show_ad_label);
   }
   Java_BrowtherAdsBridge_onAdsServed(
       env, callback, base::android::ToJavaArrayOfStrings(env, ids),
       base::android::ToJavaArrayOfStrings(env, image_urls),
       base::android::ToJavaArrayOfStrings(env, ratios),
+      base::android::ToJavaArrayOfStrings(env, locales),
       base::android::ToJavaBooleanArray(env, show_ad_labels));
 }
 
@@ -98,8 +102,12 @@ void JNI_BrowtherAdsBridge_Serve(
   }
   // Placement dashboard dev&din ; carousel jusqu'à 3 bannières (ratio piloté
   // par le champ `ratio` du serve), re-serve throttlé ~10 min (cache AdsClient),
-  // parité NewTabPageHandler::GetBrowtherAds desktop.
-  client->Serve("browther-ntp-banner", /*count=*/3,
+  // parité NewTabPageHandler::GetBrowtherAds desktop. Langue = langue
+  // d'affichage courante de l'app (GetApplicationLocale, pas la locale système
+  // brute) ; AdsClient la réduit au sous-tag primaire et l'inclut dans sa clé
+  // de cache. GetAdsClient() a déjà garanti g_browser_process non-null.
+  client->Serve("browther-ntp-banner",
+                g_browser_process->GetApplicationLocale(), /*count=*/3,
                 base::BindOnce(&OnAdsServed, std::move(callback)));
 }
 

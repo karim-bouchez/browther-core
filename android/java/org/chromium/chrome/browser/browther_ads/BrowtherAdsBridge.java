@@ -17,10 +17,10 @@ import org.chromium.build.annotations.NullMarked;
  *
  * <p>Serve en mode publisher <b>public</b> ({@code X-Publisher-Id} seul, aucun
  * secret embarqué — HMAC retiré 2026-07-07, l'anti-fraude vit côté serveur).
- * Seuls {@code id}, {@code imageUrl}, {@code ratio} et {@code showAdLabel}
- * traversent le JNI (parité mojom {@code BrowtherAd} desktop + port iOS
- * {@code BrowtherServedAd}) ; le click URL et l'impression token restent dans
- * le client C++.
+ * Seuls {@code id}, {@code imageUrl}, {@code ratio}, {@code locale} et
+ * {@code showAdLabel} traversent le JNI (parité mojom {@code BrowtherAd}
+ * desktop + port iOS {@code BrowtherServedAd}) ; le click URL et l'impression
+ * token restent dans le client C++.
  *
  * <p>Sémantique (parité {@code components/browther_ads/ads_client.cc}) :
  * <ul>
@@ -61,10 +61,18 @@ public final class BrowtherAdsBridge {
          */
         public final boolean showAdLabel;
 
-        Ad(String id, String imageUrl, String ratio, boolean showAdLabel) {
+        /**
+         * Langue de la créa ({@code "fr"}/{@code "en"}/{@code "ar"}) renvoyée par
+         * le serve ; chaîne vide pour une créa neutre. Pilote le sens de lecture
+         * ({@code ar} → RTL) et l'attribut a11y de la bannière (parité desktop).
+         */
+        public final String locale;
+
+        Ad(String id, String imageUrl, String ratio, String locale, boolean showAdLabel) {
             this.id = id;
             this.imageUrl = imageUrl;
             this.ratio = ratio;
+            this.locale = locale;
             this.showAdLabel = showAdLabel;
         }
     }
@@ -116,6 +124,7 @@ public final class BrowtherAdsBridge {
             String[] ids,
             String[] imageUrls,
             String[] ratios,
+            String[] locales,
             boolean[] showAdLabels) {
         int count = Math.min(ids.length, imageUrls.length);
         Ad[] ads = new Ad[count];
@@ -125,6 +134,7 @@ public final class BrowtherAdsBridge {
                             ids[i],
                             imageUrls[i],
                             i < ratios.length ? ratios[i] : "",
+                            i < locales.length ? locales[i] : "",
                             i < showAdLabels.length && showAdLabels[i]);
         }
         callback.onAdsReceived(ads);

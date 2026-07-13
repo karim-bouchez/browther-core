@@ -17,6 +17,7 @@
 #include "base/no_destructor.h"
 #include "base/strings/strcat.h"
 #include "base/strings/string_number_conversions.h"
+#include "base/strings/string_util.h"
 #include "base/time/time.h"
 #include "base/values.h"
 #include "brave/components/browther_ads/ads_config.h"
@@ -87,6 +88,23 @@ constexpr char kPlatform[] =
     "desktop";
 #endif
 
+// Réduit une langue d'affichage (ex "fr-FR", "en_US", "ar") à son sous-tag
+// primaire minuscule ("fr"/"en"/"ar"). La régie n'accepte que la langue
+// demandée + neutres et ne garde de toute façon que le sous-tag primaire d'un
+// BCP-47 ; on le réduit ici pour un body propre et surtout une clé de cache
+// stable (fr-FR et fr-CA partagent le même lot).
+std::string PrimaryLanguageSubtag(std::string_view locale) {
+  return base::ToLowerASCII(locale.substr(0, locale.find_first_of("-_")));
+}
+
+// Clé du cache de re-serve : (placement, langue). Une langue différente
+// invalide le lot mis en cache et déclenche un nouveau serve (INTEGRATION.md
+// § Langue). '|' n'apparaît ni dans un id de placement ni dans un sous-tag.
+std::string ServeCacheKey(const std::string& placement,
+                          const std::string& lang) {
+  return base::StrCat({placement, "|", lang});
+}
+
 constexpr net::NetworkTrafficAnnotationTag kServeTrafficAnnotation =
     net::DefineNetworkTrafficAnnotation("browther_ads_serve", R"ANNOT(
         semantics {
@@ -94,12 +112,15 @@ constexpr net::NetworkTrafficAnnotationTag kServeTrafficAnnotation =
           description:
             "Fetches house/community banner ads from the dev&din ad network "
             "to display in a banner below the favorites on the Browther new "
-            "tab page. Sends only the placement name, platform and requested "
-            "count. No URLs visited, no page content, no PII."
+            "tab page. Sends only the placement name, platform, requested "
+            "count and the browser's display language (so the network can "
+            "return ads in a language the user reads). No URLs visited, no "
+            "page content, no PII."
           trigger:
             "Opening a new tab page."
           data:
-            "Placement identifier, platform name, requested ad count, and the "
+            "Placement identifier, platform name, requested ad count, the "
+            "browser display language (primary subtag, e.g. \"fr\"), and the "
             "public publisher id (no secret is embedded in the binary)."
           destination: OTHER
           destination_other: "ads-api.devndin.com (self-hosted on OVH)"
@@ -163,6 +184,7 @@ bool AdsClient::IsConfigured() {
 }
 
 void AdsClient::Serve(const std::string& placement,
+                      const std::string& lang,
                       int count,
                       ServeCallback callback) {
   if (!IsConfigured() || !url_loader_factory_) {
@@ -170,10 +192,16 @@ void AdsClient::Serve(const std::string& placement,
     return;
   }
 
-  // Throttle 10 min : lot encore frais → resservi sans requête réseau. On
-  // réindexe les pubs dans cette instance pour que MarkVisible/GetClickURL
-  // fonctionnent aussi dans un onglet qui n'a pas fait le serve d'origine.
-  auto cached = GetServeCache().find(placement);
+  // Langue d'affichage réduite au sous-tag primaire ; entre dans le body ET la
+  // clé de cache (un changement de langue repart sur un serve neuf).
+  const std::string primary_lang = PrimaryLanguageSubtag(lang);
+  const std::string cache_key = ServeCacheKey(placement, primary_lang);
+
+  // Throttle 10 min : lot encore frais (même placement ET même langue) →
+  // resservi sans requête réseau. On réindexe les pubs dans cette instance pour
+  // que MarkVisible/GetClickURL fonctionnent aussi dans un onglet qui n'a pas
+  // fait le serve d'origine.
+  auto cached = GetServeCache().find(cache_key);
   if (cached != GetServeCache().end() &&
       base::TimeTicks::Now() - cached->second.served_at < kServeCacheTtl) {
     for (const ServedAd& ad : cached->second.ads) {
@@ -187,6 +215,10 @@ void AdsClient::Serve(const std::string& placement,
   payload.Set("placement", placement);
   payload.Set("platform", kPlatform);
   payload.Set("count", count);
+  // Langue ciblée par la régie : le serveur ne renvoie que les créas de cette
+  // langue (+ neutres). Envoyée même si vide → le serveur traite alors comme
+  // « pas de préférence » (aucun 400, cf. gestion ci-dessous).
+  payload.Set("lang", primary_lang);
 
   std::string body;
   if (!base::JSONWriter::Write(payload, &body)) {
@@ -213,12 +245,12 @@ void AdsClient::Serve(const std::string& placement,
   loader_ptr->DownloadToString(
       url_loader_factory_.get(),
       base::BindOnce(&AdsClient::OnServeComplete, weak_factory_.GetWeakPtr(),
-                     placement, std::move(callback), std::move(loader)),
+                     cache_key, std::move(callback), std::move(loader)),
       /*max_body_size=*/64 * 1024);
 }
 
 void AdsClient::OnServeComplete(
-    const std::string& placement,
+    const std::string& cache_key,
     ServeCallback callback,
     std::unique_ptr<network::SimpleURLLoader> loader,
     std::optional<std::string> response_body) {
@@ -230,8 +262,26 @@ void AdsClient::OnServeComplete(
 
   if (net_error != net::OK || response_code < 200 || response_code >= 300 ||
       !response_body) {
-    VLOG(1) << "[BrowtherAds] serve failed: net_error=" << net_error
-            << " http=" << response_code;
+    // Un 400 avec corps vient de NOTRE serve : on a envoyé quelque chose que la
+    // régie refuse (ex. `{"error":"Langue \"xx\" non supportée …"}` si la langue
+    // n'est pas gérée). Ce n'est PAS le cas normal `ads: []` (200) : c'est un
+    // bug de config à REMONTER, pas à absorber en silence → LOG(ERROR) (console
+    // d'erreur ; Sentry via crashpad n'a pas d'API message non-fatal). On masque
+    // quand même la bannière (best effort, jamais d'échec dur ni de boucle).
+    if (response_code == 400 && response_body) {
+      std::string detail;
+      if (std::optional<base::DictValue> err = base::JSONReader::ReadDict(
+              *response_body, base::JSON_PARSE_RFC)) {
+        if (const std::string* msg = err->FindString("error")) {
+          detail = *msg;
+        }
+      }
+      LOG(ERROR) << "[BrowtherAds] serve rejected (400, bug de config régie): "
+                 << detail;
+    } else {
+      VLOG(1) << "[BrowtherAds] serve failed: net_error=" << net_error
+              << " http=" << response_code;
+    }
     std::move(callback).Run({});
     return;
   }
@@ -260,6 +310,7 @@ void AdsClient::OnServeComplete(
     const std::string* click_url = ad->FindString("clickUrl");
     const std::string* impression_token = ad->FindString("impressionToken");
     const std::string* ratio = ad->FindString("ratio");
+    const std::string* locale = ad->FindString("locale");
     if (!id || !image_url || id->empty() || image_url->empty()) {
       continue;
     }
@@ -271,15 +322,17 @@ void AdsClient::OnServeComplete(
     served.impression_token =
         impression_token ? *impression_token : std::string();
     served.ratio = ratio ? *ratio : std::string();
+    // Langue de la créa ("fr"/"en"/"ar") — absente/null pour une créa neutre.
+    served.locale = locale ? *locale : std::string();
     // Champ absent (vieux cache serveur) → house ad, pas de label.
     served.show_ad_label = ad->FindBool("showAdLabel").value_or(false);
     served_[served.id] = served;
     result.push_back(std::move(served));
   }
 
-  // Alimente le throttle 10 min : le prochain serve de ce placement (autre
-  // onglet, même onglet) resservira ce lot sans requête réseau.
-  GetServeCache()[placement] = {base::TimeTicks::Now(), result};
+  // Alimente le throttle 10 min : le prochain serve de ce (placement, langue)
+  // (autre onglet, même onglet) resservira ce lot sans requête réseau.
+  GetServeCache()[cache_key] = {base::TimeTicks::Now(), result};
 
   std::move(callback).Run(std::move(result));
 }

@@ -119,6 +119,14 @@ export function BrowtherAdBanner() {
               key={ad.id}
               className='ad'
               data-ad-id={ad.id}
+              // Sens de lecture + a11y pilotés par la langue de la créa
+              // renvoyée par le serve : `ar` → dir="rtl" (le label logique
+              // `inset-inline-start` glisse alors au coin haut-droit). On ne
+              // met dir QUE sur la slide, pas sur `.carousel` : son scroll doit
+              // rester LTR (la logique dots/flèches lit scrollLeft). `lang`
+              // absent si créa neutre (aucun attribut).
+              dir={ad.locale === 'ar' ? 'rtl' : undefined}
+              lang={ad.locale || undefined}
               style={{ aspectRatio: String(aspectOf(ad.ratio)) }}
               onClick={() => actions.clickBrowtherAd(ad.id)}
             >
