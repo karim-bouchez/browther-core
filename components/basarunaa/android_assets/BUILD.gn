@@ -45,6 +45,7 @@ android_assets("basarunaa_models_android_assets") {
   # `renaming_sources` sont deux listes distinctes qui s'ADDITIONNENT dans
   # l'APK : utiliser les deux pour le même fichier = doublons.
   renaming_sources = [
+    "gender-v2n-640.onnx",
     "genderage.fp16.tflite",
     "genderage.fp32.tflite",
     "genderage.onnx",
@@ -59,6 +60,7 @@ android_assets("basarunaa_models_android_assets") {
     "yolov8n-face.onnx",
   ]
   renaming_destinations = [
+    "basarunaa/gender-v2n-640.onnx",
     "basarunaa/genderage.fp16.tflite",
     "basarunaa/genderage.fp32.tflite",
     "basarunaa/genderage.onnx",

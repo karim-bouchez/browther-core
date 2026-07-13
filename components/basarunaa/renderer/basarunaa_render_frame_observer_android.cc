@@ -7,6 +7,7 @@
 
 #include <optional>
 #include <string_view>
+#include <tuple>
 #include <utility>
 
 #include "base/functional/bind.h"
@@ -143,15 +144,17 @@ void BasarunaaRenderFrameObserverAndroid::Apply(
     const std::string& persons_json,
     const std::string& debug_mode,
     double elapsed_ms) {
-  // persons_json est déjà un JSON valide produit côté Java (BasarunaaResult →
-  // BasarunaaPersonJson). On le passe tel quel comme expression JS, après
-  // fallback `null` si vide.
+  // Migration gender-v2n (2026-07-13) : le natif est un PUR EXTRACTEUR. On
+  // envoie TOUTES les persons au JS, qui applique la policy (core/policy).
+  // `decision` (calculé côté Java) devient vestigial — on ne le forward PLUS au
+  // JS (signature `window.__basarunaaApply(id, persons, debug_mode, elapsed_ms)`).
+  // Il reste dans le contrat mojom pour ne pas régénérer les bindings.
+  std::ignore = decision;
   const std::string persons_expr =
       persons_json.empty() ? std::string("null") : persons_json;
   const std::string js = base::StrCat({
       "try { if (window.__basarunaaApply) window.__basarunaaApply(",
       base::NumberToString(image_id), ", ",
-      ToJsString(decision), ", ",
       persons_expr, ", ",
       ToJsString(debug_mode), ", ",
       ToJsNumber(elapsed_ms),
