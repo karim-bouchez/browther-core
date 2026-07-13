@@ -61,8 +61,9 @@ public final class BasarunaaTypes {
     }
 
     /**
-     * Base pour les détections produites par les détecteurs YOLO. Permet
-     * à {@link Nms} d'être générique sur tout type de détection.
+     * Base pour les détections produites par les détecteurs YOLO. Permettait
+     * au NMS d'être générique sur tout type de détection (cascade retirée
+     * 2026-07-13 — classes conservées, plus consommées).
      */
     public abstract static class Detection {
         public final Bbox bbox;

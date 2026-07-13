@@ -391,10 +391,9 @@ var package = Package(
       name: "Basarunaa",
       dependencies: ["Preferences"],
       resources: [
-        .copy("Resources/YOLO11nPose.mlmodelc"),
-        .copy("Resources/YOLOFace.mlmodelc"),
-        .copy("Resources/GenderAge.mlmodelc"),
-        .copy("Resources/PPLCNet.mlmodelc"),
+        // Single-shot gender-v2n (migration 2026-07-13) — remplace la cascade
+        // YOLO11nPose + YOLOFace + GenderAge + PPLCNet (retirés).
+        .copy("Resources/GenderV2nPose.mlmodelc"),
         .copy("Resources/NsfwMarqo.mlmodelc"),
         .copy("Resources/NudeNet.mlmodelc"),
         .copy("Resources/NanoDet.mlmodelc"),
