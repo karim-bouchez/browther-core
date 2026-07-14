@@ -14,7 +14,7 @@ import OSLog
 /// boîte porte directement le genre.
 ///
 /// Sortie `[1, 58, N]` = 4 (xywh) + 3 (scores classe) + 51 (17 kpts × xyc).
-/// Le DÉCODAGE (argmax classe, un-letterbox, faceBbox, NMS) vit dans le module
+/// Le DÉCODAGE (argmax classe, un-letterbox, NMS) vit dans le module
 /// PUR `GenderV2nDecode` — validé contre le golden `tests/golden/gender-v2n/`.
 /// Ce fichier ne fait que : letterbox → CoreML → accès MLMultiArray → decode.
 final class GenderV2nPoseDetector: @unchecked Sendable {

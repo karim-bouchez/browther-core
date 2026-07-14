@@ -27,7 +27,7 @@ import java.util.Map;
  *
  * <p>Format ONNX : input {@code [1, 3, 640, 640]} float32 RGB [0,1] letterboxé,
  * output {@code [1, 58, N]} où {@code 58 = 4 (xywh) + 3 (scores classe) + 51
- * (17 kpts × xyc)}. Le DÉCODAGE (argmax classe, un-letterbox, faceBbox, NMS) vit
+ * (17 kpts × xyc)}. Le DÉCODAGE (argmax classe, un-letterbox, NMS) vit
  * dans le module PUR {@link GenderV2nDecode} — validé contre le golden
  * {@code tests/golden/gender-v2n/}. Ce fichier ne fait que : letterbox → ORT →
  * accès FloatBuffer C-major → decode.
@@ -92,7 +92,6 @@ public final class GenderV2nDetector implements AutoCloseable {
                     srcH,
                     confThreshold,
                     iouThreshold,
-                    GenderV2nDecode.DEFAULT_FACE_PADDING,
                     (c, i) -> flat.get(c * numDetections + i));
         }
     }

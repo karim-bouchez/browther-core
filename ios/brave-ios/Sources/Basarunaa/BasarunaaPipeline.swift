@@ -24,8 +24,6 @@ public enum Gender: String, Sendable {
 public struct DetectedPerson: @unchecked Sendable {
   /// Body bbox en coords image originale.
   public let bbox: CGRect
-  /// Face bbox dérivée des keypoints 0..4 (nez/yeux/oreilles), ou nil.
-  public let faceBbox: CGRect?
   /// 17 keypoints COCO.
   public let keypoints: [(point: CGPoint, confidence: Double)]
   /// Genre = classe argmax du modèle (brut, non seuillé).
@@ -161,9 +159,6 @@ public actor BasarunaaPipeline {
         bbox: CGRect(
           x: r.bbox[0], y: r.bbox[1],
           width: r.bbox[2] - r.bbox[0], height: r.bbox[3] - r.bbox[1]),
-        faceBbox: r.faceBbox.map {
-          CGRect(x: $0[0], y: $0[1], width: $0[2] - $0[0], height: $0[3] - $0[1])
-        },
         keypoints: r.keypoints.map { (point: CGPoint(x: $0.x, y: $0.y), confidence: $0.confidence) },
         gender: Self.gender(from: r.genderClass),
         genderConfidence: r.confidence

@@ -526,7 +526,6 @@ class BasarunaaScriptHandler: TabContentScript {
   /// Envoie par personne :
   /// - `bbox` `[x1, y1, x2, y2]`
   /// - `keypoints` 17 COCO points `[x, y, conf]` (JS rebuild le body-polygon)
-  /// - `faceBbox` (si dérivée)
   /// - `gender` `'male' | 'female' | 'child'` (classe argmax brute)
   /// - `genderConfidence` (score de la classe = score de détection)
   private func serialize(persons: [DetectedPerson]) -> [[String: Any]] {
@@ -534,16 +533,12 @@ class BasarunaaScriptHandler: TabContentScript {
       let kps = p.keypoints.map { kp -> [Double] in
         [kp.point.x, kp.point.y, kp.confidence]
       }
-      var dict: [String: Any] = [
+      return [
         "bbox": [p.bbox.minX, p.bbox.minY, p.bbox.maxX, p.bbox.maxY] as [Double],
         "keypoints": kps,
         "gender": p.gender.rawValue,
         "genderConfidence": p.genderConfidence,
       ]
-      if let face = p.faceBbox {
-        dict["faceBbox"] = [face.minX, face.minY, face.maxX, face.maxY] as [Double]
-      }
-      return dict
     }
   }
 
@@ -593,9 +588,6 @@ class BasarunaaScriptHandler: TabContentScript {
         "gender": p.gender.rawValue,
         "genderConfidence": p.genderConfidence,
       ]
-      if let f = p.faceBbox {
-        dict["faceBbox"] = [f.minX, f.minY, f.maxX, f.maxY] as [Double]
-      }
       dict["keypoints"] = p.keypoints.map { [$0.point.x, $0.point.y, $0.confidence] }
       return dict
     }

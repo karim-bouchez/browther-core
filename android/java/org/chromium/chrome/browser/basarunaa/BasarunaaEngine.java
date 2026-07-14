@@ -222,7 +222,7 @@ public final class BasarunaaEngine {
 
     /**
      * Sérialise les persons brutes en JSON conforme au contrat natif partagé
-     * (core/native-contract) : {@code {bbox, keypoints:[[x,y,c]], faceBbox?,
+     * (core/native-contract) : {@code {bbox, keypoints:[[x,y,c]],
      * gender:'male'|'female'|'child', genderConfidence}}.
      */
     private static String serializePersons(List<GenderV2nDecode.PersonRaw> persons)
@@ -231,7 +231,6 @@ public final class BasarunaaEngine {
         for (GenderV2nDecode.PersonRaw p : persons) {
             final JSONObject o = new JSONObject();
             o.put("bbox", doubleArrayToJson(p.bbox));
-            if (p.faceBbox != null) o.put("faceBbox", doubleArrayToJson(p.faceBbox));
             o.put("keypoints", keypointsToJson(p.keypoints));
             o.put("gender", GENDER_NAMES[p.genderClass]);
             o.put("genderConfidence", p.confidence);

@@ -43,16 +43,11 @@ public struct GenderV2nPersonRaw: Sendable {
   public let genderClass: GenderV2nClass
   /// 17 keypoints COCO en pixels image source.
   public let keypoints: [GenderV2nKeypoint]
-  /// `[x1, y1, x2, y2]` dérivée des kpts visage (0..4), ou nil.
-  public let faceBbox: [Double]?
 }
 
 public enum GenderV2nDecode {
   public static let defaultConfThreshold = 0.25
   public static let defaultIoUThreshold = 0.5
-  public static let defaultFacePadding = 0.4
-  /// Seuil de visibilité d'un kpt pour la dérivation faceBbox (parité JS).
-  public static let faceKpVisibleThreshold = 0.3
 
   /// Décode `[1, numChannels, numDetections]` → persons (post-NMS).
   /// `value(c, i)` = valeur du canal `c` pour la détection `i`.
@@ -68,7 +63,6 @@ public enum GenderV2nDecode {
     srcHeight: Double,
     confThreshold: Double = defaultConfThreshold,
     iouThreshold: Double = defaultIoUThreshold,
-    facePadding: Double = defaultFacePadding,
     value: (_ channel: Int, _ det: Int) -> Double
   ) -> [GenderV2nPersonRaw] {
     let kptOffset = 4 + numClasses  // 7
@@ -107,64 +101,17 @@ public enum GenderV2nDecode {
         keypoints.append(GenderV2nKeypoint(x: kx, y: ky, confidence: kc))
       }
 
-      let faceBbox = deriveFaceBbox(
-        keypoints: keypoints,
-        srcWidth: srcWidth,
-        srcHeight: srcHeight,
-        facePadding: facePadding
-      )
-
       boxes.append(
         GenderV2nPersonRaw(
           bbox: [x1, y1, x2, y2],
           confidence: score,
           genderClass: GenderV2nClass(rawValue: cls) ?? .male,
-          keypoints: keypoints,
-          faceBbox: faceBbox
+          keypoints: keypoints
         )
       )
     }
 
     return nms(boxes, iouThreshold: iouThreshold)
-  }
-
-  /// faceBbox carrée dérivée des kpts 0..4 (nez, yeux, oreilles), parité
-  /// `yolo_pose.js:_deriveFaceBbox`. Visible = conf > 0.3 ; < 2 visibles → nil.
-  static func deriveFaceBbox(
-    keypoints: [GenderV2nKeypoint],
-    srcWidth: Double,
-    srcHeight: Double,
-    facePadding: Double
-  ) -> [Double]? {
-    guard keypoints.count >= 5 else { return nil }
-    let faceKps = keypoints[0..<5]
-    let visible = faceKps.filter { $0.confidence > faceKpVisibleThreshold }
-    if visible.count < 2 { return nil }
-
-    var minX = Double.infinity
-    var minY = Double.infinity
-    var maxX = -Double.infinity
-    var maxY = -Double.infinity
-    for kp in visible {
-      minX = Swift.min(minX, kp.x)
-      minY = Swift.min(minY, kp.y)
-      maxX = Swift.max(maxX, kp.x)
-      maxY = Swift.max(maxY, kp.y)
-    }
-
-    let w = maxX - minX
-    let h = maxY - minY
-    let size = Swift.max(w, h)  // carré
-    let centerX = (minX + maxX) / 2
-    let centerY = (minY + maxY) / 2
-    let halfSize = (size * (1 + facePadding)) / 2
-
-    return [
-      Swift.max(0, centerX - halfSize),
-      Swift.max(0, centerY - halfSize),
-      Swift.min(srcWidth, centerX + halfSize),
-      Swift.min(srcHeight, centerY + halfSize),
-    ]
   }
 
   /// NMS class-agnostic gloutonne (parité `nms.js`) : tri par confidence

@@ -29,9 +29,6 @@ import java.util.List;
 public final class GenderV2nDecode {
     public static final double DEFAULT_CONF_THRESHOLD = 0.25;
     public static final double DEFAULT_IOU_THRESHOLD = 0.5;
-    public static final double DEFAULT_FACE_PADDING = 0.4;
-    /** Seuil de visibilité d'un keypoint pour la dérivation faceBbox (parité JS). */
-    public static final double FACE_KP_VISIBLE_THRESHOLD = 0.3;
 
     /** GenderClass : Male=0, Female=1, Child=2 (aligné core/gender.ts). */
     public static final int MALE = 0;
@@ -68,20 +65,16 @@ public final class GenderV2nDecode {
         public final int genderClass;
         /** 17 keypoints COCO en pixels image source. */
         public final Keypoint[] keypoints;
-        /** {@code [x1, y1, x2, y2]} dérivée des kpts visage (0..4), ou null. */
-        public final double[] faceBbox;
 
         public PersonRaw(
                 double[] bbox,
                 double confidence,
                 int genderClass,
-                Keypoint[] keypoints,
-                double[] faceBbox) {
+                Keypoint[] keypoints) {
             this.bbox = bbox;
             this.confidence = confidence;
             this.genderClass = genderClass;
             this.keypoints = keypoints;
-            this.faceBbox = faceBbox;
         }
     }
 
@@ -100,7 +93,6 @@ public final class GenderV2nDecode {
             double srcHeight,
             double confThreshold,
             double iouThreshold,
-            double facePadding,
             ValueAccessor value) {
         final int kptOffset = 4 + numClasses; // 7
         List<PersonRaw> boxes = new ArrayList<>();
@@ -139,57 +131,10 @@ public final class GenderV2nDecode {
                 keypoints[k] = new Keypoint(kx, ky, kc);
             }
 
-            double[] faceBbox = deriveFaceBbox(keypoints, srcWidth, srcHeight, facePadding);
-
-            boxes.add(new PersonRaw(new double[] {x1, y1, x2, y2}, score, cls, keypoints, faceBbox));
+            boxes.add(new PersonRaw(new double[] {x1, y1, x2, y2}, score, cls, keypoints));
         }
 
         return nms(boxes, iouThreshold);
-    }
-
-    /**
-     * faceBbox carrée dérivée des kpts 0..4 (nez, yeux, oreilles), parité
-     * {@code yolo_pose.js:_deriveFaceBbox}. Visible = conf > 0.3 ; < 2 visibles → null.
-     */
-    static double[] deriveFaceBbox(
-            Keypoint[] keypoints, double srcWidth, double srcHeight, double facePadding) {
-        if (keypoints.length < 5) {
-            return null;
-        }
-        List<Keypoint> visible = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if (keypoints[i].confidence > FACE_KP_VISIBLE_THRESHOLD) {
-                visible.add(keypoints[i]);
-            }
-        }
-        if (visible.size() < 2) {
-            return null;
-        }
-
-        double minX = Double.POSITIVE_INFINITY;
-        double minY = Double.POSITIVE_INFINITY;
-        double maxX = Double.NEGATIVE_INFINITY;
-        double maxY = Double.NEGATIVE_INFINITY;
-        for (Keypoint kp : visible) {
-            minX = Math.min(minX, kp.x);
-            minY = Math.min(minY, kp.y);
-            maxX = Math.max(maxX, kp.x);
-            maxY = Math.max(maxY, kp.y);
-        }
-
-        double w = maxX - minX;
-        double h = maxY - minY;
-        double size = Math.max(w, h); // carré
-        double centerX = (minX + maxX) / 2;
-        double centerY = (minY + maxY) / 2;
-        double halfSize = (size * (1 + facePadding)) / 2;
-
-        return new double[] {
-            Math.max(0, centerX - halfSize),
-            Math.max(0, centerY - halfSize),
-            Math.min(srcWidth, centerX + halfSize),
-            Math.min(srcHeight, centerY + halfSize),
-        };
     }
 
     /**

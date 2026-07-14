@@ -76,8 +76,7 @@ public final class BasarunaaTypes {
     }
 
     /**
-     * Sortie YOLO-pose : bbox personne + 17 keypoints COCO + faceBbox dérivée
-     * des 5 premiers keypoints (nez, yeux, oreilles).
+     * Sortie YOLO-pose single-shot : bbox personne + 17 keypoints COCO.
      *
      * <p>COCO keypoints : 0=nose, 1=left_eye, 2=right_eye, 3=left_ear,
      * 4=right_ear, 5=left_shoulder, 6=right_shoulder, 7-16=elbows/wrists/
@@ -85,13 +84,10 @@ public final class BasarunaaTypes {
      */
     public static final class PersonDetection extends Detection {
         public final Keypoint[] keypoints; // length 17
-        @Nullable public final Bbox faceBbox;
 
-        public PersonDetection(
-                Bbox bbox, float confidence, Keypoint[] keypoints, @Nullable Bbox faceBbox) {
+        public PersonDetection(Bbox bbox, float confidence, Keypoint[] keypoints) {
             super(bbox, confidence);
             this.keypoints = keypoints;
-            this.faceBbox = faceBbox;
         }
     }
 
