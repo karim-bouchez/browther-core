@@ -1016,14 +1016,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       ctx.lineWidth = isLite ? 2 : 3;
       ctx.strokeRect(x1, y1, dw, dh);
       if (!isLite) {
-        if (person.faceBbox && person.faceBbox.length === 4) {
-          const [fx1, fy1, fx2, fy2] = person.faceBbox;
-          ctx.strokeStyle = "#FFD700";
-          ctx.lineWidth = 2;
-          ctx.setLineDash([4, 4]);
-          ctx.strokeRect(fx1, fy1, fx2 - fx1, fy2 - fy1);
-          ctx.setLineDash([]);
-        }
         if (person.keypoints && person.keypoints.length) {
           const kps = person.keypoints;
           const kpRadius = Math.max(1.5, Math.min(4, dw * 0.025));
@@ -1055,55 +1047,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         }
       }
       const gShort = genderShort(person.genderClass);
-      const classRaw = person.classifierUsedRaw || "";
-      const classLabel = classRaw ? ` [${classRaw}]` : "";
-      if (isLite) {
-        const confTxt = person.genderConfidence != null ? `${gShort} ${Math.round(person.genderConfidence * 100)}%${classLabel}` : `${gShort}${classLabel}`;
-        ctx.font = "bold 13px monospace";
-        const tw = ctx.measureText(confTxt).width + 6;
-        const lh = 18;
-        const ly = y1 >= lh ? y1 - lh : y1;
-        ctx.fillStyle = color;
-        ctx.fillRect(x1, ly, tw, lh);
-        ctx.fillStyle = "#fff";
-        ctx.fillText(confTxt, x1 + 3, ly + lh - 4);
-      } else {
-        const confStr = person.genderConfidence != null ? `${Math.round(person.genderConfidence * 100)}%` : "";
-        const bodyStr = person.bodyConfidence != null ? `body ${Math.round(person.bodyConfidence * 100)}%` : null;
-        const mainLabel = `${gShort} ${confStr}${classLabel}`;
-        const extra = bodyStr ? [bodyStr] : [];
-        const lineH = 15;
-        const totalH = (1 + extra.length) * lineH + 4;
-        ctx.font = "bold 13px monospace";
-        let labelW = ctx.measureText(mainLabel).width;
-        for (const e of extra) {
-          const w = ctx.measureText(e).width;
-          if (w > labelW) labelW = w;
-        }
-        labelW += 8;
-        const lyD = y1 >= totalH ? y1 - totalH : y1;
-        ctx.fillStyle = color;
-        ctx.fillRect(x1, lyD, labelW, totalH);
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(mainLabel, x1 + 4, lyD + lineH - 2);
-        ctx.fillStyle = "rgba(255,255,255,0.7)";
-        for (let el = 0; el < extra.length; el++) {
-          ctx.fillText(extra[el], x1 + 4, lyD + (el + 2) * lineH - 2);
-        }
-      }
+      const confTxt = person.genderConfidence != null ? `${gShort} ${Math.round(person.genderConfidence * 100)}%` : gShort;
+      ctx.font = "bold 13px monospace";
+      const lh = isLite ? 18 : 19;
+      const tw = ctx.measureText(confTxt).width + (isLite ? 6 : 8);
+      const ly = y1 >= lh ? y1 - lh : y1;
+      ctx.fillStyle = color;
+      ctx.fillRect(x1, ly, tw, lh);
+      ctx.fillStyle = "#fff";
+      ctx.fillText(confTxt, x1 + (isLite ? 3 : 4), ly + lh - 4);
     }
-  }
-  function decodeDataUrl(dataUrl) {
-    return new Promise((resolve) => {
-      if (!dataUrl) {
-        resolve(null);
-        return;
-      }
-      const im = new Image();
-      im.onload = () => resolve(im);
-      im.onerror = () => resolve(null);
-      im.src = dataUrl;
-    });
   }
   function drawSourceCrop(ctx, src, bbox, dx, dy, dw, dh) {
     if (!bbox || bbox.length < 4) return false;
@@ -1119,18 +1072,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       return false;
     }
   }
-  function shortenClassifier(raw) {
-    return raw.replace("insightface (partial body)", "IF (part)").replace("insightface (synth body)", "IF (synth)").replace("insightface (conflict)", "IF (cnflct)").replace("insightface (align fail)", "IF (align)").replace("pplcnet (synth body)", "PP (synth)").replace("pplcnet (no face)", "PP (no face)").replace("pplcnet (best)", "PP (best)").replace("pplcnet (align fail)", "PP (align)").replace("insightface", "IF").replace("pplcnet", "PP");
-  }
-  const STRIP_FACE_DISPLAY = 96;
-  const STRIP_BODY_DISPLAY_W = 100;
-  const STRIP_BODY_DISPLAY_H = 133;
-  const STRIP_INNER_GAP = 4;
-  const STRIP_COL_W = STRIP_FACE_DISPLAY + STRIP_INNER_GAP + STRIP_BODY_DISPLAY_W;
+  const STRIP_CROP_W = 120;
+  const STRIP_CROP_H = 150;
+  const STRIP_COL_W = STRIP_CROP_W;
   const STRIP_COL_GAP = 12;
   const STRIP_START_X = 6;
   const STRIP_TOP_PAD = 6;
-  const STRIP_ROW_H = 200;
+  const STRIP_LABEL_H = 20;
+  const STRIP_ROW_H = STRIP_TOP_PAD + STRIP_CROP_H + STRIP_LABEL_H + 8;
   function stripColsPerRow(imgW) {
     return Math.max(
       1,
@@ -1146,87 +1095,33 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   function drawCropStripAndEncode(canvas, ctx, persons, imgW, imgH, sourceImg) {
     ctx.fillStyle = "#000";
     ctx.fillRect(0, imgH, imgW, canvas.height - imgH);
-    const jobs = [];
-    for (const p of persons) {
-      jobs.push(decodeDataUrl(p.faceCropDataUrl));
-      jobs.push(decodeDataUrl(p.bodyCropDataUrl));
-    }
-    return Promise.all(jobs).then((images) => {
-      const FACE_DISPLAY = STRIP_FACE_DISPLAY;
-      const BODY_DISPLAY_W = STRIP_BODY_DISPLAY_W;
-      const BODY_DISPLAY_H = STRIP_BODY_DISPLAY_H;
-      const INNER_GAP = STRIP_INNER_GAP;
-      const COL_W = STRIP_COL_W;
-      const TOP_PAD = STRIP_TOP_PAD;
-      const colsPerRow = stripColsPerRow(imgW);
-      const idx = { f: 0, m: 0 };
+    const colsPerRow = stripColsPerRow(imgW);
+    const idx = { f: 0, m: 0 };
+    return Promise.resolve().then(() => {
       for (let pi = 0; pi < persons.length; pi++) {
         const person = persons[pi];
-        const face = images[pi * 2];
-        const body = images[pi * 2 + 1];
         const col = pi % colsPerRow;
         const row = Math.floor(pi / colsPerRow);
-        const x = STRIP_START_X + col * (COL_W + STRIP_COL_GAP);
-        const stripTop = imgH + row * STRIP_ROW_H;
+        const x = STRIP_START_X + col * (STRIP_COL_W + STRIP_COL_GAP);
+        const y = imgH + row * STRIP_ROW_H + STRIP_TOP_PAD;
         const personColor = pickPersonColor(person.genderClass, idx);
-        let faceGenderLabel = "face";
-        if (person.facePFemale != null && person.facePMale != null) {
-          const faceIsFemale = person.facePFemale >= person.facePMale;
-          const faceConf = faceIsFemale ? person.facePFemale : person.facePMale;
-          faceGenderLabel = `${faceIsFemale ? "female " : "male "}${Math.round(faceConf * 100)}%`;
+        if (!drawSourceCrop(ctx, sourceImg, person.bbox, x, y, STRIP_CROP_W, STRIP_CROP_H)) {
+          ctx.fillStyle = "#222";
+          ctx.fillRect(x, y, STRIP_CROP_W, STRIP_CROP_H);
         }
-        let bodyGenderLabel = "body";
-        if (person.bodyPFemale != null && person.bodyPMale != null) {
-          const bodyIsFemale = person.bodyPFemale >= person.bodyPMale;
-          const bodyConf = bodyIsFemale ? person.bodyPFemale : person.bodyPMale;
-          bodyGenderLabel = `${bodyIsFemale ? "female " : "male "}${Math.round(bodyConf * 100)}%`;
-        }
+        ctx.strokeStyle = personColor;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x, y, STRIP_CROP_W, STRIP_CROP_H);
         const gShort = genderShort(person.genderClass);
-        const winnerConf = person.genderConfidence != null ? `${Math.round(person.genderConfidence * 100)}%` : "";
-        const classRaw = person.classifierUsedRaw || "";
-        const classSuffix = classRaw ? ` [${shortenClassifier(classRaw)}]` : "";
-        const classLabel = `${gShort} ${winnerConf}${classSuffix}`;
-        const y = stripTop + TOP_PAD;
-        if (face) {
-          ctx.drawImage(face, x, y, FACE_DISPLAY, FACE_DISPLAY);
-        } else if (!drawSourceCrop(ctx, sourceImg, person.faceBbox, x, y, FACE_DISPLAY, FACE_DISPLAY)) {
-          ctx.fillStyle = "#222";
-          ctx.fillRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
-        }
-        if (face || person.faceBbox) {
-          ctx.strokeStyle = "#FFD700";
-          ctx.lineWidth = 2;
-          ctx.strokeRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
-        }
-        const bx = x + FACE_DISPLAY + INNER_GAP;
-        const bodyDrawY = y ;
-        if (body) {
-          ctx.drawImage(body, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
-        } else if (!drawSourceCrop(ctx, sourceImg, person.bbox, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H)) {
-          ctx.fillStyle = "#222";
-          ctx.fillRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
-        }
-        if (body || person.bbox) {
-          ctx.strokeStyle = personColor;
-          ctx.lineWidth = 2;
-          ctx.strokeRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
-        }
-        const labelY = y + Math.max(FACE_DISPLAY, BODY_DISPLAY_H) + 12;
-        ctx.font = "bold 11px monospace";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#FFD700";
-        ctx.fillText(faceGenderLabel, x + FACE_DISPLAY / 2, labelY);
-        ctx.fillStyle = personColor;
-        ctx.fillText(bodyGenderLabel, bx + BODY_DISPLAY_W / 2, labelY);
-        ctx.font = "bold 11px monospace";
+        const conf = person.genderConfidence != null ? ` ${Math.round(person.genderConfidence * 100)}%` : "";
+        ctx.font = "bold 12px monospace";
         ctx.textAlign = "center";
         ctx.fillStyle = personColor;
-        let classLabelClipped = classLabel;
-        const maxLabelW = COL_W - 4;
-        while (classLabelClipped.length > 6 && ctx.measureText(classLabelClipped).width > maxLabelW) {
-          classLabelClipped = classLabelClipped.slice(0, -1);
-        }
-        ctx.fillText(classLabelClipped, x + COL_W / 2, labelY + 16);
+        ctx.fillText(
+          `${gShort}${conf}`,
+          x + STRIP_CROP_W / 2,
+          y + STRIP_CROP_H + 15
+        );
       }
       ctx.textAlign = "left";
       const srcLower = (sourceImg.currentSrc || sourceImg.src || "").toLowerCase();
@@ -1320,16 +1215,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       const kps = toKeypoints(p.keypoints);
       const person = {
         bbox: p.bbox,
-        ...p.faceBbox ? { faceBbox: p.faceBbox } : {},
         ...kps ? { keypoints: kps } : {},
         ...typeof p.genderConfidence === "number" ? { genderConfidence: p.genderConfidence } : {},
         genderClass: genderFromWord(p.gender),
-        facePFemale: null,
-        facePMale: null,
-        bodyPFemale: null,
-        bodyPMale: null,
-        faceCropDataUrl: null,
-        bodyCropDataUrl: null,
         shouldBlur: false
       };
       out.push(person);
@@ -2323,7 +2211,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (typeof p.genderConfidence === "number") {
         labelTxt += ` ${Math.round(p.genderConfidence * 100)}%`;
       }
-      if (p.classifierUsed) labelTxt += ` [${p.classifierUsed}]`;
       dctx.fillStyle = color;
       dctx.font = "bold 11px monospace";
       const labelLY = dy >= 14 ? dy - 4 : dy + 14;
