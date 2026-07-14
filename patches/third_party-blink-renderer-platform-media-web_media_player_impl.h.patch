@@ -1,8 +1,24 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-index 57c8960bcdb25..696a786da2186 100644
+index 57c8960bcdb25..7491bf28bab62 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-@@ -84,6 +84,8 @@ class MediaLog;
+@@ -7,6 +7,7 @@
+ 
+ #include <stdint.h>
+ 
++#include <deque>  // [Browther/Basarunaa] détection v2 — POC ring
+ #include <memory>
+ #include <optional>
+ #include <string>
+@@ -52,6 +53,7 @@
+ #include "third_party/blink/public/platform/web_content_decryption_module_result.h"
+ #include "third_party/blink/public/platform/web_media_player.h"
+ #include "third_party/blink/public/platform/web_surface_layer_bridge.h"
++#include "third_party/blink/renderer/platform/allow_discouraged_type.h"  // [Browther/Basarunaa]
+ #include "third_party/blink/renderer/platform/bindings/v8_external_memory_accounter.h"
+ #include "third_party/blink/renderer/platform/media/media_player_client.h"
+ #include "third_party/blink/renderer/platform/media/multi_buffer_data_source.h"
+@@ -84,6 +86,8 @@ class MediaLog;
  class MemoryDumpProviderProxy;
  class PipelineController;
  class SwitchableAudioRendererSink;
@@ -11,7 +27,7 @@ index 57c8960bcdb25..696a786da2186 100644
  }  // namespace media
  
  namespace viz {
-@@ -104,6 +106,7 @@ class WebAudioSourceProviderImpl;
+@@ -104,6 +108,7 @@ class WebAudioSourceProviderImpl;
  class WebContentDecryptionModule;
  class WebLocalFrame;
  class WebMediaPlayerEncryptedMediaClient;
@@ -19,7 +35,7 @@ index 57c8960bcdb25..696a786da2186 100644
  
  // The set of split histograms that are supported. Keeping them in an enum
  // helps prevent raw strings from being scattered throughout the source, and
-@@ -160,7 +163,10 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -160,7 +165,10 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        bool is_background_video_play_enabled,
        bool is_background_video_track_optimization_supported,
        std::unique_ptr<media::Demuxer> demuxer_override,
@@ -31,7 +47,7 @@ index 57c8960bcdb25..696a786da2186 100644
    WebMediaPlayerImpl(const WebMediaPlayerImpl&) = delete;
    WebMediaPlayerImpl& operator=(const WebMediaPlayerImpl&) = delete;
    ~WebMediaPlayerImpl() override;
-@@ -710,6 +716,18 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -710,6 +718,28 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
    // RequestAnimationFrame() is called.
    void OnNewFramePresentedCallback();
  
@@ -46,11 +62,21 @@ index 57c8960bcdb25..696a786da2186 100644
 +  // main thread (opérations CPU only, sûres). |src| = taille source d'origine.
 +  void ProcessLeadCpuFrame(gfx::Size src,
 +                           scoped_refptr<media::VideoFrame> cpu_frame);
++  // [Browther/Basarunaa] Détection v2 — POC Étape 0 (spike GO/NO-GO, à retirer
++  // ou câbler ensuite) : alimente |lead_ring_| avec la frame lead courante et
++  // déclenche périodiquement la sonde « readback d'une frame ARBITRAIRE du
++  // ring » sur la séquence readback dédiée. Voir |lead_ring_|.
++  void LeadRingFillAndProbe(scoped_refptr<media::VideoFrame> frame);
++  // [Browther/Basarunaa] Reply (main thread) de la sonde POC ci-dessus.
++  void OnLeadRingProbeReadback(base::TimeDelta picked_ts,
++                               size_t picked_index,
++                               size_t ring_size,
++                               scoped_refptr<media::VideoFrame> cpu_frame);
 +
    // Notifies |demuxer_manager_| of playback and rate changes which may increase
    // the amount of data the DataSource buffers. Does nothing prior to reaching
    // kReadyStateHaveEnoughData for the first time.
-@@ -884,6 +902,36 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -884,6 +914,53 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        compositor_;  // Deleted on |vfc_task_runner_|.
    media::PaintCanvasVideoRenderer video_renderer_;
  
@@ -79,6 +105,23 @@ index 57c8960bcdb25..696a786da2186 100644
 +  // (ProcessLeadCpuFrame) revient. Le throughput baisse (moins de fulls) mais
 +  // c'est voulu : on veut de la fraîcheur, pas du volume.
 +  bool lead_readback_in_flight_ = false;
++  // [Browther/Basarunaa] Détection v2 — POC Étape 0 (accès aléatoire au lead) :
++  // ring de refs (scoped_refptr) vers les frames décodées-en-avance déjà vues
++  // par OnLeadFrame. Les frames de la fenêtre d'avance sont DÉJÀ vivantes dans
++  // la file du VideoRendererAlgorithm (cap 120) : éviction au fil de la lecture
++  // (ts < playhead) → le ring n'ajoute que des pointeurs, il n'étend pas la
++  // durée de vie des frames au-delà de la file d'affichage. Reset sur seek
++  // arrière. Main thread only.
++  std::deque<scoped_refptr<media::VideoFrame>> lead_ring_
++      ALLOW_DISCOURAGED_TYPE("Ring de types media::, hors types WTF");
++  // Sonde POC : ~1/s, readback d'une frame arbitraire du ring (rotation
++  // début/milieu/fin), 1 sonde en vol max (indépendante du garde-fou ML
++  // |lead_readback_in_flight_| — la contention sur la séquence readback fait
++  // partie de ce que le POC doit mesurer).
++  bool ring_probe_in_flight_ = false;
++  int ring_probe_n_ = 0;
++  base::TimeTicks last_ring_probe_ticks_;
++  base::TimeTicks ring_probe_post_ticks_;
 +  // [Browther/Basarunaa] Instrumentation latence (mesure, pas prod) : wall-clock
 +  // au moment du tap de la frame en cours de readback, pour chiffrer readback +
 +  // chaîne renderer dans ProcessLeadCpuFrame. Main thread only.
