@@ -234,13 +234,13 @@ class BasarunaaScriptHandler: TabContentScript {
   // MARK: - Prefs envoyées au JS (la policy vit dans core/policy.ts)
 
   /// Payload prefs pour le JS : mode + seuil de certitude + filtre main-seule.
-  /// iOS n'expose pas (encore) le toggle `min_skeleton` → `minSkeletonActive`
-  /// = false (le filtre main-seule est skip, parité conservatrice).
+  /// `minSkeletonActive` = pref `min_skeleton` > 0 (toggle « Ignorer les mains
+  /// seules » du panel, parité desktop).
   private func prefsPayload() -> [String: Any] {
     [
       "mode": Preferences.Basarunaa.effectiveMode,
       "genderCertainty": Preferences.Basarunaa.genderCertainty.value,
-      "minSkeletonActive": false,
+      "minSkeletonActive": Preferences.Basarunaa.minSkeleton.value > 0,
     ]
   }
 
@@ -281,10 +281,18 @@ class BasarunaaScriptHandler: TabContentScript {
       do {
         // Pipeline vidéo : `analyze` (persons + gender) + `checkNsfw` (Marqo +
         // NudeNet) en parallèle — sinon le branch `if isNsfw` côté JS ne fire
-        // jamais (analyze() retourne toujours isNsfw=false par design).
-        async let nsfwAsync = BasarunaaPipeline.shared.checkNsfw(image: cgImage)
-        let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
-        let nsfw = try? await nsfwAsync
+        // jamais (analyze() retourne toujours isNsfw=false par design). NSFW
+        // gaté sur la pref (opt-in, OFF par défaut — Marqo CPU-bound ~120ms).
+        let result: BasarunaaResult
+        let nsfw: (isNsfw: Bool, score: Double?, latencyMs: Double, nudeClasses: [String])?
+        if Preferences.Basarunaa.nsfwEnabled.value {
+          async let nsfwAsync = BasarunaaPipeline.shared.checkNsfw(image: cgImage)
+          result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+          nsfw = try? await nsfwAsync
+        } else {
+          result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+          nsfw = nil
+        }
         // PUR EXTRACTEUR : on envoie TOUTES les persons ; le JS (core/policy)
         // décide lesquelles flouter et remonte le compte via "statsBlurred".
         personsPayload = serialize(persons: result.persons)
@@ -444,21 +452,24 @@ class BasarunaaScriptHandler: TabContentScript {
       )
 
       // Phase 2 (POC parity) — fire NSFW check in the background. Only
-      // notify JS when the result is positive.
-      let weakLog = self.log
-      Task.detached { [weak tab] in
-        do {
-          let nsfwResult = try await BasarunaaPipeline.shared.checkNsfw(image: cgImage)
-          if nsfwResult.isNsfw, let tab {
-            await Self.applyNsfwOverlay(
-              tab: tab,
-              id: id,
-              score: nsfwResult.score ?? 1.0,
-              log: weakLog
-            )
+      // notify JS when the result is positive. Gaté sur la pref (opt-in, OFF
+      // par défaut — Marqo CPU-bound). Quand OFF : pas de check du tout.
+      if Preferences.Basarunaa.nsfwEnabled.value {
+        let weakLog = self.log
+        Task.detached { [weak tab] in
+          do {
+            let nsfwResult = try await BasarunaaPipeline.shared.checkNsfw(image: cgImage)
+            if nsfwResult.isNsfw, let tab {
+              await Self.applyNsfwOverlay(
+                tab: tab,
+                id: id,
+                score: nsfwResult.score ?? 1.0,
+                log: weakLog
+              )
+            }
+          } catch {
+            weakLog.error("checkNsfw[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
           }
-        } catch {
-          weakLog.error("checkNsfw[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
         }
       }
     } catch {

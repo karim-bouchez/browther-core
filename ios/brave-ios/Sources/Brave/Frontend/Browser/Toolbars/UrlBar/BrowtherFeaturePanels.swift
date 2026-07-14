@@ -127,6 +127,8 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var genderCertainty = Preferences.Basarunaa.genderCertainty
   @ObservedObject private var debugMode = Preferences.Basarunaa.debugMode
   @ObservedObject private var captureMode = Preferences.Basarunaa.captureMode
+  @ObservedObject private var nsfwEnabled = Preferences.Basarunaa.nsfwEnabled
+  @ObservedObject private var minSkeleton = Preferences.Basarunaa.minSkeleton
 
   var body: some View {
     ScrollView {
@@ -161,6 +163,12 @@ struct BasarunaaPanelView: View {
             radio(label: "Femmes (par défaut)", value: "blur-female", binding: modeBinding)
             radio(label: "Hommes", value: "blur-male", binding: modeBinding)
             radio(label: "Toutes les personnes", value: "blur-all", binding: modeBinding)
+            Divider().padding(.vertical, 4)
+            toggleRow(
+              title: "Détection NSFW",
+              subtitle: "Floute le contenu explicite en plein cadre. Ajoute de la latence.",
+              isOn: Binding(get: { nsfwEnabled.value }, set: { nsfwEnabled.value = $0 })
+            )
           }
         }
         .disabled(!enabled.value)
@@ -181,6 +189,15 @@ struct BasarunaaPanelView: View {
               get: { genderCertainty.value },
               set: { genderCertainty.value = $0 }
             ))
+            Divider()
+            toggleRow(
+              title: "Ignorer les mains seules",
+              subtitle: "Ne floute pas une personne dont seuls les poignets sont détectés.",
+              isOn: Binding(
+                get: { minSkeleton.value > 0 },
+                set: { minSkeleton.value = $0 ? 0.1 : 0 }
+              )
+            )
           }
         }
         .disabled(!enabled.value)
@@ -270,6 +287,21 @@ struct BasarunaaPanelView: View {
           .foregroundColor(.secondary)
       }
       Slider(value: value, in: 0...1)
+    }
+  }
+
+  private func toggleRow(
+    title: String,
+    subtitle: String,
+    isOn: Binding<Bool>
+  ) -> some View {
+    HStack(alignment: .top) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text(title).font(.subheadline.weight(.medium))
+        Text(subtitle).font(.caption2).foregroundColor(.secondary)
+      }
+      Spacer()
+      Toggle("", isOn: isOn).labelsHidden()
     }
   }
 

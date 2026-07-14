@@ -1122,6 +1122,27 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   function shortenClassifier(raw) {
     return raw.replace("insightface (partial body)", "IF (part)").replace("insightface (synth body)", "IF (synth)").replace("insightface (conflict)", "IF (cnflct)").replace("insightface (align fail)", "IF (align)").replace("pplcnet (synth body)", "PP (synth)").replace("pplcnet (no face)", "PP (no face)").replace("pplcnet (best)", "PP (best)").replace("pplcnet (align fail)", "PP (align)").replace("insightface", "IF").replace("pplcnet", "PP");
   }
+  const STRIP_FACE_DISPLAY = 96;
+  const STRIP_BODY_DISPLAY_W = 100;
+  const STRIP_BODY_DISPLAY_H = 133;
+  const STRIP_INNER_GAP = 4;
+  const STRIP_COL_W = STRIP_FACE_DISPLAY + STRIP_INNER_GAP + STRIP_BODY_DISPLAY_W;
+  const STRIP_COL_GAP = 12;
+  const STRIP_START_X = 6;
+  const STRIP_TOP_PAD = 6;
+  const STRIP_ROW_H = 200;
+  function stripColsPerRow(imgW) {
+    return Math.max(
+      1,
+      Math.floor(
+        (imgW - STRIP_START_X + STRIP_COL_GAP) / (STRIP_COL_W + STRIP_COL_GAP)
+      )
+    );
+  }
+  function stripHeight(imgW, personCount) {
+    if (personCount <= 0) return 0;
+    return Math.ceil(personCount / stripColsPerRow(imgW)) * STRIP_ROW_H;
+  }
   function drawCropStripAndEncode(canvas, ctx, persons, imgW, imgH, sourceImg) {
     ctx.fillStyle = "#000";
     ctx.fillRect(0, imgH, imgW, canvas.height - imgH);
@@ -1131,20 +1152,22 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       jobs.push(decodeDataUrl(p.bodyCropDataUrl));
     }
     return Promise.all(jobs).then((images) => {
-      const FACE_DISPLAY = 96;
-      const BODY_DISPLAY_W = 100;
-      const BODY_DISPLAY_H = 133;
-      const INNER_GAP = 4;
-      const COL_W = FACE_DISPLAY + INNER_GAP + BODY_DISPLAY_W;
-      const COL_GAP = 12;
-      const TOP_PAD = 6;
-      let x = 6;
-      const stripTop = imgH;
+      const FACE_DISPLAY = STRIP_FACE_DISPLAY;
+      const BODY_DISPLAY_W = STRIP_BODY_DISPLAY_W;
+      const BODY_DISPLAY_H = STRIP_BODY_DISPLAY_H;
+      const INNER_GAP = STRIP_INNER_GAP;
+      const COL_W = STRIP_COL_W;
+      const TOP_PAD = STRIP_TOP_PAD;
+      const colsPerRow = stripColsPerRow(imgW);
       const idx = { f: 0, m: 0 };
       for (let pi = 0; pi < persons.length; pi++) {
         const person = persons[pi];
         const face = images[pi * 2];
         const body = images[pi * 2 + 1];
+        const col = pi % colsPerRow;
+        const row = Math.floor(pi / colsPerRow);
+        const x = STRIP_START_X + col * (COL_W + STRIP_COL_GAP);
+        const stripTop = imgH + row * STRIP_ROW_H;
         const personColor = pickPersonColor(person.genderClass, idx);
         let faceGenderLabel = "face";
         if (person.facePFemale != null && person.facePMale != null) {
@@ -1204,8 +1227,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           classLabelClipped = classLabelClipped.slice(0, -1);
         }
         ctx.fillText(classLabelClipped, x + COL_W / 2, labelY + 16);
-        x += COL_W + COL_GAP;
-        if (x + COL_W > imgW) break;
       }
       ctx.textAlign = "left";
       const srcLower = (sourceImg.currentSrc || sourceImg.src || "").toLowerCase();
@@ -1237,7 +1258,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
       try {
         const isFullDebug = debugMode === "debug";
-        const stripH = isFullDebug ? 6 + 133 + 12 + 11 + 16 + 12 + 10 : 0;
+        const stripH = isFullDebug ? stripHeight(w, persons.length) : 0;
         const canvas = document.createElement("canvas");
         canvas.width = w;
         canvas.height = h + stripH;

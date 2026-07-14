@@ -60,6 +60,23 @@ extension Preferences {
       default: 0.70
     )
 
+    /// NSFW detection (Marqo full-frame + NudeNet). Opt-in, OFF by default —
+    /// Marqo is CPU-bound (~120 ms) → adds latency. Matches the desktop default
+    /// (`brave.basarunaa.nsfw_enabled`, cf. `private/extensions/basarunaa/CLAUDE.md`).
+    /// When OFF, the script handler skips `checkNsfw` entirely.
+    public static let nsfwEnabled = Option<Bool>(
+      key: "basarunaa.nsfw-enabled",
+      default: false
+    )
+
+    /// "Ignore hands only" filter (`min_skeleton`). `> 0` = active: a person
+    /// whose only reliable keypoints are the wrists is NOT blurred. Default
+    /// `0.1` (active) to match desktop. The toggle maps on→0.1 / off→0.
+    public static let minSkeleton = Option<Double>(
+      key: "basarunaa.min-skeleton",
+      default: 0.1
+    )
+
     /// Debug overlay mode — visible in the panel's Debug section.
     /// Valid values: `"none"`, `"boxes"`, `"debug"`.
     public static let debugMode = Option<String>(
