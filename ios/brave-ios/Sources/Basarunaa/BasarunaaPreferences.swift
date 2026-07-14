@@ -42,19 +42,15 @@ extension Preferences {
       default: "blur-female"
     )
 
-    /// Detection thresholds — exposed in the panel under "Détection".
-    /// Defaults match the POC popup sliders.
+    /// Detection floor (advanced) — panel "Debug" section. Depuis le single-shot
+    /// gender-v2n ce score EST le % des labels ; laisser bas (0.25). `conf_face`
+    /// a été retiré (plus de détecteur de visage séparé).
     public static let confBody = Option<Double>(
       key: "basarunaa.conf-body",
       default: 0.25
     )
-    public static let confFace = Option<Double>(
-      key: "basarunaa.conf-face",
-      default: 0.30
-    )
-    /// Minimum softmax probability required to trust a gender classification.
-    /// Below this threshold the fused gender is replaced with `nil` so the
-    /// `blur-female` mode falls back to the safer "keep" default.
+    /// Seuil de prudence du flou (macOS « Blur caution level »). Sous ce score,
+    /// une personne est floutée par précaution ; au-dessus, sa classe décide.
     public static let genderCertainty = Option<Double>(
       key: "basarunaa.gender-certainty",
       default: 0.70
@@ -68,13 +64,23 @@ extension Preferences {
       key: "basarunaa.nsfw-enabled",
       default: false
     )
+    /// Seuil du classifieur NSFW plein-cadre (Marqo). Au-dessus → flou complet.
+    public static let nsfwConf = Option<Double>(
+      key: "basarunaa.nsfw-conf",
+      default: 0.50
+    )
+    /// Seuil de détection des parties explicites (NudeNet). Plus bas = plus sensible.
+    public static let nudenetConf = Option<Double>(
+      key: "basarunaa.nudenet-conf",
+      default: 0.50
+    )
 
     /// "Ignore hands only" filter (`min_skeleton`). `> 0` = active: a person
     /// whose only reliable keypoints are the wrists is NOT blurred. Default
-    /// `0.1` (active) to match desktop. The toggle maps on→0.1 / off→0.
+    /// `0.0` (off) to match desktop (`brave_profile_prefs.cc`). Toggle maps on→0.1 / off→0.
     public static let minSkeleton = Option<Double>(
       key: "basarunaa.min-skeleton",
-      default: 0.1
+      default: 0.0
     )
 
     /// Debug overlay mode — visible in the panel's Debug section.

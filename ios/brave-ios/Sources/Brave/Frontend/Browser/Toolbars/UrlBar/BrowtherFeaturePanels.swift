@@ -123,11 +123,12 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var enabled = Preferences.Basarunaa.enabled
   @ObservedObject private var mode = Preferences.Basarunaa.mode
   @ObservedObject private var confBody = Preferences.Basarunaa.confBody
-  @ObservedObject private var confFace = Preferences.Basarunaa.confFace
   @ObservedObject private var genderCertainty = Preferences.Basarunaa.genderCertainty
   @ObservedObject private var debugMode = Preferences.Basarunaa.debugMode
   @ObservedObject private var captureMode = Preferences.Basarunaa.captureMode
   @ObservedObject private var nsfwEnabled = Preferences.Basarunaa.nsfwEnabled
+  @ObservedObject private var nsfwConf = Preferences.Basarunaa.nsfwConf
+  @ObservedObject private var nudenetConf = Preferences.Basarunaa.nudenetConf
   @ObservedObject private var minSkeleton = Preferences.Basarunaa.minSkeleton
 
   var body: some View {
@@ -166,7 +167,7 @@ struct BasarunaaPanelView: View {
             Divider().padding(.vertical, 4)
             toggleRow(
               title: "Détection NSFW",
-              subtitle: "Floute le contenu explicite en plein cadre. Ajoute de la latence.",
+              subtitle: "Floute l'image entière si un contenu explicite est détecté (nu, parties intimes). Désactivé par défaut pour une meilleure réactivité.",
               isOn: Binding(get: { nsfwEnabled.value }, set: { nsfwEnabled.value = $0 })
             )
           }
@@ -174,29 +175,34 @@ struct BasarunaaPanelView: View {
         .disabled(!enabled.value)
         .opacity(enabled.value ? 1.0 : 0.4)
 
-        // MARK: Détection
+        // MARK: Détection (aligné panneau macOS)
         section(title: "Détection") {
           VStack(spacing: 12) {
-            sliderRow(label: "Confiance corps", value: Binding(
-              get: { confBody.value },
-              set: { confBody.value = $0 }
-            ))
-            sliderRow(label: "Confiance visage", value: Binding(
-              get: { confFace.value },
-              set: { confFace.value = $0 }
-            ))
-            sliderRow(label: "Certitude du genre", value: Binding(
-              get: { genderCertainty.value },
-              set: { genderCertainty.value = $0 }
-            ))
-            Divider()
             toggleRow(
               title: "Ignorer les mains seules",
-              subtitle: "Ne floute pas une personne dont seuls les poignets sont détectés.",
+              subtitle: "Ne floute pas quand seule une main est visible (ex. tutos vidéo). Dès qu'on voit plus — visage, bras avec coude, jambe, corps — le flou s'applique.",
               isOn: Binding(
                 get: { minSkeleton.value > 0 },
                 set: { minSkeleton.value = $0 ? 0.1 : 0 }
               )
+            )
+            Divider()
+            sliderRow(
+              label: "Prudence du flou",
+              value: Binding(get: { genderCertainty.value }, set: { genderCertainty.value = $0 }),
+              scaleLeft: "Moins de flou",
+              scaleRight: "Plus prudent",
+              desc: "Chaque personne reçoit un score de certitude (le % affiché sur son label en debug). Sous ce seuil, elle est floutée par précaution. Au-dessus, sa classe décide (femme → floutée, homme/enfant → non)."
+            )
+            sliderRow(
+              label: "Seuil NSFW (Marqo)",
+              value: Binding(get: { nsfwConf.value }, set: { nsfwConf.value = $0 }),
+              desc: "Seuil du classifieur NSFW global. Au-dessus, l'image entière est floutée."
+            )
+            sliderRow(
+              label: "Seuil NudeNet",
+              value: Binding(get: { nudenetConf.value }, set: { nudenetConf.value = $0 }),
+              desc: "Seuil de détection des parties explicites du corps. Plus bas = plus sensible."
             )
           }
         }
@@ -224,6 +230,14 @@ struct BasarunaaPanelView: View {
           .textCase(.uppercase)
           .foregroundStyle(.orange)
       }
+
+      sliderRow(
+        label: "Plancher de détection (avancé)",
+        value: Binding(get: { confBody.value }, set: { confBody.value = $0 }),
+        desc: "Depuis le modèle single-shot, ce score EST le % affiché sur les labels debug — le monter fait disparaître des personnes. Laisser à 25 % ; le floutage des cas douteux se règle avec « Prudence du flou »."
+      )
+
+      Divider()
 
       VStack(alignment: .leading, spacing: 4) {
         radio(label: "Aucun", value: "none", binding: debugModeBinding)
@@ -277,7 +291,13 @@ struct BasarunaaPanelView: View {
     .padding(.horizontal)
   }
 
-  private func sliderRow(label: String, value: Binding<Double>) -> some View {
+  private func sliderRow(
+    label: String,
+    value: Binding<Double>,
+    scaleLeft: String? = nil,
+    scaleRight: String? = nil,
+    desc: String? = nil
+  ) -> some View {
     VStack(alignment: .leading, spacing: 4) {
       HStack {
         Text(label).font(.subheadline.weight(.medium))
@@ -287,6 +307,21 @@ struct BasarunaaPanelView: View {
           .foregroundColor(.secondary)
       }
       Slider(value: value, in: 0...1)
+      if let scaleLeft, let scaleRight {
+        HStack {
+          Text(scaleLeft)
+          Spacer()
+          Text(scaleRight)
+        }
+        .font(.caption2)
+        .foregroundColor(.secondary)
+      }
+      if let desc {
+        Text(desc)
+          .font(.caption2)
+          .foregroundColor(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
     }
   }
 

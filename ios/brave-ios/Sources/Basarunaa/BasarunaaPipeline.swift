@@ -117,8 +117,11 @@ public actor BasarunaaPipeline {
   ) {
     let (nsfwClassifier, nudeNetDetector) = try loadNsfwIfNeeded()
     let nsfwStart = Date()
-    let marqoResult = try? nsfwClassifier.classify(image: image)
-    let nudeDetections = (try? nudeNetDetector.detect(image: image)) ?? []
+    let marqoResult = try? nsfwClassifier.classify(
+      image: image, threshold: Preferences.Basarunaa.nsfwConf.value)
+    let nudeDetections =
+      (try? nudeNetDetector.detect(
+        image: image, threshold: Preferences.Basarunaa.nudenetConf.value)) ?? []
     let exposedHit = nudeDetections.contains { d in
       guard let cls = NudeNetClass(rawValue: d.classIdx) else { return false }
       return NudeNetClass.alwaysFlagged.contains(cls)

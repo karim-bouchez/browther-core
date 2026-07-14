@@ -75,9 +75,13 @@ final class NudeNetDetector {
     log.info("loaded NudeNet, output=\(firstOutput, privacy: .public)")
   }
 
-  /// Returns the set of detections whose confidence exceeds the threshold.
-  /// Bbox coords are dropped (we only care about class presence for NSFW).
-  func detect(image: CGImage) throws -> [NudeNetDetection] {
+  /// Returns the set of detections whose confidence exceeds `threshold`
+  /// (piloté par la pref `nudenet_conf`). Bbox coords are dropped (we only care
+  /// about class presence for NSFW).
+  func detect(
+    image: CGImage,
+    threshold: Double = NudeNetDetector.confidenceThreshold
+  ) throws -> [NudeNetDetection] {
     let letterboxed = Letterbox.fit(image: image, to: Self.inputSize, padding: 128)
     guard let pixelBuffer = letterboxed.pixelBuffer else {
       throw BasarunaaError.invalidImage
@@ -87,10 +91,10 @@ final class NudeNetDetector {
     guard let tensor = output.featureValue(for: outputName)?.multiArrayValue else {
       throw BasarunaaError.inferenceFailed("NudeNet output missing")
     }
-    return postprocess(tensor: tensor)
+    return postprocess(tensor: tensor, threshold: threshold)
   }
 
-  private func postprocess(tensor: MLMultiArray) -> [NudeNetDetection] {
+  private func postprocess(tensor: MLMultiArray, threshold: Double) -> [NudeNetDetection] {
     let shape = tensor.shape.map { $0.intValue }
     // Expected: [1, 22, 2100]  (4 bbox + 18 classes)
     guard shape.count == 3, shape[0] == 1 else {
@@ -132,7 +136,7 @@ final class NudeNetDetector {
           bestClass = c
         }
       }
-      if Double(bestScore) >= Self.confidenceThreshold {
+      if Double(bestScore) >= threshold {
         let prev = bestPerClass[bestClass] ?? 0
         if Double(bestScore) > prev {
           bestPerClass[bestClass] = Double(bestScore)
