@@ -117,25 +117,11 @@ extension BrowserViewController {
   }
 
   private func presentBraveRewardsScreenCallout(skipSafeGuards: Bool = false) {
-    // Browther: Rewards disabled — skip callout
-    if false, !skipSafeGuards {
-      guard BraveRewards.isSupported(prefService: profileController.profile.prefs),
-        !Preferences.Rewards.rewardsToggledOnce.value
-      else {
-        return
-      }
-    }
-
-    let controller = OnboardingRewardsAgreementViewController()
-    controller.onOnboardingStateChanged = { [weak self] controller, state in
-      self?.completeOnboarding(controller)
-    }
-    controller.onRewardsStatusChanged = { [weak self] status in
-      self?.rewards.isEnabled = status
-    }
-
-    isOnboardingOrFullScreenCalloutPresented = true
-    present(controller, animated: true)
+    // Browther : la fonctionnalité Brave Rewards est absente — ne jamais présenter
+    // le callout d'onboarding « Programme de récompenses ».
+    // NB : l'ancien code enveloppait le garde-fou (guard ... else { return }) dans
+    // `if false`, ce qui SAUTAIT le garde-fou et présentait le callout à tous les
+    // coups. On neutralise complètement la fonction.
   }
 
   // MARK: Helper Methods for Presentation

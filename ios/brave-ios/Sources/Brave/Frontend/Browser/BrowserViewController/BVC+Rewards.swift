@@ -33,8 +33,11 @@ extension BrowserViewController {
   }
 
   func showBraveRewardsPanel() {
-    // Browther: Rewards disabled — skip entirely
-    if false, !BraveRewards.isSupported(prefService: profileController.profile.prefs) {
+    // Browther : la fonctionnalité Brave Rewards est absente (icône masquée) — ne
+    // jamais ouvrir le panel ni l'onboarding « Programme de récompenses ».
+    // NB : l'ancien code enveloppait ce garde-fou dans `if false`, ce qui le
+    // neutralisait ; on rétablit la sortie anticipée quand Rewards n'est pas supporté.
+    if !BraveRewards.isSupported(prefService: profileController.profile.prefs) {
       return
     }
 
