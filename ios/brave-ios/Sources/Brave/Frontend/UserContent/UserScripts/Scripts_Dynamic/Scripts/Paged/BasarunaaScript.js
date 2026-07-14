@@ -23,7 +23,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     enabled: true,
     mode: "blur-female",
     confBody: 0.25,
-    confFace: 0.3,
     genderCertainty: 0.7,
     debugMode: "none",
     captureMode: false
