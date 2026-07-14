@@ -105,9 +105,6 @@ v8::Local<v8::Object> BasarunaaJsHandler::GetConfig(gin::Arguments* args) {
   obj->Set(context, gin::StringToV8(isolate, "confBody"),
            v8::Number::New(isolate, s->conf_body))
       .Check();
-  obj->Set(context, gin::StringToV8(isolate, "confFace"),
-           v8::Number::New(isolate, s->conf_face))
-      .Check();
   obj->Set(context, gin::StringToV8(isolate, "genderCertainty"),
            v8::Number::New(isolate, s->gender_certainty))
       .Check();

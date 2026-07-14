@@ -76,7 +76,7 @@ class BasarunaaJsHandler : public gin::Wrappable<BasarunaaJsHandler> {
   // Lit la config courante poussée par le browser au RFO.
   bool IsEnabled();
 
-  // window.__basarunaa.getConfig() -> {enabled, mode, confBody, confFace,
+  // window.__basarunaa.getConfig() -> {enabled, mode, confBody,
   // genderCertainty, debugMode}
   // Snapshot du `BasarunaaSettings` courant. Le script JS l'appelle à l'init
   // et à chaque event `basarunaa-config-changed`.

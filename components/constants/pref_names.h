@@ -71,7 +71,6 @@ inline constexpr char kBasarunaaEnabled[] = "brave.basarunaa.enabled";
 inline constexpr char kBasarunaaMode[] = "brave.basarunaa.mode";
 // Detection thresholds (double in [0.0, 1.0]).
 inline constexpr char kBasarunaaConfBody[] = "brave.basarunaa.conf_body";
-inline constexpr char kBasarunaaConfFace[] = "brave.basarunaa.conf_face";
 inline constexpr char kBasarunaaGenderCertainty[] =
     "brave.basarunaa.gender_certainty";
 // Browther dev tuning sliders (double in [0.0, 1.0]) — exposés temporairement

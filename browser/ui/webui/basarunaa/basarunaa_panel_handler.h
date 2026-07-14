@@ -42,7 +42,6 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void SetNsfwEnabled(bool enabled) override;
   void GetSliders(GetSlidersCallback callback) override;
   void SetConfBody(double value) override;
-  void SetConfFace(double value) override;
   void SetGenderCertainty(double value) override;
   void SetSentinelConf(double value) override;
   void SetMinSkeleton(double value) override;

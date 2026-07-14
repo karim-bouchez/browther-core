@@ -126,7 +126,6 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
   (*s_brave_allowlist)[kBasarunaaCensorEyes] =
       settings_api::PrefType::kBoolean;  // Browther: censure des yeux
   (*s_brave_allowlist)[kBasarunaaConfBody] = settings_api::PrefType::kNumber;
-  (*s_brave_allowlist)[kBasarunaaConfFace] = settings_api::PrefType::kNumber;
   (*s_brave_allowlist)[kBasarunaaGenderCertainty] =
       settings_api::PrefType::kNumber;
   // Dev/debug : seuil NanoDet (overlay debug image MV3 + Android). Le slider

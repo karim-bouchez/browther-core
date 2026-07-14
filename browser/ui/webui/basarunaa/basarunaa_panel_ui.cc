@@ -57,7 +57,6 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
       {"modeAll", IDS_BASARUNAA_PANEL_MODE_ALL},
       {"detectionLabel", IDS_BASARUNAA_PANEL_DETECTION_LABEL},
       {"confBody", IDS_BASARUNAA_PANEL_CONF_BODY},
-      {"confFace", IDS_BASARUNAA_PANEL_CONF_FACE},
       {"genderCertainty", IDS_BASARUNAA_PANEL_GENDER_CERTAINTY},
       {"sentinelConf", IDS_BASARUNAA_PANEL_SENTINEL_CONF},
       {"minSkeleton", IDS_BASARUNAA_PANEL_MIN_SKELETON},

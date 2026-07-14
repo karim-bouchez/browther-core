@@ -18,9 +18,8 @@ struct BasarunaaSettings {
   bool enabled;
   // "blur-female" | "blur-male" | "blur-all" (cf. UserPrefs.mode du core POC).
   string mode;
-  // Détection thresholds [0.0, 1.0]. Defaults POC : 0.25 / 0.30 / 0.70.
+  // Détection thresholds [0.0, 1.0]. Defaults : conf_body 0.25, gender_certainty 0.70.
   double conf_body;
-  double conf_face;
   double gender_certainty;
   // "none" | "boxes" | "debug".
   string debug_mode;

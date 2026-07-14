@@ -441,7 +441,6 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kBasarunaaCensorEyes, false);  // Browther: censure des yeux (opt-in)
   registry->RegisterBooleanPref(kBasarunaaNsfwEnabled, false);  // Browther: détection NSFW (opt-in, off = meilleure latence)
   registry->RegisterDoublePref(kBasarunaaConfBody, 0.25);
-  registry->RegisterDoublePref(kBasarunaaConfFace, 0.30);
   registry->RegisterDoublePref(kBasarunaaGenderCertainty, 0.70);
   // Browther dev tuning (défauts = valeurs hardcodées actuelles → comportement
   // par défaut inchangé). min_skeleton 0.0 = filtre désactivé.

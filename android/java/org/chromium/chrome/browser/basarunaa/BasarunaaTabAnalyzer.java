@@ -66,13 +66,11 @@ public final class BasarunaaTabAnalyzer {
      * @param bytes JPEG/PNG/WEBP encodés
      * @param mode pref Basarunaa.mode courante
      * @param confBody pref Basarunaa.conf_body courante
-     * @param confFace pref Basarunaa.conf_face courante
      * @param genderCertainty pref Basarunaa.gender_certainty courante
      */
     @CalledByNative
     public void analyzeImage(int imageId, byte[] bytes, String mode,
-                              double confBody, double confFace,
-                              double genderCertainty) {
+                              double confBody, double genderCertainty) {
         // Snapshot le pointer pour le test après retour du pipeline (tab peut
         // disparaitre entre temps).
         final long nativeHelperSnapshot = mNativeHelper;
@@ -87,7 +85,7 @@ public final class BasarunaaTabAnalyzer {
             BasarunaaResult result;
             try {
                 result = BasarunaaEngine.getInstance()
-                        .analyze(imageId, bytes, mode, confBody, confFace,
+                        .analyze(imageId, bytes, mode, confBody,
                                 genderCertainty, debugMode);
             } catch (Throwable t) {
                 Log.e(TAG, "[Analyzer#" + instanceId + "] analyze failed", t);

@@ -79,7 +79,6 @@ BasarunaaTabHelper::BasarunaaTabHelper(content::WebContents* web_contents)
     pref_change_registrar_.Add(kBasarunaaEnabled, cb);
     pref_change_registrar_.Add(kBasarunaaMode, cb);
     pref_change_registrar_.Add(kBasarunaaConfBody, cb);
-    pref_change_registrar_.Add(kBasarunaaConfFace, cb);
     pref_change_registrar_.Add(kBasarunaaGenderCertainty, cb);
     pref_change_registrar_.Add(kBasarunaaDebugMode, cb);
   }
@@ -137,7 +136,6 @@ void BasarunaaTabHelper::PushConfigToFrame(content::RenderFrameHost* rfh) {
   settings->enabled = prefs->GetBoolean(kBasarunaaEnabled);
   settings->mode = prefs->GetString(kBasarunaaMode);
   settings->conf_body = prefs->GetDouble(kBasarunaaConfBody);
-  settings->conf_face = prefs->GetDouble(kBasarunaaConfFace);
   settings->gender_certainty = prefs->GetDouble(kBasarunaaGenderCertainty);
   settings->debug_mode = prefs->GetString(kBasarunaaDebugMode);
 
@@ -244,7 +242,6 @@ void BasarunaaTabHelper::AnalyzeImage(
       base::android::ConvertUTF8ToJavaString(env,
                                              prefs->GetString(kBasarunaaMode)),
       prefs->GetDouble(kBasarunaaConfBody),
-      prefs->GetDouble(kBasarunaaConfFace),
       prefs->GetDouble(kBasarunaaGenderCertainty));
 #endif
 }

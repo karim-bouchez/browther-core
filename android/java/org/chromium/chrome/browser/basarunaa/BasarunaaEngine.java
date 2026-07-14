@@ -116,12 +116,12 @@ public final class BasarunaaEngine {
      * conf + keypoints) sérialisées — pas de décision de flou (policy en JS).
      *
      * <p>Signature conservée (appelée par {@code BasarunaaTabAnalyzer}). Les
-     * params {@code mode}/{@code confFace}/{@code genderCertainty} ne sont plus
-     * utilisés par le moteur (la policy vit côté JS) ; {@code confBody} pilote
-     * le seuil de détection.
+     * params {@code mode}/{@code genderCertainty} ne sont plus utilisés par le
+     * moteur (la policy vit côté JS) ; {@code confBody} pilote le seuil de
+     * détection.
      */
     public BasarunaaResult analyze(int imageId, byte[] bytes, String mode,
-                                   double confBody, double confFace,
+                                   double confBody,
                                    double genderCertainty, String debugMode) {
         final long t0 = System.nanoTime();
         try {
