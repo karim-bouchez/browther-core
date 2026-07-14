@@ -52,8 +52,6 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
     @Nullable private RadioGroup mModeGroup;
     @Nullable private TextView mConfBodyLabel;
     @Nullable private SeekBar mConfBodySlider;
-    @Nullable private TextView mConfFaceLabel;
-    @Nullable private SeekBar mConfFaceSlider;
     @Nullable private TextView mGenderLabel;
     @Nullable private SeekBar mGenderSlider;
     @Nullable private RadioGroup mDebugGroup;
@@ -89,8 +87,6 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
         mModeGroup = view.findViewById(R.id.basarunaa_panel_mode_group);
         mConfBodyLabel = view.findViewById(R.id.basarunaa_panel_conf_body_label);
         mConfBodySlider = view.findViewById(R.id.basarunaa_panel_conf_body_slider);
-        mConfFaceLabel = view.findViewById(R.id.basarunaa_panel_conf_face_label);
-        mConfFaceSlider = view.findViewById(R.id.basarunaa_panel_conf_face_slider);
         mGenderLabel = view.findViewById(R.id.basarunaa_panel_gender_label);
         mGenderSlider = view.findViewById(R.id.basarunaa_panel_gender_slider);
         mDebugGroup = view.findViewById(R.id.basarunaa_panel_debug_group);
@@ -100,8 +96,6 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
         bindModeGroup();
         bindSlider(mConfBodySlider, mConfBodyLabel,
                 BravePref.BASARUNAA_CONF_BODY, R.string.basarunaa_panel_conf_body_fmt);
-        bindSlider(mConfFaceSlider, mConfFaceLabel,
-                BravePref.BASARUNAA_CONF_FACE, R.string.basarunaa_panel_conf_face_fmt);
         bindSlider(mGenderSlider, mGenderLabel,
                 BravePref.BASARUNAA_GENDER_CERTAINTY,
                 R.string.basarunaa_panel_gender_fmt);

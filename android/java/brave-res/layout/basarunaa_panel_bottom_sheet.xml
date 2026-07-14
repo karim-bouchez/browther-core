@@ -136,20 +136,6 @@
         android:max="100" />
 
     <TextView
-        android:id="@+id/basarunaa_panel_conf_face_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp" />
-
-    <SeekBar
-        android:id="@+id/basarunaa_panel_conf_face_slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
-
-    <TextView
         android:id="@+id/basarunaa_panel_gender_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
