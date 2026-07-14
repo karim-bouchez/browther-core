@@ -6,14 +6,24 @@
 
 <!-- Une page du carousel pub : image pleine largeur (ratio porté par la
      hauteur du ViewPager2, pilotée par le champ `ratio` du serve) + chip
-     label semi-transparente coin supérieur, TOUJOURS affichée — texte posé
-     en code : « Pub » (externe, showAdLabel) ou « Aussi chez dev&din » (house
-     ad). Le label appartient à la slide, il glisse avec sa créa
-     (INTEGRATION.md § 3). ViewPager2 force match_parent. -->
+     label semi-transparente posée en ONGLET « à cheval » sur le bord haut,
+     TOUJOURS affichée — texte posé en code : « Pub » (externe, showAdLabel)
+     ou « Aussi chez dev&din » (house ad). Le label appartient à la slide, il
+     glisse avec sa créa (INTEGRATION.md § 3). ViewPager2 force match_parent.
+
+     `paddingTop` = headroom réservé à l'onglet (doit rester synchronisé avec
+     LABEL_HEADROOM_DP dans BrowtherAdBannerView.onMeasure, qui rallonge le
+     pager d'autant pour que l'image garde son ratio) ; `clipToPadding=false`
+     laisse le label déborder à moitié dans ce headroom au-dessus de l'image
+     (parité desktop `.ad-label { top: -10px }`) au lieu de recouvrir la
+     créa. -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/browther_ad_image"
@@ -28,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="-10dp"
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
         android:paddingTop="2dp"

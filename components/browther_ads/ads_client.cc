@@ -216,8 +216,13 @@ void AdsClient::Serve(const std::string& placement,
   payload.Set("platform", kPlatform);
   payload.Set("count", count);
   // Langue ciblée par la régie : le serveur ne renvoie que les créas de cette
-  // langue (+ neutres). Envoyée même si vide → le serveur traite alors comme
-  // « pas de préférence » (aucun 400, cf. gestion ci-dessous).
+  // langue (+ neutres) et EXIGE ce champ — un `lang` absent, vide ou non
+  // supporté ⇒ 400 (masqué par OnServeComplete, cf. gestion ci-dessous).
+  // GetApplicationLocale (desktop/Android) et preferredLocalizations (iOS)
+  // renvoient toujours une locale valide, donc primary_lang n'est jamais vide
+  // ici. ⚠️ Contrat serveur : un client déployé AVANT le ciblage langue
+  // (2026-07-13) n'envoie pas ce champ → 400 → bannière masquée tant qu'il
+  // n'est pas rebuild/réinstallé (cf. STATUS.md).
   payload.Set("lang", primary_lang);
 
   std::string body;

@@ -9,6 +9,12 @@ import Foundation
 import SnapKit
 import UIKit
 
+/// Espace réservé au-dessus de la créa pour l'onglet label posé « à cheval »
+/// sur le bord haut (il déborde à moitié au-dessus de l'image, comme desktop
+/// `.ad-label { top: -10px }` avec `.carousel { padding-top: 10px }`). Sans ce
+/// headroom, le label recouvrirait le contenu de la créa (titre, CTA).
+private let kBrowtherAdLabelHeadroom: CGFloat = 12
+
 /// Bannière pub devndin-ads sous les favoris du NTP. Carousel paginé,
 /// aspect-ratio piloté par le champ `ratio` du serve, label « Pub » par slide
 /// si `showAdLabel` (annonceur externe) — parité desktop
@@ -89,8 +95,10 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     let width = fittingSizeForCollectionView(collectionView, section: indexPath.section).width
     // Aspect-ratio piloté par le champ `ratio` du serve (pas de valeur en
     // dur, cf. ads/docs/INTEGRATION.md § 3) ; le placement a un format
-    // unique, toutes les pubs du lot partagent le même ratio.
-    let height = width / Self.aspect(of: ads.first)
+    // unique, toutes les pubs du lot partagent le même ratio. On ajoute le
+    // headroom de l'onglet label : l'image garde `width / ratio`, la section
+    // est juste plus haute de ce headroom (parité desktop `padding-top`).
+    let height = width / Self.aspect(of: ads.first) + kBrowtherAdLabelHeadroom
     return CGSize(width: width, height: height)
   }
 
@@ -302,10 +310,12 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     }
   }
 
-  /// Label de la créa : chip semi-transparente coin supérieur, posée DANS la
-  /// slide — elle glisse avec sa créa (INTEGRATION.md § 3). Toujours affichée,
-  /// texte posé au `configure` : « Pub » (externe, `showAdLabel`) ou tag
-  /// cross-promo « Aussi chez dev&din » (house ad).
+  /// Label de la créa : chip semi-transparente posée en onglet « à cheval » sur
+  /// le bord haut de la slide (elle déborde à moitié dans le headroom au-dessus
+  /// de l'image, comme desktop `.ad-label`), elle glisse avec sa créa
+  /// (INTEGRATION.md § 3). Toujours affichée, texte posé au `configure` :
+  /// « Pub » (externe, `showAdLabel`) ou tag cross-promo
+  /// « Aussi chez dev&din » (house ad).
   private let adLabel: UILabel = PaddedLabel().then {
     $0.font = .systemFont(ofSize: 11, weight: .semibold)
     $0.textColor = .white
@@ -323,11 +333,18 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     super.init(frame: frame)
     contentView.addSubview(imageView)
     contentView.addSubview(adLabel)
+    // L'image occupe toute la cellule SAUF le headroom en haut (réservé à
+    // l'onglet label) : son ratio reste `width / ratio` (cf. sizeForItemAt).
     imageView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      $0.top.equalToSuperview().offset(kBrowtherAdLabelHeadroom)
+      $0.leading.trailing.bottom.equalToSuperview()
     }
+    // Onglet à cheval : le centre du label est aligné sur le bord haut de
+    // l'image (moitié au-dessus dans le headroom, moitié sur le coin de la
+    // créa — parité desktop). `leading` suit le sens de lecture (RTL → droite).
     adLabel.snp.makeConstraints {
-      $0.top.leading.equalToSuperview().inset(10)
+      $0.centerY.equalTo(imageView.snp.top)
+      $0.leading.equalTo(imageView.snp.leading).offset(12)
     }
   }
 

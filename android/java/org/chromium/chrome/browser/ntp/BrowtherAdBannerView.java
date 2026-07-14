@@ -50,6 +50,13 @@ public class BrowtherAdBannerView extends LinearLayout {
     // renvoyé — jamais de valeur en dur (ads/docs/INTEGRATION.md § 3).
     private static final float FALLBACK_AD_RATIO = 3.2f;
 
+    // Headroom réservé au-dessus de la créa pour l'onglet label « à cheval »
+    // sur le bord haut (parité desktop `.ad-label { top: -10px }`). Doit rester
+    // synchronisé avec le `paddingTop` de browther_ad_banner_item.xml : le pager
+    // est rallongé de ce headroom pour que l'image garde son ratio (l'image =
+    // hauteur du pager moins le padding de la page).
+    private static final int LABEL_HEADROOM_DP = 10;
+
     private ViewPager2 mPager;
     private LinearLayout mDots;
     private BrowtherAdsBridge.Ad[] mAds = new BrowtherAdsBridge.Ad[0];
@@ -153,7 +160,10 @@ public class BrowtherAdBannerView extends LinearLayout {
         // RecyclerView).
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int pagerWidth = width - getPaddingLeft() - getPaddingRight();
-        int targetHeight = Math.round(pagerWidth / mAdRatio);
+        // + headroom pour l'onglet label : l'image (page moins son paddingTop)
+        // garde `pagerWidth / ratio`, le pager est juste plus haut d'autant.
+        int targetHeight = Math.round(pagerWidth / mAdRatio)
+                + ViewUtils.dpToPx(getContext(), LABEL_HEADROOM_DP);
         if (mPager != null && targetHeight > 0 && targetHeight != mPagerHeight) {
             mPagerHeight = targetHeight;
             ViewGroup.LayoutParams lp = mPager.getLayoutParams();
