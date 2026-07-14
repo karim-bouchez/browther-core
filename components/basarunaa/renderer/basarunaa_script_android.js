@@ -371,6 +371,48 @@
     return { data, width: imgW, height: imgH };
   }
 
+  const GenderClass = {
+    Unknown: -1,
+    Male: 0,
+    Female: 1,
+    Child: 2
+  };
+  function genderFromWord(word) {
+    switch (word) {
+      case "male":
+        return GenderClass.Male;
+      case "female":
+        return GenderClass.Female;
+      case "child":
+        return GenderClass.Child;
+      default:
+        return GenderClass.Unknown;
+    }
+  }
+
+  const MALE = 0;
+  const FEMALE = 1;
+  const WRIST_KP_INDICES = [9, 10];
+  const HAND_ONLY_KP_CONF = 0.3;
+  function shouldBlur(gender, conf, mode, certainty) {
+    if (mode === "blur-all") return true;
+    const target = mode === "blur-male" ? MALE : mode === "blur-female" ? FEMALE : null;
+    if (target === null) return false;
+    if (gender === target) return true;
+    if (conf < certainty) return true;
+    return false;
+  }
+  function isHandOnly(kpConfidences, threshold = HAND_ONLY_KP_CONF) {
+    if (!kpConfidences || kpConfidences.length === 0) return false;
+    return !kpConfidences.some(
+      (c, i) => !WRIST_KP_INDICES.includes(i) && (c ?? 0) > threshold
+    );
+  }
+  function wouldBlur(input) {
+    if (input.minSkeletonActive && isHandOnly(input.kpConfidences)) return false;
+    return shouldBlur(input.gender, input.conf, input.mode, input.certainty);
+  }
+
   const MIN_BLUR_PX = 25;
   const FEATHER_EXPAND = 20;
   const FEATHER_BLUR = 10;
@@ -658,6 +700,7 @@
     "#0047AB"
   ];
   const UNKNOWN_COLOR = "#FFCC00";
+  const CHILD_COLOR = "#32CD32";
   const COCO_SKELETON = [
     [0, 1],
     [0, 2],
@@ -729,13 +772,10 @@
     "#1E90FF",
     "#FF1493"
   ];
-  function genderColor(gender, idx) {
-    if (gender === "F") {
-      return FEMALE_COLORS[idx % FEMALE_COLORS.length];
-    }
-    if (gender === "M") {
-      return MALE_COLORS[idx % MALE_COLORS.length];
-    }
+  function genderClassColor(gender, idx) {
+    if (gender === 1) return FEMALE_COLORS[idx % FEMALE_COLORS.length];
+    if (gender === 0) return MALE_COLORS[idx % MALE_COLORS.length];
+    if (gender === 2) return CHILD_COLOR;
     return UNKNOWN_COLOR;
   }
   function drawBbox(ctx, bbox, color, scale = { sx: 1, sy: 1 }, lineWidth = 3, dashed = false) {
@@ -799,7 +839,8 @@
     const [x1, y1] = person.bbox;
     const dx = x1 * scale.sx;
     const dy = y1 * scale.sy;
-    const gShort = person.gender ?? "?";
+    const gc = person.genderClass;
+    const gShort = gc === 1 ? "F" : gc === 0 ? "M" : gc === 2 ? "E" : "?";
     const conf = person.genderConfidence != null ? `${(person.genderConfidence * 100).toFixed(0)}%` : "";
     const cls = opts.showClassifier && person.classifierUsed ? ` [${person.classifierUsed}]` : "";
     const label = `${gShort} ${conf}${cls}`;
@@ -1017,6 +1058,18 @@
     });
   }
 
+  function pickPersonColor(gc, idx) {
+    if (gc === GenderClass.Female) return FEMALE_COLORS[idx.f++ % FEMALE_COLORS.length];
+    if (gc === GenderClass.Male) return MALE_COLORS[idx.m++ % MALE_COLORS.length];
+    if (gc === GenderClass.Child) return CHILD_COLOR;
+    return UNKNOWN_COLOR;
+  }
+  function genderShort(gc) {
+    if (gc === GenderClass.Female) return "F";
+    if (gc === GenderClass.Male) return "M";
+    if (gc === GenderClass.Child) return "E";
+    return "?";
+  }
   const KP_DOT_COLORS = [
     "#FF0000",
     "#00FF00",
@@ -1098,22 +1151,14 @@
   }
   function drawDebugDetections(ctx, persons, imgW, imgH, debugMode) {
     const isLite = debugMode === "boxes";
-    let femaleIdx = 0;
-    let maleIdx = 0;
+    const idx = { f: 0, m: 0 };
     for (const person of persons) {
       const bb = person.bbox;
       if (!bb || bb.length !== 4) continue;
       const [x1, y1, x2, y2] = bb;
       const dw = x2 - x1;
       const dh = y2 - y1;
-      let color;
-      if (person.gender === "F") {
-        color = FEMALE_COLORS[femaleIdx % FEMALE_COLORS.length];
-        femaleIdx++;
-      } else {
-        color = MALE_COLORS[maleIdx % MALE_COLORS.length];
-        maleIdx++;
-      }
+      const color = pickPersonColor(person.genderClass, idx);
       if (!isLite && person.keypoints && person.keypoints.length === 17) {
         try {
           const poly = buildBodyPolygon(person.keypoints, bb, imgW, imgH);
@@ -1166,7 +1211,7 @@
           }
         }
       }
-      const gShort = person.gender ?? "?";
+      const gShort = genderShort(person.genderClass);
       const classRaw = person.classifierUsedRaw || "";
       const classLabel = classRaw ? ` [${classRaw}]` : "";
       if (isLite) {
@@ -1217,6 +1262,20 @@
       im.src = dataUrl;
     });
   }
+  function drawSourceCrop(ctx, src, bbox, dx, dy, dw, dh) {
+    if (!bbox || bbox.length < 4) return false;
+    const sx = bbox[0];
+    const sy = bbox[1];
+    const sw = bbox[2] - sx;
+    const sh = bbox[3] - sy;
+    if (sw <= 0 || sh <= 0) return false;
+    try {
+      ctx.drawImage(src, sx, sy, sw, sh, dx, dy, dw, dh);
+      return true;
+    } catch {
+      return false;
+    }
+  }
   function shortenClassifier(raw) {
     return raw.replace("insightface (partial body)", "IF (part)").replace("insightface (synth body)", "IF (synth)").replace("insightface (conflict)", "IF (cnflct)").replace("insightface (align fail)", "IF (align)").replace("pplcnet (synth body)", "PP (synth)").replace("pplcnet (no face)", "PP (no face)").replace("pplcnet (best)", "PP (best)").replace("pplcnet (align fail)", "PP (align)").replace("insightface", "IF").replace("pplcnet", "PP");
   }
@@ -1238,20 +1297,12 @@
       const TOP_PAD = 6;
       let x = 6;
       const stripTop = imgH;
-      let femaleIdx = 0;
-      let maleIdx = 0;
+      const idx = { f: 0, m: 0 };
       for (let pi = 0; pi < persons.length; pi++) {
         const person = persons[pi];
         const face = images[pi * 2];
         const body = images[pi * 2 + 1];
-        let personColor;
-        if (person.gender === "F") {
-          personColor = FEMALE_COLORS[femaleIdx % FEMALE_COLORS.length];
-          femaleIdx++;
-        } else {
-          personColor = MALE_COLORS[maleIdx % MALE_COLORS.length];
-          maleIdx++;
-        }
+        const personColor = pickPersonColor(person.genderClass, idx);
         let faceGenderLabel = "face";
         if (person.facePFemale != null && person.facePMale != null) {
           const faceIsFemale = person.facePFemale >= person.facePMale;
@@ -1264,7 +1315,7 @@
           const bodyConf = bodyIsFemale ? person.bodyPFemale : person.bodyPMale;
           bodyGenderLabel = `${bodyIsFemale ? "female " : "male "}${Math.round(bodyConf * 100)}%`;
         }
-        const gShort = person.gender ?? "?";
+        const gShort = genderShort(person.genderClass);
         const winnerConf = person.genderConfidence != null ? `${Math.round(person.genderConfidence * 100)}%` : "";
         const classRaw = person.classifierUsedRaw || "";
         const classSuffix = classRaw ? ` [${shortenClassifier(classRaw)}]` : "";
@@ -1272,23 +1323,27 @@
         const y = stripTop + TOP_PAD;
         if (face) {
           ctx.drawImage(face, x, y, FACE_DISPLAY, FACE_DISPLAY);
+        } else if (!drawSourceCrop(ctx, sourceImg, person.faceBbox, x, y, FACE_DISPLAY, FACE_DISPLAY)) {
+          ctx.fillStyle = "#222";
+          ctx.fillRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
+        }
+        if (face || person.faceBbox) {
           ctx.strokeStyle = "#FFD700";
           ctx.lineWidth = 2;
           ctx.strokeRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
-        } else {
-          ctx.fillStyle = "#222";
-          ctx.fillRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
         }
         const bx = x + FACE_DISPLAY + INNER_GAP;
         const bodyDrawY = y ;
         if (body) {
           ctx.drawImage(body, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
+        } else if (!drawSourceCrop(ctx, sourceImg, person.bbox, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H)) {
+          ctx.fillStyle = "#222";
+          ctx.fillRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
+        }
+        if (body || person.bbox) {
           ctx.strokeStyle = personColor;
           ctx.lineWidth = 2;
           ctx.strokeRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
-        } else {
-          ctx.fillStyle = "#222";
-          ctx.fillRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
         }
         const labelY = y + Math.max(FACE_DISPLAY, BODY_DISPLAY_H) + 12;
         ctx.font = "bold 11px monospace";
@@ -1395,11 +1450,6 @@
     }
     return kps.length > 0 ? kps : void 0;
   }
-  function mapGender(g) {
-    if (g === "female") return "F";
-    if (g === "male") return "M";
-    return void 0;
-  }
   function normalisePersons(persons) {
     const out = [];
     for (const p of persons) {
@@ -1408,23 +1458,16 @@
         bbox: p.bbox,
         ...p.faceBbox ? { faceBbox: p.faceBbox } : {},
         ...kps ? { keypoints: kps } : {},
-        ...typeof p.bodyConfidence === "number" ? { bodyConfidence: p.bodyConfidence } : {},
-        ...p.gender ? { gender: mapGender(p.gender) } : {},
         ...typeof p.genderConfidence === "number" ? { genderConfidence: p.genderConfidence } : {},
-        ...p.isSyntheticBody ? { isSyntheticBody: true } : {},
-        // classifierUsed: the core type is restricted to face/body/unmatched
-        // but Swift sends free-form strings ("insightface (partial body)",
-        // "pplcnet (synth body)", etc.). We keep the raw string on the
-        // normalised payload for debug labels.
-        facePFemale: typeof p.facePFemale === "number" ? p.facePFemale : null,
-        facePMale: typeof p.facePMale === "number" ? p.facePMale : null,
-        bodyPFemale: typeof p.bodyPFemale === "number" ? p.bodyPFemale : null,
-        bodyPMale: typeof p.bodyPMale === "number" ? p.bodyPMale : null,
-        faceCropDataUrl: typeof p.faceCropDataUrl === "string" ? p.faceCropDataUrl : null,
-        bodyCropDataUrl: typeof p.bodyCropDataUrl === "string" ? p.bodyCropDataUrl : null,
-        shouldBlur: !!p.shouldBlur
+        genderClass: genderFromWord(p.gender),
+        facePFemale: null,
+        facePMale: null,
+        bodyPFemale: null,
+        bodyPMale: null,
+        faceCropDataUrl: null,
+        bodyCropDataUrl: null,
+        shouldBlur: false
       };
-      person.classifierUsedRaw = typeof p.classifierUsed === "string" ? p.classifierUsed : "";
       out.push(person);
     }
     return out;
@@ -1614,48 +1657,56 @@
     }
     return [];
   }
+  function applyPolicy(persons) {
+    const cfg = getConfig();
+    const mode = cfg?.mode ?? "blur-female";
+    const certainty = typeof cfg?.genderCertainty === "number" ? cfg.genderCertainty : 0.7;
+    for (const p of persons) {
+      const kpConfidences = p.keypoints ? p.keypoints.map((k) => k.confidence) : null;
+      p.shouldBlur = wouldBlur({
+        gender: p.genderClass,
+        conf: typeof p.genderConfidence === "number" ? p.genderConfidence : 0,
+        mode,
+        certainty,
+        // Android n'expose pas (encore) le toggle « main seule » → filtre off.
+        minSkeletonActive: false,
+        kpConfidences
+      });
+    }
+  }
   function installReplyHandlers(deps) {
-    window.__basarunaaApply = function basarunaaApply(id, decision, persons, debugMode, elapsedMs) {
+    window.__basarunaaApply = function basarunaaApply(id, persons, debugMode, elapsedMs) {
       try {
         const img = findImageById(id);
         const rawPersons = parsePersons(persons);
-        const personCount = rawPersons.length;
-        const dec = decision;
         const dbgMode = debugMode ?? "none";
         const isDebug = dbgMode === "boxes" || dbgMode === "debug";
+        const normalised = normalisePersons(rawPersons);
+        applyPolicy(normalised);
+        const toBlur = normalised.filter((p) => p.shouldBlur);
         metric("analyze_decision", {
           id,
-          decision: String(dec),
-          persons: personCount,
+          decision: toBlur.length > 0 ? "keep" : "remove",
+          persons: normalised.length,
+          toBlur: toBlur.length,
           found: !!img,
           debug: String(dbgMode),
           elapsed_ms: typeof elapsedMs === "number" ? Math.round(elapsedMs) : void 0
         });
         if (img) {
-          img.setAttribute(STATE_ATTR, dec === "blur" ? "remove" : "keep");
+          img.setAttribute(STATE_ATTR, toBlur.length > 0 ? "remove" : "keep");
           if (isDebug) {
             releaseHideFirst(img);
-            if (personCount > 0) {
-              const normalised = normalisePersons(rawPersons);
+            if (normalised.length > 0) {
               void compositeDebugOverlay(img, normalised, dbgMode, elapsedMs);
             }
-          } else if (dec === "keep") {
+          } else if (toBlur.length === 0) {
             releaseHideFirst(img);
             deps.decisionCache.set(imgUrl(img), "remove");
-          } else if (dec === "blur" && personCount > 0) {
-            const normalised = normalisePersons(rawPersons);
-            void compositePerPersonBlur(img, normalised);
-            deps.decisionCache.set(imgUrl(img), "keep");
-          } else if (dec === "nsfw") {
-            img.style.setProperty(
-              "filter",
-              `blur(${DEFAULT_HIDE_FIRST_BLUR_PX}px)`,
-              "important"
-            );
-            img.setAttribute(BLUR_MARKER, "1");
-            deps.decisionCache.set(imgUrl(img), "keep");
           } else {
+            void compositePerPersonBlur(img, toBlur);
             deps.decisionCache.set(imgUrl(img), "keep");
+            send("statsBlurred", String(toBlur.length));
           }
         }
       } catch (e) {
@@ -1809,13 +1860,6 @@
     }
     return best;
   }
-  function shouldBlur(gender, mode) {
-    if (mode === "blur-all") return true;
-    if (gender == null) return true;
-    if (mode === "blur-female") return gender === "F";
-    if (mode === "blur-male") return gender === "M";
-    return false;
-  }
   function renderTracking(t, isDebug) {
     const ctx = t.ctx;
     if (!ctx) return;
@@ -1824,18 +1868,28 @@
     ctx.clearRect(0, 0, w, h);
     const cfg = getConfig();
     const mode = cfg?.mode || "blur-female";
+    const certainty = typeof cfg?.genderCertainty === "number" ? cfg.genderCertainty : 0.7;
     const renderables = [];
     for (const b of t.lastSentinelBboxes) {
       const bbox = [b[0], b[1], b[2], b[3]];
       const match = nearestYoloPerson(bbox, t.lastYoloPersons);
-      const gender = match?.gender;
+      const genderClass = match ? match.genderClass : GenderClass.Unknown;
       const person = {
         bbox,
         keypoints: match?.keypoints,
-        gender,
+        genderClass,
         genderConfidence: match?.genderConfidence
       };
-      renderables.push({ person, blur: shouldBlur(gender, mode), matchedYolo: match });
+      const kpConfidences = match?.keypoints ? match.keypoints.map((k) => k.confidence) : null;
+      const blur = wouldBlur({
+        gender: genderClass,
+        conf: match?.genderConfidence ?? 0,
+        mode,
+        certainty,
+        minSkeletonActive: false,
+        kpConfidences
+      });
+      renderables.push({ person, genderClass, blur, matchedYolo: match });
     }
     let blurredFull = null;
     try {
@@ -1860,9 +1914,9 @@
     }
     if (isDebug) {
       for (let i = 0; i < renderables.length; i++) {
-        const { person, blur, matchedYolo } = renderables[i];
+        const { person, genderClass, blur, matchedYolo } = renderables[i];
         const idx = i;
-        const color = blur ? genderColor(person.gender, idx) : UNKNOWN_COLOR;
+        const color = blur ? genderClassColor(genderClass, idx) : UNKNOWN_COLOR;
         drawBbox(ctx, person.bbox, color);
         if (person.keypoints && person.keypoints.length > 0) {
           drawSkeleton(ctx, person.keypoints, { sx: 1, sy: 1 }, Math.min(w, h));
@@ -2043,9 +2097,7 @@
       if (!Array.isArray(bbox) || bbox.length !== 4) continue;
       if (bbox.some((v) => typeof v !== "number")) continue;
       const g = obj.gender;
-      let gender;
-      if (g === "female" || g === "F") gender = "F";
-      else if (g === "male" || g === "M") gender = "M";
+      const genderClass = genderFromWord(typeof g === "string" ? g : null);
       const gc = obj.genderConfidence;
       const bc = obj.bodyConfidence;
       const fc = obj.faceConfidence;
@@ -2053,8 +2105,8 @@
       let keypoints;
       if (Array.isArray(kps)) {
         keypoints = kps.filter(
-          (k) => !!k && typeof k.x === "number" && typeof k.y === "number" && typeof k.confidence === "number"
-        ).map((k) => ({ x: k.x, y: k.y, confidence: k.confidence }));
+          (k) => Array.isArray(k) && k.length >= 3 && typeof k[0] === "number" && typeof k[1] === "number" && typeof k[2] === "number"
+        ).map((k) => ({ x: k[0], y: k[1], confidence: k[2] }));
       }
       const faceBboxRaw = obj.faceBbox;
       const faceBbox = Array.isArray(faceBboxRaw) && faceBboxRaw.length === 4 && faceBboxRaw.every((v) => typeof v === "number") ? faceBboxRaw : void 0;
@@ -2062,7 +2114,7 @@
         bbox,
         keypoints,
         faceBbox,
-        gender,
+        genderClass,
         genderConfidence: typeof gc === "number" ? gc : void 0,
         bodyConfidence: typeof bc === "number" ? bc : void 0,
         faceConfidence: typeof fc === "number" ? fc : void 0,
@@ -2086,41 +2138,27 @@
       }
     };
     const prevApply = window.__basarunaaApply;
-    window.__basarunaaApply = function basarunaaApplyRouter(id, decision, persons, debugMode, elapsedMs) {
-      if (id >= VIDEO_ID_OFFSET) {
+    window.__basarunaaApply = function basarunaaApplyRouter(id, persons, debugMode, elapsedMs) {
+      if (typeof id === "number" && id >= VIDEO_ID_OFFSET) {
         const t = pendingYoloByFrameId.get(id);
         pendingYoloByFrameId.delete(id);
         if (!t || t.destroyed) return;
         t.yoloPending = false;
-        if (decision === "nsfw") {
-          const w0 = t.video.videoWidth || 1;
-          const h0 = t.video.videoHeight || 1;
-          t.lastSentinelBboxes = [[0, 0, w0, h0]];
-          t.lastYoloPersons = [
-            {
-              bbox: [0, 0, w0, h0],
-              gender: void 0,
-              detectionConfidence: 1
-            }
-          ];
-          t.stateController.setState("tracking");
+        t.lastYoloPersons = parseYoloPersons(persons);
+        if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length > 0) {
+          t.lastSentinelBboxes = t.lastYoloPersons.map(
+            (p) => [p.bbox[0], p.bbox[1], p.bbox[2], p.bbox[3]]
+          );
+        }
+        if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length === 0) {
+          t.stateController.setState("safe");
         } else {
-          t.lastYoloPersons = parseYoloPersons(persons);
-          if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length > 0) {
-            t.lastSentinelBboxes = t.lastYoloPersons.map(
-              (p) => [p.bbox[0], p.bbox[1], p.bbox[2], p.bbox[3]]
-            );
-          }
-          if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length === 0) {
-            t.stateController.setState("safe");
-          } else {
-            t.stateController.setState("tracking");
-          }
+          t.stateController.setState("tracking");
         }
         return;
       }
       if (prevApply) {
-        prevApply(id, decision, persons, debugMode, elapsedMs);
+        prevApply(id, persons, debugMode, elapsedMs);
       }
     };
   }

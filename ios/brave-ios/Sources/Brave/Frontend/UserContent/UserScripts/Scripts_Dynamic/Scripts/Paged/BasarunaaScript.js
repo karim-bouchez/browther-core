@@ -1105,6 +1105,20 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       im.src = dataUrl;
     });
   }
+  function drawSourceCrop(ctx, src, bbox, dx, dy, dw, dh) {
+    if (!bbox || bbox.length < 4) return false;
+    const sx = bbox[0];
+    const sy = bbox[1];
+    const sw = bbox[2] - sx;
+    const sh = bbox[3] - sy;
+    if (sw <= 0 || sh <= 0) return false;
+    try {
+      ctx.drawImage(src, sx, sy, sw, sh, dx, dy, dw, dh);
+      return true;
+    } catch {
+      return false;
+    }
+  }
   function shortenClassifier(raw) {
     return raw.replace("insightface (partial body)", "IF (part)").replace("insightface (synth body)", "IF (synth)").replace("insightface (conflict)", "IF (cnflct)").replace("insightface (align fail)", "IF (align)").replace("pplcnet (synth body)", "PP (synth)").replace("pplcnet (no face)", "PP (no face)").replace("pplcnet (best)", "PP (best)").replace("pplcnet (align fail)", "PP (align)").replace("insightface", "IF").replace("pplcnet", "PP");
   }
@@ -1152,23 +1166,27 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         const y = stripTop + TOP_PAD;
         if (face) {
           ctx.drawImage(face, x, y, FACE_DISPLAY, FACE_DISPLAY);
+        } else if (!drawSourceCrop(ctx, sourceImg, person.faceBbox, x, y, FACE_DISPLAY, FACE_DISPLAY)) {
+          ctx.fillStyle = "#222";
+          ctx.fillRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
+        }
+        if (face || person.faceBbox) {
           ctx.strokeStyle = "#FFD700";
           ctx.lineWidth = 2;
           ctx.strokeRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
-        } else {
-          ctx.fillStyle = "#222";
-          ctx.fillRect(x, y, FACE_DISPLAY, FACE_DISPLAY);
         }
         const bx = x + FACE_DISPLAY + INNER_GAP;
         const bodyDrawY = y ;
         if (body) {
           ctx.drawImage(body, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
+        } else if (!drawSourceCrop(ctx, sourceImg, person.bbox, bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H)) {
+          ctx.fillStyle = "#222";
+          ctx.fillRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
+        }
+        if (body || person.bbox) {
           ctx.strokeStyle = personColor;
           ctx.lineWidth = 2;
           ctx.strokeRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
-        } else {
-          ctx.fillStyle = "#222";
-          ctx.fillRect(bx, bodyDrawY, BODY_DISPLAY_W, BODY_DISPLAY_H);
         }
         const labelY = y + Math.max(FACE_DISPLAY, BODY_DISPLAY_H) + 12;
         ctx.font = "bold 11px monospace";
