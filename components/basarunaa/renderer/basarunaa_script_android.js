@@ -469,7 +469,7 @@
     return c;
   }
   function blurCanvasDownsample(src, srcW, srcH, dstW, dstH, blurPx) {
-    const factor = Math.max(12, Math.round(blurPx * 0.75));
+    const factor = Math.max(20, Math.round(blurPx * 1.5));
     const minW = Math.max(2, Math.round(dstW / factor));
     const minH = Math.max(2, Math.round(dstH / factor));
     let cur = newCanvas(dstW, dstH);
