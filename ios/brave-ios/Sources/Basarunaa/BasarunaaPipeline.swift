@@ -89,10 +89,12 @@ public actor BasarunaaPipeline {
         }
       }
       log.info("CoreML compute devices: [\(labels.joined(separator: ", "), privacy: .public)]")
+      // On ne précharge QUE le détecteur (chemin chaud `analyze` — ~5s de compile
+      // CoreML au 1er appel = le cold-start observé). NSFW (opt-in, OFF par défaut)
+      // + sentinel (vidéo) restent lazy : chargés à leur 1re demande réelle par
+      // checkNsfw()/sentinel(), pour ne pas payer ni la mémoire ni le temps si inutiles.
       _ = try loadDetectorIfNeeded()
-      _ = try loadNsfwIfNeeded()
-      _ = try loadSentinelIfNeeded()
-      log.info("warmup done")
+      log.info("warmup done (detector)")
     } catch {
       log.error("warmup failed: \(String(describing: error), privacy: .public)")
     }

@@ -481,32 +481,45 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     c.filter = "none";
     return out;
   }
+  function smoothCtx(c) {
+    c.imageSmoothingEnabled = true;
+    c.imageSmoothingQuality = "high";
+    return c;
+  }
   function blurCanvasDownsample(src, srcW, srcH, dstW, dstH, blurPx) {
-    const factor = Math.max(8, Math.round(blurPx / 2));
-    const smallW = Math.max(1, Math.floor(dstW / factor));
-    const smallH = Math.max(1, Math.floor(dstH / factor));
-    const passes = 2;
-    let cur = src;
-    let curW = srcW;
-    let curH = srcH;
-    let last = null;
-    for (let p = 0; p < passes; p++) {
-      const small = newCanvas(smallW, smallH);
-      const sCtx = ctxOf(small);
-      sCtx.imageSmoothingEnabled = true;
-      sCtx.imageSmoothingQuality = "high";
-      sCtx.drawImage(cur, 0, 0, curW, curH, 0, 0, smallW, smallH);
-      const up = newCanvas(dstW, dstH);
-      const uCtx = ctxOf(up);
-      uCtx.imageSmoothingEnabled = true;
-      uCtx.imageSmoothingQuality = "high";
-      uCtx.drawImage(small, 0, 0, smallW, smallH, 0, 0, dstW, dstH);
-      cur = up;
-      curW = dstW;
-      curH = dstH;
-      last = up;
+    const factor = Math.max(12, Math.round(blurPx * 0.75));
+    const minW = Math.max(2, Math.round(dstW / factor));
+    const minH = Math.max(2, Math.round(dstH / factor));
+    let cur = newCanvas(dstW, dstH);
+    smoothCtx(ctxOf(cur)).drawImage(src, 0, 0, srcW, srcH, 0, 0, dstW, dstH);
+    let cw = dstW;
+    let ch = dstH;
+    while (cw > minW * 2 && ch > minH * 2) {
+      const nw = Math.max(minW, Math.floor(cw / 2));
+      const nh = Math.max(minH, Math.floor(ch / 2));
+      const small = newCanvas(nw, nh);
+      smoothCtx(ctxOf(small)).drawImage(cur, 0, 0, cw, ch, 0, 0, nw, nh);
+      cur = small;
+      cw = nw;
+      ch = nh;
     }
-    return last;
+    if (cw !== minW || ch !== minH) {
+      const small = newCanvas(minW, minH);
+      smoothCtx(ctxOf(small)).drawImage(cur, 0, 0, cw, ch, 0, 0, minW, minH);
+      cur = small;
+      cw = minW;
+      ch = minH;
+    }
+    while (cw < dstW || ch < dstH) {
+      const nw = Math.min(dstW, cw * 2);
+      const nh = Math.min(dstH, ch * 2);
+      const big = newCanvas(nw, nh);
+      smoothCtx(ctxOf(big)).drawImage(cur, 0, 0, cw, ch, 0, 0, nw, nh);
+      cur = big;
+      cw = nw;
+      ch = nh;
+    }
+    return cur;
   }
   function blurCanvas$1(src, srcW, srcH, dstW, dstH, blurPx) {
     return isCanvasFilterBlurSupported() ? blurCanvasGaussian(src, srcW, srcH, dstW, dstH, blurPx) : blurCanvasDownsample(src, srcW, srcH, dstW, dstH, blurPx);

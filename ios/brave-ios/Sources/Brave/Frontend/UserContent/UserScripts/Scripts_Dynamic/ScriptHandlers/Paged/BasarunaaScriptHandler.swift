@@ -97,6 +97,10 @@ class BasarunaaScriptHandler: TabContentScript {
       if !isActive {
         isActive = true
         delegate?.basarunaaDidActivate(tab: tab)
+        // Précharge le détecteur CoreML en tâche de fond dès que Basarunaa est
+        // actif sur une page → évite le cold-start ~5s à la 1re image analysée.
+        // Idempotent (le détecteur est mis en cache dans l'actor).
+        Task.detached { await BasarunaaPipeline.shared.warmup() }
       }
       log.info("script_ready url=\(data, privacy: .public)")
 
