@@ -70,19 +70,18 @@ class BasarunaaRenderFrameObserver final
   // mesuré × facteur (défaut avant la 1re mesure). Cf. .cc.
   base::TimeDelta KeyframeInterval() const;
   // Envoie une frame à l'analyse ML (Mojo AnalyzeImage, kBgra8) en taguant sa
-  // nature |kind| + le diff hash |diff| et le pic |ratio| de cette frame
-  // (rattachés au résultat via le callback lié → jamais sur le fil ; servent au
-  // HUD debug pour régler la détection de cut adaptative).
+  // nature |kind| + le diff hash frame-à-frame |diff| de cette frame (rattaché
+  // au résultat via le callback lié → jamais sur le fil ; sert au HUD debug pour
+  // VISUALISER la détection de cut, cf. flash cut overlay).
   void ForwardForAnalysis(base::span<const uint8_t> bgra,
                           int width,
                           int height,
                           base::TimeDelta media_time,
                           FrameKind kind,
                           float diff,
-                          float ratio,
                           bool want_nsfw);
   // ④a : reçoit le verdict ML (bboxes en pixels de l'image analysée
-  // |width|×|height|) + le temps média + la nature |kind| + diff/ratio de la
+  // |width|×|height|) + le temps média + la nature |kind| + le diff hash de la
   // frame, et pousse le résultat au JS de la page (CustomEvent 'bsr-native-result',
   // detail = JSON, coords normalisées).
   void OnAnalyzed(base::TimeDelta media_time,
@@ -90,7 +89,6 @@ class BasarunaaRenderFrameObserver final
                   int height,
                   FrameKind kind,
                   float diff,
-                  float ratio,
                   base::TimeTicks sent,
                   bool want_nsfw,
                   std::vector<mojom::AnalyzedPersonPtr> persons,
@@ -119,16 +117,9 @@ class BasarunaaRenderFrameObserver final
   base::TimeDelta prev_media_time_;
   bool has_prev_frame_ = false;
   base::TimeDelta last_keyframe_ts_;
-  // Détection de cut adaptative : baseline EMA du diff hash + diff/ratio de la
-  // frame précédente (rattachés à n-1 quand on tape une paire de cut).
-  float ema_diff_ = 0.f;
-  bool ema_init_ = false;
+  // Diff hash frame-à-frame de la frame précédente (rattaché à n-1 quand on tape
+  // une paire de cut, pour le HUD debug).
   float prev_diff_ = 0.f;
-  float prev_ratio_ = 0.f;
-  // Confirmation temporelle du cut : la frame précédente était-elle un pic ? Un
-  // vrai cut ne se déclenche que sur le FRONT MONTANT (pic isolé) → supprime les
-  // faux cuts en rafale d'un pan/zoom (pics soutenus).
-  bool prev_was_spike_ = false;
   // Intervalle keyframe adaptatif : EMA du round-trip d'analyse (keyframes).
   double analysis_ema_ms_ = 0.0;
   bool analysis_ema_init_ = false;

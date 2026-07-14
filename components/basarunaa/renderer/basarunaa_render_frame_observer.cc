@@ -32,35 +32,41 @@ namespace basarunaa {
 
 namespace {
 
-// Refonte 2026-07-04 — politique de tap DANS LE RENDERER (le browser n'a plus de
-// cadence). On reçoit chaque frame décodée-en-avance (~2 s), on calcule un hash
-// 8×8, et on décide QUOI envoyer à l'analyse ML :
-//   - un KEYFRAME à cadence GARANTIE (toutes les kKeyframeIntervalMs), même en
-//     plan statique → le store côté overlay ne gèle jamais (fix de l'avance qui
-//     décroît : cf. BASARUNAA_VIDEO_NATIVE_PLAN.md).
-//   - sur un CUT (diff hash > seuil), la paire n-1 / n (dernière frame ancienne
-//     scène + première nouvelle) → bornes d'interpolation nettes pour l'overlay.
+// Politique de tap DANS LE RENDERER (le browser n'a plus de cadence). On reçoit
+// les frames décodées-en-avance (~2 s) — désormais à cadence DENSE (~1 frame,
+// cf. kLeadFrameInterval côté video_renderer_impl), on calcule un hash 8×8 par
+// frame, et on décide QUOI envoyer à l'analyse ML :
+//   - un KEYFRAME à cadence keyframe GARANTIE (KeyframeInterval()), même en plan
+//     statique → le store côté overlay ne gèle jamais.
+//   - sur un CUT, la paire n-1 / n (dernière frame de l'ancienne scène + première
+//     de la nouvelle) → bornes de snap/interp SERRÉES (frames adjacentes) pour
+//     l'overlay.
 // Les autres frames sont droppées (l'overlay interpole entre deux keyframes).
-// Intervalle keyframe ADAPTATIF (2026-07-05) : au lieu d'un 1 s fixe, on mesure
-// le round-trip réel d'une analyse sur CETTE machine (temps entre l'envoi
-// AnalyzeImage et le retour OnAnalyzed, keyframes seulement) et on fixe
-// l'intervalle = round-trip × facteur, borné [MIN, MAX]. Bon PC (analyse ~55 ms)
-// → plancher MIN (keyframes denses = meilleur suivi, petit trou « entrant »).
-// PC lent (analyse ~400 ms) → plafond MAX (ne sature pas → pas de backlog, le
-// bug qu'on a tué). Avant la 1re mesure : défaut.
+//
+// DÉTECTION DE CUT (refonte 2026-07-14) : maintenant que le tap est dense, un cut
+// = grosse diff hash INSTANTANÉE entre 2 frames adjacentes ; un pan/zoom = petite
+// diff (l'image ne glisse que d'une frame). Un simple SEUIL ABSOLU suffit → on a
+// retiré les rustines de l'ère 160 ms (baseline EMA adaptative, ratio pic, et la
+// « confirmation temporelle » `spike && !prev_was_spike_` qui supprimait à tort
+// les vrais cuts d'un montage rapide ou d'un cut post-mouvement). L'overlay
+// confirme en plus par la continuité des PERSONNES (mêmes gens ou non), cf.
+// video-native/main.ts.
+//
+// Intervalle keyframe ADAPTATIF (INCHANGÉ) : c'est la cadence de l'analyse ML
+// (coûteuse), = round-trip mesuré × facteur, borné [MIN, MAX]. Bon PC → plancher
+// MIN ; PC lent → plafond MAX (pas de backlog). NB : ceci ≠ la cadence de hash
+// (dense, bon marché) qui sert la détection de cut.
 constexpr double kKeyframeMinMs = 400.0;
 constexpr double kKeyframeMaxMs = 1200.0;
 constexpr double kKeyframeDefaultMs = 700.0;
 constexpr double kKeyframeLatencyFactor = 3.0;  // intervalle ≈ 3× coût d'analyse
-// Détection de cut. Le seuil ABSOLU 0.12 (v1) est aveugle sur fond monotone (le
-// diff hash ne l'atteint jamais → cut réel raté, cf. 2026-07-05). On ajoute un
-// seuil ADAPTATIF : un cut = un PIC du diff vs sa moyenne récente (EMA), même en
-// valeur absolue faible. Sur plan statique fond noir, baseline ≈ 0 → un cut pique
-// et est capté ; sur plan animé, baseline plus haute → pas de faux positif.
-constexpr float kCutThreshold = 0.12f;   // seuil absolu (fallback fort)
-constexpr float kCutAbsFloor = 0.02f;    // sous ce diff, un pic est ignoré (bruit)
-constexpr float kCutSpikeFactor = 4.0f;  // diff > EMA × ce facteur = pic = cut
-constexpr float kCutEmaAlpha = 0.15f;    // lissage baseline (hors frames de cut)
+// Détection de cut : seuil ABSOLU sur le diff hash frame-à-frame. Valide car le
+// tap est dense (frames adjacentes) : un vrai cut donne un diff bien au-dessus,
+// un pan/zoom bien en-dessous. Réglable au ressenti via le HUD debug (diff live).
+constexpr float kCutThreshold = 0.12f;
+// Réveil safe-state : un changement notable (personne qui entre une scène vide)
+// dépasse ce petit seuil sans être un cut → réveille la cadence keyframe ralentie.
+constexpr float kSceneWakeThreshold = 0.02f;
 // Cadence du check NSFW (Marqo ~120ms) : ~1/s + sur chaque cut. Le NSFW ne change
 // pas d'une frame à l'autre → inutile de le payer à chaque keyframe.
 constexpr double kNsfwIntervalMs = 1000.0;
@@ -165,7 +171,6 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     base::TimeDelta media_time,
     FrameKind kind,
     float diff,
-    float ratio,
     bool want_nsfw) {
   if (!EnsureConnected()) {
     return;
@@ -178,43 +183,26 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
       std::move(buffer), width, height, mojom::ImageFormat::kBgra8, want_nsfw,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
                      weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
-                     kind, diff, ratio, sent, want_nsfw));
+                     kind, diff, sent, want_nsfw));
 }
 
 void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
                                                     int width,
                                                     int height,
                                                     base::TimeDelta media_time) {
-  // ③a : reçoit une frame BGRA décodée-en-avance. On décide QUOI analyser
-  // (keyframe garanti + paire n-1/n de cut) et on forwarde sélectivement.
+  // ③a : reçoit une frame BGRA décodée-en-avance (cadence dense). On décide QUOI
+  // analyser (keyframe garanti + paire n-1/n de cut) et on forwarde sélectivement.
   const auto span = base::span<const uint8_t>(bgra);
   const std::array<uint8_t, 64> hash = ComputeHash8x8(span, width, height);
   const float diff = has_prev_hash_ ? HashDiff(hash, prev_hash_) : 1.f;
 
-  // Pic pixel = seuil absolu OU pic adaptatif (diff >> baseline EMA).
-  float ratio = 0.f;
-  bool spike = false;   // pic pixel brut de CETTE frame
-  bool is_cut = false;  // vrai cut CONFIRMÉ (voir confirmation temporelle ci-dessous)
-  if (has_prev_hash_) {
-    const float baseline = ema_init_ ? ema_diff_ : diff;
-    ratio = baseline > 1e-4f ? diff / baseline : (diff > 0.f ? 999.f : 0.f);
-    spike = diff > kCutThreshold ||
-            (diff > kCutAbsFloor && ratio > kCutSpikeFactor);
-    // CONFIRMATION TEMPORELLE (2026-07-05) : un VRAI cut = pic ISOLÉ (front
-    // montant). Un mouvement caméra (pan / zoom) produit des pics SOUTENUS sur
-    // des frames consécutives → seule la 1re passe, les suivantes sont supprimées
-    // (la précédente était déjà un pic). Tue les faux cuts en rafale du pan/zoom
-    // sans latence (pas de deferral) ni famine keyframe (les frames de pan
-    // retombent en cadence keyframe normale).
-    is_cut = spike && !prev_was_spike_;
-    // Baseline mise à jour hors de TOUT pic (même supprimé) sinon le pan la gonfle.
-    if (!spike) {
-      ema_diff_ = ema_init_
-                      ? ema_diff_ * (1.f - kCutEmaAlpha) + diff * kCutEmaAlpha
-                      : diff;
-      ema_init_ = true;
-    }
-  }
+  // Cut = grosse diff hash INSTANTANÉE entre 2 frames adjacentes (tap dense → un
+  // pan/zoom reste bien sous le seuil). L'overlay confirme ensuite par la
+  // continuité des personnes (cf. video-native/main.ts).
+  const bool is_cut = has_prev_hash_ && diff > kCutThreshold;
+  // Changement notable sous le seuil de cut (ex : personne qui entre une scène
+  // vide) → sert uniquement au réveil safe-state.
+  const bool changed = has_prev_hash_ && diff > kSceneWakeThreshold;
 
   const bool due_keyframe =
       !has_prev_hash_ || (media_time - last_keyframe_ts_) >= KeyframeInterval();
@@ -228,24 +216,25 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
 
   if (is_cut) {
     // Frontière de cut : la DERNIÈRE frame de l'ancienne scène (n-1, gardée) PUIS
-    // la première de la nouvelle (n). L'overlay interpole l'ancienne scène
-    // jusqu'à n-1 puis snap à n → pas de flash full-blur au cut.
+    // la première de la nouvelle (n) — frames ADJACENTES → bornes serrées.
+    // L'overlay interpole l'ancienne scène jusqu'à n-1 puis snap à n → pas de
+    // débordement du flou sur la nouvelle scène.
     if (has_prev_frame_) {
       ForwardForAnalysis(base::span<const uint8_t>(prev_bgra_), prev_width_,
                          prev_height_, prev_media_time_, FrameKind::kCutBefore,
-                         prev_diff_, prev_ratio_, /*want_nsfw=*/false);
+                         prev_diff_, /*want_nsfw=*/false);
     }
     // Le cut-after ouvre une nouvelle scène → NSFW toujours re-checké.
     ForwardForAnalysis(span, width, height, media_time, FrameKind::kCutAfter,
-                       diff, ratio, /*want_nsfw=*/true);
+                       diff, /*want_nsfw=*/true);
     last_keyframe_ts_ = media_time;  // le cut réarme la cadence keyframe
     last_nsfw_ts_ = media_time;
     nsfw_ts_init_ = true;
     consecutive_empty_frames_ = 0;  // nouvelle scène → cadence normale
   } else if (due_keyframe ||
-             (consecutive_empty_frames_ >= kSafeEmptyFrames && spike)) {
+             (consecutive_empty_frames_ >= kSafeEmptyFrames && changed)) {
     ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe,
-                       diff, ratio, due_nsfw);
+                       diff, due_nsfw);
     last_keyframe_ts_ = media_time;
     if (due_nsfw) {
       last_nsfw_ts_ = media_time;
@@ -264,8 +253,6 @@ void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
   prev_height_ = height;
   prev_media_time_ = media_time;
   prev_diff_ = diff;
-  prev_ratio_ = ratio;
-  prev_was_spike_ = spike;  // pour la confirmation temporelle du cut (front montant)
   has_prev_frame_ = true;
 }
 
@@ -275,7 +262,6 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     int height,
     FrameKind kind,
     float diff,
-    float ratio,
     base::TimeTicks sent,
     bool want_nsfw,
     std::vector<mojom::AnalyzedPersonPtr> persons,
@@ -346,8 +332,7 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
   dict.Set("debug", debug_mode);
   dict.Set("be", blur_enabled);
   dict.Set("k", static_cast<int>(kind));
-  dict.Set("d", static_cast<double>(diff));   // diff hash pixel de cette frame
-  dict.Set("r", static_cast<double>(ratio));  // pic vs baseline EMA (×)
+  dict.Set("d", static_cast<double>(diff));  // diff hash frame-à-frame (HUD debug)
   dict.Set("iv", KeyframeInterval().InMillisecondsF());  // intervalle keyframe adaptatif
   dict.Set("lat", analysis_ema_init_ ? analysis_ema_ms_ : -1.0);  // round-trip analyse (ms)
   dict.Set("m", mode);                        // mode flou (recalcul shouldBlur voté)
