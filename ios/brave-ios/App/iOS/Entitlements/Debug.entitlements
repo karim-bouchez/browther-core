@@ -2,10 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Browther: com.apple.developer.web-browser réactivé 2026-05-29 après
-	     approbation Apple (request 35A6Y5Y5RM submitted 2026-05-24). -->
+	<!-- Browther: com.apple.developer.web-browser DÉSACTIVÉ pour les builds device
+	     BETA (2026-07-14). La capability « Default Web Browser » est approuvée pour
+	     l'App ID PROD (request 35A6Y5Y5RM, 2026-05) mais PAS pour l'App ID beta
+	     (com.devndin.browther.ios.BrowserBeta) → le profil beta ne peut pas l'inclure
+	     → signing device échoue. Elle sert UNIQUEMENT à être navigateur par défaut
+	     (zéro impact sur les features / le floutage Basarunaa). Réactiver le bloc
+	     ci-dessous dès que la capability est cochée sur l'App ID beta au portail :
 	<key>com.apple.developer.web-browser</key>
 	<true/>
+	-->
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.$(MOZ_BUNDLE_ID).unique</string>
