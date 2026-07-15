@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/public/platform/media/web_media_player_builder.h b/third_party/blink/public/platform/media/web_media_player_builder.h
-index 69901bda4a177..349cccb09609f 100644
+index 69901bda4a177..f0db966991cb6 100644
 --- a/third_party/blink/public/platform/media/web_media_player_builder.h
 +++ b/third_party/blink/public/platform/media/web_media_player_builder.h
 @@ -8,9 +8,12 @@
@@ -15,16 +15,34 @@ index 69901bda4a177..349cccb09609f 100644
  #include "base/memory/weak_ptr.h"
  #include "cc/layers/surface_layer.h"
  #include "media/base/media_player_logging_id.h"
-@@ -98,7 +101,11 @@ class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
+@@ -57,6 +60,17 @@ using CreateSurfaceLayerBridgeCB =
+         WebSurfaceLayerBridgeObserver*,
+         cc::UpdateSubmissionStateCB)>;
+ 
++// [Browther/Basarunaa] decode-ahead (détection v2, notify+pull). Duplique
++// structurellement les aliases de content::ContentRendererClient (mêmes types
++// template → interchangeables ; blink ne peut pas inclure content/). Voir la
++// doc côté content_renderer_client.h.
++using LeadFrameReadbackDoneCB =
++    base::OnceCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>;
++using LeadFrameReadbackCB =
++    base::RepeatingCallback<void(base::TimeDelta, LeadFrameReadbackDoneCB)>;
++using VideoLeadFrameSink = base::RepeatingCallback<
++    void(int64_t, base::TimeDelta, const LeadFrameReadbackCB&)>;
++
+ class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
+  public:
+   // Returns true if load will deferred. False if it will run immediately.
+@@ -98,7 +112,11 @@ class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
        bool is_background_video_playback_enabled,
        bool is_background_video_track_optimization_supported,
        std::unique_ptr<media::Demuxer> demuxer_override,
 -      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces);
 +      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces,
 +      // [Browther/Basarunaa] decode-ahead sink (POD; null = disabled).
-+      base::RepeatingCallback<void(std::vector<uint8_t>, int, int,
-+                                   base::TimeDelta)>
-+          video_lead_frame_sink);
++      // Mêmes types que content::ContentRendererClient (aliases structurels
++      // identiques — blink ne peut pas inclure content/, layering).
++      VideoLeadFrameSink video_lead_frame_sink);
  
   private:
    // Media resource cache.

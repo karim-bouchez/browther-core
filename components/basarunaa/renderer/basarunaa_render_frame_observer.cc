@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <deque>
+#include <iterator>
+#include <map>
 #include <optional>
 #include <string>
 #include <utility>
@@ -32,38 +35,66 @@ namespace basarunaa {
 
 namespace {
 
-// Politique de tap DANS LE RENDERER (le browser n'a plus de cadence). On reçoit
-// les frames décodées-en-avance (~2 s) — désormais à cadence DENSE (~1 frame,
-// cf. kLeadFrameInterval côté video_renderer_impl), on calcule un hash 8×8 par
-// frame, et on décide QUOI envoyer à l'analyse ML :
-//   - un KEYFRAME à cadence keyframe GARANTIE (KeyframeInterval()), même en plan
-//     statique → le store côté overlay ne gèle jamais.
-//   - sur un CUT, la paire n-1 / n (dernière frame de l'ancienne scène + première
-//     de la nouvelle) → bornes de snap/interp SERRÉES (frames adjacentes) pour
-//     l'overlay.
-// Les autres frames sont droppées (l'overlay interpole entre deux keyframes).
+// DÉTECTION v2 — dichotomie keyframe-guidée (2026-07-15, remplace le hash
+// dense de Phase A). Le renderer NOTIFIE chaque frame décodée-en-avance
+// (métadonnées seulement, pas de pixels) et fournit un handle « readback à la
+// demande ». Politique du RFO :
+//   - CHECKPOINT à cadence bornée (CheckpointInterval() = min(cadence ML,
+//     1000 ms)) : readback + hash de kf_cur ET de 2 probes de couverture à
+//     ⅓/⅔ de l'intervalle. kf_cur part au ML (kKeyframe) si la cadence ML
+//     adaptative est due (INCHANGÉE) ; les probes sont hash-only. Les probes
+//     couvrent les flash-cuts A→B→A′ (cutaway court revenant à la même
+//     scène) : invisibles au diff kf↔kf, ils seraient une FUITE (personne du
+//     flash non floutée). Tout cutaway ≥ ⅓ d'intervalle est garanti détecté.
+//   - Chaque saut adjacent de l'échelle {ancre, p⅓, p⅔, kf} dont le diff
+//     dépasse kScanThreshold → DICHOTOMIE sur l'échelle EXACTE des ts notifiés
+//     (~log₂ N readbacks) jusqu'à la paire ADJACENTE (n-1, n).
+//   - Classification à convergence : diff(n-1,n) > kCutThreshold = CUT (mêmes
+//     seuil et sémantique que le hash dense de Phase A) → paire kCutBefore /
+//     kCutAfter au ML, frames EXACTES. Diff petit = pan/zoom (drift graduel)
+//     → rien, l'overlay interpole.
+//   - MULTI-CUTS : si un côté de la paire ne ressemble pas à sa borne du saut
+//     (diff > kScanThreshold, hash-compare pur), un autre cut s'y cache →
+//     récursion sur ce côté. Cap dur kMaxScanProbes par checkpoint ; au cap ou
+//     sur échec de readback → abandon PROPRE (l'overlay retombe sur
+//     l'interpolation-union symétrique : sur-flou, jamais de fuite).
+// Coût : ~3 readbacks/s sans cut (vs ~30/s Phase A), +3-6 par cut.
+// L'overlay confirme toujours par la continuité des PERSONNES (défense en
+// profondeur), cf. video-native/main.ts.
 //
-// DÉTECTION DE CUT (refonte 2026-07-14) : maintenant que le tap est dense, un cut
-// = grosse diff hash INSTANTANÉE entre 2 frames adjacentes ; un pan/zoom = petite
-// diff (l'image ne glisse que d'une frame). Un simple SEUIL ABSOLU suffit → on a
-// retiré les rustines de l'ère 160 ms (baseline EMA adaptative, ratio pic, et la
-// « confirmation temporelle » `spike && !prev_was_spike_` qui supprimait à tort
-// les vrais cuts d'un montage rapide ou d'un cut post-mouvement). L'overlay
-// confirme en plus par la continuité des PERSONNES (mêmes gens ou non), cf.
-// video-native/main.ts.
-//
-// Intervalle keyframe ADAPTATIF (INCHANGÉ) : c'est la cadence de l'analyse ML
-// (coûteuse), = round-trip mesuré × facteur, borné [MIN, MAX]. Bon PC → plancher
-// MIN ; PC lent → plafond MAX (pas de backlog). NB : ceci ≠ la cadence de hash
-// (dense, bon marché) qui sert la détection de cut.
+// Intervalle keyframe ML ADAPTATIF (INCHANGÉ) : c'est la cadence de l'analyse
+// ML (coûteuse), = round-trip mesuré × facteur, borné [MIN, MAX]. Bon PC →
+// plancher MIN ; PC lent → plafond MAX (pas de backlog). NB : ceci ≠ la
+// cadence des checkpoints (hash, bon marché) qui sert la détection de cut.
 constexpr double kKeyframeMinMs = 400.0;
 constexpr double kKeyframeMaxMs = 1200.0;
 constexpr double kKeyframeDefaultMs = 700.0;
 constexpr double kKeyframeLatencyFactor = 3.0;  // intervalle ≈ 3× coût d'analyse
-// Détection de cut : seuil ABSOLU sur le diff hash frame-à-frame. Valide car le
-// tap est dense (frames adjacentes) : un vrai cut donne un diff bien au-dessus,
-// un pan/zoom bien en-dessous. Réglable au ressenti via le HUD debug (diff live).
+// Plafond de la cadence des CHECKPOINTS : garantit que le scan d'un intervalle
+// finit largement avant que ses frames n'atteignent l'affichage (lead 2 s) —
+// budget pire cas ≈ 1000 (checkpoint) + ~600 (scan p90) + ~100 (analyse paire)
+// ≪ 2000 ms. Sans ce plafond, le safe-state (2500 ms) ferait afficher des
+// frames avant leur scan.
+constexpr double kCheckpointMaxMs = 1000.0;
+// Détection de cut : seuil ABSOLU sur le diff hash de deux frames ADJACENTES
+// (à convergence de la dichotomie). Même sémantique/valeur que le hash dense
+// de Phase A : un vrai cut est bien au-dessus, un pan/zoom bien en-dessous.
 constexpr float kCutThreshold = 0.12f;
+// Déclencheur de scan : diff d'un saut de l'échelle de checkpoint (≈ ⅓
+// d'intervalle). PLUS BAS que kCutThreshold : deux scènes peuvent se
+// ressembler en 8×8 (le diff kf↔kf minore le diff adjacent au cut), et un pan
+// n'accumule sur ⅓ d'intervalle que ~⅓ de sa dérive. Un scan déclenché pour
+// rien est bon marché (~log₂ N readbacks) et conclut « pan ».
+constexpr float kScanThreshold = 0.06f;
+// Cap dur de readbacks de dichotomie par checkpoint (multi-cuts compris) :
+// ~log₂(30) ≈ 5 par cut, 16 couvre ≥ 2 cuts + marge. Au-delà = montage
+// pathologique → abandon propre (interpolation-union côté overlay).
+constexpr int kMaxScanProbes = 16;
+// Garde-fou mémoire de l'échelle des ts (2 s @ 60 fps = 120 ; large marge).
+constexpr size_t kLadderCap = 256;
+// Hygiène de la map des players : au-delà, prune ceux muets depuis > 30 s.
+constexpr size_t kMaxPlayers = 4;
+constexpr base::TimeDelta kStalePlayerAfter = base::Seconds(30);
 // Réveil safe-state : un changement notable (personne qui entre une scène vide)
 // dépasse ce petit seuil sans être un cut → réveille la cadence keyframe ralentie.
 constexpr float kSceneWakeThreshold = 0.02f;
@@ -124,7 +155,33 @@ float HashDiff(const std::array<uint8_t, 64>& a,
   return total / (64.f * 255.f);
 }
 
+// Snap d'un ts cible sur l'échelle EXACTE des ts notifiés (le plus proche).
+base::TimeDelta NearestLadderTs(const std::deque<base::TimeDelta>& ladder,
+                                base::TimeDelta target) {
+  DCHECK(!ladder.empty());
+  const auto it = std::lower_bound(ladder.begin(), ladder.end(), target);
+  if (it == ladder.end()) {
+    return ladder.back();
+  }
+  if (it == ladder.begin()) {
+    return *it;
+  }
+  return (*it - target <= target - *std::prev(it)) ? *it : *std::prev(it);
+}
+
 }  // namespace
+
+// Out-of-line (chromium-style : structs complexes).
+BasarunaaRenderFrameObserver::LeadFrame::LeadFrame() = default;
+BasarunaaRenderFrameObserver::LeadFrame::LeadFrame(LeadFrame&&) = default;
+BasarunaaRenderFrameObserver::LeadFrame&
+BasarunaaRenderFrameObserver::LeadFrame::operator=(LeadFrame&&) = default;
+BasarunaaRenderFrameObserver::LeadFrame::LeadFrame(const LeadFrame&) = default;
+BasarunaaRenderFrameObserver::LeadFrame&
+BasarunaaRenderFrameObserver::LeadFrame::operator=(const LeadFrame&) = default;
+BasarunaaRenderFrameObserver::LeadFrame::~LeadFrame() = default;
+BasarunaaRenderFrameObserver::PlayerDetector::PlayerDetector() = default;
+BasarunaaRenderFrameObserver::PlayerDetector::~PlayerDetector() = default;
 
 BasarunaaRenderFrameObserver::BasarunaaRenderFrameObserver(
     content::RenderFrame* render_frame)
@@ -146,10 +203,10 @@ bool BasarunaaRenderFrameObserver::EnsureConnected() {
   return image_analyzer_.is_bound();
 }
 
-base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
+content::ContentRendererClient::VideoLeadFrameSink
 BasarunaaRenderFrameObserver::GetVideoLeadFrameSink() {
   return base::BindRepeating(
-      &BasarunaaRenderFrameObserver::OnVideoLeadFrame,
+      &BasarunaaRenderFrameObserver::OnLeadFrameNotified,
       weak_ptr_factory_.GetWeakPtr());
 }
 
@@ -164,6 +221,10 @@ base::TimeDelta BasarunaaRenderFrameObserver::KeyframeInterval() const {
   return base::Milliseconds(iv);
 }
 
+base::TimeDelta BasarunaaRenderFrameObserver::CheckpointInterval() const {
+  return std::min(KeyframeInterval(), base::Milliseconds(kCheckpointMaxMs));
+}
+
 void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     base::span<const uint8_t> bgra,
     int width,
@@ -176,6 +237,10 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
     return;
   }
   mojo_base::BigBuffer buffer{bgra};
+  VLOG(1) << "[bsrV2] → ML kind=" << static_cast<int>(kind)
+          << " ts=" << media_time.InMilliseconds() << "ms nsfw=" << want_nsfw
+          << " iv=" << KeyframeInterval().InMillisecondsF()
+          << " ema=" << (analysis_ema_init_ ? analysis_ema_ms_ : -1);
   // Horodatage d'envoi → mesure du round-trip d'analyse dans OnAnalyzed (sert à
   // l'intervalle keyframe adaptatif).
   const base::TimeTicks sent = base::TimeTicks::Now();
@@ -186,74 +251,411 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
                      kind, diff, sent, want_nsfw));
 }
 
-void BasarunaaRenderFrameObserver::OnVideoLeadFrame(std::vector<uint8_t> bgra,
-                                                    int width,
-                                                    int height,
-                                                    base::TimeDelta media_time) {
-  // ③a : reçoit une frame BGRA décodée-en-avance (cadence dense). On décide QUOI
-  // analyser (keyframe garanti + paire n-1/n de cut) et on forwarde sélectivement.
-  const auto span = base::span<const uint8_t>(bgra);
-  const std::array<uint8_t, 64> hash = ComputeHash8x8(span, width, height);
-  const float diff = has_prev_hash_ ? HashDiff(hash, prev_hash_) : 1.f;
+void BasarunaaRenderFrameObserver::OnLeadFrameNotified(
+    int64_t player_id,
+    base::TimeDelta media_ts,
+    const LeadFrameReadbackCB& readback) {
+  // v2 ① : notification légère (pas de pixels) d'une frame décodée-en-avance.
+  PlayerDetector& detector = players_[player_id];
+  detector.last_seen = base::TimeTicks::Now();
+  detector.readback = readback;
 
-  // Cut = grosse diff hash INSTANTANÉE entre 2 frames adjacentes (tap dense → un
-  // pan/zoom reste bien sous le seuil). L'overlay confirme ensuite par la
-  // continuité des personnes (cf. video-native/main.ts).
-  const bool is_cut = has_prev_hash_ && diff > kCutThreshold;
-  // Changement notable sous le seuil de cut (ex : personne qui entre une scène
-  // vide) → sert uniquement au réveil safe-state.
-  const bool changed = has_prev_hash_ && diff > kSceneWakeThreshold;
-
-  const bool due_keyframe =
-      !has_prev_hash_ || (media_time - last_keyframe_ts_) >= KeyframeInterval();
-
-  // Throttle NSFW (Marqo, ~120ms) : on ne le calcule que sur les CUTS (nouvelle
-  // scène → re-check obligatoire) + à cadence lâche ~1/s ailleurs (le NSFW ne
-  // change pas d'une frame à l'autre). Entre deux, l'overlay gèle le verdict.
-  const bool due_nsfw =
-      !nsfw_ts_init_ ||
-      (media_time - last_nsfw_ts_) >= base::Milliseconds(kNsfwIntervalMs);
-
-  if (is_cut) {
-    // Frontière de cut : la DERNIÈRE frame de l'ancienne scène (n-1, gardée) PUIS
-    // la première de la nouvelle (n) — frames ADJACENTES → bornes serrées.
-    // L'overlay interpole l'ancienne scène jusqu'à n-1 puis snap à n → pas de
-    // débordement du flou sur la nouvelle scène.
-    if (has_prev_frame_) {
-      ForwardForAnalysis(base::span<const uint8_t>(prev_bgra_), prev_width_,
-                         prev_height_, prev_media_time_, FrameKind::kCutBefore,
-                         prev_diff_, /*want_nsfw=*/false);
-    }
-    // Le cut-after ouvre une nouvelle scène → NSFW toujours re-checké.
-    ForwardForAnalysis(span, width, height, media_time, FrameKind::kCutAfter,
-                       diff, /*want_nsfw=*/true);
-    last_keyframe_ts_ = media_time;  // le cut réarme la cadence keyframe
-    last_nsfw_ts_ = media_time;
-    nsfw_ts_init_ = true;
-    consecutive_empty_frames_ = 0;  // nouvelle scène → cadence normale
-  } else if (due_keyframe ||
-             (consecutive_empty_frames_ >= kSafeEmptyFrames && changed)) {
-    ForwardForAnalysis(span, width, height, media_time, FrameKind::kKeyframe,
-                       diff, due_nsfw);
-    last_keyframe_ts_ = media_time;
-    if (due_nsfw) {
-      last_nsfw_ts_ = media_time;
-      nsfw_ts_init_ = true;
+  // Hygiène : un WMPI détruit ne prévient pas → prune des players muets.
+  if (players_.size() > kMaxPlayers) {
+    for (auto it = players_.begin(); it != players_.end();) {
+      if (it->first != player_id &&
+          detector.last_seen - it->second.last_seen > kStalePlayerAfter) {
+        it = players_.erase(it);
+      } else {
+        ++it;
+      }
     }
   }
-  // Sinon : drop (interpolation overlay entre keyframes).
 
-  // Mémorise la frame courante comme "précédente" (candidate n-1 d'un futur cut).
-  // Le hash/forward ci-dessus n'ont pas consommé |bgra| (BigBuffer copie depuis
-  // le span) → on peut le move ici.
-  prev_hash_ = hash;
-  has_prev_hash_ = true;
-  prev_bgra_ = std::move(bgra);
-  prev_width_ = width;
-  prev_height_ = height;
-  prev_media_time_ = media_time;
-  prev_diff_ = diff;
-  has_prev_frame_ = true;
+  // Seek arrière → reset complet (epoch++ invalide les replies en vol).
+  if (!detector.ladder.empty() && media_ts < detector.ladder.back()) {
+    VLOG(1) << "[bsrV2] p" << player_id << " seek arrière ("
+            << media_ts.InMilliseconds() << "ms) → reset";
+    ResetDetector(detector);
+  }
+  if (detector.ladder.empty() || media_ts > detector.ladder.back()) {
+    detector.ladder.push_back(media_ts);
+    if (detector.ladder.size() > kLadderCap) {
+      detector.ladder.pop_front();
+    }
+  }
+
+  // Un seul checkpoint/scan à la fois par player (la machine se réarme dans
+  // FinishCheckpoint/EndScan ; en cas de retard, le prochain checkpoint part
+  // dès la notification suivante — rattrapage naturel).
+  if (detector.checkpoint_active || detector.scan_active) {
+    return;
+  }
+  if (!detector.anchor) {
+    // Bootstrap : 1re frame = keyframe ML immédiat (comme Phase A), pas de
+    // probes (pas d'intervalle).
+    StartCheckpoint(player_id, media_ts);
+    return;
+  }
+  if (media_ts - detector.anchor->ts >= CheckpointInterval()) {
+    StartCheckpoint(player_id, media_ts);
+  }
+}
+
+void BasarunaaRenderFrameObserver::StartCheckpoint(int64_t player_id,
+                                                   base::TimeDelta kf_ts) {
+  // v2 ② : readback de kf_cur + 2 probes de couverture à ⅓/⅔ de l'intervalle
+  // (snappés sur l'échelle EXACTE, dédoublonnés — intervalle court / fps bas).
+  PlayerDetector& detector = players_[player_id];
+  detector.checkpoint_active = true;
+  detector.got_kf = false;
+  detector.pending_kf_ts = kf_ts;
+  detector.frames.clear();
+  detector.hops.clear();
+  detector.probes_used = 0;
+  detector.readbacks_this_checkpoint = 0;
+  detector.ml_forwarded_this_checkpoint = false;
+  detector.checkpoint_start_ticks = base::TimeTicks::Now();
+
+  std::vector<base::TimeDelta> targets;
+  if (detector.anchor) {
+    const base::TimeDelta delta = kf_ts - detector.anchor->ts;
+    for (int k = 1; k <= 2; ++k) {
+      const base::TimeDelta t =
+          NearestLadderTs(detector.ladder, detector.anchor->ts + delta * k / 3);
+      if (t > detector.anchor->ts && t < kf_ts &&
+          (targets.empty() || t != targets.back())) {
+        targets.push_back(t);
+      }
+    }
+  }
+  targets.push_back(kf_ts);
+
+  detector.pending_replies = static_cast<int>(targets.size());
+  detector.readbacks_this_checkpoint += detector.pending_replies;
+  for (const base::TimeDelta target : targets) {
+    detector.readback.Run(
+        target,
+        base::BindOnce(&BasarunaaRenderFrameObserver::OnCheckpointFrame,
+                       weak_ptr_factory_.GetWeakPtr(), player_id,
+                       detector.epoch, target));
+  }
+}
+
+void BasarunaaRenderFrameObserver::OnCheckpointFrame(
+    int64_t player_id,
+    int epoch,
+    base::TimeDelta requested_ts,
+    std::vector<uint8_t> bgra,
+    int width,
+    int height,
+    base::TimeDelta actual_ts) {
+  const auto it = players_.find(player_id);
+  if (it == players_.end() || it->second.epoch != epoch ||
+      !it->second.checkpoint_active) {
+    return;  // reset/prune entre-temps : reply périmé
+  }
+  PlayerDetector& detector = it->second;
+  if (!bgra.empty()) {
+    LeadFrame frame;
+    frame.hash =
+        ComputeHash8x8(base::span<const uint8_t>(bgra), width, height);
+    frame.bgra = std::move(bgra);
+    frame.width = width;
+    frame.height = height;
+    frame.ts = actual_ts;
+    if (requested_ts == detector.pending_kf_ts) {
+      detector.got_kf = true;
+    }
+    detector.frames[actual_ts.InMicroseconds()] = std::move(frame);
+  } else {
+    VLOG(1) << "[bsrV2] p" << player_id << " checkpoint probe FAIL req="
+            << requested_ts.InMilliseconds() << "ms";
+  }
+  if (--detector.pending_replies <= 0) {
+    FinishCheckpoint(player_id);
+  }
+}
+
+void BasarunaaRenderFrameObserver::FinishCheckpoint(int64_t player_id) {
+  // v2 ③ : diffs de l'échelle {ancre, p⅓, p⅔, kf} → keyframe ML (cadence
+  // adaptative inchangée), sauts suspects → scans, nouvelle ancre = kf.
+  PlayerDetector& detector = players_[player_id];
+  detector.checkpoint_active = false;
+  if (!detector.got_kf || detector.frames.empty()) {
+    // kf raté (éviction/seek/teardown) : on garde l'ancre ; l'intervalle étant
+    // déjà écoulé, la prochaine notification relance immédiatement.
+    VLOG(1) << "[bsrV2] p" << player_id << " checkpoint ABORT (kf manquant)";
+    detector.frames.clear();
+    return;
+  }
+
+  if (detector.anchor) {
+    // L'ancre entre dans |frames| : borne gauche des sauts (et candidate
+    // kCutBefore si un cut converge dessus).
+    detector.frames[detector.anchor->ts.InMicroseconds()] = *detector.anchor;
+  }
+  std::vector<const LeadFrame*> points;
+  points.reserve(detector.frames.size());
+  for (const auto& [ts_us, frame] : detector.frames) {
+    points.push_back(&frame);
+  }
+  const LeadFrame& kf = *points.back();
+
+  bool wake = false;
+  for (size_t i = 1; i < points.size(); ++i) {
+    const float diff = HashDiff(points[i - 1]->hash, points[i]->hash);
+    if (diff > kSceneWakeThreshold) {
+      wake = true;
+    }
+    if (diff > kScanThreshold) {
+      detector.hops.push_back({points[i - 1]->ts, points[i]->ts});
+    }
+  }
+  const float overall =
+      detector.anchor ? HashDiff(detector.anchor->hash, kf.hash) : 1.f;
+
+  // Keyframe ML si la cadence ADAPTATIVE (inchangée) est due — ou réveil
+  // safe-state (Phase A : analyse forcée sur changement en scène vide).
+  // ⚠️ LOOKAHEAD : la décision n'est évaluée qu'aux checkpoints → sans
+  // lookahead, un intervalle ML dans (checkpoint, 2×checkpoint] serait arrondi
+  // AU CHECKPOINT SUIVANT (cadence effective ~2× l'intervalle → trous >
+  // STALE_MS → full-blur overlay). On forwarde au checkpoint le PLUS PROCHE de
+  // l'échéance : si attendre le prochain rendrait la keyframe en retard, elle
+  // part maintenant (arrondi vers le bas — jamais d'affamement du store).
+  const base::TimeDelta since_ml = kf.ts - detector.last_ml_keyframe_ts;
+  const bool due_keyframe =
+      !detector.has_ml_keyframe ||
+      since_ml + CheckpointInterval() >= KeyframeInterval();
+  const bool safe_wake =
+      consecutive_empty_frames_ >= kSafeEmptyFrames && wake;
+  // Throttle NSFW (Marqo, ~120ms) : cuts (nouvelle scène) + cadence lâche
+  // ~1/s ailleurs. Entre deux, l'overlay gèle le verdict.
+  const bool due_nsfw =
+      !detector.nsfw_ts_init ||
+      (kf.ts - detector.last_nsfw_ts) >= base::Milliseconds(kNsfwIntervalMs);
+  if (due_keyframe || safe_wake) {
+    ForwardForAnalysis(base::span<const uint8_t>(kf.bgra), kf.width, kf.height,
+                       kf.ts, FrameKind::kKeyframe, overall, due_nsfw);
+    detector.last_ml_keyframe_ts = kf.ts;
+    detector.has_ml_keyframe = true;
+    detector.ml_forwarded_this_checkpoint = true;
+    if (due_nsfw) {
+      detector.last_nsfw_ts = kf.ts;
+      detector.nsfw_ts_init = true;
+    }
+  }
+
+  // Nouvelle ancre = kf (copie : |frames| garde son exemplaire pour les scans).
+  detector.anchor = kf;
+
+  if (detector.hops.empty()) {
+    EndScan(player_id, /*aborted=*/false, "sans scan");
+    return;
+  }
+  detector.scan_active = true;
+  PumpScan(player_id);
+}
+
+void BasarunaaRenderFrameObserver::PumpScan(int64_t player_id) {
+  PlayerDetector& detector = players_[player_id];
+  if (detector.hops.empty()) {
+    EndScan(player_id, /*aborted=*/false, "scans finis");
+    return;
+  }
+  const PendingHop hop = detector.hops.front();
+  detector.hops.pop_front();
+  detector.scan_lo = detector.hop_lo = hop.lo;
+  detector.scan_hi = detector.hop_hi = hop.hi;
+  ScanStep(player_id);
+}
+
+void BasarunaaRenderFrameObserver::ScanStep(int64_t player_id) {
+  // v2 ④ : un pas de dichotomie sur [scan_lo, scan_hi] (échelle exacte).
+  PlayerDetector& detector = players_[player_id];
+  const auto lo_it = std::lower_bound(detector.ladder.begin(),
+                                      detector.ladder.end(), detector.scan_lo);
+  const auto hi_it = std::lower_bound(detector.ladder.begin(),
+                                      detector.ladder.end(), detector.scan_hi);
+  if (lo_it == detector.ladder.end() || hi_it == detector.ladder.end()) {
+    EndScan(player_id, /*aborted=*/true, "borne hors échelle");
+    return;
+  }
+  const size_t lo_idx = static_cast<size_t>(lo_it - detector.ladder.begin());
+  const size_t hi_idx = static_cast<size_t>(hi_it - detector.ladder.begin());
+
+  if (hi_idx <= lo_idx + 1) {
+    // CONVERGÉ : paire ADJACENTE (n-1, n) → classification cut vs pan.
+    const auto lo_frame = detector.frames.find(detector.scan_lo.InMicroseconds());
+    const auto hi_frame = detector.frames.find(detector.scan_hi.InMicroseconds());
+    if (lo_frame == detector.frames.end() ||
+        hi_frame == detector.frames.end()) {
+      EndScan(player_id, /*aborted=*/true, "borne sans frame");
+      return;
+    }
+    const LeadFrame& before = lo_frame->second;
+    const LeadFrame& after = hi_frame->second;
+    const float adjacent = HashDiff(before.hash, after.hash);
+    if (adjacent > kCutThreshold) {
+      // CUT EXACT : paire n-1/n au ML (buffers déjà en main — zéro readback
+      // en plus). NSFW re-checké sur la nouvelle scène ; réarme la cadence
+      // keyframe + reset safe-state (comme Phase A).
+      VLOG(1) << "[bsrV2] p" << player_id << " ✂ CUT @"
+              << after.ts.InMilliseconds() << "ms (adj=" << adjacent
+              << " probes=" << detector.probes_used << ")";
+      ForwardForAnalysis(base::span<const uint8_t>(before.bgra), before.width,
+                         before.height, before.ts, FrameKind::kCutBefore, 0.f,
+                         /*want_nsfw=*/false);
+      ForwardForAnalysis(base::span<const uint8_t>(after.bgra), after.width,
+                         after.height, after.ts, FrameKind::kCutAfter, adjacent,
+                         /*want_nsfw=*/true);
+      detector.last_ml_keyframe_ts = after.ts;
+      detector.has_ml_keyframe = true;
+      detector.last_nsfw_ts = after.ts;
+      detector.nsfw_ts_init = true;
+      detector.ml_forwarded_this_checkpoint = true;
+      consecutive_empty_frames_ = 0;
+    } else {
+      VLOG(1) << "[bsrV2] p" << player_id << " ↔ pan @"
+              << after.ts.InMilliseconds() << "ms (adj=" << adjacent << ")";
+    }
+    // MULTI-CUTS : un côté qui ne ressemble pas à sa borne d'origine du saut
+    // cache un AUTRE cut → récursion sur ce côté (hash-compare pur, 0
+    // readback ici). Terminaison : chaque récursion rétrécit strictement, cap
+    // kMaxScanProbes en backstop.
+    const auto hop_lo_frame =
+        detector.frames.find(detector.hop_lo.InMicroseconds());
+    const auto hop_hi_frame =
+        detector.frames.find(detector.hop_hi.InMicroseconds());
+    if (hop_lo_frame != detector.frames.end() &&
+        detector.scan_lo > detector.hop_lo &&
+        HashDiff(hop_lo_frame->second.hash, before.hash) > kScanThreshold) {
+      detector.hops.push_back({detector.hop_lo, detector.scan_lo});
+    }
+    if (hop_hi_frame != detector.frames.end() &&
+        detector.scan_hi < detector.hop_hi &&
+        HashDiff(after.hash, hop_hi_frame->second.hash) > kScanThreshold) {
+      detector.hops.push_back({detector.scan_hi, detector.hop_hi});
+    }
+    PumpScan(player_id);
+    return;
+  }
+
+  const base::TimeDelta mid = detector.ladder[lo_idx + (hi_idx - lo_idx) / 2];
+  const auto cached = detector.frames.find(mid.InMicroseconds());
+  if (cached != detector.frames.end()) {
+    // Déjà lue (probe de couverture / scan précédent) → descente gratuite.
+    DescendScan(detector, cached->second);
+    ScanStep(player_id);
+    return;
+  }
+  if (detector.probes_used >= kMaxScanProbes) {
+    EndScan(player_id, /*aborted=*/true, "cap probes");
+    return;
+  }
+  ++detector.probes_used;
+  ++detector.readbacks_this_checkpoint;
+  detector.readback.Run(
+      mid, base::BindOnce(&BasarunaaRenderFrameObserver::OnScanProbe,
+                          weak_ptr_factory_.GetWeakPtr(), player_id,
+                          detector.epoch, mid));
+}
+
+void BasarunaaRenderFrameObserver::DescendScan(PlayerDetector& detector,
+                                               const LeadFrame& mid) {
+  const auto lo_frame = detector.frames.find(detector.scan_lo.InMicroseconds());
+  const auto hi_frame = detector.frames.find(detector.scan_hi.InMicroseconds());
+  const float diff_lo = lo_frame != detector.frames.end()
+                            ? HashDiff(mid.hash, lo_frame->second.hash)
+                            : 1.f;
+  const float diff_hi = hi_frame != detector.frames.end()
+                            ? HashDiff(mid.hash, hi_frame->second.hash)
+                            : 1.f;
+  // Le milieu appartient à une des deux scènes : le cut est du côté du PLUS
+  // GRAND écart.
+  if (diff_lo >= diff_hi) {
+    detector.scan_hi = mid.ts;
+  } else {
+    detector.scan_lo = mid.ts;
+  }
+}
+
+void BasarunaaRenderFrameObserver::OnScanProbe(int64_t player_id,
+                                               int epoch,
+                                               base::TimeDelta requested_ts,
+                                               std::vector<uint8_t> bgra,
+                                               int width,
+                                               int height,
+                                               base::TimeDelta actual_ts) {
+  const auto it = players_.find(player_id);
+  if (it == players_.end() || it->second.epoch != epoch ||
+      !it->second.scan_active) {
+    return;  // reset/prune entre-temps : reply périmé
+  }
+  PlayerDetector& detector = it->second;
+  if (bgra.empty()) {
+    EndScan(player_id, /*aborted=*/true, "readback échoué");
+    return;
+  }
+  LeadFrame frame;
+  frame.hash = ComputeHash8x8(base::span<const uint8_t>(bgra), width, height);
+  frame.bgra = std::move(bgra);
+  frame.width = width;
+  frame.height = height;
+  frame.ts = actual_ts;
+  const LeadFrame& stored =
+      (detector.frames[actual_ts.InMicroseconds()] = std::move(frame));
+  DescendScan(detector, stored);
+  ScanStep(player_id);
+}
+
+void BasarunaaRenderFrameObserver::EndScan(int64_t player_id,
+                                           bool aborted,
+                                           const char* reason) {
+  PlayerDetector& detector = players_[player_id];
+  if (aborted && !detector.ml_forwarded_this_checkpoint && detector.anchor) {
+    // Filet : rien n'est parti au ML ce checkpoint → forwarde l'ancre (kf) en
+    // keyframe. L'overlay a les personnes des deux scènes → interp-union
+    // symétrique : sur-flou sûr, jamais de fuite.
+    const LeadFrame& anchor = *detector.anchor;
+    ForwardForAnalysis(base::span<const uint8_t>(anchor.bgra), anchor.width,
+                       anchor.height, anchor.ts, FrameKind::kKeyframe, 1.f,
+                       /*want_nsfw=*/false);
+    detector.last_ml_keyframe_ts = anchor.ts;
+    detector.has_ml_keyframe = true;
+  }
+  VLOG(1) << "[bsrV2] p" << player_id << " checkpoint fin ("
+          << (aborted ? "ABORT: " : "") << reason
+          << ") readbacks=" << detector.readbacks_this_checkpoint
+          << " probes=" << detector.probes_used << " total="
+          << (base::TimeTicks::Now() - detector.checkpoint_start_ticks)
+                 .InMillisecondsF()
+          << "ms";
+  detector.scan_active = false;
+  detector.hops.clear();
+  detector.frames.clear();
+  // Prune de l'échelle : tout ce qui précède l'ancre est scanné/derrière.
+  while (!detector.ladder.empty() && detector.anchor &&
+         detector.ladder.front() < detector.anchor->ts) {
+    detector.ladder.pop_front();
+  }
+}
+
+void BasarunaaRenderFrameObserver::ResetDetector(PlayerDetector& detector) {
+  ++detector.epoch;  // invalide les replies en vol
+  detector.ladder.clear();
+  detector.frames.clear();
+  detector.hops.clear();
+  detector.anchor.reset();
+  detector.checkpoint_active = false;
+  detector.scan_active = false;
+  detector.pending_replies = 0;
+  detector.got_kf = false;
+  detector.probes_used = 0;
+  detector.has_ml_keyframe = false;
+  detector.nsfw_ts_init = false;
+  detector.ml_forwarded_this_checkpoint = false;
+  // EMA / safe-state globaux conservés (coût du service ML, pas du player).
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(
@@ -282,6 +684,9 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     analysis_ema_ms_ =
         analysis_ema_init_ ? analysis_ema_ms_ * 0.9 + rt * 0.1 : rt;
     analysis_ema_init_ = true;
+    VLOG(1) << "[bsrV2] ← ML rt=" << rt << "ms ema=" << analysis_ema_ms_
+            << " ts=" << media_time.InMilliseconds()
+            << "ms persons=" << persons.size();
   }
   // Safe-state (#10) : compte les keyframes / cut-after SANS aucune personne
   // (scène vide, comptage sur les détections BRUTES YOLO — conservateur : le

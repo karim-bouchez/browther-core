@@ -8,6 +8,9 @@
 
 #include <array>
 #include <cstdint>
+#include <deque>
+#include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -16,6 +19,7 @@
 #include "base/memory/weak_ptr.h"
 #include "base/time/time.h"
 #include "brave/components/basarunaa/common/mojom/basarunaa.mojom.h"
+#include "content/public/renderer/content_renderer_client.h"
 #include "content/public/renderer/render_frame_observer.h"
 #include "content/public/renderer/render_frame_observer_tracker.h"
 #include "mojo/public/cpp/bindings/remote.h"
@@ -29,11 +33,15 @@ namespace basarunaa {
 //  - kCutAfter  : première frame de la NOUVELLE scène (n) → snap + nouvelle borne.
 enum class FrameKind { kKeyframe = 0, kCutBefore = 1, kCutAfter = 2 };
 
-// RFO C++ pur (pas de V8) du pipeline vidéo decode-ahead Basarunaa. Expose un
-// sink (GetVideoLeadFrameSink) que WebMediaPlayerImpl appelle avec chaque frame
-// décodée-en-avance ; relaie le buffer BGRA au ML browser via Mojo AnalyzeImage
-// (kBgra8), puis pousse le verdict (bboxes normalisées + temps média) au JS de
-// la page via CustomEvent 'bsr-native-result' pour l'overlay de flou.
+// RFO C++ pur (pas de V8) du pipeline vidéo decode-ahead Basarunaa —
+// DÉTECTION v2 (dichotomie keyframe-guidée, 2026-07-15). WebMediaPlayerImpl
+// NOTIFIE chaque frame décodée-en-avance (métadonnées seulement) et fournit un
+// handle « readback à la demande ». Le RFO décide QUOI lire : checkpoints à
+// cadence bornée (kf + 2 probes de couverture) + dichotomie sur les sauts
+// suspects → localisation EXACTE des cuts pour ~0 readback sans cut. Les
+// frames retenues (keyframes ML + paires n-1/n de cut) partent au ML browser
+// via Mojo AnalyzeImage (kBgra8) ; le verdict est poussé au JS de la page via
+// CustomEvent 'bsr-native-result' pour l'overlay de flou.
 class BasarunaaRenderFrameObserver final
     : public content::RenderFrameObserver,
       public content::RenderFrameObserverTracker<
@@ -45,29 +53,139 @@ class BasarunaaRenderFrameObserver final
   BasarunaaRenderFrameObserver& operator=(
       const BasarunaaRenderFrameObserver&) = delete;
 
-  // [Browther/Basarunaa] decode-ahead ③ : renvoie un sink POD (bgra, w, h,
-  // media_ts) borné au cycle de vie de ce RFO (WeakPtr). Le
-  // WebMediaPlayerImpl (blink) l'appelle sur le main thread avec chaque frame
-  // décodée-en-avance ; on relaie au ML browser via Mojo AnalyzeImage.
-  base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
-  GetVideoLeadFrameSink();
+  // [Browther/Basarunaa] decode-ahead ③ (v2, notify+pull) : renvoie le sink de
+  // NOTIFICATION (player_id, media_ts, handle readback), borné au cycle de vie
+  // de ce RFO (WeakPtr). WebMediaPlayerImpl (blink) l'appelle sur le main
+  // thread pour CHAQUE frame décodée-en-avance.
+  content::ContentRendererClient::VideoLeadFrameSink GetVideoLeadFrameSink();
 
  private:
+  using LeadFrameReadbackCB = content::ContentRendererClient::LeadFrameReadbackCB;
+
+  // Frame lue (BGRA 640px issue du readback à la demande) + son hash 8×8.
+  // Cachée le temps d'un checkpoint/scan pour (a) comparer, (b) forwarder au
+  // ML sans re-readback si elle s'avère keyframe ou frontière de cut.
+  struct LeadFrame {
+    LeadFrame();
+    LeadFrame(LeadFrame&&);
+    LeadFrame& operator=(LeadFrame&&);
+    LeadFrame(const LeadFrame&);
+    LeadFrame& operator=(const LeadFrame&);
+    ~LeadFrame();
+    std::array<uint8_t, 64> hash = {};
+    std::vector<uint8_t> bgra;
+    int width = 0;
+    int height = 0;
+    base::TimeDelta ts;
+  };
+  // Saut suspect [lo, hi] à scanner par dichotomie (bornes = frames déjà lues,
+  // présentes dans |frames|).
+  struct PendingHop {
+    base::TimeDelta lo;
+    base::TimeDelta hi;
+  };
+  // État de détection PAR PLAYER (une page peut porter plusieurs <video> ;
+  // Phase A entrelaçait leurs hash dans un seul flux = détection corrompue).
+  struct PlayerDetector {
+    PlayerDetector();
+    ~PlayerDetector();
+    // Échelle des ts décodés notifiés (triée croissante par construction,
+    // reset sur seek arrière) : la VRAIE adjacence des frames, indépendante
+    // du fps. La dichotomie travaille sur ses indices.
+    std::deque<base::TimeDelta> ladder;
+    // Handle de readback (rafraîchi à chaque notification).
+    LeadFrameReadbackCB readback;
+    // Invalidation des replies en vol après un reset (seek) : les callbacks
+    // porteurs d'un epoch périmé sont ignorés.
+    int epoch = 0;
+    // Ancre = frame du checkpoint précédent (kf_prev), hash + bgra gardés
+    // (un cut peut converger dessus → kCutBefore sans re-readback).
+    std::optional<LeadFrame> anchor;
+    // Frames lues du checkpoint courant, clé = ts en µs (bornes des sauts +
+    // probes de dichotomie). Vidé en fin de checkpoint/scan.
+    std::map<int64_t, LeadFrame> frames;
+    // Checkpoint en cours : réponses attendues (kf_cur + probes ⅓/⅔).
+    bool checkpoint_active = false;
+    int pending_replies = 0;
+    base::TimeDelta pending_kf_ts;
+    bool got_kf = false;
+    // Scan (dichotomie) en cours.
+    bool scan_active = false;
+    std::deque<PendingHop> hops;
+    base::TimeDelta scan_lo;
+    base::TimeDelta scan_hi;
+    base::TimeDelta hop_lo;
+    base::TimeDelta hop_hi;
+    int probes_used = 0;
+    bool ml_forwarded_this_checkpoint = false;
+    // Cadences ML par player (chaque vidéo a son propre espace de ts).
+    base::TimeDelta last_ml_keyframe_ts;
+    bool has_ml_keyframe = false;
+    base::TimeDelta last_nsfw_ts;
+    bool nsfw_ts_init = false;
+    // Hygiène (prune des players morts).
+    base::TimeTicks last_seen;
+    // Instrumentation [bsrV2].
+    base::TimeTicks checkpoint_start_ticks;
+    int readbacks_this_checkpoint = 0;
+  };
+
   ~BasarunaaRenderFrameObserver() override;
 
   // RenderFrameObserver:
   void OnDestruct() override;
 
   bool EnsureConnected();
-  // [Browther/Basarunaa] decode-ahead ③ : reçoit un buffer BGRA d'une frame
-  // décodée-en-avance. Calcule le hash 8×8, applique la politique de tap
-  // (keyframe garanti + paire n-1/n de cut) et forwarde sélectivement à l'analyse.
-  void OnVideoLeadFrame(std::vector<uint8_t> bgra,
-                        int width,
-                        int height,
-                        base::TimeDelta media_time);
-  // Intervalle keyframe ADAPTATIF : borné [MIN, MAX], = round-trip d'analyse
-  // mesuré × facteur (défaut avant la 1re mesure). Cf. .cc.
+  // v2 ①  : notification d'une frame décodée-en-avance (main thread). Alimente
+  // l'échelle des ts, gère le reset seek, déclenche les checkpoints.
+  void OnLeadFrameNotified(int64_t player_id,
+                           base::TimeDelta media_ts,
+                           const LeadFrameReadbackCB& readback);
+  // v2 ② : lance un checkpoint : readback de kf_cur (=|kf_ts|) + 2 probes de
+  // couverture à ⅓/⅔ de l'intervalle depuis l'ancre (flash-cuts A→B→A′
+  // invisibles au diff kf↔kf ; tout cutaway ≥ ⅓ d'intervalle est garanti vu).
+  void StartCheckpoint(int64_t player_id, base::TimeDelta kf_ts);
+  // v2 ② reply : une frame de checkpoint est arrivée (ou a échoué : bgra vide).
+  void OnCheckpointFrame(int64_t player_id,
+                         int epoch,
+                         base::TimeDelta requested_ts,
+                         std::vector<uint8_t> bgra,
+                         int width,
+                         int height,
+                         base::TimeDelta actual_ts);
+  // v2 ③ : toutes les réponses du checkpoint sont là → diffs de l'échelle
+  // {ancre, p⅓, p⅔, kf}, keyframe ML si cadence due (inchangée), sauts
+  // suspects → file de scan, nouvelle ancre = kf.
+  void FinishCheckpoint(int64_t player_id);
+  // v2 ④ : pompe la file des sauts suspects → dichotomie.
+  void PumpScan(int64_t player_id);
+  // v2 ④ : un pas de dichotomie sur [scan_lo, scan_hi] (readback du milieu ou
+  // convergence → classification cut/pan + vérif multi-cut des côtés).
+  void ScanStep(int64_t player_id);
+  // v2 ④ : descente d'un pas — compare le hash du milieu aux deux bornes,
+  // resserre [scan_lo, scan_hi] du côté du plus grand écart.
+  void DescendScan(PlayerDetector& detector, const LeadFrame& mid);
+  // v2 ④ reply : probe de dichotomie arrivé.
+  void OnScanProbe(int64_t player_id,
+                   int epoch,
+                   base::TimeDelta requested_ts,
+                   std::vector<uint8_t> bgra,
+                   int width,
+                   int height,
+                   base::TimeDelta actual_ts);
+  // v2 : fin de scan (file vide) ou abandon (échec readback / cap probes) →
+  // prune de l'échelle + libération des frames du checkpoint. En cas
+  // d'abandon, forwarde l'ancre en keyframe si rien n'est parti au ML ce
+  // checkpoint (l'overlay retombe sur l'interpolation-union : sur-flou sûr).
+  void EndScan(int64_t player_id, bool aborted, const char* reason);
+  // v2 : reset du détecteur d'un player (seek arrière) — epoch++.
+  void ResetDetector(PlayerDetector& detector);
+  // Cadence des checkpoints : min(KeyframeInterval(), plafond 1000 ms). Le
+  // plafond garantit que le scan d'un intervalle finit avant que ses frames
+  // n'atteignent l'affichage (lead 2 s), même en safe-state (2500 ms).
+  base::TimeDelta CheckpointInterval() const;
+  // Intervalle keyframe ML ADAPTATIF (INCHANGÉ) : borné [MIN, MAX], =
+  // round-trip d'analyse mesuré × facteur (défaut avant la 1re mesure).
   base::TimeDelta KeyframeInterval() const;
   // Envoie une frame à l'analyse ML (Mojo AnalyzeImage, kBgra8) en taguant sa
   // nature |kind| + le diff hash frame-à-frame |diff| de cette frame (rattaché
@@ -106,26 +224,13 @@ class BasarunaaRenderFrameObserver final
 
   mojo::Remote<mojom::ImageAnalyzer> image_analyzer_;
 
-  // Politique de tap (accès main thread only). |prev_*| = frame PRÉCÉDENTE tapée,
-  // gardée pour pouvoir envoyer n-1 au moment d'un cut. |prev_hash_| sert au
-  // frame-diff ; |last_keyframe_ts_| borne la cadence keyframe garantie.
-  std::array<uint8_t, 64> prev_hash_ = {};
-  bool has_prev_hash_ = false;
-  std::vector<uint8_t> prev_bgra_;
-  int prev_width_ = 0;
-  int prev_height_ = 0;
-  base::TimeDelta prev_media_time_;
-  bool has_prev_frame_ = false;
-  base::TimeDelta last_keyframe_ts_;
-  // Diff hash frame-à-frame de la frame précédente (rattaché à n-1 quand on tape
-  // une paire de cut, pour le HUD debug).
-  float prev_diff_ = 0.f;
+  // Détecteurs v2, un par player (main thread only). Prunés quand un player ne
+  // notifie plus (hygiène : un WMPI détruit ne préviendra pas).
+  std::map<int64_t, PlayerDetector> players_;
   // Intervalle keyframe adaptatif : EMA du round-trip d'analyse (keyframes).
+  // GLOBAL au RFO : mesure le coût du service ML, pas d'un player.
   double analysis_ema_ms_ = 0.0;
   bool analysis_ema_init_ = false;
-  // Throttle du check NSFW (Marqo lourd) : dernier temps média où on l'a demandé.
-  base::TimeDelta last_nsfw_ts_;
-  bool nsfw_ts_init_ = false;
   // Safe-state (#10) : keyframes/cut-after consécutifs SANS aucune personne. Au
   // seuil kSafeEmptyFrames, KeyframeInterval() ralentit la cadence (scène vide →
   // inutile de recalculer souvent). Reset par un cut ou un résultat ≥1 personne.

@@ -55,10 +55,11 @@ class BraveContentRendererClient : public ChromeContentRendererClient {
   CreateURLLoaderThrottleProvider(
       blink::URLLoaderThrottleProviderType provider_type) override;
 
-  // [Browther/Basarunaa] decode-ahead ③ : fournit le sink lead-frame au
-  // WebMediaPlayerImpl, bindé sur le BasarunaaRenderFrameObserver de ce frame.
-  base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
-  GetVideoLeadFrameSink(content::RenderFrame* render_frame) override;
+  // [Browther/Basarunaa] decode-ahead ③ (v2, notify+pull) : fournit le sink de
+  // notification lead-frame au WebMediaPlayerImpl, bindé sur le
+  // BasarunaaRenderFrameObserver de ce frame.
+  content::ContentRendererClient::VideoLeadFrameSink GetVideoLeadFrameSink(
+      content::RenderFrame* render_frame) override;
 
   bool IsOnionAllowed() const;
 

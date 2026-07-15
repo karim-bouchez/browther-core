@@ -1,5 +1,5 @@
 diff --git a/content/public/renderer/content_renderer_client.cc b/content/public/renderer/content_renderer_client.cc
-index c0abf83fe2cee..97d059394bd26 100644
+index c0abf83fe2cee..4dcf7c9febb1d 100644
 --- a/content/public/renderer/content_renderer_client.cc
 +++ b/content/public/renderer/content_renderer_client.cc
 @@ -102,6 +102,12 @@ std::unique_ptr<media::Demuxer> ContentRendererClient::OverrideDemuxerForUrl(
@@ -7,7 +7,7 @@ index c0abf83fe2cee..97d059394bd26 100644
  }
  
 +// [Browther/Basarunaa] decode-ahead. Default: no sink (embedder opts in).
-+base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
++ContentRendererClient::VideoLeadFrameSink
 +ContentRendererClient::GetVideoLeadFrameSink(RenderFrame* render_frame) {
 +  return {};
 +}

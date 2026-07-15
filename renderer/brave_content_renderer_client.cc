@@ -271,10 +271,11 @@ BraveContentRendererClient::GetSupportedKeySystems(
       render_frame, base::BindRepeating(&MaybeRemoveWidevineSupport, cb));
 }
 
-// [Browther/Basarunaa] decode-ahead ③ : relie le WebMediaPlayerImpl (blink) au
-// BasarunaaRenderFrameObserver de ce frame. Le RFO est créé dans
-// RenderFrameCreated, donc présent quand un <video> est instancié.
-base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
+// [Browther/Basarunaa] decode-ahead ③ (v2, notify+pull) : relie le
+// WebMediaPlayerImpl (blink) au BasarunaaRenderFrameObserver de ce frame. Le
+// RFO est créé dans RenderFrameCreated, donc présent quand un <video> est
+// instancié.
+content::ContentRendererClient::VideoLeadFrameSink
 BraveContentRendererClient::GetVideoLeadFrameSink(
     content::RenderFrame* render_frame) {
   // Tap natif gaté sur la pref Basarunaa : le browser injecte

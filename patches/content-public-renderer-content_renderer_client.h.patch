@@ -1,5 +1,5 @@
 diff --git a/content/public/renderer/content_renderer_client.h b/content/public/renderer/content_renderer_client.h
-index 36b734254b0c5..074e05e3983da 100644
+index 36b734254b0c5..6fd73f12269f9 100644
 --- a/content/public/renderer/content_renderer_client.h
 +++ b/content/public/renderer/content_renderer_client.h
 @@ -14,10 +14,12 @@
@@ -15,20 +15,29 @@ index 36b734254b0c5..074e05e3983da 100644
  #include "build/build_config.h"
  #include "build/chromecast_buildflags.h"
  #include "content/common/content_export.h"
-@@ -197,6 +199,17 @@ class CONTENT_EXPORT ContentRendererClient {
+@@ -197,6 +199,26 @@ class CONTENT_EXPORT ContentRendererClient {
        const GURL& url,
        scoped_refptr<base::SequencedTaskRunner> task_runner);
  
-+  // [Browther/Basarunaa] decode-ahead. Lets the embedder receive decode-ahead
-+  // video frames (already read back to CPU + downscaled to a packed BGRA
-+  // buffer) so it can run ML analysis ahead of native presentation. The
-+  // returned sink is invoked on the main render thread with
-+  // (bgra_pixels, width, height, media_timestamp); a null callback (default)
-+  // means the embedder wants no frames. The signature is intentionally POD
-+  // (no embedder types) so the blink media stack stays free of embedder deps.
-+  virtual base::RepeatingCallback<
-+      void(std::vector<uint8_t>, int, int, base::TimeDelta)>
-+  GetVideoLeadFrameSink(RenderFrame* render_frame);
++  // [Browther/Basarunaa] decode-ahead (détection v2, notify+pull). The media
++  // player notifies the embedder of EVERY decode-ahead video frame (main
++  // render thread, metadata only — no pixels) and hands it a pull handle to
++  // read back an arbitrary buffered frame on demand (CPU + downscaled packed
++  // BGRA). A null sink (default) means the embedder wants no frames. All
++  // types are intentionally POD (no embedder types) so the blink media stack
++  // stays free of embedder deps.
++  // Reply of a pull: (bgra_pixels — empty on failure (frame evicted/seek/
++  // teardown), width, height, actual_media_timestamp).
++  using LeadFrameReadbackDoneCB =
++      base::OnceCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>;
++  // Pull: (target_media_timestamp, done). Serialized per player (small FIFO).
++  using LeadFrameReadbackCB =
++      base::RepeatingCallback<void(base::TimeDelta, LeadFrameReadbackDoneCB)>;
++  // Notification: (player_id — stable per media player, so the embedder can
++  // keep per-player detection state, media_timestamp, pull handle).
++  using VideoLeadFrameSink = base::RepeatingCallback<
++      void(int64_t, base::TimeDelta, const LeadFrameReadbackCB&)>;
++  virtual VideoLeadFrameSink GetVideoLeadFrameSink(RenderFrame* render_frame);
 +
    // Allows the embedder to provide a WebSocketHandshakeThrottleProvider. If it
    // returns NULL then none will be used.

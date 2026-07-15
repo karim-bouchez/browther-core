@@ -1,19 +1,18 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_builder.cc b/third_party/blink/renderer/platform/media/web_media_player_builder.cc
-index 404c775e9eef2..16daa746d4c8b 100644
+index 404c775e9eef2..ed9d9cfa48c9a 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_builder.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_builder.cc
-@@ -97,7 +97,9 @@ std::unique_ptr<WebMediaPlayer> WebMediaPlayerBuilder::Build(
+@@ -97,7 +97,8 @@ std::unique_ptr<WebMediaPlayer> WebMediaPlayerBuilder::Build(
      bool is_background_video_playback_enabled,
      bool is_background_video_track_optimization_supported,
      std::unique_ptr<media::Demuxer> demuxer_override,
 -    scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces) {
 +    scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces,
-+    base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
-+        video_lead_frame_sink) {
++    VideoLeadFrameSink video_lead_frame_sink) {
    CHECK_EQ(&static_cast<FrameFetchContext*>(fetch_context_.get())->frame(),
             frame);
    auto video_frame_compositor = std::make_unique<VideoFrameCompositor>(
-@@ -116,7 +118,8 @@ std::unique_ptr<WebMediaPlayer> WebMediaPlayerBuilder::Build(
+@@ -116,7 +117,8 @@ std::unique_ptr<WebMediaPlayer> WebMediaPlayerBuilder::Build(
        use_surface_layer, is_background_suspend_enabled,
        is_background_video_playback_enabled,
        is_background_video_track_optimization_supported,

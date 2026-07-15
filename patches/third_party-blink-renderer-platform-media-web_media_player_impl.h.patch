@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-index 57c8960bcdb25..7491bf28bab62 100644
+index 57c8960bcdb25..154369225773b 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
 @@ -7,6 +7,7 @@
@@ -18,16 +18,15 @@ index 57c8960bcdb25..7491bf28bab62 100644
  #include "third_party/blink/renderer/platform/bindings/v8_external_memory_accounter.h"
  #include "third_party/blink/renderer/platform/media/media_player_client.h"
  #include "third_party/blink/renderer/platform/media/multi_buffer_data_source.h"
-@@ -84,6 +86,8 @@ class MediaLog;
+@@ -84,6 +86,7 @@ class MediaLog;
  class MemoryDumpProviderProxy;
  class PipelineController;
  class SwitchableAudioRendererSink;
 +class VideoFrameConverter;  // [Browther/Basarunaa] decode-ahead
-+class VideoFramePool;       // [Browther/Basarunaa] decode-ahead
  }  // namespace media
  
  namespace viz {
-@@ -104,6 +108,7 @@ class WebAudioSourceProviderImpl;
+@@ -104,6 +107,7 @@ class WebAudioSourceProviderImpl;
  class WebContentDecryptionModule;
  class WebLocalFrame;
  class WebMediaPlayerEncryptedMediaClient;
@@ -35,97 +34,88 @@ index 57c8960bcdb25..7491bf28bab62 100644
  
  // The set of split histograms that are supported. Keeping them in an enum
  // helps prevent raw strings from being scattered throughout the source, and
-@@ -160,7 +165,10 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -160,7 +164,9 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        bool is_background_video_play_enabled,
        bool is_background_video_track_optimization_supported,
        std::unique_ptr<media::Demuxer> demuxer_override,
 -      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces);
 +      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces,
 +      // [Browther/Basarunaa] decode-ahead sink (POD; null = disabled).
-+      base::RepeatingCallback<void(std::vector<uint8_t>, int, int,
-+                                   base::TimeDelta)> video_lead_frame_sink);
++      VideoLeadFrameSink video_lead_frame_sink);
    WebMediaPlayerImpl(const WebMediaPlayerImpl&) = delete;
    WebMediaPlayerImpl& operator=(const WebMediaPlayerImpl&) = delete;
    ~WebMediaPlayerImpl() override;
-@@ -710,6 +718,28 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -710,6 +716,30 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
    // RequestAnimationFrame() is called.
    void OnNewFramePresentedCallback();
  
-+  // [Browther/Basarunaa] decode-ahead : reçoit (sur le main thread, via
-+  // BindPostTaskToCurrentDefault depuis VideoRendererImpl::FrameReady) une frame
-+  // décodée EN AVANCE de l'affichage, en fait le readback GPU->CPU + downscale +
-+  // RGBA, et (à terme) la passe au ML. Pour l'instant : log dims + checksum.
++  // [Browther/Basarunaa] decode-ahead (détection v2, notify+pull) : reçoit
++  // (sur le main thread, via BindPostTaskToCurrentDefault depuis
++  // VideoRendererImpl::FrameReady) CHAQUE frame décodée EN AVANCE de
++  // l'affichage. Alimente |lead_ring_| (refs seulement, pas de pixels) puis
++  // notifie l'embedder (player_id, ts, handle de readback). C'est l'embedder
++  // (RFO Basarunaa) qui décide QUOI readback (checkpoints + dichotomie).
 +  void OnLeadFrame(scoped_refptr<media::VideoFrame> frame);
-+  // [Browther/Basarunaa] decode-ahead : suite de OnLeadFrame une fois la frame
-+  // en CPU (soit inline pour une frame mappable, soit via le reply du readback
-+  // sur la séquence dédiée pour une frame GPU). Downscale + RGBA + sink, sur le
-+  // main thread (opérations CPU only, sûres). |src| = taille source d'origine.
-+  void ProcessLeadCpuFrame(gfx::Size src,
-+                           scoped_refptr<media::VideoFrame> cpu_frame);
-+  // [Browther/Basarunaa] Détection v2 — POC Étape 0 (spike GO/NO-GO, à retirer
-+  // ou câbler ensuite) : alimente |lead_ring_| avec la frame lead courante et
-+  // déclenche périodiquement la sonde « readback d'une frame ARBITRAIRE du
-+  // ring » sur la séquence readback dédiée. Voir |lead_ring_|.
-+  void LeadRingFillAndProbe(scoped_refptr<media::VideoFrame> frame);
-+  // [Browther/Basarunaa] Reply (main thread) de la sonde POC ci-dessus.
-+  void OnLeadRingProbeReadback(base::TimeDelta picked_ts,
-+                               size_t picked_index,
-+                               size_t ring_size,
-+                               scoped_refptr<media::VideoFrame> cpu_frame);
++  // [Browther/Basarunaa] Service « readback à la demande » (handle donné à
++  // l'embedder) : recherche |target_ts| dans le ring (tolérance ±20 ms, la
++  // frame VRAIE est rapportée via actual_ts du reply), readback GPU->CPU sur
++  // la séquence dédiée (ou accès direct si mappable), downscale 640px + BGRA,
++  // reply sur le main thread. Sérialisé par une petite FIFO (cap court : le
++  // scan de l'embedder est séquentiel par nature) ; overflow/miss → reply
++  // vide (échec propre, l'embedder abandonne son scan).
++  void ReadbackLeadFrameAt(base::TimeDelta target_ts,
++                           LeadFrameReadbackDoneCB done);
++  // [Browther/Basarunaa] Pompe de la FIFO ci-dessus (1 readback en vol max).
++  void PumpLeadReadback();
++  // [Browther/Basarunaa] Reply (main thread) d'un readback : downscale 640px +
++  // BGRA + invoque le done de l'embedder, puis repompe. |cpu_frame| null =
++  // échec.
++  void OnLeadReadbackDone(LeadFrameReadbackDoneCB done,
++                          scoped_refptr<media::VideoFrame> cpu_frame);
 +
    // Notifies |demuxer_manager_| of playback and rate changes which may increase
    // the amount of data the DataSource buffers. Does nothing prior to reaching
    // kReadyStateHaveEnoughData for the first time.
-@@ -884,6 +914,53 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -884,6 +914,43 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        compositor_;  // Deleted on |vfc_task_runner_|.
    media::PaintCanvasVideoRenderer video_renderer_;
  
-+  // [Browther/Basarunaa] decode-ahead : scratch pour le readback GPU->CPU + le
-+  // downscale des frames lead. Créés paresseusement dans OnLeadFrame (main
-+  // thread). |lead_frame_pool_| recycle les frames CPU issues du readback.
-+  std::unique_ptr<media::VideoFramePool> lead_frame_pool_;
++  // [Browther/Basarunaa] decode-ahead : scratch pour le downscale des frames
++  // lues (readback à la demande). Créé paresseusement (main thread).
 +  std::unique_ptr<media::VideoFrameConverter> lead_frame_converter_;
-+  // [Browther/Basarunaa] decode-ahead : sink POD (bgra, w, h, media_ts) vers
-+  // l'embedder (RFO Basarunaa -> Mojo ImageAnalyzer). Null = pas d'analyse.
-+  base::RepeatingCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>
-+      lead_frame_sink_;
++  // [Browther/Basarunaa] decode-ahead : notification POD (player_id, ts,
++  // handle readback) vers l'embedder (RFO Basarunaa). Null = pas d'analyse.
++  VideoLeadFrameSink lead_frame_sink_;
++  // [Browther/Basarunaa] Handle de readback donné à l'embedder à chaque
++  // notification (bindé paresseusement sur weak_this_, main thread).
++  LeadFrameReadbackCB lead_readback_cb_;
 +  // [Browther/Basarunaa] decode-ahead : séquence dédiée + impl pour le readback
 +  // GPU->CPU hors main thread (frames GPU-backed). Créés paresseusement au 1er
 +  // besoin ; |lead_readback_impl_| est détruit via ReleaseSoon sur son runner.
 +  scoped_refptr<base::SingleThreadTaskRunner> lead_readback_runner_;
 +  scoped_refptr<LeadFrameReadbackThread> lead_readback_impl_;
-+  // [Browther/Basarunaa] decode-ahead : garde-fou "1 readback en vol". Le
-+  // readback GPU->CPU plein-résolution coûte plus cher (~200 ms/frame HW) que
-+  // l'intervalle de tap (160 ms) -> sans garde, PostTaskAndReplyWithResult
-+  // EMPILE les frames sur la séquence de readback : file non bornée, chaque
-+  // frame analysée de plus en plus vieille -> avance qui décroît sans fin puis
-+  // flou full-screen (résultats périmés). Avec le garde, on DROP la frame si un
-+  // readback est déjà en cours (borne la latence ~1 readback) au lieu d'empiler.
-+  // Posé sur le main thread (OnLeadFrame), remis à false quand le reply
-+  // (ProcessLeadCpuFrame) revient. Le throughput baisse (moins de fulls) mais
-+  // c'est voulu : on veut de la fraîcheur, pas du volume.
-+  bool lead_readback_in_flight_ = false;
-+  // [Browther/Basarunaa] Détection v2 — POC Étape 0 (accès aléatoire au lead) :
-+  // ring de refs (scoped_refptr) vers les frames décodées-en-avance déjà vues
-+  // par OnLeadFrame. Les frames de la fenêtre d'avance sont DÉJÀ vivantes dans
-+  // la file du VideoRendererAlgorithm (cap 120) : éviction au fil de la lecture
-+  // (ts < playhead) → le ring n'ajoute que des pointeurs, il n'étend pas la
-+  // durée de vie des frames au-delà de la file d'affichage. Reset sur seek
-+  // arrière. Main thread only.
++  // [Browther/Basarunaa] Détection v2 : ring de refs (scoped_refptr) vers les
++  // frames décodées-en-avance vues par OnLeadFrame (toutes). Les frames de la
++  // fenêtre d'avance sont DÉJÀ vivantes dans la file du VideoRendererAlgorithm
++  // (cap 120) : éviction au fil de la lecture (ts < playhead) → le ring
++  // n'ajoute que des pointeurs, il n'étend pas la durée de vie des frames
++  // au-delà de la file d'affichage. Reset sur seek arrière. Trié par ts
++  // (croissant) par construction. Main thread only. Validé par le POC étape 0
++  // (89/89 readbacks arbitraires OK, lecture inchangée).
 +  std::deque<scoped_refptr<media::VideoFrame>> lead_ring_
 +      ALLOW_DISCOURAGED_TYPE("Ring de types media::, hors types WTF");
-+  // Sonde POC : ~1/s, readback d'une frame arbitraire du ring (rotation
-+  // début/milieu/fin), 1 sonde en vol max (indépendante du garde-fou ML
-+  // |lead_readback_in_flight_| — la contention sur la séquence readback fait
-+  // partie de ce que le POC doit mesurer).
-+  bool ring_probe_in_flight_ = false;
-+  int ring_probe_n_ = 0;
-+  base::TimeTicks last_ring_probe_ticks_;
-+  base::TimeTicks ring_probe_post_ticks_;
-+  // [Browther/Basarunaa] Instrumentation latence (mesure, pas prod) : wall-clock
-+  // au moment du tap de la frame en cours de readback, pour chiffrer readback +
-+  // chaîne renderer dans ProcessLeadCpuFrame. Main thread only.
-+  base::TimeTicks lead_tap_ticks_;
++  // [Browther/Basarunaa] FIFO des readbacks à la demande : (frame épinglée au
++  // moment de la requête — immune à l'éviction du ring, done de l'embedder).
++  // 1 readback en vol max ; cap court (le scan de l'embedder est séquentiel,
++  // seul le checkpoint en file 3 d'un coup). Main thread only.
++  std::deque<std::pair<scoped_refptr<media::VideoFrame>,
++                       LeadFrameReadbackDoneCB>>
++      lead_readback_queue_ ALLOW_DISCOURAGED_TYPE(
++          "File de types media::/base::, hors types WTF");
++  bool lead_readback_busy_ = false;
++  // [Browther/Basarunaa] Instrumentation : wall-clock au départ du readback en
++  // cours (durée loggée dans OnLeadReadbackDone). Main thread only.
++  base::TimeTicks lead_readback_start_ticks_;
 +
    // The compositor layer for displaying the video content when using composited
    // playback.
