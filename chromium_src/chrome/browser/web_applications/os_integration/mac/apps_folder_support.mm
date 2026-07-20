@@ -20,15 +20,19 @@ base::FilePath GetLocalizableBraveAppShortcutsSubdirName();
 #undef BRAVE_GET_CHROME_APPS_FOLDER_IMPL
 
 namespace {
+// Browther: rebranding. Ces noms de dossier vivent dans ~/Applications et
+// portent les app shims (.app) des PWA installées. Garder les noms Brave
+// faisait écrire Browther dans le dossier de Brave : pour une PWA installée
+// dans les deux navigateurs, le second arrivé se voit renommé « <App> 1.app »
+// (désambiguïsation par bundle id) — dossiers distincts = noms propres et
+// aucun risque de marcher sur les shims de Brave.
 constexpr char kBraveBrowserDevelopmentAppDirName[] =
-    "Brave Browser Development Apps.localized";
-constexpr char kBraveBrowserAppDirName[] = "Brave Browser Apps.localized";
-constexpr char kBraveBrowserBetaAppDirName[] =
-    "Brave Browser Beta Apps.localized";
-constexpr char kBraveBrowserDevAppDirName[] =
-    "Brave Browser Dev Apps.localized";
+    "Browther Development Apps.localized";
+constexpr char kBraveBrowserAppDirName[] = "Browther Apps.localized";
+constexpr char kBraveBrowserBetaAppDirName[] = "Browther Beta Apps.localized";
+constexpr char kBraveBrowserDevAppDirName[] = "Browther Dev Apps.localized";
 constexpr char kBraveBrowserNightlyAppDirName[] =
-    "Brave Browser Nightly Apps.localized";
+    "Browther Nightly Apps.localized";
 
 base::FilePath GetLocalizableBraveAppShortcutsSubdirName() {
   switch (chrome::GetChannel()) {
