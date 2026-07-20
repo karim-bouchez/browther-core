@@ -1,0 +1,72 @@
+// Copyright (c) 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// You can obtain one at http://mozilla.org/MPL/2.0/.
+
+// Browther: bouclier Browther monochrome, remplace le logo produit upstream
+// (`kBrowserLogoIcon`). Brave mappait cette icône sur
+// `leo_brave_icon_monochrome` (le lion) via `leo_overrides.json` — l'entrée y a
+// donc été retirée, les deux mécanismes d'override étant exclusifs
+// (`chromium_src/components/vector_icons/aggregate_vector_icons.py` lève une
+// RuntimeError si les deux existent pour la même icône).
+//
+// Visible dans : « Ouvrir dans Browther » du menu d'une fenêtre d'app (PWA)
+// [`web_app_menu_model.cc`], le gestionnaire de tâches [`task_manager_view.cc`]
+// et les toasts [`toast_service.cc`].
+//
+// Pas de PATH_COLOR_ARGB : l'icône est monochrome et prend la couleur du menu
+// qui l'affiche (comme le faisait le lion Leo). Le « B » est **évidé**, pas
+// peint : les deux slots sont dans le même path que la silhouette et tournent
+// en sens inverse (aires signées -195 vs +20), donc le remplissage nonzero de
+// Skia les creuse. Ne pas insérer de NEW_PATH entre eux, ça remplirait le B.
+//
+// Géométrie reprise telle quelle de `components/vector_icons/brave/
+// product_refresh.icon` (paths 1-3), lui-même généré depuis
+// `private/assets/source/icon_shield_white.svg` via
+// `private/assets/scripts/svg-to-chromium-icon.py`.
+
+CANVAS_DIMENSIONS, 24,
+
+// Silhouette du bouclier
+MOVE_TO, 12, 3.432f,
+CUBIC_TO, 11.864f, 3.432f, 11.729f, 3.45f, 11.599f, 3.486f,
+LINE_TO, 4.417f, 5.465f,
+CUBIC_TO, 4.18f, 5.53f, 4.015f, 5.746f, 4.015f, 5.992f,
+LINE_TO, 4.015f, 12.386f,
+CUBIC_TO, 4.015f, 12.616f, 4.028f, 12.988f, 4.06f, 13.216f,
+CUBIC_TO, 4.478f, 16.19f, 6.996f, 18.619f, 11.613f, 20.503f,
+CUBIC_TO, 11.826f, 20.589f, 12.174f, 20.589f, 12.387f, 20.503f,
+CUBIC_TO, 17.004f, 18.619f, 19.522f, 16.19f, 19.94f, 13.216f,
+CUBIC_TO, 19.972f, 12.988f, 19.985f, 12.616f, 19.985f, 12.386f,
+LINE_TO, 19.985f, 5.992f,
+CUBIC_TO, 19.985f, 5.746f, 19.82f, 5.53f, 19.583f, 5.465f,
+LINE_TO, 12.401f, 3.486f,
+CUBIC_TO, 12.271f, 3.45f, 12.136f, 3.432f, 12, 3.432f,
+LINE_TO, 12, 3.432f,
+CLOSE,
+
+// Slot haut du « B » (évidé)
+MOVE_TO, 8.629f, 7.603f,
+LINE_TO, 14.306f, 7.603f,
+CUBIC_TO, 15.114f, 7.603f, 15.764f, 8.253f, 15.764f, 9.06f,
+CUBIC_TO, 15.764f, 9.867f, 15.114f, 10.517f, 14.306f, 10.517f,
+LINE_TO, 8.629f, 10.517f,
+CUBIC_TO, 8.525f, 10.517f, 8.425f, 10.474f, 8.351f, 10.395f,
+CUBIC_TO, 8.278f, 10.317f, 8.236f, 10.211f, 8.236f, 10.101f,
+LINE_TO, 8.236f, 8.019f,
+CUBIC_TO, 8.236f, 7.909f, 8.278f, 7.803f, 8.351f, 7.725f,
+CUBIC_TO, 8.425f, 7.646f, 8.525f, 7.603f, 8.629f, 7.603f,
+CLOSE,
+
+// Slot bas du « B » (évidé)
+MOVE_TO, 8.629f, 12.974f,
+LINE_TO, 14.306f, 12.974f,
+CUBIC_TO, 15.114f, 12.974f, 15.764f, 13.624f, 15.764f, 14.432f,
+CUBIC_TO, 15.764f, 15.239f, 15.114f, 15.889f, 14.306f, 15.889f,
+LINE_TO, 8.629f, 15.889f,
+CUBIC_TO, 8.525f, 15.889f, 8.425f, 15.845f, 8.351f, 15.767f,
+CUBIC_TO, 8.278f, 15.689f, 8.236f, 15.583f, 8.236f, 15.473f,
+LINE_TO, 8.236f, 13.391f,
+CUBIC_TO, 8.236f, 13.28f, 8.278f, 13.174f, 8.351f, 13.096f,
+CUBIC_TO, 8.425f, 13.018f, 8.525f, 12.974f, 8.629f, 12.974f,
+CLOSE,
