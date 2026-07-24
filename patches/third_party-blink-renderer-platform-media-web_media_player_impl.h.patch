@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-index 57c8960bcdb25..154369225773b 100644
+index 57c8960bcdb25..2f53ec14ed30f 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
 @@ -7,6 +7,7 @@
@@ -34,18 +34,21 @@ index 57c8960bcdb25..154369225773b 100644
  
  // The set of split histograms that are supported. Keeping them in an enum
  // helps prevent raw strings from being scattered throughout the source, and
-@@ -160,7 +164,9 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -160,7 +164,12 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        bool is_background_video_play_enabled,
        bool is_background_video_track_optimization_supported,
        std::unique_ptr<media::Demuxer> demuxer_override,
 -      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces);
 +      scoped_refptr<ThreadSafeBrowserInterfaceBrokerProxy> remote_interfaces,
 +      // [Browther/Basarunaa] decode-ahead sink (POD; null = disabled).
-+      VideoLeadFrameSink video_lead_frame_sink);
++      VideoLeadFrameSink video_lead_frame_sink,
++      // [Browther/Sawtunaa] audio tap V2 (POD; null = disabled).
++      SawtunaaAudioTapProcessCB sawtunaa_audio_tap_process,
++      SawtunaaAudioTapControlCB sawtunaa_audio_tap_control);
    WebMediaPlayerImpl(const WebMediaPlayerImpl&) = delete;
    WebMediaPlayerImpl& operator=(const WebMediaPlayerImpl&) = delete;
    ~WebMediaPlayerImpl() override;
-@@ -710,6 +716,30 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -710,6 +719,30 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
    // RequestAnimationFrame() is called.
    void OnNewFramePresentedCallback();
  
@@ -76,13 +79,20 @@ index 57c8960bcdb25..154369225773b 100644
    // Notifies |demuxer_manager_| of playback and rate changes which may increase
    // the amount of data the DataSource buffers. Does nothing prior to reaching
    // kReadyStateHaveEnoughData for the first time.
-@@ -884,6 +914,43 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -884,6 +917,50 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        compositor_;  // Deleted on |vfc_task_runner_|.
    media::PaintCanvasVideoRenderer video_renderer_;
  
 +  // [Browther/Basarunaa] decode-ahead : scratch pour le downscale des frames
 +  // lues (readback à la demande). Créé paresseusement (main thread).
 +  std::unique_ptr<media::VideoFrameConverter> lead_frame_converter_;
++  // [Browther/Sawtunaa] audio tap V2 : callbacks POD de l'embedder (client
++  // Mojo NSNet2), transmis à RendererImplFactory → AudioRendererImpl dans
++  // CreateRenderer, GATE : posés seulement si non-null (jumeau du gate
++  // lead_frame_sink_ — sans embedder, le pipeline audio reste upstream).
++  SawtunaaAudioTapProcessCB sawtunaa_audio_tap_process_;
++  SawtunaaAudioTapControlCB sawtunaa_audio_tap_control_;
++
 +  // [Browther/Basarunaa] decode-ahead : notification POD (player_id, ts,
 +  // handle readback) vers l'embedder (RFO Basarunaa). Null = pas d'analyse.
 +  VideoLeadFrameSink lead_frame_sink_;

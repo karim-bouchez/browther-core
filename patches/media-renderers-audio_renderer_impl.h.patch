@@ -1,9 +1,57 @@
 diff --git a/media/renderers/audio_renderer_impl.h b/media/renderers/audio_renderer_impl.h
-index e060e59f2fe04..f5059b89b7f84 100644
+index e060e59f2fe04..8bf925914a8f1 100644
 --- a/media/renderers/audio_renderer_impl.h
 +++ b/media/renderers/audio_renderer_impl.h
-@@ -268,6 +268,11 @@ class MEDIA_EXPORT AudioRendererImpl
+@@ -119,6 +119,17 @@ class MEDIA_EXPORT AudioRendererImpl
+   void SetPlayDelayCBForTesting(PlayDelayCBForTesting cb);
+   bool was_unmuted_for_testing() const { return was_unmuted_; }
  
++  // [Browther/Sawtunaa] audio tap V2 : callbacks de traitement NSNet2 posés
++  // par RendererImplFactory AVANT Initialize (jamais ensuite — lus sans lock).
++  // Gate 2 niveaux : la factory ne les pose que si l'embedder les a fournis
++  // (switch --sawtunaa-audio-tap), ET ce renderer ne s'active que si son
++  // propre switch est présent (sawtunaa_audio_tap_).
++  void SetSawtunaaAudioTap(SawtunaaAudioTapProcessCB process,
++                           SawtunaaAudioTapControlCB control) {
++    sawtunaa_tap_process_ = std::move(process);
++    sawtunaa_tap_control_ = std::move(control);
++  }
++
+   void decoded_audio_ready_for_testing() {
+     DecodedAudioReady(DecoderStatus::Codes::kFailed);
+   }
+@@ -266,8 +277,47 @@ class MEDIA_EXPORT AudioRendererImpl
+   // AudioRendererAlgorithm::FrontTimestamp().
+   base::TimeDelta CalculateClockAndAlgorithmDrift() const;
+ 
++  // [Browther/Sawtunaa] audio tap V2 — flux async : les buffers décodés sont
++  // RETENUS (sawtunaa_pending_), envoyés par batchs au traitement natif via
++  // sawtunaa_tap_process_, et seuls les résultats traités entrent dans
++  // |algorithm_| (le buffer d'avance ne contient QUE du PCM traité → aucune
++  // fuite possible ; service en retard = buffering standard, pas de musique
++  // en clair). Tous sous lock_ sauf mention contraire.
++  //
++  // Tap configuré (immuable après Initialize) : switch renderer + callbacks.
++  bool SawtunaaTapConfigured() const {
++    return sawtunaa_audio_tap_ && sawtunaa_tap_process_;
++  }
++  // Le buffer est-il éligible au tap (flux compatible, pas de bypass) ?
++  bool SawtunaaTapEligible_Locked(const AudioBuffer& buffer) const;
++  // Envoie un batch si (pending ≥ seuil OU eos_pending_) et pas d'inflight.
++  void SawtunaaMaybeSendBatch_Locked();
++  // Réponse du traitement (postée sur le thread média).
++  void OnSawtunaaBatchDone(int generation,
++                           std::vector<scoped_refptr<AudioBuffer>> originals,
++                           bool flush,
++                           int channels,
++                           int sample_rate,
++                           ChannelLayout layout,
++                           bool ok,
++                           std::vector<float> processed);
++  // Seek/flush pipeline : drop pending + invalide les réponses en vol +
++  // reset du flux côté service.
++  void SawtunaaResetOnFlush_Locked();
++
    scoped_refptr<base::SequencedTaskRunner> task_runner_;
  
 +  // [Browther/Sawtunaa] audio tap V2 (decode-ahead) : capturé une fois au
@@ -11,6 +59,41 @@ index e060e59f2fe04..f5059b89b7f84 100644
 +  // Tap OFF (switch absent) → aucun delta de comportement upstream.
 +  const bool sawtunaa_audio_tap_;
 +
++  // [Browther/Sawtunaa] Posés par SetSawtunaaAudioTap avant Initialize, puis
++  // immuables (lus sur le thread média sans lock). Appelables du thread média
++  // (hop interne côté embedder).
++  SawtunaaAudioTapProcessCB sawtunaa_tap_process_;
++  SawtunaaAudioTapControlCB sawtunaa_tap_control_;
++
    std::unique_ptr<AudioBufferConverter> buffer_converter_;
  
    // Whether or not we expect to handle config changes.
+@@ -417,6 +467,28 @@ class MEDIA_EXPORT AudioRendererImpl
+   // Render().
+   PlayDelayCBForTesting play_delay_cb_for_testing_;
+ 
++  // [Browther/Sawtunaa] audio tap V2 — état du flux async (tous sous lock_).
++  // Tap actif pour CE flux (posé à Initialize : SawtunaaTapConfigured()).
++  bool sawtunaa_tap_active_ = false;
++  // Le service a refusé (rate non géré, modèle absent…) → passthrough
++  // définitif du flux, plus aucune rétention.
++  bool sawtunaa_tap_bypass_ = false;
++  // Buffers décodés retenus (originaux — servent au fallback passthrough).
++  std::vector<scoped_refptr<AudioBuffer>> sawtunaa_pending_;
++  int sawtunaa_pending_frames_ = 0;
++  // Un seul batch en vol à la fois (ordre garanti, budget 2 s largement
++  // suffisant pour l'itération suivante).
++  bool sawtunaa_inflight_ = false;
++  // Invalide les réponses en vol après un flush/seek.
++  int sawtunaa_generation_ = 0;
++  // Timestamp du prochain échantillon TRAITÉ à émettre (reconstruction
++  // continue ; invalide = à initialiser au prochain buffer retenu).
++  base::TimeDelta sawtunaa_out_ts_;
++  bool sawtunaa_out_ts_valid_ = false;
++  // EOS reçu : le Mark de l'algorithme est DIFFÉRÉ jusqu'au retour du batch
++  // flush (sinon les ~448 derniers samples seraient perdus).
++  bool sawtunaa_eos_pending_ = false;
++
+   // End variables which must be accessed under |lock_|. ----------------------
+ 
+ #if !BUILDFLAG(IS_ANDROID)

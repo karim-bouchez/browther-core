@@ -1,5 +1,5 @@
 diff --git a/media/renderers/renderer_impl_factory.h b/media/renderers/renderer_impl_factory.h
-index c938b43d0367c..b5ef0101f616e 100644
+index c938b43d0367c..caeeeae896a5d 100644
 --- a/media/renderers/renderer_impl_factory.h
 +++ b/media/renderers/renderer_impl_factory.h
 @@ -6,6 +6,7 @@
@@ -18,7 +18,7 @@ index c938b43d0367c..b5ef0101f616e 100644
  class VideoRendererSink;
  
  using CreateAudioDecodersCB =
-@@ -36,6 +38,12 @@ using CreateAudioDecodersCB =
+@@ -36,6 +38,26 @@ using CreateAudioDecodersCB =
  using CreateVideoDecodersCB =
      base::RepeatingCallback<std::vector<std::unique_ptr<VideoDecoder>>()>;
  
@@ -28,10 +28,24 @@ index c938b43d0367c..b5ef0101f616e 100644
 +// après un hop vers le main thread. Défaut null = feature désactivée.
 +using LeadFrameCB = base::RepeatingCallback<void(scoped_refptr<VideoFrame>)>;
 +
++// [Browther/Sawtunaa] audio tap V2 : AudioRendererImpl retient le PCM décodé,
++// l'envoie par batchs à l'embedder (NSNet2 natif browser) via ces callbacks
++// POD et n'enqueue que le résultat traité. Aliases structurels de
++// content::ContentRendererClient::SawtunaaAudioTap* (media/ ne peut inclure ni
++// content/ ni blink/). Appelables depuis le thread média (hop interne côté
++// embedder) ; |done| est invoqué sur un thread arbitraire (les appelants le
++// wrappent avec BindPostTaskToCurrentDefault). Défaut null = tap désactivé.
++using SawtunaaAudioTapDoneCB =
++    base::OnceCallback<void(bool, std::vector<float>)>;
++using SawtunaaAudioTapProcessCB = base::RepeatingCallback<
++    void(int64_t, std::vector<float>, int, int, int, bool,
++         SawtunaaAudioTapDoneCB)>;
++using SawtunaaAudioTapControlCB = base::RepeatingCallback<void(int64_t, bool)>;
++
  // The default factory class for creating RendererImpl.
  class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
   public:
-@@ -69,6 +77,12 @@ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
+@@ -69,6 +91,20 @@ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
        RequestOverlayInfoCB request_overlay_info_cb,
        const gfx::ColorSpace& target_color_space) final;
  
@@ -41,15 +55,27 @@ index c938b43d0367c..b5ef0101f616e 100644
 +    lead_frame_cb_ = std::move(lead_frame_cb);
 +  }
 +
++  // [Browther/Sawtunaa] Installe les callbacks audio tap. Doit être appelé
++  // AVANT CreateRenderer() (posés sur l'AudioRendererImpl à la construction).
++  void SetSawtunaaAudioTap(SawtunaaAudioTapProcessCB process,
++                           SawtunaaAudioTapControlCB control) {
++    sawtunaa_audio_tap_process_ = std::move(process);
++    sawtunaa_audio_tap_control_ = std::move(control);
++  }
++
   private:
    std::vector<std::unique_ptr<AudioDecoder>> CreateAudioDecoders(
        const scoped_refptr<base::SequencedTaskRunner>& media_task_runner);
-@@ -90,6 +104,9 @@ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
+@@ -90,6 +126,13 @@ class MEDIA_EXPORT RendererImplFactory final : public RendererFactory {
    // WebMediaPlayerImpl id.
    MediaPlayerLoggingID media_player_id_;
  
 +  // [Browther/Basarunaa] Callback decode-ahead passé à chaque VideoRendererImpl.
 +  LeadFrameCB lead_frame_cb_;
++
++  // [Browther/Sawtunaa] Callbacks audio tap posés sur chaque AudioRendererImpl.
++  SawtunaaAudioTapProcessCB sawtunaa_audio_tap_process_;
++  SawtunaaAudioTapControlCB sawtunaa_audio_tap_control_;
 +
  #if !BUILDFLAG(IS_ANDROID)
    std::unique_ptr<SpeechRecognitionClient> speech_recognition_client_;

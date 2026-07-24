@@ -25,6 +25,8 @@ action("generate_sawtunaa_script_header") {
 
 source_set("renderer") {
   sources = [
+    "sawtunaa_audio_tap_client.cc",
+    "sawtunaa_audio_tap_client.h",
     "sawtunaa_js_handler.cc",
     "sawtunaa_js_handler.h",
     "sawtunaa_render_frame_observer.cc",

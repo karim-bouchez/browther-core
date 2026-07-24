@@ -1,8 +1,8 @@
 diff --git a/media/renderers/audio_renderer_impl.cc b/media/renderers/audio_renderer_impl.cc
-index 3e44dcff88cae..f76d88b0ab95b 100644
+index 3e44dcff88cae..c607cf4500430 100644
 --- a/media/renderers/audio_renderer_impl.cc
 +++ b/media/renderers/audio_renderer_impl.cc
-@@ -44,6 +44,51 @@
+@@ -44,6 +44,59 @@
  
  namespace media {
  
@@ -23,30 +23,38 @@ index 3e44dcff88cae..f76d88b0ab95b 100644
 +      kSawtunaaAudioTapSwitch);
 +}
 +
-+// [Browther/Sawtunaa] SPIKE (étape 1) : traitement trivial qui prouve le point
-+// d'insertion — remplacé par NSNet2 natif en batch (étape 2). Mute alterné
-+// calé sur le TEMPS MÉDIA (1 s de son / 1 s de silence) : validation à
-+// l'oreille sans ambiguïté, et prouve au passage que le buffer traité porte le
-+// bon timestamp. Le buffer est converti en float planar via ReadFrames (gère
-+// TOUS les formats sources, S16/S32/F32/planar, et la vue post-TrimStart),
-+// traité, puis RECRÉÉ : on ne mute pas l'original (partagé avec le callback de
-+// transcription live-caption).
-+scoped_refptr<AudioBuffer> SawtunaaTapProcessBuffer(
-+    const scoped_refptr<AudioBuffer>& buffer) {
-+  std::unique_ptr<AudioBus> bus =
-+      AudioBus::Create(buffer->channel_count(), buffer->frame_count());
-+  buffer->ReadFrames(buffer->frame_count(), 0, 0, bus.get());
-+  // Secondes médias impaires -> silence (granularité = 1 buffer ~20 ms, la
-+  // frontière peut baver d'un buffer : sans importance pour le spike).
-+  const bool mute_this_second = (buffer->timestamp().InSeconds() % 2) == 1;
-+  const float gain = mute_this_second ? 0.0f : 1.0f;
-+  for (AudioBus::Channel channel : bus->AllChannels()) {
-+    for (float& sample : channel) {
-+      sample *= gain;
++// [Browther/Sawtunaa] Taille de batch envoyée au traitement natif (~256 ms
++// @48 kHz) : assez gros pour amortir l'aller-retour Mojo, assez petit pour
++// itérer confortablement dans le budget decode-ahead de 2 s.
++constexpr int kSawtunaaBatchFrames = 12288;
++// Borne de rétention : au-delà, CanRead_Locked() suspend les lectures amont
++// (la régulation upstream IsQueueFull ne voit pas les buffers retenus).
++constexpr int kSawtunaaMaxPendingFrames = 48000;
++
++// [Browther/Sawtunaa] Concatène le PCM des buffers retenus en planar float32
++// (bloc L puis bloc R). ReadFrames gère tous les formats sources
++// (S16/S32/F32/planar) et la vue post-TrimStart. Les originaux ne sont PAS
++// mutés (partagés avec le callback de transcription live-caption).
++std::vector<float> SawtunaaBuffersToPlanar(
++    const std::vector<scoped_refptr<AudioBuffer>>& buffers,
++    int channels,
++    int total_frames) {
++  std::vector<float> planar(static_cast<size_t>(total_frames) * channels);
++  auto out = base::span(planar);
++  int offset = 0;
++  for (const auto& buffer : buffers) {
++    const int frames = buffer->frame_count();
++    std::unique_ptr<AudioBus> bus = AudioBus::Create(channels, frames);
++    buffer->ReadFrames(frames, 0, 0, bus.get());
++    for (int ch = 0; ch < channels; ++ch) {
++      auto dst = out.subspan(
++          static_cast<size_t>(ch) * total_frames + offset,
++          static_cast<size_t>(frames));
++      std::ranges::copy(bus->AllChannels()[ch], dst.begin());
 +    }
++    offset += frames;
 +  }
-+  return AudioBuffer::CopyFrom(buffer->channel_layout(), buffer->sample_rate(),
-+                               buffer->timestamp(), bus.get());
++  return planar;
 +}
 +
 +}  // namespace
@@ -54,7 +62,7 @@ index 3e44dcff88cae..f76d88b0ab95b 100644
  AudioRendererImpl::AudioRendererImpl(
      const scoped_refptr<base::SequencedTaskRunner>& task_runner,
      scoped_refptr<AudioRendererSink> sink,
-@@ -52,6 +97,7 @@ AudioRendererImpl::AudioRendererImpl(
+@@ -52,6 +105,7 @@ AudioRendererImpl::AudioRendererImpl(
      MediaPlayerLoggingID media_player_id,
      SpeechRecognitionClient* speech_recognition_client)
      : task_runner_(task_runner),
@@ -62,7 +70,32 @@ index 3e44dcff88cae..f76d88b0ab95b 100644
        expecting_config_changes_(false),
        sink_(std::move(sink)),
        media_log_(media_log),
-@@ -403,6 +449,22 @@ void AudioRendererImpl::Initialize(DemuxerStream* stream,
+@@ -104,6 +158,13 @@ AudioRendererImpl::AudioRendererImpl(
+ AudioRendererImpl::~AudioRendererImpl() {
+   DVLOG(1) << __func__;
+   DCHECK(task_runner_->RunsTasksInCurrentSequence());
++
++  // [Browther/Sawtunaa] audio tap : libère les états du flux côté service.
++  if (SawtunaaTapConfigured() && sawtunaa_tap_control_) {
++    sawtunaa_tap_control_.Run(
++        static_cast<int64_t>(player_id_.GetUnsafeValue()), /*destroy=*/true);
++  }
++
+   base::PowerMonitor::GetInstance()->GetInstance()->RemovePowerSuspendObserver(
+       this);
+ 
+@@ -358,6 +419,10 @@ void AudioRendererImpl::ResetDecoderDone() {
+     if (buffer_converter_)
+       buffer_converter_->Reset();
+     algorithm_->FlushBuffers();
++
++    // [Browther/Sawtunaa] audio tap : drop des buffers retenus + invalidation
++    // des réponses en vol + reset du flux côté service.
++    SawtunaaResetOnFlush_Locked();
+   }
+   FinishFlush();
+ }
+@@ -403,6 +468,24 @@ void AudioRendererImpl::Initialize(DemuxerStream* stream,
    demuxer_stream_ = stream;
    client_ = client;
  
@@ -73,10 +106,12 @@ index 3e44dcff88cae..f76d88b0ab95b 100644
 +  // existants (OnAudioDecoderStreamInitialized + réinit sink). Le cap upstream
 +  // kMaxCapacity (audio_renderer_algorithm.cc) = 3 s ⩾ hint : rien d'autre à
 +  // toucher, contrairement au cap frames vidéo. Coût : la lecture attend ~2 s
-+  // de média bufferisé au démarrage/seek. Tap OFF → comportement upstream
-+  // strictement intact.
-+  if (sawtunaa_audio_tap_) {
++  // de média bufferisé au démarrage/seek. Tap OFF (switch OU callbacks
++  // embedder absents — gate 2 niveaux) → comportement upstream strictement
++  // intact.
++  if (SawtunaaTapConfigured()) {
 +    base::AutoLock auto_lock(lock_);
++    sawtunaa_tap_active_ = true;
 +    latency_hint_ = base::Milliseconds(2000);
 +    MEDIA_LOG(INFO, media_log_)
 +        << "[swtTAP] forcing decode-ahead latency hint = 2000ms (audio tap on)";
@@ -85,7 +120,7 @@ index 3e44dcff88cae..f76d88b0ab95b 100644
    // Always post |init_cb_| because |this| could be destroyed if initialization
    // failed.
    init_cb_ = base::BindPostTaskToCurrentDefault(std::move(init_cb));
-@@ -865,6 +927,14 @@ void AudioRendererImpl::SetLatencyHint(
+@@ -865,6 +948,14 @@ void AudioRendererImpl::SetLatencyHint(
      std::optional<base::TimeDelta> latency_hint) {
    base::AutoLock auto_lock(lock_);
  
@@ -93,49 +128,271 @@ index 3e44dcff88cae..f76d88b0ab95b 100644
 +  // budget (bloquant) du traitement ML — un hint applicatif plus court le
 +  // ferait fondre silencieusement (fuite audible), contrairement au tap vidéo
 +  // où un résultat en retard est simplement discardable. On l'ignore.
-+  if (sawtunaa_audio_tap_) {
++  if (SawtunaaTapConfigured()) {
 +    return;
 +  }
 +
    latency_hint_ = latency_hint;
  
    if (algorithm_) {
-@@ -1159,8 +1229,37 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
+@@ -996,6 +1087,11 @@ void AudioRendererImpl::DecodedAudioReady(
+     algorithm_->SetPreservesPitch(preserves_pitch_);
+     ConfigureChannelMask();
+ 
++    // [Browther/Sawtunaa] audio tap : les paramètres changent (layout/rate) →
++    // les buffers retenus et les réponses en vol de l'ancienne config sont
++    // invalides pour le nouvel algorithme.
++    SawtunaaResetOnFlush_Locked();
++
+     // Asynchronously reconfigure the sink with the new parameters.
+     {
+       base::AutoUnlock auto_unlock(lock_);
+@@ -1103,11 +1199,22 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
+   bool should_render_end_of_stream = false;
+   if (buffer->end_of_stream()) {
+     received_end_of_stream_ = true;
+-    algorithm_->MarkEndOfStream();
+ 
+-    // We received no audio to play before EOS, so enter the ended state.
+-    if (first_packet_timestamp_ == kNoTimestamp)
+-      should_render_end_of_stream = true;
++    // [Browther/Sawtunaa] audio tap : du PCM est encore en vol (pending ou
++    // batch inflight) → différer MarkEndOfStream jusqu'au retour du batch
++    // flush (OnSawtunaaBatchDone), sinon la queue STFT (~448 samples) et les
++    // buffers retenus seraient perdus. Le flush est déclenché ci-dessous.
++    if (sawtunaa_tap_active_ && !sawtunaa_tap_bypass_ &&
++        (!sawtunaa_pending_.empty() || sawtunaa_inflight_)) {
++      sawtunaa_eos_pending_ = true;
++      SawtunaaMaybeSendBatch_Locked();
++    } else {
++      algorithm_->MarkEndOfStream();
++
++      // We received no audio to play before EOS, so enter the ended state.
++      if (first_packet_timestamp_ == kNoTimestamp)
++        should_render_end_of_stream = true;
++    }
+   } else {
+     if (buffer->IsBitstreamFormat() &&
+         (state_ == kPlaying || state_ == kReinitializingSink)) {
+@@ -1159,8 +1266,27 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
      }
  #endif
  
 -    if (state_ != kUninitialized)
+-      algorithm_->EnqueueBuffer(std::move(buffer));
 +    if (state_ != kUninitialized) {
 +      // [Browther/Sawtunaa] audio tap V2 : LE point d'insertion. Goulot unique
 +      // où tout le PCM décodé (MSE via buffer_converter_, src= direct) entre
 +      // dans le buffer d'avance (~2 s, hint forcé à l'Initialize) — le sink ne
-+      // consomme que via algorithm_->FillBuffer() (Render, thread audio), donc
-+      // traiter ici = toujours avant consommation. Bitstream (AC3/DTS
-+      // passthrough) : PCM inaccessible → laisser passer (fallback tabCapture,
-+      // étape 4) avec log one-shot.
-+      if (sawtunaa_audio_tap_ && buffer->frame_count() > 0) {
-+        if (buffer->IsBitstreamFormat()) {
-+          static bool bitstream_logged = false;
-+          if (!bitstream_logged) {
-+            bitstream_logged = true;
-+            MEDIA_LOG(INFO, media_log_)
-+                << "[swtTAP] bitstream format: passthrough (tap inactif)";
-+          }
-+        } else {
-+          buffer = SawtunaaTapProcessBuffer(buffer);
-+          static int swt_tap_n = 0;
-+          if ((swt_tap_n++ % 100) == 0) {
-+            MEDIA_LOG(INFO, media_log_)
-+                << "[swtTAP] processed ts="
-+                << buffer->timestamp().InMilliseconds() << "ms lead="
-+                << (algorithm_->BufferedFrames() * static_cast<int64_t>(1000) /
-+                    std::max(1, audio_parameters_.sample_rate()))
-+                << "ms frames=" << buffer->frame_count();
-+          }
++      // consomme que via algorithm_->FillBuffer() (Render, thread audio).
++      // Buffer éligible → RETENU (pas enqueued) et envoyé par batchs au
++      // traitement natif ; seul le PCM TRAITÉ entre dans l'algorithme
++      // (OnSawtunaaBatchDone). Non éligible (bitstream, >2 canaux, bypass
++      // service) → chemin upstream intact.
++      if (SawtunaaTapEligible_Locked(*buffer)) {
++        if (!sawtunaa_out_ts_valid_) {
++          sawtunaa_out_ts_ = buffer->timestamp();
++          sawtunaa_out_ts_valid_ = true;
 +        }
++        sawtunaa_pending_frames_ += buffer->frame_count();
++        sawtunaa_pending_.push_back(std::move(buffer));
++        SawtunaaMaybeSendBatch_Locked();
++      } else {
++        algorithm_->EnqueueBuffer(std::move(buffer));
 +      }
-       algorithm_->EnqueueBuffer(std::move(buffer));
 +    }
    }
  
    const size_t memory_usage = algorithm_->GetMemoryUsage();
+@@ -1200,6 +1326,175 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
+   return false;
+ }
+ 
++bool AudioRendererImpl::SawtunaaTapEligible_Locked(
++    const AudioBuffer& buffer) const {
++  lock_.AssertAcquired();
++  if (!sawtunaa_tap_active_ || sawtunaa_tap_bypass_) {
++    return false;
++  }
++  // Bitstream (AC3/DTS passthrough) : PCM inaccessible. > 2 canaux : non géré
++  // V1. Mismatch de layout avec les paramètres courants : flux exotique →
++  // upstream. Tous ces cas = passthrough silencieux du buffer.
++  return !buffer.IsBitstreamFormat() && buffer.frame_count() > 0 &&
++         buffer.channel_count() == audio_parameters_.channels() &&
++         audio_parameters_.channels() <= 2 &&
++         buffer.sample_rate() == audio_parameters_.sample_rate();
++}
++
++void AudioRendererImpl::SawtunaaMaybeSendBatch_Locked() {
++  lock_.AssertAcquired();
++  if (!sawtunaa_tap_active_ || sawtunaa_tap_bypass_ || sawtunaa_inflight_) {
++    return;
++  }
++  const bool flush = sawtunaa_eos_pending_;
++  if (!flush && sawtunaa_pending_frames_ < kSawtunaaBatchFrames) {
++    return;
++  }
++  if (sawtunaa_pending_.empty() && !flush) {
++    return;
++  }
++
++  const int channels = audio_parameters_.channels();
++  const int sample_rate = audio_parameters_.sample_rate();
++  const ChannelLayout layout = audio_parameters_.channel_layout();
++  const int frames = sawtunaa_pending_frames_;
++  std::vector<scoped_refptr<AudioBuffer>> originals =
++      std::move(sawtunaa_pending_);
++  sawtunaa_pending_.clear();
++  sawtunaa_pending_frames_ = 0;
++
++  std::vector<float> planar =
++      SawtunaaBuffersToPlanar(originals, channels, frames);
++
++  sawtunaa_inflight_ = true;
++  static int swt_batch_n = 0;
++  if ((swt_batch_n++ % 20) == 0) {
++    MEDIA_LOG(INFO, media_log_)
++        << "[swtTAP] batch sent frames=" << frames << " flush=" << flush
++        << " lead="
++        << (algorithm_->BufferedFrames() * static_cast<int64_t>(1000) /
++            std::max(1, sample_rate))
++        << "ms";
++  }
++
++  // Réponse re-postée sur le thread média. Les originaux voyagent dans le
++  // bind (fallback passthrough si le service décline).
++  auto done = base::BindPostTaskToCurrentDefault(base::BindOnce(
++      &AudioRendererImpl::OnSawtunaaBatchDone, weak_factory_.GetWeakPtr(),
++      sawtunaa_generation_, std::move(originals), flush, channels, sample_rate,
++      layout));
++  {
++    // L'appel embedder ne fait qu'un PostTask interne, mais pas de raison de
++    // le faire sous notre lock.
++    base::AutoUnlock auto_unlock(lock_);
++    sawtunaa_tap_process_.Run(
++        static_cast<int64_t>(player_id_.GetUnsafeValue()), std::move(planar),
++        frames, channels, sample_rate, flush, std::move(done));
++  }
++}
++
++void AudioRendererImpl::OnSawtunaaBatchDone(
++    int generation,
++    std::vector<scoped_refptr<AudioBuffer>> originals,
++    bool flush,
++    int channels,
++    int sample_rate,
++    ChannelLayout layout,
++    bool ok,
++    std::vector<float> processed) {
++  DCHECK(task_runner_->RunsTasksInCurrentSequence());
++  base::AutoLock auto_lock(lock_);
++  sawtunaa_inflight_ = false;
++  if (generation != sawtunaa_generation_ || state_ == kUninitialized ||
++      state_ == kFlushing || state_ == kFlushed) {
++    // Seek/flush/teardown entre-temps : résultat obsolète.
++    return;
++  }
++
++  if (!ok) {
++    // Service indisponible (modèle absent, rate non géré, erreur ORT) →
++    // PASSTHROUGH : les originaux entrent tels quels, et le flux entier passe
++    // en bypass (plus de rétention — évite le ping-pong par batch).
++    sawtunaa_tap_bypass_ = true;
++    MEDIA_LOG(INFO, media_log_)
++        << "[swtTAP] service declined batch (rate=" << sample_rate
++        << ") -> passthrough for this stream";
++    for (auto& buffer : originals) {
++      algorithm_->EnqueueBuffer(std::move(buffer));
++    }
++    for (auto& buffer : sawtunaa_pending_) {
++      algorithm_->EnqueueBuffer(std::move(buffer));
++    }
++    sawtunaa_pending_.clear();
++    sawtunaa_pending_frames_ = 0;
++  } else if (!processed.empty() &&
++             processed.size() % static_cast<size_t>(channels) == 0) {
++    // Reconstruction : un AudioBuffer PlanarF32 unique, timestamps continus
++    // depuis le premier buffer retenu du flux (la sortie du traitement est
++    // alignée échantillon-près sur l'entrée).
++    const int frames = static_cast<int>(processed.size()) / channels;
++    std::unique_ptr<AudioBus> bus = AudioBus::Create(channels, frames);
++    auto in = base::span(processed);
++    for (int ch = 0; ch < channels; ++ch) {
++      std::ranges::copy(in.subspan(static_cast<size_t>(ch) * frames,
++                                   static_cast<size_t>(frames)),
++                        bus->AllChannels()[ch].begin());
++    }
++    scoped_refptr<AudioBuffer> out =
++        AudioBuffer::CopyFrom(layout, sample_rate, sawtunaa_out_ts_, bus.get());
++    sawtunaa_out_ts_ +=
++        AudioTimestampHelper::FramesToTime(frames, sample_rate);
++    algorithm_->EnqueueBuffer(std::move(out));
++    VLOG(1) << "[swtTAP] batch done frames=" << frames
++            << " out_ts=" << sawtunaa_out_ts_.InMilliseconds() << "ms";
++  }
++
++  // EOS différé : le flush est revenu, la queue STFT est vidée → on peut
++  // marquer la fin de flux.
++  if (flush && sawtunaa_eos_pending_) {
++    sawtunaa_eos_pending_ = false;
++    algorithm_->MarkEndOfStream();
++    if (first_packet_timestamp_ == kNoTimestamp &&
++        (state_ == kPlaying || state_ == kReinitializingSink)) {
++      task_runner_->PostTask(
++          FROM_HERE, base::BindOnce(&AudioRendererImpl::OnPlaybackEnded,
++                                    weak_factory_.GetWeakPtr()));
++    }
++  }
++
++  // Transitions de buffering (jumeau de la fin de HandleDecodedBuffer_Locked)
++  // + batch suivant si le pending a suffisamment regonflé + réamorçage des
++  // lectures (CanRead a pu être suspendu par le cap pending).
++  if (state_ == kPlaying || state_ == kReinitializingSink) {
++    if (received_end_of_stream_ || algorithm_->IsQueueAdequateForPlayback()) {
++      if (buffering_state_ == BUFFERING_HAVE_NOTHING) {
++        SetBufferingState_Locked(BUFFERING_HAVE_ENOUGH);
++      }
++    }
++  }
++  SawtunaaMaybeSendBatch_Locked();
++  AttemptRead_Locked();
++}
++
++void AudioRendererImpl::SawtunaaResetOnFlush_Locked() {
++  lock_.AssertAcquired();
++  if (!sawtunaa_tap_active_) {
++    return;
++  }
++  ++sawtunaa_generation_;
++  sawtunaa_pending_.clear();
++  sawtunaa_pending_frames_ = 0;
++  sawtunaa_out_ts_valid_ = false;
++  sawtunaa_eos_pending_ = false;
++  // Reset des états du flux côté service (GRU/rings/overlap) — un batch
++  // obsolète encore en vol côté browser sera traité AVANT ce reset (même
++  // séquence ordonnée) puis sa réponse droppée ici par la génération.
++  if (sawtunaa_tap_control_) {
++    sawtunaa_tap_control_.Run(
++        static_cast<int64_t>(player_id_.GetUnsafeValue()), /*destroy=*/false);
++  }
++}
++
+ void AudioRendererImpl::AttemptRead() {
+   base::AutoLock auto_lock(lock_);
+   AttemptRead_Locked();
+@@ -1237,6 +1532,15 @@ bool AudioRendererImpl::CanRead_Locked() {
+       break;
+   }
+ 
++  // [Browther/Sawtunaa] audio tap : les buffers RETENUS (pending) échappent à
++  // la régulation IsQueueFull (ils ne sont pas dans l'algorithme) → borne
++  // explicite, sinon la lecture amont ne s'arrête jamais quand le traitement
++  // prend du retard. Réamorcé par AttemptRead_Locked à chaque retour de batch.
++  if (sawtunaa_tap_active_ && !sawtunaa_tap_bypass_ &&
++      sawtunaa_pending_frames_ > kSawtunaaMaxPendingFrames) {
++    return false;
++  }
++
+   return !pending_read_ && !received_end_of_stream_ &&
+          !algorithm_->IsQueueFull();
+ }

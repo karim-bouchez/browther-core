@@ -154,7 +154,9 @@ bool SawtunaaAudioService::ProcessBatch(int64_t stream_id,
                                         int sample_rate,
                                         bool flush,
                                         std::vector<float>* out) {
-  if (frames <= 0 || channels < 1 || channels > Nsnet2Stream::kMaxChannels) {
+  // frames == 0 accepté uniquement en flush (drain de fin de flux).
+  if (frames < 0 || (frames == 0 && !flush) || channels < 1 ||
+      channels > Nsnet2Stream::kMaxChannels) {
     return false;
   }
   // V1 : 48 kHz uniquement (modèle entraîné à 48 k). Les flux 44.1 k restent

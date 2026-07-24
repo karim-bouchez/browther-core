@@ -1,5 +1,5 @@
 diff --git a/content/public/renderer/content_renderer_client.h b/content/public/renderer/content_renderer_client.h
-index 36b734254b0c5..6fd73f12269f9 100644
+index 36b734254b0c5..b0de1099947e3 100644
 --- a/content/public/renderer/content_renderer_client.h
 +++ b/content/public/renderer/content_renderer_client.h
 @@ -14,10 +14,12 @@
@@ -15,7 +15,7 @@ index 36b734254b0c5..6fd73f12269f9 100644
  #include "build/build_config.h"
  #include "build/chromecast_buildflags.h"
  #include "content/common/content_export.h"
-@@ -197,6 +199,26 @@ class CONTENT_EXPORT ContentRendererClient {
+@@ -197,6 +199,61 @@ class CONTENT_EXPORT ContentRendererClient {
        const GURL& url,
        scoped_refptr<base::SequencedTaskRunner> task_runner);
  
@@ -38,6 +38,41 @@ index 36b734254b0c5..6fd73f12269f9 100644
 +  using VideoLeadFrameSink = base::RepeatingCallback<
 +      void(int64_t, base::TimeDelta, const LeadFrameReadbackCB&)>;
 +  virtual VideoLeadFrameSink GetVideoLeadFrameSink(RenderFrame* render_frame);
++
++  // [Browther/Sawtunaa] audio tap V2 (native NSNet2 music removal). The media
++  // pipeline (AudioRendererImpl) hands decoded PCM batches to the embedder
++  // BEFORE they enter the playback buffer and swaps in the processed result
++  // (decode-ahead budget ~2 s). POD types only, same layering rule as the
++  // video sink above. Null callbacks (default) = tap disabled.
++  // Process reply: (ok — false means the caller must pass the ORIGINAL
++  // buffers through (model missing/unsupported stream/error), processed PCM,
++  // planar float32, |channels| blocks; may be shorter than the input —
++  // structural STFT retention — or longer on flush).
++  using SawtunaaAudioTapDoneCB =
++      base::OnceCallback<void(bool, std::vector<float>)>;
++  // (stream_id — stable per media player, planar PCM, frames, channels,
++  //  sample_rate, flush — end-of-stream/config-change: drain the tail, done).
++  // Callable from ANY thread (the embedder hops internally); |done| must be
++  // callable from any thread too (callers wrap with BindPostTask).
++  using SawtunaaAudioTapProcessCB =
++      base::RepeatingCallback<void(int64_t,
++                                   std::vector<float>,
++                                   int,
++                                   int,
++                                   int,
++                                   bool,
++                                   SawtunaaAudioTapDoneCB)>;
++  // (stream_id, destroy — true: player teardown, false: seek/flush reset).
++  using SawtunaaAudioTapControlCB = base::RepeatingCallback<void(int64_t, bool)>;
++  struct CONTENT_EXPORT SawtunaaAudioTap {
++    SawtunaaAudioTap();
++    SawtunaaAudioTap(SawtunaaAudioTap&&);
++    SawtunaaAudioTap& operator=(SawtunaaAudioTap&&);
++    ~SawtunaaAudioTap();
++    SawtunaaAudioTapProcessCB process;
++    SawtunaaAudioTapControlCB control;
++  };
++  virtual SawtunaaAudioTap GetSawtunaaAudioTap(RenderFrame* render_frame);
 +
    // Allows the embedder to provide a WebSocketHandshakeThrottleProvider. If it
    // returns NULL then none will be used.

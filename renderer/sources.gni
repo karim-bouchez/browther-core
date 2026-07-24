@@ -27,6 +27,9 @@ brave_chrome_renderer_deps = [
   "//brave/components/brave_search/common",
   "//brave/components/brave_search/renderer",
   "//brave/components/basarunaa/renderer",
+  # Browther: Sawtunaa audio tap V2 (client Mojo desktop ; le RFO Android du
+  # même target reste instancié Android-only).
+  "//brave/components/sawtunaa/renderer",
   "//brave/components/brave_shields/core/common",
   "//brave/components/brave_vpn/common/buildflags",
   "//brave/components/brave_wallet/common/buildflags",
@@ -79,9 +82,6 @@ if (enable_brave_wallet) {
 if (is_android) {
   brave_chrome_renderer_deps += [
     "//brave/components/brave_mobile_subscription/renderer/android",
-    # Browther: Sawtunaa Voie B (Jalon 2.B.4) — RFO Android-only qui ping le
-    # browser-side TabHelper via Mojo au commit du main frame.
-    "//brave/components/sawtunaa/renderer",
     # Browther: Basarunaa Android Jalon 2.F — V8 binding + RFO Android.
     "//brave/components/basarunaa/renderer:renderer_android",
   ]

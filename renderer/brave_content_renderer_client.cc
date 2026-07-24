@@ -13,6 +13,7 @@
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/basarunaa/renderer/basarunaa_render_frame_observer.h"
 #include "brave/components/constants/brave_switches.h"
+#include "brave/components/sawtunaa/renderer/sawtunaa_audio_tap_client.h"
 #include "brave/components/brave_search/common/brave_search_utils.h"
 #if BUILDFLAG(IS_ANDROID)
 // Browther: Sawtunaa Voie B (Jalon 2.B.4) — Android-only RFO.
@@ -188,6 +189,13 @@ void BraveContentRendererClient::RenderFrameCreated(
   // Mojo+BigBuffer ne crashe pas sous stress depuis un renderer C++.
   new basarunaa::BasarunaaRenderFrameObserver(render_frame);
 
+#if !BUILDFLAG(IS_ANDROID)
+  // [Browther/Sawtunaa] audio tap V2 : client Mojo AudioTapProcessor du frame
+  // (pont media thread → browser NSNet2 natif). Gate d'usage dans
+  // GetSawtunaaAudioTap (switch --sawtunaa-audio-tap).
+  new sawtunaa::SawtunaaAudioTapClient(render_frame);
+#endif
+
 #if BUILDFLAG(IS_ANDROID)
   // Browther: Sawtunaa Voie B (Jalon 2.B.4) — RFO C++ qui envoie un ping
   // `Sawtunaa.LogJs("hello from <url>")` au browser à chaque
@@ -296,6 +304,28 @@ BraveContentRendererClient::GetVideoLeadFrameSink(
     return {};
   }
   return observer->GetVideoLeadFrameSink();
+}
+
+// [Browther/Sawtunaa] audio tap V2 : relie AudioRendererImpl (media/) au
+// SawtunaaAudioTapClient de ce frame (créé dans RenderFrameCreated). Gating
+// 2 niveaux (leçon TODO § 2026-07-07 pt 3) : sans le switch, on ne fournit
+// AUCUN callback → le pipeline audio reste strictement upstream (pas de hint
+// 2 s, pas de rétention de buffers) pour tous les flux de ce renderer.
+content::ContentRendererClient::SawtunaaAudioTap
+BraveContentRendererClient::GetSawtunaaAudioTap(
+    content::RenderFrame* render_frame) {
+  if (!base::CommandLine::ForCurrentProcess()->HasSwitch(
+          switches::kSawtunaaAudioTap)) {
+    return {};
+  }
+  auto* client = sawtunaa::SawtunaaAudioTapClient::Get(render_frame);
+  if (!client) {
+    return {};
+  }
+  content::ContentRendererClient::SawtunaaAudioTap tap;
+  tap.process = client->GetProcessCallback();
+  tap.control = client->GetControlCallback();
+  return tap;
 }
 
 void BraveContentRendererClient::RunScriptsAtDocumentStart(

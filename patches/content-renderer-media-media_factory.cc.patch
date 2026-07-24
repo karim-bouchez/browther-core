@@ -1,8 +1,8 @@
 diff --git a/content/renderer/media/media_factory.cc b/content/renderer/media/media_factory.cc
-index 123ac44c61606..073da5ba953fd 100644
+index 123ac44c61606..3d1d37d733226 100644
 --- a/content/renderer/media/media_factory.cc
 +++ b/content/renderer/media/media_factory.cc
-@@ -479,6 +479,12 @@ std::unique_ptr<blink::WebMediaPlayer> MediaFactory::CreateMediaPlayer(
+@@ -479,6 +479,17 @@ std::unique_ptr<blink::WebMediaPlayer> MediaFactory::CreateMediaPlayer(
              blink::TaskType::kNetworkingUnfreezable));
    }
  
@@ -12,16 +12,22 @@ index 123ac44c61606..073da5ba953fd 100644
 +  auto video_lead_frame_sink =
 +      GetContentClient()->renderer()->GetVideoLeadFrameSink(render_frame_);
 +
++  // [Browther/Sawtunaa] audio tap V2 : callbacks de traitement NSNet2 natif
++  // fournis par l'embedder. Null par défaut (Chromium en amont).
++  auto sawtunaa_audio_tap =
++      GetContentClient()->renderer()->GetSawtunaaAudioTap(render_frame_);
++
    return media_player_builder_->Build(
        web_frame, client, encrypted_client, delegate,
        std::move(factory_selector), std::move(submitter), std::move(media_log),
-@@ -503,7 +509,8 @@ std::unique_ptr<blink::WebMediaPlayer> MediaFactory::CreateMediaPlayer(
+@@ -503,7 +514,9 @@ std::unique_ptr<blink::WebMediaPlayer> MediaFactory::CreateMediaPlayer(
        render_frame_->GetRenderFrameMediaPlaybackOptions()
            .is_background_video_track_optimization_supported,
        std::move(demuxer_override),
 -      blink::Platform::Current()->GetBrowserInterfaceBroker());
 +      blink::Platform::Current()->GetBrowserInterfaceBroker(),
-+      std::move(video_lead_frame_sink));
++      std::move(video_lead_frame_sink), std::move(sawtunaa_audio_tap.process),
++      std::move(sawtunaa_audio_tap.control));
  }
  
  blink::WebEncryptedMediaClient* MediaFactory::EncryptedMediaClient() {

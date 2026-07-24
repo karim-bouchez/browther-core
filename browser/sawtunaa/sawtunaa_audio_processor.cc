@@ -82,7 +82,9 @@ void SawtunaaAudioProcessor::ProcessBatch(int64_t stream_id,
   const size_t expected_floats =
       static_cast<size_t>(std::max(0, frames)) *
       static_cast<size_t>(std::max(0, channels));
-  if (frames <= 0 || channels <= 0 ||
+  // frames == 0 accepté UNIQUEMENT en flush (drain de la queue STFT en fin
+  // de flux, batch vide).
+  if (frames < 0 || (frames == 0 && !flush) || channels <= 0 ||
       pcm_planar.size() != expected_floats * sizeof(float)) {
     std::move(callback).Run(false, mojo_base::BigBuffer());
     return;

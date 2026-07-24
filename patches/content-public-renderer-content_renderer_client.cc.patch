@@ -1,14 +1,28 @@
 diff --git a/content/public/renderer/content_renderer_client.cc b/content/public/renderer/content_renderer_client.cc
-index c0abf83fe2cee..4dcf7c9febb1d 100644
+index c0abf83fe2cee..09341ecdd6aa4 100644
 --- a/content/public/renderer/content_renderer_client.cc
 +++ b/content/public/renderer/content_renderer_client.cc
-@@ -102,6 +102,12 @@ std::unique_ptr<media::Demuxer> ContentRendererClient::OverrideDemuxerForUrl(
+@@ -102,6 +102,26 @@ std::unique_ptr<media::Demuxer> ContentRendererClient::OverrideDemuxerForUrl(
    return nullptr;
  }
  
 +// [Browther/Basarunaa] decode-ahead. Default: no sink (embedder opts in).
 +ContentRendererClient::VideoLeadFrameSink
 +ContentRendererClient::GetVideoLeadFrameSink(RenderFrame* render_frame) {
++  return {};
++}
++
++// [Browther/Sawtunaa] audio tap V2. Default: disabled (embedder opts in).
++ContentRendererClient::SawtunaaAudioTap::SawtunaaAudioTap() = default;
++ContentRendererClient::SawtunaaAudioTap::SawtunaaAudioTap(SawtunaaAudioTap&&) =
++    default;
++ContentRendererClient::SawtunaaAudioTap&
++ContentRendererClient::SawtunaaAudioTap::operator=(SawtunaaAudioTap&&) =
++    default;
++ContentRendererClient::SawtunaaAudioTap::~SawtunaaAudioTap() = default;
++
++ContentRendererClient::SawtunaaAudioTap
++ContentRendererClient::GetSawtunaaAudioTap(RenderFrame* render_frame) {
 +  return {};
 +}
 +

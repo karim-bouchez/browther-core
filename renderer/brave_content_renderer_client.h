@@ -61,6 +61,12 @@ class BraveContentRendererClient : public ChromeContentRendererClient {
   content::ContentRendererClient::VideoLeadFrameSink GetVideoLeadFrameSink(
       content::RenderFrame* render_frame) override;
 
+  // [Browther/Sawtunaa] audio tap V2 : fournit les callbacks de traitement
+  // NSNet2 natif au pipeline média, bindés sur le SawtunaaAudioTapClient de
+  // ce frame. Gate : switch --sawtunaa-audio-tap (posé par le browser).
+  content::ContentRendererClient::SawtunaaAudioTap GetSawtunaaAudioTap(
+      content::RenderFrame* render_frame) override;
+
   bool IsOnionAllowed() const;
 
  private:
