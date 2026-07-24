@@ -1117,6 +1117,12 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     // Switches to pass to render processes.
     static const char* const kSwitchNames[] = {
         translate::switches::kBraveTranslateUseGoogleEndpoint,
+        // [Browther/Sawtunaa] audio tap V2 — SPIKE : passthrough dev (switch
+        // passé manuellement au lancement du browser). L'injection automatique
+        // sur pref kSawtunaaEnabled viendra avec la bascule tabCapture
+        // (étape 4) — l'activer maintenant ferait doubler le traitement avec
+        // l'extension tabCapture encore active. Cf. docs/sawtunaa/AV_SYNC.md.
+        switches::kSawtunaaAudioTap,
     };
     command_line->CopySwitchesFrom(browser_command_line, kSwitchNames);
 

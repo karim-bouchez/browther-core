@@ -1,0 +1,135 @@
+diff --git a/media/renderers/audio_renderer_impl.cc b/media/renderers/audio_renderer_impl.cc
+index 3e44dcff88cae..8b36dbb7d5325 100644
+--- a/media/renderers/audio_renderer_impl.cc
++++ b/media/renderers/audio_renderer_impl.cc
+@@ -44,6 +44,45 @@
+ 
+ namespace media {
+ 
++namespace {
++
++// [Browther/Sawtunaa] Audio tap V2 (decode-ahead natif, jumeau du tap vidéo
++// Basarunaa — cf. browther-private docs/sawtunaa/AV_SYNC.md § Option B).
++// Quand le switch est présent (posé par le browser, jamais par défaut),
++// AudioRendererImpl force un latency hint de 2 s (avance de PCM décodé dans
++// AudioRendererAlgorithm) et traite le PCM in-place dans ce buffer d'avance
++// AVANT consommation par le sink. Littéral dupliqué de
++// brave/components/constants/brave_switches.h (kSawtunaaAudioTap) : media/ ne
++// peut pas dépendre de brave/ — garder les deux en phase.
++constexpr char kSawtunaaAudioTapSwitch[] = "sawtunaa-audio-tap";
++
++bool IsSawtunaaAudioTapEnabled() {
++  return base::CommandLine::ForCurrentProcess()->HasSwitch(
++      kSawtunaaAudioTapSwitch);
++}
++
++// [Browther/Sawtunaa] SPIKE (étape 1) : traitement trivial -6 dB qui prouve le
++// point d'insertion — remplacé par NSNet2 natif en batch (étape 2). Le buffer
++// est converti en float planar via ReadFrames (gère TOUS les formats sources,
++// S16/S32/F32/planar, et la vue post-TrimStart), traité, puis RECRÉÉ : on ne
++// mute pas l'original (partagé avec le callback de transcription live-caption).
++scoped_refptr<AudioBuffer> SawtunaaTapProcessBuffer(
++    const scoped_refptr<AudioBuffer>& buffer) {
++  std::unique_ptr<AudioBus> bus =
++      AudioBus::Create(buffer->channel_count(), buffer->frame_count());
++  buffer->ReadFrames(buffer->frame_count(), 0, 0, bus.get());
++  constexpr float kSpikeGain = 0.501187f;  // -6 dB
++  for (AudioBus::Channel channel : bus->AllChannels()) {
++    for (float& sample : channel) {
++      sample *= kSpikeGain;
++    }
++  }
++  return AudioBuffer::CopyFrom(buffer->channel_layout(), buffer->sample_rate(),
++                               buffer->timestamp(), bus.get());
++}
++
++}  // namespace
++
+ AudioRendererImpl::AudioRendererImpl(
+     const scoped_refptr<base::SequencedTaskRunner>& task_runner,
+     scoped_refptr<AudioRendererSink> sink,
+@@ -52,6 +91,7 @@ AudioRendererImpl::AudioRendererImpl(
+     MediaPlayerLoggingID media_player_id,
+     SpeechRecognitionClient* speech_recognition_client)
+     : task_runner_(task_runner),
++      sawtunaa_audio_tap_(IsSawtunaaAudioTapEnabled()),
+       expecting_config_changes_(false),
+       sink_(std::move(sink)),
+       media_log_(media_log),
+@@ -403,6 +443,22 @@ void AudioRendererImpl::Initialize(DemuxerStream* stream,
+   demuxer_stream_ = stream;
+   client_ = client;
+ 
++  // [Browther/Sawtunaa] audio tap decode-ahead : force une avance de ~2 s de
++  // PCM décodé dans AudioRendererAlgorithm (jumeau du forçage latency_hint_ du
++  // tap vidéo Basarunaa) = budget de traitement batch NSNet2 — le PCM doit être
++  // prêt AVANT consommation par le sink. Propagé par les chemins upstream
++  // existants (OnAudioDecoderStreamInitialized + réinit sink). Le cap upstream
++  // kMaxCapacity (audio_renderer_algorithm.cc) = 3 s ⩾ hint : rien d'autre à
++  // toucher, contrairement au cap frames vidéo. Coût : la lecture attend ~2 s
++  // de média bufferisé au démarrage/seek. Tap OFF → comportement upstream
++  // strictement intact.
++  if (sawtunaa_audio_tap_) {
++    base::AutoLock auto_lock(lock_);
++    latency_hint_ = base::Milliseconds(2000);
++    MEDIA_LOG(INFO, media_log_)
++        << "[swtTAP] forcing decode-ahead latency hint = 2000ms (audio tap on)";
++  }
++
+   // Always post |init_cb_| because |this| could be destroyed if initialization
+   // failed.
+   init_cb_ = base::BindPostTaskToCurrentDefault(std::move(init_cb));
+@@ -865,6 +921,14 @@ void AudioRendererImpl::SetLatencyHint(
+     std::optional<base::TimeDelta> latency_hint) {
+   base::AutoLock auto_lock(lock_);
+ 
++  // [Browther/Sawtunaa] audio tap ON : le hint 2 s posé à l'Initialize est le
++  // budget (bloquant) du traitement ML — un hint applicatif plus court le
++  // ferait fondre silencieusement (fuite audible), contrairement au tap vidéo
++  // où un résultat en retard est simplement discardable. On l'ignore.
++  if (sawtunaa_audio_tap_) {
++    return;
++  }
++
+   latency_hint_ = latency_hint;
+ 
+   if (algorithm_) {
+@@ -1159,8 +1223,37 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
+     }
+ #endif
+ 
+-    if (state_ != kUninitialized)
++    if (state_ != kUninitialized) {
++      // [Browther/Sawtunaa] audio tap V2 : LE point d'insertion. Goulot unique
++      // où tout le PCM décodé (MSE via buffer_converter_, src= direct) entre
++      // dans le buffer d'avance (~2 s, hint forcé à l'Initialize) — le sink ne
++      // consomme que via algorithm_->FillBuffer() (Render, thread audio), donc
++      // traiter ici = toujours avant consommation. Bitstream (AC3/DTS
++      // passthrough) : PCM inaccessible → laisser passer (fallback tabCapture,
++      // étape 4) avec log one-shot.
++      if (sawtunaa_audio_tap_ && buffer->frame_count() > 0) {
++        if (buffer->IsBitstreamFormat()) {
++          static bool bitstream_logged = false;
++          if (!bitstream_logged) {
++            bitstream_logged = true;
++            MEDIA_LOG(INFO, media_log_)
++                << "[swtTAP] bitstream format: passthrough (tap inactif)";
++          }
++        } else {
++          buffer = SawtunaaTapProcessBuffer(buffer);
++          static int swt_tap_n = 0;
++          if ((swt_tap_n++ % 100) == 0) {
++            MEDIA_LOG(INFO, media_log_)
++                << "[swtTAP] processed ts="
++                << buffer->timestamp().InMilliseconds() << "ms lead="
++                << (algorithm_->BufferedFrames() * static_cast<int64_t>(1000) /
++                    std::max(1, audio_parameters_.sample_rate()))
++                << "ms frames=" << buffer->frame_count();
++          }
++        }
++      }
+       algorithm_->EnqueueBuffer(std::move(buffer));
++    }
+   }
+ 
+   const size_t memory_usage = algorithm_->GetMemoryUsage();

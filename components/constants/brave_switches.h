@@ -28,6 +28,16 @@ inline constexpr char kBasarunaaVideoTap[] = "basarunaa-video-tap";
 // effet au prochain démarrage du service audio. Cf. docs/sawtunaa/AV_SYNC.md.
 inline constexpr char kSawtunaaAvSyncDelayMs[] = "sawtunaa-av-sync-delay-ms";
 
+// [Browther/Sawtunaa] Audio tap V2 (decode-ahead natif, jumeau du tap vidéo
+// Basarunaa) : AudioRendererImpl force un latency hint de 2 s et traite le
+// PCM décodé dans le buffer d'avance AVANT consommation par le sink
+// (media/renderers/audio_renderer_impl.cc, littéral dupliqué — media/ ne peut
+// pas inclure brave/). SPIKE étape 1 : passthrough dev uniquement (switch
+// passé manuellement au lancement, copié aux renderers) ; l'injection
+// automatique quand kSawtunaaEnabled est ON viendra avec la bascule tabCapture
+// (étape 4). Cf. docs/sawtunaa/AV_SYNC.md § Option B.
+inline constexpr char kSawtunaaAudioTap[] = "sawtunaa-audio-tap";
+
 // Use custom update interval in sec
 inline constexpr char kComponentUpdateIntervalInSec[] =
     "component-update-interval-in-sec";
