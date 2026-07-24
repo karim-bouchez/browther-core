@@ -1,8 +1,8 @@
 diff --git a/media/renderers/audio_renderer_impl.cc b/media/renderers/audio_renderer_impl.cc
-index 3e44dcff88cae..8b36dbb7d5325 100644
+index 3e44dcff88cae..f76d88b0ab95b 100644
 --- a/media/renderers/audio_renderer_impl.cc
 +++ b/media/renderers/audio_renderer_impl.cc
-@@ -44,6 +44,45 @@
+@@ -44,6 +44,51 @@
  
  namespace media {
  
@@ -23,20 +23,26 @@ index 3e44dcff88cae..8b36dbb7d5325 100644
 +      kSawtunaaAudioTapSwitch);
 +}
 +
-+// [Browther/Sawtunaa] SPIKE (étape 1) : traitement trivial -6 dB qui prouve le
-+// point d'insertion — remplacé par NSNet2 natif en batch (étape 2). Le buffer
-+// est converti en float planar via ReadFrames (gère TOUS les formats sources,
-+// S16/S32/F32/planar, et la vue post-TrimStart), traité, puis RECRÉÉ : on ne
-+// mute pas l'original (partagé avec le callback de transcription live-caption).
++// [Browther/Sawtunaa] SPIKE (étape 1) : traitement trivial qui prouve le point
++// d'insertion — remplacé par NSNet2 natif en batch (étape 2). Mute alterné
++// calé sur le TEMPS MÉDIA (1 s de son / 1 s de silence) : validation à
++// l'oreille sans ambiguïté, et prouve au passage que le buffer traité porte le
++// bon timestamp. Le buffer est converti en float planar via ReadFrames (gère
++// TOUS les formats sources, S16/S32/F32/planar, et la vue post-TrimStart),
++// traité, puis RECRÉÉ : on ne mute pas l'original (partagé avec le callback de
++// transcription live-caption).
 +scoped_refptr<AudioBuffer> SawtunaaTapProcessBuffer(
 +    const scoped_refptr<AudioBuffer>& buffer) {
 +  std::unique_ptr<AudioBus> bus =
 +      AudioBus::Create(buffer->channel_count(), buffer->frame_count());
 +  buffer->ReadFrames(buffer->frame_count(), 0, 0, bus.get());
-+  constexpr float kSpikeGain = 0.501187f;  // -6 dB
++  // Secondes médias impaires -> silence (granularité = 1 buffer ~20 ms, la
++  // frontière peut baver d'un buffer : sans importance pour le spike).
++  const bool mute_this_second = (buffer->timestamp().InSeconds() % 2) == 1;
++  const float gain = mute_this_second ? 0.0f : 1.0f;
 +  for (AudioBus::Channel channel : bus->AllChannels()) {
 +    for (float& sample : channel) {
-+      sample *= kSpikeGain;
++      sample *= gain;
 +    }
 +  }
 +  return AudioBuffer::CopyFrom(buffer->channel_layout(), buffer->sample_rate(),
@@ -48,7 +54,7 @@ index 3e44dcff88cae..8b36dbb7d5325 100644
  AudioRendererImpl::AudioRendererImpl(
      const scoped_refptr<base::SequencedTaskRunner>& task_runner,
      scoped_refptr<AudioRendererSink> sink,
-@@ -52,6 +91,7 @@ AudioRendererImpl::AudioRendererImpl(
+@@ -52,6 +97,7 @@ AudioRendererImpl::AudioRendererImpl(
      MediaPlayerLoggingID media_player_id,
      SpeechRecognitionClient* speech_recognition_client)
      : task_runner_(task_runner),
@@ -56,7 +62,7 @@ index 3e44dcff88cae..8b36dbb7d5325 100644
        expecting_config_changes_(false),
        sink_(std::move(sink)),
        media_log_(media_log),
-@@ -403,6 +443,22 @@ void AudioRendererImpl::Initialize(DemuxerStream* stream,
+@@ -403,6 +449,22 @@ void AudioRendererImpl::Initialize(DemuxerStream* stream,
    demuxer_stream_ = stream;
    client_ = client;
  
@@ -79,7 +85,7 @@ index 3e44dcff88cae..8b36dbb7d5325 100644
    // Always post |init_cb_| because |this| could be destroyed if initialization
    // failed.
    init_cb_ = base::BindPostTaskToCurrentDefault(std::move(init_cb));
-@@ -865,6 +921,14 @@ void AudioRendererImpl::SetLatencyHint(
+@@ -865,6 +927,14 @@ void AudioRendererImpl::SetLatencyHint(
      std::optional<base::TimeDelta> latency_hint) {
    base::AutoLock auto_lock(lock_);
  
@@ -94,7 +100,7 @@ index 3e44dcff88cae..8b36dbb7d5325 100644
    latency_hint_ = latency_hint;
  
    if (algorithm_) {
-@@ -1159,8 +1223,37 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
+@@ -1159,8 +1229,37 @@ bool AudioRendererImpl::HandleDecodedBuffer_Locked(
      }
  #endif
  
