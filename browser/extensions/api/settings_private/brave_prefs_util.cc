@@ -105,6 +105,9 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
       settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kSawtunaaEnabled] =
       settings_api::PrefType::kBoolean;  // Browther: Sawtunaa
+  (*s_brave_allowlist)[kSawtunaaNativeTapActive] =
+      settings_api::PrefType::kBoolean;  // Browther: Sawtunaa tap V2 (lecture
+                                         // par l'extension : gate de capture)
   (*s_brave_allowlist)[kBasarunaaEnabled] =
       settings_api::PrefType::kBoolean;  // Browther: Basarunaa
   // Browther : compteurs cumulatifs locaux NTP, écrits par les extensions MV3

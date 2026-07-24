@@ -1157,6 +1157,24 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
         }
       }
     }
+
+    // [Browther/Sawtunaa] audio tap V2 — bascule (étape 4) : injecte le tap
+    // natif quand la pref Sawtunaa est ON ET que le natif est disponible
+    // (kSawtunaaNativeTapActive, publiée par SawtunaaAudioServiceFactory =
+    // build natif + feature). L'extension MV3 lit la même pref et ne capture
+    // plus → un seul pipeline actif à la fois. Toggle → restart requis (comme
+    // le tap vidéo).
+    if (content::RenderProcessHost* process =
+            content::RenderProcessHost::FromID(child_process_id)) {
+      auto* prefs = user_prefs::UserPrefs::Get(process->GetBrowserContext());
+      if (prefs && prefs->FindPreference(kSawtunaaEnabled) &&
+          prefs->GetBoolean(kSawtunaaEnabled) &&
+          prefs->FindPreference(kSawtunaaNativeTapActive) &&
+          prefs->GetBoolean(kSawtunaaNativeTapActive) &&
+          !command_line->HasSwitch(switches::kSawtunaaAudioTap)) {
+        command_line->AppendSwitch(switches::kSawtunaaAudioTap);
+      }
+    }
 #endif  // !BUILDFLAG(IS_ANDROID)
   } else if (process_type == switches::kUtilityProcess) {
     // [Browther/Sawtunaa] Resync A/V option A (cf. docs/sawtunaa/AV_SYNC.md) :
@@ -1170,8 +1188,15 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
       for (Profile* profile :
            g_browser_process->profile_manager()->GetLoadedProfiles()) {
         PrefService* prefs = profile->GetPrefs();
+        // [Browther/Sawtunaa] étape 4 : le délai option A ne concerne que le
+        // pipeline tabCapture — quand le tap natif est actif, l'extension ne
+        // capture plus et le lip-sync est natif → ne plus poser le délai
+        // (sinon les rares fake streams restants — mute, device fallback —
+        // décaleraient la vidéo pour rien).
         if (prefs && prefs->FindPreference(kSawtunaaEnabled) &&
-            prefs->GetBoolean(kSawtunaaEnabled)) {
+            prefs->GetBoolean(kSawtunaaEnabled) &&
+            !(prefs->FindPreference(kSawtunaaNativeTapActive) &&
+              prefs->GetBoolean(kSawtunaaNativeTapActive))) {
           command_line->AppendSwitchASCII(switches::kSawtunaaAvSyncDelayMs,
                                           "360");
           break;

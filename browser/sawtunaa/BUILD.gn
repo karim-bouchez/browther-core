@@ -15,6 +15,7 @@ static_library("sawtunaa") {
 
   deps = [
     "//base",
+    "//brave/components/browther_analytics",
     "//brave/components/constants",
     "//brave/components/sawtunaa/common/mojom",
     "//brave/components/sawtunaa/core",

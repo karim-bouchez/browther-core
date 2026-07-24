@@ -13,6 +13,7 @@
 #include "base/logging.h"
 #include "base/task/thread_pool.h"
 #include "brave/browser/sawtunaa/sawtunaa_audio_service_factory.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/sawtunaa/core/sawtunaa_audio_service.h"
 #include "chrome/browser/profiles/profile.h"
 #include "content/public/browser/render_frame_host.h"
@@ -116,16 +117,34 @@ void SawtunaaAudioProcessor::ProcessBatch(int64_t stream_id,
                      MakeStreamKey(stream_id), std::move(planar), frames,
                      channels, sample_rate, flush),
       base::BindOnce(&SawtunaaAudioProcessor::OnBatchDone,
-                     weak_factory_.GetWeakPtr(), std::move(safe_callback)));
+                     weak_factory_.GetWeakPtr(), std::move(safe_callback),
+                     channels, sample_rate));
 }
 
 void SawtunaaAudioProcessor::OnBatchDone(
     ProcessBatchCallback callback,
+    int channels,
+    int sample_rate,
     std::pair<bool, std::vector<float>> result) {
   if (!result.first) {
     std::move(callback).Run(false, mojo_base::BigBuffer());
     return;
   }
+
+  // Stat « secondes de musique supprimée » (widget NTP + backend, gaté
+  // consentement dans le service analytics) — reprend le rôle de l'extension
+  // (qui ne capture plus quand le tap natif est actif). UI thread ✓.
+  if (channels > 0 && sample_rate > 0) {
+    music_seconds_accumulator_ +=
+        static_cast<double>(result.second.size() / channels) / sample_rate;
+    const int whole = static_cast<int>(music_seconds_accumulator_);
+    if (whole > 0) {
+      music_seconds_accumulator_ -= whole;
+      browther_analytics::BrowtherAnalyticsService::GetInstance()
+          ->IncrementMusicSeconds(whole);
+    }
+  }
+
   std::move(callback).Run(
       true, mojo_base::BigBuffer(
                 base::as_byte_span(base::allow_nonunique_obj, result.second)));

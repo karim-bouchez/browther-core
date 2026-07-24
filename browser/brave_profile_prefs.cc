@@ -436,6 +436,8 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
 
   registry->RegisterBooleanPref(kShieldsStatsBadgeVisible, true);
   registry->RegisterBooleanPref(kSawtunaaEnabled, false);  // Browther: Sawtunaa
+  // Browther: Sawtunaa audio tap V2 (mise à jour au boot par la factory).
+  registry->RegisterBooleanPref(kSawtunaaNativeTapActive, false);
   registry->RegisterBooleanPref(kBasarunaaEnabled, true);  // Browther: Basarunaa (default ON, blur women)
   registry->RegisterStringPref(kBasarunaaMode, "blur-female");  // Browther: Basarunaa mode
   registry->RegisterBooleanPref(kBasarunaaCensorEyes, false);  // Browther: censure des yeux (opt-in)

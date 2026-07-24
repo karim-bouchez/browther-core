@@ -65,6 +65,17 @@ inline constexpr char kShieldsStatsBadgeVisible[] =
 inline constexpr char kAdControlType[] = "brave.ad_default";
 // Browther: Sawtunaa (music/noise removal)
 inline constexpr char kSawtunaaEnabled[] = "brave.sawtunaa.enabled";
+// Browther: Sawtunaa audio tap V2 — posée par SawtunaaAudioServiceFactory au
+// boot du profil : true quand le traitement NSNet2 NATIF est disponible
+// (build natif + feature kSawtunaaNativeAudio). Lue par (a) le browser pour
+// injecter --sawtunaa-audio-tap dans les renderers (pref kSawtunaaEnabled ON)
+// et ne plus poser le délai option A, (b) l'extension MV3 (settingsPrivate)
+// pour NE PLUS capturer via tabCapture (pas de fallback silencieux : un flux
+// non couvert par le tap = musique en clair, détectable — décision
+// observabilité 2026-07-24). Fail-open extension = false (Windows/anciens
+// builds gardent la capture).
+inline constexpr char kSawtunaaNativeTapActive[] =
+    "brave.sawtunaa.native_tap_active";
 // Browther: Basarunaa (gender blur on images/videos)
 inline constexpr char kBasarunaaEnabled[] = "brave.basarunaa.enabled";
 // Action mode: "blur-female" (default), "blur-male", or "blur-all".

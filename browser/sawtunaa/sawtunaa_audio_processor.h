@@ -68,8 +68,11 @@ class SawtunaaAudioProcessor
 
   // Reply sur le thread UI (le receiver y vit). WeakPtr gate : WebContents
   // détruit pendant la tâche → le callback wrappé répond ok=false (jamais de
-  // responder Mojo dangling — leçon Basarunaa 2026-07-02).
+  // responder Mojo dangling — leçon Basarunaa 2026-07-02). |channels| et
+  // |sample_rate| servent au compteur music_seconds (stat NTP + backend).
   void OnBatchDone(ProcessBatchCallback callback,
+                   int channels,
+                   int sample_rate,
                    std::pair<bool, std::vector<float>> result);
 
   // stream_id est attribué par CHAQUE renderer → collision possible entre
@@ -83,6 +86,10 @@ class SawtunaaAudioProcessor
 
   mojo::ReceiverSet<mojom::AudioTapProcessor, int64_t> receivers_;
   int64_t next_receiver_context_ = 1;
+
+  // Fractions de secondes traitées en attente (flushées par seconde entière
+  // vers BrowtherAnalyticsService — même granularité que l'extension).
+  double music_seconds_accumulator_ = 0.0;
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 
