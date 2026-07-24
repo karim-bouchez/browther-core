@@ -161,6 +161,11 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page_ui.h"
 #include "brave/browser/ui/webui/brave_settings_ui.h"
 #include "brave/browser/basarunaa/basarunaa_image_analyzer.h"
+#if !BUILDFLAG(IS_ANDROID)
+// [Browther/Sawtunaa] audio tap V2 — binder desktop (NSNet2 natif browser).
+#include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
+#include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+#endif
 #include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/browser/ui/webui/brave_shields/shields_panel_ui.h"
@@ -990,6 +995,10 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
   // Non-associated (canal Mojo dédié, pattern Skus). Pas de V8.
   map->Add<basarunaa::mojom::ImageAnalyzer>(
       base::BindRepeating(&basarunaa::BasarunaaImageAnalyzer::BindReceiver));
+  // [Browther/Sawtunaa] audio tap V2 : PCM décodé (AudioRendererImpl) →
+  // NSNet2 natif browser. Même pattern (canal non-associé, C++ pur).
+  map->Add<sawtunaa::mojom::AudioTapProcessor>(
+      base::BindRepeating(&sawtunaa::SawtunaaAudioProcessor::BindReceiver));
 #endif
   if (base::FeatureList::IsEnabled(history_embeddings::kHistoryEmbeddings)) {
     content::RegisterWebUIControllerInterfaceBinder<

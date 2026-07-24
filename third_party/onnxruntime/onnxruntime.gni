@@ -9,4 +9,10 @@ declare_args() {
   # sync. Will need to be widened to other OSes once we extend beyond macOS
   # arm64 (see private/docs/TODO.md § Phase 3.1.5).
   enable_basarunaa_native_ml = is_mac && current_cpu == "arm64"
+
+  # Sawtunaa audio tap V2 — NSNet2 natif (ORT C++) dans le process browser
+  # (KeyedService, jumeau Basarunaa). Même contrainte plateforme : la dylib
+  # ORT bundlée n'existe que macOS arm64 aujourd'hui. Windows suivra quand un
+  # ORT y sera fourni (cf. private/docs/sawtunaa/AUDIO_TAP_V2.md).
+  enable_sawtunaa_native_ml = is_mac && current_cpu == "arm64"
 }

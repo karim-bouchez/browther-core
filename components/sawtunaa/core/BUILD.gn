@@ -1,0 +1,39 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import("//brave/third_party/onnxruntime/onnxruntime.gni")
+
+static_library("core") {
+  sources = [
+    "sawtunaa_audio_service.cc",
+    "sawtunaa_audio_service.h",
+    "sawtunaa_features.cc",
+    "sawtunaa_features.h",
+  ]
+
+  deps = [
+    "//base",
+    "//components/keyed_service/core",
+  ]
+
+  if (enable_sawtunaa_native_ml) {
+    sources += [
+      "nsnet2_stream.cc",
+      "nsnet2_stream.h",
+    ]
+    deps += [
+      "//brave/third_party/onnxruntime",
+      "//third_party/pffft",
+    ]
+    # ⚠️ ODR : à répliquer dans TOUT target qui inclut
+    # sawtunaa_audio_service.h (cf. commentaire du header).
+    defines = [ "SAWTUNAA_NATIVE_ML=1" ]
+
+    # ORT's C++ API throws Ort::Exception on errors — enable exceptions for
+    # this TU only (même choix que basarunaa/core).
+    configs -= [ "//build/config/compiler:no_exceptions" ]
+    configs += [ "//build/config/compiler:exceptions" ]
+  }
+}

@@ -1,0 +1,38 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import("//brave/third_party/onnxruntime/onnxruntime.gni")
+
+static_library("sawtunaa") {
+  sources = [
+    "sawtunaa_audio_processor.cc",
+    "sawtunaa_audio_processor.h",
+    "sawtunaa_audio_service_factory.cc",
+    "sawtunaa_audio_service_factory.h",
+  ]
+
+  deps = [
+    "//base",
+    "//brave/components/constants",
+    "//brave/components/sawtunaa/common/mojom",
+    "//brave/components/sawtunaa/core",
+    "//chrome/browser/profiles:profile",
+    "//components/keyed_service/content",
+    "//components/keyed_service/core",
+    "//components/prefs",
+    "//content/public/browser",
+    "//mojo/public/cpp/base",
+    "//mojo/public/cpp/bindings",
+  ]
+
+  # ⚠️ ODR : SAWTUNAA_NATIVE_ML conditionne le LAYOUT de SawtunaaAudioService
+  # (membres ORT). `sawtunaa_audio_service_factory.cc` fait `make_unique<>` →
+  # DOIT voir la même taille que le target `core` (même piège que Basarunaa,
+  # heap corruption 2026-07-02). Aucun symbole ORT référencé ici → define
+  # seulement, pas de dep onnxruntime.
+  if (enable_sawtunaa_native_ml) {
+    defines = [ "SAWTUNAA_NATIVE_ML=1" ]
+  }
+}

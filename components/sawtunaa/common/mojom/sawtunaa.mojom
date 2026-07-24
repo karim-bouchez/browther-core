@@ -5,6 +5,8 @@
 
 module sawtunaa.mojom;
 
+import "mojo/public/mojom/base/big_buffer.mojom";
+
 // Interface exposée à l'iframe principal du renderer, bindée par le
 // `SawtunaaContentBinder` (browser-side). Reproduit le contrat de
 // `SawtunaaScriptHandler.swift` iOS — 11 actions JS → audio pipeline.
@@ -60,6 +62,41 @@ interface Sawtunaa {
 struct TimeRange {
   double start_ms;
   double end_ms;
+};
+
+// ── Audio tap V2 (Desktop) ───────────────────────────────────────────────────
+// Traitement NSNet2 NATIF (ORT C++, process browser) du PCM décodé intercepté
+// dans AudioRendererImpl (decode-ahead 2 s). Renderer → browser, bindé par
+// frame via BrowserInterfaceBroker (pattern basarunaa.mojom.ImageAnalyzer).
+// Handler browser : SawtunaaAudioProcessor (WebContentsUserData) → ThreadPool
+// → SawtunaaAudioService (KeyedService, jumeau BasarunaaService).
+// Cf. browther-private docs/sawtunaa/AUDIO_TAP_V2.md.
+interface AudioTapProcessor {
+  // Traite un batch de PCM planar float32 (|channels| blocs contigus de
+  // |frames| samples chacun ; batch typique ~256 ms = 12288 frames stéréo
+  // 48 kHz ≈ 96 Ko → BigBuffer passe en shared memory). |stream_id| identifie
+  // un media player (stable sur sa durée de vie, attribué croissant côté
+  // renderer). |flush| (EOS/config change) : renvoyer aussi la queue interne
+  // — après flush, la sortie cumulée du flux == l'entrée cumulée.
+  //
+  // Reply : |processed| planar même layout, possiblement plus court que
+  // l'entrée (rétention STFT ~448 samples) ou plus long (flush). |ok| false =
+  // traitement indisponible (modèle absent, rate non géré, erreur ORT) → le
+  // renderer fait passthrough de l'original. La sortie est alignée
+  // échantillon-près sur l'entrée : le renderer reconstruit les timestamps en
+  // continu.
+  ProcessBatch(int64 stream_id,
+               mojo_base.mojom.BigBuffer pcm_planar,
+               int32 frames,
+               int32 channels,
+               int32 sample_rate,
+               bool flush) => (bool ok, mojo_base.mojom.BigBuffer processed);
+
+  // Seek/flush pipeline : drop rings + overlap + états GRU du flux.
+  ResetStream(int64 stream_id);
+
+  // Fin de vie du media player (destructeur AudioRendererImpl).
+  DestroyStream(int64 stream_id);
 };
 
 // Browser → renderer. AssociatedInterface bindée par `SawtunaaRenderFrameObserver`.

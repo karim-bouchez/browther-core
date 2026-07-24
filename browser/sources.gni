@@ -138,6 +138,9 @@ brave_chrome_browser_deps = [
   "//brave/browser:sparkle_buildflags",
   "//brave/browser/basarunaa",
   "//brave/components/basarunaa/core",
+  # Browther: Sawtunaa audio tap V2 (NSNet2 natif desktop).
+  "//brave/browser/sawtunaa",
+  "//brave/components/sawtunaa/core",
   "//brave/browser/brave_account",
   "//brave/browser/brave_adaptive_captcha",
   "//brave/browser/brave_adaptive_captcha:impl",

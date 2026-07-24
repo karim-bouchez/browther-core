@@ -10,5 +10,6 @@ mojom("mojom") {
 
   sources = [ "sawtunaa.mojom" ]
 
-  # Pas de dépendances externes — interface auto-portante.
+  # BigBuffer (AudioTapProcessor.ProcessBatch — PCM en shared memory).
+  public_deps = [ "//mojo/public/mojom/base" ]
 }

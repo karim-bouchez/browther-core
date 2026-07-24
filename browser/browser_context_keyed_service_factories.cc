@@ -7,6 +7,7 @@
 
 #include "base/feature_list.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
+#include "brave/browser/sawtunaa/sawtunaa_audio_service_factory.h"
 #include "brave/browser/brave_account/brave_account_service_factory.h"
 #include "brave/browser/brave_adaptive_captcha/brave_adaptive_captcha_service_factory.h"
 #include "brave/browser/brave_origin/brave_origin_service_factory.h"
@@ -254,6 +255,9 @@ void EnsureBrowserContextKeyedServiceFactoriesBuilt() {
 
   // Browther: Basarunaa native ML service (Phase 3.1.5 — scaffolding stub).
   basarunaa::BasarunaaServiceFactory::GetInstance();
+
+  // Browther: Sawtunaa audio tap V2 (NSNet2 natif desktop).
+  sawtunaa::SawtunaaAudioServiceFactory::GetInstance();
 
 #if BUILDFLAG(ENABLE_EXTENSIONS)
   extensions_mv2::ExtensionsManifestV2MigratorFactory::GetInstance();
