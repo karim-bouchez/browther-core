@@ -14,7 +14,9 @@
 #include "base/task/thread_pool.h"
 #include "brave/browser/sawtunaa/sawtunaa_audio_service_factory.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "brave/components/constants/pref_names.h"
 #include "brave/components/sawtunaa/core/sawtunaa_audio_service.h"
+#include "components/prefs/pref_service.h"
 #include "chrome/browser/profiles/profile.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
@@ -96,6 +98,19 @@ void SawtunaaAudioProcessor::ProcessBatch(int64_t stream_id,
   auto* service =
       profile ? SawtunaaAudioServiceFactory::GetForProfile(profile) : nullptr;
   if (!service) {
+    std::move(callback).Run(false, mojo_base::BigBuffer());
+    return;
+  }
+
+  // Toggle OFF quasi-live : le switch renderer est figé à la création du
+  // process (pref lue à ce moment-là) → c'est ICI, à chaque batch (UI
+  // thread), que la pref courante fait foi. OFF → decline → le renderer
+  // passe ce flux en passthrough définitif (musique en clair ~2 s plus tard,
+  // le temps de vider le buffer d'avance déjà traité), sans reload.
+  // Remettre ON reprend sur les nouveaux players (reload d'onglet) tant que
+  // le process garde le switch ; un process né pendant OFF nécessite un
+  // restart (comme le tap vidéo Basarunaa).
+  if (!profile->GetPrefs()->GetBoolean(kSawtunaaEnabled)) {
     std::move(callback).Run(false, mojo_base::BigBuffer());
     return;
   }
