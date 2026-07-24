@@ -22,9 +22,12 @@ static_library("core") {
     sources += [
       "nsnet2_stream.cc",
       "nsnet2_stream.h",
+      "sawtunaa_rate_adapter.cc",
+      "sawtunaa_rate_adapter.h",
     ]
     deps += [
       "//brave/third_party/onnxruntime",
+      "//media",
       "//third_party/pffft",
     ]
     # ⚠️ ODR : à répliquer dans TOUT target qui inclut

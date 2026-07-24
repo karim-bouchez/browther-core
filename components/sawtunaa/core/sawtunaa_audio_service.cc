@@ -17,6 +17,7 @@
 #include "base/task/thread_pool.h"
 #include "base/time/time.h"
 #include "brave/components/sawtunaa/core/nsnet2_stream.h"
+#include "brave/components/sawtunaa/core/sawtunaa_rate_adapter.h"
 #include "build/build_config.h"
 #include "onnxruntime_cxx_api.h"
 #if BUILDFLAG(IS_MAC)
@@ -65,7 +66,19 @@ constexpr int kOrtIntraOpThreads = 1;
 // stream le plus ancien au-delà de ce cap (un stream ≈ 60 Ko d'états).
 constexpr size_t kMaxStreams = 64;
 
+// Bornes de rates acceptés pour le resampling aller-retour (en dehors :
+// passthrough — contenu exotique, qualité du resampling non garantie).
+constexpr int kMinSrcRate = 8000;
+constexpr int kMaxSrcRate = 192000;
+
 }  // namespace
+
+SawtunaaAudioService::StreamEntry::StreamEntry() = default;
+SawtunaaAudioService::StreamEntry::StreamEntry(StreamEntry&&) noexcept =
+    default;
+SawtunaaAudioService::StreamEntry& SawtunaaAudioService::StreamEntry::operator=(
+    StreamEntry&&) noexcept = default;
+SawtunaaAudioService::StreamEntry::~StreamEntry() = default;
 #endif  // defined(SAWTUNAA_NATIVE_ML)
 
 SawtunaaAudioService::SawtunaaAudioService(bool eager_warmup) {
@@ -159,10 +172,9 @@ bool SawtunaaAudioService::ProcessBatch(int64_t stream_id,
       channels > Nsnet2Stream::kMaxChannels) {
     return false;
   }
-  // V1 : 48 kHz uniquement (modèle entraîné à 48 k). Les flux 44.1 k restent
-  // en passthrough tant que le resampler aller-retour n'est pas branché
-  // (AUDIO_TAP_V2.md § resampling — requis avant la bascule étape 4).
-  if (sample_rate != Nsnet2Stream::kSampleRate) {
+  // Flux non-48 k : resampling aller-retour (RateAdapter). Hors bornes
+  // raisonnables → passthrough.
+  if (sample_rate < kMinSrcRate || sample_rate > kMaxSrcRate) {
     return false;
   }
   if (planar.size() != static_cast<size_t>(frames) * channels) {
@@ -176,8 +188,9 @@ bool SawtunaaAudioService::ProcessBatch(int64_t stream_id,
   }
 
   auto it = streams_.find(stream_id);
-  if (it != streams_.end() && it->second->channels() != channels) {
-    // Changement de layout mid-stream (config change) : repartir propre.
+  if (it != streams_.end() && (it->second.channels != channels ||
+                               it->second.src_rate != sample_rate)) {
+    // Changement de layout/rate mid-stream (config change) : repartir propre.
     streams_.erase(it);
     it = streams_.end();
   }
@@ -187,19 +200,47 @@ bool SawtunaaAudioService::ProcessBatch(int64_t stream_id,
       // ids sont attribués croissants côté renderer).
       streams_.erase(streams_.begin());
     }
-    it = streams_
-             .emplace(stream_id,
-                      std::make_unique<Nsnet2Stream>(session_.get(), channels))
-             .first;
+    StreamEntry entry;
+    entry.dsp = std::make_unique<Nsnet2Stream>(session_.get(), channels);
+    entry.src_rate = sample_rate;
+    entry.channels = channels;
+    if (sample_rate != Nsnet2Stream::kSampleRate) {
+      entry.adapter = std::make_unique<RateAdapter>(sample_rate, channels);
+      VLOG(1) << "[swtTAP] stream " << stream_id << " resampling "
+              << sample_rate << " <-> 48000";
+    }
+    it = streams_.emplace(stream_id, std::move(entry)).first;
   }
-  return it->second->ProcessBatch(planar, frames, flush, out);
+
+  StreamEntry& entry = it->second;
+  if (!entry.adapter) {
+    return entry.dsp->ProcessBatch(planar, frames, flush, out);
+  }
+
+  // Chemin resamplé : src → 48 k → NSNet2 → src. L'exactitude totale au
+  // flush est garantie par l'adapter (sortie source == entrée source).
+  std::vector<float> at48 = entry.adapter->ToModel(planar, frames, flush);
+  std::vector<float> processed48;
+  if (!entry.dsp->ProcessBatch(at48,
+                               static_cast<int>(at48.size()) /
+                                   std::max(1, channels),
+                               flush, &processed48)) {
+    return false;
+  }
+  *out = entry.adapter->FromModel(
+      processed48,
+      static_cast<int>(processed48.size()) / std::max(1, channels), flush);
+  return true;
 }
 
 void SawtunaaAudioService::ResetStream(int64_t stream_id) {
   std::lock_guard<std::mutex> lock(process_mutex_);
   auto it = streams_.find(stream_id);
   if (it != streams_.end()) {
-    it->second->Reset();
+    it->second.dsp->Reset();
+    if (it->second.adapter) {
+      it->second.adapter->Reset();
+    }
   }
 }
 

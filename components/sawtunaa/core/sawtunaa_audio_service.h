@@ -33,6 +33,7 @@ namespace sawtunaa {
 
 #if defined(SAWTUNAA_NATIVE_ML)
 class Nsnet2Stream;
+class RateAdapter;
 #endif
 
 // Audio tap V2 — suppression musique/bruit NSNet2 native (ORT C++), process
@@ -53,9 +54,10 @@ class SawtunaaAudioService : public KeyedService {
 
   // Traite un batch PCM planar float32 (|channels| blocs de |frames|).
   // Renvoie true + |out| rempli (peut être plus court que l'entrée — rétention
-  // STFT ; plus long au flush) si le traitement a eu lieu ; false = l'appelant
-  // doit faire PASSTHROUGH (modèle absent, rate ≠ 48 k tant que le resampler
-  // n'est pas branché, > 2 canaux, erreur ORT).
+  // STFT + resampler ; plus long au flush) si le traitement a eu lieu ;
+  // false = l'appelant doit faire PASSTHROUGH (modèle absent, rate hors
+  // bornes, > 2 canaux, erreur ORT). Les flux non-48 k passent par un
+  // RateAdapter aller-retour (SincResampler) autour du modèle.
   // À appeler UNIQUEMENT sur le ThreadPool (jamais le thread UI) — bloque sur
   // le mutex global le temps de l'inférence.
   bool ProcessBatch(int64_t stream_id,
@@ -92,7 +94,18 @@ class SawtunaaAudioService : public KeyedService {
   // (pattern analyze_mutex_ Basarunaa — corruption de tas confirmée sans).
   // Toujours pris sur le ThreadPool → pas de blocage UI.
   std::mutex process_mutex_;
-  std::map<int64_t, std::unique_ptr<Nsnet2Stream>> streams_;
+  struct StreamEntry {
+    StreamEntry();
+    StreamEntry(StreamEntry&&) noexcept;
+    StreamEntry& operator=(StreamEntry&&) noexcept;
+    ~StreamEntry();
+    std::unique_ptr<Nsnet2Stream> dsp;
+    // Null pour les flux déjà à 48 kHz.
+    std::unique_ptr<RateAdapter> adapter;
+    int src_rate = 0;
+    int channels = 0;
+  };
+  std::map<int64_t, StreamEntry> streams_;
 #endif
 };
 
