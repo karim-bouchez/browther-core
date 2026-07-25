@@ -17,6 +17,7 @@
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/browser_commands.h"
 #include "chrome/browser/ui/recently_audible_helper.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
 #include "components/grit/brave_components_resources.h"
@@ -34,9 +35,14 @@
 #include "skia/ext/image_operations.h"
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/image/image_skia_operations.h"
+#include "ui/views/controls/button/button.h"
 #include "ui/views/controls/image_view.h"
 #include "ui/views/controls/label.h"
 #include "ui/views/layout/box_layout.h"
+#include "ui/base/cursor/cursor.h"
+#include "ui/base/cursor/mojom/cursor_type.mojom-shared.h"
+#include "ui/base/window_open_disposition.h"
+#include "ui/views/animation/ink_drop.h"
 #include "ui/views/background.h"
 #include "ui/views/border.h"
 #include "ui/views/layout/box_layout_view.h"
@@ -54,11 +60,64 @@ gfx::FontList DeriveFont(int font_size, gfx::Font::Weight weight) {
       .DeriveWithWeight(weight);
 }
 
+// Browther: encadré CLIQUABLE du hint « recharge l'onglet ». Bouton plutôt
+// que simple étiquette : le message dit à l'utilisateur ce qu'il doit faire,
+// autant lui permettre de le faire d'un clic (et on hérite du focus clavier +
+// du rôle d'accessibilité). Le rendu reste custom (ink drop coupé, comme
+// BrowtherBigToggle) : fond ambre translucide qui s'intensifie au survol.
+class ReloadHintButton : public views::Button {
+  METADATA_HEADER(ReloadHintButton, views::Button)
+
+ public:
+  static constexpr SkColor kAccent = SkColorSetRGB(0xF5, 0x9E, 0x0B);
+
+  explicit ReloadHintButton(PressedCallback callback)
+      : views::Button(std::move(callback)) {
+    views::InkDrop::Get(this)->SetMode(views::InkDropHost::InkDropMode::OFF);
+    SetHasInkDropActionOnClick(false);
+    auto* layout = SetLayoutManager(std::make_unique<views::BoxLayout>(
+        views::BoxLayout::Orientation::kHorizontal,
+        gfx::Insets::TLBR(10, 14, 10, 14), /*between_child_spacing=*/8));
+    layout->set_cross_axis_alignment(
+        views::BoxLayout::CrossAxisAlignment::kCenter);
+    SetBorder(
+        views::CreateRoundedRectBorder(1, 8, SkColorSetA(kAccent, 0x66)));
+    UpdateBackground();
+  }
+  ReloadHintButton(const ReloadHintButton&) = delete;
+  ReloadHintButton& operator=(const ReloadHintButton&) = delete;
+  ~ReloadHintButton() override = default;
+
+  // views::Button:
+  void StateChanged(ButtonState old_state) override {
+    views::Button::StateChanged(old_state);
+    UpdateBackground();
+  }
+
+  // views::View:
+  ui::Cursor GetCursor(const ui::MouseEvent& event) override {
+    return GetEnabled() ? ui::Cursor(ui::mojom::CursorType::kHand)
+                        : views::Button::GetCursor(event);
+  }
+
+ private:
+  void UpdateBackground() {
+    const bool hot =
+        GetState() == STATE_HOVERED || GetState() == STATE_PRESSED;
+    SetBackground(views::CreateRoundedRectBackground(
+        SkColorSetA(kAccent, hot ? 0x3D : 0x24), 8));
+  }
+};
+
+BEGIN_METADATA(ReloadHintButton)
+END_METADATA
+
 }  // namespace browther
 
 using browther::BrowtherBigToggle;
 using browther::g_active_widget;
 using browther::DeriveFont;
+using browther::ReloadHintButton;
 
 // static
 void SawtunaaBubbleView::Show(views::View* anchor, Browser* browser) {
@@ -197,29 +256,25 @@ void SawtunaaBubbleView::BuildContents() {
   desc->SetMaximumWidth(280);
 
   // ----- Hint « recharge l'onglet » (masqué tant que non pertinent) -----
-  // Encadré plutôt que texte nu : le message est une CONSÉQUENCE de l'action
-  // qu'on vient de faire, il doit se détacher de la description permanente.
-  constexpr SkColor kHintColor = SkColorSetRGB(0xF5, 0x9E, 0x0B);
-  auto* hint_box = AddChildView(std::make_unique<views::BoxLayoutView>());
-  hint_box->SetOrientation(views::BoxLayout::Orientation::kHorizontal);
-  hint_box->SetCrossAxisAlignment(
-      views::BoxLayout::CrossAxisAlignment::kCenter);
-  hint_box->SetInsideBorderInsets(gfx::Insets::TLBR(10, 14, 10, 14));
-  hint_box->SetBetweenChildSpacing(8);
-  // Fond ambre très translucide + liseré : lisible sur le fond sombre de la
-  // bulle sans écraser le toggle qui reste l'élément principal.
-  hint_box->SetBackground(views::CreateRoundedRectBackground(
-      SkColorSetA(kHintColor, 0x24), 8));
-  hint_box->SetBorder(views::CreateRoundedRectBorder(
-      1, 8, SkColorSetA(kHintColor, 0x66)));
+  // Encadré CLIQUABLE : le message est une conséquence de l'action qu'on vient
+  // de faire, il se détache de la description permanente — et un clic dessus
+  // recharge l'onglet (pas de reload automatique : c'est l'utilisateur qui
+  // décide quand, décision UX 2026-07-25).
+  const std::u16string hint_text =
+      l10n_util::GetStringUTF16(IDS_SAWTUNAA_POPUP_RELOAD_HINT);
+  auto hint_button = std::make_unique<ReloadHintButton>(base::BindRepeating(
+      &SawtunaaBubbleView::OnReloadHintPressed, base::Unretained(this)));
+  hint_button->SetAccessibleName(hint_text);
 
-  auto* hint_icon = hint_box->AddChildView(std::make_unique<views::ImageView>(
-      ui::ImageModel::FromVectorIcon(vector_icons::kReloadChromeRefreshIcon,
-                                     kHintColor, 16)));
+  auto* hint_icon =
+      hint_button->AddChildView(std::make_unique<views::ImageView>(
+          ui::ImageModel::FromVectorIcon(vector_icons::kReloadChromeRefreshIcon,
+                                         ReloadHintButton::kAccent, 16)));
   hint_icon->SetVerticalAlignment(views::ImageView::Alignment::kCenter);
+  hint_icon->SetCanProcessEventsWithinSubtree(false);
 
-  reload_hint_ = hint_box->AddChildView(std::make_unique<views::Label>(
-      l10n_util::GetStringUTF16(IDS_SAWTUNAA_POPUP_RELOAD_HINT)));
+  reload_hint_ =
+      hint_button->AddChildView(std::make_unique<views::Label>(hint_text));
   reload_hint_->SetFontList(DeriveFont(12, gfx::Font::Weight::SEMIBOLD));
   reload_hint_->SetHorizontalAlignment(gfx::ALIGN_LEFT);
   reload_hint_->SetMultiLine(true);
@@ -227,10 +282,23 @@ void SawtunaaBubbleView::BuildContents() {
   reload_hint_->SetAutoColorReadabilityEnabled(false);
   // Browther: jaune doux (warning), même code couleur que le message inline
   // du bouclier — informe sans alarmer.
-  reload_hint_->SetEnabledColor(kHintColor);
+  reload_hint_->SetEnabledColor(ReloadHintButton::kAccent);
+  reload_hint_->SetCanProcessEventsWithinSubtree(false);
 
-  hint_container_ = hint_box;
+  hint_container_ = AddChildView(std::move(hint_button));
   hint_container_->SetVisible(false);
+}
+
+void SawtunaaBubbleView::OnReloadHintPressed() {
+  // Recharge l'onglet actif : c'est ce qui rebranche le tap natif sur le média
+  // en cours (la décision se prend à la création du WebMediaPlayer). La bulle
+  // se ferme dans la foulée — son hint n'a plus lieu d'être.
+  if (browser_) {
+    chrome::Reload(browser_, WindowOpenDisposition::CURRENT_TAB);
+  }
+  if (views::Widget* widget = GetWidget()) {
+    widget->Close();
+  }
 }
 
 void SawtunaaBubbleView::OnPrefChanged() {

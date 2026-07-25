@@ -69,6 +69,8 @@ class SawtunaaBubbleView : public views::BubbleDialogDelegateView {
   // d'autorité (décision UX 2026-07-25).
   bool ShouldShowReloadHint() const;
   void UpdateReloadHint(bool enabled);
+  // Clic sur le hint : recharge l'onglet actif puis ferme la bulle.
+  void OnReloadHintPressed();
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_SAWTUNAA_SAWTUNAA_BUBBLE_VIEW_H_
