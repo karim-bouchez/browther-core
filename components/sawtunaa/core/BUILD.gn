@@ -40,3 +40,23 @@ static_library("core") {
     configs += [ "//build/config/compiler:exceptions" ]
   }
 }
+
+# Browther/Sawtunaa — golden vectors : rejoue les vecteurs générés par
+# private/scripts/gen-sawtunaa-golden.py (moteur Python = référence DSP) dans
+# Nsnet2Stream et compare. Binaire de dev, jamais bundlé :
+#   pnpm build Component sawtunaa_golden_check   (ou ninja via siso)
+#   out/Component_arm64/sawtunaa_golden_check --model=… --golden-dir=…
+if (enable_sawtunaa_native_ml) {
+  executable("sawtunaa_golden_check") {
+    testonly = true
+    sources = [ "nsnet2_golden_check_main.cc" ]
+    deps = [
+      ":core",
+      "//base",
+      "//brave/third_party/onnxruntime",
+    ]
+    defines = [ "SAWTUNAA_NATIVE_ML=1" ]
+    configs -= [ "//build/config/compiler:no_exceptions" ]
+    configs += [ "//build/config/compiler:exceptions" ]
+  }
+}

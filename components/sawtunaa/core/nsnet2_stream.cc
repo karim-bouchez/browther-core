@@ -182,10 +182,17 @@ bool Nsnet2Stream::ProcessBatch(base::span<const float> planar,
   }
 
   if (flush) {
-    // Vider la queue : padder 960 zéros → dernières frames → tronquer pour
-    // que la sortie totale du flux == l'entrée totale, exactement.
-    const int64_t due = total_in_ - total_out_ -
-                        static_cast<int64_t>(out_l_.size());
+    // Vider la queue : padder 960 zéros → dernières frames → tronquer la
+    // QUEUE (et elle seule) pour que la sortie totale du flux == l'entrée
+    // totale, exactement.
+    // ⚠️ |before_pad| = ce que ce batch avait déjà produit AVANT le padding.
+    // Il doit être conservé intégralement : |due| ne compte que le reliquat
+    // qui manque encore. Tronquer à |due| seul jetait tout le PCM du dernier
+    // batch (jusqu'à ~250 ms de son perdues à chaque EOS / config change) —
+    // bug attrapé par les golden vectors le 2026-07-25.
+    const size_t before_pad = out_l_.size();
+    const int64_t due =
+        total_in_ - total_out_ - static_cast<int64_t>(before_pad);
     input_l_.resize(input_len_ + kNWin, 0.f);
     if (channels_ == 2) {
       input_r_.resize(input_len_ + kNWin, 0.f);
@@ -194,8 +201,9 @@ bool Nsnet2Stream::ProcessBatch(base::span<const float> planar,
     if (!DrainReadyFrames()) {
       return false;
     }
-    const size_t keep = static_cast<size_t>(
-        std::clamp<int64_t>(due, 0, static_cast<int64_t>(out_l_.size())));
+    const int64_t extra = static_cast<int64_t>(out_l_.size() - before_pad);
+    const size_t keep =
+        before_pad + static_cast<size_t>(std::clamp<int64_t>(due, 0, extra));
     out_l_.resize(keep);
     if (channels_ == 2) {
       out_r_.resize(keep);
