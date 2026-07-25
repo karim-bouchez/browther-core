@@ -14,6 +14,8 @@
 #include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
 #include "content/public/renderer/render_frame_observer.h"
 #include "content/public/renderer/render_frame_observer_tracker.h"
+#include "mojo/public/cpp/bindings/associated_receiver_set.h"
+#include "mojo/public/cpp/bindings/pending_associated_receiver.h"
 #include "mojo/public/cpp/bindings/remote.h"
 
 namespace sawtunaa {
@@ -31,7 +33,8 @@ namespace sawtunaa {
 // fait passthrough, jamais de batch bloqué.
 class SawtunaaAudioTapClient
     : public content::RenderFrameObserver,
-      public content::RenderFrameObserverTracker<SawtunaaAudioTapClient> {
+      public content::RenderFrameObserverTracker<SawtunaaAudioTapClient>,
+      public mojom::SawtunaaConfig {
  public:
   using ProcessDoneCB =
       base::OnceCallback<void(bool ok, std::vector<float> processed)>;
@@ -59,9 +62,23 @@ class SawtunaaAudioTapClient
   ProcessCB GetProcessCallback();
   ControlCB GetControlCallback();
 
+  // Décision LIVE par player (lue par GetSawtunaaAudioTap à CHAQUE création
+  // de WebMediaPlayer, main thread) : capacité native de ce build (switch
+  // --sawtunaa-audio-tap, injecté sur kSawtunaaNativeTapActive seul) ET pref
+  // utilisateur courante (poussée par SawtunaaTabHelper via SawtunaaConfig —
+  // toggle ON pris en compte au prochain player/reload, sans restart ; OFF
+  // live assuré en plus par le gate batch côté browser).
+  bool tap_enabled() const { return native_available_ && pref_enabled_; }
+
  private:
   // content::RenderFrameObserver:
   void OnDestruct() override;
+
+  // mojom::SawtunaaConfig (browser → renderer, push du TabHelper) :
+  void SetEnabled(bool enabled) override;
+
+  void BindConfigReceiver(
+      mojo::PendingAssociatedReceiver<mojom::SawtunaaConfig> pending);
 
   void ProcessOnMainThread(int64_t stream_id,
                            std::vector<float> planar,
@@ -78,6 +95,13 @@ class SawtunaaAudioTapClient
   bool EnsureConnected();
 
   mojo::Remote<mojom::AudioTapProcessor> processor_;
+  mojo::AssociatedReceiverSet<mojom::SawtunaaConfig> config_receivers_;
+
+  // Capacité native du build (switch, immuable) / pref utilisateur (poussée,
+  // défaut false — le push du TabHelper arrive à RenderFrameCreated, bien
+  // avant tout media player).
+  bool native_available_ = false;
+  bool pref_enabled_ = false;
 
   base::WeakPtrFactory<SawtunaaAudioTapClient> weak_factory_{this};
 };

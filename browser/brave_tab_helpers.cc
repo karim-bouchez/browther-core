@@ -160,6 +160,11 @@ void AttachTabHelpers(content::WebContents* web_contents) {
   brave_shields::BraveShieldsTabHelper::CreateForWebContents(web_contents);
   ThumbnailTabHelper::CreateForWebContents(web_contents);
   BraveGeolocationPermissionTabHelper::CreateForWebContents(web_contents);
+  // Browther: Sawtunaa audio tap V2 desktop — le TabHelper pousse la pref
+  // kSawtunaaEnabled aux renderers (SawtunaaConfig, PrefChangeRegistrar) :
+  // c'est ce qui rend le toggle vivant PAR PLAYER (le switch renderer ne
+  // porte que la capacité native). Le player Java du ctor est gaté Android.
+  sawtunaa::SawtunaaTabHelper::CreateForWebContents(web_contents);
 #endif
 
 #if BUILDFLAG(IS_WIN)

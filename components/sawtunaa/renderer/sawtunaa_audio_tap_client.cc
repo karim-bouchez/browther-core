@@ -7,9 +7,11 @@
 
 #include <utility>
 
+#include "base/command_line.h"
 #include "base/containers/span.h"
 #include "base/functional/bind.h"
 #include "base/logging.h"
+#include "third_party/blink/public/common/associated_interfaces/associated_interface_registry.h"
 #include "base/task/bind_post_task.h"
 #include "base/task/sequenced_task_runner.h"
 #include "content/public/renderer/render_frame.h"
@@ -22,9 +24,30 @@ SawtunaaAudioTapClient::SawtunaaAudioTapClient(
     content::RenderFrame* render_frame)
     : content::RenderFrameObserver(render_frame),
       content::RenderFrameObserverTracker<SawtunaaAudioTapClient>(
-          render_frame) {}
+          render_frame) {
+  // Capacité native du build : switch injecté par le browser sur
+  // kSawtunaaNativeTapActive (indépendant de la pref utilisateur).
+  native_available_ = base::CommandLine::ForCurrentProcess()->HasSwitch(
+      "sawtunaa-audio-tap");
+  // Pref utilisateur : poussée par SawtunaaTabHelper (SawtunaaConfig,
+  // associated) à RenderFrameCreated + à chaque toggle — même canal que le
+  // pipeline Android.
+  render_frame->GetAssociatedInterfaceRegistry()
+      ->AddInterface<mojom::SawtunaaConfig>(
+          base::BindRepeating(&SawtunaaAudioTapClient::BindConfigReceiver,
+                              weak_factory_.GetWeakPtr()));
+}
 
 SawtunaaAudioTapClient::~SawtunaaAudioTapClient() = default;
+
+void SawtunaaAudioTapClient::BindConfigReceiver(
+    mojo::PendingAssociatedReceiver<mojom::SawtunaaConfig> pending) {
+  config_receivers_.Add(this, std::move(pending));
+}
+
+void SawtunaaAudioTapClient::SetEnabled(bool enabled) {
+  pref_enabled_ = enabled;
+}
 
 void SawtunaaAudioTapClient::OnDestruct() {
   delete this;

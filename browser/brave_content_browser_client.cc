@@ -1158,18 +1158,18 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
       }
     }
 
-    // [Browther/Sawtunaa] audio tap V2 — bascule (étape 4) : injecte le tap
-    // natif quand la pref Sawtunaa est ON ET que le natif est disponible
-    // (kSawtunaaNativeTapActive, publiée par SawtunaaAudioServiceFactory =
-    // build natif + feature). L'extension MV3 lit la même pref et ne capture
-    // plus → un seul pipeline actif à la fois. Toggle → restart requis (comme
-    // le tap vidéo).
+    // [Browther/Sawtunaa] audio tap V2 — bascule (étape 4) : le switch porte
+    // uniquement la CAPACITÉ native (kSawtunaaNativeTapActive = build natif +
+    // feature), PAS la pref utilisateur — celle-ci est poussée en LIVE aux
+    // renderers par SawtunaaTabHelper (SawtunaaConfig) et décidée PAR PLAYER
+    // (GetSawtunaaAudioTap) : toggle ON = prochain player/reload, sans
+    // restart ; toggle OFF = quasi-live (gate batch browser). Sans callbacks,
+    // le pipeline audio reste strictement upstream (pas de hint 2 s pour les
+    // users OFF).
     if (content::RenderProcessHost* process =
             content::RenderProcessHost::FromID(child_process_id)) {
       auto* prefs = user_prefs::UserPrefs::Get(process->GetBrowserContext());
-      if (prefs && prefs->FindPreference(kSawtunaaEnabled) &&
-          prefs->GetBoolean(kSawtunaaEnabled) &&
-          prefs->FindPreference(kSawtunaaNativeTapActive) &&
+      if (prefs && prefs->FindPreference(kSawtunaaNativeTapActive) &&
           prefs->GetBoolean(kSawtunaaNativeTapActive) &&
           !command_line->HasSwitch(switches::kSawtunaaAudioTap)) {
         command_line->AppendSwitch(switches::kSawtunaaAudioTap);
