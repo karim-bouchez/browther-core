@@ -286,21 +286,19 @@ BraveContentRendererClient::GetSupportedKeySystems(
 content::ContentRendererClient::VideoLeadFrameSink
 BraveContentRendererClient::GetVideoLeadFrameSink(
     content::RenderFrame* render_frame) {
-  // Tap natif gaté sur la pref Basarunaa : le browser injecte
-  // --basarunaa-video-tap dans la command-line de ce renderer quand
-  // kBasarunaaEnabled est ON (BraveContentBrowserClient::
-  // AppendExtraCommandLineSwitches). Le décodage MATÉRIEL est préservé
-  // (plus de --disable-accelerated-video-decode depuis le fix sync-token du
+  // Décision LIVE par player : capacité native de ce build (switch
+  // --basarunaa-video-tap, injecté par le browser sur la FEATURE
+  // decode-ahead seule) ET pref utilisateur courante (poussée par
+  // BasarunaaVideoTapTabHelper via VideoTapConfig). Toggle ON → effectif au
+  // prochain player (reload d'onglet suffit, même process — avant, le switch
+  // figé au démarrage du process imposait un restart) ; OFF → live (gate dans
+  // OnLeadFrameNotified). Le décodage MATÉRIEL est préservé (plus de
+  // --disable-accelerated-video-decode depuis le fix sync-token du
   // 2026-07-02, browther-core 7eba9042164) : les frames GPU-backed passent
-  // par le readback non-mutant de LeadFrameReadbackThread. Toggle de la
-  // pref -> restart requis.
-  if (!base::CommandLine::ForCurrentProcess()->HasSwitch(
-          switches::kBasarunaaVideoTap)) {
-    return {};
-  }
+  // par le readback non-mutant de LeadFrameReadbackThread.
   auto* observer =
       basarunaa::BasarunaaRenderFrameObserver::Get(render_frame);
-  if (!observer) {
+  if (!observer || !observer->tap_enabled()) {
     return {};
   }
   return observer->GetVideoLeadFrameSink();

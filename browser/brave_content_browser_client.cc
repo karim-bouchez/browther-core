@@ -1147,15 +1147,16 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     // ne sont pas dans le graphe (include gaté `#if !IS_ANDROID` ci-dessus) →
     // référence gatée aussi, sinon « no member 'kBasarunaaVideoDecodeAhead' ».
 #if !BUILDFLAG(IS_ANDROID)
+    // Comme pour Sawtunaa (cf. bloc suivant) : le switch porte uniquement la
+    // CAPACITÉ du build (feature decode-ahead), PAS la pref utilisateur —
+    // celle-ci est poussée en LIVE aux renderers par
+    // BasarunaaVideoTapTabHelper (VideoTapConfig) et décidée PAR PLAYER
+    // (GetVideoLeadFrameSink) : toggle ON = prochain player/reload, sans
+    // restart ; toggle OFF = live (plus aucun readback ni ML). Sans le sink,
+    // le decode-ahead 2 s de VideoRendererImpl n'est jamais forcé → un
+    // utilisateur OFF ne paie rien.
     if (base::FeatureList::IsEnabled(basarunaa::kBasarunaaVideoDecodeAhead)) {
-      if (content::RenderProcessHost* process =
-              content::RenderProcessHost::FromID(child_process_id)) {
-        auto* prefs = user_prefs::UserPrefs::Get(process->GetBrowserContext());
-        if (prefs && prefs->FindPreference(kBasarunaaEnabled) &&
-            prefs->GetBoolean(kBasarunaaEnabled)) {
-          command_line->AppendSwitch(switches::kBasarunaaVideoTap);
-        }
-      }
+      command_line->AppendSwitch(switches::kBasarunaaVideoTap);
     }
 
     // [Browther/Sawtunaa] audio tap V2 — bascule (étape 4) : le switch porte

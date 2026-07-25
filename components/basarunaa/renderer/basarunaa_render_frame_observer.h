@@ -22,6 +22,8 @@
 #include "content/public/renderer/content_renderer_client.h"
 #include "content/public/renderer/render_frame_observer.h"
 #include "content/public/renderer/render_frame_observer_tracker.h"
+#include "mojo/public/cpp/bindings/associated_receiver_set.h"
+#include "mojo/public/cpp/bindings/pending_associated_receiver.h"
 #include "mojo/public/cpp/bindings/remote.h"
 
 namespace basarunaa {
@@ -45,7 +47,8 @@ enum class FrameKind { kKeyframe = 0, kCutBefore = 1, kCutAfter = 2 };
 class BasarunaaRenderFrameObserver final
     : public content::RenderFrameObserver,
       public content::RenderFrameObserverTracker<
-          BasarunaaRenderFrameObserver> {
+          BasarunaaRenderFrameObserver>,
+      public mojom::VideoTapConfig {
  public:
   explicit BasarunaaRenderFrameObserver(content::RenderFrame* render_frame);
 
@@ -58,6 +61,16 @@ class BasarunaaRenderFrameObserver final
   // de ce RFO (WeakPtr). WebMediaPlayerImpl (blink) l'appelle sur le main
   // thread pour CHAQUE frame décodée-en-avance.
   content::ContentRendererClient::VideoLeadFrameSink GetVideoLeadFrameSink();
+
+  // Décision LIVE par player (lue par GetVideoLeadFrameSink à CHAQUE création
+  // de WebMediaPlayer) : capacité native de ce build (switch
+  // --basarunaa-video-tap, injecté sur la feature seule) ET pref utilisateur
+  // courante (poussée par BasarunaaVideoTapTabHelper). Brancher le sink force
+  // le decode-ahead 2 s côté VideoRendererImpl → on ne le pose JAMAIS pour un
+  // utilisateur OFF. Toggle ON = pris en compte au prochain player (reload
+  // d'onglet suffit, même process) ; OFF = live (gate dans
+  // OnLeadFrameNotified, plus aucun readback ni ML).
+  bool tap_enabled() const { return native_available_ && pref_enabled_; }
 
  private:
   using LeadFrameReadbackCB = content::ContentRendererClient::LeadFrameReadbackCB;
@@ -134,6 +147,12 @@ class BasarunaaRenderFrameObserver final
 
   // RenderFrameObserver:
   void OnDestruct() override;
+
+  // mojom::VideoTapConfig (browser → renderer, push du TabHelper) :
+  void SetEnabled(bool enabled) override;
+
+  void BindConfigReceiver(
+      mojo::PendingAssociatedReceiver<mojom::VideoTapConfig> pending);
 
   bool EnsureConnected();
   // v2 ①  : notification d'une frame décodée-en-avance (main thread). Alimente
@@ -223,6 +242,13 @@ class BasarunaaRenderFrameObserver final
   void DispatchResultToPage(std::string script);
 
   mojo::Remote<mojom::ImageAnalyzer> image_analyzer_;
+  mojo::AssociatedReceiverSet<mojom::VideoTapConfig> config_receivers_;
+
+  // Capacité native du build (switch, immuable) / pref utilisateur (poussée,
+  // défaut false — le push du TabHelper arrive à RenderFrameCreated, bien
+  // avant tout media player).
+  bool native_available_ = false;
+  bool pref_enabled_ = false;
 
   // Détecteurs v2, un par player (main thread only). Prunés quand un player ne
   // notifie plus (hygiène : un WMPI détruit ne préviendra pas).

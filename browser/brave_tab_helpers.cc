@@ -135,6 +135,10 @@
 // live au renderer. Cf. brave/components/basarunaa/.
 #if BUILDFLAG(IS_ANDROID)
 #include "brave/components/basarunaa/browser/basarunaa_tab_helper.h"
+#else
+// Browther: Basarunaa tap vidéo natif desktop — pousse `kBasarunaaEnabled`
+// aux renderers (VideoTapConfig). Cf. brave/browser/basarunaa/.
+#include "brave/browser/basarunaa/basarunaa_video_tap_tab_helper.h"
 #endif
 
 namespace brave {
@@ -165,6 +169,11 @@ void AttachTabHelpers(content::WebContents* web_contents) {
   // c'est ce qui rend le toggle vivant PAR PLAYER (le switch renderer ne
   // porte que la capacité native). Le player Java du ctor est gaté Android.
   sawtunaa::SawtunaaTabHelper::CreateForWebContents(web_contents);
+  // Browther: Basarunaa tap vidéo desktop — même rôle pour kBasarunaaEnabled
+  // (VideoTapConfig) : OFF coupe readbacks + ML en live, ON reprend au
+  // prochain player. Sans lui, le switch figé au démarrage du process
+  // renderer imposait un restart.
+  basarunaa::BasarunaaVideoTapTabHelper::CreateForWebContents(web_contents);
 #endif
 
 #if BUILDFLAG(IS_WIN)

@@ -354,6 +354,15 @@ void BasarunaaImageAnalyzer::AnalyzeImage(mojo_base::BigBuffer pixels,
     std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f, false);
     return;
   }
+  // Filet du toggle OFF (jumeau du gate batch Sawtunaa) : le RFO renderer
+  // arrête déjà d'envoyer dès que VideoTapConfig::SetEnabled(false) arrive,
+  // mais c'est la pref lue ICI, sur le thread UI, qui fait foi — un frame qui
+  // n'aurait pas reçu le push (WebContents sans TabHelper, course au
+  // démarrage) ne peut pas faire tourner le ML pour rien.
+  if (!profile->GetPrefs()->GetBoolean(kBasarunaaEnabled)) {
+    std::move(callback).Run({}, "", false, "", 0.0, 0.0, false, -1.0f, false);
+    return;
+  }
   // Prefs lues sur le thread UI (obligatoire). mode + certitude → pool (calcul
   // du flag blur repli) ET renvoyés au renderer (overlay : recalcul de shouldBlur
   // depuis le genre VOTÉ). conf_body → plancher de score du modèle (pool).

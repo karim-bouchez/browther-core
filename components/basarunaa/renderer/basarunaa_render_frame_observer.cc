@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "base/command_line.h"
 #include "base/containers/span.h"
 #include "base/functional/bind.h"
 #include "base/json/json_writer.h"
@@ -25,6 +26,7 @@
 #include "base/values.h"
 #include "content/public/renderer/render_frame.h"
 #include "mojo/public/cpp/base/big_buffer.h"
+#include "third_party/blink/public/common/associated_interfaces/associated_interface_registry.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
 #include "third_party/blink/public/platform/task_type.h"
 #include "third_party/blink/public/platform/web_string.h"
@@ -187,9 +189,45 @@ BasarunaaRenderFrameObserver::BasarunaaRenderFrameObserver(
     content::RenderFrame* render_frame)
     : content::RenderFrameObserver(render_frame),
       content::RenderFrameObserverTracker<BasarunaaRenderFrameObserver>(
-          render_frame) {}
+          render_frame) {
+  // Capacité native du build : switch injecté par le browser sur la feature
+  // decode-ahead (plus sur la pref — celle-ci arrive par SetEnabled).
+  // Littéral volontaire (switches::kBasarunaaVideoTap) : ce target ne dépend
+  // pas de //brave/components/constants, même choix que
+  // SawtunaaAudioTapClient.
+  native_available_ =
+      base::CommandLine::ForCurrentProcess()->HasSwitch("basarunaa-video-tap");
+  // Pref utilisateur : poussée par BasarunaaVideoTapTabHelper (VideoTapConfig,
+  // associated) à RenderFrameCreated et à chaque toggle.
+  render_frame->GetAssociatedInterfaceRegistry()
+      ->AddInterface<mojom::VideoTapConfig>(
+          base::BindRepeating(&BasarunaaRenderFrameObserver::BindConfigReceiver,
+                              weak_ptr_factory_.GetWeakPtr()));
+}
 
 BasarunaaRenderFrameObserver::~BasarunaaRenderFrameObserver() = default;
+
+void BasarunaaRenderFrameObserver::BindConfigReceiver(
+    mojo::PendingAssociatedReceiver<mojom::VideoTapConfig> pending) {
+  config_receivers_.Add(this, std::move(pending));
+}
+
+void BasarunaaRenderFrameObserver::SetEnabled(bool enabled) {
+  if (pref_enabled_ == enabled) {
+    return;
+  }
+  pref_enabled_ = enabled;
+  VLOG(1) << "[bsrV2] pref poussée : enabled=" << enabled;
+  if (!enabled) {
+    // OFF live : on abandonne l'état de détection de tous les players. Les
+    // players déjà lancés continuent de NOTIFIER (leur decode-ahead est câblé
+    // pour la vie du WebMediaPlayer) mais OnLeadFrameNotified sort tout de
+    // suite → plus aucun readback GPU, aucun hash, aucun IPC, aucune
+    // inférence. Le réarmement est automatique au retour ON (le detector se
+    // reconstruit à la notification suivante).
+    players_.clear();
+  }
+}
 
 bool BasarunaaRenderFrameObserver::EnsureConnected() {
   if (!image_analyzer_.is_bound()) {
@@ -255,6 +293,15 @@ void BasarunaaRenderFrameObserver::OnLeadFrameNotified(
     int64_t player_id,
     base::TimeDelta media_ts,
     const LeadFrameReadbackCB& readback) {
+  // Toggle OFF live : le sink a été branché quand la pref était ON et vit
+  // aussi longtemps que le WebMediaPlayer. On sort AVANT de toucher au
+  // detector → aucun readback, aucun hash, aucun AnalyzeImage tant que
+  // l'utilisateur laisse Basarunaa OFF (l'extension, elle, est déchargée par
+  // BraveComponentLoader : l'overlay ne floutait déjà plus rien, le pipeline
+  // natif tournait pour rien).
+  if (!pref_enabled_) {
+    return;
+  }
   // v2 ① : notification légère (pas de pixels) d'une frame décodée-en-avance.
   PlayerDetector& detector = players_[player_id];
   detector.last_seen = base::TimeTicks::Now();

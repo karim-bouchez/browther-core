@@ -80,6 +80,18 @@ interface PanelHandler {
 // Cette interface sera consommée par un C++ RenderFrameObserver hooké sur
 // les évènements Blink (M2.2). V1 minimal : juste bbox + score, pas de
 // keypoints (à rajouter en M2.5 quand le pattern est validé).
+// Browther/Basarunaa — push browser→renderer de la pref utilisateur
+// `kBasarunaaEnabled` (jumeau de `sawtunaa.mojom SawtunaaConfig`). Le switch
+// `--basarunaa-video-tap` ne porte QUE la capacité du build (feature
+// decode-ahead) : la pref, elle, est poussée en LIVE par
+// BasarunaaVideoTapTabHelper à RenderFrameCreated et à chaque toggle. Sans ce
+// canal, le tap vidéo restait figé à la valeur lue au démarrage du process
+// renderer (OFF = readbacks + ML qui tournent pour rien, ON = tap mort
+// jusqu'au restart).
+interface VideoTapConfig {
+  SetEnabled(bool enabled);
+};
+
 enum ImageFormat {
   kRgba8,
   kBgra8,

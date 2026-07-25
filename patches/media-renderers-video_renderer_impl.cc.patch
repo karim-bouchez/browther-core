@@ -1,5 +1,5 @@
 diff --git a/media/renderers/video_renderer_impl.cc b/media/renderers/video_renderer_impl.cc
-index a342b81050aca..ad53810a9bd95 100644
+index a342b81050aca..436404cf67751 100644
 --- a/media/renderers/video_renderer_impl.cc
 +++ b/media/renderers/video_renderer_impl.cc
 @@ -40,7 +40,17 @@ namespace {
@@ -33,7 +33,7 @@ index a342b81050aca..ad53810a9bd95 100644
        sink_(sink),
        sink_started_(false),
        client_(nullptr),
-@@ -200,6 +212,24 @@ void VideoRendererImpl::Initialize(
+@@ -200,6 +212,26 @@ void VideoRendererImpl::Initialize(
      min_buffered_frames_ = 1;
    }
  
@@ -45,8 +45,10 @@ index a342b81050aca..ad53810a9bd95 100644
 +  // dans SetLatencyHint() (l'app prend la main sur le buffering). Coût = ~2 s
 +  // de latence au démarrage/seek (couvert par le full-blur cold-start).
 +  // GATE : uniquement quand le tap Basarunaa est branché (lead_frame_cb_,
-+  // c.-à-d. --basarunaa-video-tap = feature ET pref ON). Basarunaa OFF →
-+  // comportement upstream intact pour toutes les vidéos.
++  // c.-à-d. capacité --basarunaa-video-tap ET pref utilisateur ON au moment
++  // où CE player est créé — la pref est poussée en live au renderer, cf.
++  // BasarunaaVideoTapTabHelper). Basarunaa OFF → comportement upstream intact
++  // pour toutes les vidéos.
 +  if (lead_frame_cb_) {
 +    latency_hint_ = base::Milliseconds(2000);
 +    low_delay_ = false;
@@ -58,7 +60,7 @@ index a342b81050aca..ad53810a9bd95 100644
    // Always post |init_cb_| because |this| could be destroyed if initialization
    // failed.
    init_cb_ = base::BindPostTaskToCurrentDefault(std::move(init_cb));
-@@ -553,8 +583,9 @@ void VideoRendererImpl::UpdateLatencyHintBufferingCaps_Locked(
+@@ -553,8 +585,9 @@ void VideoRendererImpl::UpdateLatencyHintBufferingCaps_Locked(
        base::ClampRound(*latency_hint_ / average_frame_duration);
  
    std::string clamp_string;
@@ -70,7 +72,7 @@ index a342b81050aca..ad53810a9bd95 100644
      clamp_string = " (clamped to max)";
    } else if (latency_hint_frames < 1) {
      min_buffered_frames_ = 1;
-@@ -625,6 +656,32 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
+@@ -625,6 +658,32 @@ void VideoRendererImpl::FrameReady(VideoDecoderStream::ReadResult result) {
    last_decoder_stream_avg_duration_ = video_decoder_stream_->AverageDuration();
  
    const bool is_eos = frame->metadata().end_of_stream;
@@ -103,7 +105,7 @@ index a342b81050aca..ad53810a9bd95 100644
    const bool is_before_start_time = !is_eos && IsBeforeStartTime(*frame);
    const bool cant_read = !video_decoder_stream_->CanReadWithoutStalling();
    const bool has_best_first_frame = !is_eos && HasBestFirstFrame(*frame);
-@@ -897,7 +954,8 @@ bool VideoRendererImpl::HaveReachedBufferingCap(size_t buffering_cap) const {
+@@ -897,7 +956,8 @@ bool VideoRendererImpl::HaveReachedBufferingCap(size_t buffering_cap) const {
    // queued may be much smaller than the actual number of frames queued.  Here
    // we ensure that frames_queued() doesn't get excessive.
    return algorithm_->effective_frames_queued() >= buffering_cap ||
