@@ -17,8 +17,11 @@
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/recently_audible_helper.h"
+#include "chrome/browser/ui/tabs/tab_strip_model.h"
 #include "components/grit/brave_components_resources.h"
 #include "components/prefs/pref_service.h"
+#include "content/public/browser/web_contents.h"
 #include "third_party/skia/include/core/SkBitmap.h"
 #include "third_party/skia/include/core/SkColor.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -189,16 +192,62 @@ void SawtunaaBubbleView::BuildContents() {
   desc->SetHorizontalAlignment(gfx::ALIGN_CENTER);
   desc->SetMultiLine(true);
   desc->SetMaximumWidth(280);
+
+  // ----- Hint « recharge l'onglet » (masqué tant que non pertinent) -----
+  reload_hint_ = AddChildView(std::make_unique<views::Label>(
+      l10n_util::GetStringUTF16(IDS_SAWTUNAA_POPUP_RELOAD_HINT)));
+  reload_hint_->SetFontList(DeriveFont(12, gfx::Font::Weight::SEMIBOLD));
+  reload_hint_->SetHorizontalAlignment(gfx::ALIGN_CENTER);
+  reload_hint_->SetMultiLine(true);
+  reload_hint_->SetMaximumWidth(280);
+  reload_hint_->SetAutoColorReadabilityEnabled(false);
+  // Browther: jaune doux (warning), même code couleur que le message inline
+  // du bouclier — informe sans alarmer.
+  reload_hint_->SetEnabledColor(SkColorSetRGB(0xF5, 0x9E, 0x0B));
+  reload_hint_->SetVisible(false);
 }
 
 void SawtunaaBubbleView::OnPrefChanged() {
+  const bool value = profile_prefs_->GetBoolean(kSawtunaaEnabled);
   if (toggle_) {
-    const bool value = profile_prefs_->GetBoolean(kSawtunaaEnabled);
     if (toggle_->GetIsOn() != value) {
       toggle_->SetIsOn(value);
     }
   }
   UpdateStatusLabel();
+  UpdateReloadHint(value);
+}
+
+bool SawtunaaBubbleView::ShouldShowReloadHint() const {
+  // Uniquement pour le tap natif : ailleurs (Windows / anciens builds), c'est
+  // l'extension MV3 qui traite l'audio et elle prend le toggle en compte sans
+  // reload.
+  if (!profile_prefs_->GetBoolean(kSawtunaaNativeTapActive)) {
+    return false;
+  }
+  content::WebContents* web_contents =
+      browser_->tab_strip_model()->GetActiveWebContents();
+  if (!web_contents) {
+    return false;
+  }
+  // « Un média joue dans l'onglet » : le helper de la tab strip retient aussi
+  // le média mis en pause (WasEverAudible) — son WebMediaPlayer existe déjà,
+  // donc lui aussi restera non tappé jusqu'au reload.
+  auto* audible = RecentlyAudibleHelper::FromWebContents(web_contents);
+  return audible ? audible->WasEverAudible()
+                 : web_contents->IsCurrentlyAudible();
+}
+
+void SawtunaaBubbleView::UpdateReloadHint(bool enabled) {
+  if (!reload_hint_) {
+    return;
+  }
+  const bool visible = enabled && ShouldShowReloadHint();
+  if (reload_hint_->GetVisible() == visible) {
+    return;
+  }
+  reload_hint_->SetVisible(visible);
+  SizeToContents();
 }
 
 void SawtunaaBubbleView::UpdateStatusLabel() {

@@ -55,9 +55,18 @@ class SawtunaaBubbleView : public views::BubbleDialogDelegateView {
   raw_ptr<PrefService> profile_prefs_ = nullptr;
   raw_ptr<browther::BrowtherBigToggle> toggle_ = nullptr;
   raw_ptr<views::Label> status_label_ = nullptr;
+  raw_ptr<views::Label> reload_hint_ = nullptr;
   PrefChangeRegistrar pref_change_registrar_;
 
   void UpdateStatusLabel();
+
+  // Browther/Sawtunaa V2 : le tap audio natif décide PAR PLAYER, à la
+  // création du WebMediaPlayer. Activer Sawtunaa pendant qu'un média joue ne
+  // change donc rien pour ce média-là tant que l'onglet n'est pas rechargé
+  // (OFF, lui, est quasi-live). On affiche un hint plutôt que de recharger
+  // d'autorité (décision UX 2026-07-25).
+  bool ShouldShowReloadHint() const;
+  void UpdateReloadHint(bool enabled);
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_SAWTUNAA_SAWTUNAA_BUBBLE_VIEW_H_

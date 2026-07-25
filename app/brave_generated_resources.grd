@@ -1483,6 +1483,9 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SAWTUNAA_POPUP_DESCRIPTION" desc="Description text in Sawtunaa popup">
         Removes background music and noise from videos in real time on any site, keeping only the voice.
       </message>
+      <message name="IDS_SAWTUNAA_POPUP_RELOAD_HINT" desc="Hint shown in the Sawtunaa popup right after the user turns Sawtunaa on while media is playing in the current tab">
+        Reload the tab to activate
+      </message>
       <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_ON" desc="Tooltip on Sawtunaa toolbar action when enabled">
         Sawtunaa — ON
       </message>
