@@ -56,6 +56,8 @@ class SawtunaaBubbleView : public views::BubbleDialogDelegateView {
   raw_ptr<browther::BrowtherBigToggle> toggle_ = nullptr;
   raw_ptr<views::Label> status_label_ = nullptr;
   raw_ptr<views::Label> reload_hint_ = nullptr;
+  // Encadré (icône + label) porteur du hint : c'est LUI qu'on montre/cache.
+  raw_ptr<views::View> hint_container_ = nullptr;
   PrefChangeRegistrar pref_change_registrar_;
 
   void UpdateStatusLabel();

@@ -227,6 +227,31 @@ void BasarunaaRenderFrameObserver::SetEnabled(bool enabled) {
     // reconstruit à la notification suivante).
     players_.clear();
   }
+  // Prévient la PAGE. Indispensable : quand la pref passe OFF, le browser
+  // décharge l'extension (BraveComponentLoader) SANS que personne ne prévienne
+  // les content scripts déjà injectés — ils survivent orphelins avec leurs
+  // flous en place (images figées floutées) et l'overlay vidéo, privé de
+  // verdicts, retombe sur son full-blur de sécurité. Ce CustomEvent est du DOM
+  // pur : il fonctionne encore après le déchargement de l'extension.
+  DispatchToPage(enabled ? "document.dispatchEvent(new CustomEvent("
+                           "'bsr-native-enabled',{detail:true}));"
+                         : "document.dispatchEvent(new CustomEvent("
+                           "'bsr-native-enabled',{detail:false}));");
+}
+
+void BasarunaaRenderFrameObserver::DispatchToPage(std::string script) {
+  content::RenderFrame* rf = render_frame();
+  if (!rf) {
+    return;
+  }
+  // Tâche fraîche : on est dans un callback Mojo, ExecuteScript direct
+  // tomberait potentiellement en ScriptForbiddenScope (même règle que le
+  // dispatch des verdicts).
+  rf->GetTaskRunner(blink::TaskType::kInternalDefault)
+      ->PostTask(
+          FROM_HERE,
+          base::BindOnce(&BasarunaaRenderFrameObserver::DispatchResultToPage,
+                         weak_ptr_factory_.GetWeakPtr(), std::move(script)));
 }
 
 bool BasarunaaRenderFrameObserver::EnsureConnected() {

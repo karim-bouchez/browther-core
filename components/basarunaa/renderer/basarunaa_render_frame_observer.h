@@ -240,6 +240,9 @@ class BasarunaaRenderFrameObserver final
   // Exécute le dispatch JS. Posté en tâche fraîche (pas dans le callback Mojo)
   // pour éviter un ExecuteScript en zone ScriptForbiddenScope.
   void DispatchResultToPage(std::string script);
+  // Poste |script| vers DispatchResultToPage (même règle de tâche fraîche).
+  // Sert au CustomEvent 'bsr-native-enabled' du toggle.
+  void DispatchToPage(std::string script);
 
   mojo::Remote<mojom::ImageAnalyzer> image_analyzer_;
   mojo::AssociatedReceiverSet<mojom::VideoTapConfig> config_receivers_;

@@ -20,6 +20,7 @@
 #include "chrome/browser/ui/recently_audible_helper.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
 #include "components/grit/brave_components_resources.h"
+#include "components/vector_icons/vector_icons.h"
 #include "components/prefs/pref_service.h"
 #include "content/public/browser/web_contents.h"
 #include "third_party/skia/include/core/SkBitmap.h"
@@ -36,6 +37,8 @@
 #include "ui/views/controls/image_view.h"
 #include "ui/views/controls/label.h"
 #include "ui/views/layout/box_layout.h"
+#include "ui/views/background.h"
+#include "ui/views/border.h"
 #include "ui/views/layout/box_layout_view.h"
 #include "ui/views/widget/widget.h"
 
@@ -194,17 +197,40 @@ void SawtunaaBubbleView::BuildContents() {
   desc->SetMaximumWidth(280);
 
   // ----- Hint « recharge l'onglet » (masqué tant que non pertinent) -----
-  reload_hint_ = AddChildView(std::make_unique<views::Label>(
+  // Encadré plutôt que texte nu : le message est une CONSÉQUENCE de l'action
+  // qu'on vient de faire, il doit se détacher de la description permanente.
+  constexpr SkColor kHintColor = SkColorSetRGB(0xF5, 0x9E, 0x0B);
+  auto* hint_box = AddChildView(std::make_unique<views::BoxLayoutView>());
+  hint_box->SetOrientation(views::BoxLayout::Orientation::kHorizontal);
+  hint_box->SetCrossAxisAlignment(
+      views::BoxLayout::CrossAxisAlignment::kCenter);
+  hint_box->SetInsideBorderInsets(gfx::Insets::TLBR(10, 14, 10, 14));
+  hint_box->SetBetweenChildSpacing(8);
+  // Fond ambre très translucide + liseré : lisible sur le fond sombre de la
+  // bulle sans écraser le toggle qui reste l'élément principal.
+  hint_box->SetBackground(views::CreateRoundedRectBackground(
+      SkColorSetA(kHintColor, 0x24), 8));
+  hint_box->SetBorder(views::CreateRoundedRectBorder(
+      1, 8, SkColorSetA(kHintColor, 0x66)));
+
+  auto* hint_icon = hint_box->AddChildView(std::make_unique<views::ImageView>(
+      ui::ImageModel::FromVectorIcon(vector_icons::kReloadChromeRefreshIcon,
+                                     kHintColor, 16)));
+  hint_icon->SetVerticalAlignment(views::ImageView::Alignment::kCenter);
+
+  reload_hint_ = hint_box->AddChildView(std::make_unique<views::Label>(
       l10n_util::GetStringUTF16(IDS_SAWTUNAA_POPUP_RELOAD_HINT)));
   reload_hint_->SetFontList(DeriveFont(12, gfx::Font::Weight::SEMIBOLD));
-  reload_hint_->SetHorizontalAlignment(gfx::ALIGN_CENTER);
+  reload_hint_->SetHorizontalAlignment(gfx::ALIGN_LEFT);
   reload_hint_->SetMultiLine(true);
-  reload_hint_->SetMaximumWidth(280);
+  reload_hint_->SetMaximumWidth(224);  // 280 - icône - espacements - insets
   reload_hint_->SetAutoColorReadabilityEnabled(false);
   // Browther: jaune doux (warning), même code couleur que le message inline
   // du bouclier — informe sans alarmer.
-  reload_hint_->SetEnabledColor(SkColorSetRGB(0xF5, 0x9E, 0x0B));
-  reload_hint_->SetVisible(false);
+  reload_hint_->SetEnabledColor(kHintColor);
+
+  hint_container_ = hint_box;
+  hint_container_->SetVisible(false);
 }
 
 void SawtunaaBubbleView::OnPrefChanged() {
@@ -239,14 +265,14 @@ bool SawtunaaBubbleView::ShouldShowReloadHint() const {
 }
 
 void SawtunaaBubbleView::UpdateReloadHint(bool enabled) {
-  if (!reload_hint_) {
+  if (!hint_container_) {
     return;
   }
   const bool visible = enabled && ShouldShowReloadHint();
-  if (reload_hint_->GetVisible() == visible) {
+  if (hint_container_->GetVisible() == visible) {
     return;
   }
-  reload_hint_->SetVisible(visible);
+  hint_container_->SetVisible(visible);
   SizeToContents();
 }
 
