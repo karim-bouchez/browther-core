@@ -921,4 +921,23 @@
 <translation id="8711217670642419559">音楽の除去: 有効</translation>
 <translation id="6946410204063459585">音楽の除去: 無効</translation>
 <translation id="8582707963270540561">あらゆるサイトの動画から背景音楽とノイズをリアルタイムで除去し、声だけを残します。</translation>
+<translation id="676282074217898397">Sawtunaa を有効にする</translation>
+<translation id="3017301864746163917">音声と動画から背景音楽とノイズを自動的に除去します</translation>
+<translation id="1851240652678399673">Sawtunaa — オン</translation>
+<translation id="2466649346989990607">Sawtunaa — オフ</translation>
+<translation id="1260370212650181166">人物のぼかし: 有効</translation>
+<translation id="7226783331917158390">人物のぼかし: 無効</translation>
+<translation id="5484305930275171349">選択したモードに従って、ウェブページ上の人物を自動的にぼかします。</translation>
+<translation id="7281166215790160128">モード</translation>
+<translation id="2820490074689045961">女性をぼかす</translation>
+<translation id="5711809125081584434">男性をぼかす</translation>
+<translation id="8553210988890740803">全員をぼかす</translation>
+<translation id="5809502006290933951">ぼかしの慎重さ</translation>
+<translation id="6846298663435243399">読み込み中…</translation>
+<translation id="2086024167162688600">Basarunaa を切り替える</translation>
+<translation id="3067154517825632296">Browther シールド</translation>
+<translation id="7313166746523328213">Browther シールドは、アクセスするすべてのサイトで広告、トラッカー、フィンガープリント、不要なスクリプトをブロックします。</translation>
+<translation id="4327655748684513863">シールドはサイトごとに管理します。除外したいサイトを開き、右上のシールドボタンをクリックしてください。</translation>
+<translation id="1682877223721186002">広告ブロック: 有効</translation>
+<translation id="1360256168997763737">広告ブロック: 無効</translation>
 </translationbundle>

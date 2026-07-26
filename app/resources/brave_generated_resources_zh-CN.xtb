@@ -919,4 +919,23 @@
 <translation id="8711217670642419559">已启用音乐消除</translation>
 <translation id="6946410204063459585">已停用音乐消除</translation>
 <translation id="8582707963270540561">在任何网站上实时消除视频中的背景音乐和噪音，只保留人声。</translation>
+<translation id="676282074217898397">启用 Sawtunaa</translation>
+<translation id="3017301864746163917">自动消除音频和视频中的背景音乐和噪音</translation>
+<translation id="1851240652678399673">Sawtunaa — 开启</translation>
+<translation id="2466649346989990607">Sawtunaa — 关闭</translation>
+<translation id="1260370212650181166">已启用人物模糊</translation>
+<translation id="7226783331917158390">已停用人物模糊</translation>
+<translation id="5484305930275171349">根据所选模式自动模糊网页上的人物。</translation>
+<translation id="7281166215790160128">模式</translation>
+<translation id="2820490074689045961">模糊女性</translation>
+<translation id="5711809125081584434">模糊男性</translation>
+<translation id="8553210988890740803">模糊所有人</translation>
+<translation id="5809502006290933951">模糊谨慎程度</translation>
+<translation id="6846298663435243399">正在加载…</translation>
+<translation id="2086024167162688600">切换 Basarunaa</translation>
+<translation id="3067154517825632296">Browther 盾牌</translation>
+<translation id="7313166746523328213">Browther 盾牌会在您访问的每个网站上拦截广告、跟踪器、指纹识别和不需要的脚本。</translation>
+<translation id="4327655748684513863">盾牌按网站分别管理。打开要排除的网站，然后点击右上角的盾牌按钮。</translation>
+<translation id="1682877223721186002">已启用广告拦截</translation>
+<translation id="1360256168997763737">已停用广告拦截</translation>
 </translationbundle>

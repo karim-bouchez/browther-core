@@ -918,4 +918,23 @@
 <translation id="8711217670642419559">Удаление музыки ВКЛЮЧЕНО</translation>
 <translation id="6946410204063459585">Удаление музыки ВЫКЛЮЧЕНО</translation>
 <translation id="8582707963270540561">Удаляет фоновую музыку и шум из видео в реальном времени на любом сайте, оставляя только голос.</translation>
+<translation id="676282074217898397">Включить Sawtunaa</translation>
+<translation id="3017301864746163917">Автоматически удалять фоновую музыку и шум из аудио и видео</translation>
+<translation id="1851240652678399673">Sawtunaa — ВКЛ.</translation>
+<translation id="2466649346989990607">Sawtunaa — ВЫКЛ.</translation>
+<translation id="1260370212650181166">Размытие людей ВКЛЮЧЕНО</translation>
+<translation id="7226783331917158390">Размытие людей ВЫКЛЮЧЕНО</translation>
+<translation id="5484305930275171349">Автоматически размывает людей на веб-страницах в соответствии с выбранным режимом.</translation>
+<translation id="7281166215790160128">Режим</translation>
+<translation id="2820490074689045961">Размывать женщин</translation>
+<translation id="5711809125081584434">Размывать мужчин</translation>
+<translation id="8553210988890740803">Размывать всех</translation>
+<translation id="5809502006290933951">Уровень осторожности</translation>
+<translation id="6846298663435243399">Загрузка…</translation>
+<translation id="2086024167162688600">Включить Basarunaa</translation>
+<translation id="3067154517825632296">Щиты Browther</translation>
+<translation id="7313166746523328213">Щиты Browther блокируют рекламу, трекеры, цифровые отпечатки и нежелательные скрипты на каждом посещаемом сайте.</translation>
+<translation id="4327655748684513863">Щиты настраиваются для каждого сайта отдельно. Откройте сайт, который нужно исключить, и нажмите кнопку щита в правом верхнем углу.</translation>
+<translation id="1682877223721186002">Блокировка рекламы ВКЛЮЧЕНА</translation>
+<translation id="1360256168997763737">Блокировка рекламы ВЫКЛЮЧЕНА</translation>
 </translationbundle>
