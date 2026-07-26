@@ -917,4 +917,7 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="2249111429176737533">Open as tabbed window</translation>
 <translation id="7022756207310403729">Open in browser</translation>
 <translation id="934555509427898562">Reload the tab to activate</translation>
+<translation id="8711217670642419559">Music removal ENABLED</translation>
+<translation id="6946410204063459585">Music removal DISABLED</translation>
+<translation id="8582707963270540561">Removes background music and noise from videos in real time on any site, keeping only the voice.</translation>
 </translationbundle>

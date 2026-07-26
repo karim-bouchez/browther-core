@@ -919,4 +919,7 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="2249111429176737533">Megnyitás lapozható ablakban</translation>
 <translation id="7022756207310403729">Megnyitás böngészőben</translation>
 <translation id="934555509427898562">Az aktiváláshoz töltse újra a lapot</translation>
+<translation id="8711217670642419559">Zene eltávolítása BEKAPCSOLVA</translation>
+<translation id="6946410204063459585">Zene eltávolítása KIKAPCSOLVA</translation>
+<translation id="8582707963270540561">Valós időben eltávolítja a háttérzenét és a zajt a videókból bármely webhelyen, és csak a hangot hagyja meg.</translation>
 </translationbundle>
