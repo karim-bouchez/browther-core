@@ -939,4 +939,16 @@ ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="4327655748684513863">Les boucliers se gèrent site par site. Ouvrez le site à exclure et cliquez sur le bouton bouclier en haut à droite.</translation>
 <translation id="1682877223721186002">Suppression des pubs ACTIVÉE</translation>
 <translation id="1360256168997763737">Suppression des pubs DÉSACTIVÉE</translation>
+<translation id="7865193487218155540">Censurer les yeux</translation>
+<translation id="1209726297371789445">Détection NSFW</translation>
+<translation id="737113627967663397">Ignorer les mains seules</translation>
+<translation id="604207206973805070">Moins de flou</translation>
+<translation id="6567684178155961248">Plus prudent</translation>
+<translation id="6147112552017617117">Détection</translation>
+<translation id="1038475518839533013">Efface les yeux de toutes les personnes visibles (hommes, femmes, enfants) en reconstruisant la peau — indépendamment du mode ci-dessus. Les personnes déjà floutées par le mode ne sont pas concernées.</translation>
+<translation id="4385099616007216520">Floute l'image entière si un contenu explicite est détecté (photos de nu, parties intimes). Désactivé par défaut pour une meilleure réactivité — activez-le si vous le souhaitez.</translation>
+<translation id="1359950519738686339">Ne floute pas quand seule une main est visible (ex. tutos vidéo). Dès qu'on voit plus — visage, bras avec coude, jambe, corps — le flou s'applique normalement.</translation>
+<translation id="8116496000232627763">Chaque personne détectée reçoit un score de certitude. Sous ce seuil, elle est floutée par précaution — dans le doute, flou. Au-dessus, sa classe décide (femme → floutée, homme ou enfant → non).</translation>
+<translation id="8268525947366336370">Seuil du classifieur NSFW global. Au-dessus, l'image entière est floutée.</translation>
+<translation id="3814510295993434135">Seuil de détection des parties explicites du corps. Plus bas = plus sensible.</translation>
 </translationbundle>

@@ -940,4 +940,16 @@ Loe Browther'i plaane Manifest V2 jaoks <ph name="BEGIN_LINK"/>siit<ph name="END
 <translation id="4327655748684513863">Kilpe hallatakse saidipõhiselt. Avage sait, mille soovite välja jätta, ja klõpsake üleval paremal kilbinuppu.</translation>
 <translation id="1682877223721186002">Reklaamiblokeerija on SISSE LÜLITATUD</translation>
 <translation id="1360256168997763737">Reklaamiblokeerija on VÄLJA LÜLITATUD</translation>
+<translation id="7865193487218155540">Tsenseeri silmad</translation>
+<translation id="1209726297371789445">NSFW tuvastamine</translation>
+<translation id="737113627967663397">Eira üksikuid käsi</translation>
+<translation id="604207206973805070">Vähem hägusust</translation>
+<translation id="6567684178155961248">Ettevaatlikum</translation>
+<translation id="6147112552017617117">Tuvastamine</translation>
+<translation id="1038475518839533013">Kustutab kõigi nähtavate inimeste (mehed, naised, lapsed) silmad, taastades naha — sõltumata ülalolevast režiimist. Režiimi poolt juba hägustatud inimesi see ei puuduta.</translation>
+<translation id="4385099616007216520">Hägustab kogu pildi, kui tuvastatakse eksplitsiitne sisu (alastus, intiimsed kehaosad). Vaikimisi välja lülitatud parema reageerimiskiiruse huvides — lülitage sisse, kui soovite.</translation>
+<translation id="1359950519738686339">Ei hägusta, kui näha on ainult käsi (nt videoõpetused). Niipea kui on näha rohkemat — nägu, küünarnukiga käsivars, jalg, keha — rakendub hägustamine tavapäraselt.</translation>
+<translation id="8116496000232627763">Iga tuvastatud inimene saab kindlusskoori. Allpool seda läve hägustatakse ta ettevaatusest — kahtluse korral hägusta. Ülalpool otsustab tema klass (naine → hägustatud, mees või laps → mitte).</translation>
+<translation id="8268525947366336370">Üldise NSFW-klassifikaatori lävi. Sellest ülalpool hägustatakse kogu pilt.</translation>
+<translation id="3814510295993434135">Eksplitsiitsete kehaosade tuvastuslävi. Madalam tähendab tundlikumat.</translation>
 </translationbundle>

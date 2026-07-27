@@ -941,4 +941,16 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="4327655748684513863">A pajzsok webhelyenként kezelhetők. Nyissa meg a kizárni kívánt webhelyet, és kattintson a jobb felső sarokban lévő pajzs gombra.</translation>
 <translation id="1682877223721186002">Hirdetésblokkolás BEKAPCSOLVA</translation>
 <translation id="1360256168997763737">Hirdetésblokkolás KIKAPCSOLVA</translation>
+<translation id="7865193487218155540">Szemek cenzúrázása</translation>
+<translation id="1209726297371789445">NSFW-észlelés</translation>
+<translation id="737113627967663397">Magányos kezek mellőzése</translation>
+<translation id="604207206973805070">Kevesebb elmosás</translation>
+<translation id="6567684178155961248">Óvatosabb</translation>
+<translation id="6147112552017617117">Észlelés</translation>
+<translation id="1038475518839533013">A felül beállított módtól függetlenül eltünteti minden látható személy (férfiak, nők, gyermekek) szemét a bőr rekonstruálásával. A mód által már elmosott személyeket ez nem érinti.</translation>
+<translation id="4385099616007216520">Elmossa a teljes képet, ha explicit tartalmat észlel (meztelenség, intim testrészek). Alapértelmezés szerint kikapcsolva a jobb reakcióidő érdekében — kapcsolja be, ha szeretné.</translation>
+<translation id="1359950519738686339">Nem mos el, ha csak egy kéz látszik (pl. videós útmutatók). Amint több látszik — arc, könyökkel együtt a kar, láb, test —, az elmosás a szokásos módon működik.</translation>
+<translation id="8116496000232627763">Minden észlelt személy kap egy biztonsági pontszámot. E küszöb alatt elővigyázatosságból elmosódik — kétség esetén elmosás. Fölötte az osztálya dönt (nő → elmosva, férfi vagy gyermek → nem).</translation>
+<translation id="8268525947366336370">A globális NSFW-osztályozó küszöbe. Fölötte a teljes kép elmosódik.</translation>
+<translation id="3814510295993434135">Explicit testrészek észlelési küszöbe. Alacsonyabb érték érzékenyebb.</translation>
 </translationbundle>

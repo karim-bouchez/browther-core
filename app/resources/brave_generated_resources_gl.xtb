@@ -940,4 +940,16 @@ volver usar Sincronización, terás que crear unha conta nova e volver engadir o
 <translation id="4327655748684513863">Os escudos xestiónanse por sitio. Abre o sitio web que queiras excluír e fai clic no botón do escudo, arriba á dereita.</translation>
 <translation id="1682877223721186002">Bloqueo de anuncios ACTIVADO</translation>
 <translation id="1360256168997763737">Bloqueo de anuncios DESACTIVADO</translation>
+<translation id="7865193487218155540">Censurar os ollos</translation>
+<translation id="1209726297371789445">Detección NSFW</translation>
+<translation id="737113627967663397">Ignorar mans soas</translation>
+<translation id="604207206973805070">Menos desenfoque</translation>
+<translation id="6567684178155961248">Máis prudente</translation>
+<translation id="6147112552017617117">Detección</translation>
+<translation id="1038475518839533013">Borra os ollos de todas as persoas visibles (homes, mulleres, nenos) reconstruíndo a pel, independentemente do modo anterior. As persoas xa desenfocadas polo modo non se ven afectadas.</translation>
+<translation id="4385099616007216520">Desenfoca toda a imaxe se se detecta contido explícito (nus, partes íntimas). Desactivado por defecto para unha mellor reactividade: actívao se o desexas.</translation>
+<translation id="1359950519738686339">Non desenfoca cando só se ve unha man (p. ex. titoriais en vídeo). En canto se ve máis —cara, brazo con cóbado, perna, corpo—, o desenfoque aplícase con normalidade.</translation>
+<translation id="8116496000232627763">Cada persoa detectada recibe unha puntuación de certeza. Por debaixo deste limiar desenfócase por precaución: na dúbida, desenfoca. Por riba, decide a súa clase (muller → desenfocada; home ou neno → non).</translation>
+<translation id="8268525947366336370">Limiar do clasificador NSFW global. Por riba, desenfócase toda a imaxe.</translation>
+<translation id="3814510295993434135">Limiar de detección de partes íntimas do corpo. Canto máis baixo, máis sensible.</translation>
 </translationbundle>

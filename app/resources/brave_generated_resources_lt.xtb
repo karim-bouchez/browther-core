@@ -939,4 +939,16 @@ vėl naudoti sinchronizavimą, turėsite susikurti naują paskyrą ir pridėti �
 <translation id="4327655748684513863">Skydai valdomi kiekvienai svetainei atskirai. Atidarykite svetainę, kurią norite pašalinti, ir spustelėkite skydo mygtuką viršuje dešinėje.</translation>
 <translation id="1682877223721186002">Skelbimų blokavimas ĮJUNGTAS</translation>
 <translation id="1360256168997763737">Skelbimų blokavimas IŠJUNGTAS</translation>
+<translation id="7865193487218155540">Cenzūruoti akis</translation>
+<translation id="1209726297371789445">NSFW aptikimas</translation>
+<translation id="737113627967663397">Nepaisyti pavienių rankų</translation>
+<translation id="604207206973805070">Mažiau suliejimo</translation>
+<translation id="6567684178155961248">Atsargiau</translation>
+<translation id="6147112552017617117">Aptikimas</translation>
+<translation id="1038475518839533013">Ištrina visų matomų žmonių (vyrų, moterų, vaikų) akis, atkurdama odą — nepriklausomai nuo aukščiau pasirinkto režimo. Režimo jau sulietiems žmonėms tai netaikoma.</translation>
+<translation id="4385099616007216520">Sulieja visą vaizdą, kai aptinkamas atviras turinys (nuogumas, intymios kūno dalys). Pagal numatytuosius nustatymus išjungta dėl geresnio reagavimo — įjunkite, jei norite.</translation>
+<translation id="1359950519738686339">Nesulieja, kai matoma tik ranka (pvz., vaizdo pamokose). Kai tik matoma daugiau — veidas, ranka su alkūne, koja, kūnas — suliejimas taikomas įprastai.</translation>
+<translation id="8116496000232627763">Kiekvienas aptiktas žmogus gauna tikrumo įvertį. Žemiau šios ribos jis suliejamas dėl atsargumo — kilus abejonių, sulieti. Virš jos sprendžia jo klasė (moteris → suliejama, vyras ar vaikas → ne).</translation>
+<translation id="8268525947366336370">Bendrojo NSFW klasifikatoriaus riba. Virš jos suliejamas visas vaizdas.</translation>
+<translation id="3814510295993434135">Atvirų kūno dalių aptikimo riba. Mažesnė reiškia jautresnę.</translation>
 </translationbundle>

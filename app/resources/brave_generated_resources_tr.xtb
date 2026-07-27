@@ -940,4 +940,16 @@ Veya şu adresten daha sonra değiştirin: <ph name="SETTINGS_EXTENIONS_LINK"/>.
 <translation id="4327655748684513863">Kalkanlar site bazında yönetilir. Hariç tutmak istediğiniz siteyi açın ve sağ üstteki kalkan düğmesine tıklayın.</translation>
 <translation id="1682877223721186002">Reklam engelleme ETKİN</translation>
 <translation id="1360256168997763737">Reklam engelleme DEVRE DIŞI</translation>
+<translation id="7865193487218155540">Gözleri sansürle</translation>
+<translation id="1209726297371789445">NSFW algılama</translation>
+<translation id="737113627967663397">Yalnız elleri yoksay</translation>
+<translation id="604207206973805070">Daha az bulanıklık</translation>
+<translation id="6567684178155961248">Daha temkinli</translation>
+<translation id="6147112552017617117">Algılama</translation>
+<translation id="1038475518839533013">Yukarıdaki moddan bağımsız olarak, görünen tüm kişilerin (erkek, kadın, çocuk) gözlerini deriyi yeniden oluşturarak siler. Modun zaten bulanıklaştırdığı kişiler bundan etkilenmez.</translation>
+<translation id="4385099616007216520">Müstehcen içerik algılandığında (çıplaklık, mahrem bölgeler) görüntünün tamamını bulanıklaştırır. Daha iyi tepki süresi için varsayılan olarak kapalıdır — isterseniz açın.</translation>
+<translation id="1359950519738686339">Yalnızca bir el göründüğünde bulanıklaştırmaz (ör. video eğitimleri). Yüz, dirsekli kol, bacak, gövde gibi daha fazlası görünür görünmez bulanıklaştırma normal şekilde uygulanır.</translation>
+<translation id="8116496000232627763">Algılanan her kişi bir kesinlik puanı alır. Bu eşiğin altındaysa tedbir amacıyla bulanıklaştırılır — şüphe varsa bulanıklaştır. Üstündeyse sınıfı karar verir (kadın → bulanık, erkek veya çocuk → değil).</translation>
+<translation id="8268525947366336370">Genel NSFW sınıflandırıcısının eşiği. Üstünde görüntünün tamamı bulanıklaştırılır.</translation>
+<translation id="3814510295993434135">Müstehcen vücut bölgelerinin algılama eşiği. Düşük olması daha hassas demektir.</translation>
 </translationbundle>

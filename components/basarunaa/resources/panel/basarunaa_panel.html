@@ -270,17 +270,17 @@
     </div>
     <div class="toggle-row">
       <div class="text">
-        <div class="label">Censurer les yeux</div>
-        <div class="desc-small">Efface les yeux de toutes les personnes visibles (hommes, femmes, enfants) en reconstruisant la peau — indépendamment du mode ci-dessus. Les personnes déjà floutées par le mode ne sont pas concernées.</div>
+        <div class="label">$i18n{censorEyes}</div>
+        <div class="desc-small">$i18n{censorEyesDesc}</div>
       </div>
-      <input type="checkbox" class="small-toggle" id="censor-eyes-toggle" aria-label="Censurer les yeux">
+      <input type="checkbox" class="small-toggle" id="censor-eyes-toggle" aria-label="$i18n{censorEyes}">
     </div>
     <div class="toggle-row">
       <div class="text">
-        <div class="label">Détection NSFW</div>
-        <div class="desc-small">Floute l'image entière si un contenu explicite est détecté (photos de nu, parties intimes). Désactivé par défaut pour une meilleure réactivité — activez-le si vous le souhaitez.</div>
+        <div class="label">$i18n{nsfwToggle}</div>
+        <div class="desc-small">$i18n{nsfwToggleDesc}</div>
       </div>
-      <input type="checkbox" class="small-toggle" id="nsfw-toggle" aria-label="Détection NSFW">
+      <input type="checkbox" class="small-toggle" id="nsfw-toggle" aria-label="$i18n{nsfwToggle}">
     </div>
   </div>
 
@@ -288,10 +288,10 @@
     <div class="section-label">$i18n{detectionLabel}</div>
     <div class="toggle-row">
       <div class="text">
-        <div class="label">Ignorer les mains seules</div>
-        <div class="desc-small">Ne floute pas quand seule une main est visible (ex. tutos vidéo). Dès qu'on voit plus — visage, bras avec coude, jambe, corps — le flou s'applique normalement.</div>
+        <div class="label">$i18n{handFilter}</div>
+        <div class="desc-small">$i18n{handFilterDesc}</div>
       </div>
-      <input type="checkbox" class="small-toggle" id="hand-filter-toggle" aria-label="Ignorer les mains seules">
+      <input type="checkbox" class="small-toggle" id="hand-filter-toggle" aria-label="$i18n{handFilter}">
     </div>
     <div class="slider-row">
       <div class="slider-head">
@@ -299,8 +299,8 @@
         <span class="slider-value" id="gender-certainty-value">—</span>
       </div>
       <input type="range" id="gender-certainty" min="0" max="100" step="1">
-      <div class="slider-scale"><span>Moins de flou</span><span>Plus prudent</span></div>
-      <div class="slider-desc">Chaque personne détectée reçoit un score de certitude (le % affiché sur son label en debug). Sous ce seuil, elle est floutée par précaution — dans le doute, flou. Au-dessus, sa classe décide (femme → floutée, homme/enfant → non).</div>
+      <div class="slider-scale"><span>$i18n{scaleLessBlur}</span><span>$i18n{scaleSafer}</span></div>
+      <div class="slider-desc">$i18n{genderCertaintyDesc}</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">
@@ -308,7 +308,7 @@
         <span class="slider-value" id="nsfw-conf-value">—</span>
       </div>
       <input type="range" id="nsfw-conf" min="0" max="100" step="1">
-      <div class="slider-desc">Seuil du classifieur NSFW global. Au-dessus, l'image entière est floutée.</div>
+      <div class="slider-desc">$i18n{nsfwConfDesc}</div>
     </div>
     <div class="slider-row">
       <div class="slider-head">
@@ -316,7 +316,7 @@
         <span class="slider-value" id="nudenet-conf-value">—</span>
       </div>
       <input type="range" id="nudenet-conf" min="0" max="100" step="1">
-      <div class="slider-desc">Seuil de détection des parties explicites du corps (NudeNet). Plus bas = plus sensible.</div>
+      <div class="slider-desc">$i18n{nudenetConfDesc}</div>
     </div>
   </div>
 

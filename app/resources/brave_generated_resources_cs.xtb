@@ -939,4 +939,16 @@ Jste si jisti, že chcete tuto akci provést?</translation>
 <translation id="4327655748684513863">Štíty se spravují pro každý web zvlášť. Otevřete web, který chcete vyloučit, a klikněte na tlačítko štítu vpravo nahoře.</translation>
 <translation id="1682877223721186002">Blokování reklam je ZAPNUTO</translation>
 <translation id="1360256168997763737">Blokování reklam je VYPNUTO</translation>
+<translation id="7865193487218155540">Zakrýt oči</translation>
+<translation id="1209726297371789445">Detekce NSFW</translation>
+<translation id="737113627967663397">Ignorovat samotné ruce</translation>
+<translation id="604207206973805070">Méně rozostření</translation>
+<translation id="6567684178155961248">Opatrnější</translation>
+<translation id="6147112552017617117">Detekce</translation>
+<translation id="1038475518839533013">Vymaže oči všech viditelných osob (mužů, žen, dětí) rekonstrukcí kůže — nezávisle na režimu výše. Osob již rozostřených podle režimu se to netýká.</translation>
+<translation id="4385099616007216520">Rozostří celý obrázek, pokud je zjištěn explicitní obsah (nahota, intimní partie). Ve výchozím nastavení vypnuto kvůli lepší odezvě — zapněte podle potřeby.</translation>
+<translation id="1359950519738686339">Nerozostřuje, když je vidět jen ruka (např. videonávody). Jakmile je vidět více — obličej, paže s loktem, noha, tělo — rozostření se použije jako obvykle.</translation>
+<translation id="8116496000232627763">Každá zjištěná osoba dostane skóre jistoty. Pod tímto prahem se rozostří pro jistotu — v případě pochybností rozostřit. Nad ním rozhoduje její třída (žena → rozostřená, muž nebo dítě → ne).</translation>
+<translation id="8268525947366336370">Práh globálního klasifikátoru NSFW. Nad ním se rozostří celý obrázek.</translation>
+<translation id="3814510295993434135">Práh detekce explicitních částí těla. Nižší znamená citlivější.</translation>
 </translationbundle>

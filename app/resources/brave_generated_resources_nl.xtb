@@ -939,4 +939,16 @@ Of voer later wijzigingen door via <ph name="SETTINGS_EXTENIONS_LINK"/>.</transl
 <translation id="4327655748684513863">Shields worden per site beheerd. Open de website die je wilt uitsluiten en klik rechtsboven op de schildknop.</translation>
 <translation id="1682877223721186002">Advertentieblokkering INGESCHAKELD</translation>
 <translation id="1360256168997763737">Advertentieblokkering UITGESCHAKELD</translation>
+<translation id="7865193487218155540">Ogen censureren</translation>
+<translation id="1209726297371789445">NSFW-detectie</translation>
+<translation id="737113627967663397">Losse handen negeren</translation>
+<translation id="604207206973805070">Minder vervaging</translation>
+<translation id="6567684178155961248">Voorzichtiger</translation>
+<translation id="6147112552017617117">Detectie</translation>
+<translation id="1038475518839533013">Wist de ogen van elke zichtbare persoon (mannen, vrouwen, kinderen) door de huid te reconstrueren — ongeacht de modus hierboven. Personen die de modus al vervaagt, vallen hier niet onder.</translation>
+<translation id="4385099616007216520">Vervaagt de hele afbeelding als expliciete inhoud wordt gedetecteerd (naaktheid, intieme delen). Standaard uit voor een betere responsiviteit — schakel het in als je dat wilt.</translation>
+<translation id="1359950519738686339">Vervaagt niet wanneer alleen een hand zichtbaar is (bijv. videotutorials). Zodra er meer zichtbaar is — gezicht, arm met elleboog, been, lichaam — wordt normaal vervaagd.</translation>
+<translation id="8116496000232627763">Elke gedetecteerde persoon krijgt een zekerheidsscore. Onder deze drempel wordt hij uit voorzorg vervaagd — bij twijfel vervagen. Erboven beslist zijn klasse (vrouw → vervaagd, man of kind → niet).</translation>
+<translation id="8268525947366336370">Drempel van de algemene NSFW-classificatie. Daarboven wordt de hele afbeelding vervaagd.</translation>
+<translation id="3814510295993434135">Detectiedrempel voor expliciete lichaamsdelen. Lager betekent gevoeliger.</translation>
 </translationbundle>

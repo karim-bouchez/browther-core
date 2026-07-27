@@ -939,4 +939,16 @@ Oder später ändern unter <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="4327655748684513863">Shields werden pro Website verwaltet. Öffnen Sie die Website, die Sie ausschließen möchten, und klicken Sie oben rechts auf die Schild-Schaltfläche.</translation>
 <translation id="1682877223721186002">Werbeblockierung AKTIVIERT</translation>
 <translation id="1360256168997763737">Werbeblockierung DEAKTIVIERT</translation>
+<translation id="7865193487218155540">Augen zensieren</translation>
+<translation id="1209726297371789445">NSFW-Erkennung</translation>
+<translation id="737113627967663397">Einzelne Hände ignorieren</translation>
+<translation id="604207206973805070">Weniger Unschärfe</translation>
+<translation id="6567684178155961248">Vorsichtiger</translation>
+<translation id="6147112552017617117">Erkennung</translation>
+<translation id="1038475518839533013">Löscht die Augen aller sichtbaren Personen (Männer, Frauen, Kinder), indem die Haut rekonstruiert wird — unabhängig vom Modus oben. Bereits durch den Modus weichgezeichnete Personen sind nicht betroffen.</translation>
+<translation id="4385099616007216520">Zeichnet das gesamte Bild weich, wenn expliziter Inhalt erkannt wird (Nacktheit, Intimbereiche). Standardmäßig aus für bessere Reaktionsfähigkeit — bei Bedarf einschalten.</translation>
+<translation id="1359950519738686339">Zeichnet nicht weich, wenn nur eine Hand sichtbar ist (z. B. Video-Tutorials). Sobald mehr sichtbar ist — Gesicht, Arm mit Ellbogen, Bein, Körper — wird wie gewohnt weichgezeichnet.</translation>
+<translation id="8116496000232627763">Jede erkannte Person erhält einen Sicherheitswert. Unterhalb dieser Schwelle wird sie vorsichtshalber weichgezeichnet — im Zweifel weichzeichnen. Darüber entscheidet ihre Klasse (Frau → weichgezeichnet, Mann oder Kind → nicht).</translation>
+<translation id="8268525947366336370">Schwelle des globalen NSFW-Klassifikators. Darüber wird das gesamte Bild weichgezeichnet.</translation>
+<translation id="3814510295993434135">Erkennungsschwelle für explizite Körperteile. Niedriger bedeutet empfindlicher.</translation>
 </translationbundle>

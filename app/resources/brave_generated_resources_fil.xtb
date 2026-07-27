@@ -939,4 +939,16 @@ O baguhin mamaya sa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="4327655748684513863">Pinamamahalaan ang Shields kada site. Buksan ang website na gusto mong ibukod at i-click ang shield button sa kanang itaas.</translation>
 <translation id="1682877223721186002">NAKA-ON ang pagharang ng ad</translation>
 <translation id="1360256168997763737">NAKA-OFF ang pagharang ng ad</translation>
+<translation id="7865193487218155540">I-censor ang mga mata</translation>
+<translation id="1209726297371789445">Pagtuklas ng NSFW</translation>
+<translation id="737113627967663397">Huwag pansinin ang nag-iisang kamay</translation>
+<translation id="604207206973805070">Mas kaunting blur</translation>
+<translation id="6567684178155961248">Mas maingat</translation>
+<translation id="6147112552017617117">Pagtuklas</translation>
+<translation id="1038475518839533013">Binubura ang mga mata ng bawat nakikitang tao (lalaki, babae, bata) sa pamamagitan ng muling pagbuo ng balat — anuman ang mode sa itaas. Hindi kasama ang mga taong na-blur na ng mode.</translation>
+<translation id="4385099616007216520">Bini-blur ang buong larawan kapag may natukoy na tahasang nilalaman (kahubaran, pribadong bahagi). Naka-off bilang default para sa mas mabilis na tugon — i-on kung gusto mo.</translation>
+<translation id="1359950519738686339">Hindi nagbi-blur kapag kamay lang ang nakikita (hal. mga video tutorial). Sa sandaling may mas marami — mukha, braso na may siko, binti, katawan — normal na nag-a-apply ang blur.</translation>
+<translation id="8116496000232627763">Bawat natukoy na tao ay binibigyan ng certainty score. Sa ilalim ng threshold na ito, bini-blur siya bilang pag-iingat — kapag may duda, i-blur. Sa itaas nito, ang klase niya ang magpapasya (babae → bini-blur, lalaki o bata → hindi).</translation>
+<translation id="8268525947366336370">Threshold ng global na NSFW classifier. Sa itaas nito, bini-blur ang buong larawan.</translation>
+<translation id="3814510295993434135">Threshold ng pagtuklas para sa tahasang bahagi ng katawan. Mas mababa, mas sensitibo.</translation>
 </translationbundle>

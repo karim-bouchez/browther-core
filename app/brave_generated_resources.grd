@@ -1538,6 +1538,43 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_PANEL_NUDENET_CONF" desc="Slider label for the NudeNet explicit-parts threshold in the Basarunaa panel">
         NudeNet
       </message>
+      <!-- Browther: options et descriptions du panel Basarunaa. Étaient
+           codées en dur (en français) dans basarunaa_panel.html jusqu'au
+           2026-07-26 : elles restaient donc en français quelle que soit la
+           langue du navigateur. -->
+      <message name="IDS_BASARUNAA_PANEL_CENSOR_EYES" desc="Label of the eye-censoring toggle in the Basarunaa panel">
+        Censor eyes
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_CENSOR_EYES_DESC" desc="Description of the eye-censoring toggle in the Basarunaa panel">
+        Erases the eyes of every visible person (men, women, children) by reconstructing the skin — regardless of the mode above. People already blurred by the mode are not affected.
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_NSFW_TOGGLE" desc="Label of the NSFW detection toggle in the Basarunaa panel">
+        NSFW detection
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_NSFW_TOGGLE_DESC" desc="Description of the NSFW detection toggle in the Basarunaa panel">
+        Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness — turn it on if you want it.
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_HAND_FILTER" desc="Label of the toggle that skips blurring when only a hand is visible">
+        Ignore lone hands
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_HAND_FILTER_DESC" desc="Description of the toggle that skips blurring when only a hand is visible">
+        Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — blurring applies as usual.
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_SCALE_LESS_BLUR" desc="Left end of the blur caution slider scale in the Basarunaa panel">
+        Less blur
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_SCALE_SAFER" desc="Right end of the blur caution slider scale in the Basarunaa panel">
+        More cautious
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_GENDER_CERTAINTY_DESC" desc="Description of the blur caution slider in the Basarunaa panel">
+        Every detected person gets a certainty score. Below this threshold they are blurred as a precaution — when in doubt, blur. Above it, their class decides (woman → blurred, man or child → not).
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_NSFW_CONF_DESC" desc="Description of the NSFW threshold slider in the Basarunaa panel">
+        Threshold of the global NSFW classifier. Above it, the whole image is blurred.
+      </message>
+      <message name="IDS_BASARUNAA_PANEL_NUDENET_CONF_DESC" desc="Description of the NudeNet threshold slider in the Basarunaa panel">
+        Detection threshold for explicit body parts. Lower means more sensitive.
+      </message>
       <message name="IDS_BASARUNAA_PANEL_LOADING" desc="Loading text shown while the Basarunaa panel fetches its initial state">
         Loading…
       </message>

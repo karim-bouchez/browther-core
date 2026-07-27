@@ -939,4 +939,16 @@ Tai muuta myöhemmin kohdassa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="4327655748684513863">Suojauksia hallitaan sivustokohtaisesti. Avaa sivusto, jonka haluat ohittaa, ja napsauta oikeassa yläkulmassa olevaa kilpipainiketta.</translation>
 <translation id="1682877223721186002">Mainosten esto KÄYTÖSSÄ</translation>
 <translation id="1360256168997763737">Mainosten esto POIS KÄYTÖSTÄ</translation>
+<translation id="7865193487218155540">Sensuroi silmät</translation>
+<translation id="1209726297371789445">NSFW-tunnistus</translation>
+<translation id="737113627967663397">Ohita yksinäiset kädet</translation>
+<translation id="604207206973805070">Vähemmän sumennusta</translation>
+<translation id="6567684178155961248">Varovaisempi</translation>
+<translation id="6147112552017617117">Tunnistus</translation>
+<translation id="1038475518839533013">Poistaa kaikkien näkyvien henkilöiden (miehet, naiset, lapset) silmät rekonstruoimalla ihon — riippumatta yllä olevasta tilasta. Tilan jo sumentamiin henkilöihin tämä ei vaikuta.</translation>
+<translation id="4385099616007216520">Sumentaa koko kuvan, jos havaitaan avointa sisältöä (alastomuus, intiimialueet). Oletuksena pois käytöstä paremman vasteen vuoksi — ota käyttöön halutessasi.</translation>
+<translation id="1359950519738686339">Ei sumenna, kun näkyvissä on vain käsi (esim. video-oppaat). Heti kun näkyy enemmän — kasvot, käsivarsi kyynärpäineen, jalka, vartalo — sumennus toimii tavalliseen tapaan.</translation>
+<translation id="8116496000232627763">Jokainen havaittu henkilö saa varmuuspisteet. Tämän kynnyksen alapuolella hänet sumennetaan varmuuden vuoksi — epäselvässä tilanteessa sumennetaan. Sen yläpuolella luokka ratkaisee (nainen → sumennetaan, mies tai lapsi → ei).</translation>
+<translation id="8268525947366336370">Yleisen NSFW-luokittelijan kynnys. Sen yläpuolella koko kuva sumennetaan.</translation>
+<translation id="3814510295993434135">Avointen ruumiinosien tunnistuskynnys. Matalampi on herkempi.</translation>
 </translationbundle>

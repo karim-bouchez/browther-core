@@ -940,4 +940,16 @@ volver a usar Sync de nuevo, deberás crear otra cuenta y volver a agregar cada 
 <translation id="4327655748684513863">Los escudos se administran por sitio. Abre el sitio web que quieras excluir y haz clic en el botón del escudo, arriba a la derecha.</translation>
 <translation id="1682877223721186002">Bloqueo de anuncios ACTIVADO</translation>
 <translation id="1360256168997763737">Bloqueo de anuncios DESACTIVADO</translation>
+<translation id="7865193487218155540">Censurar los ojos</translation>
+<translation id="1209726297371789445">Detección NSFW</translation>
+<translation id="737113627967663397">Ignorar manos solas</translation>
+<translation id="604207206973805070">Menos desenfoque</translation>
+<translation id="6567684178155961248">Más prudente</translation>
+<translation id="6147112552017617117">Detección</translation>
+<translation id="1038475518839533013">Borra los ojos de todas las personas visibles (hombres, mujeres, niños) reconstruyendo la piel, sin importar el modo anterior. Las personas que el modo ya desenfoca no se ven afectadas.</translation>
+<translation id="4385099616007216520">Desenfoca toda la imagen si se detecta contenido explícito (desnudos, partes íntimas). Desactivado de forma predeterminada para mayor capacidad de respuesta: actívalo si lo deseas.</translation>
+<translation id="1359950519738686339">No desenfoca cuando solo se ve una mano (p. ej., tutoriales en video). En cuanto se ve más —cara, brazo con codo, pierna, cuerpo—, el desenfoque se aplica con normalidad.</translation>
+<translation id="8116496000232627763">Cada persona detectada recibe una puntuación de certeza. Por debajo de este umbral se desenfoca por precaución: ante la duda, desenfoca. Por encima, decide su clase (mujer → desenfocada; hombre o niño → no).</translation>
+<translation id="8268525947366336370">Umbral del clasificador NSFW global. Por encima, se desenfoca toda la imagen.</translation>
+<translation id="3814510295993434135">Umbral de detección de partes íntimas del cuerpo. Cuanto más bajo, más sensible.</translation>
 </translationbundle>

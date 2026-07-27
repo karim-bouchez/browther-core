@@ -939,4 +939,16 @@ Oppure cambia in seguito la tua scelta su <ph name="SETTINGS_EXTENIONS_LINK"/>.<
 <translation id="4327655748684513863">Gli scudi si gestiscono sito per sito. Apri il sito da escludere e fai clic sul pulsante a forma di scudo in alto a destra.</translation>
 <translation id="1682877223721186002">Blocco degli annunci ATTIVO</translation>
 <translation id="1360256168997763737">Blocco degli annunci DISATTIVATO</translation>
+<translation id="7865193487218155540">Censura gli occhi</translation>
+<translation id="1209726297371789445">Rilevamento NSFW</translation>
+<translation id="737113627967663397">Ignora le mani da sole</translation>
+<translation id="604207206973805070">Meno sfocatura</translation>
+<translation id="6567684178155961248">Più prudente</translation>
+<translation id="6147112552017617117">Rilevamento</translation>
+<translation id="1038475518839533013">Cancella gli occhi di tutte le persone visibili (uomini, donne, bambini) ricostruendo la pelle, indipendentemente dalla modalità sopra. Le persone già sfocate dalla modalità non sono interessate.</translation>
+<translation id="4385099616007216520">Sfoca l'intera immagine se viene rilevato contenuto esplicito (nudità, parti intime). Disattivato per impostazione predefinita per una migliore reattività: attivalo se lo desideri.</translation>
+<translation id="1359950519738686339">Non sfoca quando è visibile solo una mano (es. tutorial video). Non appena si vede di più — viso, braccio con gomito, gamba, corpo — la sfocatura si applica normalmente.</translation>
+<translation id="8116496000232627763">Ogni persona rilevata riceve un punteggio di certezza. Sotto questa soglia viene sfocata per precauzione: nel dubbio, sfoca. Sopra, decide la sua classe (donna → sfocata, uomo o bambino → no).</translation>
+<translation id="8268525947366336370">Soglia del classificatore NSFW globale. Al di sopra, l'intera immagine viene sfocata.</translation>
+<translation id="3814510295993434135">Soglia di rilevamento delle parti intime del corpo. Più bassa = più sensibile.</translation>
 </translationbundle>

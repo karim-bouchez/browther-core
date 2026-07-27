@@ -940,4 +940,16 @@
 <translation id="4327655748684513863">盾牌依網站分別管理。開啟要排除的網站，然後按一下右上角的盾牌按鈕。</translation>
 <translation id="1682877223721186002">已啟用廣告封鎖</translation>
 <translation id="1360256168997763737">已停用廣告封鎖</translation>
+<translation id="7865193487218155540">遮擋眼睛</translation>
+<translation id="1209726297371789445">NSFW 偵測</translation>
+<translation id="737113627967663397">忽略僅有手部的情況</translation>
+<translation id="604207206973805070">模糊更少</translation>
+<translation id="6567684178155961248">更謹慎</translation>
+<translation id="6147112552017617117">偵測</translation>
+<translation id="1038475518839533013">透過重建皮膚，抹除畫面中所有可見人物（男性、女性、兒童）的眼睛，與上方模式無關。已被該模式模糊的人物不受影響。</translation>
+<translation id="4385099616007216520">偵測到露骨內容（裸露、私密部位）時模糊整張圖片。為獲得更好的回應速度，預設關閉——需要時可開啟。</translation>
+<translation id="1359950519738686339">僅出現手部時不進行模糊（例如影片教學）。一旦出現更多——臉部、含手肘的手臂、腿部、身體——即按常規進行模糊。</translation>
+<translation id="8116496000232627763">每個偵測到的人物都會獲得一個確信度分數。低於此門檻時基於謹慎進行模糊——存疑即模糊。高於此門檻則由其類別決定（女性→模糊，男性或兒童→不模糊）。</translation>
+<translation id="8268525947366336370">全域 NSFW 分類器的門檻。超過該值時整張圖片將被模糊。</translation>
+<translation id="3814510295993434135">露骨身體部位的偵測門檻。數值越低越敏感。</translation>
 </translationbundle>

@@ -939,4 +939,16 @@ Atau ubah kemudian pada <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="4327655748684513863">Perisai diurus mengikut tapak. Buka tapak web yang ingin dikecualikan dan klik butang perisai di bahagian atas kanan.</translation>
 <translation id="1682877223721186002">Penyekatan iklan DIHIDUPKAN</translation>
 <translation id="1360256168997763737">Penyekatan iklan DIMATIKAN</translation>
+<translation id="7865193487218155540">Sensor mata</translation>
+<translation id="1209726297371789445">Pengesanan NSFW</translation>
+<translation id="737113627967663397">Abaikan tangan sahaja</translation>
+<translation id="604207206973805070">Kurang kabur</translation>
+<translation id="6567684178155961248">Lebih berhati-hati</translation>
+<translation id="6147112552017617117">Pengesanan</translation>
+<translation id="1038475518839533013">Memadamkan mata setiap orang yang kelihatan (lelaki, wanita, kanak-kanak) dengan membina semula kulit — tanpa mengira mod di atas. Orang yang sudah dikaburkan oleh mod tidak terjejas.</translation>
+<translation id="4385099616007216520">Mengaburkan keseluruhan imej apabila kandungan lucah dikesan (ketelanjangan, bahagian sulit). Dimatikan secara lalai untuk tindak balas yang lebih baik — hidupkannya jika anda mahu.</translation>
+<translation id="1359950519738686339">Tidak mengaburkan apabila hanya tangan kelihatan (cth. tutorial video). Sebaik sahaja lebih banyak kelihatan — wajah, lengan dengan siku, kaki, badan — pengaburan berfungsi seperti biasa.</translation>
+<translation id="8116496000232627763">Setiap orang yang dikesan mendapat skor kepastian. Di bawah ambang ini, dia dikaburkan sebagai langkah berjaga-jaga — jika ragu, kaburkan. Di atasnya, kelasnya yang menentukan (wanita → dikaburkan, lelaki atau kanak-kanak → tidak).</translation>
+<translation id="8268525947366336370">Ambang pengelas NSFW global. Di atasnya, keseluruhan imej dikaburkan.</translation>
+<translation id="3814510295993434135">Ambang pengesanan bahagian badan lucah. Lebih rendah bermakna lebih sensitif.</translation>
 </translationbundle>

@@ -64,6 +64,17 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
       {"nudenetConf", IDS_BASARUNAA_PANEL_NUDENET_CONF},
       {"loading", IDS_BASARUNAA_PANEL_LOADING},
       {"toggleAria", IDS_BASARUNAA_PANEL_TOGGLE_ARIA},
+      {"censorEyes", IDS_BASARUNAA_PANEL_CENSOR_EYES},
+      {"censorEyesDesc", IDS_BASARUNAA_PANEL_CENSOR_EYES_DESC},
+      {"nsfwToggle", IDS_BASARUNAA_PANEL_NSFW_TOGGLE},
+      {"nsfwToggleDesc", IDS_BASARUNAA_PANEL_NSFW_TOGGLE_DESC},
+      {"handFilter", IDS_BASARUNAA_PANEL_HAND_FILTER},
+      {"handFilterDesc", IDS_BASARUNAA_PANEL_HAND_FILTER_DESC},
+      {"scaleLessBlur", IDS_BASARUNAA_PANEL_SCALE_LESS_BLUR},
+      {"scaleSafer", IDS_BASARUNAA_PANEL_SCALE_SAFER},
+      {"genderCertaintyDesc", IDS_BASARUNAA_PANEL_GENDER_CERTAINTY_DESC},
+      {"nsfwConfDesc", IDS_BASARUNAA_PANEL_NSFW_CONF_DESC},
+      {"nudenetConfDesc", IDS_BASARUNAA_PANEL_NUDENET_CONF_DESC},
   };
   for (const auto& s : kLocalizedStrings) {
     source->AddLocalizedString(s.name, s.id);

@@ -940,4 +940,16 @@ Leo AI trong tương lai và cũng sẽ xóa lịch sử trò chuyện, các tù
 <translation id="4327655748684513863">Lá chắn được quản lý theo từng trang. Mở trang web bạn muốn loại trừ rồi nhấp vào nút lá chắn ở góc trên bên phải.</translation>
 <translation id="1682877223721186002">Đã BẬT tính năng chặn quảng cáo</translation>
 <translation id="1360256168997763737">Đã TẮT tính năng chặn quảng cáo</translation>
+<translation id="7865193487218155540">Che mắt</translation>
+<translation id="1209726297371789445">Phát hiện NSFW</translation>
+<translation id="737113627967663397">Bỏ qua khi chỉ có bàn tay</translation>
+<translation id="604207206973805070">Ít làm mờ hơn</translation>
+<translation id="6567684178155961248">Thận trọng hơn</translation>
+<translation id="6147112552017617117">Phát hiện</translation>
+<translation id="1038475518839533013">Xóa mắt của mọi người xuất hiện (nam, nữ, trẻ em) bằng cách tái tạo da — bất kể chế độ ở trên. Những người đã được chế độ làm mờ thì không bị ảnh hưởng.</translation>
+<translation id="4385099616007216520">Làm mờ toàn bộ hình ảnh khi phát hiện nội dung khiêu dâm (ảnh khỏa thân, bộ phận nhạy cảm). Mặc định tắt để phản hồi nhanh hơn — bật nếu bạn muốn.</translation>
+<translation id="1359950519738686339">Không làm mờ khi chỉ thấy bàn tay (ví dụ: video hướng dẫn). Ngay khi thấy nhiều hơn — mặt, cánh tay có khuỷu, chân, thân người — việc làm mờ áp dụng như bình thường.</translation>
+<translation id="8116496000232627763">Mỗi người được phát hiện sẽ nhận một điểm chắc chắn. Dưới ngưỡng này, người đó được làm mờ để phòng ngừa — khi nghi ngờ thì làm mờ. Trên ngưỡng, phân loại của họ quyết định (nữ → làm mờ, nam hoặc trẻ em → không).</translation>
+<translation id="8268525947366336370">Ngưỡng của bộ phân loại NSFW tổng thể. Trên ngưỡng này, toàn bộ hình ảnh bị làm mờ.</translation>
+<translation id="3814510295993434135">Ngưỡng phát hiện bộ phận cơ thể nhạy cảm. Càng thấp càng nhạy.</translation>
 </translationbundle>

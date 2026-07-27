@@ -939,4 +939,16 @@ Leo AI. Esta ação não pode ser revertida.</translation>
 <translation id="4327655748684513863">Os escudos são geridos por site. Abra o site que pretende excluir e clique no botão de escudo no canto superior direito.</translation>
 <translation id="1682877223721186002">Bloqueio de anúncios ATIVADO</translation>
 <translation id="1360256168997763737">Bloqueio de anúncios DESATIVADO</translation>
+<translation id="7865193487218155540">Censurar os olhos</translation>
+<translation id="1209726297371789445">Deteção de NSFW</translation>
+<translation id="737113627967663397">Ignorar mãos sozinhas</translation>
+<translation id="604207206973805070">Menos desfocagem</translation>
+<translation id="6567684178155961248">Mais cauteloso</translation>
+<translation id="6147112552017617117">Deteção</translation>
+<translation id="1038475518839533013">Apaga os olhos de todas as pessoas visíveis (homens, mulheres, crianças) reconstruindo a pele — independentemente do modo acima. As pessoas já desfocadas pelo modo não são afetadas.</translation>
+<translation id="4385099616007216520">Desfoca a imagem inteira quando deteta conteúdo explícito (nudez, partes íntimas). Desativado por predefinição para melhor capacidade de resposta — ative se quiser.</translation>
+<translation id="1359950519738686339">Não desfoca quando apenas uma mão está visível (ex.: tutoriais em vídeo). Assim que aparece mais — rosto, braço com cotovelo, perna, corpo —, a desfocagem aplica-se normalmente.</translation>
+<translation id="8116496000232627763">Cada pessoa detetada recebe uma pontuação de certeza. Abaixo deste limite é desfocada por precaução — na dúvida, desfoque. Acima, a classe dela decide (mulher → desfocada; homem ou criança → não).</translation>
+<translation id="8268525947366336370">Limite do classificador NSFW global. Acima dele, a imagem inteira é desfocada.</translation>
+<translation id="3814510295993434135">Limite de deteção de partes íntimas do corpo. Quanto menor, mais sensível.</translation>
 </translationbundle>

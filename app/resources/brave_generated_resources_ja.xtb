@@ -940,4 +940,16 @@
 <translation id="4327655748684513863">シールドはサイトごとに管理します。除外したいサイトを開き、右上のシールドボタンをクリックしてください。</translation>
 <translation id="1682877223721186002">広告ブロック: 有効</translation>
 <translation id="1360256168997763737">広告ブロック: 無効</translation>
+<translation id="7865193487218155540">目を隠す</translation>
+<translation id="1209726297371789445">NSFW 検出</translation>
+<translation id="737113627967663397">手だけの場合は無視</translation>
+<translation id="604207206973805070">ぼかしを弱く</translation>
+<translation id="6567684178155961248">より慎重に</translation>
+<translation id="6147112552017617117">検出</translation>
+<translation id="1038475518839533013">上のモードに関係なく、表示されているすべての人物（男性・女性・子ども）の目を、肌を再構成して消します。モードによってすでにぼかされている人物は対象外です。</translation>
+<translation id="4385099616007216520">露骨なコンテンツ（ヌード、局部）を検出した場合、画像全体をぼかします。応答性を優先して既定ではオフです。必要に応じて有効にしてください。</translation>
+<translation id="1359950519738686339">手だけが写っている場合はぼかしません（動画チュートリアルなど）。顔・肘まで含む腕・脚・体など、それ以上が写った時点で通常どおりぼかします。</translation>
+<translation id="8116496000232627763">検出された人物ごとに確信度スコアが付きます。このしきい値未満なら念のためぼかします（迷ったらぼかす）。しきい値以上なら分類が判断します（女性→ぼかす、男性・子ども→ぼかさない）。</translation>
+<translation id="8268525947366336370">全体的な NSFW 分類器のしきい値。これを超えると画像全体をぼかします。</translation>
+<translation id="3814510295993434135">露骨な身体部位の検出しきい値。低いほど敏感になります。</translation>
 </translationbundle>

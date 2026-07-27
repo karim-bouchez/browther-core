@@ -939,4 +939,16 @@
 <translation id="4327655748684513863">실드는 사이트별로 관리됩니다. 제외할 웹사이트를 열고 오른쪽 상단의 실드 버튼을 클릭하세요.</translation>
 <translation id="1682877223721186002">광고 차단 사용</translation>
 <translation id="1360256168997763737">광고 차단 사용 안 함</translation>
+<translation id="7865193487218155540">눈 가리기</translation>
+<translation id="1209726297371789445">NSFW 감지</translation>
+<translation id="737113627967663397">손만 있으면 무시</translation>
+<translation id="604207206973805070">흐림 약하게</translation>
+<translation id="6567684178155961248">더 신중하게</translation>
+<translation id="6147112552017617117">감지</translation>
+<translation id="1038475518839533013">위 모드와 관계없이 화면에 보이는 모든 사람(남성, 여성, 어린이)의 눈을 피부를 재구성하여 지웁니다. 모드에 의해 이미 흐리게 처리된 사람은 해당되지 않습니다.</translation>
+<translation id="4385099616007216520">노출 콘텐츠(나체, 신체 주요 부위)가 감지되면 이미지 전체를 흐리게 처리합니다. 반응 속도를 위해 기본적으로 꺼져 있습니다. 원하면 켜세요.</translation>
+<translation id="1359950519738686339">손만 보일 때는 흐리게 처리하지 않습니다(예: 동영상 튜토리얼). 얼굴, 팔꿈치가 있는 팔, 다리, 몸통 등 그 이상이 보이면 평소대로 적용됩니다.</translation>
+<translation id="8116496000232627763">감지된 사람마다 확신도 점수가 매겨집니다. 이 기준값보다 낮으면 예방 차원에서 흐리게 처리합니다(의심스러우면 흐리게). 기준값 이상이면 분류가 결정합니다(여성 → 흐리게, 남성 또는 어린이 → 아님).</translation>
+<translation id="8268525947366336370">전체 NSFW 분류기의 기준값. 이 값을 넘으면 이미지 전체가 흐려집니다.</translation>
+<translation id="3814510295993434135">노출된 신체 부위의 감지 기준값. 낮을수록 민감합니다.</translation>
 </translationbundle>

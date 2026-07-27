@@ -939,4 +939,16 @@ Atau dapat mengubahnya nanti di <ph name="SETTINGS_EXTENIONS_LINK"/>.</translati
 <translation id="4327655748684513863">Perisai dikelola per situs. Buka situs yang ingin dikecualikan lalu klik tombol perisai di kanan atas.</translation>
 <translation id="1682877223721186002">Pemblokiran iklan AKTIF</translation>
 <translation id="1360256168997763737">Pemblokiran iklan NONAKTIF</translation>
+<translation id="7865193487218155540">Sensor mata</translation>
+<translation id="1209726297371789445">Deteksi NSFW</translation>
+<translation id="737113627967663397">Abaikan tangan sendirian</translation>
+<translation id="604207206973805070">Lebih sedikit blur</translation>
+<translation id="6567684178155961248">Lebih hati-hati</translation>
+<translation id="6147112552017617117">Deteksi</translation>
+<translation id="1038475518839533013">Menghapus mata setiap orang yang terlihat (pria, wanita, anak-anak) dengan merekonstruksi kulit — terlepas dari mode di atas. Orang yang sudah dikaburkan oleh mode tidak terpengaruh.</translation>
+<translation id="4385099616007216520">Mengaburkan seluruh gambar jika terdeteksi konten eksplisit (ketelanjangan, bagian intim). Nonaktif secara default demi respons yang lebih baik — aktifkan jika Anda mau.</translation>
+<translation id="1359950519738686339">Tidak mengaburkan bila hanya tangan yang terlihat (mis. tutorial video). Begitu terlihat lebih banyak — wajah, lengan dengan siku, kaki, tubuh — pengaburan berlaku seperti biasa.</translation>
+<translation id="8116496000232627763">Setiap orang yang terdeteksi mendapat skor kepastian. Di bawah ambang ini, ia dikaburkan sebagai tindakan pencegahan — jika ragu, kaburkan. Di atasnya, kelasnya yang menentukan (wanita → dikaburkan, pria atau anak → tidak).</translation>
+<translation id="8268525947366336370">Ambang batas pengklasifikasi NSFW global. Di atasnya, seluruh gambar dikaburkan.</translation>
+<translation id="3814510295993434135">Ambang deteksi bagian tubuh eksplisit. Makin rendah, makin sensitif.</translation>
 </translationbundle>

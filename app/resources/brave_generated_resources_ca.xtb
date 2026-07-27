@@ -939,4 +939,16 @@ Segur que vols continuar?</translation>
 <translation id="4327655748684513863">Els escuts es gestionen lloc per lloc. Obre el lloc web que vulguis excloure i fes clic al botó de l'escut a la part superior dreta.</translation>
 <translation id="1682877223721186002">Bloqueig d'anuncis ACTIVAT</translation>
 <translation id="1360256168997763737">Bloqueig d'anuncis DESACTIVAT</translation>
+<translation id="7865193487218155540">Censura els ulls</translation>
+<translation id="1209726297371789445">Detecció NSFW</translation>
+<translation id="737113627967663397">Ignora les mans soles</translation>
+<translation id="604207206973805070">Menys difuminat</translation>
+<translation id="6567684178155961248">Més prudent</translation>
+<translation id="6147112552017617117">Detecció</translation>
+<translation id="1038475518839533013">Esborra els ulls de totes les persones visibles (homes, dones, infants) reconstruint la pell, independentment del mode anterior. Les persones ja difuminades pel mode no es veuen afectades.</translation>
+<translation id="4385099616007216520">Difumina tota la imatge si es detecta contingut explícit (nus, parts íntimes). Desactivat per defecte per a més reactivitat: activa'l si ho vols.</translation>
+<translation id="1359950519738686339">No difumina quan només es veu una mà (p. ex. tutorials en vídeo). Quan es veu més —cara, braç amb colze, cama, cos—, el difuminat s'aplica normalment.</translation>
+<translation id="8116496000232627763">Cada persona detectada rep una puntuació de certesa. Per sota d'aquest llindar es difumina per precaució: en cas de dubte, difumina. Per damunt, decideix la seva classe (dona → difuminada; home o infant → no).</translation>
+<translation id="8268525947366336370">Llindar del classificador NSFW global. Per damunt, es difumina tota la imatge.</translation>
+<translation id="3814510295993434135">Llindar de detecció de parts íntimes del cos. Com més baix, més sensible.</translation>
 </translationbundle>

@@ -938,4 +938,16 @@
 <translation id="4327655748684513863">盾牌按网站分别管理。打开要排除的网站，然后点击右上角的盾牌按钮。</translation>
 <translation id="1682877223721186002">已启用广告拦截</translation>
 <translation id="1360256168997763737">已停用广告拦截</translation>
+<translation id="7865193487218155540">遮挡眼睛</translation>
+<translation id="1209726297371789445">NSFW 检测</translation>
+<translation id="737113627967663397">忽略仅有手部的情况</translation>
+<translation id="604207206973805070">模糊更少</translation>
+<translation id="6567684178155961248">更谨慎</translation>
+<translation id="6147112552017617117">检测</translation>
+<translation id="1038475518839533013">通过重建皮肤，抹除画面中所有可见人物（男性、女性、儿童）的眼睛，与上方模式无关。已被该模式模糊的人物不受影响。</translation>
+<translation id="4385099616007216520">检测到露骨内容（裸露、私密部位）时模糊整张图片。为获得更好的响应速度，默认关闭——需要时可开启。</translation>
+<translation id="1359950519738686339">仅出现手部时不进行模糊（例如视频教程）。一旦出现更多——面部、含手肘的手臂、腿部、身体——即按常规进行模糊。</translation>
+<translation id="8116496000232627763">每个检测到的人物都会获得一个确信度分数。低于此阈值时出于谨慎进行模糊——存疑即模糊。高于此阈值则由其类别决定（女性→模糊，男性或儿童→不模糊）。</translation>
+<translation id="8268525947366336370">全局 NSFW 分类器的阈值。超过该值时整张图片将被模糊。</translation>
+<translation id="3814510295993434135">露骨身体部位的检测阈值。数值越低越敏感。</translation>
 </translationbundle>

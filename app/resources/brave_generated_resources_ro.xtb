@@ -939,4 +939,16 @@ Sau modificați permisinile ulterior în <ph name="SETTINGS_EXTENIONS_LINK"/>.</
 <translation id="4327655748684513863">Scuturile se gestionează per site. Deschide site-ul pe care vrei să îl excluzi și dă clic pe butonul scut din dreapta sus.</translation>
 <translation id="1682877223721186002">Blocarea reclamelor este ACTIVĂ</translation>
 <translation id="1360256168997763737">Blocarea reclamelor este DEZACTIVATĂ</translation>
+<translation id="7865193487218155540">Cenzurează ochii</translation>
+<translation id="1209726297371789445">Detectare NSFW</translation>
+<translation id="737113627967663397">Ignoră mâinile singure</translation>
+<translation id="604207206973805070">Mai puțină estompare</translation>
+<translation id="6567684178155961248">Mai prudent</translation>
+<translation id="6147112552017617117">Detectare</translation>
+<translation id="1038475518839533013">Șterge ochii tuturor persoanelor vizibile (bărbați, femei, copii) prin reconstruirea pielii — indiferent de modul de mai sus. Persoanele deja estompate de mod nu sunt afectate.</translation>
+<translation id="4385099616007216520">Estompează întreaga imagine când este detectat conținut explicit (nuditate, părți intime). Dezactivat implicit pentru o reactivitate mai bună — activează-l dacă dorești.</translation>
+<translation id="1359950519738686339">Nu estompează când se vede doar o mână (ex. tutoriale video). De îndată ce se vede mai mult — față, braț cu cot, picior, corp — estomparea se aplică normal.</translation>
+<translation id="8116496000232627763">Fiecare persoană detectată primește un scor de certitudine. Sub acest prag este estompată din precauție — la îndoială, estompează. Peste el decide clasa ei (femeie → estompată, bărbat sau copil → nu).</translation>
+<translation id="8268525947366336370">Pragul clasificatorului NSFW global. Peste el, întreaga imagine este estompată.</translation>
+<translation id="3814510295993434135">Pragul de detectare a părților intime ale corpului. Mai mic înseamnă mai sensibil.</translation>
 </translationbundle>

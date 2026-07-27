@@ -939,4 +939,16 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="4327655748684513863">Shields are managed per site. Open the website you want to exclude and click the shield button at the top right.</translation>
 <translation id="1682877223721186002">Ad blocking ENABLED</translation>
 <translation id="1360256168997763737">Ad blocking DISABLED</translation>
+<translation id="7865193487218155540">Censor eyes</translation>
+<translation id="1209726297371789445">NSFW detection</translation>
+<translation id="737113627967663397">Ignore lone hands</translation>
+<translation id="604207206973805070">Less blur</translation>
+<translation id="6567684178155961248">More cautious</translation>
+<translation id="6147112552017617117">Detection</translation>
+<translation id="1038475518839533013">Erases the eyes of every visible person (men, women, children) by reconstructing the skin — regardless of the mode above. People already blurred by the mode are not affected.</translation>
+<translation id="4385099616007216520">Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness — turn it on if you want it.</translation>
+<translation id="1359950519738686339">Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — blurring applies as usual.</translation>
+<translation id="8116496000232627763">Every detected person gets a certainty score. Below this threshold they are blurred as a precaution — when in doubt, blur. Above it, their class decides (woman → blurred, man or child → not).</translation>
+<translation id="8268525947366336370">Threshold of the global NSFW classifier. Above it, the whole image is blurred.</translation>
+<translation id="3814510295993434135">Detection threshold for explicit body parts. Lower means more sensitive.</translation>
 </translationbundle>

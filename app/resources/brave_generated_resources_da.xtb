@@ -940,4 +940,16 @@ DU kan læse <ph name="BEGIN_LINK_BUILD_INSTRUCTIONS"/>instruktioner om hvordan 
 <translation id="4327655748684513863">Shields administreres pr. websted. Åbn det websted, du vil udelade, og klik på skjoldknappen øverst til højre.</translation>
 <translation id="1682877223721186002">Annonceblokering er SLÅET TIL</translation>
 <translation id="1360256168997763737">Annonceblokering er SLÅET FRA</translation>
+<translation id="7865193487218155540">Censurér øjne</translation>
+<translation id="1209726297371789445">NSFW-registrering</translation>
+<translation id="737113627967663397">Ignorér enlige hænder</translation>
+<translation id="604207206973805070">Mindre slør</translation>
+<translation id="6567684178155961248">Mere forsigtig</translation>
+<translation id="6147112552017617117">Registrering</translation>
+<translation id="1038475518839533013">Sletter øjnene på alle synlige personer (mænd, kvinder, børn) ved at rekonstruere huden — uanset tilstanden ovenfor. Personer, der allerede er slørede af tilstanden, er ikke berørt.</translation>
+<translation id="4385099616007216520">Slører hele billedet, hvis der registreres eksplicit indhold (nøgenhed, intime dele). Slået fra som standard for bedre reaktionsevne — slå det til, hvis du vil.</translation>
+<translation id="1359950519738686339">Slører ikke, når kun en hånd er synlig (f.eks. videovejledninger). Så snart mere er synligt — ansigt, arm med albue, ben, krop — sløres der som normalt.</translation>
+<translation id="8116496000232627763">Hver registreret person får en sikkerhedsscore. Under denne tærskel sløres personen for en sikkerheds skyld — i tvivlstilfælde slør. Over den afgør personens klasse (kvinde → sløret, mand eller barn → ikke).</translation>
+<translation id="8268525947366336370">Tærskel for den globale NSFW-klassifikator. Over den sløres hele billedet.</translation>
+<translation id="3814510295993434135">Registreringstærskel for eksplicitte kropsdele. Lavere betyder mere følsom.</translation>
 </translationbundle>

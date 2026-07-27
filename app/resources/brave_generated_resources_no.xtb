@@ -940,4 +940,16 @@ Leo AI i fremtiden. Samtaleloggen, tilpasningene og minnene dine blir også slet
 <translation id="4327655748684513863">Skjold administreres per nettsted. Åpne nettstedet du vil utelate, og klikk på skjoldknappen øverst til høyre.</translation>
 <translation id="1682877223721186002">Annonseblokkering PÅ</translation>
 <translation id="1360256168997763737">Annonseblokkering AV</translation>
+<translation id="7865193487218155540">Sensurer øyne</translation>
+<translation id="1209726297371789445">NSFW-gjenkjenning</translation>
+<translation id="737113627967663397">Ignorer enslige hender</translation>
+<translation id="604207206973805070">Mindre sløring</translation>
+<translation id="6567684178155961248">Mer forsiktig</translation>
+<translation id="6147112552017617117">Gjenkjenning</translation>
+<translation id="1038475518839533013">Sletter øynene til alle synlige personer (menn, kvinner, barn) ved å rekonstruere huden — uavhengig av modusen ovenfor. Personer som modusen allerede slører, berøres ikke.</translation>
+<translation id="4385099616007216520">Slører hele bildet når eksplisitt innhold oppdages (nakenhet, intime kroppsdeler). Av som standard for bedre respons — slå det på om du ønsker.</translation>
+<translation id="1359950519738686339">Slører ikke når bare en hånd er synlig (f.eks. videoveiledninger). Så snart mer vises — ansikt, arm med albue, bein, kropp — sløres det som vanlig.</translation>
+<translation id="8116496000232627763">Hver oppdaget person får en sikkerhetsscore. Under denne terskelen sløres personen for sikkerhets skyld — er du i tvil, slør. Over den avgjør klassen (kvinne → sløret, mann eller barn → ikke).</translation>
+<translation id="8268525947366336370">Terskel for den globale NSFW-klassifisereren. Over den sløres hele bildet.</translation>
+<translation id="3814510295993434135">Deteksjonsterskel for eksplisitte kroppsdeler. Lavere betyr mer følsom.</translation>
 </translationbundle>

@@ -941,4 +941,16 @@ Leo AI. Túto akciu nie je možné vrátiť späť.</translation>
 <translation id="4327655748684513863">Štíty sa spravujú pre každú stránku zvlášť. Otvorte web, ktorý chcete vylúčiť, a kliknite na tlačidlo štítu vpravo hore.</translation>
 <translation id="1682877223721186002">Blokovanie reklám je ZAPNUTÉ</translation>
 <translation id="1360256168997763737">Blokovanie reklám je VYPNUTÉ</translation>
+<translation id="7865193487218155540">Zakryť oči</translation>
+<translation id="1209726297371789445">Detekcia NSFW</translation>
+<translation id="737113627967663397">Ignorovať samotné ruky</translation>
+<translation id="604207206973805070">Menej rozmazania</translation>
+<translation id="6567684178155961248">Opatrnejšie</translation>
+<translation id="6147112552017617117">Detekcia</translation>
+<translation id="1038475518839533013">Vymaže oči všetkých viditeľných osôb (mužov, žien, detí) rekonštrukciou pokožky — nezávisle od režimu vyššie. Osôb, ktoré režim už rozmazal, sa to netýka.</translation>
+<translation id="4385099616007216520">Rozmaže celý obrázok, keď zistí explicitný obsah (nahota, intímne partie). Predvolene vypnuté pre lepšiu odozvu — zapnite, ak chcete.</translation>
+<translation id="1359950519738686339">Nerozmazáva, keď je vidieť iba ruku (napr. videonávody). Len čo je vidieť viac — tvár, rameno s lakťom, noha, telo — rozmazanie funguje ako zvyčajne.</translation>
+<translation id="8116496000232627763">Každá zistená osoba dostane skóre istoty. Pod týmto prahom sa pre istotu rozmaže — v prípade pochybností rozmazať. Nad ním rozhoduje jej trieda (žena → rozmazaná, muž alebo dieťa → nie).</translation>
+<translation id="8268525947366336370">Prah globálneho klasifikátora NSFW. Nad ním sa rozmaže celý obrázok.</translation>
+<translation id="3814510295993434135">Prah detekcie explicitných častí tela. Nižší znamená citlivejší.</translation>
 </translationbundle>

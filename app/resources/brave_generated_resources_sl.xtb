@@ -942,4 +942,16 @@ ponovno uporabo sinhronizacije, boste morali ustvariti nov račun in posamično 
 <translation id="4327655748684513863">Ščiti se upravljajo za vsako spletno mesto posebej. Odprite spletno mesto, ki ga želite izvzeti, in kliknite gumb s ščitom zgoraj desno.</translation>
 <translation id="1682877223721186002">Blokiranje oglasov je VKLOPLJENO</translation>
 <translation id="1360256168997763737">Blokiranje oglasov je IZKLOPLJENO</translation>
+<translation id="7865193487218155540">Cenzuriraj oči</translation>
+<translation id="1209726297371789445">Zaznavanje NSFW</translation>
+<translation id="737113627967663397">Prezri same roke</translation>
+<translation id="604207206973805070">Manj zameglitve</translation>
+<translation id="6567684178155961248">Previdneje</translation>
+<translation id="6147112552017617117">Zaznavanje</translation>
+<translation id="1038475518839533013">Izbriše oči vseh vidnih oseb (moških, žensk, otrok) z rekonstrukcijo kože — ne glede na zgornji način. Oseb, ki jih način že zamegli, to ne zadeva.</translation>
+<translation id="4385099616007216520">Zamegli celotno sliko, če zazna eksplicitno vsebino (golota, intimni deli). Privzeto izklopljeno za boljšo odzivnost — vklopite, če želite.</translation>
+<translation id="1359950519738686339">Ne zamegli, kadar je vidna samo roka (npr. video vodiči). Takoj ko je vidnega več — obraz, roka s komolcem, noga, telo — zameglitev deluje običajno.</translation>
+<translation id="8116496000232627763">Vsaka zaznana oseba dobi oceno gotovosti. Pod tem pragom se zamegli iz previdnosti — v dvomu zamegli. Nad njim odloča njen razred (ženska → zamegljena, moški ali otrok → ne).</translation>
+<translation id="8268525947366336370">Prag globalnega klasifikatorja NSFW. Nad njim se zamegli celotna slika.</translation>
+<translation id="3814510295993434135">Prag zaznavanja eksplicitnih delov telesa. Nižji pomeni občutljivejši.</translation>
 </translationbundle>

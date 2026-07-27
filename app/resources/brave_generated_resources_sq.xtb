@@ -938,4 +938,16 @@ A jeni i sigurt që doni ta bëni këtë?</translation>
 <translation id="4327655748684513863">Mburojat menaxhohen për çdo faqe veç e veç. Hapni faqen që doni të përjashtoni dhe klikoni butonin e mburojës lart djathtas.</translation>
 <translation id="1682877223721186002">Bllokimi i reklamave është AKTIV</translation>
 <translation id="1360256168997763737">Bllokimi i reklamave është JOAKTIV</translation>
+<translation id="7865193487218155540">Censuro sytë</translation>
+<translation id="1209726297371789445">Zbulimi i NSFW</translation>
+<translation id="737113627967663397">Shpërfill duart e vetme</translation>
+<translation id="604207206973805070">Më pak turbullim</translation>
+<translation id="6567684178155961248">Më i kujdesshëm</translation>
+<translation id="6147112552017617117">Zbulimi</translation>
+<translation id="1038475518839533013">Fshin sytë e çdo personi të dukshëm (burra, gra, fëmijë) duke rindërtuar lëkurën — pavarësisht nga mënyra më sipër. Personat e turbulluar tashmë nga mënyra nuk preken.</translation>
+<translation id="4385099616007216520">Turbullon të gjithë imazhin kur zbulohet përmbajtje e qartë (nudo, pjesë intime). E çaktivizuar si parazgjedhje për reagim më të mirë — aktivizojeni nëse dëshironi.</translation>
+<translation id="1359950519738686339">Nuk turbullon kur duket vetëm një dorë (p.sh. udhëzues me video). Sapo duket më shumë — fytyrë, krah me bërryl, këmbë, trup — turbullimi zbatohet normalisht.</translation>
+<translation id="8116496000232627763">Çdo person i zbuluar merr një pikëzim sigurie. Nën këtë prag turbullohet për siguri — në dyshim, turbullo. Mbi të vendos klasa e tij (grua → e turbulluar, burrë ose fëmijë → jo).</translation>
+<translation id="8268525947366336370">Pragu i klasifikuesit global NSFW. Mbi të turbullohet i gjithë imazhi.</translation>
+<translation id="3814510295993434135">Pragu i zbulimit të pjesëve intime të trupit. Sa më i ulët, aq më i ndjeshëm.</translation>
 </translationbundle>

@@ -939,4 +939,16 @@ börja använda Sync igen måste du skapa ett nytt konto och lägga till varje e
 <translation id="4327655748684513863">Sköldar hanteras per webbplats. Öppna webbplatsen du vill undanta och klicka på sköldknappen uppe till höger.</translation>
 <translation id="1682877223721186002">Annonsblockering PÅ</translation>
 <translation id="1360256168997763737">Annonsblockering AV</translation>
+<translation id="7865193487218155540">Censurera ögon</translation>
+<translation id="1209726297371789445">NSFW-identifiering</translation>
+<translation id="737113627967663397">Ignorera ensamma händer</translation>
+<translation id="604207206973805070">Mindre oskärpa</translation>
+<translation id="6567684178155961248">Mer försiktig</translation>
+<translation id="6147112552017617117">Identifiering</translation>
+<translation id="1038475518839533013">Raderar ögonen på alla synliga personer (män, kvinnor, barn) genom att rekonstruera huden — oavsett läget ovan. Personer som läget redan gör suddiga påverkas inte.</translation>
+<translation id="4385099616007216520">Gör hela bilden suddig när explicit innehåll upptäcks (nakenhet, intima delar). Av som standard för bättre responsivitet — slå på det om du vill.</translation>
+<translation id="1359950519738686339">Gör inte suddigt när bara en hand syns (t.ex. videoguider). Så snart mer syns — ansikte, arm med armbåge, ben, kropp — tillämpas oskärpan som vanligt.</translation>
+<translation id="8116496000232627763">Varje upptäckt person får ett säkerhetsvärde. Under detta tröskelvärde görs personen suddig för säkerhets skull — vid tveksamhet, gör suddigt. Över det avgör klassen (kvinna → suddig, man eller barn → inte).</translation>
+<translation id="8268525947366336370">Tröskelvärde för den globala NSFW-klassificeraren. Över det görs hela bilden suddig.</translation>
+<translation id="3814510295993434135">Tröskelvärde för identifiering av explicita kroppsdelar. Lägre betyder känsligare.</translation>
 </translationbundle>

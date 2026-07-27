@@ -938,4 +938,16 @@ lub zmień później w <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="4327655748684513863">Osłonami zarządza się osobno dla każdej witryny. Otwórz witrynę, którą chcesz wykluczyć, i kliknij przycisk tarczy w prawym górnym rogu.</translation>
 <translation id="1682877223721186002">Blokowanie reklam WŁĄCZONE</translation>
 <translation id="1360256168997763737">Blokowanie reklam WYŁĄCZONE</translation>
+<translation id="7865193487218155540">Cenzuruj oczy</translation>
+<translation id="1209726297371789445">Wykrywanie NSFW</translation>
+<translation id="737113627967663397">Ignoruj same dłonie</translation>
+<translation id="604207206973805070">Mniej rozmycia</translation>
+<translation id="6567684178155961248">Ostrożniej</translation>
+<translation id="6147112552017617117">Wykrywanie</translation>
+<translation id="1038475518839533013">Usuwa oczy wszystkich widocznych osób (mężczyzn, kobiet, dzieci), rekonstruując skórę — niezależnie od trybu powyżej. Osób już rozmytych przez tryb to nie dotyczy.</translation>
+<translation id="4385099616007216520">Rozmywa cały obraz po wykryciu treści o charakterze jawnym (nagość, miejsca intymne). Domyślnie wyłączone dla lepszej responsywności — włącz, jeśli chcesz.</translation>
+<translation id="1359950519738686339">Nie rozmywa, gdy widoczna jest tylko dłoń (np. poradniki wideo). Gdy tylko pojawi się więcej — twarz, ramię z łokciem, noga, ciało — rozmycie działa normalnie.</translation>
+<translation id="8116496000232627763">Każda wykryta osoba otrzymuje wynik pewności. Poniżej tego progu jest rozmywana zapobiegawczo — w razie wątpliwości rozmyj. Powyżej decyduje jej klasa (kobieta → rozmyta, mężczyzna lub dziecko → nie).</translation>
+<translation id="8268525947366336370">Próg globalnego klasyfikatora NSFW. Powyżej niego rozmywany jest cały obraz.</translation>
+<translation id="3814510295993434135">Próg wykrywania intymnych części ciała. Niższy oznacza większą czułość.</translation>
 </translationbundle>

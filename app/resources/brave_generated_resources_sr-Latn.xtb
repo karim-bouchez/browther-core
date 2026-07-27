@@ -938,4 +938,16 @@ Dobro proverite da li je ove reči koda generisao uređaj koji vi posedujete.
 <translation id="4327655748684513863">Štitovi se upravljaju po sajtu. Otvorite sajt koji želite da izuzmete i kliknite na dugme sa štitom gore desno.</translation>
 <translation id="1682877223721186002">Blokiranje oglasa je UKLJUČENO</translation>
 <translation id="1360256168997763737">Blokiranje oglasa je ISKLJUČENO</translation>
+<translation id="7865193487218155540">Cenzuriši oči</translation>
+<translation id="1209726297371789445">NSFW otkrivanje</translation>
+<translation id="737113627967663397">Ignoriši same ruke</translation>
+<translation id="604207206973805070">Manje zamućenja</translation>
+<translation id="6567684178155961248">Opreznije</translation>
+<translation id="6147112552017617117">Otkrivanje</translation>
+<translation id="1038475518839533013">Briše oči svih vidljivih osoba (muškaraca, žena, dece) rekonstrukcijom kože — nezavisno od režima iznad. Osobe koje je režim već zamutio nisu obuhvaćene.</translation>
+<translation id="4385099616007216520">Zamućuje celu sliku kada se otkrije eksplicitan sadržaj (golotinja, intimni delovi). Podrazumevano isključeno radi bolje odzivnosti — uključite ako želite.</translation>
+<translation id="1359950519738686339">Ne zamućuje kada se vidi samo ruka (npr. video uputstva). Čim se vidi više — lice, ruka sa laktom, noga, telo — zamućenje se primenjuje kao obično.</translation>
+<translation id="8116496000232627763">Svaka otkrivena osoba dobija ocenu sigurnosti. Ispod ovog praga zamućuje se iz opreza — u sumnji, zamuti. Iznad njega odlučuje njena klasa (žena → zamućena, muškarac ili dete → ne).</translation>
+<translation id="8268525947366336370">Prag globalnog NSFW klasifikatora. Iznad njega zamućuje se cela slika.</translation>
+<translation id="3814510295993434135">Prag otkrivanja eksplicitnih delova tela. Niže znači osetljivije.</translation>
 </translationbundle>
