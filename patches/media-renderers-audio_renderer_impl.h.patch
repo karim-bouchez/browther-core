@@ -1,5 +1,5 @@
 diff --git a/media/renderers/audio_renderer_impl.h b/media/renderers/audio_renderer_impl.h
-index e060e59f2fe04..8bf925914a8f1 100644
+index e060e59f2fe04..62e49bf6fabbb 100644
 --- a/media/renderers/audio_renderer_impl.h
 +++ b/media/renderers/audio_renderer_impl.h
 @@ -119,6 +119,17 @@ class MEDIA_EXPORT AudioRendererImpl
@@ -20,7 +20,7 @@ index e060e59f2fe04..8bf925914a8f1 100644
    void decoded_audio_ready_for_testing() {
      DecodedAudioReady(DecoderStatus::Codes::kFailed);
    }
-@@ -266,8 +277,47 @@ class MEDIA_EXPORT AudioRendererImpl
+@@ -266,8 +277,57 @@ class MEDIA_EXPORT AudioRendererImpl
    // AudioRendererAlgorithm::FrontTimestamp().
    base::TimeDelta CalculateClockAndAlgorithmDrift() const;
  
@@ -51,6 +51,16 @@ index e060e59f2fe04..8bf925914a8f1 100644
 +  // Seek/flush pipeline : drop pending + invalide les réponses en vol +
 +  // reset du flux côté service.
 +  void SawtunaaResetOnFlush_Locked();
++  // Renvoie les buffers RETENUS tels quels dans |algorithm_| (passthrough) —
++  // sortie du tap sans perte audio. Appelé quand le bypass s'active (service
++  // qui décline ou contenu protégé), une fois l'éventuel batch en vol revenu
++  // (sinon les timestamps repartiraient en arrière).
++  void SawtunaaDrainPending_Locked();
++  // [Browther/Sawtunaa] CONTENU PROTÉGÉ (DRM/EME) : coupe définitivement le tap
++  // si |config| est chiffrée — le PCM d'un flux protégé ne sort JAMAIS du
++  // pipeline média (cf. docs/TODO.md § média DRM déchiffré, prérequis VMP).
++  // Prend |lock_|. Appelé sur |task_runner_| (OnConfigChange).
++  void SawtunaaCheckProtectedContent(const AudioDecoderConfig& config);
 +
    scoped_refptr<base::SequencedTaskRunner> task_runner_;
  
@@ -68,7 +78,7 @@ index e060e59f2fe04..8bf925914a8f1 100644
    std::unique_ptr<AudioBufferConverter> buffer_converter_;
  
    // Whether or not we expect to handle config changes.
-@@ -417,6 +467,28 @@ class MEDIA_EXPORT AudioRendererImpl
+@@ -417,6 +477,28 @@ class MEDIA_EXPORT AudioRendererImpl
    // Render().
    PlayDelayCBForTesting play_delay_cb_for_testing_;
  

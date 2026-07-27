@@ -23,6 +23,7 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/task/thread_pool.h"
 #include "base/time/time.h"
+#include "build/build_config.h"
 #include "brave/browser/basarunaa/basarunaa_service_factory.h"
 #include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/components/basarunaa/core/basarunaa_service.h"
@@ -64,6 +65,7 @@ float BoxIoU(const std::array<float, 4>& a, const std::array<float, 4>& b) {
   return uni > 0.f ? inter / uni : 0.f;
 }
 
+#if !defined(OFFICIAL_BUILD)
 // [Browther/Basarunaa] Capture mode (pref kBasarunaaCaptureMode) : sauve la frame
 // vidéo analysée dans ~/Downloads/basarunaa-capture/ en 2 PNG — RAW (propre, pour
 // rouvrir comme IMAGE et la reclasser via le flow image) + ANNOTÉE (box par genre
@@ -71,6 +73,16 @@ float BoxIoU(const std::array<float, 4>& a, const std::array<float, 4>& b) {
 // dessiné via gfx::Canvas (gère les fonts) ; on reformate les valeurs déjà
 // calculées côté service. Écrit depuis le ThreadPool du process browser (non
 // sandboxé macOS → accès Downloads OK).
+//
+// ⚠️ OUTIL DE DEV UNIQUEMENT — **absent du binaire Release** (`OFFICIAL_BUILD`).
+// Ce code écrit sur disque les pixels de la frame analysée : sur un flux DRM il
+// contournerait la protection de sortie de l'OS. La chaîne d'accès à ces pixels
+// est déjà coupée en amont (refus du tap sur contenu protégé, cf.
+// VideoRendererImpl / WebMediaPlayerImpl), et le déclencheur est verrouillé en
+// prod (`IsBasarunaaDebugUiEnabled`) — ce #if est la 3e barrière : le dump
+// n'existe tout simplement pas dans ce qu'on distribue. Cf. docs/TODO.md
+// § « Basarunaa lit (et peut écrire sur disque) du média DRM déchiffré ».
+//
 // Écrit le RAW (frame propre) et renvoie l'index (pour nommer l'annotée du même
 // numéro). Sûr sur le ThreadPool (aucun font). -1 si échec dossier.
 int SaveCaptureRaw(const std::vector<uint8_t>& bgra, int width, int height) {
@@ -157,6 +169,7 @@ void RenderAnnotatedCaptureOnUI(std::vector<uint8_t> bgra,
             path, std::move(*png)));
   }
 }
+#endif  // !defined(OFFICIAL_BUILD)
 
 // Décision de floutage, port de VIDEO_V2.md §4 (chemin VIDÉO, plus prudent que
 // content.js image) : flouter si `gender===target` OU `genderConf < certainty`
@@ -236,6 +249,12 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
   // Capture mode : RAW (frame propre) écrit ici sur le pool ; l'ANNOTÉE (labels
   // texte via gfx::FontList) est rendue sur le thread UI (obligatoire), puis
   // ré-écrite sur le pool. Chaque analyse (~1/s) tant que la pref est ON.
+#if defined(OFFICIAL_BUILD)
+  // Le dump disque n'est pas compilé en Release (cf. SaveCaptureRaw ci-dessus).
+  // `capture` est de toute façon forcé false par IsBasarunaaDebugUiEnabled().
+  (void)capture;
+  (void)analyze_ms;
+#else
   if (capture) {
     const int n = SaveCaptureRaw(pixels, width, height);
     // Footer bas-gauche : temps du modèle + résolution d'analyse.
@@ -269,6 +288,7 @@ PoolResult RunYoloOnPool(BasarunaaService* service,
         FROM_HERE, base::BindOnce(&RenderAnnotatedCaptureOnUI, pixels, width,
                                   height, n, std::move(boxes), footer));
   }
+#endif  // defined(OFFICIAL_BUILD)
   out.reserve(persons.size());
   for (const DetectedPerson& p : persons) {
     auto ap = mojom::AnalyzedPerson::New();

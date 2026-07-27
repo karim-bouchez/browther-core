@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.h b/third_party/blink/renderer/platform/media/web_media_player_impl.h
-index 57c8960bcdb25..2f53ec14ed30f 100644
+index 57c8960bcdb25..4b168bb8f7e83 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.h
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.h
 @@ -7,6 +7,7 @@
@@ -48,7 +48,7 @@ index 57c8960bcdb25..2f53ec14ed30f 100644
    WebMediaPlayerImpl(const WebMediaPlayerImpl&) = delete;
    WebMediaPlayerImpl& operator=(const WebMediaPlayerImpl&) = delete;
    ~WebMediaPlayerImpl() override;
-@@ -710,6 +719,30 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -710,6 +719,38 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
    // RequestAnimationFrame() is called.
    void OnNewFramePresentedCallback();
  
@@ -75,11 +75,19 @@ index 57c8960bcdb25..2f53ec14ed30f 100644
 +  // échec.
 +  void OnLeadReadbackDone(LeadFrameReadbackDoneCB done,
 +                          scoped_refptr<media::VideoFrame> cpu_frame);
++  // [Browther/Basarunaa] CONTENU PROTÉGÉ (EME/DRM) : coupe DÉFINITIVEMENT le
++  // tap decode-ahead de ce player — plus de notification, ring vidé, requêtes
++  // de readback en attente répondues vides. Appelé dès que le player apprend
++  // qu'il joue du média chiffré (OnEncryptedMediaInitData / SetCdmInternal),
++  // ce qui peut arriver APRÈS sa création (l'événement `encrypted` MSE part
++  // quand le segment d'init est appendé). Cf. docs/TODO.md § « Basarunaa lit
++  // du média DRM déchiffré » — prérequis du dossier VMP Widevine.
++  void BasarunaaDisableTapForProtectedContent();
 +
    // Notifies |demuxer_manager_| of playback and rate changes which may increase
    // the amount of data the DataSource buffers. Does nothing prior to reaching
    // kReadyStateHaveEnoughData for the first time.
-@@ -884,6 +917,50 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
+@@ -884,6 +925,54 @@ class PLATFORM_EXPORT WebMediaPlayerImpl
        compositor_;  // Deleted on |vfc_task_runner_|.
    media::PaintCanvasVideoRenderer video_renderer_;
  
@@ -123,6 +131,10 @@ index 57c8960bcdb25..2f53ec14ed30f 100644
 +      lead_readback_queue_ ALLOW_DISCOURAGED_TYPE(
 +          "File de types media::/base::, hors types WTF");
 +  bool lead_readback_busy_ = false;
++  // [Browther/Basarunaa] Latch « contenu protégé » : une fois posé, aucune
++  // frame de ce player ne ressort (ni notification, ni readback, ni reply en
++  // vol). Jamais remis à false. Main thread only.
++  bool basarunaa_protected_content_ = false;
 +  // [Browther/Basarunaa] Instrumentation : wall-clock au départ du readback en
 +  // cours (durée loggée dans OnLeadReadbackDone). Main thread only.
 +  base::TimeTicks lead_readback_start_ticks_;

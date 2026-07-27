@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..785e5d5c6ad66 100644
+index 2f77f8cc774f4..0ea3b53a2dab0 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -6,6 +6,7 @@
@@ -143,7 +143,32 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
    ReportSessionUMAs();
  
    if (set_cdm_result_) {
-@@ -2929,6 +3026,40 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
+@@ -1635,6 +1732,12 @@ void WebMediaPlayerImpl::OnEncryptedMediaInitData(
+   // Recreate the watch time reporter if necessary.
+   const bool was_encrypted = is_encrypted_;
+   is_encrypted_ = true;
++
++  // [Browther/Basarunaa] 1er signal fiable « ce player joue du média protégé »
++  // (le segment d'init chiffré vient d'être appendé) : coupe le tap
++  // decode-ahead ici, avant que la moindre frame déchiffrée ne circule.
++  BasarunaaDisableTapForProtectedContent();
++
+   if (!was_encrypted) {
+     media_metrics_provider_->SetIsEME();
+     if (watch_time_reporter_)
+@@ -1697,6 +1800,11 @@ void WebMediaPlayerImpl::SetCdmInternal(WebContentDecryptionModule* cdm) {
+   const bool was_encrypted = is_encrypted_;
+   is_encrypted_ = true;
+ 
++  // [Browther/Basarunaa] Un CDM attaché = lecture EME : même coupure du tap
++  // que dans OnEncryptedMediaInitData (l'un ou l'autre arrive en premier selon
++  // que la page fait setMediaKeys avant ou après le load).
++  BasarunaaDisableTapForProtectedContent();
++
+   // Recreate the watch time reporter if necessary.
+   if (!was_encrypted) {
+     media_metrics_provider_->SetIsEME();
+@@ -2929,6 +3037,46 @@ std::unique_ptr<media::Renderer> WebMediaPlayerImpl::CreateRenderer(
      CreateWatchTimeReporter();
    }
  
@@ -158,8 +183,11 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
 +  // n'installe PAS le callback → lead_frame_cb_ reste null dans VideoRendererImpl
 +  // → aucun forçage latency_hint/cap-frames pour les vidéos des non-users
 +  // Basarunaa (sinon +2 s de latence + 120 frames décodées pour TOUT LE MONDE).
++  // Contenu protégé déjà connu à la création du renderer (EME dont le CDM est
++  // attaché avant le load) : on n'installe rien du tout — ni callback, ni donc
++  // hint 2 s / cap 120 frames côté VideoRendererImpl.
 +  if (renderer_type_ == media::RendererType::kRendererImpl &&
-+      lead_frame_sink_) {
++      lead_frame_sink_ && !is_encrypted_) {
 +    static_cast<media::RendererImplFactory*>(
 +        renderer_factory_selector_->GetCurrentFactory())
 +        ->SetLeadFrameCB(base::BindPostTaskToCurrentDefault(
@@ -173,8 +201,11 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
 +  // BindPostTaskToCurrentDefault ici : les callbacks embedder sont déjà
 +  // thread-safe (hop interne vers le main thread du renderer) et sont appelés
 +  // directement du thread média.
++  // Même exclusion contenu protégé que le tap vidéo ci-dessus (le PCM d'un
++  // flux DRM ne doit pas sortir du pipeline média) ; AudioRendererImpl a en
++  // plus ses propres gates par flux (config chiffrée / CdmContext).
 +  if (renderer_type_ == media::RendererType::kRendererImpl &&
-+      sawtunaa_audio_tap_process_) {
++      sawtunaa_audio_tap_process_ && !is_encrypted_) {
 +    static_cast<media::RendererImplFactory*>(
 +        renderer_factory_selector_->GetCurrentFactory())
 +        ->SetSawtunaaAudioTap(sawtunaa_audio_tap_process_,
@@ -184,10 +215,34 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3759,204 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3776,243 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
++void WebMediaPlayerImpl::BasarunaaDisableTapForProtectedContent() {
++  DCHECK(main_task_runner_->BelongsToCurrentThread());
++  if (basarunaa_protected_content_) {
++    return;
++  }
++  basarunaa_protected_content_ = true;
++  if (!lead_frame_sink_ && lead_ring_.empty() && lead_readback_queue_.empty()) {
++    return;  // tap jamais branché (Basarunaa OFF / build sans la capacité)
++  }
++  // Ordre calqué sur le destructeur : on coupe la notification AVANT de vider
++  // les files, pour qu'un done qui réentrerait ne réamorce rien.
++  lead_frame_sink_.Reset();
++  lead_ring_.clear();
++  while (!lead_readback_queue_.empty()) {
++    std::move(lead_readback_queue_.front().second)
++        .Run({}, 0, 0, base::TimeDelta());
++    lead_readback_queue_.pop_front();
++  }
++  // Le readback éventuellement EN VOL n'est pas dans la file : sa reply est
++  // neutralisée par le latch dans OnLeadReadbackDone.
++  MEDIA_LOG(INFO, media_log_.get())
++      << "[bsrV2] protected content -> lead frame tap disabled";
++}
++
 +void WebMediaPlayerImpl::OnLeadFrame(scoped_refptr<media::VideoFrame> frame) {
 +  // [Browther/Basarunaa] decode-ahead ② (détection v2, notify+pull) : alimente
 +  // le ring de frames décodées-en-avance (refs seulement) puis NOTIFIE
@@ -201,7 +256,10 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
 +  // [Browther/Basarunaa] Sink absent = pref Basarunaa OFF quand ce player a
 +  // été créé (ou build sans la capacité --basarunaa-video-tap) OU embedder
 +  // sans analyse -> ne rien faire. Gate normal du tap, pas un debug.
-+  if (!lead_frame_sink_)
++  // Couvre aussi le contenu protégé : BasarunaaDisableTapForProtectedContent()
++  // a reset le sink (une frame déjà postée par le thread média peut encore
++  // arriver ici après la coupure).
++  if (!lead_frame_sink_ || basarunaa_protected_content_)
 +    return;
 +
 +  // Ring : reset sur seek arrière (ts recule), éviction des frames dépassées
@@ -244,6 +302,12 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
 +  // l'embedder). La frame est ÉPINGLÉE ici (ref copiée dans la file) : la
 +  // requête devient immune à l'éviction du ring pendant l'attente.
 +  DCHECK(main_task_runner_->BelongsToCurrentThread());
++  // Contenu protégé : l'embedder garde le handle aussi longtemps que son
++  // detector vit — il peut le rappeler après la coupure. Refus sec.
++  if (basarunaa_protected_content_) {
++    std::move(done).Run({}, 0, 0, base::TimeDelta());
++    return;
++  }
 +  // Recherche binaire par ts (ring trié croissant par construction). Les ts
 +  // demandés viennent des notifications (valeurs exactes) ; la tolérance ne
 +  // couvre que les re-demandes après éviction partielle — la frame réellement
@@ -335,6 +399,12 @@ index 2f77f8cc774f4..785e5d5c6ad66 100644
 +    scoped_refptr<media::VideoFrame> cpu_frame) {
 +  DCHECK(main_task_runner_->BelongsToCurrentThread());
 +  lead_readback_busy_ = false;
++  // Le chiffrement a été découvert PENDANT ce readback : la frame lue est du
++  // média protégé déchiffré → elle ne sort pas d'ici (reply vide).
++  if (basarunaa_protected_content_) {
++    std::move(done).Run({}, 0, 0, base::TimeDelta());
++    return;
++  }
 +  const double readback_ms =
 +      (base::TimeTicks::Now() - lead_readback_start_ticks_).InMillisecondsF();
 +  if (!cpu_frame) {
