@@ -20,6 +20,11 @@ namespace brave {
 
 namespace {
 
+// Browther: télécharger les composants Chromium en direct chez Google au lieu
+// de passer par redirector.brave.com (403 pour les forks). Mettre à false pour
+// restaurer le comportement Brave si un jour on a notre propre proxy.
+constexpr bool kBrowtherDirectComponentDownloads = true;
+
 bool g_safebrowsing_api_endpoint_for_testing_ = false;
 
 std::string_view GetSafeBrowsingEndpoint() {
@@ -114,6 +119,23 @@ void StaticRedirectHelper(const GURL& request_url, GURL* new_url) {
   if (favicon_pattern->MatchesURL(request_url)) {
     replacements.SetHostStr("favicons.proxy.brave.com");
     *new_url = request_url.ReplaceComponents(replacements);
+    return;
+  }
+
+  // Browther: on NE route PAS les téléchargements de composants via
+  // redirector.brave.com. Ce proxy exige un header `BraveServiceKey` réservé
+  // aux builds Brave officiels et répond `403 Missing auth header` à tout
+  // fork — exactement comme go-updater.brave.com (cf. TODO.md). Conséquence
+  // mesurée le 2026-07-28 : *aucun* composant Chromium ne s'installait chez
+  // Browther (CRLSet, sslErrorAssistant, FileTypePolicies, SODA…), tous en
+  // errorcode 403 / extracode1 -379 en boucle. Les mêmes URLs répondent
+  // HTTP 200 en direct chez Google, donc on laisse passer sans redirection.
+  //
+  // Privacy : ça n'ouvre rien de nouveau. L'update *check*
+  // (update.googleapis.com) n'a jamais été proxifié par Brave — Google y voit
+  // déjà l'IP, la liste des composants, la version et l'OS à chaque cycle.
+  // Le proxy ne couvrait que le GET du binaire CRX qui suit.
+  if (kBrowtherDirectComponentDownloads) {
     return;
   }
 
