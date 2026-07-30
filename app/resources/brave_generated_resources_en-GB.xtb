@@ -951,4 +951,9 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="8116496000232627763">Every detected person gets a certainty score. Below this threshold they are blurred as a precaution — when in doubt, blur. Above it, their class decides (woman → blurred, man or child → not).</translation>
 <translation id="8268525947366336370">Threshold of the global NSFW classifier. Above it, the whole image is blurred.</translation>
 <translation id="3814510295993434135">Detection threshold for explicit body parts. Lower means more sensitive.</translation>
+<translation id="2250388996268870380">This site uses protected content (DRM) that Browther cannot play.</translation>
+<translation id="8557480419413458431">Protected content (DRM): Browther does not touch it, so blurring and music removal do not apply here.</translation>
+<translation id="6110875516089236957">Open in default browser</translation>
+<translation id="3987993985790029246">Copy link</translation>
+<translation id="2608041825176636295">Remove music with the Sawtunaa app</translation>
 </translationbundle>

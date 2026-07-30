@@ -12,6 +12,10 @@ component("renderer") {
 
   deps = [
     "//brave/components/brave_drm:brave_drm_blink",
+
+    # [Browther] Remontée de l'état EME (contenu protégé) vers le browser,
+    # consommée par chromium_src/.../encryptedmedia/media_key_session.cc.
+    "//brave/components/browther_drm:browther_drm_blink",
     "//brave/components/brave_shields/core/common:mojom",
   ]
 

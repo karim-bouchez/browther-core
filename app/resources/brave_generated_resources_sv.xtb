@@ -951,4 +951,9 @@ börja använda Sync igen måste du skapa ett nytt konto och lägga till varje e
 <translation id="8116496000232627763">Varje upptäckt person får ett säkerhetsvärde. Under detta tröskelvärde görs personen suddig för säkerhets skull — vid tveksamhet, gör suddigt. Över det avgör klassen (kvinna → suddig, man eller barn → inte).</translation>
 <translation id="8268525947366336370">Tröskelvärde för den globala NSFW-klassificeraren. Över det görs hela bilden suddig.</translation>
 <translation id="3814510295993434135">Tröskelvärde för identifiering av explicita kroppsdelar. Lägre betyder känsligare.</translation>
+<translation id="2250388996268870380">Den här webbplatsen använder skyddat innehåll (DRM) som Browther inte kan spela upp.</translation>
+<translation id="8557480419413458431">Skyddat innehåll (DRM): Browther rör det inte, så oskärpa och musikborttagning gäller inte här.</translation>
+<translation id="6110875516089236957">Öppna i standardwebbläsaren</translation>
+<translation id="3987993985790029246">Kopiera länk</translation>
+<translation id="2608041825176636295">Ta bort musik med Sawtunaa-appen</translation>
 </translationbundle>

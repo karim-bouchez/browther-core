@@ -139,6 +139,9 @@
 // Browther: Basarunaa tap vidéo natif desktop — pousse `kBasarunaaEnabled`
 // aux renderers (VideoTapConfig). Cf. brave/browser/basarunaa/.
 #include "brave/browser/basarunaa/basarunaa_video_tap_tab_helper.h"
+// Browther: détection « contenu protégé » (DRM) — barre d'information quand la
+// lecture protégée échoue, ou quand elle marche mais échappe à nos filtres.
+#include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #endif
 
 namespace brave {
@@ -226,6 +229,13 @@ void AttachTabHelpers(content::WebContents* web_contents) {
 
 #if BUILDFLAG(ENABLE_WIDEVINE)
   BraveDrmTabHelper::CreateForWebContents(web_contents);
+#endif
+
+#if !BUILDFLAG(IS_ANDROID)
+  // Browther: contenu protégé (DRM). Indépendant de ENABLE_WIDEVINE — la
+  // détection est purement comportementale (EME), pas liée au CDM Widevine.
+  // Desktop only : pas de barre d'info équivalente sur Android.
+  BrowtherProtectedContentTabHelper::CreateForWebContents(web_contents);
 #endif
 
 #if BUILDFLAG(ENABLE_BRAVE_WAYBACK_MACHINE)

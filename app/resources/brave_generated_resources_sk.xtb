@@ -953,4 +953,9 @@ Leo AI. Túto akciu nie je možné vrátiť späť.</translation>
 <translation id="8116496000232627763">Každá zistená osoba dostane skóre istoty. Pod týmto prahom sa pre istotu rozmaže — v prípade pochybností rozmazať. Nad ním rozhoduje jej trieda (žena → rozmazaná, muž alebo dieťa → nie).</translation>
 <translation id="8268525947366336370">Prah globálneho klasifikátora NSFW. Nad ním sa rozmaže celý obrázok.</translation>
 <translation id="3814510295993434135">Prah detekcie explicitných častí tela. Nižší znamená citlivejší.</translation>
+<translation id="2250388996268870380">Táto stránka používa chránený obsah (DRM), ktorý Browther nedokáže prehrať.</translation>
+<translation id="8557480419413458431">Chránený obsah (DRM): Browther sa ho nedotýka, takže rozostrenie ani odstránenie hudby sa tu neuplatnia.</translation>
+<translation id="6110875516089236957">Otvoriť v predvolenom prehliadači</translation>
+<translation id="3987993985790029246">Kopírovať odkaz</translation>
+<translation id="2608041825176636295">Odstráňte hudbu aplikáciou Sawtunaa</translation>
 </translationbundle>

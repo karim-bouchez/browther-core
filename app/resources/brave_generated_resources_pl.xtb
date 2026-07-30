@@ -950,4 +950,9 @@ lub zmień później w <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="8116496000232627763">Każda wykryta osoba otrzymuje wynik pewności. Poniżej tego progu jest rozmywana zapobiegawczo — w razie wątpliwości rozmyj. Powyżej decyduje jej klasa (kobieta → rozmyta, mężczyzna lub dziecko → nie).</translation>
 <translation id="8268525947366336370">Próg globalnego klasyfikatora NSFW. Powyżej niego rozmywany jest cały obraz.</translation>
 <translation id="3814510295993434135">Próg wykrywania intymnych części ciała. Niższy oznacza większą czułość.</translation>
+<translation id="2250388996268870380">Ta witryna używa treści chronionych (DRM), których Browther nie może odtworzyć.</translation>
+<translation id="8557480419413458431">Treści chronione (DRM): Browther ich nie dotyka, więc rozmycie i usuwanie muzyki nie mają tu zastosowania.</translation>
+<translation id="6110875516089236957">Otwórz w domyślnej przeglądarce</translation>
+<translation id="3987993985790029246">Kopiuj link</translation>
+<translation id="2608041825176636295">Usuń muzykę aplikacją Sawtunaa</translation>
 </translationbundle>

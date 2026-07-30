@@ -636,6 +636,17 @@ if (enable_tor) {
   ]
 }
 
+# [Browther] Détection « contenu protégé » (DRM) → barre d'information.
+# Desktop uniquement : la barre et le check « navigateur par défaut » n'ont
+# pas d'équivalent Android, et iOS n'utilise pas ce pipeline média.
+if (!is_android) {
+  brave_chrome_browser_sources += [
+    "//brave/browser/browther/browther_protected_content_tab_helper.cc",
+    "//brave/browser/browther/browther_protected_content_tab_helper.h",
+  ]
+  brave_chrome_browser_deps += [ "//brave/components/browther_drm" ]
+}
+
 if (enable_widevine) {
   brave_chrome_browser_sources += [
     "//brave/browser/brave_drm_tab_helper.cc",

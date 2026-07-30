@@ -952,4 +952,9 @@ volver usar Sincronización, terás que crear unha conta nova e volver engadir o
 <translation id="8116496000232627763">Cada persoa detectada recibe unha puntuación de certeza. Por debaixo deste limiar desenfócase por precaución: na dúbida, desenfoca. Por riba, decide a súa clase (muller → desenfocada; home ou neno → non).</translation>
 <translation id="8268525947366336370">Limiar do clasificador NSFW global. Por riba, desenfócase toda a imaxe.</translation>
 <translation id="3814510295993434135">Limiar de detección de partes íntimas do corpo. Canto máis baixo, máis sensible.</translation>
+<translation id="2250388996268870380">Este sitio usa contido protexido (DRM) que Browther non pode reproducir.</translation>
+<translation id="8557480419413458431">Contido protexido (DRM): Browther non o toca, así que o desenfoque e a eliminación de música non se aplican aquí.</translation>
+<translation id="6110875516089236957">Abrir no navegador predeterminado</translation>
+<translation id="3987993985790029246">Copiar a ligazón</translation>
+<translation id="2608041825176636295">Elimina a música coa aplicación Sawtunaa</translation>
 </translationbundle>

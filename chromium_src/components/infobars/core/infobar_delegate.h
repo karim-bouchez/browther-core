@@ -19,7 +19,10 @@
   BRAVE_REQUEST_OTR_INFOBAR_DELEGATE = 508,                                \
   DEV_CHANNEL_DEPRECATION_INFOBAR_DELEGATE = 509,                          \
   SEARCH_RESULT_AD_CLICKED_INFOBAR_DELEGATE = 510,                         \
-  NEW_TAB_TAKEOVER_INFOBAR_DELEGATE = 511, BRAVE_PSST_INFOBAR_DELEGATE = 512,
+  NEW_TAB_TAKEOVER_INFOBAR_DELEGATE = 511, BRAVE_PSST_INFOBAR_DELEGATE = 512, \
+  /* [Browther] Plage 600+ réservée au fork, pour ne pas entrer en collision  \
+     avec les identifiants ajoutés en amont par Brave. */                     \
+  BROWTHER_PROTECTED_CONTENT_INFOBAR_DELEGATE = 600,
 
 // Deprecated:
 // WAYBACK_MACHINE_INFOBAR_DELEGATE = 502

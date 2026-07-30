@@ -951,4 +951,9 @@ Jste si jisti, že chcete tuto akci provést?</translation>
 <translation id="8116496000232627763">Každá zjištěná osoba dostane skóre jistoty. Pod tímto prahem se rozostří pro jistotu — v případě pochybností rozostřit. Nad ním rozhoduje její třída (žena → rozostřená, muž nebo dítě → ne).</translation>
 <translation id="8268525947366336370">Práh globálního klasifikátoru NSFW. Nad ním se rozostří celý obrázek.</translation>
 <translation id="3814510295993434135">Práh detekce explicitních částí těla. Nižší znamená citlivější.</translation>
+<translation id="2250388996268870380">Tento web používá chráněný obsah (DRM), který Browther nedokáže přehrát.</translation>
+<translation id="8557480419413458431">Chráněný obsah (DRM): Browther se ho nedotýká, takže rozostření ani odstranění hudby se zde neuplatní.</translation>
+<translation id="6110875516089236957">Otevřít ve výchozím prohlížeči</translation>
+<translation id="3987993985790029246">Kopírovat odkaz</translation>
+<translation id="2608041825176636295">Odstraňte hudbu pomocí aplikace Sawtunaa</translation>
 </translationbundle>

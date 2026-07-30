@@ -952,4 +952,9 @@ DU kan læse <ph name="BEGIN_LINK_BUILD_INSTRUCTIONS"/>instruktioner om hvordan 
 <translation id="8116496000232627763">Hver registreret person får en sikkerhedsscore. Under denne tærskel sløres personen for en sikkerheds skyld — i tvivlstilfælde slør. Over den afgør personens klasse (kvinde → sløret, mand eller barn → ikke).</translation>
 <translation id="8268525947366336370">Tærskel for den globale NSFW-klassifikator. Over den sløres hele billedet.</translation>
 <translation id="3814510295993434135">Registreringstærskel for eksplicitte kropsdele. Lavere betyder mere følsom.</translation>
+<translation id="2250388996268870380">Dette websted bruger beskyttet indhold (DRM), som Browther ikke kan afspille.</translation>
+<translation id="8557480419413458431">Beskyttet indhold (DRM): Browther rører det ikke, så sløring og fjernelse af musik gælder ikke her.</translation>
+<translation id="6110875516089236957">Åbn i standardbrowseren</translation>
+<translation id="3987993985790029246">Kopiér link</translation>
+<translation id="2608041825176636295">Fjern musik med Sawtunaa-appen</translation>
 </translationbundle>

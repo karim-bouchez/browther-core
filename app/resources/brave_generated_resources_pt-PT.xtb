@@ -951,4 +951,9 @@ Leo AI. Esta ação não pode ser revertida.</translation>
 <translation id="8116496000232627763">Cada pessoa detetada recebe uma pontuação de certeza. Abaixo deste limite é desfocada por precaução — na dúvida, desfoque. Acima, a classe dela decide (mulher → desfocada; homem ou criança → não).</translation>
 <translation id="8268525947366336370">Limite do classificador NSFW global. Acima dele, a imagem inteira é desfocada.</translation>
 <translation id="3814510295993434135">Limite de deteção de partes íntimas do corpo. Quanto menor, mais sensível.</translation>
+<translation id="2250388996268870380">Este site usa conteúdo protegido (DRM) que o Browther não consegue reproduzir.</translation>
+<translation id="8557480419413458431">Conteúdo protegido (DRM): o Browther não lhe toca, por isso a desfocagem e a remoção de música não se aplicam aqui.</translation>
+<translation id="6110875516089236957">Abrir no navegador predefinido</translation>
+<translation id="3987993985790029246">Copiar ligação</translation>
+<translation id="2608041825176636295">Remova a música com a aplicação Sawtunaa</translation>
 </translationbundle>

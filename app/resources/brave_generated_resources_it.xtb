@@ -951,4 +951,9 @@ Oppure cambia in seguito la tua scelta su <ph name="SETTINGS_EXTENIONS_LINK"/>.<
 <translation id="8116496000232627763">Ogni persona rilevata riceve un punteggio di certezza. Sotto questa soglia viene sfocata per precauzione: nel dubbio, sfoca. Sopra, decide la sua classe (donna → sfocata, uomo o bambino → no).</translation>
 <translation id="8268525947366336370">Soglia del classificatore NSFW globale. Al di sopra, l'intera immagine viene sfocata.</translation>
 <translation id="3814510295993434135">Soglia di rilevamento delle parti intime del corpo. Più bassa = più sensibile.</translation>
+<translation id="2250388996268870380">Questo sito usa contenuti protetti (DRM) che Browther non può riprodurre.</translation>
+<translation id="8557480419413458431">Contenuti protetti (DRM): Browther non li tocca, quindi sfocatura e rimozione della musica non si applicano qui.</translation>
+<translation id="6110875516089236957">Apri nel browser predefinito</translation>
+<translation id="3987993985790029246">Copia link</translation>
+<translation id="2608041825176636295">Rimuovi la musica con l'app Sawtunaa</translation>
 </translationbundle>

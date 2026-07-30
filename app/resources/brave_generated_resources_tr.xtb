@@ -952,4 +952,9 @@ Veya şu adresten daha sonra değiştirin: <ph name="SETTINGS_EXTENIONS_LINK"/>.
 <translation id="8116496000232627763">Algılanan her kişi bir kesinlik puanı alır. Bu eşiğin altındaysa tedbir amacıyla bulanıklaştırılır — şüphe varsa bulanıklaştır. Üstündeyse sınıfı karar verir (kadın → bulanık, erkek veya çocuk → değil).</translation>
 <translation id="8268525947366336370">Genel NSFW sınıflandırıcısının eşiği. Üstünde görüntünün tamamı bulanıklaştırılır.</translation>
 <translation id="3814510295993434135">Müstehcen vücut bölgelerinin algılama eşiği. Düşük olması daha hassas demektir.</translation>
+<translation id="2250388996268870380">Bu site, Browther'ın oynatamadığı korumalı içerik (DRM) kullanıyor.</translation>
+<translation id="8557480419413458431">Korumalı içerik (DRM): Browther ona dokunmaz, bu nedenle bulanıklaştırma ve müzik kaldırma burada geçerli değildir.</translation>
+<translation id="6110875516089236957">Varsayılan tarayıcıda aç</translation>
+<translation id="3987993985790029246">Bağlantıyı kopyala</translation>
+<translation id="2608041825176636295">Sawtunaa uygulamasıyla müziği kaldırın</translation>
 </translationbundle>

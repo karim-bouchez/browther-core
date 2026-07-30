@@ -300,6 +300,10 @@ using extensions::ChromeContentBrowserClientExtensionsPart;
 
 #if BUILDFLAG(ENABLE_WIDEVINE)
 #include "brave/browser/brave_drm_tab_helper.h"
+#if !BUILDFLAG(IS_ANDROID)
+// [Browther] Détection « contenu protégé » (DRM) — cf. WIDEVINE_VMP.md § 10.
+#include "brave/browser/browther/browther_protected_content_tab_helper.h"
+#endif
 #endif
 
 #if BUILDFLAG(ENABLE_BRAVE_VPN)
@@ -588,6 +592,18 @@ void BraveContentBrowserClient::
 #endif  // BUILDFLAG(ENABLE_WIDEVINE)
 
 #if !BUILDFLAG(IS_ANDROID)
+  // [Browther] Remontée de l'état EME (challenge de licence parti / clé
+  // devenue utilisable) → BrowtherProtectedContentTabHelper.
+  associated_registry.AddInterface<browther_drm::mojom::BrowtherDrmStatus>(
+      base::BindRepeating(
+          [](content::RenderFrameHost* render_frame_host,
+             mojo::PendingAssociatedReceiver<
+                 browther_drm::mojom::BrowtherDrmStatus> receiver) {
+            BrowtherProtectedContentTabHelper::BindBrowtherDrmStatus(
+                std::move(receiver), render_frame_host);
+          },
+          &render_frame_host));
+
   associated_registry.AddInterface<
       geolocation::mojom::BraveGeolocationPermission>(base::BindRepeating(
       [](content::RenderFrameHost* render_frame_host,

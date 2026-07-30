@@ -1,0 +1,16 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import("//mojo/public/tools/bindings/mojom.gni")
+
+mojom("browther_drm") {
+  sources = [ "browther_drm.mojom" ]
+
+  # Consommée depuis blink (chromium_src de media_key_session.cc) → il faut la
+  # variante -blink, comme //brave/components/brave_drm.
+  export_class_attribute_blink = "CORE_EXPORT"
+  export_define_blink = "BLINK_CORE_IMPLEMENTATION=1"
+  export_header_blink = "third_party/blink/renderer/core/core_export.h"
+}

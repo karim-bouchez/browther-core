@@ -1,0 +1,30 @@
+// Copyright (c) 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// You can obtain one at https://mozilla.org/MPL/2.0/.
+
+module browther_drm.mojom;
+
+// [Browther] Remontée de l'état EME du renderer vers le browser, pour dire
+// honnêtement à l'utilisateur ce qui se passe sur une page à contenu protégé.
+//
+// Deux situations, toutes deux utiles à signaler :
+//  - la lecture protégée ÉCHOUE (pas de VMP : le serveur du service refuse le
+//    challenge de licence) → le site reste noir/en erreur sans que Chromium ne
+//    voie la moindre erreur, cf. private/docs/WIDEVINE_VMP.md § 10 ;
+//  - la lecture protégée MARCHE → nos features (Basarunaa/Sawtunaa) ne
+//    s'appliquent pas, parce qu'on refuse de toucher au média protégé
+//    (cf. private/docs/TODO.md § média DRM déchiffré).
+//
+// On ne remonte donc PAS une erreur (il n'y en a pas), mais deux faits bruts :
+// « un challenge de licence est parti » et « une clé est devenue utilisable ».
+// C'est le browser qui en tire une conclusion, après un délai.
+interface BrowtherDrmStatus {
+  // Un challenge de licence vient d'être émis vers la page (événement DOM
+  // `message` de type `license-request`). Arme la temporisation côté browser.
+  OnLicenseRequestSent();
+
+  // Au moins une clé est passée à l'état `usable` : le déchiffrement
+  // fonctionne. Annule la temporisation ci-dessus.
+  OnKeyUsable();
+};

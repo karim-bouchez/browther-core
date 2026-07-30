@@ -954,4 +954,9 @@ ponovno uporabo sinhronizacije, boste morali ustvariti nov račun in posamično 
 <translation id="8116496000232627763">Vsaka zaznana oseba dobi oceno gotovosti. Pod tem pragom se zamegli iz previdnosti — v dvomu zamegli. Nad njim odloča njen razred (ženska → zamegljena, moški ali otrok → ne).</translation>
 <translation id="8268525947366336370">Prag globalnega klasifikatorja NSFW. Nad njim se zamegli celotna slika.</translation>
 <translation id="3814510295993434135">Prag zaznavanja eksplicitnih delov telesa. Nižji pomeni občutljivejši.</translation>
+<translation id="2250388996268870380">To spletno mesto uporablja zaščiteno vsebino (DRM), ki je Browther ne more predvajati.</translation>
+<translation id="8557480419413458431">Zaščitena vsebina (DRM): Browther se je ne dotika, zato zameglitev in odstranjevanje glasbe tu ne veljata.</translation>
+<translation id="6110875516089236957">Odpri v privzetem brskalniku</translation>
+<translation id="3987993985790029246">Kopiraj povezavo</translation>
+<translation id="2608041825176636295">Odstranite glasbo z aplikacijo Sawtunaa</translation>
 </translationbundle>

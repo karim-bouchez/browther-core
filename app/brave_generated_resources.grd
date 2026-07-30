@@ -1492,6 +1492,22 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_OFF" desc="Tooltip on Sawtunaa toolbar action when disabled">
         Sawtunaa — OFF
       </message>
+      <!-- Browther: contenu protégé (DRM) — barre d'information. -->
+      <message name="IDS_BROWTHER_PROTECTED_CONTENT_BLOCKED_MESSAGE" desc="Infobar shown when a site's DRM-protected video cannot be played because the browser has no Widevine VMP signature">
+        This site uses protected content (DRM) that Browther cannot play.
+      </message>
+      <message name="IDS_BROWTHER_PROTECTED_CONTENT_UNFILTERED_MESSAGE" desc="Infobar shown when DRM-protected playback works, to explain that Browther's blurring and music removal do not apply to it">
+        Protected content (DRM): Browther does not touch it, so blurring and music removal do not apply here.
+      </message>
+      <message name="IDS_BROWTHER_PROTECTED_CONTENT_OPEN_IN_DEFAULT_BROWSER" desc="Infobar button that opens the current page in the operating system's default browser">
+        Open in default browser
+      </message>
+      <message name="IDS_BROWTHER_PROTECTED_CONTENT_COPY_LINK" desc="Infobar button that copies the current page link, shown instead of opening in the default browser when Browther is itself the default browser">
+        Copy link
+      </message>
+      <message name="IDS_BROWTHER_PROTECTED_CONTENT_SAWTUNAA_APP" desc="Infobar link inviting the user to install the standalone Sawtunaa application, which removes music outside the browser and is therefore unaffected by DRM">
+        Remove music with the Sawtunaa app
+      </message>
       <!-- Browther: Basarunaa panel (toolbar WebUI bubble) -->
       <message name="IDS_BASARUNAA_POPUP_STATUS_ON" desc="Status text in Basarunaa panel when enabled">
         Person blurring ENABLED

@@ -951,4 +951,9 @@ O baguhin mamaya sa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="8116496000232627763">Bawat natukoy na tao ay binibigyan ng certainty score. Sa ilalim ng threshold na ito, bini-blur siya bilang pag-iingat — kapag may duda, i-blur. Sa itaas nito, ang klase niya ang magpapasya (babae → bini-blur, lalaki o bata → hindi).</translation>
 <translation id="8268525947366336370">Threshold ng global na NSFW classifier. Sa itaas nito, bini-blur ang buong larawan.</translation>
 <translation id="3814510295993434135">Threshold ng pagtuklas para sa tahasang bahagi ng katawan. Mas mababa, mas sensitibo.</translation>
+<translation id="2250388996268870380">Gumagamit ang site na ito ng protektadong nilalaman (DRM) na hindi mapatugtog ng Browther.</translation>
+<translation id="8557480419413458431">Protektadong nilalaman (DRM): hindi ito ginagalaw ng Browther, kaya hindi dito nalalapat ang pag-blur at pag-alis ng musika.</translation>
+<translation id="6110875516089236957">Buksan sa default na browser</translation>
+<translation id="3987993985790029246">Kopyahin ang link</translation>
+<translation id="2608041825176636295">Alisin ang musika gamit ang Sawtunaa app</translation>
 </translationbundle>

@@ -952,4 +952,9 @@ Leo AI trong tương lai và cũng sẽ xóa lịch sử trò chuyện, các tù
 <translation id="8116496000232627763">Mỗi người được phát hiện sẽ nhận một điểm chắc chắn. Dưới ngưỡng này, người đó được làm mờ để phòng ngừa — khi nghi ngờ thì làm mờ. Trên ngưỡng, phân loại của họ quyết định (nữ → làm mờ, nam hoặc trẻ em → không).</translation>
 <translation id="8268525947366336370">Ngưỡng của bộ phân loại NSFW tổng thể. Trên ngưỡng này, toàn bộ hình ảnh bị làm mờ.</translation>
 <translation id="3814510295993434135">Ngưỡng phát hiện bộ phận cơ thể nhạy cảm. Càng thấp càng nhạy.</translation>
+<translation id="2250388996268870380">Trang web này dùng nội dung được bảo vệ (DRM) mà Browther không thể phát.</translation>
+<translation id="8557480419413458431">Nội dung được bảo vệ (DRM): Browther không đụng vào, nên làm mờ và loại bỏ nhạc không áp dụng ở đây.</translation>
+<translation id="6110875516089236957">Mở trong trình duyệt mặc định</translation>
+<translation id="3987993985790029246">Sao chép liên kết</translation>
+<translation id="2608041825176636295">Loại bỏ nhạc bằng ứng dụng Sawtunaa</translation>
 </translationbundle>

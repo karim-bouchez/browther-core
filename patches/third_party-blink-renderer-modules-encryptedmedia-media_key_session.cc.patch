@@ -1,0 +1,22 @@
+diff --git a/third_party/blink/renderer/modules/encryptedmedia/media_key_session.cc b/third_party/blink/renderer/modules/encryptedmedia/media_key_session.cc
+index e5c9b69795da3..32948df5b391b 100644
+--- a/third_party/blink/renderer/modules/encryptedmedia/media_key_session.cc
++++ b/third_party/blink/renderer/modules/encryptedmedia/media_key_session.cc
+@@ -999,6 +999,8 @@ void MediaKeySession::OnSessionMessage(media::CdmMessageType message_type,
+   }
+   init->setMessage(DOMArrayBuffer::Create(message));
+ 
++  BROWTHER_MEDIA_KEY_SESSION_ON_MESSAGE
++
+   MediaKeyMessageEvent* event =
+       MediaKeyMessageEvent::Create(event_type_names::kMessage, init);
+   event->SetTarget(this);
+@@ -1114,6 +1116,8 @@ void MediaKeySession::OnSessionKeysChange(
+         .Record(ukm_recorder);
+   }
+ 
++  BROWTHER_MEDIA_KEY_SESSION_ON_KEYS_CHANGE
++
+   // 5. Queue a task to fire a simple event named keystatuseschange
+   //    at the session.
+   Event* event = Event::Create(event_type_names::kKeystatuseschange);

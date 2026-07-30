@@ -951,4 +951,9 @@ Of voer later wijzigingen door via <ph name="SETTINGS_EXTENIONS_LINK"/>.</transl
 <translation id="8116496000232627763">Elke gedetecteerde persoon krijgt een zekerheidsscore. Onder deze drempel wordt hij uit voorzorg vervaagd — bij twijfel vervagen. Erboven beslist zijn klasse (vrouw → vervaagd, man of kind → niet).</translation>
 <translation id="8268525947366336370">Drempel van de algemene NSFW-classificatie. Daarboven wordt de hele afbeelding vervaagd.</translation>
 <translation id="3814510295993434135">Detectiedrempel voor expliciete lichaamsdelen. Lager betekent gevoeliger.</translation>
+<translation id="2250388996268870380">Deze site gebruikt beveiligde inhoud (DRM) die Browther niet kan afspelen.</translation>
+<translation id="8557480419413458431">Beveiligde inhoud (DRM): Browther raakt die niet aan, dus vervaging en muziekverwijdering gelden hier niet.</translation>
+<translation id="6110875516089236957">Openen in standaardbrowser</translation>
+<translation id="3987993985790029246">Link kopiëren</translation>
+<translation id="2608041825176636295">Muziek verwijderen met de Sawtunaa-app</translation>
 </translationbundle>
