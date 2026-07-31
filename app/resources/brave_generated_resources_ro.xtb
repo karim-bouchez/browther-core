@@ -952,10 +952,10 @@ Sau modificați permisinile ulterior în <ph name="SETTINGS_EXTENIONS_LINK"/>.</
 <translation id="8268525947366336370">Pragul clasificatorului NSFW global. Peste el, întreaga imagine este estompată.</translation>
 <translation id="3814510295993434135">Pragul de detectare a părților intime ale corpului. Mai mic înseamnă mai sensibil.</translation>
 <translation id="6110875516089236957">Deschide în browserul implicit</translation>
-<translation id="3987993985790029246">Copiază linkul</translation>
 <translation id="5466236558474903686">Videoclip protejat (DRM): Browther nu este certificat să îl redea. Va funcționa în alt browser.</translation>
 <translation id="6065221119374260161">Videoclip protejat (DRM): Browther nu este certificat să îl redea. Va funcționa în alt browser — iar pentru a elimina muzica acolo, instalează aplicația Sawtunaa împreună cu extensia sa de browser.</translation>
 <translation id="5707844521504946601">Videoclip protejat (DRM): Browther nu are voie să îl modifice, deci filtrele sale nu se aplică aici.</translation>
 <translation id="1829678234932521744">Videoclip protejat (DRM): Browther nu are voie să îl modifice, deci estomparea și eliminarea muzicii nu se aplică aici. Pentru a elimina muzica, instalează aplicația Sawtunaa împreună cu extensia sa de browser.</translation>
 <translation id="8976138575226849658">Instalează Sawtunaa</translation>
+<translation id="5640554172601835043">Copiază linkul pentru alt browser</translation>
 </translationbundle>

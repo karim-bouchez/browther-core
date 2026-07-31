@@ -952,10 +952,10 @@ Atau dapat mengubahnya nanti di <ph name="SETTINGS_EXTENIONS_LINK"/>.</translati
 <translation id="8268525947366336370">Ambang batas pengklasifikasi NSFW global. Di atasnya, seluruh gambar dikaburkan.</translation>
 <translation id="3814510295993434135">Ambang deteksi bagian tubuh eksplisit. Makin rendah, makin sensitif.</translation>
 <translation id="6110875516089236957">Buka di browser default</translation>
-<translation id="3987993985790029246">Salin tautan</translation>
 <translation id="5466236558474903686">Video terlindungi (DRM): Browther tidak bersertifikat untuk memutarnya. Video ini akan berfungsi di browser lain.</translation>
 <translation id="6065221119374260161">Video terlindungi (DRM): Browther tidak bersertifikat untuk memutarnya. Video ini akan berfungsi di browser lain — dan untuk menghapus musiknya di sana, pasang aplikasi Sawtunaa bersama ekstensi browsernya.</translation>
 <translation id="5707844521504946601">Video terlindungi (DRM): Browther tidak boleh mengubahnya, sehingga filternya tidak berlaku di sini.</translation>
 <translation id="1829678234932521744">Video terlindungi (DRM): Browther tidak boleh mengubahnya, sehingga pemburaman dan penghapusan musik tidak berlaku di sini. Untuk menghapus musik, pasang aplikasi Sawtunaa bersama ekstensi browsernya.</translation>
 <translation id="8976138575226849658">Pasang Sawtunaa</translation>
+<translation id="5640554172601835043">Salin tautan untuk browser lain</translation>
 </translationbundle>

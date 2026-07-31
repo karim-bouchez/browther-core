@@ -953,10 +953,10 @@ volver a usar Sync de nuevo, deberás crear otra cuenta y volver a agregar cada 
 <translation id="8268525947366336370">Umbral del clasificador NSFW global. Por encima, se desenfoca toda la imagen.</translation>
 <translation id="3814510295993434135">Umbral de detección de partes íntimas del cuerpo. Cuanto más bajo, más sensible.</translation>
 <translation id="6110875516089236957">Abrir en el navegador predeterminado</translation>
-<translation id="3987993985790029246">Copiar enlace</translation>
 <translation id="5466236558474903686">Video protegido (DRM): Browther no está certificado para reproducirlo. Funcionará en otro navegador.</translation>
 <translation id="6065221119374260161">Video protegido (DRM): Browther no está certificado para reproducirlo. Funcionará en otro navegador — y para quitar la música allí, instala la aplicación Sawtunaa junto con su extensión de navegador.</translation>
 <translation id="5707844521504946601">Video protegido (DRM): Browther no puede modificarlo, así que sus filtros no se aplican aquí.</translation>
 <translation id="1829678234932521744">Video protegido (DRM): Browther no puede modificarlo, así que el desenfoque y la eliminación de música no se aplican aquí. Para quitar la música, instala la aplicación Sawtunaa junto con su extensión de navegador.</translation>
 <translation id="8976138575226849658">Instalar Sawtunaa</translation>
+<translation id="5640554172601835043">Copiar enlace para otro navegador</translation>
 </translationbundle>

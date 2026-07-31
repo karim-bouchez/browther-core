@@ -952,10 +952,10 @@ Oppure cambia in seguito la tua scelta su <ph name="SETTINGS_EXTENIONS_LINK"/>.<
 <translation id="8268525947366336370">Soglia del classificatore NSFW globale. Al di sopra, l'intera immagine viene sfocata.</translation>
 <translation id="3814510295993434135">Soglia di rilevamento delle parti intime del corpo. Più bassa = più sensibile.</translation>
 <translation id="6110875516089236957">Apri nel browser predefinito</translation>
-<translation id="3987993985790029246">Copia link</translation>
 <translation id="5466236558474903686">Video protetto (DRM): Browther non è certificato per riprodurlo. Funzionerà in un altro browser.</translation>
 <translation id="6065221119374260161">Video protetto (DRM): Browther non è certificato per riprodurlo. Funzionerà in un altro browser — e per rimuovere lì la musica, installa l'app Sawtunaa insieme alla sua estensione per browser.</translation>
 <translation id="5707844521504946601">Video protetto (DRM): Browther non può modificarlo, quindi i suoi filtri non si applicano qui.</translation>
 <translation id="1829678234932521744">Video protetto (DRM): Browther non può modificarlo, quindi sfocatura e rimozione della musica non si applicano qui. Per rimuovere la musica, installa l'app Sawtunaa insieme alla sua estensione per browser.</translation>
 <translation id="8976138575226849658">Installa Sawtunaa</translation>
+<translation id="5640554172601835043">Copia link per un altro browser</translation>
 </translationbundle>

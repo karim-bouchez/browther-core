@@ -953,10 +953,10 @@
 <translation id="8268525947366336370">全体的な NSFW 分類器のしきい値。これを超えると画像全体をぼかします。</translation>
 <translation id="3814510295993434135">露骨な身体部位の検出しきい値。低いほど敏感になります。</translation>
 <translation id="6110875516089236957">既定のブラウザで開く</translation>
-<translation id="3987993985790029246">リンクをコピー</translation>
 <translation id="5466236558474903686">保護された動画（DRM）：Browther は再生の認証を受けていません。別のブラウザでは再生できます。</translation>
 <translation id="6065221119374260161">保護された動画（DRM）：Browther は再生の認証を受けていません。別のブラウザでは再生できます。そこで音楽を除去するには、Sawtunaa アプリとそのブラウザ拡張機能を一緒にインストールしてください。</translation>
 <translation id="5707844521504946601">保護された動画（DRM）：Browther は変更を許されていないため、フィルターはここでは適用されません。</translation>
 <translation id="1829678234932521744">保護された動画（DRM）：Browther は変更を許されていないため、ぼかしと音楽除去はここでは適用されません。音楽を除去するには、Sawtunaa アプリとそのブラウザ拡張機能を一緒にインストールしてください。</translation>
 <translation id="8976138575226849658">Sawtunaa をインストール</translation>
+<translation id="5640554172601835043">別のブラウザ用にリンクをコピー</translation>
 </translationbundle>

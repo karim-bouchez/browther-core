@@ -953,10 +953,10 @@ Veya şu adresten daha sonra değiştirin: <ph name="SETTINGS_EXTENIONS_LINK"/>.
 <translation id="8268525947366336370">Genel NSFW sınıflandırıcısının eşiği. Üstünde görüntünün tamamı bulanıklaştırılır.</translation>
 <translation id="3814510295993434135">Müstehcen vücut bölgelerinin algılama eşiği. Düşük olması daha hassas demektir.</translation>
 <translation id="6110875516089236957">Varsayılan tarayıcıda aç</translation>
-<translation id="3987993985790029246">Bağlantıyı kopyala</translation>
 <translation id="5466236558474903686">Korumalı video (DRM): Browther bunu oynatmak için sertifikalı değil. Başka bir tarayıcıda çalışacaktır.</translation>
 <translation id="6065221119374260161">Korumalı video (DRM): Browther bunu oynatmak için sertifikalı değil. Başka bir tarayıcıda çalışacaktır — orada müziği kaldırmak için Sawtunaa uygulamasını tarayıcı uzantısıyla birlikte kurun.</translation>
 <translation id="5707844521504946601">Korumalı video (DRM): Browther'ın bunu değiştirme izni yok, bu nedenle filtreleri burada geçerli değildir.</translation>
 <translation id="1829678234932521744">Korumalı video (DRM): Browther'ın bunu değiştirme izni yok, bu nedenle bulanıklaştırma ve müzik kaldırma burada geçerli değildir. Müziği kaldırmak için Sawtunaa uygulamasını tarayıcı uzantısıyla birlikte kurun.</translation>
 <translation id="8976138575226849658">Sawtunaa'yı kur</translation>
+<translation id="5640554172601835043">Bağlantıyı başka tarayıcı için kopyala</translation>
 </translationbundle>

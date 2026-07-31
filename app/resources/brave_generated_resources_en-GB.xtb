@@ -952,10 +952,10 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="8268525947366336370">Threshold of the global NSFW classifier. Above it, the whole image is blurred.</translation>
 <translation id="3814510295993434135">Detection threshold for explicit body parts. Lower means more sensitive.</translation>
 <translation id="6110875516089236957">Open in default browser</translation>
-<translation id="3987993985790029246">Copy link</translation>
 <translation id="5466236558474903686">Protected video (DRM): Browther is not certified to play it. It will work in another browser.</translation>
 <translation id="6065221119374260161">Protected video (DRM): Browther is not certified to play it. It will work in another browser — and to remove the music there, install the Sawtunaa app together with its browser extension.</translation>
 <translation id="5707844521504946601">Protected video (DRM): Browther is not allowed to modify it, so its filters do not apply here.</translation>
 <translation id="1829678234932521744">Protected video (DRM): Browther is not allowed to modify it, so blurring and music removal do not apply here. To remove the music, install the Sawtunaa app together with its browser extension.</translation>
 <translation id="8976138575226849658">Install Sawtunaa</translation>
+<translation id="5640554172601835043">Copy link for another browser</translation>
 </translationbundle>

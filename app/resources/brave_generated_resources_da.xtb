@@ -953,10 +953,10 @@ DU kan læse <ph name="BEGIN_LINK_BUILD_INSTRUCTIONS"/>instruktioner om hvordan 
 <translation id="8268525947366336370">Tærskel for den globale NSFW-klassifikator. Over den sløres hele billedet.</translation>
 <translation id="3814510295993434135">Registreringstærskel for eksplicitte kropsdele. Lavere betyder mere følsom.</translation>
 <translation id="6110875516089236957">Åbn i standardbrowseren</translation>
-<translation id="3987993985790029246">Kopiér link</translation>
 <translation id="5466236558474903686">Beskyttet video (DRM): Browther er ikke certificeret til at afspille den. Den virker i en anden browser.</translation>
 <translation id="6065221119374260161">Beskyttet video (DRM): Browther er ikke certificeret til at afspille den. Den virker i en anden browser — og for at fjerne musikken dér skal du installere Sawtunaa-appen sammen med dens browserudvidelse.</translation>
 <translation id="5707844521504946601">Beskyttet video (DRM): Browther må ikke ændre den, så dens filtre gælder ikke her.</translation>
 <translation id="1829678234932521744">Beskyttet video (DRM): Browther må ikke ændre den, så sløring og fjernelse af musik gælder ikke her. For at fjerne musikken skal du installere Sawtunaa-appen sammen med dens browserudvidelse.</translation>
 <translation id="8976138575226849658">Installer Sawtunaa</translation>
+<translation id="5640554172601835043">Kopiér link til en anden browser</translation>
 </translationbundle>

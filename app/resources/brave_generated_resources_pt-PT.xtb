@@ -952,10 +952,10 @@ Leo AI. Esta ação não pode ser revertida.</translation>
 <translation id="8268525947366336370">Limite do classificador NSFW global. Acima dele, a imagem inteira é desfocada.</translation>
 <translation id="3814510295993434135">Limite de deteção de partes íntimas do corpo. Quanto menor, mais sensível.</translation>
 <translation id="6110875516089236957">Abrir no navegador predefinido</translation>
-<translation id="3987993985790029246">Copiar ligação</translation>
 <translation id="5466236558474903686">Vídeo protegido (DRM): o Browther não tem certificação para o reproduzir. Funcionará noutro navegador.</translation>
 <translation id="6065221119374260161">Vídeo protegido (DRM): o Browther não tem certificação para o reproduzir. Funcionará noutro navegador — e para remover aí a música, instale a aplicação Sawtunaa juntamente com a respetiva extensão de navegador.</translation>
 <translation id="5707844521504946601">Vídeo protegido (DRM): o Browther não pode modificá-lo, por isso os seus filtros não se aplicam aqui.</translation>
 <translation id="1829678234932521744">Vídeo protegido (DRM): o Browther não pode modificá-lo, por isso a desfocagem e a remoção de música não se aplicam aqui. Para remover a música, instale a aplicação Sawtunaa juntamente com a respetiva extensão de navegador.</translation>
 <translation id="8976138575226849658">Instalar o Sawtunaa</translation>
+<translation id="5640554172601835043">Copiar ligação para outro navegador</translation>
 </translationbundle>

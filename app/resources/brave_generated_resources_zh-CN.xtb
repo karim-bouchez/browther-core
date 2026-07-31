@@ -951,10 +951,10 @@
 <translation id="8268525947366336370">全局 NSFW 分类器的阈值。超过该值时整张图片将被模糊。</translation>
 <translation id="3814510295993434135">露骨身体部位的检测阈值。数值越低越敏感。</translation>
 <translation id="6110875516089236957">在默认浏览器中打开</translation>
-<translation id="3987993985790029246">复制链接</translation>
 <translation id="5466236558474903686">受保护视频（DRM）：Browther 未获播放认证。在其他浏览器中可以播放。</translation>
 <translation id="6065221119374260161">受保护视频（DRM）：Browther 未获播放认证。在其他浏览器中可以播放 — 若要在那里去除音乐，请同时安装 Sawtunaa 应用及其浏览器扩展。</translation>
 <translation id="5707844521504946601">受保护视频（DRM）：Browther 无权修改它，因此其过滤功能在此不适用。</translation>
 <translation id="1829678234932521744">受保护视频（DRM）：Browther 无权修改它，因此模糊和去除音乐在此不适用。若要去除音乐，请同时安装 Sawtunaa 应用及其浏览器扩展。</translation>
 <translation id="8976138575226849658">安装 Sawtunaa</translation>
+<translation id="5640554172601835043">复制链接以在其他浏览器中打开</translation>
 </translationbundle>

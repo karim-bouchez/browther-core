@@ -1508,8 +1508,8 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BROWTHER_PROTECTED_CONTENT_OPEN_IN_DEFAULT_BROWSER" desc="Infobar button that opens the current page in the operating system's default browser">
         Open in default browser
       </message>
-      <message name="IDS_BROWTHER_PROTECTED_CONTENT_COPY_LINK" desc="Infobar button that copies the current page link, shown instead of opening in the default browser when Browther is itself the default browser">
-        Copy link
+      <message name="IDS_BROWTHER_PROTECTED_CONTENT_COPY_LINK" desc="Infobar button shown instead of 'open in default browser' when Browther is itself the default browser. Must say WHERE to paste the link, otherwise 'copy link' alone leaves the user stuck.">
+        Copy link for another browser
       </message>
       <message name="IDS_BROWTHER_PROTECTED_CONTENT_GET_SAWTUNAA" desc="Infobar button opening the download page of the standalone Sawtunaa application">
         Install Sawtunaa
