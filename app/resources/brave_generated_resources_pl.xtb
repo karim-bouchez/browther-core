@@ -952,12 +952,12 @@ lub zmień później w <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="3814510295993434135">Próg wykrywania intymnych części ciała. Niższy oznacza większą czułość.</translation>
 <translation id="6110875516089236957">Otwórz w domyślnej przeglądarce</translation>
 <translation id="5466236558474903686">Chronione wideo (DRM): Browther nie ma certyfikatu, by je odtworzyć. Zadziała w innej przeglądarce.</translation>
-<translation id="6065221119374260161">Chronione wideo (DRM): Browther nie ma certyfikatu, by je odtworzyć. Zadziała w innej przeglądarce — a żeby usunąć tam muzykę, zainstaluj aplikację Sawtunaa wraz z jej rozszerzeniem przeglądarki.</translation>
+<translation id="2222024630815312523">Chronione wideo (DRM): Browther nie ma certyfikatu, by je odtworzyć. Aby obejrzeć bez muzyki: zainstaluj aplikację Sawtunaa, dodaj jej rozszerzenie do innej przeglądarki, a następnie otwórz tę stronę w tej przeglądarce.</translation>
 <translation id="5707844521504946601">Chronione wideo (DRM): Browther nie może go modyfikować, więc jego filtry tu nie działają.</translation>
 <translation id="1829678234932521744">Chronione wideo (DRM): Browther nie może go modyfikować, więc rozmycie i usuwanie muzyki tu nie działają. Aby usunąć muzykę, zainstaluj aplikację Sawtunaa wraz z jej rozszerzeniem przeglądarki.</translation>
 <translation id="8976138575226849658">Zainstaluj Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiuj link do innej przeglądarki</translation>
 <translation id="4973459469968528621">Bez efektu na tej stronie: treść jest chroniona (DRM), a Browther nie może jej modyfikować. Aby mimo to usunąć muzykę, zainstaluj aplikację Sawtunaa wraz z jej rozszerzeniem.</translation>
 <translation id="3262060763687518843">Bez efektu na tej stronie: treść jest chroniona (DRM), a Browther nie może jej modyfikować. Dla rozmycia nie ma obejścia.</translation>
-<translation id="4663924686328283941">Tej strony nie można tu odtworzyć: treść chroniona (DRM). Otwórz ją w innej przeglądarce i zainstaluj tam aplikację Sawtunaa z rozszerzeniem, aby usunąć muzykę.</translation>
+<translation id="7135186112548764640">Tej strony nie można tu odtworzyć: treść chroniona (DRM). Aby obejrzeć bez muzyki: zainstaluj aplikację Sawtunaa, dodaj jej rozszerzenie do innej przeglądarki, a następnie otwórz tę stronę w tej przeglądarce.</translation>
 </translationbundle>

@@ -953,12 +953,12 @@ Tai muuta myöhemmin kohdassa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="3814510295993434135">Avointen ruumiinosien tunnistuskynnys. Matalampi on herkempi.</translation>
 <translation id="6110875516089236957">Avaa oletusselaimessa</translation>
 <translation id="5466236558474903686">Suojattu video (DRM): Browtherilla ei ole sertifiointia sen toistamiseen. Toisessa selaimessa se toimii.</translation>
-<translation id="6065221119374260161">Suojattu video (DRM): Browtherilla ei ole sertifiointia sen toistamiseen. Toisessa selaimessa se toimii — ja poistaaksesi musiikin siellä, asenna Sawtunaa-sovellus yhdessä sen selainlaajennuksen kanssa.</translation>
+<translation id="2222024630815312523">Suojattu video (DRM): Browtherilla ei ole sertifiointia sen toistamiseen. Katso se ilman musiikkia: asenna Sawtunaa-sovellus, lisää sen laajennus toiseen selaimeen ja avaa tämä sivu siinä selaimessa.</translation>
 <translation id="5707844521504946601">Suojattu video (DRM): Browther ei saa muokata sitä, joten sen suodattimet eivät päde tässä.</translation>
 <translation id="1829678234932521744">Suojattu video (DRM): Browther ei saa muokata sitä, joten sumennus ja musiikin poisto eivät päde tässä. Poistaaksesi musiikin, asenna Sawtunaa-sovellus yhdessä sen selainlaajennuksen kanssa.</translation>
 <translation id="8976138575226849658">Asenna Sawtunaa</translation>
 <translation id="5640554172601835043">Kopioi linkki toiseen selaimeen</translation>
 <translation id="4973459469968528621">Ei vaikutusta tällä sivulla: sisältö on suojattu (DRM) eikä Browther saa muokata sitä. Jos haluat silti poistaa musiikin, asenna Sawtunaa-sovellus ja sen selainlaajennus.</translation>
 <translation id="3262060763687518843">Ei vaikutusta tällä sivulla: sisältö on suojattu (DRM) eikä Browther saa muokata sitä. Sumennukselle ei ole ratkaisua.</translation>
-<translation id="4663924686328283941">Tätä sivua ei voi toistaa täällä: suojattu sisältö (DRM). Avaa se toisessa selaimessa ja asenna sinne Sawtunaa-sovellus laajennuksineen musiikin poistamiseksi.</translation>
+<translation id="7135186112548764640">Tätä sivua ei voi toistaa täällä: suojattu sisältö (DRM). Katso se ilman musiikkia: asenna Sawtunaa-sovellus, lisää sen laajennus toiseen selaimeen ja avaa tämä sivu siinä selaimessa.</translation>
 </translationbundle>

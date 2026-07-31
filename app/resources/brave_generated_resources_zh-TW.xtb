@@ -954,12 +954,12 @@
 <translation id="3814510295993434135">露骨身體部位的偵測門檻。數值越低越敏感。</translation>
 <translation id="6110875516089236957">在預設瀏覽器中開啟</translation>
 <translation id="5466236558474903686">受保護影片（DRM）：Browther 未取得播放認證。在其他瀏覽器中可以播放。</translation>
-<translation id="6065221119374260161">受保護影片（DRM）：Browther 未取得播放認證。在其他瀏覽器中可以播放 — 若要在那裡移除音樂，請同時安裝 Sawtunaa 應用程式及其瀏覽器擴充功能。</translation>
+<translation id="2222024630815312523">受保護影片（DRM）：Browther 未取得播放認證。若要在沒有音樂的情況下觀看：安裝 Sawtunaa 應用程式，將其擴充功能新增至另一個瀏覽器，然後在該瀏覽器中開啟此頁面。</translation>
 <translation id="5707844521504946601">受保護影片（DRM）：Browther 無權修改它，因此其篩選功能在此不適用。</translation>
 <translation id="1829678234932521744">受保護影片（DRM）：Browther 無權修改它，因此模糊與移除音樂在此不適用。若要移除音樂，請同時安裝 Sawtunaa 應用程式及其瀏覽器擴充功能。</translation>
 <translation id="8976138575226849658">安裝 Sawtunaa</translation>
 <translation id="5640554172601835043">複製連結以在其他瀏覽器中開啟</translation>
 <translation id="4973459469968528621">在此頁面無效：內容受保護（DRM），Browther 無權修改。若仍要移除音樂，請安裝 Sawtunaa 應用程式及其瀏覽器擴充功能。</translation>
 <translation id="3262060763687518843">在此頁面無效：內容受保護（DRM），Browther 無權修改。模糊功能沒有替代方案。</translation>
-<translation id="4663924686328283941">此頁面無法在此播放：受保護內容（DRM）。請在其他瀏覽器中開啟，並在那裡安裝 Sawtunaa 應用程式及其擴充功能以移除音樂。</translation>
+<translation id="7135186112548764640">此頁面無法在此播放：受保護內容（DRM）。若要在沒有音樂的情況下觀看：安裝 Sawtunaa 應用程式，將其擴充功能新增至另一個瀏覽器，然後在該瀏覽器中開啟此頁面。</translation>
 </translationbundle>

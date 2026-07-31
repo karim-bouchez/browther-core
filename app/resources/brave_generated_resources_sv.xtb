@@ -953,12 +953,12 @@ börja använda Sync igen måste du skapa ett nytt konto och lägga till varje e
 <translation id="3814510295993434135">Tröskelvärde för identifiering av explicita kroppsdelar. Lägre betyder känsligare.</translation>
 <translation id="6110875516089236957">Öppna i standardwebbläsaren</translation>
 <translation id="5466236558474903686">Skyddad video (DRM): Browther är inte certifierad för att spela upp den. Den fungerar i en annan webbläsare.</translation>
-<translation id="6065221119374260161">Skyddad video (DRM): Browther är inte certifierad för att spela upp den. Den fungerar i en annan webbläsare — och för att ta bort musiken där, installera Sawtunaa-appen tillsammans med dess webbläsartillägg.</translation>
+<translation id="2222024630815312523">Skyddad video (DRM): Browther är inte certifierad för att spela upp den. Så här ser du den utan musik: installera Sawtunaa-appen, lägg till dess tillägg i en annan webbläsare och öppna sedan den här sidan i den webbläsaren.</translation>
 <translation id="5707844521504946601">Skyddad video (DRM): Browther får inte ändra den, så dess filter gäller inte här.</translation>
 <translation id="1829678234932521744">Skyddad video (DRM): Browther får inte ändra den, så oskärpa och musikborttagning gäller inte här. För att ta bort musiken, installera Sawtunaa-appen tillsammans med dess webbläsartillägg.</translation>
 <translation id="8976138575226849658">Installera Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiera länk till en annan webbläsare</translation>
 <translation id="4973459469968528621">Ingen effekt på den här sidan: innehållet är skyddat (DRM) och Browther får inte ändra det. Vill du ändå ta bort musiken, installera Sawtunaa-appen tillsammans med dess webbläsartillägg.</translation>
 <translation id="3262060763687518843">Ingen effekt på den här sidan: innehållet är skyddat (DRM) och Browther får inte ändra det. För oskärpa finns ingen lösning.</translation>
-<translation id="4663924686328283941">Den här sidan kan inte spelas upp här: skyddat innehåll (DRM). Öppna den i en annan webbläsare och installera där Sawtunaa-appen med dess tillägg för att ta bort musiken.</translation>
+<translation id="7135186112548764640">Den här sidan kan inte spelas upp här: skyddat innehåll (DRM). Så här ser du den utan musik: installera Sawtunaa-appen, lägg till dess tillägg i en annan webbläsare och öppna sedan den här sidan i den webbläsaren.</translation>
 </translationbundle>

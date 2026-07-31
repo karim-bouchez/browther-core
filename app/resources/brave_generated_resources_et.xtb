@@ -954,12 +954,12 @@ Loe Browther'i plaane Manifest V2 jaoks <ph name="BEGIN_LINK"/>siit<ph name="END
 <translation id="3814510295993434135">Eksplitsiitsete kehaosade tuvastuslävi. Madalam tähendab tundlikumat.</translation>
 <translation id="6110875516089236957">Ava vaikebrauseris</translation>
 <translation id="5466236558474903686">Kaitstud video (DRM): Browther ei ole sertifitseeritud seda esitama. Teises brauseris see töötab.</translation>
-<translation id="6065221119374260161">Kaitstud video (DRM): Browther ei ole sertifitseeritud seda esitama. Teises brauseris see töötab — ja muusika sealt eemaldamiseks paigaldage Sawtunaa rakendus koos selle brauserilaiendusega.</translation>
+<translation id="2222024630815312523">Kaitstud video (DRM): Browther ei ole sertifitseeritud seda esitama. Selle vaatamiseks ilma muusikata: installige rakendus Sawtunaa, lisage selle laiendus teise brauserisse ja avage see leht selles brauseris.</translation>
 <translation id="5707844521504946601">Kaitstud video (DRM): Browther ei tohi seda muuta, seega tema filtrid siin ei kehti.</translation>
 <translation id="1829678234932521744">Kaitstud video (DRM): Browther ei tohi seda muuta, seega hägustamine ja muusika eemaldamine siin ei kehti. Muusika eemaldamiseks paigaldage Sawtunaa rakendus koos selle brauserilaiendusega.</translation>
 <translation id="8976138575226849658">Paigalda Sawtunaa</translation>
 <translation id="5640554172601835043">Kopeeri link teise brauserisse</translation>
 <translation id="4973459469968528621">Sellel lehel ei mõju: sisu on kaitstud (DRM) ja Browther ei tohi seda muuta. Muusika siiski eemaldamiseks paigaldage Sawtunaa rakendus koos brauserilaiendusega.</translation>
 <translation id="3262060763687518843">Sellel lehel ei mõju: sisu on kaitstud (DRM) ja Browther ei tohi seda muuta. Hägustamiseks lahendust ei ole.</translation>
-<translation id="4663924686328283941">Seda lehte ei saa siin esitada: kaitstud sisu (DRM). Avage see teises brauseris ja paigaldage seal Sawtunaa rakendus koos laiendusega, et muusika eemaldada.</translation>
+<translation id="7135186112548764640">Seda lehte ei saa siin esitada: kaitstud sisu (DRM). Selle vaatamiseks ilma muusikata: installige rakendus Sawtunaa, lisage selle laiendus teise brauserisse ja avage see leht selles brauseris.</translation>
 </translationbundle>

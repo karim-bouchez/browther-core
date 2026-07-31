@@ -953,12 +953,12 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="3814510295993434135">Detection threshold for explicit body parts. Lower means more sensitive.</translation>
 <translation id="6110875516089236957">Open in default browser</translation>
 <translation id="5466236558474903686">Protected video (DRM): Browther is not certified to play it. It will work in another browser.</translation>
-<translation id="6065221119374260161">Protected video (DRM): Browther is not certified to play it. It will work in another browser — and to remove the music there, install the Sawtunaa app together with its browser extension.</translation>
+<translation id="2222024630815312523">Protected video (DRM): Browther is not certified to play it. To watch it without the music: install the Sawtunaa app, add its extension to another browser, then open this page in that browser.</translation>
 <translation id="5707844521504946601">Protected video (DRM): Browther is not allowed to modify it, so its filters do not apply here.</translation>
 <translation id="1829678234932521744">Protected video (DRM): Browther is not allowed to modify it, so blurring and music removal do not apply here. To remove the music, install the Sawtunaa app together with its browser extension.</translation>
 <translation id="8976138575226849658">Install Sawtunaa</translation>
 <translation id="5640554172601835043">Copy link for another browser</translation>
 <translation id="4973459469968528621">No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. To remove the music anyway, install the Sawtunaa app together with its browser extension.</translation>
 <translation id="3262060763687518843">No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.</translation>
-<translation id="4663924686328283941">This page cannot play here: protected content (DRM). Open it in another browser, and install the Sawtunaa app with its extension there to remove the music.</translation>
+<translation id="7135186112548764640">This page cannot play here: protected content (DRM). To watch it without the music: install the Sawtunaa app, add its extension to another browser, then open this page in that browser.</translation>
 </translationbundle>

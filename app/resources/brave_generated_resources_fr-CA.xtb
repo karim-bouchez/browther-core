@@ -953,12 +953,12 @@ ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="3814510295993434135">Seuil de détection des parties explicites du corps. Plus bas = plus sensible.</translation>
 <translation id="6110875516089236957">Ouvrir dans le navigateur par défaut</translation>
 <translation id="5466236558474903686">Vidéo protégée (DRM) : Browther n'est pas certifié pour la lire. Elle fonctionnera dans un autre navigateur.</translation>
-<translation id="6065221119374260161">Vidéo protégée (DRM) : Browther n'est pas certifié pour la lire. Elle fonctionnera dans un autre navigateur — et pour y retirer la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
+<translation id="2222024630815312523">Vidéo protégée (DRM) : Browther n'est pas certifié pour la lire. Pour la regarder sans la musique : installez l'application Sawtunaa, ajoutez son extension à un autre navigateur, puis ouvrez cette page dans ce navigateur.</translation>
 <translation id="5707844521504946601">Vidéo protégée (DRM) : Browther n'a pas le droit d'y toucher, ses filtres ne s'y appliquent donc pas.</translation>
 <translation id="1829678234932521744">Vidéo protégée (DRM) : Browther n'a pas le droit d'y toucher, le floutage et la suppression de musique ne s'y appliquent donc pas. Pour retirer la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
 <translation id="8976138575226849658">Installer Sawtunaa</translation>
 <translation id="5640554172601835043">Copier le lien pour un autre navigateur</translation>
 <translation id="4973459469968528621">Sans effet sur cette page : le contenu est protégé (DRM) et Browther n'a pas le droit d'y toucher. Pour retirer quand même la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
 <translation id="3262060763687518843">Sans effet sur cette page : le contenu est protégé (DRM) et Browther n'a pas le droit d'y toucher. Pour le floutage, il n'existe aucune solution de contournement.</translation>
-<translation id="4663924686328283941">Cette page ne peut pas être lue ici : contenu protégé (DRM). Ouvrez-la dans un autre navigateur, et installez-y l'app Sawtunaa avec son extension pour retirer la musique.</translation>
+<translation id="7135186112548764640">Cette page ne peut pas être lue ici : contenu protégé (DRM). Pour la regarder sans la musique : installez l'application Sawtunaa, ajoutez son extension à un autre navigateur, puis ouvrez cette page dans ce navigateur.</translation>
 </translationbundle>

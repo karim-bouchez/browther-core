@@ -953,12 +953,12 @@ Jste si jisti, že chcete tuto akci provést?</translation>
 <translation id="3814510295993434135">Práh detekce explicitních částí těla. Nižší znamená citlivější.</translation>
 <translation id="6110875516089236957">Otevřít ve výchozím prohlížeči</translation>
 <translation id="5466236558474903686">Chráněné video (DRM): Browther není certifikován k jeho přehrávání. V jiném prohlížeči bude fungovat.</translation>
-<translation id="6065221119374260161">Chráněné video (DRM): Browther není certifikován k jeho přehrávání. V jiném prohlížeči bude fungovat — a pro odstranění hudby tam nainstalujte aplikaci Sawtunaa spolu s jejím rozšířením prohlížeče.</translation>
+<translation id="2222024630815312523">Chráněné video (DRM): Browther není certifikován k jeho přehrávání. Chcete-li ho sledovat bez hudby: nainstalujte aplikaci Sawtunaa, přidejte její rozšíření do jiného prohlížeče a otevřete tuto stránku v něm.</translation>
 <translation id="5707844521504946601">Chráněné video (DRM): Browther jej nesmí upravovat, takže se zde jeho filtry neuplatní.</translation>
 <translation id="1829678234932521744">Chráněné video (DRM): Browther jej nesmí upravovat, takže se zde rozostření ani odstranění hudby neuplatní. Pro odstranění hudby nainstalujte aplikaci Sawtunaa spolu s jejím rozšířením prohlížeče.</translation>
 <translation id="8976138575226849658">Nainstalovat Sawtunaa</translation>
 <translation id="5640554172601835043">Kopírovat odkaz pro jiný prohlížeč</translation>
 <translation id="4973459469968528621">Na této stránce bez účinku: obsah je chráněný (DRM) a Browther jej nesmí upravovat. Chcete-li hudbu přesto odstranit, nainstalujte aplikaci Sawtunaa s jejím rozšířením.</translation>
 <translation id="3262060763687518843">Na této stránce bez účinku: obsah je chráněný (DRM) a Browther jej nesmí upravovat. Pro rozostření neexistuje řešení.</translation>
-<translation id="4663924686328283941">Tuto stránku zde nelze přehrát: chráněný obsah (DRM). Otevřete ji v jiném prohlížeči a nainstalujte tam aplikaci Sawtunaa s jejím rozšířením, abyste odstranili hudbu.</translation>
+<translation id="7135186112548764640">Tuto stránku zde nelze přehrát: chráněný obsah (DRM). Chcete-li ho sledovat bez hudby: nainstalujte aplikaci Sawtunaa, přidejte její rozšíření do jiného prohlížeče a otevřete tuto stránku v něm.</translation>
 </translationbundle>

@@ -953,12 +953,12 @@ Oppure cambia in seguito la tua scelta su <ph name="SETTINGS_EXTENIONS_LINK"/>.<
 <translation id="3814510295993434135">Soglia di rilevamento delle parti intime del corpo. Più bassa = più sensibile.</translation>
 <translation id="6110875516089236957">Apri nel browser predefinito</translation>
 <translation id="5466236558474903686">Video protetto (DRM): Browther non è certificato per riprodurlo. Funzionerà in un altro browser.</translation>
-<translation id="6065221119374260161">Video protetto (DRM): Browther non è certificato per riprodurlo. Funzionerà in un altro browser — e per rimuovere lì la musica, installa l'app Sawtunaa insieme alla sua estensione per browser.</translation>
+<translation id="2222024630815312523">Video protetto (DRM): Browther non è certificato per riprodurlo. Per guardarlo senza musica: installa l'app Sawtunaa, aggiungi la sua estensione a un altro browser, quindi apri questa pagina in quel browser.</translation>
 <translation id="5707844521504946601">Video protetto (DRM): Browther non può modificarlo, quindi i suoi filtri non si applicano qui.</translation>
 <translation id="1829678234932521744">Video protetto (DRM): Browther non può modificarlo, quindi sfocatura e rimozione della musica non si applicano qui. Per rimuovere la musica, installa l'app Sawtunaa insieme alla sua estensione per browser.</translation>
 <translation id="8976138575226849658">Installa Sawtunaa</translation>
 <translation id="5640554172601835043">Copia link per un altro browser</translation>
 <translation id="4973459469968528621">Nessun effetto su questa pagina: il contenuto è protetto (DRM) e Browther non può modificarlo. Per rimuovere comunque la musica, installa l'app Sawtunaa con la sua estensione.</translation>
 <translation id="3262060763687518843">Nessun effetto su questa pagina: il contenuto è protetto (DRM) e Browther non può modificarlo. Per la sfocatura non esiste soluzione.</translation>
-<translation id="4663924686328283941">Questa pagina non può essere riprodotta qui: contenuto protetto (DRM). Aprila in un altro browser e installa lì l'app Sawtunaa con la sua estensione per rimuovere la musica.</translation>
+<translation id="7135186112548764640">Questa pagina non può essere riprodotta qui: contenuto protetto (DRM). Per guardarlo senza musica: installa l'app Sawtunaa, aggiungi la sua estensione a un altro browser, quindi apri questa pagina in quel browser.</translation>
 </translationbundle>

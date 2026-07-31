@@ -953,12 +953,12 @@ Atau dapat mengubahnya nanti di <ph name="SETTINGS_EXTENIONS_LINK"/>.</translati
 <translation id="3814510295993434135">Ambang deteksi bagian tubuh eksplisit. Makin rendah, makin sensitif.</translation>
 <translation id="6110875516089236957">Buka di browser default</translation>
 <translation id="5466236558474903686">Video terlindungi (DRM): Browther tidak bersertifikat untuk memutarnya. Video ini akan berfungsi di browser lain.</translation>
-<translation id="6065221119374260161">Video terlindungi (DRM): Browther tidak bersertifikat untuk memutarnya. Video ini akan berfungsi di browser lain — dan untuk menghapus musiknya di sana, pasang aplikasi Sawtunaa bersama ekstensi browsernya.</translation>
+<translation id="2222024630815312523">Video terlindungi (DRM): Browther tidak bersertifikat untuk memutarnya. Untuk menontonnya tanpa musik: pasang aplikasi Sawtunaa, tambahkan ekstensinya ke browser lain, lalu buka halaman ini di browser tersebut.</translation>
 <translation id="5707844521504946601">Video terlindungi (DRM): Browther tidak boleh mengubahnya, sehingga filternya tidak berlaku di sini.</translation>
 <translation id="1829678234932521744">Video terlindungi (DRM): Browther tidak boleh mengubahnya, sehingga pemburaman dan penghapusan musik tidak berlaku di sini. Untuk menghapus musik, pasang aplikasi Sawtunaa bersama ekstensi browsernya.</translation>
 <translation id="8976138575226849658">Pasang Sawtunaa</translation>
 <translation id="5640554172601835043">Salin tautan untuk browser lain</translation>
 <translation id="4973459469968528621">Tidak berpengaruh di halaman ini: konten terlindungi (DRM) dan Browther tidak boleh mengubahnya. Untuk tetap menghapus musik, pasang aplikasi Sawtunaa beserta ekstensi browsernya.</translation>
 <translation id="3262060763687518843">Tidak berpengaruh di halaman ini: konten terlindungi (DRM) dan Browther tidak boleh mengubahnya. Untuk pemburaman tidak ada solusinya.</translation>
-<translation id="4663924686328283941">Halaman ini tidak dapat diputar di sini: konten terlindungi (DRM). Buka di browser lain, dan pasang di sana aplikasi Sawtunaa beserta ekstensinya untuk menghapus musik.</translation>
+<translation id="7135186112548764640">Halaman ini tidak dapat diputar di sini: konten terlindungi (DRM). Untuk menontonnya tanpa musik: pasang aplikasi Sawtunaa, tambahkan ekstensinya ke browser lain, lalu buka halaman ini di browser tersebut.</translation>
 </translationbundle>

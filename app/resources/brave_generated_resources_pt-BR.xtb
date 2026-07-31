@@ -953,12 +953,12 @@ Ou altere mais tarde em <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="3814510295993434135">Limite de detecção de partes íntimas do corpo. Quanto menor, mais sensível.</translation>
 <translation id="6110875516089236957">Abrir no navegador padrão</translation>
 <translation id="5466236558474903686">Vídeo protegido (DRM): o Browther não tem certificação para reproduzi-lo. Ele funcionará em outro navegador.</translation>
-<translation id="6065221119374260161">Vídeo protegido (DRM): o Browther não tem certificação para reproduzi-lo. Ele funcionará em outro navegador — e para remover a música lá, instale o app Sawtunaa junto com a extensão de navegador dele.</translation>
+<translation id="2222024630815312523">Vídeo protegido (DRM): o Browther não tem certificação para reproduzi-lo. Para assistir sem a música: instale o app Sawtunaa, adicione a extensão dele a outro navegador e abra esta página nesse navegador.</translation>
 <translation id="5707844521504946601">Vídeo protegido (DRM): o Browther não pode modificá-lo, então seus filtros não se aplicam aqui.</translation>
 <translation id="1829678234932521744">Vídeo protegido (DRM): o Browther não pode modificá-lo, então o desfoque e a remoção de música não se aplicam aqui. Para remover a música, instale o app Sawtunaa junto com a extensão de navegador dele.</translation>
 <translation id="8976138575226849658">Instalar o Sawtunaa</translation>
 <translation id="5640554172601835043">Copiar link para outro navegador</translation>
 <translation id="4973459469968528621">Sem efeito nesta página: o conteúdo é protegido (DRM) e o Browther não pode modificá-lo. Para remover a música mesmo assim, instale o app Sawtunaa junto com a extensão dele.</translation>
 <translation id="3262060763687518843">Sem efeito nesta página: o conteúdo é protegido (DRM) e o Browther não pode modificá-lo. Para o desfoque não há solução.</translation>
-<translation id="4663924686328283941">Esta página não pode ser reproduzida aqui: conteúdo protegido (DRM). Abra-a em outro navegador e instale lá o app Sawtunaa com a extensão dele para remover a música.</translation>
+<translation id="7135186112548764640">Esta página não pode ser reproduzida aqui: conteúdo protegido (DRM). Para assistir sem a música: instale o app Sawtunaa, adicione a extensão dele a outro navegador e abra esta página nesse navegador.</translation>
 </translationbundle>

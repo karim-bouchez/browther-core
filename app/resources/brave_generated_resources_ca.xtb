@@ -953,12 +953,12 @@ Segur que vols continuar?</translation>
 <translation id="3814510295993434135">Llindar de detecció de parts íntimes del cos. Com més baix, més sensible.</translation>
 <translation id="6110875516089236957">Obre al navegador per defecte</translation>
 <translation id="5466236558474903686">Vídeo protegit (DRM): Browther no està certificat per reproduir-lo. Funcionarà en un altre navegador.</translation>
-<translation id="6065221119374260161">Vídeo protegit (DRM): Browther no està certificat per reproduir-lo. Funcionarà en un altre navegador — i per treure-hi la música, instal·la l'aplicació Sawtunaa juntament amb la seva extensió de navegador.</translation>
+<translation id="2222024630815312523">Vídeo protegit (DRM): Browther no està certificat per reproduir-lo. Per veure'l sense música: instal·la l'aplicació Sawtunaa, afegeix-ne l'extensió a un altre navegador i obre aquesta pàgina en aquest navegador.</translation>
 <translation id="5707844521504946601">Vídeo protegit (DRM): Browther no té permís per modificar-lo, així que els seus filtres no s'hi apliquen.</translation>
 <translation id="1829678234932521744">Vídeo protegit (DRM): Browther no té permís per modificar-lo, així que el difuminat i l'eliminació de música no s'hi apliquen. Per treure la música, instal·la l'aplicació Sawtunaa juntament amb la seva extensió de navegador.</translation>
 <translation id="8976138575226849658">Instal·la Sawtunaa</translation>
 <translation id="5640554172601835043">Copia l'enllaç per a un altre navegador</translation>
 <translation id="4973459469968528621">Sense efecte en aquesta pàgina: el contingut està protegit (DRM) i Browther no té permís per modificar-lo. Per treure la música igualment, instal·la l'aplicació Sawtunaa amb la seva extensió.</translation>
 <translation id="3262060763687518843">Sense efecte en aquesta pàgina: el contingut està protegit (DRM) i Browther no té permís per modificar-lo. Per al difuminat no hi ha cap alternativa.</translation>
-<translation id="4663924686328283941">Aquesta pàgina no es pot reproduir aquí: contingut protegit (DRM). Obre-la en un altre navegador i instal·la-hi l'aplicació Sawtunaa amb la seva extensió per treure la música.</translation>
+<translation id="7135186112548764640">Aquesta pàgina no es pot reproduir aquí: contingut protegit (DRM). Per veure'l sense música: instal·la l'aplicació Sawtunaa, afegeix-ne l'extensió a un altre navegador i obre aquesta pàgina en aquest navegador.</translation>
 </translationbundle>

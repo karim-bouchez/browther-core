@@ -9,6 +9,8 @@
 #include <utility>
 
 #include "base/notreached.h"
+#include "base/strings/strcat.h"
+#include "base/strings/string_number_conversions.h"
 #include "base/strings/utf_string_conversions.h"
 #include "brave/browser/infobars/brave_confirm_infobar_creator.h"
 #include "brave/grit/brave_generated_resources.h"
@@ -90,10 +92,18 @@ std::u16string BrowtherProtectedContentInfoBarDelegate::GetMessageText() const {
           : IDS_BROWTHER_PROTECTED_CONTENT_UNFILTERED_MESSAGE);
 }
 
+bool BrowtherProtectedContentInfoBarDelegate::IsTwoStepBlocked() const {
+  // Le seul cas où les DEUX boutons sont affichés — et où ils décrivent une
+  // marche à suivre en deux temps, pas un choix entre deux options.
+  return mode_ == Mode::kBlocked && offer_sawtunaa_app_;
+}
+
 int BrowtherProtectedContentInfoBarDelegate::GetButtons() const {
   if (mode_ == Mode::kBlocked) {
-    // Action principale = aller voir la vidéo là où elle marche. Action
-    // secondaire = récupérer Sawtunaa pour y retirer la musique.
+    // ⚠️ Les deux actions sont REQUISES, dans cet ordre (retour Karim
+    // 2026-07-31) : ① installer Sawtunaa (l'app + son extension, à mettre dans
+    // l'autre navigateur) ② y ouvrir la page. Les présenter en principal /
+    // secondaire laissait croire à un choix — c'est une séquence.
     return BUTTON_OK | (offer_sawtunaa_app_ ? BUTTON_CANCEL : 0);
   }
   // kUnfiltered : la page marche, la seule action utile est Sawtunaa. Sans
@@ -109,18 +119,30 @@ std::u16string BrowtherProtectedContentInfoBarDelegate::GetButtonLabel(
                      IDS_BROWTHER_PROTECTED_CONTENT_GET_SAWTUNAA)
                : std::u16string();
   }
+  std::u16string label;
   switch (button) {
     case BUTTON_OK:
-      return l10n_util::GetStringUTF16(
+      label = l10n_util::GetStringUTF16(
           can_open_in_default_browser_
               ? IDS_BROWTHER_PROTECTED_CONTENT_OPEN_IN_DEFAULT_BROWSER
               : IDS_BROWTHER_PROTECTED_CONTENT_COPY_LINK);
+      break;
     case BUTTON_CANCEL:
-      return l10n_util::GetStringUTF16(
+      label = l10n_util::GetStringUTF16(
           IDS_BROWTHER_PROTECTED_CONTENT_GET_SAWTUNAA);
+      break;
     default:
       return std::u16string();
   }
+  if (!IsTwoStepBlocked()) {
+    return label;
+  }
+  // Numéro préfixé en code plutôt qu'une chaîne « 1. Installer… » dédiée : le
+  // chiffre est le même dans toutes les locales, ça évite de dupliquer 2
+  // libellés déjà traduits × 66 langues, et l'ordre reste piloté par
+  // GetButtonsOrder() ci-dessous (une seule source de vérité).
+  const int step = (button == BUTTON_CANCEL) ? 1 : 2;
+  return base::StrCat({base::NumberToString16(step), u". ", label});
 }
 
 std::vector<int> BrowtherProtectedContentInfoBarDelegate::GetButtonsOrder()
@@ -129,14 +151,19 @@ std::vector<int> BrowtherProtectedContentInfoBarDelegate::GetButtonsOrder()
     return offer_sawtunaa_app_ ? std::vector<int>{BUTTON_OK}
                                : std::vector<int>{};
   }
-  return offer_sawtunaa_app_ ? std::vector<int>{BUTTON_OK, BUTTON_CANCEL}
-                             : std::vector<int>{BUTTON_OK};
+  // Sawtunaa (BUTTON_CANCEL) D'ABORD : on installe l'app + l'extension, PUIS on
+  // ouvre la page là où elle joue. L'ordre inverse envoie l'utilisateur dans
+  // l'autre navigateur les mains vides, et il doit revenir ici.
+  return IsTwoStepBlocked() ? std::vector<int>{BUTTON_CANCEL, BUTTON_OK}
+                            : std::vector<int>{BUTTON_OK};
 }
 
 bool BrowtherProtectedContentInfoBarDelegate::IsProminent(int id) const {
-  // BUTTON_OK l'est déjà d'office (brave_confirm_infobar.cc) ; on laisse le
-  // bouton Sawtunaa en secondaire pour garder une hiérarchie lisible.
-  return false;
+  // BUTTON_OK l'est d'office (brave_confirm_infobar.cc). On rend BUTTON_CANCEL
+  // prominent aussi quand les deux étapes sont affichées : une hiérarchie
+  // principal/secondaire ferait lire « l'un OU l'autre » alors qu'il faut les
+  // deux.
+  return IsTwoStepBlocked() && id == BUTTON_CANCEL;
 }
 
 bool BrowtherProtectedContentInfoBarDelegate::ShouldSupportMultiLine() const {
@@ -188,8 +215,13 @@ bool BrowtherProtectedContentInfoBarDelegate::Accept() {
 
 bool BrowtherProtectedContentInfoBarDelegate::Cancel() {
   // Uniquement câblé en kBlocked, où BUTTON_CANCEL porte « Sawtunaa ».
-  if (mode_ == Mode::kBlocked && offer_sawtunaa_app_) {
-    OpenSawtunaaPage();
+  if (!IsTwoStepBlocked()) {
+    return true;
   }
-  return true;
+  OpenSawtunaaPage();
+  // ⚠️ false = NE PAS fermer la barre. C'est l'étape ① d'une séquence : la
+  // fermer ici rendrait l'étape ② (ouvrir la page ailleurs) inatteignable —
+  // exactement le bug qu'on corrige. La barre reste sur l'onglet d'origine,
+  // l'ouverture de la page Sawtunaa se faisant dans un NOUVEL onglet.
+  return false;
 }

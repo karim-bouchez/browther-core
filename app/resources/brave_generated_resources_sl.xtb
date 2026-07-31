@@ -956,12 +956,12 @@ ponovno uporabo sinhronizacije, boste morali ustvariti nov račun in posamično 
 <translation id="3814510295993434135">Prag zaznavanja eksplicitnih delov telesa. Nižji pomeni občutljivejši.</translation>
 <translation id="6110875516089236957">Odpri v privzetem brskalniku</translation>
 <translation id="5466236558474903686">Zaščiten videoposnetek (DRM): Browther ni certificiran za njegovo predvajanje. V drugem brskalniku bo deloval.</translation>
-<translation id="6065221119374260161">Zaščiten videoposnetek (DRM): Browther ni certificiran za njegovo predvajanje. V drugem brskalniku bo deloval — za odstranitev glasbe tam pa namestite aplikacijo Sawtunaa skupaj z njeno brskalniško razširitvijo.</translation>
+<translation id="2222024630815312523">Zaščiten videoposnetek (DRM): Browther ni certificiran za njegovo predvajanje. Če si ga želite ogledati brez glasbe: namestite aplikacijo Sawtunaa, dodajte njeno razširitev v drug brskalnik in odprite to stran v njem.</translation>
 <translation id="5707844521504946601">Zaščiten videoposnetek (DRM): Browther ga ne sme spreminjati, zato njegovi filtri tu ne veljajo.</translation>
 <translation id="1829678234932521744">Zaščiten videoposnetek (DRM): Browther ga ne sme spreminjati, zato zameglitev in odstranjevanje glasbe tu ne veljata. Za odstranitev glasbe namestite aplikacijo Sawtunaa skupaj z njeno brskalniško razširitvijo.</translation>
 <translation id="8976138575226849658">Namesti Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiraj povezavo za drug brskalnik</translation>
 <translation id="4973459469968528621">Brez učinka na tej strani: vsebina je zaščitena (DRM) in Browther je ne sme spreminjati. Če želite glasbo vseeno odstraniti, namestite aplikacijo Sawtunaa z njeno razširitvijo.</translation>
 <translation id="3262060763687518843">Brez učinka na tej strani: vsebina je zaščitena (DRM) in Browther je ne sme spreminjati. Za zameglitev ni rešitve.</translation>
-<translation id="4663924686328283941">Te strani tukaj ni mogoče predvajati: zaščitena vsebina (DRM). Odprite jo v drugem brskalniku in tam namestite aplikacijo Sawtunaa z razširitvijo, da odstranite glasbo.</translation>
+<translation id="7135186112548764640">Te strani tukaj ni mogoče predvajati: zaščitena vsebina (DRM). Če si ga želite ogledati brez glasbe: namestite aplikacijo Sawtunaa, dodajte njeno razširitev v drug brskalnik in odprite to stran v njem.</translation>
 </translationbundle>

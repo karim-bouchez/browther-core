@@ -955,12 +955,12 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="3814510295993434135">Explicit testrészek észlelési küszöbe. Alacsonyabb érték érzékenyebb.</translation>
 <translation id="6110875516089236957">Megnyitás az alapértelmezett böngészőben</translation>
 <translation id="5466236558474903686">Védett videó (DRM): a Browther nem rendelkezik tanúsítvánnyal a lejátszásához. Másik böngészőben működni fog.</translation>
-<translation id="6065221119374260161">Védett videó (DRM): a Browther nem rendelkezik tanúsítvánnyal a lejátszásához. Másik böngészőben működni fog — a zene ottani eltávolításához pedig telepítse a Sawtunaa alkalmazást a böngészőbővítményével együtt.</translation>
+<translation id="2222024630815312523">Védett videó (DRM): a Browther nem rendelkezik tanúsítvánnyal a lejátszásához. Zene nélküli megtekintéshez: telepítse a Sawtunaa alkalmazást, adja hozzá a bővítményét egy másik böngészőhöz, majd nyissa meg ezt az oldalt abban a böngészőben.</translation>
 <translation id="5707844521504946601">Védett videó (DRM): a Browther nem módosíthatja, ezért a szűrői itt nem érvényesek.</translation>
 <translation id="1829678234932521744">Védett videó (DRM): a Browther nem módosíthatja, ezért az elmosás és a zene eltávolítása itt nem érvényes. A zene eltávolításához telepítse a Sawtunaa alkalmazást a böngészőbővítményével együtt.</translation>
 <translation id="8976138575226849658">Sawtunaa telepítése</translation>
 <translation id="5640554172601835043">Hivatkozás másolása másik böngészőhöz</translation>
 <translation id="4973459469968528621">Nincs hatása ezen az oldalon: a tartalom védett (DRM), a Browther nem módosíthatja. Ha mégis el akarja távolítani a zenét, telepítse a Sawtunaa alkalmazást a böngészőbővítményével.</translation>
 <translation id="3262060763687518843">Nincs hatása ezen az oldalon: a tartalom védett (DRM), a Browther nem módosíthatja. Az elmosásra nincs megoldás.</translation>
-<translation id="4663924686328283941">Ez az oldal itt nem játszható le: védett tartalom (DRM). Nyissa meg másik böngészőben, és ott telepítse a Sawtunaa alkalmazást a bővítményével a zene eltávolításához.</translation>
+<translation id="7135186112548764640">Ez az oldal itt nem játszható le: védett tartalom (DRM). Zene nélküli megtekintéshez: telepítse a Sawtunaa alkalmazást, adja hozzá a bővítményét egy másik böngészőhöz, majd nyissa meg ezt az oldalt abban a böngészőben.</translation>
 </translationbundle>

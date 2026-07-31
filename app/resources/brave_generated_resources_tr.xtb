@@ -954,12 +954,12 @@ Veya şu adresten daha sonra değiştirin: <ph name="SETTINGS_EXTENIONS_LINK"/>.
 <translation id="3814510295993434135">Müstehcen vücut bölgelerinin algılama eşiği. Düşük olması daha hassas demektir.</translation>
 <translation id="6110875516089236957">Varsayılan tarayıcıda aç</translation>
 <translation id="5466236558474903686">Korumalı video (DRM): Browther bunu oynatmak için sertifikalı değil. Başka bir tarayıcıda çalışacaktır.</translation>
-<translation id="6065221119374260161">Korumalı video (DRM): Browther bunu oynatmak için sertifikalı değil. Başka bir tarayıcıda çalışacaktır — orada müziği kaldırmak için Sawtunaa uygulamasını tarayıcı uzantısıyla birlikte kurun.</translation>
+<translation id="2222024630815312523">Korumalı video (DRM): Browther bunu oynatmak için sertifikalı değil. Müziksiz izlemek için: Sawtunaa uygulamasını kurun, uzantısını başka bir tarayıcıya ekleyin, ardından bu sayfayı o tarayıcıda açın.</translation>
 <translation id="5707844521504946601">Korumalı video (DRM): Browther'ın bunu değiştirme izni yok, bu nedenle filtreleri burada geçerli değildir.</translation>
 <translation id="1829678234932521744">Korumalı video (DRM): Browther'ın bunu değiştirme izni yok, bu nedenle bulanıklaştırma ve müzik kaldırma burada geçerli değildir. Müziği kaldırmak için Sawtunaa uygulamasını tarayıcı uzantısıyla birlikte kurun.</translation>
 <translation id="8976138575226849658">Sawtunaa'yı kur</translation>
 <translation id="5640554172601835043">Bağlantıyı başka tarayıcı için kopyala</translation>
 <translation id="4973459469968528621">Bu sayfada etkisi yok: içerik korumalı (DRM) ve Browther'ın onu değiştirme izni yok. Müziği yine de kaldırmak için Sawtunaa uygulamasını tarayıcı uzantısıyla birlikte kurun.</translation>
 <translation id="3262060763687518843">Bu sayfada etkisi yok: içerik korumalı (DRM) ve Browther'ın onu değiştirme izni yok. Bulanıklaştırma için bir çözüm yok.</translation>
-<translation id="4663924686328283941">Bu sayfa burada oynatılamaz: korumalı içerik (DRM). Onu başka bir tarayıcıda açın ve müziği kaldırmak için orada Sawtunaa uygulamasını uzantısıyla kurun.</translation>
+<translation id="7135186112548764640">Bu sayfa burada oynatılamaz: korumalı içerik (DRM). Müziksiz izlemek için: Sawtunaa uygulamasını kurun, uzantısını başka bir tarayıcıya ekleyin, ardından bu sayfayı o tarayıcıda açın.</translation>
 </translationbundle>
