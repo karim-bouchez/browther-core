@@ -1489,6 +1489,9 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SAWTUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Sawtunaa popup when the current tab plays DRM-protected media: explains why the amber toolbar badge is showing, why music removal has no effect there, and what to do about it.">
         No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. To remove the music anyway, install the Sawtunaa app together with its browser extension.
       </message>
+      <message name="IDS_SAWTUNAA_POPUP_PROTECTED_HINT_BLOCKED" desc="Hint inside the Sawtunaa popup when the DRM video cannot be played at all in Browther. Installing the app is not enough here: the page itself must be opened in another browser first.">
+        This page cannot play here: protected content (DRM). Open it in another browser, and install the Sawtunaa app with its extension there to remove the music.
+      </message>
       <message name="IDS_BASARUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Basarunaa panel when the current tab plays DRM-protected media: explains the amber toolbar badge. Unlike Sawtunaa there is no workaround, and the wording must not pretend otherwise.">
         No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.
       </message>

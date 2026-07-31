@@ -16,6 +16,7 @@
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/ui/singleton_tabs.h"
+#include "ui/views/controls/button/md_text_button.h"
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
@@ -290,37 +291,60 @@ void SawtunaaBubbleView::BuildContents() {
   hint_container_ = AddChildView(std::move(hint_button));
   hint_container_->SetVisible(false);
 
-  // ----- Hint « contenu protégé (DRM) » (masqué tant que non pertinent) -----
+  // ----- Encadré « contenu protégé (DRM) » (masqué tant que non pertinent) --
   // Répond à la question que l'utilisateur se pose en ouvrant la popup après
   // avoir vu le badge AMBRE : pourquoi c'est ambre, pourquoi ça ne marche pas
-  // ici, et comment faire malgré tout. Même encadré ambre que ci-dessus, même
-  // logique cliquable — ici le clic ouvre la page de l'app Sawtunaa.
-  const std::u16string protected_text =
-      l10n_util::GetStringUTF16(IDS_SAWTUNAA_POPUP_PROTECTED_HINT);
-  auto protected_button = std::make_unique<ReloadHintButton>(
-      base::BindRepeating(&SawtunaaBubbleView::OnProtectedHintPressed,
-                          base::Unretained(this)));
-  protected_button->SetAccessibleName(protected_text);
+  // ici, et comment faire malgré tout.
+  //
+  // ⚠️ PAS un encadré cliquable comme le hint reload : personne ne devine
+  // qu'on peut cliquer dessus (retour Karim, 2026-07-31 — il l'avait trouvé
+  // par hasard). L'action est portée par un VRAI bouton, sous le texte.
+  auto protected_box = std::make_unique<views::View>();
+  auto* protected_layout =
+      protected_box->SetLayoutManager(std::make_unique<views::BoxLayout>(
+          views::BoxLayout::Orientation::kVertical,
+          gfx::Insets::TLBR(10, 14, 10, 14), /*between_child_spacing=*/8));
+  protected_layout->set_cross_axis_alignment(
+      views::BoxLayout::CrossAxisAlignment::kStart);
+  protected_box->SetBorder(views::CreateRoundedRectBorder(
+      1, 8, SkColorSetA(ReloadHintButton::kAccent, 0x66)));
+  protected_box->SetBackground(views::CreateRoundedRectBackground(
+      SkColorSetA(ReloadHintButton::kAccent, 0x24), 8));
+
+  auto* protected_row =
+      protected_box->AddChildView(std::make_unique<views::View>());
+  auto* protected_row_layout =
+      protected_row->SetLayoutManager(std::make_unique<views::BoxLayout>(
+          views::BoxLayout::Orientation::kHorizontal, gfx::Insets(),
+          /*between_child_spacing=*/8));
+  protected_row_layout->set_cross_axis_alignment(
+      views::BoxLayout::CrossAxisAlignment::kStart);
 
   auto* protected_icon =
-      protected_button->AddChildView(std::make_unique<views::ImageView>(
+      protected_row->AddChildView(std::make_unique<views::ImageView>(
           ui::ImageModel::FromVectorIcon(vector_icons::kVideocamOffIcon,
                                          ReloadHintButton::kAccent, 16)));
-  protected_icon->SetVerticalAlignment(views::ImageView::Alignment::kCenter);
-  protected_icon->SetCanProcessEventsWithinSubtree(false);
+  protected_icon->SetVerticalAlignment(views::ImageView::Alignment::kLeading);
 
   protected_hint_ =
-      protected_button->AddChildView(std::make_unique<views::Label>(protected_text));
+      protected_row->AddChildView(std::make_unique<views::Label>());
   protected_hint_->SetFontList(DeriveFont(12, gfx::Font::Weight::SEMIBOLD));
   protected_hint_->SetHorizontalAlignment(gfx::ALIGN_LEFT);
   protected_hint_->SetMultiLine(true);
-  protected_hint_->SetMaximumWidth(224);
+  protected_hint_->SetMaximumWidth(200);  // 280 - icône - espacements - insets
   protected_hint_->SetAutoColorReadabilityEnabled(false);
   protected_hint_->SetEnabledColor(ReloadHintButton::kAccent);
-  protected_hint_->SetCanProcessEventsWithinSubtree(false);
 
-  protected_container_ = AddChildView(std::move(protected_button));
-  protected_container_->SetVisible(ShouldShowProtectedHint());
+  auto* protected_action =
+      protected_box->AddChildView(std::make_unique<views::MdTextButton>(
+          base::BindRepeating(&SawtunaaBubbleView::OnProtectedHintPressed,
+                              base::Unretained(this)),
+          l10n_util::GetStringUTF16(
+              IDS_BROWTHER_PROTECTED_CONTENT_GET_SAWTUNAA)));
+  protected_action->SetStyle(ui::ButtonStyle::kProminent);
+
+  protected_container_ = AddChildView(std::move(protected_box));
+  UpdateProtectedHint();
 }
 
 bool SawtunaaBubbleView::ShouldShowProtectedHint() const {
@@ -338,10 +362,23 @@ bool SawtunaaBubbleView::ShouldShowProtectedHint() const {
 }
 
 void SawtunaaBubbleView::UpdateProtectedHint() {
-  if (!protected_container_) {
+  if (!protected_container_ || !protected_hint_) {
     return;
   }
+  content::WebContents* web_contents =
+      browser_ ? browser_->tab_strip_model()->GetActiveWebContents() : nullptr;
+  const auto state =
+      BrowtherProtectedContentTabHelper::StateFor(web_contents);
   const bool visible = ShouldShowProtectedHint();
+  if (visible) {
+    // Le texte DIFFÈRE selon le cas, et la nuance est cruciale (retour Karim) :
+    // quand la lecture est BLOQUÉE, installer l'app ne suffit pas — la page
+    // elle-même ne joue pas ici, il faut d'abord l'ouvrir ailleurs.
+    protected_hint_->SetText(l10n_util::GetStringUTF16(
+        state == BrowtherProtectedContentTabHelper::ProtectedState::kBlocked
+            ? IDS_SAWTUNAA_POPUP_PROTECTED_HINT_BLOCKED
+            : IDS_SAWTUNAA_POPUP_PROTECTED_HINT));
+  }
   if (protected_container_->GetVisible() == visible) {
     return;
   }

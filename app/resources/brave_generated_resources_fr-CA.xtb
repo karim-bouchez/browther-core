@@ -960,4 +960,5 @@ ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="5640554172601835043">Copier le lien pour un autre navigateur</translation>
 <translation id="4973459469968528621">Sans effet sur cette page : le contenu est protégé (DRM) et Browther n'a pas le droit d'y toucher. Pour retirer quand même la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
 <translation id="3262060763687518843">Sans effet sur cette page : le contenu est protégé (DRM) et Browther n'a pas le droit d'y toucher. Pour le floutage, il n'existe aucune solution de contournement.</translation>
+<translation id="4663924686328283941">Cette page ne peut pas être lue ici : contenu protégé (DRM). Ouvrez-la dans un autre navigateur, et installez-y l'app Sawtunaa avec son extension pour retirer la musique.</translation>
 </translationbundle>

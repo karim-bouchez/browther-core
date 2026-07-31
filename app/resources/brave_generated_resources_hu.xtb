@@ -962,4 +962,5 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="5640554172601835043">Hivatkozás másolása másik böngészőhöz</translation>
 <translation id="4973459469968528621">Nincs hatása ezen az oldalon: a tartalom védett (DRM), a Browther nem módosíthatja. Ha mégis el akarja távolítani a zenét, telepítse a Sawtunaa alkalmazást a böngészőbővítményével.</translation>
 <translation id="3262060763687518843">Nincs hatása ezen az oldalon: a tartalom védett (DRM), a Browther nem módosíthatja. Az elmosásra nincs megoldás.</translation>
+<translation id="4663924686328283941">Ez az oldal itt nem játszható le: védett tartalom (DRM). Nyissa meg másik böngészőben, és ott telepítse a Sawtunaa alkalmazást a bővítményével a zene eltávolításához.</translation>
 </translationbundle>

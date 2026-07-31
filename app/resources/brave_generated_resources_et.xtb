@@ -961,4 +961,5 @@ Loe Browther'i plaane Manifest V2 jaoks <ph name="BEGIN_LINK"/>siit<ph name="END
 <translation id="5640554172601835043">Kopeeri link teise brauserisse</translation>
 <translation id="4973459469968528621">Sellel lehel ei mõju: sisu on kaitstud (DRM) ja Browther ei tohi seda muuta. Muusika siiski eemaldamiseks paigaldage Sawtunaa rakendus koos brauserilaiendusega.</translation>
 <translation id="3262060763687518843">Sellel lehel ei mõju: sisu on kaitstud (DRM) ja Browther ei tohi seda muuta. Hägustamiseks lahendust ei ole.</translation>
+<translation id="4663924686328283941">Seda lehte ei saa siin esitada: kaitstud sisu (DRM). Avage see teises brauseris ja paigaldage seal Sawtunaa rakendus koos laiendusega, et muusika eemaldada.</translation>
 </translationbundle>

@@ -961,4 +961,5 @@ Veya şu adresten daha sonra değiştirin: <ph name="SETTINGS_EXTENIONS_LINK"/>.
 <translation id="5640554172601835043">Bağlantıyı başka tarayıcı için kopyala</translation>
 <translation id="4973459469968528621">Bu sayfada etkisi yok: içerik korumalı (DRM) ve Browther'ın onu değiştirme izni yok. Müziği yine de kaldırmak için Sawtunaa uygulamasını tarayıcı uzantısıyla birlikte kurun.</translation>
 <translation id="3262060763687518843">Bu sayfada etkisi yok: içerik korumalı (DRM) ve Browther'ın onu değiştirme izni yok. Bulanıklaştırma için bir çözüm yok.</translation>
+<translation id="4663924686328283941">Bu sayfa burada oynatılamaz: korumalı içerik (DRM). Onu başka bir tarayıcıda açın ve müziği kaldırmak için orada Sawtunaa uygulamasını uzantısıyla kurun.</translation>
 </translationbundle>

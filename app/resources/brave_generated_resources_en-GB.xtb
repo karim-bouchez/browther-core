@@ -960,4 +960,5 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="5640554172601835043">Copy link for another browser</translation>
 <translation id="4973459469968528621">No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. To remove the music anyway, install the Sawtunaa app together with its browser extension.</translation>
 <translation id="3262060763687518843">No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.</translation>
+<translation id="4663924686328283941">This page cannot play here: protected content (DRM). Open it in another browser, and install the Sawtunaa app with its extension there to remove the music.</translation>
 </translationbundle>

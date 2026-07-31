@@ -961,4 +961,5 @@ DU kan læse <ph name="BEGIN_LINK_BUILD_INSTRUCTIONS"/>instruktioner om hvordan 
 <translation id="5640554172601835043">Kopiér link til en anden browser</translation>
 <translation id="4973459469968528621">Ingen effekt på denne side: indholdet er beskyttet (DRM), og Browther må ikke ændre det. Vil du alligevel fjerne musikken, så installer Sawtunaa-appen sammen med dens browserudvidelse.</translation>
 <translation id="3262060763687518843">Ingen effekt på denne side: indholdet er beskyttet (DRM), og Browther må ikke ændre det. Der findes ingen løsning for sløring.</translation>
+<translation id="4663924686328283941">Denne side kan ikke afspilles her: beskyttet indhold (DRM). Åbn den i en anden browser, og installer dér Sawtunaa-appen med dens udvidelse for at fjerne musikken.</translation>
 </translationbundle>
