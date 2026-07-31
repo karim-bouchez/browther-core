@@ -951,9 +951,11 @@ Oder später ändern unter <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="8116496000232627763">Jede erkannte Person erhält einen Sicherheitswert. Unterhalb dieser Schwelle wird sie vorsichtshalber weichgezeichnet — im Zweifel weichzeichnen. Darüber entscheidet ihre Klasse (Frau → weichgezeichnet, Mann oder Kind → nicht).</translation>
 <translation id="8268525947366336370">Schwelle des globalen NSFW-Klassifikators. Darüber wird das gesamte Bild weichgezeichnet.</translation>
 <translation id="3814510295993434135">Erkennungsschwelle für explizite Körperteile. Niedriger bedeutet empfindlicher.</translation>
-<translation id="2250388996268870380">Diese Website verwendet geschützte Inhalte (DRM), die Browther nicht abspielen kann.</translation>
-<translation id="8557480419413458431">Geschützte Inhalte (DRM): Browther rührt sie nicht an, daher gelten Weichzeichnung und Musikentfernung hier nicht.</translation>
 <translation id="6110875516089236957">Im Standardbrowser öffnen</translation>
 <translation id="3987993985790029246">Link kopieren</translation>
-<translation id="2608041825176636295">Musik mit der Sawtunaa-App entfernen</translation>
+<translation id="5466236558474903686">Geschütztes Video (DRM): Browther ist nicht zertifiziert, um es abzuspielen. In einem anderen Browser funktioniert es.</translation>
+<translation id="6065221119374260161">Geschütztes Video (DRM): Browther ist nicht zertifiziert, um es abzuspielen. In einem anderen Browser funktioniert es — und um dort die Musik zu entfernen, installieren Sie die Sawtunaa-App zusammen mit ihrer Browsererweiterung.</translation>
+<translation id="5707844521504946601">Geschütztes Video (DRM): Browther darf es nicht verändern, daher greifen seine Filter hier nicht.</translation>
+<translation id="1829678234932521744">Geschütztes Video (DRM): Browther darf es nicht verändern, daher greifen Weichzeichnung und Musikentfernung hier nicht. Um die Musik zu entfernen, installieren Sie die Sawtunaa-App zusammen mit ihrer Browsererweiterung.</translation>
+<translation id="8976138575226849658">Sawtunaa installieren</translation>
 </translationbundle>

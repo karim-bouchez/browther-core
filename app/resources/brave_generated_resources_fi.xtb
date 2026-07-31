@@ -951,9 +951,11 @@ Tai muuta myöhemmin kohdassa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="8116496000232627763">Jokainen havaittu henkilö saa varmuuspisteet. Tämän kynnyksen alapuolella hänet sumennetaan varmuuden vuoksi — epäselvässä tilanteessa sumennetaan. Sen yläpuolella luokka ratkaisee (nainen → sumennetaan, mies tai lapsi → ei).</translation>
 <translation id="8268525947366336370">Yleisen NSFW-luokittelijan kynnys. Sen yläpuolella koko kuva sumennetaan.</translation>
 <translation id="3814510295993434135">Avointen ruumiinosien tunnistuskynnys. Matalampi on herkempi.</translation>
-<translation id="2250388996268870380">Tämä sivusto käyttää suojattua sisältöä (DRM), jota Browther ei voi toistaa.</translation>
-<translation id="8557480419413458431">Suojattu sisältö (DRM): Browther ei koske siihen, joten sumennus ja musiikin poisto eivät päde tässä.</translation>
 <translation id="6110875516089236957">Avaa oletusselaimessa</translation>
 <translation id="3987993985790029246">Kopioi linkki</translation>
-<translation id="2608041825176636295">Poista musiikki Sawtunaa-sovelluksella</translation>
+<translation id="5466236558474903686">Suojattu video (DRM): Browtherilla ei ole sertifiointia sen toistamiseen. Toisessa selaimessa se toimii.</translation>
+<translation id="6065221119374260161">Suojattu video (DRM): Browtherilla ei ole sertifiointia sen toistamiseen. Toisessa selaimessa se toimii — ja poistaaksesi musiikin siellä, asenna Sawtunaa-sovellus yhdessä sen selainlaajennuksen kanssa.</translation>
+<translation id="5707844521504946601">Suojattu video (DRM): Browther ei saa muokata sitä, joten sen suodattimet eivät päde tässä.</translation>
+<translation id="1829678234932521744">Suojattu video (DRM): Browther ei saa muokata sitä, joten sumennus ja musiikin poisto eivät päde tässä. Poistaaksesi musiikin, asenna Sawtunaa-sovellus yhdessä sen selainlaajennuksen kanssa.</translation>
+<translation id="8976138575226849658">Asenna Sawtunaa</translation>
 </translationbundle>

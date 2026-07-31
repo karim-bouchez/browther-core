@@ -952,9 +952,11 @@
 <translation id="8116496000232627763">検出された人物ごとに確信度スコアが付きます。このしきい値未満なら念のためぼかします（迷ったらぼかす）。しきい値以上なら分類が判断します（女性→ぼかす、男性・子ども→ぼかさない）。</translation>
 <translation id="8268525947366336370">全体的な NSFW 分類器のしきい値。これを超えると画像全体をぼかします。</translation>
 <translation id="3814510295993434135">露骨な身体部位の検出しきい値。低いほど敏感になります。</translation>
-<translation id="2250388996268870380">このサイトは Browther が再生できない保護コンテンツ（DRM）を使用しています。</translation>
-<translation id="8557480419413458431">保護コンテンツ（DRM）：Browther は手を加えないため、ぼかしと音楽除去はここでは適用されません。</translation>
 <translation id="6110875516089236957">既定のブラウザで開く</translation>
 <translation id="3987993985790029246">リンクをコピー</translation>
-<translation id="2608041825176636295">Sawtunaa アプリで音楽を除去</translation>
+<translation id="5466236558474903686">保護された動画（DRM）：Browther は再生の認証を受けていません。別のブラウザでは再生できます。</translation>
+<translation id="6065221119374260161">保護された動画（DRM）：Browther は再生の認証を受けていません。別のブラウザでは再生できます。そこで音楽を除去するには、Sawtunaa アプリとそのブラウザ拡張機能を一緒にインストールしてください。</translation>
+<translation id="5707844521504946601">保護された動画（DRM）：Browther は変更を許されていないため、フィルターはここでは適用されません。</translation>
+<translation id="1829678234932521744">保護された動画（DRM）：Browther は変更を許されていないため、ぼかしと音楽除去はここでは適用されません。音楽を除去するには、Sawtunaa アプリとそのブラウザ拡張機能を一緒にインストールしてください。</translation>
+<translation id="8976138575226849658">Sawtunaa をインストール</translation>
 </translationbundle>

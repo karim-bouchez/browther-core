@@ -953,9 +953,11 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="8116496000232627763">Minden észlelt személy kap egy biztonsági pontszámot. E küszöb alatt elővigyázatosságból elmosódik — kétség esetén elmosás. Fölötte az osztálya dönt (nő → elmosva, férfi vagy gyermek → nem).</translation>
 <translation id="8268525947366336370">A globális NSFW-osztályozó küszöbe. Fölötte a teljes kép elmosódik.</translation>
 <translation id="3814510295993434135">Explicit testrészek észlelési küszöbe. Alacsonyabb érték érzékenyebb.</translation>
-<translation id="2250388996268870380">Ez az oldal védett tartalmat (DRM) használ, amelyet a Browther nem tud lejátszani.</translation>
-<translation id="8557480419413458431">Védett tartalom (DRM): a Browther nem nyúl hozzá, ezért az elmosás és a zene eltávolítása itt nem érvényes.</translation>
 <translation id="6110875516089236957">Megnyitás az alapértelmezett böngészőben</translation>
 <translation id="3987993985790029246">Hivatkozás másolása</translation>
-<translation id="2608041825176636295">Zene eltávolítása a Sawtunaa alkalmazással</translation>
+<translation id="5466236558474903686">Védett videó (DRM): a Browther nem rendelkezik tanúsítvánnyal a lejátszásához. Másik böngészőben működni fog.</translation>
+<translation id="6065221119374260161">Védett videó (DRM): a Browther nem rendelkezik tanúsítvánnyal a lejátszásához. Másik böngészőben működni fog — a zene ottani eltávolításához pedig telepítse a Sawtunaa alkalmazást a böngészőbővítményével együtt.</translation>
+<translation id="5707844521504946601">Védett videó (DRM): a Browther nem módosíthatja, ezért a szűrői itt nem érvényesek.</translation>
+<translation id="1829678234932521744">Védett videó (DRM): a Browther nem módosíthatja, ezért az elmosás és a zene eltávolítása itt nem érvényes. A zene eltávolításához telepítse a Sawtunaa alkalmazást a böngészőbővítményével együtt.</translation>
+<translation id="8976138575226849658">Sawtunaa telepítése</translation>
 </translationbundle>

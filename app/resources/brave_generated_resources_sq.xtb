@@ -950,9 +950,11 @@ A jeni i sigurt që doni ta bëni këtë?</translation>
 <translation id="8116496000232627763">Çdo person i zbuluar merr një pikëzim sigurie. Nën këtë prag turbullohet për siguri — në dyshim, turbullo. Mbi të vendos klasa e tij (grua → e turbulluar, burrë ose fëmijë → jo).</translation>
 <translation id="8268525947366336370">Pragu i klasifikuesit global NSFW. Mbi të turbullohet i gjithë imazhi.</translation>
 <translation id="3814510295993434135">Pragu i zbulimit të pjesëve intime të trupit. Sa më i ulët, aq më i ndjeshëm.</translation>
-<translation id="2250388996268870380">Kjo faqe përdor përmbajtje të mbrojtur (DRM) që Browther nuk mund ta luajë.</translation>
-<translation id="8557480419413458431">Përmbajtje e mbrojtur (DRM): Browther nuk e prek, prandaj turbullimi dhe heqja e muzikës nuk zbatohen këtu.</translation>
 <translation id="6110875516089236957">Hape në shfletuesin e parazgjedhur</translation>
 <translation id="3987993985790029246">Kopjo lidhjen</translation>
-<translation id="2608041825176636295">Hiqni muzikën me aplikacionin Sawtunaa</translation>
+<translation id="5466236558474903686">Video e mbrojtur (DRM): Browther nuk është i certifikuar ta luajë. Do të funksionojë në një shfletues tjetër.</translation>
+<translation id="6065221119374260161">Video e mbrojtur (DRM): Browther nuk është i certifikuar ta luajë. Do të funksionojë në një shfletues tjetër — dhe për të hequr muzikën atje, instaloni aplikacionin Sawtunaa së bashku me shtesën e tij të shfletuesit.</translation>
+<translation id="5707844521504946601">Video e mbrojtur (DRM): Browther nuk lejohet ta modifikojë, prandaj filtrat e tij nuk zbatohen këtu.</translation>
+<translation id="1829678234932521744">Video e mbrojtur (DRM): Browther nuk lejohet ta modifikojë, prandaj turbullimi dhe heqja e muzikës nuk zbatohen këtu. Për të hequr muzikën, instaloni aplikacionin Sawtunaa së bashku me shtesën e tij të shfletuesit.</translation>
+<translation id="8976138575226849658">Instalo Sawtunaa</translation>
 </translationbundle>

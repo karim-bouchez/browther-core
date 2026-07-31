@@ -951,9 +951,11 @@
 <translation id="8116496000232627763">감지된 사람마다 확신도 점수가 매겨집니다. 이 기준값보다 낮으면 예방 차원에서 흐리게 처리합니다(의심스러우면 흐리게). 기준값 이상이면 분류가 결정합니다(여성 → 흐리게, 남성 또는 어린이 → 아님).</translation>
 <translation id="8268525947366336370">전체 NSFW 분류기의 기준값. 이 값을 넘으면 이미지 전체가 흐려집니다.</translation>
 <translation id="3814510295993434135">노출된 신체 부위의 감지 기준값. 낮을수록 민감합니다.</translation>
-<translation id="2250388996268870380">이 사이트는 Browther가 재생할 수 없는 보호된 콘텐츠(DRM)를 사용합니다.</translation>
-<translation id="8557480419413458431">보호된 콘텐츠(DRM): Browther는 이를 건드리지 않으므로 흐림 처리와 음악 제거가 여기에 적용되지 않습니다.</translation>
 <translation id="6110875516089236957">기본 브라우저에서 열기</translation>
 <translation id="3987993985790029246">링크 복사</translation>
-<translation id="2608041825176636295">Sawtunaa 앱으로 음악 제거</translation>
+<translation id="5466236558474903686">보호된 동영상(DRM): Browther는 재생 인증을 받지 않았습니다. 다른 브라우저에서는 재생됩니다.</translation>
+<translation id="6065221119374260161">보호된 동영상(DRM): Browther는 재생 인증을 받지 않았습니다. 다른 브라우저에서는 재생됩니다 — 거기서 음악을 제거하려면 Sawtunaa 앱과 브라우저 확장 프로그램을 함께 설치하세요.</translation>
+<translation id="5707844521504946601">보호된 동영상(DRM): Browther는 이를 수정할 수 없으므로 필터가 여기에 적용되지 않습니다.</translation>
+<translation id="1829678234932521744">보호된 동영상(DRM): Browther는 이를 수정할 수 없으므로 흐림 처리와 음악 제거가 여기에 적용되지 않습니다. 음악을 제거하려면 Sawtunaa 앱과 브라우저 확장 프로그램을 함께 설치하세요.</translation>
+<translation id="8976138575226849658">Sawtunaa 설치</translation>
 </translationbundle>

@@ -950,9 +950,11 @@ Bunu etmək istədiyinizə əminsiniz?</translation>
 <translation id="8116496000232627763">Aşkarlanan hər şəxs əminlik balı alır. Bu həddin altında ehtiyat üçün bulanıqlaşdırılır — şübhə varsa, bulanıqlaşdır. Üstündə isə sinfi qərar verir (qadın → bulanıq, kişi və ya uşaq → yox).</translation>
 <translation id="8268525947366336370">Qlobal NSFW təsnifatçısının həddi. Üstündə bütün şəkil bulanıqlaşdırılır.</translation>
 <translation id="3814510295993434135">Açıq bədən hissələrinin aşkarlanma həddi. Aşağı olduqca daha həssasdır.</translation>
-<translation id="2250388996268870380">Bu sayt Browther-in oxuya bilmədiyi qorunan məzmundan (DRM) istifadə edir.</translation>
-<translation id="8557480419413458431">Qorunan məzmun (DRM): Browther ona toxunmur, ona görə bulanıqlaşdırma və musiqinin silinməsi burada tətbiq olunmur.</translation>
 <translation id="6110875516089236957">Standart brauzerdə aç</translation>
 <translation id="3987993985790029246">Keçidi kopyala</translation>
-<translation id="2608041825176636295">Musiqini Sawtunaa tətbiqi ilə silin</translation>
+<translation id="5466236558474903686">Qorunan video (DRM): Browther onu oxutmaq üçün sertifikatlı deyil. Başqa brauzerdə işləyəcək.</translation>
+<translation id="6065221119374260161">Qorunan video (DRM): Browther onu oxutmaq üçün sertifikatlı deyil. Başqa brauzerdə işləyəcək — orada musiqini silmək üçün Sawtunaa tətbiqini brauzer genişlənməsi ilə birlikdə quraşdırın.</translation>
+<translation id="5707844521504946601">Qorunan video (DRM): Browther-in onu dəyişdirməyə icazəsi yoxdur, ona görə filtrləri burada tətbiq olunmur.</translation>
+<translation id="1829678234932521744">Qorunan video (DRM): Browther-in onu dəyişdirməyə icazəsi yoxdur, ona görə bulanıqlaşdırma və musiqinin silinməsi burada tətbiq olunmur. Musiqini silmək üçün Sawtunaa tətbiqini brauzer genişlənməsi ilə quraşdırın.</translation>
+<translation id="8976138575226849658">Sawtunaa quraşdır</translation>
 </translationbundle>

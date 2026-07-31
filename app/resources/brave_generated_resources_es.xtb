@@ -951,9 +951,11 @@ Comprueba que un dispositivo tuyo haya generado estas palabras clave.
 <translation id="8116496000232627763">Cada persona detectada recibe una puntuación de certeza. Por debajo de este umbral se difumina por precaución: en caso de duda, difumina. Por encima, decide su clase (mujer → difuminada; hombre o niño → no).</translation>
 <translation id="8268525947366336370">Umbral del clasificador NSFW global. Por encima, se difumina toda la imagen.</translation>
 <translation id="3814510295993434135">Umbral de detección de partes íntimas del cuerpo. Cuanto más bajo, más sensible.</translation>
-<translation id="2250388996268870380">Este sitio usa contenido protegido (DRM) que Browther no puede reproducir.</translation>
-<translation id="8557480419413458431">Contenido protegido (DRM): Browther no lo toca, así que el desenfoque y la eliminación de música no se aplican aquí.</translation>
 <translation id="6110875516089236957">Abrir en el navegador predeterminado</translation>
 <translation id="3987993985790029246">Copiar enlace</translation>
-<translation id="2608041825176636295">Elimina la música con la aplicación Sawtunaa</translation>
+<translation id="5466236558474903686">Vídeo protegido (DRM): Browther no está certificado para reproducirlo. Funcionará en otro navegador.</translation>
+<translation id="6065221119374260161">Vídeo protegido (DRM): Browther no está certificado para reproducirlo. Funcionará en otro navegador — y para quitar la música allí, instala la aplicación Sawtunaa junto con su extensión de navegador.</translation>
+<translation id="5707844521504946601">Vídeo protegido (DRM): Browther no puede modificarlo, así que sus filtros no se aplican aquí.</translation>
+<translation id="1829678234932521744">Vídeo protegido (DRM): Browther no puede modificarlo, así que el desenfoque y la eliminación de música no se aplican aquí. Para quitar la música, instala la aplicación Sawtunaa junto con su extensión de navegador.</translation>
+<translation id="8976138575226849658">Instalar Sawtunaa</translation>
 </translationbundle>

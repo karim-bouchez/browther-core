@@ -951,9 +951,11 @@
 <translation id="8116496000232627763">እያንዳንዱ የተገኘ ሰው የእርግጠኝነት ነጥብ ያገኛል። ከዚህ ገደብ በታች በጥንቃቄ ይደበዝዛል — በጥርጣሬ ውስጥ አደብዝዝ። ከዚያ በላይ ክፍሉ ይወስናል (ሴት → ደብዝዟል፣ ወንድ ወይም ልጅ → አይደለም)።</translation>
 <translation id="8268525947366336370">የአጠቃላይ NSFW መለያ ገደብ። ከዚያ በላይ ሙሉው ምስል ይደበዝዛል።</translation>
 <translation id="3814510295993434135">ግልጽ የአካል ክፍሎችን የመለየት ገደብ። ዝቅ ሲል የበለጠ ስሜታዊ ነው።</translation>
-<translation id="2250388996268870380">ይህ ጣቢያ Browther ሊያጫውተው የማይችል የተጠበቀ ይዘት (DRM) ይጠቀማል።</translation>
-<translation id="8557480419413458431">የተጠበቀ ይዘት (DRM)፦ Browther አይነካውም፣ ስለዚህ ማደብዘዝና ሙዚቃ ማስወገድ እዚህ አይሠሩም።</translation>
 <translation id="6110875516089236957">በነባሪ አሳሽ ክፈት</translation>
 <translation id="3987993985790029246">አገናኝ ቅዳ</translation>
-<translation id="2608041825176636295">ሙዚቃን በ Sawtunaa መተግበሪያ አስወግድ</translation>
+<translation id="5466236558474903686">የተጠበቀ ቪዲዮ (DRM)፦ Browther እሱን ለማጫወት የተረጋገጠ አይደለም። በሌላ አሳሽ ውስጥ ይሠራል።</translation>
+<translation id="6065221119374260161">የተጠበቀ ቪዲዮ (DRM)፦ Browther እሱን ለማጫወት የተረጋገጠ አይደለም። በሌላ አሳሽ ውስጥ ይሠራል — እዚያም ሙዚቃውን ለማስወገድ የ Sawtunaa መተግበሪያን ከአሳሽ ቅጥያው ጋር ይጫኑ።</translation>
+<translation id="5707844521504946601">የተጠበቀ ቪዲዮ (DRM)፦ Browther እሱን መቀየር አይፈቀድለትም፣ ስለዚህ ማጣሪያዎቹ እዚህ አይሠሩም።</translation>
+<translation id="1829678234932521744">የተጠበቀ ቪዲዮ (DRM)፦ Browther እሱን መቀየር አይፈቀድለትም፣ ስለዚህ ማደብዘዝና ሙዚቃ ማስወገድ እዚህ አይሠሩም። ሙዚቃውን ለማስወገድ የ Sawtunaa መተግበሪያን ከአሳሽ ቅጥያው ጋር ይጫኑ።</translation>
+<translation id="8976138575226849658">Sawtunaa ጫን</translation>
 </translationbundle>

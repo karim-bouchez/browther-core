@@ -952,9 +952,11 @@ Loe Browther'i plaane Manifest V2 jaoks <ph name="BEGIN_LINK"/>siit<ph name="END
 <translation id="8116496000232627763">Iga tuvastatud inimene saab kindlusskoori. Allpool seda läve hägustatakse ta ettevaatusest — kahtluse korral hägusta. Ülalpool otsustab tema klass (naine → hägustatud, mees või laps → mitte).</translation>
 <translation id="8268525947366336370">Üldise NSFW-klassifikaatori lävi. Sellest ülalpool hägustatakse kogu pilt.</translation>
 <translation id="3814510295993434135">Eksplitsiitsete kehaosade tuvastuslävi. Madalam tähendab tundlikumat.</translation>
-<translation id="2250388996268870380">See sait kasutab kaitstud sisu (DRM), mida Browther ei suuda esitada.</translation>
-<translation id="8557480419413458431">Kaitstud sisu (DRM): Browther ei puutu seda, seega hägustamine ja muusika eemaldamine siin ei kehti.</translation>
 <translation id="6110875516089236957">Ava vaikebrauseris</translation>
 <translation id="3987993985790029246">Kopeeri link</translation>
-<translation id="2608041825176636295">Eemaldage muusika rakendusega Sawtunaa</translation>
+<translation id="5466236558474903686">Kaitstud video (DRM): Browther ei ole sertifitseeritud seda esitama. Teises brauseris see töötab.</translation>
+<translation id="6065221119374260161">Kaitstud video (DRM): Browther ei ole sertifitseeritud seda esitama. Teises brauseris see töötab — ja muusika sealt eemaldamiseks paigaldage Sawtunaa rakendus koos selle brauserilaiendusega.</translation>
+<translation id="5707844521504946601">Kaitstud video (DRM): Browther ei tohi seda muuta, seega tema filtrid siin ei kehti.</translation>
+<translation id="1829678234932521744">Kaitstud video (DRM): Browther ei tohi seda muuta, seega hägustamine ja muusika eemaldamine siin ei kehti. Muusika eemaldamiseks paigaldage Sawtunaa rakendus koos selle brauserilaiendusega.</translation>
+<translation id="8976138575226849658">Paigalda Sawtunaa</translation>
 </translationbundle>

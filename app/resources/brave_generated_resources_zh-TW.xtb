@@ -952,9 +952,11 @@
 <translation id="8116496000232627763">每個偵測到的人物都會獲得一個確信度分數。低於此門檻時基於謹慎進行模糊——存疑即模糊。高於此門檻則由其類別決定（女性→模糊，男性或兒童→不模糊）。</translation>
 <translation id="8268525947366336370">全域 NSFW 分類器的門檻。超過該值時整張圖片將被模糊。</translation>
 <translation id="3814510295993434135">露骨身體部位的偵測門檻。數值越低越敏感。</translation>
-<translation id="2250388996268870380">此網站使用 Browther 無法播放的受保護內容（DRM）。</translation>
-<translation id="8557480419413458431">受保護內容（DRM）：Browther 不會處理它，因此模糊與移除音樂在此不適用。</translation>
 <translation id="6110875516089236957">在預設瀏覽器中開啟</translation>
 <translation id="3987993985790029246">複製連結</translation>
-<translation id="2608041825176636295">使用 Sawtunaa 應用程式移除音樂</translation>
+<translation id="5466236558474903686">受保護影片（DRM）：Browther 未取得播放認證。在其他瀏覽器中可以播放。</translation>
+<translation id="6065221119374260161">受保護影片（DRM）：Browther 未取得播放認證。在其他瀏覽器中可以播放 — 若要在那裡移除音樂，請同時安裝 Sawtunaa 應用程式及其瀏覽器擴充功能。</translation>
+<translation id="5707844521504946601">受保護影片（DRM）：Browther 無權修改它，因此其篩選功能在此不適用。</translation>
+<translation id="1829678234932521744">受保護影片（DRM）：Browther 無權修改它，因此模糊與移除音樂在此不適用。若要移除音樂，請同時安裝 Sawtunaa 應用程式及其瀏覽器擴充功能。</translation>
+<translation id="8976138575226849658">安裝 Sawtunaa</translation>
 </translationbundle>

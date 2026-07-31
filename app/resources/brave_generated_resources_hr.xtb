@@ -950,9 +950,11 @@ Ili promijenite kasnije putem <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="8116496000232627763">Svaka otkrivena osoba dobiva ocjenu sigurnosti. Ispod ovog praga zamućuje se iz opreza — u dvojbi, zamuti. Iznad njega odlučuje njezina klasa (žena → zamućena, muškarac ili dijete → ne).</translation>
 <translation id="8268525947366336370">Prag globalnog NSFW klasifikatora. Iznad njega zamućuje se cijela slika.</translation>
 <translation id="3814510295993434135">Prag otkrivanja eksplicitnih dijelova tijela. Niže znači osjetljivije.</translation>
-<translation id="2250388996268870380">Ova stranica koristi zaštićeni sadržaj (DRM) koji Browther ne može reproducirati.</translation>
-<translation id="8557480419413458431">Zaštićeni sadržaj (DRM): Browther ga ne dira, pa se zamućivanje i uklanjanje glazbe ovdje ne primjenjuju.</translation>
 <translation id="6110875516089236957">Otvori u zadanom pregledniku</translation>
 <translation id="3987993985790029246">Kopiraj poveznicu</translation>
-<translation id="2608041825176636295">Uklonite glazbu aplikacijom Sawtunaa</translation>
+<translation id="5466236558474903686">Zaštićeni videozapis (DRM): Browther nije certificiran za njegovu reprodukciju. Radit će u drugom pregledniku.</translation>
+<translation id="6065221119374260161">Zaštićeni videozapis (DRM): Browther nije certificiran za njegovu reprodukciju. Radit će u drugom pregledniku — a za uklanjanje glazbe ondje instalirajte aplikaciju Sawtunaa zajedno s njezinim proširenjem za preglednik.</translation>
+<translation id="5707844521504946601">Zaštićeni videozapis (DRM): Browther ga ne smije mijenjati, pa se njegovi filtri ovdje ne primjenjuju.</translation>
+<translation id="1829678234932521744">Zaštićeni videozapis (DRM): Browther ga ne smije mijenjati, pa se zamućivanje i uklanjanje glazbe ovdje ne primjenjuju. Za uklanjanje glazbe instalirajte aplikaciju Sawtunaa zajedno s njezinim proširenjem za preglednik.</translation>
+<translation id="8976138575226849658">Instaliraj Sawtunaa</translation>
 </translationbundle>

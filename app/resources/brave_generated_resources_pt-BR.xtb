@@ -951,9 +951,11 @@ Ou altere mais tarde em <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="8116496000232627763">Cada pessoa detectada recebe uma pontuação de certeza. Abaixo deste limite ela é desfocada por precaução — na dúvida, desfoque. Acima, a classe dela decide (mulher → desfocada; homem ou criança → não).</translation>
 <translation id="8268525947366336370">Limite do classificador NSFW global. Acima dele, a imagem inteira é desfocada.</translation>
 <translation id="3814510295993434135">Limite de detecção de partes íntimas do corpo. Quanto menor, mais sensível.</translation>
-<translation id="2250388996268870380">Este site usa conteúdo protegido (DRM) que o Browther não consegue reproduzir.</translation>
-<translation id="8557480419413458431">Conteúdo protegido (DRM): o Browther não mexe nele, então o desfoque e a remoção de música não se aplicam aqui.</translation>
 <translation id="6110875516089236957">Abrir no navegador padrão</translation>
 <translation id="3987993985790029246">Copiar link</translation>
-<translation id="2608041825176636295">Remova a música com o app Sawtunaa</translation>
+<translation id="5466236558474903686">Vídeo protegido (DRM): o Browther não tem certificação para reproduzi-lo. Ele funcionará em outro navegador.</translation>
+<translation id="6065221119374260161">Vídeo protegido (DRM): o Browther não tem certificação para reproduzi-lo. Ele funcionará em outro navegador — e para remover a música lá, instale o app Sawtunaa junto com a extensão de navegador dele.</translation>
+<translation id="5707844521504946601">Vídeo protegido (DRM): o Browther não pode modificá-lo, então seus filtros não se aplicam aqui.</translation>
+<translation id="1829678234932521744">Vídeo protegido (DRM): o Browther não pode modificá-lo, então o desfoque e a remoção de música não se aplicam aqui. Para remover a música, instale o app Sawtunaa junto com a extensão de navegador dele.</translation>
+<translation id="8976138575226849658">Instalar o Sawtunaa</translation>
 </translationbundle>

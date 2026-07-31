@@ -6,10 +6,12 @@
 #ifndef BRAVE_BROWSER_INFOBARS_BROWTHER_PROTECTED_CONTENT_INFOBAR_DELEGATE_H_
 #define BRAVE_BROWSER_INFOBARS_BROWTHER_PROTECTED_CONTENT_INFOBAR_DELEGATE_H_
 
+#include <cstddef>
 #include <string>
 #include <vector>
 
 #include "brave/components/infobars/core/brave_confirm_infobar_delegate.h"
+#include "ui/base/models/image_model.h"
 #include "url/gurl.h"
 
 namespace infobars {
@@ -28,10 +30,18 @@ class InfoBarManager;
 //                  private/docs/TODO.md § média DRM déchiffré). Sans message,
 //                  ça ressemble à « Basarunaa ne marche pas ».
 //
-// Dans les deux cas on propose l'app Sawtunaa (hors navigateur, donc non
-// concernée par le DRM) quand l'utilisateur se sert de Sawtunaa. Pour
-// Basarunaa il n'existe aujourd'hui aucune alternative — on ne fait donc
-// aucune promesse.
+// Règles de rédaction (retour Karim, 2026-07-31) — le message doit répondre
+// à « POURQUOI ça ne marche pas » et « QU'EST-CE QUE JE FAIS maintenant » :
+//  1. la cause est explicite (pas de certification / interdiction de toucher
+//     au flux), pas seulement le constat ;
+//  2. l'alternative Sawtunaa est **rattachée au problème** dans la phrase, et
+//     portée par un BOUTON — pas par le lien de l'infobar, qui est rendu à
+//     l'extrême droite (`GetEndX() - link_->width()`, brave_confirm_infobar.cc)
+//     et se lit alors comme un élément sans rapport ;
+//  3. on dit que l'app Sawtunaa ne suffit pas seule : il faut **aussi son
+//     extension** (c'est `chrome.tabCapture` qui contourne la protection de
+//     capture, la capture système rendrait du silence/noir — cf.
+//     WIDEVINE_VMP.md § 5.4).
 class BrowtherProtectedContentInfoBarDelegate
     : public BraveConfirmInfoBarDelegate {
  public:
@@ -44,7 +54,7 @@ class BrowtherProtectedContentInfoBarDelegate
   // par défaut — proposer « ouvrir dans le navigateur par défaut » rouvrirait
   // alors la page dans Browther. On propose « copier le lien » à la place.
   // |offer_sawtunaa_app| : seulement si l'utilisateur a Sawtunaa activé,
-  // sinon le lien est hors sujet.
+  // sinon l'app est hors sujet et le message n'en parle pas.
   static void Create(infobars::InfoBarManager* infobar_manager,
                      Mode mode,
                      const GURL& page_url,
@@ -66,15 +76,23 @@ class BrowtherProtectedContentInfoBarDelegate
 
   // BraveConfirmInfoBarDelegate:
   infobars::InfoBarDelegate::InfoBarIdentifier GetIdentifier() const override;
+  ui::ImageModel GetIcon() const override;
   std::u16string GetMessageText() const override;
   int GetButtons() const override;
   std::u16string GetButtonLabel(InfoBarButton button) const override;
   std::vector<int> GetButtonsOrder() const override;
+  bool IsProminent(int id) const override;
   bool ShouldSupportMultiLine() const override;
   size_t GetMaxLines() const override;
   bool Accept() override;
-  std::u16string GetLinkText() const override;
-  GURL GetLinkURL() const override;
+  bool Cancel() override;
+
+  // Ouvre la page de l'app Sawtunaa dans un nouvel onglet Browther (c'est une
+  // page web ordinaire : pas de raison de sortir du navigateur pour ça).
+  void OpenSawtunaaPage();
+  // kBlocked : sortir la page vers un navigateur capable de la lire, ou à
+  // défaut mettre le lien dans le presse-papiers.
+  void OpenElsewhereOrCopyLink();
 
   const Mode mode_;
   const GURL page_url_;

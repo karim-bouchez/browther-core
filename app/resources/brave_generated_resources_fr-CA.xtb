@@ -951,9 +951,11 @@ ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="8116496000232627763">Chaque personne détectée reçoit un score de certitude. Sous ce seuil, elle est floutée par précaution — dans le doute, flou. Au-dessus, sa classe décide (femme → floutée, homme ou enfant → non).</translation>
 <translation id="8268525947366336370">Seuil du classifieur NSFW global. Au-dessus, l'image entière est floutée.</translation>
 <translation id="3814510295993434135">Seuil de détection des parties explicites du corps. Plus bas = plus sensible.</translation>
-<translation id="2250388996268870380">Ce site utilise du contenu protégé (DRM) que Browther ne peut pas lire.</translation>
-<translation id="8557480419413458431">Contenu protégé (DRM) : Browther n'y touche pas, le floutage et la suppression de musique ne s'y appliquent donc pas.</translation>
 <translation id="6110875516089236957">Ouvrir dans le navigateur par défaut</translation>
 <translation id="3987993985790029246">Copier le lien</translation>
-<translation id="2608041825176636295">Supprimer la musique avec l'app Sawtunaa</translation>
+<translation id="5466236558474903686">Vidéo protégée (DRM) : Browther n'est pas certifié pour la lire. Elle fonctionnera dans un autre navigateur.</translation>
+<translation id="6065221119374260161">Vidéo protégée (DRM) : Browther n'est pas certifié pour la lire. Elle fonctionnera dans un autre navigateur — et pour y retirer la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
+<translation id="5707844521504946601">Vidéo protégée (DRM) : Browther n'a pas le droit d'y toucher, ses filtres ne s'y appliquent donc pas.</translation>
+<translation id="1829678234932521744">Vidéo protégée (DRM) : Browther n'a pas le droit d'y toucher, le floutage et la suppression de musique ne s'y appliquent donc pas. Pour retirer la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
+<translation id="8976138575226849658">Installer Sawtunaa</translation>
 </translationbundle>
