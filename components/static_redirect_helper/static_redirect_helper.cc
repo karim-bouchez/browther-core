@@ -23,6 +23,10 @@ namespace {
 // Browther: télécharger les composants Chromium en direct chez Google au lieu
 // de passer par redirector.brave.com (403 pour les forks). Mettre à false pour
 // restaurer le comportement Brave si un jour on a notre propre proxy.
+//
+// ⚠️ Les tests upstream browser/net/brave_static_redirect_network_delegate_
+// helper_unittest.cc attendent encore la redirection et échouent tant que
+// c'est à true. Non modifiés volontairement (diff fork-friendly minimal).
 constexpr bool kBrowtherDirectComponentDownloads = true;
 
 bool g_safebrowsing_api_endpoint_for_testing_ = false;
