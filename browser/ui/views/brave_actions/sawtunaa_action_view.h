@@ -51,6 +51,9 @@ class SawtunaaActionView : public views::LabelButton,
   void OnButtonPressed(const ui::Event& event);
 
   // TabStripModelObserver
+  void OnTabChangedAt(tabs::TabInterface* tab,
+                      int index,
+                      TabChangeType change_type) override;
   void OnTabStripModelChanged(
       TabStripModel* tab_strip_model,
       const TabStripModelChange& change,

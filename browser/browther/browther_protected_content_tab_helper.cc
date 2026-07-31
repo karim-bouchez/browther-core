@@ -70,6 +70,17 @@ void BrowtherProtectedContentTabHelper::BindBrowtherDrmStatus(
   tab_helper->receivers_.Bind(rfh, std::move(receiver));
 }
 
+// static
+BrowtherProtectedContentTabHelper::ProtectedState
+BrowtherProtectedContentTabHelper::StateFor(
+    content::WebContents* web_contents) {
+  if (!web_contents) {
+    return ProtectedState::kUnknown;
+  }
+  auto* helper = FromWebContents(web_contents);
+  return helper ? helper->protected_state() : ProtectedState::kUnknown;
+}
+
 void BrowtherProtectedContentTabHelper::DidStartNavigation(
     content::NavigationHandle* navigation_handle) {
   if (!navigation_handle->IsInPrimaryMainFrame() ||
@@ -84,6 +95,7 @@ void BrowtherProtectedContentTabHelper::DidStartNavigation(
   notified_this_navigation_ = false;
   notified_blocked_ = false;
   license_request_seen_ = false;
+  SetProtectedState(ProtectedState::kUnknown);
 }
 
 void BrowtherProtectedContentTabHelper::OnLicenseRequestSent() {
@@ -109,6 +121,7 @@ void BrowtherProtectedContentTabHelper::OnKeyUsable() {
     notified_blocked_ = false;
     notified_this_navigation_ = false;
   }
+  SetProtectedState(ProtectedState::kUnfiltered);
   if (notified_this_navigation_) {
     return;
   }
@@ -128,10 +141,28 @@ void BrowtherProtectedContentTabHelper::OnKeyUsable() {
 }
 
 void BrowtherProtectedContentTabHelper::OnLicenseTimeout() {
-  if (notified_this_navigation_ || !license_request_seen_) {
+  if (!license_request_seen_) {
+    return;
+  }
+  SetProtectedState(ProtectedState::kBlocked);
+  if (notified_this_navigation_) {
     return;
   }
   ShowInfoBar(/*blocked=*/true);
+}
+
+void BrowtherProtectedContentTabHelper::SetProtectedState(
+    ProtectedState state) {
+  if (protected_state_ == state) {
+    return;
+  }
+  protected_state_ = state;
+  // Réveille les vues qui peignent le badge de la toolbar : elles observent
+  // déjà le TabStripModel, ce signal leur arrive via OnTabChangedAt. Évite de
+  // leur faire observer chaque WebContents.
+  if (web_contents()) {
+    web_contents()->NotifyNavigationStateChanged(content::INVALIDATE_TYPE_TAB);
+  }
 }
 
 void BrowtherProtectedContentTabHelper::ShowInfoBar(bool blocked) {

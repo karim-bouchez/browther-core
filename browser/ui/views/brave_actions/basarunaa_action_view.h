@@ -8,6 +8,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "base/memory/raw_ref.h"
+#include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "chrome/browser/ui/views/toolbar/toolbar_button.h"
 #include "components/prefs/pref_change_registrar.h"
 #include "ui/base/metadata/metadata_header_macros.h"
@@ -23,7 +24,10 @@ class PrefService;
 // Browther: toolbar button for Basarunaa panel. 1:1 mirror of BraveVPNButton.
 // Click dispatches IDC_SHOW_BASARUNAA_PANEL. Displays a green/red badge that
 // reflects the kBasarunaaEnabled pref.
-class BasarunaaActionView : public ToolbarButton {
+// Browther: observe aussi le TabStripModel — le badge dépend désormais de
+// l'ONGLET (contenu protégé ou non), plus seulement de la pref de profil.
+class BasarunaaActionView : public ToolbarButton,
+                            public TabStripModelObserver {
   METADATA_HEADER(BasarunaaActionView, ToolbarButton)
  public:
   explicit BasarunaaActionView(Browser* browser);
@@ -36,6 +40,15 @@ class BasarunaaActionView : public ToolbarButton {
  private:
   // ToolbarButton:
   void UpdateColorsAndInsets() override;
+
+  // TabStripModelObserver:
+  void OnTabStripModelChanged(
+      TabStripModel* tab_strip_model,
+      const TabStripModelChange& change,
+      const TabStripSelectionChange& selection) override;
+  void OnTabChangedAt(tabs::TabInterface* tab,
+                      int index,
+                      TabChangeType change_type) override;
 
   void OnButtonPressed(const ui::Event& event);
   bool IsActive() const;

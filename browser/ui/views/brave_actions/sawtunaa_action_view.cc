@@ -10,6 +10,7 @@
 
 #include "base/check_deref.h"
 #include "base/functional/bind.h"
+#include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/browser/ui/views/sawtunaa/sawtunaa_bubble_view.h"
@@ -42,6 +43,12 @@
 namespace {
 constexpr SkColor kBadgeGreen = SkColorSetRGB(0x22, 0xC5, 0x5E);
 constexpr SkColor kBadgeRed = SkColorSetRGB(0xEF, 0x44, 0x44);
+// Browther: badge AMBRE — la feature est ON, mais elle ne s'applique pas à
+// l'onglet courant parce que c'est du contenu protégé (DRM). Le badge est la
+// seule surface visible SANS ouvrir la popup : sans lui, l'utilisateur voit
+// « vert = actif » sur une page où il ne se passe rien.
+// Cf. private/docs/WIDEVINE_VMP.md § 10.
+constexpr SkColor kBadgeAmber = SkColorSetRGB(0xF5, 0x9E, 0x0B);
 }  // namespace
 
 SawtunaaActionView::SawtunaaActionView(
@@ -141,7 +148,17 @@ void SawtunaaActionView::UpdateIconState() {
         base_icon, cp->GetColor(kColorOmniboxText));
   }
   image_source->SetIcon(gfx::Image(base_icon));
-  image_source->SetDotColor(active ? kBadgeGreen : kBadgeRed);
+  // Ambre = ON mais sans effet sur CET onglet (contenu protégé).
+  // ⚠️ Gaté sur kSawtunaaNativeTapActive : quand le tap natif n'est PAS actif
+  // (cas Windows aujourd'hui), c'est l'extension bundlée qui capture via
+  // chrome.tabCapture — et tabCapture, lui, fonctionne sur du DRM. Annoncer
+  // une panne là-bas serait faux.
+  const bool protected_here =
+      active && profile_prefs_->GetBoolean(kSawtunaaNativeTapActive) &&
+      BrowtherProtectedContentTabHelper::StateFor(web_contents) !=
+          BrowtherProtectedContentTabHelper::ProtectedState::kUnknown;
+  image_source->SetDotColor(protected_here ? kBadgeAmber
+                                           : (active ? kBadgeGreen : kBadgeRed));
 
   const gfx::ImageSkia icon(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,
@@ -186,6 +203,15 @@ void SawtunaaActionView::OnTabStripModelChanged(
   if (selection.active_tab_changed()) {
     UpdateIconState();
   }
+}
+
+void SawtunaaActionView::OnTabChangedAt(tabs::TabInterface* tab,
+                                        int index,
+                                        TabChangeType change_type) {
+  // Le verdict « contenu protégé » tombe ~2 s après la demande de licence,
+  // donc APRÈS le chargement : sans ce rafraîchissement le badge ne
+  // passerait à l'ambre qu'au prochain changement d'onglet.
+  UpdateIconState();
 }
 
 BEGIN_METADATA(SawtunaaActionView)

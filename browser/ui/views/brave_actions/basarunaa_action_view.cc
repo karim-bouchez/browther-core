@@ -12,11 +12,13 @@
 #include "base/check_deref.h"
 #include "base/functional/bind.h"
 #include "brave/app/brave_command_ids.h"
+#include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/tabs/tab_strip_model.h"
 #include "chrome/browser/ui/browser_commands.h"
 #include "chrome/browser/ui/layout_constants.h"
 #include "chrome/browser/ui/views/chrome_layout_provider.h"
@@ -37,6 +39,12 @@
 namespace {
 constexpr SkColor kBadgeGreen = SkColorSetRGB(0x22, 0xC5, 0x5E);
 constexpr SkColor kBadgeRed = SkColorSetRGB(0xEF, 0x44, 0x44);
+// Browther: badge AMBRE — la feature est ON, mais elle ne s'applique pas à
+// l'onglet courant parce que c'est du contenu protégé (DRM). Le badge est la
+// seule surface visible SANS ouvrir la popup : sans lui, l'utilisateur voit
+// « vert = actif » sur une page où il ne se passe rien.
+// Cf. private/docs/WIDEVINE_VMP.md § 10.
+constexpr SkColor kBadgeAmber = SkColorSetRGB(0xF5, 0x9E, 0x0B);
 }  // namespace
 
 BasarunaaActionView::BasarunaaActionView(Browser* browser)
@@ -65,9 +73,16 @@ BasarunaaActionView::BasarunaaActionView(Browser* browser)
       kBasarunaaEnabled,
       base::BindRepeating(&BasarunaaActionView::OnPrefChanged,
                           base::Unretained(this)));
+
+  // Browther: le badge dépend maintenant de l'onglet actif (contenu protégé).
+  browser_->tab_strip_model()->AddObserver(this);
 }
 
-BasarunaaActionView::~BasarunaaActionView() = default;
+BasarunaaActionView::~BasarunaaActionView() {
+  if (browser_) {
+    browser_->tab_strip_model()->RemoveObserver(this);
+  }
+}
 
 void BasarunaaActionView::Init() {
   UpdateColorsAndInsets();
@@ -115,13 +130,41 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
         icon_image, cp->GetColor(kColorOmniboxText));
   }
   image_source->SetIcon(gfx::Image(icon_image));
-  image_source->SetDotColor(IsActive() ? kBadgeGreen : kBadgeRed);
+  // Ambre = ON mais sans effet sur CET onglet (contenu protégé). Contrairement
+  // à Sawtunaa, pas de gate : le floutage vidéo est coupé sur du DRM quelle que
+  // soit la plateforme, il n'existe aucune voie de repli.
+  auto* const web_contents =
+      browser_ ? browser_->tab_strip_model()->GetActiveWebContents() : nullptr;
+  const bool protected_here =
+      IsActive() &&
+      BrowtherProtectedContentTabHelper::StateFor(web_contents) !=
+          BrowtherProtectedContentTabHelper::ProtectedState::kUnknown;
+  image_source->SetDotColor(
+      protected_here ? kBadgeAmber : (IsActive() ? kBadgeGreen : kBadgeRed));
 
   const gfx::ImageSkia composed(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,
                 ui::ImageModel::FromImageSkia(composed));
 
   SetTooltipText(IsActive() ? u"Basarunaa — ON" : u"Basarunaa — OFF");
+}
+
+void BasarunaaActionView::OnTabStripModelChanged(
+    TabStripModel* tab_strip_model,
+    const TabStripModelChange& change,
+    const TabStripSelectionChange& selection) {
+  if (selection.active_tab_changed()) {
+    UpdateColorsAndInsets();
+  }
+}
+
+void BasarunaaActionView::OnTabChangedAt(tabs::TabInterface* tab,
+                                         int index,
+                                         TabChangeType change_type) {
+  // Le verdict « contenu protégé » tombe ~2 s après la demande de licence :
+  // sans ce rafraîchissement, le badge resterait vert jusqu'au prochain
+  // changement d'onglet.
+  UpdateColorsAndInsets();
 }
 
 void BasarunaaActionView::OnButtonPressed(const ui::Event& event) {

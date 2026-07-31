@@ -44,6 +44,19 @@ class BrowtherProtectedContentTabHelper final
 
   ~BrowtherProtectedContentTabHelper() override;
 
+  // État « contenu protégé » de CET onglet, pour la navigation en cours.
+  // Volontairement indépendant de l'affichage de la barre : l'utilisateur peut
+  // la fermer, l'information reste vraie et sert au badge de la toolbar.
+  enum class ProtectedState {
+    kUnknown,     // rien de protégé détecté (ou verdict pas encore rendu)
+    kBlocked,     // lecture protégée impossible
+    kUnfiltered,  // lecture protégée OK, mais hors de portée de nos features
+  };
+  ProtectedState protected_state() const { return protected_state_; }
+
+  // Raccourci pour les vues toolbar : kUnknown si pas de helper.
+  static ProtectedState StateFor(content::WebContents* web_contents);
+
   static void BindBrowtherDrmStatus(
       mojo::PendingAssociatedReceiver<browther_drm::mojom::BrowtherDrmStatus>
           receiver,
@@ -70,6 +83,8 @@ class BrowtherProtectedContentTabHelper final
   // Retire notre barre si elle est encore affichée (correction d'un verdict
   // « impossible à lire » démenti par l'arrivée d'une clé).
   void RemoveOurInfoBar();
+  // Pose l'état et prévient la toolbar si changement.
+  void SetProtectedState(ProtectedState state);
 
   content::RenderFrameHostReceiverSet<browther_drm::mojom::BrowtherDrmStatus>
       receivers_;
@@ -81,6 +96,7 @@ class BrowtherProtectedContentTabHelper final
   // si une clé finit par arriver.
   bool notified_blocked_ = false;
   bool license_request_seen_ = false;
+  ProtectedState protected_state_ = ProtectedState::kUnknown;
 
   base::OneShotTimer license_timer_;
   base::WeakPtrFactory<BrowtherProtectedContentTabHelper> weak_factory_{this};
