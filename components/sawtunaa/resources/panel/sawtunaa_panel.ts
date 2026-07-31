@@ -63,6 +63,9 @@ function setUIProtectedHint(state: number) {
   const text = document.getElementById('protected-hint-text')
   if (!box || !text) return
   const visible = state !== ProtectedContentState.kNone
+  // Le gros toggle passe à l'ambre quand la feature est ON
+  // mais sans effet ici — un toggle vert au-dessus de cet encadré se contredit.
+  document.getElementById('enabled-toggle')?.classList.toggle('protected', visible)
   if (visible) {
     // Le texte DIFFÈRE selon le cas, et la nuance est cruciale (retour Karim) :
     // quand la lecture est BLOQUÉE, installer l'app ne suffit pas — la page

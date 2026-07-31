@@ -91,6 +91,28 @@
     .big-toggle:focus-visible {
       box-shadow: 0 0 0 3px rgba(134, 239, 172, 0.4);
     }
+
+    /* ── Toggle AMBRE sur contenu protégé (2026-07-31, validé Karim) ──
+       Jumeau de sawtunaa_panel.html, à garder synchronisé. ON + sans effet
+       ici = le vert MENT ; l'ambre aligne le toggle sur le badge toolbar et
+       sur l'encadré juste en dessous. */
+    .big-toggle.protected.on {
+      background: radial-gradient(circle at bottom right,
+                                  var(--grad-inner), var(--grad-outer));
+      animation: amberCycle 4.5s linear infinite;
+    }
+    @keyframes amberCycle {
+      0%   { --grad-inner: #FCD34D; --grad-outer: #FBBF24; }
+      16.6%{ --grad-inner: #FBBF24; --grad-outer: #F59E0B; }
+      33.3%{ --grad-inner: #F59E0B; --grad-outer: #D97706; }
+      50%  { --grad-inner: #D97706; --grad-outer: #F97316; }
+      66.6%{ --grad-inner: #F97316; --grad-outer: #FB923C; }
+      83.3%{ --grad-inner: #FB923C; --grad-outer: #FCD34D; }
+      100% { --grad-inner: #FCD34D; --grad-outer: #FBBF24; }
+    }
+    .big-toggle.protected:focus-visible {
+      box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.4);
+    }
     .toggle-wrap {
       display: flex; justify-content: center;
       margin: 6px 0 12px;

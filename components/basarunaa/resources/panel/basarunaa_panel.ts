@@ -82,6 +82,9 @@ function setUIEnabled(enabled: boolean) {
 function setUIProtectedHint(visible: boolean) {
   const box = document.getElementById('protected-hint')
   if (box) box.hidden = !visible
+  // Le gros toggle passe à l'ambre quand la feature est ON
+  // mais sans effet ici — un toggle vert au-dessus de cet encadré se contredit.
+  document.getElementById('enabled-toggle')?.classList.toggle('protected', visible)
 }
 
 function setUIMode(mode: string) {
