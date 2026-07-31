@@ -1486,6 +1486,12 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SAWTUNAA_POPUP_RELOAD_HINT" desc="Hint shown in the Sawtunaa popup right after the user turns Sawtunaa on while media is playing in the current tab">
         Reload the tab to activate
       </message>
+      <message name="IDS_SAWTUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Sawtunaa popup when the current tab plays DRM-protected media: explains why the amber toolbar badge is showing, why music removal has no effect there, and what to do about it.">
+        No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. To remove the music anyway, install the Sawtunaa app together with its browser extension.
+      </message>
+      <message name="IDS_BASARUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Basarunaa panel when the current tab plays DRM-protected media: explains the amber toolbar badge. Unlike Sawtunaa there is no workaround, and the wording must not pretend otherwise.">
+        No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.
+      </message>
       <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_ON" desc="Tooltip on Sawtunaa toolbar action when enabled">
         Sawtunaa — ON
       </message>

@@ -957,4 +957,6 @@ lub zmień później w <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="1829678234932521744">Chronione wideo (DRM): Browther nie może go modyfikować, więc rozmycie i usuwanie muzyki tu nie działają. Aby usunąć muzykę, zainstaluj aplikację Sawtunaa wraz z jej rozszerzeniem przeglądarki.</translation>
 <translation id="8976138575226849658">Zainstaluj Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiuj link do innej przeglądarki</translation>
+<translation id="4973459469968528621">Bez efektu na tej stronie: treść jest chroniona (DRM), a Browther nie może jej modyfikować. Aby mimo to usunąć muzykę, zainstaluj aplikację Sawtunaa wraz z jej rozszerzeniem.</translation>
+<translation id="3262060763687518843">Bez efektu na tej stronie: treść jest chroniona (DRM), a Browther nie może jej modyfikować. Dla rozmycia nie ma obejścia.</translation>
 </translationbundle>

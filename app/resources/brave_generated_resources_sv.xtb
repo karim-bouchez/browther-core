@@ -958,4 +958,6 @@ börja använda Sync igen måste du skapa ett nytt konto och lägga till varje e
 <translation id="1829678234932521744">Skyddad video (DRM): Browther får inte ändra den, så oskärpa och musikborttagning gäller inte här. För att ta bort musiken, installera Sawtunaa-appen tillsammans med dess webbläsartillägg.</translation>
 <translation id="8976138575226849658">Installera Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiera länk till en annan webbläsare</translation>
+<translation id="4973459469968528621">Ingen effekt på den här sidan: innehållet är skyddat (DRM) och Browther får inte ändra det. Vill du ändå ta bort musiken, installera Sawtunaa-appen tillsammans med dess webbläsartillägg.</translation>
+<translation id="3262060763687518843">Ingen effekt på den här sidan: innehållet är skyddat (DRM) och Browther får inte ändra det. För oskärpa finns ingen lösning.</translation>
 </translationbundle>

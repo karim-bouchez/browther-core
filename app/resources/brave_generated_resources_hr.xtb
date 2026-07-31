@@ -957,4 +957,6 @@ Ili promijenite kasnije putem <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="1829678234932521744">Zaštićeni videozapis (DRM): Browther ga ne smije mijenjati, pa se zamućivanje i uklanjanje glazbe ovdje ne primjenjuju. Za uklanjanje glazbe instalirajte aplikaciju Sawtunaa zajedno s njezinim proširenjem za preglednik.</translation>
 <translation id="8976138575226849658">Instaliraj Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiraj poveznicu za drugi preglednik</translation>
+<translation id="4973459469968528621">Bez učinka na ovoj stranici: sadržaj je zaštićen (DRM) i Browther ga ne smije mijenjati. Za uklanjanje glazbe svejedno instalirajte aplikaciju Sawtunaa s njezinim proširenjem.</translation>
+<translation id="3262060763687518843">Bez učinka na ovoj stranici: sadržaj je zaštićen (DRM) i Browther ga ne smije mijenjati. Za zamućivanje nema rješenja.</translation>
 </translationbundle>

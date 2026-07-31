@@ -958,4 +958,6 @@ Of voer later wijzigingen door via <ph name="SETTINGS_EXTENIONS_LINK"/>.</transl
 <translation id="1829678234932521744">Beveiligde video (DRM): Browther mag die niet wijzigen, dus vervaging en muziekverwijdering gelden hier niet. Om de muziek te verwijderen, installeer je de Sawtunaa-app samen met de bijbehorende browserextensie.</translation>
 <translation id="8976138575226849658">Sawtunaa installeren</translation>
 <translation id="5640554172601835043">Link kopiëren voor een andere browser</translation>
+<translation id="4973459469968528621">Geen effect op deze pagina: de inhoud is beveiligd (DRM) en Browther mag die niet wijzigen. Wil je de muziek toch verwijderen, installeer dan de Sawtunaa-app samen met de browserextensie.</translation>
+<translation id="3262060763687518843">Geen effect op deze pagina: de inhoud is beveiligd (DRM) en Browther mag die niet wijzigen. Voor vervaging bestaat er geen oplossing.</translation>
 </translationbundle>

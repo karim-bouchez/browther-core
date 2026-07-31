@@ -58,6 +58,10 @@ class SawtunaaBubbleView : public views::BubbleDialogDelegateView {
   raw_ptr<views::Label> reload_hint_ = nullptr;
   // Encadré (icône + label) porteur du hint : c'est LUI qu'on montre/cache.
   raw_ptr<views::View> hint_container_ = nullptr;
+  // Browther: 2e encadré — « contenu protégé (DRM) », qui explique le badge
+  // ambre de la toolbar. Cliquable : ouvre la page de l'app Sawtunaa.
+  raw_ptr<views::Label> protected_hint_ = nullptr;
+  raw_ptr<views::View> protected_container_ = nullptr;
   PrefChangeRegistrar pref_change_registrar_;
 
   void UpdateStatusLabel();
@@ -69,6 +73,9 @@ class SawtunaaBubbleView : public views::BubbleDialogDelegateView {
   // d'autorité (décision UX 2026-07-25).
   bool ShouldShowReloadHint() const;
   void UpdateReloadHint(bool enabled);
+  bool ShouldShowProtectedHint() const;
+  void UpdateProtectedHint();
+  void OnProtectedHintPressed();
   // Clic sur le hint : recharge l'onglet actif puis ferme la bulle.
   void OnReloadHintPressed();
 };

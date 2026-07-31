@@ -959,4 +959,6 @@
 <translation id="1829678234932521744">保護された動画（DRM）：Browther は変更を許されていないため、ぼかしと音楽除去はここでは適用されません。音楽を除去するには、Sawtunaa アプリとそのブラウザ拡張機能を一緒にインストールしてください。</translation>
 <translation id="8976138575226849658">Sawtunaa をインストール</translation>
 <translation id="5640554172601835043">別のブラウザ用にリンクをコピー</translation>
+<translation id="4973459469968528621">このページでは効果がありません：コンテンツは保護されており（DRM）、Browther は手を加えられません。それでも音楽を除去するには、Sawtunaa アプリとそのブラウザ拡張機能を導入してください。</translation>
+<translation id="3262060763687518843">このページでは効果がありません：コンテンツは保護されており（DRM）、Browther は手を加えられません。ぼかしについては回避策がありません。</translation>
 </translationbundle>

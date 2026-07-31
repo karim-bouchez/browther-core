@@ -958,4 +958,6 @@ Sau modificați permisinile ulterior în <ph name="SETTINGS_EXTENIONS_LINK"/>.</
 <translation id="1829678234932521744">Videoclip protejat (DRM): Browther nu are voie să îl modifice, deci estomparea și eliminarea muzicii nu se aplică aici. Pentru a elimina muzica, instalează aplicația Sawtunaa împreună cu extensia sa de browser.</translation>
 <translation id="8976138575226849658">Instalează Sawtunaa</translation>
 <translation id="5640554172601835043">Copiază linkul pentru alt browser</translation>
+<translation id="4973459469968528621">Fără efect pe această pagină: conținutul este protejat (DRM), iar Browther nu are voie să îl modifice. Pentru a elimina totuși muzica, instalează aplicația Sawtunaa împreună cu extensia sa.</translation>
+<translation id="3262060763687518843">Fără efect pe această pagină: conținutul este protejat (DRM), iar Browther nu are voie să îl modifice. Pentru estompare nu există soluție.</translation>
 </translationbundle>

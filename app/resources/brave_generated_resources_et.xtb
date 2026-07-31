@@ -959,4 +959,6 @@ Loe Browther'i plaane Manifest V2 jaoks <ph name="BEGIN_LINK"/>siit<ph name="END
 <translation id="1829678234932521744">Kaitstud video (DRM): Browther ei tohi seda muuta, seega hägustamine ja muusika eemaldamine siin ei kehti. Muusika eemaldamiseks paigaldage Sawtunaa rakendus koos selle brauserilaiendusega.</translation>
 <translation id="8976138575226849658">Paigalda Sawtunaa</translation>
 <translation id="5640554172601835043">Kopeeri link teise brauserisse</translation>
+<translation id="4973459469968528621">Sellel lehel ei mõju: sisu on kaitstud (DRM) ja Browther ei tohi seda muuta. Muusika siiski eemaldamiseks paigaldage Sawtunaa rakendus koos brauserilaiendusega.</translation>
+<translation id="3262060763687518843">Sellel lehel ei mõju: sisu on kaitstud (DRM) ja Browther ei tohi seda muuta. Hägustamiseks lahendust ei ole.</translation>
 </translationbundle>

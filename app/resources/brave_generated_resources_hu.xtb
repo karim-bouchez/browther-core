@@ -960,4 +960,6 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="1829678234932521744">Védett videó (DRM): a Browther nem módosíthatja, ezért az elmosás és a zene eltávolítása itt nem érvényes. A zene eltávolításához telepítse a Sawtunaa alkalmazást a böngészőbővítményével együtt.</translation>
 <translation id="8976138575226849658">Sawtunaa telepítése</translation>
 <translation id="5640554172601835043">Hivatkozás másolása másik böngészőhöz</translation>
+<translation id="4973459469968528621">Nincs hatása ezen az oldalon: a tartalom védett (DRM), a Browther nem módosíthatja. Ha mégis el akarja távolítani a zenét, telepítse a Sawtunaa alkalmazást a böngészőbővítményével.</translation>
+<translation id="3262060763687518843">Nincs hatása ezen az oldalon: a tartalom védett (DRM), a Browther nem módosíthatja. Az elmosásra nincs megoldás.</translation>
 </translationbundle>

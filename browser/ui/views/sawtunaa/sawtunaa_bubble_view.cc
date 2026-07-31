@@ -13,7 +13,9 @@
 #include "base/values.h"
 #include "brave/browser/ui/views/browther/browther_big_toggle.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/components/constants/pref_names.h"
+#include "chrome/browser/ui/singleton_tabs.h"
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
@@ -287,6 +289,76 @@ void SawtunaaBubbleView::BuildContents() {
 
   hint_container_ = AddChildView(std::move(hint_button));
   hint_container_->SetVisible(false);
+
+  // ----- Hint « contenu protégé (DRM) » (masqué tant que non pertinent) -----
+  // Répond à la question que l'utilisateur se pose en ouvrant la popup après
+  // avoir vu le badge AMBRE : pourquoi c'est ambre, pourquoi ça ne marche pas
+  // ici, et comment faire malgré tout. Même encadré ambre que ci-dessus, même
+  // logique cliquable — ici le clic ouvre la page de l'app Sawtunaa.
+  const std::u16string protected_text =
+      l10n_util::GetStringUTF16(IDS_SAWTUNAA_POPUP_PROTECTED_HINT);
+  auto protected_button = std::make_unique<ReloadHintButton>(
+      base::BindRepeating(&SawtunaaBubbleView::OnProtectedHintPressed,
+                          base::Unretained(this)));
+  protected_button->SetAccessibleName(protected_text);
+
+  auto* protected_icon =
+      protected_button->AddChildView(std::make_unique<views::ImageView>(
+          ui::ImageModel::FromVectorIcon(vector_icons::kVideocamOffIcon,
+                                         ReloadHintButton::kAccent, 16)));
+  protected_icon->SetVerticalAlignment(views::ImageView::Alignment::kCenter);
+  protected_icon->SetCanProcessEventsWithinSubtree(false);
+
+  protected_hint_ =
+      protected_button->AddChildView(std::make_unique<views::Label>(protected_text));
+  protected_hint_->SetFontList(DeriveFont(12, gfx::Font::Weight::SEMIBOLD));
+  protected_hint_->SetHorizontalAlignment(gfx::ALIGN_LEFT);
+  protected_hint_->SetMultiLine(true);
+  protected_hint_->SetMaximumWidth(224);
+  protected_hint_->SetAutoColorReadabilityEnabled(false);
+  protected_hint_->SetEnabledColor(ReloadHintButton::kAccent);
+  protected_hint_->SetCanProcessEventsWithinSubtree(false);
+
+  protected_container_ = AddChildView(std::move(protected_button));
+  protected_container_->SetVisible(ShouldShowProtectedHint());
+}
+
+bool SawtunaaBubbleView::ShouldShowProtectedHint() const {
+  // Même gate que le badge ambre : sans tap natif (Windows aujourd'hui), c'est
+  // l'extension bundlée qui capture via chrome.tabCapture — et elle, elle
+  // fonctionne sur du DRM. Annoncer une panne là-bas serait faux.
+  if (!profile_prefs_->GetBoolean(kSawtunaaEnabled) ||
+      !profile_prefs_->GetBoolean(kSawtunaaNativeTapActive)) {
+    return false;
+  }
+  content::WebContents* web_contents =
+      browser_ ? browser_->tab_strip_model()->GetActiveWebContents() : nullptr;
+  return BrowtherProtectedContentTabHelper::StateFor(web_contents) !=
+         BrowtherProtectedContentTabHelper::ProtectedState::kUnknown;
+}
+
+void SawtunaaBubbleView::UpdateProtectedHint() {
+  if (!protected_container_) {
+    return;
+  }
+  const bool visible = ShouldShowProtectedHint();
+  if (protected_container_->GetVisible() == visible) {
+    return;
+  }
+  protected_container_->SetVisible(visible);
+  if (GetWidget()) {
+    SizeToContents();
+  }
+}
+
+void SawtunaaBubbleView::OnProtectedHintPressed() {
+  // La seule voie qui reste pour du DRM : l'app autonome + son extension.
+  if (browser_) {
+    ShowSingletonTab(browser_, GURL("https://sawtunaa.devndin.com"));
+  }
+  if (views::Widget* widget = GetWidget()) {
+    widget->Close();
+  }
 }
 
 void SawtunaaBubbleView::OnReloadHintPressed() {
@@ -310,6 +382,7 @@ void SawtunaaBubbleView::OnPrefChanged() {
   }
   UpdateStatusLabel();
   UpdateReloadHint(value);
+  UpdateProtectedHint();
 }
 
 bool SawtunaaBubbleView::ShouldShowReloadHint() const {

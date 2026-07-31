@@ -959,4 +959,6 @@ Ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="1829678234932521744">Vidéo protégée (DRM) : Browther n'a pas le droit d'y toucher, le floutage et la suppression de musique ne s'y appliquent donc pas. Pour retirer la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
 <translation id="8976138575226849658">Installer Sawtunaa</translation>
 <translation id="5640554172601835043">Copier le lien pour un autre navigateur</translation>
+<translation id="4973459469968528621">Sans effet sur cette page : le contenu est protégé (DRM) et Browther n'a pas le droit d'y toucher. Pour retirer quand même la musique, installez l'app Sawtunaa avec son extension de navigateur.</translation>
+<translation id="3262060763687518843">Sans effet sur cette page : le contenu est protégé (DRM) et Browther n'a pas le droit d'y toucher. Pour le floutage, il n'existe aucune solution de contournement.</translation>
 </translationbundle>

@@ -958,4 +958,6 @@ Tai muuta myöhemmin kohdassa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="1829678234932521744">Suojattu video (DRM): Browther ei saa muokata sitä, joten sumennus ja musiikin poisto eivät päde tässä. Poistaaksesi musiikin, asenna Sawtunaa-sovellus yhdessä sen selainlaajennuksen kanssa.</translation>
 <translation id="8976138575226849658">Asenna Sawtunaa</translation>
 <translation id="5640554172601835043">Kopioi linkki toiseen selaimeen</translation>
+<translation id="4973459469968528621">Ei vaikutusta tällä sivulla: sisältö on suojattu (DRM) eikä Browther saa muokata sitä. Jos haluat silti poistaa musiikin, asenna Sawtunaa-sovellus ja sen selainlaajennus.</translation>
+<translation id="3262060763687518843">Ei vaikutusta tällä sivulla: sisältö on suojattu (DRM) eikä Browther saa muokata sitä. Sumennukselle ei ole ratkaisua.</translation>
 </translationbundle>

@@ -958,4 +958,6 @@
 <translation id="1829678234932521744">보호된 동영상(DRM): Browther는 이를 수정할 수 없으므로 흐림 처리와 음악 제거가 여기에 적용되지 않습니다. 음악을 제거하려면 Sawtunaa 앱과 브라우저 확장 프로그램을 함께 설치하세요.</translation>
 <translation id="8976138575226849658">Sawtunaa 설치</translation>
 <translation id="5640554172601835043">다른 브라우저용으로 링크 복사</translation>
+<translation id="4973459469968528621">이 페이지에서는 적용되지 않습니다: 콘텐츠가 보호되어 있고(DRM) Browther가 수정할 수 없습니다. 그래도 음악을 제거하려면 Sawtunaa 앱과 브라우저 확장 프로그램을 함께 설치하세요.</translation>
+<translation id="3262060763687518843">이 페이지에서는 적용되지 않습니다: 콘텐츠가 보호되어 있고(DRM) Browther가 수정할 수 없습니다. 흐림 처리에는 우회 방법이 없습니다.</translation>
 </translationbundle>

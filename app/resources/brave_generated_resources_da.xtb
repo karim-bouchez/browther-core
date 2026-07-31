@@ -959,4 +959,6 @@ DU kan læse <ph name="BEGIN_LINK_BUILD_INSTRUCTIONS"/>instruktioner om hvordan 
 <translation id="1829678234932521744">Beskyttet video (DRM): Browther må ikke ændre den, så sløring og fjernelse af musik gælder ikke her. For at fjerne musikken skal du installere Sawtunaa-appen sammen med dens browserudvidelse.</translation>
 <translation id="8976138575226849658">Installer Sawtunaa</translation>
 <translation id="5640554172601835043">Kopiér link til en anden browser</translation>
+<translation id="4973459469968528621">Ingen effekt på denne side: indholdet er beskyttet (DRM), og Browther må ikke ændre det. Vil du alligevel fjerne musikken, så installer Sawtunaa-appen sammen med dens browserudvidelse.</translation>
+<translation id="3262060763687518843">Ingen effekt på denne side: indholdet er beskyttet (DRM), og Browther må ikke ændre det. Der findes ingen løsning for sløring.</translation>
 </translationbundle>
