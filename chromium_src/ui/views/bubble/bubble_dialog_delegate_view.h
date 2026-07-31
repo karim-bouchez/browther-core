@@ -15,7 +15,6 @@ class WaybackMachineBubbleView;
 class SidebarItemAddedFeedbackBubble;
 class SidebarEditItemBubbleDelegateView;
 class SidebarAddItemBubbleDelegateView;
-class SawtunaaBubbleView;
 
 namespace browther {
 class ShieldsInternalBubble;
@@ -39,7 +38,6 @@ class BraveBubbleDialogDelegateView;
   friend class ::SidebarItemAddedFeedbackBubble;       \
   friend class ::SidebarEditItemBubbleDelegateView;    \
   friend class ::SidebarAddItemBubbleDelegateView;     \
-  friend class ::SawtunaaBubbleView;                   \
   friend class ::browther::ShieldsInternalBubble;      \
   friend class ::views::BraveBubbleDialogDelegateView; \
   static BddvPassKey CreatePassKey

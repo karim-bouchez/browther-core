@@ -1,0 +1,68 @@
+// Copyright (c) 2026 dev&din. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// you can obtain one at https://mozilla.org/MPL/2.0/.
+
+module sawtunaa.mojom;
+
+// Browther: popup Sawtunaa de la toolbar, en WebUI
+// (chrome-untrusted://sawtunaa-panel.top-chrome). Jumeau de
+// basarunaa.mojom PanelHandlerFactory, lui-même calqué sur brave_vpn.
+//
+// ⚠️ IDL SÉPARÉ de sawtunaa.mojom : ce dernier a `generate_java = true` (tap
+// audio Android) et n'a rien à voir avec le panel desktop. Les mélanger
+// générerait du Java inutile et ferait dépendre le panel de la cible Android.
+interface PanelHandlerFactory {
+  // Appelé par la page WebUI à sa première initialisation.
+  CreatePanelHandler(pending_receiver<PanelHandler> panel_handler);
+};
+
+// Browther : pourquoi le badge de la toolbar est AMBRE sur l'onglet courant.
+// Les deux cas non-vides appellent des consignes DIFFÉRENTES et la nuance est
+// cruciale (cf. private/docs/WIDEVINE_VMP.md § 10.4) :
+//  - kUnfiltered : la page joue ici, mais on n'a pas le droit d'y toucher →
+//    installer l'app Sawtunaa + son extension DANS Browther.
+//  - kBlocked : la page ne joue même pas ici → l'ouvrir dans un AUTRE
+//    navigateur, et c'est LÀ-BAS qu'on installe l'app + l'extension. Dire
+//    « installez l'app » tout court serait faux.
+enum ProtectedContentState {
+  kNone,
+  kUnfiltered,
+  kBlocked,
+};
+
+// Handler côté browser des requêtes du panel Sawtunaa.
+interface PanelHandler {
+  // Signale que l'UI est prête à être montrée. Load-bearing : sans ce
+  // handshake (couplé au listener `visibilitychange` côté WebUI), l'embedder
+  // ne révèle pas le widget aux réouvertures suivantes — la bulle s'ouvre une
+  // fois puis plus jamais. C'est le bug que la migration de Basarunaa en WebUI
+  // (2026-05-07) avait corrigé ; ne pas le réintroduire ici.
+  ShowUI();
+
+  // Signale que la bulle doit être fermée.
+  CloseUI();
+
+  // État complet du panel en UN aller-retour (le panel se réhydrate à chaque
+  // `visibilitychange`, autant ne pas empiler les promesses) :
+  //  - enabled : pref `kSawtunaaEnabled` ;
+  //  - show_reload_hint : le tap natif est actif ET un média a déjà joué dans
+  //    l'onglet courant ⇒ le toggle ON ne prendra effet qu'au reload ;
+  //  - protected_state : déjà GATÉ côté browser (pref ON + tap natif actif +
+  //    verdict DRM rendu). Le WebUI n'a donc aucune règle métier à connaître.
+  GetState() => (bool enabled,
+                 bool show_reload_hint,
+                 ProtectedContentState protected_state);
+
+  // Écrit la pref `kSawtunaaEnabled` (+ télémétrie `feature_toggled`).
+  SetEnabled(bool enabled);
+
+  // Recharge l'onglet actif : c'est ce qui rebranche le tap natif sur le média
+  // en cours (la décision se prend à la création du WebMediaPlayer). Ferme la
+  // bulle dans la foulée — son hint n'a plus lieu d'être.
+  ReloadActiveTab();
+
+  // Ouvre la page de l'app autonome Sawtunaa (seule voie qui reste sur du
+  // DRM), puis ferme la bulle.
+  OpenSawtunaaAppPage();
+};

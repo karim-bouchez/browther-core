@@ -10,10 +10,10 @@
 
 #include "base/check_deref.h"
 #include "base/functional/bind.h"
+#include "brave/app/brave_command_ids.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
-#include "brave/browser/ui/views/sawtunaa/sawtunaa_bubble_view.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/profiles/profile.h"
@@ -38,6 +38,7 @@
 #include "ui/views/controls/button/menu_button_controller.h"
 #include "ui/views/controls/highlight_path_generator.h"
 #include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/browser_commands.h"
 #include "extensions/common/constants.h"
 
 namespace {
@@ -83,15 +84,17 @@ SawtunaaActionView::SawtunaaActionView(
 }
 
 void SawtunaaActionView::OnButtonPressed(const ui::Event& event) {
-  // Browther: open the popup; SawtunaaBubbleView::Show closes the active
-  // bubble itself if one is already shown (toggle behavior).
-  Browser* browser = browser_window_interface_
-                         ? browser_window_interface_->GetBrowserForMigrationOnly()
-                         : nullptr;
+  // Browther: la popup est un panel WebUI depuis 2026-07-31 (parité avec
+  // Basarunaa). Le SawtunaaPanelController ferme la bulle si elle est déjà
+  // ouverte — c'est lui qui porte le comportement toggle.
+  Browser* browser =
+      browser_window_interface_
+          ? browser_window_interface_->GetBrowserForMigrationOnly()
+          : nullptr;
   if (!browser) {
     return;
   }
-  SawtunaaBubbleView::Show(this, browser);
+  chrome::ExecuteCommand(browser, IDC_SHOW_SAWTUNAA_PANEL);
 }
 
 SawtunaaActionView::~SawtunaaActionView() = default;

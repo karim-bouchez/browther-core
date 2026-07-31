@@ -1,0 +1,40 @@
+# Copyright (c) 2026 dev&din. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+
+import("//brave/components/common/typescript.gni")
+import("//brave/resources/brave_grit.gni")
+import("//mojo/public/tools/bindings/mojom.gni")
+import("//tools/grit/repack.gni")
+
+transpile_web_ui("sawtunaa_panel_ui") {
+  output_module = false
+  entry_points = [ [
+        "sawtunaa_panel",
+        rebase_path("sawtunaa_panel.ts"),
+      ] ]
+  resource_name = "sawtunaa_panel"
+
+  imports_from = [ "//brave/components/sawtunaa/resources/panel/" ]
+
+  deps = [
+    "//brave/components/sawtunaa/common/mojom:panel_mojom_js",
+    "//brave/components/sawtunaa/common/mojom:preprocess_panel_mojo",
+  ]
+}
+
+pack_web_resources("sawtunaa_panel_generated") {
+  resource_name = "sawtunaa_panel"
+  output_dir = "$root_gen_dir/brave/components/sawtunaa/resources/panel"
+  deps = [ ":sawtunaa_panel_ui" ]
+}
+
+repack("resources") {
+  sources = [ "$root_gen_dir/brave/components/sawtunaa/resources/panel/sawtunaa_panel_generated.pak" ]
+
+  deps = [ ":sawtunaa_panel_generated" ]
+
+  output =
+      "$root_gen_dir/brave/components/sawtunaa/sawtunaa_panel_resources.pak"
+}

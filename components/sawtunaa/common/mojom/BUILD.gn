@@ -4,6 +4,7 @@
 # you can obtain one at https://mozilla.org/MPL/2.0/.
 
 import("//mojo/public/tools/bindings/mojom.gni")
+import("//tools/grit/preprocess_if_expr.gni")
 
 mojom("mojom") {
   generate_java = true
@@ -12,4 +13,22 @@ mojom("mojom") {
 
   # BigBuffer (AudioTapProcessor.ProcessBatch — PCM en shared memory).
   public_deps = [ "//mojo/public/mojom/base" ]
+}
+
+# Browther: popup Sawtunaa en WebUI (desktop only). Cible SÉPARÉE de `mojom` :
+# celle-là a `generate_java = true` pour le tap audio Android, dont le panel n'a
+# que faire. Jumeau de //brave/components/basarunaa/common/mojom.
+mojom("panel_mojom") {
+  sources = [ "sawtunaa_panel.mojom" ]
+}
+
+preprocess_folder = "preprocessed"
+preprocess_panel_mojo_manifest = "preprocessed_panel_mojo_manifest.json"
+
+preprocess_if_expr("preprocess_panel_mojo") {
+  deps = [ ":panel_mojom_js" ]
+  in_folder = "$target_gen_dir"
+  out_folder = "$target_gen_dir/$preprocess_folder"
+  out_manifest = "$target_gen_dir/$preprocess_panel_mojo_manifest"
+  in_files = [ "sawtunaa_panel.mojom-lite.js" ]
 }

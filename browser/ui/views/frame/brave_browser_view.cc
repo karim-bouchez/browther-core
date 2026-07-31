@@ -32,6 +32,7 @@
 #include "brave/browser/ui/views/brave_actions/basarunaa_action_view.h"
 #include "brave/browser/ui/views/brave_actions/brave_actions_container.h"
 #include "brave/browser/ui/views/brave_actions/brave_shields_action_view.h"
+#include "brave/browser/ui/views/brave_actions/sawtunaa_action_view.h"
 #include "brave/browser/ui/views/brave_help_bubble/brave_help_bubble_host_view.h"
 #include "brave/browser/ui/views/frame/brave_contents_layout_manager.h"
 #include "brave/browser/ui/views/frame/brave_contents_view_util.h"
@@ -517,6 +518,20 @@ views::View* BraveBrowserView::GetAnchorViewForBasarunaaPanel() {
 
 void BraveBrowserView::ShowBasarunaaPanel() {
   basarunaa_panel_controller_.ShowBasarunaaPanel();
+}
+
+// Browther: Sawtunaa panel anchored on the Sawtunaa toolbar action.
+views::View* BraveBrowserView::GetAnchorViewForSawtunaaPanel() {
+  auto* sawtunaa_view =
+      static_cast<BraveToolbarView*>(toolbar())->sawtunaa_action_view();
+  if (sawtunaa_view && sawtunaa_view->GetVisible()) {
+    return sawtunaa_view;
+  }
+  return toolbar()->app_menu_button();
+}
+
+void BraveBrowserView::ShowSawtunaaPanel() {
+  sawtunaa_panel_controller_.ShowSawtunaaPanel();
 }
 
 gfx::Rect BraveBrowserView::GetShieldsBubbleRect() {

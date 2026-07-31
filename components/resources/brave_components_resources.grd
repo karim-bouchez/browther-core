@@ -71,6 +71,8 @@
         </if>
         <!-- Browther: Basarunaa panel HTML resource. -->
         <include name="IDR_BASARUNAA_PANEL_HTML" file="../basarunaa/resources/panel/basarunaa_panel.html" type="BINDATA" />
+        <!-- Browther: Sawtunaa panel HTML resource. -->
+        <include name="IDR_SAWTUNAA_PANEL_HTML" file="../sawtunaa/resources/panel/sawtunaa_panel.html" type="BINDATA" />
       </if>
 
       <!-- Imagery links -->

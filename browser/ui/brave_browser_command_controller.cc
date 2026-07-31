@@ -251,8 +251,9 @@ void BraveBrowserCommandController::InitBraveCommandState() {
 #endif
   UpdateCommandForSidebar();
   UpdateCommandForBraveVPN();
-  // Browther: Basarunaa panel command toujours activée.
+  // Browther: panels Basarunaa + Sawtunaa toujours activés.
   UpdateCommandEnabled(IDC_SHOW_BASARUNAA_PANEL, true);
+  UpdateCommandEnabled(IDC_SHOW_SAWTUNAA_PANEL, true);
   UpdateCommandForPlaylist();
   UpdateCommandForWaybackMachine();
   pref_change_registrar_.Init(browser_->profile()->GetPrefs());
@@ -619,6 +620,9 @@ bool BraveBrowserCommandController::ExecuteBraveCommandWithDisposition(
       break;
     case IDC_SHOW_BASARUNAA_PANEL:
       brave::ShowBasarunaaPanel(&*browser_);
+      break;
+    case IDC_SHOW_SAWTUNAA_PANEL:
+      brave::ShowSawtunaaPanel(&*browser_);
       break;
     case IDC_TOGGLE_BRAVE_VPN_TRAY_ICON:
       brave::ToggleBraveVPNTrayIcon();

@@ -108,6 +108,34 @@
       margin-bottom: 4px;
     }
 
+    /* Encadré ambre « contenu protégé (DRM) » — jumeau de celui du panel
+       Sawtunaa (sawtunaa_panel.html), à garder synchronisé. Ambre #F59E0B du
+       design system : informe sans alarmer. Ici PAS de bouton d'action : sur
+       du DRM le floutage n'a aucune solution de repli (cf.
+       private/docs/WIDEVINE_VMP.md § 10.5) — proposer une action serait
+       mentir. */
+    .amber-box {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
+      background: rgba(245, 158, 11, 0.14);
+      color: #F59E0B;
+      font-size: 12px; font-weight: 600;
+      line-height: 1.35;
+      text-align: left;
+    }
+    .amber-box[hidden] { display: none; }
+    .amber-row {
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .amber-row .amber-icon {
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      margin-top: 1px;
+      fill: currentColor;
+    }
+
     /* Sections (Mode, Détection, Debug) — inchangées. */
     .section {
       margin-top: 18px;
@@ -259,6 +287,20 @@
 
   <div class="desc">
     $i18n{description}
+  </div>
+
+  <!-- Encadré « contenu protégé (DRM) » (masqué tant que non pertinent).
+       Explique le badge AMBRE de la toolbar : pourquoi le floutage ne
+       s'applique pas ici. Sans lui, le panel MENT — gros toggle sur ON et
+       statut « ACTIVÉ » sur une page où il ne se passe rien. -->
+  <div class="amber-box" id="protected-hint" hidden>
+    <span class="amber-row">
+      <!-- vector_icons::kVideocamOffIcon -->
+      <svg class="amber-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 6.5l-4 4V7c0-.55-.45-1-1-1H9.82L21 17.18V6.5zM3.27 2L2 3.27 4.73 6H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.21 0 .39-.08.54-.18L19.73 21 21 19.73 3.27 2z"></path>
+      </svg>
+      <span>$i18n{protectedHint}</span>
+    </span>
   </div>
 
   <div class="section" id="mode-section">

@@ -1,0 +1,233 @@
+<!doctype html>
+<!-- Copyright (c) 2026 dev&din. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this file,
+     you can obtain one at https://mozilla.org/MPL/2.0/. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sawtunaa</title>
+  <link rel="stylesheet" href="chrome-untrusted://resources/css/reset.css">
+  <link rel="stylesheet" href="chrome-untrusted://resources/css/text_defaults_md.css">
+  <link rel="stylesheet" href="chrome-untrusted://resources/brave/css/nala.css">
+  <script src="chrome-untrusted://resources/js/load_time_data_deprecated.js"></script>
+  <script src="/strings.js"></script>
+  <style>
+    /* Browther: MÊME feuille que basarunaa_panel.html pour les parties
+       communes (header, big toggle, status, desc). Les deux popups doivent
+       être indiscernables — c'est tout l'objet de la migration Views→WebUI
+       (2026-07-31) : en natif le contour de bulle divergeait. Toute retouche
+       ici doit être répercutée là-bas, et inversement. */
+    html, body { margin: 0; padding: 0; }
+    body {
+      width: 320px;
+      font-family: var(--leo-font-default-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+      background: var(--leo-color-container-background, #1a1a2e);
+      color: var(--leo-color-text-primary, #eee);
+    }
+    /* Conteneur scrollable interne : il borne sa PROPRE hauteur, ce que
+       l'auto-resize de la bubble respecte (un max-height sur <body> est ignoré
+       car la bubble redimensionne le host au contenu). */
+    .scroll {
+      max-height: 620px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      padding: 20px 20px 22px;
+    }
+
+    /* Header : icon (with bg) + wordmark on a single line, centered. */
+    .header {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 14px;
+    }
+    .header img.icon { width: 40px; height: 40px; }
+    .header img.wordmark { height: 26px; width: auto; }
+
+    /* Big toggle ON/OFF — mirror of iOS ShieldsSwitchView. Les browsers ne
+       savent pas interpoler entre 2 `background: radial-gradient(...)`
+       différents — ça saute aux keyframes. La parade : animer 2 vars
+       déclarées via @property syntax:'<color>' (interpolation continue), puis
+       composer le gradient avec ces vars. */
+    @property --grad-inner {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #86EFAC;
+    }
+    @property --grad-outer {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #4ADE80;
+    }
+    .big-toggle {
+      width: 96px; height: 52px;
+      border-radius: 26px;
+      position: relative;
+      cursor: pointer;
+      background: #555;
+      transition: background 0.3s ease;
+      border: none; padding: 0;
+      outline: none;
+    }
+    .big-toggle::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 6px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .big-toggle.on::before { transform: translateX(44px); }
+    .big-toggle.on {
+      background: radial-gradient(circle at bottom right,
+                                  var(--grad-inner), var(--grad-outer));
+      animation: greenCycle 4.5s linear infinite;
+    }
+    @keyframes greenCycle {
+      0%   { --grad-inner: #86EFAC; --grad-outer: #4ADE80; }
+      16.6%{ --grad-inner: #4ADE80; --grad-outer: #22C55E; }
+      33.3%{ --grad-inner: #22C55E; --grad-outer: #16A34A; }
+      50%  { --grad-inner: #16A34A; --grad-outer: #10B981; }
+      66.6%{ --grad-inner: #10B981; --grad-outer: #34D399; }
+      83.3%{ --grad-inner: #34D399; --grad-outer: #86EFAC; }
+      100% { --grad-inner: #86EFAC; --grad-outer: #4ADE80; }
+    }
+    .big-toggle:focus-visible {
+      box-shadow: 0 0 0 3px rgba(134, 239, 172, 0.4);
+    }
+    .toggle-wrap {
+      display: flex; justify-content: center;
+      margin: 6px 0 12px;
+    }
+
+    .status {
+      font-size: 13px; font-weight: 600;
+      text-align: center; opacity: 0.7;
+      margin-bottom: 8px;
+    }
+    .desc {
+      font-size: 12px; opacity: 0.7;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    /* ── Encadrés ambre ──────────────────────────────────────────────────
+       Ambre #F59E0B = celui du design system (pas une couleur inventée) :
+       informe sans alarmer. Fond à 14 % d'opacité, bordure à 40 %. */
+    .amber-box {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
+      background: rgba(245, 158, 11, 0.14);
+      color: #F59E0B;
+      font-size: 12px; font-weight: 600;
+      line-height: 1.35;
+      text-align: left;
+    }
+    .amber-box[hidden] { display: none; }
+    .amber-row {
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .amber-row .amber-icon {
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      margin-top: 1px;
+      fill: currentColor;
+    }
+
+    /* Hint « recharge l'onglet » : encadré CLIQUABLE. Le message dit à
+       l'utilisateur ce qu'il doit faire — autant lui permettre de le faire
+       d'un clic. Pas de reload automatique : c'est lui qui décide quand
+       (décision UX 2026-07-25). Le fond s'intensifie au survol. */
+    button.amber-box {
+      display: block; width: 100%;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    button.amber-box:hover, button.amber-box:active {
+      background: rgba(245, 158, 11, 0.24);
+    }
+    button.amber-box:focus-visible {
+      outline: 2px solid rgba(245, 158, 11, 0.6);
+      outline-offset: 2px;
+    }
+    #reload-hint .amber-row { align-items: center; }
+
+    /* Encadré « contenu protégé (DRM) ».
+       ⚠️ PAS cliquable comme le hint reload : personne ne devine qu'on peut
+       cliquer dessus (retour Karim 2026-07-31 — il l'avait trouvé par hasard).
+       L'action est portée par un VRAI bouton, sous le texte. */
+    /* Centré sous le texte (qui reste, lui, aligné à gauche) : c'est LE bouton
+       d'action de l'encadré, le centrer le détache du paragraphe et le fait
+       lire comme un CTA. `margin-inline: auto` suffit — un <button> en
+       display:block garde sa largeur intrinsèque (shrink-to-fit). */
+    .amber-action {
+      display: block;
+      margin: 8px auto 0;
+      padding: 8px 16px;
+      border: none; border-radius: 6px;
+      background: #10B981;
+      color: #fff;
+      font-family: inherit;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .amber-action:hover { background: #059669; }
+    .amber-action:focus-visible {
+      outline: 2px solid rgba(16, 185, 129, 0.6);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll">
+    <div class="header">
+      <img class="icon" src="brand_icon.png" alt="Sawtunaa">
+      <img class="wordmark" src="wordmark_white.png" alt="Sawtunaa">
+    </div>
+
+    <div class="toggle-wrap">
+      <button id="enabled-toggle" class="big-toggle" aria-label="Sawtunaa"></button>
+    </div>
+    <div class="status" id="status">$i18n{loading}</div>
+
+    <div class="desc">
+      $i18n{description}
+    </div>
+
+    <!-- Hint « recharge l'onglet » (masqué tant que non pertinent). -->
+    <button type="button" class="amber-box" id="reload-hint" hidden>
+      <span class="amber-row">
+        <!-- vector_icons::kReloadChromeRefreshIcon -->
+        <svg class="amber-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path>
+        </svg>
+        <span id="reload-hint-text">$i18n{reloadHint}</span>
+      </span>
+    </button>
+
+    <!-- Encadré « contenu protégé (DRM) » (masqué tant que non pertinent).
+         Répond à la question que l'utilisateur se pose en ouvrant la popup
+         après avoir vu le badge AMBRE : pourquoi c'est ambre, pourquoi ça ne
+         marche pas ici, et comment faire malgré tout. -->
+    <div class="amber-box" id="protected-hint" hidden>
+      <span class="amber-row">
+        <!-- vector_icons::kVideocamOffIcon -->
+        <svg class="amber-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 6.5l-4 4V7c0-.55-.45-1-1-1H9.82L21 17.18V6.5zM3.27 2L2 3.27 4.73 6H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.21 0 .39-.08.54-.18L19.73 21 21 19.73 3.27 2z"></path>
+        </svg>
+        <span id="protected-hint-text"></span>
+      </span>
+      <button type="button" class="amber-action" id="protected-action">
+        $i18n{installSawtunaa}
+      </button>
+    </div>
+  </div>
+  <script type="module" src="sawtunaa_panel.bundle.js"></script>
+</body>
+</html>

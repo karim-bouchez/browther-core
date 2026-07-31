@@ -23,15 +23,20 @@ class BrowtherBigToggle;
 
 // Browther: bubble anchored to the Shields toolbar button, shown when the
 // active tab is on an internal page (chrome://, about:, file://, …) where the
-// WebUI Shields panel is not available. Mirrors the SawtunaaBubbleView layout
-// (header lockup + big toggle + status + description) and controls the GLOBAL
-// default Brave Shields content setting (empty GURL).
+// WebUI Shields panel is not available. Reprend le layout commun des popups
+// Browther (header lockup + big toggle + status + description, cf.
+// private/docs/UI_UX_FEATURES.md) et pilote le content setting Brave Shields
+// GLOBAL par défaut (empty GURL).
+//
+// ⚠️ Dernière popup Browther restée en Views : Sawtunaa et Basarunaa sont en
+// WebUI. Elle le reste parce qu'elle s'ouvre justement là où un panel WebUI n'a
+// pas de sens (pages internes).
 class ShieldsInternalBubble : public views::BubbleDialogDelegateView {
   METADATA_HEADER(ShieldsInternalBubble, views::BubbleDialogDelegateView)
 
  public:
   // Creates and shows the bubble. If a bubble is already shown, closes it
-  // (toggle behavior, mirrors SawtunaaBubbleView).
+  // (toggle behavior, comme les panels WebUI Sawtunaa/Basarunaa).
   static void Show(views::View* anchor, Browser* browser);
 
   ShieldsInternalBubble(views::View* anchor, Browser* browser);

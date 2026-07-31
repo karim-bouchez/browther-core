@@ -259,8 +259,6 @@ source_set("ui") {
       "brave_file_select_utils.h",
       "brave_icon_with_badge_image_source.cc",
       "brave_icon_with_badge_image_source.h",
-      "browther_status_dot_image_source.cc",
-      "browther_status_dot_image_source.h",
       "brave_pages.cc",
       "brave_pages.h",
       "brave_tab_strip_model_delegate.cc",
@@ -269,6 +267,8 @@ source_set("ui") {
       "browser_commands.cc",
       "browser_commands.h",
       "browser_dialogs.h",
+      "browther_status_dot_image_source.cc",
+      "browther_status_dot_image_source.h",
       "content_settings/brave_autoplay_blocked_image_model.cc",
       "content_settings/brave_autoplay_blocked_image_model.h",
       "content_settings/brave_autoplay_content_setting_bubble_model.cc",
@@ -1186,24 +1186,22 @@ source_set("ui") {
 
   if (enable_extensions && toolkit_views) {
     sources += [
+      "views/brave_actions/basarunaa_action_view.cc",
+      "views/brave_actions/basarunaa_action_view.h",
       "views/brave_actions/brave_actions_container.cc",
       "views/brave_actions/brave_actions_container.h",
       "views/brave_actions/brave_shields_action_view.cc",
       "views/brave_actions/brave_shields_action_view.h",
       "views/brave_actions/sawtunaa_action_view.cc",
       "views/brave_actions/sawtunaa_action_view.h",
-      "views/browther/browther_big_toggle.cc",
-      "views/browther/browther_big_toggle.h",
-      "views/browther/shields_internal_bubble.cc",
-      "views/browther/shields_internal_bubble.h",
-      "views/sawtunaa/sawtunaa_bubble_view.cc",
-      "views/sawtunaa/sawtunaa_bubble_view.h",
-      "views/brave_actions/basarunaa_action_view.cc",
-      "views/brave_actions/basarunaa_action_view.h",
       "views/brave_help_bubble/brave_help_bubble_delegate_view.cc",
       "views/brave_help_bubble/brave_help_bubble_delegate_view.h",
       "views/brave_help_bubble/brave_help_bubble_host_view.cc",
       "views/brave_help_bubble/brave_help_bubble_host_view.h",
+      "views/browther/browther_big_toggle.cc",
+      "views/browther/browther_big_toggle.h",
+      "views/browther/shields_internal_bubble.cc",
+      "views/browther/shields_internal_bubble.h",
       "views/profiles/brave_avatar_toolbar_button.cc",
       "views/profiles/brave_avatar_toolbar_button.h",
       "views/tabs/brave_new_tab_button.cc",
@@ -1301,25 +1299,35 @@ source_set("ui") {
     }
   }
 
-  # Browther: Basarunaa panel WebUI (desktop only).
+  # Browther: panels Basarunaa + Sawtunaa en WebUI (desktop only).
   if (!is_android) {
     sources += [
       "webui/basarunaa/basarunaa_panel_handler.cc",
       "webui/basarunaa/basarunaa_panel_handler.h",
       "webui/basarunaa/basarunaa_panel_ui.cc",
       "webui/basarunaa/basarunaa_panel_ui.h",
+      "webui/sawtunaa/sawtunaa_panel_handler.cc",
+      "webui/sawtunaa/sawtunaa_panel_handler.h",
+      "webui/sawtunaa/sawtunaa_panel_ui.cc",
+      "webui/sawtunaa/sawtunaa_panel_ui.h",
     ]
-    public_deps += [ "//brave/components/basarunaa/common/mojom" ]
+    public_deps += [
+      "//brave/components/basarunaa/common/mojom",
+      "//brave/components/sawtunaa/common/mojom:panel_mojom",
+    ]
     deps += [
       "//brave/browser/basarunaa",
       "//brave/components/basarunaa/core",
       "//brave/components/basarunaa/resources:panel_resources",
+      "//brave/components/sawtunaa/resources:panel_resources",
     ]
 
     if (toolkit_views) {
       sources += [
         "views/toolbar/basarunaa_panel_controller.cc",
         "views/toolbar/basarunaa_panel_controller.h",
+        "views/toolbar/sawtunaa_panel_controller.cc",
+        "views/toolbar/sawtunaa_panel_controller.h",
       ]
     }
   }

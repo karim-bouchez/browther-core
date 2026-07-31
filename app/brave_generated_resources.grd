@@ -1473,6 +1473,9 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_PANEL_NAME" desc="Window title of the Basarunaa toolbar panel" formatter_data="webui=Basarunaa">
         Basarunaa
       </message>
+      <message name="IDS_SAWTUNAA_PANEL_NAME" desc="Window title of the Sawtunaa toolbar panel" formatter_data="webui=Sawtunaa">
+        Sawtunaa
+      </message>
       <!-- Browther: Sawtunaa popup (toolbar bubble + action tooltips) -->
       <message name="IDS_SAWTUNAA_POPUP_STATUS_ON" desc="Status text in Sawtunaa popup when enabled">
         Music removal ENABLED

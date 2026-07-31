@@ -37,9 +37,10 @@
 #include "brave/components/brave_vpn/common/brave_vpn_utils.h"
 #endif  // BUILDFLAG(ENABLE_BRAVE_VPN)
 
-// Browther: Basarunaa panel WebUI (gender-blur). Mirrors brave_vpn panel.
+// Browther: panels Basarunaa + Sawtunaa en WebUI. Mirrors brave_vpn panel.
 #if !BUILDFLAG(IS_ANDROID)
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
+#include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
 #endif  // !BUILDFLAG(IS_ANDROID)
 
 #if BUILDFLAG(ENABLE_PLAYLIST_WEBUI)
@@ -84,6 +85,9 @@ void RegisterChromeUntrustedWebUIConfigs() {
   // Browther: Basarunaa panel WebUI (gender-blur).
   content::WebUIConfigMap::GetInstance().AddUntrustedWebUIConfig(
       std::make_unique<UntrustedBasarunaaPanelUIConfig>());
+  // Browther: Sawtunaa panel WebUI (music/noise removal).
+  content::WebUIConfigMap::GetInstance().AddUntrustedWebUIConfig(
+      std::make_unique<UntrustedSawtunaaPanelUIConfig>());
 #if BUILDFLAG(ENABLE_PLAYLIST_WEBUI)
   if (base::FeatureList::IsEnabled(playlist::features::kPlaylist)) {
     content::WebUIConfigMap::GetInstance().AddUntrustedWebUIConfig(

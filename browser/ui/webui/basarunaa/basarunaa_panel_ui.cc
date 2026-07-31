@@ -51,6 +51,10 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
       {"statusOn", IDS_BASARUNAA_POPUP_STATUS_ON},
       {"statusOff", IDS_BASARUNAA_POPUP_STATUS_OFF},
       {"description", IDS_BASARUNAA_POPUP_DESCRIPTION},
+      // Browther: encadré « contenu protégé (DRM) ». Un seul texte ici —
+      // contrairement à Sawtunaa il n'y a aucune solution de contournement, et
+      // le wording ne doit pas laisser croire le contraire.
+      {"protectedHint", IDS_BASARUNAA_POPUP_PROTECTED_HINT},
       {"modeLabel", IDS_BASARUNAA_PANEL_MODE_LABEL},
       {"modeFemale", IDS_BASARUNAA_PANEL_MODE_FEMALE},
       {"modeMale", IDS_BASARUNAA_PANEL_MODE_MALE},

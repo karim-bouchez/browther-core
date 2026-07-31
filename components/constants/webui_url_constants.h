@@ -49,6 +49,11 @@ inline constexpr char kVPNPanelHost[] = "vpn-panel.top-chrome";
 inline constexpr char kBasarunaaPanelURL[] =
     "chrome-untrusted://basarunaa-panel.top-chrome/";
 inline constexpr char kBasarunaaPanelHost[] = "basarunaa-panel.top-chrome";
+// Browther: Sawtunaa panel WebUI (music/noise removal). Même architecture que
+// Basarunaa ci-dessus — les deux popups doivent rester indiscernables.
+inline constexpr char kSawtunaaPanelURL[] =
+    "chrome-untrusted://sawtunaa-panel.top-chrome/";
+inline constexpr char kSawtunaaPanelHost[] = "sawtunaa-panel.top-chrome";
 inline constexpr char kBraveUIWalletPageURL[] = "chrome://wallet/";
 inline constexpr char kWalletPageHost[] = "wallet";
 inline constexpr char kExtensionSettingsURL[] = "brave://settings/extensions";

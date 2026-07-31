@@ -21,15 +21,17 @@ function notifyShowUI() {
 
 async function refreshState() {
   try {
-    const [{ enabled }, { mode }, censorEyes, nsfw, sliders, dev] = await Promise.all([
+    const [{ enabled }, { mode }, censorEyes, nsfw, sliders, dev, protectedContent] = await Promise.all([
       api().getEnabled(),
       api().getMode(),
       api().getCensorEyes(),
       api().getNsfwEnabled(),
       api().getSliders(),
       api().getDevSettings(),
+      api().getProtectedContent(),
     ])
     setUIEnabled(enabled)
+    setUIProtectedHint(protectedContent.visible)
     setUIMode(mode)
     setUICensorEyes(censorEyes.enabled)
     setUINsfw(nsfw.enabled)
@@ -72,6 +74,14 @@ function setUIEnabled(enabled: boolean) {
     status.textContent = loadTimeData.getString(enabled ? 'statusOn' : 'statusOff')
   }
   document.body.dataset.disabled = enabled ? 'false' : 'true'
+}
+
+// Encadré « contenu protégé (DRM) » : explique le badge ambre de la toolbar.
+// La condition (feature ON + verdict DRM sur l'onglet actif) est appliquée
+// côté browser — ici on ne fait qu'afficher.
+function setUIProtectedHint(visible: boolean) {
+  const box = document.getElementById('protected-hint')
+  if (box) box.hidden = !visible
 }
 
 function setUIMode(mode: string) {
@@ -158,6 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setUIEnabled(enabled)
     try {
       api().setEnabled(enabled)
+      // L'encadré « contenu protégé » est gaté sur la pref : on le relit après
+      // l'écriture. Mojo garantit l'ordre sur le même pipe, donc la réponse
+      // reflète bien la nouvelle valeur malgré le fire-and-forget de setEnabled.
+      api().getProtectedContent().then(r => setUIProtectedHint(r.visible))
     } catch (err) {
       console.error('[basarunaa-panel] setEnabled failed', err)
     }

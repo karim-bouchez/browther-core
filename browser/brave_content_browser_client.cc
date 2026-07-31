@@ -164,7 +164,9 @@
 #if !BUILDFLAG(IS_ANDROID)
 // [Browther/Sawtunaa] audio tap V2 — binder desktop (NSNet2 natif browser).
 #include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
+#include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
 #include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+#include "brave/components/sawtunaa/common/mojom/sawtunaa_panel.mojom.h"
 #endif
 #include "brave/components/basarunaa/core/basarunaa_features.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
@@ -832,6 +834,9 @@ void BraveContentBrowserClient::RegisterUntrustedWebUIInterfaceBrokers(
   // Browther: Basarunaa panel WebUI mojo binder (untrusted, mirror of VPN).
   registry.ForWebUI<BasarunaaPanelUI>()
       .Add<basarunaa::mojom::PanelHandlerFactory>();
+  // Browther: idem pour la popup Sawtunaa (migrée de Views → WebUI).
+  registry.ForWebUI<SawtunaaPanelUI>()
+      .Add<sawtunaa::mojom::PanelHandlerFactory>();
 #endif
 
 #if BUILDFLAG(ENABLE_PLAYLIST_WEBUI)
@@ -1035,8 +1040,8 @@ void BraveContentBrowserClient::RegisterBrowserInterfaceBindersForFrame(
       brave_private_new_tab::mojom::PageHandler, BravePrivateNewTabUI>(map);
   content::RegisterWebUIControllerInterfaceBinder<
       brave_shields::mojom::PanelHandlerFactory, ShieldsPanelUI>(map);
-  // Browther: Basarunaa panel binder is registered as untrusted, see
-  // RegisterUntrustedWebUIInterfaceBrokers above.
+  // Browther: les binders des panels Basarunaa et Sawtunaa sont enregistrés
+  // en untrusted, cf. RegisterUntrustedWebUIInterfaceBrokers ci-dessus.
 #if BUILDFLAG(ENABLE_BRAVE_REWARDS)
   content::RegisterWebUIControllerInterfaceBinder<
       brave_rewards::mojom::RewardsPageHandler,

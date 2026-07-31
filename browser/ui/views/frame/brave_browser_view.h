@@ -29,8 +29,10 @@
 #include "ui/base/accelerators/accelerator.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 
-// Browther: Basarunaa controller is unconditional — feature pas liée à VPN.
+// Browther: controllers Basarunaa + Sawtunaa inconditionnels — features pas
+// liées au VPN.
 #include "brave/browser/ui/views/toolbar/basarunaa_panel_controller.h"
+#include "brave/browser/ui/views/toolbar/sawtunaa_panel_controller.h"
 
 #if BUILDFLAG(ENABLE_BRAVE_VPN)
 #include "brave/browser/ui/views/toolbar/brave_vpn_panel_controller.h"
@@ -120,6 +122,9 @@ class BraveBrowserView : public BrowserView,
   // Browther: Basarunaa panel (gender-blur).
   views::View* GetAnchorViewForBasarunaaPanel();
   void ShowBasarunaaPanel();
+  // Browther: Sawtunaa panel (music/noise removal).
+  views::View* GetAnchorViewForSawtunaaPanel();
+  void ShowSawtunaaPanel();
   gfx::Rect GetShieldsBubbleRect() override;
 #if BUILDFLAG(ENABLE_SPEEDREADER)
   // Give active tab's reader mode toolbar.
@@ -284,6 +289,8 @@ class BraveBrowserView : public BrowserView,
 #endif
   // Browther: Basarunaa panel controller (gender-blur).
   BasarunaaPanelController basarunaa_panel_controller_{this};
+  // Browther: Sawtunaa panel controller (music/noise removal).
+  SawtunaaPanelController sawtunaa_panel_controller_{this};
 
 #if BUILDFLAG(ENABLE_SPEEDREADER)
   raw_ptr<ReaderModeToolbarView> reader_mode_toolbar_;

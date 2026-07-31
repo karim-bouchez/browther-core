@@ -281,6 +281,15 @@ void ShowBasarunaaPanel(Browser* browser) {
   }
 }
 
+// Browther: ouvre le panel Sawtunaa via le BraveBrowserView.
+void ShowSawtunaaPanel(Browser* browser) {
+  auto* browser_view = static_cast<BraveBrowserView*>(
+      BrowserView::GetBrowserViewForBrowser(browser));
+  if (browser_view) {
+    browser_view->ShowSawtunaaPanel();
+  }
+}
+
 void ToggleBraveVPNTrayIcon() {
 #if BUILDFLAG(ENABLE_BRAVE_VPN) && BUILDFLAG(IS_WIN)
   brave_vpn::EnableVPNTrayIcon(!brave_vpn::IsVPNTrayIconEnabled());

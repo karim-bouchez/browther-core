@@ -7,9 +7,15 @@
 
 #include <utility>
 
+#include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/components/constants/pref_names.h"
+#include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
+#include "chrome/browser/ui/tabs/tab_strip_model.h"
+#include "chrome/browser/ui/webui/webui_embedding_context.h"
 #include "components/prefs/pref_service.h"
+#include "content/public/browser/web_contents.h"
+#include "content/public/browser/web_ui.h"
 
 BasarunaaPanelHandler::BasarunaaPanelHandler(
     mojo::PendingReceiver<basarunaa::mojom::PanelHandler> receiver,
@@ -20,6 +26,13 @@ BasarunaaPanelHandler::BasarunaaPanelHandler(
       profile_(profile) {}
 
 BasarunaaPanelHandler::~BasarunaaPanelHandler() = default;
+
+BrowserWindowInterface* BasarunaaPanelHandler::GetBrowserWindowInterface() {
+  // Volontairement re-résolu à chaque appel : la WebContents du panel est mise
+  // en cache et peut changer de fenêtre entre deux ouvertures.
+  return webui::GetBrowserWindowInterface(
+      panel_controller_->web_ui()->GetWebContents());
+}
 
 void BasarunaaPanelHandler::ShowUI() {
   if (auto embedder = panel_controller_->embedder()) {
@@ -39,6 +52,26 @@ void BasarunaaPanelHandler::GetEnabled(GetEnabledCallback callback) {
 
 void BasarunaaPanelHandler::SetEnabled(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaEnabled, enabled);
+}
+
+void BasarunaaPanelHandler::GetProtectedContent(
+    GetProtectedContentCallback callback) {
+  // Même condition que le badge ambre de BasarunaaActionView, à la lettre :
+  // feature ON + verdict DRM rendu sur l'onglet actif. Pas de gate
+  // `native_tap_active` (contrairement à Sawtunaa) : le floutage est coupé sur
+  // du DRM partout, il n'existe aucune voie de repli.
+  if (!profile_->GetPrefs()->GetBoolean(kBasarunaaEnabled)) {
+    std::move(callback).Run(false);
+    return;
+  }
+  auto* browser_window_interface = GetBrowserWindowInterface();
+  content::WebContents* web_contents =
+      browser_window_interface
+          ? browser_window_interface->GetTabStripModel()->GetActiveWebContents()
+          : nullptr;
+  std::move(callback).Run(
+      BrowtherProtectedContentTabHelper::StateFor(web_contents) !=
+      BrowtherProtectedContentTabHelper::ProtectedState::kUnknown);
 }
 
 void BasarunaaPanelHandler::GetMode(GetModeCallback callback) {

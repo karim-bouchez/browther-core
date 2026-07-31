@@ -186,10 +186,16 @@ repack("resources") {
     ]
   }
 
-  # Browther: Basarunaa panel WebUI (desktop only).
+  # Browther: panels Basarunaa + Sawtunaa en WebUI (desktop only).
   if (!is_android) {
-    deps += [ "//brave/components/basarunaa/resources/panel:resources" ]
-    sources += [ "$root_gen_dir/brave/components/basarunaa/basarunaa_panel_resources.pak" ]
+    deps += [
+      "//brave/components/basarunaa/resources/panel:resources",
+      "//brave/components/sawtunaa/resources/panel:resources",
+    ]
+    sources += [
+      "$root_gen_dir/brave/components/basarunaa/basarunaa_panel_resources.pak",
+      "$root_gen_dir/brave/components/sawtunaa/sawtunaa_panel_resources.pak",
+    ]
   }
 
   if (enable_playlist_webui) {

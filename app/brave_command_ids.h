@@ -40,6 +40,8 @@
 #define IDC_TOGGLE_BRAVE_VPN 56034
 // Browther: show Basarunaa panel from toolbar action.
 #define IDC_SHOW_BASARUNAA_PANEL 56128
+// Browther: show Sawtunaa panel from toolbar action.
+#define IDC_SHOW_SAWTUNAA_PANEL 56129
 #define IDC_CONTENT_CONTEXT_FORCE_PASTE 56039
 #define IDC_COPY_CLEAN_LINK 56040
 #define IDC_TOGGLE_TAB_MUTE 56041
