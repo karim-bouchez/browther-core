@@ -67,6 +67,9 @@ class BrowtherProtectedContentTabHelper final
   // navigateur par défaut » rouvrirait la page ici même).
   void ShowInfoBar(bool blocked);
   void ShowInfoBarWithDefaultBrowserState(bool blocked, bool browther_is_default);
+  // Retire notre barre si elle est encore affichée (correction d'un verdict
+  // « impossible à lire » démenti par l'arrivée d'une clé).
+  void RemoveOurInfoBar();
 
   content::RenderFrameHostReceiverSet<browther_drm::mojom::BrowtherDrmStatus>
       receivers_;
@@ -74,6 +77,9 @@ class BrowtherProtectedContentTabHelper final
   // Une seule barre par navigation, quelle que soit la situation : un lecteur
   // DRM crée plusieurs sessions (audio + vidéo, plus les retries).
   bool notified_this_navigation_ = false;
+  // La barre affichée est-elle celle du mode « bloqué » ? Sert à la corriger
+  // si une clé finit par arriver.
+  bool notified_blocked_ = false;
   bool license_request_seen_ = false;
 
   base::OneShotTimer license_timer_;

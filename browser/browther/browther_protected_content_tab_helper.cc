@@ -16,6 +16,8 @@
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/shell_integration.h"
 #include "components/infobars/content/content_infobar_manager.h"
+#include "components/infobars/core/infobar.h"
+#include "components/infobars/core/infobar_delegate.h"
 #include "components/prefs/pref_service.h"
 #include "content/public/browser/navigation_handle.h"
 #include "content/public/browser/web_contents.h"
@@ -23,11 +25,21 @@
 namespace {
 
 // Délai entre le départ du challenge de licence et le constat d'échec.
-// Assez long pour ne pas devancer un serveur lent ou une renégociation
-// (l'observation Netflix montre un échec DÉFINITIF, pas un retard), assez
-// court pour que le message arrive avant que l'utilisateur n'abandonne.
-// Toute clé devenue utilisable l'annule.
-constexpr base::TimeDelta kLicenseGracePeriod = base::Seconds(9);
+//
+// 2 s (9 s à l'origine, ramené le 2026-07-31). Un serveur de licence qui
+// FONCTIONNE répond en quelques centaines de ms — c'est un aller-retour HTTP,
+// pas un calcul. Passé ~2 s, l'utilisateur a déjà vu l'erreur du site et il est
+// reparti : un message qui arrive après n'aide plus personne.
+//
+// La décision est RÉVERSIBLE (cf. OnKeyUsable) : une clé qui arrive en retard
+// retire la barre. La justesse ne dépend donc PAS de ce délai — ce qu'il borne,
+// c'est le CLIGNOTEMENT. Trop court et on affiche puis on retire une barre sur
+// des lectures qui marchaient : elle pousse le contenu de la page vers le bas,
+// donc un aller-retour se voit et se paie en saccade. Sur une lecture protégée
+// qui aboutit normalement (< 1 s), 2 s ne clignote pas ; descendre à 1 s
+// commencerait à clignoter dès qu'un serveur est un peu lent, pour ne gagner
+// qu'une seconde là où l'échec est de toute façon définitif.
+constexpr base::TimeDelta kLicenseGracePeriod = base::Seconds(2);
 
 }  // namespace
 
@@ -70,6 +82,7 @@ void BrowtherProtectedContentTabHelper::DidStartNavigation(
   // changement de titre serait pénible.
   license_timer_.Stop();
   notified_this_navigation_ = false;
+  notified_blocked_ = false;
   license_request_seen_ = false;
 }
 
@@ -86,6 +99,16 @@ void BrowtherProtectedContentTabHelper::OnLicenseRequestSent() {
 
 void BrowtherProtectedContentTabHelper::OnKeyUsable() {
   license_timer_.Stop();
+
+  // Correction a posteriori : on a pu conclure trop tôt à un échec (serveur de
+  // licence lent, renégociation). La clé prouve le contraire → on retire la
+  // barre « impossible à lire » avant d'afficher la bonne. C'est ce filet qui
+  // autorise un délai court (cf. kLicenseGracePeriod).
+  if (notified_blocked_) {
+    RemoveOurInfoBar();
+    notified_blocked_ = false;
+    notified_this_navigation_ = false;
+  }
   if (notified_this_navigation_) {
     return;
   }
@@ -158,6 +181,7 @@ void BrowtherProtectedContentTabHelper::ShowInfoBarWithDefaultBrowserState(
       prefs && prefs->GetBoolean(kSawtunaaEnabled);
 
   notified_this_navigation_ = true;
+  notified_blocked_ = blocked;
   VLOG(1) << "[browtherDRM] infobar mode="
           << (blocked ? "blocked" : "unfiltered")
           << " default_browser=" << browther_is_default
@@ -169,6 +193,24 @@ void BrowtherProtectedContentTabHelper::ShowInfoBarWithDefaultBrowserState(
       web_contents()->GetLastCommittedURL(),
       /*can_open_in_default_browser=*/!browther_is_default,
       offer_sawtunaa_app);
+}
+
+void BrowtherProtectedContentTabHelper::RemoveOurInfoBar() {
+  auto* infobar_manager =
+      infobars::ContentInfoBarManager::FromWebContents(web_contents());
+  if (!infobar_manager) {
+    return;
+  }
+  // Recherche par identifiant plutôt que par pointeur gardé : la barre peut
+  // avoir été fermée par l'utilisateur entre-temps, et un raw_ptr mémorisé
+  // deviendrait pendouillant.
+  for (infobars::InfoBar* bar : infobar_manager->infobars()) {
+    if (bar->delegate()->GetIdentifier() ==
+        infobars::InfoBarDelegate::BROWTHER_PROTECTED_CONTENT_INFOBAR_DELEGATE) {
+      infobar_manager->RemoveInfoBar(bar);
+      return;
+    }
+  }
 }
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(BrowtherProtectedContentTabHelper);
