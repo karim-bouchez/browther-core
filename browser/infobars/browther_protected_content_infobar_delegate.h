@@ -89,8 +89,8 @@ class BrowtherProtectedContentInfoBarDelegate
 
   // Vrai quand les DEUX boutons sont affichés (kBlocked + Sawtunaa activé).
   // Ils forment alors une SÉQUENCE — ① installer Sawtunaa ② ouvrir la page
-  // ailleurs — et non un choix : les deux boutons sont numérotés, tous deux
-  // prominents, et le premier ne ferme pas la barre.
+  // ailleurs — et non un choix : les deux boutons sont numérotés et tous deux
+  // prominents. (Aucun bouton ne ferme la barre, cf. Accept()/Cancel().)
   bool IsTwoStepBlocked() const;
 
   // Ouvre la page de l'app Sawtunaa dans un nouvel onglet Browther (c'est une

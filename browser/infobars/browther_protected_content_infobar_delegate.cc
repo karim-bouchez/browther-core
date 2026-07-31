@@ -204,24 +204,27 @@ void BrowtherProtectedContentInfoBarDelegate::OpenElsewhereOrCopyLink() {
       .WriteText(base::UTF8ToUTF16(page_url_.spec()));
 }
 
+// ⚠️ Accept() ET Cancel() renvoient false = AUCUN bouton ne ferme la barre
+// (décision Karim, 2026-07-31). Deux raisons :
+//  1. l'information reste VRAIE après l'action — la page est toujours du
+//     contenu protégé, nos features ne s'y appliquent toujours pas ;
+//  2. en kBlocked les deux boutons forment une séquence : fermer sur l'étape ①
+//     rendait l'étape ② inatteignable.
+// L'utilisateur garde la main : la croix de l'infobar (`IsCloseable()` → true
+// par défaut, non surchargé) ferme la barre quand LUI le décide.
 bool BrowtherProtectedContentInfoBarDelegate::Accept() {
   if (mode_ == Mode::kUnfiltered) {
     OpenSawtunaaPage();
   } else {
     OpenElsewhereOrCopyLink();
   }
-  return true;  // ferme la barre
+  return false;
 }
 
 bool BrowtherProtectedContentInfoBarDelegate::Cancel() {
   // Uniquement câblé en kBlocked, où BUTTON_CANCEL porte « Sawtunaa ».
-  if (!IsTwoStepBlocked()) {
-    return true;
+  if (IsTwoStepBlocked()) {
+    OpenSawtunaaPage();
   }
-  OpenSawtunaaPage();
-  // ⚠️ false = NE PAS fermer la barre. C'est l'étape ① d'une séquence : la
-  // fermer ici rendrait l'étape ② (ouvrir la page ailleurs) inatteignable —
-  // exactement le bug qu'on corrige. La barre reste sur l'onglet d'origine,
-  // l'ouverture de la page Sawtunaa se faisant dans un NOUVEL onglet.
   return false;
 }
