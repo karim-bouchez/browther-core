@@ -2080,32 +2080,17 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       });
       if (bboxes.length > 0) send("statsBlurred", String(bboxes.length));
     };
-    window.__basarunaaApplyVideoSentinel = function basarunaaApplyVideoSentinel(videoId, ctMs, sentinelW, sentinelH, payload) {
-      const proc = deps.findProcessor(videoId);
-      if (!proc) return;
-      proc.onSentinelApply({ ctMs, sentinelW, sentinelH, bboxes: payload });
-    };
   }
 
-  const YOLO_INTERVAL_TRACKING_MS = 1e3;
+  const YOLO_INTERVAL_TRACKING_MS = 250;
   const YOLO_INTERVAL_SAFE_MS = 5e3;
-  const YOLO_MIN_COOLDOWN_MS = 300;
-  const SENTINEL_INTERVAL_MS = 100;
-  const SENTINEL_MIN_COOLDOWN_MS = 80;
-  const SENTINEL_CAPTURE_SIZE = 480;
-  const SENTINEL_IOU_MATCH = 0.3;
-  const SENTINEL_BBOX_PAD = 0.15;
-  const SENTINEL_SMOOTH_ALPHA = 0.2;
-  const SENTINEL_DEAD_ZONE = 0.04;
-  const SENTINEL_TRACK_MAX_MISS = 3;
-  const SENTINEL_LOST_THRESHOLD = 1;
+  const YOLO_MIN_COOLDOWN_MS = 150;
   const SCENE_CHANGE_THRESHOLD = 0.12;
   const SCENE_DIFF_HASH_SIZE = 8;
   const FRAME_DIFF_SKIP_THRESHOLD = 0.02;
   const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
   const MAX_SAMPLE_WIDTH = 320;
   const JPEG_QUALITY = 0.5;
-  const SENTINEL_JPEG_QUALITY = 0.6;
   const BLUR_DOWNSAMPLE = 50;
   const BLUR_PASS2_FACTOR = 3;
   const BLUR_GAUSSIAN_RADIUS_PX = 5;
@@ -2188,25 +2173,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
   function drawVideoDebugOverlay(dctx, input) {
     const sx = input.dispW / input.analyseW;
     const sy = input.dispH / input.analyseH;
-    if (input.sentinelPersons.length > 0) {
-      dctx.save();
-      dctx.strokeStyle = "#00FF00";
-      dctx.lineWidth = 1;
-      dctx.setLineDash([4, 4]);
-      dctx.font = "bold 10px monospace";
-      for (const sp of input.sentinelPersons) {
-        const [x1, y1, x2, y2] = sp.bbox;
-        const rx = input.dispOffX + x1 * sx;
-        const ry = input.dispOffY + y1 * sy;
-        const rw = (x2 - x1) * sx;
-        const rh = (y2 - y1) * sy;
-        dctx.strokeRect(rx, ry, rw, rh);
-        dctx.fillStyle = "#00FF00";
-        const labelY = ry >= 12 ? ry - 3 : ry + 10;
-        dctx.fillText(`S ${Math.round((sp.confidence || 0) * 100)}%`, rx, labelY);
-      }
-      dctx.restore();
-    }
     for (const p of input.allPersons) {
       const [x1, y1, x2, y2] = p.bbox;
       const dx = input.dispOffX + x1 * sx;
@@ -2260,14 +2226,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
       dctx.restore();
     }
-    const yoloTotal = input.yoloPeriodic + input.yoloSentinel + input.yoloScene;
+    const yoloTotal = input.yoloPeriodic + input.yoloScene;
     const lines = [
       { text: `${input.state} | ${input.nBlur} blur | ${input.mode}` },
       {
-        text: `YOLO: ${yoloTotal} (p:${input.yoloPeriodic} s:${input.yoloSentinel} c:${input.yoloScene})` + (input.yoloInFlight ? " ..." : "")
-      },
-      {
-        text: `Sentinel: ${input.sentinelRuns} runs | ${input.sentinelPersons.length}p | ${input.framesSinceYolo}f since YOLO`
+        text: `YOLO: ${yoloTotal} (p:${input.yoloPeriodic} c:${input.yoloScene})` + (input.yoloInFlight ? " ..." : "") + ` | ${input.framesSinceYolo}f since YOLO`
       }
     ];
     if (input.timing) {
@@ -2478,31 +2441,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
   }
 
-  function bboxIoU(a, b) {
-    const x1 = Math.max(a[0], b[0]);
-    const y1 = Math.max(a[1], b[1]);
-    const x2 = Math.min(a[2], b[2]);
-    const y2 = Math.min(a[3], b[3]);
-    const inter = Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
-    if (inter === 0) return 0;
-    const areaA = (a[2] - a[0]) * (a[3] - a[1]);
-    const areaB = (b[2] - b[0]) * (b[3] - b[1]);
-    return inter / (areaA + areaB - inter);
-  }
-  function padBbox(bbox, pad, maxW, maxH) {
-    const [x1, y1, x2, y2] = bbox;
-    const w = x2 - x1;
-    const h = y2 - y1;
-    const px = w * pad;
-    const py = h * pad;
-    return [
-      Math.max(0, x1 - px),
-      Math.max(0, y1 - py),
-      Math.min(maxW, x2 + px),
-      Math.min(maxH, y2 + py)
-    ];
-  }
-
   function extractB64(dataUrl) {
     const comma = dataUrl.indexOf(",");
     if (comma < 0) return null;
@@ -2522,30 +2460,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     if (!b64) return false;
     const ctMs = Math.round((video.currentTime || 0) * 1e3);
     send("videoFrame", `${videoId}|${ctMs}|${sw}|${sh}|${b64}`);
-    return true;
-  }
-  function sampleForSentinel(videoId, video) {
-    const vw = video.videoWidth;
-    const vh = video.videoHeight;
-    if (vw === 0 || vh === 0) return false;
-    const aspect = vw / vh;
-    let sw;
-    let sh;
-    if (aspect > 1) {
-      sw = SENTINEL_CAPTURE_SIZE;
-      sh = Math.max(1, Math.round(SENTINEL_CAPTURE_SIZE / aspect));
-    } else {
-      sh = SENTINEL_CAPTURE_SIZE;
-      sw = Math.max(1, Math.round(SENTINEL_CAPTURE_SIZE * aspect));
-    }
-    if (sampleCanvas.width !== sw) sampleCanvas.width = sw;
-    if (sampleCanvas.height !== sh) sampleCanvas.height = sh;
-    sctx.drawImage(video, 0, 0, sw, sh);
-    const dataUrl = sampleCanvas.toDataURL("image/jpeg", SENTINEL_JPEG_QUALITY);
-    const b64 = extractB64(dataUrl);
-    if (!b64) return false;
-    const ctMs = Math.round((video.currentTime || 0) * 1e3);
-    send("videoSentinel", `${videoId}|${ctMs}|${sw}|${sh}|${b64}`);
     return true;
   }
 
@@ -2620,182 +2534,31 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
   }
 
-  class SentinelTracker {
-    constructor() {
-      this.tracks = [];
-    }
-    /**
-     * Update tracks with the raw NanoDet detections of the current sentinel run.
-     * Returns the smoothed bbox list (one per surviving track, in track order).
-     */
-    smooth(rawPersons) {
-      const tracks = this.tracks;
-      const used = {};
-      for (const track of tracks) {
-        let bestIoU = 0;
-        let bestIdx = -1;
-        for (let ri = 0; ri < rawPersons.length; ri++) {
-          if (used[ri]) continue;
-          const iou = bboxIoU(track.bbox, rawPersons[ri].bbox);
-          if (iou > bestIoU) {
-            bestIoU = iou;
-            bestIdx = ri;
-          }
-        }
-        if (bestIdx >= 0 && bestIoU > 0.2) {
-          used[bestIdx] = true;
-          const raw = rawPersons[bestIdx];
-          const newBbox = raw.bbox;
-          const oldCx = (track.bbox[0] + track.bbox[2]) / 2;
-          const oldCy = (track.bbox[1] + track.bbox[3]) / 2;
-          const newCx = (newBbox[0] + newBbox[2]) / 2;
-          const newCy = (newBbox[1] + newBbox[3]) / 2;
-          const trackH = track.bbox[3] - track.bbox[1] || 1;
-          const dx = newCx - oldCx;
-          const dy = newCy - oldCy;
-          const displacement = Math.sqrt(dx * dx + dy * dy) / trackH;
-          track.vx = track.vx * 0.7 + dx * 0.3;
-          track.vy = track.vy * 0.7 + dy * 0.3;
-          if (displacement < SENTINEL_DEAD_ZONE) {
-            track.missCount = 0;
-          } else if (displacement > 0.3) {
-            track.bbox = [...newBbox];
-            track.yoloW = null;
-            track.yoloH = null;
-            track.vx = 0;
-            track.vy = 0;
-          } else {
-            const velMag = Math.sqrt(track.vx * track.vx + track.vy * track.vy);
-            const movMag = Math.sqrt(dx * dx + dy * dy);
-            let alpha = SENTINEL_SMOOTH_ALPHA;
-            if (velMag > 1 && movMag > 1) {
-              const cosine = (track.vx * dx + track.vy * dy) / (velMag * movMag);
-              if (cosine > 0.3) {
-                alpha = Math.min(0.85, SENTINEL_SMOOTH_ALPHA + cosine * 0.6);
-              }
-            }
-            const w = track.yoloW ?? newBbox[2] - newBbox[0];
-            const h = track.yoloH ?? newBbox[3] - newBbox[1];
-            const smoothCx = oldCx + dx * alpha;
-            const smoothCy = oldCy + dy * alpha;
-            track.bbox = [
-              smoothCx - w / 2,
-              smoothCy - h / 2,
-              smoothCx + w / 2,
-              smoothCy + h / 2
-            ];
-          }
-          track.confidence = raw.confidence;
-          track.missCount = 0;
-        } else {
-          track.missCount += 1;
-        }
-      }
-      this.tracks = tracks.filter((t) => t.missCount < SENTINEL_TRACK_MAX_MISS);
-      for (let ri = 0; ri < rawPersons.length; ri++) {
-        if (used[ri]) continue;
-        const raw = rawPersons[ri];
-        this.tracks.push({
-          bbox: [...raw.bbox],
-          confidence: raw.confidence,
-          missCount: 0,
-          vx: 0,
-          vy: 0,
-          yoloW: null,
-          yoloH: null
-        });
-      }
-      return this.tracks.map((t) => ({
-        bbox: [...t.bbox],
-        confidence: t.confidence
-      }));
-    }
-    /**
-     * Returns sentinel detections that don't overlap any of the last YOLO bboxes.
-     * These are the "new person" candidates for an event-driven YOLO trigger.
-     */
-    findUnmatched(sentinelPersons, yoloBboxes) {
-      if (!yoloBboxes || yoloBboxes.length === 0) return sentinelPersons.slice();
-      const unmatched = [];
-      for (const sp of sentinelPersons) {
-        let matched = false;
-        for (const yb of yoloBboxes) {
-          if (bboxIoU(sp.bbox, yb) > SENTINEL_IOU_MATCH) {
-            matched = true;
-            break;
-          }
-        }
-        if (!matched) unmatched.push(sp);
-      }
-      return unmatched;
-    }
-    /**
-     * Record the YOLO dimensions on each track that matches a YOLO bbox (by IoU).
-     * Called from the video processor after a YOLO apply — keeps track sizes
-     * coherent with what YOLO sees instead of the padded sentinel size.
-     */
-    applyYoloDimensions(yoloBboxes) {
-      for (const yb of yoloBboxes) {
-        let bestIoU = 0;
-        let best = null;
-        for (const track of this.tracks) {
-          const iou = bboxIoU(track.bbox, yb);
-          if (iou > bestIoU) {
-            bestIoU = iou;
-            best = track;
-          }
-        }
-        if (best && bestIoU > 0.3) {
-          best.yoloW = yb[2] - yb[0];
-          best.yoloH = yb[3] - yb[1];
-        }
-      }
-    }
-    reset() {
-      this.tracks = [];
-    }
-    get trackCount() {
-      return this.tracks.length;
-    }
-  }
-
   class VideoProcessor {
     constructor(id, video, opts = {}) {
       this.tainted = false;
       this.firstTickLogged = false;
-      // Pipeline detectors / trackers
+      // Pipeline detectors
       this.sceneDetector = new SceneDiffDetector();
-      this.sentinelTracker = new SentinelTracker();
       // State machine + cadence
       this.state = "full_blur";
       this.debugMode = "none";
       this.isNsfw = false;
       this.lastYoloMs = 0;
-      this.lastSentinelMs = 0;
       this.yoloInFlight = false;
-      this.sentinelInFlight = false;
       this.pendingCssRelease = false;
-      this.triggeredBySentinel = false;
       this.triggeredByScene = false;
       // Current blur targets (in analyse coords).
       this.currentBboxes = [];
       this.currentMeta = null;
-      this.yoloOffsets = [];
-      this.lastYoloBboxes = [];
       this.lastYoloHash = null;
-      // Sentinel tracking
-      this.pendingNewPersons = [];
-      this.sentinelLostCount = 0;
-      this.lastSentinelPersons = [];
       // Debug snapshot (refreshed at each YOLO apply)
       this.allPersons = [];
       this.lastTiming = null;
       this.nudeClasses = [];
       // Counters
       this.yoloPeriodic = 0;
-      this.yoloSentinel = 0;
       this.yoloScene = 0;
-      this.sentinelRuns = 0;
       this.framesSinceYolo = 0;
       // RAF / rVFC handle (so destroy() can stop the loop — best-effort, rVFC
       // can't be cancelled, so we rely on the tainted flag inside tick).
@@ -2936,10 +2699,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         const nowMs = performance.now();
         const sceneDiff = this.sceneDetector.diff(video);
         if (sceneDiff > SCENE_CHANGE_THRESHOLD) {
-          this.sentinelTracker.reset();
-          this.pendingNewPersons = [];
           this.currentBboxes = [];
-          this.lastYoloBboxes = [];
           this.triggeredByScene = true;
           this.state = "full_blur";
           applyVideoCssBlur(video);
@@ -2951,7 +2711,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         let yoloInterval = this.state === "safe" ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
         if (this.state === "full_blur") yoloInterval = 0;
         const yoloDueRaw = nowMs - this.lastYoloMs >= yoloInterval;
-        const triggered = this.triggeredBySentinel || this.triggeredByScene;
+        const triggered = this.triggeredByScene;
         const yoloCooldownOk = nowMs - this.lastYoloMs >= YOLO_MIN_COOLDOWN_MS;
         let yoloDue = yoloDueRaw;
         if (!this.yoloInFlight && yoloCooldownOk && yoloDue && !triggered && !this.isNsfw) {
@@ -2978,12 +2738,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           });
           if (!sampleForAnalysis(this.id, video)) {
             this.yoloInFlight = false;
-          }
-        } else if (!this.yoloInFlight && !this.sentinelInFlight && nowMs - this.lastSentinelMs >= SENTINEL_INTERVAL_MS && nowMs - this.lastSentinelMs >= SENTINEL_MIN_COOLDOWN_MS) {
-          this.sentinelInFlight = true;
-          this.lastSentinelMs = nowMs;
-          if (!sampleForSentinel(this.id, video)) {
-            this.sentinelInFlight = false;
           }
         }
         if (this.state === "full_blur") {
@@ -3033,15 +2787,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
               dispOffY,
               analyseW: meta.analyseW,
               analyseH: meta.analyseH,
-              sentinelPersons: this.lastSentinelPersons,
               allPersons: this.allPersons,
               state: this.state,
               mode: this.lastTiming?.mode ?? "?",
               nBlur: bboxes.length,
               yoloPeriodic: this.yoloPeriodic,
-              yoloSentinel: this.yoloSentinel,
               yoloScene: this.yoloScene,
-              sentinelRuns: this.sentinelRuns,
               framesSinceYolo: this.framesSinceYolo,
               yoloInFlight: this.yoloInFlight,
               timing: this.lastTiming,
@@ -3065,7 +2816,7 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       }
       this.scheduleTick();
     }
-    // ─── Reply handlers — called from window.__basarunaaApply{Video,Sentinel} ──
+    // ─── Reply handler — called from window.__basarunaaApplyVideo ──
     onYoloApply(payload) {
       try {
         this.yoloInFlight = false;
@@ -3082,47 +2833,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           analyseW: payload.analyseW,
           analyseH: payload.analyseH
         };
-        this.lastYoloBboxes = safeBboxes.map((b) => [...b]);
-        const existingTracks = this.sentinelTracker["tracks"];
-        this.yoloOffsets = safeBboxes.map((yoloBbox) => {
-          const yoloCx = (yoloBbox[0] + yoloBbox[2]) / 2;
-          const yoloCy = (yoloBbox[1] + yoloBbox[3]) / 2;
-          const yoloW = yoloBbox[2] - yoloBbox[0];
-          const yoloH = yoloBbox[3] - yoloBbox[1] || 1;
-          let bestDist = Infinity;
-          let bestTrack = null;
-          if (existingTracks) {
-            for (const t of existingTracks) {
-              const tCx = (t.bbox[0] + t.bbox[2]) / 2;
-              const tCy = (t.bbox[1] + t.bbox[3]) / 2;
-              const dx = yoloCx - tCx;
-              const dy = yoloCy - tCy;
-              const d = Math.sqrt(dx * dx + dy * dy);
-              if (d < bestDist) {
-                bestDist = d;
-                bestTrack = t.bbox;
-              }
-            }
-          }
-          let offX = 0;
-          let offY = 0;
-          if (bestTrack && bestDist < yoloH * 0.6) {
-            const stCx = (bestTrack[0] + bestTrack[2]) / 2;
-            const stCy = (bestTrack[1] + bestTrack[3]) / 2;
-            offX = stCx - yoloCx;
-            offY = stCy - yoloCy;
-          }
-          return { offsetX: offX, offsetY: offY, yoloW, yoloH };
-        });
         this.debugMode = payload.debugMode || "none";
         this.allPersons = payload.fullPersons || [];
         this.lastTiming = payload.timing || null;
         this.nudeClasses = payload.timing?.nudeClasses || [];
         this.framesSinceYolo = 0;
-        if (this.triggeredBySentinel) {
-          this.yoloSentinel++;
-          this.triggeredBySentinel = false;
-        } else if (this.triggeredByScene) {
+        if (this.triggeredByScene) {
           this.yoloScene++;
           this.triggeredByScene = false;
         } else {
@@ -3133,8 +2849,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         if (prevState === "full_blur") {
           this.pendingCssRelease = true;
         }
-        this.sentinelTracker.reset();
-        this.pendingNewPersons = [];
         metric("video_apply", {
           videoId: this.id,
           ct_ms: payload.ctMs,
@@ -3149,130 +2863,6 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
           msg: String(e).slice(0, 200)
         });
       }
-    }
-    onSentinelApply(payload) {
-      try {
-        this.sentinelInFlight = false;
-        if (this.isNsfw) {
-          metric("video_sentinel_skip_nsfw", { videoId: this.id });
-          return;
-        }
-        const meta = this.currentMeta;
-        const analyseW = meta?.analyseW ?? payload.sentinelW;
-        const analyseH = meta?.analyseH ?? payload.sentinelH;
-        const sx = analyseW / payload.sentinelW;
-        const sy = analyseH / payload.sentinelH;
-        const rawPersons = [];
-        for (const b of payload.bboxes) {
-          const scaled = [b[0] * sx, b[1] * sy, b[2] * sx, b[3] * sy];
-          const padded = padBbox(scaled, SENTINEL_BBOX_PAD, analyseW, analyseH);
-          rawPersons.push({ bbox: padded, confidence: b[4] || 0 });
-        }
-        const sentinelPersons = this.sentinelTracker.smooth(rawPersons);
-        this.lastSentinelPersons = sentinelPersons;
-        this.sentinelRuns++;
-        const hadTracks = this.lastYoloBboxes.length > 0;
-        if (payload.bboxes.length === 0 && hadTracks) {
-          this.sentinelLostCount++;
-          if (this.sentinelLostCount >= SENTINEL_LOST_THRESHOLD) {
-            this.triggeredBySentinel = true;
-            this.currentBboxes = [];
-            this.lastYoloBboxes = [];
-          }
-        } else {
-          this.sentinelLostCount = 0;
-        }
-        const unmatched = this.sentinelTracker.findUnmatched(
-          sentinelPersons,
-          this.lastYoloBboxes
-        );
-        const prevPending = this.pendingNewPersons;
-        const confirmed = [];
-        for (const u of unmatched) {
-          for (const p of prevPending) {
-            const ix1 = Math.max(u.bbox[0], p.bbox[0]);
-            const iy1 = Math.max(u.bbox[1], p.bbox[1]);
-            const ix2 = Math.min(u.bbox[2], p.bbox[2]);
-            const iy2 = Math.min(u.bbox[3], p.bbox[3]);
-            const inter = Math.max(0, ix2 - ix1) * Math.max(0, iy2 - iy1);
-            if (inter === 0) continue;
-            const areaU = (u.bbox[2] - u.bbox[0]) * (u.bbox[3] - u.bbox[1]);
-            const areaP = (p.bbox[2] - p.bbox[0]) * (p.bbox[3] - p.bbox[1]);
-            const iou = inter / (areaU + areaP - inter);
-            if (iou > 0.2) {
-              confirmed.push(u);
-              break;
-            }
-          }
-        }
-        this.pendingNewPersons = unmatched;
-        if (confirmed.length > 0) this.triggeredBySentinel = true;
-        this.updateBlurFromSentinel(sentinelPersons);
-        metric("video_sentinel_apply", {
-          videoId: this.id,
-          ct_ms: payload.ctMs,
-          raw: payload.bboxes.length,
-          tracks: sentinelPersons.length,
-          unmatched: unmatched.length,
-          confirmed: confirmed.length,
-          lost: this.sentinelLostCount,
-          state: this.state
-        });
-      } catch (e) {
-        this.sentinelInFlight = false;
-        metric("video_sentinel_apply_error", {
-          videoId: this.id,
-          msg: String(e).slice(0, 200)
-        });
-      }
-    }
-    // Port `_updateBlurFromSentinel` (legacy L315-361).
-    // Match sentinel ↔ YOLO bbox by centre-distance, correct sentinel positions
-    // by the learned YOLO↔sentinel offset, skip noise within the dead zone.
-    // NSFW = full-frame blur frozen until next YOLO — skip everything.
-    updateBlurFromSentinel(sentinelPersons) {
-      if (this.isNsfw) return;
-      if (!this.currentBboxes.length) return;
-      const SENTINEL_DEAD_ZONE = 0.04;
-      const updated = this.currentBboxes.map((yoloBbox, idx) => {
-        const off = this.yoloOffsets[idx];
-        const yoloW = off ? off.yoloW : yoloBbox[2] - yoloBbox[0];
-        const yoloH = off ? off.yoloH : yoloBbox[3] - yoloBbox[1] || 1;
-        const offX = off ? off.offsetX : 0;
-        const offY = off ? off.offsetY : 0;
-        const ypCx = (yoloBbox[0] + yoloBbox[2]) / 2;
-        const ypCy = (yoloBbox[1] + yoloBbox[3]) / 2;
-        const maxDist = yoloH * 0.6;
-        let bestDist = Infinity;
-        let bestBbox = null;
-        for (const sp of sentinelPersons) {
-          const tCx = (sp.bbox[0] + sp.bbox[2]) / 2;
-          const tCy = (sp.bbox[1] + sp.bbox[3]) / 2;
-          const dx = ypCx - tCx;
-          const dy = ypCy - tCy;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestBbox = sp.bbox;
-          }
-        }
-        if (!bestBbox || bestDist > maxDist) return yoloBbox;
-        const sentCx = (bestBbox[0] + bestBbox[2]) / 2;
-        const sentCy = (bestBbox[1] + bestBbox[3]) / 2;
-        const correctedCx = sentCx - offX;
-        const correctedCy = sentCy - offY;
-        const dCx = correctedCx - ypCx;
-        const dCy = correctedCy - ypCy;
-        const disp = Math.sqrt(dCx * dCx + dCy * dCy) / yoloH;
-        if (disp < SENTINEL_DEAD_ZONE) return yoloBbox;
-        return [
-          correctedCx - yoloW / 2,
-          correctedCy - yoloH / 2,
-          correctedCx + yoloW / 2,
-          correctedCy + yoloH / 2
-        ];
-      });
-      this.currentBboxes = updated;
     }
   }
 

@@ -45,14 +45,6 @@ public struct BasarunaaResult: Sendable {
   public let nsfwScore: Double?
 }
 
-/// Sentinel NanoDet léger — bboxes seules, ni genre ni keypoints. Utilisé par le
-/// pipeline vidéo two-tier pour smooth-tracker entre deux analyses lourdes.
-public struct BasarunaaSentinelResult: Sendable {
-  public let bboxes: [SentinelBbox]
-  public let latencyMs: Double
-  public let imageSize: CGSize
-}
-
 public enum BasarunaaError: Error {
   case modelLoadFailed(String)
   case inferenceFailed(String)
@@ -63,7 +55,9 @@ public enum BasarunaaError: Error {
 /// cf. `private/docs/BASARUNAA_MOBILE_GENDER_V2N.md`). Une inférence CoreML
 /// donne persons + genre 3 classes + keypoints. La cascade historique (YOLO
 /// pose + YOLOv8n-face + genderage InsightFace + PPLCNet + matching + synth
-/// bodies) est retirée. NSFW (Marqo + NudeNet) et sentinel (NanoDet) restent.
+/// bodies) est retirée, ainsi que le sentinel NanoDet (2026-08-03 — le
+/// pipeline vidéo est one-tier : gender-v2n à 250 ms est son propre tracker).
+/// NSFW (Marqo + NudeNet) reste, gaté par la pref `nsfw_enabled` côté handler.
 public actor BasarunaaPipeline {
   public static let shared = BasarunaaPipeline()
 
@@ -72,8 +66,6 @@ public actor BasarunaaPipeline {
   private var detector: GenderV2nPoseDetector?
   private var nsfwClassifier: NSFWClassifier?
   private var nudeNetDetector: NudeNetDetector?
-  /// Sentinel vidéo chargé à la demande (image-only callers ne le paient pas).
-  private var sentinelDetector: NanoDetSentinelDetector?
 
   private init() {}
 
@@ -91,26 +83,13 @@ public actor BasarunaaPipeline {
       log.info("CoreML compute devices: [\(labels.joined(separator: ", "), privacy: .public)]")
       // On ne précharge QUE le détecteur (chemin chaud `analyze` — ~5s de compile
       // CoreML au 1er appel = le cold-start observé). NSFW (opt-in, OFF par défaut)
-      // + sentinel (vidéo) restent lazy : chargés à leur 1re demande réelle par
-      // checkNsfw()/sentinel(), pour ne pas payer ni la mémoire ni le temps si inutiles.
+      // reste lazy : chargé à sa 1re demande réelle par checkNsfw(), pour ne pas
+      // payer ni la mémoire ni le temps si inutile.
       _ = try loadDetectorIfNeeded()
       log.info("warmup done (detector)")
     } catch {
       log.error("warmup failed: \(String(describing: error), privacy: .public)")
     }
-  }
-
-  /// Phase 0 — sentinel NanoDet léger (~5-20ms). Pas de genre, pas de NSFW.
-  public func sentinel(image: CGImage) async throws -> BasarunaaSentinelResult {
-    let detector = try loadSentinelIfNeeded()
-    let imageSize = CGSize(width: image.width, height: image.height)
-    let start = Date()
-    let bboxes = try detector.detect(image: image)
-    let latencyMs = Date().timeIntervalSince(start) * 1000
-    log.info(
-      "sentinel done: bboxes=\(bboxes.count, privacy: .public) latency=\(String(format: "%.1f", latencyMs), privacy: .public)ms"
-    )
-    return BasarunaaSentinelResult(bboxes: bboxes, latencyMs: latencyMs, imageSize: imageSize)
   }
 
   /// Phase 2 — NSFW (Marqo + NudeNet). À lancer en parallèle d'`analyze`.
@@ -217,12 +196,5 @@ public actor BasarunaaPipeline {
     self.nsfwClassifier = newNsfw
     self.nudeNetDetector = newNudeNet
     return (newNsfw, newNudeNet)
-  }
-
-  private func loadSentinelIfNeeded() throws -> NanoDetSentinelDetector {
-    if let sentinelDetector { return sentinelDetector }
-    let newSentinel = try NanoDetSentinelDetector()
-    self.sentinelDetector = newSentinel
-    return newSentinel
   }
 }
