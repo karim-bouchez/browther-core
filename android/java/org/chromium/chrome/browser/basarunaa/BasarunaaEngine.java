@@ -16,14 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.chromium.chrome.browser.basarunaa.BasarunaaTypes.Bbox;
-import org.chromium.chrome.browser.basarunaa.detectors.DetectorFactory;
-import org.chromium.chrome.browser.basarunaa.detectors.SentinelDetector;
 
 /**
  * Singleton ML engine pour Basarunaa Android — **single-shot gender-v2n**
@@ -39,7 +34,9 @@ import org.chromium.chrome.browser.basarunaa.detectors.SentinelDetector;
  * <p>NSFW plein cadre : retiré du hot path (parité desktop = opt-in OFF par
  * défaut). TODO : ré-exposer en opt-in via {@code ApplyNsfw} comme iOS.
  *
- * <p>Sentinel NanoDet (two-tier vidéo) conservé, chargé paresseusement.
+ * <p>Sentinel NanoDet retiré (2026-08-03) — la vidéo est one-tier : le
+ * scheduler TS envoie des analyzeImage gender-v2n à 250 ms en tracking
+ * (cf. {@code src/android/video/pipeline.ts}).
  */
 @NullMarked
 public final class BasarunaaEngine {
@@ -50,14 +47,6 @@ public final class BasarunaaEngine {
     /** Pool single-thread pour le pipeline full analyze (single-shot gender-v2n). */
     public static final ExecutorService PIPELINE_EXEC =
             Executors.newSingleThreadExecutor(r -> new Thread(r, "Basarunaa-Pipeline"));
-
-    /** Pool single-thread DÉDIÉ au sentinel vidéo — parallèle au pipeline full. */
-    public static final ExecutorService SENTINEL_EXEC =
-            Executors.newSingleThreadExecutor(r -> {
-                final Thread t = new Thread(r, "Basarunaa-Sentinel");
-                t.setDaemon(true);
-                return t;
-            });
 
     @Nullable private static volatile BasarunaaEngine sInstance;
 
@@ -76,17 +65,15 @@ public final class BasarunaaEngine {
     }
 
     @Nullable private GenderV2nDetector genderDetector;
-    @Nullable private SentinelDetector sentinelDetector;
     private boolean modelsFailed;
-    private boolean sentinelFailed;
 
     private BasarunaaEngine() {
         Log.i(TAG, "[Engine] singleton created (single-shot gender-v2n)");
     }
 
     /**
-     * Warmup ML async — charge la session ORT gender-v2n sur PIPELINE_EXEC +
-     * le sentinel sur son pool, avant la première AnalyzeImage.
+     * Warmup ML async — charge la session ORT gender-v2n sur PIPELINE_EXEC,
+     * avant la première AnalyzeImage.
      */
     public void warmupAsync() {
         PIPELINE_EXEC.execute(() -> {
@@ -97,16 +84,6 @@ public final class BasarunaaEngine {
                 Log.w(TAG, "[Engine] warmup pipeline failed after %.1fms", ms);
             } else {
                 Log.i(TAG, "[Engine] warmup pipeline done in %.1fms", ms);
-            }
-        });
-        SENTINEL_EXEC.execute(() -> {
-            final long t0 = System.nanoTime();
-            ensureSentinelLoaded();
-            final double ms = (System.nanoTime() - t0) / 1_000_000.0;
-            if (sentinelFailed) {
-                Log.w(TAG, "[Engine] warmup sentinel failed after %.1fms", ms);
-            } else {
-                Log.i(TAG, "[Engine] warmup sentinel done in %.1fms", ms);
             }
         });
     }
@@ -168,55 +145,6 @@ public final class BasarunaaEngine {
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] gender-v2n load failed; switching to no-op", t);
             modelsFailed = true;
-        }
-    }
-
-    /**
-     * Lazy-init du sentinel detector (image-only callers payent pas le coût).
-     * Retourne {@code null} si le load fail (sentinel devient no-op).
-     */
-    private @Nullable SentinelDetector ensureSentinelLoaded() {
-        if (sentinelDetector != null) return sentinelDetector;
-        if (sentinelFailed) return null;
-        try {
-            sentinelDetector = DetectorFactory.createSentinel(BasarunaaBackend.ORT_CPU);
-            return sentinelDetector;
-        } catch (Throwable t) {
-            Log.e(TAG, "[Engine] sentinel load failed; switching to no-op", t);
-            sentinelFailed = true;
-            return null;
-        }
-    }
-
-    /**
-     * Sentinel light-weight inference pour le scheduler vidéo two-tier. Retourne
-     * juste les bboxes person (pas de gender, pas de NSFW, pas de keypoint).
-     */
-    public List<Bbox> sentinel(byte[] bytes, double confThreshold) {
-        final long t0 = System.nanoTime();
-        try {
-            final SentinelDetector det = ensureSentinelLoaded();
-            if (det == null) return Collections.emptyList();
-
-            final Bitmap src = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            if (src == null) {
-                Log.w(TAG, "[Engine] sentinel decode failed");
-                return Collections.emptyList();
-            }
-            try {
-                final List<Bbox> bboxes = det.detect(src, (float) confThreshold);
-                final double elapsedMs = (System.nanoTime() - t0) / 1_000_000.0;
-                Log.i(TAG, "[Engine] sentinel %dx%d bboxes=%d %.1fms",
-                        src.getWidth(), src.getHeight(), bboxes.size(), elapsedMs);
-                return bboxes;
-            } finally {
-                src.recycle();
-            }
-        } catch (Throwable t) {
-            final double elapsedMs = (System.nanoTime() - t0) / 1_000_000.0;
-            Log.e(TAG, "[Engine] sentinel failed after "
-                    + String.format(java.util.Locale.US, "%.1fms", elapsedMs), t);
-            return Collections.emptyList();
         }
     }
 

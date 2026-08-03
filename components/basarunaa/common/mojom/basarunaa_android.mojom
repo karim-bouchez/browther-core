@@ -60,12 +60,6 @@ interface BasarunaaAndroid {
   // SPA navigation côté JS (équivalent du PageReset Sawtunaa). Clear le
   // decision cache + drop les inférences en cours pour ce frame.
   PageReset(string url);
-
-  // V2.5 — Sentinel frame tick (NanoDet 320 ~12ms inference). Léger : pas
-  // de gender, pas de keypoint, pas de NSFW — juste les bboxes person.
-  // Appelé par le scheduler vidéo JS ~10 Hz entre 2 YOLO full pose.
-  // Réponse via AssociatedInterface BasarunaaApply.ApplyVideoSentinel.
-  SentinelFrame(int32 frame_id, array<uint8> frame_bytes);
 };
 
 // Browser → renderer (AssociatedInterface, mêmes garanties de routing que
@@ -122,13 +116,4 @@ interface BasarunaaApply {
   // pas casser l'IDL au moment du wiring. Côté JS : applique un blur
   // gaussien sur toute l'image (pas par personne).
   ApplyNsfw(int32 image_id, double score);
-
-  // V2.5 — Sentinel reply. Pousse les bboxes person détectées par le
-  // sentinel léger pour le `frame_id` correspondant. `bboxes_json` =
-  // JSON array de `[x1, y1, x2, y2]` (coords image source). Le scheduler
-  // JS consomme pour smooth-tracker l'overlay entre 2 YOLO full pose.
-  //
-  // Côté renderer, le RFO appelle :
-  //   `window.__basarunaaApplyVideoSentinel(frame_id, JSON.parse(bboxes_json))`
-  ApplyVideoSentinel(int32 frame_id, string bboxes_json);
 };

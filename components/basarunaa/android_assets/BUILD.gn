@@ -19,13 +19,11 @@
 # `brave/build/android/config.gni`) — sinon la resource Android ne se
 # propage pas à `chrome_java`.
 #
-# 6 modèles bundlés (~49 MB total) — Jalon 2.E.1 :
-#   - yolo11n-pose.onnx                  (12 MB)  — body det + 17 keypoints COCO
-#   - yolov8n-face.onnx                  (12 MB)  — face det + 5 landmarks
-#   - genderage.onnx                     (1.3 MB) — InsightFace gender/age
-#   - nanodet-plus-m_320.onnx            (4.8 MB) — sentinel two-tier vidéo
-#   - pplcnet_pedestrian_attribute.onnx  (6.9 MB) — body gender fallback (dos)
-#   - nudenet-320.onnx                   (12 MB)  — NSFW full-frame blur
+# Modèle prod bundlé (single-shot, migration 2026-07-13 + retrait sentinel
+# 2026-08-03) :
+#   - gender-v2n-640.onnx                (~6 MB)  — persons + genre 3 classes
+#     + 17 keypoints COCO, one-shot (remplace la cascade ET le sentinel)
+# Les .tflite restants ne servent qu'à BasarunaaBenchmark (bench latence).
 #
 # Le modèle nsfw-marqo-vit-384 (23 MB) reste hors-bundle : POC macOS l'a
 # remplacé par NudeNet (2× plus léger + équivalent recall).
@@ -44,12 +42,13 @@ android_assets("basarunaa_models_android_assets") {
   # Uniquement renaming_sources (PAS sources). `sources` ET
   # `renaming_sources` sont deux listes distinctes qui s'ADDITIONNENT dans
   # l'APK : utiliser les deux pour le même fichier = doublons.
+  # nanodet-plus-m_320.onnx retiré 2026-08-03 (sentinel prod supprimé —
+  # vidéo one-tier gender-v2n). Le .fp32.tflite reste pour BasarunaaBenchmark.
   renaming_sources = [
     "gender-v2n-640.onnx",
     "genderage.fp16.tflite",
     "genderage.fp32.tflite",
     "nanodet-plus-m_320.fp32.tflite",
-    "nanodet-plus-m_320.onnx",
     "pplcnet_pedestrian_attribute.fp16.tflite",
     "pplcnet_pedestrian_attribute.fp32.tflite",
     "yolo11n-pose.fp32.tflite",
@@ -59,7 +58,6 @@ android_assets("basarunaa_models_android_assets") {
     "basarunaa/genderage.fp16.tflite",
     "basarunaa/genderage.fp32.tflite",
     "basarunaa/nanodet-plus-m_320.fp32.tflite",
-    "basarunaa/nanodet-plus-m_320.onnx",
     "basarunaa/pplcnet_pedestrian_attribute.fp16.tflite",
     "basarunaa/pplcnet_pedestrian_attribute.fp32.tflite",
     "basarunaa/yolo11n-pose.fp32.tflite",

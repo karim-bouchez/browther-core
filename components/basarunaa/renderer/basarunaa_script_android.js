@@ -800,19 +800,6 @@
     ctx.strokeRect(x1 * scale.sx, y1 * scale.sy, (x2 - x1) * scale.sx, (y2 - y1) * scale.sy);
     ctx.restore();
   }
-  function drawSentinelBbox(ctx, bbox, confidence, scale = { sx: 1, sy: 1 }) {
-    drawBbox(ctx, bbox, "#00FF00", scale, 2, true);
-    const [x1, y1] = bbox;
-    ctx.save();
-    ctx.font = "bold 11px monospace";
-    ctx.fillStyle = "#00FF00";
-    ctx.fillText(
-      `s ${(confidence * 100).toFixed(0)}%`,
-      x1 * scale.sx + 2,
-      y1 * scale.sy - 4
-    );
-    ctx.restore();
-  }
   function drawSkeleton(ctx, keypoints, scale = { sx: 1, sy: 1 }, baseSize = 100) {
     if (!keypoints || keypoints.length === 0) return;
     const sx = scale.sx;
@@ -1708,15 +1695,11 @@
     };
   }
 
-  const SENTINEL_MIN_INTERVAL_MS = 100;
-  const YOLO_INTERVAL_TRACKING_MS = 1e3;
+  const YOLO_INTERVAL_TRACKING_MS = 250;
   const YOLO_INTERVAL_SAFE_MS = 5e3;
-  const YOLO_IOU_MATCH_THRESHOLD = 0.3;
   const MIN_VIDEO_SIZE = 120;
   const VIDEO_ID_OFFSET = 1e6;
-  let nextFrameId = 1;
   let nextYoloFrameId = VIDEO_ID_OFFSET;
-  const pendingByFrameId = /* @__PURE__ */ new Map();
   const pendingYoloByFrameId = /* @__PURE__ */ new Map();
   let mutationObserver = null;
   const trackers = /* @__PURE__ */ new WeakMap();
@@ -1758,29 +1741,6 @@
     if (t.canvas.width !== vw) t.canvas.width = vw;
     if (t.canvas.height !== vh) t.canvas.height = vh;
   }
-  function iou(a, b) {
-    const x1 = Math.max(a[0], b[0]);
-    const y1 = Math.max(a[1], b[1]);
-    const x2 = Math.min(a[2], b[2]);
-    const y2 = Math.min(a[3], b[3]);
-    if (x2 <= x1 || y2 <= y1) return 0;
-    const inter = (x2 - x1) * (y2 - y1);
-    const aArea = (a[2] - a[0]) * (a[3] - a[1]);
-    const bArea = (b[2] - b[0]) * (b[3] - b[1]);
-    return inter / (aArea + bArea - inter);
-  }
-  function nearestYoloPerson(bbox, yoloPersons) {
-    let best = null;
-    let bestIoU = YOLO_IOU_MATCH_THRESHOLD;
-    for (const p of yoloPersons) {
-      const o = iou(bbox, p.bbox);
-      if (o > bestIoU) {
-        bestIoU = o;
-        best = p;
-      }
-    }
-    return best;
-  }
   function renderTracking(t, isDebug) {
     const ctx = t.ctx;
     if (!ctx) return;
@@ -1791,26 +1751,17 @@
     const mode = cfg?.mode || "blur-female";
     const certainty = typeof cfg?.genderCertainty === "number" ? cfg.genderCertainty : 0.7;
     const renderables = [];
-    for (const b of t.lastSentinelBboxes) {
-      const bbox = [b[0], b[1], b[2], b[3]];
-      const match = nearestYoloPerson(bbox, t.lastYoloPersons);
-      const genderClass = match ? match.genderClass : GenderClass.Unknown;
-      const person = {
-        bbox,
-        keypoints: match?.keypoints,
-        genderClass,
-        genderConfidence: match?.genderConfidence
-      };
-      const kpConfidences = match?.keypoints ? match.keypoints.map((k) => k.confidence) : null;
+    for (const p of t.lastYoloPersons) {
+      const kpConfidences = p.keypoints ? p.keypoints.map((k) => k.confidence) : null;
       const blur = wouldBlur({
-        gender: genderClass,
-        conf: match?.genderConfidence ?? 0,
+        gender: p.genderClass,
+        conf: p.genderConfidence ?? 0,
         mode,
         certainty,
         minSkeletonActive: false,
         kpConfidences
       });
-      renderables.push({ person, genderClass, blur, matchedYolo: match });
+      renderables.push({ person: p, genderClass: p.genderClass, blur });
     }
     let blurredFull = null;
     try {
@@ -1835,7 +1786,7 @@
     }
     if (isDebug) {
       for (let i = 0; i < renderables.length; i++) {
-        const { person, genderClass, blur, matchedYolo } = renderables[i];
+        const { person, genderClass, blur } = renderables[i];
         const idx = i;
         const color = blur ? genderClassColor(genderClass, idx) : UNKNOWN_COLOR;
         drawBbox(ctx, person.bbox, color);
@@ -1843,9 +1794,6 @@
           drawSkeleton(ctx, person.keypoints, { sx: 1, sy: 1 }, Math.min(w, h));
         }
         drawPersonLabel(ctx, person, color);
-        if (!matchedYolo) {
-          drawSentinelBbox(ctx, person.bbox, 0.5);
-        }
       }
     }
   }
@@ -1886,24 +1834,15 @@
     }
     const yoloInterval = t.stateController.state === "safe" ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
     const wantsYolo = !t.yoloPending && now - t.lastYoloSentAt >= yoloInterval;
-    const wantsSentinel = !t.sentinelPending && now - t.lastSentinelSentAt >= SENTINEL_MIN_INTERVAL_MS;
-    if (wantsYolo || wantsSentinel) {
+    if (wantsYolo) {
       const dataUrl = captureFrameJpeg(t);
       if (dataUrl) {
         const base64 = dataUrl.substring(dataUrl.indexOf(",") + 1);
-        if (wantsYolo) {
-          const yoloFrameId = nextYoloFrameId++;
-          pendingYoloByFrameId.set(yoloFrameId, t);
-          t.yoloPending = true;
-          t.lastYoloSentAt = now;
-          send("analyzeImage", `${yoloFrameId}|${base64}`);
-        } else if (wantsSentinel) {
-          const frameId = nextFrameId++;
-          pendingByFrameId.set(frameId, t);
-          t.sentinelPending = true;
-          t.lastSentinelSentAt = now;
-          send("sentinelFrame", `${frameId}|${base64}`);
-        }
+        const yoloFrameId = nextYoloFrameId++;
+        pendingYoloByFrameId.set(yoloFrameId, t);
+        t.yoloPending = true;
+        t.lastYoloSentAt = now;
+        send("analyzeImage", `${yoloFrameId}|${base64}`);
       }
     }
     scheduleNextTick(t);
@@ -1938,11 +1877,8 @@
       canvas,
       ctx,
       stateController,
-      lastSentinelBboxes: [],
       lastYoloPersons: [],
-      lastSentinelSentAt: 0,
       lastYoloSentAt: 0,
-      sentinelPending: false,
       yoloPending: false,
       destroyed: false
     };
@@ -2020,8 +1956,6 @@
       const g = obj.gender;
       const genderClass = genderFromWord(typeof g === "string" ? g : null);
       const gc = obj.genderConfidence;
-      const bc = obj.bodyConfidence;
-      const fc = obj.faceConfidence;
       const kps = obj.keypoints;
       let keypoints;
       if (Array.isArray(kps)) {
@@ -2033,26 +1967,12 @@
         bbox,
         keypoints,
         genderClass,
-        genderConfidence: typeof gc === "number" ? gc : void 0,
-        detectionConfidence: typeof bc === "number" && bc > 0 ? bc : typeof fc === "number" ? fc : 0
+        genderConfidence: typeof gc === "number" ? gc : void 0
       });
     }
     return out;
   }
   function installApplyHandler() {
-    const w = window;
-    w.__basarunaaApplyVideoSentinel = (frameId, bboxes) => {
-      const t = pendingByFrameId.get(frameId);
-      pendingByFrameId.delete(frameId);
-      if (!t || t.destroyed) return;
-      t.sentinelPending = false;
-      t.lastSentinelBboxes = Array.isArray(bboxes) ? bboxes : [];
-      if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length === 0) {
-        t.stateController.setState("safe");
-      } else if (t.lastSentinelBboxes.length > 0) {
-        t.stateController.setState("tracking");
-      }
-    };
     const prevApply = window.__basarunaaApply;
     window.__basarunaaApply = function basarunaaApplyRouter(id, persons, debugMode, elapsedMs) {
       if (typeof id === "number" && id >= VIDEO_ID_OFFSET) {
@@ -2061,12 +1981,7 @@
         if (!t || t.destroyed) return;
         t.yoloPending = false;
         t.lastYoloPersons = parseYoloPersons(persons);
-        if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length > 0) {
-          t.lastSentinelBboxes = t.lastYoloPersons.map(
-            (p) => [p.bbox[0], p.bbox[1], p.bbox[2], p.bbox[3]]
-          );
-        }
-        if (t.lastSentinelBboxes.length === 0 && t.lastYoloPersons.length === 0) {
+        if (t.lastYoloPersons.length === 0) {
           t.stateController.setState("safe");
         } else {
           t.stateController.setState("tracking");
@@ -2099,12 +2014,7 @@
     mutationObserver?.disconnect();
     mutationObserver = null;
     for (const t of Array.from(allTrackers)) destroyTracker(t);
-    pendingByFrameId.clear();
     pendingYoloByFrameId.clear();
-    try {
-      delete window.__basarunaaApplyVideoSentinel;
-    } catch {
-    }
   }
 
   let pipeline = null;

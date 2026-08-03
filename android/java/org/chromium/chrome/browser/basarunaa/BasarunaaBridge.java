@@ -60,17 +60,6 @@ public final class BasarunaaBridge {
                 nativeHelper, imageId, decision, personsJson, elapsedMs);
     }
 
-    /**
-     * V2.5 — reporte le verdict sentinel au C++ pour push vers le renderer
-     * source via {@code BasarunaaApply::ApplyVideoSentinel}.
-     *
-     * @param bboxesJson JSON array de {@code [x1,y1,x2,y2]} en coords source
-     */
-    public static void notifySentinelReply(long nativeHelper, int frameId,
-                                            String bboxesJson) {
-        BasarunaaBridgeJni.get().onSentinelReply(nativeHelper, frameId, bboxesJson);
-    }
-
     @NativeMethods
     interface Natives {
         /**
@@ -80,11 +69,5 @@ public final class BasarunaaBridge {
          */
         void onAnalyzeReply(long nativeHelper, int imageId, String decision,
                             String personsJson, double elapsedMs);
-
-        /**
-         * V2.5 — callback Java → C++ vers
-         * {@code BasarunaaTabHelper::OnSentinelReply}.
-         */
-        void onSentinelReply(long nativeHelper, int frameId, String bboxesJson);
     }
 }

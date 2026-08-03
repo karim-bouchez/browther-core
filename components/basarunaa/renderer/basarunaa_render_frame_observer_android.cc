@@ -174,23 +174,6 @@ void BasarunaaRenderFrameObserverAndroid::ApplyNsfw(int32_t image_id,
   DispatchApplyToJs(js);
 }
 
-void BasarunaaRenderFrameObserverAndroid::ApplyVideoSentinel(
-    int32_t frame_id,
-    const std::string& bboxes_json) {
-  // bboxes_json déjà JSON valide produit côté Java (serializeBboxes). On le
-  // passe tel quel comme expression JS, fallback `[]` si vide.
-  const std::string bboxes_expr =
-      bboxes_json.empty() ? std::string("[]") : bboxes_json;
-  const std::string js = base::StrCat({
-      "try { if (window.__basarunaaApplyVideoSentinel) "
-      "window.__basarunaaApplyVideoSentinel(",
-      base::NumberToString(frame_id), ", ",
-      bboxes_expr,
-      "); } catch(e) {}",
-  });
-  DispatchApplyToJs(js);
-}
-
 void BasarunaaRenderFrameObserverAndroid::DidClearWindowObject() {
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
   if (!render_frame || !render_frame->IsMainFrame()) {

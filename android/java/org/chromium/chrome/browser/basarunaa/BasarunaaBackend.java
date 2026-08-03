@@ -18,10 +18,10 @@ import org.chromium.build.annotations.NullMarked;
  * (5-23× plus lent sur Huawei UBV0218815000852, cf. memory
  * {@code feedback_basarunaa_android_nnapi_useless}).
  *
- * <p>Le pattern est un <b>double runtime + pref toggle live</b> : chaque
- * détecteur est instancié via {@link
- * org.chromium.chrome.browser.basarunaa.detectors.DetectorFactory} qui choisit
- * son impl ORT ou TFLite selon le backend retourné par {@link #pickBest}.
+ * <p>Le pattern historique était un <b>double runtime + pref toggle live</b>
+ * via une DetectorFactory (retirée avec la cascade puis le sentinel,
+ * 2026-07-13 / 2026-08-03). Reste consommé par {@code BasarunaaBenchmark} +
+ * {@code TfliteRuntime} pour les benchs de latence.
  *
  * <p><b>Compromis</b> : 2 modèles (yolov8n-face, nudenet-320) ne se convertissent
  * pas via onnx2tf (post-process YOLO embarqué) → ils restent en ORT_CPU même
@@ -63,8 +63,7 @@ public enum BasarunaaBackend {
 
     /**
      * True si {@code CompatibilityList().isDelegateSupportedOnThisDevice()}.
-     * Memoize le résultat (la liste interne TFLite est statique au boot — pas
-     * besoin de re-checker à chaque {@link DetectorFactory#createPose} call).
+     * Memoize le résultat (la liste interne TFLite est statique au boot).
      * Tout throwable (classe non chargeable, init crash) → false fallback.
      */
     public static boolean gpuSupported() {

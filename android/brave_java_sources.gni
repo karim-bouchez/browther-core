@@ -363,11 +363,8 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderV2nDecode.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderV2nDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
-  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/NanoDetSentinelDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/TfliteRuntime.java",
-  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/DetectorFactory.java",
-  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/detectors/SentinelDetector.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).
   "../../brave/android/java/org/chromium/chrome/browser/shields_panel/ShieldsPanelBottomSheet.java",
   # Browther: Sawtunaa Voie B

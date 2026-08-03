@@ -88,11 +88,6 @@ class BasarunaaTabHelper
                     const std::vector<uint8_t>& image_bytes) override;
   void CancelAnalyze(int32_t image_id) override;
   void PageReset(const std::string& url) override;
-  // V2.5 sentinel tick — frame_id unique côté JS (compteur scheduler),
-  // utilisé pour matcher la reply ApplyVideoSentinel au scheduler vidéo
-  // source. Réutilise le même java_analyzer_ que AnalyzeImage.
-  void SentinelFrame(int32_t frame_id,
-                     const std::vector<uint8_t>& frame_bytes) override;
 
 #if BUILDFLAG(IS_ANDROID)
   // Appelé par BasarunaaTabAnalyzer.java via BasarunaaBridge.notifyAnalyzeReply.
@@ -117,13 +112,6 @@ class BasarunaaTabHelper
                       const base::android::JavaRef<jstring>& j_decision,
                       const base::android::JavaRef<jstring>& j_persons_json,
                       jdouble elapsed_ms);
-
-  // V2.5 sentinel reply — push BasarunaaApply::ApplyVideoSentinel au RFH
-  // source du SentinelFrame initial (via `pending_sentinels_`).
-  void OnSentinelReply(int32_t frame_id, const std::string& bboxes_json);
-  void OnSentinelReply(JNIEnv* env,
-                       jint frame_id,
-                       const base::android::JavaRef<jstring>& j_bboxes_json);
 #endif
 
  private:
@@ -156,10 +144,6 @@ class BasarunaaTabHelper
   // OnAnalyzeReply (callback Java) de router la reply BasarunaaApply::Apply
   // au bon renderer. Cleanup au RenderFrameDeleted pour éviter dangling.
   std::map<int32_t, content::GlobalRenderFrameHostId> pending_analyses_;
-  // V2.5 idem pour les sentinel ticks vidéo. Espace `frame_id` séparé du
-  // `image_id` côté JS (incrémenté par le scheduler vidéo). Cleanup même
-  // logique au RenderFrameDeleted.
-  std::map<int32_t, content::GlobalRenderFrameHostId> pending_sentinels_;
 #endif
 
   // WeakPtrFactory pour PostTask Java-thread → UI-thread depuis la JNI
