@@ -12,15 +12,18 @@
 namespace installer {
 
 std::wstring GetProgIdForFileType() {
+  // Browther: ProgIds fichiers (associations .pdf/.svg, visibles dans
+  // « Ouvrir avec ») rebrandés — famille « Brwthr » ≤ 11 chars, cohérente
+  // avec chromium_install_modes.h.
   switch (install_static::GetChromeChannel()) {
     case version_info::Channel::STABLE:
-      return L"BraveFile";
+      return L"BrwthrFile";
     case version_info::Channel::BETA:
-      return L"BraveBFile";
+      return L"BrwthrBFile";
     case version_info::Channel::DEV:
-      return L"BraveDFile";
+      return L"BrwthrDFile";
     case version_info::Channel::CANARY:
-      return L"BraveSSFile";
+      return L"BrwthrSFile";
     default:
       break;
   }
