@@ -39,6 +39,20 @@ source_set("component_loader") {
   if (enable_web_discovery_native) {
     deps += [ "//brave/components/web_discovery/common" ]
   }
+
+  # Browther: extensions built-in (basarunaa, sawtunaa + modèles ONNX) copiées
+  # à côté du binaire ($root_out_dir/<ext>/ = DIR_EXE, résolu par
+  # ResolveBrowtherExtensionPath ci-dessous). Le staging
+  # //brave/browther_extensions est gitignored (code propriétaire
+  # browther-private, peuplé par private/scripts/deploy-extensions.sh
+  # --staging) → dep auto-détecté via path_exists, absent d'un checkout
+  # public. Sans ce data_deps, Windows/Linux buildent SANS les deux features
+  # (cause du DMG macOS distribué 6 semaines sans extensions, 2026-07-07).
+  # macOS Release garde en plus son bundle_data vers Contents/Resources/
+  # (chrome/BUILD.gn, injecté par post-init-patches.sh étape 2ter).
+  if (path_exists("//brave/browther_extensions/BUILD.gn")) {
+    data_deps = [ "//brave/browther_extensions:browther_extensions_copy" ]
+  }
 }
 
 # This is split out from extensions and the rest of brave_prefs_util because it
