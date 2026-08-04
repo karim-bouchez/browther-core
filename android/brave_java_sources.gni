@@ -363,6 +363,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderV2nDecode.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/GenderV2nDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/Letterbox.java",
+  "../../brave/android/java/org/chromium/chrome/browser/basarunaa/NudeNetDetector.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/OrtRuntime.java",
   "../../brave/android/java/org/chromium/chrome/browser/basarunaa/TfliteRuntime.java",
   # Browther: Shields BottomSheet (alignement Sawtunaa/Basarunaa 2026-06-01).

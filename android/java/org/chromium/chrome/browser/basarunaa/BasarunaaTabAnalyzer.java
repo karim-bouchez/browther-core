@@ -67,10 +67,17 @@ public final class BasarunaaTabAnalyzer {
      * @param mode pref Basarunaa.mode courante
      * @param confBody pref Basarunaa.conf_body courante
      * @param genderCertainty pref Basarunaa.gender_certainty courante
+     * @param nsfwEnabled pref Basarunaa.nsfw_enabled (opt-in, OFF par défaut) —
+     *        si ON, un check NudeNet est lancé APRÈS la reply persons (même
+     *        pool → sérialisé, ne rallonge pas la latence du verdict flou) et
+     *        reporté via {@link BasarunaaBridge#notifyNsfwReply} (TOUJOURS
+     *        notifié, score 0.0 si négatif — le C++ purge son pending map)
+     * @param nudenetConf pref Basarunaa.nudenet_conf (seuil, défaut 0.50)
      */
     @CalledByNative
     public void analyzeImage(int imageId, byte[] bytes, String mode,
-                              double confBody, double genderCertainty) {
+                              double confBody, double genderCertainty,
+                              boolean nsfwEnabled, double nudenetConf) {
         // Snapshot le pointer pour le test après retour du pipeline (tab peut
         // disparaitre entre temps).
         final long nativeHelperSnapshot = mNativeHelper;
@@ -104,6 +111,27 @@ public final class BasarunaaTabAnalyzer {
                     result.personsJson,
                     result.elapsedMs);
         });
+        // NSFW opt-in — parité iOS (fire APRÈS la reply persons, jamais
+        // bloquant). Même PIPELINE_EXEC : s'exécute une fois l'analyze ci-dessus
+        // terminée et notifiée.
+        if (nsfwEnabled) {
+            BasarunaaEngine.PIPELINE_EXEC.execute(() -> {
+                NudeNetDetector.Result nsfw;
+                try {
+                    nsfw = BasarunaaEngine.getInstance().checkNsfw(bytes, nudenetConf);
+                } catch (Throwable t) {
+                    Log.e(TAG, "[Analyzer#" + instanceId + "] checkNsfw failed", t);
+                    nsfw = NudeNetDetector.Result.empty();
+                }
+                if (nativeHelperSnapshot == 0 || mNativeHelper == 0) {
+                    Log.w(TAG, "[Analyzer#%d] nsfw reply dropped (native invalidated)",
+                            instanceId);
+                    return;
+                }
+                BasarunaaBridge.notifyNsfwReply(
+                        nativeHelperSnapshot, imageId, nsfw.isNsfw ? 1.0 : 0.0);
+            });
+        }
     }
 
     @CalledByNative

@@ -113,6 +113,13 @@ void BasarunaaTabHelper::RenderFrameDeleted(content::RenderFrameHost* rfh) {
       ++it;
     }
   }
+  for (auto it = pending_nsfw_.begin(); it != pending_nsfw_.end();) {
+    if (it->second == rfh_id) {
+      it = pending_nsfw_.erase(it);
+    } else {
+      ++it;
+    }
+  }
 #endif
 }
 
@@ -227,6 +234,14 @@ void BasarunaaTabHelper::AnalyzeImage(
     return;
   }
 
+  // NSFW opt-in (2026-08-04) — gate par la pref : quand OFF, Java ne lance
+  // rien (zéro coût, modèle jamais chargé) et aucune reply ne viendra, donc
+  // on ne remplit pending_nsfw_ que quand ON (sinon fuite d'entrées).
+  const bool nsfw_enabled = prefs->GetBoolean(kBasarunaaNsfwEnabled);
+  if (nsfw_enabled) {
+    pending_nsfw_[image_id] = rfh->GetGlobalId();
+  }
+
   JNIEnv* env = base::android::AttachCurrentThread();
   base::android::ScopedJavaLocalRef<jbyteArray> j_bytes =
       base::android::ToJavaByteArray(env, image_bytes);
@@ -235,7 +250,8 @@ void BasarunaaTabHelper::AnalyzeImage(
       base::android::ConvertUTF8ToJavaString(env,
                                              prefs->GetString(kBasarunaaMode)),
       prefs->GetDouble(kBasarunaaConfBody),
-      prefs->GetDouble(kBasarunaaGenderCertainty));
+      prefs->GetDouble(kBasarunaaGenderCertainty), nsfw_enabled,
+      prefs->GetDouble(kBasarunaaNudenetConf));
 #endif
 }
 
@@ -359,6 +375,51 @@ void BasarunaaTabHelper::OnAnalyzeReply(
                      weak_factory_.GetWeakPtr(), int32_t{image_id},
                      std::move(decision), std::move(persons_json),
                      double{elapsed_ms}));
+}
+
+// NSFW opt-in (2026-08-04) — reply NudeNet. Pattern identique à
+// OnAnalyzeReply : Java notifie TOUJOURS quand la pref est ON (score 0.0 si
+// négatif) pour purger pending_nsfw_ ; le push mojom ApplyNsfw ne part que si
+// score > 0 (le TS traite tout appel __basarunaaApplyNsfw comme positif).
+void BasarunaaTabHelper::OnNsfwReply(int32_t image_id, double score) {
+  auto it = pending_nsfw_.find(image_id);
+  if (it == pending_nsfw_.end()) {
+    LOG(WARNING) << "[Basarunaa/nsfw-reply] dropped: no pending RFH for "
+                    "image_id=" << image_id;
+    return;
+  }
+  const auto rfh_id = it->second;
+  pending_nsfw_.erase(it);
+
+  if (score <= 0.0) {
+    return;
+  }
+
+  content::RenderFrameHost* rfh = content::RenderFrameHost::FromID(rfh_id);
+  if (!rfh) {
+    LOG(WARNING) << "[Basarunaa/nsfw-reply] dropped: RFH gone for image_id="
+                 << image_id;
+    return;
+  }
+
+  mojo::AssociatedRemote<android::mojom::BasarunaaApply> apply;
+  rfh->GetRemoteAssociatedInterfaces()->GetInterface(&apply);
+  apply->ApplyNsfw(image_id, score);
+  LOG(INFO) << "[Basarunaa/nsfw-reply] image_id=" << image_id
+            << " score=" << score;
+}
+
+// Overload JNI — même hop UI thread que OnAnalyzeReply (pending_nsfw_ +
+// RenderFrameHost::FromID exigent le UI thread).
+void BasarunaaTabHelper::OnNsfwReply(JNIEnv* env,
+                                     jint image_id,
+                                     jdouble score) {
+  using DoubleOverload = void (BasarunaaTabHelper::*)(int32_t, double);
+  content::GetUIThreadTaskRunner({})->PostTask(
+      FROM_HERE,
+      base::BindOnce(
+          static_cast<DoubleOverload>(&BasarunaaTabHelper::OnNsfwReply),
+          weak_factory_.GetWeakPtr(), int32_t{image_id}, double{score}));
 }
 
 // Alias requis par jni_zero pattern "long native pointer" — le `_jni.h` généré

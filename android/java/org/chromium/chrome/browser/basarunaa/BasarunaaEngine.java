@@ -31,8 +31,13 @@ import java.util.concurrent.Executors;
  * (genre brut + conf) ; la décision de flou vit dans {@code core/policy.ts},
  * appliquée côté bundle android/ TS.
  *
- * <p>NSFW plein cadre : retiré du hot path (parité desktop = opt-in OFF par
- * défaut). TODO : ré-exposer en opt-in via {@code ApplyNsfw} comme iOS.
+ * <p>NSFW plein cadre : **ré-exposé en opt-in 2026-08-04** (parité 4
+ * plateformes, décision Karim). Gaté par la pref {@code nsfw_enabled} côté
+ * C++ ({@code BasarunaaTabHelper::AnalyzeImage} lit la pref et ne déclenche
+ * {@link #checkNsfw} que si ON) — OFF par défaut = zéro coût (modèle jamais
+ * chargé). NudeNet seul, pas de Marqo (jamais bundlé Android, cf.
+ * {@link NudeNetDetector}). Reply via {@code BasarunaaBridge.notifyNsfwReply}
+ * → C++ → mojom {@code ApplyNsfw} → {@code __basarunaaApplyNsfw} TS.
  *
  * <p>Sentinel NanoDet retiré (2026-08-03) — la vidéo est one-tier : le
  * scheduler TS envoie des analyzeImage gender-v2n à 250 ms en tracking
@@ -66,6 +71,8 @@ public final class BasarunaaEngine {
 
     @Nullable private GenderV2nDetector genderDetector;
     private boolean modelsFailed;
+    @Nullable private NudeNetDetector nudeNetDetector;
+    private boolean nudeNetFailed;
 
     private BasarunaaEngine() {
         Log.i(TAG, "[Engine] singleton created (single-shot gender-v2n)");
@@ -145,6 +152,62 @@ public final class BasarunaaEngine {
         } catch (Throwable t) {
             Log.e(TAG, "[Engine] gender-v2n load failed; switching to no-op", t);
             modelsFailed = true;
+        }
+    }
+
+    /**
+     * Lazy-init du NudeNet (opt-in : seuls les profils {@code nsfw_enabled}
+     * payent le chargement). Retourne {@code null} si le load fail (NSFW
+     * devient no-op, jamais bloquant pour le pipeline persons).
+     */
+    private @Nullable NudeNetDetector ensureNudeNetLoaded() {
+        if (nudeNetDetector != null) return nudeNetDetector;
+        if (nudeNetFailed) return null;
+        try {
+            nudeNetDetector = new NudeNetDetector();
+            return nudeNetDetector;
+        } catch (Throwable t) {
+            Log.e(TAG, "[Engine] NudeNet load failed; NSFW no-op", t);
+            nudeNetFailed = true;
+            return null;
+        }
+    }
+
+    /**
+     * Check NSFW plein cadre (NudeNet seul — pas de Marqo Android, cf.
+     * {@link NudeNetDetector}). Appelé sur {@code PIPELINE_EXEC} après le
+     * pipeline persons, uniquement quand la pref {@code nsfw_enabled} est ON
+     * (gate côté C++ {@code BasarunaaTabHelper}).
+     *
+     * @param nudenetConf pref {@code nudenet_conf} (défaut 0.50)
+     */
+    public NudeNetDetector.Result checkNsfw(byte[] bytes, double nudenetConf) {
+        final long t0 = System.nanoTime();
+        try {
+            final NudeNetDetector det = ensureNudeNetLoaded();
+            if (det == null) return NudeNetDetector.Result.empty();
+
+            final Bitmap src = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            if (src == null) {
+                Log.w(TAG, "[Engine] checkNsfw decode failed");
+                return NudeNetDetector.Result.empty();
+            }
+            try {
+                final NudeNetDetector.Result result = det.check(src, (float) nudenetConf);
+                final double elapsedMs = (System.nanoTime() - t0) / 1_000_000.0;
+                if (result.isNsfw) {
+                    Log.i(TAG, "[Engine] checkNsfw POSITIVE %s %.1fms",
+                            result.flaggedClasses, elapsedMs);
+                } else {
+                    Log.i(TAG, "[Engine] checkNsfw negative %.1fms", elapsedMs);
+                }
+                return result;
+            } finally {
+                src.recycle();
+            }
+        } catch (Throwable t) {
+            Log.e(TAG, "[Engine] checkNsfw failed", t);
+            return NudeNetDetector.Result.empty();
         }
     }
 

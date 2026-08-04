@@ -56,6 +56,9 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
     @Nullable private SeekBar mGenderSlider;
     @Nullable private RadioGroup mDebugGroup;
     @Nullable private MaterialSwitch mCaptureSwitch;
+    @Nullable private MaterialSwitch mNsfwSwitch;
+    @Nullable private TextView mNudenetLabel;
+    @Nullable private SeekBar mNudenetSlider;
 
     /** Convenience: build + show. */
     public static void show(FragmentManager fragmentManager) {
@@ -91,16 +94,31 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
         mGenderSlider = view.findViewById(R.id.basarunaa_panel_gender_slider);
         mDebugGroup = view.findViewById(R.id.basarunaa_panel_debug_group);
         mCaptureSwitch = view.findViewById(R.id.basarunaa_panel_capture_switch);
+        mNsfwSwitch = view.findViewById(R.id.basarunaa_panel_nsfw_switch);
+        mNudenetLabel = view.findViewById(R.id.basarunaa_panel_nudenet_label);
+        mNudenetSlider = view.findViewById(R.id.basarunaa_panel_nudenet_slider);
 
         bindToggle();
         bindModeGroup();
+        bindNsfwSwitch();
         bindSlider(mConfBodySlider, mConfBodyLabel,
                 BravePref.BASARUNAA_CONF_BODY, R.string.basarunaa_panel_conf_body_fmt);
         bindSlider(mGenderSlider, mGenderLabel,
                 BravePref.BASARUNAA_GENDER_CERTAINTY,
                 R.string.basarunaa_panel_gender_fmt);
+        bindSlider(mNudenetSlider, mNudenetLabel,
+                BravePref.BASARUNAA_NUDENET_CONF,
+                R.string.basarunaa_panel_nudenet_fmt);
         bindDebugGroup();
         bindCaptureSwitch();
+    }
+
+    /** NSFW opt-in (2026-08-04, parité desktop/iOS). Pref OFF par défaut. */
+    private void bindNsfwSwitch() {
+        if (mNsfwSwitch == null) return;
+        mNsfwSwitch.setChecked(getPrefBool(BravePref.BASARUNAA_NSFW_ENABLED));
+        mNsfwSwitch.setOnCheckedChangeListener(
+                (v, isChecked) -> setPrefBool(BravePref.BASARUNAA_NSFW_ENABLED, isChecked));
     }
 
     private void bindToggle() {

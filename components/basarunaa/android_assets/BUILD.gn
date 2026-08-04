@@ -19,10 +19,13 @@
 # `brave/build/android/config.gni`) — sinon la resource Android ne se
 # propage pas à `chrome_java`.
 #
-# Modèle prod bundlé (single-shot, migration 2026-07-13 + retrait sentinel
-# 2026-08-03) :
+# Modèles prod bundlés (single-shot 2026-07-13, retrait sentinel 2026-08-03,
+# ré-exposition NSFW opt-in 2026-08-04) :
 #   - gender-v2n-640.onnx                (~6 MB)  — persons + genre 3 classes
 #     + 17 keypoints COCO, one-shot (remplace la cascade ET le sentinel)
+#   - nudenet-320.onnx                   (12 MB)  — NSFW plein cadre, opt-in
+#     (pref nsfw_enabled OFF par défaut ; NudeNet seul, pas de Marqo — cf.
+#     NudeNetDetector.java)
 # Les .tflite restants ne servent qu'à BasarunaaBenchmark (bench latence).
 #
 # Le modèle nsfw-marqo-vit-384 (23 MB) reste hors-bundle : POC macOS l'a
@@ -49,6 +52,7 @@ android_assets("basarunaa_models_android_assets") {
     "genderage.fp16.tflite",
     "genderage.fp32.tflite",
     "nanodet-plus-m_320.fp32.tflite",
+    "nudenet-320.onnx",
     "pplcnet_pedestrian_attribute.fp16.tflite",
     "pplcnet_pedestrian_attribute.fp32.tflite",
     "yolo11n-pose.fp32.tflite",
@@ -58,6 +62,7 @@ android_assets("basarunaa_models_android_assets") {
     "basarunaa/genderage.fp16.tflite",
     "basarunaa/genderage.fp32.tflite",
     "basarunaa/nanodet-plus-m_320.fp32.tflite",
+    "basarunaa/nudenet-320.onnx",
     "basarunaa/pplcnet_pedestrian_attribute.fp16.tflite",
     "basarunaa/pplcnet_pedestrian_attribute.fp32.tflite",
     "basarunaa/yolo11n-pose.fp32.tflite",

@@ -60,6 +60,17 @@ public final class BasarunaaBridge {
                 nativeHelper, imageId, decision, personsJson, elapsedMs);
     }
 
+    /**
+     * NSFW opt-in (2026-08-04) — reporte le verdict NudeNet au C++ pour push
+     * vers le renderer source via {@code BasarunaaApply::ApplyNsfw}. TOUJOURS
+     * appelé quand la pref est ON (score 0.0 si négatif) : le C++ purge son
+     * {@code pending_nsfw_} et ne pousse le mojom que si {@code score > 0}
+     * (le TS traite tout appel {@code __basarunaaApplyNsfw} comme positif).
+     */
+    public static void notifyNsfwReply(long nativeHelper, int imageId, double score) {
+        BasarunaaBridgeJni.get().onNsfwReply(nativeHelper, imageId, score);
+    }
+
     @NativeMethods
     interface Natives {
         /**
@@ -69,5 +80,11 @@ public final class BasarunaaBridge {
          */
         void onAnalyzeReply(long nativeHelper, int imageId, String decision,
                             String personsJson, double elapsedMs);
+
+        /**
+         * NSFW opt-in — callback Java → C++ vers
+         * {@code BasarunaaTabHelper::OnNsfwReply}.
+         */
+        void onNsfwReply(long nativeHelper, int imageId, double score);
     }
 }

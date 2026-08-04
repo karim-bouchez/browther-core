@@ -112,6 +112,13 @@ class BasarunaaTabHelper
                       const base::android::JavaRef<jstring>& j_decision,
                       const base::android::JavaRef<jstring>& j_persons_json,
                       jdouble elapsed_ms);
+
+  // NSFW opt-in (2026-08-04) — reply NudeNet. Java notifie TOUJOURS quand la
+  // pref est ON (score 0.0 si négatif) : on purge `pending_nsfw_` à chaque
+  // reply et on ne pousse BasarunaaApply::ApplyNsfw que si score > 0 (le TS
+  // traite tout appel __basarunaaApplyNsfw comme positif).
+  void OnNsfwReply(int32_t image_id, double score);
+  void OnNsfwReply(JNIEnv* env, jint image_id, jdouble score);
 #endif
 
  private:
@@ -144,6 +151,10 @@ class BasarunaaTabHelper
   // OnAnalyzeReply (callback Java) de router la reply BasarunaaApply::Apply
   // au bon renderer. Cleanup au RenderFrameDeleted pour éviter dangling.
   std::map<int32_t, content::GlobalRenderFrameHostId> pending_analyses_;
+  // NSFW opt-in — image_id → RFH source, rempli à AnalyzeImage UNIQUEMENT
+  // quand kBasarunaaNsfwEnabled est ON (sinon aucune reply Java ne viendrait
+  // le purger). Cleanup au RenderFrameDeleted, comme pending_analyses_.
+  std::map<int32_t, content::GlobalRenderFrameHostId> pending_nsfw_;
 #endif
 
   // WeakPtrFactory pour PostTask Java-thread → UI-thread depuis la JNI

@@ -4082,6 +4082,12 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BASARUNAA_PANEL_MODE_ALL" desc="Radio option: blur all people">
       Flouter tout le monde
     </message>
+    <message name="IDS_BASARUNAA_PANEL_NSFW_TOGGLE" desc="Label of the NSFW detection opt-in toggle in the Basarunaa panel">
+      Détection NSFW
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_NSFW_TOGGLE_DESC" desc="Description of the NSFW detection toggle in the Basarunaa panel">
+      Floute toute l&apos;image quand un contenu explicite est détecté (nudité, parties intimes). Désactivée par défaut pour de meilleures performances.
+    </message>
     <message name="IDS_BASARUNAA_PANEL_SECTION_DETECTION" desc="Section title for the detection threshold sliders">
       Détection
     </message>
@@ -4090,6 +4096,9 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     </message>
     <message name="IDS_BASARUNAA_PANEL_CONF_FACE_FMT" desc="Slider label: face detection confidence, %1$d is a percent value 0-100">
       Confiance détection visage : <ph name="VALUE">%1$d<ex>30</ex></ph> / 100
+    </message>
+    <message name="IDS_BASARUNAA_PANEL_NUDENET_FMT" desc="Slider label: NudeNet explicit-parts detection threshold, %1$d is a percent value 0-100">
+      Seuil NudeNet : <ph name="VALUE">%1$d<ex>50</ex></ph> / 100
     </message>
     <message name="IDS_BASARUNAA_PANEL_GENDER_FMT" desc="Slider label: gender classification certainty, %1$d is a percent value 0-100">
       Certitude genre : <ph name="VALUE">%1$d<ex>70</ex></ph> / 100

@@ -854,6 +854,17 @@
     ctx.fillText(label, dx + 3, ly + lh - 4);
     ctx.restore();
   }
+  function drawNsfwBadge(ctx) {
+    ctx.save();
+    ctx.font = "bold 14px monospace";
+    const text = "NSFW";
+    const tw = ctx.measureText(text).width + 8;
+    ctx.fillStyle = "rgba(255, 0, 0, 0.85)";
+    ctx.fillRect(6, 6, tw, 22);
+    ctx.fillStyle = "#fff";
+    ctx.fillText(text, 10, 22);
+    ctx.restore();
+  }
 
   function getBinding() {
     if (typeof window === "undefined") return null;
@@ -1747,6 +1758,23 @@
     const w = t.canvas.width;
     const h = t.canvas.height;
     ctx.clearRect(0, 0, w, h);
+    if (t.isNsfw) {
+      try {
+        const cap = document.createElement("canvas");
+        cap.width = w;
+        cap.height = h;
+        const cctx = cap.getContext("2d");
+        if (cctx) {
+          cctx.drawImage(t.video, 0, 0, w, h);
+          const blurPx = blurRadiusForImage(w, h);
+          const blurred = createEdgeClampedBlur(cap, w, h, blurPx);
+          if (blurred) ctx.drawImage(blurred, 0, 0, w, h);
+        }
+      } catch {
+      }
+      if (isDebug) drawNsfwBadge(ctx);
+      return;
+    }
     const cfg = getConfig();
     const mode = cfg?.mode || "blur-female";
     const certainty = typeof cfg?.genderCertainty === "number" ? cfg.genderCertainty : 0.7;
@@ -1878,6 +1906,7 @@
       ctx,
       stateController,
       lastYoloPersons: [],
+      isNsfw: false,
       lastYoloSentAt: 0,
       yoloPending: false,
       destroyed: false
@@ -1981,6 +2010,7 @@
         if (!t || t.destroyed) return;
         t.yoloPending = false;
         t.lastYoloPersons = parseYoloPersons(persons);
+        t.isNsfw = false;
         if (t.lastYoloPersons.length === 0) {
           t.stateController.setState("safe");
         } else {
@@ -1992,6 +2022,27 @@
         prevApply(id, persons, debugMode, elapsedMs);
       }
     };
+    const prevApplyNsfw = window.__basarunaaApplyNsfw;
+    window.__basarunaaApplyNsfw = function basarunaaApplyNsfwRouter(id, score) {
+      if (typeof id === "number" && id >= VIDEO_ID_OFFSET) {
+        const t = pendingYoloByFrameId.get(id) ?? findTrackerForNsfw();
+        if (!t || t.destroyed) return;
+        t.isNsfw = true;
+        t.stateController.setState("tracking");
+        return;
+      }
+      if (prevApplyNsfw) {
+        prevApplyNsfw(id, score);
+      }
+    };
+  }
+  function findTrackerForNsfw(_id) {
+    let best = null;
+    for (const t of allTrackers) {
+      if (t.destroyed) continue;
+      if (!best || t.lastYoloSentAt > best.lastYoloSentAt) best = t;
+    }
+    return best;
   }
   function createVideoPipeline() {
     if (started$1) {

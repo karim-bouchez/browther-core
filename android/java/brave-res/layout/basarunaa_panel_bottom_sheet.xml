@@ -111,6 +111,25 @@
             android:textSize="13sp" />
     </RadioGroup>
 
+    <!-- NSFW opt-in (parité desktop/iOS, 2026-08-04) : toggle + description.
+         OFF par défaut (pref nsfw_enabled) — meilleure latence. -->
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/basarunaa_panel_nsfw_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/basarunaa_panel_nsfw_toggle"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/basarunaa_panel_nsfw_toggle_desc"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp"
+        android:lineSpacingExtra="2dp" />
+
     <!-- Section : Détection (sliders) -->
     <TextView
         android:layout_width="match_parent"
@@ -145,6 +164,20 @@
 
     <SeekBar
         android:id="@+id/basarunaa_panel_gender_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/basarunaa_panel_nudenet_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/basarunaa_panel_nudenet_slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="100" />
