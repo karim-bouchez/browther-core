@@ -1059,6 +1059,11 @@ void BraveAddCommonStrings(content::WebUIDataSource* html_source,
        IDS_BRAVE_ADBLOCK_CUSTOM_SCRIPTLET_WARNING},
 
       {"braveShortcutsPage", IDS_SETTINGS_BRAVE_SHORTCUTS_TITLE},
+      // Browther : ligne « les autres projets dev&din » de la page À propos.
+      {"browtherAboutDevndinLabel",
+       IDS_SETTINGS_BROWTHER_ABOUT_DEVNDIN_LABEL},
+      {"browtherAboutDevndinSubLabel",
+       IDS_SETTINGS_BROWTHER_ABOUT_DEVNDIN_SUB_LABEL},
       {"settingsSelectValueYes", IDS_SETTINGS_SELECT_VALUE_YES},
       {"settingsSelectValueNo", IDS_SETTINGS_SELECT_VALUE_NO},
       {"settingsSelectValueAsk", IDS_SETTINGS_SELECT_VALUE_ASK},

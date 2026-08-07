@@ -2012,6 +2012,14 @@
     </message>
   </if>
 
+  <!-- Browther: lien vers le hub dev&din dans chrome://settings/help -->
+  <message name="IDS_SETTINGS_BROWTHER_ABOUT_DEVNDIN_LABEL" desc="Browther: label of a row in the About page that opens the dev&amp;din website">
+    Discover the other dev&amp;din projects
+  </message>
+  <message name="IDS_SETTINGS_BROWTHER_ABOUT_DEVNDIN_SUB_LABEL" desc="Browther: secondary text under the row that opens the dev&amp;din website">
+    Browther is one of several apps we build
+  </message>
+
   <!--Add new items to the appropriate sections above -->
 
   </grit-part>
