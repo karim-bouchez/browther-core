@@ -7,6 +7,21 @@
 /* The title of the screen that requests user to set Browther as default */
 "focusOnboarding.defaultBrowserScreenTitle" = "Bloqueie música, imagens haram e anúncios em todos os sites que visita";
 
+/* A note telling the user that both broadcast channels carry the same content, so either one will do */
+"focusOnboarding.followChannelsSameContent" = "O mesmo conteúdo nos dois: escolhe a app que já usas";
+
+/* The subtitle of the screen offering to follow the dev&din broadcast channels */
+"focusOnboarding.followChannelsScreenDescription" = "Novas funcionalidades, novos projetos: segue-nos e fica a saber primeiro. Uma mensagem rara, só quando vale a pena.";
+
+/* The title of the last onboarding screen, which offers to follow the dev&din broadcast channels */
+"focusOnboarding.followChannelsScreenTitle" = "O Browther é apenas o começo";
+
+/* The label of the button that opens the dev&din Telegram broadcast channel */
+"focusOnboarding.followChannelsTelegram" = "Canal do Telegram";
+
+/* The label of the button that opens the dev&din WhatsApp broadcast channel */
+"focusOnboarding.followChannelsWhatsApp" = "Canal do WhatsApp";
+
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "Não agora";
 

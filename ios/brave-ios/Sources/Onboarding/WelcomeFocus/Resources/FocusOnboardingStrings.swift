@@ -122,5 +122,54 @@ extension Strings {
       value: "Start streaming and enjoy fewer ads & trackers.",
       comment: "The description of the popup which points to URL Bar after onboarding"
     )
+
+    // MARK: - Browther : étape « suivre les canaux dev&din »
+    // Mêmes textes que l'étape desktop (`brave_welcome_ui/components/follow-channels/`),
+    // sauf la marche à suivre : ici les apps s'ouvrent directement, il n'y a pas
+    // de QR à scanner. L'invocation « إن شاء الله » est ajoutée par la vue, sur
+    // sa propre ligne — collée en fin de titre elle se fait couper.
+
+    public static let followChannelsScreenTitle = NSLocalizedString(
+      "focusOnboarding.followChannelsScreenTitle",
+      tableName: "FocusOnboarding",
+      bundle: .module,
+      value: "Browther is just the beginning",
+      comment:
+        "The title of the last onboarding screen, which offers to follow the dev&din broadcast channels"
+    )
+
+    public static let followChannelsScreenDescription = NSLocalizedString(
+      "focusOnboarding.followChannelsScreenDescription",
+      tableName: "FocusOnboarding",
+      bundle: .module,
+      value:
+        "New features, new projects — follow us to hear about them first. A rare message, only when it's worth it.",
+      comment: "The subtitle of the screen offering to follow the dev&din broadcast channels"
+    )
+
+    public static let followChannelsWhatsApp = NSLocalizedString(
+      "focusOnboarding.followChannelsWhatsApp",
+      tableName: "FocusOnboarding",
+      bundle: .module,
+      value: "WhatsApp channel",
+      comment: "The label of the button that opens the dev&din WhatsApp broadcast channel"
+    )
+
+    public static let followChannelsTelegram = NSLocalizedString(
+      "focusOnboarding.followChannelsTelegram",
+      tableName: "FocusOnboarding",
+      bundle: .module,
+      value: "Telegram channel",
+      comment: "The label of the button that opens the dev&din Telegram broadcast channel"
+    )
+
+    public static let followChannelsSameContent = NSLocalizedString(
+      "focusOnboarding.followChannelsSameContent",
+      tableName: "FocusOnboarding",
+      bundle: .module,
+      value: "Same content on both — pick the app you already use",
+      comment:
+        "A note telling the user that both broadcast channels carry the same content, so either one will do"
+    )
   }
 }

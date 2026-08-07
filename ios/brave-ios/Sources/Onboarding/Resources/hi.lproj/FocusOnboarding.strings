@@ -7,6 +7,21 @@
 /* The title of the screen that requests user to set Browther as default */
 "focusOnboarding.defaultBrowserScreenTitle" = "हर साइट पर संगीत, हराम छवियों और विज्ञापनों को ब्लॉक करें";
 
+/* A note telling the user that both broadcast channels carry the same content, so either one will do */
+"focusOnboarding.followChannelsSameContent" = "दोनों में एक ही सामग्री — वही ऐप चुनें जो आप पहले से इस्तेमाल करते हैं";
+
+/* The subtitle of the screen offering to follow the dev&din broadcast channels */
+"focusOnboarding.followChannelsScreenDescription" = "नई सुविधाएँ, नए प्रोजेक्ट — हमें फ़ॉलो करें और सबसे पहले जानें। कभी-कभार ही संदेश, सिर्फ़ तब जब वाकई ज़रूरी हो।";
+
+/* The title of the last onboarding screen, which offers to follow the dev&din broadcast channels */
+"focusOnboarding.followChannelsScreenTitle" = "Browther तो बस शुरुआत है";
+
+/* The label of the button that opens the dev&din Telegram broadcast channel */
+"focusOnboarding.followChannelsTelegram" = "Telegram चैनल";
+
+/* The label of the button that opens the dev&din WhatsApp broadcast channel */
+"focusOnboarding.followChannelsWhatsApp" = "WhatsApp चैनल";
+
 /* The title of the button that closes the default browser full screen callout */
 "focusOnboarding.notNowActionButtonTitle" = "अभी नहीं";
 

@@ -37,12 +37,17 @@ public protocol OnboardingStep: Identifiable {
 
 extension [any OnboardingStep] {
   /// All of the standard browser steps
+  ///
+  /// Browther : `.followChannels` en dernier — proposer de suivre les canaux
+  /// dev&din (parité avec l'étape desktop `follow-channels`). Elle vient après
+  /// tout le reste parce qu'elle ne conditionne rien : le navigateur est déjà
+  /// utilisable quand elle s'affiche.
   public static var allSteps: [any OnboardingStep] {
-    [.defaultBrowsing, .blockInterruptions]
+    [.defaultBrowsing, .blockInterruptions, .followChannels]
   }
   /// A subset of steps if the user is already the default browser on first launch
   public static var alreadyDefaultBrowserSteps: [any OnboardingStep] {
-    [.blockInterruptions]
+    [.blockInterruptions, .followChannels]
   }
 }
 
