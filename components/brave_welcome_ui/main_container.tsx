@@ -19,6 +19,10 @@ const SelectBrowser = React.lazy(() => import('./components/select-browser'))
 const SelectProfile = React.lazy(() => import('./components/select-profile'))
 const SelectTheme = React.lazy(() => import('./components/select-theme'))
 const SetupComplete = React.lazy(() => import('./components/setup-complete'))
+// Browther : chargé paresseusement comme les autres étapes tardives — l'écran
+// n'est atteint qu'en fin de parcours, ses deux QR n'ont rien à faire dans le
+// bundle initial.
+const FollowChannels = React.lazy(() => import('./components/follow-channels'))
 
 function MainContainer () {
   const { viewType, setViewType } = React.useContext(DataContext)
@@ -55,6 +59,10 @@ function MainContainer () {
 
   if (viewType === ViewType.DefaultBrowser) {
     mainEl = <Welcome />
+  }
+
+  if (viewType === ViewType.FollowChannels) {
+    mainEl = <FollowChannels />
   }
 
   const onBackgroundImgLoad = () => {

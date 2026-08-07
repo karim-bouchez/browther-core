@@ -38,4 +38,12 @@ provideStrings({
   braveWelcomeHelpWDPLearnMore: 'Learn More.',
   braveWelcomeHelpWDPAccept: `Sure, I'll help`,
   braveWelcomeHelpWDPReject: 'Maybe later',
+  // Browther : dernière étape, « suivre les canaux dev&din ».
+  braveWelcomeFollowChannelsTitle: 'Browther is just the beginning إن شاء الله',
+  braveWelcomeFollowChannelsHook: `Rather than an email lost in your inbox, follow us on WhatsApp or Telegram. A rare message, only when it's worth it.`,
+  braveWelcomeFollowChannelsWhatsApp: 'WhatsApp channel',
+  braveWelcomeFollowChannelsTelegram: 'Telegram channel',
+  braveWelcomeFollowChannelsScanHint: 'Scan this QR code with your phone to join',
+  braveWelcomeFollowChannelsOpenHere: 'Open on this computer',
+  braveWelcomeFollowChannelsSameContent: 'Same content on both — pick the app you already use',
 })

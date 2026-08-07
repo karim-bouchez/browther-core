@@ -86,7 +86,21 @@ constexpr webui::LocalizedString kLocalizedStrings[] = {
     {"braveWelcomeSelectThemeLightLabel",
      IDS_BRAVE_WELCOME_SELECT_THEME_LIGHT_LABEL},
     {"braveWelcomeSelectThemeDarkLabel",
-     IDS_BRAVE_WELCOME_SELECT_THEME_DARK_LABEL}};
+     IDS_BRAVE_WELCOME_SELECT_THEME_DARK_LABEL},
+    // Browther : dernière étape, « suivre les canaux dev&din ».
+    {"braveWelcomeFollowChannelsTitle",
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_TITLE},
+    {"braveWelcomeFollowChannelsHook", IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_HOOK},
+    {"braveWelcomeFollowChannelsWhatsApp",
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_WHATSAPP},
+    {"braveWelcomeFollowChannelsTelegram",
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_TELEGRAM},
+    {"braveWelcomeFollowChannelsScanHint",
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SCAN_HINT},
+    {"braveWelcomeFollowChannelsOpenHere",
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_OPEN_HERE},
+    {"braveWelcomeFollowChannelsSameContent",
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SAME_CONTENT}};
 
 void OpenJapanWelcomePage(Profile* profile) {
   CHECK(profile);

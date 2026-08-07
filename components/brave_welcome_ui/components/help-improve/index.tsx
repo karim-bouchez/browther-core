@@ -10,6 +10,8 @@ import Button from '@brave/leo/react/button'
 import { WelcomeBrowserProxyImpl } from '../../api/welcome_browser_proxy'
 import { getLocale, formatLocale } from '$web-common/locale'
 import { loadTimeData } from '$web-common/loadTimeData'
+import DataContext from '../../state/context'
+import { useViewTypeTransition } from '../../state/hooks'
 
 interface InputCheckboxProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -62,9 +64,12 @@ function InputCheckbox(props: InputCheckboxProps) {
 function HelpImprove() {
   const [isMetricsReportingEnabled, setMetricsReportingEnabled] = React.useState(true)
   const [isP3AEnabled, setP3AEnabled] = React.useState(true)
-  const [completeURLPromise] = React.useState(() => {
-    return WelcomeBrowserProxyImpl.getInstance().getWelcomeCompleteURL()
-  })
+  // Browther : cet écran n'est plus le dernier — il passe la main à
+  // `FollowChannels`, qui porte maintenant la sortie de l'onboarding
+  // (`getWelcomeCompleteURL`). Le nom du bouton ne change pas : le
+  // consentement analytics, lui, est bien terminé ici.
+  const { viewType, setViewType } = React.useContext(DataContext)
+  const { forward } = useViewTypeTransition(viewType)
 
   // Show toggles only if the preference is not managed by policy
   const showMetricsToggle = !loadTimeData.getBoolean('isMetricsReportingEnabledManaged')
@@ -91,13 +96,16 @@ function HelpImprove() {
     if (showMetricsToggle) {
       WelcomeBrowserProxyImpl.getInstance().setMetricsReportingEnabled(isMetricsReportingEnabled)
     }
+    // `onboarding_completed` reste émis **ici** et pas à la dernière étape :
+    // c'est ici que se termine le parcours obligatoire (le consentement
+    // analytics). Le déplacer plus loin ferait chuter le taux de complétion
+    // historique du seul fait que l'étape « canaux » a été ajoutée après, et
+    // rendrait la série incomparable avant/après.
     WelcomeBrowserProxyImpl.getInstance().trackOnboardingEvent('onboarding_completed', {
       sentry_enabled: isMetricsReportingEnabled,
       posthog_enabled: isP3AEnabled
     })
-    completeURLPromise.then((url) => {
-      window.open(url || 'chrome://newtab', '_self', 'noopener')
-    })
+    setViewType(forward)
   }
 
   // Auto-finish if both settings are managed (no toggles to show)

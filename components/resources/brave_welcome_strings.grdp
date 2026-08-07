@@ -104,6 +104,34 @@
   Dark mode
 </message>
 
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_TITLE" desc="Browther: a title for the last onboarding screen, which offers to follow the dev&amp;din broadcast channels">
+  Browther is just the beginning إن شاء الله
+</message>
+
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_HOOK" desc="Browther: a subtitle for the last onboarding screen, explaining why to follow the broadcast channels">
+  Rather than an email lost in your inbox, follow us on WhatsApp or Telegram. A rare message, only when it's worth it.
+</message>
+
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_WHATSAPP" desc="Browther: name of the dev&amp;din WhatsApp broadcast channel">
+  WhatsApp channel
+</message>
+
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_TELEGRAM" desc="Browther: name of the dev&amp;din Telegram broadcast channel">
+  Telegram channel
+</message>
+
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SCAN_HINT" desc="Browther: instructions under a QR code on the last onboarding screen">
+  Scan this QR code with your phone to join
+</message>
+
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_OPEN_HERE" desc="Browther: a secondary link to open the broadcast channel on the computer instead of scanning the QR code with a phone">
+  Open on this computer
+</message>
+
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SAME_CONTENT" desc="Browther: a note telling the user that both broadcast channels carry the same content, so either one will do">
+  Same content on both — pick the app you already use
+</message>
+
 <message name="IDS_WELCOME_HEADER" desc="A message which will appear as the header on the Welcome UI if the user has never run Brave before.">
   Welcome to Browther
 </message>

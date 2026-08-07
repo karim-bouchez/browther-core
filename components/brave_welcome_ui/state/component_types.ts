@@ -14,6 +14,8 @@ export enum ViewType {
   ImportSucceeded,
   ImportFailed,
   HelpImprove,
+  // Browther : dernière étape, propose de suivre les canaux dev&din.
+  FollowChannels,
 }
 
 export enum BrowserType {

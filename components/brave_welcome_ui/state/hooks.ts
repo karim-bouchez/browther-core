@@ -114,8 +114,14 @@ export function useViewTypeTransition(currentViewType: ViewType | undefined) : V
       [ViewType.ImportFailed]: {
         forward: nextAfterImport
       },
+      // Browther : HelpImprove n'est plus la fin du parcours — il passe la main
+      // à FollowChannels, qui porte désormais la redirection de sortie
+      // (`getWelcomeCompleteURL`).
       [ViewType.HelpImprove]: {
-        forward: ViewType.HelpImprove   // The end state view
+        forward: ViewType.FollowChannels
+      },
+      [ViewType.FollowChannels]: {
+        forward: ViewType.FollowChannels   // The end state view
       },
     }
   }, [browserProfiles, currentSelectedBrowserProfiles])
