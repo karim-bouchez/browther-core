@@ -131,7 +131,14 @@ RegisterPolymerTemplateModifications({
     // deux quittent le navigateur, elles doivent l'annoncer pareil.
     const helpRow = templateContent.querySelector('#help')
     if (helpRow && !templateContent.querySelector('#browtherDevndin')) {
-      helpRow.insertAdjacentElement('afterend', braveHtml`
+      // ⚠️ `after()` et **pas** `insertAdjacentElement('afterend', …)` : le
+      // helper `html` de `polymer_overriding` renvoie un `DocumentFragment`
+      // (`template.content.cloneNode(true)`), pas un `Element`.
+      // `insertAdjacentElement` refuse un fragment et lève une `TypeError` —
+      // l'exception interrompt alors toute la fonction de modification du
+      // template, et la page À propos se rend **entièrement vide**. C'est le
+      // bug constaté le 2026-08-08.
+      helpRow.after(braveHtml`
         <cr-link-row
           class="hr"
           id="browtherDevndin"
