@@ -15,7 +15,9 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
@@ -102,6 +104,12 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     private static final String WDP_LINK =
             "https://www.brave.com/browser/privacy/#web-discovery-project";
 
+    // Browther : canaux broadcast publics dev&din (cf. devndin/docs/BROADCASTS.md §0).
+    // Mêmes URL que le dock du site, l'étape desktop et l'étape iOS.
+    private static final String BROWTHER_WHATSAPP_CHANNEL_URL =
+            "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32";
+    private static final String BROWTHER_TELEGRAM_CHANNEL_URL = "https://t.me/devndin_nouveautes";
+
     private static final String TAG = "WelcomeOnboarding";
     private static final String DAY_ZERO_DEFAULT_VARIANT = "X";
     private static final String DAY_ZERO_VARIANT_Y = "Y";
@@ -138,6 +146,11 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     private CheckBox mCheckboxCrash;
     private CheckBox mCheckboxP3a;
     private FrameLayout mBraveSplashContainer;
+    // Browther : carte de l'étape « suivre les canaux dev&din ».
+    private LinearLayout mLayoutChannelsCard;
+    private Button mBtnChannelWhatsApp;
+    private Button mBtnChannelTelegram;
+    private Button mBtnChannelsDone;
 
     private Guideline mSplashGuideline;
     private ViewPager2 mVariantYPager;
@@ -153,7 +166,9 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         SET_AS_DEFAULT,
         NOTIFICATION_PERMISSION,
         WDP_PAGE,
-        ANALYTICS_CONSENT_PAGE
+        ANALYTICS_CONSENT_PAGE,
+        // Browther : dernière étape, propose de suivre les canaux dev&din.
+        FOLLOW_CHANNELS
     }
 
     @Nullable private CurrentOnboardingPage mCurrentOnboardingPage;
@@ -223,14 +238,64 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         mCurrentStep++;
         if (mCurrentStep == 0) {
             handleSetAsDefaultStep();
-        } else {
+        } else if (mCurrentStep == 1) {
             // Browther: WDP (Web Discovery Project, step 1) et P3A/crash consent
             // (step 2) retirés du flow onboarding. WDP collecte des données pour
             // Brave Search, P3A pour Brave Analytics — inutiles pour Browther.
             // Was:
             //   } else if (mCurrentStep == 1) { handleWDPStep(); }
             //   else if (mCurrentStep == 2) { handleAnalyticsConsentPage(); }
+            // À la place : l'étape « suivre les canaux dev&din », parité avec
+            // desktop (`brave_welcome_ui/components/follow-channels/`) et iOS
+            // (`FollowChannelsOnboardingStep`).
+            handleFollowChannelsStep();
+        } else {
             finalStep(false);
+        }
+    }
+
+    /**
+     * Browther : dernière étape de l'onboarding — proposer de suivre les deux canaux broadcast
+     * publics dev&din (cf. {@code devndin/docs/BROADCASTS.md} §0).
+     *
+     * <p>Comme sur iOS et contrairement au desktop, les canaux s'ouvrent <b>directement</b> : les
+     * deux apps sont sur cet appareil, un QR obligerait à sortir un second téléphone.
+     *
+     * <p>L'écran ne collecte rien et n'attend rien — un canal public ne renvoie aucun signal
+     * d'abonnement, il n'y a donc rien à valider. Un clic sur un canal n'avance pas l'étape : la
+     * personne revient dans Browther après avoir vu le canal, et c'est « Terminer » qui conclut.
+     */
+    private void handleFollowChannelsStep() {
+        mCurrentOnboardingPage = CurrentOnboardingPage.FOLLOW_CHANNELS;
+
+        if (mLayoutCard != null) {
+            mLayoutCard.setVisibility(View.GONE);
+        }
+        if (mIvArrowDown != null) {
+            mIvArrowDown.setVisibility(View.GONE);
+        }
+        if (mLayoutChannelsCard != null) {
+            mLayoutChannelsCard.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Browther : ouvre un canal dans l'app dédiée si elle est installée, sinon dans le navigateur.
+     * Les deux URL sont des liens https officiels, donc pas besoin de tester la présence de l'app —
+     * ce qui éviterait de toute façon d'avoir à déclarer les paquets dans le manifeste (Android 11+
+     * filtre la visibilité des paquets).
+     *
+     * <p>L'échec est avalé : un clic qui n'ouvre rien ne doit pas faire crasher l'onboarding.
+     */
+    private void openChannel(String url, String eventName) {
+        BrowtherAnalyticsBridge.trackWithProps(
+                eventName, new String[] {"source"}, new String[] {"onboarding"});
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Log.w(TAG, "Aucune application pour ouvrir %s", url);
         }
     }
 
@@ -580,6 +645,11 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         mCheckboxP3a = findViewById(R.id.checkbox_p3a);
         mBtnPositive = findViewById(R.id.btn_positive);
         mBtnNegative = findViewById(R.id.btn_negative);
+        // Browther : étape « suivre les canaux dev&din ».
+        mLayoutChannelsCard = findViewById(R.id.layout_channels_card);
+        mBtnChannelWhatsApp = findViewById(R.id.btn_channel_whatsapp);
+        mBtnChannelTelegram = findViewById(R.id.btn_channel_telegram);
+        mBtnChannelsDone = findViewById(R.id.btn_channels_done);
         LinearLayout layoutData = findViewById(R.id.layout_data);
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.setDuration(1000);
@@ -634,6 +704,30 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
                         }
                     });
         }
+        // Browther : boutons de l'étape « suivre les canaux dev&din ». Ouvrir un
+        // canal n'avance pas l'étape — on revient dans Browther après l'avoir vu,
+        // et c'est « Terminer » qui conclut l'onboarding.
+        if (mBtnChannelWhatsApp != null) {
+            BraveTouchUtils.ensureMinTouchTarget(mBtnChannelWhatsApp);
+            mBtnChannelWhatsApp.setOnClickListener(
+                    view ->
+                            openChannel(
+                                    BROWTHER_WHATSAPP_CHANNEL_URL,
+                                    "marketing_whatsapp_channel_clicked"));
+        }
+        if (mBtnChannelTelegram != null) {
+            BraveTouchUtils.ensureMinTouchTarget(mBtnChannelTelegram);
+            mBtnChannelTelegram.setOnClickListener(
+                    view ->
+                            openChannel(
+                                    BROWTHER_TELEGRAM_CHANNEL_URL,
+                                    "marketing_telegram_channel_clicked"));
+        }
+        if (mBtnChannelsDone != null) {
+            BraveTouchUtils.ensureMinTouchTarget(mBtnChannelsDone);
+            mBtnChannelsDone.setOnClickListener(view -> nextOnboardingStepForDefaultVariant());
+        }
+
         checkReferral();
         if (PackageUtils.isFirstInstall(this)) {
             ChromeSharedPreferences.getInstance()

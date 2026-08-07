@@ -157,6 +157,99 @@
 
                 </LinearLayout>
 
+                <!-- Browther : étape « suivre les canaux dev&din », dernière du flow.
+                     Carte séparée plutôt que réutilisation de layout_card : celle-ci
+                     n'a que deux boutons (positive/negative) déjà pris par « définir
+                     par défaut », et une étape qui recycle des vues au sens différent
+                     devient vite illisible. -->
+                <LinearLayout
+                    android:id="@+id/layout_channels_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:padding="24dp"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_onboarding_welcome_bg">
+
+                    <TextView
+                        android:id="@+id/tv_channels_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/browther_follow_channels_title"
+                        android:textSize="22sp"
+                        android:textColor="@color/onboarding_card_text_color"/>
+
+                    <TextView
+                        android:id="@+id/tv_channels_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="@string/browther_follow_channels_description"
+                        android:textSize="16sp"
+                        android:textColor="@color/onboarding_card_text_color"/>
+
+                    <!-- Ouverture directe des apps, pas de QR : contrairement au
+                         desktop, WhatsApp et Telegram sont sur cet appareil. -->
+                    <Button
+                        android:id="@+id/btn_channel_whatsapp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/blue_48_rounded_bg"
+                        app:backgroundTint="@null"
+                        android:text="@string/browther_follow_channels_whatsapp"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:padding="4dp"
+                        android:minHeight="0dp"
+                        style="?android:attr/borderlessButtonStyle"/>
+
+                    <Button
+                        android:id="@+id/btn_channel_telegram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/blue_48_rounded_bg"
+                        app:backgroundTint="@null"
+                        android:text="@string/browther_follow_channels_telegram"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:padding="4dp"
+                        android:minHeight="0dp"
+                        style="?android:attr/borderlessButtonStyle"/>
+
+                    <TextView
+                        android:id="@+id/tv_channels_same"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:text="@string/browther_follow_channels_same_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/onboarding_card_text_color"/>
+
+                    <Button
+                        android:id="@+id/btn_channels_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/browther_follow_channels_done"
+                        android:textAllCaps="false"
+                        android:textColor="@color/onboarding_negative_button_color"
+                        android:textSize="16sp"
+                        style="?android:attr/borderlessButtonStyle"/>
+
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/iv_arrow_down"
                     android:layout_width="wrap_content"

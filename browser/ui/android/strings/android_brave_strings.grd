@@ -4162,6 +4162,28 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SHIELDS_PANEL_INTERNAL_PER_SITE_INFO" desc="Inline warning shown when the user tries to disable Shields from an internal page — Shields are managed per site, parity with macOS shields_internal_bubble.">
       Les boucliers se gèrent site par site. Ouvrez le site à exclure et appuyez sur le bouclier en haut à droite.
     </message>
+      <!-- Browther : étape « suivre les canaux dev&amp;din » de l'onboarding.
+           Parité desktop (brave_welcome_ui/components/follow-channels) et iOS
+           (FollowChannelsOnboardingStep) ; ici les canaux s'ouvrent directement,
+           pas de QR. -->
+      <message name="IDS_BROWTHER_FOLLOW_CHANNELS_TITLE" desc="Title of the last onboarding step, which offers to follow the dev&amp;din broadcast channels">
+        Browther is just the beginning
+      </message>
+      <message name="IDS_BROWTHER_FOLLOW_CHANNELS_DESCRIPTION" desc="Subtitle of the onboarding step offering to follow the dev&amp;din broadcast channels">
+        New features, new projects — follow us to hear about them first. A rare message, only when it's worth it.
+      </message>
+      <message name="IDS_BROWTHER_FOLLOW_CHANNELS_WHATSAPP" desc="Button that opens the dev&amp;din WhatsApp broadcast channel">
+        WhatsApp channel
+      </message>
+      <message name="IDS_BROWTHER_FOLLOW_CHANNELS_TELEGRAM" desc="Button that opens the dev&amp;din Telegram broadcast channel">
+        Telegram channel
+      </message>
+      <message name="IDS_BROWTHER_FOLLOW_CHANNELS_SAME_CONTENT" desc="Note telling the user that both broadcast channels carry the same content">
+        Same content on both — pick the app you already use
+      </message>
+      <message name="IDS_BROWTHER_FOLLOW_CHANNELS_DONE" desc="Button that ends the onboarding from the follow channels step">
+        Done
+      </message>
   </messages>
   </release>
 </grit>
