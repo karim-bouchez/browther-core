@@ -42,6 +42,13 @@ interface ChannelProps {
   icon: React.ReactNode
   /** Nom de l'event PostHog du clic « ouvrir ici ». */
   event: string
+  /**
+   * Couleur officielle du service. Les deux cartes étaient distinguées par leur
+   * seul intitulé, ce qui obligeait à *lire* pour savoir laquelle est laquelle —
+   * or ces deux marques se reconnaissent d'abord à leur couleur. Elle habille
+   * la pastille du logo et la bordure de la carte.
+   */
+  accent: string
 }
 
 function TelegramIcon () {
@@ -61,7 +68,7 @@ function WhatsAppIcon () {
 }
 
 function Channel (props: ChannelProps) {
-  const { qr, name, icon, event } = props
+  const { qr, name, icon, event, accent } = props
 
   const handleOpenHere = () => {
     WelcomeBrowserProxyImpl.getInstance().trackOnboardingEvent(event, {
@@ -70,8 +77,11 @@ function Channel (props: ChannelProps) {
   }
 
   return (
-    <S.Channel>
+    <S.Channel style={{ '--channel-accent': accent } as React.CSSProperties}>
       <div className='channel-head'>
+        {/* Logo dans une pastille blanche, comme les deux marques s'affichent
+            partout ailleurs : sur le verre dépoli violet, un logo teinté à même
+            le fond perdrait sa couleur. */}
         <span className='channel-icon'>{icon}</span>
         <span className='channel-name'>{name}</span>
       </div>
@@ -84,8 +94,9 @@ function Channel (props: ChannelProps) {
         </svg>
       </div>
 
-      <p className='qr-hint'>{getLocale('braveWelcomeFollowChannelsScanHint')}</p>
-
+      {/* Pas d'instruction « scanne ce QR » ici : répétée à l'identique sous
+          chacune des deux cartes, elle doublait le bruit sans rien apprendre à
+          la seconde lecture. Elle est dite une fois, sous les deux. */}
       <a
         href={qr.url}
         target='_blank'
@@ -119,6 +130,14 @@ function FollowChannels () {
         <div className='view-details'>
           <h1 className='view-title'>
             {getLocale('braveWelcomeFollowChannelsTitle')}
+            {/* L'invocation est posée ici et **pas** dans la string traduite :
+                collée en fin de titre elle se faisait couper en plein milieu
+                par le retour à la ligne (le mélange LTR/RTL empêche un césure
+                propre). Sur sa propre ligne, elle est lisible et n'a pas à être
+                retraduite — la formule est la même dans toutes les langues. */}
+            <span className='view-title-dua' dir='rtl' lang='ar'>
+              إن شاء الله
+            </span>
           </h1>
           <p className='view-desc'>
             {getLocale('braveWelcomeFollowChannelsHook')}
@@ -127,23 +146,32 @@ function FollowChannels () {
       </div>
 
       <S.Channels>
+        {/* Couleurs officielles des deux services (mêmes valeurs que le panneau
+            QR de Sawtunaa, `ChannelQrPanel.tsx`) : ce sont elles qui font
+            reconnaître la carte avant même d'en lire l'intitulé. */}
         <Channel
           qr={WHATSAPP_QR}
           name={getLocale('braveWelcomeFollowChannelsWhatsApp')}
           icon={<WhatsAppIcon />}
           event='marketing_whatsapp_channel_clicked'
+          accent='#25D366'
         />
         <Channel
           qr={TELEGRAM_QR}
           name={getLocale('braveWelcomeFollowChannelsTelegram')}
           icon={<TelegramIcon />}
           event='marketing_telegram_channel_clicked'
+          accent='#229ED9'
         />
       </S.Channels>
 
-      {/* Répond à « pourquoi l'un plutôt que l'autre ? » — les deux canaux sont
-          à égalité, seule compte l'app que la personne utilise déjà. */}
-      <S.SameNote>{getLocale('braveWelcomeFollowChannelsSameContent')}</S.SameNote>
+      {/* Les deux seules choses à savoir, dites une fois pour les deux cartes :
+          comment faire, puis pourquoi le choix n'a pas d'importance (les canaux
+          sont à égalité, seule compte l'app déjà utilisée). */}
+      <S.FootNote>
+        <p>{getLocale('braveWelcomeFollowChannelsScanHint')}</p>
+        <p>{getLocale('braveWelcomeFollowChannelsSameContent')}</p>
+      </S.FootNote>
 
       <S.ActionBox>
         <div className='box-center'>

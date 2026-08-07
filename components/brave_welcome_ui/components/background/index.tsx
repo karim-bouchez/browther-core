@@ -36,6 +36,11 @@ function Background (props: BackgroundProps) {
 
     const s1 = new WebAnimationPlayer()
     const s2 = new WebAnimationPlayer()
+    // Browther : 3ᵉ scène pour l'étape « suivre les canaux », ajoutée après
+    // `HelpImprove`. Sans elle, le décor restait figé sur la dernière étape
+    // alors que chaque transition précédente le fait avancer — la nouvelle
+    // étape ne se lisait pas comme faisant partie du même parcours.
+    const s3 = new WebAnimationPlayer()
 
     const hill01 = ref.current.querySelector('.hills01')
     const hill02 = ref.current.querySelector('.hills02')
@@ -62,7 +67,19 @@ function Background (props: BackgroundProps) {
       .to(stars03, { transform: 'scale(3.5)', filter: 'blur(3px)' })
       .to(stars04, { transform: 'scale(1.5)' })
 
-    setScenes({ s1, s2 })
+    // Le travelling continue dans le même sens qu'en `s2` : la colline de
+    // premier plan sort à son tour par la gauche, celle du fond prend sa place
+    // en grossissant, et la pyramide se rapproche. Rien de neuf à l'écran —
+    // c'est la poursuite du même mouvement, ce qui est exactement ce qui
+    // manquait.
+    s3.to(hill02, { transform: 'translateX(-120%) scale(4.0)' })
+      .to(hills03, { transform: 'translateX(-180px) scale(4.0)', filter: 'blur(3px)' })
+      .to(pyramid, { transform: 'translateX(-8%)', backgroundSize: '55%' })
+      .to(stars02, { transform: 'scale(6.5)', filter: 'blur(4px)' })
+      .to(stars03, { transform: 'scale(5.0)' })
+      .to(stars04, { transform: 'scale(2.2)' })
+
+    setScenes({ s1, s2, s3 })
   }, [isReadyForAnimation])
 
   React.useEffect(() => {

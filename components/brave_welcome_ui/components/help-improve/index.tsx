@@ -66,9 +66,10 @@ function HelpImprove() {
   const [isP3AEnabled, setP3AEnabled] = React.useState(true)
   // Browther : cet écran n'est plus le dernier — il passe la main à
   // `FollowChannels`, qui porte maintenant la sortie de l'onboarding
-  // (`getWelcomeCompleteURL`). Le nom du bouton ne change pas : le
-  // consentement analytics, lui, est bien terminé ici.
-  const { viewType, setViewType } = React.useContext(DataContext)
+  // (`getWelcomeCompleteURL`). Son bouton dit donc « Suivant » et non plus
+  // « Terminer » : annoncer la fin puis enchaîner sur un écran de plus se lit
+  // comme un bug.
+  const { viewType, setViewType, scenes } = React.useContext(DataContext)
   const { forward } = useViewTypeTransition(viewType)
 
   // Show toggles only if the preference is not managed by policy
@@ -106,6 +107,9 @@ function HelpImprove() {
       posthog_enabled: isP3AEnabled
     })
     setViewType(forward)
+    // Le décor avance à chaque transition depuis le premier écran ; sans ce
+    // dernier mouvement, la nouvelle étape apparaissait sur un fond figé.
+    scenes?.s3.play()
   }
 
   // Auto-finish if both settings are managed (no toggles to show)
@@ -162,7 +166,10 @@ function HelpImprove() {
             onClick={handleFinish}
             size="large"
           >
-            {getLocale('braveWelcomeFinishButtonLabel')}
+            {/* « Suivant » et non « Terminer » : une étape suit désormais
+                (cf. `follow-channels`). String déjà traduite dans les 66
+                langues, rien à ajouter. */}
+            {getLocale('braveWelcomeNextButtonLabel')}
           </Button>
           <S.FootNote>
             {changeSettingsNote}

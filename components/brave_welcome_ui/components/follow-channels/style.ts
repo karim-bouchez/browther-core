@@ -39,6 +39,17 @@ export const MainBox = styled.div`
     margin: 0;
   }
 
+  /* Bloc : l'invocation occupe sa propre ligne. Collée en fin de titre, elle
+     tombait à cheval sur le retour à la ligne et se retrouvait coupée en deux —
+     un texte RTL au bout d'une ligne LTR ne se césure pas proprement. */
+  .view-title-dua {
+    display: block;
+    font-size: 26px;
+    font-weight: 500;
+    margin-top: 6px;
+    opacity: 0.85;
+  }
+
   .view-desc {
     font-size: 16px;
     line-height: 24px;
@@ -66,6 +77,12 @@ export const Channel = styled.div`
   padding: 20px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.08);
+  /* Bordure et halo à la couleur du service : les deux cartes sont par ailleurs
+     identiques (même gabarit, même QR noir et blanc), c'est la couleur qui les
+     sépare d'un coup d'œil. Assez discrète pour ne pas concurrencer le bouton
+     principal. */
+  border: 1px solid color-mix(in srgb, var(--channel-accent) 45%, transparent);
+  box-shadow: 0 0 24px -12px var(--channel-accent);
 
   .channel-head {
     display: flex;
@@ -73,9 +90,22 @@ export const Channel = styled.div`
     gap: 8px;
   }
 
+  /* Pastille blanche : le logo garde sa couleur de marque, qui se perdrait sur
+     le verre dépoli violet du fond. */
+  .channel-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    color: var(--channel-accent);
+    flex-shrink: 0;
+  }
+
   .channel-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     display: block;
   }
 
@@ -106,26 +136,47 @@ export const Channel = styled.div`
     display: block;
   }
 
-  .qr-hint {
-    font-size: 12px;
-    line-height: 17px;
-    text-align: center;
-    margin: 0;
-    opacity: 0.85;
-  }
-
+  /* Blanc et non le bleu-lavande des liens de l'écran précédent
+     (rgba(160,165,235,1)) : ce lien est posé sur une carte translucide
+     par-dessus un fond violet clair, où ce bleu passait en dessous du seuil de
+     contraste — il devenait presque invisible. Le blanc reste lisible quelle
+     que soit la zone du décor animé qui défile derrière. */
   a {
     font-size: 12px;
-    color: rgba(160, 165, 235, 1);
+    color: rgba(255, 255, 255, 0.92);
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  a:hover {
+    color: white;
+    text-decoration-color: white;
   }
 `
 
-export const SameNote = styled.p`
-  font-size: 12px;
-  margin: 20px 0 0;
-  opacity: 0.7;
+export const FootNote = styled.div`
+  margin: 20px 40px 0;
+  text-align: center;
+
+  p {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+  }
+
+  /* La marche à suivre d'abord, l'arbitrage entre les deux canaux ensuite —
+     hiérarchisés par l'opacité, pas par la taille (deux tailles de plus sur un
+     écran qui en compte déjà quatre le rendraient bavard). */
+  p:first-child {
+    opacity: 0.9;
+  }
+
+  p:last-child {
+    opacity: 0.65;
+    margin-top: 4px;
+  }
 `
 
 export const ActionBox = styled.div`

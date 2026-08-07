@@ -104,12 +104,12 @@
   Dark mode
 </message>
 
-<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_TITLE" desc="Browther: a title for the last onboarding screen, which offers to follow the dev&amp;din broadcast channels">
-  Browther is just the beginning إن شاء الله
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_TITLE" desc="Browther: a title for the last onboarding screen, which offers to follow the dev&amp;din broadcast channels. The Arabic invocation 'إن شاء الله' is appended by the UI on its own line and is intentionally not part of this string.">
+  Browther is just the beginning
 </message>
 
 <message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_HOOK" desc="Browther: a subtitle for the last onboarding screen, explaining why to follow the broadcast channels">
-  Rather than an email lost in your inbox, follow us on WhatsApp or Telegram. A rare message, only when it's worth it.
+  New features, new projects — follow us to hear about them first. A rare message, only when it's worth it.
 </message>
 
 <message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_WHATSAPP" desc="Browther: name of the dev&amp;din WhatsApp broadcast channel">
@@ -120,8 +120,8 @@
   Telegram channel
 </message>
 
-<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SCAN_HINT" desc="Browther: instructions under a QR code on the last onboarding screen">
-  Scan this QR code with your phone to join
+<message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SCAN_HINT" desc="Browther: instructions shown once below the two QR codes on the last onboarding screen">
+  Scan one of the QR codes with your phone to join
 </message>
 
 <message name="IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_OPEN_HERE" desc="Browther: a secondary link to open the broadcast channel on the computer instead of scanning the QR code with a phone">

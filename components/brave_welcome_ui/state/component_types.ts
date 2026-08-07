@@ -38,4 +38,6 @@ export enum BrowserType {
 export interface Scenes {
   s1: WebAnimationPlayer
   s2: WebAnimationPlayer
+  /** Browther : jouée en entrant dans l'étape « suivre les canaux ». */
+  s3: WebAnimationPlayer
 }
