@@ -963,4 +963,9 @@ ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="7135186112548764640">Cette page ne peut pas être lue ici : contenu protégé (DRM). Pour la regarder sans la musique : installez l'application Sawtunaa, ajoutez son extension à un autre navigateur, puis ouvrez cette page dans ce navigateur.</translation>
 <translation id="4821861659933973408">Découvrir les autres projets dev&amp;din</translation>
 <translation id="33938309987543270">Browther fait partie de plusieurs apps qu'on construit</translation>
+<translation id="5918253281464304925">Ça ne marche pas sur ce site?</translation>
+<translation id="2135919691573380097">Signaler ce site</translation>
+<translation id="1486510762152444710">Seul <ph name="DOMAIN"/> est envoyé — jamais l'adresse de la page.</translation>
+<translation id="3603636173191469268">Merci — site signalé.</translation>
+<translation id="6181120782140575493">Le signalement a besoin des statistiques d'usage, qui sont désactivées.</translation>
 </translationbundle>

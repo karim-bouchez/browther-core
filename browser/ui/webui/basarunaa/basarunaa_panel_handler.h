@@ -17,6 +17,10 @@
 class BrowserWindowInterface;
 class BasarunaaPanelUI;
 
+namespace content {
+class WebContents;
+}
+
 // Browther: minimal mirror of VPNPanelHandler. Kept around because the VPN
 // `ShowUI` / `CloseUI` handshake (with the embedder) is what unblocks the
 // bubble visibility on the second open.
@@ -41,6 +45,8 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void GetEnabled(GetEnabledCallback callback) override;
   void SetEnabled(bool enabled) override;
   void GetProtectedContent(GetProtectedContentCallback callback) override;
+  void GetReportSiteState(GetReportSiteStateCallback callback) override;
+  void ReportSite(ReportSiteCallback callback) override;
   void GetMode(GetModeCallback callback) override;
   void SetMode(const std::string& mode) override;
   void GetCensorEyes(GetCensorEyesCallback callback) override;
@@ -62,6 +68,8 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
  private:
   // Fenêtre qui héberge la bulle, ou nullptr. À rappeler à chaque usage.
   BrowserWindowInterface* GetBrowserWindowInterface();
+  // Onglet actif de la fenêtre qui porte ce panel, ou null.
+  content::WebContents* GetActiveWebContents();
 
   mojo::Receiver<basarunaa::mojom::PanelHandler> receiver_;
   raw_ptr<BasarunaaPanelUI> const panel_controller_;

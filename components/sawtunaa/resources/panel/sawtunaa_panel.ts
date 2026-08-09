@@ -31,9 +31,39 @@ async function refreshState() {
     setUIEnabled(state.enabled)
     setUIReloadHint(state.showReloadHint)
     setUIProtectedHint(state.protectedState)
+    setUIReportSite(state.canReportSite, state.reportDomain, state.analyticsOff)
   } catch (err) {
     console.error('[sawtunaa-panel] refreshState failed', err)
   }
+}
+
+// Bloc « ça ne marche pas sur ce site ». Toutes les conditions sont calculées
+// côté browser (le WebUI ne connaît aucune règle) :
+//  - pas de domaine (page interne) → rien à signaler, bloc masqué ;
+//  - statistiques d'usage coupées → l'envoi serait un no-op, donc on l'explique
+//    au lieu d'afficher un bouton sans effet.
+// Le domaine est montré AVANT le clic : ce qui part est visible, pas promis.
+function setUIReportSite(
+  canReport: boolean, domain: string, analyticsOff: boolean) {
+  const box = document.getElementById('report-site')
+  const btn = document.getElementById('report-site-btn') as HTMLButtonElement | null
+  const privacy = document.getElementById('report-privacy')
+  const done = document.getElementById('report-done')
+  if (!box || !btn || !privacy || !done) return
+  if (!canReport && !analyticsOff) {
+    box.setAttribute('hidden', '')
+    return
+  }
+  box.removeAttribute('hidden')
+  done.setAttribute('hidden', '')
+  btn.removeAttribute('hidden')
+  if (analyticsOff) {
+    btn.disabled = true
+    privacy.textContent = loadTimeData.getString('reportSiteAnalyticsOff')
+    return
+  }
+  btn.disabled = false
+  privacy.textContent = loadTimeData.getStringF('reportSitePrivacy', domain)
 }
 
 function setUIEnabled(enabled: boolean) {
@@ -104,6 +134,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mojo garantit l'ordre sur le même pipe, donc `getState` voit bien la
     // nouvelle valeur malgré le fire-and-forget de `setEnabled`.
     refreshState()
+  })
+
+  const reportBtn = document.getElementById('report-site-btn') as HTMLButtonElement | null
+  reportBtn?.addEventListener('click', async () => {
+    reportBtn.disabled = true
+    try {
+      const { sent } = await api().reportSite()
+      // Confirmation seulement si l'envoi a eu lieu — pas de « merci » par
+      // optimisme.
+      if (sent) {
+        document.getElementById('report-done')?.removeAttribute('hidden')
+        reportBtn.setAttribute('hidden', '')
+      } else {
+        reportBtn.disabled = false
+      }
+    } catch (err) {
+      console.error('[sawtunaa-panel] reportSite failed', err)
+      reportBtn.disabled = false
+    }
   })
 
   document.getElementById('reload-hint')?.addEventListener('click', () => {

@@ -152,6 +152,36 @@
       text-align: left;
     }
     .amber-box[hidden] { display: none; }
+
+    /* Signalement « ça ne marche pas ici » — même bloc que le panel Basarunaa
+       (même geste, même wording, mêmes strings i18n). Discret et en bas : ce
+       n'est pas une action courante. */
+    .report-site {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .report-site[hidden] { display: none; }
+    .report-site .report-line {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .report-btn {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: transparent;
+      color: rgba(255, 255, 255, 0.85);
+      font: inherit;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .report-btn:hover { background: rgba(255, 255, 255, 0.08); }
+    .report-btn:disabled { opacity: 0.5; cursor: default; }
+    .report-privacy { display: block; margin-top: 6px; }
+    .report-done { color: #10B981; font-weight: 600; }
     .amber-row {
       display: flex; align-items: flex-start; gap: 8px;
     }
@@ -252,6 +282,17 @@
       </button>
     </div>
   </div>
+  <!-- Signalement : c'est l'utilisateur qui juge si la musique n'a pas été
+       retirée ici. Masqué sur les pages internes (aucun domaine à signaler). -->
+  <div class="report-site" id="report-site" hidden>
+    <div class="report-line">
+      <span>$i18n{reportSiteQuestion}</span>
+      <button id="report-site-btn" class="report-btn">$i18n{reportSiteButton}</button>
+      <span class="report-done" id="report-done" hidden>$i18n{reportSiteDone}</span>
+    </div>
+    <span class="report-privacy" id="report-privacy"></span>
+  </div>
+
   <script type="module" src="sawtunaa_panel.bundle.js"></script>
 </body>
 </html>

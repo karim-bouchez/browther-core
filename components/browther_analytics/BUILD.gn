@@ -13,6 +13,8 @@ source_set("browther_analytics") {
     "posthog_client.cc",
     "posthog_client.h",
     "pref_names.h",
+    "site_report.cc",
+    "site_report.h",
     "stats_client.cc",
     "stats_client.h",
   ]
@@ -22,6 +24,9 @@ source_set("browther_analytics") {
     "//brave/components/p3a",
     "//components/metrics",
     "//components/prefs",
+    # site_report.cc : eTLD+1 (registry_controlled_domains) + WebContents.
+    "//content/public/browser",
+    "//net",
     "//net/traffic_annotation",
     "//services/network/public/cpp",
     "//services/network/public/mojom",

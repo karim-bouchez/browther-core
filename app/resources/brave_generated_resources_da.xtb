@@ -964,4 +964,9 @@ DU kan læse <ph name="BEGIN_LINK_BUILD_INSTRUCTIONS"/>instruktioner om hvordan 
 <translation id="7135186112548764640">Denne side kan ikke afspilles her: beskyttet indhold (DRM). Sådan ser du den uden musik: installer Sawtunaa-appen, føj dens udvidelse til en anden browser, og åbn så denne side i den browser.</translation>
 <translation id="4821861659933973408">Opdag de andre dev&amp;din-projekter</translation>
 <translation id="33938309987543270">Browther er en af flere apps, vi bygger</translation>
+<translation id="5918253281464304925">Virker det ikke på dette websted?</translation>
+<translation id="2135919691573380097">Rapportér dette websted</translation>
+<translation id="1486510762152444710">Kun <ph name="DOMAIN"/> sendes — aldrig sidens adresse.</translation>
+<translation id="3603636173191469268">Tak — webstedet er rapporteret.</translation>
+<translation id="6181120782140575493">Rapportering kræver brugsstatistik, som er slået fra.</translation>
 </translationbundle>

@@ -1498,6 +1498,21 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BASARUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Basarunaa panel when the current tab plays DRM-protected media: explains the amber toolbar badge. Unlike Sawtunaa there is no workaround, and the wording must not pretend otherwise.">
         No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.
       </message>
+      <message name="IDS_BROWTHER_REPORT_SITE_QUESTION" desc="Question above the report button in the Basarunaa and Sawtunaa panels, asking whether the feature failed to work on the current site.">
+        Not working on this site?
+      </message>
+      <message name="IDS_BROWTHER_REPORT_SITE_BUTTON" desc="Button in the Basarunaa and Sawtunaa panels that reports the current site as unsupported. Only the site domain is sent.">
+        Report this site
+      </message>
+      <message name="IDS_BROWTHER_REPORT_SITE_PRIVACY" desc="Explains exactly what is sent when reporting a site. $1 is the site domain, e.g. dailymotion.com. Must stay literal: nothing but the domain is transmitted.">
+        Only <ph name="DOMAIN">$1<ex>dailymotion.com</ex></ph> is sent — never the page address.
+      </message>
+      <message name="IDS_BROWTHER_REPORT_SITE_DONE" desc="Confirmation shown after the user reported the current site.">
+        Thanks — site reported.
+      </message>
+      <message name="IDS_BROWTHER_REPORT_SITE_ANALYTICS_OFF" desc="Shown instead of the report button when the user turned usage statistics off, which means a report could not be sent. Must not pretend the report would work.">
+        Reporting needs usage statistics, which are turned off.
+      </message>
       <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_ON" desc="Tooltip on Sawtunaa toolbar action when enabled">
         Sawtunaa — ON
       </message>

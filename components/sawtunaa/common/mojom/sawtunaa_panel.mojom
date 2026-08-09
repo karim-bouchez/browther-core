@@ -50,9 +50,18 @@ interface PanelHandler {
   //    l'onglet courant ⇒ le toggle ON ne prendra effet qu'au reload ;
   //  - protected_state : déjà GATÉ côté browser (pref ON + tap natif actif +
   //    verdict DRM rendu). Le WebUI n'a donc aucune règle métier à connaître.
+  //  - can_report_site / report_domain / analytics_off : « ça ne marche pas
+  //    sur ce site ». Seul le domaine enregistrable (eTLD+1) de l'onglet actif
+  //    est transmis, jamais l'URL, et uniquement sur clic. `can_report_site`
+  //    est faux sur les pages internes et quand les statistiques d'usage sont
+  //    coupées (le signalement ne partirait pas — proposer le bouton serait
+  //    mentir). Cf. components/browther_analytics/site_report.h.
   GetState() => (bool enabled,
                  bool show_reload_hint,
-                 ProtectedContentState protected_state);
+                 ProtectedContentState protected_state,
+                 bool can_report_site,
+                 string report_domain,
+                 bool analytics_off);
 
   // Écrit la pref `kSawtunaaEnabled` (+ télémétrie `feature_toggled`).
   SetEnabled(bool enabled);
@@ -65,4 +74,10 @@ interface PanelHandler {
   // Ouvre la page de l'app autonome Sawtunaa (seule voie qui reste sur du
   // DRM), puis ferme la bulle.
   OpenSawtunaaAppPage();
+
+  // Signale que la suppression de musique ne marche pas sur ce site. Envoie
+  // `site_reported` {feature: "sawtunaa", domain} — rien d'autre. Retourne
+  // false si rien n'est parti (pas de domaine, consentement coupé) : l'UI ne
+  // doit alors pas confirmer.
+  ReportSite() => (bool sent);
 };

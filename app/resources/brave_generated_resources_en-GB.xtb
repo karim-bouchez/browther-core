@@ -963,4 +963,9 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation>
 <translation id="7135186112548764640">This page cannot play here: protected content (DRM). To watch it without the music: install the Sawtunaa app, add its extension to another browser, then open this page in that browser.</translation>
 <translation id="4821861659933973408">Discover the other dev&amp;din projects</translation>
 <translation id="33938309987543270">Browther is one of several apps we build</translation>
+<translation id="5918253281464304925">Not working on this site?</translation>
+<translation id="2135919691573380097">Report this site</translation>
+<translation id="1486510762152444710">Only <ph name="DOMAIN"/> is sent — never the page address.</translation>
+<translation id="3603636173191469268">Thanks — site reported.</translation>
+<translation id="6181120782140575493">Reporting needs usage statistics, which are turned off.</translation>
 </translationbundle>

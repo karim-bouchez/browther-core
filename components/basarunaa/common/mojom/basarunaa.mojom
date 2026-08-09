@@ -40,6 +40,23 @@ interface PanelHandler {
   // Cf. private/docs/WIDEVINE_VMP.md § 10.5.
   GetProtectedContent() => (bool visible);
 
+  // Browther : « le floutage ne marche pas sur ce site ». L'utilisateur juge
+  // lui-même (il sait ce qu'il s'attendait à voir flouté) et clique ; on
+  // n'essaie pas de deviner à sa place. Sert à savoir sur quels sites les gens
+  // attendent quelque chose — la couverture réelle dépend de trop de facteurs
+  // (players en iframe, DRM, vidéos jamais lues) pour être devinée depuis le
+  // code.
+  //
+  // Vie privée : on ne transmet QUE le domaine enregistrable (eTLD+1) de
+  // l'onglet actif — jamais l'URL, jamais le chemin, jamais les paramètres —
+  // et uniquement sur clic explicite.
+  //
+  // `can_report` = faux quand le site n'a pas de domaine (pages internes) ou
+  // quand l'utilisateur a coupé les statistiques d'usage : dans ce dernier cas
+  // le signalement ne partirait pas, et proposer le bouton serait mentir.
+  GetReportSiteState() => (bool can_report, string domain, bool analytics_off);
+  ReportSite() => (bool sent);
+
   // Read/write the action mode pref (blur-female | blur-male | blur-all).
   GetMode() => (string mode);
   SetMode(string mode);

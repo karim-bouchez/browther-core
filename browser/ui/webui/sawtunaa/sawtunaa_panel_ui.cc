@@ -58,6 +58,13 @@ SawtunaaPanelUI::SawtunaaPanelUI(content::WebUI* web_ui)
       // Deux textes, pas un : sur kBlocked, dire « installez l'app » est FAUX
       // — la page ne joue pas ici, il faut d'abord l'ouvrir ailleurs.
       {"protectedHint", IDS_SAWTUNAA_POPUP_PROTECTED_HINT},
+      // Browther: signalement « ça ne marche pas sur ce site ». Communes aux
+      // deux panels (Basarunaa et Sawtunaa) — même geste, même wording.
+      {"reportSiteQuestion", IDS_BROWTHER_REPORT_SITE_QUESTION},
+      {"reportSiteButton", IDS_BROWTHER_REPORT_SITE_BUTTON},
+      {"reportSitePrivacy", IDS_BROWTHER_REPORT_SITE_PRIVACY},
+      {"reportSiteDone", IDS_BROWTHER_REPORT_SITE_DONE},
+      {"reportSiteAnalyticsOff", IDS_BROWTHER_REPORT_SITE_ANALYTICS_OFF},
       {"protectedHintBlocked", IDS_SAWTUNAA_POPUP_PROTECTED_HINT_BLOCKED},
       {"installSawtunaa", IDS_BROWTHER_PROTECTED_CONTENT_GET_SAWTUNAA},
   };

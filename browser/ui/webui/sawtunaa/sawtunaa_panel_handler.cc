@@ -12,6 +12,7 @@
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
+#include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_commands.h"
@@ -110,8 +111,16 @@ SawtunaaPanelHandler::GetProtectedContentState() {
 
 void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
   const bool enabled = profile_->GetPrefs()->GetBoolean(kSawtunaaEnabled);
+  const auto report =
+      browther_analytics::GetSiteReportState(GetActiveWebContents());
   std::move(callback).Run(enabled, enabled && ShouldShowReloadHint(),
-                          GetProtectedContentState());
+                          GetProtectedContentState(), report.can_report,
+                          report.domain, report.analytics_off);
+}
+
+void SawtunaaPanelHandler::ReportSite(ReportSiteCallback callback) {
+  std::move(callback).Run(
+      browther_analytics::ReportSite(GetActiveWebContents(), "sawtunaa"));
 }
 
 void SawtunaaPanelHandler::SetEnabled(bool enabled) {

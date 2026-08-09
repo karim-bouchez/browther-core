@@ -45,6 +45,7 @@ class SawtunaaPanelHandler : public sawtunaa::mojom::PanelHandler {
   void SetEnabled(bool enabled) override;
   void ReloadActiveTab() override;
   void OpenSawtunaaAppPage() override;
+  void ReportSite(ReportSiteCallback callback) override;
 
  private:
   // Fenêtre qui héberge la bulle, ou nullptr. À rappeler à chaque usage.

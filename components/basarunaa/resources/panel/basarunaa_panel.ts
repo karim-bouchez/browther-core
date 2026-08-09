@@ -19,6 +19,43 @@ function notifyShowUI() {
   }
 }
 
+// Bloc « ça ne marche pas sur ce site ».
+//
+// Deux règles d'honnêteté, toutes deux portées par le browser (le WebUI
+// n'invente aucune condition) :
+//  - pas de domaine (page interne) → bloc masqué, il n'y a rien à signaler ;
+//  - statistiques d'usage coupées → le signalement ne partirait pas, donc on
+//    dit pourquoi au lieu d'afficher un bouton sans effet.
+// Le domaine exact est montré AVANT le clic : l'utilisateur voit ce qu'il
+// envoie, il n'a pas à nous croire sur parole.
+async function refreshReportSite() {
+  const box = document.getElementById('report-site')
+  const btn = document.getElementById('report-site-btn') as HTMLButtonElement | null
+  const privacy = document.getElementById('report-privacy')
+  const done = document.getElementById('report-done')
+  if (!box || !btn || !privacy || !done) return
+  try {
+    const state = await api().getReportSiteState()
+    if (!state.canReport && !state.analyticsOff) {
+      box.setAttribute('hidden', '')
+      return
+    }
+    box.removeAttribute('hidden')
+    done.setAttribute('hidden', '')
+    if (state.analyticsOff) {
+      btn.disabled = true
+      privacy.textContent = loadTimeData.getString('reportSiteAnalyticsOff')
+      return
+    }
+    btn.disabled = false
+    privacy.textContent = loadTimeData.getStringF(
+      'reportSitePrivacy', state.domain)
+  } catch (err) {
+    console.error('[basarunaa-panel] getReportSiteState failed', err)
+    box.setAttribute('hidden', '')
+  }
+}
+
 async function refreshState() {
   try {
     const [{ enabled }, { mode }, censorEyes, nsfw, sliders, dev, protectedContent] = await Promise.all([
@@ -32,6 +69,7 @@ async function refreshState() {
     ])
     setUIEnabled(enabled)
     setUIProtectedHint(protectedContent.visible)
+    refreshReportSite()
     setUIMode(mode)
     setUICensorEyes(censorEyes.enabled)
     setUINsfw(nsfw.enabled)
@@ -177,6 +215,25 @@ document.addEventListener('DOMContentLoaded', () => {
       api().getProtectedContent().then(r => setUIProtectedHint(r.visible))
     } catch (err) {
       console.error('[basarunaa-panel] setEnabled failed', err)
+    }
+  })
+
+  const reportBtn = document.getElementById('report-site-btn') as HTMLButtonElement | null
+  reportBtn?.addEventListener('click', async () => {
+    reportBtn.disabled = true
+    try {
+      const { sent } = await api().reportSite()
+      // On ne confirme QUE si l'envoi a bien eu lieu — un « merci » affiché
+      // par optimisme serait exactement le mensonge qu'on cherche à éviter.
+      if (sent) {
+        document.getElementById('report-done')?.removeAttribute('hidden')
+        reportBtn.setAttribute('hidden', '')
+      } else {
+        reportBtn.disabled = false
+      }
+    } catch (err) {
+      console.error('[basarunaa-panel] reportSite failed', err)
+      reportBtn.disabled = false
     }
   })
 

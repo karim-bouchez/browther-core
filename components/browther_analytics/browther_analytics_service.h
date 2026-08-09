@@ -43,6 +43,12 @@ class BrowtherAnalyticsService {
   void Track(const std::string& event_name, base::DictValue properties);
   void Track(const std::string& event_name);
 
+  // Le consentement est-il actif ? Sert à l'UI qui propose une action DONT LE
+  // SEUL EFFET est un Track() : sans ça elle afficherait « signalé, merci »
+  // alors que l'appel est un no-op — le genre de mensonge qu'on s'interdit
+  // (cf. l'encadré DRM des panels). L'UI grise l'action et l'explique.
+  bool IsTrackingEnabled() const { return IsPostHogEnabled(); }
+
   // Stats cumulatives publiées sur browther.devndin.com via /api/stats.
   // No-op si StatsClient non configuré ou consentement désactivé.
   // Callable depuis n'importe quel chemin C++ Browther.

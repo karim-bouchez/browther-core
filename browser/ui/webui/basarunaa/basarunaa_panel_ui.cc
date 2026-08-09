@@ -55,6 +55,13 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
       // contrairement à Sawtunaa il n'y a aucune solution de contournement, et
       // le wording ne doit pas laisser croire le contraire.
       {"protectedHint", IDS_BASARUNAA_POPUP_PROTECTED_HINT},
+      // Browther: signalement « ça ne marche pas sur ce site ». Communes aux
+      // deux panels (Basarunaa et Sawtunaa) — même geste, même wording.
+      {"reportSiteQuestion", IDS_BROWTHER_REPORT_SITE_QUESTION},
+      {"reportSiteButton", IDS_BROWTHER_REPORT_SITE_BUTTON},
+      {"reportSitePrivacy", IDS_BROWTHER_REPORT_SITE_PRIVACY},
+      {"reportSiteDone", IDS_BROWTHER_REPORT_SITE_DONE},
+      {"reportSiteAnalyticsOff", IDS_BROWTHER_REPORT_SITE_ANALYTICS_OFF},
       {"modeLabel", IDS_BASARUNAA_PANEL_MODE_LABEL},
       {"modeFemale", IDS_BASARUNAA_PANEL_MODE_FEMALE},
       {"modeMale", IDS_BASARUNAA_PANEL_MODE_MALE},

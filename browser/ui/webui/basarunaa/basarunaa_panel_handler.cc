@@ -9,6 +9,7 @@
 
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
+#include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
@@ -72,6 +73,26 @@ void BasarunaaPanelHandler::GetProtectedContent(
   std::move(callback).Run(
       BrowtherProtectedContentTabHelper::StateFor(web_contents) !=
       BrowtherProtectedContentTabHelper::ProtectedState::kUnknown);
+}
+
+content::WebContents* BasarunaaPanelHandler::GetActiveWebContents() {
+  auto* browser_window_interface = GetBrowserWindowInterface();
+  return browser_window_interface
+             ? browser_window_interface->GetTabStripModel()
+                   ->GetActiveWebContents()
+             : nullptr;
+}
+
+void BasarunaaPanelHandler::GetReportSiteState(
+    GetReportSiteStateCallback callback) {
+  const auto state =
+      browther_analytics::GetSiteReportState(GetActiveWebContents());
+  std::move(callback).Run(state.can_report, state.domain, state.analytics_off);
+}
+
+void BasarunaaPanelHandler::ReportSite(ReportSiteCallback callback) {
+  std::move(callback).Run(
+      browther_analytics::ReportSite(GetActiveWebContents(), "basarunaa"));
 }
 
 void BasarunaaPanelHandler::GetMode(GetModeCallback callback) {

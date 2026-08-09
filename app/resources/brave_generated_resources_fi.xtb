@@ -963,4 +963,9 @@ Tai muuta myöhemmin kohdassa <ph name="SETTINGS_EXTENIONS_LINK"/>.</translation
 <translation id="7135186112548764640">Tätä sivua ei voi toistaa täällä: suojattu sisältö (DRM). Katso se ilman musiikkia: asenna Sawtunaa-sovellus, lisää sen laajennus toiseen selaimeen ja avaa tämä sivu siinä selaimessa.</translation>
 <translation id="4821861659933973408">Tutustu muihin dev&amp;din-projekteihin</translation>
 <translation id="33938309987543270">Browther on yksi monista tekemistämme sovelluksista</translation>
+<translation id="5918253281464304925">Ei toimi tällä sivustolla?</translation>
+<translation id="2135919691573380097">Ilmoita tästä sivustosta</translation>
+<translation id="1486510762152444710">Vain <ph name="DOMAIN"/> lähetetään — ei koskaan sivun osoitetta.</translation>
+<translation id="3603636173191469268">Kiitos — sivustosta on ilmoitettu.</translation>
+<translation id="6181120782140575493">Ilmoittaminen vaatii käyttötilastot, jotka ovat pois päältä.</translation>
 </translationbundle>
