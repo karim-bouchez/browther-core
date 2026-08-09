@@ -4119,6 +4119,26 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Mode capture (datasets régression)
     </message>
 
+    <!-- Browther: « ça ne marche pas ici ? » — signalement d'un site non géré.
+         Parité desktop (IDS_BROWTHER_REPORT_SITE_* dans
+         brave_generated_resources.grd) : noms distincts pour ne pas créer de
+         collision entre les deux headers grit. -->
+    <message name="IDS_BROWTHER_PANEL_REPORT_SITE_QUESTION" desc="Question above the report button in the Basarunaa and Sawtunaa panels">
+      Ça ne marche pas sur ce site ?
+    </message>
+    <message name="IDS_BROWTHER_PANEL_REPORT_SITE_BUTTON" desc="Button reporting the current site as unsupported. Only the domain is sent.">
+      Signaler ce site
+    </message>
+    <message name="IDS_BROWTHER_PANEL_REPORT_SITE_PRIVACY" desc="Tooltip stating exactly what is sent. %1$s is the site domain.">
+      Seul <ph name="DOMAIN">%1$s<ex>dailymotion.com</ex></ph> est envoyé — jamais l'adresse de la page.
+    </message>
+    <message name="IDS_BROWTHER_PANEL_REPORT_SITE_DONE" desc="Confirmation shown after the user reported the current site.">
+      Merci — site signalé.
+    </message>
+    <message name="IDS_BROWTHER_PANEL_REPORT_SITE_ANALYTICS_OFF" desc="Shown instead of the button when usage statistics are off, so a report could not be sent.">
+      Le signalement a besoin des statistiques d'usage, qui sont désactivées.
+    </message>
+
     <!-- Browther: Shields panel (BottomSheet, alignement Sawtunaa/Basarunaa). -->
     <message name="IDS_SHIELDS_PANEL_TITLE" desc="Header title for the Browther Shields panel">
       Bouclier Browther

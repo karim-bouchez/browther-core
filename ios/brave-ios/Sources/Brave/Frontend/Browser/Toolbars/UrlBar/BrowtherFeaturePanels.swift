@@ -11,9 +11,80 @@ import Sawtunaa
 import SwiftUI
 import UIKit
 
+// MARK: - « Ça ne marche pas ici ? » — signalement d'un site non géré
+//
+// Parité desktop (`components/browther_analytics/site_report.{h,cc}` +
+// les deux panels WebUI). Mêmes règles, portées ici à la main faute de pouvoir
+// partager le C++ :
+//   • seul le DOMAINE part, jamais l'URL — il est calculé par l'appelant
+//     (`baseDomain`) et affiché dans l'infobulle avant le clic ;
+//   • rien ne part sans clic : pas de télémétrie passive de navigation ;
+//   • le consentement statistiques est respecté — `track` est déjà un no-op
+//     quand il est coupé (BrowtherAnalyticsService:87), mais on n'affiche pas
+//     un bouton qui ne ferait rien : on explique à la place.
+//
+// C'est l'UTILISATEUR qui juge : il sait ce qu'il s'attendait à voir traité,
+// là où une heuristique produirait des faux positifs sur des pages normales.
+struct ReportSiteRow: View {
+  /// Domaine enregistrable de l'onglet actif, ou nil sur une page interne.
+  let domain: String?
+  /// "sawtunaa" | "basarunaa"
+  let feature: String
+
+  @State private var reported = false
+
+  private var analyticsOff: Bool {
+    !Preferences.BrowtherAnalytics.posthogEnabled.value
+  }
+
+  var body: some View {
+    if let domain, !domain.isEmpty {
+      VStack(spacing: 0) {
+        Divider()
+        Group {
+          if analyticsOff {
+            // Ne pas proposer une action dont le seul effet serait un no-op.
+            Text(verbatim: "Le signalement a besoin des statistiques d'usage, qui sont désactivées.")
+              .foregroundStyle(Color(.secondaryBraveLabel))
+          } else if reported {
+            Text(verbatim: "Merci — site signalé.")
+              .fontWeight(.semibold)
+              .foregroundStyle(Color(.braveSuccessLabel))
+          } else {
+            HStack(spacing: 8) {
+              Text(verbatim: "Ça ne marche pas sur ce site ?")
+                .foregroundStyle(Color(.secondaryBraveLabel))
+              Button {
+                BrowtherAnalyticsService.shared.track(
+                  event: "site_reported",
+                  properties: ["feature": feature, "domain": domain]
+                )
+                reported = true
+              } label: {
+                Text(verbatim: "Signaler ce site")
+                  .fontWeight(.semibold)
+              }
+              .buttonStyle(.bordered)
+              .controlSize(.small)
+            }
+          }
+        }
+        .font(.caption)
+        .multilineTextAlignment(.center)
+        .padding(.top, 12)
+        .padding(.horizontal)
+      }
+      .padding(.top, 4)
+    }
+  }
+}
+
 // MARK: - Sawtunaa panel
 
 struct SawtunaaPanelView: View {
+  /// Domaine de l'onglet actif (nil sur une page interne) — cf. ReportSiteRow.
+  let reportDomain: String?
+
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
   @State private var showLimitations = false
 
@@ -61,6 +132,8 @@ struct SawtunaaPanelView: View {
       .buttonStyle(.plain)
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.horizontal)
+
+      ReportSiteRow(domain: reportDomain, feature: "sawtunaa")
     }
     .padding(.top, 16)
     .padding(.bottom, 16)
@@ -98,9 +171,11 @@ struct SawtunaaPanelView: View {
 class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
   PopoverContentComponent
 {
-  init() {
-    super.init(rootView: SawtunaaPanelView())
-    preferredContentSize = CGSize(width: 360, height: 260)
+  init(reportDomain: String?) {
+    super.init(rootView: SawtunaaPanelView(reportDomain: reportDomain))
+    // +36 pt : la ligne « ça ne marche pas ici ? » n'apparaît que sur une page
+    // avec un domaine, mais réserver la hauteur évite un popover qui saute.
+    preferredContentSize = CGSize(width: 360, height: reportDomain == nil ? 260 : 296)
   }
 
   @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -120,6 +195,9 @@ class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
 //       - PoC "Test inference" button
 
 struct BasarunaaPanelView: View {
+  /// Domaine de l'onglet actif (nil sur une page interne) — cf. ReportSiteRow.
+  let reportDomain: String?
+
   @ObservedObject private var enabled = Preferences.Basarunaa.enabled
   @ObservedObject private var mode = Preferences.Basarunaa.mode
   @ObservedObject private var confBody = Preferences.Basarunaa.confBody
@@ -211,6 +289,8 @@ struct BasarunaaPanelView: View {
 
         // MARK: Debug (visible to all builds — required so the user can report issues)
         debugSection
+
+        ReportSiteRow(domain: reportDomain, feature: "basarunaa")
       }
       .padding(.top, 16)
       .padding(.bottom, 16)
@@ -399,8 +479,8 @@ struct BasarunaaPanelView: View {
 class BasarunaaPanelViewController: UIHostingController<BasarunaaPanelView>,
   PopoverContentComponent
 {
-  init() {
-    super.init(rootView: BasarunaaPanelView())
+  init(reportDomain: String?) {
+    super.init(rootView: BasarunaaPanelView(reportDomain: reportDomain))
     preferredContentSize = CGSize(width: 360, height: 640)
   }
 

@@ -28,6 +28,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
@@ -111,6 +112,10 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
                 R.string.basarunaa_panel_nudenet_fmt);
         bindDebugGroup();
         bindCaptureSwitch();
+
+        // Browther : « ça ne marche pas ici ? ». Toutes les règles (domaine seul,
+        // consentement, page interne) vivent dans le helper partagé.
+        BrowtherSiteReport.bind(view, "basarunaa");
     }
 
     /** NSFW opt-in (2026-08-04, parité desktop/iOS). Pref OFF par défaut. */

@@ -30,6 +30,7 @@ import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
@@ -142,6 +143,10 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
 
         updateStatusText(enabled);
         installDescription();
+
+        // Browther : « ça ne marche pas ici ? ». Toutes les règles (domaine seul,
+        // consentement, page interne) vivent dans le helper partagé.
+        BrowtherSiteReport.bind(view, "sawtunaa");
     }
 
     private void updateStatusText(boolean enabled) {

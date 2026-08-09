@@ -72,4 +72,35 @@
         android:lineSpacingExtra="2dp"
         android:gravity="start" />
 
+
+    <!-- Browther : « ça ne marche pas ici ? » — signalement d'un site non géré.
+         Parité desktop/iOS. Seul le DOMAINE part, jamais l'URL (cf.
+         components/browther_analytics/site_report.h). Masqué sur les pages
+         internes, qui n'ont rien à signaler. -->
+    <LinearLayout
+        android:id="@+id/browther_report_site_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/browther_report_site_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/browther_panel_report_site_question"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/browther_report_site_button"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/browther_panel_report_site_button"
+            android:textSize="12sp" />
+    </LinearLayout>
+
 </LinearLayout>

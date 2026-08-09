@@ -370,16 +370,30 @@ extension BrowserViewController: TopToolbarDelegate {
   }
 
   // Browther: features URL bar
+  /// Domaine enregistrable de l'onglet actif, pour le signalement « ça ne
+  /// marche pas sur ce site » des panels. nil sur une page interne (NTP,
+  /// about:) ou sans domaine : il n'y a alors rien à signaler.
+  /// Seul ce domaine quitte l'appareil, jamais l'URL — cf. ReportSiteRow.
+  private var reportableDomain: String? {
+    guard let url = tabManager.selectedTab?.visibleURL,
+      url.isWebPage(includeDataURIs: false),
+      InternalURL(url) == nil
+    else {
+      return nil
+    }
+    return url.baseDomain
+  }
+
   func topToolbarDidTapSawtunaaButton(_ topToolbar: TopToolbarView) {
     let popover = PopoverController(
-      contentController: SawtunaaPanelViewController(),
+      contentController: SawtunaaPanelViewController(reportDomain: reportableDomain),
       contentSizeBehavior: .preferredContentSize
     )
     popover.present(from: topToolbar.sawtunaaButton, on: self)
   }
 
   func topToolbarDidTapBasarunaaButton(_ topToolbar: TopToolbarView) {
-    let panel = BasarunaaPanelViewController()
+    let panel = BasarunaaPanelViewController(reportDomain: reportableDomain)
     let popover = PopoverController(
       contentController: panel,
       contentSizeBehavior: .preferredContentSize
