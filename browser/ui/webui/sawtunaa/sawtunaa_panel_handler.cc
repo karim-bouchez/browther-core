@@ -11,6 +11,7 @@
 #include "base/values.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
+#include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
@@ -80,6 +81,14 @@ bool SawtunaaPanelHandler::ShouldShowReloadHint() {
   if (!web_contents) {
     return false;
   }
+  // Le tap tourne DÉJÀ pour cette page (au moins un batch traité) : le
+  // WebMediaPlayer en place est bien tapé, un reload ne changerait rien.
+  // Sans ce test, le hint s'affichait dès qu'un média avait été audible — donc
+  // aussi quand la pref était déjà ON au chargement et que tout marchait
+  // (bug rapporté par Karim le 2026-08-09).
+  if (sawtunaa::SawtunaaAudioProcessor::HasTappedAudio(web_contents)) {
+    return false;
+  }
   // « Un média joue dans l'onglet » : le helper de la tab strip retient aussi
   // le média mis en pause (WasEverAudible) — son WebMediaPlayer existe déjà,
   // donc lui aussi restera non tappé jusqu'au reload.
@@ -113,9 +122,16 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
   const bool enabled = profile_->GetPrefs()->GetBoolean(kSawtunaaEnabled);
   const auto report =
       browther_analytics::GetSiteReportState(GetActiveWebContents());
-  std::move(callback).Run(enabled, enabled && ShouldShowReloadHint(),
-                          GetProtectedContentState(), report.can_report,
-                          report.domain, report.analytics_off);
+  const auto protected_state = GetProtectedContentState();
+  // Contenu protégé : aucun batch ne passe non plus, mais recharger l'onglet
+  // n'y changerait RIEN — c'est l'encadré ambre qui dit la vérité. Le DRM
+  // gagne, sinon on afficherait deux messages dont un faux.
+  const bool show_reload_hint =
+      enabled && protected_state == sawtunaa::mojom::ProtectedContentState::kNone &&
+      ShouldShowReloadHint();
+  std::move(callback).Run(enabled, show_reload_hint, protected_state,
+                          report.can_report, report.domain,
+                          report.analytics_off);
 }
 
 void SawtunaaPanelHandler::ReportSite(ReportSiteCallback callback) {

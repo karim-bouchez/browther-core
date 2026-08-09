@@ -1317,6 +1317,9 @@ source_set("ui") {
     ]
     deps += [
       "//brave/browser/basarunaa",
+      # sawtunaa_panel_handler : SawtunaaAudioProcessor::HasTappedAudio, qui
+      # dit si le tap tourne déjà pour l'onglet (hint « recharge »).
+      "//brave/browser/sawtunaa",
       "//brave/components/basarunaa/core",
       "//brave/components/basarunaa/resources:panel_resources",
       "//brave/components/sawtunaa/resources:panel_resources",

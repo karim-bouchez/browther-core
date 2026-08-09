@@ -62,11 +62,28 @@ void SawtunaaAudioProcessor::BindReceiver(
 SawtunaaAudioProcessor::SawtunaaAudioProcessor(
     content::WebContents* web_contents)
     : content::WebContentsUserData<SawtunaaAudioProcessor>(*web_contents),
+      content::WebContentsObserver(web_contents),
       task_runner_(base::ThreadPool::CreateSequencedTaskRunner(
           {base::MayBlock(), base::TaskPriority::USER_VISIBLE,
            base::TaskShutdownBehavior::SKIP_ON_SHUTDOWN})) {}
 
 SawtunaaAudioProcessor::~SawtunaaAudioProcessor() = default;
+
+// static
+bool SawtunaaAudioProcessor::HasTappedAudio(
+    content::WebContents* web_contents) {
+  if (!web_contents) {
+    return false;
+  }
+  auto* processor = FromWebContents(web_contents);
+  return processor && processor->has_tapped_audio_;
+}
+
+void SawtunaaAudioProcessor::PrimaryPageChanged(content::Page& page) {
+  // Nouvelle page = nouveaux WebMediaPlayer : ce qu'on a tapé avant ne dit
+  // plus rien de celle-ci. Couvre aussi la restauration depuis le bfcache.
+  has_tapped_audio_ = false;
+}
 
 int64_t SawtunaaAudioProcessor::MakeStreamKey(int64_t stream_id) const {
   // Contexte du receiver courant (monotone par bind) dans les 16 bits hauts,
@@ -92,6 +109,10 @@ void SawtunaaAudioProcessor::ProcessBatch(int64_t stream_id,
     std::move(callback).Run(false, mojo_base::BigBuffer());
     return;
   }
+
+  // Un batch valide est arrivé : le tap tourne pour cette page. C'est ce qui
+  // permet au panel de ne PAS proposer un reload qui ne servirait à rien.
+  has_tapped_audio_ = true;
 
   auto* profile =
       Profile::FromBrowserContext(GetWebContents().GetBrowserContext());

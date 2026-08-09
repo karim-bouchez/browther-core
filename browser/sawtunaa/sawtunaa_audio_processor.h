@@ -13,6 +13,7 @@
 #include "base/memory/weak_ptr.h"
 #include "base/task/sequenced_task_runner.h"
 #include "brave/components/sawtunaa/common/mojom/sawtunaa.mojom.h"
+#include "content/public/browser/web_contents_observer.h"
 #include "content/public/browser/web_contents_user_data.h"
 #include "mojo/public/cpp/base/big_buffer.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
@@ -38,6 +39,7 @@ namespace sawtunaa {
 // La sérialisation inter-onglets reste assurée par le mutex global du service.
 class SawtunaaAudioProcessor
     : public content::WebContentsUserData<SawtunaaAudioProcessor>,
+      public content::WebContentsObserver,
       public mojom::AudioTapProcessor {
  public:
   SawtunaaAudioProcessor(const SawtunaaAudioProcessor&) = delete;
@@ -49,6 +51,23 @@ class SawtunaaAudioProcessor
   static void BindReceiver(
       content::RenderFrameHost* rfh,
       mojo::PendingReceiver<mojom::AudioTapProcessor> receiver);
+
+  // Le tap natif a-t-il déjà traité de l'audio pour la page courante de cet
+  // onglet ? Autrement dit : le WebMediaPlayer en place est-il bien tapé ?
+  //
+  // Sert au hint « Recharge l'onglet » du panel, qui ne doit s'afficher que
+  // quand le reload changerait VRAIMENT quelque chose. Avant (bug rapporté par
+  // Karim le 2026-08-09), le hint se basait sur « un média a-t-il déjà été
+  // audible » — vrai aussi bien quand la pref était déjà ON au chargement
+  // (player tapé, tout marche) que quand elle a été activée après coup (player
+  // non tapé). Il s'affichait donc dès qu'on avait écouté quoi que ce soit.
+  //
+  // C'est un LATCH remis à zéro à chaque changement de page principale, pas un
+  // « récemment » : sur une vidéo en pause les batches s'arrêtent alors que le
+  // tap reste branché — un critère de fraîcheur recréerait le faux positif.
+  // Retourne false si aucun processor n'existe pour cet onglet : personne n'a
+  // jamais bindé l'interface, donc rien n'a jamais été tapé.
+  static bool HasTappedAudio(content::WebContents* web_contents);
 
  private:
   friend class content::WebContentsUserData<SawtunaaAudioProcessor>;
@@ -65,6 +84,9 @@ class SawtunaaAudioProcessor
                     ProcessBatchCallback callback) override;
   void ResetStream(int64_t stream_id) override;
   void DestroyStream(int64_t stream_id) override;
+
+  // content::WebContentsObserver:
+  void PrimaryPageChanged(content::Page& page) override;
 
   // Reply sur le thread UI (le receiver y vit). WeakPtr gate : WebContents
   // détruit pendant la tâche → le callback wrappé répond ok=false (jamais de
@@ -90,6 +112,10 @@ class SawtunaaAudioProcessor
   // Fractions de secondes traitées en attente (flushées par seconde entière
   // vers BrowtherAnalyticsService — même granularité que l'extension).
   double music_seconds_accumulator_ = 0.0;
+
+  // Latch « le tap a produit au moins un batch depuis cette navigation »
+  // (cf. HasTappedAudio).
+  bool has_tapped_audio_ = false;
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 
