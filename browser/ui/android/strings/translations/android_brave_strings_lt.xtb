@@ -1158,4 +1158,23 @@ Užklausos nepriėmus, prie VPN pakartotinai prisijungta nebus ir interneto ryš
 <translation id="1486510762152444710">Siunčiama tik <ph name="DOMAIN"/> — niekada puslapio adresas.</translation>
 <translation id="3603636173191469268">Ačiū — apie svetainę pranešta.</translation>
 <translation id="6181120782140575493">Pranešimui reikia naudojimo statistikos, kuri išjungta.</translation>
+<translation id="2820490074689045961">Sulieti moteris</translation>
+<translation id="5711809125081584434">Sulieti vyrus</translation>
+<translation id="8553210988890740803">Sulieti visus</translation>
+<translation id="1209726297371789445">NSFW aptikimas</translation>
+<translation id="4385099616007216520">Sulieja visą vaizdą, kai aptinkamas atviras turinys (nuogumas, intymios kūno dalys). Pagal numatytuosius nustatymus išjungta dėl geresnio reagavimo — įjunkite, jei norite.</translation>
+<translation id="6147112552017617117">Aptikimas</translation>
+<translation id="8711217670642419559">Muzikos šalinimas ĮJUNGTAS</translation>
+<translation id="6946410204063459585">Muzikos šalinimas IŠJUNGTAS</translation>
+<translation id="1260370212650181166">Asmenų suliejimas ĮJUNGTAS</translation>
+<translation id="7226783331917158390">Asmenų suliejimas IŠJUNGTAS</translation>
+<translation id="1614848774046566824">Kol kas tai veikia tik „YouTube“.</translation>
+<translation id="3486642440122701056">Mobiliosios naršyklės nustato techninius apribojimus, dėl kurių toks garso filtravimas sudėtingesnis nei „Mac“, „Windows“ ar „Android“. Dirbame, kad išplėstume tai į kitas svetaines, إن شاء الله.</translation>
+<translation id="2903056509629046022">Automatiškai suliedina žmones tinklalapiuose, kad padėtų nuleisti žvilgsnį.</translation>
+<translation id="7658602219580171090">Kūno aptikimo patikimumas: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Veido aptikimo patikimumas: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Išjungta</translation>
+<translation id="7551255941874418198">Aptikimo langeliai</translation>
+<translation id="4001985793971152397">Visas perdangas (langeliai + skeletas)</translation>
+<translation id="5177084097682182558">Fiksavimo režimas (regresijos duomenys)</translation>
 </translationbundle>

@@ -1155,4 +1155,23 @@ Jika Anda tidak menerima permintaan ini, VPN tidak akan tersambung kembali dan s
 <translation id="1486510762152444710">Hanya <ph name="DOMAIN"/> yang dikirim — tidak pernah alamat halaman.</translation>
 <translation id="3603636173191469268">Terima kasih — situs dilaporkan.</translation>
 <translation id="6181120782140575493">Pelaporan memerlukan statistik penggunaan, yang sedang nonaktif.</translation>
+<translation id="2820490074689045961">Kaburkan wanita</translation>
+<translation id="5711809125081584434">Kaburkan pria</translation>
+<translation id="8553210988890740803">Kaburkan semua orang</translation>
+<translation id="1209726297371789445">Deteksi NSFW</translation>
+<translation id="4385099616007216520">Mengaburkan seluruh gambar jika terdeteksi konten eksplisit (ketelanjangan, bagian intim). Nonaktif secara default demi respons yang lebih baik — aktifkan jika Anda mau.</translation>
+<translation id="6147112552017617117">Deteksi</translation>
+<translation id="8711217670642419559">Penghapusan musik AKTIF</translation>
+<translation id="6946410204063459585">Penghapusan musik NONAKTIF</translation>
+<translation id="1260370212650181166">Pengaburan orang AKTIF</translation>
+<translation id="7226783331917158390">Pengaburan orang NONAKTIF</translation>
+<translation id="1614848774046566824">Untuk saat ini, ini hanya berfungsi di YouTube.</translation>
+<translation id="3486642440122701056">Peramban seluler menerapkan pembatasan teknis yang membuat penyaringan audio semacam ini lebih sulit daripada di Mac, Windows, atau Android. Kami sedang berupaya memperluasnya ke situs lain, إن شاء الله.</translation>
+<translation id="2903056509629046022">Otomatis mengaburkan orang di halaman web untuk membantu Anda menundukkan pandangan.</translation>
+<translation id="7658602219580171090">Keyakinan deteksi tubuh: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Keyakinan deteksi wajah: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Nonaktif</translation>
+<translation id="7551255941874418198">Kotak deteksi</translation>
+<translation id="4001985793971152397">Hamparan penuh (kotak + kerangka)</translation>
+<translation id="5177084097682182558">Mode tangkap (set data regresi)</translation>
 </translationbundle>

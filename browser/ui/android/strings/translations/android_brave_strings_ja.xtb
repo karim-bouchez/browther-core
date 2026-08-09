@@ -1155,4 +1155,23 @@
 <translation id="1486510762152444710">送信されるのは <ph name="DOMAIN"/> のみです。ページのアドレスは送信されません。</translation>
 <translation id="3603636173191469268">ありがとうございます。サイトを報告しました。</translation>
 <translation id="6181120782140575493">報告には使用統計が必要ですが、オフになっています。</translation>
+<translation id="2820490074689045961">女性をぼかす</translation>
+<translation id="5711809125081584434">男性をぼかす</translation>
+<translation id="8553210988890740803">全員をぼかす</translation>
+<translation id="1209726297371789445">NSFW 検出</translation>
+<translation id="4385099616007216520">露骨なコンテンツ（ヌード、局部）を検出した場合、画像全体をぼかします。応答性を優先して既定ではオフです。必要に応じて有効にしてください。</translation>
+<translation id="6147112552017617117">検出</translation>
+<translation id="8711217670642419559">音楽の除去: 有効</translation>
+<translation id="6946410204063459585">音楽の除去: 無効</translation>
+<translation id="1260370212650181166">人物のぼかし: 有効</translation>
+<translation id="7226783331917158390">人物のぼかし: 無効</translation>
+<translation id="1614848774046566824">現在、これは YouTube でのみ動作します。</translation>
+<translation id="3486642440122701056">モバイルブラウザには技術的な制約があり、この種の音声フィルタリングは Mac、Windows、Android より難しくなっています。他のサイトへの拡大に取り組んでいます、إن شاء الله。</translation>
+<translation id="2903056509629046022">視線を下げる助けとなるよう、ウェブページ上の人物を自動的にぼかします。</translation>
+<translation id="7658602219580171090">身体検出の信頼度: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">顔検出の信頼度: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">オフ</translation>
+<translation id="7551255941874418198">検出ボックス</translation>
+<translation id="4001985793971152397">フルオーバーレイ（ボックス + スケルトン）</translation>
+<translation id="5177084097682182558">キャプチャモード（回帰データセット）</translation>
 </translationbundle>

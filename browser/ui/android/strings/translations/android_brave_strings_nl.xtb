@@ -1155,4 +1155,23 @@ Als je dit verzoek niet accepteert, maakt VPN niet opnieuw verbinding en is je i
 <translation id="1486510762152444710">Alleen <ph name="DOMAIN"/> wordt verzonden — nooit het adres van de pagina.</translation>
 <translation id="3603636173191469268">Bedankt — site gemeld.</translation>
 <translation id="6181120782140575493">Melden vereist gebruiksstatistieken, die uitgeschakeld zijn.</translation>
+<translation id="2820490074689045961">Vrouwen vervagen</translation>
+<translation id="5711809125081584434">Mannen vervagen</translation>
+<translation id="8553210988890740803">Iedereen vervagen</translation>
+<translation id="1209726297371789445">NSFW-detectie</translation>
+<translation id="4385099616007216520">Vervaagt de hele afbeelding als expliciete inhoud wordt gedetecteerd (naaktheid, intieme delen). Standaard uit voor een betere responsiviteit — schakel het in als je dat wilt.</translation>
+<translation id="6147112552017617117">Detectie</translation>
+<translation id="8711217670642419559">Muziekverwijdering INGESCHAKELD</translation>
+<translation id="6946410204063459585">Muziekverwijdering UITGESCHAKELD</translation>
+<translation id="1260370212650181166">Vervagen van personen INGESCHAKELD</translation>
+<translation id="7226783331917158390">Vervagen van personen UITGESCHAKELD</translation>
+<translation id="1614848774046566824">Voorlopig werkt dit alleen op YouTube.</translation>
+<translation id="3486642440122701056">Mobiele browsers leggen technische beperkingen op die dit soort audiofiltering lastiger maken dan op Mac, Windows of Android. We werken eraan om het uit te breiden naar andere sites, إن شاء الله.</translation>
+<translation id="2903056509629046022">Maakt personen op webpagina's automatisch onherkenbaar zodat je je blik kunt neerslaan.</translation>
+<translation id="7658602219580171090">Betrouwbaarheid lichaamsdetectie: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Betrouwbaarheid gezichtsdetectie: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Uit</translation>
+<translation id="7551255941874418198">Detectiekaders</translation>
+<translation id="4001985793971152397">Volledige overlay (kaders + skelet)</translation>
+<translation id="5177084097682182558">Opnamemodus (regressiedatasets)</translation>
 </translationbundle>

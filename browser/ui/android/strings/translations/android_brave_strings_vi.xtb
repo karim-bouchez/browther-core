@@ -1161,4 +1161,23 @@ Leo AI. Hành động này không thể được hoàn tác.</translation>
 <translation id="1486510762152444710">Chỉ <ph name="DOMAIN"/> được gửi đi — không bao giờ gửi địa chỉ trang.</translation>
 <translation id="3603636173191469268">Cảm ơn — đã báo cáo trang.</translation>
 <translation id="6181120782140575493">Việc báo cáo cần số liệu thống kê sử dụng, hiện đang tắt.</translation>
+<translation id="2820490074689045961">Làm mờ phụ nữ</translation>
+<translation id="5711809125081584434">Làm mờ nam giới</translation>
+<translation id="8553210988890740803">Làm mờ tất cả mọi người</translation>
+<translation id="1209726297371789445">Phát hiện NSFW</translation>
+<translation id="4385099616007216520">Làm mờ toàn bộ hình ảnh khi phát hiện nội dung khiêu dâm (ảnh khỏa thân, bộ phận nhạy cảm). Mặc định tắt để phản hồi nhanh hơn — bật nếu bạn muốn.</translation>
+<translation id="6147112552017617117">Phát hiện</translation>
+<translation id="8711217670642419559">Đã BẬT tính năng xóa nhạc</translation>
+<translation id="6946410204063459585">Đã TẮT tính năng xóa nhạc</translation>
+<translation id="1260370212650181166">Đã BẬT tính năng làm mờ người</translation>
+<translation id="7226783331917158390">Đã TẮT tính năng làm mờ người</translation>
+<translation id="1614848774046566824">Hiện tại, tính năng này chỉ hoạt động trên YouTube.</translation>
+<translation id="3486642440122701056">Trình duyệt di động áp đặt các hạn chế kỹ thuật khiến việc lọc âm thanh kiểu này khó hơn so với trên Mac, Windows hoặc Android. Chúng tôi đang mở rộng sang các trang khác, إن شاء الله.</translation>
+<translation id="2903056509629046022">Tự động làm mờ những người trên trang web để giúp bạn hạ thấp ánh nhìn.</translation>
+<translation id="7658602219580171090">Độ tin cậy nhận diện cơ thể: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Độ tin cậy nhận diện khuôn mặt: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Tắt</translation>
+<translation id="7551255941874418198">Khung nhận diện</translation>
+<translation id="4001985793971152397">Lớp phủ đầy đủ (khung + khung xương)</translation>
+<translation id="5177084097682182558">Chế độ chụp (tập dữ liệu hồi quy)</translation>
 </translationbundle>

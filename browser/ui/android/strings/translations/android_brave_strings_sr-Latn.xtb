@@ -1154,4 +1154,23 @@ Ako ne budete prihvatili ovaj zahtev, VPN se neće ponovo povezati i vaša veza 
 <translation id="1486510762152444710">Šalje se samo <ph name="DOMAIN"/> — nikada adresa stranice.</translation>
 <translation id="3603636173191469268">Hvala — sajt je prijavljen.</translation>
 <translation id="6181120782140575493">Prijava zahteva statistiku korišćenja, koja je isključena.</translation>
+<translation id="2820490074689045961">Zamuti žene</translation>
+<translation id="5711809125081584434">Zamuti muškarce</translation>
+<translation id="8553210988890740803">Zamuti sve</translation>
+<translation id="1209726297371789445">NSFW otkrivanje</translation>
+<translation id="4385099616007216520">Zamućuje celu sliku kada se otkrije eksplicitan sadržaj (golotinja, intimni delovi). Podrazumevano isključeno radi bolje odzivnosti — uključite ako želite.</translation>
+<translation id="6147112552017617117">Otkrivanje</translation>
+<translation id="8711217670642419559">Uklanjanje muzike je UKLJUČENO</translation>
+<translation id="6946410204063459585">Uklanjanje muzike je ISKLJUČENO</translation>
+<translation id="1260370212650181166">Zamućivanje osoba je UKLJUČENO</translation>
+<translation id="7226783331917158390">Zamućivanje osoba je ISKLJUČENO</translation>
+<translation id="1614848774046566824">Za sada ovo radi samo na YouTube-u.</translation>
+<translation id="3486642440122701056">Mobilni pregledači nameću tehnička ograničenja zbog kojih je ovakvo filtriranje zvuka teže nego na Mac-u, Windows-u ili Android-u. Radimo na proširenju na druge sajtove, إن شاء الله.</translation>
+<translation id="2903056509629046022">Automatski zamućuje osobe na veb stranicama kako bi vam pomogao da oborite pogled.</translation>
+<translation id="7658602219580171090">Pouzdanost detekcije tela: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Pouzdanost detekcije lica: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Isključeno</translation>
+<translation id="7551255941874418198">Okviri detekcije</translation>
+<translation id="4001985793971152397">Potpuni prekrivač (okviri + skelet)</translation>
+<translation id="5177084097682182558">Režim snimanja (regresioni skupovi)</translation>
 </translationbundle>

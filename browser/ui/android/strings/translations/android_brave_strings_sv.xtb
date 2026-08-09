@@ -1151,4 +1151,23 @@ Om du inte accepterar denna begäran kommer VPN inte att ansluta igen och din in
 <translation id="1486510762152444710">Endast <ph name="DOMAIN"/> skickas — aldrig sidans adress.</translation>
 <translation id="3603636173191469268">Tack — webbplatsen har rapporterats.</translation>
 <translation id="6181120782140575493">Rapportering kräver användningsstatistik, som är avstängd.</translation>
+<translation id="2820490074689045961">Gör kvinnor suddiga</translation>
+<translation id="5711809125081584434">Gör män suddiga</translation>
+<translation id="8553210988890740803">Gör alla suddiga</translation>
+<translation id="1209726297371789445">NSFW-identifiering</translation>
+<translation id="4385099616007216520">Gör hela bilden suddig när explicit innehåll upptäcks (nakenhet, intima delar). Av som standard för bättre responsivitet — slå på det om du vill.</translation>
+<translation id="6147112552017617117">Identifiering</translation>
+<translation id="8711217670642419559">Musikborttagning PÅ</translation>
+<translation id="6946410204063459585">Musikborttagning AV</translation>
+<translation id="1260370212650181166">Oskärpa för personer PÅ</translation>
+<translation id="7226783331917158390">Oskärpa för personer AV</translation>
+<translation id="1614848774046566824">Just nu fungerar detta bara på YouTube.</translation>
+<translation id="3486642440122701056">Mobila webbläsare har tekniska begränsningar som gör den här typen av ljudfiltrering svårare än på Mac, Windows eller Android. Vi arbetar på att utöka det till fler webbplatser, إن شاء الله.</translation>
+<translation id="2903056509629046022">Suddar automatiskt ut personer på webbsidor för att hjälpa dig sänka blicken.</translation>
+<translation id="7658602219580171090">Tillförlitlighet för kroppsigenkänning: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Tillförlitlighet för ansiktsigenkänning: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Av</translation>
+<translation id="7551255941874418198">Detekteringsrutor</translation>
+<translation id="4001985793971152397">Fullständigt överlägg (rutor + skelett)</translation>
+<translation id="5177084097682182558">Inspelningsläge (regressionsdatauppsättningar)</translation>
 </translationbundle>

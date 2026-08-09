@@ -1160,4 +1160,23 @@ v budoucnu a také vymaže vaši historii chatů. Vymazání historie chatů ods
 <translation id="1486510762152444710">Odesílá se pouze <ph name="DOMAIN"/> — nikdy adresa stránky.</translation>
 <translation id="3603636173191469268">Děkujeme — web byl nahlášen.</translation>
 <translation id="6181120782140575493">Nahlášení vyžaduje statistiky používání, které jsou vypnuté.</translation>
+<translation id="2820490074689045961">Rozostřit ženy</translation>
+<translation id="5711809125081584434">Rozostřit muže</translation>
+<translation id="8553210988890740803">Rozostřit všechny</translation>
+<translation id="1209726297371789445">Detekce NSFW</translation>
+<translation id="4385099616007216520">Rozostří celý obrázek, pokud je zjištěn explicitní obsah (nahota, intimní partie). Ve výchozím nastavení vypnuto kvůli lepší odezvě — zapněte podle potřeby.</translation>
+<translation id="6147112552017617117">Detekce</translation>
+<translation id="8711217670642419559">Odstranění hudby je ZAPNUTO</translation>
+<translation id="6946410204063459585">Odstranění hudby je VYPNUTO</translation>
+<translation id="1260370212650181166">Rozostření osob je ZAPNUTO</translation>
+<translation id="7226783331917158390">Rozostření osob je VYPNUTO</translation>
+<translation id="1614848774046566824">Zatím to funguje pouze na YouTube.</translation>
+<translation id="3486642440122701056">Mobilní prohlížeče zavádějí technická omezení, která tento druh filtrování zvuku ztěžují oproti Macu, Windows nebo Androidu. Pracujeme na rozšíření na další weby, إن شاء الله.</translation>
+<translation id="2903056509629046022">Automaticky rozostří osoby na webových stránkách, aby vám pomohl sklopit zrak.</translation>
+<translation id="7658602219580171090">Spolehlivost detekce těla: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Spolehlivost detekce obličeje: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Vypnuto</translation>
+<translation id="7551255941874418198">Detekční rámečky</translation>
+<translation id="4001985793971152397">Úplné překrytí (rámečky + kostra)</translation>
+<translation id="5177084097682182558">Režim záznamu (regresní datové sady)</translation>
 </translationbundle>

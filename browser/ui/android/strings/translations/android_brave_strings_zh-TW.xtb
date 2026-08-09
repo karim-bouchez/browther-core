@@ -1154,4 +1154,23 @@
 <translation id="1486510762152444710">僅傳送 <ph name="DOMAIN"/>，絕不傳送網頁位址。</translation>
 <translation id="3603636173191469268">謝謝，已回報這個網站。</translation>
 <translation id="6181120782140575493">回報需要使用統計資料，但該功能已關閉。</translation>
+<translation id="2820490074689045961">模糊女性</translation>
+<translation id="5711809125081584434">模糊男性</translation>
+<translation id="8553210988890740803">模糊所有人</translation>
+<translation id="1209726297371789445">NSFW 偵測</translation>
+<translation id="4385099616007216520">偵測到露骨內容（裸露、私密部位）時模糊整張圖片。為獲得更好的回應速度，預設關閉——需要時可開啟。</translation>
+<translation id="6147112552017617117">偵測</translation>
+<translation id="8711217670642419559">已啟用音樂消除</translation>
+<translation id="6946410204063459585">已停用音樂消除</translation>
+<translation id="1260370212650181166">已啟用人物模糊</translation>
+<translation id="7226783331917158390">已停用人物模糊</translation>
+<translation id="1614848774046566824">目前，此功能僅在 YouTube 上有效。</translation>
+<translation id="3486642440122701056">行動瀏覽器存在技術限制，使這類音訊過濾比 Mac、Windows 或 Android 更困難。我們正在努力將其擴展到其他網站，إن شاء الله。</translation>
+<translation id="2903056509629046022">自動模糊網頁上的人物，協助你低垂目光。</translation>
+<translation id="7658602219580171090">身體偵測信賴度：<ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">人臉偵測信賴度：<ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">關閉</translation>
+<translation id="7551255941874418198">偵測框</translation>
+<translation id="4001985793971152397">完整覆疊（框 + 骨架）</translation>
+<translation id="5177084097682182558">擷取模式（迴歸資料集）</translation>
 </translationbundle>

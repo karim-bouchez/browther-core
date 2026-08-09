@@ -1155,4 +1155,23 @@ Si no acceptes la sol·licitud, la VPN no es tornarà a connectar i la teva conn
 <translation id="1486510762152444710">Només s'envia <ph name="DOMAIN"/> — mai l'adreça de la pàgina.</translation>
 <translation id="3603636173191469268">Gràcies — lloc informat.</translation>
 <translation id="6181120782140575493">Informar necessita les estadístiques d'ús, que estan desactivades.</translation>
+<translation id="2820490074689045961">Difumina les dones</translation>
+<translation id="5711809125081584434">Difumina els homes</translation>
+<translation id="8553210988890740803">Difumina tothom</translation>
+<translation id="1209726297371789445">Detecció NSFW</translation>
+<translation id="4385099616007216520">Difumina tota la imatge si es detecta contingut explícit (nus, parts íntimes). Desactivat per defecte per a més reactivitat: activa'l si ho vols.</translation>
+<translation id="6147112552017617117">Detecció</translation>
+<translation id="8711217670642419559">Supressió de música ACTIVADA</translation>
+<translation id="6946410204063459585">Supressió de música DESACTIVADA</translation>
+<translation id="1260370212650181166">Difuminació de persones ACTIVADA</translation>
+<translation id="7226783331917158390">Difuminació de persones DESACTIVADA</translation>
+<translation id="1614848774046566824">De moment, això només funciona a YouTube.</translation>
+<translation id="3486642440122701056">Els navegadors mòbils imposen restriccions tècniques que fan aquest tipus de filtratge d'àudio més difícil que a Mac, Windows o Android. Estem treballant per estendre-ho a altres llocs, إن شاء الله.</translation>
+<translation id="2903056509629046022">Difumina automàticament les persones a les pàgines web per ajudar-te a abaixar la mirada.</translation>
+<translation id="7658602219580171090">Confiança de detecció corporal: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Confiança de detecció facial: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Desactivat</translation>
+<translation id="7551255941874418198">Caixes de detecció</translation>
+<translation id="4001985793971152397">Superposició completa (caixes + esquelet)</translation>
+<translation id="5177084097682182558">Mode de captura (conjunts de regressió)</translation>
 </translationbundle>

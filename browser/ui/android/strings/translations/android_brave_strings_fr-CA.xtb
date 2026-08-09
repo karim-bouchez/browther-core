@@ -1153,4 +1153,23 @@ Leo à l'avenir et effacera également votre historique de clavardage. L'effacem
 <translation id="1486510762152444710">Seul <ph name="DOMAIN"/> est envoyé — jamais l'adresse de la page.</translation>
 <translation id="3603636173191469268">Merci — site signalé.</translation>
 <translation id="6181120782140575493">Le signalement a besoin des statistiques d'usage, qui sont désactivées.</translation>
+<translation id="2820490074689045961">Flouter les femmes</translation>
+<translation id="5711809125081584434">Flouter les hommes</translation>
+<translation id="8553210988890740803">Flouter tout le monde</translation>
+<translation id="1209726297371789445">Détection NSFW</translation>
+<translation id="4385099616007216520">Floute l'image entière si un contenu explicite est détecté (photos de nu, parties intimes). Désactivé par défaut pour une meilleure réactivité — activez-le si vous le souhaitez.</translation>
+<translation id="6147112552017617117">Détection</translation>
+<translation id="8711217670642419559">Suppression de la musique ACTIVÉE</translation>
+<translation id="6946410204063459585">Suppression de la musique DÉSACTIVÉE</translation>
+<translation id="1260370212650181166">Floutage des personnes ACTIVÉ</translation>
+<translation id="7226783331917158390">Floutage des personnes DÉSACTIVÉ</translation>
+<translation id="1614848774046566824">Pour l'instant, ça fonctionne uniquement sur YouTube.</translation>
+<translation id="3486642440122701056">Les navigateurs mobiles imposent des restrictions techniques qui rendent ce genre de filtrage audio plus complexe que sur Mac, Windows ou Android. On travaille à étendre ça à d'autres sites, إن شاء الله.</translation>
+<translation id="2903056509629046022">Floute automatiquement les personnes dans les pages web pour préserver le regard.</translation>
+<translation id="7658602219580171090">Confiance détection corps : <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Confiance détection visage : <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Désactivé</translation>
+<translation id="7551255941874418198">Boîtes de détection</translation>
+<translation id="4001985793971152397">Overlay complet (boîtes + squelette)</translation>
+<translation id="5177084097682182558">Mode capture (datasets régression)</translation>
 </translationbundle>

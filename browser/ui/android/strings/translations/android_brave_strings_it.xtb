@@ -1151,4 +1151,23 @@ Se non accetti questa richiesta, la VPN non si riconnetterà e la tua connession
 <translation id="1486510762152444710">Viene inviato solo <ph name="DOMAIN"/> — mai l'indirizzo della pagina.</translation>
 <translation id="3603636173191469268">Grazie — sito segnalato.</translation>
 <translation id="6181120782140575493">La segnalazione richiede le statistiche d'uso, che sono disattivate.</translation>
+<translation id="2820490074689045961">Sfoca le donne</translation>
+<translation id="5711809125081584434">Sfoca gli uomini</translation>
+<translation id="8553210988890740803">Sfoca tutti</translation>
+<translation id="1209726297371789445">Rilevamento NSFW</translation>
+<translation id="4385099616007216520">Sfoca l'intera immagine se viene rilevato contenuto esplicito (nudità, parti intime). Disattivato per impostazione predefinita per una migliore reattività: attivalo se lo desideri.</translation>
+<translation id="6147112552017617117">Rilevamento</translation>
+<translation id="8711217670642419559">Rimozione della musica ATTIVA</translation>
+<translation id="6946410204063459585">Rimozione della musica DISATTIVATA</translation>
+<translation id="1260370212650181166">Sfocatura delle persone ATTIVA</translation>
+<translation id="7226783331917158390">Sfocatura delle persone DISATTIVATA</translation>
+<translation id="1614848774046566824">Per ora funziona solo su YouTube.</translation>
+<translation id="3486642440122701056">I browser mobili impongono restrizioni tecniche che rendono questo tipo di filtraggio audio più difficile che su Mac, Windows o Android. Stiamo lavorando per estenderlo ad altri siti, إن شاء الله.</translation>
+<translation id="2903056509629046022">Sfoca automaticamente le persone nelle pagine web per aiutarti ad abbassare lo sguardo.</translation>
+<translation id="7658602219580171090">Affidabilità rilevamento corpo: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Affidabilità rilevamento volto: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Disattivato</translation>
+<translation id="7551255941874418198">Riquadri di rilevamento</translation>
+<translation id="4001985793971152397">Overlay completo (riquadri + scheletro)</translation>
+<translation id="5177084097682182558">Modalità cattura (dataset di regressione)</translation>
 </translationbundle>

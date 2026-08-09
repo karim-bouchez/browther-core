@@ -1151,4 +1151,23 @@ Kung hindi mo tatanggapin ang kahilingang ito, hindi kokonekta ulit ang VPN at h
 <translation id="1486510762152444710">Ang <ph name="DOMAIN"/> lang ang ipinapadala — hindi kailanman ang address ng pahina.</translation>
 <translation id="3603636173191469268">Salamat — na-report ang site.</translation>
 <translation id="6181120782140575493">Kailangan ng report ang istatistika ng paggamit, na naka-off.</translation>
+<translation id="2820490074689045961">I-blur ang mga babae</translation>
+<translation id="5711809125081584434">I-blur ang mga lalaki</translation>
+<translation id="8553210988890740803">I-blur ang lahat</translation>
+<translation id="1209726297371789445">Pagtuklas ng NSFW</translation>
+<translation id="4385099616007216520">Bini-blur ang buong larawan kapag may natukoy na tahasang nilalaman (kahubaran, pribadong bahagi). Naka-off bilang default para sa mas mabilis na tugon — i-on kung gusto mo.</translation>
+<translation id="6147112552017617117">Pagtuklas</translation>
+<translation id="8711217670642419559">NAKA-ON ang pag-alis ng musika</translation>
+<translation id="6946410204063459585">NAKA-OFF ang pag-alis ng musika</translation>
+<translation id="1260370212650181166">NAKA-ON ang pag-blur ng tao</translation>
+<translation id="7226783331917158390">NAKA-OFF ang pag-blur ng tao</translation>
+<translation id="1614848774046566824">Sa ngayon, gumagana lang ito sa YouTube.</translation>
+<translation id="3486642440122701056">Nagpapataw ang mga mobile browser ng mga teknikal na limitasyon na nagpapahirap sa ganitong uri ng pag-filter ng audio kaysa sa Mac, Windows o Android. Ginagawa naming palawakin ito sa ibang mga site, إن شاء الله.</translation>
+<translation id="2903056509629046022">Awtomatikong nilalabo ang mga tao sa mga web page para matulungan kang ibaba ang iyong tingin.</translation>
+<translation id="7658602219580171090">Kumpiyansa sa pagtukoy ng katawan: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Kumpiyansa sa pagtukoy ng mukha: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Naka-off</translation>
+<translation id="7551255941874418198">Mga detection box</translation>
+<translation id="4001985793971152397">Buong overlay (mga box + balangkas)</translation>
+<translation id="5177084097682182558">Capture mode (mga regression dataset)</translation>
 </translationbundle>

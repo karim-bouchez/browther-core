@@ -1153,4 +1153,23 @@ Leo AI. Dette kan ikke angres.</translation>
 <translation id="1486510762152444710">Bare <ph name="DOMAIN"/> sendes — aldri sideadressen.</translation>
 <translation id="3603636173191469268">Takk — nettstedet er rapportert.</translation>
 <translation id="6181120782140575493">Rapportering krever bruksstatistikk, som er slått av.</translation>
+<translation id="2820490074689045961">Slør kvinner</translation>
+<translation id="5711809125081584434">Slør menn</translation>
+<translation id="8553210988890740803">Slør alle</translation>
+<translation id="1209726297371789445">NSFW-gjenkjenning</translation>
+<translation id="4385099616007216520">Slører hele bildet når eksplisitt innhold oppdages (nakenhet, intime kroppsdeler). Av som standard for bedre respons — slå det på om du ønsker.</translation>
+<translation id="6147112552017617117">Gjenkjenning</translation>
+<translation id="8711217670642419559">Musikkfjerning PÅ</translation>
+<translation id="6946410204063459585">Musikkfjerning AV</translation>
+<translation id="1260370212650181166">Sløring av personer PÅ</translation>
+<translation id="7226783331917158390">Sløring av personer AV</translation>
+<translation id="1614848774046566824">Foreløpig fungerer dette bare på YouTube.</translation>
+<translation id="3486642440122701056">Mobilnettlesere har tekniske begrensninger som gjør denne typen lydfiltrering vanskeligere enn på Mac, Windows eller Android. Vi jobber med å utvide det til flere nettsteder, إن شاء الله.</translation>
+<translation id="2903056509629046022">Slører automatisk personer på nettsider for å hjelpe deg med å senke blikket.</translation>
+<translation id="7658602219580171090">Tillit til kroppsgjenkjenning: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Tillit til ansiktsgjenkjenning: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Av</translation>
+<translation id="7551255941874418198">Deteksjonsbokser</translation>
+<translation id="4001985793971152397">Full overlegg (bokser + skjelett)</translation>
+<translation id="5177084097682182558">Opptaksmodus (regresjonsdatasett)</translation>
 </translationbundle>

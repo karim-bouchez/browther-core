@@ -1165,4 +1165,23 @@ Leo AI. Túto akciu nie je možné vrátiť späť.</translation>
 <translation id="1486510762152444710">Odosiela sa iba <ph name="DOMAIN"/> — nikdy adresa stránky.</translation>
 <translation id="3603636173191469268">Ďakujeme — stránka bola nahlásená.</translation>
 <translation id="6181120782140575493">Nahlásenie vyžaduje štatistiky používania, ktoré sú vypnuté.</translation>
+<translation id="2820490074689045961">Rozmazať ženy</translation>
+<translation id="5711809125081584434">Rozmazať mužov</translation>
+<translation id="8553210988890740803">Rozmazať všetkých</translation>
+<translation id="1209726297371789445">Detekcia NSFW</translation>
+<translation id="4385099616007216520">Rozmaže celý obrázok, keď zistí explicitný obsah (nahota, intímne partie). Predvolene vypnuté pre lepšiu odozvu — zapnite, ak chcete.</translation>
+<translation id="6147112552017617117">Detekcia</translation>
+<translation id="8711217670642419559">Odstraňovanie hudby je ZAPNUTÉ</translation>
+<translation id="6946410204063459585">Odstraňovanie hudby je VYPNUTÉ</translation>
+<translation id="1260370212650181166">Rozmazanie osôb je ZAPNUTÉ</translation>
+<translation id="7226783331917158390">Rozmazanie osôb je VYPNUTÉ</translation>
+<translation id="1614848774046566824">Zatiaľ to funguje len na YouTube.</translation>
+<translation id="3486642440122701056">Mobilné prehliadače zavádzajú technické obmedzenia, ktoré sťažujú tento druh filtrovania zvuku oproti Macu, Windowsu či Androidu. Pracujeme na rozšírení na ďalšie stránky, إن شاء الله.</translation>
+<translation id="2903056509629046022">Automaticky rozostrí osoby na webových stránkach, aby vám pomohol sklopiť zrak.</translation>
+<translation id="7658602219580171090">Spoľahlivosť detekcie tela: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Spoľahlivosť detekcie tváre: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Vypnuté</translation>
+<translation id="7551255941874418198">Detekčné rámčeky</translation>
+<translation id="4001985793971152397">Úplné prekrytie (rámčeky + kostra)</translation>
+<translation id="5177084097682182558">Režim zachytávania (regresné množiny)</translation>
 </translationbundle>

@@ -1154,4 +1154,23 @@ If you don't accept this request, VPN will not reconnect and your Internet conne
 <translation id="1486510762152444710">Only <ph name="DOMAIN"/> is sent — never the page address.</translation>
 <translation id="3603636173191469268">Thanks — site reported.</translation>
 <translation id="6181120782140575493">Reporting needs usage statistics, which are turned off.</translation>
+<translation id="2820490074689045961">Blur women</translation>
+<translation id="5711809125081584434">Blur men</translation>
+<translation id="8553210988890740803">Blur everyone</translation>
+<translation id="1209726297371789445">NSFW detection</translation>
+<translation id="4385099616007216520">Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness — turn it on if you want it.</translation>
+<translation id="6147112552017617117">Detection</translation>
+<translation id="8711217670642419559">Music removal ENABLED</translation>
+<translation id="6946410204063459585">Music removal DISABLED</translation>
+<translation id="1260370212650181166">Person blurring ENABLED</translation>
+<translation id="7226783331917158390">Person blurring DISABLED</translation>
+<translation id="1614848774046566824">For now, this only works on YouTube.</translation>
+<translation id="3486642440122701056">Mobile browsers impose technical restrictions that make this kind of audio filtering harder than on Mac, Windows or Android. We are working on extending it to other sites, in shaa Allah.</translation>
+<translation id="2903056509629046022">Automatically blurs people on web pages to help you lower your gaze.</translation>
+<translation id="7658602219580171090">Body detection confidence: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Face detection confidence: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Off</translation>
+<translation id="7551255941874418198">Detection boxes</translation>
+<translation id="4001985793971152397">Full overlay (boxes + skeleton)</translation>
+<translation id="5177084097682182558">Capture mode (regression datasets)</translation>
 </translationbundle>

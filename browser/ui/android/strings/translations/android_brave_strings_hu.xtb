@@ -1151,4 +1151,23 @@ other {<ph name="CITY_COUNT_MANY"/> város - }
 <translation id="1486510762152444710">Csak a(z) <ph name="DOMAIN"/> kerül elküldésre — az oldal címe soha.</translation>
 <translation id="3603636173191469268">Köszönjük — az oldalt jelentettük.</translation>
 <translation id="6181120782140575493">A jelentéshez használati statisztika kell, ami ki van kapcsolva.</translation>
+<translation id="2820490074689045961">Nők elmosása</translation>
+<translation id="5711809125081584434">Férfiak elmosása</translation>
+<translation id="8553210988890740803">Mindenki elmosása</translation>
+<translation id="1209726297371789445">NSFW-észlelés</translation>
+<translation id="4385099616007216520">Elmossa a teljes képet, ha explicit tartalmat észlel (meztelenség, intim testrészek). Alapértelmezés szerint kikapcsolva a jobb reakcióidő érdekében — kapcsolja be, ha szeretné.</translation>
+<translation id="6147112552017617117">Észlelés</translation>
+<translation id="8711217670642419559">Zene eltávolítása BEKAPCSOLVA</translation>
+<translation id="6946410204063459585">Zene eltávolítása KIKAPCSOLVA</translation>
+<translation id="1260370212650181166">Személyek elmosása BEKAPCSOLVA</translation>
+<translation id="7226783331917158390">Személyek elmosása KIKAPCSOLVA</translation>
+<translation id="1614848774046566824">Egyelőre ez csak a YouTube-on működik.</translation>
+<translation id="3486642440122701056">A mobilböngészők olyan technikai korlátozásokat írnak elő, amelyek megnehezítik az ilyen hangszűrést a Machez, Windowshoz vagy Androidhoz képest. Dolgozunk azon, hogy más oldalakra is kiterjesszük, إن شاء الله.</translation>
+<translation id="2903056509629046022">Automatikusan elhomályosítja a weboldalakon lévő embereket, hogy segítsen lesütni a tekintetedet.</translation>
+<translation id="7658602219580171090">Testfelismerés megbízhatósága: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Arcfelismerés megbízhatósága: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Ki</translation>
+<translation id="7551255941874418198">Felismerési keretek</translation>
+<translation id="4001985793971152397">Teljes átfedés (keretek + váz)</translation>
+<translation id="5177084097682182558">Rögzítési mód (regressziós adatkészletek)</translation>
 </translationbundle>

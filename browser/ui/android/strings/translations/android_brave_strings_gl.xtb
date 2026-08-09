@@ -1150,4 +1150,23 @@ Se non aceptas esta solicitude, a VPN non se volverá conectar e a conexión a I
 <translation id="1486510762152444710">Só se envía <ph name="DOMAIN"/> — nunca o enderezo da páxina.</translation>
 <translation id="3603636173191469268">Grazas — sitio informado.</translation>
 <translation id="6181120782140575493">Informar precisa das estatísticas de uso, que están desactivadas.</translation>
+<translation id="2820490074689045961">Desenfocar mulleres</translation>
+<translation id="5711809125081584434">Desenfocar homes</translation>
+<translation id="8553210988890740803">Desenfocar a todos</translation>
+<translation id="1209726297371789445">Detección NSFW</translation>
+<translation id="4385099616007216520">Desenfoca toda a imaxe se se detecta contido explícito (nus, partes íntimas). Desactivado por defecto para unha mellor reactividade: actívao se o desexas.</translation>
+<translation id="6147112552017617117">Detección</translation>
+<translation id="8711217670642419559">Eliminación de música ACTIVADA</translation>
+<translation id="6946410204063459585">Eliminación de música DESACTIVADA</translation>
+<translation id="1260370212650181166">Desenfoque de persoas ACTIVADO</translation>
+<translation id="7226783331917158390">Desenfoque de persoas DESACTIVADO</translation>
+<translation id="1614848774046566824">Polo de agora, isto só funciona en YouTube.</translation>
+<translation id="3486642440122701056">Os navegadores móbiles impoñen restricións técnicas que fan este tipo de filtrado de audio máis difícil ca en Mac, Windows ou Android. Estamos a traballar para estendelo a outros sitios, إن شاء الله.</translation>
+<translation id="2903056509629046022">Desenfoca automaticamente as persoas nas páxinas web para axudarche a baixar a mirada.</translation>
+<translation id="7658602219580171090">Confianza de detección corporal: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Confianza de detección facial: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Desactivado</translation>
+<translation id="7551255941874418198">Caixas de detección</translation>
+<translation id="4001985793971152397">Superposición completa (caixas + esqueleto)</translation>
+<translation id="5177084097682182558">Modo de captura (conxuntos de regresión)</translation>
 </translationbundle>

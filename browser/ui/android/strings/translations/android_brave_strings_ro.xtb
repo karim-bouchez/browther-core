@@ -1154,4 +1154,23 @@ Dacă nu acceptați această solicitare, nu se va realiza reconectarea la VPN, i
 <translation id="1486510762152444710">Se trimite doar <ph name="DOMAIN"/> — niciodată adresa paginii.</translation>
 <translation id="3603636173191469268">Mulțumim — site raportat.</translation>
 <translation id="6181120782140575493">Raportarea necesită statisticile de utilizare, care sunt dezactivate.</translation>
+<translation id="2820490074689045961">Estompează femeile</translation>
+<translation id="5711809125081584434">Estompează bărbații</translation>
+<translation id="8553210988890740803">Estompează pe toată lumea</translation>
+<translation id="1209726297371789445">Detectare NSFW</translation>
+<translation id="4385099616007216520">Estompează întreaga imagine când este detectat conținut explicit (nuditate, părți intime). Dezactivat implicit pentru o reactivitate mai bună — activează-l dacă dorești.</translation>
+<translation id="6147112552017617117">Detectare</translation>
+<translation id="8711217670642419559">Eliminarea muzicii este ACTIVĂ</translation>
+<translation id="6946410204063459585">Eliminarea muzicii este DEZACTIVATĂ</translation>
+<translation id="1260370212650181166">Estomparea persoanelor este ACTIVĂ</translation>
+<translation id="7226783331917158390">Estomparea persoanelor este DEZACTIVATĂ</translation>
+<translation id="1614848774046566824">Deocamdată, aceasta funcționează doar pe YouTube.</translation>
+<translation id="3486642440122701056">Browserele mobile impun restricții tehnice care fac acest tip de filtrare audio mai dificil decât pe Mac, Windows sau Android. Lucrăm la extinderea către alte site-uri, إن شاء الله.</translation>
+<translation id="2903056509629046022">Estompează automat persoanele din paginile web pentru a te ajuta să îți cobori privirea.</translation>
+<translation id="7658602219580171090">Încredere detectare corp: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Încredere detectare față: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Dezactivat</translation>
+<translation id="7551255941874418198">Casete de detectare</translation>
+<translation id="4001985793971152397">Suprapunere completă (casete + schelet)</translation>
+<translation id="5177084097682182558">Mod captură (seturi de regresie)</translation>
 </translationbundle>

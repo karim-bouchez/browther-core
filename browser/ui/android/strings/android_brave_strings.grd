@@ -4030,17 +4030,14 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_SAWTUNAA" desc="Accessibility label for the Sawtunaa toolbar button">
       Sawtunaa, suppression de la musique et des bruits de fond
     </message>
-    <message name="IDS_SAWTUNAA_PANEL_STATUS_PREFIX" desc="Status sentence prefix shown in the Sawtunaa toolbar panel, followed by IDS_SAWTUNAA_PANEL_STATUS_ON/OFF">
-      Suppression de la musique
-    </message>
     <message name="IDS_SAWTUNAA_PANEL_STATUS_ON" desc="Status when Sawtunaa is enabled. Appended after IDS_SAWTUNAA_PANEL_STATUS_PREFIX.">
-      ACTIVÉE
+      Music removal ENABLED
     </message>
     <message name="IDS_SAWTUNAA_PANEL_STATUS_OFF" desc="Status when Sawtunaa is disabled. Appended after IDS_SAWTUNAA_PANEL_STATUS_PREFIX.">
-      DÉSACTIVÉE
+      Music removal DISABLED
     </message>
     <message name="IDS_SAWTUNAA_PANEL_DESCRIPTION" desc="Description below the big toggle in the Sawtunaa panel. The 'learn more' part is appended as a clickable underlined span by the UI.">
-      Pour l'instant, ça fonctionne uniquement sur YouTube.
+      For now, this only works on YouTube.
     </message>
     <message name="IDS_SAWTUNAA_PANEL_LEARN_MORE" desc="Clickable 'learn more' suffix appended to IDS_SAWTUNAA_PANEL_DESCRIPTION; opens an explanatory dialog.">
       (en savoir plus)
@@ -4049,7 +4046,7 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Pourquoi seulement YouTube ?
     </message>
     <message name="IDS_SAWTUNAA_PANEL_LIMITATIONS_MESSAGE" desc="Message of the alert dialog explaining why Sawtunaa is YouTube-only on mobile.">
-      Les navigateurs mobiles imposent des restrictions techniques qui rendent ce genre de filtrage audio plus complexe que sur ordinateur. On travaille à étendre ça à d'autres sites إن شاء الله.
+      Mobile browsers impose technical restrictions that make this kind of audio filtering harder than on Mac, Windows or Android. We are working on extending it to other sites, in shaa Allah.
     </message>
 
     <!-- Browther: Basarunaa toolbar button + panel (BottomSheet). V1 = juste
@@ -4058,44 +4055,41 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_ACCESSIBILITY_TOOLBAR_BTN_BASARUNAA" desc="Accessibility label for the Basarunaa toolbar button">
       Basarunaa, floutage des personnes par genre
     </message>
-    <message name="IDS_BASARUNAA_PANEL_STATUS_PREFIX" desc="Status sentence prefix shown in the Basarunaa toolbar panel">
-      Floutage des personnes
-    </message>
     <message name="IDS_BASARUNAA_PANEL_STATUS_ON" desc="Status when Basarunaa is enabled">
-      ACTIVÉ
+      Person blurring ENABLED
     </message>
     <message name="IDS_BASARUNAA_PANEL_STATUS_OFF" desc="Status when Basarunaa is disabled">
-      DÉSACTIVÉ
+      Person blurring DISABLED
     </message>
     <message name="IDS_BASARUNAA_PANEL_DESCRIPTION" desc="Description below the big toggle in the Basarunaa panel">
-      Floute automatiquement les personnes dans les pages web pour préserver le regard.
+      Automatically blurs people on web pages to help you lower your gaze.
     </message>
     <message name="IDS_BASARUNAA_PANEL_SECTION_MODE" desc="Section title for the blur mode radio group">
       Mode
     </message>
     <message name="IDS_BASARUNAA_PANEL_MODE_FEMALE" desc="Radio option: blur women">
-      Flouter les femmes
+      Blur women
     </message>
     <message name="IDS_BASARUNAA_PANEL_MODE_MALE" desc="Radio option: blur men">
-      Flouter les hommes
+      Blur men
     </message>
     <message name="IDS_BASARUNAA_PANEL_MODE_ALL" desc="Radio option: blur all people">
-      Flouter tout le monde
+      Blur everyone
     </message>
     <message name="IDS_BASARUNAA_PANEL_NSFW_TOGGLE" desc="Label of the NSFW detection opt-in toggle in the Basarunaa panel">
-      Détection NSFW
+      NSFW detection
     </message>
     <message name="IDS_BASARUNAA_PANEL_NSFW_TOGGLE_DESC" desc="Description of the NSFW detection toggle in the Basarunaa panel">
-      Floute toute l&apos;image quand un contenu explicite est détecté (nudité, parties intimes). Désactivée par défaut pour de meilleures performances.
+      Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness — turn it on if you want it.
     </message>
     <message name="IDS_BASARUNAA_PANEL_SECTION_DETECTION" desc="Section title for the detection threshold sliders">
-      Détection
+      Detection
     </message>
     <message name="IDS_BASARUNAA_PANEL_CONF_BODY_FMT" desc="Slider label: body detection confidence, %1$d is a percent value 0-100">
-      Confiance détection corps : <ph name="VALUE">%1$d<ex>25</ex></ph> / 100
+      Body detection confidence: <ph name="VALUE">%1$d<ex>25</ex></ph> / 100
     </message>
     <message name="IDS_BASARUNAA_PANEL_CONF_FACE_FMT" desc="Slider label: face detection confidence, %1$d is a percent value 0-100">
-      Confiance détection visage : <ph name="VALUE">%1$d<ex>30</ex></ph> / 100
+      Face detection confidence: <ph name="VALUE">%1$d<ex>30</ex></ph> / 100
     </message>
     <message name="IDS_BASARUNAA_PANEL_NUDENET_FMT" desc="Slider label: NudeNet explicit-parts detection threshold, %1$d is a percent value 0-100">
       Seuil NudeNet : <ph name="VALUE">%1$d<ex>50</ex></ph> / 100
@@ -4107,16 +4101,16 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Debug
     </message>
     <message name="IDS_BASARUNAA_PANEL_DEBUG_NONE" desc="Radio option: no debug overlay">
-      Désactivé
+      Off
     </message>
     <message name="IDS_BASARUNAA_PANEL_DEBUG_BOXES" desc="Radio option: show bounding boxes only">
-      Boîtes de détection
+      Detection boxes
     </message>
     <message name="IDS_BASARUNAA_PANEL_DEBUG_FULL" desc="Radio option: show full debug overlay (boxes + skeleton + labels)">
-      Overlay complet (boîtes + squelette)
+      Full overlay (boxes + skeleton)
     </message>
     <message name="IDS_BASARUNAA_PANEL_CAPTURE_MODE" desc="Toggle: enable capture mode (saves images for regression datasets)">
-      Mode capture (datasets régression)
+      Capture mode (regression datasets)
     </message>
 
     <!-- Browther: « ça ne marche pas ici ? » — signalement d'un site non géré.

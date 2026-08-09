@@ -1158,4 +1158,23 @@
 <translation id="1486510762152444710">ส่งเฉพาะ <ph name="DOMAIN"/> เท่านั้น — ไม่เคยส่งที่อยู่ของหน้า</translation>
 <translation id="3603636173191469268">ขอบคุณ — รายงานเว็บไซต์แล้ว</translation>
 <translation id="6181120782140575493">การรายงานต้องใช้สถิติการใช้งาน ซึ่งถูกปิดอยู่</translation>
+<translation id="2820490074689045961">เบลอผู้หญิง</translation>
+<translation id="5711809125081584434">เบลอผู้ชาย</translation>
+<translation id="8553210988890740803">เบลอทุกคน</translation>
+<translation id="1209726297371789445">การตรวจจับ NSFW</translation>
+<translation id="4385099616007216520">เบลอทั้งภาพเมื่อตรวจพบเนื้อหาโจ่งแจ้ง (ภาพเปลือย อวัยวะส่วนตัว) ปิดไว้ตามค่าเริ่มต้นเพื่อการตอบสนองที่ดีขึ้น — เปิดได้หากต้องการ</translation>
+<translation id="6147112552017617117">การตรวจจับ</translation>
+<translation id="8711217670642419559">เปิดการลบเสียงเพลง</translation>
+<translation id="6946410204063459585">ปิดการลบเสียงเพลง</translation>
+<translation id="1260370212650181166">เปิดการเบลอบุคคล</translation>
+<translation id="7226783331917158390">ปิดการเบลอบุคคล</translation>
+<translation id="1614848774046566824">ในตอนนี้ ใช้งานได้เฉพาะบน YouTube เท่านั้น</translation>
+<translation id="3486642440122701056">เบราว์เซอร์บนมือถือมีข้อจำกัดทางเทคนิคที่ทำให้การกรองเสียงลักษณะนี้ยากกว่าบน Mac, Windows หรือ Android เรากำลังดำเนินการขยายไปยังเว็บไซต์อื่น إن شاء الله</translation>
+<translation id="2903056509629046022">เบลอบุคคลบนหน้าเว็บโดยอัตโนมัติเพื่อช่วยให้คุณลดสายตา</translation>
+<translation id="7658602219580171090">ความเชื่อมั่นการตรวจจับร่างกาย: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">ความเชื่อมั่นการตรวจจับใบหน้า: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">ปิด</translation>
+<translation id="7551255941874418198">กล่องตรวจจับ</translation>
+<translation id="4001985793971152397">โอเวอร์เลย์เต็มรูปแบบ (กล่อง + โครงร่าง)</translation>
+<translation id="5177084097682182558">โหมดจับภาพ (ชุดข้อมูลถดถอย)</translation>
 </translationbundle>

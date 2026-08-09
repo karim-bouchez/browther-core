@@ -8,8 +8,6 @@ package org.chromium.chrome.browser.basarunaa;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -220,21 +218,19 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
 
     private void updateStatusText(boolean enabled) {
         if (mStatusText == null) return;
-        Context context = mStatusText.getContext();
-        String prefix = context.getString(R.string.basarunaa_panel_status_prefix);
-        String suffix =
-                enabled
-                        ? context.getString(R.string.basarunaa_panel_status_on)
-                        : context.getString(R.string.basarunaa_panel_status_off);
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(prefix).append(' ').append(suffix);
-        int boldStart = prefix.length() + 1;
-        sb.setSpan(
-                new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                boldStart,
-                sb.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mStatusText.setText(sb);
+        // Une string COMPLÈTE par état, jamais une concaténation préfixe +
+        // suffixe : l'ordre des mots change d'une langue à l'autre, et un
+        // `prefix.length()` pour placer le gras ne veut rien dire en arabe.
+        // Textes alignés sur le panel desktop, ce qui permet en prime de
+        // réutiliser ses traductions (cf. private/docs/TODO.md).
+        mStatusText.setText(
+                mStatusText
+                        .getContext()
+                        .getString(
+                                enabled
+                                        ? R.string.basarunaa_panel_status_on
+                                        : R.string.basarunaa_panel_status_off));
+        mStatusText.setTypeface(mStatusText.getTypeface(), android.graphics.Typeface.BOLD);
     }
 
     // ─── Pref helpers ────────────────────────────────────────────────────

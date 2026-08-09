@@ -1156,4 +1156,23 @@ Bu talebi kabul etmezseniz VPN yeniden bağlanmaz ve internet bağlantınız gü
 <translation id="1486510762152444710">Yalnızca <ph name="DOMAIN"/> gönderilir — sayfa adresi asla gönderilmez.</translation>
 <translation id="3603636173191469268">Teşekkürler — site bildirildi.</translation>
 <translation id="6181120782140575493">Bildirim, kapalı olan kullanım istatistiklerini gerektirir.</translation>
+<translation id="2820490074689045961">Kadınları bulanıklaştır</translation>
+<translation id="5711809125081584434">Erkekleri bulanıklaştır</translation>
+<translation id="8553210988890740803">Herkesi bulanıklaştır</translation>
+<translation id="1209726297371789445">NSFW algılama</translation>
+<translation id="4385099616007216520">Müstehcen içerik algılandığında (çıplaklık, mahrem bölgeler) görüntünün tamamını bulanıklaştırır. Daha iyi tepki süresi için varsayılan olarak kapalıdır — isterseniz açın.</translation>
+<translation id="6147112552017617117">Algılama</translation>
+<translation id="8711217670642419559">Müzik kaldırma ETKİN</translation>
+<translation id="6946410204063459585">Müzik kaldırma DEVRE DIŞI</translation>
+<translation id="1260370212650181166">Kişi bulanıklaştırma ETKİN</translation>
+<translation id="7226783331917158390">Kişi bulanıklaştırma DEVRE DIŞI</translation>
+<translation id="1614848774046566824">Şimdilik bu yalnızca YouTube'da çalışıyor.</translation>
+<translation id="3486642440122701056">Mobil tarayıcılar, bu tür ses filtrelemeyi Mac, Windows veya Android'e kıyasla zorlaştıran teknik kısıtlamalar getiriyor. Diğer sitelere genişletmek için çalışıyoruz, إن شاء الله.</translation>
+<translation id="2903056509629046022">Gözünü sakınmana yardımcı olmak için web sayfalarındaki kişileri otomatik olarak bulanıklaştırır.</translation>
+<translation id="7658602219580171090">Vücut algılama güveni: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Yüz algılama güveni: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Kapalı</translation>
+<translation id="7551255941874418198">Algılama kutuları</translation>
+<translation id="4001985793971152397">Tam kaplama (kutular + iskelet)</translation>
+<translation id="5177084097682182558">Yakalama modu (regresyon veri kümeleri)</translation>
 </translationbundle>

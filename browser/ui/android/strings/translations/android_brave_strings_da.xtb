@@ -1155,4 +1155,23 @@ Hvis du ikke godkender denne anmodning, vil VPN-forbindelsen ikke blive genopret
 <translation id="1486510762152444710">Kun <ph name="DOMAIN"/> sendes — aldrig sidens adresse.</translation>
 <translation id="3603636173191469268">Tak — webstedet er rapporteret.</translation>
 <translation id="6181120782140575493">Rapportering kræver brugsstatistik, som er slået fra.</translation>
+<translation id="2820490074689045961">Slør kvinder</translation>
+<translation id="5711809125081584434">Slør mænd</translation>
+<translation id="8553210988890740803">Slør alle</translation>
+<translation id="1209726297371789445">NSFW-registrering</translation>
+<translation id="4385099616007216520">Slører hele billedet, hvis der registreres eksplicit indhold (nøgenhed, intime dele). Slået fra som standard for bedre reaktionsevne — slå det til, hvis du vil.</translation>
+<translation id="6147112552017617117">Registrering</translation>
+<translation id="8711217670642419559">Musikfjernelse er SLÅET TIL</translation>
+<translation id="6946410204063459585">Musikfjernelse er SLÅET FRA</translation>
+<translation id="1260370212650181166">Slørring af personer er SLÅET TIL</translation>
+<translation id="7226783331917158390">Slørring af personer er SLÅET FRA</translation>
+<translation id="1614848774046566824">Indtil videre virker dette kun på YouTube.</translation>
+<translation id="3486642440122701056">Mobilbrowsere pålægger tekniske begrænsninger, der gør denne form for lydfiltrering sværere end på Mac, Windows eller Android. Vi arbejder på at udvide det til andre sider, إن شاء الله.</translation>
+<translation id="2903056509629046022">Slører automatisk personer på websider for at hjælpe dig med at sænke blikket.</translation>
+<translation id="7658602219580171090">Tillid til kropsgenkendelse: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Tillid til ansigtsgenkendelse: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Fra</translation>
+<translation id="7551255941874418198">Detektionsbokse</translation>
+<translation id="4001985793971152397">Fuld overlejring (bokse + skelet)</translation>
+<translation id="5177084097682182558">Optagetilstand (regressionsdatasæt)</translation>
 </translationbundle>

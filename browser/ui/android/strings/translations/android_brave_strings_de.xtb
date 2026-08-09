@@ -1158,4 +1158,23 @@ Wenn Sie diese Anfrage nicht akzeptieren, wird das VPN nicht erneut verbunden un
 <translation id="1486510762152444710">Es wird nur <ph name="DOMAIN"/> gesendet — niemals die Seitenadresse.</translation>
 <translation id="3603636173191469268">Danke — Website gemeldet.</translation>
 <translation id="6181120782140575493">Zum Melden werden Nutzungsstatistiken benötigt, die deaktiviert sind.</translation>
+<translation id="2820490074689045961">Frauen weichzeichnen</translation>
+<translation id="5711809125081584434">Männer weichzeichnen</translation>
+<translation id="8553210988890740803">Alle weichzeichnen</translation>
+<translation id="1209726297371789445">NSFW-Erkennung</translation>
+<translation id="4385099616007216520">Zeichnet das gesamte Bild weich, wenn expliziter Inhalt erkannt wird (Nacktheit, Intimbereiche). Standardmäßig aus für bessere Reaktionsfähigkeit — bei Bedarf einschalten.</translation>
+<translation id="6147112552017617117">Erkennung</translation>
+<translation id="8711217670642419559">Musikentfernung AKTIVIERT</translation>
+<translation id="6946410204063459585">Musikentfernung DEAKTIVIERT</translation>
+<translation id="1260370212650181166">Weichzeichnen von Personen AKTIVIERT</translation>
+<translation id="7226783331917158390">Weichzeichnen von Personen DEAKTIVIERT</translation>
+<translation id="1614848774046566824">Derzeit funktioniert das nur auf YouTube.</translation>
+<translation id="3486642440122701056">Mobile Browser unterlegen technischen Einschränkungen, die diese Art der Audiofilterung schwieriger machen als auf Mac, Windows oder Android. Wir arbeiten daran, sie auf weitere Seiten auszuweiten, إن شاء الله.</translation>
+<translation id="2903056509629046022">Macht Personen auf Webseiten automatisch unkenntlich, damit du deinen Blick senken kannst.</translation>
+<translation id="7658602219580171090">Konfidenz der Körpererkennung: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Konfidenz der Gesichtserkennung: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Aus</translation>
+<translation id="7551255941874418198">Erkennungsrahmen</translation>
+<translation id="4001985793971152397">Vollständige Überlagerung (Rahmen + Skelett)</translation>
+<translation id="5177084097682182558">Aufnahmemodus (Regressionsdatensätze)</translation>
 </translationbundle>

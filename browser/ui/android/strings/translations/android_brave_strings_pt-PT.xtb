@@ -1159,4 +1159,23 @@ Leo AI. Esta ação não pode ser revertida.</translation>
 <translation id="1486510762152444710">Apenas <ph name="DOMAIN"/> é enviado — nunca o endereço da página.</translation>
 <translation id="3603636173191469268">Obrigado — site comunicado.</translation>
 <translation id="6181120782140575493">Comunicar precisa das estatísticas de utilização, que estão desativadas.</translation>
+<translation id="2820490074689045961">Desfocar mulheres</translation>
+<translation id="5711809125081584434">Desfocar homens</translation>
+<translation id="8553210988890740803">Desfocar toda a gente</translation>
+<translation id="1209726297371789445">Deteção de NSFW</translation>
+<translation id="4385099616007216520">Desfoca a imagem inteira quando deteta conteúdo explícito (nudez, partes íntimas). Desativado por predefinição para melhor capacidade de resposta — ative se quiser.</translation>
+<translation id="6147112552017617117">Deteção</translation>
+<translation id="8711217670642419559">Remoção de música ATIVADA</translation>
+<translation id="6946410204063459585">Remoção de música DESATIVADA</translation>
+<translation id="1260370212650181166">Desfocagem de pessoas ATIVADA</translation>
+<translation id="7226783331917158390">Desfocagem de pessoas DESATIVADA</translation>
+<translation id="1614848774046566824">Por agora, isto funciona apenas no YouTube.</translation>
+<translation id="3486642440122701056">Os navegadores móveis impõem restrições técnicas que tornam este tipo de filtragem de áudio mais difícil do que no Mac, Windows ou Android. Estamos a trabalhar para o alargar a outros sites, إن شاء الله.</translation>
+<translation id="2903056509629046022">Desfoca automaticamente as pessoas nas páginas web para o ajudar a baixar o olhar.</translation>
+<translation id="7658602219580171090">Confiança da deteção corporal: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Confiança da deteção facial: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Desativado</translation>
+<translation id="7551255941874418198">Caixas de deteção</translation>
+<translation id="4001985793971152397">Sobreposição completa (caixas + esqueleto)</translation>
+<translation id="5177084097682182558">Modo de captura (conjuntos de regressão)</translation>
 </translationbundle>

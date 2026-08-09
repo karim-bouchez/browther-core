@@ -1160,4 +1160,23 @@ Leo AI في المستقبل وستقوم أيضًا بمحو سجل الدرد�
 <translation id="1486510762152444710">يُرسل <ph name="DOMAIN"/> فقط — ولا يُرسل عنوان الصفحة أبدًا.</translation>
 <translation id="3603636173191469268">شكرًا — تم الإبلاغ عن الموقع.</translation>
 <translation id="6181120782140575493">يتطلب الإبلاغ إحصاءات الاستخدام، وهي متوقفة.</translation>
+<translation id="2820490074689045961">تمويه النساء</translation>
+<translation id="5711809125081584434">تمويه الرجال</translation>
+<translation id="8553210988890740803">تمويه الجميع</translation>
+<translation id="1209726297371789445">كشف المحتوى غير اللائق</translation>
+<translation id="4385099616007216520">يموّه الصورة بأكملها عند اكتشاف محتوى صريح (عُري، أجزاء حميمة). مُعطَّل افتراضيًا لاستجابة أفضل — فعّله إن رغبت.</translation>
+<translation id="6147112552017617117">الكشف</translation>
+<translation id="8711217670642419559">إزالة الموسيقى مُفعَّلة</translation>
+<translation id="6946410204063459585">إزالة الموسيقى مُعطَّلة</translation>
+<translation id="1260370212650181166">تمويه الأشخاص مُفعَّل</translation>
+<translation id="7226783331917158390">تمويه الأشخاص مُعطَّل</translation>
+<translation id="1614848774046566824">في الوقت الحالي، يعمل هذا على YouTube فقط.</translation>
+<translation id="3486642440122701056">تفرض متصفحات الجوال قيودًا تقنية تجعل هذا النوع من تصفية الصوت أصعب مما هو عليه على Mac أو Windows أو Android. نعمل على توسيعه ليشمل مواقع أخرى، إن شاء الله.</translation>
+<translation id="2903056509629046022">يشوّش تلقائيًا صور الأشخاص في صفحات الويب لمساعدتك على غض البصر.</translation>
+<translation id="7658602219580171090">ثقة اكتشاف الجسم: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">ثقة اكتشاف الوجه: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">متوقف</translation>
+<translation id="7551255941874418198">مربعات الاكتشاف</translation>
+<translation id="4001985793971152397">تراكب كامل (مربعات + هيكل)</translation>
+<translation id="5177084097682182558">وضع الالتقاط (مجموعات بيانات الانحدار)</translation>
 </translationbundle>

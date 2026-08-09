@@ -1154,4 +1154,23 @@
 <translation id="1486510762152444710"><ph name="DOMAIN"/>만 전송되며 페이지 주소는 전송되지 않습니다.</translation>
 <translation id="3603636173191469268">감사합니다 — 사이트를 신고했습니다.</translation>
 <translation id="6181120782140575493">신고하려면 사용 통계가 필요하지만 꺼져 있습니다.</translation>
+<translation id="2820490074689045961">여성 흐리게</translation>
+<translation id="5711809125081584434">남성 흐리게</translation>
+<translation id="8553210988890740803">모두 흐리게</translation>
+<translation id="1209726297371789445">NSFW 감지</translation>
+<translation id="4385099616007216520">노출 콘텐츠(나체, 신체 주요 부위)가 감지되면 이미지 전체를 흐리게 처리합니다. 반응 속도를 위해 기본적으로 꺼져 있습니다. 원하면 켜세요.</translation>
+<translation id="6147112552017617117">감지</translation>
+<translation id="8711217670642419559">음악 제거 사용</translation>
+<translation id="6946410204063459585">음악 제거 사용 안 함</translation>
+<translation id="1260370212650181166">사람 흐리게 처리 사용</translation>
+<translation id="7226783331917158390">사람 흐리게 처리 사용 안 함</translation>
+<translation id="1614848774046566824">현재 이 기능은 YouTube에서만 작동합니다.</translation>
+<translation id="3486642440122701056">모바일 브라우저에는 기술적 제약이 있어 이런 종류의 오디오 필터링이 Mac, Windows, Android보다 어렵습니다. 다른 사이트로 확장하기 위해 노력하고 있습니다, إن شاء الله.</translation>
+<translation id="2903056509629046022">시선을 낮추는 데 도움이 되도록 웹 페이지의 사람을 자동으로 흐리게 처리합니다.</translation>
+<translation id="7658602219580171090">신체 감지 신뢰도: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">얼굴 감지 신뢰도: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">끔</translation>
+<translation id="7551255941874418198">감지 상자</translation>
+<translation id="4001985793971152397">전체 오버레이(상자 + 골격)</translation>
+<translation id="5177084097682182558">캡처 모드(회귀 데이터세트)</translation>
 </translationbundle>

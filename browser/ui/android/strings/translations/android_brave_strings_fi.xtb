@@ -1151,4 +1151,23 @@ Jos et hyväksy tätä pyyntöä, yhteyttä VPN:ään ei muodosta uudelleen ja I
 <translation id="1486510762152444710">Vain <ph name="DOMAIN"/> lähetetään — ei koskaan sivun osoitetta.</translation>
 <translation id="3603636173191469268">Kiitos — sivustosta on ilmoitettu.</translation>
 <translation id="6181120782140575493">Ilmoittaminen vaatii käyttötilastot, jotka ovat pois päältä.</translation>
+<translation id="2820490074689045961">Sumenna naiset</translation>
+<translation id="5711809125081584434">Sumenna miehet</translation>
+<translation id="8553210988890740803">Sumenna kaikki</translation>
+<translation id="1209726297371789445">NSFW-tunnistus</translation>
+<translation id="4385099616007216520">Sumentaa koko kuvan, jos havaitaan avointa sisältöä (alastomuus, intiimialueet). Oletuksena pois käytöstä paremman vasteen vuoksi — ota käyttöön halutessasi.</translation>
+<translation id="6147112552017617117">Tunnistus</translation>
+<translation id="8711217670642419559">Musiikin poisto KÄYTÖSSÄ</translation>
+<translation id="6946410204063459585">Musiikin poisto POIS KÄYTÖSTÄ</translation>
+<translation id="1260370212650181166">Henkilöiden sumennus KÄYTÖSSÄ</translation>
+<translation id="7226783331917158390">Henkilöiden sumennus POIS KÄYTÖSTÄ</translation>
+<translation id="1614848774046566824">Toistaiseksi tämä toimii vain YouTubessa.</translation>
+<translation id="3486642440122701056">Mobiiliselaimet asettavat teknisiä rajoituksia, jotka tekevät tällaisesta äänisuodatuksesta vaikeampaa kuin Macissa, Windowsissa tai Androidissa. Työskentelemme sen laajentamiseksi muille sivustoille, إن شاء الله.</translation>
+<translation id="2903056509629046022">Sumentaa automaattisesti verkkosivujen ihmiset auttaakseen sinua laskemaan katseesi.</translation>
+<translation id="7658602219580171090">Kehon tunnistuksen varmuus: <ph name="VALUE"/> / 100</translation>
+<translation id="4139708227306890285">Kasvojen tunnistuksen varmuus: <ph name="VALUE"/> / 100</translation>
+<translation id="5860033963881614850">Pois</translation>
+<translation id="7551255941874418198">Tunnistuslaatikot</translation>
+<translation id="4001985793971152397">Täysi peite (laatikot + luuranko)</translation>
+<translation id="5177084097682182558">Kaappaustila (regressioaineistot)</translation>
 </translationbundle>
