@@ -177,8 +177,16 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 18px;
-      padding-top: 14px;
+      /* Marges latérales négatives = le trait file d'un bord à l'autre de la
+         bulle, au lieu de s'arrêter aux 20px de padding de `.scroll` (un
+         séparateur qui s'arrête avant le bord se lit comme un trait raté).
+         Le padding latéral les annule pour le CONTENU, qui reste donc aligné
+         sur le reste du panel.
+         `margin-bottom` négatif : `.scroll` réserve 22px sous son dernier
+         enfant, ce qui rendait la section trop imposante — on ramène à 14px,
+         soit l'équilibre avec les 12px au-dessus du texte. */
+      margin: 16px -20px -8px;
+      padding: 12px 20px 0;
       /* Opacité assumée à 0.12 : le token `divider-subtle` sort quasi
          invisible sur ce fond, et un séparateur qu'on ne voit pas donne
          l'impression d'un bloc qui flotte sans rattachement. */
