@@ -1146,4 +1146,9 @@ other {<ph name="CITY_COUNT_MANY"/> város - }
 <translation id="7152923824447273369">WhatsApp-csatorna</translation>
 <translation id="1800013251690240738">Telegram-csatorna</translation>
 <translation id="6104071184114173171">Ugyanaz a tartalom mindkettőn – válaszd azt az appot, amit már használsz</translation>
+<translation id="5918253281464304925">Nem működik ezen az oldalon?</translation>
+<translation id="2135919691573380097">Oldal jelentése</translation>
+<translation id="1486510762152444710">Csak a(z) <ph name="DOMAIN"/> kerül elküldésre — az oldal címe soha.</translation>
+<translation id="3603636173191469268">Köszönjük — az oldalt jelentettük.</translation>
+<translation id="6181120782140575493">A jelentéshez használati statisztika kell, ami ki van kapcsolva.</translation>
 </translationbundle>

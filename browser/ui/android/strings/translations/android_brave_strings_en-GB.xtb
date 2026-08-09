@@ -1149,4 +1149,9 @@ If you don't accept this request, VPN will not reconnect and your Internet conne
 <translation id="7152923824447273369">WhatsApp channel</translation>
 <translation id="1800013251690240738">Telegram channel</translation>
 <translation id="6104071184114173171">Same content on both — pick the app you already use</translation>
+<translation id="5918253281464304925">Not working on this site?</translation>
+<translation id="2135919691573380097">Report this site</translation>
+<translation id="1486510762152444710">Only <ph name="DOMAIN"/> is sent — never the page address.</translation>
+<translation id="3603636173191469268">Thanks — site reported.</translation>
+<translation id="6181120782140575493">Reporting needs usage statistics, which are turned off.</translation>
 </translationbundle>

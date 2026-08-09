@@ -1146,4 +1146,9 @@ Si no acepta esta solicitud, la VPN no se volverá a conectar y su conexión a I
 <translation id="7152923824447273369">Canal de WhatsApp</translation>
 <translation id="1800013251690240738">Canal de Telegram</translation>
 <translation id="6104071184114173171">El mismo contenido en ambos: elige la app que ya usas</translation>
+<translation id="5918253281464304925">¿No funciona en este sitio?</translation>
+<translation id="2135919691573380097">Informar este sitio</translation>
+<translation id="1486510762152444710">Solo se envía <ph name="DOMAIN"/>, nunca la dirección de la página.</translation>
+<translation id="3603636173191469268">Gracias, sitio informado.</translation>
+<translation id="6181120782140575493">Informar requiere las estadísticas de uso, que están desactivadas.</translation>
 </translationbundle>

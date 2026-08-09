@@ -4124,19 +4124,19 @@ If you don't accept this request, VPN will not reconnect and your internet conne
          brave_generated_resources.grd) : noms distincts pour ne pas créer de
          collision entre les deux headers grit. -->
     <message name="IDS_BROWTHER_PANEL_REPORT_SITE_QUESTION" desc="Question above the report button in the Basarunaa and Sawtunaa panels">
-      Ça ne marche pas sur ce site ?
+      Not working on this site?
     </message>
     <message name="IDS_BROWTHER_PANEL_REPORT_SITE_BUTTON" desc="Button reporting the current site as unsupported. Only the domain is sent.">
-      Signaler ce site
+      Report this site
     </message>
     <message name="IDS_BROWTHER_PANEL_REPORT_SITE_PRIVACY" desc="Tooltip stating exactly what is sent. %1$s is the site domain.">
-      Seul <ph name="DOMAIN">%1$s<ex>dailymotion.com</ex></ph> est envoyé — jamais l'adresse de la page.
+      Only <ph name="DOMAIN">%1$s<ex>dailymotion.com</ex></ph> is sent — never the page address.
     </message>
     <message name="IDS_BROWTHER_PANEL_REPORT_SITE_DONE" desc="Confirmation shown after the user reported the current site.">
-      Merci — site signalé.
+      Thanks — site reported.
     </message>
     <message name="IDS_BROWTHER_PANEL_REPORT_SITE_ANALYTICS_OFF" desc="Shown instead of the button when usage statistics are off, so a report could not be sent.">
-      Le signalement a besoin des statistiques d'usage, qui sont désactivées.
+      Reporting needs usage statistics, which are turned off.
     </message>
 
     <!-- Browther: Shields panel (BottomSheet, alignement Sawtunaa/Basarunaa). -->
