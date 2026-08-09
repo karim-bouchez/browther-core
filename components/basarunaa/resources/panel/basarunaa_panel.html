@@ -159,45 +159,47 @@
     }
 
     /* ── « Ça ne marche pas ici ? » ───────────────────────────────────────
-       UNE seule ligne, discrète : ce n'est pas une action courante, et le
-       panel ne doit pas suggérer que la feature échoue par défaut.
-       Ce qui est transmis (le domaine seul) vit dans l'infobulle du bouton et
-       dans la confirmation — l'afficher en permanence prenait trois lignes
-       pour une phrase qui, hors contexte, ne veut rien dire. */
+       Discret et en dernier : ce n'est pas une action courante, et le panel ne
+       doit pas suggérer que la feature échoue par défaut. Mais c'est un VRAI
+       bouton — un lien souligné se lit comme « ça va m'emmener ailleurs »,
+       alors que ça déclenche un envoi (même leçon que le hint ambre de
+       Sawtunaa, dont l'encadré cliquable n'était pas identifié comme tel).
+       Ce qui est transmis vit dans l'infobulle du bouton : l'afficher en
+       permanence prenait trois lignes pour une phrase qui, tant qu'on n'a pas
+       décidé de cliquer, ne veut rien dire.
+       Pas de séparateur : la marge suffit à détacher le bloc, un trait de plus
+       alourdissait un panel déjà dense. */
     .report-site {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid var(--leo-color-divider-subtle, rgba(255,255,255,0.10));
-      font-size: 12px;
+      gap: 10px;
+      margin-top: 20px;
     }
     .report-site[hidden] { display: none; }
-    .report-question { opacity: 0.7; }
+    .report-question {
+      font-size: 12px;
+      opacity: 0.6;
+    }
     .report-btn {
-      border: none;
+      border: 1px solid var(--leo-color-divider-strong, rgba(255,255,255,0.22));
+      border-radius: 6px;
       background: transparent;
-      padding: 0;
+      color: var(--leo-color-text-primary, #eee);
       font-family: inherit;
       font-size: 12px;
       font-weight: 600;
-      color: var(--leo-color-text-interactive, #7C9CFF);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      padding: 5px 12px;
       cursor: pointer;
+      transition: background 0.15s ease;
     }
-    .report-btn:hover { opacity: 0.8; }
-    .report-btn:disabled {
-      color: inherit;
-      opacity: 0.45;
-      text-decoration: none;
-      cursor: default;
+    .report-btn:hover, .report-btn:active {
+      background: rgba(255, 255, 255, 0.08);
     }
     .report-btn[hidden] { display: none; }
     .report-done {
+      font-size: 12px;
       font-weight: 600;
       color: var(--leo-color-systemfeedback-success-icon, #10B981);
     }
