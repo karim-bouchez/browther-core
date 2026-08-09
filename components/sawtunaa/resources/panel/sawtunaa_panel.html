@@ -154,58 +154,45 @@
     .amber-box[hidden] { display: none; }
 
     /* ── « Ça ne marche pas ici ? » ───────────────────────────────────────
-       Le panel est ENTIÈREMENT centré (header, toggle, status, desc) : ce bloc
-       l'est aussi, sinon il jure. Discret et en dernier — ce n'est pas une
-       action courante, et le panel ne doit pas suggérer que la feature échoue
-       par défaut. */
+       UNE seule ligne, discrète : ce n'est pas une action courante, et le
+       panel ne doit pas suggérer que la feature échoue par défaut.
+       Ce qui est transmis (le domaine seul) vit dans l'infobulle du bouton et
+       dans la confirmation — l'afficher en permanence prenait trois lignes
+       pour une phrase qui, hors contexte, ne veut rien dire. */
     .report-site {
-      margin-top: 18px;
-      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 12px;
       border-top: 1px solid var(--leo-color-divider-subtle, rgba(255,255,255,0.10));
-      text-align: center;
+      font-size: 12px;
     }
     .report-site[hidden] { display: none; }
-    .report-question {
-      display: block;
-      font-size: 12px;
-      opacity: 0.7;
-      margin-bottom: 8px;
-    }
+    .report-question { opacity: 0.7; }
     .report-btn {
-      display: inline-block;
-      border: 1px solid var(--leo-color-divider-strong, rgba(255,255,255,0.24));
-      border-radius: 8px;
+      border: none;
       background: transparent;
-      color: var(--leo-color-text-primary, #eee);
+      padding: 0;
       font-family: inherit;
       font-size: 12px;
       font-weight: 600;
-      padding: 7px 16px;
+      color: var(--leo-color-text-interactive, #7C9CFF);
+      text-decoration: underline;
+      text-underline-offset: 2px;
       cursor: pointer;
-      transition: background 0.15s ease;
     }
-    .report-btn:hover, .report-btn:active {
-      background: rgba(255, 255, 255, 0.08);
-    }
+    .report-btn:hover { opacity: 0.8; }
     .report-btn:disabled {
+      color: inherit;
       opacity: 0.45;
+      text-decoration: none;
       cursor: default;
-      background: transparent;
     }
     .report-btn[hidden] { display: none; }
-    /* Ce qui part exactement, montré AVANT le clic — le domaine ressort pour
-       qu'il se lise d'un coup d'œil, sans avoir à parser la phrase. */
-    .report-privacy {
-      display: block;
-      margin-top: 10px;
-      font-size: 11px;
-      line-height: 1.4;
-      opacity: 0.5;
-    }
-    .report-privacy b { font-weight: 600; opacity: 0.85; }
     .report-done {
-      display: inline-block;
-      font-size: 12px;
       font-weight: 600;
       color: var(--leo-color-systemfeedback-success-icon, #10B981);
     }
@@ -313,10 +300,9 @@
   <!-- Signalement : c'est l'utilisateur qui juge si la musique n'a pas été
        retirée ici. Masqué sur les pages internes (aucun domaine à signaler). -->
   <div class="report-site" id="report-site" hidden>
-    <span class="report-question">$i18n{reportSiteQuestion}</span>
+    <span class="report-question" id="report-question">$i18n{reportSiteQuestion}</span>
     <button id="report-site-btn" class="report-btn">$i18n{reportSiteButton}</button>
     <span class="report-done" id="report-done" hidden>$i18n{reportSiteDone}</span>
-    <span class="report-privacy" id="report-privacy"></span>
   </div>
 
   <script type="module" src="sawtunaa_panel.bundle.js"></script>

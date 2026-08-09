@@ -19,22 +19,6 @@ function notifyShowUI() {
   }
 }
 
-// Écrit « Seul <domaine> est envoyé… » avec le domaine en gras, sans passer
-// par innerHTML : le domaine vient du browser, mais on ne construit jamais de
-// HTML à partir d'une donnée — on assemble des nœuds de texte.
-function fillPrivacyLine(el: HTMLElement, domain: string) {
-  const text = loadTimeData.getStringF('reportSitePrivacy', domain)
-  el.textContent = ''
-  const at = text.indexOf(domain)
-  if (at < 0) {
-    el.textContent = text
-    return
-  }
-  const strong = document.createElement('b')
-  strong.textContent = domain
-  el.append(text.slice(0, at), strong, text.slice(at + domain.length))
-}
-
 // Bloc « ça ne marche pas sur ce site ».
 //
 // Deux règles d'honnêteté, toutes deux portées par le browser (le WebUI
@@ -47,9 +31,9 @@ function fillPrivacyLine(el: HTMLElement, domain: string) {
 async function refreshReportSite() {
   const box = document.getElementById('report-site')
   const btn = document.getElementById('report-site-btn') as HTMLButtonElement | null
-  const privacy = document.getElementById('report-privacy')
+  const question = document.getElementById('report-question')
   const done = document.getElementById('report-done')
-  if (!box || !btn || !privacy || !done) return
+  if (!box || !btn || !question || !done) return
   try {
     const state = await api().getReportSiteState()
     if (!state.canReport && !state.analyticsOff) {
@@ -59,13 +43,18 @@ async function refreshReportSite() {
     box.removeAttribute('hidden')
     done.setAttribute('hidden', '')
     if (state.analyticsOff) {
-      btn.disabled = true
-      privacy.textContent = loadTimeData.getString('reportSiteAnalyticsOff')
+      // Envoi impossible : on le dit à la place de la question, plutôt que de
+      // laisser un bouton qui ne ferait rien.
+      question.textContent = loadTimeData.getString('reportSiteAnalyticsOff')
+      btn.setAttribute('hidden', '')
       return
     }
+    question.textContent = loadTimeData.getString('reportSiteQuestion')
     btn.disabled = false
     btn.removeAttribute('hidden')
-    fillPrivacyLine(privacy, state.domain)
+    // Ce qui part exactement, au survol du bouton : la phrase ne veut rien
+    // dire tant qu'on ne sait pas à quelle action elle se rapporte.
+    btn.title = loadTimeData.getStringF('reportSitePrivacy', state.domain)
   } catch (err) {
     console.error('[basarunaa-panel] getReportSiteState failed', err)
     box.setAttribute('hidden', '')

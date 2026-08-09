@@ -5,6 +5,7 @@
 
 #include "brave/browser/ui/views/brave_actions/brave_shields_action_view.h"
 
+#include <optional>
 #include <memory>
 #include <string>
 #include <utility>
@@ -42,6 +43,7 @@
 #include "ui/gfx/geometry/skia_conversions.h"
 #include "ui/gfx/image/image_skia_operations.h"
 #include "ui/gfx/image/image_skia_rep.h"
+#include "ui/views/bubble/bubble_border.h"
 #include "ui/views/animation/ink_drop_impl.h"
 #include "ui/views/controls/button/label_button_border.h"
 #include "ui/views/controls/highlight_path_generator.h"
@@ -260,7 +262,12 @@ void BraveShieldsActionView::ShowBubble(GURL webui_url) {
   }
   last_webui_url_ = webui_url;
 
-  webui_bubble_manager_->ShowBubble();
+  // [Browther 2026-08-09] TOP_CENTER au lieu du TOP_RIGHT upstream — parité
+  // avec les panels Basarunaa et Sawtunaa (cf. leurs controllers) : ancrée à
+  // droite, la bulle laissait l'icône cliquée dans son coin haut-droit. Aucune
+  // valeur en dur : Views recale la bulle quand il n'y a pas la place à droite.
+  webui_bubble_manager_->ShowBubble(
+      /*anchor=*/std::nullopt, views::BubbleBorder::TOP_CENTER);
 }
 
 bool BraveShieldsActionView::ShouldShowBubble(
