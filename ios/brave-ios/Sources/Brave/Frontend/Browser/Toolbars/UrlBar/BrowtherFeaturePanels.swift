@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import Basarunaa
+import BraveStrings
 import BraveUI
 import BrowtherAnalytics
 import Preferences
@@ -44,15 +45,15 @@ struct ReportSiteRow: View {
         Group {
           if analyticsOff {
             // Ne pas proposer une action dont le seul effet serait un no-op.
-            Text(verbatim: "Le signalement a besoin des statistiques d'usage, qui sont désactivées.")
+            Text(Strings.Browther.reportSiteAnalyticsOff)
               .foregroundStyle(Color(.secondaryBraveLabel))
           } else if reported {
-            Text(verbatim: "Merci — site signalé.")
+            Text(Strings.Browther.reportSiteDone)
               .fontWeight(.semibold)
               .foregroundStyle(Color(.braveSuccessLabel))
           } else {
             HStack(spacing: 8) {
-              Text(verbatim: "Ça ne marche pas sur ce site ?")
+              Text(Strings.Browther.reportSiteQuestion)
                 .foregroundStyle(Color(.secondaryBraveLabel))
               Button {
                 BrowtherAnalyticsService.shared.track(
@@ -61,7 +62,7 @@ struct ReportSiteRow: View {
                 )
                 reported = true
               } label: {
-                Text(verbatim: "Signaler ce site")
+                Text(Strings.Browther.reportSiteButton)
                   .fontWeight(.semibold)
               }
               .buttonStyle(.bordered)
@@ -108,10 +109,8 @@ struct SawtunaaPanelView: View {
       )
 
       // Status sous le toggle (cohérent avec "Boucliers Browther ACTIVÉ")
-      Group {
-        Text(verbatim: "Suppression de la musique ")
-          + Text(enabled.value ? "ACTIVÉE" : "DÉSACTIVÉE").bold()
-      }
+      Text(enabled.value ? Strings.Browther.sawtunaaStatusOn : Strings.Browther.sawtunaaStatusOff)
+        .bold()
       .font(.footnote)
       .foregroundStyle(Color(.braveLabel))
 
@@ -119,9 +118,9 @@ struct SawtunaaPanelView: View {
         showLimitations = true
       } label: {
         (
-          Text("Pour l'instant, ça fonctionne uniquement sur YouTube. ")
+          Text(Strings.Browther.sawtunaaDescription + " ")
             .foregroundColor(.primary)
-          + Text("(en savoir plus)")
+          + Text(Strings.Browther.sawtunaaLearnMore)
             .foregroundColor(.accentColor)
             .underline()
         )
@@ -139,14 +138,10 @@ struct SawtunaaPanelView: View {
     .padding(.bottom, 16)
     .frame(maxWidth: 360)
     .background(Color(.braveBackground))
-    .alert("Pourquoi seulement YouTube ?", isPresented: $showLimitations) {
+    .alert(Strings.Browther.sawtunaaLimitationsTitle, isPresented: $showLimitations) {
       Button("OK", role: .cancel) {}
     } message: {
-      Text(
-        "Apple impose des restrictions techniques sur iOS qui rendent ce genre de filtrage "
-          + "audio plus complexe que sur Mac/Windows/Android. On travaille à étendre ça à "
-          + "d'autres sites إن شاء الله."
-      )
+      Text(Strings.Browther.sawtunaaLimitationsMessage)
     }
   }
 
@@ -229,23 +224,21 @@ struct BasarunaaPanelView: View {
           height: ShieldsSwitch.size.height
         )
 
-        Group {
-          Text(verbatim: "Floutage des personnes ")
-            + Text(enabled.value ? "ACTIVÉ" : "DÉSACTIVÉ").bold()
-        }
+        Text(enabled.value ? Strings.Browther.basarunaaStatusOn : Strings.Browther.basarunaaStatusOff)
+          .bold()
         .font(.footnote)
         .foregroundStyle(Color(.braveLabel))
 
         // MARK: Mode
-        section(title: "Mode") {
+        section(title: Strings.Browther.basarunaaModeLabel) {
           VStack(alignment: .leading, spacing: 4) {
-            radio(label: "Femmes (par défaut)", value: "blur-female", binding: modeBinding)
-            radio(label: "Hommes", value: "blur-male", binding: modeBinding)
-            radio(label: "Toutes les personnes", value: "blur-all", binding: modeBinding)
+            radio(label: Strings.Browther.basarunaaModeFemale, value: "blur-female", binding: modeBinding)
+            radio(label: Strings.Browther.basarunaaModeMale, value: "blur-male", binding: modeBinding)
+            radio(label: Strings.Browther.basarunaaModeAll, value: "blur-all", binding: modeBinding)
             Divider().padding(.vertical, 4)
             toggleRow(
-              title: "Détection NSFW",
-              subtitle: "Floute l'image entière si un contenu explicite est détecté (nu, parties intimes). Désactivé par défaut pour une meilleure réactivité.",
+              title: Strings.Browther.basarunaaNsfwToggle,
+              subtitle: Strings.Browther.basarunaaNsfwToggleDesc,
               isOn: Binding(get: { nsfwEnabled.value }, set: { nsfwEnabled.value = $0 })
             )
           }
@@ -254,11 +247,11 @@ struct BasarunaaPanelView: View {
         .opacity(enabled.value ? 1.0 : 0.4)
 
         // MARK: Détection (aligné panneau macOS)
-        section(title: "Détection") {
+        section(title: Strings.Browther.basarunaaDetectionLabel) {
           VStack(spacing: 12) {
             toggleRow(
-              title: "Ignorer les mains seules",
-              subtitle: "Ne floute pas quand seule une main est visible (ex. tutos vidéo). Dès qu'on voit plus — visage, bras avec coude, jambe, corps — le flou s'applique.",
+              title: Strings.Browther.basarunaaHandFilter,
+              subtitle: Strings.Browther.basarunaaHandFilterDesc,
               isOn: Binding(
                 get: { minSkeleton.value > 0 },
                 set: { minSkeleton.value = $0 ? 0.1 : 0 }
@@ -266,21 +259,21 @@ struct BasarunaaPanelView: View {
             )
             Divider()
             sliderRow(
-              label: "Prudence du flou",
+              label: Strings.Browther.basarunaaGenderCertainty,
               value: Binding(get: { genderCertainty.value }, set: { genderCertainty.value = $0 }),
-              scaleLeft: "Moins de flou",
-              scaleRight: "Plus prudent",
-              desc: "Chaque personne reçoit un score de certitude (le % affiché sur son label en debug). Sous ce seuil, elle est floutée par précaution. Au-dessus, sa classe décide (femme → floutée, homme/enfant → non)."
+              scaleLeft: Strings.Browther.basarunaaScaleLessBlur,
+              scaleRight: Strings.Browther.basarunaaScaleSafer,
+              desc: Strings.Browther.basarunaaGenderCertaintyDesc
             )
             sliderRow(
-              label: "Seuil NSFW (Marqo)",
+              label: Strings.Browther.basarunaaNsfwConf,
               value: Binding(get: { nsfwConf.value }, set: { nsfwConf.value = $0 }),
-              desc: "Seuil du classifieur NSFW global. Au-dessus, l'image entière est floutée."
+              desc: Strings.Browther.basarunaaNsfwConfDesc
             )
             sliderRow(
-              label: "Seuil NudeNet",
+              label: Strings.Browther.basarunaaNudenetConf,
               value: Binding(get: { nudenetConf.value }, set: { nudenetConf.value = $0 }),
-              desc: "Seuil de détection des parties explicites du corps. Plus bas = plus sensible."
+              desc: Strings.Browther.basarunaaNudenetConfDesc
             )
           }
         }
@@ -305,32 +298,32 @@ struct BasarunaaPanelView: View {
     VStack(alignment: .leading, spacing: 10) {
       HStack(spacing: 6) {
         Text("🛠")
-        Text("Debug")
+        Text(verbatim: "Debug")
           .font(.caption.weight(.semibold))
           .textCase(.uppercase)
           .foregroundStyle(.orange)
       }
 
       sliderRow(
-        label: "Plancher de détection (avancé)",
+        label: Strings.Browther.basarunaaConfBody,
         value: Binding(get: { confBody.value }, set: { confBody.value = $0 }),
-        desc: "Depuis le modèle single-shot, ce score EST le % affiché sur les labels debug — le monter fait disparaître des personnes. Laisser à 25 % ; le floutage des cas douteux se règle avec « Prudence du flou »."
+        desc: "Since the single-shot model, this score IS the % shown on debug labels — raising it makes people disappear. Leave at 25%; blurring of uncertain cases is tuned with the caution slider."
       )
 
       Divider()
 
       VStack(alignment: .leading, spacing: 4) {
-        radio(label: "Aucun", value: "none", binding: debugModeBinding)
-        radio(label: "Boxes", value: "boxes", binding: debugModeBinding)
-        radio(label: "Debug complet", value: "debug", binding: debugModeBinding)
+        radio(label: Strings.Browther.basarunaaDebugNone, value: "none", binding: debugModeBinding)
+        radio(label: Strings.Browther.basarunaaDebugBoxes, value: "boxes", binding: debugModeBinding)
+        radio(label: Strings.Browther.basarunaaDebugFull, value: "debug", binding: debugModeBinding)
       }
 
       Divider()
 
       HStack(alignment: .top) {
         VStack(alignment: .leading, spacing: 2) {
-          Text("Capture des analyses").font(.subheadline.weight(.medium))
-          Text("Sauvegarde les images analysées dans le dossier de l'app (Files.app).")
+          Text(verbatim: "Capture analyses").font(.subheadline.weight(.medium))
+          Text(verbatim: "Saves analysed images to the app folder (Files.app).")
             .font(.caption2)
             .foregroundColor(.secondary)
         }
@@ -342,7 +335,7 @@ struct BasarunaaPanelView: View {
         .labelsHidden()
       }
 
-      Text("Logs : Console.app, subsystem `com.devndin.browther`")
+      Text(verbatim: "Logs: Console.app, subsystem `com.devndin.browther`")
         .font(.caption2.monospaced())
         .foregroundColor(.secondary)
     }

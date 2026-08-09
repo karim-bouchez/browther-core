@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Η αφαίρεση μουσικής είναι ΕΝΕΡΓΗ";
+"sawtunaaStatusOff" = "Η αφαίρεση μουσικής είναι ΑΝΕΝΕΡΓΗ";
+"sawtunaaDescription" = "Προς το παρόν, αυτό λειτουργεί μόνο στο YouTube.";
+"sawtunaaLearnMore" = "(μάθετε περισσότερα)";
+"sawtunaaLimitationsTitle" = "Γιατί μόνο το YouTube;";
+"sawtunaaLimitationsMessage" = "Τα προγράμματα περιήγησης για κινητά επιβάλλουν τεχνικούς περιορισμούς που καθιστούν αυτό το είδος φιλτραρίσματος ήχου δυσκολότερο από ό,τι σε Mac, Windows ή Android. Εργαζόμαστε για την επέκτασή του σε άλλους ιστότοπους, إن شاء الله.";
+"basarunaaStatusOn" = "Το θόλωμα προσώπων είναι ΕΝΕΡΓΟ";
+"basarunaaStatusOff" = "Το θόλωμα προσώπων είναι ΑΝΕΝΕΡΓΟ";
+"basarunaaModeLabel" = "Λειτουργία";
+"basarunaaModeFemale" = "Θόλωμα γυναικών";
+"basarunaaModeMale" = "Θόλωμα ανδρών";
+"basarunaaModeAll" = "Θόλωμα όλων";
+"basarunaaDetectionLabel" = "Ανίχνευση";
+"basarunaaHandFilter" = "Παράβλεψη μεμονωμένων χεριών";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Επίπεδο προσοχής";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Λιγότερο θόλωμα";
+"basarunaaScaleSafer" = "Πιο προσεκτικό";
+"basarunaaNsfwToggle" = "Ανίχνευση NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Όριο του γενικού ταξινομητή NSFW. Πάνω από αυτό θολώνεται ολόκληρη η εικόνα.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Όριο ανίχνευσης για ρητά μέρη του σώματος. Χαμηλότερο σημαίνει πιο ευαίσθητο.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Απενεργοποίηση";
+"basarunaaDebugBoxes" = "Πλαίσια ανίχνευσης";
+"basarunaaDebugFull" = "Πλήρης επικάλυψη (πλαίσια + σκελετός)";
+"basarunaaCaptureMode" = "Λειτουργία καταγραφής (σύνολα παλινδρόμησης)";
+"reportSiteQuestion" = "Δεν λειτουργεί σε αυτόν τον ιστότοπο;";
+"reportSiteButton" = "Αναφορά αυτού του ιστότοπου";
+"reportSiteDone" = "Ευχαριστούμε — ο ιστότοπος αναφέρθηκε.";
+"reportSiteAnalyticsOff" = "Η αναφορά απαιτεί στατιστικά χρήσης, τα οποία είναι απενεργοποιημένα.";

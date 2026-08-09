@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "إزالة الموسيقى مُفعَّلة";
+"sawtunaaStatusOff" = "إزالة الموسيقى مُعطَّلة";
+"sawtunaaDescription" = "في الوقت الحالي، يعمل هذا على YouTube فقط.";
+"sawtunaaLearnMore" = "(المزيد)";
+"sawtunaaLimitationsTitle" = "لماذا YouTube فقط؟";
+"sawtunaaLimitationsMessage" = "تفرض متصفحات الجوال قيودًا تقنية تجعل هذا النوع من تصفية الصوت أصعب مما هو عليه على Mac أو Windows أو Android. نعمل على توسيعه ليشمل مواقع أخرى، إن شاء الله.";
+"basarunaaStatusOn" = "تمويه الأشخاص مُفعَّل";
+"basarunaaStatusOff" = "تمويه الأشخاص مُعطَّل";
+"basarunaaModeLabel" = "الوضع";
+"basarunaaModeFemale" = "تمويه النساء";
+"basarunaaModeMale" = "تمويه الرجال";
+"basarunaaModeAll" = "تمويه الجميع";
+"basarunaaDetectionLabel" = "الكشف";
+"basarunaaHandFilter" = "تجاهل اليد وحدها";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "مستوى الحيطة في التمويه";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "تمويه أقل";
+"basarunaaScaleSafer" = "أكثر حَيطة";
+"basarunaaNsfwToggle" = "كشف المحتوى غير اللائق";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "عتبة مصنّف NSFW العام. فوقها تُموَّه الصورة بأكملها.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "عتبة اكتشاف أجزاء الجسد الصريحة. كلما انخفضت زادت الحساسية.";
+"basarunaaConfBody" = "حدّ الكشف الأدنى (متقدم)";
+"basarunaaDebugNone" = "إيقاف";
+"basarunaaDebugBoxes" = "مربعات الاكتشاف";
+"basarunaaDebugFull" = "تراكب كامل (مربعات + هيكل)";
+"basarunaaCaptureMode" = "وضع الالتقاط (مجموعات بيانات الانحدار)";
+"reportSiteQuestion" = "لا يعمل على هذا الموقع؟";
+"reportSiteButton" = "أبلغ عن هذا الموقع";
+"reportSiteDone" = "شكرًا — تم الإبلاغ عن الموقع.";
+"reportSiteAnalyticsOff" = "يتطلب الإبلاغ إحصاءات الاستخدام، وهي متوقفة.";

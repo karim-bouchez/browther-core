@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Musiikin poisto KÄYTÖSSÄ";
+"sawtunaaStatusOff" = "Musiikin poisto POIS KÄYTÖSTÄ";
+"sawtunaaDescription" = "Toistaiseksi tämä toimii vain YouTubessa.";
+"sawtunaaLearnMore" = "(lue lisää)";
+"sawtunaaLimitationsTitle" = "Miksi vain YouTube?";
+"sawtunaaLimitationsMessage" = "Mobiiliselaimet asettavat teknisiä rajoituksia, jotka tekevät tällaisesta äänisuodatuksesta vaikeampaa kuin Macissa, Windowsissa tai Androidissa. Työskentelemme sen laajentamiseksi muille sivustoille, إن شاء الله.";
+"basarunaaStatusOn" = "Henkilöiden sumennus KÄYTÖSSÄ";
+"basarunaaStatusOff" = "Henkilöiden sumennus POIS KÄYTÖSTÄ";
+"basarunaaModeLabel" = "Tila";
+"basarunaaModeFemale" = "Sumenna naiset";
+"basarunaaModeMale" = "Sumenna miehet";
+"basarunaaModeAll" = "Sumenna kaikki";
+"basarunaaDetectionLabel" = "Tunnistus";
+"basarunaaHandFilter" = "Ohita yksinäiset kädet";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Varovaisuustaso";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Vähemmän sumennusta";
+"basarunaaScaleSafer" = "Varovaisempi";
+"basarunaaNsfwToggle" = "NSFW-tunnistus";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Yleisen NSFW-luokittelijan kynnys. Sen yläpuolella koko kuva sumennetaan.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Avointen ruumiinosien tunnistuskynnys. Matalampi on herkempi.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Päältä";
+"basarunaaDebugBoxes" = "Tunnistuslaatikot";
+"basarunaaDebugFull" = "Täysi peite (laatikot + luuranko)";
+"basarunaaCaptureMode" = "Kaappaustila (regressioaineistot)";
+"reportSiteQuestion" = "Ei toimi tällä sivustolla?";
+"reportSiteButton" = "Ilmoita tästä sivustosta";
+"reportSiteDone" = "Kiitos — sivustosta on ilmoitettu.";
+"reportSiteAnalyticsOff" = "Ilmoittaminen vaatii käyttötilastot, jotka ovat pois päältä.";

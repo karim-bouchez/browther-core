@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Musikborttagning PÅ";
+"sawtunaaStatusOff" = "Musikborttagning AV";
+"sawtunaaDescription" = "Just nu fungerar detta bara på YouTube.";
+"sawtunaaLearnMore" = "(läs mer)";
+"sawtunaaLimitationsTitle" = "Varför bara YouTube?";
+"sawtunaaLimitationsMessage" = "Mobila webbläsare har tekniska begränsningar som gör den här typen av ljudfiltrering svårare än på Mac, Windows eller Android. Vi arbetar på att utöka det till fler webbplatser, إن شاء الله.";
+"basarunaaStatusOn" = "Oskärpa för personer PÅ";
+"basarunaaStatusOff" = "Oskärpa för personer AV";
+"basarunaaModeLabel" = "Läge";
+"basarunaaModeFemale" = "Gör kvinnor suddiga";
+"basarunaaModeMale" = "Gör män suddiga";
+"basarunaaModeAll" = "Gör alla suddiga";
+"basarunaaDetectionLabel" = "Identifiering";
+"basarunaaHandFilter" = "Ignorera ensamma händer";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Försiktighetsnivå";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Mindre oskärpa";
+"basarunaaScaleSafer" = "Mer försiktig";
+"basarunaaNsfwToggle" = "NSFW-identifiering";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Tröskelvärde för den globala NSFW-klassificeraren. Över det görs hela bilden suddig.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Tröskelvärde för identifiering av explicita kroppsdelar. Lägre betyder känsligare.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Av";
+"basarunaaDebugBoxes" = "Detekteringsrutor";
+"basarunaaDebugFull" = "Fullständigt överlägg (rutor + skelett)";
+"basarunaaCaptureMode" = "Inspelningsläge (regressionsdatauppsättningar)";
+"reportSiteQuestion" = "Fungerar inte på den här webbplatsen?";
+"reportSiteButton" = "Rapportera den här webbplatsen";
+"reportSiteDone" = "Tack — webbplatsen har rapporterats.";
+"reportSiteAnalyticsOff" = "Rapportering kräver användningsstatistik, som är avstängd.";

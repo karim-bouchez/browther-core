@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Zene eltávolítása BEKAPCSOLVA";
+"sawtunaaStatusOff" = "Zene eltávolítása KIKAPCSOLVA";
+"sawtunaaDescription" = "Egyelőre ez csak a YouTube-on működik.";
+"sawtunaaLearnMore" = "(további információ)";
+"sawtunaaLimitationsTitle" = "Miért csak a YouTube?";
+"sawtunaaLimitationsMessage" = "A mobilböngészők olyan technikai korlátozásokat írnak elő, amelyek megnehezítik az ilyen hangszűrést a Machez, Windowshoz vagy Androidhoz képest. Dolgozunk azon, hogy más oldalakra is kiterjesszük, إن شاء الله.";
+"basarunaaStatusOn" = "Személyek elmosása BEKAPCSOLVA";
+"basarunaaStatusOff" = "Személyek elmosása KIKAPCSOLVA";
+"basarunaaModeLabel" = "Mód";
+"basarunaaModeFemale" = "Nők elmosása";
+"basarunaaModeMale" = "Férfiak elmosása";
+"basarunaaModeAll" = "Mindenki elmosása";
+"basarunaaDetectionLabel" = "Észlelés";
+"basarunaaHandFilter" = "Magányos kezek mellőzése";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Óvatossági szint";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Kevesebb elmosás";
+"basarunaaScaleSafer" = "Óvatosabb";
+"basarunaaNsfwToggle" = "NSFW-észlelés";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "A globális NSFW-osztályozó küszöbe. Fölötte a teljes kép elmosódik.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Explicit testrészek észlelési küszöbe. Alacsonyabb érték érzékenyebb.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Ki";
+"basarunaaDebugBoxes" = "Felismerési keretek";
+"basarunaaDebugFull" = "Teljes átfedés (keretek + váz)";
+"basarunaaCaptureMode" = "Rögzítési mód (regressziós adatkészletek)";
+"reportSiteQuestion" = "Nem működik ezen az oldalon?";
+"reportSiteButton" = "Oldal jelentése";
+"reportSiteDone" = "Köszönjük — az oldalt jelentettük.";
+"reportSiteAnalyticsOff" = "A jelentéshez használati statisztika kell, ami ki van kapcsolva.";

@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "音楽の除去: 有効";
+"sawtunaaStatusOff" = "音楽の除去: 無効";
+"sawtunaaDescription" = "現在、これは YouTube でのみ動作します。";
+"sawtunaaLearnMore" = "(詳細)";
+"sawtunaaLimitationsTitle" = "なぜ YouTube だけ？";
+"sawtunaaLimitationsMessage" = "モバイルブラウザには技術的な制約があり、この種の音声フィルタリングは Mac、Windows、Android より難しくなっています。他のサイトへの拡大に取り組んでいます、إن شاء الله。";
+"basarunaaStatusOn" = "人物のぼかし: 有効";
+"basarunaaStatusOff" = "人物のぼかし: 無効";
+"basarunaaModeLabel" = "モード";
+"basarunaaModeFemale" = "女性をぼかす";
+"basarunaaModeMale" = "男性をぼかす";
+"basarunaaModeAll" = "全員をぼかす";
+"basarunaaDetectionLabel" = "検出";
+"basarunaaHandFilter" = "手だけの場合は無視";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "ぼかしの慎重さ";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "ぼかしを弱く";
+"basarunaaScaleSafer" = "より慎重に";
+"basarunaaNsfwToggle" = "NSFW 検出";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "全体的な NSFW 分類器のしきい値。これを超えると画像全体をぼかします。";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "露骨な身体部位の検出しきい値。低いほど敏感になります。";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "オフ";
+"basarunaaDebugBoxes" = "検出ボックス";
+"basarunaaDebugFull" = "フルオーバーレイ（ボックス + スケルトン）";
+"basarunaaCaptureMode" = "キャプチャモード（回帰データセット）";
+"reportSiteQuestion" = "このサイトで動作しませんか？";
+"reportSiteButton" = "このサイトを報告";
+"reportSiteDone" = "ありがとうございます。サイトを報告しました。";
+"reportSiteAnalyticsOff" = "報告には使用統計が必要ですが、オフになっています。";

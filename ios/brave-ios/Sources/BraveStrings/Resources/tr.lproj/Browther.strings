@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Müzik kaldırma ETKİN";
+"sawtunaaStatusOff" = "Müzik kaldırma DEVRE DIŞI";
+"sawtunaaDescription" = "Şimdilik bu yalnızca YouTube'da çalışıyor.";
+"sawtunaaLearnMore" = "(daha fazla bilgi)";
+"sawtunaaLimitationsTitle" = "Neden yalnızca YouTube?";
+"sawtunaaLimitationsMessage" = "Mobil tarayıcılar, bu tür ses filtrelemeyi Mac, Windows veya Android'e kıyasla zorlaştıran teknik kısıtlamalar getiriyor. Diğer sitelere genişletmek için çalışıyoruz, إن شاء الله.";
+"basarunaaStatusOn" = "Kişi bulanıklaştırma ETKİN";
+"basarunaaStatusOff" = "Kişi bulanıklaştırma DEVRE DIŞI";
+"basarunaaModeLabel" = "Mod";
+"basarunaaModeFemale" = "Kadınları bulanıklaştır";
+"basarunaaModeMale" = "Erkekleri bulanıklaştır";
+"basarunaaModeAll" = "Herkesi bulanıklaştır";
+"basarunaaDetectionLabel" = "Algılama";
+"basarunaaHandFilter" = "Yalnız elleri yoksay";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Bulanıklaştırma tedbir düzeyi";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Daha az bulanıklık";
+"basarunaaScaleSafer" = "Daha temkinli";
+"basarunaaNsfwToggle" = "NSFW algılama";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Genel NSFW sınıflandırıcısının eşiği. Üstünde görüntünün tamamı bulanıklaştırılır.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Müstehcen vücut bölgelerinin algılama eşiği. Düşük olması daha hassas demektir.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Kapalı";
+"basarunaaDebugBoxes" = "Algılama kutuları";
+"basarunaaDebugFull" = "Tam kaplama (kutular + iskelet)";
+"basarunaaCaptureMode" = "Yakalama modu (regresyon veri kümeleri)";
+"reportSiteQuestion" = "Bu sitede çalışmıyor mu?";
+"reportSiteButton" = "Bu siteyi bildir";
+"reportSiteDone" = "Teşekkürler — site bildirildi.";
+"reportSiteAnalyticsOff" = "Bildirim, kapalı olan kullanım istatistiklerini gerektirir.";

@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Eliminarea muzicii este ACTIVĂ";
+"sawtunaaStatusOff" = "Eliminarea muzicii este DEZACTIVATĂ";
+"sawtunaaDescription" = "Deocamdată, aceasta funcționează doar pe YouTube.";
+"sawtunaaLearnMore" = "(aflați mai multe)";
+"sawtunaaLimitationsTitle" = "De ce doar YouTube?";
+"sawtunaaLimitationsMessage" = "Browserele mobile impun restricții tehnice care fac acest tip de filtrare audio mai dificil decât pe Mac, Windows sau Android. Lucrăm la extinderea către alte site-uri, إن شاء الله.";
+"basarunaaStatusOn" = "Estomparea persoanelor este ACTIVĂ";
+"basarunaaStatusOff" = "Estomparea persoanelor este DEZACTIVATĂ";
+"basarunaaModeLabel" = "Mod";
+"basarunaaModeFemale" = "Estompează femeile";
+"basarunaaModeMale" = "Estompează bărbații";
+"basarunaaModeAll" = "Estompează pe toată lumea";
+"basarunaaDetectionLabel" = "Detectare";
+"basarunaaHandFilter" = "Ignoră mâinile singure";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Nivel de prudență";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Mai puțină estompare";
+"basarunaaScaleSafer" = "Mai prudent";
+"basarunaaNsfwToggle" = "Detectare NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Pragul clasificatorului NSFW global. Peste el, întreaga imagine este estompată.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Pragul de detectare a părților intime ale corpului. Mai mic înseamnă mai sensibil.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Oprit";
+"basarunaaDebugBoxes" = "Casete de detectare";
+"basarunaaDebugFull" = "Suprapunere completă (casete + schelet)";
+"basarunaaCaptureMode" = "Mod captură (seturi de regresie)";
+"reportSiteQuestion" = "Nu funcționează pe acest site?";
+"reportSiteButton" = "Raportează acest site";
+"reportSiteDone" = "Mulțumim — site raportat.";
+"reportSiteAnalyticsOff" = "Raportarea necesită statisticile de utilizare, care sunt dezactivate.";

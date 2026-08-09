@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Usuwanie muzyki WŁĄCZONE";
+"sawtunaaStatusOff" = "Usuwanie muzyki WYŁĄCZONE";
+"sawtunaaDescription" = "Na razie działa to tylko w YouTube.";
+"sawtunaaLearnMore" = "(dowiedz się więcej)";
+"sawtunaaLimitationsTitle" = "Dlaczego tylko YouTube?";
+"sawtunaaLimitationsMessage" = "Przeglądarki mobilne nakładają ograniczenia techniczne, które utrudniają tego rodzaju filtrowanie dźwięku bardziej niż na Macu, Windowsie czy Androidzie. Pracujemy nad rozszerzeniem tego na inne strony, إن شاء الله.";
+"basarunaaStatusOn" = "Rozmywanie osób WŁĄCZONE";
+"basarunaaStatusOff" = "Rozmywanie osób WYŁĄCZONE";
+"basarunaaModeLabel" = "Tryb";
+"basarunaaModeFemale" = "Rozmyj kobiety";
+"basarunaaModeMale" = "Rozmyj mężczyzn";
+"basarunaaModeAll" = "Rozmyj wszystkich";
+"basarunaaDetectionLabel" = "Wykrywanie";
+"basarunaaHandFilter" = "Ignoruj same dłonie";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Poziom ostrożności";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Mniej rozmycia";
+"basarunaaScaleSafer" = "Ostrożniej";
+"basarunaaNsfwToggle" = "Wykrywanie NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Próg globalnego klasyfikatora NSFW. Powyżej niego rozmywany jest cały obraz.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Próg wykrywania intymnych części ciała. Niższy oznacza większą czułość.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Wył.";
+"basarunaaDebugBoxes" = "Ramki wykrywania";
+"basarunaaDebugFull" = "Pełna nakładka (ramki + szkielet)";
+"basarunaaCaptureMode" = "Tryb przechwytywania (zbiory regresji)";
+"reportSiteQuestion" = "Nie działa na tej stronie?";
+"reportSiteButton" = "Zgłoś tę stronę";
+"reportSiteDone" = "Dziękujemy — strona zgłoszona.";
+"reportSiteAnalyticsOff" = "Zgłaszanie wymaga statystyk użycia, które są wyłączone.";

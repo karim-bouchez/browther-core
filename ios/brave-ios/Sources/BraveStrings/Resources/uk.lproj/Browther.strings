@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Видалення музики УВІМКНЕНО";
+"sawtunaaStatusOff" = "Видалення музики ВИМКНЕНО";
+"sawtunaaDescription" = "Наразі це працює лише на YouTube.";
+"sawtunaaLearnMore" = "(докладніше)";
+"sawtunaaLimitationsTitle" = "Чому лише YouTube?";
+"sawtunaaLimitationsMessage" = "Мобільні браузери накладають технічні обмеження, через які таке фільтрування звуку складніше, ніж на Mac, Windows чи Android. Ми працюємо над розширенням на інші сайти, إن شاء الله.";
+"basarunaaStatusOn" = "Розмиття людей УВІМКНЕНО";
+"basarunaaStatusOff" = "Розмиття людей ВИМКНЕНО";
+"basarunaaModeLabel" = "Режим";
+"basarunaaModeFemale" = "Розмивати жінок";
+"basarunaaModeMale" = "Розмивати чоловіків";
+"basarunaaModeAll" = "Розмивати всіх";
+"basarunaaDetectionLabel" = "Виявлення";
+"basarunaaHandFilter" = "Ігнорувати самі руки";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Рівень обережності";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Менше розмиття";
+"basarunaaScaleSafer" = "Обережніше";
+"basarunaaNsfwToggle" = "Виявлення NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Поріг загального класифікатора NSFW. Вище нього розмивається все зображення.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Поріг виявлення відвертих частин тіла. Нижчий означає чутливіший.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Вимкнути";
+"basarunaaDebugBoxes" = "Рамки розпізнавання";
+"basarunaaDebugFull" = "Повне накладання (рамки + скелет)";
+"basarunaaCaptureMode" = "Режим захоплення (набори регресії)";
+"reportSiteQuestion" = "Не працює на цьому сайті?";
+"reportSiteButton" = "Повідомити про цей сайт";
+"reportSiteDone" = "Дякуємо — про сайт повідомлено.";
+"reportSiteAnalyticsOff" = "Повідомлення потребує статистики використання, яку вимкнено.";

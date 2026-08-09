@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Remoção de música ATIVADA";
+"sawtunaaStatusOff" = "Remoção de música DESATIVADA";
+"sawtunaaDescription" = "Por enquanto, isso funciona apenas no YouTube.";
+"sawtunaaLearnMore" = "(saiba mais)";
+"sawtunaaLimitationsTitle" = "Por que apenas o YouTube?";
+"sawtunaaLimitationsMessage" = "Os navegadores móveis impõem restrições técnicas que tornam esse tipo de filtragem de áudio mais difícil do que no Mac, Windows ou Android. Estamos trabalhando para estendê-lo a outros sites, إن شاء الله.";
+"basarunaaStatusOn" = "Desfoque de pessoas ATIVADO";
+"basarunaaStatusOff" = "Desfoque de pessoas DESATIVADO";
+"basarunaaModeLabel" = "Modo";
+"basarunaaModeFemale" = "Desfocar mulheres";
+"basarunaaModeMale" = "Desfocar homens";
+"basarunaaModeAll" = "Desfocar todos";
+"basarunaaDetectionLabel" = "Detecção";
+"basarunaaHandFilter" = "Ignorar mãos sozinhas";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Nível de cautela";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Menos desfoque";
+"basarunaaScaleSafer" = "Mais cauteloso";
+"basarunaaNsfwToggle" = "Detecção de NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Limite do classificador NSFW global. Acima dele, a imagem inteira é desfocada.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Limite de detecção de partes íntimas do corpo. Quanto menor, mais sensível.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Desativada";
+"basarunaaDebugBoxes" = "Caixas de detecção";
+"basarunaaDebugFull" = "Sobreposição completa (caixas + esqueleto)";
+"basarunaaCaptureMode" = "Modo de captura (conjuntos de regressão)";
+"reportSiteQuestion" = "Não funciona neste site?";
+"reportSiteButton" = "Relatar este site";
+"reportSiteDone" = "Obrigado — site relatado.";
+"reportSiteAnalyticsOff" = "Relatar precisa das estatísticas de uso, que estão desativadas.";

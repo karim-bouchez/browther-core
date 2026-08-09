@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "เปิดการลบเสียงเพลง";
+"sawtunaaStatusOff" = "ปิดการลบเสียงเพลง";
+"sawtunaaDescription" = "ในตอนนี้ ใช้งานได้เฉพาะบน YouTube เท่านั้น";
+"sawtunaaLearnMore" = "(ดูเพิ่มเติม)";
+"sawtunaaLimitationsTitle" = "ทำไมเฉพาะ YouTube";
+"sawtunaaLimitationsMessage" = "เบราว์เซอร์บนมือถือมีข้อจำกัดทางเทคนิคที่ทำให้การกรองเสียงลักษณะนี้ยากกว่าบน Mac, Windows หรือ Android เรากำลังดำเนินการขยายไปยังเว็บไซต์อื่น إن شاء الله";
+"basarunaaStatusOn" = "เปิดการเบลอบุคคล";
+"basarunaaStatusOff" = "ปิดการเบลอบุคคล";
+"basarunaaModeLabel" = "โหมด";
+"basarunaaModeFemale" = "เบลอผู้หญิง";
+"basarunaaModeMale" = "เบลอผู้ชาย";
+"basarunaaModeAll" = "เบลอทุกคน";
+"basarunaaDetectionLabel" = "การตรวจจับ";
+"basarunaaHandFilter" = "ไม่สนใจเมื่อเห็นแค่มือ";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "ระดับความระมัดระวัง";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "เบลอน้อยลง";
+"basarunaaScaleSafer" = "ระมัดระวังมากขึ้น";
+"basarunaaNsfwToggle" = "การตรวจจับ NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "เกณฑ์ของตัวจำแนก NSFW โดยรวม สูงกว่านี้ภาพทั้งภาพจะถูกเบลอ";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "เกณฑ์การตรวจจับอวัยวะที่โจ่งแจ้ง ยิ่งต่ำยิ่งไวต่อการตรวจจับ";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "ปิด";
+"basarunaaDebugBoxes" = "กล่องตรวจจับ";
+"basarunaaDebugFull" = "โอเวอร์เลย์เต็มรูปแบบ (กล่อง + โครงร่าง)";
+"basarunaaCaptureMode" = "โหมดจับภาพ (ชุดข้อมูลถดถอย)";
+"reportSiteQuestion" = "ใช้งานไม่ได้บนเว็บไซต์นี้ใช่ไหม";
+"reportSiteButton" = "รายงานเว็บไซต์นี้";
+"reportSiteDone" = "ขอบคุณ — รายงานเว็บไซต์แล้ว";
+"reportSiteAnalyticsOff" = "การรายงานต้องใช้สถิติการใช้งาน ซึ่งถูกปิดอยู่";

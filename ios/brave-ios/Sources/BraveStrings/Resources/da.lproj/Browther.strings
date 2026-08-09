@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Musikfjernelse er SLÅET TIL";
+"sawtunaaStatusOff" = "Musikfjernelse er SLÅET FRA";
+"sawtunaaDescription" = "Indtil videre virker dette kun på YouTube.";
+"sawtunaaLearnMore" = "(læs mere)";
+"sawtunaaLimitationsTitle" = "Hvorfor kun YouTube?";
+"sawtunaaLimitationsMessage" = "Mobilbrowsere pålægger tekniske begrænsninger, der gør denne form for lydfiltrering sværere end på Mac, Windows eller Android. Vi arbejder på at udvide det til andre sider, إن شاء الله.";
+"basarunaaStatusOn" = "Slørring af personer er SLÅET TIL";
+"basarunaaStatusOff" = "Slørring af personer er SLÅET FRA";
+"basarunaaModeLabel" = "Tilstand";
+"basarunaaModeFemale" = "Slør kvinder";
+"basarunaaModeMale" = "Slør mænd";
+"basarunaaModeAll" = "Slør alle";
+"basarunaaDetectionLabel" = "Registrering";
+"basarunaaHandFilter" = "Ignorér enlige hænder";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Forsigtighedsniveau";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Mindre slør";
+"basarunaaScaleSafer" = "Mere forsigtig";
+"basarunaaNsfwToggle" = "NSFW-registrering";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Tærskel for den globale NSFW-klassifikator. Over den sløres hele billedet.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Registreringstærskel for eksplicitte kropsdele. Lavere betyder mere følsom.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Fra";
+"basarunaaDebugBoxes" = "Detektionsbokse";
+"basarunaaDebugFull" = "Fuld overlejring (bokse + skelet)";
+"basarunaaCaptureMode" = "Optagetilstand (regressionsdatasæt)";
+"reportSiteQuestion" = "Virker det ikke på dette websted?";
+"reportSiteButton" = "Rapportér dette websted";
+"reportSiteDone" = "Tak — webstedet er rapporteret.";
+"reportSiteAnalyticsOff" = "Rapportering kræver brugsstatistik, som er slået fra.";

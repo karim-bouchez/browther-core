@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Penyingkiran muzik DIHIDUPKAN";
+"sawtunaaStatusOff" = "Penyingkiran muzik DIMATIKAN";
+"sawtunaaDescription" = "Buat masa ini, ini hanya berfungsi di YouTube.";
+"sawtunaaLearnMore" = "(ketahui lebih lanjut)";
+"sawtunaaLimitationsTitle" = "Mengapa YouTube sahaja?";
+"sawtunaaLimitationsMessage" = "Pelayar mudah alih mengenakan sekatan teknikal yang menjadikan penapisan audio jenis ini lebih sukar berbanding Mac, Windows atau Android. Kami sedang berusaha meluaskannya ke tapak lain, إن شاء الله.";
+"basarunaaStatusOn" = "Pengaburan orang DIHIDUPKAN";
+"basarunaaStatusOff" = "Pengaburan orang DIMATIKAN";
+"basarunaaModeLabel" = "Mod";
+"basarunaaModeFemale" = "Kaburkan wanita";
+"basarunaaModeMale" = "Kaburkan lelaki";
+"basarunaaModeAll" = "Kaburkan semua orang";
+"basarunaaDetectionLabel" = "Pengesanan";
+"basarunaaHandFilter" = "Abaikan tangan sahaja";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Tahap berhati-hati";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Kurang kabur";
+"basarunaaScaleSafer" = "Lebih berhati-hati";
+"basarunaaNsfwToggle" = "Pengesanan NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Ambang pengelas NSFW global. Di atasnya, keseluruhan imej dikaburkan.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Ambang pengesanan bahagian badan lucah. Lebih rendah bermakna lebih sensitif.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Mati";
+"basarunaaDebugBoxes" = "Kotak pengesanan";
+"basarunaaDebugFull" = "Tindanan penuh (kotak + rangka)";
+"basarunaaCaptureMode" = "Mod tangkapan (set data regresi)";
+"reportSiteQuestion" = "Tidak berfungsi di tapak ini?";
+"reportSiteButton" = "Laporkan tapak ini";
+"reportSiteDone" = "Terima kasih — tapak dilaporkan.";
+"reportSiteAnalyticsOff" = "Pelaporan memerlukan statistik penggunaan, yang dimatikan.";

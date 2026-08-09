@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Уклањање музике је УКЉУЧЕНО";
+"sawtunaaStatusOff" = "Уклањање музике је ИСКЉУЧЕНО";
+"sawtunaaDescription" = "За сада ово ради само на YouTube-у.";
+"sawtunaaLearnMore" = "(сазнајте више)";
+"sawtunaaLimitationsTitle" = "Зашто само YouTube?";
+"sawtunaaLimitationsMessage" = "Мобилни прегледачи намећу техничка ограничења због којих је овакво филтрирање звука теже него на Mac-у, Windows-у или Android-у. Радимо на проширењу на друге сајтове, إن شاء الله.";
+"basarunaaStatusOn" = "Замућивање особа је УКЉУЧЕНО";
+"basarunaaStatusOff" = "Замућивање особа је ИСКЉУЧЕНО";
+"basarunaaModeLabel" = "Режим";
+"basarunaaModeFemale" = "Замути жене";
+"basarunaaModeMale" = "Замути мушкарце";
+"basarunaaModeAll" = "Замути све";
+"basarunaaDetectionLabel" = "Откривање";
+"basarunaaHandFilter" = "Игнориши саме руке";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Ниво опрезности";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Мање замућења";
+"basarunaaScaleSafer" = "Опрезније";
+"basarunaaNsfwToggle" = "NSFW откривање";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Праг глобалног NSFW класификатора. Изнад њега замућује се цела слика.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Праг откривања експлицитних делова тела. Ниже значи осетљивије.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Искључено";
+"basarunaaDebugBoxes" = "Оквири детекције";
+"basarunaaDebugFull" = "Потпуни прекривач (оквири + скелет)";
+"basarunaaCaptureMode" = "Режим снимања (регресиони скупови)";
+"reportSiteQuestion" = "Не ради на овом сајту?";
+"reportSiteButton" = "Пријави овај сајт";
+"reportSiteDone" = "Хвала — сајт је пријављен.";
+"reportSiteAnalyticsOff" = "Пријава захтева статистику коришћења, која је искључена.";

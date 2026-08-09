@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Odstranění hudby je ZAPNUTO";
+"sawtunaaStatusOff" = "Odstranění hudby je VYPNUTO";
+"sawtunaaDescription" = "Zatím to funguje pouze na YouTube.";
+"sawtunaaLearnMore" = "(více informací)";
+"sawtunaaLimitationsTitle" = "Proč jen YouTube?";
+"sawtunaaLimitationsMessage" = "Mobilní prohlížeče zavádějí technická omezení, která tento druh filtrování zvuku ztěžují oproti Macu, Windows nebo Androidu. Pracujeme na rozšíření na další weby, إن شاء الله.";
+"basarunaaStatusOn" = "Rozostření osob je ZAPNUTO";
+"basarunaaStatusOff" = "Rozostření osob je VYPNUTO";
+"basarunaaModeLabel" = "Režim";
+"basarunaaModeFemale" = "Rozostřit ženy";
+"basarunaaModeMale" = "Rozostřit muže";
+"basarunaaModeAll" = "Rozostřit všechny";
+"basarunaaDetectionLabel" = "Detekce";
+"basarunaaHandFilter" = "Ignorovat samotné ruce";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Míra opatrnosti";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Méně rozostření";
+"basarunaaScaleSafer" = "Opatrnější";
+"basarunaaNsfwToggle" = "Detekce NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Práh globálního klasifikátoru NSFW. Nad ním se rozostří celý obrázek.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Práh detekce explicitních částí těla. Nižší znamená citlivější.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Vypnuto";
+"basarunaaDebugBoxes" = "Detekční rámečky";
+"basarunaaDebugFull" = "Úplné překrytí (rámečky + kostra)";
+"basarunaaCaptureMode" = "Režim záznamu (regresní datové sady)";
+"reportSiteQuestion" = "Nefunguje na tomto webu?";
+"reportSiteButton" = "Nahlásit tento web";
+"reportSiteDone" = "Děkujeme — web byl nahlášen.";
+"reportSiteAnalyticsOff" = "Nahlášení vyžaduje statistiky používání, které jsou vypnuté.";

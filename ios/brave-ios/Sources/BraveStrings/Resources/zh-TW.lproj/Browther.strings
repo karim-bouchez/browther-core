@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "已啟用音樂消除";
+"sawtunaaStatusOff" = "已停用音樂消除";
+"sawtunaaDescription" = "目前，此功能僅在 YouTube 上有效。";
+"sawtunaaLearnMore" = "(瞭解詳情)";
+"sawtunaaLimitationsTitle" = "為什麼只支援 YouTube？";
+"sawtunaaLimitationsMessage" = "行動瀏覽器存在技術限制，使這類音訊過濾比 Mac、Windows 或 Android 更困難。我們正在努力將其擴展到其他網站，إن شاء الله。";
+"basarunaaStatusOn" = "已啟用人物模糊";
+"basarunaaStatusOff" = "已停用人物模糊";
+"basarunaaModeLabel" = "模式";
+"basarunaaModeFemale" = "模糊女性";
+"basarunaaModeMale" = "模糊男性";
+"basarunaaModeAll" = "模糊所有人";
+"basarunaaDetectionLabel" = "偵測";
+"basarunaaHandFilter" = "忽略僅有手部的情況";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "模糊謹慎程度";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "模糊更少";
+"basarunaaScaleSafer" = "更謹慎";
+"basarunaaNsfwToggle" = "NSFW 偵測";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "全域 NSFW 分類器的門檻。超過該值時整張圖片將被模糊。";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "露骨身體部位的偵測門檻。數值越低越敏感。";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "關閉";
+"basarunaaDebugBoxes" = "偵測框";
+"basarunaaDebugFull" = "完整覆疊（框 + 骨架）";
+"basarunaaCaptureMode" = "擷取模式（迴歸資料集）";
+"reportSiteQuestion" = "在這個網站上無法運作？";
+"reportSiteButton" = "回報這個網站";
+"reportSiteDone" = "謝謝，已回報這個網站。";
+"reportSiteAnalyticsOff" = "回報需要使用統計資料，但該功能已關閉。";

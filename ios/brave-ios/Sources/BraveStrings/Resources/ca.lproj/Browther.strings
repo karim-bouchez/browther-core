@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Supressió de música ACTIVADA";
+"sawtunaaStatusOff" = "Supressió de música DESACTIVADA";
+"sawtunaaDescription" = "De moment, això només funciona a YouTube.";
+"sawtunaaLearnMore" = "(més informació)";
+"sawtunaaLimitationsTitle" = "Per què només YouTube?";
+"sawtunaaLimitationsMessage" = "Els navegadors mòbils imposen restriccions tècniques que fan aquest tipus de filtratge d'àudio més difícil que a Mac, Windows o Android. Estem treballant per estendre-ho a altres llocs, إن شاء الله.";
+"basarunaaStatusOn" = "Difuminació de persones ACTIVADA";
+"basarunaaStatusOff" = "Difuminació de persones DESACTIVADA";
+"basarunaaModeLabel" = "Mode";
+"basarunaaModeFemale" = "Difumina les dones";
+"basarunaaModeMale" = "Difumina els homes";
+"basarunaaModeAll" = "Difumina tothom";
+"basarunaaDetectionLabel" = "Detecció";
+"basarunaaHandFilter" = "Ignora les mans soles";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Nivell de prudència";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Menys difuminat";
+"basarunaaScaleSafer" = "Més prudent";
+"basarunaaNsfwToggle" = "Detecció NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Llindar del classificador NSFW global. Per damunt, es difumina tota la imatge.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Llindar de detecció de parts íntimes del cos. Com més baix, més sensible.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Desactivat";
+"basarunaaDebugBoxes" = "Caixes de detecció";
+"basarunaaDebugFull" = "Superposició completa (caixes + esquelet)";
+"basarunaaCaptureMode" = "Mode de captura (conjunts de regressió)";
+"reportSiteQuestion" = "No funciona en aquest lloc?";
+"reportSiteButton" = "Informa d'aquest lloc";
+"reportSiteDone" = "Gràcies — lloc informat.";
+"reportSiteAnalyticsOff" = "Informar necessita les estadístiques d'ús, que estan desactivades.";

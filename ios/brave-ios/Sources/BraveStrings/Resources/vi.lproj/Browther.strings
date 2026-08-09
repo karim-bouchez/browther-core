@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Đã BẬT tính năng xóa nhạc";
+"sawtunaaStatusOff" = "Đã TẮT tính năng xóa nhạc";
+"sawtunaaDescription" = "Hiện tại, tính năng này chỉ hoạt động trên YouTube.";
+"sawtunaaLearnMore" = "(tìm hiểu thêm)";
+"sawtunaaLimitationsTitle" = "Tại sao chỉ YouTube?";
+"sawtunaaLimitationsMessage" = "Trình duyệt di động áp đặt các hạn chế kỹ thuật khiến việc lọc âm thanh kiểu này khó hơn so với trên Mac, Windows hoặc Android. Chúng tôi đang mở rộng sang các trang khác, إن شاء الله.";
+"basarunaaStatusOn" = "Đã BẬT tính năng làm mờ người";
+"basarunaaStatusOff" = "Đã TẮT tính năng làm mờ người";
+"basarunaaModeLabel" = "Chế độ";
+"basarunaaModeFemale" = "Làm mờ phụ nữ";
+"basarunaaModeMale" = "Làm mờ nam giới";
+"basarunaaModeAll" = "Làm mờ tất cả mọi người";
+"basarunaaDetectionLabel" = "Phát hiện";
+"basarunaaHandFilter" = "Bỏ qua khi chỉ có bàn tay";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Mức độ thận trọng khi làm mờ";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Ít làm mờ hơn";
+"basarunaaScaleSafer" = "Thận trọng hơn";
+"basarunaaNsfwToggle" = "Phát hiện NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Ngưỡng của bộ phân loại NSFW tổng thể. Trên ngưỡng này, toàn bộ hình ảnh bị làm mờ.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Ngưỡng phát hiện bộ phận cơ thể nhạy cảm. Càng thấp càng nhạy.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Tắt";
+"basarunaaDebugBoxes" = "Khung nhận diện";
+"basarunaaDebugFull" = "Lớp phủ đầy đủ (khung + khung xương)";
+"basarunaaCaptureMode" = "Chế độ chụp (tập dữ liệu hồi quy)";
+"reportSiteQuestion" = "Không hoạt động trên trang này?";
+"reportSiteButton" = "Báo cáo trang này";
+"reportSiteDone" = "Cảm ơn — đã báo cáo trang.";
+"reportSiteAnalyticsOff" = "Việc báo cáo cần số liệu thống kê sử dụng, hiện đang tắt.";

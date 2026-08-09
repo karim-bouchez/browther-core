@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Удаление музыки ВКЛЮЧЕНО";
+"sawtunaaStatusOff" = "Удаление музыки ВЫКЛЮЧЕНО";
+"sawtunaaDescription" = "Пока это работает только на YouTube.";
+"sawtunaaLearnMore" = "(подробнее)";
+"sawtunaaLimitationsTitle" = "Почему только YouTube?";
+"sawtunaaLimitationsMessage" = "Мобильные браузеры накладывают технические ограничения, из-за которых такая фильтрация звука сложнее, чем на Mac, Windows или Android. Мы работаем над расширением на другие сайты, إن شاء الله.";
+"basarunaaStatusOn" = "Размытие людей ВКЛЮЧЕНО";
+"basarunaaStatusOff" = "Размытие людей ВЫКЛЮЧЕНО";
+"basarunaaModeLabel" = "Режим";
+"basarunaaModeFemale" = "Размывать женщин";
+"basarunaaModeMale" = "Размывать мужчин";
+"basarunaaModeAll" = "Размывать всех";
+"basarunaaDetectionLabel" = "Обнаружение";
+"basarunaaHandFilter" = "Игнорировать одиночные руки";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Уровень осторожности";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "Меньше размытия";
+"basarunaaScaleSafer" = "Осторожнее";
+"basarunaaNsfwToggle" = "Обнаружение NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Порог общего классификатора NSFW. Выше него размывается всё изображение.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Порог обнаружения откровенных частей тела. Чем ниже, тем чувствительнее.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Выключено";
+"basarunaaDebugBoxes" = "Рамки распознавания";
+"basarunaaDebugFull" = "Полное наложение (рамки + скелет)";
+"basarunaaCaptureMode" = "Режим захвата (наборы регрессии)";
+"reportSiteQuestion" = "Не работает на этом сайте?";
+"reportSiteButton" = "Сообщить об этом сайте";
+"reportSiteDone" = "Спасибо — о сайте сообщено.";
+"reportSiteAnalyticsOff" = "Для отправки нужна статистика использования, а она отключена.";

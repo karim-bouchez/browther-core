@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "संगीत हटाना चालू है";
+"sawtunaaStatusOff" = "संगीत हटाना बंद है";
+"sawtunaaDescription" = "फ़िलहाल, यह केवल YouTube पर काम करता है।";
+"sawtunaaLearnMore" = "(और जानें)";
+"sawtunaaLimitationsTitle" = "केवल YouTube ही क्यों?";
+"sawtunaaLimitationsMessage" = "मोबाइल ब्राउज़र तकनीकी प्रतिबंध लगाते हैं जो इस तरह की ऑडियो फ़िल्टरिंग को Mac, Windows या Android की तुलना में कठिन बनाते हैं। हम इसे अन्य साइटों तक बढ़ाने पर काम कर रहे हैं, إن شاء الله।";
+"basarunaaStatusOn" = "व्यक्ति धुंधला करना चालू है";
+"basarunaaStatusOff" = "व्यक्ति धुंधला करना बंद है";
+"basarunaaModeLabel" = "मोड";
+"basarunaaModeFemale" = "महिलाओं को धुंधला करें";
+"basarunaaModeMale" = "पुरुषों को धुंधला करें";
+"basarunaaModeAll" = "सभी को धुंधला करें";
+"basarunaaDetectionLabel" = "पहचान";
+"basarunaaHandFilter" = "अकेले हाथों को अनदेखा करें";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "धुंधलेपन का सावधानी स्तर";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "कम धुंधलापन";
+"basarunaaScaleSafer" = "अधिक सावधान";
+"basarunaaNsfwToggle" = "NSFW पहचान";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "वैश्विक NSFW वर्गीकरणकर्ता की सीमा। इससे ऊपर पूरी छवि धुंधली की जाती है।";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "शरीर के स्पष्ट अंगों की पहचान सीमा। जितना कम, उतना संवेदनशील।";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "बंद";
+"basarunaaDebugBoxes" = "पहचान बॉक्स";
+"basarunaaDebugFull" = "पूर्ण ओवरले (बॉक्स + कंकाल)";
+"basarunaaCaptureMode" = "कैप्चर मोड (रिग्रेशन डेटासेट)";
+"reportSiteQuestion" = "इस साइट पर काम नहीं कर रहा?";
+"reportSiteButton" = "इस साइट की रिपोर्ट करें";
+"reportSiteDone" = "धन्यवाद — साइट की रिपोर्ट कर दी गई।";
+"reportSiteAnalyticsOff" = "रिपोर्ट करने के लिए उपयोग आँकड़े चाहिए, जो बंद हैं।";

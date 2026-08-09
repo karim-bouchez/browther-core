@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "הסרת המוזיקה מופעלת";
+"sawtunaaStatusOff" = "הסרת המוזיקה מושבתת";
+"sawtunaaDescription" = "בינתיים, זה עובד רק ב-YouTube.";
+"sawtunaaLearnMore" = "(מידע נוסף)";
+"sawtunaaLimitationsTitle" = "למה רק YouTube?";
+"sawtunaaLimitationsMessage" = "דפדפני מובייל מטילים מגבלות טכניות שהופכות סינון אודיו מסוג זה לקשה יותר מאשר ב-Mac, ב-Windows או ב-Android. אנחנו עובדים על הרחבה לאתרים נוספים, إن شاء الله.";
+"basarunaaStatusOn" = "טשטוש אנשים מופעל";
+"basarunaaStatusOff" = "טשטוש אנשים מושבת";
+"basarunaaModeLabel" = "מצב";
+"basarunaaModeFemale" = "טשטוש נשים";
+"basarunaaModeMale" = "טשטוש גברים";
+"basarunaaModeAll" = "טשטוש כולם";
+"basarunaaDetectionLabel" = "זיהוי";
+"basarunaaHandFilter" = "התעלמות מידיים בלבד";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "רמת הזהירות בטשטוש";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "פחות טשטוש";
+"basarunaaScaleSafer" = "זהיר יותר";
+"basarunaaNsfwToggle" = "זיהוי NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "סף המסווג הגלובלי של NSFW. מעליו כל התמונה מטושטשת.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "סף זיהוי של איברי גוף מפורשים. נמוך יותר = רגיש יותר.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "כבוי";
+"basarunaaDebugBoxes" = "תיבות זיהוי";
+"basarunaaDebugFull" = "שכבה מלאה (תיבות + שלד)";
+"basarunaaCaptureMode" = "מצב לכידה (מערכי רגרסיה)";
+"reportSiteQuestion" = "לא עובד באתר הזה?";
+"reportSiteButton" = "דווח על האתר הזה";
+"reportSiteDone" = "תודה — האתר דווח.";
+"reportSiteAnalyticsOff" = "הדיווח דורש סטטיסטיקות שימוש, שכבויות.";

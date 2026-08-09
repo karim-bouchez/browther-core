@@ -1,0 +1,37 @@
+/* Browther — panels Basarunaa & Sawtunaa.
+   Généré depuis les traductions desktop (.xtb) : mêmes textes source,
+   donc même hash grit, donc traduction déjà écrite. Ne pas éditer à la main. */
+"sawtunaaStatusOn" = "Премахването на музика е ВКЛЮЧЕНО";
+"sawtunaaStatusOff" = "Премахването на музика е ИЗКЛЮЧЕНО";
+"sawtunaaDescription" = "Засега това работи само в YouTube.";
+"sawtunaaLearnMore" = "(научете повече)";
+"sawtunaaLimitationsTitle" = "Защо само YouTube?";
+"sawtunaaLimitationsMessage" = "Мобилните браузъри налагат технически ограничения, които правят този вид аудио филтриране по-трудно, отколкото на Mac, Windows или Android. Работим по разширяването му и към други сайтове, إن شاء الله.";
+"basarunaaStatusOn" = "Замъгляването на хора е ВКЛЮЧЕНО";
+"basarunaaStatusOff" = "Замъгляването на хора е ИЗКЛЮЧЕНО";
+"basarunaaModeLabel" = "Режим";
+"basarunaaModeFemale" = "Замъгляване на жените";
+"basarunaaModeMale" = "Замъгляване на мъжете";
+"basarunaaModeAll" = "Замъгляване на всички";
+"basarunaaDetectionLabel" = "Откриване";
+"basarunaaHandFilter" = "Игнориране на самостоятелни ръце";
+"basarunaaHandFilterDesc" = "Does not blur when only a hand is visible (e.g. video tutorials). As soon as more shows — face, arm with elbow, leg, body — the blur applies.";
+"basarunaaGenderCertainty" = "Ниво на предпазливост";
+"basarunaaGenderCertaintyDesc" = "Every detected person gets a certainty score (the % shown on their debug label). Below this threshold they are blurred as a precaution. Above it, their class decides (woman → blurred, man/child → not).";
+"basarunaaScaleLessBlur" = "По-малко замъгляване";
+"basarunaaScaleSafer" = "По-предпазливо";
+"basarunaaNsfwToggle" = "Откриване на NSFW";
+"basarunaaNsfwToggleDesc" = "Blurs the whole image when explicit content is detected (nudity, intimate parts). Off by default for better responsiveness.";
+"basarunaaNsfwConf" = "NSFW (Marqo)";
+"basarunaaNsfwConfDesc" = "Праг на глобалния NSFW класификатор. Над него цялото изображение се замъглява.";
+"basarunaaNudenetConf" = "NudeNet";
+"basarunaaNudenetConfDesc" = "Праг за откриване на явни части от тялото. По-ниският е по-чувствителен.";
+"basarunaaConfBody" = "Detection floor (advanced)";
+"basarunaaDebugNone" = "Изкл.";
+"basarunaaDebugBoxes" = "Кутии за разпознаване";
+"basarunaaDebugFull" = "Пълно наслагване (кутии + скелет)";
+"basarunaaCaptureMode" = "Режим на заснемане (регресионни набори)";
+"reportSiteQuestion" = "Не работи на този сайт?";
+"reportSiteButton" = "Докладвайте този сайт";
+"reportSiteDone" = "Благодарим — сайтът е докладван.";
+"reportSiteAnalyticsOff" = "Докладването изисква статистика за употребата, която е изключена.";
