@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/public/platform/media/web_media_player_builder.h b/third_party/blink/public/platform/media/web_media_player_builder.h
-index 69901bda4a177..224320c28abdd 100644
+index 69901bda4a177..eabdb91ac2dcd 100644
 --- a/third_party/blink/public/platform/media/web_media_player_builder.h
 +++ b/third_party/blink/public/platform/media/web_media_player_builder.h
 @@ -8,9 +8,12 @@
@@ -15,7 +15,7 @@ index 69901bda4a177..224320c28abdd 100644
  #include "base/memory/weak_ptr.h"
  #include "cc/layers/surface_layer.h"
  #include "media/base/media_player_logging_id.h"
-@@ -57,6 +60,28 @@ using CreateSurfaceLayerBridgeCB =
+@@ -57,6 +60,31 @@ using CreateSurfaceLayerBridgeCB =
          WebSurfaceLayerBridgeObserver*,
          cc::UpdateSubmissionStateCB)>;
  
@@ -27,8 +27,11 @@ index 69901bda4a177..224320c28abdd 100644
 +    base::OnceCallback<void(std::vector<uint8_t>, int, int, base::TimeDelta)>;
 +using LeadFrameReadbackCB =
 +    base::RepeatingCallback<void(base::TimeDelta, LeadFrameReadbackDoneCB)>;
-+using VideoLeadFrameSink = base::RepeatingCallback<
-+    void(int64_t, base::TimeDelta, const LeadFrameReadbackCB&)>;
++using VideoLeadFrameSink =
++    base::RepeatingCallback<void(int64_t,
++                                 const std::string&,
++                                 base::TimeDelta,
++                                 const LeadFrameReadbackCB&)>;
 +
 +// [Browther/Sawtunaa] audio tap V2. Aliases structurels de
 +// content::ContentRendererClient::SawtunaaAudioTap* (mêmes types template →
@@ -44,7 +47,7 @@ index 69901bda4a177..224320c28abdd 100644
  class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
   public:
    // Returns true if load will deferred. False if it will run immediately.
-@@ -98,7 +123,14 @@ class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
+@@ -98,7 +126,14 @@ class BLINK_PLATFORM_EXPORT WebMediaPlayerBuilder {
        bool is_background_video_playback_enabled,
        bool is_background_video_track_optimization_supported,
        std::unique_ptr<media::Demuxer> demuxer_override,

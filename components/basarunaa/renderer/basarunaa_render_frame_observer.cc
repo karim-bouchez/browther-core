@@ -289,6 +289,7 @@ base::TimeDelta BasarunaaRenderFrameObserver::CheckpointInterval() const {
 }
 
 void BasarunaaRenderFrameObserver::ForwardForAnalysis(
+    int64_t player_id,
     base::span<const uint8_t> bgra,
     int width,
     int height,
@@ -310,12 +311,13 @@ void BasarunaaRenderFrameObserver::ForwardForAnalysis(
   image_analyzer_->AnalyzeImage(
       std::move(buffer), width, height, mojom::ImageFormat::kBgra8, want_nsfw,
       base::BindOnce(&BasarunaaRenderFrameObserver::OnAnalyzed,
-                     weak_ptr_factory_.GetWeakPtr(), media_time, width, height,
-                     kind, diff, sent, want_nsfw));
+                     weak_ptr_factory_.GetWeakPtr(), player_id, media_time,
+                     width, height, kind, diff, sent, want_nsfw));
 }
 
 void BasarunaaRenderFrameObserver::OnLeadFrameNotified(
     int64_t player_id,
+    const std::string& src,
     base::TimeDelta media_ts,
     const LeadFrameReadbackCB& readback) {
   // Toggle OFF live : le sink a été branché quand la pref était ON et vit
@@ -331,6 +333,12 @@ void BasarunaaRenderFrameObserver::OnLeadFrameNotified(
   PlayerDetector& detector = players_[player_id];
   detector.last_seen = base::TimeTicks::Now();
   detector.readback = readback;
+  // URL chargée par CE player : recopiée à chaque notification (constante pour
+  // un player, mais on ne veut pas dépendre de l'ordre d'arrivée). C'est la clé
+  // que l'overlay compare à `video.currentSrc` pour savoir QUEL <video> ce
+  // verdict concerne — sans elle, une page à plusieurs players floute au
+  // mauvais endroit.
+  detector.src = src;
 
   // Hygiène : un WMPI détruit ne prévient pas → prune des players muets.
   if (players_.size() > kMaxPlayers) {
@@ -507,8 +515,9 @@ void BasarunaaRenderFrameObserver::FinishCheckpoint(int64_t player_id) {
       !detector.nsfw_ts_init ||
       (kf.ts - detector.last_nsfw_ts) >= base::Milliseconds(kNsfwIntervalMs);
   if (due_keyframe || safe_wake) {
-    ForwardForAnalysis(base::span<const uint8_t>(kf.bgra), kf.width, kf.height,
-                       kf.ts, FrameKind::kKeyframe, overall, due_nsfw);
+    ForwardForAnalysis(player_id, base::span<const uint8_t>(kf.bgra), kf.width,
+                       kf.height, kf.ts, FrameKind::kKeyframe, overall,
+                       due_nsfw);
     detector.last_ml_keyframe_ts = kf.ts;
     detector.has_ml_keyframe = true;
     detector.ml_forwarded_this_checkpoint = true;
@@ -575,12 +584,12 @@ void BasarunaaRenderFrameObserver::ScanStep(int64_t player_id) {
       VLOG(1) << "[bsrV2] p" << player_id << " ✂ CUT @"
               << after.ts.InMilliseconds() << "ms (adj=" << adjacent
               << " probes=" << detector.probes_used << ")";
-      ForwardForAnalysis(base::span<const uint8_t>(before.bgra), before.width,
-                         before.height, before.ts, FrameKind::kCutBefore, 0.f,
-                         /*want_nsfw=*/false);
-      ForwardForAnalysis(base::span<const uint8_t>(after.bgra), after.width,
-                         after.height, after.ts, FrameKind::kCutAfter, adjacent,
-                         /*want_nsfw=*/true);
+      ForwardForAnalysis(player_id, base::span<const uint8_t>(before.bgra),
+                         before.width, before.height, before.ts,
+                         FrameKind::kCutBefore, 0.f, /*want_nsfw=*/false);
+      ForwardForAnalysis(player_id, base::span<const uint8_t>(after.bgra),
+                         after.width, after.height, after.ts,
+                         FrameKind::kCutAfter, adjacent, /*want_nsfw=*/true);
       detector.last_ml_keyframe_ts = after.ts;
       detector.has_ml_keyframe = true;
       detector.last_nsfw_ts = after.ts;
@@ -690,9 +699,9 @@ void BasarunaaRenderFrameObserver::EndScan(int64_t player_id,
     // keyframe. L'overlay a les personnes des deux scènes → interp-union
     // symétrique : sur-flou sûr, jamais de fuite.
     const LeadFrame& anchor = *detector.anchor;
-    ForwardForAnalysis(base::span<const uint8_t>(anchor.bgra), anchor.width,
-                       anchor.height, anchor.ts, FrameKind::kKeyframe, 1.f,
-                       /*want_nsfw=*/false);
+    ForwardForAnalysis(player_id, base::span<const uint8_t>(anchor.bgra),
+                       anchor.width, anchor.height, anchor.ts,
+                       FrameKind::kKeyframe, 1.f, /*want_nsfw=*/false);
     detector.last_ml_keyframe_ts = anchor.ts;
     detector.has_ml_keyframe = true;
   }
@@ -731,6 +740,7 @@ void BasarunaaRenderFrameObserver::ResetDetector(PlayerDetector& detector) {
 }
 
 void BasarunaaRenderFrameObserver::OnAnalyzed(
+    int64_t player_id,
     base::TimeDelta media_time,
     int width,
     int height,
@@ -805,6 +815,16 @@ void BasarunaaRenderFrameObserver::OnAnalyzed(
     boxes.Append(std::move(box));
   }
   base::DictValue dict;
+  // Identité du player. `src` = URL chargée (blob: pour MSE), que l'overlay
+  // compare à `video.currentSrc` pour router le verdict vers le bon <video> ;
+  // `id` désambiguïse deux players qui partageraient la même URL. Un player
+  // pruné entre l'envoi ML et la réponse laisse `src` vide → l'overlay retombe
+  // sur sa vidéo principale (comportement d'avant le routage).
+  dict.Set("id", static_cast<double>(player_id));
+  {
+    const auto it = players_.find(player_id);
+    dict.Set("src", it != players_.end() ? it->second.src : std::string());
+  }
   dict.Set("t", static_cast<double>(media_time.InMilliseconds()));
   dict.Set("debug", debug_mode);
   dict.Set("be", blur_enabled);

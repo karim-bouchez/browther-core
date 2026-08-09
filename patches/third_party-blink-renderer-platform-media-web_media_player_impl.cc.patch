@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..0ea3b53a2dab0 100644
+index 2f77f8cc774f4..4b69461b024be 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -6,6 +6,7 @@
@@ -215,7 +215,7 @@ index 2f77f8cc774f4..0ea3b53a2dab0 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3776,243 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3776,248 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
@@ -291,9 +291,14 @@ index 2f77f8cc774f4..0ea3b53a2dab0 100644
 +  VLOG(1) << "[bsrLAT] tap media_ts=" << ts.InMilliseconds()
 +          << "ms lead@tap=" << (ts - playhead).InMilliseconds()
 +          << "ms ring=" << lead_ring_.size();
++  // L'URL chargée accompagne CHAQUE notification : c'est la seule clé commune
++  // avec le JS de la page (`video.currentSrc`), qui en a besoin pour poser le
++  // flou sur le bon <video> quand un frame en compte plusieurs. Constante pour
++  // un player donné — recopiée à chaque frame par simplicité, le coût est une
++  // string de quelques dizaines d'octets.
 +  lead_frame_sink_.Run(
-+      static_cast<int64_t>(media_player_id_.GetUnsafeValue()), ts,
-+      lead_readback_cb_);
++      static_cast<int64_t>(media_player_id_.GetUnsafeValue()),
++      demuxer_manager_->LoadedUrl().spec(), ts, lead_readback_cb_);
 +}
 +
 +void WebMediaPlayerImpl::ReadbackLeadFrameAt(base::TimeDelta target_ts,

@@ -136,6 +136,10 @@ class BasarunaaRenderFrameObserver final
     bool has_ml_keyframe = false;
     base::TimeDelta last_nsfw_ts;
     bool nsfw_ts_init = false;
+    // URL chargée par ce player (blob: pour MSE) — jumelle de
+    // `video.currentSrc` côté page, seule clé qui permette à l'overlay de
+    // router le verdict vers le bon <video>.
+    std::string src;
     // Hygiène (prune des players morts).
     base::TimeTicks last_seen;
     // Instrumentation [bsrV2].
@@ -158,6 +162,7 @@ class BasarunaaRenderFrameObserver final
   // v2 ①  : notification d'une frame décodée-en-avance (main thread). Alimente
   // l'échelle des ts, gère le reset seek, déclenche les checkpoints.
   void OnLeadFrameNotified(int64_t player_id,
+                           const std::string& src,
                            base::TimeDelta media_ts,
                            const LeadFrameReadbackCB& readback);
   // v2 ② : lance un checkpoint : readback de kf_cur (=|kf_ts|) + 2 probes de
@@ -210,7 +215,8 @@ class BasarunaaRenderFrameObserver final
   // nature |kind| + le diff hash frame-à-frame |diff| de cette frame (rattaché
   // au résultat via le callback lié → jamais sur le fil ; sert au HUD debug pour
   // VISUALISER la détection de cut, cf. flash cut overlay).
-  void ForwardForAnalysis(base::span<const uint8_t> bgra,
+  void ForwardForAnalysis(int64_t player_id,
+                          base::span<const uint8_t> bgra,
                           int width,
                           int height,
                           base::TimeDelta media_time,
@@ -221,7 +227,8 @@ class BasarunaaRenderFrameObserver final
   // |width|×|height|) + le temps média + la nature |kind| + le diff hash de la
   // frame, et pousse le résultat au JS de la page (CustomEvent 'bsr-native-result',
   // detail = JSON, coords normalisées).
-  void OnAnalyzed(base::TimeDelta media_time,
+  void OnAnalyzed(int64_t player_id,
+                  base::TimeDelta media_time,
                   int width,
                   int height,
                   FrameKind kind,

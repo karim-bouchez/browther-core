@@ -1,5 +1,5 @@
 diff --git a/content/public/renderer/content_renderer_client.h b/content/public/renderer/content_renderer_client.h
-index 36b734254b0c5..b0de1099947e3 100644
+index 36b734254b0c5..23712ef6546d2 100644
 --- a/content/public/renderer/content_renderer_client.h
 +++ b/content/public/renderer/content_renderer_client.h
 @@ -14,10 +14,12 @@
@@ -15,7 +15,7 @@ index 36b734254b0c5..b0de1099947e3 100644
  #include "build/build_config.h"
  #include "build/chromecast_buildflags.h"
  #include "content/common/content_export.h"
-@@ -197,6 +199,61 @@ class CONTENT_EXPORT ContentRendererClient {
+@@ -197,6 +199,71 @@ class CONTENT_EXPORT ContentRendererClient {
        const GURL& url,
        scoped_refptr<base::SequencedTaskRunner> task_runner);
  
@@ -34,9 +34,19 @@ index 36b734254b0c5..b0de1099947e3 100644
 +  using LeadFrameReadbackCB =
 +      base::RepeatingCallback<void(base::TimeDelta, LeadFrameReadbackDoneCB)>;
 +  // Notification: (player_id — stable per media player, so the embedder can
-+  // keep per-player detection state, media_timestamp, pull handle).
-+  using VideoLeadFrameSink = base::RepeatingCallback<
-+      void(int64_t, base::TimeDelta, const LeadFrameReadbackCB&)>;
++  // keep per-player detection state, loaded media URL, media_timestamp, pull
++  // handle).
++  // The URL is what the page passed to load() — for MSE that is the blob: URL,
++  // i.e. exactly what `video.currentSrc` reads in JS. It is the ONLY key shared
++  // by both sides: the embedder analyses several players per frame, but the
++  // page-side overlay only knows DOM elements. Without it, verdicts from every
++  // <video> of the frame land in one bucket and blur is applied to the wrong
++  // element (apps.apple.com: 7 players, one overlay).
++  using VideoLeadFrameSink =
++      base::RepeatingCallback<void(int64_t,
++                                   const std::string&,
++                                   base::TimeDelta,
++                                   const LeadFrameReadbackCB&)>;
 +  virtual VideoLeadFrameSink GetVideoLeadFrameSink(RenderFrame* render_frame);
 +
 +  // [Browther/Sawtunaa] audio tap V2 (native NSNet2 music removal). The media
