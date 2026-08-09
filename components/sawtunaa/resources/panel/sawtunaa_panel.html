@@ -162,15 +162,22 @@
        Ce qui est transmis vit dans l'infobulle du bouton : l'afficher en
        permanence prenait trois lignes pour une phrase qui, tant qu'on n'a pas
        décidé de cliquer, ne veut rien dire.
-       Pas de séparateur : la marge suffit à détacher le bloc, un trait de plus
-       alourdissait un panel déjà dense. */
+       ⚠️ Ce bloc doit vivre DANS `.scroll` : c'est lui qui porte le padding
+       du panel (20px 20px 22px). Placé après sa fermeture, il se retrouvait
+       collé aux bords de la bulle, sans marge basse — le vrai coupable des
+       trois allers-retours de mise en page du 2026-08-09. */
     .report-site {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 18px;
+      padding-top: 14px;
+      /* Opacité assumée à 0.12 : le token `divider-subtle` sort quasi
+         invisible sur ce fond, et un séparateur qu'on ne voit pas donne
+         l'impression d'un bloc qui flotte sans rattachement. */
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
     }
     .report-site[hidden] { display: none; }
     .report-question {
@@ -298,14 +305,14 @@
         $i18n{installSawtunaa}
       </button>
     </div>
+    <div class="report-site" id="report-site" hidden>
+      <span class="report-question" id="report-question">$i18n{reportSiteQuestion}</span>
+      <button id="report-site-btn" class="report-btn">$i18n{reportSiteButton}</button>
+      <span class="report-done" id="report-done" hidden>$i18n{reportSiteDone}</span>
+    </div>
   </div>
   <!-- Signalement : c'est l'utilisateur qui juge si la musique n'a pas été
        retirée ici. Masqué sur les pages internes (aucun domaine à signaler). -->
-  <div class="report-site" id="report-site" hidden>
-    <span class="report-question" id="report-question">$i18n{reportSiteQuestion}</span>
-    <button id="report-site-btn" class="report-btn">$i18n{reportSiteButton}</button>
-    <span class="report-done" id="report-done" hidden>$i18n{reportSiteDone}</span>
-  </div>
 
   <script type="module" src="sawtunaa_panel.bundle.js"></script>
 </body>
