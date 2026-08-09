@@ -5,6 +5,7 @@
 
 #include "brave/browser/ui/views/toolbar/basarunaa_panel_controller.h"
 
+#include <optional>
 #include <string>
 
 #include "base/check.h"
@@ -14,6 +15,7 @@
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/views/bubble/webui_bubble_manager.h"
+#include "ui/views/bubble/bubble_border.h"
 #include "url/gurl.h"
 
 BasarunaaPanelController::BasarunaaPanelController(
@@ -42,7 +44,17 @@ void BasarunaaPanelController::ShowBasarunaaPanel() {
     return;
   }
 
-  webui_bubble_manager_->ShowBubble();
+  // [Browther 2026-08-09] TOP_CENTER au lieu du TOP_RIGHT par défaut : ancrée à
+  // droite, la bulle partait entièrement vers la gauche et l'icône cliquée se
+  // retrouvait pile dans son coin haut-droit — ça ne se lit pas comme « cette
+  // bulle sort de ce bouton ». Centrée sous l'icône, le lien est immédiat.
+  // Pas de valeur en dur : quand il n'y a pas la place à droite (icône près du
+  // bord de l'écran), Views recale la bulle tout seul pour la garder visible —
+  // on retombe alors sur l'ancien rendu, ce qui est le comportement voulu.
+  // ⚠️ Diverge volontairement de BraveVPNPanelController (dont ce fichier est
+  // par ailleurs un miroir), qui garde le défaut upstream.
+  webui_bubble_manager_->ShowBubble(
+      /*anchor=*/std::nullopt, views::BubbleBorder::TOP_CENTER);
 }
 
 void BasarunaaPanelController::ResetBubbleManager() {

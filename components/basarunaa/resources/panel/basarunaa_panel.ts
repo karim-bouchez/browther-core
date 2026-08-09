@@ -19,6 +19,22 @@ function notifyShowUI() {
   }
 }
 
+// Écrit « Seul <domaine> est envoyé… » avec le domaine en gras, sans passer
+// par innerHTML : le domaine vient du browser, mais on ne construit jamais de
+// HTML à partir d'une donnée — on assemble des nœuds de texte.
+function fillPrivacyLine(el: HTMLElement, domain: string) {
+  const text = loadTimeData.getStringF('reportSitePrivacy', domain)
+  el.textContent = ''
+  const at = text.indexOf(domain)
+  if (at < 0) {
+    el.textContent = text
+    return
+  }
+  const strong = document.createElement('b')
+  strong.textContent = domain
+  el.append(text.slice(0, at), strong, text.slice(at + domain.length))
+}
+
 // Bloc « ça ne marche pas sur ce site ».
 //
 // Deux règles d'honnêteté, toutes deux portées par le browser (le WebUI
@@ -48,8 +64,8 @@ async function refreshReportSite() {
       return
     }
     btn.disabled = false
-    privacy.textContent = loadTimeData.getStringF(
-      'reportSitePrivacy', state.domain)
+    btn.removeAttribute('hidden')
+    fillPrivacyLine(privacy, state.domain)
   } catch (err) {
     console.error('[basarunaa-panel] getReportSiteState failed', err)
     box.setAttribute('hidden', '')

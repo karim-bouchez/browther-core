@@ -37,6 +37,22 @@ async function refreshState() {
   }
 }
 
+// Écrit « Seul <domaine> est envoyé… » avec le domaine en gras, sans passer
+// par innerHTML : le domaine vient du browser, mais on ne construit jamais de
+// HTML à partir d'une donnée — on assemble des nœuds de texte.
+function fillPrivacyLine(el: HTMLElement, domain: string) {
+  const text = loadTimeData.getStringF('reportSitePrivacy', domain)
+  el.textContent = ''
+  const at = text.indexOf(domain)
+  if (at < 0) {
+    el.textContent = text
+    return
+  }
+  const strong = document.createElement('b')
+  strong.textContent = domain
+  el.append(text.slice(0, at), strong, text.slice(at + domain.length))
+}
+
 // Bloc « ça ne marche pas sur ce site ». Toutes les conditions sont calculées
 // côté browser (le WebUI ne connaît aucune règle) :
 //  - pas de domaine (page interne) → rien à signaler, bloc masqué ;
@@ -63,7 +79,7 @@ function setUIReportSite(
     return
   }
   btn.disabled = false
-  privacy.textContent = loadTimeData.getStringF('reportSitePrivacy', domain)
+  fillPrivacyLine(privacy, domain)
 }
 
 function setUIEnabled(enabled: boolean) {

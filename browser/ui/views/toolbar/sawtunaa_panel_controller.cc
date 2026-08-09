@@ -11,6 +11,7 @@
 #include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/views/bubble/webui_bubble_manager.h"
+#include "ui/views/bubble/bubble_border.h"
 #include "url/gurl.h"
 
 SawtunaaPanelController::SawtunaaPanelController(BraveBrowserView* browser_view)
@@ -40,7 +41,17 @@ void SawtunaaPanelController::ShowSawtunaaPanel() {
     return;
   }
 
-  webui_bubble_manager_->ShowBubble();
+  // [Browther 2026-08-09] TOP_CENTER au lieu du TOP_RIGHT par défaut : ancrée à
+  // droite, la bulle partait entièrement vers la gauche et l'icône cliquée se
+  // retrouvait pile dans son coin haut-droit — ça ne se lit pas comme « cette
+  // bulle sort de ce bouton ». Centrée sous l'icône, le lien est immédiat.
+  // Pas de valeur en dur : quand il n'y a pas la place à droite (icône près du
+  // bord de l'écran), Views recale la bulle tout seul pour la garder visible —
+  // on retombe alors sur l'ancien rendu, ce qui est le comportement voulu.
+  // ⚠️ Diverge volontairement de BraveVPNPanelController (dont ce fichier est
+  // par ailleurs un miroir), qui garde le défaut upstream.
+  webui_bubble_manager_->ShowBubble(
+      /*anchor=*/std::nullopt, views::BubbleBorder::TOP_CENTER);
 }
 
 void SawtunaaPanelController::ResetBubbleManager() {

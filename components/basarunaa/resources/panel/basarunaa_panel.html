@@ -158,36 +158,63 @@
       fill: currentColor;
     }
 
-    /* Signalement « ça ne marche pas ici ». Volontairement DISCRET et en bas :
-       ce n'est pas une action courante, et le panel ne doit pas suggérer que
-       la feature échoue par défaut. */
+    /* ── « Ça ne marche pas ici ? » ───────────────────────────────────────
+       Le panel est ENTIÈREMENT centré (header, toggle, status, desc) : ce bloc
+       l'est aussi, sinon il jure. Discret et en dernier — ce n'est pas une
+       action courante, et le panel ne doit pas suggérer que la feature échoue
+       par défaut. */
     .report-site {
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 11px;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.55);
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--leo-color-divider-subtle, rgba(255,255,255,0.10));
+      text-align: center;
     }
     .report-site[hidden] { display: none; }
-    .report-site .report-line {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    .report-question {
+      display: block;
+      font-size: 12px;
+      opacity: 0.7;
+      margin-bottom: 8px;
     }
     .report-btn {
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: inline-block;
+      border: 1px solid var(--leo-color-divider-strong, rgba(255,255,255,0.24));
+      border-radius: 8px;
       background: transparent;
-      color: rgba(255, 255, 255, 0.85);
-      font: inherit;
+      color: var(--leo-color-text-primary, #eee);
+      font-family: inherit;
+      font-size: 12px;
       font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 7px 16px;
       cursor: pointer;
+      transition: background 0.15s ease;
     }
-    .report-btn:hover { background: rgba(255, 255, 255, 0.08); }
-    .report-btn:disabled { opacity: 0.5; cursor: default; }
-    /* Ce qui part exactement : affiché AVANT le clic, pas après. */
-    .report-privacy { display: block; margin-top: 6px; }
-    .report-done { color: #10B981; font-weight: 600; }
+    .report-btn:hover, .report-btn:active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .report-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+      background: transparent;
+    }
+    .report-btn[hidden] { display: none; }
+    /* Ce qui part exactement, montré AVANT le clic — le domaine ressort pour
+       qu'il se lise d'un coup d'œil, sans avoir à parser la phrase. */
+    .report-privacy {
+      display: block;
+      margin-top: 10px;
+      font-size: 11px;
+      line-height: 1.4;
+      opacity: 0.5;
+    }
+    .report-privacy b { font-weight: 600; opacity: 0.85; }
+    .report-done {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--leo-color-systemfeedback-success-icon, #10B981);
+    }
+    .report-done[hidden] { display: none; }
 
     /* Sections (Mode, Détection, Debug) — inchangées. */
     .section {
@@ -450,11 +477,9 @@
        s'attendait à voir flouté), on ne devine pas à sa place. Masqué quand la
        page n'a pas de domaine (pages internes). -->
   <div class="report-site" id="report-site" hidden>
-    <div class="report-line">
-      <span>$i18n{reportSiteQuestion}</span>
-      <button id="report-site-btn" class="report-btn">$i18n{reportSiteButton}</button>
-      <span class="report-done" id="report-done" hidden>$i18n{reportSiteDone}</span>
-    </div>
+    <span class="report-question">$i18n{reportSiteQuestion}</span>
+    <button id="report-site-btn" class="report-btn">$i18n{reportSiteButton}</button>
+    <span class="report-done" id="report-done" hidden>$i18n{reportSiteDone}</span>
     <span class="report-privacy" id="report-privacy"></span>
   </div>
 
