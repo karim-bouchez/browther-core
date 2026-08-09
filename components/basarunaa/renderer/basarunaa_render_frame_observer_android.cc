@@ -94,7 +94,7 @@ void BasarunaaRenderFrameObserverAndroid::SetConfig(
             << (was_enabled ? "true" : "false") << ")";
 
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
-  if (!render_frame || !render_frame->IsMainFrame()) {
+  if (!render_frame) {
     return;
   }
 
@@ -174,9 +174,20 @@ void BasarunaaRenderFrameObserverAndroid::ApplyNsfw(int32_t image_id,
   DispatchApplyToJs(js);
 }
 
+// [Browther 2026-08-09] Plus de gate `IsMainFrame()` (ici et dans les 4 autres
+// points d'entrée de ce fichier) : un player embarqué vit dans un IFRAME
+// (Dailymotion & tous les embeds), donc s'y limiter au frame principal
+// revenait à ne rien y flouter du tout. Le portage est sûr par construction —
+// un RFO est créé PAR FRAME (brave_content_renderer_client.cc) et le browser
+// route déjà ses réponses par RenderFrameHost (`receivers_` à contexte RFH +
+// `pending_frames_`), donc chaque frame reçoit ses propres verdicts.
+// La charge (un scanner par iframe de pub) est bornée côté JS par la garde
+// micro-frame, cf. private/extensions/basarunaa/src/core/frame-guard.ts.
+// Même correctif que desktop (manifest `all_frames`) et iOS
+// (`forMainFrameOnly: false`).
 void BasarunaaRenderFrameObserverAndroid::DidClearWindowObject() {
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
-  if (!render_frame || !render_frame->IsMainFrame()) {
+  if (!render_frame) {
     return;
   }
   // Nouvelle Window = nouveau contexte V8 = nouveau script à installer.
@@ -195,7 +206,7 @@ void BasarunaaRenderFrameObserverAndroid::InstallBindingAndInjectScript() {
     return;
   }
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
-  if (!render_frame || !render_frame->IsMainFrame()) {
+  if (!render_frame) {
     return;
   }
   if (script_injected_) {
@@ -236,7 +247,7 @@ void BasarunaaRenderFrameObserverAndroid::DispatchDisableEvent() {
     return;
   }
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
-  if (!render_frame || !render_frame->IsMainFrame()) {
+  if (!render_frame) {
     return;
   }
   if (!script_injected_) {
@@ -262,7 +273,7 @@ void BasarunaaRenderFrameObserverAndroid::DispatchDisableEvent() {
 void BasarunaaRenderFrameObserverAndroid::DispatchApplyToJs(
     const std::string& js) {
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
-  if (!render_frame || !render_frame->IsMainFrame()) {
+  if (!render_frame) {
     return;
   }
   if (!script_injected_) {

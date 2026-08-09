@@ -2068,6 +2068,52 @@
     pendingYoloByFrameId.clear();
   }
 
+  const MIN_FRAME_PX = 150;
+  const NEUTRALIZE_STYLE_ID = "__bsr_frame_neutralized";
+  const NEUTRALIZE_CSS = `
+img:not([data-basarunaa]),img[data-basarunaa="pending"],
+[style*="background-image"][style*="url("]:not([data-basarunaa]),
+video:not([data-basarunaa]) { filter: none !important; }
+`;
+  function isTopFrame() {
+    try {
+      return window.top === window.self;
+    } catch {
+      return false;
+    }
+  }
+  function setNeutralized(on) {
+    const existing = document.getElementById(NEUTRALIZE_STYLE_ID);
+    if (on === !!existing) return;
+    if (!on) {
+      existing?.remove();
+      return;
+    }
+    const root = document.head || document.documentElement;
+    if (!root) return;
+    const style = document.createElement("style");
+    style.id = NEUTRALIZE_STYLE_ID;
+    style.textContent = NEUTRALIZE_CSS;
+    root.appendChild(style);
+  }
+  function isFrameRelevant(neutralizeHideFirst = true) {
+    if (isTopFrame()) return true;
+    const relevant = window.innerWidth >= MIN_FRAME_PX && window.innerHeight >= MIN_FRAME_PX;
+    if (neutralizeHideFirst) setNeutralized(!relevant);
+    return relevant;
+  }
+  function onFrameRelevanceChange(cb, neutralizeHideFirst = true) {
+    if (isTopFrame()) return;
+    let last = isFrameRelevant(neutralizeHideFirst);
+    const check = () => {
+      const now = isFrameRelevant(neutralizeHideFirst);
+      if (now === last) return;
+      last = now;
+      cb(now);
+    };
+    window.addEventListener("resize", check, { passive: true });
+  }
+
   let pipeline = null;
   let videoPipeline = null;
   let started = false;
@@ -2086,13 +2132,26 @@
   }
   function start() {
     if (started) return;
-    started = true;
     const config = getConfig();
     if (!config) return;
     if (!config.enabled || !isEnabled()) {
       logInfo("pref OFF at bootstrap, skipping");
       return;
     }
+    if (!isFrameRelevant(
+      /*neutralizeHideFirst=*/
+      false
+    )) {
+      onFrameRelevanceChange(
+        (relevant) => {
+          if (relevant) start();
+        },
+        /*neutralizeHideFirst=*/
+        false
+      );
+      return;
+    }
+    started = true;
     pipeline = createImagePipeline();
     pipeline.scanner.start();
     videoPipeline = createVideoPipeline();

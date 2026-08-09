@@ -63,7 +63,17 @@ class BasarunaaScriptHandler: TabContentScript {
         script: script
       ),
       injectionTime: .atDocumentStart,
-      forMainFrameOnly: true,
+      // [Browther 2026-08-09] false : un player embarqué vit dans un IFRAME
+      // (Dailymotion & tous les embeds) — s'en tenir au frame principal
+      // revenait à n'y rien flouter. ⚠️ Corollaire OBLIGATOIRE : toute réponse
+      // au JS doit cibler le frame ÉMETTEUR (`frame:` ci-dessous), sinon elle
+      // part dans le frame principal et l'iframe attend un verdict qui
+      // n'arrive jamais — ses images resteraient masquées par hide-first, donc
+      // floutées à vie. La charge (un scanner par iframe de pub) est bornée
+      // côté JS par la garde micro-frame (core/frame-guard.ts).
+      // Même correctif que desktop (manifest `all_frames`) et Android
+      // (retrait des gates `IsMainFrame()` du RFO).
+      forMainFrameOnly: false,
       in: scriptSandbox
     )
   }()
@@ -95,6 +105,10 @@ class BasarunaaScriptHandler: TabContentScript {
       log.info("[JS] \(data, privacy: .public)")
 
     case "scriptReady":
+      // État D'ONGLET (badge toolbar, activation) : seul le frame principal
+      // le pilote. Depuis `forMainFrameOnly: false`, chaque iframe exécute le
+      // script et enverrait sinon sa propre activation.
+      guard message.frameInfo.isMainFrame else { return }
       if !isActive {
         isActive = true
         delegate?.basarunaaDidActivate(tab: tab)
@@ -106,6 +120,8 @@ class BasarunaaScriptHandler: TabContentScript {
       log.info("script_ready url=\(data, privacy: .public)")
 
     case "blurApplied":
+      // État d'onglet (compteur affiché) → frame principal seulement.
+      guard message.frameInfo.isMainFrame else { return }
       // data = "<initialImageCount>"
       let count = Int(data) ?? 0
       delegate?.basarunaaDidApplyBlur(tab: tab, imageCount: count)
@@ -126,11 +142,16 @@ class BasarunaaScriptHandler: TabContentScript {
       let b64 = String(data[data.index(after: pipe)...])
       guard let id = Int(idStr) else { return }
       let typeErasedTab: any TabState = tab
+      let sourceFrame = message.frameInfo
       Task.detached { [weak self] in
-        await self?.processImage(id: id, base64: b64, tab: typeErasedTab)
+        await self?.processImage(
+          id: id, base64: b64, tab: typeErasedTab, frame: sourceFrame)
       }
 
     case "pageReset":
+      // ⚠️ Sans ce gate, un iframe de pub qui se recharge éteindrait le badge
+      // de TOUT l'onglet alors que la page principale tourne toujours.
+      guard message.frameInfo.isMainFrame else { return }
       isActive = false
       log.info("page_reset url=\(data, privacy: .public)")
 
@@ -181,10 +202,11 @@ class BasarunaaScriptHandler: TabContentScript {
       // callback fige `yoloInFlightById` côté JS (= flou freezé).
       let b64 = String(data[v5Start...])
       let typeErasedTab: any TabState = tab
+      let sourceFrame = message.frameInfo
       Task.detached { [weak self] in
         await self?.processVideoFrame(
           videoId: videoId, ctMs: ctMs, width: w, height: h, b64: b64,
-          tab: typeErasedTab
+          tab: typeErasedTab, frame: sourceFrame
         )
       }
 
@@ -218,7 +240,7 @@ class BasarunaaScriptHandler: TabContentScript {
   /// flou freezé jusqu'au pageReset.
   private func processVideoFrame(
     videoId: Int, ctMs: Int64, width: Int, height: Int, b64: String,
-    tab: any TabState
+    tab: any TabState, frame: WKFrameInfo
   ) async {
     let start = Date()
     var personsPayload: [[String: Any]] = []
@@ -312,6 +334,7 @@ class BasarunaaScriptHandler: TabContentScript {
             "nudeClasses": nudeClasses,
           ] as [String: Any],
         ],
+        frame: frame,
         contentWorld: Self.scriptSandbox
       )
     } catch {
@@ -323,14 +346,18 @@ class BasarunaaScriptHandler: TabContentScript {
 
   // MARK: - ML coupling (image)
 
-  private func processImage(id: Int, base64: String, tab: any TabState) async {
+  private func processImage(
+    id: Int, base64: String, tab: any TabState, frame: WKFrameInfo
+  ) async {
     let start = Date()
     guard let imageData = Data(base64Encoded: base64),
       let uiImage = UIImage(data: imageData),
       let cgImage = uiImage.cgImage
     else {
       log.error("analyze[\(id, privacy: .public)] failed to decode base64")
-      await reply(tab: tab, id: id, persons: [], debugMode: "none", elapsedMs: 0)
+      await reply(
+        tab: tab, id: id, persons: [], debugMode: "none", elapsedMs: 0,
+        frame: frame)
       return
     }
 
@@ -352,7 +379,8 @@ class BasarunaaScriptHandler: TabContentScript {
         id: id,
         persons: personsPayload,
         debugMode: debugMode,
-        elapsedMs: elapsedMs
+        elapsedMs: elapsedMs,
+        frame: frame
       )
 
       // Phase 2 (POC parity) — fire NSFW check in the background. Only
@@ -368,6 +396,7 @@ class BasarunaaScriptHandler: TabContentScript {
                 tab: tab,
                 id: id,
                 score: nsfwResult.score ?? 1.0,
+                frame: frame,
                 log: weakLog
               )
             }
@@ -378,7 +407,9 @@ class BasarunaaScriptHandler: TabContentScript {
       }
     } catch {
       log.error("analyze[\(id, privacy: .public)] failed: \(String(describing: error), privacy: .public)")
-      await reply(tab: tab, id: id, persons: [], debugMode: "none", elapsedMs: 0)
+      await reply(
+        tab: tab, id: id, persons: [], debugMode: "none", elapsedMs: 0,
+        frame: frame)
     }
   }
 
@@ -390,12 +421,14 @@ class BasarunaaScriptHandler: TabContentScript {
     tab: any TabState,
     id: Int,
     score: Double,
+    frame: WKFrameInfo,
     log: Logger
   ) async {
     do {
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApplyNsfw",
         args: [id, score],
+        frame: frame,
         contentWorld: BasarunaaScriptHandler.scriptSandbox
       )
     } catch {
@@ -411,12 +444,14 @@ class BasarunaaScriptHandler: TabContentScript {
     id: Int,
     persons: [[String: Any]],
     debugMode: String,
-    elapsedMs: Double
+    elapsedMs: Double,
+    frame: WKFrameInfo
   ) async {
     do {
       _ = try await tab.evaluateJavaScript(
         functionName: "window.__basarunaaApply",
         args: [id, persons, prefsPayload(), debugMode, elapsedMs],
+        frame: frame,
         contentWorld: Self.scriptSandbox
       )
     } catch {
