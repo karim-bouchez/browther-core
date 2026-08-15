@@ -113,6 +113,13 @@ public final class BrowtherAnalyticsService {
       options.tracesSampleRate = 0
       options.profilesSampleRate = 0
       options.attachStacktrace = true
+      // Le détecteur de gels reste actif (un gel long EST un bug utilisateur), mais le
+      // défaut du SDK — 2 s — est calibré pour une app native légère, pas pour un
+      // Chromium qui initialise son moteur + les modèles ONNX au démarrage. Mesuré en
+      // prod sur la 2026.6.19 : 61 events, dont 44 venant d'un seul iPhone XR (3 Go),
+      // aucun ne correspondant à un gel signalé. À 5 s on ne remonte plus que les gels
+      // réellement perceptibles.
+      options.appHangTimeoutInterval = 5
       // Pas de PII (IP, device name custom)
       options.sendDefaultPii = false
       // Tag pour cross-filter dans le dashboard Sentry partagé Desktop/iOS/Android.
