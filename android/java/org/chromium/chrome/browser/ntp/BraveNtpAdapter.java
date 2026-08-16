@@ -96,6 +96,7 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // Browther : bannière pub devndin-ads, insérée entre les stats et les
     // favoris (mobile : au-dessus des favoris, parité iOS).
     private static final int TYPE_BROWTHER_ADS = 9;
+    private static final int TYPE_BROWTHER_BETA = 10;
 
     private static final int ONE_ITEM_SPACE = 1;
     private static final int TWO_ITEMS_SPACE = 2;
@@ -164,6 +165,23 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     });
 
             mStatsHeight = NTPImageUtil.getViewHeight(statsViewHolder.itemView) + margin;
+
+        } else if (holder instanceof BetaNoticeViewHolder) {
+            BetaNoticeViewHolder betaViewHolder = (BetaNoticeViewHolder) holder;
+
+            LinearLayout.LayoutParams betaParams =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+            int betaMargin = dpToPx(mActivity, 16);
+            betaParams.setMargins(betaMargin, betaMargin, betaMargin, 0);
+            betaViewHolder.mNoticeView.setLayoutParams(betaParams);
+
+            // notifyItemRemoved(0) plutôt qu'un notifyDataSetChanged : les
+            // positions de tous les autres items se décalent d'un cran, et le
+            // RecyclerView doit le savoir pour ne pas réutiliser un ViewHolder
+            // sur le mauvais rang.
+            betaViewHolder.mNoticeView.setOnDismissed(() -> notifyItemRemoved(0));
 
         } else if (holder instanceof AdsViewHolder) {
             AdsViewHolder adsViewHolder = (AdsViewHolder) holder;
@@ -314,6 +332,7 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             int newsLoadingCount = shouldDisplayNewsLoading() ? 1 : 0;
             int newsPosition =
                     position
+                            - getBetaNoticeCount()
                             - getStatsCount()
                             - getTopSitesCount()
                             - getAdsCount()
@@ -354,12 +373,14 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        int statsCount = getStatsCount();
-        int topSitesCount = getTopSitesCount();
-        int adsCount = getAdsCount();
+        // Items de tête, dans l'ordre où ils s'affichent : bandeau bêta, stats,
+        // pub, favoris. Regroupés pour que l'ajout d'un item de tête n'oblige
+        // pas à le répéter dans les trois branches ci-dessous.
+        int headerCount =
+                getBetaNoticeCount() + getStatsCount() + getTopSitesCount() + getAdsCount();
         int newsLoadingCount = shouldDisplayNewsLoading() ? 1 : 0;
         if (mIsDisplayNewsOptin) {
-            return statsCount + topSitesCount + adsCount + TWO_ITEMS_SPACE + newsLoadingCount;
+            return headerCount + TWO_ITEMS_SPACE + newsLoadingCount;
         } else if (mIsDisplayNewsFeed) {
             int newsCount = 0;
             if (mNewsItems.size() > 0) {
@@ -367,10 +388,10 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else if (newsLoadingCount == 0) {
                 newsCount = 1;
             }
-            return statsCount + topSitesCount + adsCount + ONE_ITEM_SPACE + getNewContentCount()
-                    + newsLoadingCount + newsCount;
+            return headerCount + ONE_ITEM_SPACE + getNewContentCount() + newsLoadingCount
+                    + newsCount;
         } else {
-            return statsCount + topSitesCount + adsCount + ONE_ITEM_SPACE + newsLoadingCount;
+            return headerCount + ONE_ITEM_SPACE + newsLoadingCount;
         }
     }
 
@@ -387,6 +408,11 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view = LayoutInflater.from(parent.getContext())
                            .inflate(R.layout.browther_ad_banner, parent, false);
             return new AdsViewHolder(view);
+
+        } else if (viewType == TYPE_BROWTHER_BETA) {
+            view = LayoutInflater.from(parent.getContext())
+                           .inflate(R.layout.browther_beta_notice, parent, false);
+            return new BetaNoticeViewHolder(view);
 
         } else if (viewType == TYPE_TOP_SITES) {
             return new TopSitesViewHolder(mMvTilesContainerLayout);
@@ -425,20 +451,23 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
+        int betaCount = getBetaNoticeCount();
         int statsCount = getStatsCount();
         int topSitesCount = getTopSitesCount();
         int adsCount = getAdsCount();
         // Base des items en aval (new content / image credit / news) : décalée
-        // par la bannière pub. La somme stats+ads+topsites est invariante quel
+        // par le bandeau bêta et la bannière pub. La somme est invariante quel
         // que soit l'ordre relatif ads/topsites → la base reste identique.
-        int base = statsCount + topSitesCount + adsCount;
+        int base = betaCount + statsCount + topSitesCount + adsCount;
 
-        // Ordre mobile (parité iOS) : Stats → Pub → Favoris → ...
-        if (position == 0 && statsCount == 1) {
+        // Ordre mobile (parité iOS) : Bêta → Stats → Pub → Favoris → ...
+        if (betaCount == 1 && position == 0) {
+            return TYPE_BROWTHER_BETA;
+        } else if (position == betaCount && statsCount == 1) {
             return TYPE_STATS;
-        } else if (adsCount == 1 && position == statsCount) {
+        } else if (adsCount == 1 && position == betaCount + statsCount) {
             return TYPE_BROWTHER_ADS;
-        } else if (topSitesCount == 1 && position == statsCount + adsCount) {
+        } else if (topSitesCount == 1 && position == betaCount + statsCount + adsCount) {
             return TYPE_TOP_SITES;
         } else if (position == base && mIsNewContent) {
             return TYPE_NEW_CONTENT;
@@ -460,6 +489,15 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    /**
+     * Bandeau « accès anticipé » : 1 tant qu'il n'a pas été fermé pour la
+     * version en cours. Toujours en position 0 — savoir que l'app est
+     * inachevée conditionne la lecture de tout le reste du NTP.
+     */
+    public int getBetaNoticeCount() {
+        return BrowtherBetaNoticeView.shouldShow() ? 1 : 0;
+    }
+
     public int getStatsCount() {
         return isStatsEnabled() ? 1 : 0;
     }
@@ -479,14 +517,16 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     /**
      * Renseigne les pubs servies (serve async terminé). Insère / met à jour la
-     * bannière entre les stats et les favoris (position {@code statsCount},
-     * parité iOS mobile — au-dessus des favoris).
+     * bannière entre les stats et les favoris (parité iOS mobile — au-dessus
+     * des favoris). La position tient compte du bandeau bêta, qui précède les
+     * stats : sans lui, l'insertion viserait un rang trop haut et le
+     * RecyclerView remplacerait le mauvais item.
      */
     public void setAds(BrowtherAdsBridge.Ad[] ads) {
         boolean had = getAdsCount() == 1;
         mAds = ads != null ? ads : new BrowtherAdsBridge.Ad[0];
         boolean has = getAdsCount() == 1;
-        int position = getStatsCount();
+        int position = getBetaNoticeCount() + getStatsCount();
         if (has && !had) {
             notifyItemInserted(position);
         } else if (!has && had) {
@@ -678,6 +718,15 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         AdsViewHolder(View itemView) {
             super(itemView);
             this.mBannerView = (BrowtherAdBannerView) itemView;
+        }
+    }
+
+    public static class BetaNoticeViewHolder extends RecyclerView.ViewHolder {
+        final BrowtherBetaNoticeView mNoticeView;
+
+        BetaNoticeViewHolder(View itemView) {
+            super(itemView);
+            this.mNoticeView = (BrowtherBetaNoticeView) itemView;
         }
     }
 

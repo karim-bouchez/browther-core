@@ -40,5 +40,7 @@
    (IDS_NEW_TAB_BROWTHER_BETA_*), donc mêmes traductions. */
 "betaNoticeTitle" = "Browther في مرحلة الوصول المبكر";
 "betaNoticeText" = "قد لا تعمل بعض الأمور بعد — هذا متوقَّع، ويتحسّن مع كل تحديث. النسخة النهائية قريبًا إن شاء الله.";
-"betaNoticeFollow" = "مشكلة أو فكرة؟ راسلنا على";
+"betaNoticeFollow" = "تابِع dev&din لتكون أوّل من يعرف:";
 "betaNoticeDismiss" = "إغلاق هذا الإشعار";
+"betaNoticeWhatsApp" = "قناة واتساب";
+"betaNoticeTelegram" = "قناة تيليجرام";

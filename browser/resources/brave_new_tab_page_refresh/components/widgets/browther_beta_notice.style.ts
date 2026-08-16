@@ -29,16 +29,12 @@ export const style = scoped.css`
 
   .icon {
     flex-shrink: 0;
-    width: 22px;
-    height: 22px;
     margin-top: 1px;
     color: #fbbf24;
-
-    svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
+    --leo-icon-size: 22px;
+    /* L'icône Leo hérite sa couleur du conteneur — l'ambre s'applique au
+       bécher sans avoir à toucher au SVG. */
+    --leo-icon-color: currentColor;
   }
 
   .text {

@@ -269,6 +269,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/ntp/BraveRecentTabsSnackbarHelper.java",
   "../../brave/android/java/org/chromium/chrome/browser/ntp/BrowtherAdBannerView.java",
   "../../brave/android/java/org/chromium/chrome/browser/ntp/BrowtherAdPagerAdapter.java",
+  "../../brave/android/java/org/chromium/chrome/browser/ntp/BrowtherBetaNoticeView.java",
   "../../brave/android/java/org/chromium/chrome/browser/ntp/IncognitoNewTabPageView.java",
   "../../brave/android/java/org/chromium/chrome/browser/ntp/NtpUtil.java",
   "../../brave/android/java/org/chromium/chrome/browser/ntp/OnBraveNtpListener.java",

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2026 dev&din. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+     Fond du bandeau « accès anticipé ». Voile sombre (le NTP porte une photo
+     de fond, il faut garder le texte lisible sans masquer l'image) + liseré
+     ambre, la même couleur que le badge « Beta » du site et que le bandeau
+     desktop. Parité : browther_beta_notice.style.ts. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#59000000" />
+    <stroke
+        android:width="1dp"
+        android:color="#52FBBF24" />
+    <corners android:radius="12dp" />
+</shape>

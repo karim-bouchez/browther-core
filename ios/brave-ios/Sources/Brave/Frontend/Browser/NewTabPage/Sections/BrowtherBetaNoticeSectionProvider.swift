@@ -136,8 +136,29 @@ private class BrowtherBetaNoticeView: UIView {
     $0.numberOfLines = 0
   }
 
-  private lazy var whatsAppButton = channelButton(title: "WhatsApp", url: Self.whatsAppURL)
-  private lazy var telegramButton = channelButton(title: "Telegram", url: Self.telegramURL)
+  /// Bécher de laboratoire plutôt qu'un point d'exclamation : « en cours
+  /// d'expérimentation », pas « attention, erreur ». Parité desktop, qui
+  /// utilise l'icône Leo `beaker`. Repli en chaîne au cas où le symbole
+  /// manquerait sur une version d'iOS : sans lui, la vue perdrait sa colonne
+  /// d'icône et le texte se décalerait.
+  private let iconView = UIImageView().then {
+    $0.image =
+      UIImage(systemName: "testtube.2")
+      ?? UIImage(systemName: "flask")
+      ?? UIImage(systemName: "sparkles")
+    $0.tintColor = BrowtherBetaNoticeView.accent
+    $0.contentMode = .scaleAspectFit
+    $0.setContentHuggingPriority(.required, for: .horizontal)
+  }
+
+  private lazy var whatsAppButton = channelButton(
+    title: Strings.Browther.betaNoticeWhatsApp,
+    url: Self.whatsAppURL
+  )
+  private lazy var telegramButton = channelButton(
+    title: Strings.Browther.betaNoticeTelegram,
+    url: Self.telegramURL
+  )
 
   private let closeButton = UIButton().then {
     $0.setImage(
@@ -179,14 +200,24 @@ private class BrowtherBetaNoticeView: UIView {
       $0.setCustomSpacing(8, after: bodyLabel)
     }
 
+    addSubview(iconView)
     addSubview(textStack)
     addSubview(closeButton)
 
     closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
 
+    // L'icône s'aligne sur la première ligne du titre, pas sur le centre du
+    // bandeau : sa hauteur varie avec le texte (traductions plus longues,
+    // Dynamic Type), un centrage la ferait flotter au milieu du paragraphe.
+    iconView.snp.makeConstraints {
+      $0.top.equalToSuperview().inset(15)
+      $0.leading.equalToSuperview().inset(16)
+      $0.width.height.equalTo(20)
+    }
+
     textStack.snp.makeConstraints {
       $0.top.bottom.equalToSuperview().inset(14)
-      $0.leading.equalToSuperview().inset(16)
+      $0.leading.equalTo(iconView.snp.trailing).offset(12)
       $0.trailing.equalTo(closeButton.snp.leading).offset(-8)
     }
 

@@ -297,8 +297,22 @@
     Some things may not work yet — that is expected, and it gets better with every update. The finished version is coming soon إن شاء الله.
   </message>
 
-  <message name="IDS_NEW_TAB_BROWTHER_BETA_FOLLOW" desc="Label introducing the two channel links (WhatsApp, Telegram) in the early-access notice on the Browther new tab page. The links let the user report a problem and hear about updates. dev&amp;din is a brand name, keep it as-is." formatter_data="webui=BraveNewTabPage">
-    A problem, an idea? Talk to us on
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_FOLLOW" desc="Label introducing the two broadcast channel links (WhatsApp, Telegram) in the early-access notice on the Browther new tab page. These are one-way broadcast channels the user subscribes to in order to hear about releases — not a way to contact support. dev&amp;din is the studio's brand name, keep it as-is." formatter_data="webui=BraveNewTabPage">
+    Follow dev&amp;din to hear about it first:
+  </message>
+
+  <!-- Textes source IDENTIQUES à l'étape d'onboarding « suivre les canaux »
+       (IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_WHATSAPP / _TELEGRAM). Les deux .grdp
+       alimentent le même .grd, donc le même pool de .xtb : à texte source égal,
+       fingerprint égal, et les 66 traductions existantes s'appliquent sans
+       qu'on en réécrive une seule. Ne pas « améliorer » ces deux textes sans
+       toucher aussi l'onboarding, sinon on perd les traductions des deux côtés. -->
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_WHATSAPP" desc="Browther: name of the dev&amp;din WhatsApp broadcast channel" formatter_data="webui=BraveNewTabPage">
+    WhatsApp channel
+  </message>
+
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_TELEGRAM" desc="Browther: name of the dev&amp;din Telegram broadcast channel" formatter_data="webui=BraveNewTabPage">
+    Telegram channel
   </message>
 
   <message name="IDS_NEW_TAB_BROWTHER_BETA_DISMISS" desc="Accessible label and tooltip for the button that closes the early-access notice on the Browther new tab page" formatter_data="webui=BraveNewTabPage">

@@ -4133,6 +4133,30 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Reporting needs usage statistics, which are turned off.
     </message>
 
+    <!-- Bandeau « accès anticipé » en tête du Nouvel Onglet. Textes source
+         identiques au desktop (IDS_NEW_TAB_BROWTHER_BETA_*) et à iOS, mais
+         Android a son PROPRE pool de .xtb (translations/android_brave_strings_*)
+         : les traductions doivent y être recopiées, le fingerprint partagé ne
+         suffit pas d'un pool à l'autre. -->
+    <message name="IDS_BROWTHER_BETA_NOTICE_TITLE" desc="Title of the early-access notice at the top of the new tab page. Browther is a product name, keep it as-is.">
+      Browther is in early access
+    </message>
+    <message name="IDS_BROWTHER_BETA_NOTICE_TEXT" desc="Body of the early-access notice. Reassures the user that rough edges are expected rather than a broken product. The Arabic phrase means 'God willing' and is used as-is by Muslim speakers of every language — do not translate or transliterate it.">
+      Some things may not work yet — that is expected, and it gets better with every update. The finished version is coming soon إن شاء الله.
+    </message>
+    <message name="IDS_BROWTHER_BETA_NOTICE_FOLLOW" desc="Label introducing the two broadcast channel links. These are one-way channels the user subscribes to in order to hear about releases — not a way to contact support. dev&amp;din is the studio's brand name, keep it as-is.">
+      Follow dev&amp;din to hear about it first:
+    </message>
+    <message name="IDS_BROWTHER_BETA_NOTICE_WHATSAPP" desc="Name of the dev&amp;din WhatsApp broadcast channel">
+      WhatsApp channel
+    </message>
+    <message name="IDS_BROWTHER_BETA_NOTICE_TELEGRAM" desc="Name of the dev&amp;din Telegram broadcast channel">
+      Telegram channel
+    </message>
+    <message name="IDS_BROWTHER_BETA_NOTICE_DISMISS" desc="Accessibility label of the button that closes the early-access notice">
+      Close this notice
+    </message>
+
     <!-- Browther: Shields panel (BottomSheet, alignement Sawtunaa/Basarunaa). -->
     <message name="IDS_SHIELDS_PANEL_TITLE" desc="Header title for the Browther Shields panel">
       Bouclier Browther

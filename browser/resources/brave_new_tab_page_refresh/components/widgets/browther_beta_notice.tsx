@@ -4,6 +4,7 @@
  * You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 import * as React from 'react'
+import Icon from '@brave/leo/react/icon'
 
 import { loadTimeData } from '$web-common/loadTimeData'
 import { getString } from '../../lib/strings'
@@ -75,38 +76,32 @@ export function BrowtherBetaNotice() {
 
   return (
     <div data-css-scope={style.scope}>
+      {/* Bécher plutôt qu'un point d'exclamation : « en cours
+          d'expérimentation », pas « attention, erreur ». C'est le vocabulaire
+          visuel que Chromium emploie déjà pour ses flags. */}
       <div className='icon' aria-hidden='true'>
-        <svg viewBox='0 0 24 24' fill='none'>
-          <circle
-            cx='12'
-            cy='12'
-            r='9'
-            stroke='currentColor'
-            strokeWidth='2'
-          />
-          <path
-            d='M12 7.5v5.5'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-          />
-          <circle cx='12' cy='16.5' r='1.1' fill='currentColor' />
-        </svg>
+        <Icon name='beaker' />
       </div>
       <div className='text'>
         <div className='title'>
           {getString(S.NEW_TAB_BROWTHER_BETA_TITLE)}
         </div>
         <div className='body'>{getString(S.NEW_TAB_BROWTHER_BETA_TEXT)}</div>
+        {/* Canaux de DIFFUSION, pas de support : on s'y abonne pour être
+            prévenu des sorties (Browther et les autres projets dev&din), on
+            n'y écrit pas. D'où « Chaîne WhatsApp » / « Canal Telegram » en
+            libellé plutôt que le seul nom de l'app, qui laissait croire à une
+            messagerie. Mêmes textes source que l'étape d'onboarding, donc
+            mêmes traductions dans les 66 langues sans rien réécrire. */}
         <div className='channels'>
           <span className='channels-label'>
             {getString(S.NEW_TAB_BROWTHER_BETA_FOLLOW)}
           </span>
           <a href={kWhatsAppUrl} target='_blank' rel='noopener noreferrer'>
-            WhatsApp
+            {getString(S.NEW_TAB_BROWTHER_BETA_WHATSAPP)}
           </a>
           <a href={kTelegramUrl} target='_blank' rel='noopener noreferrer'>
-            Telegram
+            {getString(S.NEW_TAB_BROWTHER_BETA_TELEGRAM)}
           </a>
         </div>
       </div>

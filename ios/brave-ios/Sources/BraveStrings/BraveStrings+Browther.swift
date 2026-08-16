@@ -278,8 +278,26 @@ extension Strings {
       "betaNoticeFollow",
       tableName: "Browther",
       bundle: .module,
-      value: "A problem, an idea? Talk to us on",
-      comment: "Label introducing the WhatsApp and Telegram links"
+      value: "Follow dev&din to hear about it first:",
+      comment: "Label introducing the two broadcast channel links"
+    )
+    // Canaux de DIFFUSION : on s'y abonne pour être prévenu des sorties, on n'y
+    // écrit pas. Le libellé dit « chaîne / canal » pour lever l'ambiguïté que
+    // le seul nom de l'app laissait planer. Textes source identiques à l'étape
+    // d'onboarding et au desktop → traductions déjà écrites.
+    public static let betaNoticeWhatsApp = NSLocalizedString(
+      "betaNoticeWhatsApp",
+      tableName: "Browther",
+      bundle: .module,
+      value: "WhatsApp channel",
+      comment: "Name of the dev&din WhatsApp broadcast channel"
+    )
+    public static let betaNoticeTelegram = NSLocalizedString(
+      "betaNoticeTelegram",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Telegram channel",
+      comment: "Name of the dev&din Telegram broadcast channel"
     )
     public static let betaNoticeDismiss = NSLocalizedString(
       "betaNoticeDismiss",
