@@ -35,3 +35,12 @@
 "reportSiteButton" = "Raportează acest site";
 "reportSiteDone" = "Mulțumim — site raportat.";
 "reportSiteAnalyticsOff" = "Raportarea necesită statisticile de utilizare, care sunt dezactivate.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther este în acces timpuriu";
+"betaNoticeText" = "Unele lucruri s-ar putea să nu funcționeze încă — e normal și se îmbunătățește cu fiecare actualizare. Versiunea finală vine curând إن شاء الله.";
+"betaNoticeFollow" = "Urmărește dev&din ca să afli primul:";
+"betaNoticeWhatsApp" = "Canal WhatsApp";
+"betaNoticeTelegram" = "Canal Telegram";
+"betaNoticeDismiss" = "Închide această notificare";

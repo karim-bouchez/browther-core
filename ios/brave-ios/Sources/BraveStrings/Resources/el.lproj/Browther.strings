@@ -35,3 +35,12 @@
 "reportSiteButton" = "Αναφορά αυτού του ιστότοπου";
 "reportSiteDone" = "Ευχαριστούμε — ο ιστότοπος αναφέρθηκε.";
 "reportSiteAnalyticsOff" = "Η αναφορά απαιτεί στατιστικά χρήσης, τα οποία είναι απενεργοποιημένα.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Το Browther είναι σε πρώιμη πρόσβαση";
+"betaNoticeText" = "Κάποια πράγματα ίσως δεν λειτουργούν ακόμη — αυτό είναι αναμενόμενο και βελτιώνεται με κάθε ενημέρωση. Η ολοκληρωμένη έκδοση έρχεται σύντομα إن شاء الله.";
+"betaNoticeFollow" = "Ακολούθησε το dev&din για να το μάθεις πρώτος:";
+"betaNoticeWhatsApp" = "Κανάλι WhatsApp";
+"betaNoticeTelegram" = "Κανάλι Telegram";
+"betaNoticeDismiss" = "Κλείσιμο της ειδοποίησης";

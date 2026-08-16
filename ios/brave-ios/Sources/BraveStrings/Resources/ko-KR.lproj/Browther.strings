@@ -35,3 +35,12 @@
 "reportSiteButton" = "이 사이트 신고";
 "reportSiteDone" = "감사합니다 — 사이트를 신고했습니다.";
 "reportSiteAnalyticsOff" = "신고하려면 사용 통계가 필요하지만 꺼져 있습니다.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther는 얼리 액세스 단계입니다";
+"betaNoticeText" = "아직 작동하지 않는 부분이 있을 수 있습니다. 정상이며 업데이트할 때마다 좋아집니다. 완성 버전은 곧 나옵니다 إن شاء الله.";
+"betaNoticeFollow" = "가장 먼저 소식을 받으려면 dev&din 팔로우:";
+"betaNoticeWhatsApp" = "WhatsApp 채널";
+"betaNoticeTelegram" = "Telegram 채널";
+"betaNoticeDismiss" = "이 알림 닫기";

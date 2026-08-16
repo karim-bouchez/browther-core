@@ -35,3 +35,12 @@
 "reportSiteButton" = "Laporkan tapak ini";
 "reportSiteDone" = "Terima kasih — tapak dilaporkan.";
 "reportSiteAnalyticsOff" = "Pelaporan memerlukan statistik penggunaan, yang dimatikan.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther dalam akses awal";
+"betaNoticeText" = "Ada perkara yang mungkin belum berfungsi — itu dijangka, dan ia bertambah baik dengan setiap kemas kini. Versi siap akan tiba tidak lama lagi إن شاء الله.";
+"betaNoticeFollow" = "Ikuti dev&din untuk tahu dahulu:";
+"betaNoticeWhatsApp" = "Saluran WhatsApp";
+"betaNoticeTelegram" = "Saluran Telegram";
+"betaNoticeDismiss" = "Tutup notis";

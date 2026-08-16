@@ -35,3 +35,12 @@
 "reportSiteButton" = "Сообщить об этом сайте";
 "reportSiteDone" = "Спасибо — о сайте сообщено.";
 "reportSiteAnalyticsOff" = "Для отправки нужна статистика использования, а она отключена.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther в раннем доступе";
+"betaNoticeText" = "Что-то может пока не работать — это нормально, и с каждым обновлением становится лучше. Готовая версия скоро выйдет إن شاء الله.";
+"betaNoticeFollow" = "Подпишись на dev&din, чтобы узнать первым:";
+"betaNoticeWhatsApp" = "Канал WhatsApp";
+"betaNoticeTelegram" = "Канал Telegram";
+"betaNoticeDismiss" = "Закрыть это уведомление";

@@ -35,3 +35,12 @@
 "reportSiteButton" = "Oldal jelentése";
 "reportSiteDone" = "Köszönjük — az oldalt jelentettük.";
 "reportSiteAnalyticsOff" = "A jelentéshez használati statisztika kell, ami ki van kapcsolva.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "A Browther korai hozzáférésben van";
+"betaNoticeText" = "Lehet, hogy néhány dolog még nem működik – ez természetes, és minden frissítéssel javul. A kész verzió hamarosan érkezik إن شاء الله.";
+"betaNoticeFollow" = "Kövesd a dev&dint, hogy elsőként értesülj róla:";
+"betaNoticeWhatsApp" = "WhatsApp-csatorna";
+"betaNoticeTelegram" = "Telegram-csatorna";
+"betaNoticeDismiss" = "Üzenet bezárása";

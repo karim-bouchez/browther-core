@@ -35,3 +35,12 @@
 "reportSiteButton" = "Bu siteyi bildir";
 "reportSiteDone" = "Teşekkürler — site bildirildi.";
 "reportSiteAnalyticsOff" = "Bildirim, kapalı olan kullanım istatistiklerini gerektirir.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther erken erişimde";
+"betaNoticeText" = "Bazı şeyler henüz çalışmayabilir — bu beklenen bir durum ve her güncellemeyle daha iyi oluyor. Tamamlanmış sürüm yakında geliyor إن شاء الله.";
+"betaNoticeFollow" = "İlk sen haberdar olmak için dev&din'i takip et:";
+"betaNoticeWhatsApp" = "WhatsApp kanalı";
+"betaNoticeTelegram" = "Telegram kanalı";
+"betaNoticeDismiss" = "Bu bildirimi kapatın";

@@ -35,3 +35,12 @@
 "reportSiteButton" = "Докладвайте този сайт";
 "reportSiteDone" = "Благодарим — сайтът е докладван.";
 "reportSiteAnalyticsOff" = "Докладването изисква статистика за употребата, която е изключена.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther е в ранен достъп";
+"betaNoticeText" = "Някои неща може още да не работят — това е нормално и се подобрява с всяко обновяване. Завършената версия идва скоро إن شاء الله.";
+"betaNoticeFollow" = "Последвайте dev&din, за да научите първи:";
+"betaNoticeWhatsApp" = "Канал в WhatsApp";
+"betaNoticeTelegram" = "Канал в Telegram";
+"betaNoticeDismiss" = "Затваряне на това известие";

@@ -35,3 +35,12 @@
 "reportSiteButton" = "このサイトを報告";
 "reportSiteDone" = "ありがとうございます。サイトを報告しました。";
 "reportSiteAnalyticsOff" = "報告には使用統計が必要ですが、オフになっています。";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther は早期アクセス版です";
+"betaNoticeText" = "まだ動かないものがあるかもしれませんが、それは想定内で、更新のたびに良くなっていきます。完成版はもうすぐです إن شاء الله。";
+"betaNoticeFollow" = "いち早く知るには dev&din をフォロー:";
+"betaNoticeWhatsApp" = "WhatsApp チャンネル";
+"betaNoticeTelegram" = "Telegram チャンネル";
+"betaNoticeDismiss" = "この通知を閉じる";

@@ -35,3 +35,12 @@
 "reportSiteButton" = "รายงานเว็บไซต์นี้";
 "reportSiteDone" = "ขอบคุณ — รายงานเว็บไซต์แล้ว";
 "reportSiteAnalyticsOff" = "การรายงานต้องใช้สถิติการใช้งาน ซึ่งถูกปิดอยู่";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther อยู่ในช่วงเข้าถึงก่อนใคร";
+"betaNoticeText" = "บางอย่างอาจยังไม่ทำงาน — ถือเป็นเรื่องปกติ และจะดีขึ้นทุกครั้งที่อัปเดต เวอร์ชันสมบูรณ์กำลังจะมาถึงเร็ว ๆ นี้ إن شاء الله";
+"betaNoticeFollow" = "ติดตาม dev&din เพื่อรู้ก่อนใคร:";
+"betaNoticeWhatsApp" = "ช่อง WhatsApp";
+"betaNoticeTelegram" = "ช่อง Telegram";
+"betaNoticeDismiss" = "ปิดการแจ้งเตือนนี้";

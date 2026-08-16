@@ -35,3 +35,12 @@
 "reportSiteButton" = "Rapporter dette nettstedet";
 "reportSiteDone" = "Takk — nettstedet er rapportert.";
 "reportSiteAnalyticsOff" = "Rapportering krever bruksstatistikk, som er slått av.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther er i tidlig tilgang";
+"betaNoticeText" = "Noe fungerer kanskje ikke ennå – det er forventet, og det blir bedre for hver oppdatering. Den ferdige versjonen kommer snart إن شاء الله.";
+"betaNoticeFollow" = "Følg dev&din for å høre det først:";
+"betaNoticeWhatsApp" = "WhatsApp-kanal";
+"betaNoticeTelegram" = "Telegram-kanal";
+"betaNoticeDismiss" = "Lukk denne meldingen";

@@ -35,3 +35,12 @@
 "reportSiteButton" = "Prijavi ovu stranicu";
 "reportSiteDone" = "Hvala — stranica je prijavljena.";
 "reportSiteAnalyticsOff" = "Prijava zahtijeva statistiku upotrebe, koja je isključena.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther je u ranom pristupu";
+"betaNoticeText" = "Nešto možda još ne radi — to je očekivano i popravlja se sa svakim ažuriranjem. Gotova verzija stiže uskoro إن شاء الله.";
+"betaNoticeFollow" = "Prati dev&din i saznaj prvi:";
+"betaNoticeWhatsApp" = "WhatsApp kanal";
+"betaNoticeTelegram" = "Telegram kanal";
+"betaNoticeDismiss" = "Zatvori ovu obavijest";

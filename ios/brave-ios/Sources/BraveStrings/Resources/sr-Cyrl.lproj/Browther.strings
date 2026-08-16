@@ -35,3 +35,15 @@
 "reportSiteButton" = "Пријави овај сајт";
 "reportSiteDone" = "Хвала — сајт је пријављен.";
 "reportSiteAnalyticsOff" = "Пријава захтева статистику коришћења, која је искључена.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther је у раном приступу";
+"betaNoticeText" = "Нешто можда још не ради — то је очекивано и поправља се са сваким ажурирањем. Готова верзија стиже ускоро إن شاء الله.";
+"betaNoticeFollow" = "Прати dev&din да сазнаш први:";
+"betaNoticeWhatsApp" = "WhatsApp канал";
+"betaNoticeTelegram" = "Telegram канал";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeDismiss" = "Затвори ово обавештење";

@@ -35,3 +35,12 @@
 "reportSiteButton" = "Ilmoita tästä sivustosta";
 "reportSiteDone" = "Kiitos — sivustosta on ilmoitettu.";
 "reportSiteAnalyticsOff" = "Ilmoittaminen vaatii käyttötilastot, jotka ovat pois päältä.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther on varhaisessa käyttövaiheessa";
+"betaNoticeText" = "Kaikki ei ehkä vielä toimi — se on odotettua, ja se paranee jokaisen päivityksen myötä. Valmis versio tulee pian إن شاء الله.";
+"betaNoticeFollow" = "Seuraa dev&diniä kuullaksesi siitä ensimmäisenä:";
+"betaNoticeWhatsApp" = "WhatsApp-kanava";
+"betaNoticeTelegram" = "Telegram-kanava";
+"betaNoticeDismiss" = "Sulje tämä ilmoitus";

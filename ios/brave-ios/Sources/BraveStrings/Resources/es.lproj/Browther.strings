@@ -35,3 +35,12 @@
 "reportSiteButton" = "Informar de este sitio";
 "reportSiteDone" = "Gracias, sitio informado.";
 "reportSiteAnalyticsOff" = "Informar requiere las estadísticas de uso, que están desactivadas.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther está en acceso anticipado";
+"betaNoticeText" = "Puede que algunas cosas aún no funcionen: es normal y mejora con cada actualización. La versión final llega pronto إن شاء الله.";
+"betaNoticeFollow" = "Sigue a dev&din para enterarte el primero:";
+"betaNoticeWhatsApp" = "Canal de WhatsApp";
+"betaNoticeTelegram" = "Canal de Telegram";
+"betaNoticeDismiss" = "Cerrar este aviso";

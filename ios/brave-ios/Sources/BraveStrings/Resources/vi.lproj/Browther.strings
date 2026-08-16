@@ -35,3 +35,12 @@
 "reportSiteButton" = "Báo cáo trang này";
 "reportSiteDone" = "Cảm ơn — đã báo cáo trang.";
 "reportSiteAnalyticsOff" = "Việc báo cáo cần số liệu thống kê sử dụng, hiện đang tắt.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther đang ở giai đoạn truy cập sớm";
+"betaNoticeText" = "Một số thứ có thể chưa hoạt động — điều đó là bình thường và sẽ tốt hơn sau mỗi bản cập nhật. Phiên bản hoàn chỉnh sắp ra mắt إن شاء الله.";
+"betaNoticeFollow" = "Theo dõi dev&din để biết tin đầu tiên:";
+"betaNoticeWhatsApp" = "Kênh WhatsApp";
+"betaNoticeTelegram" = "Kênh Telegram";
+"betaNoticeDismiss" = "Đóng thông báo này";

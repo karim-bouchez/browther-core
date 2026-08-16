@@ -35,3 +35,12 @@
 "reportSiteButton" = "Nahlásit tento web";
 "reportSiteDone" = "Děkujeme — web byl nahlášen.";
 "reportSiteAnalyticsOff" = "Nahlášení vyžaduje statistiky používání, které jsou vypnuté.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther je v předběžném přístupu";
+"betaNoticeText" = "Něco ještě nemusí fungovat — to se dá čekat a s každou aktualizací se to zlepšuje. Hotová verze přijde brzy إن شاء الله.";
+"betaNoticeFollow" = "Sleduj dev&din a dozvíš se to jako první:";
+"betaNoticeWhatsApp" = "Kanál WhatsApp";
+"betaNoticeTelegram" = "Kanál Telegram";
+"betaNoticeDismiss" = "Zavřít toto oznámení";

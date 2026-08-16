@@ -35,3 +35,12 @@
 "reportSiteButton" = "דווח על האתר הזה";
 "reportSiteDone" = "תודה — האתר דווח.";
 "reportSiteAnalyticsOff" = "הדיווח דורש סטטיסטיקות שימוש, שכבויות.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther בגישה מוקדמת";
+"betaNoticeText" = "ייתכן שחלק מהדברים עדיין לא עובדים — זה צפוי, וזה משתפר עם כל עדכון. הגרסה הסופית מגיעה בקרוב إن شاء الله.";
+"betaNoticeFollow" = "עקוב אחרי dev&din כדי לשמוע על זה ראשון:";
+"betaNoticeWhatsApp" = "ערוץ WhatsApp";
+"betaNoticeTelegram" = "ערוץ Telegram";
+"betaNoticeDismiss" = "סגירת התראה זו";

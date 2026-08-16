@@ -35,3 +35,12 @@
 "reportSiteButton" = "Diese Website melden";
 "reportSiteDone" = "Danke — Website gemeldet.";
 "reportSiteAnalyticsOff" = "Zum Melden werden Nutzungsstatistiken benötigt, die deaktiviert sind.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther ist im Early Access";
+"betaNoticeText" = "Manches funktioniert vielleicht noch nicht — das ist normal und wird mit jedem Update besser. Die fertige Version kommt bald إن شاء الله.";
+"betaNoticeFollow" = "Folge dev&din, um es als Erster zu erfahren:";
+"betaNoticeWhatsApp" = "WhatsApp-Kanal";
+"betaNoticeTelegram" = "Telegram-Kanal";
+"betaNoticeDismiss" = "Diese Mitteilung schließen";

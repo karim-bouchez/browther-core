@@ -35,3 +35,12 @@
 "reportSiteButton" = "इस साइट की रिपोर्ट करें";
 "reportSiteDone" = "धन्यवाद — साइट की रिपोर्ट कर दी गई।";
 "reportSiteAnalyticsOff" = "रिपोर्ट करने के लिए उपयोग आँकड़े चाहिए, जो बंद हैं।";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther अर्ली ऐक्सेस में है";
+"betaNoticeText" = "कुछ चीज़ें अभी काम न करें, ऐसा हो सकता है — यह सामान्य है और हर अपडेट के साथ बेहतर होता जाता है। पूरा वर्शन जल्द आ रहा है إن شاء الله।";
+"betaNoticeFollow" = "सबसे पहले जानने के लिए dev&din को फ़ॉलो करें:";
+"betaNoticeWhatsApp" = "WhatsApp चैनल";
+"betaNoticeTelegram" = "Telegram चैनल";
+"betaNoticeDismiss" = "इस नोटिस को बंद करें";

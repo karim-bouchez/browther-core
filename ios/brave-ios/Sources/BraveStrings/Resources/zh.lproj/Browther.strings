@@ -35,3 +35,12 @@
 "reportSiteButton" = "报告此网站";
 "reportSiteDone" = "谢谢，已报告该网站。";
 "reportSiteAnalyticsOff" = "报告需要使用统计信息，但该功能已关闭。";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — repris des
+   traductions desktop (mêmes textes source, même hash grit). */
+"betaNoticeTitle" = "Browther 处于抢先体验阶段";
+"betaNoticeText" = "有些功能可能还不能用——这是正常的，每次更新都会更好。完整版本即将推出 إن شاء الله。";
+"betaNoticeFollow" = "关注 dev&din，第一时间获知：";
+"betaNoticeWhatsApp" = "WhatsApp 频道";
+"betaNoticeTelegram" = "Telegram 频道";
+"betaNoticeDismiss" = "关闭此通知";
