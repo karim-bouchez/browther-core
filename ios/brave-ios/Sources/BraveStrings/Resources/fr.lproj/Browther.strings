@@ -35,3 +35,10 @@
 "reportSiteButton" = "Signaler ce site";
 "reportSiteDone" = "Merci — site signalé.";
 "reportSiteAnalyticsOff" = "Le signalement a besoin des statistiques d'usage, qui sont désactivées.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — mêmes textes que le desktop
+   (IDS_NEW_TAB_BROWTHER_BETA_*), donc mêmes traductions. */
+"betaNoticeTitle" = "Browther est en accès anticipé";
+"betaNoticeText" = "Certaines choses peuvent ne pas encore marcher — c’est normal, et ça s’améliore à chaque mise à jour. La version finale arrive bientôt إن شاء الله.";
+"betaNoticeFollow" = "Un souci, une idée ? Écris-nous sur";
+"betaNoticeDismiss" = "Fermer ce message";

@@ -289,6 +289,22 @@
     More from dev&amp;din
   </message>
 
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_TITLE" desc="Title of the early-access notice shown at the top of the Browther new tab page. Browther is a product name, keep it as-is." formatter_data="webui=BraveNewTabPage">
+    Browther is in early access
+  </message>
+
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_TEXT" desc="Body of the early-access notice on the Browther new tab page. Reassures the user that rough edges are expected rather than a broken product. The Arabic phrase means 'God willing' and is used as-is by Muslim speakers of every language, including in English and French text — do not translate or transliterate it." formatter_data="webui=BraveNewTabPage">
+    Some things may not work yet — that is expected, and it gets better with every update. The finished version is coming soon إن شاء الله.
+  </message>
+
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_FOLLOW" desc="Label introducing the two channel links (WhatsApp, Telegram) in the early-access notice on the Browther new tab page. The links let the user report a problem and hear about updates. dev&amp;din is a brand name, keep it as-is." formatter_data="webui=BraveNewTabPage">
+    A problem, an idea? Talk to us on
+  </message>
+
+  <message name="IDS_NEW_TAB_BROWTHER_BETA_DISMISS" desc="Accessible label and tooltip for the button that closes the early-access notice on the Browther new tab page" formatter_data="webui=BraveNewTabPage">
+    Close this notice
+  </message>
+
   <message name="IDS_NEW_TAB_STATS_TITLE" desc="Title for Brave Stats widget" formatter_data="webui=BraveNewTabPage">
     STATS
   </message>

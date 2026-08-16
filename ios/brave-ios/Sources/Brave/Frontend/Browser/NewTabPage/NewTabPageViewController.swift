@@ -263,6 +263,26 @@ class NewTabPageViewController: UIViewController {
       sections.insert(ntpDefaultBrowserCalloutProvider, at: 0)
     }
 
+    // Browther : bandeau « accès anticipé », tout en haut pour être lu avant
+    // que l'attention parte ailleurs. Passe DEVANT le callout « navigateur par
+    // défaut » : savoir que l'app est inachevée conditionne la lecture de tout
+    // le reste — proposer de la définir par défaut d'abord serait à l'envers.
+    // Pas en navigation privée : c'est un message de contexte produit, pas une
+    // information de session, et l'écran privé a son propre discours.
+    if !privateBrowsingManager.isPrivateBrowsing {
+      let betaNoticeProvider = BrowtherBetaNoticeSectionProvider()
+      betaNoticeProvider.onChannelTapped = { [weak self] url in
+        self?.delegate?.navigateToInput(
+          url.absoluteString,
+          inNewTab: true,
+          switchingToPrivateMode: false
+        )
+      }
+      if betaNoticeProvider.shouldShowNotice() {
+        sections.insert(betaNoticeProvider, at: 0)
+      }
+    }
+
     // Browther: Brave News section removed
 
     collectionView.do {

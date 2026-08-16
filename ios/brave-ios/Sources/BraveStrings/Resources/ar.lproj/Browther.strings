@@ -35,3 +35,10 @@
 "reportSiteButton" = "أبلغ عن هذا الموقع";
 "reportSiteDone" = "شكرًا — تم الإبلاغ عن الموقع.";
 "reportSiteAnalyticsOff" = "يتطلب الإبلاغ إحصاءات الاستخدام، وهي متوقفة.";
+
+/* Bandeau « accès anticipé » du Nouvel Onglet — mêmes textes que le desktop
+   (IDS_NEW_TAB_BROWTHER_BETA_*), donc mêmes traductions. */
+"betaNoticeTitle" = "Browther في مرحلة الوصول المبكر";
+"betaNoticeText" = "قد لا تعمل بعض الأمور بعد — هذا متوقَّع، ويتحسّن مع كل تحديث. النسخة النهائية قريبًا إن شاء الله.";
+"betaNoticeFollow" = "مشكلة أو فكرة؟ راسلنا على";
+"betaNoticeDismiss" = "إغلاق هذا الإشعار";

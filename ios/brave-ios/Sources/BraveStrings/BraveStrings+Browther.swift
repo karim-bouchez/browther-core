@@ -251,5 +251,42 @@ extension Strings {
       value: "Reporting needs usage statistics, which are turned off.",
       comment: "Shown when analytics are disabled"
     )
+
+    // MARK: - Bandeau « accès anticipé » du Nouvel Onglet
+    //
+    // Textes anglais IDENTIQUES au desktop (`brave_new_tab_page_strings.grdp`,
+    // IDS_NEW_TAB_BROWTHER_BETA_*) : c'est ce qui permet de réutiliser les
+    // traductions déjà écrites côté .xtb, la correspondance se faisant par hash
+    // du texte source. Toute retouche ici doit être répercutée là-bas.
+    public static let betaNoticeTitle = NSLocalizedString(
+      "betaNoticeTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Browther is in early access",
+      comment: "Title of the early-access notice on the new tab page"
+    )
+    public static let betaNoticeText = NSLocalizedString(
+      "betaNoticeText",
+      tableName: "Browther",
+      bundle: .module,
+      value:
+        "Some things may not work yet — that is expected, and it gets better "
+        + "with every update. The finished version is coming soon إن شاء الله.",
+      comment: "Body of the early-access notice on the new tab page"
+    )
+    public static let betaNoticeFollow = NSLocalizedString(
+      "betaNoticeFollow",
+      tableName: "Browther",
+      bundle: .module,
+      value: "A problem, an idea? Talk to us on",
+      comment: "Label introducing the WhatsApp and Telegram links"
+    )
+    public static let betaNoticeDismiss = NSLocalizedString(
+      "betaNoticeDismiss",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Close this notice",
+      comment: "Accessibility label of the notice's close button"
+    )
   }
 }

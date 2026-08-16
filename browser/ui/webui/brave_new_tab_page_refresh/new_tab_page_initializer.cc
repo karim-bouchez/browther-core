@@ -42,6 +42,7 @@
 #include "components/regional_capabilities/regional_capabilities_country_id.h"
 #include "components/regional_capabilities/regional_capabilities_service.h"
 #include "components/strings/grit/components_strings.h"
+#include "components/version_info/version_info.h"
 #include "content/public/browser/web_ui.h"
 #include "content/public/browser/web_ui_data_source.h"
 #include "services/network/public/mojom/content_security_policy.mojom.h"
@@ -168,6 +169,11 @@ void NewTabPageInitializer::AddLoadTimeValues() {
 
   source_->AddString("sponsoredRichMediaBaseUrl",
                      kNTPNewTabTakeoverRichMediaUrl);
+
+  // Browther : clé du « déjà vu » du bandeau d'accès anticipé (cf.
+  // components/widgets/browther_beta_notice.tsx). La fermeture est enregistrée
+  // pour CETTE version, donc une mise à jour redonne le bandeau une fois.
+  source_->AddString("browtherAppVersion", version_info::GetVersionNumber());
 
   source_->AddBoolean(
       "ntpSearchFeatureEnabled",

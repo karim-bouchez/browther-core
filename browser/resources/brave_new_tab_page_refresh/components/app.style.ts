@@ -168,6 +168,18 @@ export const style = scoped.css`
     }
   }
 
+  .beta-notice-container {
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Bandeau fermé (BrowtherBetaNotice rend null) → retire du flux, sinon le
+     gap 16px de main laisserait un trou au-dessus des favoris. */
+  .beta-notice-container:empty {
+    display: none;
+  }
+
   .topsites-container {
     padding: 16px 0;
     align-self: stretch;

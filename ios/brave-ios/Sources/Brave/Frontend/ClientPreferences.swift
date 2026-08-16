@@ -89,6 +89,14 @@ extension Preferences {
     static let defaultBrowserCalloutDismissed =
       Option<Bool>(key: "general.default-browser-callout-dismissed", default: false)
 
+    /// Browther : version pour laquelle le bandeau « accès anticipé » du NTP a
+    /// été fermé. Une string et non un booléen, pour que chaque mise à jour
+    /// redonne le bandeau une fois — tant qu'on est en accès anticipé, une
+    /// nouvelle build mérite de redire qu'elle n'est pas la version finale.
+    /// Parité desktop : `localStorage['browther.betaNoticeDismissedVersion']`.
+    static let browtherBetaNoticeDismissedVersion =
+      Option<String>(key: "general.browther-beta-notice-dismissed-version", default: "")
+
     /// Whether or not the app (in regular browsing mode) will follow universal links
     static let followUniversalLinks = Option<Bool>(
       key: "general.follow-universal-links",

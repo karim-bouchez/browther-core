@@ -16,6 +16,7 @@ import { Clock } from './common/clock'
 // Browther: News disabled — LazyNewsFeed not imported.
 import { WidgetStack } from './widgets/widget_stack'
 import { BrowtherAdBanner } from './widgets/browther_ad_banner'
+import { BrowtherBetaNotice } from './widgets/browther_beta_notice'
 import { useSearchLayoutReady, useWidgetLayoutReady } from './app_layout_ready'
 
 import { style } from './app.style'
@@ -58,6 +59,13 @@ export function App() {
         >
           <Icon name='settings' />
         </button>
+        {/* Browther : bandeau « accès anticipé », en tête pour être lu avant
+            que l'attention parte sur la barre de recherche. `:empty` (bandeau
+            fermé → BrowtherBetaNotice rend null) le retire du flux, sinon le
+            gap 16px de main laisserait un trou en haut de page. */}
+        <div className='beta-notice-container'>
+          <BrowtherBetaNotice />
+        </div>
         <div className='topsites-container'>
           <TopSites />
         </div>

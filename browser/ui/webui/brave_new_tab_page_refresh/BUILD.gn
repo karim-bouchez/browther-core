@@ -94,6 +94,7 @@ source_set("brave_new_tab_page_refresh") {
     "//components/prefs",
     "//components/regional_capabilities",
     "//components/strings:components_strings",
+    "//components/version_info",
     "//ui/base",
     "//ui/shell_dialogs",
     "//ui/webui",
