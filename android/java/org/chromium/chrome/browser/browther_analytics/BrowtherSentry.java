@@ -8,10 +8,16 @@ package org.chromium.chrome.browser.browther_analytics;
 import android.content.Context;
 
 import io.sentry.Sentry;
+import io.sentry.SentryEvent;
 import io.sentry.android.core.SentryAndroid;
 
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
+import org.chromium.build.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Init Sentry-Android pour Browther.
@@ -60,6 +66,13 @@ public final class BrowtherSentry {
                         options.setEnableAutoSessionTracking(false);
                         // Le release name sera affiné en Batch 2.5 (via BuildConfig).
                         options.setRelease("browther-android");
+                        // Dernier point de passage avant l'envoi réseau : rien ne
+                        // sort sans traverser ce filtre. Cf. scrubNavigationData.
+                        options.setBeforeSend(
+                                (event, hint) -> {
+                                    scrubNavigationData(event);
+                                    return event;
+                                });
                     });
             Sentry.setTag("os", "android");
             sStarted = true;
@@ -68,5 +81,60 @@ public final class BrowtherSentry {
             // Sentry ne doit jamais faire crasher l'app au démarrage.
             Log.e(TAG, "Sentry init failed", t);
         }
+    }
+
+    /**
+     * Retire d'un event Sentry tout ce qui pourrait porter une adresse visitée.
+     *
+     * <p>Browther promet publiquement de ne jamais transmettre les URL visitées
+     * ({@code docs/ANALYTICS.md}), avec une seule exception : le bouton
+     * « Signaler ce site », où l'utilisateur choisit d'envoyer, voit le domaine
+     * avant de cliquer, et où seul l'eTLD+1 part. Tout le reste doit être muet.
+     *
+     * <p>Android n'a pas le trou trouvé sur iOS — la capture des requêtes
+     * échouées y passe par l'intégration OkHttp, que Chromium n'utilise pas.
+     * Le filtre est là quand même, et c'est délibéré : sur iOS la fuite venait
+     * d'un DÉFAUT du SDK, pas d'un choix (cf. BROWTHER-28). Un défaut peut
+     * apparaître ici à la prochaine montée de version, et personne ne relira
+     * cette classe à ce moment-là. Aligner les trois plateformes sur le même
+     * garde-fou coûte moins cher que de se demander, à chaque bump, laquelle
+     * était protégée.
+     *
+     * <p>Volontairement grossier : on préfère perdre du contexte de debug que
+     * laisser filer une adresse. C'est la stacktrace qui rend un crash
+     * exploitable, pas l'URL.
+     */
+    private static void scrubNavigationData(SentryEvent event) {
+        event.setRequest(null);
+
+        Map<String, String> tags = event.getTags();
+        if (tags != null) {
+            // Copie des clés avant de retirer : on modifie la map d'origine.
+            for (String key : new ArrayList<>(tags.keySet())) {
+                if (looksLikeUrl(tags.get(key))) {
+                    event.removeTag(key);
+                }
+            }
+        }
+
+        Map<String, Object> extras = event.getExtras();
+        if (extras != null) {
+            for (String key : new ArrayList<>(extras.keySet())) {
+                Object value = extras.get(key);
+                // Une valeur non-textuelle ne peut pas porter d'URL : on la garde.
+                if (value instanceof String && looksLikeUrl((String) value)) {
+                    event.removeExtra(key);
+                }
+            }
+        }
+    }
+
+    /** Heuristique délibérément large : au moindre doute, on jette. */
+    private static boolean looksLikeUrl(@Nullable String value) {
+        if (value == null) {
+            return false;
+        }
+        String lowered = value.toLowerCase(Locale.ROOT);
+        return lowered.contains("http://") || lowered.contains("https://");
     }
 }

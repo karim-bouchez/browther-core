@@ -96,6 +96,47 @@ public final class BrowtherAnalyticsService {
 
   // MARK: - Sentry
 
+  /// Retire d'un event Sentry tout ce qui pourrait porter une adresse visitée.
+  ///
+  /// Browther promet publiquement de ne jamais transmettre les URL visitées
+  /// (`docs/ANALYTICS.md`), avec une seule exception : le bouton « Signaler ce
+  /// site », où l'utilisateur choisit d'envoyer, voit le domaine avant de
+  /// cliquer, et où seul l'eTLD+1 part. Tout le reste doit être muet.
+  ///
+  /// Ce filtre existe parce qu'un réglage ne suffit pas : le chemin découvert
+  /// en prod (`enableCaptureFailedRequests`, cf. BROWTHER-28) était un DÉFAUT
+  /// du SDK, pas un choix. Un autre défaut peut apparaître à la prochaine
+  /// montée de version, et personne ne relira cette classe à ce moment-là.
+  /// D'où un garde-fou au dernier point de passage plutôt qu'une liste
+  /// d'options à maintenir.
+  ///
+  /// Volontairement grossier : on préfère perdre du contexte de debug que
+  /// laisser filer une adresse. Un crash reste exploitable sans elle — c'est la
+  /// stacktrace qui compte.
+  private static func scrubNavigationData(from event: Event) -> Event? {
+    // Le bloc HTTP entier : c'est lui qui portait l'URL dans BROWTHER-28.
+    // Aucun crash Browther n'a besoin de savoir quelle requête était en vol.
+    event.request = nil
+
+    if let tags = event.tags {
+      event.tags = tags.filter { !looksLikeURL($0.value) }
+    }
+    if let extra = event.extra {
+      event.extra = extra.filter { _, value in
+        // Une valeur non-textuelle ne peut pas porter d'URL : on la garde.
+        guard let text = value as? String else { return true }
+        return !looksLikeURL(text)
+      }
+    }
+    return event
+  }
+
+  /// Heuristique délibérément large : au moindre doute, on jette.
+  private static func looksLikeURL(_ value: String) -> Bool {
+    let lowered = value.lowercased()
+    return lowered.contains("http://") || lowered.contains("https://")
+  }
+
   private func startSentry() {
     guard !sentryStarted else { return }
     let dsn = AnalyticsConfig.sentryDsn
@@ -135,6 +176,12 @@ public final class BrowtherAnalyticsService {
       // Aucune perte : ces erreurs ne sont pas des bugs Browther mais des
       // pannes de serveurs tiers, sur lesquelles on ne peut rien.
       options.enableCaptureFailedRequests = false
+      // Filet de sécurité : le réglage ci-dessus ferme le chemin CONNU, celui-ci
+      // ferme les autres. Dernier point de passage avant l'envoi réseau, donc
+      // rien ne sort de l'app sans traverser ce filtre — quelle que soit
+      // l'option activée plus tard, par nous ou par un défaut du SDK qui change
+      // à la montée de version.
+      options.beforeSend = { event in Self.scrubNavigationData(from: event) }
       // Pas de PII (IP, device name custom)
       options.sendDefaultPii = false
       // Tag pour cross-filter dans le dashboard Sentry partagé Desktop/iOS/Android.
