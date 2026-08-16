@@ -158,6 +158,14 @@ leo_icons = [
   "bank.svg",
   "bar-chart.svg",
   "bat-color.svg",
+
+  # Browther : bandeau « accès anticipé » du NTP
+  # (browser/resources/brave_new_tab_page_refresh/components/widgets/
+  # browther_beta_notice.tsx). Cette liste est une ALLOWLIST — une icône Leo
+  # absente d'ici n'est pas copiée vers chrome://resources/brave-icons, et
+  # <Icon name="…"> rend alors du vide, sans erreur console.
+  "beaker.svg",
+
   "bing-color.svg",
   "biometric-login.svg",
   "bluetooth-off.svg",
