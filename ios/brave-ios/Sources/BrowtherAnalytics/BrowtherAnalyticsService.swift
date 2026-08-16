@@ -120,6 +120,21 @@ public final class BrowtherAnalyticsService {
       // aucun ne correspondant à un gel signalé. À 5 s on ne remonte plus que les gels
       // réellement perceptibles.
       options.appHangTimeoutInterval = 5
+      // ⚠️ NE JAMAIS REMETTRE À true — fuite d'URL visitées.
+      //
+      // Le SDK Cocoa hooke NSURLSession et remonte une erreur pour toute
+      // réponse HTTP 5xx, avec l'URL complète en tag. Dans une app ordinaire
+      // ce sont les appels de l'app à son propre backend ; dans un NAVIGATEUR,
+      // c'est la navigation de l'utilisateur. Constaté en prod le 2026-07-30
+      // (issue BROWTHER-28) : un 500 de `www.google.com/complete/search` — donc
+      // une frappe dans la barre d'adresse — enregistré dans Sentry, l'URL en
+      // clair. Cela contredit frontalement la règle affichée publiquement
+      // (`docs/ANALYTICS.md` § Ce qu'on ne tracke JAMAIS, et la FAQ du site),
+      // dont `site_reported` est la SEULE exception, bornée au domaine.
+      //
+      // Aucune perte : ces erreurs ne sont pas des bugs Browther mais des
+      // pannes de serveurs tiers, sur lesquelles on ne peut rien.
+      options.enableCaptureFailedRequests = false
       // Pas de PII (IP, device name custom)
       options.sendDefaultPii = false
       // Tag pour cross-filter dans le dashboard Sentry partagé Desktop/iOS/Android.
