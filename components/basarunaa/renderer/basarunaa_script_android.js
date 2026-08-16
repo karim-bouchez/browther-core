@@ -68,6 +68,9 @@
     }
     return null;
   }
+  function setImageState(el, state) {
+    el.setAttribute(STATE_ATTR, state);
+  }
 
   const DEFAULT_MIN_SIZE = 46;
   function isSvgUrl(url) {
@@ -1672,6 +1675,10 @@
       {
         onImageDiscovered(img) {
           discoveredCount++;
+          if (decisionCache.get(img.currentSrc || img.src || "") === "remove") {
+            setImageState(img, "remove");
+            return;
+          }
           applyHideFirst(img);
           if (observer) {
             observer.observe(img);

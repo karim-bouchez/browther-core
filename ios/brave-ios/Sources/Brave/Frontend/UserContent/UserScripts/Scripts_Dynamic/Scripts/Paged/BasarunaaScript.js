@@ -86,6 +86,9 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     }
     return null;
   }
+  function setImageState(el, state) {
+    el.setAttribute(STATE_ATTR, state);
+  }
 
   const DEFAULT_MIN_SIZE = 46;
   function isSvgUrl(url) {
@@ -1543,6 +1546,10 @@ video:not([data-basarunaa]) { filter: none !important; }
       {
         onImageDiscovered(img) {
           discoveredCount++;
+          if (decisionCache.get(img.currentSrc || img.src || "") === "remove") {
+            setImageState(img, "remove");
+            return;
+          }
           applyHideFirst(img);
           if (observer) {
             observer.observe(img);
