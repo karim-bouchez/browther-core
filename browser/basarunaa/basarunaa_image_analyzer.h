@@ -106,6 +106,15 @@ class BasarunaaImageAnalyzer
   // Bbox {x, y, w, h} (pixels) des personnes floutées à l'analyse précédente.
   std::vector<std::array<float, 4>> prev_blurred_boxes_;
 
+  // Mesure de `p` — part des frames analysées qui contiennent réellement une
+  // personne, pendant vidéo de ce que l'offscreen MV3 mesure pour les images de
+  // page. Sert à décider si un pré-filtre (détecteur généraliste léger lancé
+  // AVANT gender-v2n, et qui évite de le lancer quand il n'y a personne) serait
+  // rentable ici : seuil de bascule p* = 1 − C_v/C_g. Loggé par paliers, jamais
+  // transmis — c'est une mesure de diagnostic local.
+  int p_frames_ = 0;
+  int p_frames_with_person_ = 0;
+
   mojo::ReceiverSet<mojom::ImageAnalyzer> receivers_;
 
   WEB_CONTENTS_USER_DATA_KEY_DECL();

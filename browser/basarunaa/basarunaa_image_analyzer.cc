@@ -476,6 +476,20 @@ void BasarunaaImageAnalyzer::OnAnalyzeDone(
   const bool nsfw = (result.nsfw_score >= 0.f &&
                      result.nsfw_score >= static_cast<float>(nsfw_conf)) ||
                     result.nsfw_exposed;
+  // Mesure de `p` (vidéo) — voir le header. Le pipeline vidéo desktop passe
+  // exclusivement par ici depuis 2026-07-07, donc ce compteur porte bien sur les
+  // frames vidéo, séparément de celui des images (offscreen MV3).
+  ++p_frames_;
+  if (!result.persons.empty()) {
+    ++p_frames_with_person_;
+  }
+  if (p_frames_ <= 20 ? p_frames_ % 10 == 0
+                      : (p_frames_ <= 100 ? p_frames_ % 25 == 0
+                                          : p_frames_ % 200 == 0)) {
+    LOG(INFO) << "[Basarunaa:p/video] frames=" << p_frames_ << " p="
+              << (100 * p_frames_with_person_ / p_frames_) << "%";
+  }
+
   // #18 stats « personnes floutées » (parité Android) : compte les personnes
   // floutées AVANT de move les persons dans le callback.
   CountBlurredPersons(result.persons, blur_enabled);
