@@ -143,6 +143,8 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetAllowlistedKeys() {
       settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaBlurEnabled] =
       settings_api::PrefType::kBoolean;
+  (*s_brave_allowlist)[kBasarunaaCollectEnabled] =
+      settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaTfliteGpuEnabled] =
       settings_api::PrefType::kBoolean;
   (*s_brave_allowlist)[kBasarunaaTfliteCompareMode] =

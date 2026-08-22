@@ -159,7 +159,8 @@ void BasarunaaPanelHandler::GetDevSettings(GetDevSettingsCallback callback) {
   auto* prefs = profile_->GetPrefs();
   std::move(callback).Run(prefs->GetString(kBasarunaaDebugMode),
                           prefs->GetBoolean(kBasarunaaCaptureMode),
-                          prefs->GetBoolean(kBasarunaaBlurEnabled));
+                          prefs->GetBoolean(kBasarunaaBlurEnabled),
+                          prefs->GetBoolean(kBasarunaaCollectEnabled));
 }
 
 void BasarunaaPanelHandler::SetDebugMode(const std::string& mode) {
@@ -172,4 +173,12 @@ void BasarunaaPanelHandler::SetCaptureMode(bool enabled) {
 
 void BasarunaaPanelHandler::SetBlurEnabled(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaBlurEnabled, enabled);
+}
+
+// [Browther] Collecte de corpus — opt-in strict. L'extension lit cette pref via
+// chrome.settingsPrivate ; c'est le SEUL interrupteur. La page de contrôle
+// (chrome-extension://<id>/collect.html) ne porte que les réglages fins et le
+// tableau de bord : elle ne peut rien activer d'elle-même.
+void BasarunaaPanelHandler::SetCollectEnabled(bool enabled) {
+  profile_->GetPrefs()->SetBoolean(kBasarunaaCollectEnabled, enabled);
 }

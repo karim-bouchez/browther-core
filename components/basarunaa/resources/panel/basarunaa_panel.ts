@@ -86,6 +86,7 @@ async function refreshState() {
     setUIDebugMode(dev.debugMode)
     setUICapture(dev.captureMode)
     setUIBlurEnabled(dev.blurEnabled)
+    setUICollect(dev.collectEnabled)
   } catch (err) {
     console.error('[basarunaa-panel] refreshState failed', err)
   }
@@ -98,6 +99,11 @@ function setUIDebugMode(mode: string) {
 
 function setUICapture(enabled: boolean) {
   const toggle = document.getElementById('capture-toggle') as HTMLInputElement | null
+  if (toggle) toggle.checked = enabled
+}
+
+function setUICollect(enabled: boolean) {
+  const toggle = document.getElementById('collect-toggle') as HTMLInputElement | null
   if (toggle) toggle.checked = enabled
 }
 
@@ -286,6 +292,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('[basarunaa-panel] setDebugMode failed', err)
       }
     })
+  })
+
+  const collectToggle = document.getElementById('collect-toggle') as HTMLInputElement | null
+  collectToggle?.addEventListener('change', () => {
+    try {
+      api().setCollectEnabled(collectToggle.checked)
+    } catch (err) {
+      console.error('[basarunaa-panel] setCollectEnabled failed', err)
+    }
   })
 
   const captureToggle = document.getElementById('capture-toggle') as HTMLInputElement | null

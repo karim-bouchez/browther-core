@@ -64,6 +64,7 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void SetDebugMode(const std::string& mode) override;
   void SetCaptureMode(bool enabled) override;
   void SetBlurEnabled(bool enabled) override;
+  void SetCollectEnabled(bool enabled) override;
 
  private:
   // Fenêtre qui héberge la bulle, ou nullptr. À rappeler à chaque usage.

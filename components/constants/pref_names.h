@@ -107,6 +107,15 @@ inline constexpr char kBasarunaaCaptureMode[] = "brave.basarunaa.capture_mode";
 // Dev-only: couper UNIQUEMENT le floutage tout en gardant l'analyse + l'overlay
 // debug (voir l'image d'origine avec les boxes). Default true (floutage actif).
 inline constexpr char kBasarunaaBlurEnabled[] = "brave.basarunaa.blur_enabled";
+// Browther: collecte d'un corpus d'images de navigation pour le ré-entraînement
+// du modèle. OPT-IN STRICT, default false — c'est CETTE pref qui commande, pas
+// un réglage d'extension : le jour où la question « est-ce que le navigateur
+// ramasse mes images ? » se pose, la réponse doit être lisible dans les prefs du
+// profil, pas dans le stockage d'une extension. Tout reste local
+// (~/Downloads/basarunaa-corpus/). Détails :
+// private/extensions/basarunaa/docs/COLLECTE.md
+inline constexpr char kBasarunaaCollectEnabled[] =
+    "brave.basarunaa.collect_enabled";
 // Android-only V3 (2026-06-10) : TFLite + GpuDelegate pour yolo-pose. Bench
 // Huawei Mali-G76 = 4.6× speedup (410ms → 88ms). Default true ; le runtime
 // fallback ORT_CPU si CompatibilityList().isDelegateSupportedOnThisDevice()

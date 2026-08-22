@@ -92,10 +92,14 @@ interface PanelHandler {
   // Dev-only: debug overlay mode ("none" | "boxes" | "debug"), capture mode
   // (saves analyzed images to ~/Downloads/basarunaa-capture/), et blur_enabled
   // (false = coupe le floutage en gardant l'analyse + l'overlay debug).
-  GetDevSettings() => (string debug_mode, bool capture_mode, bool blur_enabled);
+  // `collect_enabled` : collecte d'un corpus de navigation pour le
+  // ré-entraînement du modèle. Opt-in strict, default false, local.
+  GetDevSettings() => (string debug_mode, bool capture_mode, bool blur_enabled,
+                       bool collect_enabled);
   SetDebugMode(string mode);
   SetCaptureMode(bool enabled);
   SetBlurEnabled(bool enabled);
+  SetCollectEnabled(bool enabled);
 };
 
 // Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). On recrée l'interface
