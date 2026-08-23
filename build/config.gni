@@ -58,7 +58,7 @@ declare_args() {
   # `2026.6.21.1` et non `2026.06.21.1`), (2) STRICTEMENT croissant composant
   # par composant à chaque release (sinon Sparkle ne proposera jamais l'update,
   # ou bouclera). Hotfix same-day : incrémenter le dernier `.N`.
-  browther_version = "2026.8.22"
+  browther_version = "2026.8.23"
   brave_exe = ""
   brave_version_major = ""
   brave_version_minor = ""
