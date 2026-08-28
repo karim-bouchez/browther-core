@@ -213,7 +213,6 @@ brave_jni_headers_sources = [
   "//brave/android/java/org/chromium/chrome/browser/brave_news/BraveNewsControllerFactory.java",
   "//brave/android/java/org/chromium/chrome/browser/browther_ads/BrowtherAdsBridge.java",
   "//brave/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherAnalyticsBridge.java",
-  "//brave/android/java/org/chromium/chrome/browser/browther_analytics/BrowtherSiteReport.java",
   "//brave/android/java/org/chromium/chrome/browser/cosmetic_filters/BraveCosmeticFiltersUtils.java",
   "//brave/android/java/org/chromium/chrome/browser/misc_metrics/MiscAndroidMetricsFactory.java",
   "//brave/android/java/org/chromium/chrome/browser/ntp_background_images/NTPBackgroundImagesBridge.java",
