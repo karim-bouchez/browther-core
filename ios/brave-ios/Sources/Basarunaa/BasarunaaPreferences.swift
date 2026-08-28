@@ -16,8 +16,18 @@ extension Preferences {
   /// Storage keys mirror the desktop pref names so the same user-facing
   /// defaults document covers both platforms.
   final public class Basarunaa {
-    /// Master ON/OFF — when false, the JS script handler keeps the default
-    /// CSS blur on but skips ML analysis entirely.
+    /// Master ON/OFF — when false, the Basarunaa user script is **not injected
+    /// at all** (`BrowserViewController.preferencesDidChange` →
+    /// `setScripts(scripts: [.basarunaa: isOn])` + reload), so no hide-first
+    /// blur is ever painted and no ML analysis runs.
+    ///
+    /// ⚠️ Corrigé le 2026-08-28 : ce commentaire disait « keeps the default CSS
+    /// blur on but skips ML analysis », ce qui n'est plus vrai depuis le
+    /// live-toggle et décrit en fait le bug **desktop** réparé le 2026-08-23
+    /// (`hide-first.css` déclaré dans le manifest MV3, donc injecté
+    /// indépendamment de la pref → flou d'attente alors que le floutage est
+    /// OFF). Un commentaire périmé coûte cher ici : il a fait passer iOS pour
+    /// atteint par un bug qu'il n'a pas, lors de l'audit de parité.
     ///
     /// Default `true` to match the desktop default (cf. `private/CLAUDE.md`)
     /// and the Browther "navigateur pré-configuré" UX.
@@ -95,6 +105,48 @@ extension Preferences {
     public static let captureMode = Option<Bool>(
       key: "basarunaa.capture-mode",
       default: false
+    )
+
+    // MARK: - Collecte de corpus (opt-in, locale)
+    //
+    // Voir `private/extensions/basarunaa/docs/COLLECTE.md`. Trois préférences
+    // seulement, et c'est délibéré : desktop persiste un objet de configuration
+    // complet, ce qui lui a coûté une version de schéma, une migration et trois
+    // pannes de divergence entre « ce que le réglage dit » et « ce que le
+    // collecteur fait ». Les réglages fins (taux, quotas, listes) sont ici des
+    // constantes de code (`CollectConfig`) — on ne peut pas diverger d'une
+    // valeur qui n'a qu'une seule source.
+
+    /// **L'interrupteur.** OFF par défaut : rien n'est collecté tant que
+    /// personne ne le coche, et il vit dans le panel → Debug, au même titre que
+    /// « Capture des analyses ». L'écran de contrôle ne peut PAS l'activer — il
+    /// ne porte que le nom d'appareil, les compteurs et l'export.
+    public static let collectEnabled = Option<Bool>(
+      key: "basarunaa.collect-enabled",
+      default: false
+    )
+
+    /// Nom d'appareil (`karim`, `epouse`) — préfixe les archives et marque
+    /// chaque ligne du manifeste (`dev`).
+    ///
+    /// ⚠️ Sans lui, deux appareils produisent des archives `anon-*`
+    /// indistinguables et le découpage par personne est perdu **sans recours**
+    /// pour les images déjà collectées. L'écran de contrôle lève un bandeau
+    /// tant qu'il est vide.
+    public static let collectDevice = Option<String>(
+      key: "basarunaa.collect-device",
+      default: ""
+    )
+
+    /// Échantillonner aussi une frame par SCÈNE de vidéo.
+    ///
+    /// Capturer une frame impose un readback GPU→CPU, précisément ce que
+    /// l'overlay vidéo évite à 60 fps. C'est borné (au plus une fois par scène,
+    /// plafonné par vidéo et par jour), mais **si une saccade apparaît sur une
+    /// vidéo, c'est le premier interrupteur à basculer**.
+    public static let collectVideoScenes = Option<Bool>(
+      key: "basarunaa.collect-video-scenes",
+      default: true
     )
 
     /// Returns one of `"blur-female"` / `"blur-male"` / `"blur-all"`, migrating

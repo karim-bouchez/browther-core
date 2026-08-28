@@ -3,8 +3,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import Basarunaa
 import Foundation
 import OSLog
+import Preferences
 import UIKit
 import Web
 
@@ -21,6 +23,11 @@ private final class BasarunaaFullscreenState {
 }
 private var basarunaaFullscreenStateKey: UInt8 = 0
 
+/// Observateur unique du passage en arrière-plan, pour vider les compteurs de
+/// la collecte. Global plutôt que membre : `BrowserViewController` est étendu
+/// ici, on ne peut pas lui ajouter de propriété stockée.
+private var basarunaaCollectBackgroundObserver: NSObjectProtocol?
+
 extension BrowserViewController: BasarunaaScriptHandlerDelegate {
   private static let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.BVC")
 
@@ -33,6 +40,43 @@ extension BrowserViewController: BasarunaaScriptHandlerDelegate {
 
   func basarunaaDidActivate(tab: (any TabState)?) {
     Self.log.info("activated for tab")
+    // Collecte de corpus : pousser les préférences au collecteur à chaque
+    // activation plutôt qu'une seule fois au lancement. C'est idempotent, et
+    // ça évite la panne desktop du 2026-08-21 — la configuration demandée UNE
+    // fois au démarrage se perdait quand l'autre bout n'écoutait pas encore, et
+    // le collecteur restait sur ses défauts (donc éteint) pour toute la
+    // session, pendant que l'écran affichait « active ». Une information qui
+    // compte ne se transmet pas une seule fois.
+    BrowserViewController.syncBasarunaaCollectPrefs()
+  }
+
+  /// Pousse les trois préférences de collecte au collecteur. Appelée à
+  /// l'activation de Basarunaa sur une page et à chaque changement de pref.
+  static func syncBasarunaaCollectPrefs() {
+    let enabled = Preferences.Basarunaa.collectEnabled.value
+    let device = Preferences.Basarunaa.collectDevice.value
+    let videoScenes = Preferences.Basarunaa.collectVideoScenes.value
+    Task.detached {
+      await Collector.shared.configure(
+        enabled: enabled, device: device, videoScenes: videoScenes)
+    }
+    observeBackgroundForBasarunaaCollect()
+  }
+
+  /// Les compteurs de la collecte sont écrits en différé (5 s) — sinon chaque
+  /// image provoquerait une écriture disque pour quelques centaines d'octets.
+  /// Sur un téléphone, l'app est suspendue plusieurs fois par heure : sans ce
+  /// vidage, les dernières secondes de compteurs seraient perdues à chaque
+  /// fois, et le total afficherait durablement moins que le corpus réel.
+  /// (Les images, elles, sont écrites immédiatement — jamais concernées.)
+  private static func observeBackgroundForBasarunaaCollect() {
+    guard basarunaaCollectBackgroundObserver == nil else { return }
+    basarunaaCollectBackgroundObserver = NotificationCenter.default.addObserver(
+      forName: UIApplication.didEnterBackgroundNotification,
+      object: nil, queue: nil
+    ) { _ in
+      Task.detached { await Collector.shared.persistNow() }
+    }
   }
 
   func basarunaaDidApplyBlur(tab: (any TabState)?, imageCount: Int) {

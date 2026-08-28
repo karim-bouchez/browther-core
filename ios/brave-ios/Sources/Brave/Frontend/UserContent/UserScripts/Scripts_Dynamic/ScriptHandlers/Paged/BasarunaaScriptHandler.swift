@@ -136,16 +136,30 @@ class BasarunaaScriptHandler: TabContentScript {
       }
 
     case "analyzeImage":
-      // data = "<id>|<base64Jpeg>"
-      guard let pipe = data.firstIndex(of: "|") else { return }
-      let idStr = String(data[..<pipe])
-      let b64 = String(data[data.index(after: pipe)...])
-      guard let id = Int(idStr) else { return }
+      // data = "<id>|<w>|<h>|<queueDepth>|<srcUrlB64>|<base64Jpeg>"
+      //
+      // ⚠️ Le format historique était "<id>|<base64Jpeg>". Le parsing accepte
+      // les deux : le bundle JS et le binaire natif ne sont pas déployés
+      // ensemble (le premier est un fichier copié, le second un build de 40
+      // minutes), donc un natif neuf DOIT tolérer un bundle ancien. Sinon la
+      // moindre désynchronisation ne floute plus rien du tout.
+      guard let parsed = Self.parseAnalyzeImage(data) else { return }
       let typeErasedTab: any TabState = tab
       let sourceFrame = message.frameInfo
+      // Contexte de collecte. Le drapeau de navigation privée vient de
+      // l'ONGLET, jamais du script de page : un script peut être trompé, et
+      // c'est la garantie qu'on ne collecte rien en navigation privée.
+      let collectContext = CollectContext(
+        srcUrl: parsed.srcUrl,
+        pageUrl: tab.visibleURL?.absoluteString ?? tab.url?.absoluteString ?? "",
+        width: parsed.width,
+        height: parsed.height,
+        queueDepth: parsed.queueDepth,
+        incognito: tab.isPrivate)
       Task.detached { [weak self] in
         await self?.processImage(
-          id: id, base64: b64, tab: typeErasedTab, frame: sourceFrame)
+          id: parsed.id, base64: parsed.jpegB64, tab: typeErasedTab,
+          frame: sourceFrame, collect: collectContext)
       }
 
     case "pageReset":
@@ -164,19 +178,23 @@ class BasarunaaScriptHandler: TabContentScript {
       log.info("fake_fullscreen_exit")
 
     case "videoFrame":
-      // data = "<videoId>|<ct_ms>|<w>|<h>|<base64Jpeg>"
+      // data = "<videoId>|<ct_ms>|<w>|<h>|<sceneOpening>|<base64Jpeg>"
+      // (format antérieur au 2026-08-28 : sans <sceneOpening> — toléré, cf.
+      //  la même remarque que pour analyzeImage sur la désynchronisation
+      //  bundle JS / binaire natif.)
+      //
       // Le base64 peut être gros (10+ KB) → on évite toute opération inutile
       // sur le data string en main thread (split est O(N)). On récupère
       // l'en-tête en cherchant les pipes à la main, puis on extrait le b64
       // en slice de String.
       var pipePositions: [String.Index] = []
-      pipePositions.reserveCapacity(4)
+      pipePositions.reserveCapacity(5)
       var idx = data.startIndex
-      while pipePositions.count < 4, let next = data[idx...].firstIndex(of: "|") {
+      while pipePositions.count < 5, let next = data[idx...].firstIndex(of: "|") {
         pipePositions.append(next)
         idx = data.index(after: next)
       }
-      guard pipePositions.count == 4 else {
+      guard pipePositions.count >= 4 else {
         log.error("videoFrame parse failed (no 4 pipes)")
         return
       }
@@ -188,7 +206,6 @@ class BasarunaaScriptHandler: TabContentScript {
       let v3End = pipePositions[2]
       let v4Start = data.index(after: pipePositions[2])
       let v4End = pipePositions[3]
-      let v5Start = data.index(after: pipePositions[3])
       guard let videoId = Int(data[v1Start..<v1End]),
         let ctMs = Int64(data[v2Start..<v2End]),
         let w = Int(data[v3Start..<v3End]),
@@ -197,22 +214,102 @@ class BasarunaaScriptHandler: TabContentScript {
         log.error("videoFrame header parse failed")
         return
       }
+      var sceneOpening = false
+      var payloadStart = data.index(after: pipePositions[3])
+      if pipePositions.count == 5 {
+        sceneOpening = data[payloadStart..<pipePositions[4]] == "1"
+        payloadStart = data.index(after: pipePositions[4])
+      }
       // V4 : pas de throttle natif — le JS pilote sa propre cadence (250 ms
       // en tracking, 5s en safe + trigger scene-change). Tout drop natif sans
       // callback fige `yoloInFlightById` côté JS (= flou freezé).
-      let b64 = String(data[v5Start...])
+      let b64 = String(data[payloadStart...])
       let typeErasedTab: any TabState = tab
       let sourceFrame = message.frameInfo
+      // Collecte : une frame par SCÈNE. `sceneOpening` vient du scheduler JS,
+      // qui vient de déclencher cette analyse parce que la scène a changé —
+      // donc aucune capture supplémentaire n'est faite pour le corpus.
+      let collectContext: CollectContext? =
+        sceneOpening
+        ? CollectContext(
+          srcUrl: "", pageUrl: tab.visibleURL?.absoluteString ?? tab.url?.absoluteString ?? "",
+          width: w, height: h, queueDepth: 0, incognito: tab.isPrivate)
+        : nil
       Task.detached { [weak self] in
         await self?.processVideoFrame(
           videoId: videoId, ctMs: ctMs, width: w, height: h, b64: b64,
-          tab: typeErasedTab, frame: sourceFrame
+          tab: typeErasedTab, frame: sourceFrame, collect: collectContext
         )
       }
 
     default:
       log.info("unknown_action=\(action, privacy: .public)")
     }
+  }
+
+  // MARK: - Parsing des payloads JS
+
+  /// Contexte nécessaire à la collecte de corpus, assemblé côté handler parce
+  /// que c'est le seul endroit qui voit à la fois le message du JS et l'onglet.
+  struct CollectContext: Sendable {
+    let srcUrl: String
+    let pageUrl: String
+    let width: Int
+    let height: Int
+    let queueDepth: Int
+    let incognito: Bool
+  }
+
+  struct ParsedAnalyzeImage {
+    let id: Int
+    let width: Int
+    let height: Int
+    let queueDepth: Int
+    let srcUrl: String
+    let jpegB64: String
+  }
+
+  /// `<id>|<w>|<h>|<queueDepth>|<srcUrlB64>|<jpeg>` — ou l'ancien `<id>|<jpeg>`.
+  ///
+  /// Découpage à la main plutôt que `split(separator:)` : le base64 du JPEG
+  /// pèse souvent plus de 100 Ko, et `split` construirait un tableau de sous-
+  /// chaînes en parcourant TOUT le payload alors que les cinq séparateurs
+  /// utiles sont dans les 200 premiers octets. C'est du travail sur le thread
+  /// principal, à chaque image analysée.
+  static func parseAnalyzeImage(_ data: String) -> ParsedAnalyzeImage? {
+    var bounds: [String.Index] = []
+    bounds.reserveCapacity(5)
+    var cursor = data.startIndex
+    while bounds.count < 5, let next = data[cursor...].firstIndex(of: "|") {
+      bounds.append(next)
+      cursor = data.index(after: next)
+    }
+    guard let first = bounds.first, let id = Int(data[data.startIndex..<first]) else {
+      return nil
+    }
+
+    // Format historique : un seul séparateur, aucun contexte de collecte.
+    guard bounds.count == 5 else {
+      return ParsedAnalyzeImage(
+        id: id, width: 0, height: 0, queueDepth: 0, srcUrl: "",
+        jpegB64: String(data[data.index(after: first)...]))
+    }
+
+    func field(_ i: Int) -> Substring {
+      data[data.index(after: bounds[i - 1])..<bounds[i]]
+    }
+    let width = Int(field(1)) ?? 0
+    let height = Int(field(2)) ?? 0
+    let queueDepth = Int(field(3)) ?? 0
+    var srcUrl = ""
+    if let decoded = Data(base64Encoded: String(field(4))),
+      let text = String(data: decoded, encoding: .utf8)
+    {
+      srcUrl = text
+    }
+    return ParsedAnalyzeImage(
+      id: id, width: width, height: height, queueDepth: queueDepth, srcUrl: srcUrl,
+      jpegB64: String(data[data.index(after: bounds[4])...]))
   }
 
   // MARK: - Prefs envoyées au JS (la policy vit dans core/policy.ts)
@@ -240,7 +337,7 @@ class BasarunaaScriptHandler: TabContentScript {
   /// flou freezé jusqu'au pageReset.
   private func processVideoFrame(
     videoId: Int, ctMs: Int64, width: Int, height: Int, b64: String,
-    tab: any TabState, frame: WKFrameInfo
+    tab: any TabState, frame: WKFrameInfo, collect: CollectContext? = nil
   ) async {
     let start = Date()
     var personsPayload: [[String: Any]] = []
@@ -342,12 +439,29 @@ class BasarunaaScriptHandler: TabContentScript {
         "videoFrame evaluateJS failed videoId=\(videoId, privacy: .public): \(String(describing: error), privacy: .public)"
       )
     }
+
+    // Collecte de corpus — une frame par SCÈNE, APRÈS que le verdict soit
+    // parti vers le JS (le flou ne doit jamais attendre la collecte). Les
+    // quotas vidéo (300/jour, 25 par vidéo, 4 s minimum entre deux) et
+    // l'allowlist d'hôtes sont appliqués dans le collecteur, avant toute
+    // probabilité — c'est ce qui empêche une seule vidéo de noyer le corpus.
+    if let collect, let jpegData = Data(base64Encoded: b64) {
+      await Collector.shared.offerVideoFrame(
+        videoKey: "\(collect.pageUrl)#\(videoId)",
+        pageUrl: collect.pageUrl,
+        det: CollectDetection(
+          pf: nil, raw: personsCount, ok: personsCount,
+          confs: personsPayload.compactMap { $0["genderConfidence"] as? Double }),
+        width: width, height: height, jpeg: jpegData,
+        incognito: collect.incognito, queueDepth: 0)
+    }
   }
 
   // MARK: - ML coupling (image)
 
   private func processImage(
-    id: Int, base64: String, tab: any TabState, frame: WKFrameInfo
+    id: Int, base64: String, tab: any TabState, frame: WKFrameInfo,
+    collect: CollectContext? = nil
   ) async {
     let start = Date()
     guard let imageData = Data(base64Encoded: base64),
@@ -362,7 +476,11 @@ class BasarunaaScriptHandler: TabContentScript {
     }
 
     do {
-      let result = try await BasarunaaPipeline.shared.analyze(image: cgImage)
+      // `useVerifier: true` — pré-filtre + vérificateur NanoDet, sur les IMAGES
+      // seulement (parité desktop : le pré-filtre vit dans l'offscreen, qui ne
+      // voit que les images ; la vidéo passe par un autre chemin des deux côtés).
+      let result = try await BasarunaaPipeline.shared.analyze(
+        image: cgImage, useVerifier: true)
       let debugMode = Preferences.Basarunaa.debugMode.value
       // PUR EXTRACTEUR : on envoie TOUTES les persons + prefs. Le JS
       // (core/policy) décide keep/remove et lesquelles flouter.
@@ -382,6 +500,23 @@ class BasarunaaScriptHandler: TabContentScript {
         elapsedMs: elapsedMs,
         frame: frame
       )
+
+      // Collecte de corpus (opt-in) — APRÈS que le verdict soit parti vers le
+      // JS. L'ordre est la garantie « zéro coût sur le chemin critique » : le
+      // flou est déjà appliqué quand la collecte commence à réfléchir, et tout
+      // son travail réel (GET anonyme, décodage, hash) part dans une file
+      // séparée à l'intérieur du collecteur.
+      if let collect {
+        await Collector.shared.offerImage(
+          srcUrl: collect.srcUrl,
+          pageUrl: collect.pageUrl,
+          det: result.det,
+          width: collect.width,
+          height: collect.height,
+          jpeg: imageData,
+          incognito: collect.incognito,
+          queueDepth: collect.queueDepth)
+      }
 
       // Phase 2 (POC parity) — fire NSFW check in the background. Only
       // notify JS when the result is positive. Gaté sur la pref (opt-in, OFF

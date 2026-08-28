@@ -1437,7 +1437,11 @@ video:not([data-basarunaa]) { filter: none !important; }
           h: job.img.naturalHeight,
           bytes: b64.length
         });
-        send("analyzeImage", `${job.id}|${b64}`);
+        const urlB64 = bytesToBase64(new TextEncoder().encode(job.url));
+        send(
+          "analyzeImage",
+          `${job.id}|${job.img.naturalWidth}|${job.img.naturalHeight}|${this.jobs.length}|${urlB64}|${b64}`
+        );
       }).catch((e) => {
         metric("encode_unexpected_error", { msg: String(e).slice(0, 120) });
         job.img.setAttribute(STATE_ATTR, "keep");
@@ -2499,7 +2503,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     if (comma < 0) return null;
     return dataUrl.slice(comma + 1);
   }
-  function sampleForAnalysis(videoId, video) {
+  function sampleForAnalysis(videoId, video, sceneOpening = false) {
     const vw = video.videoWidth;
     const vh = video.videoHeight;
     if (vw === 0 || vh === 0) return false;
@@ -2512,7 +2516,10 @@ video:not([data-basarunaa]) { filter: none !important; }
     const b64 = extractB64(dataUrl);
     if (!b64) return false;
     const ctMs = Math.round((video.currentTime || 0) * 1e3);
-    send("videoFrame", `${videoId}|${ctMs}|${sw}|${sh}|${b64}`);
+    send(
+      "videoFrame",
+      `${videoId}|${ctMs}|${sw}|${sh}|${sceneOpening ? 1 : 0}|${b64}`
+    );
     return true;
   }
 
@@ -2789,7 +2796,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             dueAfterMs: Math.round(nowMs - this.lastYoloMs),
             triggered
           });
-          if (!sampleForAnalysis(this.id, video)) {
+          if (!sampleForAnalysis(this.id, video, triggered)) {
             this.yoloInFlight = false;
           }
         }

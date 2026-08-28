@@ -203,6 +203,9 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var nsfwConf = Preferences.Basarunaa.nsfwConf
   @ObservedObject private var nudenetConf = Preferences.Basarunaa.nudenetConf
   @ObservedObject private var minSkeleton = Preferences.Basarunaa.minSkeleton
+  @ObservedObject private var collectEnabled = Preferences.Basarunaa.collectEnabled
+  @ObservedObject private var collectDevice = Preferences.Basarunaa.collectDevice
+  @State private var showCollectPanel = false
 
   var body: some View {
     ScrollView {
@@ -290,6 +293,9 @@ struct BasarunaaPanelView: View {
     }
     .frame(maxWidth: 360)
     .background(Color(.braveBackground))
+    .sheet(isPresented: $showCollectPanel) {
+      BasarunaaCollectPanelView()
+    }
   }
 
   // MARK: - Subviews
@@ -333,6 +339,64 @@ struct BasarunaaPanelView: View {
           set: { captureMode.value = $0 }
         ))
         .labelsHidden()
+      }
+
+      Divider()
+
+      // MARK: Collecte de corpus (opt-in)
+      //
+      // ⚠️ CE TOGGLE EST LE SEUL INTERRUPTEUR. L'écran de contrôle qui s'ouvre
+      // en dessous ne peut PAS activer la collecte — il ne porte que le nom
+      // d'appareil, les compteurs et l'export. C'est la leçon du 2026-08-22
+      // côté desktop : la page de contrôle y repoussait sa configuration par
+      // redondance, avec un `enabled` hérité du stockage, et rallumait la
+      // collecte en boucle par-dessus un interrupteur sur OFF. Un interrupteur,
+      // un seul écrivain.
+      //
+      // Il est visible par TOUS les utilisateurs, au même titre que « Capture
+      // des analyses ». C'était le choix à faire face à l'alternative — une
+      // préférence sans aucune UI, activable seulement par une URL cachée —
+      // qui aurait été moins visible mais aussi moins honnête.
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(verbatim: "Collecte de corpus").font(.subheadline.weight(.medium))
+          Text(
+            verbatim:
+              "Constitue localement un jeu d'images de navigation pour réentraîner le modèle. Rien ne quitte l'appareil, jamais en navigation privée, images publiques uniquement."
+          )
+          .font(.caption2)
+          .foregroundColor(.secondary)
+        }
+        Spacer()
+        Toggle("", isOn: Binding(
+          get: { collectEnabled.value },
+          set: { collectEnabled.value = $0 }
+        ))
+        .labelsHidden()
+      }
+
+      if collectEnabled.value {
+        Button {
+          showCollectPanel = true
+        } label: {
+          HStack(spacing: 4) {
+            Text(verbatim: "Compteurs, appareil et export")
+            Image(systemName: "chevron.right").font(.caption2)
+          }
+          .font(.caption)
+        }
+        // Le nom d'appareil manquant est SANS RECOURS pour les images déjà
+        // collectées : elles partent en `anon-*` et le découpage par personne
+        // est perdu. D'où l'avertissement ici, et pas seulement dans l'écran
+        // qu'on peut ne jamais ouvrir.
+        if collectDevice.value.isEmpty {
+          Label(
+            "Nomme l'appareil, sinon les archives seront indistinguables entre les deux téléphones.",
+            systemImage: "exclamationmark.triangle.fill"
+          )
+          .font(.caption2)
+          .foregroundColor(.orange)
+        }
       }
 
       Text(verbatim: "Logs: Console.app, subsystem `com.devndin.browther`")
