@@ -2914,6 +2914,14 @@ extension BrowserViewController: PreferencesObserver {
         $0.browserData?.setScripts(scripts: [.basarunaa: isOn])
       }
       tabManager.reloadSelectedTab()
+    case Preferences.Basarunaa.collectEnabled.key,
+      Preferences.Basarunaa.collectDevice.key,
+      Preferences.Basarunaa.collectVideoScenes.key:
+      // Browther: collecte de corpus (opt-in) — le collecteur est un acteur
+      // séparé, il ne lit pas les prefs de lui-même. Pas de rechargement
+      // d'onglet ici : allumer la collecte ne change rien à l'affichage, et
+      // recharger la page à ce moment-là surprendrait pour rien.
+      Self.syncBasarunaaCollectPrefs()
     case Preferences.Translate.translateEnabled.key:
       tabManager.selectedTab?.translationState = .unavailable
       tabManager.selectedTab?.browserData?.setScripts(scripts: [
