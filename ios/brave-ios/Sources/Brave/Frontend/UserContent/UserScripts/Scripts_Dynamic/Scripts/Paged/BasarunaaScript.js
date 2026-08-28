@@ -2148,6 +2148,8 @@ video:not([data-basarunaa]) { filter: none !important; }
   const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
   const MAX_SAMPLE_WIDTH = 320;
   const JPEG_QUALITY = 0.5;
+  const CORPUS_MAX_WIDTH = 1024;
+  const CORPUS_JPEG_QUALITY = 0.9;
   const BLUR_DOWNSAMPLE = 50;
   const BLUR_PASS2_FACTOR = 3;
   const BLUR_FIRST_STEP = 8;
@@ -2368,6 +2370,8 @@ video:not([data-basarunaa]) { filter: none !important; }
   const fmsCtx = ctx(featherMaskSmallCanvas);
   const featherMaskBlurredCanvas = makeCanvas();
   const fmbCtx = ctx(featherMaskBlurredCanvas);
+  const corpusCanvas = makeCanvas();
+  const corpusCtx = ctx(corpusCanvas);
 
   const blurPerfSamples = [];
   function now() {
@@ -2569,7 +2573,25 @@ video:not([data-basarunaa]) { filter: none !important; }
       "videoFrame",
       `${videoId}|${ctMs}|${sw}|${sh}|${sceneOpening ? 1 : 0}|${b64}`
     );
+    if (sceneOpening) sampleForCorpus(videoId, video);
     return true;
+  }
+  function sampleForCorpus(videoId, video) {
+    const vw = video.videoWidth;
+    const vh = video.videoHeight;
+    if (vw === 0 || vh === 0) return;
+    const scale = Math.min(1, CORPUS_MAX_WIDTH / Math.max(vw, vh));
+    const cw = Math.max(1, Math.round(vw * scale));
+    const ch = Math.max(1, Math.round(vh * scale));
+    if (corpusCanvas.width !== cw) corpusCanvas.width = cw;
+    if (corpusCanvas.height !== ch) corpusCanvas.height = ch;
+    try {
+      corpusCtx.drawImage(video, 0, 0, cw, ch);
+      const b64 = extractB64(corpusCanvas.toDataURL("image/jpeg", CORPUS_JPEG_QUALITY));
+      if (!b64) return;
+      send("corpusFrame", `${videoId}|${cw}|${ch}|${b64}`);
+    } catch {
+    }
   }
 
   class SceneDiffDetector {

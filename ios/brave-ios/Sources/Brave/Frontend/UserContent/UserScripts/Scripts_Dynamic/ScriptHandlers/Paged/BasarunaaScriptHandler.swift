@@ -226,25 +226,67 @@ class BasarunaaScriptHandler: TabContentScript {
       let b64 = String(data[payloadStart...])
       let typeErasedTab: any TabState = tab
       let sourceFrame = message.frameInfo
-      // Collecte : une frame par SCÈNE. `sceneOpening` vient du scheduler JS,
-      // qui vient de déclencher cette analyse parce que la scène a changé —
-      // donc aucune capture supplémentaire n'est faite pour le corpus.
-      let collectContext: CollectContext? =
-        sceneOpening
-        ? CollectContext(
-          srcUrl: "", pageUrl: tab.visibleURL?.absoluteString ?? tab.url?.absoluteString ?? "",
-          width: w, height: h, queueDepth: 0, incognito: tab.isPrivate)
-        : nil
+      // ⚠️ La frame d'ANALYSE ne va plus au corpus (correction du 2026-08-28,
+      // le soir même de sa livraison). Elle est encodée en 320 px q0,5 pour le
+      // modèle ; à cette taille les labels `level`/`adult` de la rubrique ne
+      // sont pas établissables, donc les images étaient collectées pour rien —
+      // constaté en relisant le tampon réel du device. Le corpus reçoit
+      // désormais une capture DÉDIÉE en pleine qualité, via `corpusFrame`.
+      // `sceneOpening` reste dans le payload : il ne sert plus qu'au diagnostic.
+      _ = sceneOpening
       Task.detached { [weak self] in
         await self?.processVideoFrame(
           videoId: videoId, ctMs: ctMs, width: w, height: h, b64: b64,
-          tab: typeErasedTab, frame: sourceFrame, collect: collectContext
+          tab: typeErasedTab, frame: sourceFrame
         )
+      }
+
+    case "corpusFrame":
+      // data = "<videoId>|<w>|<h>|<base64Jpeg>" — ouverture de scène, capture
+      // pleine qualité destinée UNIQUEMENT à la collecte de corpus. Aucune
+      // analyse n'est lancée dessus : les verdicts viennent de la frame
+      // d'analyse voisine, déjà traitée.
+      var cPipes: [String.Index] = []
+      var cIdx = data.startIndex
+      while cPipes.count < 3, let next = data[cIdx...].firstIndex(of: "|") {
+        cPipes.append(next)
+        cIdx = data.index(after: next)
+      }
+      guard cPipes.count == 3,
+        let cVideoId = Int(data[data.startIndex..<cPipes[0]]),
+        let cw = Int(data[data.index(after: cPipes[0])..<cPipes[1]]),
+        let ch = Int(data[data.index(after: cPipes[1])..<cPipes[2]]),
+        let cJpeg = Data(base64Encoded: String(data[data.index(after: cPipes[2])...]))
+      else {
+        log.error("corpusFrame parse failed")
+        return
+      }
+      let cPageUrl = tab.visibleURL?.absoluteString ?? tab.url?.absoluteString ?? ""
+      let cPrivate = tab.isPrivate
+      let cDet = Self.sharedVideoDet[cVideoId] ?? CollectDetection(pf: nil, raw: 0, ok: 0, confs: [])
+      Task.detached {
+        await Collector.shared.offerVideoFrame(
+          videoKey: "\(cPageUrl)#\(cVideoId)", pageUrl: cPageUrl, det: cDet,
+          width: cw, height: ch, jpeg: cJpeg, incognito: cPrivate, queueDepth: 0)
       }
 
     default:
       log.info("unknown_action=\(action, privacy: .public)")
     }
+  }
+
+  // MARK: - Verdicts vidéo récents (appariement avec la capture de corpus)
+
+  /// Dernier verdict par vidéo, borné. Statique parce que le handler est
+  /// instancié par onglet alors que la capture de corpus et l'analyse peuvent
+  /// venir de frames différentes ; borné parce qu'un dictionnaire indexé par
+  /// identifiant de vidéo grossirait sur une session de navigation longue.
+  @MainActor private static var sharedVideoDet: [Int: CollectDetection] = [:]
+
+  @MainActor
+  static func rememberVideoDet(videoId: Int, det: CollectDetection) {
+    if sharedVideoDet.count > 64 { sharedVideoDet.removeAll() }
+    sharedVideoDet[videoId] = det
   }
 
   // MARK: - Parsing des payloads JS
@@ -337,7 +379,7 @@ class BasarunaaScriptHandler: TabContentScript {
   /// flou freezé jusqu'au pageReset.
   private func processVideoFrame(
     videoId: Int, ctMs: Int64, width: Int, height: Int, b64: String,
-    tab: any TabState, frame: WKFrameInfo, collect: CollectContext? = nil
+    tab: any TabState, frame: WKFrameInfo
   ) async {
     let start = Date()
     var personsPayload: [[String: Any]] = []
@@ -440,20 +482,17 @@ class BasarunaaScriptHandler: TabContentScript {
       )
     }
 
-    // Collecte de corpus — une frame par SCÈNE, APRÈS que le verdict soit
-    // parti vers le JS (le flou ne doit jamais attendre la collecte). Les
-    // quotas vidéo (300/jour, 25 par vidéo, 4 s minimum entre deux) et
-    // l'allowlist d'hôtes sont appliqués dans le collecteur, avant toute
-    // probabilité — c'est ce qui empêche une seule vidéo de noyer le corpus.
-    if let collect, let jpegData = Data(base64Encoded: b64) {
-      await Collector.shared.offerVideoFrame(
-        videoKey: "\(collect.pageUrl)#\(videoId)",
-        pageUrl: collect.pageUrl,
+    // Le verdict de CETTE frame est mémorisé pour la capture de corpus qui
+    // arrive juste après (message `corpusFrame`) : c'est lui qui donne la
+    // strate et la pondération. Les deux frames sont prises à quelques
+    // millisecondes d'écart sur la même scène — l'appariement est bon, et il
+    // évite de relancer une inférence sur l'image pleine qualité.
+    await MainActor.run {
+      Self.rememberVideoDet(
+        videoId: videoId,
         det: CollectDetection(
           pf: nil, raw: personsCount, ok: personsCount,
-          confs: personsPayload.compactMap { $0["genderConfidence"] as? Double }),
-        width: width, height: height, jpeg: jpegData,
-        incognito: collect.incognito, queueDepth: 0)
+          confs: personsPayload.compactMap { $0["genderConfidence"] as? Double }))
     }
   }
 
