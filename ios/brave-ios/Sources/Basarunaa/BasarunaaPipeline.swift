@@ -102,6 +102,10 @@ public actor BasarunaaPipeline {
   private var genderMsSamples: [Double] = []
   private var videoMsSamples: [Double] = []
   private var analyzedCount = 0
+  /// Analyses d'IMAGES (donc avec vérificateur). Sans ce compteur, un
+  /// `verif_med` à 0 ms est ambigu : vérificateur en panne, ou simplement aucune
+  /// image analysée parce que la session était en vidéo ?
+  private var imageAnalyzedCount = 0
   private var skippedByPrefilterCount = 0
   /// Les N premières inférences sont ignorées : ce sont elles qui compilent les
   /// modèles, et les compter reviendrait à mesurer le démarrage.
@@ -132,6 +136,8 @@ public actor BasarunaaPipeline {
     log.notice(
       """
       [BENCH] n=\(self.analyzedCount, privacy: .public) \
+      img=\(self.imageAnalyzedCount, privacy: .public) \
+      verif=\(self.verifier != nil ? "ok" : (self.verifierFails > 0 ? "KO" : "jamais chargé"), privacy: .public) \
       verif_med=\(String(format: "%.1f", Self.median(self.verifierMsSamples)), privacy: .public)ms \
       gender_med=\(String(format: "%.1f", Self.median(self.genderMsSamples)), privacy: .public)ms \
       video_med=\(String(format: "%.1f", Self.median(self.videoMsSamples)), privacy: .public)ms \
@@ -248,6 +254,7 @@ public actor BasarunaaPipeline {
         // C'est 61 % des images en usage réel : le pré-filtre est un gain de
         // latence, pas un coût.
         analyzedCount += 1
+        imageAnalyzedCount += 1
         skippedByPrefilterCount += 1
         if analyzedCount > Self.benchWarmupSkip { pushSample(&verifierMsSamples, verifierMs) }
         maybeLogBench()
@@ -291,6 +298,7 @@ public actor BasarunaaPipeline {
 
     let totalLatencyMs = Date().timeIntervalSince(start) * 1000
     analyzedCount += 1
+    if useVerifier { imageAnalyzedCount += 1 }
     if analyzedCount > Self.benchWarmupSkip {
       pushSample(&genderMsSamples, genderMs)
       if useVerifier { pushSample(&verifierMsSamples, verifierMs) }

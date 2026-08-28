@@ -83,7 +83,24 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
     var size = fittingSizeForCollectionView(collectionView, section: indexPath.section)
-    size.height = sizingView.systemLayoutSizeFitting(size).height
+    // ⚠️ La forme à UN argument de `systemLayoutSizeFitting` traite la taille
+    // passée comme un SOUHAIT sur les deux axes (priorité `fittingSizeLevel`),
+    // pas comme une contrainte. La largeur n'est donc pas imposée, et la hauteur
+    // renvoyée n'a rien à voir avec la mise en page réelle : sur device
+    // (2026-08-28) la carte occupait tout l'écran, le `textStack` — épinglé haut
+    // ET bas — étirant ses éléments pour combler l'excédent, d'où un grand vide
+    // entre le texte et les liens.
+    //
+    // La forme à trois arguments impose la largeur (`.required`) et laisse la
+    // hauteur se calculer (`.fittingSizeLevel`). C'est la seule correcte pour
+    // une cellule auto-dimensionnée dont on connaît la largeur.
+    sizingView.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: 0))
+    sizingView.layoutIfNeeded()
+    size.height = sizingView.systemLayoutSizeFitting(
+      CGSize(width: size.width, height: UIView.layoutFittingCompressedSize.height),
+      withHorizontalFittingPriority: .required,
+      verticalFittingPriority: .fittingSizeLevel
+    ).height
     return size
   }
 
