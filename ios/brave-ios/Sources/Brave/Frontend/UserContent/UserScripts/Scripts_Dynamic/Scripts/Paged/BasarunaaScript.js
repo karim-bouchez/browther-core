@@ -2150,6 +2150,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   const JPEG_QUALITY = 0.5;
   const BLUR_DOWNSAMPLE = 50;
   const BLUR_PASS2_FACTOR = 3;
+  const BLUR_FIRST_STEP = 8;
   const BLUR_GAUSSIAN_RADIUS_PX = 5;
   const BLUR_PERF_WINDOW = 60;
   const VIDEO_FEATHER_MARGIN_PX_DEFAULT = 50;
@@ -2420,37 +2421,85 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     if (srcX_e + srcW_e > vw) srcW_e = vw - srcX_e;
     if (srcY_e + srcH_e > vh) srcH_e = vh - srcY_e;
-    const tw = Math.max(1, Math.round(bwe / BLUR_DOWNSAMPLE));
-    const th = Math.max(1, Math.round(bhe / BLUR_DOWNSAMPLE));
-    if (blurCanvas.width !== tw) blurCanvas.width = tw;
-    if (blurCanvas.height !== th) blurCanvas.height = th;
-    bctx.imageSmoothingEnabled = true;
-    bctx.imageSmoothingQuality = "high";
-    if (blurMode === "gaussian") {
-      bctx.filter = `blur(${BLUR_GAUSSIAN_RADIUS_PX}px)`;
+    const targetW = Math.max(1, Math.round(bwe / (BLUR_DOWNSAMPLE * BLUR_PASS2_FACTOR)));
+    const targetH = Math.max(1, Math.round(bhe / (BLUR_DOWNSAMPLE * BLUR_PASS2_FACTOR)));
+    let srcCanvas;
+    let tw2;
+    let th2;
+    if (blurMode === "legacy") {
+      const tw = Math.max(1, Math.round(bwe / BLUR_DOWNSAMPLE));
+      const th = Math.max(1, Math.round(bhe / BLUR_DOWNSAMPLE));
+      if (blurCanvas.width !== tw) blurCanvas.width = tw;
+      if (blurCanvas.height !== th) blurCanvas.height = th;
+      bctx.imageSmoothingEnabled = true;
+      bctx.imageSmoothingQuality = "high";
+      bctx.drawImage(video, srcX_e, srcY_e, srcW_e, srcH_e, 0, 0, tw, th);
+      tw2 = Math.max(1, Math.round(tw / BLUR_PASS2_FACTOR));
+      th2 = Math.max(1, Math.round(th / BLUR_PASS2_FACTOR));
+      if (blurCanvas2.width !== tw2) blurCanvas2.width = tw2;
+      if (blurCanvas2.height !== th2) blurCanvas2.height = th2;
+      bctx2.imageSmoothingEnabled = true;
+      bctx2.imageSmoothingQuality = "high";
+      bctx2.drawImage(blurCanvas, 0, 0, tw, th, 0, 0, tw2, th2);
+      srcCanvas = blurCanvas2;
+    } else {
+      let cw = Math.max(targetW, Math.round(bwe / BLUR_FIRST_STEP));
+      let ch = Math.max(targetH, Math.round(bhe / BLUR_FIRST_STEP));
+      if (blurCanvas.width !== cw) blurCanvas.width = cw;
+      if (blurCanvas.height !== ch) blurCanvas.height = ch;
+      bctx.imageSmoothingEnabled = true;
+      bctx.imageSmoothingQuality = "high";
+      if (blurMode === "gaussian") {
+        bctx.filter = `blur(${BLUR_GAUSSIAN_RADIUS_PX}px)`;
+      }
+      bctx.drawImage(video, srcX_e, srcY_e, srcW_e, srcH_e, 0, 0, cw, ch);
+      if (blurMode === "gaussian") {
+        bctx.filter = "none";
+      }
+      let cur = blurCanvas;
+      let curCtx = bctx;
+      let other = blurCanvas2;
+      let otherCtx = bctx2;
+      while (cw > targetW * 2 || ch > targetH * 2) {
+        const nw = Math.max(targetW, Math.floor(cw / 2));
+        const nh = Math.max(targetH, Math.floor(ch / 2));
+        if (other.width !== nw) other.width = nw;
+        if (other.height !== nh) other.height = nh;
+        otherCtx.imageSmoothingEnabled = true;
+        otherCtx.imageSmoothingQuality = "high";
+        otherCtx.drawImage(cur, 0, 0, cw, ch, 0, 0, nw, nh);
+        const swapC = cur;
+        const swapCtx = curCtx;
+        cur = other;
+        curCtx = otherCtx;
+        other = swapC;
+        otherCtx = swapCtx;
+        cw = nw;
+        ch = nh;
+      }
+      if (cw !== targetW || ch !== targetH) {
+        if (other.width !== targetW) other.width = targetW;
+        if (other.height !== targetH) other.height = targetH;
+        otherCtx.imageSmoothingEnabled = true;
+        otherCtx.imageSmoothingQuality = "high";
+        otherCtx.drawImage(cur, 0, 0, cw, ch, 0, 0, targetW, targetH);
+        cur = other;
+      }
+      srcCanvas = cur;
+      tw2 = targetW;
+      th2 = targetH;
     }
-    bctx.drawImage(video, srcX_e, srcY_e, srcW_e, srcH_e, 0, 0, tw, th);
-    if (blurMode === "gaussian") {
-      bctx.filter = "none";
-    }
-    const tw2 = Math.max(1, Math.round(tw / BLUR_PASS2_FACTOR));
-    const th2 = Math.max(1, Math.round(th / BLUR_PASS2_FACTOR));
-    if (blurCanvas2.width !== tw2) blurCanvas2.width = tw2;
-    if (blurCanvas2.height !== th2) blurCanvas2.height = th2;
-    bctx2.imageSmoothingEnabled = true;
-    bctx2.imageSmoothingQuality = "high";
-    bctx2.drawImage(blurCanvas, 0, 0, tw, th, 0, 0, tw2, th2);
     if (!hasFeather) {
       dctx.imageSmoothingEnabled = true;
       dctx.imageSmoothingQuality = "high";
-      dctx.drawImage(blurCanvas2, 0, 0, tw2, th2, bxe, bye, bwe, bhe);
+      dctx.drawImage(srcCanvas, 0, 0, tw2, th2, bxe, bye, bwe, bhe);
     } else {
       if (featherTempCanvas.width !== bwe) featherTempCanvas.width = bwe;
       if (featherTempCanvas.height !== bhe) featherTempCanvas.height = bhe;
       ftCtx.clearRect(0, 0, bwe, bhe);
       ftCtx.imageSmoothingEnabled = true;
       ftCtx.imageSmoothingQuality = "high";
-      ftCtx.drawImage(blurCanvas2, 0, 0, tw2, th2, 0, 0, bwe, bhe);
+      ftCtx.drawImage(srcCanvas, 0, 0, tw2, th2, 0, 0, bwe, bhe);
       if (featherMaskCanvas.width !== bwe) featherMaskCanvas.width = bwe;
       if (featherMaskCanvas.height !== bhe) featherMaskCanvas.height = bhe;
       fmCtx.clearRect(0, 0, bwe, bhe);

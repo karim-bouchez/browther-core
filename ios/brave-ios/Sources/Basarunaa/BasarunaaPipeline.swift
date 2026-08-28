@@ -87,7 +87,58 @@ public actor BasarunaaPipeline {
   private var verifierFails = 0
   private static let verifierMaxFails = 3
 
+  // ---- Mesure de latence (bench device) -----------------------------------
+  //
+  // Émise en `notice` et NON en `info`, volontairement : sur un iPhone, seul
+  // `notice` et au-dessus sort dans le flux syslog lisible depuis le Mac
+  // (`idevicesyslog`). Les `info` restent en mémoire et ne sont visibles que
+  // dans Console.app, ce qui rend un bench impossible à automatiser — constaté
+  // le 2026-08-28 en cherchant à calibrer l'intervalle vidéo de 250 ms.
+  //
+  // Médianes et non moyennes : les premières inférences paient la compilation
+  // CoreML et écraseraient une moyenne cumulative. Même raison que desktop, où
+  // les moyennes étaient plombées par la compilation des shaders WebGPU.
+  private var verifierMsSamples: [Double] = []
+  private var genderMsSamples: [Double] = []
+  private var videoMsSamples: [Double] = []
+  private var analyzedCount = 0
+  private var skippedByPrefilterCount = 0
+  /// Les N premières inférences sont ignorées : ce sont elles qui compilent les
+  /// modèles, et les compter reviendrait à mesurer le démarrage.
+  private static let benchWarmupSkip = 3
+  private static let benchEvery = 20
+
   private init() {}
+
+  private func pushSample(_ store: inout [Double], _ value: Double) {
+    store.append(value)
+    if store.count > 200 { store.removeFirst(store.count - 200) }
+  }
+
+  private static func median(_ values: [Double]) -> Double {
+    guard !values.isEmpty else { return 0 }
+    let sorted = values.sorted()
+    return sorted[sorted.count / 2]
+  }
+
+  /// Résumé périodique — c'est CE log qui sert au bench. Il répond aux trois
+  /// questions qu'on se pose avant de toucher à l'intervalle vidéo : combien
+  /// coûte le vérificateur, combien coûte gender-v2n, et quelle part des images
+  /// n'atteint jamais gender-v2n grâce au pré-filtre.
+  private func maybeLogBench() {
+    guard analyzedCount % Self.benchEvery == 0 else { return }
+    let skipPct =
+      analyzedCount > 0 ? 100.0 * Double(skippedByPrefilterCount) / Double(analyzedCount) : 0
+    log.notice(
+      """
+      [BENCH] n=\(self.analyzedCount, privacy: .public) \
+      verif_med=\(String(format: "%.1f", Self.median(self.verifierMsSamples)), privacy: .public)ms \
+      gender_med=\(String(format: "%.1f", Self.median(self.genderMsSamples)), privacy: .public)ms \
+      video_med=\(String(format: "%.1f", Self.median(self.videoMsSamples)), privacy: .public)ms \
+      prefilter_skip=\(String(format: "%.0f", skipPct), privacy: .public)%
+      """
+    )
+  }
 
   public func warmup() async {
     do {
@@ -196,6 +247,10 @@ public actor BasarunaaPipeline {
         // Aucun humain dans l'image → gender-v2n n'est pas lancé du tout.
         // C'est 61 % des images en usage réel : le pré-filtre est un gain de
         // latence, pas un coût.
+        analyzedCount += 1
+        skippedByPrefilterCount += 1
+        if analyzedCount > Self.benchWarmupSkip { pushSample(&verifierMsSamples, verifierMs) }
+        maybeLogBench()
         log.info(
           "prefilter_skip (\(String(format: "%.1f", verifierMs), privacy: .public)ms) — gender-v2n non lancé"
         )
@@ -208,7 +263,9 @@ public actor BasarunaaPipeline {
     }
 
     let detector = try loadDetectorIfNeeded()
+    let genderStart = Date()
     let raws = try detector.detect(image: image, scoreThreshold: bodyThreshold)
+    let genderMs = Date().timeIntervalSince(genderStart) * 1000
     let allPersons = raws.map { r -> DetectedPerson in
       DetectedPerson(
         bbox: CGRect(
@@ -233,6 +290,15 @@ public actor BasarunaaPipeline {
     }
 
     let totalLatencyMs = Date().timeIntervalSince(start) * 1000
+    analyzedCount += 1
+    if analyzedCount > Self.benchWarmupSkip {
+      pushSample(&genderMsSamples, genderMs)
+      if useVerifier { pushSample(&verifierMsSamples, verifierMs) }
+      // La vidéo n'a PAS de vérificateur : sa latence est celle qui décide de
+      // l'intervalle de 250 ms, elle est donc suivie à part.
+      if !useVerifier { pushSample(&videoMsSamples, totalLatencyMs) }
+    }
+    maybeLogBench()
     let rejected = allPersons.count - persons.count
     log.info(
       """
