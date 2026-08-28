@@ -283,14 +283,6 @@ void BasarunaaTabHelper::PageReset(const std::string& url) {
         ++it;
       }
     }
-    for (auto it = pending_sentinels_.begin();
-         it != pending_sentinels_.end();) {
-      if (it->second == rfh_id) {
-        it = pending_sentinels_.erase(it);
-      } else {
-        ++it;
-      }
-    }
   }
   if (java_analyzer_.is_null()) {
     return;
