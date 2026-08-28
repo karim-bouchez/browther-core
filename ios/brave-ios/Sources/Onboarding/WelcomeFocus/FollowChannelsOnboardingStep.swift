@@ -31,41 +31,54 @@ struct FollowChannelsGraphicView: View {
 
   @Environment(\.openURL) private var openURL
 
+  // ⚠️ Cette vue occupe la zone ILLUSTRATION du conteneur d'onboarding, que
+  // `OnboardingStepView` force en pleine hauteur avec un fond en carte
+  // arrondie. La v1 y mettait les deux boutons de canal entourés de `Spacer()` :
+  // deux contrôles de taille normale flottant au milieu d'une grande carte
+  // noire, avec un vide au-dessus et en dessous — constaté à l'écran le
+  // 2026-08-28. Les contrôles vont dans la zone ACTIONS (`makeActions`), pas
+  // ici ; cette zone-là attend une illustration qui REMPLIT.
   var body: some View {
-    VStack(spacing: 16) {
-      Spacer()
-
-      channelButton(
-        title: Strings.FocusOnboarding.followChannelsWhatsApp,
-        // Couleurs officielles des deux services, identiques au desktop et au
-        // panneau QR de Sawtunaa : c'est ce qui fait reconnaître le bouton
-        // avant même d'en lire l'intitulé.
-        accent: Color(red: 0.145, green: 0.827, blue: 0.4),
-        icon: "message.fill",
-        url: Self.whatsAppURL,
-        event: "marketing_whatsapp_channel_clicked"
-      )
-
-      channelButton(
-        title: Strings.FocusOnboarding.followChannelsTelegram,
-        accent: Color(red: 0.133, green: 0.62, blue: 0.851),
-        icon: "paperplane.fill",
-        url: Self.telegramURL,
-        event: "marketing_telegram_channel_clicked"
-      )
-
-      // Répond à « pourquoi l'un plutôt que l'autre ? » — les deux canaux
-      // portent la même chose, seule compte l'app déjà installée.
-      Text(Strings.FocusOnboarding.followChannelsSameContent)
-        .font(.footnote)
-        .multilineTextAlignment(.center)
-        .foregroundStyle(Color(braveSystemName: .textSecondary))
-        .fixedSize(horizontal: false, vertical: true)
-        .padding(.top, 4)
-
-      Spacer()
+    GeometryReader { proxy in
+      let side = min(proxy.size.width * 0.34, proxy.size.height * 0.42)
+      VStack(spacing: 20) {
+        Spacer(minLength: 0)
+        HStack(spacing: 24) {
+          // Couleurs officielles des deux services, identiques au desktop et au
+          // panneau QR de Sawtunaa : c'est ce qui fait reconnaître le canal
+          // avant même d'en lire l'intitulé.
+          glyph(
+            systemName: "message.fill",
+            accent: Color(red: 0.145, green: 0.827, blue: 0.4),
+            side: side
+          )
+          glyph(
+            systemName: "paperplane.fill",
+            accent: Color(red: 0.133, green: 0.62, blue: 0.851),
+            side: side
+          )
+        }
+        // Répond à « pourquoi l'un plutôt que l'autre ? » — les deux canaux
+        // portent la même chose, seule compte l'app déjà installée.
+        Text(Strings.FocusOnboarding.followChannelsSameContent)
+          .font(.footnote)
+          .multilineTextAlignment(.center)
+          .foregroundStyle(Color(braveSystemName: .textSecondary))
+          .fixedSize(horizontal: false, vertical: true)
+        Spacer(minLength: 0)
+      }
+      .frame(width: proxy.size.width, height: proxy.size.height)
+      .padding(.horizontal, 24)
     }
-    .padding(.horizontal, 24)
+  }
+
+  @ViewBuilder
+  private func glyph(systemName: String, accent: Color, side: CGFloat) -> some View {
+    Image(systemName: systemName)
+      .font(.system(size: side * 0.42, weight: .semibold))
+      .foregroundStyle(.white)
+      .frame(width: side, height: side)
+      .background(accent.gradient, in: RoundedRectangle(cornerRadius: side * 0.28, style: .continuous))
   }
 
   @ViewBuilder
@@ -111,16 +124,82 @@ struct FollowChannelsGraphicView: View {
 struct FollowChannelsActionsView: View {
   var continueHandler: () -> Void
 
+  private static let whatsAppURL = URL(
+    string: "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32"
+  )!
+  private static let telegramURL = URL(string: "https://t.me/devndin_nouveautes")!
+
+  @Environment(\.openURL) private var openURL
+
   var body: some View {
-    // Un seul bouton : l'écran ne demande rien, « Passer » et « Terminer »
-    // mèneraient exactement au même endroit.
-    Button {
-      continueHandler()
-    } label: {
-      Text(Strings.FocusOnboarding.startBrowseActionButtonTitle)
-        .frame(maxWidth: .infinity)
+    VStack(spacing: 12) {
+      // Les deux liens de canal vivent ICI, pas dans l'illustration : c'est la
+      // zone que le conteneur réserve aux contrôles, et elle épouse leur
+      // hauteur au lieu de les noyer dans une carte pleine hauteur.
+      channelButton(
+        title: Strings.FocusOnboarding.followChannelsWhatsApp,
+        accent: Color(red: 0.145, green: 0.827, blue: 0.4),
+        icon: "message.fill",
+        url: Self.whatsAppURL,
+        event: "marketing_whatsapp_channel_clicked"
+      )
+      channelButton(
+        title: Strings.FocusOnboarding.followChannelsTelegram,
+        accent: Color(red: 0.133, green: 0.62, blue: 0.851),
+        icon: "paperplane.fill",
+        url: Self.telegramURL,
+        event: "marketing_telegram_channel_clicked"
+      )
+
+      // Un seul bouton de sortie : l'écran ne demande rien, « Passer » et
+      // « Terminer » mèneraient exactement au même endroit.
+      Button {
+        continueHandler()
+      } label: {
+        Text(Strings.FocusOnboarding.startBrowseActionButtonTitle)
+          .frame(maxWidth: .infinity)
+      }
+      .primaryContinueAction()
+      .padding(.top, 4)
     }
-    .primaryContinueAction()
+  }
+
+  @ViewBuilder
+  private func channelButton(
+    title: String,
+    accent: Color,
+    icon: String,
+    url: URL,
+    event: String
+  ) -> some View {
+    Button {
+      BrowtherAnalyticsService.shared.track(event: event, properties: [:])
+      openURL(url)
+    } label: {
+      HStack(spacing: 12) {
+        Image(systemName: icon)
+          .font(.system(size: 15, weight: .semibold))
+          .foregroundStyle(accent)
+          .frame(width: 28, height: 28)
+          .background(Color.white, in: Circle())
+        Text(title)
+          .font(.callout.weight(.semibold))
+          .foregroundStyle(Color(braveSystemName: .textPrimary))
+        Spacer()
+      }
+      .padding(.horizontal, 14)
+      .padding(.vertical, 12)
+      .frame(maxWidth: .infinity)
+      .background(
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+          .fill(accent.opacity(0.12))
+          .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+              .stroke(accent.opacity(0.5), lineWidth: 1)
+          )
+      )
+    }
+    .buttonStyle(.plain)
   }
 }
 
