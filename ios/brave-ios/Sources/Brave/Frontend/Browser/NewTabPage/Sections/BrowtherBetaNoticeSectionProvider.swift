@@ -134,6 +134,10 @@ private class BrowtherBetaNoticeView: UIView {
     $0.font = .systemFont(ofSize: 13)
     $0.textColor = UIColor(white: 1, alpha: 0.75)
     $0.numberOfLines = 0
+    // Ceinture et bretelles avec la mise en page verticale ci-dessous : ce
+    // libellé ne doit jamais être comprimé sous sa largeur naturelle par un
+    // voisin. C'est cette compression qui l'avait rendu haut de sept lignes.
+    $0.setContentCompressionResistancePriority(.required, for: .horizontal)
   }
 
   /// Bécher de laboratoire plutôt qu'un point d'exclamation : « en cours
@@ -182,14 +186,32 @@ private class BrowtherBetaNoticeView: UIView {
     // sans masquer l'image, comme le `material.thin` + blur du desktop.
     backgroundColor = UIColor(white: 0, alpha: 0.35)
 
-    // Les deux liens suivent le libellé sur la même ligne quand ça tient, et
-    // passent dessous sinon (l'arabe et l'allemand allongent le libellé).
-    let channelsStack = UIStackView(
-      arrangedSubviews: [followLabel, whatsAppButton, telegramButton]
-    ).then {
+    // ⚠️ Le libellé est sur SA PROPRE LIGNE, les deux liens en dessous.
+    //
+    // La v1 (2026-08-16) mettait les trois dans un `UIStackView` HORIZONTAL, en
+    // pariant que « les liens suivent le libellé sur la même ligne quand ça
+    // tient, et passent dessous sinon ». Un stack horizontal ne sait pas passer
+    // à la ligne : ce comportement-là n'existe pas. Ce qui s'est produit sur
+    // device (constaté le 2026-08-28, iPhone 13) : les deux boutons ont gardé
+    // leur largeur intrinsèque, le libellé a été écrasé à une colonne d'un mot,
+    // il est devenu haut de sept lignes — et comme c'est LUI qui donne sa
+    // hauteur à la carte, le bandeau occupait tout l'écran d'accueil.
+    //
+    // Un seul défaut, deux symptômes qui n'avaient pas l'air liés. La leçon
+    // vaut au-delà d'ici : quand un commentaire décrit un repli au lieu de
+    // l'implémenter (« passent dessous sinon »), c'est une intention, pas un
+    // comportement. Ici la mise en page verticale tient dans toutes les
+    // langues, y compris l'arabe et l'allemand qui allongent le libellé.
+    let linksRow = UIStackView(arrangedSubviews: [whatsAppButton, telegramButton]).then {
       $0.axis = .horizontal
-      $0.spacing = 10
+      $0.spacing = 16
       $0.alignment = .firstBaseline
+    }
+
+    let channelsStack = UIStackView(arrangedSubviews: [followLabel, linksRow]).then {
+      $0.axis = .vertical
+      $0.spacing = 6
+      $0.alignment = .leading
     }
 
     let textStack = UIStackView(
