@@ -299,6 +299,20 @@ extension BrowserViewController {
     if !isDefault {
       steps.insert(.defaultBrowsing, at: 0)
     }
+    // Browther : proposer de suivre les canaux dev&din (parité avec l'étape
+    // desktop `follow-channels`). En DERNIER parce qu'elle ne conditionne rien —
+    // le navigateur est déjà utilisable quand elle s'affiche.
+    //
+    // ⚠️ C'est ICI qu'il faut l'ajouter, pas dans `allSteps` /
+    // `alreadyDefaultBrowserSteps`. Ces deux propriétés ressemblent à la source
+    // de vérité et n'en sont pas : ce point d'entrée construit sa liste à la
+    // main, et elles ne servent plus qu'à un aperçu SwiftUI et au menu de debug.
+    // L'ajout du 2026-08-08 s'était fait dans ces listes-là — il n'avait donc
+    // strictement aucun effet, et personne ne pouvait le voir avant de
+    // dérouler l'onboarding sur un appareil (fait le 2026-08-28 : l'étape
+    // n'apparaissait pas). Du code livré trois semaines plus tôt, jamais
+    // compilé, jamais exécuté.
+    steps.append(.followChannels)
     // Browther: P3A disabled, no analytics consent screen
     // Will be replaced by Sentry/PostHog consent in Phase 3.5
 

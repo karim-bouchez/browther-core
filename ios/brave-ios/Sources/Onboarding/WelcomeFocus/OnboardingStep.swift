@@ -36,12 +36,17 @@ public protocol OnboardingStep: Identifiable {
 }
 
 extension [any OnboardingStep] {
-  /// All of the standard browser steps
+  /// ⚠️ **Ces deux listes ne pilotent PAS l'onboarding réel.** Le parcours est
+  /// construit à la main dans `BVC+Onboarding.swift` (`presentFocusOnboarding`),
+  /// qui décide de `.defaultBrowsing` selon l'état du navigateur par défaut.
+  /// Ce qui reste ici ne sert qu'à l'aperçu SwiftUI et au menu de debug.
   ///
-  /// Browther : `.followChannels` en dernier — proposer de suivre les canaux
-  /// dev&din (parité avec l'étape desktop `follow-channels`). Elle vient après
-  /// tout le reste parce qu'elle ne conditionne rien : le navigateur est déjà
-  /// utilisable quand elle s'affiche.
+  /// Le piège a coûté trois semaines : l'étape « suivre les canaux dev&din »
+  /// y a été ajoutée le 2026-08-08 en croyant tenir la source de vérité, et
+  /// n'est jamais apparue à l'écran. Toute nouvelle étape va dans
+  /// `BVC+Onboarding.swift`.
+  ///
+  /// All of the standard browser steps
   public static var allSteps: [any OnboardingStep] {
     [.defaultBrowsing, .blockInterruptions, .followChannels]
   }
