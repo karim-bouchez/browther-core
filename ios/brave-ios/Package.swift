@@ -396,6 +396,11 @@ var package = Package(
         .copy("Resources/GenderV2nPose.mlmodelc"),
         .copy("Resources/NsfwMarqo.mlmodelc"),
         .copy("Resources/NudeNet.mlmodelc"),
+        // Pré-filtre + vérificateur des IMAGES (2026-08-28, parité desktop du
+        // 2026-08-18). 2,6 Mo en fp16. ⚠️ Ne pas confondre avec le sentinel
+        // VIDÉO du même modèle, retiré le 2026-08-04 : rôle différent, et
+        // celui-là ne doit pas revenir.
+        .copy("Resources/NanoDet.mlmodelc"),
       ]
     ),
     // Browther: analytics

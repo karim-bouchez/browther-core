@@ -43,6 +43,16 @@ public struct BasarunaaResult: Sendable {
   public let isNsfw: Bool
   /// Softmax NSFW Marqo (0..1), ou nil si non exécuté.
   public let nsfwScore: Double?
+
+  /// Verdicts bruts des deux modèles, pour la collecte de corpus (strates
+  /// `fp-suspect` / `leak-suspect`, cf. `CollectPolicy.classify`). Renseigné
+  /// même quand le vérificateur n'a pas tourné — `pf` vaut alors `nil`, ce qui
+  /// se lit « pas d'information » et non « zéro personne ».
+  public let det: CollectDetection
+  /// Latence du passage NanoDet (0 s'il n'a pas tourné).
+  public let verifierLatencyMs: Double
+  /// L'image s'est arrêtée au pré-filtre : gender-v2n n'a pas été lancé.
+  public let skippedByPrefilter: Bool
 }
 
 public enum BasarunaaError: Error {
@@ -67,6 +77,16 @@ public actor BasarunaaPipeline {
   private var nsfwClassifier: NSFWClassifier?
   private var nudeNetDetector: NudeNetDetector?
 
+  /// Pré-filtre + vérificateur NanoDet (images uniquement, cf. `analyze`).
+  private var verifier: NanoDetVerifier?
+  /// Le vérificateur s'auto-désactive après quelques échecs consécutifs, avec
+  /// UN seul message. Sans ce garde-fou, un modèle qui charge mais échoue à
+  /// chaque inférence produit une ligne de log par image — c'est ce qui est
+  /// arrivé sur desktop le 2026-08-18 (ORT jetant « memory access out of
+  /// bounds » avec 5 sessions WebGPU concurrentes).
+  private var verifierFails = 0
+  private static let verifierMaxFails = 3
+
   private init() {}
 
   public func warmup() async {
@@ -86,7 +106,11 @@ public actor BasarunaaPipeline {
       // reste lazy : chargé à sa 1re demande réelle par checkNsfw(), pour ne pas
       // payer ni la mémoire ni le temps si inutile.
       _ = try loadDetectorIfNeeded()
-      log.info("warmup done (detector)")
+      // Le vérificateur est désormais sur le chemin chaud des images : le
+      // charger ici évite de payer sa compilation CoreML à la première image
+      // analysée, c'est-à-dire pile au moment où l'utilisateur attend.
+      _ = loadVerifierIfNeeded()
+      log.info("warmup done (detector + verifier)")
     } catch {
       log.error("warmup failed: \(String(describing: error), privacy: .public)")
     }
@@ -131,14 +155,61 @@ public actor BasarunaaPipeline {
 
   /// Phase 1 — détection single-shot gender-v2n. Renvoie ASAP toutes les
   /// persons BRUTES (genre 3 classes + conf + keypoints), SANS décision de flou.
-  public func analyze(image: CGImage) async throws -> BasarunaaResult {
+  ///
+  /// - Parameter useVerifier: active le passage NanoDet (pré-filtre +
+  ///   vérificateur). **`true` pour les images, `false` pour la vidéo** — et ce
+  ///   n'est pas une timidité : desktop fait exactement ce partage (le
+  ///   pré-filtre vit dans l'offscreen, qui ne voit que les images ; la vidéo
+  ///   desktop passe par le pipeline natif sans NanoDet). Sur mobile la vidéo
+  ///   tourne à 250 ms en one-tier, où gender-v2n est son propre tracker :
+  ///   y ajouter une inférence par frame changerait la cadence qu'on est
+  ///   justement en train de calibrer au bench.
+  public func analyze(image: CGImage, useVerifier: Bool = false) async throws -> BasarunaaResult {
     let bodyThreshold = Preferences.Basarunaa.confBody.value
-    let detector = try loadDetectorIfNeeded()
     let imageSize = CGSize(width: image.width, height: image.height)
     let start = Date()
 
+    // ---- Passage NanoDet : pré-filtre PUIS vérificateur, une seule inférence.
+    var verifierBoxes: [VerifierBox]?
+    var verifierMs: Double = 0
+    if useVerifier, let nd = loadVerifierIfNeeded() {
+      let t0 = Date()
+      do {
+        verifierBoxes = try nd.detect(image: image)
+        verifierFails = 0  // une réussite efface l'ardoise
+      } catch {
+        // Une panne du vérificateur ne doit JAMAIS faire fuiter : on retombe
+        // sur gender-v2n seul plutôt que de ne rien analyser. Les faux positifs
+        // reviennent, personne n'est révélé par erreur.
+        verifierBoxes = nil
+        verifierFails += 1
+        if verifierFails >= Self.verifierMaxFails {
+          verifier = nil
+          log.warning(
+            "vérificateur désactivé après \(Self.verifierMaxFails, privacy: .public) échecs — gender-v2n seul, les faux positifs reviennent"
+          )
+        }
+      }
+      verifierMs = Date().timeIntervalSince(t0) * 1000
+
+      if let boxes = verifierBoxes, boxes.isEmpty {
+        // Aucun humain dans l'image → gender-v2n n'est pas lancé du tout.
+        // C'est 61 % des images en usage réel : le pré-filtre est un gain de
+        // latence, pas un coût.
+        log.info(
+          "prefilter_skip (\(String(format: "%.1f", verifierMs), privacy: .public)ms) — gender-v2n non lancé"
+        )
+        return BasarunaaResult(
+          persons: [], totalLatencyMs: verifierMs, poseLatencyMs: 0,
+          classifyLatencyMs: 0, imageSize: imageSize, isNsfw: false, nsfwScore: nil,
+          det: CollectDetection(pf: 0, raw: 0, ok: 0, confs: []),
+          verifierLatencyMs: verifierMs, skippedByPrefilter: true)
+      }
+    }
+
+    let detector = try loadDetectorIfNeeded()
     let raws = try detector.detect(image: image, scoreThreshold: bodyThreshold)
-    let persons = raws.map { r -> DetectedPerson in
+    let allPersons = raws.map { r -> DetectedPerson in
       DetectedPerson(
         bbox: CGRect(
           x: r.bbox[0], y: r.bbox[1],
@@ -149,10 +220,36 @@ public actor BasarunaaPipeline {
       )
     }
 
+    // ---- Vérification par boîte -------------------------------------------
+    // Une détection gender-v2n n'est retenue que si elle tombe DANS un humain
+    // vu par NanoDet. C'est ce qui écarte les chiens, peluches et beignets sur
+    // lesquels un modèle à 3 classes toutes humaines n'a aucun moyen de dire
+    // « ceci n'est pas quelqu'un ».
+    var persons = allPersons
+    if let boxes = verifierBoxes {
+      persons = allPersons.filter { p in
+        boxes.contains { coveredBy(p.bbox, $0.bbox) >= NanoDetVerifier.minCoverage }
+      }
+    }
+
     let totalLatencyMs = Date().timeIntervalSince(start) * 1000
+    let rejected = allPersons.count - persons.count
     log.info(
-      "analyze done: persons=\(persons.count, privacy: .public) total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms (single-shot gender-v2n)"
+      """
+      analyze done: persons=\(persons.count, privacy: .public) \
+      brutes=\(allPersons.count, privacy: .public) rejets_verif=\(rejected, privacy: .public) \
+      nanodet=\(verifierBoxes?.count ?? -1, privacy: .public) \
+      total=\(String(format: "%.1f", totalLatencyMs), privacy: .public)ms \
+      (dont vérif \(String(format: "%.1f", verifierMs), privacy: .public)ms)
+      """
     )
+    // Désaccord MONTANT : le généraliste voit un humain, gender-v2n aucun. Le
+    // pré-filtre a donc lancé gender-v2n pour rien ET l'image restera nette —
+    // c'est le mode de défaillance le plus coûteux en usage (l'utilisateur voit
+    // une personne non floutée, il ne signale pas, il désactive).
+    if let boxes = verifierBoxes, !boxes.isEmpty, persons.isEmpty {
+      log.info("missed_by_gender nanodet=\(boxes.count, privacy: .public)")
+    }
     for (i, p) in persons.enumerated() {
       log.info(
         "[\(i, privacy: .public)] bbox=\(p.bbox.debugDescription, privacy: .public) → \(p.gender.rawValue, privacy: .public)@\(String(format: "%.2f", p.genderConfidence), privacy: .public)"
@@ -166,7 +263,14 @@ public actor BasarunaaPipeline {
       classifyLatencyMs: 0,
       imageSize: imageSize,
       isNsfw: false,
-      nsfwScore: nil
+      nsfwScore: nil,
+      det: CollectDetection(
+        pf: verifierBoxes?.count,
+        raw: allPersons.count,
+        ok: persons.count,
+        confs: persons.map(\.genderConfidence)),
+      verifierLatencyMs: verifierMs,
+      skippedByPrefilter: false
     )
   }
 
@@ -179,6 +283,26 @@ public actor BasarunaaPipeline {
   }
 
   // MARK: - Loading
+
+  /// Chargement paresseux du vérificateur. `nil` = il a été désactivé (échecs
+  /// répétés) ou n'a pas pu charger — l'appelant retombe alors sur gender-v2n
+  /// seul, qui est le comportement d'avant le 2026-08-28. Jamais une exception :
+  /// un vérificateur absent dégrade la qualité, il ne doit pas casser l'analyse.
+  private func loadVerifierIfNeeded() -> NanoDetVerifier? {
+    if let verifier { return verifier }
+    guard verifierFails < Self.verifierMaxFails else { return nil }
+    do {
+      let nd = try NanoDetVerifier()
+      verifier = nd
+      return nd
+    } catch {
+      verifierFails = Self.verifierMaxFails
+      log.error(
+        "vérificateur NanoDet indisponible : \(String(describing: error), privacy: .public) — gender-v2n seul"
+      )
+      return nil
+    }
+  }
 
   private func loadDetectorIfNeeded() throws -> GenderV2nPoseDetector {
     if let detector { return detector }
