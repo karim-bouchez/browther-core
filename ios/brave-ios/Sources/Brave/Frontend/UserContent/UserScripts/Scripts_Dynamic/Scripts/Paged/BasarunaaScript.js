@@ -2102,6 +2102,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       }
       const list = persons ?? [];
       const bboxes = [];
+      const blurKeypoints = [];
       const fullPersons = [];
       for (const p of list) {
         const kps = [];
@@ -2117,7 +2118,10 @@ video:not([data-basarunaa]) { filter: none !important; }
           minSkeletonActive: !!prefs.minSkeletonActive,
           kpConfidences
         });
-        if (blur) bboxes.push(p.bbox);
+        if (blur) {
+          bboxes.push(p.bbox);
+          blurKeypoints.push(kps.length > 0 ? kps : null);
+        }
         fullPersons.push({
           bbox: p.bbox,
           ...kps.length > 0 ? { keypoints: kps } : {},
@@ -2130,6 +2134,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         analyseW,
         analyseH,
         bboxes,
+        blurKeypoints,
         isNsfw,
         debugMode,
         fullPersons,
@@ -2382,7 +2387,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   function now() {
     return typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
   }
-  function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH, offX = 0, offY = 0, debugMode = "none") {
+  function drawAndBlurRegion(dctx, video, bbox, sx, sy, vw, vh, canvasW, canvasH, offX = 0, offY = 0, debugMode = "none", shape = null) {
     let bx = offX + bbox[0] * sx;
     let by = offY + bbox[1] * sy;
     let bw = (bbox[2] - bbox[0]) * sx;
@@ -2513,7 +2518,18 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (featherMaskCanvas.height !== bhe) featherMaskCanvas.height = bhe;
       fmCtx.clearRect(0, 0, bwe, bhe);
       fmCtx.fillStyle = "#fff";
-      fmCtx.fillRect(exL, exT, bw, bh);
+      if (shape && shape.points.length >= 3) {
+        fmCtx.beginPath();
+        const pts = shape.points;
+        fmCtx.moveTo(pts[0].x - bxe, pts[0].y - bye);
+        for (let i = 1; i < pts.length; i++) {
+          fmCtx.lineTo(pts[i].x - bxe, pts[i].y - bye);
+        }
+        fmCtx.closePath();
+        fmCtx.fill();
+      } else {
+        fmCtx.fillRect(exL, exT, bw, bh);
+      }
       const maskFactor = Math.max(8, FM);
       const msW = Math.max(1, Math.floor(bwe / maskFactor));
       const msH = Math.max(1, Math.floor(bhe / maskFactor));
@@ -2686,6 +2702,8 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.triggeredByScene = false;
       // Current blur targets (in analyse coords).
       this.currentBboxes = [];
+      /** Aligné sur `currentBboxes` (cf. `YoloPayload.blurKeypoints`). */
+      this.currentKeypoints = [];
       this.currentMeta = null;
       this.lastYoloHash = null;
       // Debug snapshot (refreshed at each YOLO apply)
@@ -2915,7 +2933,8 @@ video:not([data-basarunaa]) { filter: none !important; }
         if (bboxes.length && meta) {
           const sx = dispW / meta.analyseW;
           const sy = dispH / meta.analyseH;
-          for (const b of bboxes) {
+          for (let i = 0; i < bboxes.length; i++) {
+            const b = bboxes[i];
             drawAndBlurRegion(
               this.dctx,
               video,
@@ -2928,7 +2947,8 @@ video:not([data-basarunaa]) { filter: none !important; }
               dispH,
               dispOffX,
               dispOffY,
-              this.debugMode
+              this.debugMode,
+              this.shapeFor(i, b, meta, sx, sy, dispOffX, dispOffY)
             );
           }
           if (this.debugMode === "boxes" || this.debugMode === "debug") {
@@ -2970,6 +2990,33 @@ video:not([data-basarunaa]) { filter: none !important; }
       }
       this.scheduleTick();
     }
+    /**
+     * Polygone du corps de la personne `i`, exprimé dans le repère du canvas
+     * d'affichage — `null` si la pose n'est pas exploitable (le masque retombe
+     * alors sur le rectangle, comme avant).
+     *
+     * `buildBodyPolygon` raisonne dans l'espace de l'image d'ANALYSE ; le canvas,
+     * lui, est à l'échelle de l'affichage. La conversion se fait ici, une fois,
+     * plutôt que dans `draw-region` qui ne connaît pas `meta`.
+     */
+    shapeFor(i, bbox, meta, sx, sy, offX, offY) {
+      if (window.__basarunaaShapeDisabled === true) return null;
+      const raw = this.currentKeypoints[i];
+      if (!raw || raw.length < 17) return null;
+      const kps = raw.map((k) => ({
+        x: k[0],
+        y: k[1],
+        confidence: k[2]
+      }));
+      const poly = buildBodyPolygon(kps, bbox, meta.analyseW, meta.analyseH);
+      if (!poly.isBodyShaped || poly.points.length < 3) return null;
+      return {
+        points: poly.points.map((p) => ({
+          x: offX + p.x * sx,
+          y: offY + p.y * sy
+        }))
+      };
+    }
     // ─── Reply handler — called from window.__basarunaaApplyVideo ──
     onYoloApply(payload) {
       try {
@@ -2980,8 +3027,10 @@ video:not([data-basarunaa]) { filter: none !important; }
           this.currentBboxes = [
             [0, 0, payload.analyseW, payload.analyseH]
           ];
+          this.currentKeypoints = [null];
         } else {
           this.currentBboxes = safeBboxes;
+          this.currentKeypoints = payload.blurKeypoints ?? [];
         }
         this.currentMeta = {
           analyseW: payload.analyseW,

@@ -38,6 +38,54 @@ class BasarunaaScriptHandler: TabContentScript {
   /// ajoute ~4 lignes/seconde au syslog du device.
   private static let cadenceMetrics = ["yolo_send", "video_apply"]
 
+  // ─── Thermique & batterie ───────────────────────────────────────────────
+  //
+  // Question de Karim (2026-08-29) : « il faut faire attention au fait que ça
+  // chauffe de trop, c'est vraiment important — mais comment vérifier ? ».
+  // Réponse : iOS l'expose lui-même. `ProcessInfo.thermalState` est l'état que
+  // le système utilise pour décider de brider, et c'est la seule mesure qui
+  // compte — la température en degrés n'est pas lisible sans API privée, et ne
+  // dirait pas ce qu'on veut savoir (à partir de quand iOS nous ralentit).
+  //
+  //   nominal → fair → serious → critical
+  //
+  // `serious` = le système bride déjà. `critical` = l'app devient inutilisable,
+  // exactement le scénario redouté. On relève l'état à chaque analyse mais on
+  // ne journalise qu'aux CHANGEMENTS, plus un rappel par minute : un état qui
+  // ne bouge pas n'apprend rien et noierait le reste.
+  //
+  // Lecture, en parallèle des métriques de cadence :
+  //   idevicesyslog -u <udid> -m "THERMAL"
+  private var lastThermalState: ProcessInfo.ThermalState?
+  private var lastThermalLogMs: Double = 0
+
+  /// Relève l'état thermique + la batterie. Appelé à chaque analyse vidéo :
+  /// c'est le seul endroit qui suit le rythme réel du pipeline.
+  private func logThermalIfNeeded() {
+    let state = ProcessInfo.processInfo.thermalState
+    let nowMs = Date().timeIntervalSince1970 * 1000
+    let changed = state != lastThermalState
+    guard changed || nowMs - lastThermalLogMs >= 60_000 else { return }
+    lastThermalState = state
+    lastThermalLogMs = nowMs
+
+    let name: String
+    switch state {
+    case .nominal: name = "nominal"
+    case .fair: name = "fair"
+    case .serious: name = "serious"
+    case .critical: name = "critical"
+    @unknown default: name = "unknown"
+    }
+    // `isBatteryMonitoringEnabled` est activé à l'init ; sans lui le niveau
+    // vaut -1 et on croirait la batterie vide.
+    let level = UIDevice.current.batteryLevel
+    let battery = level < 0 ? "n/a" : String(format: "%.0f%%", level * 100)
+    log.notice(
+      "[THERMAL] state=\(name, privacy: .public) battery=\(battery, privacy: .public) changed=\(changed, privacy: .public)"
+    )
+  }
+
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private static let staticLog = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
@@ -84,6 +132,9 @@ class BasarunaaScriptHandler: TabContentScript {
   }()
 
   init() {
+    // Sans ça, `batteryLevel` renvoie -1 en permanence — une mesure qui a
+    // l'air d'une valeur mais n'en est pas.
+    UIDevice.current.isBatteryMonitoringEnabled = true
     log.info("handler_init")
   }
 
@@ -116,6 +167,7 @@ class BasarunaaScriptHandler: TabContentScript {
       //   idevicesyslog -u <udid> -m "[METRIC]"
       if Self.cadenceMetrics.contains(where: { data.contains("\"event\":\"\($0)\"") }) {
         log.notice("[METRIC] \(data, privacy: .public)")
+        logThermalIfNeeded()
       } else {
         log.info("[METRIC] \(data, privacy: .public)")
       }
