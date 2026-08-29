@@ -20,7 +20,15 @@ brave_version_build = 0
 // build 2 = resoumission 2026-06-23 (fix refus MFi com.yubico.ylp 2.1.0).
 // build 3 = resoumission 2026-06-26 (fixes refus round 2 : NSLocalNetworkUsageDescription
 // 5.1.1, onboarding iPad plein écran 2.1(a), retrait VPN NEVPNManager 2.5.1).
-brave_version_build = 3
+// build 4 = soumission 2026-08-29, première depuis le 19 juin. Contenu : les
+// deux correctifs de fuite d'URL vers Sentry (raison principale de cette
+// soumission — en production, les URL visitées pouvaient partir), le bandeau
+// « accès anticipé » sur la NTP, l'étape d'onboarding « suivre les canaux
+// dev&din », la collecte de corpus opt-in, le pré-filtre/vérificateur NanoDet
+// sur les images, le flou vidéo en cascade, les panels dans la bonne langue.
+// BraveCore rebuildé sur la même base Chromium (aucun roll upstream depuis
+// mars) — validé sur device en Release AVANT soumission.
+brave_version_build = 4
 
 // Browther: version marketing en CalVer (parité Desktop "Browther 2026.MM.JJ").
 // App Store Connect impose CFBundleShortVersionString = au plus 3 entiers SANS
@@ -30,7 +38,7 @@ brave_version_build = 3
 // Override APRÈS l'include (sinon args.xcconfig force la version Brave 1.90).
 // ⚠️ Bumper la date à chaque soumission ; App Store compare composante par
 // composante (2026.x > 1.90, donc la transition depuis 1.90 est valide).
-brave_ios_marketing_version = 2026.6.19
+brave_ios_marketing_version = 2026.8.29
 
 FRAMEWORK_BASE_BUNDLE_ID = com.devndin.browther
 BASE_BUNDLE_ID = $(FRAMEWORK_BASE_BUNDLE_ID).ios
