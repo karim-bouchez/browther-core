@@ -230,7 +230,34 @@ Pour les supporter, il faudrait :
 | Hash plus robuste (24 premiers bytes seulement) + logs réduits | `e586bff5b7d` | Le hash incluait la queue (Track UID variable) → faux positifs à chaque seek, drop de cache injustifié. Restreint aux 24 premiers bytes (EBML header + codec params, stables). Logs : suppression `chunk_send` (JS) + `chunk_preprocess_start` (Swift) + `Avg frame` (NSNet2) ; `video_state` ralenti de 500ms à 2s. Réduction ~280 events/min |
 | Drop systématique au init_segment + early-exit epoch | `3b1ef74e975` | Tentative initiale qui cassait les seeks courts dans la zone YouTube-buffered (~20-30s). Repris : voir ligne suivante. Early-exit epoch conservé. |
 | Détection content change via `video.duration` | `c8c04a99fea` | Au lieu de drop le cache à chaque init_segment, on observe `video.duration` au moment du init_segment. Si la durée change >2s vs précédente → contenu différent (pub→vidéo, etc.) → pageReset. Sinon → seek dans le même contenu → cache préservé (donc seek instantané dans zone bufferisée préservé) |
+| **Sortie 6 dB trop faible (`irfft`)** | 2026-08-29 | `rfft` divisait déjà par 2 pour rendre le vrai spectre (le modèle est nourri avec ça), et `irfft` appliquait quand même la normalisation canonique `1/(2N)` de vDSP — qui suppose qu'on lui repasse la sortie BRUTE du forward. **Tout l'audio iOS sortait à -6 dB de la référence**, sur toutes les vidéos, depuis toujours. Trouvé par mesure (harness golden ci-dessous), pas à l'oreille : gain optimal 2.0000, résidu après ce gain 3e-8 → l'erreur était *purement* d'échelle, le reste du portage vDSP est exact |
+| **Reset GRU aveugle à 30 s → comportement macOS** | 2026-08-29 | iOS gardait le périodique 30 s du moteur standalone, que macOS a explicitement **écarté parce qu'il grésille en pleine parole** (cf. `private/docs/sawtunaa/DESKTOP.md` § Port qualité). Remplacé par le port fidèle de `Nsnet2Stream` : reset quand le silence de SORTIE dure ≥ 5 s (peak-hold, seuil 0.02, τ 2 s) + filet forcé à 5 min |
 | User mark via 3-finger touch | (en cours) | Pour signaler à l'analyzer un moment précis où l'utilisateur a observé un bug (audio haché, désync). Toucher l'écran à 3 doigts simultanés → `user_mark` event. L'analyzer affiche une section "User marks" avec les events ±3s autour de chaque mark (gap_fill, underrun, drift, etc.) |
+
+## Parité DSP avec macOS — vérifiée depuis le 2026-08-29
+
+Le port **C++** de NSNet2 est validé contre le moteur Python par golden vectors
+depuis le 2026-07-25. Le port **Swift** refait le même STFT → GRU → iSTFT en
+vDSP et n'avait **jamais** subi ce test : un défaut de fenêtrage, de
+normalisation ou d'overlap-add ne crashe pas, il s'entend seulement comme
+« c'est moins bon sur iPhone ».
+
+```bash
+private/tools/sawtunaa-swift-golden/run.sh   # ~5 s, sans device, sans build iOS
+```
+
+Le harness compile le **vrai** `NSNet2Processor.swift` (symlink) sur macOS via
+la slice `macos-arm64` du xcframework ORT, rejoue
+`private/testdata/sawtunaa-golden/*.f32` et applique les tolérances du harness
+C++ — les deux verdicts sont donc comparables. Première exécution : **échec sur
+les 4 cas** (l'erreur `irfft` ci-dessus). Après correction, les 4 passent avec
+30 à 3000× de marge.
+
+⚠️ Ce que le harness ne couvre PAS, et où vivent les écarts restants avec
+macOS : le **downmix mono** du JS (macOS calcule le masque sur le downmix mais
+l'applique **par canal** — la stéréo y survit, pas sur iOS), le chunking 1 s,
+les gaps comblés par du silence, et `AVAudioEngine`. Il faut une mesure
+end-to-end pour les chiffrer.
 
 ## Limitations connues
 

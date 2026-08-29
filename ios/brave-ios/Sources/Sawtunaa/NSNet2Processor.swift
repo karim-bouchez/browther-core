@@ -22,7 +22,19 @@ public class NSNet2Processor {
   private static let N_OVERLAP = 448  // N_WIN - N_HOP
   private static let N_BINS = 513  // N_FFT / 2 + 1
   private static let GRU_HIDDEN = 600
-  private static let GRU_RESET_PERIOD = 30 * 48000
+
+  // Reset GRU — porté à l'identique de Nsnet2Stream (macOS = référence).
+  // ⚠️ Le périodique aveugle à 30 s du moteur standalone a été ÉCARTÉ côté
+  // desktop parce qu'il grésille en pleine parole (cf. docs/sawtunaa/DESKTOP.md
+  // § « Port qualité depuis le moteur standalone »). iOS l'avait gardé : c'est
+  // corrigé ici. Ce qui le remplace : reset quand le silence de SORTIE dure
+  // ≥ 5 s en continu (détection peak-hold, robuste aux blancs entre les mots),
+  // + un filet forcé à 5 min. Fixe aussi « parole étouffée après une longue
+  // intro musicale » (GRU verrouillé sur la musique).
+  private static let SILENCE_RESET_RMS: Float = 0.02
+  private static let SILENCE_RESET_HOLD_SEC: Float = 2.0
+  private static let SILENCE_RESET_MIN_SAMPLES = 5 * 48000
+  private static let GRU_RESET_FORCE_SAMPLES = 300 * 48000
 
   private var session: ORTSession?
 
@@ -44,6 +56,9 @@ public class NSNet2Processor {
   // Input accumulation buffer
   private var inputBuf = [Float]()
   private var samplesSinceReset = 0
+  // Peak-hold du RMS de sortie + durée de silence continu (cf. reset GRU).
+  private var outPeak: Float = 0
+  private var silenceSamples = 0
 
   // Per-frame work buffers
   private var windowed = [Float](repeating: 0, count: N_FFT)
@@ -123,6 +138,8 @@ public class NSNet2Processor {
     synthesisOverlap = [Float](repeating: 0, count: Self.N_OVERLAP)
     inputBuf.removeAll()
     samplesSinceReset = 0
+    outPeak = 0
+    silenceSamples = 0
     frameCount = 0
     totalProcessMs = 0
   }
@@ -132,12 +149,8 @@ public class NSNet2Processor {
     let n = newSamples.count
     guard n > 0 else { return [] }
 
-    samplesSinceReset += n
-    if samplesSinceReset >= Self.GRU_RESET_PERIOD {
-      h1 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
-      h2 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
-      samplesSinceReset = 0
-    }
+    // Reset évalué au niveau batch, comme Nsnet2Stream::MaybeResetGruStates.
+    maybeResetGruStates()
 
     inputBuf.append(contentsOf: newSamples)
 
@@ -147,15 +160,49 @@ public class NSNet2Processor {
       let out = processFrame(frame)
       outputParts.append(out)
       inputBuf.removeFirst(Self.N_HOP)
+      samplesSinceReset += Self.N_HOP
     }
+
+    let produced = outputParts.flatMap { $0 }
+    updateSilenceTracking(produced)
 
     // Pad front if needed to match input size
-    let nProduced = outputParts.count * Self.N_HOP
-    if nProduced < n {
-      outputParts.insert([Float](repeating: 0, count: n - nProduced), at: 0)
+    if produced.count < n {
+      return [Float](repeating: 0, count: n - produced.count) + produced
     }
+    return produced
+  }
 
-    return outputParts.flatMap { $0 }
+  // MARK: - Reset GRU (port de Nsnet2Stream)
+
+  private func maybeResetGruStates() {
+    let silenceDue = silenceSamples >= Self.SILENCE_RESET_MIN_SAMPLES
+    let forceDue = samplesSinceReset >= Self.GRU_RESET_FORCE_SAMPLES
+    guard silenceDue || forceDue else { return }
+    h1 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
+    h2 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
+    samplesSinceReset = 0
+    if silenceDue {
+      silenceSamples = 0
+    }
+  }
+
+  /// Peak-hold du RMS de sortie : le compteur de silence n'avance que si le
+  /// niveau reste sous le seuil, décroissance exponentielle de constante
+  /// SILENCE_RESET_HOLD_SEC (un blanc entre deux mots ne compte donc pas).
+  private func updateSilenceTracking(_ out: [Float]) {
+    let n = out.count
+    guard n > 0 else { return }
+    var sumSq: Float = 0
+    for s in out { sumSq += s * s }
+    let rms = (sumSq / Float(n)).squareRoot()
+    let decay = exp(-Float(n) / (Float(Self.SAMPLE_RATE) * Self.SILENCE_RESET_HOLD_SEC))
+    outPeak = max(rms, outPeak * decay)
+    if outPeak >= Self.SILENCE_RESET_RMS {
+      silenceSamples = 0
+    } else {
+      silenceSamples += n
+    }
   }
 
   // MARK: - Frame processing
@@ -334,8 +381,15 @@ public class NSNet2Processor {
       }
     }
 
-    // vDSP inverse returns N*x, scale by 1/(2*N)
-    var scale = 1.0 / Float(Self.N_FFT * 2)
+    // vDSP: zrip(forward) rend 2*DFT et zrip(inverse) rend N*IDFT de ce qu'on
+    // lui donne — la normalisation canonique 1/(2N) suppose donc qu'on lui
+    // repasse la sortie BRUTE du forward. Ici `rfft` a déjà divisé par 2 pour
+    // rendre le vrai spectre (le modèle est nourri avec ça), donc le facteur 2
+    // a déjà été payé : la normalisation qui reste est 1/N. Avec 1/(2N) toute
+    // la sortie sortait à -6 dB (vérifié par private/tools/sawtunaa-swift-golden,
+    // gain optimal mesuré 2.0000, résidu 3e-8 → l'erreur était PUREMENT
+    // d'échelle, le reste du portage est exact).
+    var scale = 1.0 / Float(Self.N_FFT)
     output.withUnsafeMutableBufferPointer { buf in
       vDSP_vsmul(buf.baseAddress!, 1, &scale, buf.baseAddress!, 1, vDSP_Length(Self.N_FFT))
     }
