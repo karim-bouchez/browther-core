@@ -2139,15 +2139,15 @@ video:not([data-basarunaa]) { filter: none !important; }
     };
   }
 
-  const YOLO_INTERVAL_TRACKING_MS = 250;
+  const YOLO_INTERVAL_TRACKING_MS = 150;
   const YOLO_INTERVAL_SAFE_MS = 5e3;
-  const YOLO_MIN_COOLDOWN_MS = 150;
+  const YOLO_MIN_COOLDOWN_MS = 100;
   const SCENE_CHANGE_THRESHOLD = 0.12;
   const SCENE_DIFF_HASH_SIZE = 8;
   const FRAME_DIFF_SKIP_THRESHOLD = 0.02;
   const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
-  const MAX_SAMPLE_WIDTH = 320;
-  const JPEG_QUALITY = 0.5;
+  const MAX_SAMPLE_WIDTH = 640;
+  const JPEG_QUALITY = 0.8;
   const CORPUS_MAX_WIDTH = 1024;
   const CORPUS_JPEG_QUALITY = 0.9;
   const BLUR_DOWNSAMPLE = 50;
@@ -2157,6 +2157,11 @@ video:not([data-basarunaa]) { filter: none !important; }
   const BLUR_PERF_WINDOW = 60;
   const VIDEO_FEATHER_MARGIN_PX_DEFAULT = 50;
   const SCENE_INTERMEDIATE_SIZE = 256;
+  const num = (v, fallback) => typeof v === "number" && v > 0 ? v : fallback;
+  const sampleWidth = () => num(window.__basarunaaSampleWidth, MAX_SAMPLE_WIDTH);
+  const jpegQuality = () => num(window.__basarunaaJpegQuality, JPEG_QUALITY);
+  const yoloTrackingIntervalMs = () => num(window.__basarunaaYoloIntervalMs, YOLO_INTERVAL_TRACKING_MS);
+  const yoloCooldownMs = () => num(window.__basarunaaYoloCooldownMs, YOLO_MIN_COOLDOWN_MS);
 
   const CSS_BLUR_FLAG = "data-basarunaa-cssblur";
   function applyVideoCssBlur(video) {
@@ -2560,12 +2565,12 @@ video:not([data-basarunaa]) { filter: none !important; }
     const vw = video.videoWidth;
     const vh = video.videoHeight;
     if (vw === 0 || vh === 0) return false;
-    const sw = Math.min(MAX_SAMPLE_WIDTH, vw);
+    const sw = Math.min(sampleWidth(), vw);
     const sh = Math.max(1, Math.round(vh * sw / vw));
     if (sampleCanvas.width !== sw) sampleCanvas.width = sw;
     if (sampleCanvas.height !== sh) sampleCanvas.height = sh;
     sctx.drawImage(video, 0, 0, sw, sh);
-    const dataUrl = sampleCanvas.toDataURL("image/jpeg", JPEG_QUALITY);
+    const dataUrl = sampleCanvas.toDataURL("image/jpeg", jpegQuality());
     const b64 = extractB64(dataUrl);
     if (!b64) return false;
     const ctMs = Math.round((video.currentTime || 0) * 1e3);
@@ -2851,11 +2856,11 @@ video:not([data-basarunaa]) { filter: none !important; }
             diff: Math.round(sceneDiff * 1e3) / 1e3
           });
         }
-        let yoloInterval = this.state === "safe" ? YOLO_INTERVAL_SAFE_MS : YOLO_INTERVAL_TRACKING_MS;
+        let yoloInterval = this.state === "safe" ? YOLO_INTERVAL_SAFE_MS : yoloTrackingIntervalMs();
         if (this.state === "full_blur") yoloInterval = 0;
         const yoloDueRaw = nowMs - this.lastYoloMs >= yoloInterval;
         const triggered = this.triggeredByScene;
-        const yoloCooldownOk = nowMs - this.lastYoloMs >= YOLO_MIN_COOLDOWN_MS;
+        const yoloCooldownOk = nowMs - this.lastYoloMs >= yoloCooldownMs();
         let yoloDue = yoloDueRaw;
         if (!this.yoloInFlight && yoloCooldownOk && yoloDue && !triggered && !this.isNsfw) {
           const sinceForce = nowMs - this.lastYoloMs >= FRAME_DIFF_FORCE_AFTER_MS;
