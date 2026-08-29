@@ -7,11 +7,20 @@ import Accelerate
 import Foundation
 import onnxruntime_objc
 
-/// NSNet2 stateful processor — port of Python NSNet2StatefulProcessor.
+/// NSNet2 stateful processor — port Swift de `Nsnet2Stream` (macOS, C++), qui
+/// est lui-même le port du moteur Python de référence.
 ///
-/// STFT -> log power -> ONNX inference (gain mask) -> ISTFT with overlap-add.
-/// GRU hidden states are persisted across frames for streaming.
-/// Uses vDSP for FFT (Accelerate framework).
+/// STFT → log power → inférence ONNX (masque de gain) → iSTFT + overlap-add.
+/// L'état GRU est conservé d'une frame à l'autre (streaming).
+///
+/// **Stéréo** : un seul masque par frame, calculé sur le **downmix des
+/// spectres** (linéarité de la STFT — donc une seule inférence, le coût ne
+/// double pas), puis appliqué **à chaque canal séparément**. C'est ce qui
+/// préserve la scène stéréo, exactement comme macOS. Le downmix mono d'avant
+/// l'aplatissait sur toutes les vidéos.
+///
+/// Parité numérique avec la référence Python vérifiée par
+/// `private/tools/sawtunaa-swift-golden/run.sh` (~5 s, sans device).
 public class NSNet2Processor {
 
   private static let TAG = "NSNet2"
@@ -38,6 +47,10 @@ public class NSNet2Processor {
 
   private var session: ORTSession?
 
+  /// 1 ou 2. En production iOS c'est 2 ; 1 sert au harness golden (les vecteurs
+  /// de référence sont mono) et au cas où une source n'aurait qu'un canal.
+  public let channels: Int
+
   // STFT windows
   private var win = [Float](repeating: 0, count: N_WIN)
   private var awin = [Float](repeating: 0, count: N_WIN)
@@ -50,11 +63,13 @@ public class NSNet2Processor {
   private var h1 = [Float](repeating: 0, count: GRU_HIDDEN)
   private var h2 = [Float](repeating: 0, count: GRU_HIDDEN)
 
-  // Overlap-add buffer
-  private var synthesisOverlap = [Float](repeating: 0, count: N_OVERLAP)
+  // Overlap-add buffers (un par canal)
+  private var overlapL = [Float](repeating: 0, count: N_OVERLAP)
+  private var overlapR = [Float](repeating: 0, count: N_OVERLAP)
 
-  // Input accumulation buffer
-  private var inputBuf = [Float]()
+  // Input accumulation buffers (un par canal)
+  private var inputL = [Float]()
+  private var inputR = [Float]()
   private var samplesSinceReset = 0
   // Peak-hold du RMS de sortie + durée de silence continu (cf. reset GRU).
   private var outPeak: Float = 0
@@ -62,11 +77,13 @@ public class NSNet2Processor {
 
   // Per-frame work buffers
   private var windowed = [Float](repeating: 0, count: N_FFT)
-  private var specReal = [Float](repeating: 0, count: N_BINS)
-  private var specImag = [Float](repeating: 0, count: N_BINS)
+  private var specLRe = [Float](repeating: 0, count: N_BINS)
+  private var specLIm = [Float](repeating: 0, count: N_BINS)
+  private var specRRe = [Float](repeating: 0, count: N_BINS)
+  private var specRIm = [Float](repeating: 0, count: N_BINS)
   private var features = [Float](repeating: 0, count: N_BINS)
-  private var maskedReal = [Float](repeating: 0, count: N_BINS)
-  private var maskedImag = [Float](repeating: 0, count: N_BINS)
+  private var maskedRe = [Float](repeating: 0, count: N_BINS)
+  private var maskedIm = [Float](repeating: 0, count: N_BINS)
   private var synthesized = [Float](repeating: 0, count: N_FFT)
 
   // vDSP split complex buffers
@@ -79,7 +96,8 @@ public class NSNet2Processor {
 
   public var isAvailable: Bool { session != nil }
 
-  public init(modelPath: String) {
+  public init(modelPath: String, channels: Int = 2) {
+    self.channels = (channels == 2) ? 2 : 1
     setupWindows()
     fftSetup = vDSP_create_fftsetup(log2n, FFTRadix(kFFTRadix2))
     loadModel(path: modelPath)
@@ -123,7 +141,7 @@ public class NSNet2Processor {
       try opts.setLogSeverityLevel(.warning)
       session = try ORTSession(env: env, modelPath: modelPath, sessionOptions: opts)
       print(
-        "[\(Self.TAG)] Model loaded (hop=\(Self.N_HOP), \(Float(Self.N_HOP) / Float(Self.SAMPLE_RATE) * 1000)ms)"
+        "[\(Self.TAG)] Model loaded (hop=\(Self.N_HOP), \(Float(Self.N_HOP) / Float(Self.SAMPLE_RATE) * 1000)ms, channels=\(channels))"
       )
     } catch {
       print("[\(Self.TAG)] ERROR loading model: \(error)")
@@ -135,8 +153,10 @@ public class NSNet2Processor {
   public func reset() {
     h1 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
     h2 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
-    synthesisOverlap = [Float](repeating: 0, count: Self.N_OVERLAP)
-    inputBuf.removeAll()
+    overlapL = [Float](repeating: 0, count: Self.N_OVERLAP)
+    overlapR = [Float](repeating: 0, count: Self.N_OVERLAP)
+    inputL.removeAll()
+    inputR.removeAll()
     samplesSinceReset = 0
     outPeak = 0
     silenceSamples = 0
@@ -144,33 +164,43 @@ public class NSNet2Processor {
     totalProcessMs = 0
   }
 
-  /// Process a chunk of PCM samples at 48kHz. Returns the same number of samples.
-  public func process(_ newSamples: [Float]) -> [Float] {
-    let n = newSamples.count
+  /// Traite un bloc de PCM 48 kHz en **planar** (tous les samples du canal
+  /// gauche, puis tous ceux du canal droit si `channels == 2`) et rend la
+  /// sortie dans le même format.
+  ///
+  /// ⚠️ La sortie fait **moins** de samples que l'entrée tant que la fenêtre
+  /// d'analyse n'est pas remplie (jusqu'à 959 au tout premier bloc), puis
+  /// oscille autour de la taille demandée : c'est la latence STFT, et c'est
+  /// exactement ce que fait `Nsnet2Stream`. Sur la durée, sortie totale ==
+  /// entrée totale. L'ancienne version comblait la différence par des zéros
+  /// **en tête**, ce qui injectait un silence dont la longueur dépendait de la
+  /// taille du bloc — donc un décalage AV variable après chaque seek.
+  public func process(_ planar: [Float]) -> [Float] {
+    let n = planar.count / channels
     guard n > 0 else { return [] }
 
-    // Reset évalué au niveau batch, comme Nsnet2Stream::MaybeResetGruStates.
+    // Reset évalué au niveau du bloc, comme Nsnet2Stream::MaybeResetGruStates.
     maybeResetGruStates()
 
-    inputBuf.append(contentsOf: newSamples)
+    inputL.append(contentsOf: planar[0..<n])
+    if channels == 2 {
+      inputR.append(contentsOf: planar[n..<(2 * n)])
+    }
 
-    var outputParts = [[Float]]()
-    while inputBuf.count >= Self.N_WIN {
-      let frame = Array(inputBuf.prefix(Self.N_WIN))
-      let out = processFrame(frame)
-      outputParts.append(out)
-      inputBuf.removeFirst(Self.N_HOP)
+    var outL = [Float]()
+    var outR = [Float]()
+    outL.reserveCapacity(n)
+    while inputL.count >= Self.N_WIN {
+      processFrame(outL: &outL, outR: &outR)
+      inputL.removeFirst(Self.N_HOP)
+      if channels == 2 {
+        inputR.removeFirst(Self.N_HOP)
+      }
       samplesSinceReset += Self.N_HOP
     }
 
-    let produced = outputParts.flatMap { $0 }
-    updateSilenceTracking(produced)
-
-    // Pad front if needed to match input size
-    if produced.count < n {
-      return [Float](repeating: 0, count: n - produced.count) + produced
-    }
-    return produced
+    updateSilenceTracking(outL, outR)
+    return channels == 2 ? outL + outR : outL
   }
 
   // MARK: - Reset GRU (port de Nsnet2Stream)
@@ -190,11 +220,18 @@ public class NSNet2Processor {
   /// Peak-hold du RMS de sortie : le compteur de silence n'avance que si le
   /// niveau reste sous le seuil, décroissance exponentielle de constante
   /// SILENCE_RESET_HOLD_SEC (un blanc entre deux mots ne compte donc pas).
-  private func updateSilenceTracking(_ out: [Float]) {
-    let n = out.count
+  private func updateSilenceTracking(_ outL: [Float], _ outR: [Float]) {
+    let n = outL.count
     guard n > 0 else { return }
     var sumSq: Float = 0
-    for s in out { sumSq += s * s }
+    if channels == 2 && outR.count == n {
+      for i in 0..<n {
+        let s = 0.5 * (outL[i] + outR[i])
+        sumSq += s * s
+      }
+    } else {
+      for s in outL { sumSq += s * s }
+    }
     let rms = (sumSq / Float(n)).squareRoot()
     let decay = exp(-Float(n) / (Float(Self.SAMPLE_RATE) * Self.SILENCE_RESET_HOLD_SEC))
     outPeak = max(rms, outPeak * decay)
@@ -207,25 +244,36 @@ public class NSNet2Processor {
 
   // MARK: - Frame processing
 
-  private func processFrame(_ buf: [Float]) -> [Float] {
+  private func processFrame(outL: inout [Float], outR: inout [Float]) {
     let t0 = CFAbsoluteTimeGetCurrent()
 
-    // 1. Window (zero-pad to N_FFT)
-    for i in 0..<Self.N_WIN { windowed[i] = buf[i] * win[i] }
-    for i in Self.N_WIN..<Self.N_FFT { windowed[i] = 0 }
+    // 1-2. Fenêtre d'analyse (zero-pad à N_FFT) + RFFT, par canal.
+    analyze(inputL, into: &specLRe, &specLIm)
+    if channels == 2 {
+      analyze(inputR, into: &specRRe, &specRIm)
+    }
 
-    // 2. RFFT via vDSP
-    rfft(windowed, realOut: &specReal, imagOut: &specImag)
-
-    // 3. Log power spectrum
+    // 3. Features log-power sur le spectre du DOWNMIX (moyenne des spectres —
+    // linéarité de la STFT, donc une seule inférence par frame).
     for i in 0..<Self.N_BINS {
-      let power = specReal[i] * specReal[i] + specImag[i] * specImag[i]
+      var re = specLRe[i]
+      var im = specLIm[i]
+      if channels == 2 {
+        re = 0.5 * (re + specRRe[i])
+        im = 0.5 * (im + specRIm[i])
+      }
+      let power = re * re + im * im
       features[i] = Float(log10(max(Double(power), 1e-12)))
     }
 
-    // 4. ONNX inference
+    // 4. Inférence ONNX
     guard let session = session else {
-      return Array(buf.prefix(Self.N_HOP))
+      // Passthrough : rendre l'entrée telle quelle plutôt que du silence.
+      outL.append(contentsOf: inputL.prefix(Self.N_HOP))
+      if channels == 2 {
+        outR.append(contentsOf: inputR.prefix(Self.N_HOP))
+      }
+      return
     }
 
     do {
@@ -259,13 +307,21 @@ public class NSNet2Processor {
         runOptions: nil
       )
 
-      // Extract mask
+      // 5. Masque appliqué à CHAQUE canal (le masque, lui, est commun).
       let maskData = try outputs["output"]!.tensorData() as Data
       maskData.withUnsafeBytes { ptr in
-        let floats = ptr.bindMemory(to: Float.self)
+        let mask = ptr.bindMemory(to: Float.self)
         for i in 0..<Self.N_BINS {
-          maskedReal[i] = specReal[i] * floats[i]
-          maskedImag[i] = specImag[i] * floats[i]
+          maskedRe[i] = specLRe[i] * mask[i]
+          maskedIm[i] = specLIm[i] * mask[i]
+        }
+        synthesize(&overlapL, into: &outL)
+        if channels == 2 {
+          for i in 0..<Self.N_BINS {
+            maskedRe[i] = specRRe[i] * mask[i]
+            maskedIm[i] = specRIm[i] * mask[i]
+          }
+          synthesize(&overlapR, into: &outR)
         }
       }
 
@@ -282,29 +338,36 @@ public class NSNet2Processor {
       }
     } catch {
       print("[\(Self.TAG)] Inference error: \(error)")
-      return Array(buf.prefix(Self.N_HOP))
-    }
-
-    // 6. IRFFT
-    irfft(maskedReal, maskedImag, output: &synthesized)
-
-    // 7. Synthesis window
-    for i in 0..<Self.N_WIN { synthesized[i] *= awin[i] }
-
-    // 8. Overlap-add
-    for i in 0..<Self.N_OVERLAP { synthesized[i] += synthesisOverlap[i] }
-
-    let output = Array(synthesized.prefix(Self.N_HOP))
-    for i in 0..<Self.N_OVERLAP {
-      synthesisOverlap[i] = synthesized[Self.N_HOP + i]
+      outL.append(contentsOf: inputL.prefix(Self.N_HOP))
+      if channels == 2 {
+        outR.append(contentsOf: inputR.prefix(Self.N_HOP))
+      }
+      return
     }
 
     // Per-frame perf is already aggregated per-chunk via chunk_preprocess_done
     // (nsnet2_ms field) — no per-100-frames print needed.
     frameCount += 1
     totalProcessMs += (CFAbsoluteTimeGetCurrent() - t0) * 1000.0
+  }
 
-    return output
+  /// Fenêtre d'analyse + RFFT des N_WIN premiers samples de `input`.
+  private func analyze(_ input: [Float], into re: inout [Float], _ im: inout [Float]) {
+    for i in 0..<Self.N_WIN { windowed[i] = input[i] * win[i] }
+    for i in Self.N_WIN..<Self.N_FFT { windowed[i] = 0 }
+    rfft(windowed, realOut: &re, imagOut: &im)
+  }
+
+  /// iRFFT de `maskedRe`/`maskedIm` + fenêtre de synthèse + overlap-add.
+  /// Ajoute N_HOP samples à `out` et met à jour la queue `overlap`.
+  private func synthesize(_ overlap: inout [Float], into out: inout [Float]) {
+    irfft(maskedRe, maskedIm, output: &synthesized)
+    for i in 0..<Self.N_WIN { synthesized[i] *= awin[i] }
+    for i in 0..<Self.N_OVERLAP { synthesized[i] += overlap[i] }
+    out.append(contentsOf: synthesized.prefix(Self.N_HOP))
+    for i in 0..<Self.N_OVERLAP {
+      overlap[i] = synthesized[Self.N_HOP + i]
+    }
   }
 
   // MARK: - FFT via vDSP
@@ -385,10 +448,11 @@ public class NSNet2Processor {
     // lui donne — la normalisation canonique 1/(2N) suppose donc qu'on lui
     // repasse la sortie BRUTE du forward. Ici `rfft` a déjà divisé par 2 pour
     // rendre le vrai spectre (le modèle est nourri avec ça), donc le facteur 2
-    // a déjà été payé : la normalisation qui reste est 1/N. Avec 1/(2N) toute
-    // la sortie sortait à -6 dB (vérifié par private/tools/sawtunaa-swift-golden,
-    // gain optimal mesuré 2.0000, résidu 3e-8 → l'erreur était PUREMENT
-    // d'échelle, le reste du portage est exact).
+    // a déjà été payé : la normalisation qui reste est 1/N — c'est aussi le
+    // `kInvN` de Nsnet2Stream. Avec 1/(2N) toute la sortie sortait à -6 dB
+    // (vérifié par private/tools/sawtunaa-swift-golden, gain optimal mesuré
+    // 2.0000, résidu 3e-8 → l'erreur était PUREMENT d'échelle, le reste du
+    // portage est exact).
     var scale = 1.0 / Float(Self.N_FFT)
     output.withUnsafeMutableBufferPointer { buf in
       vDSP_vsmul(buf.baseAddress!, 1, &scale, buf.baseAddress!, 1, vDSP_Length(Self.N_FFT))

@@ -101,7 +101,10 @@ public class SawtunaaAudioPlayer {
   public var isAvailable: Bool { nsnet2?.isAvailable ?? false }
 
   public init() {
-    format = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 1)!
+    // Stéréo depuis le 2026-08-29 : le JS envoie les deux canaux en planar et
+    // NSNet2 applique le même masque à chacun (cf. NSNet2Processor). Avant, tout
+    // était downmixé en mono et la scène stéréo s'effondrait sur chaque vidéo.
+    format = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2)!
     engine.attach(playerNode)
     engine.connect(playerNode, to: engine.mainMixerNode, format: format)
     // Pre-allocate audio resources before engine.start() to avoid a race
@@ -111,7 +114,7 @@ public class SawtunaaAudioPlayer {
     engine.prepare()
     SawtunaaMetric.emit(
       "player_init",
-      ["sample_rate": 48000, "channels": 1])
+      ["sample_rate": 48000, "channels": 2])
   }
 
   /// Load the NSNet2 ONNX model from a file path.
@@ -127,7 +130,7 @@ public class SawtunaaAudioPlayer {
 
       // Warmup: process 1s of silence to prime ONNX runtime, vDSP buffers, GRU states.
       let warmupT0 = CFAbsoluteTimeGetCurrent()
-      let silence = [Float](repeating: 0, count: 48000)
+      let silence = [Float](repeating: 0, count: 48000 * 2)  // 1 s planar L+R
       _ = processor.process(silence)
       let warmupMs = Int((CFAbsoluteTimeGetCurrent() - warmupT0) * 1000)
       // Reset state so first real chunk starts from a clean slate
@@ -277,7 +280,8 @@ public class SawtunaaAudioPlayer {
 
   // MARK: - Pre-processing pipeline
 
-  /// Pre-process a mono PCM chunk through NSNet2 on a serial background queue.
+  /// Pre-process a stereo PCM chunk through NSNet2 on a serial background queue.
+  /// `samples` is PLANAR: all of L, then all of R (`count == frames * 2`).
   /// The result is stored for later playback via `playChunksUpTo`.
   /// While paused, drop incoming chunks: the player node keeps its existing
   /// queue (~5s of audio thanks to lookahead cap), so on resume the audio is
@@ -321,13 +325,19 @@ public class SawtunaaAudioPlayer {
         return
       }
       let t0 = CFAbsoluteTimeGetCurrent()
+      // Planar in, planar out. ⚠️ `frames` peut être < ce qui a été envoyé :
+      // NSNet2 retient jusqu'à une fenêtre d'analyse (latence STFT), comme sur
+      // macOS — rien n'est perdu, c'est rendu au chunk suivant.
       let processed = nsnet2.process(samples)
       let nsnet2Ms = Int((CFAbsoluteTimeGetCurrent() - t0) * 1000)
+      let channels = Int(self.format.channelCount)
+      let frames = processed.count / channels
+      guard frames > 0 else { return }
 
-      // Browther: stats anonymes — chaque sample filtré compte. À 48 kHz on
-      // émet 1 seconde dès qu'on dépasse 48000 samples accumulés.
+      // Browther: stats anonymes — chaque seconde filtrée compte. On compte des
+      // FRAMES, pas des samples : sinon la stéréo doublerait les music_seconds.
       let sampleRateInt = Int(self.format.sampleRate)
-      self.statsAccumulatedSamples += processed.count
+      self.statsAccumulatedSamples += frames
       if self.statsAccumulatedSamples >= sampleRateInt {
         let secondsToReport = self.statsAccumulatedSamples / sampleRateInt
         self.statsAccumulatedSamples -= secondsToReport * sampleRateInt
@@ -337,15 +347,19 @@ public class SawtunaaAudioPlayer {
       guard
         let buffer = AVAudioPCMBuffer(
           pcmFormat: self.format,
-          frameCapacity: AVAudioFrameCount(processed.count)
-        )
+          frameCapacity: AVAudioFrameCount(frames)
+        ),
+        let channelData = buffer.floatChannelData
       else { return }
-      buffer.frameLength = AVAudioFrameCount(processed.count)
-      let ch0 = buffer.floatChannelData![0]
-      for i in 0..<processed.count { ch0[i] = processed[i] }
+      buffer.frameLength = AVAudioFrameCount(frames)
+      for ch in 0..<channels {
+        let dst = channelData[ch]
+        let base = ch * frames
+        for i in 0..<frames { dst[i] = processed[base + i] }
+      }
 
       let totalMs = Int((CFAbsoluteTimeGetCurrent() - receivedAt) * 1000)
-      let durationMs = Double(processed.count) / 48.0
+      let durationMs = Double(frames) / 48.0
       DispatchQueue.main.async {
         // Drop the chunk if a clearChunks/pageReset happened between enqueue
         // and completion: it belongs to a stale session.
@@ -383,7 +397,7 @@ public class SawtunaaAudioPlayer {
             "chunk_ts": Int(timestampMs),
             "nsnet2_ms": nsnet2Ms,
             "total_ms": totalMs,
-            "frames": processed.count,
+            "frames": frames,
             "cache_size": self.audioCache.count,
             "preprocess_idx": self.preprocessCount,
             "epoch": Int(chunkEpoch),
@@ -496,9 +510,13 @@ public class SawtunaaAudioPlayer {
         {
           let remaining = totalFrames - skipSamples
           trimmed.frameLength = AVAudioFrameCount(remaining)
-          let src = next.buffer.floatChannelData![0]
-          let dst = trimmed.floatChannelData![0]
-          for i in 0..<remaining { dst[i] = src[skipSamples + i] }
+          // ⚠️ Tous les canaux, pas seulement le gauche : en stéréo, ne copier
+          // que le canal 0 laissait le droit à zéro sur chaque chunk rogné.
+          let src = next.buffer.floatChannelData!
+          let dst = trimmed.floatChannelData!
+          for ch in 0..<Int(format.channelCount) {
+            for i in 0..<remaining { dst[ch][i] = src[ch][skipSamples + i] }
+          }
           playerNode.scheduleBuffer(trimmed)
           playedChunkCount += 1
           trimmedChunkCount += 1

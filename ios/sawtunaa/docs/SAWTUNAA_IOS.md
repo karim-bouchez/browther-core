@@ -232,6 +232,8 @@ Pour les supporter, il faudrait :
 | Détection content change via `video.duration` | `c8c04a99fea` | Au lieu de drop le cache à chaque init_segment, on observe `video.duration` au moment du init_segment. Si la durée change >2s vs précédente → contenu différent (pub→vidéo, etc.) → pageReset. Sinon → seek dans le même contenu → cache préservé (donc seek instantané dans zone bufferisée préservé) |
 | **Sortie 6 dB trop faible (`irfft`)** | 2026-08-29 | `rfft` divisait déjà par 2 pour rendre le vrai spectre (le modèle est nourri avec ça), et `irfft` appliquait quand même la normalisation canonique `1/(2N)` de vDSP — qui suppose qu'on lui repasse la sortie BRUTE du forward. **Tout l'audio iOS sortait à -6 dB de la référence**, sur toutes les vidéos, depuis toujours. Trouvé par mesure (harness golden ci-dessous), pas à l'oreille : gain optimal 2.0000, résidu après ce gain 3e-8 → l'erreur était *purement* d'échelle, le reste du portage vDSP est exact |
 | **Reset GRU aveugle à 30 s → comportement macOS** | 2026-08-29 | iOS gardait le périodique 30 s du moteur standalone, que macOS a explicitement **écarté parce qu'il grésille en pleine parole** (cf. `private/docs/sawtunaa/DESKTOP.md` § Port qualité). Remplacé par le port fidèle de `Nsnet2Stream` : reset quand le silence de SORTIE dure ≥ 5 s (peak-hold, seuil 0.02, τ 2 s) + filet forcé à 5 min |
+| **Stéréo de bout en bout** | 2026-08-29 | Le JS downmixait `(L+R)*0.5` et le player jouait en `channels: 1` : **la scène stéréo s'effondrait sur chaque vidéo**, ce qui s'entend comme « le son est plat », pas comme un défaut de suppression. Porté sur le modèle macOS : le masque reste calculé **une fois** sur le downmix des spectres (linéarité de la STFT ⇒ **l'inférence ne double pas**) et est **appliqué par canal**. Wire format base64 = float32 **planar** (tout L puis tout R). Effets de bord traités : `music_seconds` compte des frames et non des samples (sinon ×2), le trim de chunk copie **tous** les canaux (il ne copiait que le gauche), warmup sur 1 s planar |
+| **Latence STFT rendue honnête** | 2026-08-29 | `process()` complétait sa sortie par des zéros **en tête** jusqu'à la taille du bloc — donc un silence dont la longueur dépendait du découpage (896 sur des chunks d'1 s au lieu de 512), et une sortie qui oscillait entre 47104 et 48128 pour 48000 demandés. Aligné sur `Nsnet2Stream` : on rend ce qui est prêt, la fenêtre retient toujours entre 448 et 959 samples, sortie totale == entrée totale. Vérifié par le harness (le décalage mesuré est passé de {512, 896} à 0 partout) |
 | User mark via 3-finger touch | (en cours) | Pour signaler à l'analyzer un moment précis où l'utilisateur a observé un bug (audio haché, désync). Toucher l'écran à 3 doigts simultanés → `user_mark` event. L'analyzer affiche une section "User marks" avec les events ±3s autour de chaque mark (gap_fill, underrun, drift, etc.) |
 
 ## Parité DSP avec macOS — vérifiée depuis le 2026-08-29
@@ -253,11 +255,10 @@ C++ — les deux verdicts sont donc comparables. Première exécution : **échec
 les 4 cas** (l'erreur `irfft` ci-dessus). Après correction, les 4 passent avec
 30 à 3000× de marge.
 
-⚠️ Ce que le harness ne couvre PAS, et où vivent les écarts restants avec
-macOS : le **downmix mono** du JS (macOS calcule le masque sur le downmix mais
-l'applique **par canal** — la stéréo y survit, pas sur iOS), le chunking 1 s,
-les gaps comblés par du silence, et `AVAudioEngine`. Il faut une mesure
-end-to-end pour les chiffrer.
+Le harness rejoue aussi un passage **stéréo L==R** qui doit redonner exactement
+le mono (même test que le C++) : c'est ce qui garde honnête le downmix des
+spectres. Ce qu'il ne couvre PAS : le chunking 1 s, les gaps comblés par du
+silence, et `AVAudioEngine` — il faut une mesure end-to-end pour les chiffrer.
 
 ## Limitations connues
 

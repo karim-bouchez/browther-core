@@ -5,7 +5,7 @@
 
 // Sawtunaa: MSE SourceBuffer interception + Opus decode + native NSNet2 playback.
 // This script intercepts audio data from YouTube's MediaSource Extensions,
-// decodes Opus packets via WASM, and sends mono PCM to Swift for noise suppression.
+// decodes Opus packets via WASM, and sends stereo PCM to Swift for noise suppression.
 
 window.__firefox__.includeOnce("SawtunaaScript", function($) {
   'use strict';
@@ -297,34 +297,52 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   var decoderInitializing = false;
   var audioPaused = false;
 
-  // Aggregation buffer: accumulates mono PCM until we can send a full 1s chunk.
+  // Aggregation buffers: accumulate PCM until we can send a full 1s chunk.
   // Smooths out YouTube's micro-segments (22% are <100ms) which would otherwise
   // create many tiny scheduleBuffer calls and audible micro-glitches.
-  var pendingMono = new Float32Array(CHUNK_SAMPLES * 2);
-  var pendingMonoLen = 0;
-  var pendingMonoStartMs = 0;
-  var pendingMonoEndMs = 0;
+  //
+  // ⚠️ STEREO (2026-08-29): we used to downmix to mono here, which collapsed the
+  // stereo image of every single video. NSNet2 still runs ONCE per frame (the
+  // mask is computed on the spectral downmix, native side) and is only APPLIED
+  // per channel — same as macOS. So the inference cost is unchanged; what
+  // doubles is the PCM shipped over the bridge, which the chunked base64 below
+  // more than pays back.
+  var pendingL = new Float32Array(CHUNK_SAMPLES * 2);
+  var pendingR = new Float32Array(CHUNK_SAMPLES * 2);
+  var pendingLen = 0;
+  var pendingStartMs = 0;
+  var pendingEndMs = 0;
 
-  function flushPendingMono() {
-    if (pendingMonoLen <= 0) return;
-    var chunkSlice = new Float32Array(pendingMono.buffer, pendingMono.byteOffset, pendingMonoLen);
-    sendChunkToSwift(chunkSlice, pendingMonoStartMs);
-    decodedSegments.push({ startTimeMs: pendingMonoStartMs, durationMs: pendingMonoLen / 48 });
-    pendingMonoLen = 0;
+  function flushPending() {
+    if (pendingLen <= 0) return;
+    sendChunkToSwift(pendingL, pendingR, pendingLen, pendingStartMs);
+    decodedSegments.push({ startTimeMs: pendingStartMs, durationMs: pendingLen / 48 });
+    pendingLen = 0;
   }
 
-  // ─── Send mono PCM chunk to Swift for NSNet2 processing ───
-  // No per-chunk log here: each chunk is already traced by Swift's
-  // chunk_preprocess_done. Only error path emits a metric.
-  function sendChunkToSwift(monoChunk, timestampMs) {
+  // ─── Send stereo PCM chunk to Swift for NSNet2 processing ───
+  // Wire format: base64 of PLANAR float32 — all of L, then all of R (the layout
+  // Nsnet2Stream uses on macOS, and what AVAudioPCMBuffer wants on the other
+  // side). No per-chunk log here: each chunk is already traced by Swift's
+  // chunk_preprocess_done. Only the error path emits a metric.
+  var B64_BLOCK = 8192;  // fromCharCode.apply is ~10x faster than the per-byte
+                         // loop, but blows the stack past ~100k arguments.
+  function bytesToBase64(bytes) {
+    var parts = [];
+    for (var off = 0; off < bytes.length; off += B64_BLOCK) {
+      parts.push(String.fromCharCode.apply(
+        null, bytes.subarray(off, Math.min(off + B64_BLOCK, bytes.length))));
+    }
+    return btoa(parts.join(''));
+  }
+
+  function sendChunkToSwift(left, right, frames, timestampMs) {
     try {
-      var binary = '';
-      var bytes = new Uint8Array(monoChunk.buffer, monoChunk.byteOffset, monoChunk.byteLength);
-      for (var j = 0; j < bytes.length; j++) {
-        binary += String.fromCharCode(bytes[j]);
-      }
-      var b64 = btoa(binary);
-      send('preprocess', Math.round(timestampMs) + '|' + b64);
+      var planar = new Float32Array(frames * 2);
+      planar.set(left.subarray(0, frames), 0);
+      planar.set(right.subarray(0, frames), frames);
+      var bytes = new Uint8Array(planar.buffer, planar.byteOffset, planar.byteLength);
+      send('preprocess', Math.round(timestampMs) + '|' + bytesToBase64(bytes));
     } catch(e) {
       metric('chunk_send_error', { msg: e.message });
     }
@@ -503,9 +521,9 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     isActive = false;
     audioPaused = false;
     lastVideoTimeMs = -1;
-    pendingMonoLen = 0;
-    pendingMonoStartMs = 0;
-    pendingMonoEndMs = 0;
+    pendingLen = 0;
+    pendingStartMs = 0;
+    pendingEndMs = 0;
 
     if (contentChanged) {
       metric('content_change_detected', {
@@ -604,46 +622,46 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       lastEstimatedEndMs = startTimeMs + durationMs;
 
       var totalSamples = result.samplesDecoded;
-      var mono = new Float32Array(totalSamples);
-      if (result.channelData.length === 2) {
-        for (var mi = 0; mi < totalSamples; mi++) {
-          mono[mi] = (result.channelData[0][mi] + result.channelData[1][mi]) * 0.5;
-        }
-      } else {
-        mono.set(result.channelData[0]);
-      }
+      // A mono source is duplicated onto both channels: the native side is
+      // always fed 2 planar channels, so it never has to branch on layout.
+      var srcL = result.channelData[0];
+      var srcR = result.channelData.length === 2 ? result.channelData[1] : srcL;
 
       // Append to pending aggregation buffer (smooths out YouTube's micro-segments
       // — 22% of segments are <100ms which would create choppy playback if sent
       // directly). We flush full 1s chunks to Swift below.
       // If non-contiguous (gap or jump in source time), flush the pending buffer
       // first to avoid mixing chunks with broken timestamps.
-      if (pendingMonoLen > 0 && Math.abs(startTimeMs - pendingMonoEndMs) > 50) {
-        flushPendingMono();
+      if (pendingLen > 0 && Math.abs(startTimeMs - pendingEndMs) > 50) {
+        flushPending();
       }
-      if (pendingMonoLen === 0) {
-        pendingMonoStartMs = startTimeMs;
+      if (pendingLen === 0) {
+        pendingStartMs = startTimeMs;
       }
-      // Append mono samples to pendingMono (resize if needed)
-      if (pendingMonoLen + totalSamples > pendingMono.length) {
-        var newCap = Math.max(pendingMono.length * 2, pendingMonoLen + totalSamples + CHUNK_SAMPLES);
-        var grown = new Float32Array(newCap);
-        grown.set(pendingMono.subarray(0, pendingMonoLen));
-        pendingMono = grown;
+      // Append to the per-channel pending buffers (resize if needed)
+      if (pendingLen + totalSamples > pendingL.length) {
+        var newCap = Math.max(pendingL.length * 2, pendingLen + totalSamples + CHUNK_SAMPLES);
+        var grownL = new Float32Array(newCap);
+        var grownR = new Float32Array(newCap);
+        grownL.set(pendingL.subarray(0, pendingLen));
+        grownR.set(pendingR.subarray(0, pendingLen));
+        pendingL = grownL;
+        pendingR = grownR;
       }
-      pendingMono.set(mono, pendingMonoLen);
-      pendingMonoLen += totalSamples;
-      pendingMonoEndMs = startTimeMs + durationMs;
+      pendingL.set(srcL.subarray(0, totalSamples), pendingLen);
+      pendingR.set(srcR.subarray(0, totalSamples), pendingLen);
+      pendingLen += totalSamples;
+      pendingEndMs = startTimeMs + durationMs;
 
       // Flush full 1s chunks while we have enough samples
-      while (pendingMonoLen >= CHUNK_SAMPLES) {
-        var chunkSlice = new Float32Array(pendingMono.buffer, pendingMono.byteOffset, CHUNK_SAMPLES);
-        sendChunkToSwift(chunkSlice, pendingMonoStartMs);
-        decodedSegments.push({ startTimeMs: pendingMonoStartMs, durationMs: 1000 });
+      while (pendingLen >= CHUNK_SAMPLES) {
+        sendChunkToSwift(pendingL, pendingR, CHUNK_SAMPLES, pendingStartMs);
+        decodedSegments.push({ startTimeMs: pendingStartMs, durationMs: 1000 });
         // Shift remaining samples left
-        pendingMono.copyWithin(0, CHUNK_SAMPLES, pendingMonoLen);
-        pendingMonoLen -= CHUNK_SAMPLES;
-        pendingMonoStartMs += 1000;
+        pendingL.copyWithin(0, CHUNK_SAMPLES, pendingLen);
+        pendingR.copyWithin(0, CHUNK_SAMPLES, pendingLen);
+        pendingLen -= CHUNK_SAMPLES;
+        pendingStartMs += 1000;
       }
 
       if (!isActive) {
@@ -691,12 +709,12 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         metric('seek_detected', {
           from_ms: Math.round(lastVideoTimeMs),
           to_ms: Math.round(currentTimeMs),
-          pending_mono_len: pendingMonoLen,
+          pending_len: pendingLen,
           last_estimated_end_ms: Math.round(lastEstimatedEndMs)
         });
         // Flush the pending aggregation buffer to avoid mixing samples from
         // the pre-seek timeline with post-seek samples in the next chunk.
-        flushPendingMono();
+        flushPending();
         decodedSegments = [];
         // CRITICAL: reset the estimated continuation timestamp. Without this,
         // post-seek segments arriving with valid ts (e.g. 120s after seeking
