@@ -33,6 +33,11 @@ protocol BasarunaaScriptHandlerDelegate: AnyObject {
 class BasarunaaScriptHandler: TabContentScript {
 
   weak var delegate: BasarunaaScriptHandlerDelegate?
+  /// Métriques relevées en `notice` — celles qui servent à mesurer la cadence
+  /// vidéo (cf. `case "metric"`). Tenir cette liste courte : chaque entrée
+  /// ajoute ~4 lignes/seconde au syslog du device.
+  private static let cadenceMetrics = ["yolo_send", "video_apply"]
+
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private static let staticLog = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
@@ -99,7 +104,21 @@ class BasarunaaScriptHandler: TabContentScript {
 
     switch action {
     case "metric":
-      log.info("[METRIC] \(data, privacy: .public)")
+      // ⚠️ `Logger.info` ne sort PAS du téléphone : `idevicesyslog` ne le voit
+      // pas et `log collect --device-udid` exige root. Les métriques de
+      // CADENCE vidéo doivent donc partir en `notice`, sinon on croit avoir
+      // instrumenté alors qu'on ne peut rien lire.
+      //
+      // On ne relève pas tout : `yolo_send` / `video_apply` tombent ~4×/s et
+      // suffisent à borner le tour complet. Le reste (scene_change,
+      // yolo_skip_static, …) resterait utile mais noierait la lecture —
+      // l'ajouter ici au cas par cas, pas en bloc.
+      //   idevicesyslog -u <udid> -m "[METRIC]"
+      if Self.cadenceMetrics.contains(where: { data.contains("\"event\":\"\($0)\"") }) {
+        log.notice("[METRIC] \(data, privacy: .public)")
+      } else {
+        log.info("[METRIC] \(data, privacy: .public)")
+      }
 
     case "log":
       log.info("[JS] \(data, privacy: .public)")

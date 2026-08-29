@@ -2688,6 +2688,18 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.lastTiming = null;
       this.nudeClasses = [];
       // Counters
+      // ─── Mesure du TOUR COMPLET (2026-08-29) ───
+      // On savait déjà ce que coûte `analyze()` côté natif (28-30 ms sur l'ANE).
+      // On ne savait pas ce que coûte le RESTE : le readback `drawImage(video)` +
+      // `toDataURL`, le passage du base64 par le pont, le retour et la remise à
+      // jour de l'état. C'est ce tour-là qui décide de la cadence tenable — pas
+      // l'inférence, qui a ~8× de marge.
+      /** `performance.now()` au moment où l'échantillonnage commence. */
+      this.yoloSentAtMs = 0;
+      /** Durée du readback + encodage JPEG, côté page, en ms. */
+      this.lastEncodeMs = 0;
+      /** Intervalle réel entre deux envois — la cadence VÉCUE, pas celle réglée. */
+      this.lastSendGapMs = 0;
       this.yoloPeriodic = 0;
       this.yoloScene = 0;
       this.framesSinceYolo = 0;
@@ -2860,14 +2872,20 @@ video:not([data-basarunaa]) { filter: none !important; }
         if (!this.yoloInFlight && yoloCooldownOk && (yoloDue || triggered)) {
           this.yoloInFlight = true;
           this.lastYoloHash = this.sceneDetector.snapshot();
+          this.lastSendGapMs = this.lastYoloMs ? nowMs - this.lastYoloMs : 0;
           this.lastYoloMs = nowMs;
+          const encodeT0 = performance.now();
+          const sent = sampleForAnalysis(this.id, video, triggered);
+          this.lastEncodeMs = performance.now() - encodeT0;
+          this.yoloSentAtMs = nowMs;
           metric("yolo_send", {
             videoId: this.id,
             state: this.state,
-            dueAfterMs: Math.round(nowMs - this.lastYoloMs),
+            gap_ms: Math.round(this.lastSendGapMs),
+            encode_ms: Math.round(this.lastEncodeMs * 10) / 10,
             triggered
           });
-          if (!sampleForAnalysis(this.id, video, triggered)) {
+          if (!sent) {
             this.yoloInFlight = false;
           }
         }
@@ -2983,6 +3001,9 @@ video:not([data-basarunaa]) { filter: none !important; }
         metric("video_apply", {
           videoId: this.id,
           ct_ms: payload.ctMs,
+          round_ms: this.yoloSentAtMs ? Math.round(performance.now() - this.yoloSentAtMs) : -1,
+          encode_ms: Math.round(this.lastEncodeMs * 10) / 10,
+          infer_ms: payload.timing?.poseLatencyMs ?? -1,
           nsfw: !!payload.isNsfw,
           n: safeBboxes.length,
           state: this.state
