@@ -260,6 +260,25 @@ le mono (même test que le C++) : c'est ce qui garde honnête le downmix des
 spectres. Ce qu'il ne couvre PAS : le chunking 1 s, les gaps comblés par du
 silence, et `AVAudioEngine` — il faut une mesure end-to-end pour les chiffrer.
 
+### Ce qui diverge encore de macOS, sciemment (audit du 2026-08-30)
+
+Toutes les constantes DSP et tout le comportement de `Nsnet2Stream` sont
+alignés : fenêtres, bins, downmix des spectres, masque par canal, `1/N`, et les
+quatre seuils de reset GRU (0.02 / 2 s / 5 s / 5 min). Restent quatre écarts
+**voulus ou sans effet aujourd'hui** — les connaître évite de croire à une
+régression, ou d'oublier de suivre le jour où macOS bougera :
+
+| Écart | Effet réel | Pourquoi on le garde |
+|---|---|---|
+| **Pas de flush/EOS** — `reset()` jette ce qui reste dans la fenêtre (≤ 959 samples d'entrée + 448 d'overlap) au lieu de le vider comme `ProcessBatch(flush=true)` | ~20 ms perdues, **uniquement au seek / pageReset** | À ces moments-là le player jette tout son cache de toute façon. Le flush C++ existe parce que sur macOS l'EOS arrive en pleine lecture continue |
+| **Pas de rate adapter** (`sawtunaa_rate_adapter.cc`) | aucun | L'Opus de YouTube est **48 kHz par définition du codec**. macOS en a besoin parce que son tap voit aussi de l'AAC/MP3 44,1 k |
+| **Pas de `kMaskFloor`** (plancher de gain post-inférence) | aucun — il vaut `0.f` sur macOS, donc no-op | ⚠️ **Piège futur** : si le mask floor est un jour activé côté desktop, iOS ne suivra **pas** tout seul |
+| **Restitution** : macOS rend dans le pipeline (horloge et lip-sync natifs), iOS rejoue via `AVAudioEngine` avec gap-fill silence | structurel | On n'a pas le moteur sur WKWebView. C'est toute la raison d'être de ce pipeline |
+
+Le **périmètre** diffère aussi, et ce n'est pas un écart de portage : macOS
+intercepte le PCM déjà décodé dans le moteur (tous les flux), iOS intercepte
+MSE en JS (YouTube seulement — cf. § couverture).
+
 ## Limitations connues
 
 ### Drift hardware ~150ms incompressible
