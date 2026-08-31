@@ -36,7 +36,7 @@ class BasarunaaScriptHandler: TabContentScript {
   /// Métriques relevées en `notice` — celles qui servent à mesurer la cadence
   /// vidéo (cf. `case "metric"`). Tenir cette liste courte : chaque entrée
   /// ajoute ~4 lignes/seconde au syslog du device.
-  private static let cadenceMetrics = ["yolo_send", "video_apply"]
+  private static let cadenceMetrics = ["yolo_send", "video_apply", "video_render"]
 
   // ─── Thermique & batterie ───────────────────────────────────────────────
   //

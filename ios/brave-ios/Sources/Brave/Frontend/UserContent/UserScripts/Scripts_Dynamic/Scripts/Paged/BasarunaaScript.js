@@ -2144,9 +2144,9 @@ video:not([data-basarunaa]) { filter: none !important; }
     };
   }
 
-  const YOLO_INTERVAL_TRACKING_MS = 150;
+  const YOLO_INTERVAL_TRACKING_MS = 250;
   const YOLO_INTERVAL_SAFE_MS = 5e3;
-  const YOLO_MIN_COOLDOWN_MS = 100;
+  const YOLO_MIN_COOLDOWN_MS = 150;
   const SCENE_CHANGE_THRESHOLD = 0.12;
   const SCENE_DIFF_HASH_SIZE = 8;
   const FRAME_DIFF_SKIP_THRESHOLD = 0.02;
@@ -2723,6 +2723,16 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.lastEncodeMs = 0;
       /** Intervalle réel entre deux envois — la cadence VÉCUE, pas celle réglée. */
       this.lastSendGapMs = 0;
+      // ─── Coût du RENDU, par frame (2026-08-31) ───
+      // Le tour complet mesuré le 2026-08-29 (38 ms) ne dit rien du rendu : il
+      // court d'un envoi à son résultat, alors que `tick()` repeint TOUT le flou à
+      // CHAQUE frame vidéo (rVFC, 30-60 fps), pour chaque personne. À 3 personnes
+      // et 30 fps, c'est 90 cascades de flou par seconde — un ordre de grandeur de
+      // plus que les 6,7 inférences/s de la cadence. Ne l'ayant pas mesuré, on a
+      // arbitré la chauffe sur le seul poste qu'on regardait.
+      this.renderMsAcc = 0;
+      this.renderFrames = 0;
+      this.renderWindowStartMs = 0;
       this.yoloPeriodic = 0;
       this.yoloScene = 0;
       this.framesSinceYolo = 0;
@@ -2776,6 +2786,34 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (this.displayCanvas.parentNode) {
         this.displayCanvas.parentNode.removeChild(this.displayCanvas);
       }
+    }
+    /**
+     * Agrège le coût du rendu sur une fenêtre de 2 s et l'émet une fois par
+     * fenêtre. Émettre à chaque frame produirait 30-60 lignes/seconde — le
+     * syslog du device ne suivrait pas, et la mesure changerait ce qu'elle
+     * mesure.
+     *
+     * `render_pct` est le chiffre à lire : la part du temps de lecture passée à
+     * repeindre. C'est ce poste-là, et non l'inférence, qui tourne à la cadence
+     * de l'écran.
+     */
+    accumulateRender(ms, nowMs) {
+      if (this.renderWindowStartMs === 0) this.renderWindowStartMs = nowMs;
+      this.renderMsAcc += ms;
+      this.renderFrames++;
+      const span = nowMs - this.renderWindowStartMs;
+      if (span < 2e3) return;
+      metric("video_render", {
+        videoId: this.id,
+        fps: Math.round(this.renderFrames * 1e3 / span),
+        per_frame_ms: Math.round(this.renderMsAcc / this.renderFrames * 10) / 10,
+        render_pct: Math.round(this.renderMsAcc / span * 100),
+        n: this.currentBboxes.length,
+        state: this.state
+      });
+      this.renderMsAcc = 0;
+      this.renderFrames = 0;
+      this.renderWindowStartMs = nowMs;
     }
     scheduleTick() {
       if (this.destroyed || this.tainted) return;
@@ -2912,6 +2950,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             this.yoloInFlight = false;
           }
         }
+        const renderT0 = performance.now();
         if (this.state === "full_blur") {
           drawAndBlurRegion(
             this.dctx,
@@ -2975,6 +3014,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             if (this.isNsfw) drawNsfwBadgeOnCanvas(this.dctx);
           }
         }
+        this.accumulateRender(performance.now() - renderT0, nowMs);
         if (this.pendingCssRelease) {
           this.pendingCssRelease = false;
           releaseVideoCssBlur(video);
