@@ -2149,6 +2149,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   const YOLO_MIN_COOLDOWN_MS = 150;
   const SCENE_CHANGE_THRESHOLD = 0.12;
   const SCENE_DIFF_HASH_SIZE = 8;
+  const SCENE_DIFF_INTERVAL_MS = 100;
   const FRAME_DIFF_SKIP_THRESHOLD = 0.02;
   const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
   const MAX_SAMPLE_WIDTH = 640;
@@ -2615,7 +2616,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
-  const SWEEP_STEP_MS = 3e4;
+  const SWEEP_STEP_MS = 2e4;
   const SWEEP_STEPS = [
     {
       id: "baseline",
@@ -2623,15 +2624,24 @@ video:not([data-basarunaa]) { filter: none !important; }
       apply: () => {
         window.__basarunaaRenderDisabled = false;
         window.__basarunaaAnalysisDisabled = false;
+        window.__basarunaaSceneDiffDisabled = false;
         window.__basarunaaBlurMode = "gaussian";
         window.__basarunaaSampleWidth = void 0;
         window.__basarunaaYoloIntervalMs = void 0;
       }
     },
     {
+      id: "no-scene",
+      isolates: "le SCENE-DIFF par frame : réallocation d’un canvas 256×256 + drawImage depuis la texture vidéo matérielle + `getImageData` — un readback GPU→CPU synchrone, 30 fois par seconde. Hors de la fenêtre mesurée jusqu’au 2026-08-31, donc jamais soupçonné.",
+      apply: () => {
+        window.__basarunaaSceneDiffDisabled = true;
+      }
+    },
+    {
       id: "no-render",
       isolates: "le REPEINT par frame — le poste qui suit la cadence de l’écran (30-60/s) et non celle des analyses (4/s). Suspect n°1, jamais mesuré avant ce jour.",
       apply: () => {
+        window.__basarunaaSceneDiffDisabled = false;
         window.__basarunaaRenderDisabled = true;
       }
     },
@@ -2649,25 +2659,6 @@ video:not([data-basarunaa]) { filter: none !important; }
       apply: () => {
         window.__basarunaaBlurMode = "gaussian";
         window.__basarunaaAnalysisDisabled = true;
-      }
-    },
-    {
-      id: "sample-320",
-      isolates: "le coût de l’ENCODAGE seul (640 q0,8 → 320 q0,5). L’inférence ne bouge pas — `Letterbox.fit` remonte tout à 640 dans les deux cas.",
-      apply: () => {
-        window.__basarunaaAnalysisDisabled = false;
-        window.__basarunaaSampleWidth = 320;
-        window.__basarunaaJpegQuality = 0.5;
-      }
-    },
-    {
-      id: "cadence-500",
-      isolates: "la CADENCE (250 → 500 ms), donc le nombre d’inférences par seconde, à résolution et rendu inchangés.",
-      apply: () => {
-        window.__basarunaaSampleWidth = void 0;
-        window.__basarunaaJpegQuality = void 0;
-        window.__basarunaaYoloIntervalMs = 500;
-        window.__basarunaaYoloCooldownMs = 300;
       }
     }
   ];
@@ -2785,6 +2776,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.debugMode = "none";
       this.isNsfw = false;
       this.lastYoloMs = 0;
+      this.lastSceneDiffMs = 0;
       this.yoloInFlight = false;
       this.pendingCssRelease = false;
       this.triggeredByScene = false;
@@ -2819,6 +2811,8 @@ video:not([data-basarunaa]) { filter: none !important; }
       // plus que les 6,7 inférences/s de la cadence. Ne l'ayant pas mesuré, on a
       // arbitré la chauffe sur le seul poste qu'on regardait.
       this.renderMsAcc = 0;
+      this.sceneMsAcc = 0;
+      this.tickMsAcc = 0;
       this.renderFrames = 0;
       this.renderWindowStartMs = 0;
       this.yoloPeriodic = 0;
@@ -2885,9 +2879,8 @@ video:not([data-basarunaa]) { filter: none !important; }
      * repeindre. C'est ce poste-là, et non l'inférence, qui tourne à la cadence
      * de l'écran.
      */
-    accumulateRender(ms, nowMs) {
+    accumulate(nowMs) {
       if (this.renderWindowStartMs === 0) this.renderWindowStartMs = nowMs;
-      this.renderMsAcc += ms;
       this.renderFrames++;
       const span = nowMs - this.renderWindowStartMs;
       if (span < 2e3) return;
@@ -2899,10 +2892,20 @@ video:not([data-basarunaa]) { filter: none !important; }
         fps: Math.round(this.renderFrames * 1e3 / span),
         per_frame_ms: Math.round(this.renderMsAcc / this.renderFrames * 10) / 10,
         render_pct: Math.round(this.renderMsAcc / span * 100),
+        // `tick_pct` englobe TOUT le tick : scene-diff, frame-diff, placement du
+        // canvas, repeint. C'est LUI qu'il faut lire ; `render_pct` n'en est
+        // qu'une part, et c'est en le prenant pour le tout qu'on a innocenté le
+        // repeint à tort.
+        scene_pct: Math.round(this.sceneMsAcc / span * 100),
+        scene_ms: Math.round(this.sceneMsAcc / this.renderFrames * 100) / 100,
+        tick_pct: Math.round(this.tickMsAcc / span * 100),
+        tick_ms: Math.round(this.tickMsAcc / this.renderFrames * 100) / 100,
         n: this.currentBboxes.length,
         state: this.state
       });
       this.renderMsAcc = 0;
+      this.sceneMsAcc = 0;
+      this.tickMsAcc = 0;
       this.renderFrames = 0;
       this.renderWindowStartMs = nowMs;
     }
@@ -2912,6 +2915,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     tick() {
       if (this.destroyed || this.tainted) return;
+      const tickT0 = performance.now();
       const video = this.video;
       const vw = video.videoWidth || 0;
       const vh = video.videoHeight || 0;
@@ -2992,7 +2996,13 @@ video:not([data-basarunaa]) { filter: none !important; }
           this.dctx.clearRect(0, 0, pw, ph);
         }
         const nowMs = performance.now();
-        const sceneDiff = this.sceneDetector.diff(video);
+        const sceneT0 = performance.now();
+        let sceneDiff = 0;
+        if (window.__basarunaaSceneDiffDisabled !== true && nowMs - this.lastSceneDiffMs >= SCENE_DIFF_INTERVAL_MS) {
+          this.lastSceneDiffMs = nowMs;
+          sceneDiff = this.sceneDetector.diff(video);
+        }
+        this.sceneMsAcc += performance.now() - sceneT0;
         if (sceneDiff > SCENE_CHANGE_THRESHOLD) {
           this.currentBboxes = [];
           this.triggeredByScene = true;
@@ -3107,7 +3117,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             if (this.isNsfw) drawNsfwBadgeOnCanvas(this.dctx);
           }
         }
-        this.accumulateRender(performance.now() - renderT0, nowMs);
+        this.renderMsAcc += performance.now() - renderT0;
         if (this.pendingCssRelease) {
           this.pendingCssRelease = false;
           releaseVideoCssBlur(video);
@@ -3121,6 +3131,8 @@ video:not([data-basarunaa]) { filter: none !important; }
         });
         return;
       }
+      this.tickMsAcc += performance.now() - tickT0;
+      this.accumulate(performance.now());
       this.scheduleTick();
     }
     /**
@@ -3321,7 +3333,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      startSweep();
+      if (window.__basarunaaSweep === true) startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
