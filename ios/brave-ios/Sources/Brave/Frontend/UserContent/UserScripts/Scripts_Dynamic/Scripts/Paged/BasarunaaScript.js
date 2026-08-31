@@ -3321,9 +3321,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      if (window.__basarunaaSweep === true || location.hash.includes("bsrsweep")) {
-        startSweep();
-      }
+      startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
