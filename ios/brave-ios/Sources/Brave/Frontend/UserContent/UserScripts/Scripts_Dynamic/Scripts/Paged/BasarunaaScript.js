@@ -2615,6 +2615,94 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
+  const SWEEP_STEP_MS = 3e4;
+  const SWEEP_STEPS = [
+    {
+      id: "baseline",
+      isolates: "tout actif — la référence des cinq autres",
+      apply: () => {
+        window.__basarunaaRenderDisabled = false;
+        window.__basarunaaAnalysisDisabled = false;
+        window.__basarunaaBlurMode = "gaussian";
+        window.__basarunaaSampleWidth = void 0;
+        window.__basarunaaYoloIntervalMs = void 0;
+      }
+    },
+    {
+      id: "no-render",
+      isolates: "le REPEINT par frame — le poste qui suit la cadence de l’écran (30-60/s) et non celle des analyses (4/s). Suspect n°1, jamais mesuré avant ce jour.",
+      apply: () => {
+        window.__basarunaaRenderDisabled = true;
+      }
+    },
+    {
+      id: "blur-legacy",
+      isolates: "la CASCADE progressive livrée le 2026-08-29 (÷8 puis demi-réductions) contre les deux sauts d’avant (÷50 puis ÷3). Même flou final, chemin plus court — si l’écart est ici, la cascade se paie en chaleur.",
+      apply: () => {
+        window.__basarunaaRenderDisabled = false;
+        window.__basarunaaBlurMode = "legacy";
+      }
+    },
+    {
+      id: "no-analysis",
+      isolates: "l’INFÉRENCE + l’encodage JPEG + le pont. Le flou continue d’être peint avec les dernières bboxes connues : ce palier ne retire que le côté ML.",
+      apply: () => {
+        window.__basarunaaBlurMode = "gaussian";
+        window.__basarunaaAnalysisDisabled = true;
+      }
+    },
+    {
+      id: "sample-320",
+      isolates: "le coût de l’ENCODAGE seul (640 q0,8 → 320 q0,5). L’inférence ne bouge pas — `Letterbox.fit` remonte tout à 640 dans les deux cas.",
+      apply: () => {
+        window.__basarunaaAnalysisDisabled = false;
+        window.__basarunaaSampleWidth = 320;
+        window.__basarunaaJpegQuality = 0.5;
+      }
+    },
+    {
+      id: "cadence-500",
+      isolates: "la CADENCE (250 → 500 ms), donc le nombre d’inférences par seconde, à résolution et rendu inchangés.",
+      apply: () => {
+        window.__basarunaaSampleWidth = void 0;
+        window.__basarunaaJpegQuality = void 0;
+        window.__basarunaaYoloIntervalMs = 500;
+        window.__basarunaaYoloCooldownMs = 300;
+      }
+    }
+  ];
+  let timer = null;
+  let index = 0;
+  let currentSweepStep = null;
+  function runStep() {
+    const step = SWEEP_STEPS[index % SWEEP_STEPS.length];
+    currentSweepStep = step.id;
+    step.apply();
+    metric("sweep_step", {
+      step: step.id,
+      i: index,
+      of: SWEEP_STEPS.length,
+      isolates: step.isolates
+    });
+    index++;
+    timer = setTimeout(runStep, SWEEP_STEP_MS);
+  }
+  function startSweep() {
+    if (timer) return;
+    index = 0;
+    metric("sweep_start", { steps: SWEEP_STEPS.length, stepMs: SWEEP_STEP_MS });
+    runStep();
+  }
+  function reportCapabilities() {
+    const w = window;
+    metric("caps", {
+      webcodecs: typeof w.VideoDecoder !== "undefined",
+      audiodecoder: typeof w.AudioDecoder !== "undefined",
+      offscreen: typeof w.OffscreenCanvas !== "undefined",
+      rvfc: typeof HTMLVideoElement !== "undefined" && "requestVideoFrameCallback" in HTMLVideoElement.prototype
+    });
+  }
+
   class SceneDiffDetector {
     constructor() {
       this.lastHash = null;
@@ -2805,6 +2893,9 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (span < 2e3) return;
       metric("video_render", {
         videoId: this.id,
+        // Sans cette étiquette, le dépouillement doit recoller les horodatages à
+        // la main — et une bascule ratée fausse silencieusement tout le tableau.
+        ...currentSweepStep ? { step: currentSweepStep } : {},
         fps: Math.round(this.renderFrames * 1e3 / span),
         per_frame_ms: Math.round(this.renderMsAcc / this.renderFrames * 10) / 10,
         render_pct: Math.round(this.renderMsAcc / span * 100),
@@ -2936,7 +3027,8 @@ video:not([data-basarunaa]) { filter: none !important; }
           this.lastSendGapMs = this.lastYoloMs ? nowMs - this.lastYoloMs : 0;
           this.lastYoloMs = nowMs;
           const encodeT0 = performance.now();
-          const sent = sampleForAnalysis(this.id, video, triggered);
+          const sent = window.__basarunaaAnalysisDisabled === true ? true : sampleForAnalysis(this.id, video, triggered);
+          if (window.__basarunaaAnalysisDisabled === true) this.yoloInFlight = false;
           this.lastEncodeMs = performance.now() - encodeT0;
           this.yoloSentAtMs = nowMs;
           metric("yolo_send", {
@@ -2951,7 +3043,8 @@ video:not([data-basarunaa]) { filter: none !important; }
           }
         }
         const renderT0 = performance.now();
-        if (this.state === "full_blur") {
+        const renderOff = window.__basarunaaRenderDisabled === true;
+        if (!renderOff && this.state === "full_blur") {
           drawAndBlurRegion(
             this.dctx,
             video,
@@ -2967,7 +3060,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             "none"
           );
         }
-        const bboxes = this.currentBboxes;
+        const bboxes = renderOff ? [] : this.currentBboxes;
         const meta = this.currentMeta;
         if (bboxes.length && meta) {
           const sx = dispW / meta.analyseW;
@@ -3227,6 +3320,10 @@ video:not([data-basarunaa]) { filter: none !important; }
         initial_imgs: initialCount
       });
       send("scriptReady", location.href);
+      reportCapabilities();
+      if (window.__basarunaaSweep === true || location.hash.includes("bsrsweep")) {
+        startSweep();
+      }
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {

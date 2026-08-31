@@ -36,7 +36,9 @@ class BasarunaaScriptHandler: TabContentScript {
   /// Métriques relevées en `notice` — celles qui servent à mesurer la cadence
   /// vidéo (cf. `case "metric"`). Tenir cette liste courte : chaque entrée
   /// ajoute ~4 lignes/seconde au syslog du device.
-  private static let cadenceMetrics = ["yolo_send", "video_apply", "video_render"]
+  private static let cadenceMetrics = [
+    "yolo_send", "video_apply", "video_render", "sweep_step", "sweep_start", "caps",
+  ]
 
   // ─── Thermique & batterie ───────────────────────────────────────────────
   //
@@ -51,13 +53,56 @@ class BasarunaaScriptHandler: TabContentScript {
   //
   // `serious` = le système bride déjà. `critical` = l'app devient inutilisable,
   // exactement le scénario redouté. On relève l'état à chaque analyse mais on
-  // ne journalise qu'aux CHANGEMENTS, plus un rappel par minute : un état qui
-  // ne bouge pas n'apprend rien et noierait le reste.
+  // ne journalise qu'aux CHANGEMENTS, plus un relevé toutes les 10 s — cadence
+  // imposée par le %CPU, qui est un TAUX : sans relevés réguliers il n'existe
+  // pas. L'état thermique seul se contenterait de bien moins.
   //
   // Lecture, en parallèle des métriques de cadence :
   //   idevicesyslog -u <udid> -m "THERMAL"
   private var lastThermalState: ProcessInfo.ThermalState?
   private var lastThermalLogMs: Double = 0
+  private var lastCpuSeconds: Double = 0
+  private var lastCpuWallMs: Double = 0
+
+  /// Temps CPU cumulé du process, threads vivants ET terminés.
+  ///
+  /// ⚠️ **Ce process est celui de l'APP, pas celui de la page.** Le WKWebView
+  /// tourne dans un process WebContent séparé : le JS, le canvas et le repeint
+  /// du flou n'apparaissent PAS ici, et on ne peut pas les mesurer d'ici sans
+  /// API privée. Ce chiffre couvre donc l'inférence CoreML et le décodage
+  /// base64 — le côté page est couvert par `video_render.render_pct` et
+  /// `encode_ms`, mesurés là où ils se produisent. Les deux ensemble font le
+  /// tour ; l'un des deux seul induit en erreur.
+  private static func cpuSeconds() -> Double {
+    var live = task_thread_times_info()
+    var liveCount = mach_msg_type_number_t(
+      MemoryLayout<task_thread_times_info>.size / MemoryLayout<natural_t>.size)
+    let liveOk = withUnsafeMutablePointer(to: &live) {
+      $0.withMemoryRebound(to: integer_t.self, capacity: Int(liveCount)) {
+        task_info(mach_task_self_, task_flavor_t(TASK_THREAD_TIMES_INFO), $0, &liveCount)
+      }
+    } == KERN_SUCCESS
+
+    var basic = mach_task_basic_info()
+    var basicCount = mach_msg_type_number_t(
+      MemoryLayout<mach_task_basic_info>.size / MemoryLayout<natural_t>.size)
+    let basicOk = withUnsafeMutablePointer(to: &basic) {
+      $0.withMemoryRebound(to: integer_t.self, capacity: Int(basicCount)) {
+        task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), $0, &basicCount)
+      }
+    } == KERN_SUCCESS
+
+    var total: Double = 0
+    if liveOk {
+      total += Double(live.user_time.seconds) + Double(live.user_time.microseconds) / 1e6
+      total += Double(live.system_time.seconds) + Double(live.system_time.microseconds) / 1e6
+    }
+    if basicOk {
+      total += Double(basic.user_time.seconds) + Double(basic.user_time.microseconds) / 1e6
+      total += Double(basic.system_time.seconds) + Double(basic.system_time.microseconds) / 1e6
+    }
+    return total
+  }
 
   /// Relève l'état thermique + la batterie. Appelé à chaque analyse vidéo :
   /// c'est le seul endroit qui suit le rythme réel du pipeline.
@@ -65,7 +110,7 @@ class BasarunaaScriptHandler: TabContentScript {
     let state = ProcessInfo.processInfo.thermalState
     let nowMs = Date().timeIntervalSince1970 * 1000
     let changed = state != lastThermalState
-    guard changed || nowMs - lastThermalLogMs >= 60_000 else { return }
+    guard changed || nowMs - lastThermalLogMs >= 10_000 else { return }
     lastThermalState = state
     lastThermalLogMs = nowMs
 
@@ -81,8 +126,24 @@ class BasarunaaScriptHandler: TabContentScript {
     // vaut -1 et on croirait la batterie vide.
     let level = UIDevice.current.batteryLevel
     let battery = level < 0 ? "n/a" : String(format: "%.0f%%", level * 100)
+
+    // %CPU depuis le dernier relevé. C'est LA mesure qui manquait : continue,
+    // numérique, et qui réagit en secondes — là où `thermalState` n'a que
+    // quatre niveaux et met des minutes à bouger. On compare des %CPU entre
+    // configurations sans attendre que le téléphone chauffe, ni redescende.
+    let cpu = Self.cpuSeconds()
+    var cpuPct = "n/a"
+    if lastCpuWallMs > 0 {
+      let dtWall = (nowMs - lastCpuWallMs) / 1000
+      if dtWall > 0.5 {
+        cpuPct = String(format: "%.0f%%", 100 * (cpu - lastCpuSeconds) / dtWall)
+      }
+    }
+    lastCpuSeconds = cpu
+    lastCpuWallMs = nowMs
+
     log.notice(
-      "[THERMAL] state=\(name, privacy: .public) battery=\(battery, privacy: .public) changed=\(changed, privacy: .public)"
+      "[THERMAL] state=\(name, privacy: .public) battery=\(battery, privacy: .public) app_cpu=\(cpuPct, privacy: .public) changed=\(changed, privacy: .public)"
     )
   }
 
