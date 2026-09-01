@@ -2361,6 +2361,129 @@ video:not([data-basarunaa]) { filter: none !important; }
     dctx.restore();
   }
 
+  const PAD_PX = 8;
+  class BackdropRenderer {
+    constructor() {
+      /** Pool réutilisé : créer/détruire des div à chaque détection ferait faire au
+       *  compositeur exactement le travail qu'on cherche à lui épargner. */
+      this.pool = [];
+      this.attached = false;
+      this.container = document.createElement("div");
+      const s = this.container.style;
+      s.setProperty("position", "absolute", "important");
+      s.setProperty("left", "0", "important");
+      s.setProperty("top", "0", "important");
+      s.setProperty("width", "0", "important");
+      s.setProperty("height", "0", "important");
+      s.setProperty("pointer-events", "none", "important");
+      s.setProperty("z-index", "2147483646", "important");
+      this.container.setAttribute("data-basarunaa-backdrop", "1");
+    }
+    get element() {
+      return this.container;
+    }
+    markAttached() {
+      this.attached = true;
+    }
+    get isAttached() {
+      return this.attached;
+    }
+    /** Flou plein cadre (cold-start, cut, NSFW) — une seule div sur toute la vidéo. */
+    fullFrame(geom, radiusPx) {
+      const d = this.take(0);
+      this.place(d, geom.offX, geom.offY, geom.dispW, geom.dispH, radiusPx, null);
+      this.trim(1);
+    }
+    /**
+     * Une div par personne. Appelé à l'arrivée d'une détection et au resize —
+     * **jamais** à chaque frame : c'est tout l'intérêt de ce moteur.
+     */
+    update(bboxes, keypoints, geom) {
+      const sx = geom.dispW / geom.analyseW;
+      const sy = geom.dispH / geom.analyseH;
+      for (let i = 0; i < bboxes.length; i++) {
+        const b = bboxes[i];
+        const x = geom.offX + b[0] * sx - PAD_PX;
+        const y = geom.offY + b[1] * sy - PAD_PX;
+        const w = (b[2] - b[0]) * sx + 2 * PAD_PX;
+        const h = (b[3] - b[1]) * sy + 2 * PAD_PX;
+        if (w <= 0 || h <= 0) continue;
+        const radius = Math.max(6, Math.round(Math.min(w, h) / 6));
+        this.place(
+          this.take(i),
+          x,
+          y,
+          w,
+          h,
+          radius,
+          this.clipFor(keypoints[i] ?? null, b, geom, sx, sy, x, y, w, h)
+        );
+      }
+      this.trim(bboxes.length);
+    }
+    clear() {
+      this.trim(0);
+    }
+    destroy() {
+      this.clear();
+      if (this.container.parentNode) {
+        this.container.parentNode.removeChild(this.container);
+      }
+      this.attached = false;
+    }
+    // ─── interne ───
+    take(i) {
+      let d = this.pool[i];
+      if (!d) {
+        d = document.createElement("div");
+        const s = d.style;
+        s.setProperty("position", "fixed", "important");
+        s.setProperty("pointer-events", "none", "important");
+        this.pool[i] = d;
+        this.container.appendChild(d);
+      }
+      d.style.setProperty("display", "block", "important");
+      return d;
+    }
+    trim(keep) {
+      for (let i = keep; i < this.pool.length; i++) {
+        this.pool[i].style.setProperty("display", "none", "important");
+      }
+    }
+    place(d, x, y, w, h, radius, clip) {
+      const s = d.style;
+      s.setProperty("left", `${Math.round(x)}px`, "important");
+      s.setProperty("top", `${Math.round(y)}px`, "important");
+      s.setProperty("width", `${Math.round(w)}px`, "important");
+      s.setProperty("height", `${Math.round(h)}px`, "important");
+      s.setProperty("-webkit-backdrop-filter", `blur(${radius}px)`, "important");
+      s.setProperty("backdrop-filter", `blur(${radius}px)`, "important");
+      if (clip) {
+        s.setProperty("clip-path", clip, "important");
+        s.setProperty("border-radius", "0", "important");
+      } else {
+        s.removeProperty("clip-path");
+        s.setProperty("border-radius", `${Math.round(Math.min(w, h) * 0.12)}px`, "important");
+      }
+    }
+    /** Forme du corps en `clip-path: polygon(...)`, relative à la div. */
+    clipFor(raw, bbox, geom, sx, sy, dx, dy, dw, dh) {
+      if (!raw || raw.length < 17) return null;
+      const kps = raw.map((k) => ({ x: k[0], y: k[1], confidence: k[2] }));
+      const poly = buildBodyPolygon(kps, bbox, geom.analyseW, geom.analyseH);
+      if (!poly.isBodyShaped || poly.points.length < 3) return null;
+      const pts = poly.points.map((p) => {
+        const px = (geom.offX + p.x * sx - dx) / dw * 100;
+        const py = (geom.offY + p.y * sy - dy) / dh * 100;
+        return `${px.toFixed(1)}% ${py.toFixed(1)}%`;
+      });
+      return `polygon(${pts.join(",")})`;
+    }
+  }
+  function fullFrameRadius(vw, vh) {
+    return blurRadiusForImage(vw || 640, vh || 360);
+  }
+
   function makeCanvas() {
     return document.createElement("canvas");
   }
@@ -2772,6 +2895,12 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.isNsfw = false;
       this.lastYoloMs = 0;
       this.lastSceneDiffMs = 0;
+      /** Moteur `backdrop-filter` — voir `backdrop-renderer.ts` pour le pourquoi. */
+      this.backdrop = new BackdropRenderer();
+      /** Dernière géométrie d'affichage connue, en pixels ÉCRAN. Le moteur backdrop
+       *  en a besoin hors du tick, à l'arrivée d'une détection. */
+      this.lastGeom = null;
+      this.lastGeomKey = "";
       this.yoloInFlight = false;
       this.pendingCssRelease = false;
       this.triggeredByScene = false;
@@ -2859,6 +2988,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     destroy() {
       this.destroyed = true;
+      this.backdrop.destroy();
       releaseVideoCssBlur(this.video);
       if (this.displayCanvas.parentNode) {
         this.displayCanvas.parentNode.removeChild(this.displayCanvas);
@@ -2903,6 +3033,28 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.tickMsAcc = 0;
       this.renderFrames = 0;
       this.renderWindowStartMs = nowMs;
+    }
+    /**
+     * Réécrit les div de flou. Appelé à l'arrivée d'une détection (≈4/s) et
+     * quand la géométrie d'affichage bouge — **jamais** à chaque frame.
+     */
+    repaintBackdrop() {
+      const geom = this.lastGeom;
+      if (!geom) return;
+      if (!this.backdrop.isAttached) {
+        const parent = this.displayCanvas.parentNode;
+        if (!parent) return;
+        parent.insertBefore(this.backdrop.element, this.displayCanvas);
+        this.backdrop.markAttached();
+      }
+      if (this.state === "full_blur") {
+        this.backdrop.fullFrame(
+          geom,
+          fullFrameRadius(this.video.videoWidth, this.video.videoHeight)
+        );
+        return;
+      }
+      this.backdrop.update(this.currentBboxes, this.currentKeypoints, geom);
     }
     scheduleTick() {
       if (this.destroyed || this.tainted) return;
@@ -2990,6 +3142,23 @@ video:not([data-basarunaa]) { filter: none !important; }
           dispH = ph;
           this.dctx.clearRect(0, 0, pw, ph);
         }
+        const useBackdrop = window.__basarunaaBlurEngine !== "canvas";
+        if (useBackdrop) {
+          const r = display.getBoundingClientRect();
+          this.lastGeom = {
+            dispW,
+            dispH,
+            offX: r.left + dispOffX,
+            offY: r.top + dispOffY,
+            analyseW: this.currentMeta?.analyseW ?? dispW,
+            analyseH: this.currentMeta?.analyseH ?? dispH
+          };
+          const key = `${Math.round(r.left)},${Math.round(r.top)},${Math.round(dispW)},${Math.round(dispH)}`;
+          if (key !== this.lastGeomKey) {
+            this.lastGeomKey = key;
+            this.repaintBackdrop();
+          }
+        }
         const nowMs = performance.now();
         const sceneT0 = performance.now();
         let sceneDiff = 0;
@@ -3048,7 +3217,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           }
         }
         const renderT0 = performance.now();
-        const canvasHidden = window.__basarunaaCanvasHidden === true;
+        const canvasHidden = window.__basarunaaCanvasHidden === true || useBackdrop;
         if (canvasHidden !== (display.style.display === "none")) {
           display.style.display = canvasHidden ? "none" : "";
           if (canvasHidden) releaseVideoCssBlur(video);
@@ -3197,6 +3366,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         if (prevState === "full_blur") {
           this.pendingCssRelease = true;
         }
+        if (window.__basarunaaBlurEngine !== "canvas") this.repaintBackdrop();
         metric("video_apply", {
           videoId: this.id,
           ct_ms: payload.ctMs,
@@ -3333,8 +3503,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      window.__basarunaaSceneDiffDisabled = true;
-      startSweep();
+      if (window.__basarunaaSweep === true) startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
