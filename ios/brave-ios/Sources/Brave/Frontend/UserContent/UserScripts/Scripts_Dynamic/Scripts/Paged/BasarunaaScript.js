@@ -3146,12 +3146,12 @@ video:not([data-basarunaa]) { filter: none !important; }
         if (useBackdrop) {
           const r = display.getBoundingClientRect();
           this.lastGeom = {
-            dispW,
-            dispH,
-            offX: r.left + dispOffX,
-            offY: r.top + dispOffY,
-            analyseW: this.currentMeta?.analyseW ?? dispW,
-            analyseH: this.currentMeta?.analyseH ?? dispH
+            dispW: dispW / dpr,
+            dispH: dispH / dpr,
+            offX: r.left + dispOffX / dpr,
+            offY: r.top + dispOffY / dpr,
+            analyseW: this.currentMeta?.analyseW ?? dispW / dpr,
+            analyseH: this.currentMeta?.analyseH ?? dispH / dpr
           };
           const key = `${Math.round(r.left)},${Math.round(r.top)},${Math.round(dispW)},${Math.round(dispH)}`;
           if (key !== this.lastGeomKey) {
