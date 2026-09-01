@@ -2616,49 +2616,44 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
-  const SWEEP_STEP_MS = 2e4;
+  const SWEEP_STEP_MS = 24e4;
   const SWEEP_STEPS = [
+    // ─── Protocole du 2026-09-01 : SÉPARER L'ANE DU GPU ───
+    //
+    // Établi à ce stade, par élimination :
+    //   • CPU du tick JS ......... 3 %  (scene-diff retiré)
+    //   • CPU du process natif ... 7-9 %, PLAT sur tous les paliers — y compris
+    //     `no-analysis`, où aucune inférence ne tourne. C'est le bruit de fond de
+    //     l'app, pas Basarunaa.
+    //   • Témoin Basarunaa OFF ... ne chauffe pas (Karim, même build Debug).
+    //
+    // ⇒ La chaleur est réelle, elle vient de Basarunaa, et elle n'est dans AUCUNE
+    // des deux sondes. Restent deux postes qu'on ne peut pas chronométrer :
+    //
+    //   A. **l'ANE** — l'inférence CoreML ne consomme pas de CPU, elle consomme
+    //      un accélérateur dédié. Invisible à `app_cpu` par construction.
+    //   B. **la composition GPU** — un canvas plein écran repeint à 30 fps
+    //      PAR-DESSUS une couche vidéo matérielle empêche le compositeur de
+    //      garder la vidéo en overlay direct. `performance.now()` autour d'un
+    //      `drawImage` n'en voit rien : il rend la main avant le travail GPU.
+    //
+    // Faute de sonde, on les sépare en les faisant tourner SEULS, tour à tour.
+    // Paliers longs (4 min) : c'est la chaleur qu'on mesure, et elle met des
+    // minutes à s'établir — un palier de 20 s ne dirait rien ici.
     {
-      id: "baseline",
-      isolates: "tout actif — la référence des cinq autres",
+      id: "ane-only",
+      isolates: "A. L’ANE SEULE : l’analyse tourne, mais le canvas est retiré de la composition (donc aucun flou à l’écran). Si ça chauffe ici, c’est l’inférence.",
       apply: () => {
-        window.__basarunaaRenderDisabled = false;
         window.__basarunaaAnalysisDisabled = false;
-        window.__basarunaaSceneDiffDisabled = false;
-        window.__basarunaaBlurMode = "gaussian";
-        window.__basarunaaSampleWidth = void 0;
-        window.__basarunaaYoloIntervalMs = void 0;
+        window.__basarunaaCanvasHidden = true;
       }
     },
     {
-      id: "no-scene",
-      isolates: "le SCENE-DIFF par frame : réallocation d’un canvas 256×256 + drawImage depuis la texture vidéo matérielle + `getImageData` — un readback GPU→CPU synchrone, 30 fois par seconde. Hors de la fenêtre mesurée jusqu’au 2026-08-31, donc jamais soupçonné.",
+      id: "gpu-only",
+      isolates: "B. LA COMPOSITION SEULE : le canvas est composé et repeint à 30 fps, mais plus aucune inférence. Si ça chauffe ici, c’est le GPU.",
       apply: () => {
-        window.__basarunaaSceneDiffDisabled = true;
-      }
-    },
-    {
-      id: "no-render",
-      isolates: "le REPEINT par frame — le poste qui suit la cadence de l’écran (30-60/s) et non celle des analyses (4/s). Suspect n°1, jamais mesuré avant ce jour.",
-      apply: () => {
-        window.__basarunaaSceneDiffDisabled = false;
-        window.__basarunaaRenderDisabled = true;
-      }
-    },
-    {
-      id: "blur-legacy",
-      isolates: "la CASCADE progressive livrée le 2026-08-29 (÷8 puis demi-réductions) contre les deux sauts d’avant (÷50 puis ÷3). Même flou final, chemin plus court — si l’écart est ici, la cascade se paie en chaleur.",
-      apply: () => {
-        window.__basarunaaRenderDisabled = false;
-        window.__basarunaaBlurMode = "legacy";
-      }
-    },
-    {
-      id: "no-analysis",
-      isolates: "l’INFÉRENCE + l’encodage JPEG + le pont. Le flou continue d’être peint avec les dernières bboxes connues : ce palier ne retire que le côté ML.",
-      apply: () => {
-        window.__basarunaaBlurMode = "gaussian";
         window.__basarunaaAnalysisDisabled = true;
+        window.__basarunaaCanvasHidden = false;
       }
     }
   ];
@@ -3053,7 +3048,12 @@ video:not([data-basarunaa]) { filter: none !important; }
           }
         }
         const renderT0 = performance.now();
-        const renderOff = window.__basarunaaRenderDisabled === true;
+        const canvasHidden = window.__basarunaaCanvasHidden === true;
+        if (canvasHidden !== (display.style.display === "none")) {
+          display.style.display = canvasHidden ? "none" : "";
+          if (canvasHidden) releaseVideoCssBlur(video);
+        }
+        const renderOff = window.__basarunaaRenderDisabled === true || canvasHidden;
         if (!renderOff && this.state === "full_blur") {
           drawAndBlurRegion(
             this.dctx,
@@ -3333,7 +3333,8 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      if (window.__basarunaaSweep === true) startSweep();
+      window.__basarunaaSceneDiffDisabled = true;
+      startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
