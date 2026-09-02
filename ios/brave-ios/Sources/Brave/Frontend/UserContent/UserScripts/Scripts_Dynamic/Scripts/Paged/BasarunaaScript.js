@@ -2437,7 +2437,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (!d) {
         d = document.createElement("div");
         const s = d.style;
-        s.setProperty("position", "fixed", "important");
+        s.setProperty("position", "absolute", "important");
         s.setProperty("pointer-events", "none", "important");
         this.pool[i] = d;
         this.container.appendChild(d);
@@ -3044,7 +3044,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (!this.backdrop.isAttached) {
         const parent = this.displayCanvas.parentNode;
         if (!parent) return;
-        parent.insertBefore(this.backdrop.element, this.displayCanvas);
+        parent.insertBefore(this.backdrop.element, this.displayCanvas.nextSibling);
         this.backdrop.markAttached();
       }
       if (this.state === "full_blur") {
@@ -3144,16 +3144,17 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         const useBackdrop = window.__basarunaaBlurEngine !== "canvas";
         if (useBackdrop) {
-          const r = display.getBoundingClientRect();
+          const baseX = display.offsetLeft;
+          const baseY = display.offsetTop;
           this.lastGeom = {
             dispW: dispW / dpr,
             dispH: dispH / dpr,
-            offX: r.left + dispOffX / dpr,
-            offY: r.top + dispOffY / dpr,
+            offX: baseX + dispOffX / dpr,
+            offY: baseY + dispOffY / dpr,
             analyseW: this.currentMeta?.analyseW ?? dispW / dpr,
             analyseH: this.currentMeta?.analyseH ?? dispH / dpr
           };
-          const key = `${Math.round(r.left)},${Math.round(r.top)},${Math.round(dispW)},${Math.round(dispH)}`;
+          const key = `${Math.round(baseX)},${Math.round(baseY)},${Math.round(dispW)},${Math.round(dispH)}`;
           if (key !== this.lastGeomKey) {
             this.lastGeomKey = key;
             this.repaintBackdrop();
