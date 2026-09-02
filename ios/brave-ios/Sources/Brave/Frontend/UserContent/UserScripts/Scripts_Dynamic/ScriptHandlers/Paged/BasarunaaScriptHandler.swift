@@ -59,6 +59,58 @@ class BasarunaaScriptHandler: TabContentScript {
   //
   // Lecture, en parallèle des métriques de cadence :
   //   idevicesyslog -u <udid> -m "THERMAL"
+  // ─── Journal d'énergie — persistant, pour mesurer TÉLÉPHONE DÉBRANCHÉ ───
+  //
+  // Problème posé par Karim (2026-09-02) : « la diff est difficile à
+  // quantifier ». Il a raison, et les deux sondes en place n'y répondent pas :
+  // `app_cpu` ignore le GPU, et `thermalState` n'a que quatre crans qui mettent
+  // des minutes à bouger. La seule grandeur qui intègre CPU + GPU + ANE, c'est
+  // la **décharge de la batterie**.
+  //
+  // Mais elle ne bouge pas quand le téléphone charge — et c'est justement
+  // branché qu'on lit le syslog. D'où ce journal : on relève un point toutes
+  // les 30 s dans `UserDefaults`, et on le vide dans le log au démarrage
+  // suivant. Karim teste débranché, rebranche, relance : la session précédente
+  // se déverse d'un coup.
+  //
+  // Lecture : idevicesyslog -u <udid> -m "[ENERGY]"
+  private static let energyKey = "basarunaa.energy.samples"
+  private static let energyMaxSamples = 240  // 2 h à 30 s
+  private var lastEnergyMs: Double = 0
+  /// Palier de balayage actif, poussé par le JS — sans lui les points ne sont
+  /// pas attribuables à une configuration.
+  private var currentStep = "-"
+
+  private func recordEnergyIfNeeded(_ nowMs: Double, thermal: String) {
+    guard nowMs - lastEnergyMs >= 30_000 else { return }
+    lastEnergyMs = nowMs
+    let level = UIDevice.current.batteryLevel
+    let charging = UIDevice.current.batteryState == .charging
+      || UIDevice.current.batteryState == .full
+    var samples = UserDefaults.standard.array(forKey: Self.energyKey) as? [String] ?? []
+    samples.append(
+      "\(Int(Date().timeIntervalSince1970));\(String(format: "%.2f", level));"
+        + "\(charging ? 1 : 0);\(thermal);\(currentStep)"
+    )
+    if samples.count > Self.energyMaxSamples {
+      samples.removeFirst(samples.count - Self.energyMaxSamples)
+    }
+    UserDefaults.standard.set(samples, forKey: Self.energyKey)
+  }
+
+  /// Déverse le journal de la session précédente, puis l'efface. Appelé une
+  /// fois à l'init — c'est le moment où le téléphone vient d'être rebranché.
+  private func flushEnergyLog() {
+    let samples = UserDefaults.standard.array(forKey: Self.energyKey) as? [String] ?? []
+    guard !samples.isEmpty else { return }
+    UserDefaults.standard.removeObject(forKey: Self.energyKey)
+    log.notice("[ENERGY] début — \(samples.count, privacy: .public) points (t;batterie;charge;thermal;palier)")
+    for line in samples {
+      log.notice("[ENERGY] \(line, privacy: .public)")
+    }
+    log.notice("[ENERGY] fin")
+  }
+
   private var lastThermalState: ProcessInfo.ThermalState?
   private var lastThermalLogMs: Double = 0
   private var lastCpuSeconds: Double = 0
@@ -145,6 +197,7 @@ class BasarunaaScriptHandler: TabContentScript {
     log.notice(
       "[THERMAL] state=\(name, privacy: .public) battery=\(battery, privacy: .public) app_cpu=\(cpuPct, privacy: .public) changed=\(changed, privacy: .public)"
     )
+    recordEnergyIfNeeded(nowMs, thermal: name)
   }
 
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
@@ -196,6 +249,7 @@ class BasarunaaScriptHandler: TabContentScript {
     // Sans ça, `batteryLevel` renvoie -1 en permanence — une mesure qui a
     // l'air d'une valeur mais n'en est pas.
     UIDevice.current.isBatteryMonitoringEnabled = true
+    flushEnergyLog()
     log.info("handler_init")
   }
 
@@ -228,6 +282,10 @@ class BasarunaaScriptHandler: TabContentScript {
       //   idevicesyslog -u <udid> -m "[METRIC]"
       if Self.cadenceMetrics.contains(where: { data.contains("\"event\":\"\($0)\"") }) {
         log.notice("[METRIC] \(data, privacy: .public)")
+        if let r = data.range(of: "\"step\":\""),
+          let end = data[r.upperBound...].firstIndex(of: "\"") {
+          currentStep = String(data[r.upperBound..<end])
+        }
         logThermalIfNeeded()
       } else {
         log.info("[METRIC] \(data, privacy: .public)")

@@ -2408,7 +2408,9 @@ video:not([data-basarunaa]) { filter: none !important; }
         const w = (b[2] - b[0]) * sx + 2 * PAD_PX;
         const h = (b[3] - b[1]) * sy + 2 * PAD_PX;
         if (w <= 0 || h <= 0) continue;
-        const radius = Math.max(32, Math.round(Math.max(w, h) * 0.1));
+        const factor = typeof window.__basarunaaBlurRadiusFactor === "number" ? window.__basarunaaBlurRadiusFactor : 0.1;
+        const floor = typeof window.__basarunaaBlurRadiusFloor === "number" ? window.__basarunaaBlurRadiusFloor : 32;
+        const radius = Math.max(floor, Math.round(Math.max(w, h) * factor));
         this.place(
           this.take(i),
           x,
@@ -2740,44 +2742,35 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
-  const SWEEP_STEP_MS = 24e4;
+  const SWEEP_STEP_MS = 3e5;
   const SWEEP_STEPS = [
-    // ─── Protocole du 2026-09-01 : SÉPARER L'ANE DU GPU ───
+    // ─── Protocole du 2026-09-02 : COMBIEN COÛTE LE RAYON DU FLOU ───
     //
-    // Établi à ce stade, par élimination :
-    //   • CPU du tick JS ......... 3 %  (scene-diff retiré)
-    //   • CPU du process natif ... 7-9 %, PLAT sur tous les paliers — y compris
-    //     `no-analysis`, où aucune inférence ne tourne. C'est le bruit de fond de
-    //     l'app, pas Basarunaa.
-    //   • Témoin Basarunaa OFF ... ne chauffe pas (Karim, même build Debug).
+    // Le coût GPU d'un flou croît avec son rayon : pour chaque pixel de sortie,
+    // le compositeur combine les pixels voisins dans un rayon r. Les GPU font ça
+    // en deux passes séparables (horizontale puis verticale), donc ~2r
+    // échantillons par pixel au lieu de r² — mais ça reste **proportionnel à r**.
+    // Doubler le rayon double à peu près le travail, sur toute la surface floutée
+    // et à chaque image de la vidéo.
     //
-    // ⇒ La chaleur est réelle, elle vient de Basarunaa, et elle n'est dans AUCUNE
-    // des deux sondes. Restent deux postes qu'on ne peut pas chronométrer :
-    //
-    //   A. **l'ANE** — l'inférence CoreML ne consomme pas de CPU, elle consomme
-    //      un accélérateur dédié. Invisible à `app_cpu` par construction.
-    //   B. **la composition GPU** — un canvas plein écran repeint à 30 fps
-    //      PAR-DESSUS une couche vidéo matérielle empêche le compositeur de
-    //      garder la vidéo en overlay direct. `performance.now()` autour d'un
-    //      `drawImage` n'en voit rien : il rend la main avant le travail GPU.
-    //
-    // Faute de sonde, on les sépare en les faisant tourner SEULS, tour à tour.
-    // Paliers longs (4 min) : c'est la chaleur qu'on mesure, et elle met des
-    // minutes à s'établir — un palier de 20 s ne dirait rien ici.
+    // Deux paliers de 5 min, à comparer sur la **décharge de batterie** (journal
+    // `[ENERGY]`, téléphone DÉBRANCHÉ) — la seule grandeur qui intègre CPU, GPU
+    // et ANE à la fois. `thermalState` et `app_cpu` ne répondent ni l'un ni
+    // l'autre à la question posée ici.
     {
-      id: "ane-only",
-      isolates: "A. L’ANE SEULE : l’analyse tourne, mais le canvas est retiré de la composition (donc aucun flou à l’écran). Si ça chauffe ici, c’est l’inférence.",
+      id: "radius-100",
+      isolates: "rayon nominal (formule macOS : plancher 32 px, puis 10 %)",
       apply: () => {
-        window.__basarunaaAnalysisDisabled = false;
-        window.__basarunaaCanvasHidden = true;
+        window.__basarunaaBlurRadiusFactor = 0.1;
+        window.__basarunaaBlurRadiusFloor = 32;
       }
     },
     {
-      id: "gpu-only",
-      isolates: "B. LA COMPOSITION SEULE : le canvas est composé et repeint à 30 fps, mais plus aucune inférence. Si ça chauffe ici, c’est le GPU.",
+      id: "radius-50",
+      isolates: "rayon DEUX FOIS plus petit (5 %, plancher 16 px). Moins de travail GPU, mais silhouette plus devinable — l’écart de chaleur dit ce que coûte la sûreté, et Karim tranche ensuite en connaissance de cause.",
       apply: () => {
-        window.__basarunaaAnalysisDisabled = true;
-        window.__basarunaaCanvasHidden = false;
+        window.__basarunaaBlurRadiusFactor = 0.05;
+        window.__basarunaaBlurRadiusFloor = 16;
       }
     }
   ];
@@ -3469,6 +3462,12 @@ video:not([data-basarunaa]) { filter: none !important; }
         if (!document.body.contains(proc.video)) {
           proc.destroy();
           processors.delete(id);
+          continue;
+        }
+        if (isTooSmallToMatter(proc.video)) {
+          proc.destroy();
+          processors.delete(id);
+          wired.delete(proc.video);
         }
       }
       scanAndWire();
@@ -3523,7 +3522,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      if (window.__basarunaaSweep === true) startSweep();
+      startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
