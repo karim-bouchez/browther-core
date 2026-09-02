@@ -2408,7 +2408,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         const w = (b[2] - b[0]) * sx + 2 * PAD_PX;
         const h = (b[3] - b[1]) * sy + 2 * PAD_PX;
         if (w <= 0 || h <= 0) continue;
-        const radius = Math.max(6, Math.round(Math.min(w, h) / 6));
+        const radius = Math.max(32, Math.round(Math.max(w, h) * 0.1));
         this.place(
           this.take(i),
           x,
@@ -3423,8 +3423,16 @@ video:not([data-basarunaa]) { filter: none !important; }
       placeCanvas: placeCanvasInYT,
       isFullscreen: isFullscreenCanvas
     };
+    const MIN_WIRED_SIDE_PX = 96;
+    function isTooSmallToMatter(video) {
+      const w = video.clientWidth || video.offsetWidth || 0;
+      const h = video.clientHeight || video.offsetHeight || 0;
+      if (w === 0 && h === 0) return false;
+      return w < MIN_WIRED_SIDE_PX || h < MIN_WIRED_SIDE_PX;
+    }
     function wireOne(video) {
       if (wired.has(video)) return;
+      if (isTooSmallToMatter(video)) return;
       wired.add(video);
       const id = nextId++;
       video.setAttribute(DATA_WIRED_ATTR, String(id));
@@ -3463,6 +3471,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           processors.delete(id);
         }
       }
+      scanAndWire();
     }, 1e3);
     return {
       scanAndWire,
