@@ -75,7 +75,15 @@ class BasarunaaScriptHandler: TabContentScript {
   //
   // Lecture : idevicesyslog -u <udid> -m "[ENERGY]"
   private static let energyKey = "basarunaa.energy.samples"
-  private static let energyMaxSamples = 240  // 2 h à 30 s
+  private static let energyMaxSamples = 480  // 4 h à 30 s
+
+  /// Nombre de points au journal — repris dans `[THERMAL]` pour qu'on puisse
+  /// vérifier EN DIRECT, en une minute et téléphone branché, que la mesure
+  /// s'écrit. Sans ce compteur, la seule façon de le savoir était d'aller au
+  /// bout d'une campagne de 30 min et de découvrir qu'elle n'avait rien donné.
+  private static func energyPointCount() -> Int {
+    (UserDefaults.standard.array(forKey: energyKey) as? [String])?.count ?? 0
+  }
   private var lastEnergyMs: Double = 0
   /// Palier de balayage actif, poussé par le JS — sans lui les points ne sont
   /// pas attribuables à une configuration.
@@ -98,17 +106,42 @@ class BasarunaaScriptHandler: TabContentScript {
     UserDefaults.standard.set(samples, forKey: Self.energyKey)
   }
 
-  /// Déverse le journal de la session précédente, puis l'efface. Appelé une
-  /// fois à l'init — c'est le moment où le téléphone vient d'être rebranché.
+  /// Déverse le journal — SANS L'EFFACER, et une seule fois par lancement.
+  ///
+  /// ⚠️ La v1 (2026-09-02) effaçait après lecture et flushait à chaque `init`.
+  /// Or il y a **une instance de ce handler par page** : la première navigation
+  /// venue vidait le journal, et le déversement final tombait dans le vide si
+  /// personne n'écoutait à cet instant précis. Karim a laissé tourner 30 min :
+  /// tout a été perdu.
+  ///
+  /// Deux règles en découlent, et elles valent au-delà de ce fichier :
+  ///   • **une mesure ne s'auto-détruit pas à la lecture** — on relit, on
+  ///     n'efface pas ; la fenêtre glissante (`energyMaxSamples`) borne déjà la
+  ///     taille ;
+  ///   • **ce qui est par page ne doit pas piloter ce qui est par session** —
+  ///     d'où le drapeau statique.
+  private static var energyFlushed = false
+
   private func flushEnergyLog() {
+    guard !Self.energyFlushed else { return }
+    Self.energyFlushed = true
     let samples = UserDefaults.standard.array(forKey: Self.energyKey) as? [String] ?? []
-    guard !samples.isEmpty else { return }
-    UserDefaults.standard.removeObject(forKey: Self.energyKey)
+    guard !samples.isEmpty else {
+      log.notice("[ENERGY] journal vide (aucun point enregistré)")
+      return
+    }
     log.notice("[ENERGY] début — \(samples.count, privacy: .public) points (t;batterie;charge;thermal;palier)")
     for line in samples {
       log.notice("[ENERGY] \(line, privacy: .public)")
     }
     log.notice("[ENERGY] fin")
+  }
+
+  /// Vide le journal — sur demande explicite seulement, pour repartir propre
+  /// avant une campagne de mesure.
+  private func resetEnergyLog() {
+    UserDefaults.standard.removeObject(forKey: Self.energyKey)
+    log.notice("[ENERGY] journal remis à zéro")
   }
 
   private var lastThermalState: ProcessInfo.ThermalState?
@@ -195,7 +228,7 @@ class BasarunaaScriptHandler: TabContentScript {
     lastCpuWallMs = nowMs
 
     log.notice(
-      "[THERMAL] state=\(name, privacy: .public) battery=\(battery, privacy: .public) app_cpu=\(cpuPct, privacy: .public) changed=\(changed, privacy: .public)"
+      "[THERMAL] state=\(name, privacy: .public) battery=\(battery, privacy: .public) app_cpu=\(cpuPct, privacy: .public) energy_pts=\(Self.energyPointCount(), privacy: .public) changed=\(changed, privacy: .public)"
     )
     recordEnergyIfNeeded(nowMs, thermal: name)
   }
@@ -282,6 +315,10 @@ class BasarunaaScriptHandler: TabContentScript {
       //   idevicesyslog -u <udid> -m "[METRIC]"
       if Self.cadenceMetrics.contains(where: { data.contains("\"event\":\"\($0)\"") }) {
         log.notice("[METRIC] \(data, privacy: .public)")
+        // Le démarrage d'un balayage ouvre une campagne de mesure : on repart
+        // d'un journal propre, sinon les points de la veille se mélangent aux
+        // nouveaux et les moyennes par palier n'ont plus de sens.
+        if data.contains("\"event\":\"sweep_start\"") { resetEnergyLog() }
         if let r = data.range(of: "\"step\":\""),
           let end = data[r.upperBound...].firstIndex(of: "\"") {
           currentStep = String(data[r.upperBound..<end])
