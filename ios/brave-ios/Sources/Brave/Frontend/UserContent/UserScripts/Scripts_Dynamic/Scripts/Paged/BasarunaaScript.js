@@ -2468,6 +2468,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     /** Forme du corps en `clip-path: polygon(...)`, relative à la div. */
     clipFor(raw, bbox, geom, sx, sy, dx, dy, dw, dh) {
+      if (window.__basarunaaShapeDisabled === true) return null;
       if (!raw || raw.length < 17) return null;
       const kps = raw.map((k) => ({ x: k[0], y: k[1], confidence: k[2] }));
       const poly = buildBodyPolygon(kps, bbox, geom.analyseW, geom.analyseH);
@@ -2901,6 +2902,9 @@ video:not([data-basarunaa]) { filter: none !important; }
        *  en a besoin hors du tick, à l'arrivée d'une détection. */
       this.lastGeom = null;
       this.lastGeomKey = "";
+      this.lastGeomProbeMs = 0;
+      this.baseX = 0;
+      this.baseY = 0;
       this.yoloInFlight = false;
       this.pendingCssRelease = false;
       this.triggeredByScene = false;
@@ -3142,10 +3146,16 @@ video:not([data-basarunaa]) { filter: none !important; }
           dispH = ph;
           this.dctx.clearRect(0, 0, pw, ph);
         }
+        const nowMsEarly = performance.now();
         const useBackdrop = window.__basarunaaBlurEngine !== "canvas";
         if (useBackdrop) {
-          const baseX = display.offsetLeft;
-          const baseY = display.offsetTop;
+          if (nowMsEarly - this.lastGeomProbeMs >= 500 || this.lastGeom === null) {
+            this.lastGeomProbeMs = nowMsEarly;
+            this.baseX = display.offsetLeft;
+            this.baseY = display.offsetTop;
+          }
+          const baseX = this.baseX;
+          const baseY = this.baseY;
           this.lastGeom = {
             dispW: dispW / dpr,
             dispH: dispH / dpr,
