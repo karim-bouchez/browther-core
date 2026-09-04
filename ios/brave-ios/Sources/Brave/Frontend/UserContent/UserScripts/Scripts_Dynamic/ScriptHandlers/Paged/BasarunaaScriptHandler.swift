@@ -137,11 +137,23 @@ class BasarunaaScriptHandler: TabContentScript {
     log.notice("[ENERGY] fin")
   }
 
-  /// Vide le journal — sur demande explicite seulement, pour repartir propre
-  /// avant une campagne de mesure.
+  /// Vide le journal — **une seule fois par lancement d'app**, au démarrage de
+  /// la première campagne de mesure.
+  ///
+  /// ⚠️ Le drapeau statique n'est pas un détail. La v1 remettait à zéro à
+  /// chaque `sweep_start` — or le balayage démarre **par page**, et il y a une
+  /// instance de ce handler par page : le journal était vidé à chaque
+  /// navigation, donc toujours vide. C'est la MÊME erreur que le flush juste
+  /// au-dessus, refaite dans l'heure : **un événement par page ne doit jamais
+  /// piloter un état par session**. Vérifier ce point pour tout nouvel état
+  /// ajouté ici.
+  private static var energyReset = false
+
   private func resetEnergyLog() {
+    guard !Self.energyReset else { return }
+    Self.energyReset = true
     UserDefaults.standard.removeObject(forKey: Self.energyKey)
-    log.notice("[ENERGY] journal remis à zéro")
+    log.notice("[ENERGY] journal remis à zéro (début de campagne)")
   }
 
   private var lastThermalState: ProcessInfo.ThermalState?
