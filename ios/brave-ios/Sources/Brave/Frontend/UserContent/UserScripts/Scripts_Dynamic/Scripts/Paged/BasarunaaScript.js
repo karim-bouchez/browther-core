@@ -3522,7 +3522,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      startSweep();
+      if (window.__basarunaaSweep === true) startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
