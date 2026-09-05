@@ -410,6 +410,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         return GenderClass.Unknown;
     }
   }
+  function genderToWord(g) {
+    if (g === GenderClass.Male) return "male";
+    if (g === GenderClass.Female) return "female";
+    if (g === GenderClass.Child) return "child";
+    return "unknown";
+  }
 
   const MALE = 0;
   const FEMALE = 1;
@@ -656,6 +662,228 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     ctx.setLineDash([4, 4]);
     drawExpanded(FEATHER_EXPAND + FEATHER_BLUR);
     ctx.restore();
+  }
+
+  const IOU_MATCH = 0.3;
+  const CUT_CONTINUITY = 0.5;
+  function iou(a, b) {
+    const ax2 = a.nx + a.nw;
+    const ay2 = a.ny + a.nh;
+    const bx2 = b.nx + b.nw;
+    const by2 = b.ny + b.nh;
+    const ix1 = Math.max(a.nx, b.nx);
+    const iy1 = Math.max(a.ny, b.ny);
+    const ix2 = Math.min(ax2, bx2);
+    const iy2 = Math.min(ay2, by2);
+    const inter = Math.max(0, ix2 - ix1) * Math.max(0, iy2 - iy1);
+    const ua = a.nw * a.nh + b.nw * b.nh - inter;
+    return ua > 0 ? inter / ua : 0;
+  }
+  function matchPersons(a, b) {
+    const matchOfA = new Array(a.length).fill(-1);
+    const usedB = /* @__PURE__ */ new Set();
+    for (let i = 0; i < a.length; i++) {
+      const id = a[i].trackId;
+      if (id < 0) continue;
+      for (let j = 0; j < b.length; j++) {
+        if (usedB.has(j)) continue;
+        if (b[j].trackId === id) {
+          matchOfA[i] = j;
+          usedB.add(j);
+          break;
+        }
+      }
+    }
+    const pairs = [];
+    for (let i = 0; i < a.length; i++) {
+      if (matchOfA[i] >= 0) continue;
+      for (let j = 0; j < b.length; j++) {
+        if (usedB.has(j)) continue;
+        const io = iou(a[i], b[j]);
+        if (io > IOU_MATCH) pairs.push({ i, j, io });
+      }
+    }
+    pairs.sort((p, q) => q.io - p.io);
+    const usedA = /* @__PURE__ */ new Set();
+    for (const p of pairs) {
+      if (usedA.has(p.i) || usedB.has(p.j) || matchOfA[p.i] >= 0) continue;
+      matchOfA[p.i] = p.j;
+      usedA.add(p.i);
+      usedB.add(p.j);
+    }
+    return matchOfA;
+  }
+  function interpKeypoints(a, b, alpha) {
+    if (!a.length || a.length !== b.length) return a;
+    return a.map((ka, i) => {
+      const kb = b[i];
+      return [
+        ka[0] + (kb[0] - ka[0]) * alpha,
+        ka[1] + (kb[1] - ka[1]) * alpha,
+        ka[2]
+      ];
+    });
+  }
+  function interpolatePersons(a, b, alpha, matchOfA) {
+    const out = [];
+    const usedB = /* @__PURE__ */ new Set();
+    for (let i = 0; i < a.length; i++) {
+      const pa = a[i];
+      const j = matchOfA[i];
+      if (j >= 0) {
+        usedB.add(j);
+        const pb = b[j];
+        out.push({
+          ...pa,
+          nx: pa.nx + (pb.nx - pa.nx) * alpha,
+          ny: pa.ny + (pb.ny - pa.ny) * alpha,
+          nw: pa.nw + (pb.nw - pa.nw) * alpha,
+          nh: pa.nh + (pb.nh - pa.nh) * alpha,
+          keypoints: interpKeypoints(pa.keypoints, pb.keypoints, alpha)
+        });
+      } else {
+        out.push(pa);
+      }
+    }
+    for (let j = 0; j < b.length; j++) {
+      if (!usedB.has(j)) out.push(b[j]);
+    }
+    return out;
+  }
+  function continuityOf(a, b, matchOfA) {
+    let matched = 0;
+    for (const j of matchOfA) if (j >= 0) matched++;
+    const anchorMax = Math.max(a.length, b.length);
+    return { matched, continuity: anchorMax > 0 ? matched / anchorMax : 1 };
+  }
+
+  const VOTE_MIN_CONF = 0.55;
+  const VOTE_DECAY = 0.9;
+  const TRACK_IOU = 0.2;
+  const TRACK_MAX_MISS = 3;
+  function accumulateVote(t, p) {
+    t.voteM *= VOTE_DECAY;
+    t.voteF *= VOTE_DECAY;
+    t.voteC *= VOTE_DECAY;
+    const c = p.conf >= 0 ? p.conf : 0;
+    if (c >= VOTE_MIN_CONF) {
+      if (p.gender === 0) t.voteM = Math.max(t.voteM, c);
+      else if (p.gender === 1) t.voteF = Math.max(t.voteF, c);
+      else if (p.gender === 2) t.voteC = Math.max(t.voteC, c);
+    }
+    if (t.voteM > 0 || t.voteF > 0 || t.voteC > 0) {
+      let g = 0;
+      let best = t.voteM;
+      if (t.voteF >= best) {
+        g = 1;
+        best = t.voteF;
+      }
+      if (t.voteC > best) {
+        g = 2;
+        best = t.voteC;
+      }
+      t.gender = g;
+      t.conf = best;
+      t.voteT = best;
+    }
+  }
+  class TrackManager {
+    constructor() {
+      this.tracks = [];
+      this.nextTrackId = 0;
+    }
+    /** Nombre de pistes vivantes — diagnostic. */
+    get size() {
+      return this.tracks.length;
+    }
+    /**
+     * Ingère les personnes d'une ancre : match IoU aux pistes, vote, et retourne
+     * pour chaque personne (dans l'ordre d'entrée) le tampon à recopier dessus.
+     */
+    ingest(persons) {
+      const tracks = this.tracks;
+      const stamps = new Array(persons.length);
+      const pairs = [];
+      for (let pi = 0; pi < persons.length; pi++) {
+        for (let ti = 0; ti < tracks.length; ti++) {
+          const io = iou(persons[pi], tracks[ti]);
+          if (io >= TRACK_IOU) pairs.push({ pi, ti, io });
+        }
+      }
+      pairs.sort((a, b) => b.io - a.io);
+      const usedP = /* @__PURE__ */ new Set();
+      const usedT = /* @__PURE__ */ new Set();
+      const matchedT = /* @__PURE__ */ new Set();
+      for (const { pi, ti } of pairs) {
+        if (usedP.has(pi) || usedT.has(ti)) continue;
+        usedP.add(pi);
+        usedT.add(ti);
+        matchedT.add(ti);
+        const t = tracks[ti];
+        const p = persons[pi];
+        t.nx = p.nx;
+        t.ny = p.ny;
+        t.nw = p.nw;
+        t.nh = p.nh;
+        t.miss = 0;
+        accumulateVote(t, p);
+        stamps[pi] = stampOf(t);
+      }
+      for (let pi = 0; pi < persons.length; pi++) {
+        if (usedP.has(pi)) continue;
+        const p = persons[pi];
+        const t = {
+          id: this.nextTrackId++,
+          nx: p.nx,
+          ny: p.ny,
+          nw: p.nw,
+          nh: p.nh,
+          voteM: 0,
+          voteF: 0,
+          voteC: 0,
+          voteT: 0,
+          gender: -1,
+          conf: -1,
+          miss: 0
+        };
+        accumulateVote(t, p);
+        tracks.push(t);
+        stamps[pi] = stampOf(t);
+      }
+      for (let ti = 0; ti < tracks.length; ti++) {
+        if (!matchedT.has(ti)) tracks[ti].miss++;
+      }
+      this.tracks = tracks.filter((t) => t.miss < TRACK_MAX_MISS);
+      return stamps;
+    }
+    /**
+     * Remise à zéro. À appeler à l'OUVERTURE D'UNE SCÈNE (cut) et sur seek : une
+     * identité ne survit pas à un changement de scène — la laisser traverser fait
+     * hériter à une nouvelle personne le genre voté de celle qu'elle remplace.
+     *
+     * 🔴 `nextTrackId` n'est **jamais** remis à zéro, et ce n'est pas un détail
+     * d'hygiène. L'appariement de `persons-match.ts` commence par un match EXACT
+     * sur `trackId` : si les identités repartaient de 0 après un cut, la dernière
+     * personne de l'ancienne scène et la première de la nouvelle porteraient le
+     * même numéro. Elles seraient donc déclarées « la même personne », la
+     * continuité vaudrait 1, le cut serait rejeté comme un faux positif — et le
+     * flou morpherait à travers le changement de scène, exactement ce que le snap
+     * existe pour empêcher.
+     */
+    reset() {
+      this.tracks = [];
+    }
+  }
+  function stampOf(t) {
+    return {
+      trackId: t.id,
+      votedGender: t.gender,
+      votedConf: t.conf,
+      voteM: t.voteM,
+      voteF: t.voteF,
+      voteC: t.voteC,
+      voteT: t.voteT
+    };
   }
 
   const FEMALE_COLORS = [
@@ -1588,6 +1816,1155 @@ video:not([data-basarunaa]) { filter: none !important; }
     };
   }
 
+  const YOLO_INTERVAL_TRACKING_MS = 250;
+  const YOLO_INTERVAL_SAFE_MS = 5e3;
+  const YOLO_MIN_COOLDOWN_MS = 150;
+  const SCENE_CHANGE_THRESHOLD = 0.12;
+  const SCENE_DIFF_HASH_SIZE = 8;
+  const SCENE_DIFF_INTERVAL_MS = 100;
+  const FRAME_DIFF_SKIP_THRESHOLD = 0.02;
+  const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
+  const AHEAD_ANALYZE_INTERVAL_MS = 1e3;
+  const AHEAD_HORIZON_MS = 2e3;
+  const AHEAD_SCENE_INTERVAL_MS = 100;
+  const AHEAD_SCENE_SIZE = 32;
+  const AHEAD_RENDER_INTERVAL_MS = 50;
+  const AHEAD_MAX_PENDING_BYTES = 48 * 1024 * 1024;
+  const MAX_SAMPLE_WIDTH = 640;
+  const JPEG_QUALITY = 0.8;
+  const CORPUS_MAX_WIDTH = 1024;
+  const CORPUS_JPEG_QUALITY = 0.9;
+  const BLUR_DOWNSAMPLE = 50;
+  const BLUR_PASS2_FACTOR = 3;
+  const BLUR_FIRST_STEP = 8;
+  const BLUR_GAUSSIAN_RADIUS_PX = 5;
+  const BLUR_PERF_WINDOW = 60;
+  const VIDEO_FEATHER_MARGIN_PX_DEFAULT = 50;
+  const SCENE_INTERMEDIATE_SIZE = 256;
+  const num = (v, fallback) => typeof v === "number" && v > 0 ? v : fallback;
+  const sampleWidth = () => num(window.__basarunaaSampleWidth, MAX_SAMPLE_WIDTH);
+  const jpegQuality = () => num(window.__basarunaaJpegQuality, JPEG_QUALITY);
+  const yoloTrackingIntervalMs = () => num(window.__basarunaaYoloIntervalMs, YOLO_INTERVAL_TRACKING_MS);
+  const yoloCooldownMs = () => num(window.__basarunaaYoloCooldownMs, YOLO_MIN_COOLDOWN_MS);
+  const aheadIntervalMs = () => num(window.__basarunaaAheadIntervalMs, AHEAD_ANALYZE_INTERVAL_MS);
+  const aheadHorizonMs = () => num(window.__basarunaaAheadHorizonMs, AHEAD_HORIZON_MS);
+  const aheadSceneMs = () => num(window.__basarunaaAheadSceneMs, AHEAD_SCENE_INTERVAL_MS);
+  const aheadRenderMs = () => num(window.__basarunaaAheadRenderMs, AHEAD_RENDER_INTERVAL_MS);
+  const decodeAheadEnabled = () => {
+    if (window.__basarunaaDecodeAhead === true) return true;
+    try {
+      return localStorage.getItem("bsr_decode_ahead") === "1";
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const AHEAD_VIDEO_ID_OFFSET = 1e4;
+  const INFLIGHT_TIMEOUT_MS = 2e3;
+  const HASH_N = 8;
+  class AheadAnalyzer {
+    constructor(deps) {
+      this.deps = deps;
+      this.tracks = new TrackManager();
+      /** Dernier hash relevé, et le temps média auquel il l'a été. */
+      this.lastHash = null;
+      this.lastHashTMs = -1;
+      this.lastAnalyzeTMs = -1;
+      /** Temps média de l'analyse en vol, -1 si le créneau est libre. */
+      this.inFlightTMs = -1;
+      this.inFlightIsCut = false;
+      /** Temps média du dernier relevé de scène encore dans l'ANCIENNE scène — la
+       *  borne gauche de l'incertitude sur la position du cut. */
+      this.inFlightCutFromMs = -1;
+      this.inFlightSentAtMs = 0;
+      /** Cut détecté dont la frame d'ouverture attend un créneau. */
+      this.pendingCut = null;
+      // Compteurs — tous lus dans la métrique `ahead`.
+      this.analyzed = 0;
+      this.cuts = 0;
+      this.skippedBusy = 0;
+      this.outOfHorizon = 0;
+      this.stuck = 0;
+      this.hashes = 0;
+      this.hashMsAcc = 0;
+      this.encodeMsAcc = 0;
+      this.lastSig = "";
+      this.hashCanvas = document.createElement("canvas");
+      this.hashCanvas.width = AHEAD_SCENE_SIZE;
+      this.hashCanvas.height = AHEAD_SCENE_SIZE;
+      this.hashCtx = this.hashCanvas.getContext("2d", {
+        willReadFrequently: true
+      });
+      this.sampleCanvas = document.createElement("canvas");
+      this.sampleCtx = this.sampleCanvas.getContext("2d");
+    }
+    /** `videoId` du processeur auquel ce chemin est rattaché. */
+    get videoId() {
+      return this.deps.videoId;
+    }
+    /**
+     * Une frame vient d'être décodée en avance.
+     *
+     * ⚠️ Appelé depuis la sortie du `VideoDecoder`, et la frame est FERMÉE dès le
+     * retour : tout ce dont on a besoin doit être lu ici, de façon synchrone. On
+     * ne retient jamais la `VideoFrame` elle-même (2 s de 720p = ~60 tampons
+     * adossés au GPU, et un décodeur qui cale quand son pool est vide) — on garde
+     * au plus un JPEG déjà encodé, soit ~30 Ko.
+     */
+    onFrame(frame, ptsSec) {
+      if (window.__basarunaaAheadDisabled === true) return;
+      const tMs = ptsSec * 1e3;
+      const lead = tMs - this.deps.playheadMs();
+      if (lead < 0) return;
+      if (lead > aheadHorizonMs()) {
+        this.outOfHorizon++;
+        return;
+      }
+      this.releaseIfStuck();
+      let isCut = false;
+      const prevHashTMs = this.lastHashTMs;
+      const sceneInterval = aheadSceneMs();
+      if (this.lastHashTMs < 0 || tMs - this.lastHashTMs >= sceneInterval) {
+        const t0 = performance.now();
+        const hash = this.hashOf(frame);
+        this.hashMsAcc += performance.now() - t0;
+        this.hashes++;
+        if (hash) {
+          const prev = this.lastHash;
+          this.lastHash = hash;
+          this.lastHashTMs = tMs;
+          if (prev) {
+            let total = 0;
+            for (let i = 0; i < hash.length; i++) {
+              const d = hash[i] - prev[i];
+              total += d < 0 ? -d : d;
+            }
+            if (total / (hash.length * 255) > SCENE_CHANGE_THRESHOLD) isCut = true;
+          }
+        }
+      }
+      const due = this.lastAnalyzeTMs < 0 || tMs - this.lastAnalyzeTMs >= aheadIntervalMs();
+      if (!isCut && !due) return;
+      if (this.inFlightTMs >= 0) {
+        if (isCut && !this.pendingCut) {
+          const shot2 = this.encode(frame);
+          if (shot2) this.pendingCut = { tMs, cutFromMs: prevHashTMs, ...shot2 };
+        } else {
+          this.skippedBusy++;
+        }
+        return;
+      }
+      const shot = this.encode(frame);
+      if (!shot) return;
+      this.dispatch(tMs, isCut, prevHashTMs, shot.w, shot.h, shot.b64);
+    }
+    /** Réponse du modèle pour une frame en avance. */
+    onReply(reply) {
+      const tMs = reply.ctMs;
+      const mine = this.inFlightTMs === tMs;
+      const wasCut = mine ? this.inFlightIsCut : false;
+      const cutFromMs = mine ? this.inFlightCutFromMs : -1;
+      if (mine) this.inFlightTMs = -1;
+      if (wasCut) this.tracks.reset();
+      const w = reply.analyseW || 1;
+      const h = reply.analyseH || 1;
+      const raw = reply.persons ?? [];
+      const persons = raw.map((p) => {
+        const kps = [];
+        if (p.keypoints) {
+          for (const k of p.keypoints) {
+            if (k) kps.push([k[0] / w, k[1] / h, k[2]]);
+          }
+        }
+        const b = p.bbox;
+        return {
+          nx: b[0] / w,
+          ny: b[1] / h,
+          nw: (b[2] - b[0]) / w,
+          nh: (b[3] - b[1]) / h,
+          keypoints: kps,
+          gender: genderFromWord(p.gender),
+          conf: typeof p.genderConfidence === "number" ? p.genderConfidence : 0,
+          trackId: -1,
+          votedGender: -1,
+          votedConf: -1,
+          blur: false
+        };
+      });
+      const stamps = this.tracks.ingest(persons);
+      for (let i = 0; i < persons.length; i++) {
+        const p = persons[i];
+        const st = stamps[i];
+        p.trackId = st.trackId;
+        p.votedGender = st.votedGender;
+        p.votedConf = st.votedConf;
+        const g = st.votedGender >= 0 ? st.votedGender : p.gender;
+        const c = st.votedGender >= 0 ? st.votedConf : p.conf;
+        p.blur = wouldBlur({
+          gender: g,
+          conf: c,
+          mode: reply.prefs.mode,
+          certainty: reply.prefs.genderCertainty,
+          minSkeletonActive: !!reply.prefs.minSkeletonActive,
+          kpConfidences: p.keypoints.length ? p.keypoints.map((k) => k[2]) : null
+        });
+      }
+      const anchor = {
+        tMs,
+        persons,
+        isCut: wasCut,
+        ...wasCut && cutFromMs >= 0 ? { cutFromMs } : {},
+        isNsfw: !!reply.isNsfw
+      };
+      this.deps.store.ingest(anchor);
+      this.analyzed++;
+      if (wasCut) this.cuts++;
+      const blurred = persons.reduce((n, p) => n + (p.blur ? 1 : 0), 0);
+      if (blurred > 0) send("statsBlurred", String(blurred));
+      this.flushPendingCut();
+    }
+    /** Seek / changement de vidéo : tout ce qui est en mémoire vaut pour un autre
+     *  temps média. Le garder ferait flouter la nouvelle position avec les boîtes
+     *  de l'ancienne. */
+    reset() {
+      this.tracks.reset();
+      this.lastHash = null;
+      this.lastHashTMs = -1;
+      this.lastAnalyzeTMs = -1;
+      this.inFlightTMs = -1;
+      this.inFlightIsCut = false;
+      this.inFlightCutFromMs = -1;
+      this.pendingCut = null;
+    }
+    /** Émet `ahead` — et seulement si quelque chose a bougé : un état figé répété
+     *  toutes les 5 s noie le journal du device et fait passer une panne pour de
+     *  l'activité (leçon du 2026-09-05). */
+    emitMetric(extra) {
+      const sig = `${this.analyzed}|${this.cuts}|${this.skippedBusy}|${this.stuck}`;
+      if (sig === this.lastSig) return;
+      this.lastSig = sig;
+      metric("ahead", {
+        videoId: this.deps.videoId,
+        analyzed: this.analyzed,
+        cuts: this.cuts,
+        skipped_busy: this.skippedBusy,
+        out_of_horizon: this.outOfHorizon,
+        stuck: this.stuck,
+        tracks: this.tracks.size,
+        // Les deux chiffres qui décident s'il faut baisser `AHEAD_SCENE_INTERVAL_MS` :
+        // le coût MOYEN d'un relevé de scène, et combien on en a fait.
+        hashes: this.hashes,
+        hash_ms: this.hashes ? Math.round(this.hashMsAcc / this.hashes * 100) / 100 : 0,
+        encode_ms: this.analyzed ? Math.round(this.encodeMsAcc / this.analyzed * 100) / 100 : 0,
+        ...extra
+      });
+    }
+    // ─── interne ───
+    dispatch(tMs, isCut, cutFromMs, w, h, b64) {
+      this.inFlightTMs = tMs;
+      this.inFlightIsCut = isCut;
+      this.inFlightCutFromMs = cutFromMs;
+      this.inFlightSentAtMs = performance.now();
+      this.lastAnalyzeTMs = tMs;
+      send(
+        "videoFrame",
+        `${this.deps.videoId + AHEAD_VIDEO_ID_OFFSET}|${Math.round(tMs)}|${w}|${h}|0|${b64}`
+      );
+    }
+    flushPendingCut() {
+      const p = this.pendingCut;
+      if (!p || this.inFlightTMs >= 0) return;
+      this.pendingCut = null;
+      this.dispatch(p.tMs, true, p.cutFromMs, p.w, p.h, p.b64);
+    }
+    /** Rouvre le créneau si la réponse ne revient pas — sans quoi le chemin en
+     *  avance s'arrêterait définitivement, en silence. */
+    releaseIfStuck() {
+      if (this.inFlightTMs < 0) return;
+      if (performance.now() - this.inFlightSentAtMs < INFLIGHT_TIMEOUT_MS) return;
+      this.stuck++;
+      this.inFlightTMs = -1;
+      this.inFlightIsCut = false;
+      metric("ahead_stuck", { videoId: this.deps.videoId, stuck: this.stuck });
+      this.flushPendingCut();
+    }
+    /** Hash 8×8 en niveaux de gris, via un carré 32×32.
+     *
+     *  ⚠️ Une seule passe de `drawImage`, contrairement au chemin réactif qui doit
+     *  passer par un canvas 256×256 intermédiaire et réinitialiser sa largeur à
+     *  chaque appel. Ce détour n'existe que parce que la source y est un `<video>`
+     *  en couche MATÉRIELLE (`feedback_webkit_canvas_video_refresh`) ; une
+     *  `VideoFrame` est une image ordinaire. C'est l'hypothèse qui rend ce chemin
+     *  moins cher — `ahead.hash_ms` est là pour la vérifier, pas pour l'illustrer. */
+    hashOf(frame) {
+      const n = AHEAD_SCENE_SIZE;
+      try {
+        this.hashCtx.drawImage(frame, 0, 0, n, n);
+        const data = this.hashCtx.getImageData(0, 0, n, n).data;
+        const block = n / HASH_N;
+        const out = new Uint8Array(HASH_N * HASH_N);
+        for (let by = 0; by < HASH_N; by++) {
+          for (let bx = 0; bx < HASH_N; bx++) {
+            let sum = 0;
+            for (let y = 0; y < block; y++) {
+              for (let x = 0; x < block; x++) {
+                const off = ((by * block + y) * n + (bx * block + x)) * 4;
+                sum += (data[off] * 2 + data[off + 1] * 3 + data[off + 2]) / 6;
+              }
+            }
+            out[by * HASH_N + bx] = sum / (block * block);
+          }
+        }
+        return out;
+      } catch {
+        return null;
+      }
+    }
+    /** Frame → JPEG pour le pont, aux mêmes réglages que le chemin réactif
+     *  (640 px / q0,8) : les deux chemins doivent nourrir le modèle de la même
+     *  façon, sinon leurs résultats ne sont pas comparables. */
+    encode(frame) {
+      const vw = frame.displayWidth || frame.codedWidth;
+      const vh = frame.displayHeight || frame.codedHeight;
+      if (!vw || !vh) return null;
+      const t0 = performance.now();
+      const w = Math.min(sampleWidth(), vw);
+      const h = Math.max(1, Math.round(vh * w / vw));
+      if (this.sampleCanvas.width !== w) this.sampleCanvas.width = w;
+      if (this.sampleCanvas.height !== h) this.sampleCanvas.height = h;
+      try {
+        this.sampleCtx.drawImage(frame, 0, 0, w, h);
+        const url = this.sampleCanvas.toDataURL("image/jpeg", jpegQuality());
+        const comma = url.indexOf(",");
+        if (comma < 0) return null;
+        this.encodeMsAcc += performance.now() - t0;
+        return { w, h, b64: url.slice(comma + 1) };
+      } catch {
+        return null;
+      }
+    }
+  }
+
+  const STALE_MS = 1200;
+  const SAFE_STALE_MS = 3e3;
+  const STORE_CAP = 600;
+  const KEEP_BEHIND_MS = 4e3;
+  const CUT_WINDOW_FALLBACK_MS = 100;
+  class AheadStore {
+    constructor() {
+      /** Trié par `tMs` croissant. */
+      this.anchors = [];
+      this.ingested = 0;
+      this.resolved = 0;
+      this.missed = 0;
+    }
+    /** Insère une ancre en gardant l'ordre du temps média. */
+    ingest(anchor) {
+      this.ingested++;
+      const a = this.anchors;
+      let i = a.length;
+      while (i > 0 && a[i - 1].tMs > anchor.tMs) i--;
+      if (i > 0 && a[i - 1].tMs === anchor.tMs) {
+        a[i - 1] = anchor;
+        return;
+      }
+      a.splice(i, 0, anchor);
+      if (a.length > STORE_CAP) a.splice(0, a.length - STORE_CAP);
+    }
+    /** Jette ce qui est derrière la tête de lecture — hors de la fenêtre utile. */
+    prune(playheadMs) {
+      const cut = playheadMs - KEEP_BEHIND_MS;
+      let n = 0;
+      while (n < this.anchors.length && this.anchors[n].tMs < cut) n++;
+      if (n > 0) this.anchors.splice(0, n);
+    }
+    /** Vide tout — seek, changement de vidéo, décodeur reparti de zéro. */
+    reset() {
+      this.anchors.length = 0;
+    }
+    /** Y a-t-il de quoi rendre à cet instant ? (sans faire le travail complet) */
+    hasLeadAt(playheadMs) {
+      const a = this.anchors;
+      if (!a.length) return false;
+      return a[a.length - 1].tMs > playheadMs;
+    }
+    /**
+     * Résout la frame à l'instant `ms` (temps média) : trouve les ancres
+     * encadrantes et interpole. `null` si rien de frais — l'appelant retombe
+     * alors sur le chemin réactif, qui reste la sécurité.
+     *
+     * Aucun look-ahead sur `before` : prendre l'ancre suivante « un peu en
+     * avance » dé-floute la dernière frame de l'ancienne scène au cut (piège
+     * rencontré et corrigé côté macOS le 2026-07-14).
+     */
+    resolveAt(ms) {
+      let before = null;
+      let after = null;
+      for (const r of this.anchors) {
+        if (r.tMs <= ms) {
+          if (!before || r.tMs > before.tMs) before = r;
+        } else if (!after || r.tMs < after.tMs) {
+          after = r;
+        }
+      }
+      if (!before) {
+        this.missed++;
+        return null;
+      }
+      const staleLimit = before.persons.length === 0 ? SAFE_STALE_MS : STALE_MS;
+      if (ms - before.tMs > staleLimit) {
+        this.missed++;
+        return null;
+      }
+      let persons = before.persons;
+      let state = "hold";
+      let alpha = 0;
+      let matched = 0;
+      let continuity = 1;
+      let isNsfw = before.isNsfw;
+      if (after && after.tMs > before.tMs) {
+        const matchOfA = matchPersons(before.persons, after.persons);
+        const c = continuityOf(before.persons, after.persons, matchOfA);
+        matched = c.matched;
+        continuity = c.continuity;
+        const anchorMax = Math.max(before.persons.length, after.persons.length);
+        const isCut = after.isCut && !(anchorMax > 0 && continuity >= CUT_CONTINUITY);
+        if (isCut) {
+          state = "cut";
+          const from = after.cutFromMs ?? after.tMs - CUT_WINDOW_FALLBACK_MS;
+          if (ms >= from) {
+            persons = interpolatePersons(before.persons, after.persons, 0, matchOfA);
+            isNsfw = isNsfw || after.isNsfw;
+          }
+        } else {
+          alpha = Math.max(0, Math.min(1, (ms - before.tMs) / (after.tMs - before.tMs)));
+          if (alpha > 0) {
+            persons = interpolatePersons(
+              before.persons,
+              after.persons,
+              alpha,
+              matchOfA
+            );
+            state = "interp";
+          }
+          isNsfw = isNsfw || after.isNsfw;
+        }
+      }
+      this.resolved++;
+      return {
+        persons: persons.filter((p) => p.blur),
+        allPersons: persons,
+        state,
+        alpha,
+        continuity,
+        matched,
+        isNsfw,
+        beforeMs: before.tMs,
+        afterMs: after ? after.tMs : -1
+      };
+    }
+    stats() {
+      return {
+        anchors: this.anchors.length,
+        ingested: this.ingested,
+        resolved: this.resolved,
+        missed: this.missed
+      };
+    }
+  }
+
+  function eachBox(dv, start, end, cb) {
+    let p = start;
+    while (p + 8 <= end) {
+      let size = dv.getUint32(p);
+      const type = String.fromCharCode(
+        dv.getUint8(p + 4),
+        dv.getUint8(p + 5),
+        dv.getUint8(p + 6),
+        dv.getUint8(p + 7)
+      );
+      let header = 8;
+      if (size === 1) {
+        if (p + 16 > end) break;
+        size = dv.getUint32(p + 12);
+        header = 16;
+      } else if (size === 0) {
+        size = end - p;
+      }
+      if (size < header || p + size > end) break;
+      cb({ type, start: p + header, end: p + size });
+      p += size;
+    }
+  }
+  function findBox(dv, start, end, type) {
+    let hit = null;
+    eachBox(dv, start, end, (b) => {
+      if (!hit && b.type === type) hit = b;
+    });
+    return hit;
+  }
+  function findPath(dv, start, end, path) {
+    let s = start, e = end;
+    for (const type of path) {
+      const b = findBox(dv, s, e, type);
+      if (!b) return null;
+      s = b.start;
+      e = b.end;
+    }
+    return { type: path[path.length - 1] ?? "", start: s, end: e };
+  }
+  const HEX = (n) => n.toString(16).padStart(2, "0");
+  function parseInitSegment(buf) {
+    const dv = new DataView(buf);
+    const moov = findBox(dv, 0, buf.byteLength, "moov");
+    if (!moov) return null;
+    let cfg = null;
+    eachBox(dv, moov.start, moov.end, (trak) => {
+      if (cfg || trak.type !== "trak") return;
+      const stsd = findPath(
+        dv,
+        trak.start,
+        trak.end,
+        ["mdia", "minf", "stbl", "stsd"]
+      );
+      if (!stsd) return;
+      const entries = stsd.start + 8;
+      const avc1 = findBox(dv, entries, stsd.end, "avc1") ?? findBox(dv, entries, stsd.end, "avc3");
+      if (!avc1) return;
+      const width = dv.getUint16(avc1.start + 24);
+      const height = dv.getUint16(avc1.start + 26);
+      const avcC = findBox(dv, avc1.start + 78, avc1.end, "avcC");
+      if (!avcC) return;
+      const description = new Uint8Array(buf, avcC.start, avcC.end - avcC.start);
+      const profile = description[1], compat = description[2], level = description[3];
+      if (profile === void 0 || compat === void 0 || level === void 0) return;
+      const codec = `avc1.${HEX(profile)}${HEX(compat)}${HEX(level)}`;
+      const mdhd = findPath(dv, trak.start, trak.end, ["mdia", "mdhd"]);
+      let timescale = 9e4;
+      if (mdhd) {
+        const version = dv.getUint8(mdhd.start);
+        timescale = version === 1 ? dv.getUint32(mdhd.start + 4 + 8 + 8) : dv.getUint32(mdhd.start + 4 + 4 + 4);
+      }
+      if (!timescale) timescale = 9e4;
+      cfg = { codec, description, codedWidth: width, codedHeight: height, timescale };
+    });
+    return cfg;
+  }
+  function parseMediaSegment(buf, timescale) {
+    const dv = new DataView(buf);
+    const out = [];
+    const toUs = (ticks) => Math.round(ticks * 1e6 / timescale);
+    eachBox(dv, 0, buf.byteLength, (moof) => {
+      if (moof.type !== "moof") return;
+      const moofStart = moof.start - 8;
+      eachBox(dv, moof.start, moof.end, (traf) => {
+        if (traf.type !== "traf") return;
+        let defaultDuration = 0, defaultSize = 0, defaultFlags = 0;
+        let baseDataOffset = moofStart;
+        const tfhd = findBox(dv, traf.start, traf.end, "tfhd");
+        if (tfhd) {
+          const flags = dv.getUint32(tfhd.start) & 16777215;
+          let p = tfhd.start + 4 + 4;
+          if (flags & 1) {
+            baseDataOffset = dv.getUint32(p + 4);
+            p += 8;
+          }
+          if (flags & 2) p += 4;
+          if (flags & 8) {
+            defaultDuration = dv.getUint32(p);
+            p += 4;
+          }
+          if (flags & 16) {
+            defaultSize = dv.getUint32(p);
+            p += 4;
+          }
+          if (flags & 32) {
+            defaultFlags = dv.getUint32(p);
+            p += 4;
+          }
+        }
+        let baseTime = 0;
+        const tfdt = findBox(dv, traf.start, traf.end, "tfdt");
+        if (tfdt) {
+          const version = dv.getUint8(tfdt.start);
+          baseTime = version === 1 ? dv.getUint32(tfdt.start + 4) * 2 ** 32 + dv.getUint32(tfdt.start + 8) : dv.getUint32(tfdt.start + 4);
+        }
+        eachBox(dv, traf.start, traf.end, (trun) => {
+          if (trun.type !== "trun") return;
+          const flags = dv.getUint32(trun.start) & 16777215;
+          let p = trun.start + 4;
+          const count = dv.getUint32(p);
+          p += 4;
+          let dataOffset = baseDataOffset;
+          if (flags & 1) {
+            dataOffset = moofStart + dv.getInt32(p);
+            p += 4;
+          }
+          let firstSampleFlags = 0;
+          const hasFirstFlags = (flags & 4) !== 0;
+          if (hasFirstFlags) {
+            firstSampleFlags = dv.getUint32(p);
+            p += 4;
+          }
+          let cursor = dataOffset;
+          let time = baseTime;
+          for (let i = 0; i < count; i++) {
+            let duration = defaultDuration, size = defaultSize;
+            let sampleFlags = i === 0 && hasFirstFlags ? firstSampleFlags : defaultFlags;
+            let cts = 0;
+            if (flags & 256) {
+              duration = dv.getUint32(p);
+              p += 4;
+            }
+            if (flags & 512) {
+              size = dv.getUint32(p);
+              p += 4;
+            }
+            if (flags & 1024) {
+              const f = dv.getUint32(p);
+              p += 4;
+              if (!(i === 0 && hasFirstFlags)) sampleFlags = f;
+            }
+            if (flags & 2048) {
+              cts = dv.getUint8(trun.start) === 0 ? dv.getUint32(p) : dv.getInt32(p);
+              p += 4;
+            }
+            if (size > 0 && cursor + size <= buf.byteLength) {
+              out.push({
+                data: new Uint8Array(buf, cursor, size),
+                timestampUs: toUs(time + cts),
+                durationUs: toUs(duration),
+                // sample_depends_on == 2 means "depends on nothing" => I-frame.
+                // Falling back on sample_is_non_sync_sample covers muxers that
+                // only set that bit.
+                key: (sampleFlags >> 24 & 3) === 2 || (sampleFlags >> 16 & 1) === 0
+              });
+            }
+            cursor += size;
+            time += duration;
+          }
+        });
+      });
+    });
+    return out;
+  }
+
+  const ID_SEGMENT = 408125543;
+  const ID_INFO = 357149030;
+  const ID_TIMESTAMP_SCALE = 2807729;
+  const ID_TRACKS = 374648427;
+  const ID_TRACK_ENTRY = 174;
+  const ID_TRACK_NUMBER = 215;
+  const ID_TRACK_TYPE = 131;
+  const ID_CODEC_ID = 134;
+  const ID_VIDEO = 224;
+  const ID_PIXEL_WIDTH = 176;
+  const ID_PIXEL_HEIGHT = 186;
+  const ID_CLUSTER = 524531317;
+  const ID_TIMESTAMP = 231;
+  const ID_SIMPLE_BLOCK = 163;
+  const ID_BLOCK_GROUP = 160;
+  const ID_BLOCK = 161;
+  const ID_BLOCK_DURATION = 155;
+  const TRACK_TYPE_VIDEO = 1;
+  function readId(d, p) {
+    const first = d[p];
+    if (first === void 0 || first === 0) return null;
+    let len = 1;
+    if (first & 128) len = 1;
+    else if (first & 64) len = 2;
+    else if (first & 32) len = 3;
+    else if (first & 16) len = 4;
+    else return null;
+    let id = first;
+    for (let i = 1; i < len; i++) {
+      const b = d[p + i];
+      if (b === void 0) return null;
+      id = id * 256 + b;
+    }
+    return { id, len };
+  }
+  function readSize(d, p) {
+    const first = d[p];
+    if (first === void 0 || first === 0) return null;
+    let len = 1, mask = 128;
+    while (len <= 8 && !(first & mask)) {
+      len++;
+      mask >>= 1;
+    }
+    if (len > 8) return null;
+    let value = first & mask - 1;
+    let allOnes = value === mask - 1;
+    for (let i = 1; i < len; i++) {
+      const b = d[p + i];
+      if (b === void 0) return null;
+      if (b !== 255) allOnes = false;
+      value = value * 256 + b;
+    }
+    return { value, len, unknown: allOnes };
+  }
+  function readUint(d, p, size) {
+    let v = 0;
+    for (let i = 0; i < size; i++) v = v * 256 + (d[p + i] ?? 0);
+    return v;
+  }
+  function readString(d, p, size) {
+    let s = "";
+    for (let i = 0; i < size; i++) s += String.fromCharCode(d[p + i] ?? 0);
+    return s;
+  }
+  function each(d, start, end, cb) {
+    let p = start;
+    while (p < end) {
+      const id = readId(d, p);
+      if (!id) {
+        p++;
+        continue;
+      }
+      const size = readSize(d, p + id.len);
+      if (!size) break;
+      const payload = p + id.len + size.len;
+      if (payload > end) break;
+      const declaredEnd = payload + size.value;
+      const stop = size.unknown ? end : Math.min(declaredEnd, end);
+      cb({
+        id: id.id,
+        start: payload,
+        end: stop,
+        unknownSize: size.unknown,
+        truncated: !size.unknown && declaredEnd > end
+      });
+      if (size.unknown) {
+        p = payload;
+        continue;
+      }
+      p = payload + size.value;
+    }
+  }
+  function eachDeep(d, start, end, cb) {
+    each(d, start, end, (e) => {
+      cb(e);
+      if (e.id === ID_SEGMENT) eachDeep(d, e.start, e.end, cb);
+    });
+  }
+  function parseWebmInit(buf, mimeCodec) {
+    const d = new Uint8Array(buf);
+    let timestampScaleNs = 1e6;
+    let trackNumber = -1;
+    let width = 0, height = 0, codecId = "";
+    eachDeep(d, 0, d.length, (e) => {
+      if (e.id === ID_INFO) {
+        each(d, e.start, e.end, (i) => {
+          if (i.id === ID_TIMESTAMP_SCALE)
+            timestampScaleNs = readUint(d, i.start, i.end - i.start);
+        });
+      } else if (e.id === ID_TRACKS) {
+        each(d, e.start, e.end, (entry) => {
+          if (entry.id !== ID_TRACK_ENTRY) return;
+          let num = -1, type = -1, cid = "", w = 0, h = 0;
+          each(d, entry.start, entry.end, (f) => {
+            const size = f.end - f.start;
+            if (f.id === ID_TRACK_NUMBER) num = readUint(d, f.start, size);
+            else if (f.id === ID_TRACK_TYPE) type = readUint(d, f.start, size);
+            else if (f.id === ID_CODEC_ID) cid = readString(d, f.start, size);
+            else if (f.id === ID_VIDEO) {
+              each(d, f.start, f.end, (v) => {
+                const vs = v.end - v.start;
+                if (v.id === ID_PIXEL_WIDTH) w = readUint(d, v.start, vs);
+                else if (v.id === ID_PIXEL_HEIGHT) h = readUint(d, v.start, vs);
+              });
+            }
+          });
+          if (trackNumber < 0 && (type === TRACK_TYPE_VIDEO || type < 0 && w > 0)) {
+            trackNumber = num;
+            width = w;
+            height = h;
+            codecId = cid;
+          }
+        });
+      }
+    });
+    if (trackNumber < 0 || !width || !height) return null;
+    const codec = mimeCodec && mimeCodec.length > 0 ? mimeCodec : codecId === "V_VP9" ? "vp09.00.31.08" : codecId === "V_VP8" ? "vp8" : codecId === "V_AV1" ? "av01.0.04M.08" : "";
+    if (!codec) return null;
+    return {
+      codec,
+      codedWidth: width,
+      codedHeight: height,
+      timestampScaleNs,
+      trackNumber
+    };
+  }
+  function parseWebmClusters(buf, cfg) {
+    const d = new Uint8Array(buf);
+    const out = [];
+    const tickUs = cfg.timestampScaleNs / 1e3;
+    let truncatedBlocks = 0;
+    const readBlock = (start, end, clusterTicks, durationUs, forcedKey, truncated) => {
+      if (truncated) {
+        truncatedBlocks++;
+        return;
+      }
+      const track = readSize(d, start);
+      if (!track) return;
+      let p = start + track.len;
+      if (p + 3 > end) return;
+      const raw = (d[p] ?? 0) << 8 | (d[p + 1] ?? 0);
+      const rel = raw > 32767 ? raw - 65536 : raw;
+      const flags = d[p + 2] ?? 0;
+      p += 3;
+      if (track.value !== cfg.trackNumber) return;
+      if ((flags & 6) !== 0) return;
+      if (p >= end) return;
+      out.push({
+        data: d.subarray(p, end),
+        timestampUs: Math.round((clusterTicks + rel) * tickUs),
+        durationUs,
+        key: forcedKey !== null ? forcedKey : (flags & 128) !== 0
+      });
+    };
+    const walkCluster = (start, end) => {
+      let clusterTicks = 0;
+      each(d, start, end, (e) => {
+        const size = e.end - e.start;
+        if (e.id === ID_TIMESTAMP) {
+          clusterTicks = readUint(d, e.start, size);
+        } else if (e.id === ID_SIMPLE_BLOCK) {
+          readBlock(e.start, e.end, clusterTicks, 0, null, e.truncated);
+        } else if (e.id === ID_BLOCK_GROUP) {
+          let blockStart = -1, blockEnd = -1, durationUs = 0, hasReference = false;
+          let blockTruncated = false;
+          each(d, e.start, e.end, (g) => {
+            if (g.id === ID_BLOCK) {
+              blockStart = g.start;
+              blockEnd = g.end;
+              blockTruncated = g.truncated;
+            } else if (g.id === ID_BLOCK_DURATION)
+              durationUs = Math.round(readUint(d, g.start, g.end - g.start) * tickUs);
+            else if (g.id === 251) hasReference = true;
+          });
+          if (blockStart >= 0)
+            readBlock(
+              blockStart,
+              blockEnd,
+              clusterTicks,
+              durationUs,
+              !hasReference,
+              blockTruncated
+            );
+        }
+      });
+    };
+    eachDeep(d, 0, d.length, (e) => {
+      if (e.id === ID_CLUSTER) walkCluster(e.start, e.end);
+    });
+    for (let i = 0; i < out.length; i++) {
+      const cur = out[i], next = out[i + 1];
+      if (!cur.durationUs)
+        cur.durationUs = next ? Math.max(0, next.timestampUs - cur.timestampUs) : 33367;
+    }
+    if (truncatedBlocks)
+      out.truncated = truncatedBlocks;
+    return out;
+  }
+
+  function codecFromMime(mimeType) {
+    const m = /codecs\s*=\s*"?([^";]+)"?/i.exec(mimeType);
+    return m?.[1]?.trim() ?? "";
+  }
+  const MAX_QUEUE = 90;
+  const PUMP_MARGIN_MS = 500;
+  const SEEK_BACK_MS = 300;
+  const SEEK_FWD_MS = 2e3;
+  class DecodeAhead {
+    constructor(opts = {}) {
+      this.opts = opts;
+      this.decoder = null;
+      this.config = null;
+      this.framesDecoded = 0;
+      this.samplesFed = 0;
+      this.errors = 0;
+      this.lastDecodedPtsSec = 0;
+      this.decoderDead = false;
+      /** Un conteneur non géré se répète à chaque segment : ne le signaler qu'une
+       *  fois, sinon la métrique noie le journal du device. */
+      this.unsupportedReported = false;
+      /** Médias reçus avant toute configuration — un compteur qui reste à 0 est
+       *  normal, un compteur qui grimpe dit que l'init n'a pas été reconnu. */
+      this.droppedBeforeConfig = 0;
+      /** Après une (re)configuration ou une erreur, un décodeur ne peut repartir
+       *  que sur une image-clé. Lui envoyer des deltas d'abord le refait échouer
+       *  immédiatement — c'est ainsi qu'une seule erreur devient définitive. */
+      this.needKeyframe = true;
+      this.recoveries = 0;
+      this.video = null;
+      /** Samples démuxés, en ordre de décodage, pas encore livrés au décodeur. */
+      this.pending = [];
+      this.pendingBytes = 0;
+      this.droppedFull = 0;
+      this.discontinuities = 0;
+      this.lastPlayheadMs = -1;
+      this.lastPlayheadWallMs = 0;
+    }
+    /** The element whose `currentTime` defines the playhead we measure against. */
+    attachVideo(video) {
+      this.video = video;
+    }
+    onSegment(seg) {
+      try {
+        if (seg.isInit) this.configure(seg);
+        else this.feed(seg);
+      } catch (e) {
+        this.errors++;
+        metric("decode_ahead_error", {
+          where: seg.isInit ? "init" : "media",
+          msg: String(e).slice(0, 120)
+        });
+      }
+    }
+    configure(seg) {
+      const isWebm = seg.mimeType.indexOf("webm") >= 0;
+      let cfg = null;
+      if (isWebm) {
+        const w = parseWebmInit(seg.bytes, codecFromMime(seg.mimeType));
+        if (w) cfg = {
+          codec: w.codec,
+          codedWidth: w.codedWidth,
+          codedHeight: w.codedHeight,
+          // VP9 n'a pas de `description` : la passer ferait échouer configure().
+          parseSamples: (bytes) => parseWebmClusters(bytes, w)
+        };
+      } else {
+        const m = parseInitSegment(seg.bytes);
+        if (m) cfg = {
+          codec: m.codec,
+          codedWidth: m.codedWidth,
+          codedHeight: m.codedHeight,
+          description: m.description,
+          // obligatoire : samples AVCC
+          parseSamples: (bytes) => parseMediaSegment(bytes, m.timescale)
+        };
+      }
+      if (!cfg) {
+        if (!this.unsupportedReported) {
+          this.unsupportedReported = true;
+          metric("decode_ahead_error", {
+            where: "init",
+            msg: "no video track",
+            mime_type: seg.mimeType
+          });
+        }
+        return;
+      }
+      this.reset();
+      this.config = cfg;
+      this.droppedBeforeConfig = 0;
+      this.spawnDecoder(cfg);
+      metric("decode_ahead_config", {
+        codec: cfg.codec,
+        w: cfg.codedWidth,
+        h: cfg.codedHeight,
+        container: isWebm ? "webm" : "fmp4",
+        mime_type: seg.mimeType
+      });
+    }
+    /** Crée (ou recrée) le décodeur pour la configuration courante. */
+    spawnDecoder(cfg) {
+      if (this.decoder) {
+        try {
+          this.decoder.close();
+        } catch (e) {
+        }
+        this.decoder = null;
+      }
+      const decoder = new VideoDecoder({
+        output: (frame) => {
+          this.framesDecoded++;
+          this.lastDecodedPtsSec = frame.timestamp / 1e6;
+          try {
+            this.opts.onFrame?.(frame, this.lastDecodedPtsSec);
+          } finally {
+            frame.close();
+          }
+        },
+        error: (e) => {
+          this.errors++;
+          metric("decode_ahead_error", {
+            where: "decoder",
+            msg: String(e).slice(0, 120),
+            frames: this.framesDecoded
+          });
+          this.decoderDead = true;
+        }
+      });
+      const init = {
+        codec: cfg.codec,
+        codedWidth: cfg.codedWidth,
+        codedHeight: cfg.codedHeight,
+        optimizeForLatency: false
+        // on veut du débit, pas une 1ʳᵉ frame rapide
+      };
+      if (cfg.description) init.description = cfg.description;
+      decoder.configure(init);
+      this.decoder = decoder;
+      this.decoderDead = false;
+      this.needKeyframe = true;
+    }
+    /**
+     * Démuxe le segment et met les samples EN FILE. Ne décode pas : c'est `pump`
+     * qui décide quand, en fonction de l'horizon.
+     */
+    feed(seg) {
+      const cfg = this.config;
+      if (!cfg) {
+        this.droppedBeforeConfig++;
+        if (this.droppedBeforeConfig === 5) {
+          metric("decode_ahead_no_config", {
+            dropped: this.droppedBeforeConfig,
+            mime_type: seg.mimeType,
+            hint: "init segment jamais reconnu ?"
+          });
+        }
+        return;
+      }
+      if (this.pendingBytes > AHEAD_MAX_PENDING_BYTES) {
+        this.droppedFull++;
+        if (this.droppedFull === 1 || this.droppedFull % 50 === 0) {
+          metric("decode_ahead_pending_full", {
+            dropped: this.droppedFull,
+            pending_kb: Math.round(this.pendingBytes / 1024)
+          });
+        }
+        this.needKeyframe = true;
+        return;
+      }
+      const samples = cfg.parseSamples(seg.bytes);
+      for (const s of samples) {
+        this.pending.push(s);
+        this.pendingBytes += s.data.byteLength;
+      }
+      this.pump();
+    }
+    /**
+     * Livre au décodeur les samples dont le temps média tombe dans l'horizon, et
+     * pas un de plus.
+     *
+     * 🔴 C'est ce qui fait la différence entre « on n'analyse que 2 s en avance »
+     * et « on ne TRAVAILLE que 2 s en avance ». Sans cadencement, le décodeur
+     * matériel traverse tout le tampon de YouTube (10-60 s) dès qu'il arrive :
+     * l'économie décidée sur l'analyse serait annulée par le décodage.
+     *
+     * Appelé à chaque segment ET périodiquement (la lecture avance toute seule,
+     * l'horizon glisse même quand rien n'est appendé).
+     */
+    pump() {
+      this.checkDiscontinuity();
+      const cfg = this.config;
+      if (!cfg || !this.pending.length) return;
+      let dec = this.decoder;
+      if (!dec || this.decoderDead || dec.state !== "configured") {
+        this.recoveries++;
+        metric("decode_ahead_recover", {
+          recoveries: this.recoveries,
+          errors: this.errors
+        });
+        this.spawnDecoder(cfg);
+        dec = this.decoder;
+        if (!dec) return;
+      }
+      const limit = this.playheadMs() + aheadHorizonMs() + PUMP_MARGIN_MS;
+      while (this.pending.length) {
+        const s = this.pending[0];
+        if (s.timestampUs / 1e3 > limit) break;
+        if (dec.decodeQueueSize > MAX_QUEUE) {
+          metric("decode_ahead_backpressure", { queue: dec.decodeQueueSize });
+          return;
+        }
+        this.pending.shift();
+        this.pendingBytes -= s.data.byteLength;
+        if (this.needKeyframe) {
+          if (!s.key) continue;
+          this.needKeyframe = false;
+        }
+        dec.decode(new EncodedVideoChunk({
+          type: s.key ? "key" : "delta",
+          timestamp: s.timestampUs,
+          duration: s.durationUs,
+          data: s.data
+        }));
+        this.samplesFed++;
+      }
+    }
+    /** ms de temps média de la tête de lecture. */
+    playheadMs() {
+      return this.video ? this.video.currentTime * 1e3 : 0;
+    }
+    /**
+     * Détecte un SEEK — et lui seul. Une pause ou un ré-tamponnage figent
+     * `currentTime` sans le faire reculer ni bondir : les traiter comme une
+     * discontinuité ferait jeter l'avance à chaque hoquet réseau.
+     */
+    checkDiscontinuity() {
+      const v = this.video;
+      if (!v) return;
+      const nowWall = performance.now();
+      const pm = v.currentTime * 1e3;
+      if (this.lastPlayheadMs >= 0) {
+        const elapsed = (nowWall - this.lastPlayheadWallMs) * (v.playbackRate || 1);
+        const back = pm < this.lastPlayheadMs - SEEK_BACK_MS;
+        const fwd = pm > this.lastPlayheadMs + elapsed + SEEK_FWD_MS;
+        if (back || fwd) {
+          this.discontinuities++;
+          this.pending.length = 0;
+          this.pendingBytes = 0;
+          this.needKeyframe = true;
+          this.lastDecodedPtsSec = 0;
+          metric("decode_ahead_seek", {
+            dir: back ? "back" : "fwd",
+            from_ms: Math.round(this.lastPlayheadMs),
+            to_ms: Math.round(pm),
+            n: this.discontinuities
+          });
+          this.opts.onDiscontinuity?.();
+        }
+      }
+      this.lastPlayheadMs = pm;
+      this.lastPlayheadWallMs = nowWall;
+    }
+    stats() {
+      const now = this.video ? this.video.currentTime : 0;
+      return {
+        configured: !!this.decoder && !this.decoderDead && this.decoder.state === "configured",
+        codec: this.config?.codec ?? "",
+        framesDecoded: this.framesDecoded,
+        samplesFed: this.samplesFed,
+        leadSec: this.lastDecodedPtsSec > 0 ? Math.round((this.lastDecodedPtsSec - now) * 100) / 100 : 0,
+        errors: this.errors,
+        recoveries: this.recoveries,
+        pending: this.pending.length,
+        pendingKb: Math.round(this.pendingBytes / 1024),
+        discontinuities: this.discontinuities
+      };
+    }
+    reset() {
+      if (this.decoder) {
+        try {
+          this.decoder.close();
+        } catch (e) {
+        }
+        this.decoder = null;
+      }
+      this.config = null;
+      this.lastDecodedPtsSec = 0;
+      this.pending.length = 0;
+      this.pendingBytes = 0;
+    }
+    destroy() {
+      this.reset();
+      this.video = null;
+    }
+  }
+
   const STYLE_ID = "basarunaa-css";
   const CSS = `
 #player-container-id[data-basarunaa-fs="1"]{
@@ -2093,8 +3470,103 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
+  let installed = false;
+  function looksLikeInit(bytes) {
+    if (bytes.byteLength < 12) return false;
+    const head = new Uint8Array(bytes, 0, 8);
+    if (head[0] === 26 && head[1] === 69 && head[2] === 223 && head[3] === 163)
+      return true;
+    const type = String.fromCharCode(head[4], head[5], head[6], head[7]);
+    return type === "ftyp";
+  }
+  function toArrayBuffer(data) {
+    if (data instanceof ArrayBuffer) return data.slice(0);
+    if (ArrayBuffer.isView(data)) {
+      const v = data;
+      const copy = new Uint8Array(v.byteLength);
+      copy.set(new Uint8Array(v.buffer, v.byteOffset, v.byteLength));
+      return copy.buffer;
+    }
+    return null;
+  }
+  function installMseTap(opts) {
+    if (installed) return true;
+    const sources = [];
+    const w = window;
+    if (typeof w.MediaSource !== "undefined")
+      sources.push({ name: "MediaSource", proto: w.MediaSource.prototype });
+    if (typeof w.ManagedMediaSource !== "undefined")
+      sources.push({ name: "ManagedMediaSource", proto: w.ManagedMediaSource.prototype });
+    if (!sources.length) return false;
+    const videoBuffers = /* @__PURE__ */ new WeakMap();
+    let sbPatched = false;
+    function patchSourceBuffer(sb) {
+      if (sbPatched) return;
+      const proto = Object.getPrototypeOf(sb);
+      const original = proto.appendBuffer;
+      if (typeof original !== "function") return;
+      proto.appendBuffer = function patchedAppendBuffer(data) {
+        try {
+          const mimeType = videoBuffers.get(this);
+          if (mimeType) {
+            const bytes = toArrayBuffer(data);
+            if (bytes) {
+              const isInit = looksLikeInit(bytes);
+              queueMicrotask(() => {
+                try {
+                  opts.onSegment({ bytes, isInit, mimeType });
+                } catch (e) {
+                }
+              });
+            }
+          }
+        } catch (e) {
+        }
+        return original.apply(this, arguments);
+      };
+      sbPatched = true;
+    }
+    for (const { name, proto } of sources) {
+      const originalAdd = proto.addSourceBuffer;
+      if (typeof originalAdd !== "function") continue;
+      proto.addSourceBuffer = function patchedAddSourceBuffer(mimeType) {
+        const sb = originalAdd.call(this, mimeType);
+        try {
+          if (typeof mimeType === "string" && mimeType.indexOf("video/") === 0) {
+            videoBuffers.set(sb, mimeType);
+            patchSourceBuffer(sb);
+            metric("mse_video_buffer", { mime_type: mimeType, source: name });
+          }
+        } catch (e) {
+        }
+        return sb;
+      };
+    }
+    installed = true;
+    metric("mse_tap_installed", { sources: sources.map((s) => s.name).join(",") });
+    return true;
+  }
+
   function installVideoReplyHandlers(deps) {
     window.__basarunaaApplyVideo = function basarunaaApplyVideo(videoId, ctMs, analyseW, analyseH, persons, isNsfw, debugMode, prefs, timing) {
+      if (videoId >= AHEAD_VIDEO_ID_OFFSET) {
+        const analyzer = deps.findAheadAnalyzer?.();
+        if (!analyzer) {
+          metric("ahead_apply_no_analyzer", { videoId });
+          return;
+        }
+        analyzer.onReply({
+          ctMs,
+          analyseW,
+          analyseH,
+          persons: persons ?? [],
+          isNsfw: !!isNsfw,
+          prefs
+        });
+        const target = deps.findProcessor(videoId - AHEAD_VIDEO_ID_OFFSET);
+        if (target) target.onAheadDebugMode(debugMode || "none");
+        return;
+      }
       const proc = deps.findProcessor(videoId);
       if (!proc) {
         metric("video_apply_no_canvas", { videoId });
@@ -2143,31 +3615,6 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (bboxes.length > 0) send("statsBlurred", String(bboxes.length));
     };
   }
-
-  const YOLO_INTERVAL_TRACKING_MS = 250;
-  const YOLO_INTERVAL_SAFE_MS = 5e3;
-  const YOLO_MIN_COOLDOWN_MS = 150;
-  const SCENE_CHANGE_THRESHOLD = 0.12;
-  const SCENE_DIFF_HASH_SIZE = 8;
-  const SCENE_DIFF_INTERVAL_MS = 100;
-  const FRAME_DIFF_SKIP_THRESHOLD = 0.02;
-  const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
-  const MAX_SAMPLE_WIDTH = 640;
-  const JPEG_QUALITY = 0.8;
-  const CORPUS_MAX_WIDTH = 1024;
-  const CORPUS_JPEG_QUALITY = 0.9;
-  const BLUR_DOWNSAMPLE = 50;
-  const BLUR_PASS2_FACTOR = 3;
-  const BLUR_FIRST_STEP = 8;
-  const BLUR_GAUSSIAN_RADIUS_PX = 5;
-  const BLUR_PERF_WINDOW = 60;
-  const VIDEO_FEATHER_MARGIN_PX_DEFAULT = 50;
-  const SCENE_INTERMEDIATE_SIZE = 256;
-  const num = (v, fallback) => typeof v === "number" && v > 0 ? v : fallback;
-  const sampleWidth = () => num(window.__basarunaaSampleWidth, MAX_SAMPLE_WIDTH);
-  const jpegQuality = () => num(window.__basarunaaJpegQuality, JPEG_QUALITY);
-  const yoloTrackingIntervalMs = () => num(window.__basarunaaYoloIntervalMs, YOLO_INTERVAL_TRACKING_MS);
-  const yoloCooldownMs = () => num(window.__basarunaaYoloCooldownMs, YOLO_MIN_COOLDOWN_MS);
 
   const CSS_BLUR_FLAG = "data-basarunaa-cssblur";
   function applyVideoCssBlur(video) {
@@ -2877,6 +4324,10 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
+  function debugGender(g) {
+    const w = genderToWord(g);
+    return w === "unknown" ? null : w;
+  }
   class VideoProcessor {
     constructor(id, video, opts = {}) {
       this.tainted = false;
@@ -2939,6 +4390,20 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.yoloPeriodic = 0;
       this.yoloScene = 0;
       this.framesSinceYolo = 0;
+      // ─── Chemin en AVANCE ───
+      // Quand il rend, le chemin réactif se tait entièrement : ni scene-diff, ni
+      // planification, ni envoi. Les deux ne doivent JAMAIS tourner ensemble —
+      // ce serait 5 inférences par seconde au lieu d'une, soit l'inverse de ce
+      // qu'on cherche.
+      this.aheadStore = null;
+      /** Vrai depuis le tick où l'avance a pris la main — pour ne signaler la
+       *  bascule qu'une fois, et savoir d'où l'on revient. */
+      this.aheadActive = false;
+      this.lastAheadSig = "";
+      this.lastAheadResolveMs = 0;
+      this.lastResolved = null;
+      this.aheadRenderDirty = false;
+      this.aheadFallbacks = 0;
       // RAF / rVFC handle (so destroy() can stop the loop — best-effort, rVFC
       // can't be cancelled, so we rely on the tainted flag inside tick).
       this.destroyed = false;
@@ -2983,6 +4448,15 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       this.scheduleTick();
     }
+    /** Branche le magasin d'ancres du chemin en avance (cf. `ahead-store.ts`). */
+    attachAheadStore(store) {
+      this.aheadStore = store;
+    }
+    /** Le mode de debug ne voyage que par les réponses du modèle. Quand le chemin
+     *  en avance porte toutes les analyses, c'est par lui qu'il arrive. */
+    onAheadDebugMode(mode) {
+      this.debugMode = mode;
+    }
     destroy() {
       this.destroyed = true;
       this.backdrop.destroy();
@@ -3023,7 +4497,8 @@ video:not([data-basarunaa]) { filter: none !important; }
         tick_pct: Math.round(this.tickMsAcc / span * 100),
         tick_ms: Math.round(this.tickMsAcc / this.renderFrames * 100) / 100,
         n: this.currentBboxes.length,
-        state: this.state
+        state: this.state,
+        ahead: this.aheadActive ? 1 : 0
       });
       this.renderMsAcc = 0;
       this.sceneMsAcc = 0;
@@ -3052,6 +4527,118 @@ video:not([data-basarunaa]) { filter: none !important; }
         return;
       }
       this.backdrop.update(this.currentBboxes, this.currentKeypoints, geom);
+    }
+    /**
+     * Le chemin en avance a-t-il de quoi rendre l'instant courant ?
+     *
+     * ⚠️ La résolution est CADENCÉE (`aheadRenderMs`, 20 Hz par défaut) et non
+     * faite à chaque frame. Ce n'est pas de l'avarice : `interpolatePersons`
+     * alloue un objet et un tableau de 17 keypoints par personne à chaque appel —
+     * à 30 fps et 3 personnes, c'est ~1 500 tableaux par seconde jetés au GC,
+     * sur un téléphone, pour un déplacement sous-pixel. Entre deux résolutions on
+     * rend la précédente : le flou ne bouge pas, ce qui est exactement ce que
+     * l'œil verrait de toute façon.
+     *
+     * `null` ⇒ pas d'avance exploitable ⇒ le chemin réactif reprend la main. Ce
+     * repli est la sécurité de tout ce chemin : il doit rester silencieux et
+     * automatique (démarrage, seek, site sans MSE, vidéo secondaire).
+     */
+    resolveAhead() {
+      const store = this.aheadStore;
+      if (!store || window.__basarunaaAheadRenderDisabled === true) {
+        return this.leaveAhead();
+      }
+      const now = performance.now();
+      if (this.lastResolved && now - this.lastAheadResolveMs < aheadRenderMs()) {
+        return this.lastResolved;
+      }
+      this.lastAheadResolveMs = now;
+      const ms = (this.video.currentTime || 0) * 1e3;
+      store.prune(ms);
+      const r = store.resolveAt(ms);
+      if (!r) return this.leaveAhead();
+      this.applyResolved(r);
+      return r;
+    }
+    /** Recopie la résolution dans l'état de rendu (repère NORMALISÉ 1×1, comme
+     *  macOS : `buildBodyPolygon` y voit des coordonnées [0,1] et son
+     *  `snapToEdges` s'applique — décision Karim 2026-07-13). */
+    applyResolved(r) {
+      this.lastResolved = r;
+      this.aheadRenderDirty = true;
+      this.isNsfw = r.isNsfw;
+      if (r.isNsfw) {
+        this.currentBboxes = [[0, 0, 1, 1]];
+        this.currentKeypoints = [null];
+      } else {
+        const boxes = [];
+        const kps = [];
+        for (const p of r.persons) {
+          boxes.push([p.nx, p.ny, p.nx + p.nw, p.ny + p.nh]);
+          kps.push(
+            p.keypoints.length >= 17 ? p.keypoints.map((k) => [k[0], k[1], k[2]]) : null
+          );
+        }
+        this.currentBboxes = boxes;
+        this.currentKeypoints = kps;
+      }
+      this.currentMeta = { analyseW: 1, analyseH: 1 };
+      if (this.debugMode !== "none") {
+        this.allPersons = r.allPersons.map((p) => ({
+          bbox: [p.nx, p.ny, p.nx + p.nw, p.ny + p.nh],
+          ...p.keypoints.length ? {
+            keypoints: p.keypoints.map((k) => [k[0], k[1], k[2]])
+          } : {},
+          gender: debugGender(p.votedGender >= 0 ? p.votedGender : p.gender),
+          genderConfidence: p.votedConf >= 0 ? p.votedConf : p.conf
+        }));
+      }
+      const prevState = this.state;
+      this.state = this.currentBboxes.length > 0 ? "tracking" : "safe";
+      if (prevState === "full_blur") {
+        this.pendingCssRelease = true;
+      }
+      if (!this.aheadActive) {
+        this.aheadActive = true;
+        metric("ahead_render_on", {
+          videoId: this.id,
+          lead_ms: Math.round(r.afterMs >= 0 ? r.afterMs - r.beforeMs : -1),
+          n: this.currentBboxes.length
+        });
+      }
+    }
+    /** Rend la main au chemin réactif. Toujours par le haut : on ne sait plus où
+     *  sont les gens, donc on recouvre tout en attendant la prochaine analyse. */
+    leaveAhead() {
+      this.lastResolved = null;
+      if (this.aheadActive) {
+        this.aheadActive = false;
+        this.aheadFallbacks++;
+        this.lastAheadSig = "";
+        this.currentBboxes = [];
+        this.currentKeypoints = [];
+        this.state = "full_blur";
+        applyVideoCssBlur(this.video);
+        this.repaintBackdrop();
+        metric("ahead_render_off", {
+          videoId: this.id,
+          fallbacks: this.aheadFallbacks
+        });
+      }
+      return null;
+    }
+    /**
+     * Signature des boîtes en pixels ÉCRAN, arrondis. Deux résolutions
+     * consécutives qui donnent la même signature ne méritent pas de réécrire le
+     * style d'une seule `<div>` : le compositeur ne verrait aucune différence.
+     */
+    aheadSignature(dispW, dispH) {
+      let sig = `${this.state}|`;
+      for (const b of this.currentBboxes) {
+        sig += `${Math.round(b[0] * dispW)},${Math.round(b[1] * dispH)},`;
+        sig += `${Math.round(b[2] * dispW)},${Math.round(b[3] * dispH)};`;
+      }
+      return sig;
     }
     scheduleTick() {
       if (this.destroyed || this.tainted) return;
@@ -3139,6 +4726,8 @@ video:not([data-basarunaa]) { filter: none !important; }
           dispH = ph;
           this.dctx.clearRect(0, 0, pw, ph);
         }
+        const resolved = this.resolveAhead();
+        const aheadActive = resolved !== null;
         const nowMsEarly = performance.now();
         const useBackdrop = window.__basarunaaBlurEngine !== "canvas";
         if (useBackdrop) {
@@ -3161,12 +4750,19 @@ video:not([data-basarunaa]) { filter: none !important; }
           if (key !== this.lastGeomKey) {
             this.lastGeomKey = key;
             this.repaintBackdrop();
+          } else if (aheadActive && this.aheadRenderDirty) {
+            this.aheadRenderDirty = false;
+            const sig = this.aheadSignature(dispW / dpr, dispH / dpr);
+            if (sig !== this.lastAheadSig) {
+              this.lastAheadSig = sig;
+              this.repaintBackdrop();
+            }
           }
         }
         const nowMs = performance.now();
         const sceneT0 = performance.now();
         let sceneDiff = 0;
-        if (window.__basarunaaSceneDiffDisabled !== true && nowMs - this.lastSceneDiffMs >= SCENE_DIFF_INTERVAL_MS) {
+        if (!aheadActive && window.__basarunaaSceneDiffDisabled !== true && nowMs - this.lastSceneDiffMs >= SCENE_DIFF_INTERVAL_MS) {
           this.lastSceneDiffMs = nowMs;
           sceneDiff = this.sceneDetector.diff(video);
         }
@@ -3187,7 +4783,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         const triggered = this.triggeredByScene;
         const yoloCooldownOk = nowMs - this.lastYoloMs >= yoloCooldownMs();
         let yoloDue = yoloDueRaw;
-        if (!this.yoloInFlight && yoloCooldownOk && yoloDue && !triggered && !this.isNsfw) {
+        if (!aheadActive && !this.yoloInFlight && yoloCooldownOk && yoloDue && !triggered && !this.isNsfw) {
           const sinceForce = nowMs - this.lastYoloMs >= FRAME_DIFF_FORCE_AFTER_MS;
           const staticDiff = this.sceneDetector.diffAgainst(this.lastYoloHash);
           if (this.lastYoloHash && staticDiff < FRAME_DIFF_SKIP_THRESHOLD && !sinceForce) {
@@ -3199,7 +4795,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             yoloDue = false;
           }
         }
-        if (!this.yoloInFlight && yoloCooldownOk && (yoloDue || triggered)) {
+        if (!aheadActive && !this.yoloInFlight && yoloCooldownOk && (yoloDue || triggered)) {
           this.yoloInFlight = true;
           this.lastYoloHash = this.sceneDetector.snapshot();
           this.lastSendGapMs = this.lastYoloMs ? nowMs - this.lastYoloMs : 0;
@@ -3339,6 +4935,11 @@ video:not([data-basarunaa]) { filter: none !important; }
     onYoloApply(payload) {
       try {
         this.yoloInFlight = false;
+        if (this.aheadActive) {
+          this.debugMode = payload.debugMode || "none";
+          metric("video_apply_late", { videoId: this.id, ct_ms: payload.ctMs });
+          return;
+        }
         const safeBboxes = payload.bboxes || [];
         this.isNsfw = !!payload.isNsfw;
         if (payload.isNsfw) {
@@ -3403,7 +5004,44 @@ video:not([data-basarunaa]) { filter: none !important; }
     function findProcessor(id) {
       return processors.get(id) ?? null;
     }
-    installVideoReplyHandlers({ findProcessor });
+    let aheadStore = null;
+    let aheadAnalyzer = null;
+    installVideoReplyHandlers({
+      findProcessor,
+      findAheadAnalyzer: () => aheadAnalyzer
+    });
+    let decodeAhead = null;
+    let decodeAheadTimer = null;
+    let pumpTimer = null;
+    if (decodeAheadEnabled() && typeof VideoDecoder !== "undefined") {
+      decodeAhead = new DecodeAhead({
+        onFrame: (frame, ptsSec) => aheadAnalyzer?.onFrame(frame, ptsSec),
+        onDiscontinuity: () => {
+          aheadAnalyzer?.reset();
+          aheadStore?.reset();
+        }
+      });
+      const tapped = installMseTap({
+        onSegment: (seg) => decodeAhead?.onSegment(seg)
+      });
+      if (!tapped) {
+        metric("decode_ahead_error", { where: "tap", msg: "no MediaSource" });
+        decodeAhead = null;
+      } else {
+        let lastSig = "";
+        decodeAheadTimer = window.setInterval(() => {
+          const st = decodeAhead?.stats();
+          if (!st) return;
+          const sig = `${st.framesDecoded}|${st.samplesFed}|${st.errors}|${st.recoveries}`;
+          if (sig !== lastSig) {
+            lastSig = sig;
+            metric("decode_ahead", st);
+          }
+          aheadAnalyzer?.emitMetric(aheadStore ? aheadStore.stats() : {});
+        }, 5e3);
+        pumpTimer = window.setInterval(() => decodeAhead?.pump(), 500);
+      }
+    }
     installFullscreenInterceptors({
       findCanvasForVideo(video) {
         return canvasByVideo.get(video) ?? null;
@@ -3427,15 +5065,34 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (wired.has(video)) return;
       if (isTooSmallToMatter(video)) return;
       wired.add(video);
+      decodeAhead?.attachVideo(video);
       const id = nextId++;
       video.setAttribute(DATA_WIRED_ATTR, String(id));
+      if (decodeAhead && !aheadStore) {
+        aheadStore = new AheadStore();
+        aheadAnalyzer = new AheadAnalyzer({
+          videoId: id,
+          playheadMs: () => video.currentTime * 1e3,
+          store: aheadStore
+        });
+      }
       const proc = new VideoProcessor(id, video, procOpts);
+      if (aheadStore && aheadAnalyzer && aheadAnalyzer.videoId === id) {
+        proc.attachAheadStore(aheadStore);
+      }
       processors.set(id, proc);
       canvasByVideo.set(video, proc.displayCanvas);
       if (!subsBootstrapped) {
         setupFloatingSubtitles(video);
         subsBootstrapped = true;
       }
+    }
+    function releaseAheadIfOwner(id) {
+      if (!aheadAnalyzer || aheadAnalyzer.videoId !== id) return;
+      aheadAnalyzer.reset();
+      aheadStore?.reset();
+      aheadAnalyzer = null;
+      aheadStore = null;
     }
     function scanAndWire() {
       const videos = document.getElementsByTagName("video");
@@ -3460,11 +5117,13 @@ video:not([data-basarunaa]) { filter: none !important; }
     const gcInterval = window.setInterval(() => {
       for (const [id, proc] of processors) {
         if (!document.body.contains(proc.video)) {
+          releaseAheadIfOwner(id);
           proc.destroy();
           processors.delete(id);
           continue;
         }
         if (isTooSmallToMatter(proc.video)) {
+          releaseAheadIfOwner(id);
           proc.destroy();
           processors.delete(id);
           wired.delete(proc.video);
@@ -3475,6 +5134,9 @@ video:not([data-basarunaa]) { filter: none !important; }
     return {
       scanAndWire,
       destroy() {
+        if (decodeAheadTimer !== null) clearInterval(decodeAheadTimer);
+        if (pumpTimer !== null) clearInterval(pumpTimer);
+        decodeAhead?.destroy();
         observer.disconnect();
         clearInterval(gcInterval);
         for (const proc of processors.values()) proc.destroy();
