@@ -245,6 +245,48 @@ class BasarunaaScriptHandler: TabContentScript {
     recordEnergyIfNeeded(nowMs, thermal: name)
   }
 
+  // ─── Remontée des replis ANORMAUX du chemin en avance ───────────────────
+  //
+  // Le chemin en avance retombe parfois sur le chemin réactif. C'est LÉGITIME
+  // au démarrage, après un saut, et sur un site sans MSE (rien à décoder en
+  // avance). Ça ne l'est pas en pleine lecture établie : là, c'est une panne —
+  // et elle est invisible, puisque le repli affiche un écran correct. C'est
+  // ainsi que quatre bugs ont survécu à une soirée d'usage réel (2026-09-06).
+  //
+  // Le JS a déjà fait le tri (`ahead_render_off` porte `reason` + `abnormal`) ;
+  // ici on ne fait que remonter, pour l'apprendre sans brancher un Mac.
+  //
+  // ⚠️ Trois règles, dans cet ordre :
+  //   • **Agréger** — un event par repli noierait PostHog. Un seul par page.
+  //   • **Seuiller** — sous 3 replis c'est du bruit de démarrage, pas une panne.
+  //   • ⛔ **Aucun domaine, aucune URL.** La règle du projet est qu'on ne tracke
+  //     jamais les sites visités ; `site_reported` en est l'UNIQUE exception,
+  //     et elle est explicitement documentée (`docs/ANALYTICS.md`). Cet event
+  //     dit « ça décroche chez X % des utilisateurs », jamais « chez qui ni où ».
+  private static let abnormalFallbackThreshold = 3
+  private var abnormalFallbacks = 0
+  private var abnormalReported = false
+
+  private func reportAheadDegradedIfNeeded(_ data: String) {
+    guard data.contains("\"event\":\"ahead_render_off\""),
+      data.contains("\"abnormal\":1")
+    else { return }
+    abnormalFallbacks += 1
+    guard !abnormalReported, abnormalFallbacks >= Self.abnormalFallbackThreshold
+    else { return }
+    abnormalReported = true
+    var reason = "unknown"
+    if let r = data.range(of: "\"reason\":\""),
+      let end = data[r.upperBound...].firstIndex(of: "\"")
+    {
+      reason = String(data[r.upperBound..<end])
+    }
+    BrowtherAnalyticsService.shared.track(
+      event: "basarunaa_ahead_degraded",
+      properties: ["count": abnormalFallbacks, "reason": reason]
+    )
+  }
+
   private let log = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private static let staticLog = Logger(subsystem: "com.devndin.browther", category: "Basarunaa.Handler")
   private var isActive = false
@@ -339,6 +381,7 @@ class BasarunaaScriptHandler: TabContentScript {
       } else {
         log.info("[METRIC] \(data, privacy: .public)")
       }
+      reportAheadDegradedIfNeeded(data)
 
     case "log":
       log.info("[JS] \(data, privacy: .public)")
