@@ -1826,6 +1826,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   const FRAME_DIFF_FORCE_AFTER_MS = 15e3;
   const AHEAD_ANALYZE_INTERVAL_MS = 1e3;
   const AHEAD_HORIZON_MS = 2e3;
+  const AHEAD_PUMP_MARGIN_MS = 500;
   const AHEAD_SCENE_INTERVAL_MS = 100;
   const AHEAD_SCENE_SIZE = 32;
   const AHEAD_RENDER_INTERVAL_MS = 50;
@@ -1920,7 +1921,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       const tMs = ptsSec * 1e3;
       const lead = tMs - this.deps.playheadMs();
       if (lead < 0) return;
-      if (lead > aheadHorizonMs()) {
+      if (lead > aheadHorizonMs() + AHEAD_PUMP_MARGIN_MS) {
         this.outOfHorizon++;
         return;
       }
@@ -2677,7 +2678,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     return m?.[1]?.trim() ?? "";
   }
   const MAX_QUEUE = 90;
-  const PUMP_MARGIN_MS = 500;
+  const PUMP_MARGIN_MS = AHEAD_PUMP_MARGIN_MS;
   const SEEK_BACK_MS = 300;
   const SEEK_FWD_MS = 2e3;
   class DecodeAhead {
@@ -2702,17 +2703,57 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.needKeyframe = true;
       this.recoveries = 0;
       this.video = null;
+      /** Tous les `<video>` câblés — voir `activeVideo()`. */
+      this.videos = /* @__PURE__ */ new Set();
       /** Samples démuxés, en ordre de décodage, pas encore livrés au décodeur. */
       this.pending = [];
       this.pendingBytes = 0;
       this.droppedFull = 0;
+      /** Samples jetés parce que DERRIÈRE la tête de lecture — du décodage qu'on a
+       *  refusé au lieu de le payer pour rien. Un compteur qui grimpe vite dit que
+       *  le décodeur ne tient pas la cadence, pas qu'il y a une erreur. */
+      this.droppedStale = 0;
       this.discontinuities = 0;
+      /** Ticks de `pump()` consécutifs sans avoir livré un seul sample alors que
+       *  la file n'est pas vide — le compteur qui détecte l'arrêt muet. */
+      this.stalledTicks = 0;
+      this.stalledReported = false;
       this.lastPlayheadMs = -1;
       this.lastPlayheadWallMs = 0;
     }
-    /** The element whose `currentTime` defines the playhead we measure against. */
+    /** The element whose `currentTime` defines the playhead we measure against.
+     *
+     *  🔴 On MÉMORISE tous les candidats au lieu d'écraser. La page en câble
+     *  plusieurs (YouTube mobile : deux ont passé le seuil de taille le
+     *  2026-09-06), et l'ordre de câblage ne dit RIEN de celui qui lit : la
+     *  dernière vidéo câblée était inerte, `currentTime` restait à 0, donc
+     *  `limit` restait à 2500 ms pendant que la file attendait à 3570 ms. Le
+     *  décodeur s'est arrêté pour toujours, sans une erreur. */
     attachVideo(video) {
-      this.video = video;
+      this.videos.add(video);
+      if (!this.video) this.video = video;
+    }
+    /**
+     * La vidéo contre laquelle on mesure — celle qui LIT, pas la dernière
+     * câblée.
+     *
+     * ⚠️ Se décider sur `currentTime > 0 && !paused` plutôt que sur l'ordre
+     * d'arrivée : c'est le seul critère qui distingue le lecteur réel d'une
+     * vignette, d'un préchargement ou d'un logo animé — et il reste juste quand
+     * la page remplace son lecteur en cours de route.
+     */
+    activeVideo() {
+      let best = null;
+      for (const v of this.videos) {
+        if (!v.isConnected) {
+          this.videos.delete(v);
+          if (this.video === v) this.video = null;
+          continue;
+        }
+        if (v.paused || !(v.currentTime > 0)) continue;
+        if (!best || v.currentTime > best.currentTime) best = v;
+      }
+      return best ?? this.video;
     }
     onSegment(seg) {
       try {
@@ -2864,7 +2905,10 @@ video:not([data-basarunaa]) { filter: none !important; }
     pump() {
       this.checkDiscontinuity();
       const cfg = this.config;
-      if (!cfg || !this.pending.length) return;
+      if (!cfg || !this.pending.length) {
+        this.stalledTicks = 0;
+        return;
+      }
       let dec = this.decoder;
       if (!dec || this.decoderDead || dec.state !== "configured") {
         this.recoveries++;
@@ -2876,7 +2920,23 @@ video:not([data-basarunaa]) { filter: none !important; }
         dec = this.decoder;
         if (!dec) return;
       }
-      const limit = this.playheadMs() + aheadHorizonMs() + PUMP_MARGIN_MS;
+      const fedBefore = this.samplesFed;
+      const playhead = this.playheadMs();
+      let purged = 0;
+      while (this.pending.length) {
+        const head = this.pending[0];
+        if (head.timestampUs / 1e3 >= playhead) break;
+        this.pending.shift();
+        this.pendingBytes -= head.data.byteLength;
+        this.droppedStale++;
+        purged++;
+      }
+      if (purged > 0) this.needKeyframe = true;
+      if (!this.pending.length) {
+        this.stalledTicks = 0;
+        return;
+      }
+      const limit = playhead + aheadHorizonMs() + PUMP_MARGIN_MS;
       while (this.pending.length) {
         const s = this.pending[0];
         if (s.timestampUs / 1e3 > limit) break;
@@ -2898,10 +2958,34 @@ video:not([data-basarunaa]) { filter: none !important; }
         }));
         this.samplesFed++;
       }
+      if (this.samplesFed > fedBefore) {
+        this.stalledTicks = 0;
+        this.stalledReported = false;
+      } else if (this.pending.length) {
+        this.stalledTicks++;
+        if (this.stalledTicks >= 20 && !this.stalledReported) {
+          this.stalledReported = true;
+          const head = this.pending[0];
+          metric("decode_ahead_stalled", {
+            playhead_ms: Math.round(playhead),
+            head_ts_ms: Math.round(head.timestampUs / 1e3),
+            limit_ms: Math.round(limit),
+            ahead_of_limit_ms: Math.round(head.timestampUs / 1e3 - limit),
+            pending: this.pending.length,
+            pending_kb: Math.round(this.pendingBytes / 1024),
+            queue: this.decoder?.decodeQueueSize ?? -1,
+            need_key: this.needKeyframe,
+            state: this.decoder?.state ?? "none",
+            has_video: !!this.video,
+            videos: this.videos.size
+          });
+        }
+      }
     }
     /** ms de temps média de la tête de lecture. */
     playheadMs() {
-      return this.video ? this.video.currentTime * 1e3 : 0;
+      const v = this.activeVideo();
+      return v ? v.currentTime * 1e3 : 0;
     }
     /**
      * Détecte un SEEK — et lui seul. Une pause ou un ré-tamponnage figent
@@ -2909,7 +2993,7 @@ video:not([data-basarunaa]) { filter: none !important; }
      * discontinuité ferait jeter l'avance à chaque hoquet réseau.
      */
     checkDiscontinuity() {
-      const v = this.video;
+      const v = this.activeVideo();
       if (!v) return;
       const nowWall = performance.now();
       const pm = v.currentTime * 1e3;
@@ -2936,7 +3020,8 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.lastPlayheadWallMs = nowWall;
     }
     stats() {
-      const now = this.video ? this.video.currentTime : 0;
+      const active = this.activeVideo();
+      const now = active ? active.currentTime : 0;
       return {
         configured: !!this.decoder && !this.decoderDead && this.decoder.state === "configured",
         codec: this.config?.codec ?? "",
@@ -2947,7 +3032,8 @@ video:not([data-basarunaa]) { filter: none !important; }
         recoveries: this.recoveries,
         pending: this.pending.length,
         pendingKb: Math.round(this.pendingBytes / 1024),
-        discontinuities: this.discontinuities
+        discontinuities: this.discontinuities,
+        droppedStale: this.droppedStale
       };
     }
     reset() {
@@ -2966,6 +3052,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     destroy() {
       this.reset();
       this.video = null;
+      this.videos.clear();
     }
   }
 
