@@ -2162,6 +2162,16 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.ingested = 0;
       this.resolved = 0;
       this.missed = 0;
+      /** Pourquoi la dernière résolution a échoué — lu par le repli pour dire s'il
+       *  est légitime (démarrage, saut) ou anormal (rythme d'analyse qui lâche). */
+      this.lastMiss = null;
+      this.missByReason = {};
+      /** Retard de la dernière ancre périmée, en ms : dit de combien le rythme
+       *  d'analyse a manqué la tolérance, donc s'il s'en faut de peu ou de loin. */
+      this.staleGapMs = 0;
+      /** A-t-on déjà résolu au moins une fois ? Distingue « on n'a pas encore
+       *  démarré » de « on a perdu le fil ». */
+      this.everResolved = false;
     }
     /** Insère une ancre en gardant l'ordre du temps média. */
     ingest(anchor) {
@@ -2214,11 +2224,16 @@ video:not([data-basarunaa]) { filter: none !important; }
       }
       if (!before) {
         this.missed++;
+        this.lastMiss = this.everResolved ? "no_anchor_live" : "no_anchor_start";
+        this.missByReason[this.lastMiss] = (this.missByReason[this.lastMiss] ?? 0) + 1;
         return null;
       }
       const staleLimit = before.persons.length === 0 ? SAFE_STALE_MS : STALE_MS;
       if (ms - before.tMs > staleLimit) {
         this.missed++;
+        this.lastMiss = "stale";
+        this.missByReason.stale = (this.missByReason.stale ?? 0) + 1;
+        this.staleGapMs = Math.round(ms - before.tMs);
         return null;
       }
       let persons = before.persons;
@@ -2256,6 +2271,8 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
       }
       this.resolved++;
+      this.everResolved = true;
+      this.lastMiss = null;
       return {
         persons: persons.filter((p) => p.blur),
         allPersons: persons,
@@ -2273,7 +2290,11 @@ video:not([data-basarunaa]) { filter: none !important; }
         anchors: this.anchors.length,
         ingested: this.ingested,
         resolved: this.resolved,
-        missed: this.missed
+        missed: this.missed,
+        miss_start: this.missByReason.no_anchor_start ?? 0,
+        miss_live: this.missByReason.no_anchor_live ?? 0,
+        miss_stale: this.missByReason.stale ?? 0,
+        stale_gap_ms: this.staleGapMs
       };
     }
   }
@@ -4495,6 +4516,9 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.lastResolved = null;
       this.aheadRenderDirty = false;
       this.aheadFallbacks = 0;
+      /** Replis ANORMAUX seulement (hors démarrage) — le compteur qui dit si le
+       *  chemin principal tient vraiment, là où `aheadFallbacks` mélange tout. */
+      this.aheadAbnormalFallbacks = 0;
       // RAF / rVFC handle (so destroy() can stop the loop — best-effort, rVFC
       // can't be cancelled, so we rely on the tainted flag inside tick).
       this.destroyed = false;
@@ -4711,9 +4735,16 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.state = "full_blur";
         applyVideoCssBlur(this.video);
         this.repaintBackdrop();
+        const reason = !this.aheadStore ? "no_store" : this.aheadStore.lastMiss ?? "unknown";
+        const abnormal = reason !== "no_anchor_start" && reason !== "no_store";
+        if (abnormal) this.aheadAbnormalFallbacks++;
         metric("ahead_render_off", {
           videoId: this.id,
-          fallbacks: this.aheadFallbacks
+          fallbacks: this.aheadFallbacks,
+          reason,
+          abnormal: abnormal ? 1 : 0,
+          abnormal_total: this.aheadAbnormalFallbacks,
+          ...this.aheadStore ? this.aheadStore.stats() : {}
         });
       }
       return null;
