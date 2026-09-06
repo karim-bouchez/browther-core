@@ -1851,7 +1851,6 @@ video:not([data-basarunaa]) { filter: none !important; }
   const aheadHorizonMs = () => num(window.__basarunaaAheadHorizonMs, AHEAD_HORIZON_MS);
   const aheadSceneMs = () => num(window.__basarunaaAheadSceneMs, AHEAD_SCENE_INTERVAL_MS);
   const aheadRenderMs = () => num(window.__basarunaaAheadRenderMs, AHEAD_RENDER_INTERVAL_MS);
-  const DECODE_AHEAD_DEFAULT_ON = true;
   const decodeAheadEnabled = () => {
     if (window.__basarunaaDecodeAhead === false) return false;
     if (window.__basarunaaDecodeAhead === true) return true;
@@ -1861,7 +1860,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (v === "1") return true;
     } catch (e) {
     }
-    return DECODE_AHEAD_DEFAULT_ON;
+    return true;
   };
 
   const AHEAD_VIDEO_ID_OFFSET = 1e4;
