@@ -3709,7 +3709,8 @@ video:not([data-basarunaa]) { filter: none !important; }
           bbox: p.bbox,
           ...kps.length > 0 ? { keypoints: kps } : {},
           gender: p.gender ?? null,
-          genderConfidence: p.genderConfidence ?? null
+          genderConfidence: p.genderConfidence ?? null,
+          blur
         });
       }
       proc.onYoloApply({
@@ -3813,7 +3814,9 @@ video:not([data-basarunaa]) { filter: none !important; }
       dctx.save();
       dctx.strokeStyle = color;
       dctx.lineWidth = 2;
+      if (p.blur === false) dctx.setLineDash([6, 4]);
       dctx.strokeRect(dx, dy, dw, dh);
+      dctx.setLineDash([]);
       let labelTxt = p.gender === "female" ? "F" : p.gender === "male" ? "M" : p.gender === "child" ? "E" : "?";
       if (typeof p.genderConfidence === "number") {
         labelTxt += ` ${Math.round(p.genderConfidence * 100)}%`;
@@ -3867,6 +3870,9 @@ video:not([data-basarunaa]) { filter: none !important; }
       const cls = Math.round(input.timing.classifyLatencyMs || 0);
       lines.push({ text: `det: ${pose}ms cls: ${cls}ms` });
     }
+    if (input.extraLines) {
+      for (const text of input.extraLines) lines.push({ text });
+    }
     if (input.debugMode === "debug" && input.nudeClasses && input.nudeClasses.length > 0) {
       let hasFlagged = false;
       const shortNames = input.nudeClasses.map((c) => {
@@ -3890,7 +3896,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     boxW += pad * 2;
     const boxH = lines.length * lineH + pad * 2;
-    const boxY = dctx.canvas.height - boxH;
+    const boxY = (input.hudBottom ?? dctx.canvas.height) - boxH;
     dctx.fillStyle = "rgba(0, 0, 0, 0.75)";
     dctx.fillRect(0, boxY, boxW, boxH);
     dctx.textBaseline = "alphabetic";
@@ -3902,10 +3908,9 @@ video:not([data-basarunaa]) { filter: none !important; }
     dctx.restore();
   }
   function drawNsfwBadgeOnCanvas(dctx) {
-    const dpr = window.devicePixelRatio || 1;
     dctx.save();
-    const pad = 8 * dpr;
-    const fontPx = Math.max(14, Math.round(14 * dpr));
+    const pad = 8;
+    const fontPx = 14;
     dctx.font = `bold ${fontPx}px -apple-system, system-ui, sans-serif`;
     const label = "NSFW";
     const tw = dctx.measureText(label).width;
@@ -3917,6 +3922,78 @@ video:not([data-basarunaa]) { filter: none !important; }
     dctx.textBaseline = "middle";
     dctx.fillText(label, pad * 2, pad + bgH / 2);
     dctx.restore();
+  }
+
+  class DebugLayer {
+    constructor() {
+      /** Dernière géométrie recopiée — pour ne réécrire le style que si elle bouge. */
+      this.lastPos = "";
+      const c = document.createElement("canvas");
+      c.setAttribute("data-basarunaa-debug", "1");
+      const s = c.style;
+      s.setProperty("pointer-events", "none", "important");
+      s.setProperty("z-index", "2147483647", "important");
+      s.setProperty("background", "transparent", "important");
+      s.setProperty("margin", "0", "important");
+      this.canvas = c;
+      this.ctx = c.getContext("2d");
+    }
+    get isAttached() {
+      return this.canvas.parentNode !== null;
+    }
+    /**
+     * Entre dans le DOM juste APRÈS `after` (le conteneur de flou s'il est posé,
+     * sinon le canvas d'affichage) : même parent, donc même repère que le canvas
+     * d'affichage dont `sync` recopie la géométrie — et plus tard dans l'ordre
+     * de peinture que le flou.
+     */
+    attach(after) {
+      const parent = after.parentNode;
+      if (!parent) return;
+      parent.insertBefore(this.canvas, after.nextSibling);
+    }
+    /**
+     * Recopie la géométrie du canvas d'affichage. Celui-ci est hors écran
+     * (`display:none`), mais le tick — et le plein écran — continuent d'écrire
+     * son `position`/`left`/`top`/`width`/`height` : c'est la position exacte
+     * de la vidéo, dans le bon repère, lue sans reflow.
+     *
+     * `pw`/`ph` = backing store en pixels DEVICE (celui du canvas d'affichage).
+     */
+    sync(display, pw, ph) {
+      const ds = display.style;
+      const pos = `${ds.position}|${ds.left}|${ds.top}|${ds.width}|${ds.height}`;
+      if (pos !== this.lastPos) {
+        this.lastPos = pos;
+        const s = this.canvas.style;
+        s.setProperty("position", ds.position || "absolute", "important");
+        s.setProperty("left", ds.left || "0", "important");
+        s.setProperty("top", ds.top || "0", "important");
+        s.setProperty("width", ds.width || "0", "important");
+        s.setProperty("height", ds.height || "0", "important");
+      }
+      if (this.canvas.width !== pw) this.canvas.width = pw;
+      if (this.canvas.height !== ph) this.canvas.height = ph;
+    }
+    /**
+     * Repeint l'overlay. Repère = pixels **CSS** : le contexte est mis à
+     * l'échelle du `devicePixelRatio`, pour qu'un « 11px » soit lisible sur un
+     * iPhone (dpr 3). Dessiné en pixels device, comme avant le 2026-09-01, le
+     * HUD faisait 4 px de haut. `input` doit donc être en pixels CSS aussi.
+     */
+    draw(input, dpr, isNsfw) {
+      const ctx = this.ctx;
+      const c = this.canvas;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawVideoDebugOverlay(ctx, input);
+      if (isNsfw) drawNsfwBadgeOnCanvas(ctx);
+    }
+    destroy() {
+      if (this.canvas.parentNode) this.canvas.parentNode.removeChild(this.canvas);
+      this.lastPos = "";
+    }
   }
 
   const PAD_PX = 8;
@@ -4457,9 +4534,9 @@ video:not([data-basarunaa]) { filter: none !important; }
        *  en a besoin hors du tick, à l'arrivée d'une détection. */
       this.lastGeom = null;
       this.lastGeomKey = "";
-      this.lastGeomProbeMs = 0;
-      this.baseX = 0;
-      this.baseY = 0;
+      /** Couche de debug — n'existe que tant que `debugMode !== 'none'`
+       *  (cf. `debug-layer.ts`). `null` chez tous les utilisateurs. */
+      this.debugLayer = null;
       this.yoloInFlight = false;
       this.pendingCssRelease = false;
       this.triggeredByScene = false;
@@ -4486,6 +4563,14 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.lastEncodeMs = 0;
       /** Intervalle réel entre deux envois — la cadence VÉCUE, pas celle réglée. */
       this.lastSendGapMs = 0;
+      /** Dernier tour complet envoi → application (cf. `video_apply.round_ms`) ;
+       *  -1 tant qu'aucun. Relu par le HUD de debug. */
+      this.lastRoundMs = -1;
+      // Dernière fenêtre émise par `accumulate()` — relue par le HUD de debug, pour
+      // que ce qu'on lit à l'écran soit ce qu'on lit dans le journal.
+      this.lastFps = 0;
+      this.lastTickPct = 0;
+      this.lastRenderPct = 0;
       // ─── Coût du RENDU, par frame (2026-08-31) ───
       // Le tour complet mesuré le 2026-08-29 (38 ms) ne dit rien du rendu : il
       // court d'un envoi à son résultat, alors que `tick()` repeint TOUT le flou à
@@ -4574,6 +4659,8 @@ video:not([data-basarunaa]) { filter: none !important; }
     destroy() {
       this.destroyed = true;
       this.backdrop.destroy();
+      this.debugLayer?.destroy();
+      this.debugLayer = null;
       releaseVideoCssBlur(this.video);
       if (this.displayCanvas.parentNode) {
         this.displayCanvas.parentNode.removeChild(this.displayCanvas);
@@ -4594,21 +4681,24 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.renderFrames++;
       const span = nowMs - this.renderWindowStartMs;
       if (span < 2e3) return;
+      this.lastFps = Math.round(this.renderFrames * 1e3 / span);
+      this.lastRenderPct = Math.round(this.renderMsAcc / span * 100);
+      this.lastTickPct = Math.round(this.tickMsAcc / span * 100);
       metric("video_render", {
         videoId: this.id,
         // Sans cette étiquette, le dépouillement doit recoller les horodatages à
         // la main — et une bascule ratée fausse silencieusement tout le tableau.
         ...currentSweepStep ? { step: currentSweepStep } : {},
-        fps: Math.round(this.renderFrames * 1e3 / span),
+        fps: this.lastFps,
         per_frame_ms: Math.round(this.renderMsAcc / this.renderFrames * 10) / 10,
-        render_pct: Math.round(this.renderMsAcc / span * 100),
+        render_pct: this.lastRenderPct,
         // `tick_pct` englobe TOUT le tick : scene-diff, frame-diff, placement du
         // canvas, repeint. C'est LUI qu'il faut lire ; `render_pct` n'en est
         // qu'une part, et c'est en le prenant pour le tout qu'on a innocenté le
         // repeint à tort.
         scene_pct: Math.round(this.sceneMsAcc / span * 100),
         scene_ms: Math.round(this.sceneMsAcc / this.renderFrames * 100) / 100,
-        tick_pct: Math.round(this.tickMsAcc / span * 100),
+        tick_pct: this.lastTickPct,
         tick_ms: Math.round(this.tickMsAcc / this.renderFrames * 100) / 100,
         n: this.currentBboxes.length,
         state: this.state,
@@ -4704,7 +4794,8 @@ video:not([data-basarunaa]) { filter: none !important; }
             keypoints: p.keypoints.map((k) => [k[0], k[1], k[2]])
           } : {},
           gender: debugGender(p.votedGender >= 0 ? p.votedGender : p.gender),
-          genderConfidence: p.votedConf >= 0 ? p.votedConf : p.conf
+          genderConfidence: p.votedConf >= 0 ? p.votedConf : p.conf,
+          blur: p.blur
         }));
       }
       const prevState = this.state;
@@ -4849,16 +4940,10 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         const resolved = this.resolveAhead();
         const aheadActive = resolved !== null;
-        const nowMsEarly = performance.now();
         const useBackdrop = window.__basarunaaBlurEngine !== "canvas";
         if (useBackdrop) {
-          if (nowMsEarly - this.lastGeomProbeMs >= 500 || this.lastGeom === null) {
-            this.lastGeomProbeMs = nowMsEarly;
-            this.baseX = display.offsetLeft;
-            this.baseY = display.offsetTop;
-          }
-          const baseX = this.baseX;
-          const baseY = this.baseY;
+          const baseX = parseFloat(display.style.left) || 0;
+          const baseY = parseFloat(display.style.top) || 0;
           this.lastGeom = {
             dispW: dispW / dpr,
             dispH: dispH / dpr,
@@ -4983,29 +5068,24 @@ video:not([data-basarunaa]) { filter: none !important; }
               this.shapeFor(i, b, meta, sx, sy, dispOffX, dispOffY)
             );
           }
-          if (this.debugMode === "boxes" || this.debugMode === "debug") {
-            drawVideoDebugOverlay(this.dctx, {
-              videoId: this.id,
-              debugMode: this.debugMode,
-              dispW,
-              dispH,
-              dispOffX,
-              dispOffY,
-              analyseW: meta.analyseW,
-              analyseH: meta.analyseH,
-              allPersons: this.allPersons,
-              state: this.state,
-              mode: this.lastTiming?.mode ?? "?",
-              nBlur: bboxes.length,
-              yoloPeriodic: this.yoloPeriodic,
-              yoloScene: this.yoloScene,
-              framesSinceYolo: this.framesSinceYolo,
-              yoloInFlight: this.yoloInFlight,
-              timing: this.lastTiming,
-              nudeClasses: this.nudeClasses
-            });
-            if (this.isNsfw) drawNsfwBadgeOnCanvas(this.dctx);
-          }
+        }
+        if (this.debugMode !== "none") {
+          this.drawDebugLayer(
+            this.debugMode,
+            display,
+            pw,
+            ph,
+            dpr,
+            dispW,
+            dispH,
+            dispOffX,
+            dispOffY,
+            vw,
+            vh
+          );
+        } else if (this.debugLayer) {
+          this.debugLayer.destroy();
+          this.debugLayer = null;
         }
         this.renderMsAcc += performance.now() - renderT0;
         if (this.pendingCssRelease) {
@@ -5024,6 +5104,89 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.tickMsAcc += performance.now() - tickT0;
       this.accumulate(performance.now());
       this.scheduleTick();
+    }
+    /**
+     * Repeint la couche de debug — créée ici au premier appel, retirée par le
+     * tick dès que le mode repasse à `none`.
+     *
+     * Repère en pixels **CSS** (la couche met son contexte à l'échelle du dpr),
+     * d'où les divisions : `dispW`/`dispH`/`dispOff*` du tick sont en pixels
+     * device — le même piège que pour les div de flou (`docs/BASARUNAA.md`
+     * § pièges du moteur `backdrop-filter`).
+     */
+    drawDebugLayer(mode, display, pw, ph, dpr, dispW, dispH, dispOffX, dispOffY, vw, vh) {
+      let layer = this.debugLayer;
+      if (!layer) {
+        layer = new DebugLayer();
+        this.debugLayer = layer;
+        metric("video_debug_layer", { videoId: this.id, mode });
+      }
+      if (!layer.isAttached) {
+        layer.attach(this.backdrop.isAttached ? this.backdrop.element : display);
+      }
+      layer.sync(display, pw, ph);
+      const meta = this.currentMeta;
+      layer.draw(
+        {
+          videoId: this.id,
+          debugMode: mode,
+          dispW: dispW / dpr,
+          dispH: dispH / dpr,
+          dispOffX: dispOffX / dpr,
+          dispOffY: dispOffY / dpr,
+          // Sans détection encore reçue, `allPersons` est vide et l'échelle est
+          // sans objet — n'importe quelle valeur non nulle fait l'affaire.
+          analyseW: meta?.analyseW ?? vw,
+          analyseH: meta?.analyseH ?? vh,
+          allPersons: this.allPersons,
+          state: this.state,
+          mode: this.lastTiming?.mode ?? "?",
+          nBlur: this.currentBboxes.length,
+          yoloPeriodic: this.yoloPeriodic,
+          yoloScene: this.yoloScene,
+          framesSinceYolo: this.framesSinceYolo,
+          yoloInFlight: this.yoloInFlight,
+          timing: this.lastTiming,
+          nudeClasses: this.nudeClasses,
+          hudBottom: ph / dpr,
+          extraLines: this.debugHudLines()
+        },
+        dpr,
+        this.isNsfw
+      );
+    }
+    /**
+     * Lignes du HUD propres à iOS — ce que macOS affiche de son côté sous une
+     * autre forme : moteur de rendu et coût du tick, état du chemin en avance
+     * (et pourquoi il a lâché, le cas échéant), tour complet du chemin réactif.
+     * Construites seulement quand la couche est affichée.
+     */
+    debugHudLines() {
+      const engine = window.__basarunaaBlurEngine === "canvas" ? "canvas" : "backdrop";
+      const lines = [
+        `${engine} · ${this.lastFps}fps · tick ${this.lastTickPct}% (render ${this.lastRenderPct}%)`
+      ];
+      const store = this.aheadStore;
+      if (store) {
+        const r = this.lastResolved;
+        if (this.aheadActive && r) {
+          const lead = r.afterMs >= 0 ? `${Math.round(r.afterMs - this.video.currentTime * 1e3)}ms` : "—";
+          lines.push(
+            `ahead ON · ${r.state} α=${r.alpha.toFixed(2)} · lead ${lead} · anchors ${store.stats().anchors}`
+          );
+        } else {
+          lines.push(`ahead OFF (${store.lastMiss ?? "start"})`);
+        }
+        lines.push(
+          `fallbacks ${this.aheadFallbacks} (abnormal ${this.aheadAbnormalFallbacks})`
+        );
+      }
+      if (this.lastRoundMs >= 0) {
+        lines.push(
+          `round ${this.lastRoundMs}ms · encode ${Math.round(this.lastEncodeMs)}ms · gap ${Math.round(this.lastSendGapMs)}ms`
+        );
+      }
+      return lines;
     }
     /**
      * Polygone du corps de la personne `i`, exprimé dans le repère du canvas
@@ -5093,10 +5256,11 @@ video:not([data-basarunaa]) { filter: none !important; }
           this.pendingCssRelease = true;
         }
         if (window.__basarunaaBlurEngine !== "canvas") this.repaintBackdrop();
+        this.lastRoundMs = this.yoloSentAtMs ? Math.round(performance.now() - this.yoloSentAtMs) : -1;
         metric("video_apply", {
           videoId: this.id,
           ct_ms: payload.ctMs,
-          round_ms: this.yoloSentAtMs ? Math.round(performance.now() - this.yoloSentAtMs) : -1,
+          round_ms: this.lastRoundMs,
           encode_ms: Math.round(this.lastEncodeMs * 10) / 10,
           infer_ms: payload.timing?.poseLatencyMs ?? -1,
           nsfw: !!payload.isNsfw,
