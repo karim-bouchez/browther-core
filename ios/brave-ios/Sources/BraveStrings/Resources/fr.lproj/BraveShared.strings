@@ -2,7 +2,7 @@
 "About" = "À propos";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "À propos des boucliers Brave";
+"AboutBraveShields" = "À propos des boucliers";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Les sites comprennent souvent des cookies et des scripts qui tentent de vous identifier et d'identifier votre appareil. Ils cherchent à savoir qui vous êtes et vous suivent sur le Web, traquant vos actions sur chaque site.\n\nBrowther bloque cela pour que vous puissiez naviguer sans vous sentir épié.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Contrôles avancés";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Boucliers Browther et confidentialité";
+"BraveShieldsAndPrivacy" = "Boucliers et confidentialité";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Boucliers et confidentialité";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Si ce site semble ne pas fonctionner correctement, essayez de désactiver les boucliers.";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Boucliers Browther";
+"BraveShieldsStatusTitle" = "Boucliers";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "désactivé";
@@ -218,7 +218,7 @@
 "BraveShieldsStatusValueUp" = "activé";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Appuyez deux fois pour activer ou désactiver les boucliers Brave.";
+"BraveShieldsToggleHint" = "Appuyez deux fois pour activer ou désactiver les boucliers.";
 
 /* The name of the feature */
 "bravetalk.braveTalkTitle" = "Appels Browther";
@@ -233,13 +233,13 @@
 "BraveTranslate.searchInputTitle" = "Recherche";
 
 /* This text is for the settings menu for all Brave-Translate options. */
-"BraveTranslate.settingsMenuTitle" = "Traduction Brave";
+"BraveTranslate.settingsMenuTitle" = "Traduction Browther";
 
 /* This text is for the translate settings screen. It's the title of the settings menu. */
-"BraveTranslate.settingsScreenTitle" = "Traduction Brave";
+"BraveTranslate.settingsScreenTitle" = "Traduction Browther";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
-"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Lorsque cette option est activée, Traduction Brave détecte automatiquement la langue de la page actuelle et affiche un bouton de traduction dans la barre d'URL.";
+"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Lorsque cette option est activée, Traduction Browther détecte automatiquement la langue de la page actuelle et affiche un bouton de traduction dans la barre d'URL.";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
 "BraveTranslate.settingsTranslateEnabledOptionTitle" = "Activer la traduction";
@@ -572,7 +572,7 @@
 "defaultBrowserCallout.introPrimaryText" = "Ouvrez tous les liens avec Browther pour protéger votre vie privée";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Les boucliers Brave bloquent les traqueurs et les publicités et vous permettent d'économiser vos données mobiles et de charger plus rapidement les pages que vous consultez.";
+"defaultBrowserCallout.introSecondaryText" = "Les boucliers bloquent les traqueurs et les publicités et vous permettent d'économiser vos données mobiles et de charger plus rapidement les pages que vous consultez.";
 
 /* Tertiary text on default browser popup screen */
 "defaultBrowserCallout.introTertiaryText" = "Ouvrez les réglages, rendez-vous dans Apps puis Apps par défaut, et sélectionnez Browther comme navigateur par défaut.";
@@ -1076,7 +1076,7 @@
 "ntp.sponsoredImageDescription" = "En visualisant cette image sponsorisée, vous soutenez les créateurs de contenu et les diffuseurs.";
 
 /* The placeholder says 'Terms of Service'. So full sentence goes like: 'By turning Rewards, you agree to the Terms of Service'. */
-"ntp.turnRewardsTos" = "En activant le programme de récompenses Browther, vous acceptez les %@.";
+"ntp.turnRewardsTos" = "En activant le programme de récompenses, vous acceptez les %@.";
 
 /* Message when opting into brave Ads when region becomes available */
 "OBAdsOptInMessage" = "Gagnez des jetons et récompensez vos créateurs de contenu préférés pendant votre navigation.";
@@ -1163,7 +1163,7 @@
 "OBShieldsDetail" = "Bloquez les traqueurs qui portent atteinte à votre vie privée afin de naviguer en toute confidentialité sur le Web";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Boucliers Browther";
+"OBShieldsTitle" = "Boucliers";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Afficher";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "La semaine dernière";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** a été bloqué par les boucliers Brave sur **%2$lld** sites";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** a été bloqué par les boucliers sur **%2$lld** sites";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Traqueur ou publicité le plus souvent détecté";
@@ -2015,7 +2015,7 @@
 "rewards.braveTalkRewardsOptInBody" = "Avec le programme de récompenses Browther, vous visionnez des publicités respectueuses de la vie privée grâce au réseau Browther Ads. Pas de traqueur. Pas de ralentissement. Et vos données restent en sécurité.";
 
 /* Title for Brave Talk rewards opt-in screen button */
-"rewards.braveTalkRewardsOptInButtonTitle" = "Activer le programme de récompenses Browther";
+"rewards.braveTalkRewardsOptInButtonTitle" = "Activer le programme de récompenses";
 
 /* Body for successful Brave Talk rewards opt-in */
 "rewards.braveTalkRewardsOptInSuccessBody" = "Cliquez sur l'écran pour continuer vers la discussion Browther.";
@@ -2114,7 +2114,7 @@
 "RewardsInternalsContributionsStepReserve" = "Réserver";
 
 /* No comment provided by engineer. */
-"RewardsInternalsContributionsStepRewardsOff" = "Programme de récompenses Browther désactivé";
+"RewardsInternalsContributionsStepRewardsOff" = "Programme de récompenses désactivé";
 
 /* No comment provided by engineer. */
 "RewardsInternalsContributionsStepStart" = "Démarrer";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Partager";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Les boucliers Brave viennent de protéger votre vie privée en ligne.";
+"shieldEducation.trackerAdWarningSubTitle" = "Les boucliers viennent de protéger votre vie privée en ligne.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Félicitations, vous êtes exceptionnel.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Les publicités sont bloquées pendant le visionnage de vidéos sur ce site Web.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Paramètres généraux par défaut des boucliers Brave";
+"ShieldsDefaults" = "Paramètres généraux par défaut des boucliers";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Réglages par défaut des boucliers pour les nouveaux sites. La modification de ces paramètres n'affectera pas les réglages que vous avez définis pour un site en particulier.";

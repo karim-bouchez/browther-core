@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Volver";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Como has solicitado bloquear absolutamente todos los anuncios y rastreadores, Brave va a bloquear este sitio antes de que se produzca la primera conexión a la red.";
+"DomainBlockedPageDescription" = "Como has solicitado bloquear absolutamente todos los anuncios y rastreadores, Browther va a bloquear este sitio antes de que se produzca la primera conexión a la red.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave ha impedido que se cargue el siguiente sitio:\n";

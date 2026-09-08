@@ -74,7 +74,7 @@
 "upsellOneTimePurchase" = "Achat unique, aucun coût d'abonnement supplémentaire";
 
 /* An upsell point about supporting Brave's mission and open-source work */
-"upsellSupportMission" = "Soutenez la mission de Brave et notre travail open source";
+"upsellSupportMission" = "Soutenez la mission et notre travail open source";
 
 /* A toggle label for Brave VPN feature */
 "vpnLabel" = "VPN";

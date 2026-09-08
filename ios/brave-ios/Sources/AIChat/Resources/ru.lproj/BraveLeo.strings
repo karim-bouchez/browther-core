@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo — это ИИ-помощник, встроенный в браузер";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Привяжите покупку в App Store к аккаунту Brave, чтобы использовать Leo на других устройствах.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Привяжите покупку в App Store к аккаунту Browther, чтобы использовать Leo на других устройствах.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Привязать покупку к аккаунту Brave";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Привязать покупку к аккаунту Browther";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Включить ярлык для запуска Leo из панели быстрых поисковых систем.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Просто нужен чат?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Умный ассистент, работающий на основе ИИ и встроенный в Brave.";
+"aichat.chatIntroSubTitle" = "Умный ассистент, работающий на основе ИИ и встроенный в Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Привет, я Лео!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Вам понравился ответ";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Оставьте отзыв о Brave VPN";
+"aichat.feedbackViewMainTitle" = "Оставьте отзыв о Browther VPN";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Премиум-подписка";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Конечная точка в настоящее время перегружена. Пожалуйста, повторите попытку позже.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave не хранит и не передает данные о голосовом поиске.";
+"aichat.speechRecognizerDisclaimer" = "Browther не хранит и не передает данные о голосовом поиске.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Нет";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo - это частный интеллектуальный помощник с искусственным интеллектом, который улучшает Ваше пользование Интернетом. Leo можно использовать бесплатно с ограниченным доступом. Brave Leo Premium предлагает больше моделей, более высокие лимиты и дает подписчикам ранний доступ к новым функциям. Модель по умолчанию будет время от времени меняться. Более подробную информацию см. в Brave **[Справочный центр](%1$@)**.\n\nПо умолчанию, когда Вы задаете Leo вопрос о просматриваемом сайте или странице, содержимое просматриваемой страницы или любой текст, который Вы выделили на странице, а также Ваш поисковый запрос будут отправлены на серверы Brave, чтобы Leo смог предоставить ответ. В некоторых случаях Leo будет отправлять запросы, полученные на основе Ваших данных, на Brave Search и использовать результаты поиска, чтобы лучше ответить на Ваш вопрос. Brave не гарантирует точность ответов, и ответы могут содержать неточную, вводящую в заблуждение или ложную информацию. Не сообщайте Brave Leo конфиденциальную или частную информацию, и будьте осторожны с ответами, касающимися здоровья, финансов, личной безопасности и т.п. Вы можете в любой момент изменить параметры Leo в Настройках. Перейдите в Настройки > Leo.\n\nLeo не собирает идентификаторы, такие как Ваш IP-адрес, которые могут быть связаны с Вами. Мы не обучаем наши модели на основе Ваших данных, включая Ваши поисковые запросы или ответы Brave Leo. Никакие личные данные не хранятся на наших серверах и не сохраняются Brave. Более подробную информацию см. в **[политике конфиденциальности](%2$@)**.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Общайтесь с Brave Leo в приватном чате";
+"aichat.termsConditionsTitle" = "Общайтесь с Browther Leo в приватном чате";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Без ограничений";

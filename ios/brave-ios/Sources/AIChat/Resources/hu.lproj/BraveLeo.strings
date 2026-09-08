@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "A Leo egy mesterséges intelligencián alapuló, intelligens asszisztens, közvetlenül a böngészőbe építve.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Kapcsolja össze App Store-vásárlását a Brave-fiókjával, hogy más eszközökön is használni tudja a Leót.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Kapcsolja össze App Store-vásárlását a Browther-fiókjával, hogy más eszközökön is használni tudja a Leót.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Kapcsolja a vásárlást a Brave-fiókjához";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Kapcsolja a vásárlást a Browther-fiókjához";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Aktiváljon egy parancsikont a Leo gyorskereső sávból történő elindításához.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Csak csevegni szeretne?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Egy MI-alapú intelligens asszisztens, amely közvetlenül a Brave-ből elérhető.";
+"aichat.chatIntroSubTitle" = "Egy MI-alapú intelligens asszisztens, amely közvetlenül a Browther-ből elérhető.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Üdv, Leo vagyok!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "A válasz tetszett";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Visszajelzés küldése a Brave MI-vel kapcsolatban";
+"aichat.feedbackViewMainTitle" = "Visszajelzés küldése a Browther MI-vel kapcsolatban";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Prémium előfizetés";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "A szolgáltatás jelenleg túlterhelt. Kérjük, próbálja meg később.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "A Brave nem tárolja és nem osztja meg hangbemeneteit.";
+"aichat.speechRecognizerDisclaimer" = "A Browther nem tárolja és nem osztja meg hangbemeneteit.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Nincs";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "A Brave Leo egy privát, mesterséges intelligencián alapuló asszisztens, amely megkönnyíti és hatékonyabbá teszi a böngészést. A Leo ingyenesen használható, korlátozott hozzáféréssel. A Brave Leo Premium több modellt, magasabb limiteket biztosít, valamint korai hozzáférést ad az új funkciókhoz. Az alapértelmezett modell időről időre változhat. További részletek a Brave **[Súgóközpontban](%1$@)** találhatók. \n\nAlapértelmezés szerint, amikor kérdést tesz fel a Leónak egy megnyitott weboldallal vagy az azon kijelölt szöveggel kapcsolatban, az oldal tartalma és a keresési lekérdezése a Brave szervereire kerül, hogy a Leo választ adhasson. Bizonyos esetekben a Leo a bevitelből származó lekérdezéseket a Brave keresés felé küldi, és a találatokat is felhasználja a jobb válasz érdekében. A Brave nem garantálja a válaszok pontosságát, azok tartalmazhatnak pontatlan, félrevezető vagy hibás információkat. Kérjük, ne adjon meg érzékeny vagy személyes adatokat a Leónak, és legyen körültekintő az egészséggel, pénzügyekkel, biztonsággal vagy hasonló témákkal kapcsolatos válaszok esetén. A beállításokat bármikor módosíthatja. A beállításokat a Beállítások > Leo menüpontban találja.\n\nA Leo nem gyűjt olyan azonosítókat, például IP-címet, amelyek Önhöz köthetők lennének. Nem használjuk fel adatait – így a keresési lekérdezéseit vagy a Brave Leo válaszait sem – modelljeink betanításához. A Brave nem tárol és nem őriz meg személyes adatokat a szerverein. További információért tekintse meg az  **[Adatvédelmi szabályzatot](%2$@)** részletes tájékoztatásért.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Csevegjen privátban a Brave Leóval";
+"aichat.termsConditionsTitle" = "Csevegjen privátban a Browther Leóval";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Korlátlan";

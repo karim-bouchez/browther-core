@@ -2,7 +2,7 @@
 "adsHeader" = "Ads";
 
 /* A title asking if the user already purchased on brave.com */
-"alreadyPurchasedTitle" = "har du allerede kjøpt på Brave.com?";
+"alreadyPurchasedTitle" = "har du allerede kjøpt på browther.com?";
 
 /* A section header title for analytics-related settings */
 "analyticsHeader" = "Analyse";

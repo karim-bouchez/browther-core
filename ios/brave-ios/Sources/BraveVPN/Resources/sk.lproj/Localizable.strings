@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Zvoľte svoju geografickú polohu/krajinu";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave vašu aktivitu nikdy nezaznamenáva";
+"vpn.checkboxNoIPLog" = "Browther vašu aktivitu nikdy nezaznamenáva";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Ochráňte každú aplikáciu & celé vaše zariadenie";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Časové pásmo iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Problém s Brave VPN";
+"vpn.contactFormTitle" = "Problém s Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Aktivovať";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Nainštalovať profil VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave teraz nainštaluje profil VPN.";
+"vpn.installProfileTitle" = "Browther teraz nainštaluje profil VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN je zapnutá";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Podpora VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Prepojenie nákupu s účtom Brave";
+"vpn.settingsLinkReceipt" = "Prepojenie nákupu s účtom Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Prepojte svoj nákup v App Store so svojím účtom Brave, aby ste mohli používať Brave VPN na iných zariadeniach.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Aktualizovať spôsob platby";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Brave vás bude naďalej chrániť aj na pozadí.";
+"vpn.vpnBackgroundNotificationBody" = "Browther vás bude naďalej chrániť aj na pozadí.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN je ZAPNUTÉ";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN je ZAPNUTÉ";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Použiť najlepší dostupný server";

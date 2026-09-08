@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo, doğrudan tarayıcınıza dâhil edilmiş, gücünü yapay zekâdan alan bir akıllı asistandır.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Leo'yu başka cihazlarda kullanmaya devam etmek için App Store satın alma işleminizi Brave hesabınıza bağlayın.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Leo'yu başka cihazlarda kullanmaya devam etmek için App Store satın alma işleminizi Browther hesabınıza bağlayın.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Satın alımı Brave hesabınıza bağlayın";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Satın alımı Browther hesabınıza bağlayın";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Leo'yu hızlı arama motorları çubuğundan başlatmak için bir kısayol etkinleştirir.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Sadece sohbet etmek mi istiyorsunuz?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Doğrudan Brave'in içine inşa edilen, Yapay Zeka destekli akıllı bir asistanım.";
+"aichat.chatIntroSubTitle" = "Doğrudan Browther'in içine inşa edilen, Yapay Zeka destekli akıllı bir asistanım.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Merhaba, ben Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Yanıt beğenildi";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Brave Yapay Zeka Geri Bildirimi Verin";
+"aichat.feedbackViewMainTitle" = "Browther Yapay Zeka Geri Bildirimi Verin";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Premium olun";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Uç nokta şu anda aşırı yüklenmiş durumda. Lütfen daha sonra tekrar deneyin.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave, sesli aramalarınızı kaydetmez veya paylaşmaz.";
+"aichat.speechRecognizerDisclaimer" = "Browther, sesli aramalarınızı kaydetmez veya paylaşmaz.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Hiçbiri";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo, web kullanımınızı iyileştiren özel bir YZ akıllı asistanıdır. Leo'yu sınırlı erişimle kullanmak ücretsizdir. Brave Leo Premium daha fazla model, daha yüksek limitler sunar ve abonelere yeni özelliklere erken erişim sağlar. Varsayılan model zaman zaman değişecektir. Daha fazla ayrıntı için Brave **[Yardım Merkezi](%1$@)**'ni ziyaret edin.\n\nVarsayılan olarak, Leo'ya görüntülediğiniz bir web sitesi veya sayfa hakkında bir soru sorduğunuzda, görüntülediğiniz web sayfasının içeriği veya sayfada vurguladığınız herhangi bir metin ve arama sorgunuz, Leo'nun bir yanıt vermesi için Brave sunucularına gönderilir. Bazı durumlarda Leo, girdilerinizden türetilen sorguları Brave Arama'ya gönderir ve sorunuzu daha iyi yanıtlamak için arama sonuçlarını kullanır. Brave, yanıtların doğruluğunu garanti etmez ve yanıtlar eksik, yanıltıcı veya hatalı bilgiler içerebilir. Brave Leo'ya hassas veya gizli bilgiler göndermeyin ve sağlık, finans, kişisel güvenlik veya benzeri konularla ilgili yanıtlarda dikkatli olun. Leo'nun seçeneklerini istediğiniz zaman Ayarlar'dan değiştirebilirsiniz. Ayarlar'a gidin > Leo.\n\nLeo, IP adresiniz gibi sizinle ilişkilendirilebilecek tanımlayıcıları toplamaz. Arama sorgularınız veya Brave Leo'nun yanıtları dahil olmak üzere, modellerimizi verilerinize dayalı olarak eğitmiyoruz. Hiçbir kişisel veri sunucularımızda saklanmaz veya Brave tarafından tutulmaz. Daha fazla bilgi için **[gizlilik politikası](%2$@)**'na göz atabilirsiniz.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Brave Leo ile Gizli Şekilde Sohbet Edin";
+"aichat.termsConditionsTitle" = "Browther Leo ile Gizli Şekilde Sohbet Edin";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Sınırsız";

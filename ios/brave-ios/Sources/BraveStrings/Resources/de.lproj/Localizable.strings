@@ -1,5 +1,5 @@
 /* A label shown above a list of icons designed by Brave */
-"altAppIcon.braveIconsHeader" = "Brave Icons";
+"altAppIcon.braveIconsHeader" = "Browther Icons";
 
 /* The title for the screen that lets the user select a custom app icon */
 "altAppIcon.changeAppIcon" = "App-Symbol ändern";
@@ -59,10 +59,10 @@
 "paywall.braveAccountCheckoutOptionSubtitle" = "Code %1$@ für %2$@ Rabatt";
 
 /* The checkout option that lets the user use Brave's own purchase flow */
-"paywall.braveAccountCheckoutOptionTitle" = "Brave Konto";
+"paywall.braveAccountCheckoutOptionTitle" = "Browther Konto";
 
 /* Button action text which will bring user to Brave VPN web page for more information. */
-"paywall.braveVPNLearnMoreButtonTitle" = "Mehr über Brave VPN erfahren";
+"paywall.braveVPNLearnMoreButtonTitle" = "Mehr über Browther VPN erfahren";
 
 /* Title label text for entering a promo code. */
 "paywall.havePromoCodeTitle" = "Du hast einen Promo-Code?";
@@ -110,7 +110,7 @@
 "ShowPreviousTabTitle" = "Vorherigen Tab anzeigen";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts which is for Showing Brave Shields */
-"showShieldsTitle" = "Browther Shields öffnen";
+"showShieldsTitle" = "Shields öffnen";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "ShowTabTrayFromTabKeyCodeTitle" = "Alle Tabs anzeigen";
@@ -119,10 +119,10 @@
 "storekitReceiptViewer.applicationVersionTitle" = "Anwendungsversion";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.leoMonthlySubscriptionName" = "Brave Leo monatlich";
+"storekitReceiptViewer.leoMonthlySubscriptionName" = "Browther Leo monatlich";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.leoYearlySubscriptionName" = "Brave Leo jährlich";
+"storekitReceiptViewer.leoYearlySubscriptionName" = "Browther Leo jährlich";
 
 /* The error message when the App Store Receipt was not found in the Application Bundle */
 "storekitReceiptViewer.noReceiptFoundTitle" = "Leider wurden kein App Store-Beleg gefunden";
@@ -164,10 +164,10 @@
 "storekitReceiptViewer.shareReceiptTitle" = "Beleg teilen";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Brave VPN monatlich";
+"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Browther VPN monatlich";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.vpnYearlySubscriptionName" = "Brave VPN jährlich";
+"storekitReceiptViewer.vpnYearlySubscriptionName" = "Browther VPN jährlich";
 
 /* Hardware shortcut for non-private tab or tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "SwitchToNonPBMKeyCodeTitle" = "Normaler Browsing-Modus";

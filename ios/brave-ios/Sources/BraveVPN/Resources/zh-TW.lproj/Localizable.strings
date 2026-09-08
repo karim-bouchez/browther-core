@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "選擇您的地理/國家/地區位置";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave 絕不會記錄您的活動";
+"vpn.checkboxNoIPLog" = "Browther 絕不會記錄您的活動";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "保護所有應用程式和整部裝置";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "iOS 時區";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN 問題";
+"vpn.contactFormTitle" = "Browther VPN 問題";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "啟用";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "安裝 VPN 設定檔";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave 現在要開始安裝 VPN 設定檔。";
+"vpn.installProfileTitle" = "Browther 現在要開始安裝 VPN 設定檔。";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN 現已啟用";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN 支援";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "將購買交易連結至您的 Brave 帳戶";
+"vpn.settingsLinkReceipt" = "將購買交易連結至您的 Browther 帳戶";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "將您的 App Store 購買交易連結至 Brave 帳戶，以便在其他裝置上使用 Brave VPN。";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "更新付款方式";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "即使在背景運作，Brave 也會繼續為您提供防護。";
+"vpn.vpnBackgroundNotificationBody" = "即使在背景運作，Browther 也會繼續為您提供防護。";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN 已開啟";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN 已開啟";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "使用最佳的可用伺服器";

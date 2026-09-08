@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo je chytrý asistent s umělou inteligencí zabudovaný přímo do prohlížeče.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Propojte svůj nákup v App Store se svým účtem Brave a používejte Leo na dalších zařízeních.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Propojte svůj nákup v App Store se svým účtem Browther a používejte Leo na dalších zařízeních.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Propojit nákup s účtem Brave";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Propojit nákup s účtem Browther";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Umožňuje spustit Lea zkratkou z panelu rychlého vyhledávání.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Chcete si jen popovídat?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Asistent s umělou inteligencí zabudovaný přímo do prohlížeče Brave.";
+"aichat.chatIntroSubTitle" = "Asistent s umělou inteligencí zabudovaný přímo do prohlížeče Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Ahoj, já jsem Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Odpověď se mi Líbila";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Odeslat zpětnou vazbu k umělé inteligenci Brave";
+"aichat.feedbackViewMainTitle" = "Odeslat zpětnou vazbu k umělé inteligenci Browther";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Přejít na Premium";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Koncový bod je aktuálně přetížen. Zkuste to prosím znovu později.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave neukládá ani nesdílí vaše hlasové vstupy.";
+"aichat.speechRecognizerDisclaimer" = "Browther neukládá ani nesdílí vaše hlasové vstupy.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Žádné";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo je soukromý asistent s umělou inteligencí, který vám usnadní používání internetu. Leo je k dispozici zdarma s omezeným přístupem. Brave Leo Premium nabízí více modelů, vyšší limity a poskytuje předplatitelům časný přístup k novým funkcím. Výchozí model se bude čas od času měnit. Další podrobnosti najdete v **[centru nápovědy](%1$@)** Brave.\n\nVe výchozím nastavení platí, že když se asistenta Leo zeptáte na otázku ohledně webu nebo stránky, kterou si prohlížíte, obsah tohoto webu nebo kteréhokoli textu, který zvýrazníte, a také vaš vyhledávaný dotaz, bude odeslán na servery Brave, aby Leo mohl poskytnout odpověď. V některých případech posílá Leo dotazy odvozené z vašeho zadání do vyhledávání Brave a výsledky vyhledávání používá, ale lépe odpověděl na vaši otázku. Brave nezaručuje přesnost odpovědí. Odpovědi mohou obsahovat nepřesné, zavádějící nebo nepravdivé informace. Neposílejte citlivé ani osobní údaje a buďte opatrní s odpověďmi týkajícími se zdraví, financí, osobní bezpečnosti apod. Možnosti asistenta Leo můžete kdykoli upravit v Nastavení. Přejděte do Nastavení > Leo.\n\nLeo neshromažďuje identifikátory, jako je vaše IP adresa, které by bylo možné s vámi spojit. K trénování našich modelů umělé inteligence nepoužíváme vaše data, včetně vašich vyhledávaných dotazů nebo odpovědí asistenta Brave Leo. Na našich serverech neuchováváme žádné osobní údaje ani si žádné vaše osobní údaje neponecháváme. Další informace naleznete v **[zásadách ochrany osobních údajů](%2$@)**.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Chatujte bez porušení soukromí s Brave Leo";
+"aichat.termsConditionsTitle" = "Chatujte bez porušení soukromí s Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Bez omezení";

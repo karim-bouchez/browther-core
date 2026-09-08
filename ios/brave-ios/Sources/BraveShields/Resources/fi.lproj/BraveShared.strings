@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Palaa takaisin";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Koska pyysit aggressiivisesti estämään seuraimet ja mainokset, Brave estää tämän sivuston ennen ensimmäistä verkkoyhteyttä.";
+"DomainBlockedPageDescription" = "Koska pyysit aggressiivisesti estämään seuraimet ja mainokset, Browther estää tämän sivuston ennen ensimmäistä verkkoyhteyttä.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave on estänyt seuraavaa sivustoa latautumasta:";

@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Επιλέξτε την τοποθεσία της γεωγραφικής περιοχής/χώρας σας";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Το Brave δεν καταγράφει ποτέ τη δραστηριότητά σας";
+"vpn.checkboxNoIPLog" = "Το Browther δεν καταγράφει ποτέ τη δραστηριότητά σας";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Προστατέψτε κάθε εφαρμογή και όλη τη συσκευή σας";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Ζώνη ώρας iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Πρόβλημα Brave VPN";
+"vpn.contactFormTitle" = "Πρόβλημα Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Ενεργοποίηση";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Εγκατάσταση προφίλ VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Το Brave θα εγκαταστήσει τώρα ένα προφίλ VPN.";
+"vpn.installProfileTitle" = "Το Browther θα εγκαταστήσει τώρα ένα προφίλ VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "Το VPN έχει ενεργοποιηθεί";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Υποστήριξη VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Συνδέστε την αγορά στον λογαριασμό σας Brave";
+"vpn.settingsLinkReceipt" = "Συνδέστε την αγορά στον λογαριασμό σας Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Συνδέστε την αγορά σας από το App Store με τον λογαριασμό σας Brave για να χρησιμοποιήσετε το Brave VPN σε άλλες συσκευές.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Ενημέρωση τρόπου πληρωμής";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Ακόμα και στο παρασκήνιο, το Brave θα συνεχίσει να σας προστατεύει.";
+"vpn.vpnBackgroundNotificationBody" = "Ακόμα και στο παρασκήνιο, το Browther θα συνεχίσει να σας προστατεύει.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Το Brave VPN είναι ΕΝΕΡΓΟ";
+"vpn.vpnBackgroundNotificationTitle" = "Το Browther VPN είναι ΕΝΕΡΓΟ";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Χρήση του καλύτερου διαθέσιμου διακομιστή";

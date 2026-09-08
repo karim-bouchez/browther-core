@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Kembali";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Karena Anda meminta untuk memblokir pelacak dan iklan secara agresif, Brave memblokir situs ini sebelum koneksi jaringan pertama.";
+"DomainBlockedPageDescription" = "Karena Anda meminta untuk memblokir pelacak dan iklan secara agresif, Browther memblokir situs ini sebelum koneksi jaringan pertama.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave telah mencegah pemuatan situs berikut:";

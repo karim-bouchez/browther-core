@@ -2,7 +2,7 @@
 "About" = "Информация";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "За щитовете на Brave";
+"AboutBraveShields" = "За щитовете";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Сайтовете често включват бисквитки и скриптове, които се опитват да идентифицират теб и твоето устройство. Те искат да разберат кой си и да те следват в мрежата, като проследяват какво правиш на всеки сайт.\n\nBrave блокира тези неща, за да можеш да сърфираш, без да те следят.";
@@ -11,7 +11,7 @@
 "AccessPhotoDeniedAlertMessage" = "Това ти позволява да запазиш изображението в своята галерия със снимки.";
 
 /* See http://mzl.la/1G7uHo7 */
-"AccessPhotoDeniedAlertTitle" = "Brave иска да получи достъп до твоите снимки";
+"AccessPhotoDeniedAlertTitle" = "Browther иска да получи достъп до твоите снимки";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "addBookmarkTitle" = "Добавяне на отметка";
@@ -29,7 +29,7 @@
 "AddToMenuItem" = "Добавяне на отметка";
 
 /* Text for the toggle switch to clear 'Brave Ads' data in settings */
-"ads.braveAdsDataToggleOption" = "Данни за Brave Реклами";
+"ads.braveAdsDataToggleOption" = "Данни за Browther Реклами";
 
 /* individual blocking statistic title */
 "AdsAndTrackers" = "Реклами и тракери";
@@ -44,10 +44,10 @@
 "AlwaysShow" = "Вкл.";
 
 /* Title for Ask Brave menu item. Brave is the company name and should not be translated */
-"AskBraveMenuItem" = "Попитайте Brave";
+"AskBraveMenuItem" = "Попитайте Browther";
 
 /* Touch ID or PIN entry prompt subtitle when accessing Brave with the Browser Lock feature enabled */
-"AuthenticationLoginsTouchReason" = "Това удостоверява достъпа ти до Brave";
+"AuthenticationLoginsTouchReason" = "Това удостоверява достъпа ти до Browther";
 
 /* Label for Cancel button */
 "AuthPromptAlertCancelButtonTitle" = "Отказ";
@@ -146,10 +146,10 @@
 "BookmarkUrlPlaceholderText" = "Адрес";
 
 /* Button to show the brave panel */
-"BravePanel" = "Brave панел";
+"BravePanel" = "Browther панел";
 
 /* No comment provided by engineer. */
-"BraveRewardsAdNotificationTitle" = "Brave награди";
+"BraveRewardsAdNotificationTitle" = "Browther награди";
 
 /* No comment provided by engineer. */
 "BraveRewardsOpen" = "Отваряне";
@@ -158,7 +158,7 @@
 "BraveRewardsSettingsTitle" = "Награди";
 
 /* Brave Rewards title */
-"BraveRewardsTitle" = "Brave награди";
+"BraveRewardsTitle" = "Browther награди";
 
 /* Brave Search Banner Promotion description content in Search Suggestions */
 "braveSearchPromotion.bannerDescription" = "Brave Търсене не ви профилира.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Разширени контроли";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave Защити и поверителност";
+"BraveShieldsAndPrivacy" = "Защити и поверителност";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Защити и поверителност";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Ако сайтът изглежда счупен, опитай да със свалени защити";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Щитове на Brave";
+"BraveShieldsStatusTitle" = "Щитове";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Свалени";
@@ -218,10 +218,10 @@
 "BraveShieldsStatusValueUp" = "Вдигнати";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Докосни два пъти за превключване на Brave Защити";
+"BraveShieldsToggleHint" = "Докосни два пъти за превключване на Защити";
 
 /* The name of the feature */
-"bravetalk.braveTalkTitle" = "Brave Talk";
+"bravetalk.braveTalkTitle" = "Browther Talk";
 
 /* Title for the button that allows you go to the language selection screen, to select a language you want to translate to/from. */
 "BraveTranslate.languageSelectionButtonTitle" = "Избор на език";
@@ -233,13 +233,13 @@
 "BraveTranslate.searchInputTitle" = "Търсене";
 
 /* This text is for the settings menu for all Brave-Translate options. */
-"BraveTranslate.settingsMenuTitle" = "Brave Превод";
+"BraveTranslate.settingsMenuTitle" = "Browther Превод";
 
 /* This text is for the translate settings screen. It's the title of the settings menu. */
-"BraveTranslate.settingsScreenTitle" = "Brave Превод";
+"BraveTranslate.settingsScreenTitle" = "Browther Превод";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
-"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Когато е активиран, Brave Превод автоматично ще открие текущия език на страницата ти и ще покаже бутон за превод в лентата с URL адреса.";
+"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Когато е активиран, Browther Превод автоматично ще открие текущия език на страницата ти и ще покаже бутон за превод в лентата с URL адреса.";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
 "BraveTranslate.settingsTranslateEnabledOptionTitle" = "Преводът е активиран";
@@ -254,7 +254,7 @@
 "BrowserLock" = "Заключване на браузъра";
 
 /* Description for setting to enable the browser lock privacy feature */
-"BrowserLockDescription" = "Отключвай Brave с Touch ID, Face ID или паскода на системата.";
+"BrowserLockDescription" = "Отключвай Browther с Touch ID, Face ID или паскода на системата.";
 
 /* Settings item for clearing browsing history */
 "BrowsingHistory" = "История на сърфирането";
@@ -269,10 +269,10 @@
 "callout.bottomBarCalloutDescription" = "Премества адресната лента, разделите, отметките и другите инструменти в долната част на браузъра.";
 
 /* Title for Bottom Bar Callout View */
-"callout.bottomBarCalloutTitle" = "Персонализиране на лентата с раздели на Brave";
+"callout.bottomBarCalloutTitle" = "Персонализиране на лентата с раздели на Browther";
 
 /* Subtitle - Description for Privacy Everywhere Full Screen Callout */
-"callout.privacyEverywhereCalloutDescription" = "Осигури си поверителността на Brave на своя компютър или таблет и синхронизирай отметките и разширенията между устройствата.";
+"callout.privacyEverywhereCalloutDescription" = "Осигури си поверителността на Browther на своя компютър или таблет и синхронизирай отметките и разширенията между устройствата.";
 
 /* Title for button in Default Browser Full Screen Callout */
 "callout.privacyEverywhereCalloutPrimaryButtonTitle" = "Синхронизирай сега";
@@ -569,25 +569,25 @@
 "defaultBrowserCallout.introOpenSettingsButtonText" = "Към настройките";
 
 /* Primary text on default browser popup screen */
-"defaultBrowserCallout.introPrimaryText" = "Отваряй всички връзки с Brave, за да защитиш поверителността си";
+"defaultBrowserCallout.introPrimaryText" = "Отваряй всички връзки с Browther, за да защитиш поверителността си";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave Защити блокира тракери и реклами и ти спестява данни и време на всеки сайт, който посещаваш";
+"defaultBrowserCallout.introSecondaryText" = "Защити блокира тракери и реклами и ти спестява данни и време на всеки сайт, който посещаваш";
 
 /* Tertiary text on default browser popup screen */
-"defaultBrowserCallout.introTertiaryText" = "Отвори настройките, докосни „Браузър по подразбиране“ и избери Brave.";
+"defaultBrowserCallout.introTertiaryText" = "Отвори настройките, докосни „Браузър по подразбиране“ и избери Browther.";
 
 /* Notification body to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationBody" = "Задай Brave като браузъра си по подразбиране";
+"defaultBrowserCallout.notificationBody" = "Задай Browther като браузъра си по подразбиране";
 
 /* Notification title to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationTitle" = "Получи защита от Brave за всяка връзка";
+"defaultBrowserCallout.notificationTitle" = "Получи защита от Browther за всяка връзка";
 
 /* No comment provided by engineer. */
 "defaultBrowserCalloutCloseAccesabilityLabel" = "Затваряне на поканата за браузър по подразбиране";
 
 /* Name for default Brave theme. */
-"defaultThemeName" = "Brave по подразбиране";
+"defaultThemeName" = "Browther по подразбиране";
 
 /* No comment provided by engineer. */
 "Delete" = "Изтриване";
@@ -692,7 +692,7 @@
 "ErrorPageReloadButtonTitle" = "Презареждане";
 
 /* Additional warning text when clicking the Advanced button on error pages. %@ is a placeholder, do not localize it. Do not localize <br />. */
-"ErrorPagesAdvancedErrorPinningDetails" = "%1$@ обикновено използва криптиране, за да защитава информацията ти. Когато този път Brave се опита да се свърже с %2$@, уебсайтът върна необичайни и некоректни идентификационни данни. Това може да се случи, когато нападател се опитва да се престори на %3$@ или връзката е била прекъсната от екран за влизане в Wi-Fi. Информацията ти все още е защитена, защото Brave прекрати връзката, преди да бъдат обменени каквито и да било данни.<br />В момента не можеш да посетиш %4$@, защото уебсайтът използва фиксиране на сертификати. Грешките в мрежата и атаките обикновено са временни, така че тази страница вероятно по-късно ще работи нормално.";
+"ErrorPagesAdvancedErrorPinningDetails" = "%1$@ обикновено използва криптиране, за да защитава информацията ти. Когато този път Browther се опита да се свърже с %2$@, уебсайтът върна необичайни и некоректни идентификационни данни. Това може да се случи, когато нападател се опитва да се престори на %3$@ или връзката е била прекъсната от екран за влизане в Wi-Fi. Информацията ти все още е защитена, защото Browther прекрати връзката, преди да бъдат обменени каквито и да било данни.<br />В момента не можеш да посетиш %4$@, защото уебсайтът използва фиксиране на сертификати. Грешките в мрежата и атаките обикновено са временни, така че тази страница вероятно по-късно ще работи нормално.";
 
 /* Additional warning text when clicking the Advanced button on error pages */
 "ErrorPagesAdvancedWarningDetails" = "Този сървър не може да докаже, че е %@; сертификатът му за сигурност не е доверен за операционната система на твоето устройство. Това може да се дължи на неправилна конфигурация или на нападател, който се опитва да прехване връзката ти.";
@@ -812,10 +812,10 @@
 "HideLinkPreviewsActionTitle" = "Скриване на превютата на линкове";
 
 /* Hides the rewards icon */
-"HideRewardsIcon" = "Скриване на иконата Brave Rewards";
+"HideRewardsIcon" = "Скриване на иконата Browther Rewards";
 
 /* Hide the rewards icon explination. */
-"HideRewardsIconSubtitle" = "Скрива иконата на Brave Награди, когато функцията Brave Награди не е активирана";
+"HideRewardsIconSubtitle" = "Скрива иконата на Browther Награди, когато функцията Browther Награди не е активирана";
 
 /* Title for history menu item */
 "HistortMenuItem" = "История";
@@ -971,7 +971,7 @@
 "MyFirstAdBody" = "Докосни тук, за да научиш повече.";
 
 /* No comment provided by engineer. */
-"MyFirstAdTitle" = "Това е първата ти Brave Реклама";
+"MyFirstAdTitle" = "Това е първата ти Browther Реклама";
 
 /* Bookmark title / Device name */
 "Name" = "Име";
@@ -1025,13 +1025,13 @@
 "nprRedirectFooter" = "Автоматично пренасочване на връзките на NPR към текстовата им версия (на адрес text.npr.org).";
 
 /* Bookmark title for Brave Support */
-"ntp.braveSupportFavoriteTitle" = "Поддръжка на Brave";
+"ntp.braveSupportFavoriteTitle" = "Поддръжка на Browther";
 
 /* No comment provided by engineer. */
 "ntp.claimRewards" = "Взимане на токени";
 
 /* Placeholder example: 'You earned 42 BAT by browsing with Brave.' */
-"ntp.earningsReport" = "Спечели %@, като сърфираше с Brave.";
+"ntp.earningsReport" = "Спечели %@, като сърфираше с Browther.";
 
 /* The context is to praise the user that they did a good job, to keep it up. It is used in full sentence like: 'Way to go! You earned 40 BAT last month.' */
 "ntp.goodJob" = "Браво!";
@@ -1040,10 +1040,10 @@
 "ntp.hideSponsoredImages" = "Скриване на спонсорирани изображения";
 
 /* The text description of image type which is being used NTP. The text inside the square brackets should be translated and is a link */
-"ntp.imageTypeSelectionDescription" = "Спонсорираните изображения са брандирани фонове, които се появяват в новоотворените раздели в браузъра. Разрешаването на тези спонсорирани изображения подкрепя мисията на Brave. [Научете повече](#learn-more)";
+"ntp.imageTypeSelectionDescription" = "Спонсорираните изображения са брандирани фонове, които се появяват в новоотворените раздели в браузъра. Разрешаването на тези спонсорирани изображения подкрепя мисията на Browther. [Научете повече](#learn-more)";
 
 /* No comment provided by engineer. */
-"ntp.learnMoreAboutRewards" = "Научи повече за Brave Награди";
+"ntp.learnMoreAboutRewards" = "Научи повече за Browther Награди";
 
 /* No comment provided by engineer. */
 "ntp.learnMoreAboutSI" = "Научи повече за спонсорираните изображения";
@@ -1085,10 +1085,10 @@
 "OBAdsOptInMessageJapan" = "Печели точки и награждавай създателите на страхотно съдържание, докато сърфираш.";
 
 /* Title when opting into brave Ads when region becomes available */
-"OBAdsOptInTitle" = "Brave Реклами е тук!";
+"OBAdsOptInTitle" = "Browther Реклами е тук!";
 
 /* Title for ads onboarding screen */
-"OBAdsTitle" = "Brave ще покаже първата ви реклама в";
+"OBAdsTitle" = "Browther ще покаже първата ви реклама в";
 
 /* Title for when the user completes onboarding */
 "OBCompleteTitle" = "Вече всичко е готово";
@@ -1112,10 +1112,10 @@
 "OBJoinButton" = "Присъедини се";
 
 /* No comment provided by engineer. */
-"OBPrivacyConsentClipboardPermission" = "Разрешавам на Brave да провери клипборда ми за съответстващ код за препоръка";
+"OBPrivacyConsentClipboardPermission" = "Разрешавам на Browther да провери клипборда ми за съответстващ код за препоръка";
 
 /* No comment provided by engineer. */
-"OBPrivacyConsentDetail" = "Възможно е някой да ти е изпратил препоръка да изтеглиш Brave. За да открие кой те е препратил, Brave извършва еднократна проверка на клипборда ти, за да види съответстващия код за препоръка. Тази проверка е ограничена само до кода и не се предават други лични данни. Ако я откажеш, човекът, който те е препратил, няма да получи награди от Brave.";
+"OBPrivacyConsentDetail" = "Възможно е някой да ти е изпратил препоръка да изтеглиш Browther. За да открие кой те е препратил, Browther извършва еднократна проверка на клипборда ти, за да види съответстващия код за препоръка. Тази проверка е ограничена само до кода и не се предават други лични данни. Ако я откажеш, човекът, който те е препратил, няма да получи награди от Browther.";
 
 /* No comment provided by engineer. */
 "OBPrivacyConsentNoButton" = "Не разрешавам тази проверка";
@@ -1136,10 +1136,10 @@
 "OBRewardsAgreementDetailsAnd" = "и";
 
 /* Title for rewards agreement onboarding screen */
-"OBRewardsAgreementTitle" = "Brave награди";
+"OBRewardsAgreementTitle" = "Browther награди";
 
 /* Detail text for rewards onboarding screen */
-"OBRewardsDetail" = "Като избереш Brave Поверителни реклами, ти подкрепяш издателите и създателите на съдържание с всяка гледана реклама.";
+"OBRewardsDetail" = "Като избереш Browther Поверителни реклами, ти подкрепяш издателите и създателите на съдържание с всяка гледана реклама.";
 
 /* Detail text for rewards onboarding screen */
 "OBRewardsDetailInAdRegion" = "Печели токени и награждавай създателите на страхотно съдържание, докато сърфираш.";
@@ -1148,7 +1148,7 @@
 "OBRewardsPrivacyPolicyDetailLink" = "Политика за поверителност";
 
 /* Title for rewards onboarding screen */
-"OBRewardsTitle" = "Brave награди";
+"OBRewardsTitle" = "Browther награди";
 
 /* Save button to save current selection */
 "OBSaveButton" = "Запазване";
@@ -1157,13 +1157,13 @@
 "OBSearchEngineDetail" = "Избери своята търсачка по подразбиране";
 
 /* Title for search engine onboarding screen */
-"OBSearchEngineTitle" = "Заповядай в Brave Браузър";
+"OBSearchEngineTitle" = "Заповядай в Browther Браузър";
 
 /* Detail text for shields onboarding screen */
 "OBShieldsDetail" = "Блокирай тракерите, които нарушават твоята поверителност, за да сърфираш в мрежата, без да те следят";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Щитове на Brave";
+"OBShieldsTitle" = "Щитове";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Покажи ми";
@@ -1178,13 +1178,13 @@
 "onboarding.linkReceiptDescription" = "Твоят абонамент за Brave VPN може да защитава до 10 устройства с Android, iOS и компютър. Просто свържи абонамента си за App Store към акаунта си в Brave.";
 
 /* Popup title to let users know they can use the vpn on all their devices */
-"onboarding.linkReceiptTitle" = "Удължете защитата от Защитна стена на Brave + VPN";
+"onboarding.linkReceiptTitle" = "Удължете защитата от Защитна стена на Browther + VPN";
 
 /* Description for the NTP pop-over that describes the tracking information on NTP */
 "onboarding.ntpOnboardingPopOverTrackerDescription" = "След блокиране на тракерите и рекламите, уебсайтовете използват по-малко данни и се зареждат много по-бързо.";
 
 /* Description for the Omnibox (URL Bar) pop-over that describes faster load times. */
-"onboarding.omniboxOnboardingPopOverDescription" = "Виж разликата с Brave:\nбез реклами. Без тракери. Много по-бързо зареждане на страниците.";
+"onboarding.omniboxOnboardingPopOverDescription" = "Виж разликата с Browther:\nбез реклами. Без тракери. Много по-бързо зареждане на страниците.";
 
 /* Title for the Omnibox (URL Bar) pop-over that describes faster load times. */
 "onboarding.omniboxOnboardingPopOverTitle" = "Въведете име на уебсайт или URL адрес";
@@ -1202,7 +1202,7 @@
 "OpenAllBookmarks" = "Отваряне на всички (%i)";
 
 /* Button title for opening the Brave Rewards panel to settings */
-"OpenBraveRewardsSettings" = "Отваряне на настройките на Brave Награди";
+"OpenBraveRewardsSettings" = "Отваряне на настройките на Browther Награди";
 
 /* Error description when there is an error while navigating to Files App */
 "OpenDownloadsFolderErrorDescription" = "При отварянето на папката „Изтегляния“ в приложението „Файлове“ възникна неизвестна грешка.";
@@ -1265,13 +1265,13 @@
 "opentabs.noSyncChainPlaceHolderViewDescription" = "За да започнеш, настрой верига за синхронизиране и превключи „Отворени раздели“ в настройките за синхронизиране.";
 
 /* The additional description of the view describing tab syncing should be enabled. */
-"opentabs.noSyncSessionPlaceHolderViewAdditionalDescription" = "Управлявай какво синхронизира Brave от настройките.";
+"opentabs.noSyncSessionPlaceHolderViewAdditionalDescription" = "Управлявай какво синхронизира Browther от настройките.";
 
 /* The description of the view describing no other sessions are active in sync. */
 "opentabs.noSyncSessionPlaceHolderViewDescription" = "Няма активни сесии, които да се показват от другите ти устройства.";
 
 /* The title of the view showing no synced sessions */
-"opentabs.noSyncSessionPlaceHolderViewTitle" = "Това пространство показва разделите на Brave, отворени на други устройства";
+"opentabs.noSyncSessionPlaceHolderViewTitle" = "Това пространство показва разделите на Browther, отворени на други устройства";
 
 /* The title for the action to hide open session with all tabs */
 "opentabs.openSessionHideAllActionTitle" = "Скриване засега";
@@ -1358,7 +1358,7 @@
 "p3a.continue" = "Продължи";
 
 /* A subtitle shown on the setting that toggles analytics on Brave. */
-"p3a.settingSubtitle" = "Тези поверителни известия помагат на Brave да оцени цялостното използване на определени функции и да ги направи по-добри за вас.";
+"p3a.settingSubtitle" = "Тези поверителни известия помагат на Browther да оцени цялостното използване на определени функции и да ги направи по-добри за вас.";
 
 /* The title for the setting that will allow a user to toggle sending privacy preserving analytics to Brave. */
 "p3a.settingTitle" = "Позволяване на продуктов анализ, предпазващ поверителността (P3A)";
@@ -1418,7 +1418,7 @@
 "PersistentPrivateBrowsing" = "Трайно поверително сърфиране";
 
 /* Persistent private browsing alert message to existing users */
-"PersistentPrivateBrowsingAlertMessage" = "Позволява на Brave да възстановява поверителните раздели в браузъра, дори ако затвориш/отвориш приложението отново";
+"PersistentPrivateBrowsingAlertMessage" = "Позволява на Browther да възстановява поверителните раздели в браузъра, дори ако затвориш/отвориш приложението отново";
 
 /* Persistent private browsing alert title to existing users */
 "PersistentPrivateBrowsingAlertTitle" = "Възстановяване на поверителните раздели";
@@ -1433,7 +1433,7 @@
 "playList.addToPlayListAlertDescription" = "Искаш ли да добавиш това видео в плейлистата си?";
 
 /* Alert Title for adding videos to playlist */
-"playList.addToPlayListAlertTitle" = "Добавяне в Brave Плейлиста";
+"playList.addToPlayListAlertTitle" = "Добавяне в Browther Плейлиста";
 
 /* The title of the screen in CarPlay that contains all the audio/playback options */
 "playlist.carplayOptionsScreenTitle" = "Опции за възпроизвеждане";
@@ -1454,7 +1454,7 @@
 "playlist.carplaySettingsSectionTitle" = "Настройки";
 
 /* The title of the playlist when in Carplay mode */
-"playlist.carplayTitle" = "Плейлист на Brave";
+"playlist.carplayTitle" = "Плейлист на Browther";
 
 /* Title for changing the folder of the current media playlist item */
 "playList.changeFoldersButtonTitle" = "Промяна на Плейлиста";
@@ -1475,7 +1475,7 @@
 "playList.loadResourcesErrorAlertDescription" = "Възникна проблем със зареждането на ресурса!";
 
 /* Detail Text when there are no items in the playlist */
-"playList.noItemLabelDetailLabel" = "Можеш да добавяш елементи в Brave Плейлиста в браузъра";
+"playList.noItemLabelDetailLabel" = "Можеш да добавяш елементи в Browther Плейлиста в браузъра";
 
 /* Text when there are no items in the playlist */
 "playList.noItemLabelTitle" = "Няма налични елементи";
@@ -1580,13 +1580,13 @@
 "playList.toastAddToPlaylistTitle" = "Добавяне към плейлист";
 
 /* The title for the toast that shows up on a page when an item that has already been added, was updated. */
-"playList.toastExitingItemPlaylistTitle" = "Преглед в Brave Плейлистата";
+"playList.toastExitingItemPlaylistTitle" = "Преглед в Browther Плейлистата";
 
 /* A button title that when tapped will re-add the media item (undo the removal) that the user recently removed. */
 "playList.undoRemoveButtonTitle" = "Отмяна";
 
 /* Footer for option to disable URL-Bar button */
-"playlist.urlBarButtonOptionFooter" = "Добавя бутон за плейлиста до адресната лента в браузъра Brave. Този бутон ти дава бърз достъп за отваряне на Плейлистата или за добавяне или премахване на мултимедия.";
+"playlist.urlBarButtonOptionFooter" = "Добавя бутон за плейлиста до адресната лента в браузъра Browther. Този бутон ти дава бърз достъп за отваряне на Плейлистата или за добавяне или премахване на мултимедия.";
 
 /* Title for option to disable URL-Bar button */
 "playlist.urlBarButtonOptionTitle" = "Активиране на бутон за бърз достъп";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Последната седмица";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** беше блокирано от Brave Защити на **%2$lld** сайта";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** беше блокирано от Защити на **%2$lld** сайта";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Най-често срещан тракер и реклама";
@@ -1703,7 +1703,7 @@
 "privacyHub.notificationCalloutButtonText" = "Включете известията";
 
 /* Message of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
-"privacyHub.notificationMessage" = "Обобщение на това как Brave те защити онлайн тази седмица.";
+"privacyHub.notificationMessage" = "Обобщение на това как Browther те защити онлайн тази седмица.";
 
 /* Title of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
 "privacyHub.notificationTitle" = "Седмичен доклад за поверителност";
@@ -1769,7 +1769,7 @@
 "privacyHub.vpnAlertRegularTrackerTypeSingular" = "Тракер или реклама";
 
 /* Section title, this section displays vpn alerts: items which the vpn managed to block on users behalf. */
-"privacyHub.vpnAlertsHeader" = "Сигнали от Brave Защитна стена + VPN";
+"privacyHub.vpnAlertsHeader" = "Сигнали от Browther Защитна стена + VPN";
 
 /* This label says about Brave VPN, as a source of by what the resource was blocked by. Think of it in context of 'Blocked by VPN' */
 "privacyHub.vpnLabel" = "Защитна стена + VPN";
@@ -1793,10 +1793,10 @@
 "PrivateBrowsingOnlyWarning" = "Режимът „Само поверително сърфиране“ ще затвори всички текущи раздели и ще те отпише от всички сайтове.";
 
 /* Private tab details */
-"PrivateTabBody" = "Поверителните раздели не се запазват в Brave, но и не ти осигуряват анонимност онлайн. Сайтовете, които посещаваш в поверителен раздел, няма да се показват в историята ти, а техните бисквитки винаги изчезват, когато ги затвориш – в Brave няма да остане никаква следа от тях. Изтеглените файлове обаче ще бъдат запазени.\nТвоят мобилен оператор (или собственикът на Wi-Fi мрежата или VPN мрежата, с която имаш връзка) може да види кои сайтове посещаваш, а тези сайтове ще научат публичния ти IP адрес, дори в поверителен раздел.";
+"PrivateTabBody" = "Поверителните раздели не се запазват в Browther, но и не ти осигуряват анонимност онлайн. Сайтовете, които посещаваш в поверителен раздел, няма да се показват в историята ти, а техните бисквитки винаги изчезват, когато ги затвориш – в Browther няма да остане никаква следа от тях. Изтеглените файлове обаче ще бъдат запазени.\nТвоят мобилен оператор (или собственикът на Wi-Fi мрежата или VPN мрежата, с която имаш връзка) може да види кои сайтове посещаваш, а тези сайтове ще научат публичния ти IP адрес, дори в поверителен раздел.";
 
 /* Private tab detail text */
-"PrivateTabDetails" = "Използването на поверителни раздели променя само това, което Brave прави на твоето устройство, но не променя поведението на никой друг.\n\nСайтовете винаги научават твоя IP адрес, когато ги посещаваш. По този начин те често могат да предположат приблизително къде се намираш – обикновено с точност до града ти. Понякога това предположение за местоположението може да бъде много по-конкретно. Сайтовете знаят и всичко, което изрично въведеш в тях, като например термини за търсене. Ако влезеш в даден сайт, той ще знае, че именно ти си собственик на акаунта. Когато затвориш поверителния раздел, автоматично ще се отпишеш от сайта, защото Brave ще изхвърли „бисквитката“, която поддържа статуса ти на влизане.\n\nЛицето, което те свързва към интернет (твоят интернет доставчик), може да види цялата ти мрежова активност. Често това е твоят мобилен оператор. Ако връзката ти е през Wi-Fi мрежа, тогава е собственикът на тази мрежа, а ако използваш VPN – лицето, което управлява тази VPN. Твоят интернет доставчик може да вижда кои сайтове посещаваш, докато ги посещаваш. Ако тези сайтове използват HTTPS, интернет доставчикът може само да предполага с известна обосновка какво правиш на тези сайтове. Но ако даден сайт използва само HTTP, тогава твоят интернет доставчик може да види всичко: термините, които търсиш, кои страници четеш и кои линкове следваш.\n\nАко устройството ти се управлява от работодател, той също може да следи какво правиш с него. Използването на поверителни раздели вероятно няма да му попречи да разбере кои сайтове посещаваш. Ако някой друг, който има достъп до устройството ти, е инсталирал софтуер за следене на дейността ти, то поверителните раздели няма да те предпазят и от това.";
+"PrivateTabDetails" = "Използването на поверителни раздели променя само това, което Browther прави на твоето устройство, но не променя поведението на никой друг.\n\nСайтовете винаги научават твоя IP адрес, когато ги посещаваш. По този начин те често могат да предположат приблизително къде се намираш – обикновено с точност до града ти. Понякога това предположение за местоположението може да бъде много по-конкретно. Сайтовете знаят и всичко, което изрично въведеш в тях, като например термини за търсене. Ако влезеш в даден сайт, той ще знае, че именно ти си собственик на акаунта. Когато затвориш поверителния раздел, автоматично ще се отпишеш от сайта, защото Browther ще изхвърли „бисквитката“, която поддържа статуса ти на влизане.\n\nЛицето, което те свързва към интернет (твоят интернет доставчик), може да види цялата ти мрежова активност. Често това е твоят мобилен оператор. Ако връзката ти е през Wi-Fi мрежа, тогава е собственикът на тази мрежа, а ако използваш VPN – лицето, което управлява тази VPN. Твоят интернет доставчик може да вижда кои сайтове посещаваш, докато ги посещаваш. Ако тези сайтове използват HTTPS, интернет доставчикът може само да предполага с известна обосновка какво правиш на тези сайтове. Но ако даден сайт използва само HTTP, тогава твоят интернет доставчик може да види всичко: термините, които търсиш, кои страници четеш и кои линкове следваш.\n\nАко устройството ти се управлява от работодател, той също може да следи какво правиш с него. Използването на поверителни раздели вероятно няма да му попречи да разбере кои сайтове посещаваш. Ако някой друг, който има достъп до устройството ти, е инсталирал софтуер за следене на дейността ти, то поверителните раздели няма да те предпазят и от това.";
 
 /* Private tab information link */
 "PrivateTabLink" = "Научи повече за поверителните раздели.";
@@ -1970,10 +1970,10 @@
 "ReportBrokenPlaceholder" = "Избери една опция";
 
 /* First part of the report a broken site copy. After the colon is a new line and then a website address */
-"ReportBrokenSiteBody1" = "Кажи на разработчиците на Brave, че този сайт не работи както би трябвало:";
+"ReportBrokenSiteBody1" = "Кажи на разработчиците на Browther, че този сайт не работи както би трябвало:";
 
 /* This is the info text that is presented when a user is submitting a web-compatibility report. */
-"ReportBrokenSiteBody2" = "Забележка: докладът, изпратен до сървърите на Brave, ще включва адреса на сайта, номера на версията на Brave, настройките на защитите, състоянието на VPN и настройките за език.";
+"ReportBrokenSiteBody2" = "Забележка: докладът, изпратен до сървърите на Browther, ще включва адреса на сайта, номера на версията на Browther, настройките на защитите, състоянието на VPN и настройките за език.";
 
 /* No comment provided by engineer. */
 "ReportBrokenSubmitButtonTitle" = "Изпращане";
@@ -2006,49 +2006,49 @@
 "RestoreTabNegativeButtonTitle" = "Не";
 
 /* Restore Tabs Prompt Description */
-"RestoreTabOnCrashAlertMessage" = "За съжаление Brave се срина или не се затвори правилно.\nВъзстановяване на разделите?";
+"RestoreTabOnCrashAlertMessage" = "За съжаление Browther се срина или не се затвори правилно.\nВъзстановяване на разделите?";
 
 /* Restore Tabs Prompt Title */
-"RestoreTabOnCrashAlertTitle" = "Brave се затвори неочаквано.";
+"RestoreTabOnCrashAlertTitle" = "Browther се затвори неочаквано.";
 
 /* Body for Brave Talk rewards opt-in screen */
-"rewards.braveTalkRewardsOptInBody" = "С Brave Награди можеш да гледаш реклами от мрежата Brave Реклами, които запазват поверителността. Без тракери. Без забавяне. А данните ти остават в пълна безопасност.";
+"rewards.braveTalkRewardsOptInBody" = "С Browther Награди можеш да гледаш реклами от мрежата Browther Реклами, които запазват поверителността. Без тракери. Без забавяне. А данните ти остават в пълна безопасност.";
 
 /* Title for Brave Talk rewards opt-in screen button */
 "rewards.braveTalkRewardsOptInButtonTitle" = "Включване на Награди";
 
 /* Body for successful Brave Talk rewards opt-in */
-"rewards.braveTalkRewardsOptInSuccessBody" = "Кликни някъде върху екрана, за да продължиш към Brave Разговор.";
+"rewards.braveTalkRewardsOptInSuccessBody" = "Кликни някъде върху екрана, за да продължиш към Browther Разговор.";
 
 /* Title for successful Brave Talk rewards opt-in */
 "rewards.braveTalkRewardsOptInSuccessTitle" = "Сега можеш да започнеш безплатен разговор";
 
 /* Title for Brave Talk rewards opt-in screen */
-"rewards.braveTalkRewardsOptInTitle" = "За да започнеш безплатен разговор, включи Brave Награди";
+"rewards.braveTalkRewardsOptInTitle" = "За да започнеш безплатен разговор, включи Browther Награди";
 
 /* Displayed when Brave Rewards is disabled */
-"rewards.disabledBody" = "Включи, за да подпомогнеш Brave и общността на BAT.";
+"rewards.disabledBody" = "Включи, за да подпомогнеш Browther и общността на BAT.";
 
 /* Displayed in the status container when rewards is disabled */
-"rewards.disabledStatusBody" = "Използването на Brave Награди подпомага Brave и общността на BAT.";
+"rewards.disabledStatusBody" = "Използването на Browther Награди подпомага Browther и общността на BAT.";
 
 /* Displayed when Brave Rewards is enabled */
-"rewards.enabledBody" = "Вие подкрепяте Brave и общността на BAT.";
+"rewards.enabledBody" = "Вие подкрепяте Browther и общността на BAT.";
 
 /* Displayed in the status container when rewards is enabled but you're not currently supporting any publishers (0 AC count) */
-"rewards.enabledStatusBody" = "Благодарим ти, че подкрепяш Brave и общността на BAT!";
+"rewards.enabledStatusBody" = "Благодарим ти, че подкрепяш Browther и общността на BAT!";
 
 /* The placeholders say 'Terms of Service' and 'Privacy Policy'. So full sentence goes like: 'By clicking, you agree to the Terms of Service and Privacy Policy...' */
 "rewards.optInDisclaimer" = "Като кликнеш, ти се съгласяваш с %1$@ и %2$@. Деактивирай по всяко време от „Настройки“.";
 
 /* No comment provided by engineer. */
-"rewards.settingsToggleMessage" = "Помогни за подкрепата на Brave и общността на BAT, като активираш Brave Награди и виждаш Brave Реклами.";
+"rewards.settingsToggleMessage" = "Помогни за подкрепата на Browther и общността на BAT, като активираш Browther Награди и виждаш Browther Реклами.";
 
 /* No comment provided by engineer. */
-"rewards.settingsToggleTitle" = "Активиране на Brave награди";
+"rewards.settingsToggleTitle" = "Активиране на Browther награди";
 
 /* Displayed under verified publishers */
-"rewards.supportingPublisher" = "Този създател на съдържание е проверен в Brave Създатели на съдържание";
+"rewards.supportingPublisher" = "Този създател на съдържание е проверен в Browther Създатели на съдържание";
 
 /* Displayed next to a number representing the total number of publishers supported */
 "rewards.totalSupportedCount" = "Брой създатели на съдържание, които подпомагаш този месец.";
@@ -2075,7 +2075,7 @@
 "RewardsInternalsContributionAmount" = "Размер на приноса";
 
 /* No comment provided by engineer. */
-"RewardsInternalsContributionProcessorBraveTokens" = "Brave токени";
+"RewardsInternalsContributionProcessorBraveTokens" = "Browther токени";
 
 /* No comment provided by engineer. */
 "RewardsInternalsContributionProcessorNone" = "Няма";
@@ -2340,22 +2340,22 @@ Settings item for clearing site-specific settings and shields settings. */
 "searchSuggestionsSubtitle" = "Искаш ли да активираш „Предложение за търсене“?";
 
 /* Title of an action that allows user to perform a one-click web search for selected text */
-"SearchWithBrave" = "Търсене с Brave";
+"SearchWithBrave" = "Търсене с Browther";
 
 /* No comment provided by engineer. */
 "sendButtonTitle" = "Изпращане";
 
 /* Message displayed in the crash dialog above the buttons used to select when sending reports */
-"SendCrashReportAlertMessage" = "Изпращане на доклад за срива, за да може Brave да отстрани проблема?";
+"SendCrashReportAlertMessage" = "Изпращане на доклад за срива, за да може Browther да отстрани проблема?";
 
 /* Title for prompt displayed to user after the app crashes */
-"SendCrashReportAlertTitle" = "Ами сега! Brave се срина";
+"SendCrashReportAlertTitle" = "Ами сега! Browther се срина";
 
 /* Used as a button label for crash dialog prompt */
 "SendReportButtonTitle" = "Изпращане на доклад";
 
 /* No comment provided by engineer. */
-"setDefaultBrowserCalloutTitle" = "Brave вече може да бъде зададен като браузър по подразбиране в iOS. Докосни тук, за да отвориш настройките.";
+"setDefaultBrowserCalloutTitle" = "Browther вече може да бъде зададен като браузър по подразбиране в iOS. Докосни тук, за да отвориш настройките.";
 
 /* Settings item to set the Brave as a default browser on the iOS device. */
 "setDefaultBrowserSettingsCell" = "Задаване като браузър по подразбиране";
@@ -2379,7 +2379,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "settings.autocloseTabsSetting" = "Затваряне на разделите";
 
 /* Description of autoclose tabs feature. */
-"settings.autocloseTabsSettingFooter" = "Позволява на Brave автоматично да затваря раздели, които наскоро не са били преглеждани.";
+"settings.autocloseTabsSettingFooter" = "Позволява на Browther автоматично да затваря раздели, които наскоро не са били преглеждани.";
 
 /* Description beside the toggle for blocking YouTube distracting elements */
 "settings.blockYouTubeDistractingElementsDesc" = "Блокиране на разсейващите елементи в YouTube";
@@ -2412,7 +2412,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "settings.media.rootSetting" = "Медия";
 
 /* A toggle label which lets the user always open YouTube urls in Brave */
-"settings.openYouTubeInBrave" = "Отваряне на връзки към YouTube в Brave";
+"settings.openYouTubeInBrave" = "Отваряне на връзки към YouTube в Browther";
 
 /* No comment provided by engineer. */
 "settings.privacy.screenTimeSetting" = "Активиране на екранно време";
@@ -2424,16 +2424,16 @@ Settings item for clearing site-specific settings and shields settings. */
 "settings.qualitySettings" = "Настройки за качество";
 
 /* Description to explain the daily usage ping toggle */
-"settings.sendUsagePingDescription" = "Това поверително известие позволява на Brave да прогнозира активните потребители.";
+"settings.sendUsagePingDescription" = "Това поверително известие позволява на Browther да прогнозира активните потребители.";
 
 /* Title to explain the daily usage ping toggle */
-"settings.sendUsagePingTitle" = "Автоматично изпращане на ping за ежедневното използване до Brave";
+"settings.sendUsagePingTitle" = "Автоматично изпращане на ping за ежедневното използване до Browther";
 
 /* Description to explain the survey panelist toggle */
-"settings.surveyPanelistDescription" = "Позволява на Brave да показва връзки към поверителни анкети в страницата на нов раздел. Тези анкети ни помагат да създаваме по-добри функции и да измерваме ефективността на рекламните кампании в браузъра. [Научи повече](%@)";
+"settings.surveyPanelistDescription" = "Позволява на Browther да показва връзки към поверителни анкети в страницата на нов раздел. Тези анкети ни помагат да създаваме по-добри функции и да измерваме ефективността на рекламните кампании в браузъра. [Научи повече](%@)";
 
 /* Title to explain the survey panelist toggle */
-"settings.surveyPanelistTitle" = "Разрешаване на анкети в Brave";
+"settings.surveyPanelistTitle" = "Разрешаване на анкети в Browther";
 
 /* Header for the YouTube settings section */
 "settings.youtube" = "YouTube";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Сподели новината";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave Защити току-що защити поверителността ти онлайн.";
+"shieldEducation.trackerAdWarningSubTitle" = "Защити току-що защити поверителността ти онлайн.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Честито. Ти си много специален човек.";
@@ -2508,13 +2508,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Рекламите са блокирани, докато гледаш видеоклипове в този уебсайт.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Глобални настройки по подразбиране на Brave Защити";
+"ShieldsDefaults" = "Глобални настройки по подразбиране на Защити";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Това са настройките по подразбиране за щитовете за нови сайтове. Промяната им няма да повлияе на съществуващите настройки за всеки сайт.";
 
 /* No comment provided by engineer. */
-"ShieldsDownDisclaimer" = "Вие разглеждате този сайт без защитата на поверителността на Brave. Не работи ли правилно с включени щитове?";
+"ShieldsDownDisclaimer" = "Вие разглеждате този сайт без защитата на поверителността на Browther. Не работи ли правилно с включени щитове?";
 
 /* shields overview message */
 "ShieldsOverview" = "Защитите за сайтове ти позволяват да контролираш кога рекламите и тракерите да бъдат блокирани за всеки сайт, който посещаваш. Ако предпочиташ да виждаш реклами в определен сайт, можеш да ги активираш тук.";
@@ -2532,7 +2532,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "ShortcutItemTitleQRCode" = "Сканиране на QR код";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeBraveNewsDescription" = "Отваряне на Brave Новини и преглед на топ историите от деня";
+"shortcuts.activityTypeBraveNewsDescription" = "Отваряне на Browther Новини и преглед на топ историите от деня";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeClearHistoryDescription" = "Отваряне на браузъра в нов раздел и изтриване на всички данни от историята на поверителния браузър";
@@ -2541,7 +2541,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeClearHistorySuggestedPhrase" = "Изчистване на историята на браузъра";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeClearHistoryTitle" = "Изчистване на историята на сърфирането в Brave";
+"shortcuts.activityTypeClearHistoryTitle" = "Изчистване на историята на сърфирането в Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeEnableVPNDescription" = "Отваряне на браузъра в нов раздел и активиране на VPN";
@@ -2550,7 +2550,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeEnableVPNSuggestedPhrase" = "Активиране на VPN";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeEnableVPNTitle" = "Отваряне на браузъра Brave и активиране на VPN";
+"shortcuts.activityTypeEnableVPNTitle" = "Отваряне на браузъра Browther и активиране на VPN";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeNewPrivateTabSuggestedPhrase" = "Отваряне на нов поверителен раздел";
@@ -2571,13 +2571,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenBookmarksSuggestedPhrase" = "Отваряне на отметките";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBookmarksTitle" = "Отваряне на отметките в браузъра Brave";
+"shortcuts.activityTypeOpenBookmarksTitle" = "Отваряне на отметките в браузъра Browther";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBraveNewsTitle" = "Отваряне на Brave Новини";
+"shortcuts.activityTypeOpenBraveNewsTitle" = "Отваряне на Browther Новини";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBraveTodaySuggestedPhrase" = "Отваряне на Brave Новини";
+"shortcuts.activityTypeOpenBraveTodaySuggestedPhrase" = "Отваряне на Browther Новини";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenHistoryListDescription" = "Отваряне на екрана за историята в браузъра";
@@ -2586,7 +2586,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenHistoryListSuggestedPhrase" = "Отваряне на историята в браузъра";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenHistoryListTitle" = "Отваряне на историята в браузъра Brave";
+"shortcuts.activityTypeOpenHistoryListTitle" = "Отваряне на историята в браузъра Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenPlaylistDescription" = "Пускане на видеоклиповете в Плейлистата";
@@ -2598,7 +2598,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenPlaylistTitle" = "Отваряне на плейлиста";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenSyncedTabsDescription" = "Отваряне на раздели на Brave, отворени на други устройства";
+"shortcuts.activityTypeOpenSyncedTabsDescription" = "Отваряне на раздели на Browther, отворени на други устройства";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenSyncedTabsSuggestedPhrase" = "Отваряне на раздели от други устройства";
@@ -2607,7 +2607,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenSyncedTabsTitle" = "Отваряне на раздели от други устройства";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeTabDescription" = "Започни да търсиш защитено в мрежата с Brave";
+"shortcuts.activityTypeTabDescription" = "Започни да търсиш защитено в мрежата с Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.customIntentOpenBookmarkSuggestedPhrase" = "Отваряне на сайта с отметките";
@@ -2619,7 +2619,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.customIntentOpenWebsiteSuggestedPhrase" = "Отваряне на уебсайта";
 
 /* Description for opening Brave Settings for altering Siri shortcut. */
-"shortcuts.shortcutOpenApplicationSettingsDescription" = "Тази опция ще отвори настройките на Brave. За да промениш различни опции на Siri, избери елемента от менюто „Siri и търсене“ и персонализирай избора си.";
+"shortcuts.shortcutOpenApplicationSettingsDescription" = "Тази опция ще отвори настройките на Browther. За да промениш различни опции на Siri, избери елемента от менюто „Siri и търсене“ и персонализирай избора си.";
 
 /* Button title that open application settings */
 "shortcuts.shortcutOpenApplicationSettingsTitle" = "Към настройките";
@@ -2631,7 +2631,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.shortcutSettingsClearBrowserHistoryTitle" = "Изчистване на историята на браузъра";
 
 /* No comment provided by engineer. */
-"shortcuts.shortcutSettingsEnableVPNDescription" = "Използвай „Преки пътища“, за да активираш Brave VPN чрез Siri – Voice Assistant";
+"shortcuts.shortcutSettingsEnableVPNDescription" = "Използвай „Преки пътища“, за да активираш Browther VPN чрез Siri – Voice Assistant";
 
 /* No comment provided by engineer. */
 "shortcuts.shortcutSettingsEnableVPNTitle" = "Активиране на VPN";
@@ -2643,10 +2643,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.shortcutSettingsOpenBookmarksTitle" = "Отваряне на отметките";
 
 /* Description of Open Brave News Siri Shortcut in Settings Screen */
-"shortcuts.shortcutSettingsOpenBraveNewsDescription" = "Използвай „Преки пътища“, за да отвориш нов раздел и да покажеш лентата на Brave Новини чрез Siri – Voice Assistant";
+"shortcuts.shortcutSettingsOpenBraveNewsDescription" = "Използвай „Преки пътища“, за да отвориш нов раздел и да покажеш лентата на Browther Новини чрез Siri – Voice Assistant";
 
 /* No comment provided by engineer. */
-"shortcuts.shortcutSettingsOpenBraveNewsTitle" = "Отваряне на Brave Новини";
+"shortcuts.shortcutSettingsOpenBraveNewsTitle" = "Отваряне на Browther Новини";
 
 /* No comment provided by engineer. */
 "shortcuts.shortcutSettingsOpenHistoryListDescription" = "Използвай „Преки пътища“, за да отвориш екрана с историята в браузъра чрез Siri – Voice Assistant";
@@ -2706,7 +2706,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "ShowTabsBar" = "Лента с раздели";
 
 /* No comment provided by engineer. */
-"SiteReportedBody" = "Благодарим ви, че уведомихте разработчиците на Brave, че в този сайт има нещо нередно. Ще направим всичко възможно да го поправим!";
+"SiteReportedBody" = "Благодарим ви, че уведомихте разработчиците на Browther, че в този сайт има нещо нередно. Ще направим всичко възможно да го поправим!";
 
 /* No comment provided by engineer. */
 "SiteReportedTitle" = "Благодарим ти";
@@ -2715,10 +2715,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "SiteShieldSettings" = "Щитове";
 
 /* Title used when in warning pop-over when domain specific data save appears */
-"socialSharing.domainSpecificDataSavedTitle" = "Всеки ден спестявам данни, като сърфирам в мрежата с Brave.";
+"socialSharing.domainSpecificDataSavedTitle" = "Всеки ден спестявам данни, като сърфирам в мрежата с Browther.";
 
 /* Text used for social sharing together with Brave Shield values */
-"socialSharing.shareDescriptionTitle" = "Всеки ден спестявам данни, като сърфирам в мрежата с Brave.";
+"socialSharing.shareDescriptionTitle" = "Всеки ден спестявам данни, като сърфирам в мрежата с Browther.";
 
 /* Open search section of settings */
 "StandardTabSearch" = "Стандартен раздел";
@@ -2835,7 +2835,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.deleteAccount" = "Изтриване на акаунт за синхронизация";
 
 /* Part 1 Description for Alert used action Delete Sync Account. */
-"sync.deleteAccountAlertDescriptionPart1" = "Изтриването на вашия акаунт ще премахне вашите криптирани данни от сървърите на Brave и ще деактивира Синхронизирането на всичките ви свързани устройства.";
+"sync.deleteAccountAlertDescriptionPart1" = "Изтриването на вашия акаунт ще премахне вашите криптирани данни от сървърите на Browther и ще деактивира Синхронизирането на всичките ви свързани устройства.";
 
 /* Part 2 Description for Alert used action Delete Sync Account. */
 "sync.deleteAccountAlertDescriptionPart2" = "Това обаче няма да изтрие данните, които се съхраняват локално на тези устройства.";
@@ -2844,13 +2844,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.deleteAccountAlertTitle" = "Изтриване на акаунт за синхронизация";
 
 /* Sync Error Description */
-"sync.deprecatedVersionError" = "Изглежда, че този код е създаден на устройство с по-стара версия на Brave. Моля, актуализирай Brave до най-новата версия на другото устройство и създай нов код за синхронизация.";
+"sync.deprecatedVersionError" = "Изглежда, че този код е създаден на устройство с по-стара версия на Browther. Моля, актуализирай Browther до най-новата версия на другото устройство и създай нов код за синхронизация.";
 
 /* The message displayed in alert when a there is a problem with fetching devices */
 "sync.deviceFetchErrorAlertDescription" = "Нещо се обърка при извличането на устройствата във веригата за синхронизация.";
 
 /* Message for alert when the user has restored their device from a backup */
-"sync.deviceRestoreDetectedMessage" = "Изглежда, че устройството ти е било възстановено от резервно копие, а това може да повлияе на синхронизирането на Brave. За да продължиш да използваш синхронизирането, трябва да нулираш и пак да се включиш във веригата за синхронизация.";
+"sync.deviceRestoreDetectedMessage" = "Изглежда, че устройството ти е било възстановено от резервно копие, а това може да повлияе на синхронизирането на Browther. За да продължиш да използваш синхронизирането, трябва да нулираш и пак да се включиш във веригата за синхронизация.";
 
 /* Title for alert when the user has restored their device from a backup */
 "sync.deviceRestoreDetectedTitle" = "Открито е възстановяване";
@@ -2940,7 +2940,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.removeDeviceDefaultName" = "Устройство";
 
 /* Message for removing last device from Sync */
-"sync.removeLastDeviceMessage" = "Данните, които са синхронизирани в момента, ще се запазят, но всички данни в кеша на Brave за синхронизация ще се изтрият. Ще трябва да стартираш нова верига, за да синхронизираш данните на устройството отново.";
+"sync.removeLastDeviceMessage" = "Данните, които са синхронизирани в момента, ще се запазят, но всички данни в кеша на Browther за синхронизация ще се изтрият. Ще трябва да стартираш нова верига, за да синхронизираш данните на устройството отново.";
 
 /* Button name for removing last device from Sync */
 "sync.removeLastDeviceRemoveButtonName" = "Изтриване на веригата за синхронизация";
@@ -3009,7 +3009,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.toDevice" = "Синхронизиране с устройство";
 
 /* Sync to existing device description */
-"sync.toDeviceDescription" = "Като използваш съществуващо синхронизирано устройство, отвори настройките на Brave и влез в „Настройки“ -> „Синхронизация“. Избери „Добавяне на ново устройство“ и сканирай кода, показан на екрана.";
+"sync.toDeviceDescription" = "Като използваш съществуващо синхронизирано устройство, отвори настройките на Browther и влез в „Настройки“ -> „Синхронизация“. Избери „Добавяне на ново устройство“ и сканирай кода, показан на екрана.";
 
 /* Description on popup when setting up a sync group fails */
 "sync.unableCreateGroup" = "Това устройство не може да се синхронизира";
@@ -3024,7 +3024,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.validForTooLongError" = "Този код е невалиден. Проверете дали времето и часовата зона са зададени правилно на вашето устройство.";
 
 /* Sync settings welcome */
-"sync.welcome" = "За да започнете, трябва да имате инсталиран Brave на всички устройства, които искате да синхронизирате. За да ги свържете, стартирайте верига на синхронизиране, която ще използвате за надеждно свързване на всички ваши устройства.";
+"sync.welcome" = "За да започнете, трябва да имате инсталиран Browther на всички устройства, които искате да синхронизирате. За да ги свържете, стартирайте верига на синхронизиране, която ще използвате за надеждно свързване на всички ваши устройства.";
 
 /* Word count title */
 "sync.wordCount" = "Брой думи: %i";
@@ -3057,10 +3057,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "tabGrid.privateBrowsingInfoBulletOneTitle" = "Не оставяйте следи на устройството си";
 
 /* A bullet point explaining the benefits of Brave VPN */
-"tabGrid.privateBrowsingInfoBulletThreeBody" = "Brave VPN криптира и защитава всичко, което правите онлайн, дори извън браузъра Brave.";
+"tabGrid.privateBrowsingInfoBulletThreeBody" = "Browther VPN криптира и защитава всичко, което правите онлайн, дори извън браузъра Browther.";
 
 /* A bullet point explaining the benefits of Brave VPN */
-"tabGrid.privateBrowsingInfoBulletThreeTitle" = "Brave VPN";
+"tabGrid.privateBrowsingInfoBulletThreeTitle" = "Browther VPN";
 
 /* A bullet point explaining that your browsing data is still visible to the users ISP, network observers, or your employer */
 "tabGrid.privateBrowsingInfoBulletTwoBody" = "Имайте предвид, че дори в частни прозорци активността ви при сърфиране може да е видима за доставчика на интернет услуги, мрежовите наблюдатели или работодателя ви (ако използвате служебна машина/мрежа).";
@@ -3240,7 +3240,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "themeQRCodeShareButton" = "Споделяне...";
 
 /* Title for QR popup encouraging users to share the code with their friends. */
-"themeQRCodeShareTitle" = "Споделете Brave с приятелите си!";
+"themeQRCodeShareTitle" = "Споделете Browther с приятелите си!";
 
 /* Selection to automatically color/style the user interface. */
 "ThemesAutomaticOption" = "Автоматично";
@@ -3282,13 +3282,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.addSourceNoFeedsFoundMessage" = "Съжаляваме, но този адрес на емисия няма никакво съдържание.";
 
 /* The action title displayed in the iOS share menu */
-"today.addSourceShareTitle" = "Добавяне на източник в Brave Новини";
+"today.addSourceShareTitle" = "Добавяне на източник в Browther Новини";
 
 /* A header title shown above a button that will allow the user to fetch RSS feeds for a website they have typed in */
 "today.availableRSSFeedsHeaderTitle" = "Налични RSS емисии";
 
 /* The name of the feature */
-"today.braveToday" = "Brave новини";
+"today.braveToday" = "Browther новини";
 
 /* The name of the feature in settings */
 "today.braveToday.title" = "Новини";
@@ -3312,7 +3312,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.deals" = "Оферти";
 
 /* '%@' will turn into the name of a publisher (verbatim), for example: Brave Blog */
-"today.disabledAlertBody" = "Brave Новини ще спре да показва съдържание от %@";
+"today.disabledAlertBody" = "Browther Новини ще спре да показва съдържание от %@";
 
 /* No comment provided by engineer. */
 "today.disabledAlertTitle" = "Деактивирано";
@@ -3330,7 +3330,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.enablePublisherContent" = "Разрешаване на съдържанието от %@";
 
 /* No comment provided by engineer. */
-"today.errorGeneralBody" = "Brave Новини изпитва известни проблеми. Опитай отново.";
+"today.errorGeneralBody" = "Browther Новини изпитва известни проблеми. Опитай отново.";
 
 /* No comment provided by engineer. */
 "today.errorGeneralTitle" = "Опа...";
@@ -3357,19 +3357,19 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.insecureSourcesHeader" = "Незащитени източници – добавяй на свой риск";
 
 /* Shown above a button that turns on the "Brave News" product in the app. by sources & feeds they mean websites & blogs. */
-"today.introCardBody" = "Следвай любимите си източници в една емисия. Просто отвори раздел в Brave, превърти надолу и… воала! \nBrave Новини се поддържа от поверителни и анонимизирани реклами.";
+"today.introCardBody" = "Следвай любимите си източници в една емисия. Просто отвори раздел в Browther, превърти надолу и… воала! \nBrave Новини се поддържа от поверителни и анонимизирани реклами.";
 
 /* Shown above a button that turns on the "Brave News" product in the app. */
-"today.introCardTitle" = "Включете Brave News и никога не пропускайте история";
+"today.introCardTitle" = "Включете Browther News и никога не пропускайте история";
 
 /* No comment provided by engineer. */
-"today.isEnabledToggleLabel" = "Показване на Brave Новини";
+"today.isEnabledToggleLabel" = "Показване на Browther Новини";
 
 /* No comment provided by engineer. */
 "today.learnMoreTitle" = "Научете повече за своите данни";
 
 /* 'Brave Offers' is a product name */
-"today.moreBraveOffers" = "Още оферти на Brave";
+"today.moreBraveOffers" = "Още оферти на Browther";
 
 /* No comment provided by engineer. */
 "today.noInternet" = "Няма интернет";
@@ -3393,19 +3393,19 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.promoted" = "Повишен";
 
 /* Title for long press action sheet list which has item for rate / hide */
-"today.rateBraveCardActionSheetTitle" = "Оцени Brave в App Store";
+"today.rateBraveCardActionSheetTitle" = "Оцени Browther в App Store";
 
 /* Title for long press action that will hide Brave Rate Card */
 "today.rateBraveCardHideActionTitle" = "Скриване";
 
 /* Button title / Title for long press action that will perform an action which open AppStore Rate screen */
-"today.rateBraveCardRateActionTitle" = "Оценете Brave";
+"today.rateBraveCardRateActionTitle" = "Оценете Browther";
 
 /* Subtitle shown on the Rate Brave Card */
 "today.rateBraveCardSubtitle" = "Споделете вашето мнение!";
 
 /* Title shown on the Rate Brave Card */
-"today.rateBraveCardTitle" = "Допада ви Brave?";
+"today.rateBraveCardTitle" = "Допада ви Browther?";
 
 /* No comment provided by engineer. */
 "today.refresh" = "Опресняване";
@@ -3432,7 +3432,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.suggestedTitle" = "Предложено";
 
 /* No comment provided by engineer. */
-"today.turnOnBraveToday" = "Включете Brave News";
+"today.turnOnBraveToday" = "Включете Browther News";
 
 /* A toggle title shown next to a source or channel that the user can unfollow. When tapped switches to 'Follow' */
 "today.unfollowToggleTitle" = "Прекратяване на следенето";
@@ -3492,13 +3492,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "ViewOn" = "Виж в %@";
 
 /* Explanation for warning alert why the microphone access required. */
-"voice.search.microphone.description.required" = "Моля, разреши достъпа до микрофона в системните настройки на iOS, за да може Brave да използва анонимно гласово търсене.";
+"voice.search.microphone.description.required" = "Моля, разреши достъпа до микрофона в системните настройки на iOS, за да може Browther да използва анонимно гласово търсене.";
 
 /* Title for warning alert microphone access is required. */
 "voice.search.microphone.title.required" = "Необходим е достъп до микрофона";
 
 /* Disclaimer for screen to search using voice. */
-"voice.search.screen.disclaimer" = "Brave не съхранява и не споделя твоите гласови търсения.";
+"voice.search.screen.disclaimer" = "Browther не съхранява и не споделя твоите гласови търсения.";
 
 /* The date your wallet was created */
 "WalletCreationDate" = "Дата на създаване на портфейла";

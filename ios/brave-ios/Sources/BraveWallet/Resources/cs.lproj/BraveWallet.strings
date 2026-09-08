@@ -86,7 +86,7 @@
 "wallet.addCustomTokenTitle" = "Token";
 
 /* The description of the view shown over a dapps website that describes what adding a new network will do. */
-"wallet.addNetworkDescription" = "Díky tomu budete moci tuto síť používat v rámci peněženky Brave Wallet.";
+"wallet.addNetworkDescription" = "Díky tomu budete moci tuto síť používat v rámci peněženky Browther Wallet.";
 
 /* The subtitle of the view shown over a dapps website that requests permission from the user to add a new network. */
 "wallet.addNetworkSubtitle" = "Chcete tomuto webu povolit přidání sítě?";
@@ -161,7 +161,7 @@
 "wallet.auroraPopupDontShowAgain" = "Znovu neukazovat";
 
 /* The footer beneath the auto-lock title and interval duration */
-"wallet.autoLockFooter" = "Počet minut, po kterých se peněženka Brave automaticky uzamkne.";
+"wallet.autoLockFooter" = "Počet minut, po kterých se peněženka Browther automaticky uzamkne.";
 
 /* The title that appears before an auto-lock interval. Example: Automatically lock after 5 minutes */
 "wallet.autoLockTitle" = "Automaticky zamknout po";
@@ -221,10 +221,10 @@
 "wallet.biometricsSetupFaceId" = "Face ID";
 
 /* The sub-title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device. */
-"wallet.biometricsSetupSubTitle" = "Chcete k odemknutí peněženky Brave použít %@ ?";
+"wallet.biometricsSetupSubTitle" = "Chcete k odemknutí peněženky Browther použít %@ ?";
 
 /* The title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device. */
-"wallet.biometricsSetupTitle" = "Odemkněte peněženku Brave pomocí %@";
+"wallet.biometricsSetupTitle" = "Odemkněte peněženku Browther pomocí %@";
 
 /* Type of biometrics. This will be used in Biometric setup screen. */
 "wallet.biometricsSetupTouchId" = "Touch ID";
@@ -233,10 +233,10 @@
 "wallet.bitcoinImportExtendedKeyWarning" = "Podporovány jsou pouze rozšířené klíče %@.";
 
 /* The title for Brave Fee label in Swap. The fee percentage is displayed beside the label. */
-"wallet.braveFeeLabel" = "Poplatek Brave: %@";
+"wallet.braveFeeLabel" = "Poplatek Browther: %@";
 
 /* A disclaimer that appears at the bottom of an swap screen which discloses the fixed Brave fee included in the swap quotes. '%@' will be replaced by a percentage. For example: 'Quote includes a 0.875% Brave fee' */
-"wallet.braveSwapFeeDisclaimer" = "Nabídka zahrnuje poplatek Brave ve výši %@.";
+"wallet.braveSwapFeeDisclaimer" = "Nabídka zahrnuje poplatek Browther ve výši %@.";
 
 /* The text beside the striked-through percentage Brave would normally charge for a swap. */
 "wallet.braveSwapFree" = "Zdarma";
@@ -251,7 +251,7 @@
 "wallet.btcAvailableBalanceTitle" = "Available";
 
 /* A warning displayed in row before the Send button in Send Crypto view when a Bitcoin asset is selected. */
-"wallet.btcOrdinalsUnsupportedWarning" = "Peněženka Brave v současné době nepodporuje bitcoinové NFT (ordinals - ordinály). Odesílání BTC z adresy, která má ordinály, může vést k jejich neúmyslnému převodu.";
+"wallet.btcOrdinalsUnsupportedWarning" = "Peněženka Browther v současné době nepodporuje bitcoinové NFT (ordinals - ordinály). Odesílání BTC z adresy, která má ordinály, může vést k jejich neúmyslnému převodu.";
 
 /* Description displayed in row beside users pending balance. */
 "wallet.btcPendingBalanceDesc" = "Čekající změna zůstatku v peněžence.";
@@ -452,7 +452,7 @@
 "wallet.creatingWallet" = "Probíhá vytváření peněženky…";
 
 /* The title of the crypto tab */
-"wallet.cryptoTitle" = "Peněženka Brave";
+"wallet.cryptoTitle" = "Peněženka Browther";
 
 /* The title above the input fields for users to input network block explorer urls in Custom Network Details Screen. */
 "wallet.customNetworkBlockExplorerUrlsTitle" = "Blokování URL adres průzkumníka";
@@ -524,13 +524,13 @@
 "wallet.customTokenTitle" = "Přidat vlastní aktivum";
 
 /* The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. The '%@' will be the site attempting to connect. For example: "app.uniswap.org wants to interact with Brave Wallet" */
-"wallet.dappsConnectionNotificationOriginTitle" = "%@ chce komunikovat s peněženkou Brave";
+"wallet.dappsConnectionNotificationOriginTitle" = "%@ chce komunikovat s peněženkou Browther";
 
 /* The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. */
-"wallet.dappsConnectionNotificationTitle" = "Tato stránka chce interagovat s peněženkou Brave";
+"wallet.dappsConnectionNotificationTitle" = "Tato stránka chce interagovat s peněženkou Browther";
 
 /* A message that will be displayed under the section header when there is no dapps have been granted wallet connection. */
-"wallet.dappsSettingsConnectedSitesSectionEmpty" = "Zobrazí se zde DApps, které připojujete k peněžence Brave";
+"wallet.dappsSettingsConnectedSitesSectionEmpty" = "Zobrazí se zde DApps, které připojujete k peněžence Browther";
 
 /* The title of the section that will list all the permitted dapp connections */
 "wallet.dappsSettingsConnectedSitesSectionTitle" = "Připojené DApps";
@@ -719,7 +719,7 @@
 "wallet.ensDomainInterstitialPageDescription" = "Brave bude používat Infura k vyřešení názvů domén .eth, které jsou ve službě Ethereum Name Service (ENS). Brave skryje vaši IP adresu. Pokud to povolíte, Infura uvidí, že se někdo pokouší navštívit tyto domény .eth, ale nic jiného. Viz <a href=%1$@>%2$@</a> a <a href=%3$@>%4$@</a> od Infura.";
 
 /* Title displayed when users chose Brave to ask them if they want the ENS domain to be resolved every time they enter one. */
-"wallet.ensDomainInterstitialPageTitle" = "Povolit podporu služby Ethereum Name Service (ENS) v Brave?";
+"wallet.ensDomainInterstitialPageTitle" = "Povolit podporu služby Ethereum Name Service (ENS) v Browther?";
 
 /* Title on the button that users can click to enable Brave to resolve the ENS offchain lookup for the domain they entered. */
 "wallet.ensOffchainDomainInterstitialPageButtonProceed" = "Pokračujte ve vyhledávání mimo řetězec";
@@ -728,7 +728,7 @@
 "wallet.ensOffchainDomainInterstitialPageDescription" = "Tento název domény .eth je uložen mimo řetězec a bude vyřešen bránou třetí strany. Pokud povolíte vyhledání mimo řetězec ENS, brána třetí strany uvidí, že se pokoušíte navštívit doménu .eth. <a href=%1$@>%2$@</a>.";
 
 /* Title displayed when users chose Brave to ask them if they want the ENS Offchain domain to be resolved every time they enter one. */
-"wallet.ensOffchainDomainInterstitialPageTitle" = "Povolit vyhledávání podpory služby Ethereum Name Service (ENS) mimo řetězec v Brave?";
+"wallet.ensOffchainDomainInterstitialPageTitle" = "Povolit vyhledávání podpory služby Ethereum Name Service (ENS) mimo řetězec v Browther?";
 
 /* Button title when requesting to do an ENS off chain lookup. */
 "wallet.ensOffchainGatewayButton" = "Použít doménu ENS";
@@ -737,7 +737,7 @@
 "wallet.ensOffchainGatewayDesc" = "Vypadá to, že jste zadali adresu ENS. K vyřešení tohoto požadavku budeme muset použít řešitele třetí strany. Toto pomáhá zajistit, aby ve vaší doméně .eth nedošlo k úniku a že vaše transakce je bezpečná.";
 
 /* Title shown send address / ENS domain when requesting to do an ENS off chain lookup. */
-"wallet.ensOffchainGatewayTitle" = "Brave podporuje použití bran mimo řetězec k vyřešení domén .eth.";
+"wallet.ensOffchainGatewayTitle" = "Browther podporuje použití bran mimo řetězec k vyřešení domén .eth.";
 
 /* The description for the options to allow Ethereum Name service domain names offchain. '%@' will be replaced with a url to explain more about ENS offchain lookup. */
 "wallet.ensOffchainResolveMethodDescription" = "[Zjistit více](%@) o aspektech ochrany soukromí při vyhledávání mimo řetězec ENS.";
@@ -1022,13 +1022,13 @@
 "wallet.meldTransactionPartner" = "Partner transakcí";
 
 /* The description of the pop up when user first time open buy screen in Brave Wallet. */
-"wallet.meldTransactionPartnerDescription" = "Brave Wallet používá k agregaci a zpřístupnění různých poskytovatelů kryptoměn ve vašem regionu službu Meld.io. Za účelem dokončení transakce sdílíme se službou Meld.io informace zahrnující adresu vaší peněženky a kód země. Další informace najdete v podmínkách použití služby Meld.";
+"wallet.meldTransactionPartnerDescription" = "Browther Wallet používá k agregaci a zpřístupnění různých poskytovatelů kryptoměn ve vašem regionu službu Meld.io. Za účelem dokončení transakce sdílíme se službou Meld.io informace zahrnující adresu vaší peněženky a kód země. Další informace najdete v podmínkách použití služby Meld.";
 
 /* The description of the checkbox for the pop up when user first time open buy screen in Brave Wallet. */
 "wallet.meldTransactionPartnerLegal" = "Četl/a jsem a souhlasím s [Podmínkami použití služby Meld](%@)";
 
 /* The title shown on the wallet settings page, and the value shown when selecting the default wallet as Brave Wallet in wallet settings. */
-"wallet.module" = "Peněženka Brave";
+"wallet.module" = "Peněženka Browther";
 
 /* A button title for user to open more option in asset details screen other than buy/send/swap. */
 "wallet.more" = "Více";
@@ -1076,7 +1076,7 @@
 "wallet.newSiteConnectFooter" = "Spojujte se pouze s weby, kterým důvěřujete.";
 
 /* The message displayed below the dapp's origin url in new site connection screen. */
-"wallet.newSiteConnectMessage" = "Připojit se k peněžence Brave";
+"wallet.newSiteConnectMessage" = "Připojit se k peněžence Browther";
 
 /* The transaction edit error alert button which will dismiss the alert. */
 "wallet.newSiteConnectScreenTitle" = "Propojit";
@@ -1163,7 +1163,7 @@
 "wallet.nftRemoveFromWalletAlertDescription" = "NFT bude odebrán z peněženky Brave, ale zůstane v blockchainu. Pokud ho odeberete a pak změníte názor, budete ho muset znovu ručně importovat.";
 
 /* The title of the alert when user attempts to remove an NFT from wallet. */
-"wallet.nftRemoveFromWalletAlertTitle" = "Odebrat z peněženky Brave?";
+"wallet.nftRemoveFromWalletAlertTitle" = "Odebrat z peněženky Browther?";
 
 /* The description of the NFTs row in Account Details when user has zero or multiple NFTs. */
 "wallet.nftsDescription" = "%d NFT";
@@ -1205,7 +1205,7 @@
 "wallet.onboardingCompletedButtonTitle" = "Přejít do mého portfolia";
 
 /* The subtitle of the last step of creating a new wallet. */
-"wallet.onbordingCompletedSubTitle" = "Vaše peněženka Brave je připravena k použití.";
+"wallet.onbordingCompletedSubTitle" = "Vaše peněženka Browther je připravena k použití.";
 
 /* The title of the last step of creating a new wallet. */
 "wallet.onbordingCompletedTitle" = "Vše je připraveno!";
@@ -1334,7 +1334,7 @@
 "wallet.repeatedPasswordPlaceholder" = "Zadejte heslo znovu";
 
 /* A label for toggle for user to use to indicate importing a legacy brave wallet or not */
-"wallet.restoreLegacyBraveWalletToggleTitle" = "Chcete provést import ze starších kryptopeněženek Brave?";
+"wallet.restoreLegacyBraveWalletToggleTitle" = "Chcete provést import ze starších kryptopeněženek Browther?";
 
 /* The title that will be displayed when long-pressing the back button in the navigation bar. As to gain access to your assets from a different device */
 "wallet.restoreWalletBackButtonTitle" = "Obnovit peněženku";
@@ -1544,7 +1544,7 @@
 "wallet.settingsResetWalletAlertMessage" = "Tuto akci nelze vrátit. Vaše fráze pro obnovení je jediný způsob, jak znovu získat přístup k účtu se svými kryptoaktivy.";
 
 /* The title the confirmation dialog when resetting the wallet. As in to erase the users wallet from the device */
-"wallet.settingsResetWalletAlertTitle" = "Opravdu chcete resetovat peněženku Brave?";
+"wallet.settingsResetWalletAlertTitle" = "Opravdu chcete resetovat peněženku Browther?";
 
 /* The title that will be displayed when long-pressing the back button in the navigation bar. As in the first step of an onboarding process is to welcome a user. */
 "wallet.setupCryptoButtonBackButtonTitle" = "Vítejte";
@@ -1553,7 +1553,7 @@
 "wallet.setupCryptoButtonTitle" = "Get Started";
 
 /* The subtitle displayed in the section for user that need to create a brand new wallet */
-"wallet.setupCryptoCreateNewSubTitle" = "Začněte s peněženkou Brave během několika minut.";
+"wallet.setupCryptoCreateNewSubTitle" = "Začněte s peněženkou Browther během několika minut.";
 
 /* The title displayed in the section for user that need to create a brand new wallet */
 "wallet.setupCryptoCreateNewTitle" = "Potřebujete novou peněženku?";
@@ -1610,10 +1610,10 @@
 "wallet.signedTransactionTitle" = "Transakce podepsána";
 
 /* The title of the view shown above a Sign In With Ethereum request. */
-"wallet.signInWithBraveWallet" = "Přihlásit se peněženkou Brave Wallet";
+"wallet.signInWithBraveWallet" = "Přihlásit se peněženkou Browther Wallet";
 
 /* The title of the view shown when a security issue is detected with a Sign In With Ethereum request. */
-"wallet.signInWithBraveWalletMessage" = "Přihlašujete se do %1$@. Peněženka Brave bude sdílet adresu vaší peněženky s %2$@.";
+"wallet.signInWithBraveWalletMessage" = "Přihlašujete se do %1$@. Peněženka Browther bude sdílet adresu vaší peněženky s %2$@.";
 
 /* A warning message to tell users that the sign request message contains consecutive new-line characters. */
 "wallet.signMessageConsecutiveNewlineWarning" = "Byly zjištěny po sobě jdoucí znaky nového řádku!";
@@ -1682,7 +1682,7 @@
 "wallet.snsDomainInterstitialPageDescription" = "Brave použije k vyřešení názvů domén .sol třetí strany. Brave skryje vaši IP adresu. Pokud to povolíte, třetí strana uvidí, že se někdo pokouší navštívit tyto domény .sol, ale nic jiného. Další informace o tom, které třetí strany používáme, a o jejich zásadách ochrany osobních údajů naleznete na naší <a href=%@>stránce nápovědy</a>.";
 
 /* Title displayed when users chose Brave to ask them if they want the SNS to be resolved every time they enter one. */
-"wallet.snsDomainInterstitialPageTitle" = "Povolit podporu služby Solana Name Service (SNS) v Brave?";
+"wallet.snsDomainInterstitialPageTitle" = "Povolit podporu služby Solana Name Service (SNS) v Browther?";
 
 /* A description of an Solana account, displayed in Accounts tab. */
 "wallet.solAccountDescription" = "Solana + řetězce SVM";
@@ -1886,7 +1886,7 @@
 "wallet.swapCryptoToTitle" = "To";
 
 /* The description of where user will see once a test network has been picked in swap screen. '%@' will be replaced with a network such as 'Rinkeby Test Network' or 'Ropsten Test Network' */
-"wallet.swapCryptoUnsupportNetworkBody" = "Brave momentálně nepodporuje výměnu na %@. Přepněte prosím na podporovaný řetězec.";
+"wallet.swapCryptoUnsupportNetworkBody" = "Browther momentálně nepodporuje výměnu na %@. Přepněte prosím na podporovaný řetězec.";
 
 /* The title below account picker when user has selected a test network to swap cryptos */
 "wallet.swapCryptoUnsupportNetworkTitle" = "Nepodporovaný řetěz";
@@ -1898,7 +1898,7 @@
 "wallet.swapDexAggrigatorDisclaimer" = "%1$@ zpracuje adresu %2$@ a IP adresu pro splnění transakce (včetně získání nabídek). %3$@ použije tyto údaje POUZE pro účely zpracování transakcí.";
 
 /* A disclaimer note shown on the Swap screen. '%@' will be replaced by a company name, ex. '0x' / 'Jupiter'. 'DEX aggregator' is a type of blockchain-based service (decentralized exchange) */
-"wallet.swapDexAggrigatorNote" = "Brave používá %@ jako agregátor DEX.";
+"wallet.swapDexAggrigatorNote" = "Browther používá %@ jako agregátor DEX.";
 
 /* The 'Limit' order type. Limit orders only execute when the price requirements are met */
 "wallet.swapLimitOrderType" = "Limit";
@@ -2150,7 +2150,7 @@
 "wallet.udDomainInterstitialPageDescription" = "Brave bude používat Infura k vyřešení názvů domén .crypto (a také %1$@), které jsou na Unstoppable Domains. Brave skryje vaši IP adresu. Pokud to povolíte, Infura uvidí, že se někdo pokouší navštívit tyto domény, ale nic jiného. Viz <a href=%2$@>%3$@</a> a <a href=%4$@>%5$@</a> platformy Infura.";
 
 /* Title displayed when users chose Brave to ask them if they want the Unstoppable Domains domain to be resolved every time they enter one. */
-"wallet.udDomainInterstitialPageTitle" = "Chcete povolit podporu služby Unstoppable Domains v prohlížeči Brave?";
+"wallet.udDomainInterstitialPageTitle" = "Chcete povolit podporu služby Unstoppable Domains v prohlížeči Browther?";
 
 /* The description for the options to allow Unstoppable Domain domain names. '%@' will be replaced with a url to explain more about Unstoppable Domains. */
 "wallet.udResolveMethodDescription" = "[Zjistit více](%@) o aspektech ochrany soukromí Unstoppable Domains.";

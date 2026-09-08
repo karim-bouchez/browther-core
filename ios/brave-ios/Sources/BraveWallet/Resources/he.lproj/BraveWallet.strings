@@ -86,7 +86,7 @@
 "wallet.addCustomTokenTitle" = "טוקן";
 
 /* The description of the view shown over a dapps website that describes what adding a new network will do. */
-"wallet.addNetworkDescription" = "זה יאפשר שימוש ברשת זו בתוך ה-Brave Wallet.";
+"wallet.addNetworkDescription" = "זה יאפשר שימוש ברשת זו בתוך ה-Browther Wallet.";
 
 /* The subtitle of the view shown over a dapps website that requests permission from the user to add a new network. */
 "wallet.addNetworkSubtitle" = "לאפשר לאתר זה להוסיף רשת?";
@@ -161,7 +161,7 @@
 "wallet.auroraPopupDontShowAgain" = "אל תציג שוב";
 
 /* The footer beneath the auto-lock title and interval duration */
-"wallet.autoLockFooter" = "מספר הדקות להמתנה עד שה-Brave Wallet יינעל אוטומטית";
+"wallet.autoLockFooter" = "מספר הדקות להמתנה עד שה-Browther Wallet יינעל אוטומטית";
 
 /* The title that appears before an auto-lock interval. Example: Automatically lock after 5 minutes */
 "wallet.autoLockTitle" = "נעילה אוטומטית לאחר";
@@ -221,10 +221,10 @@
 "wallet.biometricsSetupFaceId" = "זיהוי פנים";
 
 /* The sub-title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device. */
-"wallet.biometricsSetupSubTitle" = "האם ברצונך להשתמש ב-%@ כדי לבטל את הנעילה של ארנק Brave?";
+"wallet.biometricsSetupSubTitle" = "האם ברצונך להשתמש ב-%@ כדי לבטל את הנעילה של ארנק Browther?";
 
 /* The title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device. */
-"wallet.biometricsSetupTitle" = "ביטול הנעילה של ארנק Brave עם %@";
+"wallet.biometricsSetupTitle" = "ביטול הנעילה של ארנק Browther עם %@";
 
 /* Type of biometrics. This will be used in Biometric setup screen. */
 "wallet.biometricsSetupTouchId" = "זיהוי טביעת אצבע";
@@ -233,10 +233,10 @@
 "wallet.bitcoinImportExtendedKeyWarning" = "רק מפתחות מורחבים של %@ נתמכים.";
 
 /* The title for Brave Fee label in Swap. The fee percentage is displayed beside the label. */
-"wallet.braveFeeLabel" = "עמלת Brave: %@";
+"wallet.braveFeeLabel" = "עמלת Browther: %@";
 
 /* A disclaimer that appears at the bottom of an swap screen which discloses the fixed Brave fee included in the swap quotes. '%@' will be replaced by a percentage. For example: 'Quote includes a 0.875% Brave fee' */
-"wallet.braveSwapFeeDisclaimer" = "הצעת המחיר כוללת עמלת Brave של %@.";
+"wallet.braveSwapFeeDisclaimer" = "הצעת המחיר כוללת עמלת Browther של %@.";
 
 /* The text beside the striked-through percentage Brave would normally charge for a swap. */
 "wallet.braveSwapFree" = "חופשי";
@@ -251,7 +251,7 @@
 "wallet.btcAvailableBalanceTitle" = "פנוי";
 
 /* A warning displayed in row before the Send button in Send Crypto view when a Bitcoin asset is selected. */
-"wallet.btcOrdinalsUnsupportedWarning" = "Brave Wallet לא תומך באסימוני NFT (מספרים סידוריים) של ביטקוין בשלב זה. שליחת BTC מכתובת שיש לה מספרים סידוריים עלולה לגרום להעברת המספרים הסידוריים בשוגג.";
+"wallet.btcOrdinalsUnsupportedWarning" = "Browther Wallet לא תומך באסימוני NFT (מספרים סידוריים) של ביטקוין בשלב זה. שליחת BTC מכתובת שיש לה מספרים סידוריים עלולה לגרום להעברת המספרים הסידוריים בשוגג.";
 
 /* Description displayed in row beside users pending balance. */
 "wallet.btcPendingBalanceDesc" = "קיים שינוי בהמתנה ביתרת הארנק שלכם.";
@@ -452,7 +452,7 @@
 "wallet.creatingWallet" = "יוצר ארנק...";
 
 /* The title of the crypto tab */
-"wallet.cryptoTitle" = "ארנק Brave";
+"wallet.cryptoTitle" = "ארנק Browther";
 
 /* The title above the input fields for users to input network block explorer urls in Custom Network Details Screen. */
 "wallet.customNetworkBlockExplorerUrlsTitle" = "חסימת כתובות URL של סייר";
@@ -524,13 +524,13 @@
 "wallet.customTokenTitle" = "הוספת נכס מותאם אישית";
 
 /* The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. The '%@' will be the site attempting to connect. For example: "app.uniswap.org wants to interact with Brave Wallet" */
-"wallet.dappsConnectionNotificationOriginTitle" = "%@ מבקש לקיים אינטראקציה עם ארנק Brave";
+"wallet.dappsConnectionNotificationOriginTitle" = "%@ מבקש לקיים אינטראקציה עם ארנק Browther";
 
 /* The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. */
-"wallet.dappsConnectionNotificationTitle" = "דף זה מבקש לבצע אינטראקציה עם ארנק Brave";
+"wallet.dappsConnectionNotificationTitle" = "דף זה מבקש לבצע אינטראקציה עם ארנק Browther";
 
 /* A message that will be displayed under the section header when there is no dapps have been granted wallet connection. */
-"wallet.dappsSettingsConnectedSitesSectionEmpty" = "אפליקציות מבוזרות שחיברת לארנק Brave יופיעו כאן";
+"wallet.dappsSettingsConnectedSitesSectionEmpty" = "אפליקציות מבוזרות שחיברת לארנק Browther יופיעו כאן";
 
 /* The title of the section that will list all the permitted dapp connections */
 "wallet.dappsSettingsConnectedSitesSectionTitle" = "אפליקציות מבוזרות שחוברו";
@@ -719,7 +719,7 @@
 "wallet.ensDomainInterstitialPageDescription" = "Brave ישתמש ב-Infura כדי לפתור שמות דומיינים של .eth שנמצאים ב-Ethereum Name Service (ENS). Brave מסתיר את כתובת ה-IP שלך. אם תאפשר/י זאת, Infura יראו שמישהו מנסה לבקר בדומיינים האלה של .eth, אבל לא שום דבר נוסף. אפשר לעיין ב<a href=%1$@>%2$@</a> וב<a href=%3$@>%4$@</a>.";
 
 /* Title displayed when users chose Brave to ask them if they want the ENS domain to be resolved every time they enter one. */
-"wallet.ensDomainInterstitialPageTitle" = "לאפשר תמיכה ב-Ethereum Name Service (ENS) ב-Brave?";
+"wallet.ensDomainInterstitialPageTitle" = "לאפשר תמיכה ב-Ethereum Name Service (ENS) ב-Browther?";
 
 /* Title on the button that users can click to enable Brave to resolve the ENS offchain lookup for the domain they entered. */
 "wallet.ensOffchainDomainInterstitialPageButtonProceed" = "המשך בחיפוש אופ-צ'יין";
@@ -728,7 +728,7 @@
 "wallet.ensOffchainDomainInterstitialPageDescription" = "שם הדומיין הזה של eth. מאוחסן אוף-צ׳יין באמצעות גייטוויי של צד שלישי. אם תאפשר/י חיפוש ENS אוף-צ׳יין, הגייטוויי של צד שלישי יראה שאת/ה מנסה לבקר בדומיין הזה. <a href=%1$@>%2$@</a>.";
 
 /* Title displayed when users chose Brave to ask them if they want the ENS Offchain domain to be resolved every time they enter one. */
-"wallet.ensOffchainDomainInterstitialPageTitle" = "לאפשר תמיכה בחיפוש אופ-צ'יין של Ethereum Name Service (ENS)  ב-Brave?";
+"wallet.ensOffchainDomainInterstitialPageTitle" = "לאפשר תמיכה בחיפוש אופ-צ'יין של Ethereum Name Service (ENS)  ב-Browther?";
 
 /* Button title when requesting to do an ENS off chain lookup. */
 "wallet.ensOffchainGatewayButton" = "שימוש בדומיין ENS";
@@ -737,7 +737,7 @@
 "wallet.ensOffchainGatewayDesc" = "נראה שהזנת כתובת ENS. נצטרך להשתמש בפותר צד שלישי כדי לפתור בקשה זו. זה עוזר לוודא שדומיין .eth שלך לא יודלף, ושהעסקה שלך תהיה מאובטחת.";
 
 /* Title shown send address / ENS domain when requesting to do an ENS off chain lookup. */
-"wallet.ensOffchainGatewayTitle" = "Brave תומך באמצעי גייטוויי אוף-צ׳יין כדי לפתור דומיינים של eth.";
+"wallet.ensOffchainGatewayTitle" = "Browther תומך באמצעי גייטוויי אוף-צ׳יין כדי לפתור דומיינים של eth.";
 
 /* The description for the options to allow Ethereum Name service domain names offchain. '%@' will be replaced with a url to explain more about ENS offchain lookup. */
 "wallet.ensOffchainResolveMethodDescription" = "[למידע נוסף](%@) על שיקולי הבטיחות של חיפוש ENS אוף-צ׳יין.";
@@ -1022,13 +1022,13 @@
 "wallet.meldTransactionPartner" = "שותף עסקאות";
 
 /* The description of the pop up when user first time open buy screen in Brave Wallet. */
-"wallet.meldTransactionPartnerDescription" = "ארנק Brave עושה שימוש ב-Meld.io כדי לסייע לקבץ ולהציג ספקי קריפטו שונים עבור האזור שלך. נשתף מידע עם Meld.io כדי להשלים את העסקה, כולל כתובת הארנק וקוד המדינה שלך. למידע נוסף אפשר לעיין בתנאי השימוש של Meld.";
+"wallet.meldTransactionPartnerDescription" = "ארנק Browther עושה שימוש ב-Meld.io כדי לסייע לקבץ ולהציג ספקי קריפטו שונים עבור האזור שלך. נשתף מידע עם Meld.io כדי להשלים את העסקה, כולל כתובת הארנק וקוד המדינה שלך. למידע נוסף אפשר לעיין בתנאי השימוש של Meld.";
 
 /* The description of the checkbox for the pop up when user first time open buy screen in Brave Wallet. */
 "wallet.meldTransactionPartnerLegal" = "קראתי והסכמתי לתנאי השימוש של [Meld](%@)";
 
 /* The title shown on the wallet settings page, and the value shown when selecting the default wallet as Brave Wallet in wallet settings. */
-"wallet.module" = "ארנק Brave";
+"wallet.module" = "ארנק Browther";
 
 /* A button title for user to open more option in asset details screen other than buy/send/swap. */
 "wallet.more" = "עוד";
@@ -1076,7 +1076,7 @@
 "wallet.newSiteConnectFooter" = "התחבר/י רק לאתרים שהנך בוטח/ת בהם.";
 
 /* The message displayed below the dapp's origin url in new site connection screen. */
-"wallet.newSiteConnectMessage" = "חיבור לארנק Brave";
+"wallet.newSiteConnectMessage" = "חיבור לארנק Browther";
 
 /* The transaction edit error alert button which will dismiss the alert. */
 "wallet.newSiteConnectScreenTitle" = "התחברות";
@@ -1163,7 +1163,7 @@
 "wallet.nftRemoveFromWalletAlertDescription" = "NFT יוסר מ-Brave Wallet אך יישאר בblockchain. אם תסירו אותו, ואז תשנו את דעתכם, יהיה צורך לייבאו שוב באופן ידני.";
 
 /* The title of the alert when user attempts to remove an NFT from wallet. */
-"wallet.nftRemoveFromWalletAlertTitle" = "הסר מ-Brave Wallet";
+"wallet.nftRemoveFromWalletAlertTitle" = "הסר מ-Browther Wallet";
 
 /* The description of the NFTs row in Account Details when user has zero or multiple NFTs. */
 "wallet.nftsDescription" = "%d נכסי NFT";
@@ -1205,7 +1205,7 @@
 "wallet.onboardingCompletedButtonTitle" = "עבור אל הפורטפוליו שלי";
 
 /* The subtitle of the last step of creating a new wallet. */
-"wallet.onbordingCompletedSubTitle" = "ארנק Brave שלך מוכן לשימוש.";
+"wallet.onbordingCompletedSubTitle" = "ארנק Browther שלך מוכן לשימוש.";
 
 /* The title of the last step of creating a new wallet. */
 "wallet.onbordingCompletedTitle" = "הכל מוכן!";
@@ -1334,7 +1334,7 @@
 "wallet.repeatedPasswordPlaceholder" = "הזן מחדש סיסמה";
 
 /* A label for toggle for user to use to indicate importing a legacy brave wallet or not */
-"wallet.restoreLegacyBraveWalletToggleTitle" = "לייבא מארנקי קריפטו Brave מדור קודם?";
+"wallet.restoreLegacyBraveWalletToggleTitle" = "לייבא מארנקי קריפטו Browther מדור קודם?";
 
 /* The title that will be displayed when long-pressing the back button in the navigation bar. As to gain access to your assets from a different device */
 "wallet.restoreWalletBackButtonTitle" = "שחזור ארנק";
@@ -1544,7 +1544,7 @@
 "wallet.settingsResetWalletAlertMessage" = "הפעולה הזו לא ניתנת לביטול. משפט השחזור שלך הוא הדרך היחידה להשיג שוב גישה לחשבון ולנכסי הקריפטו שלך.";
 
 /* The title the confirmation dialog when resetting the wallet. As in to erase the users wallet from the device */
-"wallet.settingsResetWalletAlertTitle" = "בטוח שבא לך לאפס את ארנק Brave?";
+"wallet.settingsResetWalletAlertTitle" = "בטוח שבא לך לאפס את ארנק Browther?";
 
 /* The title that will be displayed when long-pressing the back button in the navigation bar. As in the first step of an onboarding process is to welcome a user. */
 "wallet.setupCryptoButtonBackButtonTitle" = "כיף שבאת";
@@ -1553,7 +1553,7 @@
 "wallet.setupCryptoButtonTitle" = "תחילת העבודה";
 
 /* The subtitle displayed in the section for user that need to create a brand new wallet */
-"wallet.setupCryptoCreateNewSubTitle" = "אפשר להתחיל עם ארנק Brave תוך כמה דקות.";
+"wallet.setupCryptoCreateNewSubTitle" = "אפשר להתחיל עם ארנק Browther תוך כמה דקות.";
 
 /* The title displayed in the section for user that need to create a brand new wallet */
 "wallet.setupCryptoCreateNewTitle" = "זקוק לארנק חדש?";
@@ -1610,10 +1610,10 @@
 "wallet.signedTransactionTitle" = "העסקה נחתמה";
 
 /* The title of the view shown above a Sign In With Ethereum request. */
-"wallet.signInWithBraveWallet" = "היכנס עם Brave Wallet";
+"wallet.signInWithBraveWallet" = "היכנס עם Browther Wallet";
 
 /* The title of the view shown when a security issue is detected with a Sign In With Ethereum request. */
-"wallet.signInWithBraveWalletMessage" = "את/ה נכנס/ת אל %1$@. ארנק Brave ישתף את כתובת הארנק שלך עם %2$@.";
+"wallet.signInWithBraveWalletMessage" = "את/ה נכנס/ת אל %1$@. ארנק Browther ישתף את כתובת הארנק שלך עם %2$@.";
 
 /* A warning message to tell users that the sign request message contains consecutive new-line characters. */
 "wallet.signMessageConsecutiveNewlineWarning" = "זוהו מספר תווי שורה-חדשה רצופים!";
@@ -1682,7 +1682,7 @@
 "wallet.snsDomainInterstitialPageDescription" = "Brave ישתמש בצד שלישי כדי לפתור שמות דומיינים של .sol. Brave מסתיר את כתובת ה-IP שלך. אם תאפשר/י זאת, הצד השלישי יראה שמישהו מנסה לבקר בדומיינים האלה של .sol, אבל לא שום דבר נוסף. למידע נוסף על הצדדים השלישיים שאנחנו עושים בהם שימוש ומדיניות הפרטיות שלהם, אפשר לבקר ב<a href=%@>עמוד העזרה</a> שלנו.";
 
 /* Title displayed when users chose Brave to ask them if they want the SNS to be resolved every time they enter one. */
-"wallet.snsDomainInterstitialPageTitle" = "לאפשר תמיכה ב-Solana Name Service (SNS) ב-Brave?";
+"wallet.snsDomainInterstitialPageTitle" = "לאפשר תמיכה ב-Solana Name Service (SNS) ב-Browther?";
 
 /* A description of an Solana account, displayed in Accounts tab. */
 "wallet.solAccountDescription" = "רשתות Solana + SVM";
@@ -1886,7 +1886,7 @@
 "wallet.swapCryptoToTitle" = "אל";
 
 /* The description of where user will see once a test network has been picked in swap screen. '%@' will be replaced with a network such as 'Rinkeby Test Network' or 'Ropsten Test Network' */
-"wallet.swapCryptoUnsupportNetworkBody" = "Brave לא תומכת כרגע בהחלפה ב-%@. יש לעבור לשרשרת נתמכת.";
+"wallet.swapCryptoUnsupportNetworkBody" = "Browther לא תומכת כרגע בהחלפה ב-%@. יש לעבור לשרשרת נתמכת.";
 
 /* The title below account picker when user has selected a test network to swap cryptos */
 "wallet.swapCryptoUnsupportNetworkTitle" = "שרשרת לא נתמכת";
@@ -1898,7 +1898,7 @@
 "wallet.swapDexAggrigatorDisclaimer" = "%1$@ תעבד את כתובת %2$@ וכתובת ה-IP כדי לממש עסקה (כולל קבלת הצעות מחיר). המידע ישמש את %3$@ אך ורק למטרת עיבוד עסקאות. ";
 
 /* A disclaimer note shown on the Swap screen. '%@' will be replaced by a company name, ex. '0x' / 'Jupiter'. 'DEX aggregator' is a type of blockchain-based service (decentralized exchange) */
-"wallet.swapDexAggrigatorNote" = "Brave משתמש ב-%@ כאגרגטור DEX.";
+"wallet.swapDexAggrigatorNote" = "Browther משתמש ב-%@ כאגרגטור DEX.";
 
 /* The 'Limit' order type. Limit orders only execute when the price requirements are met */
 "wallet.swapLimitOrderType" = "הגבלה (limit)";
@@ -2150,7 +2150,7 @@
 "wallet.udDomainInterstitialPageDescription" = "Brave ישתמש ב-Infura כדי לפתור שמות דומיין (וגם %1$@) של .crypto שנמצאים ב-Unstoppable Domains. Brave מסתיר את כתובת ה-IP שלך. אם תאפשר/י זאת Infura יראו שמישהו מנסה לבקר בדומיינים האלה, אבל לא שום דבר מעבר לכך. אפשר לעיין ב<a href=%2$@> ו<a href=%4$@> של Infura.";
 
 /* Title displayed when users chose Brave to ask them if they want the Unstoppable Domains domain to be resolved every time they enter one. */
-"wallet.udDomainInterstitialPageTitle" = "לאפשר תמיכה בדומיינים בלתי ניתנים לעצירה ב-Brave?";
+"wallet.udDomainInterstitialPageTitle" = "לאפשר תמיכה בדומיינים בלתי ניתנים לעצירה ב-Browther?";
 
 /* The description for the options to allow Unstoppable Domain domain names. '%@' will be replaced with a url to explain more about Unstoppable Domains. */
 "wallet.udResolveMethodDescription" = "[למידע נוסף](%@) על שיקולי הפרטיות של Unstoppable Domains.";

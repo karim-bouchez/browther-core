@@ -1,8 +1,8 @@
 /* A label shown above a list of icons designed by Brave */
-"altAppIcon.braveIconsHeader" = "Pictograme Brave";
+"altAppIcon.braveIconsHeader" = "Pictograme Browther";
 
 /* The title for the screen that lets the user select a custom app icon */
-"altAppIcon.changeAppIcon" = "Modifică pictograma Brave";
+"altAppIcon.changeAppIcon" = "Modifică pictograma";
 
 /* A label shown next to the default Brave app icon */
 "altAppIcon.defaultAppIcon" = "Prestabilit";
@@ -35,7 +35,7 @@
 "newTabTakeoverInfoBarLearnMoreOptOutChoices" = "Află mai multe / opțiuni de renunțare";
 
 /* The text of new tab takeover infobar message. */
-"NewTabTakeoverInfoBarMessage" = "Imaginile de fundal sponsorizate susțin misiunea Brave de a construi un web independent, orientat către utilizator. Spre deosebire de marile companii d tehnologie, noi măsurăm performanța reclamelor în mod anonim, respectând confidențialitatea utilizatorilor.";
+"NewTabTakeoverInfoBarMessage" = "Imaginile de fundal sponsorizate susțin misiunea Browther de a construi un web independent, orientat către utilizator. Spre deosebire de marile companii d tehnologie, noi măsurăm performanța reclamelor în mod anonim, respectând confidențialitatea utilizatorilor.";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "NewTabTitle" = "Filă nouă";
@@ -59,10 +59,10 @@
 "paywall.braveAccountCheckoutOptionSubtitle" = "Codul **%1$@** pentru o reducere de %2$@";
 
 /* The checkout option that lets the user use Brave's own purchase flow */
-"paywall.braveAccountCheckoutOptionTitle" = "Contul Brave";
+"paywall.braveAccountCheckoutOptionTitle" = "Contul Browther";
 
 /* Button action text which will bring user to Brave VPN web page for more information. */
-"paywall.braveVPNLearnMoreButtonTitle" = "Aflați mai multe despre VPN Brave";
+"paywall.braveVPNLearnMoreButtonTitle" = "Aflați mai multe despre VPN Browther";
 
 /* Title label text for entering a promo code. */
 "paywall.havePromoCodeTitle" = "Ai un cod promoțional?";
@@ -110,7 +110,7 @@
 "ShowPreviousTabTitle" = "Afișează fila anterioară";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts which is for Showing Brave Shields */
-"showShieldsTitle" = "Deschide Browther Shields";
+"showShieldsTitle" = "Deschide Shields";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "ShowTabTrayFromTabKeyCodeTitle" = "Afișează toate filele";
@@ -119,10 +119,10 @@
 "storekitReceiptViewer.applicationVersionTitle" = "Versiunea aplicației";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.leoMonthlySubscriptionName" = "Brave Leo lunar";
+"storekitReceiptViewer.leoMonthlySubscriptionName" = "Browther Leo lunar";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.leoYearlySubscriptionName" = "Brave Leo anual";
+"storekitReceiptViewer.leoYearlySubscriptionName" = "Browther Leo anual";
 
 /* The error message when the App Store Receipt was not found in the Application Bundle */
 "storekitReceiptViewer.noReceiptFoundTitle" = "Îmi pare rău, nicio chitanța de App Store nu a fost gasită";
@@ -164,10 +164,10 @@
 "storekitReceiptViewer.shareReceiptTitle" = "Trimite chitanța";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Brave VPN lunar";
+"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Browther VPN lunar";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.vpnYearlySubscriptionName" = "Brave VPN anual";
+"storekitReceiptViewer.vpnYearlySubscriptionName" = "Browther VPN anual";
 
 /* Hardware shortcut for non-private tab or tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "SwitchToNonPBMKeyCodeTitle" = "Modul normal de navigare";

@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "בחר את המיקום הגיאוגרפי/מדינה שלך";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave לעולם לא מנהלת רישומי יומן של הפעילות שלכם";
+"vpn.checkboxNoIPLog" = "Browther לעולם לא מנהלת רישומי יומן של הפעילות שלכם";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "הגנו על כל היישומים ועל המכשיר שלכם";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "אזור זמן של iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "בעיה ב-Brave VPN";
+"vpn.contactFormTitle" = "בעיה ב-Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "הפעל";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "התקן פרופיל VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = " Brave יתקין כעת פרופיל VPN.";
+"vpn.installProfileTitle" = " Browther יתקין כעת פרופיל VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN מופעל כעת";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "תמיכת VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "קישור רכישה לחשבון ה-Brave שלך";
+"vpn.settingsLinkReceipt" = "קישור רכישה לחשבון ה-Browther שלך";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "יש לקשר את רכישת App Store לחשבון Brave שלך כדי להשתמש ב-VPN של Brave במכשירים אחרים.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "עדכון אמצעי תשלום";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "אפילו כשהוא פועל ברקע, Brave ימשיך להגן עליך.";
+"vpn.vpnBackgroundNotificationBody" = "אפילו כשהוא פועל ברקע, Browther ימשיך להגן עליך.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN פעיל";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN פעיל";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "השתמש בשרת הזמין הטוב ביותר";

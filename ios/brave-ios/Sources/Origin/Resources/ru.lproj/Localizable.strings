@@ -26,7 +26,7 @@
 "leoAILabel" = "ИИ-помощник Leo";
 
 /* A toggle label for Brave News feature */
-"newsLabel" = "Brave Новости";
+"newsLabel" = "Новости";
 
 /* A label indicating this is a one-time purchase product */
 "oneTimePurchaseLabel" = "Единовременная покупка";
@@ -35,7 +35,7 @@
 "paywallDescription" = "**Настраивайте браузер, продолжая поддерживать Brave**\n\nBrave Origin — это платная версия браузера для пользователей, которым не нужны все функции, поддерживающие Brave как бизнес, но которые хотят приватность, которую предлагает только Brave. Пользователи Brave Origin продолжат получать преимущества нашей ведущей в отрасли приватности, блокировки рекламы и скорости (через Защита Brave), а также регулярные обновления программного обеспечения, патчи Chromium и улучшения безопасности и приватности. Они также смогут отключать такие функции, как ИИ, Награды, Кошелек, VPN, веб-домены Web3 и многое другое.\n\n**Brave Origin доступен в виде единовременной покупки. На мобильных устройствах (Android и iOS) и настольных ПК Origin можно приобрести как обновление к существующей версии выпуска.** На настольных ПК Origin также доступен как отдельное, самостоятельное приложение. Независимо от того, приобретён ли Origin как обновление или отдельное приложение, пользователи Origin увидят новую панель управления в меню параметров. Существующие функции, а также любые новые функции, которые мы выпустим в будущем, появятся здесь и по умолчанию будут отключены.*\n\n* Обратите внимание, что если вы приобрели Origin как обновление к существующей версии Brave, Origin не будет отключать функции браузера, которые вы в настоящее время используете. Для версии обновления и автономной версии Origin не повлияет на функции Поиска Brave или Реклама Поиска Brave.";
 
 /* A toggle label for Brave Playlist feature */
-"playlistLabel" = "Brave Плейлист";
+"playlistLabel" = "Плейлист";
 
 /* A toggle label for privacy preserving analytics feature */
 "privacyPreservingAnalyticsLabel" = "Аналитика, сохраняющая конфиденциальность";
@@ -62,7 +62,7 @@
 "statisticsReportingLabel" = "Статистическая отчетность";
 
 /* A toggle label for Brave Talk feature */
-"talkLabel" = "Brave Разговоры";
+"talkLabel" = "Разговоры";
 
 /* An upsell point about maintaining core features like adblock, privacy, and speed */
 "upsellCoreFeatures" = "Поддерживайте основные функции блокировки объявлений, приватность и скорость";
@@ -77,8 +77,8 @@
 "upsellSupportMission" = "Поддержите нашу миссию и работу с открытым исходным кодом";
 
 /* A toggle label for Brave VPN feature */
-"vpnLabel" = "Brave VPN";
+"vpnLabel" = "VPN";
 
 /* A toggle label for Brave Wallet feature */
-"walletLabel" = "Brave Кошелек";
+"walletLabel" = "Кошелек";
 

@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "เลือกตำแหน่งที่ตั้งตามภูมิภาค/ประเทศของคุณ";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave จะไม่บันทึกกิจกรรมของคุณ";
+"vpn.checkboxNoIPLog" = "Browther จะไม่บันทึกกิจกรรมของคุณ";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "คุ้มครองทุกแอป & และทุกอุปกรณ์ของคุณ";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "เขตเวลาของ iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "ปัญหา Brave VPN";
+"vpn.contactFormTitle" = "ปัญหา Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "เปิดการใช้งาน";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "ติดตั้งโปรไฟล์ VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave จะติดตั้งโปรไฟล์ VPN ในตอนนี้";
+"vpn.installProfileTitle" = "Browther จะติดตั้งโปรไฟล์ VPN ในตอนนี้";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "เปิดใช้งาน VPN แล้วตอนนี้";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "การสนับสนุนเกี่ยวกับ VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "ลิงก์การซื้อกับบัญชี Brave ของคุณ";
+"vpn.settingsLinkReceipt" = "ลิงก์การซื้อกับบัญชี Browther ของคุณ";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "ลิงก์การซื้อใน App Store กับบัญชี Brave เพื่อใช้ Brave VPN บนอุปกรณ์อื่นๆ";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "อัปเดตวิธีการชำระเงิน";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "แม้จะทำงานอยู่เบื้องหลัง Brave จะยังคงปกป้องคุณต่อไป";
+"vpn.vpnBackgroundNotificationBody" = "แม้จะทำงานอยู่เบื้องหลัง Browther จะยังคงปกป้องคุณต่อไป";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN เปิดอยู่";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN เปิดอยู่";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "ใช้เซิร์ฟเวอร์ที่ดีที่สุด";

@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Gå tilbake";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Siden du har bedt om aggressiv blokkering av sporere og annonser, blokkerer Brave denne siden før første nettverkstilkobling.";
+"DomainBlockedPageDescription" = "Siden du har bedt om aggressiv blokkering av sporere og annonser, blokkerer Browther denne siden før første nettverkstilkobling.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave har blokkert denne siden fra å lastes inn:";

@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Válassza ki a földrajzi helyzetét/országát";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "A Brave sosem naplózza a tevékenységeit";
+"vpn.checkboxNoIPLog" = "A Browther sosem naplózza a tevékenységeit";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Védje meg az összes alkalmazást és az egész eszközét";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "iOS-időzóna";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN-probléma";
+"vpn.contactFormTitle" = "Browther VPN-probléma";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Engedélyezés";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "VPN profil telepítése";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "A Brave most telepíti a VPN profilt.";
+"vpn.installProfileTitle" = "A Browther most telepíti a VPN profilt.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "A VPN engedélyezve van";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN támogatás";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Kapcsolja a vásárlást a Brave-fiókjához";
+"vpn.settingsLinkReceipt" = "Kapcsolja a vásárlást a Browther-fiókjához";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Kapcsolja össze App Store-ban vásárolt termékét Brave-fiókjával, hogy más eszközökön is használhassa a Brave VPN-t.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Fizetési mód frissítése";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "A Brave a háttérben is megvédi Önt.";
+"vpn.vpnBackgroundNotificationBody" = "A Browther a háttérben is megvédi Önt.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "A Brave VPN BE VAN kapcsolva";
+"vpn.vpnBackgroundNotificationTitle" = "A Browther VPN BE VAN kapcsolva";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Az elérhető legjobb szerver használata";

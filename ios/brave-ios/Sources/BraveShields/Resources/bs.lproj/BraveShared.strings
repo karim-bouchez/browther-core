@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Idi natrag";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Budući da ste zahtijevali strogo blokiranje sustava za praćenje i oglasa, preglednik Brave blokira to mrežno mjesto prije prvog povezivanja na mrežu.";
+"DomainBlockedPageDescription" = "Budući da ste zahtijevali strogo blokiranje sustava za praćenje i oglasa, preglednik Browther blokira to mrežno mjesto prije prvog povezivanja na mrežu.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Preglednikom Brave spriječilo se učitavanje sljedećeg mrežnog mjesta:";

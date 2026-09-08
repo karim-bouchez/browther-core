@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo är en AI-driven smart assistent som är inbyggd direkt i webbläsaren";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Länka ditt App Store-köp till ditt Brave-konto för att använda Leo på andra enheter.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Länka ditt App Store-köp till ditt Browther-konto för att använda Leo på andra enheter.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Länka köp till ditt Brave-konto";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Länka köp till ditt Browther-konto";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Aktiverar en genväg för att starta Leo från fältet för snabbsökningsmotorer.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Vill du bara prata?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "En AI-driven intelligent assistent, inbyggd direkt i Brave.";
+"aichat.chatIntroSubTitle" = "En AI-driven intelligent assistent, inbyggd direkt i Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Hej, jag är Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Svaret gillades";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Ge feedback på Brave AI";
+"aichat.feedbackViewMainTitle" = "Ge feedback på Browther AI";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Välj Premium";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Slutpunkten är för närvarande överbelastad. Vänligen försök igen senare.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave lagrar eller delar inte dina röstsökningar.";
+"aichat.speechRecognizerDisclaimer" = "Browther lagrar eller delar inte dina röstsökningar.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Ingen";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo är en privat, smart AI-assistent som förbättrar din användning av webben. Leo är gratis att använda med begränsad åtkomst. Brave Leo Premium erbjuder fler modeller, högre gränser och ger prenumeranter tidigare tillgång till nya funktioner. Standardmodellen kommer att ändras då och då. Se Brave **[Hjälpcenter](%1$@)** för mer information.\n\nSom standard när du ställer en fråga till Leo om en webbplats eller sida du besöker skickas innehållet på webbsidan, eller texten du markerar på en sida, samt din sökfråga, till Braves servrar så att Leo kan ge ett svar. I vissa fall kommer Leo att skicka frågor som härrör från din inmatning i Brave Sök och använda resultaten från sök för att bättre besvara din fråga. Svarens riktighet garanteras inte och de kan innehålla felaktig, vilseledande eller falsk information. Skicka inte känslig information eller privat information och var försiktig med svar som rör hälsa, ekonomi, personlig säkerhet eller liknande. Du kan justera Leos alternativ i Inställningar när som helst. Gå till Inställningar > Leo.\n\nLeo samlar inte in identifierare som din IP-adress som kan kopplas till dig. Vi tränar inte våra modeller baserat på dina data, inklusive dina sökfrågor eller Brave Leos svar. Inga personuppgifter lagras på våra servrar eller behålls av Brave. Se **[integritetspolicyn](%2$@)** för mer information.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Chatta privat med Brave Leo";
+"aichat.termsConditionsTitle" = "Chatta privat med Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Obegränsad";

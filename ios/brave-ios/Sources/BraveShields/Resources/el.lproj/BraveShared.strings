@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Πίσω";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Επειδή ζητήσατε τον αυστηρό αποκλεισμό των tracker και των διαφημίσεων, ο Brave έχει αποκλείσει αυτόν τον ιστότοπο πριν από την πρώτη σύνδεση σε δίκτυο.";
+"DomainBlockedPageDescription" = "Επειδή ζητήσατε τον αυστηρό αποκλεισμό των tracker και των διαφημίσεων, ο Browther έχει αποκλείσει αυτόν τον ιστότοπο πριν από την πρώτη σύνδεση σε δίκτυο.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Το Brave απέτρεψε τη φόρτωση του ακόλουθου ιστότοπου:";

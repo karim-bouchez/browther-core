@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Chọn vị trí địa lý/quốc gia của bạn";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave không bao giờ lưu lại hoạt động của bạn";
+"vpn.checkboxNoIPLog" = "Browther không bao giờ lưu lại hoạt động của bạn";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Bảo vệ mọi ứng dụng & toàn bộ thiết bị của bạn";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Múi giờ của iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Vấn đề Brave VPN";
+"vpn.contactFormTitle" = "Vấn đề Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Bật";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Cài đặt cấu hình VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave giờ sẽ cài đặt một cấu hình VPN.";
+"vpn.installProfileTitle" = "Browther giờ sẽ cài đặt một cấu hình VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN giờ đã được bật";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Hỗ trợ VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Liên kết mua hàng với tài khoản Brave của bạn";
+"vpn.settingsLinkReceipt" = "Liên kết mua hàng với tài khoản Browther của bạn";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Liên kết giao dịch mua trên App Store với tài khoản Brave của bạn để sử dụng Brave VPN trên các thiết bị khác.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Cập nhật phương thức thanh toán";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Ngay cả khi ở chế độ nền, Brave vẫn sẽ tiếp tục bảo vệ bạn.";
+"vpn.vpnBackgroundNotificationBody" = "Ngay cả khi ở chế độ nền, Browther vẫn sẽ tiếp tục bảo vệ bạn.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN đang BẬT";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN đang BẬT";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Sử dụng máy chủ tốt nhất hiện có";

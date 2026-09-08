@@ -1,5 +1,5 @@
 /* A label shown above a list of icons designed by Brave */
-"altAppIcon.braveIconsHeader" = "Ikony Brave";
+"altAppIcon.braveIconsHeader" = "Ikony Browther";
 
 /* The title for the screen that lets the user select a custom app icon */
 "altAppIcon.changeAppIcon" = "Změnit ikonu aplikace";
@@ -35,7 +35,7 @@
 "newTabTakeoverInfoBarLearnMoreOptOutChoices" = "Další informace / možnosti odhlášení";
 
 /* The text of new tab takeover infobar message. */
-"NewTabTakeoverInfoBarMessage" = "Sponzorované obrázky na pozadí podporují poslání společnosti Brave budovat nezávislý web zaměřený na uživatele. Na rozdíl od velkých technologických společností měříme výkon reklamy anonymně, abychom zachovali vaše soukromí.";
+"NewTabTakeoverInfoBarMessage" = "Sponzorované obrázky na pozadí podporují poslání společnosti Browther budovat nezávislý web zaměřený na uživatele. Na rozdíl od velkých technologických společností měříme výkon reklamy anonymně, abychom zachovali vaše soukromí.";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "NewTabTitle" = "Nová karta";
@@ -59,10 +59,10 @@
 "paywall.braveAccountCheckoutOptionSubtitle" = "Kód **%1$@** pro %2$@ slevu";
 
 /* The checkout option that lets the user use Brave's own purchase flow */
-"paywall.braveAccountCheckoutOptionTitle" = "Brave účet";
+"paywall.braveAccountCheckoutOptionTitle" = "Browther účet";
 
 /* Button action text which will bring user to Brave VPN web page for more information. */
-"paywall.braveVPNLearnMoreButtonTitle" = "Další informace o Brave VPN";
+"paywall.braveVPNLearnMoreButtonTitle" = "Další informace o Browther VPN";
 
 /* Title label text for entering a promo code. */
 "paywall.havePromoCodeTitle" = "Máte promo kód?";
@@ -110,7 +110,7 @@
 "ShowPreviousTabTitle" = "Zobrazit předchozí kartu";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts which is for Showing Brave Shields */
-"showShieldsTitle" = "Otevřít štíty Brave";
+"showShieldsTitle" = "Otevřít štíty";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "ShowTabTrayFromTabKeyCodeTitle" = "Zobrazit všechny karty";
@@ -119,10 +119,10 @@
 "storekitReceiptViewer.applicationVersionTitle" = "Verze aplikace";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.leoMonthlySubscriptionName" = "Brave Leo (Měsíční)";
+"storekitReceiptViewer.leoMonthlySubscriptionName" = "Browther Leo (Měsíční)";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.leoYearlySubscriptionName" = "Brave Leo (Roční)";
+"storekitReceiptViewer.leoYearlySubscriptionName" = "Browther Leo (Roční)";
 
 /* The error message when the App Store Receipt was not found in the Application Bundle */
 "storekitReceiptViewer.noReceiptFoundTitle" = "Je nám líto, ale nebyly nalezeny žádné účtenky z App Store";
@@ -164,10 +164,10 @@
 "storekitReceiptViewer.shareReceiptTitle" = "Příjem akcií";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Brave VPN (Měsíční)";
+"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Browther VPN (Měsíční)";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.vpnYearlySubscriptionName" = "Brave VPN (Roční)";
+"storekitReceiptViewer.vpnYearlySubscriptionName" = "Browther VPN (Roční)";
 
 /* Hardware shortcut for non-private tab or tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "SwitchToNonPBMKeyCodeTitle" = "Režim normálního prohlížení";

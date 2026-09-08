@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "返回";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "由于您要求积极阻止跟踪器和广告，Brave 会在第一次网络连接之前阻止该网站。";
+"DomainBlockedPageDescription" = "由于您要求积极阻止跟踪器和广告，Browther 会在第一次网络连接之前阻止该网站。";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave 已阻止以下站点加载：";

@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo 是採用 AI 技術的智慧助理，內建於瀏覽器中。";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "將您的 App Store 購買項目連結至 Brave 帳戶，以便在其他裝置上使用 Leo。";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "將您的 App Store 購買項目連結至 Browther 帳戶，以便在其他裝置上使用 Leo。";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "將購買交易連結至您的 Brave 帳戶";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "將購買交易連結至您的 Browther 帳戶";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "啟用捷徑從快速搜尋引擎列啟動 Leo。";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "只想聊天嗎？";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "內建於 Brave，由人工智慧驅動的智能助理。";
+"aichat.chatIntroSubTitle" = "內建於 Browther，由人工智慧驅動的智能助理。";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "您好，我是 Leo！";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "已表達喜歡此回答";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "提供 Brave 人工智慧意見反應";
+"aichat.feedbackViewMainTitle" = "提供 Browther 人工智慧意見反應";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "訂閱 Premium";
@@ -458,7 +458,7 @@
 "aichat.resetLeoDataAlertButtonTitle" = "重設";
 
 /* The description for the error whre leo data reset */
-"aichat.resetLeoDataErrorDescription" = "確定要重設並清除 Brave 資料嗎？";
+"aichat.resetLeoDataErrorDescription" = "確定要重設並清除資料嗎？";
 
 /* The title for the error whre leo data reset */
 "aichat.resetLeoDataErrorTitle" = "重設 Leo 資料";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "端點目前已超載。請稍後再試。";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave 不會儲存或分享您的語音搜尋。";
+"aichat.speechRecognizerDisclaimer" = "Browther 不會儲存或分享您的語音搜尋。";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "無";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo 是私人 AI 智慧助理，可提升您的網路使用體驗。您可以免費使用 Leo，但存取權限會受到限制。Brave Leo Premium 提供更多模型、提高上限，訂閱者還能搶先使用新功能。預設模型將不定期變動。詳情請瀏覽 Brave **[說明中心](%1$@)**。\n\n根據預設，當您向 Leo 詢問當前瀏覽的網站或頁面相關問題時，系統會將您所檢視網頁的內容、頁面中選取的文字，以及您的搜尋查詢傳送至 Brave 伺服器，以便 Leo 提供回應。某些情況下，Leo 會將您輸入的內容轉化為查詢語句傳送至 Brave 搜尋，並運用搜尋結果精準解答您的問題。Brave 不保證回應的準確性，且其中可能含有不準確、誤導或錯誤的資訊。請勿向 Brave Leo 提交敏感或私人資訊，並謹慎對待涉及健康、財務、人身安全等領域的解答。您可以隨時前往「設定」調整 Leo 的選項。前往「設定」> Leo。\n\nLeo 不會收集可識別您身分的識別碼（如 IP 位址）。我們不會基於您的資料（包括搜尋查詢或 Brave Leo 的回應）來訓練模型。Brave 伺服器不會儲存任何個人資料，亦不會保留相關資訊。詳情請參閱**[隱私政策](%2$@)**。";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "與 Brave Leo 對話時保障隱私";
+"aichat.termsConditionsTitle" = "與 Browther Leo 對話時保障隱私";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "無上限";

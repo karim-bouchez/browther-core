@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Перейти назад";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Оскільки ви попросили агресивно блокувати стеження і рекламу, Brave блокує цей сайт перед його першим з’єднанням з мережею.";
+"DomainBlockedPageDescription" = "Оскільки ви попросили агресивно блокувати стеження і рекламу, Browther блокує цей сайт перед його першим з’єднанням з мережею.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave запобіг завантаженню наступного сайту:";

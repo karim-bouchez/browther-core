@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Gå tilbage";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Fordi du har valgt at blokere sporingstjenester og reklamer aggressivt, blokerer Brave denne side før første netværksforbindelse.";
+"DomainBlockedPageDescription" = "Fordi du har valgt at blokere sporingstjenester og reklamer aggressivt, blokerer Browther denne side før første netværksforbindelse.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave har forhindret følgende hjemmeside i at blive indlæst:";

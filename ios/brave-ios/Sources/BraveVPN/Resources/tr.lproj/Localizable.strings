@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Coğrafi/ülke konumunuzu seçin";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave, sizin aktivitenizi asla kaydetmez";
+"vpn.checkboxNoIPLog" = "Browther, sizin aktivitenizi asla kaydetmez";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Her uygulamayı ve tüm cihazınızı koruyun";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "iOS Saat Dilimi";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN Sorunu";
+"vpn.contactFormTitle" = "Browther VPN Sorunu";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Etkinleştir";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "VPN Profili Yükle";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave şimdi bir VPN profili yükleyecek.";
+"vpn.installProfileTitle" = "Browther şimdi bir VPN profili yükleyecek.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN artık etkin";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN Desteği";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Satın alımı Brave hesabınıza bağlayın";
+"vpn.settingsLinkReceipt" = "Satın alımı Browther hesabınıza bağlayın";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Brave VPN'i ve diğer cihazlarda kullanmak için App Store satın alımınızı Brave hesabınıza bağlayın";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Ödeme Yöntemini Güncelle";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Arka planda bile Brave seni korumaya devam edecek.";
+"vpn.vpnBackgroundNotificationBody" = "Arka planda bile Browther seni korumaya devam edecek.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN AÇIK";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN AÇIK";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Mevcut en iyi sunucuyu kullan";

@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Selecciona tu región/país";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave no registra nunca tu actividad";
+"vpn.checkboxNoIPLog" = "Browther no registra nunca tu actividad";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Protege todas las aplicaciones y el dispositivo al completo";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Zona horaria de iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Problema con VPN de Brave";
+"vpn.contactFormTitle" = "Problema con VPN de Browther";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Habilitar";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Instalar perfil de VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave va a instalar ahora el perfil de VPN.";
+"vpn.installProfileTitle" = "Browther va a instalar ahora el perfil de VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "Se ha habilitado la VPN";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Asistencia con la VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Vincular la compra con tu cuenta de Brave";
+"vpn.settingsLinkReceipt" = "Vincular la compra con tu cuenta de Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Vincula la compra que has hecho en el App Store con tu cuenta de Brave para usar la VPN de Brave en otros dispositivos.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Actualiza el método de pago";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Brave continuará protegiéndote incluso en segundo plano.";
+"vpn.vpnBackgroundNotificationBody" = "Browther continuará protegiéndote incluso en segundo plano.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "VPN de Brave está ACTIVADA";
+"vpn.vpnBackgroundNotificationTitle" = "VPN de Browther está ACTIVADA";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Usar el mejor servidor que haya disponible";

@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo adalah asisten pintar yang didukung AI, dan dibangun tepat di dalam peramban.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Tautkan pembelian App Store Anda ke akun Brave Anda untuk menggunakan Leo pada perangkat lain.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Tautkan pembelian App Store Anda ke akun Browther Anda untuk menggunakan Leo pada perangkat lain.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Tautkan pembelian ke akun Brave Anda";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Tautkan pembelian ke akun Browther Anda";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Aktifkan pintasan untuk meluncurkan Leo dari bilah mesin penelusuran cepat.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Hanya ingin mengobrol?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Asisten cerdas yang didukung AI, dibangun langsung ke dalam Brave.";
+"aichat.chatIntroSubTitle" = "Asisten cerdas yang didukung AI, dibangun langsung ke dalam Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Hai, saya Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Jawaban Disukai";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Berikan Umpan Balik untuk AI Brave";
+"aichat.feedbackViewMainTitle" = "Berikan Umpan Balik untuk AI Browther";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Jadilah Premium";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Bagian titik akhir saat ini kelebihan beban. Coba lagi nanti.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave tidak menyimpan atau membagikan pencarian suara Anda.";
+"aichat.speechRecognizerDisclaimer" = "Browther tidak menyimpan atau membagikan pencarian suara Anda.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Tidak ada";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo adalah asisten pintar AI pribadi yang memudahkan penggunaan web. Leo dapat digunakan secara gratis dengan akses terbatas. Brave Leo Premium menawarkan lebih banyak model, limit yang lebih tinggi, dan memberi pelanggan akses awal ke fitur-fitur baru. Model default akan berubah dari waktu ke waktu. Lihat **[Pusat Bantuan] (%1$@)** Brave untuk informasi selengkapnya.\n\nSecara default, saat Anda bertanya ke Leo tentang situs web atau halaman yang Anda lihat, konten halaman web yang Anda lihat atau teks apa pun yang Anda sorot di halaman, serta kueri penelusuran Anda akan dikirim ke server Brave agar Leo dapat memberikan tanggapan. Dalam beberapa kasus, Leo akan mengirimkan kueri yang berasal dari masukan Anda ke Brave Penelusuran dan menggunakan hasil penelusuran untuk menjawab pertanyaan Anda dengan lebih baik. Brave tidak menjamin keakuratan jawaban, dan jawaban yang diberikan mungkin berisi informasi yang tidak akurat, menyesatkan, atau salah. Jangan kirimkan informasi sensitif atau pribadi ke Brave Leo, dan berhati-hatilah dengan jawaban apa pun yang berkaitan dengan kesehatan, keuangan, keselamatan pribadi, atau yang serupa. Anda dapat menyesuaikan opsi Leo di Pengaturan kapan saja. Buka Pengaturan > Leo.\n\nLeo tidak mengumpulkan elemen pengenal seperti alamat IP yang dapat dikaitkan dengan Anda. Kami tidak melatih model kami berdasarkan data Anda, termasuk kueri penelusuran Anda atau tanggapan Brave Leo. Tidak ada data pribadi yang disimpan di server kami, atau disimpan oleh Brave. Baca **[Kebijakan Privasi](%2$@)** untuk informasi selengkapnya.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Mengobrol Secara Privat dengan Brave Leo";
+"aichat.termsConditionsTitle" = "Mengobrol Secara Privat dengan Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Tak terbatas";

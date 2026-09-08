@@ -1,5 +1,5 @@
 /* A label shown above a list of icons designed by Brave */
-"altAppIcon.braveIconsHeader" = "أيقونات Brave";
+"altAppIcon.braveIconsHeader" = "أيقونات Browther";
 
 /* The title for the screen that lets the user select a custom app icon */
 "altAppIcon.changeAppIcon" = "تغيير أيقونة التطبيق";
@@ -35,7 +35,7 @@
 "newTabTakeoverInfoBarLearnMoreOptOutChoices" = "معرفة المزيد / خيارات إلغاء الاشتراك";
 
 /* The text of new tab takeover infobar message. */
-"NewTabTakeoverInfoBarMessage" = "تدعم صور الخلفية المدعومة Brave في مهمتها المتمثلة في بناء شبكة ويب مستقلة ترتكز على المستخدم أولًا. وعلى عكس شركات التكنولوجيا الكبرى، نقيس أداء الإعلانات بشكل مجهول للحفاظ على خصوصيتكم.";
+"NewTabTakeoverInfoBarMessage" = "تدعم صور الخلفية المدعومة Browther في مهمتها المتمثلة في بناء شبكة ويب مستقلة ترتكز على المستخدم أولًا. وعلى عكس شركات التكنولوجيا الكبرى، نقيس أداء الإعلانات بشكل مجهول للحفاظ على خصوصيتكم.";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "NewTabTitle" = "علامة تبويب جديدة";
@@ -47,7 +47,7 @@
 "OpenSelectedTabFromTabTrayKeyCodeTitle" = "فتح علامة التبويب المحددة";
 
 /* Title label text for refreshing credentials from brave site. */
-"paywall.alreadyPurchasedTitle" = "هل اشتريت بالفعل عبر الموقع الإلكتروني Brave.com؟";
+"paywall.alreadyPurchasedTitle" = "هل اشتريت بالفعل عبر الموقع الإلكتروني browther.com؟";
 
 /* A subtitle shown on the checkout button that denotes that this checkout option is full price */
 "paywall.appStoreCheckoutOptionSubtitle" = "السعر الكامل";
@@ -59,10 +59,10 @@
 "paywall.braveAccountCheckoutOptionSubtitle" = "رمز **%1$@** للحصول على خصم %2$@";
 
 /* The checkout option that lets the user use Brave's own purchase flow */
-"paywall.braveAccountCheckoutOptionTitle" = "حساب Brave";
+"paywall.braveAccountCheckoutOptionTitle" = "حساب Browther";
 
 /* Button action text which will bring user to Brave VPN web page for more information. */
-"paywall.braveVPNLearnMoreButtonTitle" = "تعرف على المزيد حول Brave VPN";
+"paywall.braveVPNLearnMoreButtonTitle" = "تعرف على المزيد حول Browther VPN";
 
 /* Title label text for entering a promo code. */
 "paywall.havePromoCodeTitle" = "هل لديك رمز ترويجي؟";
@@ -110,7 +110,7 @@
 "ShowPreviousTabTitle" = "إظهار علامة التبويب السابقة";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts which is for Showing Brave Shields */
-"showShieldsTitle" = "فتح Browther Shields";
+"showShieldsTitle" = "فتح Shields";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "ShowTabTrayFromTabKeyCodeTitle" = "إظهار كل علامات التبويب";
@@ -119,10 +119,10 @@
 "storekitReceiptViewer.applicationVersionTitle" = "إصدار التطبيق";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.leoMonthlySubscriptionName" = "Brave Leo شهري";
+"storekitReceiptViewer.leoMonthlySubscriptionName" = "Browther Leo شهري";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.leoYearlySubscriptionName" = "Brave Leo سنوي";
+"storekitReceiptViewer.leoYearlySubscriptionName" = "Browther Leo سنوي";
 
 /* The error message when the App Store Receipt was not found in the Application Bundle */
 "storekitReceiptViewer.noReceiptFoundTitle" = "عذرًا، تعذر العثور على إيصالات App Store";
@@ -164,10 +164,10 @@
 "storekitReceiptViewer.shareReceiptTitle" = "مشاركة الإيصال";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Brave VPN شهري";
+"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Browther VPN شهري";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.vpnYearlySubscriptionName" = "Brave VPN سنوي";
+"storekitReceiptViewer.vpnYearlySubscriptionName" = "Browther VPN سنوي";
 
 /* Hardware shortcut for non-private tab or tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "SwitchToNonPBMKeyCodeTitle" = "وضع التصفح العادي";

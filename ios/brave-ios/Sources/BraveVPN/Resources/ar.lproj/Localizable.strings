@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "اختيار موقعك الجغرافي / بلدك";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "لا يسجل Brave نشاطك أبدًا";
+"vpn.checkboxNoIPLog" = "لا يسجل Browther نشاطك أبدًا";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "حماية كل التطبيقات & وجهازك بالكامل";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "المنطقة الزمنية لنظام iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "مشكلة Brave VPN";
+"vpn.contactFormTitle" = "مشكلة Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "تمكين";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "تثبيت ملف تعريف VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "ستقوم Brave الآن بتثبيت ملف تعريف VPN.";
+"vpn.installProfileTitle" = "ستقوم Browther الآن بتثبيت ملف تعريف VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "تم تمكين VPN الآن";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "دعم VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "ربط عملية الشراء بحسابك على Brave";
+"vpn.settingsLinkReceipt" = "ربط عملية الشراء بحسابك على Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "اربط مشترياتك من آب ستور بحساب Brave الخاص بك لاستخدام Brave VPN على الأجهزة الأخرى.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "تحديث طريقة الدفع";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "حتى في الخلفية، سيستمر Brave في حمايتك.";
+"vpn.vpnBackgroundNotificationBody" = "حتى في الخلفية، سيستمر Browther في حمايتك.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN مُفعّل";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN مُفعّل";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "استخدام أفضل خادم متاح";

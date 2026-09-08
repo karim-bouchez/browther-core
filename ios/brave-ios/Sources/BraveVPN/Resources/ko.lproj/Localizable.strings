@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "iOS 시간대";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN 문제";
+"vpn.contactFormTitle" = "Browther VPN 문제";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "사용";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN 지원";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "구매한 항목을 Brave 계정에 연결";
+"vpn.settingsLinkReceipt" = "구매한 항목을 Browther 계정에 연결";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "다른 기기에서도 Brave VPN을 사용하려면 App Store 구매 항목을 Brave 계정에 연결하세요.";
@@ -296,7 +296,7 @@
 "vpn.vpnBackgroundNotificationBody" = "Brave는 백그라운드에서도 계속 사용자를 보호해줍니다.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN이 켜짐";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN이 켜짐";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "가능한 최적의 서버 사용";

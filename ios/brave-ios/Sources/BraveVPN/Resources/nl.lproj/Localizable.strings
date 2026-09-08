@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Kies je geolocatie of land";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave legt je activiteit nooit vast";
+"vpn.checkboxNoIPLog" = "Browther legt je activiteit nooit vast";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Bescherm elke app en uw hele apparaat";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Tijdzone op iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN-probleem";
+"vpn.contactFormTitle" = "Browther VPN-probleem";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Schakel in";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Installeer VPN-profiel";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave installeert nu een VPN-profiel.";
+"vpn.installProfileTitle" = "Browther installeert nu een VPN-profiel.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN is nu ingeschakeld";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN-ondersteuning";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Koppel aankoop aan Brave-account";
+"vpn.settingsLinkReceipt" = "Koppel aankoop aan Browther-account";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Koppel je App Store-aankoop aan je Brave-account om Brave VPN op andere apparaten te gebruiken.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Werk betaalmethode bij";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Zelfs op de achtergrond beschermt Brave je.";
+"vpn.vpnBackgroundNotificationBody" = "Zelfs op de achtergrond beschermt Browther je.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN is ingeschakeld";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN is ingeschakeld";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Gebruik de beste beschikbare server";

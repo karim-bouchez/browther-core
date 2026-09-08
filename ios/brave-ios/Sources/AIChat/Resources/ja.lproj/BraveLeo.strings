@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "回答に「いいね」がつきました";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Brave AIのフィードバックを送信";
+"aichat.feedbackViewMainTitle" = "Browther AIのフィードバックを送信";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "プレミアムプラン";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leoは、Webの利用を向上させるプライベートなAIスマートアシスタントです。Leoは無料でご利用いただけますが、アクセスには制限があります。サブスクリプションサービスのBrave Leo Premiumでは制限が緩和され、より多くのモデルが提供されており、新機能にいち早くアクセスすることができます。デフォルトモデルは随時変わります。詳細はBraveの**[ヘルプセンター](%1$@)**をご覧ください。\n\nデフォルトでは、閲覧中のWebページやページ上でハイライトしたテキストについてLeoに質問すると、Leoが回答できるよう、検索クエリ同様にBrave サーバーに送信されます。場合によっては、Leoはあなたの入力から引き出したクエリをBrave検索に送信し、その検索結果を使用してより適切に回答します。Braveは回答の正確性を保証しておらず、回答には不正確な、誤解を招く、あるいは虚偽の情報が含まれる場合があります。Brave Leoに機密・個人情報は送信しないでください。また、健康、金融、個人の安全などに関する回答には十分ご注意ください。Leoのオプションは、設定 > Leoからいつでも調整できます。\n\nLeoは、IPアドレスのような個人を特定できる識別子を収集しません。検索クエリやBrave Leoの回答を含むあなたのデータが、AIモデルのトレーニングに使用されることはありません。また個人データがBraveのサーバーに保管されたり、Braveにより保持されることはありません。詳しくは、**[プライバシーポリシー](%2$@)**をご覧ください。";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Brave Leoとプライベートチャット";
+"aichat.termsConditionsTitle" = "Browther Leoとプライベートチャット";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "無制限";

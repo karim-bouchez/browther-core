@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "वापस जाएँ";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "क्योंकि आपने ट्रैकर्स और विज्ञापनों को बहुत ज़्यादा ब्लॉक करने का अनुरोध किया था, Brave पहले नेटवर्क कनेक्शन से पहले इस साइट को ब्लॉक कर रहा है.";
+"DomainBlockedPageDescription" = "क्योंकि आपने ट्रैकर्स और विज्ञापनों को बहुत ज़्यादा ब्लॉक करने का अनुरोध किया था, Browther पहले नेटवर्क कनेक्शन से पहले इस साइट को ब्लॉक कर रहा है.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave ने निम्नलिखित साइट को लोड होने से रोका है:";

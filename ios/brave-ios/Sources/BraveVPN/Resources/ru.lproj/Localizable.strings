@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Часовой пояс iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Проблема с Brave VPN";
+"vpn.contactFormTitle" = "Проблема с Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Включить";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Установить профиль VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Сейчас в браузер Brave будет установлен профиль VPN.";
+"vpn.installProfileTitle" = "Сейчас в браузер Browther будет установлен профиль VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "Теперь VPN включен";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Справочная информация в отношении VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Привязать покупку к аккаунту Brave";
+"vpn.settingsLinkReceipt" = "Привязать покупку к аккаунту Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Привяжите покупку в App Store к аккаунту Brave, чтобы использовать Brave VPN на других устройствах.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Измените способ оплаты";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Браузер Brave будет защищать вас даже в фоновом режиме.";
+"vpn.vpnBackgroundNotificationBody" = "Браузер Browther будет защищать вас даже в фоновом режиме.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN включен";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN включен";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Использовать лучший сервер";

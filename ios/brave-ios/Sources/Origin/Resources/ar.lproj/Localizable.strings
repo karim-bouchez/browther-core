@@ -2,7 +2,7 @@
 "adsHeader" = "الإعلانات";
 
 /* A title asking if the user already purchased on brave.com */
-"alreadyPurchasedTitle" = "هل اشتريت بالفعل عبر الموقع الإلكتروني Brave.com؟";
+"alreadyPurchasedTitle" = "هل اشتريت بالفعل عبر الموقع الإلكتروني browther.com؟";
 
 /* A section header title for analytics-related settings */
 "analyticsHeader" = "التحليلات";

@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Přejít zpět";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Jelikož jste požádali o agresivní blokování sledovačů a reklam, Brave tuto stránku před prvním připojením k síti blokuje. ";
+"DomainBlockedPageDescription" = "Jelikož jste požádali o agresivní blokování sledovačů a reklam, Browther tuto stránku před prvním připojením k síti blokuje. ";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Prohlížeč Brave zabránil načtení následujícího webu:";

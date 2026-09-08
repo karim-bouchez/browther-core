@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo je pametan pomoćnik potpomognut umjetnom inteligencijom (AI) ugrađen izravno u preglednik.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Povežite kupnju iz trgovine App Store sa svojim računom preglednika Brave za upotrebljavanje pomoćnika Lea na drugim uređajima.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Povežite kupnju iz trgovine App Store sa svojim računom preglednika Browther za upotrebljavanje pomoćnika Lea na drugim uređajima.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Povežite kupnju sa svojim računom Brave";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Povežite kupnju sa svojim računom Browther";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Aktivira prečac za pokretanje Lea iz trake brzih pretraživača.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Želite samo čavrljati?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Pametni pomoćnik koji pokreće umjetna inteligencija, ugrađen izravno u Brave.";
+"aichat.chatIntroSubTitle" = "Pametni pomoćnik koji pokreće umjetna inteligencija, ugrađen izravno u Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Pozdrav, ja sam Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Odgovor označen oznakom Sviđa mi se";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Davanje povratnih informacija o umjetnoj inteligenciji (AI) preglednika Brave";
+"aichat.feedbackViewMainTitle" = "Davanje povratnih informacija o umjetnoj inteligenciji (AI) preglednika Browther";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Pretplatite se na Premium";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Krajnja točka je trenutačno preopterećena. Pokušajte kasnije.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "U pregledniku Brave ne pohranjuju se niti dijele vaši glasovni upisi.";
+"aichat.speechRecognizerDisclaimer" = "U pregledniku Browther ne pohranjuju se niti dijele vaši glasovni upisi.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Nema";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Leo preglednika Brave privatni je pametan pomoćnik potpomognut umjetnom inteligencijom (AI) kojim se poboljšava vaša upotreba interneta. Leo je besplatan za upotrebu, ali ima ograničen pristup. Braveov pomoćnik Leo Premium nudi veći broj modela, veća ograničenja i daje pretplatnicima rani pristup novim značajkama. Zadani model mijenja se s vremena na vrijeme. Pogledajte [Help Center](%1$@)** preglednika Brave za više pojedinosti.\n\nPrema zadanim postavkama, kada postavite Leu pitanje o mrežnom mjestui ili stranici koju pregledavate, sadržaj stranice koju pregledavate ili bilo koji tekst koji istaknete na stranici, kao i vaš upit za pretraživanje, poslat će se Braveovim poslužiteljima kako bi Leo mogao dati odgovor. U nekim slučajevima, Leo će poslati upite izvedene iz vašeg unosa Brave Searchu i koristiti rezultate pretraživanja kako bi bolje odgovorio na vaše pitanje. Brave ne jamči točnost odgovora, a odgovori mogu sadržavati netočne, obmanjujuće ili lažne informacije. Nemojte Leu slati osjetljive ili privatne podatke i budite oprezni s odgovorima vezanim uz zdravlje, financije, osobnu sigurnost ili slično. Leove opcije možete prilagoditi u Postavkama u bilo kojem trenutku. Idite na Postavke > Leo.\n\nLeo ne prikuplja identifikatore kao što je vaša adresa IP koja se može povezati s vama. Ne treniramo naše modele na temelju vaših podataka, uključujući vaše upite za pretraživanje ili odgovore Brave Lea. Na našim poslužiteljima ne pohranjuju se niti zadržavaju nikakvi osobni podaci. Za više informacija pogledajte **[privacy policy](%2$@).**";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Privatno čavrljajte s Brave Leo";
+"aichat.termsConditionsTitle" = "Privatno čavrljajte s Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Neograničen";

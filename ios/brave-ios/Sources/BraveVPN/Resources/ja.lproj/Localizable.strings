@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "タイムゾーン";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN問題";
+"vpn.contactFormTitle" = "Browther VPN問題";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "有効化";
@@ -296,7 +296,7 @@
 "vpn.vpnBackgroundNotificationBody" = "バックグラウンドでもBraveはあなたを保護します";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPNがオンです";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPNがオンです";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "利用できる最適なサーバーを使用";

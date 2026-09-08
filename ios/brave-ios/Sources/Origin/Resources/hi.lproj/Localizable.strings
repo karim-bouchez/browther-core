@@ -2,7 +2,7 @@
 "adsHeader" = "विज्ञापन";
 
 /* A title asking if the user already purchased on brave.com */
-"alreadyPurchasedTitle" = "Brave.com पर पहले ही खरीद चुके हैं?";
+"alreadyPurchasedTitle" = "browther.com पर पहले ही खरीद चुके हैं?";
 
 /* A section header title for analytics-related settings */
 "analyticsHeader" = "एनालिटिक्स";

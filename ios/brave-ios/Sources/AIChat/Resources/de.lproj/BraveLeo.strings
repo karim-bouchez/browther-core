@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo ist ein KI-gestützter intelligenter Assistent, der direkt in den Browser integriert ist.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Verknüpfe deinen App Store-Einkauf mit deinem Brave Konto, um Leo auf anderen Geräten zu verwenden.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Verknüpfe deinen App Store-Einkauf mit deinem Browther Konto, um Leo auf anderen Geräten zu verwenden.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Kauf mit deinem Brave Konto verknüpfen";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Kauf mit deinem Browther Konto verknüpfen";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Ermöglicht eine Verknüpfung, um Leo aus der Schnell-Suchmaschinenleiste zu starten.";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Antwort als gut markiert";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Feedback für Brave KI geben";
+"aichat.feedbackViewMainTitle" = "Feedback für Browther KI geben";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Jetzt Premium sichern";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Es scheint, dass der Endpunkt momentan überlastet ist. Bitte versuche es später noch einmal.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave speichert oder teilt deine Sprachsuchen nicht.";
+"aichat.speechRecognizerDisclaimer" = "Browther speichert oder teilt deine Sprachsuchen nicht.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Keine";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo ist dein persönlicher KI-Assistent, der dir hilft, das Web besser zu nutzen. Du kannst Leo kostenlos verwenden, allerdings mit ein paar Einschränkungen. Mit Leo Premium bekommst du Zugriff auf mehr KI-Modelle, höhere Limits und kannst neue Funktionen früher ausprobieren. Welches Modell genau verwendet wird, kann sich ab und zu ändern. Mehr Infos findest du im **[Hilfe-Center](%1$@)**.\n\nWenn du Leo etwas zu einer Website fragst, die du gerade anschaust, wird normalerweise der Seiteninhalt oder markierter Text sowie deine Frage an die Server von Brave geschickt, damit Leo dir eine passende Antwort geben kann. Manchmal fragt Leo auch bei Brave Search nach, um dir besser helfen zu können. Die Antworten können aber auch mal ungenau oder falsch sein – also bitte keine sensiblen oder privaten Infos eingeben, vor allem bei Themen wie Gesundheit, Finanzen oder Sicherheit. Du kannst Leos Verhalten jederzeit in den Einstellungen unter > Leo anpassen.\n\nBrave speichert keine Infos wie deine IP-Adresse, mit denen man dich identifizieren könnte. Deine Daten, also z. B. deine Fragen oder Leos Antworten, werden nicht fürs Training der KI genutzt. Es wird auch nichts auf den Servern gespeichert. Die genauen Details findest du in der **[Datenschutzerklärung](%2$@)**.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Chatte privat mit Brave Leo";
+"aichat.termsConditionsTitle" = "Chatte privat mit Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Unbegrenzt";

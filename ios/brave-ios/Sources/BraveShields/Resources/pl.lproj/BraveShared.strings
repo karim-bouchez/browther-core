@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Wróć";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Ponieważ wybrano agresywne blokowanie skryptów śledzących i reklam, Brave blokuje tę stronę przed nawiązaniem połączenia sieciowego.";
+"DomainBlockedPageDescription" = "Ponieważ wybrano agresywne blokowanie skryptów śledzących i reklam, Browther blokuje tę stronę przed nawiązaniem połączenia sieciowego.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Przeglądarka Brave zapobiegła wczytaniu następującej witryny:";

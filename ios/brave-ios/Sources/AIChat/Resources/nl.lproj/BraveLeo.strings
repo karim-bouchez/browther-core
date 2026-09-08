@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo is een slimme AI-gestuurde assistent, ingebouwd in de browser.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Koppel uw App Store-aankoop aan uw Brave-account om Leo op andere apparaten te gebruiken.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Koppel uw App Store-aankoop aan uw Browther-account om Leo op andere apparaten te gebruiken.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Koppel aankoop aan Brave-account";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Koppel aankoop aan Browther-account";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Maakt een snelkoppeling om Leo te starten vanuit de snelzoekbalk.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Wil je gewoon chatten?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Een intelligente AI-gestuurde assistent, ingebouwd in Brave.";
+"aichat.chatIntroSubTitle" = "Een intelligente AI-gestuurde assistent, ingebouwd in Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Hallo, ik ben Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Antwoord leuk gevonden";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Geef feedback over Brave AI";
+"aichat.feedbackViewMainTitle" = "Geef feedback over Browther AI";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Koop Premium";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "Het eindpunt is momenteel overbelast. Probeer het later nog eens.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave bewaart en deelt geen gesproken invoer.";
+"aichat.speechRecognizerDisclaimer" = "Browther bewaart en deelt geen gesproken invoer.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Geen";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo is een eigen AI-slimme assistent die uw gebruik van het web verbetert. Leo is gratis te gebruiken met beperkte toegang. Brave Leo Premium biedt meer modellen, hogere limieten en geeft abonnees vroegtijdige toegang tot nieuwe functies. Het standaardmodel zal van tijd tot tijd veranderen. Zie het Brave **[Helpcentrum](%1$@)** voor meer details.\n\nWanneer u Leo een vraag stelt over een website of pagina die u bekijkt, wordt de inhoud van de webpagina die u bekijkt of tekst die u markeert op een pagina, evenals uw zoekopdracht standaard naar de servers van Brave gestuurd zodat Leo een antwoord kan geven. In sommige gevallen zal Leo zoekopdrachten afgeleid van uw invoer naar Brave Search sturen en de zoekresultaten gebruiken om uw vraag beter te beantwoorden. Brave garandeert de nauwkeurigheid van antwoorden niet, en antwoorden kunnen onnauwkeurige, misleidende of valse informatie bevatten. Geef geen gevoelige of privé-informatie aan Brave Leo, en wees voorzichtig met antwoorden die te maken hebben met gezondheid, financiën, persoonlijke veiligheid of dergelijke. U kunt de opties van Leo op elk moment aanpassen in Instellingen. Ga naar Instellingen > Leo.\n\nLeo verzamelt geen identificatoren zoals uw IP-adres die aan u gekoppeld kunnen worden. We trainen onze modellen niet op basis van uw gegevens, inclusief uw zoekopdrachten of de antwoorden van Brave Leo. Er worden geen persoonlijke gegevens opgeslagen op onze servers, of bewaard door Brave. Zie het **[privacybeleid](%2$@)** voor meer informatie.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Chat privé met Brave Leo";
+"aichat.termsConditionsTitle" = "Chat privé met Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Onbeperkt";

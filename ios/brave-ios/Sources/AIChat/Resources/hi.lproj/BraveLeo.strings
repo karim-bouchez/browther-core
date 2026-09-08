@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "लियो AI की सुविधा वाला स्मार्ट असिस्टेंट है, जिसे सीधे आपके ब्राउज़र में बनाया गया है।";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "दूसरे डिवाइसों पर Leo इस्तेमाल करने के लिए अपनी App Store Brave खरीदारी को अपने Brave अकाउंट से लिंक करें।";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "दूसरे डिवाइसों पर Leo इस्तेमाल करने के लिए अपनी App Store Browther खरीदारी को अपने Browther अकाउंट से लिंक करें।";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "खरीदारी को अपने Brave अकाउंट से लिंक करें";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "खरीदारी को अपने Browther अकाउंट से लिंक करें";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "क्विक सर्च इंजन बार से Leo को लॉन्च करने के लिए शॉर्टकट चालू करें।";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "क्या आप सिर्फ़ चैट करना चाहते हैं?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "मैं AI द्वारा संचालित बुद्धिमान असिस्टेंट हूँ, जिसे Brave के अंदर बनाया गया है।";
+"aichat.chatIntroSubTitle" = "मैं AI द्वारा संचालित बुद्धिमान असिस्टेंट हूँ, जिसे Browther के अंदर बनाया गया है।";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "नमस्ते, मैं लियो हूँ!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "जवाब पसंद किया गया";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Brave AI का फ़ीडबैक दें";
+"aichat.feedbackViewMainTitle" = "Browther AI का फ़ीडबैक दें";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "प्रीमियम सदस्य बनें";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "फ़िलहाल, एंडपॉइंट ओवरलोडेड है। कृपया बाद में कोशिश करें।";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave आपके वॉइस इनपुट को स्टोर या शेयर नहीं करता है।";
+"aichat.speechRecognizerDisclaimer" = "Browther आपके वॉइस इनपुट को स्टोर या शेयर नहीं करता है।";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "कुछ नहीं";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo एक प्राइवेट AI स्मार्ट असिस्टेंट है, जो आपके वेब के इस्तेमाल को बेहतर बनाता है। Leo को सीमित ऐक्सेस के साथ इस्तेमाल करना मुफ़्त है। Brave Leo प्रीमियम ज़्यादा मॉडल और ज़्यादा सीमाएँ ऑफ़र करता है और सब्सक्राइबर्स को नई सुविधाओं का जल्द ऐक्सेस देता है। यह डिफ़ॉल्ट मॉडल समय-समय पर बदल जाएगा। ज़्यादा जानकारी के लिए Brave **[हेल्प सेंटर](%1$@)** देखें.\n\nडिफ़ॉल्ट तौर पर, जब आप Leo से किसी वेबसाइट या आपके देखे जा रहे किसी पेज के बारे में कोई सवाल पूछते हैं, तो आप जो वेब पेज देख रहे हैं या आपने जो टेक्स्ट हाइलाइट किया है उसकी सामग्री और आपकी सर्च क्वेरी को Brave के सर्वर्स को भेजा जाएगा, ताकि Leo जवाब दे सके। कुछ मामलों में, Leo आपके इनपुट से मिली क्वेरी Brave Search को भेजेगा और अपने सवालों के बेहतर जवाब पाने के लिए सर्च नतीजों का इस्तेमाल करेगा। Brave जवाबों की सटीकता की गारंटी नहीं देता, औक जवाहों में गलत, गुमराह करने वाली या झूठी जानकारी शामिल हो सकती है। Brave Leo को संवेदनशील या निजी जानकारी सबमिट न करें, और सेहत, वित्त, व्यक्तिगत सुरक्षा या मिलती-जुलती चीज़ों से जुड़े जवाबों के साथ सावधानी बरतें। आप सेटिंग में जाकर कभी भी Leo के विकल्प बदल सकते हैं। सेटिंग > Leo पर जाएँ।\n\nLeo आपके IP address जैसे आइडेंटिफ़ायर्स इकट्ठा नहीं करता, जिन्हें आपसे जोड़कर देखा जा सके। हम आपके डेटा के आधार पर हमारे मॉडल को ट्रेनिंग नहीं देते, जिसमें आपकी सर्च क्वेरी या Brave Leo के जवाब शामिल हैं। किसी भी व्यक्तिगत डेटा को हमारे सर्वर्स पर स्टोर नहीं किया जाता या Brave उसे नहीं रखता। ज़्यादा जानकारी के लिए **[प्राइवेसी पॉलिसी](%2$@)** देखें।";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Brave Leo के साथ निजी तौर पर चैट करें";
+"aichat.termsConditionsTitle" = "Browther Leo के साथ निजी तौर पर चैट करें";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "असीमित";

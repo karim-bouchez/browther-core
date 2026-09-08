@@ -2,7 +2,7 @@
 "About" = "Tietoja asetuksista";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "Tietoja Brave Shieldsistä";
+"AboutBraveShields" = "Tietoja Shieldsistä";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Sivustoilla on usein evästeitä ja merkkijonoja, joita käytetään sinun ja laitteesi tunnistamiseen. Ne tahtovat selvittää henkilöllisyytesi sekä seurata sinua verkossa, tarkkaillen jokaisen sivuston käyttöä.\n\nBrave estää kyseiset seuraimet, joten voit rauhassa selata nettiä ilman tarkkailijoita.";
@@ -11,7 +11,7 @@
 "AccessPhotoDeniedAlertMessage" = "Tämän avulla voit tallentaa kuvia kameran kuviin.";
 
 /* See http://mzl.la/1G7uHo7 */
-"AccessPhotoDeniedAlertTitle" = "Brave haluaa käyttää valokuviasi";
+"AccessPhotoDeniedAlertTitle" = "Browther haluaa käyttää valokuviasi";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "addBookmarkTitle" = "Lisää kirjanmerkki";
@@ -29,7 +29,7 @@
 "AddToMenuItem" = "Lisää kirjanmerkki";
 
 /* Text for the toggle switch to clear 'Brave Ads' data in settings */
-"ads.braveAdsDataToggleOption" = "Brave-mainosten tiedot";
+"ads.braveAdsDataToggleOption" = "Browther-mainosten tiedot";
 
 /* individual blocking statistic title */
 "AdsAndTrackers" = "Mainokset ja seurantaohjelmat";
@@ -146,10 +146,10 @@
 "BookmarkUrlPlaceholderText" = "Osoite";
 
 /* Button to show the brave panel */
-"BravePanel" = "Brave-paneeli";
+"BravePanel" = "Browther-paneeli";
 
 /* No comment provided by engineer. */
-"BraveRewardsAdNotificationTitle" = "Brave-palkinnot";
+"BraveRewardsAdNotificationTitle" = "Browther-palkinnot";
 
 /* No comment provided by engineer. */
 "BraveRewardsOpen" = "Avaa";
@@ -158,7 +158,7 @@
 "BraveRewardsSettingsTitle" = "Palkinnot";
 
 /* Brave Rewards title */
-"BraveRewardsTitle" = "Brave-palkinnot";
+"BraveRewardsTitle" = "Browther-palkinnot";
 
 /* Brave Search Banner Promotion description content in Search Suggestions */
 "braveSearchPromotion.bannerDescription" = "Brave-haku ei profiloi sinua.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Edistyneet kontrollit";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Brave-suojaukset ja yksityisyys";
+"BraveShieldsAndPrivacy" = "Suojaukset ja yksityisyys";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Suojaukset ja yksityisyys";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Kokeile käyttöä ilman Shieldsiä, jos sivusto vaikuttaa olevan rikkinäinen.";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Browther Shields";
+"BraveShieldsStatusTitle" = "Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Alas";
@@ -218,10 +218,10 @@
 "BraveShieldsStatusValueUp" = "Ylös";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Vaihda Brave-suojauksen asetusta kaksoisnapauttamalla";
+"BraveShieldsToggleHint" = "Vaihda suojauksen asetusta kaksoisnapauttamalla";
 
 /* The name of the feature */
-"bravetalk.braveTalkTitle" = "Brave Talk";
+"bravetalk.braveTalkTitle" = "Browther Talk";
 
 /* Title for the button that allows you go to the language selection screen, to select a language you want to translate to/from. */
 "BraveTranslate.languageSelectionButtonTitle" = "Valitse kieli";
@@ -233,13 +233,13 @@
 "BraveTranslate.searchInputTitle" = "Haku";
 
 /* This text is for the settings menu for all Brave-Translate options. */
-"BraveTranslate.settingsMenuTitle" = "Brave-kääntäjä";
+"BraveTranslate.settingsMenuTitle" = "Browther-kääntäjä";
 
 /* This text is for the translate settings screen. It's the title of the settings menu. */
-"BraveTranslate.settingsScreenTitle" = "Brave-kääntäjä";
+"BraveTranslate.settingsScreenTitle" = "Browther-kääntäjä";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
-"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Kun Brave-kääntäjä on käytössä, se tunnistaa automaattisesti sivusi nykyisen kielen ja näyttää URL-palkissa käännä-painikkeen.";
+"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Kun Browther-kääntäjä on käytössä, se tunnistaa automaattisesti sivusi nykyisen kielen ja näyttää URL-palkissa käännä-painikkeen.";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
 "BraveTranslate.settingsTranslateEnabledOptionTitle" = "Kääntäminen käytössä";
@@ -269,10 +269,10 @@
 "callout.bottomBarCalloutDescription" = "Siirrä osoitepalkki, välilehdet, kirjanmerkit ja muut työkalut selaimen alaosaan.";
 
 /* Title for Bottom Bar Callout View */
-"callout.bottomBarCalloutTitle" = "Mukauta Brave-välilehtipalkkia";
+"callout.bottomBarCalloutTitle" = "Mukauta Browther-välilehtipalkkia";
 
 /* Subtitle - Description for Privacy Everywhere Full Screen Callout */
-"callout.privacyEverywhereCalloutDescription" = "Hanki Brave-tietosuoja tietokoneellesi tai tabletillesi ja synkronoi kirjanmerkit ja laajennukset laitteiden välillä.";
+"callout.privacyEverywhereCalloutDescription" = "Hanki Browther-tietosuoja tietokoneellesi tai tabletillesi ja synkronoi kirjanmerkit ja laajennukset laitteiden välillä.";
 
 /* Title for button in Default Browser Full Screen Callout */
 "callout.privacyEverywhereCalloutPrimaryButtonTitle" = "Synkronoi nyt";
@@ -572,22 +572,22 @@
 "defaultBrowserCallout.introPrimaryText" = "Avaa kaikki linkit Bravella suojellaksesi yksityisyyttäsi";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Brave-suojaus estää seurantaohjelmat ja mainokset sekä säästää dataa ja aikaa jokaisella vierailemallasi sivulla";
+"defaultBrowserCallout.introSecondaryText" = "Suojaus estää seurantaohjelmat ja mainokset sekä säästää dataa ja aikaa jokaisella vierailemallasi sivulla";
 
 /* Tertiary text on default browser popup screen */
-"defaultBrowserCallout.introTertiaryText" = "Avaa asetukset, napauta Oletusarvoinen selainsovellus ja valitse Brave.";
+"defaultBrowserCallout.introTertiaryText" = "Avaa asetukset, napauta Oletusarvoinen selainsovellus ja valitse Browther.";
 
 /* Notification body to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationBody" = "Aseta Brave oletusselaimeksi";
+"defaultBrowserCallout.notificationBody" = "Aseta Browther oletusselaimeksi";
 
 /* Notification title to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationTitle" = "Hanki Brave-suojaus jokaisen linkin kohdalla";
+"defaultBrowserCallout.notificationTitle" = "Hanki Browther-suojaus jokaisen linkin kohdalla";
 
 /* No comment provided by engineer. */
 "defaultBrowserCalloutCloseAccesabilityLabel" = "Sulje oletusarvoisen selaimen kehote";
 
 /* Name for default Brave theme. */
-"defaultThemeName" = "Oletisarvoinen Brave";
+"defaultThemeName" = "Oletisarvoinen Browther";
 
 /* No comment provided by engineer. */
 "Delete" = "Poista";
@@ -692,7 +692,7 @@
 "ErrorPageReloadButtonTitle" = "Lataa uudelleen";
 
 /* Additional warning text when clicking the Advanced button on error pages. %@ is a placeholder, do not localize it. Do not localize <br />. */
-"ErrorPagesAdvancedErrorPinningDetails" = "%1$@ käyttää yleensä salausta tietojesi suojaamiseen. Kun Brave yritti muodostaa yhteyden kohteeseen %2$@, sivusto lähetti tällä kertaa takaisin epätavalliset ja virheelliset kirjautumistiedot. Näin voi käydä, kun hyökkääjä yrittää teeskennellä olevansa %3$@ tai kun Wi-Fi-kirjautumisnäyttö on katkaissut yhteyden. Tietosi ovat edelleen turvassa, koska Brave katkaisi yhteyden ennen tietojen vaihtoa.<br />Et voi juuri nyt käytä kohteessa %4$@, koska verkkosivusto käyttää varmenteen kiinnitystä. Verkkovirheet ja hyökkäykset ovat yleensä tilapäisiä, joten tämä sivu todennäköisesti toimii myöhemmin.";
+"ErrorPagesAdvancedErrorPinningDetails" = "%1$@ käyttää yleensä salausta tietojesi suojaamiseen. Kun Browther yritti muodostaa yhteyden kohteeseen %2$@, sivusto lähetti tällä kertaa takaisin epätavalliset ja virheelliset kirjautumistiedot. Näin voi käydä, kun hyökkääjä yrittää teeskennellä olevansa %3$@ tai kun Wi-Fi-kirjautumisnäyttö on katkaissut yhteyden. Tietosi ovat edelleen turvassa, koska Browther katkaisi yhteyden ennen tietojen vaihtoa.<br />Et voi juuri nyt käytä kohteessa %4$@, koska verkkosivusto käyttää varmenteen kiinnitystä. Verkkovirheet ja hyökkäykset ovat yleensä tilapäisiä, joten tämä sivu todennäköisesti toimii myöhemmin.";
 
 /* Additional warning text when clicking the Advanced button on error pages */
 "ErrorPagesAdvancedWarningDetails" = "Palvelin ei pystynyt todistamaan, että se on %@; laitteesi käyttöjärjestelmä ei pidä suojausvarmennetta luotettavana. Tämä voi johtua virheellisestä määrityksestä tai siitä, että hyökkääjä yrittää siepata yhteytesi.";
@@ -812,10 +812,10 @@
 "HideLinkPreviewsActionTitle" = "Piilota linkkiesikats.";
 
 /* Hides the rewards icon */
-"HideRewardsIcon" = "Piilota Brave Rewards -kuvake";
+"HideRewardsIcon" = "Piilota Browther Rewards -kuvake";
 
 /* Hide the rewards icon explination. */
-"HideRewardsIconSubtitle" = "Piilottaa Brave-palkintojen kuvakkeen, kun Brave-palkinnot eivät ole käytössä";
+"HideRewardsIconSubtitle" = "Piilottaa Browther-palkintojen kuvakkeen, kun Browther-palkinnot eivät ole käytössä";
 
 /* Title for history menu item */
 "HistortMenuItem" = "Historia";
@@ -971,7 +971,7 @@
 "MyFirstAdBody" = "Saat lisätietoja napauttamalla tästä.";
 
 /* No comment provided by engineer. */
-"MyFirstAdTitle" = "Tämä on ensimmäinen Brave-mainoksesi";
+"MyFirstAdTitle" = "Tämä on ensimmäinen Browther-mainoksesi";
 
 /* Bookmark title / Device name */
 "Name" = "Nimi";
@@ -1043,7 +1043,7 @@
 "ntp.imageTypeSelectionDescription" = "Sponsoroidut kuvat ovat brändättyjä taustakuvia, jotka näkyvät selaimen uusissa välilehdissä. Näiden sponsoroitujen kuvien ottaminen käyttöön tukee Braven tehtävää. [Lisätietoja](#learn-more)";
 
 /* No comment provided by engineer. */
-"ntp.learnMoreAboutRewards" = "Lue lisää Brave-palkinnoista";
+"ntp.learnMoreAboutRewards" = "Lue lisää Browther-palkinnoista";
 
 /* No comment provided by engineer. */
 "ntp.learnMoreAboutSI" = "Lue lisää sponsoroiduista kuvista";
@@ -1085,10 +1085,10 @@
 "OBAdsOptInMessageJapan" = "Ansaitse pisteitä ja palkitse sisällöntuottajia upeasta sisällöstä selaamisen aikana.";
 
 /* Title when opting into brave Ads when region becomes available */
-"OBAdsOptInTitle" = "Brave-mainokset ovat täällä!";
+"OBAdsOptInTitle" = "Browther-mainokset ovat täällä!";
 
 /* Title for ads onboarding screen */
-"OBAdsTitle" = "Brave näyttää ensimmäisen mainoksesi";
+"OBAdsTitle" = "Browther näyttää ensimmäisen mainoksesi";
 
 /* Title for when the user completes onboarding */
 "OBCompleteTitle" = "Olet nyt valmis.";
@@ -1115,7 +1115,7 @@
 "OBPrivacyConsentClipboardPermission" = "Salli Braven tarkistaa vastaava suosittelijakoodi leikepöydältäni";
 
 /* No comment provided by engineer. */
-"OBPrivacyConsentDetail" = "Olet ehkä ladannut Braven suosittelijan avulla. Suosittelijasi tunnistamiseksi Brave tarkistaa leikepöydältäsi kertaluonteisen suosittelijakoodin. Tämä tarkistus rajoittuu vain koodiin, eikä muita henkilötietoja lähetetä. Jos kieltäydyt, suosittelijasi ei saa palkintoja Bravelta.";
+"OBPrivacyConsentDetail" = "Olet ehkä ladannut Braven suosittelijan avulla. Suosittelijasi tunnistamiseksi Browther tarkistaa leikepöydältäsi kertaluonteisen suosittelijakoodin. Tämä tarkistus rajoittuu vain koodiin, eikä muita henkilötietoja lähetetä. Jos kieltäydyt, suosittelijasi ei saa palkintoja Bravelta.";
 
 /* No comment provided by engineer. */
 "OBPrivacyConsentNoButton" = "Älä salli tätä tarkistusta";
@@ -1136,7 +1136,7 @@
 "OBRewardsAgreementDetailsAnd" = "ja";
 
 /* Title for rewards agreement onboarding screen */
-"OBRewardsAgreementTitle" = "Brave-palkinnot";
+"OBRewardsAgreementTitle" = "Browther-palkinnot";
 
 /* Detail text for rewards onboarding screen */
 "OBRewardsDetail" = "Braven yksityisten mainosten käyttöönotto tukee julkaisijoita ja sisällöntuottajia jokaisen mainoksen katselun myötä.";
@@ -1148,7 +1148,7 @@
 "OBRewardsPrivacyPolicyDetailLink" = "Tietosuojakäytäntö";
 
 /* Title for rewards onboarding screen */
-"OBRewardsTitle" = "Brave-palkinnot";
+"OBRewardsTitle" = "Browther-palkinnot";
 
 /* Save button to save current selection */
 "OBSaveButton" = "Tallenna";
@@ -1157,13 +1157,13 @@
 "OBSearchEngineDetail" = "Valitse oletushakukone";
 
 /* Title for search engine onboarding screen */
-"OBSearchEngineTitle" = "Tervetuloa Brave-selaimeen";
+"OBSearchEngineTitle" = "Tervetuloa Browther-selaimeen";
 
 /* Detail text for shields onboarding screen */
 "OBShieldsDetail" = "Estä yksityisyyttäsi loukkaavat mainokset ja seurantaohjelmat, jotta voit selata verkkoa ilman, että sinua seurataan.";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Browther Shields";
+"OBShieldsTitle" = "Shields";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Näytä";
@@ -1178,7 +1178,7 @@
 "onboarding.linkReceiptDescription" = "Brave VPN -tilauksesi voi suojata enintään 10 laitetta Android- tai iOS-laitteilla ja tietokoneella. Linkitä App Store -tilauksesi Brave-tiliisi.";
 
 /* Popup title to let users know they can use the vpn on all their devices */
-"onboarding.linkReceiptTitle" = "Laajenna Brave-palomuuria + VPN-suojaa";
+"onboarding.linkReceiptTitle" = "Laajenna Browther-palomuuria + VPN-suojaa";
 
 /* Description for the NTP pop-over that describes the tracking information on NTP */
 "onboarding.ntpOnboardingPopOverTrackerDescription" = "Seurantaohjelmien ja mainosten estämisen jälkeen verkkosivustot käyttävät vähemmän dataa ja latautuvat paljon nopeammin.";
@@ -1202,7 +1202,7 @@
 "OpenAllBookmarks" = "Avaa kaikki (%i)";
 
 /* Button title for opening the Brave Rewards panel to settings */
-"OpenBraveRewardsSettings" = "Avaa Brave-palkintojen asetukset";
+"OpenBraveRewardsSettings" = "Avaa Browther-palkintojen asetukset";
 
 /* Error description when there is an error while navigating to Files App */
 "OpenDownloadsFolderErrorDescription" = "Tapahtui tuntematon virhe avattaessa Lataukset-kansiota Tiedostot-sovelluksessa.";
@@ -1265,13 +1265,13 @@
 "opentabs.noSyncChainPlaceHolderViewDescription" = "Aloita määrittämällä synkronointiketju ja valitsemalla synkronointiasetuksista Avoimet välilehdet.";
 
 /* The additional description of the view describing tab syncing should be enabled. */
-"opentabs.noSyncSessionPlaceHolderViewAdditionalDescription" = "Hallinnoi, mitä Brave synkronoi asetuksissa.";
+"opentabs.noSyncSessionPlaceHolderViewAdditionalDescription" = "Hallinnoi, mitä Browther synkronoi asetuksissa.";
 
 /* The description of the view describing no other sessions are active in sync. */
 "opentabs.noSyncSessionPlaceHolderViewDescription" = "Muilta laitteiltasi ei ole näytettäviä aktiivisia istuntoja.";
 
 /* The title of the view showing no synced sessions */
-"opentabs.noSyncSessionPlaceHolderViewTitle" = "Täällä näytetään muilla laitteilla avoinna olevat Brave-välilehdet";
+"opentabs.noSyncSessionPlaceHolderViewTitle" = "Täällä näytetään muilla laitteilla avoinna olevat Browther-välilehdet";
 
 /* The title for the action to hide open session with all tabs */
 "opentabs.openSessionHideAllActionTitle" = "Piilota toistaiseksi";
@@ -1433,7 +1433,7 @@
 "playList.addToPlayListAlertDescription" = "Haluatko lisätä tämän videon soittolistallesi?";
 
 /* Alert Title for adding videos to playlist */
-"playList.addToPlayListAlertTitle" = "Lisää Brave-soittolistalle";
+"playList.addToPlayListAlertTitle" = "Lisää Browther-soittolistalle";
 
 /* The title of the screen in CarPlay that contains all the audio/playback options */
 "playlist.carplayOptionsScreenTitle" = "Toistoasetukset";
@@ -1454,7 +1454,7 @@
 "playlist.carplaySettingsSectionTitle" = "Asetukset";
 
 /* The title of the playlist when in Carplay mode */
-"playlist.carplayTitle" = "Brave-soittolista";
+"playlist.carplayTitle" = "Browther-soittolista";
 
 /* Title for changing the folder of the current media playlist item */
 "playList.changeFoldersButtonTitle" = "Vaihda soittolistaa";
@@ -1475,7 +1475,7 @@
 "playList.loadResourcesErrorAlertDescription" = "Resurssin lataamisessa oli ongelma!";
 
 /* Detail Text when there are no items in the playlist */
-"playList.noItemLabelDetailLabel" = "Voit lisätä kohteita Brave-soittolistallesi selaimessa";
+"playList.noItemLabelDetailLabel" = "Voit lisätä kohteita Browther-soittolistallesi selaimessa";
 
 /* Text when there are no items in the playlist */
 "playList.noItemLabelTitle" = "Ei käytettävissä olevia kohteita";
@@ -1580,13 +1580,13 @@
 "playList.toastAddToPlaylistTitle" = "Lisää soittolistaan";
 
 /* The title for the toast that shows up on a page when an item that has already been added, was updated. */
-"playList.toastExitingItemPlaylistTitle" = "Katso Brave-soittolistassa";
+"playList.toastExitingItemPlaylistTitle" = "Katso Browther-soittolistassa";
 
 /* A button title that when tapped will re-add the media item (undo the removal) that the user recently removed. */
 "playList.undoRemoveButtonTitle" = "Pura";
 
 /* Footer for option to disable URL-Bar button */
-"playlist.urlBarButtonOptionFooter" = "Lisää soittolistapainikkeen Brave-selaimen osoitepalkin viereen. Tällä painikkeella pääset nopeasti avaamaan soittolistan tai lisäämään tai poistamaan mediatiedostoja.";
+"playlist.urlBarButtonOptionFooter" = "Lisää soittolistapainikkeen Browther-selaimen osoitepalkin viereen. Tällä painikkeella pääset nopeasti avaamaan soittolistan tai lisäämään tai poistamaan mediatiedostoja.";
 
 /* Title for option to disable URL-Bar button */
 "playlist.urlBarButtonOptionTitle" = "Ota pikakäyttöpainike käyttöön";
@@ -1619,7 +1619,7 @@
 "playlistFolders.untitledFolderTitle" = "Nimetön soittolista";
 
 /* Description for closing the `Brave Shields` popover menu that is displayed. */
-"PopoverShieldsMenuClose" = "Sulje Brave-suojaus";
+"PopoverShieldsMenuClose" = "Sulje suojaus";
 
 /* Settings privacy section title */
 "Privacy" = "Tietosuoja";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Viime viikko";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**Brave-suojaus esti kohteen **%1$@** **%2$ lld** sivustolla";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**Suojaus esti kohteen **%1$@** **%2$ lld** sivustolla";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Yleisin seurantaohjelma ja mainos";
@@ -1703,7 +1703,7 @@
 "privacyHub.notificationCalloutButtonText" = "Ota ilmoitukset käyttöön";
 
 /* Message of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
-"privacyHub.notificationMessage" = "Tiivistelmä siitä, kuinka Brave suojeli sinua verkossa tällä viikolla.";
+"privacyHub.notificationMessage" = "Tiivistelmä siitä, kuinka Browther suojeli sinua verkossa tällä viikolla.";
 
 /* Title of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
 "privacyHub.notificationTitle" = "Viikoittainen yksityisyysraportti";
@@ -1769,7 +1769,7 @@
 "privacyHub.vpnAlertRegularTrackerTypeSingular" = "Seurantaohjelma tai mainos";
 
 /* Section title, this section displays vpn alerts: items which the vpn managed to block on users behalf. */
-"privacyHub.vpnAlertsHeader" = "Brave-palomuuri ja -VPN -hälytykset";
+"privacyHub.vpnAlertsHeader" = "Browther-palomuuri ja -VPN -hälytykset";
 
 /* This label says about Brave VPN, as a source of by what the resource was blocked by. Think of it in context of 'Blocked by VPN' */
 "privacyHub.vpnLabel" = "Palomuuri ja VPN";
@@ -1796,7 +1796,7 @@
 "PrivateTabBody" = "Yksityisiä välilehtiä ei tallenneta Braveen, mutta ne eivät tee sinusta anonyymiä verkossa. Sivustot, joilla käyt yksityisellä välilehdellä, eivät näy historiassasi, ja niiden evästeet katoavat aina, kun suljet ne – niistä ei jää jälkeäkään Braveen. Lataukset kuitenkin tallennetaan.\nMobiilioperaattorisi (tai sen Wi-Fi-verkon tai VPN:n omistaja, johon olet yhteydessä) voi nähdä, millä sivustoilla vierailet, ja kyseiset sivustot saavat tietoonsa julkisen IP-osoitteesi, jopa yksityisillä välilehdillä.";
 
 /* Private tab detail text */
-"PrivateTabDetails" = "Yksityisten välilehtien käyttäminen muuttaa vain sitä, mitä Brave voi tehdä laitteellasi, se ei muuta kenenkään muun käyttäytymistä.\n\nSivustot saavat aina tietoonsa IP-osoitteesi, kun vierailet niillä. Sen perusteella ne voivat usein arvata karkeasti missä olet – tyypillisesti kaupunkisi. Joskus tämä sijainnin arvaus voi olla paljon tarkempi. Sivustot tietävät myös kaiken, mitä kerrot niille, kuten hakutermit. Jos kirjaudut sisään sivustolle, ne tietävät sinun olevan kyseisen tilin omistaja. Olet silti kirjautuneena ulos, kun suljet yksityiset välilehdet, koska Brave poistaa evästeen, joka pitää sinut kirjautuneena sisään.\n\n Kuka tahansa, joka yhdistää sinut Internetiin (internet-palveluntarjoajasi), voi nähdä kaiken toimintasi verkossa. Usein tämä on mobiilioperaattorisi. Jos olet yhteydessä Wi-Fi-verkkoon, tämä on kyseisen verkon omistaja, ja jos käytät VPN:ää, se on VPN:n ylläpitäjä. Internet-palveluntarjoajasi voi nähdä, millä sivustoilla käyt. Jos kyseiset sivustot käyttävät HTTPS:ää, Internet-palveoluntarjoajasi voi tehdä enintään valistuneen arvauksen siitä, mitä teet kyseisillä sivustoilla. Mutta jos sivusto käyttää vain HTTP:tä, Internet-palveluntarjoajasi näkee kaiken: hakutermit, lukemasi sivut ja seuraamasi linkit.\n\n Jos työnantaja hallinnoi laitettasi, hän saattaa myös seurata, mitä teet sillä. Yksityisten välilehtien käyttäminen ei todennäköisesti estä työnantajaa selvittämästä, millä sivustoilla olet käynyt. Myös joku muu, jolla on pääsy käsiksi laitteeseesi, on voinut asentaa ohjelmiston, joka seuraa toimintaasi, eivätkä yksityiset välilehdet suojaa sinua tällaisessa tilanteessa.";
+"PrivateTabDetails" = "Yksityisten välilehtien käyttäminen muuttaa vain sitä, mitä Browther voi tehdä laitteellasi, se ei muuta kenenkään muun käyttäytymistä.\n\nSivustot saavat aina tietoonsa IP-osoitteesi, kun vierailet niillä. Sen perusteella ne voivat usein arvata karkeasti missä olet – tyypillisesti kaupunkisi. Joskus tämä sijainnin arvaus voi olla paljon tarkempi. Sivustot tietävät myös kaiken, mitä kerrot niille, kuten hakutermit. Jos kirjaudut sisään sivustolle, ne tietävät sinun olevan kyseisen tilin omistaja. Olet silti kirjautuneena ulos, kun suljet yksityiset välilehdet, koska Browther poistaa evästeen, joka pitää sinut kirjautuneena sisään.\n\n Kuka tahansa, joka yhdistää sinut Internetiin (internet-palveluntarjoajasi), voi nähdä kaiken toimintasi verkossa. Usein tämä on mobiilioperaattorisi. Jos olet yhteydessä Wi-Fi-verkkoon, tämä on kyseisen verkon omistaja, ja jos käytät VPN:ää, se on VPN:n ylläpitäjä. Internet-palveluntarjoajasi voi nähdä, millä sivustoilla käyt. Jos kyseiset sivustot käyttävät HTTPS:ää, Internet-palveoluntarjoajasi voi tehdä enintään valistuneen arvauksen siitä, mitä teet kyseisillä sivustoilla. Mutta jos sivusto käyttää vain HTTP:tä, Internet-palveluntarjoajasi näkee kaiken: hakutermit, lukemasi sivut ja seuraamasi linkit.\n\n Jos työnantaja hallinnoi laitettasi, hän saattaa myös seurata, mitä teet sillä. Yksityisten välilehtien käyttäminen ei todennäköisesti estä työnantajaa selvittämästä, millä sivustoilla olet käynyt. Myös joku muu, jolla on pääsy käsiksi laitteeseesi, on voinut asentaa ohjelmiston, joka seuraa toimintaasi, eivätkä yksityiset välilehdet suojaa sinua tällaisessa tilanteessa.";
 
 /* Private tab information link */
 "PrivateTabLink" = "Lue lisää yksityisistä välilehdistä.";
@@ -1973,7 +1973,7 @@
 "ReportBrokenSiteBody1" = "Ilmoita Braven kehittäjille, että sivusto ei toimi odotetulla tavalla:";
 
 /* This is the info text that is presented when a user is submitting a web-compatibility report. */
-"ReportBrokenSiteBody2" = "Huomaa: Brave-palvelimille lähetettävä raportti sisältää sivuston osoitteen, Brave-versionumeron, Shields-asetukset, VPN-tilan ja kieliasetukset. ";
+"ReportBrokenSiteBody2" = "Huomaa: Browther-palvelimille lähetettävä raportti sisältää sivuston osoitteen, Browther-versionumeron, Shields-asetukset, VPN-tilan ja kieliasetukset. ";
 
 /* No comment provided by engineer. */
 "ReportBrokenSubmitButtonTitle" = "Lähetä";
@@ -2006,31 +2006,31 @@
 "RestoreTabNegativeButtonTitle" = "Ei";
 
 /* Restore Tabs Prompt Description */
-"RestoreTabOnCrashAlertMessage" = "Valitettavasti Brave kaatui tai ei sulkeutunut kunnolla.\nPalautetaanko välilehdet?";
+"RestoreTabOnCrashAlertMessage" = "Valitettavasti Browther kaatui tai ei sulkeutunut kunnolla.\nPalautetaanko välilehdet?";
 
 /* Restore Tabs Prompt Title */
-"RestoreTabOnCrashAlertTitle" = "Brave suljettiin yllättäen.";
+"RestoreTabOnCrashAlertTitle" = "Browther suljettiin yllättäen.";
 
 /* Body for Brave Talk rewards opt-in screen */
-"rewards.braveTalkRewardsOptInBody" = "Brave-palkintojen avulla voit tarkastella Brave-mainosverkoston yksityisyyttä suojelevia mainoksia. Ei seurantaohjelmia. Ei hidastavia tekijöitä. Ja tietosi pysyvät täysin suojattuina.";
+"rewards.braveTalkRewardsOptInBody" = "Browther-palkintojen avulla voit tarkastella Browther-mainosverkoston yksityisyyttä suojelevia mainoksia. Ei seurantaohjelmia. Ei hidastavia tekijöitä. Ja tietosi pysyvät täysin suojattuina.";
 
 /* Title for Brave Talk rewards opt-in screen button */
 "rewards.braveTalkRewardsOptInButtonTitle" = "Ota Rewards käyttöön";
 
 /* Body for successful Brave Talk rewards opt-in */
-"rewards.braveTalkRewardsOptInSuccessBody" = "Napsauta mitä tahansa näytön kohtaa jatkaaksesi Brave Talk -videopuheluun.";
+"rewards.braveTalkRewardsOptInSuccessBody" = "Napsauta mitä tahansa näytön kohtaa jatkaaksesi Browther Talk -videopuheluun.";
 
 /* Title for successful Brave Talk rewards opt-in */
 "rewards.braveTalkRewardsOptInSuccessTitle" = "Voit nyt aloittaa ilmaisen puhelun";
 
 /* Title for Brave Talk rewards opt-in screen */
-"rewards.braveTalkRewardsOptInTitle" = "Aloita ilmainen puhelu ottamalla Brave Rewards käyttöön";
+"rewards.braveTalkRewardsOptInTitle" = "Aloita ilmainen puhelu ottamalla Browther Rewards käyttöön";
 
 /* Displayed when Brave Rewards is disabled */
 "rewards.disabledBody" = "Ota käyttöön tukeaksesi Bravea ja BAT-yhteisöä.";
 
 /* Displayed in the status container when rewards is disabled */
-"rewards.disabledStatusBody" = "Brave-palkintojen käyttäminen tukee Bravea ja BAT-yhteisöä.";
+"rewards.disabledStatusBody" = "Browther-palkintojen käyttäminen tukee Bravea ja BAT-yhteisöä.";
 
 /* Displayed when Brave Rewards is enabled */
 "rewards.enabledBody" = "Autat tukemaan Bravea ja BAT-yhteisöä.";
@@ -2042,13 +2042,13 @@
 "rewards.optInDisclaimer" = "Klikkaamalla hyväksyt seuraavat: %1$@ ja %2$@. Poista käytöstä milloin tahansa asetuksissa.";
 
 /* No comment provided by engineer. */
-"rewards.settingsToggleMessage" = "Tue Bravea ja BAT-yhteisöä ottamalla Brave-palkinnot käyttöön ja katsomalla Brave-mainoksia.";
+"rewards.settingsToggleMessage" = "Tue Bravea ja BAT-yhteisöä ottamalla Browther-palkinnot käyttöön ja katsomalla Browther-mainoksia.";
 
 /* No comment provided by engineer. */
-"rewards.settingsToggleTitle" = "Salli Brave -palkinnot";
+"rewards.settingsToggleTitle" = "Salli Browther -palkinnot";
 
 /* Displayed under verified publishers */
-"rewards.supportingPublisher" = "Tämä sisällöntuottaja on vahvistettu Brave-sisällöntuottaja";
+"rewards.supportingPublisher" = "Tämä sisällöntuottaja on vahvistettu Browther-sisällöntuottaja";
 
 /* Displayed next to a number representing the total number of publishers supported */
 "rewards.totalSupportedCount" = "Niiden sisällöntuottajien määrä, joita olet tukenut tässä kuussa.";
@@ -2075,7 +2075,7 @@
 "RewardsInternalsContributionAmount" = "Avustusmäärä";
 
 /* No comment provided by engineer. */
-"RewardsInternalsContributionProcessorBraveTokens" = "Brave-tokenit";
+"RewardsInternalsContributionProcessorBraveTokens" = "Browther-tokenit";
 
 /* No comment provided by engineer. */
 "RewardsInternalsContributionProcessorNone" = "Ei mitään";
@@ -2346,16 +2346,16 @@ Settings item for clearing site-specific settings and shields settings. */
 "sendButtonTitle" = "Lähetä";
 
 /* Message displayed in the crash dialog above the buttons used to select when sending reports */
-"SendCrashReportAlertMessage" = "Lähetetäänkö virheraportti, jotta Brave voi korjata ongelman?";
+"SendCrashReportAlertMessage" = "Lähetetäänkö virheraportti, jotta Browther voi korjata ongelman?";
 
 /* Title for prompt displayed to user after the app crashes */
-"SendCrashReportAlertTitle" = "Hups! Brave kaatui";
+"SendCrashReportAlertTitle" = "Hups! Browther kaatui";
 
 /* Used as a button label for crash dialog prompt */
 "SendReportButtonTitle" = "Lähetä raportti";
 
 /* No comment provided by engineer. */
-"setDefaultBrowserCalloutTitle" = "Brave voidaan nyt asettaa oletusselaimeksi iOS-laitteissa. Avaa asetukset napauttamalla tätä.";
+"setDefaultBrowserCalloutTitle" = "Browther voidaan nyt asettaa oletusselaimeksi iOS-laitteissa. Avaa asetukset napauttamalla tätä.";
 
 /* Settings item to set the Brave as a default browser on the iOS device. */
 "setDefaultBrowserSettingsCell" = "Aseta oletusselaimeksi";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Jaa uutiset";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Brave-suojaus suojasi yksityisyyttäsi vain verkossa.";
+"shieldEducation.trackerAdWarningSubTitle" = "Suojaus suojasi yksityisyyttäsi vain verkossa.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Onnittelut, olet erityinen.";
@@ -2508,7 +2508,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Mainokset on estetty, kun katsot videoita tällä sivulla.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Brave-suojausten yleiset oletukset";
+"ShieldsDefaults" = "Suojausten yleiset oletukset";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Nämä ovat oletusarvoiset suojausasetukset uusille sivustoille. Näiden muuttaminen ei vaikuta voimassa oleviin sivukohtaisiin asetuksiin.";
@@ -2532,7 +2532,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "ShortcutItemTitleQRCode" = "Lue QR-koodi";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeBraveNewsDescription" = "Avaa Brave-uutiset ja katso tämän päivän huipputarinat";
+"shortcuts.activityTypeBraveNewsDescription" = "Avaa Browther-uutiset ja katso tämän päivän huipputarinat";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeClearHistoryDescription" = "Avaa selain uudessa välilehdessä ja poista kaikki yksityiset selainhistoriatiedot";
@@ -2541,7 +2541,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeClearHistorySuggestedPhrase" = "Tyhjennä selaushistoria";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeClearHistoryTitle" = "Tyhjennä Brave-selaushistoria";
+"shortcuts.activityTypeClearHistoryTitle" = "Tyhjennä Browther-selaushistoria";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeEnableVPNDescription" = "Avaa selain uudessa välilehdessä ja ota VPN käyttöön";
@@ -2550,7 +2550,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeEnableVPNSuggestedPhrase" = "Ota VPN käyttöön";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeEnableVPNTitle" = "Avaa Brave-selain ja ota VPN käyttöön";
+"shortcuts.activityTypeEnableVPNTitle" = "Avaa Browther-selain ja ota VPN käyttöön";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeNewPrivateTabSuggestedPhrase" = "Avaa uusi yksityinen välilehti";
@@ -2571,13 +2571,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenBookmarksSuggestedPhrase" = "Avaa kirjanmerkit";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBookmarksTitle" = "Avaa Brave-selaimen kirjanmerkit";
+"shortcuts.activityTypeOpenBookmarksTitle" = "Avaa Browther-selaimen kirjanmerkit";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBraveNewsTitle" = "Avaa Brave-uutiset";
+"shortcuts.activityTypeOpenBraveNewsTitle" = "Avaa Browther-uutiset";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBraveTodaySuggestedPhrase" = "Avaa Brave-uutiset";
+"shortcuts.activityTypeOpenBraveTodaySuggestedPhrase" = "Avaa Browther-uutiset";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenHistoryListDescription" = "Avaa selaimen historianäyttö";
@@ -2586,7 +2586,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenHistoryListSuggestedPhrase" = "Avaa selainhistoria";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenHistoryListTitle" = "Avaa Brave-selainhistoria";
+"shortcuts.activityTypeOpenHistoryListTitle" = "Avaa Browther-selainhistoria";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenPlaylistDescription" = "Aloita videoiden toistaminen soittolistassa";
@@ -2598,7 +2598,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenPlaylistTitle" = "Avaa soittolista";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenSyncedTabsDescription" = "Avaa Brave-välilehdet muissa laitteissa";
+"shortcuts.activityTypeOpenSyncedTabsDescription" = "Avaa Browther-välilehdet muissa laitteissa";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenSyncedTabsSuggestedPhrase" = "Avaa välilehdet muista laitteista";
@@ -2631,7 +2631,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.shortcutSettingsClearBrowserHistoryTitle" = "Tyhjennä selaushistoria";
 
 /* No comment provided by engineer. */
-"shortcuts.shortcutSettingsEnableVPNDescription" = "Ota Brave VPN käyttöön Siri-virtuaaliavustajan avulla käyttämällä pikavalintoja";
+"shortcuts.shortcutSettingsEnableVPNDescription" = "Ota Browther VPN käyttöön Siri-virtuaaliavustajan avulla käyttämällä pikavalintoja";
 
 /* No comment provided by engineer. */
 "shortcuts.shortcutSettingsEnableVPNTitle" = "Ota VPN käyttöön";
@@ -2643,10 +2643,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.shortcutSettingsOpenBookmarksTitle" = "Avaa kirjanmerkit";
 
 /* Description of Open Brave News Siri Shortcut in Settings Screen */
-"shortcuts.shortcutSettingsOpenBraveNewsDescription" = "Avaa uusi välilehti ja näytä Brave-uutissyöte Siri-virtuaaliavustajan avulla käyttämällä pikavalintoja";
+"shortcuts.shortcutSettingsOpenBraveNewsDescription" = "Avaa uusi välilehti ja näytä Browther-uutissyöte Siri-virtuaaliavustajan avulla käyttämällä pikavalintoja";
 
 /* No comment provided by engineer. */
-"shortcuts.shortcutSettingsOpenBraveNewsTitle" = "Avaa Brave-uutiset";
+"shortcuts.shortcutSettingsOpenBraveNewsTitle" = "Avaa Browther-uutiset";
 
 /* No comment provided by engineer. */
 "shortcuts.shortcutSettingsOpenHistoryListDescription" = "Avaa selaimen historianäyttö Siri-virtuaaliavustajan avulla käyttämällä pikavalintoja";
@@ -2715,10 +2715,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "SiteShieldSettings" = "Suojaukset";
 
 /* Title used when in warning pop-over when domain specific data save appears */
-"socialSharing.domainSpecificDataSavedTitle" = "Joka päivä tallennan tietoja selaamalla verkkoa Brave-selaimella.";
+"socialSharing.domainSpecificDataSavedTitle" = "Joka päivä tallennan tietoja selaamalla verkkoa Browther-selaimella.";
 
 /* Text used for social sharing together with Brave Shield values */
-"socialSharing.shareDescriptionTitle" = "Joka päivä tallennan tietoja selaamalla verkkoa Brave-selaimella.";
+"socialSharing.shareDescriptionTitle" = "Joka päivä tallennan tietoja selaamalla verkkoa Browther-selaimella.";
 
 /* Open search section of settings */
 "StandardTabSearch" = "Normaali välilehti";
@@ -2835,7 +2835,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.deleteAccount" = "Poista synkronointitili";
 
 /* Part 1 Description for Alert used action Delete Sync Account. */
-"sync.deleteAccountAlertDescriptionPart1" = "Kun poistat tilisi, salatut tietosi poistetaan Brave-palvelimilta ja synkronointi poistetaan käytöstä kaikilta yhdistetyiltä laitteiltasi.";
+"sync.deleteAccountAlertDescriptionPart1" = "Kun poistat tilisi, salatut tietosi poistetaan Browther-palvelimilta ja synkronointi poistetaan käytöstä kaikilta yhdistetyiltä laitteiltasi.";
 
 /* Part 2 Description for Alert used action Delete Sync Account. */
 "sync.deleteAccountAlertDescriptionPart2" = "Paikallisesti tallennettuja tietoja ei kuitenkaan poisteta näiltä laitteilta.";
@@ -2844,13 +2844,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.deleteAccountAlertTitle" = "Poista synkronointitili";
 
 /* Sync Error Description */
-"sync.deprecatedVersionError" = "Vaikuttaa siltä, että tämä koodi luotiin vanhaa Brave-versiota käyttävällä laitteella. Päivitä Brave uusimpaan versioon toisella laitteella ja luo uusi synkronointikoodi.";
+"sync.deprecatedVersionError" = "Vaikuttaa siltä, että tämä koodi luotiin vanhaa Browther-versiota käyttävällä laitteella. Päivitä Browther uusimpaan versioon toisella laitteella ja luo uusi synkronointikoodi.";
 
 /* The message displayed in alert when a there is a problem with fetching devices */
 "sync.deviceFetchErrorAlertDescription" = "Jokin meni vikaan haettaessa laitteita synkronointiketjussa.";
 
 /* Message for alert when the user has restored their device from a backup */
-"sync.deviceRestoreDetectedMessage" = "Laitteesi on ilmeisesti palautettu varmuuskopiosta, mikä voi vaikuttaa Brave-synkronointiin. Jos haluat jatkaa Brave-synkronoinnin käyttöä, nollaa laite ja yhdistä synkronointiketjuun uudelleen.";
+"sync.deviceRestoreDetectedMessage" = "Laitteesi on ilmeisesti palautettu varmuuskopiosta, mikä voi vaikuttaa Browther-synkronointiin. Jos haluat jatkaa Browther-synkronoinnin käyttöä, nollaa laite ja yhdistä synkronointiketjuun uudelleen.";
 
 /* Title for alert when the user has restored their device from a backup */
 "sync.deviceRestoreDetectedTitle" = "Palautus havaittu";
@@ -3024,7 +3024,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.validForTooLongError" = "Tämä koodi on virheellinen. Tarkista, että aika ja aikavyöhyke on määritetty oikein laitteessasi.";
 
 /* Sync settings welcome */
-"sync.welcome" = "Ensi alkuun sinun on asennettava Brave synkronoitaville laitteille. Voit ketjuttaa ne käynnistämällä synkronointiketjun, jonka avulla voit yhdistää kaikki laitteesi toisiinsa turvallisesti.";
+"sync.welcome" = "Ensi alkuun sinun on asennettava Browther synkronoitaville laitteille. Voit ketjuttaa ne käynnistämällä synkronointiketjun, jonka avulla voit yhdistää kaikki laitteesi toisiinsa turvallisesti.";
 
 /* Word count title */
 "sync.wordCount" = "Sanamäärä: %i";
@@ -3057,10 +3057,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "tabGrid.privateBrowsingInfoBulletOneTitle" = "Älä jätä jälkiä laitteellesi";
 
 /* A bullet point explaining the benefits of Brave VPN */
-"tabGrid.privateBrowsingInfoBulletThreeBody" = "Brave VPN salaa ja suojaa kaiken, mitä teet verkossa –myös Brave-selaimen ulkopuolella.";
+"tabGrid.privateBrowsingInfoBulletThreeBody" = "Browther VPN salaa ja suojaa kaiken, mitä teet verkossa –myös Browther-selaimen ulkopuolella.";
 
 /* A bullet point explaining the benefits of Brave VPN */
-"tabGrid.privateBrowsingInfoBulletThreeTitle" = "Brave VPN";
+"tabGrid.privateBrowsingInfoBulletThreeTitle" = "Browther VPN";
 
 /* A bullet point explaining that your browsing data is still visible to the users ISP, network observers, or your employer */
 "tabGrid.privateBrowsingInfoBulletTwoBody" = "Huomaa, että jopa yksityisissä ikkunoissa selaamisesi voi silti näkyä Internet-palveluntarjoajallesi, verkon tarkkailijoille tai työnantajallesi (jos käytät työkonetta tai -verkkoa).";
@@ -3240,7 +3240,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "themeQRCodeShareButton" = "Jaa...";
 
 /* Title for QR popup encouraging users to share the code with their friends. */
-"themeQRCodeShareTitle" = "Jaa Brave ystävillesi!";
+"themeQRCodeShareTitle" = "Jaa Browther ystävillesi!";
 
 /* Selection to automatically color/style the user interface. */
 "ThemesAutomaticOption" = "Automaattinen";
@@ -3282,13 +3282,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.addSourceNoFeedsFoundMessage" = "Pahoittelut, syöteosoitteessa ei ole sisältöä.";
 
 /* The action title displayed in the iOS share menu */
-"today.addSourceShareTitle" = "Lisää lähde Brave-uutisiin";
+"today.addSourceShareTitle" = "Lisää lähde Browther-uutisiin";
 
 /* A header title shown above a button that will allow the user to fetch RSS feeds for a website they have typed in */
 "today.availableRSSFeedsHeaderTitle" = "Saatavilla olevat RSS-syötteet";
 
 /* The name of the feature */
-"today.braveToday" = "Brave-uutiset";
+"today.braveToday" = "Browther-uutiset";
 
 /* The name of the feature in settings */
 "today.braveToday.title" = "Uutiset";
@@ -3312,7 +3312,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.deals" = "Tarjoukset";
 
 /* '%@' will turn into the name of a publisher (verbatim), for example: Brave Blog */
-"today.disabledAlertBody" = "Brave-uutiset lopettaa sisällön näyttämisen kohteesta %@";
+"today.disabledAlertBody" = "Browther-uutiset lopettaa sisällön näyttämisen kohteesta %@";
 
 /* No comment provided by engineer. */
 "today.disabledAlertTitle" = "Estetty";
@@ -3330,7 +3330,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.enablePublisherContent" = "Salli sisältö kohteesta %@";
 
 /* No comment provided by engineer. */
-"today.errorGeneralBody" = "Brave-uutisissa ilmeni ongelmia. Yritä uudelleen.";
+"today.errorGeneralBody" = "Browther-uutisissa ilmeni ongelmia. Yritä uudelleen.";
 
 /* No comment provided by engineer. */
 "today.errorGeneralTitle" = "Hups...";
@@ -3360,16 +3360,16 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.introCardBody" = "Seuraa suosikkilähteitäsi yhdessä syötteessä. Avaa välilehti Bravessa, vieritä alas ja… voila!\nBrave-uutistoimintoa tuetaan yksityisillä, anonymisoiduilla mainoksilla.";
 
 /* Shown above a button that turns on the "Brave News" product in the app. */
-"today.introCardTitle" = "Ota Brave-uutiset käyttöön, niin yksikään tarina ei mene ohi";
+"today.introCardTitle" = "Ota Browther-uutiset käyttöön, niin yksikään tarina ei mene ohi";
 
 /* No comment provided by engineer. */
-"today.isEnabledToggleLabel" = "Näytä Brave News";
+"today.isEnabledToggleLabel" = "Näytä Browther News";
 
 /* No comment provided by engineer. */
 "today.learnMoreTitle" = "Lue lisää tiedoistasi";
 
 /* 'Brave Offers' is a product name */
-"today.moreBraveOffers" = "Lisää Brave-tarjouksia";
+"today.moreBraveOffers" = "Lisää Browther-tarjouksia";
 
 /* No comment provided by engineer. */
 "today.noInternet" = "Ei Internet-yhteyttä";
@@ -3393,13 +3393,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.promoted" = "Promootio";
 
 /* Title for long press action sheet list which has item for rate / hide */
-"today.rateBraveCardActionSheetTitle" = "Arvioi Brave App Storessa";
+"today.rateBraveCardActionSheetTitle" = "Arvioi Browther App Storessa";
 
 /* Title for long press action that will hide Brave Rate Card */
 "today.rateBraveCardHideActionTitle" = "Piilota";
 
 /* Button title / Title for long press action that will perform an action which open AppStore Rate screen */
-"today.rateBraveCardRateActionTitle" = "Arvostele Brave";
+"today.rateBraveCardRateActionTitle" = "Arvostele Browther";
 
 /* Subtitle shown on the Rate Brave Card */
 "today.rateBraveCardSubtitle" = "Kerro meille mielipiteesi!";
@@ -3432,7 +3432,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.suggestedTitle" = "Ehdotettu";
 
 /* No comment provided by engineer. */
-"today.turnOnBraveToday" = "Ota Brave News käyttöön";
+"today.turnOnBraveToday" = "Ota Browther News käyttöön";
 
 /* A toggle title shown next to a source or channel that the user can unfollow. When tapped switches to 'Follow' */
 "today.unfollowToggleTitle" = "Lopeta seuraaminen";
@@ -3492,13 +3492,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "ViewOn" = "Näytä kohteessa %@";
 
 /* Explanation for warning alert why the microphone access required. */
-"voice.search.microphone.description.required" = "Myönnä mikrofonin käyttöoikeus iOS-järjestelmäasetuksissa, jotta Brave voi käyttää anonyymiä äänihakua.";
+"voice.search.microphone.description.required" = "Myönnä mikrofonin käyttöoikeus iOS-järjestelmäasetuksissa, jotta Browther voi käyttää anonyymiä äänihakua.";
 
 /* Title for warning alert microphone access is required. */
 "voice.search.microphone.title.required" = "Mikrofonin käyttöoikeus vaaditaan";
 
 /* Disclaimer for screen to search using voice. */
-"voice.search.screen.disclaimer" = "Brave ei tallenna tai jaa äänellä tehtyjä hakuja.";
+"voice.search.screen.disclaimer" = "Browther ei tallenna tai jaa äänellä tehtyjä hakuja.";
 
 /* The date your wallet was created */
 "WalletCreationDate" = "Lompakon luontipäivä";

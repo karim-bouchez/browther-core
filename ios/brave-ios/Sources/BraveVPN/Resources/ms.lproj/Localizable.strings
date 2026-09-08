@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Pilih lokasi geo/negara anda";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave tidak pernah mengelogkan aktiviti anda";
+"vpn.checkboxNoIPLog" = "Browther tidak pernah mengelogkan aktiviti anda";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Lindungi setiap apl & seluruh peranti anda";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Zon Masa iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Isu Brave VPN";
+"vpn.contactFormTitle" = "Isu Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Mendayakan";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Pasang Profil VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave kini akan memasang profil VPN.";
+"vpn.installProfileTitle" = "Browther kini akan memasang profil VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN kini didayakan";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Sokongan VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Pautkan pembelian ke akaun Brave anda";
+"vpn.settingsLinkReceipt" = "Pautkan pembelian ke akaun Browther anda";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Pautkan pembelian App Store anda ke akaun Brave anda untuk menggunakan VPN Brave pada peranti lain.";
@@ -293,7 +293,7 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Kemas Kinikan Kaedah Pembayaran";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Walaupun di latar belakang, Brave akan terus melindungi anda.";
+"vpn.vpnBackgroundNotificationBody" = "Walaupun di latar belakang, Browther akan terus melindungi anda.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
 "vpn.vpnBackgroundNotificationTitle" = "BRAVE VPN dihidupkan";

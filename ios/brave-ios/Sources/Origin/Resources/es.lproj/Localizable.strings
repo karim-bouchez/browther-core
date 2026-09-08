@@ -1,5 +1,5 @@
 /* A section header title for ads-related settings */
-"adsHeader" = "Brave Ads";
+"adsHeader" = "Ads";
 
 /* A title asking if the user already purchased on brave.com */
 "alreadyPurchasedTitle" = "¿Ya lo ha contratado en brave.com?";

@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "브라우저에 바로 통합된 AI 기반 스마트 어시스턴트, 레오.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "다른 기기에서도 레오를 사용하려면 App Store 구매 항목을 Brave 계정에 연결하세요.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "다른 기기에서도 레오를 사용하려면 App Store 구매 항목을 Browther 계정에 연결하세요.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "구매한 항목을 Brave 계정에 연결";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "구매한 항목을 Browther 계정에 연결";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "빠른 검색 엔진 표시줄에서 레오를 실행하는 바로 가기를 활성화합니다.";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "답변에 좋아요함";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Brave AI 피드백 제공";
+"aichat.feedbackViewMainTitle" = "Browther AI 피드백 제공";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "프리미엄 가입";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave 레오는 웹 사용성을 강화해주는 프라이빗한 AI 스마트 어시스턴트입니다. 레오는 무료로 제한된 기능을 사용할 수 있습니다. Brave 레오 프리미엄은 더 많은 모델과 더 높은 한도를 제공하며, 구독자는 신기능을 먼저 사용해 볼 수 있습니다. 기본 모델은 때때로 바뀔 수 있습니다. Brave **[도움말 센터](%1$@)**에서 자세한 내용을 확인해 보세요.\n\n기본적으로, 레오에게 현재 보고 있는 웹사이트나 페이지에 관해 질문을 하면, 레오가 질문에 응답할 수 있도록 현재 보고 있는 웹페이지 콘텐츠 또는 보고 있는 웹페이지에서 강조 표시한 텍스트, 그리고 검색 쿼리가 Brave 서버로 전송됩니다. 때로는 레오가 입력 내용을 기반으로 생선된 쿼리를 Brave 검색에 보내 해당 검색 결과를 질문에 더 잘 답변하기 위해 사용하기도 합니다. Brave는 응답의 정확성을 보장하지 않으며, 응답에는 부정확하거나, 오해의 소지가 있거나, 잘못된 정보가 포함될 수 있습니다. Brave 레오에 민감하거나 사적인 정보는 제출하지 마시고, 건강, 재정, 개인 안전 등과 같은 주제의 답변은 주의하여 활용하세요. 레오의 옵션은 설정에서 언제든지 조정하실 수 있습니다. 설정 > 레오로 이동하세요.\n\n레오는 사용자를 식별할 수 있는 IP 주소와 같은 식별자를 수집하지 않습니다. 또한 검색 쿼리나 Brave 레어의 응답을 비롯하여 사용자의 데이터를 기반으로 모델을 학습시키지 않습니다. Brave 서버에는 그 어떤 개인 데이터도 저장되거나 보관되지 않습니다. **[개인정보 보호정책](%2$@)**에서 자세한 내용을 확인해 보세요.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Brave 레오와 사적인 채팅하기";
+"aichat.termsConditionsTitle" = "Browther 레오와 사적인 채팅하기";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "무제한";

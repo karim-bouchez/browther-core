@@ -1,5 +1,5 @@
 /* A label shown above a list of icons designed by Brave */
-"altAppIcon.braveIconsHeader" = "ไอคอนของ Brave";
+"altAppIcon.braveIconsHeader" = "ไอคอนของ Browther";
 
 /* The title for the screen that lets the user select a custom app icon */
 "altAppIcon.changeAppIcon" = "เปลี่ยนไอคอนของแอป";
@@ -35,7 +35,7 @@
 "newTabTakeoverInfoBarLearnMoreOptOutChoices" = "เรียนรู้เพิ่มเติม/ตัวเลือกการยกเลิกการเข้าร่วม";
 
 /* The text of new tab takeover infobar message. */
-"NewTabTakeoverInfoBarMessage" = "ภาพพื้นหลังที่มีสปอนเซอร์ช่วยสนับสนุนภารกิจของ Brave ในการสร้างเว็บที่เป็นอิสระและยึดผู้ใช้เป็นศูนย์กลาง และไม่เหมือนกับบริษัทยักษ์ใหญ่ทางเทคโนโลยี เราวัดประสิทธิภาพของโฆษณาโดยไม่ระบุตัวตน เพื่อคุ้มครองความเป็นส่วนตัวของคุณ";
+"NewTabTakeoverInfoBarMessage" = "ภาพพื้นหลังที่มีสปอนเซอร์ช่วยสนับสนุนภารกิจของ Browther ในการสร้างเว็บที่เป็นอิสระและยึดผู้ใช้เป็นศูนย์กลาง และไม่เหมือนกับบริษัทยักษ์ใหญ่ทางเทคโนโลยี เราวัดประสิทธิภาพของโฆษณาโดยไม่ระบุตัวตน เพื่อคุ้มครองความเป็นส่วนตัวของคุณ";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "NewTabTitle" = "แท็บใหม่";
@@ -59,10 +59,10 @@
 "paywall.braveAccountCheckoutOptionSubtitle" = "ใช้โค้ด %1$@ เพื่อรับส่วนลด %2$@";
 
 /* The checkout option that lets the user use Brave's own purchase flow */
-"paywall.braveAccountCheckoutOptionTitle" = "บัญชี Brave";
+"paywall.braveAccountCheckoutOptionTitle" = "บัญชี Browther";
 
 /* Button action text which will bring user to Brave VPN web page for more information. */
-"paywall.braveVPNLearnMoreButtonTitle" = "เรียนรู้เพิ่มเติมเกี่ยวกับ Brave VPN";
+"paywall.braveVPNLearnMoreButtonTitle" = "เรียนรู้เพิ่มเติมเกี่ยวกับ Browther VPN";
 
 /* Title label text for entering a promo code. */
 "paywall.havePromoCodeTitle" = "มีโค้ดโปรโมชั่นใช่ไหม";
@@ -110,7 +110,7 @@
 "ShowPreviousTabTitle" = "แสดงแท็บก่อนหน้า";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts which is for Showing Brave Shields */
-"showShieldsTitle" = "เปิด Browther Shields";
+"showShieldsTitle" = "เปิดShields";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "ShowTabTrayFromTabKeyCodeTitle" = "แสดงแท็บทั้งหมด";
@@ -119,10 +119,10 @@
 "storekitReceiptViewer.applicationVersionTitle" = "เวอร์ชันแอปพลิเคชัน";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.leoMonthlySubscriptionName" = "Brave Leo รายเดือน";
+"storekitReceiptViewer.leoMonthlySubscriptionName" = "Browther Leo รายเดือน";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.leoYearlySubscriptionName" = "Brave Leo รายปี";
+"storekitReceiptViewer.leoYearlySubscriptionName" = "Browther Leo รายปี";
 
 /* The error message when the App Store Receipt was not found in the Application Bundle */
 "storekitReceiptViewer.noReceiptFoundTitle" = "ขออภัย ไม่พบใบเสร็จจาก App Store";
@@ -164,10 +164,10 @@
 "storekitReceiptViewer.shareReceiptTitle" = "แชร์ใบเสร็จ";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Brave VPN รายเดือน";
+"storekitReceiptViewer.vpnMonthlySubscriptionName" = "Browther VPN รายเดือน";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
-"storekitReceiptViewer.vpnYearlySubscriptionName" = "Brave VPN รายปี";
+"storekitReceiptViewer.vpnYearlySubscriptionName" = "Browther VPN รายปี";
 
 /* Hardware shortcut for non-private tab or tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "SwitchToNonPBMKeyCodeTitle" = "โหมดการท่องเว็บแบบปกติ";

@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leo هو مساعد ذكي يعمل بالذكاء الاصطناعي، ومُدمج مباشرةً في المتصفح.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "اربط مشترياتك من آب ستور بحساب Brave الخاص بك لاستخدام Leo على الأجهزة الأخرى.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "اربط مشترياتك من آب ستور بحساب Browther الخاص بك لاستخدام Leo على الأجهزة الأخرى.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "ربط عملية الشراء بحسابك على Brave";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "ربط عملية الشراء بحسابك على Browther";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "تمكين اختصار لتشغيل Leo من شريط محركات البحث السريع.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "هل تريد إجراء محادثة فقط؟";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "مساعد ذكاء مدعوم من الذكاء الاصطناعي، تم إنشاؤه مباشرة في متصفح Brave.";
+"aichat.chatIntroSubTitle" = "مساعد ذكاء مدعوم من الذكاء الاصطناعي، تم إنشاؤه مباشرة في متصفح Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "مرحبًا، أدعى ليو!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "أعجبتني الإجابة";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "إضافة تعليق بخصوص Brave AI ";
+"aichat.feedbackViewMainTitle" = "إضافة تعليق بخصوص Browther AI ";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "الاشتراك الحصري (Premium)";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "نقطة النهاية محملة فوق طاقتها حاليًا. يرجى المحاولة مرة أخرى لاحقًا.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "لا يقوم Brave بتخزين أو مشاركة مدخلاتك الصوتية.";
+"aichat.speechRecognizerDisclaimer" = "لا يقوم Browther بتخزين أو مشاركة مدخلاتك الصوتية.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "بلا";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "Brave Leo هو مساعد ذكي خاص بالذكاء الاصطناعي يعزز استخدامك للويب، وهو مجاني للاستخدام مع وصول محدود. يقدم Brave Leo Premium المزيد من النماذج وحدودًا أعلى ويمنح المشتركين إمكانية الوصول المبكر إلى ميزات جديدة. سيتغير النموذج الافتراضي من حين لآخر. انظر Brave **[مركز المساعدة](%1$@)** لمزيد من التفاصيل.\n\nبشكل افتراضي، عندما تسأل Leo سؤالًا بخصوص موقع أو صفحة تشاهدها، فقد يرسل ويستخدم محتوى صفحة الويب التي تشاهدها أو أي نص تُبرزه على صفحة ما، بالإضافة إلى استعلامك إلى خوادم Brave ليقدم Leo ردًا. وفي بعض الحالات ، سيرسل Leo استعلامات مشتقة من مدخلاتك إلى Brave Search ويستخدم نتائج البحث للإجابة على سؤالك بشكل أفضل. دقة الردود غير مضمونة، وقد تتضمن معلومات غير دقيقة أو مضللة أو خاطئة. لا تُرسِل معلومات حساسة أو خاصة إلى Brave Leo، وتوخّ الحذر مع أي إجابات تتعلق بالصحة أو الشؤون المالية أو السلامة الشخصية أو ما شابه ذلك. ويمكنك ضبط خيارات Leo في الإعدادات في أي وقت. انتقل إلى الإعدادات > Leo.\n\nلا يجمع Leo معرفات مثل عنوان بروتوكول الإنترنت الخاص بك الذي يمكن ربطه بك. ولا نقوم بتدريب نماذجنا بناء على بياناتك، بما ي ذلك استعلاماتك أو ردود Brave Leo. راجع **[سياسة الخصوصية](%2$@)** لمزيد من المعلومات.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "الدردشة بخصوصية مع Brave Leo";
+"aichat.termsConditionsTitle" = "الدردشة بخصوصية مع Browther Leo";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "غير حدود";

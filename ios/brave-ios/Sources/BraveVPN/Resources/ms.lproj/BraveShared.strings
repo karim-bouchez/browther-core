@@ -5,19 +5,19 @@
 "vpn.autoRenewActionButtonTitle" = "Dayakan Auto Baharui";
 
 /* Pop up title for renewing VPN subscription with discount */
-"vpn.autoRenewDiscountPopOverTitle" = "Auto baharui Langganan VPN Brave anda sekarang dan dapatkan potongan 20% untuk 3 bulan!";
+"vpn.autoRenewDiscountPopOverTitle" = "Auto baharui Langganan VPN Browther anda sekarang dan dapatkan potongan 20% untuk 3 bulan!";
 
 /* Pop up title for renewing VPN subscription with month free */
-"vpn.autoRenewFreeMonthPopOverTitle" = "Auto baharui Langganan VPN Brave anda sekarang dan dapatkan 1 bulan percuma!";
+"vpn.autoRenewFreeMonthPopOverTitle" = "Auto baharui Langganan VPN Browther anda sekarang dan dapatkan 1 bulan percuma!";
 
 /* Pop up description for VPN subscription is about expire */
-"vpn.autoRenewSoonExpirePopOverDescription" = "Maksudnya, anda akan kehilangan perlindungan tambahan Brave bagi setiap apl pada telefon anda.";
+"vpn.autoRenewSoonExpirePopOverDescription" = "Maksudnya, anda akan kehilangan perlindungan tambahan Browther bagi setiap apl pada telefon anda.";
 
 /* Pop up title for VPN subscription is about expire */
-"vpn.autoRenewSoonExpireTitle" = "Alamak! Langganan VPN Brave anda hampir tamat tempoh.";
+"vpn.autoRenewSoonExpireTitle" = "Alamak! Langganan VPN Browther anda hampir tamat tempoh.";
 
 /* Title for screen to buy the VPN. */
-"vpn.buyVPNTitle" = "Brave VPN";
+"vpn.buyVPNTitle" = "Browther VPN";
 
 /* Message for an alert when the VPN can't get prices from the App Store */
 "vpn.errorCantGetPricesBody" = "Tidak dapat menyambung ke App Store, sila cuba lagi dalam beberapa minit.";
@@ -71,7 +71,7 @@
 "vpn.regionPickerAutomaticModeCellText" = "Automatik";
 
 /* Alert description to show when the VPN session has expired */
-"vpn.sessionExpiredDescription" = "Sila log masuk ke Akaun Brave anda untuk menyegarkan semula sesi VPN anda.";
+"vpn.sessionExpiredDescription" = "Sila log masuk ke Akaun Browther anda untuk menyegarkan semula sesi VPN anda.";
 
 /* Dismiss button to close the alert showing that the vpn session has expired */
 "vpn.sessionExpiredDismissButton" = "Singkirkan";
@@ -98,10 +98,10 @@
 "vpn.subscribeVPNAllDevicesPopOverDescription" = "Betul. Langganan VPN Brave anda kini boleh digunakan pada hingga 5 peranti. Jadi, anda boleh melanggan pada iOS dan menggunakannya pada peranti Mac, Windows dan Android secara percuma.";
 
 /* Pop up title the subscription for VPN can be used for all platforms */
-"vpn.subscribeVPNAllDevicesPopOverTitle" = "Kini, gunakan VPN Brave pada semua peranti anda pada harga yang sama!";
+"vpn.subscribeVPNAllDevicesPopOverTitle" = "Kini, gunakan VPN Browther pada semua peranti anda pada harga yang sama!";
 
 /* Pop up title for subscribing VPN with discount */
-"vpn.subscribeVPNDiscountPopOverTitle" = "Cuba gunakan lagi VPN Brave dan dapatkan potongan 20% untuk 3 bulan!";
+"vpn.subscribeVPNDiscountPopOverTitle" = "Cuba gunakan lagi VPN Browther dan dapatkan potongan 20% untuk 3 bulan!";
 
 /* Pop up sub description the subscription for VPN can be used for all platforms */
 "vpn.subscribeVPNPopOverSubDescription" = "Bersedia untuk melindungi setiap apl pada telefon anda? Gunakan VPN Brave kembali dan dapatkan potongan 20% untuk 3 bulan yang seterusnya.";
@@ -110,7 +110,7 @@
 "vpn.subscribeVPNProtectionPopOverDescription" = "VPN Brave sentiasa menyekat penjejak pada setiap apl, walau pun di luar penyemak imbas Brave. Kini anda boleh melihat orang yang cuba menjejak anda dengan Hab Privasi Brave.";
 
 /* Pop up title for subscribing VPN explaning VPN protects user outside the Brave */
-"vpn.subscribeVPNProtectionPopOverTitle" = "Adakah anda tahu bahawa VPN Brave melindungi anda di luar Penyemak Imbas Brave?";
+"vpn.subscribeVPNProtectionPopOverTitle" = "Adakah anda tahu bahawa VPN Browther melindungi anda di luar Penyemak Imbas Browther?";
 
 /* Cell title indicates update payment method */
 "vpn.updateActionCellTitle" = "Kemas Kini";
@@ -119,7 +119,7 @@
 "vpn.updateBillingExpiredPopOverDescription" = "Usah bimbang. Kami akan pastikan VPN terus aktif selama beberapa hari sementara anda mengemaskinikan maklumat pembayaran anda.";
 
 /* Pop up title for billing issue for subcription VPN already expired */
-"vpn.updateBillingExpiredPopOverTitle" = "Kemas kinikan maklumat pembayaran anda agar sentiasa dilindungi dengan VPN Brave.";
+"vpn.updateBillingExpiredPopOverTitle" = "Kemas kinikan maklumat pembayaran anda agar sentiasa dilindungi dengan VPN Browther.";
 
 /* Pop up description for billing issue of subcription VPN about to expire */
 "vpn.updateBillingSoonExpirePopOverDescription" = "Ingin sentiasa melindungi setiap apl pada telefon anda? Hanya kemas kinikan butiran pembayaran anda.";

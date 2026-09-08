@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "العودة";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "نظرًا لطلبك حجب المتتبعين والإعلانات بشكل قاطع، يحجب متصفح Brave هذا الموقع قبل إجراء أول اتصال بالشبكة.";
+"DomainBlockedPageDescription" = "نظرًا لطلبك حجب المتتبعين والإعلانات بشكل قاطع، يحجب متصفح Browther هذا الموقع قبل إجراء أول اتصال بالشبكة.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "قام Brave بمنع الموقع التالي من التحميل:";

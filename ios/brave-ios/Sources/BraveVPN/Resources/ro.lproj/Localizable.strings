@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Fus orar iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Problemă VPN Brave";
+"vpn.contactFormTitle" = "Problemă VPN Browther";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Activează";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Instalează profilul VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave va instala un profil VPN.";
+"vpn.installProfileTitle" = "Browther va instala un profil VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN-ul este activat";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Asistență VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Conectează achiziția la contul tău Brave";
+"vpn.settingsLinkReceipt" = "Conectează achiziția la contul tău Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Conectează achiziția AppStore la contul tău Brave pentru a putea utiliza Brave VPN și pe alte dispozitive.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Actualizare metodă de plată";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Chiar și în fundal, Brave va continua să te protejeze.";
+"vpn.vpnBackgroundNotificationBody" = "Chiar și în fundal, Browther va continua să te protejeze.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "VPN Brave este ACTIVAT";
+"vpn.vpnBackgroundNotificationTitle" = "VPN Browther este ACTIVAT";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Folosește cel mai bun server disponibil";

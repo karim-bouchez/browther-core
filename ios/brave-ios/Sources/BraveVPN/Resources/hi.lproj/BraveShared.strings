@@ -5,19 +5,19 @@
 "vpn.autoRenewActionButtonTitle" = "ऑटो-रिन्यू चालू करें";
 
 /* Pop up title for renewing VPN subscription with discount */
-"vpn.autoRenewDiscountPopOverTitle" = "अपने Brave VPN सब्सक्रिप्शन को अभी ऑटो-रिन्यू करें और 3 महीने के लिए 20% छूट पाएँ!";
+"vpn.autoRenewDiscountPopOverTitle" = "अपने Browther VPN सब्सक्रिप्शन को अभी ऑटो-रिन्यू करें और 3 महीने के लिए 20% छूट पाएँ!";
 
 /* Pop up title for renewing VPN subscription with month free */
-"vpn.autoRenewFreeMonthPopOverTitle" = "अपने Brave VPN सब्सक्रिप्शन को अभी ऑटो-रिन्यू करें और 1 महीने के लिए मुफ़्त पाएँ!";
+"vpn.autoRenewFreeMonthPopOverTitle" = "अपने Browther VPN सब्सक्रिप्शन को अभी ऑटो-रिन्यू करें और 1 महीने के लिए मुफ़्त पाएँ!";
 
 /* Pop up description for VPN subscription is about expire */
-"vpn.autoRenewSoonExpirePopOverDescription" = "इसका मतलब है कि आप अपने फ़ोन के हर ऐप के लिए Brave की अतिरिक्त सुरक्षा खो देंगे।";
+"vpn.autoRenewSoonExpirePopOverDescription" = "इसका मतलब है कि आप अपने फ़ोन के हर ऐप के लिए Browther की अतिरिक्त सुरक्षा खो देंगे।";
 
 /* Pop up title for VPN subscription is about expire */
-"vpn.autoRenewSoonExpireTitle" = "अरे, नहीं! आपका Brave VPN सब्सक्रिप्शन खत्म होने वाला है।";
+"vpn.autoRenewSoonExpireTitle" = "अरे, नहीं! आपका Browther VPN सब्सक्रिप्शन खत्म होने वाला है।";
 
 /* Title for screen to buy the VPN. */
-"vpn.buyVPNTitle" = "Brave VPN";
+"vpn.buyVPNTitle" = "Browther VPN";
 
 /* Message for an alert when the VPN can't get prices from the App Store */
 "vpn.errorCantGetPricesBody" = "App Store से कनेक्ट नहीं कर पाए, कृपया कुछ मिनट बाद कोशिश करें।";
@@ -71,7 +71,7 @@
 "vpn.regionPickerAutomaticModeCellText" = "स्वचालित";
 
 /* Alert description to show when the VPN session has expired */
-"vpn.sessionExpiredDescription" = "कृपया अपने VPN सेशन को रीफ़्रेश करने के लिए, अपने Brave अकाउंट में लॉगिन करें।";
+"vpn.sessionExpiredDescription" = "कृपया अपने VPN सेशन को रीफ़्रेश करने के लिए, अपने Browther अकाउंट में लॉगिन करें।";
 
 /* Dismiss button to close the alert showing that the vpn session has expired */
 "vpn.sessionExpiredDismissButton" = "खारिज करें";
@@ -98,10 +98,10 @@
 "vpn.subscribeVPNAllDevicesPopOverDescription" = "वाकई। आपका Brave VPN सब्सक्रिप्शन अब अधिकतम 5 डिवाइसों पर चलता है। इसलिए, आप iOS पर सब्सक्राइब करके इसे अपने Mac, Windows और Android डिवाइसों पर मुफ़्त में इस्तेमाल कर सकते हैं।";
 
 /* Pop up title the subscription for VPN can be used for all platforms */
-"vpn.subscribeVPNAllDevicesPopOverTitle" = "अब Brave VPN को अपने सभी डिवाइसों पर एक ही कीमत में इस्तेमाल करें!";
+"vpn.subscribeVPNAllDevicesPopOverTitle" = "अब Browther VPN को अपने सभी डिवाइसों पर एक ही कीमत में इस्तेमाल करें!";
 
 /* Pop up title for subscribing VPN with discount */
-"vpn.subscribeVPNDiscountPopOverTitle" = "Brave VPN को एक और बार आज़माकर देखें और 3 महीने के लिए 20% छूट पाएँ!";
+"vpn.subscribeVPNDiscountPopOverTitle" = "Browther VPN को एक और बार आज़माकर देखें और 3 महीने के लिए 20% छूट पाएँ!";
 
 /* Pop up sub description the subscription for VPN can be used for all platforms */
 "vpn.subscribeVPNPopOverSubDescription" = "अपने फ़ोन पर हर ऐप को सुरक्षित रखने के लिए तैयार हैं? Brave VPN पर लौट आएँ और अगले 3 महीनों के लिए 20% छूट पाएँ।";
@@ -110,7 +110,7 @@
 "vpn.subscribeVPNProtectionPopOverDescription" = "Brave VPN ने हर ऐप पर हमेशा ट्रैकर्स ब्लॉक किए हैं, यहाँ तक कि Brave ब्राउज़र के बाहर भी। Privacy Hub के साथ, अब आप देख सकते हैं कि किसने आपको ट्रैक करने की कोशिश की।";
 
 /* Pop up title for subscribing VPN explaning VPN protects user outside the Brave */
-"vpn.subscribeVPNProtectionPopOverTitle" = "क्या आपको पता था कि Brave VPN आपको Brave ब्राउज़र के बाहर सुरक्षित रखता है?";
+"vpn.subscribeVPNProtectionPopOverTitle" = "क्या आपको पता था कि Browther VPN आपको Browther ब्राउज़र के बाहर सुरक्षित रखता है?";
 
 /* Cell title indicates update payment method */
 "vpn.updateActionCellTitle" = "अपडेट करें";
@@ -119,7 +119,7 @@
 "vpn.updateBillingExpiredPopOverDescription" = "चिंता न करें। जब तक आप अपनी पेमेंट जानकारी अपडेट करेंगे, तब तक हम कुछ दिनों के लिए VPN चालू रखेंगे।";
 
 /* Pop up title for billing issue for subcription VPN already expired */
-"vpn.updateBillingExpiredPopOverTitle" = "Brave VPN के साथ सुरक्षित रहने के लिए अपनी पेमेंट जानकारी अपडेट करें।";
+"vpn.updateBillingExpiredPopOverTitle" = "Browther VPN के साथ सुरक्षित रहने के लिए अपनी पेमेंट जानकारी अपडेट करें।";
 
 /* Pop up description for billing issue of subcription VPN about to expire */
 "vpn.updateBillingSoonExpirePopOverDescription" = "अपने फ़ोन पर हर ऐप को सुरक्षित रखना चाहते हैं? बस अपनी पेमेंट जानकारी अपडेट करें।";

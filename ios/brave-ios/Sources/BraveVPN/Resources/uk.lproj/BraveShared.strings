@@ -5,19 +5,19 @@
 "vpn.autoRenewActionButtonTitle" = "Автоматичне подовження";
 
 /* Pop up title for renewing VPN subscription with discount */
-"vpn.autoRenewDiscountPopOverTitle" = "Увімкніть автоматичне подовження підписки Brave VPN і отримайте знижку 20 % на 3 місяці!";
+"vpn.autoRenewDiscountPopOverTitle" = "Увімкніть автоматичне подовження підписки Browther VPN і отримайте знижку 20 % на 3 місяці!";
 
 /* Pop up title for renewing VPN subscription with month free */
-"vpn.autoRenewFreeMonthPopOverTitle" = "Увімкніть автоматичне подовження підписки Brave VPN і отримайте 1 місяць у подарунок!";
+"vpn.autoRenewFreeMonthPopOverTitle" = "Увімкніть автоматичне подовження підписки Browther VPN і отримайте 1 місяць у подарунок!";
 
 /* Pop up description for VPN subscription is about expire */
-"vpn.autoRenewSoonExpirePopOverDescription" = "Це значить, що у вас не буде доступу до додаткових засобів захисту Brave для кожного додатка на телефоні.";
+"vpn.autoRenewSoonExpirePopOverDescription" = "Це значить, що у вас не буде доступу до додаткових засобів захисту Browther для кожного додатка на телефоні.";
 
 /* Pop up title for VPN subscription is about expire */
-"vpn.autoRenewSoonExpireTitle" = "Термін дії підписки Brave VPN скоро мине.";
+"vpn.autoRenewSoonExpireTitle" = "Термін дії підписки Browther VPN скоро мине.";
 
 /* Title for screen to buy the VPN. */
-"vpn.buyVPNTitle" = "VPN-розширення браузера Brave";
+"vpn.buyVPNTitle" = "VPN-розширення браузера Browther";
 
 /* Message for an alert when the VPN can't get prices from the App Store */
 "vpn.errorCantGetPricesBody" = "Не вдалося встановити з’єднання з App Store. Повторіть спробу через декілька хвилин.";
@@ -71,7 +71,7 @@
 "vpn.regionPickerAutomaticModeCellText" = "Автоматично";
 
 /* Alert description to show when the VPN session has expired */
-"vpn.sessionExpiredDescription" = "Увійдіть в обліковий запис Brave, щоб оновити сеанс VPN.";
+"vpn.sessionExpiredDescription" = "Увійдіть в обліковий запис Browther, щоб оновити сеанс VPN.";
 
 /* Dismiss button to close the alert showing that the vpn session has expired */
 "vpn.sessionExpiredDismissButton" = "Відхилити";
@@ -98,10 +98,10 @@
 "vpn.subscribeVPNAllDevicesPopOverDescription" = "Правильно. Підписка Brave VPN наразі дійсна для 5 пристроїв. Ви можете оформити підписку на iOS і безкоштовно використовувати засоби захисту на пристроях Mac, Windows або Android.";
 
 /* Pop up title the subscription for VPN can be used for all platforms */
-"vpn.subscribeVPNAllDevicesPopOverTitle" = "Користуйтеся Brave VPN на всіх пристроях за однією ціною!";
+"vpn.subscribeVPNAllDevicesPopOverTitle" = "Користуйтеся Browther VPN на всіх пристроях за однією ціною!";
 
 /* Pop up title for subscribing VPN with discount */
-"vpn.subscribeVPNDiscountPopOverTitle" = "Дайте Brave VPN ще один шанс і отримайте знижку 20 % на 3 місяці!";
+"vpn.subscribeVPNDiscountPopOverTitle" = "Дайте Browther VPN ще один шанс і отримайте знижку 20 % на 3 місяці!";
 
 /* Pop up sub description the subscription for VPN can be used for all platforms */
 "vpn.subscribeVPNPopOverSubDescription" = "Готові захистити кожен додаток на телефоні? Поверніться у Brave VPN і отримайте знижку 20 % на 3 місяці.";
@@ -110,7 +110,7 @@
 "vpn.subscribeVPNProtectionPopOverDescription" = "Brave VPN блокує трекери в кожному додатку, навіть поза браузером Brave. Тепер за допомогою Центра конфіденційності Brave ви можете переглянути, хто намагається відстежити вас.";
 
 /* Pop up title for subscribing VPN explaning VPN protects user outside the Brave */
-"vpn.subscribeVPNProtectionPopOverTitle" = "Ви знали, що Brave VPN захищає вас не лише в браузері Brave?";
+"vpn.subscribeVPNProtectionPopOverTitle" = "Ви знали, що Browther VPN захищає вас не лише в браузері Browther?";
 
 /* Cell title indicates update payment method */
 "vpn.updateActionCellTitle" = "Змінити";
@@ -119,7 +119,7 @@
 "vpn.updateBillingExpiredPopOverDescription" = "Не хвилюйтеся. Функція VPN буде доступна ще кілька днів, щоб ви могли оновити платіжну інформацію.";
 
 /* Pop up title for billing issue for subcription VPN already expired */
-"vpn.updateBillingExpiredPopOverTitle" = "Оновіть платіжну інформацію, щоб залишатися захищеним з Brave VPN.";
+"vpn.updateBillingExpiredPopOverTitle" = "Оновіть платіжну інформацію, щоб залишатися захищеним з Browther VPN.";
 
 /* Pop up description for billing issue of subcription VPN about to expire */
 "vpn.updateBillingSoonExpirePopOverDescription" = "Хочете, щоб і надалі всі програми на телефоні були захищеними? Оновіть платіжну інформацію.";

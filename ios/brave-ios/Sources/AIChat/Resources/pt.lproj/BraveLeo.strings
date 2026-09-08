@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "O Leo é um assistente inteligente fornecido por IA, incorporado diretamente no navegador.";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Associe a compra na App Store à sua conta Brave para usar o Leo noutros dispositivos.";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "Associe a compra na App Store à sua conta Browther para usar o Leo noutros dispositivos.";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Associar compra à minha conta Brave";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Associar compra à minha conta Browther";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "Permite um atalho para iniciar o Leo a partir da barra de motores de busca rápida.";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "Pretende só conversar?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Um assistente inteligente fornecido por IA, incorporado diretamente no Brave.";
+"aichat.chatIntroSubTitle" = "Um assistente inteligente fornecido por IA, incorporado diretamente no Browther.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "Olá, sou o Leo!";
@@ -230,7 +230,7 @@
 "aichat.feedbackSuccessAnswerLikedTitle" = "Gostou da resposta";
 
 /* The title for view which user type feedback */
-"aichat.feedbackViewMainTitle" = "Fornecer comentários sobre a IA da Brave";
+"aichat.feedbackViewMainTitle" = "Fornecer comentários sobre a IA da Browther";
 
 /* The button title for opening paywall screen */
 "aichat.goPremiumButtonTitle" = "Atualizar para Premium";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "De momento, o terminal encontra-se sobrecarregado. Por favor, tente novamente mais tarde.";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "O Brave não armazena nem compartilha suas pesquisas por voz.";
+"aichat.speechRecognizerDisclaimer" = "O Browther não armazena nem compartilha suas pesquisas por voz.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "Nenhum";
@@ -509,7 +509,7 @@
 "aichat.termsConditionsDescription" = "O Brave Leo é um assistente inteligente de IA privado que melhora a sua utilização da Web. A utilização do Leo é gratuita com acesso limitado. O Brave Leo Premium oferece mais modelos, limites mais elevados e dá aos subscritores acesso antecipado a novas funcionalidades. O modelo predefinido muda de tempos a tempos. Consulte o **[Centro de Ajuda](%1$@)** do Brave para mais pormenores.\n\nPor predefinição, quando faz uma pergunta ao Leo sobre um site ou uma página que está a visualizar, o conteúdo da página que está a visualizar ou qualquer texto que realce numa página, bem como a sua consulta de pesquisa, serão enviados para os servidores da Brave para que o Leo possa dar uma resposta. Em alguns casos, o Leo enviará consultas derivadas da sua entrada para a Brave Search e utilizará os resultados da pesquisa para responder melhor à sua pergunta. A Brave não garante a exatidão das respostas e as respostas podem incluir informações imprecisas, enganosas ou falsas. Não envie informações sensíveis ou privadas para o Brave Leo e tenha cuidado com quaisquer respostas relacionadas com saúde, finanças, segurança pessoal ou semelhantes. Pode ajustar as opções do Leo nas Definições em qualquer altura. Aceda a Definições > Leo.\n\nO Leo não recolhe identificadores, como o seu endereço IP, que possam ser associados a si. Não treinamos os nossos modelos com base nos seus dados, incluindo as suas consultas de pesquisa ou as respostas do Brave Leo. Nenhum dado pessoal é armazenado nos nossos servidores ou retido pela Brave. Consulte a **[política de privacidade](%2$@)** para mais informações.";
 
 /* The title terms and conditions for AI chat usage */
-"aichat.termsConditionsTitle" = "Converse com o Brave Leo em privado";
+"aichat.termsConditionsTitle" = "Converse com o Browther Leo em privado";
 
 /* The title of the badge where a model which can be used unlimited */
 "aichat.unlimitedModelStatusTitle" = "Ilimitado";

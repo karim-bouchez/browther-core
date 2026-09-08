@@ -5,19 +5,19 @@
 "vpn.autoRenewActionButtonTitle" = "Aktiver automatisk fornyelse";
 
 /* Pop up title for renewing VPN subscription with discount */
-"vpn.autoRenewDiscountPopOverTitle" = "Forny Brave VPN-abonnementet ditt automatisk nå og få 20 % rabatt i 3 måneder!";
+"vpn.autoRenewDiscountPopOverTitle" = "Forny Browther VPN-abonnementet ditt automatisk nå og få 20 % rabatt i 3 måneder!";
 
 /* Pop up title for renewing VPN subscription with month free */
-"vpn.autoRenewFreeMonthPopOverTitle" = "Forny Brave VPN-abonnementet ditt automatisk nå og få 1 måned gratis!";
+"vpn.autoRenewFreeMonthPopOverTitle" = "Forny Browther VPN-abonnementet ditt automatisk nå og få 1 måned gratis!";
 
 /* Pop up description for VPN subscription is about expire */
 "vpn.autoRenewSoonExpirePopOverDescription" = "Du vil da miste Braves ekstra beskyttelsesfunksjoner for alle appene på mobilen.";
 
 /* Pop up title for VPN subscription is about expire */
-"vpn.autoRenewSoonExpireTitle" = "Å nei! Brave VPN-abonnementet ditt utløper snart.";
+"vpn.autoRenewSoonExpireTitle" = "Å nei! Browther VPN-abonnementet ditt utløper snart.";
 
 /* Title for screen to buy the VPN. */
-"vpn.buyVPNTitle" = "Brave-VPN";
+"vpn.buyVPNTitle" = "Browther-VPN";
 
 /* Message for an alert when the VPN can't get prices from the App Store */
 "vpn.errorCantGetPricesBody" = "Kunne ikke koble til App Store. Prøv igjen om noen minutter.";
@@ -71,7 +71,7 @@
 "vpn.regionPickerAutomaticModeCellText" = "Automatisk";
 
 /* Alert description to show when the VPN session has expired */
-"vpn.sessionExpiredDescription" = "Logg på Brave-konten din for å oppdatere VPN-økten.";
+"vpn.sessionExpiredDescription" = "Logg på Browther-konten din for å oppdatere VPN-økten.";
 
 /* Dismiss button to close the alert showing that the vpn session has expired */
 "vpn.sessionExpiredDismissButton" = "Avvis";
@@ -98,10 +98,10 @@
 "vpn.subscribeVPNAllDevicesPopOverDescription" = "Det stemmer – Brave VPN-abonnementet ditt kan nå brukes på opptil 5 enheter. Det betyr at du kan abonnere på iOS og bruke det på Mac, Windows og Android-enheter uten ekstra kostnad.";
 
 /* Pop up title the subscription for VPN can be used for all platforms */
-"vpn.subscribeVPNAllDevicesPopOverTitle" = "Nå kan du bruke Brave VPN på alle enhetene dine til samme pris!";
+"vpn.subscribeVPNAllDevicesPopOverTitle" = "Nå kan du bruke Browther VPN på alle enhetene dine til samme pris!";
 
 /* Pop up title for subscribing VPN with discount */
-"vpn.subscribeVPNDiscountPopOverTitle" = "Gi Brave VPN et nytt forsøk og få 20 % rabatt i 3 måneder!";
+"vpn.subscribeVPNDiscountPopOverTitle" = "Gi Browther VPN et nytt forsøk og få 20 % rabatt i 3 måneder!";
 
 /* Pop up sub description the subscription for VPN can be used for all platforms */
 "vpn.subscribeVPNPopOverSubDescription" = "Klar til å beskytte alle appene på mobilen din? Kom tilbake til Brave VPN og få 20 % rabatt de neste 3 månedene.";
@@ -110,7 +110,7 @@
 "vpn.subscribeVPNProtectionPopOverDescription" = "Brave VPN har alltid blokkert sporere i alle apper, også utenfor Brave-nettleseren. Nå kan du se hvem som har prøvd å spore deg, med Brave Privacy Hub.";
 
 /* Pop up title for subscribing VPN explaning VPN protects user outside the Brave */
-"vpn.subscribeVPNProtectionPopOverTitle" = "Visste du at Brave VPN beskytter deg også utenom Brave-nettleseren?";
+"vpn.subscribeVPNProtectionPopOverTitle" = "Visste du at Browther VPN beskytter deg også utenom Browther-nettleseren?";
 
 /* Cell title indicates update payment method */
 "vpn.updateActionCellTitle" = "Oppdater";
@@ -119,7 +119,7 @@
 "vpn.updateBillingExpiredPopOverDescription" = "Ingen grunn til bekymring – vi holder VPN-tjenesten aktiv i noen dager mens du oppdaterer betalingsinformasjonen din.";
 
 /* Pop up title for billing issue for subcription VPN already expired */
-"vpn.updateBillingExpiredPopOverTitle" = "Oppdater betalingsinformasjonen din for å holde deg trygg med beskyttelsesfunksjonene i Brave VPN.";
+"vpn.updateBillingExpiredPopOverTitle" = "Oppdater betalingsinformasjonen din for å holde deg trygg med beskyttelsesfunksjonene i Browther VPN.";
 
 /* Pop up description for billing issue of subcription VPN about to expire */
 "vpn.updateBillingSoonExpirePopOverDescription" = "Vil du fortsette å beskytte alle appene på mobilen? Da er det bare å oppdatere betalingsinformasjonen. ";

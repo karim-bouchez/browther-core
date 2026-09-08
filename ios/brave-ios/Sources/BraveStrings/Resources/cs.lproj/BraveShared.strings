@@ -2,7 +2,7 @@
 "About" = "Informace";
 
 /* The title of the screen explaining Brave Shields */
-"AboutBraveShields" = "O Štítech Brave";
+"AboutBraveShields" = "O Štítech";
 
 /* The body of the screen explaining Brave Shields */
 "AboutBraveShieldsBody" = "Webové stránky často obsahují soubory cookie a skripty, které se snaží identifikovat vás a vaše zařízení. Chtějí zjistit, kdo jste, a sledovat vás po celém webu –⁠⁠⁠⁠⁠⁠ chtějí sledovat, co děláte na každé webové stránce.\n\nBrave blokuje tyto věci, takže můžete prohlížet webové stránky, aniž byste byli sledováni.";
@@ -11,7 +11,7 @@
 "AccessPhotoDeniedAlertMessage" = "To vám umožní uložit obrázek do vašeho fotoaparátu.";
 
 /* See http://mzl.la/1G7uHo7 */
-"AccessPhotoDeniedAlertTitle" = "Brave by chtěl získat přístup k vašim fotografiím";
+"AccessPhotoDeniedAlertTitle" = "Browther by chtěl získat přístup k vašim fotografiím";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "addBookmarkTitle" = "Přidat záložku";
@@ -29,7 +29,7 @@
 "AddToMenuItem" = "Přidat záložku";
 
 /* Text for the toggle switch to clear 'Brave Ads' data in settings */
-"ads.braveAdsDataToggleOption" = "Data reklam Brave";
+"ads.braveAdsDataToggleOption" = "Data reklam Browther";
 
 /* individual blocking statistic title */
 "AdsAndTrackers" = "Reklamy a trackery";
@@ -44,10 +44,10 @@
 "AlwaysShow" = "Zapnuto";
 
 /* Title for Ask Brave menu item. Brave is the company name and should not be translated */
-"AskBraveMenuItem" = "Zeptat se Brave";
+"AskBraveMenuItem" = "Zeptat se Browther";
 
 /* Touch ID or PIN entry prompt subtitle when accessing Brave with the Browser Lock feature enabled */
-"AuthenticationLoginsTouchReason" = "Tímto se ověří váš přístup k Brave";
+"AuthenticationLoginsTouchReason" = "Tímto se ověří váš přístup k Browther";
 
 /* Label for Cancel button */
 "AuthPromptAlertCancelButtonTitle" = "Zrušit ";
@@ -146,10 +146,10 @@
 "BookmarkUrlPlaceholderText" = "Adresa";
 
 /* Button to show the brave panel */
-"BravePanel" = "Panel Brave";
+"BravePanel" = "Panel Browther";
 
 /* No comment provided by engineer. */
-"BraveRewardsAdNotificationTitle" = "Odměny Brave";
+"BraveRewardsAdNotificationTitle" = "Odměny Browther";
 
 /* No comment provided by engineer. */
 "BraveRewardsOpen" = "Otevřít";
@@ -158,7 +158,7 @@
 "BraveRewardsSettingsTitle" = "Odměny";
 
 /* Brave Rewards title */
-"BraveRewardsTitle" = "Odměny Brave";
+"BraveRewardsTitle" = "Odměny Browther";
 
 /* Brave Search Banner Promotion description content in Search Suggestions */
 "braveSearchPromotion.bannerDescription" = "Vyhledávač Brave vás neprofiluje.";
@@ -182,7 +182,7 @@
 "BraveShieldsAdvancedControls" = "Pokročilé nastavení";
 
 /* No comment provided by engineer. */
-"BraveShieldsAndPrivacy" = "Štíty Browther a soukromí";
+"BraveShieldsAndPrivacy" = "Štíty a soukromí";
 
 /* No comment provided by engineer. */
 "BraveShieldsAndPrivacyTitle" = "Štíty a soukromí";
@@ -209,7 +209,7 @@
 "BraveShieldsSiteBroken" = "Pokud se tato stránka jeví jako nefunkční, zkuste štíty deaktivovat";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "Štíty Browther";
+"BraveShieldsStatusTitle" = "Štíty";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
 "BraveShieldsStatusValueDown" = "Dolů";
@@ -218,10 +218,10 @@
 "BraveShieldsStatusValueUp" = "Nahoru ";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
-"BraveShieldsToggleHint" = "Dvojitým klepnutím přepnete štíty Brave";
+"BraveShieldsToggleHint" = "Dvojitým klepnutím přepnete štíty";
 
 /* The name of the feature */
-"bravetalk.braveTalkTitle" = "Brave Talk";
+"bravetalk.braveTalkTitle" = "Browther Talk";
 
 /* Title for the button that allows you go to the language selection screen, to select a language you want to translate to/from. */
 "BraveTranslate.languageSelectionButtonTitle" = "Vyberte jazyk";
@@ -233,13 +233,13 @@
 "BraveTranslate.searchInputTitle" = "Search";
 
 /* This text is for the settings menu for all Brave-Translate options. */
-"BraveTranslate.settingsMenuTitle" = "Překladač Brave";
+"BraveTranslate.settingsMenuTitle" = "Překladač Browther";
 
 /* This text is for the translate settings screen. It's the title of the settings menu. */
-"BraveTranslate.settingsScreenTitle" = "Překladač Brave";
+"BraveTranslate.settingsScreenTitle" = "Překladač Browther";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
-"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Když je tato funkce povolena, Překladač Brave automaticky zjistí aktuální jazyk stránky a v panelu adresy URL zobrazí tlačítko pro překlad.";
+"BraveTranslate.settingsTranslateEnabledOptionDescription" = "Když je tato funkce povolena, Překladač Browther automaticky zjistí aktuální jazyk stránky a v panelu adresy URL zobrazí tlačítko pro překlad.";
 
 /* This text is for a Toggle that allows the user to enable or disable page translation. */
 "BraveTranslate.settingsTranslateEnabledOptionTitle" = "Překladač zapnut";
@@ -254,7 +254,7 @@
 "BrowserLock" = "Zámek prohlížeče";
 
 /* Description for setting to enable the browser lock privacy feature */
-"BrowserLockDescription" = "Odemkněte Brave pomocí Touch ID, Face ID nebo systémového přístupového hesla.";
+"BrowserLockDescription" = "Odemkněte Browther pomocí Touch ID, Face ID nebo systémového přístupového hesla.";
 
 /* Settings item for clearing browsing history */
 "BrowsingHistory" = "Historie procházení";
@@ -269,10 +269,10 @@
 "callout.bottomBarCalloutDescription" = "Přesunout lištu s adresou, karty, záložky a další nástroje na spodní část prohlížeče.";
 
 /* Title for Bottom Bar Callout View */
-"callout.bottomBarCalloutTitle" = "Přizpůsobit lištu karet Brave";
+"callout.bottomBarCalloutTitle" = "Přizpůsobit lištu karet Browther";
 
 /* Subtitle - Description for Privacy Everywhere Full Screen Callout */
-"callout.privacyEverywhereCalloutDescription" = "Získejte ochranu soukromí Brave na svém počítači nebo tabletu a synchronizujte záložky a rozšíření mezi zařízeními.";
+"callout.privacyEverywhereCalloutDescription" = "Získejte ochranu soukromí Browther na svém počítači nebo tabletu a synchronizujte záložky a rozšíření mezi zařízeními.";
 
 /* Title for button in Default Browser Full Screen Callout */
 "callout.privacyEverywhereCalloutPrimaryButtonTitle" = "Synchronizovat nyní";
@@ -569,25 +569,25 @@
 "defaultBrowserCallout.introOpenSettingsButtonText" = "Otevřít nastavení";
 
 /* Primary text on default browser popup screen */
-"defaultBrowserCallout.introPrimaryText" = "Otvírejte všechny odkazy pomocí Brave a chraňte tak svoje soukromí";
+"defaultBrowserCallout.introPrimaryText" = "Otvírejte všechny odkazy pomocí Browther a chraňte tak svoje soukromí";
 
 /* Secondary text on default browser popup. */
-"defaultBrowserCallout.introSecondaryText" = "Štíty Browther blokují trackery a reklamy, ukládají data a šetří vám čas na každé vámi navštívené stránce";
+"defaultBrowserCallout.introSecondaryText" = "Štíty blokují trackery a reklamy, ukládají data a šetří vám čas na každé vámi navštívené stránce";
 
 /* Tertiary text on default browser popup screen */
-"defaultBrowserCallout.introTertiaryText" = "Otevřete Nastavení, klepněte na Výchozí aplikace prohlížeče a vyberte Brave.";
+"defaultBrowserCallout.introTertiaryText" = "Otevřete Nastavení, klepněte na Výchozí aplikace prohlížeče a vyberte Browther.";
 
 /* Notification body to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationBody" = "Nastavte si Brave jako výchozí prohlížeč";
+"defaultBrowserCallout.notificationBody" = "Nastavte si Browther jako výchozí prohlížeč";
 
 /* Notification title to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationTitle" = "Získejte ochranu Brave na každém odkazu";
+"defaultBrowserCallout.notificationTitle" = "Získejte ochranu Browther na každém odkazu";
 
 /* No comment provided by engineer. */
 "defaultBrowserCalloutCloseAccesabilityLabel" = "Zavřít výchozí popisek prohlížeče";
 
 /* Name for default Brave theme. */
-"defaultThemeName" = "Výchozí nastavení Brave";
+"defaultThemeName" = "Výchozí nastavení Browther";
 
 /* No comment provided by engineer. */
 "Delete" = "Smazat";
@@ -692,7 +692,7 @@
 "ErrorPageReloadButtonTitle" = "Načíst znovu";
 
 /* Additional warning text when clicking the Advanced button on error pages. %@ is a placeholder, do not localize it. Do not localize <br />. */
-"ErrorPagesAdvancedErrorPinningDetails" = "%1$@ obvykle používá šifrování k ochraně vašich informací. Když se Brave tentokrát pokusil připojit k %2$@, web poslal zpět neobvyklé a nesprávné přihlašovací údaje. K tomu může dojít, když se útočník snaží předstírat, že je %3$@, nebo když přihlašovací obrazovka pro Wi-Fi přerušila připojení. Vaše informace jsou stále zabezpečené, protože Brave ukončil připojení před výměnou jakýchkoli dat. <br />Právě teď nemůžete navštívit %4$@, protože webová stránka používá připnutí certifikátů. Síťové chyby a útoky jsou obvykle dočasné, takže tato stránka bude pravděpodobně fungovat později.";
+"ErrorPagesAdvancedErrorPinningDetails" = "%1$@ obvykle používá šifrování k ochraně vašich informací. Když se Browther tentokrát pokusil připojit k %2$@, web poslal zpět neobvyklé a nesprávné přihlašovací údaje. K tomu může dojít, když se útočník snaží předstírat, že je %3$@, nebo když přihlašovací obrazovka pro Wi-Fi přerušila připojení. Vaše informace jsou stále zabezpečené, protože Browther ukončil připojení před výměnou jakýchkoli dat. <br />Právě teď nemůžete navštívit %4$@, protože webová stránka používá připnutí certifikátů. Síťové chyby a útoky jsou obvykle dočasné, takže tato stránka bude pravděpodobně fungovat později.";
 
 /* Additional warning text when clicking the Advanced button on error pages */
 "ErrorPagesAdvancedWarningDetails" = "Tento server nemohl prokázat, že je %@. Jeho bezpečnostní certifikát není důvěryhodným operačním systémem vašeho zařízení. Může to být způsobeno nesprávnou konfigurací nebo útočníkem, který se pokouší podchytit vaše připojení.";
@@ -812,10 +812,10 @@
 "HideLinkPreviewsActionTitle" = "Skrýt náhledy odkazů";
 
 /* Hides the rewards icon */
-"HideRewardsIcon" = "Skrýt ikonu odměn Brave";
+"HideRewardsIcon" = "Skrýt ikonu odměn Browther";
 
 /* Hide the rewards icon explination. */
-"HideRewardsIconSubtitle" = "Pokud nejsou odměny Brave povoleny, tak skryje ikonu odměny Brave";
+"HideRewardsIconSubtitle" = "Pokud nejsou odměny Browther povoleny, tak skryje ikonu odměny Browther";
 
 /* Title for history menu item */
 "HistortMenuItem" = "History";
@@ -971,7 +971,7 @@
 "MyFirstAdBody" = "Klikněte sem, abyste se dozvěděli více.";
 
 /* No comment provided by engineer. */
-"MyFirstAdTitle" = "Toto je vaše první reklama Brave";
+"MyFirstAdTitle" = "Toto je vaše první reklama Browther";
 
 /* Bookmark title / Device name */
 "Name" = "Název";
@@ -1025,13 +1025,13 @@
 "nprRedirectFooter" = "Automaticky přesměruje odkazy NPR na jejich textovou verzi (na text.npr.org).";
 
 /* Bookmark title for Brave Support */
-"ntp.braveSupportFavoriteTitle" = "Podpora Brave";
+"ntp.braveSupportFavoriteTitle" = "Podpora Browther";
 
 /* No comment provided by engineer. */
 "ntp.claimRewards" = "Převzít Tokeny";
 
 /* Placeholder example: 'You earned 42 BAT by browsing with Brave.' */
-"ntp.earningsReport" = "Procházením s Brave jste získali %@.";
+"ntp.earningsReport" = "Procházením s Browther jste získali %@.";
 
 /* The context is to praise the user that they did a good job, to keep it up. It is used in full sentence like: 'Way to go! You earned 40 BAT last month.' */
 "ntp.goodJob" = "Výborně!";
@@ -1040,10 +1040,10 @@
 "ntp.hideSponsoredImages" = "Skrýt sponzorované obrázky";
 
 /* The text description of image type which is being used NTP. The text inside the square brackets should be translated and is a link */
-"ntp.imageTypeSelectionDescription" = "Sponzorované obrázky jsou značková pozadí, která se zobrazují v nově otevřených kartách v prohlížeči. Povolení těchto sponzorovaných obrázků podporuje poslání společnosti Brave. [Další informace](#learn-more)";
+"ntp.imageTypeSelectionDescription" = "Sponzorované obrázky jsou značková pozadí, která se zobrazují v nově otevřených kartách v prohlížeči. Povolení těchto sponzorovaných obrázků podporuje poslání společnosti Browther. [Další informace](#learn-more)";
 
 /* No comment provided by engineer. */
-"ntp.learnMoreAboutRewards" = "Další informace o odměnách Brave";
+"ntp.learnMoreAboutRewards" = "Další informace o odměnách Browther";
 
 /* No comment provided by engineer. */
 "ntp.learnMoreAboutSI" = "Zjistit více o sponzorovaných obrázcích";
@@ -1085,10 +1085,10 @@
 "OBAdsOptInMessageJapan" = "Získejte body a při prohlížení stránek odměňujte tvůrce za skvělý obsah.";
 
 /* Title when opting into brave Ads when region becomes available */
-"OBAdsOptInTitle" = "Reklamy Brave jsou tady!";
+"OBAdsOptInTitle" = "Reklamy Browther jsou tady!";
 
 /* Title for ads onboarding screen */
-"OBAdsTitle" = "Brave zobrazí vaši první reklamu v";
+"OBAdsTitle" = "Browther zobrazí vaši první reklamu v";
 
 /* Title for when the user completes onboarding */
 "OBCompleteTitle" = "Nyní jste připraveni.";
@@ -1112,10 +1112,10 @@
 "OBJoinButton" = "Přidat se";
 
 /* No comment provided by engineer. */
-"OBPrivacyConsentClipboardPermission" = "Povolte Brave zkontrolovat v mé schránce odpovídající referenční kód";
+"OBPrivacyConsentClipboardPermission" = "Povolte Browther zkontrolovat v mé schránce odpovídající referenční kód";
 
 /* No comment provided by engineer. */
-"OBPrivacyConsentDetail" = "Pravděpodobně jste si stáhli Brave na podporu svého referera. Aby Brave mohl detekovat vašeho referera, provede jednorázovou kontrolu ve vaší schránce, zda neobsahuje odpovídající referenční kód. Tato kontrola je omezena pouze na kód a nedojde k předání žádných dalších osobních údajů. Pokud se odhlásíte, váš referer neobdrží odměny od Brave.";
+"OBPrivacyConsentDetail" = "Pravděpodobně jste si stáhli Browther na podporu svého referera. Aby Browther mohl detekovat vašeho referera, provede jednorázovou kontrolu ve vaší schránce, zda neobsahuje odpovídající referenční kód. Tato kontrola je omezena pouze na kód a nedojde k předání žádných dalších osobních údajů. Pokud se odhlásíte, váš referer neobdrží odměny od Browther.";
 
 /* No comment provided by engineer. */
 "OBPrivacyConsentNoButton" = "Nepovolit tuto kontrolu";
@@ -1136,10 +1136,10 @@
 "OBRewardsAgreementDetailsAnd" = "a";
 
 /* Title for rewards agreement onboarding screen */
-"OBRewardsAgreementTitle" = "Odměny Brave";
+"OBRewardsAgreementTitle" = "Odměny Browther";
 
 /* Detail text for rewards onboarding screen */
-"OBRewardsDetail" = "Přihlášení k soukromým reklamám Brave podporuje vydavatele a tvůrce obsahu při každé zobrazené reklamě.";
+"OBRewardsDetail" = "Přihlášení k soukromým reklamám Browther podporuje vydavatele a tvůrce obsahu při každé zobrazené reklamě.";
 
 /* Detail text for rewards onboarding screen */
 "OBRewardsDetailInAdRegion" = "Získejte tokeny a při prohlížení stránek odměňujte tvůrce za skvělý obsah.";
@@ -1148,7 +1148,7 @@
 "OBRewardsPrivacyPolicyDetailLink" = "Zásady ochrany osobních údajů";
 
 /* Title for rewards onboarding screen */
-"OBRewardsTitle" = "Odměny Brave";
+"OBRewardsTitle" = "Odměny Browther";
 
 /* Save button to save current selection */
 "OBSaveButton" = "Uložit";
@@ -1157,13 +1157,13 @@
 "OBSearchEngineDetail" = "Vyberte výchozí vyhledávač";
 
 /* Title for search engine onboarding screen */
-"OBSearchEngineTitle" = "Vítejte v prohlížeči Brave";
+"OBSearchEngineTitle" = "Vítejte v prohlížeči Browther";
 
 /* Detail text for shields onboarding screen */
 "OBShieldsDetail" = "Blokujte trackery narušující soukromí, abyste mohli prohlížet stránky, aniž byste byli sledováni po webu";
 
 /* Title for shields onboarding screen */
-"OBShieldsTitle" = "Štíty Browther";
+"OBShieldsTitle" = "Štíty";
 
 /* Button to show the Brave Rewards Ads. */
 "OBShowMeButton" = "Ukázat";
@@ -1178,13 +1178,13 @@
 "onboarding.linkReceiptDescription" = "Vaše předplatné Brave VPN může chránit až 10 zařízení na Androidu, iOS a stolním počítači. Stačí propojit vaše předplatné App Store s vaším účtem Brave.";
 
 /* Popup title to let users know they can use the vpn on all their devices */
-"onboarding.linkReceiptTitle" = "Rozšiřte ochranu Brave Firewall + VPN";
+"onboarding.linkReceiptTitle" = "Rozšiřte ochranu Browther Firewall + VPN";
 
 /* Description for the NTP pop-over that describes the tracking information on NTP */
 "onboarding.ntpOnboardingPopOverTrackerDescription" = "Blokováním trackerů a reklam využívají webové stránky méně dat a načítají se mnohem rychleji.";
 
 /* Description for the Omnibox (URL Bar) pop-over that describes faster load times. */
-"onboarding.omniboxOnboardingPopOverDescription" = "Podívejte se na rozdíl Brave:\nŽádné reklamy. Žádné trackery. Mnohem rychlejší načítání stránky.";
+"onboarding.omniboxOnboardingPopOverDescription" = "Podívejte se na rozdíl Browther:\nŽádné reklamy. Žádné trackery. Mnohem rychlejší načítání stránky.";
 
 /* Title for the Omnibox (URL Bar) pop-over that describes faster load times. */
 "onboarding.omniboxOnboardingPopOverTitle" = "Napište název nebo adresu URL webové stránky.";
@@ -1202,7 +1202,7 @@
 "OpenAllBookmarks" = "Otevřít vše (%i)";
 
 /* Button title for opening the Brave Rewards panel to settings */
-"OpenBraveRewardsSettings" = "Otevřít nastavení odměn Brave";
+"OpenBraveRewardsSettings" = "Otevřít nastavení odměn Browther";
 
 /* Error description when there is an error while navigating to Files App */
 "OpenDownloadsFolderErrorDescription" = "Při otevírání složky Stažené soubory v aplikaci Soubory došlo k neznámé chybě.";
@@ -1265,13 +1265,13 @@
 "opentabs.noSyncChainPlaceHolderViewDescription" = "Začněte nastavením synchronizačního řetězce a přepněte „Otevřít karty“ v Nastavení synchronizace.";
 
 /* The additional description of the view describing tab syncing should be enabled. */
-"opentabs.noSyncSessionPlaceHolderViewAdditionalDescription" = "Spravujte, co Brave synchronizuje v Nastavení.";
+"opentabs.noSyncSessionPlaceHolderViewAdditionalDescription" = "Spravujte, co Browther synchronizuje v Nastavení.";
 
 /* The description of the view describing no other sessions are active in sync. */
 "opentabs.noSyncSessionPlaceHolderViewDescription" = "Neexistují žádné aktivní relace, které by se zobrazovaly z vašich ostatních zařízení.";
 
 /* The title of the view showing no synced sessions */
-"opentabs.noSyncSessionPlaceHolderViewTitle" = "Tento prostor zobrazuje karty Brave otevřené v jiných zařízeních";
+"opentabs.noSyncSessionPlaceHolderViewTitle" = "Tento prostor zobrazuje karty Browther otevřené v jiných zařízeních";
 
 /* The title for the action to hide open session with all tabs */
 "opentabs.openSessionHideAllActionTitle" = "Prozatím skrýt";
@@ -1358,7 +1358,7 @@
 "p3a.continue" = "Pokračovat";
 
 /* A subtitle shown on the setting that toggles analytics on Brave. */
-"p3a.settingSubtitle" = "Tyto soukromé odpovědi pomáhají Brave odhadnout celkové využití určitých funkcí a vylepšit je pro vás.";
+"p3a.settingSubtitle" = "Tyto soukromé odpovědi pomáhají Browther odhadnout celkové využití určitých funkcí a vylepšit je pro vás.";
 
 /* The title for the setting that will allow a user to toggle sending privacy preserving analytics to Brave. */
 "p3a.settingTitle" = "Povolit analýzu produktů se zachováním soukromí (P3A)";
@@ -1418,7 +1418,7 @@
 "PersistentPrivateBrowsing" = "Trvalé soukromé prohlížení stránek";
 
 /* Persistent private browsing alert message to existing users */
-"PersistentPrivateBrowsingAlertMessage" = "Umožňuje Brave obnovit karty soukromého prohlížení, i když aplikaci zavřete nebo znovu otevřete";
+"PersistentPrivateBrowsingAlertMessage" = "Umožňuje Browther obnovit karty soukromého prohlížení, i když aplikaci zavřete nebo znovu otevřete";
 
 /* Persistent private browsing alert title to existing users */
 "PersistentPrivateBrowsingAlertTitle" = "Obnovit soukromé karty";
@@ -1433,7 +1433,7 @@
 "playList.addToPlayListAlertDescription" = "Chcete přidat toto video do svého seznamu skladeb?";
 
 /* Alert Title for adding videos to playlist */
-"playList.addToPlayListAlertTitle" = "Přidat do seznamu skladeb Brave";
+"playList.addToPlayListAlertTitle" = "Přidat do seznamu skladeb Browther";
 
 /* The title of the screen in CarPlay that contains all the audio/playback options */
 "playlist.carplayOptionsScreenTitle" = "Možnosti přehrávání";
@@ -1454,7 +1454,7 @@
 "playlist.carplaySettingsSectionTitle" = "Nastavení ";
 
 /* The title of the playlist when in Carplay mode */
-"playlist.carplayTitle" = "Seznam stop Brave";
+"playlist.carplayTitle" = "Seznam stop Browther";
 
 /* Title for changing the folder of the current media playlist item */
 "playList.changeFoldersButtonTitle" = "Změnit seznam skladeb";
@@ -1475,7 +1475,7 @@
 "playList.loadResourcesErrorAlertDescription" = "Došlo k problému při načítání zdroje!";
 
 /* Detail Text when there are no items in the playlist */
-"playList.noItemLabelDetailLabel" = "Položky můžete přidávat do svého seznamu skladeb Brave v prohlížeči";
+"playList.noItemLabelDetailLabel" = "Položky můžete přidávat do svého seznamu skladeb Browther v prohlížeči";
 
 /* Text when there are no items in the playlist */
 "playList.noItemLabelTitle" = "Nejsou k dispozici žádné položky";
@@ -1580,13 +1580,13 @@
 "playList.toastAddToPlaylistTitle" = "Přidat do seznamu stop";
 
 /* The title for the toast that shows up on a page when an item that has already been added, was updated. */
-"playList.toastExitingItemPlaylistTitle" = "Zobrazit v seznamu skladeb Brave";
+"playList.toastExitingItemPlaylistTitle" = "Zobrazit v seznamu skladeb Browther";
 
 /* A button title that when tapped will re-add the media item (undo the removal) that the user recently removed. */
 "playList.undoRemoveButtonTitle" = "Zpět ";
 
 /* Footer for option to disable URL-Bar button */
-"playlist.urlBarButtonOptionFooter" = "Přidá tlačítko seznamu skladeb vedle lišty adres v prohlížeči Brave. Toto tlačítko vám umožňuje rychlý přístup k otevření seznamu skladeb nebo přidání/odebrání médií.";
+"playlist.urlBarButtonOptionFooter" = "Přidá tlačítko seznamu skladeb vedle lišty adres v prohlížeči Browther. Toto tlačítko vám umožňuje rychlý přístup k otevření seznamu skladeb nebo přidání/odebrání médií.";
 
 /* Title for option to disable URL-Bar button */
 "playlist.urlBarButtonOptionTitle" = "Povolit tlačítko rychlého přístupu";
@@ -1685,7 +1685,7 @@
 "privacyHub.lastWeekHeader" = "Minulý týden";
 
 /* Do NOT localize asterisk('*') characters, they are used to make the text bold in the app. It says which tracker was blocked on how many websites, example usage: 'Google Analytics was blocked by Brave Shields on 42 sites' */
-"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** byl zablokován štíty Brave na **%2$lld** stránkách";
+"privacyHub.mostFrequentTrackerAndAdBody" = "**%1$@** byl zablokován štíty na **%2$lld** stránkách";
 
 /* Title under which we display a tracker which was most frequently detected by our ad blocking mechanism. */
 "privacyHub.mostFrequentTrackerAndAdTitle" = "Nejčastější tracker a reklama";
@@ -1703,7 +1703,7 @@
 "privacyHub.notificationCalloutButtonText" = "Zapnout oznámení";
 
 /* Message of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
-"privacyHub.notificationMessage" = "Rekapitulace toho, jak vás tento týden Brave chránil online.";
+"privacyHub.notificationMessage" = "Rekapitulace toho, jak vás tento týden Browther chránil online.";
 
 /* Title of a notification we show to the user, on tapping it, the Privacy Hub screen will open. */
 "privacyHub.notificationTitle" = "Týdenní zpráva o soukromí";
@@ -1769,7 +1769,7 @@
 "privacyHub.vpnAlertRegularTrackerTypeSingular" = "Tracker nebo reklama";
 
 /* Section title, this section displays vpn alerts: items which the vpn managed to block on users behalf. */
-"privacyHub.vpnAlertsHeader" = "Upozornění na Firewall + VPN od Brave";
+"privacyHub.vpnAlertsHeader" = "Upozornění na Firewall + VPN od Browther";
 
 /* This label says about Brave VPN, as a source of by what the resource was blocked by. Think of it in context of 'Blocked by VPN' */
 "privacyHub.vpnLabel" = "Firewall + VPN";
@@ -1793,10 +1793,10 @@
 "PrivateBrowsingOnlyWarning" = "Režim pouze anonymního prohlížení zavře všechny vaše aktuální karty a odhlásí vás ze všech stránek.";
 
 /* Private tab details */
-"PrivateTabBody" = "Soukromé karty se v Brave neukládají, ale nejste s nimi online anonymní. Stránky, které navštívíte v soukromé kartě, se nezobrazí ve vaší historii a jejich soubory cookie vždy zmizí, když je zavřete — žádná jejich stopa v Brave nezůstane. Stažené soubory se však uloží.\nVáš mobilní operátor (nebo vlastník sítě Wi-Fi nebo VPN, ke které jste připojeni) vidí, které stránky navštěvujete, a tyto stránky zjistí vaši veřejnou IP adresu, a to i na soukromých kartách.";
+"PrivateTabBody" = "Soukromé karty se v Browther neukládají, ale nejste s nimi online anonymní. Stránky, které navštívíte v soukromé kartě, se nezobrazí ve vaší historii a jejich soubory cookie vždy zmizí, když je zavřete — žádná jejich stopa v Browther nezůstane. Stažené soubory se však uloží.\nVáš mobilní operátor (nebo vlastník sítě Wi-Fi nebo VPN, ke které jste připojeni) vidí, které stránky navštěvujete, a tyto stránky zjistí vaši veřejnou IP adresu, a to i na soukromých kartách.";
 
 /* Private tab detail text */
-"PrivateTabDetails" = "Používání soukromých karet mění pouze to, co Brave dělá na vašem zařízení, nemění chování kohokoli jiného.\n\nStránky vždy zjistí vaši IP adresu, když je navštívíte. Z toho často mohou zhruba odhadnout, kde jste — typicky vaše město. Někdy může být tento odhad polohy mnohem konkrétnější. Stránky také ví všechno, co jim konkrétně řeknete, jako vyhledávané pojmy. Pokud se přihlásíte na stránku, budou vědět, že jste vlastníky tohoto účtu. Když soukromé karty zavřete, budete stále odhlášeni, protože Brave zahodí cookie, které vás udržuje přihlášené. \n\nKdokoli vás připojí k internetu (váš poskytovatel internetových služeb), vidí veškerou vaši aktivitu na síti. Často je to váš mobilní operátor. Pokud jste připojeni k síti Wi-Fi, je to vlastník této sítě, a pokud používáte VPN, pak je to kdokoli, kdo tu VPN provozuje. Váš poskytovatel internetových služeb vidí, které stránky navštěvujete, když je navštěvujete. Pokud tyto stránky používají HTTPS, nemůže provést o moc víc než kvalifikovaný odhad toho, co na těchto stránkách děláte. Ale pokud stránka používá pouze HTTP, váš poskytovatel internetových služeb vidí vše: vaše vyhledávané pojmy, jaké stránky čtete a na jaké odkazy klikáte.\n\nPokud zaměstnavatel spravuje vaše zařízení, může také sledovat, co s ním děláte. Používání soukromých karet mu pravděpodobně nezabrání v tom, aby viděl, jaké stránky jste navštívili. Někdo jiný s přístupem k vašemu zařízení mohl také instalovat software, který monitoruje vaši aktivitu, a ani soukromé karty vás před tím neochrání.";
+"PrivateTabDetails" = "Používání soukromých karet mění pouze to, co Browther dělá na vašem zařízení, nemění chování kohokoli jiného.\n\nStránky vždy zjistí vaši IP adresu, když je navštívíte. Z toho často mohou zhruba odhadnout, kde jste — typicky vaše město. Někdy může být tento odhad polohy mnohem konkrétnější. Stránky také ví všechno, co jim konkrétně řeknete, jako vyhledávané pojmy. Pokud se přihlásíte na stránku, budou vědět, že jste vlastníky tohoto účtu. Když soukromé karty zavřete, budete stále odhlášeni, protože Browther zahodí cookie, které vás udržuje přihlášené. \n\nKdokoli vás připojí k internetu (váš poskytovatel internetových služeb), vidí veškerou vaši aktivitu na síti. Často je to váš mobilní operátor. Pokud jste připojeni k síti Wi-Fi, je to vlastník této sítě, a pokud používáte VPN, pak je to kdokoli, kdo tu VPN provozuje. Váš poskytovatel internetových služeb vidí, které stránky navštěvujete, když je navštěvujete. Pokud tyto stránky používají HTTPS, nemůže provést o moc víc než kvalifikovaný odhad toho, co na těchto stránkách děláte. Ale pokud stránka používá pouze HTTP, váš poskytovatel internetových služeb vidí vše: vaše vyhledávané pojmy, jaké stránky čtete a na jaké odkazy klikáte.\n\nPokud zaměstnavatel spravuje vaše zařízení, může také sledovat, co s ním děláte. Používání soukromých karet mu pravděpodobně nezabrání v tom, aby viděl, jaké stránky jste navštívili. Někdo jiný s přístupem k vašemu zařízení mohl také instalovat software, který monitoruje vaši aktivitu, a ani soukromé karty vás před tím neochrání.";
 
 /* Private tab information link */
 "PrivateTabLink" = "Více informací o soukromých kartách.";
@@ -1970,10 +1970,10 @@
 "ReportBrokenPlaceholder" = "Vyberte jednu možnost";
 
 /* First part of the report a broken site copy. After the colon is a new line and then a website address */
-"ReportBrokenSiteBody1" = "Dejte vývojářům Brave vědět, že tyto stránky se nefungují správně:";
+"ReportBrokenSiteBody1" = "Dejte vývojářům Browther vědět, že tyto stránky se nefungují správně:";
 
 /* This is the info text that is presented when a user is submitting a web-compatibility report. */
-"ReportBrokenSiteBody2" = "Poznámka: Zpráva odeslaná na servery Brave bude zahrnovat adresu stránky, číslo verze prohlížeče Brave, nastavení štítů, stav VPN a nastavení jazyka.";
+"ReportBrokenSiteBody2" = "Poznámka: Zpráva odeslaná na servery Browther bude zahrnovat adresu stránky, číslo verze prohlížeče Browther, nastavení štítů, stav VPN a nastavení jazyka.";
 
 /* No comment provided by engineer. */
 "ReportBrokenSubmitButtonTitle" = "Submit";
@@ -2006,49 +2006,49 @@
 "RestoreTabNegativeButtonTitle" = "Ne";
 
 /* Restore Tabs Prompt Description */
-"RestoreTabOnCrashAlertMessage" = "Brave bohužel přestal fungovat nebo se nezavřel správně.\nPřejete si obnovit vaše karty?";
+"RestoreTabOnCrashAlertMessage" = "Browther bohužel přestal fungovat nebo se nezavřel správně.\nPřejete si obnovit vaše karty?";
 
 /* Restore Tabs Prompt Title */
-"RestoreTabOnCrashAlertTitle" = "Brave se nečekaně zavřel.";
+"RestoreTabOnCrashAlertTitle" = "Browther se nečekaně zavřel.";
 
 /* Body for Brave Talk rewards opt-in screen */
-"rewards.braveTalkRewardsOptInBody" = "S odměnami Brave si můžete zobrazit reklamy chránící soukromí ze sítě Reklamy Brave. Žádné trackery. Žádné zpomalení. A vaše data zůstávají naprosto v bezpečí.";
+"rewards.braveTalkRewardsOptInBody" = "S odměnami Browther si můžete zobrazit reklamy chránící soukromí ze sítě Reklamy Browther. Žádné trackery. Žádné zpomalení. A vaše data zůstávají naprosto v bezpečí.";
 
 /* Title for Brave Talk rewards opt-in screen button */
 "rewards.braveTalkRewardsOptInButtonTitle" = "Zapnout Rewards";
 
 /* Body for successful Brave Talk rewards opt-in */
-"rewards.braveTalkRewardsOptInSuccessBody" = "Kliknutím kdekoli na obrazovce můžete pokračovat v Brave Talk.";
+"rewards.braveTalkRewardsOptInSuccessBody" = "Kliknutím kdekoli na obrazovce můžete pokračovat v Browther Talk.";
 
 /* Title for successful Brave Talk rewards opt-in */
 "rewards.braveTalkRewardsOptInSuccessTitle" = "Nyní můžete zahájit bezplatný hovor";
 
 /* Title for Brave Talk rewards opt-in screen */
-"rewards.braveTalkRewardsOptInTitle" = "Chcete-li zahájit bezplatný hovor, zapněte funkci Brave Rewards.";
+"rewards.braveTalkRewardsOptInTitle" = "Chcete-li zahájit bezplatný hovor, zapněte funkci Browther Rewards.";
 
 /* Displayed when Brave Rewards is disabled */
 "rewards.disabledBody" = "Zapněte nápovědu pro podporu prohlížeče Brace a komunity BAT.";
 
 /* Displayed in the status container when rewards is disabled */
-"rewards.disabledStatusBody" = "Používání odměn Brave pomáhá podporovat prohlížeč Brave a komunitu BAT.";
+"rewards.disabledStatusBody" = "Používání odměn Browther pomáhá podporovat prohlížeč Browther a komunitu BAT.";
 
 /* Displayed when Brave Rewards is enabled */
-"rewards.enabledBody" = "Pomáháte podporovat Brave a komunitu BAT.";
+"rewards.enabledBody" = "Pomáháte podporovat Browther a komunitu BAT.";
 
 /* Displayed in the status container when rewards is enabled but you're not currently supporting any publishers (0 AC count) */
-"rewards.enabledStatusBody" = "Děkujeme, že pomáháte podporovat prohlížeč Brave a komunitu BAT!";
+"rewards.enabledStatusBody" = "Děkujeme, že pomáháte podporovat prohlížeč Browther a komunitu BAT!";
 
 /* The placeholders say 'Terms of Service' and 'Privacy Policy'. So full sentence goes like: 'By clicking, you agree to the Terms of Service and Privacy Policy...' */
 "rewards.optInDisclaimer" = "Kliknutím souhlasíte s %1$@ a %2$@. Můžete je kdykoliv zakázat v Nastavení.";
 
 /* No comment provided by engineer. */
-"rewards.settingsToggleMessage" = "Pomáhejte podporovat prohlížeč Brave a komunitu BAT tím, že zapnete odměny Brave, aby se zobrazovaly reklamy Brave.";
+"rewards.settingsToggleMessage" = "Pomáhejte podporovat prohlížeč Browther a komunitu BAT tím, že zapnete odměny Browther, aby se zobrazovaly reklamy Browther.";
 
 /* No comment provided by engineer. */
-"rewards.settingsToggleTitle" = "Povolit Brave Rewards";
+"rewards.settingsToggleTitle" = "Povolit Browther Rewards";
 
 /* Displayed under verified publishers */
-"rewards.supportingPublisher" = "Tento autor obsahu je ověřen autory Brave";
+"rewards.supportingPublisher" = "Tento autor obsahu je ověřen autory Browther";
 
 /* Displayed next to a number representing the total number of publishers supported */
 "rewards.totalSupportedCount" = "Počet tvůrců obsahu, které tento měsíc pomáháte podporovat.";
@@ -2075,7 +2075,7 @@
 "RewardsInternalsContributionAmount" = "Částka příspěvku";
 
 /* No comment provided by engineer. */
-"RewardsInternalsContributionProcessorBraveTokens" = "Tokeny Brave";
+"RewardsInternalsContributionProcessorBraveTokens" = "Tokeny Browther";
 
 /* No comment provided by engineer. */
 "RewardsInternalsContributionProcessorNone" = "Žádné";
@@ -2340,22 +2340,22 @@ Settings item for clearing site-specific settings and shields settings. */
 "searchSuggestionsSubtitle" = "Chcete povolit funkci Návrh vyhledávače?";
 
 /* Title of an action that allows user to perform a one-click web search for selected text */
-"SearchWithBrave" = "Hledat vyhledávací službou Brave";
+"SearchWithBrave" = "Hledat vyhledávací službou Browther";
 
 /* No comment provided by engineer. */
 "sendButtonTitle" = "Odeslat";
 
 /* Message displayed in the crash dialog above the buttons used to select when sending reports */
-"SendCrashReportAlertMessage" = "Odeslat zprávu o selhání, aby Brave mohl problém vyřešit?";
+"SendCrashReportAlertMessage" = "Odeslat zprávu o selhání, aby Browther mohl problém vyřešit?";
 
 /* Title for prompt displayed to user after the app crashes */
-"SendCrashReportAlertTitle" = "Jejda! Brave přestal fungovat";
+"SendCrashReportAlertTitle" = "Jejda! Browther přestal fungovat";
 
 /* Used as a button label for crash dialog prompt */
 "SendReportButtonTitle" = "Odeslat zprávu";
 
 /* No comment provided by engineer. */
-"setDefaultBrowserCalloutTitle" = "Brave lze nyní nastavit jako váš výchozí prohlížeč v iOS. Klepnutím sem otevřete nastavení.";
+"setDefaultBrowserCalloutTitle" = "Browther lze nyní nastavit jako váš výchozí prohlížeč v iOS. Klepnutím sem otevřete nastavení.";
 
 /* Settings item to set the Brave as a default browser on the iOS device. */
 "setDefaultBrowserSettingsCell" = "Nastavit jako výchozí prohlížeč";
@@ -2379,7 +2379,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "settings.autocloseTabsSetting" = "Zavřít karty";
 
 /* Description of autoclose tabs feature. */
-"settings.autocloseTabsSettingFooter" = "Povolit Brave automaticky zavírat karty, které nebyly v poslední době zobrazeny.";
+"settings.autocloseTabsSettingFooter" = "Povolit Browther automaticky zavírat karty, které nebyly v poslední době zobrazeny.";
 
 /* Description beside the toggle for blocking YouTube distracting elements */
 "settings.blockYouTubeDistractingElementsDesc" = "Blokování rozptylujících prvků YouTube";
@@ -2412,7 +2412,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "settings.media.rootSetting" = "Média";
 
 /* A toggle label which lets the user always open YouTube urls in Brave */
-"settings.openYouTubeInBrave" = "Otevírat odkazy na YouTube v prohlížeči Brave";
+"settings.openYouTubeInBrave" = "Otevírat odkazy na YouTube v prohlížeči Browther";
 
 /* No comment provided by engineer. */
 "settings.privacy.screenTimeSetting" = "Povolit čas na obrazovce";
@@ -2424,16 +2424,16 @@ Settings item for clearing site-specific settings and shields settings. */
 "settings.qualitySettings" = "Nastavení kvality";
 
 /* Description to explain the daily usage ping toggle */
-"settings.sendUsagePingDescription" = "Tento soukromý ping umožňuje Brave odhadnout počet aktivních uživatelů.";
+"settings.sendUsagePingDescription" = "Tento soukromý ping umožňuje Browther odhadnout počet aktivních uživatelů.";
 
 /* Title to explain the daily usage ping toggle */
-"settings.sendUsagePingTitle" = "Automatické odesílání denního pingu do služby Brave";
+"settings.sendUsagePingTitle" = "Automatické odesílání denního pingu do služby Browther";
 
 /* Description to explain the survey panelist toggle */
-"settings.surveyPanelistDescription" = "Umožňuje službě Brave zobrazovat na nově kartě odkazy na soukromé průzkumy. Průzkumy nám pomáhají vytvářet lepší funkce a měřit účinnost reklamních kampaní v prohlížeči. [Další informace](%@)";
+"settings.surveyPanelistDescription" = "Umožňuje službě Browther zobrazovat na nově kartě odkazy na soukromé průzkumy. Průzkumy nám pomáhají vytvářet lepší funkce a měřit účinnost reklamních kampaní v prohlížeči. [Další informace](%@)";
 
 /* Title to explain the survey panelist toggle */
-"settings.surveyPanelistTitle" = "Povolit průzkumy Brave";
+"settings.surveyPanelistTitle" = "Povolit průzkumy Browther";
 
 /* Header for the YouTube settings section */
 "settings.youtube" = "YouTube";
@@ -2493,7 +2493,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.shareTheNewsTitle" = "Sdílejte, co je nového";
 
 /* Subtitle for Shield Education Tracker Ad Warning */
-"shieldEducation.trackerAdWarningSubTitle" = "Štíty Browther právě ochránily vaše online soukromí.";
+"shieldEducation.trackerAdWarningSubTitle" = "Štíty právě ochránily vaše online soukromí.";
 
 /* Subtitle for Shield Education Tracker Count Share */
 "shieldEducation.trackerCountShareSubtitle" = "Gratulujeme. Jste poměrně unikátní.";
@@ -2508,13 +2508,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "shieldEducation.videoAdBlockTitle" = "Při sledování videí na tomto webu jsou reklamy blokovány.";
 
 /* Section title for adbblock, tracking protection, HTTPS-E, and cookies */
-"ShieldsDefaults" = "Výchozí globální štíty Brave";
+"ShieldsDefaults" = "Výchozí globální štíty";
 
 /* Section footer for global shields defaults */
 "ShieldsDefaultsFooter" = "Toto jsou výchozí nastavení štítů pro nové stránky. Jejich změna neovlivní vaše stávající nastavení pro jednotlivé stránky.";
 
 /* No comment provided by engineer. */
-"ShieldsDownDisclaimer" = "Tuto stránku prohlížíte bez ochrany soukromí od Brave. Se zapnutými Štíty nefunguje?";
+"ShieldsDownDisclaimer" = "Tuto stránku prohlížíte bez ochrany soukromí od Browther. Se zapnutými Štíty nefunguje?";
 
 /* shields overview message */
 "ShieldsOverview" = "Štíty stránky vám umožňují kontrolovat, kdy jsou reklamy a trackery blokovány pro každou stránku, kterou navštívíte. Pokud chcete vidět reklamy na konkrétní stránce, můžete je povolit zde.";
@@ -2532,7 +2532,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "ShortcutItemTitleQRCode" = "Scan QR Code";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeBraveNewsDescription" = "Otevřít Novinky Brave a podívat se na dnešní hlavní příběhy";
+"shortcuts.activityTypeBraveNewsDescription" = "Otevřít Novinky Browther a podívat se na dnešní hlavní příběhy";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeClearHistoryDescription" = "Otevřít prohlížeč na nové kartě a odstranit všechna data historie soukromého prohlížeče";
@@ -2541,7 +2541,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeClearHistorySuggestedPhrase" = "Vymazat historii prohlížeče";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeClearHistoryTitle" = "Vymazat historii prohlížení stránek Brave";
+"shortcuts.activityTypeClearHistoryTitle" = "Vymazat historii prohlížení stránek Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeEnableVPNDescription" = "Otevřít prohlížeč na nové kartě a povolit VPN";
@@ -2550,7 +2550,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeEnableVPNSuggestedPhrase" = "Povolit VPN";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeEnableVPNTitle" = "Otevřít prohlížeč Brave a povolit VPN";
+"shortcuts.activityTypeEnableVPNTitle" = "Otevřít prohlížeč Browther a povolit VPN";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeNewPrivateTabSuggestedPhrase" = "Otevřít novou soukromou kartu";
@@ -2571,13 +2571,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenBookmarksSuggestedPhrase" = "Otevřít záložky";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBookmarksTitle" = "Otevřít záložky prohlížeče Brave";
+"shortcuts.activityTypeOpenBookmarksTitle" = "Otevřít záložky prohlížeče Browther";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBraveNewsTitle" = "Otevřít Novinky Brave";
+"shortcuts.activityTypeOpenBraveNewsTitle" = "Otevřít Novinky Browther";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenBraveTodaySuggestedPhrase" = "Otevřít Novinky Brave";
+"shortcuts.activityTypeOpenBraveTodaySuggestedPhrase" = "Otevřít Novinky Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenHistoryListDescription" = "Otevřít obrazovku historie prohlížeče";
@@ -2586,7 +2586,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenHistoryListSuggestedPhrase" = "Otevřít historii prohlížeče";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenHistoryListTitle" = "Otevřít historii prohlížeče Brave";
+"shortcuts.activityTypeOpenHistoryListTitle" = "Otevřít historii prohlížeče Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenPlaylistDescription" = "Začít přehrávat vaše videa v seznamu skladeb";
@@ -2598,7 +2598,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenPlaylistTitle" = "Otevřít seznam stop";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeOpenSyncedTabsDescription" = "Otevřít karty Brave otevřené v jiných zařízeních";
+"shortcuts.activityTypeOpenSyncedTabsDescription" = "Otevřít karty Browther otevřené v jiných zařízeních";
 
 /* No comment provided by engineer. */
 "shortcuts.activityTypeOpenSyncedTabsSuggestedPhrase" = "Otevřít karty z jiných zařízení";
@@ -2607,7 +2607,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.activityTypeOpenSyncedTabsTitle" = "Otevřít karty z jiných zařízení";
 
 /* No comment provided by engineer. */
-"shortcuts.activityTypeTabDescription" = "Začít pomocí Brave bezpečně prohledávat webové stránky";
+"shortcuts.activityTypeTabDescription" = "Začít pomocí Browther bezpečně prohledávat webové stránky";
 
 /* No comment provided by engineer. */
 "shortcuts.customIntentOpenBookmarkSuggestedPhrase" = "Otevřít webové stránky Záložek";
@@ -2619,7 +2619,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.customIntentOpenWebsiteSuggestedPhrase" = "Otevřít webovou stránku";
 
 /* Description for opening Brave Settings for altering Siri shortcut. */
-"shortcuts.shortcutOpenApplicationSettingsDescription" = "Tato možnost otevře nastavení Brave. Chcete-li změnit různé možnosti Siri, vyberte prosím položku nabídky „Siri a vyhledávání“ a přizpůsobte své volby.";
+"shortcuts.shortcutOpenApplicationSettingsDescription" = "Tato možnost otevře nastavení Browther. Chcete-li změnit různé možnosti Siri, vyberte prosím položku nabídky „Siri a vyhledávání“ a přizpůsobte své volby.";
 
 /* Button title that open application settings */
 "shortcuts.shortcutOpenApplicationSettingsTitle" = "Otevřít nastavení";
@@ -2631,7 +2631,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.shortcutSettingsClearBrowserHistoryTitle" = "Vymazat historii prohlížeče";
 
 /* No comment provided by engineer. */
-"shortcuts.shortcutSettingsEnableVPNDescription" = "Pomocí klávesových zkratek povolte VPN Brave prostřednictvím Siri – hlasového asistenta";
+"shortcuts.shortcutSettingsEnableVPNDescription" = "Pomocí klávesových zkratek povolte VPN Browther prostřednictvím Siri – hlasového asistenta";
 
 /* No comment provided by engineer. */
 "shortcuts.shortcutSettingsEnableVPNTitle" = "Povolit VPN";
@@ -2643,10 +2643,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "shortcuts.shortcutSettingsOpenBookmarksTitle" = "Otevřít záložky";
 
 /* Description of Open Brave News Siri Shortcut in Settings Screen */
-"shortcuts.shortcutSettingsOpenBraveNewsDescription" = "Pomocí klávesových zkratek otevřete novou kartu a zobrazte kanál Novinky Brave prostřednictvím Siri – hlasového asistenta";
+"shortcuts.shortcutSettingsOpenBraveNewsDescription" = "Pomocí klávesových zkratek otevřete novou kartu a zobrazte kanál Novinky Browther prostřednictvím Siri – hlasového asistenta";
 
 /* No comment provided by engineer. */
-"shortcuts.shortcutSettingsOpenBraveNewsTitle" = "Otevřít Novinky Brave";
+"shortcuts.shortcutSettingsOpenBraveNewsTitle" = "Otevřít Novinky Browther";
 
 /* No comment provided by engineer. */
 "shortcuts.shortcutSettingsOpenHistoryListDescription" = "Pomocí klávesových zkratek otevřete obrazovku historie prohlížeče prostřednictvím Siri – hlasového asistenta";
@@ -2706,7 +2706,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "ShowTabsBar" = "Panel karet";
 
 /* No comment provided by engineer. */
-"SiteReportedBody" = "Díky, že jste vývojářům Brave dali vědět, že tyto stránky vykazují nějakou chybu. Budeme se usilovně snažit ji opravit!";
+"SiteReportedBody" = "Díky, že jste vývojářům Browther dali vědět, že tyto stránky vykazují nějakou chybu. Budeme se usilovně snažit ji opravit!";
 
 /* No comment provided by engineer. */
 "SiteReportedTitle" = "Děkuji";
@@ -2715,10 +2715,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "SiteShieldSettings" = "Štíty ";
 
 /* Title used when in warning pop-over when domain specific data save appears */
-"socialSharing.domainSpecificDataSavedTitle" = "Každý den ukládám data procházením webu přes prohlížeč Brave.";
+"socialSharing.domainSpecificDataSavedTitle" = "Každý den ukládám data procházením webu přes prohlížeč Browther.";
 
 /* Text used for social sharing together with Brave Shield values */
-"socialSharing.shareDescriptionTitle" = "Každý den ukládám data procházením webu přes prohlížeč Brave.";
+"socialSharing.shareDescriptionTitle" = "Každý den ukládám data procházením webu přes prohlížeč Browther.";
 
 /* Open search section of settings */
 "StandardTabSearch" = "Standardní karta";
@@ -2835,7 +2835,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.deleteAccount" = "Odstranit synchronizační účet";
 
 /* Part 1 Description for Alert used action Delete Sync Account. */
-"sync.deleteAccountAlertDescriptionPart1" = "Odstranění účtu odebere vaše šifrovaná data ze serverů Brave a deaktivuje synchronizaci na všech vašich připojených zařízeních.";
+"sync.deleteAccountAlertDescriptionPart1" = "Odstranění účtu odebere vaše šifrovaná data ze serverů Browther a deaktivuje synchronizaci na všech vašich připojených zařízeních.";
 
 /* Part 2 Description for Alert used action Delete Sync Account. */
 "sync.deleteAccountAlertDescriptionPart2" = "Neodstraní však data, která jsou v těchto zařízeních uložena lokálně.";
@@ -2844,13 +2844,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.deleteAccountAlertTitle" = "Odstranit synchronizační účet";
 
 /* Sync Error Description */
-"sync.deprecatedVersionError" = "Zdá se, že tento kód byl vytvořen na zařízení, které má starší verzi Brave. Aktualizujte prosím na nejnovější verzi Brave na svém druhém zařízení a poté vytvořte nový synchronizační kód.";
+"sync.deprecatedVersionError" = "Zdá se, že tento kód byl vytvořen na zařízení, které má starší verzi Browther. Aktualizujte prosím na nejnovější verzi Browther na svém druhém zařízení a poté vytvořte nový synchronizační kód.";
 
 /* The message displayed in alert when a there is a problem with fetching devices */
 "sync.deviceFetchErrorAlertDescription" = "Při načítání zařízení v synchronizačním řetězci se něco pokazilo.";
 
 /* Message for alert when the user has restored their device from a backup */
-"sync.deviceRestoreDetectedMessage" = "Zdá se, že vaše zařízení bylo obnoveno ze zálohy, což může ovlivnit Brave synchronizaci. Chcete-li Brave synchronizaci používat i nadále, měli byste resetovat a znovu připojit synchronizační řetězec.";
+"sync.deviceRestoreDetectedMessage" = "Zdá se, že vaše zařízení bylo obnoveno ze zálohy, což může ovlivnit Browther synchronizaci. Chcete-li Browther synchronizaci používat i nadále, měli byste resetovat a znovu připojit synchronizační řetězec.";
 
 /* Title for alert when the user has restored their device from a backup */
 "sync.deviceRestoreDetectedTitle" = "Zjištěno obnovení";
@@ -2940,7 +2940,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.removeDeviceDefaultName" = "Zařízení";
 
 /* Message for removing last device from Sync */
-"sync.removeLastDeviceMessage" = "Aktuálně synchronizovaná data zůstanou zachována, ale všechna data v mezipaměti synchronizace Brave budou smazána. Chcete-li znovu synchronizovat data zařízení, budete muset spustit nový synchronizační řetězec.";
+"sync.removeLastDeviceMessage" = "Aktuálně synchronizovaná data zůstanou zachována, ale všechna data v mezipaměti synchronizace Browther budou smazána. Chcete-li znovu synchronizovat data zařízení, budete muset spustit nový synchronizační řetězec.";
 
 /* Button name for removing last device from Sync */
 "sync.removeLastDeviceRemoveButtonName" = "Odstranit synchronizační řetězec";
@@ -3009,7 +3009,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.toDevice" = "Synchronizace se zařízením";
 
 /* Sync to existing device description */
-"sync.toDeviceDescription" = "Pomocí stávajícího synchronizovaného zařízení otevřete Nastavení Brave a přejděte na Nastavení -> Synchronizovat. Zvolte „Přidat zařízení“ a naskenujte kód zobrazený na obrazovce.";
+"sync.toDeviceDescription" = "Pomocí stávajícího synchronizovaného zařízení otevřete Nastavení Browther a přejděte na Nastavení -> Synchronizovat. Zvolte „Přidat zařízení“ a naskenujte kód zobrazený na obrazovce.";
 
 /* Description on popup when setting up a sync group fails */
 "sync.unableCreateGroup" = "Toto zařízení nelze synchronizovat";
@@ -3024,7 +3024,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "sync.validForTooLongError" = "Tento kód je neplatný. Zkontrolujte, je na vašem zařízení správně nastaven čas a časové pásmo.";
 
 /* Sync settings welcome */
-"sync.welcome" = "Pro zahájení je potřeba mít Brave instalovaný na všech zařízeních, které máte v úmyslu synchronizovat. Pro jejich propojení spusťte synchronizační řetězec, který využijete k zabezpečenému vzájemnému propojení všech vašich zařízení.";
+"sync.welcome" = "Pro zahájení je potřeba mít Browther instalovaný na všech zařízeních, které máte v úmyslu synchronizovat. Pro jejich propojení spusťte synchronizační řetězec, který využijete k zabezpečenému vzájemnému propojení všech vašich zařízení.";
 
 /* Word count title */
 "sync.wordCount" = "Počet slov: %i";
@@ -3057,10 +3057,10 @@ Settings item for clearing site-specific settings and shields settings. */
 "tabGrid.privateBrowsingInfoBulletOneTitle" = "Nezanechejte ve svém zařízení žádné stopy";
 
 /* A bullet point explaining the benefits of Brave VPN */
-"tabGrid.privateBrowsingInfoBulletThreeBody" = "Brave VPN šifruje a chrání vše, co děláte na internetu, i mimo prohlížeč Brave.";
+"tabGrid.privateBrowsingInfoBulletThreeBody" = "Browther VPN šifruje a chrání vše, co děláte na internetu, i mimo prohlížeč Browther.";
 
 /* A bullet point explaining the benefits of Brave VPN */
-"tabGrid.privateBrowsingInfoBulletThreeTitle" = "VPN síť Brave";
+"tabGrid.privateBrowsingInfoBulletThreeTitle" = "VPN síť Browther";
 
 /* A bullet point explaining that your browsing data is still visible to the users ISP, network observers, or your employer */
 "tabGrid.privateBrowsingInfoBulletTwoBody" = "Upozorňujeme, že i v soukromých oknech může být vaše procházení webu viditelné pro vaše poskytovatele internetových služeb, pozorovatele sítě nebo vašeho zaměstnavatele (pokud používáte pracovní zařízení/síť).";
@@ -3240,7 +3240,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "themeQRCodeShareButton" = "Sdílet...";
 
 /* Title for QR popup encouraging users to share the code with their friends. */
-"themeQRCodeShareTitle" = "Sdílejte Brave se svými přáteli!";
+"themeQRCodeShareTitle" = "Sdílejte Browther se svými přáteli!";
 
 /* Selection to automatically color/style the user interface. */
 "ThemesAutomaticOption" = "Automaticky";
@@ -3282,13 +3282,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.addSourceNoFeedsFoundMessage" = "Omlouváme se, ale tato adresa kanálu nemá žádný obsah.";
 
 /* The action title displayed in the iOS share menu */
-"today.addSourceShareTitle" = "Přidat zdroj do Novinek Brave";
+"today.addSourceShareTitle" = "Přidat zdroj do Novinek Browther";
 
 /* A header title shown above a button that will allow the user to fetch RSS feeds for a website they have typed in */
 "today.availableRSSFeedsHeaderTitle" = "Dostupné kanály RSS";
 
 /* The name of the feature */
-"today.braveToday" = "Zprávy Brave";
+"today.braveToday" = "Zprávy Browther";
 
 /* The name of the feature in settings */
 "today.braveToday.title" = "Zprávy";
@@ -3312,7 +3312,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.deals" = "Dohody";
 
 /* '%@' will turn into the name of a publisher (verbatim), for example: Brave Blog */
-"today.disabledAlertBody" = "Novinky Brave přestanou zobrazovat obsah od %@";
+"today.disabledAlertBody" = "Novinky Browther přestanou zobrazovat obsah od %@";
 
 /* No comment provided by engineer. */
 "today.disabledAlertTitle" = "Zakázáno";
@@ -3330,7 +3330,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.enablePublisherContent" = "Povolit obsah od %@";
 
 /* No comment provided by engineer. */
-"today.errorGeneralBody" = "Novinky Brave se potýkají s některými problémy. Zkuste to znovu.";
+"today.errorGeneralBody" = "Novinky Browther se potýkají s některými problémy. Zkuste to znovu.";
 
 /* No comment provided by engineer. */
 "today.errorGeneralTitle" = "No tě pic…";
@@ -3357,19 +3357,19 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.insecureSourcesHeader" = "Nezabezpečené zdroje – přidávejte na vlastní nebezpečí";
 
 /* Shown above a button that turns on the "Brave News" product in the app. by sources & feeds they mean websites & blogs. */
-"today.introCardBody" = "Sledujte v rámci jednoho kanálu své oblíbené zdroje. Stačí otevřít kartu v Brave, posunout dolů a... tadá!\nNovinky Brave jsou podporovány soukromými a anonymizovanými reklamami.";
+"today.introCardBody" = "Sledujte v rámci jednoho kanálu své oblíbené zdroje. Stačí otevřít kartu v Browther, posunout dolů a... tadá!\nNovinky Browther jsou podporovány soukromými a anonymizovanými reklamami.";
 
 /* Shown above a button that turns on the "Brave News" product in the app. */
-"today.introCardTitle" = "Zapněte si zprávy Brave a nenechte si ujít žádný příběh";
+"today.introCardTitle" = "Zapněte si zprávy Browther a nenechte si ujít žádný příběh";
 
 /* No comment provided by engineer. */
-"today.isEnabledToggleLabel" = "Zobrazit zprávy Brave";
+"today.isEnabledToggleLabel" = "Zobrazit zprávy Browther";
 
 /* No comment provided by engineer. */
 "today.learnMoreTitle" = "Více informací o vašich datech";
 
 /* 'Brave Offers' is a product name */
-"today.moreBraveOffers" = "Další nabídky Brave";
+"today.moreBraveOffers" = "Další nabídky Browther";
 
 /* No comment provided by engineer. */
 "today.noInternet" = "Bez internetu";
@@ -3393,19 +3393,19 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.promoted" = "Propagované";
 
 /* Title for long press action sheet list which has item for rate / hide */
-"today.rateBraveCardActionSheetTitle" = "Ohodnoťte Brave v App Store";
+"today.rateBraveCardActionSheetTitle" = "Ohodnoťte Browther v App Store";
 
 /* Title for long press action that will hide Brave Rate Card */
 "today.rateBraveCardHideActionTitle" = "Skrýt";
 
 /* Button title / Title for long press action that will perform an action which open AppStore Rate screen */
-"today.rateBraveCardRateActionTitle" = "Ohodnotit Brave";
+"today.rateBraveCardRateActionTitle" = "Ohodnotit Browther";
 
 /* Subtitle shown on the Rate Brave Card */
 "today.rateBraveCardSubtitle" = "Řekněte nám, co si myslíte!";
 
 /* Title shown on the Rate Brave Card */
-"today.rateBraveCardTitle" = "Líbí se vám Brave?";
+"today.rateBraveCardTitle" = "Líbí se vám Browther?";
 
 /* No comment provided by engineer. */
 "today.refresh" = "Obnovit";
@@ -3432,7 +3432,7 @@ Settings item for clearing site-specific settings and shields settings. */
 "today.suggestedTitle" = "Navrhované";
 
 /* No comment provided by engineer. */
-"today.turnOnBraveToday" = "Zapnout zprávy Brave";
+"today.turnOnBraveToday" = "Zapnout zprávy Browther";
 
 /* A toggle title shown next to a source or channel that the user can unfollow. When tapped switches to 'Follow' */
 "today.unfollowToggleTitle" = "Nesledovat";
@@ -3492,13 +3492,13 @@ Settings item for clearing site-specific settings and shields settings. */
 "ViewOn" = "Zobrazit na %@";
 
 /* Explanation for warning alert why the microphone access required. */
-"voice.search.microphone.description.required" = "Povolte prosím přístup k mikrofonu v nastavení systému iOS, aby Brave mohl používat anonymní hlasové vyhledávání.";
+"voice.search.microphone.description.required" = "Povolte prosím přístup k mikrofonu v nastavení systému iOS, aby Browther mohl používat anonymní hlasové vyhledávání.";
 
 /* Title for warning alert microphone access is required. */
 "voice.search.microphone.title.required" = "Vyžaduje se přístup k mikrofonu";
 
 /* Disclaimer for screen to search using voice. */
-"voice.search.screen.disclaimer" = "Brave neukládá ani nesdílí vaše hlasové vyhledávání.";
+"voice.search.screen.disclaimer" = "Browther neukládá ani nesdílí vaše hlasové vyhledávání.";
 
 /* The date your wallet was created */
 "WalletCreationDate" = "Datum vytvoření peněženky";

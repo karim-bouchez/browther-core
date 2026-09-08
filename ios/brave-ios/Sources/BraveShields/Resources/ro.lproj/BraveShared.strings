@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "Înapoi";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "Deoarece ai solicitat blocarea în mod agresiv a urmăritorilor și reclamelor, Brave blochează acest site înainte de prima conexiune de rețea.";
+"DomainBlockedPageDescription" = "Deoarece ai solicitat blocarea în mod agresiv a urmăritorilor și reclamelor, Browther blochează acest site înainte de prima conexiune de rețea.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave a împiedicat încărcarea următorului site:";

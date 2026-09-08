@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "ย้อนกลับ";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "เนื่องจากคุณขอให้บล็อกตัวติดตามและโฆษณาอย่างจริงจัง Brave จึงบล็อกไซต์นี้ก่อนการเชื่อมต่อเครือข่ายครั้งแรก";
+"DomainBlockedPageDescription" = "เนื่องจากคุณขอให้บล็อกตัวติดตามและโฆษณาอย่างจริงจัง Browther จึงบล็อกไซต์นี้ก่อนการเชื่อมต่อเครือข่ายครั้งแรก";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave ได้ยับยั้งการโหลดเว็บไซต์ต่อไปนี้:";

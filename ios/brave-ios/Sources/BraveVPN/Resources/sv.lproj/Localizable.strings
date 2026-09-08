@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Välj din geografiska plats/land";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave loggar aldrig din aktivitet";
+"vpn.checkboxNoIPLog" = "Browther loggar aldrig din aktivitet";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Skydda alla appar och hela din enhet";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "iOS tidszon";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN Problem";
+"vpn.contactFormTitle" = "Browther VPN Problem";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Aktivera";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Installera VPN-profil";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave kommer nu att installera en VPN-profil.";
+"vpn.installProfileTitle" = "Browther kommer nu att installera en VPN-profil.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN är nu aktiverad";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN-support";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Länka köp till ditt Brave-konto";
+"vpn.settingsLinkReceipt" = "Länka köp till ditt Browther-konto";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Länka App Store-köp till ditt Brave-konto för att använda Brave VPN på andra enheter.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Uppdatera betalningsmetod";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Till och med i bakgrunden kommer Brave att skydda dig.";
+"vpn.vpnBackgroundNotificationBody" = "Till och med i bakgrunden kommer Browther att skydda dig.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN är PÅ";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN är PÅ";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Använd den bästa tillgängliga servern";

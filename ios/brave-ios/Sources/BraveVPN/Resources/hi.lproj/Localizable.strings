@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Chooअपना भौगोलिक/देश का स्थान चुनें";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave कभी भी आपकी गतिविधि को लॉग नहीं करता है";
+"vpn.checkboxNoIPLog" = "Browther कभी भी आपकी गतिविधि को लॉग नहीं करता है";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "हर ऐप और अपने पूरे डिवाइस को सुरक्षित रखें";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "iOS टाइमज़ोन";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Brave VPN समस्या";
+"vpn.contactFormTitle" = "Browther VPN समस्या";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "सक्षम करें";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "VPN प्रोफ़ाइल इंस्टॉल करें";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Brave अब VPN प्रोफ़ाइल इंस्टॉल करेगा.";
+"vpn.installProfileTitle" = "Browther अब VPN प्रोफ़ाइल इंस्टॉल करेगा.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN अब चालू है";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPN सपोर्ट";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "खरीदारी को अपने Brave अकाउंट से लिंक करें";
+"vpn.settingsLinkReceipt" = "खरीदारी को अपने Browther अकाउंट से लिंक करें";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "दूसरे डिवाइसों पर Brave VPN का इस्तेमाल करने के लिए अपने App Store की खरीदारी को अपने Brave अकाउंट से लिंक करें।";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "पेमेंट का तरीका अपडेट करें";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "बैकग्राउंड में भी, Brave आपकी सुरक्षा करता रहेगा।";
+"vpn.vpnBackgroundNotificationBody" = "बैकग्राउंड में भी, Browther आपकी सुरक्षा करता रहेगा।";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN चालू है";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN चालू है";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "जो सबसे अच्छा सर्वर मौजूद हो, वह इस्तेमाल करें";

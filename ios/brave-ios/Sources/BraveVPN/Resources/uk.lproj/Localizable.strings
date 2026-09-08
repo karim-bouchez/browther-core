@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "Виберіть своє географічне положення / країну перебування";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave ніколи не записує ваші дії";
+"vpn.checkboxNoIPLog" = "Browther ніколи не записує ваші дії";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "Захищає кожен застосунок і пристрій загалом";
@@ -101,7 +101,7 @@
 "vpn.contactFormTimezone" = "Часовий пояс iOS";
 
 /* Title for contact form email. */
-"vpn.contactFormTitle" = "Проблема з Brave VPN";
+"vpn.contactFormTitle" = "Проблема з Browther VPN";
 
 /* Button text to enable Brave VPN */
 "vpn.enableButton" = "Увімкнено";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "Встановити профіль VPN";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "Зараз до браузера Brave буде встановлено профіль VPN.";
+"vpn.installProfileTitle" = "Зараз до браузера Browther буде встановлено профіль VPN.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "Тепер VPN увімкнено";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "Довідкова інформація щодо VPN";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Зв’язати покупку з обліковим записом Brave";
+"vpn.settingsLinkReceipt" = "Зв’язати покупку з обліковим записом Browther";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "Зв’яжіть покупку в App Store з вашим обліковим записом Brave, щоб користуватися Brave VPN і на інших пристроях.";
@@ -293,10 +293,10 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "Оновіть спосіб оплати";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Brave захищатиме вас навіть у фоновому режимі.";
+"vpn.vpnBackgroundNotificationBody" = "Browther захищатиме вас навіть у фоновому режимі.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationTitle" = "Brave VPN ввімкнено";
+"vpn.vpnBackgroundNotificationTitle" = "Browther VPN ввімкнено";
 
 /* Text for description of list item which chooses the optimal server for the country region */
 "vpn.vpnCityRegionOptimalDescription" = "Використовувати найкращий доступний сервер";
