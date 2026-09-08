@@ -2750,6 +2750,10 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.stalledReported = false;
       this.lastPlayheadMs = -1;
       this.lastPlayheadWallMs = 0;
+      /** Veille : la vidéo suivie n'est pas peinte (cf. `syncSuspended`). */
+      this.suspended = false;
+      this.suspends = 0;
+      this.droppedUnpainted = 0;
     }
     /** The element whose `currentTime` defines the playhead we measure against.
      *
@@ -2902,6 +2906,10 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         return;
       }
+      if (this.syncSuspended()) {
+        this.droppedUnpainted++;
+        return;
+      }
       if (this.pendingBytes > AHEAD_MAX_PENDING_BYTES) {
         this.droppedFull++;
         if (this.droppedFull === 1 || this.droppedFull % 50 === 0) {
@@ -2933,6 +2941,12 @@ video:not([data-basarunaa]) { filter: none !important; }
      * l'horizon glisse même quand rien n'est appendé).
      */
     pump() {
+      if (this.syncSuspended()) {
+        this.lastPlayheadMs = this.playheadMs();
+        this.lastPlayheadWallMs = performance.now();
+        this.stalledTicks = 0;
+        return;
+      }
       this.checkDiscontinuity();
       const cfg = this.config;
       if (!cfg || !this.pending.length) {
@@ -3012,6 +3026,84 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
       }
     }
+    /**
+     * VEILLE — arrête tout le chemin en avance quand la vidéo suivie n'est PAS
+     * peinte, et le relance quand elle le redevient. Renvoie `true` si on est en
+     * veille.
+     *
+     * 🔴 C'est du COÛT qu'on refuse, pas une fuite qu'on bouche : le chemin
+     * réactif (`video-processor.ts:tick`) sort déjà quand la vidéo n'est pas
+     * peinte, et l'overlay a tout effacé + rendu la `<video>` au hide-first. Mais
+     * l'avance, elle, ne passe pas par le rVFC : elle vit sur son propre battement
+     * de 500 ms et sur les `appendBuffer` de la page. Elle continuait donc à
+     * démuxer, décoder au décodeur MATÉRIEL, hasher, encoder un JPEG 640 px et
+     * appeler le modèle sur l'ANE — pour des frames que personne n'allait voir.
+     *
+     * Cas réel : `hermes-agent.nousresearch.com` met sa vidéo dans un
+     * `<footer position:fixed; inset:0; opacity:0>` révélé au scroll ; elle joue
+     * au centre du viewport pendant TOUTE la visite sans qu'un pixel n'atteigne
+     * l'écran.
+     *
+     * REPRISE — les deux points qui comptent :
+     *   - on jette la file à l'ENDORMISSEMENT : ces octets vaudront pour un temps
+     *     média déjà passé quand la vidéo réapparaîtra, et `pump` les purgerait de
+     *     toute façon. Les garder ne ferait que saturer `AHEAD_MAX_PENDING_BYTES`
+     *     pendant la veille ;
+     *   - on signale une DISCONTINUITÉ au RÉVEIL : l'analyseur et le magasin
+     *     tiennent des ancres qui valent pour un autre temps média. Sans ce reset,
+     *     la première frame affichée après la révélation serait floutée avec les
+     *     personnes d'il y a une minute. Le temps que l'avance se reconstruise
+     *     (prochaine image-clé, ~5 s sur YouTube), le chemin réactif reprend la
+     *     main et le magasin vide donne un `full_blur` — couvert, jamais en clair.
+     */
+    syncSuspended() {
+      const painted = this.isPainted();
+      if (painted !== this.suspended) {
+        return this.suspended;
+      }
+      this.suspended = !painted;
+      this.needKeyframe = true;
+      if (this.suspended) {
+        this.suspends++;
+        this.pending.length = 0;
+        this.pendingBytes = 0;
+      } else {
+        this.opts.onDiscontinuity?.();
+      }
+      metric("decode_ahead_paint", {
+        painted: painted ? 1 : 0,
+        suspends: this.suspends,
+        dropped_unpainted: this.droppedUnpainted,
+        playhead_ms: Math.round(this.playheadMs())
+      });
+      return this.suspended;
+    }
+    /**
+     * Le tap MSE doit-il encore COPIER les segments média ?
+     *
+     * 🔴 Lecture d'un DRAPEAU, jamais du layout : on répond depuis la pile de
+     * `SourceBuffer.appendBuffer`, c'est-à-dire dans le chemin de lecture de la
+     * page (cf. `mse-tap.ts` règle 2). L'état est rafraîchi par le battement de
+     * `pump()` — au pire 500 ms de retard sur une révélation, ce qui ne coûte
+     * qu'un ou deux segments copiés pour rien.
+     *
+     * Ce que ça évite : la copie d'un segment entier (des centaines de Ko chez
+     * YouTube, plusieurs fois par seconde) qui n'a aucun destinataire. C'est le
+     * seul travail que le tap fait SYNCHRONEMENT, donc le seul qui puisse peser
+     * sur la lecture elle-même.
+     */
+    wantsMedia() {
+      if (!this.suspended) return true;
+      this.droppedUnpainted++;
+      return false;
+    }
+    /** La vidéo dont on suit la tête de lecture est-elle peinte ? Sans vidéo
+     *  connue il n'y a rien à décider : on répond « peinte » pour ne pas mettre
+     *  en veille un chemin qui n'a pas encore démarré. */
+    isPainted() {
+      const v = this.activeVideo();
+      return v ? isElementRendered(v) : true;
+    }
     /** ms de temps média de la tête de lecture. */
     playheadMs() {
       const v = this.activeVideo();
@@ -3063,7 +3155,9 @@ video:not([data-basarunaa]) { filter: none !important; }
         pending: this.pending.length,
         pendingKb: Math.round(this.pendingBytes / 1024),
         discontinuities: this.discontinuities,
-        droppedStale: this.droppedStale
+        droppedStale: this.droppedStale,
+        suspends: this.suspends,
+        droppedUnpainted: this.droppedUnpainted
       };
     }
     reset() {
@@ -3592,13 +3686,24 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   let installed = false;
-  function looksLikeInit(bytes) {
-    if (bytes.byteLength < 12) return false;
-    const head = new Uint8Array(bytes, 0, 8);
+  function looksLikeInit(head) {
+    if (head.length < 8) return false;
     if (head[0] === 26 && head[1] === 69 && head[2] === 223 && head[3] === 163)
       return true;
     const type = String.fromCharCode(head[4], head[5], head[6], head[7]);
     return type === "ftyp";
+  }
+  function peekHead(data) {
+    if (data instanceof ArrayBuffer) {
+      if (data.byteLength < 12) return null;
+      return new Uint8Array(data, 0, 8);
+    }
+    if (ArrayBuffer.isView(data)) {
+      const v = data;
+      if (v.byteLength < 12) return null;
+      return new Uint8Array(v.buffer, v.byteOffset, 8);
+    }
+    return null;
   }
   function toArrayBuffer(data) {
     if (data instanceof ArrayBuffer) return data.slice(0);
@@ -3630,15 +3735,18 @@ video:not([data-basarunaa]) { filter: none !important; }
         try {
           const mimeType = videoBuffers.get(this);
           if (mimeType) {
-            const bytes = toArrayBuffer(data);
-            if (bytes) {
-              const isInit = looksLikeInit(bytes);
-              queueMicrotask(() => {
-                try {
-                  opts.onSegment({ bytes, isInit, mimeType });
-                } catch (e) {
-                }
-              });
+            const head = peekHead(data);
+            const isInit = head ? looksLikeInit(head) : false;
+            if (!head || isInit || opts.wantsMedia?.() !== false) {
+              const bytes = toArrayBuffer(data);
+              if (bytes) {
+                queueMicrotask(() => {
+                  try {
+                    opts.onSegment({ bytes, isInit, mimeType });
+                  } catch (e) {
+                  }
+                });
+              }
             }
           }
         } catch (e) {
@@ -4618,6 +4726,9 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.destroyed = false;
       /** Vrai tant qu'on est sorti du tick faute de vidéo peinte (cf. tick). */
       this.unpaintedHidden = false;
+      /** Armé pendant une veille, consommé par le PREMIER repli qui la suit — pour
+       *  que ce repli-là soit nommé et non compté comme anormal (cf. leaveAhead). */
+      this.unpaintedResume = false;
       this.id = id;
       this.video = video;
       this.opts = opts;
@@ -4837,8 +4948,9 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.state = "full_blur";
         applyVideoCssBlur(this.video);
         this.repaintBackdrop();
-        const reason = !this.aheadStore ? "no_store" : this.aheadStore.lastMiss ?? "unknown";
-        const abnormal = reason !== "no_anchor_start" && reason !== "no_store";
+        const reason = this.unpaintedResume ? "unpainted_resume" : !this.aheadStore ? "no_store" : this.aheadStore.lastMiss ?? "unknown";
+        this.unpaintedResume = false;
+        const abnormal = reason !== "no_anchor_start" && reason !== "no_store" && reason !== "unpainted_resume";
         if (abnormal) this.aheadAbnormalFallbacks++;
         metric("ahead_render_off", {
           videoId: this.id,
@@ -4872,6 +4984,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     hideWhileUnpainted() {
       if (this.unpaintedHidden) return;
       this.unpaintedHidden = true;
+      this.unpaintedResume = true;
       try {
         this.displayCanvas.style.display = "none";
         this.backdrop.clear();
@@ -5342,7 +5455,12 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
       });
       const tapped = installMseTap({
-        onSegment: (seg) => decodeAhead?.onSegment(seg)
+        onSegment: (seg) => decodeAhead?.onSegment(seg),
+        // Vidéo non peinte : le tap n'a personne à servir, il n'a donc rien à
+        // copier. C'est le seul poste de ce chemin qui s'exécute SUR la pile de
+        // `appendBuffer` — le couper là, et pas seulement plus bas, est ce qui
+        // enlève la dernière dépense faite dans le chemin de lecture de la page.
+        wantsMedia: () => decodeAhead?.wantsMedia() ?? true
       });
       if (!tapped) {
         metric("decode_ahead_error", { where: "tap", msg: "no MediaSource" });

@@ -1,0 +1,14 @@
+diff --git a/third_party/blink/renderer/core/html/media/html_media_element.h b/third_party/blink/renderer/core/html/media/html_media_element.h
+index 4adc8ee3fe856..fa3a5b4f2590d 100644
+--- a/third_party/blink/renderer/core/html/media/html_media_element.h
++++ b/third_party/blink/renderer/core/html/media/html_media_element.h
+@@ -592,6 +592,9 @@ class CORE_EXPORT HTMLMediaElement
+   gfx::ColorSpace TargetColorSpace() override;
+   bool WasAutoplayInitiated() override;
+   bool IsInAutoPIP() const override { return false; }
++  // [Browther/Basarunaa] cf. MediaPlayerClient — le tap vidéo s'en sert pour
++  // ne pas analyser une <video> que rien ne peint. Implé dans le .cc.
++  bool BasarunaaIsElementPainted() const override;
+   void ResumePlayback() final;
+   void PausePlayback(WebMediaPlayer::PauseReason) final;
+   void DidPlayerStartPlaying() override;

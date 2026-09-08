@@ -1,0 +1,27 @@
+diff --git a/third_party/blink/renderer/platform/media/media_player_client.h b/third_party/blink/renderer/platform/media/media_player_client.h
+index 7185bb0773dbc..0a9ee193b4f95 100644
+--- a/third_party/blink/renderer/platform/media/media_player_client.h
++++ b/third_party/blink/renderer/platform/media/media_player_client.h
+@@ -142,6 +142,22 @@ class PLATFORM_EXPORT MediaPlayerClient : public WebMediaPlayerClient,
+   // behavior as regular Picture-in-Picture.
+   virtual bool IsInAutoPIP() const = 0;
+ 
++  // [Browther/Basarunaa] L'élément média est-il RÉELLEMENT PEINT à l'écran ?
++  //
++  // `WebMediaPlayer` ne sait rien du layout : un `<video>` qui joue sous un
++  // ancêtre `opacity: 0` (ou `visibility: hidden`) lui est indiscernable d'un
++  // `<video>` plein écran. Le tap Basarunaa s'en sert pour ne pas dépenser de
++  // readback GPU ni d'inférence sur une vidéo que PERSONNE ne voit — c'est du
++  // coût, pas une fuite : l'overlay, lui, sait déjà ne rien peindre dans ce cas
++  // (`core/element-visibility.ts`, source unique des 3 pipelines JS).
++  //
++  // Défaut `true` = « dans le doute, on continue de travailler » : une réponse
++  // trop optimiste coûte du calcul, une réponse trop pessimiste laisserait du
++  // contenu non analysé donc non flouté. Seul `HTMLMediaElement` répond
++  // vraiment ; les autres implémentations (MediaStream, tests) gardent le
++  // comportement d'avant.
++  virtual bool BasarunaaIsElementPainted() const { return true; }
++
+   // Requests the player to resume playback.
+   virtual void ResumePlayback() = 0;
+ 

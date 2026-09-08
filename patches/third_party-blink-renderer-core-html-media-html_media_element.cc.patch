@@ -1,0 +1,58 @@
+diff --git a/third_party/blink/renderer/core/html/media/html_media_element.cc b/third_party/blink/renderer/core/html/media/html_media_element.cc
+index 98c1b198055d6..2ef3c638de33a 100644
+--- a/third_party/blink/renderer/core/html/media/html_media_element.cc
++++ b/third_party/blink/renderer/core/html/media/html_media_element.cc
+@@ -96,6 +96,7 @@
+ #include "third_party/blink/renderer/core/inspector/console_message.h"
+ #include "third_party/blink/renderer/core/intersection_observer/intersection_observer.h"
+ #include "third_party/blink/renderer/core/layout/layout_media.h"
++#include "third_party/blink/renderer/core/layout/layout_object.h"  // [Browther/Basarunaa]
+ #include "third_party/blink/renderer/core/loader/mixed_content_checker.h"
+ #include "third_party/blink/renderer/core/page/chrome_client.h"
+ #include "third_party/blink/renderer/core/page/page.h"
+@@ -4844,6 +4845,45 @@ bool HTMLMediaElement::IsAudioElement() {
+   return IsHTMLAudioElement();
+ }
+ 
++// [Browther/Basarunaa] La <video> est-elle RÉELLEMENT peinte à l'écran ?
++//
++// Équivalent natif de `checkVisibility({ checkOpacity, checkVisibilityCSS })`,
++// le test que les trois pipelines JS partagent
++// (`extensions/basarunaa/src/core/element-visibility.ts`) depuis le
++// 2026-09-08 : sur hermes-agent.nousresearch.com, la <video> vit dans un
++// `<footer position:fixed; inset:0; opacity:0>` révélé au scroll — elle a donc
++// une boîte pleine taille au centre du viewport pendant TOUTE la visite, alors
++// que pas un pixel n'en atteint l'écran. Le `WebMediaPlayer`, qui ne connaît
++// que le pipeline média, ne peut pas voir ça.
++//
++// Trois causes d'invisibilité, dans l'ordre où elles se testent :
++//   - `display: none` (sur soi ou un ancêtre) → aucun LayoutObject ;
++//   - `visibility: hidden` → propriété HÉRITÉE, donc déjà résolue dans le style
++//     calculé de l'élément (un `visibility: visible` explicite sous un ancêtre
++//     caché est bien rendu, et répond bien `true` ici) ;
++//   - `opacity: 0` sur soi OU sur un ancêtre → `HasNonZeroEffectiveOpacity()`
++//     remonte la chaîne des nœuds d'effet.
++//
++// ⚠️ Aucun forçage de style ni de layout : on lit ce qui existe. Cette méthode
++// est appelée depuis le chemin média (une fois par frame décodée-en-avance),
++// pas depuis un tour de lifecycle. Quand les propriétés de peinture ne sont pas
++// encore là, `HasNonZeroEffectiveOpacity()` répond `true` — « dans le doute, on
++// travaille », la seule direction sûre.
++//
++// Limite connue et assumée : `content-visibility: hidden` sur un ancêtre n'est
++// PAS testé ici. C'est le seul écart avec le `checkVisibility` du JS, il coûte
++// du calcul et ne peut rien laisser passer en clair.
++bool HTMLMediaElement::BasarunaaIsElementPainted() const {
++  const LayoutObject* layout_object = GetLayoutObject();
++  if (!layout_object) {
++    return false;
++  }
++  if (layout_object->StyleRef().Visibility() != EVisibility::kVisible) {
++    return false;
++  }
++  return layout_object->HasNonZeroEffectiveOpacity();
++}
++
+ WebMediaPlayer::DisplayType HTMLMediaElement::GetDisplayType() const {
+   return IsFullscreen() ? WebMediaPlayer::DisplayType::kFullscreen
+                         : WebMediaPlayer::DisplayType::kInline;

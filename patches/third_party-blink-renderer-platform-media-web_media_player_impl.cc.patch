@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/platform/media/web_media_player_impl.cc b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
-index 2f77f8cc774f4..4b69461b024be 100644
+index 2f77f8cc774f4..6b8038aad5c7f 100644
 --- a/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 +++ b/third_party/blink/renderer/platform/media/web_media_player_impl.cc
 @@ -6,6 +6,7 @@
@@ -215,7 +215,7 @@ index 2f77f8cc774f4..4b69461b024be 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3776,248 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3776,276 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
@@ -279,6 +279,34 @@ index 2f77f8cc774f4..4b69461b024be 100644
 +  constexpr size_t kLeadRingCap = 120;
 +  while (lead_ring_.size() > kLeadRingCap) {
 +    lead_ring_.pop_front();
++  }
++
++  // [Browther/Basarunaa] La <video> est-elle PEINTE ? Le pipeline média ne le
++  // sait pas : une vidéo sous un ancêtre `opacity: 0` lui est indiscernable
++  // d'une vidéo plein écran. C'est le seul endroit où la question a une
++  // réponse — l'overlay, qui la connaît déjà (`core/element-visibility.ts`), ne
++  // peut pas la faire redescendre ici (⛔ pas de pont MV3 → Mojo → C++).
++  //
++  // Ne pas NOTIFIER suffit à tout couper : c'est la notification qui déclenche,
++  // côté embedder, les readbacks GPU (~3/s), les hash 8×8 plein cadre et
++  // l'inférence ML (~1/s). Le ring, lui, reste à jour — ce ne sont que des
++  // `scoped_refptr` vers des frames déjà vivantes dans le
++  // VideoRendererAlgorithm — pour que la reprise soit immédiate quand la page
++  // révèle la vidéo.
++  //
++  // Aucune fuite possible : quand l'élément n'est pas peint, l'overlay a déjà
++  // tout effacé ET rendu la <video> au hide-first CSS ; quand il redevient
++  // peint, il repart en full-blur jusqu'au premier verdict.
++  const bool painted = client_->BasarunaaIsElementPainted();
++  if (painted == basarunaa_unpainted_) {
++    basarunaa_unpainted_ = !painted;
++    VLOG(1) << "[bsrV2] tap " << (painted ? "REPRIS (élément peint)"
++                                          : "EN VEILLE (élément non peint)")
++            << " frames_ignorees=" << basarunaa_unpainted_frames_;
++  }
++  if (!painted) {
++    ++basarunaa_unpainted_frames_;
++    return;
 +  }
 +
 +  if (!lead_readback_cb_) {
