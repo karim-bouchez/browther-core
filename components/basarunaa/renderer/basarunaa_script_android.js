@@ -869,6 +869,16 @@
     ctx.restore();
   }
 
+  function isElementRendered(el) {
+    const e = el;
+    if (typeof e.checkVisibility !== "function") return true;
+    try {
+      return e.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+    } catch {
+      return true;
+    }
+  }
+
   function getBinding() {
     if (typeof window === "undefined") return null;
     return window.__basarunaa ?? null;
@@ -1854,6 +1864,12 @@
   }
   function tickFrame(t) {
     if (t.destroyed) return;
+    if (!isElementRendered(t.video)) {
+      t.stateController.setState("full_blur");
+      t.ctx?.clearRect(0, 0, t.canvas.width, t.canvas.height);
+      scheduleNextTick(t);
+      return;
+    }
     syncCanvasToVideo(t);
     const isDebug = t.stateController.isDebug();
     if (t.stateController.state === "tracking") {

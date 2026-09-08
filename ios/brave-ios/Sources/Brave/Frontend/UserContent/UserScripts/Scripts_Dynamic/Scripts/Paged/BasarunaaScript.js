@@ -955,6 +955,16 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     // right leg: blue
   ];
 
+  function isElementRendered(el) {
+    const e = el;
+    if (typeof e.checkVisibility !== "function") return true;
+    try {
+      return e.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+    } catch {
+      return true;
+    }
+  }
+
   const MIN_FRAME_PX = 150;
   const NEUTRALIZE_STYLE_ID = "__bsr_frame_neutralized";
   const NEUTRALIZE_CSS = `
@@ -4606,6 +4616,8 @@ video:not([data-basarunaa]) { filter: none !important; }
       // RAF / rVFC handle (so destroy() can stop the loop — best-effort, rVFC
       // can't be cancelled, so we rely on the tainted flag inside tick).
       this.destroyed = false;
+      /** Vrai tant qu'on est sorti du tick faute de vidéo peinte (cf. tick). */
+      this.unpaintedHidden = false;
       this.id = id;
       this.video = video;
       this.opts = opts;
@@ -4852,6 +4864,23 @@ video:not([data-basarunaa]) { filter: none !important; }
       }
       return sig;
     }
+    // Retire notre couverture quand la <video> n'est pas peinte, et rend la vidéo
+    // au hide-first CSS — sans quoi elle réapparaîtrait EN CLAIR le temps d'un
+    // tick au moment où la page la révèle. Idempotent : la garde évite de
+    // réécrire le `filter` à 60 Hz sur une vidéo qui reste invisible longtemps
+    // (une révélation au scroll peut n'arriver qu'au bout d'une page entière).
+    hideWhileUnpainted() {
+      if (this.unpaintedHidden) return;
+      this.unpaintedHidden = true;
+      try {
+        this.displayCanvas.style.display = "none";
+        this.backdrop.clear();
+        this.currentBboxes = [];
+        this.state = "full_blur";
+        applyVideoCssBlur(this.video);
+      } catch {
+      }
+    }
     scheduleTick() {
       if (this.destroyed || this.tainted) return;
       this.video.requestVideoFrameCallback(() => this.tick());
@@ -4866,6 +4895,12 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.scheduleTick();
         return;
       }
+      if (!isElementRendered(video)) {
+        this.hideWhileUnpainted();
+        this.scheduleTick();
+        return;
+      }
+      this.unpaintedHidden = false;
       this.framesSinceYolo++;
       const dpr = window.devicePixelRatio || 1;
       const display = this.displayCanvas;
