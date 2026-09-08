@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "지역/국가 위치 선택";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Brave가 활동을 절대 기록하지 않음";
+"vpn.checkboxNoIPLog" = "Browther가 활동을 절대 기록하지 않음";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "모든 앱 및 모든 기기 보호";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "VPN 프로필 설치";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "지금 Brave가 VPN 프로필을 설치합니다.";
+"vpn.installProfileTitle" = "지금 Browther가 VPN 프로필을 설치합니다.";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPN이 활성화되었습니다.";
@@ -293,7 +293,7 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "결제 수단 업데이트";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "Brave는 백그라운드에서도 계속 사용자를 보호해줍니다.";
+"vpn.vpnBackgroundNotificationBody" = "Browther는 백그라운드에서도 계속 사용자를 보호해줍니다.";
 
 /* Notification title to tell user that the vpn is turned on even in background */
 "vpn.vpnBackgroundNotificationTitle" = "Browther VPN이 켜짐";

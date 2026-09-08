@@ -578,7 +578,7 @@
 "defaultBrowserCallout.introTertiaryText" = "開啟「設定」，點選「預設瀏覽器應用程序」，然後選取「Browther」。";
 
 /* Notification body to promote setting Brave app as default browser */
-"defaultBrowserCallout.notificationBody" = "将Brave设为默认浏览器";
+"defaultBrowserCallout.notificationBody" = "将Browther设为默认浏览器";
 
 /* Notification title to promote setting Brave app as default browser */
 "defaultBrowserCallout.notificationTitle" = "每次點選連結都能獲得 Browther 保護";

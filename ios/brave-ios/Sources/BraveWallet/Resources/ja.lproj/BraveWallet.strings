@@ -86,7 +86,7 @@
 "wallet.addCustomTokenTitle" = "トークン";
 
 /* The description of the view shown over a dapps website that describes what adding a new network will do. */
-"wallet.addNetworkDescription" = "このネットワークがBrave Walletで使用されます。";
+"wallet.addNetworkDescription" = "このネットワークがBrowther Walletで使用されます。";
 
 /* The subtitle of the view shown over a dapps website that requests permission from the user to add a new network. */
 "wallet.addNetworkSubtitle" = "このサイトにネットワークの追加を許可しますか？";
@@ -161,7 +161,7 @@
 "wallet.auroraPopupDontShowAgain" = "次回から表示しない";
 
 /* The footer beneath the auto-lock title and interval duration */
-"wallet.autoLockFooter" = "Braveウォレットが自動的にロックされるまでの待機時間";
+"wallet.autoLockFooter" = "Browtherウォレットが自動的にロックされるまでの待機時間";
 
 /* The title that appears before an auto-lock interval. Example: Automatically lock after 5 minutes */
 "wallet.autoLockTitle" = "次の時間が経過したら自動的にロック：";
@@ -221,10 +221,10 @@
 "wallet.biometricsSetupFaceId" = "Face ID";
 
 /* The sub-title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device. */
-"wallet.biometricsSetupSubTitle" = "%@を使用してBraveウォレットをアンロックしますか？";
+"wallet.biometricsSetupSubTitle" = "%@を使用してBrowtherウォレットをアンロックしますか？";
 
 /* The title shown when a user is asked if they would like to setup biometric unlock. `%@` will be replaced with the biometric type name of the current device. */
-"wallet.biometricsSetupTitle" = "%@でBraveウォレットをアンロック";
+"wallet.biometricsSetupTitle" = "%@でBrowtherウォレットをアンロック";
 
 /* Type of biometrics. This will be used in Biometric setup screen. */
 "wallet.biometricsSetupTouchId" = "Touch ID";
@@ -233,10 +233,10 @@
 "wallet.bitcoinImportExtendedKeyWarning" = "%@の拡張キーのみご利用いただけます。";
 
 /* The title for Brave Fee label in Swap. The fee percentage is displayed beside the label. */
-"wallet.braveFeeLabel" = "Brave手数料: %@";
+"wallet.braveFeeLabel" = "Browther手数料: %@";
 
 /* A disclaimer that appears at the bottom of an swap screen which discloses the fixed Brave fee included in the swap quotes. '%@' will be replaced by a percentage. For example: 'Quote includes a 0.875% Brave fee' */
-"wallet.braveSwapFeeDisclaimer" = "相場価格は %@ のBrave手数料を含んでいます。";
+"wallet.braveSwapFeeDisclaimer" = "相場価格は %@ のBrowther手数料を含んでいます。";
 
 /* The text beside the striked-through percentage Brave would normally charge for a swap. */
 "wallet.braveSwapFree" = "無料";
@@ -452,7 +452,7 @@
 "wallet.creatingWallet" = "ウォレットを作成中です...";
 
 /* The title of the crypto tab */
-"wallet.cryptoTitle" = "Braveウォレット";
+"wallet.cryptoTitle" = "Browtherウォレット";
 
 /* The title above the input fields for users to input network block explorer urls in Custom Network Details Screen. */
 "wallet.customNetworkBlockExplorerUrlsTitle" = "ブロックエクスプローラーURL";
@@ -524,13 +524,13 @@
 "wallet.customTokenTitle" = "カスタムアセットを追加";
 
 /* The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. The '%@' will be the site attempting to connect. For example: "app.uniswap.org wants to interact with Brave Wallet" */
-"wallet.dappsConnectionNotificationOriginTitle" = "%@がBraveウォレットとの接続を求めています";
+"wallet.dappsConnectionNotificationOriginTitle" = "%@がBrowtherウォレットとの接続を求めています";
 
 /* The title of the notification which will prompt at the top of the browser when users are visiting web3 site that is not yet connected with Brave Wallet. */
-"wallet.dappsConnectionNotificationTitle" = "このページがBraveウォレットとの接続を求めています";
+"wallet.dappsConnectionNotificationTitle" = "このページがBrowtherウォレットとの接続を求めています";
 
 /* A message that will be displayed under the section header when there is no dapps have been granted wallet connection. */
-"wallet.dappsSettingsConnectedSitesSectionEmpty" = "Braveウォレットを接続するDAppsがここに表示されます";
+"wallet.dappsSettingsConnectedSitesSectionEmpty" = "Browtherウォレットを接続するDAppsがここに表示されます";
 
 /* The title of the section that will list all the permitted dapp connections */
 "wallet.dappsSettingsConnectedSitesSectionTitle" = "接続済みのDApps";
@@ -719,7 +719,7 @@
 "wallet.ensDomainInterstitialPageDescription" = "Braveは、Ethereum Name Service (ENS) 上にある.ethドメイン名の解決にInfuraを使用する予定です。BraveではIPアドレスが非表示になるため、これを有効にすると、Infura側で分かるのはあるユーザーがこれらの.ethドメインを訪問しようとしていることのみです。Infuraの<a href=%1$@>%2$@</a>と <a href=%3$@>%4$@</a>もご覧ください。";
 
 /* Title displayed when users chose Brave to ask them if they want the ENS domain to be resolved every time they enter one. */
-"wallet.ensDomainInterstitialPageTitle" = "Braveでイーサリアムネームサービス（ENS）のサポートを有効にしますか？";
+"wallet.ensDomainInterstitialPageTitle" = "Browtherでイーサリアムネームサービス（ENS）のサポートを有効にしますか？";
 
 /* Title on the button that users can click to enable Brave to resolve the ENS offchain lookup for the domain they entered. */
 "wallet.ensOffchainDomainInterstitialPageButtonProceed" = "オフチェーン検索を続行";
@@ -728,7 +728,7 @@
 "wallet.ensOffchainDomainInterstitialPageDescription" = "この.ethドメイン名はオフチェーンで保存され、サードパーティゲートウェイによって解決されます。ENSオフチェーン検索を有効にすると、サードパーティゲートウェイには、お客様が.ethドメインにアクセスしようとしていることが伝わります。<a href=%1$@>%2$@</a>。";
 
 /* Title displayed when users chose Brave to ask them if they want the ENS Offchain domain to be resolved every time they enter one. */
-"wallet.ensOffchainDomainInterstitialPageTitle" = "Braveでイーサリアムネームサービス (ENS) オフチェーン検索のサポートを有効にしますか？";
+"wallet.ensOffchainDomainInterstitialPageTitle" = "Browtherでイーサリアムネームサービス (ENS) オフチェーン検索のサポートを有効にしますか？";
 
 /* Button title when requesting to do an ENS off chain lookup. */
 "wallet.ensOffchainGatewayButton" = "ENSドメインを使用する";
@@ -737,7 +737,7 @@
 "wallet.ensOffchainGatewayDesc" = "ENSアドレスを入力されたようです。このリクエストを解決するために、サードパーティのリゾルバを使用する必要があります。これにより、お客様の.ethドメインが流出することなく、安全に取引できるようになります。";
 
 /* Title shown send address / ENS domain when requesting to do an ENS off chain lookup. */
-"wallet.ensOffchainGatewayTitle" = "Braveではオフチェーンゲートウェイを使用して.ethドメインを解決できます。";
+"wallet.ensOffchainGatewayTitle" = "Browtherではオフチェーンゲートウェイを使用して.ethドメインを解決できます。";
 
 /* The description for the options to allow Ethereum Name service domain names offchain. '%@' will be replaced with a url to explain more about ENS offchain lookup. */
 "wallet.ensOffchainResolveMethodDescription" = "ENSオフチェーンルックアップのプライバシーに関する配慮については[こちら](%@)をご覧ください。";
@@ -1028,7 +1028,7 @@
 "wallet.meldTransactionPartnerLegal" = "[Terms of Use](%@) を読み、これに同意します";
 
 /* The title shown on the wallet settings page, and the value shown when selecting the default wallet as Brave Wallet in wallet settings. */
-"wallet.module" = "Braveウォレット";
+"wallet.module" = "Browtherウォレット";
 
 /* A button title for user to open more option in asset details screen other than buy/send/swap. */
 "wallet.more" = "もっと見る";
@@ -1163,7 +1163,7 @@
 "wallet.nftRemoveFromWalletAlertDescription" = "NFTはBraveウォレットから削除されますが、ブロックチェーン上には残ります。削除してからもう一度戻したい場合は、再度手動でインポートする必要があります。";
 
 /* The title of the alert when user attempts to remove an NFT from wallet. */
-"wallet.nftRemoveFromWalletAlertTitle" = "Braveウォレットから削除しますか？";
+"wallet.nftRemoveFromWalletAlertTitle" = "Browtherウォレットから削除しますか？";
 
 /* The description of the NFTs row in Account Details when user has zero or multiple NFTs. */
 "wallet.nftsDescription" = "NFT%d件";
@@ -1205,7 +1205,7 @@
 "wallet.onboardingCompletedButtonTitle" = "ポートフォリオを見る";
 
 /* The subtitle of the last step of creating a new wallet. */
-"wallet.onbordingCompletedSubTitle" = "Braveウォレットの使用準備ができました。";
+"wallet.onbordingCompletedSubTitle" = "Browtherウォレットの使用準備ができました。";
 
 /* The title of the last step of creating a new wallet. */
 "wallet.onbordingCompletedTitle" = "準備完了です！";
@@ -1334,7 +1334,7 @@
 "wallet.repeatedPasswordPlaceholder" = "パスワードを再入力";
 
 /* A label for toggle for user to use to indicate importing a legacy brave wallet or not */
-"wallet.restoreLegacyBraveWalletToggleTitle" = "従来のBraveクリプトウォレットからインポートしますか？";
+"wallet.restoreLegacyBraveWalletToggleTitle" = "従来のBrowtherクリプトウォレットからインポートしますか？";
 
 /* The title that will be displayed when long-pressing the back button in the navigation bar. As to gain access to your assets from a different device */
 "wallet.restoreWalletBackButtonTitle" = "ウォレットを復元する";
@@ -1544,7 +1544,7 @@
 "wallet.settingsResetWalletAlertMessage" = "この操作は取り消すことができません。リカバリーフレーズがあなたの暗号資産へのアクセスを再び得るための唯一の方法となります。";
 
 /* The title the confirmation dialog when resetting the wallet. As in to erase the users wallet from the device */
-"wallet.settingsResetWalletAlertTitle" = "本当にBraveウォレットをリセットしてよろしいですか？";
+"wallet.settingsResetWalletAlertTitle" = "本当にBrowtherウォレットをリセットしてよろしいですか？";
 
 /* The title that will be displayed when long-pressing the back button in the navigation bar. As in the first step of an onboarding process is to welcome a user. */
 "wallet.setupCryptoButtonBackButtonTitle" = "ようこそ";
@@ -1553,7 +1553,7 @@
 "wallet.setupCryptoButtonTitle" = "始める";
 
 /* The subtitle displayed in the section for user that need to create a brand new wallet */
-"wallet.setupCryptoCreateNewSubTitle" = "Braveウォレットはすぐにお使いいただけます。";
+"wallet.setupCryptoCreateNewSubTitle" = "Browtherウォレットはすぐにお使いいただけます。";
 
 /* The title displayed in the section for user that need to create a brand new wallet */
 "wallet.setupCryptoCreateNewTitle" = "新しいウォレットが必要ですか？";
@@ -1610,10 +1610,10 @@
 "wallet.signedTransactionTitle" = "トランザクション署名済み";
 
 /* The title of the view shown above a Sign In With Ethereum request. */
-"wallet.signInWithBraveWallet" = "Braveウォレットにサインイン";
+"wallet.signInWithBraveWallet" = "Browtherウォレットにサインイン";
 
 /* The title of the view shown when a security issue is detected with a Sign In With Ethereum request. */
-"wallet.signInWithBraveWalletMessage" = "%1$@にサインインしています。Braveウォレットは%2$@にウォレットのアドレスを共有します。";
+"wallet.signInWithBraveWalletMessage" = "%1$@にサインインしています。Browtherウォレットは%2$@にウォレットのアドレスを共有します。";
 
 /* A warning message to tell users that the sign request message contains consecutive new-line characters. */
 "wallet.signMessageConsecutiveNewlineWarning" = "改行文字が連続して入力されています！";
@@ -1682,7 +1682,7 @@
 "wallet.snsDomainInterstitialPageDescription" = "Braveは、.solドメイン名の解決にサードパーティを使用します。ユーザーのIPアドレスはBraveには表示されません。これを有効にすると、サードパーティは、他のユーザーがこれらの.solドメインを訪問しようとしているかどうかの確認のみを行います。当社が使用するサードパーティとそのプライバシーポリシーの詳細については、<a href=%@>ヘルプページ</a>をご覧ください。";
 
 /* Title displayed when users chose Brave to ask them if they want the SNS to be resolved every time they enter one. */
-"wallet.snsDomainInterstitialPageTitle" = "Braveでソラナネームサービス（SNS）のサポートを有効にしますか？";
+"wallet.snsDomainInterstitialPageTitle" = "Browtherでソラナネームサービス（SNS）のサポートを有効にしますか？";
 
 /* A description of an Solana account, displayed in Accounts tab. */
 "wallet.solAccountDescription" = "Solana + SVMチェーン";
@@ -1886,7 +1886,7 @@
 "wallet.swapCryptoToTitle" = "送信先";
 
 /* The description of where user will see once a test network has been picked in swap screen. '%@' will be replaced with a network such as 'Rinkeby Test Network' or 'Ropsten Test Network' */
-"wallet.swapCryptoUnsupportNetworkBody" = "Braveは現在、 %@ でのスワップをサポートしておりません。サポートされているチェーンに切り替えてください。";
+"wallet.swapCryptoUnsupportNetworkBody" = "Browtherは現在、 %@ でのスワップをサポートしておりません。サポートされているチェーンに切り替えてください。";
 
 /* The title below account picker when user has selected a test network to swap cryptos */
 "wallet.swapCryptoUnsupportNetworkTitle" = "チェーンがサポートされていません";
@@ -1898,7 +1898,7 @@
 "wallet.swapDexAggrigatorDisclaimer" = "%1$@が%2$@アドレスとIPアドレスをトランザクション（クォートの入手を含む）を実行するために処理します。%3$@はこのデータをトランザクションの処理のためだけに用います。";
 
 /* A disclaimer note shown on the Swap screen. '%@' will be replaced by a company name, ex. '0x' / 'Jupiter'. 'DEX aggregator' is a type of blockchain-based service (decentralized exchange) */
-"wallet.swapDexAggrigatorNote" = "BraveはDEXアグリゲーターとして%@を利用します。";
+"wallet.swapDexAggrigatorNote" = "BrowtherはDEXアグリゲーターとして%@を利用します。";
 
 /* The 'Limit' order type. Limit orders only execute when the price requirements are met */
 "wallet.swapLimitOrderType" = "リミット";
@@ -2150,7 +2150,7 @@
 "wallet.udDomainInterstitialPageDescription" = "Braveは、Unstoppable Domainsに登録されている.crypto (および%1$@) ドメイン名の解決にInfuraを使用する予定です。BraveではIPアドレスが非表示になるため、これを有効にすると、Infura側で分かるのはあるユーザーがこれらのドメインを訪問しようとしていることのみです。Infuraの<a href=%2$@>%3$@</a>と<a href=%4$@>%5$@</a>もご覧ください。";
 
 /* Title displayed when users chose Brave to ask them if they want the Unstoppable Domains domain to be resolved every time they enter one. */
-"wallet.udDomainInterstitialPageTitle" = "Braveで「Unstoppable Domains」のサポートを有効にしますか？";
+"wallet.udDomainInterstitialPageTitle" = "Browtherで「Unstoppable Domains」のサポートを有効にしますか？";
 
 /* The description for the options to allow Unstoppable Domain domain names. '%@' will be replaced with a url to explain more about Unstoppable Domains. */
 "wallet.udResolveMethodDescription" = "Unstoppable Domainsのプライバシーに関する配慮については[こちら](%@)をご覧ください。";

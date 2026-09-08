@@ -14,10 +14,10 @@
 "aichat.advancedSettingsHeaderTitle" = "Leoはブラウザに組み込まれたAI搭載のスマートアシスタントです。";
 
 /* The subtitle for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "App Storeで購入した商品をBraveアカウントにリンクさせると、他のデバイスでLeoを利用できます。";
+"aichat.advancedSettingsLinkPurchaseActionSubTitle" = "App Storeで購入した商品をBrowtherアカウントにリンクさせると、他のデバイスでLeoを利用できます。";
 
 /* The title for the button which links purchase to Brave Account */
-"aichat.advancedSettingsLinkPurchaseActionTitle" = "Braveアカウントに購入情報をリンク";
+"aichat.advancedSettingsLinkPurchaseActionTitle" = "Browtherアカウントに購入情報をリンク";
 
 /* The description for the settings to show Leo in Quick Search Engines Bar. */
 "aichat.advancedSettingsShowInQSEBarDescription" = "クイック検索エンジンバーからLeoを起動するショートカットを有効にします。";
@@ -71,7 +71,7 @@
 "aichat.chatIntroJustTalkTitle" = "チャットを開始しますか？";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Braveに組み込まれた、AI搭載型のインテリジェント・アシスタントです。";
+"aichat.chatIntroSubTitle" = "Browtherに組み込まれた、AI搭載型のインテリジェント・アシスタントです。";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "こんにちは、私はLeoです。";
@@ -491,7 +491,7 @@
 "aichat.serviceOverloadedErrorViewTitle" = "エンドポイントは現在過負荷の状態です。時間をおいて再度お試しください。";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Braveが音声検索結果を保存または共有することはありません。";
+"aichat.speechRecognizerDisclaimer" = "Browtherが音声検索結果を保存または共有することはありません。";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "なし";

@@ -95,7 +95,7 @@
 "DomainBlockedGoBackAction" = "뒤로 가기";
 
 /* A description in the warning page that appears when a page was blocked */
-"DomainBlockedPageDescription" = "공격적인 트래커 및 광고 차단을 요청하셨기 때문에 첫 네트워크 연결 전 Brave가 이 사이트를 차단했습니다.";
+"DomainBlockedPageDescription" = "공격적인 트래커 및 광고 차단을 요청하셨기 때문에 첫 네트워크 연결 전 Browther가 이 사이트를 차단했습니다.";
 
 /* A message in the warning page that appears when a page was blocked */
 "DomainBlockedPageMessage" = "Brave는 다음 사이트의 로드를 차단했습니다:";

@@ -53,7 +53,7 @@
 "aichat.chatIntroJustTalkTitle" = "가볍게 채팅하고 싶으신가요?";
 
 /* The subtitle for intro view */
-"aichat.chatIntroSubTitle" = "Brave에 바로 이식된 AI 기반 지능형 어시스턴트.";
+"aichat.chatIntroSubTitle" = "Browther에 바로 이식된 AI 기반 지능형 어시스턴트.";
 
 /* The title for intro view */
 "aichat.chatIntroTitle" = "안녕하세요, 저는 레오예요!";
@@ -371,7 +371,7 @@
 "aichat.retryActionTitle" = "재시도";
 
 /* The description indicating voice inputs from user is not store or shared and these inpurs are totally private. */
-"aichat.speechRecognizerDisclaimer" = "Brave는 음성 검색 내역을 저장하거나 공유하지 않습니다.";
+"aichat.speechRecognizerDisclaimer" = "Browther는 음성 검색 내역을 저장하거나 공유하지 않습니다.";
 
 /* Title showing the user has no subscription. */
 "aichat.subscriptionNoneTitle" = "없음";

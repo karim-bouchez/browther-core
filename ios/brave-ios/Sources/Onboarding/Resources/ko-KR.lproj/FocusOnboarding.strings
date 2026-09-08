@@ -2,7 +2,7 @@
 "focusOnboarding.continueButtonTitle" = "계속";
 
 /* The subtitle of the screen that requests user to set Browther as default */
-"focusOnboarding.defaultBrowserScreenDescription" = "탭하는 모든 링크를 Brave의 프라이버시 보호로 열기";
+"focusOnboarding.defaultBrowserScreenDescription" = "탭하는 모든 링크를 Browther의 프라이버시 보호로 열기";
 
 /* The title of the screen that requests user to set Browther as default */
 "focusOnboarding.defaultBrowserScreenTitle" = "방문하는 모든 사이트에서 음악, 하람 이미지 및 광고 차단";
@@ -62,5 +62,5 @@
 "focusOnboarding.urlBarIndicatorDescription" = "URL을 입력하여 더 적은 광고 및 트래커로 웹 탐색";
 
 /* The title of the popup which points to URL Bar after onboarding */
-"focusOnboarding.urlBarIndicatorTitle" = "Brave의 차별점 보기";
+"focusOnboarding.urlBarIndicatorTitle" = "Browther의 차별점 보기";
 

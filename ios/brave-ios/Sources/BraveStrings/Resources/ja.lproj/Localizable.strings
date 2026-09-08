@@ -1,5 +1,5 @@
 /* A label shown above a list of icons designed by Brave */
-"altAppIcon.braveIconsHeader" = "Braveアイコン";
+"altAppIcon.braveIconsHeader" = "Browtherアイコン";
 
 /* The title for the screen that lets the user select a custom app icon */
 "altAppIcon.changeAppIcon" = "アプリのアイコンを変更";
@@ -35,7 +35,7 @@
 "newTabTakeoverInfoBarLearnMoreOptOutChoices" = "詳細 / オプトアウトの選択";
 
 /* The text of new tab takeover infobar message. */
-"NewTabTakeoverInfoBarMessage" = "スポンサー画像は、ユーザーファーストの独立したウェブを構築するというBraveのミッションをサポートしています。また、ビッグテックとは異なり、あなたのプライバシーを守るために匿名で広告パフォーマンスを測定します。";
+"NewTabTakeoverInfoBarMessage" = "スポンサー画像は、ユーザーファーストの独立したウェブを構築するというBrowtherのミッションをサポートしています。また、ビッグテックとは異なり、あなたのプライバシーを守るために匿名で広告パフォーマンスを測定します。";
 
 /* Label to display in the Discoverability overlay for keyboard shortcuts */
 "NewTabTitle" = "新しいタブ";
@@ -59,7 +59,7 @@
 "paywall.braveAccountCheckoutOptionSubtitle" = "コード **%1$@** で %2$@ オフ";
 
 /* The checkout option that lets the user use Brave's own purchase flow */
-"paywall.braveAccountCheckoutOptionTitle" = "Braveアカウント";
+"paywall.braveAccountCheckoutOptionTitle" = "Browtherアカウント";
 
 /* Button action text which will bring user to Brave VPN web page for more information. */
 "paywall.braveVPNLearnMoreButtonTitle" = "Browther VPNについてもっと知る";
@@ -164,7 +164,7 @@
 "storekitReceiptViewer.shareReceiptTitle" = "株式領収書";
 
 /* The title of the product subscription the user purchased (Monthly subscription) */
-"storekitReceiptViewer.vpnMonthlySubscriptionName" = "月刊Brave VPN";
+"storekitReceiptViewer.vpnMonthlySubscriptionName" = "月刊Browther VPN";
 
 /* The title of the product subscription the user purchased (Yearly subscription) */
 "storekitReceiptViewer.vpnYearlySubscriptionName" = "Browther VPN年鑑";

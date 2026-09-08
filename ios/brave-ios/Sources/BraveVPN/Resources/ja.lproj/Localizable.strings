@@ -17,7 +17,7 @@
 "vpn.checkboxGeoLocation" = "あなたの位置/国を選択する";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
-"vpn.checkboxNoIPLog" = "Braveはブラウザ上のアクティビティを記録しません";
+"vpn.checkboxNoIPLog" = "Browtherはブラウザ上のアクティビティを記録しません";
 
 /* Text for a checkbox to present the user benefits for using Brave VPN */
 "vpn.checkboxProtectYourDevices" = "すべてのアプリとデバイス全体を保護";
@@ -125,7 +125,7 @@
 "vpn.installProfileButtonText" = "VPNプロファイルをインストール";
 
 /* No comment provided by engineer. */
-"vpn.installProfileTitle" = "BraveはVPNプロファイルをインストールします";
+"vpn.installProfileTitle" = "BrowtherはVPNプロファイルをインストールします";
 
 /* Popup that shows after user installs the vpn for the first time. */
 "vpn.installSuccessPopup" = "VPNが有効化されました";
@@ -239,7 +239,7 @@
 "vpn.settingsFAQ" = "VPNサポート";
 
 /* Button to link your VPN receipt to other devices. */
-"vpn.settingsLinkReceipt" = "Braveアカウントに購入情報をリンク";
+"vpn.settingsLinkReceipt" = "Browtherアカウントに購入情報をリンク";
 
 /* Footer text to link your VPN receipt to other devices. */
 "vpn.settingsLinkReceiptFooter" = "App Storeで購入した商品をBraveアカウントにリンクさせると、他のデバイスでBrave VPNを利用できます。";
@@ -293,7 +293,7 @@
 "vpn.vpnActionUpdatePaymentMethodSettingsText" = "お支払い方法を更新";
 
 /* Notification title to tell user that the vpn is turned on even in background */
-"vpn.vpnBackgroundNotificationBody" = "バックグラウンドでもBraveはあなたを保護します";
+"vpn.vpnBackgroundNotificationBody" = "バックグラウンドでもBrowtherはあなたを保護します";
 
 /* Notification title to tell user that the vpn is turned on even in background */
 "vpn.vpnBackgroundNotificationTitle" = "Browther VPNがオンです";
