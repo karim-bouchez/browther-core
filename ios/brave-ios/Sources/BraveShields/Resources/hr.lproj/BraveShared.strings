@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Budući da ste zahtijevali strogo blokiranje sustava za praćenje i oglasa, preglednik Browther blokira to mrežno mjesto prije prvog povezivanja na mrežu.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Preglednikom Brave spriječilo se učitavanje sljedećeg mrežnog mjesta:";
+"DomainBlockedPageMessage" = "Preglednikom Browther spriječilo se učitavanje sljedećeg mrežnog mjesta:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Ovo mrežno mjesto može vas pratiti na drugim mrežnim mjestima";

@@ -519,7 +519,7 @@ extension Strings.Shields {
     "DomainBlockedPageMessage",
     tableName: "BraveShared",
     bundle: .module,
-    value: "Brave has prevented the following site from loading:",
+    value: "Browther has prevented the following site from loading:",
     comment: "A message in the warning page that appears when a page was blocked"
   )
 

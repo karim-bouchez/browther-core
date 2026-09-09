@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Je hebt gekozen voor de agressieve blokkering van trackers en advertenties. Daarom blokkeert Browther deze site vóór de eerste netwerkverbinding.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave heeft voorkomen dat de volgende site werd geladen:";
+"DomainBlockedPageMessage" = "Browther heeft voorkomen dat de volgende site werd geladen:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Deze site probeert je mogelijk via andere sites te volgen";

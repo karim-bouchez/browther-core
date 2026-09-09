@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Jelikož jste požádali o agresivní blokování sledovačů a reklam, Browther tuto stránku před prvním připojením k síti blokuje. ";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Prohlížeč Brave zabránil načtení následujícího webu:";
+"DomainBlockedPageMessage" = "Prohlížeč Browther zabránil načtení následujícího webu:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Tato webová stránka se vás může pokusit sledovat i na jiných webových stránkách";

@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Тъй като поискахте агресивно блокиране на тракери и реклами, Browther блокира този сайт преди първата мрежова връзка.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave предотврати зареждането на следния сайт:";
+"DomainBlockedPageMessage" = "Browther предотврати зареждането на следния сайт:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Този сайт може да се опитва да те проследява в други сайтове";

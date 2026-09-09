@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Bởi vì bạn đã yêu cầu chặn nghiêm ngặt các trình theo dõi và quảng cáo, Browther sẽ chặn trang web này trước lần kết nối mạng đầu tiên.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave đã ngăn không cho website sau đây được tải:";
+"DomainBlockedPageMessage" = "Browther đã ngăn không cho website sau đây được tải:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Trang web này có thể cố gắng theo dõi bạn trên các trang web khác";

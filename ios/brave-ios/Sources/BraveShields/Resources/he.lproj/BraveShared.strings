@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "מכיוון שביקשת לחסום באגרסיביות עוקבים ופרסומות, Browther חוסמת את האתר הזה לפני החיבור הראשון לרשת.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave מנע את טעינת האתר הבא";
+"DomainBlockedPageMessage" = "Browther מנע את טעינת האתר הבא";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "ייתכן שהאתר הזה ינסה לעקוב אחריך במהלך השימוש באתרים אחרים";

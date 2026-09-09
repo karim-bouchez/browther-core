@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Com que has demanat bloquejar agressivament els elements de rastrejament i anuncis, Browther està bloquejant aquest lloc abans de la primera connexió de xarxa.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave ha impedit que es carregui el lloc següent:";
+"DomainBlockedPageMessage" = "Browther ha impedit que es carregui el lloc següent:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Aquesta pàgina web et pot intentar rastrejar a altres pàgines";

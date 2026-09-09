@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Пошто сте тражили агресивно блокирање праћења и огласа, Browther блокира овај сајт пре прве везе са мрежом.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave је спречио учитавање следећег сајта:";
+"DomainBlockedPageMessage" = "Browther је спречио учитавање следећег сајта:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Овај сајт можда може покушати да вас прати на другим сајтовима";

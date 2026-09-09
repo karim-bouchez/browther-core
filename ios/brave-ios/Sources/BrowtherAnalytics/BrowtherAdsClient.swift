@@ -7,6 +7,40 @@ import Foundation
 import UIKit
 import os.log
 
+/// Ce vers quoi la destination d'une pub mène QUAND c'est une fiche store —
+/// absent dès que c'est un site. Permet de proposer l'installation **sans
+/// quitter Browther** (`SKOverlay`, cf. `BrowtherStoreOverlay`).
+///
+/// ⛔ Seule source de cet identifiant : il descend de la régie à chaque serve.
+/// Un app id en dur ici obligerait à republier Browther à chaque nouvelle app
+/// dev&din annoncée (ads/docs/INTEGRATION.md § 5).
+public struct BrowtherAdStoreTarget: Equatable {
+  public enum Kind: String {
+    case appStore = "app_store"
+    case play
+  }
+
+  public let kind: Kind
+  /// Id App Store numérique, ou package Play.
+  public let id: String
+  /// Jetons de campagne Apple (`ct`/`pt`), déjà posés sur la destination : à
+  /// repasser tels quels à `SKOverlay` pour attribuer l'install à l'identique.
+  public let campaignToken: String
+  public let providerToken: String
+}
+
+/// Ce qu'un tap sur une pub doit ouvrir, et comment.
+public struct BrowtherAdClickTarget {
+  /// URL à ouvrir (jamais vide : un tap ne doit jamais ne rien faire).
+  public let url: URL
+  /// Non-nil = fiche store, à présenter/ouvrir **hors** d'un onglet ; nil =
+  /// destination site, un onglet est le bon comportement (c'est un navigateur).
+  public let store: BrowtherAdStoreTarget?
+  /// true quand `url` est le `targetUrl` résolu par la régie : le click n'est
+  /// alors PAS compté par un 302, il faut appeler `trackClick(id:)`.
+  public let needsClickTracking: Bool
+}
+
 /// Une pub servie par la régie devndin-ads. `id`, `imageURL`, `ratio` et
 /// `showAdLabel` sont exposés à l'UI (parité mojom `BrowtherAd` desktop) ; le
 /// click URL et l'impression token restent dans le client (jamais
@@ -78,6 +112,11 @@ public final class BrowtherAdsClient {
   // Données privées d'une pub servie (jamais exposées hors du client).
   private struct CachedAd {
     let clickURL: String
+    // Destination FINALE déjà résolue par la régie selon la plateforme envoyée
+    // (fiche App Store quand la campagne le demande, site sinon), UTM et click
+    // ID `dnd_cid` compris. Vide si le serveur est antérieur au 2026-09-09.
+    let targetURL: String
+    let store: BrowtherAdStoreTarget?
     let impressionToken: String
   }
 
@@ -96,6 +135,12 @@ public final class BrowtherAdsClient {
   private var pendingImpressions: [String] = []
   private var consumedTokens: Set<String> = []
   private var flushWorkItem: DispatchWorkItem?
+  // Tokens dont le click est déjà compté : « un seul click par pub servie »
+  // (INTEGRATION.md § 5) — un double-tap ne compte qu'une fois.
+  private var clickedTokens: Set<String> = []
+  // Clicks dont on n'a pas eu l'accusé de réception (réseau KO / 5xx). Un tap
+  // qui n'aboutit pas ne doit pas disparaître : il repart au retour dans l'app.
+  private var pendingClicks: [String] = []
 
   private init() {
     // Best effort : flush les impressions restantes quand l'app passe en
@@ -255,13 +300,19 @@ public final class BrowtherAdsClient {
         continue
       }
       let clickURL = ad["clickUrl"] as? String ?? ""
+      let targetURL = ad["targetUrl"] as? String ?? ""
       let token = ad["impressionToken"] as? String ?? ""
       // Champ absent (vieux cache serveur) → house ad, pas de label.
       let showAdLabel = ad["showAdLabel"] as? Bool ?? false
       let ratio = ad["ratio"] as? String ?? ""
       // Langue de la créa ("fr"/"en"/"ar") — absente/null pour une créa neutre.
       let locale = ad["locale"] as? String ?? ""
-      freshCache[id] = CachedAd(clickURL: clickURL, impressionToken: token)
+      freshCache[id] = CachedAd(
+        clickURL: clickURL,
+        targetURL: targetURL,
+        store: Self.parseStore(ad["store"]),
+        impressionToken: token
+      )
       result.append(
         BrowtherServedAd(
           id: id,
@@ -284,6 +335,27 @@ public final class BrowtherAdsClient {
       self.serveCache[cacheKey] = CachedServe(servedAt: Date(), ads: result)
     }
     return result
+  }
+
+  /// Champ `store` du serve → `BrowtherAdStoreTarget`. `nil` dès que la
+  /// destination est un site (`null`/absent) ou que la fiche est inexploitable
+  /// (kind inconnu d'un binaire plus ancien que la régie, id vide) : l'appelant
+  /// retombe alors sur l'onglet, jamais sur un tap qui ne fait rien.
+  private static func parseStore(_ raw: Any?) -> BrowtherAdStoreTarget? {
+    guard
+      let store = raw as? [String: Any],
+      let rawKind = store["kind"] as? String,
+      let kind = BrowtherAdStoreTarget.Kind(rawValue: rawKind),
+      let id = store["id"] as? String, !id.isEmpty
+    else {
+      return nil
+    }
+    return BrowtherAdStoreTarget(
+      kind: kind,
+      id: id,
+      campaignToken: store["campaignToken"] as? String ?? "",
+      providerToken: store["providerToken"] as? String ?? ""
+    )
   }
 
   // MARK: - Impressions

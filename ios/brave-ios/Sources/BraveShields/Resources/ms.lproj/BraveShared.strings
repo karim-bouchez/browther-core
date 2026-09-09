@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Disebabkan anda telah membuat permintaan untuk menyekat penjejak dan iklan secara tegas, Browther menyekat laman ini sebelum sambungan rangkaian yang pertama.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave telah menghalang laman web berikut daripada pemuatan:";
+"DomainBlockedPageMessage" = "Browther telah menghalang laman web berikut daripada pemuatan:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Laman Ini Mungkin Cuba Menjejaki Anda Merentas Laman Lain";

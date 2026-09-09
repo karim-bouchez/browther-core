@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "İzleyicilerin ve reklamların katı bir şekilde engellenmesini istediğiniz için, Browther bu siteyi ilk ağ bağlantısından önce engelliyor.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave şu sitenin yüklenmesini engelledi:";
+"DomainBlockedPageMessage" = "Browther şu sitenin yüklenmesini engelledi:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Bu Site Diğer Sitelerdeki Hareketinizi İzleme Girişiminde Bulunabilir";

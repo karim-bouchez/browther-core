@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Poiché hai richiesto di bloccare in modo aggressivo i tracker e gli annunci, Browther blocca questo sito prima della prima connessione alla rete.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave ha impedito il caricamento del seguente sito:";
+"DomainBlockedPageMessage" = "Browther ha impedito il caricamento del seguente sito:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Questo sito potrebbe tentare di tracciare i tuoi comportamenti su altri siti";

@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Браузер Browther заблокировал этот сайт перед первым подключением, потому что вы настроили полную блокировку трекеров и рекламы.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave предотвратил загрузку следующего сайта:";
+"DomainBlockedPageMessage" = "Browther предотвратил загрузку следующего сайта:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Этот сайт может отслеживать ваши действия в сети";

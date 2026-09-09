@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Siden du har bedt om aggressiv blokkering av sporere og annonser, blokkerer Browther denne siden før første nettverkstilkobling.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave har blokkert denne siden fra å lastes inn:";
+"DomainBlockedPageMessage" = "Browther har blokkert denne siden fra å lastes inn:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Denne siden kan prøve å spore deg på tvers av andre sider";

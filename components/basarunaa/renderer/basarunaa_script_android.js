@@ -39,6 +39,7 @@
   const BLUR_MARKER = "data-basarunaa-blurred";
   const STATE_ATTR = "data-basarunaa-state";
   const ID_ATTR = "data-basarunaa-id";
+  const ANALYZED_URL_ATTR = "data-basarunaa-analyzed-url";
   const DEFAULT_HIDE_FIRST_BLUR_PX = 20;
   function applyHideFirst(el, opts = {}) {
     const state = el.getAttribute(STATE_ATTR);
@@ -1592,6 +1593,7 @@
       if (!job) return;
       this.analyzing = true;
       job.img.setAttribute(STATE_ATTR, "analyzing");
+      job.img.setAttribute(ANALYZED_URL_ATTR, job.url);
       encodeImage(job.img).then((b64) => {
         if (!b64) {
           job.img.setAttribute(STATE_ATTR, "keep");
@@ -1618,6 +1620,9 @@
     );
   }
 
+  function cacheKey(img) {
+    return img.getAttribute(ANALYZED_URL_ATTR) || imgUrl(img);
+  }
   function imgUrl(img) {
     return img.currentSrc || img.src || "";
   }
@@ -1682,10 +1687,10 @@
             }
           } else if (toBlur.length === 0) {
             releaseHideFirst(img);
-            deps.decisionCache.set(imgUrl(img), "remove");
+            deps.decisionCache.set(cacheKey(img), "remove");
           } else {
             void compositePerPersonBlur(img, toBlur);
-            deps.decisionCache.set(imgUrl(img), "keep");
+            deps.decisionCache.set(cacheKey(img), "keep");
             send("statsBlurred", String(toBlur.length));
           }
         }
@@ -1707,7 +1712,7 @@
           );
           img.setAttribute(BLUR_MARKER, "1");
           img.setAttribute(STATE_ATTR, "keep");
-          deps.decisionCache.set(imgUrl(img), "keep");
+          deps.decisionCache.set(cacheKey(img), "keep");
         }
       } catch (e) {
         metric("apply_nsfw_error", { msg: String(e).slice(0, 120) });

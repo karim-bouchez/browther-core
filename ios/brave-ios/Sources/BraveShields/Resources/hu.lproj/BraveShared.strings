@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Mivel a követők és a hirdetés agresszív tiltását kérte, a Browther még az első hálózati csatlakozás előtt tiltja az oldalt.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "A Brave megakadályozta a következő oldal betöltését:";
+"DomainBlockedPageMessage" = "A Browther megakadályozta a következő oldal betöltését:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Ez a webhely megkísérelheti nyomon követni Önt más webhelyeken";

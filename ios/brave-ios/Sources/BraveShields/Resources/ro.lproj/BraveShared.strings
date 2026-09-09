@@ -98,7 +98,7 @@
 "DomainBlockedPageDescription" = "Deoarece ai solicitat blocarea în mod agresiv a urmăritorilor și reclamelor, Browther blochează acest site înainte de prima conexiune de rețea.";
 
 /* A message in the warning page that appears when a page was blocked */
-"DomainBlockedPageMessage" = "Brave a împiedicat încărcarea următorului site:";
+"DomainBlockedPageMessage" = "Browther a împiedicat încărcarea următorului site:";
 
 /* A title in the warning page that appears when a page was blocked */
 "DomainBlockedPageTitle" = "Acest site ar putea încerca să te urmărească și pe alte site-uri pe care le accesezi";
