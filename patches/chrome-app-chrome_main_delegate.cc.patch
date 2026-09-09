@@ -1,0 +1,23 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+index d7d5bade9350c..bac54e7991229 100644
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -1103,9 +1103,15 @@ std::optional<int> ChromeMainDelegate::BasicStartupComplete() {
+ #endif
+ 
+ #if BUILDFLAG(IS_MAC)
+-  // Give the browser process a longer treadmill, since crashes
+-  // there have more impact.
+-  ObjcEvilDoers::ZombieEnable(true, is_browser ? 10000 : 1000);
++  // Browther: ZombieEnable() désactivé. Le sentinel anti use-after-free
++  // ObjC attrape des bugs internes dans des frameworks Apple (SkyLight
++  // CALayer dealloc, ExtensionFoundation NSPredicate, NSSharingService
++  // NSPredicateUtilities...) qui ne nous concernent pas et qui ne
++  // crashent pas en Release (le sentinel n'est pas installé là). En
++  // dev, ces faux positifs SEGV bloquent l'itération. Notre code ML
++  // est 100% C++ donc pas couvert par le sentinel ObjC de toute façon
++  // — pour les UAF C++ on utilise ASan séparément.
++  // ObjcEvilDoers::ZombieEnable(true, is_browser ? 10000 : 1000);
+ #endif
+ 
+   content::Profiling::ProcessStarted();
