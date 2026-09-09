@@ -106,11 +106,17 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     if (isSvgUrl(src)) return false;
     return true;
   }
+  function effectiveUrl(img) {
+    if (img.complete && img.currentSrc) return img.currentSrc;
+    return img.src || img.currentSrc || "";
+  }
   class DomScanner {
     constructor(hooks, opts = {}) {
       this.hooks = hooks;
       this.observer = null;
       this.seen = /* @__PURE__ */ new WeakSet();
+      /** Dernière URL notifiée pour un élément — sert de garde anti-boucle. */
+      this.lastUrl = /* @__PURE__ */ new WeakMap();
       this.nextId = 1;
       this.minSize = opts.minSize ?? DEFAULT_MIN_SIZE;
       this.observeMutations = opts.observeMutations ?? true;
@@ -120,7 +126,12 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       if (this.observeMutations) {
         this.observer = new MutationObserver((muts) => this.onMutations(muts));
         const root = document.documentElement || document.body;
-        this.observer.observe(root, { childList: true, subtree: true });
+        this.observer.observe(root, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ["src", "srcset"]
+        });
       }
     }
     stop() {
@@ -152,11 +163,48 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       const id = this.nextId++;
       img.setAttribute(ID_ATTR, String(id));
       this.seen.add(img);
-      this.hooks.onImageDiscovered(img, id);
+      this.lastUrl.set(img, effectiveUrl(img));
+      this.hooks.onImageDiscovered(img, id, effectiveUrl(img));
       return true;
+    }
+    /**
+     * Le site a réécrit `src`/`srcset` sur une image qu'on avait déjà traitée.
+     *
+     * Sur iOS le flou n'est pas un filtre CSS : `replaceImgWithBlob()` remplace
+     * l'élément par un clone dont le `src` est un blob des pixels floutés — le
+     * flou EST le contenu. Un site en lazy-load (Google Images) réécrit `src`
+     * vers la pleine résolution APRÈS notre traitement : nos pixels sont écrasés
+     * par l'image d'origine. Sans ce chemin, la décision « sticky » (on ne
+     * ré-analyse pas) devient un TROU sticky — l'image reste nette pour de bon.
+     *
+     * L'anti-scintillement d'origine est préservé, et c'est tout l'enjeu : on est
+     * ici dans le callback du MutationObserver, donc en microtask AVANT le paint.
+     * Le hook repose `hide-first` de façon synchrone ⇒ la nouvelle image n'est
+     * jamais peinte en clair, il n'y a pas de « unblur → re-blur ».
+     */
+    onSrcChanged(img) {
+      const url = effectiveUrl(img);
+      if (!url || isSvgUrl(url)) return;
+      const ownBlob = img.dataset.basarunaaBlobUrl;
+      if (ownBlob && url === ownBlob) return;
+      if (url.indexOf("blob:") === 0) return;
+      if (this.lastUrl.get(img) === url) return;
+      img.removeAttribute(STATE_ATTR);
+      const id = this.nextId++;
+      img.setAttribute(ID_ATTR, String(id));
+      this.seen.add(img);
+      this.lastUrl.set(img, url);
+      this.hooks.onImageDiscovered(img, id, url);
     }
     onMutations(mutations) {
       for (const m of mutations) {
+        if (m.type === "attributes") {
+          const t = m.target;
+          if (t && t.nodeType === 1 && t.tagName === "IMG") {
+            this.onSrcChanged(t);
+          }
+          continue;
+        }
         if (m.type !== "childList") continue;
         for (let i = 0; i < m.addedNodes.length; i++) {
           const node = m.addedNodes[i];
@@ -1786,9 +1834,9 @@ video:not([data-basarunaa]) { filter: none !important; }
     installReplyHandlers({ decisionCache, queue });
     const scanner = new DomScanner(
       {
-        onImageDiscovered(img) {
+        onImageDiscovered(img, _id, url) {
           discoveredCount++;
-          if (decisionCache.get(img.currentSrc || img.src || "") === "remove") {
+          if (decisionCache.get(url) === "remove") {
             setImageState(img, "remove");
             return;
           }

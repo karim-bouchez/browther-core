@@ -24,9 +24,17 @@ extension AdblockFilterListCatalogEntry {
   public static let youtubeShortsComponentID = "almolcgbkikkhliiibfjkohebgklegam"
 
   public static let disabledContentBlockersComponentIDs = [
-    // The Anti-porn list has 500251 rules and is strictly all content blocking driven content
-    // The limit for the rule store is 150000 rules. We have no way to handle this at the current moment
-    "lbnibkdpkdjnookgfeogjdanfenekmpe",
+    // Browther : la liste anti-porn (`lbnibkdpkdjnookgfeogjdanfenekmpe`) était
+    // exclue ici par Brave avec la raison « 500251 rules » contre une limite de
+    // 150 000 pour le rule store WebKit. Ce chiffre est périmé : sa source
+    // (hagezi `nsfw.txt`) en compte 97 065 au 2026-09-09, toutes des règles
+    // réseau, zéro cosmétique. On la laisse donc compiler — sur iOS le content
+    // blocker est le SEUL chemin de blocage réseau (WebKit n'expose pas
+    // d'interception de requêtes), donc la garder ici en ferait un interrupteur
+    // mort : visible et activable dans les réglages, sans aucun effet.
+    // ⚠️ Si WebKit refuse la compilation (dépassement de limite, mémoire), le
+    // symptôme est une liste qui ne bloque rien, pas un crash — vérifier les
+    // logs de `WKContentRuleListStore` avant de conclure à autre chose.
     // For now we don't compile this into content blockers because we use the one coming from slim list
     // We might change this in the future as it ends up with 95k items whereas the limit is 150k.
     // So there is really no reason to use slim list except perhaps for performance which we need to test out.
