@@ -33,12 +33,12 @@ public struct BrowtherAdStoreTarget: Equatable {
 public struct BrowtherAdClickTarget {
   /// URL à ouvrir (jamais vide : un tap ne doit jamais ne rien faire).
   public let url: URL
-  /// Non-nil = fiche store, à présenter/ouvrir **hors** d'un onglet ; nil =
-  /// destination site, un onglet est le bon comportement (c'est un navigateur).
+  /// Non-nil = fiche store : `url` est le `targetUrl` résolu par la régie, à
+  /// présenter/ouvrir **hors** d'un onglet, et le click n'est alors PAS compté
+  /// par un 302 — il faut appeler `trackClick(id:)`.
+  /// nil = destination site : `url` est le `clickUrl`, un onglet est le bon
+  /// comportement (c'est un navigateur) et l'API compte le click elle-même.
   public let store: BrowtherAdStoreTarget?
-  /// true quand `url` est le `targetUrl` résolu par la régie : le click n'est
-  /// alors PAS compté par un 302, il faut appeler `trackClick(id:)`.
-  public let needsClickTracking: Bool
 }
 
 /// Une pub servie par la régie devndin-ads. `id`, `imageURL`, `ratio` et
@@ -73,7 +73,9 @@ public struct BrowtherServedAd: Equatable {
 ///   re-tracker.
 /// - `markVisible(id:)` : batch les impression tokens (≤ 50 toutes les ~10 s,
 ///   idempotent par pub servie) puis flush `POST /v1/track/impressions`.
-/// - `clickURL(id:)` : résout l'URL de click (302 → targetUrl + log) d'une pub.
+/// - `clickTarget(id:)` + `trackClick(id:)` : résout ce qu'un tap doit ouvrir —
+///   un onglet (site) ou la fiche App Store — et compte le click quand c'est
+///   nous qui ouvrons la destination.
 ///
 /// Config embarquée via `AnalyticsConfig` (généré depuis `analytics.env`). Une
 /// config vide ⇒ `isConfigured == false` ⇒ aucune requête réseau, la bannière
@@ -90,6 +92,8 @@ public final class BrowtherAdsClient {
   // Throttle de re-serve par placement (parité `kServeCacheTtl` desktop,
   // INTEGRATION.md § 4). Les tokens expirent en 30 min > TTL.
   private static let serveCacheTtl: TimeInterval = 10 * 60
+  // Garde-fou mémoire sur la file des clicks non confirmés.
+  private static let maxPendingClicks = 20
 
   private let log = Logger(
     subsystem: Bundle.main.bundleIdentifier ?? "com.devndin.browther",
@@ -140,6 +144,8 @@ public final class BrowtherAdsClient {
   private var clickedTokens: Set<String> = []
   // Clicks dont on n'a pas eu l'accusé de réception (réseau KO / 5xx). Un tap
   // qui n'aboutit pas ne doit pas disparaître : il repart au retour dans l'app.
+  // Plafonné (parité `fajrunaa/services/ads/clicks.ts`) : une file de clicks
+  // non comptés ne doit pas grandir sans fin sur une longue session.
   private var pendingClicks: [String] = []
 
   private init() {
@@ -149,6 +155,14 @@ public final class BrowtherAdsClient {
       self,
       selector: #selector(appDidEnterBackground),
       name: UIApplication.didEnterBackgroundNotification,
+      object: nil
+    )
+    // Retour dans l'app (typiquement en revenant de l'App Store) : on solde les
+    // clicks dont on n'a jamais eu l'accusé de réception.
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(appDidBecomeActive),
+      name: UIApplication.didBecomeActiveNotification,
       object: nil
     )
   }
@@ -376,11 +390,93 @@ public final class BrowtherAdsClient {
   }
 
   /// URL de click d'une pub servie (nil si `id` inconnu ou sans click URL).
+  /// Chemin WEB : l'API log le click puis 302 — ⛔ ne pas appeler `trackClick`
+  /// en plus, ce serait un second click pour le même tap.
   public func clickURL(id: String) -> URL? {
     queue.sync {
       guard let cached = served[id], !cached.clickURL.isEmpty else { return nil }
       return URL(string: cached.clickURL)
     }
+  }
+
+  // MARK: - Clicks
+
+  /// Ce qu'un tap sur la pub `id` doit ouvrir, ou nil si `id` est inconnu.
+  ///
+  /// Deux chemins (ads/docs/INTEGRATION.md § 5) :
+  /// - **site** → `clickUrl` dans un onglet, l'API compte le click elle-même
+  ///   avant son 302 : ⛔ ne PAS appeler `trackClick(id:)` ;
+  /// - **fiche store** → `targetUrl`, la destination déjà résolue par la régie
+  ///   (UTM et click ID compris), à présenter en `SKOverlay` ou à ouvrir dans
+  ///   l'App Store natif — et le click est à nous (`trackClick(id:)`).
+  ///
+  /// Une fiche store sans destination exploitable (serveur antérieur au
+  /// 2026-09-09, URL invalide) retombe sur le chemin site : jamais de tap qui
+  /// ne fait rien.
+  public func clickTarget(id: String) -> BrowtherAdClickTarget? {
+    queue.sync {
+      guard let cached = served[id] else { return nil }
+      if let store = cached.store, let url = URL(string: cached.targetURL) {
+        return BrowtherAdClickTarget(url: url, store: store)
+      }
+      guard !cached.clickURL.isEmpty, let url = URL(string: cached.clickURL) else {
+        return nil
+      }
+      return BrowtherAdClickTarget(url: url, store: nil)
+    }
+  }
+
+  /// Compte un click (`POST /v1/track/click { token }` — le token du serve, le
+  /// même que pour les impressions). À appeler UNIQUEMENT quand on ouvre la
+  /// destination soi-même, et **avant** de l'ouvrir : sans lui, une install qui
+  /// reviendrait avec ce click ID serait un « click inconnu ».
+  ///
+  /// Idempotent par pub servie. Sur erreur réseau / 5xx le token reste en file
+  /// et repart au retour dans l'app (le serveur dédup par serve_id, un doublon
+  /// est sans effet).
+  public func trackClick(id: String) {
+    queue.async { [weak self] in
+      guard let self else { return }
+      guard let cached = self.served[id], !cached.impressionToken.isEmpty else { return }
+      let token = cached.impressionToken
+      guard !self.clickedTokens.contains(token) else { return }
+      self.clickedTokens.insert(token)
+      // Le token entre en file AVANT l'envoi : présenter le store peut mettre
+      // l'app en arrière-plan et suspendre le callback d'échec.
+      self.pendingClicks.append(token)
+      if self.pendingClicks.count > Self.maxPendingClicks {
+        self.pendingClicks.removeFirst()
+      }
+      self.sendClick(token)
+    }
+  }
+
+  // Envoie un click. À appeler depuis `queue`.
+  private func sendClick(_ token: String) {
+    guard isConfigured,
+      let url = URL(string: "\(AnalyticsConfig.adsApiUrl)/v1/track/click"),
+      let body = try? JSONSerialization.data(withJSONObject: ["token": token])
+    else {
+      return
+    }
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.httpBody = body
+    request.httpShouldHandleCookies = false
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    session.dataTask(with: request) { [weak self] _, response, error in
+      guard let self else { return }
+      let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+      // 4xx = token expiré ou pub disparue : retenter n'y changerait rien, on
+      // solde. Réseau KO / 5xx → on garde le token pour le prochain retour.
+      if error != nil || code >= 500 {
+        self.log.debug("click KO (requeued) http=\(code, privacy: .public)")
+        return
+      }
+      self.queue.async { self.pendingClicks.removeAll { $0 == token } }
+    }.resume()
   }
 
   // Programme un flush dans `flushDelay` s'il n'y en a pas déjà un. À appeler
@@ -445,6 +541,15 @@ public final class BrowtherAdsClient {
       self.flushWorkItem?.cancel()
       self.flushWorkItem = nil
       self.flushImpressionsLocked()
+    }
+  }
+
+  @objc private func appDidBecomeActive() {
+    queue.async { [weak self] in
+      guard let self else { return }
+      for token in self.pendingClicks {
+        self.sendClick(token)
+      }
     }
   }
 }

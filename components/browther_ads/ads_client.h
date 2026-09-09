@@ -26,6 +26,33 @@ class SimpleURLLoader;
 
 namespace browther_ads {
 
+// Ce vers quoi le `target_url` d'une pub mène QUAND c'est une fiche store —
+// absent dès que la destination est un site (cas desktop systématique). Permet
+// au client natif d'ouvrir le store de l'appareil au lieu de sa page web.
+// ⛔ Jamais d'app id en dur : il descend du serve à chaque fois, c'est ce qui
+// fait qu'une nouvelle app dev&din annoncée n'oblige pas à republier Browther
+// (ads/docs/INTEGRATION.md § 5).
+struct AdStoreTarget {
+  enum class Kind {
+    kAppStore,  // fiche App Store  → id numérique
+    kPlay,      // fiche Play Store → package
+  };
+
+  AdStoreTarget();
+  AdStoreTarget(const AdStoreTarget&);
+  AdStoreTarget& operator=(const AdStoreTarget&);
+  AdStoreTarget(AdStoreTarget&&) noexcept;
+  AdStoreTarget& operator=(AdStoreTarget&&) noexcept;
+  ~AdStoreTarget();
+
+  Kind kind = Kind::kPlay;
+  std::string id;
+  // Jetons de campagne Apple (`ct`/`pt`), déjà posés sur `target_url` : à
+  // repasser tels quels à SKOverlay pour attribuer l'install à l'identique.
+  std::string campaign_token;
+  std::string provider_token;
+};
+
 // Une pub servie par la régie devndin-ads. Seuls `id` + `image_url` sont
 // exposés au renderer (cf. mojom BrowtherAd) ; `impression_token` et
 // `click_url` restent côté navigateur (jamais dans le JS).
@@ -40,7 +67,12 @@ struct ServedAd {
   std::string id;
   std::string image_url;
   std::string click_url;
+  // Destination FINALE déjà résolue par la régie selon la plateforme envoyée
+  // (fiche store sur mobile quand la campagne le demande, site sinon), UTM et
+  // click ID `dnd_cid` compris. Vide si le serveur est antérieur au 2026-09-09.
+  std::string target_url;
   std::string impression_token;
+  std::optional<AdStoreTarget> store;
   // Format du placement renvoyé par le serve (ex "3.2:1") — pilote
   // l'aspect-ratio côté UI (jamais de valeur en dur, cf. INTEGRATION.md § 3).
   std::string ratio;
@@ -63,6 +95,8 @@ struct ServedAd {
 //   rate limiting). Met en cache les pubs servies par `id`.
 // - `MarkVisible()` : batch les impression tokens et flush /v1/track/impressions.
 // - `GetClickURL()` : résout l'URL de click (302 → targetUrl) d'une pub servie.
+// - `GetTargetURL()` / `GetStoreTarget()` + `TrackClick()` : chemin NATIF, pour
+//   un client qui ouvre la destination lui-même (store de l'appareil).
 //
 // L'url/publisher sont embarqués via ads_config.h (généré depuis
 // private/configs/analytics.env). Une config vide → IsConfigured() false →
@@ -106,8 +140,27 @@ class AdsClient {
   // flush différé des impression tokens. Idempotent par `id`.
   void MarkVisible(const std::string& id);
 
-  // URL de click d'une pub servie (vide si `id` inconnu).
+  // URL de click d'une pub servie (vide si `id` inconnu). Chemin WEB : l'API
+  // log le click puis 302 vers la destination — le click est donc compté côté
+  // serveur, ⛔ ne PAS appeler `TrackClick()` en plus.
   GURL GetClickURL(const std::string& id) const;
+
+  // Destination finale déjà résolue par la régie (vide si `id` inconnu ou si le
+  // serve ne l'a pas renvoyée). Chemin NATIF : l'ouvrir soi-même évite l'aller-
+  // retour par le navigateur, mais impose d'appeler `TrackClick()` — sinon une
+  // conversion qui reviendrait avec ce `dnd_cid` serait un « click inconnu ».
+  GURL GetTargetURL(const std::string& id) const;
+
+  // Fiche store visée par `GetTargetURL()`, ou `nullopt` si la destination est
+  // un site (toujours le cas sur desktop) / `id` inconnu.
+  std::optional<AdStoreTarget> GetStoreTarget(const std::string& id) const;
+
+  // Compte un click (POST /v1/track/click { token }) — le token est celui du
+  // serve, le même que pour les impressions. À appeler UNIQUEMENT sur le chemin
+  // natif, AVANT d'ouvrir la destination. Idempotent par pub servie ; sur
+  // erreur réseau / 5xx le token repart en file et est retenté (le serveur
+  // dédup par serve_id, un doublon est sans effet).
+  void TrackClick(const std::string& id);
 
  private:
   void OnServeComplete(const std::string& cache_key,
@@ -120,6 +173,12 @@ class AdsClient {
       std::unique_ptr<network::SimpleURLLoader> loader,
       std::vector<std::string> sent_tokens,
       std::optional<std::string> response_body);
+  void SendClick(const std::string& token);
+  void OnClickComplete(std::unique_ptr<network::SimpleURLLoader> loader,
+                       std::string token,
+                       std::optional<std::string> response_body);
+  void ScheduleClickRetry();
+  void RetryPendingClicks();
 
   scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory_;
 
@@ -131,6 +190,18 @@ class AdsClient {
   // cache 10 min par un autre onglet ne re-tracke pas.
   std::vector<std::string> pending_impressions_;
   base::OneShotTimer flush_timer_;
+
+  // Un click dont on n'a pas eu l'accusé de réception (réseau KO / 5xx). Un tap
+  // qui n'aboutit pas ne doit pas disparaître : il repart au prochain essai,
+  // dans la limite d'un budget — un navigateur reste ouvert des jours, une file
+  // qui se retente indéfiniment hors ligne ne rendrait service à personne.
+  struct PendingClick {
+    std::string token;
+    int attempts = 0;
+  };
+
+  std::vector<PendingClick> pending_clicks_;
+  base::OneShotTimer click_retry_timer_;
 
   base::WeakPtrFactory<AdsClient> weak_factory_{this};
 };

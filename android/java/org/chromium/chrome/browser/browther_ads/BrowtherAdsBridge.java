@@ -10,6 +10,7 @@ import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
 
 import org.chromium.build.annotations.NullMarked;
+import org.chromium.build.annotations.Nullable;
 
 /**
  * Bridge JNI vers le client C++ {@code browther_ads::AdsClient} (régie pub
@@ -28,8 +29,9 @@ import org.chromium.build.annotations.NullMarked;
  *       best effort (tableau vide sur erreur réseau / 4xx / config absente).
  *   <li>{@link #markVisible(String)} : batch des impression tokens (≤ 50 toutes
  *       les ~10 s, idempotent par id) puis flush {@code /v1/track/impressions}.
- *   <li>{@link #getClickUrl(String)} : URL de click d'une pub servie (à ouvrir
- *       dans un nouvel onglet).
+ *   <li>{@link #resolveClick(String)} : ce qu'un tap doit ouvrir — un onglet
+ *       (destination site) ou le Play Store hors de Browther (fiche store),
+ *       click compté au passage.
  * </ul>
  *
  * <p>Toutes les méthodes sont safe-by-default : config absente ⇒
@@ -38,6 +40,9 @@ import org.chromium.build.annotations.NullMarked;
 @JNINamespace("browther_ads::android")
 @NullMarked
 public final class BrowtherAdsBridge {
+    /** Valeur de {@code store.kind} servie par la régie pour une fiche Play. */
+    private static final String STORE_KIND_PLAY = "play";
+
     private BrowtherAdsBridge() {}
 
     /**
@@ -118,6 +123,59 @@ public final class BrowtherAdsBridge {
         return BrowtherAdsBridgeJni.get().getClickUrl(id);
     }
 
+    /** Ce qu'un tap sur une pub doit ouvrir, et comment. */
+    public static final class ClickTarget {
+        /** URL à ouvrir (jamais vide : un tap ne doit jamais ne rien faire). */
+        public final String url;
+
+        /**
+         * true = {@link #url} est une fiche Play Store à ouvrir <b>hors</b> de
+         * Browther (sinon on afficherait la page web du store dans un onglet) ;
+         * false = un onglet est le bon comportement — c'est un navigateur.
+         */
+        public final boolean opensPlayStore;
+
+        private ClickTarget(String url, boolean opensPlayStore) {
+            this.url = url;
+            this.opensPlayStore = opensPlayStore;
+        }
+    }
+
+    /**
+     * Résout la destination d'un tap sur la pub {@code id} <b>et compte le
+     * click</b>, ou renvoie {@code null} si {@code id} est inconnu.
+     *
+     * <p>Deux chemins (ads/docs/INTEGRATION.md § 5) :
+     *
+     * <ul>
+     *   <li><b>site</b> → {@code clickUrl} dans un onglet ; l'API log le click
+     *       elle-même avant son 302, rien à compter ici ;
+     *   <li><b>fiche store</b> → {@code targetUrl} (destination déjà résolue par
+     *       la régie, UTM et click ID compris) ouvert hors de Browther, et
+     *       {@code POST /v1/track/click} <b>avant</b> l'ouverture — sans lui, une
+     *       install qui reviendrait avec ce click ID serait un « click inconnu ».
+     * </ul>
+     *
+     * <p>⛔ Ne jamais ouvrir la destination sans passer par ici : c'est ce qui
+     * garantit qu'un click servi hors du 302 est quand même compté.
+     */
+    public static @Nullable ClickTarget resolveClick(String id) {
+        String[] target = BrowtherAdsBridgeJni.get().getClickTarget(id);
+        String targetUrl = target.length > 0 ? target[0] : "";
+        String storeKind = target.length > 1 ? target[1] : "";
+        if (!targetUrl.isEmpty() && !storeKind.isEmpty()) {
+            // Chemin natif : le click est à nous, compté ici — avant que l'Intent
+            // ne bascule Browther en arrière-plan.
+            BrowtherAdsBridgeJni.get().trackClick(id);
+            // Seul Play sort de Browther. Un autre store (la régie n'en résout
+            // aucun pour Android aujourd'hui) ouvre sa page dans un onglet
+            // plutôt qu'un Intent voué à échouer — le click est déjà compté.
+            return new ClickTarget(targetUrl, STORE_KIND_PLAY.equals(storeKind));
+        }
+        String clickUrl = getClickUrl(id);
+        return clickUrl.isEmpty() ? null : new ClickTarget(clickUrl, false);
+    }
+
     @CalledByNative
     private static void onAdsServed(
             AdsCallback callback,
@@ -149,5 +207,9 @@ public final class BrowtherAdsBridge {
         void markVisible(String id);
 
         String getClickUrl(String id);
+
+        String[] getClickTarget(String id);
+
+        void trackClick(String id);
     }
 }

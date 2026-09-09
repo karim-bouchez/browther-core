@@ -6,8 +6,10 @@
 package org.chromium.chrome.browser.ntp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.RequestManager;
 
+import org.chromium.base.IntentUtils;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
 import org.chromium.chrome.browser.util.TabUtils;
@@ -34,9 +37,13 @@ import java.util.Set;
  * {@code showAdLabel} (annonceur externe — cf. INTEGRATION.md § 3).
  *
  * <p>Le serve (mode public X-Publisher-Id, throttlé ~10 min), le batching des
- * impressions et la résolution du click URL vivent dans
- * {@link BrowtherAdsBridge} (client C++). Seuls {@code id}, {@code imageUrl},
- * {@code ratio} et {@code showAdLabel} arrivent ici.
+ * impressions et la résolution du click vivent dans {@link BrowtherAdsBridge}
+ * (client C++). Seuls {@code id}, {@code imageUrl}, {@code ratio} et
+ * {@code showAdLabel} arrivent ici.
+ *
+ * <p>Un tap ouvre soit un onglet (destination site), soit l'app Play Store hors
+ * de Browther quand la régie a résolu une fiche store — sinon une pub pour une
+ * app atterrirait sur la <b>page web</b> du store (ads/docs/INTEGRATION.md § 5).
  *
  * <p>Impression à visibilité réelle (parité IntersectionObserver desktop / iOS
  * {@code didMarkInitial}) : on ne signale une page que lorsque la bannière est
@@ -56,6 +63,10 @@ public class BrowtherAdBannerView extends LinearLayout {
     // est rallongé de ce headroom pour que l'image garde son ratio (l'image =
     // hauteur du pager moins le padding de la page).
     private static final int LABEL_HEADROOM_DP = 10;
+
+    // App Play Store. Cible explicite de l'Intent d'une fiche store, cf.
+    // {@link #openInPlayStore(String)}.
+    private static final String PLAY_STORE_PACKAGE = "com.android.vending";
 
     private ViewPager2 mPager;
     private LinearLayout mDots;
@@ -116,12 +127,37 @@ public class BrowtherAdBannerView extends LinearLayout {
     }
 
     private void onAdClicked(String id) {
-        String clickUrl = BrowtherAdsBridge.getClickUrl(id);
-        if (clickUrl != null && !clickUrl.isEmpty()) {
-            // L'API log le click puis 302 vers la destination (parité desktop
-            // OpenGURL NEW_FOREGROUND_TAB + iOS onAdTapped nouvel onglet).
-            TabUtils.openUrlInNewTab(/* isIncognito= */ false, clickUrl);
+        BrowtherAdsBridge.ClickTarget target = BrowtherAdsBridge.resolveClick(id);
+        if (target == null) {
+            return;
         }
+        // Fiche Play : sortir de Browther pour que le Play Store prenne la main
+        // (parité iOS SKOverlay — Android n'a aucun équivalent public, ouvrir
+        // l'app Play est le plafond). Si Play manque (appareil sans services
+        // Google) ou refuse l'Intent, on retombe sur l'onglet : jamais de tap
+        // qui ne fait rien.
+        if (target.opensPlayStore && openInPlayStore(target.url)) {
+            return;
+        }
+        // Destination site : l'API log le click puis 302 (parité desktop
+        // OpenGURL NEW_FOREGROUND_TAB + iOS onAdTapped nouvel onglet).
+        TabUtils.openUrlInNewTab(/* isIncognito= */ false, target.url);
+    }
+
+    /**
+     * Ouvre une fiche Play dans l'app Play Store. Renvoie false si elle est
+     * absente ou refuse l'Intent — l'appelant retombe alors sur un onglet.
+     *
+     * <p>⚠️ {@code setPackage} n'est pas une optimisation : sans lui, un
+     * {@code ACTION_VIEW} sur {@code https://play.google.com/…} depuis un
+     * navigateur revient à Browther lui-même (il gère http/https), et la
+     * personne verrait la page web du store au lieu du store.
+     */
+    private boolean openInPlayStore(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage(PLAY_STORE_PACKAGE);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return IntentUtils.safeStartActivity(getContext(), intent);
     }
 
     private void markVisible(int position) {

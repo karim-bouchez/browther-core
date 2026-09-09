@@ -44,6 +44,17 @@ constexpr base::TimeDelta kImpressionFlushDelay = base::Seconds(10);
 // Cap serveur : 50 tokens par POST /v1/track/impressions.
 constexpr size_t kMaxImpressionBatch = 50;
 
+// Délai avant de retenter un click non confirmé (réseau KO / 5xx). Le serveur
+// dédup par serve_id : un doublon est sans effet, le retry est donc toujours
+// sûr. Court, parce qu'un click sert à relier une conversion qui peut arriver
+// dans la minute (installation depuis le store).
+constexpr base::TimeDelta kClickRetryDelay = base::Seconds(15);
+
+// Nombre total d'envois pour un click (1 direct + 3 retries ≈ 45 s). Au-delà,
+// on abandonne : un navigateur reste ouvert des jours, une file qui se retente
+// indéfiniment hors ligne coûte plus qu'elle ne rapporte.
+constexpr int kMaxClickAttempts = 4;
+
 // Throttle de re-serve par placement (INTEGRATION.md § 4 : « 1 impression =
 // un affichage réellement vu, max ~1 par tranche de 10 min par appareil et
 // par placement »). Entre deux serves, on ressert le même lot depuis un cache
@@ -68,6 +79,14 @@ base::flat_map<std::string, CachedServe>& GetServeCache() {
 }
 
 base::flat_map<std::string, bool>& GetConsumedTokens() {
+  static base::NoDestructor<base::flat_map<std::string, bool>> tokens;
+  return *tokens;
+}
+
+// Tokens dont le click est déjà compté : « un seul click par pub servie »
+// (INTEGRATION.md § 5). Process-wide comme les impressions, pour qu'une pub
+// resservie depuis le cache 10 min dans un autre onglet ne recompte pas.
+base::flat_map<std::string, bool>& GetClickedTokens() {
   static base::NoDestructor<base::flat_map<std::string, bool>> tokens;
   return *tokens;
 }
@@ -103,6 +122,40 @@ std::string PrimaryLanguageSubtag(std::string_view locale) {
 std::string ServeCacheKey(const std::string& placement,
                           const std::string& lang) {
   return base::StrCat({placement, "|", lang});
+}
+
+// Champ `store` du serve → AdStoreTarget. `nullopt` dès que la destination est
+// un site (champ `null`/absent, cas desktop systématique) ou que la fiche est
+// inexploitable (kind inconnu, id vide) : l'appelant retombe alors sur
+// l'onglet, jamais sur un tap qui ne fait rien.
+std::optional<AdStoreTarget> ParseStoreTarget(const base::DictValue* store) {
+  if (!store) {
+    return std::nullopt;
+  }
+  const std::string* kind = store->FindString("kind");
+  const std::string* id = store->FindString("id");
+  if (!kind || !id || id->empty()) {
+    return std::nullopt;
+  }
+
+  AdStoreTarget target;
+  if (*kind == "app_store") {
+    target.kind = AdStoreTarget::Kind::kAppStore;
+  } else if (*kind == "play") {
+    target.kind = AdStoreTarget::Kind::kPlay;
+  } else {
+    // Nouveau store côté régie que ce binaire ne connaît pas : on ouvre la page
+    // web plutôt que d'inventer un comportement.
+    return std::nullopt;
+  }
+  target.id = *id;
+  if (const std::string* campaign_token = store->FindString("campaignToken")) {
+    target.campaign_token = *campaign_token;
+  }
+  if (const std::string* provider_token = store->FindString("providerToken")) {
+    target.provider_token = *provider_token;
+  }
+  return target;
 }
 
 constexpr net::NetworkTrafficAnnotationTag kServeTrafficAnnotation =
@@ -159,7 +212,42 @@ constexpr net::NetworkTrafficAnnotationTag kTrackTrafficAnnotation =
             "Not implemented, consumer-facing browser."
         })ANNOT");
 
+constexpr net::NetworkTrafficAnnotationTag kClickTrafficAnnotation =
+    net::DefineNetworkTrafficAnnotation("browther_ads_click", R"ANNOT(
+        semantics {
+          sender: "Browther Ads"
+          description:
+            "Reports that the user tapped a Browther new tab page banner ad, "
+            "so the ad network can count the click. Used only when the browser "
+            "opens the ad's destination itself (a device app store listing) "
+            "instead of following the network's redirect. Sends only the "
+            "opaque single-use serve token previously returned by the serve "
+            "endpoint. No PII."
+          trigger:
+            "The user taps a served banner ad whose destination is an app "
+            "store listing."
+          data:
+            "A single opaque serve token."
+          destination: OTHER
+          destination_other: "ads-api.devndin.com (self-hosted on OVH)"
+        }
+        policy {
+          cookies_allowed: NO
+          setting:
+            "There is no dedicated setting; a click is only reported when the "
+            "user actually taps an ad."
+          policy_exception_justification:
+            "Not implemented, consumer-facing browser."
+        })ANNOT");
+
 }  // namespace
+
+AdStoreTarget::AdStoreTarget() = default;
+AdStoreTarget::AdStoreTarget(const AdStoreTarget&) = default;
+AdStoreTarget& AdStoreTarget::operator=(const AdStoreTarget&) = default;
+AdStoreTarget::AdStoreTarget(AdStoreTarget&&) noexcept = default;
+AdStoreTarget& AdStoreTarget::operator=(AdStoreTarget&&) noexcept = default;
+AdStoreTarget::~AdStoreTarget() = default;
 
 ServedAd::ServedAd() = default;
 ServedAd::ServedAd(const ServedAd&) = default;
@@ -313,6 +401,7 @@ void AdsClient::OnServeComplete(
     const std::string* id = ad->FindString("id");
     const std::string* image_url = ad->FindString("imageUrl");
     const std::string* click_url = ad->FindString("clickUrl");
+    const std::string* target_url = ad->FindString("targetUrl");
     const std::string* impression_token = ad->FindString("impressionToken");
     const std::string* ratio = ad->FindString("ratio");
     const std::string* locale = ad->FindString("locale");
@@ -324,8 +413,12 @@ void AdsClient::OnServeComplete(
     served.id = *id;
     served.image_url = *image_url;
     served.click_url = click_url ? *click_url : std::string();
+    // Destination déjà résolue par la régie ; absente d'un serveur antérieur au
+    // 2026-09-09 → les clients retombent sur `click_url` (chemin web).
+    served.target_url = target_url ? *target_url : std::string();
     served.impression_token =
         impression_token ? *impression_token : std::string();
+    served.store = ParseStoreTarget(ad->FindDict("store"));
     served.ratio = ratio ? *ratio : std::string();
     // Langue de la créa ("fr"/"en"/"ar") — absente/null pour une créa neutre.
     served.locale = locale ? *locale : std::string();
@@ -365,6 +458,124 @@ GURL AdsClient::GetClickURL(const std::string& id) const {
     return GURL();
   }
   return GURL(it->second.click_url);
+}
+
+GURL AdsClient::GetTargetURL(const std::string& id) const {
+  auto it = served_.find(id);
+  if (it == served_.end() || it->second.target_url.empty()) {
+    return GURL();
+  }
+  return GURL(it->second.target_url);
+}
+
+std::optional<AdStoreTarget> AdsClient::GetStoreTarget(
+    const std::string& id) const {
+  auto it = served_.find(id);
+  if (it == served_.end()) {
+    return std::nullopt;
+  }
+  return it->second.store;
+}
+
+void AdsClient::TrackClick(const std::string& id) {
+  auto it = served_.find(id);
+  if (it == served_.end() || it->second.impression_token.empty()) {
+    return;
+  }
+  // Un seul click par pub SERVIE (INTEGRATION.md § 5) : pas besoin de débouncer
+  // côté UI, un double-tap ne compte qu'une fois.
+  const std::string& token = it->second.impression_token;
+  if (GetClickedTokens().contains(token)) {
+    return;
+  }
+  GetClickedTokens()[token] = true;
+  // Le token entre en file AVANT l'envoi : ouvrir un store bascule Browther en
+  // arrière-plan, et rien ne garantit que le callback d'échec s'exécutera.
+  pending_clicks_.push_back({token, /*attempts=*/0});
+  SendClick(token);
+}
+
+void AdsClient::SendClick(const std::string& token) {
+  if (!IsConfigured() || !url_loader_factory_) {
+    return;
+  }
+
+  base::DictValue payload;
+  payload.Set("token", token);
+
+  std::string body;
+  if (!base::JSONWriter::Write(payload, &body)) {
+    return;
+  }
+
+  auto request = std::make_unique<network::ResourceRequest>();
+  request->url = GURL(base::StrCat({kAdsApiUrl, "/v1/track/click"}));
+  request->method = "POST";
+  request->credentials_mode = network::mojom::CredentialsMode::kOmit;
+  request->load_flags = net::LOAD_DO_NOT_SAVE_COOKIES;
+
+  auto loader = network::SimpleURLLoader::Create(std::move(request),
+                                                 kClickTrafficAnnotation);
+  loader->AttachStringForUpload(body, "application/json");
+
+  auto* loader_ptr = loader.get();
+  loader_ptr->DownloadToString(
+      url_loader_factory_.get(),
+      base::BindOnce(&AdsClient::OnClickComplete, weak_factory_.GetWeakPtr(),
+                     std::move(loader), token),
+      /*max_body_size=*/4 * 1024);
+}
+
+void AdsClient::OnClickComplete(
+    std::unique_ptr<network::SimpleURLLoader> loader,
+    std::string token,
+    std::optional<std::string> response_body) {
+  const int net_error = loader->NetError();
+  const int response_code =
+      loader->ResponseInfo() && loader->ResponseInfo()->headers
+          ? loader->ResponseInfo()->headers->response_code()
+          : 0;
+
+  auto it = std::ranges::find(pending_clicks_, token, &PendingClick::token);
+  if (it == pending_clicks_.end()) {
+    return;  // déjà soldé par un autre essai
+  }
+
+  // 4xx = token expiré ou pub disparue : retenter n'y changerait rien. Réseau
+  // KO / 5xx → on garde le token et on retente, dans la limite du budget.
+  const bool retriable = net_error != net::OK || response_code >= 500;
+  if (retriable && ++it->attempts < kMaxClickAttempts) {
+    VLOG(1) << "[BrowtherAds] click failed: net_error=" << net_error
+            << " http=" << response_code << " (requeued, essai "
+            << it->attempts << "/" << kMaxClickAttempts << ")";
+    ScheduleClickRetry();
+    return;
+  }
+
+  pending_clicks_.erase(it);
+  VLOG(1) << "[BrowtherAds] click settled (http=" << response_code
+          << " net_error=" << net_error << ")";
+}
+
+void AdsClient::ScheduleClickRetry() {
+  if (click_retry_timer_.IsRunning() || pending_clicks_.empty()) {
+    return;
+  }
+  click_retry_timer_.Start(FROM_HERE, kClickRetryDelay,
+                           base::BindOnce(&AdsClient::RetryPendingClicks,
+                                          weak_factory_.GetWeakPtr()));
+}
+
+void AdsClient::RetryPendingClicks() {
+  // Copie des tokens : `SendClick` peut faire muter la file dans son callback.
+  std::vector<std::string> tokens;
+  tokens.reserve(pending_clicks_.size());
+  for (const PendingClick& click : pending_clicks_) {
+    tokens.push_back(click.token);
+  }
+  for (const std::string& token : tokens) {
+    SendClick(token);
+  }
 }
 
 void AdsClient::ScheduleImpressionFlush() {

@@ -551,6 +551,12 @@ void NewTabPageHandler::NotifyBrowtherAdClicked(
     const std::string& id,
     NotifyBrowtherAdClickedCallback callback) {
   if (ads_client_) {
+    // Chemin WEB assumé sur desktop (INTEGRATION.md § 5) : la régie ne résout
+    // jamais une destination store hors mobile (`store` est toujours nul ici),
+    // donc l'onglet est la bonne destination et le 302 de l'API ne coûte rien.
+    // Il compte le click côté serveur — ⛔ ne pas y ajouter `TrackClick()`, ce
+    // serait un second click pour le même tap. Le chemin natif
+    // (`GetTargetURL()` + `TrackClick()`) n'existe que pour Android/iOS.
     const GURL click_url = ads_client_->GetClickURL(id);
     if (click_url.is_valid()) {
       OpenGURL(click_url, WindowOpenDisposition::NEW_FOREGROUND_TAB);

@@ -21,9 +21,14 @@ private let kBrowtherAdLabelHeadroom: CGFloat = 12
 /// `browther_ad_banner.tsx` + `ads/docs/INTEGRATION.md` § 3.
 ///
 /// Le serve (mode public X-Publisher-Id, re-serve throttlé ~10 min), le
-/// batching des impressions et la résolution du click URL vivent dans
+/// batching des impressions et la résolution du click vivent dans
 /// `BrowtherAdsClient` (module BrowtherAnalytics). Seuls `id`, `imageURL`,
 /// `ratio` et `showAdLabel` traversent jusqu'ici (parité mojom `BrowtherAd`).
+///
+/// Un tap ouvre soit un onglet (destination site), soit la feuille App Store
+/// `SKOverlay` quand la régie a résolu une fiche store — sinon une pub pour une
+/// app atterrirait sur la **page web** de l'App Store
+/// (ads/docs/INTEGRATION.md § 5).
 class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
   private static let placement = "browther-ntp-banner"
 
@@ -80,8 +85,7 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
         BrowtherAdsClient.shared.markVisible(id: id)
       },
       onTap: { [weak self] id in
-        guard let url = BrowtherAdsClient.shared.clickURL(id: id) else { return }
-        self?.onAdTapped?(url)
+        self?.handleTap(id: id)
       }
     )
     return cell
@@ -108,6 +112,27 @@ class BrowtheAdSectionProvider: NSObject, NTPSectionProvider {
     insetForSectionAt section: Int
   ) -> UIEdgeInsets {
     UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+  }
+
+  /// Deux chemins (ads/docs/INTEGRATION.md § 5) :
+  ///
+  /// - **site** → `clickUrl` dans un nouvel onglet ; l'API log le click
+  ///   elle-même avant son 302, rien à compter ici. C'est un navigateur : un
+  ///   site s'ouvre dans un onglet ;
+  /// - **fiche App Store** → feuille `SKOverlay`, l'installation se fait sans
+  ///   quitter Browther. Le click est à nous, envoyé **avant** la présentation
+  ///   (elle peut mettre l'app en arrière-plan) ; si la feuille n'affiche rien,
+  ///   `BrowtherStoreOverlay` ouvre l'App Store natif de lui-même.
+  private func handleTap(id: String) {
+    guard let target = BrowtherAdsClient.shared.clickTarget(id: id) else { return }
+    guard let store = target.store else {
+      onAdTapped?(target.url)
+      return
+    }
+    // Sans cet appel, une install qui reviendrait avec ce click ID serait un
+    // « click inconnu » : le diffuseur ne verrait jamais le click.
+    BrowtherAdsClient.shared.trackClick(id: id)
+    BrowtherStoreOverlay.present(store, fallbackURL: target.url)
   }
 
   /// "3.2:1" → 3.2 ; fallback si champ absent/illisible (vieux cache serveur).

@@ -6,6 +6,7 @@
 #include <jni.h>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -132,6 +133,44 @@ base::android::ScopedJavaLocalRef<jstring> JNI_BrowtherAdsBridge_GetClickUrl(
       client->GetClickURL(base::android::ConvertJavaStringToUTF8(env, jid));
   return base::android::ConvertUTF8ToJavaString(
       env, click_url.is_valid() ? click_url.spec() : std::string());
+}
+
+// Cible d'un tap, résolue en UN aller-retour JNI : [targetUrl, storeKind].
+// `storeKind` vide = destination site → le Java ouvre `clickUrl` dans un onglet
+// (chemin web, click compté par le 302 de l'API). Non vide ("app_store"/"play")
+// = fiche store → le Java sort de Browther et DOIT appeler `trackClick`.
+// Un tableau plutôt que deux appels : les deux valeurs se décident ensemble,
+// les lire séparément laisserait la porte à un `targetUrl` sans son kind.
+base::android::ScopedJavaLocalRef<jobjectArray>
+JNI_BrowtherAdsBridge_GetClickTarget(
+    JNIEnv* env,
+    const base::android::JavaRef<jstring>& jid) {
+  std::vector<std::string> target(2);
+  AdsClient* client = GetAdsClient();
+  if (client) {
+    const std::string id = base::android::ConvertJavaStringToUTF8(env, jid);
+    const std::optional<AdStoreTarget> store = client->GetStoreTarget(id);
+    const GURL target_url = client->GetTargetURL(id);
+    // Une fiche store sans destination exploitable (serveur antérieur au
+    // 2026-09-09, URL invalide) retombe sur l'onglet : on ne renvoie le kind
+    // que si les deux tiennent ensemble.
+    if (store && target_url.is_valid()) {
+      target[0] = target_url.spec();
+      target[1] =
+          store->kind == AdStoreTarget::Kind::kAppStore ? "app_store" : "play";
+    }
+  }
+  return base::android::ToJavaArrayOfStrings(env, target);
+}
+
+void JNI_BrowtherAdsBridge_TrackClick(
+    JNIEnv* env,
+    const base::android::JavaRef<jstring>& jid) {
+  AdsClient* client = GetAdsClient();
+  if (!client) {
+    return;
+  }
+  client->TrackClick(base::android::ConvertJavaStringToUTF8(env, jid));
 }
 
 }  // namespace browther_ads::android
