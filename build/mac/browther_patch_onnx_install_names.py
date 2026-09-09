@@ -70,16 +70,58 @@ def main():
         os.symlink(target, link)
 
     # 2) Patch install_names (idempotent — -change no-op si déjà bon path)
-    for binary, new_ref in (
+    #
+    # ⚠️ LES HELPERS DU FRAMEWORK EN FONT PARTIE (ajouté 2026-09-09).
+    #
+    # `all_dependent_configs` (brave/third_party/onnxruntime/BUILD.gn) propage le
+    # ldflag ORT à TOUS les dépendants transitifs, y compris de petits
+    # exécutables qui n'utilisent jamais ORT. En Component ça passe (rpaths
+    # larges), mais en Release aucun LC_RPATH n'est émis → le helper meurt au
+    # lancement. Cas vécu le 2026-07-20 : `web_app_shortcut_copier` mort-né,
+    # donc impossible d'installer une PWA.
+    #
+    # Ce trou-là avait été rebouché dans `private/scripts/patch-onnx-install-names.sh`
+    # (post-build) mais PAS ici — et c'est ICI que ça compte : ce script tourne
+    # avant `sign_chrome.py`, donc c'est lui qui décide de ce qu'il y a dans le
+    # DMG distribué. Résultat, vérifié le 2026-09-09 sur les DMG 2026.8.23
+    # (publié) et 2026.9.8 : le helper y pointait encore `@rpath/…` alors que
+    # l'app locale, elle, était réparée — le bug était donc invisible pour qui
+    # teste depuis `install-release.sh`.
+    #
+    # Détection GÉNÉRIQUE (comme le .sh) : tout exécutable de Helpers/ qui
+    # référence encore @rpath/<dylib>, pour ne pas retomber dans le piège si un
+    # autre helper hérite du ldflag un jour.
+    helpers = []
+    helpers_dir = fw_versions / "Helpers"
+    if helpers_dir.is_dir():
+        for entry in sorted(helpers_dir.iterdir()):
+            if not entry.is_file() or not os.access(entry, os.X_OK):
+                continue
+            otool = subprocess.run(
+                ["otool", "-L", str(entry)],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if f"@rpath/{DYLIB}" in otool.stdout:
+                helpers.append(entry)
+
+    patches = [
         (launcher, f"@loader_path/{DYLIB}"),
         (fw_binary, f"@loader_path/Libraries/{DYLIB}"),
-    ):
+    ]
+    # Helpers/ est un cran plus bas que le framework → un `..` de plus.
+    patches += [(h, f"@loader_path/../Libraries/{DYLIB}") for h in helpers]
+
+    for binary, new_ref in patches:
         binary.chmod(0o755)
         subprocess.run(
             ["install_name_tool", "-change", f"@rpath/{DYLIB}", new_ref, str(binary)],
             check=False,
             stderr=subprocess.DEVNULL,
         )
+    for h in helpers:
+        print(f"  ↳ helper patché : {h.name}")
 
     # 3) Re-sign les binaires tiers qui restent à leur signature d'origine
     # après sign_chrome.py. Le launcher Browther a `library-validation`
