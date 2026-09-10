@@ -300,5 +300,15 @@ struct ShieldsSwitchView: UIViewRepresentable {
   }
 
   func updateUIView(_ shieldsSwitch: WrappedShieldsSwitch, context: Context) {
+    // Browther : upstream laissait cette méthode vide — le switch ne lisait sa
+    // valeur qu'à la création (`makeUIView`), et un changement du binding fait
+    // par le code ne s'affichait jamais. Chez Brave seul l'utilisateur fait
+    // bouger ce switch, donc le trou ne se voyait pas ; le toggle leurre du
+    // panel Bouclier des pages internes, lui, revient à ON tout seul et restait
+    // bloqué visuellement sur OFF. `setOn` n'émet pas `.valueChanged` : aucune
+    // boucle possible avec le Coordinator.
+    if shieldsSwitch.isOn != isEnabled {
+      shieldsSwitch.setOn(isEnabled, animated: true)
+    }
   }
 }
