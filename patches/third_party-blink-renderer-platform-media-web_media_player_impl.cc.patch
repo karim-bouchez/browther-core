@@ -215,7 +215,7 @@ index 2f77f8cc774f4..6b8038aad5c7f 100644
    return renderer_factory_selector_->GetCurrentFactory()->CreateRenderer(
        media_task_runner_, worker_task_runner_, audio_source_provider_.get(),
        compositor_.get(), std::move(request_overlay_info_cb),
-@@ -3628,6 +3776,276 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
+@@ -3628,6 +3776,278 @@ void WebMediaPlayerImpl::OnNewFramePresentedCallback() {
    client_->OnRequestVideoFrameCallback();
  }
  
@@ -457,14 +457,16 @@ index 2f77f8cc774f4..6b8038aad5c7f 100644
 +  const int dst_h =
 +      std::max(2, src.height() * dst_w / std::max(1, src.width()));
 +  const gfx::Size dst_size((dst_w + 1) & ~1, (dst_h + 1) & ~1);
-+  scoped_refptr<media::VideoFrame> small = media::VideoFrame::CreateFrame(
++  // ⚠️ Pas `small` : c'est une MACRO dans les en-têtes Windows (rpcndr.h,
++  // `#define small char`) — le build Windows échouait ici (2026-09-10).
++  scoped_refptr<media::VideoFrame> scaled_frame = media::VideoFrame::CreateFrame(
 +      media::PIXEL_FORMAT_I420, dst_size, gfx::Rect(dst_size), dst_size,
 +      cpu_frame->timestamp());
 +  if (!lead_frame_converter_)
 +    lead_frame_converter_ = std::make_unique<media::VideoFrameConverter>();
 +  const bool scaled =
-+      small && lead_frame_converter_->ConvertAndScale(*cpu_frame, *small).is_ok();
-+  media::VideoFrame* rgba_src = scaled ? small.get() : cpu_frame.get();
++      scaled_frame && lead_frame_converter_->ConvertAndScale(*cpu_frame, *scaled_frame).is_ok();
++  media::VideoFrame* rgba_src = scaled ? scaled_frame.get() : cpu_frame.get();
 +
 +  // -> packé 4 octets/pixel. NB : ConvertVideoFrameToRGBPixels n'accepte QUE
 +  // kN32_SkColorType pour les YUV (CHECK paint_canvas_video_renderer.cc) = BGRA
