@@ -93,7 +93,7 @@ base::flat_map<std::string, bool>& GetClickedTokens() {
 
 // Plateforme envoyée au serve (alimente le breakdown dashboard). Le même code
 // C++ build pour macOS, Windows desktop et Android ; on reporte la vraie
-// plateforme.
+// plateforme. (iOS n'utilise pas ce client : port Swift `BrowtherAdsClient`.)
 constexpr char kPlatform[] =
 #if BUILDFLAG(IS_ANDROID)
     "android";
@@ -105,6 +105,19 @@ constexpr char kPlatform[] =
     "linux";
 #else
     "desktop";
+#endif
+
+// Suffixe des builds de dev (ads/docs/INTEGRATION.md § 8) : la régie le garde
+// après normalisation (`macos-dev` → `desktop-dev`), donc les stats de test
+// restent isolables et purgeables au lieu de se mêler aux vraies. Component =
+// `is_official_build=false` ⇒ suffixé ; tout build `Release` est officiel
+// (`config.js` `isOfficialBuild()`), et c'est le seul qu'on distribue (DMG,
+// AAB, EXE) ⇒ plateforme nue.
+constexpr char kPlatformSuffix[] =
+#if defined(OFFICIAL_BUILD)
+    "";
+#else
+    "-dev";
 #endif
 
 // Réduit une langue d'affichage (ex "fr-FR", "en_US", "ar") à son sous-tag
@@ -301,7 +314,7 @@ void AdsClient::Serve(const std::string& placement,
 
   base::DictValue payload;
   payload.Set("placement", placement);
-  payload.Set("platform", kPlatform);
+  payload.Set("platform", base::StrCat({kPlatform, kPlatformSuffix}));
   payload.Set("count", count);
   // Langue ciblée par la régie : le serveur ne renvoie que les créas de cette
   // langue (+ neutres) et EXIGE ce champ — un `lang` absent, vide ou non

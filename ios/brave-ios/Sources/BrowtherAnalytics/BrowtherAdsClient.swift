@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import Foundation
+import Shared
 import UIKit
 import os.log
 
@@ -96,6 +97,21 @@ public final class BrowtherAdsClient {
   // Throttle de re-serve par placement (parité `kServeCacheTtl` desktop,
   // INTEGRATION.md § 4). Les tokens expirent en 30 min > TTL.
   private static let serveCacheTtl: TimeInterval = 10 * 60
+
+  /// Plateforme envoyée au serve, suffixée `-dev` hors build officiel
+  /// (ads/docs/INTEGRATION.md § 8) : la régie garde le suffixe après
+  /// normalisation, donc les stats de test restent isolables au lieu de se mêler
+  /// aux vraies. Parité `kPlatform` + `kPlatformSuffix` du client C++.
+  ///
+  /// ⚠️ Lu à l'exécution, JAMAIS via `#if OFFICIAL_BUILD` : cette condition n'est
+  /// posée que sur la cible App (`args.xcconfig` → `Release.xcconfig`), pas sur
+  /// les paquets Swift — ici elle serait toujours fausse, et tous les vrais
+  /// utilisateurs de l'App Store partiraient en `ios-dev`, en silence.
+  /// `AppConstants.isOfficialBuild` est posé par l'AppDelegate au
+  /// `willFinishLaunching`, bien avant le premier serve.
+  private static var platform: String {
+    AppConstants.isOfficialBuild ? "ios" : "ios-dev"
+  }
   // Garde-fou mémoire sur la file des clicks non confirmés.
   private static let maxPendingClicks = 20
 
@@ -235,7 +251,7 @@ public final class BrowtherAdsClient {
 
     let bodyDict: [String: Any] = [
       "placement": placement,
-      "platform": "ios",
+      "platform": Self.platform,
       "count": count,
       // Langue ciblée par la régie : le serveur ne renvoie que les créas de
       // cette langue (+ neutres).

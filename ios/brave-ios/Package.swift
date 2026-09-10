@@ -408,6 +408,7 @@ var package = Package(
       name: "BrowtherAnalytics",
       dependencies: [
         "Preferences",
+        "Shared",  // AppConstants.isOfficialBuild (suffixe -dev de la régie pub)
         .product(name: "Sentry", package: "sentry-cocoa"),
         .product(name: "PostHog", package: "posthog-ios"),
       ]
