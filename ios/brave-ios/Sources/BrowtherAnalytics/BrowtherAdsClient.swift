@@ -9,7 +9,7 @@ import os.log
 
 /// Ce vers quoi la destination d'une pub mène QUAND c'est une fiche store —
 /// absent dès que c'est un site. Permet de proposer l'installation **sans
-/// quitter Browther** (`SKOverlay`, cf. `BrowtherStoreOverlay`).
+/// quitter Browther** (fiche App Store en modal, cf. `BrowtherStorePage`).
 ///
 /// ⛔ Seule source de cet identifiant : il descend de la régie à chaque serve.
 /// Un app id en dur ici obligerait à republier Browther à chaque nouvelle app
@@ -21,10 +21,14 @@ public struct BrowtherAdStoreTarget: Equatable {
   }
 
   public let kind: Kind
-  /// Id App Store numérique, ou package Play.
+  /// Id App Store numérique, ou package Play. Gardé en chaîne comme dans la
+  /// réponse du serve : c'est `BrowtherStorePage` qui le convertit en nombre
+  /// pour StoreKit.
   public let id: String
   /// Jetons de campagne Apple (`ct`/`pt`), déjà posés sur la destination : à
-  /// repasser tels quels à `SKOverlay` pour attribuer l'install à l'identique.
+  /// passer tels quels en paramètres de chargement de la fiche
+  /// (`SKStoreProductParameterCampaignToken` / `…ProviderToken`) pour attribuer
+  /// l'install à l'identique.
   public let campaignToken: String
   public let providerToken: String
 }
@@ -407,8 +411,9 @@ public final class BrowtherAdsClient {
   /// - **site** → `clickUrl` dans un onglet, l'API compte le click elle-même
   ///   avant son 302 : ⛔ ne PAS appeler `trackClick(id:)` ;
   /// - **fiche store** → `targetUrl`, la destination déjà résolue par la régie
-  ///   (UTM et click ID compris), à présenter en `SKOverlay` ou à ouvrir dans
-  ///   l'App Store natif — et le click est à nous (`trackClick(id:)`).
+  ///   (UTM et click ID compris), à présenter en fiche App Store dans Browther
+  ///   (`BrowtherStorePage`) ou à ouvrir dans l'App Store natif — et le click
+  ///   est à nous (`trackClick(id:)`).
   ///
   /// Une fiche store sans destination exploitable (serveur antérieur au
   /// 2026-09-09, URL invalide) retombe sur le chemin site : jamais de tap qui
@@ -441,8 +446,8 @@ public final class BrowtherAdsClient {
       let token = cached.impressionToken
       guard !self.clickedTokens.contains(token) else { return }
       self.clickedTokens.insert(token)
-      // Le token entre en file AVANT l'envoi : présenter le store peut mettre
-      // l'app en arrière-plan et suspendre le callback d'échec.
+      // Le token entre en file AVANT l'envoi : le repli vers l'App Store met
+      // l'app en arrière-plan et peut suspendre le callback d'échec.
       self.pendingClicks.append(token)
       if self.pendingClicks.count > Self.maxPendingClicks {
         self.pendingClicks.removeFirst()
