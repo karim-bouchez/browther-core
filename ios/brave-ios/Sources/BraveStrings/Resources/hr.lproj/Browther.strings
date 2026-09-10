@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp kanal";
 "betaNoticeTelegram" = "Telegram kanal";
 "betaNoticeDismiss" = "Zatvori ovu obavijest";
+"shieldsInternalTitle" = "Browther štitovi";
+"shieldsInternalStatusOn" = "Blokiranje oglasa UKLJUČENO";
+"shieldsInternalStatusOff" = "Blokiranje oglasa ISKLJUČENO";
+"shieldsInternalDescription" = "Browther štitovi blokiraju oglase, alate za praćenje, uzimanje digitalnog otiska i neželjene skripte na svakoj stranici koju posjetite.";
+"shieldsInternalPerSiteInfo" = "Štitovi se upravljaju za svaku stranicu zasebno. Otvorite web-mjesto koje želite izuzeti i dodirnite gumb sa štitom u adresnoj traci.";

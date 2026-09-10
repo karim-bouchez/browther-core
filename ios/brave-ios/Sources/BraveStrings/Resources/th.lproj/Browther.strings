@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "ช่อง WhatsApp";
 "betaNoticeTelegram" = "ช่อง Telegram";
 "betaNoticeDismiss" = "ปิดการแจ้งเตือนนี้";
+"shieldsInternalTitle" = "โล่ Browther";
+"shieldsInternalStatusOn" = "เปิดการบล็อกโฆษณา";
+"shieldsInternalStatusOff" = "ปิดการบล็อกโฆษณา";
+"shieldsInternalDescription" = "โล่ Browther บล็อกโฆษณา ตัวติดตาม การเก็บลายนิ้วมือดิจิทัล และสคริปต์ที่ไม่ต้องการในทุกเว็บไซต์ที่คุณเข้าชม";
+"shieldsInternalPerSiteInfo" = "โล่จัดการแยกตามเว็บไซต์ เปิดเว็บไซต์ที่ต้องการยกเว้นแล้วแตะปุ่มโล่ในแถบที่อยู่";

@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp-Kanal";
 "betaNoticeTelegram" = "Telegram-Kanal";
 "betaNoticeDismiss" = "Diese Mitteilung schließen";
+"shieldsInternalTitle" = "Browther Shields";
+"shieldsInternalStatusOn" = "Werbeblockierung AKTIVIERT";
+"shieldsInternalStatusOff" = "Werbeblockierung DEAKTIVIERT";
+"shieldsInternalDescription" = "Browther Shields blockieren Werbung, Tracker, Fingerprinting und unerwünschte Skripte auf jeder Website, die Sie besuchen.";
+"shieldsInternalPerSiteInfo" = "Shields werden pro Website verwaltet. Öffnen Sie die Website, die Sie ausschließen möchten, und tippen Sie in der Adressleiste auf die Schild-Schaltfläche.";

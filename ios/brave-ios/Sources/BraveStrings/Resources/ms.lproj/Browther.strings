@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Saluran WhatsApp";
 "betaNoticeTelegram" = "Saluran Telegram";
 "betaNoticeDismiss" = "Tutup notis";
+"shieldsInternalTitle" = "Perisai Browther";
+"shieldsInternalStatusOn" = "Penyekatan iklan DIHIDUPKAN";
+"shieldsInternalStatusOff" = "Penyekatan iklan DIMATIKAN";
+"shieldsInternalDescription" = "Perisai Browther menyekat iklan, penjejak, pengecapan jari digital dan skrip yang tidak diingini pada setiap tapak yang anda lawati.";
+"shieldsInternalPerSiteInfo" = "Perisai diurus mengikut tapak. Buka tapak web yang ingin dikecualikan dan ketik butang perisai di bar alamat.";

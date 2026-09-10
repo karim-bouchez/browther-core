@@ -306,5 +306,53 @@ extension Strings {
       value: "Close this notice",
       comment: "Accessibility label of the notice's close button"
     )
+
+    // MARK: Bouclier sur une page interne (NTP, about:…)
+    //
+    // Les 4 premières reprennent À L'OCTET PRÈS l'anglais des
+    // `IDS_BROWTHER_SHIELDS_INTERNAL_*` du desktop : leurs traductions viennent
+    // des .xtb par hash grit (`private/assets/gen-ios-browther-strings.py`).
+    // La 5ᵉ diverge volontairement (voir son commentaire) et se traduit dans ce
+    // même script, à la main.
+    public static let shieldsInternalTitle = NSLocalizedString(
+      "shieldsInternalTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Browther Shields",
+      comment: "Title of the Shields panel shown on internal pages (new tab page)"
+    )
+    public static let shieldsInternalStatusOn = NSLocalizedString(
+      "shieldsInternalStatusOn",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Ad blocking ENABLED",
+      comment: "Status line of the Shields panel on internal pages"
+    )
+    public static let shieldsInternalStatusOff = NSLocalizedString(
+      "shieldsInternalStatusOff",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Ad blocking DISABLED",
+      comment: "Status line of the Shields panel on internal pages"
+    )
+    public static let shieldsInternalDescription = NSLocalizedString(
+      "shieldsInternalDescription",
+      tableName: "Browther",
+      bundle: .module,
+      value:
+        "Browther Shields block ads, trackers, fingerprinting and unwanted scripts on every site you visit.",
+      comment: "Description of what Shields do, Shields panel on internal pages"
+    )
+    // Divergence VOULUE avec le desktop, qui dit « click the shield button at
+    // the top right » : sur iPhone on touche, et la barre d'adresse est souvent
+    // en bas. Ne pas l'« aligner » sur le desktop.
+    public static let shieldsInternalPerSiteInfo = NSLocalizedString(
+      "shieldsInternalPerSiteInfo",
+      tableName: "Browther",
+      bundle: .module,
+      value:
+        "Shields are managed per site. Open the website you want to exclude and tap the shield button in the address bar.",
+      comment: "Shown when the user tries to turn Shields off from an internal page — Shields are per-site only"
+    )
   }
 }

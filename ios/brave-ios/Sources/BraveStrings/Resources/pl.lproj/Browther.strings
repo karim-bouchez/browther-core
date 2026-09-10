@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Kanał WhatsApp";
 "betaNoticeTelegram" = "Kanał Telegram";
 "betaNoticeDismiss" = "Zamknij to powiadomienie";
+"shieldsInternalTitle" = "Osłony Browther";
+"shieldsInternalStatusOn" = "Blokowanie reklam WŁĄCZONE";
+"shieldsInternalStatusOff" = "Blokowanie reklam WYŁĄCZONE";
+"shieldsInternalDescription" = "Osłony Browther blokują reklamy, śledzące skrypty, pobieranie odcisku przeglądarki i niechciane skrypty na każdej odwiedzanej stronie.";
+"shieldsInternalPerSiteInfo" = "Osłonami zarządza się osobno dla każdej witryny. Otwórz witrynę, którą chcesz wykluczyć, i dotknij przycisku tarczy na pasku adresu.";

@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp kanalı";
 "betaNoticeTelegram" = "Telegram kanalı";
 "betaNoticeDismiss" = "Bu bildirimi kapatın";
+"shieldsInternalTitle" = "Browther Kalkanları";
+"shieldsInternalStatusOn" = "Reklam engelleme ETKİN";
+"shieldsInternalStatusOff" = "Reklam engelleme DEVRE DIŞI";
+"shieldsInternalDescription" = "Browther Kalkanları, ziyaret ettiğiniz her sitede reklamları, izleyicileri, parmak izi toplamayı ve istenmeyen komut dosyalarını engeller.";
+"shieldsInternalPerSiteInfo" = "Kalkanlar site bazında yönetilir. Hariç tutmak istediğiniz siteyi açın ve adres çubuğundaki kalkan düğmesine dokunun.";

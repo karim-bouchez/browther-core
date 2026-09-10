@@ -384,6 +384,15 @@ extension BrowserViewController: TopToolbarDelegate {
     return url.baseDomain
   }
 
+  /// Bouclier touché depuis une page interne — cf. ShieldsInternalPanelView.
+  private func presentShieldsInternalPanel() {
+    let popover = PopoverController(
+      contentController: ShieldsInternalPanelViewController(),
+      contentSizeBehavior: .preferredContentSize
+    )
+    popover.present(from: topToolbar.shieldsButton, on: self)
+  }
+
   func topToolbarDidTapSawtunaaButton(_ topToolbar: TopToolbarView) {
     let popover = PopoverController(
       contentController: SawtunaaPanelViewController(reportDomain: reportableDomain),
@@ -402,12 +411,23 @@ extension BrowserViewController: TopToolbarDelegate {
   }
 
   func presentBraveShieldsView() {
-    guard let selectedTab = tabManager.selectedTab, var url = selectedTab.visibleURL else { return }
+    // Browther : sur une page interne (NTP, about:…), upstream sortait sans
+    // rien afficher — les trois `return` ci-dessous. On ouvre à la place la même
+    // bulle que sur macOS. Cf. ShieldsInternalPanelView.
+    guard let selectedTab = tabManager.selectedTab else { return }
+    guard var url = selectedTab.visibleURL else {
+      presentShieldsInternalPanel()
+      return
+    }
     if let internalURL = InternalURL(url) {
-      guard let orignalURL = internalURL.url.strippedInternalURL else { return }
+      guard let orignalURL = internalURL.url.strippedInternalURL else {
+        presentShieldsInternalPanel()
+        return
+      }
       url = orignalURL
     }
     if !url.isWebPage(includeDataURIs: false) {
+      presentShieldsInternalPanel()
       return
     }
 

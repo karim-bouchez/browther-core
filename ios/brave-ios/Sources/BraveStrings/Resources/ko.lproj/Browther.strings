@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp 채널";
 "betaNoticeTelegram" = "Telegram 채널";
 "betaNoticeDismiss" = "이 알림 닫기";
+"shieldsInternalTitle" = "Browther 실드";
+"shieldsInternalStatusOn" = "광고 차단 사용";
+"shieldsInternalStatusOff" = "광고 차단 사용 안 함";
+"shieldsInternalDescription" = "Browther 실드는 방문하는 모든 사이트에서 광고, 추적기, 핑거프린팅 및 원치 않는 스크립트를 차단합니다.";
+"shieldsInternalPerSiteInfo" = "실드는 사이트별로 관리됩니다. 제외할 웹사이트를 열고 주소 표시줄의 실드 버튼을 탭하세요.";

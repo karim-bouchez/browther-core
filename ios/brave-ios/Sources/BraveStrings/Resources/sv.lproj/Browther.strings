@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp-kanal";
 "betaNoticeTelegram" = "Telegram-kanal";
 "betaNoticeDismiss" = "Stäng denna notis";
+"shieldsInternalTitle" = "Browther-sköldar";
+"shieldsInternalStatusOn" = "Annonsblockering PÅ";
+"shieldsInternalStatusOff" = "Annonsblockering AV";
+"shieldsInternalDescription" = "Browther-sköldar blockerar annonser, spårare, fingeravtryck och oönskade skript på alla webbplatser du besöker.";
+"shieldsInternalPerSiteInfo" = "Sköldar hanteras per webbplats. Öppna webbplatsen du vill undanta och tryck på sköldknappen i adressfältet.";

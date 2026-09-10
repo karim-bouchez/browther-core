@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp-kanava";
 "betaNoticeTelegram" = "Telegram-kanava";
 "betaNoticeDismiss" = "Sulje tämä ilmoitus";
+"shieldsInternalTitle" = "Browther-suojaukset";
+"shieldsInternalStatusOn" = "Mainosten esto KÄYTÖSSÄ";
+"shieldsInternalStatusOff" = "Mainosten esto POIS KÄYTÖSTÄ";
+"shieldsInternalDescription" = "Browther-suojaukset estävät mainokset, seurannan, sormenjälkitunnistuksen ja ei-toivotut skriptit kaikilla sivustoilla, joilla vierailet.";
+"shieldsInternalPerSiteInfo" = "Suojauksia hallitaan sivustokohtaisesti. Avaa sivusto, jonka haluat ohittaa, ja napauta osoiterivin kilpipainiketta.";

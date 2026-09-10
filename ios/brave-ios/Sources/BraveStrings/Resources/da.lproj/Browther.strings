@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp-kanal";
 "betaNoticeTelegram" = "Telegram-kanal";
 "betaNoticeDismiss" = "Luk denne besked";
+"shieldsInternalTitle" = "Browther Shields";
+"shieldsInternalStatusOn" = "Annonceblokering er SLÅET TIL";
+"shieldsInternalStatusOff" = "Annonceblokering er SLÅET FRA";
+"shieldsInternalDescription" = "Browther Shields blokerer reklamer, sporing, fingeraftryk og uønskede scripts på alle websteder, du besøger.";
+"shieldsInternalPerSiteInfo" = "Shields administreres pr. websted. Åbn det websted, du vil udelade, og tryk på skjoldknappen i adresselinjen.";

@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "ערוץ WhatsApp";
 "betaNoticeTelegram" = "ערוץ Telegram";
 "betaNoticeDismiss" = "סגירת התראה זו";
+"shieldsInternalTitle" = "מגני Browther";
+"shieldsInternalStatusOn" = "חסימת המודעות מופעלת";
+"shieldsInternalStatusOff" = "חסימת המודעות מושבתת";
+"shieldsInternalDescription" = "מגני Browther חוסמים מודעות, כלי מעקב, טביעת אצבע דיגיטלית וסקריפטים לא רצויים בכל אתר שאתם מבקרים בו.";
+"shieldsInternalPerSiteInfo" = "המגנים מנוהלים לכל אתר בנפרד. פתחו את האתר שברצונכם להחריג והקישו על לחצן המגן בשורת הכתובת.";

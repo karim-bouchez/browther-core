@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp-kanaal";
 "betaNoticeTelegram" = "Telegram-kanaal";
 "betaNoticeDismiss" = "Bericht sluiten";
+"shieldsInternalTitle" = "Browther Shields";
+"shieldsInternalStatusOn" = "Advertentieblokkering INGESCHAKELD";
+"shieldsInternalStatusOff" = "Advertentieblokkering UITGESCHAKELD";
+"shieldsInternalDescription" = "Browther Shields blokkeert advertenties, trackers, fingerprinting en ongewenste scripts op elke site die je bezoekt.";
+"shieldsInternalPerSiteInfo" = "Shields worden per site beheerd. Open de website die je wilt uitsluiten en tik op de schildknop in de adresbalk.";

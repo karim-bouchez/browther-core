@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Kênh WhatsApp";
 "betaNoticeTelegram" = "Kênh Telegram";
 "betaNoticeDismiss" = "Đóng thông báo này";
+"shieldsInternalTitle" = "Lá chắn Browther";
+"shieldsInternalStatusOn" = "Đã BẬT tính năng chặn quảng cáo";
+"shieldsInternalStatusOff" = "Đã TẮT tính năng chặn quảng cáo";
+"shieldsInternalDescription" = "Lá chắn Browther chặn quảng cáo, trình theo dõi, thu thập dấu vân tay số và các tập lệnh không mong muốn trên mọi trang web bạn truy cập.";
+"shieldsInternalPerSiteInfo" = "Lá chắn được quản lý theo từng trang. Mở trang web bạn muốn loại trừ rồi chạm vào nút lá chắn trên thanh địa chỉ.";

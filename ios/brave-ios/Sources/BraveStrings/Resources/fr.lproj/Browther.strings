@@ -44,3 +44,8 @@
 "betaNoticeDismiss" = "Fermer ce message";
 "betaNoticeWhatsApp" = "Chaîne WhatsApp";
 "betaNoticeTelegram" = "Canal Telegram";
+"shieldsInternalTitle" = "Boucliers Browther";
+"shieldsInternalStatusOn" = "Suppression des pubs ACTIVÉE";
+"shieldsInternalStatusOff" = "Suppression des pubs DÉSACTIVÉE";
+"shieldsInternalDescription" = "Les Boucliers Browther bloquent les publicités, traqueurs, fingerprinting et scripts indésirables sur chaque site que vous visitez.";
+"shieldsInternalPerSiteInfo" = "Les Boucliers se gèrent site par site. Ouvrez le site à exclure et touchez le bouclier dans la barre d'adresse.";

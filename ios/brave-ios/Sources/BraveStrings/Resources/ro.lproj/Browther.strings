@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Canal WhatsApp";
 "betaNoticeTelegram" = "Canal Telegram";
 "betaNoticeDismiss" = "Închide această notificare";
+"shieldsInternalTitle" = "Scuturile Browther";
+"shieldsInternalStatusOn" = "Blocarea reclamelor este ACTIVĂ";
+"shieldsInternalStatusOff" = "Blocarea reclamelor este DEZACTIVATĂ";
+"shieldsInternalDescription" = "Scuturile Browther blochează reclamele, urmăritoarele, amprentarea digitală și scripturile nedorite pe fiecare site pe care îl vizitezi.";
+"shieldsInternalPerSiteInfo" = "Scuturile se gestionează per site. Deschide site-ul pe care vrei să îl excluzi și atinge butonul scut din bara de adrese.";

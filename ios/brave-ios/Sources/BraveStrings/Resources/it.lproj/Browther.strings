@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Canale WhatsApp";
 "betaNoticeTelegram" = "Canale Telegram";
 "betaNoticeDismiss" = "Chiudi l'avviso";
+"shieldsInternalTitle" = "Scudi Browther";
+"shieldsInternalStatusOn" = "Blocco degli annunci ATTIVO";
+"shieldsInternalStatusOff" = "Blocco degli annunci DISATTIVATO";
+"shieldsInternalDescription" = "Gli scudi Browther bloccano annunci, tracker, fingerprinting e script indesiderati su ogni sito che visiti.";
+"shieldsInternalPerSiteInfo" = "Gli scudi si gestiscono sito per sito. Apri il sito da escludere e tocca il pulsante a forma di scudo nella barra degli indirizzi.";

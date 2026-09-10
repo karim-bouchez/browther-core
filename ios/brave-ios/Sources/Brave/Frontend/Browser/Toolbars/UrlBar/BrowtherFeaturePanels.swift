@@ -178,6 +178,110 @@ class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
   }
 }
 
+// MARK: - Bouclier sur une page interne (NTP, about:…)
+
+/// Port de la bulle macOS `ShieldsInternalBubble`
+/// (`browser/ui/views/browther/shields_internal_bubble.cc`), qui fait référence.
+///
+/// Sur une page interne il n'y a aucun site à protéger et Brave ne propose
+/// rien : toucher le bouclier ne faisait **rien**. Or Basarunaa et Sawtunaa,
+/// juste à côté dans la même rangée, ouvrent leur panel — un bouton muet au
+/// milieu de deux qui répondent passe pour un bug.
+///
+/// Le toggle est un **leurre informatif**, exactement comme sur macOS : Brave
+/// gère les Boucliers strictement site par site (`TOP_ORIGIN_ONLY_SCOPE`, aucune
+/// API pour les couper globalement). Le passer à OFF montre l'état désactivé
+/// une demi-seconde, affiche l'explication, puis revient à ON. L'explication,
+/// elle, reste affichée.
+struct ShieldsInternalPanelView: View {
+  @State private var isOn = true
+  @State private var showPerSiteInfo = false
+
+  var body: some View {
+    VStack(spacing: 14) {
+      header
+
+      ShieldsSwitchView(isEnabled: Binding(
+        get: { isOn },
+        set: { newValue in
+          guard !newValue else { return }
+          isOn = false
+          withAnimation { showPerSiteInfo = true }
+          Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(500))
+            isOn = true
+          }
+        }
+      ))
+      .frame(
+        width: ShieldsSwitch.size.width,
+        height: ShieldsSwitch.size.height
+      )
+
+      Text(
+        isOn
+          ? Strings.Browther.shieldsInternalStatusOn
+          : Strings.Browther.shieldsInternalStatusOff
+      )
+      .bold()
+      .font(.footnote)
+      .foregroundStyle(Color(.braveLabel))
+
+      Text(Strings.Browther.shieldsInternalDescription)
+        .font(.footnote)
+        .foregroundStyle(Color(.secondaryBraveLabel))
+        .multilineTextAlignment(.center)
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(.horizontal)
+
+      // Place réservée dès l'ouverture (opacité 0), pour que le popover ne
+      // saute pas quand le message apparaît — même raison que la ligne
+      // « ça ne marche pas ici ? » du panel Sawtunaa.
+      Text(Strings.Browther.shieldsInternalPerSiteInfo)
+        .font(.footnote)
+        // Ambre du design system, identique au macOS (#F59E0B) : explique sans alarmer.
+        .foregroundStyle(Color(red: 0xF5 / 255, green: 0x9E / 255, blue: 0x0B / 255))
+        .multilineTextAlignment(.center)
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(.horizontal)
+        .opacity(showPerSiteInfo ? 1 : 0)
+        .accessibilityHidden(!showPerSiteInfo)
+    }
+    .padding(.vertical, 16)
+    .frame(maxWidth: 360)
+    .background(Color(.braveBackground))
+  }
+
+  private var header: some View {
+    HStack(alignment: .center, spacing: 10) {
+      Image(sharedName: "brave.logo")
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 32, height: 32)
+      Text(Strings.Browther.shieldsInternalTitle)
+        .font(.title3.weight(.semibold))
+        .foregroundStyle(Color(.braveLabel))
+    }
+    .padding(.horizontal)
+  }
+}
+
+class ShieldsInternalPanelViewController: UIHostingController<ShieldsInternalPanelView>,
+  PopoverContentComponent
+{
+  init() {
+    super.init(rootView: ShieldsInternalPanelView())
+    // Hauteur calculée, pas codée en dur : l'allemand ou le russe font une ligne
+    // de plus que le français, et une hauteur fixe tronquerait l'explication.
+    let fitting = sizeThatFits(in: CGSize(width: 360, height: CGFloat.greatestFiniteMagnitude))
+    preferredContentSize = CGSize(width: 360, height: ceil(max(fitting.height, 260)))
+  }
+
+  @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+
 // MARK: - Basarunaa panel — aligned with the macOS POC popup
 //
 // Mirror of `components/basarunaa/resources/panel/basarunaa_panel.html`:

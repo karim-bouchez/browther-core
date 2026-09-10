@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Canal de WhatsApp";
 "betaNoticeTelegram" = "Canal de Telegram";
 "betaNoticeDismiss" = "Tancar aquest avís";
+"shieldsInternalTitle" = "Escuts de Browther";
+"shieldsInternalStatusOn" = "Bloqueig d'anuncis ACTIVAT";
+"shieldsInternalStatusOff" = "Bloqueig d'anuncis DESACTIVAT";
+"shieldsInternalDescription" = "Els escuts de Browther bloquegen anuncis, rastrejadors, empremtes digitals i scripts no desitjats a tots els llocs que visites.";
+"shieldsInternalPerSiteInfo" = "Els escuts es gestionen lloc per lloc. Obre el lloc web que vulguis excloure i toca el botó de l'escut a la barra d'adreces.";

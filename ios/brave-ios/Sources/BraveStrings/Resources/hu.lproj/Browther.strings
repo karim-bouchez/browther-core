@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp-csatorna";
 "betaNoticeTelegram" = "Telegram-csatorna";
 "betaNoticeDismiss" = "Üzenet bezárása";
+"shieldsInternalTitle" = "Browther pajzsok";
+"shieldsInternalStatusOn" = "Hirdetésblokkolás BEKAPCSOLVA";
+"shieldsInternalStatusOff" = "Hirdetésblokkolás KIKAPCSOLVA";
+"shieldsInternalDescription" = "A Browther pajzsok blokkolják a hirdetéseket, a nyomkövetőket, az ujjlenyomat-készítést és a nem kívánt szkripteket minden meglátogatott webhelyen.";
+"shieldsInternalPerSiteInfo" = "A pajzsok webhelyenként kezelhetők. Nyissa meg a kizárni kívánt webhelyet, és koppintson a címsorban lévő pajzs gombra.";

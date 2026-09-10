@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Kanál WhatsApp";
 "betaNoticeTelegram" = "Kanál Telegram";
 "betaNoticeDismiss" = "Zavrieť toto oznámenie";
+"shieldsInternalTitle" = "Štíty Browther";
+"shieldsInternalStatusOn" = "Blokovanie reklám je ZAPNUTÉ";
+"shieldsInternalStatusOff" = "Blokovanie reklám je VYPNUTÉ";
+"shieldsInternalDescription" = "Štíty Browther blokujú reklamy, sledovacie prvky, snímanie odtlačku prehliadača a nechcené skripty na každej navštívenej stránke.";
+"shieldsInternalPerSiteInfo" = "Štíty sa spravujú pre každú stránku zvlášť. Otvorte web, ktorý chcete vylúčiť, a ťuknite na tlačidlo štítu v paneli s adresou.";

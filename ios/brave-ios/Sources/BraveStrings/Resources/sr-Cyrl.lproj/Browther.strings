@@ -47,3 +47,8 @@
 /* Bandeau « accès anticipé » du Nouvel Onglet — repris des
    traductions desktop (mêmes textes source, même hash grit). */
 "betaNoticeDismiss" = "Затвори ово обавештење";
+"shieldsInternalTitle" = "Browther штитови";
+"shieldsInternalStatusOn" = "Блокирање огласа је УКЉУЧЕНО";
+"shieldsInternalStatusOff" = "Блокирање огласа је ИСКЉУЧЕНО";
+"shieldsInternalDescription" = "Browther штитови блокирају огласе, трагаче, дигиталне отиске и нежељене скрипте на сваком сајту који посетите.";
+"shieldsInternalPerSiteInfo" = "Штитови се управљају по сајту. Отворите сајт који желите да изузмете и додирните дугме са штитом у траци за адресу.";

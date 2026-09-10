@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "WhatsApp チャンネル";
 "betaNoticeTelegram" = "Telegram チャンネル";
 "betaNoticeDismiss" = "この通知を閉じる";
+"shieldsInternalTitle" = "Browther シールド";
+"shieldsInternalStatusOn" = "広告ブロック: 有効";
+"shieldsInternalStatusOff" = "広告ブロック: 無効";
+"shieldsInternalDescription" = "Browther シールドは、アクセスするすべてのサイトで広告、トラッカー、フィンガープリント、不要なスクリプトをブロックします。";
+"shieldsInternalPerSiteInfo" = "シールドはサイトごとに管理します。除外したいサイトを開き、アドレスバーのシールドボタンをタップしてください。";

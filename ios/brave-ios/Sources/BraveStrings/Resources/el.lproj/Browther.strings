@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Κανάλι WhatsApp";
 "betaNoticeTelegram" = "Κανάλι Telegram";
 "betaNoticeDismiss" = "Κλείσιμο της ειδοποίησης";
+"shieldsInternalTitle" = "Ασπίδες Browther";
+"shieldsInternalStatusOn" = "Ο αποκλεισμός διαφημίσεων είναι ΕΝΕΡΓΟΣ";
+"shieldsInternalStatusOff" = "Ο αποκλεισμός διαφημίσεων είναι ΑΝΕΝΕΡΓΟΣ";
+"shieldsInternalDescription" = "Οι Ασπίδες Browther μπλοκάρουν διαφημίσεις, ιχνηλάτες, δακτυλικά αποτυπώματα και ανεπιθύμητα σενάρια σε κάθε ιστότοπο που επισκέπτεστε.";
+"shieldsInternalPerSiteInfo" = "Οι Ασπίδες διαχειρίζονται ανά ιστότοπο. Ανοίξτε τον ιστότοπο που θέλετε να εξαιρέσετε και πατήστε το κουμπί της ασπίδας στη γραμμή διευθύνσεων.";

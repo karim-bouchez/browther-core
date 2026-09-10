@@ -44,3 +44,8 @@
 "betaNoticeWhatsApp" = "Канал WhatsApp";
 "betaNoticeTelegram" = "Канал Telegram";
 "betaNoticeDismiss" = "Закрити це повідомлення";
+"shieldsInternalTitle" = "Щити Browther";
+"shieldsInternalStatusOn" = "Блокування реклами УВІМКНЕНО";
+"shieldsInternalStatusOff" = "Блокування реклами ВИМКНЕНО";
+"shieldsInternalDescription" = "Щити Browther блокують рекламу, трекери, цифрові відбитки та небажані скрипти на кожному сайті, який ви відвідуєте.";
+"shieldsInternalPerSiteInfo" = "Щити налаштовуються для кожного сайту окремо. Відкрийте сайт, який потрібно виключити, і торкніться кнопки щита в адресному рядку.";
