@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Werbeblockierung DEAKTIVIERT";
 "shieldsInternalDescription" = "Browther Shields blockieren Werbung, Tracker, Fingerprinting und unerwünschte Skripte auf jeder Website, die Sie besuchen.";
 "shieldsInternalPerSiteInfo" = "Shields werden pro Website verwaltet. Öffnen Sie die Website, die Sie ausschließen möchten, und tippen Sie in der Adressleiste auf die Schild-Schaltfläche.";
+"featureBetaTitle" = "Diese Funktion befindet sich noch in Entwicklung";
+"featureBetaText" = "Sie funktioniert möglicherweise noch nicht gut.";
+"featureBetaFollow" = "Wir sagen hier Bescheid, sobald sie fertig ist, إن شاء الله:";

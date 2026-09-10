@@ -28,6 +28,7 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
+import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.components.user_prefs.UserPrefs;
@@ -97,7 +98,8 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
         mNudenetLabel = view.findViewById(R.id.basarunaa_panel_nudenet_label);
         mNudenetSlider = view.findViewById(R.id.basarunaa_panel_nudenet_slider);
 
-        bindToggle();
+        BrowtherEarlyAccess.bindNotice(view, this::dismiss);
+        bindToggle(view);
         bindModeGroup();
         bindNsfwSwitch();
         bindSlider(mConfBodySlider, mConfBodyLabel,
@@ -124,9 +126,13 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
                 (v, isChecked) -> setPrefBool(BravePref.BASARUNAA_NSFW_ENABLED, isChecked));
     }
 
-    private void bindToggle() {
+    private void bindToggle(View root) {
         if (mToggle == null) return;
         final boolean enabled = getPrefBool(BravePref.BASARUNAA_ENABLED);
+        // Accès anticipé : toggle ambre + encadré « encore en développement »
+        // tant que la feature est ON. Cf. BrowtherEarlyAccess.
+        mToggle.setAmber(BrowtherEarlyAccess.ENABLED);
+        BrowtherEarlyAccess.setNoticeVisible(root, enabled);
         mToggle.setCheckedSilently(enabled);
         mToggle.setOnCheckedChangeListener(
                 (v, isChecked) -> {
@@ -136,6 +142,7 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
                             new String[] {"feature", "enabled"},
                             new String[] {"basarunaa", Boolean.toString(isChecked)});
                     updateStatusText(isChecked);
+                    BrowtherEarlyAccess.setNoticeVisible(root, isChecked);
                 });
         updateStatusText(enabled);
     }

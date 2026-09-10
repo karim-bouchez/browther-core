@@ -306,6 +306,34 @@ extension Strings {
       value: "Close this notice",
       comment: "Accessibility label of the notice's close button"
     )
+    // Encadré « fonctionnalité en cours de développement » des panels
+    // Sawtunaa/Basarunaa, affiché tant que la feature est ON. Anglais MOT POUR
+    // MOT celui du desktop/Android (IDS_BROWTHER_FEATURE_BETA_*) : les
+    // traductions viennent des mêmes .xtb. Les deux libellés de canaux
+    // réutilisent betaNoticeWhatsApp / betaNoticeTelegram.
+    public static let featureBetaTitle = NSLocalizedString(
+      "featureBetaTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "This feature is still in development",
+      comment: "Title of the notice in the Sawtunaa and Basarunaa panels while the feature is on"
+    )
+    public static let featureBetaText = NSLocalizedString(
+      "featureBetaText",
+      tableName: "Browther",
+      bundle: .module,
+      value: "It may not work well yet.",
+      comment: "Body of the notice in the Sawtunaa and Basarunaa panels while the feature is on"
+    )
+    public static let featureBetaFollow = NSLocalizedString(
+      "featureBetaFollow",
+      tableName: "Browther",
+      bundle: .module,
+      value: "We will announce it here as soon as it is ready, إن شاء الله:",
+      comment:
+        "Label introducing the two broadcast channel links in the feature notice. "
+        + "The Arabic phrase means 'God willing' — keep it as-is"
+    )
 
     // MARK: Bouclier sur une page interne (NTP, about:…)
     //

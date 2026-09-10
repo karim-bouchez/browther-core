@@ -29,8 +29,12 @@ extension Preferences {
     /// OFF). Un commentaire périmé coûte cher ici : il a fait passer iOS pour
     /// atteint par un bug qu'il n'a pas, lors de l'audit de parité.
     ///
-    /// Default `true` to match the desktop default (cf. `private/CLAUDE.md`)
-    /// and the Browther "navigateur pré-configuré" UX.
+    /// Default `false` — ACCÈS ANTICIPÉ (2026-09-09), parité desktop/Android
+    /// (`brave_profile_prefs.cc`). La feature marche mais pas assez bien pour
+    /// être imposée : on la propose, et le panel affiche « encore en
+    /// développement » tant qu'elle est allumée (`BrowtherEarlyAccess`).
+    /// ⚠️ Un utilisateur existant qui n'a jamais touché le toggle bascule à OFF
+    /// (une préférence jamais écrite lit le défaut).
     ///
     /// Note historique : avant 2026-05-22, le piège `UserScriptManager.
     /// dynamicScripts` (dict figé au boot, valeur nil = clé supprimée) faisait
@@ -40,7 +44,7 @@ extension Preferences {
     /// observant le pref dans `BrowserViewController.preferencesDidChange`.
     public static let enabled = Option<Bool>(
       key: "basarunaa.enabled",
-      default: true
+      default: false
     )
 
     /// Which persons should stay blurred when ML runs.

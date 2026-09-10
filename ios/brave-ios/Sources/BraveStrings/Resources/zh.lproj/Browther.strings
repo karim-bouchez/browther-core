@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "已停用广告拦截";
 "shieldsInternalDescription" = "Browther 盾牌会在您访问的每个网站上拦截广告、跟踪器、指纹识别和不需要的脚本。";
 "shieldsInternalPerSiteInfo" = "盾牌按网站分别管理。打开要排除的网站，然后轻点地址栏中的盾牌按钮。";
+"featureBetaTitle" = "此功能仍在开发中";
+"featureBetaText" = "它可能还不太好用。";
+"featureBetaFollow" = "一旦准备就绪，我们会在这里宣布 إن شاء الله：";

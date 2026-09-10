@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Pemblokiran iklan NONAKTIF";
 "shieldsInternalDescription" = "Perisai Browther memblokir iklan, pelacak, sidik jari digital, dan skrip yang tidak diinginkan di setiap situs yang Anda kunjungi.";
 "shieldsInternalPerSiteInfo" = "Perisai dikelola per situs. Buka situs yang ingin dikecualikan lalu ketuk tombol perisai di bilah alamat.";
+"featureBetaTitle" = "Fitur ini masih dalam pengembangan";
+"featureBetaText" = "Fitur ini mungkin belum berfungsi dengan baik.";
+"featureBetaFollow" = "Kami akan mengumumkannya di sini begitu siap, إن شاء الله:";

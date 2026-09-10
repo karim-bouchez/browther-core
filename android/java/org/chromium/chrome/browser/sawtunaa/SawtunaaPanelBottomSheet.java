@@ -32,6 +32,7 @@ import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
+import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.tab.Tab;
@@ -113,6 +114,9 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                 UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                         .getBoolean(BravePref.SAWTUNAA_ENABLED);
 
+        BrowtherEarlyAccess.bindNotice(view, this::dismiss);
+        applyEarlyAccess(view, enabled);
+
         if (mToggle != null) {
             mToggle.setCheckedSilently(enabled);
             mToggle.setOnCheckedChangeListener(
@@ -124,6 +128,7 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                                 new String[] {"feature", "enabled"},
                                 new String[] {"sawtunaa", Boolean.toString(isChecked)});
                         updateStatusText(isChecked);
+                        applyEarlyAccess(view, isChecked);
                         if (isChecked) {
                             // OFF → ON : reload du tab. Tenter d'injecter le
                             // script live depuis le RFO crash si le main
@@ -147,6 +152,15 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
         // Browther : « ça ne marche pas ici ? ». Toutes les règles (domaine seul,
         // consentement, page interne) vivent dans le helper partagé.
         BrowtherSiteReport.bind(view, "sawtunaa");
+    }
+
+    /**
+     * Accès anticipé : encadré « encore en développement » + gros toggle ambre
+     * tant que la feature est ON. Cf. {@link BrowtherEarlyAccess}.
+     */
+    private void applyEarlyAccess(View root, boolean enabled) {
+        BrowtherEarlyAccess.setNoticeVisible(root, enabled);
+        if (mToggle != null) mToggle.setAmber(BrowtherEarlyAccess.ENABLED);
     }
 
     private void updateStatusText(boolean enabled) {

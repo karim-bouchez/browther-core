@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Blocco degli annunci DISATTIVATO";
 "shieldsInternalDescription" = "Gli scudi Browther bloccano annunci, tracker, fingerprinting e script indesiderati su ogni sito che visiti.";
 "shieldsInternalPerSiteInfo" = "Gli scudi si gestiscono sito per sito. Apri il sito da escludere e tocca il pulsante a forma di scudo nella barra degli indirizzi.";
+"featureBetaTitle" = "Questa funzione è ancora in sviluppo";
+"featureBetaText" = "Potrebbe non funzionare ancora bene.";
+"featureBetaFollow" = "Lo annunceremo qui appena sarà pronta, إن شاء الله:";

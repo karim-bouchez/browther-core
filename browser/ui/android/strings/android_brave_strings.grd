@@ -4156,6 +4156,23 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_BETA_NOTICE_DISMISS" desc="Accessibility label of the button that closes the early-access notice">
       Close this notice
     </message>
+    <!-- Browther : encadré « fonctionnalité en cours de développement » des
+         panels Basarunaa/Sawtunaa, affiché tant que la feature est ON.
+         ⚠️ Texte anglais MOT POUR MOT celui du desktop
+         (brave_generated_resources.grd, IDS_BROWTHER_FEATURE_BETA_*) : l'id
+         de traduction grit est le hash du texte source, donc les 66
+         traductions se recopient telles quelles d'un pool .xtb à l'autre. Ne
+         pas retoucher l'un sans l'autre. Les deux libellés de canaux
+         réutilisent IDS_BROWTHER_BETA_NOTICE_WHATSAPP / _TELEGRAM. -->
+    <message name="IDS_BROWTHER_FEATURE_BETA_TITLE" desc="Title of the notice shown inside the Basarunaa and Sawtunaa panels while the feature is turned on, warning that the feature is not finished yet.">
+      This feature is still in development
+    </message>
+    <message name="IDS_BROWTHER_FEATURE_BETA_TEXT" desc="Body of the notice shown inside the Basarunaa and Sawtunaa panels while the feature is turned on. Reads as the second half of the title sentence. States plainly that the feature may not work well, so that a poor result reads as an unfinished feature rather than a broken browser.">
+      It may not work well yet.
+    </message>
+    <message name="IDS_BROWTHER_FEATURE_BETA_FOLLOW" desc="Label introducing the two broadcast channel links (WhatsApp, Telegram) in the &quot;still in development&quot; notice of the Basarunaa and Sawtunaa panels. Answers the question the notice raises — when will it work? — by promising an announcement on the two channels. &quot;here&quot; means the two links that follow. The Arabic phrase means 'God willing' and is used as-is by Muslim speakers of every language, including in English and French text — do not translate or transliterate it.">
+      We will announce it here as soon as it is ready, إن شاء الله:
+    </message>
 
     <!-- Browther: Shields panel (BottomSheet, alignement Sawtunaa/Basarunaa). -->
     <message name="IDS_SHIELDS_PANEL_TITLE" desc="Header title for the Browther Shields panel">

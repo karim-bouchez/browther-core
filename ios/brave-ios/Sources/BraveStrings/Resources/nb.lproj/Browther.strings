@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Annonseblokkering AV";
 "shieldsInternalDescription" = "Browther-skjold blokkerer annonser, sporere, fingeravtrykk og uønskede skript på alle nettsteder du besøker.";
 "shieldsInternalPerSiteInfo" = "Skjold administreres per nettsted. Åpne nettstedet du vil utelate, og trykk på skjoldknappen i adressefeltet.";
+"featureBetaTitle" = "Denne funksjonen er fortsatt under utvikling";
+"featureBetaText" = "Den fungerer kanskje ikke bra ennå.";
+"featureBetaFollow" = "Vi sier fra her så snart den er klar, إن شاء الله:";

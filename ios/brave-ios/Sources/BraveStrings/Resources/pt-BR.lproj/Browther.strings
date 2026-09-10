@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Bloqueio de anúncios DESATIVADO";
 "shieldsInternalDescription" = "Os escudos do Browther bloqueiam anúncios, rastreadores, impressão digital e scripts indesejados em todos os sites que você visita.";
 "shieldsInternalPerSiteInfo" = "Os escudos são gerenciados por site. Abra o site que deseja excluir e toque no botão de escudo na barra de endereço.";
+"featureBetaTitle" = "Esse recurso ainda está em desenvolvimento";
+"featureBetaText" = "Pode ser que ainda não funcione bem.";
+"featureBetaFollow" = "Vamos avisar aqui assim que estiver pronto, إن شاء الله:";

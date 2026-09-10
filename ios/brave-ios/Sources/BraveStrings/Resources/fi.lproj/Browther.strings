@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Mainosten esto POIS KÄYTÖSTÄ";
 "shieldsInternalDescription" = "Browther-suojaukset estävät mainokset, seurannan, sormenjälkitunnistuksen ja ei-toivotut skriptit kaikilla sivustoilla, joilla vierailet.";
 "shieldsInternalPerSiteInfo" = "Suojauksia hallitaan sivustokohtaisesti. Avaa sivusto, jonka haluat ohittaa, ja napauta osoiterivin kilpipainiketta.";
+"featureBetaTitle" = "Tämä ominaisuus on vielä kehitteillä";
+"featureBetaText" = "Se ei ehkä toimi vielä hyvin.";
+"featureBetaFollow" = "Ilmoitamme siitä täällä heti kun se on valmis, إن شاء الله:";

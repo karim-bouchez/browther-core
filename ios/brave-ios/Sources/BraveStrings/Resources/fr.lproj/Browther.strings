@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Suppression des pubs DÉSACTIVÉE";
 "shieldsInternalDescription" = "Les Boucliers Browther bloquent les publicités, traqueurs, fingerprinting et scripts indésirables sur chaque site que vous visitez.";
 "shieldsInternalPerSiteInfo" = "Les Boucliers se gèrent site par site. Ouvrez le site à exclure et touchez le bouclier dans la barre d'adresse.";
+"featureBetaTitle" = "Cette fonctionnalité est encore en développement";
+"featureBetaText" = "Elle peut ne pas encore bien marcher.";
+"featureBetaFollow" = "On l'annoncera ici dès qu'elle sera prête, إن شاء الله :";

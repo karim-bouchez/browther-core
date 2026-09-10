@@ -394,10 +394,14 @@ extension BrowserViewController: TopToolbarDelegate {
   }
 
   func topToolbarDidTapSawtunaaButton(_ topToolbar: TopToolbarView) {
+    let panel = SawtunaaPanelViewController(reportDomain: reportableDomain)
     let popover = PopoverController(
-      contentController: SawtunaaPanelViewController(reportDomain: reportableDomain),
+      contentController: panel,
       contentSizeBehavior: .preferredContentSize
     )
+    panel.onChannelTapped = { [weak self, weak popover] url in
+      self?.openFollowChannel(url, closing: popover)
+    }
     popover.present(from: topToolbar.sawtunaaButton, on: self)
   }
 
@@ -407,7 +411,29 @@ extension BrowserViewController: TopToolbarDelegate {
       contentController: panel,
       contentSizeBehavior: .preferredContentSize
     )
+    panel.onChannelTapped = { [weak self, weak popover] url in
+      self?.openFollowChannel(url, closing: popover)
+    }
     popover.present(from: topToolbar.basarunaaButton, on: self)
+  }
+
+  /// Canal de diffusion dev&din touché dans l'encadré d'accès anticipé d'un
+  /// panel : on ferme le popover d'abord, sinon le nouvel onglet s'ouvre
+  /// derrière lui. Même mode (privé ou non) que l'onglet courant.
+  private func openFollowChannel(_ url: URL, closing popover: PopoverController?) {
+    let open = { [weak self] in
+      guard let self else { return }
+      self.openURLInNewTab(
+        url,
+        isPrivate: self.privateBrowsingManager.isPrivateBrowsing,
+        isPrivileged: false
+      )
+    }
+    if let popover {
+      popover.dismissPopover(open)
+    } else {
+      open()
+    }
   }
 
   func presentBraveShieldsView() {

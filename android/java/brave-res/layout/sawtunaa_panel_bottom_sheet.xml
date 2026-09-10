@@ -72,6 +72,9 @@
         android:lineSpacingExtra="2dp"
         android:gravity="start" />
 
+    <!-- Browther : « encore en développement » — visible tant que la feature
+         est ON (BrowtherEarlyAccess). Parité desktop/iOS. -->
+    <include layout="@layout/browther_feature_beta_notice" />
 
     <!-- Browther : « ça ne marche pas ici ? » — signalement d'un site non géré.
          Parité desktop/iOS. Seul le DOMAINE part, jamais l'URL (cf.

@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Advertentieblokkering UITGESCHAKELD";
 "shieldsInternalDescription" = "Browther Shields blokkeert advertenties, trackers, fingerprinting en ongewenste scripts op elke site die je bezoekt.";
 "shieldsInternalPerSiteInfo" = "Shields worden per site beheerd. Open de website die je wilt uitsluiten en tik op de schildknop in de adresbalk.";
+"featureBetaTitle" = "Deze functie is nog in ontwikkeling";
+"featureBetaText" = "Hij werkt mogelijk nog niet goed.";
+"featureBetaFollow" = "We laten het hier weten zodra hij klaar is, إن شاء الله:";

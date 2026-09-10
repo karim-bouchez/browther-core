@@ -201,9 +201,36 @@ class ShieldsSwitch: UIControl {
     }
   }
 
+  /// Browther : cycle AMBRE au lieu du vert. Sert à l'accès anticipé de
+  /// Sawtunaa/Basarunaa (`BrowtherEarlyAccess`) : « allumé, mais n'y compte
+  /// pas encore » — le vert dirait « tout va bien ». Le panel Boucliers, lui,
+  /// reste vert (valeur par défaut).
+  var usesAmber: Bool = false {
+    didSet {
+      guard usesAmber != oldValue else { return }
+      if let step = steps.first {
+        gradientView.gradientLayer.colors = step.gradientColors
+        gradientView.gradientLayer.shadowColor = step.shadowColor
+      }
+      if isOn { beginGradientAnimations() }
+    }
+  }
+
+  private var steps: [AnimationStep] { usesAmber ? amberSteps : greenSteps }
+
+  // Keyframes du `amberCycle` des panels desktop.
+  private let amberSteps: [AnimationStep] = [
+    .init(colors: [0xFCD34D, 0xFBBF24], shadow: 0xFBBF24),
+    .init(colors: [0xFBBF24, 0xF59E0B], shadow: 0xF59E0B),
+    .init(colors: [0xF59E0B, 0xD97706], shadow: 0xD97706),
+    .init(colors: [0xD97706, 0xF97316], shadow: 0xF97316),
+    .init(colors: [0xF97316, 0xFB923C], shadow: 0xFB923C),
+    .init(colors: [0xFB923C, 0xFCD34D], shadow: 0xFCD34D),
+  ]
+
   // Browther: nuances de vert (cohérent identité Browther) au lieu du
   // dégradé orange/rouge/rose Brave. Effet glow animé identique.
-  private let steps: [AnimationStep] = [
+  private let greenSteps: [AnimationStep] = [
     .init(colors: [0x86EFAC, 0x4ADE80], shadow: 0x4ADE80),
     .init(colors: [0x4ADE80, 0x22C55E], shadow: 0x22C55E),
     .init(colors: [0x22C55E, 0x16A34A], shadow: 0x16A34A),
@@ -284,13 +311,17 @@ struct ShieldsSwitchView: UIViewRepresentable {
   }
 
   @Binding private var isEnabled: Bool
+  /// Browther : cycle ambre (accès anticipé). Cf. `ShieldsSwitch.usesAmber`.
+  private let amber: Bool
 
-  init(isEnabled: Binding<Bool>) {
+  init(isEnabled: Binding<Bool>, amber: Bool = false) {
     _isEnabled = isEnabled
+    self.amber = amber
   }
 
   func makeUIView(context: Context) -> WrappedShieldsSwitch {
     let shieldsSwitch = WrappedShieldsSwitch(delegate: context.coordinator)
+    shieldsSwitch.usesAmber = amber
     shieldsSwitch.isOn = isEnabled
     return shieldsSwitch
   }
@@ -307,6 +338,7 @@ struct ShieldsSwitchView: UIViewRepresentable {
     // panel Bouclier des pages internes, lui, revient à ON tout seul et restait
     // bloqué visuellement sur OFF. `setOn` n'émet pas `.valueChanged` : aucune
     // boucle possible avec le Coordinator.
+    shieldsSwitch.usesAmber = amber
     if shieldsSwitch.isOn != isEnabled {
       shieldsSwitch.setOn(isEnabled, animated: true)
     }

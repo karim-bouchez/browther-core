@@ -70,6 +70,19 @@ public class BrowtherBigToggleView extends View {
                 {0xFF34D399, 0xFF86EFAC},
             };
 
+    // Même cycle en AMBRE — keyframes du `amberCycle` des panels desktop.
+    // Utilisé pendant l'accès anticipé (BrowtherEarlyAccess) : « allumé, mais
+    // n'y compte pas encore ». Le vert dirait « tout va bien ».
+    private static final int[][] AMBER_KEYFRAMES =
+            new int[][] {
+                {0xFFFCD34D, 0xFFFBBF24},
+                {0xFFFBBF24, 0xFFF59E0B},
+                {0xFFF59E0B, 0xFFD97706},
+                {0xFFD97706, 0xFFF97316},
+                {0xFFF97316, 0xFFFB923C},
+                {0xFFFB923C, 0xFFFCD34D},
+            };
+
     private static final int TRACK_OFF_COLOR = 0xFF555555;
     private static final int THUMB_COLOR = 0xFFFFFFFF;
     private static final int THUMB_SHADOW_COLOR = 0x4D000000; // ~30% black
@@ -89,6 +102,7 @@ public class BrowtherBigToggleView extends View {
     private final float[] mGradientStops = new float[] {0f, 1f};
 
     private boolean mChecked;
+    private boolean mAmber;
     private float mThumbProgress; // 0 = off, 1 = on, interpolated.
     @Nullable private ValueAnimator mThumbAnimator;
     @Nullable private ValueAnimator mGradientAnimator;
@@ -161,6 +175,16 @@ public class BrowtherBigToggleView extends View {
         } else {
             stopGradientAnimation();
         }
+        invalidate();
+    }
+
+    /**
+     * Teinte ambre du cycle ON au lieu du vert. Même nombre de keyframes, donc
+     * bascule sans à-coup en pleine animation.
+     */
+    public void setAmber(boolean amber) {
+        if (mAmber == amber) return;
+        mAmber = amber;
         invalidate();
     }
 
@@ -249,8 +273,9 @@ public class BrowtherBigToggleView extends View {
         if (mThumbProgress > 0f) {
             int phaseFloor = (int) Math.floor(mGradientPhase);
             float t = mGradientPhase - phaseFloor;
-            int[] from = GRADIENT_KEYFRAMES[phaseFloor % GRADIENT_KEYFRAMES.length];
-            int[] to = GRADIENT_KEYFRAMES[(phaseFloor + 1) % GRADIENT_KEYFRAMES.length];
+            int[][] keyframes = mAmber ? AMBER_KEYFRAMES : GRADIENT_KEYFRAMES;
+            int[] from = keyframes[phaseFloor % keyframes.length];
+            int[] to = keyframes[(phaseFloor + 1) % keyframes.length];
             mGradientColorsBuf[0] = lerpColor(from[0], to[0], t);
             mGradientColorsBuf[1] = lerpColor(from[1], to[1], t);
             // Center bottom-right, spans toward top-left. radius ~= width.

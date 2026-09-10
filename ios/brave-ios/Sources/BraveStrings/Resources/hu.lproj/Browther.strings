@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Hirdetésblokkolás KIKAPCSOLVA";
 "shieldsInternalDescription" = "A Browther pajzsok blokkolják a hirdetéseket, a nyomkövetőket, az ujjlenyomat-készítést és a nem kívánt szkripteket minden meglátogatott webhelyen.";
 "shieldsInternalPerSiteInfo" = "A pajzsok webhelyenként kezelhetők. Nyissa meg a kizárni kívánt webhelyet, és koppintson a címsorban lévő pajzs gombra.";
+"featureBetaTitle" = "Ez a funkció még fejlesztés alatt áll";
+"featureBetaText" = "Lehet, hogy még nem működik jól.";
+"featureBetaFollow" = "Itt jelezzük, amint elkészül, إن شاء الله:";

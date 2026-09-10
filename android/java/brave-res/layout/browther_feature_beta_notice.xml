@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this file,
+     You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
+<!-- Encadré « fonctionnalité en cours de développement », inclus dans les
+     panels Sawtunaa ET Basarunaa, visible tant que la feature est ON. Parité
+     desktop (#beta-notice des panels WebUI) et iOS (BrowtherFeatureBetaNotice).
+     Couleurs, fond et liens sont posés par BrowtherEarlyAccess.bindNotice() :
+     l'ambre du desktop (#FBBF24) est illisible sur le fond clair du thème jour,
+     il faut une teinte par thème. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/browther_feature_beta_notice"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="14dp"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="10dp"
+    android:visibility="gone">
+
+    <!-- Bécher = « en expérimentation », pas « erreur » ; même pictogramme que
+         le bandeau d'accès anticipé du Nouvel Onglet. Aligné sur la première
+         ligne du titre, pas sur le centre de l'encadré. -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/browther_feature_beta_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="1dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_channel_science" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/browther_feature_beta_title"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/browther_feature_beta_text"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp" />
+
+        <!-- Sur sa propre ligne : les traductions varient trop en longueur pour
+             partager la ligne des deux liens sans les tronquer (même arbitrage
+             que le bandeau NTP). -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/browther_feature_beta_follow"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <!-- Canaux de DIFFUSION (on s'y abonne, on n'y écrit pas) : mêmes
+                 libellés que le bandeau NTP, donc mêmes traductions. -->
+            <TextView
+                android:id="@+id/browther_feature_beta_whatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/browther_beta_notice_whatsapp"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/browther_feature_beta_telegram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/browther_beta_notice_telegram"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Annonceblokering er SLÅET FRA";
 "shieldsInternalDescription" = "Browther Shields blokerer reklamer, sporing, fingeraftryk og uønskede scripts på alle websteder, du besøger.";
 "shieldsInternalPerSiteInfo" = "Shields administreres pr. websted. Åbn det websted, du vil udelade, og tryk på skjoldknappen i adresselinjen.";
+"featureBetaTitle" = "Denne funktion er stadig under udvikling";
+"featureBetaText" = "Den virker måske ikke godt endnu.";
+"featureBetaFollow" = "Vi giver besked her, så snart den er klar, إن شاء الله:";

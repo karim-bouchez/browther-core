@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Blokiranje oglasa ISKLJUČENO";
 "shieldsInternalDescription" = "Browther štitovi blokiraju oglase, alate za praćenje, uzimanje digitalnog otiska i neželjene skripte na svakoj stranici koju posjetite.";
 "shieldsInternalPerSiteInfo" = "Štitovi se upravljaju za svaku stranicu zasebno. Otvorite web-mjesto koje želite izuzeti i dodirnite gumb sa štitom u adresnoj traci.";
+"featureBetaTitle" = "Ova funkcija je još u razvoju";
+"featureBetaText" = "Možda još ne radi dobro.";
+"featureBetaFollow" = "Objavit ćemo ovdje čim bude spremna, إن شاء الله:";

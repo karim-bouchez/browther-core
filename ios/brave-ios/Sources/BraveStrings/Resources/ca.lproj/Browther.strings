@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Bloqueig d'anuncis DESACTIVAT";
 "shieldsInternalDescription" = "Els escuts de Browther bloquegen anuncis, rastrejadors, empremtes digitals i scripts no desitjats a tots els llocs que visites.";
 "shieldsInternalPerSiteInfo" = "Els escuts es gestionen lloc per lloc. Obre el lloc web que vulguis excloure i toca el botó de l'escut a la barra d'adreces.";
+"featureBetaTitle" = "Aquesta funció encara està en desenvolupament";
+"featureBetaText" = "Encara pot no funcionar bé.";
+"featureBetaFollow" = "L'anunciarem aquí tan bon punt estigui a punt, إن شاء الله:";

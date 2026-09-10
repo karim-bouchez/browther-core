@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "広告ブロック: 無効";
 "shieldsInternalDescription" = "Browther シールドは、アクセスするすべてのサイトで広告、トラッカー、フィンガープリント、不要なスクリプトをブロックします。";
 "shieldsInternalPerSiteInfo" = "シールドはサイトごとに管理します。除外したいサイトを開き、アドレスバーのシールドボタンをタップしてください。";
+"featureBetaTitle" = "この機能はまだ開発中です";
+"featureBetaText" = "まだうまく動かないことがあります。";
+"featureBetaFollow" = "準備ができ次第、こちらでお知らせします إن شاء الله。";

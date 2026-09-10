@@ -10,7 +10,12 @@ extension Preferences {
   final public class Sawtunaa {
     /// Whether Sawtunaa (music/noise removal) is enabled.
     ///
-    /// Default `true` to match desktop + Browther "navigateur pré-configuré" UX.
+    /// Default `false` — ACCÈS ANTICIPÉ (2026-09-09), parité desktop/Android
+    /// (`brave_profile_prefs.cc`). La feature marche mais pas assez bien pour
+    /// être imposée : on la propose, et le panel affiche « encore en
+    /// développement » tant qu'elle est allumée (`BrowtherEarlyAccess`).
+    /// ⚠️ Un utilisateur existant qui n'a jamais touché le toggle bascule à OFF
+    /// (une préférence jamais écrite lit le défaut).
     ///
     /// Note historique : avant 2026-05-22 le piège `UserScriptManager.
     /// dynamicScripts` (dict figé au boot, valeur nil = clé supprimée)
@@ -19,7 +24,7 @@ extension Preferences {
     /// `BrowserViewController.preferencesDidChange`.
     public static let enabled = Option<Bool>(
       key: "sawtunaa.enabled",
-      default: true
+      default: false
     )
   }
 }

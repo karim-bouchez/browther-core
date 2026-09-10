@@ -72,6 +72,10 @@
         android:gravity="start"
         android:text="@string/basarunaa_panel_description" />
 
+    <!-- Browther : « encore en développement » — visible tant que la feature
+         est ON (BrowtherEarlyAccess). Parité desktop/iOS. -->
+    <include layout="@layout/browther_feature_beta_notice" />
+
     <!-- Section : Mode -->
     <TextView
         android:layout_width="match_parent"

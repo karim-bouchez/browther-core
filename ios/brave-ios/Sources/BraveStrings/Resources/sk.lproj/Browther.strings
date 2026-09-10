@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Blokovanie reklám je VYPNUTÉ";
 "shieldsInternalDescription" = "Štíty Browther blokujú reklamy, sledovacie prvky, snímanie odtlačku prehliadača a nechcené skripty na každej navštívenej stránke.";
 "shieldsInternalPerSiteInfo" = "Štíty sa spravujú pre každú stránku zvlášť. Otvorte web, ktorý chcete vylúčiť, a ťuknite na tlačidlo štítu v paneli s adresou.";
+"featureBetaTitle" = "Táto funkcia sa stále vyvíja";
+"featureBetaText" = "Ešte nemusí fungovať dobre.";
+"featureBetaFollow" = "Oznámime to tu, hneď ako bude hotová, إن شاء الله:";

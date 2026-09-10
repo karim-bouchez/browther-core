@@ -80,11 +80,113 @@ struct ReportSiteRow: View {
   }
 }
 
+// MARK: - Accès anticipé (Sawtunaa + Basarunaa)
+
+/// Un seul interrupteur pour les trois surfaces qui signalent l'accès anticipé :
+/// le badge de la barre d'URL (`TopToolbarView.featureBadgeColor`), le gros
+/// toggle des panels (ambre au lieu du vert) et l'encadré « encore en
+/// développement ». Parité desktop (`kBrowtherEarlyAccess`, *_action_view.cc) et
+/// Android (`BrowtherEarlyAccess.ENABLED`).
+///
+/// Les deux features partent OFF (`Preferences.{Sawtunaa,Basarunaa}.enabled`).
+/// Celui qui les allume choisit d'essayer quelque chose d'inachevé : il doit
+/// l'apprendre au moment du geste, pas en concluant d'un résultat irrégulier que
+/// le navigateur est mauvais.
+enum BrowtherEarlyAccess {
+  /// À repasser à `false` en sortie d'accès anticipé, en même temps que desktop
+  /// et Android : le vert revient et l'encadré disparaît.
+  static let isActive = true
+
+  // Mêmes URL que le bandeau NTP et l'onboarding — `grep 0029Vb8ydkv5vKABH78PVX32`.
+  static let whatsAppURL = URL(string: "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32")!
+  static let telegramURL = URL(string: "https://t.me/devndin_nouveautes")!
+
+  /// L'ambre du desktop (#FBBF24) tombe à ~1,7:1 de contraste sur fond clair :
+  /// amber-700 (#B45309) en thème clair, #FBBF24 en sombre.
+  static let amber = Color(
+    UIColor { trait in
+      trait.userInterfaceStyle == .dark
+        ? UIColor(red: 0xFB / 255, green: 0xBF / 255, blue: 0x24 / 255, alpha: 1)
+        : UIColor(red: 0xB4 / 255, green: 0x53 / 255, blue: 0x09 / 255, alpha: 1)
+    }
+  )
+}
+
+/// Encadré « fonctionnalité en cours de développement », affiché dans les panels
+/// Sawtunaa et Basarunaa tant que la feature est ON. Port de `#beta-notice` des
+/// panels WebUI desktop. Volontairement non refermable : ce n'est pas une
+/// notification qu'on acquitte, c'est l'état de la feature.
+///
+/// Fond NEUTRE, seuls le bécher et les liens portent l'ambre : l'ambre plein veut
+/// déjà dire ailleurs « allumé mais sans effet ici ». Ici la feature marche, elle
+/// n'est simplement pas finie.
+struct FeatureBetaNotice: View {
+  let onChannelTapped: (URL) -> Void
+
+  var body: some View {
+    HStack(alignment: .top, spacing: 10) {
+      // Même pictogramme que le bandeau d'accès anticipé du Nouvel Onglet.
+      Image(systemName: "testtube.2")
+        .font(.system(size: 15, weight: .semibold))
+        .foregroundStyle(BrowtherEarlyAccess.amber)
+        .accessibilityHidden(true)
+
+      VStack(alignment: .leading, spacing: 3) {
+        Text(Strings.Browther.featureBetaTitle)
+          .font(.footnote.weight(.semibold))
+          .foregroundStyle(Color(.braveLabel))
+        Text(Strings.Browther.featureBetaText)
+          .font(.caption)
+          .foregroundStyle(Color(.secondaryBraveLabel))
+        // Sur sa propre ligne : les traductions varient trop en longueur pour
+        // partager celle des deux liens (même arbitrage que le bandeau NTP).
+        Text(Strings.Browther.featureBetaFollow)
+          .font(.caption)
+          .foregroundStyle(Color(.secondaryBraveLabel))
+          .padding(.top, 5)
+        // Canaux de DIFFUSION (on s'y abonne, on n'y écrit pas) : mêmes libellés
+        // que le bandeau NTP, donc mêmes traductions.
+        HStack(spacing: 14) {
+          channel(Strings.Browther.betaNoticeWhatsApp, BrowtherEarlyAccess.whatsAppURL)
+          channel(Strings.Browther.betaNoticeTelegram, BrowtherEarlyAccess.telegramURL)
+        }
+      }
+      .multilineTextAlignment(.leading)
+      .fixedSize(horizontal: false, vertical: true)
+      .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .padding(.horizontal, 12)
+    .padding(.vertical, 10)
+    .background(
+      RoundedRectangle(cornerRadius: 8, style: .continuous)
+        .fill(Color.primary.opacity(0.04))
+    )
+    .overlay(
+      RoundedRectangle(cornerRadius: 8, style: .continuous)
+        .strokeBorder(BrowtherEarlyAccess.amber.opacity(0.32), lineWidth: 1)
+    )
+    .padding(.horizontal)
+  }
+
+  private func channel(_ title: String, _ url: URL) -> some View {
+    Button(title) { onChannelTapped(url) }
+      .font(.caption.weight(.semibold))
+      .foregroundStyle(BrowtherEarlyAccess.amber)
+      .buttonStyle(.plain)
+      .padding(.vertical, 2)
+  }
+}
+
 // MARK: - Sawtunaa panel
 
 struct SawtunaaPanelView: View {
   /// Domaine de l'onglet actif (nil sur une page interne) — cf. ReportSiteRow.
   let reportDomain: String?
+  /// Clic sur un canal de l'encadré d'accès anticipé (branché par le BVC).
+  var onChannelTapped: (URL) -> Void = { _ in }
+  /// L'encadré apparaît/disparaît avec le toggle : le contrôleur recalcule la
+  /// hauteur du popover (cf. SawtunaaPanelViewController).
+  var onLayoutChange: () -> Void = {}
 
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
   @State private var showLimitations = false
@@ -93,16 +195,19 @@ struct SawtunaaPanelView: View {
     VStack(spacing: 16) {
       header
 
-      ShieldsSwitchView(isEnabled: Binding(
-        get: { enabled.value },
-        set: { newValue in
-          enabled.value = newValue
-          BrowtherAnalyticsService.shared.track(
-            event: "feature_toggled",
-            properties: ["feature": "sawtunaa", "enabled": newValue]
-          )
-        }
-      ))
+      ShieldsSwitchView(
+        isEnabled: Binding(
+          get: { enabled.value },
+          set: { newValue in
+            enabled.value = newValue
+            BrowtherAnalyticsService.shared.track(
+              event: "feature_toggled",
+              properties: ["feature": "sawtunaa", "enabled": newValue]
+            )
+          }
+        ),
+        amber: BrowtherEarlyAccess.isActive
+      )
       .frame(
         width: ShieldsSwitch.size.width,
         height: ShieldsSwitch.size.height
@@ -132,12 +237,17 @@ struct SawtunaaPanelView: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.horizontal)
 
+      if BrowtherEarlyAccess.isActive && enabled.value {
+        FeatureBetaNotice(onChannelTapped: onChannelTapped)
+      }
+
       ReportSiteRow(domain: reportDomain, feature: "sawtunaa")
     }
     .padding(.top, 16)
     .padding(.bottom, 16)
     .frame(maxWidth: 360)
     .background(Color(.braveBackground))
+    .onChange(of: enabled.value) { onLayoutChange() }
     .alert(Strings.Browther.sawtunaaLimitationsTitle, isPresented: $showLimitations) {
       Button("OK", role: .cancel) {}
     } message: {
@@ -166,11 +276,28 @@ struct SawtunaaPanelView: View {
 class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
   PopoverContentComponent
 {
+  /// Clic sur un canal de l'encadré d'accès anticipé — le BVC ferme le popover
+  /// et ouvre le canal dans un nouvel onglet.
+  var onChannelTapped: ((URL) -> Void)?
+
   init(reportDomain: String?) {
     super.init(rootView: SawtunaaPanelView(reportDomain: reportDomain))
-    // +36 pt : la ligne « ça ne marche pas ici ? » n'apparaît que sur une page
-    // avec un domaine, mais réserver la hauteur évite un popover qui saute.
-    preferredContentSize = CGSize(width: 360, height: reportDomain == nil ? 260 : 296)
+    rootView.onChannelTapped = { [weak self] url in self?.onChannelTapped?(url) }
+    // Hauteur CALCULÉE, plus codée en dur (260/296 avant l'accès anticipé) :
+    // l'encadré « encore en développement » apparaît avec le toggle, et une
+    // hauteur fixe le tronquait — ou laissait un trou quand la feature est OFF.
+    // Le PopoverController suit `preferredContentSize` (preferredContentSizeDidChange).
+    rootView.onLayoutChange = { [weak self] in
+      // Tour de boucle suivant : la vue SwiftUI doit d'abord intégrer la
+      // nouvelle valeur de la préférence avant qu'on la mesure.
+      DispatchQueue.main.async { self?.updatePreferredContentSize() }
+    }
+    updatePreferredContentSize()
+  }
+
+  private func updatePreferredContentSize() {
+    let fitting = sizeThatFits(in: CGSize(width: 360, height: CGFloat.greatestFiniteMagnitude))
+    preferredContentSize = CGSize(width: 360, height: ceil(fitting.height))
   }
 
   @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -296,6 +423,8 @@ class ShieldsInternalPanelViewController: UIHostingController<ShieldsInternalPan
 struct BasarunaaPanelView: View {
   /// Domaine de l'onglet actif (nil sur une page interne) — cf. ReportSiteRow.
   let reportDomain: String?
+  /// Clic sur un canal de l'encadré d'accès anticipé (branché par le BVC).
+  var onChannelTapped: (URL) -> Void = { _ in }
 
   @ObservedObject private var enabled = Preferences.Basarunaa.enabled
   @ObservedObject private var mode = Preferences.Basarunaa.mode
@@ -316,16 +445,19 @@ struct BasarunaaPanelView: View {
       VStack(spacing: 16) {
         header
 
-        ShieldsSwitchView(isEnabled: Binding(
-          get: { enabled.value },
-          set: { newValue in
-            enabled.value = newValue
-            BrowtherAnalyticsService.shared.track(
-              event: "feature_toggled",
-              properties: ["feature": "basarunaa", "enabled": newValue]
-            )
-          }
-        ))
+        ShieldsSwitchView(
+          isEnabled: Binding(
+            get: { enabled.value },
+            set: { newValue in
+              enabled.value = newValue
+              BrowtherAnalyticsService.shared.track(
+                event: "feature_toggled",
+                properties: ["feature": "basarunaa", "enabled": newValue]
+              )
+            }
+          ),
+          amber: BrowtherEarlyAccess.isActive
+        )
         .frame(
           width: ShieldsSwitch.size.width,
           height: ShieldsSwitch.size.height
@@ -335,6 +467,12 @@ struct BasarunaaPanelView: View {
           .bold()
         .font(.footnote)
         .foregroundStyle(Color(.braveLabel))
+
+        // Le panel défile (ScrollView, hauteur fixe) : l'encadré n'a pas besoin
+        // qu'on recalcule la taille du popover, contrairement à Sawtunaa.
+        if BrowtherEarlyAccess.isActive && enabled.value {
+          FeatureBetaNotice(onChannelTapped: onChannelTapped)
+        }
 
         // MARK: Mode
         section(title: Strings.Browther.basarunaaModeLabel) {
@@ -640,8 +778,13 @@ struct BasarunaaPanelView: View {
 class BasarunaaPanelViewController: UIHostingController<BasarunaaPanelView>,
   PopoverContentComponent
 {
+  /// Clic sur un canal de l'encadré d'accès anticipé — le BVC ferme le popover
+  /// et ouvre le canal dans un nouvel onglet.
+  var onChannelTapped: ((URL) -> Void)?
+
   init(reportDomain: String?) {
     super.init(rootView: BasarunaaPanelView(reportDomain: reportDomain))
+    rootView.onChannelTapped = { [weak self] url in self?.onChannelTapped?(url) }
     preferredContentSize = CGSize(width: 360, height: 640)
   }
 

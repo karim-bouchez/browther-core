@@ -386,8 +386,20 @@ class TopToolbarView: UIView, ToolbarProtocol {
   }
 
   fileprivate func updateBrowtherFeatureButtons() {
-    sawtunaaBadge?.backgroundColor = badgeColor(enabled: Preferences.Sawtunaa.enabled.value)
-    basarunaaBadge?.backgroundColor = badgeColor(enabled: Preferences.Basarunaa.enabled.value)
+    sawtunaaBadge?.backgroundColor =
+      featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
+    basarunaaBadge?.backgroundColor =
+      featureBadgeColor(enabled: Preferences.Basarunaa.enabled.value)
+  }
+
+  /// Badge Sawtunaa/Basarunaa. Pendant l'accès anticipé, ON = AMBRE et non vert :
+  /// la feature est allumée mais pas finie (parité desktop `kBrowtherEarlyAccess`
+  /// et Android). Le badge du bouclier garde `badgeColor` — lui est fini.
+  private func featureBadgeColor(enabled: Bool) -> UIColor {
+    guard enabled else { return .systemRed }
+    return BrowtherEarlyAccess.isActive
+      ? UIColor(red: 0xF5 / 255, green: 0x9E / 255, blue: 0x0B / 255, alpha: 1)
+      : .systemGreen
   }
 
   private func badgeColor(enabled: Bool) -> UIColor {

@@ -89,6 +89,7 @@ import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettin
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.basarunaa.BasarunaaPanelBottomSheet;
+import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
 import org.chromium.chrome.browser.shields_panel.ShieldsPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
@@ -1347,13 +1348,23 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         }
     }
 
+    /**
+     * Badge Sawtunaa/Basarunaa. Pendant l'accès anticipé, ON = AMBRE et non vert :
+     * la feature est allumée mais pas finie (parité desktop kBrowtherEarlyAccess).
+     */
+    private static int featureBadge(boolean enabled) {
+        if (!enabled) return R.drawable.sawtunaa_badge_red;
+        return BrowtherEarlyAccess.ENABLED
+                ? R.drawable.sawtunaa_badge_amber
+                : R.drawable.sawtunaa_badge_green;
+    }
+
     private void updateSawtunaaBadge() {
         if (mSawtunaaBadge == null) return;
         Profile profile = ProfileManager.getLastUsedRegularProfile();
         if (profile == null) return;
         boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
-        mSawtunaaBadge.setBackgroundResource(
-                enabled ? R.drawable.sawtunaa_badge_green : R.drawable.sawtunaa_badge_red);
+        mSawtunaaBadge.setBackgroundResource(featureBadge(enabled));
     }
 
     private void registerSawtunaaPrefObserver() {
@@ -1390,8 +1401,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         Profile profile = ProfileManager.getLastUsedRegularProfile();
         if (profile == null) return;
         boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.BASARUNAA_ENABLED);
-        mBasarunaaBadge.setBackgroundResource(
-                enabled ? R.drawable.sawtunaa_badge_green : R.drawable.sawtunaa_badge_red);
+        mBasarunaaBadge.setBackgroundResource(featureBadge(enabled));
     }
 
     private void registerBasarunaaPrefObserver() {

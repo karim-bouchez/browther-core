@@ -49,3 +49,6 @@
 "shieldsInternalStatusOff" = "Annonsblockering AV";
 "shieldsInternalDescription" = "Browther-sköldar blockerar annonser, spårare, fingeravtryck och oönskade skript på alla webbplatser du besöker.";
 "shieldsInternalPerSiteInfo" = "Sköldar hanteras per webbplats. Öppna webbplatsen du vill undanta och tryck på sköldknappen i adressfältet.";
+"featureBetaTitle" = "Den här funktionen är fortfarande under utveckling";
+"featureBetaText" = "Den kanske inte fungerar bra än.";
+"featureBetaFollow" = "Vi berättar här så snart den är klar, إن شاء الله:";
