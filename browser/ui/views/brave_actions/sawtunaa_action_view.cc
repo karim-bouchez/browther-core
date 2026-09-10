@@ -50,6 +50,18 @@ constexpr SkColor kBadgeRed = SkColorSetRGB(0xEF, 0x44, 0x44);
 // « vert = actif » sur une page où il ne se passe rien.
 // Cf. private/docs/WIDEVINE_VMP.md § 10.
 constexpr SkColor kBadgeAmber = SkColorSetRGB(0xF5, 0x9E, 0x0B);
+
+// Browther — ACCÈS ANTICIPÉ (2026-09-09). Tant que la feature n'est pas finie,
+// « ON » ne veut pas dire « ça marche » : le vert dirait « tout va bien » alors
+// que le résultat est irrégulier. Le badge est donc AMBRE dès que la feature
+// est allumée, comme le gros toggle du panel et l'encadré « encore en
+// développement » — les trois surfaces disent alors la même chose.
+// Conséquence assumée : le contenu protégé (DRM) n'a plus de badge distinct.
+// Il garde son encadré dans le panel et son infobar sur la page, qui eux disent
+// PRÉCISÉMENT quoi ; le badge n'en était qu'un rappel.
+// ⚠️ À REMETTRE À `false` quand on sort de l'accès anticipé (en même temps que
+//    l'encadré du panel) : le vert revient et le DRM récupère son signal.
+constexpr bool kBrowtherEarlyAccess = true;
 }  // namespace
 
 SawtunaaActionView::SawtunaaActionView(
@@ -160,8 +172,12 @@ void SawtunaaActionView::UpdateIconState() {
       active && profile_prefs_->GetBoolean(kSawtunaaNativeTapActive) &&
       BrowtherProtectedContentTabHelper::StateFor(web_contents) !=
           BrowtherProtectedContentTabHelper::ProtectedState::kUnknown;
-  image_source->SetDotColor(protected_here ? kBadgeAmber
-                                           : (active ? kBadgeGreen : kBadgeRed));
+  // `protected_here` reste calculé : il redevient la SEULE condition de l'ambre
+  // dès que kBrowtherEarlyAccess repasse à false, et le garder évite que
+  // l'observateur de la tab strip devienne du code mort entre-temps.
+  const bool amber = kBrowtherEarlyAccess ? active : protected_here;
+  image_source->SetDotColor(amber ? kBadgeAmber
+                                  : (active ? kBadgeGreen : kBadgeRed));
 
   const gfx::ImageSkia icon(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,

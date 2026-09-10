@@ -96,6 +96,12 @@
        Jumeau de sawtunaa_panel.html, à garder synchronisé. ON + sans effet
        ici = le vert MENT ; l'ambre aligne le toggle sur le badge toolbar et
        sur l'encadré juste en dessous. */
+    /* `.early` = ACCÈS ANTICIPÉ : la feature est ON mais pas finie. Même
+       ambre que `.protected` à dessein — dans les deux cas le message est
+       « allumé, mais n'y compte pas ». Le vert ne s'affiche donc plus tant
+       qu'on est en accès anticipé ; il revient avec le retrait de l'encadré
+       « encore en développement » et de kBrowtherEarlyAccess (badge toolbar). */
+    .big-toggle.early.on,
     .big-toggle.protected.on {
       background: radial-gradient(circle at bottom right,
                                   var(--grad-inner), var(--grad-outer));
@@ -110,6 +116,7 @@
       83.3%{ --grad-inner: #FB923C; --grad-outer: #FCD34D; }
       100% { --grad-inner: #FCD34D; --grad-outer: #FBBF24; }
     }
+    .big-toggle.early:focus-visible,
     .big-toggle.protected:focus-visible {
       box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.4);
     }
@@ -355,6 +362,67 @@
       box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     .small-toggle:checked::before { transform: translateX(16px); }
+
+    /* ── Encadré « fonctionnalité en cours de développement » ─────────────
+       Visible UNIQUEMENT quand la feature est ON. Tant qu'elle est OFF il n'y
+       a rien à tempérer ; et c'est au moment où l'utilisateur choisit
+       d'essayer qu'il doit apprendre ce qu'il essaie — pas plus tard, en
+       concluant d'un résultat irrégulier que le produit est mauvais.
+       Volontairement NON refermable : ces deux features partent OFF, celui qui
+       les garde allumées doit continuer de voir qu'elles ne sont pas finies.
+       ⚠️ Distinct de `.amber-box`, qui veut dire « ON mais SANS EFFET ICI ».
+       D'où le fond neutre : seul le bécher porte l'ambre, comme le bandeau
+       d'accès anticipé du Nouvel Onglet — l'utilisateur doit reconnaître le
+       même message, pas en découvrir un deuxième. Feuille COMMUNE aux deux
+       panels : toute retouche ici se répercute dans l'autre. */
+    .beta-box {
+      margin-top: 14px;
+      padding: 10px 12px;
+      display: flex; align-items: flex-start; gap: 10px;
+      border: 1px solid rgba(251, 191, 36, 0.32);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      text-align: left;
+    }
+    .beta-box[hidden] { display: none; }
+    .beta-icon {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      margin-top: 1px;
+      fill: #FBBF24;
+    }
+    .beta-title { font-size: 12px; font-weight: 600; line-height: 1.3; }
+    .beta-text {
+      font-size: 11.5px; opacity: 0.7;
+      line-height: 1.35; margin-top: 3px;
+    }
+    /* Canaux de DIFFUSION, pas de support : on s'y abonne pour être prévenu
+       des sorties, on n'y écrit pas. D'où « Chaîne WhatsApp » / « Canal
+       Telegram » plutôt que le seul nom de l'app, qui laissait croire à une
+       messagerie (même arbitrage que le bandeau NTP). */
+    .beta-channels {
+      margin-top: 7px;
+      display: flex; flex-wrap: wrap;
+      align-items: center; gap: 3px 10px;
+      font-size: 11.5px;
+    }
+    .beta-channels-label { opacity: 0.7; }
+    /* De vrais <button> et pas des <a href> : l'ouverture passe par le browser
+       (mojom OpenFollowChannel) car la WebContents de la bulle n'a pas de
+       délégué capable d'ouvrir un onglet — un lien ordinaire y est mort. Ils
+       gardent l'apparence d'un lien, c'est bien ce qu'ils font. */
+    .beta-link {
+      border: none; background: none; padding: 0;
+      font-family: inherit; font-size: 11.5px; font-weight: 600;
+      color: #FBBF24;
+      cursor: pointer;
+    }
+    .beta-link:hover { text-decoration: underline; }
+    .beta-link:focus-visible {
+      outline: 2px solid rgba(251, 191, 36, 0.6);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
@@ -385,6 +453,25 @@
       </svg>
       <span>$i18n{protectedHint}</span>
     </span>
+  </div>
+
+  <!-- « Encore en développement » : n'apparaît que quand la feature est ON
+       (cf. setUIBetaNotice). Bécher = le vocabulaire visuel de Chromium pour
+       « expérimentation en cours », pas « attention, erreur » — et le même
+       que le bandeau d'accès anticipé du Nouvel Onglet. -->
+  <div class="beta-box" id="beta-notice" hidden>
+    <svg class="beta-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.02-.81-.39-.81H9.04c-.41 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.49.66-.02 1.6.8 1.6h14c.82 0 1.29-.94.8-1.6z"></path>
+    </svg>
+    <div>
+      <div class="beta-title">$i18n{betaTitle}</div>
+      <div class="beta-text">$i18n{betaText}</div>
+      <div class="beta-channels">
+        <span class="beta-channels-label">$i18n{betaFollow}</span>
+        <button type="button" class="beta-link" id="beta-whatsapp">$i18n{betaWhatsApp}</button>
+        <button type="button" class="beta-link" id="beta-telegram">$i18n{betaTelegram}</button>
+      </div>
+    </div>
   </div>
 
   <div class="section" id="mode-section">

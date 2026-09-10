@@ -100,6 +100,22 @@ interface PanelHandler {
   SetCaptureMode(bool enabled);
   SetBlurEnabled(bool enabled);
   SetCollectEnabled(bool enabled);
+
+  // Browther : ouvre l'une des deux chaînes de diffusion dev&din depuis
+  // l'encadré « fonctionnalité en cours de développement », puis ferme la
+  // bulle. Un enum, PAS une URL : ce panel est un WebUI *untrusted*, lui
+  // laisser passer une adresse arbitraire ferait ouvrir n'importe quoi par le
+  // browser. Même raison qu'OpenSawtunaaAppPage côté Sawtunaa — et un simple
+  // <a href> ne marche pas : la WebContents de la bulle n'a pas de délégué qui
+  // sache ouvrir un onglet.
+  OpenFollowChannel(FollowChannel channel);
+};
+
+// Browther : les deux canaux de diffusion dev&din (sens unique, on s'y abonne
+// pour être prévenu des sorties). Jumeau de sawtunaa.mojom FollowChannel.
+enum FollowChannel {
+  kWhatsApp,
+  kTelegram,
 };
 
 // Phase 3.1.5 — Étape 2 mini-spike (2026-05-10). On recrée l'interface

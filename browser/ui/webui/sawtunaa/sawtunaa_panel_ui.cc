@@ -67,6 +67,16 @@ SawtunaaPanelUI::SawtunaaPanelUI(content::WebUI* web_ui)
       {"reportSiteAnalyticsOff", IDS_BROWTHER_REPORT_SITE_ANALYTICS_OFF},
       {"protectedHintBlocked", IDS_SAWTUNAA_POPUP_PROTECTED_HINT_BLOCKED},
       {"installSawtunaa", IDS_BROWTHER_PROTECTED_CONTENT_GET_SAWTUNAA},
+      // Browther : encadré « fonctionnalité en cours de développement »,
+      // affiché quand la feature est ON. Communes aux deux panels, et les
+      // trois dernières partagent MOT POUR MOT le texte source du bandeau
+      // d'accès anticipé du Nouvel Onglet ⇒ mêmes id grit, donc les mêmes 66
+      // traductions (cf. brave_generated_resources.grd).
+      {"betaTitle", IDS_BROWTHER_FEATURE_BETA_TITLE},
+      {"betaText", IDS_BROWTHER_FEATURE_BETA_TEXT},
+      {"betaFollow", IDS_BROWTHER_FEATURE_BETA_FOLLOW},
+      {"betaWhatsApp", IDS_BROWTHER_FEATURE_BETA_WHATSAPP},
+      {"betaTelegram", IDS_BROWTHER_FEATURE_BETA_TELEGRAM},
   };
   for (const auto& s : kLocalizedStrings) {
     source->AddLocalizedString(s.name, s.id);

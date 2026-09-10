@@ -438,7 +438,16 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kSawtunaaEnabled, false);  // Browther: Sawtunaa
   // Browther: Sawtunaa audio tap V2 (mise à jour au boot par la factory).
   registry->RegisterBooleanPref(kSawtunaaNativeTapActive, false);
-  registry->RegisterBooleanPref(kBasarunaaEnabled, true);  // Browther: Basarunaa (default ON, blur women)
+  // Browther : Basarunaa et Sawtunaa partent OFF (accès anticipé, 2026-09-09).
+  // Elles marchent, mais pas partout et pas encore assez bien pour être le
+  // comportement par défaut d'un navigateur qu'on distribue largement : une
+  // feature ML qu'on n'a pas demandée et qui se trompe se lit comme un bug du
+  // navigateur, pas comme une option perfectible. On les propose donc, on ne
+  // les impose pas — et le panel affiche un encadré « encore en
+  // développement » tant que l'utilisateur les laisse allumées.
+  // ⚠️ Les profils existants qui n'ont jamais touché le toggle basculent à OFF
+  //    avec ce changement (une pref jamais écrite lit le défaut).
+  registry->RegisterBooleanPref(kBasarunaaEnabled, false);
   registry->RegisterStringPref(kBasarunaaMode, "blur-female");  // Browther: Basarunaa mode
   registry->RegisterBooleanPref(kBasarunaaCensorEyes, false);  // Browther: censure des yeux (opt-in)
   registry->RegisterBooleanPref(kBasarunaaNsfwEnabled, false);  // Browther: détection NSFW (opt-in, off = meilleure latence)

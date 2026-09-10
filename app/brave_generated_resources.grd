@@ -1513,6 +1513,38 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_BROWTHER_REPORT_SITE_ANALYTICS_OFF" desc="Shown instead of the report button when the user turned usage statistics off, which means a report could not be sent. Must not pretend the report would work.">
         Reporting needs usage statistics, which are turned off.
       </message>
+      <!-- Browther : encadré « fonctionnalité en cours de développement »,
+           affiché dans les panels Basarunaa ET Sawtunaa quand la feature est
+           ACTIVÉE. Les deux features partent OFF au premier lancement : celui
+           qui les allume choisit d'essayer quelque chose d'inachevé, il doit
+           l'apprendre là, au moment du geste — pas en découvrant un résultat
+           irrégulier et en concluant que le produit est mauvais.
+           ⚠️ Les DEUX libellés de canaux sont MOT POUR MOT ceux du bandeau
+           d'accès anticipé du Nouvel Onglet (IDS_NEW_TAB_BROWTHER_BETA_WHATSAPP
+           / _TELEGRAM) et de l'étape d'onboarding « suivre les canaux ». L'id
+           de traduction grit est le hash du texte source : à texte égal, les 66
+           traductions existantes se recopient d'un pool .xtb à l'autre sans en
+           réécrire une. Les retoucher ici sans toucher aux deux autres endroits
+           orpheline les traductions des DEUX côtés.
+           En revanche _FOLLOW diverge volontairement du NTP : ici on ne dit pas
+           « suis-nous » mais « on t'annoncera que c'est prêt », ce qui répond à
+           la question que le titre soulève. Il a donc son propre jeu de 66
+           traductions. -->
+      <message name="IDS_BROWTHER_FEATURE_BETA_TITLE" desc="Title of the notice shown inside the Basarunaa and Sawtunaa panels while the feature is turned on, warning that the feature is not finished yet.">
+        This feature is still in development
+      </message>
+      <message name="IDS_BROWTHER_FEATURE_BETA_TEXT" desc="Body of the notice shown inside the Basarunaa and Sawtunaa panels while the feature is turned on. Reads as the second half of the title sentence. States plainly that the feature may not work well, so that a poor result reads as an unfinished feature rather than a broken browser.">
+        It may not work well yet.
+      </message>
+      <message name="IDS_BROWTHER_FEATURE_BETA_FOLLOW" desc="Label introducing the two broadcast channel links (WhatsApp, Telegram) in the &quot;still in development&quot; notice of the Basarunaa and Sawtunaa panels. Answers the question the notice raises — when will it work? — by promising an announcement on the two channels. &quot;here&quot; means the two links that follow. The Arabic phrase means 'God willing' and is used as-is by Muslim speakers of every language, including in English and French text — do not translate or transliterate it.">
+        We will announce it here as soon as it is ready, إن شاء الله:
+      </message>
+      <message name="IDS_BROWTHER_FEATURE_BETA_WHATSAPP" desc="Browther: name of the dev&amp;din WhatsApp broadcast channel">
+        WhatsApp channel
+      </message>
+      <message name="IDS_BROWTHER_FEATURE_BETA_TELEGRAM" desc="Browther: name of the dev&amp;din Telegram broadcast channel">
+        Telegram channel
+      </message>
       <message name="IDS_SAWTUNAA_TOGGLE_TOOLTIP_ON" desc="Tooltip on Sawtunaa toolbar action when enabled">
         Sawtunaa — ON
       </message>

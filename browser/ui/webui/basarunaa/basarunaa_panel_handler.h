@@ -65,6 +65,7 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void SetCaptureMode(bool enabled) override;
   void SetBlurEnabled(bool enabled) override;
   void SetCollectEnabled(bool enabled) override;
+  void OpenFollowChannel(basarunaa::mojom::FollowChannel channel) override;
 
  private:
   // Fenêtre qui héberge la bulle, ou nullptr. À rappeler à chaque usage.

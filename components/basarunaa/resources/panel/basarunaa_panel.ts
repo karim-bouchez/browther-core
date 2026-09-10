@@ -5,7 +5,7 @@
 
 import { loadTimeData } from '../../../common/loadTimeData'
 
-import getPanelBrowserAPI from './api/panel_browser_api'
+import getPanelBrowserAPI, { FollowChannel } from './api/panel_browser_api'
 
 function api() {
   return getPanelBrowserAPI().panelHandler
@@ -73,6 +73,7 @@ async function refreshState() {
       api().getProtectedContent(),
     ])
     setUIEnabled(enabled)
+    setUIEarlyAccess(enabled)
     setUIProtectedHint(protectedContent.visible)
     refreshReportSite()
     setUIMode(mode)
@@ -123,6 +124,21 @@ function setUIEnabled(enabled: boolean) {
     status.textContent = loadTimeData.getString(enabled ? 'statusOn' : 'statusOff')
   }
   document.body.dataset.disabled = enabled ? 'false' : 'true'
+}
+
+// ACCÈS ANTICIPÉ — deux surfaces, une seule vérité : l'encadré « encore en
+// développement » ET la couleur du gros toggle. Visibles tant que la feature
+// est ON, et seulement là. Basarunaa part OFF au premier lancement : celui qui
+// l'allume choisit d'essayer quelque chose d'inachevé, il doit l'apprendre au
+// moment du geste. L'ambre plutôt que le vert parce qu'ici « ON » ne veut pas
+// dire « ça marche » — même raison que le badge de la toolbar
+// (kBrowtherEarlyAccess dans basarunaa_action_view.cc). Volontairement non
+// refermable et sans mémoire : ce n'est pas une notification qu'on acquitte,
+// c'est l'état de la feature.
+function setUIEarlyAccess(enabled: boolean) {
+  const box = document.getElementById('beta-notice')
+  if (box) box.hidden = !enabled
+  document.getElementById('enabled-toggle')?.classList.toggle('early', enabled)
 }
 
 // Encadré « contenu protégé (DRM) » : explique le badge ambre de la toolbar.
@@ -218,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggle?.addEventListener('click', () => {
     const enabled = !toggle.classList.contains('on')
     setUIEnabled(enabled)
+    setUIEarlyAccess(enabled)
     try {
       api().setEnabled(enabled)
       // L'encadré « contenu protégé » est gaté sur la pref : on le relit après
@@ -228,6 +245,20 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('[basarunaa-panel] setEnabled failed', err)
     }
   })
+
+  // Canaux de diffusion : l'ouverture passe par le browser — la WebContents de
+  // la bulle n'a pas de délégué capable d'ouvrir un onglet.
+  const openChannel = (channel: FollowChannel) => {
+    try {
+      api().openFollowChannel(channel)
+    } catch (err) {
+      console.error('[basarunaa-panel] openFollowChannel failed', err)
+    }
+  }
+  document.getElementById('beta-whatsapp')?.addEventListener(
+    'click', () => openChannel(FollowChannel.kWhatsApp))
+  document.getElementById('beta-telegram')?.addEventListener(
+    'click', () => openChannel(FollowChannel.kTelegram))
 
   const reportBtn = document.getElementById('report-site-btn') as HTMLButtonElement | null
   reportBtn?.addEventListener('click', async () => {

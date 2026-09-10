@@ -80,4 +80,19 @@ interface PanelHandler {
   // false si rien n'est parti (pas de domaine, consentement coupé) : l'UI ne
   // doit alors pas confirmer.
   ReportSite() => (bool sent);
+
+  // Browther : ouvre l'une des deux chaînes de diffusion dev&din depuis
+  // l'encadré « fonctionnalité en cours de développement », puis ferme la
+  // bulle. Un enum, PAS une URL : ce panel est un WebUI *untrusted*, lui
+  // laisser passer une adresse arbitraire ferait ouvrir n'importe quoi par le
+  // browser. Et un simple <a href> ne marche pas : la WebContents de la bulle
+  // n'a pas de délégué qui sache ouvrir un onglet.
+  OpenFollowChannel(FollowChannel channel);
+};
+
+// Browther : les deux canaux de diffusion dev&din (sens unique, on s'y abonne
+// pour être prévenu des sorties). Jumeau de basarunaa.mojom FollowChannel.
+enum FollowChannel {
+  kWhatsApp,
+  kTelegram,
 };

@@ -5,7 +5,7 @@
 
 import { loadTimeData } from '../../../common/loadTimeData'
 
-import getPanelBrowserAPI, { ProtectedContentState } from './api/panel_browser_api'
+import getPanelBrowserAPI, { FollowChannel, ProtectedContentState } from './api/panel_browser_api'
 
 function api() {
   return getPanelBrowserAPI().panelHandler
@@ -29,6 +29,7 @@ async function refreshState() {
   try {
     const state = await api().getState()
     setUIEnabled(state.enabled)
+    setUIEarlyAccess(state.enabled)
     setUIReloadHint(state.showReloadHint)
     setUIProtectedHint(state.protectedState)
     setUIReportSite(state.canReportSite, state.reportDomain, state.analyticsOff)
@@ -82,6 +83,21 @@ function setUIEnabled(enabled: boolean) {
   }
 }
 
+// ACCÈS ANTICIPÉ — deux surfaces, une seule vérité : l'encadré « encore en
+// développement » ET la couleur du gros toggle. Visibles tant que la feature
+// est ON, et seulement là. Sawtunaa part OFF au premier lancement : celui qui
+// l'allume choisit d'essayer quelque chose d'inachevé, il doit l'apprendre au
+// moment du geste. L'ambre plutôt que le vert parce qu'ici « ON » ne veut pas
+// dire « ça marche » — même raison que le badge de la toolbar
+// (kBrowtherEarlyAccess dans sawtunaa_action_view.cc). Volontairement non
+// refermable et sans mémoire : ce n'est pas une notification qu'on acquitte,
+// c'est l'état de la feature.
+function setUIEarlyAccess(enabled: boolean) {
+  const box = document.getElementById('beta-notice')
+  if (box) box.hidden = !enabled
+  document.getElementById('enabled-toggle')?.classList.toggle('early', enabled)
+}
+
 // Sawtunaa V2 : le tap audio natif décide PAR PLAYER, à la création du
 // WebMediaPlayer. Activer Sawtunaa pendant qu'un média joue ne change donc rien
 // pour ce média-là tant que l'onglet n'est pas rechargé (OFF, lui, est
@@ -128,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggle?.addEventListener('click', () => {
     const enabled = !toggle.classList.contains('on')
     setUIEnabled(enabled)
+    setUIEarlyAccess(enabled)
     try {
       api().setEnabled(enabled)
     } catch (err) {
@@ -166,6 +183,20 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('[sawtunaa-panel] reloadActiveTab failed', err)
     }
   })
+
+  // Canaux de diffusion : l'ouverture passe par le browser — la WebContents de
+  // la bulle n'a pas de délégué capable d'ouvrir un onglet.
+  const openChannel = (channel: FollowChannel) => {
+    try {
+      api().openFollowChannel(channel)
+    } catch (err) {
+      console.error('[sawtunaa-panel] openFollowChannel failed', err)
+    }
+  }
+  document.getElementById('beta-whatsapp')?.addEventListener(
+    'click', () => openChannel(FollowChannel.kWhatsApp))
+  document.getElementById('beta-telegram')?.addEventListener(
+    'click', () => openChannel(FollowChannel.kTelegram))
 
   document.getElementById('protected-action')?.addEventListener('click', () => {
     try {

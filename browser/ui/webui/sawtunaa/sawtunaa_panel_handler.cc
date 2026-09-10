@@ -31,6 +31,14 @@
 namespace {
 // La seule voie qui reste pour du DRM : l'app autonome + son extension.
 constexpr char kSawtunaaAppURL[] = "https://sawtunaa.devndin.com";
+// Browther : chaînes de DIFFUSION dev&din (sens unique). Recopiées
+// volontairement plutôt que centralisées — elles vivent déjà à l'identique dans
+// le bandeau NTP, l'onboarding desktop, Android et iOS, et un header partagé
+// traverserait quatre plateformes pour deux constantes. Si elles changent,
+// `grep 0029Vb8ydkv5vKABH78PVX32`.
+constexpr char kWhatsAppChannelURL[] =
+    "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32";
+constexpr char kTelegramChannelURL[] = "https://t.me/devndin_nouveautes";
 }  // namespace
 
 SawtunaaPanelHandler::SawtunaaPanelHandler(
@@ -171,5 +179,26 @@ void SawtunaaPanelHandler::OpenSawtunaaAppPage() {
   if (browser) {
     ShowSingletonTab(browser, GURL(kSawtunaaAppURL));
   }
+  CloseUI();
+}
+
+// Browther : « fonctionnalité en cours de développement » → suivre les canaux.
+// Passe par le browser (et non par un <a href>) : la WebContents de la bulle
+// n'a pas de délégué capable d'ouvrir un onglet, un lien ordinaire y est mort.
+void SawtunaaPanelHandler::OpenFollowChannel(
+    sawtunaa::mojom::FollowChannel channel) {
+  auto* browser_window_interface = GetBrowserWindowInterface();
+  Browser* browser = browser_window_interface
+                         ? browser_window_interface->GetBrowserForMigrationOnly()
+                         : nullptr;
+  if (browser) {
+    ShowSingletonTab(
+        browser,
+        GURL(channel == sawtunaa::mojom::FollowChannel::kWhatsApp
+                 ? kWhatsAppChannelURL
+                 : kTelegramChannelURL));
+  }
+  // Fermée même si on n'a pas pu ouvrir : laisser la bulle ouverte donnerait
+  // l'impression que le clic n'a pas été pris.
   CloseUI();
 }
