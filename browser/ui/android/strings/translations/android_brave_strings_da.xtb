@@ -1181,4 +1181,20 @@ Hvis du ikke godkender denne anmodning, vil VPN-forbindelsen ikke blive genopret
 <translation id="7700159354893692113">Denne funktion er stadig under udvikling</translation>
 <translation id="8511680009616304290">Den virker måske ikke godt endnu.</translation>
 <translation id="5778063732609426803">Vi giver besked her, så snart den er klar, إن شاء الله:</translation>
+<translation id="1682877223721186002">Annonceblokering er SLÅET TIL</translation>
+<translation id="1360256168997763737">Annonceblokering er SLÅET FRA</translation>
+<translation id="7313166746523328213">Browther Shields blokerer reklamer, sporing, fingeraftryk og uønskede scripts på alle websteder, du besøger.</translation>
+<translation id="5288293905681750318">Trackere &amp; reklamer blokeret</translation>
+<translation id="4824468494729001999">Bloker scripts</translation>
+<translation id="6531019308847917584">Blokér fingeraftryk</translation>
+<translation id="9204041448536398473">Globale skjoldindstillinger</translation>
+<translation id="9039394691294271141">Du ser dette site uden Braves privatlivsbeskyttelse.</translation>
+<translation id="7281166215790160128">Tilstand</translation>
+<translation id="6672367039750637973">Forsigtighedsniveau: <ph name="VALUE"/> / 100</translation>
+<translation id="3225054631640999665">NudeNet: <ph name="VALUE"/> / 100</translation>
+<translation id="5395362999816537204">Shields administreres pr. websted. Åbn det websted, du vil udelade, og tryk på skjoldknappen i adresselinjen.</translation>
+<translation id="2120379390349726080">(læs mere)</translation>
+<translation id="9163277375449415048">Hvorfor kun YouTube?</translation>
+<translation id="5549680965977750454">Sawtunaa, fjernelse af musik og baggrundsstøj</translation>
+<translation id="1804032981782823157">Basarunaa, slørring af personer efter køn</translation>
 </translationbundle>

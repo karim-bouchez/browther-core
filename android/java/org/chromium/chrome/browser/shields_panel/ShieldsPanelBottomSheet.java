@@ -6,11 +6,8 @@
 package org.chromium.chrome.browser.shields_panel;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -289,21 +286,13 @@ public class ShieldsPanelBottomSheet extends BottomSheetDialogFragment {
 
     private void updateStatusText(boolean enabled) {
         if (mStatusText == null) return;
-        Context context = mStatusText.getContext();
-        String prefix = context.getString(R.string.shields_panel_status_prefix);
-        String suffix =
-                enabled
-                        ? context.getString(R.string.shields_panel_status_on)
-                        : context.getString(R.string.shields_panel_status_off);
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(prefix).append(' ').append(suffix);
-        int boldStart = prefix.length() + 1;
-        sb.setSpan(
-                new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                boldStart,
-                sb.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mStatusText.setText(sb);
+        // Une string COMPLÈTE par état, jamais préfixe + suffixe : l'ordre des
+        // mots change d'une langue à l'autre. Texte identique au desktop
+        // (IDS_BROWTHER_SHIELDS_INTERNAL_STATUS_*), donc ses 66 traductions
+        // s'appliquent (cf. private/assets/gen-android-browther-xtb.py).
+        mStatusText.setText(
+                enabled ? R.string.shields_panel_status_on : R.string.shields_panel_status_off);
+        mStatusText.setTypeface(mStatusText.getTypeface(), android.graphics.Typeface.BOLD);
     }
 
     private void updateBlockedCount() {

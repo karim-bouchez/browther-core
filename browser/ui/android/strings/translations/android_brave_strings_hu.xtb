@@ -1177,4 +1177,20 @@ other {<ph name="CITY_COUNT_MANY"/> város - }
 <translation id="7700159354893692113">Ez a funkció még fejlesztés alatt áll</translation>
 <translation id="8511680009616304290">Lehet, hogy még nem működik jól.</translation>
 <translation id="5778063732609426803">Itt jelezzük, amint elkészül, إن شاء الله:</translation>
+<translation id="1682877223721186002">Hirdetésblokkolás BEKAPCSOLVA</translation>
+<translation id="1360256168997763737">Hirdetésblokkolás KIKAPCSOLVA</translation>
+<translation id="7313166746523328213">A Browther pajzsok blokkolják a hirdetéseket, a nyomkövetőket, az ujjlenyomat-készítést és a nem kívánt szkripteket minden meglátogatott webhelyen.</translation>
+<translation id="5288293905681750318">Blokkolt követések és reklámok</translation>
+<translation id="4824468494729001999">Parancsfájlok letiltása</translation>
+<translation id="6531019308847917584">Ujjlenyomat-leolvasás letiltása</translation>
+<translation id="9204041448536398473">Globális pajzs beállításai</translation>
+<translation id="9039394691294271141">Ezt a webhelyet a Browther adatvédelme nélkül tekinti meg.</translation>
+<translation id="7281166215790160128">Mód</translation>
+<translation id="6672367039750637973">Óvatossági szint: <ph name="VALUE"/> / 100</translation>
+<translation id="3225054631640999665">NudeNet: <ph name="VALUE"/> / 100</translation>
+<translation id="5395362999816537204">A pajzsok webhelyenként kezelhetők. Nyissa meg a kizárni kívánt webhelyet, és koppintson a címsorban lévő pajzs gombra.</translation>
+<translation id="2120379390349726080">(további információ)</translation>
+<translation id="9163277375449415048">Miért csak a YouTube?</translation>
+<translation id="5549680965977750454">Sawtunaa, zene és háttérzaj eltávolítása</translation>
+<translation id="1804032981782823157">Basarunaa, személyek elmosása nem szerint</translation>
 </translationbundle>

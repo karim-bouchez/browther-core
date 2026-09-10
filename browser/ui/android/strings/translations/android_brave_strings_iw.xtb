@@ -1181,4 +1181,20 @@
 <translation id="7700159354893692113">התכונה הזו עדיין בפיתוח</translation>
 <translation id="8511680009616304290">ייתכן שהיא עדיין לא עובדת טוב.</translation>
 <translation id="5778063732609426803">נודיע על כך כאן ברגע שהיא תהיה מוכנה, إن شاء الله:</translation>
+<translation id="1682877223721186002">חסימת המודעות מופעלת</translation>
+<translation id="1360256168997763737">חסימת המודעות מושבתת</translation>
+<translation id="7313166746523328213">מגני Browther חוסמים מודעות, כלי מעקב, טביעת אצבע דיגיטלית וסקריפטים לא רצויים בכל אתר שאתם מבקרים בו.</translation>
+<translation id="5288293905681750318">עוקבים &amp; פרסומות חסומים</translation>
+<translation id="4824468494729001999">חסום סקריפטים</translation>
+<translation id="6531019308847917584">חסימת טביעות אצבע</translation>
+<translation id="9204041448536398473">הגדרות מגנים גלובלי</translation>
+<translation id="9039394691294271141">הצפייה שלך באתר זה נעשית בלי הגנת הפרטיות של Browther.</translation>
+<translation id="7281166215790160128">מצב</translation>
+<translation id="6672367039750637973">רמת הזהירות בטשטוש: <ph name="VALUE"/> / 100</translation>
+<translation id="3225054631640999665">NudeNet: <ph name="VALUE"/> / 100</translation>
+<translation id="5395362999816537204">המגנים מנוהלים לכל אתר בנפרד. פתחו את האתר שברצונכם להחריג והקישו על לחצן המגן בשורת הכתובת.</translation>
+<translation id="2120379390349726080">(מידע נוסף)</translation>
+<translation id="9163277375449415048">למה רק YouTube?</translation>
+<translation id="5549680965977750454">Sawtunaa, הסרת מוזיקה ורעשי רקע</translation>
+<translation id="1804032981782823157">Basarunaa, טשטוש אנשים לפי מגדר</translation>
 </translationbundle>

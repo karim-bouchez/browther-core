@@ -1177,4 +1177,20 @@ Om du inte accepterar denna begäran kommer VPN inte att ansluta igen och din in
 <translation id="7700159354893692113">Den här funktionen är fortfarande under utveckling</translation>
 <translation id="8511680009616304290">Den kanske inte fungerar bra än.</translation>
 <translation id="5778063732609426803">Vi berättar här så snart den är klar, إن شاء الله:</translation>
+<translation id="1682877223721186002">Annonsblockering PÅ</translation>
+<translation id="1360256168997763737">Annonsblockering AV</translation>
+<translation id="7313166746523328213">Browther-sköldar blockerar annonser, spårare, fingeravtryck och oönskade skript på alla webbplatser du besöker.</translation>
+<translation id="5288293905681750318">Spårare och annonser blockerade</translation>
+<translation id="4824468494729001999">Blockera skript</translation>
+<translation id="6531019308847917584">Blockera fingeravtryck</translation>
+<translation id="9204041448536398473">Globala inställningar för Shields</translation>
+<translation id="9039394691294271141">Du visar den här webbplatsen utan Braves sekretesskydd.</translation>
+<translation id="7281166215790160128">Läge</translation>
+<translation id="6672367039750637973">Försiktighetsnivå: <ph name="VALUE"/> / 100</translation>
+<translation id="3225054631640999665">NudeNet: <ph name="VALUE"/> / 100</translation>
+<translation id="5395362999816537204">Sköldar hanteras per webbplats. Öppna webbplatsen du vill undanta och tryck på sköldknappen i adressfältet.</translation>
+<translation id="2120379390349726080">(läs mer)</translation>
+<translation id="9163277375449415048">Varför bara YouTube?</translation>
+<translation id="5549680965977750454">Sawtunaa, borttagning av musik och bakgrundsljud</translation>
+<translation id="1804032981782823157">Basarunaa, oskärpa för personer efter kön</translation>
 </translationbundle>
