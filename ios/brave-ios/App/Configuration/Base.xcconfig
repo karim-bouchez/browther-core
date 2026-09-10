@@ -28,7 +28,10 @@ brave_version_build = 0
 // sur les images, le flou vidéo en cascade, les panels dans la bonne langue.
 // BraveCore rebuildé sur la même base Chromium (aucun roll upstream depuis
 // mars) — validé sur device en Release AVANT soumission.
-brave_version_build = 4
+// build 5 = soumission 2026-09-10 (version 2026.9.10). Contenu : accès anticipé
+// de Sawtunaa + Basarunaa — OFF par défaut, encadré « encore en développement »,
+// toggle et badge ambre tant qu'elles sont allumées.
+brave_version_build = 5
 
 // Browther: version marketing en CalVer (parité Desktop "Browther 2026.MM.JJ").
 // App Store Connect impose CFBundleShortVersionString = au plus 3 entiers SANS
@@ -38,7 +41,7 @@ brave_version_build = 4
 // Override APRÈS l'include (sinon args.xcconfig force la version Brave 1.90).
 // ⚠️ Bumper la date à chaque soumission ; App Store compare composante par
 // composante (2026.x > 1.90, donc la transition depuis 1.90 est valide).
-brave_ios_marketing_version = 2026.8.29
+brave_ios_marketing_version = 2026.9.10
 
 FRAMEWORK_BASE_BUNDLE_ID = com.devndin.browther
 BASE_BUNDLE_ID = $(FRAMEWORK_BASE_BUNDLE_ID).ios
