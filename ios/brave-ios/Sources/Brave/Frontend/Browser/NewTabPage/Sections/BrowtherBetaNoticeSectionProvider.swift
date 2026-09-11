@@ -42,8 +42,11 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
   private let sizingView = BrowtherBetaNoticeView()
   private let whatsNewSizingView = BrowtherWhatsNewCardView()
 
-  private typealias BetaNoticeCell = NewTabCenteredCollectionViewCell<BrowtherBetaNoticeView>
-  private typealias WhatsNewCell = NewTabCenteredCollectionViewCell<BrowtherWhatsNewCardView>
+  // Pleine largeur, pas `NewTabCenteredCollectionViewCell` : celle-ci centre sa
+  // vue à sa largeur naturelle, si bien que l'encart s'arrêtait en retrait des
+  // cartes voisines (stats, pub) — « rien n'est aligné » (Karim, 2026-09-11).
+  private typealias BetaNoticeCell = BrowtherFullWidthCell<BrowtherBetaNoticeView>
+  private typealias WhatsNewCell = BrowtherFullWidthCell<BrowtherWhatsNewCardView>
 
   /// Ce que l'emplacement montre maintenant. Recalculé à chaque appel : un
   /// Nouvel Onglet reste en mémoire avec son onglet, et l'encart a pu être
@@ -188,6 +191,30 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
       return .zero
     }
     return UIEdgeInsets(top: 12, left: 16, bottom: 0, right: 16)
+  }
+}
+
+// MARK: - Cellule pleine largeur
+
+/// La vue occupe toute la cellule, dont `sizeForItemAt` fixe déjà la largeur
+/// (celle de la section, marges déduites) : l'encart s'aligne ainsi sur les
+/// autres cartes du Nouvel Onglet.
+private final class BrowtherFullWidthCell<View: UIView>: UICollectionViewCell,
+  CollectionViewReusable
+{
+  let view = View()
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    contentView.addSubview(view)
+    view.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError()
   }
 }
 

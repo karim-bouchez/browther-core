@@ -469,19 +469,12 @@ extension Strings {
       value: "Don't ask me again",
       comment: "Button of the feedback form when it opened on its own"
     )
-    public static let feedbackThanksTitle = NSLocalizedString(
-      "feedbackThanksTitle",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Thank you",
-      comment: "Title shown after the feedback was sent"
-    )
     public static let feedbackThanksBody = NSLocalizedString(
       "feedbackThanksBody",
       tableName: "Browther",
       bundle: .module,
       value: "Your message has been sent. We read it, even if we can't reply.",
-      comment: "Text shown after the feedback was sent"
+      comment: "VoiceOver announcement once the feedback was sent and the form closed"
     )
     public static let contactTitle = NSLocalizedString(
       "contactTitle",

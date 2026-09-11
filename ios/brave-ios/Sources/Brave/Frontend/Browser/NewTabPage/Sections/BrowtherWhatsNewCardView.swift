@@ -140,15 +140,37 @@ final class BrowtherWhatsNewCardView: UIView {
     }
 
     linesStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-    for line in BrowtherSurfacesRules.lines(of: release, localization: localization) {
+    let lines = BrowtherSurfacesRules.lines(of: release, localization: localization)
+    for line in lines {
+      let text = Self.lineLabel(line)
+      // Une puce n'a de sens que pour une liste : seule, elle décalait la ligne
+      // par rapport au titre (retour Karim 2026-09-11). À plusieurs, puce dans
+      // sa propre colonne — le texte qui passe à la ligne reste aligné sur le
+      // texte, pas sous la puce.
+      guard lines.count > 1 else {
+        linesStack.addArrangedSubview(text)
+        continue
+      }
+      let bullet = Self.lineLabel("•").then {
+        $0.setContentHuggingPriority(.required, for: .horizontal)
+        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
+      }
       linesStack.addArrangedSubview(
-        UILabel().then {
-          $0.text = "•  \(line)"
-          $0.font = .systemFont(ofSize: 13)
-          $0.textColor = UIColor(white: 1, alpha: 0.85)
-          $0.numberOfLines = 0
+        UIStackView(arrangedSubviews: [bullet, text]).then {
+          $0.axis = .horizontal
+          $0.spacing = 6
+          $0.alignment = .firstBaseline
         }
       )
+    }
+  }
+
+  private static func lineLabel(_ text: String) -> UILabel {
+    UILabel().then {
+      $0.text = text
+      $0.font = .systemFont(ofSize: 13)
+      $0.textColor = UIColor(white: 1, alpha: 0.85)
+      $0.numberOfLines = 0
     }
   }
 

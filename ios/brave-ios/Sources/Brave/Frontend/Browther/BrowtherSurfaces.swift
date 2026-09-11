@@ -205,7 +205,9 @@ enum BrowtherSurfaces {
     .init(
       seenId: Preferences.BrowtherSurfaces.whatsNewSeenId.value,
       closedId: Preferences.BrowtherSurfaces.whatsNewClosedId.value,
-      shownAt: Preferences.BrowtherSurfaces.whatsNewShownAt.value
+      shownAt: Preferences.BrowtherSurfaces.whatsNewShownAt.value,
+      appearances: Preferences.BrowtherSurfaces.whatsNewAppearances.value,
+      lastAppearanceAt: Preferences.BrowtherSurfaces.whatsNewLastAppearanceAt.value
     )
   }
 
@@ -232,17 +234,24 @@ enum BrowtherSurfaces {
     )
   }
 
-  /// L'encart vient d'apparaître. Idempotent : seule la PREMIÈRE apparition
-  /// d'une release écrit quelque chose.
+  /// L'encart vient d'apparaître (la cellule est demandée — appelé souvent :
+  /// le Nouvel Onglet recharge sa grille à chaque mise en page). Ne compte
+  /// qu'une apparition par heure (`Rules.whatsNewStateAfterDisplay`).
   ///
   /// Marqué à l'affichage, pas à la fermeture : qui a vu l'encart l'a vu, le
   /// sens de la panne acceptable est « annoncé une fois de moins », jamais
   /// « harcelé ». Et il prend la place du bandeau « accès anticipé » pour cette
   /// version : les deux ne s'enchaînent pas (un seul encart par mise à jour).
   static func noteWhatsNewDisplayed(_ release: Rules.WhatsNewRelease, now: Date = Date()) {
-    guard Preferences.BrowtherSurfaces.whatsNewSeenId.value != release.id else { return }
-    Preferences.BrowtherSurfaces.whatsNewSeenId.value = release.id
-    Preferences.BrowtherSurfaces.whatsNewShownAt.value = now
+    let before = whatsNewState
+    let after = Rules.whatsNewStateAfterDisplay(before, release: release, now: now)
+    guard after != before else { return }
+    let prefs = Preferences.BrowtherSurfaces.self
+    prefs.whatsNewSeenId.value = after.seenId
+    prefs.whatsNewShownAt.value = after.shownAt
+    prefs.whatsNewAppearances.value = after.appearances
+    prefs.whatsNewLastAppearanceAt.value = after.lastAppearanceAt
+    guard before.seenId != release.id else { return }
     Preferences.General.browtherBetaNoticeDismissedVersion.value = currentAppVersion
     track(
       "whats_new_shown",
@@ -301,7 +310,7 @@ enum BrowtherSurfaces {
       "Verrou : \(isQuiet(now: now) ? "libre" : "jusqu'au \(format(quietUntil))")",
       "Avis : envoyé \(feedback.submitted ? "oui" : "non") · ne plus demander \(feedback.optedOut ? "oui" : "non") · fermetures \(feedback.dismissals) · muet jusqu'au \(format(feedback.mutedUntil))",
       "Note : dernière demande \(format(lastRatingRequest))",
-      "Nouveautés : vue \(whatsNew.seenId ?? "—") · fermée \(whatsNew.closedId ?? "—") · apparue \(format(whatsNew.shownAt))",
+      "Nouveautés : vue \(whatsNew.seenId ?? "—") · fermée \(whatsNew.closedId ?? "—") · \(whatsNew.appearances)/\(Rules.whatsNewMaxAppearances) apparitions, dernière \(format(whatsNew.lastAppearanceAt))",
       "Onboarding terminé : \(isOnboardingDone ? "oui" : "non")",
       "Due maintenant : \(pendingSolicitation(now: now)?.rawValue ?? "rien")",
     ].joined(separator: "\n")
@@ -322,6 +331,8 @@ enum BrowtherSurfaces {
     prefs.whatsNewSeenId.reset()
     prefs.whatsNewClosedId.reset()
     prefs.whatsNewShownAt.reset()
+    prefs.whatsNewAppearances.reset()
+    prefs.whatsNewLastAppearanceAt.reset()
   }
 
   // MARK: - Analytics
@@ -378,6 +389,15 @@ extension Preferences {
     )
     static let whatsNewShownAt = Option<Date?>(
       key: "browther.surfaces.whats-new.shown-at",
+      default: nil
+    )
+    /// Apparitions de l'encart pour la release `whatsNewSeenId` (3 au plus).
+    static let whatsNewAppearances = Option<Int>(
+      key: "browther.surfaces.whats-new.appearances",
+      default: 0
+    )
+    static let whatsNewLastAppearanceAt = Option<Date?>(
+      key: "browther.surfaces.whats-new.last-appearance-at",
       default: nil
     )
   }

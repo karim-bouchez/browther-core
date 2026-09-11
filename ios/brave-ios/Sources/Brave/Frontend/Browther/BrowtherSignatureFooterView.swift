@@ -24,6 +24,10 @@ import UIKit
 final class BrowtherSignatureFooterView: UIView {
   static let url = URL(string: "https://devndin.com")!
 
+  /// Plus marqué que `.separator`, trop pâle sur le fond groupé des Paramètres :
+  /// c'est la bordure qui dit que ça se touche.
+  private static var borderColor: UIColor { .tertiaryLabel }
+
   private let onTap: () -> Void
 
   private let pill = UIControl()
@@ -34,7 +38,9 @@ final class BrowtherSignatureFooterView: UIView {
 
     let label = UILabel()
     label.text = Strings.Browther.signatureLabel
-    label.font = .preferredFont(forTextStyle: .footnote)
+    // Taille « sous-titre », pas « note de bas de page » : à 13 pt, pastille
+    // et logo ne se voyaient pas (retour Karim sur iPhone, 2026-09-11).
+    label.font = .preferredFont(forTextStyle: .subheadline)
     label.adjustsFontForContentSizeCategory = true
     label.textColor = .secondaryLabel
 
@@ -44,7 +50,7 @@ final class BrowtherSignatureFooterView: UIView {
     logo.contentMode = .scaleAspectFit
     logo.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      logo.heightAnchor.constraint(equalToConstant: 13),
+      logo.heightAnchor.constraint(equalToConstant: 19),
       // Ratio du viewBox source (1262 × 565).
       logo.widthAnchor.constraint(equalTo: logo.heightAnchor, multiplier: 2.2331),
     ])
@@ -52,20 +58,20 @@ final class BrowtherSignatureFooterView: UIView {
     let arrow = UIImageView(
       image: UIImage(
         systemName: "arrow.up.right",
-        withConfiguration: UIImage.SymbolConfiguration(pointSize: 9, weight: .semibold)
+        withConfiguration: UIImage.SymbolConfiguration(pointSize: 11, weight: .semibold)
       )
     )
-    arrow.tintColor = .tertiaryLabel
+    arrow.tintColor = .secondaryLabel
     arrow.contentMode = .scaleAspectFit
 
     let stack = UIStackView(arrangedSubviews: [label, logo, arrow])
     stack.axis = .horizontal
     stack.alignment = .center
-    stack.spacing = 5
+    stack.spacing = 6
     stack.isUserInteractionEnabled = false
     stack.translatesAutoresizingMaskIntoConstraints = false
 
-    pill.layer.borderColor = UIColor.separator.cgColor
+    pill.layer.borderColor = Self.borderColor.cgColor
     pill.layer.cornerCurve = .continuous
     pill.translatesAutoresizingMaskIntoConstraints = false
     pill.addSubview(stack)
@@ -82,10 +88,10 @@ final class BrowtherSignatureFooterView: UIView {
 
     addSubview(pill)
     NSLayoutConstraint.activate([
-      stack.topAnchor.constraint(equalTo: pill.topAnchor, constant: 6),
-      stack.bottomAnchor.constraint(equalTo: pill.bottomAnchor, constant: -6),
-      stack.leadingAnchor.constraint(equalTo: pill.leadingAnchor, constant: 14),
-      stack.trailingAnchor.constraint(equalTo: pill.trailingAnchor, constant: -14),
+      stack.topAnchor.constraint(equalTo: pill.topAnchor, constant: 8),
+      stack.bottomAnchor.constraint(equalTo: pill.bottomAnchor, constant: -8),
+      stack.leadingAnchor.constraint(equalTo: pill.leadingAnchor, constant: 16),
+      stack.trailingAnchor.constraint(equalTo: pill.trailingAnchor, constant: -16),
       pill.topAnchor.constraint(equalTo: topAnchor, constant: 20),
       pill.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -28),
       pill.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -108,7 +114,7 @@ final class BrowtherSignatureFooterView: UIView {
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     // Une couleur CGColor ne suit pas le thème toute seule.
-    pill.layer.borderColor = UIColor.separator.cgColor
+    pill.layer.borderColor = Self.borderColor.cgColor
   }
 
   @objc private func tapped() {

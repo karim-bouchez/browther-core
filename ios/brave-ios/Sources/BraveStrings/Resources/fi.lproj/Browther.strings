@@ -63,7 +63,6 @@
 "feedbackEmailHint" = "Haluatko vastauksen? Lähetä meille sähköpostia";
 "feedbackSend" = "Lähetä";
 "feedbackOptOut" = "Älä kysy uudelleen";
-"feedbackThanksTitle" = "Kiitos";
 "feedbackThanksBody" = "Viestisi on lähetetty. Luemme sen, vaikka emme voi vastata.";
 "contactTitle" = "Lähetä meille sähköpostia";
 "contactMessage" = "Veljien ja sisarten viestit lukevat eri ihmiset.";

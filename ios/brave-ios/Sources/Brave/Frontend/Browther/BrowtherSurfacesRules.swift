@@ -201,15 +201,30 @@ enum BrowtherSurfacesRules {
     var seenId: String?
     /// Dernier id fermé (croix ou « J'ai compris »).
     var closedId: String?
-    /// Première apparition de l'encart pour `seenId`.
+    /// Première apparition de l'encart pour `seenId` (sert à `seconds_open`).
     var shownAt: Date?
+    /// Apparitions comptées pour `seenId` (cf. `whatsNewMaxAppearances`).
+    var appearances = 0
+    /// Début de la dernière apparition comptée.
+    var lastAppearanceAt: Date?
   }
 
-  /// Une fois affiché, l'encart reste sur les Nouveaux Onglets jusqu'à sa
-  /// fermeture — au plus cette durée. Ce n'est pas une feuille qu'on balaie : il
-  /// est dans le flux, et sa première apparition peut tomber pendant qu'on tape
-  /// une adresse. Au-delà, il est considéré comme lu : « une fois par release ».
-  static let whatsNewSessionWindow: TimeInterval = 12 * hour
+  /// Sans fermeture, l'encart se retire tout seul après 3 apparitions
+  /// (décision Karim, 2026-09-11) : il est dans le flux, pas dans une feuille
+  /// qu'on balaie, donc qui ne le ferme pas le reverrait à chaque Nouvel Onglet.
+  /// Trois fois, c'est l'avoir vu — au-delà, ce serait du bruit.
+  static let whatsNewMaxAppearances = 3
+
+  /// Une « apparition », c'est une OCCASION de le voir, pas un onglet : ouvrir
+  /// trois Nouveaux Onglets d'affilée n'en fait qu'une. Tout affichage dans
+  /// l'heure qui suit une apparition comptée appartient à la même.
+  static let whatsNewAppearanceGap: TimeInterval = hour
+
+  /// Sommes-nous dans la fenêtre de la dernière apparition comptée ?
+  private static func isWithinAppearance(_ state: WhatsNewState, now: Date) -> Bool {
+    guard let last = state.lastAppearanceAt, now >= last else { return false }
+    return now.timeIntervalSince(last) < whatsNewAppearanceGap
+  }
 
   /// La release à afficher dans l'encart, ou `nil`.
   ///
@@ -219,6 +234,7 @@ enum BrowtherSurfacesRules {
   ///   courante comme vue ET fermée (seed). Un `seenId` absent avec un onboarding
   ///   fait veut dire « installé avant que l'encart existe » : il doit voir la
   ///   première.
+  /// - Fermé → plus jamais. Sinon, visible jusqu'à la fin de sa 3ᵉ apparition.
   static func whatsNewCard(
     releases: [WhatsNewRelease],
     state: WhatsNewState,
@@ -228,16 +244,34 @@ enum BrowtherSurfacesRules {
     guard onboardingDone, let latest = releases.first else { return nil }
     if state.seenId != latest.id { return latest }
     if state.closedId == latest.id { return nil }
-    guard let shownAt = state.shownAt, now >= shownAt,
-      now.timeIntervalSince(shownAt) < whatsNewSessionWindow
-    else { return nil }
-    return latest
+    if isWithinAppearance(state, now: now) { return latest }
+    return state.appearances < whatsNewMaxAppearances ? latest : nil
+  }
+
+  /// Nouvel état après un affichage de l'encart. Idempotent dans une même
+  /// apparition ; une release neuve repart de zéro.
+  static func whatsNewStateAfterDisplay(
+    _ state: WhatsNewState,
+    release: WhatsNewRelease,
+    now: Date
+  ) -> WhatsNewState {
+    var next = state
+    if next.seenId != release.id {
+      next.seenId = release.id
+      next.shownAt = now
+      next.appearances = 0
+      next.lastAppearanceAt = nil
+    }
+    if isWithinAppearance(next, now: now) { return next }
+    next.appearances += 1
+    next.lastAppearanceAt = now
+    return next
   }
 
   /// L'encart garde-t-il la session ? Tant qu'il est dû ou visible, et pendant
-  /// la fenêtre qui suit sa première apparition même s'il a été fermé : les
-  /// fiches qui demandent attendent la session suivante (§3.6 — il ne consomme
-  /// pas le verrou, mais rien ne s'ouvre par-dessus).
+  /// l'apparition en cours même s'il vient d'être fermé : les fiches qui
+  /// demandent attendent (§3.6 — il ne consomme pas le verrou, mais rien ne
+  /// s'ouvre par-dessus ni juste après).
   static func whatsNewHoldsSession(
     releases: [WhatsNewRelease],
     state: WhatsNewState,
@@ -249,8 +283,7 @@ enum BrowtherSurfacesRules {
     {
       return true
     }
-    guard let shownAt = state.shownAt else { return false }
-    return now >= shownAt && now.timeIntervalSince(shownAt) < whatsNewSessionWindow
+    return isWithinAppearance(state, now: now)
   }
 
   /// Les lignes dans la langue de l'app : code complet (`pt-BR`), puis langue

@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveStrings
+import DesignSystem
 import Shared
 import SwiftUI
 import UIKit
@@ -21,6 +22,7 @@ import UIKit
 /// une a le lien e-mail, sous le champ de texte.
 final class BrowtherFeedbackHostingController: UIHostingController<BrowtherFeedbackView> {
   private let model: BrowtherFeedbackModel
+  private let keyboardDismissal = KeyboardDismissal()
 
   /// `isRehearsal` : déclencheur de recette (§2.8) — la fiche s'affiche à
   /// l'identique mais n'écrit rien et n'émet rien, pas même l'envoi.
@@ -44,6 +46,11 @@ final class BrowtherFeedbackHostingController: UIHostingController<BrowtherFeedb
     fatalError()
   }
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    keyboardDismissal.install(on: view)
+  }
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     model.didAppear()
@@ -51,20 +58,52 @@ final class BrowtherFeedbackHostingController: UIHostingController<BrowtherFeedb
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    // Un seul chemin pour toutes les fermetures (croix, balayage, bouton
-    // « Fermer » du merci) : c'est ici qu'on sait que la fiche est partie.
+    // Un seul chemin pour toutes les fermetures (croix, balayage, envoi) :
+    // c'est ici qu'on sait que la fiche est partie.
     if isBeingDismissed || presentingViewController == nil {
       model.didDisappear()
     }
   }
 }
 
-final class BrowtherFeedbackModel: ObservableObject {
-  enum Phase {
-    case editing
-    case thanks
+/// Toucher en dehors du champ referme le clavier (retour Karim : pas de bouton
+/// « Terminé » au-dessus du clavier). Un éditeur multiligne n'a pas de touche
+/// « OK » — Retour y insère une ligne — donc sans ce geste, rien ne le referme.
+///
+/// En UIKit plutôt qu'en `onTapGesture` SwiftUI : posé sur un parent, ce
+/// dernier se déclenche aussi quand on touche le champ pour placer le curseur,
+/// et refermerait le clavier au moment même où on veut écrire. Ici, les
+/// touchers dans le `UITextView` sont ignorés, et `cancelsTouchesInView = false`
+/// laisse passer ceux destinés aux boutons.
+private final class KeyboardDismissal: NSObject, UIGestureRecognizerDelegate {
+  private weak var view: UIView?
+
+  func install(on view: UIView) {
+    self.view = view
+    let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+    tap.cancelsTouchesInView = false
+    tap.delegate = self
+    view.addGestureRecognizer(tap)
   }
 
+  @objc private func tapped() {
+    view?.endEditing(true)
+  }
+
+  func gestureRecognizer(
+    _ gestureRecognizer: UIGestureRecognizer,
+    shouldReceive touch: UITouch
+  ) -> Bool {
+    var candidate = touch.view
+    while let current = candidate {
+      if current is UITextView { return false }
+      candidate = current.superview
+    }
+    return true
+  }
+}
+
+final class BrowtherFeedbackModel: ObservableObject {
   let source: BrowtherSurfaces.FeedbackSource
   let isRehearsal: Bool
 
@@ -77,7 +116,6 @@ final class BrowtherFeedbackModel: ObservableObject {
       }
     }
   }
-  @Published var phase: Phase = .editing
   @Published var isAskingRecipient = false
   @Published var isShowingNoMailApp = false
   @Published private(set) var copiedAddress = ""
@@ -119,13 +157,25 @@ final class BrowtherFeedbackModel: ObservableObject {
     BrowtherSurfaces.noteFeedbackDismissed(source: source)
   }
 
+  /// Envoie et referme aussitôt (retour Karim : pas d'écran « Merci » à
+  /// refermer en plus). La confirmation passe par une vibration de succès et,
+  /// pour VoiceOver, une annonce du texte de remerciement.
   func send() {
     guard isSubmittable else { return }
     if !isRehearsal {
       BrowtherSurfaces.submitFeedback(text, source: source)
     }
     concluded = true
-    phase = .thanks
+    UINotificationFeedbackGenerator().notificationOccurred(.success)
+    dismiss?()
+    // Après la fermeture : l'annonce faite pendant l'animation serait coupée
+    // par le changement d'écran.
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+      UIAccessibility.post(
+        notification: .announcement,
+        argument: Strings.Browther.feedbackThanksBody
+      )
+    }
   }
 
   func optOut() {
@@ -177,46 +227,33 @@ struct BrowtherFeedbackView: View {
 
   var body: some View {
     NavigationStack {
-      Group {
-        switch model.phase {
-        case .editing: form
-        case .thanks: thanks
-        }
-      }
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
-          Button {
-            model.close()
-          } label: {
-            Image(systemName: "xmark")
+      form
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .cancellationAction) {
+            Button {
+              model.close()
+            } label: {
+              Image(systemName: "xmark")
+            }
+            .accessibilityLabel(Strings.close)
           }
-          .accessibilityLabel(Strings.close)
-        }
-        // « Envoyer » en haut, pas en bas du formulaire : en bas, le clavier le
-        // recouvrait dès la première lettre, et comme rien ne refermait le
-        // clavier, on ne pouvait plus envoyer du tout (constaté sur iPhone le
-        // 2026-09-11). En haut, il reste visible pendant qu'on écrit — le
-        // patron de Mail et de Notes.
-        if model.phase == .editing {
+          // « Envoyer » en haut, pas en bas du formulaire : en bas, le clavier le
+          // recouvrait dès la première lettre (constaté sur iPhone le
+          // 2026-09-11). En haut, il reste visible pendant qu'on écrit — le
+          // patron de Mail et de Notes. Couleur primaire dès que le message peut
+          // partir : grisé, il se confondait avec le reste de la barre.
           ToolbarItem(placement: .confirmationAction) {
             Button(Strings.Browther.feedbackSend) {
               isEditorFocused = false
               model.send()
             }
             .fontWeight(.semibold)
+            .buttonStyle(.borderedProminent)
+            .tint(Color(braveSystemName: .buttonBackground))
             .disabled(!model.isSubmittable)
           }
         }
-        // Un éditeur multiligne n'a pas de touche « OK » : Retour y insère une
-        // ligne. Sans ce bouton, rien ne referme le clavier.
-        ToolbarItemGroup(placement: .keyboard) {
-          Spacer()
-          Button(Strings.done) {
-            isEditorFocused = false
-          }
-        }
-      }
     }
     .alert(Strings.Browther.contactTitle, isPresented: $model.isAskingRecipient) {
       Button(Strings.Browther.contactBrother) { model.contact(.brother) }
@@ -301,27 +338,5 @@ struct BrowtherFeedbackView: View {
       RoundedRectangle(cornerRadius: 12, style: .continuous)
         .fill(Color(.secondarySystemBackground))
     )
-  }
-
-  private var thanks: some View {
-    VStack(spacing: 14) {
-      Image(systemName: "checkmark.circle.fill")
-        .font(.system(size: 48))
-        .foregroundStyle(.green)
-        .accessibilityHidden(true)
-      Text(Strings.Browther.feedbackThanksTitle)
-        .font(.title2.weight(.semibold))
-      Text(Strings.Browther.feedbackThanksBody)
-        .multilineTextAlignment(.center)
-        .foregroundStyle(.secondary)
-        .fixedSize(horizontal: false, vertical: true)
-      Button(Strings.close) {
-        model.close()
-      }
-      .buttonStyle(.bordered)
-      .padding(.top, 6)
-    }
-    .padding(28)
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
 }
