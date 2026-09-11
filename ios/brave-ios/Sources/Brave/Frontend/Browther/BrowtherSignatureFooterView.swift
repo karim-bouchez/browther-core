@@ -38,9 +38,10 @@ final class BrowtherSignatureFooterView: UIView {
 
     let label = UILabel()
     label.text = Strings.Browther.signatureLabel
-    // Taille « sous-titre », pas « note de bas de page » : à 13 pt, pastille
-    // et logo ne se voyaient pas (retour Karim sur iPhone, 2026-09-11).
-    label.font = .preferredFont(forTextStyle: .subheadline)
+    // La taille n'était pas le problème — c'était le CONTRASTE (retour Karim,
+    // 2026-09-11 : agrandie, la pastille devenait trop grosse). Taille d'une
+    // note de bas de page ; c'est l'encre du logo et la bordure qui portent.
+    label.font = .preferredFont(forTextStyle: .footnote)
     label.adjustsFontForContentSizeCategory = true
     label.textColor = .secondaryLabel
 
@@ -50,7 +51,7 @@ final class BrowtherSignatureFooterView: UIView {
     logo.contentMode = .scaleAspectFit
     logo.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      logo.heightAnchor.constraint(equalToConstant: 19),
+      logo.heightAnchor.constraint(equalToConstant: 15),
       // Ratio du viewBox source (1262 × 565).
       logo.widthAnchor.constraint(equalTo: logo.heightAnchor, multiplier: 2.2331),
     ])
@@ -58,7 +59,7 @@ final class BrowtherSignatureFooterView: UIView {
     let arrow = UIImageView(
       image: UIImage(
         systemName: "arrow.up.right",
-        withConfiguration: UIImage.SymbolConfiguration(pointSize: 11, weight: .semibold)
+        withConfiguration: UIImage.SymbolConfiguration(pointSize: 10, weight: .semibold)
       )
     )
     arrow.tintColor = .secondaryLabel
@@ -67,7 +68,7 @@ final class BrowtherSignatureFooterView: UIView {
     let stack = UIStackView(arrangedSubviews: [label, logo, arrow])
     stack.axis = .horizontal
     stack.alignment = .center
-    stack.spacing = 6
+    stack.spacing = 5
     stack.isUserInteractionEnabled = false
     stack.translatesAutoresizingMaskIntoConstraints = false
 
@@ -88,10 +89,10 @@ final class BrowtherSignatureFooterView: UIView {
 
     addSubview(pill)
     NSLayoutConstraint.activate([
-      stack.topAnchor.constraint(equalTo: pill.topAnchor, constant: 8),
-      stack.bottomAnchor.constraint(equalTo: pill.bottomAnchor, constant: -8),
-      stack.leadingAnchor.constraint(equalTo: pill.leadingAnchor, constant: 16),
-      stack.trailingAnchor.constraint(equalTo: pill.trailingAnchor, constant: -16),
+      stack.topAnchor.constraint(equalTo: pill.topAnchor, constant: 6),
+      stack.bottomAnchor.constraint(equalTo: pill.bottomAnchor, constant: -6),
+      stack.leadingAnchor.constraint(equalTo: pill.leadingAnchor, constant: 14),
+      stack.trailingAnchor.constraint(equalTo: pill.trailingAnchor, constant: -14),
       pill.topAnchor.constraint(equalTo: topAnchor, constant: 20),
       pill.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -28),
       pill.centerXAnchor.constraint(equalTo: centerXAnchor),
