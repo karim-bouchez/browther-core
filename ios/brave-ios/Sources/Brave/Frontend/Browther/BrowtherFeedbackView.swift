@@ -18,7 +18,7 @@ import UIKit
 /// Le message part comme propriété de `feedback_submitted` ; PostHog le relaie
 /// au worker `private/workers/posthog-telegram-webhook/`, qui l'envoie à Karim.
 /// Pas de réponse possible par ce chemin (ni compte ni adresse) : qui en veut
-/// une a le lien e-mail, sous le bouton.
+/// une a le lien e-mail, sous le champ de texte.
 final class BrowtherFeedbackHostingController: UIHostingController<BrowtherFeedbackView> {
   private let model: BrowtherFeedbackModel
 
@@ -33,7 +33,7 @@ final class BrowtherFeedbackHostingController: UIHostingController<BrowtherFeedb
     modalPresentationStyle = .pageSheet
     if let sheet = sheetPresentationController {
       // Plein écran d'emblée : le clavier monte à la première frappe, une
-      // hauteur moyenne ne laisserait plus voir le bouton d'envoi.
+      // hauteur moyenne ne laisserait presque plus de place au texte.
       sheet.detents = [.large()]
       sheet.prefersGrabberVisible = true
     }
@@ -193,6 +193,29 @@ struct BrowtherFeedbackView: View {
           }
           .accessibilityLabel(Strings.close)
         }
+        // « Envoyer » en haut, pas en bas du formulaire : en bas, le clavier le
+        // recouvrait dès la première lettre, et comme rien ne refermait le
+        // clavier, on ne pouvait plus envoyer du tout (constaté sur iPhone le
+        // 2026-09-11). En haut, il reste visible pendant qu'on écrit — le
+        // patron de Mail et de Notes.
+        if model.phase == .editing {
+          ToolbarItem(placement: .confirmationAction) {
+            Button(Strings.Browther.feedbackSend) {
+              isEditorFocused = false
+              model.send()
+            }
+            .fontWeight(.semibold)
+            .disabled(!model.isSubmittable)
+          }
+        }
+        // Un éditeur multiligne n'a pas de touche « OK » : Retour y insère une
+        // ligne. Sans ce bouton, rien ne referme le clavier.
+        ToolbarItemGroup(placement: .keyboard) {
+          Spacer()
+          Button(Strings.done) {
+            isEditorFocused = false
+          }
+        }
       }
     }
     .alert(Strings.Browther.contactTitle, isPresented: $model.isAskingRecipient) {
@@ -237,17 +260,6 @@ struct BrowtherFeedbackView: View {
             .foregroundStyle(.orange)
             .fixedSize(horizontal: false, vertical: true)
         }
-
-        Button {
-          model.send()
-        } label: {
-          Text(Strings.Browther.feedbackSend)
-            .fontWeight(.semibold)
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .disabled(!model.isSubmittable)
 
         Button(Strings.Browther.feedbackEmailHint) {
           isEditorFocused = false

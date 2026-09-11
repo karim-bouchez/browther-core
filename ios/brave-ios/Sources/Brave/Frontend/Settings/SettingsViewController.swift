@@ -254,10 +254,22 @@ class SettingsViewController: TableViewController {
     // Always show debug section in local builds and show if previously shown
     if !AppConstants.isOfficialBuild || Preferences.Debug.developerOptionsEnabled.value {
       list.append(debugSection)
+    }
+    if isBrowtherRehearsalAvailable {
       list.append(browtherRehearsalSection)  // Browther
     }
 
     return list
+  }
+
+  /// Browther : la recette des sollicitations se montre hors du CANAL du store
+  /// (Debug/Beta/Nightly), pas selon `isOfficialBuild` — nos builds de dev se
+  /// lient au BraveCore Release (`ios_current_link`), donc sont « officiels » et
+  /// cachaient la section (constaté sur iPhone le 2026-09-11). TestFlight (canal
+  /// release) y accède par les Developer Options (5 taps sur « À propos » + code).
+  private var isBrowtherRehearsalAvailable: Bool {
+    AppConstants.buildChannel != .release || !AppConstants.isOfficialBuild
+      || Preferences.Debug.developerOptionsEnabled.value
   }
 
   // MARK: - Sections
@@ -1285,7 +1297,16 @@ class SettingsViewController: TableViewController {
         Row(
           text: Strings.termsOfUse,
           selection: { [unowned self] in
-            settingsDelegate?.settingsOpenURLInNewTab(.brave.termsOfUse)
+            // Browther : c'étaient les conditions de BRAVE. Browther n'a pas de
+            // conditions propres ; sans licence personnalisée dans App Store
+            // Connect (le défaut — à vérifier dans App Information), c'est le
+            // contrat de licence standard d'Apple qui s'applique à l'app. On
+            // montre celui-là, tant qu'aucune page Browther ne le remplace.
+            if let url = URL(
+              string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+            ) {
+              settingsDelegate?.settingsOpenURLInNewTab(url)
+            }
           },
           accessory: .disclosureIndicator,
           cellClass: MultilineValue1Cell.self
@@ -1695,7 +1716,11 @@ class SettingsViewController: TableViewController {
           if textField.text == kBraveDeveloperOptionsCode {
             Preferences.Debug.developerOptionsEnabled.value = true
             self.dataSource.sections.append(self.debugSection)
-            self.dataSource.sections.append(self.browtherRehearsalSection)  // Browther
+            if !self.dataSource.sections.contains(where: {
+              $0.uuid == self.browtherRehearsalSection.uuid
+            }) {
+              self.dataSource.sections.append(self.browtherRehearsalSection)  // Browther
+            }
           }
         }
       )
