@@ -22,7 +22,17 @@ import UIKit
 /// déception en patience, et les deux liens transforment le silence en retour.
 ///
 /// À retirer quand Browther sort de l'accès anticipé (ce fichier, son insertion
-/// dans `NewTabPageViewController`, les 4 strings et la pref).
+/// dans `NewTabPageViewController`, les 4 strings et la pref) — ⚠️ en gardant
+/// l'emplacement pour l'encart « Ce qui a changé », qui y vit aussi.
+///
+/// ## « Ce qui a changé » prend cet emplacement (2026-09-11)
+///
+/// Le bandeau revenait déjà une fois par version : c'était un « quelque chose
+/// a changé » sans dire quoi. Quand la release porte des lignes
+/// (`BrowtherWhatsNewCatalog`), l'emplacement montre l'encart des nouveautés À
+/// LA PLACE du bandeau, et le bandeau de cette version est considéré comme vu :
+/// un seul encart par mise à jour, jamais deux à fermer à la suite. Une version
+/// sans lignes, ou un nouvel arrivant, retrouve le bandeau comme avant.
 class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider {
   var sectionDidChange: (() -> Void)?
 
@@ -30,18 +40,43 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
   var onChannelTapped: ((URL) -> Void)?
 
   private let sizingView = BrowtherBetaNoticeView()
+  private let whatsNewSizingView = BrowtherWhatsNewCardView()
 
   private typealias BetaNoticeCell = NewTabCenteredCollectionViewCell<BrowtherBetaNoticeView>
+  private typealias WhatsNewCell = NewTabCenteredCollectionViewCell<BrowtherWhatsNewCardView>
+
+  /// Ce que l'emplacement montre maintenant. Recalculé à chaque appel : un
+  /// Nouvel Onglet reste en mémoire avec son onglet, et l'encart a pu être
+  /// fermé ailleurs entre-temps.
+  private enum Content {
+    case whatsNew(BrowtherSurfacesRules.WhatsNewRelease, isRehearsal: Bool)
+    case betaNotice
+  }
+
+  private var content: Content? {
+    if let rehearsal = BrowtherSurfaces.whatsNewRehearsal {
+      return .whatsNew(rehearsal, isRehearsal: true)
+    }
+    if let release = BrowtherSurfaces.whatsNewCard() {
+      return .whatsNew(release, isRehearsal: false)
+    }
+    return isBetaNoticeDue() ? .betaNotice : nil
+  }
 
   /// Version applicative en cours, qui sert de clé au « déjà vu ».
   private static var currentVersion: String {
     Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
   }
 
+  /// L'emplacement a-t-il quelque chose à montrer (bandeau OU nouveautés) ?
+  func shouldShowNotice() -> Bool {
+    content != nil
+  }
+
   /// Fermé « pour cette version » seulement : une mise à jour le fait revenir
   /// une fois. Si la version est illisible on montre le bandeau — se taire par
   /// défaut serait le pire des deux comportements.
-  func shouldShowNotice() -> Bool {
+  private func isBetaNoticeDue() -> Bool {
     let version = Self.currentVersion
     if version.isEmpty {
       return true
@@ -53,6 +88,7 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
 
   func registerCells(to collectionView: UICollectionView) {
     collectionView.register(BetaNoticeCell.self)
+    collectionView.register(WhatsNewCell.self)
   }
 
   func collectionView(
@@ -66,6 +102,23 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
+    if case .whatsNew(let release, let isRehearsal) = content {
+      let cell = collectionView.dequeueReusableCell(for: indexPath) as WhatsNewCell
+      cell.view.configure(with: release)
+      cell.view.closeHandler = { [weak self] in
+        self?.closeWhatsNew(release, isRehearsal: isRehearsal, acknowledged: false)
+      }
+      cell.view.acknowledgeHandler = { [weak self] in
+        self?.closeWhatsNew(release, isRehearsal: isRehearsal, acknowledged: true)
+      }
+      if !isRehearsal {
+        // La cellule est demandée quand elle va s'afficher : c'est l'affichage
+        // RÉEL. Idempotent — seule la première apparition écrit.
+        BrowtherSurfaces.noteWhatsNewDisplayed(release)
+      }
+      return cell
+    }
+
     let cell = collectionView.dequeueReusableCell(for: indexPath) as BetaNoticeCell
     cell.view.closeHandler = { [weak self] in
       Preferences.General.browtherBetaNoticeDismissedVersion.value = Self.currentVersion
@@ -77,12 +130,33 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
     return cell
   }
 
+  private func closeWhatsNew(
+    _ release: BrowtherSurfacesRules.WhatsNewRelease,
+    isRehearsal: Bool,
+    acknowledged: Bool
+  ) {
+    if isRehearsal {
+      BrowtherSurfaces.whatsNewRehearsal = nil
+    } else {
+      BrowtherSurfaces.noteWhatsNewClosed(release, acknowledged: acknowledged)
+    }
+    sectionDidChange?()
+  }
+
   func collectionView(
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
     var size = fittingSizeForCollectionView(collectionView, section: indexPath.section)
+    // Même mesure pour les deux contenus ; seule la vue de mesure change.
+    let sizingView: UIView
+    if case .whatsNew(let release, _) = content {
+      whatsNewSizingView.configure(with: release)
+      sizingView = whatsNewSizingView
+    } else {
+      sizingView = self.sizingView
+    }
     // ⚠️ La forme à UN argument de `systemLayoutSizeFitting` traite la taille
     // passée comme un SOUHAIT sur les deux axes (priorité `fittingSizeLevel`),
     // pas comme une contrainte. La largeur n'est donc pas imposée, et la hauteur
@@ -96,11 +170,12 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
     // une cellule auto-dimensionnée dont on connaît la largeur.
     sizingView.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: 0))
     sizingView.layoutIfNeeded()
-    size.height = sizingView.systemLayoutSizeFitting(
-      CGSize(width: size.width, height: UIView.layoutFittingCompressedSize.height),
-      withHorizontalFittingPriority: .required,
-      verticalFittingPriority: .fittingSizeLevel
-    ).height
+    size.height =
+      sizingView.systemLayoutSizeFitting(
+        CGSize(width: size.width, height: UIView.layoutFittingCompressedSize.height),
+        withHorizontalFittingPriority: .required,
+        verticalFittingPriority: .fittingSizeLevel
+      ).height
     return size
   }
 
@@ -122,7 +197,9 @@ private class BrowtherBetaNoticeView: UIView {
   /// Mêmes URL que l'étape d'onboarding « suivre les canaux dev&din »
   /// (`components/brave_welcome_ui/components/follow-channels/qr_codes.ts`).
   /// Doivent rester en phase avec elle.
-  private static let whatsAppURL = URL(string: "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32")
+  private static let whatsAppURL = URL(
+    string: "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32"
+  )
   private static let telegramURL = URL(string: "https://t.me/devndin_nouveautes")
 
   /// Ambre du badge « Beta » du site et du bandeau desktop — une seule couleur,

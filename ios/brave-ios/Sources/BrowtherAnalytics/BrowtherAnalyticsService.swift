@@ -94,6 +94,14 @@ public final class BrowtherAnalyticsService {
     posthog.capture(event, properties: props)
   }
 
+  /// Envoie tout de suite la file PostHog au lieu d'attendre le lot suivant
+  /// (`flushIntervalSeconds`). Réservé aux évènements qu'un humain attend à
+  /// l'autre bout — l'avis écrit, relayé par e-mail. No-op si PostHog est coupé.
+  public func flush() {
+    guard Preferences.BrowtherAnalytics.posthogEnabled.value else { return }
+    posthog?.flush()
+  }
+
   // MARK: - Sentry
 
   /// Retire d'un event Sentry tout ce qui pourrait porter une adresse visitée.
@@ -185,7 +193,8 @@ public final class BrowtherAnalyticsService {
       // Pas de PII (IP, device name custom)
       options.sendDefaultPii = false
       // Tag pour cross-filter dans le dashboard Sentry partagé Desktop/iOS/Android.
-      options.releaseName = "browther-ios@\(Bundle.main.infoDictionaryString(forKey: "CFBundleShortVersionString"))"
+      options.releaseName =
+        "browther-ios@\(Bundle.main.infoDictionaryString(forKey: "CFBundleShortVersionString"))"
     }
     SentrySDK.configureScope { scope in
       scope.setUser(Sentry.User(userId: DistinctIdProvider.get()))
@@ -208,7 +217,9 @@ public final class BrowtherAnalyticsService {
     guard posthog == nil else { return }
     let key = AnalyticsConfig.posthogApiKey
     guard !key.isEmpty else {
-      log.error("PostHog API key vide dans AnalyticsConfig — gen-analytics-config-ios.sh pas exécuté ?")
+      log.error(
+        "PostHog API key vide dans AnalyticsConfig — gen-analytics-config-ios.sh pas exécuté ?"
+      )
       return
     }
     let config = PostHogConfig(apiKey: key, host: AnalyticsConfig.posthogHost)

@@ -105,6 +105,10 @@ public class AppReviewManager: ObservableObject {
 
   @Published public var isRevisedReviewRequired = false
   private var activeAppReviewLogicType: AppReviewLogicType = .legacy
+  /// Browther : cf. `handleAppReview`. Une propriété plutôt qu'un `return` sec,
+  /// pour que le code Brave qui suit reste compilé (et syncable) sans
+  /// avertissement de code mort.
+  private let isBrowtherRatingCoordinated = true
 
   // MARK: Lifecycle
 
@@ -114,6 +118,14 @@ public class AppReviewManager: ObservableObject {
 
   public func handleAppReview(for logicType: AppReviewLogicType, using controller: UIViewController)
   {
+    // Browther : la demande de note de Brave est coupée à la source. Elle
+    // tombait au lancement (`BVC.viewDidLoad`), hors de tout verrou, sans avoir
+    // laissé la parole avant. La note passe désormais par
+    // `BrowtherPromptCoordinator` : après la fiche d'avis, sous le verrou de
+    // 3 jours commun à toutes les fiches (docs/SURFACES-COMMUNES.md §2.1, §3.4).
+    // Garde ici plutôt qu’à chaque point d’appel : une sync upstream qui changerait
+    // `activeAppReviewLogicType` ne peut pas la rallumer.
+    if isBrowtherRatingCoordinated { return }
     guard logicType == activeAppReviewLogicType else {
       return
     }

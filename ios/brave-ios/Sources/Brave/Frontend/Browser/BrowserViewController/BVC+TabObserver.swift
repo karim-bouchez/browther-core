@@ -220,6 +220,14 @@ extension BrowserViewController: TabObserver {
       tab.rewardsXHRLoadURL = tab.visibleURL
     }
 
+    // Browther : unité de mérite des sollicitations — un jour où une vraie page
+    // web a fini de charger dans un onglet normal (cf. BrowtherSurfacesRules).
+    if !tab.isPrivate, let url = tab.visibleURL,
+      url.isWebPage(includeDataURIs: false), !url.isLocal
+    {
+      BrowtherSurfaces.recordPageLoad()
+    }
+
     if tab.walletEthProvider != nil {
       tab.browserData?.emitEthereumEvent(.connect)
     }

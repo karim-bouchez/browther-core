@@ -87,6 +87,10 @@ extension BrowserViewController {
     let popup = PopupViewController(rootView: bottomBarView, isDismissable: true)
 
     isOnboardingOrFullScreenCalloutPresented = true
+    // Browther : arme le verrou de calme (cf. `shouldShowCallout`).
+    if !skipSafeGuards {
+      BrowtherSurfaces.markSolicitationShown()
+    }
     present(popup, animated: false)
   }
 
@@ -113,6 +117,11 @@ extension BrowserViewController {
       $0.modalPresentationStyle = .overFullScreen
     }
 
+    // Browther : arme le verrou de calme (cf. `shouldShowCallout`). Pas quand
+    // c'est la personne qui l'a demandé (`skipSafeGuards`).
+    if !skipSafeGuards {
+      BrowtherSurfaces.markSolicitationShown()
+    }
     present(defaultBrowserCallout, animated: true)
   }
 
@@ -129,6 +138,16 @@ extension BrowserViewController {
   private func shouldShowCallout(calloutType: FullScreenCalloutType, skipSafeGuards: Bool) -> Bool {
     if skipSafeGuards {
       return true
+    }
+
+    // Browther : ces callouts s'ouvrent d'eux-mêmes par-dessus l'écran — ils
+    // passent sous le verrou de calme commun aux fiches dev&din (une seule
+    // sollicitation tous les 3 jours, docs/SURFACES-COMMUNES.md §2.1) et
+    // l'arment quand ils s'affichent. Testé AVANT `FullScreenCalloutManager`,
+    // qui marque le callout comme vu dès qu'il répond oui : il reste ainsi dû,
+    // et viendra quand le silence sera revenu.
+    if !BrowtherSurfaces.isQuiet() {
+      return false
     }
 
     if Preferences.DebugFlag.skipNTPCallouts == true || isOnboardingOrFullScreenCalloutPresented

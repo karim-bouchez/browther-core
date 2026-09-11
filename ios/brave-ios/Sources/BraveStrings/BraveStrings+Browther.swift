@@ -382,5 +382,155 @@ extension Strings {
         "Shields are managed per site. Open the website you want to exclude and tap the shield button in the address bar.",
       comment: "Shown when the user tries to turn Shields off from an internal page — Shields are per-site only"
     )
+
+    // MARK: Surfaces communes dev&din (avis, contact, nouveautés, signature)
+    //
+    // Propres au mobile (le desktop ne les a pas encore) : traduites à la main
+    // pour les 39 locales dans `private/assets/ios-browther-strings-surfaces.json`,
+    // appliquées par `gen-ios-browther-strings.py`. Voix dev&din : tutoiement.
+    // Doc : `private/docs/SURFACES_IOS.md`.
+
+    public static let settingsFeedbackRow = NSLocalizedString(
+      "settingsFeedbackRow",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Contact us",
+      comment: "Settings row (Support section) opening the feedback form"
+    )
+    public static let signatureLabel = NSLocalizedString(
+      "signatureLabel",
+      tableName: "Browther",
+      bundle: .module,
+      value: "A project by",
+      comment: "Footer of Settings, followed by the dev&din logo (the brand name is not translated)"
+    )
+    public static let feedbackTitle = NSLocalizedString(
+      "feedbackTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Your feedback",
+      comment: "Title of the feedback form"
+    )
+    public static let feedbackIntroSpontaneous = NSLocalizedString(
+      "feedbackIntroSpontaneous",
+      tableName: "Browther",
+      bundle: .module,
+      value: "You've been browsing with Browther for a few days. What works, and what doesn't?",
+      comment: "Intro of the feedback form when it opens on its own after a few days of use"
+    )
+    public static let feedbackIntroPermanent = NSLocalizedString(
+      "feedbackIntroPermanent",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Tell us what's wrong, or what's missing. We read everything.",
+      comment: "Intro of the feedback form opened from Settings"
+    )
+    public static let feedbackPlaceholder = NSLocalizedString(
+      "feedbackPlaceholder",
+      tableName: "Browther",
+      bundle: .module,
+      value: "What you want to tell us…",
+      comment: "Placeholder of the feedback text field"
+    )
+    public static let feedbackPrivacy = NSLocalizedString(
+      "feedbackPrivacy",
+      tableName: "Browther",
+      bundle: .module,
+      value:
+        "Only your message is sent — not your name, your address or the sites you visit. Browther asks for no account, so we can't reply.",
+      comment: "Privacy note under the feedback text field"
+    )
+    public static let feedbackAnalyticsOff = NSLocalizedString(
+      "feedbackAnalyticsOff",
+      tableName: "Browther",
+      bundle: .module,
+      value:
+        "Sending goes through the anonymous usage statistics, which are turned off. You can still email us.",
+      comment: "Replaces the privacy note when usage statistics are off (Send is then disabled)"
+    )
+    public static let feedbackEmailHint = NSLocalizedString(
+      "feedbackEmailHint",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Want a reply? Email us",
+      comment: "Link under the Send button, opens the email contact"
+    )
+    public static let feedbackSend = NSLocalizedString(
+      "feedbackSend",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Send",
+      comment: "Button sending the feedback message"
+    )
+    public static let feedbackOptOut = NSLocalizedString(
+      "feedbackOptOut",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Don't ask me again",
+      comment: "Button of the feedback form when it opened on its own"
+    )
+    public static let feedbackThanksTitle = NSLocalizedString(
+      "feedbackThanksTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Thank you",
+      comment: "Title shown after the feedback was sent"
+    )
+    public static let feedbackThanksBody = NSLocalizedString(
+      "feedbackThanksBody",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Your message has been sent. We read it, even if we can't reply.",
+      comment: "Text shown after the feedback was sent"
+    )
+    public static let contactTitle = NSLocalizedString(
+      "contactTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Email us",
+      comment: "Title of the dialog asking who is writing, before opening the mail app"
+    )
+    public static let contactMessage = NSLocalizedString(
+      "contactMessage",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Messages from brothers and sisters are read by different people.",
+      comment: "Explains why the dialog asks whether the user is a brother or a sister"
+    )
+    public static let contactBrother = NSLocalizedString(
+      "contactBrother",
+      tableName: "Browther",
+      bundle: .module,
+      value: "I'm a brother",
+      comment: "Dialog button — opens a mail to the brothers' address"
+    )
+    public static let contactSister = NSLocalizedString(
+      "contactSister",
+      tableName: "Browther",
+      bundle: .module,
+      value: "I'm a sister",
+      comment: "Dialog button — opens a mail to the sisters' address"
+    )
+    public static let contactNoMailApp = NSLocalizedString(
+      "contactNoMailApp",
+      tableName: "Browther",
+      bundle: .module,
+      value: "No mail app is set up on this device. Our address has been copied: %@",
+      comment: "Shown when no mail app can open the message. %@ is the email address"
+    )
+    public static let whatsNewTitle = NSLocalizedString(
+      "whatsNewTitle",
+      tableName: "Browther",
+      bundle: .module,
+      value: "What's changed",
+      comment: "Title of the New Tab card listing what changed in the latest update"
+    )
+    public static let whatsNewAcknowledge = NSLocalizedString(
+      "whatsNewAcknowledge",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Got it",
+      comment: "Button closing the What's changed card"
+    )
   }
 }

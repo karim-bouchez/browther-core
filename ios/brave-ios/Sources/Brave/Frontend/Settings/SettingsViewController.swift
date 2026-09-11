@@ -20,6 +20,7 @@ import Playlist
 import Preferences
 import Shared
 import Static
+import StoreKit
 import SwiftUI
 import UIKit
 import UserAgent
@@ -253,6 +254,7 @@ class SettingsViewController: TableViewController {
     // Always show debug section in local builds and show if previously shown
     if !AppConstants.isOfficialBuild || Preferences.Debug.developerOptionsEnabled.value {
       list.append(debugSection)
+      list.append(browtherRehearsalSection)  // Browther
     }
 
     return list
@@ -1162,18 +1164,24 @@ class SettingsViewController: TableViewController {
     return Static.Section(
       header: .title(Strings.support),
       rows: [
+        // Browther : « Signaler un bug » ouvrait le forum communautaire de BRAVE.
+        // À sa place, l'entrée permanente du formulaire d'avis — obligatoire, pour
+        // qu'on puisse nous écrire le jour où ça casse et pas au prochain palier
+        // (docs/SURFACES-COMMUNES.md §2.9). Le contact e-mail est dans la fiche.
         Row(
-          text: Strings.reportABug,
+          text: Strings.Browther.settingsFeedbackRow,
           selection: { [unowned self] in
-            self.settingsDelegate?.settingsOpenURLInNewTab(.brave.community)
-            self.dismiss(animated: true)
+            self.present(BrowtherFeedbackHostingController(source: .permanent), animated: true)
           },
-          image: UIImage(braveSystemNamed: "leo.bug"),
+          image: UIImage(braveSystemNamed: "leo.message.bubble-comments"),
           cellClass: MultilineValue1Cell.self
         ),
         Row(
           text: Strings.rateBrave,
           selection: { [unowned self] in
+            // Browther : chemin manuel permanent de la notation (§3.4) — le seul
+            // qui marche partout (TestFlight, appareil qui a atteint le plafond).
+            BrowtherSurfaces.noteRatingRequested(source: .permanent)
             // Browther: App Store ID de Browther (fiche App Store Connect, 2026-06).
             guard
               let writeReviewURL = URL(
@@ -1264,7 +1272,12 @@ class SettingsViewController: TableViewController {
         Row(
           text: Strings.privacyPolicy,
           selection: { [unowned self] in
-            settingsDelegate?.settingsOpenURLInNewTab(.brave.privacy)
+            // Browther : c'était la politique de confidentialité de Brave, qui ne
+            // décrit ni nos statistiques ni le formulaire d'avis. La nôtre est
+            // sur le site (redirigée vers la langue du visiteur).
+            if let url = URL(string: "https://browther.devndin.com/privacy") {
+              settingsDelegate?.settingsOpenURLInNewTab(url)
+            }
           },
           accessory: .disclosureIndicator,
           cellClass: MultilineValue1Cell.self
@@ -1285,6 +1298,77 @@ class SettingsViewController: TableViewController {
             }
           },
           accessory: .disclosureIndicator
+        ),
+      ],
+      // Browther : signature de l'éditeur, au pied de l'écran le plus froid de
+      // l'app (docs/SURFACES-COMMUNES.md §6).
+      footer: .autoLayoutView(
+        BrowtherSignatureFooterView { [unowned self] in
+          settingsDelegate?.settingsOpenURLInNewTab(BrowtherSignatureFooterView.url)
+        }
+      )
+    )
+  }()
+
+  /// Browther : déclencheurs de recette des surfaces dev&din (§2.8). Visibles là
+  /// où les Developer Options le sont — build local, et TestFlight via le code
+  /// développeur —, pas dans la build du store. Ils n'écrivent aucun état : on
+  /// peut recommencer autant qu'on veut sans éteindre la vraie sollicitation.
+  private lazy var browtherRehearsalSection: Static.Section = {
+    Static.Section(
+      header: "Browther — recette des sollicitations",
+      rows: [
+        Row(
+          text: "État des sollicitations",
+          selection: { [unowned self] in
+            let alert = UIAlertController(
+              title: "Sollicitations",
+              message: BrowtherSurfaces.debugSummary(),
+              preferredStyle: .alert
+            )
+            alert.addAction(
+              UIAlertAction(title: "Tout remettre à zéro", style: .destructive) { _ in
+                BrowtherSurfaces.resetForRehearsal()
+              }
+            )
+            alert.addAction(UIAlertAction(title: Strings.OKString, style: .cancel))
+            self.present(alert, animated: true)
+          }
+        ),
+        Row(
+          text: "Fiche d'avis spontanée (n'envoie rien)",
+          selection: { [unowned self] in
+            self.present(
+              BrowtherFeedbackHostingController(source: .spontaneous, isRehearsal: true),
+              animated: true
+            )
+          }
+        ),
+        Row(
+          text: "« Ce qui a changé » sur le prochain Nouvel Onglet",
+          selection: { [unowned self] in
+            BrowtherSurfaces.whatsNewRehearsal =
+              BrowtherWhatsNewCatalog.releases.first ?? BrowtherWhatsNewCatalog.rehearsalSample
+            let alert = UIAlertController(
+              title: "Ce qui a changé",
+              message:
+                "Ouvre un nouvel onglet (navigation normale) : l'encart y sera, "
+                + "sans rien écrire ni émettre.",
+              preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: Strings.OKString, style: .default))
+            self.present(alert, animated: true)
+          }
+        ),
+        Row(
+          text: "Demande de note (dialogue de l'OS)",
+          selection: { [unowned self] in
+            // Rien d'écrit : pas de date de demande, pas de verrou. L'OS peut ne
+            // rien afficher (TestFlight, plafond atteint) — c'est la règle.
+            if let scene = self.view.window?.windowScene {
+              AppStore.requestReview(in: scene)
+            }
+          }
         ),
       ]
     )
@@ -1611,6 +1695,7 @@ class SettingsViewController: TableViewController {
           if textField.text == kBraveDeveloperOptionsCode {
             Preferences.Debug.developerOptionsEnabled.value = true
             self.dataSource.sections.append(self.debugSection)
+            self.dataSource.sections.append(self.browtherRehearsalSection)  // Browther
           }
         }
       )

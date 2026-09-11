@@ -42,6 +42,10 @@ extension BrowserViewController {
         showPrivacyReportsOnboardingIfNeeded()
       }
     }
+
+    // Browther : les sollicitations dev&din (avis, note) ne viennent que sur un
+    // Nouvel Onglet — c'est leur seul point d'entrée spontané.
+    BrowtherPromptCoordinator.shared.newTabPageDidAppear(in: self)
   }
 
   private func presentOmniBoxOnboarding() {
@@ -328,6 +332,11 @@ extension BrowserViewController {
         Preferences.Onboarding.basicOnboardingCompleted.value = OnboardingState.completed.rawValue
         Preferences.AppState.shouldDeferPromotedPurchase.value = false
         Preferences.FocusOnboarding.focusOnboardingFinished.value = true
+        // Browther : un nouvel arrivant ne voit jamais « Ce qui a changé » (tout
+        // est nouveau pour lui), et la dernière étape vient de lui proposer les
+        // canaux — une sollicitation, qui arme le verrou de 3 jours.
+        BrowtherSurfaces.seedWhatsNewAfterOnboarding()
+        BrowtherSurfaces.markSolicitationShown()
         // Browther: analytics
         BrowtherAnalyticsService.shared.track(
           event: "onboarding_completed",
