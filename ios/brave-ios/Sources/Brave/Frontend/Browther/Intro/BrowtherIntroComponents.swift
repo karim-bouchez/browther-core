@@ -298,17 +298,17 @@ struct BrowtherIntroBadgedIcon: View {
         // Même géométrie que dans la barre d'outils : le point est posé DANS
         // le coin de l'icône, pas accroché à l'extérieur. Le halo est celui
         // des trois protections de l'accueil — à 8 pt, un aplat mat disparaît.
-        // ⚠️ Petit. Sur macOS le badge fait environ 30 % de l'icône (6 px pour
-        // 20) : c'est un repère, pas une pastille. Un point de 8 pt sur une
-        // icône de 24 paraissait déjà deux fois trop gros à l'écran.
+        // ⚠️ Exactement la géométrie de macOS et de la barre d'outils :
+        // **40 % de la largeur de l'icône** (8 dip pour 20 sur desktop), posé
+        // ENTIÈREMENT à l'intérieur du coin bas-droite, cerné de blanc. Ni
+        // halo ni débord : les trois surfaces doivent rendre pareil, c'est le
+        // même repère.
         Circle()
           .fill(badgeColor)
-          .frame(width: size * 0.3, height: size * 0.3)
+          .frame(width: size * 0.4, height: size * 0.4)
           .overlay {
-            Circle().strokeBorder(Color(UIColor.secondarySystemGroupedBackground), lineWidth: 1.2)
+            Circle().strokeBorder(Color.white, lineWidth: 1)
           }
-          .shadow(color: badgeColor.opacity(0.8), radius: 2.5)
-          .offset(x: 1, y: 1)
       }
       .animation(.smooth(duration: 0.25), value: isOn)
   }

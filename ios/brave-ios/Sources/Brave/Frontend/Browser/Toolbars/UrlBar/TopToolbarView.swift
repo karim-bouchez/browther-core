@@ -287,7 +287,7 @@ class TopToolbarView: UIView, ToolbarProtocol {
   }
 
   private(set) lazy var shieldsButton: ToolbarButton = {
-    let button = ToolbarButton()
+    let button = BrowtherBadgedToolbarButton()
     // Browther: variante dédiée URL bar (sans bg, sans padding interne) rendue
     // via .alwaysTemplate. Les autres usages de "brave.logo" (favicon list,
     // back-forward) gardent leur version with-bg historique.
@@ -347,7 +347,7 @@ class TopToolbarView: UIView, ToolbarProtocol {
     identifier: String,
     action: Selector
   ) -> ToolbarButton {
-    let button = ToolbarButton()
+    let button = BrowtherBadgedToolbarButton()
     let icon = UIImage(named: iconName, in: .module, compatibleWith: nil)?
       .withRenderingMode(.alwaysTemplate)
     button.setImage(icon, for: .normal)
@@ -367,22 +367,21 @@ class TopToolbarView: UIView, ToolbarProtocol {
     button.selectedTintColor = color.withAlphaComponent(0.5)
   }
 
-  /// Petit dot 8pt en bas-droite du bouton (vert = ON, rouge = OFF) — cohérent macOS.
+  /// Le dot de statut, **à la géométrie de macOS** : 40 % de la largeur de
+  /// l'icône (8 dip pour 20 là-bas), posé entièrement DANS son coin bas-droite,
+  /// cerné de blanc.
+  ///
+  /// ⚠️ Il se cale sur l'`imageView`, pas sur le bouton : le bouton est plus
+  /// large que son icône et ses marges varient avec la barre, si bien que le
+  /// dot flottait loin du coin et paraissait plus gros qu'il n'est
+  /// (recette 2026-09-12). `BrowtherBadgedToolbarButton` le repositionne à
+  /// chaque passe de layout.
   private func attachStatusBadge(to button: UIButton) -> UIView {
-    let badge = UIView()
-    badge.translatesAutoresizingMaskIntoConstraints = false
-    badge.layer.cornerRadius = 4
-    badge.layer.borderWidth = 1.5
-    badge.layer.borderColor = UIColor.systemBackground.cgColor
-    badge.isUserInteractionEnabled = false
-    button.addSubview(badge)
-    NSLayoutConstraint.activate([
-      badge.widthAnchor.constraint(equalToConstant: 8),
-      badge.heightAnchor.constraint(equalToConstant: 8),
-      badge.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -2),
-      badge.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: -2),
-    ])
-    return badge
+    guard let button = button as? BrowtherBadgedToolbarButton else {
+      assertionFailure("Le badge exige un BrowtherBadgedToolbarButton")
+      return UIView()
+    }
+    return button.statusBadge
   }
 
   fileprivate func updateBrowtherFeatureButtons() {
