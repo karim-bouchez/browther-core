@@ -21,7 +21,13 @@ extension BrowserViewController {
   func presentOnboardingIntro() {
     if Preferences.DebugFlag.skipOnboardingIntro == true { return }
 
-    presentFocusOnboarding()
+    // Browther : c'est NOTRE introduction qui s'ouvre au premier lancement, pas
+    // le parcours Focus de Brave — celui-ci ne présentait que ce que Browther
+    // hérite (navigateur par défaut, argument anti-pub, canaux) et ne disait
+    // rien de Basarunaa ni de Sawtunaa, les deux raisons d'exister du
+    // navigateur. `presentFocusOnboarding()` reste en place pour le menu de
+    // debug ; il n'est simplement plus le chemin du premier lancement.
+    presentBrowtherIntro()
   }
 
   func showNTPOnboarding() {
@@ -329,27 +335,75 @@ extension BrowserViewController {
       showSplashScreen: false,  // Browther: skip Brave wordmark splash
 
       onCompletion: {
-        Preferences.Onboarding.basicOnboardingCompleted.value = OnboardingState.completed.rawValue
-        Preferences.AppState.shouldDeferPromotedPurchase.value = false
-        Preferences.FocusOnboarding.focusOnboardingFinished.value = true
-        // Browther : un nouvel arrivant ne voit jamais « Ce qui a changé » (tout
-        // est nouveau pour lui), et la dernière étape vient de lui proposer les
-        // canaux — une sollicitation, qui arme le verrou de 3 jours.
-        BrowtherSurfaces.seedWhatsNewAfterOnboarding()
-        BrowtherSurfaces.markSolicitationShown()
-        // Browther: analytics
-        BrowtherAnalyticsService.shared.track(
-          event: "onboarding_completed",
-          properties: [
-            "sentry_enabled": Preferences.BrowtherAnalytics.sentryEnabled.value,
-            "posthog_enabled": Preferences.BrowtherAnalytics.posthogEnabled.value,
-          ]
-        )
+        BrowserViewController.finishOnboarding()
       }
     )
 
     present(controller, animated: false)
 
     Preferences.FocusOnboarding.urlBarIndicatorShowBeShown.value = true
+  }
+}
+
+// MARK: - Browther : introduction maison
+
+extension BrowserViewController {
+
+  /// Ouvre l'introduction Browther (six écrans, cf.
+  /// `private/docs/ONBOARDING.md`). Mêmes gardes que le parcours Brave : elle
+  /// ne s'ouvre que pour qui ne l'a jamais vue.
+  func presentBrowtherIntro() {
+    guard Preferences.Onboarding.basicOnboardingCompleted.value == OnboardingState.unseen.rawValue
+    else {
+      Preferences.AppState.shouldDeferPromotedPurchase.value = false
+      return
+    }
+
+    // Statut fraîchement mesuré : inutile de proposer ce qui est déjà fait.
+    defaultBrowserHelper.performAccurateDefaultCheckIfNeeded()
+    let isDefault = defaultBrowserHelper.status == .defaulted
+
+    let model = BrowtherIntroModel(
+      isDefaultBrowser: isDefault,
+      onOpenURL: { url in
+        UIApplication.shared.open(url)
+      },
+      onSetDefaultBrowser: {
+        // ⚠️ Régression assumée pour l'instant : le parcours Brave lançait
+        // AUSSI la vidéo en incrustation (`set-default-pip-*.mp4`, tournée sur
+        // appareil) qui montre le chemin dans les Réglages. Son contrôleur est
+        // `private` dans le module Onboarding — à exposer pour la remettre.
+        if let settings = URL(string: UIApplication.openSettingsURLString) {
+          UIApplication.shared.open(settings)
+        }
+      },
+      onFinish: { [weak self] in
+        BrowserViewController.finishOnboarding()
+        self?.dismiss(animated: true)
+      }
+    )
+
+    present(BrowtherIntroController(model: model), animated: false)
+  }
+
+  /// Ce que la fin d'une introduction doit poser, quelle qu'elle soit.
+  ///
+  /// ⚠️ Les deux lignes `BrowtherSurfaces` ne sont pas décoratives : un nouvel
+  /// arrivant ne doit jamais voir « Ce qui a changé » (tout est nouveau pour
+  /// lui), et la dernière étape vient de lui proposer les canaux — donc une
+  /// sollicitation, qui arme le verrou de 3 jours.
+  static func finishOnboarding() {
+    Preferences.Onboarding.basicOnboardingCompleted.value = OnboardingState.completed.rawValue
+    Preferences.AppState.shouldDeferPromotedPurchase.value = false
+    Preferences.FocusOnboarding.focusOnboardingFinished.value = true
+    BrowtherSurfaces.seedWhatsNewAfterOnboarding()
+    BrowtherSurfaces.markSolicitationShown()
+    BrowtherAnalyticsService.shared.track(
+      event: "onboarding_completed",
+      properties: [
+        "sentry_enabled": Preferences.BrowtherAnalytics.sentryEnabled.value,
+        "posthog_enabled": Preferences.BrowtherAnalytics.posthogEnabled.value,
+      ]
+    )
   }
 }

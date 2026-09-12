@@ -1557,7 +1557,7 @@ class SettingsViewController: TableViewController {
             else { return }
             self.dismiss(animated: true) {
               BrowtherOnboardingReplay.reset()
-              browserViewController.presentFocusOnboarding()
+              browserViewController.presentBrowtherIntro()
             }
           },
           cellClass: MultilineValue1Cell.self
