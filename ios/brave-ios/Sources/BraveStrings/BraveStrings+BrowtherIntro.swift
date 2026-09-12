@@ -156,26 +156,12 @@ extension Strings {
         "Mix the fine semolina, the flour and a pinch of salt, then add the warm water little by little.",
       comment: "First lines of the made-up article"
     )
-    public static let demoAdCountdown = NSLocalizedString(
-      "introDemoAdCountdown",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Ad \u{00B7} 0:15",
-      comment: "Label on the ad that plays before the video"
-    )
     public static let demoAdSound = NSLocalizedString(
       "introDemoAdSound",
       tableName: "Browther",
       bundle: .module,
       value: "Sound on",
       comment: "Label saying the ad plays with sound"
-    )
-    public static let demoAdSkip = NSLocalizedString(
-      "introDemoAdSkip",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Skip in 5s",
-      comment: "Skip button of the ad that plays before the video"
     )
     public static let demoAdSkipFormat = NSLocalizedString(
       "introDemoAdSkipFormat",
@@ -211,13 +197,6 @@ extension Strings {
       bundle: .module,
       value: "3 blocked",
       comment: "Counter shown once Browther blocked the ads of the demo page"
-    )
-    public static let blurredTag = NSLocalizedString(
-      "introBlurredTag",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Blurred",
-      comment: "Tag on a blurred person in the preview"
     )
     public static let stampHalal = NSLocalizedString(
       "introStampHalal",
@@ -320,13 +299,6 @@ extension Strings {
       value: "Covered, image and video alike",
       comment: "State of the demo switch once blurring is on"
     )
-    public static let activateBlur = NSLocalizedString(
-      "introActivateBlur",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Turn on blurring",
-      comment: "Main button of the blurring screen"
-    )
     public static let laterButton = NSLocalizedString(
       "introLaterButton",
       tableName: "Browther",
@@ -394,13 +366,6 @@ extension Strings {
       value: "Music removed, voice untouched",
       comment: "State of the demo switch once Browther is on"
     )
-    public static let activateMusic = NSLocalizedString(
-      "introActivateMusic",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Turn on music removal",
-      comment: "Main button of the music screen"
-    )
 
     // MARK: Navigateur par défaut
 
@@ -461,20 +426,6 @@ extension Strings {
       bundle: .module,
       value: "Discover other projects like this one",
       comment: "Title of the channels screen while features are in development"
-    )
-    public static let notifBlur = NSLocalizedString(
-      "introNotifBlur",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Blurring is available in Browther. Update the app to get it.",
-      comment: "Example notification shown on the channels screen"
-    )
-    public static let notifMusic = NSLocalizedString(
-      "introNotifMusic",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Music removal is coming to your iPhone.",
-      comment: "Example notification shown on the channels screen"
     )
     // MARK: Activation (les trois écrans qui demandent un geste)
 
