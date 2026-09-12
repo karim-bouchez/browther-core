@@ -258,8 +258,14 @@ struct BrowtherIntroBlurStep: View {
       title: Strings.BrowtherIntro.blurTitle,
       subtitle: Strings.BrowtherIntro.blurSubtitle
     ) {
-      BrowtherIntroPeopleScene(target: model.blurTarget)
-        .sensoryFeedback(.selection, trigger: model.blurTarget)
+      // Une vidéo ET une photo : elles ne prouvent pas la même chose. La photo
+      // montre que le voile est propre, la vidéo qu'il suit.
+      VStack(spacing: 10) {
+        BrowtherIntroVideoTile(target: model.blurTarget)
+        BrowtherIntroPhotoTile(target: model.blurTarget)
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .sensoryFeedback(.selection, trigger: model.blurTarget)
     } actions: {
       HStack(spacing: 10) {
         choice(.women, label: Strings.BrowtherIntro.blurWomen, symbol: "figure.stand.dress")
@@ -328,6 +334,8 @@ struct BrowtherIntroBlurStep: View {
 
 struct BrowtherIntroMusicStep: View {
   @ObservedObject var model: BrowtherIntroModel
+  /// L'extrait réel (voix + musique) et sa version passée dans Sawtunaa.
+  @StateObject private var audio = BrowtherIntroAudio()
 
   var body: some View {
     BrowtherIntroLayout(
@@ -348,9 +356,29 @@ struct BrowtherIntroMusicStep: View {
               startRadius: 10,
               endRadius: 260
             )
-            Image(systemName: "mic.fill")
-              .font(.system(size: 44))
-              .foregroundStyle(Color(UIColor(rgb: 0xE7E2D5)))
+            VStack(spacing: 14) {
+              Image(systemName: "mic.fill")
+                .font(.system(size: 40))
+                .foregroundStyle(Color(UIColor(rgb: 0xE7E2D5)))
+              Button {
+                audio.toggle()
+              } label: {
+                HStack(spacing: 8) {
+                  Image(systemName: audio.isPlaying ? "pause.fill" : "play.fill")
+                  Text(
+                    audio.isPlaying
+                      ? Strings.BrowtherIntro.musicPause
+                      : Strings.BrowtherIntro.musicListen
+                  )
+                }
+                .font(.callout.weight(.semibold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 16)
+                .frame(height: 40)
+                .background(Color.white.opacity(0.16), in: Capsule())
+              }
+              .buttonStyle(.plain)
+            }
           }
           .frame(maxHeight: .infinity)
           BrowtherIntroLanes(musicRemoved: model.musicDemoOn)
@@ -375,6 +403,12 @@ struct BrowtherIntroMusicStep: View {
         )
       }
       .sensoryFeedback(.impact(weight: .medium), trigger: model.musicDemoOn)
+      .onChange(of: model.musicDemoOn) { _, removed in
+        // L'interrupteur ne relance rien : il change de canal, à la même
+        // position dans le morceau.
+        audio.apply(musicRemoved: removed)
+      }
+      .onDisappear { audio.stop() }
     } actions: {
       Button(Strings.BrowtherIntro.activateMusic) {
         model.activate(.sawtunaa)

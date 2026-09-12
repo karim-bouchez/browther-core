@@ -128,3 +128,7 @@
 "introChannelsSoonDescription" = "Le floutage et la coupure de la musique arrivent bientôt. On annoncera leur sortie sur nos chaînes : un message rare, seulement quand ça vaut le coup.";
 "introNotifBlur" = "Le floutage est disponible dans Browther. Mets l'app à jour pour en profiter.";
 "introNotifMusic" = "La coupure de la musique arrive sur ton iPhone.";
+"introTileImage" = "Image";
+"introTileVideo" = "Vidéo";
+"introMusicListen" = "Écouter l'extrait";
+"introMusicPause" = "Pause";

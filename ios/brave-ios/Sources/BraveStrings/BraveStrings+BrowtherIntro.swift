@@ -222,6 +222,34 @@ extension Strings {
 
     // MARK: Floutage
 
+    public static let tileImage = NSLocalizedString(
+      "introTileImage",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Image",
+      comment: "Tag on the photo shown in the blurring preview"
+    )
+    public static let tileVideo = NSLocalizedString(
+      "introTileVideo",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Video",
+      comment: "Tag on the video shown in the blurring preview"
+    )
+    public static let musicListen = NSLocalizedString(
+      "introMusicListen",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Play the excerpt",
+      comment: "Button that plays the demo audio"
+    )
+    public static let musicPause = NSLocalizedString(
+      "introMusicPause",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Pause",
+      comment: "Button that pauses the demo audio"
+    )
     public static let blurTitle = NSLocalizedString(
       "introBlurTitle",
       tableName: "Browther",

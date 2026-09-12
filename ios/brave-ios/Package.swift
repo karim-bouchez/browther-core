@@ -172,6 +172,15 @@ var package = Package(
         .copy("Assets/InterstitialPages/Styles/Web3Domain.css"),
         .copy("Assets/Lottie/shred.json"),
         .copy("Assets/SearchPlugins"),
+        // Browther — les médias de l'introduction et leur floutage pré-calculé
+        // (cf. BrowtherIntroMedia). Le .json porte le contour du voile par
+        // personne : c'est lui qui fait que le choix reste vivant à l'écran.
+        .copy("Frontend/Browther/Intro/Resources/browther-intro-photo.jpg"),
+        .copy("Frontend/Browther/Intro/Resources/browther-intro-photo.json"),
+        .copy("Frontend/Browther/Intro/Resources/browther-intro-video.mp4"),
+        .copy("Frontend/Browther/Intro/Resources/browther-intro-video.json"),
+        .copy("Frontend/Browther/Intro/Resources/browther-intro-audio-before.m4a"),
+        .copy("Frontend/Browther/Intro/Resources/browther-intro-audio-after.m4a"),
         .copy("Frontend/Reader/Reader.css"),
         .copy("Frontend/Reader/Reader.html"),
         .copy("Frontend/Reader/ReaderViewLoading.html"),
