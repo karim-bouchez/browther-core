@@ -238,6 +238,15 @@ final class BrowtherIntroAudio: ObservableObject {
   private var after: AVAudioPlayer?
   private var ticker: Timer?
   private var volumeObservation: NSKeyValueObservation?
+  /// L'état de l'interrupteur, gardé ici : `prepare()` peut arriver APRÈS la
+  /// bascule (rien n'est chargé tant qu'on n'a pas joué), et il doit alors
+  /// poser le bon canal. ⚠️ C'est le bug de la recette : `prepare()` remettait
+  /// « avec musique » juste après que l'interrupteur eut demandé « sans ».
+  private var musicRemoved = false
+  /// Vrai pendant qu'on déplace la tête de lecture : le rafraîchissement
+  /// automatique doit se taire, sinon il repousse le curseur sous le doigt et
+  /// la barre saccade.
+  private var isScrubbing = false
 
   init() {
     let session = AVAudioSession.sharedInstance()
@@ -272,7 +281,7 @@ final class BrowtherIntroAudio: ObservableObject {
     before = beforePlayer
     after = afterPlayer
     duration = beforePlayer.duration
-    apply(musicRemoved: false)
+    applyVolumes()
   }
 
   /// Lecture et pause. Rien ne démarre tout seul : l'extrait part au geste de
@@ -303,9 +312,10 @@ final class BrowtherIntroAudio: ObservableObject {
 
   /// Déplacer la tête de lecture — sur les **deux** pistes, sinon la
   /// comparaison perd son sens.
-  func seek(to fraction: Double) {
+  func seek(to fraction: Double, finished: Bool = false) {
     prepare()
     guard let before, let after, duration > 0 else { return }
+    isScrubbing = !finished
     let time = min(max(0, fraction), 0.999) * duration
     before.currentTime = time
     after.currentTime = time
@@ -313,6 +323,11 @@ final class BrowtherIntroAudio: ObservableObject {
   }
 
   func apply(musicRemoved: Bool) {
+    self.musicRemoved = musicRemoved
+    applyVolumes()
+  }
+
+  private func applyVolumes() {
     before?.volume = musicRemoved ? 0 : 1
     after?.volume = musicRemoved ? 1 : 0
   }
@@ -331,7 +346,8 @@ final class BrowtherIntroAudio: ObservableObject {
     ticker?.invalidate()
     ticker = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
       Task { @MainActor in
-        guard let self, let before = self.before, self.duration > 0 else { return }
+        guard let self, !self.isScrubbing, let before = self.before, self.duration > 0
+        else { return }
         self.progress = before.currentTime / self.duration
       }
     }

@@ -405,7 +405,7 @@ extension Strings {
       "introSoonTitle",
       tableName: "Browther",
       bundle: .module,
-      value: "Already here, not yet on.",
+      value: "Coming soon, in shaa Allah",
       comment: "Title of the sheet shown when tapping 'Turn on' during early access; the invocation is added on its own line"
     )
     public static let soonBlurBody = NSLocalizedString(
@@ -413,7 +413,7 @@ extension Strings {
       tableName: "Browther",
       bundle: .module,
       value:
-        "Blurring works already. We leave it off by default while we polish how it renders \u{2014} we will tell you as soon as it is clean enough to never get in the way of your browsing. Your choice is saved and will apply then. In the meantime Browther already blocks ads, and they are what forces the most unchosen images on you.",
+        "Blurring works already. We leave it off by default while we polish how it renders \u{2014} we will tell you as soon as it is clean enough to never get in the way of your browsing. In the meantime Browther already blocks ads, and they are what forces the most unchosen images on you.",
       comment: "Body of the sheet, blurring"
     )
     public static let soonMusicBody = NSLocalizedString(
@@ -464,13 +464,6 @@ extension Strings {
       value: "Browther Shields",
       comment: "Name of the ad blocking feature, the same one used inside the app"
     )
-    public static let poweredBy = NSLocalizedString(
-      "introPoweredBy",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Powered by %@",
-      comment: "Credit line tying a screen to the engine behind it, e.g. 'Powered by Basarunaa'"
-    )
     public static let turnOnToContinue = NSLocalizedString(
       "introTurnOnToContinue",
       tableName: "Browther",
@@ -491,6 +484,27 @@ extension Strings {
       bundle: .module,
       value: "Your iPhone volume is down \u{2014} turn it up to hear the excerpt",
       comment: "Warning shown when the device output volume is zero"
+    )
+    public static let demoStatAds = NSLocalizedString(
+      "introDemoStatAds",
+      tableName: "Browther",
+      bundle: .module,
+      value: "3 ads blocked",
+      comment: "Counter on the browser sheet of the default browser screen"
+    )
+    public static let demoStatMusic = NSLocalizedString(
+      "introDemoStatMusic",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Music removed",
+      comment: "Counter on the browser sheet of the default browser screen"
+    )
+    public static let demoStatImages = NSLocalizedString(
+      "introDemoStatImages",
+      tableName: "Browther",
+      bundle: .module,
+      value: "2 images covered",
+      comment: "Counter on the browser sheet of the default browser screen"
     )
     public static let demoMessagingApp = NSLocalizedString(
       "introDemoMessagingApp",
@@ -526,7 +540,7 @@ extension Strings {
       tableName: "Browther",
       bundle: .module,
       value:
-        "Browther is only one app in the dev&din ecosystem. Some projects are already out, others are being built right now. As for blurring and music removal, we will tell you when they are on \u{2014} on our WhatsApp and Telegram channels, in shaa Allah.",
+        "Browther is only one app in the dev&din ecosystem. We announce every release \u{2014} blurring and music removal included \u{2014} on our WhatsApp and Telegram channels, in shaa Allah.",
       comment: "Description of the channels screen while features are in development"
     )
   }

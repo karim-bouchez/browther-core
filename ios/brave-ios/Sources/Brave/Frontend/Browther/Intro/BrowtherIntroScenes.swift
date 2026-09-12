@@ -31,7 +31,7 @@ struct BrowtherIntroWebPage: View {
             Text(Strings.BrowtherIntro.demoBlockedCount)
           }
           .font(.system(size: 11, weight: .bold))
-          .foregroundStyle(BrowtherIntroPalette.halal)
+          .foregroundStyle(BrowtherIntroPalette.halalText)
           .padding(.horizontal, 8)
           .padding(.vertical, 4)
           .background(BrowtherIntroPalette.halal.opacity(0.14), in: Capsule())
@@ -221,7 +221,7 @@ struct BrowtherIntroLanes: View {
       if let trailing {
         Text(trailing)
           .font(.caption.weight(.semibold))
-          .foregroundStyle(BrowtherIntroPalette.halal)
+          .foregroundStyle(BrowtherIntroPalette.halalText)
           .transition(.opacity)
       }
     }

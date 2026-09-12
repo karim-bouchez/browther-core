@@ -19,6 +19,14 @@ enum BrowtherIntroPalette {
   static let gold = dynamic(light: 0xB88C3E, dark: 0xD4A857)
   static let halal = dynamic(light: 0x1C5A3A, dark: 0x2A8F5A)
   static let haram = dynamic(light: 0x8B2C2C, dark: 0xC44545)
+  /// Le vert **du texte**, distinct de celui des aplats. Sur fond noir,
+  /// `halal` (0x2A8F5A) tombe à 3:1 : lisible pour une pastille, trop sombre
+  /// pour un libellé. Celui-ci passe 7:1 sans devenir fluo.
+  static let halalText = dynamic(light: 0x1C5A3A, dark: 0x6FD79B)
+  /// Les deux teintes du choix « qui flouter » : elles disent le sujet sans
+  /// qu'on lise, et la case sélectionnée cesse d'être un simple cadre vert.
+  static let feminine = dynamic(light: 0xC2185B, dark: 0xF48FB1)
+  static let masculine = dynamic(light: 0x1565C0, dark: 0x90CAF9)
   /// Fond des maquettes (page web, fil d'images) : le crème du site en clair,
   /// une surface élevée en sombre.
   static let canvas = dynamic(light: 0xF8F3EA, dark: 0x1C1F1C)
@@ -240,9 +248,14 @@ struct BrowtherIntroSwitchRow: View {
         Text(title)
           .font(.callout.weight(.semibold))
           .foregroundStyle(BrowtherIntroPalette.ink)
+        // ⚠️ Une seule ligne, quoi qu'il arrive : « Désactivé · les pubs
+        // passent » se cassait en deux et faisait sauter tout le bas de
+        // l'écran à chaque bascule.
         Text(isOn ? onLabel : offLabel)
           .font(.footnote)
-          .foregroundStyle(isOn ? BrowtherIntroPalette.halal : BrowtherIntroPalette.inkSoft)
+          .foregroundStyle(isOn ? BrowtherIntroPalette.halalText : BrowtherIntroPalette.inkSoft)
+          .lineLimit(1)
+          .minimumScaleFactor(0.75)
           .contentTransition(.opacity)
       }
       .frame(maxWidth: .infinity, alignment: .leading)
@@ -251,7 +264,7 @@ struct BrowtherIntroSwitchRow: View {
         .accessibilityLabel(title)
     }
     .padding(.horizontal, 16)
-    .padding(.vertical, 8)
+    .frame(height: 74)
     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
     .animation(.smooth(duration: 0.25), value: isOn)
   }
@@ -269,17 +282,19 @@ struct BrowtherIntroAdvanceButton: View {
 
   var body: some View {
     VStack(spacing: 6) {
+      // ⚠️ Le conseil est AU-DESSUS et sa hauteur est réservée en permanence :
+      // rien ne doit bouger entre ON et OFF, ni le bouton ni l'interrupteur.
+      Text(Strings.BrowtherIntro.turnOnToContinue)
+        .font(.footnote)
+        .foregroundStyle(BrowtherIntroPalette.inkSoft)
+        .frame(height: 17)
+        .opacity(enabled ? 0 : 1)
+        .animation(.smooth(duration: 0.3), value: enabled)
       Button(title, action: action)
         .buttonStyle(BrowtherIntroPrimaryButtonStyle())
         .disabled(!enabled)
         .opacity(enabled ? 1 : 0.35)
         .saturation(enabled ? 1 : 0)
-        .animation(.smooth(duration: 0.3), value: enabled)
-      Text(Strings.BrowtherIntro.turnOnToContinue)
-        .font(.footnote)
-        .foregroundStyle(BrowtherIntroPalette.inkSoft)
-        .opacity(enabled ? 0 : 1)
-        .frame(height: enabled ? 0 : nil)
         .animation(.smooth(duration: 0.3), value: enabled)
     }
   }

@@ -43,9 +43,11 @@ struct BrowtherIntroWelcomeStep: View {
           .frame(width: 66, height: 66)
           .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
           .shadow(color: .black.opacity(0.35), radius: 14, y: 6)
-          .padding(.top, 60)
+          // La barre de progression occupe le haut : le logo commence en
+          // dessous, sinon il passe derrière elle.
+          .padding(.top, 96)
         verse
-          .padding(.top, 24)
+          .padding(.top, 22)
         Spacer(minLength: 16)
         Text(Strings.BrowtherIntro.welcomeTitle)
           .font(.system(size: 29, weight: .semibold))
@@ -61,7 +63,7 @@ struct BrowtherIntroWelcomeStep: View {
         .padding(.top, 18)
         BrowtherIntroSignature()
           .padding(.top, 14)
-          .padding(.bottom, 10)
+          .padding(.bottom, 26)
       }
       .padding(.horizontal, 20)
       .frame(width: proxy.size.width, height: proxy.size.height)
@@ -71,7 +73,9 @@ struct BrowtherIntroWelcomeStep: View {
           .clipped()
       }
     }
-    .ignoresSafeArea(edges: .top)
+    // Haut ET bas : sans le bas, une bande noire restait sous la signature,
+    // à l'endroit de la barre d'accueil.
+    .ignoresSafeArea()
   }
 
   @ViewBuilder
@@ -281,78 +285,89 @@ struct BrowtherIntroBlurStep: View {
   var body: some View {
     BrowtherIntroLayout(
       title: Strings.BrowtherIntro.blurTitle,
-      subtitle: Strings.BrowtherIntro.blurSubtitle,
-      footnote: AnyView(
-        BrowtherIntroEngineCredit(icon: "basarunaa.icon", name: "Basarunaa")
-      )
+      subtitle: Strings.BrowtherIntro.blurSubtitle
     ) {
       // Une vidéo ET une photo : elles ne prouvent pas la même chose. La photo
       // montre que le voile est propre, la vidéo qu'il suit.
       VStack(spacing: 10) {
         BrowtherIntroVideoTile(target: model.blurDemoOn ? model.blurTarget : .none)
         BrowtherIntroPhotoTile(target: model.blurDemoOn ? model.blurTarget : .none)
-        BrowtherIntroSwitchRow(
-          icon: "basarunaa.icon",
-          title: "Basarunaa",
-          offLabel: Strings.BrowtherIntro.blurSwitchOff,
-          onLabel: Strings.BrowtherIntro.blurSwitchOn,
-          isOn: Binding(
-            get: { model.blurDemoOn },
-            set: { _ in model.toggleDemo(for: .blur) }
-          )
-        )
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .overlay {
         BrowtherIntroCelebration(isOn: model.blurDemoOn)
       }
       .sensoryFeedback(.selection, trigger: model.blurTarget)
-      .sensoryFeedback(.impact(weight: .medium), trigger: model.blurDemoOn)
     } actions: {
       HStack(spacing: 10) {
-        choice(.women, label: Strings.BrowtherIntro.blurWomen, symbol: "figure.stand.dress")
-        choice(.men, label: Strings.BrowtherIntro.blurMen, symbol: "figure.stand")
-        choice(.both, label: Strings.BrowtherIntro.blurBoth, symbol: "figure.2")
+        choice(
+          .women,
+          label: Strings.BrowtherIntro.blurWomen,
+          symbol: "figure.stand.dress",
+          tint: BrowtherIntroPalette.feminine
+        )
+        choice(
+          .men,
+          label: Strings.BrowtherIntro.blurMen,
+          symbol: "figure.stand",
+          tint: BrowtherIntroPalette.masculine
+        )
+        choice(
+          .both,
+          label: Strings.BrowtherIntro.blurBoth,
+          symbol: "figure.2",
+          tint: BrowtherIntroPalette.sage
+        )
       }
-      .padding(.bottom, 6)
+      BrowtherIntroSwitchRow(
+        icon: "basarunaa.icon",
+        title: "Basarunaa",
+        offLabel: Strings.BrowtherIntro.blurSwitchOff,
+        onLabel: Strings.BrowtherIntro.blurSwitchOn,
+        isOn: Binding(
+          get: { model.blurDemoOn },
+          set: { _ in model.toggleDemo(for: .blur) }
+        )
+      )
       BrowtherIntroAdvanceButton(
         title: Strings.FocusOnboarding.continueButtonTitle,
         enabled: model.blurDemoOn
       ) {
         model.activate(.basarunaa)
       }
-      Button(Strings.BrowtherIntro.laterButton) {
-        model.later(BrowtherIntroFeature.basarunaa.rawValue)
-      }
-      .buttonStyle(BrowtherIntroGhostButtonStyle())
     }
   }
 
-  private func choice(_ target: BrowtherBlurTarget, label: String, symbol: String) -> some View {
+  /// Chaque cible a sa teinte — rose, bleu — pour que le choix se lise avant
+  /// d'être lu. La case sélectionnée n'est plus un cadre vert de plus.
+  private func choice(
+    _ target: BrowtherBlurTarget,
+    label: String,
+    symbol: String,
+    tint: Color
+  ) -> some View {
     let selected = model.blurTarget == target
     return Button {
       model.choose(target)
     } label: {
-      VStack(spacing: 8) {
+      VStack(spacing: 7) {
         Image(systemName: symbol)
-          .font(.system(size: 22))
+          .font(.system(size: 21))
         Text(label)
-          .font(.system(size: 14, weight: .semibold))
+          .font(.system(size: 13.5, weight: .semibold))
           .lineLimit(1)
           .minimumScaleFactor(0.8)
       }
-      .foregroundStyle(selected ? BrowtherIntroPalette.sage : BrowtherIntroPalette.inkSoft)
-      .frame(maxWidth: .infinity, minHeight: 82)
+      .foregroundStyle(selected ? tint : BrowtherIntroPalette.inkSoft)
+      .frame(maxWidth: .infinity, minHeight: 74)
       .background(
-        selected
-          ? BrowtherIntroPalette.sage.opacity(0.12)
-          : Color(UIColor.secondarySystemGroupedBackground),
+        selected ? tint.opacity(0.16) : Color(UIColor.secondarySystemGroupedBackground),
         in: RoundedRectangle(cornerRadius: 18, style: .continuous)
       )
       .overlay {
         RoundedRectangle(cornerRadius: 18, style: .continuous)
           .strokeBorder(
-            selected ? BrowtherIntroPalette.sage : Color.primary.opacity(0.08),
+            selected ? tint : Color.primary.opacity(0.08),
             lineWidth: selected ? 2 : 1
           )
       }
@@ -362,8 +377,8 @@ struct BrowtherIntroBlurStep: View {
             .font(.system(size: 11, weight: .bold))
             .foregroundStyle(Color(UIColor.systemBackground))
             .frame(width: 20, height: 20)
-            .background(BrowtherIntroPalette.sage, in: Circle())
-            .padding(8)
+            .background(tint, in: Circle())
+            .padding(7)
             .transition(.scale.combined(with: .opacity))
         }
       }
@@ -371,28 +386,6 @@ struct BrowtherIntroBlurStep: View {
     .buttonStyle(.plain)
     .animation(.snappy(duration: 0.28), value: selected)
     .accessibilityAddTraits(selected ? [.isSelected] : [])
-  }
-}
-
-/// « Propulsé par Basarunaa », avec l'icône du moteur. C'est ce qui fait qu'en
-/// retrouvant cette icône dans la barre d'outils, la personne sait ce qu'elle
-/// ouvre.
-struct BrowtherIntroEngineCredit: View {
-  let icon: String
-  let name: String
-
-  var body: some View {
-    HStack(spacing: 6) {
-      Image(icon, bundle: .module)
-        .resizable()
-        .renderingMode(.template)
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 15, height: 15)
-      Text(String(format: Strings.BrowtherIntro.poweredBy, name))
-        .font(.footnote.weight(.medium))
-    }
-    .foregroundStyle(BrowtherIntroPalette.sage)
-    .accessibilityElement(children: .combine)
   }
 }
 
@@ -408,12 +401,9 @@ struct BrowtherIntroMusicStep: View {
       title: Strings.BrowtherIntro.musicTitle,
       subtitle: Strings.BrowtherIntro.musicSubtitle,
       footnote: AnyView(
-        VStack(alignment: .leading, spacing: 4) {
-          BrowtherIntroEngineCredit(icon: "sawtunaa.icon", name: "Sawtunaa")
-          Text(Strings.BrowtherIntro.musicCompat)
-            .font(.footnote)
-            .foregroundStyle(Color(UIColor.tertiaryLabel))
-        }
+        Text(Strings.BrowtherIntro.musicCompat)
+          .font(.footnote)
+          .foregroundStyle(Color(UIColor.tertiaryLabel))
       )
     ) {
       VStack(spacing: 10) {
@@ -457,12 +447,12 @@ struct BrowtherIntroMusicStep: View {
         title: Strings.FocusOnboarding.continueButtonTitle,
         enabled: model.musicDemoOn
       ) {
+        // ⛔ Le son s'arrête ici, pas seulement dans `onDisappear` : la feuille
+        // de l'accès anticipé garde l'écran monté, et l'extrait continuerait à
+        // jouer derrière elle.
+        audio.stop()
         model.activate(.sawtunaa)
       }
-      Button(Strings.BrowtherIntro.laterButton) {
-        model.later(BrowtherIntroFeature.sawtunaa.rawValue)
-      }
-      .buttonStyle(BrowtherIntroGhostButtonStyle())
     }
   }
 
@@ -493,22 +483,56 @@ struct BrowtherIntroMusicStep: View {
             ? Strings.BrowtherIntro.musicPause
             : Strings.BrowtherIntro.musicListen
         )
-        BrowtherIntroScrubber(progress: audio.progress) { audio.seek(to: $0) }
-          .frame(height: 26)
-          .padding(.horizontal, 24)
-        if audio.systemVolume <= 0.001 {
-          Label(Strings.BrowtherIntro.volumeMuted, systemImage: "speaker.slash.fill")
-            .font(.footnote.weight(.medium))
-            .multilineTextAlignment(.center)
-            .foregroundStyle(BrowtherEarlyAccess.amber)
-            .padding(.horizontal, 18)
-            .transition(.opacity)
+        BrowtherIntroScrubber(progress: audio.progress) { fraction, finished in
+          audio.seek(to: fraction, finished: finished)
         }
+        .frame(height: 26)
+        .padding(.horizontal, 24)
+        volumeGauge
       }
       .padding(.vertical, 18)
     }
     .frame(maxHeight: .infinity)
-    .animation(.smooth(duration: 0.3), value: audio.systemVolume <= 0.001)
+    .animation(.smooth(duration: 0.3), value: audio.systemVolume)
+  }
+}
+
+extension BrowtherIntroMusicStep {
+  /// Le niveau du son de l'**appareil**, montré avant d'appuyer sur lecture :
+  /// on sait si l'extrait va partir en fanfare ou ne pas s'entendre. À zéro, il
+  /// ne s'agit plus d'une jauge mais d'un avertissement.
+  @ViewBuilder
+  fileprivate var volumeGauge: some View {
+    let level = Double(audio.systemVolume)
+    let muted = level <= 0.001
+    HStack(spacing: 8) {
+      Image(systemName: muted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+        .font(.system(size: 12, weight: .semibold))
+      if muted {
+        Text(Strings.BrowtherIntro.volumeMuted)
+          .font(.caption.weight(.medium))
+          .multilineTextAlignment(.leading)
+          .fixedSize(horizontal: false, vertical: true)
+      } else {
+        HStack(spacing: 3) {
+          ForEach(0..<12, id: \.self) { index in
+            Capsule()
+              .fill(
+                Double(index) / 12 < level
+                  ? Color(UIColor(rgb: 0xE7E2D5))
+                  : Color.white.opacity(0.18)
+              )
+              .frame(width: 5, height: 5 + CGFloat(index))
+          }
+        }
+        .frame(height: 17, alignment: .bottom)
+        Text(verbatim: "\(Int((level * 100).rounded())) %")
+          .font(.caption.weight(.semibold))
+          .monospacedDigit()
+      }
+    }
+    .foregroundStyle(muted ? BrowtherEarlyAccess.amber : Color.white.opacity(0.72))
+    .padding(.horizontal, 20)
   }
 }
 
@@ -516,7 +540,10 @@ struct BrowtherIntroMusicStep: View {
 /// c'est ce qui fait que l'interrupteur compare bien le même instant.
 struct BrowtherIntroScrubber: View {
   let progress: Double
-  let onSeek: (Double) -> Void
+  /// `finished` dit quand le doigt se lève : pendant le geste, le
+  /// rafraîchissement automatique doit se taire, sinon la barre saccade sous
+  /// le doigt (défaut relevé à la recette).
+  let onSeek: (Double, Bool) -> Void
 
   var body: some View {
     GeometryReader { proxy in
@@ -539,7 +566,10 @@ struct BrowtherIntroScrubber: View {
       .gesture(
         DragGesture(minimumDistance: 0)
           .onChanged { value in
-            onSeek(min(max(0, value.location.x / width), 1))
+            onSeek(min(max(0, value.location.x / width), 1), false)
+          }
+          .onEnded { value in
+            onSeek(min(max(0, value.location.x / width), 1), true)
           }
       )
     }
@@ -634,7 +664,12 @@ struct BrowtherIntroDefaultBrowserStep: View {
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
       .padding(12)
-      .background(BrowtherIntroPalette.canvas)
+      .background {
+        ZStack {
+          BrowtherIntroPalette.canvas
+          BrowtherIntroChatWallpaper()
+        }
+      }
     }
   }
 
@@ -694,56 +729,88 @@ struct BrowtherIntroDefaultBrowserStep: View {
   /// Ce que devient le lien : Browther qui monte par-dessus la conversation,
   /// nommé, avec son icône et son compteur — c'est le « ouvert dans Browther »
   /// qu'on veut faire comprendre.
+  /// Ce que devient le lien. ⚠️ Ça doit ressembler à un **navigateur** :
+  /// en-tête nommé, barre d'adresse avec son cadenas, page en dessous, et le
+  /// détail de ce que Browther vient de retirer. La version précédente était
+  /// de la même couleur que la conversation — on ne voyait même pas la limite
+  /// entre les deux.
   private var browserSheet: some View {
-    VStack(spacing: 10) {
+    VStack(spacing: 0) {
+      Capsule()
+        .fill(Color.primary.opacity(0.22))
+        .frame(width: 34, height: 4)
+        .padding(.top, 7)
       HStack(spacing: 8) {
         Image("browther.app.icon", bundle: .module)
           .resizable()
           .aspectRatio(contentMode: .fit)
-          .frame(width: 20, height: 20)
+          .frame(width: 19, height: 19)
           .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
         Text(Strings.BrowtherIntro.demoOpenedIn)
           .font(.system(size: 13, weight: .semibold))
           .foregroundStyle(BrowtherIntroPalette.ink)
         Spacer()
-        HStack(spacing: 4) {
-          Image("browther.shield.bar", bundle: .module)
-            .resizable()
-            .renderingMode(.template)
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 12, height: 12)
-          Text(Strings.BrowtherIntro.demoBlockedCount)
-        }
-        .font(.system(size: 11, weight: .bold))
-        .foregroundStyle(BrowtherIntroPalette.halal)
+        Image(systemName: "xmark")
+          .font(.system(size: 11, weight: .bold))
+          .foregroundStyle(BrowtherIntroPalette.inkSoft)
+      }
+      .padding(.horizontal, 14)
+      .padding(.top, 8)
+      .padding(.bottom, 8)
+      // La barre d'adresse : le repère qui dit « navigateur » sans un mot.
+      HStack(spacing: 6) {
+        Image(systemName: "lock.fill")
+          .font(.system(size: 9))
+          .foregroundStyle(BrowtherIntroPalette.inkSoft)
+        Text(Strings.BrowtherIntro.demoSiteName)
+          .font(.system(size: 12, weight: .medium))
+          .foregroundStyle(BrowtherIntroPalette.ink)
+        Spacer()
+        Image("browther.shield.bar", bundle: .module)
+          .resizable()
+          .renderingMode(.template)
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 13, height: 13)
+          .foregroundStyle(BrowtherIntroPalette.halalText)
+      }
+      .padding(.horizontal, 10)
+      .frame(height: 32)
+      .background(
+        Color(UIColor.tertiarySystemFill),
+        in: RoundedRectangle(cornerRadius: 9, style: .continuous)
+      )
+      .padding(.horizontal, 12)
+      // Ce que Browther vient de faire, nommé : sinon « 3 bloqués » ne dit pas
+      // ce qui a été bloqué, et les deux autres moteurs n'existent pas.
+      HStack(spacing: 6) {
+        stat("browther.shield.bar", Strings.BrowtherIntro.demoStatAds)
+        stat("sawtunaa.icon", Strings.BrowtherIntro.demoStatMusic)
+        stat("basarunaa.icon", Strings.BrowtherIntro.demoStatImages)
       }
       .padding(.horizontal, 12)
-      .frame(height: 42)
-      .background(
-        Color(UIColor.secondarySystemGroupedBackground),
-        in: RoundedRectangle(cornerRadius: 13, style: .continuous)
-      )
-      VStack(alignment: .leading, spacing: 9) {
+      .padding(.top, 9)
+      VStack(alignment: .leading, spacing: 8) {
         LinearGradient(
           colors: [Color(UIColor(rgb: 0xE7C9A0)), Color(UIColor(rgb: 0xC98F5B))],
           startPoint: .topLeading,
           endPoint: .bottomTrailing
         )
-        .frame(height: 64)
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .frame(height: 52)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         ForEach([0.7, 1.0, 0.85], id: \.self) { ratio in
           Capsule()
-            .fill(Color.primary.opacity(0.08))
-            .frame(height: 9)
+            .fill(Color.primary.opacity(0.1))
+            .frame(height: 8)
             .frame(maxWidth: .infinity, alignment: .leading)
             .scaleEffect(x: ratio, anchor: .leading)
         }
       }
+      .padding(.horizontal, 12)
+      .padding(.top, 10)
       Spacer(minLength: 0)
     }
-    .padding(12)
     .frame(maxWidth: .infinity)
-    .frame(height: 220)
+    .frame(height: 240)
     .background(
       Color(UIColor.systemBackground),
       in: UnevenRoundedRectangle(
@@ -754,7 +821,38 @@ struct BrowtherIntroDefaultBrowserStep: View {
         style: .continuous
       )
     )
-    .shadow(color: .black.opacity(0.22), radius: 14, y: -6)
+    .overlay(alignment: .top) {
+      UnevenRoundedRectangle(
+        topLeadingRadius: 20,
+        bottomLeadingRadius: 0,
+        bottomTrailingRadius: 0,
+        topTrailingRadius: 20,
+        style: .continuous
+      )
+      .strokeBorder(Color.primary.opacity(0.12), lineWidth: 1)
+    }
+    .shadow(color: .black.opacity(0.5), radius: 18, y: -8)
+  }
+
+  private func stat(_ icon: String, _ label: String) -> some View {
+    VStack(spacing: 4) {
+      Image(icon, bundle: .module)
+        .resizable()
+        .renderingMode(.template)
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 14, height: 14)
+      Text(label)
+        .font(.system(size: 9.5, weight: .semibold))
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
+    }
+    .foregroundStyle(BrowtherIntroPalette.halalText)
+    .frame(maxWidth: .infinity)
+    .padding(.vertical, 7)
+    .background(
+      BrowtherIntroPalette.halalText.opacity(0.12),
+      in: RoundedRectangle(cornerRadius: 10, style: .continuous)
+    )
   }
 }
 
@@ -862,5 +960,50 @@ struct BrowtherIntroOutlineButtonStyle: ButtonStyle {
           .strokeBorder(BrowtherIntroPalette.inkSoft.opacity(0.55), lineWidth: 1.5)
       }
       .opacity(configuration.isPressed ? 0.7 : 1)
+  }
+}
+
+/// Le fond de la conversation : des motifs épars, très pâles, comme les
+/// messageries en posent derrière les bulles.
+///
+/// ⛔ **Pas** le fond de WhatsApp. Son motif est une œuvre de Meta : le
+/// reprendre dans une app publiée l'identifierait autant qu'écrire son nom —
+/// exactement ce que la règle « ne jamais nommer un service tiers » évite
+/// (`private/docs/STORE_LISTING*.md`). Celui-ci est dessiné ici, avec des
+/// symboles système : même sensation, rien qui appartienne à quelqu'un.
+struct BrowtherIntroChatWallpaper: View {
+  private static let symbols = [
+    "cup.and.saucer.fill", "leaf.fill", "moon.stars.fill", "book.closed.fill",
+    "heart.fill", "bird.fill", "carrot.fill", "sun.max.fill", "drop.fill",
+    "fork.knife", "flame.fill", "star.fill",
+  ]
+
+  var body: some View {
+    Canvas { context, size in
+      let step: CGFloat = 62
+      var row = 0
+      var y: CGFloat = 12
+      while y < size.height + step {
+        var column = 0
+        var x: CGFloat = row.isMultiple(of: 2) ? 16 : 16 + step / 2
+        while x < size.width + step {
+          let index = (row * 5 + column * 3) % Self.symbols.count
+          // ⚠️ `resolve` ne prend qu'une `Image` nue : un `.font()` appliqué
+          // dessus en fait une `View`, et l'appel ne compile plus. La taille se
+          // donne au dessin, via le rectangle.
+          var symbol = context.resolve(Image(systemName: Self.symbols[index]))
+          symbol.shading = .color(BrowtherIntroPalette.ink.opacity(0.055))
+          context.draw(
+            symbol,
+            in: CGRect(x: x - 11, y: y - 11, width: 22, height: 22)
+          )
+          x += step
+          column += 1
+        }
+        y += step
+        row += 1
+      }
+    }
+    .allowsHitTesting(false)
   }
 }

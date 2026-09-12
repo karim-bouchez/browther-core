@@ -36,10 +36,8 @@ struct BrowtherIntroView: View {
         } onDismiss: {
           model.dismissSoonSheet()
         }
-        .transition(.opacity)
       }
     }
-    .animation(.smooth(duration: 0.3), value: model.soonFeature)
     // Sans ça, `\.windowScene` reste nil et la vidéo en incrustation de
     // l'écran « navigateur par défaut » ne démarre jamais.
     .prepareWindowSceneEnvironment()
@@ -134,6 +132,9 @@ struct BrowtherIntroLayout<Scene: View, Actions: View>: View {
         Text(subtitle)
           .font(.body)
           .foregroundStyle(BrowtherIntroPalette.inkSoft)
+          // Sans ça, le bloc du haut se fait rogner par la scène et le texte
+          // finit en « … » (vu sur le dernier écran à la recette).
+          .fixedSize(horizontal: false, vertical: true)
         if let footnote {
           footnote
         }
@@ -156,60 +157,142 @@ struct BrowtherIntroLayout<Scene: View, Actions: View>: View {
   }
 }
 
-// MARK: - Feuille « ça arrive très bientôt »
+// MARK: - Feuille « ça arrive bientôt »
 
-/// Ce que répond « Activer » pendant l'accès anticipé. L'écran, lui, montre la
-/// fonctionnalité finie : c'est le geste qui apprend qu'elle arrive, pas une
-/// pastille posée d'avance sur toute la page.
+/// Ce que répond « Continuer » pendant l'accès anticipé.
+///
+/// ⚠️ Une vraie feuille, pas un panneau posé en fondu : elle monte au ressort,
+/// la poignée **glisse** et la referme, et le fond s'assombrit progressivement.
+/// La version précédente apparaissait d'un coup, avec une poignée décorative
+/// qui ne répondait pas — on promettait un geste qui n'existait pas.
 struct BrowtherIntroSoonSheet: View {
   let feature: BrowtherIntroFeature
   let onContinue: () -> Void
   let onDismiss: () -> Void
 
+  @State private var offset: CGFloat = 0
+  @State private var appeared = false
+
+  private var icon: String {
+    feature == .basarunaa ? "basarunaa.icon" : "sawtunaa.icon"
+  }
+
+  private var name: String {
+    feature == .basarunaa ? "Basarunaa" : "Sawtunaa"
+  }
+
   var body: some View {
     ZStack(alignment: .bottom) {
-      Color.black.opacity(0.45)
+      Color.black
+        .opacity(appeared ? 0.55 : 0)
         .ignoresSafeArea()
-        .onTapGesture(perform: onDismiss)
-      VStack(alignment: .leading, spacing: 12) {
-        Capsule()
-          .fill(Color.primary.opacity(0.18))
-          .frame(width: 38, height: 5)
-          .frame(maxWidth: .infinity)
-          .padding(.bottom, 4)
-        // L'invocation n'est plus ici : elle est portée par le bouton
-        // (« qu'Allah facilite »), une seule fois et au bon endroit.
-        Text(Strings.BrowtherIntro.soonTitle)
-          .font(.system(size: 21, weight: .semibold))
-        Text(
-          feature == .basarunaa
-            ? Strings.BrowtherIntro.soonBlurBody
-            : Strings.BrowtherIntro.soonMusicBody
+        .onTapGesture(perform: dismiss)
+      card
+        .offset(y: appeared ? offset : 700)
+        .gesture(
+          DragGesture()
+            .onChanged { value in
+              offset = max(0, value.translation.height)
+            }
+            .onEnded { value in
+              // Un tiers de la feuille, ou un geste franc : on referme.
+              if value.translation.height > 110 || value.predictedEndTranslation.height > 240 {
+                dismiss()
+              } else {
+                withAnimation(.snappy(duration: 0.3)) { offset = 0 }
+              }
+            }
         )
-        .font(.callout)
-        .foregroundStyle(BrowtherIntroPalette.inkSoft)
-        Text(Strings.BrowtherIntro.soonNote)
-          .font(.footnote)
-          .foregroundStyle(Color(UIColor.tertiaryLabel))
-        Button(Strings.BrowtherIntro.soonPrimaryButton, action: onContinue)
-          .buttonStyle(BrowtherIntroPrimaryButtonStyle())
-          .padding(.top, 4)
+    }
+    .onAppear {
+      withAnimation(.spring(response: 0.45, dampingFraction: 0.82)) { appeared = true }
+    }
+  }
+
+  private func dismiss() {
+    close(then: onDismiss)
+  }
+
+  /// La feuille redescend avant de rendre la main : sans ça, elle disparaît
+  /// d'un coup et l'écran suivant arrive par-dessus.
+  private func close(then action: @escaping () -> Void) {
+    withAnimation(.smooth(duration: 0.25)) {
+      appeared = false
+      offset = 700
+    }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.22, execute: action)
+  }
+
+  private var card: some View {
+    VStack(alignment: .leading, spacing: 14) {
+      Capsule()
+        .fill(Color.primary.opacity(0.28))
+        .frame(width: 40, height: 5)
+        .frame(maxWidth: .infinity)
+        .padding(.top, 8)
+        .contentShape(Rectangle())
+      HStack(spacing: 10) {
+        Image(icon, bundle: .module)
+          .resizable()
+          .renderingMode(.template)
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 22, height: 22)
+          .foregroundStyle(BrowtherEarlyAccess.amber)
+          .frame(width: 42, height: 42)
+          .background(BrowtherEarlyAccess.amber.opacity(0.15), in: Circle())
+        VStack(alignment: .leading, spacing: 2) {
+          Text(name)
+            .font(.callout.weight(.semibold))
+            .foregroundStyle(BrowtherIntroPalette.ink)
+          Text(Strings.BrowtherIntro.soonTitle)
+            .font(.footnote.weight(.semibold))
+            .foregroundStyle(BrowtherEarlyAccess.amber)
+        }
       }
-      .padding(.horizontal, 22)
-      .padding(.top, 10)
-      .padding(.bottom, 28)
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .background(
-        Color(UIColor.systemBackground),
-        in: UnevenRoundedRectangle(
-          topLeadingRadius: 26,
+      Text(
+        feature == .basarunaa
+          ? Strings.BrowtherIntro.soonBlurBody
+          : Strings.BrowtherIntro.soonMusicBody
+      )
+      .font(.callout)
+      .foregroundStyle(BrowtherIntroPalette.inkSoft)
+      .fixedSize(horizontal: false, vertical: true)
+      Text(Strings.BrowtherIntro.soonNote)
+        .font(.footnote)
+        .foregroundStyle(Color(UIColor.tertiaryLabel))
+        .fixedSize(horizontal: false, vertical: true)
+      Button(Strings.BrowtherIntro.soonPrimaryButton) {
+        close(then: onContinue)
+      }
+      .buttonStyle(BrowtherIntroPrimaryButtonStyle())
+      .padding(.top, 2)
+    }
+    .padding(.horizontal, 22)
+    .padding(.bottom, 30)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background {
+      UnevenRoundedRectangle(
+        topLeadingRadius: 28,
+        bottomLeadingRadius: 0,
+        bottomTrailingRadius: 0,
+        topTrailingRadius: 28,
+        style: .continuous
+      )
+      .fill(Color(UIColor.secondarySystemGroupedBackground))
+      .overlay(alignment: .top) {
+        // Un liseré ambre : la feuille appartient à l'accès anticipé, comme le
+        // badge de la barre d'outils.
+        UnevenRoundedRectangle(
+          topLeadingRadius: 28,
           bottomLeadingRadius: 0,
           bottomTrailingRadius: 0,
-          topTrailingRadius: 26,
+          topTrailingRadius: 28,
           style: .continuous
         )
-      )
-      .transition(.move(edge: .bottom))
+        .strokeBorder(BrowtherEarlyAccess.amber.opacity(0.35), lineWidth: 1)
+      }
+      .shadow(color: .black.opacity(0.4), radius: 24, y: -8)
     }
+    .ignoresSafeArea(edges: .bottom)
   }
 }
