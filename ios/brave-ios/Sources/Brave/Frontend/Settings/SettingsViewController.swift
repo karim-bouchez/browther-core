@@ -267,6 +267,14 @@ class SettingsViewController: TableViewController {
   /// lient au BraveCore Release (`ios_current_link`), donc sont « officiels » et
   /// cachaient la section (constaté sur iPhone le 2026-09-11). TestFlight (canal
   /// release) y accède par les Developer Options (5 taps sur « À propos » + code).
+  // ⚠️ Ne pas ranger un outil de recette Browther dans `debugSection` : sa
+  // condition (`!isOfficialBuild`) est fausse sur nos builds device, même en
+  // configuration Debug. `out/ios_Release_arm64/args.xcconfig` — celui que le
+  // scheme Component consomme pour le BraveCore prébuildé — porte
+  // `brave_swift_active_compliation_conditions = OFFICIAL_BUILD`, donc
+  // `AppDelegate` appelle `setOfficialBuild(true)` et « Developer Options »
+  // n'apparaît jamais sur l'iPhone. Cette condition-ci retombe sur le canal,
+  // qui est bien `.debug`.
   private var isBrowtherRehearsalAvailable: Bool {
     AppConstants.buildChannel != .release || !AppConstants.isOfficialBuild
       || Preferences.Debug.developerOptionsEnabled.value
@@ -1337,8 +1345,23 @@ class SettingsViewController: TableViewController {
   /// peut recommencer autant qu'on veut sans éteindre la vraie sollicitation.
   private lazy var browtherRehearsalSection: Static.Section = {
     Static.Section(
-      header: "Browther — recette des sollicitations",
+      header: "Browther — recette",
       rows: [
+        // Rejouer le VRAI parcours d'introduction (celui de
+        // `presentFocusOnboarding`), pas l'aperçu du menu de debug de Brave. On
+        // referme les Réglages d'abord : l'introduction se présente depuis le
+        // navigateur, qui est aussi le `settingsDelegate`.
+        Row(
+          text: "Rejouer l'introduction Browther",
+          selection: { [unowned self] in
+            guard let browserViewController = self.settingsDelegate as? BrowserViewController
+            else { return }
+            self.dismiss(animated: true) {
+              BrowtherOnboardingReplay.reset()
+              browserViewController.presentBrowtherIntro()
+            }
+          }
+        ),
         Row(
           text: "État des sollicitations",
           selection: { [unowned self] in
@@ -1544,22 +1567,6 @@ class SettingsViewController: TableViewController {
             )
           },
           accessory: .disclosureIndicator,
-          cellClass: MultilineValue1Cell.self
-        ),
-        // Browther : rejouer le VRAI parcours d'introduction (celui de
-        // `presentFocusOnboarding`), pas l'aperçu de la ligne ci-dessus. On
-        // referme les Réglages d'abord : l'introduction se présente depuis le
-        // navigateur, qui est aussi le `settingsDelegate`.
-        Row(
-          text: "Rejouer l'introduction Browther",
-          selection: { [unowned self] in
-            guard let browserViewController = self.settingsDelegate as? BrowserViewController
-            else { return }
-            self.dismiss(animated: true) {
-              BrowtherOnboardingReplay.reset()
-              browserViewController.presentBrowtherIntro()
-            }
-          },
           cellClass: MultilineValue1Cell.self
         ),
         Row(
