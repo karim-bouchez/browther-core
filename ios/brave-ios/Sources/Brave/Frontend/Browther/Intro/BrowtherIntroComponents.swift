@@ -234,14 +234,11 @@ struct BrowtherIntroSwitchRow: View {
   let title: String
   let offLabel: String
   let onLabel: String
-  /// Vrai pour Sawtunaa et Basarunaa pendant l'accès anticipé : le badge est
-  /// alors ambre et non vert, comme dans la barre d'outils.
-  var earlyAccess: Bool = false
   @Binding var isOn: Bool
 
   var body: some View {
     HStack(spacing: 12) {
-      BrowtherIntroBadgedIcon(icon: icon, isOn: isOn, earlyAccess: earlyAccess)
+      BrowtherIntroBadgedIcon(icon: icon, isOn: isOn)
       VStack(alignment: .leading, spacing: 3) {
         Text(title)
           .font(.callout.weight(.semibold))
@@ -268,23 +265,25 @@ struct BrowtherIntroSwitchRow: View {
   }
 }
 
-/// L'icône du moteur avec **son badge**, exactement comme dans la barre
-/// d'outils (`TopToolbarView.attachStatusBadge` : un point de 8 pt en bas à
-/// droite, cerné de la couleur du fond). Rouge = éteint, vert = allumé —
-/// ambre tant que la fonctionnalité est en accès anticipé.
+/// L'icône du moteur avec **son badge**, à la géométrie de la barre d'outils
+/// (`BrowtherBadgedToolbarButton`, lui-même calé sur macOS).
 ///
 /// ⛔ Ne pas se contenter de teinter l'icône en vert : dans l'app, l'icône ne
 /// change jamais de couleur, c'est le badge qui parle. L'introduction doit
 /// apprendre le bon repère.
+///
+/// ⚠️ **Toujours vert quand c'est allumé**, jamais ambre (Karim, 2026-09-12).
+/// L'ambre de la barre d'outils veut dire « allumé, mais pas fini » ; ici rien
+/// n'est allumé — l'interrupteur ne règle rien, il montre un avant/après. Le
+/// vert dit ce que la démonstration vaut, et la feuille de l'accès anticipé
+/// dit le reste au moment de continuer.
 struct BrowtherIntroBadgedIcon: View {
   let icon: String
   let isOn: Bool
-  var earlyAccess: Bool = false
   var size: CGFloat = 24
 
   private var badgeColor: Color {
-    guard isOn else { return Color(UIColor.systemRed) }
-    return earlyAccess ? BrowtherEarlyAccess.amber : Color(UIColor.systemGreen)
+    isOn ? Color(UIColor.systemGreen) : Color(UIColor.systemRed)
   }
 
   var body: some View {

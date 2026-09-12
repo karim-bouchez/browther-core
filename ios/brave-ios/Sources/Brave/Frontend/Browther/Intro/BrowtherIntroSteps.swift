@@ -246,8 +246,6 @@ struct BrowtherIntroAdsStep: View {
           title: Strings.BrowtherIntro.shieldsName,
           offLabel: Strings.BrowtherIntro.adsSwitchOff,
           onLabel: Strings.BrowtherIntro.adsSwitchOn,
-          // Les boucliers sont finis : badge vert, pas ambre.
-          earlyAccess: false,
           isOn: Binding(
             get: { model.adsDemoOn },
             set: { _ in model.toggleDemo(for: .ads) }
@@ -338,7 +336,6 @@ struct BrowtherIntroBlurStep: View {
         title: "Basarunaa",
         offLabel: Strings.BrowtherIntro.blurSwitchOff,
         onLabel: Strings.BrowtherIntro.blurSwitchOn,
-        earlyAccess: model.isEarlyAccess,
         isOn: Binding(
           get: { model.blurDemoOn },
           set: { _ in model.toggleDemo(for: .blur) }
@@ -439,7 +436,6 @@ struct BrowtherIntroMusicStep: View {
           title: "Sawtunaa",
           offLabel: Strings.BrowtherIntro.musicSwitchOff,
           onLabel: Strings.BrowtherIntro.musicSwitchOn,
-          earlyAccess: model.isEarlyAccess,
           isOn: Binding(
             get: { model.musicDemoOn },
             set: { _ in model.toggleDemo(for: .music) }
