@@ -220,6 +220,9 @@ struct BrowtherIntroGhostButtonStyle: ButtonStyle {
 /// (`ShieldsSwitchView`), pas un `Toggle` système. C'est le geste que la
 /// personne refera dans Browther, elle l'apprend ici.
 struct BrowtherIntroSwitchRow: View {
+  /// L'icône que la personne retrouvera dans l'app — c'est elle qui relie
+  /// l'écran au moteur. Sans ça, « Basarunaa » n'est qu'un mot de plus.
+  let icon: String
   let title: String
   let offLabel: String
   let onLabel: String
@@ -227,6 +230,12 @@ struct BrowtherIntroSwitchRow: View {
 
   var body: some View {
     HStack(spacing: 12) {
+      Image(icon, bundle: .module)
+        .resizable()
+        .renderingMode(.template)
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 24, height: 24)
+        .foregroundStyle(isOn ? BrowtherIntroPalette.halal : BrowtherIntroPalette.inkSoft)
       VStack(alignment: .leading, spacing: 3) {
         Text(title)
           .font(.callout.weight(.semibold))
@@ -245,5 +254,79 @@ struct BrowtherIntroSwitchRow: View {
     .padding(.vertical, 8)
     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
     .animation(.smooth(duration: 0.25), value: isOn)
+  }
+}
+
+// MARK: - Bouton d'avancement conditionné
+
+/// Le bouton de bas d'écran, **éteint tant que l'interrupteur n'est pas sur
+/// ON**. L'écran demande un geste ; le laisser franchir sans le faire, c'est
+/// laisser partir quelqu'un qui n'a rien vu fonctionner.
+struct BrowtherIntroAdvanceButton: View {
+  let title: String
+  let enabled: Bool
+  let action: () -> Void
+
+  var body: some View {
+    VStack(spacing: 6) {
+      Button(title, action: action)
+        .buttonStyle(BrowtherIntroPrimaryButtonStyle())
+        .disabled(!enabled)
+        .opacity(enabled ? 1 : 0.35)
+        .saturation(enabled ? 1 : 0)
+        .animation(.smooth(duration: 0.3), value: enabled)
+      Text(Strings.BrowtherIntro.turnOnToContinue)
+        .font(.footnote)
+        .foregroundStyle(BrowtherIntroPalette.inkSoft)
+        .opacity(enabled ? 0 : 1)
+        .frame(height: enabled ? 0 : nil)
+        .animation(.smooth(duration: 0.3), value: enabled)
+    }
+  }
+}
+
+// MARK: - Signature de l'éditeur
+
+/// `SURFACES-COMMUNES.md` §6, en version **muette** : la pastille, mais ni
+/// flèche ni geste — ouvrir devndin.com ferait sortir de l'introduction. La
+/// version tapable reste au pied des Paramètres.
+struct BrowtherIntroSignature: View {
+  var body: some View {
+    HStack(spacing: 6) {
+      Text(Strings.Browther.signatureLabel)
+        .font(.footnote)
+      Image("browther-devndin-logo", bundle: .module)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 33.5, height: 15)
+    }
+    .foregroundStyle(.white.opacity(0.62))
+    .padding(.horizontal, 14)
+    .padding(.vertical, 7)
+    .background(Color.white.opacity(0.07), in: Capsule())
+    .overlay {
+      Capsule().strokeBorder(Color.white.opacity(0.16), lineWidth: 1)
+    }
+    .accessibilityElement(children: .combine)
+  }
+}
+
+// MARK: - Point d'état
+
+/// Le point vert ou ambre des trois protections. Le halo n'est pas décoratif :
+/// à 7 px sur une photo, un aplat mat se perd dans le fond.
+struct BrowtherIntroStatusDot: View {
+  let soon: Bool
+
+  private var color: Color {
+    soon ? Color(UIColor(rgb: 0xF59E0B)) : Color(UIColor(rgb: 0x34C759))
+  }
+
+  var body: some View {
+    Circle()
+      .fill(color)
+      .frame(width: 7, height: 7)
+      .shadow(color: color.opacity(0.9), radius: 4)
+      .shadow(color: color.opacity(0.5), radius: 8)
   }
 }

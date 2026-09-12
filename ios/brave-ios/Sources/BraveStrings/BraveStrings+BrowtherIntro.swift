@@ -128,7 +128,7 @@ extension Strings {
       "introAdsSwitchOn",
       tableName: "Browther",
       bundle: .module,
-      value: "3 items blocked on this page",
+      value: "3 items blocked",
       comment: "State of the demo switch once Browther is on"
     )
 
@@ -285,6 +285,20 @@ extension Strings {
       value: "Both",
       comment: "Blurring choice"
     )
+    public static let blurSwitchOff = NSLocalizedString(
+      "introBlurSwitchOff",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Off \u{00B7} nothing is covered",
+      comment: "State of the demo switch, blurring screen"
+    )
+    public static let blurSwitchOn = NSLocalizedString(
+      "introBlurSwitchOn",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Covered, image and video alike",
+      comment: "State of the demo switch once blurring is on"
+    )
     public static let activateBlur = NSLocalizedString(
       "introActivateBlur",
       tableName: "Browther",
@@ -373,7 +387,7 @@ extension Strings {
       "introDefaultTitle",
       tableName: "Browther",
       bundle: .module,
-      value: "Every link, protected.",
+      value: "Block the haram, by default.",
       comment: "Title of the default browser screen"
     )
     public static let defaultSubtitle = NSLocalizedString(
@@ -391,7 +405,7 @@ extension Strings {
       "introSoonTitle",
       tableName: "Browther",
       bundle: .module,
-      value: "Coming very soon,",
+      value: "Already here, not yet on.",
       comment: "Title of the sheet shown when tapping 'Turn on' during early access; the invocation is added on its own line"
     )
     public static let soonBlurBody = NSLocalizedString(
@@ -399,7 +413,7 @@ extension Strings {
       tableName: "Browther",
       bundle: .module,
       value:
-        "Blurring is still in development \u{2014} we would rather release it once it is really good. Your choice is saved and will apply as soon as it ships. In the meantime Browther already blocks ads, and they are what forces the most unchosen images on you.",
+        "Blurring works already. We leave it off by default while we polish how it renders \u{2014} we will tell you as soon as it is clean enough to never get in the way of your browsing. Your choice is saved and will apply then. In the meantime Browther already blocks ads, and they are what forces the most unchosen images on you.",
       comment: "Body of the sheet, blurring"
     )
     public static let soonMusicBody = NSLocalizedString(
@@ -407,7 +421,7 @@ extension Strings {
       tableName: "Browther",
       bundle: .module,
       value:
-        "Music removal is still in development \u{2014} we would rather release it once it is really good. In the meantime Browther already blocks ads, and the music they bring with them.",
+        "Music removal works already. We leave it off by default while we polish how it renders \u{2014} we will tell you as soon as it is clean enough to never get in the way of your browsing. In the meantime Browther already blocks ads, and the music they bring with them.",
       comment: "Body of the sheet, music"
     )
     public static let soonNote = NSLocalizedString(
@@ -424,7 +438,7 @@ extension Strings {
       "introChannelsSoonTitle",
       tableName: "Browther",
       bundle: .module,
-      value: "Don\u{2019}t miss the release",
+      value: "Discover other projects like this one",
       comment: "Title of the channels screen while features are in development"
     )
     public static let notifBlur = NSLocalizedString(
@@ -441,12 +455,78 @@ extension Strings {
       value: "Music removal is coming to your iPhone.",
       comment: "Example notification shown on the channels screen"
     )
+    // MARK: Activation (les trois écrans qui demandent un geste)
+
+    public static let shieldsName = NSLocalizedString(
+      "introShieldsName",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Browther Shields",
+      comment: "Name of the ad blocking feature, the same one used inside the app"
+    )
+    public static let poweredBy = NSLocalizedString(
+      "introPoweredBy",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Powered by %@",
+      comment: "Credit line tying a screen to the engine behind it, e.g. 'Powered by Basarunaa'"
+    )
+    public static let turnOnToContinue = NSLocalizedString(
+      "introTurnOnToContinue",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Turn it on to continue",
+      comment: "Hint under the disabled continue button, before the switch is flipped"
+    )
+    public static let soonPrimaryButton = NSLocalizedString(
+      "introSoonPrimaryButton",
+      tableName: "Browther",
+      bundle: .module,
+      value: "May Allah make it easy",
+      comment: "Primary button of the sheet shown when turning a feature on during early access"
+    )
+    public static let volumeMuted = NSLocalizedString(
+      "introVolumeMuted",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Your iPhone volume is down \u{2014} turn it up to hear the excerpt",
+      comment: "Warning shown when the device output volume is zero"
+    )
+    public static let demoMessagingApp = NSLocalizedString(
+      "introDemoMessagingApp",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Messages",
+      comment: "Name of the made-up messaging app in the default browser screen"
+    )
+    public static let demoContactName = NSLocalizedString(
+      "introDemoContactName",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Family",
+      comment: "Name of the made-up conversation in the default browser screen"
+    )
+    public static let demoMessageIncoming = NSLocalizedString(
+      "introDemoMessageIncoming",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Look what I found \u{1F60A}",
+      comment: "First message of the made-up conversation"
+    )
+    public static let demoOpenedIn = NSLocalizedString(
+      "introDemoOpenedIn",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Opened in Browther",
+      comment: "Label on the browser sheet that slides up over the conversation"
+    )
+
     public static let channelsSoonDescription = NSLocalizedString(
       "introChannelsSoonDescription",
       tableName: "Browther",
       bundle: .module,
       value:
-        "Blurring and music removal are coming soon. We will announce them on our channels: a rare message, only when it is worth it.",
+        "Browther is only one app in the dev&din ecosystem. Some projects are already out, others are being built right now. As for blurring and music removal, we will tell you when they are on \u{2014} on our WhatsApp and Telegram channels, in shaa Allah.",
       comment: "Description of the channels screen while features are in development"
     )
   }

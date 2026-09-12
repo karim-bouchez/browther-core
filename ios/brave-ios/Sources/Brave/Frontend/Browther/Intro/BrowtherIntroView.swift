@@ -177,13 +177,9 @@ struct BrowtherIntroSoonSheet: View {
           .frame(width: 38, height: 5)
           .frame(maxWidth: .infinity)
           .padding(.bottom, 4)
-        // L'invocation est posée sur sa propre ligne, hors de la chaîne
-        // traduite : en bout de ligne latine, un fragment arabe ne se césure
-        // pas proprement (même traitement que l'étape des canaux).
-        // L'invocation va sur sa propre ligne : en bout de ligne latine, un
-        // fragment arabe ne se césure pas proprement (même traitement que
-        // l'étape des canaux).
-        Text(verbatim: Strings.BrowtherIntro.soonTitle + "\nإن شاء الله")
+        // L'invocation n'est plus ici : elle est portée par le bouton
+        // (« qu'Allah facilite »), une seule fois et au bon endroit.
+        Text(Strings.BrowtherIntro.soonTitle)
           .font(.system(size: 21, weight: .semibold))
         Text(
           feature == .basarunaa
@@ -195,7 +191,7 @@ struct BrowtherIntroSoonSheet: View {
         Text(Strings.BrowtherIntro.soonNote)
           .font(.footnote)
           .foregroundStyle(Color(UIColor.tertiaryLabel))
-        Button(Strings.FocusOnboarding.continueButtonTitle, action: onContinue)
+        Button(Strings.BrowtherIntro.soonPrimaryButton, action: onContinue)
           .buttonStyle(BrowtherIntroPrimaryButtonStyle())
           .padding(.top, 4)
       }

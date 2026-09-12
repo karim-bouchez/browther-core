@@ -31,36 +31,44 @@ struct BrowtherIntroWelcomeStep: View {
   }()
 
   var body: some View {
-    ZStack(alignment: .bottom) {
-      backgroundLayer
+    // ⚠️ Le fond passe par `GeometryReader` + `.clipped()`, jamais par un
+    // `ZStack` : une image en `.fill` sans taille imposée propose sa propre
+    // largeur au conteneur, et tout l'écran s'élargit avec elle. C'est ce qui
+    // faisait déborder le titre et les trois protections (recette 2026-09-12).
+    GeometryReader { proxy in
       VStack(spacing: 0) {
-        Image("browther.shield.bar", bundle: .module)
+        Image("browther.app.icon", bundle: .module)
           .resizable()
-          .renderingMode(.template)
           .aspectRatio(contentMode: .fit)
-          .frame(width: 54, height: 54)
-          .foregroundStyle(.white)
-          .padding(.top, 66)
+          .frame(width: 66, height: 66)
+          .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+          .shadow(color: .black.opacity(0.35), radius: 14, y: 6)
+          .padding(.top, 60)
         verse
-          .padding(.top, 26)
-        Spacer(minLength: 20)
+          .padding(.top, 24)
+        Spacer(minLength: 16)
         Text(Strings.BrowtherIntro.welcomeTitle)
-          .font(.system(size: 30, weight: .semibold))
+          .font(.system(size: 29, weight: .semibold))
           .multilineTextAlignment(.center)
           .foregroundStyle(.white)
-          .padding(.horizontal, 20)
+          .fixedSize(horizontal: false, vertical: true)
         protections
-          .padding(.horizontal, 20)
           .padding(.top, 18)
         Button(Strings.BrowtherIntro.startButton) {
           model.advance()
         }
         .buttonStyle(BrowtherIntroLightButtonStyle())
-        .padding(.horizontal, 20)
         .padding(.top, 18)
-        signature
+        BrowtherIntroSignature()
           .padding(.top, 14)
           .padding(.bottom, 10)
+      }
+      .padding(.horizontal, 20)
+      .frame(width: proxy.size.width, height: proxy.size.height)
+      .background {
+        backgroundLayer
+          .frame(width: proxy.size.width, height: proxy.size.height)
+          .clipped()
       }
     }
     .ignoresSafeArea(edges: .top)
@@ -87,32 +95,35 @@ struct BrowtherIntroWelcomeStep: View {
         endPoint: .bottom
       )
     }
-    .ignoresSafeArea()
   }
 
   private var verse: some View {
     VStack(spacing: 10) {
       // Texte uthmani exact (Coran 17:36, seconde moitié) — ⛔ ne jamais le
       // ressaisir à la main : il vient d'une source unique, cf.
-      // `private/design/intro-iphone/verse.txt`.
+      // `private/design/intro-iphone/verse.txt`. La police est celle du
+      // muṣḥaf : voir `BrowtherIntroFont`.
       Text(verbatim: "إِنَّ ٱلسَّمْعَ وَٱلْبَصَرَ وَٱلْفُؤَادَ كُلُّ أُو۟لَٰٓئِكَ كَانَ عَنْهُ مَسْـُٔولًۭا")
-        .font(.system(size: 23))
-        .lineSpacing(10)
+        .font(BrowtherIntroFont.quran(size: 22))
+        .lineSpacing(14)
         .multilineTextAlignment(.center)
         .environment(\.layoutDirection, .rightToLeft)
         .foregroundStyle(.white)
+        .shadow(color: .black.opacity(0.5), radius: 10)
+        .fixedSize(horizontal: false, vertical: true)
       Text(Strings.BrowtherIntro.verseTranslation)
         .font(.system(size: 15.5, design: .serif))
         .italic()
         .multilineTextAlignment(.center)
         .foregroundStyle(.white.opacity(0.84))
+        .fixedSize(horizontal: false, vertical: true)
       Text(Strings.BrowtherIntro.verseReference)
         .font(.system(size: 10.5, weight: .semibold))
         .tracking(1.6)
         .textCase(.uppercase)
         .foregroundStyle(BrowtherIntroPalette.sage)
     }
-    .padding(.horizontal, 26)
+    .padding(.horizontal, 6)
   }
 
   private var protections: some View {
@@ -156,10 +167,10 @@ struct BrowtherIntroWelcomeStep: View {
       Text(name)
         .font(.system(size: 14, weight: .semibold))
         .foregroundStyle(.white)
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
       HStack(spacing: 5) {
-        Circle()
-          .fill(soon ? Color(UIColor(rgb: 0xF59E0B)) : Color(UIColor(rgb: 0x34C759)))
-          .frame(width: 7, height: 7)
+        BrowtherIntroStatusDot(soon: soon)
         Text(soon ? Strings.BrowtherIntro.statusSoon : Strings.BrowtherIntro.statusActive)
           .font(.system(size: 11, weight: .semibold))
           .foregroundStyle(.white.opacity(0.72))
@@ -169,25 +180,11 @@ struct BrowtherIntroWelcomeStep: View {
       Text(soon ? "إن شاء الله" : Strings.BrowtherIntro.statusActiveDetail)
         .font(.system(size: 11))
         .foregroundStyle(BrowtherIntroPalette.sage)
+        .lineLimit(1)
+        .minimumScaleFactor(0.75)
     }
     .frame(maxWidth: .infinity)
-  }
-
-  /// Signature de l'éditeur — ⛔ PAS tapable ici : ouvrir `devndin.com` ferait
-  /// sortir de l'introduction. Donc pas de pastille bordée non plus, c'est elle
-  /// qui porte l'affordance (`SURFACES-COMMUNES.md` §6). La version tapable
-  /// reste au pied des Paramètres.
-  private var signature: some View {
-    HStack(spacing: 5) {
-      Text(Strings.Browther.signatureLabel)
-        .font(.footnote)
-      Image("browther-devndin-logo", bundle: .module)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(height: 15)
-    }
-    .foregroundStyle(.white.opacity(0.55))
-    .accessibilityElement(children: .combine)
+    .padding(.horizontal, 4)
   }
 }
 
@@ -211,6 +208,9 @@ struct BrowtherIntroLightButtonStyle: ButtonStyle {
 
 // MARK: - 2 · Pubs
 
+/// Le premier des trois écrans qui **demandent un geste** : l'interrupteur doit
+/// passer sur ON pour que le bouton s'allume. On ne laisse pas franchir un
+/// écran de démonstration sans avoir rien vu fonctionner.
 struct BrowtherIntroAdsStep: View {
   @ObservedObject var model: BrowtherIntroModel
 
@@ -229,7 +229,8 @@ struct BrowtherIntroAdsStep: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
           .offset(x: 10, y: -14)
         BrowtherIntroSwitchRow(
-          title: "Browther",
+          icon: "browther.shield.bar",
+          title: Strings.BrowtherIntro.shieldsName,
           offLabel: Strings.BrowtherIntro.adsSwitchOff,
           onLabel: Strings.BrowtherIntro.adsSwitchOn,
           isOn: Binding(
@@ -238,13 +239,37 @@ struct BrowtherIntroAdsStep: View {
           )
         )
       }
+      .overlay {
+        BrowtherIntroCelebration(isOn: model.adsDemoOn)
+      }
       .sensoryFeedback(.impact(weight: .medium), trigger: model.adsDemoOn)
     } actions: {
-      Button(Strings.FocusOnboarding.continueButtonTitle) {
+      BrowtherIntroAdvanceButton(
+        title: Strings.FocusOnboarding.continueButtonTitle,
+        enabled: model.adsDemoOn
+      ) {
         model.advance()
       }
-      .buttonStyle(BrowtherIntroPrimaryButtonStyle())
     }
+  }
+}
+
+/// La gerbe, tirée la première fois que l'interrupteur passe sur ON.
+///
+/// Une seule fois : la rejouer à chaque bascule ferait de l'effet une
+/// récompense qu'on farme, pas une surprise.
+struct BrowtherIntroCelebration: View {
+  let isOn: Bool
+  @State private var shots = 0
+
+  var body: some View {
+    BrowtherIntroConfetti(trigger: shots)
+      .opacity(shots > 0 ? 1 : 0)
+      .onChange(of: isOn) { _, on in
+        guard on, shots == 0 else { return }
+        shots += 1
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+      }
   }
 }
 
@@ -256,16 +281,33 @@ struct BrowtherIntroBlurStep: View {
   var body: some View {
     BrowtherIntroLayout(
       title: Strings.BrowtherIntro.blurTitle,
-      subtitle: Strings.BrowtherIntro.blurSubtitle
+      subtitle: Strings.BrowtherIntro.blurSubtitle,
+      footnote: AnyView(
+        BrowtherIntroEngineCredit(icon: "basarunaa.icon", name: "Basarunaa")
+      )
     ) {
       // Une vidéo ET une photo : elles ne prouvent pas la même chose. La photo
       // montre que le voile est propre, la vidéo qu'il suit.
       VStack(spacing: 10) {
-        BrowtherIntroVideoTile(target: model.blurTarget)
-        BrowtherIntroPhotoTile(target: model.blurTarget)
+        BrowtherIntroVideoTile(target: model.blurDemoOn ? model.blurTarget : .none)
+        BrowtherIntroPhotoTile(target: model.blurDemoOn ? model.blurTarget : .none)
+        BrowtherIntroSwitchRow(
+          icon: "basarunaa.icon",
+          title: "Basarunaa",
+          offLabel: Strings.BrowtherIntro.blurSwitchOff,
+          onLabel: Strings.BrowtherIntro.blurSwitchOn,
+          isOn: Binding(
+            get: { model.blurDemoOn },
+            set: { _ in model.toggleDemo(for: .blur) }
+          )
+        )
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .overlay {
+        BrowtherIntroCelebration(isOn: model.blurDemoOn)
+      }
       .sensoryFeedback(.selection, trigger: model.blurTarget)
+      .sensoryFeedback(.impact(weight: .medium), trigger: model.blurDemoOn)
     } actions: {
       HStack(spacing: 10) {
         choice(.women, label: Strings.BrowtherIntro.blurWomen, symbol: "figure.stand.dress")
@@ -273,10 +315,12 @@ struct BrowtherIntroBlurStep: View {
         choice(.both, label: Strings.BrowtherIntro.blurBoth, symbol: "figure.2")
       }
       .padding(.bottom, 6)
-      Button(Strings.BrowtherIntro.activateBlur) {
+      BrowtherIntroAdvanceButton(
+        title: Strings.FocusOnboarding.continueButtonTitle,
+        enabled: model.blurDemoOn
+      ) {
         model.activate(.basarunaa)
       }
-      .buttonStyle(BrowtherIntroPrimaryButtonStyle())
       Button(Strings.BrowtherIntro.laterButton) {
         model.later(BrowtherIntroFeature.basarunaa.rawValue)
       }
@@ -298,7 +342,7 @@ struct BrowtherIntroBlurStep: View {
           .minimumScaleFactor(0.8)
       }
       .foregroundStyle(selected ? BrowtherIntroPalette.sage : BrowtherIntroPalette.inkSoft)
-      .frame(maxWidth: .infinity, minHeight: 88)
+      .frame(maxWidth: .infinity, minHeight: 82)
       .background(
         selected
           ? BrowtherIntroPalette.sage.opacity(0.12)
@@ -330,6 +374,28 @@ struct BrowtherIntroBlurStep: View {
   }
 }
 
+/// « Propulsé par Basarunaa », avec l'icône du moteur. C'est ce qui fait qu'en
+/// retrouvant cette icône dans la barre d'outils, la personne sait ce qu'elle
+/// ouvre.
+struct BrowtherIntroEngineCredit: View {
+  let icon: String
+  let name: String
+
+  var body: some View {
+    HStack(spacing: 6) {
+      Image(icon, bundle: .module)
+        .resizable()
+        .renderingMode(.template)
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 15, height: 15)
+      Text(String(format: Strings.BrowtherIntro.poweredBy, name))
+        .font(.footnote.weight(.medium))
+    }
+    .foregroundStyle(BrowtherIntroPalette.sage)
+    .accessibilityElement(children: .combine)
+  }
+}
+
 // MARK: - 4 · Musique
 
 struct BrowtherIntroMusicStep: View {
@@ -342,58 +408,30 @@ struct BrowtherIntroMusicStep: View {
       title: Strings.BrowtherIntro.musicTitle,
       subtitle: Strings.BrowtherIntro.musicSubtitle,
       footnote: AnyView(
-        Text(Strings.BrowtherIntro.musicCompat)
-          .font(.footnote)
-          .foregroundStyle(Color(UIColor.tertiaryLabel))
+        VStack(alignment: .leading, spacing: 4) {
+          BrowtherIntroEngineCredit(icon: "sawtunaa.icon", name: "Sawtunaa")
+          Text(Strings.BrowtherIntro.musicCompat)
+            .font(.footnote)
+            .foregroundStyle(Color(UIColor.tertiaryLabel))
+        }
       )
     ) {
-      ZStack(alignment: .bottom) {
+      VStack(spacing: 10) {
         VStack(spacing: 0) {
-          ZStack {
-            RadialGradient(
-              colors: [Color(UIColor(rgb: 0x2F3C31)), Color(UIColor(rgb: 0x151916))],
-              center: .init(x: 0.5, y: 0.2),
-              startRadius: 10,
-              endRadius: 260
-            )
-            VStack(spacing: 14) {
-              Image(systemName: "mic.fill")
-                .font(.system(size: 40))
-                .foregroundStyle(Color(UIColor(rgb: 0xE7E2D5)))
-              Button {
-                audio.toggle()
-              } label: {
-                HStack(spacing: 8) {
-                  Image(systemName: audio.isPlaying ? "pause.fill" : "play.fill")
-                  Text(
-                    audio.isPlaying
-                      ? Strings.BrowtherIntro.musicPause
-                      : Strings.BrowtherIntro.musicListen
-                  )
-                }
-                .font(.callout.weight(.semibold))
-                .foregroundStyle(.white)
-                .padding(.horizontal, 16)
-                .frame(height: 40)
-                .background(Color.white.opacity(0.16), in: Capsule())
-              }
-              .buttonStyle(.plain)
-            }
-          }
-          .frame(maxHeight: .infinity)
+          player
           BrowtherIntroLanes(musicRemoved: model.musicDemoOn)
             .padding(.horizontal, 14)
-            .padding(.top, 12)
-            .padding(.bottom, 84)
+            .padding(.vertical, 12)
             .background(Color(UIColor(rgb: 0x1B201C)))
         }
         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .padding(.bottom, 34)
-        BrowtherStampPair(isOn: model.musicDemoOn)
-          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-          .offset(x: 10, y: -14)
+        .overlay(alignment: .topTrailing) {
+          BrowtherStampPair(isOn: model.musicDemoOn)
+            .offset(x: 10, y: -14)
+        }
         BrowtherIntroSwitchRow(
-          title: "Browther",
+          icon: "sawtunaa.icon",
+          title: "Sawtunaa",
           offLabel: Strings.BrowtherIntro.musicSwitchOff,
           onLabel: Strings.BrowtherIntro.musicSwitchOn,
           isOn: Binding(
@@ -402,22 +440,108 @@ struct BrowtherIntroMusicStep: View {
           )
         )
       }
+      .overlay {
+        BrowtherIntroCelebration(isOn: model.musicDemoOn)
+      }
       .sensoryFeedback(.impact(weight: .medium), trigger: model.musicDemoOn)
       .onChange(of: model.musicDemoOn) { _, removed in
         // L'interrupteur ne relance rien : il change de canal, à la même
-        // position dans le morceau.
+        // position dans le morceau. S'il n'y a encore rien à entendre, il
+        // lance l'extrait — c'est le geste qui décide, jamais l'écran.
         audio.apply(musicRemoved: removed)
+        if removed { audio.play() }
       }
       .onDisappear { audio.stop() }
     } actions: {
-      Button(Strings.BrowtherIntro.activateMusic) {
+      BrowtherIntroAdvanceButton(
+        title: Strings.FocusOnboarding.continueButtonTitle,
+        enabled: model.musicDemoOn
+      ) {
         model.activate(.sawtunaa)
       }
-      .buttonStyle(BrowtherIntroPrimaryButtonStyle())
       Button(Strings.BrowtherIntro.laterButton) {
         model.later(BrowtherIntroFeature.sawtunaa.rawValue)
       }
       .buttonStyle(BrowtherIntroGhostButtonStyle())
+    }
+  }
+
+  /// Le lecteur : un bouton, une barre qu'on peut déplacer, et l'état du son de
+  /// l'appareil. ⚠️ Rien ne démarre tout seul — arriver sur un écran qui parle
+  /// tout seul dans un lieu public est une trahison.
+  private var player: some View {
+    ZStack {
+      RadialGradient(
+        colors: [Color(UIColor(rgb: 0x2F3C31)), Color(UIColor(rgb: 0x151916))],
+        center: .init(x: 0.5, y: 0.2),
+        startRadius: 10,
+        endRadius: 260
+      )
+      VStack(spacing: 12) {
+        Button {
+          audio.toggle()
+        } label: {
+          Image(systemName: audio.isPlaying ? "pause.fill" : "play.fill")
+            .font(.system(size: 24, weight: .semibold))
+            .foregroundStyle(Color(UIColor(rgb: 0x151916)))
+            .frame(width: 62, height: 62)
+            .background(Color(UIColor(rgb: 0xE7E2D5)), in: Circle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(
+          audio.isPlaying
+            ? Strings.BrowtherIntro.musicPause
+            : Strings.BrowtherIntro.musicListen
+        )
+        BrowtherIntroScrubber(progress: audio.progress) { audio.seek(to: $0) }
+          .frame(height: 26)
+          .padding(.horizontal, 24)
+        if audio.systemVolume <= 0.001 {
+          Label(Strings.BrowtherIntro.volumeMuted, systemImage: "speaker.slash.fill")
+            .font(.footnote.weight(.medium))
+            .multilineTextAlignment(.center)
+            .foregroundStyle(BrowtherEarlyAccess.amber)
+            .padding(.horizontal, 18)
+            .transition(.opacity)
+        }
+      }
+      .padding(.vertical, 18)
+    }
+    .frame(maxHeight: .infinity)
+    .animation(.smooth(duration: 0.3), value: audio.systemVolume <= 0.001)
+  }
+}
+
+/// La barre de lecture, déplaçable au doigt. Les deux pistes bougent ensemble —
+/// c'est ce qui fait que l'interrupteur compare bien le même instant.
+struct BrowtherIntroScrubber: View {
+  let progress: Double
+  let onSeek: (Double) -> Void
+
+  var body: some View {
+    GeometryReader { proxy in
+      let width = proxy.size.width
+      ZStack(alignment: .leading) {
+        Capsule()
+          .fill(Color.white.opacity(0.18))
+          .frame(height: 5)
+        Capsule()
+          .fill(Color(UIColor(rgb: 0xE7E2D5)))
+          .frame(width: max(5, width * progress), height: 5)
+        Circle()
+          .fill(Color(UIColor(rgb: 0xE7E2D5)))
+          .frame(width: 14, height: 14)
+          .offset(x: max(0, width * progress - 7))
+          .shadow(color: .black.opacity(0.3), radius: 3, y: 1)
+      }
+      .frame(maxHeight: .infinity)
+      .contentShape(Rectangle())
+      .gesture(
+        DragGesture(minimumDistance: 0)
+          .onChanged { value in
+            onSeek(min(max(0, value.location.x / width), 1))
+          }
+      )
     }
   }
 }
@@ -439,19 +563,13 @@ struct BrowtherIntroDefaultBrowserStep: View {
       subtitle: Strings.BrowtherIntro.defaultSubtitle
     ) {
       ZStack(alignment: .bottom) {
-        VStack(alignment: .leading, spacing: 8) {
-          bubble(Strings.BrowtherIntro.demoArticleTitle, incoming: true)
-          linkCard
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding(14)
-        .background(Color(UIColor.secondarySystemGroupedBackground))
+        conversation
         browserSheet
-          .offset(y: sheetUp ? 0 : 320)
+          .offset(y: sheetUp ? 0 : 340)
       }
       .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
       .onAppear {
-        withAnimation(.smooth(duration: 0.65).delay(0.5)) {
+        withAnimation(.smooth(duration: 0.65).delay(0.6)) {
           sheetUp = true
         }
       }
@@ -475,71 +593,143 @@ struct BrowtherIntroDefaultBrowserStep: View {
     }
   }
 
-  private func bubble(_ text: String, incoming: Bool) -> some View {
-    Text(text)
-      .font(.system(size: 14.5))
-      .padding(.horizontal, 13)
-      .padding(.vertical, 9)
-      .background(
-        incoming ? Color(UIColor.tertiarySystemGroupedBackground) : BrowtherIntroPalette.sage,
-        in: RoundedRectangle(cornerRadius: 18, style: .continuous)
-      )
-      .foregroundStyle(incoming ? BrowtherIntroPalette.ink : Color.white)
-      .frame(maxWidth: .infinity, alignment: incoming ? .leading : .trailing)
+  /// Une conversation, reconnaissable comme telle : barre de contact, fond
+  /// propre à la messagerie, bulles vertes et blanches, horodatage. Sans ces
+  /// repères, deux rectangles gris ne disent pas « message reçu ».
+  private var conversation: some View {
+    VStack(spacing: 0) {
+      HStack(spacing: 9) {
+        Image(systemName: "chevron.left")
+          .font(.system(size: 15, weight: .semibold))
+          .foregroundStyle(Color(UIColor(rgb: 0x25D366)))
+        Circle()
+          .fill(Color(UIColor(rgb: 0xCFD6CB)))
+          .frame(width: 30, height: 30)
+          .overlay {
+            Image(systemName: "person.2.fill")
+              .font(.system(size: 13))
+              .foregroundStyle(Color(UIColor(rgb: 0x6B7A68)))
+          }
+        VStack(alignment: .leading, spacing: 1) {
+          Text(Strings.BrowtherIntro.demoContactName)
+            .font(.system(size: 14, weight: .semibold))
+          Text(Strings.BrowtherIntro.demoMessagingApp)
+            .font(.system(size: 11))
+            .foregroundStyle(BrowtherIntroPalette.inkSoft)
+        }
+        Spacer()
+        Image(systemName: "video.fill")
+          .font(.system(size: 13))
+          .foregroundStyle(BrowtherIntroPalette.inkSoft)
+        Image(systemName: "phone.fill")
+          .font(.system(size: 13))
+          .foregroundStyle(BrowtherIntroPalette.inkSoft)
+      }
+      .padding(.horizontal, 12)
+      .frame(height: 46)
+      .background(Color(UIColor.secondarySystemGroupedBackground))
+      VStack(alignment: .leading, spacing: 6) {
+        bubble(Strings.BrowtherIntro.demoMessageIncoming)
+        linkBubble
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+      .padding(12)
+      .background(BrowtherIntroPalette.canvas)
+    }
   }
 
-  private var linkCard: some View {
+  private func bubble(_ text: String) -> some View {
+    Text(text)
+      .font(.system(size: 14.5))
+      .foregroundStyle(BrowtherIntroPalette.ink)
+      .padding(.horizontal, 12)
+      .padding(.vertical, 8)
+      .background(
+        Color(UIColor.systemBackground),
+        in: UnevenRoundedRectangle(
+          topLeadingRadius: 14,
+          bottomLeadingRadius: 3,
+          bottomTrailingRadius: 14,
+          topTrailingRadius: 14,
+          style: .continuous
+        )
+      )
+      .frame(maxWidth: .infinity, alignment: .leading)
+  }
+
+  /// La bulle qui porte le lien : c'est elle qu'on tape, et c'est de là que
+  /// part la feuille du navigateur.
+  private var linkBubble: some View {
     VStack(alignment: .leading, spacing: 0) {
       LinearGradient(
         colors: [Color(UIColor(rgb: 0xE7C9A0)), Color(UIColor(rgb: 0xC98F5B))],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
       )
-      .frame(height: 62)
+      .frame(height: 58)
       VStack(alignment: .leading, spacing: 2) {
         Text(Strings.BrowtherIntro.demoArticleTitle)
           .font(.system(size: 13.5, weight: .semibold))
+          .foregroundStyle(BrowtherIntroPalette.ink)
         Text(Strings.BrowtherIntro.demoSiteName)
           .font(.system(size: 12))
           .foregroundStyle(BrowtherIntroPalette.inkSoft)
       }
-      .padding(.horizontal, 12)
-      .padding(.vertical, 8)
+      .padding(.horizontal, 10)
+      .padding(.vertical, 7)
     }
-    .background(Color(UIColor.tertiarySystemGroupedBackground))
-    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-    .frame(maxWidth: 220, alignment: .leading)
+    .background(Color(UIColor.systemBackground))
+    .clipShape(
+      UnevenRoundedRectangle(
+        topLeadingRadius: 14,
+        bottomLeadingRadius: 3,
+        bottomTrailingRadius: 14,
+        topTrailingRadius: 14,
+        style: .continuous
+      )
+    )
+    .frame(maxWidth: 230, alignment: .leading)
   }
 
+  /// Ce que devient le lien : Browther qui monte par-dessus la conversation,
+  /// nommé, avec son icône et son compteur — c'est le « ouvert dans Browther »
+  /// qu'on veut faire comprendre.
   private var browserSheet: some View {
     VStack(spacing: 10) {
       HStack(spacing: 8) {
-        Image("browther.shield.bar", bundle: .module)
+        Image("browther.app.icon", bundle: .module)
           .resizable()
-          .renderingMode(.template)
           .aspectRatio(contentMode: .fit)
-          .frame(width: 18, height: 18)
-          .foregroundStyle(BrowtherIntroPalette.sage)
-        Text(Strings.BrowtherIntro.demoSiteName)
+          .frame(width: 20, height: 20)
+          .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+        Text(Strings.BrowtherIntro.demoOpenedIn)
           .font(.system(size: 13, weight: .semibold))
+          .foregroundStyle(BrowtherIntroPalette.ink)
         Spacer()
         HStack(spacing: 4) {
-          Image(systemName: "shield.fill")
+          Image("browther.shield.bar", bundle: .module)
+            .resizable()
+            .renderingMode(.template)
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 12, height: 12)
           Text(Strings.BrowtherIntro.demoBlockedCount)
         }
         .font(.system(size: 11, weight: .bold))
         .foregroundStyle(BrowtherIntroPalette.halal)
       }
       .padding(.horizontal, 12)
-      .frame(height: 44)
-      .background(Color(UIColor.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+      .frame(height: 42)
+      .background(
+        Color(UIColor.secondarySystemGroupedBackground),
+        in: RoundedRectangle(cornerRadius: 13, style: .continuous)
+      )
       VStack(alignment: .leading, spacing: 9) {
         LinearGradient(
           colors: [Color(UIColor(rgb: 0xE7C9A0)), Color(UIColor(rgb: 0xC98F5B))],
           startPoint: .topLeading,
           endPoint: .bottomTrailing
         )
-        .frame(height: 70)
+        .frame(height: 64)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         ForEach([0.7, 1.0, 0.85], id: \.self) { ratio in
           Capsule()
@@ -553,7 +743,7 @@ struct BrowtherIntroDefaultBrowserStep: View {
     }
     .padding(12)
     .frame(maxWidth: .infinity)
-    .frame(height: 230)
+    .frame(height: 220)
     .background(
       Color(UIColor.systemBackground),
       in: UnevenRoundedRectangle(
@@ -564,18 +754,16 @@ struct BrowtherIntroDefaultBrowserStep: View {
         style: .continuous
       )
     )
-    .shadow(color: .black.opacity(0.18), radius: 12, y: -6)
+    .shadow(color: .black.opacity(0.22), radius: 14, y: -6)
   }
 }
 
 // MARK: - 6 · Canaux dev&din
 
-/// Dernière étape : ce qu'on recevra, montré comme on le recevra — deux
-/// notifications. Pendant l'accès anticipé, elle annonce la sortie des deux
-/// moteurs ; ensuite, elle reprend le texte de l'étape historique.
+/// Dernière étape : Browther replacé dans l'écosystème, et les deux canaux où
+/// l'on annonce ce qui sort.
 struct BrowtherIntroChannelsStep: View {
   @ObservedObject var model: BrowtherIntroModel
-  @State private var appeared = false
 
   var body: some View {
     BrowtherIntroLayout(
@@ -584,52 +772,28 @@ struct BrowtherIntroChannelsStep: View {
         : Strings.FocusOnboarding.followChannelsScreenTitle,
       subtitle: model.isEarlyAccess
         ? Strings.BrowtherIntro.channelsSoonDescription
-        : Strings.FocusOnboarding.followChannelsScreenDescription,
-      footnote: AnyView(
-        Text(verbatim: "إن شاء الله")
-          .font(.system(size: 20, weight: .semibold))
-          .foregroundStyle(BrowtherIntroPalette.sage)
-      )
+        : Strings.FocusOnboarding.followChannelsScreenDescription
     ) {
-      ZStack {
-        LinearGradient(
-          colors: [Color(UIColor(rgb: 0x0A1B24)), Color(UIColor(rgb: 0x08161E))],
-          startPoint: .top,
-          endPoint: .bottom
-        )
-        VStack(spacing: 8) {
-          Spacer(minLength: 0)
-          notification(
-            title: "dev&din",
-            body: Strings.BrowtherIntro.notifBlur,
-            icon: "browther-devndin-logo",
-            template: false,
-            delay: 0.35
-          )
-          notification(
-            title: "Browther",
-            body: Strings.BrowtherIntro.notifMusic,
-            icon: "browther.shield.bar",
-            template: true,
-            delay: 0.75
-          )
-        }
-        .padding(12)
-      }
-      .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-      .onAppear { appeared = true }
+      // Le visuel de l'écosystème, celui de l'étape historique : il montre
+      // d'un coup d'œil que Browther a des voisins.
+      Image(devndinImageName, bundle: BrowtherOnboardingAssets.bundle)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(maxWidth: .infinity)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .frame(maxHeight: .infinity, alignment: .center)
     } actions: {
       channelButton(
         .whatsApp,
         label: Strings.FocusOnboarding.followChannelsWhatsApp,
         color: Color(UIColor(rgb: 0x25D366)),
-        symbol: "bubble.left.fill"
+        image: "channel-whatsapp"
       )
       channelButton(
         .telegram,
         label: Strings.FocusOnboarding.followChannelsTelegram,
         color: Color(UIColor(rgb: 0x229ED9)),
-        symbol: "paperplane.fill"
+        image: "channel-telegram"
       )
       Text(Strings.FocusOnboarding.followChannelsSameContent)
         .font(.footnote)
@@ -643,53 +807,31 @@ struct BrowtherIntroChannelsStep: View {
     }
   }
 
-  private func notification(
-    title: String,
-    body: String,
-    icon: String,
-    template: Bool,
-    delay: Double
-  ) -> some View {
-    HStack(alignment: .top, spacing: 10) {
-      Image(icon, bundle: .module)
-        .resizable()
-        .renderingMode(template ? .template : .original)
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 26, height: 22)
-        .foregroundStyle(BrowtherIntroPalette.sage)
-        .frame(width: 38, height: 38)
-        .background(Color(UIColor(rgb: 0x0F100E)), in: RoundedRectangle(cornerRadius: 9, style: .continuous))
-      VStack(alignment: .leading, spacing: 2) {
-        Text(title)
-          .font(.system(size: 13.5, weight: .semibold))
-        Text(body)
-          .font(.system(size: 13))
-          .lineLimit(2)
-          .foregroundStyle(BrowtherIntroPalette.inkSoft)
-      }
-      Spacer(minLength: 0)
+  /// Le visuel existe en français, en anglais et en arabe — on prend celui de
+  /// la langue de l'appareil, comme l'étape historique.
+  private var devndinImageName: String {
+    switch Locale.current.language.languageCode?.identifier {
+    case "fr": return "devndin-channels-fr"
+    case "ar": return "devndin-channels-ar"
+    default: return "devndin-channels-en"
     }
-    .padding(11)
-    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-    .offset(y: appeared ? 0 : -18)
-    .opacity(appeared ? 1 : 0)
-    .animation(.snappy(duration: 0.55, extraBounce: 0.15).delay(delay), value: appeared)
   }
 
   private func channelButton(
     _ channel: BrowtherIntroChannel,
     label: String,
     color: Color,
-    symbol: String
+    image: String
   ) -> some View {
     Button {
       model.openChannel(channel)
     } label: {
       HStack(spacing: 12) {
-        Image(systemName: symbol)
-          .font(.system(size: 15, weight: .semibold))
-          .foregroundStyle(color)
-          .frame(width: 28, height: 28)
+        Image(image, bundle: BrowtherOnboardingAssets.bundle)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 22, height: 22)
+          .frame(width: 30, height: 30)
           .background(Color.white, in: Circle())
         Text(label)
           .font(.callout.weight(.semibold))

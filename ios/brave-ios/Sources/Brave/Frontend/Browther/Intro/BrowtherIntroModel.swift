@@ -60,7 +60,8 @@ final class BrowtherIntroModel: ObservableObject {
   @Published private(set) var index: Int = 0
   @Published var adsDemoOn = false
   @Published var musicDemoOn = false
-  @Published var blurTarget: BrowtherBlurTarget = .both
+  @Published var blurDemoOn = false
+  @Published var blurTarget: BrowtherBlurTarget = .women
   /// Non nul quand la feuille « ça arrive très bientôt » est ouverte.
   @Published var soonFeature: BrowtherIntroFeature?
   /// Fonctionnalités allumées depuis l'introduction (hors accès anticipé).
@@ -91,9 +92,10 @@ final class BrowtherIntroModel: ObservableObject {
     self.onOpenURL = onOpenURL
     self.onSetDefaultBrowser = onSetDefaultBrowser
     self.onFinish = onFinish
-    // Le floutage part sur « les deux » : au repos, personne n'apparaît en
-    // clair dans l'aperçu, et la personne rétrécit le flou si elle le décide.
-    self.blurTarget = BrowtherBlurTarget(rawValue: Preferences.Basarunaa.mode.value) ?? .both
+    // Le floutage part sur « les femmes » : c'est le cas d'usage majoritaire,
+    // et c'est aussi le défaut du moteur — l'introduction n'invente pas un
+    // réglage que l'app n'aurait pas.
+    self.blurTarget = BrowtherBlurTarget(rawValue: Preferences.Basarunaa.mode.value) ?? .women
     trackStep()
   }
 
@@ -104,12 +106,16 @@ final class BrowtherIntroModel: ObservableObject {
       finish()
       return
     }
+    // Chaque passage d'écran se sent : le parcours avance sous le doigt, il ne
+    // se contente pas de glisser.
+    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
     index += 1
     trackStep()
   }
 
   func back() {
     guard index > 0 else { return }
+    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
     index -= 1
     trackStep()
   }
@@ -131,12 +137,19 @@ final class BrowtherIntroModel: ObservableObject {
   /// L'interrupteur de démonstration (écrans Pubs et Musique). Il ne règle
   /// rien : il montre la page avec et sans Browther.
   func toggleDemo(for step: BrowtherIntroStep) {
+    let on: Bool
     switch step {
-    case .ads: adsDemoOn.toggle()
-    case .music: musicDemoOn.toggle()
+    case .ads:
+      adsDemoOn.toggle()
+      on = adsDemoOn
+    case .blur:
+      blurDemoOn.toggle()
+      on = blurDemoOn
+    case .music:
+      musicDemoOn.toggle()
+      on = musicDemoOn
     default: return
     }
-    let on = step == .ads ? adsDemoOn : musicDemoOn
     track("onboarding_demo_toggled", ["step": step.rawValue, "on": on])
   }
 

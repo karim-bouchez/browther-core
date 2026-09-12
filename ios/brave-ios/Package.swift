@@ -181,6 +181,9 @@ var package = Package(
         .copy("Frontend/Browther/Intro/Resources/browther-intro-video.json"),
         .copy("Frontend/Browther/Intro/Resources/browther-intro-audio-before.m4a"),
         .copy("Frontend/Browther/Intro/Resources/browther-intro-audio-after.m4a"),
+        // Police du muṣḥaf (SIL OFL 1.1) — enregistrée au runtime par
+        // BrowtherIntroFont : un paquet SPM n'a pas d'UIAppFonts.
+        .copy("Frontend/Browther/Intro/Resources/AmiriQuran-Regular.ttf"),
         .copy("Frontend/Reader/Reader.css"),
         .copy("Frontend/Reader/Reader.html"),
         .copy("Frontend/Reader/ReaderViewLoading.html"),

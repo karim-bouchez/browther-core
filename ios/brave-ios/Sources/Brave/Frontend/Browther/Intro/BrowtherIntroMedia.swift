@@ -3,6 +3,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import CoreImage
 import Foundation
 import SwiftUI
 
@@ -31,7 +32,10 @@ enum BrowtherIntroMedia {
     /// **plus tout ce dont le genre n'est pas sûr**. Dans le doute, on floute —
     /// une prévisualisation plus permissive que l'app mentirait sur ce qu'elle
     /// fait.
-    func isBlurred(for target: BrowtherBlurTarget, certainty: Double = 0.70) -> Bool {
+    /// `target` à `nil` : le floutage est éteint, rien n'est couvert — c'est
+    /// l'état « avant » de la démonstration.
+    func isBlurred(for target: BrowtherBlurTarget?, certainty: Double = 0.70) -> Bool {
+      guard let target else { return false }
       switch target {
       case .both: return true
       case .women: if gender == "female" { return true }
@@ -81,12 +85,30 @@ enum BrowtherIntroMedia {
     return file.persons
   }()
 
-  static var photoImage: UIImage? {
+  static let photoImage: UIImage? = {
     guard let url = Bundle.module.url(forResource: photoName, withExtension: "jpg") else {
       return nil
     }
     return UIImage(contentsOfFile: url.path)
-  }
+  }()
+
+  /// La photo **entièrement floutée**, au rayon du compositeur. Le voile n'est
+  /// que cette image-là, découpée par le contour du corps : le flou vit donc
+  /// dans les pixels de la photo, exactement comme sur macOS, et changer de
+  /// cible ne recalcule rien.
+  static let photoBlurredImage: UIImage? = {
+    guard let source = photoImage, let cgImage = source.cgImage else { return nil }
+    let image = CIImage(cgImage: cgImage)
+    let blurred =
+      image
+      .clampedToExtent()
+      .applyingGaussianBlur(sigma: BrowtherIntroVeil.blurRadius(for: image.extent.size))
+      .cropped(to: image.extent)
+    guard let output = BrowtherIntroVeil.context.createCGImage(blurred, from: image.extent) else {
+      return nil
+    }
+    return UIImage(cgImage: output)
+  }()
 
   // MARK: - Vidéo
 
