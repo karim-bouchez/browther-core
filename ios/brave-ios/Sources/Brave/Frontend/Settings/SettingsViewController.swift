@@ -1546,6 +1546,22 @@ class SettingsViewController: TableViewController {
           accessory: .disclosureIndicator,
           cellClass: MultilineValue1Cell.self
         ),
+        // Browther : rejouer le VRAI parcours d'introduction (celui de
+        // `presentFocusOnboarding`), pas l'aperçu de la ligne ci-dessus. On
+        // referme les Réglages d'abord : l'introduction se présente depuis le
+        // navigateur, qui est aussi le `settingsDelegate`.
+        Row(
+          text: "Rejouer l'introduction Browther",
+          selection: { [unowned self] in
+            guard let browserViewController = self.settingsDelegate as? BrowserViewController
+            else { return }
+            self.dismiss(animated: true) {
+              BrowtherOnboardingReplay.reset()
+              browserViewController.presentFocusOnboarding()
+            }
+          },
+          cellClass: MultilineValue1Cell.self
+        ),
         Row(
           text: "Load all QA Links",
           selection: { [unowned self] in
