@@ -19,6 +19,15 @@ final class BrowtherIntroController: UIHostingController<BrowtherIntroView> {
     super.init(rootView: BrowtherIntroView(model: model))
     modalPresentationStyle = .fullScreen
     isModalInPresentation = true
+    // ⚠️ L'introduction est **toujours sombre**, quel que soit le thème de
+    // l'appareil (décision 2026-09-12). Ce n'est pas un renoncement : la
+    // séquence est composée pour le sombre — la photo étoilée de l'accueil, le
+    // voile, les tampons, le lecteur vert profond, les confettis clairs. En
+    // thème clair, chacun de ces écrans demanderait sa propre composition, pour
+    // une séquence vue une seule fois. `overrideUserInterfaceStyle` plutôt que
+    // `preferredColorScheme` : il couvre aussi les vues UIKit hébergées
+    // (`ShieldsSwitchView`, `MPVolumeView`).
+    overrideUserInterfaceStyle = .dark
   }
 
   @available(*, unavailable)
@@ -30,7 +39,9 @@ final class BrowtherIntroController: UIHostingController<BrowtherIntroView> {
     .portrait
   }
 
+  /// Fond sombre imposé ⇒ barre d'état claire, sinon l'heure disparaît sur un
+  /// appareil en thème clair.
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    .default
+    .lightContent
   }
 }

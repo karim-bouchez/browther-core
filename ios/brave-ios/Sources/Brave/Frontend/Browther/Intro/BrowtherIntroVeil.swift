@@ -92,7 +92,10 @@ enum BrowtherIntroVeil {
     feather: Double
   ) -> CIImage {
     let extent = image.extent
-    // Rideau : tant que le floutage est éteint, on ne montre rien du tout.
+    if mode == .nothing {
+      return image
+    }
+    // Rideau : au premier abord, on ne montre rien du tout.
     if mode == .everything {
       return
         image

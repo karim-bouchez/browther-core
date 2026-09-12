@@ -24,12 +24,19 @@ import SwiftUI
 /// précisément ce que l'app existe pour ne plus montrer. Alors on montre un
 /// rideau, et l'activation le lève sur le voile ciblé.
 enum BrowtherIntroVeilMode: Equatable {
+  /// Rideau : l'état **initial**, avant que la personne ait rien vu. On ne
+  /// montre pas les vignettes en clair pour illustrer « avant » — ce serait
+  /// afficher précisément ce que l'app existe pour ne plus montrer.
   case everything
+  /// Rien de couvert : l'état d'« avant » **assumé**, une fois que la personne
+  /// a allumé puis éteint l'interrupteur. Elle a vu ce que ça donne et demande
+  /// à comparer : là, c'est son geste.
+  case nothing
   case target(BrowtherBlurTarget)
 
   var target: BrowtherBlurTarget? {
     switch self {
-    case .everything: return nil
+    case .everything, .nothing: return nil
     case .target(let value): return value
     }
   }

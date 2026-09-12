@@ -64,7 +64,9 @@ struct BrowtherIntroVeilMask: View {
 
   var body: some View {
     GeometryReader { proxy in
-      if mode == .everything {
+      if mode == .nothing {
+        Color.clear
+      } else if mode == .everything {
         Color.white
       } else {
         let visible = persons.filter { $0.isBlurred(for: mode.target) }

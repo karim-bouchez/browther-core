@@ -61,6 +61,11 @@ final class BrowtherIntroModel: ObservableObject {
   @Published var adsDemoOn = false
   @Published var musicDemoOn = false
   @Published var blurDemoOn = false
+  /// Vrai dès que le floutage a été allumé une fois sur l'écran. Il change ce
+  /// que montre l'état « éteint » : **rideau** tant qu'on n'a rien vu, **image
+  /// d'origine** ensuite — la personne a vu le résultat et demande à comparer,
+  /// c'est son geste.
+  @Published private(set) var blurDemoEverOn = false
   @Published var blurTarget: BrowtherBlurTarget = .women
   /// Non nul quand la feuille « ça arrive très bientôt » est ouverte.
   @Published var soonFeature: BrowtherIntroFeature?
@@ -152,6 +157,7 @@ final class BrowtherIntroModel: ObservableObject {
     case .blur:
       blurDemoOn.toggle()
       on = blurDemoOn
+      if on { blurDemoEverOn = true }
     case .music:
       musicDemoOn.toggle()
       on = musicDemoOn
@@ -185,6 +191,12 @@ final class BrowtherIntroModel: ObservableObject {
       ["feature": feature.rawValue, "available": !isEarlyAccess]
     )
     guard !isEarlyAccess else {
+      // ⚠️ Le choix « qui flouter » est écrit MÊME en accès anticipé : la
+      // personne l'a fait ici, elle doit le retrouver dans l'app le jour où le
+      // floutage s'allume. Seule l'activation attend.
+      if feature == .basarunaa {
+        Preferences.Basarunaa.mode.value = blurTarget.rawValue
+      }
       // Le geste a un effet : la feuille arrive, et on le sent — sinon
       // « Activer » donne l'impression de n'avoir rien fait.
       UIImpactFeedbackGenerator(style: .medium).impactOccurred()

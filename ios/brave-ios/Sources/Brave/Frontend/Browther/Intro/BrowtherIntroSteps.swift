@@ -283,14 +283,16 @@ struct BrowtherIntroBlurStep: View {
       // la démonstration y gagne, on passe de « tout caché » à « juste ce
       // qu'il faut ».
       let mode: BrowtherIntroVeilMode =
-        model.blurDemoOn ? .target(model.blurTarget) : .everything
+        model.blurDemoOn
+        ? .target(model.blurTarget)
+        : (model.blurDemoEverOn ? .nothing : .everything)
       VStack(spacing: 10) {
         BrowtherIntroVideoTile(mode: mode)
         BrowtherIntroPhotoTile(mode: mode)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .overlay {
-        if !model.blurDemoOn {
+        if !model.blurDemoOn, !model.blurDemoEverOn {
           VStack(spacing: 8) {
             Image("basarunaa.icon", bundle: .module)
               .resizable()
