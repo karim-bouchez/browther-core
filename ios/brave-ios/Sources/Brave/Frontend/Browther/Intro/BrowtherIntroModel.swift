@@ -197,6 +197,9 @@ final class BrowtherIntroModel: ObservableObject {
     UINotificationFeedbackGenerator().notificationOccurred(.success)
     track("default_browser_set", ["source": "onboarding"])
     onSetDefaultBrowser()
+    // On avance tout de suite : la personne part dans les Réglages, elle doit
+    // retrouver la suite du parcours en revenant, pas l'écran qu'elle a réglé.
+    advance()
   }
 
   // MARK: - Canaux dev&din

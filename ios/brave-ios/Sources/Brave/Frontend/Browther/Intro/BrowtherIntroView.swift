@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveStrings
+import BraveUI
 import Onboarding
 import Shared
 import SwiftUI
@@ -39,6 +40,9 @@ struct BrowtherIntroView: View {
       }
     }
     .animation(.smooth(duration: 0.3), value: model.soonFeature)
+    // Sans ça, `\.windowScene` reste nil et la vidéo en incrustation de
+    // l'écran « navigateur par défaut » ne démarre jamais.
+    .prepareWindowSceneEnvironment()
   }
 
   // MARK: Barre du haut

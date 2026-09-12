@@ -61,8 +61,11 @@ private struct LoopingMutedVideoPlayer: UIViewControllerRepresentable {
   }
 }
 
+// Browther : `internal` et non `private` — la nouvelle introduction (module
+// Brave) rejoue la même vidéo par `BrowtherDefaultBrowserVideo`, et la
+// dupliquer aurait fait deux incrustations à maintenir.
 @MainActor
-private final class DefaultBrowserPictureInPictureController: NSObject,
+final class DefaultBrowserPictureInPictureController: NSObject,
   AVPictureInPictureControllerDelegate
 {
   private let player: AVPlayer

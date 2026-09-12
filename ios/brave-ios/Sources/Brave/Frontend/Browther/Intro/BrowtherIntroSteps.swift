@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveStrings
+import BraveUI
 import Onboarding
 import Shared
 import SwiftUI
@@ -394,6 +395,8 @@ struct BrowtherIntroMusicStep: View {
 /// le chemin, iOS le montre lui-même juste après.
 struct BrowtherIntroDefaultBrowserStep: View {
   @ObservedObject var model: BrowtherIntroModel
+  @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.windowScene) private var windowScene
   @State private var sheetUp = false
 
   var body: some View {
@@ -420,7 +423,15 @@ struct BrowtherIntroDefaultBrowserStep: View {
       }
     } actions: {
       Button(Strings.FocusOnboarding.systemSettingsButtonTitle) {
-        model.setAsDefaultBrowser()
+        Task {
+          // La vidéo part AVANT les Réglages : elle doit déjà flotter quand
+          // iOS bascule, sinon elle s'ouvre derrière et personne ne la voit.
+          await BrowtherDefaultBrowserVideo.presentPictureInPicture(
+            isDarkMode: colorScheme == .dark,
+            windowScene: windowScene
+          )
+          model.setAsDefaultBrowser()
+        }
       }
       .buttonStyle(BrowtherIntroPrimaryButtonStyle())
       Button(Strings.BrowtherIntro.laterButton) {
