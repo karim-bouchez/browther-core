@@ -29,6 +29,13 @@ struct BrowtherIntroView: View {
       header
     }
     .overlay {
+      if let celebratedAt = model.celebratedAt {
+        BrowtherIntroConfetti(start: celebratedAt)
+          .id(celebratedAt)
+          .ignoresSafeArea()
+      }
+    }
+    .overlay {
       if let feature = model.soonFeature {
         BrowtherIntroSoonSheet(feature: feature) {
           model.dismissSoonSheet()
@@ -268,9 +275,14 @@ struct BrowtherIntroSoonSheet: View {
       .padding(.top, 2)
     }
     .padding(.horizontal, 22)
-    .padding(.bottom, 30)
+    // La barre d'accueil est déjà sous la feuille : 14 pt suffisent, 30 pt
+    // laissaient le bouton flotter trop haut.
+    .padding(.bottom, 14)
     .frame(maxWidth: .infinity, alignment: .leading)
     .background {
+      // ⚠️ C'est le FOND qui déborde sous la barre d'accueil, pas la feuille :
+      // `ignoresSafeArea` posé sur la vue entière décale son contenu et laisse
+      // une bande noire sous elle (même piège que sur l'accueil).
       UnevenRoundedRectangle(
         topLeadingRadius: 28,
         bottomLeadingRadius: 0,
@@ -281,7 +293,8 @@ struct BrowtherIntroSoonSheet: View {
       .fill(Color(UIColor.secondarySystemGroupedBackground))
       .overlay(alignment: .top) {
         // Un liseré ambre : la feuille appartient à l'accès anticipé, comme le
-        // badge de la barre d'outils.
+        // badge de la barre d'outils. ⚠️ En HAUT seulement — le contour fermé
+        // dessinait un trait sous la feuille, là où elle n'a pas de bord.
         UnevenRoundedRectangle(
           topLeadingRadius: 28,
           bottomLeadingRadius: 0,
@@ -290,9 +303,10 @@ struct BrowtherIntroSoonSheet: View {
           style: .continuous
         )
         .strokeBorder(BrowtherEarlyAccess.amber.opacity(0.35), lineWidth: 1)
+        .padding(.bottom, -80)
       }
       .shadow(color: .black.opacity(0.4), radius: 24, y: -8)
+      .ignoresSafeArea(edges: .bottom)
     }
-    .ignoresSafeArea(edges: .bottom)
   }
 }

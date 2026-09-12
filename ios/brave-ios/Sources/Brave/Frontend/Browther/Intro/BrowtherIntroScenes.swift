@@ -15,7 +15,24 @@ import SwiftUI
 struct BrowtherIntroWebPage: View {
   let blocked: Bool
 
+  /// Le cycle de la page quand Browther est éteint : la pub tient l'écran,
+  /// puis la vidéo démarre enfin, puis la pub revient. C'est ça, l'expérience
+  /// qu'on décrit — elle se raconte mal, elle se montre bien.
+  private static let adDuration: Double = 5
+  private static let videoDuration: Double = 4
+  private static let cycle = adDuration + videoDuration
+
   var body: some View {
+    TimelineView(.periodic(from: .now, by: 0.25)) { context in
+      let phase = context.date.timeIntervalSinceReferenceDate
+        .truncatingRemainder(dividingBy: Self.cycle)
+      page(adElapsed: blocked ? nil : (phase < Self.adDuration ? phase : nil))
+    }
+  }
+
+  /// `adElapsed` non nul = la pub occupe l'écran, depuis tant de secondes.
+  @ViewBuilder
+  private func page(adElapsed: Double?) -> some View {
     VStack(spacing: 0) {
       HStack(spacing: 8) {
         Image(systemName: "lock.fill")
@@ -52,9 +69,22 @@ struct BrowtherIntroWebPage: View {
           .foregroundStyle(.white)
           .frame(width: 44, height: 44)
           .background(Color.white.opacity(0.18), in: Circle())
-        if !blocked {
-          preroll
+        if let adElapsed {
+          preroll(elapsed: adElapsed)
             .transition(.opacity.combined(with: .scale(scale: 1.04)))
+        } else {
+          // La vidéo tourne : une barre qui avance suffit à le dire.
+          VStack {
+            Spacer()
+            ProgressView(
+              value: blocked ? 0.42 : 0.18,
+              total: 1
+            )
+            .progressViewStyle(.linear)
+            .tint(.white)
+            .padding(.horizontal, 10)
+            .padding(.bottom, 8)
+          }
         }
       }
       .frame(height: 132)
@@ -81,7 +111,15 @@ struct BrowtherIntroWebPage: View {
     .animation(.smooth(duration: 0.32), value: blocked)
   }
 
-  private var preroll: some View {
+  private func preroll(elapsed: Double) -> some View {
+    // Le compte à rebours descend vraiment : 0:15 → 0:10 pour l'annonce,
+    // 5 → 0 pour le bouton « Passer ».
+    let remainingAd = max(0, 15 - Int(elapsed))
+    let remainingSkip = max(0, Int((Self.adDuration - elapsed).rounded(.up)))
+    return preroll(remainingAd: remainingAd, remainingSkip: remainingSkip)
+  }
+
+  private func preroll(remainingAd: Int, remainingSkip: Int) -> some View {
     ZStack {
       LinearGradient(
         colors: [Color(UIColor(rgb: 0x7B2D58)), Color(UIColor(rgb: 0xC55A3B))],
@@ -93,8 +131,12 @@ struct BrowtherIntroWebPage: View {
         .foregroundStyle(.white.opacity(0.4))
       VStack {
         HStack(spacing: 6) {
-          Text(Strings.BrowtherIntro.demoAdCountdown)
-            .font(.system(size: 11, weight: .bold))
+          Text(
+            verbatim: "\(Strings.BrowtherIntro.demoAdLabel) \u{00B7} 0:"
+              + String(format: "%02d", remainingAd)
+          )
+          .font(.system(size: 11, weight: .bold))
+          .monospacedDigit()
             .foregroundStyle(.black)
             .padding(.horizontal, 7)
             .padding(.vertical, 3)
@@ -113,9 +155,14 @@ struct BrowtherIntroWebPage: View {
         Spacer()
         HStack {
           Spacer()
-          Text(Strings.BrowtherIntro.demoAdSkip)
-            .font(.system(size: 11, weight: .semibold))
-            .foregroundStyle(.white)
+          Text(
+            remainingSkip > 0
+              ? String(format: Strings.BrowtherIntro.demoAdSkipFormat, remainingSkip)
+              : Strings.BrowtherIntro.demoAdSkipNow
+          )
+          .font(.system(size: 11, weight: .semibold))
+          .monospacedDigit()
+          .foregroundStyle(.white)
             .padding(.horizontal, 9)
             .padding(.vertical, 5)
             .background(Color.black.opacity(0.6), in: RoundedRectangle(cornerRadius: 6))

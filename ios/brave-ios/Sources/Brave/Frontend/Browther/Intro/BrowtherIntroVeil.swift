@@ -88,12 +88,20 @@ enum BrowtherIntroVeil {
   static func composite(
     _ image: CIImage,
     persons: [BrowtherIntroMedia.Person],
-    target: BrowtherBlurTarget?,
+    mode: BrowtherIntroVeilMode,
     feather: Double
   ) -> CIImage {
-    let visible = persons.filter { $0.isBlurred(for: target) }
-    guard !visible.isEmpty else { return image }
     let extent = image.extent
+    // Rideau : tant que le floutage est éteint, on ne montre rien du tout.
+    if mode == .everything {
+      return
+        image
+        .clampedToExtent()
+        .applyingGaussianBlur(sigma: blurRadius(for: extent.size))
+        .cropped(to: extent)
+    }
+    let visible = persons.filter { $0.isBlurred(for: mode.target) }
+    guard !visible.isEmpty else { return image }
     guard
       let mask = mask(
         persons: visible,

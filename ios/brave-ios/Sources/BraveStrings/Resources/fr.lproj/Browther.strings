@@ -96,6 +96,8 @@
 "introDemoAdCountdown" = "Annonce · 0:15";
 "introDemoAdSound" = "Son activé";
 "introDemoAdSkip" = "Passer dans 5 s";
+"introDemoAdSkipFormat" = "Passer dans %d s";
+"introDemoAdSkipNow" = "Passer";
 "introDemoAdLabel" = "Annonce";
 "introDemoAdSponsored" = "Contenu sponsorisé";
 "introDemoBlockedCount" = "3 bloqués";
@@ -107,6 +109,7 @@
 "introBlurWomen" = "Les femmes";
 "introBlurMen" = "Les hommes";
 "introBlurBoth" = "Les deux";
+"introBlurCurtain" = "Active-le pour voir le résultat";
 "introBlurSwitchOff" = "Désactivé · rien n'est couvert";
 "introBlurSwitchOn" = "Couvert, sur l'image comme sur la vidéo";
 "introActivateBlur" = "Activer le floutage";
@@ -127,6 +130,7 @@
 "introSoonMusicBody" = "La coupure de la musique fonctionne déjà. On la laisse désactivée par défaut le temps d'en peaufiner le rendu : on te préviendra dès qu'elle sera assez propre pour ne plus gêner la navigation. En attendant, Browther bloque déjà les pubs, et la musique qu'elles imposent avec elles.";
 "introSoonNote" = "On annonce les sorties sur nos chaînes : la dernière étape de cette introduction.";
 "introChannelsSoonTitle" = "Découvre d'autres projets comme celui-ci";
+"introChannelsSameContent" = "Même contenu des deux côtés";
 "introChannelsSoonDescription" = "Browther n'est qu'une app de l'écosystème dev&din. On annonce chaque sortie — dont le floutage et la coupure de la musique — sur nos chaînes WhatsApp et Telegram, in cha Allah.";
 "introNotifBlur" = "Le floutage est disponible dans Browther. Mets l'app à jour pour en profiter.";
 "introNotifMusic" = "La coupure de la musique arrive sur ton iPhone.";
@@ -143,5 +147,5 @@
 "introDemoStatImages" = "2 images floutées";
 "introDemoMessagingApp" = "Messages";
 "introDemoContactName" = "Famille";
-"introDemoMessageIncoming" = "Regarde ce que j'ai trouvé 😊";
+"introDemoMessageIncoming" = "Regarde ce que j'ai trouvé 🔥";
 "introDemoOpenedIn" = "Ouvert dans Browther";

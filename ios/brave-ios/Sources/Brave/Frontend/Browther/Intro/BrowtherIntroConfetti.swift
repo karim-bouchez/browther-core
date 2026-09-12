@@ -5,23 +5,28 @@
 
 import SwiftUI
 
-/// La récompense du geste : quand l'interrupteur passe sur ON, une gerbe part
-/// de lui. C'est la seule animation gratuite de l'introduction, et elle est
-/// là pour ça — l'écran demande un geste, il doit le fêter.
+/// La récompense du geste : quand l'interrupteur passe sur ON, une pluie de
+/// confettis traverse **tout l'écran**, du haut vers le bas.
 ///
-/// `Canvas` dans un `TimelineView` plutôt que N vues animées : une centaine de
+/// ⚠️ La date de départ est passée en paramètre, jamais retenue dans un cache
+/// interne. La version précédente indexait les dates par numéro de gerbe : les
+/// trois écrans tirant tous la gerbe n° 1, seul le premier la voyait — les deux
+/// suivants héritaient d'une date déjà expirée et ne dessinaient rien. C'est le
+/// défaut « je ne les ai vus qu'une fois » de la recette.
+///
+/// `Canvas` dans un `TimelineView` plutôt que N vues animées : cent cinquante
 /// particules en une seule passe de dessin, sans créer d'arborescence.
 struct BrowtherIntroConfetti: View {
-  /// Change de valeur pour tirer une nouvelle gerbe.
-  let trigger: Int
+  /// L'instant du tir. Changer cette valeur relance la gerbe.
+  let start: Date
 
-  private static let count = 90
-  private static let duration = 1.5
+  private static let count = 150
+  private static let duration = 2.6
 
-  /// Les particules sont tirées une fois par gerbe : même graine, même gerbe
-  /// pendant toute son animation.
   private var pieces: [Piece] {
-    var generator = SeededGenerator(seed: UInt64(truncatingIfNeeded: trigger &* 2_654_435_761))
+    var generator = SeededGenerator(
+      seed: UInt64(bitPattern: Int64(start.timeIntervalSinceReferenceDate * 1000))
+    )
     return (0..<Self.count).map { _ in Piece(using: &generator) }
   }
 
@@ -29,23 +34,28 @@ struct BrowtherIntroConfetti: View {
     TimelineView(.animation) { timeline in
       Canvas { context, size in
         let elapsed = timeline.date.timeIntervalSince(start)
-        guard elapsed < Self.duration else { return }
-        let origin = CGPoint(x: size.width / 2, y: size.height)
+        guard elapsed > 0, elapsed < Self.duration else { return }
         for piece in pieces {
-          let progress = max(0, (elapsed - piece.delay) / (Self.duration - piece.delay))
+          let progress = (elapsed - piece.delay) / (Self.duration - piece.delay)
           guard progress > 0 else { continue }
-          let time = progress * 1.6
-          // Tir balistique : impulsion initiale, puis la pesanteur reprend.
-          let x = origin.x + piece.velocity.dx * time * size.width
-          let y = origin.y + piece.velocity.dy * time * size.height + 900 * time * time
-          let opacity = max(0, 1 - progress * progress)
+          // Chute libre depuis le haut, avec un flottement latéral : sans lui
+          // les confettis tombent comme des cailloux.
+          let fall = progress * progress * 0.75 + progress * 0.45
+          let y = -40 + fall * (size.height + 120)
+          let sway = sin(progress * piece.swayRate + piece.swayPhase) * piece.swayWidth
+          let x = piece.x * size.width + sway
+          let opacity = progress > 0.75 ? max(0, (1 - progress) / 0.25) : 1
           guard opacity > 0.01 else { continue }
           var rectangle = Path(
-            CGRect(x: -piece.size.width / 2, y: -piece.size.height / 2,
-                   width: piece.size.width, height: piece.size.height)
+            CGRect(
+              x: -piece.size.width / 2,
+              y: -piece.size.height / 2,
+              width: piece.size.width,
+              height: piece.size.height
+            )
           )
           rectangle = rectangle.applying(
-            CGAffineTransform(rotationAngle: piece.spin * time)
+            CGAffineTransform(rotationAngle: piece.spin * progress)
               .concatenating(CGAffineTransform(translationX: x, y: y))
           )
           context.fill(rectangle, with: .color(piece.color.opacity(opacity)))
@@ -53,45 +63,31 @@ struct BrowtherIntroConfetti: View {
       }
     }
     .allowsHitTesting(false)
-    .id(trigger)
+    .accessibilityHidden(true)
   }
-
-  private var start: Date { Self.starts.value(for: trigger) }
-
-  /// L'instant de départ de chaque gerbe : `TimelineView` ne donne que l'heure
-  /// courante, il faut une origine à laquelle la rapporter.
-  private final class Starts: @unchecked Sendable {
-    private let lock = NSLock()
-    private var dates: [Int: Date] = [:]
-
-    func value(for trigger: Int) -> Date {
-      lock.lock()
-      defer { lock.unlock() }
-      if let date = dates[trigger] { return date }
-      let date = Date()
-      dates[trigger] = date
-      return date
-    }
-  }
-
-  private static let starts = Starts()
 
   private struct Piece {
-    let velocity: CGVector
+    /// Position horizontale, en fraction de la largeur : la pluie couvre tout
+    /// l'écran, pas une colonne.
+    let x: Double
     let size: CGSize
     let color: Color
     let spin: Double
     let delay: Double
+    let swayWidth: Double
+    let swayRate: Double
+    let swayPhase: Double
 
     init(using generator: inout SeededGenerator) {
-      let angle = Double.random(in: (-.pi * 0.86)...(-.pi * 0.14), using: &generator)
-      let speed = Double.random(in: 0.5...1.25, using: &generator)
-      velocity = CGVector(dx: cos(angle) * speed, dy: sin(angle) * speed * 1.4)
-      let width = Double.random(in: 4...8, using: &generator)
-      size = CGSize(width: width, height: width * Double.random(in: 0.5...1.4, using: &generator))
+      x = Double.random(in: -0.02...1.02, using: &generator)
+      let width = Double.random(in: 5...10, using: &generator)
+      size = CGSize(width: width, height: width * Double.random(in: 0.45...1.5, using: &generator))
       color = Self.palette.randomElement(using: &generator) ?? .green
-      spin = Double.random(in: -8...8, using: &generator)
-      delay = Double.random(in: 0...0.14, using: &generator)
+      spin = Double.random(in: -14...14, using: &generator)
+      delay = Double.random(in: 0...0.55, using: &generator)
+      swayWidth = Double.random(in: 8...34, using: &generator)
+      swayRate = Double.random(in: 5...11, using: &generator)
+      swayPhase = Double.random(in: 0...(2 * .pi), using: &generator)
     }
 
     /// Les teintes de la marque, plus un blanc cassé pour la lumière.

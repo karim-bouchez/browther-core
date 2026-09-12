@@ -177,6 +177,20 @@ extension Strings {
       value: "Skip in 5s",
       comment: "Skip button of the ad that plays before the video"
     )
+    public static let demoAdSkipFormat = NSLocalizedString(
+      "introDemoAdSkipFormat",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Skip in %ds",
+      comment: "Countdown on the pre-roll ad of the demo page; %d is a number of seconds"
+    )
+    public static let demoAdSkipNow = NSLocalizedString(
+      "introDemoAdSkipNow",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Skip",
+      comment: "Label of the skip button once the countdown is over"
+    )
     public static let demoAdLabel = NSLocalizedString(
       "introDemoAdLabel",
       tableName: "Browther",
@@ -284,6 +298,13 @@ extension Strings {
       bundle: .module,
       value: "Both",
       comment: "Blurring choice"
+    )
+    public static let blurCurtain = NSLocalizedString(
+      "introBlurCurtain",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Turn it on to see the result",
+      comment: "Shown over the fully blurred previews, before blurring is switched on"
     )
     public static let blurSwitchOff = NSLocalizedString(
       "introBlurSwitchOff",
@@ -524,7 +545,7 @@ extension Strings {
       "introDemoMessageIncoming",
       tableName: "Browther",
       bundle: .module,
-      value: "Look what I found \u{1F60A}",
+      value: "Look what I found \u{1F525}",
       comment: "First message of the made-up conversation"
     )
     public static let demoOpenedIn = NSLocalizedString(
@@ -535,6 +556,13 @@ extension Strings {
       comment: "Label on the browser sheet that slides up over the conversation"
     )
 
+    public static let channelsSameContent = NSLocalizedString(
+      "introChannelsSameContent",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Same content on both",
+      comment: "Footnote under the two channel buttons"
+    )
     public static let channelsSoonDescription = NSLocalizedString(
       "introChannelsSoonDescription",
       tableName: "Browther",

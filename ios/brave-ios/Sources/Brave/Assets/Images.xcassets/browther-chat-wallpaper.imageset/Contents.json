@@ -1,0 +1,12 @@
+{
+  "images" : [
+    { "filename" : "browther-chat-wallpaper.png", "idiom" : "universal", "scale" : "1x" },
+    {
+      "appearances" : [ { "appearance" : "luminosity", "value" : "dark" } ],
+      "filename" : "browther-chat-wallpaper-dark.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : { "author" : "xcode", "version" : 1 }
+}

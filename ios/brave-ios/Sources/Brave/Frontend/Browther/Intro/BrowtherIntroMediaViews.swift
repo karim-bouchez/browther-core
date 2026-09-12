@@ -20,7 +20,7 @@ import UIKit
 /// version floutée est calculée une seule fois ; seul le masque bouge quand on
 /// change de cible, ce qui rend la bascule instantanée et animable.
 struct BrowtherIntroPhotoTile: View {
-  let target: BrowtherBlurTarget?
+  let mode: BrowtherIntroVeilMode
 
   var body: some View {
     ZStack {
@@ -37,7 +37,7 @@ struct BrowtherIntroPhotoTile: View {
               .mask {
                 BrowtherIntroVeilMask(
                   persons: BrowtherIntroMedia.photoPersons,
-                  target: target,
+                  mode: mode,
                   sourceWidth: 1200
                 )
               }
@@ -58,21 +58,25 @@ struct BrowtherIntroPhotoTile: View {
 /// Le masque du voile : les contours pré-calculés, adoucis de 10 px du média.
 struct BrowtherIntroVeilMask: View {
   let persons: [BrowtherIntroMedia.Person]
-  let target: BrowtherBlurTarget?
+  let mode: BrowtherIntroVeilMode
   /// Largeur du média d'origine, pour mettre l'adoucissement à l'échelle.
   let sourceWidth: Double
 
   var body: some View {
     GeometryReader { proxy in
-      let visible = persons.filter { $0.isBlurred(for: target) }
-      Canvas { context, size in
-        for person in visible {
-          context.fill(person.path(in: size), with: .color(.white))
+      if mode == .everything {
+        Color.white
+      } else {
+        let visible = persons.filter { $0.isBlurred(for: mode.target) }
+        Canvas { context, size in
+          for person in visible {
+            context.fill(person.path(in: size), with: .color(.white))
+          }
         }
+        .blur(radius: CGFloat(max(2, 10 * Double(proxy.size.width) / sourceWidth)))
       }
-      .blur(radius: CGFloat(max(2, 10 * Double(proxy.size.width) / sourceWidth)))
     }
-    .animation(.easeOut(duration: 0.26), value: target)
+    .animation(.easeOut(duration: 0.3), value: mode)
   }
 }
 
@@ -86,10 +90,10 @@ struct BrowtherIntroVeilMask: View {
 /// vit dans un objet partagé : la changer ne recrée pas la composition, elle
 /// est relue à l'image suivante.
 struct BrowtherIntroVideoTile: View {
-  let target: BrowtherBlurTarget?
+  let mode: BrowtherIntroVeilMode
 
   var body: some View {
-    BrowtherIntroVeiledVideo(target: target)
+    BrowtherIntroVeiledVideo(mode: mode)
       .aspectRatio(16.0 / 9.0, contentMode: .fit)
       .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
       .overlay(alignment: .topLeading) {
@@ -121,9 +125,9 @@ struct BrowtherIntroTileTag: View {
 /// La cible courante, lisible depuis le fil de rendu vidéo.
 final class BrowtherIntroVeilTarget: @unchecked Sendable {
   private let lock = NSLock()
-  private var value: BrowtherBlurTarget?
+  private var value: BrowtherIntroVeilMode = .everything
 
-  var current: BrowtherBlurTarget? {
+  var current: BrowtherIntroVeilMode {
     get {
       lock.lock()
       defer { lock.unlock() }
@@ -140,17 +144,17 @@ final class BrowtherIntroVeilTarget: @unchecked Sendable {
 /// Lecture en boucle, muette, sans commandes : c'est une illustration, pas un
 /// lecteur.
 struct BrowtherIntroVeiledVideo: UIViewRepresentable {
-  let target: BrowtherBlurTarget?
+  let mode: BrowtherIntroVeilMode
 
   func makeUIView(context: Context) -> PlayerView {
     let view = PlayerView()
     context.coordinator.attach(to: view)
-    context.coordinator.veilTarget.current = target
+    context.coordinator.veilTarget.current = mode
     return view
   }
 
   func updateUIView(_ uiView: PlayerView, context: Context) {
-    context.coordinator.veilTarget.current = target
+    context.coordinator.veilTarget.current = mode
   }
 
   static func dismantleUIView(_ uiView: PlayerView, coordinator: Coordinator) {
@@ -200,7 +204,7 @@ struct BrowtherIntroVeiledVideo: UIViewRepresentable {
         let output = BrowtherIntroVeil.composite(
           source,
           persons: persons,
-          target: target.current,
+          mode: target.current,
           // 10 px du média : le clip est encodé à 900 px de large.
           feather: 10 * Double(source.extent.width) / 900
         )
@@ -310,12 +314,17 @@ final class BrowtherIntroAudio: ObservableObject {
     isPlaying ? pause() : play()
   }
 
+  /// Le doigt est posé sur la barre : le rafraîchissement se tait, mais on ne
+  /// touche pas encore au son.
+  func setScrubbing(_ scrubbing: Bool) {
+    isScrubbing = scrubbing
+  }
+
   /// Déplacer la tête de lecture — sur les **deux** pistes, sinon la
-  /// comparaison perd son sens.
-  func seek(to fraction: Double, finished: Bool = false) {
+  /// comparaison perd son sens. Appelé une seule fois, au relâcher.
+  func seek(to fraction: Double) {
     prepare()
     guard let before, let after, duration > 0 else { return }
-    isScrubbing = !finished
     let time = min(max(0, fraction), 0.999) * duration
     before.currentTime = time
     after.currentTime = time

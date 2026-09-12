@@ -16,6 +16,25 @@ import SwiftUI
 /// embarque son résultat : par personne, le contour du voile et son genre.
 /// L'app ne fait plus que poser le voile — le choix « les femmes / les hommes /
 /// les deux » reste donc vivant à l'écran.
+/// Ce que le voile couvre à l'instant T.
+///
+/// ⚠️ `everything` n'est pas un réglage du moteur : c'est l'état **avant** que
+/// la personne allume le floutage dans l'introduction. On ne peut pas montrer
+/// les vignettes en clair pour illustrer « avant » — ce serait afficher
+/// précisément ce que l'app existe pour ne plus montrer. Alors on montre un
+/// rideau, et l'activation le lève sur le voile ciblé.
+enum BrowtherIntroVeilMode: Equatable {
+  case everything
+  case target(BrowtherBlurTarget)
+
+  var target: BrowtherBlurTarget? {
+    switch self {
+    case .everything: return nil
+    case .target(let value): return value
+    }
+  }
+}
+
 enum BrowtherIntroMedia {
 
   /// Une personne détectée, en coordonnées **relatives** (0…1) : le média sera

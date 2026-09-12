@@ -5,6 +5,7 @@
 
 import BraveStrings
 import BraveUI
+import MediaPlayer
 import Onboarding
 import Shared
 import SwiftUI
@@ -107,7 +108,15 @@ struct BrowtherIntroWelcomeStep: View {
       // ressaisir à la main : il vient d'une source unique, cf.
       // `private/design/intro-iphone/verse.txt`. La police est celle du
       // muṣḥaf : voir `BrowtherIntroFont`.
-      Text(verbatim: "إِنَّ ٱلسَّمْعَ وَٱلْبَصَرَ وَٱلْفُؤَادَ كُلُّ أُو۟لَٰٓئِكَ كَانَ عَنْهُ مَسْـُٔولًۭا")
+      //
+      // ⚠️ Édition **quran-uthmani-quran-academy**, pas `quran-uthmani`
+      // (Tanzil). Cette dernière accole un `U+06ED SMALL LOW MEEM` à chaque
+      // tanwīn fatḥ suivi d'alif — 99 versets sur 111 rien que dans cette
+      // sourate : une convention d'encodage, pas un signe d'iqlāb. Amiri le
+      // dessine comme un vrai mīm sous la ligne, et il saute aux yeux hors
+      // d'un muṣḥaf complet. L'édition académique écrit la fatḥatan ouverte
+      // du muṣḥaf imprimé (U+08F0), que la police couvre entièrement.
+      Text(verbatim: "إِنَّ ٱلسَّمۡعَ وَٱلۡبَصَرَ وَٱلۡفُؤَادَ كُلُّ أُو۟لَـٰۤىِٕكَ كَانَ عَنۡهُ مَسۡـُٔولࣰا")
         .font(BrowtherIntroFont.quran(size: 22))
         .lineSpacing(14)
         .multilineTextAlignment(.center)
@@ -237,14 +246,13 @@ struct BrowtherIntroAdsStep: View {
           title: Strings.BrowtherIntro.shieldsName,
           offLabel: Strings.BrowtherIntro.adsSwitchOff,
           onLabel: Strings.BrowtherIntro.adsSwitchOn,
+          // Les boucliers sont finis : badge vert, pas ambre.
+          earlyAccess: false,
           isOn: Binding(
             get: { model.adsDemoOn },
             set: { _ in model.toggleDemo(for: .ads) }
           )
         )
-      }
-      .overlay {
-        BrowtherIntroCelebration(isOn: model.adsDemoOn)
       }
       .sensoryFeedback(.impact(weight: .medium), trigger: model.adsDemoOn)
     } actions: {
@@ -255,25 +263,6 @@ struct BrowtherIntroAdsStep: View {
         model.advance()
       }
     }
-  }
-}
-
-/// La gerbe, tirée la première fois que l'interrupteur passe sur ON.
-///
-/// Une seule fois : la rejouer à chaque bascule ferait de l'effet une
-/// récompense qu'on farme, pas une surprise.
-struct BrowtherIntroCelebration: View {
-  let isOn: Bool
-  @State private var shots = 0
-
-  var body: some View {
-    BrowtherIntroConfetti(trigger: shots)
-      .opacity(shots > 0 ? 1 : 0)
-      .onChange(of: isOn) { _, on in
-        guard on, shots == 0 else { return }
-        shots += 1
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-      }
   }
 }
 
@@ -289,14 +278,39 @@ struct BrowtherIntroBlurStep: View {
     ) {
       // Une vidéo ET une photo : elles ne prouvent pas la même chose. La photo
       // montre que le voile est propre, la vidéo qu'il suit.
+      // ⛔ Tant que le floutage est éteint, les vignettes restent **entièrement
+      // couvertes**. Montrer l'« avant » en clair, ce serait afficher
+      // exactement ce que l'app existe pour ne plus montrer — et la personne
+      // n'a encore rien demandé. Le geste lève le rideau sur le voile ciblé :
+      // la démonstration y gagne, on passe de « tout caché » à « juste ce
+      // qu'il faut ».
+      let mode: BrowtherIntroVeilMode =
+        model.blurDemoOn ? .target(model.blurTarget) : .everything
       VStack(spacing: 10) {
-        BrowtherIntroVideoTile(target: model.blurDemoOn ? model.blurTarget : .none)
-        BrowtherIntroPhotoTile(target: model.blurDemoOn ? model.blurTarget : .none)
+        BrowtherIntroVideoTile(mode: mode)
+        BrowtherIntroPhotoTile(mode: mode)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .overlay {
-        BrowtherIntroCelebration(isOn: model.blurDemoOn)
+        if !model.blurDemoOn {
+          VStack(spacing: 8) {
+            Image("basarunaa.icon", bundle: .module)
+              .resizable()
+              .renderingMode(.template)
+              .aspectRatio(contentMode: .fit)
+              .frame(width: 26, height: 26)
+            Text(Strings.BrowtherIntro.blurCurtain)
+              .font(.footnote.weight(.semibold))
+          }
+          .foregroundStyle(.white)
+          .padding(.horizontal, 16)
+          .padding(.vertical, 12)
+          .background(Color.black.opacity(0.45), in: Capsule())
+          .transition(.opacity)
+          .allowsHitTesting(false)
+        }
       }
+      .animation(.smooth(duration: 0.3), value: model.blurDemoOn)
       .sensoryFeedback(.selection, trigger: model.blurTarget)
     } actions: {
       HStack(spacing: 10) {
@@ -324,6 +338,7 @@ struct BrowtherIntroBlurStep: View {
         title: "Basarunaa",
         offLabel: Strings.BrowtherIntro.blurSwitchOff,
         onLabel: Strings.BrowtherIntro.blurSwitchOn,
+        earlyAccess: model.isEarlyAccess,
         isOn: Binding(
           get: { model.blurDemoOn },
           set: { _ in model.toggleDemo(for: .blur) }
@@ -424,14 +439,12 @@ struct BrowtherIntroMusicStep: View {
           title: "Sawtunaa",
           offLabel: Strings.BrowtherIntro.musicSwitchOff,
           onLabel: Strings.BrowtherIntro.musicSwitchOn,
+          earlyAccess: model.isEarlyAccess,
           isOn: Binding(
             get: { model.musicDemoOn },
             set: { _ in model.toggleDemo(for: .music) }
           )
         )
-      }
-      .overlay {
-        BrowtherIntroCelebration(isOn: model.musicDemoOn)
       }
       .sensoryFeedback(.impact(weight: .medium), trigger: model.musicDemoOn)
       .onChange(of: model.musicDemoOn) { _, removed in
@@ -483,12 +496,14 @@ struct BrowtherIntroMusicStep: View {
             ? Strings.BrowtherIntro.musicPause
             : Strings.BrowtherIntro.musicListen
         )
-        BrowtherIntroScrubber(progress: audio.progress) { fraction, finished in
-          audio.seek(to: fraction, finished: finished)
+        BrowtherIntroScrubber(progress: audio.progress) { scrubbing in
+          audio.setScrubbing(scrubbing)
+        } onSeek: { fraction in
+          audio.seek(to: fraction)
         }
         .frame(height: 26)
         .padding(.horizontal, 24)
-        volumeGauge
+        volumeControl
       }
       .padding(.vertical, 18)
     }
@@ -498,78 +513,110 @@ struct BrowtherIntroMusicStep: View {
 }
 
 extension BrowtherIntroMusicStep {
-  /// Le niveau du son de l'**appareil**, montré avant d'appuyer sur lecture :
-  /// on sait si l'extrait va partir en fanfare ou ne pas s'entendre. À zéro, il
-  /// ne s'agit plus d'une jauge mais d'un avertissement.
+  /// Le son de l'**appareil** : son niveau, et de quoi le régler sans quitter
+  /// l'écran. ⚠️ Le curseur est celui du système (`MPVolumeView`) : régler
+  /// `outputVolume` par code est interdit, et les touches physiques resteraient
+  /// la seule voie.
   @ViewBuilder
-  fileprivate var volumeGauge: some View {
-    let level = Double(audio.systemVolume)
-    let muted = level <= 0.001
-    HStack(spacing: 8) {
-      Image(systemName: muted ? "speaker.slash.fill" : "speaker.wave.2.fill")
-        .font(.system(size: 12, weight: .semibold))
+  fileprivate var volumeControl: some View {
+    let muted = audio.systemVolume <= 0.001
+    VStack(spacing: 5) {
+      HStack(spacing: 10) {
+        Image(systemName: muted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+          .font(.system(size: 12, weight: .semibold))
+          .foregroundStyle(muted ? BrowtherEarlyAccess.amber : Color.white.opacity(0.72))
+        BrowtherIntroSystemVolumeSlider()
+          .frame(height: 22)
+        Text(verbatim: "\(Int((Double(audio.systemVolume) * 100).rounded())) %")
+          .font(.caption.weight(.semibold))
+          .monospacedDigit()
+          .lineLimit(1)
+          .fixedSize()
+          .foregroundStyle(Color.white.opacity(0.72))
+          // 100 % est le cas le plus large : sans place pour lui, il passait
+          // sur deux lignes alors que 40 % tenait sur une.
+          .frame(width: 46, alignment: .trailing)
+      }
       if muted {
         Text(Strings.BrowtherIntro.volumeMuted)
           .font(.caption.weight(.medium))
-          .multilineTextAlignment(.leading)
+          .multilineTextAlignment(.center)
+          .foregroundStyle(BrowtherEarlyAccess.amber)
           .fixedSize(horizontal: false, vertical: true)
-      } else {
-        HStack(spacing: 3) {
-          ForEach(0..<12, id: \.self) { index in
-            Capsule()
-              .fill(
-                Double(index) / 12 < level
-                  ? Color(UIColor(rgb: 0xE7E2D5))
-                  : Color.white.opacity(0.18)
-              )
-              .frame(width: 5, height: 5 + CGFloat(index))
-          }
-        }
-        .frame(height: 17, alignment: .bottom)
-        Text(verbatim: "\(Int((level * 100).rounded())) %")
-          .font(.caption.weight(.semibold))
-          .monospacedDigit()
+          .transition(.opacity)
       }
     }
-    .foregroundStyle(muted ? BrowtherEarlyAccess.amber : Color.white.opacity(0.72))
-    .padding(.horizontal, 20)
+    .padding(.horizontal, 22)
   }
+}
+
+/// Le curseur du volume **système**.
+///
+/// ⚠️ `AVAudioSession.outputVolume` est en lecture seule : le seul moyen
+/// officiel de le régler depuis une app est `MPVolumeView`, qui héberge le
+/// curseur du système. On lui retire son bouton de sortie audio et on le
+/// repeint aux couleurs de l'écran ; il reste le curseur d'iOS.
+struct BrowtherIntroSystemVolumeSlider: UIViewRepresentable {
+  func makeUIView(context: Context) -> MPVolumeView {
+    let view = MPVolumeView(frame: .zero)
+    view.showsRouteButton = false
+    view.tintColor = UIColor(rgb: 0xE7E2D5)
+    for case let slider as UISlider in view.subviews {
+      slider.minimumTrackTintColor = UIColor(rgb: 0xE7E2D5)
+      slider.maximumTrackTintColor = UIColor.white.withAlphaComponent(0.18)
+    }
+    return view
+  }
+
+  func updateUIView(_ uiView: MPVolumeView, context: Context) {}
 }
 
 /// La barre de lecture, déplaçable au doigt. Les deux pistes bougent ensemble —
 /// c'est ce qui fait que l'interrupteur compare bien le même instant.
 struct BrowtherIntroScrubber: View {
   let progress: Double
-  /// `finished` dit quand le doigt se lève : pendant le geste, le
-  /// rafraîchissement automatique doit se taire, sinon la barre saccade sous
-  /// le doigt (défaut relevé à la recette).
-  let onSeek: (Double, Bool) -> Void
+  /// Appelé **une seule fois**, quand le doigt se lève.
+  ///
+  /// ⛔ Ne pas déplacer la tête de lecture à chaque mouvement : écrire
+  /// `currentTime` sur deux `AVAudioPlayer` soixante fois par seconde les fait
+  /// re-tamponner, et la barre saccade — c'est ce qu'on a vu à la recette. Le
+  /// curseur suit le doigt **en local**, le son ne bouge qu'au relâcher.
+  let onScrub: (Bool) -> Void
+  let onSeek: (Double) -> Void
+
+  @State private var dragged: Double?
 
   var body: some View {
     GeometryReader { proxy in
       let width = proxy.size.width
+      let shown = dragged ?? progress
       ZStack(alignment: .leading) {
         Capsule()
           .fill(Color.white.opacity(0.18))
           .frame(height: 5)
         Capsule()
           .fill(Color(UIColor(rgb: 0xE7E2D5)))
-          .frame(width: max(5, width * progress), height: 5)
+          .frame(width: max(5, width * shown), height: 5)
         Circle()
           .fill(Color(UIColor(rgb: 0xE7E2D5)))
-          .frame(width: 14, height: 14)
-          .offset(x: max(0, width * progress - 7))
+          .frame(width: dragged == nil ? 14 : 18, height: dragged == nil ? 14 : 18)
+          .offset(x: max(0, width * shown - (dragged == nil ? 7 : 9)))
           .shadow(color: .black.opacity(0.3), radius: 3, y: 1)
+          .animation(.smooth(duration: 0.15), value: dragged == nil)
       }
       .frame(maxHeight: .infinity)
       .contentShape(Rectangle())
       .gesture(
         DragGesture(minimumDistance: 0)
           .onChanged { value in
-            onSeek(min(max(0, value.location.x / width), 1), false)
+            if dragged == nil { onScrub(true) }
+            dragged = min(max(0, value.location.x / width), 1)
           }
           .onEnded { value in
-            onSeek(min(max(0, value.location.x / width), 1), true)
+            let target = min(max(0, value.location.x / width), 1)
+            dragged = nil
+            onScrub(false)
+            onSeek(target)
           }
       )
     }
@@ -665,10 +712,7 @@ struct BrowtherIntroDefaultBrowserStep: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
       .padding(12)
       .background {
-        ZStack {
-          BrowtherIntroPalette.canvas
-          BrowtherIntroChatWallpaper()
-        }
+        BrowtherIntroChatWallpaper()
       }
     }
   }
@@ -776,7 +820,7 @@ struct BrowtherIntroDefaultBrowserStep: View {
       .padding(.horizontal, 10)
       .frame(height: 32)
       .background(
-        Color(UIColor.tertiarySystemFill),
+        Color(UIColor.systemBackground),
         in: RoundedRectangle(cornerRadius: 9, style: .continuous)
       )
       .padding(.horizontal, 12)
@@ -811,8 +855,11 @@ struct BrowtherIntroDefaultBrowserStep: View {
     }
     .frame(maxWidth: .infinity)
     .frame(height: 240)
+    // ⚠️ Le panneau doit se DÉTACHER de la conversation : même teinte des deux
+    // côtés et on ne voyait plus la limite. Une surface élevée, un liseré net
+    // et une ombre portée — les trois repères d'une feuille posée par-dessus.
     .background(
-      Color(UIColor.systemBackground),
+      Color(UIColor.secondarySystemGroupedBackground),
       in: UnevenRoundedRectangle(
         topLeadingRadius: 20,
         bottomLeadingRadius: 0,
@@ -829,9 +876,9 @@ struct BrowtherIntroDefaultBrowserStep: View {
         topTrailingRadius: 20,
         style: .continuous
       )
-      .strokeBorder(Color.primary.opacity(0.12), lineWidth: 1)
+      .strokeBorder(Color.primary.opacity(0.22), lineWidth: 1)
     }
-    .shadow(color: .black.opacity(0.5), radius: 18, y: -8)
+    .shadow(color: .black.opacity(0.55), radius: 20, y: -10)
   }
 
   private func stat(_ icon: String, _ label: String) -> some View {
@@ -893,11 +940,14 @@ struct BrowtherIntroChannelsStep: View {
         color: Color(UIColor(rgb: 0x229ED9)),
         image: "channel-telegram"
       )
-      Text(Strings.FocusOnboarding.followChannelsSameContent)
+      Text(Strings.BrowtherIntro.channelsSameContent)
         .font(.footnote)
         .multilineTextAlignment(.center)
         .foregroundStyle(Color(UIColor.tertiaryLabel))
         .padding(.top, 2)
+        // Cette mention appartient aux deux boutons du dessus : l'espace
+        // au-dessous le dit.
+        .padding(.bottom, 14)
       Button(Strings.FocusOnboarding.startBrowseActionButtonTitle) {
         model.finish()
       }
@@ -963,46 +1013,20 @@ struct BrowtherIntroOutlineButtonStyle: ButtonStyle {
   }
 }
 
-/// Le fond de la conversation : des motifs épars, très pâles, comme les
-/// messageries en posent derrière les bulles.
+/// Le fond de la conversation.
 ///
-/// ⛔ **Pas** le fond de WhatsApp. Son motif est une œuvre de Meta : le
-/// reprendre dans une app publiée l'identifierait autant qu'écrire son nom —
-/// exactement ce que la règle « ne jamais nommer un service tiers » évite
-/// (`private/docs/STORE_LISTING*.md`). Celui-ci est dessiné ici, avec des
-/// symboles système : même sensation, rien qui appartienne à quelqu'un.
+/// C'est le fond de WhatsApp, **choix de Karim (2026-09-12)** : la scène n'agit
+/// pas sur le service, elle illustre un lien reçu dans une messagerie, et le
+/// repère visuel fait tout le travail. ⚠️ Ça reste un motif qui ne nous
+/// appartient pas : s'il fallait un jour le retirer, la version dessinée à la
+/// main est dans l'historique de ce fichier (commit « Introduction iOS : vrai
+/// flou CoreImage… »).
 struct BrowtherIntroChatWallpaper: View {
-  private static let symbols = [
-    "cup.and.saucer.fill", "leaf.fill", "moon.stars.fill", "book.closed.fill",
-    "heart.fill", "bird.fill", "carrot.fill", "sun.max.fill", "drop.fill",
-    "fork.knife", "flame.fill", "star.fill",
-  ]
-
   var body: some View {
-    Canvas { context, size in
-      let step: CGFloat = 62
-      var row = 0
-      var y: CGFloat = 12
-      while y < size.height + step {
-        var column = 0
-        var x: CGFloat = row.isMultiple(of: 2) ? 16 : 16 + step / 2
-        while x < size.width + step {
-          let index = (row * 5 + column * 3) % Self.symbols.count
-          // ⚠️ `resolve` ne prend qu'une `Image` nue : un `.font()` appliqué
-          // dessus en fait une `View`, et l'appel ne compile plus. La taille se
-          // donne au dessin, via le rectangle.
-          var symbol = context.resolve(Image(systemName: Self.symbols[index]))
-          symbol.shading = .color(BrowtherIntroPalette.ink.opacity(0.055))
-          context.draw(
-            symbol,
-            in: CGRect(x: x - 11, y: y - 11, width: 22, height: 22)
-          )
-          x += step
-          column += 1
-        }
-        y += step
-        row += 1
-      }
+    ZStack {
+      BrowtherIntroPalette.canvas
+      Image("browther-chat-wallpaper", bundle: .module)
+        .resizable(resizingMode: .tile)
     }
     .allowsHitTesting(false)
   }

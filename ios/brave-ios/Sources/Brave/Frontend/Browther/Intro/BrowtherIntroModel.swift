@@ -64,6 +64,13 @@ final class BrowtherIntroModel: ObservableObject {
   @Published var blurTarget: BrowtherBlurTarget = .women
   /// Non nul quand la feuille « ça arrive très bientôt » est ouverte.
   @Published var soonFeature: BrowtherIntroFeature?
+  /// L'instant du dernier tir de confettis. La gerbe est tirée par le modèle
+  /// et rendue **par-dessus tout l'écran** : c'est une récompense, elle ne
+  /// tient pas dans la vignette qui l'a déclenchée.
+  @Published private(set) var celebratedAt: Date?
+  /// Les écrans qui ont déjà eu leur gerbe : une seule par écran, sinon
+  /// l'effet devient une récompense qu'on farme.
+  private var celebrated: Set<BrowtherIntroStep> = []
   /// Fonctionnalités allumées depuis l'introduction (hors accès anticipé).
   @Published private(set) var activated: Set<String> = []
 
@@ -151,6 +158,11 @@ final class BrowtherIntroModel: ObservableObject {
     default: return
     }
     track("onboarding_demo_toggled", ["step": step.rawValue, "on": on])
+    if on, !celebrated.contains(step) {
+      celebrated.insert(step)
+      celebratedAt = Date()
+      UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
   }
 
   func choose(_ target: BrowtherBlurTarget) {

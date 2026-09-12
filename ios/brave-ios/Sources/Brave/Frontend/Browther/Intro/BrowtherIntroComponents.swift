@@ -234,16 +234,14 @@ struct BrowtherIntroSwitchRow: View {
   let title: String
   let offLabel: String
   let onLabel: String
+  /// Vrai pour Sawtunaa et Basarunaa pendant l'accès anticipé : le badge est
+  /// alors ambre et non vert, comme dans la barre d'outils.
+  var earlyAccess: Bool = false
   @Binding var isOn: Bool
 
   var body: some View {
     HStack(spacing: 12) {
-      Image(icon, bundle: .module)
-        .resizable()
-        .renderingMode(.template)
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 24, height: 24)
-        .foregroundStyle(isOn ? BrowtherIntroPalette.halal : BrowtherIntroPalette.inkSoft)
+      BrowtherIntroBadgedIcon(icon: icon, isOn: isOn, earlyAccess: earlyAccess)
       VStack(alignment: .leading, spacing: 3) {
         Text(title)
           .font(.callout.weight(.semibold))
@@ -267,6 +265,52 @@ struct BrowtherIntroSwitchRow: View {
     .frame(height: 74)
     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
     .animation(.smooth(duration: 0.25), value: isOn)
+  }
+}
+
+/// L'icône du moteur avec **son badge**, exactement comme dans la barre
+/// d'outils (`TopToolbarView.attachStatusBadge` : un point de 8 pt en bas à
+/// droite, cerné de la couleur du fond). Rouge = éteint, vert = allumé —
+/// ambre tant que la fonctionnalité est en accès anticipé.
+///
+/// ⛔ Ne pas se contenter de teinter l'icône en vert : dans l'app, l'icône ne
+/// change jamais de couleur, c'est le badge qui parle. L'introduction doit
+/// apprendre le bon repère.
+struct BrowtherIntroBadgedIcon: View {
+  let icon: String
+  let isOn: Bool
+  var earlyAccess: Bool = false
+  var size: CGFloat = 24
+
+  private var badgeColor: Color {
+    guard isOn else { return Color(UIColor.systemRed) }
+    return earlyAccess ? BrowtherEarlyAccess.amber : Color(UIColor.systemGreen)
+  }
+
+  var body: some View {
+    Image(icon, bundle: .module)
+      .resizable()
+      .renderingMode(.template)
+      .aspectRatio(contentMode: .fit)
+      .frame(width: size, height: size)
+      .foregroundStyle(BrowtherIntroPalette.ink)
+      .overlay(alignment: .bottomTrailing) {
+        // Même géométrie que dans la barre d'outils : le point est posé DANS
+        // le coin de l'icône, pas accroché à l'extérieur. Le halo est celui
+        // des trois protections de l'accueil — à 8 pt, un aplat mat disparaît.
+        // ⚠️ Petit. Sur macOS le badge fait environ 30 % de l'icône (6 px pour
+        // 20) : c'est un repère, pas une pastille. Un point de 8 pt sur une
+        // icône de 24 paraissait déjà deux fois trop gros à l'écran.
+        Circle()
+          .fill(badgeColor)
+          .frame(width: size * 0.3, height: size * 0.3)
+          .overlay {
+            Circle().strokeBorder(Color(UIColor.secondarySystemGroupedBackground), lineWidth: 1.2)
+          }
+          .shadow(color: badgeColor.opacity(0.8), radius: 2.5)
+          .offset(x: 1, y: 1)
+      }
+      .animation(.smooth(duration: 0.25), value: isOn)
   }
 }
 
