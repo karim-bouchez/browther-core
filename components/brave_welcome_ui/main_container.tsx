@@ -6,8 +6,13 @@
 import * as React from 'react'
 
 import DataContext from './state/context'
-import { shouldPlayAnimations } from './state/hooks'
+import {
+  completeWelcome,
+  isLegacyWelcomeFlow,
+  shouldPlayAnimations
+} from './state/hooks'
 import { ViewType } from './state/component_types'
+import BrowtherIntro from './components/browther-intro'
 
 import HelpImprove from './components/help-improve'
 import ImportInProgress from './components/import-in-progress'
@@ -24,8 +29,29 @@ const SetupComplete = React.lazy(() => import('./components/setup-complete'))
 // bundle initial.
 const FollowChannels = React.lazy(() => import('./components/follow-channels'))
 
+// Browther : la sortie après un import. Rien à afficher, la page est remplacée.
+function WelcomeComplete () {
+  React.useEffect(completeWelcome, [])
+  return null
+}
+
 function MainContainer () {
-  const { viewType, setViewType } = React.useContext(DataContext)
+  const { viewType, setViewType, browserProfiles } = React.useContext(DataContext)
+
+  // Browther : l'introduction est le parcours du premier lancement. Elle
+  // précède l'import de l'ancien navigateur, proposé seulement s'il y en a un
+  // (décision Karim, 2026-09-12).
+  if (!isLegacyWelcomeFlow &&
+      (viewType === undefined || viewType === ViewType.BrowtherIntro)) {
+    const handleIntroFinish = () => {
+      if (browserProfiles && browserProfiles.length > 0) {
+        setViewType(ViewType.ImportSelectBrowser)
+      } else {
+        completeWelcome()
+      }
+    }
+    return <BrowtherIntro onFinish={handleIntroFinish} />
+  }
 
   let mainEl = null
 
@@ -65,6 +91,10 @@ function MainContainer () {
     mainEl = <FollowChannels />
   }
 
+  if (viewType === ViewType.WelcomeComplete) {
+    mainEl = <WelcomeComplete />
+  }
+
   const onBackgroundImgLoad = () => {
     setViewType(ViewType.DefaultBrowser)
   }
@@ -72,7 +102,10 @@ function MainContainer () {
   return (
     <Background
       static={!shouldPlayAnimations}
-      onLoad={onBackgroundImgLoad}
+      // Browther : hors ancien parcours, le décor n'apparaît qu'APRÈS
+      // l'introduction (import) — son chargement ne doit pas ramener au
+      // premier écran Brave.
+      onLoad={isLegacyWelcomeFlow ? onBackgroundImgLoad : undefined}
     >
       <React.Suspense fallback={<Loader />}>
         {mainEl}

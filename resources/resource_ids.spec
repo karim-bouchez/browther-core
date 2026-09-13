@@ -20,17 +20,23 @@
   },
   # This file is generated during the build.
   "<(SHARED_INTERMEDIATE_DIR)/brave/web-ui-brave_new_tab/brave_new_tab.grd": {
-    "META": {"sizes": {"includes": [50]}},
+    # Browther : 50 → 44 (≈38 utilisés) pour faire place à l'introduction.
+    "META": {"sizes": {"includes": [44]}},
     "includes": [53060],
   },
   # This file is generated during the build.
+  # Browther : 20 → 30 pour les médias de l'introduction (27 utilisés), pris
+  # sur le Nouvel Onglet et les réglages (14 utilisés). La somme des trois
+  # plages ne change pas (90) : les ressources suivantes gardent leurs
+  # identifiants — sinon tout ce qui inclut brave_generated_resources.h serait
+  # recompilé.
   "<(SHARED_INTERMEDIATE_DIR)/brave/web-ui-brave_welcome/brave_welcome.grd": {
-    "META": {"sizes": {"includes": [20]}},
+    "META": {"sizes": {"includes": [30]}},
     "includes": [53080],
   },
   # This file is generated during the build.
   "<(SHARED_INTERMEDIATE_DIR)/brave/browser/resources/settings/brave_settings_resources.grd": {
-    "META": {"sizes": {"includes": [20]}},
+    "META": {"sizes": {"includes": [16]}},
     "includes": [53100],
   },
   "brave/app/brave_generated_resources.grd": {

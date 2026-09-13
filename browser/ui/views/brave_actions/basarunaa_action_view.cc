@@ -15,6 +15,7 @@
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
+#include "brave/components/constants/browther_early_access.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
@@ -54,9 +55,10 @@ constexpr SkColor kBadgeAmber = SkColorSetRGB(0xF5, 0x9E, 0x0B);
 // Conséquence assumée : le contenu protégé (DRM) n'a plus de badge distinct.
 // Il garde son encadré dans le panel et son infobar sur la page, qui eux disent
 // PRÉCISÉMENT quoi ; le badge n'en était qu'un rappel.
-// ⚠️ À REMETTRE À `false` quand on sort de l'accès anticipé (en même temps que
-//    l'encadré du panel) : le vert revient et le DRM récupère son signal.
-constexpr bool kBrowtherEarlyAccess = true;
+// ⚠️ L'interrupteur `kBrowtherEarlyAccess` vit dans
+//    `brave/components/constants/browther_early_access.h` : l'introduction le
+//    lit aussi. À la sortie de l'accès anticipé, le vert revient et le DRM
+//    récupère son signal.
 }  // namespace
 
 BasarunaaActionView::BasarunaaActionView(Browser* browser)

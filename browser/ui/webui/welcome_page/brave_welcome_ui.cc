@@ -21,6 +21,7 @@
 #include "brave/browser/ui/webui/welcome_page/welcome_dom_handler.h"
 #include "brave/components/brave_welcome/common/features.h"
 #include "brave/components/brave_welcome/resources/grit/brave_welcome_generated_map.h"
+#include "brave/components/constants/browther_early_access.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/constants/webui_url_constants.h"
 #include "brave/components/p3a/pref_names.h"
@@ -100,7 +101,84 @@ constexpr webui::LocalizedString kLocalizedStrings[] = {
     {"braveWelcomeFollowChannelsOpenHere",
      IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_OPEN_HERE},
     {"braveWelcomeFollowChannelsSameContent",
-     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SAME_CONTENT}};
+     IDS_BRAVE_WELCOME_FOLLOW_CHANNELS_SAME_CONTENT},
+    // Browther : l'introduction (six écrans), cf. ONBOARDING-SPEC.md.
+    {"browtherIntroWelcomeTitle", IDS_BROWTHER_INTRO_WELCOME_TITLE},
+    {"browtherIntroVerseTranslation", IDS_BROWTHER_INTRO_VERSE_TRANSLATION},
+    {"browtherIntroVerseReference", IDS_BROWTHER_INTRO_VERSE_REFERENCE},
+    {"browtherIntroProtectionAds", IDS_BROWTHER_INTRO_PROTECTION_ADS},
+    {"browtherIntroProtectionMusic", IDS_BROWTHER_INTRO_PROTECTION_MUSIC},
+    {"browtherIntroProtectionImages", IDS_BROWTHER_INTRO_PROTECTION_IMAGES},
+    {"browtherIntroStatusActive", IDS_BROWTHER_INTRO_STATUS_ACTIVE},
+    {"browtherIntroStatusActiveDetail",
+     IDS_BROWTHER_INTRO_STATUS_ACTIVE_DETAIL},
+    {"browtherIntroStatusSoon", IDS_BROWTHER_INTRO_STATUS_SOON},
+    {"browtherIntroStartButton", IDS_BROWTHER_INTRO_START_BUTTON},
+    {"browtherIntroSignatureLabel", IDS_BROWTHER_INTRO_SIGNATURE_LABEL},
+    {"browtherIntroAdsTitle", IDS_BROWTHER_INTRO_ADS_TITLE},
+    {"browtherIntroAdsSubtitle", IDS_BROWTHER_INTRO_ADS_SUBTITLE},
+    {"browtherIntroAdsPill", IDS_BROWTHER_INTRO_ADS_PILL},
+    {"browtherIntroAdsSwitchOff", IDS_BROWTHER_INTRO_ADS_SWITCH_OFF},
+    {"browtherIntroAdsSwitchOn", IDS_BROWTHER_INTRO_ADS_SWITCH_ON},
+    {"browtherIntroShieldsName", IDS_BROWTHER_INTRO_SHIELDS_NAME},
+    {"browtherIntroTurnOnToContinue", IDS_BROWTHER_INTRO_TURN_ON_TO_CONTINUE},
+    {"browtherIntroContinue", IDS_BROWTHER_INTRO_CONTINUE},
+    {"browtherIntroDemoSiteName", IDS_BROWTHER_INTRO_DEMO_SITE_NAME},
+    {"browtherIntroDemoArticleTitle", IDS_BROWTHER_INTRO_DEMO_ARTICLE_TITLE},
+    {"browtherIntroDemoArticleBody", IDS_BROWTHER_INTRO_DEMO_ARTICLE_BODY},
+    {"browtherIntroDemoAdSound", IDS_BROWTHER_INTRO_DEMO_AD_SOUND},
+    {"browtherIntroDemoAdSkip", IDS_BROWTHER_INTRO_DEMO_AD_SKIP},
+    {"browtherIntroDemoAdSkipNow", IDS_BROWTHER_INTRO_DEMO_AD_SKIP_NOW},
+    {"browtherIntroDemoAdLabel", IDS_BROWTHER_INTRO_DEMO_AD_LABEL},
+    {"browtherIntroDemoAdSponsored", IDS_BROWTHER_INTRO_DEMO_AD_SPONSORED},
+    {"browtherIntroDemoBlockedCount", IDS_BROWTHER_INTRO_DEMO_BLOCKED_COUNT},
+    {"browtherIntroStampHalal", IDS_BROWTHER_INTRO_STAMP_HALAL},
+    {"browtherIntroStampHaram", IDS_BROWTHER_INTRO_STAMP_HARAM},
+    {"browtherIntroTileImage", IDS_BROWTHER_INTRO_TILE_IMAGE},
+    {"browtherIntroTileVideo", IDS_BROWTHER_INTRO_TILE_VIDEO},
+    {"browtherIntroBlurTitle", IDS_BROWTHER_INTRO_BLUR_TITLE},
+    {"browtherIntroBlurSubtitle", IDS_BROWTHER_INTRO_BLUR_SUBTITLE},
+    {"browtherIntroBlurWomen", IDS_BROWTHER_INTRO_BLUR_WOMEN},
+    {"browtherIntroBlurMen", IDS_BROWTHER_INTRO_BLUR_MEN},
+    {"browtherIntroBlurBoth", IDS_BROWTHER_INTRO_BLUR_BOTH},
+    {"browtherIntroBlurCurtain", IDS_BROWTHER_INTRO_BLUR_CURTAIN},
+    {"browtherIntroBlurSwitchOff", IDS_BROWTHER_INTRO_BLUR_SWITCH_OFF},
+    {"browtherIntroBlurSwitchOn", IDS_BROWTHER_INTRO_BLUR_SWITCH_ON},
+    {"browtherIntroMusicTitle", IDS_BROWTHER_INTRO_MUSIC_TITLE},
+    {"browtherIntroMusicSubtitle", IDS_BROWTHER_INTRO_MUSIC_SUBTITLE},
+    {"browtherIntroMusicCompat", IDS_BROWTHER_INTRO_MUSIC_COMPAT},
+    {"browtherIntroMusicLaneVoice", IDS_BROWTHER_INTRO_MUSIC_LANE_VOICE},
+    {"browtherIntroMusicLaneMusic", IDS_BROWTHER_INTRO_MUSIC_LANE_MUSIC},
+    {"browtherIntroMusicRemoved", IDS_BROWTHER_INTRO_MUSIC_REMOVED},
+    {"browtherIntroMusicSwitchOff", IDS_BROWTHER_INTRO_MUSIC_SWITCH_OFF},
+    {"browtherIntroMusicSwitchOn", IDS_BROWTHER_INTRO_MUSIC_SWITCH_ON},
+    {"browtherIntroMusicListen", IDS_BROWTHER_INTRO_MUSIC_LISTEN},
+    {"browtherIntroMusicPause", IDS_BROWTHER_INTRO_MUSIC_PAUSE},
+    {"browtherIntroVolumeMuted", IDS_BROWTHER_INTRO_VOLUME_MUTED},
+    {"browtherIntroVolumeLabel", IDS_BROWTHER_INTRO_VOLUME_LABEL},
+    {"browtherIntroDefaultTitle", IDS_BROWTHER_INTRO_DEFAULT_TITLE},
+    {"browtherIntroDefaultSubtitle", IDS_BROWTHER_INTRO_DEFAULT_SUBTITLE},
+    {"browtherIntroLaterButton", IDS_BROWTHER_INTRO_LATER_BUTTON},
+    {"browtherIntroDemoMessagingApp", IDS_BROWTHER_INTRO_DEMO_MESSAGING_APP},
+    {"browtherIntroDemoContactName", IDS_BROWTHER_INTRO_DEMO_CONTACT_NAME},
+    {"browtherIntroDemoMessageIncoming",
+     IDS_BROWTHER_INTRO_DEMO_MESSAGE_INCOMING},
+    {"browtherIntroDemoOpenedIn", IDS_BROWTHER_INTRO_DEMO_OPENED_IN},
+    {"browtherIntroDemoStatAds", IDS_BROWTHER_INTRO_DEMO_STAT_ADS},
+    {"browtherIntroDemoStatMusic", IDS_BROWTHER_INTRO_DEMO_STAT_MUSIC},
+    {"browtherIntroDemoStatImages", IDS_BROWTHER_INTRO_DEMO_STAT_IMAGES},
+    {"browtherIntroSoonTitle", IDS_BROWTHER_INTRO_SOON_TITLE},
+    {"browtherIntroSoonBlurBody", IDS_BROWTHER_INTRO_SOON_BLUR_BODY},
+    {"browtherIntroSoonMusicBody", IDS_BROWTHER_INTRO_SOON_MUSIC_BODY},
+    {"browtherIntroSoonNote", IDS_BROWTHER_INTRO_SOON_NOTE},
+    {"browtherIntroSoonPrimaryButton", IDS_BROWTHER_INTRO_SOON_PRIMARY_BUTTON},
+    {"browtherIntroSoonClose", IDS_BROWTHER_INTRO_SOON_CLOSE},
+    {"browtherIntroChannelsSoonTitle", IDS_BROWTHER_INTRO_CHANNELS_SOON_TITLE},
+    {"browtherIntroChannelsSoonDescription",
+     IDS_BROWTHER_INTRO_CHANNELS_SOON_DESCRIPTION},
+    {"browtherIntroChannelsSameContent",
+     IDS_BROWTHER_INTRO_CHANNELS_SAME_CONTENT},
+    {"browtherIntroStartBrowsing", IDS_BROWTHER_INTRO_START_BROWSING}};
 
 void OpenJapanWelcomePage(Profile* profile) {
   CHECK(profile);
@@ -169,6 +247,11 @@ BraveWelcomeUI::BraveWelcomeUI(content::WebUI* web_ui, std::string_view name)
   source->AddBoolean(
       "showRewardsCard",
       base::FeatureList::IsEnabled(brave_welcome::features::kShowRewardsCard));
+
+  // Browther : pendant l'accès anticipé, « Continuer » sur Basarunaa et
+  // Sawtunaa ouvre la feuille « Ça arrive bientôt » au lieu d'allumer le
+  // moteur. Même interrupteur que les badges de la barre d'outils.
+  source->AddBoolean("browtherEarlyAccess", kBrowtherEarlyAccess);
 
   source->AddBoolean(
       "hardwareAccelerationEnabledAtStartup",

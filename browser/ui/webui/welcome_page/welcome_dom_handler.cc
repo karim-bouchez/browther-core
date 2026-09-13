@@ -13,6 +13,7 @@
 #include "base/metrics/histogram_macros.h"
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
+#include "base/task/thread_pool.h"
 #include "base/values.h"
 #include "brave/browser/brave_browser_features.h"
 #include "brave/common/importer/importer_constants.h"
@@ -30,6 +31,7 @@
 #include "chrome/browser/ui/chrome_pages.h"
 #include "chrome/common/webui_url_constants.h"
 #include "chrome/grit/branded_strings.h"
+#include "components/metrics/metrics_pref_names.h"
 #include "components/prefs/pref_service.h"
 #include "extensions/buildflags/buildflags.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -80,7 +82,9 @@ bool ShouldRedirectToGettingStartedPage() {
 WelcomeDOMHandler::WelcomeDOMHandler(Profile* profile)
     : profile_(profile),
       brave_education_server_checker_(*profile->GetPrefs(),
-                                      profile->GetURLLoaderFactory()) {
+                                      profile->GetURLLoaderFactory()),
+      system_volume_task_runner_(base::ThreadPool::CreateSequencedTaskRunner(
+          {base::MayBlock(), base::TaskPriority::USER_VISIBLE})) {
   base::MakeRefCounted<shell_integration::DefaultSchemeClientWorker>(
       GURL("https://browser-education.brave.com"))
       ->StartCheckIsDefaultAndGetDefaultClientName(
@@ -131,6 +135,107 @@ void WelcomeDOMHandler::RegisterMessages() {
       "trackOnboardingEvent",
       base::BindRepeating(&WelcomeDOMHandler::HandleTrackOnboardingEvent,
                           base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "browtherIntroStarted",
+      base::BindRepeating(&WelcomeDOMHandler::HandleBrowtherIntroStarted,
+                          base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "setBasarunaaMode",
+      base::BindRepeating(&WelcomeDOMHandler::HandleSetBasarunaaMode,
+                          base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "enableBrowtherFeature",
+      base::BindRepeating(&WelcomeDOMHandler::HandleEnableBrowtherFeature,
+                          base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "getSystemVolume",
+      base::BindRepeating(&WelcomeDOMHandler::HandleGetSystemVolume,
+                          base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "setSystemVolume",
+      base::BindRepeating(&WelcomeDOMHandler::HandleSetSystemVolume,
+                          base::Unretained(this)));
+}
+
+void WelcomeDOMHandler::HandleBrowtherIntroStarted(
+    const base::ListValue& args) {
+  // ⚠️ L'introduction n'a plus d'écran de consentement : Sentry reste actif
+  // par défaut (`kMetricsReportingEnabled` vaut true, cf.
+  // brave_local_state_prefs.cc). Mais sur macOS et Windows, Crashpad ne lit pas
+  // la pref : il lit le consentement écrit par `ChangeMetricsReportingState`
+  // (fichier « Consent To Send Stats » / registre), que seul l'ancien écran
+  // « Aidez-nous à améliorer Browther » posait. Sans cet appel, la pref dirait
+  // oui et aucun plantage ne remonterait. On ne l'écrit que dans le sens
+  // « oui » : un « non » a déjà été posé par les Réglages qui l'ont décidé.
+  PrefService* local_state = g_browser_process->local_state();
+  if (!local_state->IsManagedPreference(
+          metrics::prefs::kMetricsReportingEnabled) &&
+      local_state->GetBoolean(metrics::prefs::kMetricsReportingEnabled)) {
+    ChangeMetricsReportingState(
+        true, ChangeMetricsReportingStateCalledFrom::kUiFirstRun);
+  }
+}
+
+void WelcomeDOMHandler::HandleSetBasarunaaMode(const base::ListValue& args) {
+  if (args.empty() || !args[0].is_string()) {
+    return;
+  }
+  const std::string& mode = args[0].GetString();
+  // Les trois valeurs du moteur, rien d'autre : une valeur inconnue laisserait
+  // Basarunaa sans cible.
+  if (mode != "blur-female" && mode != "blur-male" && mode != "blur-all") {
+    return;
+  }
+  profile_->GetPrefs()->SetString(kBasarunaaMode, mode);
+}
+
+void WelcomeDOMHandler::HandleEnableBrowtherFeature(
+    const base::ListValue& args) {
+  if (args.empty() || !args[0].is_string()) {
+    return;
+  }
+  const std::string& feature = args[0].GetString();
+  if (feature == "basarunaa") {
+    profile_->GetPrefs()->SetBoolean(kBasarunaaEnabled, true);
+  } else if (feature == "sawtunaa") {
+    profile_->GetPrefs()->SetBoolean(kSawtunaaEnabled, true);
+  }
+}
+
+void WelcomeDOMHandler::HandleGetSystemVolume(const base::ListValue& args) {
+  CHECK_EQ(1U, args.size());
+  AllowJavascript();
+  system_volume_task_runner_->PostTaskAndReplyWithResult(
+      FROM_HERE, base::BindOnce(&browther_intro::GetSystemVolume),
+      base::BindOnce(&WelcomeDOMHandler::OnGotSystemVolume,
+                     weak_ptr_factory_.GetWeakPtr(), args[0].GetString()));
+}
+
+void WelcomeDOMHandler::OnGotSystemVolume(
+    const std::string& callback_id,
+    std::optional<browther_intro::SystemVolume> volume) {
+  if (!IsJavascriptAllowed()) {
+    return;
+  }
+  base::DictValue result;
+  result.Set("available", volume.has_value() && volume->level.has_value());
+  if (volume && volume->level) {
+    result.Set("level", *volume->level);
+    result.Set("muted", volume->muted);
+  }
+  ResolveJavascriptCallback(base::Value(callback_id),
+                            base::Value(std::move(result)));
+}
+
+void WelcomeDOMHandler::HandleSetSystemVolume(const base::ListValue& args) {
+  // 0 et 1 arrivent en entiers depuis le JS : `GetIfDouble` accepte les deux.
+  const std::optional<double> level =
+      args.empty() ? std::nullopt : args[0].GetIfDouble();
+  if (!level) {
+    return;
+  }
+  system_volume_task_runner_->PostTask(
+      FROM_HERE, base::BindOnce(&browther_intro::SetSystemVolume, *level));
 }
 
 void WelcomeDOMHandler::HandleTrackOnboardingEvent(
@@ -138,8 +243,7 @@ void WelcomeDOMHandler::HandleTrackOnboardingEvent(
   if (args.empty() || !args[0].is_string()) {
     return;
   }
-  auto* analytics =
-      browther_analytics::BrowtherAnalyticsService::GetInstance();
+  auto* analytics = browther_analytics::BrowtherAnalyticsService::GetInstance();
   if (!analytics) {
     return;
   }

@@ -27,7 +27,17 @@ transpile_web_ui("brave_welcome_ui") {
 
   resource_name = "brave_welcome"
 
-  imports_from = [ "//brave/components/brave_welcome_ui/" ]
+  imports_from = [
+    "//brave/components/brave_welcome_ui/",
+
+    # Browther : l'introduction importe les médias, icônes et visuels de l'iOS
+    # À LEUR PLACE (mêmes fichiers sur toutes les plateformes,
+    # ONBOARDING-SPEC.md § 6) et le gros interrupteur des panneaux.
+    "//brave/components/brave_shields/resources/panel/components/browther-big-toggle/",
+    "//brave/ios/brave-ios/Sources/Brave/Assets/Images.xcassets/",
+    "//brave/ios/brave-ios/Sources/Brave/Frontend/Browther/Intro/Resources/",
+    "//brave/ios/brave-ios/Sources/Onboarding/WelcomeFocus/Resources/FocusOnboardingImages.xcassets/",
+  ]
 
   deps = [ ":welcome_logo" ]
 }

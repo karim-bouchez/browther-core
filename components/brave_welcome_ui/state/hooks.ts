@@ -4,7 +4,11 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as React from 'react'
-import { BrowserProfile, ImportDataBrowserProxyImpl } from '../api/welcome_browser_proxy'
+import {
+  BrowserProfile,
+  ImportDataBrowserProxyImpl,
+  WelcomeBrowserProxyImpl
+} from '../api/welcome_browser_proxy'
 import { loadTimeData } from '$web-common/loadTimeData'
 import { BrowserType, ViewType } from './component_types'
 import DataContext from './context'
@@ -64,6 +68,21 @@ export function useProfileCount () {
   }
 }
 
+/**
+ * Browther : l'ancien parcours Brave (par défaut → thème/import → consentement
+ * → chaînes) n'est plus présenté au premier lancement — l'introduction le
+ * remplace. Il reste joignable pour la recette : `browther://welcome/?legacy`.
+ */
+export const isLegacyWelcomeFlow =
+  new URLSearchParams(window.location.search).has('legacy')
+
+/** Quitte l'accueil vers la page de fin (Nouvel Onglet, ou page d'aide Brave). */
+export function completeWelcome () {
+  WelcomeBrowserProxyImpl.getInstance().getWelcomeCompleteURL().then(url => {
+    window.open(url || 'chrome://newtab', '_self', 'noopener')
+  })
+}
+
 export const shouldPlayAnimations = loadTimeData.getBoolean('hardwareAccelerationEnabledAtStartup') &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -84,7 +103,13 @@ export function useViewTypeTransition(currentViewType: ViewType | undefined) : V
   const states = React.useMemo(() => {
     // Browther: HelpWDP (Web Discovery) supprimé du flow.
     // L'écran HelpImprove est rebrandé pour Sentry/PostHog (cf. Phase 3.5).
-    const nextAfterImport = ViewType.HelpImprove
+    // Browther : après l'introduction, l'import mène directement au Nouvel
+    // Onglet — l'écran de consentement disparaît du premier lancement, comme
+    // sur iOS et Android (Sentry et PostHog restent actifs par défaut et
+    // désactivables dans les Réglages ; décision Karim, 2026-09-12).
+    const nextAfterImport = isLegacyWelcomeFlow
+      ? ViewType.HelpImprove
+      : ViewType.WelcomeComplete
 
     return {
       [ViewType.DefaultBrowser]: {  // The initial state view
@@ -122,6 +147,15 @@ export function useViewTypeTransition(currentViewType: ViewType | undefined) : V
       },
       [ViewType.FollowChannels]: {
         forward: ViewType.FollowChannels   // The end state view
+      },
+      // Browther : l'introduction puis la sortie ne transitent pas par cette
+      // machine (cf. `MainContainer`) ; présentes pour que la table couvre
+      // toutes les vues.
+      [ViewType.BrowtherIntro]: {
+        forward: ViewType.WelcomeComplete
+      },
+      [ViewType.WelcomeComplete]: {
+        forward: ViewType.WelcomeComplete
       },
     }
   }, [browserProfiles, currentSelectedBrowserProfiles])

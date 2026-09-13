@@ -136,4 +136,294 @@
   Welcome to Browther
 </message>
 
+<!-- Browther : introduction (six écrans) — ONBOARDING-SPEC.md. EN + FR seulement tant que le wording
+     n'est pas validé à l'écran ; sign-release.sh refuse une release sans les autres langues. -->
+<message name="IDS_BROWTHER_INTRO_WELCOME_TITLE" desc="Browther introduction: Title of the first introduction screen">
+  Protect what you see and what you hear.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_VERSE_TRANSLATION" desc="Browther introduction: Translation of Quran 17:36, shown under the Arabic verse">
+  “Hearing, sight and heart — of all these one will be questioned.”
+</message>
+
+<message name="IDS_BROWTHER_INTRO_VERSE_REFERENCE" desc="Browther introduction: Source of the verse">
+  Quran · Al-Isrāʾ, 17:36
+</message>
+
+<message name="IDS_BROWTHER_INTRO_PROTECTION_ADS" desc="Browther introduction: One of the three protections listed on the welcome screen" meaning="Browther introduction: short name of ad blocking">
+  Ads
+</message>
+
+<message name="IDS_BROWTHER_INTRO_PROTECTION_MUSIC" desc="Browther introduction: One of the three protections listed on the welcome screen">
+  Music
+</message>
+
+<message name="IDS_BROWTHER_INTRO_PROTECTION_IMAGES" desc="Browther introduction: One of the three protections listed on the welcome screen">
+  Images
+</message>
+
+<message name="IDS_BROWTHER_INTRO_STATUS_ACTIVE" desc="Browther introduction: Status of a protection that already works">
+  Active
+</message>
+
+<message name="IDS_BROWTHER_INTRO_STATUS_ACTIVE_DETAIL" desc="Browther introduction: Second line under &#x27;Active&#x27;, balancing the &#x27;in shaa Allah&#x27; line">
+  right away
+</message>
+
+<message name="IDS_BROWTHER_INTRO_STATUS_SOON" desc="Browther introduction: Status of a protection still in development">
+  Soon
+</message>
+
+<message name="IDS_BROWTHER_INTRO_START_BUTTON" desc="Browther introduction: Button of the first introduction screen">
+  Get started
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SIGNATURE_LABEL" desc="Browther introduction: Publisher signature, followed by the dev&amp;din logo">
+  A project by
+</message>
+
+<message name="IDS_BROWTHER_INTRO_ADS_TITLE" desc="Browther introduction: Title of the ads screen">
+  Ads don’t only sell products.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_ADS_SUBTITLE" desc="Browther introduction: Subtitle of the ads screen">
+  They force music and images you never chose on you. Browther blocks them from the start, including the ones that play before videos.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_ADS_PILL" desc="Browther introduction: Status pill on the ads screen">
+  Already on, every site
+</message>
+
+<message name="IDS_BROWTHER_INTRO_ADS_SWITCH_OFF" desc="Browther introduction: State of the demo switch, ads screen">
+  Off · the ads get through
+</message>
+
+<message name="IDS_BROWTHER_INTRO_ADS_SWITCH_ON" desc="Browther introduction: State of the demo switch once Browther is on">
+  3 items blocked
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SHIELDS_NAME" desc="Browther introduction: Name of the ad blocking feature, the same one used inside the app">
+  Browther Shields
+</message>
+
+<message name="IDS_BROWTHER_INTRO_TURN_ON_TO_CONTINUE" desc="Browther introduction: Hint above the disabled continue button, before the switch is flipped">
+  Turn it on to continue
+</message>
+
+<message name="IDS_BROWTHER_INTRO_CONTINUE" desc="Browther introduction: Button that moves to the next introduction screen">
+  Continue
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_SITE_NAME" desc="Browther introduction: Name of the made-up website shown in the demo">
+  The Recipe Notebook
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_ARTICLE_TITLE" desc="Browther introduction: Headline of the made-up article shown in the demo">
+  Msemen, step by step
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_ARTICLE_BODY" desc="Browther introduction: First lines of the made-up article">
+  Mix the fine semolina, the flour and a pinch of salt, then add the warm water little by little.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_AD_SOUND" desc="Browther introduction: Label saying the ad plays with sound">
+  Sound on
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_AD_SKIP" desc="Browther introduction: Countdown on the pre-roll ad of the demo page">
+  Skip in <ph name="SECONDS">$1<ex>5</ex></ph>s
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_AD_SKIP_NOW" desc="Browther introduction: Label of the skip button once the countdown is over">
+  Skip
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_AD_LABEL" desc="Browther introduction: Label of the ads in the demo page" meaning="Browther introduction: label on a fake ad">
+  Ad
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_AD_SPONSORED" desc="Browther introduction: Second line of the banner ad">
+  Sponsored content
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_BLOCKED_COUNT" desc="Browther introduction: Counter shown once Browther blocked the ads of the demo page">
+  3 blocked
+</message>
+
+<message name="IDS_BROWTHER_INTRO_STAMP_HALAL" desc="Browther introduction: Word on the halal stamp">
+  HALAL
+</message>
+
+<message name="IDS_BROWTHER_INTRO_STAMP_HARAM" desc="Browther introduction: Word on the haram stamp">
+  HARAM
+</message>
+
+<message name="IDS_BROWTHER_INTRO_TILE_IMAGE" desc="Browther introduction: Tag on the photo shown in the blurring preview">
+  Image
+</message>
+
+<message name="IDS_BROWTHER_INTRO_TILE_VIDEO" desc="Browther introduction: Tag on the video shown in the blurring preview">
+  Video
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_TITLE" desc="Browther introduction: Title of the blurring screen">
+  Choose who gets blurred.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_SUBTITLE" desc="Browther introduction: Subtitle of the blurring screen">
+  On images and videos, on every site, before they even appear.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_WOMEN" desc="Browther introduction: Blurring choice">
+  Women
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_MEN" desc="Browther introduction: Blurring choice">
+  Men
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_BOTH" desc="Browther introduction: Blurring choice">
+  Both
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_CURTAIN" desc="Browther introduction: Shown over the fully blurred previews, before blurring is switched on">
+  Turn it on to see the result
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_SWITCH_OFF" desc="Browther introduction: State of the demo switch, blurring screen">
+  Off · nothing is covered
+</message>
+
+<message name="IDS_BROWTHER_INTRO_BLUR_SWITCH_ON" desc="Browther introduction: State of the demo switch once blurring is on">
+  Covered, image and video alike
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_TITLE" desc="Browther introduction: Title of the music screen">
+  Keep the voice, cut the music.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_SUBTITLE" desc="Browther introduction: Subtitle of the music screen">
+  While you watch a video, Browther removes the music and leaves the voice untouched.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_COMPAT" desc="Browther introduction: Where music removal works on desktop: every site">
+  On every site
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_LANE_VOICE" desc="Browther introduction: Name of the voice track in the demo player">
+  Voice
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_LANE_MUSIC" desc="Browther introduction: Name of the music track in the demo player">
+  Music
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_REMOVED" desc="Browther introduction: Shown next to the flattened music track">
+  removed
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_SWITCH_OFF" desc="Browther introduction: State of the demo switch, music screen">
+  Off · the music plays
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_SWITCH_ON" desc="Browther introduction: State of the demo switch once Browther is on">
+  Music removed, voice untouched
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_LISTEN" desc="Browther introduction: Button that plays the demo audio">
+  Play the excerpt
+</message>
+
+<message name="IDS_BROWTHER_INTRO_MUSIC_PAUSE" desc="Browther introduction: Button that pauses the demo audio" meaning="Browther introduction: pause the audio excerpt">
+  Pause
+</message>
+
+<message name="IDS_BROWTHER_INTRO_VOLUME_MUTED" desc="Browther introduction: Warning shown when the computer output volume is zero or muted">
+  Your computer’s sound is off — turn it up to hear the excerpt
+</message>
+
+<message name="IDS_BROWTHER_INTRO_VOLUME_LABEL" desc="Browther introduction: Accessible name of the computer volume slider">
+  Computer volume
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEFAULT_TITLE" desc="Browther introduction: Title of the default browser screen">
+  Block the haram, by default.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEFAULT_SUBTITLE" desc="Browther introduction: Subtitle of the default browser screen">
+  Make Browther your default browser: the links you open from your messages and your apps get its protections too.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_LATER_BUTTON" desc="Browther introduction: Secondary button that moves on without setting the default browser">
+  Later
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_MESSAGING_APP" desc="Browther introduction: Name of the made-up messaging app in the default browser screen">
+  Messages
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_CONTACT_NAME" desc="Browther introduction: Name of the made-up conversation in the default browser screen">
+  Family
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_MESSAGE_INCOMING" desc="Browther introduction: First message of the made-up conversation">
+  Look what I found 🔥
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_OPENED_IN" desc="Browther introduction: Label on the browser sheet that slides up over the conversation">
+  Opened in Browther
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_STAT_ADS" desc="Browther introduction: Counter on the browser sheet of the default browser screen">
+  3 ads blocked
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_STAT_MUSIC" desc="Browther introduction: Counter on the browser sheet of the default browser screen">
+  Music removed
+</message>
+
+<message name="IDS_BROWTHER_INTRO_DEMO_STAT_IMAGES" desc="Browther introduction: Counter on the browser sheet of the default browser screen">
+  2 images covered
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SOON_TITLE" desc="Browther introduction: Title of the sheet shown when turning a feature on during early access">
+  Coming soon, in shaa Allah
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SOON_BLUR_BODY" desc="Browther introduction: Body of the early access sheet, blurring">
+  Blurring works already. We leave it off by default while we polish how it renders — we will tell you as soon as it is clean enough to never get in the way of your browsing. In the meantime Browther already blocks ads, and they are what forces the most unchosen images on you.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SOON_MUSIC_BODY" desc="Browther introduction: Body of the early access sheet, music">
+  Music removal works already. We leave it off by default while we polish how it renders — we will tell you as soon as it is clean enough to never get in the way of your browsing. In the meantime Browther already blocks ads, and the music they bring with them.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SOON_NOTE" desc="Browther introduction: Footnote of the early access sheet">
+  We announce releases on our channels: the last step of this introduction.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SOON_PRIMARY_BUTTON" desc="Browther introduction: Primary button of the early access sheet; closes it and moves on">
+  May Allah make it easy
+</message>
+
+<message name="IDS_BROWTHER_INTRO_SOON_CLOSE" desc="Browther introduction: Accessible name of the handle that closes the early access sheet">
+  Close
+</message>
+
+<message name="IDS_BROWTHER_INTRO_CHANNELS_SOON_TITLE" desc="Browther introduction: Title of the channels screen while features are in early access">
+  Discover other projects like this one
+</message>
+
+<message name="IDS_BROWTHER_INTRO_CHANNELS_SOON_DESCRIPTION" desc="Browther introduction: Description of the channels screen while features are in early access">
+  Browther is only one app in the dev&amp;din ecosystem. We announce every release — blurring and music removal included — on our WhatsApp and Telegram channels, in shaa Allah.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_CHANNELS_SAME_CONTENT" desc="Browther introduction: Footnote under the two channel buttons">
+  Same content on both
+</message>
+
+<message name="IDS_BROWTHER_INTRO_START_BROWSING" desc="Browther introduction: Last button of the introduction">
+  Start browsing
+</message>
+
 </grit-part>

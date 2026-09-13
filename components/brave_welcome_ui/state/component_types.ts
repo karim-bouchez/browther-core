@@ -16,6 +16,11 @@ export enum ViewType {
   HelpImprove,
   // Browther : dernière étape, propose de suivre les canaux dev&din.
   FollowChannels,
+  // Browther : l'introduction (six écrans, cf. ONBOARDING-SPEC.md), premier
+  // écran du parcours par défaut.
+  BrowtherIntro,
+  // Browther : sortie vers le Nouvel Onglet, après l'introduction et l'import.
+  WelcomeComplete,
 }
 
 export enum BrowserType {

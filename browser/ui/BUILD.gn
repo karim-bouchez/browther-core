@@ -801,6 +801,22 @@ source_set("ui") {
     }
   }
 
+  # Browther : le son de l'ordinateur, pour l'écran Musique de l'introduction
+  # (`webui/welcome_page`). Seul macOS est porté ; ailleurs la jauge est masquée.
+  if (!is_android && !is_ios) {
+    sources += [ "webui/welcome_page/browther_intro_system_volume.h" ]
+    if (is_mac) {
+      sources += [ "webui/welcome_page/browther_intro_system_volume_mac.cc" ]
+      if (defined(frameworks)) {
+        frameworks += [ "CoreAudio.framework" ]
+      } else {
+        frameworks = [ "CoreAudio.framework" ]
+      }
+    } else {
+      sources += [ "webui/welcome_page/browther_intro_system_volume_other.cc" ]
+    }
+  }
+
   # brave's obsolete infobar is only used on Windows and Mac now.
   if (is_win || is_mac) {
     sources += [

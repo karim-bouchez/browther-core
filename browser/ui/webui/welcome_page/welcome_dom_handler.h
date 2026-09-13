@@ -10,8 +10,11 @@
 #include <string>
 
 #include "base/memory/raw_ptr.h"
+#include "base/memory/scoped_refptr.h"
 #include "base/memory/weak_ptr.h"
+#include "base/task/sequenced_task_runner.h"
 #include "brave/browser/ui/webui/brave_education/brave_education_server_checker.h"
+#include "brave/browser/ui/webui/welcome_page/browther_intro_system_volume.h"
 #include "chrome/browser/shell_integration.h"
 #include "content/public/browser/web_ui_message_handler.h"
 
@@ -50,6 +53,17 @@ class WelcomeDOMHandler : public content::WebUIMessageHandler {
   // args[0] = event_name (string), args[1] = properties (dict, optionnel).
   void HandleTrackOnboardingEvent(const base::ListValue& args);
 
+  // Browther : l'introduction (cf. private/docs/ONBOARDING-SPEC.md).
+  void HandleBrowtherIntroStarted(const base::ListValue& args);
+  // args[0] = "blur-female" | "blur-male" | "blur-all".
+  void HandleSetBasarunaaMode(const base::ListValue& args);
+  // args[0] = "basarunaa" | "sawtunaa". Hors accès anticipé seulement.
+  void HandleEnableBrowtherFeature(const base::ListValue& args);
+  void HandleGetSystemVolume(const base::ListValue& args);
+  void HandleSetSystemVolume(const base::ListValue& args);
+  void OnGotSystemVolume(const std::string& callback_id,
+                         std::optional<browther_intro::SystemVolume> volume);
+
   void OnGettingStartedServerCheck(const std::string& callback_id,
                                    bool available);
 
@@ -59,6 +73,10 @@ class WelcomeDOMHandler : public content::WebUIMessageHandler {
   std::u16string default_browser_name_;
   raw_ptr<Profile> profile_ = nullptr;
   brave_education::BraveEducationServerChecker brave_education_server_checker_;
+  // CoreAudio peut bloquer (IPC vers coreaudiod) : jamais sur le fil UI, et
+  // une seule séquence pour que les réglages successifs du curseur arrivent
+  // dans l'ordre.
+  scoped_refptr<base::SequencedTaskRunner> system_volume_task_runner_;
   base::WeakPtrFactory<WelcomeDOMHandler> weak_ptr_factory_{this};
 };
 

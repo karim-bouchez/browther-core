@@ -1,0 +1,1437 @@
+/* Copyright (c) 2026 dev&din. All rights reserved.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+/* L'introduction Browther. Feuille « .global » : injectée telle quelle (pas de
+ * CSS modules), d'où le préfixe `bi-` sur toutes les classes.
+ *
+ * ⚠️ TOUJOURS SOMBRE (ONBOARDING-SPEC.md § 3.1). Les teintes sont les valeurs
+ * SOMBRES de `BrowtherIntroPalette` (iOS) ; les « couleurs système » iOS sont
+ * leurs équivalents en apparence sombre. */
+
+.browther-intro {
+  --bi-ink: #ffffff;
+  --bi-ink-soft: rgba(235, 235, 245, 0.6);
+  --bi-ink-tertiary: rgba(235, 235, 245, 0.32);
+  --bi-surface: #1c1c1e;
+  --bi-canvas: #1c1f1c;
+  --bi-sage: #a5b299;
+  --bi-gold: #d4a857;
+  --bi-halal: #2a8f5a;
+  --bi-haram: #c44545;
+  /* Le vert DU TEXTE : `halal` tombe à 3:1 sur fond noir, celui-ci passe 7:1. */
+  --bi-halal-text: #6fd79b;
+  --bi-amber: #fbbf24;
+  /* Badge de la barre d'outils macOS (`brave_shields_action_view.cc`). */
+  --bi-dot-on: #22c55e;
+  --bi-dot-off: #ef4444;
+  --bi-ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  background: #000;
+  color: var(--bi-ink);
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.browther-intro *,
+.browther-intro *::before,
+.browther-intro *::after {
+  box-sizing: border-box;
+}
+
+/* Pas de `font: inherit` : le raccourci écraserait la taille posée par chaque
+ * bouton (les pictogrammes se dimensionnent en `em`).
+ * ⚠️ Les titres aussi : la feuille globale des WebUI Brave impose Poppins aux
+ * `h1`/`h2` — invisible dans un aperçu hors navigateur. */
+.browther-intro button {
+  color: inherit;
+}
+
+.browther-intro button,
+.browther-intro h1,
+.browther-intro h2,
+.browther-intro p {
+  font-family: inherit;
+}
+
+.bi-glyph {
+  display: block;
+  flex: none;
+  width: 1em;
+  height: 1em;
+}
+
+/* MARK: Écrans et transitions ------------------------------------------- */
+
+.bi-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.bi-screen {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Le parcours a un sens : l'écran suivant entre par la droite et pousse le
+ * précédent vers la gauche ; le retour rembobine. */
+.bi-screen.from-right { animation: bi-in-right 420ms var(--bi-ease) both; }
+.bi-screen.from-left { animation: bi-in-left 420ms var(--bi-ease) both; }
+.bi-screen.is-leaving { pointer-events: none; }
+.bi-screen.is-leaving.to-left { animation: bi-out-left 420ms var(--bi-ease) both; }
+.bi-screen.is-leaving.to-right { animation: bi-out-right 420ms var(--bi-ease) both; }
+
+@keyframes bi-in-right { from { transform: translateX(80px); opacity: 0; } }
+@keyframes bi-in-left { from { transform: translateX(-80px); opacity: 0; } }
+@keyframes bi-out-left { to { transform: translateX(-80px); opacity: 0; } }
+@keyframes bi-out-right { to { transform: translateX(80px); opacity: 0; } }
+@keyframes bi-fade-in { from { opacity: 0; } }
+
+/* MARK: Barre du haut ---------------------------------------------------- */
+
+.bi-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px max(28px, calc((100vw - 1180px) / 2 + 28px)) 0;
+  pointer-events: none;
+}
+
+.bi-header > * { pointer-events: auto; }
+
+.bi-back {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.bi-back:hover { background: rgba(255, 255, 255, 0.08); }
+.bi-back.is-hidden { opacity: 0; pointer-events: none; }
+
+.bi-progress {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  padding-right: 20px;
+}
+
+.bi-progress span {
+  flex: 1;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: background 0.4s var(--bi-ease);
+}
+
+.bi-progress span.is-done { background: rgba(255, 255, 255, 0.85); }
+
+/* MARK: Gabarit (cinq écrans sur six) ----------------------------------- */
+
+/* Sur desktop, la scène passe à droite du texte ; les commandes gardent
+ * l'ordre de l'iOS, en bas de la colonne de texte. */
+.bi-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 470px) minmax(0, 1fr);
+  column-gap: clamp(36px, 5vw, 80px);
+  height: 100%;
+  min-height: 640px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 86px 48px 36px;
+}
+
+/* Texte et commandes forment un bloc centré face à la scène : sur une fenêtre
+ * de bureau, les écarter aux deux bouts de la hauteur laissait un vide au
+ * milieu de la colonne. */
+.bi-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 44px;
+  min-height: 0;
+}
+
+.bi-copy-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bi-title {
+  margin: 0;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.bi-subtitle {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--bi-ink-soft);
+}
+
+.bi-footnote {
+  margin: 0;
+  font-size: 14px;
+  color: var(--bi-ink-tertiary);
+}
+
+.bi-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bi-scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .bi-layout {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 26px;
+    height: auto;
+    min-height: 100%;
+    padding: 80px 24px 28px;
+  }
+  .bi-copy { display: contents; }
+  .bi-copy-top { order: 0; padding-top: 0; }
+  .bi-scene { order: 1; min-height: 380px; }
+  .bi-actions { order: 2; }
+}
+
+/* MARK: Boutons ---------------------------------------------------------- */
+
+.bi-button {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 16px;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: transform 0.12s ease-out, opacity 0.3s, filter 0.3s, background 0.2s, color 0.2s;
+}
+
+.bi-button:active:not(:disabled) { transform: scale(0.98); }
+
+.bi-button:focus-visible,
+.bi-choice:focus-visible,
+.bi-channel:focus-visible,
+.bi-back:focus-visible,
+.bi-player-button:focus-visible {
+  outline: 3px solid rgba(165, 178, 153, 0.7);
+  outline-offset: 2px;
+}
+
+.bi-button-primary { background: #fff; color: #000 !important; }
+.bi-button-primary:hover:not(:disabled) { background: #e9e9ea; }
+/* Éteint tant que l'interrupteur n'est pas sur ON. */
+.bi-button-primary:disabled { opacity: 0.35; filter: saturate(0); cursor: default; }
+
+/* Le bouton clair de l'accueil : sur la photo sombre, l'encre disparaîtrait. */
+.bi-button-light { max-width: 420px; background: #f8f3ea; color: #0f100e !important; }
+.bi-button-light:hover { background: #fffaf2; }
+
+.bi-button-ghost { min-height: 44px; background: transparent; color: var(--bi-ink-soft) !important; }
+.bi-button-ghost:hover { color: var(--bi-ink) !important; }
+
+/* Sortie de la dernière étape : un contour, pas un aplat — ce sont les chaînes
+ * l'action de l'écran. */
+.bi-button-outline {
+  min-height: 48px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(235, 235, 245, 0.33);
+  color: var(--bi-ink-soft) !important;
+  font-size: 16px !important;
+}
+
+.bi-button-outline:hover { color: var(--bi-ink) !important; box-shadow: inset 0 0 0 1.5px rgba(235, 235, 245, 0.55); }
+
+/* Le conseil est AU-DESSUS et sa hauteur est réservée en permanence : rien ne
+ * bouge entre ON et OFF. */
+.bi-advance { display: flex; flex-direction: column; gap: 8px; }
+
+.bi-advance-hint {
+  height: 18px;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--bi-ink-soft);
+  transition: opacity 0.3s;
+}
+
+.bi-advance-hint.is-hidden { opacity: 0; }
+
+/* MARK: Pastille, icônes, badge ----------------------------------------- */
+
+.bi-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 9px;
+  border-radius: 999px;
+  background: rgba(42, 143, 90, 0.16);
+  color: var(--bi-halal-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bi-pill .bi-glyph { font-size: 13px; }
+
+/* Les icônes de la barre d'outils, teintées à la couleur du texte. */
+.bi-engine-icon {
+  display: inline-block;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+/* Géométrie macOS : disque de 40 % de la largeur de l'icône, ENTIÈREMENT dans
+ * son coin bas-droite, cerné de blanc sur 1 px, sans halo. */
+.bi-badged-icon {
+  position: relative;
+  flex: none;
+  width: 26px;
+  height: 26px;
+}
+
+.bi-badged-icon .bi-engine-icon { width: 100%; height: 100%; }
+
+.bi-badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  height: 40%;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: var(--bi-dot-off);
+  transition: background-color 0.25s;
+}
+
+.bi-badge.is-on { background: var(--bi-dot-on); }
+
+/* MARK: Rangée d'interrupteur -------------------------------------------- */
+
+.bi-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 80px;
+  padding: 0 14px 0 18px;
+  border-radius: 22px;
+  background: var(--bi-surface);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.bi-switch-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.bi-switch-title { font-size: 16px; font-weight: 600; }
+
+/* ⚠️ Une ligne, quoi qu'il arrive. */
+.bi-switch-state {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13.5px;
+  color: var(--bi-ink-soft);
+  transition: color 0.25s;
+}
+
+.bi-switch-state.is-on { color: var(--bi-halal-text); }
+
+/* MARK: Tampons halal / haram -------------------------------------------- */
+
+.bi-stamps {
+  position: absolute;
+  top: -26px;
+  right: -22px;
+  z-index: 3;
+  width: 108px;
+  height: 108px;
+  pointer-events: none;
+}
+
+.bi-stamp {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.28));
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+}
+
+.bi-stamp-disc { fill: var(--bi-haram); }
+.bi-stamp-halal .bi-stamp-disc { fill: var(--bi-halal); }
+.bi-stamp-ring { fill: none; stroke: rgba(255, 255, 255, 0.92); }
+.bi-stamp-arabic { fill: #fff; font-size: 27px; font-weight: 700; font-family: 'Geeza Pro', 'Noto Naskh Arabic', sans-serif; }
+.bi-stamp-latin { fill: #fff; font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; }
+.bi-stamp-star { fill: rgba(255, 255, 255, 0.94); font-size: 7px; }
+
+/* Le haram se décolle, le halal claque. */
+.bi-stamp-haram { transform: rotate(-12deg) scale(1); opacity: 0.95; }
+.bi-stamp-halal { transform: rotate(-34deg) scale(1.9); opacity: 0; }
+.bi-stamps.is-on .bi-stamp-haram { transform: rotate(-4deg) scale(0.62); opacity: 0; }
+.bi-stamps.is-on .bi-stamp-halal { transform: rotate(-12deg) scale(1); opacity: 0.96; }
+
+/* MARK: 1 · Accueil ------------------------------------------------------ */
+
+.bi-welcome {
+  position: relative;
+  min-height: 100%;
+}
+
+/* ⚠️ Le fond est contraint et rogné par son conteneur. */
+.bi-welcome-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0f100e;
+}
+
+.bi-welcome-backdrop img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: bi-fade-in 0.6s ease-out;
+}
+
+.bi-welcome-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.35) 34%,
+    rgba(0, 0, 0, 0.88) 64%,
+    #0f100e 100%);
+}
+
+.bi-welcome-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 92px 24px 28px;
+  text-align: center;
+}
+
+/* L'icône de l'app commence SOUS la barre de progression. */
+.bi-app-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 17px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.bi-verse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 620px;
+  margin-top: 22px;
+}
+
+.bi-verse p { margin: 0; }
+
+.bi-verse-arabic {
+  font-family: 'Browther Amiri Quran', 'Geeza Pro', serif;
+  font-size: 31px;
+  line-height: 2.1;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.bi-verse-translation {
+  max-width: 540px;
+  font-family: 'New York', ui-serif, Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.bi-verse-reference {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--bi-sage);
+}
+
+.bi-welcome-spacer { flex: 1; min-height: 24px; }
+
+.bi-welcome-title {
+  margin: 0;
+  font-size: clamp(30px, 3.2vw, 38px);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* Le panneau translucide des trois protections — sur la PHOTO, c'est un vrai
+ * matériau (rien à voir avec le voile, qui est un flou). */
+.bi-protections {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
+  margin-top: 20px;
+  padding: 14px 0;
+  border-radius: 20px;
+  background: rgba(40, 40, 40, 0.38);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.bi-protections-divider {
+  flex: none;
+  width: 1px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.bi-protection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 0 4px;
+}
+
+.bi-protection .bi-engine-icon { width: 28px; height: 28px; color: #fff; }
+.bi-protection-name { font-size: 15px; font-weight: 600; }
+
+.bi-protection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Même poids pour « dès maintenant » et « إن شاء الله ». */
+.bi-protection-detail {
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--bi-sage);
+}
+
+/* Le halo n'est pas décoratif : à 7 px sur une photo, un aplat mat se perd. */
+.bi-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34c759;
+  box-shadow: 0 0 4px rgba(52, 199, 89, 0.9), 0 0 8px rgba(52, 199, 89, 0.5);
+}
+
+.bi-status-dot.is-soon {
+  background: #f59e0b;
+  box-shadow: 0 0 4px rgba(245, 158, 11, 0.9), 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.bi-welcome .bi-button-light { margin-top: 20px; }
+
+/* La signature, muette : pastille bordée, ni flèche ni geste. */
+.bi-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.bi-signature img { width: auto; height: 16px; }
+
+/* MARK: 2 · Pubs --------------------------------------------------------- */
+
+.bi-webpage-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.bi-webpage {
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--bi-surface);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.bi-webpage-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bi-webpage-bar > .bi-glyph { font-size: 12px; color: var(--bi-ink-soft); }
+.bi-webpage-site { margin-right: 4px; }
+
+.bi-webpage-blocked {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 99px;
+  background: rgba(42, 143, 90, 0.14);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bi-halal-text);
+  opacity: 0;
+  transition: opacity 0.32s;
+}
+
+.bi-webpage-blocked .bi-glyph { font-size: 11px; }
+.bi-webpage.is-blocked .bi-webpage-blocked { opacity: 1; }
+
+.bi-webpage-player {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
+.bi-webpage-video {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #2e3a31, #161b18);
+}
+
+.bi-webpage-play {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 22px;
+}
+
+.bi-webpage-play .bi-glyph { margin-left: 3px; }
+
+.bi-webpage-progress {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.bi-webpage-progress span {
+  display: block;
+  height: 100%;
+  background: #fff;
+  transition: width 0.25s linear;
+}
+
+.bi-preroll {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #7b2d58, #c55a3b);
+  transition: opacity 0.32s, transform 0.32s;
+}
+
+.bi-preroll.is-hidden { opacity: 0; transform: scale(1.04); }
+
+.bi-preroll-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 54px;
+  color: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+}
+
+.bi-preroll-top {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.bi-preroll-label,
+.bi-preroll-sound,
+.bi-preroll-skip {
+  border-radius: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.bi-preroll-label { padding: 3px 8px; background: #f5c542; color: #000; font-weight: 700; }
+
+.bi-preroll-sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: 600;
+}
+
+.bi-preroll-sound .bi-glyph { font-size: 12px; }
+
+.bi-preroll-skip {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-weight: 600;
+}
+
+.bi-webpage-article { padding: 16px 16px 18px; }
+.bi-webpage-article h2 { margin: 0 0 8px; font-size: 17px; font-weight: 700; }
+
+.bi-webpage-article p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--bi-ink-soft);
+}
+
+.bi-webpage-lines { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+.bi-webpage-lines span { height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
+.bi-webpage-lines span:nth-child(2) { width: 88%; }
+.bi-webpage-lines span:nth-child(3) { width: 64%; }
+
+/* Allumé, la bannière s'efface SANS rendre sa place : la scène ne bouge pas. */
+.bi-webpage-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 64px;
+  margin-top: 14px;
+  padding: 0 10px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f4dac8, #e3ab91);
+  color: #5b2d1c;
+  transform-origin: top;
+  transition: opacity 0.32s, transform 0.32s;
+}
+
+.bi-webpage.is-blocked .bi-webpage-banner { opacity: 0; transform: scale(0.96); }
+
+.bi-webpage-banner-art {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 20px;
+  color: #9a5a3c;
+}
+
+.bi-webpage-banner strong { display: block; font-size: 13px; }
+.bi-webpage-banner small { display: block; font-size: 12px; }
+
+/* MARK: 3 · Floutage ----------------------------------------------------- */
+
+.bi-scene-blur { align-items: stretch; }
+
+.bi-tiles {
+  position: relative;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+
+/* Deux vignettes 16:9 empilées, aussi grandes que la colonne le permet. */
+.bi-tile {
+  position: relative;
+  flex: none;
+  width: min(100cqw, calc((100cqh - 12px) * 8 / 9), 640px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--bi-surface);
+}
+
+.bi-tile-video-source,
+.bi-tile-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reste dans la page pour que Chromium continue de décoder, jamais visible :
+ * l'image nette ne doit jamais apparaître avant son voile. */
+.bi-tile-video-source { opacity: 0; pointer-events: none; }
+
+.bi-tile-canvas.is-empty { opacity: 0; }
+.bi-tile-canvas.is-front { z-index: 1; animation: bi-fade-in 0.3s ease-out; }
+
+.bi-tile-tag {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 99px;
+  background: rgba(20, 20, 20, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.bi-tile-tag .bi-glyph { font-size: 11px; }
+
+.bi-curtain {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+}
+
+.bi-curtain .bi-engine-icon { width: 28px; height: 28px; }
+.bi-curtain.is-hidden { opacity: 0; }
+
+.bi-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.bi-tone-feminine { --tone: #f48fb1; }
+.bi-tone-masculine { --tone: #90caf9; }
+.bi-tone-sage { --tone: var(--bi-sage); }
+
+.bi-choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 84px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--bi-surface);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--bi-ink-soft) !important;
+  cursor: pointer;
+  transition: background 0.28s, box-shadow 0.28s, color 0.28s;
+}
+
+.bi-choice:hover { background: #242426; }
+.bi-choice-glyph { font-size: 26px; }
+
+.bi-choice.is-selected {
+  background: color-mix(in srgb, var(--tone) 16%, transparent);
+  box-shadow: inset 0 0 0 2px var(--tone);
+  color: var(--tone) !important;
+}
+
+.bi-choice-check {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--tone);
+  font-size: 11px;
+  color: #000;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+}
+
+.bi-choice.is-selected .bi-choice-check { opacity: 1; transform: scale(1); }
+
+/* MARK: 4 · Musique ------------------------------------------------------ */
+
+.bi-player-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.bi-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 30px 30px 22px;
+  border-radius: 20px 20px 0 0;
+  background: radial-gradient(circle at 50% 20%, #2f3c31 0, #151916 72%);
+}
+
+.bi-player-button {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 0;
+  border-radius: 50%;
+  background: #e7e2d5;
+  color: #151916 !important;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+
+.bi-player-button:active { transform: scale(0.96); }
+
+.bi-scrubber {
+  position: relative;
+  width: 100%;
+  height: 28px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.bi-scrubber-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 5px;
+  margin-top: -2.5px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.bi-scrubber-fill { display: block; height: 100%; background: #e7e2d5; }
+
+.bi-scrubber-knob {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #e7e2d5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: width 0.15s, height 0.15s, margin 0.15s;
+}
+
+.bi-scrubber:hover .bi-scrubber-knob,
+.bi-scrubber.is-dragging .bi-scrubber-knob {
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+}
+
+.bi-volume { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+
+.bi-volume-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.bi-volume.is-silent .bi-volume-row > .bi-glyph { color: var(--bi-amber); }
+
+.bi-volume input[type='range'] {
+  flex: 1;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.bi-volume input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e7e2d5 var(--level), rgba(255, 255, 255, 0.18) var(--level));
+}
+
+.bi-volume input[type='range']::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  -webkit-appearance: none;
+}
+
+/* 100 % est le cas le plus large : la place lui est réservée. */
+.bi-volume-value {
+  width: 48px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.bi-volume-warning {
+  display: none;
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bi-amber);
+}
+
+.bi-volume.is-silent .bi-volume-warning { display: block; animation: bi-fade-in 0.3s; }
+
+.bi-lanes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 0 0 20px 20px;
+  background: #1b201c;
+}
+
+.bi-lane { display: flex; align-items: center; gap: 12px; }
+
+.bi-lane-title {
+  flex: none;
+  width: 70px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.bi-lane-bars { flex: 1; min-width: 0; height: 30px; }
+
+.bi-lane-trailing {
+  flex: none;
+  width: 62px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bi-halal-text);
+  transition: opacity 0.3s;
+}
+
+.bi-lane-trailing.is-hidden { opacity: 0; }
+
+/* MARK: 5 · Navigateur par défaut --------------------------------------- */
+
+.bi-chat {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: min(100%, 540px);
+  min-height: 500px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.bi-chat-conversation {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bi-canvas);
+}
+
+.bi-chat-contact {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 16px;
+  background: var(--bi-surface);
+  font-size: 15px;
+  color: var(--bi-ink-soft);
+}
+
+.bi-chat-contact > .bi-glyph.bi-chat-back { font-size: 18px; color: #25d366; }
+
+.bi-chat-avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #cfd6cb;
+  font-size: 18px;
+  color: #6b7a68;
+}
+
+.bi-chat-who { flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.bi-chat-who strong { font-size: 15px; font-weight: 600; color: var(--bi-ink); }
+.bi-chat-who small { font-size: 12px; }
+
+.bi-chat-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px;
+  background-color: var(--bi-canvas);
+  background-repeat: repeat;
+  background-size: 270px 490px;
+}
+
+/* Bulles arrondies asymétriques, comme une messagerie. */
+.bi-bubble {
+  max-width: 75%;
+  padding: 9px 13px;
+  border-radius: 14px 14px 14px 3px;
+  background: #000;
+  font-size: 15px;
+}
+
+.bi-bubble-link {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.bi-bubble-thumb { height: 74px; background: linear-gradient(135deg, #e7c9a0, #c98f5b); }
+.bi-bubble-text { display: flex; flex-direction: column; gap: 2px; padding: 8px 12px 10px; }
+.bi-bubble-text strong { font-size: 14px; font-weight: 600; }
+.bi-bubble-text small { font-size: 12px; color: var(--bi-ink-soft); }
+
+/* ⚠️ Le panneau du navigateur doit SE DÉTACHER : surface plus élevée, liseré
+ * net, ombre portée. Même teinte des deux côtés = plus de limite. */
+.bi-chat-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Hauteur fixe : la bulle du lien reçu doit rester lisible au-dessus. */
+  height: 272px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-bottom: 0;
+  border-radius: 22px 22px 0 0;
+  background: #2c2c2e;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(105%);
+  transition: transform 0.65s var(--bi-ease);
+}
+
+.bi-chat-sheet.is-up { transform: translateY(0); }
+
+.bi-chat-sheet-grip {
+  display: block;
+  width: 36px;
+  height: 4px;
+  margin: 8px auto 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.bi-chat-sheet-head { display: flex; align-items: center; gap: 9px; padding: 10px 16px; font-size: 12px; }
+.bi-chat-sheet-head img { width: 22px; height: 22px; border-radius: 6px; }
+.bi-chat-sheet-head strong { flex: 1; font-size: 14px; font-weight: 600; }
+.bi-chat-sheet-head .bi-glyph { color: var(--bi-ink-soft); }
+
+/* La barre d'adresse : le repère qui dit « navigateur » sans un mot. */
+.bi-chat-address {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  margin: 0 14px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: #000;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bi-chat-address > .bi-glyph { font-size: 11px; color: var(--bi-ink-soft); }
+.bi-chat-address > span:not(.bi-engine-icon) { flex: 1; }
+.bi-chat-address .bi-engine-icon { width: 15px; height: 15px; color: var(--bi-halal-text); }
+
+.bi-chat-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 14px 0;
+}
+
+.bi-chat-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 4px;
+  overflow: hidden;
+  border-radius: 11px;
+  background: rgba(111, 215, 155, 0.12);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--bi-halal-text);
+}
+
+.bi-chat-stat .bi-engine-icon { width: 16px; height: 16px; }
+
+.bi-chat-page { display: flex; flex-direction: column; gap: 9px; margin: 12px 14px 0; }
+.bi-chat-page-hero { height: 46px; border-radius: 12px; background: linear-gradient(135deg, #e7c9a0, #c98f5b); }
+.bi-chat-page-line { height: 9px; border-radius: 5px; background: rgba(255, 255, 255, 0.1); }
+
+/* MARK: 6 · Chaînes ------------------------------------------------------ */
+
+.bi-channel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 86px;
+  padding: 10px 10px 10px 16px;
+  border: 0;
+  border-radius: 18px;
+  text-align: left;
+  color: #fff !important;
+  cursor: pointer;
+  transition: transform 0.12s, filter 0.2s;
+}
+
+.bi-channel:hover { filter: brightness(1.06); }
+.bi-channel:active { transform: scale(0.99); }
+.bi-channel-whatsapp { background: #25d366; }
+.bi-channel-telegram { background: #229ed9; }
+
+.bi-channel-logo {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.bi-channel-logo img { width: 27px; height: 27px; }
+.bi-channel-label { flex: 1; font-size: 16px; font-weight: 600; }
+
+.bi-channel-qr {
+  flex: none;
+  width: 66px;
+  height: 66px;
+  padding: 6px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.bi-channel-qr svg { display: block; width: 100%; height: 100%; }
+
+/* La mention appartient aux deux boutons : l'air au-dessous le dit. */
+.bi-channels-same {
+  margin: 2px 0 18px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--bi-ink-tertiary);
+}
+
+.bi-channels-visual {
+  display: block;
+  width: 100%;
+  max-width: 660px;
+  border-radius: 18px;
+}
+
+/* MARK: Feuille « Ça arrive bientôt » ------------------------------------ */
+
+.bi-sheet-layer { position: fixed; inset: 0; z-index: 40; }
+
+/* Le fond s'assombrit progressivement. */
+.bi-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.bi-sheet-layer.is-open .bi-sheet-backdrop { opacity: 1; }
+
+.bi-sheet {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(640px, calc(100vw - 32px));
+  padding: 8px 26px 22px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-bottom: 0;
+  border-radius: 28px 28px 0 0;
+  background: var(--bi-surface);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+  cursor: grab;
+  touch-action: none;
+  transform: translate(-50%, calc(100% + 40px));
+  transition: transform 0.24s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Monte au ressort. */
+.bi-sheet-layer.is-open .bi-sheet {
+  transform: translate(-50%, 0);
+  transition: transform 0.46s cubic-bezier(0.2, 0.95, 0.3, 1.08);
+}
+
+/* La poignée répond : on la tire, ou on clique. */
+.bi-sheet-handle {
+  align-self: center;
+  width: 80px;
+  height: 21px;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.28);
+  background-clip: content-box;
+  cursor: grab;
+}
+
+.bi-sheet-head { display: flex; align-items: center; gap: 12px; }
+
+.bi-sheet-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--bi-amber);
+}
+
+.bi-sheet-icon .bi-engine-icon { width: 23px; height: 23px; }
+.bi-sheet-name { font-size: 16px; font-weight: 600; }
+.bi-sheet-soon { font-size: 14px; font-weight: 600; color: var(--bi-amber); }
+
+.bi-sheet-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--bi-ink-soft);
+  cursor: auto;
+}
+
+.bi-sheet-note { margin: 0; font-size: 14px; color: var(--bi-ink-tertiary); cursor: auto; }
+.bi-sheet .bi-button { margin-top: 2px; }
+
+/* MARK: Confettis -------------------------------------------------------- */
+
+.bi-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bi-screen,
+  .bi-screen.is-leaving { animation-duration: 1ms !important; }
+  .bi-stamp,
+  .bi-chat-sheet,
+  .bi-sheet { transition-duration: 1ms !important; }
+}
