@@ -96,11 +96,12 @@ const GLYPHS = {
     </>
   ),
   // `figure.stand.dress`, `figure.stand`, `figure.2` : le sujet se lit avant
-  // le mot, comme sur l'iOS.
+  // le mot, comme sur l'iOS. ⚠️ Tracés symétriques autour de x = 12 : la robe
+  // était décalée d'une unité et la tête ne tombait plus au milieu.
   woman: (
     <>
       <circle cx='12' cy='4.3' r='2.3' fill='currentColor' />
-      <path d='M9.7 7.6h4.6c.6 0 1.1.4 1.3.9l2.6 7.6h-3v5.6h-2v-5.6h-.4v5.6h-2v-5.6h-3l2.6-7.6c.2-.5.7-.9 1.3-.9z' fill='currentColor' />
+      <path d='M10.3 7.6h3.4a1.4 1.4 0 0 1 1.33.96L17.2 16h-2.8v5.4h-1.7V16h-1.4v5.4H9.6V16H6.8l2.17-7.44A1.4 1.4 0 0 1 10.3 7.6z' fill='currentColor' />
     </>
   ),
   man: (
@@ -117,7 +118,7 @@ const GLYPHS = {
       </g>
       <g transform='translate(6.6 1.2) scale(.9)'>
         <circle cx='12' cy='4.3' r='2.3' fill='currentColor' />
-        <path d='M9.7 7.6h4.6c.6 0 1.1.4 1.3.9l2.6 7.6h-3v5.6h-2v-5.6h-.4v5.6h-2v-5.6h-3l2.6-7.6c.2-.5.7-.9 1.3-.9z' fill='currentColor' />
+        <path d='M10.3 7.6h3.4a1.4 1.4 0 0 1 1.33.96L17.2 16h-2.8v5.4h-1.7V16h-1.4v5.4H9.6V16H6.8l2.17-7.44A1.4 1.4 0 0 1 10.3 7.6z' fill='currentColor' />
       </g>
     </>
   )
