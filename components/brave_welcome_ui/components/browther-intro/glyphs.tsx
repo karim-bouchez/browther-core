@@ -95,6 +95,51 @@ const GLYPHS = {
       <path d='M16.3 13.6c2.7.1 4.6 2 4.9 5.2h-4.1c-.2-2-1-3.8-2.4-4.8.5-.3 1-.4 1.6-.4z' fill='currentColor' opacity='.75' />
     </>
   ),
+  // Ce que l'import ramène (écran desktop) : `star`, `key`, `clock`,
+  // `puzzlepiece`, `creditcard`, `text.cursor`, `magnifyingglass`.
+  star: (
+    <path
+      d='M12 3.2l2.6 5.5 6 .7-4.4 4.1 1.2 5.9L12 16.5l-5.4 2.9 1.2-5.9-4.4-4.1 6-.7z'
+      fill='currentColor'
+    />
+  ),
+  key: (
+    <>
+      <circle cx='8' cy='12' r='4.2' {...stroke} strokeWidth={2.2} />
+      <path d='M12.2 12H21M17.5 12v3.2M20.5 12v2.4' {...stroke} strokeWidth={2.2} />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx='12' cy='12' r='8.5' {...stroke} strokeWidth={2.1} />
+      <path d='M12 7.5V12l3 2' {...stroke} strokeWidth={2.1} />
+    </>
+  ),
+  puzzle: (
+    <path
+      d='M9.5 4a2 2 0 014 0v1.5H18a1 1 0 011 1V11h-1.5a2 2 0 000 4H19v4.5a1 1 0 01-1 1h-4.5V19a2 2 0 00-4 0v1.5H5a1 1 0 01-1-1V15h1.5a2 2 0 000-4H4V6.5a1 1 0 011-1h4.5z'
+      fill='currentColor'
+    />
+  ),
+  creditCard: (
+    <>
+      <rect x='3' y='5.5' width='18' height='13' rx='2.5' {...stroke} strokeWidth={2} />
+      <path d='M3.5 10h17' {...stroke} strokeWidth={2.6} />
+      <path d='M7 15h4' {...stroke} strokeWidth={2} />
+    </>
+  ),
+  textCursor: (
+    <>
+      <rect x='3' y='7' width='18' height='10' rx='2.5' {...stroke} strokeWidth={2} />
+      <path d='M8 10v4' {...stroke} strokeWidth={2} />
+    </>
+  ),
+  magnifier: (
+    <>
+      <circle cx='10.5' cy='10.5' r='6' {...stroke} strokeWidth={2.2} />
+      <path d='M15 15l5 5' {...stroke} strokeWidth={2.4} />
+    </>
+  ),
   // `figure.stand.dress`, `figure.stand`, `figure.2` : le sujet se lit avant
   // le mot, comme sur l'iOS. ⚠️ Tracés symétriques autour de x = 12 : la robe
   // était décalée d'une unité et la tête ne tombait plus au milieu.

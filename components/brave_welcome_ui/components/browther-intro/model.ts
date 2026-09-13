@@ -11,6 +11,7 @@ import {
   DefaultBrowserBrowserProxyImpl,
   WelcomeBrowserProxyImpl
 } from '../../api/welcome_browser_proxy'
+import { IntroImport, SourceProfile, useIntroImport } from './import'
 
 // Portage desktop de `BrowtherIntroModel.swift` (iOS, référence recettée).
 // La spécification fait foi : `private/docs/ONBOARDING-SPEC.md`.
@@ -27,6 +28,7 @@ export type IntroStep =
   | 'blur'
   | 'music'
   | 'default'
+  | 'import'
   | 'channels'
 
 export type IntroFeature = 'basarunaa' | 'sawtunaa'
@@ -89,20 +91,27 @@ export interface IntroModel {
   dismissSoonDialog: () => void
   setAsDefaultBrowser: () => void
   later: () => void
+  /** L'import de l'ancien navigateur (écran desktop). */
+  importer: IntroImport
+  startImport: () => void
+  skipImport: () => void
   openChannel: (channel: Channel) => void
   finish: () => void
 }
 
 /**
- * L'état du parcours. Une seule source de vérité pour les six écrans : c'est
+ * L'état du parcours. Une seule source de vérité pour tous les écrans : c'est
  * lui qui décide ce que fait « Continuer » selon l'accès anticipé, qui écrit
  * les préférences, et qui émet l'analytique.
  */
 export function useIntroModel (
   steps: IntroStep[],
-  onFinish: (blurTarget: BlurTarget) => void
+  onFinish: (blurTarget: BlurTarget) => void,
+  importSources: SourceProfile[] | undefined
 ): IntroModel {
-  const [index, setIndex] = React.useState(0)
+  // L'écran courant est retenu par son NOM : si l'écran d'import s'insère
+  // après coup (navigateurs trouvés tard), l'écran affiché ne change pas.
+  const [step, setStep] = React.useState<IntroStep>(steps[0])
   const [direction, setDirection] = React.useState<1 | -1>(1)
   const [adsDemoOn, setAdsDemoOn] = React.useState(false)
   const [blurDemoOn, setBlurDemoOn] = React.useState(false)
@@ -118,7 +127,8 @@ export function useIntroModel (
   // farme.
   const celebrated = React.useRef(new Set<IntroStep>())
 
-  const step = steps[index]
+  const index = Math.max(0, steps.indexOf(step))
+  const importer = useIntroImport(importSources)
 
   React.useEffect(() => {
     track('onboarding_step_viewed', {
@@ -126,17 +136,34 @@ export function useIntroModel (
       index,
       early_access: isEarlyAccess
     })
-  }, [index])
+  }, [step])
 
-  const advance = React.useCallback(() => {
+  const advance = () => {
     setDirection(1)
-    setIndex(i => Math.min(i + 1, steps.length - 1))
-  }, [steps.length])
+    setStep(steps[Math.min(index + 1, steps.length - 1)])
+  }
 
-  const back = React.useCallback(() => {
+  const back = () => {
     setDirection(-1)
-    setIndex(i => Math.max(0, i - 1))
-  }, [])
+    setStep(steps[Math.max(0, index - 1)])
+  }
+
+  const celebrate = (key: IntroStep) => {
+    if (celebrated.current.has(key)) return
+    celebrated.current.add(key)
+    setCelebratedAt(Date.now())
+  }
+
+  React.useEffect(() => {
+    if (importer.status === 'done') celebrate('import')
+    if (importer.status === 'done' || importer.status === 'failed') {
+      track('onboarding_import_finished', {
+        browser: importer.source?.name,
+        succeeded: importer.status === 'done',
+        items: importer.imported
+      })
+    }
+  }, [importer.status])
 
   const toggleDemo = (demo: 'ads' | 'blur' | 'music') => {
     let on = false
@@ -152,10 +179,7 @@ export function useIntroModel (
       setMusicDemoOn(on)
     }
     track('onboarding_demo_toggled', { step: demo, on })
-    if (on && !celebrated.current.has(demo)) {
-      celebrated.current.add(demo)
-      setCelebratedAt(Date.now())
-    }
+    if (on) celebrate(demo)
   }
 
   const choose = (target: BlurTarget) => {
@@ -207,6 +231,19 @@ export function useIntroModel (
     advance()
   }
 
+  const startImport = () => {
+    track('onboarding_import_started', {
+      browser: importer.source?.name,
+      profiles: importer.source?.profiles.length ?? 0
+    })
+    importer.start()
+  }
+
+  const skipImport = () => {
+    track('onboarding_later_tapped', { feature: 'import' })
+    advance()
+  }
+
   const openChannel = (channel: Channel) => {
     track(CHANNEL_EVENTS[channel], { source: 'onboarding' })
     window.open(CHANNEL_URLS[channel], '_blank', 'noopener')
@@ -240,6 +277,9 @@ export function useIntroModel (
     dismissSoonDialog: () => setSoonFeature(null),
     setAsDefaultBrowser,
     later,
+    importer,
+    startImport,
+    skipImport,
     openChannel,
     finish
   }
@@ -248,36 +288,40 @@ export function useIntroModel (
 /**
  * Les écrans réellement présentés. `default` saute si Browther est déjà le
  * navigateur par défaut — ou s'il ne peut pas l'être (règle d'entreprise) :
- * inutile de proposer ce qui est fait ou impossible.
+ * inutile de proposer ce qui est fait ou impossible. `import` (desktop) n'existe
+ * que si un autre navigateur est installé ; il suit `default` : Browther
+ * devient le navigateur, puis il récupère ce que l'ancien contenait.
  */
-export function useIntroSteps (): IntroStep[] | undefined {
-  const [steps, setSteps] = React.useState<IntroStep[]>()
+export function useIntroSteps (
+  importSources: SourceProfile[] | undefined
+): IntroStep[] | undefined {
+  const [defaultState, setDefaultState] = React.useState<'offer' | 'skip'>()
+  const [timedOut, setTimedOut] = React.useState(false)
   React.useEffect(() => {
-    const withDefault: IntroStep[] =
-      ['welcome', 'ads', 'blur', 'music', 'default', 'channels']
-    const withoutDefault = withDefault.filter(s => s !== 'default')
-    let settled = false
-    const settle = (value: IntroStep[]) => {
-      if (settled) return
-      settled = true
-      setSteps(value)
-    }
     DefaultBrowserBrowserProxyImpl.getInstance()
       .requestDefaultBrowserState()
       .then(info => {
         const skip = info.isDefault || !info.canBeDefault ||
           info.isDisabledByPolicy
-        settle(skip ? withoutDefault : withDefault)
+        setDefaultState(skip ? 'skip' : 'offer')
       })
-      .catch(() => settle(withDefault))
+      .catch(() => setDefaultState('offer'))
     // Le navigateur répond en quelques millisecondes ; s'il ne répond pas, on
     // n'attend pas plus pour montrer l'accueil.
-    const timer = window.setTimeout(() => settle(withDefault), 1500)
+    const timer = window.setTimeout(() => setTimedOut(true), 1500)
     // Sentry : cf. `WelcomeDOMHandler::HandleBrowtherIntroStarted`.
     chrome.send('browtherIntroStarted')
     return () => window.clearTimeout(timer)
   }, [])
-  return steps
+  return React.useMemo(() => {
+    const known = defaultState !== undefined && importSources !== undefined
+    if (!known && !timedOut) return undefined
+    const steps: IntroStep[] = ['welcome', 'ads', 'blur', 'music']
+    if (defaultState !== 'skip') steps.push('default')
+    if (importSources && importSources.length > 0) steps.push('import')
+    steps.push('channels')
+    return steps
+  }, [defaultState, importSources, timedOut])
 }
 
 export interface SystemVolume {

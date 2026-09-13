@@ -71,7 +71,10 @@ export function useProfileCount () {
 /**
  * Browther : l'ancien parcours Brave (par défaut → thème/import → consentement
  * → chaînes) n'est plus présenté au premier lancement — l'introduction le
- * remplace. Il reste joignable pour la recette : `browther://welcome/?legacy`.
+ * remplace, import compris. Il reste joignable pour la recette :
+ * `browther://welcome/?legacy`. ⚠️ L'écran de consentement a disparu du premier
+ * lancement comme sur iOS et Android : Sentry et PostHog restent actifs par
+ * défaut, désactivables dans les Réglages (décision Karim, 2026-09-12).
  */
 export const isLegacyWelcomeFlow =
   new URLSearchParams(window.location.search).has('legacy')
@@ -103,13 +106,7 @@ export function useViewTypeTransition(currentViewType: ViewType | undefined) : V
   const states = React.useMemo(() => {
     // Browther: HelpWDP (Web Discovery) supprimé du flow.
     // L'écran HelpImprove est rebrandé pour Sentry/PostHog (cf. Phase 3.5).
-    // Browther : après l'introduction, l'import mène directement au Nouvel
-    // Onglet — l'écran de consentement disparaît du premier lancement, comme
-    // sur iOS et Android (Sentry et PostHog restent actifs par défaut et
-    // désactivables dans les Réglages ; décision Karim, 2026-09-12).
-    const nextAfterImport = isLegacyWelcomeFlow
-      ? ViewType.HelpImprove
-      : ViewType.WelcomeComplete
+    const nextAfterImport = ViewType.HelpImprove
 
     return {
       [ViewType.DefaultBrowser]: {  // The initial state view
@@ -147,15 +144,6 @@ export function useViewTypeTransition(currentViewType: ViewType | undefined) : V
       },
       [ViewType.FollowChannels]: {
         forward: ViewType.FollowChannels   // The end state view
-      },
-      // Browther : l'introduction puis la sortie ne transitent pas par cette
-      // machine (cf. `MainContainer`) ; présentes pour que la table couvre
-      // toutes les vues.
-      [ViewType.BrowtherIntro]: {
-        forward: ViewType.WelcomeComplete
-      },
-      [ViewType.WelcomeComplete]: {
-        forward: ViewType.WelcomeComplete
       },
     }
   }, [browserProfiles, currentSelectedBrowserProfiles])

@@ -183,7 +183,7 @@ export function StatusDot (props: { soon: boolean }) {
 }
 
 /**
- * Titre, sous-titre, scène, commandes : le gabarit de cinq des six écrans
+ * Titre, sous-titre, scène, commandes : le gabarit des écrans
  * (l'accueil a le sien, pleine image). Sur desktop, la scène passe à droite ;
  * les commandes gardent l'ordre de l'iOS, en bas de la colonne de texte.
  */

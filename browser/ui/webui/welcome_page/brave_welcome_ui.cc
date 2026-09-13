@@ -26,6 +26,7 @@
 #include "brave/components/constants/webui_url_constants.h"
 #include "brave/components/p3a/pref_names.h"
 #include "brave/components/web_discovery/buildflags/buildflags.h"
+#include "brave/grit/brave_generated_resources.h"
 #include "chrome/browser/browser_process.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/regional_capabilities/regional_capabilities_service_factory.h"
@@ -36,6 +37,7 @@
 #include "chrome/browser/ui/webui/theme_source.h"
 #include "chrome/common/pref_names.h"
 #include "chrome/grit/branded_strings.h"
+#include "chrome/grit/generated_resources.h"
 #include "components/country_codes/country_codes.h"
 #include "components/grit/brave_components_resources.h"
 #include "components/grit/brave_components_strings.h"
@@ -181,7 +183,23 @@ constexpr webui::LocalizedString kLocalizedStrings[] = {
     {"browtherIntroStartBrowsing", IDS_BROWTHER_INTRO_START_BROWSING},
     {"browtherIntroNotifBlur", IDS_BROWTHER_INTRO_NOTIF_BLUR},
     {"browtherIntroNotifMusic", IDS_BROWTHER_INTRO_NOTIF_MUSIC},
-    {"browtherIntroNotifNewProject", IDS_BROWTHER_INTRO_NOTIF_NEW_PROJECT}};
+    {"browtherIntroNotifNewProject", IDS_BROWTHER_INTRO_NOTIF_NEW_PROJECT},
+    {"browtherIntroImportTitle", IDS_BROWTHER_INTRO_IMPORT_TITLE},
+    {"browtherIntroImportSubtitle", IDS_BROWTHER_INTRO_IMPORT_SUBTITLE},
+    {"browtherIntroImportInProgress", IDS_BROWTHER_INTRO_IMPORT_IN_PROGRESS},
+    {"browtherIntroImportDone", IDS_BROWTHER_INTRO_IMPORT_DONE},
+    {"browtherIntroImportFailed", IDS_BROWTHER_INTRO_IMPORT_FAILED},
+    {"browtherIntroImportKeychainNote",
+     IDS_BROWTHER_INTRO_IMPORT_KEYCHAIN_NOTE},
+    // Les cases d'import des Réglages : déjà traduites dans toutes les langues.
+    {"browtherIntroImportFavorites", IDS_SETTINGS_IMPORT_FAVORITES_CHECKBOX},
+    {"browtherIntroImportPasswords", IDS_SETTINGS_IMPORT_PASSWORDS_CHECKBOX},
+    {"browtherIntroImportHistory", IDS_SETTINGS_IMPORT_HISTORY_CHECKBOX},
+    {"browtherIntroImportExtensions", IDS_SETTINGS_IMPORT_EXTENSIONS_CHECKBOX},
+    {"browtherIntroImportPayments", IDS_SETTINGS_IMPORT_PAYMENTS_CHECKBOX},
+    {"browtherIntroImportAutofill",
+     IDS_SETTINGS_IMPORT_AUTOFILL_FORM_DATA_CHECKBOX},
+    {"browtherIntroImportSearch", IDS_SETTINGS_IMPORT_SEARCH_ENGINES_CHECKBOX}};
 
 void OpenJapanWelcomePage(Profile* profile) {
   CHECK(profile);

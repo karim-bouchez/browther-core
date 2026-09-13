@@ -2837,4 +2837,10 @@ Tab + Enterキーの順に操作して開いているタブを切り替えます
 <translation id="6218129297980920848">Browther でぼかしが使えるようになりました。アプリを更新してご利用ください。</translation>
 <translation id="1037684847875164596">音楽の除去がコンピュータにもやってきます。</translation>
 <translation id="8448638108176907031">dev&amp;din の新しいプロジェクト：いち早くチェック。</translation>
+<translation id="4127456617121024663">ブックマークをそのまま引き継ぎましょう。</translation>
+<translation id="4726654110165721486">ブックマーク、パスワード、履歴が Browther に移ります。もう一方のブラウザからは何も削除されません。</translation>
+<translation id="5930749448918189991">インポート中…</translation>
+<translation id="5867996586785098799">Browther にインポートしました</translation>
+<translation id="4965873645100791506">インポートを完了できませんでした。設定からもう一度開始できます。</translation>
+<translation id="4666339299899065301">パスワードの読み込み時に、macOS が Mac のパスワードを求めることがあります。問題ありません。</translation>
 </translationbundle>

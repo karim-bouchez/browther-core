@@ -11,12 +11,15 @@ import './browther_intro.global.css'
 import { media, welcomeBackgroundUrl } from './assets'
 import Confetti from './confetti'
 import { Glyph } from './glyphs'
+import DataContext from '../../state/context'
+import { SourceProfile } from './import'
 import { BlurTarget, IntroModel, IntroStep, useIntroModel, useIntroSteps } from './model'
 import SoonDialog from './soon-dialog'
 import AdsStep from './step-ads'
 import BlurStep from './step-blur'
 import ChannelsStep from './step-channels'
 import DefaultBrowserStep from './step-default'
+import ImportStep from './step-import'
 import MusicStep from './step-music'
 import WelcomeStep from './step-welcome'
 
@@ -72,21 +75,32 @@ export default function BrowtherIntro (props: {
 }) {
   useForcedDarkTheme()
   React.useEffect(loadVerseFont, [])
-  const steps = useIntroSteps()
+  // Les navigateurs installés : lus par le parcours Brave au chargement de la
+  // page (`initializeImportDialog`).
+  const importSources: SourceProfile[] | undefined =
+    React.useContext(DataContext).browserProfiles
+  const steps = useIntroSteps(importSources)
   // Le fond reste noir pendant les quelques millisecondes où l'on demande au
-  // navigateur s'il est déjà celui par défaut.
+  // navigateur s'il est déjà celui par défaut et quels navigateurs sont là.
   return (
     <div className='browther-intro'>
-      {steps && <Intro steps={steps} onFinish={props.onFinish} />}
+      {steps && (
+        <Intro
+          steps={steps}
+          importSources={importSources}
+          onFinish={props.onFinish}
+        />
+      )}
     </div>
   )
 }
 
 function Intro (props: {
   steps: IntroStep[]
+  importSources: SourceProfile[] | undefined
   onFinish: (blurTarget: BlurTarget) => void
 }) {
-  const model = useIntroModel(props.steps, props.onFinish)
+  const model = useIntroModel(props.steps, props.onFinish, props.importSources)
   const leaving = useLeavingStep(model)
 
   return (
@@ -134,7 +148,7 @@ function Intro (props: {
 
 /**
  * « Nuit étoilée » (Karim, 2026-09-13) : la photo de l'accueil continue
- * derrière les cinq écrans suivants, floutée et noyée dans le noir — sur un
+ * derrière les écrans suivants, floutée et noyée dans le noir — sur un
  * écran de bureau, un fond noir uni laissait trop de vide.
  *
  * Deux mouvements, lents : une dérive continue (le ciel respire), et un
@@ -169,6 +183,7 @@ function renderStep (step: IntroStep, model: IntroModel, isActive: boolean) {
     case 'blur': return <BlurStep model={model} />
     case 'music': return <MusicStep model={model} isActive={isActive} />
     case 'default': return <DefaultBrowserStep model={model} />
+    case 'import': return <ImportStep model={model} />
     case 'channels': return <ChannelsStep model={model} />
   }
 }

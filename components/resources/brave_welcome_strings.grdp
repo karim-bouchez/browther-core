@@ -438,4 +438,28 @@
   New dev&amp;din project: discover it first.
 </message>
 
+<message name="IDS_BROWTHER_INTRO_IMPORT_TITLE" desc="Browther introduction (desktop): Title of the screen that imports data from the previous browser">
+  Bring your bookmarks along.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_IMPORT_SUBTITLE" desc="Browther introduction (desktop): Subtitle of the screen that imports data from the previous browser">
+  Your bookmarks, passwords and history come over to Browther. Nothing is removed from your other browser.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_IMPORT_IN_PROGRESS" desc="Browther introduction (desktop): Label of the disabled button and status while data is being imported from the previous browser">
+  Importing…
+</message>
+
+<message name="IDS_BROWTHER_INTRO_IMPORT_DONE" desc="Browther introduction (desktop): Status shown once data has been imported from the previous browser">
+  Imported into Browther
+</message>
+
+<message name="IDS_BROWTHER_INTRO_IMPORT_FAILED" desc="Browther introduction (desktop): Status shown when importing from the previous browser did not work">
+  The import didn’t go through. You can start it again from Settings.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_IMPORT_KEYCHAIN_NOTE" desc="Browther introduction (macOS): Note under the browser choice. macOS shows a system prompt asking for the Mac login password so the saved passwords of the other browser can be read">
+  For your passwords, macOS may ask for your Mac password. That’s expected.
+</message>
+
 </grit-part>
