@@ -426,4 +426,16 @@
   Start browsing
 </message>
 
+<message name="IDS_BROWTHER_INTRO_NOTIF_BLUR" desc="Browther introduction: Example notification from the dev&amp;din channel on the last introduction screen, during early access">
+  Blurring is available in Browther. Update the app to get it.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_NOTIF_MUSIC" desc="Browther introduction: Example notification from Browther on the last introduction screen, desktop">
+  Music removal is coming to your computer.
+</message>
+
+<message name="IDS_BROWTHER_INTRO_NOTIF_NEW_PROJECT" desc="Browther introduction: Example notification from the dev&amp;din channel on the last introduction screen, once features are released">
+  New dev&amp;din project: discover it first.
+</message>
+
 </grit-part>

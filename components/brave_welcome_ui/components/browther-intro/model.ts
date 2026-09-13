@@ -75,7 +75,7 @@ export interface IntroModel {
   blurDemoEverOn: boolean
   musicDemoOn: boolean
   blurTarget: BlurTarget
-  /** Non nul quand la feuille « Ça arrive bientôt » est ouverte. */
+  /** Non nul quand la modale « Ça arrive bientôt » est ouverte. */
   soonFeature: IntroFeature | null
   /** Instant du dernier tir de confettis (rendus par-dessus tout l'écran). */
   celebratedAt: number | null
@@ -86,7 +86,7 @@ export interface IntroModel {
   toggleDemo: (step: 'ads' | 'blur' | 'music') => void
   choose: (target: BlurTarget) => void
   activate: (feature: IntroFeature) => void
-  dismissSoonSheet: () => void
+  dismissSoonDialog: () => void
   setAsDefaultBrowser: () => void
   later: () => void
   openChannel: (channel: Channel) => void
@@ -237,7 +237,7 @@ export function useIntroModel (
     toggleDemo,
     choose,
     activate,
-    dismissSoonSheet: () => setSoonFeature(null),
+    dismissSoonDialog: () => setSoonFeature(null),
     setAsDefaultBrowser,
     later,
     openChannel,

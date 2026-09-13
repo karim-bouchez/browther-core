@@ -178,7 +178,10 @@ constexpr webui::LocalizedString kLocalizedStrings[] = {
      IDS_BROWTHER_INTRO_CHANNELS_SOON_DESCRIPTION},
     {"browtherIntroChannelsSameContent",
      IDS_BROWTHER_INTRO_CHANNELS_SAME_CONTENT},
-    {"browtherIntroStartBrowsing", IDS_BROWTHER_INTRO_START_BROWSING}};
+    {"browtherIntroStartBrowsing", IDS_BROWTHER_INTRO_START_BROWSING},
+    {"browtherIntroNotifBlur", IDS_BROWTHER_INTRO_NOTIF_BLUR},
+    {"browtherIntroNotifMusic", IDS_BROWTHER_INTRO_NOTIF_MUSIC},
+    {"browtherIntroNotifNewProject", IDS_BROWTHER_INTRO_NOTIF_NEW_PROJECT}};
 
 void OpenJapanWelcomePage(Profile* profile) {
   CHECK(profile);

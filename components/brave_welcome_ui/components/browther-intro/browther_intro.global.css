@@ -76,6 +76,48 @@
   overflow: hidden;
 }
 
+/* « Nuit étoilée » : la photo de l'accueil derrière les écrans suivants. */
+.bi-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Le ciel respire : une dérive si lente qu'on la sent plus qu'on ne la voit. */
+.bi-backdrop-drift {
+  position: absolute;
+  inset: -6%;
+  animation: bi-drift 48s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Le travelling : un cran vers la gauche à chaque écran, le décor suit le
+ * parcours. Largeur de 130 % pour avoir de quoi avancer sur six écrans. */
+.bi-backdrop-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 130%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(26px) brightness(0.34) saturate(0.85);
+  transform: translateX(calc(var(--bi-step, 0) * -3.2%));
+  transition: transform 1.6s var(--bi-ease);
+  will-change: transform;
+}
+
+.bi-backdrop-shade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 40%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+@keyframes bi-drift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.07) translate3d(-1.2%, -1.6%, 0); }
+}
+
 .bi-screen {
   position: absolute;
   inset: 0;
@@ -1329,70 +1371,132 @@
   color: var(--bi-ink-tertiary);
 }
 
-.bi-channels-visual {
-  display: block;
-  width: 100%;
-  max-width: 660px;
-  border-radius: 18px;
-}
-
-/* MARK: Feuille « Ça arrive bientôt » ------------------------------------ */
-
-.bi-sheet-layer { position: fixed; inset: 0; z-index: 40; }
-
-/* Le fond s'assombrit progressivement. */
-.bi-sheet-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.bi-sheet-layer.is-open .bi-sheet-backdrop { opacity: 1; }
-
-.bi-sheet {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
+.bi-channels-stack {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  width: min(640px, calc(100vw - 32px));
-  padding: 8px 26px 22px;
-  border: 1px solid rgba(251, 191, 36, 0.35);
-  border-bottom: 0;
-  border-radius: 28px 28px 0 0;
-  background: var(--bi-surface);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
-  cursor: grab;
-  touch-action: none;
-  transform: translate(-50%, calc(100% + 40px));
-  transition: transform 0.24s cubic-bezier(0.4, 0, 1, 1);
+  width: 100%;
+  max-width: 660px;
 }
 
-/* Monte au ressort. */
-.bi-sheet-layer.is-open .bi-sheet {
-  transform: translate(-50%, 0);
-  transition: transform 0.46s cubic-bezier(0.2, 0.95, 0.3, 1.08);
+.bi-channels-visual {
+  display: block;
+  width: 100%;
+  border-radius: 18px;
 }
 
-/* La poignée répond : on la tire, ou on clique. */
-.bi-sheet-handle {
-  align-self: center;
-  width: 80px;
-  height: 21px;
-  padding: 8px 20px;
+/* Les notifications : leur place est réservée dès l'arrivée (opacité seule),
+ * elles entrent l'une après l'autre avec le ressort « slam » du prototype v2
+ * (amortissement 0,55, réponse 0,42) — rien d'autre ne bouge. */
+.bi-notifs { display: flex; flex-direction: column; gap: 10px; }
+
+.bi-notif {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(44, 44, 46, 0.82);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07), 0 10px 24px rgba(0, 0, 0, 0.35);
+  animation: bi-notif-in 620ms linear(0, 0.0437, 0.1537, 0.3016, 0.464, 0.6233, 0.7673, 0.8884, 0.9834, 1.052, 1.0963, 1.1197, 1.1263, 1.1206, 1.1066, 1.0878, 1.0673, 1.0472, 1.0291, 1.0138, 1.0019, 0.9933, 0.9878, 0.9848, 0.984, 0.9848, 0.9866, 0.989, 0.9916, 0.9941, 0.9964, 0.9983, 0.9998, 1.0009, 1.0016, 1.0019, 1.002, 1.0019, 1.0017, 1.0014, 1) both;
+  animation-delay: calc(420ms + var(--i, 0) * 520ms);
+}
+
+@keyframes bi-notif-in {
+  from { opacity: 0; transform: translateY(-18px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+.bi-notif-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.bi-notif-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Le logotype dev&din est large : posé dans une tuile sombre, comme l'icône
+ * d'une chaîne. */
+.bi-notif-icon-devndin { background: #0f100e; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.bi-notif-icon-devndin img { width: 32px; height: auto; object-fit: contain; }
+
+.bi-notif b { display: block; font-size: 14px; font-weight: 600; }
+.bi-notif p { margin: 2px 0 0; font-size: 13.5px; line-height: 1.35; color: var(--bi-ink-soft); }
+.bi-notif time { font-size: 12px; white-space: nowrap; color: var(--bi-ink-tertiary); }
+
+/* MARK: Modale « Ça arrive bientôt » ------------------------------------- */
+
+/* Desktop : une modale centrée (Karim, 2026-09-13), pas la feuille de
+ * l'iOS. Elle monte avec un léger ressort et le fond s'assombrit
+ * progressivement. */
+.bi-dialog {
+  width: min(560px, calc(100vw - 48px));
+  max-width: none;
+  margin: auto;
+  padding: 0;
   border: 0;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.28);
-  background-clip: content-box;
-  cursor: grab;
+  background: transparent;
+  color: var(--bi-ink);
+  overflow: visible;
 }
 
-.bi-sheet-head { display: flex; align-items: center; gap: 12px; }
+.bi-dialog::backdrop {
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+}
 
-.bi-sheet-icon {
+.bi-dialog.is-open::backdrop { background: rgba(0, 0, 0, 0.55); }
+
+.bi-dialog-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 26px 28px 24px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 24px;
+  background: var(--bi-surface);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transform: scale(0.94) translateY(8px);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.bi-dialog.is-open .bi-dialog-card {
+  opacity: 1;
+  transform: none;
+  transition: transform 0.42s cubic-bezier(0.2, 0.95, 0.3, 1.06), opacity 0.2s ease;
+}
+
+.bi-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--bi-ink-soft) !important;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.bi-dialog-close:hover { background: rgba(255, 255, 255, 0.14); }
+.bi-dialog-close:focus-visible { outline: 3px solid rgba(165, 178, 153, 0.7); outline-offset: 2px; }
+
+.bi-dialog-head { display: flex; align-items: center; gap: 12px; padding-right: 36px; }
+
+.bi-dialog-icon {
   display: grid;
   place-items: center;
   width: 44px;
@@ -1402,20 +1506,19 @@
   color: var(--bi-amber);
 }
 
-.bi-sheet-icon .bi-engine-icon { width: 23px; height: 23px; }
-.bi-sheet-name { font-size: 16px; font-weight: 600; }
-.bi-sheet-soon { font-size: 14px; font-weight: 600; color: var(--bi-amber); }
+.bi-dialog-icon .bi-engine-icon { width: 23px; height: 23px; }
+.bi-dialog-name { font-size: 16px; font-weight: 600; }
+.bi-dialog-soon { font-size: 14px; font-weight: 600; color: var(--bi-amber); }
 
-.bi-sheet-body {
+.bi-dialog-body {
   margin: 0;
   font-size: 16px;
   line-height: 1.5;
   color: var(--bi-ink-soft);
-  cursor: auto;
 }
 
-.bi-sheet-note { margin: 0; font-size: 14px; color: var(--bi-ink-tertiary); cursor: auto; }
-.bi-sheet .bi-button { margin-top: 2px; }
+.bi-dialog-note { margin: 0; font-size: 14px; color: var(--bi-ink-tertiary); }
+.bi-dialog .bi-button { margin-top: 2px; }
 
 /* MARK: Confettis -------------------------------------------------------- */
 
@@ -1433,5 +1536,8 @@
   .bi-screen.is-leaving { animation-duration: 1ms !important; }
   .bi-stamp,
   .bi-chat-sheet,
-  .bi-sheet { transition-duration: 1ms !important; }
+  .bi-dialog-card,
+  .bi-backdrop-image { transition-duration: 1ms !important; }
+  .bi-backdrop-drift,
+  .bi-notif { animation: none !important; }
 }

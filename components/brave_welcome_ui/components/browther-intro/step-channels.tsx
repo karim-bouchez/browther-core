@@ -57,9 +57,45 @@ export default function ChannelsStep (props: { model: IntroModel }) {
         </div>
       </div>
       <div className='bi-scene bi-scene-channels'>
-        {/* Le visuel de l'écosystème, seul. ⛔ Pas de fausses notifications
-            par-dessus : elles annonçaient une sortie qui n'existe pas. */}
-        <img className='bi-channels-visual' src={channelsVisualUrl(uiLanguage())} alt='' />
+        <div className='bi-channels-stack'>
+          <img className='bi-channels-visual' src={channelsVisualUrl(uiLanguage())} alt='' />
+          <Notifications />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Les deux notifications du prototype v2, SOUS le visuel de l'écosystème
+ * (Karim, 2026-09-13). Elles ont quitté l'iOS faute de place sur l'écran d'un
+ * téléphone ; ici elles tiennent. Sous le visuel parce qu'elles entrent en
+ * animation : leur place est réservée dès l'arrivée, rien d'autre ne bouge.
+ */
+function Notifications () {
+  const language = uiLanguage()
+  const time = new Intl.RelativeTimeFormat(language, { numeric: 'auto', style: 'narrow' })
+  return (
+    <div className='bi-notifs'>
+      <div className='bi-notif' style={{ '--i': 0 } as React.CSSProperties}>
+        <span className='bi-notif-icon bi-notif-icon-devndin'>
+          <img src={icons.devndinLogo} alt='' />
+        </span>
+        <div>
+          <b>dev&amp;din</b>
+          <p>{getLocale(isEarlyAccess ? 'browtherIntroNotifBlur' : 'browtherIntroNotifNewProject')}</p>
+        </div>
+        <time>{time.format(0, 'second')}</time>
+      </div>
+      <div className='bi-notif' style={{ '--i': 1 } as React.CSSProperties}>
+        <span className='bi-notif-icon'>
+          <img src={icons.app} alt='' />
+        </span>
+        <div>
+          <b>Browther</b>
+          <p>{getLocale('browtherIntroNotifMusic')}</p>
+        </div>
+        <time>{time.format(-2, 'day')}</time>
       </div>
     </div>
   )

@@ -8,11 +8,11 @@ import { getLocale } from '$web-common/locale'
 
 import './browther_intro.global.css'
 
-import { media } from './assets'
+import { media, welcomeBackgroundUrl } from './assets'
 import Confetti from './confetti'
 import { Glyph } from './glyphs'
 import { BlurTarget, IntroModel, IntroStep, useIntroModel, useIntroSteps } from './model'
-import SoonSheet from './soon-sheet'
+import SoonDialog from './soon-dialog'
 import AdsStep from './step-ads'
 import BlurStep from './step-blur'
 import ChannelsStep from './step-channels'
@@ -92,6 +92,7 @@ function Intro (props: {
   return (
     <>
       <div className='bi-stage'>
+        <Backdrop step={model.index} />
         {/* Une liste à clés stables : l'écran qui sort garde SON instance (la
             vidéo ne repart pas de zéro pendant la sortie, l'extrait se tait). */}
         {[
@@ -118,16 +119,46 @@ function Intro (props: {
       <Header model={model} />
       {model.celebratedAt !== null && <Confetti start={model.celebratedAt} />}
       {model.soonFeature && (
-        <SoonSheet
+        <SoonDialog
           feature={model.soonFeature}
           onContinue={() => {
-            model.dismissSoonSheet()
+            model.dismissSoonDialog()
             model.advance()
           }}
-          onDismiss={model.dismissSoonSheet}
+          onDismiss={model.dismissSoonDialog}
         />
       )}
     </>
+  )
+}
+
+/**
+ * « Nuit étoilée » (Karim, 2026-09-13) : la photo de l'accueil continue
+ * derrière les cinq écrans suivants, floutée et noyée dans le noir — sur un
+ * écran de bureau, un fond noir uni laissait trop de vide.
+ *
+ * Deux mouvements, lents : une dérive continue (le ciel respire), et un
+ * travelling qui avance d'un cran à chaque écran — le décor suit le parcours,
+ * comme le demandait déjà la recette de l'ancienne étape « chaînes »
+ * (2026-08-07). L'accueil la couvre de sa propre photo, nette.
+ */
+function Backdrop (props: { step: number }) {
+  const [failed, setFailed] = React.useState(false)
+  return (
+    <div className='bi-backdrop' aria-hidden='true'>
+      {!failed && (
+        <div className='bi-backdrop-drift'>
+          <img
+            className='bi-backdrop-image'
+            src={welcomeBackgroundUrl}
+            alt=''
+            style={{ '--bi-step': props.step } as React.CSSProperties}
+            onError={() => setFailed(true)}
+          />
+        </div>
+      )}
+      <div className='bi-backdrop-shade' />
+    </div>
   )
 }
 
