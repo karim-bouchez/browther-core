@@ -137,6 +137,10 @@ brave_chrome_java_deps = [
   # Lus par BasarunaaBenchmark via AssetManager.open().
   "//brave/components/basarunaa/android_assets:basarunaa_models_android_assets",
 
+  # Browther: introduction (premier lancement) — médias, visuels et police de
+  # l'iOS, référencés à leur place, dans assets/browther_intro/ de l'APK.
+  "//brave/browser/browther_intro/android:browther_intro_android_assets",
+
   "//brave/third_party/zxing:zxing_java",
   "//brave/ui/android:base_java",
   "//third_party/android_deps:com_google_code_gson_gson_java",

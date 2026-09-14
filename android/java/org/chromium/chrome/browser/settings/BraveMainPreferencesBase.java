@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 
 import org.chromium.base.BraveFeatureList;
 import org.chromium.base.Callback;
@@ -29,7 +30,9 @@ import org.chromium.chrome.browser.brave_leo.BraveLeoPrefUtils;
 import org.chromium.chrome.browser.brave_news.BraveNewsPolicy;
 import org.chromium.chrome.browser.brave_origin.BraveOriginPlansActivity;
 import org.chromium.chrome.browser.brave_origin.BraveOriginSubscriptionPrefs;
+import org.chromium.chrome.browser.browther_intro.BrowtherIntroController;
 import org.chromium.chrome.browser.crypto_wallet.BraveWalletPolicy;
+import org.chromium.chrome.browser.firstrun.WelcomeOnboardingActivity;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.homepage.settings.BraveHomepageSettings;
 import org.chromium.chrome.browser.notifications.BraveNotificationWarningDialog;
@@ -45,6 +48,7 @@ import org.chromium.chrome.browser.rate.BraveRateDialogFragment;
 import org.chromium.chrome.browser.search_engines.TemplateUrlServiceFactory;
 import org.chromium.chrome.browser.settings.search.ChromeBaseSearchIndexProvider;
 import org.chromium.chrome.browser.toolbar.bottom.BottomToolbarConfiguration;
+import org.chromium.chrome.browser.tracing.settings.DeveloperSettings;
 import org.chromium.chrome.browser.vpn.BraveVpnPolicy;
 // Browther: imports VPN promo retirés (callout désactivé)
 // import org.chromium.chrome.browser.vpn.settings.VpnCalloutPreference;
@@ -141,6 +145,43 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
         initRateBrave();
         setPreferenceListeners();
         notificationClick();
+        addBrowtherRehearsalSection();
+    }
+
+    /**
+     * Browther : outil de recette de l'introduction (private/docs/ONBOARDING-SPEC.md § 9). Une
+     * section à nous, visible là où les options développeur de Chromium le sont (build local, ou
+     * débloquées en tapant la version) — ⛔ pas dans les options de débogage de Brave. Les deux
+     * entrées lancent le VRAI parcours du premier lancement.
+     */
+    private void addBrowtherRehearsalSection() {
+        if (!DeveloperSettings.shouldShowDeveloperSettings()) return;
+        Context context = getPreferenceManager().getContext();
+        PreferenceCategory category = new PreferenceCategory(context);
+        category.setKey("browther_rehearsal_section");
+        category.setTitle("Browther — recette");
+        category.setOrder(100000);
+        getPreferenceScreen().addPreference(category);
+        category.addPreference(
+                rehearsalEntry(context, "browther_replay_intro", "Rejouer l'introduction Browther",
+                        false));
+        category.addPreference(
+                rehearsalEntry(context, "browther_legacy_onboarding",
+                        "Ancien parcours d'accueil (Brave)", true));
+    }
+
+    private Preference rehearsalEntry(Context context, String key, String title, boolean legacy) {
+        Preference entry = new Preference(context);
+        entry.setKey(key);
+        entry.setTitle(title);
+        entry.setOnPreferenceClickListener(
+                preference -> {
+                    startActivity(
+                            BrowtherIntroController.replayIntent(
+                                    requireActivity(), WelcomeOnboardingActivity.class, legacy));
+                    return true;
+                });
+        return entry;
     }
 
     @Override

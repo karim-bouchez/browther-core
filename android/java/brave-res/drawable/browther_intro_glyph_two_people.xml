@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!-- Généré par private/assets/gen-android-intro-drawables.py — ne pas éditer. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <group android:translateX="-4.2" android:translateY="1.2" android:scaleX="0.9" android:scaleY="0.9">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M9.7 4.3a2.3 2.3 0 1 0 4.6 0a2.3 2.3 0 1 0 -4.6 0Z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M9.4 7.6h5.2c.9 0 1.6 .7 1.6 1.6v6.2h-2v6.2h-1.9v-5.5h-.6v5.5H9.8v-6.2h-2V9.2c0 -.9 .7 -1.6 1.6 -1.6z"/>
+  </group>
+  <group android:translateX="6.6" android:translateY="1.2" android:scaleX="0.9" android:scaleY="0.9">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M9.7 4.3a2.3 2.3 0 1 0 4.6 0a2.3 2.3 0 1 0 -4.6 0Z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M10.3 7.6h3.4a1.4 1.4 0 0 1 1.33 .96L17.2 16h-2.8v5.4h-1.7V16h-1.4v5.4H9.6V16H6.8l2.17 -7.44A1.4 1.4 0 0 1 10.3 7.6z"/>
+  </group>
+</vector>

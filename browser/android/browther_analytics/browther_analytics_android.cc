@@ -6,11 +6,13 @@
 #include <jni.h>
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "base/android/jni_array.h"
 #include "base/android/jni_string.h"
 #include "base/functional/bind.h"
+#include "base/strings/string_number_conversions.h"
 #include "base/task/single_thread_task_runner.h"
 #include "base/values.h"
 #include "brave/build/android/jni_headers/BrowtherAnalyticsBridge_jni.h"
@@ -79,7 +81,25 @@ void JNI_BrowtherAnalyticsBridge_TrackWithProps(
   base::android::AppendJavaStringArrayToStringVector(env, jvalues, &values);
   base::DictValue props;
   for (size_t i = 0; i < keys.size() && i < values.size(); ++i) {
-    props.Set(keys[i], values[i]);
+    // `BrowtherAnalyticsBridge.trackTyped` : le type voyage dans la clé
+    // (`early_access:bool`, `index:int`) pour que les propriétés arrivent
+    // typées comme sur iOS et desktop. Les autres appelants n'ont jamais de
+    // `:` dans leurs clés.
+    std::string_view key = keys[i];
+    if (key.ends_with(":bool")) {
+      key.remove_suffix(5);
+      props.Set(key, values[i] == "true");
+      continue;
+    }
+    if (key.ends_with(":int")) {
+      key.remove_suffix(4);
+      int number = 0;
+      if (base::StringToInt(values[i], &number)) {
+        props.Set(key, number);
+        continue;
+      }
+    }
+    props.Set(key, values[i]);
   }
   service->Track(base::android::ConvertJavaStringToUTF8(env, jevent_name),
                  std::move(props));

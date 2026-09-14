@@ -53,6 +53,32 @@ public final class BrowtherAnalyticsBridge {
     }
 
     /**
+     * Track un event dont les propriétés gardent leur TYPE (booléen, entier, texte), comme sur
+     * iOS et desktop : {@code early_access: true} et non {@code "true"}, sinon les séries
+     * PostHog des plateformes ne se comparent plus. {@code keyValues} alterne clés et valeurs.
+     *
+     * <p>Le type voyage dans la clé ({@code clé:bool}, {@code clé:int}), relu et retiré côté
+     * C++ ({@code browther_analytics_android.cc}) : la signature JNI ne change pas.
+     */
+    public static void trackTyped(String eventName, Object... keyValues) {
+        int count = keyValues.length / 2;
+        String[] keys = new String[count];
+        String[] values = new String[count];
+        for (int i = 0; i < count; i++) {
+            String key = String.valueOf(keyValues[2 * i]);
+            Object value = keyValues[2 * i + 1];
+            if (value instanceof Boolean) {
+                key += ":bool";
+            } else if (value instanceof Integer) {
+                key += ":int";
+            }
+            keys[i] = key;
+            values[i] = String.valueOf(value);
+        }
+        trackWithProps(eventName, keys, values);
+    }
+
+    /**
      * Incrémente le compteur cumulatif {@code music_seconds} publié sur
      * browther.devndin.com via {@code /api/stats/ingest} (parité avec iOS
      * {@code BrowtherStatsReporter.flushSawtunaaSeconds}). No-op si le

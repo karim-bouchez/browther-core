@@ -1,0 +1,68 @@
+# Copyright (c) 2026 The Browther Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Introduction Browther (Android) : les médias et les visuels embarqués dans
+# `assets/browther_intro/` de l'APK, lus par `BrowtherIntroAssets.java`.
+#
+# 🔴 Ce sont les fichiers de l'iOS, référencés À LEUR PLACE et non recopiés :
+# les mêmes médias sur toutes les plateformes (ONBOARDING-SPEC.md § 6),
+# produits une fois et arbitrés avec Karim. Un déplacement côté iOS casse ce
+# build bruyamment — c'est voulu.
+#
+# ⚠️ Uniquement `renaming_sources` (pas `sources`) : les deux listes
+# s'additionnent dans l'APK, cf. //brave/components/sawtunaa/android_assets.
+#
+# Le fond de l'accueil n'est pas ici : c'est un fond du Nouvel Onglet déjà
+# embarqué (`browther_backgrounds_mobile/`).
+#
+# Cible tirée par `brave_chrome_java_deps` (//brave/build/android/config.gni),
+# sinon les assets ne remontent pas jusqu'à `chrome_java`.
+
+import("//build/config/android/rules.gni")
+
+assert(is_android)
+
+_intro = "//brave/ios/brave-ios/Sources/Brave/Frontend/Browther/Intro/Resources"
+_images = "//brave/ios/brave-ios/Sources/Brave/Assets/Images.xcassets"
+_onboarding = "//brave/ios/brave-ios/Sources/Onboarding/WelcomeFocus/Resources/FocusOnboardingImages.xcassets"
+
+android_assets("browther_intro_android_assets") {
+  renaming_sources = [
+    "$_intro/AmiriQuran-Regular.ttf",
+    "$_intro/browther-intro-audio-after.m4a",
+    "$_intro/browther-intro-audio-before.m4a",
+    "$_intro/browther-intro-photo.jpg",
+    "$_intro/browther-intro-photo.json",
+    "$_intro/browther-intro-video.json",
+    "$_intro/browther-intro-video.mp4",
+    "$_images/browther.app.icon.imageset/browther.app.icon@3x.png",
+    "$_images/browther-chat-wallpaper.imageset/browther-chat-wallpaper-dark.png",
+    "$_onboarding/channel-telegram.imageset/channel-telegram@3x.png",
+    "$_onboarding/channel-whatsapp.imageset/channel-whatsapp@3x.png",
+    "$_onboarding/devndin-channels-ar.imageset/devndin-channels-ar.png",
+    "$_onboarding/devndin-channels-en.imageset/devndin-channels-en.png",
+    "$_onboarding/devndin-channels-fr.imageset/devndin-channels-fr.png",
+  ]
+  renaming_destinations = [
+    "browther_intro/AmiriQuran-Regular.ttf",
+    "browther_intro/browther-intro-audio-after.m4a",
+    "browther_intro/browther-intro-audio-before.m4a",
+    "browther_intro/browther-intro-photo.jpg",
+    "browther_intro/browther-intro-photo.json",
+    "browther_intro/browther-intro-video.json",
+    "browther_intro/browther-intro-video.mp4",
+    "browther_intro/browther-app-icon.png",
+    "browther_intro/browther-chat-wallpaper-dark.png",
+    "browther_intro/channel-telegram.png",
+    "browther_intro/channel-whatsapp.png",
+    "browther_intro/devndin-channels-ar.png",
+    "browther_intro/devndin-channels-en.png",
+    "browther_intro/devndin-channels-fr.png",
+  ]
+
+  # Médias déjà compressés ; non compressés dans l'APK, ils s'ouvrent par
+  # `AssetManager.openFd()` (MediaExtractor) sans copie.
+  disable_compression = true
+}

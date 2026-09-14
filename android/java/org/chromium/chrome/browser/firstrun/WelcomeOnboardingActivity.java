@@ -61,6 +61,7 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.BraveConfig;
 import org.chromium.chrome.browser.BraveLocalState;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_intro.BrowtherIntroController;
 import org.chromium.chrome.browser.customtabs.CustomTabActivity;
 import org.chromium.chrome.browser.day_zero.DayZeroHelper;
 import org.chromium.chrome.browser.metrics.ChangeMetricsReportingStateCalledFrom;
@@ -151,6 +152,9 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     private Button mBtnChannelWhatsApp;
     private Button mBtnChannelTelegram;
     private Button mBtnChannelsDone;
+    // Browther : l'introduction (six écrans) remplace ce parcours au premier lancement. Nul quand
+    // l'ancien parcours est demandé explicitement (Réglages › Browther — recette).
+    @Nullable private BrowtherIntroController mBrowtherIntro;
 
     private Guideline mSplashGuideline;
     private ViewPager2 mVariantYPager;
@@ -327,8 +331,11 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
      */
     private void launchPendingIntentAndFinish() {
         // Browther: track end-of-onboarding pour PostHog (C++ dédupe via
-        // kOnboardingEventSent — safe à appeler à chaque fin).
-        BrowtherAnalyticsBridge.track("onboarding_completed");
+        // kOnboardingEventSent — safe à appeler à chaque fin). L'introduction l'émet elle-même,
+        // avec `blur_target` et `early_access` : ne pas la doubler d'un event sans propriétés.
+        if (mBrowtherIntro == null) {
+            BrowtherAnalyticsBridge.track("onboarding_completed");
+        }
         if (!sendFirstRunCompleteIntent()) {
             finish();
         } else {
@@ -581,6 +588,10 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (mBrowtherIntro != null) {
+            mBrowtherIntro.onActivityResult(requestCode, resultCode);
+            return;
+        }
         assert requestCode == BraveConstants.DEFAULT_BROWSER_ROLE_REQUEST_CODE;
         if (resultCode == RESULT_OK) {
             // Browther: user a accepté Browther comme navigateur par défaut.
@@ -603,6 +614,20 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     @Override
     public void triggerLayoutInflation() {
         super.triggerLayoutInflation();
+        // Browther : l'introduction (private/docs/ONBOARDING-SPEC.md). L'écran reste noir le temps
+        // que le natif soit prêt, puis `finishNativeInitialization` la démarre.
+        if (BrowtherIntroController.shouldShow(getIntent())) {
+            mBrowtherIntro = new BrowtherIntroController(this, () -> finalStep(false));
+            setContentView(mBrowtherIntro.getView());
+            checkReferral();
+            if (PackageUtils.isFirstInstall(this)) {
+                ChromeSharedPreferences.getInstance()
+                        .writeBoolean(
+                                BravePreferenceKeys.BRAVE_TAB_GROUPS_ENABLED_DEFAULT_VALUE, false);
+            }
+            onInitialLayoutInflationComplete();
+            return;
+        }
         setContentView(R.layout.activity_welcome_onboarding);
 
         mSplashGuideline = findViewById(R.id.splash_anchor);
@@ -740,6 +765,10 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
     @Override
     public void finishNativeInitialization() {
         super.finishNativeInitialization();
+        if (mBrowtherIntro != null) {
+            mBrowtherIntro.start();
+            return;
+        }
 
         mIsP3aManaged = BraveLocalState.get().isManagedPreference(BravePref.P3A_ENABLED);
         mIsCrashReportingManaged =
@@ -987,7 +1016,20 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
 
     @Override
     public @BackPressResult int handleBackPress() {
+        // Browther : le retour recule d'un écran de l'introduction, jamais au-delà.
+        if (mBrowtherIntro != null) {
+            mBrowtherIntro.handleBackPress();
+        }
         return BackPressResult.SUCCESS;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mBrowtherIntro != null) {
+            mBrowtherIntro.destroy();
+            mBrowtherIntro = null;
+        }
+        super.onDestroy();
     }
 
     @Override
