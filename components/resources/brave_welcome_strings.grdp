@@ -462,4 +462,8 @@
   For your passwords, macOS may ask for your Mac password. That’s expected.
 </message>
 
+<message name="IDS_BROWTHER_INTRO_CHANNELS_SCAN_HERE" desc="Browther introduction (desktop): Short hint inside each channel button, followed by an arrow pointing to the QR code to scan with a phone">
+  Scan here
+</message>
+
 </grit-part>

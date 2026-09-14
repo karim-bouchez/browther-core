@@ -35,9 +35,38 @@ function loadArrayBuffer (url: string): Promise<ArrayBuffer> {
  * Web Audio plutôt que deux `<audio>` : les deux pistes partent sur la même
  * horloge, à l'échantillon près, et ne dérivent jamais l'une de l'autre.
  *
- * ⚠️ Rien ne démarre tout seul : le contexte audio n'est créé qu'au premier
- * geste (lecture ou mise sur ON), jamais à l'arrivée sur l'écran.
+ * ⚠️ Rien ne JOUE tout seul : l'extrait part au geste (lecture ou mise sur
+ * ON). Les pistes sont chargées et décodées d'avance (`warmUp`), sur un
+ * contexte partagé déjà créé (`warmUpIntroAudio`).
  */
+/**
+ * Le contexte audio de l'introduction, partagé.
+ *
+ * ⚠️ Le tout premier `new AudioContext()` de la page fige le fil principal une
+ * demi-seconde (~580 ms mesurés dans le vrai build, une seule longtask ; les
+ * suivants ne coûtent rien). Créé au premier ON, il figeait l'interrupteur au
+ * milieu de sa course, alors que les bascules suivantes étaient fluides
+ * (recette Karim, 2026-09-14). Il est donc créé sur l'ACCUEIL, où rien n'est
+ * animé par le fil principal (la dérive du fond est au compositeur), et
+ * suspendu : rien ne sort avant le geste. ⛔ Pas sur l'écran Musique : ses
+ * barres sont dessinées image par image et se figeaient à leur tour.
+ */
+let sharedContext: AudioContext | undefined
+
+function introAudioContext () {
+  if (!sharedContext) {
+    sharedContext = new AudioContext()
+    if (sharedContext.state === 'running') {
+      sharedContext.suspend().catch(() => {})
+    }
+  }
+  return sharedContext
+}
+
+export function warmUpIntroAudio () {
+  introAudioContext()
+}
+
 class DualTrackPlayer {
   private context?: AudioContext
   private buffers?: [AudioBuffer, AudioBuffer]
@@ -55,7 +84,7 @@ class DualTrackPlayer {
 
   private prepare () {
     this.loading = this.loading ?? (async () => {
-      const context = new AudioContext()
+      const context = introAudioContext()
       this.context = context
       const decode = async (url: string) =>
         context.decodeAudioData(await loadArrayBuffer(url))
@@ -86,6 +115,11 @@ class DualTrackPlayer {
         gain.gain.setTargetAtTime(value, now, 0.012)
       }
     }
+  }
+
+  /** Préparer sans jouer : contexte suspendu, pistes décodées. */
+  warmUp () {
+    this.prepare().catch(() => {})
   }
 
   setMusicRemoved (removed: boolean) {
@@ -143,12 +177,14 @@ class DualTrackPlayer {
 
   dispose () {
     this.stop()
-    this.context?.close().catch(() => {})
+    // Partagé : suspendu, pas fermé — le recréer coûterait de nouveau.
+    this.context?.suspend().catch(() => {})
   }
 }
 
 export interface IntroAudio {
   isPlaying: boolean
+  warmUp: () => void
   progress: number
   toggle: () => void
   play: () => void
@@ -193,6 +229,7 @@ export function useIntroAudio (): IntroAudio {
 
   return {
     isPlaying,
+    warmUp: () => player.warmUp(),
     progress,
     toggle: () => (player.playing ? pause() : play()),
     play,

@@ -9,6 +9,7 @@ import { loadTimeData } from '$web-common/loadTimeData'
 
 import { ChannelQrCode, TELEGRAM_QR, WHATSAPP_QR } from '../follow-channels/qr_codes'
 import { channelsVisualUrl, icons } from './assets'
+import { Glyph } from './glyphs'
 import { CHANNEL_URLS, Channel, IntroModel, isEarlyAccess } from './model'
 
 function uiLanguage () {
@@ -118,7 +119,11 @@ function ChannelButton (props: { model: IntroModel, channel: Channel, qr: Channe
           ? 'braveWelcomeFollowChannelsWhatsApp'
           : 'braveWelcomeFollowChannelsTelegram')}
       </span>
-      {/* Décoratif pour un lecteur d'écran : le bouton dit déjà où il mène. */}
+      {/* Décoratifs pour un lecteur d'écran : le bouton dit déjà où il mène. */}
+      <span className='bi-channel-scan' aria-hidden='true'>
+        {getLocale('browtherIntroChannelsScanHere')}
+        <Glyph name='arrowRight' />
+      </span>
       <span className='bi-channel-qr' aria-hidden='true'>
         <svg viewBox={`0 0 ${props.qr.size} ${props.qr.size}`}>
           <path d={props.qr.path} fill='#000' shapeRendering='crispEdges' />

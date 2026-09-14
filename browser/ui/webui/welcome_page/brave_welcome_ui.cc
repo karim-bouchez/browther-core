@@ -184,6 +184,7 @@ constexpr webui::LocalizedString kLocalizedStrings[] = {
     {"browtherIntroNotifBlur", IDS_BROWTHER_INTRO_NOTIF_BLUR},
     {"browtherIntroNotifMusic", IDS_BROWTHER_INTRO_NOTIF_MUSIC},
     {"browtherIntroNotifNewProject", IDS_BROWTHER_INTRO_NOTIF_NEW_PROJECT},
+    {"browtherIntroChannelsScanHere", IDS_BROWTHER_INTRO_CHANNELS_SCAN_HERE},
     {"browtherIntroImportTitle", IDS_BROWTHER_INTRO_IMPORT_TITLE},
     {"browtherIntroImportSubtitle", IDS_BROWTHER_INTRO_IMPORT_SUBTITLE},
     {"browtherIntroImportInProgress", IDS_BROWTHER_INTRO_IMPORT_IN_PROGRESS},

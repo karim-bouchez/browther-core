@@ -2843,4 +2843,5 @@ Tab + Enterキーの順に操作して開いているタブを切り替えます
 <translation id="5867996586785098799">Browther にインポートしました</translation>
 <translation id="4965873645100791506">インポートを完了できませんでした。設定からもう一度開始できます。</translation>
 <translation id="4666339299899065301">パスワードの読み込み時に、macOS が Mac のパスワードを求めることがあります。問題ありません。</translation>
+<translation id="825541543844369363">ここをスキャン</translation>
 </translationbundle>

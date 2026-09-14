@@ -23,6 +23,7 @@ const stroke = {
 const GLYPHS = {
   chevronLeft: <path d='M15 5l-7 7 7 7' {...stroke} strokeWidth={2.4} />,
   chevronRight: <path d='M9 5l7 7-7 7' {...stroke} strokeWidth={2.4} />,
+  arrowRight: <path d='M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5' {...stroke} strokeWidth={2.4} />,
   check: <path d='M5 12.5l4.5 4.5L19 7.5' {...stroke} strokeWidth={2.8} />,
   xmark: <path d='M6.5 6.5l11 11M17.5 6.5l-11 11' {...stroke} strokeWidth={2.6} />,
   lock: (

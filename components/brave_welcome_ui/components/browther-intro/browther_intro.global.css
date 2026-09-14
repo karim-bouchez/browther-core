@@ -1399,9 +1399,10 @@
 
 .bi-import-actions { display: flex; flex-direction: column; gap: 4px; }
 
-/* Après un import réussi, « Continuer » se remplit de vert de gauche à droite :
- * quand il est plein, l'écran passe seul à la suite. Le vert est celui des
- * coches de la scène. */
+/* Après un import réussi, « Continuer » se grise de gauche à droite : quand il
+ * est plein, l'écran passe seul à la suite. Un voile sombre léger plutôt
+ * qu'une teinte (Karim, 2026-09-14 : pas de vert) — il reste visible sur le
+ * gris du survol, où se trouve le pointeur juste après « Importer ». */
 .bi-button-primary.is-counting {
   position: relative;
   isolation: isolate;
@@ -1413,7 +1414,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: #b9ecd0;
+  background: rgba(0, 0, 0, 0.1);
   transform: scaleX(0);
   transform-origin: left center;
   animation: bi-countdown var(--bi-countdown, 3500ms) linear forwards;
@@ -1632,6 +1633,34 @@
 .bi-channel-logo img { width: 27px; height: 27px; }
 .bi-channel-label { flex: 1; font-size: 16px; font-weight: 600; }
 
+/* « Scanne ici → » : sur un ordinateur, le QR est le chemin principal, mais
+ * rien ne disait qu'il est là pour le téléphone (Karim, 2026-09-14). */
+.bi-channel-scan {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bi-channel-scan .bi-glyph { font-size: 15px; animation: bi-scan-nudge 1.8s ease-in-out infinite; }
+[dir='rtl'] .bi-channel-scan .bi-glyph { scale: -1 1; }
+
+@keyframes bi-scan-nudge {
+  0%, 60%, 100% { translate: 0; }
+  30% { translate: 3px; }
+}
+
+[dir='rtl'] .bi-channel-scan .bi-glyph { animation-name: bi-scan-nudge-rtl; }
+
+@keyframes bi-scan-nudge-rtl {
+  0%, 60%, 100% { translate: 0; }
+  30% { translate: -3px; }
+}
+
 .bi-channel-qr {
   flex: none;
   width: 66px;
@@ -1821,6 +1850,7 @@
   .bi-backdrop-drift,
   .bi-notif,
   .bi-transfer-track span,
+  .bi-channel-scan .bi-glyph,
   .bi-transfer-state .bi-glyph { animation: none !important; }
   .bi-transfer-item.is-current .bi-transfer-state::after { animation-duration: 3s !important; }
 }

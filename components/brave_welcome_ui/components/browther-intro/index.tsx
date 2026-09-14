@@ -9,6 +9,7 @@ import { getLocale } from '$web-common/locale'
 import './browther_intro.global.css'
 
 import { media, welcomeBackgroundUrl } from './assets'
+import { warmUpIntroAudio } from './audio'
 import Confetti from './confetti'
 import { Glyph } from './glyphs'
 import DataContext from '../../state/context'
@@ -104,6 +105,12 @@ function Intro (props: {
 }) {
   const model = useIntroModel(props.steps, props.onFinish, props.importSources)
   const leaving = useLeavingStep(model)
+
+  // Sur l'accueil, une fois affiché : cf. `introAudioContext`.
+  React.useEffect(() => {
+    const timer = window.setTimeout(warmUpIntroAudio, 1000)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   return (
     <>

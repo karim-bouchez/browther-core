@@ -33,6 +33,14 @@ export default function MusicStep (props: { model: IntroModel, isActive: boolean
     if (!props.isActive) audio.stop()
   }, [props.isActive])
 
+  // Les pistes se chargent et se décodent en silence une fois l'écran entré
+  // (après sa transition de 420 ms) : au premier ON, il ne reste qu'à jouer.
+  React.useEffect(() => {
+    if (!props.isActive) return
+    const timer = window.setTimeout(audio.warmUp, 700)
+    return () => window.clearTimeout(timer)
+  }, [props.isActive])
+
   return (
     <IntroLayout
       title={getLocale('browtherIntroMusicTitle')}
