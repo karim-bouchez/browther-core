@@ -158,7 +158,7 @@ export function useIntroModel (
     if (importer.status === 'done') celebrate('import')
     if (importer.status === 'done' || importer.status === 'failed') {
       track('onboarding_import_finished', {
-        browser: importer.source?.name,
+        browser: importer.source?.browser,
         succeeded: importer.status === 'done',
         items: importer.imported
       })
@@ -233,8 +233,9 @@ export function useIntroModel (
 
   const startImport = () => {
     track('onboarding_import_started', {
-      browser: importer.source?.name,
-      profiles: importer.source?.profiles.length ?? 0
+      browser: importer.source?.browser,
+      profiles: importer.sources
+        .filter(s => s.browser === importer.source?.browser).length
     })
     importer.start()
   }

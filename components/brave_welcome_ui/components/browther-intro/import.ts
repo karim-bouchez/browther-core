@@ -64,12 +64,18 @@ export type SourceProfile = BrowserProfile & {
   payments?: boolean
 }
 
-/** Un navigateur installé, avec ses profils. */
+/**
+ * Ce qu'on peut importer : UN profil d'UN navigateur. Une seule liste, pas un
+ * navigateur puis ses profils — deux niveaux de choix ne se lisaient pas
+ * (recette Karim, 2026-09-13).
+ */
 export interface ImportSource {
-  name: string
+  profile: SourceProfile
+  browser: string
   /** Clé des icônes Brave ; absente pour un navigateur Chromium inconnu. */
   browserType?: string
-  profiles: SourceProfile[]
+  /** Nom du profil, seulement quand ce navigateur en a plusieurs. */
+  profileLabel?: string
 }
 
 export type ImportStatus = 'idle' | 'running' | 'done' | 'failed'
@@ -77,14 +83,12 @@ export type ImportStatus = 'idle' | 'running' | 'done' | 'failed'
 export interface IntroImport {
   sources: ImportSource[]
   source: ImportSource | undefined
-  profile: SourceProfile | undefined
   status: ImportStatus
   /** L'élément que le navigateur est en train d'importer. */
   current: ImportItem | null
   /** Les éléments terminés. */
   imported: ImportItem[]
-  selectSource: (name: string) => void
-  selectProfile: (index: number) => void
+  selectSource: (index: number) => void
   start: () => void
 }
 
@@ -92,26 +96,35 @@ export function offeredItems (profile: SourceProfile | undefined) {
   return profile ? IMPORT_ITEMS.filter(item => profile[item]) : []
 }
 
-function groupSources (profiles: SourceProfile[] | undefined): ImportSource[] {
-  const sources: ImportSource[] = []
-  for (const profile of profiles ?? []) {
-    const name = profile.browserType ?? profile.name
-    let source = sources.find(s => s.name === name)
-    if (!source) {
-      source = { name, browserType: profile.browserType, profiles: [] }
-      sources.push(source)
+/**
+ * ⚠️ Pour les navigateurs Chromium, le natif colle le nom du profil à celui du
+ * navigateur (« Google Chrome Your Chrome », `importer_list.cc`) et laisse
+ * `profileName` vide : on l'en retire pour l'afficher à part.
+ */
+function listSources (profiles: SourceProfile[] | undefined): ImportSource[] {
+  const all = profiles ?? []
+  return all.map(profile => {
+    const browser = profile.browserType ?? profile.name
+    const siblings = all.filter(p => (p.browserType ?? p.name) === browser)
+    const suffix = profile.name.startsWith(browser)
+      ? profile.name.slice(browser.length).trim()
+      : ''
+    return {
+      profile,
+      browser,
+      browserType: profile.browserType,
+      profileLabel: siblings.length > 1
+        ? (profile.profileName || suffix || undefined)
+        : undefined
     }
-    source.profiles.push(profile)
-  }
-  return sources
+  })
 }
 
 export function useIntroImport (
   profiles: SourceProfile[] | undefined
 ): IntroImport {
-  const sources = React.useMemo(() => groupSources(profiles), [profiles])
-  const [sourceName, setSourceName] = React.useState<string>()
-  const [profileIndex, setProfileIndex] = React.useState<number>()
+  const sources = React.useMemo(() => listSources(profiles), [profiles])
+  const [sourceIndex, setSourceIndex] = React.useState<number>()
   const [status, setStatus] = React.useState<ImportStatus>('idle')
   const [current, setCurrent] = React.useState<ImportItem | null>(null)
   const [imported, setImported] = React.useState<ImportItem[]>([])
@@ -119,12 +132,15 @@ export function useIntroImport (
   const running = React.useRef(false)
   const importedCount = React.useRef(0)
 
-  // Présélection : le navigateur par défaut du système, comme l'écran Brave.
+  // Présélection : le navigateur par défaut du système, comme l'écran Brave —
+  // demandé au début de l'introduction, AVANT que l'écran précédent ne propose
+  // de faire de Browther le navigateur par défaut.
   React.useEffect(() => {
-    if (!sources.length || sourceName) return
-    setSourceName(sources[0].name)
+    if (!sources.length || sourceIndex !== undefined) return
+    setSourceIndex(sources[0].profile.index)
     WelcomeBrowserProxyImpl.getInstance().getDefaultBrowser().then(name => {
-      if (sources.some(s => s.name === name)) setSourceName(name)
+      const match = sources.find(s => s.browser === name)
+      if (match) setSourceIndex(match.profile.index)
     })
   }, [sources])
 
@@ -166,9 +182,7 @@ export function useIntroImport (
     }
   }, [])
 
-  const source = sources.find(s => s.name === sourceName)
-  const profile = source?.profiles.find(p => p.index === profileIndex) ??
-    source?.profiles[0]
+  const source = sources.find(s => s.profile.index === sourceIndex) ?? sources[0]
 
   // Changer de navigateur ou de profil après un import repart d'une scène
   // vierge : les coches du précédent ne doivent pas passer pour les siennes.
@@ -179,32 +193,25 @@ export function useIntroImport (
   }
 
   const start = () => {
-    if (!profile || running.current) return
+    if (!source || running.current) return
     running.current = true
     importedCount.current = 0
     setImported([])
     setCurrent(null)
     setStatus('running')
     ImportDataBrowserProxyImpl.getInstance().importData(
-      profile.index, defaultImportTypes)
+      source.profile.index, defaultImportTypes)
   }
 
   return {
     sources,
     source,
-    profile,
     status,
     current,
     imported,
-    selectSource: (name: string) => {
-      if (running.current || name === source?.name) return
-      setSourceName(name)
-      setProfileIndex(undefined)
-      reset()
-    },
-    selectProfile: (index: number) => {
-      if (running.current || index === profile?.index) return
-      setProfileIndex(index)
+    selectSource: (index: number) => {
+      if (running.current || index === source?.profile.index) return
+      setSourceIndex(index)
       reset()
     },
     start

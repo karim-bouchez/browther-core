@@ -67,7 +67,8 @@ const isMac = /Mac/.test(navigator.platform)
 export default function ImportStep (props: { model: IntroModel }) {
   const { model } = props
   const { importer } = model
-  const { status, profile, source } = importer
+  const { status, source } = importer
+  const profile = source?.profile
   const settled = status === 'done' || status === 'failed'
   // macOS demande le mot de passe de la session pour ouvrir les secrets de
   // l'autre navigateur (« Chrome Safe Storage ») : prévenu, ce n'est plus une
@@ -129,75 +130,62 @@ function BrowserLogo (props: { source: ImportSource | undefined }) {
 }
 
 /**
- * Les navigateurs trouvés, comme les cibles du floutage : on choisit d'un
- * clic, sans liste déroulante. Les profils n'apparaissent que s'il y en a
- * plusieurs.
+ * Les navigateurs trouvés : une ligne par profil, un seul choix, un vrai bouton
+ * radio. ⛔ Pas les cartes puis des pastilles de profils en dessous : deux
+ * niveaux, et les pastilles répétaient le nom du navigateur (recette Karim,
+ * 2026-09-13).
  */
 function SourcePicker (props: { importer: IntroImport }) {
   const { importer } = props
   const locked = importer.status === 'running'
   return (
-    <div className='bi-import-picker'>
-      <div className='bi-choices bi-import-sources' role='radiogroup'>
-        {importer.sources.map(source => {
-          const selected = source === importer.source
-          return (
-            <button
-              key={source.name}
-              type='button'
-              role='radio'
-              aria-checked={selected}
-              disabled={locked && !selected}
-              className={'bi-choice bi-tone-sage' + (selected ? ' is-selected' : '')}
-              onClick={() => importer.selectSource(source.name)}
-            >
-              <span className='bi-import-logo'><BrowserLogo source={source} /></span>
-              <span className='bi-import-name'>{source.name}</span>
-              <span className='bi-choice-check'><Glyph name='check' /></span>
-            </button>
-          )
-        })}
-      </div>
-      {importer.source && importer.source.profiles.length > 1 && (
-        <div className='bi-import-profiles' role='radiogroup'>
-          {importer.source.profiles.map(profile => {
-            const selected = profile === importer.profile
-            return (
-              <button
-                key={profile.index}
-                type='button'
-                role='radio'
-                aria-checked={selected}
-                disabled={locked && !selected}
-                className={'bi-import-profile' + (selected ? ' is-selected' : '')}
-                onClick={() => importer.selectProfile(profile.index)}
-              >
-                {profile.profileName || profile.name}
-              </button>
-            )
-          })}
-        </div>
-      )}
+    <div className='bi-sources' role='radiogroup'>
+      {importer.sources.map(source => {
+        const selected = source === importer.source
+        return (
+          <button
+            key={source.profile.index}
+            type='button'
+            role='radio'
+            aria-checked={selected}
+            disabled={locked && !selected}
+            className={'bi-source' + (selected ? ' is-selected' : '')}
+            onClick={() => importer.selectSource(source.profile.index)}
+          >
+            <span className='bi-source-logo'><BrowserLogo source={source} /></span>
+            <span className='bi-source-name'>
+              <strong>{source.browser}</strong>
+              {source.profileLabel && <small>{source.profileLabel}</small>}
+            </span>
+            <span className='bi-source-radio' />
+          </button>
+        )
+      })}
     </div>
   )
 }
 
 /**
- * L'ancien navigateur, Browther, et ce qui passe de l'un à l'autre. Chaque
- * ligne a trois états : à venir (anneau), en cours (anneau qui tourne),
- * importé (coche). Un élément que l'import n'a pas ramené reste barré d'un
- * tiret : on ne coche pas ce qui n'est pas arrivé.
+ * L'ancien navigateur, Browther, et ce qui passe de l'un à l'autre. Avant
+ * l'import, la liste n'est qu'un aperçu : ⛔ pas d'anneau vide en bout de
+ * ligne, il se lisait comme une case à cocher (recette Karim, 2026-09-13).
+ * Pendant l'import : en cours (anneau qui tourne), importé (coche). Un élément
+ * que l'import n'a pas ramené reste barré d'un tiret : on ne coche pas ce qui
+ * n'est pas arrivé.
  */
 function Transfer (props: { importer: IntroImport }) {
   const { importer } = props
   const { status } = importer
-  const items = offeredItems(importer.profile)
+  const items = offeredItems(importer.source?.profile)
   return (
     <div className={`bi-transfer is-${status}`}>
       <div className='bi-transfer-head'>
         <span className='bi-transfer-app'>
           <span className='bi-transfer-tile'><BrowserLogo source={importer.source} /></span>
-          <span className='bi-transfer-label'>{importer.source?.name}</span>
+          <span className='bi-transfer-label'>
+            {importer.source?.browser}
+            {importer.source?.profileLabel && <small>{importer.source.profileLabel}</small>}
+          </span>
         </span>
         <span className='bi-transfer-track' aria-hidden='true'>
           <span /><span /><span /><span /><span />
