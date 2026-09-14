@@ -1026,6 +1026,14 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         return BackPressResult.SUCCESS;
     }
 
+    // Browther : l'introduction dessine sous les barres système (fond de l'accueil, feuille « Ça
+    // arrive bientôt ») et applique elle-même les encarts. L'enveloppe bord à bord de Chromium les
+    // ajoutait en marges et peignait deux bandes claires, en haut et en bas.
+    @Override
+    protected boolean wrapContentWithEdgeToEdgeLayout() {
+        return mBrowtherIntro == null && super.wrapContentWithEdgeToEdgeLayout();
+    }
+
     @Override
     protected void onDestroy() {
         if (mBrowtherIntro != null) {

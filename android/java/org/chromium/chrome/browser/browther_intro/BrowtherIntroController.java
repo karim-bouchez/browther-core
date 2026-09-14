@@ -92,6 +92,9 @@ public final class BrowtherIntroController implements BrowtherIntroModel.Host {
      */
     public void start() {
         if (mModel != null) return;
+        // Réappliqué ici : l'initialisation de Chromium peut avoir repeint les barres système
+        // entre l'inflation et le natif prêt.
+        prepareWindow();
         boolean isDefault = BraveSetDefaultBrowserUtils.isBraveSetAsDefaultBrowser(mActivity);
         mModel = new BrowtherIntroModel(this, isDefault, BrowtherEarlyAccess.ENABLED);
         // Le choix affiché part du réglage du moteur (même défaut : les femmes).
