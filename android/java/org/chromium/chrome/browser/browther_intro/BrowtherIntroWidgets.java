@@ -257,7 +257,7 @@ final class BrowtherIntroWidgets {
             addView(mIcon);
 
             LinearLayout labels = BrowtherIntroUi.column(context);
-            LayoutParams labelsParams = new LayoutParams(0, WRAP, 1f);
+            LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, WRAP, 1f);
             labelsParams.setMarginStart(dp(context, 12));
             labelsParams.setMarginEnd(dp(context, 8));
             addView(labels, labelsParams);
@@ -266,7 +266,7 @@ final class BrowtherIntroWidgets {
                     BrowtherIntroUi.text(context, 16, BrowtherIntroUi.SEMIBOLD, BrowtherIntroUi.INK);
             name.setText(title);
             BrowtherIntroUi.singleLine(name, 12, 16);
-            labels.addView(name, new LayoutParams(MATCH, WRAP));
+            labels.addView(name, new LinearLayout.LayoutParams(MATCH, WRAP));
 
             // ⚠️ Une seule ligne, quoi qu'il arrive : « Désactivé · les pubs passent » se cassait
             // en deux et faisait sauter tout le bas de l'écran à chaque bascule.
@@ -275,14 +275,14 @@ final class BrowtherIntroWidgets {
                             context, 13, BrowtherIntroUi.REGULAR, BrowtherIntroUi.INK_SOFT);
             mState.setText(mOffLabel);
             BrowtherIntroUi.singleLine(mState, 10, 13);
-            LayoutParams stateParams = new LayoutParams(MATCH, dp(context, 17));
+            LinearLayout.LayoutParams stateParams = new LinearLayout.LayoutParams(MATCH, dp(context, 17));
             stateParams.topMargin = dp(context, 3);
             labels.addView(mState, stateParams);
 
             mToggle = new BrowtherBigToggleView(context);
             mToggle.setContentDescription(title);
             mToggle.setOnCheckedChangeListener((view, checked) -> onToggle.run());
-            addView(mToggle, new LayoutParams(dp(context, 96), dp(context, 52)));
+            addView(mToggle, new LinearLayout.LayoutParams(dp(context, 96), dp(context, 52)));
         }
 
         void setOn(boolean on) {
@@ -328,11 +328,11 @@ final class BrowtherIntroWidgets {
                             BrowtherIntroUi.INK_SOFT);
             mHint.setGravity(Gravity.CENTER);
             BrowtherIntroUi.singleLine(mHint, 10, 13);
-            addView(mHint, new LayoutParams(MATCH, dp(context, 17)));
+            addView(mHint, new LinearLayout.LayoutParams(MATCH, dp(context, 17)));
 
             mButton = new Button(context, R.string.browther_intro_continue, Button.Style.PRIMARY);
             mButton.setOnClickListener(v -> onClick.run());
-            LayoutParams params = new LayoutParams(MATCH, WRAP);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(MATCH, WRAP);
             params.topMargin = dp(context, 6);
             addView(mButton, params);
         }
@@ -559,8 +559,8 @@ final class BrowtherIntroWidgets {
             setClipChildren(false);
             mHaram = new Stamp(context, false, 88);
             mHalal = new Stamp(context, true, 88);
-            addView(mHaram, new LayoutParams(WRAP, WRAP, Gravity.CENTER));
-            addView(mHalal, new LayoutParams(WRAP, WRAP, Gravity.CENTER));
+            addView(mHaram, new FrameLayout.LayoutParams(WRAP, WRAP, Gravity.CENTER));
+            addView(mHalal, new FrameLayout.LayoutParams(WRAP, WRAP, Gravity.CENTER));
         }
 
         void setOn(boolean on) {

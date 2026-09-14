@@ -611,6 +611,9 @@ public class WelcomeOnboardingActivity extends FirstRunActivityBase
         }
     }
 
+    // Browther : quand l'introduction s'affiche, les vues de l'ancien parcours ne sont jamais
+    // gonflées ni lues (tout leur code est derrière `mBrowtherIntro == null`).
+    @SuppressWarnings("NullAway.Init")
     @Override
     public void triggerLayoutInflation() {
         super.triggerLayoutInflation();

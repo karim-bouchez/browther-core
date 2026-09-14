@@ -76,7 +76,7 @@ final class BrowtherIntroWelcomeStep extends BrowtherIntroStepView {
         mContent = BrowtherIntroUi.column(context);
         mContent.setGravity(Gravity.CENTER_HORIZONTAL);
         mContent.setClipChildren(false);
-        scroll.addView(mContent, new ScrollView.LayoutParams(MATCH, MATCH));
+        scroll.addView(mContent, new LayoutParams(MATCH, MATCH));
 
         // L'icône de l'app, pas le bouclier — le bouclier est l'icône des pubs.
         ImageView icon = new ImageView(context);

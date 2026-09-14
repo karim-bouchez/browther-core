@@ -266,7 +266,7 @@ final class BrowtherIntroVideoTile extends TextureView implements TextureView.Su
 
         @Override
         public void onFrameAvailable(SurfaceTexture surfaceTexture) {
-            if (mReleased || mEglSurface == EGL14.EGL_NO_SURFACE) return;
+            if (mReleased || EGL14.EGL_NO_SURFACE.equals(mEglSurface)) return;
             mVideoSurfaceTexture.updateTexImage();
             mVideoSurfaceTexture.getTransformMatrix(mTexMatrix);
             double seconds = mDecoder == null ? 0 : mDecoder.mediaSeconds(
@@ -305,11 +305,11 @@ final class BrowtherIntroVideoTile extends TextureView implements TextureView.Su
                             EGL14.EGL_NO_CONTEXT,
                             new int[] {EGL14.EGL_CONTEXT_CLIENT_VERSION, 2, EGL14.EGL_NONE},
                             0);
-            if (mEglContext == EGL14.EGL_NO_CONTEXT) throw new RuntimeException("eglCreateContext");
+            if (EGL14.EGL_NO_CONTEXT.equals(mEglContext)) throw new RuntimeException("eglCreateContext");
             mEglSurface =
                     EGL14.eglCreateWindowSurface(
                             mDisplay, configs[0], mOutput, new int[] {EGL14.EGL_NONE}, 0);
-            if (mEglSurface == EGL14.EGL_NO_SURFACE) {
+            if (EGL14.EGL_NO_SURFACE.equals(mEglSurface)) {
                 throw new RuntimeException("eglCreateWindowSurface");
             }
             if (!EGL14.eglMakeCurrent(mDisplay, mEglSurface, mEglSurface, mEglContext)) {
@@ -523,13 +523,13 @@ final class BrowtherIntroVideoTile extends TextureView implements TextureView.Su
             if (mVideoSurfaceTexture != null) mVideoSurfaceTexture.release();
             mVideoSurface = null;
             mVideoSurfaceTexture = null;
-            if (mDisplay != EGL14.EGL_NO_DISPLAY) {
+            if (!EGL14.EGL_NO_DISPLAY.equals(mDisplay)) {
                 EGL14.eglMakeCurrent(
                         mDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT);
-                if (mEglSurface != EGL14.EGL_NO_SURFACE) {
+                if (!EGL14.EGL_NO_SURFACE.equals(mEglSurface)) {
                     EGL14.eglDestroySurface(mDisplay, mEglSurface);
                 }
-                if (mEglContext != EGL14.EGL_NO_CONTEXT) {
+                if (!EGL14.EGL_NO_CONTEXT.equals(mEglContext)) {
                     EGL14.eglDestroyContext(mDisplay, mEglContext);
                 }
                 EGL14.eglTerminate(mDisplay);
