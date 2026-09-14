@@ -112,10 +112,12 @@ export function installedOnly (
   installed: string[] | null | undefined
 ): SourceProfile[] | undefined {
   if (!profiles || installed === undefined) return undefined
-  if (installed === null) return profiles
-  // Un navigateur Chromium que l'import ne sait pas nommer reste proposé : on
-  // n'a rien pour dire qu'il est absent.
-  return profiles.filter(p => !p.browserType || installed.includes(p.browserType))
+  // Seulement les navigateurs que l'import sait nommer. ⚠️ C'est aussi ce qui
+  // écarte « Importer un fichier HTML de favoris » : Brave le retire par son nom
+  // ANGLAIS (`getValidBrowserProfiles`), et traduit (« Ajouter le fichier HTML
+  // aux favoris »), il passait dans la liste (recette Karim, 2026-09-14).
+  return profiles.filter(p => p.browserType !== undefined &&
+    (installed === null || installed.includes(p.browserType)))
 }
 
 export function offeredItems (profile: SourceProfile | undefined) {
