@@ -5,8 +5,8 @@
 
 #include "brave/browser/ui/webui/welcome_page/browther_intro_system_volume.h"
 
-// Pas encore porté hors macOS : l'écran Musique masque la jauge du son de
-// l'ordinateur. Windows : IAudioEndpointVolume (cf. ONBOARDING-SPEC.md § 4.4).
+// Ni macOS ni Windows (Linux) : l'écran Musique masque la jauge du son de
+// l'ordinateur (cf. ONBOARDING-SPEC.md § 11.2).
 namespace browther_intro {
 
 std::optional<SystemVolume> GetSystemVolume() {

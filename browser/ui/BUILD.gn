@@ -803,8 +803,8 @@ source_set("ui") {
 
   # Browther : le son de l'ordinateur, pour l'écran Musique de l'introduction
   # (`webui/welcome_page`), et les navigateurs installés, pour son écran
-  # d'import. Seul macOS est porté ; ailleurs la jauge est masquée et la liste
-  # d'import n'est pas filtrée.
+  # d'import. macOS et Windows sont portés ; ailleurs (Linux) la jauge est
+  # masquée et la liste d'import n'est pas filtrée.
   if (!is_android && !is_ios) {
     sources += [
       "webui/welcome_page/browther_intro_installed_browsers.h",
@@ -820,6 +820,11 @@ source_set("ui") {
       } else {
         frameworks = [ "CoreAudio.framework" ]
       }
+    } else if (is_win) {
+      sources += [
+        "webui/welcome_page/browther_intro_installed_browsers_win.cc",
+        "webui/welcome_page/browther_intro_system_volume_win.cc",
+      ]
     } else {
       sources += [
         "webui/welcome_page/browther_intro_installed_browsers_other.cc",

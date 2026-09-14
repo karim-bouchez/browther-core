@@ -250,8 +250,8 @@ export function useIntroAudio (): IntroAudio {
 /**
  * Le son de l'ORDINATEUR, lu toutes les secondes : un Mac en sourdine joue
  * l'extrait sans qu'on entende rien, l'écran doit le dire plutôt que de laisser
- * croire à une panne. `available` faux (hors macOS pour l'instant) : la jauge
- * est masquée.
+ * croire à une panne. `available` faux (Linux, sortie sans réglage de volume) :
+ * la jauge est masquée.
  */
 export function useSystemVolume () {
   const [volume, setVolume] = React.useState<SystemVolume>({ available: false })

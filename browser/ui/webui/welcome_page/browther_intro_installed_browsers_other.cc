@@ -7,7 +7,7 @@
 
 namespace browther_intro {
 
-// 🔲 Windows : à porter (clés `StartMenuInternet` du registre).
+// Ni macOS ni Windows (Linux) : la liste d'import n'est pas filtrée.
 std::optional<std::vector<std::string>> GetInstalledBrowsers() {
   return std::nullopt;
 }

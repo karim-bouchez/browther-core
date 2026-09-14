@@ -235,7 +235,8 @@ void WelcomeDOMHandler::HandleGetInstalledBrowsers(
     const base::ListValue& args) {
   CHECK_EQ(1U, args.size());
   AllowJavascript();
-  // LaunchServices peut toucher le disque : hors du thread UI.
+  // LaunchServices (macOS) comme le registre (Windows) touchent le disque :
+  // hors du thread UI.
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
       base::BindOnce(&browther_intro::GetInstalledBrowsers),

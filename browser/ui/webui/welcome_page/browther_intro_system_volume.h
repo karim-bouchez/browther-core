@@ -23,8 +23,8 @@ struct SystemVolume {
   bool muted = false;
 };
 
-// Sortie audio par défaut. `std::nullopt` hors macOS (à porter sur Windows)
-// ou si la sortie est introuvable.
+// Sortie audio par défaut. `std::nullopt` hors macOS et Windows, ou si la
+// sortie est introuvable.
 std::optional<SystemVolume> GetSystemVolume();
 
 // Règle le niveau (0…1) de la sortie par défaut et retire la sourdine si le

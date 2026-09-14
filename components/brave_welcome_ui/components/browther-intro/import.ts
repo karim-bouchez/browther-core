@@ -95,7 +95,7 @@ export interface IntroImport {
 
 /**
  * Les navigateurs dont l'application est installée (`GetInstalledBrowsers`,
- * macOS) : Brave propose tout dossier de données trouvé, même celui d'un
+ * macOS et Windows) : Brave propose tout dossier de données trouvé, même celui d'un
  * navigateur jamais installé. `null` : la plateforme ne sait pas le dire.
  * `undefined` tant que le natif n'a pas répondu.
  */
