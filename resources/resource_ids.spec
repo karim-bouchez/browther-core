@@ -20,23 +20,28 @@
   },
   # This file is generated during the build.
   "<(SHARED_INTERMEDIATE_DIR)/brave/web-ui-brave_new_tab/brave_new_tab.grd": {
-    # Browther : 50 → 44 (≈38 utilisés) pour faire place à l'introduction.
+    # Browther : 50 → 44 (35 utilisés en Release) pour faire place à l'introduction.
     "META": {"sizes": {"includes": [44]}},
     "includes": [53060],
   },
   # This file is generated during the build.
-  # Browther : 20 → 30 pour les médias de l'introduction (27 utilisés), pris
-  # sur le Nouvel Onglet et les réglages (14 utilisés). La somme des trois
-  # plages ne change pas (90) : les ressources suivantes gardent leurs
+  # Browther : 20 → 30 pour les médias de l'introduction (28 utilisés en
+  # Release), pris sur le Nouvel Onglet. Les ressources suivantes gardent leurs
   # identifiants — sinon tout ce qui inclut brave_generated_resources.h serait
-  # recompilé.
+  # recompilé. ⚠️ Ce qui compte n'est pas la somme des plages mais l'arrondi :
+  # update_resource_ids aligne chaque fin de plage sur la dizaine supérieure.
+  # ⚠️ Compter en RELEASE : webpack y ajoute un `*.LICENSE.txt` par bundle, que
+  # le Component n'a pas (+1 ici, +3 aux réglages).
   "<(SHARED_INTERMEDIATE_DIR)/brave/web-ui-brave_welcome/brave_welcome.grd": {
     "META": {"sizes": {"includes": [30]}},
     "includes": [53080],
   },
   # This file is generated during the build.
+  # Browther : laissé à 20 (17 utilisés en Release). Réduit à 16 au portage de
+  # l'introduction sur la foi du Component (14) : le Release 2026.9.14 a cassé
+  # en IdRangeOverflow.
   "<(SHARED_INTERMEDIATE_DIR)/brave/browser/resources/settings/brave_settings_resources.grd": {
-    "META": {"sizes": {"includes": [16]}},
+    "META": {"sizes": {"includes": [20]}},
     "includes": [53100],
   },
   "brave/app/brave_generated_resources.grd": {
