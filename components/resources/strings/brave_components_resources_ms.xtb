@@ -2780,8 +2780,6 @@ Mari sambungkan anda!</translation>
 <translation id="4472575034687746823">Mula</translation>
 <translation id="8105338321071787052">Satu projek oleh</translation>
 <translation id="546165799552573663">Iklan bukan sekadar menjual produk.</translation>
-<translation id="1965974658620216491">Iklan memaksakan muzik dan imej yang tidak pernah anda pilih. Browther menyekatnya dari awal, termasuk yang dimainkan sebelum video.</translation>
-<translation id="4262008992540730210">Sudah aktif, di semua tapak</translation>
 <translation id="1555689541422561911">Mati · iklan terlepas</translation>
 <translation id="6873559458803488857">3 elemen disekat</translation>
 <translation id="3067154517825632296">Perisai Browther</translation>
@@ -2796,7 +2794,6 @@ Mari sambungkan anda!</translation>
 <translation id="4491109536499578614">Imej</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Pilih siapa yang dikaburkan.</translation>
-<translation id="5339424533442415737">Pada imej dan video di semua tapak, sebelum ia muncul lagi.</translation>
 <translation id="3545367923331026889">Wanita</translation>
 <translation id="4304514273022914360">Lelaki</translation>
 <translation id="1372572267279908778">Kedua-duanya</translation>
@@ -2804,7 +2801,6 @@ Mari sambungkan anda!</translation>
 <translation id="9220517073506439238">Mati · tiada apa yang ditutup</translation>
 <translation id="8594623674797496464">Ditutup, pada imej dan video</translation>
 <translation id="3819100158285661528">Kekalkan suara, buang muzik.</translation>
-<translation id="96319507807834471">Semasa anda menonton video, Browther membuang muzik dan membiarkan suara tidak terjejas.</translation>
 <translation id="6883222750635271491">Di semua tapak</translation>
 <translation id="3491001008184346538">dibuang</translation>
 <translation id="7568821498839695851">Mati · muzik dimainkan</translation>
@@ -2841,4 +2837,8 @@ Mari sambungkan anda!</translation>
 <translation id="4965873645100791506">Import tidak berjaya. Anda boleh memulakannya semula daripada Tetapan.</translation>
 <translation id="4666339299899065301">Untuk kata laluan anda, macOS mungkin meminta kata laluan Mac anda. Itu perkara biasa.</translation>
 <translation id="825541543844369363">Imbas di sini</translation>
+<translation id="8465972333066362918">Iklan memaksakan muzik dan imej yang tidak pernah anda pilih. Browther menyekatnya dari awal, termasuk iklan YouTube, sebelum dan semasa video dimainkan.</translation>
+<translation id="8683789109956613479">Sudah aktif, termasuk di YouTube</translation>
+<translation id="7078611607019725427">Pada imej dan video di semua tapak, termasuk YouTube, sebelum ia sempat muncul.</translation>
+<translation id="3332184177109111993">Di YouTube dan tapak video lain, Browther membuang muzik dan membiarkan suara tidak terjejas.</translation>
 </translationbundle>

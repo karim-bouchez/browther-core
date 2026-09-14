@@ -2778,8 +2778,6 @@ Browther પાસે એક મદદ પણ છે જે DNS ક્વેર�
 <translation id="4472575034687746823">શરૂ કરો</translation>
 <translation id="8105338321071787052">નિર્માતા:</translation>
 <translation id="546165799552573663">જાહેરાતો ફક્ત ઉત્પાદનો જ નથી વેચતી.</translation>
-<translation id="1965974658620216491">તે તમારી પસંદગી વિના તમારા પર સંગીત અને છબીઓ થોપી દે છે. Browther તેમને શરૂઆતથી જ બ્લૉક કરે છે, વીડિયો પહેલાં ચાલતી જાહેરાતોને પણ.</translation>
-<translation id="4262008992540730210">પહેલેથી ચાલુ, દરેક સાઇટ પર</translation>
 <translation id="1555689541422561911">બંધ · જાહેરાતો દેખાય છે</translation>
 <translation id="6873559458803488857">3 આઇટમ બ્લૉક કરી</translation>
 <translation id="3067154517825632296">Browther શીલ્ડ</translation>
@@ -2795,7 +2793,6 @@ Browther પાસે એક મદદ પણ છે જે DNS ક્વેર�
 <translation id="4491109536499578614">છબી</translation>
 <translation id="3810838688059735925">વીડિયો</translation>
 <translation id="8951655494989242362">કોને ઝાંખા કરવા છે, તે પસંદ કરો.</translation>
-<translation id="5339424533442415737">દરેક સાઇટની છબીઓ અને વીડિયો પર, તે દેખાય એ પહેલાં જ.</translation>
 <translation id="3545367923331026889">સ્ત્રીઓ</translation>
 <translation id="4304514273022914360">પુરુષો</translation>
 <translation id="1372572267279908778">બંને</translation>
@@ -2803,7 +2800,6 @@ Browther પાસે એક મદદ પણ છે જે DNS ક્વેર�
 <translation id="9220517073506439238">બંધ · કશું ઢંકાયેલું નથી</translation>
 <translation id="8594623674797496464">ઢંકાયેલું, છબી અને વીડિયો બંનેમાં</translation>
 <translation id="3819100158285661528">અવાજ રાખો, સંગીત હટાવો.</translation>
-<translation id="96319507807834471">તમે વીડિયો જુઓ ત્યારે Browther સંગીત હટાવી દે છે અને અવાજને જેમનો તેમ રાખે છે.</translation>
 <translation id="6883222750635271491">દરેક સાઇટ પર</translation>
 <translation id="3491001008184346538">હટાવ્યું</translation>
 <translation id="7568821498839695851">બંધ · સંગીત વાગે છે</translation>
@@ -2839,4 +2835,8 @@ Browther પાસે એક મદદ પણ છે જે DNS ક્વેર�
 <translation id="4965873645100791506">આયાત પૂર્ણ થઈ શક્યું નહીં. તમે સેટિંગ્સમાંથી તેને ફરી શરૂ કરી શકો છો.</translation>
 <translation id="4666339299899065301">પાસવર્ડ્સ માટે macOS તમારા Macનો પાસવર્ડ માગી શકે છે. એ સામાન્ય છે.</translation>
 <translation id="825541543844369363">અહીં સ્કૅન કરો</translation>
+<translation id="8465972333066362918">તે તમારી પસંદગી વિના તમારા પર સંગીત અને છબીઓ થોપી દે છે. Browther તેમને શરૂઆતથી જ બ્લૉક કરે છે, વીડિયો પહેલાં અને દરમિયાન ચાલતી YouTube જાહેરાતોને પણ.</translation>
+<translation id="8683789109956613479">પહેલેથી ચાલુ, YouTube પર પણ</translation>
+<translation id="7078611607019725427">YouTube સહિત દરેક સાઇટની છબીઓ અને વીડિયો પર, તે દેખાય એ પહેલાં જ.</translation>
+<translation id="3332184177109111993">YouTube અને અન્ય વીડિયો સાઇટ્સ પર Browther સંગીત હટાવી દે છે અને અવાજને જેમનો તેમ રાખે છે.</translation>
 </translationbundle>

@@ -2780,8 +2780,6 @@ Laten we je verbinding snel in orde brengen!</translation>
 <translation id="4472575034687746823">Beginnen</translation>
 <translation id="8105338321071787052">Een project van</translation>
 <translation id="546165799552573663">Advertenties verkopen niet alleen producten.</translation>
-<translation id="1965974658620216491">Ze dringen je muziek en beelden op die je nooit hebt gekozen. Browther blokkeert ze vanaf het begin, ook die vóór video's.</translation>
-<translation id="4262008992540730210">Al actief, op alle sites</translation>
 <translation id="1555689541422561911">Uit · de advertenties komen erdoor</translation>
 <translation id="6873559458803488857">3 elementen geblokkeerd</translation>
 <translation id="3067154517825632296">Browther Shields</translation>
@@ -2796,7 +2794,6 @@ Laten we je verbinding snel in orde brengen!</translation>
 <translation id="4491109536499578614">Afbeelding</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Kies wie vervaagd wordt.</translation>
-<translation id="5339424533442415737">Op afbeeldingen en video's van alle sites, nog voordat ze verschijnen.</translation>
 <translation id="3545367923331026889">Vrouwen</translation>
 <translation id="4304514273022914360">Mannen</translation>
 <translation id="1372572267279908778">Beide</translation>
@@ -2804,7 +2801,6 @@ Laten we je verbinding snel in orde brengen!</translation>
 <translation id="9220517073506439238">Uit · niets is bedekt</translation>
 <translation id="8594623674797496464">Bedekt, op afbeelding én video</translation>
 <translation id="3819100158285661528">Houd de stem, schrap de muziek.</translation>
-<translation id="96319507807834471">Terwijl je een video bekijkt, haalt Browther de muziek weg en laat de stem intact.</translation>
 <translation id="6883222750635271491">Op alle sites</translation>
 <translation id="3491001008184346538">weggehaald</translation>
 <translation id="7568821498839695851">Uit · de muziek speelt</translation>
@@ -2841,4 +2837,8 @@ Laten we je verbinding snel in orde brengen!</translation>
 <translation id="4965873645100791506">Het importeren is niet gelukt. Je kunt het opnieuw starten via Instellingen.</translation>
 <translation id="4666339299899065301">Voor je wachtwoorden kan macOS om het wachtwoord van je Mac vragen. Dat is normaal.</translation>
 <translation id="825541543844369363">Scan hier</translation>
+<translation id="8465972333066362918">Ze dringen je muziek en beelden op die je nooit hebt gekozen. Browther blokkeert ze vanaf het begin, ook YouTube-advertenties, vóór en tijdens video's.</translation>
+<translation id="8683789109956613479">Al actief, ook op YouTube</translation>
+<translation id="7078611607019725427">Op afbeeldingen en video's van alle sites, YouTube inbegrepen, nog voordat ze verschijnen.</translation>
+<translation id="3332184177109111993">Op YouTube en andere videosites haalt Browther de muziek weg en laat de stem intact.</translation>
 </translationbundle>

@@ -2784,8 +2784,6 @@
 <translation id="4472575034687746823">ابدؤوا</translation>
 <translation id="8105338321071787052">مشروع من</translation>
 <translation id="546165799552573663">الإعلانات لا تبيع المنتجات فحسب.</translation>
-<translation id="1965974658620216491">تفرض عليكم موسيقى وصورًا لم تختاروها قط. يحجبها Browther منذ التثبيت، بما فيها تلك التي تُعرض قبل مقاطع الفيديو.</translation>
-<translation id="4262008992540730210">مُفعَّل مسبقًا، على جميع المواقع</translation>
 <translation id="1555689541422561911">مُعطَّل · الإعلانات تمرّ</translation>
 <translation id="6873559458803488857">حُجبت ٣ عناصر</translation>
 <translation id="3067154517825632296">دروع Browther</translation>
@@ -2800,7 +2798,6 @@
 <translation id="4491109536499578614">صورة</translation>
 <translation id="3810838688059735925">فيديو</translation>
 <translation id="8951655494989242362">اختاروا من يُطمَس.</translation>
-<translation id="5339424533442415737">على صور جميع المواقع ومقاطع الفيديو فيها، قبل أن تظهر.</translation>
 <translation id="3545367923331026889">النساء</translation>
 <translation id="4304514273022914360">الرجال</translation>
 <translation id="1372572267279908778">الجميع</translation>
@@ -2808,7 +2805,6 @@
 <translation id="9220517073506439238">مُعطَّل · لا شيء مغطّى</translation>
 <translation id="8594623674797496464">مغطّى، في الصورة والفيديو معًا</translation>
 <translation id="3819100158285661528">أبقوا الصوت، واقطعوا الموسيقى.</translation>
-<translation id="96319507807834471">بينما تشاهدون مقطع فيديو، يزيل Browther الموسيقى ويُبقي الصوت كما هو.</translation>
 <translation id="6883222750635271491">على جميع المواقع</translation>
 <translation id="3491001008184346538">أُزيلت</translation>
 <translation id="7568821498839695851">مُعطَّل · الموسيقى تعمل</translation>
@@ -2845,4 +2841,8 @@
 <translation id="4965873645100791506">لم يكتمل الاستيراد. يمكنكم إعادة تشغيله من الإعدادات.</translation>
 <translation id="4666339299899065301">من أجل كلمات المرور، قد يطلب macOS كلمة مرور جهاز Mac. هذا أمر طبيعي.</translation>
 <translation id="825541543844369363">امسحوا هنا</translation>
+<translation id="8465972333066362918">تفرض عليكم موسيقى وصورًا لم تختاروها قط. يحجبها Browther منذ التثبيت، بما فيها إعلانات YouTube، قبل مقاطع الفيديو وأثناءها.</translation>
+<translation id="8683789109956613479">مُفعَّل مسبقًا، حتى على YouTube</translation>
+<translation id="7078611607019725427">على صور جميع المواقع ومقاطع الفيديو فيها، بما في ذلك YouTube، قبل أن تظهر.</translation>
+<translation id="3332184177109111993">على YouTube ومواقع الفيديو الأخرى، يزيل Browther الموسيقى ويُبقي الصوت كما هو.</translation>
 </translationbundle>

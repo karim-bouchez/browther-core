@@ -2781,8 +2781,6 @@ Pripojíme vás!</translation>
 <translation id="4472575034687746823">Začať</translation>
 <translation id="8105338321071787052">Projekt</translation>
 <translation id="546165799552573663">Reklamy nepredávajú len produkty.</translation>
-<translation id="1965974658620216491">Vnucujú vám hudbu a obrázky, ktoré ste si nikdy nevybrali. Browther ich blokuje od samého začiatku, vrátane tých pred videami.</translation>
-<translation id="4262008992540730210">Už aktívne, na všetkých weboch</translation>
 <translation id="1555689541422561911">Vyp. · reklamy prechádzajú</translation>
 <translation id="6873559458803488857">Zablokované 3 prvky</translation>
 <translation id="3067154517825632296">Štíty Browther</translation>
@@ -2797,7 +2795,6 @@ Pripojíme vás!</translation>
 <translation id="4491109536499578614">Obrázok</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Vyberte, koho rozmazať.</translation>
-<translation id="5339424533442415737">Na obrázkoch a vo videách na všetkých weboch, ešte skôr, ako sa zobrazia.</translation>
 <translation id="3545367923331026889">Ženy</translation>
 <translation id="4304514273022914360">Mužov</translation>
 <translation id="1372572267279908778">Všetkých</translation>
@@ -2805,7 +2802,6 @@ Pripojíme vás!</translation>
 <translation id="9220517073506439238">Vyp. · nič nie je zakryté</translation>
 <translation id="8594623674797496464">Zakryté — na obrázku aj vo videu</translation>
 <translation id="3819100158285661528">Hlas zostane, hudba zmizne.</translation>
-<translation id="96319507807834471">Kým pozeráte video, Browther odstráni hudbu a hlas nechá nedotknutý.</translation>
 <translation id="6883222750635271491">Na všetkých weboch</translation>
 <translation id="3491001008184346538">odstránená</translation>
 <translation id="7568821498839695851">Vyp. · hudba hrá</translation>
@@ -2842,4 +2838,8 @@ Pripojíme vás!</translation>
 <translation id="4965873645100791506">Import sa nepodaril. Môžete ho znova spustiť v Nastaveniach.</translation>
 <translation id="4666339299899065301">Kvôli heslám môže macOS požiadať o heslo k vášmu Macu. Je to v poriadku.</translation>
 <translation id="825541543844369363">Naskenujte tu</translation>
+<translation id="8465972333066362918">Vnucujú vám hudbu a obrázky, ktoré ste si nikdy nevybrali. Browther ich blokuje od samého začiatku, vrátane reklám na YouTube, pred videami aj počas nich.</translation>
+<translation id="8683789109956613479">Už aktívne, aj na YouTube</translation>
+<translation id="7078611607019725427">Na obrázkoch a vo videách na všetkých weboch, vrátane YouTube, ešte skôr, ako sa zobrazia.</translation>
+<translation id="3332184177109111993">Na YouTube a ďalších weboch s videami Browther odstráni hudbu a hlas nechá nedotknutý.</translation>
 </translationbundle>

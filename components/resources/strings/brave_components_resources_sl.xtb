@@ -2776,8 +2776,6 @@ pritisnite Tab in nato Enter, da preklopite na odprti zavihek</translation>
 <translation id="4472575034687746823">Začni</translation>
 <translation id="8105338321071787052">Projekt</translation>
 <translation id="546165799552573663">Oglasi ne prodajajo samo izdelkov.</translation>
-<translation id="1965974658620216491">Vsiljujejo vam glasbo in slike, ki jih nikoli niste izbrali. Browther jih blokira že od začetka, tudi tiste, ki se predvajajo pred videoposnetki.</translation>
-<translation id="4262008992540730210">Že vklopljeno, na vseh spletnih mestih</translation>
 <translation id="1555689541422561911">Izklopljeno · oglasi se prikazujejo</translation>
 <translation id="6873559458803488857">3 elementi blokirani</translation>
 <translation id="3067154517825632296">Ščiti Browther</translation>
@@ -2793,7 +2791,6 @@ pritisnite Tab in nato Enter, da preklopite na odprti zavihek</translation>
 <translation id="4491109536499578614">Slika</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Izberite, koga zamegliti.</translation>
-<translation id="5339424533442415737">Na slikah in videoposnetkih na vseh spletnih mestih, še preden se prikažejo.</translation>
 <translation id="3545367923331026889">Ženske</translation>
 <translation id="4304514273022914360">Moške</translation>
 <translation id="1372572267279908778">Vse</translation>
@@ -2801,7 +2798,6 @@ pritisnite Tab in nato Enter, da preklopite na odprti zavihek</translation>
 <translation id="9220517073506439238">Izklopljeno · nič ni prekrito</translation>
 <translation id="8594623674797496464">Prekrito, na sliki in v videu</translation>
 <translation id="3819100158285661528">Ohranite glas, odstranite glasbo.</translation>
-<translation id="96319507807834471">Med gledanjem videoposnetka Browther odstrani glasbo, glas pa ostane nedotaknjen.</translation>
 <translation id="6883222750635271491">Na vseh spletnih mestih</translation>
 <translation id="3491001008184346538">odstranjena</translation>
 <translation id="7568821498839695851">Izklopljeno · glasba se predvaja</translation>
@@ -2837,4 +2833,8 @@ pritisnite Tab in nato Enter, da preklopite na odprti zavihek</translation>
 <translation id="4965873645100791506">Uvoz ni uspel. Znova ga lahko zaženete v nastavitvah.</translation>
 <translation id="4666339299899065301">Za gesla vas lahko macOS prosi za geslo vašega Maca. To je običajno.</translation>
 <translation id="825541543844369363">Skenirajte tukaj</translation>
+<translation id="8465972333066362918">Vsiljujejo vam glasbo in slike, ki jih nikoli niste izbrali. Browther jih blokira že od začetka, tudi oglase YouTube pred videoposnetki in med njimi.</translation>
+<translation id="8683789109956613479">Že vklopljeno, tudi za YouTube</translation>
+<translation id="7078611607019725427">Na slikah in videoposnetkih na vseh spletnih mestih, tudi na platformi YouTube, še preden se prikažejo.</translation>
+<translation id="3332184177109111993">Na platformi YouTube in drugih spletnih mestih z videoposnetki Browther odstrani glasbo, glas pa ostane nedotaknjen.</translation>
 </translationbundle>

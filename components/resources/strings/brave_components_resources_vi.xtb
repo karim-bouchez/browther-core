@@ -2780,8 +2780,6 @@ Chúng tôi sẽ giúp bạn kết nối!</translation>
 <translation id="4472575034687746823">Bắt đầu</translation>
 <translation id="8105338321071787052">Một dự án của</translation>
 <translation id="546165799552573663">Quảng cáo không chỉ bán sản phẩm.</translation>
-<translation id="1965974658620216491">Chúng áp đặt lên bạn âm nhạc và hình ảnh bạn chưa từng chọn. Browther chặn chúng ngay từ đầu, kể cả những quảng cáo phát trước video.</translation>
-<translation id="4262008992540730210">Đã bật, trên mọi trang</translation>
 <translation id="1555689541422561911">Tắt · quảng cáo lọt qua</translation>
 <translation id="6873559458803488857">Đã chặn 3 mục</translation>
 <translation id="3067154517825632296">Lá chắn Browther</translation>
@@ -2796,7 +2794,6 @@ Chúng tôi sẽ giúp bạn kết nối!</translation>
 <translation id="4491109536499578614">Hình ảnh</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Chọn làm mờ ai.</translation>
-<translation id="5339424533442415737">Trên hình ảnh và video của mọi trang, trước cả khi chúng hiện ra.</translation>
 <translation id="3545367923331026889">Phụ nữ</translation>
 <translation id="4304514273022914360">Nam giới</translation>
 <translation id="1372572267279908778">Cả hai</translation>
@@ -2804,7 +2801,6 @@ Chúng tôi sẽ giúp bạn kết nối!</translation>
 <translation id="9220517073506439238">Tắt · không có gì bị che</translation>
 <translation id="8594623674797496464">Đã che, trên cả ảnh lẫn video</translation>
 <translation id="3819100158285661528">Giữ giọng nói, bỏ âm nhạc.</translation>
-<translation id="96319507807834471">Khi bạn xem video, Browther loại bỏ âm nhạc và giữ nguyên giọng nói.</translation>
 <translation id="6883222750635271491">Trên mọi trang</translation>
 <translation id="3491001008184346538">đã bỏ</translation>
 <translation id="7568821498839695851">Tắt · nhạc đang phát</translation>
@@ -2841,4 +2837,8 @@ Chúng tôi sẽ giúp bạn kết nối!</translation>
 <translation id="4965873645100791506">Không nhập được. Bạn có thể bắt đầu lại trong Cài đặt.</translation>
 <translation id="4666339299899065301">Để nhập mật khẩu, macOS có thể yêu cầu mật khẩu máy Mac của bạn. Điều đó là bình thường.</translation>
 <translation id="825541543844369363">Quét tại đây</translation>
+<translation id="8465972333066362918">Chúng áp đặt lên bạn âm nhạc và hình ảnh bạn chưa từng chọn. Browther chặn chúng ngay từ đầu, kể cả quảng cáo YouTube trước và trong khi phát video.</translation>
+<translation id="8683789109956613479">Đã bật, cả trên YouTube</translation>
+<translation id="7078611607019725427">Trên hình ảnh và video của mọi trang, kể cả YouTube, trước cả khi chúng hiện ra.</translation>
+<translation id="3332184177109111993">Trên YouTube và các trang video khác, Browther loại bỏ âm nhạc và giữ nguyên giọng nói.</translation>
 </translationbundle>

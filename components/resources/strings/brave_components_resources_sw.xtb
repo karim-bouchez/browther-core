@@ -2774,8 +2774,6 @@ Turuhusu tukuunganishe!</translation>
 <translation id="4472575034687746823">Anza</translation>
 <translation id="8105338321071787052">Mradi wa</translation>
 <translation id="546165799552573663">Matangazo hayauzi bidhaa pekee.</translation>
-<translation id="1965974658620216491">Yanakulazimisha muziki na picha ambazo hukuwahi kuchagua. Browther huyazuia tangu mwanzo, pamoja na yale yanayocheza kabla ya video.</translation>
-<translation id="4262008992540730210">Tayari imewashwa, kwenye kila tovuti</translation>
 <translation id="1555689541422561911">Imezimwa · matangazo yanapita</translation>
 <translation id="6873559458803488857">Vipengee 3 vimezuiwa</translation>
 <translation id="3067154517825632296">Ngao za Browther</translation>
@@ -2791,7 +2789,6 @@ Turuhusu tukuunganishe!</translation>
 <translation id="4491109536499578614">Picha</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Chagua watakaofifishwa.</translation>
-<translation id="5339424533442415737">Kwenye picha na video za kila tovuti, hata kabla hazijaonekana.</translation>
 <translation id="3545367923331026889">Wanawake</translation>
 <translation id="4304514273022914360">Wanaume</translation>
 <translation id="1372572267279908778">Wote wawili</translation>
@@ -2799,7 +2796,6 @@ Turuhusu tukuunganishe!</translation>
 <translation id="9220517073506439238">Imezimwa · hakuna kilichofunikwa</translation>
 <translation id="8594623674797496464">Imefunikwa, kwenye picha na video pia</translation>
 <translation id="3819100158285661528">Bakiza sauti, ondoa muziki.</translation>
-<translation id="96319507807834471">Unapotazama video, Browther huondoa muziki na kuiacha sauti kama ilivyo.</translation>
 <translation id="6883222750635271491">Kwenye kila tovuti</translation>
 <translation id="3491001008184346538">umeondolewa</translation>
 <translation id="7568821498839695851">Imezimwa · muziki unacheza</translation>
@@ -2835,4 +2831,8 @@ Turuhusu tukuunganishe!</translation>
 <translation id="4965873645100791506">Uhamishaji haukufanikiwa. Unaweza kuuanzisha tena kutoka kwenye Mipangilio.</translation>
 <translation id="4666339299899065301">Kwa manenosiri yako, macOS inaweza kukuomba nenosiri la Mac yako. Hilo ni kawaida.</translation>
 <translation id="825541543844369363">Changanua hapa</translation>
+<translation id="8465972333066362918">Yanakulazimisha muziki na picha ambazo hukuwahi kuchagua. Browther huyazuia tangu mwanzo, pamoja na matangazo ya YouTube, kabla na wakati wa video.</translation>
+<translation id="8683789109956613479">Tayari imewashwa, hata kwenye YouTube</translation>
+<translation id="7078611607019725427">Kwenye picha na video za kila tovuti, ikiwemo YouTube, hata kabla hazijaonekana.</translation>
+<translation id="3332184177109111993">Kwenye YouTube na tovuti nyingine za video, Browther huondoa muziki na kuiacha sauti kama ilivyo.</translation>
 </translationbundle>

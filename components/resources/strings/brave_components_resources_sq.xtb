@@ -2771,8 +2771,6 @@ Le të ju lidhim!</translation>
 <translation id="4472575034687746823">Fillo</translation>
 <translation id="8105338321071787052">Një projekt nga</translation>
 <translation id="546165799552573663">Reklamat nuk shesin vetëm produkte.</translation>
-<translation id="1965974658620216491">Të imponojnë muzikë dhe imazhe që nuk i ke zgjedhur kurrë. Browther i bllokon që në fillim, përfshirë ato që nisin para videove.</translation>
-<translation id="4262008992540730210">Aktiv tashmë, në çdo sajt</translation>
 <translation id="1555689541422561911">Joaktiv · reklamat kalojnë</translation>
 <translation id="6873559458803488857">3 elemente u bllokuan</translation>
 <translation id="3067154517825632296">Mburojat e Browther</translation>
@@ -2788,7 +2786,6 @@ Le të ju lidhim!</translation>
 <translation id="4491109536499578614">Imazh</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Zgjidh kë të turbullosh.</translation>
-<translation id="5339424533442415737">Në imazhet dhe videot e çdo sajti, edhe para se të shfaqen.</translation>
 <translation id="3545367923331026889">Gratë</translation>
 <translation id="4304514273022914360">Burrat</translation>
 <translation id="1372572267279908778">Të dy</translation>
@@ -2796,7 +2793,6 @@ Le të ju lidhim!</translation>
 <translation id="9220517073506439238">Joaktiv · asgjë nuk është e mbuluar</translation>
 <translation id="8594623674797496464">Mbuluar, si në imazh ashtu edhe në video</translation>
 <translation id="3819100158285661528">Mbaje zërin, hiqe muzikën.</translation>
-<translation id="96319507807834471">Ndërsa shikon një video, Browther heq muzikën dhe e lë zërin të paprekur.</translation>
 <translation id="6883222750635271491">Në çdo sajt</translation>
 <translation id="3491001008184346538">u hoq</translation>
 <translation id="7568821498839695851">Joaktiv · muzika dëgjohet</translation>
@@ -2832,4 +2828,8 @@ Le të ju lidhim!</translation>
 <translation id="4965873645100791506">Importimi nuk u krye. Mund ta nisësh sërish nga Cilësimet.</translation>
 <translation id="4666339299899065301">Për fjalëkalimet, macOS mund të të kërkojë fjalëkalimin e kompjuterit tënd Mac. Kjo është normale.</translation>
 <translation id="825541543844369363">Skano këtu</translation>
+<translation id="8465972333066362918">Të imponojnë muzikë dhe imazhe që nuk i ke zgjedhur kurrë. Browther i bllokon që në fillim, përfshirë reklamat e YouTube, para dhe gjatë videove.</translation>
+<translation id="8683789109956613479">Aktiv tashmë, edhe në YouTube</translation>
+<translation id="7078611607019725427">Në imazhet dhe videot e çdo sajti, përfshirë YouTube, edhe para se të shfaqen.</translation>
+<translation id="3332184177109111993">Në YouTube dhe në sajtet e tjera me video, Browther heq muzikën dhe e lë zërin të paprekur.</translation>
 </translationbundle>

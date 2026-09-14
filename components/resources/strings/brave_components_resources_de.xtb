@@ -2780,8 +2780,6 @@ Lassen Sie uns gemeinsam eine Verbindung herstellen!</translation>
 <translation id="4472575034687746823">Loslegen</translation>
 <translation id="8105338321071787052">Ein Projekt von</translation>
 <translation id="546165799552573663">Werbung verkauft nicht nur Produkte.</translation>
-<translation id="1965974658620216491">Sie drängt Ihnen Musik und Bilder auf, die Sie nie gewählt haben. Browther blockiert sie von Anfang an – auch die, die vor Videos laufen.</translation>
-<translation id="4262008992540730210">Bereits aktiv, auf allen Websites</translation>
 <translation id="1555689541422561911">Aus · die Werbung kommt durch</translation>
 <translation id="6873559458803488857">3 Elemente blockiert</translation>
 <translation id="3067154517825632296">Browther Shields</translation>
@@ -2796,7 +2794,6 @@ Lassen Sie uns gemeinsam eine Verbindung herstellen!</translation>
 <translation id="4491109536499578614">Bild</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Wählen Sie, wer unscharf wird.</translation>
-<translation id="5339424533442415737">Auf Bildern und Videos aller Websites, noch bevor sie erscheinen.</translation>
 <translation id="3545367923331026889">Frauen</translation>
 <translation id="4304514273022914360">Männer</translation>
 <translation id="1372572267279908778">Beide</translation>
@@ -2804,7 +2801,6 @@ Lassen Sie uns gemeinsam eine Verbindung herstellen!</translation>
 <translation id="9220517073506439238">Aus · nichts ist verdeckt</translation>
 <translation id="8594623674797496464">Verdeckt, auf Bild wie Video</translation>
 <translation id="3819100158285661528">Die Stimme bleibt, die Musik geht.</translation>
-<translation id="96319507807834471">Während Sie ein Video ansehen, entfernt Browther die Musik und lässt die Stimme unverändert.</translation>
 <translation id="6883222750635271491">Auf allen Websites</translation>
 <translation id="3491001008184346538">entfernt</translation>
 <translation id="7568821498839695851">Aus · die Musik läuft</translation>
@@ -2841,4 +2837,8 @@ Lassen Sie uns gemeinsam eine Verbindung herstellen!</translation>
 <translation id="4965873645100791506">Der Import hat nicht geklappt. Sie können ihn in den Einstellungen erneut starten.</translation>
 <translation id="4666339299899065301">Für Ihre Passwörter fragt macOS möglicherweise nach dem Passwort Ihres Mac. Das ist normal.</translation>
 <translation id="825541543844369363">Hier scannen</translation>
+<translation id="8465972333066362918">Sie drängt Ihnen Musik und Bilder auf, die Sie nie gewählt haben. Browther blockiert sie von Anfang an – auch auf YouTube, vor und während der Videos.</translation>
+<translation id="8683789109956613479">Bereits aktiv, auch auf YouTube</translation>
+<translation id="7078611607019725427">Auf Bildern und Videos aller Websites, YouTube inklusive, noch bevor sie erscheinen.</translation>
+<translation id="3332184177109111993">Auf YouTube und anderen Videoplattformen entfernt Browther die Musik und lässt die Stimme unverändert.</translation>
 </translationbundle>

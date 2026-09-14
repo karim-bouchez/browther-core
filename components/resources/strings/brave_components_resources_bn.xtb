@@ -2780,8 +2780,6 @@ Browther এর একটি সহায়ক পরিষেবা রয়েছ�
 <translation id="4472575034687746823">শুরু করুন</translation>
 <translation id="8105338321071787052">নির্মাতা:</translation>
 <translation id="546165799552573663">বিজ্ঞাপন শুধু পণ্যই বিক্রি করে না।</translation>
-<translation id="1965974658620216491">এগুলো আপনার ওপর এমন মিউজিক আর ছবি চাপিয়ে দেয়, যা আপনি কখনো বেছে নেননি। Browther শুরু থেকেই এগুলো ব্লক করে, ভিডিওর আগে চলা বিজ্ঞাপনগুলোও।</translation>
-<translation id="4262008992540730210">আগে থেকেই চালু, সব সাইটে</translation>
 <translation id="1555689541422561911">বন্ধ · বিজ্ঞাপন দেখা যাচ্ছে</translation>
 <translation id="6873559458803488857">৩টি আইটেম ব্লক করা হয়েছে</translation>
 <translation id="3067154517825632296">Browther শিল্ড</translation>
@@ -2797,7 +2795,6 @@ Browther এর একটি সহায়ক পরিষেবা রয়েছ�
 <translation id="4491109536499578614">ছবি</translation>
 <translation id="3810838688059735925">ভিডিও</translation>
 <translation id="8951655494989242362">কাকে ঝাপসা করা হবে, বেছে নিন।</translation>
-<translation id="5339424533442415737">সব সাইটের ছবি ও ভিডিওতে, সেগুলো দেখা দেওয়ার আগেই।</translation>
 <translation id="3545367923331026889">নারী</translation>
 <translation id="4304514273022914360">পুরুষ</translation>
 <translation id="1372572267279908778">উভয়</translation>
@@ -2805,7 +2802,6 @@ Browther এর একটি সহায়ক পরিষেবা রয়েছ�
 <translation id="9220517073506439238">বন্ধ · কিছুই ঢাকা নেই</translation>
 <translation id="8594623674797496464">ঢাকা হয়েছে, ছবি ও ভিডিও দুটোতেই</translation>
 <translation id="3819100158285661528">কণ্ঠ রাখুন, মিউজিক বাদ দিন।</translation>
-<translation id="96319507807834471">আপনি যখন ভিডিও দেখেন, Browther মিউজিক সরিয়ে দেয় আর কণ্ঠ অক্ষত রাখে।</translation>
 <translation id="6883222750635271491">সব সাইটে</translation>
 <translation id="3491001008184346538">সরানো হয়েছে</translation>
 <translation id="7568821498839695851">বন্ধ · মিউজিক বাজছে</translation>
@@ -2841,4 +2837,8 @@ Browther এর একটি সহায়ক পরিষেবা রয়েছ�
 <translation id="4965873645100791506">ইম্পোর্ট সম্পন্ন হয়নি। আপনি সেটিংস থেকে আবার শুরু করতে পারবেন।</translation>
 <translation id="4666339299899065301">আপনার পাসওয়ার্ডের জন্য macOS আপনার Mac-এর পাসওয়ার্ড চাইতে পারে। এটি স্বাভাবিক।</translation>
 <translation id="825541543844369363">এখানে স্ক্যান করুন</translation>
+<translation id="8465972333066362918">এগুলো আপনার ওপর এমন মিউজিক আর ছবি চাপিয়ে দেয়, যা আপনি কখনো বেছে নেননি। Browther শুরু থেকেই এগুলো ব্লক করে, YouTube-এ ভিডিওর আগে ও ভিডিও চলার সময় দেখানো বিজ্ঞাপনগুলোও।</translation>
+<translation id="8683789109956613479">আগে থেকেই চালু, YouTube-এও</translation>
+<translation id="7078611607019725427">YouTube-সহ সব সাইটের ছবি ও ভিডিওতে, সেগুলো দেখা দেওয়ার আগেই।</translation>
+<translation id="3332184177109111993">YouTube ও অন্যান্য ভিডিও সাইটে Browther মিউজিক সরিয়ে দেয় আর কণ্ঠ অক্ষত রাখে।</translation>
 </translationbundle>

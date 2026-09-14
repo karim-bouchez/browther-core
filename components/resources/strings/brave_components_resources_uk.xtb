@@ -2788,8 +2788,6 @@ Browther має допоміжну службу, яка захищає вас в
 <translation id="4472575034687746823">Почати</translation>
 <translation id="8105338321071787052">Проєкт</translation>
 <translation id="546165799552573663">Реклама продає не лише товари.</translation>
-<translation id="1965974658620216491">Вона нав'язує вам музику та зображення, яких ви не обирали. Browther блокує її від самого початку — зокрема й ту, що йде перед відео.</translation>
-<translation id="4262008992540730210">Уже ввімкнено, на всіх сайтах</translation>
 <translation id="1555689541422561911">Вимк. · реклама проходить</translation>
 <translation id="6873559458803488857">Заблоковано 3 елементи</translation>
 <translation id="3067154517825632296">Щити Browther</translation>
@@ -2804,7 +2802,6 @@ Browther має допоміжну службу, яка захищає вас в
 <translation id="4491109536499578614">Зображення</translation>
 <translation id="3810838688059735925">Відео</translation>
 <translation id="8951655494989242362">Оберіть, кого розмивати.</translation>
-<translation id="5339424533442415737">На зображеннях і у відео на всіх сайтах — ще до того, як вони з'являться.</translation>
 <translation id="3545367923331026889">Жінок</translation>
 <translation id="4304514273022914360">Чоловіків</translation>
 <translation id="1372572267279908778">Усіх</translation>
@@ -2812,7 +2809,6 @@ Browther має допоміжну службу, яка захищає вас в
 <translation id="9220517073506439238">Вимк. · нічого не приховано</translation>
 <translation id="8594623674797496464">Приховано — і на фото, і у відео</translation>
 <translation id="3819100158285661528">Залиште голос, приберіть музику.</translation>
-<translation id="96319507807834471">Поки ви дивитеся відео, Browther прибирає музику й залишає голос недоторканим.</translation>
 <translation id="6883222750635271491">На всіх сайтах</translation>
 <translation id="3491001008184346538">прибрано</translation>
 <translation id="7568821498839695851">Вимк. · музика звучить</translation>
@@ -2849,4 +2845,8 @@ Browther має допоміжну службу, яка захищає вас в
 <translation id="4965873645100791506">Імпорт не вдався. Ви можете запустити його знову в налаштуваннях.</translation>
 <translation id="4666339299899065301">Для паролів macOS може попросити пароль вашого Mac. Це нормально.</translation>
 <translation id="825541543844369363">Скануйте тут</translation>
+<translation id="8465972333066362918">Вона нав'язує вам музику та зображення, яких ви не обирали. Browther блокує її від самого початку — зокрема й рекламу на YouTube, до та під час відео.</translation>
+<translation id="8683789109956613479">Уже ввімкнено, навіть на YouTube</translation>
+<translation id="7078611607019725427">На зображеннях і у відео на всіх сайтах, включно з YouTube, — ще до того, як вони з'являться.</translation>
+<translation id="3332184177109111993">На YouTube та інших відеосайтах Browther прибирає музику й залишає голос недоторканим.</translation>
 </translationbundle>

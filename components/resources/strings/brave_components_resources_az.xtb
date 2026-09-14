@@ -2776,8 +2776,6 @@ Gəlin sizi bağlayaq!</translation>
 <translation id="4472575034687746823">Başlayın</translation>
 <translation id="8105338321071787052">Hazırlayan:</translation>
 <translation id="546165799552573663">Reklamlar təkcə məhsul satmır.</translation>
-<translation id="1965974658620216491">Onlar heç vaxt seçmədiyiniz musiqi və şəkilləri sizə sırıyır. Browther onları ilk andan bloklayır, videolardan əvvəl göstərilənlər də daxil olmaqla.</translation>
-<translation id="4262008992540730210">Artıq aktivdir, bütün saytlarda</translation>
 <translation id="1555689541422561911">Söndürülüb · reklamlar göstərilir</translation>
 <translation id="6873559458803488857">3 element bloklandı</translation>
 <translation id="3067154517825632296">Browther Qalxanları</translation>
@@ -2793,7 +2791,6 @@ Gəlin sizi bağlayaq!</translation>
 <translation id="4491109536499578614">Şəkil</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Kimi bulanıqlaşdırmağı seçin.</translation>
-<translation id="5339424533442415737">Bütün saytlardakı şəkil və videolarda — hələ görünməzdən əvvəl.</translation>
 <translation id="3545367923331026889">Qadınları</translation>
 <translation id="4304514273022914360">Kişiləri</translation>
 <translation id="1372572267279908778">Hər ikisini</translation>
@@ -2801,7 +2798,6 @@ Gəlin sizi bağlayaq!</translation>
 <translation id="9220517073506439238">Söndürülüb · heç nə örtülmür</translation>
 <translation id="8594623674797496464">Örtülüb — həm şəkildə, həm videoda</translation>
 <translation id="3819100158285661528">Səsi saxlayın, musiqini silin.</translation>
-<translation id="96319507807834471">Siz video izləyərkən Browther musiqini silir, insan səsinə isə toxunmur.</translation>
 <translation id="6883222750635271491">Bütün saytlarda</translation>
 <translation id="3491001008184346538">silindi</translation>
 <translation id="7568821498839695851">Söndürülüb · musiqi çalır</translation>
@@ -2837,4 +2833,8 @@ Gəlin sizi bağlayaq!</translation>
 <translation id="4965873645100791506">İdxal alınmadı. Onu Parametrlər bölməsindən yenidən başlada bilərsiniz.</translation>
 <translation id="4666339299899065301">Parollarınız üçün macOS Mac-inizin parolunu istəyə bilər. Bu normaldır.</translation>
 <translation id="825541543844369363">Burada skan edin</translation>
+<translation id="8465972333066362918">Onlar heç vaxt seçmədiyiniz musiqi və şəkilləri sizə sırıyır. Browther onları ilk andan bloklayır, videolardan əvvəl və video zamanı göstərilən YouTube reklamları da daxil olmaqla.</translation>
+<translation id="8683789109956613479">Artıq aktivdir, hətta YouTube-da</translation>
+<translation id="7078611607019725427">YouTube da daxil olmaqla bütün saytlardakı şəkil və videolarda — hələ görünməzdən əvvəl.</translation>
+<translation id="3332184177109111993">YouTube-da və digər video saytlarında Browther musiqini silir, insan səsinə isə toxunmur.</translation>
 </translationbundle>

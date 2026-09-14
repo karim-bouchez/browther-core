@@ -2801,8 +2801,6 @@ Browther יש שירות עוזר שמגן עליך מפני חשיפה זו ע�
 <translation id="4472575034687746823">מתחילים</translation>
 <translation id="8105338321071787052">פרויקט של</translation>
 <translation id="546165799552573663">פרסומות לא מוכרות רק מוצרים.</translation>
-<translation id="1965974658620216491">הן כופות עליכם מוזיקה ותמונות שמעולם לא בחרתם. Browther חוסם אותן מההתחלה, כולל אלה שמתנגנות לפני סרטונים.</translation>
-<translation id="4262008992540730210">כבר פעיל, בכל האתרים</translation>
 <translation id="1555689541422561911">כבוי · הפרסומות עוברות</translation>
 <translation id="6873559458803488857">3 רכיבים נחסמו</translation>
 <translation id="3067154517825632296">מגני Browther</translation>
@@ -2817,7 +2815,6 @@ Browther יש שירות עוזר שמגן עליך מפני חשיפה זו ע�
 <translation id="4491109536499578614">תמונה</translation>
 <translation id="3810838688059735925">סרטון</translation>
 <translation id="8951655494989242362">בחרו את מי לטשטש.</translation>
-<translation id="5339424533442415737">בתמונות ובסרטונים של כל האתרים, עוד לפני שהם מופיעים.</translation>
 <translation id="3545367923331026889">נשים</translation>
 <translation id="4304514273022914360">גברים</translation>
 <translation id="1372572267279908778">את כולם</translation>
@@ -2825,7 +2822,6 @@ Browther יש שירות עוזר שמגן עליך מפני חשיפה זו ע�
 <translation id="9220517073506439238">כבוי · שום דבר לא מכוסה</translation>
 <translation id="8594623674797496464">מכוסה, בתמונה ובסרטון</translation>
 <translation id="3819100158285661528">משאירים את הקול, מורידים את המוזיקה.</translation>
-<translation id="96319507807834471">בזמן שאתם צופים בסרטון, Browther מסיר את המוזיקה ומשאיר את הקול ללא שינוי.</translation>
 <translation id="6883222750635271491">בכל האתרים</translation>
 <translation id="3491001008184346538">הוסרה</translation>
 <translation id="7568821498839695851">כבוי · המוזיקה מתנגנת</translation>
@@ -2862,4 +2858,8 @@ Browther יש שירות עוזר שמגן עליך מפני חשיפה זו ע�
 <translation id="4965873645100791506">הייבוא לא הושלם. אפשר להפעיל אותו שוב מההגדרות.</translation>
 <translation id="4666339299899065301">בשביל הסיסמאות, macOS עשויה לבקש את הסיסמה של ה-Mac שלכם. זה תקין.</translation>
 <translation id="825541543844369363">סרקו כאן</translation>
+<translation id="8465972333066362918">הן כופות עליכם מוזיקה ותמונות שמעולם לא בחרתם. Browther חוסם אותן מההתחלה, כולל פרסומות ב-YouTube, לפני סרטונים ובמהלכם.</translation>
+<translation id="8683789109956613479">כבר פעיל, גם ב-YouTube</translation>
+<translation id="7078611607019725427">בתמונות ובסרטונים של כל האתרים, כולל YouTube, עוד לפני שהם מופיעים.</translation>
+<translation id="3332184177109111993">ב-YouTube ובאתרי וידאו אחרים, Browther מסיר את המוזיקה ומשאיר את הקול ללא שינוי.</translation>
 </translationbundle>

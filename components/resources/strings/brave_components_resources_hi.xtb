@@ -2781,8 +2781,6 @@ Browther में एक सहयोगी सेवा है, जो आप�
 <translation id="4472575034687746823">शुरू करें</translation>
 <translation id="8105338321071787052">निर्माता:</translation>
 <translation id="546165799552573663">विज्ञापन सिर्फ़ उत्पाद नहीं बेचते।</translation>
-<translation id="1965974658620216491">वे आप पर ऐसा संगीत और ऐसी तस्वीरें थोपते हैं जिन्हें आपने कभी नहीं चुना। Browther इन्हें शुरू से ही ब्लॉक करता है, वीडियो से पहले चलने वाले विज्ञापनों को भी।</translation>
-<translation id="4262008992540730210">पहले से सक्रिय, हर साइट पर</translation>
 <translation id="1555689541422561911">बंद · विज्ञापन दिखते हैं</translation>
 <translation id="6873559458803488857">3 आइटम ब्लॉक किए गए</translation>
 <translation id="3067154517825632296">Browther शील्ड</translation>
@@ -2797,7 +2795,6 @@ Browther में एक सहयोगी सेवा है, जो आप�
 <translation id="4491109536499578614">तस्वीर</translation>
 <translation id="3810838688059735925">वीडियो</translation>
 <translation id="8951655494989242362">चुनें किसे धुंधला करना है।</translation>
-<translation id="5339424533442415737">हर साइट की तस्वीरों और वीडियो पर, उनके दिखने से पहले ही।</translation>
 <translation id="3545367923331026889">महिलाएँ</translation>
 <translation id="4304514273022914360">पुरुष</translation>
 <translation id="1372572267279908778">दोनों</translation>
@@ -2805,7 +2802,6 @@ Browther में एक सहयोगी सेवा है, जो आप�
 <translation id="9220517073506439238">बंद · कुछ भी ढका नहीं</translation>
 <translation id="8594623674797496464">ढका हुआ, तस्वीर और वीडियो दोनों में</translation>
 <translation id="3819100158285661528">आवाज़ रखें, संगीत हटाएँ।</translation>
-<translation id="96319507807834471">जब आप वीडियो देखते हैं, Browther संगीत हटा देता है और आवाज़ को जस का तस रखता है।</translation>
 <translation id="6883222750635271491">हर साइट पर</translation>
 <translation id="3491001008184346538">हटाया गया</translation>
 <translation id="7568821498839695851">बंद · संगीत बज रहा है</translation>
@@ -2842,4 +2838,8 @@ Browther में एक सहयोगी सेवा है, जो आप�
 <translation id="4965873645100791506">इंपोर्ट पूरा नहीं हो सका। आप इसे सेटिंग से फिर से शुरू कर सकते हैं।</translation>
 <translation id="4666339299899065301">पासवर्ड के लिए macOS आपके Mac का पासवर्ड माँग सकता है। यह सामान्य है।</translation>
 <translation id="825541543844369363">यहाँ स्कैन करें</translation>
+<translation id="8465972333066362918">वे आप पर ऐसा संगीत और ऐसी तस्वीरें थोपते हैं जिन्हें आपने कभी नहीं चुना। Browther इन्हें शुरू से ही ब्लॉक करता है, YouTube पर वीडियो से पहले और उसके दौरान चलने वाले विज्ञापनों को भी।</translation>
+<translation id="8683789109956613479">पहले से सक्रिय, YouTube पर भी</translation>
+<translation id="7078611607019725427">YouTube समेत हर साइट की तस्वीरों और वीडियो पर, उनके दिखने से पहले ही।</translation>
+<translation id="3332184177109111993">YouTube और दूसरी वीडियो साइटों पर, Browther संगीत हटा देता है और आवाज़ को जस का तस रखता है।</translation>
 </translationbundle>

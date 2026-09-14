@@ -2785,8 +2785,6 @@ Zaraz Cię połączymy!</translation>
 <translation id="4472575034687746823">Zaczynamy</translation>
 <translation id="8105338321071787052">Projekt</translation>
 <translation id="546165799552573663">Reklamy sprzedają nie tylko produkty.</translation>
-<translation id="1965974658620216491">Narzucają ci muzykę i obrazy, których nigdy nie wybrałeś. Browther blokuje je od samego początku, także te przed filmami.</translation>
-<translation id="4262008992540730210">Już aktywne, na wszystkich stronach</translation>
 <translation id="1555689541422561911">Wył. · reklamy przechodzą</translation>
 <translation id="6873559458803488857">Zablokowano 3 elementy</translation>
 <translation id="3067154517825632296">Osłony Browther</translation>
@@ -2801,7 +2799,6 @@ Zaraz Cię połączymy!</translation>
 <translation id="4491109536499578614">Obraz</translation>
 <translation id="3810838688059735925">Film</translation>
 <translation id="8951655494989242362">Wybierz, kogo rozmywać.</translation>
-<translation id="5339424533442415737">Na obrazach i filmach na wszystkich stronach, zanim w ogóle się pojawią.</translation>
 <translation id="3545367923331026889">Kobiety</translation>
 <translation id="4304514273022914360">Mężczyzn</translation>
 <translation id="1372572267279908778">Wszystkich</translation>
@@ -2809,7 +2806,6 @@ Zaraz Cię połączymy!</translation>
 <translation id="9220517073506439238">Wył. · nic nie jest zakryte</translation>
 <translation id="8594623674797496464">Zakryte — na obrazie i na filmie</translation>
 <translation id="3819100158285661528">Zostaw głos, wytnij muzykę.</translation>
-<translation id="96319507807834471">Gdy oglądasz film, Browther usuwa muzykę i zostawia głos nietknięty.</translation>
 <translation id="6883222750635271491">Na wszystkich stronach</translation>
 <translation id="3491001008184346538">usunięta</translation>
 <translation id="7568821498839695851">Wył. · muzyka gra</translation>
@@ -2846,4 +2842,8 @@ Zaraz Cię połączymy!</translation>
 <translation id="4965873645100791506">Import się nie powiódł. Możesz uruchomić go ponownie w Ustawieniach.</translation>
 <translation id="4666339299899065301">Przy hasłach macOS może poprosić o hasło do twojego Maca. To normalne.</translation>
 <translation id="825541543844369363">Zeskanuj tutaj</translation>
+<translation id="8465972333066362918">Narzucają ci muzykę i obrazy, których nigdy nie wybrałeś. Browther blokuje je od samego początku, także reklamy na YouTube, przed filmami i w ich trakcie.</translation>
+<translation id="8683789109956613479">Już aktywne, nawet na YouTube</translation>
+<translation id="7078611607019725427">Na obrazach i filmach na wszystkich stronach, łącznie z YouTube, zanim w ogóle się pojawią.</translation>
+<translation id="3332184177109111993">Na YouTube i w innych serwisach wideo Browther usuwa muzykę i zostawia głos nietknięty.</translation>
 </translationbundle>

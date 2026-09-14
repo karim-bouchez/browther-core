@@ -2780,8 +2780,6 @@ Muodostetaan sinulle yhteys!</translation>
 <translation id="4472575034687746823">Aloita</translation>
 <translation id="8105338321071787052">Tekijä:</translation>
 <translation id="546165799552573663">Mainokset eivät myy vain tuotteita.</translation>
-<translation id="1965974658620216491">Ne tyrkyttävät sinulle musiikkia ja kuvia, joita et ole koskaan valinnut. Browther estää ne alusta alkaen, myös videoiden alussa pyörivät.</translation>
-<translation id="4262008992540730210">Jo käytössä, kaikilla sivustoilla</translation>
 <translation id="1555689541422561911">Pois · mainokset pääsevät läpi</translation>
 <translation id="6873559458803488857">3 kohdetta estetty</translation>
 <translation id="3067154517825632296">Browther-suojaukset</translation>
@@ -2796,7 +2794,6 @@ Muodostetaan sinulle yhteys!</translation>
 <translation id="4491109536499578614">Kuva</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Valitse, kenet sumennetaan.</translation>
-<translation id="5339424533442415737">Kaikkien sivustojen kuvissa ja videoissa, jo ennen kuin ne näkyvät.</translation>
 <translation id="3545367923331026889">Naiset</translation>
 <translation id="4304514273022914360">Miehet</translation>
 <translation id="1372572267279908778">Kaikki</translation>
@@ -2804,7 +2801,6 @@ Muodostetaan sinulle yhteys!</translation>
 <translation id="9220517073506439238">Pois · mitään ei ole peitetty</translation>
 <translation id="8594623674797496464">Peitetty, niin kuvassa kuin videossa</translation>
 <translation id="3819100158285661528">Pidä ääni, poista musiikki.</translation>
-<translation id="96319507807834471">Kun katsot videota, Browther poistaa musiikin ja jättää puheen koskemattomaksi.</translation>
 <translation id="6883222750635271491">Kaikilla sivustoilla</translation>
 <translation id="3491001008184346538">poistettu</translation>
 <translation id="7568821498839695851">Pois · musiikki soi</translation>
@@ -2841,4 +2837,8 @@ Muodostetaan sinulle yhteys!</translation>
 <translation id="4965873645100791506">Tuonti ei onnistunut. Voit aloittaa sen uudelleen asetuksista.</translation>
 <translation id="4666339299899065301">Salasanoja varten macOS saattaa pyytää Macisi salasanaa. Se on normaalia.</translation>
 <translation id="825541543844369363">Skannaa tästä</translation>
+<translation id="8465972333066362918">Ne tyrkyttävät sinulle musiikkia ja kuvia, joita et ole koskaan valinnut. Browther estää ne alusta alkaen, myös YouTube-mainokset ennen videoita ja niiden aikana.</translation>
+<translation id="8683789109956613479">Jo käytössä, myös YouTubessa</translation>
+<translation id="7078611607019725427">Kaikkien sivustojen, myös YouTuben, kuvissa ja videoissa, jo ennen kuin ne näkyvät.</translation>
+<translation id="3332184177109111993">YouTubessa ja muilla videosivustoilla Browther poistaa musiikin ja jättää puheen koskemattomaksi.</translation>
 </translationbundle>

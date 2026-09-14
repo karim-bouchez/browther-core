@@ -2779,8 +2779,6 @@ Browther 有一个帮助服务，通过过滤在 VPN 连接上进行 DNS 查询�
 <translation id="4472575034687746823">开始</translation>
 <translation id="8105338321071787052">出品：</translation>
 <translation id="546165799552573663">广告卖的不只是商品。</translation>
-<translation id="1965974658620216491">它们把你从未选择的音乐和图片强加给你。Browther 从安装起就会拦截广告，包括视频前播放的广告。</translation>
-<translation id="4262008992540730210">已启用，适用于所有网站</translation>
 <translation id="1555689541422561911">关闭 · 广告照常出现</translation>
 <translation id="6873559458803488857">已拦截 3 项</translation>
 <translation id="3067154517825632296">Browther 盾牌</translation>
@@ -2795,7 +2793,6 @@ Browther 有一个帮助服务，通过过滤在 VPN 连接上进行 DNS 查询�
 <translation id="4491109536499578614">图片</translation>
 <translation id="3810838688059735925">视频</translation>
 <translation id="8951655494989242362">选择要模糊的对象。</translation>
-<translation id="5339424533442415737">作用于所有网站的图片和视频，甚至在它们出现之前。</translation>
 <translation id="3545367923331026889">女性</translation>
 <translation id="4304514273022914360">男性</translation>
 <translation id="1372572267279908778">全部</translation>
@@ -2803,7 +2800,6 @@ Browther 有一个帮助服务，通过过滤在 VPN 连接上进行 DNS 查询�
 <translation id="9220517073506439238">关闭 · 没有任何遮挡</translation>
 <translation id="8594623674797496464">图片和视频均已遮挡</translation>
 <translation id="3819100158285661528">留下人声，去掉音乐。</translation>
-<translation id="96319507807834471">你观看视频时，Browther 会去除音乐，保留人声不变。</translation>
 <translation id="6883222750635271491">适用于所有网站</translation>
 <translation id="3491001008184346538">已去除</translation>
 <translation id="7568821498839695851">关闭 · 音乐照常播放</translation>
@@ -2840,4 +2836,8 @@ Browther 有一个帮助服务，通过过滤在 VPN 连接上进行 DNS 查询�
 <translation id="4965873645100791506">导入未能完成。你可以在设置中重新开始。</translation>
 <translation id="4666339299899065301">导入密码时，macOS 可能会要求输入你的 Mac 密码。这是正常的。</translation>
 <translation id="825541543844369363">扫描这里</translation>
+<translation id="8465972333066362918">它们把你从未选择的音乐和图片强加给你。Browther 从安装起就会拦截广告，包括 YouTube 视频播放前和播放中的广告。</translation>
+<translation id="8683789109956613479">已启用，YouTube 也不例外</translation>
+<translation id="7078611607019725427">作用于包括 YouTube 在内的所有网站的图片和视频，甚至在它们出现之前。</translation>
+<translation id="3332184177109111993">在 YouTube 和其他视频网站上，Browther 会去除音乐，保留人声不变。</translation>
 </translationbundle>

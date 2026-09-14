@@ -2783,8 +2783,6 @@ Būkite prisijungę!</translation>
 <translation id="4472575034687746823">Pradėti</translation>
 <translation id="8105338321071787052">Projektą sukūrė</translation>
 <translation id="546165799552573663">Reklamos parduoda ne tik produktus.</translation>
-<translation id="1965974658620216491">Jos primeta jums muziką ir vaizdus, kurių niekada nesirinkote. „Browther“ jas blokuoja nuo pat pradžių, įskaitant tas, kurios paleidžiamos prieš vaizdo įrašus.</translation>
-<translation id="4262008992540730210">Jau įjungta, visose svetainėse</translation>
 <translation id="1555689541422561911">Išjungta · reklamos praeina</translation>
 <translation id="6873559458803488857">Užblokuoti 3 elementai</translation>
 <translation id="3067154517825632296">„Browther“ skydai</translation>
@@ -2800,7 +2798,6 @@ Būkite prisijungę!</translation>
 <translation id="4491109536499578614">Vaizdas</translation>
 <translation id="3810838688059735925">Vaizdo įrašas</translation>
 <translation id="8951655494989242362">Pasirinkite, ką sulieti.</translation>
-<translation id="5339424533442415737">Vaizduose ir vaizdo įrašuose, visose svetainėse, dar prieš jiems pasirodant.</translation>
 <translation id="3545367923331026889">Moteris</translation>
 <translation id="4304514273022914360">Vyrus</translation>
 <translation id="1372572267279908778">Visus</translation>
@@ -2808,7 +2805,6 @@ Būkite prisijungę!</translation>
 <translation id="9220517073506439238">Išjungta · niekas neuždengta</translation>
 <translation id="8594623674797496464">Uždengta ir vaizde, ir vaizdo įraše</translation>
 <translation id="3819100158285661528">Palikite balsą, pašalinkite muziką.</translation>
-<translation id="96319507807834471">Kol žiūrite vaizdo įrašą, „Browther“ pašalina muziką ir palieka balsą nepaliestą.</translation>
 <translation id="6883222750635271491">Visose svetainėse</translation>
 <translation id="3491001008184346538">pašalinta</translation>
 <translation id="7568821498839695851">Išjungta · muzika groja</translation>
@@ -2844,4 +2840,8 @@ Būkite prisijungę!</translation>
 <translation id="4965873645100791506">Importuoti nepavyko. Galite pabandyti dar kartą skiltyje „Nustatymai“.</translation>
 <translation id="4666339299899065301">Slaptažodžiams importuoti „macOS“ gali paprašyti jūsų „Mac“ slaptažodžio. Tai normalu.</translation>
 <translation id="825541543844369363">Nuskenuokite čia</translation>
+<translation id="8465972333066362918">Jos primeta jums muziką ir vaizdus, kurių niekada nesirinkote. „Browther“ jas blokuoja nuo pat pradžių, įskaitant „YouTube“ reklamas prieš vaizdo įrašus ir jų metu.</translation>
+<translation id="8683789109956613479">Jau įjungta, net ir „YouTube“</translation>
+<translation id="7078611607019725427">Vaizduose ir vaizdo įrašuose visose svetainėse, įskaitant „YouTube“, dar prieš jiems pasirodant.</translation>
+<translation id="3332184177109111993">„YouTube“ ir kitose vaizdo įrašų svetainėse „Browther“ pašalina muziką ir palieka balsą nepaliestą.</translation>
 </translationbundle>

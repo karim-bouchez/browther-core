@@ -2780,8 +2780,6 @@ Mari kita buat Anda terhubung!</translation>
 <translation id="4472575034687746823">Mulai</translation>
 <translation id="8105338321071787052">Sebuah proyek dari</translation>
 <translation id="546165799552573663">Iklan tidak hanya menjual produk.</translation>
-<translation id="1965974658620216491">Iklan memaksakan musik dan gambar yang tidak pernah Anda pilih. Browther memblokirnya sejak awal, termasuk yang diputar sebelum video.</translation>
-<translation id="4262008992540730210">Sudah aktif, di semua situs</translation>
 <translation id="1555689541422561911">Nonaktif · iklan lolos</translation>
 <translation id="6873559458803488857">3 elemen diblokir</translation>
 <translation id="3067154517825632296">Perisai Browther</translation>
@@ -2796,7 +2794,6 @@ Mari kita buat Anda terhubung!</translation>
 <translation id="4491109536499578614">Gambar</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Pilih siapa yang diburamkan.</translation>
-<translation id="5339424533442415737">Pada gambar dan video di semua situs, bahkan sebelum muncul.</translation>
 <translation id="3545367923331026889">Perempuan</translation>
 <translation id="4304514273022914360">Laki-laki</translation>
 <translation id="1372572267279908778">Keduanya</translation>
@@ -2804,7 +2801,6 @@ Mari kita buat Anda terhubung!</translation>
 <translation id="9220517073506439238">Nonaktif · tidak ada yang ditutupi</translation>
 <translation id="8594623674797496464">Tertutup, di gambar maupun video</translation>
 <translation id="3819100158285661528">Pertahankan suara, hilangkan musik.</translation>
-<translation id="96319507807834471">Saat Anda menonton video, Browther menghapus musik dan membiarkan suara tetap utuh.</translation>
 <translation id="6883222750635271491">Di semua situs</translation>
 <translation id="3491001008184346538">dihapus</translation>
 <translation id="7568821498839695851">Nonaktif · musik diputar</translation>
@@ -2841,4 +2837,8 @@ Mari kita buat Anda terhubung!</translation>
 <translation id="4965873645100791506">Impor tidak berhasil. Anda dapat memulainya lagi dari Setelan.</translation>
 <translation id="4666339299899065301">Untuk sandi Anda, macOS mungkin meminta sandi Mac Anda. Itu wajar.</translation>
 <translation id="825541543844369363">Pindai di sini</translation>
+<translation id="8465972333066362918">Iklan memaksakan musik dan gambar yang tidak pernah Anda pilih. Browther memblokirnya sejak awal, termasuk iklan YouTube, sebelum dan selama video diputar.</translation>
+<translation id="8683789109956613479">Sudah aktif, bahkan di YouTube</translation>
+<translation id="7078611607019725427">Pada gambar dan video di semua situs, termasuk YouTube, bahkan sebelum muncul.</translation>
+<translation id="3332184177109111993">Di YouTube dan situs video lainnya, Browther menghapus musik dan membiarkan suara tetap utuh.</translation>
 </translationbundle>

@@ -2781,8 +2781,6 @@ Browther มีบริการช่วยเหลือที่ปกป�
 <translation id="4472575034687746823">เริ่มต้น</translation>
 <translation id="8105338321071787052">โปรเจกต์โดย</translation>
 <translation id="546165799552573663">โฆษณาไม่ได้ขายแค่สินค้า</translation>
-<translation id="1965974658620216491">โฆษณายัดเยียดเพลงและรูปภาพที่คุณไม่เคยเลือก Browther บล็อกตั้งแต่แรก รวมถึงโฆษณาที่เล่นก่อนวิดีโอ</translation>
-<translation id="4262008992540730210">เปิดอยู่แล้ว ทุกเว็บไซต์</translation>
 <translation id="1555689541422561911">ปิด · โฆษณาผ่านได้</translation>
 <translation id="6873559458803488857">บล็อกแล้ว 3 รายการ</translation>
 <translation id="3067154517825632296">โล่ Browther</translation>
@@ -2797,7 +2795,6 @@ Browther มีบริการช่วยเหลือที่ปกป�
 <translation id="4491109536499578614">รูปภาพ</translation>
 <translation id="3810838688059735925">วิดีโอ</translation>
 <translation id="8951655494989242362">เลือกว่าจะเบลอใคร</translation>
-<translation id="5339424533442415737">บนรูปภาพและวิดีโอของทุกเว็บไซต์ ก่อนที่จะแสดงขึ้นมา</translation>
 <translation id="3545367923331026889">ผู้หญิง</translation>
 <translation id="4304514273022914360">ผู้ชาย</translation>
 <translation id="1372572267279908778">ทั้งสอง</translation>
@@ -2805,7 +2802,6 @@ Browther มีบริการช่วยเหลือที่ปกป�
 <translation id="9220517073506439238">ปิด · ไม่มีอะไรถูกปิดบัง</translation>
 <translation id="8594623674797496464">ปิดบังแล้ว ทั้งในรูปและวิดีโอ</translation>
 <translation id="3819100158285661528">เก็บเสียงพูด ตัดเพลงออก</translation>
-<translation id="96319507807834471">ขณะที่คุณดูวิดีโอ Browther จะนำเพลงออกและคงเสียงพูดไว้เหมือนเดิม</translation>
 <translation id="6883222750635271491">ทุกเว็บไซต์</translation>
 <translation id="3491001008184346538">นำออกแล้ว</translation>
 <translation id="7568821498839695851">ปิด · เพลงเล่นอยู่</translation>
@@ -2842,4 +2838,8 @@ Browther มีบริการช่วยเหลือที่ปกป�
 <translation id="4965873645100791506">การนำเข้าไม่สำเร็จ คุณเริ่มใหม่ได้จากการตั้งค่า</translation>
 <translation id="4666339299899065301">สำหรับรหัสผ่าน macOS อาจขอรหัสผ่านของ Mac ของคุณ ซึ่งเป็นเรื่องปกติ</translation>
 <translation id="825541543844369363">สแกนที่นี่</translation>
+<translation id="8465972333066362918">โฆษณายัดเยียดเพลงและรูปภาพที่คุณไม่เคยเลือก Browther บล็อกตั้งแต่แรก รวมถึงโฆษณา YouTube ทั้งก่อนและระหว่างวิดีโอ</translation>
+<translation id="8683789109956613479">เปิดอยู่แล้ว แม้แต่บน YouTube</translation>
+<translation id="7078611607019725427">บนรูปภาพและวิดีโอของทุกเว็บไซต์ รวมถึง YouTube ก่อนที่จะแสดงขึ้นมา</translation>
+<translation id="3332184177109111993">บน YouTube และเว็บไซต์วิดีโออื่นๆ Browther จะนำเพลงออกและคงเสียงพูดไว้เหมือนเดิม</translation>
 </translationbundle>

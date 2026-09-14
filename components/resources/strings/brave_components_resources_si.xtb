@@ -2772,8 +2772,6 @@
 <translation id="4472575034687746823">ආරම්භ කරන්න</translation>
 <translation id="8105338321071787052">නිර්මාණය:</translation>
 <translation id="546165799552573663">දැන්වීම් විකුණන්නේ නිෂ්පාදන පමණක් නොවේ.</translation>
-<translation id="1965974658620216491">ඔබ කිසිදා තෝරා නොගත් සංගීතය සහ රූප ඒවා ඔබට බලෙන් පටවයි. වීඩියෝවලට පෙර ධාවනය වන ඒවා ද ඇතුළුව, Browther මුල සිටම ඒවා අවහිර කරයි.</translation>
-<translation id="4262008992540730210">දැනටමත් සක්‍රියයි, සෑම අඩවියකම</translation>
 <translation id="1555689541422561911">අක්‍රියයි · දැන්වීම් පෙන්වයි</translation>
 <translation id="6873559458803488857">අයිතම 3ක් අවහිර කර ඇත</translation>
 <translation id="3067154517825632296">Browther පලිහ</translation>
@@ -2789,7 +2787,6 @@
 <translation id="4491109536499578614">රූපය</translation>
 <translation id="3810838688059735925">වීඩියෝව</translation>
 <translation id="8951655494989242362">බොඳ කළ යුත්තේ කවුරුන්දැයි තෝරන්න.</translation>
-<translation id="5339424533442415737">සෑම අඩවියකම රූප සහ වීඩියෝ මත, ඒවා දිස්වීමටත් පෙර.</translation>
 <translation id="3545367923331026889">කාන්තාවන්</translation>
 <translation id="4304514273022914360">පිරිමින්</translation>
 <translation id="1372572267279908778">දෙපිරිසම</translation>
@@ -2797,7 +2794,6 @@
 <translation id="9220517073506439238">අක්‍රියයි · කිසිවක් වසා නැත</translation>
 <translation id="8594623674797496464">වසා ඇත, රූපයේත් වීඩියෝවේත් එකසේ</translation>
 <translation id="3819100158285661528">කටහඬ තබාගන්න, සංගීතය ඉවත් කරන්න.</translation>
-<translation id="96319507807834471">ඔබ වීඩියෝවක් නරඹන අතරතුර, Browther සංගීතය ඉවත් කර කටහඬ නොවෙනස්ව තබයි.</translation>
 <translation id="6883222750635271491">සෑම අඩවියකම</translation>
 <translation id="3491001008184346538">ඉවත් කර ඇත</translation>
 <translation id="7568821498839695851">අක්‍රියයි · සංගීතය වාදනය වේ</translation>
@@ -2833,4 +2829,8 @@
 <translation id="4965873645100791506">ආයාතය සාර්ථක වූයේ නැත. ඔබට එය සැකසුම් වෙතින් නැවත ආරම්භ කළ හැක.</translation>
 <translation id="4666339299899065301">ඔබේ රහස්වචන සඳහා, macOS ඔබේ Mac රහස්වචනය ඉල්ලා සිටිය හැක. එය සාමාන්‍යයි.</translation>
 <translation id="825541543844369363">මෙතැන ස්කෑන් කරන්න</translation>
+<translation id="8465972333066362918">ඔබ කිසිදා තෝරා නොගත් සංගීතය සහ රූප ඒවා ඔබට බලෙන් පටවයි. වීඩියෝවලට පෙර සහ වීඩියෝ අතරතුර ධාවනය වන YouTube දැන්වීම් ද ඇතුළුව, Browther මුල සිටම ඒවා අවහිර කරයි.</translation>
+<translation id="8683789109956613479">දැනටමත් සක්‍රියයි, YouTube හි පවා</translation>
+<translation id="7078611607019725427">YouTube ද ඇතුළුව සෑම අඩවියකම රූප සහ වීඩියෝ මත, ඒවා දිස්වීමටත් පෙර.</translation>
+<translation id="3332184177109111993">YouTube සහ අනෙකුත් වීඩියෝ අඩවිවල, Browther සංගීතය ඉවත් කර කටහඬ නොවෙනස්ව තබයි.</translation>
 </translationbundle>

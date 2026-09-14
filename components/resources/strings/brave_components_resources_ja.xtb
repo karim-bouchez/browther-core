@@ -2783,8 +2783,6 @@ Tab + Enterキーの順に操作して開いているタブを切り替えます
 <translation id="4472575034687746823">はじめる</translation>
 <translation id="8105338321071787052">制作：</translation>
 <translation id="546165799552573663">広告が売っているのは商品だけではありません。</translation>
-<translation id="1965974658620216491">選んでもいない音楽や画像を押しつけてきます。Browther はインストール直後から広告をブロックします。動画の前に流れる広告も対象です。</translation>
-<translation id="4262008992540730210">すでに有効、すべてのサイトで</translation>
 <translation id="1555689541422561911">オフ · 広告が表示されます</translation>
 <translation id="6873559458803488857">3 件をブロック</translation>
 <translation id="3067154517825632296">Browther シールド</translation>
@@ -2799,7 +2797,6 @@ Tab + Enterキーの順に操作して開いているタブを切り替えます
 <translation id="4491109536499578614">画像</translation>
 <translation id="3810838688059735925">動画</translation>
 <translation id="8951655494989242362">ぼかす対象を選ぶ。</translation>
-<translation id="5339424533442415737">すべてのサイトの画像と動画に、表示される前から。</translation>
 <translation id="3545367923331026889">女性</translation>
 <translation id="4304514273022914360">男性</translation>
 <translation id="1372572267279908778">両方</translation>
@@ -2807,7 +2804,6 @@ Tab + Enterキーの順に操作して開いているタブを切り替えます
 <translation id="9220517073506439238">オフ · 何も隠れていません</translation>
 <translation id="8594623674797496464">画像にも動画にもぼかしを適用</translation>
 <translation id="3819100158285661528">声は残して、音楽だけ消す。</translation>
-<translation id="96319507807834471">動画を見ている間、Browther が音楽を取り除き、声はそのまま残します。</translation>
 <translation id="6883222750635271491">すべてのサイトで</translation>
 <translation id="3491001008184346538">除去済み</translation>
 <translation id="7568821498839695851">オフ · 音楽が流れます</translation>
@@ -2844,4 +2840,8 @@ Tab + Enterキーの順に操作して開いているタブを切り替えます
 <translation id="4965873645100791506">インポートを完了できませんでした。設定からもう一度開始できます。</translation>
 <translation id="4666339299899065301">パスワードの読み込み時に、macOS が Mac のパスワードを求めることがあります。問題ありません。</translation>
 <translation id="825541543844369363">ここをスキャン</translation>
+<translation id="8465972333066362918">選んでもいない音楽や画像を押しつけてきます。Browther はインストール直後から広告をブロックします。YouTube で動画の前や再生中に流れる広告も対象です。</translation>
+<translation id="8683789109956613479">すでに有効、YouTube でも</translation>
+<translation id="7078611607019725427">YouTube を含むすべてのサイトの画像と動画に、表示される前から。</translation>
+<translation id="3332184177109111993">YouTube やその他の動画サイトで、Browther が音楽を取り除き、声はそのまま残します。</translation>
 </translationbundle>

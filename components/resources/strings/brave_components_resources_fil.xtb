@@ -2780,8 +2780,6 @@ Ikonekta ka natin!</translation>
 <translation id="4472575034687746823">Magsimula</translation>
 <translation id="8105338321071787052">Isang proyekto ng</translation>
 <translation id="546165799552573663">Hindi produkto lang ang ibinebenta ng mga ad.</translation>
-<translation id="1965974658620216491">Ipinipilit nila sa iyo ang musika at mga larawang hindi kailanman pinili mo. Bina-block ng Browther ang mga ito mula sa simula, kasama ang mga nagpe-play bago ang mga video.</translation>
-<translation id="4262008992540730210">Naka-on na, sa bawat site</translation>
 <translation id="1555689541422561911">Naka-off · nakalulusot ang mga ad</translation>
 <translation id="6873559458803488857">3 na-block na item</translation>
 <translation id="3067154517825632296">Browther Shields</translation>
@@ -2797,7 +2795,6 @@ Ikonekta ka natin!</translation>
 <translation id="4491109536499578614">Larawan</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Piliin kung sino ang i-blur.</translation>
-<translation id="5339424533442415737">Sa mga larawan at video ng bawat site, bago pa man lumitaw ang mga ito.</translation>
 <translation id="3545367923331026889">Mga babae</translation>
 <translation id="4304514273022914360">Mga lalaki</translation>
 <translation id="1372572267279908778">Pareho</translation>
@@ -2805,7 +2802,6 @@ Ikonekta ka natin!</translation>
 <translation id="9220517073506439238">Naka-off · walang natatakpan</translation>
 <translation id="8594623674797496464">Natatakpan, sa larawan at sa video</translation>
 <translation id="3819100158285661528">Panatilihin ang boses, alisin ang musika.</translation>
-<translation id="96319507807834471">Habang nanonood ka ng video, inaalis ng Browther ang musika at hindi ginagalaw ang boses.</translation>
 <translation id="6883222750635271491">Sa bawat site</translation>
 <translation id="3491001008184346538">inalis</translation>
 <translation id="7568821498839695851">Naka-off · tumutugtog ang musika</translation>
@@ -2841,4 +2837,8 @@ Ikonekta ka natin!</translation>
 <translation id="4965873645100791506">Hindi natuloy ang pag-import. Puwede mo itong simulang muli mula sa Mga Setting.</translation>
 <translation id="4666339299899065301">Para sa iyong mga password, maaaring hingin ng macOS ang password ng iyong Mac. Normal iyon.</translation>
 <translation id="825541543844369363">I-scan dito</translation>
+<translation id="8465972333066362918">Ipinipilit nila sa iyo ang musika at mga larawang hindi kailanman pinili mo. Bina-block ng Browther ang mga ito mula sa simula, kasama ang mga ad sa YouTube bago at habang nagpe-play ang mga video.</translation>
+<translation id="8683789109956613479">Naka-on na, maging sa YouTube</translation>
+<translation id="7078611607019725427">Sa mga larawan at video ng bawat site, kasama ang YouTube, bago pa man lumitaw ang mga ito.</translation>
+<translation id="3332184177109111993">Sa YouTube at iba pang video site, inaalis ng Browther ang musika at hindi ginagalaw ang boses.</translation>
 </translationbundle>

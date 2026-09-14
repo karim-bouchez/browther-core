@@ -2778,8 +2778,6 @@ Hajde da vas povežemo!</translation>
 <translation id="4472575034687746823">Počni</translation>
 <translation id="8105338321071787052">Projekat</translation>
 <translation id="546165799552573663">Oglasi ne prodaju samo proizvode.</translation>
-<translation id="1965974658620216491">Nameću vam muziku i slike koje nikada niste izabrali. Browther ih blokira od samog početka, uključujući i one pre video snimaka.</translation>
-<translation id="4262008992540730210">Već aktivno, na svim sajtovima</translation>
 <translation id="1555689541422561911">Isklj. · oglasi prolaze</translation>
 <translation id="6873559458803488857">Blokirana 3 elementa</translation>
 <translation id="3067154517825632296">Browther štitovi</translation>
@@ -2794,7 +2792,6 @@ Hajde da vas povežemo!</translation>
 <translation id="4491109536499578614">Slika</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Izaberite koga da zamutite.</translation>
-<translation id="5339424533442415737">Na slikama i video snimcima na svim sajtovima, i pre nego što se pojave.</translation>
 <translation id="3545367923331026889">Žene</translation>
 <translation id="4304514273022914360">Muškarce</translation>
 <translation id="1372572267279908778">Sve</translation>
@@ -2802,7 +2799,6 @@ Hajde da vas povežemo!</translation>
 <translation id="9220517073506439238">Isklj. · ništa nije prekriveno</translation>
 <translation id="8594623674797496464">Prekriveno, na slici i u videu</translation>
 <translation id="3819100158285661528">Zadržite glas, isključite muziku.</translation>
-<translation id="96319507807834471">Dok gledate video, Browther uklanja muziku i ostavlja glas netaknutim.</translation>
 <translation id="6883222750635271491">Na svim sajtovima</translation>
 <translation id="3491001008184346538">uklonjena</translation>
 <translation id="7568821498839695851">Isklj. · muzika svira</translation>
@@ -2839,4 +2835,8 @@ Hajde da vas povežemo!</translation>
 <translation id="4965873645100791506">Uvoz nije uspeo. Možete ponovo da ga pokrenete u Podešavanjima.</translation>
 <translation id="4666339299899065301">Za lozinke macOS može da zatraži lozinku vašeg Mac-a. To je uobičajeno.</translation>
 <translation id="825541543844369363">Skenirajte ovde</translation>
+<translation id="8465972333066362918">Nameću vam muziku i slike koje nikada niste izabrali. Browther ih blokira od samog početka, uključujući i oglase na YouTube-u, pre i tokom video snimaka.</translation>
+<translation id="8683789109956613479">Već aktivno, čak i na YouTube-u</translation>
+<translation id="7078611607019725427">Na slikama i video snimcima na svim sajtovima, uključujući YouTube, i pre nego što se pojave.</translation>
+<translation id="3332184177109111993">Na YouTube-u i drugim video sajtovima Browther uklanja muziku i ostavlja glas netaknutim.</translation>
 </translationbundle>

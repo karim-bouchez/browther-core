@@ -2765,8 +2765,6 @@ Browther-ს აქვს დამხმარე სერვისი, რო
 <translation id="4472575034687746823">დაწყება</translation>
 <translation id="8105338321071787052">შემქმნელი:</translation>
 <translation id="546165799552573663">რეკლამები მხოლოდ პროდუქტს არ ყიდიან.</translation>
-<translation id="1965974658620216491">ისინი თავს გახვევენ მუსიკას და სურათებს, რომლებიც არასდროს აირჩიეთ. Browther მათ თავიდანვე ბლოკავს, მათ შორის ვიდეოების წინ ჩართულებსაც.</translation>
-<translation id="4262008992540730210">უკვე ჩართულია, ყველა საიტზე</translation>
 <translation id="1555689541422561911">გამორთული · რეკლამები ჩანან</translation>
 <translation id="6873559458803488857">3 ელემენტი დაბლოკილია</translation>
 <translation id="3067154517825632296">Browther-ის ფარები</translation>
@@ -2782,7 +2780,6 @@ Browther-ს აქვს დამხმარე სერვისი, რო
 <translation id="4491109536499578614">სურათი</translation>
 <translation id="3810838688059735925">ვიდეო</translation>
 <translation id="8951655494989242362">აირჩიეთ, ვინ დაბუნდოვნდეს.</translation>
-<translation id="5339424533442415737">ყველა საიტის სურათებსა და ვიდეოებზე — სანამ გამოჩნდებიან.</translation>
 <translation id="3545367923331026889">ქალები</translation>
 <translation id="4304514273022914360">მამაკაცები</translation>
 <translation id="1372572267279908778">ორივე</translation>
@@ -2790,7 +2787,6 @@ Browther-ს აქვს დამხმარე სერვისი, რო
 <translation id="9220517073506439238">გამორთული · არაფერი დაფარული</translation>
 <translation id="8594623674797496464">დაფარული — სურათზეც და ვიდეოზეც</translation>
 <translation id="3819100158285661528">დატოვეთ ხმა, მოაშორეთ მუსიკა.</translation>
-<translation id="96319507807834471">ვიდეოს ყურებისას Browther მუსიკას აშორებს, ადამიანის ხმას კი უცვლელს ტოვებს.</translation>
 <translation id="6883222750635271491">ყველა საიტზე</translation>
 <translation id="3491001008184346538">მოცილებული</translation>
 <translation id="7568821498839695851">გამორთული · მუსიკა უკრავს</translation>
@@ -2826,4 +2822,8 @@ Browther-ს აქვს დამხმარე სერვისი, რო
 <translation id="4965873645100791506">იმპორტი არ შედგა. შეგიძლიათ ხელახლა დაიწყოთ პარამეტრებიდან.</translation>
 <translation id="4666339299899065301">პაროლებისთვის macOS შეიძლება მოგთხოვოთ თქვენი Mac-ის პაროლი. ეს ნორმალურია.</translation>
 <translation id="825541543844369363">დაასკანერეთ აქ</translation>
+<translation id="8465972333066362918">ისინი თავს გახვევენ მუსიკას და სურათებს, რომლებიც არასდროს აირჩიეთ. Browther მათ თავიდანვე ბლოკავს, მათ შორის YouTube-ის რეკლამებსაც — ვიდეოს წინ და მის დროს.</translation>
+<translation id="8683789109956613479">უკვე ჩართულია, YouTube-ზეც კი</translation>
+<translation id="7078611607019725427">ყველა საიტის, მათ შორის YouTube-ის, სურათებსა და ვიდეოებზე — სანამ გამოჩნდებიან.</translation>
+<translation id="3332184177109111993">YouTube-სა და სხვა ვიდეოსაიტებზე Browther მუსიკას აშორებს, ადამიანის ხმას კი უცვლელს ტოვებს.</translation>
 </translationbundle>

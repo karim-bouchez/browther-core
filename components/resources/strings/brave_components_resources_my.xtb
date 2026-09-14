@@ -2762,8 +2762,6 @@ brave://setting/systemတွင် WireGuard ပြန်ပြောင်း�
 <translation id="4472575034687746823">စတင်ရန်</translation>
 <translation id="8105338321071787052">ဖန်တီးသူ -</translation>
 <translation id="546165799552573663">ကြော်ငြာများသည် ကုန်ပစ္စည်းကိုသာ ရောင်းသည် မဟုတ်ပါ။</translation>
-<translation id="1965974658620216491">သင်မရွေးချယ်ခဲ့သည့် ဂီတနှင့် ပုံများကို သင့်ထံ အတင်းရောက်စေသည်။ Browther က ၎င်းတို့ကို အစကတည်းက ပိတ်ဆို့ပေးပြီး ဗီဒီယိုမစမီ ပြသည့် ကြော်ငြာများကိုပါ ပိတ်ဆို့ပေးသည်။</translation>
-<translation id="4262008992540730210">ဖွင့်ထားပြီး၊ ဝဘ်ဆိုက်တိုင်းတွင်</translation>
 <translation id="1555689541422561911">ပိတ်ထားသည် · ကြော်ငြာများ ပေါ်လာသည်</translation>
 <translation id="6873559458803488857">အရာ ၃ ခု ပိတ်ဆို့ထားသည်</translation>
 <translation id="3067154517825632296">Browther ဒိုင်းများ</translation>
@@ -2779,7 +2777,6 @@ brave://setting/systemတွင် WireGuard ပြန်ပြောင်း�
 <translation id="4491109536499578614">ပုံ</translation>
 <translation id="3810838688059735925">ဗီဒီယို</translation>
 <translation id="8951655494989242362">မည်သူ့ကို ဝါးစေမည် ရွေးပါ။</translation>
-<translation id="5339424533442415737">ဝဘ်ဆိုက်တိုင်းရှိ ပုံများနှင့် ဗီဒီယိုများတွင်၊ ၎င်းတို့ မပေါ်လာမီကပင်။</translation>
 <translation id="3545367923331026889">အမျိုးသမီးများ</translation>
 <translation id="4304514273022914360">အမျိုးသားများ</translation>
 <translation id="1372572267279908778">နှစ်မျိုးလုံး</translation>
@@ -2787,7 +2784,6 @@ brave://setting/systemတွင် WireGuard ပြန်ပြောင်း�
 <translation id="9220517073506439238">ပိတ်ထားသည် · ဘာမှ မဖုံးထားပါ</translation>
 <translation id="8594623674797496464">ဖုံးထားသည်၊ ပုံရော ဗီဒီယိုပါ</translation>
 <translation id="3819100158285661528">လူသံကို ချန်ထားပါ၊ ဂီတကို ဖြတ်ပါ။</translation>
-<translation id="96319507807834471">သင် ဗီဒီယိုကြည့်နေစဉ် Browther က ဂီတကို ဖယ်ရှားပြီး လူသံကို မထိခိုက်စေဘဲ ထားပေးသည်။</translation>
 <translation id="6883222750635271491">ဝဘ်ဆိုက်တိုင်းတွင်</translation>
 <translation id="3491001008184346538">ဖယ်ရှားပြီး</translation>
 <translation id="7568821498839695851">ပိတ်ထားသည် · ဂီတ ဖွင့်နေသည်</translation>
@@ -2823,4 +2819,8 @@ brave://setting/systemတွင် WireGuard ပြန်ပြောင်း�
 <translation id="4965873645100791506">သွင်းယူ၍ မရပါ။ ဆက်တင်မှ ထပ်မံ စတင်နိုင်ပါသည်။</translation>
 <translation id="4666339299899065301">သင့်စကားဝှက်များအတွက် macOS က သင့် Mac ၏ စကားဝှက်ကို တောင်းနိုင်သည်။ ၎င်းမှာ ပုံမှန်ပင် ဖြစ်သည်။</translation>
 <translation id="825541543844369363">ဤနေရာတွင် စကင်ဖတ်ပါ</translation>
+<translation id="8465972333066362918">သင်မရွေးချယ်ခဲ့သည့် ဂီတနှင့် ပုံများကို သင့်ထံ အတင်းရောက်စေသည်။ Browther က ၎င်းတို့ကို အစကတည်းက ပိတ်ဆို့ပေးပြီး ဗီဒီယိုမစမီနှင့် ဗီဒီယိုကြည့်နေစဉ် ပြသည့် YouTube ကြော်ငြာများကိုပါ ပိတ်ဆို့ပေးသည်။</translation>
+<translation id="8683789109956613479">ဖွင့်ထားပြီး၊ YouTube တွင်ပင်</translation>
+<translation id="7078611607019725427">YouTube အပါအဝင် ဝဘ်ဆိုက်တိုင်းရှိ ပုံများနှင့် ဗီဒီယိုများတွင်၊ ၎င်းတို့ မပေါ်လာမီကပင်။</translation>
+<translation id="3332184177109111993">YouTube နှင့် အခြား ဗီဒီယိုဝဘ်ဆိုက်များတွင် Browther က ဂီတကို ဖယ်ရှားပြီး လူသံကို မထိခိုက်စေဘဲ ထားပေးသည်။</translation>
 </translationbundle>

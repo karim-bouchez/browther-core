@@ -2753,8 +2753,6 @@
 <translation id="4472575034687746823">ເລີ່ມຕົ້ນ</translation>
 <translation id="8105338321071787052">ໂຄງການໂດຍ</translation>
 <translation id="546165799552573663">ໂຄສະນາບໍ່ໄດ້ຂາຍພຽງແຕ່ສິນຄ້າ</translation>
-<translation id="1965974658620216491">ມັນບັງຄັບໃຫ້ທ່ານຟັງດົນຕີ ແລະ ເບິ່ງຮູບພາບທີ່ທ່ານບໍ່ເຄີຍເລືອກ. Browther ບລັອກພວກມັນຕັ້ງແຕ່ເລີ່ມຕົ້ນ ລວມທັງໂຄສະນາທີ່ຫຼິ້ນກ່ອນວິດີໂອ.</translation>
-<translation id="4262008992540730210">ເປີດໃຊ້ງານແລ້ວ, ທຸກເວັບໄຊ</translation>
 <translation id="1555689541422561911">ປິດ · ໂຄສະນາຜ່ານໄດ້</translation>
 <translation id="6873559458803488857">ບລັອກແລ້ວ 3 ລາຍການ</translation>
 <translation id="3067154517825632296">ໂລ່ Browther</translation>
@@ -2770,7 +2768,6 @@
 <translation id="4491109536499578614">ຮູບພາບ</translation>
 <translation id="3810838688059735925">ວິດີໂອ</translation>
 <translation id="8951655494989242362">ເລືອກວ່າຈະເຮັດໃຫ້ໃຜມົວ</translation>
-<translation id="5339424533442415737">ຢູ່ໃນຮູບພາບ ແລະ ວິດີໂອຂອງທຸກເວັບໄຊ ກ່ອນທີ່ມັນຈະສະແດງຂຶ້ນ.</translation>
 <translation id="3545367923331026889">ຜູ້ຍິງ</translation>
 <translation id="4304514273022914360">ຜູ້ຊາຍ</translation>
 <translation id="1372572267279908778">ທັງສອງ</translation>
@@ -2778,7 +2775,6 @@
 <translation id="9220517073506439238">ປິດ · ບໍ່ມີຫຍັງຖືກປົກປິດ</translation>
 <translation id="8594623674797496464">ປົກປິດແລ້ວ ທັງໃນຮູບ ແລະ ໃນວິດີໂອ</translation>
 <translation id="3819100158285661528">ຮັກສາສຽງເວົ້າ ຕັດດົນຕີອອກ</translation>
-<translation id="96319507807834471">ຂະນະທີ່ທ່ານເບິ່ງວິດີໂອ, Browther ຈະຕັດດົນຕີອອກ ແລະ ຮັກສາສຽງເວົ້າໄວ້ຄືເດີມ.</translation>
 <translation id="6883222750635271491">ທຸກເວັບໄຊ</translation>
 <translation id="3491001008184346538">ຕັດອອກແລ້ວ</translation>
 <translation id="7568821498839695851">ປິດ · ດົນຕີກຳລັງຫຼິ້ນ</translation>
@@ -2814,4 +2810,8 @@
 <translation id="4965873645100791506">ການນຳເຂົ້າບໍ່ສຳເລັດ. ທ່ານສາມາດເລີ່ມໃໝ່ໄດ້ຈາກການຕັ້ງຄ່າ.</translation>
 <translation id="4666339299899065301">ສຳລັບລະຫັດຜ່ານ, macOS ອາດຈະຂໍລະຫັດຜ່ານ Mac ຂອງທ່ານ. ນີ້ເປັນເລື່ອງປົກກະຕິ.</translation>
 <translation id="825541543844369363">ສະແກນບ່ອນນີ້</translation>
+<translation id="8465972333066362918">ມັນບັງຄັບໃຫ້ທ່ານຟັງດົນຕີ ແລະ ເບິ່ງຮູບພາບທີ່ທ່ານບໍ່ເຄີຍເລືອກ. Browther ບລັອກພວກມັນຕັ້ງແຕ່ເລີ່ມຕົ້ນ ລວມທັງໂຄສະນາ YouTube ທີ່ຫຼິ້ນກ່ອນ ແລະ ລະຫວ່າງວິດີໂອ.</translation>
+<translation id="8683789109956613479">ເປີດໃຊ້ງານແລ້ວ, ແມ່ນແຕ່ໃນ YouTube</translation>
+<translation id="7078611607019725427">ຢູ່ໃນຮູບພາບ ແລະ ວິດີໂອຂອງທຸກເວັບໄຊ ລວມທັງ YouTube ກ່ອນທີ່ມັນຈະສະແດງຂຶ້ນ.</translation>
+<translation id="3332184177109111993">ໃນ YouTube ແລະ ເວັບໄຊວິດີໂອອື່ນໆ, Browther ຈະຕັດດົນຕີອອກ ແລະ ຮັກສາສຽງເວົ້າໄວ້ຄືເດີມ.</translation>
 </translationbundle>

@@ -2780,8 +2780,6 @@ olemasoleval vahelehel</translation>
 <translation id="4472575034687746823">Alusta</translation>
 <translation id="8105338321071787052">Autor:</translation>
 <translation id="546165799552573663">Reklaamid ei müü ainult tooteid.</translation>
-<translation id="1965974658620216491">Need suruvad teile peale muusikat ja pilte, mida te pole kunagi valinud. Browther blokeerib need kohe algusest, ka need, mis mängivad enne videoid.</translation>
-<translation id="4262008992540730210">Juba sees, igal saidil</translation>
 <translation id="1555689541422561911">Väljas · reklaamid pääsevad läbi</translation>
 <translation id="6873559458803488857">3 elementi blokeeritud</translation>
 <translation id="3067154517825632296">Browtheri kilbid</translation>
@@ -2797,7 +2795,6 @@ olemasoleval vahelehel</translation>
 <translation id="4491109536499578614">Pilt</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Valige, keda hägustada.</translation>
-<translation id="5339424533442415737">Piltidel ja videotel, igal saidil, juba enne nende ilmumist.</translation>
 <translation id="3545367923331026889">Naised</translation>
 <translation id="4304514273022914360">Mehed</translation>
 <translation id="1372572267279908778">Mõlemad</translation>
@@ -2805,7 +2802,6 @@ olemasoleval vahelehel</translation>
 <translation id="9220517073506439238">Väljas · midagi pole kaetud</translation>
 <translation id="8594623674797496464">Kaetud nii pildil kui ka videol</translation>
 <translation id="3819100158285661528">Hääl jääb, muusika kaob.</translation>
-<translation id="96319507807834471">Kui vaatate videot, eemaldab Browther muusika ja jätab hääle puutumata.</translation>
 <translation id="6883222750635271491">Igal saidil</translation>
 <translation id="3491001008184346538">eemaldatud</translation>
 <translation id="7568821498839695851">Väljas · muusika mängib</translation>
@@ -2841,4 +2837,8 @@ olemasoleval vahelehel</translation>
 <translation id="4965873645100791506">Importimine ei õnnestunud. Saate selle seadetest uuesti käivitada.</translation>
 <translation id="4666339299899065301">Paroolide importimiseks võib macOS küsida teie Maci parooli. See on normaalne.</translation>
 <translation id="825541543844369363">Skannige siit</translation>
+<translation id="8465972333066362918">Need suruvad teile peale muusikat ja pilte, mida te pole kunagi valinud. Browther blokeerib need kohe algusest, ka YouTube'i reklaamid enne videoid ja nende ajal.</translation>
+<translation id="8683789109956613479">Juba sees, isegi YouTube'is</translation>
+<translation id="7078611607019725427">Piltidel ja videotel igal saidil, ka YouTube'is, juba enne nende ilmumist.</translation>
+<translation id="3332184177109111993">YouTube'is ja teistel videosaitidel eemaldab Browther muusika ja jätab hääle puutumata.</translation>
 </translationbundle>

@@ -2779,8 +2779,6 @@ tryck på Tab och sedan på Retur för att växla till den öppna fliken</transl
 <translation id="4472575034687746823">Kom igång</translation>
 <translation id="8105338321071787052">Ett projekt av</translation>
 <translation id="546165799552573663">Annonser säljer inte bara produkter.</translation>
-<translation id="1965974658620216491">De tvingar på dig musik och bilder du aldrig valt. Browther blockerar dem från början, även de som spelas före videor.</translation>
-<translation id="4262008992540730210">Redan aktiv, på alla webbplatser</translation>
 <translation id="1555689541422561911">Av · annonserna släpps igenom</translation>
 <translation id="6873559458803488857">3 objekt blockerade</translation>
 <translation id="3067154517825632296">Browther-sköldar</translation>
@@ -2795,7 +2793,6 @@ tryck på Tab och sedan på Retur för att växla till den öppna fliken</transl
 <translation id="4491109536499578614">Bild</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Välj vem som ska suddas ut.</translation>
-<translation id="5339424533442415737">På bilder och videor på alla webbplatser, innan de ens visas.</translation>
 <translation id="3545367923331026889">Kvinnor</translation>
 <translation id="4304514273022914360">Män</translation>
 <translation id="1372572267279908778">Båda</translation>
@@ -2803,7 +2800,6 @@ tryck på Tab och sedan på Retur för att växla till den öppna fliken</transl
 <translation id="9220517073506439238">Av · inget är täckt</translation>
 <translation id="8594623674797496464">Täckt, på bild och video</translation>
 <translation id="3819100158285661528">Behåll rösten, ta bort musiken.</translation>
-<translation id="96319507807834471">Medan du tittar på en video tar Browther bort musiken och låter rösten vara orörd.</translation>
 <translation id="6883222750635271491">På alla webbplatser</translation>
 <translation id="3491001008184346538">borttagen</translation>
 <translation id="7568821498839695851">Av · musiken spelas</translation>
@@ -2840,4 +2836,8 @@ tryck på Tab och sedan på Retur för att växla till den öppna fliken</transl
 <translation id="4965873645100791506">Importen gick inte igenom. Du kan starta den igen från Inställningar.</translation>
 <translation id="4666339299899065301">För dina lösenord kan macOS be om lösenordet till din Mac. Det är helt normalt.</translation>
 <translation id="825541543844369363">Skanna här</translation>
+<translation id="8465972333066362918">De tvingar på dig musik och bilder du aldrig valt. Browther blockerar dem från början, även YouTube-annonser, före och under videor.</translation>
+<translation id="8683789109956613479">Redan aktiv, även på YouTube</translation>
+<translation id="7078611607019725427">På bilder och videor på alla webbplatser, inklusive YouTube, innan de ens visas.</translation>
+<translation id="3332184177109111993">På YouTube och andra videosajter tar Browther bort musiken och låter rösten vara orörd.</translation>
 </translationbundle>

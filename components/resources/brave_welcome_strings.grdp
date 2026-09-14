@@ -186,12 +186,12 @@
   Ads don’t only sell products.
 </message>
 
-<message name="IDS_BROWTHER_INTRO_ADS_SUBTITLE" desc="Browther introduction: Subtitle of the ads screen">
-  They force music and images you never chose on you. Browther blocks them from the start, including the ones that play before videos.
+<message name="IDS_BROWTHER_INTRO_ADS_SUBTITLE" desc="Browther introduction: Subtitle of the ads screen (desktop, distributed outside app stores: naming YouTube is intended here; the mobile apps keep a generic wording)">
+  They force music and images you never chose on you. Browther blocks them from the start, including YouTube ads, before and during videos.
 </message>
 
-<message name="IDS_BROWTHER_INTRO_ADS_PILL" desc="Browther introduction: Status pill on the ads screen">
-  Already on, every site
+<message name="IDS_BROWTHER_INTRO_ADS_PILL" desc="Browther introduction: Status pill on the ads screen (desktop, distributed outside app stores: naming YouTube is intended here; the mobile apps keep a generic wording)">
+  Already on, even on YouTube
 </message>
 
 <message name="IDS_BROWTHER_INTRO_ADS_SWITCH_OFF" desc="Browther introduction: State of the demo switch, ads screen">
@@ -270,8 +270,8 @@
   Choose who gets blurred.
 </message>
 
-<message name="IDS_BROWTHER_INTRO_BLUR_SUBTITLE" desc="Browther introduction: Subtitle of the blurring screen">
-  On images and videos, on every site, before they even appear.
+<message name="IDS_BROWTHER_INTRO_BLUR_SUBTITLE" desc="Browther introduction: Subtitle of the blurring screen (desktop, distributed outside app stores: naming YouTube is intended here; the mobile apps keep a generic wording)">
+  On images and videos on every site, YouTube included, before they even appear.
 </message>
 
 <message name="IDS_BROWTHER_INTRO_BLUR_WOMEN" desc="Browther introduction: Blurring choice">
@@ -302,8 +302,8 @@
   Keep the voice, cut the music.
 </message>
 
-<message name="IDS_BROWTHER_INTRO_MUSIC_SUBTITLE" desc="Browther introduction: Subtitle of the music screen">
-  While you watch a video, Browther removes the music and leaves the voice untouched.
+<message name="IDS_BROWTHER_INTRO_MUSIC_SUBTITLE" desc="Browther introduction: Subtitle of the music screen (desktop, distributed outside app stores: naming YouTube is intended here; the mobile apps keep a generic wording)">
+  On YouTube and other video sites, Browther removes the music and leaves the voice untouched.
 </message>
 
 <message name="IDS_BROWTHER_INTRO_MUSIC_COMPAT" desc="Browther introduction: Where music removal works on desktop: every site">

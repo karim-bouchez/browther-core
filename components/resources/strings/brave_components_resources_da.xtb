@@ -2783,8 +2783,6 @@ Lad os få dig tilknyttet!</translation>
 <translation id="4472575034687746823">Kom i gang</translation>
 <translation id="8105338321071787052">Et projekt fra</translation>
 <translation id="546165799552573663">Reklamer sælger ikke kun produkter.</translation>
-<translation id="1965974658620216491">De påtvinger dig musik og billeder, du aldrig har valgt. Browther blokerer dem fra starten, også dem der kører før videoer.</translation>
-<translation id="4262008992540730210">Allerede aktiv, på alle websteder</translation>
 <translation id="1555689541422561911">Fra · reklamerne slipper igennem</translation>
 <translation id="6873559458803488857">3 elementer blokeret</translation>
 <translation id="3067154517825632296">Browther Shields</translation>
@@ -2799,7 +2797,6 @@ Lad os få dig tilknyttet!</translation>
 <translation id="4491109536499578614">Billede</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Vælg, hvem der sløres.</translation>
-<translation id="5339424533442415737">På billeder og videoer på alle websteder, før de overhovedet vises.</translation>
 <translation id="3545367923331026889">Kvinder</translation>
 <translation id="4304514273022914360">Mænd</translation>
 <translation id="1372572267279908778">Begge</translation>
@@ -2807,7 +2804,6 @@ Lad os få dig tilknyttet!</translation>
 <translation id="9220517073506439238">Fra · intet er dækket</translation>
 <translation id="8594623674797496464">Dækket, på billede og video</translation>
 <translation id="3819100158285661528">Behold stemmen, fjern musikken.</translation>
-<translation id="96319507807834471">Mens du ser en video, fjerner Browther musikken og lader stemmen være urørt.</translation>
 <translation id="6883222750635271491">På alle websteder</translation>
 <translation id="3491001008184346538">fjernet</translation>
 <translation id="7568821498839695851">Fra · musikken spiller</translation>
@@ -2844,4 +2840,8 @@ Lad os få dig tilknyttet!</translation>
 <translation id="4965873645100791506">Importen blev ikke gennemført. Du kan starte den igen fra Indstillinger.</translation>
 <translation id="4666339299899065301">Til dine adgangskoder kan macOS bede om adgangskoden til din Mac. Det er helt normalt.</translation>
 <translation id="825541543844369363">Scan her</translation>
+<translation id="8465972333066362918">De påtvinger dig musik og billeder, du aldrig har valgt. Browther blokerer dem fra starten, også YouTube-reklamer før og under videoer.</translation>
+<translation id="8683789109956613479">Allerede aktiv, også på YouTube</translation>
+<translation id="7078611607019725427">På billeder og videoer på alle websteder, YouTube inklusive, før de overhovedet vises.</translation>
+<translation id="3332184177109111993">På YouTube og andre videosider fjerner Browther musikken og lader stemmen være urørt.</translation>
 </translationbundle>

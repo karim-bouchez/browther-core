@@ -2771,8 +2771,6 @@ Browther የDNS ጥያቄዎች በእርስዎ VPN ግንኙነት ላይ በ�
 <translation id="4472575034687746823">ይጀምሩ</translation>
 <translation id="8105338321071787052">አዘጋጅ፦</translation>
 <translation id="546165799552573663">ማስታወቂያዎች ምርት ብቻ አይሸጡም።</translation>
-<translation id="1965974658620216491">ያልመረጡትን ሙዚቃና ምስሎች በእርስዎ ላይ ይጭናሉ። Browther ከመጀመሪያው ጀምሮ ያግዳቸዋል፤ ከቪዲዮዎች በፊት የሚጀምሩትንም ጨምሮ።</translation>
-<translation id="4262008992540730210">አስቀድሞ በርቷል፣ በሁሉም ጣቢያዎች ላይ</translation>
 <translation id="1555689541422561911">ጠፍቷል · ማስታወቂያዎች ያልፋሉ</translation>
 <translation id="6873559458803488857">3 ንጥሎች ታግደዋል</translation>
 <translation id="3067154517825632296">የBrowther ጋሻዎች</translation>
@@ -2788,7 +2786,6 @@ Browther የDNS ጥያቄዎች በእርስዎ VPN ግንኙነት ላይ በ�
 <translation id="4491109536499578614">ምስል</translation>
 <translation id="3810838688059735925">ቪዲዮ</translation>
 <translation id="8951655494989242362">ማን እንደሚደበዝዝ ይምረጡ።</translation>
-<translation id="5339424533442415737">በሁሉም ጣቢያዎች ላይ ባሉ ምስሎችና ቪዲዮዎች፣ ገና ከመታየታቸው በፊት።</translation>
 <translation id="3545367923331026889">ሴቶች</translation>
 <translation id="4304514273022914360">ወንዶች</translation>
 <translation id="1372572267279908778">ሁለቱም</translation>
@@ -2796,7 +2793,6 @@ Browther የDNS ጥያቄዎች በእርስዎ VPN ግንኙነት ላይ በ�
 <translation id="9220517073506439238">ጠፍቷል · ምንም አልተሸፈነም</translation>
 <translation id="8594623674797496464">ተሸፍኗል፣ በምስልም በቪዲዮም</translation>
 <translation id="3819100158285661528">ድምፁን ያቆዩ፣ ሙዚቃውን ይቁረጡ።</translation>
-<translation id="96319507807834471">ቪዲዮ በሚመለከቱበት ጊዜ Browther ሙዚቃውን ያስወግዳል፤ የሰውን ድምፅ ግን እንዳለ ይተዋል።</translation>
 <translation id="6883222750635271491">በሁሉም ጣቢያዎች ላይ</translation>
 <translation id="3491001008184346538">ተወግዷል</translation>
 <translation id="7568821498839695851">ጠፍቷል · ሙዚቃው ይጫወታል</translation>
@@ -2832,4 +2828,8 @@ Browther የDNS ጥያቄዎች በእርስዎ VPN ግንኙነት ላይ በ�
 <translation id="4965873645100791506">ማስመጣቱ አልተሳካም። ከቅንብሮች እንደገና ሊጀምሩት ይችላሉ።</translation>
 <translation id="4666339299899065301">ለይለፍ ቃሎችዎ macOS የMacዎን የይለፍ ቃል ሊጠይቅዎት ይችላል። ይህ የተለመደ ነው።</translation>
 <translation id="825541543844369363">እዚህ ይቃኙ</translation>
+<translation id="8465972333066362918">ያልመረጡትን ሙዚቃና ምስሎች በእርስዎ ላይ ይጭናሉ። Browther ከመጀመሪያው ጀምሮ ያግዳቸዋል፤ ከቪዲዮዎች በፊትና በቪዲዮዎች መሃል የሚመጡትን የYouTube ማስታወቂያዎችንም ጨምሮ።</translation>
+<translation id="8683789109956613479">አስቀድሞ በርቷል፣ በYouTube ላይም</translation>
+<translation id="7078611607019725427">YouTubeን ጨምሮ በሁሉም ጣቢያዎች ላይ ባሉ ምስሎችና ቪዲዮዎች፣ ገና ከመታየታቸው በፊት።</translation>
+<translation id="3332184177109111993">በYouTube እና በሌሎች የቪዲዮ ጣቢያዎች ላይ Browther ሙዚቃውን ያስወግዳል፤ የሰውን ድምፅ ግን እንዳለ ይተዋል።</translation>
 </translationbundle>

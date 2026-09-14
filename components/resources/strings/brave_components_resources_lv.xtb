@@ -2780,8 +2780,6 @@ esošo cilni.</translation>
 <translation id="4472575034687746823">Sākt</translation>
 <translation id="8105338321071787052">Projektu veido</translation>
 <translation id="546165799552573663">Reklāmas pārdod ne tikai produktus.</translation>
-<translation id="1965974658620216491">Tās tev uzspiež mūziku un attēlus, kurus tu nekad neizvēlētos. Browther tās bloķē jau no paša sākuma, arī tās, kas tiek atskaņotas pirms videoklipiem.</translation>
-<translation id="4262008992540730210">Jau ieslēgts, visās vietnēs</translation>
 <translation id="1555689541422561911">Izslēgts · reklāmas tiek cauri</translation>
 <translation id="6873559458803488857">Bloķēti 3 elementi</translation>
 <translation id="3067154517825632296">Browther vairogi</translation>
@@ -2797,7 +2795,6 @@ esošo cilni.</translation>
 <translation id="4491109536499578614">Attēls</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Izvēlies, ko aizmiglot.</translation>
-<translation id="5339424533442415737">Attēlos un video visās vietnēs, vēl pirms tie parādās.</translation>
 <translation id="3545367923331026889">Sievietes</translation>
 <translation id="4304514273022914360">Vīriešus</translation>
 <translation id="1372572267279908778">Abus</translation>
@@ -2805,7 +2802,6 @@ esošo cilni.</translation>
 <translation id="9220517073506439238">Izslēgts · nekas nav aizsegts</translation>
 <translation id="8594623674797496464">Aizsegts gan attēlā, gan video</translation>
 <translation id="3819100158285661528">Paturi balsi, noņem mūziku.</translation>
-<translation id="96319507807834471">Kamēr skaties video, Browther noņem mūziku un atstāj balsi neskartu.</translation>
 <translation id="6883222750635271491">Visās vietnēs</translation>
 <translation id="3491001008184346538">noņemta</translation>
 <translation id="7568821498839695851">Izslēgts · mūzika skan</translation>
@@ -2841,4 +2837,8 @@ esošo cilni.</translation>
 <translation id="4965873645100791506">Importēšana neizdevās. Vari to sākt vēlreiz iestatījumos.</translation>
 <translation id="4666339299899065301">Lai importētu paroles, macOS var prasīt tava Mac paroli. Tas ir normāli.</translation>
 <translation id="825541543844369363">Noskenē šeit</translation>
+<translation id="8465972333066362918">Tās tev uzspiež mūziku un attēlus, kurus tu nekad neizvēlētos. Browther tās bloķē jau no paša sākuma, arī YouTube reklāmas pirms videoklipiem un to laikā.</translation>
+<translation id="8683789109956613479">Jau ieslēgts, pat vietnē YouTube</translation>
+<translation id="7078611607019725427">Attēlos un video visās vietnēs, tostarp YouTube, vēl pirms tie parādās.</translation>
+<translation id="3332184177109111993">Vietnē YouTube un citās video vietnēs Browther noņem mūziku un atstāj balsi neskartu.</translation>
 </translationbundle>

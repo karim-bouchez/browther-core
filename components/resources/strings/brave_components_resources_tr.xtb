@@ -2780,8 +2780,6 @@ Hadi sizi bağlayalım!</translation>
 <translation id="4472575034687746823">Başlayın</translation>
 <translation id="8105338321071787052">Geliştiren:</translation>
 <translation id="546165799552573663">Reklamlar yalnızca ürün satmaz.</translation>
-<translation id="1965974658620216491">Hiç seçmediğiniz müzik ve görselleri size dayatırlar. Browther onları en baştan engeller, videolardan önce oynatılanlar dahil.</translation>
-<translation id="4262008992540730210">Zaten etkin, tüm sitelerde</translation>
 <translation id="1555689541422561911">Kapalı · reklamlar geçiyor</translation>
 <translation id="6873559458803488857">3 öğe engellendi</translation>
 <translation id="3067154517825632296">Browther Kalkanları</translation>
@@ -2796,7 +2794,6 @@ Hadi sizi bağlayalım!</translation>
 <translation id="4491109536499578614">Görsel</translation>
 <translation id="3810838688059735925">Video</translation>
 <translation id="8951655494989242362">Kimin bulanıklaştırılacağını seçin.</translation>
-<translation id="5339424533442415737">Tüm sitelerdeki görsel ve videolarda, daha görünmeden önce.</translation>
 <translation id="3545367923331026889">Kadınlar</translation>
 <translation id="4304514273022914360">Erkekler</translation>
 <translation id="1372572267279908778">Her ikisi</translation>
@@ -2804,7 +2801,6 @@ Hadi sizi bağlayalım!</translation>
 <translation id="9220517073506439238">Kapalı · hiçbir şey örtülü değil</translation>
 <translation id="8594623674797496464">Örtülü, görselde de videoda da</translation>
 <translation id="3819100158285661528">Sesi koruyun, müziği kesin.</translation>
-<translation id="96319507807834471">Siz video izlerken Browther müziği kaldırır ve konuşmayı olduğu gibi bırakır.</translation>
 <translation id="6883222750635271491">Tüm sitelerde</translation>
 <translation id="3491001008184346538">kaldırıldı</translation>
 <translation id="7568821498839695851">Kapalı · müzik çalıyor</translation>
@@ -2841,4 +2837,8 @@ Hadi sizi bağlayalım!</translation>
 <translation id="4965873645100791506">İçe aktarma tamamlanamadı. Ayarlar'dan yeniden başlatabilirsiniz.</translation>
 <translation id="4666339299899065301">Şifreleriniz için macOS, Mac'inizin parolasını isteyebilir. Bu normaldir.</translation>
 <translation id="825541543844369363">Buradan tarayın</translation>
+<translation id="8465972333066362918">Hiç seçmediğiniz müzik ve görselleri size dayatırlar. Browther onları en baştan engeller, videoların öncesinde ve sırasında çıkan YouTube reklamları dahil.</translation>
+<translation id="8683789109956613479">Zaten etkin, YouTube'da bile</translation>
+<translation id="7078611607019725427">YouTube dahil tüm sitelerdeki görsel ve videolarda, daha görünmeden önce.</translation>
+<translation id="3332184177109111993">YouTube'da ve diğer video sitelerinde Browther müziği kaldırır ve konuşmayı olduğu gibi bırakır.</translation>
 </translationbundle>

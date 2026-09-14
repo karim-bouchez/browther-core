@@ -2772,8 +2772,6 @@ a meglévő lapra való váltás helyett</translation>
 <translation id="4472575034687746823">Kezdés</translation>
 <translation id="8105338321071787052">Készítette:</translation>
 <translation id="546165799552573663">A hirdetések nem csak termékeket árulnak.</translation>
-<translation id="1965974658620216491">Olyan zenét és képeket erőltetnek Önre, amelyeket soha nem választott. A Browther már a telepítéstől blokkolja őket, a videók előtt futókat is.</translation>
-<translation id="4262008992540730210">Már aktív, minden webhelyen</translation>
 <translation id="1555689541422561911">Ki · a hirdetések átjutnak</translation>
 <translation id="6873559458803488857">3 elem letiltva</translation>
 <translation id="3067154517825632296">Browther pajzsok</translation>
@@ -2788,7 +2786,6 @@ a meglévő lapra való váltás helyett</translation>
 <translation id="4491109536499578614">Kép</translation>
 <translation id="3810838688059735925">Videó</translation>
 <translation id="8951655494989242362">Válassza ki, kit homályosítson el.</translation>
-<translation id="5339424533442415737">Minden webhely képein és videóin, még mielőtt megjelennének.</translation>
 <translation id="3545367923331026889">A nőket</translation>
 <translation id="4304514273022914360">A férfiakat</translation>
 <translation id="1372572267279908778">Mindenkit</translation>
@@ -2796,7 +2793,6 @@ a meglévő lapra való váltás helyett</translation>
 <translation id="9220517073506439238">Ki · semmi sincs eltakarva</translation>
 <translation id="8594623674797496464">Eltakarva, a képen és a videón is</translation>
 <translation id="3819100158285661528">A hang marad, a zene megy.</translation>
-<translation id="96319507807834471">Miközben videót néz, a Browther eltávolítja a zenét, a hangot pedig érintetlenül hagyja.</translation>
 <translation id="6883222750635271491">Minden webhelyen</translation>
 <translation id="3491001008184346538">eltávolítva</translation>
 <translation id="7568821498839695851">Ki · a zene szól</translation>
@@ -2833,4 +2829,8 @@ a meglévő lapra való váltás helyett</translation>
 <translation id="4965873645100791506">Az importálás nem sikerült. A Beállításokban újraindíthatja.</translation>
 <translation id="4666339299899065301">A jelszavakhoz a macOS kérheti a Mac jelszavát. Ez így rendben van.</translation>
 <translation id="825541543844369363">Szkennelje itt</translation>
+<translation id="8465972333066362918">Olyan zenét és képeket erőltetnek Önre, amelyeket soha nem választott. A Browther már a telepítéstől blokkolja őket, a YouTube-hirdetéseket is, a videók előtt és alatt.</translation>
+<translation id="8683789109956613479">Már aktív, a YouTube-on is</translation>
+<translation id="7078611607019725427">Minden webhely képein és videóin, a YouTube-ot is beleértve, még mielőtt megjelennének.</translation>
+<translation id="3332184177109111993">A YouTube-on és más videós oldalakon a Browther eltávolítja a zenét, a hangot pedig érintetlenül hagyja.</translation>
 </translationbundle>

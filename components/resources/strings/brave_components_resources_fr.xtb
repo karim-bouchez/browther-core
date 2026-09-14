@@ -2781,8 +2781,6 @@ Connectez-vous !</translation>
 <translation id="4472575034687746823">Commencer</translation>
 <translation id="8105338321071787052">Un projet</translation>
 <translation id="546165799552573663">Les pubs ne vendent pas que des produits.</translation>
-<translation id="1965974658620216491">Elles imposent de la musique et des images que tu n'as pas choisies. Browther les bloque dès l'installation, y compris celles qui démarrent avant les vidéos.</translation>
-<translation id="4262008992540730210">Déjà actif, sur tous les sites</translation>
 <translation id="1555689541422561911">Désactivé · les pubs passent</translation>
 <translation id="6873559458803488857">3 éléments bloqués</translation>
 <translation id="3067154517825632296">Boucliers Browther</translation>
@@ -2798,7 +2796,6 @@ Connectez-vous !</translation>
 <translation id="4491109536499578614">Image</translation>
 <translation id="3810838688059735925">Vidéo</translation>
 <translation id="8951655494989242362">Choisis qui flouter.</translation>
-<translation id="5339424533442415737">Sur les images et les vidéos de tous les sites, avant même qu'elles s'affichent.</translation>
 <translation id="3545367923331026889">Les femmes</translation>
 <translation id="4304514273022914360">Les hommes</translation>
 <translation id="1372572267279908778">Les deux</translation>
@@ -2806,7 +2803,6 @@ Connectez-vous !</translation>
 <translation id="9220517073506439238">Désactivé · rien n'est couvert</translation>
 <translation id="8594623674797496464">Couvert, sur l'image comme sur la vidéo</translation>
 <translation id="3819100158285661528">Garde la voix, coupe la musique.</translation>
-<translation id="96319507807834471">Pendant que tu regardes une vidéo, Browther retire la musique et laisse la voix intacte.</translation>
 <translation id="6883222750635271491">Sur tous les sites</translation>
 <translation id="3491001008184346538">retirée</translation>
 <translation id="7568821498839695851">Désactivé · la musique passe</translation>
@@ -2842,4 +2838,8 @@ Connectez-vous !</translation>
 <translation id="4965873645100791506">L'import n'a pas abouti. Tu pourras le relancer depuis les Paramètres.</translation>
 <translation id="4666339299899065301">Pour tes mots de passe, macOS peut te demander le mot de passe de ton Mac. C'est normal.</translation>
 <translation id="825541543844369363">Scanne ici</translation>
+<translation id="8683789109956613479">Déjà actif, même sur YouTube</translation>
+<translation id="8465972333066362918">Elles imposent de la musique et des images que tu n'as pas choisies. Browther les bloque dès l'installation, y compris les pubs YouTube, avant et pendant les vidéos.</translation>
+<translation id="3332184177109111993">Sur YouTube et les autres sites vidéo, Browther retire la musique et laisse la voix intacte.</translation>
+<translation id="7078611607019725427">Sur les images et les vidéos de tous les sites, YouTube compris, avant même qu'elles s'affichent.</translation>
 </translationbundle>

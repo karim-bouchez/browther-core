@@ -29,8 +29,6 @@
 <translation id="4472575034687746823">Почни</translation>
 <translation id="8105338321071787052">Пројекат</translation>
 <translation id="546165799552573663">Огласи не продају само производе.</translation>
-<translation id="1965974658620216491">Намећу вам музику и слике које никада нисте изабрали. Browther их блокира од самог почетка, укључујући и оне пре видео снимака.</translation>
-<translation id="4262008992540730210">Већ активно, на свим сајтовима</translation>
 <translation id="1555689541422561911">Искљ. · огласи пролазе</translation>
 <translation id="6873559458803488857">Блокирана 3 елемента</translation>
 <translation id="3067154517825632296">Browther штитови</translation>
@@ -47,7 +45,6 @@
 <translation id="4491109536499578614">Слика</translation>
 <translation id="3810838688059735925">Видео</translation>
 <translation id="8951655494989242362">Изаберите кога да замутите.</translation>
-<translation id="5339424533442415737">На сликама и видео снимцима на свим сајтовима, и пре него што се појаве.</translation>
 <translation id="3545367923331026889">Жене</translation>
 <translation id="4304514273022914360">Мушкарце</translation>
 <translation id="1372572267279908778">Све</translation>
@@ -55,7 +52,6 @@
 <translation id="9220517073506439238">Искљ. · ништа није прекривено</translation>
 <translation id="8594623674797496464">Прекривено, на слици и у видеу</translation>
 <translation id="3819100158285661528">Задржите глас, искључите музику.</translation>
-<translation id="96319507807834471">Док гледате видео, Browther уклања музику и оставља глас нетакнутим.</translation>
 <translation id="6883222750635271491">На свим сајтовима</translation>
 <translation id="6315170314923504164">Глас</translation>
 <translation id="3491001008184346538">уклоњена</translation>
@@ -94,4 +90,8 @@
 <translation id="4965873645100791506">Увоз није успео. Можете поново да га покренете у Подешавањима.</translation>
 <translation id="4666339299899065301">За лозинке macOS може да затражи лозинку вашег Mac-а. То је уобичајено.</translation>
 <translation id="825541543844369363">Скенирајте овде</translation>
+<translation id="8465972333066362918">Намећу вам музику и слике које никада нисте изабрали. Browther их блокира од самог почетка, укључујући и огласе на YouTube-у, пре и током видео снимака.</translation>
+<translation id="8683789109956613479">Већ активно, чак и на YouTube-у</translation>
+<translation id="7078611607019725427">На сликама и видео снимцима на свим сајтовима, укључујући YouTube, и пре него што се појаве.</translation>
+<translation id="3332184177109111993">На YouTube-у и другим видео сајтовима Browther уклања музику и оставља глас нетакнутим.</translation>
 </translationbundle>

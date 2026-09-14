@@ -2780,8 +2780,6 @@ Connecteu-vos-hi ara mateix!</translation>
 <translation id="4472575034687746823">Comença</translation>
 <translation id="8105338321071787052">Un projecte de</translation>
 <translation id="546165799552573663">Els anuncis no només venen productes.</translation>
-<translation id="1965974658620216491">T'imposen música i imatges que no has triat mai. Browther els bloqueja des de la instal·lació, també els que es reprodueixen abans dels vídeos.</translation>
-<translation id="4262008992540730210">Ja actiu, a tots els llocs</translation>
 <translation id="1555689541422561911">Desactivat · els anuncis passen</translation>
 <translation id="6873559458803488857">3 elements bloquejats</translation>
 <translation id="3067154517825632296">Escuts de Browther</translation>
@@ -2796,7 +2794,6 @@ Connecteu-vos-hi ara mateix!</translation>
 <translation id="4491109536499578614">Imatge</translation>
 <translation id="3810838688059735925">Vídeo</translation>
 <translation id="8951655494989242362">Tria qui difuminar.</translation>
-<translation id="5339424533442415737">A les imatges i els vídeos de tots els llocs, abans i tot que apareguin.</translation>
 <translation id="3545367923331026889">Les dones</translation>
 <translation id="4304514273022914360">Els homes</translation>
 <translation id="1372572267279908778">Tots dos</translation>
@@ -2804,7 +2801,6 @@ Connecteu-vos-hi ara mateix!</translation>
 <translation id="9220517073506439238">Desactivat · no hi ha res cobert</translation>
 <translation id="8594623674797496464">Cobert, a la imatge i al vídeo</translation>
 <translation id="3819100158285661528">Queda't la veu, talla la música.</translation>
-<translation id="96319507807834471">Mentre mires un vídeo, Browther treu la música i deixa la veu intacta.</translation>
 <translation id="6883222750635271491">A tots els llocs</translation>
 <translation id="3491001008184346538">treta</translation>
 <translation id="7568821498839695851">Desactivat · la música sona</translation>
@@ -2841,4 +2837,8 @@ Connecteu-vos-hi ara mateix!</translation>
 <translation id="4965873645100791506">La importació no s'ha completat. Pots tornar-la a iniciar des de Configuració.</translation>
 <translation id="4666339299899065301">Per a les contrasenyes, és possible que macOS et demani la contrasenya del Mac. És normal.</translation>
 <translation id="825541543844369363">Escaneja aquí</translation>
+<translation id="8465972333066362918">T'imposen música i imatges que no has triat mai. Browther els bloqueja des de la instal·lació, també els anuncis de YouTube, abans i durant els vídeos.</translation>
+<translation id="8683789109956613479">Ja actiu, fins i tot a YouTube</translation>
+<translation id="7078611607019725427">A les imatges i els vídeos de tots els llocs, YouTube inclòs, abans i tot que apareguin.</translation>
+<translation id="3332184177109111993">A YouTube i als altres llocs de vídeo, Browther treu la música i deixa la veu intacta.</translation>
 </translationbundle>
