@@ -8,12 +8,14 @@
 
 #include <optional>
 #include <string>
+#include <vector>
 
 #include "base/memory/raw_ptr.h"
 #include "base/memory/scoped_refptr.h"
 #include "base/memory/weak_ptr.h"
 #include "base/task/sequenced_task_runner.h"
 #include "brave/browser/ui/webui/brave_education/brave_education_server_checker.h"
+#include "brave/browser/ui/webui/welcome_page/browther_intro_installed_browsers.h"
 #include "brave/browser/ui/webui/welcome_page/browther_intro_system_volume.h"
 #include "chrome/browser/shell_integration.h"
 #include "content/public/browser/web_ui_message_handler.h"
@@ -60,6 +62,10 @@ class WelcomeDOMHandler : public content::WebUIMessageHandler {
   // args[0] = "basarunaa" | "sawtunaa". Hors accès anticipé seulement.
   void HandleEnableBrowtherFeature(const base::ListValue& args);
   void HandleGetSystemVolume(const base::ListValue& args);
+  void HandleGetInstalledBrowsers(const base::ListValue& args);
+  void OnGotInstalledBrowsers(
+      const std::string& callback_id,
+      std::optional<std::vector<std::string>> browsers);
   void HandleSetSystemVolume(const base::ListValue& args);
   void OnGotSystemVolume(const std::string& callback_id,
                          std::optional<browther_intro::SystemVolume> volume);

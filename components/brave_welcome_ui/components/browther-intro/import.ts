@@ -6,7 +6,8 @@
 import * as React from 'react'
 import {
   addWebUiListener,
-  removeWebUiListener
+  removeWebUiListener,
+  sendWithPromise
 } from 'chrome://resources/js/cr.js'
 
 import {
@@ -90,6 +91,31 @@ export interface IntroImport {
   imported: ImportItem[]
   selectSource: (index: number) => void
   start: () => void
+}
+
+/**
+ * Les navigateurs dont l'application est installée (`GetInstalledBrowsers`,
+ * macOS) : Brave propose tout dossier de données trouvé, même celui d'un
+ * navigateur jamais installé. `null` : la plateforme ne sait pas le dire.
+ * `undefined` tant que le natif n'a pas répondu.
+ */
+export function useInstalledBrowsers (): string[] | null | undefined {
+  const [installed, setInstalled] = React.useState<string[] | null>()
+  React.useEffect(() => {
+    sendWithPromise('getInstalledBrowsers').then(setInstalled)
+  }, [])
+  return installed
+}
+
+export function installedOnly (
+  profiles: SourceProfile[] | undefined,
+  installed: string[] | null | undefined
+): SourceProfile[] | undefined {
+  if (!profiles || installed === undefined) return undefined
+  if (installed === null) return profiles
+  // Un navigateur Chromium que l'import ne sait pas nommer reste proposé : on
+  // n'a rien pour dire qu'il est absent.
+  return profiles.filter(p => !p.browserType || installed.includes(p.browserType))
 }
 
 export function offeredItems (profile: SourceProfile | undefined) {

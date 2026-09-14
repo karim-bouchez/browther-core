@@ -59,6 +59,9 @@ const CHANNEL_EVENTS: Record<Channel, string> = {
  */
 export const isEarlyAccess = loadTimeData.getBoolean('browtherEarlyAccess')
 
+/** Délai avant le départ automatique qui suit un import réussi. */
+export const IMPORT_COUNTDOWN_MS = 3500
+
 export function track (event: string, properties: Record<string, unknown>) {
   WelcomeBrowserProxyImpl.getInstance().trackOnboardingEvent(event, properties)
 }
@@ -93,6 +96,11 @@ export interface IntroModel {
   later: () => void
   /** L'import de l'ancien navigateur (écran desktop). */
   importer: IntroImport
+  /**
+   * Vrai pendant le compte à rebours qui suit un import réussi : l'écran passe
+   * seul à la suite, le bouton « Continuer » se remplit en attendant.
+   */
+  importCountdown: boolean
   startImport: () => void
   skipImport: () => void
   openChannel: (channel: Channel) => void
@@ -129,6 +137,10 @@ export function useIntroModel (
 
   const index = Math.max(0, steps.indexOf(step))
   const importer = useIntroImport(importSources)
+  const [importCountdown, setImportCountdown] = React.useState(false)
+  // Un seul compte à rebours par import : revenir sur l'écran ne relance pas
+  // le départ automatique, la personne est revenue exprès.
+  const importCountdownUsed = React.useRef(false)
 
   React.useEffect(() => {
     track('onboarding_step_viewed', {
@@ -153,6 +165,30 @@ export function useIntroModel (
     celebrated.current.add(key)
     setCelebratedAt(Date.now())
   }
+
+  // Import réussi (Karim, 2026-09-14) : quelques secondes pour voir les coches
+  // et les confettis, puis la suite, sans avoir à cliquer. Changer de
+  // navigateur ou quitter l'écran annule le départ.
+  React.useEffect(() => {
+    if (importer.status === 'done' && step === 'import' &&
+        !importCountdownUsed.current) {
+      importCountdownUsed.current = true
+      setImportCountdown(true)
+    } else if (importer.status !== 'done' || step !== 'import') {
+      setImportCountdown(false)
+    }
+  }, [importer.status, step])
+
+  const advanceRef = React.useRef(advance)
+  advanceRef.current = advance
+  React.useEffect(() => {
+    if (!importCountdown) return
+    const timer = window.setTimeout(() => {
+      setImportCountdown(false)
+      advanceRef.current()
+    }, IMPORT_COUNTDOWN_MS)
+    return () => window.clearTimeout(timer)
+  }, [importCountdown])
 
   React.useEffect(() => {
     if (importer.status === 'done') celebrate('import')
@@ -237,6 +273,7 @@ export function useIntroModel (
       profiles: importer.sources
         .filter(s => s.browser === importer.source?.browser).length
     })
+    importCountdownUsed.current = false
     importer.start()
   }
 
@@ -279,6 +316,7 @@ export function useIntroModel (
     setAsDefaultBrowser,
     later,
     importer,
+    importCountdown,
     startImport,
     skipImport,
     openChannel,

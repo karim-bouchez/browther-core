@@ -12,7 +12,7 @@ import { media, welcomeBackgroundUrl } from './assets'
 import Confetti from './confetti'
 import { Glyph } from './glyphs'
 import DataContext from '../../state/context'
-import { SourceProfile } from './import'
+import { SourceProfile, installedOnly, useInstalledBrowsers } from './import'
 import { BlurTarget, IntroModel, IntroStep, useIntroModel, useIntroSteps } from './model'
 import SoonDialog from './soon-dialog'
 import AdsStep from './step-ads'
@@ -75,10 +75,12 @@ export default function BrowtherIntro (props: {
 }) {
   useForcedDarkTheme()
   React.useEffect(loadVerseFont, [])
-  // Les navigateurs installés : lus par le parcours Brave au chargement de la
-  // page (`initializeImportDialog`).
-  const importSources: SourceProfile[] | undefined =
-    React.useContext(DataContext).browserProfiles
+  // Les navigateurs à importer : lus par le parcours Brave au chargement de la
+  // page (`initializeImportDialog`), gardés s'ils sont vraiment installés.
+  const { browserProfiles } = React.useContext(DataContext)
+  const installed = useInstalledBrowsers()
+  const importSources = React.useMemo(
+    () => installedOnly(browserProfiles, installed), [browserProfiles, installed])
   const steps = useIntroSteps(importSources)
   // Le fond reste noir pendant les quelques millisecondes où l'on demande au
   // navigateur s'il est déjà celui par défaut et quels navigateurs sont là.

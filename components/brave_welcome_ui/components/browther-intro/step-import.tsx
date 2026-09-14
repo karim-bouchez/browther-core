@@ -23,7 +23,7 @@ import YandexSVG from '../svg/browser-icons/yandex'
 import { icons } from './assets'
 import { Glyph, GlyphName } from './glyphs'
 import { ImportItem, ImportSource, IntroImport, offeredItems } from './import'
-import { IntroModel } from './model'
+import { IMPORT_COUNTDOWN_MS, IntroModel } from './model'
 import { IntroLayout } from './shared'
 
 /** Les logos de l'écran d'import Brave, repris tels quels. */
@@ -94,7 +94,9 @@ export default function ImportStep (props: { model: IntroModel }) {
           <div className='bi-import-actions'>
             <button
               type='button'
-              className='bi-button bi-button-primary'
+              className={'bi-button bi-button-primary' +
+                (model.importCountdown ? ' is-counting' : '')}
+              style={{ '--bi-countdown': `${IMPORT_COUNTDOWN_MS}ms` } as React.CSSProperties}
               disabled={status === 'running' || !profile}
               onClick={settled ? model.advance : model.startImport}
             >

@@ -49,15 +49,15 @@
 /* Pas de `font: inherit` : le raccourci écraserait la taille posée par chaque
  * bouton (les pictogrammes se dimensionnent en `em`).
  * ⚠️ Les titres aussi : la feuille globale des WebUI Brave impose Poppins aux
- * `h1`/`h2` — invisible dans un aperçu hors navigateur. */
-.browther-intro button {
+ * `h1`/`h2` — invisible dans un aperçu hors navigateur.
+ * ⛔ Sous `:where()` (spécificité d'UNE classe), jamais `.browther-intro p` :
+ * classe + élément battait `.bi-verse-arabic` et le verset sortait en police
+ * système au lieu d'Amiri Quran, sans erreur (recette Karim, 2026-09-14). */
+.browther-intro :where(button) {
   color: inherit;
 }
 
-.browther-intro button,
-.browther-intro h1,
-.browther-intro h2,
-.browther-intro p {
+.browther-intro :where(button, h1, h2, p) {
   font-family: inherit;
 }
 
@@ -1398,6 +1398,30 @@
 .bi-import-note { font-size: 13.5px; line-height: 1.45; }
 
 .bi-import-actions { display: flex; flex-direction: column; gap: 4px; }
+
+/* Après un import réussi, « Continuer » se remplit de vert de gauche à droite :
+ * quand il est plein, l'écran passe seul à la suite. Le vert est celui des
+ * coches de la scène. */
+.bi-button-primary.is-counting {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.bi-button-primary.is-counting::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #b9ecd0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: bi-countdown var(--bi-countdown, 3500ms) linear forwards;
+}
+
+[dir='rtl'] .bi-button-primary.is-counting::before { transform-origin: right center; }
+
+@keyframes bi-countdown { to { transform: scaleX(1); } }
 /* Hauteur gardée : le bouton principal ne remonte pas quand « Plus tard »
  * disparaît. */
 .bi-import-actions .bi-button-ghost.is-hidden { visibility: hidden; }

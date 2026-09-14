@@ -152,6 +152,10 @@ void WelcomeDOMHandler::RegisterMessages() {
       base::BindRepeating(&WelcomeDOMHandler::HandleGetSystemVolume,
                           base::Unretained(this)));
   web_ui()->RegisterMessageCallback(
+      "getInstalledBrowsers",
+      base::BindRepeating(&WelcomeDOMHandler::HandleGetInstalledBrowsers,
+                          base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
       "setSystemVolume",
       base::BindRepeating(&WelcomeDOMHandler::HandleSetSystemVolume,
                           base::Unretained(this)));
@@ -225,6 +229,36 @@ void WelcomeDOMHandler::OnGotSystemVolume(
   }
   ResolveJavascriptCallback(base::Value(callback_id),
                             base::Value(std::move(result)));
+}
+
+void WelcomeDOMHandler::HandleGetInstalledBrowsers(
+    const base::ListValue& args) {
+  CHECK_EQ(1U, args.size());
+  AllowJavascript();
+  // LaunchServices peut toucher le disque : hors du thread UI.
+  base::ThreadPool::PostTaskAndReplyWithResult(
+      FROM_HERE, {base::MayBlock(), base::TaskPriority::USER_VISIBLE},
+      base::BindOnce(&browther_intro::GetInstalledBrowsers),
+      base::BindOnce(&WelcomeDOMHandler::OnGotInstalledBrowsers,
+                     weak_ptr_factory_.GetWeakPtr(), args[0].GetString()));
+}
+
+void WelcomeDOMHandler::OnGotInstalledBrowsers(
+    const std::string& callback_id,
+    std::optional<std::vector<std::string>> browsers) {
+  if (!IsJavascriptAllowed()) {
+    return;
+  }
+  if (!browsers) {
+    ResolveJavascriptCallback(base::Value(callback_id), base::Value());
+    return;
+  }
+  base::ListValue names;
+  for (std::string& name : *browsers) {
+    names.Append(std::move(name));
+  }
+  ResolveJavascriptCallback(base::Value(callback_id),
+                            base::Value(std::move(names)));
 }
 
 void WelcomeDOMHandler::HandleSetSystemVolume(const base::ListValue& args) {
