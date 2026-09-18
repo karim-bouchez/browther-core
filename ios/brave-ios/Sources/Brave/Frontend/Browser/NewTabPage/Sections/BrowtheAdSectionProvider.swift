@@ -156,6 +156,7 @@ private class BrowtheAdCarouselCell: UICollectionViewCell, CollectionViewReusabl
   private var ads: [BrowtherServedAd] = []
   private var onVisible: ((String) -> Void)?
   private var onTap: ((String) -> Void)?
+  private let images = BrowtheAdImageStore()
 
   // Ids déjà signalés visibles dans cette instance (le client dédup aussi).
   private var markedVisible = Set<String>()
@@ -217,6 +218,7 @@ private class BrowtheAdCarouselCell: UICollectionViewCell, CollectionViewReusabl
     self.ads = ads
     self.onVisible = onVisible
     self.onTap = onTap
+    images.prefetch(ads.map(\.imageURL))
     pageControl.numberOfPages = ads.count
     pageControl.currentPage = 0
     didMarkInitial = false
@@ -283,7 +285,12 @@ extension BrowtheAdCarouselCell: UICollectionViewDataSource, UICollectionViewDel
     let cell = collectionView.dequeueReusableCell(for: indexPath) as BrowtheAdImageCell
     if ads.indices.contains(indexPath.item) {
       let ad = ads[indexPath.item]
-      cell.configure(imageURL: ad.imageURL, showAdLabel: ad.showAdLabel, locale: ad.locale)
+      cell.configure(
+        imageURL: ad.imageURL,
+        showAdLabel: ad.showAdLabel,
+        locale: ad.locale,
+        images: images
+      )
     }
     return cell
   }
@@ -351,7 +358,6 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     $0.clipsToBounds = true
   }
 
-  private var imageTask: URLSessionDataTask?
   private var currentURL: String?
 
   override init(frame: CGRect) {
@@ -378,10 +384,13 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     fatalError()
   }
 
-  func configure(imageURL: String, showAdLabel: Bool, locale: String) {
+  func configure(
+    imageURL: String,
+    showAdLabel: Bool,
+    locale: String,
+    images: BrowtheAdImageStore
+  ) {
     currentURL = imageURL
-    imageView.image = nil
-    imageView.alpha = 0
     // Sens de lecture piloté par la langue de la créa renvoyée par le serve
     // (parité desktop dir="rtl") : `ar` → RTL, le chip label `leading` glisse au
     // coin haut-droit. Créa neutre (locale vide) → LTR par défaut.
@@ -391,27 +400,80 @@ private class BrowtheAdImageCell: UICollectionViewCell, CollectionViewReusable {
     adLabel.text =
       showAdLabel ? Strings.Shields.browtherAdLabel : Strings.Shields.browtherAdHouseLabel
 
-    guard let url = URL(string: imageURL) else { return }
-
-    imageTask?.cancel()
-    imageTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-      guard let data, let image = UIImage(data: data) else { return }
-      DispatchQueue.main.async {
-        guard let self, self.currentURL == imageURL else { return }
-        self.imageView.image = image
-        UIView.animate(withDuration: 0.2) { self.imageView.alpha = 1 }
-      }
+    // Déjà téléchargée (cas normal : tout le lot part dès l'arrivée des pubs) →
+    // affichée d'emblée, sans fondu.
+    if let image = images.cached(imageURL) {
+      imageView.image = image
+      imageView.alpha = 1
+      return
     }
-    imageTask?.resume()
+    imageView.image = nil
+    imageView.alpha = 0
+    images.whenLoaded(imageURL) { [weak self] image in
+      guard let self, self.currentURL == imageURL else { return }
+      self.imageView.image = image
+      UIView.animate(withDuration: 0.2) { self.imageView.alpha = 1 }
+    }
   }
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    imageTask?.cancel()
-    imageTask = nil
     currentURL = nil
     imageView.image = nil
     imageView.alpha = 0
     adLabel.text = nil
+  }
+}
+
+// MARK: - BrowtheAdImageStore
+
+/// Images des créas du lot, toutes téléchargées dès l'arrivée des pubs.
+///
+/// Chaque page lançait avant son propre téléchargement en devenant visible : au premier swipe, la
+/// 2ᵉ et la 3ᵉ pub restaient vides le temps du réseau, et de nouveau à chaque réemploi de cellule
+/// (constaté sur Android, recette Karim 2026-09-18 — même schéma ici). Parité Android
+/// `setOffscreenPageLimit` ; le desktop n'en a pas besoin (le chargement paresseux de Chromium
+/// charge déjà les slides voisines d'un conteneur de scroll, vérifié le même jour).
+///
+/// Thread principal uniquement.
+private final class BrowtheAdImageStore {
+  private var images: [String: UIImage] = [:]
+  private var inFlight = Set<String>()
+  private var waiters: [String: [(UIImage) -> Void]] = [:]
+
+  /// Télécharge toutes les créas du lot et oublie celles des lots précédents.
+  func prefetch(_ urls: [String]) {
+    let kept = Set(urls)
+    images = images.filter { kept.contains($0.key) }
+    urls.forEach(fetch)
+  }
+
+  func cached(_ url: String) -> UIImage? {
+    images[url]
+  }
+
+  /// `completion` à l'arrivée de l'image ; relance le téléchargement s'il avait échoué.
+  func whenLoaded(_ url: String, _ completion: @escaping (UIImage) -> Void) {
+    waiters[url, default: []].append(completion)
+    fetch(url)
+  }
+
+  private func fetch(_ urlString: String) {
+    guard images[urlString] == nil, !inFlight.contains(urlString),
+      let url = URL(string: urlString)
+    else { return }
+    inFlight.insert(urlString)
+    URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+      // Décodée ici, hors du thread principal : sinon le premier swipe la décode en pleine animation.
+      let image = data.flatMap(UIImage.init(data:)).map { $0.preparingForDisplay() ?? $0 }
+      DispatchQueue.main.async {
+        guard let self else { return }
+        self.inFlight.remove(urlString)
+        // Échec : les attentes restent, le prochain affichage de la page relance.
+        guard let image else { return }
+        self.images[urlString] = image
+        self.waiters.removeValue(forKey: urlString)?.forEach { $0(image) }
+      }
+    }.resume()
   }
 }
