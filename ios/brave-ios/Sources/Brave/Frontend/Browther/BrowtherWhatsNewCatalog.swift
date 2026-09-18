@@ -38,11 +38,10 @@ import Foundation
 enum BrowtherWhatsNewCatalog {
   static let releases: [BrowtherSurfacesRules.WhatsNewRelease] = [
     .init(
+      // Release 2026.9.18 : seule nouveauté visible des utilisateurs déjà
+      // installés — l'introduction ne s'ouvre qu'au premier lancement.
       id: "2026-09-11",
-      // ⏳ À DATER le jour de la soumission de la release qui embarque cette
-      // entrée (celle qui livre « Nous écrire »), et à compléter de ce qu'elle
-      // corrige d'autre. Sans date, l'encart s'affiche sans surtitre.
-      date: nil,
+      date: "2026-09-18",
       lines: [
         "fr": [
           "Il n’y avait aucun moyen de nous dire, depuis l’app, ce qui ne marchait pas. Paramètres › Nous écrire le permet maintenant, en quelques mots."
