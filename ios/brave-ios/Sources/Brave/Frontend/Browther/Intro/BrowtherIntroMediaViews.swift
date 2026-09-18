@@ -231,8 +231,17 @@ struct BrowtherIntroVeiledVideo: UIViewRepresentable {
 /// ⚠️ La catégorie de session est obligatoire : par défaut une app est en
 /// `soloAmbient`, où le bouton silencieux de l'iPhone coupe tout — l'extrait se
 /// jouait sans qu'on entende rien (recette du 2026-09-12).
+///
+/// ⚠️ **Rien de l'audio ne passe par le fil principal** : session, lecteurs et
+/// lecture vivent dans `BrowtherIntroAudioEngine`, sur sa file ; cette classe ne
+/// garde que ce que l'écran affiche. Faits dans le geste, ils figeaient
+/// l'interrupteur et les confettis au premier ON — mesuré sur iPhone 13 :
+/// ~450 ms pour créer et préparer les deux lecteurs, puis ~100 ms pour le
+/// premier `play(atTime:)` (cf. `ONBOARDING-SPEC.md` § 11.3).
 @MainActor
 final class BrowtherIntroAudio: ObservableObject {
+  /// Ce que la personne a demandé : vrai dès le geste, avant que le son parte,
+  /// pour que le bouton réponde tout de suite.
   @Published private(set) var isPlaying = false
   @Published private(set) var progress: Double = 0
   @Published private(set) var duration: Double = 0
@@ -240,15 +249,9 @@ final class BrowtherIntroAudio: ObservableObject {
   /// l'entende : l'écran doit le dire plutôt que de laisser croire à une panne.
   @Published private(set) var systemVolume: Float = 1
 
-  private var before: AVAudioPlayer?
-  private var after: AVAudioPlayer?
+  private let engine = BrowtherIntroAudioEngine()
   private var ticker: Timer?
   private var volumeObservation: NSKeyValueObservation?
-  /// L'état de l'interrupteur, gardé ici : `prepare()` peut arriver APRÈS la
-  /// bascule (rien n'est chargé tant qu'on n'a pas joué), et il doit alors
-  /// poser le bon canal. ⚠️ C'est le bug de la recette : `prepare()` remettait
-  /// « avec musique » juste après que l'interrupteur eut demandé « sans ».
-  private var musicRemoved = false
   /// Vrai pendant qu'on déplace la tête de lecture : le rafraîchissement
   /// automatique doit se taire, sinon il repousse le curseur sous le doigt et
   /// la barre saccade.
@@ -267,49 +270,33 @@ final class BrowtherIntroAudio: ObservableObject {
     volumeObservation?.invalidate()
   }
 
-  private func prepare() {
-    guard before == nil else { return }
-    // `.playback` : l'extrait est le sujet de l'écran, il doit s'entendre même
-    // en mode silencieux. `.mixWithOthers` n'est pas demandé — on veut au
-    // contraire que la musique de la personne se taise pendant la démonstration.
-    try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-    try? AVAudioSession.sharedInstance().setActive(true)
-    guard
-      let beforeURL = BrowtherIntroMedia.audioBeforeURL,
-      let afterURL = BrowtherIntroMedia.audioAfterURL,
-      let beforePlayer = try? AVAudioPlayer(contentsOf: beforeURL),
-      let afterPlayer = try? AVAudioPlayer(contentsOf: afterURL)
-    else { return }
-    for player in [beforePlayer, afterPlayer] {
-      player.numberOfLoops = -1
-      player.prepareToPlay()
-    }
-    before = beforePlayer
-    after = afterPlayer
-    duration = beforePlayer.duration
-    applyVolumes()
+  /// À l'arrivée sur l'écran : ouvre les deux fichiers, sans rien activer.
+  func load() {
+    engine.load()
   }
 
   /// Lecture et pause. Rien ne démarre tout seul : l'extrait part au geste de
   /// la personne — le bouton, ou l'interrupteur de l'écran.
   func play() {
-    prepare()
-    guard let before, let after, !isPlaying else { return }
-    // Démarrage simultané sur une base commune : les lancer l'un après l'autre
-    // les décalerait, et la bascule s'entendrait comme un saut.
-    let start = before.deviceCurrentTime + 0.05
-    before.play(atTime: start)
-    after.play(atTime: start)
+    guard !isPlaying else { return }
     isPlaying = true
-    startTicker()
+    engine.play { [weak self] duration in
+      guard let self else { return }
+      guard let duration else {
+        self.isPlaying = false
+        return
+      }
+      self.duration = duration
+      // Une pause arrivée pendant le démarrage est passée derrière lui dans la
+      // file : le son est déjà arrêté, la barre ne doit pas repartir.
+      if self.isPlaying { self.startTicker() }
+    }
   }
 
   func pause() {
-    before?.pause()
-    after?.pause()
+    engine.pause()
     isPlaying = false
-    ticker?.invalidate()
-    ticker = nil
+    stopTicker()
   }
 
   func toggle() {
@@ -325,42 +312,163 @@ final class BrowtherIntroAudio: ObservableObject {
   /// Déplacer la tête de lecture — sur les **deux** pistes, sinon la
   /// comparaison perd son sens. Appelé une seule fois, au relâcher.
   func seek(to fraction: Double) {
-    prepare()
-    guard let before, let after, duration > 0 else { return }
-    let time = min(max(0, fraction), 0.999) * duration
-    before.currentTime = time
-    after.currentTime = time
-    progress = time / duration
+    let fraction = min(max(0, fraction), 0.999)
+    engine.seek(to: fraction)
+    progress = fraction
   }
 
+  /// L'état de l'interrupteur. ⚠️ Il doit valoir aussi pour des lecteurs pas
+  /// encore prêts : c'est le bug de la recette, la préparation remettait
+  /// « avec musique » juste après que l'interrupteur eut demandé « sans ».
   func apply(musicRemoved: Bool) {
-    self.musicRemoved = musicRemoved
-    applyVolumes()
-  }
-
-  private func applyVolumes() {
-    before?.volume = musicRemoved ? 0 : 1
-    after?.volume = musicRemoved ? 1 : 0
+    engine.setMusicRemoved(musicRemoved)
   }
 
   func stop() {
-    before?.stop()
-    after?.stop()
+    engine.stop()
     isPlaying = false
     progress = 0
-    ticker?.invalidate()
-    ticker = nil
-    try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+    stopTicker()
   }
 
   private func startTicker() {
     ticker?.invalidate()
     ticker = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
       Task { @MainActor in
-        guard let self, !self.isScrubbing, let before = self.before, self.duration > 0
-        else { return }
-        self.progress = before.currentTime / self.duration
+        guard let self, !self.isScrubbing else { return }
+        self.engine.readProgress { [weak self] fraction in
+          guard let self, self.isPlaying, !self.isScrubbing else { return }
+          self.progress = fraction
+        }
       }
     }
+  }
+
+  private func stopTicker() {
+    ticker?.invalidate()
+    ticker = nil
+  }
+}
+
+/// Les deux lecteurs et la session audio, **confinés à une file** : tout ce qui
+/// touche au son y passe, dans l'ordre des gestes. Une désactivation ne peut
+/// donc jamais doubler l'activation qu'elle défait (la musique de la personne
+/// resterait coupée), ni une pause le démarrage qu'elle interrompt.
+private final class BrowtherIntroAudioEngine: @unchecked Sendable {
+  /// Une seule file pour tous les écrans : revenir sur Musique recrée un
+  /// moteur, qui ne doit pas activer la session avant que l'ancien l'ait rendue.
+  private static let queue = DispatchQueue(
+    label: "com.devndin.browther.intro-audio",
+    qos: .userInitiated
+  )
+
+  // Ce qui suit n'est touché que depuis `queue`.
+  private var before: AVAudioPlayer?
+  private var after: AVAudioPlayer?
+  private var isSessionActive = false
+  private var musicRemoved = false
+
+  /// ⛔ Ni `prepareToPlay` ni la session ici : on est à l'arrivée sur l'écran,
+  /// et saisir le matériel audio couperait la musique de la personne avant tout
+  /// geste.
+  func load() {
+    Self.queue.async { self.loadPlayers() }
+  }
+
+  /// Démarre l'extrait ; `completion` reçoit sa durée, ou `nil` si les fichiers
+  /// manquent.
+  func play(then completion: @escaping @Sendable @MainActor (Double?) -> Void) {
+    Self.queue.async {
+      let duration = self.start()
+      Task { @MainActor in completion(duration) }
+    }
+  }
+
+  func pause() {
+    Self.queue.async {
+      self.before?.pause()
+      self.after?.pause()
+    }
+  }
+
+  func stop() {
+    Self.queue.async {
+      for player in [self.before, self.after] {
+        player?.stop()
+        player?.currentTime = 0
+      }
+      guard self.isSessionActive else { return }
+      self.isSessionActive = false
+      try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+    }
+  }
+
+  func seek(to fraction: Double) {
+    Self.queue.async {
+      guard let before = self.before, let after = self.after else { return }
+      before.currentTime = fraction * before.duration
+      after.currentTime = fraction * before.duration
+    }
+  }
+
+  func setMusicRemoved(_ removed: Bool) {
+    Self.queue.async {
+      self.musicRemoved = removed
+      self.applyVolumes()
+    }
+  }
+
+  func readProgress(then completion: @escaping @Sendable @MainActor (Double) -> Void) {
+    Self.queue.async {
+      guard let before = self.before, before.duration > 0 else { return }
+      let fraction = before.currentTime / before.duration
+      Task { @MainActor in completion(fraction) }
+    }
+  }
+
+  // MARK: Sur la file
+
+  private func loadPlayers() {
+    guard before == nil,
+      let beforeURL = BrowtherIntroMedia.audioBeforeURL,
+      let afterURL = BrowtherIntroMedia.audioAfterURL,
+      let beforePlayer = try? AVAudioPlayer(contentsOf: beforeURL),
+      let afterPlayer = try? AVAudioPlayer(contentsOf: afterURL)
+    else { return }
+    beforePlayer.numberOfLoops = -1
+    afterPlayer.numberOfLoops = -1
+    before = beforePlayer
+    after = afterPlayer
+    applyVolumes()
+  }
+
+  private func start() -> Double? {
+    loadPlayers()
+    guard let before, let after else { return nil }
+    if !isSessionActive {
+      // `.playback` : l'extrait est le sujet de l'écran, il doit s'entendre
+      // même en mode silencieux. `.mixWithOthers` n'est pas demandé — on veut
+      // au contraire que la musique de la personne se taise pendant la
+      // démonstration.
+      let session = AVAudioSession.sharedInstance()
+      try? session.setCategory(.playback, mode: .default)
+      try? session.setActive(true)
+      isSessionActive = true
+    }
+    // Préparés AVANT de fixer l'instant de départ : un lecteur qui se prépare
+    // dans `play(atTime:)` rate l'instant commun et part en décalé.
+    before.prepareToPlay()
+    after.prepareToPlay()
+    // Démarrage simultané sur une base commune : les lancer l'un après l'autre
+    // les décalerait, et la bascule s'entendrait comme un saut.
+    let start = before.deviceCurrentTime + 0.05
+    before.play(atTime: start)
+    after.play(atTime: start)
+    return before.duration
+  }
+
+  private func applyVolumes() {
+    before?.volume = musicRemoved ? 0 : 1
+    after?.volume = musicRemoved ? 1 : 0
   }
 }

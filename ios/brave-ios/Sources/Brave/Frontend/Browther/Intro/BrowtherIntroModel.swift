@@ -183,8 +183,9 @@ final class BrowtherIntroModel: ObservableObject {
   // MARK: - Activation
 
   /// Pendant l'accès anticipé, « Activer » explique que la fonctionnalité
-  /// arrive ; à la sortie, elle s'allume vraiment. Le même bouton, deux
-  /// réponses — c'est le seul écart entre les deux états de l'introduction.
+  /// arrive ; à la sortie, elle s'allume vraiment, puis avance. Le même
+  /// bouton, deux réponses — c'est le seul écart entre les deux états de
+  /// l'introduction.
   func activate(_ feature: BrowtherIntroFeature) {
     track(
       "onboarding_activate_tapped",
@@ -217,6 +218,9 @@ final class BrowtherIntroModel: ObservableObject {
       "feature_toggled",
       ["feature": feature.rawValue, "enabled": true, "source": "onboarding"]
     )
+    // ⛔ Allumer ne suffit pas : sans feuille à refermer, rien d'autre ne fait
+    // avancer — « Continuer » restait sur place (le desktop avançait déjà).
+    advance()
   }
 
   func later(_ what: String) {

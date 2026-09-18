@@ -452,6 +452,7 @@ struct BrowtherIntroMusicStep: View {
         audio.apply(musicRemoved: removed)
         if removed { audio.play() }
       }
+      .onAppear { audio.load() }
       .onDisappear { audio.stop() }
     } actions: {
       BrowtherIntroAdvanceButton(
