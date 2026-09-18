@@ -117,6 +117,12 @@ public class BrowtherAdBannerView extends LinearLayout {
         mAdRatio = parseRatio(mAds.length > 0 ? mAds[0].ratio : null);
         mPagerHeight = 0;
         mPager.setAdapter(new BrowtherAdPagerAdapter(mAds, glide, this::onAdClicked));
+        // Toutes les pages sont créées d'avance : l'image d'une pub se télécharge au
+        // bind de sa page, et ViewPager2 ne lie une page qu'en y arrivant. La 2ᵉ et la
+        // 3ᵉ pub restaient donc vides plusieurs secondes après le swipe (recette Karim,
+        // 2026-09-18). Sans effet sur les impressions : elles partent de
+        // `onPageSelected`, jamais du bind.
+        mPager.setOffscreenPageLimit(Math.max(1, mAds.length - 1));
         buildDots(mAds.length);
         updateDots(0);
         // Rebind alors que déjà visible (notifyItemChanged) → impression directe.
