@@ -1829,6 +1829,47 @@
 .bi-dialog-note { margin: 0; font-size: 14px; color: var(--bi-ink-tertiary); }
 .bi-dialog .bi-button { margin-top: 2px; }
 
+/* MARK: Fenêtres basses ------------------------------------------------- */
+
+/* Un portable 1080p à 150 % ou un écran 1366×768 laisse ~600 px de haut à la
+ * page (barre des tâches + barre du navigateur) : l'accueil débordait de 65 px
+ * et les autres écrans de 40 px, la hauteur minimale de `.bi-layout`
+ * (recette Karim sur son PC Windows, 2026-09-19). On resserre par paliers,
+ * UNIQUEMENT sous 720 px de haut : au-dessus, rien ne change. Mesuré écran par
+ * écran dans le vrai build (1920×1000 → 1280×520) : plus aucun défilement. */
+@media (max-height: 720px) and (min-width: 901px) {
+  .bi-layout { min-height: 0; padding-top: 72px; padding-bottom: 20px; }
+  .bi-copy { gap: 28px; }
+  .bi-chat { min-height: 0; }
+  .bi-tiles { min-height: 0; }
+  .bi-welcome-content { padding-top: 64px; padding-bottom: 16px; }
+  .bi-app-icon { width: 60px; height: 60px; border-radius: 14px; }
+  .bi-verse { margin-top: 12px; gap: 6px; }
+  .bi-verse-arabic { font-size: 27px; line-height: 1.9; }
+  .bi-welcome-spacer { min-height: 12px; }
+  .bi-protections { margin-top: 14px; padding: 10px 0; }
+  .bi-welcome .bi-button-light { margin-top: 14px; }
+  .bi-signature { margin-top: 10px; }
+}
+
+/* Sous 600 px : la maquette des pubs garde sa vidéo, son titre et la bannière
+ * qui disparaît, sans le texte de l'article ; les QR restent lisibles. */
+@media (max-height: 600px) and (min-width: 901px) {
+  .bi-layout { padding-top: 66px; padding-bottom: 14px; }
+  .bi-copy { gap: 20px; }
+  .bi-title { font-size: clamp(26px, 2.6vw, 34px); }
+  .bi-subtitle { font-size: 15.5px; }
+  .bi-webpage-wrap { max-width: min(600px, calc((100vh - 80px) * 1.05)); }
+  .bi-webpage-article p,
+  .bi-webpage-lines { display: none; }
+  .bi-channel { min-height: 74px; }
+  .bi-channel-qr { width: 58px; height: 58px; padding: 5px; }
+  .bi-channels-same { margin-bottom: 12px; }
+  .bi-welcome-content { padding-top: 56px; }
+  .bi-app-icon { width: 52px; height: 52px; border-radius: 12px; }
+  .bi-verse-arabic { font-size: 25px; line-height: 1.8; }
+}
+
 /* MARK: Confettis -------------------------------------------------------- */
 
 .bi-confetti {
