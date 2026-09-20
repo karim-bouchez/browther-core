@@ -45,7 +45,7 @@ brave_version_build = 6
 // Override APRÈS l'include (sinon args.xcconfig force la version Brave 1.90).
 // ⚠️ Bumper la date à chaque soumission ; App Store compare composante par
 // composante (2026.x > 1.90, donc la transition depuis 1.90 est valide).
-brave_ios_marketing_version = 2026.9.19
+brave_ios_marketing_version = 2026.9.20
 
 FRAMEWORK_BASE_BUNDLE_ID = com.devndin.browther
 BASE_BUNDLE_ID = $(FRAMEWORK_BASE_BUNDLE_ID).ios
