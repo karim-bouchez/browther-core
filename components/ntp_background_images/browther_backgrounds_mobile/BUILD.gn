@@ -12,7 +12,9 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 
   android_assets("browther_backgrounds_mobile_android_assets") {
-    sources = [
+    # ⚠️ Pas de `sources` : android_assets packagerait chaque JPEG une
+    # 2ᵉ fois, à plat sous assets/ — ~20 MB en double dans l'AAB.
+    renaming_sources = [
       "abdou-faiz-TQipjFceOBg-unsplash.jpg",
       "agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg",
       "clarisse-meyer-N88l6zWEhZk-unsplash.jpg",
@@ -25,7 +27,6 @@ if (is_android) {
       "yasmine-arfaoui-R6rh5ttDO-4-unsplash.jpg",
       "younes-m-zVBWVMontM4-unsplash.jpg",
     ]
-    renaming_sources = sources
     renaming_destinations = [
       "browther_backgrounds_mobile/abdou-faiz-TQipjFceOBg-unsplash.jpg",
       "browther_backgrounds_mobile/agnieszka-stankiewicz-MVrgqBB-fqU-unsplash.jpg",

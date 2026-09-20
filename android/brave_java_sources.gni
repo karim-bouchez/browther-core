@@ -640,4 +640,46 @@ brave_java_base_module_deps = [
   "//third_party/androidx:androidx_lifecycle_lifecycle_viewmodel_java",
 ]
 
+# ── Browther : ce qui DOIT être dans le module de base ───────────────────────
+# Le .aab Play est construit avec android:isolatedSplits="true" : le code
+# //chrome part dans un split « chrome » qui a son propre ClassLoader et son
+# propre AssetManager. Conséquences vécues sur la 2026.9.19 (Play, 2026-09-20) :
+#   - les .so d'un AAR sont TOUJOURS packagées dans base.apk, donc
+#     System.loadLibrary() depuis une classe du split échoue
+#     (« couldn't find libonnxruntime4j_jni.so ») → Basarunaa et Sawtunaa
+#     tombent en no-op sans rien casser d'autre ;
+#   - un asset tiré par chrome_java atterrit dans split_chrome.apk, invisible
+#     depuis le contexte d'application → OpenApkAsset() renvoie -1 et rien
+#     n'est extrait (filter lists Shields : 0 pub bloquée, fonds NTP absents).
+# Rien de tout ça n'apparaît sur un APK monolithique (build Component), d'où
+# des années de validations vertes. La règle : classes qui appellent
+# System.loadLibrary + assets lus par le C++ ou par le contexte d'application
+# → ici, pas dans brave_chrome_java_deps. Même raison que WireguardService.
+
+# Classes des AAR à .so : elles doivent être chargées par le ClassLoader de
+# base, là où vivent les .so. On les laisse AUSSI dans brave_chrome_java_deps
+# pour la visibilité à la compilation (pattern com_wireguard_android_java) ;
+# le dex du split ne les dupliquera pas, le module de base gagne.
+# ⚠️ Familles entières : une classe promue en base dont la super-classe reste
+# dans le split donnerait un NoClassDefFoundError au runtime.
+brave_java_base_module_deps += [
+  "//brave/third_party/browther_android_deps:onnxruntime_android_java",
+  "//brave/third_party/browther_android_deps:tflite_android_java",
+  "//brave/third_party/browther_android_deps:tflite_api_android_java",
+  "//brave/third_party/browther_android_deps:tflite_gpu_android_java",
+  "//brave/third_party/browther_android_deps:tflite_gpu_api_android_java",
+]
+
+# Assets Browther : DÉPLACÉS depuis brave_chrome_java_deps (ils n'y sont plus).
+# Tous sont lus soit par du C++ (base::android::OpenApkAsset), soit par
+# ContextUtils.getApplicationContext().getAssets() — deux chemins qui ne
+# regardent que le module de base.
+brave_java_base_module_deps += [
+  "//brave/components/brave_shields/core/browser/shields_bundled_lists:shields_bundled_lists_android_assets",
+  "//brave/components/ntp_background_images/browther_backgrounds_mobile:browther_backgrounds_mobile_android_assets",
+  "//brave/components/sawtunaa/android_assets:sawtunaa_model_android_assets",
+  "//brave/components/basarunaa/android_assets:basarunaa_models_android_assets",
+  "//brave/browser/browther_intro/android:browther_intro_android_assets",
+]
+
 brave_java_base_module_deps += brave_java_base_module_billing_deps

@@ -49,11 +49,22 @@ constexpr std::array<std::string_view, 11> kBundledAssets = {
 constexpr char kSentinelFile[] = "photo.json";
 constexpr char kAssetDir[] = "browther_backgrounds_mobile";
 
+// Browther: mêmes assets dans le module « chrome » que pour les filter
+// lists Shields — voir shields_bundled_apk_extractor.cc pour le détail du
+// piège isolatedSplits.
+constexpr char kChromeSplitName[] = "chrome";
+
 bool ExtractAsset(const std::string& asset_path,
                   const base::FilePath& dest_path) {
   base::MemoryMappedFile::Region region;
-  int asset_fd = base::android::OpenApkAsset(
-      std::string("assets/") + kAssetDir + "/" + asset_path, &region);
+  const std::string apk_path =
+      std::string("assets/") + kAssetDir + "/" + asset_path;
+  int asset_fd =
+      base::android::OpenApkAsset(apk_path, kChromeSplitName, &region);
+  if (asset_fd < 0) {
+    // Repli si les assets venaient à être rattachés au module de base.
+    asset_fd = base::android::OpenApkAsset(apk_path, &region);
+  }
   if (asset_fd < 0) {
     LOG(WARNING) << "[Browther] Failed to open APK asset: " << asset_path;
     return false;

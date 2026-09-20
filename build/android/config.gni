@@ -105,41 +105,13 @@ brave_chrome_java_deps = [
   "//brave/third_party/browther_android_deps:tflite_gpu_android_java",
   "//brave/third_party/browther_android_deps:tflite_gpu_api_android_java",
 
-  # Browther: bundle Shields filter lists dans assets/adblock_lists/ de
-  # l'APK. Le target android_assets est défini dans
-  # shields_bundled_lists/BUILD.gn (auto-généré par fetch-shields-lists.sh,
-  # gitignored) et est gated `is_android`. On le tire ici depuis
-  # brave_chrome_java_deps (qui finit dans `android_library("chrome_java")`,
-  # voir patches/chrome-android-BUILD.gn.patch) — sinon il ne se propage
-  # pas depuis le static_library C++ qui le référence côté C++. Sans ça,
-  # l'APK ne contient pas assets/adblock_lists/ et shields_bundled_apk_
-  # extractor.cc échoue → 0 ads bloqués.
-  "//brave/components/brave_shields/core/browser/shields_bundled_lists:shields_bundled_lists_android_assets",
-
-  # Browther: bundle 10 paysages islamiques dans assets/browther_backgrounds_
-  # mobile/ de l'APK pour la NTP. Même mécanisme que Shields ci-dessus :
-  # extrait au boot vers DIR_USER_DATA par browther_backgrounds_apk_
-  # extractor.cc, puis NTPBackgroundImagesService lit le dossier sur disque
-  # via la branche Android dans RegisterBackgroundImagesComponent().
-  "//brave/components/ntp_background_images/browther_backgrounds_mobile:browther_backgrounds_mobile_android_assets",
-
-  # Browther: Sawtunaa Voie B (pièce #7) — bundle le modèle NSNet2 (~25 MB,
-  # ONNX Protobuf) dans assets/sawtunaa/ de l'APK. Le fichier réel est
-  # gitignored et copié à chaque build par private/scripts/fetch-sawtunaa-
-  # model.sh depuis private/extensions/sawtunaa/public/models/. Lu au
-  # runtime par NSNet2Processor (pièce #4) via AssetManager.openFd.
-  "//brave/components/sawtunaa/android_assets:sawtunaa_model_android_assets",
-
-  # Browther: Basarunaa Android — Jalon 1 (bench ML runtime). Bundle les 4
-  # modèles ONNX critiques (~30 MB) dans assets/basarunaa/ de l'APK :
-  # yolo11n-pose, yolov8n-face, genderage, nanodet-plus-m_320. Modèles
-  # gitignored, copiés par private/scripts/fetch-basarunaa-models.sh.
-  # Lus par BasarunaaBenchmark via AssetManager.open().
-  "//brave/components/basarunaa/android_assets:basarunaa_models_android_assets",
-
-  # Browther: introduction (premier lancement) — médias, visuels et police de
-  # l'iOS, référencés à leur place, dans assets/browther_intro/ de l'APK.
-  "//brave/browser/browther_intro/android:browther_intro_android_assets",
+  # Browther: les cinq cibles android_assets (filter lists Shields, fonds NTP,
+  # modèle Sawtunaa, modèles Basarunaa, médias de l'introduction) ne sont PLUS
+  # tirées ici. Tirées depuis chrome_java, elles atterrissaient dans le split
+  # « chrome » du bundle Play, invisible depuis le contexte d'application :
+  # OpenApkAsset() renvoyait -1, rien n'était extrait, Shields ne bloquait
+  # rien. Elles vivent maintenant dans `brave_java_base_module_deps`
+  # (android/brave_java_sources.gni), qui les met dans le module de base.
 
   "//brave/third_party/zxing:zxing_java",
   "//brave/ui/android:base_java",

@@ -34,25 +34,50 @@ namespace {
 // liste change peu en pratique. La sentinelle list_catalog.json est
 // extraite en dernier pour garantir l'atomicité (si le boot crashe au
 // milieu, on re-extraira tout au prochain boot).
-constexpr std::array<std::string_view, 8> kBundledAssets = {
+// ⚠️ Toute dérive avec le bundle fait échouer `fetch-shields-lists.py`
+// (contrôle explicite en fin de génération) — c'est volontaire : une liste
+// absente d'ici n'est jamais extraite, donc jamais chargée, sans le moindre
+// message d'erreur.
+constexpr std::array<std::string_view, 12> kBundledAssets = {
     "_resources/resources.json",
     "adcocjohghhfpidemphmcmlmhnfgikei/list.txt",
+    "almolcgbkikkhliiibfjkohebgklegam/list.txt",
     "bfpgedeaaibpoidldhjcknekahbikncb/list.txt",
     "cdbbhgbmjhfnhnmgeddbliobbofkgdhe/list.txt",
+    "cpapfkpkeaajehipopnaiihfmbfbnkdp/list.txt",
     "flnkmpokemfpaajmiimmjeiandgoodgg/list.txt",
     "iodkpdagapdfkphljnddpjlldadblomo/list.txt",
     "kihnoaefogbkmblfimmibknnmkllbhlf/list.txt",
+    "lbnibkdpkdjnookgfeogjdanfenekmpe/list.txt",
+    "phdmgpanpejkbmbljlhcehpadabljfbk/list.txt",
     // Sentinelle d'extraction réussie — toujours en dernier.
     "list_catalog.json",
 };
 
 constexpr char kSentinelFile[] = "list_catalog.json";
 
+// Browther: nos assets sont packagés dans le module de fonctionnalité
+// « chrome », pas dans « base ». Le bundle Play est construit avec
+// android:isolatedSplits="true" (chrome/android/java/AndroidManifest.xml,
+// activé dès qu'on produit un .aab) : le contexte d'application ne voit
+// alors QUE les assets de base, et un OpenApkAsset() sans nom de split
+// échoue silencieusement. Dans un APK monolithique (build Component), le
+// split n'existe pas et ApkAssets.open() retombe tout seul sur le contexte
+// d'application. Même mécanique que Chromium pour ses propres DFM (cf.
+// chrome/common/profiler/core_unwinders_android.cc). Voir
+// private/docs/SHIELDS_BUNDLE.md § « Le piège du split chrome ».
+constexpr char kChromeSplitName[] = "chrome";
+
 bool ExtractAsset(const std::string& asset_path,
                   const base::FilePath& dest_path) {
   base::MemoryMappedFile::Region region;
-  int asset_fd = base::android::OpenApkAsset("assets/adblock_lists/" + asset_path,
-                                              &region);
+  const std::string apk_path = "assets/adblock_lists/" + asset_path;
+  int asset_fd =
+      base::android::OpenApkAsset(apk_path, kChromeSplitName, &region);
+  if (asset_fd < 0) {
+    // Repli si les assets venaient à être rattachés au module de base.
+    asset_fd = base::android::OpenApkAsset(apk_path, &region);
+  }
   if (asset_fd < 0) {
     LOG(WARNING) << "[Browther] Failed to open APK asset: " << asset_path;
     return false;
