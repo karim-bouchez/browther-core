@@ -185,8 +185,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private FrameLayout mYouTubePipLayout;
     private BraveShieldsHandler mBraveShieldsHandler;
 
-    // Browther: Sawtunaa toolbar button. The FrameLayout wrapper is found in
-    // brave_toolbar.xml but we only need a handle on the button + badge views.
+    // Browther: Sawtunaa toolbar button. On garde aussi une référence au
+    // FrameLayout parent (bouton + pastille) : c'est lui qu'il faut dessiner
+    // dans drawAnimationOverlay(), sinon l'icône disparaît de la barre pendant
+    // le défilement (cf. le commentaire de cette méthode).
+    private @Nullable View mSawtunaaLayout;
     private @Nullable ImageButton mSawtunaaButton;
     private @Nullable View mSawtunaaBadge;
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
@@ -195,6 +198,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable View mShieldsBadge;
 
     // Browther: Basarunaa toolbar button (mirror of Sawtunaa).
+    private @Nullable View mBasarunaaLayout;
     private @Nullable ImageButton mBasarunaaButton;
     private @Nullable View mBasarunaaBadge;
     private @Nullable PrefChangeRegistrar mBasarunaaPrefChangeRegistrar;
@@ -339,6 +343,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         // icon-with-bg PNG as the panel header (parity with Brave Shields'
         // btn_brave.png pattern: image is multi-color and self-contained,
         // no runtime tint needed).
+        mSawtunaaLayout = findViewById(R.id.brave_sawtunaa_button_layout);
         mSawtunaaButton = findViewById(R.id.brave_sawtunaa_button);
         mSawtunaaBadge = findViewById(R.id.brave_sawtunaa_badge);
         if (mSawtunaaButton != null) {
@@ -353,6 +358,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         }
 
         // Browther: Basarunaa toolbar button (same pattern as Sawtunaa).
+        mBasarunaaLayout = findViewById(R.id.brave_basarunaa_button_layout);
         mBasarunaaButton = findViewById(R.id.brave_basarunaa_button);
         mBasarunaaBadge = findViewById(R.id.brave_basarunaa_badge);
         if (mBasarunaaButton != null) {
@@ -765,6 +771,20 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
 
         removeCallbacks(mToolbarSnapshotCaptureRunnable);
         post(mToolbarSnapshotCaptureRunnable);
+    }
+
+    /**
+     * Browther: force une nouvelle capture de la barre d'outils, quel que soit
+     * le format d'écran — {@link #invalidateToolbarSnapshotOnTablet()} ne fait
+     * rien sur téléphone. Sans ça, la pastille d'état Sawtunaa/Basarunaa qui
+     * vient de changer resterait à sa couleur précédente dans l'image affichée
+     * pendant le défilement : le jeu de champs comparés par Chromium
+     * (PhoneCaptureStateToken) ignore nos boutons, donc la barre n'est jamais
+     * considérée comme « sale ».
+     */
+    private void invalidateToolbarSnapshot() {
+        if (!isAttachedToWindow()) return;
+        post(this::requestToolbarSnapshotCapture);
     }
 
     private void requestToolbarSnapshotCapture() {
@@ -1365,6 +1385,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         if (profile == null) return;
         boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
         mSawtunaaBadge.setBackgroundResource(featureBadge(enabled));
+        invalidateToolbarSnapshot();
     }
 
     private void registerSawtunaaPrefObserver() {
@@ -1402,6 +1423,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         if (profile == null) return;
         boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.BASARUNAA_ENABLED);
         mBasarunaaBadge.setBackgroundResource(featureBadge(enabled));
+        invalidateToolbarSnapshot();
     }
 
     private void registerBasarunaaPrefObserver() {
@@ -1867,11 +1889,31 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     }
 
     @Override
+    // Browther: ⚠️ cette méthode n'est PAS réservée aux animations malgré son
+    // nom. `ToolbarPhone.drawWithoutBackground()` l'appelle à CHAQUE capture de
+    // texture de la barre d'outils — l'image que le compositeur affiche pendant
+    // qu'on défile. Elle dessine une liste écrite à la main : tout bouton absent
+    // d'ici existe dans la vue Android mais **disparaît de la barre pendant le
+    // défilement**, et ne revient qu'une fois la vraie vue rendue (~1 s).
+    // Vécu le 2026-09-20 : Sawtunaa et Basarunaa manquaient, le bouclier non.
+    // Tout nouveau bouton de barre d'outils doit être ajouté ici.
     public void drawAnimationOverlay(ViewGroup toolbarButtonsContainer, Canvas canvas) {
         if (mWalletLayout != null && mWalletLayout.getVisibility() != View.GONE) {
             canvas.save();
             ViewUtils.translateCanvasToView(toolbarButtonsContainer, mWalletLayout, canvas);
             mWalletLayout.draw(canvas);
+            canvas.restore();
+        }
+        if (mSawtunaaLayout != null && mSawtunaaLayout.getVisibility() != View.GONE) {
+            canvas.save();
+            ViewUtils.translateCanvasToView(toolbarButtonsContainer, mSawtunaaLayout, canvas);
+            mSawtunaaLayout.draw(canvas);
+            canvas.restore();
+        }
+        if (mBasarunaaLayout != null && mBasarunaaLayout.getVisibility() != View.GONE) {
+            canvas.save();
+            ViewUtils.translateCanvasToView(toolbarButtonsContainer, mBasarunaaLayout, canvas);
+            mBasarunaaLayout.draw(canvas);
             canvas.restore();
         }
         if (mShieldsLayout != null && mShieldsLayout.getVisibility() != View.GONE) {
