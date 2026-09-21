@@ -192,6 +192,13 @@ extension BrowserViewController {
     if !profileController.profile.prefs.isBraveNewsAvailable {
       pageActivitiesRemovedByAdminPolicies.insert(.addSourceNews)
     }
+    // Browther: features retirées. Leur UIActivity n'est plus créée
+    // (BVC+ShareActivity), mais sans cette exclusion le menu les rajoutait
+    // quand même en lignes grisées via `remainingPageActivities`.
+    pageActivitiesRemovedByAdminPolicies.formUnion([.addSourceNews, .reportBrokenSite])
+    if !Preferences.Translate.translateEnabled.value {
+      pageActivitiesRemovedByAdminPolicies.insert(.translate)
+    }
     let remainingPageActivities: [Action] = Action.ID.allPageActivites
       .subtracting(pageActivities.map(\.id))
       .subtracting(pageActivitiesRemovedByAdminPolicies)
