@@ -22,8 +22,27 @@
 static std::string JNI_AboutSettingsBridge_GetApplicationVersion(JNIEnv* env) {
   JNI_AboutSettingsBridge_GetApplicationVersion_ChromiumImpl(env);
 
+  // Browther : même présentation que la carte « Version » d'iOS —
+  //   Browther 2026.9.21
+  //   BraveCore 1.90.0 (146.0.7680.164)
+  // La 1re ligne porte notre CalVer (versionName de l'APK, posé par
+  // build-android-remote.sh via --android_override_version_name) : c'est le
+  // numéro que l'utilisateur voit sur le Play Store et qu'il nous cite. Avant,
+  // seul le numéro de Brave (1.90.0) apparaissait, indiscernable d'une
+  // version à l'autre. Repli sur l'ancien format si le versionName est vide.
+  const std::string& calver = base::android::apk_info::package_version_name();
   std::string application(base::android::apk_info::host_package_label());
   application.append(" ");
+  if (!calver.empty()) {
+    application.append(calver);
+    application.append("\nBraveCore ");
+    application.append(
+        version_info::GetBraveVersionWithoutChromiumMajorVersion());
+    application.append(" (");
+    application.append(version_info::GetBraveChromiumVersionNumber());
+    application.append(")");
+    return application;
+  }
   application.append(
       version_info::GetBraveVersionWithoutChromiumMajorVersion());
   application.append(", Chromium ");
