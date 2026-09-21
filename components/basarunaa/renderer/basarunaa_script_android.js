@@ -1553,10 +1553,7 @@
       if (state === "keep" || state === "remove" || state === "analyzing") {
         return false;
       }
-      const w = img.naturalWidth || img.width;
-      const h = img.naturalHeight || img.height;
-      if (w < MIN_DIM || h < MIN_DIM) return false;
-      if (!img.complete || w === 0 || h === 0) {
+      if (!img.complete || img.naturalWidth === 0 || img.naturalHeight === 0) {
         img.addEventListener(
           "load",
           () => {
@@ -1564,6 +1561,10 @@
           },
           { once: true }
         );
+        return false;
+      }
+      if (img.naturalWidth < MIN_DIM || img.naturalHeight < MIN_DIM) {
+        releaseHideFirst(img);
         return false;
       }
       const url = imgUrl$1(img);
