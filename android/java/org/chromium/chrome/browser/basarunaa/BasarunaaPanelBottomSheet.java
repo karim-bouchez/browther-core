@@ -23,14 +23,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
+import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
+import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
@@ -143,8 +146,31 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
                             new String[] {"basarunaa", Boolean.toString(isChecked)});
                     updateStatusText(isChecked);
                     BrowtherEarlyAccess.setNoticeVisible(root, isChecked);
+                    if (isChecked) {
+                        // OFF → ON : reload du tab, comme le panel Sawtunaa.
+                        // Le RFO (basarunaa_render_frame_observer_android.cc)
+                        // n'injecte PAS le script à chaud — le frame peut être
+                        // provisional (DCHECK ToV8ContextMaybeEmpty) — et
+                        // compte sur ce reload pour un DidClearWindowObject
+                        // propre. Il n'avait jamais été câblé ici : l'utilisateur
+                        // devait recharger la page à la main (constat Karim,
+                        // 2026-09-21). ON → OFF reste live, sans reload.
+                        reloadActiveTab();
+                    }
                 });
         updateStatusText(enabled);
+    }
+
+    private void reloadActiveTab() {
+        try {
+            Tab tab = BraveActivity.getBraveActivity().getActivityTab();
+            if (tab != null) {
+                Log.i(TAG, "Reloading active tab after Basarunaa ON toggle");
+                tab.reload();
+            }
+        } catch (BraveActivity.BraveActivityNotFoundException e) {
+            Log.e(TAG, "reloadActiveTab " + e);
+        }
     }
 
     private void bindModeGroup() {
