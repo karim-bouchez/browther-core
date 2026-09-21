@@ -53,7 +53,8 @@ public enum SawtunaaMetric {
 /// Designed for the MSE interception pipeline: JS decodes Opus -> sends PCM chunks -> Swift processes + plays.
 public class SawtunaaAudioPlayer {
 
-  private let engine = AVAudioEngine()
+  // Construit au premier `start()` seulement (cf. `makeEngine()`).
+  private var engine: AVAudioEngine?
   private let playerNode = AVAudioPlayerNode()
   private let format: AVAudioFormat
   private var isRunning = false
@@ -105,13 +106,6 @@ public class SawtunaaAudioPlayer {
     // NSNet2 applique le même masque à chacun (cf. NSNet2Processor). Avant, tout
     // était downmixé en mono et la scène stéréo s'effondrait sur chaque vidéo.
     format = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2)!
-    engine.attach(playerNode)
-    engine.connect(playerNode, to: engine.mainMixerNode, format: format)
-    // Pre-allocate audio resources before engine.start() to avoid a race
-    // condition where scheduleBuffer is called before the first IO cycle
-    // — manifests as: 'AVAudioPlayerNodeImpl: player did not see an IO
-    // cycle' uncaught NSException → app crash.
-    engine.prepare()
     SawtunaaMetric.emit(
       "player_init",
       ["sample_rate": 48000, "channels": 2])
@@ -149,12 +143,29 @@ public class SawtunaaAudioPlayer {
     }
   }
 
+  /// Le moteur n'existe qu'à partir du premier `start()`, c.-à-d. quand une
+  /// vidéo passe réellement par le pipeline — et donc APRÈS le `setCategory`
+  /// mixable. Le handler (et ce lecteur) est créé pour CHAQUE onglet, Sawtunaa
+  /// allumé ou non : un `AVAudioEngine` câblé + `prepare()` dès l'init prenait
+  /// la sortie audio sous la catégorie par défaut (`.soloAmbient`, non
+  /// mixable), et iOS interrompait l'audio des autres apps — un PiP d'un autre
+  /// navigateur se mettait en pause à l'ouverture de Browther (2026-09-21).
+  private func makeEngine() -> AVAudioEngine {
+    if let engine { return engine }
+    let engine = AVAudioEngine()
+    engine.attach(playerNode)
+    engine.connect(playerNode, to: engine.mainMixerNode, format: format)
+    self.engine = engine
+    return engine
+  }
+
   public func start() {
     guard !isRunning else { return }
     do {
       let session = AVAudioSession.sharedInstance()
       try session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
       try session.setActive(true)
+      let engine = makeEngine()
       // engine.prepare() before start() guarantees the audio graph has
       // allocated all internal resources. Without this call, the playerNode
       // can report `lastRenderTime == nil` for several IO cycles after
@@ -180,6 +191,8 @@ public class SawtunaaAudioPlayer {
 
   public func stop() {
     stopStatePolling()
+    // Jamais démarré : pas de moteur, et `playerNode` n'est rattaché à rien.
+    guard let engine else { return }
     playerNode.stop()
     engine.stop()
     isRunning = false
@@ -223,7 +236,7 @@ public class SawtunaaAudioPlayer {
         SawtunaaMetric.emit(
           "engine_state",
           [
-            "engine_running": self.engine.isRunning,
+            "engine_running": self.engine?.isRunning ?? false,
             "player_playing": self.playerNode.isPlaying,
             "cache_size": self.audioCache.count,
             "cache_first_ts": cacheFirstTs,

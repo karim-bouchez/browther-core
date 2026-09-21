@@ -55,6 +55,8 @@ class SawtunaaScriptHandler: TabContentScript {
     SawtunaaMetric.emit("handler_init", [:])
     // Eager: create player + load NSNet2 model immediately, before any chunk arrives.
     // Avoids dropping early chunks during the model load latency.
+    // ⚠️ Rien d'audio ici : ce handler existe sur chaque onglet, Sawtunaa allumé ou
+    // non. Le moteur audio n'est créé qu'au premier `playAt` (cf. `makeEngine()`).
     ensureAudioPlayer()
   }
 
