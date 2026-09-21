@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -77,6 +78,8 @@ public final class SawtunaaPlayer {
     private static final double GAP_MIN_MS = 30.0;
     private static final double GAP_MAX_MS = 30_000.0;
     private static final double SILENCE_LEAD_MAX_MS = 2000.0;
+    // Pas d'attente du thread d'écriture pendant une pause de la piste.
+    private static final long PAUSED_WRITE_POLL_MS = 20;
 
     // Audio cache cap (Swift = 600 ≈ 10 min @ ~1 s/chunk).
     private static final int CACHE_MAX = 600;
@@ -103,7 +106,9 @@ public final class SawtunaaPlayer {
 
     // --- NSNet2 preprocess ---
 
-    @Nullable private NSNet2Processor mNsnet2;
+    // volatile : écrit sur mMainExec, lu sur le thread NSNet2, remis à null par
+    // destroy() depuis le thread UI.
+    @Nullable private volatile NSNet2Processor mNsnet2;
     // ExecutorService factory : on nomme les threads pour le debug logcat ;
     // pas de setPriority (Chromium ThreadPriorityCheck errorprone discourage).
     private final ExecutorService mPreprocessExec =
@@ -142,6 +147,10 @@ public final class SawtunaaPlayer {
     @Nullable private Long mFirstChunkPlayedAtMs;
     // Epoch counter — atomic car peut être lu depuis preprocess thread.
     private final AtomicLong mEpoch = new AtomicLong(0);
+    // Incrémenté à chaque vidage de mWriteQueue (seek, clear) : le thread
+    // d'écriture abandonne alors le bloc qu'il tenait, devenu obsolète — il
+    // peut en tenir un longtemps depuis qu'il attend la fin d'une pause.
+    private final AtomicLong mWriteGen = new AtomicLong(0);
 
     // --- Lifecycle ---
 
@@ -171,7 +180,7 @@ public final class SawtunaaPlayer {
     /** Lit l'asset puis bootstrap NSNet2 sur le preprocess thread (warmup inclus). */
     private void loadModelAsync() {
         final long t0 = SystemClock.elapsedRealtimeNanos();
-        mPreprocessExec.execute(() -> {
+        postPreprocess(() -> {
             try {
                 Context ctx = ContextUtils.getApplicationContext();
                 if (ctx == null) {
@@ -189,7 +198,7 @@ public final class SawtunaaPlayer {
                 res.processor.process(silence);
                 long warmMs = (SystemClock.elapsedRealtimeNanos() - warmT0) / 1_000_000L;
                 res.processor.reset();
-                mMainExec.execute(() -> {
+                boolean posted = postMain(() -> {
                     mNsnet2 = res.processor;
                     emit("model_load_done",
                             "available", true,
@@ -199,6 +208,11 @@ public final class SawtunaaPlayer {
                             "used_nnapi", res.usedNnapi,
                             "intra_op_threads", res.intraOpThreads);
                 });
+                if (!posted) {
+                    // Lecteur détruit pendant le chargement : personne ne
+                    // fermerait cette session.
+                    closeQuietly(res.processor);
+                }
             } catch (Throwable e) {
                 Log.e(TAG, "NSNet2 load failed", e);
                 emit("model_load_done",
@@ -224,15 +238,56 @@ public final class SawtunaaPlayer {
     public void destroy() {
         Log.i(TAG, "[Player#%d] destroyed", mInstanceId);
         stop();
-        mPreprocessExec.shutdownNow();
         mMainExec.shutdownNow();
-        if (mNsnet2 != null) {
-            try {
-                mNsnet2.close();
-            } catch (Throwable ignore) {
-                // best-effort
-            }
-            mNsnet2 = null;
+        // ⚠️ NE PAS fermer la session ONNX ici. `shutdownNow()` n'interrompt pas
+        // un appel natif : une inférence NSNet2 en cours (400-600 ms sur un
+        // Kirin 980 chargé par Basarunaa) continuait sur une session fermée →
+        // « pthread_mutex_lock called on a destroyed mutex » → SIGABRT, tout le
+        // navigateur tombait (vécu 2026-09-21, 2026.9.20 sur P20). On retire le
+        // processeur (les tâches pas encore démarrées abandonnent), puis on le
+        // ferme SUR son propre thread, après la tâche en cours.
+        final NSNet2Processor nsnet2 = mNsnet2;
+        mNsnet2 = null;
+        if (!postPreprocess(() -> closeQuietly(nsnet2))) {
+            // Exécuteur déjà arrêté : plus rien ne peut tourner dessus.
+            closeQuietly(nsnet2);
+        }
+        // shutdown() et pas shutdownNow() : ce dernier retirerait la fermeture
+        // de la file.
+        mPreprocessExec.shutdown();
+    }
+
+    private static void closeQuietly(@Nullable NSNet2Processor nsnet2) {
+        if (nsnet2 == null) return;
+        try {
+            nsnet2.close();
+        } catch (Throwable ignore) {
+            // best-effort
+        }
+    }
+
+    /**
+     * Poste sur le thread d'état. Après {@link #destroy()} l'exécuteur refuse
+     * les tâches : on les abandonne en silence au lieu de lever une
+     * RejectedExecutionException — non rattrapée, elle fait planter toute
+     * l'appli (handler d'exceptions Java de Chromium).
+     */
+    private boolean postMain(Runnable r) {
+        try {
+            mMainExec.execute(r);
+            return true;
+        } catch (RejectedExecutionException e) {
+            return false;
+        }
+    }
+
+    /** Idem {@link #postMain} pour le thread NSNet2. */
+    private boolean postPreprocess(Runnable r) {
+        try {
+            mPreprocessExec.execute(r);
+            return true;
+        } catch (RejectedExecutionException e) {
+            return false;
         }
     }
 
@@ -339,19 +394,57 @@ public final class SawtunaaPlayer {
             if (buf == null || buf.length == 0) {
                 continue; // sentinel ou réveil de stop()
             }
+            final long gen = mWriteGen.get();
             int written = 0;
-            while (written < buf.length && mWriterRunning.get()) {
+            while (written < buf.length && mWriterRunning.get()
+                    && gen == mWriteGen.get()) {
                 int n = track.write(
                         buf, written, buf.length - written,
                         AudioTrack.WRITE_BLOCKING);
-                if (n <= 0) {
+                if (n < 0) {
                     // ERROR_DEAD_OBJECT / ERROR_INVALID_OPERATION — abandonne ce buffer.
                     emit("audiotrack_write_err", "code", n);
                     break;
                 }
+                if (n == 0) {
+                    // 0 n'est pas une erreur : une piste en PAUSE rend la main
+                    // sans rien écrire. L'ancien `n <= 0` jetait alors le bloc
+                    // (et les suivants de la file) à chaque pause — trou de
+                    // 11 s mesuré le 2026-09-21. On attend la reprise en
+                    // gardant le bloc.
+                    if (!waitWhileTrackPaused(track)) {
+                        break;
+                    }
+                    continue;
+                }
                 written += n;
             }
         }
+    }
+
+    /**
+     * Attend (sur le thread d'écriture) que la piste quitte l'état PAUSED.
+     * Retourne false si le lecteur s'arrête entre-temps.
+     */
+    private boolean waitWhileTrackPaused(AudioTrack track) {
+        while (mWriterRunning.get()) {
+            int state;
+            try {
+                state = track.getPlayState();
+            } catch (Throwable e) {
+                return false;
+            }
+            if (state != AudioTrack.PLAYSTATE_PAUSED) {
+                return true;
+            }
+            try {
+                Thread.sleep(PAUSED_WRITE_POLL_MS);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return false;
+            }
+        }
+        return false;
     }
 
     // --- State polling (équivalent du Timer Swift, 1 Hz) ---
@@ -368,7 +461,7 @@ public final class SawtunaaPlayer {
                     Thread.currentThread().interrupt();
                     return;
                 }
-                mMainExec.execute(this::emitStateSnapshot);
+                postMain(this::emitStateSnapshot);
             }
         }, "Sawtunaa-State-Poll");
         mStatePollThread.setDaemon(true);
@@ -465,13 +558,15 @@ public final class SawtunaaPlayer {
     /** Appelé depuis JNI / SawtunaaBridge. */
     @CalledByNative
     public void preprocessChunk(double timestampMs, float[] samples) {
-        if (mIsPaused) {
-            emit("preprocess_drop_paused", "chunk_ts", (long) timestampMs);
-            return;
-        }
+        // Browther : on traite AUSSI pendant la pause (le rejet venait du
+        // portage iOS, `preprocess_drop_paused`). Sur Android, YouTube continue
+        // de remplir son tampon MSE pendant une pause, et ces blocs ne sont
+        // jamais renvoyés : les jeter laissait un trou de la taille du tampon
+        // à la reprise — 41 s de silence mesurés le 2026-09-21 sur P20
+        // (blocs 49→88 s jetés, 0 retraité après la reprise).
         final long receivedNs = SystemClock.elapsedRealtimeNanos();
         final long chunkEpoch = mEpoch.get();
-        mPreprocessExec.execute(() -> {
+        postPreprocess(() -> {
             NSNet2Processor nsnet2 = mNsnet2;
             if (nsnet2 == null) {
                 emit("chunk_preprocess_drop",
@@ -521,7 +616,7 @@ public final class SawtunaaPlayer {
                     (SystemClock.elapsedRealtimeNanos() - receivedNs) / 1_000_000L;
             final double durationMs = processed.length / 48.0;
             final float[] processedFinal = processed;
-            mMainExec.execute(() -> {
+            postMain(() -> {
                 if (chunkEpoch != mEpoch.get()) {
                     emit("chunk_preprocess_drop",
                             "chunk_ts", (long) timestampMs,
@@ -576,7 +671,7 @@ public final class SawtunaaPlayer {
 
     @CalledByNative
     public void playChunksUpTo(double upToMs) {
-        mMainExec.execute(() -> playChunksUpToOnMain(upToMs));
+        postMain(() -> playChunksUpToOnMain(upToMs));
     }
 
     private void playChunksUpToOnMain(double upToMs) {
@@ -718,7 +813,7 @@ public final class SawtunaaPlayer {
 
     @CalledByNative
     public void pauseAudio() {
-        mMainExec.execute(() -> {
+        postMain(() -> {
             AudioTrack track = mAudioTrack;
             if (track == null) {
                 return;
@@ -735,7 +830,7 @@ public final class SawtunaaPlayer {
 
     @CalledByNative
     public void resumeAudio() {
-        mMainExec.execute(() -> {
+        postMain(() -> {
             AudioTrack track = mAudioTrack;
             if (track == null) {
                 return;
@@ -752,7 +847,7 @@ public final class SawtunaaPlayer {
 
     @CalledByNative
     public void clearChunks() {
-        mMainExec.execute(() -> {
+        postMain(() -> {
             int prev = mAudioCache.size();
             mEpoch.incrementAndGet();
             mAudioCache.clear();
@@ -770,6 +865,7 @@ public final class SawtunaaPlayer {
                 }
             }
             mWriteQueue.clear();
+            mWriteGen.incrementAndGet();
             mPreprocessCount = 0;
             mPlayedChunkCount = 0;
             mSkippedChunkCount = 0;
@@ -783,9 +879,10 @@ public final class SawtunaaPlayer {
             mIsPaused = false;
             mLastVideoUpToMs = 0;
             // Reset NSNet2 GRU state sur le preprocess thread.
-            mPreprocessExec.execute(() -> {
-                if (mNsnet2 != null) {
-                    mNsnet2.reset();
+            postPreprocess(() -> {
+                NSNet2Processor nsnet2 = mNsnet2;
+                if (nsnet2 != null) {
+                    nsnet2.reset();
                 }
             });
             emit("clear_chunks", "dropped_cache", prev, "epoch", mEpoch.get());
@@ -800,7 +897,7 @@ public final class SawtunaaPlayer {
 
     @CalledByNative
     public void seekTo(double toMs) {
-        mMainExec.execute(() -> {
+        postMain(() -> {
             AudioTrack track = mAudioTrack;
             if (track != null) {
                 try {
@@ -814,6 +911,7 @@ public final class SawtunaaPlayer {
                 }
             }
             mWriteQueue.clear();
+            mWriteGen.incrementAndGet();
             mPlayedChunkCount = 0;
             mSkippedChunkCount = 0;
             mTrimmedChunkCount = 0;
@@ -823,9 +921,10 @@ public final class SawtunaaPlayer {
             mAnchorSourceMs = 0;
             mLastScheduledEndMs = Math.max(0, toMs - 100);
             mScheduledCursorTsMs = Math.max(-1, toMs - 1);
-            mPreprocessExec.execute(() -> {
-                if (mNsnet2 != null) {
-                    mNsnet2.reset();
+            postPreprocess(() -> {
+                NSNet2Processor nsnet2 = mNsnet2;
+                if (nsnet2 != null) {
+                    nsnet2.reset();
                 }
             });
             int chunksAvailable = 0;
@@ -844,7 +943,7 @@ public final class SawtunaaPlayer {
 
     @CalledByNative
     public void evictRange(double startMs, double endMs) {
-        mMainExec.execute(() -> {
+        postMain(() -> {
             int before = mAudioCache.size();
             Iterator<PcmChunk> it = mAudioCache.iterator();
             while (it.hasNext()) {
@@ -866,7 +965,7 @@ public final class SawtunaaPlayer {
     /** Reçoit un flat double[] {s0, e0, s1, e1, ...} encodé par le bridge. */
     @CalledByNative
     public void syncRanges(double[] flatRanges) {
-        mMainExec.execute(() -> {
+        postMain(() -> {
             int before = mAudioCache.size();
             int rangeCount = flatRanges.length / 2;
             Iterator<PcmChunk> it = mAudioCache.iterator();

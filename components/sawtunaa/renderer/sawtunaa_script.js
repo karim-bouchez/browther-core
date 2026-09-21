@@ -62,6 +62,26 @@
     return;
   }
 
+  // Une seule installation par window. Chromium appelle parfois
+  // `DidClearWindowObject` DEUX fois pour la même page (à ~2 ms d'écart) ;
+  // le RFO remet alors `script_injected_` à false et réinjecte ce script
+  // dans le MÊME window. Sans cette garde, les hooks MSE se chaînaient :
+  // chaque bloc audio était décodé et passé dans NSNet2 deux fois (122 blocs
+  // sur 129 mesurés le 2026-09-21 sur P20), soit ~700 ms de CPU par seconde
+  // d'audio → retard, coupures, et silence dès que Basarunaa chargeait aussi
+  // le CPU. Même garde que `__basarunaa_initialized` côté Basarunaa.
+  if (window.__sawtunaa_initialized) {
+    metric('script_duplicate_skipped', { url: location.href });
+    return;
+  }
+  try {
+    Object.defineProperty(window, '__sawtunaa_initialized', {
+      value: true, configurable: false, enumerable: false, writable: false
+    });
+  } catch(e) {
+    window.__sawtunaa_initialized = true;
+  }
+
   metric('script_init', {
     hasMS: hasMS,
     hasMMS: hasMMS,
