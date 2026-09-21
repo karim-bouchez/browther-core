@@ -369,8 +369,13 @@ extension Preferences {
     /// Determines whether Brave Translate is enabled
     /// - true = Enabled
     /// - false = Disabled
+    // Browther: OFF par défaut — Translate est retiré (le script passe par les
+    // serveurs Brave). Masquer le bouton et la ligne des Réglages ne suffisait
+    // pas : à `true`, le script restait injecté et le popover « Traductions des
+    // pages » s'ouvrait, ancré sur le bouton caché. Rien n'écrit cette clé
+    // (Réglages masqués, popover sans bouton) : le défaut vaut pour tous.
     public static let translateEnabled =
-      Option<Bool>(key: "brave-translate.enabled", default: true)
+      Option<Bool>(key: "brave-translate.enabled", default: false)
 
     /// Determines whether to show Brave Translate onboarding.
     public static let translateURLBarOnboardingCount =
