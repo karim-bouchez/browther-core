@@ -35,7 +35,10 @@ brave_version_build = 0
 // introduction au premier lancement (six écrans, 39 langues) et les surfaces
 // dev&din (« Nous écrire », « Ce qui a changé », signature). BraveCore
 // réutilisé tel quel (celui de la 2026.9.10 : aucun changement C++ iOS depuis).
-brave_version_build = 6
+// build 7 = TestFlight INTERNE 2026-09-22 (version 2026.9.21), pas une
+// soumission : recette de l'achat du parrainage (le flow n'est allumé qu'en
+// TestFlight et en dev). BraveCore toujours celui de la 2026.9.10.
+brave_version_build = 7
 
 // Browther: version marketing en CalVer (parité Desktop "Browther 2026.MM.JJ").
 // App Store Connect impose CFBundleShortVersionString = au plus 3 entiers SANS
