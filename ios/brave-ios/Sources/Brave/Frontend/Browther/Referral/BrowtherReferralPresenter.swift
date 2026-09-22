@@ -22,6 +22,10 @@ enum ReferralScreen: Equatable {
   /// 4 — inviter, ⚠️ seulement par-dessus 2b (§ 12.15). `shared` = un partage a
   /// abouti : la fenêtre est libérée.
   case invite(shared: Bool)
+  /// 7 — soutenir financièrement (par-dessus 2b, ou seul).
+  case billing
+  /// 7 bis — « Merci » (§ 12.17), au retour d'un achat confirmé.
+  case thanks
   /// 1 — J−10 / J−3 de la première fin (feuille).
   case ending(daysLeft: Int)
   /// 3 — les rappels suivants (feuille).
@@ -49,6 +53,8 @@ enum ReferralScreen: Equatable {
     case .paused: return "paused"
     case .support: return "support"
     case .invite: return "invite"
+    case .billing: return "billing"
+    case .thanks: return "thanks"
     case .ending: return "ending"
     case .reminder: return "reminder"
     case .validated: return "validated"
@@ -148,6 +154,12 @@ final class ReferralFlowModel: ObservableObject {
     stack[stack.count - 1] = screen
   }
 
+  /// Remplace toute la pile par une fenêtre seule (« Merci » après un achat :
+  /// ⛔ jamais la fenêtre d'où l'on est parti, § 12.17).
+  func replaceAll(_ screen: ReferralScreen) {
+    stack = [screen]
+  }
+
   /// La fenêtre du dessus ne se ferme-t-elle que par ses boutons ? (§ 12.14)
   var isTopLocked: Bool { Self.isLocked(stack) }
 
@@ -160,6 +172,9 @@ final class ReferralFlowModel: ObservableObject {
       return locked
     case .invite(let shared):
       if shared { return false }
+      return stack.count > 1 && isLocked(Array(stack.dropLast()))
+    case .billing:
+      // Ce qu'on ouvre par-dessus une fenêtre verrouillée l'est aussi (§ 12.16).
       return stack.count > 1 && isLocked(Array(stack.dropLast()))
     default:
       return false

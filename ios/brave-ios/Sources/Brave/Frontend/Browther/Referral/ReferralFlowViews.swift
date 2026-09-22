@@ -147,7 +147,31 @@ struct ReferralFlowView: View {
     case .paused: paused
     case .support(let locked): support(locked: locked)
     case .invite(let shared): invite(shared: shared)
+    case .billing: billing
+    case .thanks: ReferralThanksView { model.dismiss?() }
     default: EmptyView()
+    }
+  }
+
+  // MARK: 7 — soutenir financièrement
+
+  private var billing: some View {
+    let inCircuit = model.depth > 1
+    return ReferralFlowShell(
+      eyebrow: Strings.BrowtherReferral.billingEyebrow,
+      onBack: inCircuit ? { model.back() } : nil,
+      onClose: inCircuit ? nil : { model.dismiss?() }
+    ) {
+      ReferralBillingBody(preview: model.preview)
+    } footer: {
+      ReferralBillingCTA(preview: model.preview) {
+        // ⭐ Payer est une des trois sorties : « Merci », ⛔ jamais la fenêtre
+        // d'où l'on est parti (§ 12.17).
+        model.replaceAll(.thanks)
+      }
+      ReferralTextExit(label: Strings.BrowtherReferral.back, back: true) {
+        if inCircuit { model.back() } else { model.dismiss?() }
+      }
     }
   }
 
@@ -242,8 +266,9 @@ struct ReferralFlowView: View {
       }
       if controller.billingAvailable {
         ReferralOrSeparator()
-        ReferralSecondaryButton(label: Strings.BrowtherReferral.supportMoney(ReferralPricing.monthly)) {
+        ReferralSecondaryButton(label: Strings.BrowtherReferral.supportMoney(controller.prices.monthly)) {
           action("support", "billing")
+          model.push(.billing)
         }
       }
       // La sortie : une phrase que la personne dit d'elle-même — ⛔ elle n'accorde rien.
@@ -441,5 +466,44 @@ struct ReferralSheetView: View {
       return Strings.BrowtherReferral.noticeBodyNoDate(months: months)
     }
     return Strings.BrowtherReferral.noticeBody(months: months, date: BrowtherReferralController.formatDate(date))
+  }
+}
+
+// MARK: - 7 bis — « Merci » (§ 12.17)
+
+/// La fête, au retour d'un achat accepté : confettis et haptique de succès —
+/// ⛔ jamais la fenêtre d'où l'on est parti. Tant que l'abonnement n'est pas
+/// confirmé : « Ton abonnement se met en place… ». Fermeture classique.
+struct ReferralThanksView: View {
+  var onClose: () -> Void
+
+  @ObservedObject private var controller = BrowtherReferralController.shared
+  @State private var celebratedAt: Date?
+
+  var body: some View {
+    ReferralFlowShell(onClose: onClose) {
+      ReferralRoundIcon(systemName: "hand.raised.fill", tone: .green)
+      ReferralFlowTitle(text: Strings.BrowtherReferral.thanksTitle)
+      ReferralFlowBody(
+        text: controller.known?.subscription.active == true
+          ? Strings.BrowtherReferral.thanksBodyActive
+          : Strings.BrowtherReferral.thanksBodyPending
+      )
+      ReferralFeatureList(extras: .included, extrasOnly: true)
+    } footer: {
+      ReferralTextExit(label: Strings.BrowtherReferral.backToApp, action: onClose)
+    }
+    .overlay {
+      if let celebratedAt {
+        BrowtherIntroConfetti(start: celebratedAt)
+          .id(celebratedAt)
+          .ignoresSafeArea()
+          .allowsHitTesting(false)
+      }
+    }
+    .onAppear {
+      celebratedAt = Date()
+      UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
   }
 }

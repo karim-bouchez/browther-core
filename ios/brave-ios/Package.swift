@@ -88,6 +88,10 @@ var package = Package(
     // Browther: analytics
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.40.1"),
     .package(url: "https://github.com/PostHog/posthog-ios", from: "3.20.0"),
+    // Browther: le paiement du parrainage (docs/PARRAINAGE.md § 7.4 — IAP via
+    // RevenueCat). Le dépôt « -spm » : le même SDK, sans les sources des autres
+    // gestionnaires de paquets à résoudre.
+    .package(url: "https://github.com/RevenueCat/purchases-ios-spm.git", from: "5.0.0"),
   ],
   targets: [
     .target(
@@ -119,6 +123,7 @@ var package = Package(
         "Basarunaa",
         "BrowtherAnalytics",
         "BrowtherReferral",
+        .product(name: "RevenueCat", package: "purchases-ios-spm"),
         "SpeechRecognition",
         "CodableHelpers",
         "Preferences",

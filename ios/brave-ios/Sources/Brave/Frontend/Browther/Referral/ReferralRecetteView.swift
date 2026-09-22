@@ -204,6 +204,10 @@ struct ReferralRecetteView: View {
       .init(label: "3 — rappel « fin de mois gagnés »", screen: .reminder(daysLeft: 10, reminderCase: .earnedMonthsEnding)),
       .init(label: "3 — rappel « abonnement annulé »", screen: .reminder(daysLeft: 3, reminderCase: .subscriptionCancelled)),
       .init(label: "4 — inviter (seul)", screen: .invite(shared: false)),
+      // ⭐ La capture de vérification d'App Store Connect se prend ICI : le
+      // bouton a son vrai visage même sans offre (build de dev).
+      .init(label: "7 — payer (capture App Store)", screen: .billing),
+      .init(label: "7 bis — merci", screen: .thanks),
       .init(label: "8 — invitation validée", screen: .validated(months: 2, until: "2026-12-01T10:00:00.000Z", lifetime: false)),
       .init(label: "8 — à vie", screen: .validated(months: 1, until: nil, lifetime: true)),
       .init(label: "8 bis — merci (filleul)", screen: .refereeDone),

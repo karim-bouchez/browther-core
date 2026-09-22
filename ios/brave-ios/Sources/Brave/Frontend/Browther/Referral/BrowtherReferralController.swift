@@ -49,8 +49,14 @@ final class BrowtherReferralController: ObservableObject {
   /// L'intention de la jauge « jouet » : la réponse à « combien penses-tu
   /// pouvoir inviter ? » survit d'un écran à l'autre du MÊME moment (§ 12.20).
   @Published var gaugeIntention: Int?
-  /// Le vrai paiement existe dans ce binaire (RevenueCat, à brancher — § 7.4).
-  let storeBilling = false
+  /// Le vrai paiement existe dans ce binaire (RevenueCat, § 7.4).
+  let storeBilling = ReferralPurchases.isReady
+  /// L'abonnement d'après l'APPAREIL (RevenueCat) — connu avant le webhook.
+  @Published private(set) var entitlement: LocalEntitlement?
+  /// Les deux formules de l'offre, par période (vides dans un build de dev).
+  @Published private(set) var packages: [BillingPeriod: RevenueCatPackage] = [:]
+  /// La formule choisie : ⭐ l'annuel par défaut (§ 3, écran 7).
+  @Published var period: BillingPeriod = .yearly
 
   private var client: ReferralClient?
   private let storage = ReferralStorage.shared
@@ -73,18 +79,22 @@ final class BrowtherReferralController: ObservableObject {
   private init() {
     enabled = ReferralLaunch.isEnabled(
       isStoreBuild: AppConstants.buildChannel == .release,
-      storeBillingReady: false
+      storeBillingReady: ReferralPurchases.isReady
     )
     prompt = ReferralStorage.shared.prompt
   }
 
   // MARK: - Ce que les écrans lisent
 
-  /// 🔴 max(accès payé LOCAL, couverture du service) — l'achat local viendra
-  /// avec RevenueCat (§ 7.4) ; d'ici là, le statut du service seul.
+  /// 🔴 **max(accès payé LOCAL, couverture du service)** (§ 7.4) : le webhook
+  /// arrive quelques secondes après l'achat — et JAMAIS pour un abonnement
+  /// restauré sur une autre identité.
   var known: ReferralStatus? {
-    status
+    status?.merging(entitlement: entitlement)
   }
+
+  /// Les prix à afficher : ceux du store, sinon le repli.
+  var prices: ReferralStorePrices { ReferralStorePrices(packages: packages) }
 
   var access: AccessState {
     guard enabled, subjectRef != nil else { return .unknown }
@@ -127,6 +137,56 @@ final class BrowtherReferralController: ObservableObject {
       Task { @MainActor in self?.onForeground() }
     }
     Task { await register() }
+    Task { await startBilling(subject) }
+  }
+
+  // MARK: - Le paiement (RevenueCat, § 7.4)
+
+  private func startBilling(_ subject: String) async {
+    guard storeBilling else { return }
+    let purchases = ReferralPurchases.shared
+    await purchases.configure(subjectRef: subject)
+    entitlement = ReferralPurchases.entitlement(of: await purchases.customerInfo())
+    packages = await purchases.packages()
+    purchases.watch { [weak self] info in
+      self?.entitlement = ReferralPurchases.entitlement(of: info)
+    }
+  }
+
+  enum BuyOutcome {
+    case purchased, cancelled, failed
+  }
+
+  /// ⭐ L'achat se termine DANS l'app : dès que l'App Store confirme, le circuit
+  /// se ferme (payer en est une des trois sorties) et « Merci » s'ouvre. Le
+  /// webhook du service suit à son rythme.
+  func buy(_ period: BillingPeriod) async -> BuyOutcome {
+    guard let package = packages[period] else { return .failed }
+    track("billing_checkout_started", ["period": period.rawValue])
+    switch await ReferralPurchases.shared.purchase(package) {
+    case .purchased(let info):
+      track("billing_checkout_completed", ["period": period.rawValue])
+      entitlement = ReferralPurchases.entitlement(of: info)
+      closeCircuit()
+      Task { await refresh() }
+      return .purchased
+    case .cancelled:
+      return .cancelled
+    case .failed:
+      track("billing_checkout_failed", ["period": period.rawValue])
+      return .failed
+    }
+  }
+
+  /// « Restaurer mes achats » — obligation Apple (§ 8). `true` = un abonnement
+  /// est revenu.
+  func restorePurchases() async -> Bool {
+    let info = await ReferralPurchases.shared.restore()
+    entitlement = ReferralPurchases.entitlement(of: info)
+    guard entitlement != nil else { return false }
+    closeCircuit()
+    Task { await refresh() }
+    return true
   }
 
   private func register() async {

@@ -46,7 +46,7 @@ struct ReferralHomeView: View {
           case .invite: ReferralInviteTab(status: status, onCelebrate: celebrate)
           case .invitations: ReferralInvitationsTab(status: status)
           case .code: ReferralCodeTab(status: status, onCelebrate: celebrate, onInvite: { choose(.invite) })
-          case .support: EmptyView()
+          case .support: ReferralSupportTab()
           }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -85,6 +85,10 @@ struct ReferralHomeView: View {
   private func choose(_ next: Tab) {
     guard next != current else { return }
     UISelectionFeedbackGenerator().selectionChanged()
+    // ⭐ On vient ici EXPRÈS : c'est le pendant de « Choisir ma formule » (§ 12.26).
+    if next == .support {
+      controller.track("paywall_action", ["screen": "home", "action": "billing"])
+    }
     tab = next
   }
 
@@ -139,6 +143,39 @@ struct ReferralHomeView: View {
     }
     .padding(4)
     .background(Color(UIColor.tertiarySystemFill), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+  }
+}
+
+// MARK: - Onglet « Soutenir »
+
+/// **Les formules, directement** (§ 12.26) : on vient ici exprès. Le même
+/// contenu que l'écran 7, le bouton épinglé en bas. Un achat abouti ouvre
+/// « Merci » (§ 12.17).
+struct ReferralSupportTab: View {
+  @ObservedObject private var controller = BrowtherReferralController.shared
+
+  var body: some View {
+    VStack(spacing: 0) {
+      ScrollView {
+        ReferralBillingBody()
+          .padding(.horizontal, 16)
+          .padding(.bottom, 24)
+          .frame(maxWidth: 560)
+          .frame(maxWidth: .infinity)
+      }
+      .refreshable { await controller.refresh() }
+      VStack(spacing: 0) {
+        Divider()
+        ReferralBillingCTA {
+          guard let host = BrowtherReferralPresenter.topController() else { return }
+          BrowtherReferralPresenter.present(.thanks, from: host)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .frame(maxWidth: 560)
+      }
+      .background(Color(UIColor.systemGroupedBackground))
+    }
   }
 }
 

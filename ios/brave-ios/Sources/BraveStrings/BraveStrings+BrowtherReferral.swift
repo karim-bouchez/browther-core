@@ -489,6 +489,68 @@ extension Strings {
       )
     }
 
+    // MARK: 7 — soutenir financièrement (§ 3 ; le bouton nomme le GESTE)
+
+    public static var billingEyebrow: String { t("billing.eyebrow", "Support financially") }
+    public static var billingTitle: String { t("billing.title", "Unlock everything, with nothing to do") }
+    public static var billingBody: String {
+      t("billing.body", "You get all of Browther's additional features, right away. Cancel any time.")
+    }
+    public static var billingYear: String { t("billing.year", "One year") }
+    public static var billingYearBadge: String { t("billing.yearBadge", "2 months free") }
+    public static func billingYearSub(_ price: String) -> String {
+      fill(t("billing.yearSub", "that's {price} per month"), ["price": price])
+    }
+    public static var billingMonth: String { t("billing.month", "One month") }
+    public static var billingMonthSub: String { t("billing.monthSub", "cancel whenever you want") }
+    public static func billingCtaYear(_ price: String) -> String {
+      fill(t("billing.ctaYear", "I support · {price} per year"), ["price": price])
+    }
+    public static func billingCtaMonth(_ price: String) -> String {
+      fill(t("billing.ctaMonth", "I support · {price} per month"), ["price": price])
+    }
+    public static var billingLegal: String {
+      t("billing.legal", "Renews automatically, cancel any time from your Apple account settings.")
+    }
+    public static var billingTerms: String { t("billing.terms", "Terms of use") }
+    public static var billingPrivacy: String { t("billing.privacy", "Privacy") }
+    public static var billingRestore: String {
+      t("billing.restore", "Already subscribed on another iPhone? Restore my purchases")
+    }
+    public static var billingRestored: String { t("billing.restored", "Done: your subscription is back.") }
+    public static var billingRestoreNone: String { t("billing.restoreNone", "Nothing to restore for now.") }
+    public static var billingFailed: String {
+      t("billing.failed", "The payment didn't go through. Please try again in a moment.")
+    }
+    public static var billingManage: String { t("billing.manage", "Manage my subscription") }
+    public static var billingManageHint: String {
+      t("billing.manageHint", "Cancelling and invoices go through your Apple account: it is the one that charges you.")
+    }
+    public static var billingAlreadyTitle: String { t("billing.alreadyTitle", "You already support dev&din") }
+    public static var billingAlreadyBody: String {
+      t("billing.alreadyBody", "Thank you! All of Browther's additional features are unlocked.")
+    }
+    public static func billingRenews(_ date: String) -> String {
+      fill(t("billing.renews", "Your subscription renews automatically on {date}, in sha Allah."), ["date": date])
+    }
+    public static func billingEnds(_ date: String) -> String {
+      fill(t("billing.ends", "Your subscription ends on {date}, in sha Allah."), ["date": date])
+    }
+
+    // MARK: 7 bis — « Merci » (§ 12.17)
+
+    public static var thanksTitle: String { t("thanks.title", "Thank you for your support!") }
+    /// 🔴 « Grâce à Allah, puis à toi » — ⛔ jamais « grâce à toi » seul (§ 6).
+    public static var thanksBodyActive: String {
+      t(
+        "thanks.bodyActive",
+        "All additional features are unlocked. By Allah's grace, then thanks to you, the dev&din studio can keep offering free apps."
+      )
+    }
+    public static var thanksBodyPending: String {
+      t("thanks.bodyPending", "Your subscription is being set up: the additional features will unlock in a moment.")
+    }
+
     // MARK: 6 — l'écran Parrainage
 
     public static var homeTitle: String { t("home.title", "Referrals") }
