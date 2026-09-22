@@ -60,6 +60,7 @@
 "announce.invite" = "Convidar algú proper";
 "announce.inviteSub" = "I intenta aconseguir l'accés gratuït de per vida";
 "announce.later" = "Recorda-m'ho més tard";
+"ending.hook" = "Però les pots conservar de per vida, de franc!";
 "ending.body" = "L'estudi dev&din **necessita el teu suport** per continuar oferint apps gratuïtes. L'únic que et demanem és que donis a conèixer l'app als teus contactes. Si de debò no pots, també ens pots donar suport econòmicament, o amb una du'a.";
 "ending.supportSub" = "Convidant algú proper, econòmicament, o amb una du'a";
 "paused.title" = "Les funcions addicionals estan en pausa";
@@ -78,6 +79,7 @@
 "invite.back" = "Enrere";
 "invite.closeAfterShare" = "Torna a l'app";
 "share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens dos mesos de funcions addicionals.";
+"notice.eyebrow" = "Apadrinament";
 "notice.title" = "Invitació validada!";
 "notice.bodyLifetime" = "Ho has aconseguit: Browther està desbloquejat al 100 %, de per vida.";
 "notice.see" = "Veure el meu apadrinament";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "a partir de {count} invitacions validades";
 "gauge.tickBonus.one" = "+{count} mes";
 "gauge.tickBonus.other" = "+{count} mesos";
-"ending.title.one" = "Demà, algunes funcions addicionals es posaran en pausa… però les pots conservar de per vida, de franc!";
-"ending.title.other" = "D'aquí a {count} dies, algunes funcions addicionals es posaran en pausa… però les pots conservar de per vida, de franc!";
+"ending.title.one" = "Demà, algunes funcions addicionals es posaran en pausa.";
+"ending.title.other" = "D'aquí a {count} dies, algunes funcions addicionals es posaran en pausa.";
 "support.inviteSub.one" = "Browther per defecte {count} dia = invitació validada";
 "support.inviteSub.other" = "Browther per defecte {count} dies = invitació validada";
+"support.inviteCount.one" = "Convidar {count} persona";
+"support.inviteCount.other" = "Convidar {count} persones";
 "reminder.featuresTitle.one" = "Demà, les teves funcions addicionals es posaran en pausa.";
 "reminder.featuresTitle.other" = "D'aquí a {count} dies, les teves funcions addicionals es posaran en pausa.";
 "reminder.inProgressCount.one" = "Una de les teves invitacions va per bon camí: {count} dia més amb Browther per defecte i quedarà validada.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "La teva subscripció s'acaba d'aquí a {count} dies.";
 "invite.foot.one" = "Una invitació es valida quan la persona ha mantingut Browther com a navegador per defecte durant {count} dia.";
 "invite.foot.other" = "Una invitació es valida quan la persona ha mantingut Browther com a navegador per defecte durant {count} dies.";
+"notice.why.one" = "Algú proper ha fet servir el teu codi d'apadrinament i acaba de mantenir Browther com a navegador per defecte durant {count} dia.";
+"notice.why.other" = "Algú proper ha fet servir el teu codi d'apadrinament i acaba de mantenir Browther com a navegador per defecte durant {count} dies.";
 "notice.body.one" = "+{count} mes de funcions addicionals, fins al {date}.";
 "notice.body.other" = "+{count} mesos de funcions addicionals, fins al {date}.";
 "notice.bodyNoDate.one" = "+{count} mes de funcions addicionals.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "{count} dies més amb Browther per defecte i qui t'ha convidat guanya 1 mes de funcions addicionals.";
 "referee.hint.one" = "Algú proper t'ha fet descobrir Browther. Has rebut dos mesos; el seu li arriba quan hagis mantingut Browther com a navegador per defecte durant {count} dia.";
 "referee.hint.other" = "Algú proper t'ha fet descobrir Browther. Has rebut dos mesos; el seu li arriba quan hagis mantingut Browther com a navegador per defecte durant {count} dies.";
+"referee.noticeWhy.one" = "Has fet servir el codi d'apadrinament d'aquesta persona i acabes de mantenir Browther com a navegador per defecte durant {count} dia.";
+"referee.noticeWhy.other" = "Has fet servir el codi d'apadrinament d'aquesta persona i acabes de mantenir Browther com a navegador per defecte durant {count} dies.";
 "referee.meter.one" = "{current} de {count} dia";
 "referee.meter.other" = "{current} de {count} dies";
 "invitations.months.one" = "+{count} mes";

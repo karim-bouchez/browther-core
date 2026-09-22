@@ -246,7 +246,17 @@ struct ReferralBillingCTA: View {
 
   private func buy() {
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    guard !preview else { return }
+    // ⛔ Pas de bouton muet : un aperçu n'achète rien, et il le dit (recette
+    // Karim, 2026-09-22 : « quand je clique sur "je soutiens" ça ne fait rien »).
+    guard !preview else {
+      BrowtherReferralToast.show(
+        title: "Aperçu : l'achat ne part pas",
+        body: "Pour acheter vraiment : onglet « Soutenir » de l'écran Parrainage.",
+        persistent: false,
+        duration: 5
+      )
+      return
+    }
     buying = true
     Task { @MainActor in
       let outcome = await controller.buy(controller.period)

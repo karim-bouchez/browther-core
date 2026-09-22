@@ -60,6 +60,7 @@
 "announce.invite" = "Mời người thân";
 "announce.inviteSub" = "Và thử giành quyền dùng miễn phí trọn đời";
 "announce.later" = "Nhắc tôi sau";
+"ending.hook" = "Nhưng bạn có thể giữ chúng trọn đời, miễn phí!";
 "ending.body" = "Studio dev&din **cần sự ủng hộ của bạn** để tiếp tục cung cấp ứng dụng miễn phí. Điều chúng tôi mong ở bạn chỉ đơn giản là giới thiệu ứng dụng cho những người bạn quen biết. Nếu thật sự không thể, bạn cũng có thể ủng hộ chúng tôi về tài chính, hoặc bằng một lời du'a.";
 "ending.supportSub" = "Mời người thân, ủng hộ tài chính, hoặc bằng một lời du'a";
 "paused.title" = "Các tính năng bổ sung đang tạm dừng";
@@ -78,6 +79,7 @@
 "invite.back" = "Quay lại";
 "invite.closeAfterShare" = "Quay lại ứng dụng";
 "share.message" = "Mời bạn khám phá Browther: trình duyệt tắt nhạc và làm mờ hình ảnh haram.\nVới mã {code} của mình, bạn nhận được hai tháng tính năng bổ sung.";
+"notice.eyebrow" = "Chương trình giới thiệu";
 "notice.title" = "Lời mời đã được xác nhận!";
 "notice.bodyLifetime" = "Bạn đã làm được: Browther được mở khóa 100%, trọn đời.";
 "notice.see" = "Xem trang giới thiệu";
@@ -145,18 +147,21 @@
 "gauge.now.other" = "Bạn đang có {count} lời mời đã xác nhận.";
 "gauge.lifeSub.other" = "từ {count} lời mời đã xác nhận";
 "gauge.tickBonus.other" = "+{count} tháng";
-"ending.title.other" = "Sau {count} ngày nữa, một số tính năng bổ sung sẽ tạm dừng… nhưng bạn có thể giữ chúng trọn đời, miễn phí!";
+"ending.title.other" = "Sau {count} ngày nữa, một số tính năng bổ sung sẽ tạm dừng.";
 "support.inviteSub.other" = "Browther làm trình duyệt mặc định {count} ngày = lời mời đã xác nhận";
+"support.inviteCount.other" = "Mời {count} người";
 "reminder.featuresTitle.other" = "Sau {count} ngày nữa, các tính năng bổ sung của bạn sẽ tạm dừng.";
 "reminder.inProgressCount.other" = "Một lời mời của bạn đang tiến triển tốt: còn {count} ngày dùng Browther làm trình duyệt mặc định nữa là được xác nhận.";
 "reminder.monthsTitle.other" = "Sau {count} ngày nữa, những tháng bạn đã nhận sẽ kết thúc.";
 "reminder.monthsNext.other" = "Mỗi lời mời được xác nhận sẽ cộng thêm cho bạn một tháng. Thêm {count} lời mời nữa là bạn lên mốc tiếp theo.";
 "reminder.subscriptionTitle.other" = "Gói đăng ký của bạn kết thúc sau {count} ngày.";
 "invite.foot.other" = "Lời mời được xác nhận khi người thân của bạn giữ Browther làm trình duyệt mặc định trong {count} ngày.";
+"notice.why.other" = "Một người thân đã dùng mã giới thiệu của bạn, và vừa giữ Browther làm trình duyệt mặc định trong {count} ngày.";
 "notice.body.other" = "+{count} tháng tính năng bổ sung, đến {date}.";
 "notice.bodyNoDate.other" = "+{count} tháng tính năng bổ sung.";
 "referee.progress.other" = "Còn {count} ngày dùng Browther làm trình duyệt mặc định nữa là người thân của bạn nhận được 1 tháng tính năng bổ sung.";
 "referee.hint.other" = "Một người thân đã giới thiệu Browther cho bạn. Bạn đã nhận hai tháng; phần của họ sẽ đến khi bạn giữ Browther làm trình duyệt mặc định trong {count} ngày.";
+"referee.noticeWhy.other" = "Bạn đã dùng mã giới thiệu của họ, và vừa giữ Browther làm trình duyệt mặc định trong {count} ngày.";
 "referee.meter.other" = "{current} trên {count} ngày";
 "invitations.months.other" = "+{count} tháng";
 "invitations.rowValidated.other" = "{count} ngày làm trình duyệt mặc định: tháng của bạn đã được cộng.";

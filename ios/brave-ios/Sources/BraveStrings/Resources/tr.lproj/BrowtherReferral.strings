@@ -60,6 +60,7 @@
 "announce.invite" = "Bir yakınınızı davet edin";
 "announce.inviteSub" = "Ve ömür boyu ücretsiz erişimi hedefleyin";
 "announce.later" = "Daha sonra hatırlat";
+"ending.hook" = "Ama onları ömür boyu, ücretsiz olarak tutabilirsiniz!";
 "ending.body" = "dev&din stüdyosunun ücretsiz uygulamalar sunmaya devam edebilmesi için **desteğinize ihtiyacı var**. Sizden tek istediğimiz, uygulamayı kişilerinize tanıtmanız. Gerçekten yapamıyorsanız, bizi maddi olarak ya da bir dua ile de destekleyebilirsiniz.";
 "ending.supportSub" = "Bir yakınınızı davet ederek, maddi olarak ya da bir dua ile";
 "paused.title" = "Ek özellikler duraklatıldı";
@@ -78,6 +79,7 @@
 "invite.back" = "Geri";
 "invite.closeAfterShare" = "Uygulamaya dönün";
 "share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla iki ay ek özellik kazanırsın.";
+"notice.eyebrow" = "Referans";
 "notice.title" = "Davet onaylandı!";
 "notice.bodyLifetime" = "Başardınız: Browther'ın kilidi ömür boyu %100 açık.";
 "notice.see" = "Referanslarımı gör";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "{count} onaylanan davetten itibaren";
 "gauge.tickBonus.one" = "+{count} ay";
 "gauge.tickBonus.other" = "+{count} ay";
-"ending.title.one" = "Yarın bazı ek özellikler duraklatılacak… ama onları ömür boyu, ücretsiz olarak tutabilirsiniz!";
-"ending.title.other" = "{count} gün sonra bazı ek özellikler duraklatılacak… ama onları ömür boyu, ücretsiz olarak tutabilirsiniz!";
+"ending.title.one" = "Yarın bazı ek özellikler duraklatılacak.";
+"ending.title.other" = "{count} gün sonra bazı ek özellikler duraklatılacak.";
 "support.inviteSub.one" = "{count} gün varsayılan Browther = onaylanan davet";
 "support.inviteSub.other" = "{count} gün varsayılan Browther = onaylanan davet";
+"support.inviteCount.one" = "{count} kişi davet edin";
+"support.inviteCount.other" = "{count} kişi davet edin";
 "reminder.featuresTitle.one" = "Yarın ek özellikleriniz duraklatılacak.";
 "reminder.featuresTitle.other" = "{count} gün sonra ek özellikleriniz duraklatılacak.";
 "reminder.inProgressCount.one" = "Davetlerinizden biri yolunda: Browther {count} gün daha varsayılan tarayıcı olarak kalırsa onaylanacak.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Aboneliğiniz {count} gün sonra sona eriyor.";
 "invite.foot.one" = "Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanır.";
 "invite.foot.other" = "Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanır.";
+"notice.why.one" = "Bir yakınınız referans kodunuzu kullandı ve Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandı.";
+"notice.why.other" = "Bir yakınınız referans kodunuzu kullandı ve Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandı.";
 "notice.body.one" = "{date} tarihine kadar +{count} ay ek özellik.";
 "notice.body.other" = "{date} tarihine kadar +{count} ay ek özellik.";
 "notice.bodyNoDate.one" = "+{count} ay ek özellik.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Browther {count} gün daha varsayılan tarayıcınız olursa, sizi davet eden kişi 1 ay ek özellik kazanır.";
 "referee.hint.one" = "Bir yakınınız size Browther'ı tanıttı. Siz iki ay aldınız; onunki, Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığınızda gelecek.";
 "referee.hint.other" = "Bir yakınınız size Browther'ı tanıttı. Siz iki ay aldınız; onunki, Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığınızda gelecek.";
+"referee.noticeWhy.one" = "O kişinin referans kodunu kullandınız ve Browther'ı {count} gün boyunca varsayılan tarayıcınız olarak kullandınız.";
+"referee.noticeWhy.other" = "O kişinin referans kodunu kullandınız ve Browther'ı {count} gün boyunca varsayılan tarayıcınız olarak kullandınız.";
 "referee.meter.one" = "{current} / {count} gün";
 "referee.meter.other" = "{current} / {count} gün";
 "invitations.months.one" = "+{count} ay";

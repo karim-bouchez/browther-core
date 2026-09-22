@@ -60,6 +60,7 @@
 "announce.invite" = "Kutsu joku läheinen";
 "announce.inviteSub" = "Ja tavoittele ilmaista elinikäistä käyttöoikeutta";
 "announce.later" = "Muistuta myöhemmin";
+"ending.hook" = "Mutta voit pitää ne loppuiäksi, ilmaiseksi!";
 "ending.body" = "Studio dev&din **tarvitsee tukeasi**, jotta se voi jatkossakin tarjota ilmaisia sovelluksia. Pyydämme sinulta vain, että esittelet sovelluksen tutuillesi. Jos se ei todella onnistu, voit tukea meitä myös taloudellisesti tai du'alla.";
 "ending.supportSub" = "Kutsumalla jonkun, taloudellisesti tai du'alla";
 "paused.title" = "Lisäominaisuudet ovat tauolla";
@@ -78,6 +79,7 @@
 "invite.back" = "Takaisin";
 "invite.closeAfterShare" = "Takaisin sovellukseen";
 "share.message" = "Kutsun sinut tutustumaan Browtheriin: selaimeen, joka poistaa musiikin ja sumentaa haram-kuvat.\nKoodillani {code} saat kaksi kuukautta lisäominaisuuksia.";
+"notice.eyebrow" = "Suosittelu";
 "notice.title" = "Kutsu vahvistettu!";
 "notice.bodyLifetime" = "Olet perillä: Browther on 100 % käytössäsi, loppuiäksi.";
 "notice.see" = "Näytä suositteluni";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "{count} vahvistetusta kutsusta alkaen";
 "gauge.tickBonus.one" = "+{count} kuukausi";
 "gauge.tickBonus.other" = "+{count} kuukautta";
-"ending.title.one" = "Huomenna osa lisäominaisuuksista menee tauolle… mutta voit pitää ne loppuiäksi, ilmaiseksi!";
-"ending.title.other" = "{count} päivän päästä osa lisäominaisuuksista menee tauolle… mutta voit pitää ne loppuiäksi, ilmaiseksi!";
+"ending.title.one" = "Huomenna osa lisäominaisuuksista menee tauolle.";
+"ending.title.other" = "{count} päivän päästä osa lisäominaisuuksista menee tauolle.";
 "support.inviteSub.one" = "Browther oletusselaimena {count} päivä = vahvistettu kutsu";
 "support.inviteSub.other" = "Browther oletusselaimena {count} päivää = vahvistettu kutsu";
+"support.inviteCount.one" = "Kutsu {count} henkilö";
+"support.inviteCount.other" = "Kutsu {count} henkilöä";
 "reminder.featuresTitle.one" = "Huomenna lisäominaisuutesi menevät tauolle.";
 "reminder.featuresTitle.other" = "{count} päivän päästä lisäominaisuutesi menevät tauolle.";
 "reminder.inProgressCount.one" = "Yksi kutsuistasi on hyvällä mallilla: vielä {count} päivä Browther oletusselaimena, niin se vahvistetaan.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Tilauksesi päättyy {count} päivän päästä.";
 "invite.foot.one" = "Kutsu vahvistetaan, kun kutsumasi henkilö on pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
 "invite.foot.other" = "Kutsu vahvistetaan, kun kutsumasi henkilö on pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
+"notice.why.one" = "Joku käytti suosittelukoodiasi ja on juuri pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
+"notice.why.other" = "Joku käytti suosittelukoodiasi ja on juuri pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
 "notice.body.one" = "+{count} kuukausi lisäominaisuuksia, {date} asti.";
 "notice.body.other" = "+{count} kuukautta lisäominaisuuksia, {date} asti.";
 "notice.bodyNoDate.one" = "+{count} kuukausi lisäominaisuuksia.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Vielä {count} päivää Browther oletusselaimena, niin kutsujasi saa 1 kuukauden lisäominaisuuksia.";
 "referee.hint.one" = "Tuttusi esitteli sinulle Browtherin. Sait kaksi kuukautta; hän saa omansa, kun olet pitänyt Browtherin oletusselaimenasi {count} päivän ajan.";
 "referee.hint.other" = "Tuttusi esitteli sinulle Browtherin. Sait kaksi kuukautta; hän saa omansa, kun olet pitänyt Browtherin oletusselaimenasi {count} päivän ajan.";
+"referee.noticeWhy.one" = "Käytit hänen suosittelukoodiaan ja olet juuri pitänyt Browtherin oletusselaimenasi {count} päivän ajan.";
+"referee.noticeWhy.other" = "Käytit hänen suosittelukoodiaan ja olet juuri pitänyt Browtherin oletusselaimenasi {count} päivän ajan.";
 "referee.meter.one" = "{current} / {count} päivä";
 "referee.meter.other" = "{current} / {count} päivää";
 "invitations.months.one" = "+{count} kuukausi";

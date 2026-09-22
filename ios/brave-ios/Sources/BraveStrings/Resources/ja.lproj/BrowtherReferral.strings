@@ -60,6 +60,7 @@
 "announce.invite" = "身近な人を招待";
 "announce.inviteSub" = "永久無料アクセスも目指せます";
 "announce.later" = "あとで知らせる";
+"ending.hook" = "でも、永久に無料で使い続けられます！";
 "ending.body" = "dev&din スタジオが無料のアプリを提供し続けるには、**あなたの応援が必要です**。お願いしたいのは、このアプリを連絡先の人たちに紹介してもらうことだけです。どうしても難しい場合は、金銭的な支援や、ドゥアーで応援することもできます。";
 "ending.supportSub" = "身近な人を招待、金銭的な支援、またはドゥアー";
 "paused.title" = "追加機能は一時停止中です";
@@ -78,6 +79,7 @@
 "invite.back" = "戻る";
 "invite.closeAfterShare" = "アプリに戻る";
 "share.message" = "Browther を紹介します。音楽をカットして、ハラームな画像をぼかすブラウザです。\n私のコード {code} を使うと、追加機能を 2 か月分もらえます。";
+"notice.eyebrow" = "紹介プログラム";
 "notice.title" = "招待が確定しました！";
 "notice.bodyLifetime" = "達成です：Browther が永久に 100% 解除されました。";
 "notice.see" = "紹介の状況を見る";
@@ -145,18 +147,21 @@
 "gauge.now.other" = "現在、確定した招待は {count} 件です。";
 "gauge.lifeSub.other" = "確定した招待 {count} 件から";
 "gauge.tickBonus.other" = "+{count} か月";
-"ending.title.other" = "{count} 日後、一部の追加機能が一時停止します…でも、永久に無料で使い続けることもできます！";
+"ending.title.other" = "{count} 日後、一部の追加機能が一時停止します。";
 "support.inviteSub.other" = "Browther をデフォルトのブラウザにして {count} 日 = 確定した招待";
+"support.inviteCount.other" = "{count} 人を招待";
 "reminder.featuresTitle.other" = "{count} 日後に、追加機能が一時停止します。";
 "reminder.inProgressCount.other" = "招待のひとつが順調に進んでいます。Browther をデフォルトのブラウザにしてあと {count} 日で確定します。";
 "reminder.monthsTitle.other" = "{count} 日後に、獲得した期間が終了します。";
 "reminder.monthsNext.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で次のステップです。";
 "reminder.subscriptionTitle.other" = "サブスクリプションは {count} 日後に終了します。";
 "invite.foot.other" = "招待した人が Browther を {count} 日間デフォルトのブラウザにしておくと、招待が確定します。";
+"notice.why.other" = "身近な人があなたの紹介コードを使い、Browther を {count} 日間デフォルトのブラウザにしました。";
 "notice.body.other" = "+{count} か月分の追加機能（{date} まで）。";
 "notice.bodyNoDate.other" = "+{count} か月分の追加機能。";
 "referee.progress.other" = "Browther をデフォルトのブラウザにしてあと {count} 日で、紹介してくれた人が追加機能 1 か月分を獲得します。";
 "referee.hint.other" = "身近な人が Browther を紹介してくれました。あなたは 2 か月分を受け取りました。その人の分は、あなたが Browther を {count} 日間デフォルトのブラウザにしておくと届きます。";
+"referee.noticeWhy.other" = "あなたはその人の紹介コードを使い、Browther を {count} 日間デフォルトのブラウザにしました。";
 "referee.meter.other" = "{current} / {count} 日";
 "invitations.months.other" = "+{count} か月";
 "invitations.rowValidated.other" = "デフォルトのブラウザで {count} 日：あなたに 1 か月が追加されました。";

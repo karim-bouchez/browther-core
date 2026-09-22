@@ -60,6 +60,7 @@
 "announce.invite" = "Pozvať niekoho blízkeho";
 "announce.inviteSub" = "A skúsiť získať doživotný prístup zadarmo";
 "announce.later" = "Pripomenúť neskôr";
+"ending.hook" = "Ale môžete si ich nechať navždy, zadarmo!";
 "ending.body" = "Štúdio dev&din **potrebuje vašu podporu**, aby mohlo ďalej ponúkať aplikácie zadarmo. Žiadame vás len o jedno: ukážte aplikáciu svojim známym. Ak to naozaj nejde, môžete nás podporiť aj finančne alebo cez du'á.";
 "ending.supportSub" = "Pozvaním niekoho blízkeho, finančne alebo cez du'á";
 "paused.title" = "Doplnkové funkcie sú pozastavené";
@@ -78,6 +79,7 @@
 "invite.back" = "Späť";
 "invite.closeAfterShare" = "Späť do aplikácie";
 "share.message" = "Pozývam ťa vyskúšať Browther: prehliadač, ktorý vypína hudbu a rozmazáva haram obrázky.\nS mojím kódom {code} získaš dva mesiace doplnkových funkcií.";
+"notice.eyebrow" = "Program odporúčaní";
 "notice.title" = "Pozvánka potvrdená!";
 "notice.bodyLifetime" = "Máte to: Browther je odomknutý na 100 %, navždy.";
 "notice.see" = "Otvoriť program odporúčaní";
@@ -159,12 +161,15 @@
 "gauge.tickBonus.one" = "+{count} mesiac";
 "gauge.tickBonus.few" = "+{count} mesiace";
 "gauge.tickBonus.other" = "+{count} mesiacov";
-"ending.title.one" = "Zajtra sa niektoré doplnkové funkcie pozastavia… ale môžete si ich nechať navždy, zadarmo!";
-"ending.title.few" = "O {count} dni sa niektoré doplnkové funkcie pozastavia… ale môžete si ich nechať navždy, zadarmo!";
-"ending.title.other" = "O {count} dní sa niektoré doplnkové funkcie pozastavia… ale môžete si ich nechať navždy, zadarmo!";
+"ending.title.one" = "Zajtra sa niektoré doplnkové funkcie pozastavia.";
+"ending.title.few" = "O {count} dni sa niektoré doplnkové funkcie pozastavia.";
+"ending.title.other" = "O {count} dní sa niektoré doplnkové funkcie pozastavia.";
 "support.inviteSub.one" = "Browther ako predvolený {count} deň = potvrdená pozvánka";
 "support.inviteSub.few" = "Browther ako predvolený {count} dni = potvrdená pozvánka";
 "support.inviteSub.other" = "Browther ako predvolený {count} dní = potvrdená pozvánka";
+"support.inviteCount.one" = "Pozvať {count} osobu";
+"support.inviteCount.few" = "Pozvať {count} osoby";
+"support.inviteCount.other" = "Pozvať {count} osôb";
 "reminder.featuresTitle.one" = "Zajtra sa vaše doplnkové funkcie pozastavia.";
 "reminder.featuresTitle.few" = "O {count} dni sa vaše doplnkové funkcie pozastavia.";
 "reminder.featuresTitle.other" = "O {count} dní sa vaše doplnkové funkcie pozastavia.";
@@ -183,6 +188,9 @@
 "invite.foot.one" = "Pozvánka sa potvrdí, keď si blízka osoba nechá Browther ako predvolený prehliadač {count} deň.";
 "invite.foot.few" = "Pozvánka sa potvrdí, keď si blízka osoba nechá Browther ako predvolený prehliadač {count} dni.";
 "invite.foot.other" = "Pozvánka sa potvrdí, keď si blízka osoba nechá Browther ako predvolený prehliadač {count} dní.";
+"notice.why.one" = "Blízka osoba použila váš odporúčací kód a práve si nechala Browther {count} deň ako predvolený prehliadač.";
+"notice.why.few" = "Blízka osoba použila váš odporúčací kód a práve si nechala Browther {count} dni ako predvolený prehliadač.";
+"notice.why.other" = "Blízka osoba použila váš odporúčací kód a práve si nechala Browther {count} dní ako predvolený prehliadač.";
 "notice.body.one" = "+{count} mesiac doplnkových funkcií, do {date}.";
 "notice.body.few" = "+{count} mesiace doplnkových funkcií, do {date}.";
 "notice.body.other" = "+{count} mesiacov doplnkových funkcií, do {date}.";
@@ -195,6 +203,9 @@
 "referee.hint.one" = "Blízka osoba vám ukázala Browther. Dostávate dva mesiace; jej mesiac jej pripadne, keď budete mať Browther ako predvolený prehliadač {count} deň.";
 "referee.hint.few" = "Blízka osoba vám ukázala Browther. Dostávate dva mesiace; jej mesiac jej pripadne, keď budete mať Browther ako predvolený prehliadač {count} dni.";
 "referee.hint.other" = "Blízka osoba vám ukázala Browther. Dostávate dva mesiace; jej mesiac jej pripadne, keď budete mať Browther ako predvolený prehliadač {count} dní.";
+"referee.noticeWhy.one" = "Máte odporúčací kód od blízkej osoby a Browther je vaším predvoleným prehliadačom už {count} deň.";
+"referee.noticeWhy.few" = "Máte odporúčací kód od blízkej osoby a Browther je vaším predvoleným prehliadačom už {count} dni.";
+"referee.noticeWhy.other" = "Máte odporúčací kód od blízkej osoby a Browther je vaším predvoleným prehliadačom už {count} dní.";
 "referee.meter.one" = "{current} z {count} dňa";
 "referee.meter.few" = "{current} z {count} dní";
 "referee.meter.other" = "{current} z {count} dní";

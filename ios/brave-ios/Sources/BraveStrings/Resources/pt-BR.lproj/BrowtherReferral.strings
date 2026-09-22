@@ -60,6 +60,7 @@
 "announce.invite" = "Convidar alguém próximo";
 "announce.inviteSub" = "E tente conseguir acesso gratuito vitalício";
 "announce.later" = "Lembrar mais tarde";
+"ending.hook" = "Mas você pode mantê-los para sempre, de graça!";
 "ending.body" = "O estúdio dev&din **precisa do seu apoio** para continuar oferecendo apps gratuitos. Só pedimos que você apresente o app aos seus contatos. Se não puder mesmo, você também pode nos apoiar financeiramente, ou com uma du'a.";
 "ending.supportSub" = "Convidando alguém próximo, financeiramente, ou com uma du'a";
 "paused.title" = "Os recursos adicionais estão em pausa";
@@ -78,6 +79,7 @@
 "invite.back" = "Voltar";
 "invite.closeAfterShare" = "Voltar ao app";
 "share.message" = "Convido você a conhecer o Browther: o navegador que corta a música e desfoca as imagens haram.\nCom o meu código {code}, você ganha dois meses de recursos adicionais.";
+"notice.eyebrow" = "Indicações";
 "notice.title" = "Convite confirmado!";
 "notice.bodyLifetime" = "Você conseguiu: o Browther está 100% desbloqueado, para sempre.";
 "notice.see" = "Ver minhas indicações";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "a partir de {count} convites confirmados";
 "gauge.tickBonus.one" = "+{count} mês";
 "gauge.tickBonus.other" = "+{count} meses";
-"ending.title.one" = "Amanhã, alguns recursos adicionais vão entrar em pausa… mas você pode mantê-los para sempre, de graça!";
-"ending.title.other" = "Em {count} dias, alguns recursos adicionais vão entrar em pausa… mas você pode mantê-los para sempre, de graça!";
+"ending.title.one" = "Amanhã, alguns recursos adicionais vão entrar em pausa.";
+"ending.title.other" = "Em {count} dias, alguns recursos adicionais vão entrar em pausa.";
 "support.inviteSub.one" = "Browther como padrão por {count} dia = convite confirmado";
 "support.inviteSub.other" = "Browther como padrão por {count} dias = convite confirmado";
+"support.inviteCount.one" = "Convidar {count} pessoa";
+"support.inviteCount.other" = "Convidar {count} pessoas";
 "reminder.featuresTitle.one" = "Amanhã, seus recursos adicionais vão entrar em pausa.";
 "reminder.featuresTitle.other" = "Em {count} dias, seus recursos adicionais vão entrar em pausa.";
 "reminder.inProgressCount.one" = "Um dos seus convites está no caminho certo: mais {count} dia com o Browther como padrão e ele será confirmado.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Sua assinatura termina em {count} dias.";
 "invite.foot.one" = "Um convite é confirmado quando a pessoa mantém o Browther como navegador padrão por {count} dia.";
 "invite.foot.other" = "Um convite é confirmado quando a pessoa mantém o Browther como navegador padrão por {count} dias.";
+"notice.why.one" = "Alguém próximo usou seu código de indicação e acabou de manter o Browther como navegador padrão por {count} dia.";
+"notice.why.other" = "Alguém próximo usou seu código de indicação e acabou de manter o Browther como navegador padrão por {count} dias.";
 "notice.body.one" = "+{count} mês de recursos adicionais, até {date}.";
 "notice.body.other" = "+{count} meses de recursos adicionais, até {date}.";
 "notice.bodyNoDate.one" = "+{count} mês de recursos adicionais.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Mais {count} dias com o Browther como padrão e quem indicou você ganha 1 mês de recursos adicionais.";
 "referee.hint.one" = "Alguém próximo apresentou o Browther para você. Você recebeu dois meses; o dessa pessoa chega quando você tiver mantido o Browther como navegador padrão por {count} dia.";
 "referee.hint.other" = "Alguém próximo apresentou o Browther para você. Você recebeu dois meses; o dessa pessoa chega quando você tiver mantido o Browther como navegador padrão por {count} dias.";
+"referee.noticeWhy.one" = "Você usou o código de indicação dessa pessoa e acabou de manter o Browther como navegador padrão por {count} dia.";
+"referee.noticeWhy.other" = "Você usou o código de indicação dessa pessoa e acabou de manter o Browther como navegador padrão por {count} dias.";
 "referee.meter.one" = "{current} de {count} dia";
 "referee.meter.other" = "{current} de {count} dias";
 "invitations.months.one" = "+{count} mês";

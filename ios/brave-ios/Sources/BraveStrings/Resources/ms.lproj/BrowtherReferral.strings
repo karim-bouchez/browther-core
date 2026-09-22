@@ -60,6 +60,7 @@
 "announce.invite" = "Jemput orang tersayang";
 "announce.inviteSub" = "Dan cuba dapatkan akses percuma seumur hidup";
 "announce.later" = "Ingatkan saya nanti";
+"ending.hook" = "Tetapi anda boleh mengekalkannya seumur hidup, secara percuma!";
 "ending.body" = "Studio dev&din **memerlukan sokongan anda** untuk terus menawarkan aplikasi percuma. Kami cuma minta anda perkenalkan aplikasi ini kepada kenalan anda. Jika benar-benar tidak dapat, anda juga boleh menyokong kami dari segi kewangan, atau dengan doa.";
 "ending.supportSub" = "Jemput orang tersayang, dari segi kewangan, atau dengan doa";
 "paused.title" = "Ciri tambahan sedang dijeda";
@@ -78,6 +79,7 @@
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
 "share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat dua bulan ciri tambahan.";
+"notice.eyebrow" = "Rujukan";
 "notice.title" = "Jemputan disahkan!";
 "notice.bodyLifetime" = "Berjaya: Browther 100% dibuka, seumur hidup.";
 "notice.see" = "Lihat rujukan saya";
@@ -145,18 +147,21 @@
 "gauge.now.other" = "Anda sudah ada {count} jemputan disahkan.";
 "gauge.lifeSub.other" = "bermula dari {count} jemputan disahkan";
 "gauge.tickBonus.other" = "+{count} bulan";
-"ending.title.other" = "Dalam {count} hari, sebahagian ciri tambahan akan dijeda… tetapi anda boleh mengekalkannya seumur hidup, secara percuma!";
+"ending.title.other" = "Dalam {count} hari, sebahagian ciri tambahan akan dijeda.";
 "support.inviteSub.other" = "Browther sebagai pelayar lalai selama {count} hari = jemputan disahkan";
+"support.inviteCount.other" = "Jemput {count} orang";
 "reminder.featuresTitle.other" = "Dalam {count} hari, ciri tambahan anda akan dijeda.";
 "reminder.inProgressCount.other" = "Salah satu jemputan anda sedang berjalan lancar: {count} hari lagi dengan Browther sebagai pelayar lalai dan ia akan disahkan.";
 "reminder.monthsTitle.other" = "Dalam {count} hari, bulan-bulan yang anda peroleh akan tamat.";
 "reminder.monthsNext.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan anda naik ke peringkat seterusnya.";
 "reminder.subscriptionTitle.other" = "Langganan anda tamat dalam {count} hari.";
 "invite.foot.other" = "Jemputan disahkan apabila orang tersayang anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
+"notice.why.other" = "Orang tersayang anda menggunakan kod rujukan anda, dan baru sahaja mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "notice.body.other" = "+{count} bulan ciri tambahan, hingga {date}.";
 "notice.bodyNoDate.other" = "+{count} bulan ciri tambahan.";
 "referee.progress.other" = "{count} hari lagi dengan Browther sebagai pelayar lalai dan orang tersayang anda mendapat 1 bulan ciri tambahan.";
 "referee.hint.other" = "Orang tersayang anda memperkenalkan Browther kepada anda. Anda telah menerima dua bulan; bulannya pula diberikan selepas anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
+"referee.noticeWhy.other" = "Anda menggunakan kod rujukannya, dan baru sahaja mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "referee.meter.other" = "{current} daripada {count} hari";
 "invitations.months.other" = "+{count} bulan";
 "invitations.rowValidated.other" = "{count} hari sebagai pelayar lalai: bulan anda telah ditambah.";

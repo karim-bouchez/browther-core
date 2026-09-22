@@ -60,6 +60,7 @@
 "announce.invite" = "Pozovite nekog bliskog";
 "announce.inviteSub" = "I pokušajte dobiti besplatan doživotni pristup";
 "announce.later" = "Podsjeti me kasnije";
+"ending.hook" = "Ali ih možete zadržati doživotno, besplatno!";
 "ending.body" = "Studiju dev&din **treba vaša podrška** kako bi i dalje nudio besplatne aplikacije. Sve što tražimo jest da aplikaciju predstavite svojim kontaktima. Ako baš ne možete, možete nas podržati i financijski, ili dovom.";
 "ending.supportSub" = "Pozovite nekog bliskog, financijski ili dovom";
 "paused.title" = "Dodatne značajke su na pauzi";
@@ -78,6 +79,7 @@
 "invite.back" = "Natrag";
 "invite.closeAfterShare" = "Natrag u aplikaciju";
 "share.message" = "Pozivam te da otkriješ Browther: preglednik koji utišava glazbu i zamućuje haram slike.\nS mojim kodom {code} dobivaš dva mjeseca dodatnih značajki.";
+"notice.eyebrow" = "Preporuke";
 "notice.title" = "Pozivnica potvrđena!";
 "notice.bodyLifetime" = "Cilj je ostvaren: Browther je 100 % otključan, doživotno.";
 "notice.see" = "Pogledaj moje preporuke";
@@ -159,12 +161,15 @@
 "gauge.tickBonus.one" = "+{count} mjesec";
 "gauge.tickBonus.few" = "+{count} mjeseca";
 "gauge.tickBonus.other" = "+{count} mjeseci";
-"ending.title.one" = "Sutra se neke dodatne značajke pauziraju… ali možete ih zadržati doživotno, besplatno!";
-"ending.title.few" = "Za {count} dana neke se dodatne značajke pauziraju… ali možete ih zadržati doživotno, besplatno!";
-"ending.title.other" = "Za {count} dana neke se dodatne značajke pauziraju… ali možete ih zadržati doživotno, besplatno!";
+"ending.title.one" = "Sutra se neke dodatne značajke pauziraju.";
+"ending.title.few" = "Za {count} dana neke se dodatne značajke pauziraju.";
+"ending.title.other" = "Za {count} dana neke se dodatne značajke pauziraju.";
 "support.inviteSub.one" = "Browther kao zadani preglednik {count} dan = potvrđena pozivnica";
 "support.inviteSub.few" = "Browther kao zadani preglednik {count} dana = potvrđena pozivnica";
 "support.inviteSub.other" = "Browther kao zadani preglednik {count} dana = potvrđena pozivnica";
+"support.inviteCount.one" = "Pozovite {count} osobu";
+"support.inviteCount.few" = "Pozovite {count} osobe";
+"support.inviteCount.other" = "Pozovite {count} osoba";
 "reminder.featuresTitle.one" = "Sutra se pauziraju vaše dodatne značajke.";
 "reminder.featuresTitle.few" = "Za {count} dana pauziraju se vaše dodatne značajke.";
 "reminder.featuresTitle.other" = "Za {count} dana pauziraju se vaše dodatne značajke.";
@@ -183,6 +188,9 @@
 "invite.foot.one" = "Pozivnica je potvrđena kada vaša bliska osoba zadrži Browther kao zadani preglednik {count} dan.";
 "invite.foot.few" = "Pozivnica je potvrđena kada vaša bliska osoba zadrži Browther kao zadani preglednik {count} dana.";
 "invite.foot.other" = "Pozivnica je potvrđena kada vaša bliska osoba zadrži Browther kao zadani preglednik {count} dana.";
+"notice.why.one" = "Bliska osoba iskoristila je vaš kod preporuke i upravo je zadržala Browther kao zadani preglednik {count} dan.";
+"notice.why.few" = "Bliska osoba iskoristila je vaš kod preporuke i upravo je zadržala Browther kao zadani preglednik {count} dana.";
+"notice.why.other" = "Bliska osoba iskoristila je vaš kod preporuke i upravo je zadržala Browther kao zadani preglednik {count} dana.";
 "notice.body.one" = "+{count} mjesec dodatnih značajki, do {date}.";
 "notice.body.few" = "+{count} mjeseca dodatnih značajki, do {date}.";
 "notice.body.other" = "+{count} mjeseci dodatnih značajki, do {date}.";
@@ -195,6 +203,9 @@
 "referee.hint.one" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala dva mjeseca, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dan.";
 "referee.hint.few" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala dva mjeseca, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dana.";
 "referee.hint.other" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala dva mjeseca, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dana.";
+"referee.noticeWhy.one" = "Iskoristili ste njezin kod preporuke i upravo ste zadržali Browther kao zadani preglednik {count} dan.";
+"referee.noticeWhy.few" = "Iskoristili ste njezin kod preporuke i upravo ste zadržali Browther kao zadani preglednik {count} dana.";
+"referee.noticeWhy.other" = "Iskoristili ste njezin kod preporuke i upravo ste zadržali Browther kao zadani preglednik {count} dana.";
 "referee.meter.one" = "{current} od {count} dana";
 "referee.meter.few" = "{current} od {count} dana";
 "referee.meter.other" = "{current} od {count} dana";

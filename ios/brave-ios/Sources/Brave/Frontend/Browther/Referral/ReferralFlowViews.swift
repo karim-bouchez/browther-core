@@ -93,6 +93,32 @@ struct ReferralFlowTitle: View {
   }
 }
 
+/// ⭐ L'accroche (§ 12.30) : le GAIN, sur sa propre ligne et dans l'or du
+/// TEXTE — fondue dans le titre, elle se lisait comme la fin d'une mauvaise
+/// nouvelle (Karim). Sur 8 et 8 bis, c'est elle qui porte les mois gagnés
+/// (§ 12.32).
+struct ReferralFlowHook: View {
+  let text: String
+  var body: some View {
+    Text(text)
+      .font(.headline.weight(.semibold))
+      .foregroundStyle(ReferralPalette.gold)
+      .multilineTextAlignment(.center)
+      .fixedSize(horizontal: false, vertical: true)
+  }
+}
+
+/// Le sujet, au-dessus du titre — ⛔ seulement sur ce que personne n'a demandé
+/// (8, 8 bis) : il situe avant même qu'on lise (§ 12.32).
+struct ReferralSheetEyebrow: View {
+  let text: String
+  var body: some View {
+    Text(text)
+      .font(.subheadline.weight(.semibold))
+      .foregroundStyle(.secondary)
+  }
+}
+
 struct ReferralFlowBody: View {
   let text: String
   var body: some View {
@@ -257,12 +283,23 @@ struct ReferralFlowView: View {
         onCelebrate: celebrate
       )
     } footer: {
-      ReferralPrimaryButton(
-        label: Strings.BrowtherReferral.inviteSomeone,
-        sub: Strings.BrowtherReferral.supportInviteSub(ReferralProduct.validationTargetDays)
-      ) {
+      // ⭐ Le bouton REPREND le nombre de la jauge (§ 12.30) : l'écran demande
+      // « combien penses-tu pouvoir inviter ? », il répond avec le même nombre,
+      // cran par cran. Au palier « à vie », il s'allume — mêmes cotes, donc le
+      // pied de l'écran ne saute pas.
+      let intention = controller.gaugeIntention ?? 0
+      let inviteLabel = intention > 1
+        ? Strings.BrowtherReferral.supportInviteCount(intention)
+        : Strings.BrowtherReferral.inviteSomeone
+      let inviteSub = Strings.BrowtherReferral.supportInviteSub(ReferralProduct.validationTargetDays)
+      let openInvite = {
         action("support", "invite")
         model.push(.invite(shared: false))
+      }
+      if intention >= controller.scale.lifetimeAt {
+        ReferralLifetimeButton(label: inviteLabel, sub: inviteSub, action: openInvite)
+      } else {
+        ReferralPrimaryButton(label: inviteLabel, sub: inviteSub, action: openInvite)
       }
       if controller.billingAvailable {
         ReferralOrSeparator()
@@ -357,10 +394,13 @@ struct ReferralSheetView: View {
       } label: {
         Image(systemName: "xmark")
           .font(.system(size: 15, weight: .semibold))
-          .foregroundStyle(.secondary)
+          // ⚠️ `.secondary` DANS un bouton prend la teinte : la croix sortait
+          // en bleu (recette Karim, 2026-09-22).
+          .foregroundStyle(Color.secondary)
           .frame(width: 44, height: 44)
           .contentShape(Rectangle())
       }
+      .buttonStyle(.plain)
       .accessibilityLabel(Strings.BrowtherReferral.close)
       .padding(6)
     }
@@ -385,6 +425,7 @@ struct ReferralSheetView: View {
     case .ending(let days):
       ReferralRoundIcon(systemName: "hourglass", size: 56)
       ReferralFlowTitle(text: Strings.BrowtherReferral.endingTitle(days))
+      ReferralFlowHook(text: Strings.BrowtherReferral.endingHook)
       ReferralFeatureList(extras: .soon(days: days))
       ReferralFlowBody(text: Strings.BrowtherReferral.endingBody)
       ReferralPrimaryButton(
@@ -414,16 +455,20 @@ struct ReferralSheetView: View {
 
     case .validated(let months, let until, let lifetime):
       ReferralRoundIcon(systemName: lifetime ? "infinity" : "checkmark.seal.fill", tone: .green, size: 64)
+      ReferralSheetEyebrow(text: Strings.BrowtherReferral.noticeEyebrow)
       ReferralFlowTitle(text: Strings.BrowtherReferral.noticeTitle)
-      ReferralFlowBody(text: validatedBody(months: months, until: until, lifetime: lifetime))
+      ReferralFlowHook(text: validatedBody(months: months, until: until, lifetime: lifetime))
+      ReferralFlowBody(text: Strings.BrowtherReferral.noticeWhy(ReferralProduct.validationTargetDays))
       ReferralPrimaryButton(label: Strings.BrowtherReferral.noticeSee) {
         actions.openHome?()
       }
 
     case .refereeDone:
       ReferralRoundIcon(systemName: "heart.fill", tone: .green, size: 64)
+      ReferralSheetEyebrow(text: Strings.BrowtherReferral.noticeEyebrow)
       ReferralFlowTitle(text: Strings.BrowtherReferral.refereeNoticeTitle)
-      ReferralFlowBody(text: Strings.BrowtherReferral.refereeNoticeBody)
+      ReferralFlowHook(text: Strings.BrowtherReferral.refereeNoticeBody)
+      ReferralFlowBody(text: Strings.BrowtherReferral.refereeNoticeWhy(ReferralProduct.validationTargetDays))
       ReferralPrimaryButton(label: Strings.BrowtherReferral.refereeInviteToo) {
         actions.openHome?()
       }

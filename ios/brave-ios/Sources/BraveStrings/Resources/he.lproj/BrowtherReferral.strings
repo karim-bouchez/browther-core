@@ -60,6 +60,7 @@
 "announce.invite" = "להזמין אדם קרוב";
 "announce.inviteSub" = "ולנסות להשיג גישה חינמית לכל החיים";
 "announce.later" = "להזכיר לי אחר כך";
+"ending.hook" = "אבל אפשר לשמור עליהן לכל החיים, בחינם!";
 "ending.body" = "הסטודיו dev&din **צריך את התמיכה שלך** כדי להמשיך להציע אפליקציות בחינם. כל מה שאנחנו מבקשים זה לספר על האפליקציה לאנשי הקשר שלך. ואם זה ממש לא אפשרי, אפשר גם לתמוך בנו כספית, או בדועא (תפילה).";
 "ending.supportSub" = "להזמין אדם קרוב, בתמיכה כספית או בדועא";
 "paused.title" = "התכונות הנוספות בהשהיה";
@@ -78,6 +79,7 @@
 "invite.back" = "חזרה";
 "invite.closeAfterShare" = "חזרה לאפליקציה";
 "share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודשיים של תכונות נוספות.";
+"notice.eyebrow" = "הפניות";
 "notice.title" = "ההזמנה אושרה!";
 "notice.bodyLifetime" = "הגעת ליעד: Browther פתוח ב-100%, לכל החיים.";
 "notice.see" = "להפניות שלי";
@@ -159,12 +161,15 @@
 "gauge.tickBonus.one" = "+{count} חודש";
 "gauge.tickBonus.two" = "+{count} חודשים";
 "gauge.tickBonus.other" = "+{count} חודשים";
-"ending.title.one" = "מחר חלק מהתכונות הנוספות יושהו… אבל אפשר לשמור עליהן לכל החיים, בחינם!";
-"ending.title.two" = "בעוד יומיים חלק מהתכונות הנוספות יושהו… אבל אפשר לשמור עליהן לכל החיים, בחינם!";
-"ending.title.other" = "בעוד {count} ימים חלק מהתכונות הנוספות יושהו… אבל אפשר לשמור עליהן לכל החיים, בחינם!";
+"ending.title.one" = "מחר חלק מהתכונות הנוספות יושהו.";
+"ending.title.two" = "בעוד יומיים חלק מהתכונות הנוספות יושהו.";
+"ending.title.other" = "בעוד {count} ימים חלק מהתכונות הנוספות יושהו.";
 "support.inviteSub.one" = "Browther כדפדפן ברירת המחדל במשך יום אחד = הזמנה מאושרת";
 "support.inviteSub.two" = "Browther כדפדפן ברירת המחדל במשך יומיים = הזמנה מאושרת";
 "support.inviteSub.other" = "Browther כדפדפן ברירת המחדל במשך {count} ימים = הזמנה מאושרת";
+"support.inviteCount.one" = "להזמין {count} אדם";
+"support.inviteCount.two" = "להזמין {count} אנשים";
+"support.inviteCount.other" = "להזמין {count} אנשים";
 "reminder.featuresTitle.one" = "מחר התכונות הנוספות שלך יושהו.";
 "reminder.featuresTitle.two" = "בעוד יומיים התכונות הנוספות שלך יושהו.";
 "reminder.featuresTitle.other" = "בעוד {count} ימים התכונות הנוספות שלך יושהו.";
@@ -183,6 +188,9 @@
 "invite.foot.one" = "ההזמנה מאושרת אחרי שהאדם הקרוב אליך משאיר את Browther כדפדפן ברירת המחדל במשך יום אחד.";
 "invite.foot.two" = "ההזמנה מאושרת אחרי שהאדם הקרוב אליך משאיר את Browther כדפדפן ברירת המחדל במשך יומיים.";
 "invite.foot.other" = "ההזמנה מאושרת אחרי שהאדם הקרוב אליך משאיר את Browther כדפדפן ברירת המחדל במשך {count} ימים.";
+"notice.why.one" = "מישהו קרוב השתמש בקוד ההפניה שלך, ו-Browther נשאר דפדפן ברירת המחדל שלו במשך יום אחד.";
+"notice.why.two" = "מישהו קרוב השתמש בקוד ההפניה שלך, ו-Browther נשאר דפדפן ברירת המחדל שלו במשך יומיים.";
+"notice.why.other" = "מישהו קרוב השתמש בקוד ההפניה שלך, ו-Browther נשאר דפדפן ברירת המחדל שלו במשך {count} ימים.";
 "notice.body.one" = "+{count} חודש של תכונות נוספות, עד {date}.";
 "notice.body.two" = "+{count} חודשים של תכונות נוספות, עד {date}.";
 "notice.body.other" = "+{count} חודשים של תכונות נוספות, עד {date}.";
@@ -195,6 +203,9 @@
 "referee.hint.one" = "אדם קרוב הכיר לך את Browther. קיבלת חודשיים; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך יום אחד.";
 "referee.hint.two" = "אדם קרוב הכיר לך את Browther. קיבלת חודשיים; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך יומיים.";
 "referee.hint.other" = "אדם קרוב הכיר לך את Browther. קיבלת חודשיים; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך {count} ימים.";
+"referee.noticeWhy.one" = "השתמשת בקוד ההפניה שלו, ו-Browther היה דפדפן ברירת המחדל שלך במשך יום אחד.";
+"referee.noticeWhy.two" = "השתמשת בקוד ההפניה שלו, ו-Browther היה דפדפן ברירת המחדל שלך במשך יומיים.";
+"referee.noticeWhy.other" = "השתמשת בקוד ההפניה שלו, ו-Browther היה דפדפן ברירת המחדל שלך במשך {count} ימים.";
 "referee.meter.one" = "{current} מתוך {count} יום";
 "referee.meter.two" = "{current} מתוך {count} ימים";
 "referee.meter.other" = "{current} מתוך {count} ימים";

@@ -60,6 +60,7 @@
 "announce.invite" = "Hívja meg egy szerettét";
 "announce.inviteSub" = "És próbálja megszerezni az örökös ingyenes hozzáférést";
 "announce.later" = "Emlékeztessen később";
+"ending.hook" = "De örökre megtarthatja őket, ingyen!";
 "ending.body" = "A dev&din stúdiónak **szüksége van az Ön támogatására**, hogy továbbra is ingyenes alkalmazásokat kínálhasson. Csak annyit kérünk, hogy mutassa meg az alkalmazást az ismerőseinek. Ha tényleg nem megy, anyagilag vagy egy duával is támogathat minket.";
 "ending.supportSub" = "Egy szerette meghívásával, anyagilag vagy egy duával";
 "paused.title" = "A kiegészítő funkciók szünetelnek";
@@ -78,6 +79,7 @@
 "invite.back" = "Vissza";
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
 "share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) két hónapnyi kiegészítő funkciót kapsz.";
+"notice.eyebrow" = "Ajánlói program";
 "notice.title" = "Meghívás megerősítve!";
 "notice.bodyLifetime" = "Sikerült: a Browther 100%-ban fel van oldva, örökre.";
 "notice.see" = "Ajánlói program megnyitása";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "{count} megerősített meghívástól";
 "gauge.tickBonus.one" = "+{count} hónap";
 "gauge.tickBonus.other" = "+{count} hónap";
-"ending.title.one" = "Holnap néhány kiegészítő funkció szünetelni kezd… de örökre megtarthatja őket, ingyen!";
-"ending.title.other" = "{count} nap múlva néhány kiegészítő funkció szünetelni kezd… de örökre megtarthatja őket, ingyen!";
+"ending.title.one" = "Holnap néhány kiegészítő funkció szünetelni kezd.";
+"ending.title.other" = "{count} nap múlva néhány kiegészítő funkció szünetelni kezd.";
 "support.inviteSub.one" = "{count} nap alapértelmezett Browther = megerősített meghívás";
 "support.inviteSub.other" = "{count} nap alapértelmezett Browther = megerősített meghívás";
+"support.inviteCount.one" = "Hívjon meg {count} embert";
+"support.inviteCount.other" = "Hívjon meg {count} embert";
 "reminder.featuresTitle.one" = "Holnap szünetelni kezdenek a kiegészítő funkciói.";
 "reminder.featuresTitle.other" = "{count} nap múlva szünetelni kezdenek a kiegészítő funkciói.";
 "reminder.inProgressCount.one" = "Az egyik meghívása jó úton halad: ha a Browther még {count} napig alapértelmezett böngésző marad, megerősítést kap.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Az előfizetése {count} nap múlva megszűnik.";
 "invite.foot.one" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";
 "invite.foot.other" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";
+"notice.why.one" = "Egy szerette felhasználta az ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt nála.";
+"notice.why.other" = "Egy szerette felhasználta az ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt nála.";
 "notice.body.one" = "+{count} hónapnyi kiegészítő funkció, {date} napjáig.";
 "notice.body.other" = "+{count} hónapnyi kiegészítő funkció, {date} napjáig.";
 "notice.bodyNoDate.one" = "+{count} hónapnyi kiegészítő funkció.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Ha a Browther még {count} napig alapértelmezett böngésző marad, a szerette 1 hónapnyi kiegészítő funkciót kap.";
 "referee.hint.one" = "Egy szerette mutatta meg Önnek a Browther böngészőt. Ön két hónapot kapott; az övé akkor jár neki, ha a Browther {count} napig alapértelmezett böngésző marad Önnél.";
 "referee.hint.other" = "Egy szerette mutatta meg Önnek a Browther böngészőt. Ön két hónapot kapott; az övé akkor jár neki, ha a Browther {count} napig alapértelmezett böngésző marad Önnél.";
+"referee.noticeWhy.one" = "Felhasználta egy szerette ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt Önnél.";
+"referee.noticeWhy.other" = "Felhasználta egy szerette ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt Önnél.";
 "referee.meter.one" = "{count} napból {current}";
 "referee.meter.other" = "{count} napból {current}";
 "invitations.months.one" = "+{count} hónap";

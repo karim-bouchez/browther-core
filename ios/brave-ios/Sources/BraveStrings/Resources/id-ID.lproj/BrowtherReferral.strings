@@ -60,6 +60,7 @@
 "announce.invite" = "Undang orang terdekat";
 "announce.inviteSub" = "Dan raih akses gratis seumur hidup";
 "announce.later" = "Ingatkan saya nanti";
+"ending.hook" = "Tetapi Anda bisa memilikinya seumur hidup, gratis!";
 "ending.body" = "Studio dev&din **membutuhkan dukungan Anda** agar bisa terus menghadirkan aplikasi gratis. Kami hanya meminta Anda mengenalkan aplikasi ini kepada kontak-kontak Anda. Jika benar-benar tidak bisa, Anda juga bisa mendukung kami secara finansial, atau dengan doa.";
 "ending.supportSub" = "Undang orang terdekat, secara finansial, atau dengan doa";
 "paused.title" = "Fitur tambahan sedang dijeda";
@@ -78,6 +79,7 @@
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
 "share.message" = "Aku mengajakmu mencoba Browther: browser yang membisukan musik dan memburamkan gambar haram.\nDengan kodeku {code}, kamu dapat dua bulan fitur tambahan.";
+"notice.eyebrow" = "Referal";
 "notice.title" = "Undangan tervalidasi!";
 "notice.bodyLifetime" = "Berhasil: Browther 100% terbuka, seumur hidup.";
 "notice.see" = "Lihat referal saya";
@@ -145,18 +147,21 @@
 "gauge.now.other" = "Anda sudah memiliki {count} undangan tervalidasi.";
 "gauge.lifeSub.other" = "mulai dari {count} undangan tervalidasi";
 "gauge.tickBonus.other" = "+{count} bulan";
-"ending.title.other" = "Dalam {count} hari, beberapa fitur tambahan akan dijeda… tetapi Anda bisa memilikinya seumur hidup, gratis!";
+"ending.title.other" = "Dalam {count} hari, beberapa fitur tambahan akan dijeda.";
 "support.inviteSub.other" = "Browther sebagai browser default selama {count} hari = undangan tervalidasi";
+"support.inviteCount.other" = "Undang {count} orang";
 "reminder.featuresTitle.other" = "Dalam {count} hari, fitur tambahan Anda akan dijeda.";
 "reminder.inProgressCount.other" = "Salah satu undangan Anda sedang berjalan: {count} hari lagi dengan Browther sebagai browser default dan undangan itu tervalidasi.";
 "reminder.monthsTitle.other" = "Dalam {count} hari, bulan-bulan yang Anda dapatkan akan berakhir.";
 "reminder.monthsNext.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Anda naik ke tingkat berikutnya.";
 "reminder.subscriptionTitle.other" = "Langganan Anda berakhir dalam {count} hari.";
 "invite.foot.other" = "Undangan tervalidasi setelah orang terdekat Anda memakai Browther sebagai browser default selama {count} hari.";
+"notice.why.other" = "Orang terdekat Anda memakai kode referal Anda, dan baru saja memakai Browther sebagai browser default selama {count} hari.";
 "notice.body.other" = "+{count} bulan fitur tambahan, hingga {date}.";
 "notice.bodyNoDate.other" = "+{count} bulan fitur tambahan.";
 "referee.progress.other" = "{count} hari lagi dengan Browther sebagai browser default, dan orang terdekat Anda mendapat 1 bulan fitur tambahan.";
 "referee.hint.other" = "Orang terdekat Anda mengenalkan Anda pada Browther. Anda sudah menerima dua bulan; bulan miliknya diberikan setelah Anda memakai Browther sebagai browser default selama {count} hari.";
+"referee.noticeWhy.other" = "Anda memakai kode referalnya, dan baru saja memakai Browther sebagai browser default selama {count} hari.";
 "referee.meter.other" = "{current} dari {count} hari";
 "invitations.months.other" = "+{count} bulan";
 "invitations.rowValidated.other" = "{count} hari sebagai browser default: bulan Anda sudah ditambahkan.";

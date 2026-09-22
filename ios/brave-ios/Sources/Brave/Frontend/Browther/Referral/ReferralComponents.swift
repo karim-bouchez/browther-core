@@ -65,6 +65,55 @@ struct ReferralPrimaryButton: View {
   }
 }
 
+/// ⭐ **Le bouton principal allumé au palier « à vie »** (§ 12.30) : il reprend
+/// le langage de la carte « À vie » — aplat doré sous encre sombre (⛔ jamais
+/// de l'or sur de l'or, § 12.24), ∞, et un halo qui pulse DEUX fois (⛔ pas en
+/// boucle). ⚠️ Mêmes cotes que `ReferralPrimaryButton` : s'allumer ne fait pas
+/// sauter le pied de l'écran. Mouvement réduit : il s'allume, rien ne bouge.
+struct ReferralLifetimeButton: View {
+  let label: String
+  var sub: String?
+  let action: () -> Void
+
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  @State private var halo = false
+
+  var body: some View {
+    Button(action: action) {
+      VStack(spacing: 2) {
+        HStack(spacing: 8) {
+          Image(systemName: "infinity")
+            .font(.system(size: 16, weight: .semibold))
+          Text(label)
+            .font(.body.weight(.semibold))
+        }
+        if let sub {
+          Text(sub)
+            .font(.footnote)
+            .opacity(0.75)
+            .multilineTextAlignment(.center)
+        }
+      }
+      .foregroundStyle(ReferralPalette.ink)
+      .frame(maxWidth: .infinity)
+      .padding(.horizontal, 16)
+      .padding(.vertical, sub == nil ? 16 : 12)
+      .background(ReferralPalette.goldFill, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+      .overlay {
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+          .strokeBorder(ReferralPalette.goldFill.opacity(halo ? 0 : 0.9), lineWidth: halo ? 10 : 0)
+          .blur(radius: 6)
+          .allowsHitTesting(false)
+      }
+    }
+    .buttonStyle(.plain)
+    .onAppear {
+      guard !reduceMotion else { return }
+      withAnimation(.easeOut(duration: 0.9).repeatCount(2, autoreverses: false)) { halo = true }
+    }
+  }
+}
+
 /// L'alternative : un contour.
 struct ReferralSecondaryButton: View {
   let label: String
@@ -305,7 +354,11 @@ struct ReferralCodeCard: View {
           }
         }
         .opacity(0.3)
-        .position(x: geometry.size.width + 20, y: geometry.size.height + 20)
+        // ⚠️ Le centre est DANS la carte (60 pt du bord droit, 42 pt du bas) —
+        // les mêmes cotes que Fajrunaa (`ReferralCodeCard.tsx`, `guilloche` :
+        // un carré de 240 posé à right −60 / bottom −78). Centré sur le coin,
+        // le guillochis n'en montrait que des quarts de cercle décalés.
+        .position(x: geometry.size.width - 60, y: geometry.size.height - 42)
       }
       .allowsHitTesting(false)
       // Un reflet la balaie à l'arrivée et à la copie.

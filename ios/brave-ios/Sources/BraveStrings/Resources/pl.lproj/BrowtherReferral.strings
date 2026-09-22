@@ -60,6 +60,7 @@
 "announce.invite" = "Zaproś bliską osobę";
 "announce.inviteSub" = "I zawalcz o darmowy dostęp na zawsze";
 "announce.later" = "Przypomnij mi później";
+"ending.hook" = "Ale możesz je zachować na zawsze, za darmo!";
 "ending.body" = "Studio dev&din **potrzebuje twojego wsparcia**, by dalej oferować darmowe aplikacje. Prosimy cię tylko o jedno: pokaż aplikację swoim znajomym. Jeśli naprawdę nie możesz, możesz też wesprzeć nas finansowo albo przez du'a.";
 "ending.supportSub" = "Zaproś bliską osobę, wesprzyj finansowo lub przez du'a";
 "paused.title" = "Dodatkowe funkcje są wstrzymane";
@@ -78,6 +79,7 @@
 "invite.back" = "Wstecz";
 "invite.closeAfterShare" = "Wróć do aplikacji";
 "share.message" = "Zapraszam cię do poznania Browther: przeglądarki, która wycina muzykę i rozmywa obrazy haram.\nZ moim kodem {code} dostajesz dwa miesiące dodatkowych funkcji.";
+"notice.eyebrow" = "Program poleceń";
 "notice.title" = "Zaproszenie potwierdzone!";
 "notice.bodyLifetime" = "Udało się: Browther jest odblokowany w 100%, na zawsze.";
 "notice.see" = "Zobacz program poleceń";
@@ -159,12 +161,15 @@
 "gauge.tickBonus.one" = "+{count} miesiąc";
 "gauge.tickBonus.few" = "+{count} miesiące";
 "gauge.tickBonus.many" = "+{count} miesięcy";
-"ending.title.one" = "Jutro część dodatkowych funkcji zostanie wstrzymana… ale możesz je zachować na zawsze, za darmo!";
-"ending.title.few" = "Za {count} dni część dodatkowych funkcji zostanie wstrzymana… ale możesz je zachować na zawsze, za darmo!";
-"ending.title.many" = "Za {count} dni część dodatkowych funkcji zostanie wstrzymana… ale możesz je zachować na zawsze, za darmo!";
+"ending.title.one" = "Jutro część dodatkowych funkcji zostanie wstrzymana.";
+"ending.title.few" = "Za {count} dni część dodatkowych funkcji zostanie wstrzymana.";
+"ending.title.many" = "Za {count} dni część dodatkowych funkcji zostanie wstrzymana.";
 "support.inviteSub.one" = "Browther jako domyślna przez {count} dzień = potwierdzone zaproszenie";
 "support.inviteSub.few" = "Browther jako domyślna przez {count} dni = potwierdzone zaproszenie";
 "support.inviteSub.many" = "Browther jako domyślna przez {count} dni = potwierdzone zaproszenie";
+"support.inviteCount.one" = "Zaproś {count} osobę";
+"support.inviteCount.few" = "Zaproś {count} osoby";
+"support.inviteCount.many" = "Zaproś {count} osób";
 "reminder.featuresTitle.one" = "Jutro twoje dodatkowe funkcje zostaną wstrzymane.";
 "reminder.featuresTitle.few" = "Za {count} dni twoje dodatkowe funkcje zostaną wstrzymane.";
 "reminder.featuresTitle.many" = "Za {count} dni twoje dodatkowe funkcje zostaną wstrzymane.";
@@ -183,6 +188,9 @@
 "invite.foot.one" = "Zaproszenie zostaje potwierdzone, gdy bliska osoba przez {count} dzień korzysta z Browther jako domyślnej przeglądarki.";
 "invite.foot.few" = "Zaproszenie zostaje potwierdzone, gdy bliska osoba przez {count} dni korzysta z Browther jako domyślnej przeglądarki.";
 "invite.foot.many" = "Zaproszenie zostaje potwierdzone, gdy bliska osoba przez {count} dni korzysta z Browther jako domyślnej przeglądarki.";
+"notice.why.one" = "Bliska osoba użyła twojego kodu polecającego i właśnie przez {count} dzień korzystała z Browther jako domyślnej przeglądarki.";
+"notice.why.few" = "Bliska osoba użyła twojego kodu polecającego i właśnie przez {count} dni korzystała z Browther jako domyślnej przeglądarki.";
+"notice.why.many" = "Bliska osoba użyła twojego kodu polecającego i właśnie przez {count} dni korzystała z Browther jako domyślnej przeglądarki.";
 "notice.body.one" = "+{count} miesiąc dodatkowych funkcji, do {date}.";
 "notice.body.few" = "+{count} miesiące dodatkowych funkcji, do {date}.";
 "notice.body.many" = "+{count} miesięcy dodatkowych funkcji, do {date}.";
@@ -195,6 +203,9 @@
 "referee.hint.one" = "Bliska osoba pokazała ci Browther. Masz dwa miesiące w prezencie; jej miesiąc zostanie dodany, gdy przez {count} dzień będziesz mieć Browther jako domyślną przeglądarkę.";
 "referee.hint.few" = "Bliska osoba pokazała ci Browther. Masz dwa miesiące w prezencie; jej miesiąc zostanie dodany, gdy przez {count} dni będziesz mieć Browther jako domyślną przeglądarkę.";
 "referee.hint.many" = "Bliska osoba pokazała ci Browther. Masz dwa miesiące w prezencie; jej miesiąc zostanie dodany, gdy przez {count} dni będziesz mieć Browther jako domyślną przeglądarkę.";
+"referee.noticeWhy.one" = "Masz kod polecający od bliskiej osoby, a Browther jest twoją domyślną przeglądarką już od {count} dnia.";
+"referee.noticeWhy.few" = "Masz kod polecający od bliskiej osoby, a Browther jest twoją domyślną przeglądarką już od {count} dni.";
+"referee.noticeWhy.many" = "Masz kod polecający od bliskiej osoby, a Browther jest twoją domyślną przeglądarką już od {count} dni.";
 "referee.meter.one" = "{current} z {count} dnia";
 "referee.meter.few" = "{current} z {count} dni";
 "referee.meter.many" = "{current} z {count} dni";

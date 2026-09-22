@@ -60,6 +60,7 @@
 "announce.invite" = "Invita una persona cara";
 "announce.inviteSub" = "E punta all'accesso gratuito a vita";
 "announce.later" = "Ricordamelo più tardi";
+"ending.hook" = "Ma puoi tenerle a vita, gratis!";
 "ending.body" = "Lo studio dev&din **ha bisogno del tuo sostegno** per continuare a offrire app gratuite. Ti chiediamo semplicemente di far conoscere l'app ai tuoi contatti. Se proprio non puoi, puoi anche sostenerci economicamente, o con una du'a.";
 "ending.supportSub" = "Invitando una persona cara, economicamente, o con una du'a";
 "paused.title" = "Le funzionalità aggiuntive sono in pausa";
@@ -78,6 +79,7 @@
 "invite.back" = "Indietro";
 "invite.closeAfterShare" = "Torna all'app";
 "share.message" = "Ti invito a scoprire Browther: il browser che toglie la musica e sfoca le immagini haram.\nCon il mio codice {code}, hai due mesi di funzionalità aggiuntive.";
+"notice.eyebrow" = "Referral";
 "notice.title" = "Invito confermato!";
 "notice.bodyLifetime" = "Ce l'hai fatta: Browther è sbloccato al 100%, a vita.";
 "notice.see" = "Vedi i miei referral";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "da {count} inviti confermati";
 "gauge.tickBonus.one" = "+{count} mese";
 "gauge.tickBonus.other" = "+{count} mesi";
-"ending.title.one" = "Domani alcune funzionalità aggiuntive andranno in pausa… ma puoi tenerle a vita, gratis!";
-"ending.title.other" = "Tra {count} giorni alcune funzionalità aggiuntive andranno in pausa… ma puoi tenerle a vita, gratis!";
+"ending.title.one" = "Domani alcune funzionalità aggiuntive andranno in pausa.";
+"ending.title.other" = "Tra {count} giorni alcune funzionalità aggiuntive andranno in pausa.";
 "support.inviteSub.one" = "Browther predefinito per {count} giorno = invito confermato";
 "support.inviteSub.other" = "Browther predefinito per {count} giorni = invito confermato";
+"support.inviteCount.one" = "Invita {count} persona";
+"support.inviteCount.other" = "Invita {count} persone";
 "reminder.featuresTitle.one" = "Domani le tue funzionalità aggiuntive andranno in pausa.";
 "reminder.featuresTitle.other" = "Tra {count} giorni le tue funzionalità aggiuntive andranno in pausa.";
 "reminder.inProgressCount.one" = "Uno dei tuoi inviti è sulla buona strada: ancora {count} giorno con Browther come predefinito e sarà confermato.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Il tuo abbonamento termina tra {count} giorni.";
 "invite.foot.one" = "Un invito è confermato quando la persona ha tenuto Browther come browser predefinito per {count} giorno.";
 "invite.foot.other" = "Un invito è confermato quando la persona ha tenuto Browther come browser predefinito per {count} giorni.";
+"notice.why.one" = "Una persona cara ha usato il tuo codice referral e ha appena tenuto Browther come browser predefinito per {count} giorno.";
+"notice.why.other" = "Una persona cara ha usato il tuo codice referral e ha appena tenuto Browther come browser predefinito per {count} giorni.";
 "notice.body.one" = "+{count} mese di funzionalità aggiuntive, fino al {date}.";
 "notice.body.other" = "+{count} mesi di funzionalità aggiuntive, fino al {date}.";
 "notice.bodyNoDate.one" = "+{count} mese di funzionalità aggiuntive.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Ancora {count} giorni con Browther come predefinito e chi ti ha invitato guadagna 1 mese di funzionalità aggiuntive.";
 "referee.hint.one" = "Una persona cara ti ha fatto scoprire Browther. Hai ricevuto due mesi; il suo arriva quando avrai tenuto Browther come browser predefinito per {count} giorno.";
 "referee.hint.other" = "Una persona cara ti ha fatto scoprire Browther. Hai ricevuto due mesi; il suo arriva quando avrai tenuto Browther come browser predefinito per {count} giorni.";
+"referee.noticeWhy.one" = "Hai usato il codice referral di quella persona e hai appena tenuto Browther come browser predefinito per {count} giorno.";
+"referee.noticeWhy.other" = "Hai usato il codice referral di quella persona e hai appena tenuto Browther come browser predefinito per {count} giorni.";
 "referee.meter.one" = "{current} su {count} giorno";
 "referee.meter.other" = "{current} su {count} giorni";
 "invitations.months.one" = "+{count} mese";

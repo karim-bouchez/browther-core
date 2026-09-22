@@ -60,6 +60,7 @@
 "announce.invite" = "Invită pe cineva apropiat";
 "announce.inviteSub" = "Și încearcă să obții acces gratuit pe viață";
 "announce.later" = "Amintește-mi mai târziu";
+"ending.hook" = "Dar le poți păstra pe viață, gratuit!";
 "ending.body" = "Studioul dev&din **are nevoie de sprijinul tău** ca să ofere în continuare aplicații gratuite. Tot ce îți cerem e să faci cunoscută aplicația printre contactele tale. Dacă chiar nu poți, ne poți susține și financiar, sau printr-o du'a.";
 "ending.supportSub" = "Invitând pe cineva apropiat, financiar sau printr-o du'a";
 "paused.title" = "Funcțiile suplimentare sunt în pauză";
@@ -78,6 +79,7 @@
 "invite.back" = "Înapoi";
 "invite.closeAfterShare" = "Înapoi la aplicație";
 "share.message" = "Te invit să descoperi Browther: browserul care taie muzica și estompează imaginile haram.\nCu codul meu {code}, ai două luni de funcții suplimentare.";
+"notice.eyebrow" = "Recomandări";
 "notice.title" = "Invitație confirmată!";
 "notice.bodyLifetime" = "Ai reușit: Browther e deblocat 100%, pe viață.";
 "notice.see" = "Vezi recomandările mele";
@@ -159,12 +161,15 @@
 "gauge.tickBonus.one" = "+{count} lună";
 "gauge.tickBonus.few" = "+{count} luni";
 "gauge.tickBonus.other" = "+{count} de luni";
-"ending.title.one" = "Mâine, unele funcții suplimentare vor intra în pauză… dar le poți păstra pe viață, gratuit!";
-"ending.title.few" = "Peste {count} zile, unele funcții suplimentare vor intra în pauză… dar le poți păstra pe viață, gratuit!";
-"ending.title.other" = "Peste {count} de zile, unele funcții suplimentare vor intra în pauză… dar le poți păstra pe viață, gratuit!";
+"ending.title.one" = "Mâine, unele funcții suplimentare vor intra în pauză.";
+"ending.title.few" = "Peste {count} zile, unele funcții suplimentare vor intra în pauză.";
+"ending.title.other" = "Peste {count} de zile, unele funcții suplimentare vor intra în pauză.";
 "support.inviteSub.one" = "Browther implicit {count} zi = invitație confirmată";
 "support.inviteSub.few" = "Browther implicit {count} zile = invitație confirmată";
 "support.inviteSub.other" = "Browther implicit {count} de zile = invitație confirmată";
+"support.inviteCount.one" = "Invită {count} persoană";
+"support.inviteCount.few" = "Invită {count} persoane";
+"support.inviteCount.other" = "Invită {count} de persoane";
 "reminder.featuresTitle.one" = "Mâine, funcțiile tale suplimentare vor intra în pauză.";
 "reminder.featuresTitle.few" = "Peste {count} zile, funcțiile tale suplimentare vor intra în pauză.";
 "reminder.featuresTitle.other" = "Peste {count} de zile, funcțiile tale suplimentare vor intra în pauză.";
@@ -183,6 +188,9 @@
 "invite.foot.one" = "O invitație e confirmată când persoana a păstrat Browther ca browser implicit timp de {count} zi.";
 "invite.foot.few" = "O invitație e confirmată când persoana a păstrat Browther ca browser implicit timp de {count} zile.";
 "invite.foot.other" = "O invitație e confirmată când persoana a păstrat Browther ca browser implicit timp de {count} de zile.";
+"notice.why.one" = "Cineva apropiat ți-a folosit codul de recomandare și tocmai a păstrat Browther ca browser implicit timp de {count} zi.";
+"notice.why.few" = "Cineva apropiat ți-a folosit codul de recomandare și tocmai a păstrat Browther ca browser implicit timp de {count} zile.";
+"notice.why.other" = "Cineva apropiat ți-a folosit codul de recomandare și tocmai a păstrat Browther ca browser implicit timp de {count} de zile.";
 "notice.body.one" = "+{count} lună de funcții suplimentare, până pe {date}.";
 "notice.body.few" = "+{count} luni de funcții suplimentare, până pe {date}.";
 "notice.body.other" = "+{count} de luni de funcții suplimentare, până pe {date}.";
@@ -195,6 +203,9 @@
 "referee.hint.one" = "Cineva apropiat ți-a arătat Browther. Tu ai primit două luni; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} zi.";
 "referee.hint.few" = "Cineva apropiat ți-a arătat Browther. Tu ai primit două luni; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} zile.";
 "referee.hint.other" = "Cineva apropiat ți-a arătat Browther. Tu ai primit două luni; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} de zile.";
+"referee.noticeWhy.one" = "Ai folosit codul de recomandare al persoanei respective și tocmai ai păstrat Browther ca browser implicit timp de {count} zi.";
+"referee.noticeWhy.few" = "Ai folosit codul de recomandare al persoanei respective și tocmai ai păstrat Browther ca browser implicit timp de {count} zile.";
+"referee.noticeWhy.other" = "Ai folosit codul de recomandare al persoanei respective și tocmai ai păstrat Browther ca browser implicit timp de {count} de zile.";
 "referee.meter.one" = "{current} din {count} zi";
 "referee.meter.few" = "{current} din {count} zile";
 "referee.meter.other" = "{current} din {count} de zile";

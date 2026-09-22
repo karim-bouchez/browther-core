@@ -229,7 +229,12 @@ final class ReferralSheetHostingController: UIHostingController<ReferralSheetVie
     super.init(rootView: ReferralSheetView(screen: screen, preview: preview, actions: actions))
     modalPresentationStyle = .pageSheet
     if let sheet = sheetPresentationController {
+      // ⚠️ Elle s'ouvre EN GRAND : à mi-hauteur, le J−3 demandait un geste pour
+      // lire sa propre issue (« … mais tu peux les garder à vie »), c'est-à-dire
+      // la moitié utile de l'écran (recette Karim, 2026-09-22). La demi-hauteur
+      // reste disponible, pour la repousser sans la fermer.
       sheet.detents = [.medium(), .large()]
+      sheet.selectedDetentIdentifier = .large
       sheet.prefersGrabberVisible = true
     }
     actions.dismiss = { [weak self] in

@@ -60,6 +60,7 @@
 "announce.invite" = "Jemanden einladen";
 "announce.inviteSub" = "Und den kostenlosen Zugang auf Lebenszeit anpeilen";
 "announce.later" = "Später erinnern";
+"ending.hook" = "Aber Sie können sie auf Lebenszeit behalten, kostenlos!";
 "ending.body" = "Das Studio dev&din **braucht Ihre Unterstützung**, um weiterhin kostenlose Apps anbieten zu können. Wir bitten Sie nur darum, die App Ihren Kontakten vorzustellen. Wenn das wirklich nicht geht, können Sie uns auch finanziell unterstützen oder mit einem Du'a.";
 "ending.supportSub" = "Jemanden einladen, finanziell oder mit einem Du'a";
 "paused.title" = "Die zusätzlichen Funktionen sind pausiert";
@@ -78,6 +79,7 @@
 "invite.back" = "Zurück";
 "invite.closeAfterShare" = "Zurück zur App";
 "share.message" = "Ich lade dich ein, Browther zu entdecken: den Browser, der Musik entfernt und Haram-Bilder unscharf macht.\nMit meinem Code {code} bekommst du zwei Monate mit zusätzlichen Funktionen.";
+"notice.eyebrow" = "Empfehlungen";
 "notice.title" = "Einladung bestätigt!";
 "notice.bodyLifetime" = "Geschafft: Browther ist zu 100 % freigeschaltet, auf Lebenszeit.";
 "notice.see" = "Meine Empfehlungen ansehen";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "ab {count} bestätigten Einladungen";
 "gauge.tickBonus.one" = "+{count} Monat";
 "gauge.tickBonus.other" = "+{count} Monate";
-"ending.title.one" = "Morgen pausieren einige zusätzliche Funktionen… aber Sie können sie auf Lebenszeit behalten, kostenlos!";
-"ending.title.other" = "In {count} Tagen pausieren einige zusätzliche Funktionen… aber Sie können sie auf Lebenszeit behalten, kostenlos!";
+"ending.title.one" = "Morgen pausieren einige zusätzliche Funktionen.";
+"ending.title.other" = "In {count} Tagen pausieren einige zusätzliche Funktionen.";
 "support.inviteSub.one" = "Browther als Standardbrowser für {count} Tag = bestätigte Einladung";
 "support.inviteSub.other" = "Browther als Standardbrowser für {count} Tage = bestätigte Einladung";
+"support.inviteCount.one" = "{count} Person einladen";
+"support.inviteCount.other" = "{count} Personen einladen";
 "reminder.featuresTitle.one" = "Morgen pausieren Ihre zusätzlichen Funktionen.";
 "reminder.featuresTitle.other" = "In {count} Tagen pausieren Ihre zusätzlichen Funktionen.";
 "reminder.inProgressCount.one" = "Eine Ihrer Einladungen ist auf gutem Weg: Noch {count} Tag mit Browther als Standardbrowser, dann ist sie bestätigt.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Ihr Abo endet in {count} Tagen.";
 "invite.foot.one" = "Eine Einladung ist bestätigt, sobald die Person Browther {count} Tag lang als Standardbrowser behalten hat.";
 "invite.foot.other" = "Eine Einladung ist bestätigt, sobald die Person Browther {count} Tage lang als Standardbrowser behalten hat.";
+"notice.why.one" = "Jemand hat Ihren Empfehlungscode verwendet und Browther gerade {count} Tag lang als Standardbrowser behalten.";
+"notice.why.other" = "Jemand hat Ihren Empfehlungscode verwendet und Browther gerade {count} Tage lang als Standardbrowser behalten.";
 "notice.body.one" = "+{count} Monat mit zusätzlichen Funktionen, bis zum {date}.";
 "notice.body.other" = "+{count} Monate mit zusätzlichen Funktionen, bis zum {date}.";
 "notice.bodyNoDate.one" = "+{count} Monat mit zusätzlichen Funktionen.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Noch {count} Tage mit Browther als Standardbrowser, und wer Sie eingeladen hat, bekommt 1 Monat mit zusätzlichen Funktionen.";
 "referee.hint.one" = "Jemand hat Ihnen Browther vorgestellt. Sie haben zwei Monate erhalten; die Person bekommt ihren, sobald Sie Browther {count} Tag lang als Standardbrowser behalten haben.";
 "referee.hint.other" = "Jemand hat Ihnen Browther vorgestellt. Sie haben zwei Monate erhalten; die Person bekommt ihren, sobald Sie Browther {count} Tage lang als Standardbrowser behalten haben.";
+"referee.noticeWhy.one" = "Sie haben den Empfehlungscode dieser Person verwendet und Browther gerade {count} Tag lang als Standardbrowser behalten.";
+"referee.noticeWhy.other" = "Sie haben den Empfehlungscode dieser Person verwendet und Browther gerade {count} Tage lang als Standardbrowser behalten.";
 "referee.meter.one" = "{current} von {count} Tag";
 "referee.meter.other" = "{current} von {count} Tagen";
 "invitations.months.one" = "+{count} Monat";

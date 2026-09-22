@@ -60,6 +60,7 @@
 "announce.invite" = "Inviter un proche";
 "announce.inviteSub" = "Et tenter d'avoir l'accès gratuit à vie";
 "announce.later" = "Me le rappeler plus tard";
+"ending.hook" = "Mais tu peux les garder à vie, gratuitement !";
 "ending.body" = "Le studio dev&din a **besoin de ton soutien** pour continuer à proposer des applications gratuites. Ce qu'on te demande, c'est simplement de faire découvrir l'app à tes contacts. Si tu ne peux vraiment pas, tu peux aussi nous soutenir financièrement, ou via une du'a.";
 "ending.supportSub" = "Inviter un proche, financièrement, ou via une du'a";
 "paused.title" = "Les fonctionnalités supplémentaires sont en pause";
@@ -78,6 +79,7 @@
 "invite.back" = "Retour";
 "invite.closeAfterShare" = "Revenir à l'app";
 "share.message" = "Je t'invite à découvrir Browther : le navigateur qui coupe la musique et floute les images haram.\nAvec mon code {code}, tu as deux mois de fonctionnalités supplémentaires.";
+"notice.eyebrow" = "Parrainage";
 "notice.title" = "Invitation validée !";
 "notice.bodyLifetime" = "Tu y es : Browther est 100 % débloqué, à vie.";
 "notice.see" = "Voir mon parrainage";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "à partir de {count} invitations validées";
 "gauge.tickBonus.one" = "+{count} mois";
 "gauge.tickBonus.other" = "+{count} mois";
-"ending.title.one" = "Demain, certaines fonctionnalités supplémentaires se mettront en pause… mais tu peux les garder à vie, gratuitement !";
-"ending.title.other" = "Dans {count} jours, certaines fonctionnalités supplémentaires se mettront en pause… mais tu peux les garder à vie, gratuitement !";
+"ending.title.one" = "Demain, certaines fonctionnalités supplémentaires se mettront en pause.";
+"ending.title.other" = "Dans {count} jours, certaines fonctionnalités supplémentaires se mettront en pause.";
 "support.inviteSub.one" = "Browther par défaut {count} jour = invitation validée";
 "support.inviteSub.other" = "Browther par défaut {count} jours = invitation validée";
+"support.inviteCount.one" = "Inviter {count} proche";
+"support.inviteCount.other" = "Inviter {count} proches";
 "reminder.featuresTitle.one" = "Demain, tes fonctionnalités supplémentaires se mettront en pause.";
 "reminder.featuresTitle.other" = "Dans {count} jours, tes fonctionnalités supplémentaires se mettront en pause.";
 "reminder.inProgressCount.one" = "Une de tes invitations est en bonne voie : encore {count} jour avec Browther par défaut et elle sera validée.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Ton abonnement s'arrête dans {count} jours.";
 "invite.foot.one" = "Une invitation est validée quand ton proche a gardé Browther comme navigateur par défaut pendant {count} jour.";
 "invite.foot.other" = "Une invitation est validée quand ton proche a gardé Browther comme navigateur par défaut pendant {count} jours.";
+"notice.why.one" = "Un proche a utilisé ton code de parrainage, et vient de garder Browther comme navigateur par défaut pendant {count} jour.";
+"notice.why.other" = "Un proche a utilisé ton code de parrainage, et vient de garder Browther comme navigateur par défaut pendant {count} jours.";
 "notice.body.one" = "+{count} mois de fonctionnalités supplémentaires, jusqu'au {date}.";
 "notice.body.other" = "+{count} mois de fonctionnalités supplémentaires, jusqu'au {date}.";
 "notice.bodyNoDate.one" = "+{count} mois de fonctionnalités supplémentaires.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Encore {count} jours avec Browther par défaut et ton proche gagne 1 mois de fonctionnalités supplémentaires.";
 "referee.hint.one" = "Un proche t'a fait découvrir Browther. Tu as reçu deux mois ; le sien lui revient quand tu auras gardé Browther comme navigateur par défaut pendant {count} jour.";
 "referee.hint.other" = "Un proche t'a fait découvrir Browther. Tu as reçu deux mois ; le sien lui revient quand tu auras gardé Browther comme navigateur par défaut pendant {count} jours.";
+"referee.noticeWhy.one" = "Tu as reçu son code de parrainage, et tu viens de garder Browther comme navigateur par défaut pendant {count} jour.";
+"referee.noticeWhy.other" = "Tu as reçu son code de parrainage, et tu viens de garder Browther comme navigateur par défaut pendant {count} jours.";
 "referee.meter.one" = "{current} sur {count} jour";
 "referee.meter.other" = "{current} sur {count} jours";
 "invitations.months.one" = "+{count} mois";

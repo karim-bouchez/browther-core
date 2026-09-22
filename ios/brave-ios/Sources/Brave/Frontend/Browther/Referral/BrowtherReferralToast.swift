@@ -55,6 +55,7 @@ enum BrowtherReferralToast {
     model.onClose = { hide(animated: true) }
 
     let window = PassthroughWindow(windowScene: scene)
+    window.model = model
     window.windowLevel = .alert + 1
     window.backgroundColor = .clear
     let host = UIHostingController(rootView: ReferralToastView(model: model))
@@ -90,10 +91,20 @@ enum BrowtherReferralToast {
 
 /// Ne capte que les touchers sur ce qui est dessiné (la carte) : partout
 /// ailleurs, l'écran d'en dessous reste utilisable.
+///
+/// 🔴 **Le tri se fait sur le RECTANGLE de la carte, ⛔ pas sur l'identité de la
+/// vue touchée** : SwiftUI dessine tout son contenu dans la vue de l'hôte
+/// (`_UIHostingView`) sans sous-vue par bouton. Comparer `hit ===
+/// rootViewController?.view` renvoyait donc TOUJOURS `nil` — la croix et le
+/// bouton « Soutenir dev&din » d'un toast ne recevaient jamais le toucher
+/// (constaté par Karim en recette le 2026-09-22 : la croix ne fermait rien).
+/// La carte publie son cadre (`ToastModel.cardFrame`), et lui seul capte.
 final class PassthroughWindow: UIWindow {
+  weak var model: ToastModel?
+
   override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    guard let hit = super.hitTest(point, with: event) else { return nil }
-    return hit === rootViewController?.view ? nil : hit
+    guard let frame = model?.cardFrame, frame.contains(point) else { return nil }
+    return super.hitTest(point, with: event)
   }
 }
 
@@ -103,6 +114,9 @@ final class ToastModel: ObservableObject {
   let body: String?
   let actionLabel: String?
   @Published var visible = false
+  /// Le cadre de la carte, en coordonnées d'écran — c'est LUI qui capte les
+  /// touchers (`PassthroughWindow`), pas la vue SwiftUI.
+  var cardFrame: CGRect = .zero
   var onAction: (() -> Void)?
   var onClose: (() -> Void)?
 
@@ -160,10 +174,13 @@ struct ReferralToastView: View {
       } label: {
         Image(systemName: "xmark")
           .font(.system(size: 13, weight: .semibold))
-          .foregroundStyle(.secondary)
+          // ⚠️ `.secondary` DANS un bouton = la teinte (bleu) atténuée, pas du
+          // gris : la croix ressortait en bleu (recette Karim, 2026-09-22).
+          .foregroundStyle(Color.secondary)
           .frame(width: 30, height: 30)
           .contentShape(Rectangle())
       }
+      .buttonStyle(.plain)
       .accessibilityLabel(Strings.BrowtherReferral.close)
     }
     .padding(14)
@@ -174,5 +191,12 @@ struct ReferralToastView: View {
     }
     .shadow(color: .black.opacity(0.18), radius: 16, y: 6)
     .frame(maxWidth: 520)
+    .background(
+      GeometryReader { geometry in
+        Color.clear
+          .onAppear { model.cardFrame = geometry.frame(in: .global) }
+          .onChange(of: geometry.frame(in: .global)) { model.cardFrame = $1 }
+      }
+    )
   }
 }

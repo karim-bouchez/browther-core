@@ -60,6 +60,7 @@
 "announce.invite" = "邀请亲友";
 "announce.inviteSub" = "还有机会获得终身免费使用";
 "announce.later" = "稍后提醒我";
+"ending.hook" = "但你可以免费终身保留它们！";
 "ending.body" = "dev&din 工作室**需要你的支持**，才能继续提供免费应用。我们只请你把这款应用介绍给你的联系人。如果实在做不到，你也可以在资金上支持我们，或者用都阿支持我们。";
 "ending.supportSub" = "邀请亲友、资金支持，或者都阿";
 "paused.title" = "附加功能已暂停";
@@ -78,6 +79,7 @@
 "invite.back" = "返回";
 "invite.closeAfterShare" = "返回应用";
 "share.message" = "邀请你来体验 Browther：一款能去除音乐、模糊哈拉姆图片的浏览器。\n使用我的推荐码 {code}，你可以获得两个月附加功能。";
+"notice.eyebrow" = "推荐计划";
 "notice.title" = "邀请已生效！";
 "notice.bodyLifetime" = "你做到了：Browther 已终身 100% 解锁。";
 "notice.see" = "查看我的推荐";
@@ -145,18 +147,21 @@
 "gauge.now.other" = "你目前有 {count} 个有效邀请。";
 "gauge.lifeSub.other" = "{count} 个有效邀请起";
 "gauge.tickBonus.other" = "+{count} 个月";
-"ending.title.other" = "{count} 天后，部分附加功能将暂停……但你可以免费终身保留它们！";
+"ending.title.other" = "{count} 天后，部分附加功能将暂停。";
 "support.inviteSub.other" = "Browther 作为默认浏览器 {count} 天 = 有效邀请";
+"support.inviteCount.other" = "邀请 {count} 位亲友";
 "reminder.featuresTitle.other" = "{count} 天后，你的附加功能将暂停。";
 "reminder.inProgressCount.other" = "你的一个邀请进展顺利：再将 Browther 设为默认浏览器 {count} 天，它就会生效。";
 "reminder.monthsTitle.other" = "{count} 天后，你获得的月份即将结束。";
 "reminder.monthsNext.other" = "每个有效邀请都会再为你增加 1 个月。再 {count} 个，就能进入下一个阶梯。";
 "reminder.subscriptionTitle.other" = "你的订阅将在 {count} 天后结束。";
 "invite.foot.other" = "你的亲友将 Browther 保持为默认浏览器 {count} 天后，邀请即生效。";
+"notice.why.other" = "有亲友使用了你的推荐码，并刚刚将 Browther 保持为默认浏览器 {count} 天。";
 "notice.body.other" = "+{count} 个月附加功能，有效期至 {date}。";
 "notice.bodyNoDate.other" = "+{count} 个月附加功能。";
 "referee.progress.other" = "再将 Browther 设为默认浏览器 {count} 天，你的亲友就能获得 1 个月附加功能。";
 "referee.hint.other" = "一位亲友带你认识了 Browther。你已获得两个月；当你将 Browther 保持为默认浏览器 {count} 天后，对方也会获得属于自己的那一个月。";
+"referee.noticeWhy.other" = "你使用了对方的推荐码，并刚刚将 Browther 保持为默认浏览器 {count} 天。";
 "referee.meter.other" = "{current} / {count} 天";
 "invitations.months.other" = "+{count} 个月";
 "invitations.rowValidated.other" = "作为默认浏览器 {count} 天：你的 1 个月已添加。";

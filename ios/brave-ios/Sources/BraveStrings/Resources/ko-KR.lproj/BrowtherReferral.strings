@@ -60,6 +60,7 @@
 "announce.invite" = "가까운 사람 초대하기";
 "announce.inviteSub" = "평생 무료 이용에도 도전해 보세요";
 "announce.later" = "나중에 알려 주세요";
+"ending.hook" = "하지만 평생 무료로 계속 쓸 수 있어요!";
 "ending.body" = "dev&din 스튜디오가 계속 무료 앱을 제공하려면 **당신의 응원이 필요해요**. 부탁드리는 건 그저 연락처에 있는 분들에게 앱을 소개해 주시는 것뿐이에요. 정말 어렵다면 금전적으로 후원하거나 두아로 응원해 주셔도 돼요.";
 "ending.supportSub" = "가까운 사람 초대, 금전적 후원, 또는 두아";
 "paused.title" = "추가 기능이 일시 중지되었어요";
@@ -78,6 +79,7 @@
 "invite.back" = "뒤로";
 "invite.closeAfterShare" = "앱으로 돌아가기";
 "share.message" = "Browther를 소개할게요. 음악을 끄고 하람 이미지를 흐리게 해 주는 브라우저예요.\n내 코드 {code} 입력 시 추가 기능 2개월을 받을 수 있어요.";
+"notice.eyebrow" = "추천 프로그램";
 "notice.title" = "초대가 확정되었어요!";
 "notice.bodyLifetime" = "달성했어요: Browther가 평생 100% 해제되었어요.";
 "notice.see" = "내 추천 현황 보기";
@@ -145,18 +147,21 @@
 "gauge.now.other" = "지금까지 확정된 초대는 {count}건이에요.";
 "gauge.lifeSub.other" = "확정된 초대 {count}건부터";
 "gauge.tickBonus.other" = "+{count}개월";
-"ending.title.other" = "{count}일 후, 일부 추가 기능이 일시 중지돼요… 하지만 평생 무료로 계속 쓸 수 있어요!";
+"ending.title.other" = "{count}일 후, 일부 추가 기능이 일시 중지돼요.";
 "support.inviteSub.other" = "Browther를 기본 브라우저로 {count}일 = 확정된 초대";
+"support.inviteCount.other" = "{count}명 초대하기";
 "reminder.featuresTitle.other" = "{count}일 후, 추가 기능이 일시 중지돼요.";
 "reminder.inProgressCount.other" = "초대 하나가 잘 진행되고 있어요. Browther를 기본 브라우저로 {count}일 더 쓰면 확정돼요.";
 "reminder.monthsTitle.other" = "{count}일 후, 받은 기간이 끝나요.";
 "reminder.monthsNext.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 다음 단계예요.";
 "reminder.subscriptionTitle.other" = "구독이 {count}일 후에 종료돼요.";
 "invite.foot.other" = "초대한 분이 Browther를 기본 브라우저로 {count}일 동안 유지하면 초대가 확정돼요.";
+"notice.why.other" = "가까운 사람이 내 추천 코드를 사용했고, Browther를 기본 브라우저로 {count}일 동안 유지했어요.";
 "notice.body.other" = "추가 기능 +{count}개월, {date}까지.";
 "notice.bodyNoDate.other" = "추가 기능 +{count}개월.";
 "referee.progress.other" = "Browther를 기본 브라우저로 {count}일 더 쓰면 그분이 추가 기능 1개월을 받아요.";
 "referee.hint.other" = "가까운 사람이 Browther를 소개해 줬어요. 나는 2개월을 받았고, 그분의 몫은 내가 Browther를 기본 브라우저로 {count}일 동안 유지하면 추가돼요.";
+"referee.noticeWhy.other" = "그분의 추천 코드를 사용했고, Browther를 기본 브라우저로 {count}일 동안 유지했어요.";
 "referee.meter.other" = "{count}일 중 {current}일";
 "invitations.months.other" = "+{count}개월";
 "invitations.rowValidated.other" = "기본 브라우저로 {count}일: 내 1개월이 추가되었어요.";

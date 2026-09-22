@@ -1472,7 +1472,14 @@ class SettingsViewController: TableViewController {
     let message: String
     switch BrowtherReferralController.shared.attemptSolicitation(in: bvc, merit: merit, recette: true) {
     case .shown(let screen): return "Ouvert : \(screen)."
-    case .none: message = "Rien n'est dû (voir « Où j'en suis »)."
+    case .none:
+      // ⚠️ La cause la plus fréquente en recette : l'annonce est dormante, donc
+      // AUCUN écran n'est dû, quel que soit le scénario posé (recette Karim,
+      // 2026-09-22 : « J−3 ne s'ouvre pas »). On le dit, plutôt que de renvoyer
+      // la personne lire son état.
+      message = BrowtherReferralController.shared.extrasReleased
+        ? "Rien n'est dû (voir « Où j'en suis »)."
+        : "Rien n'est dû : l'annonce dort tant que Sawtunaa n'est pas finalisé. Coche « Faire comme si Sawtunaa était finalisé », puis repose la situation."
     case .lockedToday: message = "Le verrou du jour est pris par une autre fiche."
     case .busy: message = "L'écran n'est pas libre."
     case .unknown: message = "Statut inconnu : le service n'a pas encore répondu."

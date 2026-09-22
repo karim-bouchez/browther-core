@@ -60,6 +60,7 @@
 "announce.invite" = "Inviter en, du kender";
 "announce.inviteSub" = "Og gå efter gratis adgang for livet";
 "announce.later" = "Mind mig om det senere";
+"ending.hook" = "Men du kan beholde dem for livet, gratis!";
 "ending.body" = "Studiet dev&din **har brug for din støtte** for fortsat at kunne tilbyde gratis apps. Det eneste, vi beder dig om, er at vise appen til dine kontakter. Hvis du virkelig ikke kan, kan du også støtte os økonomisk eller med en du'a.";
 "ending.supportSub" = "Inviter nogen, økonomisk eller med en du'a";
 "paused.title" = "De ekstra funktioner er sat på pause";
@@ -78,6 +79,7 @@
 "invite.back" = "Tilbage";
 "invite.closeAfterShare" = "Tilbage til appen";
 "share.message" = "Jeg inviterer dig til at prøve Browther: browseren, der fjerner musik og slører haram-billeder.\nMed min kode {code} får du to måneder med ekstra funktioner.";
+"notice.eyebrow" = "Henvisninger";
 "notice.title" = "Invitation bekræftet!";
 "notice.bodyLifetime" = "Du er i mål: Browther er 100 % låst op, for livet.";
 "notice.see" = "Se mine henvisninger";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "fra {count} bekræftede invitationer";
 "gauge.tickBonus.one" = "+{count} måned";
 "gauge.tickBonus.other" = "+{count} måneder";
-"ending.title.one" = "I morgen sættes nogle ekstra funktioner på pause… men du kan beholde dem for livet, gratis!";
-"ending.title.other" = "Om {count} dage sættes nogle ekstra funktioner på pause… men du kan beholde dem for livet, gratis!";
+"ending.title.one" = "I morgen sættes nogle ekstra funktioner på pause.";
+"ending.title.other" = "Om {count} dage sættes nogle ekstra funktioner på pause.";
 "support.inviteSub.one" = "Browther som standardbrowser i {count} dag = bekræftet invitation";
 "support.inviteSub.other" = "Browther som standardbrowser i {count} dage = bekræftet invitation";
+"support.inviteCount.one" = "Inviter {count} person";
+"support.inviteCount.other" = "Inviter {count} personer";
 "reminder.featuresTitle.one" = "I morgen sættes dine ekstra funktioner på pause.";
 "reminder.featuresTitle.other" = "Om {count} dage sættes dine ekstra funktioner på pause.";
 "reminder.inProgressCount.one" = "En af dine invitationer er godt på vej: {count} dag mere med Browther som standardbrowser, så er den bekræftet.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Dit abonnement slutter om {count} dage.";
 "invite.foot.one" = "En invitation bekræftes, når personen har beholdt Browther som standardbrowser i {count} dag.";
 "invite.foot.other" = "En invitation bekræftes, når personen har beholdt Browther som standardbrowser i {count} dage.";
+"notice.why.one" = "Nogen har brugt din henvisningskode og har lige beholdt Browther som standardbrowser i {count} dag.";
+"notice.why.other" = "Nogen har brugt din henvisningskode og har lige beholdt Browther som standardbrowser i {count} dage.";
 "notice.body.one" = "+{count} måned med ekstra funktioner, indtil den {date}.";
 "notice.body.other" = "+{count} måneder med ekstra funktioner, indtil den {date}.";
 "notice.bodyNoDate.one" = "+{count} måned med ekstra funktioner.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "{count} dage mere med Browther som standardbrowser, så får personen, der inviterede dig, 1 måned med ekstra funktioner.";
 "referee.hint.one" = "En, du kender, har vist dig Browther. Du har fået to måneder; vedkommende får sin, når du har beholdt Browther som standardbrowser i {count} dag.";
 "referee.hint.other" = "En, du kender, har vist dig Browther. Du har fået to måneder; vedkommende får sin, når du har beholdt Browther som standardbrowser i {count} dage.";
+"referee.noticeWhy.one" = "Du har brugt vedkommendes henvisningskode og har lige beholdt Browther som standardbrowser i {count} dag.";
+"referee.noticeWhy.other" = "Du har brugt vedkommendes henvisningskode og har lige beholdt Browther som standardbrowser i {count} dage.";
 "referee.meter.one" = "{current} af {count} dag";
 "referee.meter.other" = "{current} af {count} dage";
 "invitations.months.one" = "+{count} måned";

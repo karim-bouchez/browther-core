@@ -283,9 +283,15 @@ extension Strings {
       plural(
         "ending.title",
         days,
-        one: "Tomorrow, some additional features will pause… but you can keep them for life, for free!",
-        other: "In {count} days, some additional features will pause… but you can keep them for life, for free!"
+        one: "Tomorrow, some additional features will pause.",
+        other: "In {count} days, some additional features will pause."
       )
+    }
+    /// ⭐ L'issue se lit À PART du constat, dans l'or du texte (§ 12.30) :
+    /// fondue dans le titre, elle se lisait comme la fin d'une mauvaise
+    /// nouvelle.
+    public static var endingHook: String {
+      t("ending.hook", "But you can keep them for life, for free!")
     }
     /// `**…**` = en gras.
     public static var endingBody: String {
@@ -318,6 +324,11 @@ extension Strings {
         one: "Browther as default browser for {count} day = confirmed invitation",
         other: "Browther as default browser for {count} days = confirmed invitation"
       )
+    }
+    /// ⭐ Le bouton répond avec le nombre de la jauge (§ 12.30) : l'écran
+    /// demande « combien penses-tu pouvoir inviter ? », le bouton le reprend.
+    public static func supportInviteCount(_ count: Int) -> String {
+      plural("support.inviteCount", count, one: "Invite {count} person", other: "Invite {count} people")
     }
     public static var supportOr: String { t("support.or", "or") }
     public static func supportMoney(_ price: String) -> String {
@@ -418,7 +429,20 @@ extension Strings {
 
     // MARK: 8 — la seule notification
 
+    /// ⭐ § 12.32 : 8 et 8 bis sont les seules fenêtres que personne n'a
+    /// demandées — elles tombent des semaines plus tard, par-dessus l'écran en
+    /// cours. D'où le sujet (cet eyebrow), le gain en accroche, puis la cause.
+    public static var noticeEyebrow: String { t("notice.eyebrow", "Referrals") }
     public static var noticeTitle: String { t("notice.title", "Invitation confirmed!") }
+    /// La cause, au présent immédiat — ⛔ jamais le mécanisme ni une consigne.
+    public static func noticeWhy(_ days: Int) -> String {
+      plural(
+        "notice.why",
+        days,
+        one: "Someone used your referral code, and has just kept Browther as their default browser for {count} day.",
+        other: "Someone used your referral code, and has just kept Browther as their default browser for {count} days."
+      )
+    }
     public static func noticeBody(months: Int, date: String) -> String {
       fill(
         plural(
@@ -468,6 +492,15 @@ extension Strings {
     public static var refereeNoticeTitle: String { t("referee.noticeTitle", "Thank you!") }
     public static var refereeNoticeBody: String {
       t("referee.noticeBody", "They earned 1 month of additional features — by Allah's grace, then thanks to you.")
+    }
+    /// La cause, côté filleul (`criterion_self` du § 12.32), au genre neutre.
+    public static func refereeNoticeWhy(_ days: Int) -> String {
+      plural(
+        "referee.noticeWhy",
+        days,
+        one: "You used their referral code, and you have just kept Browther as your default browser for {count} day.",
+        other: "You used their referral code, and you have just kept Browther as your default browser for {count} days."
+      )
     }
     public static var refereeInviteToo: String { t("referee.inviteToo", "Your turn to invite") }
     public static func refereeMeter(current: Int, target: Int) -> String {

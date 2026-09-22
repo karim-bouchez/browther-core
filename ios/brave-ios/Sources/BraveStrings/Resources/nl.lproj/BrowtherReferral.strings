@@ -60,6 +60,7 @@
 "announce.invite" = "Iemand uitnodigen";
 "announce.inviteSub" = "En ga voor levenslange gratis toegang";
 "announce.later" = "Herinner me later";
+"ending.hook" = "Maar je kunt ze levenslang houden, gratis!";
 "ending.body" = "De studio dev&din **heeft je steun nodig** om gratis apps te blijven aanbieden. We vragen je alleen om de app aan je contacten te laten zien. Lukt dat echt niet, dan kun je ons ook financieel steunen, of met een du'a.";
 "ending.supportSub" = "Iemand uitnodigen, financieel, of met een du'a";
 "paused.title" = "De extra functies zijn gepauzeerd";
@@ -78,6 +79,7 @@
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
 "share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je twee maanden extra functies.";
+"notice.eyebrow" = "Verwijzingen";
 "notice.title" = "Uitnodiging bevestigd!";
 "notice.bodyLifetime" = "Gelukt: Browther is 100% ontgrendeld, levenslang.";
 "notice.see" = "Mijn verwijzingen bekijken";
@@ -152,10 +154,12 @@
 "gauge.lifeSub.other" = "vanaf {count} bevestigde uitnodigingen";
 "gauge.tickBonus.one" = "+{count} maand";
 "gauge.tickBonus.other" = "+{count} maanden";
-"ending.title.one" = "Morgen worden sommige extra functies gepauzeerd… maar je kunt ze levenslang houden, gratis!";
-"ending.title.other" = "Over {count} dagen worden sommige extra functies gepauzeerd… maar je kunt ze levenslang houden, gratis!";
+"ending.title.one" = "Morgen worden sommige extra functies gepauzeerd.";
+"ending.title.other" = "Over {count} dagen worden sommige extra functies gepauzeerd.";
 "support.inviteSub.one" = "Browther {count} dag als standaardbrowser = bevestigde uitnodiging";
 "support.inviteSub.other" = "Browther {count} dagen als standaardbrowser = bevestigde uitnodiging";
+"support.inviteCount.one" = "{count} persoon uitnodigen";
+"support.inviteCount.other" = "{count} personen uitnodigen";
 "reminder.featuresTitle.one" = "Morgen worden je extra functies gepauzeerd.";
 "reminder.featuresTitle.other" = "Over {count} dagen worden je extra functies gepauzeerd.";
 "reminder.inProgressCount.one" = "Een van je uitnodigingen is goed op weg: nog {count} dag met Browther als standaardbrowser en ze is bevestigd.";
@@ -168,6 +172,8 @@
 "reminder.subscriptionTitle.other" = "Je abonnement stopt over {count} dagen.";
 "invite.foot.one" = "Een uitnodiging is bevestigd zodra de persoon Browther {count} dag als standaardbrowser heeft gehouden.";
 "invite.foot.other" = "Een uitnodiging is bevestigd zodra de persoon Browther {count} dagen als standaardbrowser heeft gehouden.";
+"notice.why.one" = "Iemand heeft je verwijscode gebruikt en heeft Browther net {count} dag als standaardbrowser gehouden.";
+"notice.why.other" = "Iemand heeft je verwijscode gebruikt en heeft Browther net {count} dagen als standaardbrowser gehouden.";
 "notice.body.one" = "+{count} maand extra functies, tot {date}.";
 "notice.body.other" = "+{count} maanden extra functies, tot {date}.";
 "notice.bodyNoDate.one" = "+{count} maand extra functies.";
@@ -176,6 +182,8 @@
 "referee.progress.other" = "Nog {count} dagen met Browther als standaardbrowser en wie jou uitnodigde krijgt 1 maand extra functies.";
 "referee.hint.one" = "Iemand liet je Browther ontdekken. Jij hebt twee maanden gekregen; diegene krijgt er een zodra je Browther {count} dag als standaardbrowser hebt gehouden.";
 "referee.hint.other" = "Iemand liet je Browther ontdekken. Jij hebt twee maanden gekregen; diegene krijgt er een zodra je Browther {count} dagen als standaardbrowser hebt gehouden.";
+"referee.noticeWhy.one" = "Je hebt de verwijscode van die persoon gebruikt en hebt Browther net {count} dag als standaardbrowser gehouden.";
+"referee.noticeWhy.other" = "Je hebt de verwijscode van die persoon gebruikt en hebt Browther net {count} dagen als standaardbrowser gehouden.";
 "referee.meter.one" = "{current} van {count} dag";
 "referee.meter.other" = "{current} van {count} dagen";
 "invitations.months.one" = "+{count} maand";
