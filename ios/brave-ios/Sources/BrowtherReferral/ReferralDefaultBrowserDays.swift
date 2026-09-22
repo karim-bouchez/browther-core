@@ -91,8 +91,9 @@ public struct DefaultBrowserDays: Codable, Equatable, Sendable {
 /// Le flow est ÉTEINT dans les builds de l'App Store tant que `inStoreBuilds`
 /// vaut `false` — une ligne, visible dans git, que Karim bascule le jour du
 /// lancement. Allumé ailleurs (builds de dev installés sur l'iPhone), pour la
-/// recette. ⚠️ **TestFlight porte le binaire de production** (§ 12.28) : il y
-/// est éteint aussi.
+/// recette. ⚠️ **TestFlight porte le binaire de production** (§ 12.28) — mais
+/// l'app l'y allume (`BrowtherReferralController.isTestFlight`) : c'est le seul
+/// binaire qui puisse acheter en bac à sable.
 ///
 /// 🔴 **« Inviter OU payer » est ce qui rend le dispositif conforme** (§ 8,
 /// Apple 3.2.2) : un écran qui ne dirait que « partage pour débloquer » serait

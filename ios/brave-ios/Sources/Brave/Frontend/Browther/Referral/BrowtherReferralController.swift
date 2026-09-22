@@ -79,10 +79,19 @@ final class BrowtherReferralController: ObservableObject {
 
   private init() {
     enabled = ReferralLaunch.isEnabled(
-      isStoreBuild: AppConstants.buildChannel == .release,
+      isStoreBuild: AppConstants.buildChannel == .release && !Self.isTestFlight,
       storeBillingReady: ReferralPurchases.isReady
     )
     prompt = ReferralStorage.shared.prompt
+  }
+
+  /// ⭐ **TestFlight est la recette de l'ACHAT** (bac à sable Apple) : le build
+  /// de dev ne peut pas acheter (bundle `.BrowserBeta`, absent de RevenueCat),
+  /// seul le binaire `.browser` le peut. Le flow y est donc allumé ; l'App
+  /// Store reste coupé par `ReferralLaunch.inStoreBuilds`. Même détection que
+  /// Brave (`BraveVPN.isSandbox`) : un reçu `sandboxReceipt`.
+  static var isTestFlight: Bool {
+    Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
   }
 
   // MARK: - Ce que les écrans lisent
