@@ -7,9 +7,6 @@
 #define BRAVE_BROWSER_BROWTHER_REFERRAL_BROWTHER_REFERRAL_FILES_H_
 
 #include <string>
-#include <string_view>
-
-#include "base/files/file_path.h"
 
 namespace content {
 class WebUIDataSource;
@@ -28,8 +25,6 @@ class WebUIDataSource;
 //   3. macOS : `Browther.app/Contents/Resources/browther_referral/` (Release
 //      signée : le sceau couvre Resources/, pas MacOS/).
 namespace browther_referral {
-
-base::FilePath ResolveAppDir();
 
 // Sert les requêtes `<prefix><fichier>` de `source` depuis le dossier de l'app.
 // `prefix` vide = toute la source (l'écran Parrainage, dont `index.html` est la

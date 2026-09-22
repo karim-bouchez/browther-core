@@ -58,7 +58,39 @@ std::string StripQuery(const std::string& path) {
   return cut == std::string::npos ? path : path.substr(0, cut);
 }
 
-scoped_refptr<base::RefCountedMemory> ReadAppFile(base::FilePath file) {
+/**
+ * 🔴 Où vit l'app — ⚠️ **sur un fil BLOQUANT uniquement** : le repli macOS teste
+ * l'existence d'un fichier, et un accès disque sur le fil de l'UI lève un
+ * `DCHECK` en build de dev (vu le 2026-09-22 : le navigateur mourait à
+ * l'ouverture de l'écran, mais seulement SANS `--browther-referral-path`, qui
+ * court-circuite le test). Résolu **une seule fois** (statique de fonction,
+ * initialisation déjà protégée) : le dossier ne bouge pas en cours de session.
+ */
+const base::FilePath& AppDir() {
+  static base::NoDestructor<base::FilePath> dir([] {
+    const base::CommandLine& command_line =
+        *base::CommandLine::ForCurrentProcess();
+    if (command_line.HasSwitch(kSwitch)) {
+      return command_line.GetSwitchValuePath(kSwitch);
+    }
+    base::FilePath exe_dir;
+    base::PathService::Get(base::DIR_EXE, &exe_dir);
+    base::FilePath candidate = exe_dir.AppendASCII(kDirName);
+#if BUILDFLAG(IS_MAC)
+    if (!base::PathExists(candidate.AppendASCII("index.html"))) {
+      return base::apple::OuterBundlePath()
+          .Append("Contents")
+          .Append("Resources")
+          .AppendASCII(kDirName);
+    }
+#endif
+    return candidate;
+  }());
+  return *dir;
+}
+
+scoped_refptr<base::RefCountedMemory> ReadAppFile(std::string relative) {
+  const base::FilePath file = AppDir().AppendASCII(relative);
   std::optional<int64_t> size = base::GetFileSize(file);
   if (!size || *size > kMaxFileSize) {
     return nullptr;
@@ -95,8 +127,8 @@ std::u16string FallbackMenuLabel(const std::string& locale) {
 }
 
 // Les textes d'une langue : `i18n/<locale>.json`, sinon `i18n/<langue>.json`.
-std::optional<std::u16string> ReadMenuLabel(base::FilePath dir,
-                                            std::string locale) {
+std::optional<std::u16string> ReadMenuLabel(std::string locale) {
+  const base::FilePath dir = AppDir();
   for (const std::string& name : {locale, PrimaryLanguage(locale)}) {
     std::string contents;
     const base::FilePath file =
@@ -116,26 +148,6 @@ std::optional<std::u16string> ReadMenuLabel(base::FilePath dir,
 }
 
 }  // namespace
-
-base::FilePath ResolveAppDir() {
-  const base::CommandLine& command_line =
-      *base::CommandLine::ForCurrentProcess();
-  if (command_line.HasSwitch(kSwitch)) {
-    return command_line.GetSwitchValuePath(kSwitch);
-  }
-  base::FilePath exe_dir;
-  base::PathService::Get(base::DIR_EXE, &exe_dir);
-  base::FilePath dir = exe_dir.AppendASCII(kDirName);
-#if BUILDFLAG(IS_MAC)
-  if (!base::PathExists(dir.AppendASCII("index.html"))) {
-    return base::apple::OuterBundlePath()
-        .Append("Contents")
-        .Append("Resources")
-        .AppendASCII(kDirName);
-  }
-#endif
-  return dir;
-}
 
 void AddAppFiles(content::WebUIDataSource* source, const std::string& prefix) {
   source->SetRequestFilter(
@@ -159,8 +171,7 @@ void AddAppFiles(content::WebUIDataSource* source, const std::string& prefix) {
             base::ThreadPool::PostTaskAndReplyWithResult(
                 FROM_HERE,
                 {base::MayBlock(), base::TaskPriority::USER_BLOCKING},
-                base::BindOnce(&ReadAppFile,
-                               ResolveAppDir().AppendASCII(relative)),
+                base::BindOnce(&ReadAppFile, std::move(relative)),
                 std::move(callback));
           },
           prefix));
@@ -174,7 +185,7 @@ void PreloadMenuLabel() {
   started = true;
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE, {base::MayBlock(), base::TaskPriority::BEST_EFFORT},
-      base::BindOnce(&ReadMenuLabel, ResolveAppDir(),
+      base::BindOnce(&ReadMenuLabel,
                      g_browser_process->GetApplicationLocale()),
       base::BindOnce([](std::optional<std::u16string> label) {
         if (label) {
