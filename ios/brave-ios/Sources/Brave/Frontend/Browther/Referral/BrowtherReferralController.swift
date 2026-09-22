@@ -8,6 +8,7 @@ import BrowtherAnalytics
 import BrowtherReferral
 import Foundation
 import Preferences
+import Sawtunaa
 import Shared
 import UIKit
 
@@ -104,7 +105,17 @@ final class BrowtherReferralController: ObservableObject {
   var scale: MilestoneScale { MilestoneScale(status: known) }
 
   func isPaused(now: Date = Date()) -> Bool {
-    enabled && access.isPaused(now: now)
+    enabled && extrasReleased && access.isPaused(now: now)
+  }
+
+  /// ⭐ **Tant que Sawtunaa n'est pas finalisé, RIEN n'est en pause et rien ne
+  /// sollicite** (§ 9 : « d'ici là tout est ouvert ») — ni rappel, ni J0, ni
+  /// garde, ni circuit. ⚠️ Même si le service dit le contraire : un filleul
+  /// dont le code a démarré les mois AVANT le lancement ne doit pas voir une
+  /// pause d'une fonctionnalité qu'on ne lui a jamais annoncée. Seules les
+  /// bonnes nouvelles (8, 8 bis) passent.
+  var extrasReleased: Bool {
+    ReferralLaunch.extrasReleased || recetteExtrasReleased
   }
 
   /// « Payer » est proposé : ⚠️ seulement quand le vrai paiement existe (iOS
@@ -267,7 +278,8 @@ final class BrowtherReferralController: ObservableObject {
     }
     // Le mois a démarré ailleurs (même trousseau iCloud, autre iPhone) :
     // l'annonce « offert 1 mois » ne serait plus vraie — on la tient pour vue.
-    if ReferralPrompt.announceAlreadyStarted(prompt, status: status) {
+    // ⚠️ Pas avant le lancement : l'annonce doit rester à montrer ce jour-là.
+    if extrasReleased, ReferralPrompt.announceAlreadyStarted(prompt, status: status) {
       updatePrompt(ReferralPrompt.markAnnounced)
     }
     // Aligner ce qui n'a rien à annoncer (premier statut, filleul qui vient de
@@ -421,6 +433,7 @@ final class BrowtherReferralController: ObservableObject {
     if ReferralPrompt.refereeJustValidated(prompt, referredBy: known.referredBy) {
       return .notice(.refereeDone)
     }
+    guard extrasReleased else { return nil }
     if let entry = ReferralPrompt.circuitToRestore(prompt, status: known, access: access, now: now) {
       return .circuit(entry == .paused ? .paused : .support(locked: true))
     }
@@ -430,7 +443,7 @@ final class BrowtherReferralController: ObservableObject {
         status: known,
         access: access,
         atMeritMoment: merit ?? isMeritMoment(now: now),
-        extrasReleased: ReferralLaunch.extrasReleased || recetteExtrasReleased,
+        extrasReleased: extrasReleased,
         now: now
       )
     )
@@ -658,6 +671,25 @@ final class BrowtherReferralController: ObservableObject {
     )
     track("paywall_shown", ["screen": "locked", "feature": feature.rawValue])
     return false
+  }
+
+  // MARK: - La pause, pour de vrai (⛔ « blocage seulement affiché », § 11.2)
+
+  /// Le retrait de la musique était ALLUMÉ quand la couverture est tombée :
+  /// sans ceci, quelqu'un qui le laisse allumé ne verrait jamais la pause (la
+  /// garde ne porte que sur le geste d'allumer). Il s'éteint au Nouvel Onglet
+  /// suivant — ⚠️ pas au milieu d'une vidéo : changer ce réglage recharge
+  /// l'onglet courant, et sur un Nouvel Onglet ça ne coûte rien —, avec le
+  /// toast de la garde (« Soutenir dev&din »). Une fois par pause.
+  ///
+  /// 🟠 Décision par défaut (proposée le 2026-09-22, `private/docs/PARRAINAGE.md`
+  /// § 3) : dormante tant que Sawtunaa n'est pas finalisé (rien n'est en pause
+  /// avant l'annonce).
+  func enforcePauseIfNeeded(in bvc: BrowserViewController, now: Date = Date()) {
+    guard isPaused(now: now), Preferences.Sawtunaa.enabled.value else { return }
+    Preferences.Sawtunaa.enabled.value = false
+    track("feature_paused", ["feature": ExtraFeature.musicRemoval.rawValue])
+    _ = requireExtra(.musicRemoval, presentingFrom: bvc)
   }
 
   // MARK: - La photo du jour (analytique)

@@ -49,25 +49,56 @@ extension Strings {
       Bundle.module.preferredLocalizations.first ?? "en"
     }
 
-    /// La catégorie de pluriel CLDR d'un nombre, pour la langue servie.
+    /// La catégorie de pluriel CLDR d'un nombre ENTIER, pour la langue servie —
+    /// les règles des 40 langues de Browther (`private/assets/ios-referral-strings/`
+    /// liste les formes attendues par langue, `gen-ios-referral-strings.py`).
     static func category(_ count: Int) -> String {
-      let language = Self.language
-      if language.hasPrefix("ar") {
-        let mod100 = count % 100
-        switch count {
-        case 0: return "zero"
-        case 1: return "one"
-        case 2: return "two"
-        default:
-          if (3...10).contains(mod100) { return "few" }
-          if (11...99).contains(mod100) { return "many" }
-          return "other"
-        }
+      category(count, language: Self.language)
+    }
+
+    static func category(_ n: Int, language: String) -> String {
+      let base = String(language.split(separator: "-").first ?? Substring(language))
+      let mod10 = n % 10
+      let mod100 = n % 100
+      switch base {
+      case "ar":
+        if n == 0 { return "zero" }
+        if n == 1 { return "one" }
+        if n == 2 { return "two" }
+        if (3...10).contains(mod100) { return "few" }
+        if (11...99).contains(mod100) { return "many" }
+        return "other"
+      case "fr", "pt", "hi":
+        return n == 0 || n == 1 ? "one" : "other"
+      case "ru", "uk":
+        if mod10 == 1 && mod100 != 11 { return "one" }
+        if (2...4).contains(mod10) && !(12...14).contains(mod100) { return "few" }
+        return "many"
+      case "pl":
+        if n == 1 { return "one" }
+        if (2...4).contains(mod10) && !(12...14).contains(mod100) { return "few" }
+        return "many"
+      case "cs", "sk":
+        if n == 1 { return "one" }
+        if (2...4).contains(n) { return "few" }
+        return "other"
+      case "hr", "bs", "sr":
+        if mod10 == 1 && mod100 != 11 { return "one" }
+        if (2...4).contains(mod10) && !(12...14).contains(mod100) { return "few" }
+        return "other"
+      case "ro":
+        if n == 1 { return "one" }
+        if n == 0 || (2...19).contains(mod100) { return "few" }
+        return "other"
+      case "he":
+        if n == 1 { return "one" }
+        if n == 2 { return "two" }
+        return "other"
+      case "ja", "ko", "zh", "th", "vi", "id", "ms":
+        return "other"
+      default:
+        return n == 1 ? "one" : "other"
       }
-      if language.hasPrefix("fr") {
-        return count == 0 || count == 1 ? "one" : "other"
-      }
-      return count == 1 ? "one" : "other"
     }
 
     /// Un texte au pluriel : la forme de la langue servie, sinon `other`, sinon

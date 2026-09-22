@@ -78,6 +78,9 @@ final class BrowtherPromptCoordinator {
     // route (§ 3.1). La règle borne : une fois par session et par jour.
     let referral = BrowtherReferralController.shared
     referral.boot()
+    // La pause s'applique au retrait de la musique resté allumé (sur un Nouvel
+    // Onglet : rien à recharger d'utile) — dormant avant l'annonce.
+    referral.enforcePauseIfNeeded(in: browserViewController)
     let today = BrowtherSurfacesRules.dayKey(Date())
     if referralSession != today, referral.wantsNewTabPage() {
       referralSession = today
