@@ -39,6 +39,7 @@ var package = Package(
     .library(name: "Sawtunaa", targets: ["Sawtunaa"]),
     .library(name: "Basarunaa", targets: ["Basarunaa"]),
     .library(name: "BrowtherAnalytics", targets: ["BrowtherAnalytics"]),
+    .library(name: "BrowtherReferral", targets: ["BrowtherReferral"]),
     .library(name: "SpeechRecognition", targets: ["SpeechRecognition"]),
     .library(name: "Onboarding", targets: ["Onboarding"]),
     .library(name: "Growth", targets: ["Growth"]),
@@ -117,6 +118,7 @@ var package = Package(
         "Sawtunaa",
         "Basarunaa",
         "BrowtherAnalytics",
+        "BrowtherReferral",
         "SpeechRecognition",
         "CodableHelpers",
         "Preferences",
@@ -415,6 +417,10 @@ var package = Package(
         .copy("Resources/NanoDet.mlmodelc"),
       ]
     ),
+    // Browther: le parrainage dev&din (docs/PARRAINAGE.md, brief C). ⚠️ Sans
+    // AUCUNE dépendance : la logique se teste sur macOS en quelques secondes
+    // (private/scripts/ios-referral-tests/run.sh).
+    .target(name: "BrowtherReferral"),
     // Browther: analytics
     .target(
       name: "BrowtherAnalytics",

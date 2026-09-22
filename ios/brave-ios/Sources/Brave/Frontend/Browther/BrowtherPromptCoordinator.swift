@@ -61,8 +61,34 @@ final class BrowtherPromptCoordinator {
     attemptedThisSession = false
   }
 
+  /// Le parrainage a-t-il déjà parlé pendant cette session ? ⚠️ Session =
+  /// lancement ET jour local (§ 12.28) : l'app vit des jours en mémoire, un
+  /// verrou « process » bloquerait le J−3 de mercredi derrière l'écran de lundi.
+  private var referralSession: String?
+
   /// Un Nouvel Onglet vient d'apparaître (`BVC.showNTPOnboarding`).
+  @MainActor
   func newTabPageDidAppear(in browserViewController: BrowserViewController) {
+    // ⭐ Le parrainage d'abord (`docs/PARRAINAGE.md` § 3.4, question 16) : ses
+    // écrans sont DATÉS (un J−3 qui saute, c'est une pause qui tombe sans
+    // prévenir), une fiche d'avis attend un jour sans rien perdre. On lui
+    // demande s'il a quelque chose à dire, et on lui cède la place.
+    // ⚠️ À chaque Nouvel Onglet, pas une fois par session : son moment de
+    // mérite (la N-ième page du jour, un retrait de musique) arrive en cours de
+    // route (§ 3.1). La règle borne : une fois par session et par jour.
+    let referral = BrowtherReferralController.shared
+    referral.boot()
+    let today = BrowtherSurfacesRules.dayKey(Date())
+    if referralSession != today, referral.wantsNewTabPage() {
+      referralSession = today
+      attemptedThisSession = true
+      Task { @MainActor [weak browserViewController] in
+        try? await Task.sleep(for: .seconds(Self.presentationDelay))
+        guard let bvc = browserViewController else { return }
+        referral.attemptSolicitation(in: bvc)
+      }
+      return
+    }
     guard let pending = sessionPending, !attemptedThisSession else { return }
     attemptedThisSession = true
     DispatchQueue.main.asyncAfter(deadline: .now() + Self.presentationDelay) {

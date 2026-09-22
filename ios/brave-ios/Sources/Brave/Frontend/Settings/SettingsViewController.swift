@@ -1180,10 +1180,30 @@ class SettingsViewController: TableViewController {
     )
   }()
 
+  /// Browther : l'entrée permanente du parrainage (écran 6, `docs/PARRAINAGE.md`
+  /// § 3) — seulement là où il existe (`ReferralLaunch`).
+  private var browtherReferralRows: [Row] {
+    guard BrowtherReferralController.shared.enabled else { return [] }
+    return [
+      Row(
+        text: Strings.BrowtherReferral.homeTitle,
+        selection: { [unowned self] in
+          self.navigationController?.pushViewController(
+            ReferralHomeHostingController(showsClose: false),
+            animated: true
+          )
+        },
+        image: UIImage(systemName: "gift"),
+        accessory: .disclosureIndicator,
+        cellClass: MultilineValue1Cell.self
+      )
+    ]
+  }
+
   private lazy var supportSection: Static.Section = {
     return Static.Section(
       header: .title(Strings.support),
-      rows: [
+      rows: browtherReferralRows + [
         // Browther : « Signaler un bug » ouvrait le forum communautaire de BRAVE.
         // À sa place, l'entrée permanente du formulaire d'avis — obligatoire, pour
         // qu'on puisse nous écrire le jour où ça casse et pas au prochain palier
@@ -1362,6 +1382,29 @@ class SettingsViewController: TableViewController {
             }
           }
         ),
+        // Le parrainage : poser une situation, provoquer l'écran, simuler un
+        // jour « par défaut », revoir chaque écran (docs/PARRAINAGE.md § 12.18).
+        Row(
+          text: "Parrainage — recette",
+          selection: { [unowned self] in
+            let recette = ReferralRecetteView(
+              provoke: { [weak self] merit in
+                await self?.browtherProvokeReferral(merit: merit) ?? "Paramètres fermés."
+              },
+              preview: { [weak self] screen in
+                guard let self, let bvc = self.settingsDelegate as? BrowserViewController else { return }
+                self.dismiss(animated: true) {
+                  BrowtherReferralPresenter.present(screen, from: bvc, preview: true)
+                }
+              }
+            )
+            self.navigationController?.pushViewController(
+              UIHostingController(rootView: recette),
+              animated: true
+            )
+          },
+          accessory: .disclosureIndicator
+        ),
         Row(
           text: "État des sollicitations",
           selection: { [unowned self] in
@@ -1417,6 +1460,27 @@ class SettingsViewController: TableViewController {
       ]
     )
   }()
+
+  /// Browther : l'outil de recette du parrainage ferme les Paramètres (sinon ils
+  /// occupent l'écran et la tentative échoue en silence, § 12.26), tente, et
+  /// DIT ce qui s'est passé (§ 12.18).
+  private func browtherProvokeReferral(merit: Bool) async -> String {
+    guard let bvc = settingsDelegate as? BrowserViewController else { return "Navigateur introuvable." }
+    await withCheckedContinuation { continuation in
+      dismiss(animated: true) { continuation.resume() }
+    }
+    let message: String
+    switch BrowtherReferralController.shared.attemptSolicitation(in: bvc, merit: merit, recette: true) {
+    case .shown(let screen): return "Ouvert : \(screen)."
+    case .none: message = "Rien n'est dû (voir « Où j'en suis »)."
+    case .lockedToday: message = "Le verrou du jour est pris par une autre fiche."
+    case .busy: message = "L'écran n'est pas libre."
+    case .unknown: message = "Statut inconnu : le service n'a pas encore répondu."
+    }
+    // Les Paramètres sont fermés : la raison se dit sur le navigateur.
+    BrowtherReferralToast.show(title: "Parrainage (recette)", body: message, persistent: false, duration: 6)
+    return message
+  }
 
   private let debugSectionUUID = UUID().uuidString
   private lazy var debugSection: Static.Section = {

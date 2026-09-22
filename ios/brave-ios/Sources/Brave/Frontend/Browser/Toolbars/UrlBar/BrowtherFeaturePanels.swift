@@ -7,6 +7,7 @@ import Basarunaa
 import BraveStrings
 import BraveUI
 import BrowtherAnalytics
+import BrowtherReferral
 import Preferences
 import Sawtunaa
 import SwiftUI
@@ -199,6 +200,17 @@ struct SawtunaaPanelView: View {
         isEnabled: Binding(
           get: { enabled.value },
           set: { newValue in
+            // Le parrainage : le retrait de la musique est la fonctionnalité
+            // supplémentaire de Browther (docs/PARRAINAGE.md § 9). En pause,
+            // l'allumer se refuse — ⛔ bouton jamais masqué : un toast dit
+            // pourquoi, avec « Soutenir dev&din ». (Avant l'annonce : jamais.)
+            if newValue,
+              !MainActor.assumeIsolated({
+                BrowtherReferralController.shared.requireExtra(.musicRemoval, presentingFrom: nil)
+              })
+            {
+              return
+            }
             enabled.value = newValue
             BrowtherAnalyticsService.shared.track(
               event: "feature_toggled",

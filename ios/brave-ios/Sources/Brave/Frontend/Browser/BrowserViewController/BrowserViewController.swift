@@ -2953,6 +2953,9 @@ extension BrowserViewController {
     if case .url(let navigatedURL, _) = path {
       if navigatedURL?.isWebPage(includeDataURIs: false) == true {
         defaultBrowserHelper.recordAppLaunchedWithWebURL()
+        // Browther : un lien d'une autre app n'arrive qu'au navigateur par
+        // défaut — la preuve du jour pour la validation du filleul (parrainage).
+        BrowtherReferralController.shared.noteExternalWebURLOpened()
         recordDefaultBrowserLikelyhoodP3A(openedHTTPLink: true)
 
         Preferences.General.defaultBrowserCalloutDismissed.value = true

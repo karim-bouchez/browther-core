@@ -53,7 +53,12 @@ enum BrowtherSurfaces {
   /// Une vraie page web vient de finir de charger dans un onglet normal.
   /// Appelé à chaque fin de navigation : le travail réel n'a lieu qu'une fois
   /// par jour.
+  @MainActor
   static func recordPageLoad(now: Date = Date()) {
+    // Le parrainage compte la même unité (§ 9) : les jours de navigation qui
+    // annoncent le dispositif, la N-ième page du jour (moment de mérite), et
+    // les jours « par défaut » qui valident un filleul.
+    BrowtherReferralController.shared.notePageLoaded(now: now)
     let today = Rules.dayKey(now)
     guard
       let next = Rules.browsingDaysAfterPageLoad(

@@ -99,6 +99,9 @@ struct BrowtherIntroView: View {
     case .defaultBrowser:
       BrowtherIntroDefaultBrowserStep(model: model)
         .transition(pushTransition)
+    case .referralCode:
+      BrowtherIntroReferralStep(model: model)
+        .transition(pushTransition)
     case .channels:
       BrowtherIntroChannelsStep(model: model)
         .transition(pushTransition)

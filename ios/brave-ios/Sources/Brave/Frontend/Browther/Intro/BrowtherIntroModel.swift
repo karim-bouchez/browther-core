@@ -22,6 +22,10 @@ enum BrowtherIntroStep: String, CaseIterable, Identifiable {
   case blur
   case music
   case defaultBrowser = "default"
+  /// L'écran O du parrainage (`docs/PARRAINAGE.md` § 3, § 12.24) : le code du
+  /// proche qui a amené la personne — et RIEN d'autre. Seulement là où le
+  /// parrainage existe (`ReferralLaunch`).
+  case referralCode = "referral_code"
   case channels
 
   var id: String { rawValue }
@@ -90,6 +94,7 @@ final class BrowtherIntroModel: ObservableObject {
   init(
     isDefaultBrowser: Bool,
     isEarlyAccess: Bool = BrowtherEarlyAccess.isActive,
+    referralEnabled: Bool? = nil,
     onOpenURL: @escaping (URL) -> Void,
     onSetDefaultBrowser: @escaping () -> Void,
     onFinish: @escaping () -> Void
@@ -97,6 +102,13 @@ final class BrowtherIntroModel: ObservableObject {
     var steps: [BrowtherIntroStep] = [.welcome, .ads, .blur, .music]
     if !isDefaultBrowser {
       steps.append(.defaultBrowser)
+    }
+    // ⚠️ APRÈS les étapes qui font que Browther rend son service (§ 10.4), et
+    // juste après « navigateur par défaut » : c'est ce réglage qui valide
+    // l'invitation du proche (§ 9). ⛔ La validation ne compte qu'après la
+    // saisie du code : l'étape doit venir tôt, pas des jours plus tard.
+    if referralEnabled ?? BrowtherReferralController.shared.enabled {
+      steps.append(.referralCode)
     }
     steps.append(.channels)
     self.steps = steps
@@ -137,7 +149,19 @@ final class BrowtherIntroModel: ObservableObject {
     onFinish()
   }
 
+  /// Le code d'un proche vient d'être accepté : une gerbe, une fois (§ 12.24 —
+  /// un moment rare, le budget de joie est là).
+  func celebrateReferralCode() {
+    guard !celebrated.contains(.referralCode) else { return }
+    celebrated.insert(.referralCode)
+    celebratedAt = Date()
+  }
+
   private func trackStep() {
+    if step == .referralCode {
+      // ⛔ Vu une fois : l'écran O ne reviendra jamais d'ailleurs (§ 12.24).
+      BrowtherReferralController.shared.markWelcomeSeen()
+    }
     track(
       "onboarding_step_viewed",
       ["step": step.rawValue, "index": index, "early_access": isEarlyAccess]
