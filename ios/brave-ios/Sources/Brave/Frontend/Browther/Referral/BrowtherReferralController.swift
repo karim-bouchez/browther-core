@@ -682,9 +682,8 @@ final class BrowtherReferralController: ObservableObject {
   /// l'onglet courant, et sur un Nouvel Onglet ça ne coûte rien —, avec le
   /// toast de la garde (« Soutenir dev&din »). Une fois par pause.
   ///
-  /// 🟠 Décision par défaut (proposée le 2026-09-22, `private/docs/PARRAINAGE.md`
-  /// § 3) : dormante tant que Sawtunaa n'est pas finalisé (rien n'est en pause
-  /// avant l'annonce).
+  /// Validé par Karim le 2026-09-22 (`private/docs/PARRAINAGE.md` § 3). Dormant
+  /// tant que Sawtunaa n'est pas finalisé (rien n'est en pause avant l'annonce).
   func enforcePauseIfNeeded(in bvc: BrowserViewController, now: Date = Date()) {
     guard isPaused(now: now), Preferences.Sawtunaa.enabled.value else { return }
     Preferences.Sawtunaa.enabled.value = false
