@@ -34,7 +34,7 @@
 "gauge.bonus" = "waarvan **+{bonus} bonusmaanden**";
 "gauge.help" = "1 maand per bevestigde uitnodiging, plus de bonussen bij elke mijlpaal.";
 "gauge.lifeTitle" = "Levenslang";
-"gauge.lifeReached" = "Gelukt: Browther is 100% ontgrendeld.";
+"gauge.lifeReached" = "Browther is 100% ontgrendeld.";
 "gauge.tickLifetime" = "levenslang";
 "gauge.a11y" = "Aantal uitnodigingen";
 "card.codeHead" = "Je verwijscode";

@@ -34,7 +34,7 @@
 "gauge.bonus" = "รวม **โบนัส +{bonus} เดือน**";
 "gauge.help" = "1 เดือนต่อคำเชิญที่ยืนยันแล้ว พร้อมโบนัสเมื่อถึงแต่ละขั้น";
 "gauge.lifeTitle" = "ตลอดชีพ";
-"gauge.lifeReached" = "สำเร็จแล้ว: Browther ปลดล็อก 100%";
+"gauge.lifeReached" = "Browther ปลดล็อก 100%";
 "gauge.tickLifetime" = "ตลอดชีพ";
 "gauge.a11y" = "จำนวนคำเชิญ";
 "card.codeHead" = "รหัสแนะนำของคุณ";

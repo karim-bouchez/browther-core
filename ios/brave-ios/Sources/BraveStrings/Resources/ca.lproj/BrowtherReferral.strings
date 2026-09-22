@@ -34,7 +34,7 @@
 "gauge.bonus" = "inclou **+{bonus} mesos** de bonificació";
 "gauge.help" = "1 mes per invitació validada, més les bonificacions de cada nivell.";
 "gauge.lifeTitle" = "De per vida";
-"gauge.lifeReached" = "Ho has aconseguit: Browther està desbloquejat al 100 %.";
+"gauge.lifeReached" = "Browther està desbloquejat al 100 %.";
 "gauge.tickLifetime" = "de per vida";
 "gauge.a11y" = "Nombre d'invitacions";
 "card.codeHead" = "El teu codi d'apadrinament";

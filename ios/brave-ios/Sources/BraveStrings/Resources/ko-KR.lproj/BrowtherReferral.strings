@@ -34,7 +34,7 @@
 "gauge.bonus" = "그중 **보너스 +{bonus}개월**";
 "gauge.help" = "확정된 초대 1건당 1개월, 단계별 보너스도 있어요.";
 "gauge.lifeTitle" = "평생";
-"gauge.lifeReached" = "달성했어요: Browther가 100% 해제되었어요.";
+"gauge.lifeReached" = "Browther가 100% 해제되었어요.";
 "gauge.tickLifetime" = "평생";
 "gauge.a11y" = "초대 수";
 "card.codeHead" = "내 추천 코드";

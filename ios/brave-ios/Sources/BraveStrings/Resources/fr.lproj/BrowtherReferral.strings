@@ -34,7 +34,7 @@
 "gauge.bonus" = "dont **+{bonus} mois** de bonus";
 "gauge.help" = "1 mois par invitation validée, plus les bonus aux paliers.";
 "gauge.lifeTitle" = "À vie";
-"gauge.lifeReached" = "Tu y es : Browther est 100 % débloqué.";
+"gauge.lifeReached" = "Browther est 100 % débloqué.";
 "gauge.tickLifetime" = "à vie";
 "gauge.a11y" = "Nombre d'invitations";
 "card.codeHead" = "Ton code de parrainage";

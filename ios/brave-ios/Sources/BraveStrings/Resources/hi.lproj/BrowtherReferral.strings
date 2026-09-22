@@ -34,7 +34,7 @@
 "gauge.bonus" = "जिसमें **+{bonus} महीने का बोनस**";
 "gauge.help" = "हर मान्य आमंत्रण पर 1 महीना, और पड़ावों पर बोनस।";
 "gauge.lifeTitle" = "ज़िंदगी भर";
-"gauge.lifeReached" = "मंज़िल मिल गई: Browther 100% अनलॉक है।";
+"gauge.lifeReached" = "Browther 100% अनलॉक है।";
 "gauge.tickLifetime" = "ज़िंदगी भर";
 "gauge.a11y" = "आमंत्रणों की संख्या";
 "card.codeHead" = "आपका रेफ़रल कोड";

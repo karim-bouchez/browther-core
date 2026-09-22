@@ -34,7 +34,7 @@
 "gauge.bonus" = "termasuk **bonus +{bonus} bulan**";
 "gauge.help" = "1 bulan bagi setiap jemputan disahkan, serta bonus di setiap peringkat.";
 "gauge.lifeTitle" = "Seumur hidup";
-"gauge.lifeReached" = "Berjaya: Browther 100% dibuka.";
+"gauge.lifeReached" = "Browther 100% dibuka.";
 "gauge.tickLifetime" = "seumur hidup";
 "gauge.a11y" = "Bilangan jemputan";
 "card.codeHead" = "Kod rujukan anda";

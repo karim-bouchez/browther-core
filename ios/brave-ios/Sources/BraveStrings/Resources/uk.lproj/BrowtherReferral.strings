@@ -34,7 +34,7 @@
 "gauge.bonus" = "з них **+{bonus} міс.** бонусом";
 "gauge.help" = "1 місяць за кожне підтверджене запрошення, плюс бонуси за рівні.";
 "gauge.lifeTitle" = "Назавжди";
-"gauge.lifeReached" = "Мету досягнуто: Browther розблоковано на 100 %.";
+"gauge.lifeReached" = "Browther розблоковано на 100 %.";
 "gauge.tickLifetime" = "назавжди";
 "gauge.a11y" = "Кількість запрошень";
 "card.codeHead" = "Ваш реферальний код";

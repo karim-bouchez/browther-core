@@ -34,7 +34,7 @@
 "gauge.bonus" = "うち **+{bonus} か月のボーナス**";
 "gauge.help" = "確定した招待 1 件につき 1 か月。さらにステップごとのボーナスも。";
 "gauge.lifeTitle" = "永久";
-"gauge.lifeReached" = "達成です：Browther が 100% 解除されました。";
+"gauge.lifeReached" = "Browther が 100% 解除されました。";
 "gauge.tickLifetime" = "永久";
 "gauge.a11y" = "招待の数";
 "card.codeHead" = "あなたの紹介コード";

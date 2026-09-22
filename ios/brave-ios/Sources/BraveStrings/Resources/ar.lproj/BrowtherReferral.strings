@@ -34,7 +34,7 @@
 "gauge.bonus" = "منها **+{bonus} أشهر** إضافية";
 "gauge.help" = "شهر عن كلّ دعوة مؤكَّدة، مع مكافآت المراتب.";
 "gauge.lifeTitle" = "مدى الحياة";
-"gauge.lifeReached" = "بلغتَها: Browther مفتوح بالكامل.";
+"gauge.lifeReached" = "Browther مفتوح بالكامل.";
 "gauge.tickLifetime" = "مدى الحياة";
 "gauge.a11y" = "عدد الدعوات";
 "card.codeHead" = "رمز التزكية الخاص بك";

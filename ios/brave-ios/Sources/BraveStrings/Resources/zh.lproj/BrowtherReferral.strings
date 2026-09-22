@@ -34,7 +34,7 @@
 "gauge.bonus" = "其中 **+{bonus} 个月奖励**";
 "gauge.help" = "每个有效邀请 1 个月，达到阶梯另有奖励。";
 "gauge.lifeTitle" = "终身";
-"gauge.lifeReached" = "你做到了：Browther 已 100% 解锁。";
+"gauge.lifeReached" = "Browther 已 100% 解锁。";
 "gauge.tickLifetime" = "终身";
 "gauge.a11y" = "邀请数量";
 "card.codeHead" = "你的推荐码";

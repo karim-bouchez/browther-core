@@ -34,7 +34,7 @@
 "gauge.bonus" = "od toga **+{bonus} mj. bonusa**";
 "gauge.help" = "1 mjesec po potvrđenoj pozivnici, plus bonusi na razinama.";
 "gauge.lifeTitle" = "Doživotno";
-"gauge.lifeReached" = "Cilj je ostvaren: Browther je 100 % otključan.";
+"gauge.lifeReached" = "Browther je 100 % otključan.";
 "gauge.tickLifetime" = "doživotno";
 "gauge.a11y" = "Broj pozivnica";
 "card.codeHead" = "Vaš kod preporuke";

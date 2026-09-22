@@ -216,7 +216,7 @@ extension Strings {
     public static func gaugeLifeSub(_ count: Int) -> String {
       plural("gauge.lifeSub", count, one: "from {count} confirmed invitation", other: "from {count} confirmed invitations")
     }
-    public static var gaugeLifeReached: String { t("gauge.lifeReached", "You made it: Browther is 100% unlocked.") }
+    public static var gaugeLifeReached: String { t("gauge.lifeReached", "Browther is 100% unlocked.") }
     public static func gaugeTickBonus(_ count: Int) -> String {
       plural("gauge.tickBonus", count, one: "+{count} month", other: "+{count} months")
     }

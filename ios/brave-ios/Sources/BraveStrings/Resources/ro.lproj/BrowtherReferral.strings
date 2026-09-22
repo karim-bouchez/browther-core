@@ -34,7 +34,7 @@
 "gauge.bonus" = "din care **+{bonus} luni** bonus";
 "gauge.help" = "1 lună pentru fiecare invitație confirmată, plus bonusurile de la fiecare prag.";
 "gauge.lifeTitle" = "Pe viață";
-"gauge.lifeReached" = "Ai reușit: Browther e deblocat 100%.";
+"gauge.lifeReached" = "Browther e deblocat 100%.";
 "gauge.tickLifetime" = "pe viață";
 "gauge.a11y" = "Numărul de invitații";
 "card.codeHead" = "Codul tău de recomandare";

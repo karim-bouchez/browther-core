@@ -34,7 +34,7 @@
 "gauge.bonus" = "w tym **+{bonus} mies.** bonusu";
 "gauge.help" = "1 miesiąc za każde potwierdzone zaproszenie plus bonusy za kolejne progi.";
 "gauge.lifeTitle" = "Na zawsze";
-"gauge.lifeReached" = "Udało się: Browther jest odblokowany w 100%.";
+"gauge.lifeReached" = "Browther jest odblokowany w 100%.";
 "gauge.tickLifetime" = "na zawsze";
 "gauge.a11y" = "Liczba zaproszeń";
 "card.codeHead" = "Twój kod polecający";

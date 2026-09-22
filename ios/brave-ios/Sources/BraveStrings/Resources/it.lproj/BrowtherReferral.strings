@@ -34,7 +34,7 @@
 "gauge.bonus" = "di cui **+{bonus} mesi** di bonus";
 "gauge.help" = "1 mese per ogni invito confermato, più i bonus a ogni livello.";
 "gauge.lifeTitle" = "A vita";
-"gauge.lifeReached" = "Ce l'hai fatta: Browther è sbloccato al 100%.";
+"gauge.lifeReached" = "Browther è sbloccato al 100%.";
 "gauge.tickLifetime" = "a vita";
 "gauge.a11y" = "Numero di inviti";
 "card.codeHead" = "Il tuo codice referral";

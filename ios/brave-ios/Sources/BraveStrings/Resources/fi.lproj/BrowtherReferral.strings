@@ -34,7 +34,7 @@
 "gauge.bonus" = "josta **+{bonus} bonuskuukautta**";
 "gauge.help" = "1 kuukausi jokaisesta vahvistetusta kutsusta, lisäksi tasojen bonukset.";
 "gauge.lifeTitle" = "Loppuiäksi";
-"gauge.lifeReached" = "Olet perillä: Browther on 100 % käytössäsi.";
+"gauge.lifeReached" = "Browther on 100 % käytössäsi.";
 "gauge.tickLifetime" = "loppuiäksi";
 "gauge.a11y" = "Kutsujen määrä";
 "card.codeHead" = "Suosittelukoodisi";

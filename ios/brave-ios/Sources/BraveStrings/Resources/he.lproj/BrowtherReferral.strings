@@ -34,7 +34,7 @@
 "gauge.bonus" = "מתוכם **+{bonus} חודשי בונוס**";
 "gauge.help" = "חודש אחד על כל הזמנה מאושרת, ועוד בונוסים בכל שלב.";
 "gauge.lifeTitle" = "לכל החיים";
-"gauge.lifeReached" = "הגעת ליעד: Browther פתוח ב-100%.";
+"gauge.lifeReached" = "Browther פתוח ב-100%.";
 "gauge.tickLifetime" = "לכל החיים";
 "gauge.a11y" = "מספר ההזמנות";
 "card.codeHead" = "קוד ההפניה שלך";

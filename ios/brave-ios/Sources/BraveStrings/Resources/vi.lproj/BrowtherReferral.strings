@@ -34,7 +34,7 @@
 "gauge.bonus" = "trong đó có **+{bonus} tháng thưởng**";
 "gauge.help" = "1 tháng cho mỗi lời mời đã xác nhận, cộng thêm thưởng ở mỗi mốc.";
 "gauge.lifeTitle" = "Trọn đời";
-"gauge.lifeReached" = "Bạn đã làm được: Browther được mở khóa 100%.";
+"gauge.lifeReached" = "Browther được mở khóa 100%.";
 "gauge.tickLifetime" = "trọn đời";
 "gauge.a11y" = "Số lời mời";
 "card.codeHead" = "Mã giới thiệu của bạn";

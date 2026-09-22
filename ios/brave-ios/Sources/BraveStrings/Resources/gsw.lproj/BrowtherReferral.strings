@@ -34,7 +34,7 @@
 "gauge.bonus" = "davon **+{bonus} Bonusmonate**";
 "gauge.help" = "1 Monat pro bestätigter Einladung, plus die Boni der einzelnen Stufen.";
 "gauge.lifeTitle" = "Lebenslang";
-"gauge.lifeReached" = "Geschafft: Browther ist zu 100 % freigeschaltet.";
+"gauge.lifeReached" = "Browther ist zu 100 % freigeschaltet.";
 "gauge.tickLifetime" = "lebenslang";
 "gauge.a11y" = "Anzahl der Einladungen";
 "card.codeHead" = "Ihr Empfehlungscode";

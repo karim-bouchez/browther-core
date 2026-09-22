@@ -34,7 +34,7 @@
 "gauge.bonus" = "от които **+{bonus} мес.** бонус";
 "gauge.help" = "1 месец за всяка потвърдена покана, плюс бонуси при всяко ниво.";
 "gauge.lifeTitle" = "Завинаги";
-"gauge.lifeReached" = "Успяхте: Browther е отключен на 100%.";
+"gauge.lifeReached" = "Browther е отключен на 100%.";
 "gauge.tickLifetime" = "завинаги";
 "gauge.a11y" = "Брой покани";
 "card.codeHead" = "Вашият реферален код";

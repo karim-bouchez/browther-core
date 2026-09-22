@@ -34,7 +34,7 @@
 "gauge.bonus" = "incluindo **+{bonus} meses** de bônus";
 "gauge.help" = "1 mês por convite confirmado, mais os bônus de cada nível.";
 "gauge.lifeTitle" = "Vitalício";
-"gauge.lifeReached" = "Você conseguiu: o Browther está 100% desbloqueado.";
+"gauge.lifeReached" = "O Browther está 100% desbloqueado.";
 "gauge.tickLifetime" = "vitalício";
 "gauge.a11y" = "Número de convites";
 "card.codeHead" = "Seu código de indicação";

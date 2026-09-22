@@ -34,7 +34,7 @@
 "gauge.bonus" = "hvorav **+{bonus} bonusmåneder**";
 "gauge.help" = "1 måned per bekreftet invitasjon, pluss bonusene på hvert nivå.";
 "gauge.lifeTitle" = "For livet";
-"gauge.lifeReached" = "Du er i mål: Browther er 100 % låst opp.";
+"gauge.lifeReached" = "Browther er 100 % låst opp.";
 "gauge.tickLifetime" = "for livet";
 "gauge.a11y" = "Antall invitasjoner";
 "card.codeHead" = "Vervekoden din";

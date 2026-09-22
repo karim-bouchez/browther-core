@@ -34,7 +34,7 @@
 "gauge.bonus" = "ebből **+{bonus} hónap** bónusz";
 "gauge.help" = "1 hónap minden megerősített meghívásért, plusz bónuszok az egyes szinteknél.";
 "gauge.lifeTitle" = "Örökre";
-"gauge.lifeReached" = "Sikerült: a Browther 100%-ban fel van oldva.";
+"gauge.lifeReached" = "A Browther 100%-ban fel van oldva.";
 "gauge.tickLifetime" = "örökre";
 "gauge.a11y" = "Meghívások száma";
 "card.codeHead" = "Az Ön ajánlói kódja";

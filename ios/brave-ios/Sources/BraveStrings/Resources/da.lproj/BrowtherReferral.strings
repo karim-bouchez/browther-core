@@ -34,7 +34,7 @@
 "gauge.bonus" = "heraf **+{bonus} bonusmåneder**";
 "gauge.help" = "1 måned pr. bekræftet invitation plus bonusserne ved hvert trin.";
 "gauge.lifeTitle" = "For livet";
-"gauge.lifeReached" = "Du er i mål: Browther er 100 % låst op.";
+"gauge.lifeReached" = "Browther er 100 % låst op.";
 "gauge.tickLifetime" = "for livet";
 "gauge.a11y" = "Antal invitationer";
 "card.codeHead" = "Din henvisningskode";

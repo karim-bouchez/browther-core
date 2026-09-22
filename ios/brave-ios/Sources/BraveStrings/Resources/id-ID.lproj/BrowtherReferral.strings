@@ -34,7 +34,7 @@
 "gauge.bonus" = "termasuk **bonus +{bonus} bulan**";
 "gauge.help" = "1 bulan untuk setiap undangan tervalidasi, ditambah bonus di setiap tingkat.";
 "gauge.lifeTitle" = "Seumur hidup";
-"gauge.lifeReached" = "Berhasil: Browther 100% terbuka.";
+"gauge.lifeReached" = "Browther 100% terbuka.";
 "gauge.tickLifetime" = "seumur hidup";
 "gauge.a11y" = "Jumlah undangan";
 "card.codeHead" = "Kode referal Anda";

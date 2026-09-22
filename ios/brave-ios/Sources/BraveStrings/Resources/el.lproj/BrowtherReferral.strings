@@ -34,7 +34,7 @@
 "gauge.bonus" = "εκ των οποίων **+{bonus} μήνες** μπόνους";
 "gauge.help" = "1 μήνας για κάθε επιβεβαιωμένη πρόσκληση, συν τα μπόνους σε κάθε επίπεδο.";
 "gauge.lifeTitle" = "Εφ' όρου ζωής";
-"gauge.lifeReached" = "Τα καταφέρατε: το Browther είναι 100% ξεκλείδωτο.";
+"gauge.lifeReached" = "Το Browther είναι 100% ξεκλείδωτο.";
 "gauge.tickLifetime" = "εφ' όρου ζωής";
 "gauge.a11y" = "Αριθμός προσκλήσεων";
 "card.codeHead" = "Ο κωδικός σύστασής σας";

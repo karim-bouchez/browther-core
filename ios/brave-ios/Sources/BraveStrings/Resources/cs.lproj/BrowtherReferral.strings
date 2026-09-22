@@ -34,7 +34,7 @@
 "gauge.bonus" = "z toho **+{bonus} měs.** jako bonus";
 "gauge.help" = "1 měsíc za každou potvrzenou pozvánku a k tomu bonusy za dosažené úrovně.";
 "gauge.lifeTitle" = "Navždy";
-"gauge.lifeReached" = "Máte to: Browther je odemčený na 100 %.";
+"gauge.lifeReached" = "Browther je odemčený na 100 %.";
 "gauge.tickLifetime" = "navždy";
 "gauge.a11y" = "Počet pozvánek";
 "card.codeHead" = "Váš doporučovací kód";

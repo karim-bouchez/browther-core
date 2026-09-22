@@ -34,7 +34,7 @@
 "gauge.bonus" = "**+{bonus} ay** bonus dahil";
 "gauge.help" = "Onaylanan her davet için 1 ay, artı her seviyedeki bonuslar.";
 "gauge.lifeTitle" = "Ömür boyu";
-"gauge.lifeReached" = "Başardınız: Browther'ın kilidi %100 açıldı.";
+"gauge.lifeReached" = "Browther'ın kilidi %100 açıldı.";
 "gauge.tickLifetime" = "ömür boyu";
 "gauge.a11y" = "Davet sayısı";
 "card.codeHead" = "Referans kodunuz";
