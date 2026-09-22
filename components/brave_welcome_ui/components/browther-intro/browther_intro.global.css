@@ -840,6 +840,17 @@
 .bi-webpage-banner strong { display: block; font-size: 13px; }
 .bi-webpage-banner small { display: block; font-size: 12px; }
 
+/* MARK: Code d'un proche (parrainage) -------------------------------------- */
+
+/* Le cadeau et le champ viennent de l'app du parrainage, dans son propre
+   shadow root (ses styles ne débordent pas ici, ceux d'ici n'y entrent pas) :
+   l'introduction ne lui donne qu'une place, centrée. */
+.bi-referral-host {
+  width: 100%;
+  max-width: 440px;
+  min-height: 260px;
+}
+
 /* MARK: 3 · Floutage ----------------------------------------------------- */
 
 .bi-scene-blur { align-items: stretch; }

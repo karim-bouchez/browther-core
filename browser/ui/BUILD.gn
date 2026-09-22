@@ -1342,6 +1342,13 @@ source_set("ui") {
       "webui/sawtunaa/sawtunaa_panel_handler.h",
       "webui/sawtunaa/sawtunaa_panel_ui.cc",
       "webui/sawtunaa/sawtunaa_panel_ui.h",
+
+      # Browther: parrainage desktop — l'écran Parrainage et le pont partagé
+      # avec le Nouvel Onglet et l'introduction (private/docs/PARRAINAGE.md).
+      "webui/browther_referral/browther_referral_handler.cc",
+      "webui/browther_referral/browther_referral_handler.h",
+      "webui/browther_referral/browther_referral_ui.cc",
+      "webui/browther_referral/browther_referral_ui.h",
     ]
     public_deps += [
       "//brave/components/basarunaa/common/mojom",

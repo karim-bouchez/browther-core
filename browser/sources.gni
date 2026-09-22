@@ -645,6 +645,28 @@ if (!is_android) {
     "//brave/browser/browther/browther_protected_content_tab_helper.h",
   ]
   brave_chrome_browser_deps += [ "//brave/components/browther_drm" ]
+
+  # [Browther] Parrainage desktop (private/docs/PARRAINAGE.md) : faits d'usage,
+  # identité d'appareil, compte facultatif, réseau vers les services dev&din.
+  # L'app web elle-même vit dans private/webui/referral/ et se sert du disque.
+  brave_chrome_browser_sources += [
+    "//brave/browser/browther/referral/browther_referral_access.cc",
+    "//brave/browser/browther/referral/browther_referral_access.h",
+    "//brave/browser/browther/referral/browther_referral_account.cc",
+    "//brave/browser/browther/referral/browther_referral_account.h",
+    "//brave/browser/browther/referral/browther_referral_files.cc",
+    "//brave/browser/browther/referral/browther_referral_files.h",
+    "//brave/browser/browther/referral/browther_referral_launch.h",
+    "//brave/browser/browther/referral/browther_referral_net.cc",
+    "//brave/browser/browther/referral/browther_referral_net.h",
+    "//brave/browser/browther/referral/browther_referral_prefs.cc",
+    "//brave/browser/browther/referral/browther_referral_prefs.h",
+    "//brave/browser/browther/referral/browther_referral_tab_helper.cc",
+    "//brave/browser/browther/referral/browther_referral_tab_helper.h",
+    "//brave/browser/browther/referral/browther_referral_usage.cc",
+    "//brave/browser/browther/referral/browther_referral_usage.h",
+  ]
+  brave_chrome_browser_deps += [ "//components/os_crypt/async/browser" ]
 }
 
 if (enable_widevine) {

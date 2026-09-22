@@ -10,11 +10,15 @@
 #include "base/notreached.h"
 #include "base/values.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
+#include "brave/browser/browther/referral/browther_referral_access.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
 #include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
+#include "base/strings/strcat.h"
+#include "chrome/browser/browser_process.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_commands.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
@@ -137,9 +141,10 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
   const bool show_reload_hint =
       enabled && protected_state == sawtunaa::mojom::ProtectedContentState::kNone &&
       ShouldShowReloadHint();
-  std::move(callback).Run(enabled, show_reload_hint, protected_state,
-                          report.can_report, report.domain,
-                          report.analytics_off);
+  std::move(callback).Run(
+      enabled, show_reload_hint, protected_state, report.can_report,
+      report.domain, report.analytics_off,
+      browther_referral::IsMusicRemovalPaused(g_browser_process->local_state()));
 }
 
 void SawtunaaPanelHandler::ReportSite(ReportSiteCallback callback) {
@@ -148,6 +153,12 @@ void SawtunaaPanelHandler::ReportSite(ReportSiteCallback callback) {
 }
 
 void SawtunaaPanelHandler::SetEnabled(bool enabled) {
+  // Browther : la garde du parrainage, côté browser aussi — ⛔ un bouton
+  // masqué ne suffit pas (§ 11.2). Éteindre, lui, reste toujours possible.
+  if (enabled &&
+      browther_referral::IsMusicRemovalPaused(g_browser_process->local_state())) {
+    return;
+  }
   profile_->GetPrefs()->SetBoolean(kSawtunaaEnabled, enabled);
   if (auto* analytics =
           browther_analytics::BrowtherAnalyticsService::GetInstance()) {
@@ -178,6 +189,21 @@ void SawtunaaPanelHandler::OpenSawtunaaAppPage() {
                          : nullptr;
   if (browser) {
     ShowSingletonTab(browser, GURL(kSawtunaaAppURL));
+  }
+  CloseUI();
+}
+
+void SawtunaaPanelHandler::OpenReferralSupport() {
+  auto* browser_window_interface = GetBrowserWindowInterface();
+  Browser* browser = browser_window_interface
+                         ? browser_window_interface->GetBrowserForMigrationOnly()
+                         : nullptr;
+  if (browser) {
+    ShowSingletonTabOverwritingNTP(
+        browser->profile()->GetOriginalProfile(),
+        GURL(base::StrCat(
+            {browther_referral::kReferralURL, "?locked=music_removal"})),
+        NavigateParams::IGNORE_AND_NAVIGATE);
   }
   CloseUI();
 }

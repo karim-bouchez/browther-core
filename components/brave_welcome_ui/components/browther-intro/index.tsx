@@ -21,6 +21,7 @@ import BlurStep from './step-blur'
 import ChannelsStep from './step-channels'
 import DefaultBrowserStep from './step-default'
 import ImportStep from './step-import'
+import ReferralStep from './step-referral'
 import MusicStep from './step-music'
 import WelcomeStep from './step-welcome'
 
@@ -193,6 +194,7 @@ function renderStep (step: IntroStep, model: IntroModel, isActive: boolean) {
     case 'music': return <MusicStep model={model} isActive={isActive} />
     case 'default': return <DefaultBrowserStep model={model} />
     case 'import': return <ImportStep model={model} />
+    case 'referral_code': return <ReferralStep model={model} />
     case 'channels': return <ChannelsStep model={model} />
   }
 }

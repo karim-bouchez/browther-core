@@ -47,6 +47,7 @@ class SawtunaaPanelHandler : public sawtunaa::mojom::PanelHandler {
   void OpenSawtunaaAppPage() override;
   void ReportSite(ReportSiteCallback callback) override;
   void OpenFollowChannel(sawtunaa::mojom::FollowChannel channel) override;
+  void OpenReferralSupport() override;
 
  private:
   // Fenêtre qui héberge la bulle, ou nullptr. À rappeler à chaque usage.

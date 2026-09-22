@@ -14,6 +14,8 @@
 #include "base/memory/raw_ptr.h"
 #include "base/notreached.h"
 #include "brave/app/brave_command_ids.h"
+#include "brave/browser/browther/referral/browther_referral_files.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/toolbar/app_menu_icons.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/commander/common/buildflags/buildflags.h"
@@ -200,6 +202,16 @@ void BraveAppMenuModel::BuildBraveProductsSection() {
     need_separator = true;
   }
 #endif
+
+  // Browther: « Parrainage » — l'entrée permanente de l'écran 6 (§ 12.12 :
+  // sur desktop, le menu en haut à droite). Libellé lu dans les textes de l'app
+  // (`browther_referral_files.h`), ⛔ pas une chaîne grit.
+  if (IsCommandIdEnabled(browther_referral::kReferralCommandId)) {
+    InsertItemAt(GetNextIndexOfBraveProductsSection(),
+                 browther_referral::kReferralCommandId,
+                 browther_referral::MenuLabel());
+    need_separator = true;
+  }
 
 #if defined(TOOLKIT_VIEWS)
   if (sidebar::CanUseSidebar(browser())) {
@@ -446,7 +458,8 @@ bool BraveAppMenuModel::IsCommandIdEnabled(int id) const {
 }
 
 size_t BraveAppMenuModel::GetNextIndexOfBraveProductsSection() const {
-  std::vector<int> commands_to_check = {IDC_SHOW_BRAVE_VPN_PANEL,
+  std::vector<int> commands_to_check = {browther_referral::kReferralCommandId,
+                                        IDC_SHOW_BRAVE_VPN_PANEL,
                                         IDC_BRAVE_VPN_MENU,
                                         IDC_SHOW_BRAVE_WALLET,
                                         IDC_TOGGLE_AI_CHAT,

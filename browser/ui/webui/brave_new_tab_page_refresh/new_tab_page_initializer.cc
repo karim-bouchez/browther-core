@@ -43,6 +43,8 @@
 #include "components/regional_capabilities/regional_capabilities_service.h"
 #include "components/strings/grit/components_strings.h"
 #include "components/version_info/version_info.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
+#include "brave/browser/ui/webui/browther_referral/browther_referral_ui.h"
 #include "content/public/browser/web_ui.h"
 #include "content/public/browser/web_ui_data_source.h"
 #include "services/network/public/mojom/content_security_policy.mojom.h"
@@ -130,6 +132,16 @@ void NewTabPageInitializer::Initialize() {
   AddStrings();
   AddPluralStrings();
   AddResourcePaths();
+
+  // Browther: les écrans du parrainage (annonce, rappels, J0, bonnes
+  // nouvelles) s'ouvrent PAR-DESSUS le Nouvel Onglet, au moment de mérite
+  // (`PARRAINAGE.md` § 3.1 : « au N-ième onglet du jour »). L'app se sert du
+  // disque sous `browther-referral/` ; ⛔ rien du tout si le parrainage est
+  // éteint dans ce binaire.
+  if (browther_referral::IsEnabled()) {
+    BrowtherReferralUI::AddToHostPage(&web_ui_.get(), source_,
+                                      /*is_new_tab=*/true);
+  }
 
   AddFaviconDataSource();
   AddCustomImageDataSource();

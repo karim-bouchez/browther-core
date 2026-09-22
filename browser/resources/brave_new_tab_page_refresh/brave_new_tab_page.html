@@ -11,6 +11,10 @@
   <script src="chrome://resources/js/load_time_data_deprecated.js"></script>
   <script src="/strings.js"></script>
   <script type="module" src="/brave_new_tab_page.bundle.js"></script>
+  <!-- Browther : les écrans du parrainage, posés par-dessus au moment de
+       mérite. Servie depuis le disque ; absente (404 muet) quand le
+       parrainage est éteint dans ce binaire. -->
+  <script type="module" src="/browther-referral/app.js"></script>
   <style>
     body {
       background: $i18n{backgroundColor};

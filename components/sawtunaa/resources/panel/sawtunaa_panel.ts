@@ -25,9 +25,14 @@ function notifyShowUI() {
   }
 }
 
+// Le retrait de la musique est-il en pause (parrainage) ? Déjà résolu côté
+// browser : le WebUI n'en connaît aucune règle.
+let extrasPaused = false
+
 async function refreshState() {
   try {
     const state = await api().getState()
+    extrasPaused = state.extrasPaused
     setUIEnabled(state.enabled)
     setUIEarlyAccess(state.enabled)
     setUIReloadHint(state.showReloadHint)
@@ -143,6 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('enabled-toggle') as HTMLButtonElement | null
   toggle?.addEventListener('click', () => {
     const enabled = !toggle.classList.contains('on')
+    // Parrainage : allumer pendant la pause ouvre l'écran Parrainage, qui dit
+    // pourquoi (toast « Soutenir dev&din »). L'interrupteur ne bouge pas.
+    if (enabled && extrasPaused) {
+      try {
+        api().openReferralSupport()
+      } catch (err) {
+        console.error('[sawtunaa-panel] openReferralSupport failed', err)
+      }
+      return
+    }
     setUIEnabled(enabled)
     setUIEarlyAccess(enabled)
     try {

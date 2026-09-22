@@ -50,6 +50,8 @@
 #include "content/public/browser/web_ui_data_source.h"
 #include "content/public/browser/web_ui_message_handler.h"
 #include "ui/base/l10n/l10n_util.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
+#include "brave/browser/ui/webui/browther_referral/browther_referral_ui.h"
 
 namespace {
 
@@ -274,6 +276,15 @@ BraveWelcomeUI::BraveWelcomeUI(content::WebUI* web_ui, std::string_view name)
   // Sawtunaa ouvre la feuille « Ça arrive bientôt » au lieu d'allumer le
   // moteur. Même interrupteur que les badges de la barre d'outils.
   source->AddBoolean("browtherEarlyAccess", kBrowtherEarlyAccess);
+
+  // Browther : l'étape « Un proche t'a parlé de Browther ? » (écran O du
+  // parrainage, `PARRAINAGE.md` § 12.24 : dans un onboarding, le code SEUL).
+  // Son contenu vient de l'app web du parrainage, servie sous
+  // `browther-referral/`.
+  source->AddBoolean("browtherReferralEnabled", browther_referral::IsEnabled());
+  if (browther_referral::IsEnabled()) {
+    BrowtherReferralUI::AddToHostPage(web_ui, source, /*is_new_tab=*/false);
+  }
 
   source->AddBoolean(
       "hardwareAccelerationEnabledAtStartup",

@@ -40,6 +40,8 @@
 #include "brave/browser/ui/webui/brave_new_tab_page_refresh/brave_new_tab_page_ui.h"
 #include "brave/browser/ui/webui/new_tab_page/brave_new_tab_ui.h"
 #include "brave/browser/ui/webui/welcome_page/brave_welcome_ui.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
+#include "brave/browser/ui/webui/browther_referral/browther_referral_ui.h"
 #include "brave/components/commands/common/features.h"
 #include "chrome/browser/regional_capabilities/regional_capabilities_service_factory.h"
 #if BUILDFLAG(ENABLE_BRAVE_NEWS)
@@ -144,6 +146,10 @@ WebUIController* NewWebUI(WebUI* web_ui, const GURL& url) {
 #endif  // BUILDFLAG(ENABLE_BRAVE_NEWS)
   } else if (host == kWelcomeHost && !profile->IsGuestSession()) {
     return new BraveWelcomeUI(web_ui, url.host());
+  } else if (host == browther_referral::kReferralHost &&
+             !profile->IsOffTheRecord() && !profile->IsGuestSession()) {
+    // Browther: l'écran Parrainage (private/docs/PARRAINAGE.md).
+    return new BrowtherReferralUI(web_ui);
   } else if (host == chrome::kChromeUINewTabHost) {
     // For private profiles the webui handling kChromeUINewTabHost is configured
     // with RegisterChromeWebUIConfigs, so we should not get called here with a
@@ -219,6 +225,8 @@ WebUIFactoryFunction GetWebUIFactoryFunction(WebUI* web_ui,
       url.host() == chrome::kChromeUISettingsHost ||
       ((url.host() == kWelcomeHost || url.host() == kWelcomeURL) &&
        !profile->IsGuestSession()) ||
+      (url.host() == browther_referral::kReferralHost &&
+       !profile->IsOffTheRecord() && !profile->IsGuestSession()) ||
 #endif  // BUILDFLAG(IS_ANDROID)
 #if BUILDFLAG(ENABLE_TOR)
       url.host() == kTorInternalsHost ||

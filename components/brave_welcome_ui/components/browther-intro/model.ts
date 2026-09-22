@@ -12,6 +12,7 @@ import {
   WelcomeBrowserProxyImpl
 } from '../../api/welcome_browser_proxy'
 import { IntroImport, SourceProfile, useIntroImport } from './import'
+import { useReferralAppReady } from './step-referral'
 
 // Portage desktop de `BrowtherIntroModel.swift` (iOS, référence recettée).
 // La spécification fait foi : `private/docs/ONBOARDING-SPEC.md`.
@@ -29,6 +30,7 @@ export type IntroStep =
   | 'music'
   | 'default'
   | 'import'
+  | 'referral_code'
   | 'channels'
 
 export type IntroFeature = 'basarunaa' | 'sawtunaa'
@@ -58,6 +60,18 @@ const CHANNEL_EVENTS: Record<Channel, string> = {
  * s'allument pour de bon depuis l'introduction.
  */
 export const isEarlyAccess = loadTimeData.getBoolean('browtherEarlyAccess')
+
+/**
+ * Le parrainage est-il allumé dans ce binaire (`browther_referral_launch.h`) ?
+ * Faux = pas d'étape « code d'un proche ».
+ */
+export const isReferralEnabled = (() => {
+  try {
+    return loadTimeData.getBoolean('browtherReferralEnabled')
+  } catch {
+    return false
+  }
+})()
 
 /** Délai avant le départ automatique qui suit un import réussi. */
 export const IMPORT_COUNTDOWN_MS = 3500
@@ -94,6 +108,10 @@ export interface IntroModel {
   dismissSoonDialog: () => void
   setAsDefaultBrowser: () => void
   later: () => void
+  /** L'étape « code d'un proche » : le code est accepté (confettis, une fois). */
+  celebrateReferralCode: () => void
+  /** « Plus tard » sur l'étape « code d'un proche ». */
+  skipReferralCode: () => void
   /** L'import de l'ancien navigateur (écran desktop). */
   importer: IntroImport
   /**
@@ -267,6 +285,13 @@ export function useIntroModel (
     advance()
   }
 
+  const celebrateReferralCode = () => celebrate('referral_code')
+
+  const skipReferralCode = () => {
+    track('onboarding_later_tapped', { feature: 'referral_code' })
+    advance()
+  }
+
   const startImport = () => {
     track('onboarding_import_started', {
       browser: importer.source?.browser,
@@ -315,6 +340,8 @@ export function useIntroModel (
     dismissSoonDialog: () => setSoonFeature(null),
     setAsDefaultBrowser,
     later,
+    celebrateReferralCode,
+    skipReferralCode,
     importer,
     importCountdown,
     startImport,
@@ -336,6 +363,9 @@ export function useIntroSteps (
 ): IntroStep[] | undefined {
   const [defaultState, setDefaultState] = React.useState<'offer' | 'skip'>()
   const [timedOut, setTimedOut] = React.useState(false)
+  // L'étape « code d'un proche » attend que l'app du parrainage soit chargée ;
+  // elle s'insère ensuite (l'écran courant est retenu par son nom).
+  const referralReady = useReferralAppReady(isReferralEnabled)
   React.useEffect(() => {
     DefaultBrowserBrowserProxyImpl.getInstance()
       .requestDefaultBrowserState()
@@ -358,9 +388,15 @@ export function useIntroSteps (
     const steps: IntroStep[] = ['welcome', 'ads', 'blur', 'music']
     if (defaultState !== 'skip') steps.push('default')
     if (importSources && importSources.length > 0) steps.push('import')
+    // Le code d'un proche (écran O du parrainage, `PARRAINAGE.md` § 12.24) :
+    // APRÈS « import », qui doit suivre « par défaut » (Browther devient le
+    // navigateur, puis récupère l'ancien) — l'iOS le place juste après « par
+    // défaut », faute d'écran d'import. ⭐ Avant la fin : sur desktop, c'est
+    // le seul chemin d'attribution (§ 7.2 : le code se tape).
+    if (isReferralEnabled && referralReady) steps.push('referral_code')
     steps.push('channels')
     return steps
-  }, [defaultState, importSources, timedOut])
+  }, [defaultState, importSources, timedOut, referralReady])
 }
 
 export interface SystemVolume {

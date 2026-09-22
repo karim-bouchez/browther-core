@@ -73,6 +73,7 @@
 #include "brave/browser/ui/webui/new_tab_page/brave_new_tab_message_handler.h"
 
 #if !BUILDFLAG(IS_ANDROID)
+#include "brave/browser/browther/referral/browther_referral_prefs.h"
 #include "brave/browser/p3a/p3a_core_metrics.h"
 #include "brave/browser/search_engines/pref_names.h"
 #include "brave/browser/themes/brave_dark_mode_utils.h"
@@ -193,6 +194,8 @@ void RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
 
   brave_shields::RegisterShieldsP3ALocalPrefs(registry);
 #if !BUILDFLAG(IS_ANDROID)
+  // Browther: parrainage desktop — l'appareil, pas le profil (§ 7.1).
+  browther_referral::prefs::RegisterLocalStatePrefs(registry);
   BraveNewTabMessageHandler::RegisterLocalStatePrefs(registry);
   BraveWindowTracker::RegisterPrefs(registry);
   whats_new::RegisterLocalStatePrefs(registry);

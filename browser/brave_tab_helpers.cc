@@ -142,6 +142,9 @@
 // Browther: détection « contenu protégé » (DRM) — barre d'information quand la
 // lecture protégée échoue, ou quand elle marche mais échappe à nos filtres.
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
+// Browther: parrainage — vraies pages chargées (moment de mérite, validation
+// du filleul) et retour du paiement. Cf. private/docs/PARRAINAGE.md.
+#include "brave/browser/browther/referral/browther_referral_tab_helper.h"
 #endif
 
 namespace brave {
@@ -236,6 +239,8 @@ void AttachTabHelpers(content::WebContents* web_contents) {
   // détection est purement comportementale (EME), pas liée au CDM Widevine.
   // Desktop only : pas de barre d'info équivalente sur Android.
   BrowtherProtectedContentTabHelper::CreateForWebContents(web_contents);
+  // Browther: parrainage desktop (faits d'usage, retour du paiement).
+  BrowtherReferralTabHelper::CreateForWebContents(web_contents);
 #endif
 
 #if BUILDFLAG(ENABLE_BRAVE_WAYBACK_MACHINE)

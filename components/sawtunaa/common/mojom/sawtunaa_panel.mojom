@@ -56,12 +56,17 @@ interface PanelHandler {
   //    est faux sur les pages internes et quand les statistiques d'usage sont
   //    coupées (le signalement ne partirait pas — proposer le bouton serait
   //    mentir). Cf. components/browther_analytics/site_report.h.
+  //  - extras_paused : le retrait de la musique est EN PAUSE (parrainage,
+  //    `private/docs/PARRAINAGE.md` § 3 — la seule fonctionnalité
+  //    supplémentaire de Browther). Déjà résolu côté browser ; faux tant que
+  //    l'annonce est dormante.
   GetState() => (bool enabled,
                  bool show_reload_hint,
                  ProtectedContentState protected_state,
                  bool can_report_site,
                  string report_domain,
-                 bool analytics_off);
+                 bool analytics_off,
+                 bool extras_paused);
 
   // Écrit la pref `kSawtunaaEnabled` (+ télémétrie `feature_toggled`).
   SetEnabled(bool enabled);
@@ -88,6 +93,13 @@ interface PanelHandler {
   // browser. Et un simple <a href> ne marche pas : la WebContents de la bulle
   // n'a pas de délégué qui sache ouvrir un onglet.
   OpenFollowChannel(FollowChannel channel);
+
+  // Browther : la garde du parrainage. Allumer le retrait de la musique
+  // pendant la pause ouvre l'écran Parrainage, qui dit POURQUOI en un toast
+  // (« … fait partie des fonctionnalités supplémentaires », avec « Soutenir
+  // dev&din » — `PARRAINAGE.md` § 12.16), puis ferme la bulle. ⛔ Pas le texte
+  // ici : les textes du parrainage n'ont qu'un pool, celui de l'app.
+  OpenReferralSupport();
 };
 
 // Browther : les deux canaux de diffusion dev&din (sens unique, on s'y abonne

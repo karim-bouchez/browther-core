@@ -9,6 +9,7 @@
 #include "base/containers/map_util.h"
 #include "base/no_destructor.h"
 #include "brave/app/brave_command_ids.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/vector_icons/vector_icons.h"
 #include "chrome/app/chrome_command_ids.h"
@@ -36,6 +37,8 @@ constexpr auto kCommandIcons =
         {IDC_TOGGLE_AI_CHAT, &kLeoProductBraveLeoIcon},
 #endif
         {IDC_BRAVE_VPN_MENU, &kLeoProductVpnIcon},
+        // Browther: « Parrainage » (soutenir dev&din).
+        {browther_referral::kReferralCommandId, &kLeoHeartOutlineIcon},
         {IDC_PASSWORDS_AND_AUTOFILL_MENU, &kLeoKeyIcon},
         {IDC_RECENT_TABS_MENU, &kLeoHistoryIcon},
         {IDC_BOOKMARKS_MENU, &kLeoProductBookmarksIcon},

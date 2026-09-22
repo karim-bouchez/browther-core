@@ -15,6 +15,7 @@
 #include "base/notreached.h"
 #include "base/types/to_address.h"
 #include "brave/app/brave_command_ids.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/email_aliases/email_aliases_service_factory.h"
 #include "brave/browser/profiles/profile_util.h"
 #include "brave/browser/ui/brave_pages.h"
@@ -43,6 +44,7 @@
 #include "chrome/browser/ui/browser_commands.h"
 #include "chrome/browser/ui/browser_window.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_features.h"
+#include "chrome/browser/ui/singleton_tabs.h"
 #include "chrome/browser/ui/tabs/features.h"
 #include "chrome/browser/ui/tabs/tab_change_type.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
@@ -254,6 +256,9 @@ void BraveBrowserCommandController::InitBraveCommandState() {
   // Browther: panels Basarunaa + Sawtunaa toujours activés.
   UpdateCommandEnabled(IDC_SHOW_BASARUNAA_PANEL, true);
   UpdateCommandEnabled(IDC_SHOW_SAWTUNAA_PANEL, true);
+  // Browther: « Parrainage » dans le menu ⋯ (private/docs/PARRAINAGE.md).
+  UpdateCommandEnabled(browther_referral::kReferralCommandId,
+                       browther_referral::IsEnabled());
   UpdateCommandForPlaylist();
   UpdateCommandForWaybackMachine();
   pref_change_registrar_.Init(browser_->profile()->GetPrefs());
@@ -623,6 +628,14 @@ bool BraveBrowserCommandController::ExecuteBraveCommandWithDisposition(
       break;
     case IDC_SHOW_SAWTUNAA_PANEL:
       brave::ShowSawtunaaPanel(&*browser_);
+      break;
+    case browther_referral::kReferralCommandId:
+      // Dans le profil normal même depuis une fenêtre privée : le parrainage
+      // suit l'appareil, pas la session (§ 7.1).
+      ShowSingletonTabOverwritingNTP(
+          browser_->profile()->GetOriginalProfile(),
+          GURL(browther_referral::kReferralURL),
+          NavigateParams::IGNORE_AND_NAVIGATE);
       break;
     case IDC_TOGGLE_BRAVE_VPN_TRAY_ICON:
       brave::ToggleBraveVPNTrayIcon();
