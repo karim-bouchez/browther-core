@@ -79,6 +79,13 @@
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
 "share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je twee maanden extra functies.";
+"settings.subtitle" = "Verdien maanden, of levenslange toegang";
+"settings.news" = "Nieuw";
+"panel.extraBadge" = "Extra functie";
+"panel.covered" = "Voorlopig is deze van jou.";
+"panel.coveredUntil" = "Deze is van jou tot {date}.";
+"panel.pausedLine" = "Gepauzeerd: nodig iemand uit om deze terug te krijgen.";
+"panel.keepForLife" = "Levenslang houden";
 "notice.eyebrow" = "Verwijzingen";
 "notice.title" = "Uitnodiging bevestigd!";
 "notice.bodyLifetime" = "Gelukt: Browther is 100% ontgrendeld, levenslang.";

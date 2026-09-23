@@ -79,6 +79,13 @@
 "invite.back" = "ย้อนกลับ";
 "invite.closeAfterShare" = "กลับไปที่แอป";
 "share.message" = "ขอชวนคุณมาลองใช้ Browther: เบราว์เซอร์ที่ตัดเสียงเพลงและเบลอภาพหะรอม\nใช้รหัสของฉัน {code} แล้วคุณจะได้รับฟีเจอร์เพิ่มเติมสองเดือน";
+"settings.subtitle" = "รับฟีเจอร์เพิ่มเติมเป็นเดือน หรือสิทธิ์ตลอดชีพ";
+"settings.news" = "ใหม่";
+"panel.extraBadge" = "ฟีเจอร์เพิ่มเติม";
+"panel.covered" = "ตอนนี้เป็นของคุณแล้ว";
+"panel.coveredUntil" = "เป็นของคุณจนถึง {date}";
+"panel.pausedLine" = "หยุดชั่วคราว: ชวนคนใกล้ชิดเพื่อให้กลับมาใช้ได้";
+"panel.keepForLife" = "เก็บไว้ตลอดชีพ";
 "notice.eyebrow" = "โปรแกรมแนะนำเพื่อน";
 "notice.title" = "คำเชิญได้รับการยืนยันแล้ว!";
 "notice.bodyLifetime" = "สำเร็จแล้ว: Browther ปลดล็อก 100% ตลอดชีพ";

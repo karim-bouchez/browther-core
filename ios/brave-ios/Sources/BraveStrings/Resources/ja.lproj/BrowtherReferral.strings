@@ -79,6 +79,13 @@
 "invite.back" = "戻る";
 "invite.closeAfterShare" = "アプリに戻る";
 "share.message" = "Browther を紹介します。音楽をカットして、ハラームな画像をぼかすブラウザです。\n私のコード {code} を使うと、追加機能を 2 か月分もらえます。";
+"settings.subtitle" = "追加機能の期間や永久アクセスを獲得";
+"settings.news" = "新着";
+"panel.extraBadge" = "追加機能";
+"panel.covered" = "今のところ、あなたのものです。";
+"panel.coveredUntil" = "{date} まで、あなたのものです。";
+"panel.pausedLine" = "一時停止中：身近な人を招待すると戻ります。";
+"panel.keepForLife" = "永久に使い続ける";
 "notice.eyebrow" = "紹介プログラム";
 "notice.title" = "招待が確定しました！";
 "notice.bodyLifetime" = "達成です：Browther が永久に 100% 解除されました。";

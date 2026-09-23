@@ -79,6 +79,13 @@
 "invite.back" = "Voltar";
 "invite.closeAfterShare" = "Voltar ao app";
 "share.message" = "Convido você a conhecer o Browther: o navegador que corta a música e desfoca as imagens haram.\nCom o meu código {code}, você ganha dois meses de recursos adicionais.";
+"settings.subtitle" = "Ganhe meses, ou o acesso vitalício";
+"settings.news" = "Novo";
+"panel.extraBadge" = "Recurso adicional";
+"panel.covered" = "Ela é sua por enquanto.";
+"panel.coveredUntil" = "Ela é sua até {date}.";
+"panel.pausedLine" = "Em pausa: convide alguém próximo para recuperá-la.";
+"panel.keepForLife" = "Manter para sempre";
 "notice.eyebrow" = "Indicações";
 "notice.title" = "Convite confirmado!";
 "notice.bodyLifetime" = "Você conseguiu: o Browther está 100% desbloqueado, para sempre.";

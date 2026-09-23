@@ -432,6 +432,29 @@ extension Strings {
     /// ⭐ § 12.32 : 8 et 8 bis sont les seules fenêtres que personne n'a
     /// demandées — elles tombent des semaines plus tard, par-dessus l'écran en
     /// cours. D'où le sujet (cet eyebrow), le gain en accroche, puis la cause.
+    // MARK: Les portes d'entrée (Paramètres, panneau de la fonctionnalité)
+
+    /// La ligne des Paramètres : ce qu'on y gagne, en une ligne.
+    public static var settingsSubtitle: String {
+      t("settings.subtitle", "Earn months, or lifetime access")
+    }
+    /// L'étiquette de la pastille (lecteurs d'écran).
+    public static var settingsNews: String { t("settings.news", "New") }
+    /// ⭐ Le rappel DANS le panneau de la fonctionnalité supplémentaire.
+    public static var panelExtraBadge: String {
+      t("panel.extraBadge", "Additional feature")
+    }
+    public static var panelCovered: String { t("panel.covered", "Yours for now.") }
+    public static func panelCoveredUntil(_ date: String) -> String {
+      fill(t("panel.coveredUntil", "Yours until {date}."), ["date": date])
+    }
+    public static var panelPausedLine: String {
+      t("panel.pausedLine", "Paused: invite someone to get it back.")
+    }
+    public static var panelKeepForLife: String {
+      t("panel.keepForLife", "Keep it for life")
+    }
+
     public static var noticeEyebrow: String { t("notice.eyebrow", "Referrals") }
     public static var noticeTitle: String { t("notice.title", "Invitation confirmed!") }
     /// La cause, au présent immédiat — ⛔ jamais le mécanisme ni une consigne.

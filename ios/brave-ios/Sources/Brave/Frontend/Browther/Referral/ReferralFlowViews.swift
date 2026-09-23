@@ -215,7 +215,7 @@ struct ReferralFlowView: View {
 
   private var announce: some View {
     ReferralFlowShell {
-      ReferralRoundIcon(systemName: "hand.raised.fill")
+      ReferralRoundIcon(systemName: "heart.fill")
       ReferralFlowTitle(text: Strings.BrowtherReferral.announceTitle)
       ReferralFlowBody(text: Strings.BrowtherReferral.announceBody)
       ReferralFeatureList(extras: .offered)
@@ -242,7 +242,7 @@ struct ReferralFlowView: View {
 
   private var paused: some View {
     ReferralFlowShell {
-      ReferralRoundIcon(systemName: "hand.raised.fill")
+      ReferralRoundIcon(systemName: "heart.fill")
       ReferralFlowTitle(text: Strings.BrowtherReferral.pausedTitle)
       ReferralFlowBody(text: Strings.BrowtherReferral.pausedBody)
       ReferralFeatureList(extras: .paused)
@@ -527,7 +527,7 @@ struct ReferralThanksView: View {
 
   var body: some View {
     ReferralFlowShell(onClose: onClose) {
-      ReferralRoundIcon(systemName: "hand.raised.fill", tone: .green)
+      ReferralRoundIcon(systemName: "heart.fill", tone: .green)
       ReferralFlowTitle(text: Strings.BrowtherReferral.thanksTitle)
       ReferralFlowBody(
         text: controller.known?.subscription.active == true

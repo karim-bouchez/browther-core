@@ -253,6 +253,11 @@ struct SawtunaaPanelView: View {
         FeatureBetaNotice(onChannelTapped: onChannelTapped)
       }
 
+      // Le parrainage, LÀ où vit la fonctionnalité supplémentaire : ce qu'on a,
+      // jusqu'à quand, et comment la garder à vie (`BrowtherReferralEntries`).
+      // ⚠️ Muet tant que l'annonce dort, à vie, ou abonné.
+      ReferralExtraCallout()
+
       ReportSiteRow(domain: reportDomain, feature: "sawtunaa")
     }
     .padding(.top, 16)

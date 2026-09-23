@@ -79,6 +79,13 @@
 "invite.back" = "Enrere";
 "invite.closeAfterShare" = "Torna a l'app";
 "share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens dos mesos de funcions addicionals.";
+"settings.subtitle" = "Guanya mesos, o l'accés de per vida";
+"settings.news" = "Nou";
+"panel.extraBadge" = "Funció addicional";
+"panel.covered" = "És teva de moment.";
+"panel.coveredUntil" = "És teva fins al {date}.";
+"panel.pausedLine" = "En pausa: convida algú proper per recuperar-la.";
+"panel.keepForLife" = "Conservar-la de per vida";
 "notice.eyebrow" = "Apadrinament";
 "notice.title" = "Invitació validada!";
 "notice.bodyLifetime" = "Ho has aconseguit: Browther està desbloquejat al 100 %, de per vida.";

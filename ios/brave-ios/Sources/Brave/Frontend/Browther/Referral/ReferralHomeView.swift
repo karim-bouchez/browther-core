@@ -110,7 +110,7 @@ struct ReferralHomeView: View {
       TabItem(tab: .code, label: Strings.BrowtherReferral.tabCode, symbol: "gift"),
     ]
     if controller.billingAvailable {
-      items.append(TabItem(tab: .support, label: Strings.BrowtherReferral.tabSupport, symbol: "hand.raised"))
+      items.append(TabItem(tab: .support, label: Strings.BrowtherReferral.tabSupport, symbol: "heart"))
     }
     return HStack(spacing: 4) {
       ForEach(items) { item in

@@ -79,6 +79,13 @@
 "invite.back" = "Înapoi";
 "invite.closeAfterShare" = "Înapoi la aplicație";
 "share.message" = "Te invit să descoperi Browther: browserul care taie muzica și estompează imaginile haram.\nCu codul meu {code}, ai două luni de funcții suplimentare.";
+"settings.subtitle" = "Câștigă luni sau accesul pe viață";
+"settings.news" = "Nou";
+"panel.extraBadge" = "Funcție suplimentară";
+"panel.covered" = "E a ta deocamdată.";
+"panel.coveredUntil" = "E a ta până pe {date}.";
+"panel.pausedLine" = "În pauză: invită pe cineva apropiat ca să o recuperezi.";
+"panel.keepForLife" = "Păstreaz-o pe viață";
 "notice.eyebrow" = "Recomandări";
 "notice.title" = "Invitație confirmată!";
 "notice.bodyLifetime" = "Ai reușit: Browther e deblocat 100%, pe viață.";

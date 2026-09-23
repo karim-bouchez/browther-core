@@ -79,6 +79,13 @@
 "invite.back" = "Quay lại";
 "invite.closeAfterShare" = "Quay lại ứng dụng";
 "share.message" = "Mời bạn khám phá Browther: trình duyệt tắt nhạc và làm mờ hình ảnh haram.\nVới mã {code} của mình, bạn nhận được hai tháng tính năng bổ sung.";
+"settings.subtitle" = "Nhận thêm tháng, hoặc quyền dùng trọn đời";
+"settings.news" = "Mới";
+"panel.extraBadge" = "Tính năng bổ sung";
+"panel.covered" = "Hiện đang thuộc về bạn.";
+"panel.coveredUntil" = "Thuộc về bạn đến {date}.";
+"panel.pausedLine" = "Đang tạm dừng: mời một người thân để có lại.";
+"panel.keepForLife" = "Giữ trọn đời";
 "notice.eyebrow" = "Chương trình giới thiệu";
 "notice.title" = "Lời mời đã được xác nhận!";
 "notice.bodyLifetime" = "Bạn đã làm được: Browther được mở khóa 100%, trọn đời.";

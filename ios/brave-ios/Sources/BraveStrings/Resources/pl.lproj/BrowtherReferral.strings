@@ -79,6 +79,13 @@
 "invite.back" = "Wstecz";
 "invite.closeAfterShare" = "Wróć do aplikacji";
 "share.message" = "Zapraszam cię do poznania Browther: przeglądarki, która wycina muzykę i rozmywa obrazy haram.\nZ moim kodem {code} dostajesz dwa miesiące dodatkowych funkcji.";
+"settings.subtitle" = "Zyskuj miesiące albo dostęp na zawsze";
+"settings.news" = "Nowość";
+"panel.extraBadge" = "Dodatkowa funkcja";
+"panel.covered" = "Na razie jest twoja.";
+"panel.coveredUntil" = "Jest twoja do {date}.";
+"panel.pausedLine" = "Wstrzymane: zaproś bliską osobę, żeby ją odzyskać.";
+"panel.keepForLife" = "Zachowaj ją na zawsze";
 "notice.eyebrow" = "Program poleceń";
 "notice.title" = "Zaproszenie potwierdzone!";
 "notice.bodyLifetime" = "Udało się: Browther jest odblokowany w 100%, na zawsze.";

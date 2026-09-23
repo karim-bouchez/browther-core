@@ -79,6 +79,13 @@
 "invite.back" = "Indietro";
 "invite.closeAfterShare" = "Torna all'app";
 "share.message" = "Ti invito a scoprire Browther: il browser che toglie la musica e sfoca le immagini haram.\nCon il mio codice {code}, hai due mesi di funzionalità aggiuntive.";
+"settings.subtitle" = "Guadagna mesi, o l'accesso a vita";
+"settings.news" = "Novità";
+"panel.extraBadge" = "Funzionalità aggiuntiva";
+"panel.covered" = "È tua per ora.";
+"panel.coveredUntil" = "È tua fino al {date}.";
+"panel.pausedLine" = "In pausa: invita una persona cara per riaverla.";
+"panel.keepForLife" = "Tenerla a vita";
 "notice.eyebrow" = "Referral";
 "notice.title" = "Invito confermato!";
 "notice.bodyLifetime" = "Ce l'hai fatta: Browther è sbloccato al 100%, a vita.";

@@ -79,6 +79,13 @@
 "invite.back" = "Назад";
 "invite.closeAfterShare" = "Назад у апликацију";
 "share.message" = "Позивам те да откријеш Browther: прегледач који утишава музику и замућује харам слике.\nСа мојим кодом {code} добијаш два месеца додатних функција.";
+"settings.subtitle" = "Зарадите месеце или доживотни приступ";
+"settings.news" = "Ново";
+"panel.extraBadge" = "Додатна функција";
+"panel.covered" = "За сада је ваша.";
+"panel.coveredUntil" = "Ваша је до {date}.";
+"panel.pausedLine" = "На паузи: позовите неког блиског да је вратите.";
+"panel.keepForLife" = "Задржите је доживотно";
 "notice.eyebrow" = "Препоруке";
 "notice.title" = "Позивница потврђена!";
 "notice.bodyLifetime" = "Циљ је остварен: Browther је 100 % откључан, доживотно.";

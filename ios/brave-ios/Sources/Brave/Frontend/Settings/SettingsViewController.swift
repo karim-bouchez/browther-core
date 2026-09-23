@@ -247,6 +247,11 @@ class SettingsViewController: TableViewController {
       aboutSection,
     ]
 
+    // Browther : le parrainage juste sous « navigateur par défaut ».
+    if let browtherReferralSection {
+      list.insert(browtherReferralSection, at: 1)
+    }
+
     if IsBraveAccountEnabled() {
       list.insert(braveAccountSection, at: 1)
     }
@@ -1182,28 +1187,33 @@ class SettingsViewController: TableViewController {
 
   /// Browther : l'entrée permanente du parrainage (écran 6, `docs/PARRAINAGE.md`
   /// § 3) — seulement là où il existe (`ReferralLaunch`).
-  private var browtherReferralRows: [Row] {
-    guard BrowtherReferralController.shared.enabled else { return [] }
-    return [
-      Row(
-        text: Strings.BrowtherReferral.homeTitle,
-        selection: { [unowned self] in
-          self.navigationController?.pushViewController(
-            ReferralHomeHostingController(showsClose: false),
-            animated: true
-          )
-        },
-        image: UIImage(systemName: "gift"),
-        accessory: .disclosureIndicator,
-        cellClass: MultilineValue1Cell.self
-      )
-    ]
+  ///
+  /// 🔴 **En HAUT des Paramètres, et sous forme de carte** (recette Karim,
+  /// 2026-09-22 : « il est quand même bien caché dans tous ces settings »).
+  /// Elle porte une pastille quand une bonne nouvelle attend
+  /// (`BrowtherReferralEntries`).
+  private var browtherReferralSection: Static.Section? {
+    guard BrowtherReferralController.shared.enabled else { return nil }
+    return Static.Section(
+      rows: [
+        Row(
+          text: Strings.BrowtherReferral.homeTitle,
+          selection: { [unowned self] in
+            self.navigationController?.pushViewController(
+              ReferralHomeHostingController(showsClose: false),
+              animated: true
+            )
+          },
+          cellClass: BrowtherReferralCardCell.self
+        )
+      ]
+    )
   }
 
   private lazy var supportSection: Static.Section = {
     return Static.Section(
       header: .title(Strings.support),
-      rows: browtherReferralRows + [
+      rows: [
         // Browther : « Signaler un bug » ouvrait le forum communautaire de BRAVE.
         // À sa place, l'entrée permanente du formulaire d'avis — obligatoire, pour
         // qu'on puisse nous écrire le jour où ça casse et pas au prochain palier

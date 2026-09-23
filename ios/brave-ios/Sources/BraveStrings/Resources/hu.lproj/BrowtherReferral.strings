@@ -79,6 +79,13 @@
 "invite.back" = "Vissza";
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
 "share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) két hónapnyi kiegészítő funkciót kapsz.";
+"settings.subtitle" = "Szerezzen hónapokat vagy örökös hozzáférést";
+"settings.news" = "Új";
+"panel.extraBadge" = "Kiegészítő funkció";
+"panel.covered" = "Egyelőre az Öné.";
+"panel.coveredUntil" = "{date} napjáig az Öné.";
+"panel.pausedLine" = "Szünetel: hívjon meg valakit, és visszatér.";
+"panel.keepForLife" = "Megtartás örökre";
 "notice.eyebrow" = "Ajánlói program";
 "notice.title" = "Meghívás megerősítve!";
 "notice.bodyLifetime" = "Sikerült: a Browther 100%-ban fel van oldva, örökre.";

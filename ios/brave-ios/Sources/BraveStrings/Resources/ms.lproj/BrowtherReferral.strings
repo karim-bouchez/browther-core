@@ -79,6 +79,13 @@
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
 "share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat dua bulan ciri tambahan.";
+"settings.subtitle" = "Dapatkan bulan tambahan, atau akses seumur hidup";
+"settings.news" = "Baharu";
+"panel.extraBadge" = "Ciri tambahan";
+"panel.covered" = "Buat masa ini, ciri ini milik anda.";
+"panel.coveredUntil" = "Ciri ini milik anda hingga {date}.";
+"panel.pausedLine" = "Dijeda: jemput orang tersayang untuk mendapatkannya semula.";
+"panel.keepForLife" = "Kekalkan seumur hidup";
 "notice.eyebrow" = "Rujukan";
 "notice.title" = "Jemputan disahkan!";
 "notice.bodyLifetime" = "Berjaya: Browther 100% dibuka, seumur hidup.";

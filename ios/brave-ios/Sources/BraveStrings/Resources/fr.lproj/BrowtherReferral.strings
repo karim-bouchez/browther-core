@@ -79,6 +79,13 @@
 "invite.back" = "Retour";
 "invite.closeAfterShare" = "Revenir à l'app";
 "share.message" = "Je t'invite à découvrir Browther : le navigateur qui coupe la musique et floute les images haram.\nAvec mon code {code}, tu as deux mois de fonctionnalités supplémentaires.";
+"settings.subtitle" = "Gagne des mois, ou l'accès à vie";
+"settings.news" = "Nouveau";
+"panel.extraBadge" = "Fonctionnalité supplémentaire";
+"panel.covered" = "Elle est à toi pour le moment.";
+"panel.coveredUntil" = "Elle est à toi jusqu'au {date}.";
+"panel.pausedLine" = "En pause : invite un proche pour la retrouver.";
+"panel.keepForLife" = "La garder à vie";
 "notice.eyebrow" = "Parrainage";
 "notice.title" = "Invitation validée !";
 "notice.bodyLifetime" = "Tu y es : Browther est 100 % débloqué, à vie.";

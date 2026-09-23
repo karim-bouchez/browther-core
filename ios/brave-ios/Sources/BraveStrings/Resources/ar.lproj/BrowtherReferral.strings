@@ -79,6 +79,13 @@
 "invite.back" = "رجوع";
 "invite.closeAfterShare" = "العودة إلى التطبيق";
 "share.message" = "أدعوك إلى اكتشاف Browther: المتصفّح الذي يكتم الموسيقى ويُضبّب الصور المحرّمة.\nبرمزي {code} تحصل على شهرين من المزايا الإضافية.";
+"settings.subtitle" = "اكسب أشهرًا، أو وصولًا مدى الحياة";
+"settings.news" = "جديد";
+"panel.extraBadge" = "ميزة إضافية";
+"panel.covered" = "هي لك في الوقت الحالي.";
+"panel.coveredUntil" = "هي لك حتى {date}.";
+"panel.pausedLine" = "متوقّفة: ادعُ قريبًا لاستعادتها.";
+"panel.keepForLife" = "احتفظ بها مدى الحياة";
 "notice.eyebrow" = "التزكية";
 "notice.title" = "دعوة مؤكَّدة!";
 "notice.bodyLifetime" = "بلغتَها: Browther مفتوح بالكامل، مدى الحياة.";

@@ -79,6 +79,13 @@
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
 "share.message" = "Aku mengajakmu mencoba Browther: browser yang membisukan musik dan memburamkan gambar haram.\nDengan kodeku {code}, kamu dapat dua bulan fitur tambahan.";
+"settings.subtitle" = "Dapatkan bulan tambahan, atau akses seumur hidup";
+"settings.news" = "Baru";
+"panel.extraBadge" = "Fitur tambahan";
+"panel.covered" = "Untuk saat ini, fitur ini milik Anda.";
+"panel.coveredUntil" = "Fitur ini milik Anda hingga {date}.";
+"panel.pausedLine" = "Dijeda: undang orang terdekat untuk mendapatkannya kembali.";
+"panel.keepForLife" = "Miliki seumur hidup";
 "notice.eyebrow" = "Referal";
 "notice.title" = "Undangan tervalidasi!";
 "notice.bodyLifetime" = "Berhasil: Browther 100% terbuka, seumur hidup.";

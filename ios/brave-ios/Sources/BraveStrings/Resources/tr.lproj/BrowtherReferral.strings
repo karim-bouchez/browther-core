@@ -79,6 +79,13 @@
 "invite.back" = "Geri";
 "invite.closeAfterShare" = "Uygulamaya dönün";
 "share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla iki ay ek özellik kazanırsın.";
+"settings.subtitle" = "Aylar ya da ömür boyu erişim kazanın";
+"settings.news" = "Yeni";
+"panel.extraBadge" = "Ek özellik";
+"panel.covered" = "Şimdilik sizde.";
+"panel.coveredUntil" = "{date} tarihine kadar sizde.";
+"panel.pausedLine" = "Duraklatıldı: geri kazanmak için bir yakınınızı davet edin.";
+"panel.keepForLife" = "Ömür boyu sizde kalsın";
 "notice.eyebrow" = "Referans";
 "notice.title" = "Davet onaylandı!";
 "notice.bodyLifetime" = "Başardınız: Browther'ın kilidi ömür boyu %100 açık.";

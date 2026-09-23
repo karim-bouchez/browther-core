@@ -79,6 +79,13 @@
 "invite.back" = "Zpět";
 "invite.closeAfterShare" = "Zpět do aplikace";
 "share.message" = "Zvu tě k vyzkoušení Browther: prohlížeče, který vypíná hudbu a rozmazává haram obrázky.\nS mým kódem {code} získáš dva měsíce doplňkových funkcí.";
+"settings.subtitle" = "Získejte měsíce, nebo přístup navždy";
+"settings.news" = "Novinka";
+"panel.extraBadge" = "Doplňková funkce";
+"panel.covered" = "Zatím je vaše.";
+"panel.coveredUntil" = "Je vaše do {date}.";
+"panel.pausedLine" = "Pozastaveno: pozvěte někoho blízkého a vrátí se.";
+"panel.keepForLife" = "Nechat si ji navždy";
 "notice.eyebrow" = "Program doporučení";
 "notice.title" = "Pozvánka potvrzena!";
 "notice.bodyLifetime" = "Máte to: Browther je odemčený na 100 %, navždy.";

@@ -291,7 +291,21 @@ extension BrowserViewController {
 
   private func destinationMenuActions(for pageURL: URL?) -> [Action] {
     let isPrivateBrowsing = privateBrowsingManager.isPrivateBrowsing
-    var actions: [Action] = [
+    var actions: [Action] = []
+    // Browther : le parrainage en tête du menu — la seule façon d'avoir les
+    // fonctionnalités supplémentaires sans payer ne peut pas vivre au fond des
+    // Paramètres (`BrowtherReferralEntries`).
+    if BrowtherReferralController.shared.enabled {
+      actions.append(
+        .init(id: .browtherReferral) { @MainActor [unowned self] _ in
+          self.dismiss(animated: true) {
+            BrowtherReferralPresenter.presentHome(from: self)
+          }
+          return .none
+        }
+      )
+    }
+    actions += [
       .init(id: .bookmarks) { @MainActor [unowned self] _ in
         let vc = BookmarksViewController(
           folder: bookmarkManager.lastVisitedFolder(),

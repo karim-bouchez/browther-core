@@ -79,6 +79,13 @@
 "invite.back" = "Tilbake";
 "invite.closeAfterShare" = "Tilbake til appen";
 "share.message" = "Jeg inviterer deg til å oppdage Browther: nettleseren som fjerner musikk og slører haram-bilder.\nMed koden min {code} får du to måneder med ekstrafunksjoner.";
+"settings.subtitle" = "Tjen opp måneder, eller tilgang for livet";
+"settings.news" = "Nytt";
+"panel.extraBadge" = "Ekstrafunksjon";
+"panel.covered" = "Den er din inntil videre.";
+"panel.coveredUntil" = "Den er din frem til {date}.";
+"panel.pausedLine" = "På pause: inviter noen for å få den tilbake.";
+"panel.keepForLife" = "Behold den for livet";
 "notice.eyebrow" = "Verving";
 "notice.title" = "Invitasjon bekreftet!";
 "notice.bodyLifetime" = "Du er i mål: Browther er 100 % låst opp, for livet.";

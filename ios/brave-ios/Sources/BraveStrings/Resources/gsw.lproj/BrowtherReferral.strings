@@ -79,6 +79,13 @@
 "invite.back" = "Zurück";
 "invite.closeAfterShare" = "Zurück zur App";
 "share.message" = "Ich lade dich ein, Browther zu entdecken: den Browser, der Musik entfernt und Haram-Bilder unscharf macht.\nMit meinem Code {code} bekommst du zwei Monate mit zusätzlichen Funktionen.";
+"settings.subtitle" = "Monate sammeln oder den Zugang auf Lebenszeit";
+"settings.news" = "Neu";
+"panel.extraBadge" = "Zusätzliche Funktion";
+"panel.covered" = "Vorerst gehört sie Ihnen.";
+"panel.coveredUntil" = "Sie gehört Ihnen bis zum {date}.";
+"panel.pausedLine" = "Pausiert: Laden Sie jemanden ein, um sie zurückzubekommen.";
+"panel.keepForLife" = "Auf Lebenszeit behalten";
 "notice.eyebrow" = "Empfehlungen";
 "notice.title" = "Einladung bestätigt!";
 "notice.bodyLifetime" = "Geschafft: Browther ist zu 100 % freigeschaltet, auf Lebenszeit.";

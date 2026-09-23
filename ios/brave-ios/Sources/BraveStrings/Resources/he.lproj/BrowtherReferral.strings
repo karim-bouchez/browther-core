@@ -79,6 +79,13 @@
 "invite.back" = "חזרה";
 "invite.closeAfterShare" = "חזרה לאפליקציה";
 "share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודשיים של תכונות נוספות.";
+"settings.subtitle" = "להרוויח חודשים, או גישה לכל החיים";
+"settings.news" = "חדש";
+"panel.extraBadge" = "תכונה נוספת";
+"panel.covered" = "היא שלך בינתיים.";
+"panel.coveredUntil" = "היא שלך עד {date}.";
+"panel.pausedLine" = "בהשהיה: אפשר להזמין אדם קרוב כדי להחזיר אותה.";
+"panel.keepForLife" = "לשמור עליה לכל החיים";
 "notice.eyebrow" = "הפניות";
 "notice.title" = "ההזמנה אושרה!";
 "notice.bodyLifetime" = "הגעת ליעד: Browther פתוח ב-100%, לכל החיים.";

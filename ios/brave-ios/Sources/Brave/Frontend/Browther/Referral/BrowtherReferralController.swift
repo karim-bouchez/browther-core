@@ -127,6 +127,29 @@ final class BrowtherReferralController: ObservableObject {
     ReferralLaunch.extrasReleased || recetteExtrasReleased
   }
 
+  /// ⭐ **Une bonne nouvelle attend d'être vue** (8 ou 8 bis) : c'est la
+  /// pastille de la ligne des Paramètres (`ReferralSettingsCard`). ⛔ Ni le
+  /// J−3 ni le J0 : ce sont des sollicitations, elles ont leur cadence et
+  /// s'ouvrent d'elles-mêmes — une pastille en ferait un rappel de plus.
+  var hasFreshNews: Bool {
+    if case .notice = pending() { return true }
+    return false
+  }
+
+  /// La ligne du rappel posé dans le panneau de la fonctionnalité
+  /// supplémentaire (`ReferralExtraCallout`) — `nil` quand il n'y a rien à
+  /// dire : avant l'annonce (tout est ouvert, § 12.11), à vie, ou abonné.
+  var extraCalloutLine: String? {
+    guard enabled, extrasReleased, let known else { return nil }
+    let access = self.access
+    guard !access.lifetime, !known.subscription.active else { return nil }
+    if isPaused() { return Strings.BrowtherReferral.panelPausedLine }
+    guard let date = ReferralDate.parse(known.reminder.nextCoverageEnd) else {
+      return Strings.BrowtherReferral.panelCovered
+    }
+    return Strings.BrowtherReferral.panelCoveredUntil(Self.formatDate(date))
+  }
+
   /// « Payer » est proposé : ⚠️ seulement quand le vrai paiement existe (iOS
   /// n'a pas de porte factice, § 12.27 : elle est Android).
   var billingAvailable: Bool { storeBilling }
