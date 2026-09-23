@@ -16,8 +16,7 @@
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "chrome/browser/ui/views/chrome_web_dialog_view.h"
 #include "content/public/browser/web_contents.h"
-#include "content/public/browser/web_ui.h"
-#include "third_party/skia/include/core/SkColor.h"
+
 #include "ui/base/mojom/ui_base_types.mojom.h"
 #include "ui/gfx/geometry/size.h"
 #include "ui/views/widget/widget.h"
@@ -28,8 +27,8 @@ namespace browther_referral {
 namespace {
 
 // ⚠️ ⛔ **Pas une petite fenêtre au milieu** : la modale couvre TOUTE la fenêtre
-// du navigateur, sans cadre et TRANSPARENTE, et c'est la page qui peint le voile
-// sombre et la carte. Sinon on voit un bloc dans un bloc, avec sa propre barre
+// du navigateur, sans cadre, et c'est la page qui peint le voile sombre et la
+// carte. Sinon on voit un bloc dans un bloc, avec sa propre barre
 // de défilement, et rien ne dit que le reste est bloqué (recette Karim,
 // 2026-09-23). Les cotes viennent donc de la fenêtre parente, pas d'ici.
 
@@ -58,13 +57,7 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
   ReferralDialogDelegate& operator=(const ReferralDialogDelegate&) = delete;
   ~ReferralDialogDelegate() override = default;
 
-  // 🔴 Sans fond de page TRANSPARENT, la fenêtre translucide reste peinte en
-  // opaque par le moteur de rendu et l'on retombe sur un bloc plein.
-  void OnDialogShown(content::WebUI* webui) override {
-    if (content::WebContents* contents = webui->GetWebContents()) {
-      contents->SetPageBaseBackgroundColor(SK_ColorTRANSPARENT);
-    }
-  }
+
 };
 
 }  // namespace
@@ -91,11 +84,14 @@ bool ShowModal(content::WebContents* initiator, const std::string& screen) {
     return false;
   }
   // La fenêtre : exactement la zone de contenu du navigateur, sans cadre ni
-  // ombre, et translucide — le voile et la carte sont peints par la page.
+  // ombre. ⛔ **Pas translucide** : essayé le 2026-09-23, le fond est ressorti
+  // BLANC chez Karim — le cadre de la fenêtre se peint quand même, et la page
+  // ne le recouvre que si elle est opaque. C'est donc la PAGE qui peint un
+  // voile plein (`app.tsx`, hôte `modal`), ⛔ on ne voit plus le Nouvel Onglet
+  // derrière, et c'est assumé : voir au travers n'est pas fiable ici.
   views::Widget::InitParams params(
       views::Widget::InitParams::WIDGET_OWNS_NATIVE_WIDGET,
       views::Widget::InitParams::TYPE_WINDOW);
-  params.opacity = views::Widget::InitParams::WindowOpacity::kTranslucent;
   params.remove_standard_frame = true;
   params.shadow_type = views::Widget::InitParams::ShadowType::kNone;
   params.bounds = parent_widget->GetClientAreaBoundsInScreen();
