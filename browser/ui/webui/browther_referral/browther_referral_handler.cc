@@ -385,8 +385,8 @@ base::Value BrowtherReferralHandler::OpenModal(const base::DictValue& payload) {
     out.Set("opened", false);
     return base::Value(std::move(out));
   }
-  browther_referral::ShowModal(web_ui()->GetWebContents(), *screen);
-  out.Set("opened", true);
+  out.Set("opened",
+          browther_referral::ShowModal(web_ui()->GetWebContents(), *screen));
   return base::Value(std::move(out));
 }
 

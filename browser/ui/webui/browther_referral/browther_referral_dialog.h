@@ -32,8 +32,11 @@ class WebContents;
 namespace browther_referral {
 
 // Ouvre (ou réutilise) la modale sur l'écran demandé — `paused`, `announce`…
-// tel que l'app les nomme. ⛔ Sans navigateur trouvable, rien ne s'ouvre.
-void ShowModal(content::WebContents* initiator, const std::string& screen);
+// tel que l'app les nomme. ⭐ Rend `false` quand elle n'a PAS pu s'ouvrir (pas
+// de fenêtre parente) : l'app affiche alors l'écran dans la page — contournable,
+// mais VU. ⛔ Jamais d'échec silencieux : ce serait perdre le seul moment où
+// Browther demande quelque chose.
+bool ShowModal(content::WebContents* initiator, const std::string& screen);
 
 // Referme celle qui est ouverte, s'il y en a une (appelée quand l'app a fini).
 void CloseModal();

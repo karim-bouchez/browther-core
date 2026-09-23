@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "base/logging.h"
 #include "base/no_destructor.h"
 #include "base/strings/escape.h"
 #include "base/strings/strcat.h"
@@ -58,16 +59,16 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
 
 }  // namespace
 
-void ShowModal(content::WebContents* initiator, const std::string& screen) {
+bool ShowModal(content::WebContents* initiator, const std::string& screen) {
   if (!IsEnabled() || !initiator) {
-    return;
+    return false;
   }
   // Déjà ouverte : on la remet devant plutôt que d'en empiler une deuxième.
   if (ModalWindow()) {
     if (views::Widget* widget =
             views::Widget::GetWidgetForNativeWindow(ModalWindow())) {
       widget->Show();
-      return;
+      return true;
     }
     ModalWindow() = gfx::NativeWindow();
   }
@@ -76,11 +77,13 @@ void ShowModal(content::WebContents* initiator, const std::string& screen) {
   views::Widget* parent_widget = views::Widget::GetWidgetForNativeWindow(
       initiator->GetTopLevelNativeWindow());
   if (!parent_widget) {
-    return;
+    LOG(ERROR) << "[browther] modale du parrainage : pas de fenêtre parente";
+    return false;
   }
   ModalWindow() = chrome::ShowWebDialogWithParams(
       parent_widget->GetNativeView(), initiator->GetBrowserContext(),
       new ReferralDialogDelegate(screen), std::nullopt);
+  return static_cast<bool>(ModalWindow());
 }
 
 void CloseModal() {
