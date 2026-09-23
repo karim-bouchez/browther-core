@@ -79,6 +79,7 @@
 "invite.back" = "Takaisin";
 "invite.closeAfterShare" = "Takaisin sovellukseen";
 "share.message" = "Kutsun sinut tutustumaan Browtheriin: selaimeen, joka poistaa musiikin ja sumentaa haram-kuvat.\nKoodillani {code} saat kaksi kuukautta lisäominaisuuksia.";
+"menu.invite" = "Kutsu joku Browtheriin";
 "settings.subtitle" = "Ansaitse kuukausia tai elinikäinen käyttöoikeus";
 "settings.news" = "Uutta";
 "panel.extraBadge" = "Lisäominaisuus";

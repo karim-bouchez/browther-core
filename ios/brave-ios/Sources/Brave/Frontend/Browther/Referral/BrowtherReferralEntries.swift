@@ -30,7 +30,7 @@ extension Action.Identifier {
   /// erreur.
   static let browtherReferral: Self = .init(
     id: "BrowtherReferral",
-    title: Strings.BrowtherReferral.inviteSomeone,
+    title: Strings.BrowtherReferral.menuInvite,
     braveSystemImage: "sf:gift.fill",
     // ⚠️ Les 4 premières actions visibles forment la rangée « MES ACTIONS »
     // (`numberOfQuickActions`) : à 250 le parrainage y poussait **Partager**
@@ -135,7 +135,15 @@ struct ReferralExtraCallout: View {
 final class BrowtherReferralCardCell: MultilineSubtitleCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    var background = UIBackgroundConfiguration.listGroupedCell()
+  }
+
+  /// 🔴 **Le fond se pose ICI, ⛔ pas dans `init`** : une cellule met à jour sa
+  /// `backgroundConfiguration` toute seule à chaque changement d'état
+  /// (`automaticallyUpdatesBackgroundConfiguration`), ce qui EFFAÇAIT l'or posé
+  /// au départ — la ligne restait grise (recette Karim, 2026-09-23).
+  override func updateConfiguration(using state: UICellConfigurationState) {
+    super.updateConfiguration(using: state)
+    var background = UIBackgroundConfiguration.listGroupedCell().updated(for: state)
     background.backgroundColor = UIColor(ReferralPalette.goldSurfaceSolid)
     backgroundConfiguration = background
   }

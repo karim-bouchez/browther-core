@@ -79,6 +79,7 @@
 "invite.back" = "Wstecz";
 "invite.closeAfterShare" = "Wróć do aplikacji";
 "share.message" = "Zapraszam cię do poznania Browther: przeglądarki, która wycina muzykę i rozmywa obrazy haram.\nZ moim kodem {code} dostajesz dwa miesiące dodatkowych funkcji.";
+"menu.invite" = "Zaproś bliską osobę do Browther";
 "settings.subtitle" = "Zyskuj miesiące albo dostęp na zawsze";
 "settings.news" = "Nowość";
 "panel.extraBadge" = "Dodatkowa funkcja";

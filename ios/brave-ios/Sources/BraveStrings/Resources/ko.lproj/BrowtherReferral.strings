@@ -79,6 +79,7 @@
 "invite.back" = "뒤로";
 "invite.closeAfterShare" = "앱으로 돌아가기";
 "share.message" = "Browther를 소개할게요. 음악을 끄고 하람 이미지를 흐리게 해 주는 브라우저예요.\n내 코드 {code} 입력 시 추가 기능 2개월을 받을 수 있어요.";
+"menu.invite" = "Browther에 가까운 사람 초대하기";
 "settings.subtitle" = "추가 기능 개월을 모으고, 평생 이용까지";
 "settings.news" = "새 소식";
 "panel.extraBadge" = "추가 기능";

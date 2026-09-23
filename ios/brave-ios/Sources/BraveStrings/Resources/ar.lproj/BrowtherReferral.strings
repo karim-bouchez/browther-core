@@ -79,6 +79,7 @@
 "invite.back" = "رجوع";
 "invite.closeAfterShare" = "العودة إلى التطبيق";
 "share.message" = "أدعوك إلى اكتشاف Browther: المتصفّح الذي يكتم الموسيقى ويُضبّب الصور المحرّمة.\nبرمزي {code} تحصل على شهرين من المزايا الإضافية.";
+"menu.invite" = "ادعُ قريبًا إلى Browther";
 "settings.subtitle" = "اكسب أشهرًا، أو وصولًا مدى الحياة";
 "settings.news" = "جديد";
 "panel.extraBadge" = "ميزة إضافية";

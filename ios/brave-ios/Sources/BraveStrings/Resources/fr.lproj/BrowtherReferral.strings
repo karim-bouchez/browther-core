@@ -79,6 +79,7 @@
 "invite.back" = "Retour";
 "invite.closeAfterShare" = "Revenir à l'app";
 "share.message" = "Je t'invite à découvrir Browther : le navigateur qui coupe la musique et floute les images haram.\nAvec mon code {code}, tu as deux mois de fonctionnalités supplémentaires.";
+"menu.invite" = "Inviter un proche sur Browther";
 "settings.subtitle" = "Gagne des mois, ou l'accès à vie";
 "settings.news" = "Nouveau";
 "panel.extraBadge" = "Fonctionnalité supplémentaire";

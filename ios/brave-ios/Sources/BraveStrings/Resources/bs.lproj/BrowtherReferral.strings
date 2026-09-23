@@ -79,6 +79,7 @@
 "invite.back" = "Nazad";
 "invite.closeAfterShare" = "Nazad u aplikaciju";
 "share.message" = "Pozivam te da otkriješ Browther: preglednik koji utišava muziku i zamućuje haram slike.\nS mojim kodom {code} dobijaš dva mjeseca dodatnih funkcija.";
+"menu.invite" = "Pozovite nekog bliskog na Browther";
 "settings.subtitle" = "Zaradite mjesece ili doživotni pristup";
 "settings.news" = "Novo";
 "panel.extraBadge" = "Dodatna funkcija";

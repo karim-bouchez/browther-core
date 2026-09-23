@@ -79,6 +79,7 @@
 "invite.back" = "Voltar";
 "invite.closeAfterShare" = "Voltar ao app";
 "share.message" = "Convido você a conhecer o Browther: o navegador que corta a música e desfoca as imagens haram.\nCom o meu código {code}, você ganha dois meses de recursos adicionais.";
+"menu.invite" = "Convidar alguém para o Browther";
 "settings.subtitle" = "Ganhe meses, ou o acesso vitalício";
 "settings.news" = "Novo";
 "panel.extraBadge" = "Recurso adicional";

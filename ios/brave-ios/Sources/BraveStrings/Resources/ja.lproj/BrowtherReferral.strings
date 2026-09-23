@@ -79,6 +79,7 @@
 "invite.back" = "戻る";
 "invite.closeAfterShare" = "アプリに戻る";
 "share.message" = "Browther を紹介します。音楽をカットして、ハラームな画像をぼかすブラウザです。\n私のコード {code} を使うと、追加機能を 2 か月分もらえます。";
+"menu.invite" = "Browther に身近な人を招待";
 "settings.subtitle" = "追加機能の期間や永久アクセスを獲得";
 "settings.news" = "新着";
 "panel.extraBadge" = "追加機能";

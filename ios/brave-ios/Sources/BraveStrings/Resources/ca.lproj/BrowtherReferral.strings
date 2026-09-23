@@ -79,6 +79,7 @@
 "invite.back" = "Enrere";
 "invite.closeAfterShare" = "Torna a l'app";
 "share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens dos mesos de funcions addicionals.";
+"menu.invite" = "Convidar algú a Browther";
 "settings.subtitle" = "Guanya mesos, o l'accés de per vida";
 "settings.news" = "Nou";
 "panel.extraBadge" = "Funció addicional";

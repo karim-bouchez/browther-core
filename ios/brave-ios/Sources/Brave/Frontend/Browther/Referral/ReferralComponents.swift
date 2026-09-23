@@ -34,7 +34,7 @@ enum ReferralPalette {
   static let screen = Color(UIColor.braveGroupedBackground)
   /// L'aplat doré de la carte des Paramètres : un or DISCRET, qui tient sur les
   /// deux thèmes (l'`opacity` d'un `Color` ne se convertit pas en `UIColor`).
-  static let goldSurfaceSolid = BrowtherIntroPalette.dynamic(light: 0xF7EED8, dark: 0x2E2415)
+  static let goldSurfaceSolid = BrowtherIntroPalette.dynamic(light: 0xFBF1DA, dark: 0x332814)
   static let line = Color.primary.opacity(0.1)
 }
 

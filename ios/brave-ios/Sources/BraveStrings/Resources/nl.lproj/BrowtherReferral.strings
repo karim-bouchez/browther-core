@@ -79,6 +79,7 @@
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
 "share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je twee maanden extra functies.";
+"menu.invite" = "Iemand uitnodigen voor Browther";
 "settings.subtitle" = "Verdien maanden, of levenslange toegang";
 "settings.news" = "Nieuw";
 "panel.extraBadge" = "Extra functie";

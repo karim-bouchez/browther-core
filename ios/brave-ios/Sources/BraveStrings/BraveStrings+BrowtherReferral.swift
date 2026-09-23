@@ -434,6 +434,11 @@ extension Strings {
     /// cours. D'où le sujet (cet eyebrow), le gain en accroche, puis la cause.
     // MARK: Les portes d'entrée (Paramètres, panneau de la fonctionnalité)
 
+    /// ⭐ Le libellé du menu « … » : il dit ce qu'on fait ET où (Karim,
+    /// 2026-09-23) — « Parrainage » seul ne donne envie à personne.
+    public static var menuInvite: String {
+      t("menu.invite", "Invite someone to Browther")
+    }
     /// La ligne des Paramètres : ce qu'on y gagne, en une ligne.
     public static var settingsSubtitle: String {
       t("settings.subtitle", "Earn months, or lifetime access")
