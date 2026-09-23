@@ -38,6 +38,18 @@ namespace browther_referral {
 // Browther demande quelque chose.
 bool ShowModal(content::WebContents* initiator, const std::string& screen);
 
+// ⭐ La fenêtre suit la hauteur de la carte : chaque écran du flow a la sienne,
+// et une taille fixe faisait défiler alors que la place ne manquait pas
+// (recette Karim, 2026-09-23).
+//
+// ⚠️ La page envoie un ÉCART (carte − zone visible), ⛔ pas une hauteur : le
+// cadre de la fenêtre ne se mesure pas de façon fiable d'une plateforme à
+// l'autre (sur macOS la zone cliente est rendue PLUS GRANDE que la fenêtre), et
+// un calcul de cadre laissait un filet de défilement qui ne se résorbait jamais.
+// Un écart converge tout seul. Bornée à la fenêtre du navigateur — ⛔ une modale
+// ne dépasse pas de son parent.
+void ResizeModal(int delta);
+
 // Referme celle qui est ouverte, s'il y en a une (appelée quand l'app a fini).
 void CloseModal();
 

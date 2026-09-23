@@ -177,6 +177,9 @@ void BrowtherReferralHandler::HandleCall(const base::ListValue& args) {
     Reply(id, true, CopyText(payload));
   } else if (method == "openModal") {
     Reply(id, true, OpenModal(payload));
+  } else if (method == "resizeModal") {
+    browther_referral::ResizeModal(payload.FindInt("delta").value_or(0));
+    Reply(id, true, Ok());
   } else if (method == "closeModal") {
     browther_referral::CloseModal();
     Reply(id, true, Ok());

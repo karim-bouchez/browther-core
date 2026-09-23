@@ -5,6 +5,7 @@
 
 #include "brave/browser/ui/webui/browther_referral/browther_referral_dialog.h"
 
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
@@ -19,6 +20,7 @@
 #include "content/public/browser/web_contents.h"
 
 #include "ui/base/mojom/ui_base_types.mojom.h"
+#include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rounded_corners_f.h"
 #include "ui/gfx/geometry/size.h"
 #include "ui/views/widget/widget.h"
@@ -31,7 +33,10 @@ namespace {
 // Les cotes de la carte du flow (`private/webui/referral`) : la fenêtre ne
 // contient qu'elle, donc elle fait sa taille et porte ses coins arrondis.
 constexpr int kDialogWidth = 468;
-constexpr int kDialogHeight = 640;
+constexpr int kDialogHeight = 560;   // avant que la page dise sa vraie hauteur
+constexpr int kDialogMinHeight = 320;
+constexpr int kDialogMaxHeight = 1000;
+constexpr int kMargin = 32;          // d'air au-dessus et en dessous
 constexpr float kCornerRadius = 24.f;
 
 // ⚠️ La fenêtre ne contient QUE la carte : sans cadre, coins arrondis, à ses
@@ -122,6 +127,32 @@ bool ShowModal(content::WebContents* initiator, const std::string& screen) {
     return false;
   }
   return true;
+}
+
+void ResizeModal(int delta) {
+  if (!ModalWindow() || delta == 0) {
+    return;
+  }
+  views::Widget* widget =
+      views::Widget::GetWidgetForNativeWindow(ModalWindow());
+  if (!widget) {
+    return;
+  }
+  views::Widget* parent = widget->parent();
+  const int room = parent
+                       ? parent->GetWindowBoundsInScreen().height() - 2 * kMargin
+                       : kDialogMaxHeight;
+  gfx::Rect bounds = widget->GetWindowBoundsInScreen();
+  const int wanted =
+      std::clamp(bounds.height() + delta, kDialogMinHeight,
+                 std::min(kDialogMaxHeight, std::max(room, kDialogMinHeight)));
+  if (wanted == bounds.height()) {
+    return;
+  }
+  // On garde la fenêtre CENTRÉE sur son parent en grandissant.
+  bounds.set_y(bounds.y() - (wanted - bounds.height()) / 2);
+  bounds.set_height(wanted);
+  widget->SetBounds(bounds);
 }
 
 void CloseModal() {
