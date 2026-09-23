@@ -58,6 +58,7 @@
 "announce.title" = "Help ons deze app gratis te houden";
 "announce.body" = "De studio dev&din heeft je steun nodig om apps zoals deze gratis te blijven aanbieden. We vragen je alleen om het verder te vertellen.";
 "announce.invite" = "Iemand uitnodigen";
+"invite.another" = "Nog iemand uitnodigen";
 "announce.inviteSub" = "En ga voor levenslange gratis toegang";
 "announce.later" = "Herinner me later";
 "ending.hook" = "Maar je kunt ze levenslang houden, gratis!";
@@ -95,7 +96,7 @@
 "referee.done" = "Klaar: wie jou uitnodigde, heeft 1 maand extra functies gekregen. Bedankt namens diegene.";
 "referee.noticeTitle" = "Bedankt!";
 "referee.noticeBody" = "Wie jou uitnodigde, heeft 1 maand extra functies gekregen – door de genade van Allah, en daarna dankzij jou.";
-"referee.inviteToo" = "Jouw beurt om uit te nodigen";
+"referee.inviteToo" = "Nu is het mijn beurt om iemand uit te nodigen";
 "referee.setDefault" = "Browther instellen als standaardbrowser";
 "invitations.validated" = "Bevestigd";
 "invitations.inProgress" = "Bezig";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "Een van je uitnodigingen is goed op weg: nog {count} dagen met Browther als standaardbrowser en ze is bevestigd.";
 "reminder.monthsTitle.one" = "Morgen lopen je verdiende maanden af.";
 "reminder.monthsTitle.other" = "Over {count} dagen lopen je verdiende maanden af.";
-"reminder.monthsNext.one" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en je bereikt de volgende mijlpaal.";
-"reminder.monthsNext.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en je bereikt de volgende mijlpaal.";
+"reminder.monthsNext.one" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en je krijgt een bonus van {bonus} maanden.";
+"reminder.monthsNext.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en je krijgt een bonus van {bonus} maanden.";
+"reminder.monthsNextLife.one" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld.";
+"reminder.monthsNextLife.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld.";
 "reminder.subscriptionTitle.one" = "Je abonnement stopt morgen.";
 "reminder.subscriptionTitle.other" = "Je abonnement stopt over {count} dagen.";
 "invite.foot.one" = "Een uitnodiging is bevestigd zodra de persoon Browther {count} dag als standaardbrowser heeft gehouden.";

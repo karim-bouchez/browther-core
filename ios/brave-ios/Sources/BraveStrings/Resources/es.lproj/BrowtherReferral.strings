@@ -58,6 +58,7 @@
 "announce.title" = "Ayúdanos a que esta app siga siendo gratuita";
 "announce.body" = "El estudio dev&din necesita tu apoyo para seguir ofreciendo apps como esta de forma gratuita. Lo único que te pedimos es que corras la voz.";
 "announce.invite" = "Invitar a alguien cercano";
+"invite.another" = "Invitar a otra persona cercana";
 "announce.inviteSub" = "Y aspira al acceso gratuito de por vida";
 "announce.later" = "Recordármelo más tarde";
 "ending.hook" = "¡Pero puedes conservarlas de por vida, gratis!";
@@ -95,7 +96,7 @@
 "referee.done" = "Hecho: quien te invitó ha ganado 1 mes de funciones adicionales. Gracias de su parte.";
 "referee.noticeTitle" = "¡Gracias!";
 "referee.noticeBody" = "Quien te invitó ha ganado 1 mes de funciones adicionales — gracias a Allah, y luego a ti.";
-"referee.inviteToo" = "Ahora te toca invitar";
+"referee.inviteToo" = "Ahora me toca a mí invitar a alguien cercano";
 "referee.setDefault" = "Establecer Browther como navegador predeterminado";
 "invitations.validated" = "Validada";
 "invitations.inProgress" = "En curso";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "Una de tus invitaciones va por buen camino: {count} días más con Browther como predeterminado y quedará validada.";
 "reminder.monthsTitle.one" = "Mañana se terminan los meses que ganaste.";
 "reminder.monthsTitle.other" = "En {count} días se terminan los meses que ganaste.";
-"reminder.monthsNext.one" = "Cada invitación validada te suma uno más. {count} más y pasas al siguiente nivel.";
-"reminder.monthsNext.other" = "Cada invitación validada te suma uno más. {count} más y pasas al siguiente nivel.";
+"reminder.monthsNext.one" = "Cada invitación validada te suma uno más. {count} más y consigues un bonus de {bonus} meses.";
+"reminder.monthsNext.other" = "Cada invitación validada te suma uno más. {count} más y consigues un bonus de {bonus} meses.";
+"reminder.monthsNextLife.one" = "Cada invitación validada te suma uno más. {count} más y Browther queda desbloqueado de por vida.";
+"reminder.monthsNextLife.other" = "Cada invitación validada te suma uno más. {count} más y Browther queda desbloqueado de por vida.";
 "reminder.subscriptionTitle.one" = "Tu suscripción termina mañana.";
 "reminder.subscriptionTitle.other" = "Tu suscripción termina en {count} días.";
 "invite.foot.one" = "Una invitación se valida cuando la persona ha mantenido Browther como navegador predeterminado durante {count} día.";

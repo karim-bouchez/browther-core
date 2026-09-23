@@ -58,6 +58,7 @@
 "announce.title" = "Hjælp os med at holde denne app gratis";
 "announce.body" = "Studiet dev&din har brug for din støtte for fortsat at kunne tilbyde apps som denne gratis. Det eneste, vi beder dig om, er at fortælle andre om den.";
 "announce.invite" = "Inviter en, du kender";
+"invite.another" = "Inviter en mere, du kender";
 "announce.inviteSub" = "Og gå efter gratis adgang for livet";
 "announce.later" = "Mind mig om det senere";
 "ending.hook" = "Men du kan beholde dem for livet, gratis!";
@@ -95,7 +96,7 @@
 "referee.done" = "Klaret: personen, der inviterede dig, har fået 1 måned med ekstra funktioner. Tak på vedkommendes vegne.";
 "referee.noticeTitle" = "Tak!";
 "referee.noticeBody" = "Personen, der inviterede dig, har fået 1 måned med ekstra funktioner – ved Allahs nåde, og dernæst takket være dig.";
-"referee.inviteToo" = "Nu er det din tur til at invitere";
+"referee.inviteToo" = "Nu er det min tur til at invitere en, jeg kender";
 "referee.setDefault" = "Gør Browther til standardbrowser";
 "invitations.validated" = "Bekræftet";
 "invitations.inProgress" = "I gang";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "En af dine invitationer er godt på vej: {count} dage mere med Browther som standardbrowser, så er den bekræftet.";
 "reminder.monthsTitle.one" = "I morgen udløber dine optjente måneder.";
 "reminder.monthsTitle.other" = "Om {count} dage udløber dine optjente måneder.";
-"reminder.monthsNext.one" = "Hver bekræftet invitation giver dig én mere. {count} til, og du når det næste trin.";
-"reminder.monthsNext.other" = "Hver bekræftet invitation giver dig én mere. {count} til, og du når det næste trin.";
+"reminder.monthsNext.one" = "Hver bekræftet invitation giver dig én mere. {count} til, og du får en bonus på {bonus} måneder.";
+"reminder.monthsNext.other" = "Hver bekræftet invitation giver dig én mere. {count} til, og du får en bonus på {bonus} måneder.";
+"reminder.monthsNextLife.one" = "Hver bekræftet invitation giver dig én mere. {count} til, og Browther er låst op for livet.";
+"reminder.monthsNextLife.other" = "Hver bekræftet invitation giver dig én mere. {count} til, og Browther er låst op for livet.";
 "reminder.subscriptionTitle.one" = "Dit abonnement slutter i morgen.";
 "reminder.subscriptionTitle.other" = "Dit abonnement slutter om {count} dage.";
 "invite.foot.one" = "En invitation bekræftes, når personen har beholdt Browther som standardbrowser i {count} dag.";

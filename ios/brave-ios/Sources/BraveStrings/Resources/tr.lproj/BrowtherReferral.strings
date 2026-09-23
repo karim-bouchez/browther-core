@@ -58,6 +58,7 @@
 "announce.title" = "Bu uygulamanın ücretsiz kalmasına yardım edin";
 "announce.body" = "dev&din stüdyosunun bu tür uygulamaları ücretsiz sunmaya devam edebilmesi için desteğinize ihtiyacı var. Sizden tek istediğimiz, haberi yaymanız.";
 "announce.invite" = "Bir yakınınızı davet edin";
+"invite.another" = "Başka bir yakınınızı davet edin";
 "announce.inviteSub" = "Ve ömür boyu ücretsiz erişimi hedefleyin";
 "announce.later" = "Daha sonra hatırlat";
 "ending.hook" = "Ama onları ömür boyu, ücretsiz olarak tutabilirsiniz!";
@@ -95,7 +96,7 @@
 "referee.done" = "Tamamdır: sizi davet eden kişi 1 ay ek özellik kazandı. Onun adına teşekkürler.";
 "referee.noticeTitle" = "Teşekkürler!";
 "referee.noticeBody" = "Sizi davet eden kişi 1 ay ek özellik kazandı — önce Allah'ın lütfuyla, sonra sizin sayenizde.";
-"referee.inviteToo" = "Davet etme sırası sizde";
+"referee.inviteToo" = "Şimdi sıra bende, bir yakınımı davet ediyorum";
 "referee.setDefault" = "Browther'ı varsayılan tarayıcı yapın";
 "invitations.validated" = "Onaylandı";
 "invitations.inProgress" = "Devam ediyor";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "Davetlerinizden biri yolunda: Browther {count} gün daha varsayılan tarayıcı olarak kalırsa onaylanacak.";
 "reminder.monthsTitle.one" = "Kazandığınız aylar yarın sona eriyor.";
 "reminder.monthsTitle.other" = "Kazandığınız aylar {count} gün sonra sona eriyor.";
-"reminder.monthsNext.one" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve bir sonraki seviyeye geçiyorsunuz.";
-"reminder.monthsNext.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve bir sonraki seviyeye geçiyorsunuz.";
+"reminder.monthsNext.one" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve {bonus} aylık bonus kazanıyorsunuz.";
+"reminder.monthsNext.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve {bonus} aylık bonus kazanıyorsunuz.";
+"reminder.monthsNextLife.one" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor.";
+"reminder.monthsNextLife.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor.";
 "reminder.subscriptionTitle.one" = "Aboneliğiniz yarın sona eriyor.";
 "reminder.subscriptionTitle.other" = "Aboneliğiniz {count} gün sonra sona eriyor.";
 "invite.foot.one" = "Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanır.";

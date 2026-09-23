@@ -58,6 +58,7 @@
 "announce.title" = "Segítsen, hogy ez az alkalmazás ingyenes maradjon";
 "announce.body" = "A dev&din stúdiónak szüksége van az Ön támogatására, hogy továbbra is ingyen kínálhasson ilyen alkalmazásokat. Csak annyit kérünk, hogy adja tovább a hírét.";
 "announce.invite" = "Hívja meg egy szerettét";
+"invite.another" = "Hívjon meg még egy szerettét";
 "announce.inviteSub" = "És próbálja megszerezni az örökös ingyenes hozzáférést";
 "announce.later" = "Emlékeztessen később";
 "ending.hook" = "De örökre megtarthatja őket, ingyen!";
@@ -95,7 +96,7 @@
 "referee.done" = "Kész: a szerette 1 hónapnyi kiegészítő funkciót kapott. Köszönjük az ő nevében is.";
 "referee.noticeTitle" = "Köszönjük!";
 "referee.noticeBody" = "A szerette 1 hónapnyi kiegészítő funkciót kapott — Allah kegyelméből, majd Önnek köszönhetően.";
-"referee.inviteToo" = "Most Ön hívjon meg valakit";
+"referee.inviteToo" = "Most rajtam a sor, hogy meghívjak egy szerettemet";
 "referee.setDefault" = "A Browther beállítása alapértelmezett böngészőként";
 "invitations.validated" = "Megerősítve";
 "invitations.inProgress" = "Folyamatban";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "Az egyik meghívása jó úton halad: ha a Browther még {count} napig alapértelmezett böngésző marad, megerősítést kap.";
 "reminder.monthsTitle.one" = "Holnap lejárnak a megszerzett hónapjai.";
 "reminder.monthsTitle.other" = "{count} nap múlva lejárnak a megszerzett hónapjai.";
-"reminder.monthsNext.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a következő szintre lép.";
-"reminder.monthsNext.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a következő szintre lép.";
+"reminder.monthsNext.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és {bonus} hónap bónuszt kap.";
+"reminder.monthsNext.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és {bonus} hónap bónuszt kap.";
+"reminder.monthsNextLife.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther élete végéig feloldódik.";
+"reminder.monthsNextLife.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther élete végéig feloldódik.";
 "reminder.subscriptionTitle.one" = "Az előfizetése holnap megszűnik.";
 "reminder.subscriptionTitle.other" = "Az előfizetése {count} nap múlva megszűnik.";
 "invite.foot.one" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";

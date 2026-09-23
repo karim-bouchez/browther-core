@@ -58,6 +58,7 @@
 "announce.title" = "Helfen Sie uns, diese App kostenlos zu halten";
 "announce.body" = "Das Studio dev&din braucht Ihre Unterstützung, um weiterhin Apps wie diese kostenlos anbieten zu können. Wir bitten Sie nur darum, es weiterzusagen.";
 "announce.invite" = "Jemanden einladen";
+"invite.another" = "Jemand anderen einladen";
 "announce.inviteSub" = "Und den kostenlosen Zugang auf Lebenszeit anpeilen";
 "announce.later" = "Später erinnern";
 "ending.hook" = "Aber Sie können sie auf Lebenszeit behalten, kostenlos!";
@@ -95,7 +96,7 @@
 "referee.done" = "Erledigt: Die Person, die Sie eingeladen hat, hat 1 Monat mit zusätzlichen Funktionen bekommen. Danke in ihrem Namen.";
 "referee.noticeTitle" = "Danke!";
 "referee.noticeBody" = "Die Person, die Sie eingeladen hat, hat 1 Monat mit zusätzlichen Funktionen bekommen – durch Allahs Gnade und dann dank Ihnen.";
-"referee.inviteToo" = "Laden Sie jetzt auch jemanden ein";
+"referee.inviteToo" = "Jetzt lade ich selbst jemanden ein";
 "referee.setDefault" = "Browther als Standardbrowser festlegen";
 "invitations.validated" = "Bestätigt";
 "invitations.inProgress" = "Läuft";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "Eine Ihrer Einladungen ist auf gutem Weg: Noch {count} Tage mit Browther als Standardbrowser, dann ist sie bestätigt.";
 "reminder.monthsTitle.one" = "Morgen laufen Ihre erhaltenen Monate ab.";
 "reminder.monthsTitle.other" = "In {count} Tagen laufen Ihre erhaltenen Monate ab.";
-"reminder.monthsNext.one" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Sie erreichen die nächste Stufe.";
-"reminder.monthsNext.other" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Sie erreichen die nächste Stufe.";
+"reminder.monthsNext.one" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Sie erhalten {bonus} Bonusmonate.";
+"reminder.monthsNext.other" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Sie erhalten {bonus} Bonusmonate.";
+"reminder.monthsNextLife.one" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Browther ist lebenslang freigeschaltet.";
+"reminder.monthsNextLife.other" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Browther ist lebenslang freigeschaltet.";
 "reminder.subscriptionTitle.one" = "Ihr Abo endet morgen.";
 "reminder.subscriptionTitle.other" = "Ihr Abo endet in {count} Tagen.";
 "invite.foot.one" = "Eine Einladung ist bestätigt, sobald die Person Browther {count} Tag lang als Standardbrowser behalten hat.";

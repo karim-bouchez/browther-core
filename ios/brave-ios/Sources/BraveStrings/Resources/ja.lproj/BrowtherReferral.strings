@@ -58,6 +58,7 @@
 "announce.title" = "このアプリを無料のまま続けるために、力を貸してください";
 "announce.body" = "dev&din スタジオがこうしたアプリを無料で提供し続けるには、あなたの応援が必要です。お願いしたいのは、まわりに広めてもらうことだけです。";
 "announce.invite" = "身近な人を招待";
+"invite.another" = "別の人を招待";
 "announce.inviteSub" = "永久無料アクセスも目指せます";
 "announce.later" = "あとで知らせる";
 "ending.hook" = "でも、永久に無料で使い続けられます！";
@@ -95,7 +96,7 @@
 "referee.done" = "完了：紹介してくれた人が追加機能 1 か月分を獲得しました。その人に代わって、ありがとうございます。";
 "referee.noticeTitle" = "ありがとうございます！";
 "referee.noticeBody" = "紹介してくれた人が追加機能 1 か月分を獲得しました。アッラーのお恵みにより、そしてあなたのおかげです。";
-"referee.inviteToo" = "あなたも招待する";
+"referee.inviteToo" = "今度は私が身近な人を招待";
 "referee.setDefault" = "Browther をデフォルトのブラウザに設定";
 "invitations.validated" = "確定";
 "invitations.inProgress" = "進行中";
@@ -161,7 +162,8 @@
 "reminder.featuresTitle.other" = "{count} 日後に、追加機能が一時停止します。";
 "reminder.inProgressCount.other" = "招待のひとつが順調に進んでいます。Browther をデフォルトのブラウザにしてあと {count} 日で確定します。";
 "reminder.monthsTitle.other" = "{count} 日後に、獲得した期間が終了します。";
-"reminder.monthsNext.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で次のステップです。";
+"reminder.monthsNext.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で {bonus} か月のボーナスです。";
+"reminder.monthsNextLife.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で Browther がずっと使えるようになります。";
 "reminder.subscriptionTitle.other" = "サブスクリプションは {count} 日後に終了します。";
 "invite.foot.other" = "招待した人が Browther を {count} 日間デフォルトのブラウザにしておくと、招待が確定します。";
 "notice.why.other" = "身近な人があなたの紹介コードを使い、Browther を {count} 日間デフォルトのブラウザにしました。";

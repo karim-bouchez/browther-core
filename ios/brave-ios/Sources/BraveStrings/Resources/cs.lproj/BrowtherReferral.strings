@@ -58,6 +58,7 @@
 "announce.title" = "Pomozte nám udržet tuto aplikaci zdarma";
 "announce.body" = "Studio dev&din potřebuje vaši podporu, aby mohlo dál nabízet podobné aplikace zdarma. Žádáme vás jen o jedno: řekněte o ní dalším.";
 "announce.invite" = "Pozvat někoho blízkého";
+"invite.another" = "Pozvat dalšího blízkého";
 "announce.inviteSub" = "A zkusit získat doživotní přístup zdarma";
 "announce.later" = "Připomenout později";
 "ending.hook" = "Ale můžete si je nechat navždy, zdarma!";
@@ -95,7 +96,7 @@
 "referee.done" = "Hotovo: vaše blízká osoba získala 1 měsíc doplňkových funkcí. Děkujeme vám jejím jménem.";
 "referee.noticeTitle" = "Děkujeme!";
 "referee.noticeBody" = "Vaše blízká osoba získala 1 měsíc doplňkových funkcí — z Alláhovy milosti, a pak díky vám.";
-"referee.inviteToo" = "Teď je řada na vás";
+"referee.inviteToo" = "Teď je řada na mně pozvat někoho blízkého";
 "referee.setDefault" = "Nastavit Browther jako výchozí prohlížeč";
 "invitations.validated" = "Potvrzeno";
 "invitations.inProgress" = "Probíhá";
@@ -187,9 +188,12 @@
 "reminder.monthsTitle.one" = "Zítra vám skončí získané měsíce.";
 "reminder.monthsTitle.few" = "Za {count} dny vám skončí získané měsíce.";
 "reminder.monthsTitle.other" = "Za {count} dní vám skončí získané měsíce.";
-"reminder.monthsNext.one" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a postoupíte na další úroveň.";
-"reminder.monthsNext.few" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a postoupíte na další úroveň.";
-"reminder.monthsNext.other" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a postoupíte na další úroveň.";
+"reminder.monthsNext.one" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a získáte bonus {bonus} měsíců.";
+"reminder.monthsNext.few" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a získáte bonus {bonus} měsíců.";
+"reminder.monthsNext.other" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a získáte bonus {bonus} měsíců.";
+"reminder.monthsNextLife.one" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy.";
+"reminder.monthsNextLife.few" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy.";
+"reminder.monthsNextLife.other" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy.";
 "reminder.subscriptionTitle.one" = "Vaše předplatné končí zítra.";
 "reminder.subscriptionTitle.few" = "Vaše předplatné končí za {count} dny.";
 "reminder.subscriptionTitle.other" = "Vaše předplatné končí za {count} dní.";

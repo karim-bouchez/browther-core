@@ -58,6 +58,7 @@
 "announce.title" = "Bantu kami menjaga aplikasi ini tetap gratis";
 "announce.body" = "Studio dev&din membutuhkan dukungan Anda agar bisa terus menghadirkan aplikasi seperti ini secara gratis. Kami hanya meminta Anda untuk menyebarkan kabar.";
 "announce.invite" = "Undang orang terdekat";
+"invite.another" = "Undang orang terdekat lainnya";
 "announce.inviteSub" = "Dan raih akses gratis seumur hidup";
 "announce.later" = "Ingatkan saya nanti";
 "ending.hook" = "Tetapi Anda bisa memilikinya seumur hidup, gratis!";
@@ -95,7 +96,7 @@
 "referee.done" = "Selesai: orang terdekat Anda mendapat 1 bulan fitur tambahan. Terima kasih atas namanya.";
 "referee.noticeTitle" = "Terima kasih!";
 "referee.noticeBody" = "Orang terdekat Anda mendapat 1 bulan fitur tambahan — berkat karunia Allah, lalu berkat Anda.";
-"referee.inviteToo" = "Giliran Anda mengundang";
+"referee.inviteToo" = "Sekarang giliran saya mengundang orang terdekat";
 "referee.setDefault" = "Jadikan Browther browser default";
 "invitations.validated" = "Tervalidasi";
 "invitations.inProgress" = "Berjalan";
@@ -161,7 +162,8 @@
 "reminder.featuresTitle.other" = "Dalam {count} hari, fitur tambahan Anda akan dijeda.";
 "reminder.inProgressCount.other" = "Salah satu undangan Anda sedang berjalan: {count} hari lagi dengan Browther sebagai browser default dan undangan itu tervalidasi.";
 "reminder.monthsTitle.other" = "Dalam {count} hari, bulan-bulan yang Anda dapatkan akan berakhir.";
-"reminder.monthsNext.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Anda naik ke tingkat berikutnya.";
+"reminder.monthsNext.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Anda mendapat bonus {bonus} bulan.";
+"reminder.monthsNextLife.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Browther terbuka seumur hidup.";
 "reminder.subscriptionTitle.other" = "Langganan Anda berakhir dalam {count} hari.";
 "invite.foot.other" = "Undangan tervalidasi setelah orang terdekat Anda memakai Browther sebagai browser default selama {count} hari.";
 "notice.why.other" = "Orang terdekat Anda memakai kode referal Anda, dan baru saja memakai Browther sebagai browser default selama {count} hari.";

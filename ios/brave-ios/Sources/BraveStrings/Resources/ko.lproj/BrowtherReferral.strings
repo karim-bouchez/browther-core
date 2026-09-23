@@ -58,6 +58,7 @@
 "announce.title" = "이 앱이 계속 무료일 수 있도록 도와주세요";
 "announce.body" = "dev&din 스튜디오가 이런 앱을 계속 무료로 제공하려면 당신의 응원이 필요해요. 부탁드리는 건 그저 주변에 알려 주시는 것뿐이에요.";
 "announce.invite" = "가까운 사람 초대하기";
+"invite.another" = "다른 사람 초대하기";
 "announce.inviteSub" = "평생 무료 이용에도 도전해 보세요";
 "announce.later" = "나중에 알려 주세요";
 "ending.hook" = "하지만 평생 무료로 계속 쓸 수 있어요!";
@@ -95,7 +96,7 @@
 "referee.done" = "완료: 그분이 추가 기능 1개월을 받았어요. 그분을 대신해 감사드려요.";
 "referee.noticeTitle" = "고마워요!";
 "referee.noticeBody" = "그분이 추가 기능 1개월을 받았어요. 알라의 은혜로, 그리고 당신 덕분이에요.";
-"referee.inviteToo" = "이제 내가 초대할 차례";
+"referee.inviteToo" = "이제 제가 가까운 사람을 초대할 차례";
 "referee.setDefault" = "Browther를 기본 브라우저로 설정";
 "invitations.validated" = "확정됨";
 "invitations.inProgress" = "진행 중";
@@ -161,7 +162,8 @@
 "reminder.featuresTitle.other" = "{count}일 후, 추가 기능이 일시 중지돼요.";
 "reminder.inProgressCount.other" = "초대 하나가 잘 진행되고 있어요. Browther를 기본 브라우저로 {count}일 더 쓰면 확정돼요.";
 "reminder.monthsTitle.other" = "{count}일 후, 받은 기간이 끝나요.";
-"reminder.monthsNext.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 다음 단계예요.";
+"reminder.monthsNext.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 {bonus}개월 보너스예요.";
+"reminder.monthsNextLife.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 Browther가 평생 열려요.";
 "reminder.subscriptionTitle.other" = "구독이 {count}일 후에 종료돼요.";
 "invite.foot.other" = "초대한 분이 Browther를 기본 브라우저로 {count}일 동안 유지하면 초대가 확정돼요.";
 "notice.why.other" = "가까운 사람이 내 추천 코드를 사용했고, Browther를 기본 브라우저로 {count}일 동안 유지했어요.";

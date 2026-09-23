@@ -58,6 +58,7 @@
 "announce.title" = "Bantu kami kekalkan aplikasi ini percuma";
 "announce.body" = "Studio dev&din memerlukan sokongan anda untuk terus menawarkan aplikasi seperti ini secara percuma. Kami cuma minta anda sebarkan berita tentangnya.";
 "announce.invite" = "Jemput orang tersayang";
+"invite.another" = "Jemput orang tersayang yang lain";
 "announce.inviteSub" = "Dan cuba dapatkan akses percuma seumur hidup";
 "announce.later" = "Ingatkan saya nanti";
 "ending.hook" = "Tetapi anda boleh mengekalkannya seumur hidup, secara percuma!";
@@ -95,7 +96,7 @@
 "referee.done" = "Selesai: orang tersayang anda telah mendapat 1 bulan ciri tambahan. Terima kasih bagi pihaknya.";
 "referee.noticeTitle" = "Terima kasih!";
 "referee.noticeBody" = "Orang tersayang anda telah mendapat 1 bulan ciri tambahan — dengan limpah kurnia Allah, kemudian berkat anda.";
-"referee.inviteToo" = "Giliran anda untuk menjemput";
+"referee.inviteToo" = "Kini giliran saya menjemput orang tersayang";
 "referee.setDefault" = "Jadikan Browther pelayar lalai";
 "invitations.validated" = "Disahkan";
 "invitations.inProgress" = "Sedang berjalan";
@@ -161,7 +162,8 @@
 "reminder.featuresTitle.other" = "Dalam {count} hari, ciri tambahan anda akan dijeda.";
 "reminder.inProgressCount.other" = "Salah satu jemputan anda sedang berjalan lancar: {count} hari lagi dengan Browther sebagai pelayar lalai dan ia akan disahkan.";
 "reminder.monthsTitle.other" = "Dalam {count} hari, bulan-bulan yang anda peroleh akan tamat.";
-"reminder.monthsNext.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan anda naik ke peringkat seterusnya.";
+"reminder.monthsNext.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan anda mendapat bonus {bonus} bulan.";
+"reminder.monthsNextLife.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan Browther dibuka seumur hidup.";
 "reminder.subscriptionTitle.other" = "Langganan anda tamat dalam {count} hari.";
 "invite.foot.other" = "Jemputan disahkan apabila orang tersayang anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "notice.why.other" = "Orang tersayang anda menggunakan kod rujukan anda, dan baru sahaja mengekalkan Browther sebagai pelayar lalai selama {count} hari.";

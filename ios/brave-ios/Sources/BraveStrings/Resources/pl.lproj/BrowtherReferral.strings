@@ -58,6 +58,7 @@
 "announce.title" = "Pomóż nam zachować tę aplikację darmową";
 "announce.body" = "Studio dev&din potrzebuje twojego wsparcia, by dalej oferować takie aplikacje za darmo. Prosimy cię tylko o jedno: opowiedz o niej innym.";
 "announce.invite" = "Zaproś bliską osobę";
+"invite.another" = "Zaproś kolejną bliską osobę";
 "announce.inviteSub" = "I zawalcz o darmowy dostęp na zawsze";
 "announce.later" = "Przypomnij mi później";
 "ending.hook" = "Ale możesz je zachować na zawsze, za darmo!";
@@ -95,7 +96,7 @@
 "referee.done" = "Gotowe: twoja bliska osoba zyskała 1 miesiąc dodatkowych funkcji. Dziękujemy w jej imieniu.";
 "referee.noticeTitle" = "Dziękujemy!";
 "referee.noticeBody" = "Twoja bliska osoba zyskała 1 miesiąc dodatkowych funkcji — dzięki łasce Allaha, a potem dzięki tobie.";
-"referee.inviteToo" = "Twoja kolej, by zaprosić";
+"referee.inviteToo" = "Teraz moja kolej zaprosić bliską osobę";
 "referee.setDefault" = "Ustaw Browther jako domyślną przeglądarkę";
 "invitations.validated" = "Potwierdzone";
 "invitations.inProgress" = "W toku";
@@ -187,9 +188,12 @@
 "reminder.monthsTitle.one" = "Jutro kończą się twoje zdobyte miesiące.";
 "reminder.monthsTitle.few" = "Za {count} dni kończą się twoje zdobyte miesiące.";
 "reminder.monthsTitle.many" = "Za {count} dni kończą się twoje zdobyte miesiące.";
-"reminder.monthsNext.one" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i przechodzisz na kolejny próg.";
-"reminder.monthsNext.few" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i przechodzisz na kolejny próg.";
-"reminder.monthsNext.many" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i przechodzisz na kolejny próg.";
+"reminder.monthsNext.one" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i dostajesz bonus {bonus} miesięcy.";
+"reminder.monthsNext.few" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i dostajesz bonus {bonus} miesięcy.";
+"reminder.monthsNext.many" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i dostajesz bonus {bonus} miesięcy.";
+"reminder.monthsNextLife.one" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i Browther jest odblokowany na zawsze.";
+"reminder.monthsNextLife.few" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i Browther jest odblokowany na zawsze.";
+"reminder.monthsNextLife.many" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc. Jeszcze {count} i Browther jest odblokowany na zawsze.";
 "reminder.subscriptionTitle.one" = "Twoja subskrypcja kończy się jutro.";
 "reminder.subscriptionTitle.few" = "Twoja subskrypcja kończy się za {count} dni.";
 "reminder.subscriptionTitle.many" = "Twoja subskrypcja kończy się za {count} dni.";

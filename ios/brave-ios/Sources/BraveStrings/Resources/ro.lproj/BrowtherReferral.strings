@@ -58,6 +58,7 @@
 "announce.title" = "Ajută-ne să păstrăm aplicația gratuită";
 "announce.body" = "Studioul dev&din are nevoie de sprijinul tău ca să ofere în continuare gratuit aplicații ca aceasta. Tot ce îți cerem e să dai vestea mai departe.";
 "announce.invite" = "Invită pe cineva apropiat";
+"invite.another" = "Invită pe altcineva apropiat";
 "announce.inviteSub" = "Și încearcă să obții acces gratuit pe viață";
 "announce.later" = "Amintește-mi mai târziu";
 "ending.hook" = "Dar le poți păstra pe viață, gratuit!";
@@ -95,7 +96,7 @@
 "referee.done" = "Gata: persoana care te-a invitat a câștigat 1 lună de funcții suplimentare. Îți mulțumim din partea ei.";
 "referee.noticeTitle" = "Mulțumim!";
 "referee.noticeBody" = "Persoana care te-a invitat a câștigat 1 lună de funcții suplimentare — prin harul lui Allah, apoi datorită ție.";
-"referee.inviteToo" = "E rândul tău să inviți";
+"referee.inviteToo" = "Acum e rândul meu să invit pe cineva apropiat";
 "referee.setDefault" = "Setează Browther ca browser implicit";
 "invitations.validated" = "Confirmată";
 "invitations.inProgress" = "În curs";
@@ -187,9 +188,12 @@
 "reminder.monthsTitle.one" = "Mâine se termină lunile pe care le-ai câștigat.";
 "reminder.monthsTitle.few" = "Peste {count} zile se termină lunile pe care le-ai câștigat.";
 "reminder.monthsTitle.other" = "Peste {count} de zile se termină lunile pe care le-ai câștigat.";
-"reminder.monthsNext.one" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și treci la pragul următor.";
-"reminder.monthsNext.few" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și treci la pragul următor.";
-"reminder.monthsNext.other" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și treci la pragul următor.";
+"reminder.monthsNext.one" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și primești un bonus de {bonus} luni.";
+"reminder.monthsNext.few" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și primești un bonus de {bonus} luni.";
+"reminder.monthsNext.other" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și primești un bonus de {bonus} luni.";
+"reminder.monthsNextLife.one" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață.";
+"reminder.monthsNextLife.few" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață.";
+"reminder.monthsNextLife.other" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață.";
 "reminder.subscriptionTitle.one" = "Abonamentul tău se încheie mâine.";
 "reminder.subscriptionTitle.few" = "Abonamentul tău se încheie peste {count} zile.";
 "reminder.subscriptionTitle.other" = "Abonamentul tău se încheie peste {count} de zile.";

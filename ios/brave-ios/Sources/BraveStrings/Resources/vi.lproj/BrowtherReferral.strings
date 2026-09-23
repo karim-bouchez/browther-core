@@ -58,6 +58,7 @@
 "announce.title" = "Giúp chúng tôi giữ ứng dụng này miễn phí";
 "announce.body" = "Studio dev&din cần sự ủng hộ của bạn để tiếp tục cung cấp miễn phí những ứng dụng như thế này. Điều chúng tôi mong ở bạn chỉ là giúp lan tỏa.";
 "announce.invite" = "Mời người thân";
+"invite.another" = "Mời thêm một người thân";
 "announce.inviteSub" = "Và thử giành quyền dùng miễn phí trọn đời";
 "announce.later" = "Nhắc tôi sau";
 "ending.hook" = "Nhưng bạn có thể giữ chúng trọn đời, miễn phí!";
@@ -95,7 +96,7 @@
 "referee.done" = "Xong: người thân của bạn đã nhận được 1 tháng tính năng bổ sung. Thay mặt họ, cảm ơn bạn.";
 "referee.noticeTitle" = "Cảm ơn bạn!";
 "referee.noticeBody" = "Người thân của bạn đã nhận được 1 tháng tính năng bổ sung — nhờ ân điển của Allah, rồi nhờ bạn.";
-"referee.inviteToo" = "Đến lượt bạn mời";
+"referee.inviteToo" = "Đến lượt tôi mời một người thân";
 "referee.setDefault" = "Đặt Browther làm trình duyệt mặc định";
 "invitations.validated" = "Đã xác nhận";
 "invitations.inProgress" = "Đang chờ";
@@ -161,7 +162,8 @@
 "reminder.featuresTitle.other" = "Sau {count} ngày nữa, các tính năng bổ sung của bạn sẽ tạm dừng.";
 "reminder.inProgressCount.other" = "Một lời mời của bạn đang tiến triển tốt: còn {count} ngày dùng Browther làm trình duyệt mặc định nữa là được xác nhận.";
 "reminder.monthsTitle.other" = "Sau {count} ngày nữa, những tháng bạn đã nhận sẽ kết thúc.";
-"reminder.monthsNext.other" = "Mỗi lời mời được xác nhận sẽ cộng thêm cho bạn một tháng. Thêm {count} lời mời nữa là bạn lên mốc tiếp theo.";
+"reminder.monthsNext.other" = "Mỗi lời mời được xác nhận sẽ cộng thêm cho bạn một tháng. Thêm {count} lời mời nữa là bạn nhận thưởng {bonus} tháng.";
+"reminder.monthsNextLife.other" = "Mỗi lời mời được xác nhận sẽ cộng thêm cho bạn một tháng. Thêm {count} lời mời nữa là Browther mở khóa trọn đời.";
 "reminder.subscriptionTitle.other" = "Gói đăng ký của bạn kết thúc sau {count} ngày.";
 "invite.foot.other" = "Lời mời được xác nhận khi người thân của bạn giữ Browther làm trình duyệt mặc định trong {count} ngày.";
 "notice.why.other" = "Một người thân đã dùng mã giới thiệu của bạn, và vừa giữ Browther làm trình duyệt mặc định trong {count} ngày.";

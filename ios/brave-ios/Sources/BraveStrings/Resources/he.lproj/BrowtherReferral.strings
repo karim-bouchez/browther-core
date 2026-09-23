@@ -58,6 +58,7 @@
 "announce.title" = "יחד נשמור על האפליקציה הזו בחינם";
 "announce.body" = "הסטודיו dev&din צריך את התמיכה שלך כדי להמשיך להציע אפליקציות כאלה בחינם. כל מה שאנחנו מבקשים זה לספר עליה הלאה.";
 "announce.invite" = "להזמין אדם קרוב";
+"invite.another" = "להזמין עוד אדם קרוב";
 "announce.inviteSub" = "ולנסות להשיג גישה חינמית לכל החיים";
 "announce.later" = "להזכיר לי אחר כך";
 "ending.hook" = "אבל אפשר לשמור עליהן לכל החיים, בחינם!";
@@ -95,7 +96,7 @@
 "referee.done" = "זהו: האדם הקרוב אליך קיבל חודש של תכונות נוספות. תודה בשמו.";
 "referee.noticeTitle" = "תודה!";
 "referee.noticeBody" = "האדם הקרוב אליך קיבל חודש של תכונות נוספות — בחסדי אללה, ואחר כך בזכותך.";
-"referee.inviteToo" = "עכשיו תורך להזמין";
+"referee.inviteToo" = "עכשיו תורי להזמין אדם קרוב";
 "referee.setDefault" = "להגדיר את Browther כדפדפן ברירת המחדל";
 "invitations.validated" = "אושרה";
 "invitations.inProgress" = "בתהליך";
@@ -187,9 +188,12 @@
 "reminder.monthsTitle.one" = "מחר מסתיימים החודשים שצברת.";
 "reminder.monthsTitle.two" = "בעוד יומיים מסתיימים החודשים שצברת.";
 "reminder.monthsTitle.other" = "בעוד {count} ימים מסתיימים החודשים שצברת.";
-"reminder.monthsNext.one" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד הזמנה אחת ועוברים לשלב הבא.";
-"reminder.monthsNext.two" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ועוברים לשלב הבא.";
-"reminder.monthsNext.other" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ועוברים לשלב הבא.";
+"reminder.monthsNext.one" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד הזמנה אחת ומקבלים בונוס של {bonus} חודשים.";
+"reminder.monthsNext.two" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ומקבלים בונוס של {bonus} חודשים.";
+"reminder.monthsNext.other" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ומקבלים בונוס של {bonus} חודשים.";
+"reminder.monthsNextLife.one" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד הזמנה אחת ו-Browther נפתח לתמיד.";
+"reminder.monthsNextLife.two" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ו-Browther נפתח לתמיד.";
+"reminder.monthsNextLife.other" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ו-Browther נפתח לתמיד.";
 "reminder.subscriptionTitle.one" = "המנוי שלך מסתיים מחר.";
 "reminder.subscriptionTitle.two" = "המנוי שלך מסתיים בעוד יומיים.";
 "reminder.subscriptionTitle.other" = "המנוי שלך מסתיים בעוד {count} ימים.";

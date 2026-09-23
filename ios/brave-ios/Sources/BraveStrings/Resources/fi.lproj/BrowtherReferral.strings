@@ -58,6 +58,7 @@
 "announce.title" = "Auta meitä pitämään tämä sovellus ilmaisena";
 "announce.body" = "Studio dev&din tarvitsee tukeasi, jotta se voi jatkossakin tarjota tämänkaltaisia sovelluksia ilmaiseksi. Pyydämme sinulta vain, että kerrot siitä eteenpäin.";
 "announce.invite" = "Kutsu joku läheinen";
+"invite.another" = "Kutsu toinen läheinen";
 "announce.inviteSub" = "Ja tavoittele ilmaista elinikäistä käyttöoikeutta";
 "announce.later" = "Muistuta myöhemmin";
 "ending.hook" = "Mutta voit pitää ne loppuiäksi, ilmaiseksi!";
@@ -95,7 +96,7 @@
 "referee.done" = "Valmista: kutsujasi sai 1 kuukauden lisäominaisuuksia. Kiitos hänen puolestaan.";
 "referee.noticeTitle" = "Kiitos!";
 "referee.noticeBody" = "Kutsujasi sai 1 kuukauden lisäominaisuuksia – Allahin armosta, ja sitten sinun ansiostasi.";
-"referee.inviteToo" = "Nyt on sinun vuorosi kutsua";
+"referee.inviteToo" = "Nyt on minun vuoroni kutsua läheinen";
 "referee.setDefault" = "Aseta Browther oletusselaimeksi";
 "invitations.validated" = "Vahvistettu";
 "invitations.inProgress" = "Kesken";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "Yksi kutsuistasi on hyvällä mallilla: vielä {count} päivää Browther oletusselaimena, niin se vahvistetaan.";
 "reminder.monthsTitle.one" = "Huomenna ansaitsemasi kuukaudet päättyvät.";
 "reminder.monthsTitle.other" = "{count} päivän päästä ansaitsemasi kuukaudet päättyvät.";
-"reminder.monthsNext.one" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin pääset seuraavalle tasolle.";
-"reminder.monthsNext.other" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin pääset seuraavalle tasolle.";
+"reminder.monthsNext.one" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin saat {bonus} kuukauden bonuksen.";
+"reminder.monthsNext.other" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin saat {bonus} kuukauden bonuksen.";
+"reminder.monthsNextLife.one" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin Browther aukeaa elinikäisesti.";
+"reminder.monthsNextLife.other" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin Browther aukeaa elinikäisesti.";
 "reminder.subscriptionTitle.one" = "Tilauksesi päättyy huomenna.";
 "reminder.subscriptionTitle.other" = "Tilauksesi päättyy {count} päivän päästä.";
 "invite.foot.one" = "Kutsu vahvistetaan, kun kutsumasi henkilö on pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";

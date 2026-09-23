@@ -445,7 +445,10 @@ struct ReferralSheetView: View {
       ReferralRoundIcon(systemName: "bell", size: 56)
       ReferralFlowTitle(text: reminderTitle(reminderCase, days: days))
       ReferralFlowBody(text: reminderBody(reminderCase))
-      ReferralPrimaryButton(label: Strings.BrowtherReferral.inviteSomeone) {
+      ReferralPrimaryButton(
+        label: alreadyInvited ? Strings.BrowtherReferral.inviteAnother
+                              : Strings.BrowtherReferral.inviteSomeone
+      ) {
         action("invite")
         actions.openHome?()
       }
@@ -479,6 +482,15 @@ struct ReferralSheetView: View {
     }
   }
 
+  /// ⭐ « Inviter un AUTRE proche » dès qu'une invitation a porté : proposer
+  /// « Inviter un proche » à qui l'a déjà fait efface son geste.
+  /// ⚠️ On compte les installées et les validées, ⛔ pas les `sent` : envoyer
+  /// un lien n'est pas encore avoir invité quelqu'un.
+  private var alreadyInvited: Bool {
+    guard let counts = controller.known?.invitations else { return false }
+    return counts.installed + counts.validated > 0
+  }
+
   private func reminderTitle(_ reminderCase: ReminderCase, days: Int) -> String {
     switch reminderCase {
     case .earnedMonthsEnding: return Strings.BrowtherReferral.reminderTitleMonths(days)
@@ -496,9 +508,12 @@ struct ReferralSheetView: View {
       return closest.map(Strings.BrowtherReferral.reminderInProgressCount) ?? Strings.BrowtherReferral.reminderInProgress
     case .earnedMonthsEnding:
       // Le slot `{left}` lu dans `milestones.next.remaining` (§ 11.3 #13) ;
-      // sans palier à venir, la phrase s'arrête.
-      if let left = controller.known?.milestones.next?.remaining {
-        return Strings.BrowtherReferral.reminderMonthsNext(left)
+      // sans jalon à venir, la phrase s'arrête. ⭐ Le texte NOMME le gain
+      // (des mois en bonus, ou l'accès à vie) — ⛔ jamais « palier suivant ».
+      if let next = controller.known?.milestones.next {
+        return next.lifetime
+          ? Strings.BrowtherReferral.reminderMonthsNextLife(next.remaining)
+          : Strings.BrowtherReferral.reminderMonthsNext(next.remaining, bonus: next.bonusMonths)
       }
       return Strings.BrowtherReferral.reminderMonths
     case .subscriptionCancelled:

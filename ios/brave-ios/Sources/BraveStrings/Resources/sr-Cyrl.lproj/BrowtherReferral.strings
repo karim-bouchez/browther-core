@@ -58,6 +58,7 @@
 "announce.title" = "Помозите нам да ова апликација остане бесплатна";
 "announce.body" = "Студију dev&din треба ваша подршка да би и даље могао да нуди овакве апликације бесплатно. Све што тражимо јесте да пренесете реч.";
 "announce.invite" = "Позовите неког блиског";
+"invite.another" = "Позовите још неког блиског";
 "announce.inviteSub" = "И покушајте да добијете бесплатан доживотни приступ";
 "announce.later" = "Подсети ме касније";
 "ending.hook" = "Али можете да их задржите доживотно, бесплатно!";
@@ -95,7 +96,7 @@
 "referee.done" = "Готово: ваша блиска особа је добила 1 месец додатних функција. Хвала вам у њено име.";
 "referee.noticeTitle" = "Хвала!";
 "referee.noticeBody" = "Ваша блиска особа је добила 1 месец додатних функција — захваљујући Аллаху, а затим вама.";
-"referee.inviteToo" = "Сад је ваш ред да позовете";
+"referee.inviteToo" = "Сад је ред на мене да позовем неког блиског";
 "referee.setDefault" = "Поставите Browther као подразумевани прегледач";
 "invitations.validated" = "Потврђена";
 "invitations.inProgress" = "У току";
@@ -187,9 +188,12 @@
 "reminder.monthsTitle.one" = "Сутра истичу ваши зарађени месеци.";
 "reminder.monthsTitle.few" = "За {count} дана истичу ваши зарађени месеци.";
 "reminder.monthsTitle.other" = "За {count} дана истичу ваши зарађени месеци.";
-"reminder.monthsNext.one" = "Свака потврђена позивница вам додаје још један. Још {count} и прелазите на следећи ниво.";
-"reminder.monthsNext.few" = "Свака потврђена позивница вам додаје још један. Још {count} и прелазите на следећи ниво.";
-"reminder.monthsNext.other" = "Свака потврђена позивница вам додаје још један. Још {count} и прелазите на следећи ниво.";
+"reminder.monthsNext.one" = "Свака потврђена позивница вам додаје још један. Још {count} и добијате бонус од {bonus} месеци.";
+"reminder.monthsNext.few" = "Свака потврђена позивница вам додаје још један. Још {count} и добијате бонус од {bonus} месеци.";
+"reminder.monthsNext.other" = "Свака потврђена позивница вам додаје још један. Још {count} и добијате бонус од {bonus} месеци.";
+"reminder.monthsNextLife.one" = "Свака потврђена позивница вам додаје још један. Још {count} и Browther је откључан доживотно.";
+"reminder.monthsNextLife.few" = "Свака потврђена позивница вам додаје још један. Још {count} и Browther је откључан доживотно.";
+"reminder.monthsNextLife.other" = "Свака потврђена позивница вам додаје још један. Још {count} и Browther је откључан доживотно.";
 "reminder.subscriptionTitle.one" = "Ваша претплата истиче сутра.";
 "reminder.subscriptionTitle.few" = "Ваша претплата истиче за {count} дана.";
 "reminder.subscriptionTitle.other" = "Ваша претплата истиче за {count} дана.";

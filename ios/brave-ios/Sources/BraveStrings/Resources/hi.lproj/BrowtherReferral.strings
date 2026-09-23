@@ -58,6 +58,7 @@
 "announce.title" = "इस ऐप को मुफ़्त रखने में हमारी मदद करें";
 "announce.body" = "ऐसे ऐप मुफ़्त में देते रहने के लिए dev&din स्टूडियो को आपके साथ की ज़रूरत है। हम बस इतना माँगते हैं कि आप बात आगे बढ़ाएँ।";
 "announce.invite" = "किसी क़रीबी को आमंत्रित करें";
+"invite.another" = "किसी और क़रीबी को आमंत्रित करें";
 "announce.inviteSub" = "और ज़िंदगी भर का मुफ़्त ऐक्सेस पाने की कोशिश करें";
 "announce.later" = "बाद में याद दिलाएँ";
 "ending.hook" = "लेकिन ये ज़िंदगी भर, मुफ़्त में आपकी हो सकती हैं!";
@@ -95,7 +96,7 @@
 "referee.done" = "हो गया: आपके क़रीबी को अतिरिक्त सुविधाओं का 1 महीना मिल गया। उनकी ओर से शुक्रिया।";
 "referee.noticeTitle" = "शुक्रिया!";
 "referee.noticeBody" = "आपके क़रीबी को अतिरिक्त सुविधाओं का 1 महीना मिल गया — अल्लाह के फ़ज़्ल से, फिर आपकी बदौलत।";
-"referee.inviteToo" = "अब आपकी बारी, आमंत्रित करें";
+"referee.inviteToo" = "अब मेरी बारी, मैं किसी क़रीबी को आमंत्रित करूँ";
 "referee.setDefault" = "Browther को डिफ़ॉल्ट ब्राउज़र बनाएँ";
 "invitations.validated" = "मान्य";
 "invitations.inProgress" = "जारी";
@@ -174,8 +175,10 @@
 "reminder.inProgressCount.other" = "आपका एक आमंत्रण सही राह पर है: डिफ़ॉल्ट ब्राउज़र के रूप में Browther के साथ {count} दिन और, फिर यह मान्य हो जाएगा।";
 "reminder.monthsTitle.one" = "कल आपके कमाए हुए महीने ख़त्म हो जाएँगे।";
 "reminder.monthsTitle.other" = "{count} दिन में आपके कमाए हुए महीने ख़त्म हो जाएँगे।";
-"reminder.monthsNext.one" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर अगला पड़ाव।";
-"reminder.monthsNext.other" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर अगला पड़ाव।";
+"reminder.monthsNext.one" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर {bonus} महीने का बोनस।";
+"reminder.monthsNext.other" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर {bonus} महीने का बोनस।";
+"reminder.monthsNextLife.one" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर Browther हमेशा के लिए अनलॉक।";
+"reminder.monthsNextLife.other" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर Browther हमेशा के लिए अनलॉक।";
 "reminder.subscriptionTitle.one" = "आपका सब्सक्रिप्शन कल ख़त्म होगा।";
 "reminder.subscriptionTitle.other" = "आपका सब्सक्रिप्शन {count} दिन में ख़त्म होगा।";
 "invite.foot.one" = "आमंत्रण तब मान्य होता है जब आपका क़रीबी {count} दिन तक Browther को डिफ़ॉल्ट ब्राउज़र बनाए रखे।";

@@ -274,6 +274,9 @@ extension Strings {
       )
     }
     public static var inviteSomeone: String { t("announce.invite", "Invite someone") }
+    /// ⚠️ Le même bouton quand une invitation est déjà partie : « Inviter un
+    /// proche » sonnerait comme si rien n'avait été fait.
+    public static var inviteAnother: String { t("invite.another", "Invite someone else") }
     public static var announceInviteSub: String { t("announce.inviteSub", "And aim for free lifetime access") }
     public static var announceLater: String { t("announce.later", "Remind me later") }
 
@@ -377,12 +380,27 @@ extension Strings {
     public static var reminderMonths: String {
       t("reminder.months", "Every confirmed invitation adds one more.")
     }
-    public static func reminderMonthsNext(_ left: Int) -> String {
+    /// ⭐ Le rappel dit le GAIN, ⛔ pas le « palier suivant » : « palier » ne veut
+    /// rien dire pour qui n'a pas lu le barème (recette Karim, 2026-09-23).
+    /// Deux phrases, parce que le prochain jalon est soit des mois en bonus,
+    /// soit l'accès à vie — `ReferralMilestones.Next.lifetime` tranche.
+    public static func reminderMonthsNext(_ left: Int, bonus: Int) -> String {
+      fill(
+        plural(
+          "reminder.monthsNext",
+          left,
+          one: "Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.",
+          other: "Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus."
+        ),
+        ["bonus": "\(bonus)"]
+      )
+    }
+    public static func reminderMonthsNextLife(_ left: Int) -> String {
       plural(
-        "reminder.monthsNext",
+        "reminder.monthsNextLife",
         left,
-        one: "Every confirmed invitation adds one more. {count} more and you reach the next tier.",
-        other: "Every confirmed invitation adds one more. {count} more and you reach the next tier."
+        one: "Each confirmed invitation adds one. {count} more and Browther is unlocked for life.",
+        other: "Each confirmed invitation adds one. {count} more and Browther is unlocked for life."
       )
     }
     public static func reminderTitleSubscription(_ days: Int) -> String {
@@ -530,7 +548,7 @@ extension Strings {
         other: "You used their referral code, and you have just kept Browther as your default browser for {count} days."
       )
     }
-    public static var refereeInviteToo: String { t("referee.inviteToo", "Your turn to invite") }
+    public static var refereeInviteToo: String { t("referee.inviteToo", "My turn to invite someone") }
     public static func refereeMeter(current: Int, target: Int) -> String {
       fill(
         plural("referee.meter", target, one: "{current} of {count} day", other: "{current} of {count} days"),
