@@ -59,8 +59,6 @@ extension Action.Identifier {
 struct ReferralSettingsCard: View {
   @ObservedObject private var controller = BrowtherReferralController.shared
 
-  static let surface = BrowtherIntroPalette.dynamic(light: 0xFFF7E6, dark: 0x2A2114)
-  static let border = BrowtherIntroPalette.dynamic(light: 0xE8C878, dark: 0x6A5525)
   private static let subtitle = BrowtherIntroPalette.dynamic(light: 0x6B5A38, dark: 0xCDBC98)
 
   var body: some View {
@@ -184,29 +182,17 @@ final class BrowtherReferralCardCell: UITableViewCell, Cell {
   private func applyBrowtherStyle() {
     guard !styled else { return }
     styled = true
-    // 🔴 **C'est le SYSTÈME qui dessine la carte, nous ne faisons que la
-    // teinter.** Quatre tentatives pour le comprendre (recette Karim,
-    // 2026-09-23) : tout ce qu'on dessine soi-même par-dessus laisse voir la
-    // carte du système derrière (coins, bords), parce qu'elle n'a ni la même
-    // géométrie ni le même arrondi — et la copier à la main, c'est refaire ce
-    // que la liste fait déjà pour toutes les autres lignes. Ici la forme vient
-    // de `listGroupedCell()`, donc elle est juste **par construction** ; seules
-    // la teinte et le contenu sont à nous.
-    // ⚠️ `automaticallyUpdatesBackgroundConfiguration = false` : sinon iOS
-    // repose sa configuration par défaut au moindre changement d'état et efface
-    // la teinte (c'est ce qui avait fait disparaître l'aplat, puis le liseré).
-    automaticallyUpdatesBackgroundConfiguration = false
-    var background = UIBackgroundConfiguration.listGroupedCell()
-    background.backgroundColor = UIColor(ReferralSettingsCard.surface)
-    background.strokeColor = UIColor(ReferralSettingsCard.border)
-    background.strokeWidth = 1
-    // ⚠️ **Les transformateurs de couleur de la configuration système écrasent
-    // les nôtres** : `listGroupedCell()` en pose pour résoudre la couleur selon
-    // l'état de la cellule, et ils rendaient la carte grise malgré la teinte
-    // (recette Karim, 2026-09-23). Les couper garde nos couleurs.
-    background.backgroundColorTransformer = nil
-    background.strokeColorTransformer = nil
-    backgroundConfiguration = background
+    // 🔴 **La carte est celle du système, et elle le reste.** Cinq tentatives
+    // pour teinter cette ligne ont échoué (recette Karim, 2026-09-23) : aplat
+    // doré (effacé par la mise à jour automatique de la configuration), liseré
+    // (dessiné à côté, puis perdu à la réutilisation), carte redessinée par
+    // nous (les coins du système dépassaient derrière), teinte posée sur la
+    // configuration système (ignorée, même transformateurs coupés). ⇒ On ne
+    // touche plus au FOND : la forme, l'arrondi et les marges viennent de la
+    // liste, donc ils sont justes, et la ligne se distingue par ce qu'on
+    // maîtrise vraiment — l'icône cadeau et le titre en or.
+    // ⛔ Ne pas retenter une teinte de fond sans avoir inspecté la hiérarchie
+    // des vues sur l'appareil : quelque chose, dans cette table, gagne toujours.
     contentConfiguration = UIHostingConfiguration { ReferralSettingsCard() }
   }
 }
