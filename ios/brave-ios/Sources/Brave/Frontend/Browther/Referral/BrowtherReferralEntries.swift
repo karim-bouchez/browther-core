@@ -28,9 +28,11 @@ extension Action.Identifier {
     id: "BrowtherReferral",
     title: Strings.BrowtherReferral.homeTitle,
     braveSystemImage: "leo.heart.outline",
-    // Entre le VPN (100, retiré chez nous) et l'historique (300) : en tête du
-    // menu, avant les destinations héritées de Brave.
-    defaultRank: 250,
+    // ⚠️ Les 4 premières actions visibles forment la rangée « MES ACTIONS »
+    // (`numberOfQuickActions`) : à 250 le parrainage y poussait **Partager**
+    // dehors — or partager est un geste rapide, il doit y rester (Karim,
+    // 2026-09-23). À 650, il ouvre la LISTE, juste sous « Partager » (600).
+    defaultRank: 650,
     defaultVisibility: .visible
   )
 }
@@ -45,28 +47,22 @@ struct ReferralSettingsCard: View {
 
   var body: some View {
     Button(action: action) {
-      HStack(spacing: 14) {
+      HStack(spacing: 12) {
         ZStack {
-          RoundedRectangle(cornerRadius: 11, style: .continuous)
-            .fill(
-              LinearGradient(
-                colors: [ReferralPalette.goldFill, ReferralPalette.goldFill.opacity(0.72)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-              )
-            )
-            .frame(width: 38, height: 38)
+          RoundedRectangle(cornerRadius: 8, style: .continuous)
+            .fill(ReferralPalette.goldFill)
+            .frame(width: 30, height: 30)
           Image(systemName: "gift.fill")
-            .font(.system(size: 18, weight: .semibold))
+            .font(.system(size: 15, weight: .semibold))
             .foregroundStyle(ReferralPalette.ink)
         }
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: 1) {
           Text(Strings.BrowtherReferral.homeTitle)
-            .font(.body.weight(.semibold))
+            .font(.body)
             .foregroundStyle(Color(UIColor.braveLabel))
           Text(Strings.BrowtherReferral.settingsSubtitle)
             .font(.footnote)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Color(UIColor.secondaryBraveLabel))
             .multilineTextAlignment(.leading)
             .fixedSize(horizontal: false, vertical: true)
         }
@@ -74,24 +70,14 @@ struct ReferralSettingsCard: View {
         if controller.hasFreshNews {
           Circle()
             .fill(ReferralPalette.greenFill)
-            .frame(width: 10, height: 10)
+            .frame(width: 9, height: 9)
             .accessibilityLabel(Strings.BrowtherReferral.settingsNews)
         }
         Image(systemName: "chevron.right")
           .font(.system(size: 13, weight: .semibold))
-          .foregroundStyle(Color.secondary)
+          .foregroundStyle(Color(UIColor.braveSeparator))
       }
-      .padding(.vertical, 12)
-      .padding(.horizontal, 16)
       .frame(maxWidth: .infinity, alignment: .leading)
-      .background(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .fill(ReferralPalette.goldSurface)
-      )
-      .overlay {
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .strokeBorder(ReferralPalette.goldFill.opacity(0.35))
-      }
       .contentShape(Rectangle())
     }
     .buttonStyle(.plain)
@@ -157,10 +143,15 @@ struct ReferralExtraCallout: View {
 final class BrowtherReferralCardCell: UITableViewCell, Cell {
   func configure(row: Row) {
     selectionStyle = .none
-    backgroundColor = .clear
+    // 🔴 L'arrondi et la largeur viennent de `listGroupedCell()` — donc EXACTEMENT
+    // ceux des autres sections (Karim, 2026-09-23 : « même format que les
+    // autres »). Une carte dessinée à la main dans la cellule était plus
+    // étroite et plus ronde que ses voisines. L'or ne fait que teinter le fond.
+    var background = UIBackgroundConfiguration.listGroupedCell()
+    background.backgroundColor = UIColor(ReferralPalette.goldSurfaceSolid)
+    backgroundConfiguration = background
     contentConfiguration = UIHostingConfiguration {
       ReferralSettingsCard(action: { row.selection?() })
     }
-    .margins(.vertical, 6)
   }
 }

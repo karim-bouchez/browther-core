@@ -54,7 +54,7 @@ struct ReferralHomeView: View {
         ReferralPendingView()
       }
     }
-    .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
+    .background(ReferralPalette.screen.ignoresSafeArea())
     .navigationTitle(title)
     .navigationBarTitleDisplayMode(.inline)
     .overlay {
@@ -131,7 +131,7 @@ struct ReferralHomeView: View {
           .background {
             if on {
               RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .fill(Color(UIColor.systemBackground))
+                .fill(ReferralPalette.panel)
                 .shadow(color: .black.opacity(0.08), radius: 3, y: 1)
             }
           }
@@ -174,7 +174,7 @@ struct ReferralSupportTab: View {
         .padding(.vertical, 10)
         .frame(maxWidth: 560)
       }
-      .background(Color(UIColor.systemGroupedBackground))
+      .background(ReferralPalette.screen)
     }
   }
 }

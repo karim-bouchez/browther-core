@@ -26,7 +26,15 @@ enum ReferralPalette {
   static let goldSurface = BrowtherIntroPalette.dynamic(light: 0xE2B95C, dark: 0xE2B95C).opacity(0.16)
   static let ink = Color(UIColor(rgb: 0x2A1B05))
   static let track = Color(UIColor.systemFill)
-  static let panel = Color(UIColor.secondarySystemBackground)
+  /// 🔴 **La palette de BRAVE, ⛔ pas celle du système** : les écrans du
+  /// parrainage vivent dans les Paramètres, et le gris-bleu de Brave y saute
+  /// aux yeux à côté du noir pur d'iOS (recette Karim, 2026-09-23).
+  static let panel = Color(UIColor.secondaryBraveGroupedBackground)
+  /// Le fond de page (celui des écrans de réglages).
+  static let screen = Color(UIColor.braveGroupedBackground)
+  /// L'aplat doré de la carte des Paramètres : un or DISCRET, qui tient sur les
+  /// deux thèmes (l'`opacity` d'un `Color` ne se convertit pas en `UIColor`).
+  static let goldSurfaceSolid = BrowtherIntroPalette.dynamic(light: 0xF7EED8, dark: 0x2E2415)
   static let line = Color.primary.opacity(0.1)
 }
 

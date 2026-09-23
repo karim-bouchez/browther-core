@@ -79,7 +79,7 @@ struct ReferralFlowShell<Content: View, Footer: View>: View {
       .padding(.bottom, 8)
       .frame(maxWidth: 560)
     }
-    .background(Color(UIColor.systemBackground).ignoresSafeArea())
+    .background(ReferralPalette.screen.ignoresSafeArea())
   }
 }
 

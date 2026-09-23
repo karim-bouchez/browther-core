@@ -245,7 +245,16 @@ struct ReferralGaugeView: View {
         .fill(Color.white)
         .overlay(Circle().strokeBorder(accent, lineWidth: 4))
         .frame(width: Self.thumb, height: Self.thumb)
-        .shadow(color: accent.opacity(0.35), radius: 6, y: 2)
+        // ⚠️ Le halo était une OMBRE colorée : invisible en thème clair, où le
+        // fond est déjà clair (recette Karim, 2026-09-23 : « je ne vois pas le
+        // contour du curseur »). Un vrai disque derrière le curseur se voit
+        // dans les deux thèmes ; l'ombre ne fait plus que le décoller.
+        .background(
+          Circle()
+            .fill(accent.opacity(0.22))
+            .frame(width: Self.thumb + 14, height: Self.thumb + 14)
+        )
+        .shadow(color: .black.opacity(0.18), radius: 4, y: 2)
         .scaleEffect(motion.dragging ? 1.12 : 1)
         .animation(.easeOut(duration: 0.12), value: motion.dragging)
         .offset(x: CGFloat(motion.position / Double(maxValue)) * span)

@@ -336,7 +336,7 @@ struct BrowtherFeedbackView: View {
     }
     .background(
       RoundedRectangle(cornerRadius: 12, style: .continuous)
-        .fill(Color(.secondarySystemBackground))
+        .fill(Color(UIColor.secondaryBraveGroupedBackground))
     )
   }
 }
