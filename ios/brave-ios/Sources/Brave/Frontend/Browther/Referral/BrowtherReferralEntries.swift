@@ -139,12 +139,19 @@ final class BrowtherReferralCardCell: MultilineSubtitleCell {
 
   /// 🔴 **Le fond se pose ICI, ⛔ pas dans `init`** : une cellule met à jour sa
   /// `backgroundConfiguration` toute seule à chaque changement d'état
-  /// (`automaticallyUpdatesBackgroundConfiguration`), ce qui EFFAÇAIT l'or posé
-  /// au départ — la ligne restait grise (recette Karim, 2026-09-23).
+  /// (`automaticallyUpdatesBackgroundConfiguration`), ce qui EFFAÇAIT ce qu'on
+  /// avait posé au départ — la ligne restait grise (recette Karim, 2026-09-23).
+  ///
+  /// ⚠️ **Un APLAT doré derrière le texte ne marche dans aucun des deux
+  /// thèmes** : le sous-titre est un gris secondaire, illisible sur crème comme
+  /// sur brun (recette Karim). La ligne garde donc le fond des autres — donc
+  /// leur contraste, exactement — et c'est un **liseré doré** qui la distingue.
   override func updateConfiguration(using state: UICellConfigurationState) {
     super.updateConfiguration(using: state)
     var background = UIBackgroundConfiguration.listGroupedCell().updated(for: state)
-    background.backgroundColor = UIColor(ReferralPalette.goldSurfaceSolid)
+    background.backgroundColor = .secondaryBraveGroupedBackground
+    background.strokeColor = UIColor(ReferralPalette.goldFill)
+    background.strokeWidth = 1.5
     backgroundConfiguration = background
   }
 
