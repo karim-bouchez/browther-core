@@ -188,15 +188,20 @@ final class BrowtherReferralCardCell: UITableViewCell, Cell {
   override func layoutSubviews() {
     super.layoutSubviews()
     applyBrowtherStyle()
+    // Filet : si quelque chose repose un fond entre deux configurations, il
+    // repart ici (⛔ ne touche pas à `contentConfiguration` : boucle de layout).
+    if backgroundColor != .clear { backgroundColor = .clear }
   }
 
   private func applyBrowtherStyle() {
     guard !styled else { return }
     styled = true
-    // ⚠️ `backgroundConfiguration = .clear()` NE SUFFIT PAS : la table dessine
-    // encore la carte grise de la section derrière la nôtre, et elle dépassait
-    // aux quatre coins (recette Karim, 2026-09-23). Il faut aussi couper le
-    // fond de la cellule ET sa vue de fond.
+    // 🔴 **Couper la mise à jour AUTOMATIQUE de la configuration de fond** :
+    // sans ça, iOS repose sa carte grise de section à chaque changement d'état,
+    // et elle dépassait aux quatre coins de la nôtre (recette Karim,
+    // 2026-09-23 — trois tentatives avant d'identifier ce mécanisme, c'est lui
+    // qui avait déjà effacé l'aplat doré puis le liseré).
+    automaticallyUpdatesBackgroundConfiguration = false
     backgroundConfiguration = .clear()
     backgroundColor = .clear
     backgroundView = UIView()
