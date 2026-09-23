@@ -81,7 +81,7 @@
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
 "share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) két hónapnyi kiegészítő funkciót kapsz.";
 "menu.invite" = "Meghívás a Browther böngészőbe";
-"settings.subtitle" = "Szerezzen hónapokat vagy örökös hozzáférést";
+"settings.subtitle" = "Szerezzen haszanátot és örökös hozzáférést";
 "settings.news" = "Új";
 "panel.extraBadge" = "Kiegészítő funkció";
 "panel.covered" = "Egyelőre az Öné.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "{count} nap múlva lejárnak a megszerzett hónapjai.";
 "reminder.monthsNext.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és {bonus} hónap bónuszt kap.";
 "reminder.monthsNext.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és {bonus} hónap bónuszt kap.";
-"reminder.monthsNextLife.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther élete végéig feloldódik.";
-"reminder.monthsNextLife.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther élete végéig feloldódik.";
+"reminder.monthsNextLife.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik.";
+"reminder.monthsNextLife.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik.";
 "reminder.subscriptionTitle.one" = "Az előfizetése holnap megszűnik.";
 "reminder.subscriptionTitle.other" = "Az előfizetése {count} nap múlva megszűnik.";
 "invite.foot.one" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";

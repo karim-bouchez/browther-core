@@ -459,7 +459,7 @@ extension Strings {
     }
     /// La ligne des Paramètres : ce qu'on y gagne, en une ligne.
     public static var settingsSubtitle: String {
-      t("settings.subtitle", "Earn months, or lifetime access")
+      t("settings.subtitle", "Earn hassanat and lifetime access")
     }
     /// L'étiquette de la pastille (lecteurs d'écran).
     public static var settingsNews: String { t("settings.news", "New") }

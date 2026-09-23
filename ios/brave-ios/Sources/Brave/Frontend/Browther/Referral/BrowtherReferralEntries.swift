@@ -41,34 +41,77 @@ extension Action.Identifier {
   )
 }
 
-/// L'icône de la ligne des Paramètres : le cadeau doré, dans un carré arrondi —
-/// le langage des icônes de réglages d'iOS. ⚠️ Dessinée en UIKit, parce que la
-/// LIGNE doit rester une cellule standard : même police, même chevron, mêmes
-/// marges que ses voisines (recette Karim, 2026-09-23 — une carte dessinée à la
-/// main ne tombait juste ni sur la fonte, ni sur la flèche).
-enum ReferralSettingsIcon {
-  static func make() -> UIImage {
-    let side: CGFloat = 30
-    let renderer = UIGraphicsImageRenderer(size: .init(width: side, height: side))
-    return renderer.image { context in
-      let rect = CGRect(x: 0, y: 0, width: side, height: side)
-      UIColor(ReferralPalette.goldFill).setFill()
-      UIBezierPath(roundedRect: rect, cornerRadius: 7).fill()
-      let symbol = UIImage(
-        systemName: "gift.fill",
-        withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .semibold)
-      )?
-      .withTintColor(UIColor(ReferralPalette.ink), renderingMode: .alwaysOriginal)
-      symbol?.draw(
-        in: CGRect(
-          x: (side - (symbol?.size.width ?? 0)) / 2,
-          y: (side - (symbol?.size.height ?? 0)) / 2,
-          width: symbol?.size.width ?? 0,
-          height: symbol?.size.height ?? 0
-        )
-      )
-      _ = context
+/// ⭐ **La carte du parrainage dans les Paramètres — dessinée par nous.**
+///
+/// 🔴 Trois essais ont échoué avant (recette Karim, 2026-09-23), et chacun pour
+/// la même raison : **ce qu'iOS dessine, iOS le redessine**. Un aplat doré posé
+/// en `backgroundConfiguration` rendait le sous-titre gris illisible ; un
+/// liseré se traçait à côté de la carte et disparaissait dès que la cellule
+/// était réutilisée (un simple retour de navigation suffisait). D'où celle-ci :
+/// la cellule n'a plus AUCUN fond système (`.clear()`), et la carte — fond,
+/// contour, textes, chevron — est à nous. ⚠️ Le prix assumé (Karim) : si iOS
+/// change les cotes de ses listes, il faudra revenir ici.
+///
+/// Les couleurs sont à nous aussi, donc le contraste est garanti des deux
+/// côtés : un fond chaud très sombre / très clair, un titre en or, un
+/// sous-titre assez contrasté (⛔ pas le gris secondaire d'iOS, illisible sur
+/// un fond teinté).
+struct ReferralSettingsCard: View {
+  @ObservedObject private var controller = BrowtherReferralController.shared
+
+  private static let surface = BrowtherIntroPalette.dynamic(light: 0xFFF7E6, dark: 0x2A2114)
+  private static let border = BrowtherIntroPalette.dynamic(light: 0xE8C878, dark: 0x6A5525)
+  private static let subtitle = BrowtherIntroPalette.dynamic(light: 0x6B5A38, dark: 0xCDBC98)
+
+  var body: some View {
+    HStack(spacing: 12) {
+      ZStack {
+        RoundedRectangle(cornerRadius: 8, style: .continuous)
+          .fill(
+            LinearGradient(
+              colors: [ReferralPalette.goldFill, ReferralPalette.goldFill.opacity(0.78)],
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            )
+          )
+          .frame(width: 32, height: 32)
+        Image(systemName: "gift.fill")
+          .font(.system(size: 16, weight: .semibold))
+          .foregroundStyle(ReferralPalette.ink)
+      }
+      VStack(alignment: .leading, spacing: 2) {
+        Text(Strings.BrowtherReferral.homeTitle)
+          .font(.body.weight(.semibold))
+          .foregroundStyle(ReferralPalette.gold)
+        Text(Strings.BrowtherReferral.settingsSubtitle)
+          .font(.footnote)
+          .foregroundStyle(Self.subtitle)
+          .multilineTextAlignment(.leading)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+      Spacer(minLength: 8)
+      if controller.hasFreshNews {
+        Circle()
+          .fill(ReferralPalette.greenFill)
+          .frame(width: 9, height: 9)
+          .accessibilityLabel(Strings.BrowtherReferral.settingsNews)
+      }
+      Image(systemName: "chevron.right")
+        .font(.system(size: 13, weight: .semibold))
+        .foregroundStyle(ReferralPalette.gold.opacity(0.6))
     }
+    .padding(.horizontal, 14)
+    .padding(.vertical, 12)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(
+      RoundedRectangle(cornerRadius: 12, style: .continuous)
+        .fill(Self.surface)
+    )
+    .overlay {
+      RoundedRectangle(cornerRadius: 12, style: .continuous)
+        .strokeBorder(Self.border, lineWidth: 1)
+    }
+    .accessibilityElement(children: .combine)
   }
 }
 
@@ -124,60 +167,35 @@ struct ReferralExtraCallout: View {
   }
 }
 
-/// La cellule : une `MultilineSubtitleCell` ordinaire — ⛔ rien n'est redessiné
-/// (fond, police, chevron, marges viennent d'iOS) — avec le titre en or et
-/// l'icône cadeau pour la faire ressortir, et la pastille verte quand une bonne
-/// nouvelle attend.
-///
-/// ⚠️ **Le style se pose dans `layoutSubviews` / `didMoveToWindow`, ⛔ pas dans
-/// `configure(row:)`** : ce dernier vient d'une extension de protocole
-/// (`Static.Cell`), il n'est donc pas surchargeable — et c'est lui qui écrit le
-/// chevron, donc il faut passer APRÈS lui.
-final class BrowtherReferralCardCell: MultilineSubtitleCell {
-  /// 🔴 **Ni aplat, ni liseré** (deux essais, deux échecs en recette le
-  /// 2026-09-23) : l'aplat doré rendait le sous-titre gris illisible dans les
-  /// deux thèmes, et le liseré d'une `backgroundConfiguration` se dessinait à
-  /// côté de la carte ET disparaissait dès que la cellule était réutilisée (un
-  /// retour de navigation suffisait — iOS refait la configuration tout seul).
-  /// Ce qui reste est ce qu'on maîtrise : le **titre en or** et l'icône. L'or du
-  /// TEXTE (§ 12.24) s'assombrit sur fond clair, donc le contraste tient des
-  /// deux côtés.
-  private func applyBrowtherStyle() {
-    textLabel?.textColor = UIColor(ReferralPalette.gold)
+/// La cellule ne porte plus que notre carte : aucun fond système, aucune
+/// étiquette système. ⚠️ Le style est (re)posé à chaque passage de layout : une
+/// cellule réutilisée repart sinon avec la configuration par défaut — c'est
+/// exactement ce qui faisait disparaître le liseré au retour de navigation.
+final class BrowtherReferralCardCell: UITableViewCell, Cell {
+  private var styled = false
+
+  func configure(row: Row) {
+    selectionStyle = .none
+    styled = false
+    applyBrowtherStyle()
+  }
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    styled = false
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    // ⚠️ Ici, et pas seulement à la configuration : une cellule réutilisée
-    // repart avec la couleur de texte par défaut.
     applyBrowtherStyle()
   }
 
-  override func didMoveToWindow() {
-    super.didMoveToWindow()
-    guard window != nil else { return }
-    applyBrowtherStyle()
-    guard MainActor.assumeIsolated({ BrowtherReferralController.shared.hasFreshNews }) else {
-      accessoryView = nil
-      accessoryType = .disclosureIndicator
-      return
-    }
-    // La pastille ne REMPLACE pas le chevron : elle se pose devant lui.
-    let dot = UIView(frame: .init(x: 0, y: 5, width: 10, height: 10))
-    dot.backgroundColor = UIColor(ReferralPalette.greenFill)
-    dot.layer.cornerRadius = 5
-    dot.isAccessibilityElement = true
-    dot.accessibilityLabel = Strings.BrowtherReferral.settingsNews
-    let chevron = UIImageView(
-      image: UIImage(systemName: "chevron.right")?
-        .withConfiguration(UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold))
-    )
-    chevron.tintColor = .tertiaryLabel
-    chevron.frame = .init(x: 18, y: 2, width: 10, height: 16)
-    let holder = UIView(frame: .init(x: 0, y: 0, width: 30, height: 20))
-    holder.addSubview(dot)
-    holder.addSubview(chevron)
-    accessoryType = .none
-    accessoryView = holder
+  private func applyBrowtherStyle() {
+    guard !styled else { return }
+    styled = true
+    backgroundConfiguration = .clear()
+    contentConfiguration = UIHostingConfiguration { ReferralSettingsCard() }
+      .margins(.horizontal, 0)
+      .margins(.vertical, 0)
   }
 }
