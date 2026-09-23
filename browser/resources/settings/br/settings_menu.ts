@@ -101,29 +101,21 @@ RegisterStyleOverride(
 
       /* ⭐ Browther : l'entrée « Parrainage ». Tout ce rail est gris ; sans un
          accent elle passe inaperçue, et c'est la seule porte vers les mois
-         offerts (recette Karim, 2026-09-23). La LIGNE ENTIÈRE passe à l'or du
-         parrainage (--gold de private/webui/referral/src/styles.css) — icône,
-         texte et flèche.
-         ⛔ **Pas d'aplat** : un pavé doré dans un rail de liens fait bloc
-         rapporté (« c'est moche », recette du même jour). Même principe que le
-         menu ⋯ : une seule tache de couleur, aucun cadre.
-         ⚠️ L'or ne se confond pas avec l'état SÉLECTIONNÉ du rail, qui est bleu
-         (--leo-color-text-interactive).
+         offerts (recette Karim, 2026-09-23). SEULE l'icône cadeau prend l'or du
+         parrainage (--gold de private/webui/referral/src/styles.css) — le texte
+         et la flèche restent comme leurs voisines.
+         ⛔ **Ni aplat, ni texte coloré** : le pavé faisait bloc rapporté, la
+         ligne entière en or faisait trop (recette du même jour). Même principe
+         que le menu ⋯ : un seul point de couleur dans un rail gris suffit.
          ⚠️ Pas d'accent grave dans ce commentaire : le bloc vit dans un
          template literal, une seule apostrophe inverse le couperait en deux. */
       #browtherReferralLink {
         --iron-icon-fill-color: #9a5a0c;
-        --cr-icon-color: #9a5a0c;
-
-        color: #9a5a0c !important;
       }
 
       @media (prefers-color-scheme: dark) {
         #browtherReferralLink {
           --iron-icon-fill-color: #e2b95c;
-          --cr-icon-color: #e2b95c;
-
-          color: #e2b95c !important;
         }
       }
 
