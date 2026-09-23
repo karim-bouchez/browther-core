@@ -332,8 +332,10 @@ RegisterPolymerTemplateModifications({
     // EXCLUE du `selectable` de `<cr-menu-selector>` (sinon le menu cherche
     // une route interne pour cette adresse et casse : « settings-menu has an
     // entry with an invalid route », vu le 2026-09-23).
-    // Son libellé vient du C++ (`browtherReferralTitle` = la clé `home.title`
-    // des textes de l'app, déjà traduite partout), ⛔ pas d'une chaîne grit.
+    // Son libellé vient du C++ (`browtherReferralTitle` = la clé
+    // `announce.invite` des textes de l'app, déjà traduite partout), ⛔ pas
+    // d'une chaîne grit. Le GESTE, pas le nom du programme : cf.
+    // `browther_referral_files.cc` § kMenuLabelKeys.
     if (loadTimeData.getBoolean('browtherReferralEnabled') && extensionEl) {
       const menuSelector = templateContent.querySelector('#menu')
       if (!menuSelector) {
@@ -352,7 +354,7 @@ RegisterPolymerTemplateModifications({
       referralEl.setAttribute('target', '_blank')
 
       const referralIcon = document.createElement('cr-icon')
-      referralIcon.setAttribute('icon', 'heart-outline')
+      referralIcon.setAttribute('icon', 'gift')
       referralEl.appendChild(referralIcon)
 
       const referralText = document.createElement('span')

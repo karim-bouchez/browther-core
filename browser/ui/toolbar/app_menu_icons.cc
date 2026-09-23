@@ -38,7 +38,7 @@ constexpr auto kCommandIcons =
 #endif
         {IDC_BRAVE_VPN_MENU, &kLeoProductVpnIcon},
         // Browther: « Parrainage » (soutenir dev&din).
-        {browther_referral::kReferralCommandId, &kLeoHeartOutlineIcon},
+        {browther_referral::kReferralCommandId, &kLeoGiftIcon},
         {IDC_PASSWORDS_AND_AUTOFILL_MENU, &kLeoKeyIcon},
         {IDC_RECENT_TABS_MENU, &kLeoHistoryIcon},
         {IDC_BOOKMARKS_MENU, &kLeoProductBookmarksIcon},

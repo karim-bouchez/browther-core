@@ -23,7 +23,13 @@ mangle(
   (template) => template.text.includes('id="appearance"'),
 )
 
-// Update "Customize toolbar" button's icon
+// 🔴 Browther : « Personnaliser la barre d'outils » retirée du panneau Thème
+// (2026-09-23), comme la ligne jumelle des Paramètres
+// (`browser/resources/settings/br/appearance_page.ts`) : elle propose d'épingler
+// des fonctionnalités que Browther a COUPÉES (barre latérale, Portefeuille,
+// Leo…), donc une barre d'outils à moitié vide. ⚠️ La sous-page
+// `customize-chrome-toolbar` reste dans le bundle : plus rien n'y mène, et
+// Brave la garde à jour — on ne retire QUE la porte d'entrée.
 mangle(
   (element) => {
     const el = element.querySelector('#toolbarButton')
@@ -31,34 +37,14 @@ mangle(
       throw new Error('[Customize Chrome] #toolbarButton is gone.')
     }
 
-    // Replace existing chevron icon with a new icon and put it at the start
-    // of the button.
-    const icon = el.querySelector('cr-icon[icon="cr:chevron-right"]')
-    if (!icon) {
-      throw new Error(
-        '[Customize Chrome] #toolbarButton does not have a chevron icon.',
-      )
+    // Le séparateur qui la précède part avec elle, sinon deux traits se suivent.
+    const separator = el.previousElementSibling
+    if (separator?.classList.contains('sp-cards-separator')) {
+      separator.remove()
     }
-    icon.setAttribute('icon', 'window-edit')
-    icon.setAttribute('slot', 'prefix-icon')
+    el.remove()
   },
   (template) => template.text.includes('id="toolbarButton"'),
-)
-
-mangle(
-  (element) => {
-    const el = element.querySelector('#toolbar-customization-inner-heading')
-    if (!el) {
-      throw new Error(
-        '[Customize Chrome] #toolbar-customization-inner-heading is gone.',
-      )
-    }
-
-    // Override text content of the heading with our custom label
-    el.textContent = '$i18n{braveCustomizeMenuToolbarLabel}'
-  },
-  (template) =>
-    template.text.includes('id="toolbar-customization-inner-heading"'),
 )
 
 // Insert a close button into the sp-heading element.

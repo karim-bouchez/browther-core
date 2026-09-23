@@ -265,6 +265,11 @@ leo_icons = [
   "forward-15.svg",
   "fullscreen-on.svg",
   "gemma-color.svg",
+  # Browther : l'entrée « Inviter un proche » du menu des Paramètres
+  # (browser/resources/settings/br/settings_menu.ts), la même icône que dans le
+  # menu ⋯ (kLeoGiftIcon).
+  "gift.svg",
+
   "globe.svg",
   "google-color.svg",
   "graph.svg",
@@ -272,12 +277,6 @@ leo_icons = [
   "hamburger-menu.svg",
   "hand-coins.svg",
   "hand-raised.svg",
-
-  # Browther : l'entrée « Parrainage » du menu des Paramètres
-  # (browser/resources/settings/br/settings_menu.ts), la même icône que dans le
-  # menu ⋯ (kLeoHeartOutlineIcon).
-  "heart-outline.svg",
-
   "hearts.svg",
   "help-outline.svg",
   "history.svg",

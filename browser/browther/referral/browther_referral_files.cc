@@ -5,7 +5,9 @@
 
 #include "brave/browser/browther/referral/browther_referral_files.h"
 
+#include <array>
 #include <optional>
+#include <string_view>
 #include <utility>
 
 #include "base/command_line.h"
@@ -116,15 +118,30 @@ std::string PrimaryLanguage(const std::string& locale) {
 std::u16string FallbackMenuLabel(const std::string& locale) {
   const std::string language = PrimaryLanguage(locale);
   if (language == "fr") {
-    return u"Parrainage";
+    return u"Inviter un proche sur Browther";
   }
   if (language == "ar") {
-    // « التزكية », la clé `home.title` de `ar.json` (octets recopiés, ⛔ pas
-    // retapés).
-    return u"\u0627\u0644\u062A\u0632\u0643\u064A\u0629";
+    // « ادعُ قريبًا إلى Browther », la clé `menu.invite` de `ar.json` (octets
+    // recopiés, ⛔ pas retapés).
+    return u"\u0627\u062F\u0639\u064F \u0642\u0631\u064A\u0628\u064B"
+           u"\u0627 \u0625\u0644\u0649 Browther";
   }
-  return u"Referrals";
+  return u"Invite someone to Browther";
 }
+
+/**
+ * ⭐ Le libellé des deux entrées (menu ⋯ et Paramètres) : le GESTE, ⛔ pas le
+ * nom du dispositif — « Parrainage » ne donne envie à personne dans un menu
+ * (Karim, 2026-09-23). `menu.invite` = « Inviter un proche sur Browther », le
+ * MÊME texte que le menu « … » d'iOS (`BrowtherReferralEntries.swift`) : une
+ * porte d'entrée qui se lit pareil sur les deux plateformes.
+ *
+ * ⚠️ Les 27 langues propres au desktop n'ont pas toutes `menu.invite` ; elles
+ * retombent sur le bouton de l'annonce (« Inviter un proche »), puis sur le
+ * titre de l'écran.
+ */
+constexpr auto kMenuLabelKeys = std::to_array<std::string_view>(
+    {"menu.invite", "announce.invite", "home.title"});
 
 // Les textes d'une langue : `i18n/<locale>.json`, sinon `i18n/<langue>.json`.
 std::optional<std::u16string> ReadMenuLabel(std::string locale) {
@@ -139,9 +156,14 @@ std::optional<std::u16string> ReadMenuLabel(std::string locale) {
     }
     std::optional<base::DictValue> texts =
         base::JSONReader::ReadDict(contents, base::JSON_PARSE_RFC);
-    const std::string* title = texts ? texts->FindString("home.title") : nullptr;
-    if (title && !title->empty()) {
-      return base::UTF8ToUTF16(*title);
+    if (!texts) {
+      continue;
+    }
+    for (std::string_view key : kMenuLabelKeys) {
+      const std::string* title = texts->FindString(key);
+      if (title && !title->empty()) {
+        return base::UTF8ToUTF16(*title);
+      }
     }
   }
   return std::nullopt;
