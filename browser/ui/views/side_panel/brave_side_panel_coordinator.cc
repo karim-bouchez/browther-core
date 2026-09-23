@@ -158,7 +158,19 @@ void BraveSidePanelCoordinator::PopulateSidePanel(
 
   // Notify to give opportunity to observe another panel entries from
   // global or active tab's contextual registry.
-  GetBraveBrowserView()->sidebar_container_view()->WillShowSidePanel();
+  //
+  // 🔴 Browther : la sidebar de Brave est retirée (`CanUseSidebar()` rend
+  // `false`), donc `sidebar_container_view_` n'est JAMAIS créée — l'appeler
+  // déréférençait un pointeur nul et faisait planter le navigateur à
+  // l'ouverture de **n'importe quel panneau latéral** (Paramètres › Apparence ›
+  // « Thème » et « Personnaliser votre barre d'outils », Sentry BROWTHER-49 et
+  // BROWTHER-4A, 2026-09-23). Le panneau lui-même reste celui de Chromium
+  // (`contents_height_side_panel_`, jamais remplacé quand la sidebar est
+  // absente) : il s'ouvre normalement sans cette notification.
+  if (auto* sidebar_container_view =
+          GetBraveBrowserView()->sidebar_container_view()) {
+    sidebar_container_view->WillShowSidePanel();
+  }
   SidePanelCoordinator::PopulateSidePanel(supress_animations, unique_key,
                                           std::move(open_trigger), entry,
                                           std::move(content_view));
