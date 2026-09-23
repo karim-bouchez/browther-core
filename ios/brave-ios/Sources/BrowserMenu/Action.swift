@@ -26,9 +26,15 @@ public struct Action: Hashable, Identifiable, Sendable {
 
   public struct Traits: Hashable, Sendable {
     public var badgeColor: UIColor? = nil
+    /// Browther : la teinte de l'icône, pour mettre UNE action en avant sans
+    /// changer sa typographie ni son fond. ⚠️ Passer une couleur DYNAMIQUE
+    /// (clair/sombre), sinon le contraste tombe dans l'un des deux thèmes.
+    /// `nil` = l'icône garde la couleur du menu.
+    public var iconTint: UIColor? = nil
 
-    public init(badgeColor: UIColor? = nil) {
+    public init(badgeColor: UIColor? = nil, iconTint: UIColor? = nil) {
       self.badgeColor = badgeColor
+      self.iconTint = iconTint
     }
   }
 

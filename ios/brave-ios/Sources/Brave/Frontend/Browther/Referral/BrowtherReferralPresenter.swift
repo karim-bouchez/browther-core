@@ -276,6 +276,9 @@ final class ReferralHomeHostingController: UIHostingController<ReferralHomeView>
   @MainActor
   init(showsClose: Bool) {
     super.init(rootView: ReferralHomeView())
+    // Le fond de Brave sous SwiftUI : sinon un éclair noir au push, et une
+    // barre de navigation qui ne s'accorde pas (recette Karim, 2026-09-23).
+    view.backgroundColor = .braveGroupedBackground
     title = Strings.BrowtherReferral.homeTitle
     if showsClose {
       navigationItem.rightBarButtonItem = UIBarButtonItem(

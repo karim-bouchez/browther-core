@@ -228,6 +228,10 @@ struct BrowtherFeedbackView: View {
   var body: some View {
     NavigationStack {
       form
+        .background(Color(UIColor.braveGroupedBackground).ignoresSafeArea())
+        .scrollContentBackground(.hidden)
+        .toolbarBackground(Color(UIColor.braveGroupedBackground), for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
           ToolbarItem(placement: .cancellationAction) {
@@ -270,6 +274,9 @@ struct BrowtherFeedbackView: View {
   }
 
   private var form: some View {
+    // 🔴 Le fond de BRAVE, ⛔ pas celui du système : dans les Paramètres, le noir
+    // pur d'iOS tranche avec le gris-bleu de tous les autres écrans (recette
+    // Karim, 2026-09-23). Idem pour la barre du haut, sinon elle reste noire.
     ScrollView {
       VStack(alignment: .leading, spacing: 16) {
         Text(Strings.Browther.feedbackTitle)

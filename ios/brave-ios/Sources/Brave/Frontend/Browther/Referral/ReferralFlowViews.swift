@@ -388,6 +388,7 @@ struct ReferralSheetView: View {
       .frame(maxWidth: 560)
       .frame(maxWidth: .infinity)
     }
+    .background(ReferralPalette.screen.ignoresSafeArea())
     .overlay(alignment: .topTrailing) {
       Button {
         actions.dismiss?()

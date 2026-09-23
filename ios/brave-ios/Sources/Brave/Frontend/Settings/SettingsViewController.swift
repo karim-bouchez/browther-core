@@ -1198,12 +1198,15 @@ class SettingsViewController: TableViewController {
       rows: [
         Row(
           text: Strings.BrowtherReferral.homeTitle,
+          detailText: Strings.BrowtherReferral.settingsSubtitle,
           selection: { [unowned self] in
             self.navigationController?.pushViewController(
               ReferralHomeHostingController(showsClose: false),
               animated: true
             )
           },
+          image: ReferralSettingsIcon.make(),
+          accessory: .disclosureIndicator,
           cellClass: BrowtherReferralCardCell.self
         )
       ]

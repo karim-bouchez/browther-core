@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveStrings
+import BraveUI
 import BrowserMenu
 import BrowtherReferral
 import Static
@@ -21,13 +22,16 @@ import UIKit
 /// sur le Nouvel Onglet (déjà chargé, et c'est là que les écrans DATÉS du flow
 /// s'ouvrent — `docs/PARRAINAGE.md` § 3.4).
 extension Action.Identifier {
-  /// ⚠️ L'icône se prend dans les 225 symboles Leo **embarqués** (`NalaAssets`) :
-  /// `leo.gift` existe dans le paquet npm mais PAS dans le catalogue compilé —
-  /// un nom absent donne une ligne sans icône, sans erreur.
+  /// ⭐ Le libellé dit ce qu'on FAIT, ⛔ pas le nom du dispositif : « Parrainage »
+  /// ne donne envie à personne dans un menu (Karim, 2026-09-23 — le patron de
+  /// « Offre Claude en cadeau »). L'icône est un **cadeau**.
+  /// ⚠️ `sf:` = un SF Symbol : les 225 symboles Leo embarqués (`NalaAssets`)
+  /// n'ont pas de cadeau, et un nom Leo absent donne une ligne SANS icône, sans
+  /// erreur.
   static let browtherReferral: Self = .init(
     id: "BrowtherReferral",
-    title: Strings.BrowtherReferral.homeTitle,
-    braveSystemImage: "leo.heart.outline",
+    title: Strings.BrowtherReferral.inviteSomeone,
+    braveSystemImage: "sf:gift.fill",
     // ⚠️ Les 4 premières actions visibles forment la rangée « MES ACTIONS »
     // (`numberOfQuickActions`) : à 250 le parrainage y poussait **Partager**
     // dehors — or partager est un geste rapide, il doit y rester (Karim,
@@ -37,50 +41,34 @@ extension Action.Identifier {
   )
 }
 
-/// La ligne des Paramètres : une carte, pas une ligne de liste — c'est la porte
-/// qui rapporte des mois, elle se voit (Karim, 2026-09-23 : « un rendu un peu
-/// plus stylé »). La pastille ne s'allume que quand une bonne nouvelle attend.
-struct ReferralSettingsCard: View {
-  let action: () -> Void
-
-  @ObservedObject private var controller = BrowtherReferralController.shared
-
-  var body: some View {
-    Button(action: action) {
-      HStack(spacing: 12) {
-        ZStack {
-          RoundedRectangle(cornerRadius: 8, style: .continuous)
-            .fill(ReferralPalette.goldFill)
-            .frame(width: 30, height: 30)
-          Image(systemName: "gift.fill")
-            .font(.system(size: 15, weight: .semibold))
-            .foregroundStyle(ReferralPalette.ink)
-        }
-        VStack(alignment: .leading, spacing: 1) {
-          Text(Strings.BrowtherReferral.homeTitle)
-            .font(.body)
-            .foregroundStyle(Color(UIColor.braveLabel))
-          Text(Strings.BrowtherReferral.settingsSubtitle)
-            .font(.footnote)
-            .foregroundStyle(Color(UIColor.secondaryBraveLabel))
-            .multilineTextAlignment(.leading)
-            .fixedSize(horizontal: false, vertical: true)
-        }
-        Spacer(minLength: 8)
-        if controller.hasFreshNews {
-          Circle()
-            .fill(ReferralPalette.greenFill)
-            .frame(width: 9, height: 9)
-            .accessibilityLabel(Strings.BrowtherReferral.settingsNews)
-        }
-        Image(systemName: "chevron.right")
-          .font(.system(size: 13, weight: .semibold))
-          .foregroundStyle(Color(UIColor.braveSeparator))
-      }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .contentShape(Rectangle())
+/// L'icône de la ligne des Paramètres : le cadeau doré, dans un carré arrondi —
+/// le langage des icônes de réglages d'iOS. ⚠️ Dessinée en UIKit, parce que la
+/// LIGNE doit rester une cellule standard : même police, même chevron, mêmes
+/// marges que ses voisines (recette Karim, 2026-09-23 — une carte dessinée à la
+/// main ne tombait juste ni sur la fonte, ni sur la flèche).
+enum ReferralSettingsIcon {
+  static func make() -> UIImage {
+    let side: CGFloat = 30
+    let renderer = UIGraphicsImageRenderer(size: .init(width: side, height: side))
+    return renderer.image { context in
+      let rect = CGRect(x: 0, y: 0, width: side, height: side)
+      UIColor(ReferralPalette.goldFill).setFill()
+      UIBezierPath(roundedRect: rect, cornerRadius: 7).fill()
+      let symbol = UIImage(
+        systemName: "gift.fill",
+        withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .semibold)
+      )?
+      .withTintColor(UIColor(ReferralPalette.ink), renderingMode: .alwaysOriginal)
+      symbol?.draw(
+        in: CGRect(
+          x: (side - (symbol?.size.width ?? 0)) / 2,
+          y: (side - (symbol?.size.height ?? 0)) / 2,
+          width: symbol?.size.width ?? 0,
+          height: symbol?.size.height ?? 0
+        )
+      )
+      _ = context
     }
-    .buttonStyle(.plain)
   }
 }
 
@@ -136,22 +124,51 @@ struct ReferralExtraCallout: View {
   }
 }
 
-/// La cellule qui porte la carte dans la table des Paramètres.
-/// ⚠️ `UIHostingConfiguration` (iOS 16+) plutôt qu'un `UIHostingController`
-/// posé à la main : pas de contrôleur orphelin à gérer, et la cellule se
-/// redimensionne toute seule quand le texte grossit.
-final class BrowtherReferralCardCell: UITableViewCell, Cell {
-  func configure(row: Row) {
-    selectionStyle = .none
-    // 🔴 L'arrondi et la largeur viennent de `listGroupedCell()` — donc EXACTEMENT
-    // ceux des autres sections (Karim, 2026-09-23 : « même format que les
-    // autres »). Une carte dessinée à la main dans la cellule était plus
-    // étroite et plus ronde que ses voisines. L'or ne fait que teinter le fond.
+/// La cellule : une `MultilineSubtitleCell` ordinaire — ⛔ rien n'est redessiné
+/// (police, chevron, marges viennent d'iOS) — avec le fond doré pour la faire
+/// ressortir, et la pastille verte quand une bonne nouvelle attend.
+///
+/// ⚠️ **Le style se pose dans `didMoveToWindow`, ⛔ pas dans `configure(row:)`** :
+/// ce dernier vient d'une extension de protocole (`Static.Cell`), il n'est donc
+/// pas surchargeable — et c'est lui qui écrit le chevron, donc il faut passer
+/// APRÈS lui.
+final class BrowtherReferralCardCell: MultilineSubtitleCell {
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
     var background = UIBackgroundConfiguration.listGroupedCell()
     background.backgroundColor = UIColor(ReferralPalette.goldSurfaceSolid)
     backgroundConfiguration = background
-    contentConfiguration = UIHostingConfiguration {
-      ReferralSettingsCard(action: { row.selection?() })
+  }
+
+  @available(*, unavailable)
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    guard window != nil else { return }
+    guard MainActor.assumeIsolated({ BrowtherReferralController.shared.hasFreshNews }) else {
+      accessoryView = nil
+      accessoryType = .disclosureIndicator
+      return
     }
+    // La pastille ne REMPLACE pas le chevron : elle se pose devant lui.
+    let dot = UIView(frame: .init(x: 0, y: 5, width: 10, height: 10))
+    dot.backgroundColor = UIColor(ReferralPalette.greenFill)
+    dot.layer.cornerRadius = 5
+    dot.isAccessibilityElement = true
+    dot.accessibilityLabel = Strings.BrowtherReferral.settingsNews
+    let chevron = UIImageView(
+      image: UIImage(systemName: "chevron.right")?
+        .withConfiguration(UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold))
+    )
+    chevron.tintColor = .tertiaryLabel
+    chevron.frame = .init(x: 18, y: 2, width: 10, height: 16)
+    let holder = UIView(frame: .init(x: 0, y: 0, width: 30, height: 20))
+    holder.addSubview(dot)
+    holder.addSubview(chevron)
+    accessoryType = .none
+    accessoryView = holder
   }
 }

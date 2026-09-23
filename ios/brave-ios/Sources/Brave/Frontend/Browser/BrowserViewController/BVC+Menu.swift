@@ -296,8 +296,17 @@ extension BrowserViewController {
     // fonctionnalités supplémentaires sans payer ne peut pas vivre au fond des
     // Paramètres (`BrowtherReferralEntries`).
     if BrowtherReferralController.shared.enabled {
+      let referral = BrowtherReferralController.shared
       actions.append(
-        .init(id: .browtherReferral) { @MainActor [unowned self] _ in
+        .init(
+          id: .browtherReferral,
+          // L'or du TEXTE (§ 12.24) : foncé sur fond clair, vif sur fond
+          // sombre — l'aplat doré n'aurait de contraste que dans un thème.
+          traits: .init(
+            badgeColor: referral.hasFreshNews ? UIColor(ReferralPalette.greenFill) : nil,
+            iconTint: UIColor(ReferralPalette.gold)
+          )
+        ) { @MainActor [unowned self] _ in
           self.dismiss(animated: true) {
             BrowtherReferralPresenter.presentHome(from: self)
           }

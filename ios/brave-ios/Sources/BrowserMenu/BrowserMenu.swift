@@ -168,7 +168,7 @@ private struct QuickActionsView: View {
           Label {
             Text(action.title)
           } icon: {
-            Image(braveSystemName: action.image)
+            ActionIcon(action: action)
           }
         }
         .buttonStyle(QuickActionButtonStyle(state: action.state, traits: action.traits))
@@ -265,7 +265,7 @@ private struct ActionButton: View {
         Label {
           Text(action.title)
         } icon: {
-          Image(braveSystemName: action.image)
+          ActionIcon(action: action)
         }
         Spacer()
         if let badgeColor = action.traits.badgeColor {
@@ -327,7 +327,7 @@ private struct ActionsList: View {
       Label {
         Text(action.title)
       } icon: {
-        Image(braveSystemName: action.image)
+        ActionIcon(action: action)
       }
       Spacer()
       if let badgeColor = action.traits.badgeColor {
@@ -439,3 +439,23 @@ private struct MenuRowButtonStyle: ButtonStyle {
     )
 }
 #endif
+
+
+/// Browther : l'icône d'une action — un symbole Leo, ou un **SF Symbol** quand
+/// le nom est préfixé `sf:` (les symboles Leo embarqués n'ont pas de cadeau) —
+/// teintée quand `Traits.iconTint` le demande.
+private struct ActionIcon: View {
+  let action: Action
+
+  var body: some View {
+    let image =
+      action.image.hasPrefix("sf:")
+      ? Image(systemName: String(action.image.dropFirst(3)))
+      : Image(braveSystemName: action.image)
+    if let tint = action.traits.iconTint {
+      image.foregroundStyle(Color(uiColor: tint))
+    } else {
+      image
+    }
+  }
+}
