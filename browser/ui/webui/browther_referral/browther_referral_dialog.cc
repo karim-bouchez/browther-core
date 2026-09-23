@@ -16,6 +16,8 @@
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "chrome/browser/ui/views/chrome_web_dialog_view.h"
 #include "content/public/browser/web_contents.h"
+#include "content/public/browser/web_ui.h"
+#include "third_party/skia/include/core/SkColor.h"
 #include "ui/base/mojom/ui_base_types.mojom.h"
 #include "ui/gfx/geometry/size.h"
 #include "ui/views/widget/widget.h"
@@ -25,10 +27,11 @@ namespace browther_referral {
 
 namespace {
 
-// ⚠️ Les cotes de la carte du flow (`private/webui/referral`), pas plus : la
-// modale n'a ni titre ni bordure, c'est la carte elle-même qu'on voit.
-constexpr int kDialogWidth = 460;
-constexpr int kDialogHeight = 660;
+// ⚠️ ⛔ **Pas une petite fenêtre au milieu** : la modale couvre TOUTE la fenêtre
+// du navigateur, sans cadre et TRANSPARENTE, et c'est la page qui peint le voile
+// sombre et la carte. Sinon on voit un bloc dans un bloc, avec sa propre barre
+// de défilement, et rien ne dit que le reste est bloqué (recette Karim,
+// 2026-09-23). Les cotes viennent donc de la fenêtre parente, pas d'ici.
 
 // La modale ouverte, s'il y en a une — une seule à la fois par principe.
 // ⚠️ `base::NoDestructor` : `gfx::NativeWindow` a un destructeur, et Chromium
@@ -44,7 +47,6 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
     set_can_close(true);
     set_dialog_modal_type(ui::mojom::ModalType::kWindow);
     set_show_dialog_title(false);
-    set_dialog_size(gfx::Size(kDialogWidth, kDialogHeight));
     // `host=modal` : l'app ne monte QUE le flow (⛔ pas l'écran Parrainage
     // derrière), et `screen` lui dit lequel ouvrir (`app.tsx`).
     set_dialog_content_url(
@@ -55,6 +57,14 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
   ReferralDialogDelegate(const ReferralDialogDelegate&) = delete;
   ReferralDialogDelegate& operator=(const ReferralDialogDelegate&) = delete;
   ~ReferralDialogDelegate() override = default;
+
+  // 🔴 Sans fond de page TRANSPARENT, la fenêtre translucide reste peinte en
+  // opaque par le moteur de rendu et l'on retombe sur un bloc plein.
+  void OnDialogShown(content::WebUI* webui) override {
+    if (content::WebContents* contents = webui->GetWebContents()) {
+      contents->SetPageBaseBackgroundColor(SK_ColorTRANSPARENT);
+    }
+  }
 };
 
 }  // namespace
@@ -80,9 +90,18 @@ bool ShowModal(content::WebContents* initiator, const std::string& screen) {
     LOG(ERROR) << "[browther] modale du parrainage : pas de fenêtre parente";
     return false;
   }
+  // La fenêtre : exactement la zone de contenu du navigateur, sans cadre ni
+  // ombre, et translucide — le voile et la carte sont peints par la page.
+  views::Widget::InitParams params(
+      views::Widget::InitParams::WIDGET_OWNS_NATIVE_WIDGET,
+      views::Widget::InitParams::TYPE_WINDOW);
+  params.opacity = views::Widget::InitParams::WindowOpacity::kTranslucent;
+  params.remove_standard_frame = true;
+  params.shadow_type = views::Widget::InitParams::ShadowType::kNone;
+  params.bounds = parent_widget->GetClientAreaBoundsInScreen();
   ModalWindow() = chrome::ShowWebDialogWithParams(
       parent_widget->GetNativeView(), initiator->GetBrowserContext(),
-      new ReferralDialogDelegate(screen), std::nullopt);
+      new ReferralDialogDelegate(screen), std::move(params));
   return static_cast<bool>(ModalWindow());
 }
 
