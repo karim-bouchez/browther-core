@@ -125,44 +125,38 @@ struct ReferralExtraCallout: View {
 }
 
 /// La cellule : une `MultilineSubtitleCell` ordinaire — ⛔ rien n'est redessiné
-/// (police, chevron, marges viennent d'iOS) — avec le fond doré pour la faire
-/// ressortir, et la pastille verte quand une bonne nouvelle attend.
+/// (fond, police, chevron, marges viennent d'iOS) — avec le titre en or et
+/// l'icône cadeau pour la faire ressortir, et la pastille verte quand une bonne
+/// nouvelle attend.
 ///
-/// ⚠️ **Le style se pose dans `didMoveToWindow`, ⛔ pas dans `configure(row:)`** :
-/// ce dernier vient d'une extension de protocole (`Static.Cell`), il n'est donc
-/// pas surchargeable — et c'est lui qui écrit le chevron, donc il faut passer
-/// APRÈS lui.
+/// ⚠️ **Le style se pose dans `layoutSubviews` / `didMoveToWindow`, ⛔ pas dans
+/// `configure(row:)`** : ce dernier vient d'une extension de protocole
+/// (`Static.Cell`), il n'est donc pas surchargeable — et c'est lui qui écrit le
+/// chevron, donc il faut passer APRÈS lui.
 final class BrowtherReferralCardCell: MultilineSubtitleCell {
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
+  /// 🔴 **Ni aplat, ni liseré** (deux essais, deux échecs en recette le
+  /// 2026-09-23) : l'aplat doré rendait le sous-titre gris illisible dans les
+  /// deux thèmes, et le liseré d'une `backgroundConfiguration` se dessinait à
+  /// côté de la carte ET disparaissait dès que la cellule était réutilisée (un
+  /// retour de navigation suffisait — iOS refait la configuration tout seul).
+  /// Ce qui reste est ce qu'on maîtrise : le **titre en or** et l'icône. L'or du
+  /// TEXTE (§ 12.24) s'assombrit sur fond clair, donc le contraste tient des
+  /// deux côtés.
+  private func applyBrowtherStyle() {
+    textLabel?.textColor = UIColor(ReferralPalette.gold)
   }
 
-  /// 🔴 **Le fond se pose ICI, ⛔ pas dans `init`** : une cellule met à jour sa
-  /// `backgroundConfiguration` toute seule à chaque changement d'état
-  /// (`automaticallyUpdatesBackgroundConfiguration`), ce qui EFFAÇAIT ce qu'on
-  /// avait posé au départ — la ligne restait grise (recette Karim, 2026-09-23).
-  ///
-  /// ⚠️ **Un APLAT doré derrière le texte ne marche dans aucun des deux
-  /// thèmes** : le sous-titre est un gris secondaire, illisible sur crème comme
-  /// sur brun (recette Karim). La ligne garde donc le fond des autres — donc
-  /// leur contraste, exactement — et c'est un **liseré doré** qui la distingue.
-  override func updateConfiguration(using state: UICellConfigurationState) {
-    super.updateConfiguration(using: state)
-    var background = UIBackgroundConfiguration.listGroupedCell().updated(for: state)
-    background.backgroundColor = .secondaryBraveGroupedBackground
-    background.strokeColor = UIColor(ReferralPalette.goldFill)
-    background.strokeWidth = 1.5
-    backgroundConfiguration = background
-  }
-
-  @available(*, unavailable)
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    // ⚠️ Ici, et pas seulement à la configuration : une cellule réutilisée
+    // repart avec la couleur de texte par défaut.
+    applyBrowtherStyle()
   }
 
   override func didMoveToWindow() {
     super.didMoveToWindow()
     guard window != nil else { return }
+    applyBrowtherStyle()
     guard MainActor.assumeIsolated({ BrowtherReferralController.shared.hasFreshNews }) else {
       accessoryView = nil
       accessoryType = .disclosureIndicator
