@@ -41,7 +41,9 @@ brave_version_build = 0
 // build 8 = TestFlight INTERNE 2026-09-22 : les retours de la recette du
 // parrainage (toasts qui ne recevaient aucun toucher, J−3 ouvert en grand,
 // écrans 8 et 8 bis avec leur contexte, bouton qui reprend la jauge).
-brave_version_build = 8
+// build 9 = TestFlight INTERNE 2026-09-23 : les trois portes d'entrée (menu
+// « … », carte des Paramètres, rappel du panneau Sawtunaa) et l'icône « cœur ».
+brave_version_build = 9
 
 // Browther: version marketing en CalVer (parité Desktop "Browther 2026.MM.JJ").
 // App Store Connect impose CFBundleShortVersionString = au plus 3 entiers SANS
