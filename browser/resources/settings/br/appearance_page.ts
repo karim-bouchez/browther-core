@@ -116,6 +116,19 @@ RegisterPolymerTemplateModifications({
     } else {
       hoverCardImagesTemplateShow.remove()
     }
+    // 🔴 Browther : « Personnaliser votre barre d'outils » retirée (2026-09-23).
+    // Le panneau d'upstream propose d'ajouter à la barre des boutons de
+    // fonctionnalités que Browther a COUPÉES (barre latérale, Portefeuille,
+    // Leo) : des interrupteurs qui ne donnent rien. ⚠️ « Thème » reste : c'est
+    // là que vivent Clair / Sombre / Appareil, et le bouton « Personnaliser la
+    // barre d'outils » du panneau Thème, lui, est encore là (upstream).
+    const customizeToolbar = templateContent.getElementById('customizeToolbar')
+    if (!customizeToolbar) {
+      console.error(`[Settings] Couldn't find customizeToolbar row`)
+    } else {
+      customizeToolbar.remove()
+    }
+
     const colorSchemeModeRow = templateContent.getElementById(
       'colorSchemeModeRow')
     if (!colorSchemeModeRow) {

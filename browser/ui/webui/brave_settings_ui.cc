@@ -14,6 +14,8 @@
 #include "base/feature_list.h"
 #include "base/strings/strcat.h"
 #include "brave/brave_domains/service_domains.h"
+#include "brave/browser/browther/referral/browther_referral_files.h"
+#include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/common/browther_version.h"
 #include "brave/browser/brave_account/brave_account_service_factory.h"
 #include "brave/browser/brave_origin/brave_origin_service_factory.h"
@@ -198,6 +200,15 @@ void BraveSettingsUI::AddResources(content::WebUIDataSource* html_source,
   // browther_version (cf. brave/common/browther_version.h). Lue côté JS
   // dans brave/.../settings_menu.ts (sidebar) et about_page.ts (About).
   html_source->AddString("browtherProductVersion", BROWTHER_VERSION_STRING);
+  // Browther : l'entrée « Parrainage » du menu des Paramètres, qui OUVRE
+  // `browther://referral` dans un nouvel onglet (`br/settings_menu.ts`).
+  // ⭐ Son libellé est celui du menu ⋯ — la clé `home.title` des textes de
+  // l'app, déjà traduite dans les 64 langues de Browther (⛔ pas de chaîne grit
+  // de plus, qui vaudrait ~300 fichiers recompilés et 60 `.xtb` à tenir).
+  html_source->AddBoolean("browtherReferralEnabled",
+                          browther_referral::IsEnabled());
+  html_source->AddString("browtherReferralTitle",
+                         browther_referral::MenuLabel());
   html_source->AddBoolean(
       "isIdleDetectionFeatureEnabled",
       base::FeatureList::IsEnabled(features::kIdleDetection));

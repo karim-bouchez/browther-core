@@ -10,6 +10,10 @@ import {loadTimeData} from '../i18n_setup.js'
 import {pageVisibility} from './page_visibility.js'
 import 'chrome://resources/brave/leo.bundle.js'
 
+/** L'écran Parrainage (`browther_referral_launch.h` côté C++). */
+const BROWTHER_REFERRAL_URL = 'browther://referral'
+const BROWTHER_REFERRAL_ID = 'browtherReferralLink'
+
 function createMenuElement(
   title: string,
   href: string,
@@ -318,6 +322,50 @@ RegisterPolymerTemplateModifications({
     )
     if (extensionEl && searchEl) {
       searchEl.insertAdjacentElement('afterend', extensionEl)
+    }
+
+    // ⭐ Browther : « Parrainage ». ⛔ Ce n'est PAS une page de réglages : l'écran
+    // vit à `browther://referral` (une adresse, où le retour de paiement, la
+    // garde Sawtunaa et les toasts renvoient avec des paramètres). L'entrée
+    // OUVRE donc un nouvel onglet — même patron que le lien « Extensions »
+    // d'upstream : `target="_blank"`, l'icône `icon-external`, et l'entrée
+    // EXCLUE du `selectable` de `<cr-menu-selector>` (sinon le menu cherche
+    // une route interne pour cette adresse et casse : « settings-menu has an
+    // entry with an invalid route », vu le 2026-09-23).
+    // Son libellé vient du C++ (`browtherReferralTitle` = la clé `home.title`
+    // des textes de l'app, déjà traduite partout), ⛔ pas d'une chaîne grit.
+    if (loadTimeData.getBoolean('browtherReferralEnabled') && extensionEl) {
+      const menuSelector = templateContent.querySelector('#menu')
+      if (!menuSelector) {
+        console.error('[Settings] Could not find menu selector')
+      } else {
+        const selectable = menuSelector.getAttribute('selectable') ?? 'a'
+        menuSelector.setAttribute(
+          'selectable', `${selectable}:not(#${BROWTHER_REFERRAL_ID})`)
+      }
+
+      const referralEl = document.createElement('a')
+      referralEl.setAttribute('role', 'menuitem')
+      referralEl.setAttribute('id', BROWTHER_REFERRAL_ID)
+      referralEl.setAttribute('class', 'cr-nav-menu-item')
+      referralEl.setAttribute('href', BROWTHER_REFERRAL_URL)
+      referralEl.setAttribute('target', '_blank')
+
+      const referralIcon = document.createElement('cr-icon')
+      referralIcon.setAttribute('icon', 'heart-outline')
+      referralEl.appendChild(referralIcon)
+
+      const referralText = document.createElement('span')
+      referralText.textContent = loadTimeData.getString('browtherReferralTitle')
+      referralEl.appendChild(referralText)
+
+      // L'icône qui dit « ça s'ouvre dans un onglet » (celle d'upstream).
+      const externalIcon = document.createElement('div')
+      externalIcon.setAttribute('class', 'cr-icon icon-external')
+      referralEl.appendChild(externalIcon)
+
+      referralEl.appendChild(document.createElement('cr-ripple'))
+      extensionEl.insertAdjacentElement('afterend', referralEl)
     }
 
     // Browther: page Sawtunaa retirée — la popup toolbar suffit (décision
