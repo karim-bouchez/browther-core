@@ -167,8 +167,8 @@ constexpr auto kMenuLabelKeys = std::to_array<std::string_view>(
 // ⚠️ Chacune est FACULTATIVE : une langue qui ne l'a pas donne une chaîne vide,
 // et l'appelant se tait plutôt que d'afficher un trou.
 constexpr auto kOtherKeys = std::to_array<std::string_view>(
-    {"home.title", "settings.subtitle", "panel.pausedLine",
-     "panel.keepForLife"});
+    {"home.title", "settings.subtitle", "features.paused",
+     "locked.musicRemoval", "locked.cta"});
 
 // Les textes d'une langue : `i18n/<locale>.json`, sinon `i18n/<langue>.json`.
 std::optional<NativeTexts> ReadNativeTexts(std::string locale) {

@@ -67,12 +67,14 @@ interface PanelHandler {
                  string report_domain,
                  bool analytics_off,
                  bool extras_paused,
-                 // Browther : l'encadré « en pause » du parrainage, textes
-                 // compris — ⛔ pas de chaîne grit ici, ils viennent du pool de
-                 // l'app du parrainage (`browther_referral::Text`). Vides si la
-                 // langue ne les a pas : le panneau n'affiche alors rien.
-                 string paused_line,
-                 string paused_action);
+                 // Browther : ce que le panneau DIT quand le retrait de la
+                 // musique est en pause — l'état, le pourquoi, et l'action.
+                 // ⛔ Pas de chaîne grit : ils viennent du pool de l'app du
+                 // parrainage (`browther_referral::Text`). Vides si la langue
+                 // ne les a pas : le panneau garde alors ses textes habituels.
+                 string paused_status,
+                 string paused_body,
+                 string paused_cta);
 
   // Écrit la pref `kSawtunaaEnabled` (+ télémétrie `feature_toggled`).
   SetEnabled(bool enabled);

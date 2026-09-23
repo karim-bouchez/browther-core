@@ -5,6 +5,8 @@
 
 #include "brave/browser/ui/webui/browther_referral/browther_referral_handler.h"
 
+#include "brave/browser/ui/webui/browther_referral/browther_referral_dialog.h"
+
 #include <optional>
 #include <utility>
 #include <vector>
@@ -64,6 +66,8 @@ const char* HostName(BrowtherReferralHandler::Host host) {
       return "ntp";
     case BrowtherReferralHandler::Host::kWelcome:
       return "welcome";
+    case BrowtherReferralHandler::Host::kModal:
+      return "modal";
   }
   return "page";
 }
@@ -171,6 +175,11 @@ void BrowtherReferralHandler::HandleCall(const base::ListValue& args) {
     Reply(id, true, OpenUrl(payload));
   } else if (method == "copyText") {
     Reply(id, true, CopyText(payload));
+  } else if (method == "openModal") {
+    Reply(id, true, OpenModal(payload));
+  } else if (method == "closeModal") {
+    browther_referral::CloseModal();
+    Reply(id, true, Ok());
   } else if (method == "enforcePause") {
     Reply(id, true, EnforcePause());
   } else if (method == "recette") {
@@ -359,6 +368,26 @@ base::Value BrowtherReferralHandler::CopyText(const base::DictValue& payload) {
   ui::ScopedClipboardWriter writer(ui::ClipboardBuffer::kCopyPaste);
   writer.WriteText(base::UTF8ToUTF16(*text));
   return Ok();
+}
+
+/**
+ * ⭐ Une fenêtre qui ATTEND une réponse sort de la page : le navigateur la
+ * rouvre en MODALE DE FENÊTRE (`browther_referral_dialog.h`). Dans une page,
+ * elle se contourne en tapant dans la barre d'adresse — ce n'est pas un choix,
+ * c'est une fuite (recette Karim, 2026-09-23).
+ *
+ * ⛔ Depuis la modale elle-même, rien : c'est elle qui affiche l'écran.
+ */
+base::Value BrowtherReferralHandler::OpenModal(const base::DictValue& payload) {
+  base::DictValue out;
+  const std::string* screen = payload.FindString("screen");
+  if (host_ == Host::kModal || !screen || screen->empty()) {
+    out.Set("opened", false);
+    return base::Value(std::move(out));
+  }
+  browther_referral::ShowModal(web_ui()->GetWebContents(), *screen);
+  out.Set("opened", true);
+  return base::Value(std::move(out));
 }
 
 base::Value BrowtherReferralHandler::EnforcePause() {

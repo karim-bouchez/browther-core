@@ -38,29 +38,27 @@ async function refreshState() {
     setUIReloadHint(state.showReloadHint)
     setUIProtectedHint(state.protectedState)
     setUIReportSite(state.canReportSite, state.reportDomain, state.analyticsOff)
-    setUIReferralPaused(state.pausedLine, state.pausedAction)
+    setUIReferralPaused(state.pausedStatus, state.pausedBody, state.pausedCta)
   } catch (err) {
     console.error('[sawtunaa-panel] refreshState failed', err)
   }
 }
 
-// Browther : l'encadré « en pause » du parrainage. ⛔ Le WebUI ne décide rien —
-// le browser n'envoie les textes QUE quand la pause est vraie, et deux chaînes
-// vides veulent dire « ne rien afficher » (langue sans ces clés).
-function setUIReferralPaused(line: string, action: string) {
-  const box = document.getElementById('referral-paused')
-  const text = document.getElementById('referral-paused-text')
-  const btn = document.getElementById('referral-paused-action')
-  if (!box || !text || !btn) return
-  if (!line) {
-    box.setAttribute('hidden', '')
-    return
-  }
-  text.textContent = line
-  btn.textContent = action
-  // Sans libellé pour le bouton, l'encadré dit quand même POURQUOI.
-  btn.toggleAttribute('hidden', !action)
-  box.removeAttribute('hidden')
+// Browther : le retrait de la musique EN PAUSE (parrainage). ⛔ Le WebUI ne
+// décide rien — le browser n'envoie les textes QUE quand la pause est vraie, et
+// une chaîne vide veut dire « garde tes textes habituels » (langue sans ces
+// clés). ⭐ Pas d'encadré : la popup le dit avec ses propres surfaces —
+// l'interrupteur verrouillé, l'état sous lui, la description, et une action.
+function setUIReferralPaused(status: string, body: string, cta: string) {
+  const toggle = document.getElementById('enabled-toggle')
+  const statusEl = document.getElementById('status')
+  const desc = document.getElementById('desc')
+  const btn = document.getElementById('referral-cta')
+  toggle?.classList.toggle('locked', extrasPaused)
+  btn?.toggleAttribute('hidden', !cta)
+  if (btn && cta) btn.textContent = cta
+  if (statusEl && status) statusEl.textContent = status
+  if (desc && body) desc.textContent = body
 }
 
 // Bloc « ça ne marche pas sur ce site ». Toutes les conditions sont calculées
@@ -103,7 +101,9 @@ function setUIEnabled(enabled: boolean) {
     toggle.classList.toggle('on', enabled)
     toggle.setAttribute('aria-pressed', String(enabled))
   }
-  if (status) {
+  // ⚠️ En pause, c'est `setUIReferralPaused` qui a le dernier mot : « éteint »
+  // dirait qu'on l'a choisi, alors qu'on ne peut pas l'allumer.
+  if (status && !extrasPaused) {
     status.textContent = loadTimeData.getString(enabled ? 'statusOn' : 'statusOff')
   }
 }
@@ -168,14 +168,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('enabled-toggle') as HTMLButtonElement | null
   toggle?.addEventListener('click', () => {
     const enabled = !toggle.classList.contains('on')
-    // Parrainage : allumer pendant la pause ouvre l'écran Parrainage, qui dit
-    // pourquoi (toast « Soutenir dev&din »). L'interrupteur ne bouge pas.
+    // 🔴 Parrainage : pendant la pause, allumer ne fait RIEN ouvrir. Ça ouvrait
+    // la page Parrainage et fermait la popup — « ça recherche la page et ça
+    // ferme la popup, pas top » (Karim, 2026-09-23). La réponse est dans la
+    // popup : l'explication clignote une fois, et le bouton doré reste la porte.
     if (enabled && extrasPaused) {
-      try {
-        api().openReferralSupport()
-      } catch (err) {
-        console.error('[sawtunaa-panel] openReferralSupport failed', err)
-      }
+      const desc = document.getElementById('desc')
+      desc?.classList.remove('blink')
+      // Relire une propriété de layout relance l'animation même au 2e clic.
+      void desc?.offsetWidth
+      desc?.classList.add('blink')
       return
     }
     setUIEnabled(enabled)
@@ -192,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshState()
   })
 
-  const pausedBtn = document.getElementById('referral-paused-action')
+  const pausedBtn = document.getElementById('referral-cta')
   pausedBtn?.addEventListener('click', () => {
     try {
       api().openReferralSupport()

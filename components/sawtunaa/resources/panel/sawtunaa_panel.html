@@ -127,6 +127,48 @@
     .big-toggle.protected:focus-visible {
       box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.4);
     }
+    /* ── Browther : le retrait de la musique EN PAUSE (parrainage) ──────
+       L'interrupteur reste visible mais VERROUILLÉ : éteint, terne, et il ne
+       réagit pas. ⛔ Pas `disabled` : on veut garder le clic pour attirer l'œil
+       sur l'explication, et un bouton désactivé n'émet plus rien. */
+    .big-toggle.locked {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .big-toggle.locked:focus-visible {
+      box-shadow: 0 0 0 3px rgba(226, 185, 92, 0.4);
+    }
+    /* Le clic sur l'interrupteur verrouillé fait clignoter l'explication —
+       une réponse, sans rien ouvrir (recette Karim, 2026-09-23 : allumer
+       ouvrait la page Parrainage et fermait la popup). */
+    .desc.blink {
+      animation: descBlink 0.9s ease;
+    }
+    @keyframes descBlink {
+      0%, 100% { opacity: 0.7; }
+      30%      { opacity: 1; color: #E2B95C; }
+    }
+    /* L'or du parrainage (--gold de private/webui/referral/src/styles.css). */
+    .referral-cta {
+      display: block;
+      margin: 2px auto 6px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #E2B95C;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .referral-cta:hover { background: rgba(226, 185, 92, 0.12); }
+    .referral-cta:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(226, 185, 92, 0.5);
+    }
+    .referral-cta[hidden] { display: none; }
+
     .toggle-wrap {
       display: flex; justify-content: center;
       margin: 6px 0 12px;
@@ -350,9 +392,15 @@
     </div>
     <div class="status" id="status">$i18n{loading}</div>
 
-    <div class="desc">
+    <div class="desc" id="desc">
       $i18n{description}
     </div>
+
+    <!-- Browther : la seule action proposée quand le retrait de la musique est
+         en pause. ⛔ Ni encadré, ni bouton plein : la popup dit déjà l'état
+         au-dessus (interrupteur verrouillé + « En pause »), il ne manque qu'une
+         porte. Masquée le reste du temps. -->
+    <button type="button" class="referral-cta" id="referral-cta" hidden></button>
 
     <!-- Hint « recharge l'onglet » (masqué tant que non pertinent). -->
     <button type="button" class="amber-box" id="reload-hint" hidden>
@@ -379,23 +427,6 @@
       </span>
       <button type="button" class="amber-action" id="protected-action">
         $i18n{installSawtunaa}
-      </button>
-    </div>
-
-    <!-- Browther : le retrait de la musique est EN PAUSE (parrainage). ⭐ La
-         popup doit le dire : sans ça, l'écran du parrainage annonce la pause et
-         l'interrupteur, lui, ne s'explique pas (recette Karim, 2026-09-23).
-         ⚠️ Les deux textes viennent du pool du parrainage, via `getState` —
-         vides si la langue ne les a pas, et l'encadré reste alors masqué. -->
-    <div class="amber-box" id="referral-paused" hidden>
-      <span class="amber-row">
-        <!-- leo « pause » -->
-        <svg class="amber-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M9 5.5c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1H7.5c-.55 0-1-.45-1-1v-11c0-.55.45-1 1-1H9zm7.5 0c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1H15c-.55 0-1-.45-1-1v-11c0-.55.45-1 1-1h1.5z"></path>
-        </svg>
-        <span id="referral-paused-text"></span>
-      </span>
-      <button type="button" class="amber-action" id="referral-paused-action">
       </button>
     </div>
 

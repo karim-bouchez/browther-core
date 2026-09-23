@@ -25,7 +25,10 @@
 // compte chiffré) et exécute des gestes (ouvrir, copier, régler par défaut).
 class BrowtherReferralHandler : public content::WebUIMessageHandler {
  public:
-  enum class Host { kPage, kNewTab, kWelcome };
+  // ⚠️ `kModal` = la MÊME app, servie dans la modale de fenêtre
+  // (`browther_referral_dialog.h`) : elle n'y monte que le flow, et c'est le
+  // seul hôte qui ne redemande PAS de modale (sinon, boucle).
+  enum class Host { kPage, kNewTab, kWelcome, kModal };
 
   explicit BrowtherReferralHandler(Host host);
   BrowtherReferralHandler(const BrowtherReferralHandler&) = delete;
@@ -47,6 +50,7 @@ class BrowtherReferralHandler : public content::WebUIMessageHandler {
   base::Value OpenPage(const base::DictValue& payload);
   base::Value OpenUrl(const base::DictValue& payload);
   base::Value CopyText(const base::DictValue& payload);
+  base::Value OpenModal(const base::DictValue& payload);
   base::Value EnforcePause();
   base::Value Recette(const base::DictValue& payload);
   void Request(const std::string& id, const base::DictValue& payload);

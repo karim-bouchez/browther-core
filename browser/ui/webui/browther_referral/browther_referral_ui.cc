@@ -6,6 +6,7 @@
 #include "brave/browser/ui/webui/browther_referral/browther_referral_ui.h"
 
 #include <memory>
+#include <string>
 
 #include "brave/browser/browther/referral/browther_referral_files.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
@@ -14,6 +15,7 @@
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_ui.h"
 #include "content/public/browser/web_ui_data_source.h"
+#include "net/base/url_util.h"
 #include "services/network/public/mojom/content_security_policy.mojom.h"
 
 BrowtherReferralUI::BrowtherReferralUI(content::WebUI* web_ui)
@@ -40,8 +42,17 @@ BrowtherReferralUI::BrowtherReferralUI(content::WebUI* web_ui)
   // Trusted Types coupé comme sur l'introduction (même famille de page).
   source->DisableTrustedTypesCSP();
 
+  // ⚠️ La MÊME adresse sert l'écran Parrainage et la modale de fenêtre : c'est
+  // `?host=modal` qui les distingue (`browther_referral_dialog.cc`). L'app n'y
+  // monte alors que le flow, et le pont refuse d'y rouvrir une modale.
+  std::string host_param;
+  const bool modal =
+      net::GetValueForKeyInQuery(web_ui->GetWebContents()->GetVisibleURL(),
+                                 "host", &host_param) &&
+      host_param == "modal";
   web_ui->AddMessageHandler(std::make_unique<BrowtherReferralHandler>(
-      BrowtherReferralHandler::Host::kPage));
+      modal ? BrowtherReferralHandler::Host::kModal
+            : BrowtherReferralHandler::Host::kPage));
 }
 
 BrowtherReferralUI::~BrowtherReferralUI() = default;

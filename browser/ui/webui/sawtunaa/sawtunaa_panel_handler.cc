@@ -145,18 +145,20 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
       ShouldShowReloadHint();
   const bool extras_paused =
       browther_referral::IsMusicRemovalPaused(g_browser_process->local_state());
-  // ⭐ Dire la pause DANS le panneau : sans ça, l'écran du parrainage annonce
-  // « en pause » et la popup de Sawtunaa n'en sait rien (recette Karim,
-  // 2026-09-23). Les textes ne partent QUE quand c'est vrai.
+  // ⭐ Dire la pause DANS le panneau, avec SES propres surfaces (l'état sous
+  // l'interrupteur, la description, une action) — ⛔ pas un encadré de plus :
+  // l'écran du parrainage annonçait la pause et la popup n'en savait rien
+  // (recette Karim, 2026-09-23), puis un encadré ambre ajouté par-dessus a été
+  // écarté (« j'aime pas l'UI »). Les textes ne partent QUE quand c'est vrai.
+  const auto text = [&](std::string_view key) {
+    return extras_paused ? base::UTF16ToUTF8(browther_referral::Text(key))
+                         : std::string();
+  };
   std::move(callback).Run(
       enabled, show_reload_hint, protected_state, report.can_report,
       report.domain, report.analytics_off, extras_paused,
-      extras_paused ? base::UTF16ToUTF8(browther_referral::Text(
-                          browther_referral::kPanelPausedLine))
-                    : std::string(),
-      extras_paused ? base::UTF16ToUTF8(browther_referral::Text(
-                          browther_referral::kPanelKeepForLife))
-                    : std::string());
+      text(browther_referral::kPausedStatus),
+      text(browther_referral::kPausedBody), text(browther_referral::kPausedCta));
 }
 
 void SawtunaaPanelHandler::ReportSite(ReportSiteCallback callback) {
