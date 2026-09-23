@@ -1232,6 +1232,8 @@ source_set("ui") {
       "views/brave_help_bubble/brave_help_bubble_host_view.h",
       "views/browther/browther_big_toggle.cc",
       "views/browther/browther_big_toggle.h",
+      "views/browther/browther_referral_scrim.cc",
+      "views/browther/browther_referral_scrim.h",
       "views/browther/shields_internal_bubble.cc",
       "views/browther/shields_internal_bubble.h",
       "views/profiles/brave_avatar_toolbar_button.cc",
