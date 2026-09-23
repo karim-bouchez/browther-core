@@ -97,8 +97,13 @@ void BraveSidePanelCoordinator::OnViewVisibilityChanged(
   SidePanelCoordinator::OnViewVisibilityChanged(observed_view, starting_view,
                                                 visible);
 
+  // 🔴 Browther : `sidebar_container_view_` est nulle (la sidebar de Brave est
+  // retirée) — même piège qu'en bas de ce fichier.
   if (update_items_state) {
-    GetBraveBrowserView()->sidebar_container_view()->UpdateActiveItemState();
+    if (auto* sidebar_container_view =
+            GetBraveBrowserView()->sidebar_container_view()) {
+      sidebar_container_view->UpdateActiveItemState();
+    }
   }
 }
 
