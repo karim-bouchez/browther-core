@@ -200,6 +200,12 @@ final class BrowtherReferralCardCell: UITableViewCell, Cell {
     background.backgroundColor = UIColor(ReferralSettingsCard.surface)
     background.strokeColor = UIColor(ReferralSettingsCard.border)
     background.strokeWidth = 1
+    // ⚠️ **Les transformateurs de couleur de la configuration système écrasent
+    // les nôtres** : `listGroupedCell()` en pose pour résoudre la couleur selon
+    // l'état de la cellule, et ils rendaient la carte grise malgré la teinte
+    // (recette Karim, 2026-09-23). Les couper garde nos couleurs.
+    background.backgroundColorTransformer = nil
+    background.strokeColorTransformer = nil
     backgroundConfiguration = background
     contentConfiguration = UIHostingConfiguration { ReferralSettingsCard() }
   }
