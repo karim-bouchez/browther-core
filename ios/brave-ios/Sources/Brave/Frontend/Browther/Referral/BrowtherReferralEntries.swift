@@ -59,8 +59,8 @@ extension Action.Identifier {
 struct ReferralSettingsCard: View {
   @ObservedObject private var controller = BrowtherReferralController.shared
 
-  private static let surface = BrowtherIntroPalette.dynamic(light: 0xFFF7E6, dark: 0x2A2114)
-  private static let border = BrowtherIntroPalette.dynamic(light: 0xE8C878, dark: 0x6A5525)
+  static let surface = BrowtherIntroPalette.dynamic(light: 0xFFF7E6, dark: 0x2A2114)
+  static let border = BrowtherIntroPalette.dynamic(light: 0xE8C878, dark: 0x6A5525)
   private static let subtitle = BrowtherIntroPalette.dynamic(light: 0x6B5A38, dark: 0xCDBC98)
 
   var body: some View {
@@ -100,17 +100,8 @@ struct ReferralSettingsCard: View {
         .font(.system(size: 13, weight: .semibold))
         .foregroundStyle(ReferralPalette.gold.opacity(0.6))
     }
-    .padding(.horizontal, 14)
-    .padding(.vertical, 12)
+    .padding(.vertical, 2)
     .frame(maxWidth: .infinity, alignment: .leading)
-    .background(
-      RoundedRectangle(cornerRadius: 12, style: .continuous)
-        .fill(Self.surface)
-    )
-    .overlay {
-      RoundedRectangle(cornerRadius: 12, style: .continuous)
-        .strokeBorder(Self.border, lineWidth: 1)
-    }
     .accessibilityElement(children: .combine)
   }
 }
@@ -188,26 +179,28 @@ final class BrowtherReferralCardCell: UITableViewCell, Cell {
   override func layoutSubviews() {
     super.layoutSubviews()
     applyBrowtherStyle()
-    // Filet : si quelque chose repose un fond entre deux configurations, il
-    // repart ici (⛔ ne touche pas à `contentConfiguration` : boucle de layout).
-    if backgroundColor != .clear { backgroundColor = .clear }
   }
 
   private func applyBrowtherStyle() {
     guard !styled else { return }
     styled = true
-    // 🔴 **Couper la mise à jour AUTOMATIQUE de la configuration de fond** :
-    // sans ça, iOS repose sa carte grise de section à chaque changement d'état,
-    // et elle dépassait aux quatre coins de la nôtre (recette Karim,
-    // 2026-09-23 — trois tentatives avant d'identifier ce mécanisme, c'est lui
-    // qui avait déjà effacé l'aplat doré puis le liseré).
+    // 🔴 **C'est le SYSTÈME qui dessine la carte, nous ne faisons que la
+    // teinter.** Quatre tentatives pour le comprendre (recette Karim,
+    // 2026-09-23) : tout ce qu'on dessine soi-même par-dessus laisse voir la
+    // carte du système derrière (coins, bords), parce qu'elle n'a ni la même
+    // géométrie ni le même arrondi — et la copier à la main, c'est refaire ce
+    // que la liste fait déjà pour toutes les autres lignes. Ici la forme vient
+    // de `listGroupedCell()`, donc elle est juste **par construction** ; seules
+    // la teinte et le contenu sont à nous.
+    // ⚠️ `automaticallyUpdatesBackgroundConfiguration = false` : sinon iOS
+    // repose sa configuration par défaut au moindre changement d'état et efface
+    // la teinte (c'est ce qui avait fait disparaître l'aplat, puis le liseré).
     automaticallyUpdatesBackgroundConfiguration = false
-    backgroundConfiguration = .clear()
-    backgroundColor = .clear
-    backgroundView = UIView()
-    selectedBackgroundView = UIView()
+    var background = UIBackgroundConfiguration.listGroupedCell()
+    background.backgroundColor = UIColor(ReferralSettingsCard.surface)
+    background.strokeColor = UIColor(ReferralSettingsCard.border)
+    background.strokeWidth = 1
+    backgroundConfiguration = background
     contentConfiguration = UIHostingConfiguration { ReferralSettingsCard() }
-      .margins(.horizontal, 0)
-      .margins(.vertical, 0)
   }
 }
