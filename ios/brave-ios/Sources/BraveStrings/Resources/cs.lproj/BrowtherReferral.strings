@@ -41,11 +41,11 @@
 "card.copy" = "Kopírovat";
 "card.copied" = "Zkopírováno";
 "redeem.head" = "Doporučila vám Browther blízká osoba?";
-"redeem.body" = "Požádejte ji o doporučovací kód: dva měsíce doplňkových funkcí darem, jeden pro vás a jeden pro ni.";
+"redeem.body" = "Požádejte ji o doporučovací kód: jeden měsíc doplňkových funkcí pro vás a jeden pro ni.";
 "redeem.placeholder" = "Doporučovací kód";
 "redeem.paste" = "Vložit";
 "redeem.validate" = "Potvrdit";
-"redeem.validatedLine" = "Hotovo: dva měsíce doplňkových funkcí, jeden pro vás a jeden pro blízkou osobu.";
+"redeem.validatedLine" = "Hotovo: jeden měsíc doplňkových funkcí pro vás a jeden pro blízkou osobu.";
 "redeem.inputError.length" = "Doporučovací kód má 6 znaků.";
 "redeem.inputError.alphabet" = "Tento kód obsahuje znak, který žádný kód nepoužívá (například O, 0, I nebo 1): ověřte si ho u blízké osoby.";
 "redeem.refusal.unknown_code" = "Tento kód nepatří nikomu. Ověřte si ho u blízké osoby.";
@@ -79,7 +79,7 @@
 "invite.share" = "Sdílet můj kód";
 "invite.back" = "Zpět";
 "invite.closeAfterShare" = "Zpět do aplikace";
-"share.message" = "Zvu tě k vyzkoušení Browther: prohlížeče, který vypíná hudbu a rozmazává haram obrázky.\nS mým kódem {code} získáš dva měsíce doplňkových funkcí.";
+"share.message" = "Zvu tě k vyzkoušení Browther: prohlížeče, který vypíná hudbu a rozmazává haram obrázky.\nS mým kódem {code} získáš jeden měsíc doplňkových funkcí.";
 "menu.invite" = "Pozvat blízkého do Browther";
 "settings.subtitle" = "Získejte hasanáty a přístup navždy";
 "settings.news" = "Novinka";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Nechat si ji navždy";
 "notice.eyebrow" = "Program doporučení";
 "notice.title" = "Pozvánka potvrzena!";
-"notice.bodyLifetime" = "Máte to: Browther je odemčený na 100 %, navždy.";
+"notice.bodyLifetime" = "Máte to: Browther je odemčený na 100 %, navždy, in šá Alláh.";
 "notice.see" = "Otevřít program doporučení";
 "referee.title" = "Vaše pozvánka";
 "referee.done" = "Hotovo: vaše blízká osoba získala 1 měsíc doplňkových funkcí. Děkujeme vám jejím jménem.";
@@ -191,9 +191,9 @@
 "reminder.monthsNext.one" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a získáte bonus {bonus} měsíců.";
 "reminder.monthsNext.few" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a získáte bonus {bonus} měsíců.";
 "reminder.monthsNext.other" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a získáte bonus {bonus} měsíců.";
-"reminder.monthsNextLife.one" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy.";
-"reminder.monthsNextLife.few" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy.";
-"reminder.monthsNextLife.other" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy.";
+"reminder.monthsNextLife.one" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy, in šá Alláh.";
+"reminder.monthsNextLife.few" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy, in šá Alláh.";
+"reminder.monthsNextLife.other" = "Každá potvrzená pozvánka vám přidá další měsíc. Ještě {count} a Browther je odemčený navždy, in šá Alláh.";
 "reminder.subscriptionTitle.one" = "Vaše předplatné končí zítra.";
 "reminder.subscriptionTitle.few" = "Vaše předplatné končí za {count} dny.";
 "reminder.subscriptionTitle.other" = "Vaše předplatné končí za {count} dní.";
@@ -212,9 +212,9 @@
 "referee.progress.one" = "Ještě {count} den s Browther jako výchozím prohlížečem a vaše blízká osoba získá 1 měsíc doplňkových funkcí.";
 "referee.progress.few" = "Ještě {count} dny s Browther jako výchozím prohlížečem a vaše blízká osoba získá 1 měsíc doplňkových funkcí.";
 "referee.progress.other" = "Ještě {count} dní s Browther jako výchozím prohlížečem a vaše blízká osoba získá 1 měsíc doplňkových funkcí.";
-"referee.hint.one" = "Blízká osoba vám ukázala Browther. Dostáváte dva měsíce; její měsíc jí připadne, jakmile budete mít Browther jako výchozí prohlížeč {count} den.";
-"referee.hint.few" = "Blízká osoba vám ukázala Browther. Dostáváte dva měsíce; její měsíc jí připadne, jakmile budete mít Browther jako výchozí prohlížeč {count} dny.";
-"referee.hint.other" = "Blízká osoba vám ukázala Browther. Dostáváte dva měsíce; její měsíc jí připadne, jakmile budete mít Browther jako výchozí prohlížeč {count} dní.";
+"referee.hint.one" = "Blízká osoba vám ukázala Browther. Dostáváte jeden měsíc; její měsíc jí připadne, jakmile budete mít Browther jako výchozí prohlížeč {count} den.";
+"referee.hint.few" = "Blízká osoba vám ukázala Browther. Dostáváte jeden měsíc; její měsíc jí připadne, jakmile budete mít Browther jako výchozí prohlížeč {count} dny.";
+"referee.hint.other" = "Blízká osoba vám ukázala Browther. Dostáváte jeden měsíc; její měsíc jí připadne, jakmile budete mít Browther jako výchozí prohlížeč {count} dní.";
 "referee.noticeWhy.one" = "Máte doporučovací kód od blízké osoby a Browther je vaším výchozím prohlížečem už {count} den.";
 "referee.noticeWhy.few" = "Máte doporučovací kód od blízké osoby a Browther je vaším výchozím prohlížečem už {count} dny.";
 "referee.noticeWhy.other" = "Máte doporučovací kód od blízké osoby a Browther je vaším výchozím prohlížečem už {count} dní.";
@@ -242,6 +242,6 @@
 "home.progressToLife.one" = "**{count} potvrzená pozvánka** = {months} měs. Ještě {left} a přístup navždy.";
 "home.progressToLife.few" = "**{count} potvrzené pozvánky** = {months} měs. Ještě {left} a přístup navždy.";
 "home.progressToLife.other" = "**{count} potvrzených pozvánek** = {months} měs. Ještě {left} a přístup navždy.";
-"home.progressLife.one" = "**{count} potvrzená pozvánka**: Browther je odemčený na 100 %, navždy.";
-"home.progressLife.few" = "**{count} potvrzené pozvánky**: Browther je odemčený na 100 %, navždy.";
-"home.progressLife.other" = "**{count} potvrzených pozvánek**: Browther je odemčený na 100 %, navždy.";
+"home.progressLife.one" = "**{count} potvrzená pozvánka**: Browther je odemčený na 100 %, navždy, in šá Alláh.";
+"home.progressLife.few" = "**{count} potvrzené pozvánky**: Browther je odemčený na 100 %, navždy, in šá Alláh.";
+"home.progressLife.other" = "**{count} potvrzených pozvánek**: Browther je odemčený na 100 %, navždy, in šá Alláh.";

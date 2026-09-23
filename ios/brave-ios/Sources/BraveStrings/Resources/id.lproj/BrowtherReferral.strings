@@ -41,11 +41,11 @@
 "card.copy" = "Salin";
 "card.copied" = "Tersalin";
 "redeem.head" = "Ada orang terdekat yang memberi tahu Anda tentang Browther?";
-"redeem.body" = "Mintalah kode referalnya: dua bulan fitur tambahan sebagai hadiah, satu untuk Anda dan satu untuknya.";
+"redeem.body" = "Mintalah kode referalnya: satu bulan fitur tambahan untuk Anda dan satu untuknya.";
 "redeem.placeholder" = "Kode referal";
 "redeem.paste" = "Tempel";
 "redeem.validate" = "Konfirmasi";
-"redeem.validatedLine" = "Selesai: dua bulan fitur tambahan, satu untuk Anda dan satu untuknya.";
+"redeem.validatedLine" = "Selesai: satu bulan fitur tambahan untuk Anda dan satu untuknya.";
 "redeem.inputError.length" = "Kode referal terdiri dari 6 karakter.";
 "redeem.inputError.alphabet" = "Kode ini berisi karakter yang tidak dipakai kode mana pun (seperti O, 0, I, atau 1): periksa lagi dengan orang yang memberi Anda kode.";
 "redeem.refusal.unknown_code" = "Kode ini tidak cocok dengan siapa pun. Periksa lagi dengan orang yang memberi Anda kode.";
@@ -79,7 +79,7 @@
 "invite.share" = "Bagikan kode saya";
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
-"share.message" = "Aku mengajakmu mencoba Browther: browser yang membisukan musik dan memburamkan gambar haram.\nDengan kodeku {code}, kamu dapat dua bulan fitur tambahan.";
+"share.message" = "Aku mengajakmu mencoba Browther: browser yang membisukan musik dan memburamkan gambar haram.\nDengan kodeku {code}, kamu dapat satu bulan fitur tambahan.";
 "menu.invite" = "Undang orang terdekat ke Browther";
 "settings.subtitle" = "Dapatkan hasanat dan akses seumur hidup";
 "settings.news" = "Baru";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Miliki seumur hidup";
 "notice.eyebrow" = "Referal";
 "notice.title" = "Undangan tervalidasi!";
-"notice.bodyLifetime" = "Berhasil: Browther 100% terbuka, seumur hidup.";
+"notice.bodyLifetime" = "Berhasil: Browther 100% terbuka, seumur hidup, insya Allah.";
 "notice.see" = "Lihat referal saya";
 "referee.title" = "Referal Anda";
 "referee.done" = "Selesai: orang terdekat Anda mendapat 1 bulan fitur tambahan. Terima kasih atas namanya.";
@@ -163,14 +163,14 @@
 "reminder.inProgressCount.other" = "Salah satu undangan Anda sedang berjalan: {count} hari lagi dengan Browther sebagai browser default dan undangan itu tervalidasi.";
 "reminder.monthsTitle.other" = "Dalam {count} hari, bulan-bulan yang Anda dapatkan akan berakhir.";
 "reminder.monthsNext.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Anda mendapat bonus {bonus} bulan.";
-"reminder.monthsNextLife.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Browther terbuka seumur hidup.";
+"reminder.monthsNextLife.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Browther terbuka seumur hidup, insya Allah.";
 "reminder.subscriptionTitle.other" = "Langganan Anda berakhir dalam {count} hari.";
 "invite.foot.other" = "Undangan tervalidasi setelah orang terdekat Anda memakai Browther sebagai browser default selama {count} hari.";
 "notice.why.other" = "Orang terdekat Anda memakai kode referal Anda, dan baru saja memakai Browther sebagai browser default selama {count} hari.";
 "notice.body.other" = "+{count} bulan fitur tambahan, hingga {date}.";
 "notice.bodyNoDate.other" = "+{count} bulan fitur tambahan.";
 "referee.progress.other" = "{count} hari lagi dengan Browther sebagai browser default, dan orang terdekat Anda mendapat 1 bulan fitur tambahan.";
-"referee.hint.other" = "Orang terdekat Anda mengenalkan Anda pada Browther. Anda sudah menerima dua bulan; bulan miliknya diberikan setelah Anda memakai Browther sebagai browser default selama {count} hari.";
+"referee.hint.other" = "Orang terdekat Anda mengenalkan Anda pada Browther. Anda sudah menerima satu bulan; bulan miliknya diberikan setelah Anda memakai Browther sebagai browser default selama {count} hari.";
 "referee.noticeWhy.other" = "Anda memakai kode referalnya, dan baru saja memakai Browther sebagai browser default selama {count} hari.";
 "referee.meter.other" = "{current} dari {count} hari";
 "invitations.months.other" = "+{count} bulan";
@@ -180,4 +180,4 @@
 "invitations.milestone.other" = "Bonus +{count} bulan · tingkat {at} tercapai";
 "home.progress.other" = "**{count} undangan tervalidasi** = {months} bulan. {left} lagi untuk bonus +{bonus} bulan.";
 "home.progressToLife.other" = "**{count} undangan tervalidasi** = {months} bulan. {left} lagi untuk akses seumur hidup.";
-"home.progressLife.other" = "**{count} undangan tervalidasi**: Browther 100% terbuka, seumur hidup.";
+"home.progressLife.other" = "**{count} undangan tervalidasi**: Browther 100% terbuka, seumur hidup, insya Allah.";

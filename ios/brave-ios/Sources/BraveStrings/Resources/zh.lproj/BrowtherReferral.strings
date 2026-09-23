@@ -41,11 +41,11 @@
 "card.copy" = "复制";
 "card.copied" = "已复制";
 "redeem.head" = "有亲友向你推荐了 Browther？";
-"redeem.body" = "向对方要推荐码：赠送两个月附加功能，你一个月，对方一个月。";
+"redeem.body" = "向对方要推荐码：附加功能 1 个月给你，1 个月给对方。";
 "redeem.placeholder" = "推荐码";
 "redeem.paste" = "粘贴";
 "redeem.validate" = "确认";
-"redeem.validatedLine" = "好了：两个月附加功能，你一个月，对方一个月。";
+"redeem.validatedLine" = "完成：附加功能 1 个月给你，1 个月给对方。";
 "redeem.inputError.length" = "推荐码为 6 个字符。";
 "redeem.inputError.alphabet" = "此推荐码包含任何推荐码都不会使用的字符（如 O、0、I 或 1）：请向你的亲友核实。";
 "redeem.refusal.unknown_code" = "此推荐码不属于任何人。请向你的亲友核实。";
@@ -79,7 +79,7 @@
 "invite.share" = "分享我的推荐码";
 "invite.back" = "返回";
 "invite.closeAfterShare" = "返回应用";
-"share.message" = "邀请你来体验 Browther：一款能去除音乐、模糊哈拉姆图片的浏览器。\n使用我的推荐码 {code}，你可以获得两个月附加功能。";
+"share.message" = "邀请你来体验 Browther：一款能去除音乐、模糊哈拉姆图片的浏览器。\n使用我的推荐码 {code}，你可以获得1 个月附加功能。";
 "menu.invite" = "邀请亲友使用 Browther";
 "settings.subtitle" = "赢得哈桑纳特和终身使用";
 "settings.news" = "新";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "终身保留";
 "notice.eyebrow" = "推荐计划";
 "notice.title" = "邀请已生效！";
-"notice.bodyLifetime" = "你做到了：Browther 已终身 100% 解锁。";
+"notice.bodyLifetime" = "你做到了：Browther 已终身 100% 解锁，因沙安拉。";
 "notice.see" = "查看我的推荐";
 "referee.title" = "推荐进度";
 "referee.done" = "完成了：对方获得了 1 个月附加功能。我们代对方谢谢你。";
@@ -163,14 +163,14 @@
 "reminder.inProgressCount.other" = "你的一个邀请进展顺利：再将 Browther 设为默认浏览器 {count} 天，它就会生效。";
 "reminder.monthsTitle.other" = "{count} 天后，你获得的月份即将结束。";
 "reminder.monthsNext.other" = "每个有效邀请都会再为你增加 1 个月。再 {count} 个，就能拿到 {bonus} 个月的奖励。";
-"reminder.monthsNextLife.other" = "每个有效邀请都会再为你增加 1 个月。再 {count} 个，Browther 就永久解锁。";
+"reminder.monthsNextLife.other" = "每个有效邀请都会再为你增加 1 个月。再 {count} 个，Browther 就永久解锁，因沙安拉。";
 "reminder.subscriptionTitle.other" = "你的订阅将在 {count} 天后结束。";
 "invite.foot.other" = "你的亲友将 Browther 保持为默认浏览器 {count} 天后，邀请即生效。";
 "notice.why.other" = "有亲友使用了你的推荐码，并刚刚将 Browther 保持为默认浏览器 {count} 天。";
 "notice.body.other" = "+{count} 个月附加功能，有效期至 {date}。";
 "notice.bodyNoDate.other" = "+{count} 个月附加功能。";
 "referee.progress.other" = "再将 Browther 设为默认浏览器 {count} 天，你的亲友就能获得 1 个月附加功能。";
-"referee.hint.other" = "一位亲友带你认识了 Browther。你已获得两个月；当你将 Browther 保持为默认浏览器 {count} 天后，对方也会获得属于自己的那一个月。";
+"referee.hint.other" = "一位亲友带你认识了 Browther。你已获得1 个月；当你将 Browther 保持为默认浏览器 {count} 天后，对方也会获得属于自己的那一个月。";
 "referee.noticeWhy.other" = "你使用了对方的推荐码，并刚刚将 Browther 保持为默认浏览器 {count} 天。";
 "referee.meter.other" = "{current} / {count} 天";
 "invitations.months.other" = "+{count} 个月";
@@ -180,4 +180,4 @@
 "invitations.milestone.other" = "+{count} 个月奖励 · 已达 {at} 个邀请阶梯";
 "home.progress.other" = "**{count} 个有效邀请** = {months} 个月。再 {left} 个，可获得 +{bonus} 个月奖励。";
 "home.progressToLife.other" = "**{count} 个有效邀请** = {months} 个月。再 {left} 个，即可终身使用。";
-"home.progressLife.other" = "**{count} 个有效邀请**：Browther 已终身 100% 解锁。";
+"home.progressLife.other" = "**{count} 个有效邀请**：Browther 已终身 100% 解锁，因沙安拉。";

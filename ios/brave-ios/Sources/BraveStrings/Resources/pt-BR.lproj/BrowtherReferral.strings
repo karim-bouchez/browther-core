@@ -41,11 +41,11 @@
 "card.copy" = "Copiar";
 "card.copied" = "Copiado";
 "redeem.head" = "Alguém próximo falou do Browther para você?";
-"redeem.body" = "Peça o código de indicação dessa pessoa: dois meses de recursos adicionais de presente, um para você e um para ela.";
+"redeem.body" = "Peça o código de indicação dessa pessoa: um mês de recursos adicionais para você e um para ela.";
 "redeem.placeholder" = "Código de indicação";
 "redeem.paste" = "Colar";
 "redeem.validate" = "Confirmar";
-"redeem.validatedLine" = "Tudo certo: dois meses de recursos adicionais, um para você e um para quem indicou você.";
+"redeem.validatedLine" = "Tudo certo: um mês de recursos adicionais para você e um para quem indicou você.";
 "redeem.inputError.length" = "Um código de indicação tem 6 caracteres.";
 "redeem.inputError.alphabet" = "Este código tem um caractere que nenhum código usa (como O, 0, I ou 1): confira com quem enviou para você.";
 "redeem.refusal.unknown_code" = "Este código não corresponde a ninguém. Confira com quem enviou para você.";
@@ -79,7 +79,7 @@
 "invite.share" = "Compartilhar meu código";
 "invite.back" = "Voltar";
 "invite.closeAfterShare" = "Voltar ao app";
-"share.message" = "Convido você a conhecer o Browther: o navegador que corta a música e desfoca as imagens haram.\nCom o meu código {code}, você ganha dois meses de recursos adicionais.";
+"share.message" = "Convido você a conhecer o Browther: o navegador que corta a música e desfoca as imagens haram.\nCom o meu código {code}, você ganha um mês de recursos adicionais.";
 "menu.invite" = "Convidar alguém para o Browther";
 "settings.subtitle" = "Ganhe hassanat e o acesso vitalício";
 "settings.news" = "Novo";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Manter para sempre";
 "notice.eyebrow" = "Indicações";
 "notice.title" = "Convite confirmado!";
-"notice.bodyLifetime" = "Você conseguiu: o Browther está 100% desbloqueado, para sempre.";
+"notice.bodyLifetime" = "Você conseguiu: o Browther está 100% desbloqueado, para sempre, in sha Allah.";
 "notice.see" = "Ver minhas indicações";
 "referee.title" = "Sua indicação";
 "referee.done" = "Pronto: quem indicou você ganhou 1 mês de recursos adicionais. Obrigado em nome dessa pessoa.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "Em {count} dias terminam os meses que você ganhou.";
 "reminder.monthsNext.one" = "Cada convite confirmado acrescenta mais um. Mais {count} e você ganha um bônus de {bonus} meses.";
 "reminder.monthsNext.other" = "Cada convite confirmado acrescenta mais um. Mais {count} e você ganha um bônus de {bonus} meses.";
-"reminder.monthsNextLife.one" = "Cada convite confirmado acrescenta mais um. Mais {count} e o Browther fica desbloqueado para sempre.";
-"reminder.monthsNextLife.other" = "Cada convite confirmado acrescenta mais um. Mais {count} e o Browther fica desbloqueado para sempre.";
+"reminder.monthsNextLife.one" = "Cada convite confirmado acrescenta mais um. Mais {count} e o Browther fica desbloqueado para sempre, in sha Allah.";
+"reminder.monthsNextLife.other" = "Cada convite confirmado acrescenta mais um. Mais {count} e o Browther fica desbloqueado para sempre, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Sua assinatura termina amanhã.";
 "reminder.subscriptionTitle.other" = "Sua assinatura termina em {count} dias.";
 "invite.foot.one" = "Um convite é confirmado quando a pessoa mantém o Browther como navegador padrão por {count} dia.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} meses de recursos adicionais.";
 "referee.progress.one" = "Mais {count} dia com o Browther como padrão e quem indicou você ganha 1 mês de recursos adicionais.";
 "referee.progress.other" = "Mais {count} dias com o Browther como padrão e quem indicou você ganha 1 mês de recursos adicionais.";
-"referee.hint.one" = "Alguém próximo apresentou o Browther para você. Você recebeu dois meses; o dessa pessoa chega quando você tiver mantido o Browther como navegador padrão por {count} dia.";
-"referee.hint.other" = "Alguém próximo apresentou o Browther para você. Você recebeu dois meses; o dessa pessoa chega quando você tiver mantido o Browther como navegador padrão por {count} dias.";
+"referee.hint.one" = "Alguém próximo apresentou o Browther para você. Você recebeu um mês; o dessa pessoa chega quando você tiver mantido o Browther como navegador padrão por {count} dia.";
+"referee.hint.other" = "Alguém próximo apresentou o Browther para você. Você recebeu um mês; o dessa pessoa chega quando você tiver mantido o Browther como navegador padrão por {count} dias.";
 "referee.noticeWhy.one" = "Você usou o código de indicação dessa pessoa e acabou de manter o Browther como navegador padrão por {count} dia.";
 "referee.noticeWhy.other" = "Você usou o código de indicação dessa pessoa e acabou de manter o Browther como navegador padrão por {count} dias.";
 "referee.meter.one" = "{current} de {count} dia";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} convites confirmados** = {months} meses. Mais {left} para +{bonus} meses de bônus.";
 "home.progressToLife.one" = "**{count} convite confirmado** = {months} meses. Mais {left} para o acesso vitalício.";
 "home.progressToLife.other" = "**{count} convites confirmados** = {months} meses. Mais {left} para o acesso vitalício.";
-"home.progressLife.one" = "**{count} convite confirmado**: o Browther está 100% desbloqueado, para sempre.";
-"home.progressLife.other" = "**{count} convites confirmados**: o Browther está 100% desbloqueado, para sempre.";
+"home.progressLife.one" = "**{count} convite confirmado**: o Browther está 100% desbloqueado, para sempre, in sha Allah.";
+"home.progressLife.other" = "**{count} convites confirmados**: o Browther está 100% desbloqueado, para sempre, in sha Allah.";

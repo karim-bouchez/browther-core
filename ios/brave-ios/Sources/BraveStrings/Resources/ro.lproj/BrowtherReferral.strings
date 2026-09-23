@@ -41,11 +41,11 @@
 "card.copy" = "Copiază";
 "card.copied" = "Copiat";
 "redeem.head" = "Cineva apropiat ți-a vorbit despre Browther?";
-"redeem.body" = "Cere-i codul de recomandare: două luni de funcții suplimentare cadou, una pentru tine și una pentru persoana respectivă.";
+"redeem.body" = "Cere-i codul de recomandare: o lună de funcții suplimentare pentru tine și una pentru persoana respectivă.";
 "redeem.placeholder" = "Cod de recomandare";
 "redeem.paste" = "Lipește";
 "redeem.validate" = "Confirmă";
-"redeem.validatedLine" = "Gata: două luni de funcții suplimentare, una pentru tine și una pentru cine te-a invitat.";
+"redeem.validatedLine" = "Gata: o lună de funcții suplimentare pentru tine și una pentru cine te-a invitat.";
 "redeem.inputError.length" = "Un cod de recomandare are 6 caractere.";
 "redeem.inputError.alphabet" = "Codul conține un caracter pe care niciun cod nu îl folosește (cum ar fi O, 0, I sau 1): verifică-l cu persoana care ți l-a dat.";
 "redeem.refusal.unknown_code" = "Codul nu corespunde nimănui. Verifică-l cu persoana care ți l-a dat.";
@@ -79,7 +79,7 @@
 "invite.share" = "Distribuie codul meu";
 "invite.back" = "Înapoi";
 "invite.closeAfterShare" = "Înapoi la aplicație";
-"share.message" = "Te invit să descoperi Browther: browserul care taie muzica și estompează imaginile haram.\nCu codul meu {code}, ai două luni de funcții suplimentare.";
+"share.message" = "Te invit să descoperi Browther: browserul care taie muzica și estompează imaginile haram.\nCu codul meu {code}, ai o lună de funcții suplimentare.";
 "menu.invite" = "Invită pe cineva pe Browther";
 "settings.subtitle" = "Câștigă hasanat și accesul pe viață";
 "settings.news" = "Nou";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Păstreaz-o pe viață";
 "notice.eyebrow" = "Recomandări";
 "notice.title" = "Invitație confirmată!";
-"notice.bodyLifetime" = "Ai reușit: Browther e deblocat 100%, pe viață.";
+"notice.bodyLifetime" = "Ai reușit: Browther e deblocat 100%, pe viață, in sha Allah.";
 "notice.see" = "Vezi recomandările mele";
 "referee.title" = "Recomandarea ta";
 "referee.done" = "Gata: persoana care te-a invitat a câștigat 1 lună de funcții suplimentare. Îți mulțumim din partea ei.";
@@ -191,9 +191,9 @@
 "reminder.monthsNext.one" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și primești un bonus de {bonus} luni.";
 "reminder.monthsNext.few" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și primești un bonus de {bonus} luni.";
 "reminder.monthsNext.other" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și primești un bonus de {bonus} luni.";
-"reminder.monthsNextLife.one" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață.";
-"reminder.monthsNextLife.few" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață.";
-"reminder.monthsNextLife.other" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață.";
+"reminder.monthsNextLife.one" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață, in sha Allah.";
+"reminder.monthsNextLife.few" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață, in sha Allah.";
+"reminder.monthsNextLife.other" = "Fiecare invitație confirmată îți mai adaugă una. Încă {count} și Browther e deblocat pe viață, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Abonamentul tău se încheie mâine.";
 "reminder.subscriptionTitle.few" = "Abonamentul tău se încheie peste {count} zile.";
 "reminder.subscriptionTitle.other" = "Abonamentul tău se încheie peste {count} de zile.";
@@ -212,9 +212,9 @@
 "referee.progress.one" = "Încă {count} zi cu Browther ca browser implicit și persoana care te-a invitat câștigă 1 lună de funcții suplimentare.";
 "referee.progress.few" = "Încă {count} zile cu Browther ca browser implicit și persoana care te-a invitat câștigă 1 lună de funcții suplimentare.";
 "referee.progress.other" = "Încă {count} de zile cu Browther ca browser implicit și persoana care te-a invitat câștigă 1 lună de funcții suplimentare.";
-"referee.hint.one" = "Cineva apropiat ți-a arătat Browther. Tu ai primit două luni; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} zi.";
-"referee.hint.few" = "Cineva apropiat ți-a arătat Browther. Tu ai primit două luni; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} zile.";
-"referee.hint.other" = "Cineva apropiat ți-a arătat Browther. Tu ai primit două luni; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} de zile.";
+"referee.hint.one" = "Cineva apropiat ți-a arătat Browther. Tu ai primit o lună; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} zi.";
+"referee.hint.few" = "Cineva apropiat ți-a arătat Browther. Tu ai primit o lună; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} zile.";
+"referee.hint.other" = "Cineva apropiat ți-a arătat Browther. Tu ai primit o lună; persoana respectivă o primește pe a sa după ce păstrezi Browther ca browser implicit timp de {count} de zile.";
 "referee.noticeWhy.one" = "Ai folosit codul de recomandare al persoanei respective și tocmai ai păstrat Browther ca browser implicit timp de {count} zi.";
 "referee.noticeWhy.few" = "Ai folosit codul de recomandare al persoanei respective și tocmai ai păstrat Browther ca browser implicit timp de {count} zile.";
 "referee.noticeWhy.other" = "Ai folosit codul de recomandare al persoanei respective și tocmai ai păstrat Browther ca browser implicit timp de {count} de zile.";
@@ -242,6 +242,6 @@
 "home.progressToLife.one" = "**{count} invitație confirmată** = {months} luni. Încă {left} pentru accesul pe viață.";
 "home.progressToLife.few" = "**{count} invitații confirmate** = {months} luni. Încă {left} pentru accesul pe viață.";
 "home.progressToLife.other" = "**{count} de invitații confirmate** = {months} luni. Încă {left} pentru accesul pe viață.";
-"home.progressLife.one" = "**{count} invitație confirmată**: Browther e deblocat 100%, pe viață.";
-"home.progressLife.few" = "**{count} invitații confirmate**: Browther e deblocat 100%, pe viață.";
-"home.progressLife.other" = "**{count} de invitații confirmate**: Browther e deblocat 100%, pe viață.";
+"home.progressLife.one" = "**{count} invitație confirmată**: Browther e deblocat 100%, pe viață, in sha Allah.";
+"home.progressLife.few" = "**{count} invitații confirmate**: Browther e deblocat 100%, pe viață, in sha Allah.";
+"home.progressLife.other" = "**{count} de invitații confirmate**: Browther e deblocat 100%, pe viață, in sha Allah.";

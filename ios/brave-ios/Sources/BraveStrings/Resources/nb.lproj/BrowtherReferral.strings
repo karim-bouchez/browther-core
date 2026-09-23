@@ -41,11 +41,11 @@
 "card.copy" = "Kopier";
 "card.copied" = "Kopiert";
 "redeem.head" = "Har noen fortalt deg om Browther?";
-"redeem.body" = "Be om personens vervekode: to måneder med ekstrafunksjoner i gave, én til deg og én til personen.";
+"redeem.body" = "Be om personens vervekode: én måned med ekstrafunksjoner til deg og én til personen.";
 "redeem.placeholder" = "Vervekode";
 "redeem.paste" = "Lim inn";
 "redeem.validate" = "Bekreft";
-"redeem.validatedLine" = "Ferdig: to måneder med ekstrafunksjoner, én til deg og én til personen.";
+"redeem.validatedLine" = "Ferdig: én måned med ekstrafunksjoner til deg og én til personen.";
 "redeem.inputError.length" = "En vervekode har 6 tegn.";
 "redeem.inputError.alphabet" = "Koden inneholder et tegn som ingen kode bruker (som O, 0, I eller 1): dobbeltsjekk den med personen som ga deg den.";
 "redeem.refusal.unknown_code" = "Denne koden hører ikke til noen. Dobbeltsjekk den med personen som ga deg den.";
@@ -79,7 +79,7 @@
 "invite.share" = "Del koden min";
 "invite.back" = "Tilbake";
 "invite.closeAfterShare" = "Tilbake til appen";
-"share.message" = "Jeg inviterer deg til å oppdage Browther: nettleseren som fjerner musikk og slører haram-bilder.\nMed koden min {code} får du to måneder med ekstrafunksjoner.";
+"share.message" = "Jeg inviterer deg til å oppdage Browther: nettleseren som fjerner musikk og slører haram-bilder.\nMed koden min {code} får du én måned med ekstrafunksjoner.";
 "menu.invite" = "Inviter noen til Browther";
 "settings.subtitle" = "Tjen hasanat og tilgang for livet";
 "settings.news" = "Nytt";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Behold den for livet";
 "notice.eyebrow" = "Verving";
 "notice.title" = "Invitasjon bekreftet!";
-"notice.bodyLifetime" = "Du er i mål: Browther er 100 % låst opp, for livet.";
+"notice.bodyLifetime" = "Du er i mål: Browther er 100 % låst opp, for livet, in sha Allah.";
 "notice.see" = "Se vervingen min";
 "referee.title" = "Vervingen din";
 "referee.done" = "Ferdig: personen som inviterte deg, har fått 1 måned med ekstrafunksjoner. Takk på vegne av vedkommende.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "Om {count} dager går de opptjente månedene dine ut.";
 "reminder.monthsNext.one" = "Hver bekreftet invitasjon gir deg én til. {count} til, så får du en bonus på {bonus} måneder.";
 "reminder.monthsNext.other" = "Hver bekreftet invitasjon gir deg én til. {count} til, så får du en bonus på {bonus} måneder.";
-"reminder.monthsNextLife.one" = "Hver bekreftet invitasjon gir deg én til. {count} til, så er Browther låst opp for livet.";
-"reminder.monthsNextLife.other" = "Hver bekreftet invitasjon gir deg én til. {count} til, så er Browther låst opp for livet.";
+"reminder.monthsNextLife.one" = "Hver bekreftet invitasjon gir deg én til. {count} til, så er Browther låst opp for livet, in sha Allah.";
+"reminder.monthsNextLife.other" = "Hver bekreftet invitasjon gir deg én til. {count} til, så er Browther låst opp for livet, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Abonnementet ditt avsluttes i morgen.";
 "reminder.subscriptionTitle.other" = "Abonnementet ditt avsluttes om {count} dager.";
 "invite.foot.one" = "En invitasjon bekreftes når personen har beholdt Browther som standardnettleser i {count} dag.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} måneder med ekstrafunksjoner.";
 "referee.progress.one" = "{count} dag til med Browther som standardnettleser, så får personen som inviterte deg, 1 måned med ekstrafunksjoner.";
 "referee.progress.other" = "{count} dager til med Browther som standardnettleser, så får personen som inviterte deg, 1 måned med ekstrafunksjoner.";
-"referee.hint.one" = "Noen du kjenner, har vist deg Browther. Du har fått to måneder; personen får sin når du har beholdt Browther som standardnettleser i {count} dag.";
-"referee.hint.other" = "Noen du kjenner, har vist deg Browther. Du har fått to måneder; personen får sin når du har beholdt Browther som standardnettleser i {count} dager.";
+"referee.hint.one" = "Noen du kjenner, har vist deg Browther. Du har fått én måned; personen får sin når du har beholdt Browther som standardnettleser i {count} dag.";
+"referee.hint.other" = "Noen du kjenner, har vist deg Browther. Du har fått én måned; personen får sin når du har beholdt Browther som standardnettleser i {count} dager.";
 "referee.noticeWhy.one" = "Du har brukt vedkommendes vervekode og har nettopp beholdt Browther som standardnettleser i {count} dag.";
 "referee.noticeWhy.other" = "Du har brukt vedkommendes vervekode og har nettopp beholdt Browther som standardnettleser i {count} dager.";
 "referee.meter.one" = "{current} av {count} dag";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} bekreftede invitasjoner** = {months} måneder. {left} til for +{bonus} bonusmåneder.";
 "home.progressToLife.one" = "**{count} bekreftet invitasjon** = {months} måneder. {left} til for tilgang for livet.";
 "home.progressToLife.other" = "**{count} bekreftede invitasjoner** = {months} måneder. {left} til for tilgang for livet.";
-"home.progressLife.one" = "**{count} bekreftet invitasjon**: Browther er 100 % låst opp, for livet.";
-"home.progressLife.other" = "**{count} bekreftede invitasjoner**: Browther er 100 % låst opp, for livet.";
+"home.progressLife.one" = "**{count} bekreftet invitasjon**: Browther er 100 % låst opp, for livet, in sha Allah.";
+"home.progressLife.other" = "**{count} bekreftede invitasjoner**: Browther er 100 % låst opp, for livet, in sha Allah.";

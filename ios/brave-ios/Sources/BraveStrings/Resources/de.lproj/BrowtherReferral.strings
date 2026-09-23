@@ -41,11 +41,11 @@
 "card.copy" = "Kopieren";
 "card.copied" = "Kopiert";
 "redeem.head" = "Hat Ihnen jemand von Browther erzählt?";
-"redeem.body" = "Fragen Sie die Person nach ihrem Empfehlungscode: zwei Monate mit zusätzlichen Funktionen geschenkt – einer für Sie, einer für die Person.";
+"redeem.body" = "Fragen Sie die Person nach ihrem Empfehlungscode: ein Monat mit zusätzlichen Funktionen für Sie, einer für die Person.";
 "redeem.placeholder" = "Empfehlungscode";
 "redeem.paste" = "Einfügen";
 "redeem.validate" = "Bestätigen";
-"redeem.validatedLine" = "Alles klar: zwei Monate mit zusätzlichen Funktionen – einer für Sie, einer für die Person, die Sie eingeladen hat.";
+"redeem.validatedLine" = "Alles klar: ein Monat mit zusätzlichen Funktionen für Sie, einer für die Person, die Sie eingeladen hat.";
 "redeem.inputError.length" = "Ein Empfehlungscode hat 6 Zeichen.";
 "redeem.inputError.alphabet" = "Dieser Code enthält ein Zeichen, das kein Code verwendet (etwa O, 0, I oder 1): Fragen Sie noch einmal bei der Person nach.";
 "redeem.refusal.unknown_code" = "Dieser Code gehört zu niemandem. Fragen Sie noch einmal bei der Person nach, die ihn Ihnen gegeben hat.";
@@ -79,7 +79,7 @@
 "invite.share" = "Meinen Code teilen";
 "invite.back" = "Zurück";
 "invite.closeAfterShare" = "Zurück zur App";
-"share.message" = "Ich lade dich ein, Browther zu entdecken: den Browser, der Musik entfernt und Haram-Bilder unscharf macht.\nMit meinem Code {code} bekommst du zwei Monate mit zusätzlichen Funktionen.";
+"share.message" = "Ich lade dich ein, Browther zu entdecken: den Browser, der Musik entfernt und Haram-Bilder unscharf macht.\nMit meinem Code {code} bekommst du ein Monat mit zusätzlichen Funktionen.";
 "menu.invite" = "Jemanden zu Browther einladen";
 "settings.subtitle" = "Hasanat sammeln und Zugang auf Lebenszeit";
 "settings.news" = "Neu";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Auf Lebenszeit behalten";
 "notice.eyebrow" = "Empfehlungen";
 "notice.title" = "Einladung bestätigt!";
-"notice.bodyLifetime" = "Geschafft: Browther ist zu 100 % freigeschaltet, auf Lebenszeit.";
+"notice.bodyLifetime" = "Geschafft: Browther ist zu 100 % freigeschaltet, auf Lebenszeit, inschallah.";
 "notice.see" = "Meine Empfehlungen ansehen";
 "referee.title" = "Ihre Empfehlung";
 "referee.done" = "Erledigt: Die Person, die Sie eingeladen hat, hat 1 Monat mit zusätzlichen Funktionen bekommen. Danke in ihrem Namen.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "In {count} Tagen laufen Ihre erhaltenen Monate ab.";
 "reminder.monthsNext.one" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Sie erhalten {bonus} Bonusmonate.";
 "reminder.monthsNext.other" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Sie erhalten {bonus} Bonusmonate.";
-"reminder.monthsNextLife.one" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Browther ist lebenslang freigeschaltet.";
-"reminder.monthsNextLife.other" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Browther ist lebenslang freigeschaltet.";
+"reminder.monthsNextLife.one" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Browther ist lebenslang freigeschaltet, inschallah.";
+"reminder.monthsNextLife.other" = "Jede bestätigte Einladung bringt Ihnen einen weiteren. Noch {count}, und Browther ist lebenslang freigeschaltet, inschallah.";
 "reminder.subscriptionTitle.one" = "Ihr Abo endet morgen.";
 "reminder.subscriptionTitle.other" = "Ihr Abo endet in {count} Tagen.";
 "invite.foot.one" = "Eine Einladung ist bestätigt, sobald die Person Browther {count} Tag lang als Standardbrowser behalten hat.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} Monate mit zusätzlichen Funktionen.";
 "referee.progress.one" = "Noch {count} Tag mit Browther als Standardbrowser, und wer Sie eingeladen hat, bekommt 1 Monat mit zusätzlichen Funktionen.";
 "referee.progress.other" = "Noch {count} Tage mit Browther als Standardbrowser, und wer Sie eingeladen hat, bekommt 1 Monat mit zusätzlichen Funktionen.";
-"referee.hint.one" = "Jemand hat Ihnen Browther vorgestellt. Sie haben zwei Monate erhalten; die Person bekommt ihren, sobald Sie Browther {count} Tag lang als Standardbrowser behalten haben.";
-"referee.hint.other" = "Jemand hat Ihnen Browther vorgestellt. Sie haben zwei Monate erhalten; die Person bekommt ihren, sobald Sie Browther {count} Tage lang als Standardbrowser behalten haben.";
+"referee.hint.one" = "Jemand hat Ihnen Browther vorgestellt. Sie haben ein Monat erhalten; die Person bekommt ihren, sobald Sie Browther {count} Tag lang als Standardbrowser behalten haben.";
+"referee.hint.other" = "Jemand hat Ihnen Browther vorgestellt. Sie haben ein Monat erhalten; die Person bekommt ihren, sobald Sie Browther {count} Tage lang als Standardbrowser behalten haben.";
 "referee.noticeWhy.one" = "Sie haben den Empfehlungscode dieser Person verwendet und Browther gerade {count} Tag lang als Standardbrowser behalten.";
 "referee.noticeWhy.other" = "Sie haben den Empfehlungscode dieser Person verwendet und Browther gerade {count} Tage lang als Standardbrowser behalten.";
 "referee.meter.one" = "{current} von {count} Tag";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} bestätigte Einladungen** = {months} Monate. Noch {left} für +{bonus} Bonusmonate.";
 "home.progressToLife.one" = "**{count} bestätigte Einladung** = {months} Monate. Noch {left} bis zum Zugang auf Lebenszeit.";
 "home.progressToLife.other" = "**{count} bestätigte Einladungen** = {months} Monate. Noch {left} bis zum Zugang auf Lebenszeit.";
-"home.progressLife.one" = "**{count} bestätigte Einladung**: Browther ist zu 100 % freigeschaltet, auf Lebenszeit.";
-"home.progressLife.other" = "**{count} bestätigte Einladungen**: Browther ist zu 100 % freigeschaltet, auf Lebenszeit.";
+"home.progressLife.one" = "**{count} bestätigte Einladung**: Browther ist zu 100 % freigeschaltet, auf Lebenszeit, inschallah.";
+"home.progressLife.other" = "**{count} bestätigte Einladungen**: Browther ist zu 100 % freigeschaltet, auf Lebenszeit, inschallah.";

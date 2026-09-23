@@ -41,11 +41,11 @@
 "card.copy" = "Copia";
 "card.copied" = "Copiat";
 "redeem.head" = "Algú proper t'ha parlat de Browther?";
-"redeem.body" = "Demana-li el seu codi d'apadrinament: dos mesos de funcions addicionals de regal, un per a tu i un per a aquesta persona.";
+"redeem.body" = "Demana-li el seu codi d'apadrinament: un mes de funcions addicionals per a tu i un per a aquesta persona.";
 "redeem.placeholder" = "Codi d'apadrinament";
 "redeem.paste" = "Enganxa";
 "redeem.validate" = "Valida";
-"redeem.validatedLine" = "Fet: dos mesos de funcions addicionals, un per a tu i un per a aquesta persona.";
+"redeem.validatedLine" = "Fet: un mes de funcions addicionals per a tu i un per a aquesta persona.";
 "redeem.inputError.length" = "Un codi d'apadrinament té 6 caràcters.";
 "redeem.inputError.alphabet" = "Aquest codi conté un caràcter que cap codi no fa servir (com ara O, 0, I o 1): comprova'l amb qui te l'ha donat.";
 "redeem.refusal.unknown_code" = "Aquest codi no correspon a ningú. Comprova'l amb qui te l'ha donat.";
@@ -79,7 +79,7 @@
 "invite.share" = "Comparteix el meu codi";
 "invite.back" = "Enrere";
 "invite.closeAfterShare" = "Torna a l'app";
-"share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens dos mesos de funcions addicionals.";
+"share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens un mes de funcions addicionals.";
 "menu.invite" = "Convidar algú a Browther";
 "settings.subtitle" = "Guanya hassanat i l'accés de per vida";
 "settings.news" = "Nou";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Conservar-la de per vida";
 "notice.eyebrow" = "Apadrinament";
 "notice.title" = "Invitació validada!";
-"notice.bodyLifetime" = "Ho has aconseguit: Browther està desbloquejat al 100 %, de per vida.";
+"notice.bodyLifetime" = "Ho has aconseguit: Browther està desbloquejat al 100 %, de per vida, in sha Allah.";
 "notice.see" = "Veure el meu apadrinament";
 "referee.title" = "El teu apadrinament";
 "referee.done" = "Fet: qui t'ha convidat ha guanyat 1 mes de funcions addicionals. Gràcies de part seva.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "D'aquí a {count} dies s'acaben els mesos que has guanyat.";
 "reminder.monthsNext.one" = "Cada invitació validada te n'afegeix un més. {count} més i aconsegueixes un bonus de {bonus} mesos.";
 "reminder.monthsNext.other" = "Cada invitació validada te n'afegeix un més. {count} més i aconsegueixes un bonus de {bonus} mesos.";
-"reminder.monthsNextLife.one" = "Cada invitació validada te n'afegeix un més. {count} més i Browther queda desbloquejat de per vida.";
-"reminder.monthsNextLife.other" = "Cada invitació validada te n'afegeix un més. {count} més i Browther queda desbloquejat de per vida.";
+"reminder.monthsNextLife.one" = "Cada invitació validada te n'afegeix un més. {count} més i Browther queda desbloquejat de per vida, in sha Allah.";
+"reminder.monthsNextLife.other" = "Cada invitació validada te n'afegeix un més. {count} més i Browther queda desbloquejat de per vida, in sha Allah.";
 "reminder.subscriptionTitle.one" = "La teva subscripció s'acaba demà.";
 "reminder.subscriptionTitle.other" = "La teva subscripció s'acaba d'aquí a {count} dies.";
 "invite.foot.one" = "Una invitació es valida quan la persona ha mantingut Browther com a navegador per defecte durant {count} dia.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} mesos de funcions addicionals.";
 "referee.progress.one" = "{count} dia més amb Browther per defecte i qui t'ha convidat guanya 1 mes de funcions addicionals.";
 "referee.progress.other" = "{count} dies més amb Browther per defecte i qui t'ha convidat guanya 1 mes de funcions addicionals.";
-"referee.hint.one" = "Algú proper t'ha fet descobrir Browther. Has rebut dos mesos; el seu li arriba quan hagis mantingut Browther com a navegador per defecte durant {count} dia.";
-"referee.hint.other" = "Algú proper t'ha fet descobrir Browther. Has rebut dos mesos; el seu li arriba quan hagis mantingut Browther com a navegador per defecte durant {count} dies.";
+"referee.hint.one" = "Algú proper t'ha fet descobrir Browther. Has rebut un mes; el seu li arriba quan hagis mantingut Browther com a navegador per defecte durant {count} dia.";
+"referee.hint.other" = "Algú proper t'ha fet descobrir Browther. Has rebut un mes; el seu li arriba quan hagis mantingut Browther com a navegador per defecte durant {count} dies.";
 "referee.noticeWhy.one" = "Has fet servir el codi d'apadrinament d'aquesta persona i acabes de mantenir Browther com a navegador per defecte durant {count} dia.";
 "referee.noticeWhy.other" = "Has fet servir el codi d'apadrinament d'aquesta persona i acabes de mantenir Browther com a navegador per defecte durant {count} dies.";
 "referee.meter.one" = "{current} de {count} dia";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} invitacions validades** = {months} mesos. {left} més per a +{bonus} mesos de bonificació.";
 "home.progressToLife.one" = "**{count} invitació validada** = {months} mesos. {left} més per a l'accés de per vida.";
 "home.progressToLife.other" = "**{count} invitacions validades** = {months} mesos. {left} més per a l'accés de per vida.";
-"home.progressLife.one" = "**{count} invitació validada**: Browther està desbloquejat al 100 %, de per vida.";
-"home.progressLife.other" = "**{count} invitacions validades**: Browther està desbloquejat al 100 %, de per vida.";
+"home.progressLife.one" = "**{count} invitació validada**: Browther està desbloquejat al 100 %, de per vida, in sha Allah.";
+"home.progressLife.other" = "**{count} invitacions validades**: Browther està desbloquejat al 100 %, de per vida, in sha Allah.";

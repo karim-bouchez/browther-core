@@ -41,11 +41,11 @@
 "card.copy" = "Másolás";
 "card.copied" = "Másolva";
 "redeem.head" = "Egy szerette ajánlotta Önnek a Browther böngészőt?";
-"redeem.body" = "Kérje el tőle az ajánlói kódját: két hónapnyi kiegészítő funkció ajándékba, egy Önnek és egy neki.";
+"redeem.body" = "Kérje el tőle az ajánlói kódját: egy hónapnyi kiegészítő funkció Önnek és egy neki.";
 "redeem.placeholder" = "Ajánlói kód";
 "redeem.paste" = "Beillesztés";
 "redeem.validate" = "Beváltás";
-"redeem.validatedLine" = "Kész: két hónapnyi kiegészítő funkció, egy Önnek és egy a szerettének.";
+"redeem.validatedLine" = "Kész: egy hónapnyi kiegészítő funkció Önnek és egy a szerettének.";
 "redeem.inputError.length" = "Az ajánlói kód 6 karakterből áll.";
 "redeem.inputError.alphabet" = "Ez a kód olyan karaktert tartalmaz, amelyet egyetlen kód sem használ (például O, 0, I vagy 1): ellenőrizze a szerettével.";
 "redeem.refusal.unknown_code" = "Ez a kód senkihez sem tartozik. Ellenőrizze a szerettével.";
@@ -79,7 +79,7 @@
 "invite.share" = "Kódom megosztása";
 "invite.back" = "Vissza";
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
-"share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) két hónapnyi kiegészítő funkciót kapsz.";
+"share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) egy hónapnyi kiegészítő funkciót kapsz.";
 "menu.invite" = "Meghívás a Browther böngészőbe";
 "settings.subtitle" = "Szerezzen haszanátot és örökös hozzáférést";
 "settings.news" = "Új";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Megtartás örökre";
 "notice.eyebrow" = "Ajánlói program";
 "notice.title" = "Meghívás megerősítve!";
-"notice.bodyLifetime" = "Sikerült: a Browther 100%-ban fel van oldva, örökre.";
+"notice.bodyLifetime" = "Sikerült: a Browther 100%-ban fel van oldva, örökre, insallah.";
 "notice.see" = "Ajánlói program megnyitása";
 "referee.title" = "Az Ön meghívása";
 "referee.done" = "Kész: a szerette 1 hónapnyi kiegészítő funkciót kapott. Köszönjük az ő nevében is.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "{count} nap múlva lejárnak a megszerzett hónapjai.";
 "reminder.monthsNext.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és {bonus} hónap bónuszt kap.";
 "reminder.monthsNext.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és {bonus} hónap bónuszt kap.";
-"reminder.monthsNextLife.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik.";
-"reminder.monthsNextLife.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik.";
+"reminder.monthsNextLife.one" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik, insallah.";
+"reminder.monthsNextLife.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik, insallah.";
 "reminder.subscriptionTitle.one" = "Az előfizetése holnap megszűnik.";
 "reminder.subscriptionTitle.other" = "Az előfizetése {count} nap múlva megszűnik.";
 "invite.foot.one" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} hónapnyi kiegészítő funkció.";
 "referee.progress.one" = "Ha a Browther még {count} napig alapértelmezett böngésző marad, a szerette 1 hónapnyi kiegészítő funkciót kap.";
 "referee.progress.other" = "Ha a Browther még {count} napig alapértelmezett böngésző marad, a szerette 1 hónapnyi kiegészítő funkciót kap.";
-"referee.hint.one" = "Egy szerette mutatta meg Önnek a Browther böngészőt. Ön két hónapot kapott; az övé akkor jár neki, ha a Browther {count} napig alapértelmezett böngésző marad Önnél.";
-"referee.hint.other" = "Egy szerette mutatta meg Önnek a Browther böngészőt. Ön két hónapot kapott; az övé akkor jár neki, ha a Browther {count} napig alapértelmezett böngésző marad Önnél.";
+"referee.hint.one" = "Egy szerette mutatta meg Önnek a Browther böngészőt. Ön egy hónapot kapott; az övé akkor jár neki, ha a Browther {count} napig alapértelmezett böngésző marad Önnél.";
+"referee.hint.other" = "Egy szerette mutatta meg Önnek a Browther böngészőt. Ön egy hónapot kapott; az övé akkor jár neki, ha a Browther {count} napig alapértelmezett böngésző marad Önnél.";
 "referee.noticeWhy.one" = "Felhasználta egy szerette ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt Önnél.";
 "referee.noticeWhy.other" = "Felhasználta egy szerette ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt Önnél.";
 "referee.meter.one" = "{count} napból {current}";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} megerősített meghívás** = {months} hónap. Még {left}, és +{bonus} bónuszhónap jár.";
 "home.progressToLife.one" = "**{count} megerősített meghívás** = {months} hónap. Még {left}, és örökös hozzáférés jár.";
 "home.progressToLife.other" = "**{count} megerősített meghívás** = {months} hónap. Még {left}, és örökös hozzáférés jár.";
-"home.progressLife.one" = "**{count} megerősített meghívás**: a Browther 100%-ban fel van oldva, örökre.";
-"home.progressLife.other" = "**{count} megerősített meghívás**: a Browther 100%-ban fel van oldva, örökre.";
+"home.progressLife.one" = "**{count} megerősített meghívás**: a Browther 100%-ban fel van oldva, örökre, insallah.";
+"home.progressLife.other" = "**{count} megerősített meghívás**: a Browther 100%-ban fel van oldva, örökre, insallah.";

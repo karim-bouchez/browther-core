@@ -41,11 +41,11 @@
 "card.copy" = "Kopyala";
 "card.copied" = "Kopyalandı";
 "redeem.head" = "Bir yakınınız size Browther'dan mı bahsetti?";
-"redeem.body" = "Ondan referans kodunu isteyin: iki ay ek özellik hediye, biri size, biri ona.";
+"redeem.body" = "Ondan referans kodunu isteyin: bir ay ek özellik size, bir ay da ona.";
 "redeem.placeholder" = "Referans kodu";
 "redeem.paste" = "Yapıştır";
 "redeem.validate" = "Onayla";
-"redeem.validatedLine" = "Tamam: iki ay ek özellik, biri size, biri sizi davet edene.";
+"redeem.validatedLine" = "Tamam: bir ay ek özellik size, bir ay da sizi davet edene.";
 "redeem.inputError.length" = "Bir referans kodu 6 karakterden oluşur.";
 "redeem.inputError.alphabet" = "Bu kod, hiçbir kodda kullanılmayan bir karakter içeriyor (O, 0, I veya 1 gibi): kodu size veren kişiyle kontrol edin.";
 "redeem.refusal.unknown_code" = "Bu kod kimseye ait değil. Kodu size veren kişiyle kontrol edin.";
@@ -79,7 +79,7 @@
 "invite.share" = "Kodumu paylaş";
 "invite.back" = "Geri";
 "invite.closeAfterShare" = "Uygulamaya dönün";
-"share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla iki ay ek özellik kazanırsın.";
+"share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla bir ay ek özellik kazanırsın.";
 "menu.invite" = "Browther'a birini davet edin";
 "settings.subtitle" = "Hasenat ve ömür boyu erişim kazanın";
 "settings.news" = "Yeni";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Ömür boyu sizde kalsın";
 "notice.eyebrow" = "Referans";
 "notice.title" = "Davet onaylandı!";
-"notice.bodyLifetime" = "Başardınız: Browther'ın kilidi ömür boyu %100 açık.";
+"notice.bodyLifetime" = "Başardınız: Browther'ın kilidi ömür boyu %100 açık, inşallah.";
 "notice.see" = "Referanslarımı gör";
 "referee.title" = "Referansınız";
 "referee.done" = "Tamamdır: sizi davet eden kişi 1 ay ek özellik kazandı. Onun adına teşekkürler.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "Kazandığınız aylar {count} gün sonra sona eriyor.";
 "reminder.monthsNext.one" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve {bonus} aylık bonus kazanıyorsunuz.";
 "reminder.monthsNext.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve {bonus} aylık bonus kazanıyorsunuz.";
-"reminder.monthsNextLife.one" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor.";
-"reminder.monthsNextLife.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor.";
+"reminder.monthsNextLife.one" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor, inşallah.";
+"reminder.monthsNextLife.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor, inşallah.";
 "reminder.subscriptionTitle.one" = "Aboneliğiniz yarın sona eriyor.";
 "reminder.subscriptionTitle.other" = "Aboneliğiniz {count} gün sonra sona eriyor.";
 "invite.foot.one" = "Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanır.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} ay ek özellik.";
 "referee.progress.one" = "Browther {count} gün daha varsayılan tarayıcınız olursa, sizi davet eden kişi 1 ay ek özellik kazanır.";
 "referee.progress.other" = "Browther {count} gün daha varsayılan tarayıcınız olursa, sizi davet eden kişi 1 ay ek özellik kazanır.";
-"referee.hint.one" = "Bir yakınınız size Browther'ı tanıttı. Siz iki ay aldınız; onunki, Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığınızda gelecek.";
-"referee.hint.other" = "Bir yakınınız size Browther'ı tanıttı. Siz iki ay aldınız; onunki, Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığınızda gelecek.";
+"referee.hint.one" = "Bir yakınınız size Browther'ı tanıttı. Siz bir ay aldınız; onunki, Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığınızda gelecek.";
+"referee.hint.other" = "Bir yakınınız size Browther'ı tanıttı. Siz bir ay aldınız; onunki, Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığınızda gelecek.";
 "referee.noticeWhy.one" = "O kişinin referans kodunu kullandınız ve Browther'ı {count} gün boyunca varsayılan tarayıcınız olarak kullandınız.";
 "referee.noticeWhy.other" = "O kişinin referans kodunu kullandınız ve Browther'ı {count} gün boyunca varsayılan tarayıcınız olarak kullandınız.";
 "referee.meter.one" = "{current} / {count} gün";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} onaylanan davet** = {months} ay. +{bonus} ay bonus için {left} davet daha.";
 "home.progressToLife.one" = "**{count} onaylanan davet** = {months} ay. Ömür boyu erişim için {left} davet daha.";
 "home.progressToLife.other" = "**{count} onaylanan davet** = {months} ay. Ömür boyu erişim için {left} davet daha.";
-"home.progressLife.one" = "**{count} onaylanan davet**: Browther'ın kilidi ömür boyu %100 açık.";
-"home.progressLife.other" = "**{count} onaylanan davet**: Browther'ın kilidi ömür boyu %100 açık.";
+"home.progressLife.one" = "**{count} onaylanan davet**: Browther'ın kilidi ömür boyu %100 açık, inşallah.";
+"home.progressLife.other" = "**{count} onaylanan davet**: Browther'ın kilidi ömür boyu %100 açık, inşallah.";

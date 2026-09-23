@@ -41,11 +41,11 @@
 "card.copy" = "コピー";
 "card.copied" = "コピーしました";
 "redeem.head" = "身近な人から Browther を紹介されましたか？";
-"redeem.body" = "その人に紹介コードを聞いてみましょう。追加機能 2 か月分をプレゼント：あなたに 1 か月、その人に 1 か月。";
+"redeem.body" = "その人に紹介コードを聞いてみましょう。追加機能 1 か月分があなたに、1 か月分がその人に届きます。";
 "redeem.placeholder" = "紹介コード";
 "redeem.paste" = "貼り付け";
 "redeem.validate" = "適用";
-"redeem.validatedLine" = "完了：追加機能 2 か月分、あなたに 1 か月、相手に 1 か月。";
+"redeem.validatedLine" = "完了：追加機能 1 か月分があなたに、1 か月分が相手に。";
 "redeem.inputError.length" = "紹介コードは 6 文字です。";
 "redeem.inputError.alphabet" = "このコードには、どのコードにも使われない文字（O、0、I、1 など）が含まれています。相手に確認してください。";
 "redeem.refusal.unknown_code" = "このコードに該当する人がいません。相手に確認してください。";
@@ -79,7 +79,7 @@
 "invite.share" = "コードをシェア";
 "invite.back" = "戻る";
 "invite.closeAfterShare" = "アプリに戻る";
-"share.message" = "Browther を紹介します。音楽をカットして、ハラームな画像をぼかすブラウザです。\n私のコード {code} を使うと、追加機能を 2 か月分もらえます。";
+"share.message" = "Browther を紹介します。音楽をカットして、ハラームな画像をぼかすブラウザです。\n私のコード {code} を使うと、追加機能を 1 か月分もらえます。";
 "menu.invite" = "Browther に身近な人を招待";
 "settings.subtitle" = "ハサナートと永久アクセスを獲得";
 "settings.news" = "新着";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "永久に使い続ける";
 "notice.eyebrow" = "紹介プログラム";
 "notice.title" = "招待が確定しました！";
-"notice.bodyLifetime" = "達成です：Browther が永久に 100% 解除されました。";
+"notice.bodyLifetime" = "達成です：Browther が永久に 100% 解除されました、インシャーアッラー。";
 "notice.see" = "紹介の状況を見る";
 "referee.title" = "紹介の状況";
 "referee.done" = "完了：紹介してくれた人が追加機能 1 か月分を獲得しました。その人に代わって、ありがとうございます。";
@@ -163,14 +163,14 @@
 "reminder.inProgressCount.other" = "招待のひとつが順調に進んでいます。Browther をデフォルトのブラウザにしてあと {count} 日で確定します。";
 "reminder.monthsTitle.other" = "{count} 日後に、獲得した期間が終了します。";
 "reminder.monthsNext.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で {bonus} か月のボーナスです。";
-"reminder.monthsNextLife.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で Browther がずっと使えるようになります。";
+"reminder.monthsNextLife.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で Browther がずっと使えるようになります、インシャーアッラー。";
 "reminder.subscriptionTitle.other" = "サブスクリプションは {count} 日後に終了します。";
 "invite.foot.other" = "招待した人が Browther を {count} 日間デフォルトのブラウザにしておくと、招待が確定します。";
 "notice.why.other" = "身近な人があなたの紹介コードを使い、Browther を {count} 日間デフォルトのブラウザにしました。";
 "notice.body.other" = "+{count} か月分の追加機能（{date} まで）。";
 "notice.bodyNoDate.other" = "+{count} か月分の追加機能。";
 "referee.progress.other" = "Browther をデフォルトのブラウザにしてあと {count} 日で、紹介してくれた人が追加機能 1 か月分を獲得します。";
-"referee.hint.other" = "身近な人が Browther を紹介してくれました。あなたは 2 か月分を受け取りました。その人の分は、あなたが Browther を {count} 日間デフォルトのブラウザにしておくと届きます。";
+"referee.hint.other" = "身近な人が Browther を紹介してくれました。あなたは 1 か月分を受け取りました。その人の分は、あなたが Browther を {count} 日間デフォルトのブラウザにしておくと届きます。";
 "referee.noticeWhy.other" = "あなたはその人の紹介コードを使い、Browther を {count} 日間デフォルトのブラウザにしました。";
 "referee.meter.other" = "{current} / {count} 日";
 "invitations.months.other" = "+{count} か月";
@@ -180,4 +180,4 @@
 "invitations.milestone.other" = "+{count} か月のボーナス · 招待 {at} 件のステップ達成";
 "home.progress.other" = "**確定した招待 {count} 件** = {months} か月。あと {left} 件で +{bonus} か月のボーナス。";
 "home.progressToLife.other" = "**確定した招待 {count} 件** = {months} か月。あと {left} 件で永久アクセス。";
-"home.progressLife.other" = "**確定した招待 {count} 件**：Browther が永久に 100% 解除されました。";
+"home.progressLife.other" = "**確定した招待 {count} 件**：Browther が永久に 100% 解除されました、インシャーアッラー。";

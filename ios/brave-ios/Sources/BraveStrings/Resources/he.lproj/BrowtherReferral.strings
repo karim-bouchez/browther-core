@@ -41,11 +41,11 @@
 "card.copy" = "העתקה";
 "card.copied" = "הועתק";
 "redeem.head" = "מישהו קרוב סיפר לך על Browther?";
-"redeem.body" = "כדאי לבקש ממנו את קוד ההפניה שלו: חודשיים של תכונות נוספות במתנה, אחד בשבילך ואחד בשבילו.";
+"redeem.body" = "כדאי לבקש ממנו את קוד ההפניה שלו: חודש של תכונות נוספות בשבילך ואחד בשבילו.";
 "redeem.placeholder" = "קוד הפניה";
 "redeem.paste" = "הדבקה";
 "redeem.validate" = "אישור";
-"redeem.validatedLine" = "הכול מוכן: חודשיים של תכונות נוספות, אחד בשבילך ואחד בשביל מי שהזמין אותך.";
+"redeem.validatedLine" = "הכול מוכן: חודש של תכונות נוספות בשבילך ואחד בשביל מי שהזמין אותך.";
 "redeem.inputError.length" = "קוד הפניה מכיל 6 תווים.";
 "redeem.inputError.alphabet" = "הקוד מכיל תו שאף קוד לא משתמש בו (כמו O, 0, I או 1): כדאי לבדוק אותו מול מי שנתן לך אותו.";
 "redeem.refusal.unknown_code" = "הקוד הזה לא שייך לאף אחד. כדאי לבדוק אותו מול מי שנתן לך אותו.";
@@ -79,7 +79,7 @@
 "invite.share" = "לשתף את הקוד שלי";
 "invite.back" = "חזרה";
 "invite.closeAfterShare" = "חזרה לאפליקציה";
-"share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודשיים של תכונות נוספות.";
+"share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודש של תכונות נוספות.";
 "menu.invite" = "להזמין אדם קרוב ל-Browther";
 "settings.subtitle" = "להרוויח חסנאת וגישה לכל החיים";
 "settings.news" = "חדש";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "לשמור עליה לכל החיים";
 "notice.eyebrow" = "הפניות";
 "notice.title" = "ההזמנה אושרה!";
-"notice.bodyLifetime" = "הגעת ליעד: Browther פתוח ב-100%, לכל החיים.";
+"notice.bodyLifetime" = "הגעת ליעד: Browther פתוח ב-100%, לכל החיים, אינשאללה.";
 "notice.see" = "להפניות שלי";
 "referee.title" = "ההפניה שלך";
 "referee.done" = "זהו: האדם הקרוב אליך קיבל חודש של תכונות נוספות. תודה בשמו.";
@@ -191,9 +191,9 @@
 "reminder.monthsNext.one" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד הזמנה אחת ומקבלים בונוס של {bonus} חודשים.";
 "reminder.monthsNext.two" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ומקבלים בונוס של {bonus} חודשים.";
 "reminder.monthsNext.other" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ומקבלים בונוס של {bonus} חודשים.";
-"reminder.monthsNextLife.one" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד הזמנה אחת ו-Browther נפתח לתמיד.";
-"reminder.monthsNextLife.two" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ו-Browther נפתח לתמיד.";
-"reminder.monthsNextLife.other" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ו-Browther נפתח לתמיד.";
+"reminder.monthsNextLife.one" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד הזמנה אחת ו-Browther נפתח לתמיד, אינשאללה.";
+"reminder.monthsNextLife.two" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ו-Browther נפתח לתמיד, אינשאללה.";
+"reminder.monthsNextLife.other" = "כל הזמנה מאושרת מוסיפה עוד חודש. עוד {count} הזמנות ו-Browther נפתח לתמיד, אינשאללה.";
 "reminder.subscriptionTitle.one" = "המנוי שלך מסתיים מחר.";
 "reminder.subscriptionTitle.two" = "המנוי שלך מסתיים בעוד יומיים.";
 "reminder.subscriptionTitle.other" = "המנוי שלך מסתיים בעוד {count} ימים.";
@@ -212,9 +212,9 @@
 "referee.progress.one" = "עוד יום אחד עם Browther כדפדפן ברירת המחדל, והאדם הקרוב אליך יקבל חודש של תכונות נוספות.";
 "referee.progress.two" = "עוד יומיים עם Browther כדפדפן ברירת המחדל, והאדם הקרוב אליך יקבל חודש של תכונות נוספות.";
 "referee.progress.other" = "עוד {count} ימים עם Browther כדפדפן ברירת המחדל, והאדם הקרוב אליך יקבל חודש של תכונות נוספות.";
-"referee.hint.one" = "אדם קרוב הכיר לך את Browther. קיבלת חודשיים; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך יום אחד.";
-"referee.hint.two" = "אדם קרוב הכיר לך את Browther. קיבלת חודשיים; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך יומיים.";
-"referee.hint.other" = "אדם קרוב הכיר לך את Browther. קיבלת חודשיים; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך {count} ימים.";
+"referee.hint.one" = "אדם קרוב הכיר לך את Browther. קיבלת חודש; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך יום אחד.";
+"referee.hint.two" = "אדם קרוב הכיר לך את Browther. קיבלת חודש; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך יומיים.";
+"referee.hint.other" = "אדם קרוב הכיר לך את Browther. קיבלת חודש; החודש שלו יתווסף כש-Browther יישאר דפדפן ברירת המחדל שלך במשך {count} ימים.";
 "referee.noticeWhy.one" = "השתמשת בקוד ההפניה שלו, ו-Browther היה דפדפן ברירת המחדל שלך במשך יום אחד.";
 "referee.noticeWhy.two" = "השתמשת בקוד ההפניה שלו, ו-Browther היה דפדפן ברירת המחדל שלך במשך יומיים.";
 "referee.noticeWhy.other" = "השתמשת בקוד ההפניה שלו, ו-Browther היה דפדפן ברירת המחדל שלך במשך {count} ימים.";
@@ -242,6 +242,6 @@
 "home.progressToLife.one" = "**הזמנה מאושרת אחת** = {months} חודש. עוד {left} לגישה לכל החיים.";
 "home.progressToLife.two" = "**{count} הזמנות מאושרות** = {months} חודשים. עוד {left} לגישה לכל החיים.";
 "home.progressToLife.other" = "**{count} הזמנות מאושרות** = {months} חודשים. עוד {left} לגישה לכל החיים.";
-"home.progressLife.one" = "**הזמנה מאושרת אחת**: Browther פתוח ב-100%, לכל החיים.";
-"home.progressLife.two" = "**{count} הזמנות מאושרות**: Browther פתוח ב-100%, לכל החיים.";
-"home.progressLife.other" = "**{count} הזמנות מאושרות**: Browther פתוח ב-100%, לכל החיים.";
+"home.progressLife.one" = "**הזמנה מאושרת אחת**: Browther פתוח ב-100%, לכל החיים, אינשאללה.";
+"home.progressLife.two" = "**{count} הזמנות מאושרות**: Browther פתוח ב-100%, לכל החיים, אינשאללה.";
+"home.progressLife.other" = "**{count} הזמנות מאושרות**: Browther פתוח ב-100%, לכל החיים, אינשאללה.";

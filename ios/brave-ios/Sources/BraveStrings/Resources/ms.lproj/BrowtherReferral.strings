@@ -41,11 +41,11 @@
 "card.copy" = "Salin";
 "card.copied" = "Disalin";
 "redeem.head" = "Ada orang tersayang yang beritahu anda tentang Browther?";
-"redeem.body" = "Minta kod rujukannya: dua bulan ciri tambahan sebagai hadiah, satu untuk anda dan satu untuknya.";
+"redeem.body" = "Minta kod rujukannya: satu bulan ciri tambahan untuk anda dan satu untuknya.";
 "redeem.placeholder" = "Kod rujukan";
 "redeem.paste" = "Tampal";
 "redeem.validate" = "Sahkan";
-"redeem.validatedLine" = "Siap: dua bulan ciri tambahan, satu untuk anda dan satu untuknya.";
+"redeem.validatedLine" = "Siap: satu bulan ciri tambahan untuk anda dan satu untuknya.";
 "redeem.inputError.length" = "Kod rujukan mengandungi 6 aksara.";
 "redeem.inputError.alphabet" = "Kod ini mengandungi aksara yang tidak digunakan oleh mana-mana kod (seperti O, 0, I atau 1): semak semula dengan orang yang memberikannya.";
 "redeem.refusal.unknown_code" = "Kod ini tidak sepadan dengan sesiapa. Semak semula dengan orang yang memberikannya.";
@@ -79,7 +79,7 @@
 "invite.share" = "Kongsi kod saya";
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
-"share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat dua bulan ciri tambahan.";
+"share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat satu bulan ciri tambahan.";
 "menu.invite" = "Jemput orang tersayang ke Browther";
 "settings.subtitle" = "Dapatkan hasanat dan akses seumur hidup";
 "settings.news" = "Baharu";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Kekalkan seumur hidup";
 "notice.eyebrow" = "Rujukan";
 "notice.title" = "Jemputan disahkan!";
-"notice.bodyLifetime" = "Berjaya: Browther 100% dibuka, seumur hidup.";
+"notice.bodyLifetime" = "Berjaya: Browther 100% dibuka, seumur hidup, insya-Allah.";
 "notice.see" = "Lihat rujukan saya";
 "referee.title" = "Rujukan anda";
 "referee.done" = "Selesai: orang tersayang anda telah mendapat 1 bulan ciri tambahan. Terima kasih bagi pihaknya.";
@@ -163,14 +163,14 @@
 "reminder.inProgressCount.other" = "Salah satu jemputan anda sedang berjalan lancar: {count} hari lagi dengan Browther sebagai pelayar lalai dan ia akan disahkan.";
 "reminder.monthsTitle.other" = "Dalam {count} hari, bulan-bulan yang anda peroleh akan tamat.";
 "reminder.monthsNext.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan anda mendapat bonus {bonus} bulan.";
-"reminder.monthsNextLife.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan Browther dibuka seumur hidup.";
+"reminder.monthsNextLife.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan Browther dibuka seumur hidup, insya-Allah.";
 "reminder.subscriptionTitle.other" = "Langganan anda tamat dalam {count} hari.";
 "invite.foot.other" = "Jemputan disahkan apabila orang tersayang anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "notice.why.other" = "Orang tersayang anda menggunakan kod rujukan anda, dan baru sahaja mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "notice.body.other" = "+{count} bulan ciri tambahan, hingga {date}.";
 "notice.bodyNoDate.other" = "+{count} bulan ciri tambahan.";
 "referee.progress.other" = "{count} hari lagi dengan Browther sebagai pelayar lalai dan orang tersayang anda mendapat 1 bulan ciri tambahan.";
-"referee.hint.other" = "Orang tersayang anda memperkenalkan Browther kepada anda. Anda telah menerima dua bulan; bulannya pula diberikan selepas anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
+"referee.hint.other" = "Orang tersayang anda memperkenalkan Browther kepada anda. Anda telah menerima satu bulan; bulannya pula diberikan selepas anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "referee.noticeWhy.other" = "Anda menggunakan kod rujukannya, dan baru sahaja mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "referee.meter.other" = "{current} daripada {count} hari";
 "invitations.months.other" = "+{count} bulan";
@@ -180,4 +180,4 @@
 "invitations.milestone.other" = "Bonus +{count} bulan · peringkat {at} dicapai";
 "home.progress.other" = "**{count} jemputan disahkan** = {months} bulan. {left} lagi untuk bonus +{bonus} bulan.";
 "home.progressToLife.other" = "**{count} jemputan disahkan** = {months} bulan. {left} lagi untuk akses seumur hidup.";
-"home.progressLife.other" = "**{count} jemputan disahkan**: Browther 100% dibuka, seumur hidup.";
+"home.progressLife.other" = "**{count} jemputan disahkan**: Browther 100% dibuka, seumur hidup, insya-Allah.";

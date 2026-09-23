@@ -32,7 +32,9 @@ class Scrim : public views::WidgetObserver {
     layer_->SetName("BrowtherReferralScrim");
     layer_->SetColor(SkColorSetA(SK_ColorBLACK, kScrimAlpha));
     layer_->SetBackgroundBlur(kBlurSigma);
-    layer_->SetFillsBoundsOpaquely(false);
+    // ⛔ Pas de `SetFillsBoundsOpaquely` ici : une couche SOLID_COLOR le refuse
+    // net (`CHECK_NE(type_, LAYER_SOLID_COLOR)`, crash immédiat au premier J0,
+    // 2026-09-23). Sa transparence vient de l'alpha de sa couleur, point.
     Resize();
     if (ui::Layer* root = widget_->GetLayer()) {
       root->Add(layer_.get());

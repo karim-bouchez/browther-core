@@ -41,11 +41,11 @@
 "card.copy" = "복사";
 "card.copied" = "복사됨";
 "redeem.head" = "가까운 사람이 Browther를 알려 줬나요?";
-"redeem.body" = "그분에게 추천 코드를 물어보세요. 추가 기능 2개월을 선물로 드려요. 나에게 1개월, 그분에게 1개월.";
+"redeem.body" = "그분에게 추천 코드를 물어보세요. 추가 기능 1개월은 나에게, 1개월은 그분에게 돌아가요.";
 "redeem.placeholder" = "추천 코드";
 "redeem.paste" = "붙여넣기";
 "redeem.validate" = "적용";
-"redeem.validatedLine" = "완료: 추가 기능 2개월, 나에게 1개월, 그분에게 1개월.";
+"redeem.validatedLine" = "완료: 추가 기능 1개월은 나에게, 1개월은 그분에게.";
 "redeem.inputError.length" = "추천 코드는 6자예요.";
 "redeem.inputError.alphabet" = "이 코드에는 어떤 코드에도 쓰이지 않는 문자(O, 0, I, 1 등)가 들어 있어요. 코드를 준 분에게 확인해 보세요.";
 "redeem.refusal.unknown_code" = "이 코드와 일치하는 사람이 없어요. 코드를 준 분에게 확인해 보세요.";
@@ -79,7 +79,7 @@
 "invite.share" = "내 코드 공유하기";
 "invite.back" = "뒤로";
 "invite.closeAfterShare" = "앱으로 돌아가기";
-"share.message" = "Browther를 소개할게요. 음악을 끄고 하람 이미지를 흐리게 해 주는 브라우저예요.\n내 코드 {code} 입력 시 추가 기능 2개월을 받을 수 있어요.";
+"share.message" = "Browther를 소개할게요. 음악을 끄고 하람 이미지를 흐리게 해 주는 브라우저예요.\n내 코드 {code} 입력 시 추가 기능 1개월을 받을 수 있어요.";
 "menu.invite" = "Browther에 가까운 사람 초대하기";
 "settings.subtitle" = "하사나트와 평생 이용을 얻어요";
 "settings.news" = "새 소식";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "평생 이용하기";
 "notice.eyebrow" = "추천 프로그램";
 "notice.title" = "초대가 확정되었어요!";
-"notice.bodyLifetime" = "달성했어요: Browther가 평생 100% 해제되었어요.";
+"notice.bodyLifetime" = "달성했어요: Browther가 평생 100% 해제되었어요, 인샤알라.";
 "notice.see" = "내 추천 현황 보기";
 "referee.title" = "내 추천 현황";
 "referee.done" = "완료: 그분이 추가 기능 1개월을 받았어요. 그분을 대신해 감사드려요.";
@@ -163,14 +163,14 @@
 "reminder.inProgressCount.other" = "초대 하나가 잘 진행되고 있어요. Browther를 기본 브라우저로 {count}일 더 쓰면 확정돼요.";
 "reminder.monthsTitle.other" = "{count}일 후, 받은 기간이 끝나요.";
 "reminder.monthsNext.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 {bonus}개월 보너스예요.";
-"reminder.monthsNextLife.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 Browther가 평생 열려요.";
+"reminder.monthsNextLife.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 Browther가 평생 열려요, 인샤알라.";
 "reminder.subscriptionTitle.other" = "구독이 {count}일 후에 종료돼요.";
 "invite.foot.other" = "초대한 분이 Browther를 기본 브라우저로 {count}일 동안 유지하면 초대가 확정돼요.";
 "notice.why.other" = "가까운 사람이 내 추천 코드를 사용했고, Browther를 기본 브라우저로 {count}일 동안 유지했어요.";
 "notice.body.other" = "추가 기능 +{count}개월, {date}까지.";
 "notice.bodyNoDate.other" = "추가 기능 +{count}개월.";
 "referee.progress.other" = "Browther를 기본 브라우저로 {count}일 더 쓰면 그분이 추가 기능 1개월을 받아요.";
-"referee.hint.other" = "가까운 사람이 Browther를 소개해 줬어요. 나는 2개월을 받았고, 그분의 몫은 내가 Browther를 기본 브라우저로 {count}일 동안 유지하면 추가돼요.";
+"referee.hint.other" = "가까운 사람이 Browther를 소개해 줬어요. 나는 1개월을 받았고, 그분의 몫은 내가 Browther를 기본 브라우저로 {count}일 동안 유지하면 추가돼요.";
 "referee.noticeWhy.other" = "그분의 추천 코드를 사용했고, Browther를 기본 브라우저로 {count}일 동안 유지했어요.";
 "referee.meter.other" = "{count}일 중 {current}일";
 "invitations.months.other" = "+{count}개월";
@@ -180,4 +180,4 @@
 "invitations.milestone.other" = "보너스 +{count}개월 · 초대 {at}건 단계 달성";
 "home.progress.other" = "**확정된 초대 {count}건** = {months}개월. {left}건 더 하면 보너스 +{bonus}개월.";
 "home.progressToLife.other" = "**확정된 초대 {count}건** = {months}개월. {left}건 더 하면 평생 이용.";
-"home.progressLife.other" = "**확정된 초대 {count}건**: Browther가 평생 100% 해제되었어요.";
+"home.progressLife.other" = "**확정된 초대 {count}건**: Browther가 평생 100% 해제되었어요, 인샤알라.";

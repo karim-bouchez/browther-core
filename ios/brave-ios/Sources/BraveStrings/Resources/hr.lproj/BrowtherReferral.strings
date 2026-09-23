@@ -41,11 +41,11 @@
 "card.copy" = "Kopiraj";
 "card.copied" = "Kopirano";
 "redeem.head" = "Je li vam netko blizak pričao o Browtheru?";
-"redeem.body" = "Zatražite od te osobe njezin kod preporuke: dva mjeseca dodatnih značajki na dar, jedan za vas i jedan za nju.";
+"redeem.body" = "Zatražite od te osobe njezin kod preporuke: jedan mjesec dodatnih značajki za vas i jedan za nju.";
 "redeem.placeholder" = "Kod preporuke";
 "redeem.paste" = "Zalijepi";
 "redeem.validate" = "Potvrdi";
-"redeem.validatedLine" = "Gotovo: dva mjeseca dodatnih značajki, jedan za vas i jedan za osobu koja vas je pozvala.";
+"redeem.validatedLine" = "Gotovo: jedan mjesec dodatnih značajki za vas i jedan za osobu koja vas je pozvala.";
 "redeem.inputError.length" = "Kod preporuke ima 6 znakova.";
 "redeem.inputError.alphabet" = "Ovaj kod sadrži znak koji nijedan kod ne koristi (poput O, 0, I ili 1): provjerite ga s osobom koja vam ga je dala.";
 "redeem.refusal.unknown_code" = "Ovaj kod ne pripada nikome. Provjerite ga s osobom koja vam ga je dala.";
@@ -79,7 +79,7 @@
 "invite.share" = "Podijeli moj kod";
 "invite.back" = "Natrag";
 "invite.closeAfterShare" = "Natrag u aplikaciju";
-"share.message" = "Pozivam te da otkriješ Browther: preglednik koji utišava glazbu i zamućuje haram slike.\nS mojim kodom {code} dobivaš dva mjeseca dodatnih značajki.";
+"share.message" = "Pozivam te da otkriješ Browther: preglednik koji utišava glazbu i zamućuje haram slike.\nS mojim kodom {code} dobivaš jedan mjesec dodatnih značajki.";
 "menu.invite" = "Pozovite nekog bliskog na Browther";
 "settings.subtitle" = "Zaradite hasenate i doživotni pristup";
 "settings.news" = "Novo";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Zadržite je doživotno";
 "notice.eyebrow" = "Preporuke";
 "notice.title" = "Pozivnica potvrđena!";
-"notice.bodyLifetime" = "Cilj je ostvaren: Browther je 100 % otključan, doživotno.";
+"notice.bodyLifetime" = "Cilj je ostvaren: Browther je 100 % otključan, doživotno, inšallah.";
 "notice.see" = "Pogledaj moje preporuke";
 "referee.title" = "Vaša preporuka";
 "referee.done" = "Gotovo: vaša bliska osoba dobila je 1 mjesec dodatnih značajki. Hvala vam u njezino ime.";
@@ -191,9 +191,9 @@
 "reminder.monthsNext.one" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i dobivate bonus od {bonus} mjeseca.";
 "reminder.monthsNext.few" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i dobivate bonus od {bonus} mjeseca.";
 "reminder.monthsNext.other" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i dobivate bonus od {bonus} mjeseca.";
-"reminder.monthsNextLife.one" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i Browther je otključan doživotno.";
-"reminder.monthsNextLife.few" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i Browther je otključan doživotno.";
-"reminder.monthsNextLife.other" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i Browther je otključan doživotno.";
+"reminder.monthsNextLife.one" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i Browther je otključan doživotno, inšallah.";
+"reminder.monthsNextLife.few" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i Browther je otključan doživotno, inšallah.";
+"reminder.monthsNextLife.other" = "Svaka potvrđena pozivnica dodaje vam još jedan. Još {count} i Browther je otključan doživotno, inšallah.";
 "reminder.subscriptionTitle.one" = "Vaša pretplata završava sutra.";
 "reminder.subscriptionTitle.few" = "Vaša pretplata završava za {count} dana.";
 "reminder.subscriptionTitle.other" = "Vaša pretplata završava za {count} dana.";
@@ -212,9 +212,9 @@
 "referee.progress.one" = "Još {count} dan s Browtherom kao zadanim preglednikom i vaša bliska osoba dobiva 1 mjesec dodatnih značajki.";
 "referee.progress.few" = "Još {count} dana s Browtherom kao zadanim preglednikom i vaša bliska osoba dobiva 1 mjesec dodatnih značajki.";
 "referee.progress.other" = "Još {count} dana s Browtherom kao zadanim preglednikom i vaša bliska osoba dobiva 1 mjesec dodatnih značajki.";
-"referee.hint.one" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala dva mjeseca, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dan.";
-"referee.hint.few" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala dva mjeseca, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dana.";
-"referee.hint.other" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala dva mjeseca, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dana.";
+"referee.hint.one" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala jedan mjesec, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dan.";
+"referee.hint.few" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala jedan mjesec, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dana.";
+"referee.hint.other" = "Bliska osoba upoznala vas je s Browtherom. Vama su pripala jedan mjesec, a njezin mjesec stiže kad zadržite Browther kao zadani preglednik {count} dana.";
 "referee.noticeWhy.one" = "Iskoristili ste njezin kod preporuke i upravo ste zadržali Browther kao zadani preglednik {count} dan.";
 "referee.noticeWhy.few" = "Iskoristili ste njezin kod preporuke i upravo ste zadržali Browther kao zadani preglednik {count} dana.";
 "referee.noticeWhy.other" = "Iskoristili ste njezin kod preporuke i upravo ste zadržali Browther kao zadani preglednik {count} dana.";
@@ -242,6 +242,6 @@
 "home.progressToLife.one" = "**{count} potvrđena pozivnica** = {months} mj. Još {left} do doživotnog pristupa.";
 "home.progressToLife.few" = "**{count} potvrđene pozivnice** = {months} mj. Još {left} do doživotnog pristupa.";
 "home.progressToLife.other" = "**{count} potvrđenih pozivnica** = {months} mj. Još {left} do doživotnog pristupa.";
-"home.progressLife.one" = "**{count} potvrđena pozivnica**: Browther je 100 % otključan, doživotno.";
-"home.progressLife.few" = "**{count} potvrđene pozivnice**: Browther je 100 % otključan, doživotno.";
-"home.progressLife.other" = "**{count} potvrđenih pozivnica**: Browther je 100 % otključan, doživotno.";
+"home.progressLife.one" = "**{count} potvrđena pozivnica**: Browther je 100 % otključan, doživotno, inšallah.";
+"home.progressLife.few" = "**{count} potvrđene pozivnice**: Browther je 100 % otključan, doživotno, inšallah.";
+"home.progressLife.other" = "**{count} potvrđenih pozivnica**: Browther je 100 % otključan, doživotno, inšallah.";

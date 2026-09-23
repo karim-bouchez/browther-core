@@ -41,11 +41,11 @@
 "card.copy" = "Copier";
 "card.copied" = "Copié";
 "redeem.head" = "Un proche t'a parlé de Browther ?";
-"redeem.body" = "Demande-lui son code de parrainage : deux mois de fonctionnalités supplémentaires offerts, un pour toi et un pour lui.";
+"redeem.body" = "Demande-lui son code de parrainage : un mois de fonctionnalités supplémentaires pour toi, un pour lui.";
 "redeem.placeholder" = "Code de parrainage";
 "redeem.paste" = "Coller";
 "redeem.validate" = "Valider";
-"redeem.validatedLine" = "C'est bon : deux mois de fonctionnalités supplémentaires, un pour toi et un pour lui.";
+"redeem.validatedLine" = "C'est bon : un mois de fonctionnalités supplémentaires pour toi, un pour lui.";
 "redeem.inputError.length" = "Un code de parrainage fait 6 caractères.";
 "redeem.inputError.alphabet" = "Ce code contient un signe qu'aucun code n'utilise (comme O, 0, I ou 1) : vérifie-le auprès de ton proche.";
 "redeem.refusal.unknown_code" = "Ce code ne correspond à personne. Vérifie-le auprès de ton proche.";
@@ -79,7 +79,7 @@
 "invite.share" = "Partager mon code";
 "invite.back" = "Retour";
 "invite.closeAfterShare" = "Revenir à l'app";
-"share.message" = "Je t'invite à découvrir Browther : le navigateur qui coupe la musique et floute les images haram.\nAvec mon code {code}, tu as deux mois de fonctionnalités supplémentaires.";
+"share.message" = "Je t'invite à découvrir Browther : le navigateur qui coupe la musique et floute les images haram.\nAvec mon code {code}, tu as un mois de fonctionnalités supplémentaires.";
 "menu.invite" = "Inviter un proche sur Browther";
 "settings.subtitle" = "Gagne des hassanats et l'accès à vie";
 "settings.news" = "Nouveau";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "La garder à vie";
 "notice.eyebrow" = "Parrainage";
 "notice.title" = "Invitation validée !";
-"notice.bodyLifetime" = "Tu y es : Browther est 100 % débloqué, à vie.";
+"notice.bodyLifetime" = "Tu y es : Browther est 100 % débloqué, à vie, in cha Allah.";
 "notice.see" = "Voir mon parrainage";
 "referee.title" = "Ton parrainage";
 "referee.done" = "C'est fait : ton proche a gagné 1 mois de fonctionnalités supplémentaires. Merci pour lui.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "Dans {count} jours, tes mois gagnés arrivent à leur fin.";
 "reminder.monthsNext.one" = "Chaque invitation validée t'en rajoute un. Encore {count} et tu décroches un bonus de {bonus} mois.";
 "reminder.monthsNext.other" = "Chaque invitation validée t'en rajoute un. Encore {count} et tu décroches un bonus de {bonus} mois.";
-"reminder.monthsNextLife.one" = "Chaque invitation validée t'en rajoute un. Encore {count} et Browther est débloqué à vie.";
-"reminder.monthsNextLife.other" = "Chaque invitation validée t'en rajoute un. Encore {count} et Browther est débloqué à vie.";
+"reminder.monthsNextLife.one" = "Chaque invitation validée t'en rajoute un. Encore {count} et Browther est débloqué à vie, in cha Allah.";
+"reminder.monthsNextLife.other" = "Chaque invitation validée t'en rajoute un. Encore {count} et Browther est débloqué à vie, in cha Allah.";
 "reminder.subscriptionTitle.one" = "Ton abonnement s'arrête demain.";
 "reminder.subscriptionTitle.other" = "Ton abonnement s'arrête dans {count} jours.";
 "invite.foot.one" = "Une invitation est validée quand ton proche a gardé Browther comme navigateur par défaut pendant {count} jour.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} mois de fonctionnalités supplémentaires.";
 "referee.progress.one" = "Encore {count} jour avec Browther par défaut et ton proche gagne 1 mois de fonctionnalités supplémentaires.";
 "referee.progress.other" = "Encore {count} jours avec Browther par défaut et ton proche gagne 1 mois de fonctionnalités supplémentaires.";
-"referee.hint.one" = "Un proche t'a fait découvrir Browther. Tu as reçu deux mois ; le sien lui revient quand tu auras gardé Browther comme navigateur par défaut pendant {count} jour.";
-"referee.hint.other" = "Un proche t'a fait découvrir Browther. Tu as reçu deux mois ; le sien lui revient quand tu auras gardé Browther comme navigateur par défaut pendant {count} jours.";
+"referee.hint.one" = "Un proche t'a fait découvrir Browther. Tu as reçu un mois ; le sien lui revient quand tu auras gardé Browther comme navigateur par défaut pendant {count} jour.";
+"referee.hint.other" = "Un proche t'a fait découvrir Browther. Tu as reçu un mois ; le sien lui revient quand tu auras gardé Browther comme navigateur par défaut pendant {count} jours.";
 "referee.noticeWhy.one" = "Tu as reçu son code de parrainage, et tu viens de garder Browther comme navigateur par défaut pendant {count} jour.";
 "referee.noticeWhy.other" = "Tu as reçu son code de parrainage, et tu viens de garder Browther comme navigateur par défaut pendant {count} jours.";
 "referee.meter.one" = "{current} sur {count} jour";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} invitations validées** = {months} mois. Encore {left} pour +{bonus} mois de bonus.";
 "home.progressToLife.one" = "**{count} invitation validée** = {months} mois. Encore {left} pour l'accès à vie.";
 "home.progressToLife.other" = "**{count} invitations validées** = {months} mois. Encore {left} pour l'accès à vie.";
-"home.progressLife.one" = "**{count} invitation validée** : Browther est 100 % débloqué, à vie.";
-"home.progressLife.other" = "**{count} invitations validées** : Browther est 100 % débloqué, à vie.";
+"home.progressLife.one" = "**{count} invitation validée** : Browther est 100 % débloqué, à vie, in cha Allah.";
+"home.progressLife.other" = "**{count} invitations validées** : Browther est 100 % débloqué, à vie, in cha Allah.";

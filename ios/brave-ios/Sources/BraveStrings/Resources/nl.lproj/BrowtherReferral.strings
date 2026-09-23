@@ -41,11 +41,11 @@
 "card.copy" = "Kopiëren";
 "card.copied" = "Gekopieerd";
 "redeem.head" = "Heeft iemand je over Browther verteld?";
-"redeem.body" = "Vraag die persoon om de verwijscode: twee maanden extra functies cadeau, één voor jou en één voor de ander.";
+"redeem.body" = "Vraag die persoon om de verwijscode: één maand extra functies voor jou en één voor de ander.";
 "redeem.placeholder" = "Verwijscode";
 "redeem.paste" = "Plakken";
 "redeem.validate" = "Bevestigen";
-"redeem.validatedLine" = "Gelukt: twee maanden extra functies, één voor jou en één voor de ander.";
+"redeem.validatedLine" = "Gelukt: één maand extra functies voor jou en één voor de ander.";
 "redeem.inputError.length" = "Een verwijscode heeft 6 tekens.";
 "redeem.inputError.alphabet" = "Deze code bevat een teken dat geen enkele code gebruikt (zoals O, 0, I of 1): controleer hem bij de persoon van wie je hem kreeg.";
 "redeem.refusal.unknown_code" = "Deze code hoort bij niemand. Controleer hem bij de persoon van wie je hem kreeg.";
@@ -79,7 +79,7 @@
 "invite.share" = "Mijn code delen";
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
-"share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je twee maanden extra functies.";
+"share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je één maand extra functies.";
 "menu.invite" = "Iemand uitnodigen voor Browther";
 "settings.subtitle" = "Verdien hasanat en levenslange toegang";
 "settings.news" = "Nieuw";
@@ -90,7 +90,7 @@
 "panel.keepForLife" = "Levenslang houden";
 "notice.eyebrow" = "Verwijzingen";
 "notice.title" = "Uitnodiging bevestigd!";
-"notice.bodyLifetime" = "Gelukt: Browther is 100% ontgrendeld, levenslang.";
+"notice.bodyLifetime" = "Gelukt: Browther is 100% ontgrendeld, levenslang, in sha Allah.";
 "notice.see" = "Mijn verwijzingen bekijken";
 "referee.title" = "Jouw verwijzing";
 "referee.done" = "Klaar: wie jou uitnodigde, heeft 1 maand extra functies gekregen. Bedankt namens diegene.";
@@ -177,8 +177,8 @@
 "reminder.monthsTitle.other" = "Over {count} dagen lopen je verdiende maanden af.";
 "reminder.monthsNext.one" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en je krijgt een bonus van {bonus} maanden.";
 "reminder.monthsNext.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en je krijgt een bonus van {bonus} maanden.";
-"reminder.monthsNextLife.one" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld.";
-"reminder.monthsNextLife.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld.";
+"reminder.monthsNextLife.one" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld, in sha Allah.";
+"reminder.monthsNextLife.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Je abonnement stopt morgen.";
 "reminder.subscriptionTitle.other" = "Je abonnement stopt over {count} dagen.";
 "invite.foot.one" = "Een uitnodiging is bevestigd zodra de persoon Browther {count} dag als standaardbrowser heeft gehouden.";
@@ -191,8 +191,8 @@
 "notice.bodyNoDate.other" = "+{count} maanden extra functies.";
 "referee.progress.one" = "Nog {count} dag met Browther als standaardbrowser en wie jou uitnodigde krijgt 1 maand extra functies.";
 "referee.progress.other" = "Nog {count} dagen met Browther als standaardbrowser en wie jou uitnodigde krijgt 1 maand extra functies.";
-"referee.hint.one" = "Iemand liet je Browther ontdekken. Jij hebt twee maanden gekregen; diegene krijgt er een zodra je Browther {count} dag als standaardbrowser hebt gehouden.";
-"referee.hint.other" = "Iemand liet je Browther ontdekken. Jij hebt twee maanden gekregen; diegene krijgt er een zodra je Browther {count} dagen als standaardbrowser hebt gehouden.";
+"referee.hint.one" = "Iemand liet je Browther ontdekken. Jij hebt één maand gekregen; diegene krijgt er een zodra je Browther {count} dag als standaardbrowser hebt gehouden.";
+"referee.hint.other" = "Iemand liet je Browther ontdekken. Jij hebt één maand gekregen; diegene krijgt er een zodra je Browther {count} dagen als standaardbrowser hebt gehouden.";
 "referee.noticeWhy.one" = "Je hebt de verwijscode van die persoon gebruikt en hebt Browther net {count} dag als standaardbrowser gehouden.";
 "referee.noticeWhy.other" = "Je hebt de verwijscode van die persoon gebruikt en hebt Browther net {count} dagen als standaardbrowser gehouden.";
 "referee.meter.one" = "{current} van {count} dag";
@@ -211,5 +211,5 @@
 "home.progress.other" = "**{count} bevestigde uitnodigingen** = {months} maanden. Nog {left} voor +{bonus} bonusmaanden.";
 "home.progressToLife.one" = "**{count} bevestigde uitnodiging** = {months} maanden. Nog {left} voor levenslange toegang.";
 "home.progressToLife.other" = "**{count} bevestigde uitnodigingen** = {months} maanden. Nog {left} voor levenslange toegang.";
-"home.progressLife.one" = "**{count} bevestigde uitnodiging**: Browther is 100% ontgrendeld, levenslang.";
-"home.progressLife.other" = "**{count} bevestigde uitnodigingen**: Browther is 100% ontgrendeld, levenslang.";
+"home.progressLife.one" = "**{count} bevestigde uitnodiging**: Browther is 100% ontgrendeld, levenslang, in sha Allah.";
+"home.progressLife.other" = "**{count} bevestigde uitnodigingen**: Browther is 100% ontgrendeld, levenslang, in sha Allah.";
