@@ -7,6 +7,7 @@
 #define BRAVE_BROWSER_BROWTHER_REFERRAL_BROWTHER_REFERRAL_FILES_H_
 
 #include <string>
+#include <string_view>
 
 namespace content {
 class WebUIDataSource;
@@ -39,7 +40,27 @@ void AddAppFiles(content::WebUIDataSource* source, const std::string& prefix);
 // un fil bloquant, dès le premier onglet (`PreloadMenuLabel`) ; d'ici là, et si
 // l'app n'est pas déployée, un repli intégré (fr / ar / en).
 void PreloadMenuLabel();
+
+// Le menu ⋯ porte le GESTE (« Inviter un proche sur Browther »), les Paramètres
+// le NOM de la rubrique (« Parrainage ») — leur rail n'aligne que des noms d'un
+// ou deux mots, et c'est déjà le partage retenu sur iOS (Karim, 2026-09-23).
 std::u16string MenuLabel();
+std::u16string SettingsTitle();
+
+// ⭐ Un texte de l'app, pour le NATIF (⛔ pas une chaîne grit, cf. ci-dessus) :
+//   `kMenuSubtitle`   la 2ᵉ ligne de l'entrée du menu — sans elle, le libellé
+//                     seul ne dit pas ce qu'on y gagne et l'entrée se noie dans
+//                     un menu de fonctions (recette Karim, 2026-09-23) ;
+//   `kPanelPausedLine`/`kPanelKeepForLife`  l'encadré du panneau Sawtunaa quand
+//                     le retrait de la musique est en pause.
+// ⚠️ **Vide** tant que les textes ne sont pas lus, ou si la langue ne les a
+// pas : l'appelant se tait alors, ⛔ il n'affiche pas un trou.
+inline constexpr std::string_view kMenuLabel = "menu.label";
+inline constexpr std::string_view kSettingsTitle = "home.title";
+inline constexpr std::string_view kMenuSubtitle = "settings.subtitle";
+inline constexpr std::string_view kPanelPausedLine = "panel.pausedLine";
+inline constexpr std::string_view kPanelKeepForLife = "panel.keepForLife";
+std::u16string Text(std::string_view key);
 
 }  // namespace browther_referral
 

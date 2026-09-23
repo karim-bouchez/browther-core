@@ -11,6 +11,7 @@
 #include <utility>
 
 #include "base/command_line.h"
+#include "base/containers/flat_map.h"
 #include "base/files/file_util.h"
 #include "base/functional/bind.h"
 #include "base/json/json_reader.h"
@@ -104,9 +105,13 @@ scoped_refptr<base::RefCountedMemory> ReadAppFile(std::string relative) {
   return base::MakeRefCounted<base::RefCountedString>(std::move(contents));
 }
 
-std::u16string& CachedMenuLabel() {
-  static base::NoDestructor<std::u16string> label;
-  return *label;
+// Les quelques textes de l'app dont le NATIF a besoin (menu ⋯, panneau
+// Sawtunaa), lus ensemble : un seul fichier, une seule fois.
+using NativeTexts = base::flat_map<std::string, std::u16string>;
+
+NativeTexts& CachedTexts() {
+  static base::NoDestructor<NativeTexts> texts;
+  return *texts;
 }
 
 std::string PrimaryLanguage(const std::string& locale) {
@@ -129,6 +134,22 @@ std::u16string FallbackMenuLabel(const std::string& locale) {
   return u"Invite someone to Browther";
 }
 
+// ⚠️ Les Paramètres, eux, portent le NOM de la rubrique (« Parrainage ») : leur
+// rail n'aligne que des noms d'un ou deux mots, et c'est déjà ce que fait la
+// ligne des Réglages iOS (Karim, 2026-09-23). ⛔ Ne pas y remettre le geste.
+std::u16string FallbackSettingsTitle(const std::string& locale) {
+  const std::string language = PrimaryLanguage(locale);
+  if (language == "fr") {
+    return u"Parrainage";
+  }
+  if (language == "ar") {
+    // « التزكية », la clé `home.title` de `ar.json` (octets recopiés, ⛔ pas
+    // retapés).
+    return u"\u0627\u0644\u062A\u0632\u0643\u064A\u0629";
+  }
+  return u"Referrals";
+}
+
 /**
  * ⭐ Le libellé des deux entrées (menu ⋯ et Paramètres) : le GESTE, ⛔ pas le
  * nom du dispositif — « Parrainage » ne donne envie à personne dans un menu
@@ -143,8 +164,14 @@ std::u16string FallbackMenuLabel(const std::string& locale) {
 constexpr auto kMenuLabelKeys = std::to_array<std::string_view>(
     {"menu.invite", "announce.invite", "home.title"});
 
+// ⚠️ Chacune est FACULTATIVE : une langue qui ne l'a pas donne une chaîne vide,
+// et l'appelant se tait plutôt que d'afficher un trou.
+constexpr auto kOtherKeys = std::to_array<std::string_view>(
+    {"home.title", "settings.subtitle", "panel.pausedLine",
+     "panel.keepForLife"});
+
 // Les textes d'une langue : `i18n/<locale>.json`, sinon `i18n/<langue>.json`.
-std::optional<std::u16string> ReadMenuLabel(std::string locale) {
+std::optional<NativeTexts> ReadNativeTexts(std::string locale) {
   const base::FilePath dir = AppDir();
   for (const std::string& name : {locale, PrimaryLanguage(locale)}) {
     std::string contents;
@@ -159,11 +186,22 @@ std::optional<std::u16string> ReadMenuLabel(std::string locale) {
     if (!texts) {
       continue;
     }
+    NativeTexts found;
     for (std::string_view key : kMenuLabelKeys) {
       const std::string* title = texts->FindString(key);
       if (title && !title->empty()) {
-        return base::UTF8ToUTF16(*title);
+        found[std::string(kMenuLabel)] = base::UTF8ToUTF16(*title);
+        break;
       }
+    }
+    for (std::string_view key : kOtherKeys) {
+      if (const std::string* value = texts->FindString(key);
+          value && !value->empty()) {
+        found[std::string(key)] = base::UTF8ToUTF16(*value);
+      }
+    }
+    if (found.contains(std::string(kMenuLabel))) {
+      return found;
     }
   }
   return std::nullopt;
@@ -207,21 +245,34 @@ void PreloadMenuLabel() {
   started = true;
   base::ThreadPool::PostTaskAndReplyWithResult(
       FROM_HERE, {base::MayBlock(), base::TaskPriority::BEST_EFFORT},
-      base::BindOnce(&ReadMenuLabel,
+      base::BindOnce(&ReadNativeTexts,
                      g_browser_process->GetApplicationLocale()),
-      base::BindOnce([](std::optional<std::u16string> label) {
-        if (label) {
-          CachedMenuLabel() = *label;
+      base::BindOnce([](std::optional<NativeTexts> texts) {
+        if (texts) {
+          CachedTexts() = std::move(*texts);
         }
       }));
 }
 
 std::u16string MenuLabel() {
-  if (!CachedMenuLabel().empty()) {
-    return CachedMenuLabel();
+  if (std::u16string label = Text(kMenuLabel); !label.empty()) {
+    return label;
   }
   return FallbackMenuLabel(
       g_browser_process ? g_browser_process->GetApplicationLocale() : "en");
+}
+
+std::u16string SettingsTitle() {
+  if (std::u16string title = Text(kSettingsTitle); !title.empty()) {
+    return title;
+  }
+  return FallbackSettingsTitle(
+      g_browser_process ? g_browser_process->GetApplicationLocale() : "en");
+}
+
+std::u16string Text(std::string_view key) {
+  const auto it = CachedTexts().find(std::string(key));
+  return it == CachedTexts().end() ? std::u16string() : it->second;
 }
 
 }  // namespace browther_referral

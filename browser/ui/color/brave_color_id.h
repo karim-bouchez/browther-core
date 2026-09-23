@@ -30,7 +30,8 @@
     E_CPONLY(kColorWebDiscoveryInfoBarNoThanks)      \
     E_CPONLY(kColorWebDiscoveryInfoBarClose)         \
     E_CPONLY(kColorBraveDownloadToolbarButtonActive) \
-    E_CPONLY(kColorToolbarButtonActivated)
+    E_CPONLY(kColorToolbarButtonActivated)              \
+    E_CPONLY(kColorBrowtherReferralIcon)
 
 #define BRAVE_SEARCH_CONVERSION_COLOR_IDS                             \
     E_CPONLY(kColorSearchConversionCloseButton)                       \

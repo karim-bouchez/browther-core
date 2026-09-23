@@ -14,8 +14,27 @@
 
 namespace browther_referral {
 
+namespace {
+
+// 🧪 Les fonctionnalités supplémentaires sont-elles sorties ? `kExtrasReleased`
+// le dira le jour du lancement — mais l'outil de recette doit pouvoir l'allumer
+// AVANT, et pour de vrai : sinon l'écran annonce « en pause » pendant que
+// Sawtunaa continue de tourner, interrupteur allumé et panneau muet (recette
+// Karim, 2026-09-23). La case de l'outil écrit `recetteExtras` dans le store
+// (`storeSet`), ⛔ builds de dev seulement.
+bool ExtrasReleased(PrefService* local_state) {
+  if (kExtrasReleased) {
+    return true;
+  }
+  return IsDevBuild() && local_state->GetDict(prefs::kStore)
+                             .FindBool("recetteExtras")
+                             .value_or(false);
+}
+
+}  // namespace
+
 bool IsMusicRemovalPaused(PrefService* local_state) {
-  if (!IsEnabled() || !kExtrasReleased || !local_state) {
+  if (!IsEnabled() || !local_state || !ExtrasReleased(local_state)) {
     return false;
   }
   const base::DictValue& access = local_state->GetDict(prefs::kAccess);

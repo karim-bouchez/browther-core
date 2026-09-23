@@ -66,7 +66,13 @@ interface PanelHandler {
                  bool can_report_site,
                  string report_domain,
                  bool analytics_off,
-                 bool extras_paused);
+                 bool extras_paused,
+                 // Browther : l'encadré « en pause » du parrainage, textes
+                 // compris — ⛔ pas de chaîne grit ici, ils viennent du pool de
+                 // l'app du parrainage (`browther_referral::Text`). Vides si la
+                 // langue ne les a pas : le panneau n'affiche alors rien.
+                 string paused_line,
+                 string paused_action);
 
   // Écrit la pref `kSawtunaaEnabled` (+ télémétrie `feature_toggled`).
   SetEnabled(bool enabled);

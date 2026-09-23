@@ -202,13 +202,15 @@ void BraveSettingsUI::AddResources(content::WebUIDataSource* html_source,
   html_source->AddString("browtherProductVersion", BROWTHER_VERSION_STRING);
   // Browther : l'entrée « Parrainage » du menu des Paramètres, qui OUVRE
   // `browther://referral` dans un nouvel onglet (`br/settings_menu.ts`).
-  // ⭐ Son libellé est celui du menu ⋯ — la clé `home.title` des textes de
-  // l'app, déjà traduite dans les 64 langues de Browther (⛔ pas de chaîne grit
-  // de plus, qui vaudrait ~300 fichiers recompilés et 60 `.xtb` à tenir).
+  // ⭐ Ici c'est le NOM de la rubrique (« Parrainage », la clé `home.title`),
+  // ⛔ pas le geste du menu ⋯ (« Inviter un proche sur Browther ») : ce rail
+  // n'aligne que des noms d'un ou deux mots (Karim, 2026-09-23). Déjà traduit
+  // dans les 64 langues de Browther (⛔ pas de chaîne grit de plus, qui
+  // vaudrait ~300 fichiers recompilés et 60 `.xtb` à tenir).
   html_source->AddBoolean("browtherReferralEnabled",
                           browther_referral::IsEnabled());
   html_source->AddString("browtherReferralTitle",
-                         browther_referral::MenuLabel());
+                         browther_referral::SettingsTitle());
   html_source->AddBoolean(
       "isIdleDetectionFeatureEnabled",
       base::FeatureList::IsEnabled(features::kIdleDetection));

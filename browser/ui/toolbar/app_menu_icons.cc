@@ -10,6 +10,7 @@
 #include "base/no_destructor.h"
 #include "brave/app/brave_command_ids.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
+#include "brave/browser/ui/color/brave_color_id.h"
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/vector_icons/vector_icons.h"
 #include "chrome/app/chrome_command_ids.h"
@@ -137,8 +138,19 @@ void ApplyLeoIcons(ui::SimpleMenuModel* menu) {
   for (size_t i = 0; i < menu->GetItemCount(); ++i) {
     if (auto* icon =
             base::FindPtrOrNull(kCommandIcons, menu->GetCommandIdAt(i))) {
-      menu->SetIcon(i, ui::ImageModel::FromVectorIcon(
-                           *icon, ui::ColorIds::kColorMenuIcon, kLeoIconSize));
+      // ⭐ Browther : le cadeau du parrainage est DORÉ — tout le reste du menu
+      // est gris, donc c'est la seule tache de couleur, et l'œil y va. ⛔ Pas
+      // d'animation ni de pastille : l'entrée est là en permanence.
+      // ⚠️ Les deux constantes viennent d'énumérations DIFFÉRENTES
+      // (`BraveColorIds` et `ui::ColorIds`) : sans la conversion explicite vers
+      // leur type commun, clang refuse le ternaire
+      // (-Wdeprecated-enum-compare-conditional).
+      const ui::ColorId color =
+          menu->GetCommandIdAt(i) == browther_referral::kReferralCommandId
+              ? static_cast<ui::ColorId>(kColorBrowtherReferralIcon)
+              : static_cast<ui::ColorId>(ui::ColorIds::kColorMenuIcon);
+      menu->SetIcon(i,
+                    ui::ImageModel::FromVectorIcon(*icon, color, kLeoIconSize));
     }
   }
 }

@@ -445,6 +445,18 @@ void BraveAppMenuModel::ExecuteCommand(int id, int event_flags) {
   return AppMenuModel::ExecuteCommand(id, event_flags);
 }
 
+// ⭐ Browther : « Inviter un proche sur Browther » + une deuxième ligne qui dit
+// ce qu'on y gagne (« Gagne des mois, ou l'accès à vie »). Sans elle, l'entrée
+// se lit comme une fonction de plus au milieu de quinze autres et personne ne
+// clique (recette Karim, 2026-09-23). ⛔ Rien pour les autres entrées : une
+// deuxième ligne partout tuerait l'effet et allongerait le menu.
+std::u16string BraveAppMenuModel::GetSecondaryLabelAt(size_t index) const {
+  if (GetCommandIdAt(index) == browther_referral::kReferralCommandId) {
+    return browther_referral::Text(browther_referral::kMenuSubtitle);
+  }
+  return AppMenuModel::GetSecondaryLabelAt(index);
+}
+
 bool BraveAppMenuModel::IsCommandIdEnabled(int id) const {
 #if defined(TOOLKIT_VIEWS)
   if (id == IDC_SIDEBAR_SHOW_OPTION_ALWAYS ||

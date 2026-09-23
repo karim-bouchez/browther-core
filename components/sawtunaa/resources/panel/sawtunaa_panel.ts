@@ -38,9 +38,29 @@ async function refreshState() {
     setUIReloadHint(state.showReloadHint)
     setUIProtectedHint(state.protectedState)
     setUIReportSite(state.canReportSite, state.reportDomain, state.analyticsOff)
+    setUIReferralPaused(state.pausedLine, state.pausedAction)
   } catch (err) {
     console.error('[sawtunaa-panel] refreshState failed', err)
   }
+}
+
+// Browther : l'encadré « en pause » du parrainage. ⛔ Le WebUI ne décide rien —
+// le browser n'envoie les textes QUE quand la pause est vraie, et deux chaînes
+// vides veulent dire « ne rien afficher » (langue sans ces clés).
+function setUIReferralPaused(line: string, action: string) {
+  const box = document.getElementById('referral-paused')
+  const text = document.getElementById('referral-paused-text')
+  const btn = document.getElementById('referral-paused-action')
+  if (!box || !text || !btn) return
+  if (!line) {
+    box.setAttribute('hidden', '')
+    return
+  }
+  text.textContent = line
+  btn.textContent = action
+  // Sans libellé pour le bouton, l'encadré dit quand même POURQUOI.
+  btn.toggleAttribute('hidden', !action)
+  box.removeAttribute('hidden')
 }
 
 // Bloc « ça ne marche pas sur ce site ». Toutes les conditions sont calculées
@@ -170,6 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mojo garantit l'ordre sur le même pipe, donc `getState` voit bien la
     // nouvelle valeur malgré le fire-and-forget de `setEnabled`.
     refreshState()
+  })
+
+  const pausedBtn = document.getElementById('referral-paused-action')
+  pausedBtn?.addEventListener('click', () => {
+    try {
+      api().openReferralSupport()
+    } catch (err) {
+      console.error('[sawtunaa-panel] openReferralSupport failed', err)
+    }
   })
 
   const reportBtn = document.getElementById('report-site-btn') as HTMLButtonElement | null

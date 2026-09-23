@@ -10,7 +10,9 @@
 #include "base/notreached.h"
 #include "base/values.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
+#include "base/strings/utf_string_conversions.h"
 #include "brave/browser/browther/referral/browther_referral_access.h"
+#include "brave/browser/browther/referral/browther_referral_files.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
 #include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
@@ -141,10 +143,20 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
   const bool show_reload_hint =
       enabled && protected_state == sawtunaa::mojom::ProtectedContentState::kNone &&
       ShouldShowReloadHint();
+  const bool extras_paused =
+      browther_referral::IsMusicRemovalPaused(g_browser_process->local_state());
+  // ⭐ Dire la pause DANS le panneau : sans ça, l'écran du parrainage annonce
+  // « en pause » et la popup de Sawtunaa n'en sait rien (recette Karim,
+  // 2026-09-23). Les textes ne partent QUE quand c'est vrai.
   std::move(callback).Run(
       enabled, show_reload_hint, protected_state, report.can_report,
-      report.domain, report.analytics_off,
-      browther_referral::IsMusicRemovalPaused(g_browser_process->local_state()));
+      report.domain, report.analytics_off, extras_paused,
+      extras_paused ? base::UTF16ToUTF8(browther_referral::Text(
+                          browther_referral::kPanelPausedLine))
+                    : std::string(),
+      extras_paused ? base::UTF16ToUTF8(browther_referral::Text(
+                          browther_referral::kPanelKeepForLife))
+                    : std::string());
 }
 
 void SawtunaaPanelHandler::ReportSite(ReportSiteCallback callback) {

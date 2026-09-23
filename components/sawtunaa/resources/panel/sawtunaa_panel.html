@@ -382,6 +382,23 @@
       </button>
     </div>
 
+    <!-- Browther : le retrait de la musique est EN PAUSE (parrainage). ⭐ La
+         popup doit le dire : sans ça, l'écran du parrainage annonce la pause et
+         l'interrupteur, lui, ne s'explique pas (recette Karim, 2026-09-23).
+         ⚠️ Les deux textes viennent du pool du parrainage, via `getState` —
+         vides si la langue ne les a pas, et l'encadré reste alors masqué. -->
+    <div class="amber-box" id="referral-paused" hidden>
+      <span class="amber-row">
+        <!-- leo « pause » -->
+        <svg class="amber-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 5.5c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1H7.5c-.55 0-1-.45-1-1v-11c0-.55.45-1 1-1H9zm7.5 0c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1H15c-.55 0-1-.45-1-1v-11c0-.55.45-1 1-1h1.5z"></path>
+        </svg>
+        <span id="referral-paused-text"></span>
+      </span>
+      <button type="button" class="amber-action" id="referral-paused-action">
+      </button>
+    </div>
+
     <!-- « Encore en développement » : n'apparaît que quand la feature est ON
          (cf. setUIBetaNotice). Bécher = le vocabulaire visuel de Chromium pour
          « expérimentation en cours », pas « attention, erreur » — et le même

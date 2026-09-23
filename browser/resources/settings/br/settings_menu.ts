@@ -99,6 +99,42 @@ RegisterStyleOverride(
         display: none !important;
       }
 
+      /* ⭐ Browther : l'entrée « Parrainage ». Tout ce rail est gris ; sans un
+         accent elle passe inaperçue, et c'est la seule porte vers les mois
+         offerts (recette Karim, 2026-09-23). Un aplat doré très léger + le
+         cadeau doré — l'or du parrainage (--gold de
+         private/webui/referral/src/styles.css). ⚠️ Pas d'accent grave ici : ce
+         bloc vit dans un template literal, une seule apostrophe inverse le
+         couperait en deux. ⛔ Ni gras, ni pastille : l'entrée est permanente,
+         elle n'annonce rien. */
+      #browtherReferralLink {
+        --iron-icon-fill-color: #9a5a0c;
+
+        background: rgb(226 185 92 / 0.16) !important;
+        border-radius: 8px !important;
+        padding-inline: 8px !important;
+        margin-inline: -8px !important;
+      }
+
+      #browtherReferralLink:hover {
+        background: rgb(226 185 92 / 0.28) !important;
+      }
+
+      /* La flèche « ça s'ouvre dans un onglet » suit la même couleur. */
+      #browtherReferralLink .cr-icon.icon-external {
+        --cr-icon-color: #9a5a0c;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #browtherReferralLink {
+          --iron-icon-fill-color: #e2b95c;
+        }
+
+        #browtherReferralLink .cr-icon.icon-external {
+          --cr-icon-color: #e2b95c;
+        }
+      }
+
       .menu-separator {
         margin: 4px -24px !important;
       }
@@ -332,10 +368,10 @@ RegisterPolymerTemplateModifications({
     // EXCLUE du `selectable` de `<cr-menu-selector>` (sinon le menu cherche
     // une route interne pour cette adresse et casse : « settings-menu has an
     // entry with an invalid route », vu le 2026-09-23).
-    // Son libellé vient du C++ (`browtherReferralTitle` = la clé
-    // `announce.invite` des textes de l'app, déjà traduite partout), ⛔ pas
-    // d'une chaîne grit. Le GESTE, pas le nom du programme : cf.
-    // `browther_referral_files.cc` § kMenuLabelKeys.
+    // Son libellé vient du C++ (`browtherReferralTitle` = la clé `home.title`
+    // des textes de l'app, déjà traduite partout), ⛔ pas d'une chaîne grit.
+    // ⚠️ Le NOM de la rubrique ici, le GESTE dans le menu ⋯ : cf.
+    // `browther_referral_files.h` § MenuLabel/SettingsTitle.
     if (loadTimeData.getBoolean('browtherReferralEnabled') && extensionEl) {
       const menuSelector = templateContent.querySelector('#menu')
       if (!menuSelector) {

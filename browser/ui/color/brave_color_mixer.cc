@@ -391,6 +391,11 @@ void AddBraveLightThemeColorMixer(ui::ColorProvider* provider,
       PickColorContrastingToToolbar(key, mixer, SkColorSetRGB(0x49, 0x50, 0x57),
                                     SkColorSetRGB(0xFF, 0xFF, 0xFF))};
   mixer[kColorMenuItemSubText] = {SkColorSetRGB(0x86, 0x8E, 0x96)};
+  // Browther : l'or du parrainage — la SEULE tache de couleur du menu ⋯, pour
+  // que l'entrée « Inviter un proche » s'y voie (recette Karim, 2026-09-23 :
+  // « il n'attire pas l'œil »). Mêmes valeurs que `--gold` de l'app web
+  // (private/webui/referral/src/styles.css) : ambre foncé sur fond clair.
+  mixer[kColorBrowtherReferralIcon] = {SkColorSetRGB(0x9A, 0x5A, 0x0C)};
   // It's "Themeable/Blue/10" but leo/color.h doesn't have it.
   mixer[kColorSearchConversionBannerTypeBackground] = {
       SkColorSetRGB(0xEA, 0xF1, 0xFF)};
@@ -468,6 +473,8 @@ void AddBraveDarkThemeColorMixer(ui::ColorProvider* provider,
       PickColorContrastingToToolbar(key, mixer, SkColorSetRGB(0x49, 0x50, 0x57),
                                     SkColorSetRGB(0xFF, 0xFF, 0xFF))};
   mixer[kColorMenuItemSubText] = {SkColorSetRGB(0x84, 0x88, 0x9C)};
+  // Browther : l'or du parrainage, version fond sombre (cf. le mixer clair).
+  mixer[kColorBrowtherReferralIcon] = {SkColorSetRGB(0xE2, 0xB9, 0x5C)};
   mixer[kColorSearchConversionBannerTypeDescText] = {
       SkColorSetRGB(0xE2, 0xE3, 0xE7)};
   mixer[kColorSearchConversionBannerTypeBackgroundBorder] = {
