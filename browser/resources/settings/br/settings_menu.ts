@@ -101,37 +101,29 @@ RegisterStyleOverride(
 
       /* ⭐ Browther : l'entrée « Parrainage ». Tout ce rail est gris ; sans un
          accent elle passe inaperçue, et c'est la seule porte vers les mois
-         offerts (recette Karim, 2026-09-23). Un aplat doré très léger + le
-         cadeau doré — l'or du parrainage (--gold de
-         private/webui/referral/src/styles.css). ⚠️ Pas d'accent grave ici : ce
-         bloc vit dans un template literal, une seule apostrophe inverse le
-         couperait en deux. ⛔ Ni gras, ni pastille : l'entrée est permanente,
-         elle n'annonce rien. */
+         offerts (recette Karim, 2026-09-23). La LIGNE ENTIÈRE passe à l'or du
+         parrainage (--gold de private/webui/referral/src/styles.css) — icône,
+         texte et flèche.
+         ⛔ **Pas d'aplat** : un pavé doré dans un rail de liens fait bloc
+         rapporté (« c'est moche », recette du même jour). Même principe que le
+         menu ⋯ : une seule tache de couleur, aucun cadre.
+         ⚠️ L'or ne se confond pas avec l'état SÉLECTIONNÉ du rail, qui est bleu
+         (--leo-color-text-interactive).
+         ⚠️ Pas d'accent grave dans ce commentaire : le bloc vit dans un
+         template literal, une seule apostrophe inverse le couperait en deux. */
       #browtherReferralLink {
         --iron-icon-fill-color: #9a5a0c;
-
-        background: rgb(226 185 92 / 0.16) !important;
-        border-radius: 8px !important;
-        padding-inline: 8px !important;
-        margin-inline: -8px !important;
-      }
-
-      #browtherReferralLink:hover {
-        background: rgb(226 185 92 / 0.28) !important;
-      }
-
-      /* La flèche « ça s'ouvre dans un onglet » suit la même couleur. */
-      #browtherReferralLink .cr-icon.icon-external {
         --cr-icon-color: #9a5a0c;
+
+        color: #9a5a0c !important;
       }
 
       @media (prefers-color-scheme: dark) {
         #browtherReferralLink {
           --iron-icon-fill-color: #e2b95c;
-        }
-
-        #browtherReferralLink .cr-icon.icon-external {
           --cr-icon-color: #e2b95c;
+
+          color: #e2b95c !important;
         }
       }
 
