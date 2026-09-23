@@ -2,7 +2,7 @@
    Généré par private/assets/ios-referral-strings/gen-ios-referral-strings.py depuis langs/ko.json :
    ⛔ ne pas éditer à la main. */
 
-"features.freeHead" = "언제나 이용 가능";
+"features.freeHead" = "언제나 이용 가능, 인샤알라";
 "features.extrasHead" = "추가 기능";
 "features.gainHead" = "해제되는 기능";
 "features.offered" = "1개월 선물";

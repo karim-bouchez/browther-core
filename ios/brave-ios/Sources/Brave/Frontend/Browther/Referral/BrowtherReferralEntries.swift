@@ -193,7 +193,14 @@ final class BrowtherReferralCardCell: UITableViewCell, Cell {
   private func applyBrowtherStyle() {
     guard !styled else { return }
     styled = true
+    // ⚠️ `backgroundConfiguration = .clear()` NE SUFFIT PAS : la table dessine
+    // encore la carte grise de la section derrière la nôtre, et elle dépassait
+    // aux quatre coins (recette Karim, 2026-09-23). Il faut aussi couper le
+    // fond de la cellule ET sa vue de fond.
     backgroundConfiguration = .clear()
+    backgroundColor = .clear
+    backgroundView = UIView()
+    selectedBackgroundView = UIView()
     contentConfiguration = UIHostingConfiguration { ReferralSettingsCard() }
       .margins(.horizontal, 0)
       .margins(.vertical, 0)

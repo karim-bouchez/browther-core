@@ -2,7 +2,7 @@
    Généré par private/assets/ios-referral-strings/gen-ios-referral-strings.py depuis langs/sr-Cyrl.json :
    ⛔ ne pas éditer à la main. */
 
-"features.freeHead" = "Доступно, заувек";
+"features.freeHead" = "Доступно, заувек, иншалах";
 "features.extrasHead" = "Додатне функције";
 "features.gainHead" = "Шта откључавате";
 "features.offered" = "1 месец на поклон";

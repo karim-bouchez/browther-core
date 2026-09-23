@@ -2,7 +2,7 @@
    Généré par private/assets/ios-referral-strings/gen-ios-referral-strings.py depuis langs/zh-TW.json :
    ⛔ ne pas éditer à la main. */
 
-"features.freeHead" = "永久可用";
+"features.freeHead" = "永久可用，因沙安拉";
 "features.extrasHead" = "附加功能";
 "features.gainHead" = "你將解鎖";
 "features.offered" = "贈送 1 個月";

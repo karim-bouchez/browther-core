@@ -2,7 +2,7 @@
    Généré par private/assets/ios-referral-strings/gen-ios-referral-strings.py depuis langs/sv.json :
    ⛔ ne pas éditer à la main. */
 
-"features.freeHead" = "Tillgängligt, för alltid";
+"features.freeHead" = "Tillgängligt, för alltid, in sha Allah";
 "features.extrasHead" = "Extrafunktioner";
 "features.gainHead" = "Det här låser du upp";
 "features.offered" = "1 månad i present";
@@ -58,7 +58,7 @@
 "announce.title" = "Hjälp oss att hålla den här appen gratis";
 "announce.body" = "Studion dev&din behöver ditt stöd för att kunna fortsätta erbjuda appar som den här gratis. Allt vi ber dig om är att sprida ordet.";
 "announce.invite" = "Bjud in någon";
-"invite.another" = "Bjud in någon till";
+"invite.another" = "Bjud in en till";
 "announce.inviteSub" = "Och sikta på gratis tillgång för livet";
 "announce.later" = "Påminn mig senare";
 "ending.hook" = "Men du kan behålla dem för livet, gratis!";
