@@ -92,6 +92,62 @@ enum ReferralShowSource: String {
   case prompt, circuit, notice, flow, locked, user, purchase
 }
 
+// MARK: - Ce qu'un écran écrit (§ 13.8)
+
+/// 🔴 Les évènements du parrainage qu'un ÉCRAN a le droit d'écrire — les 12 de
+/// `docs/PARRAINAGE.md` § 13.1, ⛔ SAUF `paywall_shown` (compté par ce qui POSE
+/// la fenêtre, § 13.2) et `referral_state` (la photo du jour). La porte par
+/// laquelle un écran se compterait lui-même est fermée PAR LE TYPE, ⛔ pas par
+/// une consigne. Pendant desktop : `ScreenEvent` de `controller.ts`.
+enum ReferralScreenEvent: String {
+  case paywallAction = "paywall_action"
+  case referralShared = "referral_shared"
+  case referralRedeemed = "referral_redeemed"
+  case referralValidated = "referral_validated"
+  case referralGaugePulled = "referral_gauge_pulled"
+  case referralGrace = "referral_grace"
+  case billingCheckoutStarted = "billing_checkout_started"
+  case billingCheckoutCompleted = "billing_checkout_completed"
+  case billingCheckoutFailed = "billing_checkout_failed"
+  case billingGift = "billing_gift"
+}
+
+/// D'où part un partage (`referral_shared`, `referral_grace`) — ⛔ jamais le
+/// numéro de la maquette (§ 13.2 : Browther y écrivait `4` et `6`).
+enum ReferralShareOrigin: String {
+  case invite, home
+}
+
+/// ⭐⭐ **La SEULE porte par laquelle un écran écrit un évènement** (§ 13.8) —
+/// ⛔ muette en aperçu de recette. Avant le 2026-09-24, la garde était posée
+/// écran par écran : la jauge et le bouton « Partager » de l'écran 4 écrivaient
+/// de vrais `referral_gauge_pulled` / `referral_shared` en aperçu, et la
+/// première recette fabriquait le premier jeu de données… faux.
+///
+/// Un écran la lit dans son environnement (`@Environment(\.referralNote)`) ;
+/// le flow et les feuilles l'y posent avec leur `preview`. Verrouillé par
+/// `private/scripts/ios-referral-tests/analytics_check.py`.
+struct ReferralNote {
+  var preview = false
+
+  @MainActor
+  func callAsFunction(_ event: ReferralScreenEvent, _ properties: [String: Any]) {
+    guard !preview else { return }
+    BrowtherSurfaces.track(event.rawValue, properties)
+  }
+}
+
+private struct ReferralNoteKey: EnvironmentKey {
+  static let defaultValue = ReferralNote()
+}
+
+extension EnvironmentValues {
+  var referralNote: ReferralNote {
+    get { self[ReferralNoteKey.self] }
+    set { self[ReferralNoteKey.self] = newValue }
+  }
+}
+
 enum BrowtherReferralPresenter {
 
   /// Ouvre un écran du flow. `preview` = aperçu de recette : ⛔ n'écrit rien,
@@ -136,7 +192,7 @@ enum BrowtherReferralPresenter {
     var properties = extra
     properties["screen"] = screen
     properties["source"] = source.rawValue
-    BrowtherReferralController.shared.track("paywall_shown", properties)
+    BrowtherSurfaces.track("paywall_shown", properties)
   }
 
   /// Écran 6 — Parrainage, depuis n'importe quel « Inviter un proche » hors du

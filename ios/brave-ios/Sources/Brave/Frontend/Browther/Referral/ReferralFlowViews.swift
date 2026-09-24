@@ -139,6 +139,9 @@ struct ReferralFlowView: View {
   @ObservedObject private var controller = BrowtherReferralController.shared
   @State private var celebratedAt: Date?
 
+  /// La porte de ce flow — muette s'il est un aperçu (§ 13.8).
+  private var note: ReferralNote { ReferralNote(preview: model.preview) }
+
   var body: some View {
     ZStack {
       screen(model.top)
@@ -148,6 +151,8 @@ struct ReferralFlowView: View {
         .transition(.asymmetric(insertion: .push(from: .trailing), removal: .push(from: .leading)))
     }
     .animation(.smooth(duration: 0.35), value: model.depth)
+    // ⭐ Tout écran du flow (jauge, partage, paiement…) écrit par cette porte.
+    .environment(\.referralNote, note)
     .overlay {
       if let celebratedAt {
         BrowtherIntroConfetti(start: celebratedAt)
@@ -161,8 +166,7 @@ struct ReferralFlowView: View {
   private func celebrate() { celebratedAt = Date() }
 
   private func action(_ screen: String, _ action: String) {
-    guard !model.preview else { return }
-    controller.track("paywall_action", ["screen": screen, "action": action])
+    note(.paywallAction, ["screen": screen, "action": action])
   }
 
   @ViewBuilder
@@ -354,11 +358,9 @@ struct ReferralFlowView: View {
       if let status = controller.known {
         ReferralCodeCard(status: status) {
           // ⭐ Copier EST un partage abouti (§ 12.20) — 3 jours offerts compris.
-          if !model.preview {
-            controller.track("referral_shared", ["screen": "4", "result": "copied"])
-          }
+          note(.referralShared, ["screen": ReferralShareOrigin.invite.rawValue, "result": "copied"])
           model.replaceTop(.invite(shared: true))
-          controller.shareDone(from: "4", preview: model.preview)
+          controller.shareDone(from: .invite, preview: model.preview)
         }
       }
       Text(Strings.BrowtherReferral.inviteFoot(ReferralProduct.validationTargetDays))
@@ -368,7 +370,7 @@ struct ReferralFlowView: View {
         .fixedSize(horizontal: false, vertical: true)
     } footer: {
       if let status = controller.known {
-        ReferralShareButton(status: status, screen: "4") {
+        ReferralShareButton(status: status, origin: .invite) {
           // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16).
           model.replaceTop(.invite(shared: true))
         }
@@ -404,6 +406,7 @@ struct ReferralSheetView: View {
       .frame(maxWidth: .infinity)
     }
     .background(ReferralPalette.screen.ignoresSafeArea())
+    .environment(\.referralNote, note)
     .overlay(alignment: .topTrailing) {
       Button {
         actions.dismiss?()
@@ -430,9 +433,11 @@ struct ReferralSheetView: View {
     }
   }
 
+  /// La porte de cette feuille — muette si elle est un aperçu (§ 13.8).
+  private var note: ReferralNote { ReferralNote(preview: preview) }
+
   private func action(_ name: String) {
-    guard !preview else { return }
-    controller.track("paywall_action", ["screen": screen.analyticsName, "action": name])
+    note(.paywallAction, ["screen": screen.analyticsName, "action": name])
   }
 
   @ViewBuilder

@@ -31,6 +31,7 @@ struct ReferralHomeView: View {
   }
 
   @ObservedObject private var controller = BrowtherReferralController.shared
+  @Environment(\.referralNote) private var note
   @State private var tab: Tab = .invite
   @State private var celebratedAt: Date?
 
@@ -87,7 +88,7 @@ struct ReferralHomeView: View {
     UISelectionFeedbackGenerator().selectionChanged()
     // ⭐ On vient ici EXPRÈS : c'est le pendant de « Choisir ma formule » (§ 12.26).
     if next == .support {
-      controller.track("paywall_action", ["screen": "home", "action": "billing"])
+      note(.paywallAction, ["screen": "home", "action": "billing"])
     }
     tab = next
   }
@@ -211,26 +212,35 @@ struct ReferralPendingView: View {
 
 /// 🔴 Partager ne crée AUCUNE invitation : un partage abouti n'ouvre droit
 /// qu'aux 3 jours (§ 4).
+/// ⚠️ `note` : la porte de l'écran qui partage — un partage lancé depuis un
+/// aperçu de recette ne s'écrit pas (§ 13.8).
 @MainActor
-func referralShareMyCode(status: ReferralStatus, screen: String, onAchieved: (() -> Void)? = nil) {
+func referralShareMyCode(
+  status: ReferralStatus,
+  origin: ReferralShareOrigin,
+  note: ReferralNote,
+  onAchieved: (() -> Void)? = nil
+) {
   guard let host = BrowtherReferralPresenter.topController() else { return }
   ReferralSharing.share(status: status, from: host) { result in
-    BrowtherReferralController.shared.track("referral_shared", ["screen": screen, "result": result.rawValue])
+    note(.referralShared, ["screen": origin.rawValue, "result": result.rawValue])
     guard result.achieved else { return }
     onAchieved?()
-    BrowtherReferralController.shared.shareDone(from: screen)
+    BrowtherReferralController.shared.shareDone(from: origin, preview: note.preview)
   }
 }
 
 struct ReferralShareButton: View {
   let status: ReferralStatus
-  var screen = "6"
+  var origin: ReferralShareOrigin = .home
   var onAchieved: (() -> Void)?
+
+  @Environment(\.referralNote) private var note
 
   var body: some View {
     ReferralPrimaryButton(label: Strings.BrowtherReferral.shareMyCode, systemImage: "square.and.arrow.up") {
       UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-      referralShareMyCode(status: status, screen: screen, onAchieved: onAchieved)
+      referralShareMyCode(status: status, origin: origin, note: note, onAchieved: onAchieved)
     }
   }
 }
@@ -281,6 +291,7 @@ struct ReferralInviteTab: View {
   var onCelebrate: () -> Void
 
   @ObservedObject private var controller = BrowtherReferralController.shared
+  @Environment(\.referralNote) private var note
   @State private var showsInfo = false
 
   var body: some View {
@@ -325,8 +336,8 @@ struct ReferralInviteTab: View {
 
         ReferralCodeCard(status: status) {
           // ⭐ Copier EST un partage abouti (§ 12.20) : 3 jours offerts compris.
-          controller.track("referral_shared", ["screen": "6", "result": "copied"])
-          controller.shareDone(from: "6")
+          note(.referralShared, ["screen": ReferralShareOrigin.home.rawValue, "result": "copied"])
+          controller.shareDone(from: .home, preview: note.preview)
         }
 
         VStack(spacing: 8) {

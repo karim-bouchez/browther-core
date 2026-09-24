@@ -31,6 +31,7 @@ struct ReferralBillingBody: View {
   var preview = false
 
   @ObservedObject private var controller = BrowtherReferralController.shared
+  @Environment(\.referralNote) private var note
   @State private var restoring = false
   @State private var showsSignIn = false
 
@@ -118,7 +119,7 @@ struct ReferralBillingBody: View {
       // compte dev&din est le seul pont entre Polar et StoreKit.
       if controller.account == nil, !preview {
         Button {
-          controller.track("paywall_action", ["screen": "7", "action": "account"])
+          note(.paywallAction, ["screen": "billing", "action": "account"])
           showsSignIn = true
         } label: {
           Text(Strings.BrowtherReferral.billingElsewhere)

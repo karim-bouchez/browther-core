@@ -66,6 +66,8 @@ struct ReferralGaugeView: View {
   @State private var demoPlayed = false
   @State private var lastBurst = Date.distantPast
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  /// La porte des écrans (§ 13.8) : muette si la jauge est dans un aperçu.
+  @Environment(\.referralNote) private var note
 
   private static let thumb: CGFloat = 28
   private static let edge: CGFloat = thumb / 2
@@ -335,7 +337,7 @@ struct ReferralGaugeView: View {
     if !pulledOnce {
       pulledOnce = true
       // ⚠️ Une fois par jauge affichée : « on y a touché », pas combien.
-      BrowtherReferralController.shared.track("referral_gauge_pulled", ["mode": mode.rawValue])
+      note(.referralGaugePulled, ["mode": mode.rawValue])
     }
   }
 

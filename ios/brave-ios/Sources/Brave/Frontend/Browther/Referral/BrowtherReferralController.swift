@@ -862,14 +862,14 @@ final class BrowtherReferralController: ObservableObject {
   /// aucune invitation : il ne sert qu'au moment « partage » des 3 jours (§ 4),
   /// dits APRÈS coup, dans un toast, et seulement s'ils ont été offerts.
   /// ⭐ Inviter EST une des trois sorties du circuit.
-  func shareDone(from screen: String, preview: Bool = false) {
+  func shareDone(from origin: ReferralShareOrigin, preview: Bool) {
     closeCircuit(preview: preview)
-    guard let client else { return }
+    // ⛔ Un aperçu n'appelle pas le service : `/v1/share` accorderait de VRAIS
+    // jours offerts (même règle que le desktop).
+    guard let client, !preview else { return }
     Task {
       guard let outcome = try? await client.share(), outcome.grace.granted else { return }
-      if !preview {
-        track("referral_grace", ["moment": "share", "screen": screen])
-      }
+      track("referral_grace", ["moment": "share", "screen": origin.rawValue])
       let until = ReferralDate.parse(outcome.grace.coveredUntil)
       DispatchQueue.main.asyncAfter(deadline: .now() + Self.graceToastDelay) {
         BrowtherReferralToast.show(
@@ -984,7 +984,9 @@ final class BrowtherReferralController: ObservableObject {
     track("referral_state", properties)
   }
 
-  func track(_ event: String, _ properties: [String: Any]) {
+  /// ⛔ Privé : un écran écrit par `ReferralNote` (muette en aperçu, § 13.8),
+  /// jamais par ici — ce qui s'écrit ICI ne vient pas d'un écran.
+  private func track(_ event: String, _ properties: [String: Any]) {
     BrowtherSurfaces.track(event, properties)
   }
 

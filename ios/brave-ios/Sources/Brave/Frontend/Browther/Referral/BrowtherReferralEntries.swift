@@ -114,6 +114,7 @@ struct ReferralSettingsCard: View {
 /// abonnement — il n'y aurait plus rien à gagner.
 struct ReferralExtraCallout: View {
   @ObservedObject private var controller = BrowtherReferralController.shared
+  @Environment(\.referralNote) private var note
 
   /// 🔴 **L'ouverture est rendue à l'hôte** quand il en fournit une : dans un
   /// popover (panneau d'une fonctionnalité), une fenêtre présentée depuis le
@@ -125,7 +126,7 @@ struct ReferralExtraCallout: View {
   var body: some View {
     if let line = controller.extraCalloutLine {
       Button {
-        controller.track("paywall_action", ["screen": "panel", "action": "invite"])
+        note(.paywallAction, ["screen": "panel", "action": "invite"])
         if let onOpen {
           onOpen()
           return

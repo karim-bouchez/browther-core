@@ -196,6 +196,8 @@ struct SawtunaaPanelView: View {
 
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
   @ObservedObject private var referral = BrowtherReferralController.shared
+  /// La porte des écrans du parrainage (§ 13.8 de `docs/PARRAINAGE.md`).
+  @Environment(\.referralNote) private var note
   @State private var showLimitations = false
   /// Le clic sur l'interrupteur verrouillé fait clignoter l'explication.
   @State private var blink = false
@@ -285,10 +287,7 @@ struct SawtunaaPanelView: View {
         // ⭐ Une action, là où l'on vient de se heurter au verrou : elle ouvre
         // J0 — et comme on l'a ouvert soi-même, on peut en ressortir (§ 12.16).
         Button {
-          BrowtherReferralController.shared.track(
-            "paywall_action",
-            ["screen": "panel", "action": "unlock"]
-          )
+          note(.paywallAction, ["screen": "panel", "action": "unlock"])
           // `locked` : il vient de la pause d'une fonctionnalité, comme le toast de la garde.
           onReferralScreen(.paused(chosen: true), .locked)
         } label: {
