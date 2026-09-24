@@ -105,6 +105,8 @@ public enum NavigationPath: Equatable {
   }
 
   private static func handleURL(url: URL?, isPrivate: Bool, with bvc: BrowserViewController) {
+    // Browther : un QR du compte dev&din ouvert dans Browther (appareil photo) → relié sans page web.
+    if let url, ReferralLinkFlowSheet.present(for: url) { return }
     if let newURL = url {
       bvc.switchToTabForURLOrOpen(newURL, isPrivate: isPrivate, isPrivileged: false)
     } else {

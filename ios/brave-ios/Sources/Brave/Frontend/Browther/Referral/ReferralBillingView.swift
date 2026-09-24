@@ -128,8 +128,10 @@ struct ReferralBillingBody: View {
             .padding(.vertical, 6)
         }
         .buttonStyle(.plain)
+        // ⭐ Le scanner, pas la connexion : l'ordinateur où on a payé affiche
+        // le QR (connecté ou non), cet iPhone le scanne (`ReferralLinkFlowSheet`).
         .sheet(isPresented: $showsSignIn) {
-          ReferralSignInSheet()
+          ReferralLinkFlowSheet(start: nil)
         }
       }
     }

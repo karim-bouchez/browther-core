@@ -12,12 +12,21 @@ import Security
 /// un abonnement payé sur l'ordinateur (Polar) et l'iPhone (StoreKit), qui ne
 /// se voient pas. 🔴 Il ne porte que ça : ni historique, ni favoris, ni onglets.
 ///
-/// Pendant de `browther_referral_account.cc` (desktop, plateforme de référence),
-/// avec un autre CHEMIN de connexion : ⛔ pas de QR (on est déjà sur le
-/// téléphone), mais celui des autres apps dev&din — Google ou Apple dans une
-/// `ASWebAuthenticationSession` qui revient sur `browther://auth/callback?code=…`
-/// (code à usage unique, `auth-service/src/lib/sso-apps.ts`), ou un code reçu
-/// par e-mail, saisi dans l'app.
+/// Pendant de `browther_referral_account.cc` (desktop, plateforme de référence).
+///
+/// ⭐ **On ne se connecte qu'UNE fois, sur un seul appareil** (recette Karim,
+/// 2026-09-24) : **l'appareil connecté affiche un QR, l'autre le scanne**.
+/// L'iPhone scanne dans les deux sens (`ReferralLinkTarget`) — le QR « Relier
+/// mon téléphone » d'un ordinateur connecté (il reçoit sa propre session), ou
+/// le QR de connexion d'un ordinateur qui ne l'est pas (il l'autorise avec la
+/// sienne). ⛔ Le second appareil ne choisit donc jamais de méthode : c'est ce
+/// qui évite deux comptes sans le savoir (Apple « masquer mon e-mail » ici,
+/// Google là-bas).
+///
+/// Se connecter « autrement » reste possible, pour qui n'a qu'un appareil sous
+/// la main : Google ou Apple dans une `ASWebAuthenticationSession` qui revient
+/// sur `browther://auth/callback?code=…` (`auth-service/src/lib/sso-apps.ts`),
+/// ou un code reçu par e-mail.
 public struct ReferralAccount: Codable, Equatable, Sendable {
   /// L'identifiant Better Auth — il DEVIENT le sujet du parrainage.
   public var userId: String
@@ -230,6 +239,50 @@ public final class ReferralAuthClient: @unchecked Sendable {
     return object["linked"] as? Bool == true
   }
 
+  // MARK: - Relier un appareil (le QR, dans les deux sens)
+
+  /// À quel compte ce QR « Relier mon téléphone » relie-t-il ? L'e-mail, pour
+  /// la confirmation. ⛔ Ne consomme rien.
+  public func peekLink(code: String) async throws -> String? {
+    let (data, status, _) = try await send("POST", Self.authURL, "/api/auth/link/peek", ["code": code])
+    guard status == 200 else { throw ReferralAuthFailure.badCode }
+    let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+    return object?["email"] as? String
+  }
+
+  /// Consomme le code : une session NEUVE pour cet appareil (⛔ jamais celle de
+  /// l'ordinateur qui l'a affiché).
+  public func redeemLink(code: String) async throws -> (token: String, account: ReferralAccount) {
+    let (data, status, _) = try await send("POST", Self.authURL, "/api/auth/link/redeem", ["code": code])
+    guard status == 200 else {
+      throw status == 404 ? ReferralAuthFailure.badCode : ReferralAuthFailure.failed
+    }
+    guard let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+      let token = object["token"] as? String, !token.isEmpty,
+      let user = object["user"] as? [String: Any],
+      let id = user["id"] as? String, !id.isEmpty
+    else { throw ReferralAuthFailure.failed }
+    return (token, ReferralAccount(userId: id, email: user["email"] as? String, name: user["name"] as? String))
+  }
+
+  /// ⭐ L'iPhone CONNECTÉ autorise l'ordinateur qui affiche le QR du device
+  /// flow (`/device?user_code=…`) — avec sa propre session, sans passer par
+  /// la page web ni se reconnecter. `badCode` = code expiré ou déjà utilisé.
+  public func approveDevice(userCode: String, token: String) async throws {
+    let (_, status, _) = try await send(
+      "POST",
+      Self.authURL,
+      "/api/auth/device/approve",
+      ["userCode": userCode],
+      token: token
+    )
+    switch status {
+    case 200..<300: return
+    case 400: throw ReferralAuthFailure.badCode
+    default: throw ReferralAuthFailure.failed
+    }
+  }
+
   // MARK: - Transport
 
   private func send(
@@ -260,5 +313,47 @@ public final class ReferralAuthClient: @unchecked Sendable {
     } catch {
       throw ReferralAuthFailure.unreachable
     }
+  }
+}
+
+/// Ce qu'un QR (ou un lien ouvert dans Browther) demande au compte.
+/// ⛔ Seul `auth.devndin.com` est reconnu : un QR d'ailleurs n'est pas un QR
+/// de Browther.
+public enum ReferralLinkTarget: Equatable, Sendable {
+  /// « Relier mon téléphone » d'un ordinateur CONNECTÉ : `/link?c=…`.
+  case link(code: String)
+  /// « Connecter un compte » d'un ordinateur qui NE l'est PAS (device flow) :
+  /// `/device?user_code=…` — l'iPhone connecté l'autorise.
+  case computer(userCode: String)
+
+  public init?(_ url: URL) {
+    guard url.scheme == "https", url.host?.lowercased() == ReferralAuthClient.authURL.host,
+      let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+    else { return nil }
+    func value(_ name: String) -> String? {
+      items.first { $0.name == name }?.value.flatMap { $0.isEmpty ? nil : $0 }
+    }
+    switch url.path {
+    case "/link":
+      guard let code = value("c")?.lowercased(), code.allSatisfy(\.isHexDigit) else { return nil }
+      self = .link(code: code)
+    case "/device":
+      guard let raw = value("user_code") else { return nil }
+      let code = raw.uppercased().filter { $0.isLetter || $0.isNumber }
+      guard code.count == 8 else { return nil }
+      self = .computer(userCode: code)
+    default:
+      return nil
+    }
+  }
+
+  public init?(scanned text: String) {
+    guard let url = URL(string: text.trimmingCharacters(in: .whitespacesAndNewlines)) else { return nil }
+    self.init(url)
+  }
+
+  /// `ABCD-EFGH`, comme l'ordinateur l'affiche.
+  public static func display(_ userCode: String) -> String {
+    userCode.count == 8 ? "\(userCode.prefix(4))-\(userCode.suffix(4))" : userCode
   }
 }

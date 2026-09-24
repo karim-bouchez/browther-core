@@ -446,6 +446,57 @@ final class BrowtherReferralController: ObservableObject {
     }
   }
 
+  // MARK: Relier un appareil (le QR, dans les deux sens)
+
+  /// Le QR « Relier mon téléphone » d'un ordinateur connecté : à quel compte ?
+  /// `.success(email)` pour la confirmation, ou la raison de l'échec.
+  func peekLink(code: String) async -> Result<String?, ConnectFailure> {
+    do {
+      return .success(try await auth.peekLink(code: code))
+    } catch {
+      return .failure(ConnectFailure(Self.outcome(error)))
+    }
+  }
+
+  /// Confirmé : cet iPhone reçoit SA session pour ce compte, puis tout suit
+  /// comme une connexion (fusion, abonnement, RevenueCat).
+  func linkWithCode(_ code: String) async -> ConnectOutcome {
+    track("account_login_started", ["method": "qr"])
+    do {
+      let (token, _) = try await auth.redeemLink(code: code)
+      return await connect(token: token)
+    } catch {
+      return Self.outcome(error)
+    }
+  }
+
+  /// ⭐ Cet iPhone, connecté, AUTORISE l'ordinateur qui affiche le QR de
+  /// connexion — avec sa propre session : ⛔ ni page web, ni reconnexion.
+  func approveComputer(userCode: String) async -> ConnectOutcome {
+    guard let token = ReferralAccountStore.load()?.token else { return .failed }
+    do {
+      try await auth.approveDevice(userCode: userCode, token: token)
+      track("account_computer_approved", [:])
+      // L'ordinateur se connecte à son tour (il interroge toutes les 5 s),
+      // fusionne, et rattache l'abonnement qu'il a payé sans compte : ce que
+      // l'iPhone doit voir arrive QUELQUES secondes après. On relit deux fois.
+      for delay in [10.0, 30.0] {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+          Task { await self?.refresh() }
+        }
+      }
+      return .connected
+    } catch {
+      return Self.outcome(error)
+    }
+  }
+
+  /// Une panne de connexion, sans le « tout va bien ».
+  struct ConnectFailure: Error, Equatable {
+    let outcome: ConnectOutcome
+    init(_ outcome: ConnectOutcome) { self.outcome = outcome }
+  }
+
   private static func outcome(_ error: Error) -> ConnectOutcome {
     switch error as? ReferralAuthFailure {
     case .unreachable?: return .unreachable

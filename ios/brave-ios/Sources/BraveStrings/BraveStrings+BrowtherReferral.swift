@@ -788,6 +788,47 @@ extension Strings {
     }
     public static var accountSignOut: String { t("account.signOutPhone", "Disconnect this iPhone") }
 
+    // Relier un appareil : l'appareil connecté affiche un QR, l'autre le scanne.
+    public static var accountScan: String { t("account.scan", "Scan my computer's QR code") }
+    /// ⚠️ Le chemin se compose des VRAIS libellés (l'entrée du menu ⋯ du
+    /// desktop, le titre de la section) : traduits une fois, ils ne peuvent pas
+    /// diverger de ce que la personne voit à l'écran.
+    public static var accountScanHint: String {
+      fill(
+        t("account.scanHint", "On your computer, in Browther: ⋯ menu › {menu} › {section}."),
+        ["menu": t("menu.invite", "Invite someone to Browther"), "section": accountHead]
+      )
+    }
+    public static var accountOtherWay: String { t("account.otherWay", "Sign in another way") }
+    public static var accountScanComputer: String { t("account.scanComputer", "Link a computer") }
+    public static var accountScanUnknown: String {
+      t("account.scanUnknown", "This QR code doesn't come from Browther.")
+    }
+    public static func accountLinkConfirm(_ email: String) -> String {
+      fill(t("account.linkConfirm", "Connect this iPhone to the account {email}?"), ["email": email])
+    }
+    public static var accountLinkConfirmGeneric: String {
+      t("account.linkConfirmGeneric", "Connect this iPhone to your dev&din account?")
+    }
+    public static var accountLinkCta: String { t("account.linkCta", "Connect") }
+    public static var accountApproveTitle: String {
+      t("account.approveTitle", "Allow Browther on this computer?")
+    }
+    public static func accountApproveBody(_ code: String) -> String {
+      fill(t("account.approveBody", "Check that the computer shows the code {code}."), ["code": code])
+    }
+    public static var accountApproveCta: String { t("account.approveCta", "Allow") }
+    public static var accountApproved: String {
+      t("account.approved", "Done: your computer is linked to your account.")
+    }
+    public static var accountSignInFirst: String {
+      t(
+        "account.signInFirst",
+        "First connect this iPhone to your dev&din account: the computer will be allowed right after."
+      )
+    }
+    public static var accountExpired: String { t("account.expired", "The code has expired.") }
+
     public static func homeLinkOpens(_ count: Int) -> String {
       fill(t("home.linkOpens", "Link opens: {count}"), ["count": "\(count)"])
     }
