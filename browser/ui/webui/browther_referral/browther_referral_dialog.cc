@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "base/logging.h"
-#include "base/no_destructor.h"
 #include "base/strings/escape.h"
 #include "base/strings/strcat.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
@@ -47,11 +46,17 @@ constexpr float kCornerRadius = 24.f;
 // 2026-09-23). Les cotes viennent donc de la fenêtre parente, pas d'ici.
 
 // La modale ouverte, s'il y en a une — une seule à la fois par principe.
-// ⚠️ `base::NoDestructor` : `gfx::NativeWindow` a un destructeur, et Chromium
-// interdit les destructeurs de fin de programme sur les globales.
-gfx::NativeWindow& ModalWindow() {
-  static base::NoDestructor<gfx::NativeWindow> window;
-  return *window;
+//
+// 🔴 On garde un `views::Widget*`, ⛔ PAS un `gfx::NativeWindow` : les deux
+// plateformes exigent l'inverse l'une de l'autre. Sur macOS c'est un objet à
+// destructeur (une globale nue déclenche `-Wexit-time-destructors`), sur
+// Windows c'est un `aura::Window*` trivial (et `base::NoDestructor` le REFUSE
+// par `static_assert`). Un pointeur nu est trivial des deux côtés.
+// ⚠️ Remis à zéro par `OnDialogClosed`, quelle que soit la façon dont la
+// fenêtre se ferme — sinon il pendouille.
+views::Widget*& ModalWidget() {
+  static views::Widget* widget = nullptr;
+  return widget;
 }
 
 class ReferralDialogDelegate : public ui::WebDialogDelegate {
@@ -72,7 +77,7 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
   // ⭐ Le voile de la fenêtre du navigateur disparaît AVEC la modale, quelle
   // que soit la façon dont elle se ferme (boutons, Échap, fermeture de l'onglet).
   void OnDialogClosed(const std::string& json_retval) override {
-    ModalWindow() = gfx::NativeWindow();
+    ModalWidget() = nullptr;
     HideScrim();
   }
 
@@ -92,13 +97,9 @@ bool ShowModal(content::WebContents* initiator,
     return false;
   }
   // Déjà ouverte : on la remet devant plutôt que d'en empiler une deuxième.
-  if (ModalWindow()) {
-    if (views::Widget* widget =
-            views::Widget::GetWidgetForNativeWindow(ModalWindow())) {
-      widget->Show();
-      return true;
-    }
-    ModalWindow() = gfx::NativeWindow();
+  if (ModalWidget()) {
+    ModalWidget()->Show();
+    return true;
   }
   // ⚠️ La vue PARENTE fait la modalité : sans elle, la fenêtre s'ouvrirait
   // libre et l'on retomberait sur une fenêtre qu'on peut ignorer.
@@ -122,10 +123,11 @@ bool ShowModal(content::WebContents* initiator,
   params.remove_standard_frame = true;
   params.rounded_corners = gfx::RoundedCornersF(kCornerRadius);
   ShowScrim(parent_widget);
-  ModalWindow() = chrome::ShowWebDialogWithParams(
-      parent_widget->GetNativeView(), initiator->GetBrowserContext(),
-      new ReferralDialogDelegate(screen, chosen), std::move(params));
-  if (!ModalWindow()) {
+  ModalWidget() = views::Widget::GetWidgetForNativeWindow(
+      chrome::ShowWebDialogWithParams(
+          parent_widget->GetNativeView(), initiator->GetBrowserContext(),
+          new ReferralDialogDelegate(screen, chosen), std::move(params)));
+  if (!ModalWidget()) {
     HideScrim();
     return false;
   }
@@ -133,12 +135,8 @@ bool ShowModal(content::WebContents* initiator,
 }
 
 void ResizeModal(int delta) {
-  if (!ModalWindow() || delta == 0) {
-    return;
-  }
-  views::Widget* widget =
-      views::Widget::GetWidgetForNativeWindow(ModalWindow());
-  if (!widget) {
+  views::Widget* widget = ModalWidget();
+  if (!widget || delta == 0) {
     return;
   }
   views::Widget* parent = widget->parent();
@@ -159,12 +157,8 @@ void ResizeModal(int delta) {
 }
 
 void CloseModal() {
-  if (!ModalWindow()) {
-    return;
-  }
-  views::Widget* widget =
-      views::Widget::GetWidgetForNativeWindow(ModalWindow());
-  ModalWindow() = gfx::NativeWindow();
+  views::Widget* widget = ModalWidget();
+  ModalWidget() = nullptr;
   HideScrim();
   if (widget) {
     widget->Close();
