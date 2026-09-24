@@ -36,6 +36,7 @@ constexpr int kDialogHeight = 560;   // avant que la page dise sa vraie hauteur
 constexpr int kDialogMinHeight = 320;
 constexpr int kDialogMaxHeight = 1000;
 constexpr int kMargin = 32;          // d'air au-dessus et en dessous
+constexpr int kMaxAdjustments = 6;   // ⛔ au-delà, l'écart ne converge pas
 constexpr float kCornerRadius = 24.f;
 
 // ⚠️ La fenêtre ne contient QUE la carte : sans cadre, coins arrondis, à ses
@@ -57,6 +58,12 @@ constexpr float kCornerRadius = 24.f;
 views::Widget*& ModalWidget() {
   static views::Widget* widget = nullptr;
   return widget;
+}
+
+// Combien de fois la page a demandé un ajustement pour CETTE modale.
+int& Adjustments() {
+  static int count = 0;
+  return count;
 }
 
 class ReferralDialogDelegate : public ui::WebDialogDelegate {
@@ -123,6 +130,7 @@ bool ShowModal(content::WebContents* initiator,
   params.remove_standard_frame = true;
   params.rounded_corners = gfx::RoundedCornersF(kCornerRadius);
   ShowScrim(parent_widget);
+  Adjustments() = 0;
   ModalWidget() = views::Widget::GetWidgetForNativeWindow(
       chrome::ShowWebDialogWithParams(
           parent_widget->GetNativeView(), initiator->GetBrowserContext(),
@@ -139,20 +147,33 @@ void ResizeModal(int delta) {
   if (!widget || delta == 0) {
     return;
   }
+  // 🔴 **Un nombre d'ajustements BORNÉ.** L'écart vient de la page ; rien ne
+  // garantit qu'il converge (sur Windows, l'échelle d'affichage fait que la
+  // zone visible ne grandit pas exactement de ce qu'on demande). Sans cette
+  // borne, la page redemande sans fin — la fenêtre a GLISSÉ hors de l'écran
+  // chez Karim (2026-09-24). Deux ou trois tours suffisent quand ça converge.
+  if (++Adjustments() > kMaxAdjustments) {
+    return;
+  }
   views::Widget* parent = widget->parent();
-  const int room = parent
-                       ? parent->GetWindowBoundsInScreen().height() - 2 * kMargin
-                       : kDialogMaxHeight;
   gfx::Rect bounds = widget->GetWindowBoundsInScreen();
+  const gfx::Rect room =
+      parent ? parent->GetWindowBoundsInScreen() : bounds;
+  const int ceiling =
+      std::min(kDialogMaxHeight, std::max(kDialogMinHeight,
+                                          room.height() - 2 * kMargin));
   const int wanted =
-      std::clamp(bounds.height() + delta, kDialogMinHeight,
-                 std::min(kDialogMaxHeight, std::max(room, kDialogMinHeight)));
+      std::clamp(bounds.height() + delta, kDialogMinHeight, ceiling);
   if (wanted == bounds.height()) {
     return;
   }
-  // On garde la fenêtre CENTRÉE sur son parent en grandissant.
-  bounds.set_y(bounds.y() - (wanted - bounds.height()) / 2);
+  // 🔴 On RECENTRE sur la fenêtre parente à chaque fois, ⛔ on ne décale PAS y
+  // de la moitié de la croissance : un décalage relatif se cumule, et une
+  // suite d'ajustements qui ne converge pas fait descendre la fenêtre jusqu'à
+  // la faire disparaître. Recentrer est idempotent.
   bounds.set_height(wanted);
+  bounds.set_x(room.x() + (room.width() - bounds.width()) / 2);
+  bounds.set_y(room.y() + (room.height() - wanted) / 2);
   widget->SetBounds(bounds);
 }
 
