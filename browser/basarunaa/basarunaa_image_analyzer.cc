@@ -90,8 +90,12 @@ int SaveCaptureRaw(const std::vector<uint8_t>& bgra, int width, int height) {
   if (!base::PathService::Get(base::DIR_HOME, &home)) {
     return -1;
   }
+  // ⚠️ `AppendASCII`, ⛔ pas `Append` : sur Windows un `FilePath` est en
+  // `wchar_t` et une chaîne étroite ne compile pas. Ce code ne vit que hors
+  // build officiel — il n'avait donc jamais été compilé sur Windows avant le
+  // premier build Component là-bas (2026-09-24, 2 h de compilation perdues).
   const base::FilePath dir =
-      home.Append("Downloads").Append("basarunaa-capture");
+      home.AppendASCII("Downloads").AppendASCII("basarunaa-capture");
   if (!base::CreateDirectory(dir)) {
     return -1;
   }
@@ -100,7 +104,8 @@ int SaveCaptureRaw(const std::vector<uint8_t>& bgra, int width, int height) {
   if (auto png = gfx::PNGCodec::Encode(bgra.data(), gfx::PNGCodec::FORMAT_BGRA,
                                        gfx::Size(width, height), width * 4,
                                        /*discard_transparency=*/false, {})) {
-    base::WriteFile(dir.Append(base::StringPrintf("raw_%05d.png", n)), *png);
+    base::WriteFile(dir.AppendASCII(base::StringPrintf("raw_%05d.png", n)),
+                    *png);
   }
   return n;
 }
@@ -132,9 +137,10 @@ void RenderAnnotatedCaptureOnUI(std::vector<uint8_t> bgra,
   if (!base::PathService::Get(base::DIR_HOME, &home)) {
     return;
   }
-  const base::FilePath path = home.Append("Downloads")
-                                  .Append("basarunaa-capture")
-                                  .Append(base::StringPrintf("annot_%05d.png", n));
+  const base::FilePath path =
+      home.AppendASCII("Downloads")
+          .AppendASCII("basarunaa-capture")
+          .AppendASCII(base::StringPrintf("annot_%05d.png", n));
   SkBitmap frame;
   frame.installPixels(
       SkImageInfo::Make(width, height, kBGRA_8888_SkColorType,
