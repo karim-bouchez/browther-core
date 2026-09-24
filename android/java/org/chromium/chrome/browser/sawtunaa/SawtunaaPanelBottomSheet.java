@@ -31,6 +31,9 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralController;
+import org.chromium.chrome.browser.browther_referral.ReferralExtraPanel;
+import org.chromium.chrome.browser.browther_referral.core.ExtraFeature;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.preferences.BravePref;
@@ -121,6 +124,15 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
             mToggle.setCheckedSilently(enabled);
             mToggle.setOnCheckedChangeListener(
                     (v, isChecked) -> {
+                        // Browther : la garde du parrainage (§ 2.14) — l'interrupteur est déjà
+                        // verrouillé en pause ; ceci ne sert que si le verrou a manqué.
+                        if (isChecked
+                                && !BrowtherReferralController.get()
+                                        .requireExtra(
+                                                ExtraFeature.MUSIC_REMOVAL, requireActivity())) {
+                            if (mToggle != null) mToggle.setCheckedSilently(false);
+                            return;
+                        }
                         UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                                 .setBoolean(BravePref.SAWTUNAA_ENABLED, isChecked);
                         BrowtherAnalyticsBridge.trackWithProps(
@@ -148,10 +160,24 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
 
         updateStatusText(enabled);
         installDescription();
+        bindReferral(view);
 
         // Browther : « ça ne marche pas ici ? ». Toutes les règles (domaine seul,
         // consentement, page interne) vivent dans le helper partagé.
         BrowtherSiteReport.bind(view, "sawtunaa");
+    }
+
+    /**
+     * Browther : le parrainage dans le panneau (private/docs/PARRAINAGE.md § 2.14) — en pause,
+     * interrupteur verrouillé + « Débloquer » ; sinon l'encadré doré « La garder à vie ».
+     */
+    private void bindReferral(View root) {
+        ViewGroup slot = root.findViewById(R.id.sawtunaa_panel_referral);
+        if (mToggle == null || mStatusText == null || mDescriptionText == null || slot == null) {
+            return;
+        }
+        ReferralExtraPanel.bind(
+                requireActivity(), mToggle, mStatusText, mDescriptionText, slot, this::dismiss);
     }
 
     /**

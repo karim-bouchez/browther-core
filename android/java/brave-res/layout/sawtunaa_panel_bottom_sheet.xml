@@ -72,6 +72,16 @@
         android:lineSpacingExtra="2dp"
         android:gravity="start" />
 
+    <!-- Browther : le parrainage dans le panneau (private/docs/PARRAINAGE.md § 2.14) —
+         « Débloquer » en pause, l'encadré doré sinon. Rempli par ReferralExtraPanel. -->
+    <LinearLayout
+        android:id="@+id/sawtunaa_panel_referral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
     <!-- Browther : « encore en développement » — visible tant que la feature
          est ON (BrowtherEarlyAccess). Parité desktop/iOS. -->
     <include layout="@layout/browther_feature_beta_notice" />

@@ -158,6 +158,8 @@ final class BrowtherIntroView extends FrameLayout implements BrowtherIntroModel.
                 return new BrowtherIntroMusicStep(context, mModel, mAudio);
             case DEFAULT_BROWSER:
                 return new BrowtherIntroDefaultStep(context, mModel);
+            case REFERRAL_CODE:
+                return new BrowtherIntroReferralStep(context, mModel);
             case CHANNELS:
             default:
                 return new BrowtherIntroChannelsStep(context, mModel);

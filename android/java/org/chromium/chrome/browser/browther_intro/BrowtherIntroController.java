@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import org.chromium.base.IntentUtils;
 import org.chromium.base.Log;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralController;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.customtabs.CustomTabActivity;
 import org.chromium.chrome.browser.preferences.BravePref;
@@ -228,6 +229,15 @@ public final class BrowtherIntroController implements BrowtherIntroModel.Host {
     @Override
     public void track(String event, Object... keyValues) {
         BrowtherAnalyticsBridge.trackTyped(event, keyValues);
+    }
+
+    @Override
+    public boolean referralEnabled() {
+        // Browther : l'écran O (le code d'un proche) — le service est joint dès maintenant, pour
+        // qu'un code saisi ait un sujet à qui se rattacher.
+        BrowtherReferralController referral = BrowtherReferralController.get();
+        referral.boot();
+        return referral.isEnabled();
     }
 
     @Override

@@ -4470,6 +4470,1031 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_INTRO_START_BROWSING" desc="Browther introduction: Last button of the introduction">
       Start browsing
     </message>
+    <!-- BROWTHER_REFERRAL:BEGIN — généré par private/assets/gen-android-browther-xtb.py (option apply), ⛔ ne pas éditer à la main -->
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_BODY" desc="Browther referral (pool key announce.body)" meaning="browther_referral:announce.body">
+      The dev&amp;din studio needs your support to keep offering apps like this one for free. All we're asking is that you spread the word.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_INVITE" desc="Browther referral (pool key announce.invite)" meaning="browther_referral:announce.invite">
+      Invite someone
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_INVITE_SUB" desc="Browther referral (pool key announce.inviteSub)" meaning="browther_referral:announce.inviteSub">
+      And aim for free lifetime access
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_LATER" desc="Browther referral (pool key announce.later)" meaning="browther_referral:announce.later">
+      Remind me later
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_TITLE" desc="Browther referral (pool key announce.title)" meaning="browther_referral:announce.title">
+      Help us keep this app free
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_LATER_BODY" desc="Browther referral (pool key announceLater.body)" meaning="browther_referral:announceLater.body">
+      The additional features are on us until {date}. We'll remind you before it ends.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_LATER_BODY_NO_DATE" desc="Browther referral (pool key announceLater.bodyNoDate)" meaning="browther_referral:announceLater.bodyNoDate">
+      The additional features are on us for a month. We'll remind you before it ends.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_LATER_TITLE" desc="Browther referral (pool key announceLater.title)" meaning="browther_referral:announceLater.title">
+      Got it
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_LATER_WHERE" desc="Browther referral (pool key announceLater.where)" meaning="browther_referral:announceLater.where">
+      In the meantime, your referral code is waiting in Settings, under “Referrals”.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_ALREADY_BODY" desc="Browther referral (pool key billing.alreadyBody)" meaning="browther_referral:billing.alreadyBody">
+      Thank you! All of Browther's additional features are unlocked.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_ALREADY_TITLE" desc="Browther referral (pool key billing.alreadyTitle)" meaning="browther_referral:billing.alreadyTitle">
+      You already support dev&amp;din
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_BODY" desc="Browther referral (pool key billing.body)" meaning="browther_referral:billing.body">
+      You get all of Browther's additional features, right away. Cancel any time.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_CTA_MONTH" desc="Browther referral (pool key billing.ctaMonth)" meaning="browther_referral:billing.ctaMonth">
+      I support · {price} per month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_CTA_YEAR" desc="Browther referral (pool key billing.ctaYear)" meaning="browther_referral:billing.ctaYear">
+      I support · {price} per year
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_ENDS" desc="Browther referral (pool key billing.ends)" meaning="browther_referral:billing.ends">
+      Your subscription ends on {date}, in sha Allah.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_EYEBROW" desc="Browther referral (pool key billing.eyebrow)" meaning="browther_referral:billing.eyebrow">
+      Support financially
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_FAILED" desc="Browther referral (pool key billing.failed)" meaning="browther_referral:billing.failed">
+      The payment didn't go through. Please try again in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_MONTH" desc="Browther referral (pool key billing.month)" meaning="browther_referral:billing.month">
+      One month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_MONTH_SUB" desc="Browther referral (pool key billing.monthSub)" meaning="browther_referral:billing.monthSub">
+      cancel whenever you want
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_RENEWS" desc="Browther referral (pool key billing.renews)" meaning="browther_referral:billing.renews">
+      Your subscription renews automatically on {date}, in sha Allah.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_RETRY" desc="Browther referral (pool key billing.retry)" meaning="browther_referral:billing.retry">
+      Try again
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_TITLE" desc="Browther referral (pool key billing.title)" meaning="browther_referral:billing.title">
+      Unlock everything, with nothing to do
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_UNAVAILABLE" desc="Browther referral (pool key billing.unavailable)" meaning="browther_referral:billing.unavailable">
+      The plans aren't loading right now.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_YEAR" desc="Browther referral (pool key billing.year)" meaning="browther_referral:billing.year">
+      One year
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_YEAR_BADGE" desc="Browther referral (pool key billing.yearBadge)" meaning="browther_referral:billing.yearBadge">
+      2 months free
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_BILLING_YEAR_SUB" desc="Browther referral (pool key billing.yearSub)" meaning="browther_referral:billing.yearSub">
+      that's {price} per month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_CARD_CODE_HEAD" desc="Browther referral (pool key card.codeHead)" meaning="browther_referral:card.codeHead">
+      Your referral code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_CARD_COPIED" desc="Browther referral (pool key card.copied)" meaning="browther_referral:card.copied">
+      Copied
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_CARD_COPY" desc="Browther referral (pool key card.copy)" meaning="browther_referral:card.copy">
+      Copy
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_COMMON_CLOSE" desc="Browther referral (pool key common.close)" meaning="browther_referral:common.close">
+      Close
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_BODY" desc="Browther referral (pool key ending.body)" meaning="browther_referral:ending.body">
+      The dev&amp;din studio **needs your support** to keep offering free apps. All we're asking is that you help your contacts discover it. If you really can't, you can also support us financially, or with a du'a.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_HOOK" desc="Browther referral (pool key ending.hook)" meaning="browther_referral:ending.hook">
+      But you can keep them for life, for free!
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_SUPPORT_SUB" desc="Browther referral (pool key ending.supportSub)" meaning="browther_referral:ending.supportSub">
+      Invite someone, financially, or with a du'a
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_ESSENTIAL_BLUR" desc="Browther referral (pool key features.essential.blur)" meaning="browther_referral:features.essential.blur">
+      Blurring images and videos
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_ESSENTIAL_BROWSING" desc="Browther referral (pool key features.essential.browsing)" meaning="browther_referral:features.essential.browsing">
+      Browsing, tabs, bookmarks
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_ESSENTIAL_SHIELDS" desc="Browther referral (pool key features.essential.shields)" meaning="browther_referral:features.essential.shields">
+      Blocking ads and trackers
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_ESSENTIAL_LINE" desc="Browther referral (pool key features.essentialLine)" meaning="browther_referral:features.essentialLine">
+      The essentials stay available: blurring, ad blocking, browsing.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_EXTRAS_MUSIC_REMOVAL" desc="Browther referral (pool key features.extras.musicRemoval)" meaning="browther_referral:features.extras.musicRemoval">
+      Removing music from videos
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_EXTRAS_HEAD" desc="Browther referral (pool key features.extrasHead)" meaning="browther_referral:features.extrasHead">
+      Additional features
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_FREE_HEAD" desc="Browther referral (pool key features.freeHead)" meaning="browther_referral:features.freeHead">
+      Available, forever
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_GAIN_HEAD" desc="Browther referral (pool key features.gainHead)" meaning="browther_referral:features.gainHead">
+      What you unlock
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_INCLUDED" desc="Browther referral (pool key features.included)" meaning="browther_referral:features.included">
+      Included
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_OFFERED" desc="Browther referral (pool key features.offered)" meaning="browther_referral:features.offered">
+      Free for 1 month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_PAUSED" desc="Browther referral (pool key features.paused)" meaning="browther_referral:features.paused">
+      Paused
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_UNTIL" desc="Browther referral (pool key features.until)" meaning="browther_referral:features.until">
+      Until {date}
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_A11Y" desc="Browther referral (pool key gauge.a11y)" meaning="browther_referral:gauge.a11y">
+      Number of invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_BONUS" desc="Browther referral (pool key gauge.bonus)" meaning="browther_referral:gauge.bonus">
+      including **+{bonus} bonus months**
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_HELP" desc="Browther referral (pool key gauge.help)" meaning="browther_referral:gauge.help">
+      1 month per confirmed invitation, plus the tier bonuses.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_IF" desc="Browther referral (pool key gauge.if)" meaning="browther_referral:gauge.if">
+      If I invite
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_IF_ELASTIC" desc="Browther referral (pool key gauge.ifElastic)" meaning="browther_referral:gauge.ifElastic">
+      If I confirm
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_REACHED" desc="Browther referral (pool key gauge.lifeReached)" meaning="browther_referral:gauge.lifeReached">
+      Browther is 100% unlocked.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_TITLE" desc="Browther referral (pool key gauge.lifeTitle)" meaning="browther_referral:gauge.lifeTitle">
+      For life
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFETIME" desc="Browther referral (pool key gauge.lifetime)" meaning="browther_referral:gauge.lifetime">
+      for life
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_REST_IF" desc="Browther referral (pool key gauge.restIf)" meaning="browther_referral:gauge.restIf">
+      Confirmed invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_REST_THEN" desc="Browther referral (pool key gauge.restThen)" meaning="browther_referral:gauge.restThen">
+      Months earned
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_THEN" desc="Browther referral (pool key gauge.then)" meaning="browther_referral:gauge.then">
+      I earn
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_THEN_ELASTIC" desc="Browther referral (pool key gauge.thenElastic)" meaning="browther_referral:gauge.thenElastic">
+      I would earn
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_LIFETIME" desc="Browther referral (pool key gauge.tickLifetime)" meaning="browther_referral:gauge.tickLifetime">
+      for life
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GIFT_ASK" desc="Browther referral (pool key gift.ask)" meaning="browther_referral:gift.ask">
+      To thank us, the best thing you can do is share Browther with those around you: it really helps us keep the app going.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GIFT_BODY" desc="Browther referral (pool key gift.body)" meaning="browther_referral:gift.body">
+      Payment isn't available on Android yet. In the meantime, here's 1 month of additional features on us: the whole app is yours.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GIFT_BODY_AGAIN" desc="Browther referral (pool key gift.bodyAgain)" meaning="browther_referral:gift.bodyAgain">
+      Payment is coming soon to Android. You've already received your free month: today, the best support is to share Browther with those around you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GIFT_TITLE" desc="Browther referral (pool key gift.title)" meaning="browther_referral:gift.title">
+      It's a gift!
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GIFT_TITLE_AGAIN" desc="Browther referral (pool key gift.titleAgain)" meaning="browther_referral:gift.titleAgain">
+      Thank you for wanting to support us!
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GIFT_UNTIL" desc="Browther referral (pool key gift.until)" meaning="browther_referral:gift.until">
+      Free until {date}
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GRACE_BODY" desc="Browther referral (pool key grace.body)" meaning="browther_referral:grace.body">
+      You had less than 3 days left: here are a few more, while the person installs the app. The point isn't to block you, it's to reward your invitation.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GRACE_STATUS" desc="Browther referral (pool key grace.status)" meaning="browther_referral:grace.status">
+      Additional features until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GRACE_TITLE" desc="Browther referral (pool key grace.title)" meaning="browther_referral:grace.title">
+      +3 days on us
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_ACCOUNT_HEAD" desc="Browther referral (pool key home.accountHead)" meaning="browther_referral:home.accountHead">
+      On your other devices
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_AS_REFEREE" desc="Browther referral (pool key home.asReferee)" meaning="browther_referral:home.asReferee">
+      A code from someone close
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_COVER_A" desc="Browther referral (pool key home.coverA)" meaning="browther_referral:home.coverA">
+      Additional features
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_COVER_LIFETIME" desc="Browther referral (pool key home.coverLifetime)" meaning="browther_referral:home.coverLifetime">
+      forever
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_COVER_OPEN" desc="Browther referral (pool key home.coverOpen)" meaning="browther_referral:home.coverOpen">
+      on us
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_COVER_PAID" desc="Browther referral (pool key home.coverPaid)" meaning="browther_referral:home.coverPaid">
+      included in your subscription
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_COVER_PAUSED" desc="Browther referral (pool key home.coverPaused)" meaning="browther_referral:home.coverPaused">
+      paused
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_COVER_UNTIL" desc="Browther referral (pool key home.coverUntil)" meaning="browther_referral:home.coverUntil">
+      until {date}
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_EMPTY" desc="Browther referral (pool key home.empty)" meaning="browther_referral:home.empty">
+      You haven't invited anyone yet.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_EMPTY_HINT" desc="Browther referral (pool key home.emptyHint)" meaning="browther_referral:home.emptyHint">
+      They'll show up here as soon as someone uses your code.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_LEGEND" desc="Browther referral (pool key home.legend)" meaning="browther_referral:home.legend">
+      We never know who received your code, nor what the person does in the app: only how many days are left before your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_LINK_OPENS" desc="Browther referral (pool key home.linkOpens)" meaning="browther_referral:home.linkOpens">
+      Link opens: {count}
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_LIST_HEAD" desc="Browther referral (pool key home.listHead)" meaning="browther_referral:home.listHead">
+      My invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_RETRY" desc="Browther referral (pool key home.retry)" meaning="browther_referral:home.retry">
+      Try again
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_TABS_CODE" desc="Browther referral (pool key home.tabs.code)" meaning="browther_referral:home.tabs.code">
+      Got a code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_TABS_INVITATIONS" desc="Browther referral (pool key home.tabs.invitations)" meaning="browther_referral:home.tabs.invitations">
+      Invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_TABS_INVITE" desc="Browther referral (pool key home.tabs.invite)" meaning="browther_referral:home.tabs.invite">
+      Invite
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_TABS_SUPPORT" desc="Browther referral (pool key home.tabs.support)" meaning="browther_referral:home.tabs.support">
+      Support
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_TITLE" desc="Browther referral (pool key home.title)" meaning="browther_referral:home.title">
+      Referrals
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_UNREACHABLE" desc="Browther referral (pool key home.unreachable)" meaning="browther_referral:home.unreachable">
+      We can't reach the referral service. Check your connection.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_WHAT_EXTRAS" desc="Browther referral (pool key home.whatExtras)" meaning="browther_referral:home.whatExtras">
+      What are the additional features?
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_WHY_PAUSED" desc="Browther referral (pool key home.whyPaused)" meaning="browther_referral:home.whyPaused">
+      They come back as soon as an invitation is confirmed, or by supporting us financially. Blurring and ad blocking stay on.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_IN_PROGRESS" desc="Browther referral (pool key invitations.inProgress)" meaning="browther_referral:invitations.inProgress">
+      In progress
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_VALIDATED" desc="Browther referral (pool key invitations.validated)" meaning="browther_referral:invitations.validated">
+      Confirmed
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_ANOTHER" desc="Browther referral (pool key invite.another)" meaning="browther_referral:invite.another">
+      Invite someone else
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_BACK" desc="Browther referral (pool key invite.back)" meaning="browther_referral:invite.back">
+      Back
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_CLOSE_AFTER_SHARE" desc="Browther referral (pool key invite.closeAfterShare)" meaning="browther_referral:invite.closeAfterShare">
+      Back to the app
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_EYEBROW" desc="Browther referral (pool key invite.eyebrow)" meaning="browther_referral:invite.eyebrow">
+      Invite
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_SHARE" desc="Browther referral (pool key invite.share)" meaning="browther_referral:invite.share">
+      Share my code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_LOCKED_BODY" desc="Browther referral (pool key locked.body)" meaning="browther_referral:locked.body">
+      For these apps to stay free, the dev&amp;din studio needs you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_LOCKED_CTA" desc="Browther referral (pool key locked.cta)" meaning="browther_referral:locked.cta">
+      Support dev&amp;din
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_LOCKED_MUSIC_REMOVAL" desc="Browther referral (pool key locked.musicRemoval)" meaning="browther_referral:locked.musicRemoval">
+      Music removal is one of the additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_LOCKED_UNLOCK" desc="Browther referral (pool key locked.unlock)" meaning="browther_referral:locked.unlock">
+      Unlock
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_MENU_INVITE" desc="Browther referral (pool key menu.invite)" meaning="browther_referral:menu.invite">
+      Invite someone to Browther
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_LIFETIME" desc="Browther referral (pool key notice.bodyLifetime)" meaning="browther_referral:notice.bodyLifetime">
+      You made it: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_EYEBROW" desc="Browther referral (pool key notice.eyebrow)" meaning="browther_referral:notice.eyebrow">
+      Referrals
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_SEE" desc="Browther referral (pool key notice.see)" meaning="browther_referral:notice.see">
+      See my referrals
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_TITLE" desc="Browther referral (pool key notice.title)" meaning="browther_referral:notice.title">
+      Invitation confirmed!
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PANEL_COVERED" desc="Browther referral (pool key panel.covered)" meaning="browther_referral:panel.covered">
+      Yours for now.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PANEL_COVERED_UNTIL" desc="Browther referral (pool key panel.coveredUntil)" meaning="browther_referral:panel.coveredUntil">
+      Yours until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PANEL_EXTRA_BADGE" desc="Browther referral (pool key panel.extraBadge)" meaning="browther_referral:panel.extraBadge">
+      Additional feature
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PANEL_KEEP_FOR_LIFE" desc="Browther referral (pool key panel.keepForLife)" meaning="browther_referral:panel.keepForLife">
+      Keep it for life
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PANEL_PAUSED_LINE" desc="Browther referral (pool key panel.pausedLine)" meaning="browther_referral:panel.pausedLine">
+      Paused: invite someone to get it back.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PAUSED_BODY" desc="Browther referral (pool key paused.body)" meaning="browther_referral:paused.body">
+      For these apps to stay free, the dev&amp;din studio needs you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PAUSED_FOOT" desc="Browther referral (pool key paused.foot)" meaning="browther_referral:paused.foot">
+      This screen will come back now and then, never more than once a week.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_PAUSED_TITLE" desc="Browther referral (pool key paused.title)" meaning="browther_referral:paused.title">
+      Additional features are paused
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_BODY" desc="Browther referral (pool key redeem.body)" meaning="browther_referral:redeem.body">
+      Ask them for their referral code: two months of additional features, one for you and one for them.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_HEAD" desc="Browther referral (pool key redeem.head)" meaning="browther_referral:redeem.head">
+      Did someone tell you about Browther?
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_INPUT_ERROR_ALPHABET" desc="Browther referral (pool key redeem.inputError.alphabet)" meaning="browther_referral:redeem.inputError.alphabet">
+      This code contains a character no code uses (such as O, 0, I or 1): check it with them.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_INPUT_ERROR_LENGTH" desc="Browther referral (pool key redeem.inputError.length)" meaning="browther_referral:redeem.inputError.length">
+      A referral code has 6 characters.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_PASTE" desc="Browther referral (pool key redeem.paste)" meaning="browther_referral:redeem.paste">
+      Paste
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_PLACEHOLDER" desc="Browther referral (pool key redeem.placeholder)" meaning="browther_referral:redeem.placeholder">
+      Referral code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_REFUSAL_ALREADY_REDEEMED" desc="Browther referral (pool key redeem.refusal.already_redeemed)" meaning="browther_referral:redeem.refusal.already_redeemed">
+      You've already used a referral code.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_REFUSAL_SAME_DEVICE" desc="Browther referral (pool key redeem.refusal.same_device)" meaning="browther_referral:redeem.refusal.same_device">
+      That code was created on this phone.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_REFUSAL_SELF" desc="Browther referral (pool key redeem.refusal.self)" meaning="browther_referral:redeem.refusal.self">
+      That's your own code.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_REFUSAL_UNAVAILABLE" desc="Browther referral (pool key redeem.refusal.unavailable)" meaning="browther_referral:redeem.refusal.unavailable">
+      We can't reach the service. Please try again in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_REFUSAL_UNKNOWN_CODE" desc="Browther referral (pool key redeem.refusal.unknown_code)" meaning="browther_referral:redeem.refusal.unknown_code">
+      That code doesn't match anyone. Check it with the person who gave it to you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_REFUSAL_WRONG_PRODUCT" desc="Browther referral (pool key redeem.refusal.wrong_product)" meaning="browther_referral:redeem.refusal.wrong_product">
+      That code belongs to another dev&amp;din app.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_VALIDATE" desc="Browther referral (pool key redeem.validate)" meaning="browther_referral:redeem.validate">
+      Confirm
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REDEEM_VALIDATED_LINE" desc="Browther referral (pool key redeem.validatedLine)" meaning="browther_referral:redeem.validatedLine">
+      All set: two months of additional features, one for you and one for them.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_DONE" desc="Browther referral (pool key referee.done)" meaning="browther_referral:referee.done">
+      Done: they earned 1 month of additional features. Thank you on their behalf.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_INVITE_TOO" desc="Browther referral (pool key referee.inviteToo)" meaning="browther_referral:referee.inviteToo">
+      My turn to invite someone
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_BODY" desc="Browther referral (pool key referee.noticeBody)" meaning="browther_referral:referee.noticeBody">
+      They earned 1 month of additional features — by Allah's grace, then thanks to you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_TITLE" desc="Browther referral (pool key referee.noticeTitle)" meaning="browther_referral:referee.noticeTitle">
+      Thank you!
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_SET_DEFAULT" desc="Browther referral (pool key referee.setDefault)" meaning="browther_referral:referee.setDefault">
+      Set Browther as default browser
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_TITLE" desc="Browther referral (pool key referee.title)" meaning="browther_referral:referee.title">
+      Your referral
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS" desc="Browther referral (pool key reminder.inProgress)" meaning="browther_referral:reminder.inProgress">
+      One of your invitations is on its way: your code has been used, only a few days with Browther as default browser are missing.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS" desc="Browther referral (pool key reminder.months)" meaning="browther_referral:reminder.months">
+      Every confirmed invitation adds one more.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_NONE_OPENED" desc="Browther referral (pool key reminder.noneOpened)" meaning="browther_referral:reminder.noneOpened">
+      Your invitation hasn't been opened yet. You can send it again, or invite someone else.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION" desc="Browther referral (pool key reminder.subscription)" meaning="browther_referral:reminder.subscription">
+      Thank you for your support. You can keep the additional features by inviting someone, or by renewing.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SETTINGS_NEWS" desc="Browther referral (pool key settings.news)" meaning="browther_referral:settings.news">
+      New
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SETTINGS_SUBTITLE" desc="Browther referral (pool key settings.subtitle)" meaning="browther_referral:settings.subtitle">
+      Earn hassanat and lifetime access
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_COPIED" desc="Browther referral (pool key share.copied)" meaning="browther_referral:share.copied">
+      Message copied: just paste it to the person you're inviting.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_MESSAGE" desc="Browther referral (pool key share.message)" meaning="browther_referral:share.message">
+      I'm inviting you to discover Browther: the browser that mutes music and blurs haram images.\nWith my code {code}, you get two months of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_MONEY" desc="Browther referral (pool key support.money)" meaning="browther_referral:support.money">
+      Support financially · {price}/month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_NONE" desc="Browther referral (pool key support.none)" meaning="browther_referral:support.none">
+      A du'a is all I can do for now
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_OR" desc="Browther referral (pool key support.or)" meaning="browther_referral:support.or">
+      or
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_TITLE" desc="Browther referral (pool key support.title)" meaning="browther_referral:support.title">
+      How many people do you think you could invite?
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_THANKS_BODY_ACTIVE" desc="Browther referral (pool key thanks.bodyActive)" meaning="browther_referral:thanks.bodyActive">
+      All additional features are unlocked. By Allah's grace, then thanks to you, the dev&amp;din studio can keep offering free apps.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_THANKS_BODY_PENDING" desc="Browther referral (pool key thanks.bodyPending)" meaning="browther_referral:thanks.bodyPending">
+      Your subscription is being set up: the additional features will unlock in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_THANKS_TITLE" desc="Browther referral (pool key thanks.title)" meaning="browther_referral:thanks.title">
+      Thank you for your support!
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_WELCOME_LATER" desc="Browther referral (pool key welcome.later)" meaning="browther_referral:welcome.later">
+      Later
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_TITLE_ZERO" desc="Browther referral (pool key ending.title.zero)" meaning="browther_referral:ending.title.zero">
+      In {count} days, some additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_TITLE_ONE" desc="Browther referral (pool key ending.title.one)" meaning="browther_referral:ending.title.one">
+      Tomorrow, some additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_TITLE_TWO" desc="Browther referral (pool key ending.title.two)" meaning="browther_referral:ending.title.two">
+      In {count} days, some additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_TITLE_FEW" desc="Browther referral (pool key ending.title.few)" meaning="browther_referral:ending.title.few">
+      In {count} days, some additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_TITLE_MANY" desc="Browther referral (pool key ending.title.many)" meaning="browther_referral:ending.title.many">
+      In {count} days, some additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ENDING_TITLE_OTHER" desc="Browther referral (pool key ending.title.other)" meaning="browther_referral:ending.title.other">
+      In {count} days, some additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_SOON_ZERO" desc="Browther referral (pool key features.soon.zero)" meaning="browther_referral:features.soon.zero">
+      Paused in {count} d
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_SOON_ONE" desc="Browther referral (pool key features.soon.one)" meaning="browther_referral:features.soon.one">
+      Paused tomorrow
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_SOON_TWO" desc="Browther referral (pool key features.soon.two)" meaning="browther_referral:features.soon.two">
+      Paused in {count} d
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_SOON_FEW" desc="Browther referral (pool key features.soon.few)" meaning="browther_referral:features.soon.few">
+      Paused in {count} d
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_SOON_MANY" desc="Browther referral (pool key features.soon.many)" meaning="browther_referral:features.soon.many">
+      Paused in {count} d
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_FEATURES_SOON_OTHER" desc="Browther referral (pool key features.soon.other)" meaning="browther_referral:features.soon.other">
+      Paused in {count} d
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_SUB_ZERO" desc="Browther referral (pool key gauge.lifeSub.zero)" meaning="browther_referral:gauge.lifeSub.zero">
+      from {count} confirmed invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_SUB_ONE" desc="Browther referral (pool key gauge.lifeSub.one)" meaning="browther_referral:gauge.lifeSub.one">
+      from {count} confirmed invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_SUB_TWO" desc="Browther referral (pool key gauge.lifeSub.two)" meaning="browther_referral:gauge.lifeSub.two">
+      from {count} confirmed invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_SUB_FEW" desc="Browther referral (pool key gauge.lifeSub.few)" meaning="browther_referral:gauge.lifeSub.few">
+      from {count} confirmed invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_SUB_MANY" desc="Browther referral (pool key gauge.lifeSub.many)" meaning="browther_referral:gauge.lifeSub.many">
+      from {count} confirmed invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_LIFE_SUB_OTHER" desc="Browther referral (pool key gauge.lifeSub.other)" meaning="browther_referral:gauge.lifeSub.other">
+      from {count} confirmed invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_MONTHS_ZERO" desc="Browther referral (pool key gauge.months.zero)" meaning="browther_referral:gauge.months.zero">
+      months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_MONTHS_ONE" desc="Browther referral (pool key gauge.months.one)" meaning="browther_referral:gauge.months.one">
+      month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_MONTHS_TWO" desc="Browther referral (pool key gauge.months.two)" meaning="browther_referral:gauge.months.two">
+      months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_MONTHS_FEW" desc="Browther referral (pool key gauge.months.few)" meaning="browther_referral:gauge.months.few">
+      months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_MONTHS_MANY" desc="Browther referral (pool key gauge.months.many)" meaning="browther_referral:gauge.months.many">
+      months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_MONTHS_OTHER" desc="Browther referral (pool key gauge.months.other)" meaning="browther_referral:gauge.months.other">
+      months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_NOW_ZERO" desc="Browther referral (pool key gauge.now.zero)" meaning="browther_referral:gauge.now.zero">
+      You're at {count} confirmed invitations.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_NOW_ONE" desc="Browther referral (pool key gauge.now.one)" meaning="browther_referral:gauge.now.one">
+      You're at {count} confirmed invitation.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_NOW_TWO" desc="Browther referral (pool key gauge.now.two)" meaning="browther_referral:gauge.now.two">
+      You're at {count} confirmed invitations.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_NOW_FEW" desc="Browther referral (pool key gauge.now.few)" meaning="browther_referral:gauge.now.few">
+      You're at {count} confirmed invitations.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_NOW_MANY" desc="Browther referral (pool key gauge.now.many)" meaning="browther_referral:gauge.now.many">
+      You're at {count} confirmed invitations.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_NOW_OTHER" desc="Browther referral (pool key gauge.now.other)" meaning="browther_referral:gauge.now.other">
+      You're at {count} confirmed invitations.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_BONUS_ZERO" desc="Browther referral (pool key gauge.tickBonus.zero)" meaning="browther_referral:gauge.tickBonus.zero">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_BONUS_ONE" desc="Browther referral (pool key gauge.tickBonus.one)" meaning="browther_referral:gauge.tickBonus.one">
+      +{count} month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_BONUS_TWO" desc="Browther referral (pool key gauge.tickBonus.two)" meaning="browther_referral:gauge.tickBonus.two">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_BONUS_FEW" desc="Browther referral (pool key gauge.tickBonus.few)" meaning="browther_referral:gauge.tickBonus.few">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_BONUS_MANY" desc="Browther referral (pool key gauge.tickBonus.many)" meaning="browther_referral:gauge.tickBonus.many">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_TICK_BONUS_OTHER" desc="Browther referral (pool key gauge.tickBonus.other)" meaning="browther_referral:gauge.tickBonus.other">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_ZERO" desc="Browther referral (pool key gauge.unit.zero)" meaning="browther_referral:gauge.unit.zero">
+      people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_ONE" desc="Browther referral (pool key gauge.unit.one)" meaning="browther_referral:gauge.unit.one">
+      person
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_TWO" desc="Browther referral (pool key gauge.unit.two)" meaning="browther_referral:gauge.unit.two">
+      people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_FEW" desc="Browther referral (pool key gauge.unit.few)" meaning="browther_referral:gauge.unit.few">
+      people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_MANY" desc="Browther referral (pool key gauge.unit.many)" meaning="browther_referral:gauge.unit.many">
+      people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_OTHER" desc="Browther referral (pool key gauge.unit.other)" meaning="browther_referral:gauge.unit.other">
+      people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_INV_ZERO" desc="Browther referral (pool key gauge.unitInv.zero)" meaning="browther_referral:gauge.unitInv.zero">
+      invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_INV_ONE" desc="Browther referral (pool key gauge.unitInv.one)" meaning="browther_referral:gauge.unitInv.one">
+      invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_INV_TWO" desc="Browther referral (pool key gauge.unitInv.two)" meaning="browther_referral:gauge.unitInv.two">
+      invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_INV_FEW" desc="Browther referral (pool key gauge.unitInv.few)" meaning="browther_referral:gauge.unitInv.few">
+      invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_INV_MANY" desc="Browther referral (pool key gauge.unitInv.many)" meaning="browther_referral:gauge.unitInv.many">
+      invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_GAUGE_UNIT_INV_OTHER" desc="Browther referral (pool key gauge.unitInv.other)" meaning="browther_referral:gauge.unitInv.other">
+      invitations
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_ZERO" desc="Browther referral (pool key home.progress.zero)" meaning="browther_referral:home.progress.zero">
+      **{count} confirmed invitations** = {months} months. {left} more for +{bonus} bonus months.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_ONE" desc="Browther referral (pool key home.progress.one)" meaning="browther_referral:home.progress.one">
+      **{count} confirmed invitation** = {months} months. {left} more for +{bonus} bonus months.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TWO" desc="Browther referral (pool key home.progress.two)" meaning="browther_referral:home.progress.two">
+      **{count} confirmed invitations** = {months} months. {left} more for +{bonus} bonus months.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_FEW" desc="Browther referral (pool key home.progress.few)" meaning="browther_referral:home.progress.few">
+      **{count} confirmed invitations** = {months} months. {left} more for +{bonus} bonus months.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_MANY" desc="Browther referral (pool key home.progress.many)" meaning="browther_referral:home.progress.many">
+      **{count} confirmed invitations** = {months} months. {left} more for +{bonus} bonus months.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_OTHER" desc="Browther referral (pool key home.progress.other)" meaning="browther_referral:home.progress.other">
+      **{count} confirmed invitations** = {months} months. {left} more for +{bonus} bonus months.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_LIFE_ZERO" desc="Browther referral (pool key home.progressLife.zero)" meaning="browther_referral:home.progressLife.zero">
+      **{count} confirmed invitations**: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_LIFE_ONE" desc="Browther referral (pool key home.progressLife.one)" meaning="browther_referral:home.progressLife.one">
+      **{count} confirmed invitation**: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_LIFE_TWO" desc="Browther referral (pool key home.progressLife.two)" meaning="browther_referral:home.progressLife.two">
+      **{count} confirmed invitations**: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_LIFE_FEW" desc="Browther referral (pool key home.progressLife.few)" meaning="browther_referral:home.progressLife.few">
+      **{count} confirmed invitations**: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_LIFE_MANY" desc="Browther referral (pool key home.progressLife.many)" meaning="browther_referral:home.progressLife.many">
+      **{count} confirmed invitations**: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_LIFE_OTHER" desc="Browther referral (pool key home.progressLife.other)" meaning="browther_referral:home.progressLife.other">
+      **{count} confirmed invitations**: Browther is 100% unlocked, for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TO_LIFE_ZERO" desc="Browther referral (pool key home.progressToLife.zero)" meaning="browther_referral:home.progressToLife.zero">
+      **{count} confirmed invitations** = {months} months. {left} more for lifetime access.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TO_LIFE_ONE" desc="Browther referral (pool key home.progressToLife.one)" meaning="browther_referral:home.progressToLife.one">
+      **{count} confirmed invitation** = {months} months. {left} more for lifetime access.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TO_LIFE_TWO" desc="Browther referral (pool key home.progressToLife.two)" meaning="browther_referral:home.progressToLife.two">
+      **{count} confirmed invitations** = {months} months. {left} more for lifetime access.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TO_LIFE_FEW" desc="Browther referral (pool key home.progressToLife.few)" meaning="browther_referral:home.progressToLife.few">
+      **{count} confirmed invitations** = {months} months. {left} more for lifetime access.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TO_LIFE_MANY" desc="Browther referral (pool key home.progressToLife.many)" meaning="browther_referral:home.progressToLife.many">
+      **{count} confirmed invitations** = {months} months. {left} more for lifetime access.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_HOME_PROGRESS_TO_LIFE_OTHER" desc="Browther referral (pool key home.progressToLife.other)" meaning="browther_referral:home.progressToLife.other">
+      **{count} confirmed invitations** = {months} months. {left} more for lifetime access.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MILESTONE_ZERO" desc="Browther referral (pool key invitations.milestone.zero)" meaning="browther_referral:invitations.milestone.zero">
+      +{count} bonus months · tier {at} reached
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MILESTONE_ONE" desc="Browther referral (pool key invitations.milestone.one)" meaning="browther_referral:invitations.milestone.one">
+      +{count} bonus month · tier {at} reached
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MILESTONE_TWO" desc="Browther referral (pool key invitations.milestone.two)" meaning="browther_referral:invitations.milestone.two">
+      +{count} bonus months · tier {at} reached
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MILESTONE_FEW" desc="Browther referral (pool key invitations.milestone.few)" meaning="browther_referral:invitations.milestone.few">
+      +{count} bonus months · tier {at} reached
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MILESTONE_MANY" desc="Browther referral (pool key invitations.milestone.many)" meaning="browther_referral:invitations.milestone.many">
+      +{count} bonus months · tier {at} reached
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MILESTONE_OTHER" desc="Browther referral (pool key invitations.milestone.other)" meaning="browther_referral:invitations.milestone.other">
+      +{count} bonus months · tier {at} reached
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MONTHS_ZERO" desc="Browther referral (pool key invitations.months.zero)" meaning="browther_referral:invitations.months.zero">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MONTHS_ONE" desc="Browther referral (pool key invitations.months.one)" meaning="browther_referral:invitations.months.one">
+      +{count} month
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MONTHS_TWO" desc="Browther referral (pool key invitations.months.two)" meaning="browther_referral:invitations.months.two">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MONTHS_FEW" desc="Browther referral (pool key invitations.months.few)" meaning="browther_referral:invitations.months.few">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MONTHS_MANY" desc="Browther referral (pool key invitations.months.many)" meaning="browther_referral:invitations.months.many">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_MONTHS_OTHER" desc="Browther referral (pool key invitations.months.other)" meaning="browther_referral:invitations.months.other">
+      +{count} months
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_ZERO" desc="Browther referral (pool key invitations.rowInProgress.zero)" meaning="browther_referral:invitations.rowInProgress.zero">
+      Your code has been used. {count} more days with Browther as default browser before it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_ONE" desc="Browther referral (pool key invitations.rowInProgress.one)" meaning="browther_referral:invitations.rowInProgress.one">
+      Your code has been used. {count} more day with Browther as default browser before it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_TWO" desc="Browther referral (pool key invitations.rowInProgress.two)" meaning="browther_referral:invitations.rowInProgress.two">
+      Your code has been used. {count} more days with Browther as default browser before it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_FEW" desc="Browther referral (pool key invitations.rowInProgress.few)" meaning="browther_referral:invitations.rowInProgress.few">
+      Your code has been used. {count} more days with Browther as default browser before it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_MANY" desc="Browther referral (pool key invitations.rowInProgress.many)" meaning="browther_referral:invitations.rowInProgress.many">
+      Your code has been used. {count} more days with Browther as default browser before it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_OTHER" desc="Browther referral (pool key invitations.rowInProgress.other)" meaning="browther_referral:invitations.rowInProgress.other">
+      Your code has been used. {count} more days with Browther as default browser before it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_UNKNOWN_ZERO" desc="Browther referral (pool key invitations.rowInProgressUnknown.zero)" meaning="browther_referral:invitations.rowInProgressUnknown.zero">
+      Your code has been used. The invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_UNKNOWN_ONE" desc="Browther referral (pool key invitations.rowInProgressUnknown.one)" meaning="browther_referral:invitations.rowInProgressUnknown.one">
+      Your code has been used. The invitation is confirmed once the person has kept Browther as their default browser for {count} day.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_UNKNOWN_TWO" desc="Browther referral (pool key invitations.rowInProgressUnknown.two)" meaning="browther_referral:invitations.rowInProgressUnknown.two">
+      Your code has been used. The invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_UNKNOWN_FEW" desc="Browther referral (pool key invitations.rowInProgressUnknown.few)" meaning="browther_referral:invitations.rowInProgressUnknown.few">
+      Your code has been used. The invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_UNKNOWN_MANY" desc="Browther referral (pool key invitations.rowInProgressUnknown.many)" meaning="browther_referral:invitations.rowInProgressUnknown.many">
+      Your code has been used. The invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_IN_PROGRESS_UNKNOWN_OTHER" desc="Browther referral (pool key invitations.rowInProgressUnknown.other)" meaning="browther_referral:invitations.rowInProgressUnknown.other">
+      Your code has been used. The invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_VALIDATED_ZERO" desc="Browther referral (pool key invitations.rowValidated.zero)" meaning="browther_referral:invitations.rowValidated.zero">
+      {count} days as default browser: your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_VALIDATED_ONE" desc="Browther referral (pool key invitations.rowValidated.one)" meaning="browther_referral:invitations.rowValidated.one">
+      {count} day as default browser: your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_VALIDATED_TWO" desc="Browther referral (pool key invitations.rowValidated.two)" meaning="browther_referral:invitations.rowValidated.two">
+      {count} days as default browser: your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_VALIDATED_FEW" desc="Browther referral (pool key invitations.rowValidated.few)" meaning="browther_referral:invitations.rowValidated.few">
+      {count} days as default browser: your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_VALIDATED_MANY" desc="Browther referral (pool key invitations.rowValidated.many)" meaning="browther_referral:invitations.rowValidated.many">
+      {count} days as default browser: your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITATIONS_ROW_VALIDATED_OTHER" desc="Browther referral (pool key invitations.rowValidated.other)" meaning="browther_referral:invitations.rowValidated.other">
+      {count} days as default browser: your month is added.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_FOOT_ZERO" desc="Browther referral (pool key invite.foot.zero)" meaning="browther_referral:invite.foot.zero">
+      An invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_FOOT_ONE" desc="Browther referral (pool key invite.foot.one)" meaning="browther_referral:invite.foot.one">
+      An invitation is confirmed once the person has kept Browther as their default browser for {count} day.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_FOOT_TWO" desc="Browther referral (pool key invite.foot.two)" meaning="browther_referral:invite.foot.two">
+      An invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_FOOT_FEW" desc="Browther referral (pool key invite.foot.few)" meaning="browther_referral:invite.foot.few">
+      An invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_FOOT_MANY" desc="Browther referral (pool key invite.foot.many)" meaning="browther_referral:invite.foot.many">
+      An invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_FOOT_OTHER" desc="Browther referral (pool key invite.foot.other)" meaning="browther_referral:invite.foot.other">
+      An invitation is confirmed once the person has kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_ZERO" desc="Browther referral (pool key notice.body.zero)" meaning="browther_referral:notice.body.zero">
+      +{count} months of additional features, until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_ONE" desc="Browther referral (pool key notice.body.one)" meaning="browther_referral:notice.body.one">
+      +{count} month of additional features, until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_TWO" desc="Browther referral (pool key notice.body.two)" meaning="browther_referral:notice.body.two">
+      +{count} months of additional features, until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_FEW" desc="Browther referral (pool key notice.body.few)" meaning="browther_referral:notice.body.few">
+      +{count} months of additional features, until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_MANY" desc="Browther referral (pool key notice.body.many)" meaning="browther_referral:notice.body.many">
+      +{count} months of additional features, until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_OTHER" desc="Browther referral (pool key notice.body.other)" meaning="browther_referral:notice.body.other">
+      +{count} months of additional features, until {date}.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_NO_DATE_ZERO" desc="Browther referral (pool key notice.bodyNoDate.zero)" meaning="browther_referral:notice.bodyNoDate.zero">
+      +{count} months of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_NO_DATE_ONE" desc="Browther referral (pool key notice.bodyNoDate.one)" meaning="browther_referral:notice.bodyNoDate.one">
+      +{count} month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_NO_DATE_TWO" desc="Browther referral (pool key notice.bodyNoDate.two)" meaning="browther_referral:notice.bodyNoDate.two">
+      +{count} months of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_NO_DATE_FEW" desc="Browther referral (pool key notice.bodyNoDate.few)" meaning="browther_referral:notice.bodyNoDate.few">
+      +{count} months of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_NO_DATE_MANY" desc="Browther referral (pool key notice.bodyNoDate.many)" meaning="browther_referral:notice.bodyNoDate.many">
+      +{count} months of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_BODY_NO_DATE_OTHER" desc="Browther referral (pool key notice.bodyNoDate.other)" meaning="browther_referral:notice.bodyNoDate.other">
+      +{count} months of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_WHY_ZERO" desc="Browther referral (pool key notice.why.zero)" meaning="browther_referral:notice.why.zero">
+      Someone used your referral code, and has just kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_WHY_ONE" desc="Browther referral (pool key notice.why.one)" meaning="browther_referral:notice.why.one">
+      Someone used your referral code, and has just kept Browther as their default browser for {count} day.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_WHY_TWO" desc="Browther referral (pool key notice.why.two)" meaning="browther_referral:notice.why.two">
+      Someone used your referral code, and has just kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_WHY_FEW" desc="Browther referral (pool key notice.why.few)" meaning="browther_referral:notice.why.few">
+      Someone used your referral code, and has just kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_WHY_MANY" desc="Browther referral (pool key notice.why.many)" meaning="browther_referral:notice.why.many">
+      Someone used your referral code, and has just kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_NOTICE_WHY_OTHER" desc="Browther referral (pool key notice.why.other)" meaning="browther_referral:notice.why.other">
+      Someone used your referral code, and has just kept Browther as their default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_HINT_ZERO" desc="Browther referral (pool key referee.hint.zero)" meaning="browther_referral:referee.hint.zero">
+      Someone helped you discover Browther. You received two months; theirs is added once you've kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_HINT_ONE" desc="Browther referral (pool key referee.hint.one)" meaning="browther_referral:referee.hint.one">
+      Someone helped you discover Browther. You received two months; theirs is added once you've kept Browther as your default browser for {count} day.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_HINT_TWO" desc="Browther referral (pool key referee.hint.two)" meaning="browther_referral:referee.hint.two">
+      Someone helped you discover Browther. You received two months; theirs is added once you've kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_HINT_FEW" desc="Browther referral (pool key referee.hint.few)" meaning="browther_referral:referee.hint.few">
+      Someone helped you discover Browther. You received two months; theirs is added once you've kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_HINT_MANY" desc="Browther referral (pool key referee.hint.many)" meaning="browther_referral:referee.hint.many">
+      Someone helped you discover Browther. You received two months; theirs is added once you've kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_HINT_OTHER" desc="Browther referral (pool key referee.hint.other)" meaning="browther_referral:referee.hint.other">
+      Someone helped you discover Browther. You received two months; theirs is added once you've kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_METER_ZERO" desc="Browther referral (pool key referee.meter.zero)" meaning="browther_referral:referee.meter.zero">
+      {current} of {count} days
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_METER_ONE" desc="Browther referral (pool key referee.meter.one)" meaning="browther_referral:referee.meter.one">
+      {current} of {count} day
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_METER_TWO" desc="Browther referral (pool key referee.meter.two)" meaning="browther_referral:referee.meter.two">
+      {current} of {count} days
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_METER_FEW" desc="Browther referral (pool key referee.meter.few)" meaning="browther_referral:referee.meter.few">
+      {current} of {count} days
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_METER_MANY" desc="Browther referral (pool key referee.meter.many)" meaning="browther_referral:referee.meter.many">
+      {current} of {count} days
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_METER_OTHER" desc="Browther referral (pool key referee.meter.other)" meaning="browther_referral:referee.meter.other">
+      {current} of {count} days
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_WHY_ZERO" desc="Browther referral (pool key referee.noticeWhy.zero)" meaning="browther_referral:referee.noticeWhy.zero">
+      You used their referral code, and you have just kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_WHY_ONE" desc="Browther referral (pool key referee.noticeWhy.one)" meaning="browther_referral:referee.noticeWhy.one">
+      You used their referral code, and you have just kept Browther as your default browser for {count} day.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_WHY_TWO" desc="Browther referral (pool key referee.noticeWhy.two)" meaning="browther_referral:referee.noticeWhy.two">
+      You used their referral code, and you have just kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_WHY_FEW" desc="Browther referral (pool key referee.noticeWhy.few)" meaning="browther_referral:referee.noticeWhy.few">
+      You used their referral code, and you have just kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_WHY_MANY" desc="Browther referral (pool key referee.noticeWhy.many)" meaning="browther_referral:referee.noticeWhy.many">
+      You used their referral code, and you have just kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_NOTICE_WHY_OTHER" desc="Browther referral (pool key referee.noticeWhy.other)" meaning="browther_referral:referee.noticeWhy.other">
+      You used their referral code, and you have just kept Browther as your default browser for {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_PROGRESS_ZERO" desc="Browther referral (pool key referee.progress.zero)" meaning="browther_referral:referee.progress.zero">
+      {count} more days with Browther as default browser and they earn 1 month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_PROGRESS_ONE" desc="Browther referral (pool key referee.progress.one)" meaning="browther_referral:referee.progress.one">
+      {count} more day with Browther as default browser and they earn 1 month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_PROGRESS_TWO" desc="Browther referral (pool key referee.progress.two)" meaning="browther_referral:referee.progress.two">
+      {count} more days with Browther as default browser and they earn 1 month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_PROGRESS_FEW" desc="Browther referral (pool key referee.progress.few)" meaning="browther_referral:referee.progress.few">
+      {count} more days with Browther as default browser and they earn 1 month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_PROGRESS_MANY" desc="Browther referral (pool key referee.progress.many)" meaning="browther_referral:referee.progress.many">
+      {count} more days with Browther as default browser and they earn 1 month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REFEREE_PROGRESS_OTHER" desc="Browther referral (pool key referee.progress.other)" meaning="browther_referral:referee.progress.other">
+      {count} more days with Browther as default browser and they earn 1 month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_FEATURES_TITLE_ZERO" desc="Browther referral (pool key reminder.featuresTitle.zero)" meaning="browther_referral:reminder.featuresTitle.zero">
+      In {count} days, your additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_FEATURES_TITLE_ONE" desc="Browther referral (pool key reminder.featuresTitle.one)" meaning="browther_referral:reminder.featuresTitle.one">
+      Tomorrow, your additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_FEATURES_TITLE_TWO" desc="Browther referral (pool key reminder.featuresTitle.two)" meaning="browther_referral:reminder.featuresTitle.two">
+      In {count} days, your additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_FEATURES_TITLE_FEW" desc="Browther referral (pool key reminder.featuresTitle.few)" meaning="browther_referral:reminder.featuresTitle.few">
+      In {count} days, your additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_FEATURES_TITLE_MANY" desc="Browther referral (pool key reminder.featuresTitle.many)" meaning="browther_referral:reminder.featuresTitle.many">
+      In {count} days, your additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_FEATURES_TITLE_OTHER" desc="Browther referral (pool key reminder.featuresTitle.other)" meaning="browther_referral:reminder.featuresTitle.other">
+      In {count} days, your additional features will pause.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS_COUNT_ZERO" desc="Browther referral (pool key reminder.inProgressCount.zero)" meaning="browther_referral:reminder.inProgressCount.zero">
+      One of your invitations is on its way: {count} more days with Browther as default browser and it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS_COUNT_ONE" desc="Browther referral (pool key reminder.inProgressCount.one)" meaning="browther_referral:reminder.inProgressCount.one">
+      One of your invitations is on its way: {count} more day with Browther as default browser and it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS_COUNT_TWO" desc="Browther referral (pool key reminder.inProgressCount.two)" meaning="browther_referral:reminder.inProgressCount.two">
+      One of your invitations is on its way: {count} more days with Browther as default browser and it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS_COUNT_FEW" desc="Browther referral (pool key reminder.inProgressCount.few)" meaning="browther_referral:reminder.inProgressCount.few">
+      One of your invitations is on its way: {count} more days with Browther as default browser and it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS_COUNT_MANY" desc="Browther referral (pool key reminder.inProgressCount.many)" meaning="browther_referral:reminder.inProgressCount.many">
+      One of your invitations is on its way: {count} more days with Browther as default browser and it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_IN_PROGRESS_COUNT_OTHER" desc="Browther referral (pool key reminder.inProgressCount.other)" meaning="browther_referral:reminder.inProgressCount.other">
+      One of your invitations is on its way: {count} more days with Browther as default browser and it's confirmed.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_ZERO" desc="Browther referral (pool key reminder.monthsNext.zero)" meaning="browther_referral:reminder.monthsNext.zero">
+      Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_ONE" desc="Browther referral (pool key reminder.monthsNext.one)" meaning="browther_referral:reminder.monthsNext.one">
+      Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_TWO" desc="Browther referral (pool key reminder.monthsNext.two)" meaning="browther_referral:reminder.monthsNext.two">
+      Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_FEW" desc="Browther referral (pool key reminder.monthsNext.few)" meaning="browther_referral:reminder.monthsNext.few">
+      Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_MANY" desc="Browther referral (pool key reminder.monthsNext.many)" meaning="browther_referral:reminder.monthsNext.many">
+      Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_OTHER" desc="Browther referral (pool key reminder.monthsNext.other)" meaning="browther_referral:reminder.monthsNext.other">
+      Each confirmed invitation adds one. {count} more and you get a {bonus}-month bonus.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_LIFE_ZERO" desc="Browther referral (pool key reminder.monthsNextLife.zero)" meaning="browther_referral:reminder.monthsNextLife.zero">
+      Each confirmed invitation adds one. {count} more and Browther is unlocked for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_LIFE_ONE" desc="Browther referral (pool key reminder.monthsNextLife.one)" meaning="browther_referral:reminder.monthsNextLife.one">
+      Each confirmed invitation adds one. {count} more and Browther is unlocked for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_LIFE_TWO" desc="Browther referral (pool key reminder.monthsNextLife.two)" meaning="browther_referral:reminder.monthsNextLife.two">
+      Each confirmed invitation adds one. {count} more and Browther is unlocked for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_LIFE_FEW" desc="Browther referral (pool key reminder.monthsNextLife.few)" meaning="browther_referral:reminder.monthsNextLife.few">
+      Each confirmed invitation adds one. {count} more and Browther is unlocked for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_LIFE_MANY" desc="Browther referral (pool key reminder.monthsNextLife.many)" meaning="browther_referral:reminder.monthsNextLife.many">
+      Each confirmed invitation adds one. {count} more and Browther is unlocked for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_NEXT_LIFE_OTHER" desc="Browther referral (pool key reminder.monthsNextLife.other)" meaning="browther_referral:reminder.monthsNextLife.other">
+      Each confirmed invitation adds one. {count} more and Browther is unlocked for life.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_TITLE_ZERO" desc="Browther referral (pool key reminder.monthsTitle.zero)" meaning="browther_referral:reminder.monthsTitle.zero">
+      In {count} days, the months you earned come to an end.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_TITLE_ONE" desc="Browther referral (pool key reminder.monthsTitle.one)" meaning="browther_referral:reminder.monthsTitle.one">
+      Tomorrow, the months you earned come to an end.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_TITLE_TWO" desc="Browther referral (pool key reminder.monthsTitle.two)" meaning="browther_referral:reminder.monthsTitle.two">
+      In {count} days, the months you earned come to an end.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_TITLE_FEW" desc="Browther referral (pool key reminder.monthsTitle.few)" meaning="browther_referral:reminder.monthsTitle.few">
+      In {count} days, the months you earned come to an end.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_TITLE_MANY" desc="Browther referral (pool key reminder.monthsTitle.many)" meaning="browther_referral:reminder.monthsTitle.many">
+      In {count} days, the months you earned come to an end.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_MONTHS_TITLE_OTHER" desc="Browther referral (pool key reminder.monthsTitle.other)" meaning="browther_referral:reminder.monthsTitle.other">
+      In {count} days, the months you earned come to an end.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_ZERO" desc="Browther referral (pool key reminder.subscriptionTitle.zero)" meaning="browther_referral:reminder.subscriptionTitle.zero">
+      Your subscription ends in {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_ONE" desc="Browther referral (pool key reminder.subscriptionTitle.one)" meaning="browther_referral:reminder.subscriptionTitle.one">
+      Your subscription ends tomorrow.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_TWO" desc="Browther referral (pool key reminder.subscriptionTitle.two)" meaning="browther_referral:reminder.subscriptionTitle.two">
+      Your subscription ends in {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_FEW" desc="Browther referral (pool key reminder.subscriptionTitle.few)" meaning="browther_referral:reminder.subscriptionTitle.few">
+      Your subscription ends in {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_MANY" desc="Browther referral (pool key reminder.subscriptionTitle.many)" meaning="browther_referral:reminder.subscriptionTitle.many">
+      Your subscription ends in {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_OTHER" desc="Browther referral (pool key reminder.subscriptionTitle.other)" meaning="browther_referral:reminder.subscriptionTitle.other">
+      Your subscription ends in {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_ZERO" desc="Browther referral (pool key support.inviteCount.zero)" meaning="browther_referral:support.inviteCount.zero">
+      Invite {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_ONE" desc="Browther referral (pool key support.inviteCount.one)" meaning="browther_referral:support.inviteCount.one">
+      Invite {count} person
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_TWO" desc="Browther referral (pool key support.inviteCount.two)" meaning="browther_referral:support.inviteCount.two">
+      Invite {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_FEW" desc="Browther referral (pool key support.inviteCount.few)" meaning="browther_referral:support.inviteCount.few">
+      Invite {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_MANY" desc="Browther referral (pool key support.inviteCount.many)" meaning="browther_referral:support.inviteCount.many">
+      Invite {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_OTHER" desc="Browther referral (pool key support.inviteCount.other)" meaning="browther_referral:support.inviteCount.other">
+      Invite {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_SUB_ZERO" desc="Browther referral (pool key support.inviteSub.zero)" meaning="browther_referral:support.inviteSub.zero">
+      Browther as default browser for {count} days = confirmed invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_SUB_ONE" desc="Browther referral (pool key support.inviteSub.one)" meaning="browther_referral:support.inviteSub.one">
+      Browther as default browser for {count} day = confirmed invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_SUB_TWO" desc="Browther referral (pool key support.inviteSub.two)" meaning="browther_referral:support.inviteSub.two">
+      Browther as default browser for {count} days = confirmed invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_SUB_FEW" desc="Browther referral (pool key support.inviteSub.few)" meaning="browther_referral:support.inviteSub.few">
+      Browther as default browser for {count} days = confirmed invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_SUB_MANY" desc="Browther referral (pool key support.inviteSub.many)" meaning="browther_referral:support.inviteSub.many">
+      Browther as default browser for {count} days = confirmed invitation
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_SUB_OTHER" desc="Browther referral (pool key support.inviteSub.other)" meaning="browther_referral:support.inviteSub.other">
+      Browther as default browser for {count} days = confirmed invitation
+    </message>
+    <!-- BROWTHER_REFERRAL:END -->
   </messages>
   </release>
 </grit>

@@ -35,6 +35,8 @@ public final class BrowtherIntroModel {
         BLUR("blur"),
         MUSIC("music"),
         DEFAULT_BROWSER("default"),
+        /** O — le code d'un proche (private/docs/PARRAINAGE.md § 1), si le parrainage existe. */
+        REFERRAL_CODE("referral_code"),
         CHANNELS("channels");
 
         public final String key;
@@ -126,6 +128,14 @@ public final class BrowtherIntroModel {
 
         /** Fin du parcours : le navigateur prend la main. */
         void finish();
+
+        /**
+         * Le parrainage existe-t-il dans ce binaire ? Alors l'écran O (le code d'un proche) suit
+         * « navigateur par défaut ». Faux par défaut : l'aperçu hors Chromium n'a pas à le savoir.
+         */
+        default boolean referralEnabled() {
+            return false;
+        }
     }
 
     /** Ce que l'écran observe. */
@@ -190,6 +200,10 @@ public final class BrowtherIntroModel {
         steps.add(Step.MUSIC);
         if (!isDefaultBrowser) {
             steps.add(Step.DEFAULT_BROWSER);
+        }
+        // Browther : l'écran O du parrainage, juste après « navigateur par défaut » (comme iOS).
+        if (host.referralEnabled()) {
+            steps.add(Step.REFERRAL_CODE);
         }
         steps.add(Step.CHANNELS);
         mSteps = Collections.unmodifiableList(steps);
@@ -402,6 +416,20 @@ public final class BrowtherIntroModel {
     public void later() {
         mHost.track("onboarding_later_tapped", "feature", "default_browser");
         advance();
+    }
+
+    /** « Plus tard » sur l'écran O : le code d'un proche reste saisissable dans « Parrainage ». */
+    public void referralLater() {
+        mHost.track("onboarding_later_tapped", "feature", "referral_code");
+        advance();
+    }
+
+    /** Un code accepté se fête : confettis (une fois) et haptique de succès. */
+    public void celebrateReferralCode() {
+        if (mCelebrated.contains(Step.REFERRAL_CODE)) return;
+        mCelebrated.add(Step.REFERRAL_CODE);
+        haptic(Haptic.SUCCESS);
+        for (Listener listener : mListeners) listener.onCelebrate();
     }
 
     // -------------------- Canaux dev&din --------------------
