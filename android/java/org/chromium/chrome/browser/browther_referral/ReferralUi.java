@@ -338,7 +338,7 @@ public final class ReferralUi {
      */
     public static View primaryButton(
             Context context, Palette p, String label, String sub, int iconRes, Runnable action) {
-        return filledButton(context, p, label, sub, iconRes, p.primary, p.onPrimary, action);
+        return filledButton(context, label, sub, iconRes, p.primary, p.onPrimary, action);
     }
 
     /**
@@ -351,7 +351,6 @@ public final class ReferralUi {
         View button =
                 filledButton(
                         context,
-                        p,
                         label,
                         sub,
                         R.drawable.browther_referral_glyph_infinity,
@@ -376,7 +375,6 @@ public final class ReferralUi {
 
     private static View filledButton(
             Context context,
-            Palette p,
             String label,
             String sub,
             int iconRes,

@@ -166,12 +166,16 @@ public final class ReferralClient {
         return body;
     }
 
+    @SuppressWarnings("UseNetworkAnnotations")
     private ReferralJson.Obj call(
             String path, Map<String, Object> extra, boolean bounded, Map<String, String> headers)
             throws ReferralUnavailable {
         HttpURLConnection connection = null;
         try {
             byte[] payload = ReferralJson.stringify(body(extra)).getBytes(StandardCharsets.UTF_8);
+            // ⚠️ `URL#openConnection` direct, voulu : le cœur ne dépend que de `java.*` (tests JVM,
+            // § 8.6). Chromium le signale (`UseNetworkAnnotations`) — l'exception est levée sur la
+            // méthode, avec cette raison.
             connection = (HttpURLConnection) new URL(baseURL + path).openConnection();
             int timeout = bounded ? readTimeout : writeTimeout;
             connection.setConnectTimeout(timeout);

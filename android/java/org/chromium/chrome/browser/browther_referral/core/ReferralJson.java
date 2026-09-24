@@ -90,10 +90,10 @@ public final class ReferralJson {
                     return string();
                 case 't':
                     literal("true");
-                    return Boolean.TRUE;
+                    return true;
                 case 'f':
                     literal("false");
-                    return Boolean.FALSE;
+                    return false;
                 case 'n':
                     literal("null");
                     return null;

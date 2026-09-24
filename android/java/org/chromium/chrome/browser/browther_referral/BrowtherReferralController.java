@@ -155,7 +155,7 @@ public final class BrowtherReferralController {
     private final ExecutorService mIo = Executors.newSingleThreadExecutor();
     private final List<Listener> mListeners = new ArrayList<>();
 
-    private boolean mEnabled;
+    private final boolean mEnabled;
     private @Nullable ReferralStatus mStatus;
     /** ⭐ Un statut FRAIS de cette session — l'OUVERTURE d'un écran l'exige ; le cache suffit pour peindre. */
     private boolean mFresh;

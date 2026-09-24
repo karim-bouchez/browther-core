@@ -340,7 +340,7 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
                         ReferralUi.MATCH, ReferralUi.WRAP, Gravity.CENTER);
         centerer.addView(column, columnParams);
         capWidth(column);
-        scroll.addView(centerer, new ScrollView.LayoutParams(ReferralUi.MATCH, ReferralUi.MATCH));
+        scroll.addView(centerer, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.MATCH));
         page.addView(scroll, new LinearLayout.LayoutParams(ReferralUi.MATCH, 0, 1));
 
         LinearLayout foot = ReferralUi.column(context);

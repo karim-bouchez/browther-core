@@ -156,22 +156,22 @@ public class ReferralGaugeView extends LinearLayout {
         mLeftUnit = singleLine(ReferralUi.text(context, 15, ReferralUi.REGULAR, p.text2));
         leftRow.addView(mLeftNumber);
         leftRow.addView(mLeftUnit, unitParams(context));
-        left.addView(leftRow, new LayoutParams(ReferralUi.WRAP, ReferralUi.dp(context, 42)));
-        numbers.addView(left, new LayoutParams(0, ReferralUi.WRAP, 1));
+        left.addView(leftRow, new LinearLayout.LayoutParams(ReferralUi.WRAP, ReferralUi.dp(context, 42)));
+        numbers.addView(left, new LinearLayout.LayoutParams(0, ReferralUi.WRAP, 1));
 
         LinearLayout right = ReferralUi.column(context);
         right.setGravity(Gravity.END);
         mThenLabel = singleLine(ReferralUi.text(context, 13, ReferralUi.REGULAR, p.text2));
         mThenLabel.setGravity(Gravity.END);
-        right.addView(mThenLabel, new LayoutParams(ReferralUi.WRAP, ReferralUi.WRAP));
+        right.addView(mThenLabel, new LinearLayout.LayoutParams(ReferralUi.WRAP, ReferralUi.WRAP));
         LinearLayout rightRow = baselineRow(context);
         rightRow.setGravity(Gravity.BOTTOM | Gravity.END);
         mRightNumber = bigNumber(context);
         mRightUnit = singleLine(ReferralUi.text(context, 15, ReferralUi.REGULAR, p.text2));
         rightRow.addView(mRightNumber);
         rightRow.addView(mRightUnit, unitParams(context));
-        right.addView(rightRow, new LayoutParams(ReferralUi.WRAP, ReferralUi.dp(context, 42)));
-        numbers.addView(right, new LayoutParams(0, ReferralUi.WRAP, 1));
+        right.addView(rightRow, new LinearLayout.LayoutParams(ReferralUi.WRAP, ReferralUi.dp(context, 42)));
+        numbers.addView(right, new LinearLayout.LayoutParams(0, ReferralUi.WRAP, 1));
         panel.addView(numbers, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
 
         mBonusLine = singleLine(ReferralUi.text(context, 13, ReferralUi.REGULAR, p.text2));
@@ -722,11 +722,6 @@ public class ReferralGaugeView extends LinearLayout {
         }
 
         @Override
-        public boolean performClick() {
-            return super.performClick();
-        }
-
-        @Override
         public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
             super.onInitializeAccessibilityNodeInfo(info);
             info.setClassName("android.widget.SeekBar");
@@ -745,7 +740,7 @@ public class ReferralGaugeView extends LinearLayout {
                 return super.performAccessibilityAction(action, arguments);
             }
             double next =
-                    Math.max(minimum(), Math.min(maxValue(), Math.round(mMotion.position) + step));
+                    Math.max(minimum(), (double) Math.min(maxValue(), Math.round(mMotion.position) + step));
             grab();
             mMotion.animate(next, 0.35, 1, 0, true, null);
             release((int) next, 0);
@@ -844,7 +839,6 @@ public class ReferralGaugeView extends LinearLayout {
         private @Nullable ValueAnimator mShimmer;
         private float mShimmerAt = -0.5f;
         private boolean mLit;
-        private int mLifetimeAt = 10;
         private int mCount = -1;
 
         LifetimeCard(Context context, ReferralUi.Palette p) {
@@ -887,7 +881,7 @@ public class ReferralGaugeView extends LinearLayout {
                     new LinearLayout.LayoutParams(ReferralUi.WRAP, ReferralUi.WRAP);
             counterParams.setMarginStart(ReferralUi.dp(context, 4));
             row.addView(mCounter, counterParams);
-            addView(row, new LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
+            addView(row, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
             if (android.os.Build.VERSION.SDK_INT >= 28) {
                 setOutlineSpotShadowColor(Palette_GOLD);
                 setOutlineAmbientShadowColor(Palette_GOLD);
@@ -899,7 +893,6 @@ public class ReferralGaugeView extends LinearLayout {
 
         void update(int count, boolean lit, int lifetimeAt) {
             Context context = getContext();
-            mLifetimeAt = lifetimeAt;
             int shown = Math.min(count, lifetimeAt);
             if (shown != mCount) {
                 mCount = shown;

@@ -124,7 +124,7 @@ public final class ReferralSheetDialog extends BottomSheetDialog {
         int padH = ReferralUi.dp(context, 22);
         column.setPadding(padH, ReferralUi.dp(context, 28), padH, ReferralUi.dp(context, 20));
         fill(column);
-        scroll.addView(column, new ScrollView.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
+        scroll.addView(column, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
         root.addView(scroll, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
 
         ImageView close = ReferralUi.glyph(context, R.drawable.browther_intro_glyph_xmark, 15, p.text2);

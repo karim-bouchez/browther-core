@@ -274,7 +274,12 @@ public final class BasarunaaBenchmark {
                     "Model " + model.shortName + " has no TFLite variant (onnx2tf KO)");
         }
         final BasarunaaBackend runtime = backend.toRuntime();
-        final String assetName = TfliteRuntime.assetNameFor(model.tfliteBaseName, runtime);
+        // Browther : `hasTflite()` ne renseigne pas NullAway — on relit le champ en local.
+        final String tfliteBaseName = model.tfliteBaseName;
+        if (tfliteBaseName == null) {
+            throw new IllegalArgumentException("Model " + model.shortName + " has no TFLite variant");
+        }
+        final String assetName = TfliteRuntime.assetNameFor(tfliteBaseName, runtime);
         final long modelSizeBytes = TfliteRuntime.assetSizeBytes(assetName);
         final int threads = OrtRuntime.intraOpThreads();
 

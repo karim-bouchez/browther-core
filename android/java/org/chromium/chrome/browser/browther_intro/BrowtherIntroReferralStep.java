@@ -73,8 +73,9 @@ final class BrowtherIntroReferralStep extends BrowtherIntroStepView {
     void bind(boolean animated) {
         mScene.removeAllViews();
         boolean already =
-                mRedeemed || BrowtherReferralController.get().known() != null
-                        && BrowtherReferralController.get().known().referredBy != null;
+                mRedeemed
+                        || (BrowtherReferralController.get().known() != null
+                                && BrowtherReferralController.get().known().referredBy != null);
         if (already) {
             // Un code déjà accepté : ⛔ pas de second champ, la phrase qui dit ce qu'il a donné.
             TextView done =
