@@ -218,7 +218,11 @@ void SawtunaaPanelHandler::OpenReferralSupport() {
   content::WebContents* contents = GetActiveWebContents();
   CloseUI();
   if (contents) {
-    browther_referral::ShowModal(contents, "paused");
+    // ⭐ `chosen` : la personne a cliqué elle-même, donc la fenêtre se ferme
+    // normalement (croix, Échap) et n'arme pas le circuit des trois façons —
+    // « une fenêtre qu'on pouvait fermer n'en ouvre pas une qu'on ne peut plus
+    // fermer » (`docs/PARRAINAGE.md` § 12.16).
+    browther_referral::ShowModal(contents, "paused", /*chosen=*/true);
   }
 }
 

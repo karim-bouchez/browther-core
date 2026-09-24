@@ -36,7 +36,13 @@ namespace browther_referral {
 // de fenêtre parente) : l'app affiche alors l'écran dans la page — contournable,
 // mais VU. ⛔ Jamais d'échec silencieux : ce serait perdre le seul moment où
 // Browther demande quelque chose.
-bool ShowModal(content::WebContents* initiator, const std::string& screen);
+// ⭐ `chosen` : la personne a OUVERT l'écran elle-même (« Débloquer » de la
+// popup Sawtunaa). Il se ferme alors normalement — croix, Échap — et n'arme pas
+// le circuit : « une fenêtre qu'on pouvait fermer n'en ouvre pas une qu'on ne
+// peut plus fermer » (`docs/PARRAINAGE.md` § 12.16).
+bool ShowModal(content::WebContents* initiator,
+               const std::string& screen,
+               bool chosen = false);
 
 // ⭐ La fenêtre suit la hauteur de la carte : chaque écran du flow a la sienne,
 // et une taille fixe faisait défiler alors que la place ne manquait pas

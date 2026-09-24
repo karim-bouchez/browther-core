@@ -56,16 +56,17 @@ gfx::NativeWindow& ModalWindow() {
 
 class ReferralDialogDelegate : public ui::WebDialogDelegate {
  public:
-  explicit ReferralDialogDelegate(const std::string& screen) {
+  ReferralDialogDelegate(const std::string& screen, bool chosen) {
     set_can_close(true);
     set_dialog_modal_type(ui::mojom::ModalType::kWindow);
     set_show_dialog_title(false);
     set_dialog_size(gfx::Size(kDialogWidth, kDialogHeight));
     // `host=modal` : l'app ne monte QUE le flow (⛔ pas l'écran Parrainage
     // derrière), et `screen` lui dit lequel ouvrir (`app.tsx`).
-    set_dialog_content_url(
-        GURL(base::StrCat({kReferralURL, "?host=modal&screen=",
-                           base::EscapeQueryParamValue(screen, false)})));
+    set_dialog_content_url(GURL(
+        base::StrCat({kReferralURL, "?host=modal&screen=",
+                      base::EscapeQueryParamValue(screen, false),
+                      chosen ? "&chosen=1" : ""})));
   }
 
   // ⭐ Le voile de la fenêtre du navigateur disparaît AVEC la modale, quelle
@@ -84,7 +85,9 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
 
 }  // namespace
 
-bool ShowModal(content::WebContents* initiator, const std::string& screen) {
+bool ShowModal(content::WebContents* initiator,
+               const std::string& screen,
+               bool chosen) {
   if (!IsEnabled() || !initiator) {
     return false;
   }
@@ -121,7 +124,7 @@ bool ShowModal(content::WebContents* initiator, const std::string& screen) {
   ShowScrim(parent_widget);
   ModalWindow() = chrome::ShowWebDialogWithParams(
       parent_widget->GetNativeView(), initiator->GetBrowserContext(),
-      new ReferralDialogDelegate(screen), std::move(params));
+      new ReferralDialogDelegate(screen, chosen), std::move(params));
   if (!ModalWindow()) {
     HideScrim();
     return false;
