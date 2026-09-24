@@ -28,11 +28,27 @@ import UIKit
 struct ReferralHomeView: View {
   enum Tab: Hashable {
     case invite, invitations, code, support
+
+    /// ⭐ **Un onglet est une VUE, et il se compte** (§ 13.2) — « Soutenir »
+    /// montre le MÊME écran de paiement que la fenêtre 7 : sans lui, son entrée
+    /// la plus fréquente n'avait aucun affichage. Les identifiants de Sawtunaa ;
+    /// `invite`, l'onglet d'ouverture, est l'écran lui-même (`home`).
+    var analyticsName: String {
+      switch self {
+      case .invite: return "home"
+      case .invitations: return "invitations"
+      case .code: return "redeem"
+      case .support: return "billing"
+      }
+    }
   }
 
   @ObservedObject private var controller = BrowtherReferralController.shared
   @Environment(\.referralNote) private var note
   @State private var tab: Tab = .invite
+  /// Les onglets déjà vus depuis l'ouverture — l'onglet de départ est compté
+  /// avec l'écran (`viewDidLoad`, `home`).
+  @State private var seenTabs: Set<Tab> = [.invite]
   @State private var celebratedAt: Date?
 
   var body: some View {
@@ -89,6 +105,11 @@ struct ReferralHomeView: View {
     // ⭐ On vient ici EXPRÈS : c'est le pendant de « Choisir ma formule » (§ 12.26).
     if next == .support {
       note(.paywallAction, ["screen": "home", "action": "billing"])
+    }
+    // Une fois par OUVERTURE de l'écran : ⛔ revenir sur un onglet déjà vu est
+    // un retour, et l'aller-retour gonflerait l'onglet.
+    if seenTabs.insert(next).inserted {
+      BrowtherReferralPresenter.countShown(next.analyticsName, source: .user, preview: false)
     }
     tab = next
   }

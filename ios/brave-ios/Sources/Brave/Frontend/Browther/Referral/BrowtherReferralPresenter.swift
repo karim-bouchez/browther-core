@@ -178,8 +178,9 @@ enum BrowtherReferralPresenter {
   /// de gens ont vu l'écran de paiement ? » n'avait pas de réponse.
   ///
   /// Appelée par ce qui POSE une fenêtre — `present` (feuilles),
-  /// `ReferralFlowModel.show` (la pile), l'écran Parrainage à sa création, le
-  /// toast de la garde —, ⛔ jamais par un écran. ⛔ Un retour ne compte pas, ni
+  /// `ReferralFlowModel.show` (la pile), l'écran Parrainage à sa création et ses
+  /// onglets (une fois par ouverture), le toast de la garde —, ⛔ jamais par
+  /// un écran du flow. ⛔ Un retour ne compte pas, ni
   /// un aperçu. Verrouillé par `private/scripts/ios-referral-tests/analytics_check.py`.
   @MainActor
   static func countShown(
