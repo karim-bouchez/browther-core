@@ -210,6 +210,16 @@ public struct ShareOutcome: Codable, Equatable, Sendable {
   public var grace: Grace
 }
 
+/// `POST /v1/transfer` — l'appareil REJOINT le compte (fusion, brief B ter) :
+/// un seul code, un seul compteur, rien de perdu. Le statut rendu est celui de
+/// la CIBLE, dans tous les cas.
+public struct TransferOutcome: Decodable, Equatable, Sendable {
+  public var transferred: Bool?
+  /// `renamed` · `merged` · `unknown_source` · `same_subject`
+  public var reason: String?
+  public var status: ReferralStatus
+}
+
 public enum RedeemRefusal: String, Codable, Sendable {
   case unknownCode = "unknown_code"
   case `self` = "self"

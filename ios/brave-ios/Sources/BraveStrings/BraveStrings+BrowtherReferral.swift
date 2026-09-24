@@ -635,8 +635,16 @@ extension Strings {
     }
     public static var billingTerms: String { t("billing.terms", "Terms of use") }
     public static var billingPrivacy: String { t("billing.privacy", "Privacy") }
+    /// ⚠️ StoreKit ne ramène QUE ce qui a été payé à Apple, avec ce compte
+    /// Apple : l'ancien libellé (« Déjà abonné sur un autre iPhone ? ») a
+    /// envoyé Karim sur une fausse piste pour un abonnement payé sur le Mac
+    /// (recette du 2026-09-24). Le Mac, c'est `billingElsewhere`.
     public static var billingRestore: String {
-      t("billing.restore", "Already subscribed on another iPhone? Restore my purchases")
+      t("billing.restore", "Paid with your Apple account? Restore my purchases")
+    }
+    /// La vraie réponse à « j'ai payé ailleurs » : le compte dev&din.
+    public static var billingElsewhere: String {
+      t("billing.elsewhere", "Paid on your computer? Connect your dev&din account")
     }
     public static var billingRestored: String { t("billing.restored", "Done: your subscription is back.") }
     public static var billingRestoreNone: String { t("billing.restoreNone", "Nothing to restore for now.") }
@@ -737,6 +745,49 @@ extension Strings {
     public static var homeEmptyHint: String {
       t("home.emptyHint", "They'll show up here as soon as someone uses your code.")
     }
+    // MARK: Sur tes autres appareils (le compte facultatif, § 7.1)
+
+    public static var accountHead: String { t("home.accountHead", "On your other devices") }
+    public static var accountBody: String {
+      t(
+        "account.bodyPhone",
+        "Connect your dev&din account, the same one as on your computer: your months of additional features, your code and your subscription follow you on this iPhone."
+      )
+    }
+    public static var accountOnly: String {
+      t(
+        "account.only",
+        "The account only keeps your support: months earned, code, subscription. Never your history, bookmarks or tabs."
+      )
+    }
+    public static var accountConnect: String { t("account.connect", "Connect a dev&din account") }
+    public static var accountWithApple: String { t("account.withApple", "Continue with Apple") }
+    public static var accountWithGoogle: String { t("account.withGoogle", "Continue with Google") }
+    public static var accountWithEmail: String { t("account.withEmail", "Continue with an email") }
+    public static var accountEmailPlaceholder: String { t("account.emailPlaceholder", "example@address.com") }
+    public static var accountSendCode: String { t("account.sendCode", "Get a code") }
+    public static func accountCodeSent(_ email: String) -> String {
+      fill(t("account.codeSent", "Code sent to {email}. It's valid for 15 minutes."), ["email": email])
+    }
+    public static var accountVerify: String { t("account.verify", "Sign in") }
+    public static var accountBadCode: String {
+      t("account.badCode", "This code doesn't work. Check it, or ask for a new one.")
+    }
+    public static var accountRetry: String { t("account.retry", "Try again") }
+    public static var accountCancel: String { t("account.cancel", "Cancel") }
+    public static var accountUnreachable: String {
+      t("account.unreachable", "We can't reach the sign-in service. Check your connection.")
+    }
+    public static var accountError: String { t("account.error", "The sign-in didn't go through.") }
+    public static var accountConnected: String { t("account.connected", "Connected to your dev&din account.") }
+    public static func accountConnectedAs(_ email: String) -> String {
+      fill(t("account.connectedAs", "Connected to your dev&din account: {email}"), ["email": email])
+    }
+    public static var accountLinked: String {
+      t("account.linked", "Done: your support follows you on this iPhone.")
+    }
+    public static var accountSignOut: String { t("account.signOutPhone", "Disconnect this iPhone") }
+
     public static func homeLinkOpens(_ count: Int) -> String {
       fill(t("home.linkOpens", "Link opens: {count}"), ["count": "\(count)"])
     }

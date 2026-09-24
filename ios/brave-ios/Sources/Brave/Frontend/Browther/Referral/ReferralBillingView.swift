@@ -32,6 +32,7 @@ struct ReferralBillingBody: View {
 
   @ObservedObject private var controller = BrowtherReferralController.shared
   @State private var restoring = false
+  @State private var showsSignIn = false
 
   var body: some View {
     if controller.known?.subscription.active == true {
@@ -112,6 +113,25 @@ struct ReferralBillingBody: View {
       }
       .buttonStyle(.plain)
       .disabled(restoring || preview)
+      // ⭐ La vraie réponse à « j'ai payé ailleurs » (recette Karim, 2026-09-24 :
+      // payé sur le Mac, « Restaurer » ne ramène que les achats Apple). Le
+      // compte dev&din est le seul pont entre Polar et StoreKit.
+      if controller.account == nil, !preview {
+        Button {
+          controller.track("paywall_action", ["screen": "7", "action": "account"])
+          showsSignIn = true
+        } label: {
+          Text(Strings.BrowtherReferral.billingElsewhere)
+            .font(.footnote.weight(.medium))
+            .foregroundStyle(ReferralPalette.green)
+            .multilineTextAlignment(.center)
+            .padding(.vertical, 6)
+        }
+        .buttonStyle(.plain)
+        .sheet(isPresented: $showsSignIn) {
+          ReferralSignInSheet()
+        }
+      }
     }
   }
 

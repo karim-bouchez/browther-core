@@ -28,6 +28,7 @@ public final class ReferralStorage: @unchecked Sendable {
     static let snapshotDay = "browther.referral.snapshot-day"
     static let recetteSubject = "browther.referral.recette-subject"
     static let recetteToken = "browther.referral.recette-token"
+    static let transferredFor = "browther.referral.transferred-for"
   }
 
   // MARK: - L'état des sollicitations
@@ -76,6 +77,15 @@ public final class ReferralStorage: @unchecked Sendable {
   public var snapshotDay: String? {
     get { defaults.string(forKey: Key.snapshotDay) }
     set { defaults.set(newValue, forKey: Key.snapshotDay) }
+  }
+
+  // MARK: - Le compte (§ 7.1)
+
+  /// Le compte dans lequel CET appareil a déjà été fusionné (`/v1/transfer`) —
+  /// une fois par compte. ⚠️ Un identifiant, ⛔ jamais le jeton (trousseau).
+  public var transferredFor: String? {
+    get { defaults.string(forKey: Key.transferredFor) }
+    set { defaults.set(newValue, forKey: Key.transferredFor) }
   }
 
   // MARK: - 🧪 Recette (§ 12.18)

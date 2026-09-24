@@ -47,6 +47,9 @@ final class BrowtherReferralController: ObservableObject {
   @Published private(set) var fresh = false
   @Published private(set) var prompt: ReferralPromptState
   @Published private(set) var subjectRef: String?
+  /// Le compte dev&din FACULTATIF (§ 7.1) — `nil` sans compte. Quand il est
+  /// là, le sujet EST le compte, et l'appareil n'est plus que `deviceRef`.
+  @Published private(set) var account: ReferralAccount?
   /// L'intention de la jauge « jouet » : la réponse à « combien penses-tu
   /// pouvoir inviter ? » survit d'un écran à l'autre du MÊME moment (§ 12.20).
   @Published var gaugeIntention: Int?
@@ -63,10 +66,16 @@ final class BrowtherReferralController: ObservableObject {
   @Published var period: BillingPeriod = .yearly
 
   private var client: ReferralClient?
+  /// L'identité de CET appareil (ou celle de recette) — le sujet sans compte,
+  /// le `deviceRef` avec.
+  private var deviceRef: String?
   private let storage = ReferralStorage.shared
   private var booted = false
   private var registered = false
-  private var registering = false
+  /// Le client dont l'enregistrement est EN COURS — ⚠️ par client, pas un
+  /// simple drapeau : une connexion change de sujet pendant qu'un
+  /// enregistrement de l'appareil peut encore tourner.
+  private var registering: ReferralClient?
   private var retryAttempt = 0
   private var lastRefresh: Date?
   private var trialCatchUpFor: String?
@@ -164,17 +173,18 @@ final class BrowtherReferralController: ObservableObject {
     guard !booted else { return }
     booted = true
     guard enabled else { return }
-    let subject = storage.recetteSubject ?? ReferralIdentity.deviceSubject()
-    guard let subject else {
+    guard let device = storage.recetteSubject ?? ReferralIdentity.deviceSubject() else {
       // ⛔ Sans identité stable, personne à qui rattacher un code : tout ouvert.
       enabled = false
       return
     }
-    subjectRef = subject
-    client = ReferralClient(
-      identity: ReferralIdentityBody(product: ReferralProduct.key, subjectRef: subject, platform: .ios)
-    )
-    status = storage.cachedStatus(for: subject)
+    deviceRef = device
+    // 🧪 Une identité de recette est un appareil NEUF : ⛔ pas de compte dessus.
+    if storage.recetteSubject == nil, let stored = ReferralAccountStore.load() {
+      account = stored.account
+    }
+    let subject = account?.userId ?? device
+    useSubject(subject)
     foregroundObserver = NotificationCenter.default.addObserver(
       forName: UIApplication.willEnterForegroundNotification,
       object: nil,
@@ -184,6 +194,25 @@ final class BrowtherReferralController: ObservableObject {
     }
     Task { await register() }
     Task { await startBilling(subject) }
+  }
+
+  /// Le sujet change (démarrage, connexion, déconnexion) : un client neuf, le
+  /// statut en cache de CE sujet, et tout est à redemander au service.
+  private func useSubject(_ subject: String) {
+    subjectRef = subject
+    client = ReferralClient(
+      identity: ReferralIdentityBody(
+        product: ReferralProduct.key,
+        subjectRef: subject,
+        deviceRef: subject == deviceRef ? nil : deviceRef,
+        platform: .ios
+      )
+    )
+    status = storage.cachedStatus(for: subject)
+    fresh = false
+    registered = false
+    retryAttempt = 0
+    trialCatchUpFor = nil
   }
 
   // MARK: - Le paiement (RevenueCat, § 7.4)
@@ -250,11 +279,29 @@ final class BrowtherReferralController: ObservableObject {
   }
 
   private func register() async {
-    guard let client, !registering else { return }
-    registering = true
-    defer { registering = false }
+    guard let client, registering !== client else { return }
+    registering = client
+    defer { if registering === client { registering = nil } }
     do {
-      adopt(try await client.register())
+      if let account, let deviceRef, account.userId != deviceRef, storage.transferredFor != account.userId {
+        // ⭐ Le compte vient d'être connecté (ou jamais fusionné ici) :
+        // l'appareil REJOINT le compte (brief B ter — un seul code, un seul
+        // compteur). Une fois par compte ; le service est idempotent.
+        let outcome = try await client.transfer(fromRef: deviceRef, toRef: account.userId)
+        guard self.client === client else { return }
+        storage.transferredFor = account.userId
+        adopt(outcome.status)
+        track("account_merged", ["reason": outcome.reason ?? "unknown"])
+        // ⚠️ La fusion ne porte PAS l'abonnement (§ 12.19) : celui payé sur
+        // l'ordinateur est rejoué sur le compte par browther-api.
+        Task { await linkBilling() }
+      } else {
+        let next = try await client.register()
+        // Le sujet a changé entre-temps (connexion, déconnexion) : ce statut
+        // n'est plus le sien.
+        guard self.client === client else { return }
+        adopt(next)
+      }
       registered = true
       retryAttempt = 0
       lastRefresh = Date()
@@ -262,7 +309,7 @@ final class BrowtherReferralController: ObservableObject {
     } catch {
       // 🔴 Sens de la panne : on garde ce qu'on sait, et on retente — puis au
       // retour au premier plan. ⛔ Jamais une boucle.
-      guard retryAttempt < Self.retryDelays.count else { return }
+      guard self.client === client, retryAttempt < Self.retryDelays.count else { return }
       let delay = Self.retryDelays[retryAttempt]
       retryAttempt += 1
       DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
@@ -275,7 +322,9 @@ final class BrowtherReferralController: ObservableObject {
   func refresh() async {
     guard let client else { return }
     do {
-      adopt(try await client.status())
+      let next = try await client.status()
+      guard self.client === client else { return }
+      adopt(next)
       lastRefresh = Date()
       afterFreshStatus()
     } catch {
@@ -345,6 +394,120 @@ final class BrowtherReferralController: ObservableObject {
     }
     Task { await reportRefereeDays() }
     sendDailySnapshot()
+  }
+
+  // MARK: - Le compte dev&din facultatif (§ 7.1)
+
+  enum ConnectOutcome: Equatable {
+    case connected
+    /// La personne a fermé la feuille : ⛔ pas une erreur, rien à dire.
+    case cancelled
+    case badCode
+    case unreachable
+    case failed
+  }
+
+  private var auth: ReferralAuthClient {
+    ReferralAuthClient(language: Bundle.main.preferredLocalizations.first ?? "en")
+  }
+
+  /// Google ou Apple : la page de connexion dev&din dans une feuille système
+  /// (`ReferralWebSignIn`), retour sur `browther://auth/callback?code=…`.
+  func signIn(with provider: ReferralAuthClient.Provider) async -> ConnectOutcome {
+    track("account_login_started", ["method": provider.rawValue])
+    guard let callback = await ReferralWebSignIn.shared.run(ReferralAuthClient.signInURL(provider)) else {
+      return .cancelled
+    }
+    guard let code = ReferralAuthClient.callbackCode(callback) else { return .failed }
+    do {
+      return await connect(token: try await auth.exchange(code: code))
+    } catch {
+      return Self.outcome(error)
+    }
+  }
+
+  /// Le code par e-mail, 1ʳᵉ étape. `nil` = envoyé.
+  func sendEmailCode(to email: String) async -> ConnectOutcome? {
+    track("account_login_started", ["method": "email"])
+    do {
+      try await auth.sendEmailCode(to: email)
+      return nil
+    } catch {
+      return Self.outcome(error)
+    }
+  }
+
+  /// Le code par e-mail, 2ᵉ étape.
+  func verifyEmailCode(email: String, code: String) async -> ConnectOutcome {
+    do {
+      return await connect(token: try await auth.verifyEmailCode(email: email, code: code))
+    } catch {
+      return Self.outcome(error)
+    }
+  }
+
+  private static func outcome(_ error: Error) -> ConnectOutcome {
+    switch error as? ReferralAuthFailure {
+    case .unreachable?: return .unreachable
+    case .badCode?: return .badCode
+    default: return .failed
+    }
+  }
+
+  /// Un jeton tout neuf : qui est-ce, le garder au trousseau, puis le sujet
+  /// DEVIENT le compte et l'appareil le rejoint (fusion).
+  private func connect(token: String) async -> ConnectOutcome {
+    let account: ReferralAccount
+    do {
+      account = try await auth.account(token: token)
+    } catch {
+      return Self.outcome(error)
+    }
+    guard ReferralAccountStore.save(account, token: token) else { return .failed }
+    self.account = account
+    track("account_linked", [:])
+    useSubject(account.userId)
+    await register()
+    // RevenueCat suit le COMPTE désormais (`logIn`) : ce que l'App Store sait
+    // de cet identifiant Apple le rejoint, et le webhook écrit sur le compte.
+    await followSubjectInStore()
+    return .connected
+  }
+
+  /// ⭐ L'abonnement payé sur l'ORDINATEUR arrive sur le compte (§ 12.19) —
+  /// c'est LUI qui règle « j'ai payé sur le Mac et l'iPhone ne le voit pas ».
+  /// ⛔ Jamais bloquant : sans paiement, rien à rattacher.
+  private func linkBilling() async {
+    guard let token = ReferralAccountStore.load()?.token else { return }
+    if await auth.linkBilling(token: token, fromRef: deviceRef) {
+      await refresh()
+    }
+  }
+
+  /// Déconnecter CET iPhone. ⚠️ Il retrouve une copie de sa couverture (la
+  /// fusion la lui laisse) ; le compte, lui, garde tout. ⛔ Ne dépend jamais
+  /// du réseau.
+  func signOut() async {
+    let token = ReferralAccountStore.load()?.token
+    ReferralAccountStore.clear()
+    storage.transferredFor = nil
+    account = nil
+    track("account_signed_out", [:])
+    if let token {
+      let auth = self.auth
+      Task.detached { await auth.signOut(token: token) }
+    }
+    guard let deviceRef else { return }
+    useSubject(deviceRef)
+    await register()
+    await followSubjectInStore()
+  }
+
+  private func followSubjectInStore() async {
+    guard storeBilling, let subjectRef else { return }
+    let purchases = ReferralPurchases.shared
+    await purchases.configure(subjectRef: subjectRef)
+    entitlement = ReferralPurchases.entitlement(of: await purchases.customerInfo())
   }
 
   // MARK: - L'usage (§ 3.1, § 9)
@@ -842,7 +1005,8 @@ final class BrowtherReferralController: ObservableObject {
     let days = storage.defaultBrowserDays
     var lines = [
       "Parrainage : \(enabled ? "allumé" : "éteint")",
-      "Sujet : \(subjectRef.map { String($0.prefix(8)) + "…" } ?? "—")\(storage.recetteSubject != nil ? " (recette)" : "")",
+      "Sujet : \(subjectRef.map { String($0.prefix(8)) + "…" } ?? "—")\(storage.recetteSubject != nil ? " (recette)" : account != nil ? " (compte)" : " (appareil)")",
+      "Compte : \(account.map { $0.email ?? $0.userId } ?? "aucun")",
       "Statut : \(status == nil ? "inconnu" : fresh ? "frais" : "en cache")",
     ]
     if let known {

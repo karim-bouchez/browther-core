@@ -94,6 +94,12 @@ public final class ReferralClient: @unchecked Sendable {
     )
   }
 
+  /// ⭐ L'appareil rejoint le compte (§ 7.1) — à appeler juste après la
+  /// connexion. Idempotent côté service ; borné, car il peint l'écran.
+  public func transfer(fromRef: String, toRef: String) async throws -> TransferOutcome {
+    try await call("/v1/transfer", ["fromRef": fromRef, "toRef": toRef], bounded: true)
+  }
+
   /// 🧪 Poser une situation COMPLÈTE (`POST /v1/admin/recette`, § 12.18).
   public func applyRecette(token: String, state: RecetteState) async throws -> ReferralStatus {
     let encoded = try JSONEncoder().encode(state)

@@ -339,6 +339,12 @@ struct ReferralInviteTab: View {
         }
 
         ReferralGaugeView(validated: validated, scale: scale, mode: .spring, onCelebrate: onCelebrate)
+
+        // ⭐ Le seul pont entre l'ordinateur et l'iPhone (§ 7.1) : mois, code
+        // et abonnement suivent le compte. Placé comme sur le desktop, après
+        // ce que la personne vient faire ici.
+        ReferralAccountSection()
+          .padding(.top, 8)
       }
       .padding(.horizontal, 16)
       .padding(.bottom, 32)
