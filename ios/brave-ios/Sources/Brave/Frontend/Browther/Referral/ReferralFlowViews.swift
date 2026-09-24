@@ -193,7 +193,7 @@ struct ReferralFlowView: View {
       ReferralBillingCTA(preview: model.preview) {
         // ⭐ Payer est une des trois sorties : « Merci », ⛔ jamais la fenêtre
         // d'où l'on est parti (§ 12.17).
-        model.replaceAll(.thanks)
+        model.replaceAll(.thanks, source: .purchase)
       }
       ReferralTextExit(label: Strings.BrowtherReferral.back, back: true) {
         if inCircuit { model.back() } else { model.dismiss?() }

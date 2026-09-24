@@ -225,9 +225,15 @@ final class BrowtherReferralController: ObservableObject {
       Task { await refresh() }
       return .purchased
     case .cancelled:
+      // ⭐⭐ Refermer la feuille de l'App Store SANS payer — le cas NORMAL sur
+      // iOS (§ 13.3). Avant le 2026-09-24 il n'écrivait RIEN : un
+      // `billing_checkout_started` sans suite, indistinguable d'une app tuée
+      // au milieu de l'achat. Un abandon est une DÉCISION, une panne un
+      // ACCIDENT : ⛔ ne pas les refondre.
+      track("billing_checkout_failed", ["period": period.rawValue, "reason": "cancelled"])
       return .cancelled
     case .failed:
-      track("billing_checkout_failed", ["period": period.rawValue])
+      track("billing_checkout_failed", ["period": period.rawValue, "reason": "error"])
       return .failed
     }
   }
@@ -564,19 +570,19 @@ final class BrowtherReferralController: ObservableObject {
           track("referral_validated", ["validated": known.milestones.validated])
         }
       }
-      BrowtherReferralPresenter.present(screen, from: bvc)
+      BrowtherReferralPresenter.present(screen, from: bvc, source: .notice)
       return .shown(screen.analyticsName)
     case .circuit(let screen):
-      // ⚠️ Ce n'est PAS une nouvelle sollicitation : ni cadence J0, ni `paywall_shown`.
-      BrowtherReferralPresenter.present(screen, from: bvc)
+      // ⚠️ Ce n'est PAS une nouvelle sollicitation (ni cadence J0) — mais c'est
+      // bien un AFFICHAGE, compté sous `source: circuit` (§ 13.2).
+      BrowtherReferralPresenter.present(screen, from: bvc, source: .circuit)
       return .shown(screen.analyticsName)
     case .decision(let decision):
       guard Self.canSolicitToday(now: now) else { return .lockedToday }
       BrowtherSurfaces.markSolicitationShown(now: now)
       remember(decision, now: now)
       let screen = ReferralScreen(decision)
-      track("paywall_shown", ["screen": screen.analyticsName])
-      BrowtherReferralPresenter.present(screen, from: bvc)
+      BrowtherReferralPresenter.present(screen, from: bvc, source: .prompt)
       if decision == .announce { startTrialNow() }
       return .shown(screen.analyticsName)
     }
@@ -708,11 +714,16 @@ final class BrowtherReferralController: ObservableObject {
         self.track("paywall_action", ["screen": "locked", "action": "support"])
         guard let host = viewController ?? BrowtherReferralPresenter.topController() else { return }
         // Ouverte par la personne elle-même : une fenêtre ORDINAIRE (§ 12.16).
-        BrowtherReferralPresenter.present(.support(locked: false), from: host)
+        BrowtherReferralPresenter.present(.support(locked: false), from: host, source: .locked)
       }),
       persistent: false
     )
-    track("paywall_shown", ["screen": "locked", "feature": feature.rawValue])
+    BrowtherReferralPresenter.countShown(
+      "locked",
+      source: .locked,
+      preview: false,
+      extra: ["feature": feature.rawValue]
+    )
     return false
   }
 

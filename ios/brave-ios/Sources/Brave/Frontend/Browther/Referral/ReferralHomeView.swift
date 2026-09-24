@@ -168,7 +168,7 @@ struct ReferralSupportTab: View {
         Divider()
         ReferralBillingCTA {
           guard let host = BrowtherReferralPresenter.topController() else { return }
-          BrowtherReferralPresenter.present(.thanks, from: host)
+          BrowtherReferralPresenter.present(.thanks, from: host, source: .purchase)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)

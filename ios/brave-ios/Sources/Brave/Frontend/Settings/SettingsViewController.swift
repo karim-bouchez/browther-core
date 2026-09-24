@@ -1200,7 +1200,7 @@ class SettingsViewController: TableViewController {
           text: Strings.BrowtherReferral.homeTitle,
           selection: { [unowned self] in
             self.navigationController?.pushViewController(
-              ReferralHomeHostingController(showsClose: false),
+              ReferralHomeHostingController(showsClose: false, source: .user),
               animated: true
             )
           },
@@ -1404,7 +1404,7 @@ class SettingsViewController: TableViewController {
               preview: { [weak self] screen in
                 guard let self, let bvc = self.settingsDelegate as? BrowserViewController else { return }
                 self.dismiss(animated: true) {
-                  BrowtherReferralPresenter.present(screen, from: bvc, preview: true)
+                  BrowtherReferralPresenter.present(screen, from: bvc, source: .user, preview: true)
                 }
               }
             )

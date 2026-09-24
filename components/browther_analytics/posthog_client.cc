@@ -14,6 +14,7 @@
 #include "base/strings/stringprintf.h"
 #include "base/time/time.h"
 #include "brave/components/browther_analytics/analytics_config.h"
+#include "build/build_config.h"
 #include "net/base/load_flags.h"
 #include "net/http/http_response_headers.h"
 #include "net/traffic_annotation/network_traffic_annotation.h"
@@ -101,6 +102,22 @@ void PostHogClient::Enqueue(const std::string& event_name,
   // PostHog conventions : $lib helps identify our SDK in dashboards.
   properties.Set("$lib", "browther-native");
   properties.Set("$lib_version", "1.0.0");
+  // ⭐ `$os` : les SDK PostHog le posent sur TOUT évènement, ce client-ci ne le
+  // faisait pas — les évènements du desktop tombaient dans « aucune valeur »
+  // sur toute tuile ventilée par plateforme (les deux tuiles de paiement du
+  // parrainage le sont par défaut, `docs/PARRAINAGE.md` § 13.3 ; constat du
+  // 2026-09-24). Mêmes valeurs que les SDK officiels.
+  if (!properties.Find("$os")) {
+#if BUILDFLAG(IS_MAC)
+    properties.Set("$os", "Mac OS X");
+#elif BUILDFLAG(IS_WIN)
+    properties.Set("$os", "Windows");
+#elif BUILDFLAG(IS_ANDROID)
+    properties.Set("$os", "Android");
+#elif BUILDFLAG(IS_LINUX)
+    properties.Set("$os", "Linux");
+#endif
+  }
   event.Set("properties", std::move(properties));
 
   buffer_.push_back(std::move(event));

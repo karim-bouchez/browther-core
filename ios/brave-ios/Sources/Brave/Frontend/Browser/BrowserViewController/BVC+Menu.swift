@@ -308,7 +308,7 @@ extension BrowserViewController {
           )
         ) { @MainActor [unowned self] _ in
           self.dismiss(animated: true) {
-            BrowtherReferralPresenter.presentHome(from: self)
+            BrowtherReferralPresenter.presentHome(from: self, source: .user)
           }
           return .none
         }

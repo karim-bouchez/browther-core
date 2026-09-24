@@ -120,7 +120,7 @@ struct ReferralExtraCallout: View {
       Button {
         guard let host = BrowtherReferralPresenter.topController() else { return }
         controller.track("paywall_action", ["screen": "panel", "action": "invite"])
-        BrowtherReferralPresenter.present(.support(locked: false), from: host)
+        BrowtherReferralPresenter.present(.support(locked: false), from: host, source: .user)
       } label: {
         HStack(alignment: .top, spacing: 10) {
           Image(systemName: "gift.fill")

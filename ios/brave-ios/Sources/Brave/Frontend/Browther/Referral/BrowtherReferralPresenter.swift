@@ -48,7 +48,9 @@ enum ReferralScreen: Equatable {
     }
   }
 
-  /// La clé d'analytique (`paywall_shown {screen}`) — ⛔ jamais un texte affiché.
+  /// La clé d'analytique (`paywall_shown {screen}`) — ⛔ jamais un texte
+  /// affiché, ⛔ jamais le numéro de la maquette (§ 13.2 : la numérotation
+  /// bouge, les tuiles non). Les mêmes que sur desktop (`screenName`).
   var analyticsName: String {
     switch self {
     case .welcome: return "welcome"
@@ -78,26 +80,71 @@ enum ReferralScreen: Equatable {
 
 // MARK: - Présenter
 
+/// D'où vient l'affichage d'une fenêtre (`docs/PARRAINAGE.md` § 13.2) : une
+/// sollicitation (`prompt`), le circuit rouvert tant qu'il n'a pas eu sa
+/// réponse (`circuit`), une bonne nouvelle (`notice`), un geste dans le flow
+/// (`flow`), la pause d'une fonctionnalité (`locked` : toast de la garde,
+/// « Débloquer »), la personne elle-même (`user` : menu, Paramètres, panneau)
+/// ou l'issue d'un paiement (`purchase`).
+/// ⚠️ La pression mise sur les gens se lit sur `prompt` SEUL — additionner
+/// toutes les provenances compte aussi les fenêtres ouvertes de soi-même.
+enum ReferralShowSource: String {
+  case prompt, circuit, notice, flow, locked, user, purchase
+}
+
 enum BrowtherReferralPresenter {
 
-  /// Ouvre un écran du flow. `preview` = aperçu de recette : ⛔ n'écrit rien.
+  /// Ouvre un écran du flow. `preview` = aperçu de recette : ⛔ n'écrit rien,
+  /// ⛔ ne compte rien.
   @MainActor
-  static func present(_ screen: ReferralScreen, from host: UIViewController, preview: Bool = false) {
+  static func present(
+    _ screen: ReferralScreen,
+    from host: UIViewController,
+    source: ReferralShowSource,
+    preview: Bool = false
+  ) {
     let controller: UIViewController
     if screen.isSheet {
       controller = ReferralSheetHostingController(screen: screen, preview: preview)
+      countShown(screen.analyticsName, source: source, preview: preview)
     } else {
-      controller = ReferralFlowHostingController(root: screen, preview: preview)
+      // La pile compte sa première fenêtre elle-même (`ReferralFlowModel.show`).
+      controller = ReferralFlowHostingController(root: screen, source: source, preview: preview)
     }
     host.present(controller, animated: true)
+  }
+
+  /// ⭐⭐ **L'UNIQUE émission de `paywall_shown`** (§ 13.2 de
+  /// `docs/PARRAINAGE.md`). Avant le 2026-09-24, seule l'entrée d'une
+  /// sollicitation (et le toast de la garde) l'était : les fenêtres posées
+  /// par-dessus (inviter, payer, merci), les bonnes nouvelles, le circuit
+  /// rouvert et l'écran Parrainage n'existaient dans aucune donnée — « combien
+  /// de gens ont vu l'écran de paiement ? » n'avait pas de réponse.
+  ///
+  /// Appelée par ce qui POSE une fenêtre — `present` (feuilles),
+  /// `ReferralFlowModel.show` (la pile), l'écran Parrainage à sa création, le
+  /// toast de la garde —, ⛔ jamais par un écran. ⛔ Un retour ne compte pas, ni
+  /// un aperçu. Verrouillé par `private/scripts/ios-referral-tests/analytics_check.py`.
+  @MainActor
+  static func countShown(
+    _ screen: String,
+    source: ReferralShowSource,
+    preview: Bool,
+    extra: [String: Any] = [:]
+  ) {
+    guard !preview else { return }
+    var properties = extra
+    properties["screen"] = screen
+    properties["source"] = source.rawValue
+    BrowtherReferralController.shared.track("paywall_shown", properties)
   }
 
   /// Écran 6 — Parrainage, depuis n'importe quel « Inviter un proche » hors du
   /// circuit des trois façons (§ 12.15) : la MÊME page que dans les Paramètres,
   /// dans sa propre navigation — ⛔ pas une modale qui la recopie.
   @MainActor
-  static func presentHome(from host: UIViewController) {
-    let home = ReferralHomeHostingController(showsClose: true)
+  static func presentHome(from host: UIViewController, source: ReferralShowSource) {
+    let home = ReferralHomeHostingController(showsClose: true, source: source)
     let navigation = UINavigationController(rootViewController: home)
     navigation.modalPresentationStyle = .pageSheet
     navigation.sheetPresentationController?.detents = [.large()]
@@ -132,18 +179,31 @@ final class ReferralFlowModel: ObservableObject {
   /// Ferme le flow puis ouvre l'écran Parrainage (« Inviter un proche », § 12.15).
   var openHome: (() -> Void)?
 
-  init(root: ReferralScreen, preview: Bool) {
-    stack = [root]
+  init(root: ReferralScreen, source: ReferralShowSource, preview: Bool) {
+    stack = []
     self.preview = preview
+    show([root], source: source)
   }
 
   var top: ReferralScreen { stack.last ?? .announce }
   var depth: Int { stack.count }
 
-  func push(_ screen: ReferralScreen) {
-    stack.append(screen)
+  /// ⭐⭐ **Le seul endroit qui pose la pile — donc qui compte ses fenêtres**
+  /// (§ 13.2). `source == nil` : rien de NEUF n'est montré (le même écran dans
+  /// un autre état).
+  private func show(_ next: [ReferralScreen], source: ReferralShowSource?) {
+    stack = next
+    guard let source, let top = next.last else { return }
+    BrowtherReferralPresenter.countShown(top.analyticsName, source: source, preview: preview)
   }
 
+  /// Pose une fenêtre PAR-DESSUS l'actuelle (« Retour » y ramène).
+  func push(_ screen: ReferralScreen) {
+    show(stack + [screen], source: .flow)
+  }
+
+  /// ⛔ Un RETOUR ne compte pas : la fenêtre du dessous a déjà été vue, et
+  /// l'aller-retour la gonflerait.
   func back() {
     guard stack.count > 1 else {
       dismiss?()
@@ -152,15 +212,18 @@ final class ReferralFlowModel: ObservableObject {
     stack.removeLast()
   }
 
+  /// Remplace la fenêtre du dessus : comptée si c'est un AUTRE écran (J0 → les
+  /// trois façons), pas si c'est le même dans un autre état (4 partagé).
   func replaceTop(_ screen: ReferralScreen) {
-    guard !stack.isEmpty else { return }
-    stack[stack.count - 1] = screen
+    guard let current = stack.last else { return }
+    let isNew = current.analyticsName != screen.analyticsName
+    show(stack.dropLast() + [screen], source: isNew ? .flow : nil)
   }
 
   /// Remplace toute la pile par une fenêtre seule (« Merci » après un achat :
   /// ⛔ jamais la fenêtre d'où l'on est parti, § 12.17).
-  func replaceAll(_ screen: ReferralScreen) {
-    stack = [screen]
+  func replaceAll(_ screen: ReferralScreen, source: ReferralShowSource) {
+    show([screen], source: source)
   }
 
   /// La fenêtre du dessus ne se ferme-t-elle que par ses boutons ? (§ 12.14)
@@ -191,8 +254,8 @@ final class ReferralFlowHostingController: UIHostingController<ReferralFlowView>
   private let model: ReferralFlowModel
 
   @MainActor
-  init(root: ReferralScreen, preview: Bool) {
-    model = ReferralFlowModel(root: root, preview: preview)
+  init(root: ReferralScreen, source: ReferralShowSource, preview: Bool) {
+    model = ReferralFlowModel(root: root, source: source, preview: preview)
     super.init(rootView: ReferralFlowView(model: model))
     modalPresentationStyle = .fullScreen
     model.dismiss = { [weak self] in
@@ -201,7 +264,7 @@ final class ReferralFlowHostingController: UIHostingController<ReferralFlowView>
     model.openHome = { [weak self] in
       guard let self, let presenter = self.presentingViewController else { return }
       self.dismiss(animated: true) {
-        BrowtherReferralPresenter.presentHome(from: presenter)
+        BrowtherReferralPresenter.presentHome(from: presenter, source: .flow)
       }
     }
   }
@@ -248,7 +311,7 @@ final class ReferralSheetHostingController: UIHostingController<ReferralSheetVie
     actions.openHome = { [weak self] in
       guard let self, let presenter = self.presentingViewController else { return }
       self.dismiss(animated: true) {
-        BrowtherReferralPresenter.presentHome(from: presenter)
+        BrowtherReferralPresenter.presentHome(from: presenter, source: .flow)
       }
     }
     actions.openSupport = { [weak self] in
@@ -256,7 +319,12 @@ final class ReferralSheetHostingController: UIHostingController<ReferralSheetVie
       self.dismiss(animated: true) {
         // Depuis une feuille qu'on pouvait fermer : une fenêtre ORDINAIRE
         // (§ 12.16, précisé le 2026-09-21).
-        BrowtherReferralPresenter.present(.support(locked: false), from: presenter, preview: preview)
+        BrowtherReferralPresenter.present(
+          .support(locked: false),
+          from: presenter,
+          source: .flow,
+          preview: preview
+        )
       }
     }
   }
@@ -278,8 +346,11 @@ final class ReferralSheetActions {
 // MARK: - L'écran Parrainage (6)
 
 final class ReferralHomeHostingController: UIHostingController<ReferralHomeView> {
+  private let source: ReferralShowSource
+
   @MainActor
-  init(showsClose: Bool) {
+  init(showsClose: Bool, source: ReferralShowSource) {
+    self.source = source
     super.init(rootView: ReferralHomeView())
     // Le fond de Brave sous SwiftUI : sinon un éclair noir au push, et une
     // barre de navigation qui ne s'accorde pas (recette Karim, 2026-09-23).
@@ -298,6 +369,16 @@ final class ReferralHomeHostingController: UIHostingController<ReferralHomeView>
   @available(*, unavailable)
   required dynamic init?(coder aDecoder: NSCoder) {
     fatalError()
+  }
+
+  /// ⭐ L'écran Parrainage compte son affichage comme une fenêtre (§ 13.2) : c'est
+  /// la surface où l'on vient de soi-même, donc celle qui dit si le menu et les
+  /// Paramètres y mènent vraiment. ⚠️ Une fois par OUVERTURE (`viewDidLoad`),
+  /// ⛔ pas `viewWillAppear` : un retour d'une page poussée par-dessus le
+  /// recompterait.
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    BrowtherReferralPresenter.countShown("home", source: source, preview: false)
   }
 
   override func viewWillAppear(_ animated: Bool) {

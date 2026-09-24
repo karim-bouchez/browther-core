@@ -285,7 +285,8 @@ struct SawtunaaPanelView: View {
             "paywall_action",
             ["screen": "panel", "action": "unlock"]
           )
-          BrowtherReferralPresenter.present(.paused(chosen: true), from: host)
+          // `locked` : il vient de la pause d'une fonctionnalité, comme le toast de la garde.
+          BrowtherReferralPresenter.present(.paused(chosen: true), from: host, source: .locked)
         }
         .font(.callout.weight(.semibold))
         .foregroundStyle(ReferralPalette.ink)
