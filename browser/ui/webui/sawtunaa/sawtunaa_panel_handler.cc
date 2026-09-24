@@ -13,6 +13,7 @@
 #include "base/strings/utf_string_conversions.h"
 #include "brave/browser/browther/referral/browther_referral_access.h"
 #include "brave/browser/browther/referral/browther_referral_files.h"
+#include "brave/browser/ui/webui/browther_referral/browther_referral_dialog.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
 #include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
@@ -207,19 +208,18 @@ void SawtunaaPanelHandler::OpenSawtunaaAppPage() {
   CloseUI();
 }
 
+// 🔴 « Débloquer » ouvre la MODALE sur l'écran qui EXPLIQUE la pause (J0), ⛔
+// plus l'écran Parrainage dans un onglet. Ça envoyait la personne sur une page
+// de gestion avec un toast, alors qu'elle venait de voir sa fonctionnalité
+// bloquée : perte de contexte totale (recette Karim, 2026-09-24). Elle doit
+// d'abord lire POURQUOI c'est en pause et ce qu'on lui demande ; les trois
+// façons viennent après, par le bouton de cet écran.
 void SawtunaaPanelHandler::OpenReferralSupport() {
-  auto* browser_window_interface = GetBrowserWindowInterface();
-  Browser* browser = browser_window_interface
-                         ? browser_window_interface->GetBrowserForMigrationOnly()
-                         : nullptr;
-  if (browser) {
-    ShowSingletonTabOverwritingNTP(
-        browser->profile()->GetOriginalProfile(),
-        GURL(base::StrCat(
-            {browther_referral::kReferralURL, "?locked=music_removal"})),
-        NavigateParams::IGNORE_AND_NAVIGATE);
-  }
+  content::WebContents* contents = GetActiveWebContents();
   CloseUI();
+  if (contents) {
+    browther_referral::ShowModal(contents, "paused");
+  }
 }
 
 // Browther : « fonctionnalité en cours de développement » → suivre les canaux.

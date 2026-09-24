@@ -65,7 +65,7 @@
 "ending.body" = "Studio dev&din **tarvitsee tukeasi**, jotta se voi jatkossakin tarjota ilmaisia sovelluksia. Pyydämme sinulta vain, että esittelet sovelluksen tutuillesi. Jos se ei todella onnistu, voit tukea meitä myös taloudellisesti tai du'alla.";
 "ending.supportSub" = "Kutsumalla jonkun, taloudellisesti tai du'alla";
 "paused.title" = "Lisäominaisuudet ovat tauolla";
-"paused.body" = "Jotta nämä sovellukset pysyisivät ilmaisina, studio dev&din tarvitsee sinua.";
+"paused.body" = "dev&din-studio tarvitsee tukeasi voidakseen tarjota sovelluksia jatkossakin ilmaiseksi. Pyydämme vain yhtä asiaa: kerro sovelluksesta läheisellesi. Jos se ei todella onnistu, voit tukea myös rahallisesti tai rukouksella.";
 "paused.foot" = "Tämä näkymä palaa silloin tällöin, mutta korkeintaan kerran viikossa.";
 "support.title" = "Kuinka monta ihmistä uskot voivasi kutsua?";
 "support.or" = "tai";

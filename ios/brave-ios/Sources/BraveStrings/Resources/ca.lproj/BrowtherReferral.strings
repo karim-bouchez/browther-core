@@ -65,7 +65,7 @@
 "ending.body" = "L'estudi dev&din **necessita el teu suport** per continuar oferint apps gratuïtes. L'únic que et demanem és que donis a conèixer l'app als teus contactes. Si de debò no pots, també ens pots donar suport econòmicament, o amb una du'a.";
 "ending.supportSub" = "Convidant algú proper, econòmicament, o amb una du'a";
 "paused.title" = "Les funcions addicionals estan en pausa";
-"paused.body" = "Perquè aquestes apps continuïn sent gratuïtes, l'estudi dev&din et necessita.";
+"paused.body" = "L'estudi dev&din necessita el teu suport per continuar oferint aplicacions gratuïtes. El que et demanem és simplement que donis a conèixer l'app a algú proper. Si de debò no pots, també ens pots donar suport econòmicament, o amb una du'a.";
 "paused.foot" = "Aquesta pantalla tornarà de tant en tant, mai més d'un cop per setmana.";
 "support.title" = "Quantes persones creus que podries convidar?";
 "support.or" = "o";

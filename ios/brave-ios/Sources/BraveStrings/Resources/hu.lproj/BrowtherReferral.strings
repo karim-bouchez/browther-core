@@ -65,7 +65,7 @@
 "ending.body" = "A dev&din stúdiónak **szüksége van az Ön támogatására**, hogy továbbra is ingyenes alkalmazásokat kínálhasson. Csak annyit kérünk, hogy mutassa meg az alkalmazást az ismerőseinek. Ha tényleg nem megy, anyagilag vagy egy duával is támogathat minket.";
 "ending.supportSub" = "Egy szerette meghívásával, anyagilag vagy egy duával";
 "paused.title" = "A kiegészítő funkciók szünetelnek";
-"paused.body" = "Ahhoz, hogy ezek az alkalmazások ingyenesek maradjanak, a dev&din stúdiónak szüksége van Önre.";
+"paused.body" = "A dev&din stúdiónak szüksége van az Ön támogatására, hogy továbbra is ingyenes alkalmazásokat kínálhasson. Csak egyet kérünk: mutassa meg az appot egy szerettének. Ha ez tényleg nem megy, támogathat minket anyagilag vagy egy duával is.";
 "paused.foot" = "Ez a képernyő időnként visszatér, de legfeljebb hetente egyszer.";
 "support.title" = "Ön szerint hány embert tudna meghívni?";
 "support.or" = "vagy";

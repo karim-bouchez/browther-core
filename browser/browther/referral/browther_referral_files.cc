@@ -168,7 +168,7 @@ constexpr auto kMenuLabelKeys = std::to_array<std::string_view>(
 // et l'appelant se tait plutôt que d'afficher un trou.
 constexpr auto kOtherKeys = std::to_array<std::string_view>(
     {"home.title", "settings.subtitle", "features.paused",
-     "locked.musicRemoval", "locked.cta"});
+     "locked.musicRemoval", "locked.unlock"});
 
 // Les textes d'une langue : `i18n/<locale>.json`, sinon `i18n/<langue>.json`.
 std::optional<NativeTexts> ReadNativeTexts(std::string locale) {

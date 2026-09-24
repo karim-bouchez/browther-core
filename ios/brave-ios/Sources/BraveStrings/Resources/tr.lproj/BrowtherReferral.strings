@@ -65,7 +65,7 @@
 "ending.body" = "dev&din stüdyosunun ücretsiz uygulamalar sunmaya devam edebilmesi için **desteğinize ihtiyacı var**. Sizden tek istediğimiz, uygulamayı kişilerinize tanıtmanız. Gerçekten yapamıyorsanız, bizi maddi olarak ya da bir dua ile de destekleyebilirsiniz.";
 "ending.supportSub" = "Bir yakınınızı davet ederek, maddi olarak ya da bir dua ile";
 "paused.title" = "Ek özellikler duraklatıldı";
-"paused.body" = "Bu uygulamaların ücretsiz kalması için dev&din stüdyosunun size ihtiyacı var.";
+"paused.body" = "dev&din stüdyosunun ücretsiz uygulamalar sunmayı sürdürebilmesi için desteğinize ihtiyacı var. Sizden tek istediğimiz, uygulamayı bir yakınınıza tanıtmanız. Gerçekten yapamıyorsanız, maddi olarak ya da bir dua ile de destek olabilirsiniz.";
 "paused.foot" = "Bu ekran ara sıra yeniden görünecek, ama haftada en fazla bir kez.";
 "support.title" = "Kaç kişiyi davet edebileceğinizi düşünüyorsunuz?";
 "support.or" = "veya";

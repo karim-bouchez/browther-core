@@ -61,7 +61,9 @@ inline constexpr std::string_view kSettingsTitle = "home.title";
 inline constexpr std::string_view kMenuSubtitle = "settings.subtitle";
 inline constexpr std::string_view kPausedStatus = "features.paused";
 inline constexpr std::string_view kPausedBody = "locked.musicRemoval";
-inline constexpr std::string_view kPausedCta = "locked.cta";
+// ⚠️ « Débloquer », ⛔ pas « Soutenir dev&din » : depuis la popup d'une
+// fonctionnalité bloquée, c'est le RÉSULTAT qui parle (Karim, 2026-09-24).
+inline constexpr std::string_view kPausedCta = "locked.unlock";
 std::u16string Text(std::string_view key);
 
 }  // namespace browther_referral
