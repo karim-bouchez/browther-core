@@ -56,6 +56,12 @@ bool ShowModal(content::WebContents* initiator,
 // ne dépasse pas de son parent.
 void ResizeModal(int delta);
 
+// ⭐ La page de la modale a donné signe de vie (premier appel au pont). Sans ce
+// signe, la modale se referme d'elle-même au bout de quelques secondes : sur le
+// J0 imposé, Échap ne répond pas, et une page qui ne s'affiche pas laisserait
+// le navigateur bloqué sans issue.
+void NoteModalAlive();
+
 // Referme celle qui est ouverte, s'il y en a une (appelée quand l'app a fini).
 void CloseModal();
 

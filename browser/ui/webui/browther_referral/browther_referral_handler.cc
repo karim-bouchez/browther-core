@@ -158,6 +158,12 @@ void BrowtherReferralHandler::HandleCall(const base::ListValue& args) {
     return;
   }
 
+  // ⭐ La page de la modale est vivante dès son premier appel : on désarme le
+  // filet qui la refermerait (`browther_referral_dialog.h`).
+  if (host_ == Host::kModal) {
+    browther_referral::NoteModalAlive();
+  }
+
   if (method == "getContext") {
     Reply(id, true, BuildContext());
   } else if (method == "storeSet") {

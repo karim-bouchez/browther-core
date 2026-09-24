@@ -10,7 +10,10 @@
 #include <string>
 #include <vector>
 
+#include "base/functional/bind.h"
 #include "base/logging.h"
+#include "base/task/sequenced_task_runner.h"
+#include "base/time/time.h"
 #include "base/strings/escape.h"
 #include "base/strings/strcat.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
@@ -66,9 +69,29 @@ int& Adjustments() {
   return count;
 }
 
+// 🔴 **Le filet contre une fenêtre MORTE.** Une modale de fenêtre dont la page
+// ne s'affiche pas bloquerait le navigateur sans aucune issue — et sur le J0
+// imposé, Échap ne répond pas (c'est le principe). La page donne signe de vie
+// dès son premier appel au pont (`getContext`, moins d'une seconde) ; sans ce
+// signe au bout du délai, on referme. ⛔ N'affecte en rien le cas normal.
+constexpr base::TimeDelta kDeadModalDelay = base::Seconds(12);
+
+bool& ModalAlive() {
+  static bool alive = false;
+  return alive;
+}
+
+// Un compteur pour ne pas refermer la modale SUIVANTE avec le minuteur de la
+// précédente.
+int& ModalGeneration() {
+  static int generation = 0;
+  return generation;
+}
+
 class ReferralDialogDelegate : public ui::WebDialogDelegate {
  public:
-  ReferralDialogDelegate(const std::string& screen, bool chosen) {
+  ReferralDialogDelegate(const std::string& screen, bool chosen)
+      : chosen_(chosen) {
     set_can_close(true);
     set_dialog_modal_type(ui::mojom::ModalType::kWindow);
     set_show_dialog_title(false);
@@ -81,6 +104,14 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
                       chosen ? "&chosen=1" : ""})));
   }
 
+  // 🔴 **Échap ne ferme QUE ce que la personne a ouvert elle-même.** Sur le J0
+  // imposé, il ne faut pas pouvoir sortir sans choisir l'une des trois façons
+  // (§ 12.16) — et fermer le navigateur n'y change rien : le circuit est écrit
+  // sur le disque, J0 revient au Nouvel Onglet suivant.
+  // ⚠️ Le filet contre une fenêtre morte n'est donc PAS Échap, c'est
+  // `ArmDeadModalGuard` : si la page ne donne pas signe de vie, on ferme.
+  bool ShouldCloseDialogOnEscape() const override { return chosen_; }
+
   // ⭐ Le voile de la fenêtre du navigateur disparaît AVEC la modale, quelle
   // que soit la façon dont elle se ferme (boutons, Échap, fermeture de l'onglet).
   void OnDialogClosed(const std::string& json_retval) override {
@@ -91,6 +122,9 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
   ReferralDialogDelegate(const ReferralDialogDelegate&) = delete;
   ReferralDialogDelegate& operator=(const ReferralDialogDelegate&) = delete;
   ~ReferralDialogDelegate() override = default;
+
+ private:
+  const bool chosen_;
 
 
 };
@@ -131,6 +165,7 @@ bool ShowModal(content::WebContents* initiator,
   params.rounded_corners = gfx::RoundedCornersF(kCornerRadius);
   ShowScrim(parent_widget);
   Adjustments() = 0;
+  ModalAlive() = false;
   ModalWidget() = views::Widget::GetWidgetForNativeWindow(
       chrome::ShowWebDialogWithParams(
           parent_widget->GetNativeView(), initiator->GetBrowserContext(),
@@ -139,7 +174,24 @@ bool ShowModal(content::WebContents* initiator,
     HideScrim();
     return false;
   }
+  const int generation = ++ModalGeneration();
+  base::SequencedTaskRunner::GetCurrentDefault()->PostDelayedTask(
+      FROM_HERE, base::BindOnce(
+                     [](int generation) {
+                       if (ModalGeneration() != generation || ModalAlive()) {
+                         return;
+                       }
+                       LOG(ERROR) << "[browther] la modale du parrainage n'a "
+                                     "pas répondu : fermeture";
+                       CloseModal();
+                     },
+                     generation),
+      kDeadModalDelay);
   return true;
+}
+
+void NoteModalAlive() {
+  ModalAlive() = true;
 }
 
 void ResizeModal(int delta) {
