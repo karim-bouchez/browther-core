@@ -80,6 +80,8 @@
 "invite.back" = "Wstecz";
 "invite.closeAfterShare" = "Wróć do aplikacji";
 "share.message" = "Zapraszam cię do poznania Browther: przeglądarki, która wycina muzykę i rozmywa obrazy haram.\nZ moim kodem {code} dostajesz jeden miesiąc dodatkowych funkcji.";
+"billing.unavailable" = "Plany na razie się nie ładują.";
+"billing.retry" = "Spróbuj ponownie";
 "menu.invite" = "Zaproś bliską osobę do Browther";
 "settings.subtitle" = "Zyskuj hasanaty i dostęp na zawsze";
 "settings.news" = "Nowość";

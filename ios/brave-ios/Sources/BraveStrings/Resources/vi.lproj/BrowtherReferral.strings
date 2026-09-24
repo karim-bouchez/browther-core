@@ -80,6 +80,8 @@
 "invite.back" = "Quay lại";
 "invite.closeAfterShare" = "Quay lại ứng dụng";
 "share.message" = "Mời bạn khám phá Browther: trình duyệt tắt nhạc và làm mờ hình ảnh haram.\nVới mã {code} của mình, bạn nhận được một tháng tính năng bổ sung.";
+"billing.unavailable" = "Hiện chưa tải được các gói đăng ký.";
+"billing.retry" = "Thử lại";
 "menu.invite" = "Mời người thân dùng Browther";
 "settings.subtitle" = "Nhận hasanat và quyền dùng trọn đời";
 "settings.news" = "Mới";

@@ -80,6 +80,8 @@
 "invite.back" = "Takaisin";
 "invite.closeAfterShare" = "Takaisin sovellukseen";
 "share.message" = "Kutsun sinut tutustumaan Browtheriin: selaimeen, joka poistaa musiikin ja sumentaa haram-kuvat.\nKoodillani {code} saat yhden kuukauden lisäominaisuuksia.";
+"billing.unavailable" = "Tilausvaihtoehdot eivät lataudu juuri nyt.";
+"billing.retry" = "Yritä uudelleen";
 "menu.invite" = "Kutsu joku Browtheriin";
 "settings.subtitle" = "Ansaitse hasanat ja elinikäinen käyttöoikeus";
 "settings.news" = "Uutta";

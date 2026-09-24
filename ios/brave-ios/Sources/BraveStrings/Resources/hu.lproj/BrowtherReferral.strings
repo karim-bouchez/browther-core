@@ -80,6 +80,8 @@
 "invite.back" = "Vissza";
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
 "share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) egy hónapnyi kiegészítő funkciót kapsz.";
+"billing.unavailable" = "A csomagok most nem töltődnek be.";
+"billing.retry" = "Újra";
 "menu.invite" = "Meghívás a Browther böngészőbe";
 "settings.subtitle" = "Szerezzen haszanátot és örökös hozzáférést";
 "settings.news" = "Új";

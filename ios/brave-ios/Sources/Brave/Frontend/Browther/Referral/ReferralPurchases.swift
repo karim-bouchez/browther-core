@@ -97,9 +97,21 @@ final class ReferralPurchases {
   /// **identifiant de produit du store** (`ReferralBilling`), ⛔ pas par le type
   /// de paquet RevenueCat : c'est le contrat qu'on maîtrise des deux côtés.
   func packages() async -> [BillingPeriod: Package] {
-    guard configuredFor != nil, let offerings = try? await Purchases.shared.offerings(),
-      let current = offerings.current
-    else { return [:] }
+    guard configuredFor != nil else {
+      lastProblem = "RevenueCat pas encore configuré (pas de sujet)."
+      return [:]
+    }
+    let offerings: Offerings
+    do {
+      offerings = try await Purchases.shared.offerings()
+    } catch {
+      lastProblem = "offres illisibles : \(error.localizedDescription)"
+      return [:]
+    }
+    guard let current = offerings.current else {
+      lastProblem = "aucune offre courante (\(offerings.all.count) offre(s) connues)."
+      return [:]
+    }
     var found: [BillingPeriod: Package] = [:]
     for item in current.availablePackages {
       let id = item.storeProduct.productIdentifier
@@ -107,8 +119,23 @@ final class ReferralPurchases {
         found[period] = found[period] ?? item
       }
     }
+    if found.isEmpty {
+      // 🔴 Le cas vécu (recette Karim, 2026-09-24) : RevenueCat répond, l'offre
+      // existe, mais l'App Store ne SERT aucun produit — cause la plus
+      // fréquente : le contrat « Paid Applications » pas actif, ou des produits
+      // créés il y a trop peu de temps.
+      lastProblem =
+        "l'offre « \(current.identifier) » n'a aucun produit servi par l'App Store "
+        + "(\(current.availablePackages.count) paquet(s) reçus)."
+    } else {
+      lastProblem = nil
+    }
     return found
   }
+
+  /// ⛔ **Pas de panne muette** : pourquoi l'offre est vide, en clair. Lu par
+  /// l'écran 7 (ligne + « Réessayer ») et par l'outil de recette.
+  private(set) var lastProblem: String?
 
   enum Outcome {
     case purchased(CustomerInfo)

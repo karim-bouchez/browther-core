@@ -80,6 +80,8 @@
 "invite.back" = "Späť";
 "invite.closeAfterShare" = "Späť do aplikácie";
 "share.message" = "Pozývam ťa vyskúšať Browther: prehliadač, ktorý vypína hudbu a rozmazáva haram obrázky.\nS mojím kódom {code} získaš jeden mesiac doplnkových funkcií.";
+"billing.unavailable" = "Tarify sa teraz nenačítavajú.";
+"billing.retry" = "Skúsiť znova";
 "menu.invite" = "Pozvať blízkeho do Browther";
 "settings.subtitle" = "Získajte hasanáty a prístup navždy";
 "settings.news" = "Novinka";

@@ -80,6 +80,8 @@
 "invite.back" = "Înapoi";
 "invite.closeAfterShare" = "Înapoi la aplicație";
 "share.message" = "Te invit să descoperi Browther: browserul care taie muzica și estompează imaginile haram.\nCu codul meu {code}, ai o lună de funcții suplimentare.";
+"billing.unavailable" = "Planurile nu se încarcă momentan.";
+"billing.retry" = "Reîncearcă";
 "menu.invite" = "Invită pe cineva pe Browther";
 "settings.subtitle" = "Câștigă hasanat și accesul pe viață";
 "settings.news" = "Nou";

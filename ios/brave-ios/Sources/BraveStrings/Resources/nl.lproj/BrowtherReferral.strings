@@ -80,6 +80,8 @@
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
 "share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je één maand extra functies.";
+"billing.unavailable" = "De abonnementen kunnen nu niet worden geladen.";
+"billing.retry" = "Opnieuw proberen";
 "menu.invite" = "Iemand uitnodigen voor Browther";
 "settings.subtitle" = "Verdien hasanat en levenslange toegang";
 "settings.news" = "Nieuw";

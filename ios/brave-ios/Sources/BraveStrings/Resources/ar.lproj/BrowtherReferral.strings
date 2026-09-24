@@ -80,6 +80,8 @@
 "invite.back" = "رجوع";
 "invite.closeAfterShare" = "العودة إلى التطبيق";
 "share.message" = "أدعوك إلى اكتشاف Browther: المتصفّح الذي يكتم الموسيقى ويُضبّب الصور المحرّمة.\nبرمزي {code} تحصل على شهر من المزايا الإضافية.";
+"billing.unavailable" = "لا يمكن تحميل الخطط الآن.";
+"billing.retry" = "أعد المحاولة";
 "menu.invite" = "ادعُ قريبًا إلى Browther";
 "settings.subtitle" = "اكسب حسنات ووصولًا مدى الحياة";
 "settings.news" = "جديد";

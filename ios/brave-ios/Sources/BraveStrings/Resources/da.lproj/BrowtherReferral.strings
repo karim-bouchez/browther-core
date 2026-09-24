@@ -80,6 +80,8 @@
 "invite.back" = "Tilbage";
 "invite.closeAfterShare" = "Tilbage til appen";
 "share.message" = "Jeg inviterer dig til at prøve Browther: browseren, der fjerner musik og slører haram-billeder.\nMed min kode {code} får du én måned med ekstra funktioner.";
+"billing.unavailable" = "Abonnementerne kan ikke indlæses lige nu.";
+"billing.retry" = "Prøv igen";
 "menu.invite" = "Inviter nogen til Browther";
 "settings.subtitle" = "Optjen hasanat og adgang for livet";
 "settings.news" = "Nyt";

@@ -241,6 +241,24 @@ struct ReferralBillingCTA: View {
       .buttonStyle(BrowtherIntroPrimaryButtonStyle())
       .opacity(canBuy ? 1 : 0.4)
       .disabled(!canBuy || buying)
+      // ⛔ **Un bouton grisé sans explication est une panne muette** (recette
+      // Karim, 2026-09-24 : « le bouton est grisé, je ne peux pas tester »).
+      // Quand l'App Store ne sert pas les formules, on le DIT, et on propose de
+      // réessayer.
+      if !canBuy {
+        VStack(spacing: 6) {
+          Text(Strings.BrowtherReferral.billingUnavailable)
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+          Button(Strings.BrowtherReferral.billingRetry) {
+            Task { await controller.reloadPackages() }
+          }
+          .font(.footnote.weight(.semibold))
+        }
+        .padding(.top, 6)
+      }
     }
   }
 

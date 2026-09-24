@@ -80,6 +80,8 @@
 "invite.back" = "Tillbaka";
 "invite.closeAfterShare" = "Tillbaka till appen";
 "share.message" = "Jag bjuder in dig att upptäcka Browther: webbläsaren som tar bort musik och suddar ut haram-bilder.\nMed min kod {code} får du en månad med extrafunktioner.";
+"billing.unavailable" = "Abonnemangen går inte att läsa in just nu.";
+"billing.retry" = "Försök igen";
 "menu.invite" = "Bjud in någon till Browther";
 "settings.subtitle" = "Tjäna hasanat och tillgång för livet";
 "settings.news" = "Nytt";

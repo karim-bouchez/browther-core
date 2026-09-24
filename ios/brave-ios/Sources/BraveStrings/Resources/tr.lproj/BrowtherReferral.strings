@@ -80,6 +80,8 @@
 "invite.back" = "Geri";
 "invite.closeAfterShare" = "Uygulamaya dönün";
 "share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla bir ay ek özellik kazanırsın.";
+"billing.unavailable" = "Abonelik planları şu anda yüklenmiyor.";
+"billing.retry" = "Tekrar deneyin";
 "menu.invite" = "Browther'a birini davet edin";
 "settings.subtitle" = "Hasenat ve ömür boyu erişim kazanın";
 "settings.news" = "Yeni";

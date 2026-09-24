@@ -80,6 +80,8 @@
 "invite.back" = "חזרה";
 "invite.closeAfterShare" = "חזרה לאפליקציה";
 "share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודש של תכונות נוספות.";
+"billing.unavailable" = "המסלולים לא נטענים כרגע.";
+"billing.retry" = "לנסות שוב";
 "menu.invite" = "להזמין אדם קרוב ל-Browther";
 "settings.subtitle" = "להרוויח חסנאת וגישה לכל החיים";
 "settings.news" = "חדש";

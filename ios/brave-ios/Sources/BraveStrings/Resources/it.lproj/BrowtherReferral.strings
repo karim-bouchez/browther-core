@@ -80,6 +80,8 @@
 "invite.back" = "Indietro";
 "invite.closeAfterShare" = "Torna all'app";
 "share.message" = "Ti invito a scoprire Browther: il browser che toglie la musica e sfoca le immagini haram.\nCon il mio codice {code}, hai un mese di funzionalità aggiuntive.";
+"billing.unavailable" = "I piani non si caricano in questo momento.";
+"billing.retry" = "Riprova";
 "menu.invite" = "Invita qualcuno su Browther";
 "settings.subtitle" = "Guadagna hasanat e l'accesso a vita";
 "settings.news" = "Novità";

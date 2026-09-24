@@ -80,6 +80,8 @@
 "invite.back" = "返回";
 "invite.closeAfterShare" = "返回应用";
 "share.message" = "邀请你来体验 Browther：一款能去除音乐、模糊哈拉姆图片的浏览器。\n使用我的推荐码 {code}，你可以获得1 个月附加功能。";
+"billing.unavailable" = "目前无法加载订阅方案。";
+"billing.retry" = "重试";
 "menu.invite" = "邀请亲友使用 Browther";
 "settings.subtitle" = "赢得哈桑纳特和终身使用";
 "settings.news" = "新";

@@ -452,6 +452,12 @@ extension Strings {
     /// cours. D'où le sujet (cet eyebrow), le gain en accroche, puis la cause.
     // MARK: Les portes d'entrée (Paramètres, panneau de la fonctionnalité)
 
+    /// ⛔ L'offre n'est pas servie par le store : on le dit, ⛔ pas un bouton
+    /// grisé muet.
+    public static var billingUnavailable: String {
+      t("billing.unavailable", "The plans aren't loading right now.")
+    }
+    public static var billingRetry: String { t("billing.retry", "Try again") }
     /// ⭐ Le libellé du menu « … » : il dit ce qu'on fait ET où (Karim,
     /// 2026-09-23) — « Parrainage » seul ne donne envie à personne.
     public static var menuInvite: String {

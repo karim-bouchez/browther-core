@@ -80,6 +80,8 @@
 "invite.back" = "ย้อนกลับ";
 "invite.closeAfterShare" = "กลับไปที่แอป";
 "share.message" = "ขอชวนคุณมาลองใช้ Browther: เบราว์เซอร์ที่ตัดเสียงเพลงและเบลอภาพหะรอม\nใช้รหัสของฉัน {code} แล้วคุณจะได้รับฟีเจอร์เพิ่มเติมหนึ่งเดือน";
+"billing.unavailable" = "ตอนนี้ยังโหลดแพ็กเกจไม่ได้";
+"billing.retry" = "ลองอีกครั้ง";
 "menu.invite" = "ชวนคนใกล้ชิดมาใช้ Browther";
 "settings.subtitle" = "รับฮาซานาตและสิทธิ์ตลอดชีพ";
 "settings.news" = "ใหม่";

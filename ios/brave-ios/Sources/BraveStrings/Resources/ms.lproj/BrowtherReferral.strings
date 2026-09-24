@@ -80,6 +80,8 @@
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
 "share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat satu bulan ciri tambahan.";
+"billing.unavailable" = "Pelan langganan tidak dapat dimuatkan buat masa ini.";
+"billing.retry" = "Cuba lagi";
 "menu.invite" = "Jemput orang tersayang ke Browther";
 "settings.subtitle" = "Dapatkan hasanat dan akses seumur hidup";
 "settings.news" = "Baharu";

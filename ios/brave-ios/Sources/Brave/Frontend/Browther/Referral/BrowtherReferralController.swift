@@ -56,6 +56,9 @@ final class BrowtherReferralController: ObservableObject {
   @Published private(set) var entitlement: LocalEntitlement?
   /// Les deux formules de l'offre, par période (vides dans un build de dev).
   @Published private(set) var packages: [BillingPeriod: RevenueCatPackage] = [:]
+  /// ⛔ Pourquoi l'offre est vide, quand elle l'est — ⛔ un bouton grisé sans
+  /// explication est une panne muette (recette Karim, 2026-09-24).
+  @Published private(set) var billingProblem: String?
   /// La formule choisie : ⭐ l'annuel par défaut (§ 3, écran 7).
   @Published var period: BillingPeriod = .yearly
 
@@ -191,9 +194,17 @@ final class BrowtherReferralController: ObservableObject {
     await purchases.configure(subjectRef: subject)
     entitlement = ReferralPurchases.entitlement(of: await purchases.customerInfo())
     packages = await purchases.packages()
+    billingProblem = purchases.lastProblem
     purchases.watch { [weak self] info in
       self?.entitlement = ReferralPurchases.entitlement(of: info)
     }
+  }
+
+  /// « Réessayer » de l'écran 7 : redemander l'offre au store.
+  func reloadPackages() async {
+    guard storeBilling else { return }
+    packages = await ReferralPurchases.shared.packages()
+    billingProblem = ReferralPurchases.shared.lastProblem
   }
 
   enum BuyOutcome {
@@ -836,6 +847,7 @@ final class BrowtherReferralController: ObservableObject {
     lines += [
       "Annonce vue : \(prompt.announced == true ? "oui" : "non") · jours de navigation : \(prompt.days ?? 0)",
       "Sawtunaa finalisé : \(ReferralLaunch.extrasReleased ? "oui" : "non (pas d'annonce)")",
+      "Formules du store : \(packages.isEmpty ? (billingProblem ?? "aucune, sans raison connue") : "\(packages.count) reçue(s)")",
       "Mérite maintenant : \(isMeritMoment(now: now) ? "oui" : "non") · jour libre : \(Self.canSolicitToday(now: now) ? "oui" : "non")",
       "Jours « par défaut » : prouvés \(days.proofDays.suffix(5).joined(separator: ", "))",
       "   navigués \(days.browsingDays.suffix(5).joined(separator: ", "))",
