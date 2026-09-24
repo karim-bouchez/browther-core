@@ -156,6 +156,11 @@ extension Strings {
       t("locked.body", "For these apps to stay free, the dev&din studio needs you.")
     }
     public static var supportDevndin: String { t("locked.cta", "Support dev&din") }
+    /// Le bouton du panneau de la fonctionnalité en pause. ⚠️ La clé existait
+    /// déjà dans les 36 langues : le natif du desktop la lit dans le pool
+    /// commun (`browther_referral_files.cc`). iOS l'affiche depuis le
+    /// 2026-09-24 — c'est la MÊME surface, portée (§ 12.33).
+    public static var lockedUnlock: String { t("locked.unlock", "Unlock") }
 
     // MARK: 0 bis — « plus tard », confirmé (un toast)
 

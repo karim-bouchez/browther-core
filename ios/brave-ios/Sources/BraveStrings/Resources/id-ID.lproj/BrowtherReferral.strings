@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Penghapusan musik termasuk fitur tambahan.";
 "locked.body" = "Agar aplikasi-aplikasi ini tetap gratis, studio dev&din membutuhkan Anda.";
 "locked.cta" = "Dukung dev&din";
+"locked.unlock" = "Buka";
 "announceLater.title" = "Baik, sudah dicatat";
 "announceLater.body" = "Fitur tambahan kami hadiahkan untuk Anda hingga {date}. Kami akan mengingatkan Anda sebelum berakhir.";
 "announceLater.bodyNoDate" = "Fitur tambahan kami hadiahkan untuk Anda selama sebulan. Kami akan mengingatkan Anda sebelum berakhir.";

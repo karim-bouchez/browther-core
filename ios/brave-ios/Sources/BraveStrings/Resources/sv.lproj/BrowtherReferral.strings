@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Borttagning av musik är en av extrafunktionerna.";
 "locked.body" = "För att de här apparna ska förbli gratis behöver studion dev&din dig.";
 "locked.cta" = "Stöd dev&din";
+"locked.unlock" = "Lås upp";
 "announceLater.title" = "Noterat";
 "announceLater.body" = "Extrafunktionerna bjuder vi på fram till {date}. Vi hör av oss innan det tar slut.";
 "announceLater.bodyNoDate" = "Extrafunktionerna bjuder vi på i en månad. Vi hör av oss innan det tar slut.";

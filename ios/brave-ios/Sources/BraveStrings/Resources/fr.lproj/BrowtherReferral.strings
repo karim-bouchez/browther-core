@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Le retrait de la musique fait partie des fonctionnalités supplémentaires.";
 "locked.body" = "Pour que ces apps restent gratuites, le studio dev&din a besoin de toi.";
 "locked.cta" = "Soutenir dev&din";
+"locked.unlock" = "Débloquer";
 "announceLater.title" = "C'est noté";
 "announceLater.body" = "Les fonctionnalités supplémentaires te sont offertes jusqu'au {date}. On te préviendra avant la fin.";
 "announceLater.bodyNoDate" = "Les fonctionnalités supplémentaires te sont offertes pendant un mois. On te préviendra avant la fin.";

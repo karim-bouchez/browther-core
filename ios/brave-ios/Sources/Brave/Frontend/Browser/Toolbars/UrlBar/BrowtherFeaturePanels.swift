@@ -190,20 +190,32 @@ struct SawtunaaPanelView: View {
   var onLayoutChange: () -> Void = {}
 
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
+  @ObservedObject private var referral = BrowtherReferralController.shared
   @State private var showLimitations = false
+  /// Le clic sur l'interrupteur verrouillé fait clignoter l'explication.
+  @State private var blink = false
 
   var body: some View {
-    VStack(spacing: 16) {
+    // 🔴 **Le retrait de la musique EN PAUSE** (parrainage). ⭐ Port du panneau
+    // macOS (`sawtunaa_panel.ts` § `setUIReferralPaused`) : **pas d'encadré** —
+    // la popup le dit avec ses propres surfaces, l'interrupteur verrouillé,
+    // l'état sous lui, la description, et une action.
+    // ⛔ Avant, l'interrupteur se laissait pousser sur ON et Y RESTAIT alors
+    // que rien ne s'était allumé (recette Karim, 2026-09-24) : la garde refuse
+    // sans rien publier, donc SwiftUI ne redessinait pas — un interrupteur qui
+    // ment. Verrouillé, il ne peut plus mentir.
+    let paused = referral.isPaused()
+    return VStack(spacing: 16) {
       header
 
       ShieldsSwitchView(
         isEnabled: Binding(
           get: { enabled.value },
           set: { newValue in
-            // Le parrainage : le retrait de la musique est la fonctionnalité
-            // supplémentaire de Browther (docs/PARRAINAGE.md § 9). En pause,
-            // l'allumer se refuse — ⛔ bouton jamais masqué : un toast dit
-            // pourquoi, avec « Soutenir dev&din ». (Avant l'annonce : jamais.)
+            // Filet : en pause l'interrupteur ne reçoit plus les touchers
+            // (`allowsHitTesting`), mais la garde reste la règle
+            // (docs/PARRAINAGE.md § 9) — un toast dit pourquoi, avec
+            // « Soutenir dev&din ». (Avant l'annonce : jamais.)
             if newValue,
               !MainActor.assumeIsolated({
                 BrowtherReferralController.shared.requireExtra(.musicRemoval, presentingFrom: nil)
@@ -224,30 +236,86 @@ struct SawtunaaPanelView: View {
         width: ShieldsSwitch.size.width,
         height: ShieldsSwitch.size.height
       )
-
-      // Status sous le toggle (cohérent avec "Boucliers Browther ACTIVÉ")
-      Text(enabled.value ? Strings.Browther.sawtunaaStatusOn : Strings.Browther.sawtunaaStatusOff)
-        .bold()
-      .font(.footnote)
-      .foregroundStyle(Color(.braveLabel))
-
-      Button {
-        showLimitations = true
-      } label: {
-        (
-          Text(Strings.Browther.sawtunaaDescription + " ")
-            .foregroundColor(.primary)
-          + Text(Strings.Browther.sawtunaaLearnMore)
-            .foregroundColor(.accentColor)
-            .underline()
-        )
-        .font(.footnote.weight(.medium))
-        .multilineTextAlignment(.leading)
-        .fixedSize(horizontal: false, vertical: true)
+      .opacity(paused ? 0.4 : 1)
+      .allowsHitTesting(!paused)
+      .overlay {
+        // ⛔ Pas `.disabled` : on garde le toucher pour répondre quelque chose
+        // — l'explication clignote, et rien ne s'ouvre (macOS, même geste).
+        if paused {
+          Button {
+            withAnimation(.easeInOut(duration: 0.25)) { blink = true }
+            Task { @MainActor in
+              try? await Task.sleep(for: .milliseconds(450))
+              withAnimation(.easeInOut(duration: 0.35)) { blink = false }
+            }
+          } label: {
+            Color.clear.contentShape(Rectangle())
+          }
+          .buttonStyle(.plain)
+        }
       }
-      .buttonStyle(.plain)
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(.horizontal)
+
+      // Status sous le toggle (cohérent avec "Boucliers Browther ACTIVÉ").
+      // ⚠️ En pause, « éteint » dirait qu'on l'a choisi, alors qu'on ne peut
+      // pas l'allumer : c'est « En pause » qui a le dernier mot (macOS).
+      Text(
+        paused
+          ? Strings.BrowtherReferral.featuresPaused
+          : (enabled.value ? Strings.Browther.sawtunaaStatusOn : Strings.Browther.sawtunaaStatusOff)
+      )
+      .bold()
+      .font(.footnote)
+      .foregroundStyle(paused ? ReferralPalette.gold : Color(.braveLabel))
+
+      if paused {
+        Text(Strings.BrowtherReferral.lockedMusicRemoval)
+          .font(.footnote.weight(.medium))
+          .foregroundStyle(Color(.braveLabel))
+          .multilineTextAlignment(.leading)
+          .fixedSize(horizontal: false, vertical: true)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.horizontal)
+          .opacity(blink ? 0.35 : 1)
+
+        // ⭐ Une action, là où l'on vient de se heurter au verrou : elle ouvre
+        // J0 — et comme on l'a ouvert soi-même, on peut en ressortir (§ 12.16).
+        Button(Strings.BrowtherReferral.lockedUnlock) {
+          guard let host = BrowtherReferralPresenter.topController() else { return }
+          BrowtherReferralController.shared.track(
+            "paywall_action",
+            ["screen": "panel", "action": "unlock"]
+          )
+          BrowtherReferralPresenter.present(.paused(chosen: true), from: host)
+        }
+        .font(.callout.weight(.semibold))
+        .foregroundStyle(ReferralPalette.ink)
+        .padding(.vertical, 10)
+        .frame(maxWidth: .infinity)
+        .background(
+          RoundedRectangle(cornerRadius: 10, style: .continuous)
+            .fill(ReferralPalette.goldFill)
+        )
+        .buttonStyle(.plain)
+        .padding(.horizontal)
+      } else {
+        Button {
+          showLimitations = true
+        } label: {
+          (
+            Text(Strings.Browther.sawtunaaDescription + " ")
+              .foregroundColor(.primary)
+            + Text(Strings.Browther.sawtunaaLearnMore)
+              .foregroundColor(.accentColor)
+              .underline()
+          )
+          .font(.footnote.weight(.medium))
+          .multilineTextAlignment(.leading)
+          .fixedSize(horizontal: false, vertical: true)
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
+      }
 
       if BrowtherEarlyAccess.isActive && enabled.value {
         FeatureBetaNotice(onChannelTapped: onChannelTapped)
@@ -255,8 +323,11 @@ struct SawtunaaPanelView: View {
 
       // Le parrainage, LÀ où vit la fonctionnalité supplémentaire : ce qu'on a,
       // jusqu'à quand, et comment la garder à vie (`BrowtherReferralEntries`).
-      // ⚠️ Muet tant que l'annonce dort, à vie, ou abonné.
-      ReferralExtraCallout()
+      // ⚠️ Muet tant que l'annonce dort, à vie, ou abonné — et en pause, c'est
+      // la popup elle-même qui le dit (⛔ pas deux fois).
+      if !paused {
+        ReferralExtraCallout()
+      }
 
       ReportSiteRow(domain: reportDomain, feature: "sawtunaa")
     }
@@ -265,6 +336,7 @@ struct SawtunaaPanelView: View {
     .frame(maxWidth: 360)
     .background(Color(.braveBackground))
     .onChange(of: enabled.value) { onLayoutChange() }
+    .onChange(of: paused) { onLayoutChange() }
     .alert(Strings.Browther.sawtunaaLimitationsTitle, isPresented: $showLimitations) {
       Button("OK", role: .cancel) {}
     } message: {

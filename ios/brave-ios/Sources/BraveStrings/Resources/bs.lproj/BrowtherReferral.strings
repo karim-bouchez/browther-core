@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Uklanjanje muzike je jedna od dodatnih funkcija.";
 "locked.body" = "Da bi ove aplikacije ostale besplatne, studiju dev&din trebate vi.";
 "locked.cta" = "Podržite dev&din";
+"locked.unlock" = "Otključaj";
 "announceLater.title" = "Zabilježeno";
 "announceLater.body" = "Dodatne funkcije su vam na poklon do {date}. Javit ćemo vam se prije kraja.";
 "announceLater.bodyNoDate" = "Dodatne funkcije su vam na poklon mjesec dana. Javit ćemo vam se prije kraja.";

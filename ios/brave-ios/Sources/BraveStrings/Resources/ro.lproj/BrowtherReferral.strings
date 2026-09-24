@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Eliminarea muzicii face parte din funcțiile suplimentare.";
 "locked.body" = "Pentru ca aceste aplicații să rămână gratuite, studioul dev&din are nevoie de tine.";
 "locked.cta" = "Susține dev&din";
+"locked.unlock" = "Deblochează";
 "announceLater.title" = "Am notat";
 "announceLater.body" = "Îți oferim funcțiile suplimentare până pe {date}. Te anunțăm înainte să se termine.";
 "announceLater.bodyNoDate" = "Îți oferim funcțiile suplimentare timp de o lună. Te anunțăm înainte să se termine.";

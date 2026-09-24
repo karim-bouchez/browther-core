@@ -478,7 +478,7 @@ final class BrowtherReferralController: ObservableObject {
     }
     guard extrasReleased else { return nil }
     if let entry = ReferralPrompt.circuitToRestore(prompt, status: known, access: access, now: now) {
-      return .circuit(entry == .paused ? .paused : .support(locked: true))
+      return .circuit(entry == .paused ? .paused(chosen: false) : .support(locked: true))
     }
     let decision = ReferralPrompt.decide(
       .init(

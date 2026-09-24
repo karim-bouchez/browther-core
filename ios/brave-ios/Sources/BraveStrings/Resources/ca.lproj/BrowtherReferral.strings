@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "L'eliminació de la música forma part de les funcions addicionals.";
 "locked.body" = "Perquè aquestes apps continuïn sent gratuïtes, l'estudi dev&din et necessita.";
 "locked.cta" = "Donar suport a dev&din";
+"locked.unlock" = "Desbloquejar";
 "announceLater.title" = "Entesos";
 "announceLater.body" = "Et regalem les funcions addicionals fins al {date}. T'avisarem abans que s'acabi.";
 "announceLater.bodyNoDate" = "Et regalem les funcions addicionals durant un mes. T'avisarem abans que s'acabi.";

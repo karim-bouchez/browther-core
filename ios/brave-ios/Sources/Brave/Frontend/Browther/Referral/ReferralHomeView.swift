@@ -488,7 +488,9 @@ struct ReferralCodeTab: View {
       }
       if !done {
         // ⭐ Ce qui valide l'invitation du proche, c'est Browther PAR DÉFAUT (§ 9).
-        ReferralSecondaryButton(label: Strings.BrowtherReferral.refereeSetDefault) {
+        // ⭐ C'est LE geste attendu du filleul (le critère lui-même) : bouton
+        // principal, ⛔ pas un contour discret (recette Karim, 2026-09-24).
+        ReferralPrimaryButton(label: Strings.BrowtherReferral.refereeSetDefault) {
           guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
           UIApplication.shared.open(url)
         }

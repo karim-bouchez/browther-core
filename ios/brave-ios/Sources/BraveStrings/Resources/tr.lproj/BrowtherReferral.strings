@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Müziği kaldırma, ek özelliklerden biridir.";
 "locked.body" = "Bu uygulamaların ücretsiz kalması için dev&din stüdyosunun size ihtiyacı var.";
 "locked.cta" = "dev&din'i destekleyin";
+"locked.unlock" = "Kilidi aç";
 "announceLater.title" = "Not aldık";
 "announceLater.body" = "Ek özellikler {date} tarihine kadar bizden hediye. Bitmeden önce size haber vereceğiz.";
 "announceLater.bodyNoDate" = "Ek özellikler bir ay boyunca bizden hediye. Bitmeden önce size haber vereceğiz.";

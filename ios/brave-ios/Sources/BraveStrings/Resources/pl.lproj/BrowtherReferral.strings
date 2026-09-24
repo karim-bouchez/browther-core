@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Usuwanie muzyki to jedna z dodatkowych funkcji.";
 "locked.body" = "Żeby te aplikacje pozostały darmowe, studio dev&din potrzebuje ciebie.";
 "locked.cta" = "Wesprzyj dev&din";
+"locked.unlock" = "Odblokuj";
 "announceLater.title" = "Zanotowane";
 "announceLater.body" = "Dodatkowe funkcje masz od nas w prezencie do {date}. Przypomnimy ci przed końcem.";
 "announceLater.bodyNoDate" = "Dodatkowe funkcje masz od nas w prezencie przez miesiąc. Przypomnimy ci przed końcem.";

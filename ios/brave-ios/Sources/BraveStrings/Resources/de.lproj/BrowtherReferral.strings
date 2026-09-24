@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Das Entfernen der Musik gehört zu den zusätzlichen Funktionen.";
 "locked.body" = "Damit diese Apps kostenlos bleiben, braucht das Studio dev&din Sie.";
 "locked.cta" = "dev&din unterstützen";
+"locked.unlock" = "Freischalten";
 "announceLater.title" = "Notiert";
 "announceLater.body" = "Die zusätzlichen Funktionen schenken wir Ihnen bis zum {date}. Wir sagen Ihnen Bescheid, bevor es endet.";
 "announceLater.bodyNoDate" = "Die zusätzlichen Funktionen schenken wir Ihnen einen Monat lang. Wir sagen Ihnen Bescheid, bevor es endet.";

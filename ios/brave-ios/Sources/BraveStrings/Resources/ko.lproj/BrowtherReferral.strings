@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "음악 제거는 추가 기능 중 하나예요.";
 "locked.body" = "이 앱들이 계속 무료로 남으려면 dev&din 스튜디오에 당신의 도움이 필요해요.";
 "locked.cta" = "dev&din 응원하기";
+"locked.unlock" = "잠금 해제";
 "announceLater.title" = "알겠어요";
 "announceLater.body" = "{date}까지 추가 기능을 선물로 드려요. 끝나기 전에 알려 드릴게요.";
 "announceLater.bodyNoDate" = "한 달 동안 추가 기능을 선물로 드려요. 끝나기 전에 알려 드릴게요.";

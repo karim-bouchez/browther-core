@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "إزالة الموسيقى من المزايا الإضافية.";
 "locked.body" = "لكي تبقى هذه التطبيقات مجانية، يحتاج استوديو dev&din إليك.";
 "locked.cta" = "ادعم dev&din";
+"locked.unlock" = "افتح القفل";
 "announceLater.title" = "تمّ";
 "announceLater.body" = "المزايا الإضافية هديّة لك حتى {date}. سنذكّرك قبل انتهائها.";
 "announceLater.bodyNoDate" = "المزايا الإضافية هديّة لك لمدة شهر. سنذكّرك قبل انتهائها.";

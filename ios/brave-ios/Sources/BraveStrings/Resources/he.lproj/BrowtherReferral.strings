@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "הסרת המוזיקה היא אחת מהתכונות הנוספות.";
 "locked.body" = "כדי שהאפליקציות האלה יישארו בחינם, הסטודיו dev&din צריך אותך.";
 "locked.cta" = "לתמוך ב-dev&din";
+"locked.unlock" = "לפתוח";
 "announceLater.title" = "רשמנו";
 "announceLater.body" = "התכונות הנוספות במתנה עד {date}. נזכיר לך לפני שהן מסתיימות.";
 "announceLater.bodyNoDate" = "התכונות הנוספות במתנה למשך חודש. נזכיר לך לפני שהן מסתיימות.";

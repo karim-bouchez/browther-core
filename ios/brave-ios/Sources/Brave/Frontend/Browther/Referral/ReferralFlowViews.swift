@@ -170,7 +170,7 @@ struct ReferralFlowView: View {
     switch screen {
     case .welcome: welcome
     case .announce: announce
-    case .paused: paused
+    case .paused(let chosen): paused(chosen: chosen)
     case .support(let locked): support(locked: locked)
     case .invite(let shared): invite(shared: shared)
     case .billing: billing
@@ -240,27 +240,42 @@ struct ReferralFlowView: View {
 
   // MARK: 2 — J0
 
-  private var paused: some View {
-    ReferralFlowShell {
-      ReferralRoundIcon(systemName: "heart.fill")
+  /// `chosen` = ouvert par la personne elle-même (le « Débloquer » du panneau de
+  /// la fonctionnalité). ⭐ Alors la fenêtre se ferme normalement, et ce qu'elle
+  /// ouvre aussi : « une fenêtre qu'on pouvait fermer n'en ouvre pas une qu'on
+  /// ne peut plus fermer » (§ 12.16). Tombé tout seul, J0 reste verrouillé — la
+  /// sortie est sur les trois façons.
+  private func paused(chosen: Bool) -> some View {
+    ReferralFlowShell(onClose: chosen ? { model.dismiss?() } : nil) {
+      // L'icône DIT l'état, ⛔ elle ne réchauffe pas : le desktop met une pause,
+      // iOS mettait un cœur (recette Karim, 2026-09-24).
+      ReferralRoundIcon(systemName: "pause.fill")
       ReferralFlowTitle(text: Strings.BrowtherReferral.pausedTitle)
       ReferralFlowBody(text: Strings.BrowtherReferral.pausedBody)
       ReferralFeatureList(extras: .paused)
     } footer: {
       ReferralPrimaryButton(
         label: Strings.BrowtherReferral.supportDevndin,
-        sub: Strings.BrowtherReferral.supportSub
+        sub: Strings.BrowtherReferral.supportSub,
+        systemImage: "heart.fill"
       ) {
         action("paused", "support")
-        // 🔴 Depuis J0, les trois façons forment un circuit FERMÉ (§ 12.16).
-        model.replaceTop(.support(locked: true))
+        // 🔴 Depuis un J0 TOMBÉ, les trois façons forment un circuit FERMÉ
+        // (§ 12.16) ; depuis un J0 OUVERT par la personne, elles se ferment
+        // comme elle a pu fermer celui-ci.
+        model.replaceTop(.support(locked: !chosen))
       }
       // ⛔ Pas de « plus tard » : la sortie est sur les trois façons.
-      Text(Strings.BrowtherReferral.pausedFoot)
-        .font(.footnote)
-        .foregroundStyle(.tertiary)
-        .multilineTextAlignment(.center)
-        .padding(.top, 4)
+      // ⚠️ La cadence ne se raconte qu'au J0 qui TOMBE : ouvert d'un
+      // « Débloquer », l'écran n'est pas une sollicitation, il ne « reviendra »
+      // pas — le dire serait faux.
+      if !chosen {
+        Text(Strings.BrowtherReferral.pausedFoot)
+          .font(.footnote)
+          .foregroundStyle(.tertiary)
+          .multilineTextAlignment(.center)
+          .padding(.top, 4)
+      }
     }
   }
 

@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "去除音乐属于附加功能。";
 "locked.body" = "为了让这些应用保持免费，dev&din 工作室需要你。";
 "locked.cta" = "支持 dev&din";
+"locked.unlock" = "解锁";
 "announceLater.title" = "好的，已记下";
 "announceLater.body" = "我们赠送你附加功能，有效期至 {date}。结束前会提醒你。";
 "announceLater.bodyNoDate" = "我们赠送你一个月的附加功能。结束前会提醒你。";

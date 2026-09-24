@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Musiikin poistaminen kuuluu lisäominaisuuksiin.";
 "locked.body" = "Jotta nämä sovellukset pysyisivät ilmaisina, studio dev&din tarvitsee sinua.";
 "locked.cta" = "Tue dev&din-studiota";
+"locked.unlock" = "Avaa";
 "announceLater.title" = "Selvä";
 "announceLater.body" = "Saat lisäominaisuudet lahjaksi {date} asti. Kerromme sinulle ennen kuin aika päättyy.";
 "announceLater.bodyNoDate" = "Saat lisäominaisuudet lahjaksi kuukauden ajaksi. Kerromme sinulle ennen kuin aika päättyy.";

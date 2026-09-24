@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "音楽の除去は追加機能のひとつです。";
 "locked.body" = "これらのアプリを無料のまま続けるために、dev&din スタジオにはあなたの力が必要です。";
 "locked.cta" = "dev&din を応援";
+"locked.unlock" = "解除する";
 "announceLater.title" = "了解しました";
 "announceLater.body" = "{date} まで、追加機能をプレゼントします。終わる前にお知らせしますね。";
 "announceLater.bodyNoDate" = "1 か月間、追加機能をプレゼントします。終わる前にお知らせしますね。";

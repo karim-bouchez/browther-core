@@ -15,8 +15,11 @@ enum ReferralScreen: Equatable {
   case welcome
   /// 0 — ⭐ c'est son affichage qui démarre le mois.
   case announce
-  /// 2 — J0.
-  case paused
+  /// 2 — J0. `chosen` = ouvert par la personne elle-même (le « Débloquer » du
+  /// panneau de la fonctionnalité) : la fenêtre se ferme alors normalement —
+  /// « une fenêtre qu'on pouvait fermer n'en ouvre pas une qu'on ne peut plus
+  /// fermer » (§ 12.16, même règle que `ShowModal(..., chosen)` sur desktop).
+  case paused(chosen: Bool)
   /// 2b — les trois façons. `locked` = ouvert depuis J0 (circuit fermé, § 12.16).
   case support(locked: Bool)
   /// 4 — inviter, ⚠️ seulement par-dessus 2b (§ 12.15). `shared` = un partage a
@@ -38,7 +41,7 @@ enum ReferralScreen: Equatable {
   init(_ decision: ReferralPrompt.Solicitation) {
     switch decision {
     case .announce: self = .announce
-    case .paused: self = .paused
+    case .paused: self = .paused(chosen: false)
     case .ending(let daysLeft, _): self = .ending(daysLeft: daysLeft)
     case .reminder(let daysLeft, _, let reminderCase):
       self = .reminder(daysLeft: daysLeft, reminderCase: reminderCase)
@@ -166,8 +169,10 @@ final class ReferralFlowModel: ObservableObject {
   static func isLocked(_ stack: [ReferralScreen]) -> Bool {
     guard let top = stack.last else { return false }
     switch top {
-    case .welcome, .announce, .paused:
+    case .welcome, .announce:
       return true
+    case .paused(let chosen):
+      return !chosen
     case .support(let locked):
       return locked
     case .invite(let shared):

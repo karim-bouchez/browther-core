@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "La eliminación de la música forma parte de las funciones adicionales.";
 "locked.body" = "Para que estas apps sigan siendo gratuitas, el estudio dev&din te necesita.";
 "locked.cta" = "Apoyar a dev&din";
+"locked.unlock" = "Desbloquear";
 "announceLater.title" = "Anotado";
 "announceLater.body" = "Te regalamos las funciones adicionales hasta el {date}. Te avisaremos antes de que termine.";
 "announceLater.bodyNoDate" = "Te regalamos las funciones adicionales durante un mes. Te avisaremos antes de que termine.";

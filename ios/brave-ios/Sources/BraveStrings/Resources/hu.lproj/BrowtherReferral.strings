@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "A zene eltávolítása a kiegészítő funkciók egyike.";
 "locked.body" = "Ahhoz, hogy ezek az alkalmazások ingyenesek maradjanak, a dev&din stúdiónak szüksége van Önre.";
 "locked.cta" = "A dev&din támogatása";
+"locked.unlock" = "Feloldás";
 "announceLater.title" = "Feljegyeztük";
 "announceLater.body" = "A kiegészítő funkciókat {date} napjáig ajándékba kapja tőlünk. A lejárat előtt szólunk.";
 "announceLater.bodyNoDate" = "A kiegészítő funkciókat egy hónapig ajándékba kapja tőlünk. A lejárat előtt szólunk.";

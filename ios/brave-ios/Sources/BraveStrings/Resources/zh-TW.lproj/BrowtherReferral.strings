@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "去除音樂屬於附加功能。";
 "locked.body" = "為了讓這些 App 保持免費，dev&din 工作室需要你。";
 "locked.cta" = "支持 dev&din";
+"locked.unlock" = "解鎖";
 "announceLater.title" = "好的，已記下";
 "announceLater.body" = "我們贈送你附加功能，有效期至 {date}。結束前會提醒你。";
 "announceLater.bodyNoDate" = "我們贈送你一個月的附加功能。結束前會提醒你。";

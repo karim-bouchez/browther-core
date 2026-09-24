@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Muziek verwijderen hoort bij de extra functies.";
 "locked.body" = "Om deze apps gratis te houden, heeft de studio dev&din jou nodig.";
 "locked.cta" = "Steun dev&din";
+"locked.unlock" = "Ontgrendelen";
 "announceLater.title" = "Genoteerd";
 "announceLater.body" = "De extra functies krijg je van ons cadeau tot {date}. We laten het je weten voordat het afloopt.";
 "announceLater.bodyNoDate" = "De extra functies krijg je een maand lang van ons cadeau. We laten het je weten voordat het afloopt.";

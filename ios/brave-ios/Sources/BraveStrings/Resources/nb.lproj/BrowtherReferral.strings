@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Fjerning av musikk er en av ekstrafunksjonene.";
 "locked.body" = "For at disse appene skal forbli gratis, trenger studioet dev&din deg.";
 "locked.cta" = "Støtt dev&din";
+"locked.unlock" = "Lås opp";
 "announceLater.title" = "Notert";
 "announceLater.body" = "Ekstrafunksjonene får du i gave frem til {date}. Vi gir deg beskjed før det tar slutt.";
 "announceLater.bodyNoDate" = "Ekstrafunksjonene får du i gave i en måned. Vi gir deg beskjed før det tar slutt.";

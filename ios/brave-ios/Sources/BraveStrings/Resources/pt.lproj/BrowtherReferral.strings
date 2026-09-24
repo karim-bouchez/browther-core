@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "A remoção da música faz parte dos recursos adicionais.";
 "locked.body" = "Para que estes apps continuem gratuitos, o estúdio dev&din precisa de você.";
 "locked.cta" = "Apoiar o dev&din";
+"locked.unlock" = "Desbloquear";
 "announceLater.title" = "Anotado";
 "announceLater.body" = "Os recursos adicionais são um presente nosso até {date}. Vamos avisar você antes do fim.";
 "announceLater.bodyNoDate" = "Os recursos adicionais são um presente nosso por um mês. Vamos avisar você antes do fim.";

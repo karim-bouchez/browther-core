@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Odstraňování hudby patří mezi doplňkové funkce.";
 "locked.body" = "Aby tyto aplikace zůstaly zdarma, studio dev&din vás potřebuje.";
 "locked.cta" = "Podpořit dev&din";
+"locked.unlock" = "Odemknout";
 "announceLater.title" = "Zaznamenáno";
 "announceLater.body" = "Doplňkové funkce máte od nás darem do {date}. Před koncem vám dáme vědět.";
 "announceLater.bodyNoDate" = "Doplňkové funkce máte od nás darem na jeden měsíc. Před koncem vám dáme vědět.";

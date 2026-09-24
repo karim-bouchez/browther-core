@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Loại bỏ âm nhạc là một trong các tính năng bổ sung.";
 "locked.body" = "Để các ứng dụng này tiếp tục miễn phí, studio dev&din cần bạn.";
 "locked.cta" = "Ủng hộ dev&din";
+"locked.unlock" = "Mở khóa";
 "announceLater.title" = "Đã ghi nhận";
 "announceLater.body" = "Các tính năng bổ sung được tặng cho bạn đến {date}. Chúng tôi sẽ nhắc bạn trước khi hết hạn.";
 "announceLater.bodyNoDate" = "Các tính năng bổ sung được tặng cho bạn trong một tháng. Chúng tôi sẽ nhắc bạn trước khi hết hạn.";

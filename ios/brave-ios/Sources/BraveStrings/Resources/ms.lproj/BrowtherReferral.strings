@@ -17,6 +17,7 @@
 "locked.musicRemoval" = "Pembuangan muzik ialah salah satu ciri tambahan.";
 "locked.body" = "Supaya aplikasi-aplikasi ini kekal percuma, studio dev&din memerlukan anda.";
 "locked.cta" = "Sokong dev&din";
+"locked.unlock" = "Buka kunci";
 "announceLater.title" = "Baik, dicatat";
 "announceLater.body" = "Ciri tambahan kami hadiahkan kepada anda hingga {date}. Kami akan ingatkan anda sebelum ia tamat.";
 "announceLater.bodyNoDate" = "Ciri tambahan kami hadiahkan kepada anda selama sebulan. Kami akan ingatkan anda sebelum ia tamat.";

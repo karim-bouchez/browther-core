@@ -198,7 +198,7 @@ struct ReferralRecetteView: View {
       .init(label: "O — le code d'un proche", screen: .welcome),
       .init(label: "0 — l'annonce", screen: .announce),
       .init(label: "1 — J−3 (première fin)", screen: .ending(daysLeft: 3)),
-      .init(label: "2 — J0", screen: .paused),
+      .init(label: "2 — J0", screen: .paused(chosen: false)),
       .init(label: "2b — les trois façons (fermé)", screen: .support(locked: true)),
       .init(label: "3 — rappel « en bonne voie »", screen: .reminder(daysLeft: 3, reminderCase: .inProgress)),
       .init(label: "3 — rappel « fin de mois gagnés »", screen: .reminder(daysLeft: 10, reminderCase: .earnedMonthsEnding)),
