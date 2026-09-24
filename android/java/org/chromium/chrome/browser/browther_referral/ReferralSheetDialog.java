@@ -65,7 +65,13 @@ public final class ReferralSheetDialog extends BottomSheetDialog {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         // Le fond est celui de notre contenu (coins arrondis compris) : le conteneur de la
         // bibliothèque devient transparent.
-        View sheet = findViewById(com.google.android.material.R.id.design_bottom_sheet);
+        // ⚠️ Par son NOM : Chromium ne génère pas `com.google.android.material.R`, et l'aperçu
+        // hors Chromium n'a pas la bibliothèque Material (build OVH du 2026-09-24).
+        int sheetId =
+                getContext()
+                        .getResources()
+                        .getIdentifier("design_bottom_sheet", "id", getContext().getPackageName());
+        View sheet = sheetId == 0 ? null : findViewById(sheetId);
         if (sheet != null) sheet.setBackgroundColor(Color.TRANSPARENT);
         if (mScreen.kind == ReferralScreen.Kind.VALIDATED
                 || mScreen.kind == ReferralScreen.Kind.REFEREE_DONE) {
