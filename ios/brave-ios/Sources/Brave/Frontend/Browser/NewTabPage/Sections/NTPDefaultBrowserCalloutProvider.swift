@@ -103,7 +103,9 @@ class NTPDefaultBrowserCalloutProvider: NSObject, NTPObservableSectionProvider {
   }
 
   @objc func openSettings() {
-    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+    // ⛔ Plus la fiche de l'app : depuis iOS 18 le choix du navigateur par
+    // défaut est dans « Apps par défaut » (`BrowtherDefaultBrowserSettings`).
+    guard let settingsUrl = BrowtherDefaultBrowserSettings.url else {
       return
     }
 

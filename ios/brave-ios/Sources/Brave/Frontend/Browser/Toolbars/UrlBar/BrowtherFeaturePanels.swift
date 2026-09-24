@@ -188,6 +188,11 @@ struct SawtunaaPanelView: View {
   /// L'encadré apparaît/disparaît avec le toggle : le contrôleur recalcule la
   /// hauteur du popover (cf. SawtunaaPanelViewController).
   var onLayoutChange: () -> Void = {}
+  /// 🔴 **Ouvrir un écran du parrainage passe par le BVC**, qui ferme d'abord le
+  /// popover. Présenté depuis le popover lui-même, l'écran ne s'ouvrait PAS —
+  /// « je clique et il ne se passe rien, vraiment rien » (recette Karim,
+  /// 2026-09-24). C'est le geste du desktop : `CloseUI()` puis `ShowModal`.
+  var onReferralScreen: (ReferralScreen, ReferralShowSource) -> Void = { _, _ in }
 
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
   @ObservedObject private var referral = BrowtherReferralController.shared
@@ -279,23 +284,28 @@ struct SawtunaaPanelView: View {
 
         // ⭐ Une action, là où l'on vient de se heurter au verrou : elle ouvre
         // J0 — et comme on l'a ouvert soi-même, on peut en ressortir (§ 12.16).
-        Button(Strings.BrowtherReferral.lockedUnlock) {
-          guard let host = BrowtherReferralPresenter.topController() else { return }
+        Button {
           BrowtherReferralController.shared.track(
             "paywall_action",
             ["screen": "panel", "action": "unlock"]
           )
           // `locked` : il vient de la pause d'une fonctionnalité, comme le toast de la garde.
-          BrowtherReferralPresenter.present(.paused(chosen: true), from: host, source: .locked)
+          onReferralScreen(.paused(chosen: true), .locked)
+        } label: {
+          // ⚠️ Le fond et les marges sont DANS le label : posés sur le Button,
+          // ils agrandissent le dessin mais pas la zone touchable — la pastille
+          // paraît immense et seul le mot répond.
+          Text(Strings.BrowtherReferral.lockedUnlock)
+            .font(.callout.weight(.semibold))
+            .foregroundStyle(ReferralPalette.ink)
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity)
+            .background(
+              RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(ReferralPalette.goldFill)
+            )
+            .contentShape(Rectangle())
         }
-        .font(.callout.weight(.semibold))
-        .foregroundStyle(ReferralPalette.ink)
-        .padding(.vertical, 10)
-        .frame(maxWidth: .infinity)
-        .background(
-          RoundedRectangle(cornerRadius: 10, style: .continuous)
-            .fill(ReferralPalette.goldFill)
-        )
         .buttonStyle(.plain)
         .padding(.horizontal)
       } else {
@@ -327,7 +337,7 @@ struct SawtunaaPanelView: View {
       // ⚠️ Muet tant que l'annonce dort, à vie, ou abonné — et en pause, c'est
       // la popup elle-même qui le dit (⛔ pas deux fois).
       if !paused {
-        ReferralExtraCallout()
+        ReferralExtraCallout { onReferralScreen(.support(locked: false), .user) }
       }
 
       ReportSiteRow(domain: reportDomain, feature: "sawtunaa")
@@ -369,10 +379,16 @@ class SawtunaaPanelViewController: UIHostingController<SawtunaaPanelView>,
   /// Clic sur un canal de l'encadré d'accès anticipé — le BVC ferme le popover
   /// et ouvre le canal dans un nouvel onglet.
   var onChannelTapped: ((URL) -> Void)?
+  /// Un écran du parrainage demandé depuis le panneau — même règle : c'est le
+  /// BVC qui ferme le popover d'abord (cf. `SawtunaaPanelView`).
+  var onReferralScreen: ((ReferralScreen, ReferralShowSource) -> Void)?
 
   init(reportDomain: String?) {
     super.init(rootView: SawtunaaPanelView(reportDomain: reportDomain))
     rootView.onChannelTapped = { [weak self] url in self?.onChannelTapped?(url) }
+    rootView.onReferralScreen = { [weak self] screen, source in
+      self?.onReferralScreen?(screen, source)
+    }
     // Hauteur CALCULÉE, plus codée en dur (260/296 avant l'accès anticipé) :
     // l'encadré « encore en développement » apparaît avec le toggle, et une
     // hauteur fixe le tronquait — ou laissait un trou quand la feature est OFF.

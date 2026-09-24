@@ -452,6 +452,7 @@ struct ReferralCodeTab: View {
   var onCelebrate: () -> Void
   var onInvite: () -> Void
 
+  @Environment(\.colorScheme) private var colorScheme
   @State private var justRedeemed = false
 
   var body: some View {
@@ -497,8 +498,11 @@ struct ReferralCodeTab: View {
         // ⭐ C'est LE geste attendu du filleul (le critère lui-même) : bouton
         // principal, ⛔ pas un contour discret (recette Karim, 2026-09-24).
         ReferralPrimaryButton(label: Strings.BrowtherReferral.refereeSetDefault) {
-          guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-          UIApplication.shared.open(url)
+          // ⭐ Le même geste que l'introduction : la vidéo flottante montre le
+          // chemin, et on atterrit sur « Apps par défaut » — ⛔ plus sur la
+          // fiche de l'app, qui ne propose pas le choix
+          // (`BrowtherDefaultBrowserSettings`).
+          Task { await BrowtherDefaultBrowserSettings.openWithGuide(isDarkMode: colorScheme == .dark) }
         }
         .padding(.top, 4)
       } else {

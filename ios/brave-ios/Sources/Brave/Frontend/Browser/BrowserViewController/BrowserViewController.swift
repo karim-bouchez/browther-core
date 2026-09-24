@@ -3039,7 +3039,8 @@ extension BrowserViewController: UNUserNotificationCenterDelegate {
     withCompletionHandler completionHandler: @escaping () -> Void
   ) {
     if response.notification.request.identifier == Self.defaultBrowserNotificationId {
-      guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+      // ⛔ Plus la fiche de l'app (cf. `BrowtherDefaultBrowserSettings`).
+      guard let settingsUrl = BrowtherDefaultBrowserSettings.url else {
         Logger.module.error("Failed to unwrap iOS settings URL")
         return
       }

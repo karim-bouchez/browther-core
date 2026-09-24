@@ -115,11 +115,22 @@ struct ReferralSettingsCard: View {
 struct ReferralExtraCallout: View {
   @ObservedObject private var controller = BrowtherReferralController.shared
 
+  /// 🔴 **L'ouverture est rendue à l'hôte** quand il en fournit une : dans un
+  /// popover (panneau d'une fonctionnalité), une fenêtre présentée depuis le
+  /// popover lui-même ne s'ouvre pas — il faut le fermer d'abord, et seul le
+  /// BVC sait le faire (recette Karim, 2026-09-24). Sans hôte (une vue
+  /// ordinaire), on présente comme avant.
+  var onOpen: (() -> Void)?
+
   var body: some View {
     if let line = controller.extraCalloutLine {
       Button {
-        guard let host = BrowtherReferralPresenter.topController() else { return }
         controller.track("paywall_action", ["screen": "panel", "action": "invite"])
+        if let onOpen {
+          onOpen()
+          return
+        }
+        guard let host = BrowtherReferralPresenter.topController() else { return }
         BrowtherReferralPresenter.present(.support(locked: false), from: host, source: .user)
       } label: {
         HStack(alignment: .top, spacing: 10) {

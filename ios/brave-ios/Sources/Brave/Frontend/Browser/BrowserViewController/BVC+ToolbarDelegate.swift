@@ -402,6 +402,21 @@ extension BrowserViewController: TopToolbarDelegate {
     panel.onChannelTapped = { [weak self, weak popover] url in
       self?.openFollowChannel(url, closing: popover)
     }
+    // ⭐ Le popover se ferme AVANT que la fenêtre du parrainage s'ouvre — une
+    // fenêtre présentée depuis un popover ne s'ouvre pas (le bouton paraissait
+    // mort, recette Karim 2026-09-24). Même geste que le desktop : `CloseUI()`
+    // puis `ShowModal`.
+    panel.onReferralScreen = { [weak self, weak popover] screen, source in
+      let open = {
+        guard let host = self else { return }
+        BrowtherReferralPresenter.present(screen, from: host, source: source)
+      }
+      if let popover {
+        popover.dismissPopover(open)
+      } else {
+        open()
+      }
+    }
     popover.present(from: topToolbar.sawtunaaButton, on: self)
   }
 

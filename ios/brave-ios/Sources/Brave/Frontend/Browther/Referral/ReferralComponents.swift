@@ -56,8 +56,14 @@ struct ReferralPrimaryButton: View {
             Image(systemName: systemImage)
               .font(.system(size: 16, weight: .semibold))
           }
+          // ⚠️ Sans `multilineTextAlignment`, un libellé long passe à la ligne
+          // et se cale à GAUCHE dans un bouton centré — ça se voit
+          // (« Régler Browther comme navigateur par défaut », recette Karim
+          // 2026-09-24).
           Text(label)
             .font(.body.weight(.semibold))
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
         }
         if let sub {
           Text(sub)
@@ -67,7 +73,7 @@ struct ReferralPrimaryButton: View {
         }
       }
       .padding(.horizontal, 16)
-      .padding(.vertical, sub == nil ? 0 : 8)
+      .padding(.vertical, 8)
     }
     .buttonStyle(BrowtherIntroPrimaryButtonStyle())
   }

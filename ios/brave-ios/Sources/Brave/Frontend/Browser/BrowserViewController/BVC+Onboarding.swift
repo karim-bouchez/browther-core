@@ -369,11 +369,12 @@ extension BrowserViewController {
         UIApplication.shared.open(url)
       },
       onSetDefaultBrowser: {
-        // ⚠️ Régression assumée pour l'instant : le parcours Brave lançait
-        // AUSSI la vidéo en incrustation (`set-default-pip-*.mp4`, tournée sur
-        // appareil) qui montre le chemin dans les Réglages. Son contrôleur est
-        // `private` dans le module Onboarding — à exposer pour la remettre.
-        if let settings = URL(string: UIApplication.openSettingsURLString) {
+        // ⚠️ La vidéo en incrustation est lancée par l'ÉCRAN, juste avant
+        // d'appeler ceci (`BrowtherIntroSteps`) : elle doit déjà flotter quand
+        // iOS bascule. Ici, seulement la destination — ⛔ plus la fiche de
+        // l'app, qui ne propose plus le navigateur par défaut depuis iOS 18
+        // (`BrowtherDefaultBrowserSettings`).
+        if let settings = BrowtherDefaultBrowserSettings.url {
           UIApplication.shared.open(settings)
         }
       },
