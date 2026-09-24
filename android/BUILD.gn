@@ -308,6 +308,7 @@ android_resources("java_resources") {
     "java/brave-res/drawable/browther_referral_glyph_heart.xml",
     "java/brave-res/drawable/browther_referral_glyph_hourglass.xml",
     "java/brave-res/drawable/browther_referral_glyph_infinity.xml",
+    "java/brave-res/drawable/browther_referral_glyph_info.xml",
     "java/brave-res/drawable/browther_referral_glyph_seal.xml",
     "java/brave-res/drawable/browther_referral_glyph_share.xml",
     "java/brave-res/drawable/btn_right_tablet.xml",
