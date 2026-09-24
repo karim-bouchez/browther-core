@@ -229,4 +229,6 @@
     <color name="empty_state_tab_border_color">#828CFF</color>
     <color name="empty_state_tab_group_border_color">#828CFF</color>
 
+    <!-- Browther : l'or du parrainage (icône cadeau du menu, ligne des Paramètres). -->
+    <color name="browther_referral_gold">#E2B95C</color>
 </resources>

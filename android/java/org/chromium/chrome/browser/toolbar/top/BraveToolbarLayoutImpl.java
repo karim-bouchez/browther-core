@@ -89,6 +89,7 @@ import org.chromium.chrome.browser.preferences.website.BraveShieldsContentSettin
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.basarunaa.BasarunaaPanelBottomSheet;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
 import org.chromium.chrome.browser.shields_panel.ShieldsPanelBottomSheet;
@@ -630,6 +631,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
 
                     @Override
                     public void onPageLoadFinished(final Tab tab, GURL url) {
+                        // Browther : un fait d'usage du parrainage (une vraie page chargée).
+                        BrowtherReferralHooks.onPageLoaded(tab, url);
                         if (getToolbarDataProvider().getTab() == tab) {
                             mBraveShieldsHandler.updateUrlSpec(url.getSpec());
                             updateBraveShieldsButtonState(tab);

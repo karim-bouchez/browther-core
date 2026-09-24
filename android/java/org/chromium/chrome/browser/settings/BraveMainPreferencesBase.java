@@ -31,6 +31,10 @@ import org.chromium.chrome.browser.brave_news.BraveNewsPolicy;
 import org.chromium.chrome.browser.brave_origin.BraveOriginPlansActivity;
 import org.chromium.chrome.browser.brave_origin.BraveOriginSubscriptionPrefs;
 import org.chromium.chrome.browser.browther_intro.BrowtherIntroController;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralController;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralPresenter;
+import org.chromium.chrome.browser.browther_referral.ReferralRecetteDialog;
+import org.chromium.chrome.browser.browther_referral.ReferralSettingsPreference;
 import org.chromium.chrome.browser.crypto_wallet.BraveWalletPolicy;
 import org.chromium.chrome.browser.firstrun.WelcomeOnboardingActivity;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
@@ -168,6 +172,43 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
         category.addPreference(
                 rehearsalEntry(context, "browther_legacy_onboarding",
                         "Ancien parcours d'accueil (Brave)", true));
+        Preference referral = new Preference(context);
+        referral.setKey("browther_referral_recette");
+        referral.setTitle("Parrainage — recette");
+        referral.setOnPreferenceClickListener(
+                preference -> {
+                    new ReferralRecetteDialog(requireActivity()).show();
+                    return true;
+                });
+        category.addPreference(referral);
+    }
+
+    /**
+     * Browther : la ligne « Parrainage » — la seule porte vers les fonctionnalités supplémentaires
+     * SANS payer, donc en haut, pas cachée dans « Aide » (§ 2.10). Absente si le parrainage
+     * n'existe pas dans ce binaire.
+     */
+    private void updateBrowtherReferralPreference(int order) {
+        Preference existing = findPreference(ReferralSettingsPreference.KEY);
+        if (!BrowtherReferralController.get().isEnabled()) {
+            if (existing != null) getPreferenceScreen().removePreference(existing);
+            return;
+        }
+        ReferralSettingsPreference preference;
+        if (existing instanceof ReferralSettingsPreference) {
+            preference = (ReferralSettingsPreference) existing;
+            preference.refresh();
+        } else {
+            preference = new ReferralSettingsPreference(getPreferenceManager().getContext());
+            preference.setOnPreferenceClickListener(
+                    clicked -> {
+                        BrowtherReferralPresenter.presentHome(
+                                requireActivity(), BrowtherReferralPresenter.Source.USER);
+                        return true;
+                    });
+            getPreferenceScreen().addPreference(preference);
+        }
+        preference.setOrder(order);
     }
 
     private Preference rehearsalEntry(Context context, String key, String title, boolean legacy) {
@@ -351,6 +392,9 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
                 removePreferenceIfPresent(key);
             }
         }
+
+        // Browther : « Parrainage » en haut des Paramètres (private/docs/PARRAINAGE.md § 2.10).
+        updateBrowtherReferralPreference(++braveAccountSectionOrder);
 
         int featuresSectionOrder = braveAccountSectionOrder;
         setPreferenceOrder(PREF_FEATURES_SECTION, ++featuresSectionOrder);

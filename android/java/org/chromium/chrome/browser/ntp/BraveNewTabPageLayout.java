@@ -70,6 +70,7 @@ import org.chromium.chrome.browser.brave_news.models.FeedItemCard;
 import org.chromium.chrome.browser.brave_news.models.FeedItemsCard;
 import org.chromium.chrome.browser.brave_stats.BraveStatsUtil;
 import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
 import org.chromium.chrome.browser.feed.FeedSurfaceScrollDelegate;
 import org.chromium.chrome.browser.lifecycle.ActivityLifecycleDispatcher;
 import org.chromium.chrome.browser.local_database.DatabaseHelper;
@@ -309,6 +310,9 @@ public class BraveNewTabPageLayout extends NewTabPageLayout
 
         // Show recent tabs dialog for variants B, C, and D if NTP was shown after inactivity
         maybeShowRecentTabsDialog();
+
+        // Browther : le parrainage parle au Nouvel Onglet, et seulement là (PARRAINAGE.md § 2.2).
+        BrowtherReferralHooks.onNewTabPageShown(mActivity, this);
     }
 
     @SuppressLint("ClickableViewAccessibility")

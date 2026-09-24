@@ -129,6 +129,8 @@ import org.chromium.chrome.browser.browsing_data.BrowsingDataBridge;
 import org.chromium.chrome.browser.browsing_data.BrowsingDataType;
 import org.chromium.chrome.browser.browsing_data.TimePeriod;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralPresenter;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerChrome;
 import org.chromium.chrome.browser.crypto_wallet.AssetRatioServiceFactory;
 import org.chromium.chrome.browser.crypto_wallet.BlockchainRegistryFactory;
@@ -389,6 +391,9 @@ public abstract class BraveActivity extends ChromeActivity
     public void onResumeWithNative() {
         super.onResumeWithNative();
 
+        // Browther : le parrainage se présente au service / relit son statut (jamais bloquant).
+        BrowtherReferralHooks.onForeground();
+
         BraveActivityJni.get().restartStatsUpdater();
         if (BraveVpnUtils.isVpnFeatureSupported(BraveActivity.this)) {
             BraveVpnNativeWorker.getInstance().addObserver(this);
@@ -506,6 +511,9 @@ public abstract class BraveActivity extends ChromeActivity
             layout.addMediaToPlaylist();
         } else if (id == R.id.brave_news_id) {
             openBraveNewsSettings();
+        } else if (id == R.id.browther_referral_id) {
+            // Browther : « Inviter un proche sur Browther » (private/docs/PARRAINAGE.md § 2.10).
+            BrowtherReferralPresenter.presentHome(this, BrowtherReferralPresenter.Source.USER);
         } else if (id == R.id.request_brave_vpn_id || id == R.id.request_brave_vpn_check_id) {
             if (!InternetConnection.isNetworkAvailable(BraveActivity.this)) {
                 Toast.makeText(BraveActivity.this, R.string.no_internet, Toast.LENGTH_SHORT).show();

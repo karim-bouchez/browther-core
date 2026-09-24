@@ -37,6 +37,7 @@ import org.chromium.chrome.browser.app.appmenu.AppMenuIconRowFooter;
 import org.chromium.chrome.browser.bookmarks.BookmarkModel;
 import org.chromium.chrome.browser.brave_leo.BraveLeoPrefUtils;
 import org.chromium.chrome.browser.brave_news.BraveNewsPolicy;
+import org.chromium.chrome.browser.browther_referral.BrowtherReferralController;
 import org.chromium.chrome.browser.crypto_wallet.BraveWalletPolicy;
 import org.chromium.chrome.browser.feed.webfeed.WebFeedSnackbarController;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
@@ -208,7 +209,22 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                             return tab != null
                                     && BraveVpnPolicy.isDisabledByPolicy(tab.getProfile());
                         },
-                        Arrays.asList(CustomizeBraveMenu.BRAVE_CUSTOMIZE_ITEM_ID, R.id.exit_id)));
+                        Arrays.asList(CustomizeBraveMenu.BRAVE_CUSTOMIZE_ITEM_ID, R.id.exit_id)),
+                // Browther : « Inviter un proche sur Browther », juste sous « Partager » comme sur
+                // iOS (private/docs/PARRAINAGE.md § 2.10-2.11) — seulement si le parrainage
+                // existe dans ce binaire.
+                new PolicyControlledMenuItem(
+                        R.id.browther_referral_id,
+                        this::buildBrowtherReferralItem,
+                        () -> BrowtherReferralController.get().isEnabled(),
+                        () -> false,
+                        Arrays.asList(
+                                R.id.download_page_id,
+                                R.id.print_id,
+                                R.id.find_in_page_id,
+                                R.id.set_default_browser,
+                                CustomizeBraveMenu.BRAVE_CUSTOMIZE_ITEM_ID,
+                                R.id.exit_id)));
     }
 
     public BraveTabbedAppMenuPropertiesDelegate(
@@ -1046,6 +1062,17 @@ public class BraveTabbedAppMenuPropertiesDelegate extends TabbedAppMenuPropertie
                         R.id.add_to_playlist_id,
                         R.string.playlist_add_to_playlist,
                         shouldShowIconBeforeItem() ? R.drawable.ic_baseline_add_24 : 0));
+    }
+
+    /** Browther : le cadeau DORÉ (§ 2.11) — un seul point de couleur dans le menu gris. */
+    private MVCListAdapter.ListItem buildBrowtherReferralItem() {
+        PropertyModel model =
+                buildModelForStandardMenuItem(
+                        R.id.browther_referral_id,
+                        R.string.browther_referral_menu_invite,
+                        R.drawable.browther_referral_glyph_gift);
+        model.set(AppMenuItemProperties.ICON_COLOR_RES, R.color.browther_referral_gold);
+        return new MVCListAdapter.ListItem(AppMenuHandler.AppMenuItemType.STANDARD, model);
     }
 
     private MVCListAdapter.ListItem buildBraveNewsItem() {
