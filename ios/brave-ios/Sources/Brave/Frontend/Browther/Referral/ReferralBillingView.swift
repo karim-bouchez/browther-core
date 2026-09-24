@@ -5,6 +5,7 @@
 
 import BraveStrings
 import BrowtherReferral
+import Shared
 import SwiftUI
 import UIKit
 
@@ -247,19 +248,33 @@ struct ReferralBillingCTA: View {
       // réessayer.
       if !canBuy {
         VStack(spacing: 6) {
-          Text(Strings.BrowtherReferral.billingUnavailable)
+          Text(Self.devBuildNote ?? Strings.BrowtherReferral.billingUnavailable)
             .font(.footnote)
             .foregroundStyle(.secondary)
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
-          Button(Strings.BrowtherReferral.billingRetry) {
-            Task { await controller.reloadPackages() }
+          // Réessayer n'a de sens que si le store PEUT servir les formules.
+          if Self.devBuildNote == nil {
+            Button(Strings.BrowtherReferral.billingRetry) {
+              Task { await controller.reloadPackages() }
+            }
+            .font(.footnote.weight(.semibold))
           }
-          .font(.footnote.weight(.semibold))
         }
         .padding(.top, 6)
       }
     }
+  }
+
+  /// 🔴 **Dans un build de dev, le bouton EST grisé, et c'est normal** : le
+  /// bundle `.BrowserBeta` n'existe pas dans App Store Connect, donc l'App Store
+  /// ne sert aucune formule. Le dire ici a coûté une demi-journée de fausse
+  /// piste (recette Karim, 2026-09-24 : « le bouton est grisé, je ne peux pas
+  /// tester » — il était sur le build de dev). ⛔ Texte interne, non traduit : il
+  /// n'existe pas dans les binaires du store.
+  private static var devBuildNote: String? {
+    guard AppConstants.buildChannel != .release else { return nil }
+    return "Build de dev : l'App Store ne sert pas les formules ici (bundle .BrowserBeta). L'achat se recette en TestFlight."
   }
 
   private func buy() {
