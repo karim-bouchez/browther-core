@@ -109,15 +109,36 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
         root.addView(mConfetti, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.MATCH));
         root.setOnApplyWindowInsetsListener(
                 (v, insets) -> {
-                    android.graphics.Insets bars =
-                            insets.getInsets(
-                                    WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
-                    mStage.setPadding(bars.left, bars.top, bars.right, bars.bottom);
-                    return WindowInsets.CONSUMED;
+                    // ⚠️ `WindowInsets.Type` n'existe qu'à partir d'Android 11 : sur Android 10
+                    // (minimum de Chromium), l'ouvrir plantait la fenêtre — l'émulateur récent ne
+                    // pouvait pas le montrer, c'est le lint du build OVH qui l'a vu (2026-09-24).
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        android.graphics.Insets bars =
+                                insets.getInsets(
+                                        WindowInsets.Type.systemBars()
+                                                | WindowInsets.Type.displayCutout());
+                        mStage.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+                        return WindowInsets.CONSUMED;
+                    }
+                    mStage.setPadding(
+                            insets.getSystemWindowInsetLeft(),
+                            insets.getSystemWindowInsetTop(),
+                            insets.getSystemWindowInsetRight(),
+                            insets.getSystemWindowInsetBottom());
+                    return insets.consumeSystemWindowInsets();
                 });
         setContentView(root);
         prepareWindow();
         setCancelable(false);
+        // 🔴 Chrome active le retour PRÉDICTIF (`enableOnBackInvokedCallback`) : dès Android 13,
+        // le geste retour n'appelle plus `onBackPressed` — sans ce rappel, il fermait une fenêtre
+        // verrouillée (§ 12.14) sans passer par nos règles.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher()
+                    .registerOnBackInvokedCallback(
+                            android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                            this::handleBack);
+        }
 
         mModel =
                 new FlowModel(
@@ -178,8 +199,14 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
         show(mModel.top(), true, false);
     }
 
+    /** Android 10 à 12 ; au-delà, c'est le rappel du retour prédictif (`onCreate`). */
     @Override
+    @android.annotation.SuppressLint("GestureBackNavigation")
     public void onBackPressed() {
+        handleBack();
+    }
+
+    private void handleBack() {
         if (mModel == null) return;
         if (mModel.isTopLocked()) {
             // Une fenêtre qui attend une action ne se ferme que par elle (§ 12.14) : le pied

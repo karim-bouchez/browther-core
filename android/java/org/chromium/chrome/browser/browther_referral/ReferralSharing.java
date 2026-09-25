@@ -13,7 +13,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 
 import androidx.annotation.Nullable;
 
@@ -82,11 +81,9 @@ public final class ReferralSharing {
                     }
                 };
         IntentFilter filter = new IntentFilter(ACTION_CHOSEN);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            app.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            app.registerReceiver(receiver, filter);
-        }
+        // NON exporté sur toutes les versions, comme `ContextUtils.registerNonExportedBroadcastReceiver`
+        // de Chromium : sans ça, une autre app pourrait simuler un partage abouti (et ses 3 jours).
+        app.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
         sPending = receiver;
 
         Intent send = new Intent(Intent.ACTION_SEND);
