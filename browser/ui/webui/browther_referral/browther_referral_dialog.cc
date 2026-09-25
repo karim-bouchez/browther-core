@@ -44,17 +44,9 @@ constexpr int kDialogWidth = 468;
 constexpr int kDialogHeight = 560;   // avant que la page dise sa vraie hauteur
 constexpr int kDialogMinHeight = 320;
 constexpr int kDialogMaxHeight = 1000;
-// 🔴 **Quand la place manque en hauteur, on ÉLARGIT — ⛔ on ne rapetisse pas le
-// contenu.** Rétrécir la carte (`zoom`) la faisait tenir, mais Karim ne lisait
-// plus rien : « ne rends pas son contenu plus petit, ce n'est pas trop visible »
-// (2026-09-25). Élargir raccourcit la carte (les textes se replient moins) sans
-// toucher à la taille des caractères.
-constexpr int kDialogMaxWidth = 760;
-constexpr int kWidenStep = 80;
 constexpr int kMargin = 16;          // d'air au-dessus et en dessous
 // ⚠️ 16 et pas 32 : sur un 1080p en 150 %, la fenêtre du navigateur ne fait plus
 // que ~693 px utiles et 2×32 de marge suffisaient à rogner le pied de l'écran 2b.
-constexpr int kMaxAdjustments = 6;   // ⛔ au-delà, l'écart ne converge pas
 constexpr float kCornerRadius = 24.f;
 
 // 🔴 **La sortie de secours du J0 imposé.** Une modale de FENÊTRE désactive sa
@@ -90,11 +82,6 @@ views::Widget*& ModalWidget() {
   return widget;
 }
 
-// Combien de fois la page a demandé un ajustement pour CETTE modale.
-int& Adjustments() {
-  static int count = 0;
-  return count;
-}
 
 // 🔴 **Le filet contre une fenêtre MORTE.** Une modale de fenêtre dont la page
 // ne s'affiche pas bloquerait le navigateur sans aucune issue — et sur le J0
@@ -259,7 +246,6 @@ bool ShowModal(content::WebContents* initiator,
   params.remove_standard_frame = true;
   params.rounded_corners = gfx::RoundedCornersF(kCornerRadius);
   ShowScrim(parent_widget);
-  Adjustments() = 0;
   ModalAlive() = false;
   ClosedByFlow() = false;
   Browser* browser = chrome::FindBrowserWithTab(initiator);
@@ -292,83 +278,45 @@ void NoteModalAlive() {
   ModalAlive() = true;
 }
 
-ResizeResult ResizeModal(int delta, bool fresh) {
+ResizeResult FitModal(int card, int viewport) {
   views::Widget* widget = ModalWidget();
-  if (!widget || delta == 0) {
+  if (!widget || card <= 0 || viewport <= 0) {
     return ResizeResult();
   }
-  // 🔴 **Le compte d'ajustements se remet à zéro à CHAQUE écran**, ⛔ pas une
-  // fois par modale : le flow en enchaîne plusieurs (J0 → 2b → inviter) et un
-  // budget global de six tours s'épuisait en route, laissant les derniers
-  // écrans à la taille du précédent. La page dit `fresh` au premier ajustement
-  // qui suit un changement de hauteur.
-  if (fresh) {
-    Adjustments() = 0;
-  }
-  views::Widget* parent = widget->parent();
+  // 🔴 **Un CALCUL, ⛔ pas une boucle.** La première version faisait converger
+  // la fenêtre par ajustements successifs (« il me manque N pixels ») : c'était
+  // faux par construction, et chaque plateforme ajoutait son grain de sable —
+  // lecture de position en retard d'un appel sur macOS, arrondis de l'échelle
+  // d'affichage sur Windows, feuille modale ancrée par AppKit, barre de
+  // défilement qui change la largeur donc la hauteur. Six symptômes, six
+  // rustines (recette Karim, 2026-09-25 : « on tourne en rond »).
+  // ⇒ La page envoie la hauteur NATURELLE de la carte ET sa zone visible. La
+  // différence entre la fenêtre et cette zone visible, c'est l'épaisseur du
+  // cadre : on la MESURE au lieu de la deviner, et la bonne hauteur tombe d'un
+  // coup. Idempotent : à carte égale, le calcul redonne le même résultat.
   gfx::Rect bounds = widget->GetWindowBoundsInScreen();
+  views::Widget* parent = widget->parent();
   const gfx::Rect room = parent ? parent->GetWindowBoundsInScreen() : bounds;
-  const int target = bounds.height() + delta;
-  // 🔴 **Le plafond part du HAUT RÉEL de la modale, ⛔ pas de la hauteur de la
-  // fenêtre.** Sur macOS la modale est une FEUILLE (`sheet`) : AppKit l'accroche
-  // sous la barre d'outils du parent et IGNORE le `y` qu'on demande — mesuré
-  // deux fois le 2026-09-25, toujours 77 px sous le haut de la fenêtre, quoi
-  // qu'on pose. Croire qu'on l'a recentrée et raisonner sur la hauteur totale
-  // faisait dépasser la carte par le bas tout en laissant un blanc en haut.
-  // ⚠️ `bounds` est lu AVANT tout `SetBounds` de ce tour : c'est la seule
-  // lecture fiable (voir l'avertissement plus bas).
-  const int ceiling = std::clamp(room.bottom() - bounds.y() - kMargin,
-                                 kDialogMinHeight, kDialogMaxHeight);
-  const int wanted = std::clamp(target, kDialogMinHeight, ceiling);
-  // 🔴 **La place manque : il faut le DIRE.** Sinon la page croit la fenêtre à
-  // la bonne taille et laisse la carte coupée net, sans barre de défilement ni
-  // rien qui le signale (la sortie « du'a » de l'écran 2b avait disparu —
-  // recette Karim, 2026-09-25). Prévenue, elle rétrécit la carte pour que tout
-  // tienne. ⚠️ Calculé AVANT la borne d'ajustements : une fenêtre qui ne bouge
-  // plus reste trop courte, et c'est justement ce cas-là qu'il faut remonter.
-  const bool clamped = target > ceiling;
+  const int frame = bounds.height() - viewport;
 
-  // 🔴 **Un nombre d'ajustements BORNÉ, remis à zéro à chaque écran.** L'écart
-  // vient de la page ; rien ne garantit qu'il converge (l'échelle d'affichage
-  // fait que la zone visible ne grandit pas exactement de ce qu'on demande) —
-  // sans borne, la fenêtre a GLISSÉ hors de l'écran (2026-09-24). ⛔ Mais le
-  // budget ne peut pas être PAR MODALE : le flow enchaîne plusieurs écrans
-  // (J0 → 2b → inviter) et six tours s'épuisaient en route, laissant les
-  // derniers à la taille du précédent — c'est ce qui a fait déborder 2b chez
-  // Karim (2026-09-25).
+  // ⚠️ La place part du HAUT RÉEL de la modale, ⛔ pas de la hauteur de la
+  // fenêtre : sur macOS c'est une FEUILLE, AppKit l'accroche sous la barre
+  // d'outils et ignore le `y` qu'on demande (mesuré : toujours 77 px plus bas).
+  const int available =
+      std::min(kDialogMaxHeight,
+               std::max(kDialogMinHeight, room.bottom() - bounds.y() - kMargin));
+  const int needed = card + frame;
+  const int wanted = std::clamp(needed, kDialogMinHeight, available);
+
   ResizeResult result;
-  result.clamped = clamped;
-
-  // ⚠️ La borne d'ajustements se teste AVANT d'élargir : annoncer un
-  // élargissement qu'on ne va pas appliquer laisserait la page attendre une
-  // remesure qui n'arrive jamais — elle ne ferait alors NI défiler NI tenir.
-  if (++Adjustments() > kMaxAdjustments) {
+  result.fits = needed <= available;
+  if (wanted == bounds.height()) {
     return result;
   }
-  // ⭐ Il manque de la hauteur : on prend de la LARGEUR. Un cran à la fois, la
-  // page se remesure entre chaque — la carte raccourcit à mesure qu'elle
-  // s'élargit. ⚠️ Monotone : on n'élargit jamais à l'envers, sinon la mise en
-  // page oscillerait (plus large → plus court → ça rentre → plus étroit → …).
-  if (clamped) {
-    const int widest = std::min(kDialogMaxWidth,
-                                std::max(kDialogWidth, room.width() - 2 * kMargin));
-    if (bounds.width() < widest) {
-      bounds.set_width(std::min(widest, bounds.width() + kWidenStep));
-      result.widened = true;
-    }
-  }
-  if (wanted == bounds.height() && !result.widened) {
-    return result;
-  }
-  // 🔴 On RECENTRE sur la fenêtre parente à chaque fois, ⛔ on ne décale PAS y
-  // d'une fraction de la croissance : un décalage relatif se cumule et la
-  // fenêtre finit par sortir de l'écran. Recentrer est idempotent.
+  // 🔴 On RECENTRE sur le parent, ⛔ on ne décale pas d'une fraction de la
+  // croissance : un décalage relatif se cumule et la fenêtre sort de l'écran.
   // ⛔ **Ne JAMAIS relire `GetWindowBoundsInScreen()` juste après un
-  // `SetBounds()` pour enchaîner** : sur macOS il rend encore l'ANCIENNE
-  // position (un appel de retard). Un premier placement suivi d'un
-  // redimensionnement bâti sur cette lecture remettait la fenêtre là où elle
-  // était — le bug exact du 2026-09-25 (mesuré : on posait y=240, on relisait
-  // 301, on re-posait 301). Un seul `SetBounds`, bâti sur `room`.
+  // `SetBounds()`** : sur macOS il rend encore l'ANCIENNE position.
   bounds.set_height(wanted);
   bounds.set_x(room.x() + (room.width() - bounds.width()) / 2);
   bounds.set_y(room.y() + (room.height() - wanted) / 2);

@@ -183,17 +183,16 @@ void BrowtherReferralHandler::HandleCall(const base::ListValue& args) {
     Reply(id, true, CopyText(payload));
   } else if (method == "openModal") {
     Reply(id, true, OpenModal(payload));
-  } else if (method == "resizeModal") {
-    // ⚠️ On rend le RABOTAGE à la page (⛔ pas un `Ok()` qui mentirait) : elle
-    // seule peut rendre la carte défilante quand la fenêtre ne peut pas être
-    // assez haute.
-    base::DictValue resized;
-    const browther_referral::ResizeResult sized = browther_referral::ResizeModal(
-        payload.FindInt("delta").value_or(0),
-        payload.FindBool("fresh").value_or(false));
-    resized.Set("clamped", sized.clamped);
-    resized.Set("widened", sized.widened);
-    Reply(id, true, base::Value(std::move(resized)));
+  } else if (method == "fitModal") {
+    // ⚠️ On rend la VÉRITÉ à la page (⛔ pas un `Ok()` qui mentirait) : elle
+    // seule peut resserrer ses espacements, puis faire défiler, quand la
+    // fenêtre ne peut pas être assez haute.
+    base::DictValue fitted;
+    const browther_referral::ResizeResult sized = browther_referral::FitModal(
+        payload.FindInt("card").value_or(0),
+        payload.FindInt("viewport").value_or(0));
+    fitted.Set("fits", sized.fits);
+    Reply(id, true, base::Value(std::move(fitted)));
   } else if (method == "closeModal") {
     browther_referral::CloseModal();
     Reply(id, true, Ok());

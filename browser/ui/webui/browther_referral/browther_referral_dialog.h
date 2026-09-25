@@ -44,33 +44,21 @@ bool ShowModal(content::WebContents* initiator,
                const std::string& screen,
                bool chosen = false);
 
-// ⭐ La fenêtre suit la hauteur de la carte : chaque écran du flow a la sienne,
-// et une taille fixe faisait défiler alors que la place ne manquait pas
-// (recette Karim, 2026-09-23).
+// ⭐ La fenêtre prend la hauteur de la carte : chaque écran du flow a la sienne,
+// et une taille fixe faisait défiler alors que la place ne manquait pas.
 //
-// ⚠️ La page envoie un ÉCART (carte − zone visible), ⛔ pas une hauteur : le
-// cadre de la fenêtre ne se mesure pas de façon fiable d'une plateforme à
-// l'autre (sur macOS la zone cliente est rendue PLUS GRANDE que la fenêtre), et
-// un calcul de cadre laissait un filet de défilement qui ne se résorbait jamais.
-// Un écart converge tout seul. Bornée à la fenêtre du navigateur — ⛔ une modale
-// ne dépasse pas de son parent.
-//
-// 🔴 **Rend `true` quand la hauteur demandée a été RABOTÉE** par la place
-// disponible. La page DOIT le savoir : sans ce retour, elle croit la fenêtre à
-// la bonne taille et laisse la carte coupée en SILENCE — la sortie « du'a » du
-// bas de l'écran 2b avait disparu sur un 1080p en 150 % (recette Karim,
-// 2026-09-25). ⛔ Plus jamais de rabotage muet : prévenue, la page rend la
-// carte défilante, ce qui se VOIT.
-// ⚠️ `fresh` = premier ajustement d'un NOUVEL écran : remet à zéro le budget
-// d'ajustements, qui est par écran et ⛔ pas par modale.
+// 🔴 **Un CALCUL, ⛔ pas une boucle.** La page envoie la hauteur NATURELLE de la
+// carte (`card`) ET sa zone visible (`viewport`) : la différence entre la
+// fenêtre et cette zone visible donne l'épaisseur du CADRE, qu'on mesure au lieu
+// de la deviner. La bonne hauteur tombe alors d'un coup, sans convergence.
+// La première version faisait converger la fenêtre par ajustements successifs :
+// six symptômes, six rustines, et Karim voyait encore la carte déborder
+// (2026-09-25). ⛔ Ne pas y revenir.
 struct ResizeResult {
-  // La hauteur demandée n'a pas pu être donnée : il manque de la place.
-  bool clamped = false;
-  // On vient d'ÉLARGIR la fenêtre pour s'en sortir : la carte va se remesurer
-  // toute seule, ⛔ la page n'a rien d'autre à faire.
-  bool widened = false;
+  // Tout tient. Sinon la page resserre ses espacements, puis fait défiler.
+  bool fits = true;
 };
-ResizeResult ResizeModal(int delta, bool fresh);
+ResizeResult FitModal(int card, int viewport);
 
 // 🔴 **La sortie de secours, celle qui marche quoi qu'il arrive.** Une modale
 // de fenêtre désactive sa fenêtre parente : tant qu'elle est là, ⌘W, ⌘Q, le
