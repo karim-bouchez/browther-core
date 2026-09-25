@@ -18,7 +18,11 @@
 #include "base/strings/strcat.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/views/browther/browther_referral_scrim.h"
+#include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/browser_finder.h"
+#include "chrome/browser/ui/browser_window.h"
 #include "chrome/browser/ui/views/chrome_web_dialog_view.h"
+#include "components/sessions/core/session_id.h"
 #include "content/public/browser/web_contents.h"
 
 #include "ui/base/mojom/ui_base_types.mojom.h"
@@ -90,6 +94,24 @@ int& ModalGeneration() {
   return generation;
 }
 
+// 🔴 **La fenêtre du navigateur qui porte la modale.** Gardée par son
+// identifiant de session, ⛔ pas par un pointeur : entre l'ouverture et la
+// fermeture, la fenêtre peut avoir disparu, et un `Browser*` nu pendouillerait.
+SessionID& ModalBrowserId() {
+  static SessionID id = SessionID::InvalidValue();
+  return id;
+}
+
+// 🔴 **Qui referme la modale ?** Le FLOW (la personne a choisi l'une des trois
+// façons, la page appelle `closeModal`) ou un geste de FENÊTRE (Alt+F4, ⌘W).
+// Les deux n'ont pas le même sens : le second dit « je m'en vais », et sur le
+// J0 imposé il doit fermer LA FENÊTRE DU NAVIGATEUR — sinon il n'est qu'une
+// échappatoire de plus, incohérente avec Échap qu'on bloque juste à côté.
+bool& ClosedByFlow() {
+  static bool by_flow = false;
+  return by_flow;
+}
+
 class ReferralDialogDelegate : public ui::WebDialogDelegate {
  public:
   ReferralDialogDelegate(const std::string& screen, bool chosen)
@@ -116,9 +138,32 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
 
   // ⭐ Le voile de la fenêtre du navigateur disparaît AVEC la modale, quelle
   // que soit la façon dont elle se ferme (boutons, Échap, fermeture de l'onglet).
+  //
+  // 🔴 **Fermer le J0 IMPOSÉ, c'est QUITTER.** Une modale de fenêtre désactive
+  // sa fenêtre parente (`EnableWindow(FALSE)` sur Windows, feuille modale sur
+  // macOS) : tant qu'elle est là, le navigateur ne se ferme plus — Karim n'a
+  // pas pu le fermer, ni sous Windows ni sous macOS (2026-09-25). Et Alt+F4
+  // fermait la modale seule, ce qui rendait le J0 contournable par un geste
+  // MOINS visible qu'Échap, qu'on bloque juste au-dessus.
+  // ⇒ Un geste de fenêtre sur le J0 imposé ferme LA FENÊTRE DU NAVIGATEUR :
+  // c'est la sortie coûteuse déjà admise (le circuit est sur le disque, J0
+  // revient au lancement suivant), et elle ne se déclenche jamais quand c'est
+  // le flow qui referme.
+  // ⚠️ En tâche postée : on est dans la fermeture de la modale, refermer sa
+  // fenêtre parente au milieu ferait rentrer la pile dans elle-même.
   void OnDialogClosed(const std::string& json_retval) override {
     ModalWidget() = nullptr;
     HideScrim();
+    if (chosen_ || ClosedByFlow()) {
+      return;
+    }
+    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+        FROM_HERE, base::BindOnce([](SessionID id) {
+          Browser* browser = chrome::FindBrowserWithID(id);
+          if (browser && browser->window()) {
+            browser->window()->Close();
+          }
+        }, ModalBrowserId()));
   }
 
   ReferralDialogDelegate(const ReferralDialogDelegate&) = delete;
@@ -168,6 +213,9 @@ bool ShowModal(content::WebContents* initiator,
   ShowScrim(parent_widget);
   Adjustments() = 0;
   ModalAlive() = false;
+  ClosedByFlow() = false;
+  Browser* browser = chrome::FindBrowserWithTab(initiator);
+  ModalBrowserId() = browser ? browser->session_id() : SessionID::InvalidValue();
   ModalWidget() = views::Widget::GetWidgetForNativeWindow(
       chrome::ShowWebDialogWithParams(
           parent_widget->GetNativeView(), initiator->GetBrowserContext(),
@@ -196,10 +244,18 @@ void NoteModalAlive() {
   ModalAlive() = true;
 }
 
-bool ResizeModal(int delta) {
+bool ResizeModal(int delta, bool fresh) {
   views::Widget* widget = ModalWidget();
   if (!widget || delta == 0) {
     return false;
+  }
+  // 🔴 **Le compte d'ajustements se remet à zéro à CHAQUE écran**, ⛔ pas une
+  // fois par modale : le flow en enchaîne plusieurs (J0 → 2b → inviter) et un
+  // budget global de six tours s'épuisait en route, laissant les derniers
+  // écrans à la taille du précédent. La page dit `fresh` au premier ajustement
+  // qui suit un changement de hauteur.
+  if (fresh) {
+    Adjustments() = 0;
   }
   views::Widget* parent = widget->parent();
   gfx::Rect bounds = widget->GetWindowBoundsInScreen();
@@ -240,6 +296,9 @@ bool ResizeModal(int delta) {
 }
 
 void CloseModal() {
+  // ⭐ C'est le FLOW qui referme (choix fait, ou filet du minuteur) : ⛔ ne pas
+  // fermer la fenêtre du navigateur avec.
+  ClosedByFlow() = true;
   views::Widget* widget = ModalWidget();
   ModalWidget() = nullptr;
   HideScrim();

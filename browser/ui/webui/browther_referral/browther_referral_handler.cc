@@ -189,7 +189,8 @@ void BrowtherReferralHandler::HandleCall(const base::ListValue& args) {
     // assez haute.
     base::DictValue resized;
     resized.Set("clamped", browther_referral::ResizeModal(
-                               payload.FindInt("delta").value_or(0)));
+                               payload.FindInt("delta").value_or(0),
+                               payload.FindBool("fresh").value_or(false)));
     Reply(id, true, base::Value(std::move(resized)));
   } else if (method == "closeModal") {
     browther_referral::CloseModal();

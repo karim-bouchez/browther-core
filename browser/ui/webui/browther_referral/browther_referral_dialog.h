@@ -61,7 +61,9 @@ bool ShowModal(content::WebContents* initiator,
 // bas de l'écran 2b avait disparu sur un 1080p en 150 % (recette Karim,
 // 2026-09-25). ⛔ Plus jamais de rabotage muet : prévenue, la page rend la
 // carte défilante, ce qui se VOIT.
-bool ResizeModal(int delta);
+// ⚠️ `fresh` = premier ajustement d'un NOUVEL écran : remet à zéro le budget
+// d'ajustements, qui est par écran et ⛔ pas par modale.
+bool ResizeModal(int delta, bool fresh);
 
 // ⭐ La page de la modale a donné signe de vie (premier appel au pont). Sans ce
 // signe, la modale se referme d'elle-même au bout de quelques secondes : sur le
