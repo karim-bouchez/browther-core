@@ -101,7 +101,14 @@ public struct DefaultBrowserDays: Codable, Equatable, Sendable {
 /// binaire, rien dans le store.
 public enum ReferralLaunch {
   /// ⛔ Ne passer à `true` que le jour du lancement, sur décision de Karim.
-  public static let inStoreBuilds = false
+  ///
+  /// ✅ **ALLUMÉ le 2026-09-25** (décision Karim), en même temps que le desktop.
+  /// ⚠️ `extrasReleased` reste à `false` : l'annonce (écran 0), la seule chose
+  /// qui dise qu'une fonctionnalité va devenir payante, n'existe pas encore.
+  /// ⚠️ Rappel : `isEnabled` exige AUSSI `storeBillingReady` — sans abonnement
+  /// réellement achetable dans le binaire, rien ne s'allume dans le store
+  /// (Apple 2.1(b), rejet vécu par Fajrunaa le 2026-09-25).
+  public static let inStoreBuilds = true
 
   /// ⚠️ **Sawtunaa est-il sorti de « encore en développement » ?** (§ 9) Le
   /// mois offert ne démarre qu'à sa finalisation : l'annonce (écran 0), qui

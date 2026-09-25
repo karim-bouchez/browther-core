@@ -36,7 +36,14 @@ inline constexpr int kReferralCommandId = 56130;
 // ⛔ Ne passer à `true` que le jour du lancement, sur décision de Karim — une
 // ligne visible dans git. Les builds de dev (Component) l'ont toujours, pour la
 // recette.
-inline constexpr bool kInReleaseBuilds = false;
+//
+// ✅ **ALLUMÉ le 2026-09-25** (décision Karim) : le parrainage part sur toutes
+// les plateformes prêtes. ⚠️ Ce n'est PAS contradictoire avec « on n'annonce
+// rien tant que Sawtunaa n'est pas fini » : `kExtrasReleased` reste à `false`,
+// donc l'annonce (écran 0) — la seule chose qui dise qu'une fonctionnalité va
+// devenir payante — n'existe pas encore. Tout est ouvert, et seul le geste
+// « inviter un proche » est proposé.
+inline constexpr bool kInReleaseBuilds = true;
 
 // ⚠️ Sawtunaa est-il sorti de « encore en développement » ? (`PARRAINAGE.md`
 // § 9) L'annonce (écran 0), qui démarre le mois offert, attend ce jour-là ;
