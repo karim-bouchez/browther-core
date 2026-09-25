@@ -339,6 +339,12 @@ ResizeResult ResizeModal(int delta, bool fresh) {
   ResizeResult result;
   result.clamped = clamped;
 
+  // ⚠️ La borne d'ajustements se teste AVANT d'élargir : annoncer un
+  // élargissement qu'on ne va pas appliquer laisserait la page attendre une
+  // remesure qui n'arrive jamais — elle ne ferait alors NI défiler NI tenir.
+  if (++Adjustments() > kMaxAdjustments) {
+    return result;
+  }
   // ⭐ Il manque de la hauteur : on prend de la LARGEUR. Un cran à la fois, la
   // page se remesure entre chaque — la carte raccourcit à mesure qu'elle
   // s'élargit. ⚠️ Monotone : on n'élargit jamais à l'envers, sinon la mise en
@@ -351,8 +357,7 @@ ResizeResult ResizeModal(int delta, bool fresh) {
       result.widened = true;
     }
   }
-  if (++Adjustments() > kMaxAdjustments ||
-      (wanted == bounds.height() && !result.widened)) {
+  if (wanted == bounds.height() && !result.widened) {
     return result;
   }
   // 🔴 On RECENTRE sur la fenêtre parente à chaque fois, ⛔ on ne décale PAS y
