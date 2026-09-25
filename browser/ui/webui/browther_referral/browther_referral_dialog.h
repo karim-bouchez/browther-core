@@ -63,7 +63,23 @@ bool ShowModal(content::WebContents* initiator,
 // carte défilante, ce qui se VOIT.
 // ⚠️ `fresh` = premier ajustement d'un NOUVEL écran : remet à zéro le budget
 // d'ajustements, qui est par écran et ⛔ pas par modale.
-bool ResizeModal(int delta, bool fresh);
+struct ResizeResult {
+  // La hauteur demandée n'a pas pu être donnée : il manque de la place.
+  bool clamped = false;
+  // On vient d'ÉLARGIR la fenêtre pour s'en sortir : la carte va se remesurer
+  // toute seule, ⛔ la page n'a rien d'autre à faire.
+  bool widened = false;
+};
+ResizeResult ResizeModal(int delta, bool fresh);
+
+// 🔴 **La sortie de secours, celle qui marche quoi qu'il arrive.** Une modale
+// de fenêtre désactive sa fenêtre parente : tant qu'elle est là, ⌘W, ⌘Q, le
+// « Quitter » du Dock et le clic droit de la barre des tâches ne font RIEN
+// (constaté sur macOS ET Windows, 2026-09-25). La page de la modale, elle,
+// reçoit toujours le clavier — c'est donc ELLE qui appelle ceci sur ⌘W / ⌘Q /
+// Alt+F4, et le navigateur se ferme comme la personne le demandait.
+// ⚠️ `whole_app` : ⌘Q quitte l'application, ⌘W ne ferme que la fenêtre.
+void QuitFromModal(bool whole_app);
 
 // ⭐ La page de la modale a donné signe de vie (premier appel au pont). Sans ce
 // signe, la modale se referme d'elle-même au bout de quelques secondes : sur le

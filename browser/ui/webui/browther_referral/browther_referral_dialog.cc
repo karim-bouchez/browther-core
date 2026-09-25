@@ -18,6 +18,7 @@
 #include "base/strings/strcat.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/views/browther/browther_referral_scrim.h"
+#include "chrome/browser/lifetime/application_lifetime.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_finder.h"
 #include "chrome/browser/ui/browser_window.h"
@@ -25,6 +26,7 @@
 #include "components/sessions/core/session_id.h"
 #include "content/public/browser/web_contents.h"
 
+#include "ui/base/accelerators/accelerator.h"
 #include "ui/base/mojom/ui_base_types.mojom.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rounded_corners_f.h"
@@ -42,11 +44,30 @@ constexpr int kDialogWidth = 468;
 constexpr int kDialogHeight = 560;   // avant que la page dise sa vraie hauteur
 constexpr int kDialogMinHeight = 320;
 constexpr int kDialogMaxHeight = 1000;
+// 🔴 **Quand la place manque en hauteur, on ÉLARGIT — ⛔ on ne rapetisse pas le
+// contenu.** Rétrécir la carte (`zoom`) la faisait tenir, mais Karim ne lisait
+// plus rien : « ne rends pas son contenu plus petit, ce n'est pas trop visible »
+// (2026-09-25). Élargir raccourcit la carte (les textes se replient moins) sans
+// toucher à la taille des caractères.
+constexpr int kDialogMaxWidth = 760;
+constexpr int kWidenStep = 80;
 constexpr int kMargin = 16;          // d'air au-dessus et en dessous
 // ⚠️ 16 et pas 32 : sur un 1080p en 150 %, la fenêtre du navigateur ne fait plus
 // que ~693 px utiles et 2×32 de marge suffisaient à rogner le pied de l'écran 2b.
 constexpr int kMaxAdjustments = 6;   // ⛔ au-delà, l'écart ne converge pas
 constexpr float kCornerRadius = 24.f;
+
+// 🔴 **La sortie de secours du J0 imposé.** Une modale de FENÊTRE désactive sa
+// fenêtre parente : ⌘W, ⌘Q, « Quitter » du Dock, la croix et le clic droit de
+// la barre des tâches ne font plus rien — c'est l'OS qui honore la modalité
+// qu'on a demandée, ⛔ pas un défaut qu'on peut corriger. Il faut donc une
+// issue qui ne passe NI par la fenêtre du navigateur, NI par un bouton de la
+// page (qui n'existe plus si la page est cassée) : Échap est le seul événement
+// qui arrive jusqu'ici quoi qu'il arrive.
+// ⚠️ TROIS fois de suite, ⛔ pas une : à une, ce serait la fermeture qu'on
+// refuse justement au J0 imposé. Un utilisateur ne tombe pas dessus par hasard.
+constexpr int kEscapesToLeave = 3;
+constexpr base::TimeDelta kEscapeBurst = base::Seconds(2);
 
 // ⚠️ La fenêtre ne contient QUE la carte : sans cadre, coins arrondis, à ses
 // cotes. Le voile, lui, est posé DANS la fenêtre du navigateur
@@ -136,6 +157,31 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
   // `ArmDeadModalGuard` : si la page ne donne pas signe de vie, on ferme.
   bool ShouldCloseDialogOnEscape() const override { return chosen_; }
 
+  // 🔴 **Échap ×3 = quitter.** Appelé AVANT `ShouldCloseDialogOnEscape` par
+  // `WebDialogView::AcceleratorPressed`, donc on voit passer chaque Échap même
+  // quand on refuse d'en faire une fermeture. C'est la seule issue qui survit à
+  // une page cassée (cf. `kEscapesToLeave`).
+  // ⚠️ En tâche postée : on est dans le traitement du raccourci, fermer la
+  // fenêtre ici ferait rentrer la pile dans elle-même.
+  bool AcceleratorPressed(const ui::Accelerator& accelerator) override {
+    if (chosen_ || accelerator.key_code() != ui::VKEY_ESCAPE) {
+      return false;
+    }
+    const base::TimeTicks now = base::TimeTicks::Now();
+    if (now - last_escape_ > kEscapeBurst) {
+      escapes_ = 0;
+    }
+    last_escape_ = now;
+    if (++escapes_ < kEscapesToLeave) {
+      return true;  // avalé : le J0 reste imposé
+    }
+    LOG(WARNING) << "[browther] J0 imposé : sortie de secours (Échap ×"
+                 << kEscapesToLeave << ")";
+    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+        FROM_HERE, base::BindOnce(&QuitFromModal, /*whole_app=*/false));
+    return true;
+  }
+
   // ⭐ Le voile de la fenêtre du navigateur disparaît AVEC la modale, quelle
   // que soit la façon dont elle se ferme (boutons, Échap, fermeture de l'onglet).
   //
@@ -172,6 +218,8 @@ class ReferralDialogDelegate : public ui::WebDialogDelegate {
 
  private:
   const bool chosen_;
+  int escapes_ = 0;
+  base::TimeTicks last_escape_;
 
 
 };
@@ -244,10 +292,10 @@ void NoteModalAlive() {
   ModalAlive() = true;
 }
 
-bool ResizeModal(int delta, bool fresh) {
+ResizeResult ResizeModal(int delta, bool fresh) {
   views::Widget* widget = ModalWidget();
   if (!widget || delta == 0) {
-    return false;
+    return ResizeResult();
   }
   // 🔴 **Le compte d'ajustements se remet à zéro à CHAQUE écran**, ⛔ pas une
   // fois par modale : le flow en enchaîne plusieurs (J0 → 2b → inviter) et un
@@ -259,40 +307,96 @@ bool ResizeModal(int delta, bool fresh) {
   }
   views::Widget* parent = widget->parent();
   gfx::Rect bounds = widget->GetWindowBoundsInScreen();
-  const gfx::Rect room =
-      parent ? parent->GetWindowBoundsInScreen() : bounds;
-  const int ceiling =
-      std::min(kDialogMaxHeight, std::max(kDialogMinHeight,
-                                          room.height() - 2 * kMargin));
+  const gfx::Rect room = parent ? parent->GetWindowBoundsInScreen() : bounds;
   const int target = bounds.height() + delta;
+  // 🔴 **Le plafond part du HAUT RÉEL de la modale, ⛔ pas de la hauteur de la
+  // fenêtre.** Sur macOS la modale est une FEUILLE (`sheet`) : AppKit l'accroche
+  // sous la barre d'outils du parent et IGNORE le `y` qu'on demande — mesuré
+  // deux fois le 2026-09-25, toujours 77 px sous le haut de la fenêtre, quoi
+  // qu'on pose. Croire qu'on l'a recentrée et raisonner sur la hauteur totale
+  // faisait dépasser la carte par le bas tout en laissant un blanc en haut.
+  // ⚠️ `bounds` est lu AVANT tout `SetBounds` de ce tour : c'est la seule
+  // lecture fiable (voir l'avertissement plus bas).
+  const int ceiling = std::clamp(room.bottom() - bounds.y() - kMargin,
+                                 kDialogMinHeight, kDialogMaxHeight);
   const int wanted = std::clamp(target, kDialogMinHeight, ceiling);
-  // 🔴 **La place manque : il faut le DIRE.** La page croit sinon la fenêtre à
+  // 🔴 **La place manque : il faut le DIRE.** Sinon la page croit la fenêtre à
   // la bonne taille et laisse la carte coupée net, sans barre de défilement ni
-  // rien qui le signale (la sortie « du'a » de l'écran 2b, recette Karim
-  // 2026-09-25). On le calcule AVANT toute sortie anticipée : une fenêtre déjà
-  // au plafond ne bouge plus, mais elle reste trop courte, et c'est justement
-  // ce cas-là qu'il faut remonter.
+  // rien qui le signale (la sortie « du'a » de l'écran 2b avait disparu —
+  // recette Karim, 2026-09-25). Prévenue, elle rétrécit la carte pour que tout
+  // tienne. ⚠️ Calculé AVANT la borne d'ajustements : une fenêtre qui ne bouge
+  // plus reste trop courte, et c'est justement ce cas-là qu'il faut remonter.
   const bool clamped = target > ceiling;
-  // 🔴 **Un nombre d'ajustements BORNÉ.** L'écart vient de la page ; rien ne
-  // garantit qu'il converge (sur Windows, l'échelle d'affichage fait que la
-  // zone visible ne grandit pas exactement de ce qu'on demande). Sans cette
-  // borne, la page redemande sans fin — la fenêtre a GLISSÉ hors de l'écran
-  // chez Karim (2026-09-24). Deux ou trois tours suffisent quand ça converge.
-  if (++Adjustments() > kMaxAdjustments) {
-    return clamped;
+
+  // 🔴 **Un nombre d'ajustements BORNÉ, remis à zéro à chaque écran.** L'écart
+  // vient de la page ; rien ne garantit qu'il converge (l'échelle d'affichage
+  // fait que la zone visible ne grandit pas exactement de ce qu'on demande) —
+  // sans borne, la fenêtre a GLISSÉ hors de l'écran (2026-09-24). ⛔ Mais le
+  // budget ne peut pas être PAR MODALE : le flow enchaîne plusieurs écrans
+  // (J0 → 2b → inviter) et six tours s'épuisaient en route, laissant les
+  // derniers à la taille du précédent — c'est ce qui a fait déborder 2b chez
+  // Karim (2026-09-25).
+  ResizeResult result;
+  result.clamped = clamped;
+
+  // ⭐ Il manque de la hauteur : on prend de la LARGEUR. Un cran à la fois, la
+  // page se remesure entre chaque — la carte raccourcit à mesure qu'elle
+  // s'élargit. ⚠️ Monotone : on n'élargit jamais à l'envers, sinon la mise en
+  // page oscillerait (plus large → plus court → ça rentre → plus étroit → …).
+  if (clamped) {
+    const int widest = std::min(kDialogMaxWidth,
+                                std::max(kDialogWidth, room.width() - 2 * kMargin));
+    if (bounds.width() < widest) {
+      bounds.set_width(std::min(widest, bounds.width() + kWidenStep));
+      result.widened = true;
+    }
   }
-  if (wanted == bounds.height()) {
-    return clamped;
+  if (++Adjustments() > kMaxAdjustments ||
+      (wanted == bounds.height() && !result.widened)) {
+    return result;
   }
   // 🔴 On RECENTRE sur la fenêtre parente à chaque fois, ⛔ on ne décale PAS y
-  // de la moitié de la croissance : un décalage relatif se cumule, et une
-  // suite d'ajustements qui ne converge pas fait descendre la fenêtre jusqu'à
-  // la faire disparaître. Recentrer est idempotent.
+  // d'une fraction de la croissance : un décalage relatif se cumule et la
+  // fenêtre finit par sortir de l'écran. Recentrer est idempotent.
+  // ⛔ **Ne JAMAIS relire `GetWindowBoundsInScreen()` juste après un
+  // `SetBounds()` pour enchaîner** : sur macOS il rend encore l'ANCIENNE
+  // position (un appel de retard). Un premier placement suivi d'un
+  // redimensionnement bâti sur cette lecture remettait la fenêtre là où elle
+  // était — le bug exact du 2026-09-25 (mesuré : on posait y=240, on relisait
+  // 301, on re-posait 301). Un seul `SetBounds`, bâti sur `room`.
   bounds.set_height(wanted);
   bounds.set_x(room.x() + (room.width() - bounds.width()) / 2);
   bounds.set_y(room.y() + (room.height() - wanted) / 2);
   widget->SetBounds(bounds);
-  return clamped;
+  return result;
+}
+
+void QuitFromModal(bool whole_app) {
+  const SessionID id = ModalBrowserId();
+  // ⚠️ C'est un départ VOULU et explicite : on passe par le chemin du flow pour
+  // que `OnDialogClosed` ne referme pas la fenêtre une deuxième fois.
+  ClosedByFlow() = true;
+  views::Widget* widget = ModalWidget();
+  ModalWidget() = nullptr;
+  HideScrim();
+  if (widget) {
+    widget->Close();
+  }
+  // ⚠️ En tâche postée : la modale est en train de se fermer, s'attaquer à sa
+  // fenêtre parente au milieu ferait rentrer la pile dans elle-même.
+  base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+      FROM_HERE, base::BindOnce(
+                     [](SessionID id, bool whole_app) {
+                       if (whole_app) {
+                         chrome::AttemptUserExit();
+                         return;
+                       }
+                       Browser* browser = chrome::FindBrowserWithID(id);
+                       if (browser && browser->window()) {
+                         browser->window()->Close();
+                       }
+                     },
+                     id, whole_app));
 }
 
 void CloseModal() {
