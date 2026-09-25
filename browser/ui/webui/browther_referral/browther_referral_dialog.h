@@ -54,7 +54,14 @@ bool ShowModal(content::WebContents* initiator,
 // un calcul de cadre laissait un filet de défilement qui ne se résorbait jamais.
 // Un écart converge tout seul. Bornée à la fenêtre du navigateur — ⛔ une modale
 // ne dépasse pas de son parent.
-void ResizeModal(int delta);
+//
+// 🔴 **Rend `true` quand la hauteur demandée a été RABOTÉE** par la place
+// disponible. La page DOIT le savoir : sans ce retour, elle croit la fenêtre à
+// la bonne taille et laisse la carte coupée en SILENCE — la sortie « du'a » du
+// bas de l'écran 2b avait disparu sur un 1080p en 150 % (recette Karim,
+// 2026-09-25). ⛔ Plus jamais de rabotage muet : prévenue, la page rend la
+// carte défilante, ce qui se VOIT.
+bool ResizeModal(int delta);
 
 // ⭐ La page de la modale a donné signe de vie (premier appel au pont). Sans ce
 // signe, la modale se referme d'elle-même au bout de quelques secondes : sur le

@@ -38,7 +38,9 @@ constexpr int kDialogWidth = 468;
 constexpr int kDialogHeight = 560;   // avant que la page dise sa vraie hauteur
 constexpr int kDialogMinHeight = 320;
 constexpr int kDialogMaxHeight = 1000;
-constexpr int kMargin = 32;          // d'air au-dessus et en dessous
+constexpr int kMargin = 16;          // d'air au-dessus et en dessous
+// ⚠️ 16 et pas 32 : sur un 1080p en 150 %, la fenêtre du navigateur ne fait plus
+// que ~693 px utiles et 2×32 de marge suffisaient à rogner le pied de l'écran 2b.
 constexpr int kMaxAdjustments = 6;   // ⛔ au-delà, l'écart ne converge pas
 constexpr float kCornerRadius = 24.f;
 
@@ -194,18 +196,10 @@ void NoteModalAlive() {
   ModalAlive() = true;
 }
 
-void ResizeModal(int delta) {
+bool ResizeModal(int delta) {
   views::Widget* widget = ModalWidget();
   if (!widget || delta == 0) {
-    return;
-  }
-  // 🔴 **Un nombre d'ajustements BORNÉ.** L'écart vient de la page ; rien ne
-  // garantit qu'il converge (sur Windows, l'échelle d'affichage fait que la
-  // zone visible ne grandit pas exactement de ce qu'on demande). Sans cette
-  // borne, la page redemande sans fin — la fenêtre a GLISSÉ hors de l'écran
-  // chez Karim (2026-09-24). Deux ou trois tours suffisent quand ça converge.
-  if (++Adjustments() > kMaxAdjustments) {
-    return;
+    return false;
   }
   views::Widget* parent = widget->parent();
   gfx::Rect bounds = widget->GetWindowBoundsInScreen();
@@ -214,10 +208,25 @@ void ResizeModal(int delta) {
   const int ceiling =
       std::min(kDialogMaxHeight, std::max(kDialogMinHeight,
                                           room.height() - 2 * kMargin));
-  const int wanted =
-      std::clamp(bounds.height() + delta, kDialogMinHeight, ceiling);
+  const int target = bounds.height() + delta;
+  const int wanted = std::clamp(target, kDialogMinHeight, ceiling);
+  // 🔴 **La place manque : il faut le DIRE.** La page croit sinon la fenêtre à
+  // la bonne taille et laisse la carte coupée net, sans barre de défilement ni
+  // rien qui le signale (la sortie « du'a » de l'écran 2b, recette Karim
+  // 2026-09-25). On le calcule AVANT toute sortie anticipée : une fenêtre déjà
+  // au plafond ne bouge plus, mais elle reste trop courte, et c'est justement
+  // ce cas-là qu'il faut remonter.
+  const bool clamped = target > ceiling;
+  // 🔴 **Un nombre d'ajustements BORNÉ.** L'écart vient de la page ; rien ne
+  // garantit qu'il converge (sur Windows, l'échelle d'affichage fait que la
+  // zone visible ne grandit pas exactement de ce qu'on demande). Sans cette
+  // borne, la page redemande sans fin — la fenêtre a GLISSÉ hors de l'écran
+  // chez Karim (2026-09-24). Deux ou trois tours suffisent quand ça converge.
+  if (++Adjustments() > kMaxAdjustments) {
+    return clamped;
+  }
   if (wanted == bounds.height()) {
-    return;
+    return clamped;
   }
   // 🔴 On RECENTRE sur la fenêtre parente à chaque fois, ⛔ on ne décale PAS y
   // de la moitié de la croissance : un décalage relatif se cumule, et une
@@ -227,6 +236,7 @@ void ResizeModal(int delta) {
   bounds.set_x(room.x() + (room.width() - bounds.width()) / 2);
   bounds.set_y(room.y() + (room.height() - wanted) / 2);
   widget->SetBounds(bounds);
+  return clamped;
 }
 
 void CloseModal() {

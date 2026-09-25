@@ -184,8 +184,13 @@ void BrowtherReferralHandler::HandleCall(const base::ListValue& args) {
   } else if (method == "openModal") {
     Reply(id, true, OpenModal(payload));
   } else if (method == "resizeModal") {
-    browther_referral::ResizeModal(payload.FindInt("delta").value_or(0));
-    Reply(id, true, Ok());
+    // ⚠️ On rend le RABOTAGE à la page (⛔ pas un `Ok()` qui mentirait) : elle
+    // seule peut rendre la carte défilante quand la fenêtre ne peut pas être
+    // assez haute.
+    base::DictValue resized;
+    resized.Set("clamped", browther_referral::ResizeModal(
+                               payload.FindInt("delta").value_or(0)));
+    Reply(id, true, base::Value(std::move(resized)));
   } else if (method == "closeModal") {
     browther_referral::CloseModal();
     Reply(id, true, Ok());
