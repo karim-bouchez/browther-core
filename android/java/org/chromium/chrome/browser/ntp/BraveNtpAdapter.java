@@ -8,7 +8,11 @@ package org.chromium.chrome.browser.ntp;
 import static org.chromium.ui.base.ViewUtils.dpToPx;
 
 import android.app.Activity;
+import android.app.role.RoleManager;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.util.Pair;
@@ -23,10 +27,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 
+import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
@@ -38,6 +44,7 @@ import org.chromium.chrome.browser.brave_news.models.FeedItemsCard;
 import org.chromium.chrome.browser.brave_stats.BraveStatsUtil;
 import org.chromium.chrome.browser.browther_ads.BrowtherAdsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_widgets.BrowtherDefaultBrowserNotice;
 import org.chromium.chrome.browser.ntp_background_images.NTPBackgroundImagesBridge;
 import org.chromium.chrome.browser.ntp_background_images.model.BackgroundImage;
 import org.chromium.chrome.browser.ntp_background_images.model.NTPImage;
@@ -97,6 +104,8 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // favoris (mobile : au-dessus des favoris, parité iOS).
     private static final int TYPE_BROWTHER_ADS = 9;
     private static final int TYPE_BROWTHER_BETA = 10;
+    // Browther : encart « navigateur par défaut », sous le bandeau accès anticipé.
+    private static final int TYPE_BROWTHER_DEFAULT_BROWSER = 11;
 
     private static final int ONE_ITEM_SPACE = 1;
     private static final int TWO_ITEMS_SPACE = 2;
@@ -182,6 +191,20 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             // RecyclerView doit le savoir pour ne pas réutiliser un ViewHolder
             // sur le mauvais rang.
             betaViewHolder.mNoticeView.setOnDismissed(() -> notifyItemRemoved(0));
+
+        } else if (holder instanceof DefaultBrowserNoticeViewHolder) {
+            // Browther : mêmes marges que le bandeau accès anticipé, 12 dp d'écart avec lui.
+            LinearLayout.LayoutParams noticeParams =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+            int noticeMargin = dpToPx(mActivity, 16);
+            noticeParams.setMargins(
+                    noticeMargin,
+                    BrowtherBetaNoticeView.shouldShow() ? dpToPx(mActivity, 12) : noticeMargin,
+                    noticeMargin,
+                    0);
+            holder.itemView.setLayoutParams(noticeParams);
 
         } else if (holder instanceof AdsViewHolder) {
             AdsViewHolder adsViewHolder = (AdsViewHolder) holder;
@@ -414,6 +437,28 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                            .inflate(R.layout.browther_beta_notice, parent, false);
             return new BetaNoticeViewHolder(view);
 
+        } else if (viewType == TYPE_BROWTHER_DEFAULT_BROWSER) {
+            // Browther : l'encart se retire de la liste à sa fermeture ; sa position est lue au
+            // moment du geste (le bandeau au-dessus a pu être fermé entre-temps).
+            RecyclerView.ViewHolder[] self = new RecyclerView.ViewHolder[1];
+            BrowtherDefaultBrowserNotice notice =
+                    new BrowtherDefaultBrowserNotice(
+                            parent.getContext(),
+                            ContextUtils.getAppSharedPreferences(),
+                            this::requestDefaultBrowserRole,
+                            () -> {
+                                int position =
+                                        self[0] == null
+                                                ? RecyclerView.NO_POSITION
+                                                : self[0].getBindingAdapterPosition();
+                                mShowsDefaultBrowserNotice = false;
+                                if (position != RecyclerView.NO_POSITION) {
+                                    notifyItemRemoved(position);
+                                }
+                            });
+            self[0] = new DefaultBrowserNoticeViewHolder(notice);
+            return self[0];
+
         } else if (viewType == TYPE_TOP_SITES) {
             return new TopSitesViewHolder(mMvTilesContainerLayout);
 
@@ -461,8 +506,11 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int base = betaCount + statsCount + topSitesCount + adsCount;
 
         // Ordre mobile (parité iOS) : Bêta → Stats → Pub → Favoris → ...
-        if (betaCount == 1 && position == 0) {
-            return TYPE_BROWTHER_BETA;
+        if (position < betaCount) {
+            // Browther : les encarts de tête — accès anticipé d'abord, navigateur par défaut dessous.
+            return position == 0 && BrowtherBetaNoticeView.shouldShow()
+                    ? TYPE_BROWTHER_BETA
+                    : TYPE_BROWTHER_DEFAULT_BROWSER;
         } else if (position == betaCount && statsCount == 1) {
             return TYPE_STATS;
         } else if (adsCount == 1 && position == betaCount + statsCount) {
@@ -495,7 +543,53 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * inachevée conditionne la lecture de tout le reste du NTP.
      */
     public int getBetaNoticeCount() {
-        return BrowtherBetaNoticeView.shouldShow() ? 1 : 0;
+        // Browther : compte AUSSI l'encart « navigateur par défaut », posé juste dessous — tous
+        // les décalages de l'adaptateur (stats, pub, favoris, actus) partent de ce compte, ils
+        // restent justes sans être retouchés un par un.
+        int count = BrowtherBetaNoticeView.shouldShow() ? 1 : 0;
+        if (showsDefaultBrowserNotice()) count++;
+        return count;
+    }
+
+    /**
+     * Browther : lu UNE fois par Nouvel Onglet, puis figé. 🔴 Le nombre d'items ne doit JAMAIS
+     * changer sans le `notify…` qui va avec — sinon le RecyclerView plante (« Inconsistency
+     * detected ») : relu en direct, le rôle obtenu depuis la feuille système aurait retiré l'item
+     * en silence. Seule la croix le retire, avec son `notifyItemRemoved`. Le Nouvel Onglet suivant
+     * relit le rôle.
+     */
+    private boolean showsDefaultBrowserNotice() {
+        if (mShowsDefaultBrowserNotice == null) {
+            mShowsDefaultBrowserNotice =
+                    BrowtherDefaultBrowserNotice.shouldShow(
+                            mActivity, ContextUtils.getAppSharedPreferences());
+        }
+        return mShowsDefaultBrowserNotice;
+    }
+
+    private @Nullable Boolean mShowsDefaultBrowserNotice;
+
+    /**
+     * Browther : la feuille système du rôle « navigateur » (le même geste que l'introduction) ;
+     * repli sur « Applications par défaut ». ⛔ Jamais la fiche de l'app : le choix n'y est pas.
+     */
+    private void requestDefaultBrowserRole() {
+        RoleManager roles = mActivity.getSystemService(RoleManager.class);
+        if (roles != null && roles.isRoleAvailable(RoleManager.ROLE_BROWSER)) {
+            try {
+                mActivity.startActivityForResult(
+                        roles.createRequestRoleIntent(RoleManager.ROLE_BROWSER),
+                        BraveConstants.DEFAULT_BROWSER_ROLE_REQUEST_CODE);
+                return;
+            } catch (ActivityNotFoundException e) {
+                // Repli ci-dessous.
+            }
+        }
+        try {
+            mActivity.startActivity(new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS));
+        } catch (ActivityNotFoundException e) {
+            // Rien à ouvrir sur ce système.
+        }
     }
 
     public int getStatsCount() {
@@ -727,6 +821,12 @@ public class BraveNtpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         BetaNoticeViewHolder(View itemView) {
             super(itemView);
             this.mNoticeView = (BrowtherBetaNoticeView) itemView;
+        }
+    }
+
+    public static class DefaultBrowserNoticeViewHolder extends RecyclerView.ViewHolder {
+        DefaultBrowserNoticeViewHolder(View itemView) {
+            super(itemView);
         }
     }
 
