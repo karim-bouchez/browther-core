@@ -1896,7 +1896,18 @@ public abstract class BraveActivity extends ChromeActivity
         }
     }
 
+    private static final boolean BROWTHER_SKIP_BRAVE_ONBOARDING = true;
+
     public void showOnboardingV2(boolean fromStats) {
+        // Browther : ⛔ plus la feuille d'accueil de Brave (« Activer les rapports de
+        // confidentialité », illustrations au logo Brave) — l'introduction Browther l'a remplacée.
+        // On allume les statistiques et on les montre directement (recette device 2026-09-27).
+        if (BROWTHER_SKIP_BRAVE_ONBOARDING) {
+            OnboardingPrefManager.getInstance().setNewOnboardingShown(true);
+            OnboardingPrefManager.getInstance().setBraveStatsEnabled(true);
+            BraveStatsUtil.showBraveStats();
+            return;
+        }
         try {
             OnboardingPrefManager.getInstance().setNewOnboardingShown(true);
             FragmentManager fm = getSupportFragmentManager();

@@ -183,7 +183,7 @@ public class ReferralGaugeView extends LinearLayout {
         panel.addView(mBonusLine, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, 20)));
 
         mTrack = new TrackView(context);
-        panel.addView(mTrack, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, THUMB_DP + 14)));
+        panel.addView(mTrack, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, THUMB_DP + 20)));
         mTicks = new TicksView(context);
         panel.addView(mTicks, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, 32)));
 
@@ -610,6 +610,7 @@ public class ReferralGaugeView extends LinearLayout {
     private final class TrackView extends View {
         private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final float mThumb;
+        private final float mHaloRoom;
         private final int mSlop;
         private @Nullable VelocityTracker mVelocity;
         private float mDownX;
@@ -620,18 +621,25 @@ public class ReferralGaugeView extends LinearLayout {
         TrackView(Context context) {
             super(context);
             mThumb = ReferralUi.dp(context, THUMB_DP);
+            mHaloRoom = ReferralUi.dp(context, 9);
             mSlop = ViewConfiguration.get(context).getScaledTouchSlop();
             setLayoutDirection(LAYOUT_DIRECTION_LTR);
             setFocusable(true);
             setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
 
+        /**
+         * ⚠️ Le bord garde la place du HALO (≈ 9 dp de plus que le curseur), DANS la vue : lever
+         * la découpe des conteneurs a suffi à l'émulateur, pas sur le Huawei P20 — le halo y
+         * restait coupé en 0 (recette device du 2026-09-27). Ne jamais compter sur un dessin
+         * qui déborde de sa vue.
+         */
         float edge() {
-            return mThumb / 2;
+            return mThumb / 2 + mHaloRoom;
         }
 
         float span() {
-            return Math.max(0, getWidth() - mThumb);
+            return Math.max(0, getWidth() - 2 * edge());
         }
 
         float xFor(double value) {
@@ -658,10 +666,10 @@ public class ReferralGaugeView extends LinearLayout {
             canvas.drawRoundRect(edge(), cy - half, getWidth() - edge(), cy + half, half, half, mPaint);
             // Le tiré (or), sous l'acquis (vert) : ⚠️ l'acquis est TOUJOURS peint.
             mPaint.setColor(accent);
-            canvas.drawRoundRect(0, cy - half, xFor(mMotion.position), cy + half, half, half, mPaint);
+            canvas.drawRoundRect(mHaloRoom, cy - half, xFor(mMotion.position), cy + half, half, half, mPaint);
             if (actual() > 0) {
                 mPaint.setColor(p.greenFill);
-                canvas.drawRoundRect(0, cy - half, xFor(actual()), cy + half, half, half, mPaint);
+                canvas.drawRoundRect(mHaloRoom, cy - half, xFor(actual()), cy + half, half, half, mPaint);
             }
             // Un cran PAR invitation — ⛔ pas seulement aux paliers.
             int shown = shown();
