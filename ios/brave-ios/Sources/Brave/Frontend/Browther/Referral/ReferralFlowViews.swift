@@ -405,6 +405,25 @@ struct ReferralSheetView: View {
       .frame(maxWidth: 560)
       .frame(maxWidth: .infinity)
     }
+    // 🔴 Les boutons sont ÉPINGLÉS en bas, le texte défile au-dessus : sur un
+    // petit écran, le J−3 poussait « Soutenir dev&din » et « Plus tard » sous
+    // le pli — on ne voyait qu'un texte à fermer (recette Android du
+    // 2026-09-27 sur un Huawei P20 ; même structure ici, donc même risque sur
+    // un iPhone SE ou mini). Même grammaire que la pile plein écran.
+    .safeAreaInset(edge: .bottom, spacing: 0) {
+      VStack(spacing: 6) {
+        footer
+      }
+      .padding(.horizontal, 22)
+      .padding(.top, 10)
+      .padding(.bottom, 8)
+      .frame(maxWidth: 560)
+      .frame(maxWidth: .infinity)
+      .background(ReferralPalette.screen)
+      .overlay(alignment: .top) {
+        Rectangle().fill(ReferralPalette.line).frame(height: 1)
+      }
+    }
     .background(ReferralPalette.screen.ignoresSafeArea())
     .environment(\.referralNote, note)
     .overlay(alignment: .topTrailing) {
@@ -449,6 +468,37 @@ struct ReferralSheetView: View {
       ReferralFlowHook(text: Strings.BrowtherReferral.endingHook)
       ReferralFeatureList(extras: .soon(days: days))
       ReferralFlowBody(text: Strings.BrowtherReferral.endingBody)
+
+    case .reminder(let days, let reminderCase):
+      ReferralRoundIcon(systemName: "bell", size: 56)
+      ReferralFlowTitle(text: reminderTitle(reminderCase, days: days))
+      ReferralFlowBody(text: reminderBody(reminderCase))
+
+    case .validated(let months, let until, let lifetime):
+      ReferralRoundIcon(systemName: lifetime ? "infinity" : "checkmark.seal.fill", tone: .green, size: 64)
+      ReferralSheetEyebrow(text: Strings.BrowtherReferral.noticeEyebrow)
+      ReferralFlowTitle(text: Strings.BrowtherReferral.noticeTitle)
+      ReferralFlowHook(text: validatedBody(months: months, until: until, lifetime: lifetime))
+      ReferralFlowBody(text: Strings.BrowtherReferral.noticeWhy(ReferralProduct.validationTargetDays))
+
+    case .refereeDone:
+      ReferralRoundIcon(systemName: "heart.fill", tone: .green, size: 64)
+      ReferralSheetEyebrow(text: Strings.BrowtherReferral.noticeEyebrow)
+      ReferralFlowTitle(text: Strings.BrowtherReferral.refereeNoticeTitle)
+      ReferralFlowHook(text: Strings.BrowtherReferral.refereeNoticeBody)
+      ReferralFlowBody(text: Strings.BrowtherReferral.refereeNoticeWhy(ReferralProduct.validationTargetDays))
+
+    default:
+      EmptyView()
+    }
+  }
+
+  /// Les boutons de la feuille — épinglés en bas (`safeAreaInset`), ⛔ jamais
+  /// dans le défilement.
+  @ViewBuilder
+  private var footer: some View {
+    switch screen {
+    case .ending:
       ReferralPrimaryButton(
         label: Strings.BrowtherReferral.supportDevndin,
         sub: Strings.BrowtherReferral.supportSub
@@ -461,10 +511,7 @@ struct ReferralSheetView: View {
         actions.dismiss?()
       }
 
-    case .reminder(let days, let reminderCase):
-      ReferralRoundIcon(systemName: "bell", size: 56)
-      ReferralFlowTitle(text: reminderTitle(reminderCase, days: days))
-      ReferralFlowBody(text: reminderBody(reminderCase))
+    case .reminder:
       ReferralPrimaryButton(
         label: alreadyInvited ? Strings.BrowtherReferral.inviteAnother
                               : Strings.BrowtherReferral.inviteSomeone
@@ -477,22 +524,12 @@ struct ReferralSheetView: View {
         actions.dismiss?()
       }
 
-    case .validated(let months, let until, let lifetime):
-      ReferralRoundIcon(systemName: lifetime ? "infinity" : "checkmark.seal.fill", tone: .green, size: 64)
-      ReferralSheetEyebrow(text: Strings.BrowtherReferral.noticeEyebrow)
-      ReferralFlowTitle(text: Strings.BrowtherReferral.noticeTitle)
-      ReferralFlowHook(text: validatedBody(months: months, until: until, lifetime: lifetime))
-      ReferralFlowBody(text: Strings.BrowtherReferral.noticeWhy(ReferralProduct.validationTargetDays))
+    case .validated:
       ReferralPrimaryButton(label: Strings.BrowtherReferral.noticeSee) {
         actions.openHome?()
       }
 
     case .refereeDone:
-      ReferralRoundIcon(systemName: "heart.fill", tone: .green, size: 64)
-      ReferralSheetEyebrow(text: Strings.BrowtherReferral.noticeEyebrow)
-      ReferralFlowTitle(text: Strings.BrowtherReferral.refereeNoticeTitle)
-      ReferralFlowHook(text: Strings.BrowtherReferral.refereeNoticeBody)
-      ReferralFlowBody(text: Strings.BrowtherReferral.refereeNoticeWhy(ReferralProduct.validationTargetDays))
       ReferralPrimaryButton(label: Strings.BrowtherReferral.refereeInviteToo) {
         actions.openHome?()
       }
