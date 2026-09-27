@@ -25,7 +25,10 @@ public final class ReferralLaunch {
     private ReferralLaunch() {}
 
     /** ⛔ Ne passer à {@code true} que le jour du lancement, sur décision de Karim. */
-    public static final boolean inStoreBuilds = false;
+    // ✅ Allumé le 2026-09-27 (décision Karim du 2026-09-25, private/docs/PARRAINAGE.md § 7.8),
+    // après le premier build Chromium qui compile et la recette sur le Huawei P20. Le mois offert
+    // lié à Sawtunaa, lui, reste en sommeil : `extrasReleased` ci-dessous.
+    public static final boolean inStoreBuilds = true;
 
     /**
      * ⚠️ **Sawtunaa est-il sorti de « encore en développement » ?** (§ 9) Le mois offert ne démarre
