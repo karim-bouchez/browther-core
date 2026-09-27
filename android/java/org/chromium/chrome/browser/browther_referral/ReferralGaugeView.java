@@ -144,6 +144,10 @@ public class ReferralGaugeView extends LinearLayout {
         panel.setBackground(ReferralUi.rounded(p.panel, ReferralUi.dp(context, 20)));
         // Les nombres se lisent de gauche à droite, même en arabe.
         panel.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+        // ⚠️ Le halo du curseur déborde la piste de ~9 dp aux deux bouts : sans ça, Android le
+        // coupait net en 0 et en 10 (recette device du 2026-09-27). Il se dessine dans la marge
+        // intérieure du panneau (16 dp).
+        panel.setClipChildren(false);
 
         // Les deux nombres — ⚠️ hauteurs FIXES.
         LinearLayout numbers = ReferralUi.row(context);
@@ -204,6 +208,25 @@ public class ReferralGaugeView extends LinearLayout {
     }
 
     /** L'état réel : invitations validées et barème (lu dans le statut). */
+    /**
+     * ⚠️ La carte « À vie » allumée grossit (1,02) et projette un halo : ils débordent la jauge.
+     * Sans lever la découpe sur les conteneurs jusqu'au défilement, Android les coupait net sur
+     * les côtés (recette device du 2026-09-27). Le défilement, lui, garde la sienne.
+     */
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setClipChildren(false);
+        setClipToPadding(false);
+        android.view.ViewParent parent = getParent();
+        for (int i = 0; i < 4 && parent instanceof android.view.ViewGroup; i++) {
+            if (parent instanceof android.widget.ScrollView) break;
+            ((android.view.ViewGroup) parent).setClipChildren(false);
+            ((android.view.ViewGroup) parent).setClipToPadding(false);
+            parent = parent.getParent();
+        }
+    }
+
     public void bind(int validated, MilestoneScale scale) {
         MilestoneScale next = scale == null ? MilestoneScale.common : scale;
         boolean changed = mBound && validated != mValidated;

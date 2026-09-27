@@ -57,6 +57,8 @@ public class ReferralCodeEntry extends LinearLayout {
     private final @Nullable Runnable mOnRedeemed;
     private final ReferralUi.Palette mP;
 
+    private final TextView mHead;
+    private final TextView mBody;
     private final FrameLayout mBadge;
     private final LinearLayout mFieldBlock;
     private final LinearLayout mField;
@@ -69,6 +71,16 @@ public class ReferralCodeEntry extends LinearLayout {
     private boolean mRedeemed;
     private boolean mBusyNow;
 
+    /**
+     * Sans son titre ni sa phrase : l'étape de l'introduction pose DÉJÀ les siens (recette device
+     * du 2026-09-27 — « Un proche t'a parlé de Browther ? » s'affichait deux fois).
+     */
+    public void hideHeader() {
+        mHead.setVisibility(GONE);
+        mBody.setVisibility(GONE);
+        ((LinearLayout.LayoutParams) mBadge.getLayoutParams()).topMargin = 0;
+    }
+
     public ReferralCodeEntry(
             Context context, String source, boolean preview, @Nullable Runnable onRedeemed) {
         super(context);
@@ -80,10 +92,10 @@ public class ReferralCodeEntry extends LinearLayout {
         setOrientation(VERTICAL);
         setGravity(Gravity.CENTER_HORIZONTAL);
 
-        TextView head = ReferralUi.title(context, p, ReferralStrings.get(context, "redeem.head"));
-        addView(head, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
-        TextView body = ReferralUi.body(context, p, ReferralStrings.get(context, "redeem.body"));
-        addView(body, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 8)));
+        mHead = ReferralUi.title(context, p, ReferralStrings.get(context, "redeem.head"));
+        addView(mHead, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        mBody = ReferralUi.body(context, p, ReferralStrings.get(context, "redeem.body"));
+        addView(mBody, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 8)));
 
         // Le disque qui « s'ouvre ».
         mBadge = new FrameLayout(context);

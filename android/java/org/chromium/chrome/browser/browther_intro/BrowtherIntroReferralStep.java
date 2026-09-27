@@ -86,7 +86,7 @@ final class BrowtherIntroReferralStep extends BrowtherIntroStepView {
             mLater.setVisibility(View.GONE);
             return;
         }
-        View entry =
+        ReferralCodeEntry entry =
                 new ReferralCodeEntry(
                         context(),
                         "onboarding",
@@ -96,6 +96,8 @@ final class BrowtherIntroReferralStep extends BrowtherIntroStepView {
                             mModel.celebrateReferralCode();
                             bind(true);
                         });
+        // Le titre et la phrase sont ceux du gabarit de l'étape : ⛔ pas deux fois.
+        entry.hideHeader();
         mScene.addView(entry, BrowtherIntroUi.frame(MATCH, WRAP, Gravity.CENTER));
     }
 

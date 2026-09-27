@@ -123,9 +123,27 @@ public final class ReferralSheetDialog extends BottomSheetDialog {
         column.setBackgroundColor(p.screen);
         int padH = ReferralUi.dp(context, 22);
         column.setPadding(padH, ReferralUi.dp(context, 28), padH, ReferralUi.dp(context, 20));
+        // 🔴 Les boutons sont ÉPINGLÉS en bas, le texte défile au-dessus : sur un petit écran, le
+        // J−3 poussait « Soutenir dev&din » et « Plus tard » sous le pli, et la personne ne voyait
+        // qu'un texte à fermer (recette device du 2026-09-27, Huawei P20). Même grammaire que les
+        // fenêtres plein écran (§ 12.26 : contenu au-dessus, boutons EN BAS).
+        mFooter = ReferralUi.column(context);
+        mFooter.setGravity(Gravity.CENTER_HORIZONTAL);
+        mFooter.setBackgroundColor(p.screen);
+        mFooter.setPadding(padH, ReferralUi.dp(context, 10), padH, ReferralUi.dp(context, 14));
         fill(column);
         scroll.addView(column, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
-        root.addView(scroll, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
+        LinearLayout stack = ReferralUi.column(context);
+        stack.setBackgroundColor(p.screen);
+        // Poids 1 : le défilement prend ce qui reste une fois le pied mesuré, jamais plus.
+        stack.addView(scroll, new LinearLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP, 1));
+        if (mFooter.getChildCount() > 0) {
+            View rule = new View(context);
+            rule.setBackgroundColor(p.line);
+            stack.addView(rule, ReferralUi.linear(ReferralUi.MATCH, 1));
+            stack.addView(mFooter, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        }
+        root.addView(stack, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
 
         ImageView close = ReferralUi.glyph(context, R.drawable.browther_intro_glyph_xmark, 15, p.text2);
         int size = ReferralUi.dp(context, 44);
@@ -141,8 +159,12 @@ public final class ReferralSheetDialog extends BottomSheetDialog {
         return root;
     }
 
+    /** Un bouton (ce qui se touche) va dans le pied épinglé ; le reste dans le texte qui défile. */
+    private @Nullable LinearLayout mFooter;
+
     private void add(LinearLayout column, View view) {
-        if (column.getChildCount() > 0) ReferralUi.gap(column, 16);
+        if (view.isClickable() && mFooter != null) column = mFooter;
+        if (column.getChildCount() > 0) ReferralUi.gap(column, column == mFooter ? 6 : 16);
         if (view.getLayoutParams() == null) {
             view.setLayoutParams(ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
         }
