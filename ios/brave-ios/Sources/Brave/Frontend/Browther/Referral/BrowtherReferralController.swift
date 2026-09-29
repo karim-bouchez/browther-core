@@ -91,7 +91,8 @@ final class BrowtherReferralController: ObservableObject {
 
   private init() {
     enabled = ReferralLaunch.isEnabled(
-      isStoreBuild: AppConstants.buildChannel == .release && !Self.isTestFlight,
+      isStoreBuild: (AppConstants.buildChannel == .release && !Self.isTestFlight)
+        || BrowtherStoreScreenshots.isActive,
       storeBillingReady: ReferralPurchases.isReady
     )
     prompt = ReferralStorage.shared.prompt

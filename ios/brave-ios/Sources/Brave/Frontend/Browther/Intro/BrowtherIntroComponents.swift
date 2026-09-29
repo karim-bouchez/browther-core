@@ -388,3 +388,86 @@ struct BrowtherIntroStatusDot: View {
       .shadow(color: color.opacity(0.5), radius: 8)
   }
 }
+
+// MARK: - Choix « qui flouter »
+
+/// Les trois cases Femmes / Hommes / Les deux de l'introduction, reprises telles
+/// quelles par le panel Basarunaa : le réglage se choisit au même endroit du
+/// regard, avec le même geste, qu'on l'ait fait au premier lancement ou après.
+/// Chaque cible a sa teinte — rose, bleu — pour que le choix se lise avant
+/// d'être lu. La case sélectionnée n'est plus un cadre vert de plus.
+struct BrowtherBlurTargetPicker: View {
+  let selection: BrowtherBlurTarget
+  let onSelect: (BrowtherBlurTarget) -> Void
+
+  var body: some View {
+    HStack(spacing: 10) {
+      choice(
+        .women,
+        label: Strings.BrowtherIntro.blurWomen,
+        symbol: "figure.stand.dress",
+        tint: BrowtherIntroPalette.feminine
+      )
+      choice(
+        .men,
+        label: Strings.BrowtherIntro.blurMen,
+        symbol: "figure.stand",
+        tint: BrowtherIntroPalette.masculine
+      )
+      choice(
+        .both,
+        label: Strings.BrowtherIntro.blurBoth,
+        symbol: "figure.2",
+        tint: BrowtherIntroPalette.sage
+      )
+    }
+  }
+
+  private func choice(
+    _ target: BrowtherBlurTarget,
+    label: String,
+    symbol: String,
+    tint: Color
+  ) -> some View {
+    let selected = selection == target
+    return Button {
+      onSelect(target)
+    } label: {
+      VStack(spacing: 7) {
+        Image(systemName: symbol)
+          .font(.system(size: 21))
+        Text(label)
+          .font(.system(size: 13.5, weight: .semibold))
+          .lineLimit(1)
+          .minimumScaleFactor(0.8)
+      }
+      .foregroundStyle(selected ? tint : BrowtherIntroPalette.inkSoft)
+      .frame(maxWidth: .infinity, minHeight: 74)
+      .background(
+        selected ? tint.opacity(0.16) : Color(UIColor.secondarySystemGroupedBackground),
+        in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+      )
+      .overlay {
+        RoundedRectangle(cornerRadius: 18, style: .continuous)
+          .strokeBorder(
+            selected ? tint : Color.primary.opacity(0.08),
+            lineWidth: selected ? 2 : 1
+          )
+      }
+      .overlay(alignment: .topTrailing) {
+        if selected {
+          Image(systemName: "checkmark")
+            .font(.system(size: 11, weight: .bold))
+            .foregroundStyle(Color(UIColor.systemBackground))
+            .frame(width: 20, height: 20)
+            .background(tint, in: Circle())
+            .padding(7)
+            .transition(.scale.combined(with: .opacity))
+        }
+      }
+    }
+    .buttonStyle(.plain)
+    .animation(.snappy(duration: 0.28), value: selected)
+    .accessibilityAddTraits(selected ? [.isSelected] : [])
+  }
+}

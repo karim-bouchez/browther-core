@@ -80,6 +80,9 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
   /// une fois. Si la version est illisible on montre le bandeau — se taire par
   /// défaut serait le pire des deux comportements.
   private func isBetaNoticeDue() -> Bool {
+    if BrowtherStoreScreenshots.isActive {
+      return false
+    }
     let version = Self.currentVersion
     if version.isEmpty {
       return true

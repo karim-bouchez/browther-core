@@ -81,6 +81,22 @@ struct ReportSiteRow: View {
   }
 }
 
+// MARK: - Build des captures store
+
+/// Build de dev qui montre l'app telle qu'elle sera à la sortie de l'accès
+/// anticipé, pour des captures App Store / Play qu'on n'aura pas à refaire :
+/// vert au lieu d'ambre, sans encadré ni bandeau « en développement », sans les
+/// réglages de mise au point de Basarunaa, sans parrainage (comme en store).
+/// ⛔ Jamais dans un build publié : la condition ne se pose qu'en ligne de
+/// commande (`private/docs/STORE_SCREENSHOTS.md`).
+enum BrowtherStoreScreenshots {
+  #if BROWTHER_STORE_SCREENSHOTS
+  static let isActive = true
+  #else
+  static let isActive = false
+  #endif
+}
+
 // MARK: - Accès anticipé (Sawtunaa + Basarunaa)
 
 /// Un seul interrupteur pour les trois surfaces qui signalent l'accès anticipé :
@@ -96,7 +112,8 @@ struct ReportSiteRow: View {
 enum BrowtherEarlyAccess {
   /// À repasser à `false` en sortie d'accès anticipé, en même temps que desktop
   /// et Android : le vert revient et l'encadré disparaît.
-  static let isActive = true
+  /// Le build des captures store le montre déjà fini (`BrowtherStoreScreenshots`).
+  static let isActive = !BrowtherStoreScreenshots.isActive
 
   // Mêmes URL que le bandeau NTP et l'onboarding — `grep 0029Vb8ydkv5vKABH78PVX32`.
   static let whatsAppURL = URL(string: "https://whatsapp.com/channel/0029Vb8ydkv5vKABH78PVX32")!
@@ -546,45 +563,64 @@ struct BasarunaaPanelView: View {
   @State private var showCollectPanel = false
 
   var body: some View {
-    ScrollView {
-      VStack(spacing: 16) {
-        header
+    // Sans défilement quand tout tient (build des captures store, sans les
+    // réglages de mise au point) : le popover prend alors la hauteur du
+    // contenu (cf. BasarunaaPanelViewController).
+    ViewThatFits(in: .vertical) {
+      content
+      ScrollView { content }
+    }
+    .frame(maxWidth: 360)
+    .background(Color(.braveBackground))
+    .sheet(isPresented: $showCollectPanel) {
+      BasarunaaCollectPanelView()
+    }
+  }
 
-        ShieldsSwitchView(
-          isEnabled: Binding(
-            get: { enabled.value },
-            set: { newValue in
-              enabled.value = newValue
-              BrowtherAnalyticsService.shared.track(
-                event: "feature_toggled",
-                properties: ["feature": "basarunaa", "enabled": newValue]
-              )
-            }
-          ),
-          amber: BrowtherEarlyAccess.isActive
-        )
-        .frame(
-          width: ShieldsSwitch.size.width,
-          height: ShieldsSwitch.size.height
-        )
+  private var content: some View {
+    VStack(spacing: 16) {
+      header
 
-        Text(enabled.value ? Strings.Browther.basarunaaStatusOn : Strings.Browther.basarunaaStatusOff)
-          .bold()
-        .font(.footnote)
-        .foregroundStyle(Color(.braveLabel))
+      ShieldsSwitchView(
+        isEnabled: Binding(
+          get: { enabled.value },
+          set: { newValue in
+            enabled.value = newValue
+            BrowtherAnalyticsService.shared.track(
+              event: "feature_toggled",
+              properties: ["feature": "basarunaa", "enabled": newValue]
+            )
+          }
+        ),
+        amber: BrowtherEarlyAccess.isActive
+      )
+      .frame(
+        width: ShieldsSwitch.size.width,
+        height: ShieldsSwitch.size.height
+      )
 
-        // Le panel défile (ScrollView, hauteur fixe) : l'encadré n'a pas besoin
-        // qu'on recalcule la taille du popover, contrairement à Sawtunaa.
-        if BrowtherEarlyAccess.isActive && enabled.value {
-          FeatureBetaNotice(onChannelTapped: onChannelTapped)
-        }
+      Text(enabled.value ? Strings.Browther.basarunaaStatusOn : Strings.Browther.basarunaaStatusOff)
+        .bold()
+      .font(.footnote)
+      .foregroundStyle(Color(.braveLabel))
 
-        // MARK: Mode
-        section(title: Strings.Browther.basarunaaModeLabel) {
-          VStack(alignment: .leading, spacing: 4) {
-            radio(label: Strings.Browther.basarunaaModeFemale, value: "blur-female", binding: modeBinding)
-            radio(label: Strings.Browther.basarunaaModeMale, value: "blur-male", binding: modeBinding)
-            radio(label: Strings.Browther.basarunaaModeAll, value: "blur-all", binding: modeBinding)
+      // Le panel défile (ScrollView, hauteur fixe) : l'encadré n'a pas besoin
+      // qu'on recalcule la taille du popover, contrairement à Sawtunaa.
+      if BrowtherEarlyAccess.isActive && enabled.value {
+        FeatureBetaNotice(onChannelTapped: onChannelTapped)
+      }
+
+      // MARK: Mode
+      // Les cases de l'introduction (`BrowtherBlurTargetPicker`) à la place
+      // des boutons radio du POC macOS : même choix, même geste qu'au premier
+      // lancement.
+      section(title: Strings.Browther.basarunaaModeLabel) {
+        VStack(alignment: .leading, spacing: 4) {
+          BrowtherBlurTargetPicker(
+            selection: BrowtherBlurTarget(rawValue: modeBinding.wrappedValue) ?? .women
+          ) { modeBinding.wrappedValue = $0.rawValue }
+          .sensoryFeedback(.selection, trigger: mode.value)
+          if !BrowtherStoreScreenshots.isActive {
             Divider().padding(.vertical, 4)
             toggleRow(
               title: Strings.Browther.basarunaaNsfwToggle,
@@ -593,56 +629,60 @@ struct BasarunaaPanelView: View {
             )
           }
         }
-        .disabled(!enabled.value)
-        .opacity(enabled.value ? 1.0 : 0.4)
-
-        // MARK: Détection (aligné panneau macOS)
-        section(title: Strings.Browther.basarunaaDetectionLabel) {
-          VStack(spacing: 12) {
-            toggleRow(
-              title: Strings.Browther.basarunaaHandFilter,
-              subtitle: Strings.Browther.basarunaaHandFilterDesc,
-              isOn: Binding(
-                get: { minSkeleton.value > 0 },
-                set: { minSkeleton.value = $0 ? 0.1 : 0 }
-              )
-            )
-            Divider()
-            sliderRow(
-              label: Strings.Browther.basarunaaGenderCertainty,
-              value: Binding(get: { genderCertainty.value }, set: { genderCertainty.value = $0 }),
-              scaleLeft: Strings.Browther.basarunaaScaleLessBlur,
-              scaleRight: Strings.Browther.basarunaaScaleSafer,
-              desc: Strings.Browther.basarunaaGenderCertaintyDesc
-            )
-            sliderRow(
-              label: Strings.Browther.basarunaaNsfwConf,
-              value: Binding(get: { nsfwConf.value }, set: { nsfwConf.value = $0 }),
-              desc: Strings.Browther.basarunaaNsfwConfDesc
-            )
-            sliderRow(
-              label: Strings.Browther.basarunaaNudenetConf,
-              value: Binding(get: { nudenetConf.value }, set: { nudenetConf.value = $0 }),
-              desc: Strings.Browther.basarunaaNudenetConfDesc
-            )
-          }
-        }
-        .disabled(!enabled.value)
-        .opacity(enabled.value ? 1.0 : 0.4)
-
-        // MARK: Debug (visible to all builds — required so the user can report issues)
-        debugSection
-
-        ReportSiteRow(domain: reportDomain, feature: "basarunaa")
       }
-      .padding(.top, 16)
-      .padding(.bottom, 16)
+      .disabled(!enabled.value)
+      .opacity(enabled.value ? 1.0 : 0.4)
+
+      // Réglages de mise au point : absents du build des captures store, qui
+      // montre le panel tel qu'il restera.
+      if !BrowtherStoreScreenshots.isActive {
+        tuningSections
+      }
+
+      ReportSiteRow(domain: reportDomain, feature: "basarunaa")
     }
-    .frame(maxWidth: 360)
-    .background(Color(.braveBackground))
-    .sheet(isPresented: $showCollectPanel) {
-      BasarunaaCollectPanelView()
+    .padding(.top, 16)
+    .padding(.bottom, 16)
+  }
+
+  @ViewBuilder
+  private var tuningSections: some View {
+    // MARK: Détection (aligné panneau macOS)
+    section(title: Strings.Browther.basarunaaDetectionLabel) {
+      VStack(spacing: 12) {
+        toggleRow(
+          title: Strings.Browther.basarunaaHandFilter,
+          subtitle: Strings.Browther.basarunaaHandFilterDesc,
+          isOn: Binding(
+            get: { minSkeleton.value > 0 },
+            set: { minSkeleton.value = $0 ? 0.1 : 0 }
+          )
+        )
+        Divider()
+        sliderRow(
+          label: Strings.Browther.basarunaaGenderCertainty,
+          value: Binding(get: { genderCertainty.value }, set: { genderCertainty.value = $0 }),
+          scaleLeft: Strings.Browther.basarunaaScaleLessBlur,
+          scaleRight: Strings.Browther.basarunaaScaleSafer,
+          desc: Strings.Browther.basarunaaGenderCertaintyDesc
+        )
+        sliderRow(
+          label: Strings.Browther.basarunaaNsfwConf,
+          value: Binding(get: { nsfwConf.value }, set: { nsfwConf.value = $0 }),
+          desc: Strings.Browther.basarunaaNsfwConfDesc
+        )
+        sliderRow(
+          label: Strings.Browther.basarunaaNudenetConf,
+          value: Binding(get: { nudenetConf.value }, set: { nudenetConf.value = $0 }),
+          desc: Strings.Browther.basarunaaNudenetConfDesc
+        )
+      }
     }
+    .disabled(!enabled.value)
+    .opacity(enabled.value ? 1.0 : 0.4)
+
+    // MARK: Debug (visible to all builds — required so the user can report issues)
+    debugSection
   }
 
   // MARK: - Subviews
@@ -890,7 +930,10 @@ class BasarunaaPanelViewController: UIHostingController<BasarunaaPanelView>,
   init(reportDomain: String?) {
     super.init(rootView: BasarunaaPanelView(reportDomain: reportDomain))
     rootView.onChannelTapped = { [weak self] url in self?.onChannelTapped?(url) }
-    preferredContentSize = CGSize(width: 360, height: 640)
+    // 640 au plus, le panel défile au-delà ; moins si le contenu tient.
+    let maxHeight: CGFloat = 640
+    let fitting = sizeThatFits(in: CGSize(width: 360, height: maxHeight))
+    preferredContentSize = CGSize(width: 360, height: min(maxHeight, ceil(fitting.height)))
   }
 
   @MainActor required dynamic init?(coder aDecoder: NSCoder) {
