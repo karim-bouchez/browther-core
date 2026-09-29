@@ -123,7 +123,10 @@ class BraveShieldStatsView: SpringButton {
 
   private lazy var adsBlockedStatView: StatView = {
     let statView = StatView(frame: CGRect.zero)
-    statView.title = Strings.Shields.shieldsAdAndTrackerStats.capitalized
+    // Browther : sans `.capitalized` (Brave l'applique pour l'anglais « Trackers
+    // & Ads Blocked ») — en français il donnait « Traqueurs Et Publicités
+    // Bloqués », seul libellé en casse de titre à côté de nos deux stats.
+    statView.title = Strings.Shields.shieldsAdAndTrackerStats
     statView.color = .statsAdsBlockedTint
     return statView
   }()
