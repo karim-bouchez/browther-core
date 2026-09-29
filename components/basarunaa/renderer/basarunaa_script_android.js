@@ -89,6 +89,14 @@
     if (isSvgUrl(src)) return false;
     return true;
   }
+  function isLoadingCandidate(img) {
+    if (!img || img.tagName !== "IMG") return false;
+    if (img.type === SVG_TYPE) return false;
+    const src = effectiveUrl(img).toLowerCase();
+    if (!src) return false;
+    if (isSvgUrl(src)) return false;
+    return true;
+  }
   function effectiveUrl(img) {
     if (img.complete && img.currentSrc) return img.currentSrc;
     return img.src || img.currentSrc || "";
@@ -142,7 +150,11 @@
         this.seen.add(img);
         return false;
       }
-      if (!isProcessableImage(img, this.minSize)) return false;
+      if (img.complete) {
+        if (!isProcessableImage(img, this.minSize)) return false;
+      } else if (!isLoadingCandidate(img)) {
+        return false;
+      }
       const id = this.nextId++;
       img.setAttribute(ID_ATTR, String(id));
       this.seen.add(img);

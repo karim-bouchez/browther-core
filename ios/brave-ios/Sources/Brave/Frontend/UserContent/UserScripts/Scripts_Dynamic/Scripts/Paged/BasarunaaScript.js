@@ -107,6 +107,14 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     if (isSvgUrl(src)) return false;
     return true;
   }
+  function isLoadingCandidate(img) {
+    if (!img || img.tagName !== "IMG") return false;
+    if (img.type === SVG_TYPE) return false;
+    const src = effectiveUrl(img).toLowerCase();
+    if (!src) return false;
+    if (isSvgUrl(src)) return false;
+    return true;
+  }
   function effectiveUrl(img) {
     if (img.complete && img.currentSrc) return img.currentSrc;
     return img.src || img.currentSrc || "";
@@ -160,7 +168,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
         this.seen.add(img);
         return false;
       }
-      if (!isProcessableImage(img, this.minSize)) return false;
+      if (img.complete) {
+        if (!isProcessableImage(img, this.minSize)) return false;
+      } else if (!isLoadingCandidate(img)) {
+        return false;
+      }
       const id = this.nextId++;
       img.setAttribute(ID_ATTR, String(id));
       this.seen.add(img);
@@ -4198,7 +4210,11 @@ video:not([data-basarunaa]) { filter: none !important; }
     /** Flou plein cadre (cold-start, cut, NSFW) — une seule div sur toute la vidéo. */
     fullFrame(geom, radiusPx) {
       const d = this.take(0);
-      this.place(d, geom.offX, geom.offY, geom.dispW, geom.dispH, radiusPx, null);
+      this.setRect(d, geom.offX, geom.offY, geom.dispW, geom.dispH);
+      this.setRadius(d, radiusPx);
+      this.setMask(d, "none", "none");
+      d.style.setProperty("clip-path", "none", "important");
+      d.style.setProperty("border-radius", "0", "important");
       this.trim(1);
     }
     /**
@@ -4210,23 +4226,19 @@ video:not([data-basarunaa]) { filter: none !important; }
       const sy = geom.dispH / geom.analyseH;
       for (let i = 0; i < bboxes.length; i++) {
         const b = bboxes[i];
-        const x = geom.offX + b[0] * sx - PAD_PX;
-        const y = geom.offY + b[1] * sy - PAD_PX;
-        const w = (b[2] - b[0]) * sx + 2 * PAD_PX;
-        const h = (b[3] - b[1]) * sy + 2 * PAD_PX;
-        if (w <= 0 || h <= 0) continue;
+        const bw = (b[2] - b[0]) * sx + 2 * PAD_PX;
+        const bh = (b[3] - b[1]) * sy + 2 * PAD_PX;
+        if (bw <= 0 || bh <= 0) continue;
         const factor = typeof window.__basarunaaBlurRadiusFactor === "number" ? window.__basarunaaBlurRadiusFactor : 0.1;
         const floor = typeof window.__basarunaaBlurRadiusFloor === "number" ? window.__basarunaaBlurRadiusFloor : 32;
-        const radius = Math.max(floor, Math.round(Math.max(w, h) * factor));
-        this.place(
-          this.take(i),
-          x,
-          y,
-          w,
-          h,
-          radius,
-          this.clipFor(keypoints[i] ?? null, b, geom, sx, sy, x, y, w, h)
-        );
+        const radius = Math.max(floor, Math.round(Math.max(bw, bh) * factor));
+        const d = this.take(i);
+        this.setRadius(d, radius);
+        if (window.__basarunaaFeatherDisabled === true) {
+          this.placeHardEdged(d, keypoints[i] ?? null, b, geom, sx, sy);
+        } else {
+          this.placeFeathered(d, keypoints[i] ?? null, b, geom, sx, sy);
+        }
       }
       this.trim(bboxes.length);
     }
@@ -4259,19 +4271,170 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.pool[i].style.setProperty("display", "none", "important");
       }
     }
-    place(d, x, y, w, h, radius, clip) {
+    setRadius(d, radius) {
+      const s = d.style;
+      s.setProperty("-webkit-backdrop-filter", `blur(${radius}px)`, "important");
+      s.setProperty("backdrop-filter", `blur(${radius}px)`, "important");
+    }
+    setRect(d, x, y, w, h) {
       const s = d.style;
       s.setProperty("left", `${Math.round(x)}px`, "important");
       s.setProperty("top", `${Math.round(y)}px`, "important");
       s.setProperty("width", `${Math.round(w)}px`, "important");
       s.setProperty("height", `${Math.round(h)}px`, "important");
-      s.setProperty("-webkit-backdrop-filter", `blur(${radius}px)`, "important");
-      s.setProperty("backdrop-filter", `blur(${radius}px)`, "important");
+    }
+    /** Masque (feather) : `none` enlève, sinon une image CSS. Posé seulement s'il
+     *  change — une data URL SVG réassignée est re-rastérisée par le moteur. */
+    setMask(d, key, mask) {
+      if (d.dataset.bsrShape === key) return;
+      d.dataset.bsrShape = key;
+      const s = d.style;
+      s.setProperty("-webkit-mask-image", mask, "important");
+      s.setProperty("mask-image", mask, "important");
+      s.setProperty("-webkit-mask-size", "100% 100%", "important");
+      s.setProperty("mask-size", "100% 100%", "important");
+      s.setProperty("-webkit-mask-repeat", "no-repeat", "important");
+      s.setProperty("mask-repeat", "no-repeat", "important");
+    }
+    /**
+     * Flou à BORDS ADOUCIS — port de `applyBlurShape` de macOS
+     * (`video-native/main.ts`), même moteur (`backdrop-filter`), même rendu.
+     *
+     * Avant le 2026-09-29, iOS découpait la div par `clip-path` : une forme
+     * grise aux bords francs, alors que le flou d'une image (canvas + feather)
+     * s'estompe vers l'extérieur. Le feather est ici un MASQUE : la silhouette
+     * en SVG, floutée par `feGaussianBlur`, posée en `mask-image`. Le moteur la
+     * rastérise une fois par détection (4/s au plus), pas à chaque frame.
+     *
+     * Méthode macOS, reprise telle quelle :
+     *   1. div = silhouette + `padPx` (sauf bords du cadre) — la place du dégradé ;
+     *   2. polygone DILATÉ de `expandPx` : le flou reste à 100 % sur toute la
+     *      silhouette, le dégradé retombe ENTIÈREMENT à l'extérieur (pas de fuite
+     *      sur le contour de la personne) ;
+     *   3. points sur un bord du cadre poussés hors du viewBox : flou plein
+     *      jusqu'au bord de la vidéo ;
+     *   4. `stdDeviation` par axe ⇒ dégradé isotrope en pixels écran.
+     * Sans pose exploitable : ellipse en dégradé radial sur la boîte (idem macOS).
+     */
+    placeFeathered(d, raw, b, geom, sx, sy) {
+      d.style.setProperty("clip-path", "none", "important");
+      d.style.setProperty("border-radius", "0", "important");
+      const shape = window.__basarunaaShapeDisabled === true ? null : this.silhouette(raw, b, geom);
+      if (!shape) {
+        this.setRect(
+          d,
+          geom.offX + b[0] * sx - PAD_PX,
+          geom.offY + b[1] * sy - PAD_PX,
+          (b[2] - b[0]) * sx + 2 * PAD_PX,
+          (b[3] - b[1]) * sy + 2 * PAD_PX
+        );
+        this.setMask(
+          d,
+          "ellipse",
+          "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%)"
+        );
+        return;
+      }
+      const W = geom.dispW;
+      const H = geom.dispH;
+      const [sx1, sy1, sx2, sy2] = shape.box;
+      const silWpx = (sx2 - sx1) * W;
+      const silHpx = (sy2 - sy1) * H;
+      const sigmaPx = Math.max(4, Math.min(24, Math.min(silWpx, silHpx) * 0.04));
+      const expandPx = 2 * sigmaPx;
+      const padPx = 5 * sigmaPx;
+      const EDGE = 0.01;
+      const touchL = sx1 <= EDGE;
+      const touchT = sy1 <= EDGE;
+      const touchR = sx2 >= 1 - EDGE;
+      const touchB = sy2 >= 1 - EDGE;
+      const dx1 = touchL ? sx1 : sx1 - padPx / W;
+      const dy1 = touchT ? sy1 : sy1 - padPx / H;
+      const dx2 = touchR ? sx2 : sx2 + padPx / W;
+      const dy2 = touchB ? sy2 : sy2 + padPx / H;
+      const dw = dx2 - dx1;
+      const dh = dy2 - dy1;
+      let cx = 0;
+      let cy = 0;
+      for (const pt of shape.frame) {
+        cx += pt.x;
+        cy += pt.y;
+      }
+      cx /= shape.frame.length;
+      cy /= shape.frame.length;
+      const MARGIN = 30;
+      const pts = [];
+      for (const pt of shape.frame) {
+        const ddx = pt.x - cx;
+        const ddy = pt.y - cy;
+        const dist = Math.hypot(ddx, ddy) || 1;
+        const ex = pt.x + ddx / dist * (expandPx / W);
+        const ey = pt.y + ddy / dist * (expandPx / H);
+        let lx = (ex - dx1) / dw * 100;
+        let ly = (ey - dy1) / dh * 100;
+        if (pt.x <= EDGE) lx = -MARGIN;
+        else if (pt.x >= 1 - EDGE) lx = 100 + MARGIN;
+        if (pt.y <= EDGE) ly = -MARGIN;
+        else if (pt.y >= 1 - EDGE) ly = 100 + MARGIN;
+        pts.push(`${lx.toFixed(1)},${ly.toFixed(1)}`);
+      }
+      const ptsStr = pts.join(" ");
+      const stdX = (sigmaPx * 100 / (dw * W)).toFixed(2);
+      const stdY = (sigmaPx * 100 / (dh * H)).toFixed(2);
+      this.setRect(d, geom.offX + dx1 * W, geom.offY + dy1 * H, dw * W, dh * H);
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><filter id='f' x='-60%' y='-60%' width='220%' height='220%'><feGaussianBlur stdDeviation='${stdX} ${stdY}'/></filter><polygon points='${ptsStr}' fill='#fff' filter='url(#f)'/></svg>`;
+      this.setMask(
+        d,
+        `${ptsStr}|${stdX}|${stdY}`,
+        `url("data:image/svg+xml,${encodeURIComponent(svg)}")`
+      );
+    }
+    /**
+     * Silhouette en repère NORMALISÉ au cadre [0,1] + son étendue. ⚠️ L'étendue
+     * n'est pas la boîte détectée : après snapToEdges, une personne coupée au
+     * bord voit son polygone s'étendre jusqu'au bord du cadre.
+     */
+    silhouette(raw, bbox, geom) {
+      if (!raw || raw.length < 17) return null;
+      const kps = raw.map((k) => ({ x: k[0], y: k[1], confidence: k[2] }));
+      const poly = buildBodyPolygon(kps, bbox, geom.analyseW, geom.analyseH);
+      if (!poly.isBodyShaped || poly.points.length < 3) return null;
+      const frame = poly.points.map((p) => ({
+        x: p.x / geom.analyseW,
+        y: p.y / geom.analyseH
+      }));
+      let x1 = Infinity;
+      let y1 = Infinity;
+      let x2 = -Infinity;
+      let y2 = -Infinity;
+      for (const pt of frame) {
+        if (pt.x < x1) x1 = pt.x;
+        if (pt.y < y1) y1 = pt.y;
+        if (pt.x > x2) x2 = pt.x;
+        if (pt.y > y2) y2 = pt.y;
+      }
+      if (x2 - x1 <= 0 || y2 - y1 <= 0) return null;
+      return { frame, box: [x1, y1, x2, y2] };
+    }
+    /**
+     * Rendu d'avant le 2026-09-29 (bords francs, `clip-path`), gardé derrière
+     * `window.__basarunaaFeatherDisabled = true` pour mesurer le coût du feather
+     * sur la même vidéo, sans rebuild.
+     */
+    placeHardEdged(d, raw, b, geom, sx, sy) {
+      const x = geom.offX + b[0] * sx - PAD_PX;
+      const y = geom.offY + b[1] * sy - PAD_PX;
+      const w = (b[2] - b[0]) * sx + 2 * PAD_PX;
+      const h = (b[3] - b[1]) * sy + 2 * PAD_PX;
+      this.setRect(d, x, y, w, h);
+      this.setMask(d, "none", "none");
+      const clip = this.clipFor(raw, b, geom, sx, sy, x, y, w, h);
+      const s = d.style;
       if (clip) {
         s.setProperty("clip-path", clip, "important");
         s.setProperty("border-radius", "0", "important");
       } else {
-        s.removeProperty("clip-path");
+        s.setProperty("clip-path", "none", "important");
         s.setProperty("border-radius", `${Math.round(Math.min(w, h) * 0.12)}px`, "important");
       }
     }
