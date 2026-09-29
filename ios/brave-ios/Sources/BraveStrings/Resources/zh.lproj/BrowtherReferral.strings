@@ -78,6 +78,7 @@
 "reminder.subscription" = "感谢你的支持。邀请亲友或续订，都可以继续使用附加功能。";
 "invite.eyebrow" = "邀请";
 "invite.share" = "分享我的推荐码";
+"invite.shareStatus" = "发布到我的 WhatsApp 动态";
 "invite.back" = "返回";
 "invite.closeAfterShare" = "返回应用";
 "share.message" = "邀请你来体验 Browther：一款能去除音乐、模糊哈拉姆图片的浏览器。\n使用我的推荐码 {code}，你可以获得1 个月附加功能。";

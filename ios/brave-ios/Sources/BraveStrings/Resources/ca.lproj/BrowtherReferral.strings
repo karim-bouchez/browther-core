@@ -78,6 +78,7 @@
 "reminder.subscription" = "Gràcies pel teu suport. Pots conservar les funcions addicionals convidant algú proper o renovant.";
 "invite.eyebrow" = "Convidar";
 "invite.share" = "Comparteix el meu codi";
+"invite.shareStatus" = "Publica a l'estat de WhatsApp";
 "invite.back" = "Enrere";
 "invite.closeAfterShare" = "Torna a l'app";
 "share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens un mes de funcions addicionals.";

@@ -358,7 +358,7 @@ struct ReferralFlowView: View {
       if let status = controller.known {
         ReferralCodeCard(status: status) {
           // ⭐ Copier EST un partage abouti (§ 12.20) — 3 jours offerts compris.
-          note(.referralShared, ["screen": ReferralShareOrigin.invite.rawValue, "result": "copied"])
+          note(.referralShared, ["screen": ReferralShareOrigin.invite.rawValue, "result": "copied", "format": "message"])
           model.replaceTop(.invite(shared: true))
           controller.shareDone(from: .invite, preview: model.preview)
         }
@@ -372,6 +372,9 @@ struct ReferralFlowView: View {
       if let status = controller.known {
         ReferralShareButton(status: status, origin: .invite) {
           // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16).
+          model.replaceTop(.invite(shared: true))
+        }
+        ReferralStatusShareButton(status: status, origin: .invite) {
           model.replaceTop(.invite(shared: true))
         }
       }

@@ -244,10 +244,56 @@ func referralShareMyCode(
 ) {
   guard let host = BrowtherReferralPresenter.topController() else { return }
   ReferralSharing.share(status: status, from: host) { result in
-    note(.referralShared, ["screen": origin.rawValue, "result": result.rawValue])
+    note(.referralShared, ["screen": origin.rawValue, "result": result.rawValue, "format": "message"])
     guard result.achieved else { return }
     onAchieved?()
     BrowtherReferralController.shared.shareDone(from: origin, preview: note.preview)
+  }
+}
+
+/// ⭐ Le statut WhatsApp : l'image + le lien en légende (`ReferralSharing.shareStatus`).
+/// Mêmes règles que le message : un partage abouti n'ouvre droit qu'aux
+/// 3 jours (§ 4), et ⛔ rien ne s'écrit depuis un aperçu (§ 13.8).
+/// `format` distingue les deux gestes (`PARRAINAGE-partage-statut.md` § 4).
+@MainActor
+func referralShareStatus(
+  status: ReferralStatus,
+  origin: ReferralShareOrigin,
+  note: ReferralNote,
+  onAchieved: (() -> Void)? = nil
+) {
+  guard let host = BrowtherReferralPresenter.topController() else { return }
+  ReferralSharing.shareStatus(status: status, from: host) { result in
+    note(.referralShared, ["screen": origin.rawValue, "result": result.rawValue, "format": "status"])
+    guard result.achieved else { return }
+    onAchieved?()
+    BrowtherReferralController.shared.shareDone(from: origin, preview: note.preview)
+  }
+}
+
+/// Le 2ᵉ geste, sous « Partager mon code » : un contour, ⭐ un libellé qui CITE
+/// WhatsApp (« Publier en statut WhatsApp ») — l'image dit « Clique sur le lien
+/// en dessous », vrai seulement là où le lien devient la légende.
+struct ReferralStatusShareButton: View {
+  let status: ReferralStatus
+  var origin: ReferralShareOrigin = .home
+  var onAchieved: (() -> Void)?
+
+  @Environment(\.referralNote) private var note
+
+  var body: some View {
+    Button {
+      UIImpactFeedbackGenerator(style: .light).impactOccurred()
+      referralShareStatus(status: status, origin: origin, note: note, onAchieved: onAchieved)
+    } label: {
+      HStack(spacing: 8) {
+        Image(systemName: "circle.dashed.inset.filled")
+          .font(.system(size: 15, weight: .semibold))
+        Text(Strings.BrowtherReferral.shareStatus)
+          .multilineTextAlignment(.center)
+      }
+    }
+    .buttonStyle(BrowtherIntroOutlineButtonStyle())
   }
 }
 
@@ -357,12 +403,13 @@ struct ReferralInviteTab: View {
 
         ReferralCodeCard(status: status) {
           // ⭐ Copier EST un partage abouti (§ 12.20) : 3 jours offerts compris.
-          note(.referralShared, ["screen": ReferralShareOrigin.home.rawValue, "result": "copied"])
+          note(.referralShared, ["screen": ReferralShareOrigin.home.rawValue, "result": "copied", "format": "message"])
           controller.shareDone(from: .home, preview: note.preview)
         }
 
         VStack(spacing: 8) {
           ReferralShareButton(status: status)
+          ReferralStatusShareButton(status: status)
           Text(Strings.BrowtherReferral.inviteFoot(ReferralProduct.validationTargetDays))
             .font(.footnote)
             .foregroundStyle(.secondary)

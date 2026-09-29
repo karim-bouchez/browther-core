@@ -78,6 +78,7 @@
 "reminder.subscription" = "Tack för ditt stöd. Du kan behålla extrafunktionerna genom att bjuda in någon, eller genom att förnya.";
 "invite.eyebrow" = "Bjud in";
 "invite.share" = "Dela min kod";
+"invite.shareStatus" = "Dela i min WhatsApp-status";
 "invite.back" = "Tillbaka";
 "invite.closeAfterShare" = "Tillbaka till appen";
 "share.message" = "Jag bjuder in dig att upptäcka Browther: webbläsaren som tar bort musik och suddar ut haram-bilder.\nMed min kod {code} får du en månad med extrafunktioner.";

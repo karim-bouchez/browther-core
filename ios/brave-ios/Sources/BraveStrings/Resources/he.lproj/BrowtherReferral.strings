@@ -78,6 +78,7 @@
 "reminder.subscription" = "תודה על התמיכה. אפשר לשמור על התכונות הנוספות בהזמנת אדם קרוב, או בחידוש המנוי.";
 "invite.eyebrow" = "הזמנה";
 "invite.share" = "לשתף את הקוד שלי";
+"invite.shareStatus" = "פרסום בסטטוס בוואטסאפ";
 "invite.back" = "חזרה";
 "invite.closeAfterShare" = "חזרה לאפליקציה";
 "share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודש של תכונות נוספות.";

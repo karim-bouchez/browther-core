@@ -78,6 +78,7 @@
 "reminder.subscription" = "Ďakujeme za vašu podporu. Doplnkové funkcie si môžete ponechať, keď pozvete niekoho blízkeho, alebo keď predplatné obnovíte.";
 "invite.eyebrow" = "Pozvať";
 "invite.share" = "Zdieľať môj kód";
+"invite.shareStatus" = "Zverejniť v stave WhatsApp";
 "invite.back" = "Späť";
 "invite.closeAfterShare" = "Späť do aplikácie";
 "share.message" = "Pozývam ťa vyskúšať Browther: prehliadač, ktorý vypína hudbu a rozmazáva haram obrázky.\nS mojím kódom {code} získaš jeden mesiac doplnkových funkcií.";

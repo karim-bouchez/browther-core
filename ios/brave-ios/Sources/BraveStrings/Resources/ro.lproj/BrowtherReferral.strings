@@ -78,6 +78,7 @@
 "reminder.subscription" = "Mulțumim pentru sprijin. Poți păstra funcțiile suplimentare invitând pe cineva apropiat sau reînnoind abonamentul.";
 "invite.eyebrow" = "Invită";
 "invite.share" = "Distribuie codul meu";
+"invite.shareStatus" = "Publică în statusul meu WhatsApp";
 "invite.back" = "Înapoi";
 "invite.closeAfterShare" = "Înapoi la aplicație";
 "share.message" = "Te invit să descoperi Browther: browserul care taie muzica și estompează imaginile haram.\nCu codul meu {code}, ai o lună de funcții suplimentare.";

@@ -78,6 +78,7 @@
 "reminder.subscription" = "Cảm ơn bạn đã ủng hộ. Bạn có thể giữ các tính năng bổ sung bằng cách mời một người thân, hoặc gia hạn.";
 "invite.eyebrow" = "Mời";
 "invite.share" = "Chia sẻ mã của tôi";
+"invite.shareStatus" = "Đăng lên trạng thái WhatsApp";
 "invite.back" = "Quay lại";
 "invite.closeAfterShare" = "Quay lại ứng dụng";
 "share.message" = "Mời bạn khám phá Browther: trình duyệt tắt nhạc và làm mờ hình ảnh haram.\nVới mã {code} của mình, bạn nhận được một tháng tính năng bổ sung.";

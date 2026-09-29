@@ -78,6 +78,7 @@
 "reminder.subscription" = "Kiitos tuestasi. Voit pitää lisäominaisuudet kutsumalla jonkun tai uusimalla tilauksesi.";
 "invite.eyebrow" = "Kutsu";
 "invite.share" = "Jaa koodini";
+"invite.shareStatus" = "Julkaise WhatsApp-tilaani";
 "invite.back" = "Takaisin";
 "invite.closeAfterShare" = "Takaisin sovellukseen";
 "share.message" = "Kutsun sinut tutustumaan Browtheriin: selaimeen, joka poistaa musiikin ja sumentaa haram-kuvat.\nKoodillani {code} saat yhden kuukauden lisäominaisuuksia.";

@@ -78,6 +78,7 @@
 "reminder.subscription" = "Desteğiniz için teşekkürler. Bir yakınınızı davet ederek ya da aboneliğinizi yenileyerek ek özellikleri koruyabilirsiniz.";
 "invite.eyebrow" = "Davet edin";
 "invite.share" = "Kodumu paylaş";
+"invite.shareStatus" = "WhatsApp durumumda paylaş";
 "invite.back" = "Geri";
 "invite.closeAfterShare" = "Uygulamaya dönün";
 "share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla bir ay ek özellik kazanırsın.";

@@ -325,11 +325,14 @@ struct ReferralFeatureList: View {
 // MARK: - Le code : une carte qu'on tient (§ 12.3, § 12.24)
 
 /// ⭐ Le code se **dicte** à un proche : il se lit comme un objet qu'on montre,
-/// ⛔ pas comme un encadré en pointillés. Format carte bancaire (85,6 × 54 mm),
-/// or brossé, puce, guillochis, le nom du produit en encre SOMBRE.
-/// ⚠️ **Couleurs FIXES dans les deux thèmes** : une carte n'a pas de thème.
-/// ⚠️ « Copier » est une pastille SOMBRE sur l'or (contraste). Il copie le
-/// MESSAGE complet, et c'est un partage ABOUTI (§ 12.20) : `onCopied` le dit.
+/// ⛔ pas comme un encadré en pointillés. Format carte bancaire (85,6 × 54 mm).
+/// Depuis le 2026-09-28, **une carte par produit** : celle de Browther est la
+/// **B9 « Onglets + barre »** (`ReferralCardFace`), l'or commun a disparu.
+///
+/// Le lien est dans la barre d'adresse, EN ENTIER (la face est cotée en
+/// 330 × 208 et mise à l'échelle de la largeur disponible) ; « Copier » à sa
+/// droite copie le MESSAGE complet, et c'est un partage ABOUTI (§ 12.20) :
+/// `onCopied` le dit. ⚠️ Couleurs FIXES dans les deux thèmes.
 struct ReferralCodeCard: View {
   let status: ReferralStatus
   var onCopied: (() -> Void)?
@@ -337,155 +340,39 @@ struct ReferralCodeCard: View {
   @State private var copied = false
   @State private var shine: CGFloat = -0.4
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  /// Lu AVANT que la carte ne se fixe en gauche → droite pour sa mise à l'échelle.
+  @Environment(\.layoutDirection) private var layoutDirection
 
   private var code: String { status.referral.code.uppercased() }
   private var link: String { ReferralShare.link(code: code, url: status.referral.url) }
 
   var body: some View {
-    ZStack {
-      LinearGradient(
-        stops: [
-          .init(color: Color(UIColor(rgb: 0xF8DC97)), location: 0),
-          .init(color: Color(UIColor(rgb: 0xE9B551)), location: 0.36),
-          .init(color: Color(UIColor(rgb: 0xCF922F)), location: 0.68),
-          .init(color: Color(UIColor(rgb: 0xA86B17)), location: 1),
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
+    GeometryReader { geometry in
+      ReferralCardFace(
+        code: code,
+        face: .app(
+          link: link.replacingOccurrences(of: "https://", with: ""),
+          copyLabel: copied ? Strings.BrowtherReferral.cardCopied : Strings.BrowtherReferral.cardCopy,
+          copied: copied,
+          onCopy: copy
+        ),
+        tab: Strings.BrowtherReferral.homeTitle,
+        label: Strings.BrowtherReferral.cardCodeHead,
+        tag: Strings.Browther.signatureLabel,
+        art: .bundled,
+        rtl: layoutDirection == .rightToLeft,
+        shine: reduceMotion ? nil : shine
       )
-      LinearGradient(
-        colors: [.white.opacity(0.4), .white.opacity(0)],
-        startPoint: .topLeading,
-        endPoint: UnitPoint(x: 0.4, y: 0.45)
-      )
-      // Le guillochis : assez marqué pour se voir sur une carte de 300 pt.
-      GeometryReader { geometry in
-        ZStack {
-          ForEach([20, 36, 52, 68, 84, 100], id: \.self) { radius in
-            Circle()
-              .stroke(ReferralPalette.ink, lineWidth: 1.8)
-              .frame(width: CGFloat(radius) * 2.4, height: CGFloat(radius) * 2.4)
-          }
-        }
-        .opacity(0.3)
-        // ⚠️ Le centre est DANS la carte (60 pt du bord droit, 42 pt du bas) —
-        // les mêmes cotes que Fajrunaa (`ReferralCodeCard.tsx`, `guilloche` :
-        // un carré de 240 posé à right −60 / bottom −78). Centré sur le coin,
-        // le guillochis n'en montrait que des quarts de cercle décalés.
-        .position(x: geometry.size.width - 60, y: geometry.size.height - 42)
-      }
-      .allowsHitTesting(false)
-      // Un reflet la balaie à l'arrivée et à la copie.
-      if !reduceMotion {
-        GeometryReader { geometry in
-          LinearGradient(
-            colors: [.white.opacity(0), .white.opacity(0.55), .white.opacity(0)],
-            startPoint: .leading,
-            endPoint: .trailing
-          )
-          .frame(width: geometry.size.width * 0.35)
-          .rotationEffect(.degrees(18))
-          .offset(x: shine * geometry.size.width * 1.8 - geometry.size.width * 0.2)
-          .frame(maxHeight: .infinity)
-        }
-        .allowsHitTesting(false)
-      }
-      content
+      .scaleEffect(geometry.size.width / ReferralCardFace.size.width, anchor: .topLeading)
     }
-    .aspectRatio(1.586, contentMode: .fit)
-    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-    .overlay {
-      RoundedRectangle(cornerRadius: 18, style: .continuous)
-        .strokeBorder(Color.black.opacity(0.12))
-    }
-    // ⚠️ Le plafond sur la carte ENTIÈRE, le ratio sur son contenu (§ 12.24).
-    .frame(maxWidth: 320)
-    .frame(maxWidth: .infinity)
-    // Un code se lit de gauche à droite, même en arabe.
+    // ⚠️ La mise à l'échelle part du coin haut-gauche : la face gère elle-même
+    // son miroir (`rtl`).
     .environment(\.layoutDirection, .leftToRight)
+    .aspectRatio(ReferralCardFace.size.width / ReferralCardFace.size.height, contentMode: .fit)
+    .shadow(color: .black.opacity(0.35), radius: 16, y: 10)
+    .frame(maxWidth: 340)
+    .frame(maxWidth: .infinity)
     .onAppear { sweep(delay: 0.25) }
-  }
-
-  private var content: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      HStack(alignment: .top) {
-        Text("Browther")
-          .font(.system(size: 17, weight: .bold))
-          .foregroundStyle(ReferralPalette.ink)
-        Spacer()
-        chip
-      }
-      Spacer(minLength: 6)
-      Text(Strings.BrowtherReferral.cardCodeHead.uppercased())
-        .font(.system(size: 10, weight: .semibold))
-        .tracking(1.8)
-        .foregroundStyle(ReferralPalette.ink.opacity(0.6))
-      Text(code)
-        .font(.system(size: 28, weight: .semibold, design: .monospaced))
-        .tracking(7)
-        .foregroundStyle(ReferralPalette.ink)
-        .shadow(color: .white.opacity(0.55), radius: 0, y: 1)
-        .textSelection(.enabled)
-        .accessibilityLabel(code.map(String.init).joined(separator: " "))
-      Spacer(minLength: 6)
-      HStack(spacing: 8) {
-        // ⚠️ Coupé AU MILIEU s'il déborde : la fin du lien porte le code.
-        Text(link.replacingOccurrences(of: "https://", with: ""))
-          .font(.system(size: 10.5))
-          .foregroundStyle(ReferralPalette.ink.opacity(0.65))
-          .lineLimit(1)
-          .truncationMode(.middle)
-        Spacer(minLength: 4)
-        Button(action: copy) {
-          HStack(spacing: 6) {
-            Image(systemName: copied ? "checkmark" : "doc.on.doc")
-              .font(.system(size: 12, weight: .semibold))
-            Text(copied ? Strings.BrowtherReferral.cardCopied : Strings.BrowtherReferral.cardCopy)
-              .font(.footnote.weight(.semibold))
-          }
-          .foregroundStyle(Color(UIColor(rgb: 0xFBE6AD)))
-          .padding(.horizontal, 12)
-          .frame(height: 32)
-          .background(ReferralPalette.ink, in: Capsule())
-        }
-        .buttonStyle(.plain)
-      }
-    }
-    .padding(16)
-  }
-
-  /// La puce : ce qui fait lire « carte » au premier coup d'œil.
-  private var chip: some View {
-    RoundedRectangle(cornerRadius: 5, style: .continuous)
-      .fill(
-        LinearGradient(
-          colors: [Color(UIColor(rgb: 0xFFF4D3)), Color(UIColor(rgb: 0xE2B457)), Color(UIColor(rgb: 0xB98124))],
-          startPoint: .topLeading,
-          endPoint: .bottomTrailing
-        )
-      )
-      .frame(width: 38, height: 29)
-      .overlay {
-        Path { path in
-          for y in [9.5, 18.5] {
-            path.move(to: CGPoint(x: 0, y: y))
-            path.addLine(to: CGPoint(x: 12.5, y: y))
-            path.move(to: CGPoint(x: 25.5, y: y))
-            path.addLine(to: CGPoint(x: 38, y: y))
-          }
-          for x in [12.5, 25.5] {
-            path.move(to: CGPoint(x: x, y: 0))
-            path.addLine(to: CGPoint(x: x, y: 29))
-          }
-          path.move(to: CGPoint(x: 12.5, y: 14.5))
-          path.addLine(to: CGPoint(x: 25.5, y: 14.5))
-        }
-        .stroke(ReferralPalette.ink.opacity(0.35), lineWidth: 1)
-      }
-      .overlay {
-        RoundedRectangle(cornerRadius: 5, style: .continuous)
-          .strokeBorder(Color.black.opacity(0.2))
-      }
   }
 
   private func copy() {

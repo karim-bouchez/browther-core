@@ -78,6 +78,7 @@
 "reminder.subscription" = "Tak for din støtte. Du kan beholde de ekstra funktioner ved at invitere en, du kender, eller ved at forny.";
 "invite.eyebrow" = "Inviter";
 "invite.share" = "Del min kode";
+"invite.shareStatus" = "Del i min WhatsApp-status";
 "invite.back" = "Tilbage";
 "invite.closeAfterShare" = "Tilbage til appen";
 "share.message" = "Jeg inviterer dig til at prøve Browther: browseren, der fjerner musik og slører haram-billeder.\nMed min kode {code} får du én måned med ekstra funktioner.";

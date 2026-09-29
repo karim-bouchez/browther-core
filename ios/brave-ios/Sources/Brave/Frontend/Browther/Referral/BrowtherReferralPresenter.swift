@@ -489,4 +489,42 @@ enum ReferralSharing {
     }
     host.present(sheet, animated: true)
   }
+
+  /// ⭐ **Le statut WhatsApp** (2026-09-29, `devndin/docs/PARRAINAGE-partage-statut.md`) :
+  /// l'image du statut (`ReferralStatusImage`, dans la langue de l'app : fr,
+  /// en ou ar, sinon l'anglais) **+ le lien SEUL en texte** — WhatsApp en fait
+  /// la légende, juste sous l'étiquette « Clique sur le lien en dessous 👇 ».
+  /// ⛔ Pas le message : il doublerait le texte déjà DANS l'image.
+  /// Le seuil de l'accès à vie vient du barème du service (`lifetimeAt`).
+  @MainActor
+  static func shareStatus(
+    status: ReferralStatus,
+    from host: UIViewController,
+    sourceView: UIView? = nil,
+    completion: @escaping (ReferralShareResult) -> Void
+  ) {
+    let code = status.referral.code.uppercased()
+    let texts = Strings.BrowtherReferral.StatusImage.current(
+      lifetimeAt: MilestoneScale(status: status).lifetimeAt
+    )
+    let image = ReferralStatusImage.render(code: code, texts: texts)
+    // Réencodée en JPEG : ~300 Ko au lieu de plusieurs Mo en PNG.
+    let payload = image.jpegData(compressionQuality: 0.92).flatMap(UIImage.init(data:)) ?? image
+    let link = ReferralShare.link(code: code, url: status.referral.url)
+    let sheet = UIActivityViewController(activityItems: [payload, link], applicationActivities: nil)
+    sheet.completionWithItemsHandler = { activity, completed, _, _ in
+      if !completed {
+        completion(.cancelled)
+      } else if activity == .copyToPasteboard {
+        completion(.copied)
+      } else {
+        completion(.shared)
+      }
+    }
+    if let popover = sheet.popoverPresentationController {
+      popover.sourceView = sourceView ?? host.view
+      popover.sourceRect = (sourceView ?? host.view).bounds
+    }
+    host.present(sheet, animated: true)
+  }
 }

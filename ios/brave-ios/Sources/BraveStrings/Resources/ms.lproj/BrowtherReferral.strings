@@ -78,6 +78,7 @@
 "reminder.subscription" = "Terima kasih atas sokongan anda. Anda boleh mengekalkan ciri tambahan dengan menjemput orang tersayang, atau dengan memperbaharui langganan.";
 "invite.eyebrow" = "Jemput";
 "invite.share" = "Kongsi kod saya";
+"invite.shareStatus" = "Siarkan ke status WhatsApp saya";
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
 "share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat satu bulan ciri tambahan.";

@@ -78,6 +78,7 @@
 "reminder.subscription" = "Bedankt voor je steun. Je kunt de extra functies houden door iemand uit te nodigen, of door te verlengen.";
 "invite.eyebrow" = "Uitnodigen";
 "invite.share" = "Mijn code delen";
+"invite.shareStatus" = "Plaatsen in mijn WhatsApp-status";
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
 "share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je één maand extra functies.";

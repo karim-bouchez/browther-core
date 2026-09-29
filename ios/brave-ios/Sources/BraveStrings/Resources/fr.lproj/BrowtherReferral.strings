@@ -78,6 +78,7 @@
 "reminder.subscription" = "Merci pour ton soutien. Tu peux garder les fonctionnalités supplémentaires en invitant un proche, ou en renouvelant.";
 "invite.eyebrow" = "Inviter";
 "invite.share" = "Partager mon code";
+"invite.shareStatus" = "Publier en statut WhatsApp";
 "invite.back" = "Retour";
 "invite.closeAfterShare" = "Revenir à l'app";
 "share.message" = "Je t'invite à découvrir Browther : le navigateur qui coupe la musique et floute les images haram.\nAvec mon code {code}, tu as un mois de fonctionnalités supplémentaires.";

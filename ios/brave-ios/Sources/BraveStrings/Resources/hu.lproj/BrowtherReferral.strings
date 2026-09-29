@@ -78,6 +78,7 @@
 "reminder.subscription" = "Köszönjük a támogatását. A kiegészítő funkciókat megtarthatja, ha meghív egy szerettét, vagy megújítja az előfizetést.";
 "invite.eyebrow" = "Meghívás";
 "invite.share" = "Kódom megosztása";
+"invite.shareStatus" = "Közzététel a WhatsApp-állapotomban";
 "invite.back" = "Vissza";
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
 "share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) egy hónapnyi kiegészítő funkciót kapsz.";

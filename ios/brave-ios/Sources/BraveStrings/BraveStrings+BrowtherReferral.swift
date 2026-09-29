@@ -427,6 +427,11 @@ extension Strings {
 
     public static var inviteEyebrow: String { t("invite.eyebrow", "Invite") }
     public static var shareMyCode: String { t("invite.share", "Share my code") }
+    /// Le 2ᵉ geste, à côté de « Partager mon code » (2026-09-29,
+    /// `devndin/docs/PARRAINAGE-partage-statut.md`) : ⭐ le libellé CITE WhatsApp —
+    /// l'image dit « Clique sur le lien en dessous », vrai seulement là où le
+    /// lien devient la légende (⛔ pas les stories Instagram / Facebook).
+    public static var shareStatus: String { t("invite.shareStatus", "Post to my WhatsApp status") }
     public static var back: String { t("invite.back", "Back") }
     public static var backToApp: String { t("invite.closeAfterShare", "Back to the app") }
     public static func inviteFoot(_ days: Int) -> String {
@@ -444,7 +449,7 @@ extension Strings {
       fill(
         t(
           "share.message",
-          "I'm inviting you to discover Browther: the browser that mutes music and blurs haram images.\nWith my code {code}, you get two months of additional features."
+          "I'm inviting you to discover Browther: the browser that mutes music and blurs haram images.\nWith my code {code}, you get a month of additional features."
         ),
         ["code": code]
       )
@@ -842,5 +847,88 @@ extension Strings {
       t("share.copied", "Message copied: just paste it to the person you're inviting.")
     }
     public static var close: String { t("common.close", "Close") }
+
+    // MARK: L'image du statut WhatsApp (2026-09-29)
+
+    /// Les textes DANS l'image du statut — `devndin/docs/PARRAINAGE-partage-statut.md`
+    /// § 3 et § 5. ⚠️ **Hors de la table traduite, exprès** : l'image n'existe
+    /// qu'en fr, en et ar (décision du 2026-09-28 : une police par écriture
+    /// n'en vaut pas le coût tant qu'on n'a pas mesuré), les autres langues
+    /// retombent sur l'anglais. Jumeau du site : `website/messages/*.json`
+    /// → `sharePage.statusImage` (mêmes mots, relus par Karim en français).
+    ///
+    /// `[[…]]` = surligné (sauge), `{{…}}` = surligné or (l'accès à vie),
+    /// `{life}` = le seuil du barème (`lifetimeAt`, ⛔ jamais en dur).
+    /// 🔴 ⛔ Jamais « gratuit » pour le mois offert. Arabe : au PLURIEL (un
+    /// statut parle à tout le monde, le singulier imposerait un genre).
+    public struct StatusImage {
+      public let language: String
+      public let paragraphs: [String]
+      public let sticker: String
+      public let cardLabel: String
+      public let cardTab: String
+      public let cardOmni: String
+      public let cardGift: String
+      public let tag: String
+
+      public var isRTL: Bool { language == "ar" }
+
+      /// Les textes dans la langue servie à l'écran (fr, en ou ar ; sinon l'anglais).
+      public static func current(lifetimeAt: Int) -> StatusImage {
+        let base = String(BrowtherReferral.language.split(separator: "-").first ?? "en")
+        return texts(language: base, lifetimeAt: lifetimeAt)
+      }
+
+      public static func texts(language: String, lifetimeAt: Int) -> StatusImage {
+        let life = "\(lifetimeAt)"
+        switch language {
+        case "fr":
+          return StatusImage(
+            language: "fr",
+            paragraphs: [
+              "Si toi aussi tu cherches à naviguer sur [[internet sans musique ni images haram]], essaie ce navigateur : il supprime toute musique et floute les hommes et/ou les femmes. Dispo sur mobile et PC.",
+              "Avec mon code, tu as [[un mois de fonctionnalités bonus]].",
+              "Et si \(life) personnes l'installent avec ton code, tu as tout de {{débloqué à vie}} !",
+            ],
+            sticker: "Clique sur le lien en dessous 👇",
+            cardLabel: "Mon code",
+            cardTab: "Parrainage",
+            cardOmni: "Musique coupée · images floutées",
+            cardGift: "1\u{00A0}mois de bonus",
+            tag: "Un projet"
+          )
+        case "ar":
+          return StatusImage(
+            language: "ar",
+            paragraphs: [
+              "إذا كنتم تبحثون أنتم أيضًا عن تصفّح [[الإنترنت بلا موسيقى ولا صور محرّمة]]، جرّبوا هذا المتصفّح: يحذف كل الموسيقى ويموّه صور الرجال و/أو النساء. متوفّر على الجوال والكمبيوتر.",
+              "برمزي، تحصلون على [[شهر من الميزات الإضافية]].",
+              "وإذا ثبّته \(life) أشخاص برمزكم، تُفتح لكم {{كل الميزات مدى الحياة}}!",
+            ],
+            sticker: "اضغطوا على الرابط في الأسفل 👇",
+            cardLabel: "رمزي",
+            cardTab: "التزكية",
+            cardOmni: "الموسيقى مقطوعة · الصور مموّهة",
+            cardGift: "شهر من الميزات",
+            tag: "مشروع من"
+          )
+        default:
+          return StatusImage(
+            language: "en",
+            paragraphs: [
+              "If you're also looking to browse [[the internet without music or haram images]], try this browser: it removes all music and blurs men and/or women. Available on mobile and PC.",
+              "With my code, you get [[a month of bonus features]].",
+              "And if \(life) people install it with your code, you get {{everything unlocked for life}}!",
+            ],
+            sticker: "Tap the link below 👇",
+            cardLabel: "My code",
+            cardTab: "Referrals",
+            cardOmni: "Music off · images blurred",
+            cardGift: "1\u{00A0}month of bonus",
+            tag: "A project by"
+          )
+        }
+      }
+    }
   }
 }
