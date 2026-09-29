@@ -63,6 +63,7 @@ public final class ReferralStrings {
         SIMPLE.put("card.codeHead", R.string.browther_referral_card_code_head);
         SIMPLE.put("card.copied", R.string.browther_referral_card_copied);
         SIMPLE.put("card.copy", R.string.browther_referral_card_copy);
+        SIMPLE.put("card.tag", R.string.browther_referral_card_tag);
         SIMPLE.put("common.close", R.string.browther_referral_common_close);
         SIMPLE.put("ending.body", R.string.browther_referral_ending_body);
         SIMPLE.put("ending.hook", R.string.browther_referral_ending_hook);
@@ -130,6 +131,7 @@ public final class ReferralStrings {
         SIMPLE.put("invite.closeAfterShare", R.string.browther_referral_invite_close_after_share);
         SIMPLE.put("invite.eyebrow", R.string.browther_referral_invite_eyebrow);
         SIMPLE.put("invite.share", R.string.browther_referral_invite_share);
+        SIMPLE.put("invite.shareStatus", R.string.browther_referral_invite_share_status);
         SIMPLE.put("locked.body", R.string.browther_referral_locked_body);
         SIMPLE.put("locked.cta", R.string.browther_referral_locked_cta);
         SIMPLE.put("locked.musicRemoval", R.string.browther_referral_locked_music_removal);

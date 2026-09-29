@@ -1598,4 +1598,7 @@ other {<ph name="CITY_COUNT_MANY"/> város - }
 <translation id="112285022695412896">{count} nap alapértelmezett Browther = megerősített meghívás</translation>
 <translation id="5514079576962294349">{count} nap alapértelmezett Browther = megerősített meghívás</translation>
 <translation id="1592025748595283168">{count} nap alapértelmezett Browther = megerősített meghívás</translation>
+<translation id="2054543437072081980">Készítette:</translation>
+<translation id="8934882665878176215">Közzététel a WhatsApp-állapotomban</translation>
+<translation id="5449151118798532167">Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) egy hónapnyi kiegészítő funkciót kapsz.</translation>
 </translationbundle>

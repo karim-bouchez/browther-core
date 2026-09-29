@@ -450,7 +450,14 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                         () -> {
                             // ⭐ Copier EST un partage abouti (§ 12.20) : 3 jours offerts compris.
                             mController.note(
-                                    "referral_shared", false, "screen", "home", "result", "copied");
+                                    "referral_shared",
+                                    false,
+                                    "screen",
+                                    "home",
+                                    "result",
+                                    "copied",
+                                    "format",
+                                    ReferralSharing.Format.MESSAGE.wire);
                             mController.shareDone("home", false);
                         });
         LinearLayout.LayoutParams cardParams =
@@ -462,6 +469,9 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         column.addView(
                 shareButton(status),
                 ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 18)));
+        column.addView(
+                statusButton(status),
+                ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 8)));
         column.addView(
                 ReferralUi.footnote(
                         context,
@@ -550,6 +560,21 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                 null,
                 R.drawable.browther_referral_glyph_share,
                 () -> ReferralSharing.share(mActivity, status, "home", false, result -> {}));
+    }
+
+    /**
+     * ⭐ Le 2ᵉ geste, sous « Partager mon code » : un contour, ⭐ un libellé qui CITE WhatsApp
+     * (« Publier en statut WhatsApp ») — l'image dit « Clique sur le lien en dessous », vrai
+     * seulement là où le lien devient la légende (§ 9).
+     */
+    private View statusButton(ReferralStatus status) {
+        Context context = getContext();
+        return ReferralUi.secondaryButton(
+                context,
+                mP,
+                ReferralStrings.get(context, "invite.shareStatus"),
+                R.drawable.browther_referral_glyph_status,
+                () -> ReferralSharing.shareStatus(mActivity, status, "home", false, result -> {}));
     }
 
     // -------------------- Onglet « Invitations » --------------------

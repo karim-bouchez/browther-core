@@ -8,11 +8,13 @@ package org.chromium.chrome.browser.browther_referral;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ContextUtils;
+import org.chromium.base.FileProviderUtils;
 import org.chromium.base.version_info.VersionInfo;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.preferences.BravePref;
@@ -20,6 +22,7 @@ import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.tracing.settings.DeveloperSettings;
 import org.chromium.components.user_prefs.UserPrefs;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -94,6 +97,17 @@ public final class BrowtherReferralChromium {
             @Override
             public @Nullable Activity topActivity() {
                 return ApplicationStatus.getLastTrackedFocusedActivity();
+            }
+
+            @Override
+            public @Nullable Uri shareableUri(File file) {
+                // Le FileProvider de Chrome (`file_paths.xml` : `files/images/`), celui des
+                // captures partagées.
+                try {
+                    return FileProviderUtils.getContentUriFromFile(file);
+                } catch (IllegalArgumentException e) {
+                    return null;
+                }
             }
         };
     }

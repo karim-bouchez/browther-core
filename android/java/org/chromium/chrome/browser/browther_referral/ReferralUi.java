@@ -438,6 +438,40 @@ public final class ReferralUi {
     }
 
     /**
+     * L'alternative avec un pictogramme — « Publier en statut WhatsApp » sous « Partager mon code »
+     * (§ 9), le pendant du {@code BrowtherIntroOutlineButtonStyle} iOS. Mêmes cotes que {@link
+     * #secondaryButton}.
+     */
+    public static View secondaryButton(
+            Context context, Palette p, String label, int iconRes, Runnable action) {
+        LinearLayout button = row(context);
+        button.setGravity(Gravity.CENTER);
+        float radius = dp(context, 14);
+        button.setBackground(
+                pressable(
+                        rounded(0, radius, dp(context, 1.5f), withAlpha(p.text2, 0.55f)),
+                        withAlpha(p.text, 0.12f),
+                        radius));
+        button.setMinimumHeight(dp(context, 48));
+        int pad = dp(context, 12);
+        button.setPadding(pad, pad / 2, pad, pad / 2);
+        button.addView(glyph(context, iconRes, 16, p.text2));
+        View space = new View(context);
+        button.addView(space, new LinearLayout.LayoutParams(dp(context, 8), 1));
+        TextView labelView = text(context, label, 15, SEMIBOLD, p.text2);
+        labelView.setGravity(Gravity.CENTER);
+        labelView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        button.addView(labelView, new LinearLayout.LayoutParams(WRAP, WRAP));
+        button.setClickable(true);
+        button.setFocusable(true);
+        button.setContentDescription(label);
+        button.setOnClickListener(v -> action.run());
+        pressFeedback(button);
+        button.setLayoutParams(linear(MATCH, WRAP));
+        return button;
+    }
+
+    /**
      * Une sortie en toutes lettres (« Plus tard », la du'a, « Retour »). 🔴 Cliquable sur le texte
      * et juste autour, ⛔ jamais sur toute la largeur (§ 12.9) : une fenêtre qui attend une action
      * ne se ferme que par elle.

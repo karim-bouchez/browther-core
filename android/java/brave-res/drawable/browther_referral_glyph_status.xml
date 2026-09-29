@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this file,
+     You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!-- Parrainage Browther (private/docs/PARRAINAGE.md § 9) — « Publier en statut WhatsApp » : l'anneau
+     en pointillés d'un statut autour d'un disque plein, le pendant du SF Symbol
+     `circle.dashed.inset.filled` de l'iOS. Teinté par le code. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M13.36,2.90A9.2,9.2 0 0,1 17.47,4.60M19.40,6.53A9.2,9.2 0 0,1 21.10,10.64M21.10,13.36A9.2,9.2 0 0,1 19.40,17.47M17.47,19.40A9.2,9.2 0 0,1 13.36,21.10M10.64,21.10A9.2,9.2 0 0,1 6.53,19.40M4.60,17.47A9.2,9.2 0 0,1 2.90,13.36M2.90,10.64A9.2,9.2 0 0,1 4.60,6.53M6.53,4.60A9.2,9.2 0 0,1 10.64,2.90"/>
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M6.6,12a5.4,5.4 0 1,0 10.8,0a5.4,5.4 0 1,0 -10.8,0Z"/>
+</vector>

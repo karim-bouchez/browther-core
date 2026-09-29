@@ -4558,6 +4558,9 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_REFERRAL_CARD_COPY" desc="Browther referral (pool key card.copy)" meaning="browther_referral:card.copy">
       Copy
     </message>
+    <message name="IDS_BROWTHER_REFERRAL_CARD_TAG" desc="Browther referral (pool key card.tag)" meaning="browther_referral:card.tag">
+      A project by
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_COMMON_CLOSE" desc="Browther referral (pool key common.close)" meaning="browther_referral:common.close">
       Close
     </message>
@@ -4759,6 +4762,9 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_REFERRAL_INVITE_SHARE" desc="Browther referral (pool key invite.share)" meaning="browther_referral:invite.share">
       Share my code
     </message>
+    <message name="IDS_BROWTHER_REFERRAL_INVITE_SHARE_STATUS" desc="Browther referral (pool key invite.shareStatus)" meaning="browther_referral:invite.shareStatus">
+      Post to my WhatsApp status
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_LOCKED_BODY" desc="Browther referral (pool key locked.body)" meaning="browther_referral:locked.body">
       For these apps to stay free, the dev&amp;din studio needs you.
     </message>
@@ -4892,7 +4898,7 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Message copied: just paste it to the person you're inviting.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_SHARE_MESSAGE" desc="Browther referral (pool key share.message)" meaning="browther_referral:share.message">
-      I'm inviting you to discover Browther: the browser that mutes music and blurs haram images.\nWith my code {code}, you get two months of additional features.
+      I'm inviting you to discover Browther: the browser that mutes music and blurs haram images.\nWith my code {code}, you get a month of additional features.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_SUPPORT_MONEY" desc="Browther referral (pool key support.money)" meaning="browther_referral:support.money">
       Support financially · {price}/month

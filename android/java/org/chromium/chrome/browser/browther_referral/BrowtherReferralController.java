@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -37,6 +38,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStorage;
 import org.chromium.chrome.browser.browther_referral.core.ShareOutcome;
 
+import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,6 +113,14 @@ public final class BrowtherReferralController {
         /** L'activité au premier plan, pour ce qui s'ouvre depuis un toast ou le Nouvel Onglet. */
         @Nullable
         Activity topActivity();
+
+        /**
+         * Un fichier de {@code files/images/} partageable avec une autre app ({@code content://}
+         * du FileProvider de Chrome) — l'image du statut WhatsApp (§ 9). {@code null} si le
+         * fournisseur n'en veut pas.
+         */
+        @Nullable
+        Uri shareableUri(File file);
     }
 
     /** Un écran qui se redessine quand le statut ou l'état local change. */
@@ -1029,6 +1039,11 @@ public final class BrowtherReferralController {
 
     public @Nullable Activity topActivity() {
         return mPlatform.topActivity();
+    }
+
+    /** Voir {@link Platform#shareableUri}. */
+    public @Nullable Uri shareableUri(File file) {
+        return mPlatform.shareableUri(file);
     }
 
     // -------------------- 🧪 Recette (§ 12.18) --------------------

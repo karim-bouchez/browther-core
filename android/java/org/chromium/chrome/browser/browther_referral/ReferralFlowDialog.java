@@ -636,7 +636,14 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
                             () -> {
                                 // ⭐ Copier EST un partage abouti (§ 12.20) — 3 jours offerts compris.
                                 mController.note(
-                                        "referral_shared", mPreview, "screen", "invite", "result", "copied");
+                                        "referral_shared",
+                                        mPreview,
+                                        "screen",
+                                        "invite",
+                                        "result",
+                                        "copied",
+                                        "format",
+                                        ReferralSharing.Format.MESSAGE.wire);
                                 if (mModel != null) mModel.replaceTop(ReferralScreen.invite(true));
                                 mController.shareDone("invite", mPreview);
                             }));
@@ -664,6 +671,25 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
                                             "invite",
                                             mPreview,
                                             // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16).
+                                            result -> {
+                                                if (mModel != null) {
+                                                    mModel.replaceTop(ReferralScreen.invite(true));
+                                                }
+                                            })));
+            // ⭐ Le statut WhatsApp (§ 9) : l'image + le lien en légende. Abouti, il libère
+            // l'écran 4 lui aussi.
+            footer.add(
+                    ReferralUi.secondaryButton(
+                            context,
+                            p,
+                            s("invite.shareStatus"),
+                            R.drawable.browther_referral_glyph_status,
+                            () ->
+                                    ReferralSharing.shareStatus(
+                                            mActivity,
+                                            known,
+                                            "invite",
+                                            mPreview,
                                             result -> {
                                                 if (mModel != null) {
                                                     mModel.replaceTop(ReferralScreen.invite(true));
