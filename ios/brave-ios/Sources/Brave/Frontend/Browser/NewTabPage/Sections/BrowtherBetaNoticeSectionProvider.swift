@@ -219,6 +219,30 @@ private final class BrowtherFullWidthCell<View: UIView>: UICollectionViewCell,
   required init?(coder: NSCoder) {
     fatalError()
   }
+
+  /// ⚠️ Le Nouvel Onglet est en auto-dimensionnement (`estimatedItemSize =
+  /// automaticSize`) : la cellule re-mesure sa taille après `sizeForItemAt`.
+  /// Sans cette surcharge, la mesure par défaut laisse la largeur LIBRE — elle
+  /// prend la largeur naturelle du texte sur une seule ligne, plus large que
+  /// l'écran. Constaté le 2026-09-29 (iPhone 13) : encart qui sortait à droite,
+  /// croix hors champ, et un grand vide (la hauteur, elle, venait de la bonne
+  /// largeur). On garde la largeur donnée par la mise en page et on ne mesure
+  /// que la hauteur.
+  override func preferredLayoutAttributesFitting(
+    _ layoutAttributes: UICollectionViewLayoutAttributes
+  ) -> UICollectionViewLayoutAttributes {
+    let attributes = super.preferredLayoutAttributesFitting(layoutAttributes)
+    let width = layoutAttributes.size.width
+    attributes.size = CGSize(
+      width: width,
+      height: contentView.systemLayoutSizeFitting(
+        CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
+        withHorizontalFittingPriority: .required,
+        verticalFittingPriority: .fittingSizeLevel
+      ).height
+    )
+    return attributes
+  }
 }
 
 // MARK: - BrowtherBetaNoticeView
