@@ -38,6 +38,29 @@ import Foundation
 enum BrowtherWhatsNewCatalog {
   static let releases: [BrowtherSurfacesRules.WhatsNewRelease] = [
     .init(
+      // Release 2026.9.30 : floutage des images chargées au défilement, flou
+      // vidéo adouci, choix « qui flouter » en cases dans le panel Basarunaa.
+      id: "2026-09-30",
+      date: "2026-09-30",
+      lines: [
+        "fr": [
+          "Certaines images, chargées au fil du défilement, restaient visibles sans flou. Elles sont maintenant floutées comme les autres.",
+          "Le flou des vidéos s’arrêtait net sur les bords. Il se fond maintenant dans l’image, comme sur les photos.",
+          "Choisir qui flouter demandait de viser de petits boutons. Le panneau Basarunaa reprend les grandes cases de l’introduction.",
+        ],
+        "en": [
+          "Some images, loaded as you scrolled, stayed visible without any blur. They are now blurred like the others.",
+          "The blur on videos stopped abruptly at the edges. It now fades into the picture, just like on photos.",
+          "Choosing who to blur meant aiming at small buttons. The Basarunaa panel now uses the large tiles from the introduction.",
+        ],
+        "ar": [
+          "بعض الصور التي تُحمَّل أثناء التمرير كانت تبقى ظاهرة دون تمويه. صارت الآن تُموَّه مثل غيرها.",
+          "كان تمويه الفيديوهات يتوقف فجأة عند الحواف. صار الآن يذوب في الصورة، تمامًا كما في الصور.",
+          "كان اختيار من يُموَّه يتطلب الضغط على أزرار صغيرة. صارت لوحة Basarunaa تعتمد المربعات الكبيرة نفسها التي في المقدمة.",
+        ],
+      ]
+    ),
+    .init(
       // Release 2026.9.18 : seule nouveauté visible des utilisateurs déjà
       // installés — l'introduction ne s'ouvre qu'au premier lancement.
       id: "2026-09-11",
