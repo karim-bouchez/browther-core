@@ -67,6 +67,12 @@ final class BrowtherWhatsNewCardView: UIView {
     $0.tintColor = UIColor(white: 1, alpha: 0.6)
     $0.contentEdgeInsets = UIEdgeInsets(equalInset: 6)
     $0.accessibilityLabel = Strings.Browther.betaNoticeDismiss
+    // ⚠️ Largeur figée : sans ça, le bouton (étirement 250) et les libellés
+    // (250 aussi) se disputent la place, et la mesure de hauteur donnait tout
+    // au bouton — texte écrasé en colonne d'une lettre, ✕ au milieu, carte
+    // haute de 2 300 pt (iPhone de Karim, 2026-09-30 ; reproduit au simulateur).
+    $0.setContentHuggingPriority(.required, for: .horizontal)
+    $0.setContentCompressionResistancePriority(.required, for: .horizontal)
   }
 
   override init(frame: CGRect) {
