@@ -17,6 +17,13 @@ public class BraveRewards: PreferencesObserver {
 
   /// Whether or not Brave Rewards is available/can be enabled
   public static func isSupported(prefService: any PrefService) -> Bool {
+    // Browther : pas de Brave Rewards. Couper ici (et non seulement l'UI) retire
+    // d'un coup le bouton de la barre, le panel, et le réglage « Masquer l'icône
+    // du programme de récompenses » qui restait dans Paramètres › Affichage.
+    return false
+  }
+
+  private static func isSupportedUpstream(prefService: any PrefService) -> Bool {
     let isSupportedFromPrefs = BraveRewardsAPI.isSupported(prefService)
     #if DEBUG
     return isSupportedFromPrefs
