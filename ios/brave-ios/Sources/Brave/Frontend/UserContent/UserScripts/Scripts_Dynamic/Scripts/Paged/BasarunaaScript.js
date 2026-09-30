@@ -1072,6 +1072,14 @@ video:not([data-basarunaa]) { filter: none !important; }
     window.addEventListener("resize", check, { passive: true });
   }
 
+  let blurEnabled = true;
+  function setBlurEnabled(value) {
+    blurEnabled = value;
+  }
+  function isBlurEnabled() {
+    return blurEnabled;
+  }
+
   let bridgeContext = null;
   const MESSAGE_HANDLER = "$<message_handler>";
   function setBridgeContext(ctx) {
@@ -1799,6 +1807,9 @@ video:not([data-basarunaa]) { filter: none !important; }
             if (normalised.length > 0) {
               void compositeDebugOverlay(img, normalised, debugMode, elapsedMs);
             }
+          } else if (!isBlurEnabled()) {
+            releaseHideFirst(img);
+            deps.decisionCache.set(cacheKey(img), decision);
           } else if (decision === "remove") {
             releaseHideFirst(img);
             deps.decisionCache.set(cacheKey(img), decision);
@@ -1820,7 +1831,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       try {
         const img = findImageById(id);
         metric("apply_nsfw", { id, score, found: !!img });
-        if (img) {
+        if (img && isBlurEnabled()) {
           img.style.setProperty(
             "filter",
             `blur(${DEFAULT_HIDE_FIRST_BLUR_PX}px)`,
@@ -1858,7 +1869,7 @@ video:not([data-basarunaa]) { filter: none !important; }
             setImageState(img, "remove");
             return;
           }
-          applyHideFirst(img);
+          if (isBlurEnabled()) applyHideFirst(img);
           if (observer) {
             observer.observe(img);
           } else {
@@ -3914,6 +3925,7 @@ video:not([data-basarunaa]) { filter: none !important; }
 
   const CSS_BLUR_FLAG = "data-basarunaa-cssblur";
   function applyVideoCssBlur(video) {
+    if (!isBlurEnabled()) return;
     try {
       const vw = video.videoWidth || video.clientWidth || 640;
       const vh = video.videoHeight || video.clientHeight || 360;
@@ -5057,6 +5069,10 @@ video:not([data-basarunaa]) { filter: none !important; }
     repaintBackdrop() {
       const geom = this.lastGeom;
       if (!geom) return;
+      if (!isBlurEnabled()) {
+        this.backdrop.clear();
+        return;
+      }
       if (!this.backdrop.isAttached) {
         const parent = this.displayCanvas.parentNode;
         if (!parent) return;
@@ -5393,7 +5409,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           display.style.display = canvasHidden ? "none" : "";
           if (canvasHidden) releaseVideoCssBlur(video);
         }
-        const renderOff = window.__basarunaaRenderDisabled === true || canvasHidden;
+        const renderOff = window.__basarunaaRenderDisabled === true || canvasHidden || !isBlurEnabled();
         if (!renderOff && this.state === "full_blur") {
           drawAndBlurRegion(
             this.dctx,
@@ -5803,10 +5819,11 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   let started = false;
-  function start(bridge) {
+  function start(bridge, config) {
     if (started) return;
     started = true;
     if (bridge) setBridgeContext(bridge);
+    setBlurEnabled(config?.blurEnabled !== false);
     const imagePipeline = createImagePipeline();
     const videoPipeline = createVideoPipeline();
     window.__browtherBasarunaa = {
@@ -5850,8 +5867,8 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
   (function expose() {
     if (typeof window === "undefined") return;
-    window.__browtherBasarunaaBootstrap = (bridge) => {
-      start(bridge);
+    window.__browtherBasarunaaBootstrap = (bridge, config) => {
+      start(bridge, config);
     };
     if (!window.__firefox__ && typeof document !== "undefined") {
       if (document.readyState === "loading") {
@@ -5867,8 +5884,14 @@ video:not([data-basarunaa]) { filter: none !important; }
 })();
 
   // ─── Bootstrap : pass the brave-ios bridge to the bundle ────────────────
+  // `$<basarunaa_blur_enabled>` est remplacé par le natif (`true`/`false`)
+  // au moment de construire le WKUserScript — cf. BasarunaaScriptHandler.
+  // Dans une CHAÎNE exprès : non remplacé, il vaut « floutage actif » au lieu
+  // d'être une erreur de syntaxe qui éteindrait tout Basarunaa.
   if (typeof window.__browtherBasarunaaBootstrap === 'function') {
-    window.__browtherBasarunaaBootstrap($);
+    window.__browtherBasarunaaBootstrap($, {
+      blurEnabled: '$<basarunaa_blur_enabled>' !== 'false'
+    });
   } else {
     // Bundle didn't expose the bootstrap — log loudly so we catch a broken
     // deploy. The script can't run without the bridge.

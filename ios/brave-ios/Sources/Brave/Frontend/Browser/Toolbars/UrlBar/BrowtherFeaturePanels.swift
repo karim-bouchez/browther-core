@@ -554,6 +554,7 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var genderCertainty = Preferences.Basarunaa.genderCertainty
   @ObservedObject private var debugMode = Preferences.Basarunaa.debugMode
   @ObservedObject private var captureMode = Preferences.Basarunaa.captureMode
+  @ObservedObject private var blurEnabled = Preferences.Basarunaa.blurEnabled
   @ObservedObject private var nsfwEnabled = Preferences.Basarunaa.nsfwEnabled
   @ObservedObject private var nsfwConf = Preferences.Basarunaa.nsfwConf
   @ObservedObject private var nudenetConf = Preferences.Basarunaa.nudenetConf
@@ -709,6 +710,29 @@ struct BasarunaaPanelView: View {
         radio(label: Strings.Browther.basarunaaDebugNone, value: "none", binding: debugModeBinding)
         radio(label: Strings.Browther.basarunaaDebugBoxes, value: "boxes", binding: debugModeBinding)
         radio(label: Strings.Browther.basarunaaDebugFull, value: "debug", binding: debugModeBinding)
+      }
+
+      Divider()
+
+      // Parité du toggle debug desktop (`blur_enabled`). OFF = analyse et
+      // collecte continuent, rien n'est flouté. Recharge l'onglet (le réglage
+      // est gravé dans le script injecté, cf. BasarunaaScriptHandler).
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(verbatim: "Floutage actif").font(.subheadline.weight(.medium))
+          Text(
+            verbatim:
+              "Décoche pour naviguer sans flou : l'analyse et la collecte de corpus continuent. Recharge la page."
+          )
+          .font(.caption2)
+          .foregroundColor(.secondary)
+        }
+        Spacer()
+        Toggle("", isOn: Binding(
+          get: { blurEnabled.value },
+          set: { blurEnabled.value = $0 }
+        ))
+        .labelsHidden()
       }
 
       Divider()

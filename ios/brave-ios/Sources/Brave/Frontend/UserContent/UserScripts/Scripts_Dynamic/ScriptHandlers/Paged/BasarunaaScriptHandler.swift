@@ -308,13 +308,25 @@ class BasarunaaScriptHandler: TabContentScript {
   static let messageHandlerName = "\(scriptName)_\(messageUUID)"
   static let scriptSandbox: WKContentWorld = .page
 
-  static let userScript: WKUserScript? = {
+  /// Deux variantes figées, choisies à chaque injection selon « Floutage
+  /// actif ». Le JS doit connaître la valeur AVANT de découvrir la première
+  /// image (c'est là qu'il pose le hide-first) : une réponse d'analyse arrive
+  /// trop tard. `UserScriptManager.loadScripts` relit donc cette propriété au
+  /// lieu de son dictionnaire figé au lancement.
+  static var userScript: WKUserScript? {
+    Preferences.Basarunaa.blurEnabled.value ? userScriptBlurOn : userScriptBlurOff
+  }
+  private static let userScriptBlurOn = makeUserScript(blurEnabled: true)
+  private static let userScriptBlurOff = makeUserScript(blurEnabled: false)
+
+  private static func makeUserScript(blurEnabled: Bool) -> WKUserScript? {
     guard let script = loadUserScript(named: scriptName) else { return nil }
     return WKUserScript(
       source: secureScript(
         handlerName: messageHandlerName,
         securityToken: scriptId,
-        script: script
+        script: script.replacingOccurrences(
+          of: "$<basarunaa_blur_enabled>", with: blurEnabled ? "true" : "false")
       ),
       injectionTime: .atDocumentStart,
       // [Browther 2026-08-09] false : un player embarqué vit dans un IFRAME
@@ -330,7 +342,7 @@ class BasarunaaScriptHandler: TabContentScript {
       forMainFrameOnly: false,
       in: scriptSandbox
     )
-  }()
+  }
 
   init() {
     // Sans ça, `batteryLevel` renvoie -1 en permanence — une mesure qui a

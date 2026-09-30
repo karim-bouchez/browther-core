@@ -472,6 +472,13 @@ public class BrowserViewController: UIViewController {
     // Browther: features URL bar live-toggle (cf. UserScriptManager)
     Preferences.Sawtunaa.enabled.observe(from: self)
     Preferences.Basarunaa.enabled.observe(from: self)
+    Preferences.Basarunaa.blurEnabled.observe(from: self)
+    // Sans ces trois-là, la branche « collecte » de `preferencesDidChange` ne
+    // se déclenchait jamais : le collecteur n'apprenait le changement qu'à la
+    // page suivante (`basarunaaDidActivate`).
+    Preferences.Basarunaa.collectEnabled.observe(from: self)
+    Preferences.Basarunaa.collectDevice.observe(from: self)
+    Preferences.Basarunaa.collectVideoScenes.observe(from: self)
 
     // Observe some Chromium prefs
     prefsChangeRegistrar.addObserver(forPath: BraveRewardsDisabledByPolicyPrefName) {
@@ -2912,6 +2919,16 @@ extension BrowserViewController: PreferencesObserver {
       let isOn = Preferences.Basarunaa.enabled.value
       tabManager.allTabs.forEach {
         $0.browserData?.setScripts(scripts: [.basarunaa: isOn])
+      }
+      tabManager.reloadSelectedTab()
+    case Preferences.Basarunaa.blurEnabled.key:
+      // Browther: « Floutage actif » est gravé dans le script injecté (le JS en
+      // a besoin avant la première image). OFF puis ON force la ré-injection
+      // avec la bonne variante — `setScripts` ignore un état inchangé.
+      guard Preferences.Basarunaa.enabled.value else { return }
+      tabManager.allTabs.forEach {
+        $0.browserData?.setScripts(scripts: [.basarunaa: false])
+        $0.browserData?.setScripts(scripts: [.basarunaa: true])
       }
       tabManager.reloadSelectedTab()
     case Preferences.Basarunaa.collectEnabled.key,

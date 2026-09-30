@@ -111,6 +111,16 @@ extension Preferences {
       default: false
     )
 
+    /// « Floutage actif » — parité du toggle debug desktop `blur_enabled`.
+    /// `false` = l'analyse tourne (et la collecte de corpus avec), mais rien
+    /// n'est flouté. Sert à collecter en naviguant normalement quand le flou
+    /// gêne, sans éteindre tout Basarunaa. Lu une fois par page : il est gravé
+    /// dans le script injecté (cf. `BasarunaaScriptHandler.userScript`).
+    public static let blurEnabled = Option<Bool>(
+      key: "basarunaa.blur-enabled",
+      default: true
+    )
+
     // MARK: - Collecte de corpus (opt-in, locale)
     //
     // Voir `private/extensions/basarunaa/docs/COLLECTE.md`. Trois préférences

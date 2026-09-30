@@ -353,6 +353,12 @@ class UserScriptManager {
 
       // Inject all optional scripts
       self.dynamicScripts.filter({ scripts.contains($0.key) }).forEach {
+        // Browther: Basarunaa a deux variantes selon « Floutage actif » — on
+        // relit la bonne à chaque injection (le dict est figé au lancement).
+        if $0.key == .basarunaa, let script = BasarunaaScriptHandler.userScript {
+          scriptController.addUserScript(script)
+          return
+        }
         scriptController.addUserScript($0.value)
       }
     }
