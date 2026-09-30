@@ -111,13 +111,18 @@ class SawtunaaScriptHandler: TabContentScript {
       handlePreprocess(data: data)
 
     case "playAt":
-      if let ms = Double(data) {
+      // data = "videoMs|sentAtWallMs|playbackRate" (video.currentTime brut,
+      // sans avance : la latence de sortie est compensée côté natif).
+      let parts = data.split(separator: "|").map { Double($0) }
+      if let ms = parts.first ?? nil {
         if !isActive {
           isActive = true
           SawtunaaMetric.emit("handler_activated", ["first_video_ms": Int(ms)])
           delegate?.sawtunaaDidActivate(tab: tab)
         }
-        audioPlayer?.playChunksUpTo(ms)
+        let sentAt = parts.count > 1 ? parts[1] : nil
+        let rate = (parts.count > 2 ? parts[2] : nil) ?? 1
+        audioPlayer?.playChunksUpTo(videoMs: ms, sentAtMs: sentAt, rate: rate > 0 ? rate : 1)
       } else {
         SawtunaaMetric.emit("handler_playat_invalid", ["data": data])
       }

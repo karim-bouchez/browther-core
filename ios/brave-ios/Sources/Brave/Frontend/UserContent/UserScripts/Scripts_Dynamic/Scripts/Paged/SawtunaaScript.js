@@ -296,6 +296,10 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   var pendingSegments = [];
   var decoderInitializing = false;
   var audioPaused = false;
+  // Détection de la vidéo qui cale (cf. scheduler).
+  var STALL_MS = 300;
+  var lastSeenTimeMs = -1;
+  var lastAdvanceWallMs = 0;
 
   // Aggregation buffers: accumulate PCM until we can send a full 1s chunk.
   // Smooths out YouTube's micro-segments (22% are <100ms) which would otherwise
@@ -689,21 +693,37 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       // fullscreen transitions. Re-attach our mute enforcer if so.
       forceMuteVideo(vid);
 
-      if (vid.paused) {
+      // L'audio natif ne doit courir QUE quand l'image avance. `paused` ne
+      // suffit pas : une vidéo qui cale (rebuffering, seek en cours, reprise
+      // qui tarde) reste `paused === false` alors que son horloge est figée —
+      // l'audio filait devant l'image et le décalage restait jusqu'au seek
+      // suivant. On coupe donc aussi quand `currentTime` n'a pas bougé depuis
+      // STALL_MS (plus long que le rafraîchissement de `currentTime`), et à la
+      // reprise le natif se ré-ancre sur la position réelle.
+      var nowWall = Date.now();
+      var currentTimeMs = vid.currentTime * 1000;
+      if (currentTimeMs !== lastSeenTimeMs) {
+        lastSeenTimeMs = currentTimeMs;
+        lastAdvanceWallMs = nowWall;
+      }
+      var stalled = vid.seeking || (nowWall - lastAdvanceWallMs > STALL_MS);
+      if (vid.paused || stalled) {
         if (!audioPaused) {
           audioPaused = true;
-          metric('video_paused', { video_ms: Math.round(vid.currentTime * 1000) });
+          metric(vid.paused ? 'video_paused' : 'video_stalled', {
+            video_ms: Math.round(currentTimeMs),
+            seeking: vid.seeking,
+            ready_state: vid.readyState
+          });
           send('pauseAudio');
         }
         return;
       }
       if (audioPaused) {
         audioPaused = false;
-        metric('video_resumed', { video_ms: Math.round(vid.currentTime * 1000) });
+        metric('video_resumed', { video_ms: Math.round(currentTimeMs) });
         send('resumeAudio');
       }
-
-      var currentTimeMs = vid.currentTime * 1000;
 
       if (lastVideoTimeMs >= 0 && Math.abs(currentTimeMs - lastVideoTimeMs) > 2000) {
         metric('seek_detected', {
@@ -726,7 +746,11 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       }
       lastVideoTimeMs = currentTimeMs;
 
-      send('playAt', '' + (currentTimeMs + 100));
+      // Position BRUTE + instant du relevé : le natif compense lui-même le
+      // transit du message et la latence de sortie réelle (haut-parleur ≠
+      // AirPods). L'ancienne avance fixe de +100 ms faisait sortir l'audio
+      // avant l'image sur le haut-parleur de l'iPhone.
+      send('playAt', Math.round(currentTimeMs) + '|' + nowWall + '|' + (vid.playbackRate || 1));
 
       while (decodedSegments.length > 0 &&
              decodedSegments[0].startTimeMs + decodedSegments[0].durationMs < currentTimeMs - 1000) {

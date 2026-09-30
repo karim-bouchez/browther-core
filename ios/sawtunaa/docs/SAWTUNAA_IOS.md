@@ -87,7 +87,46 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 - **Sync** : le 1er chunk est trim/aligné sur `video.currentTime`, après ça l'audio joue chunk après chunk en suivant le timestamp source
 - **Drift résiduel ~150ms** = latence hardware AVAudioEngine sur iOS (incompressible facilement, sous le seuil de perception)
 
-### Mécanismes anti-drift
+### Synchronisation en boucle fermée (depuis le 2026-09-30)
+
+> ⚠️ Les mécanismes 1-5 ci-dessous décrivent l'**ancien** scheduling « à la suite »
+> (blocs enchaînés, avance fixe `+100 ms`, dérive seulement **mesurée**). Karim
+> constatait sur iPhone un décalage audio/image visible — parfois l'audio
+> **avant** l'image — après un seek ±10 s, une reprise, ou même sans rien toucher,
+> alors que macOS est parfait : sur macOS l'audio traité EST l'horloge du
+> lecteur, le décalage y est impossible par construction. Causes, toutes
+> vérifiées dans le code :
+>
+> | Cause | Effet |
+> |---|---|
+> | Vidéo qui **cale** (rebuffering, seek en cours) avec `paused === false` : l'audio continuait | audio en avance d'autant, **jamais rattrapé** |
+> | Reprise : `playerNode.play()` instantané, l'image redémarre avec du retard ; pause détectée avec jusqu'à 30 ms de retard | décalage qui **s'accumule** à chaque pause |
+> | Avance fixe `+100 ms` sur `currentTime` pour « compenser » une latence supposée de 150 ms | haut-parleur (~10-20 ms réels) → audio **~80 ms en avance** ; AirPods (~200 ms) → en retard |
+> | Blocs enchaînés : un underrun décalait toute la suite | dérive silencieuse |
+> | `preprocess_drop_paused` : blocs reçus pendant la pause jetés | trous de silence après une longue pause |
+> | Seek < 2 s non détecté | décalage résiduel |
+>
+> **Nouveau modèle** (`SawtunaaAudioPlayer.swift`, doc en tête de classe) :
+> - chaque bloc est posé à sa **position explicite** sur la timeline du player
+>   (`scheduleBuffer(_:at:)`) ; plus de gap-fill ni de silence-lead ;
+> - position **audible** = horloge du player + `AVAudioSession.outputLatency`,
+>   comparée à `currentTime` (extrapolé du transit JS→natif) à chaque tick ;
+> - **resync** (vidage + ré-ancrage + rejeu depuis le cache) à chaque reprise
+>   (pause, calage, seek) et si la dérive dépasse **80 ms pendant ~300 ms**
+>   (max 1/s) ; changement de sortie (AirPods…) → moteur redémarré + resync ;
+> - JS : l'audio est coupé dès que la vidéo est `paused`, `seeking`, ou que
+>   `currentTime` n'a pas bougé depuis **300 ms** (`STALL_MS`) ;
+> - les blocs sont traités même en pause ; leur position tient compte de ce que
+>   NSNet2 retenait (`start_ms`).
+>
+> Métriques ajoutées : `anchor`, `resync` (`reason` = resume/seek/drift/
+> config_change/clear), `drift_resync`, `video_stalled`, `engine_config_change`.
+> `engine_state.drift_ms` > 0 = audio en retard. **Si ça saccade** : chercher des
+> `video_stalled` à répétition (STALL_MS trop court pour la fréquence de
+> rafraîchissement de `currentTime`) ou des `drift_resync` en rafale.
+> **Vitesse ≠ 1×** : l'audio joue toujours à 1× → resync ~1/s (non géré).
+
+### Mécanismes anti-drift (historique, avant le 2026-09-30)
 
 1. **Lookahead cap (5s)** : ne schedule jamais plus de 5s d'avance dans le playerNode. Évite que le player accumule un burst entier puis joue avec un trou de silence.
 2. **Skip + trim** : si un chunk arrive en retard (>200ms vieux), on le skip ; s'il est partiellement en retard, on coupe le début pour resync.

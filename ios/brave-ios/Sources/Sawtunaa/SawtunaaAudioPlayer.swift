@@ -51,6 +51,25 @@ public enum SawtunaaMetric {
 
 /// Audio player that processes PCM through NSNet2 (noise/music suppression) and plays via AVAudioEngine.
 /// Designed for the MSE interception pipeline: JS decodes Opus -> sends PCM chunks -> Swift processes + plays.
+///
+/// ## Synchronisation (boucle fermée depuis le 2026-09-30)
+///
+/// Chaque bloc est posé à une **position explicite** de la timeline du
+/// `playerNode` (`scheduleBuffer(_:at:)`) : un échantillon de la source à
+/// `sourceMs` joue à `anchorSample + (sourceMs - anchorSourceMs) × 48`. Un trou
+/// dans la source reste un trou, un underrun ne décale plus la suite, et la
+/// position AUDIBLE de l'audio se calcule exactement (horloge du player +
+/// `outputLatency`) pour la comparer à `video.currentTime` à chaque tick.
+///
+/// Avant, les blocs étaient enchaînés à l'aveugle (5 s d'avance) et la dérive
+/// n'était que mesurée : toute vidéo qui calait (rebuffering, reprise après
+/// pause, seek) décalait l'audio pour de bon — sur macOS l'audio EST l'horloge
+/// du lecteur, d'où « ça marche sur Mac et pas sur iPhone ».
+///
+/// Le décalage est rattrapé par un **resync** (vidage du player + ré-ancrage
+/// sur la vidéo, rejoué depuis le cache) : à chaque reprise (pause, vidéo qui
+/// calait, seek) et quand la dérive mesurée dépasse `driftToleranceMs` de façon
+/// soutenue.
 public class SawtunaaAudioPlayer {
 
   // Construit au premier `start()` seulement (cf. `makeEngine()`).
@@ -65,31 +84,46 @@ public class SawtunaaAudioPlayer {
   // SourceBuffer. Chunks are kept after being scheduled so we can re-play
   // them on seek without depending on YouTube to re-deliver via appendBuffer.
   // Sorted by timestampMs.
-  private var audioCache: [(timestampMs: Double, durationMs: Double, buffer: AVAudioPCMBuffer)] =
-    []
+  // `timestampMs` = horodatage du bloc ENVOYÉ par le JS (identité : dédup,
+  // éviction, curseur). `startMs` = position source réelle du premier
+  // échantillon RENDU : NSNet2 retient une fenêtre d'analyse (≤ 959 frames)
+  // qu'il rend en tête du bloc suivant, donc la sortie commence un peu avant.
+  private var audioCache:
+    [(timestampMs: Double, startMs: Double, durationMs: Double, buffer: AVAudioPCMBuffer)] = []
   private var preprocessCount = 0
-  private var isPausedFlag = false
+  // Frames entrées / sorties de NSNet2 depuis son dernier reset. Confinés à
+  // `preprocessQueue` (comme `nsnet2.reset()`).
+  private var processorFramesIn = 0
+  private var processorFramesOut = 0
   // Browther: stats publiques anonymes — accumule samples traités pour reporter
   // 1 seconde dès qu'on dépasse le sampleRate (=48000), évite spam UserDefaults.
   private var statsAccumulatedSamples: Int = 0
-  // Anchors used to compute audio playback position in source time
-  private var anchorAudioSampleTime: AVAudioFramePosition?
+
+  // ── Timeline du player ──
+  // Échantillon du player (player time) qui porte la source `anchorSourceMs`.
+  // nil = pas encore ancré (démarrage, après un resync) : rien n'est planifié.
+  private var anchorSample: AVAudioFramePosition?
   private var anchorSourceMs: Double = 0
-  private var lastVideoUpToMs: Double = 0
-  private var playedChunkCount = 0
-  private var skippedChunkCount = 0
-  private var trimmedChunkCount = 0
-  private var gapFillCount = 0
-  private var firstChunkPlayedAt: Int?  // session-relative ms
-  // Tracks the source-time end of the last scheduled buffer (in ms relative
-  // to the source timeline). Used to detect timestamp gaps between
-  // consecutive chunks and fill them with silence so audio stays in sync.
-  private var lastScheduledEndMs: Double = 0
+  // Fin (en échantillons player) du dernier bloc planifié : un bloc suivant
+  // qui déborderait dessus est rogné, jamais superposé.
+  private var lastScheduledEndSample: AVAudioFramePosition = 0
   // Cursor in the audio cache: only chunks with timestampMs > this value are
   // eligible for scheduling. Strictly increasing per chunk to prevent the
   // same chunk from being re-scheduled (esp. for chunks shorter than the gap
   // tolerance, which would re-match against a duration-based cursor).
   private var scheduledCursorTsMs: Double = -1
+  // Le prochain tick doit vider le player et se ré-ancrer sur la vidéo.
+  private var needsResync = false
+  private var isPaused = false
+  private var driftOverCount = 0
+  private var lastResyncAt: CFAbsoluteTime = 0
+  private var lastVideoNowMs: Double = 0
+  private var lastDriftMs: Double?
+
+  private var playedChunkCount = 0
+  private var skippedChunkCount = 0
+  private var trimmedChunkCount = 0
+  private var resyncCount = 0
   // Epoch counter: incremented on every clearChunks (page reset / new video).
   // preprocessChunk captures the current epoch when enqueued and the result
   // is dropped if the epoch has changed by the time NSNet2 finishes — this
@@ -98,8 +132,20 @@ public class SawtunaaAudioPlayer {
 
   // Engine state polling
   private var stateTimer: Timer?
+  private var configObserver: NSObjectProtocol?
 
   public var isAvailable: Bool { nsnet2?.isAvailable ?? false }
+
+  /// Au-delà, l'audio est jugé désynchronisé. L'oreille repère un audio EN
+  /// AVANCE dès ~45 ms et en retard vers ~125 ms (ITU-R BT.1359) : 80 ms reste
+  /// sous le seuil perçu pour le retard, et le resync coûte un micro-trou,
+  /// donc pas plus serré.
+  private static let driftToleranceMs: Double = 80
+  /// Nombre de ticks consécutifs (JS : 30 ms) hors tolérance avant resync —
+  /// ~300 ms, pour ne pas réagir à la gigue d'un seul `currentTime`.
+  private static let driftTicksBeforeResync = 10
+  /// Garde-fou anti-emballement : un resync de dérive au plus par seconde.
+  private static let minDriftResyncInterval: CFAbsoluteTime = 1.0
 
   public init() {
     // Stéréo depuis le 2026-08-29 : le JS envoie les deux canaux en planar et
@@ -109,6 +155,12 @@ public class SawtunaaAudioPlayer {
     SawtunaaMetric.emit(
       "player_init",
       ["sample_rate": 48000, "channels": 2])
+  }
+
+  deinit {
+    if let configObserver {
+      NotificationCenter.default.removeObserver(configObserver)
+    }
   }
 
   /// Load the NSNet2 ONNX model from a file path.
@@ -155,6 +207,17 @@ public class SawtunaaAudioPlayer {
     let engine = AVAudioEngine()
     engine.attach(playerNode)
     engine.connect(playerNode, to: engine.mainMixerNode, format: format)
+    // Changement de sortie (écouteurs branchés, AirPods, appel…) : iOS ARRÊTE
+    // le moteur, et la latence de sortie change. Sans ça, `isRunning` restait
+    // vrai sur un moteur mort — silence jusqu'au rechargement de l'onglet.
+    configObserver = NotificationCenter.default.addObserver(
+      forName: .AVAudioEngineConfigurationChange, object: engine, queue: .main
+    ) { [weak self] _ in
+      guard let self else { return }
+      self.isRunning = false
+      self.requestResync()
+      SawtunaaMetric.emit("engine_config_change", [:])
+    }
     self.engine = engine
     return engine
   }
@@ -173,13 +236,15 @@ public class SawtunaaAudioPlayer {
       // 'player did not see an IO cycle'.
       engine.prepare()
       try engine.start()
-      playerNode.play()
+      if !isPaused { playerNode.play() }
       isRunning = true
       SawtunaaMetric.emit(
         "engine_start",
         [
           "success": true,
           "nsnet2_available": self.nsnet2?.isAvailable ?? false,
+          "output_latency_ms": Int(session.outputLatency * 1000),
+          "io_buffer_ms": Int(session.ioBufferDuration * 1000),
         ])
       startStatePolling()
     } catch {
@@ -207,11 +272,6 @@ public class SawtunaaAudioPlayer {
       self?.stateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {
         [weak self] _ in
         guard let self = self else { return }
-        let queuedMs = self.estimateQueuedAudioMs()
-        let audioSrcMs = self.currentAudioSourceMs()
-        let videoSrcMs = self.lastVideoUpToMs - 100
-        let driftMs: Int = audioSrcMs.map { Int(videoSrcMs - $0) } ?? -99999
-
         // Detect holes in the cache: gaps between consecutive chunks > 100ms.
         // Useful to flag "missing audio" zones the user may experience as silence.
         var holes = 0
@@ -233,6 +293,8 @@ public class SawtunaaAudioPlayer {
           }
         }
 
+        // drift_ms > 0 : audio en retard sur l'image ; < 0 : en avance.
+        let driftMs = self.lastDriftMs
         SawtunaaMetric.emit(
           "engine_state",
           [
@@ -243,13 +305,13 @@ public class SawtunaaAudioPlayer {
             "cache_last_end": cacheLastEnd,
             "cache_holes": holes,
             "cache_hole_ms": holeMs,
-            "audio_queued_ms": queuedMs,
-            "audio_src_ms": audioSrcMs.map { Int($0) } ?? -1,
-            "video_src_ms": Int(videoSrcMs),
-            "drift_ms": driftMs,
+            "audio_src_ms": driftMs.map { Int(self.lastVideoNowMs - $0) } ?? -1,
+            "video_src_ms": Int(self.lastVideoNowMs),
+            "drift_ms": driftMs.map { Int($0) } ?? -99999,
             "played_total": self.playedChunkCount,
             "skipped_total": self.skippedChunkCount,
             "trimmed_total": self.trimmedChunkCount,
+            "resync_total": self.resyncCount,
             "preprocessed_total": self.preprocessCount,
           ])
       }
@@ -263,49 +325,48 @@ public class SawtunaaAudioPlayer {
     }
   }
 
-  /// Estimate audio milliseconds currently queued in playerNode (scheduled but not yet played).
-  /// Not directly queryable on AVAudioPlayerNode without tracking scheduled samples manually.
-  private func estimateQueuedAudioMs() -> Int { -1 }
+  // MARK: - Horloge audio
 
-  /// Anchor the audio playback timeline against a source-time origin.
-  /// Used to compute the source-time position of the audio currently coming
-  /// out of the speakers, and thus measure drift vs video.currentTime.
-  private func anchorPlayback(sourceMs: Double) {
-    guard anchorAudioSampleTime == nil else { return }
-    guard let lastRender = playerNode.lastRenderTime,
-      let playerTime = playerNode.playerTime(forNodeTime: lastRender)
-    else { return }
-    // Use playerTime (player-relative samples), not nodeTime (output-device samples).
-    anchorAudioSampleTime = playerTime.sampleTime
-    anchorSourceMs = sourceMs
+  /// Dernier cycle rendu par le player : échantillon (player time) et instant
+  /// hôte où il sort de l'appareil (hors `outputLatency`). nil tant que le
+  /// player n'a pas vu d'IO cycle depuis `play()`.
+  private func lastRender() -> (sample: AVAudioFramePosition, hostSeconds: Double)? {
+    guard let nodeTime = playerNode.lastRenderTime,
+      nodeTime.isSampleTimeValid,
+      let playerTime = playerNode.playerTime(forNodeTime: nodeTime),
+      playerTime.isSampleTimeValid
+    else { return nil }
+    let host =
+      nodeTime.isHostTimeValid
+      ? AVAudioTime.seconds(forHostTime: nodeTime.hostTime)
+      : AVAudioTime.seconds(forHostTime: mach_absolute_time())
+    return (playerTime.sampleTime, host)
   }
 
-  /// Compute the source-time position of audio currently being rendered.
-  /// Returns nil if the playback hasn't been anchored yet.
-  private func currentAudioSourceMs() -> Double? {
-    guard let anchor = anchorAudioSampleTime,
-      let lastRender = playerNode.lastRenderTime,
-      let playerTime = playerNode.playerTime(forNodeTime: lastRender)
-    else { return nil }
-    let elapsedSamples = playerTime.sampleTime - anchor
-    return anchorSourceMs + Double(elapsedSamples) / 48.0
+  private static func nowHostSeconds() -> Double {
+    AVAudioTime.seconds(forHostTime: mach_absolute_time())
+  }
+
+  /// Position source (ms) de l'échantillon qu'on ENTEND en ce moment, latence
+  /// de sortie comprise (haut-parleur ≈ 10-20 ms, Bluetooth ≈ 150-250 ms —
+  /// c'est pourquoi on ne peut pas se contenter d'une avance fixe).
+  private func audibleSourceMs() -> Double? {
+    guard let anchorSample, let render = lastRender() else { return nil }
+    let outputLatency = AVAudioSession.sharedInstance().outputLatency
+    let sinceRenderMs = (Self.nowHostSeconds() - render.hostSeconds - outputLatency) * 1000
+    return anchorSourceMs + Double(render.sample - anchorSample) / 48.0 + sinceRenderMs
   }
 
   // MARK: - Pre-processing pipeline
 
   /// Pre-process a stereo PCM chunk through NSNet2 on a serial background queue.
   /// `samples` is PLANAR: all of L, then all of R (`count == frames * 2`).
-  /// The result is stored for later playback via `playChunksUpTo`.
-  /// While paused, drop incoming chunks: the player node keeps its existing
-  /// queue (~5s of audio thanks to lookahead cap), so on resume the audio is
-  /// already in sync with the video position. Newer chunks would only push
-  /// the player ahead of video time when it resumes.
+  /// The result is stored in the cache for later playback via `playChunksUpTo`.
+  /// ⚠️ On traite AUSSI pendant la pause : YouTube continue de remplir son
+  /// tampon MSE, et un bloc jeté ici ne revient jamais (trou de silence à la
+  /// reprise). Le cache + le plafond d'avance empêchent déjà l'audio de
+  /// prendre de l'avance — même correctif que sur Android.
   public func preprocessChunk(samples: [Float], timestampMs: Double) {
-    if isPausedFlag {
-      SawtunaaMetric.emit(
-        "preprocess_drop_paused", ["chunk_ts": Int(timestampMs)])
-      return
-    }
     let receivedAt = CFAbsoluteTimeGetCurrent()
     let chunkEpoch = epoch
     // No chunk_preprocess_start emit: chunk_preprocess_done arrives
@@ -338,14 +399,20 @@ public class SawtunaaAudioPlayer {
         return
       }
       let t0 = CFAbsoluteTimeGetCurrent()
+      let channels = Int(self.format.channelCount)
+      // Ce que NSNet2 retenait AVANT ce bloc sort en tête de sa sortie : la
+      // sortie commence donc `retainedFrames` avant `timestampMs`.
+      let retainedFrames = self.processorFramesIn - self.processorFramesOut
       // Planar in, planar out. ⚠️ `frames` peut être < ce qui a été envoyé :
       // NSNet2 retient jusqu'à une fenêtre d'analyse (latence STFT), comme sur
       // macOS — rien n'est perdu, c'est rendu au chunk suivant.
       let processed = nsnet2.process(samples)
       let nsnet2Ms = Int((CFAbsoluteTimeGetCurrent() - t0) * 1000)
-      let channels = Int(self.format.channelCount)
       let frames = processed.count / channels
+      self.processorFramesIn += samples.count / channels
+      self.processorFramesOut += frames
       guard frames > 0 else { return }
+      let startMs = timestampMs - Double(retainedFrames) / 48.0
 
       // Browther: stats anonymes — chaque seconde filtrée compte. On compte des
       // FRAMES, pas des samples : sinon la stéréo doublerait les music_seconds.
@@ -388,7 +455,9 @@ public class SawtunaaAudioPlayer {
           return
         }
         // Insert into cache, sorted by timestampMs (deduplicate if exists).
-        let entry = (timestampMs: timestampMs, durationMs: durationMs, buffer: buffer)
+        let entry = (
+          timestampMs: timestampMs, startMs: startMs, durationMs: durationMs, buffer: buffer
+        )
         if let existingIdx = self.audioCache.firstIndex(where: { $0.timestampMs == timestampMs })
         {
           self.audioCache[existingIdx] = entry
@@ -408,6 +477,7 @@ public class SawtunaaAudioPlayer {
           "chunk_preprocess_done",
           [
             "chunk_ts": Int(timestampMs),
+            "start_ms": Int(startMs),
             "nsnet2_ms": nsnet2Ms,
             "total_ms": totalMs,
             "frames": frames,
@@ -419,210 +489,228 @@ public class SawtunaaAudioPlayer {
     }
   }
 
-  /// Play pre-processed chunks, keeping audio in sync with video time.
-  ///
-  /// Strategy:
-  /// - **Lookahead cap** (5s): only schedule chunks whose timestamp is within
-  ///   the next ~5s of video time. Prevents the player queue from accumulating
-  ///   way ahead of video — which would cause the audio to play through and
-  ///   then go silent during YouTube's burst gaps, then resume out of sync.
-  /// - **Skip too-old chunks**: any chunk whose end is >200ms behind video.
-  /// - **Trim partially-old chunks**: if a chunk starts before video time,
-  ///   skip the early samples to resync.
-  /// - **Fill timestamp gaps with silence**: if YouTube emits non-contiguous
-  ///   chunks, insert silence so audio doesn't drift ahead of video.
+  /// Remet NSNet2 à zéro (GRU + fenêtre STFT) et les compteurs qui situent sa
+  /// sortie. Toujours sur `preprocessQueue`, dans l'ordre des blocs.
+  private func resetProcessor() {
+    preprocessQueue.async { [weak self] in
+      guard let self else { return }
+      self.nsnet2?.reset()
+      self.processorFramesIn = 0
+      self.processorFramesOut = 0
+    }
+  }
+
+  // MARK: - Playback
+
+  /// Planifier au plus 5 s d'avance : au-delà, un burst YouTube remplirait le
+  /// player pour rien (le resync le viderait).
   private static let lookaheadMs: Double = 5000
 
-  public func playChunksUpTo(_ upToMs: Double) {
+  /// Tick du scheduler JS (toutes les 30 ms, vidéo en lecture ET qui avance).
+  /// `videoMs` = `video.currentTime` relevé par le JS à l'instant `sentAtMs`
+  /// (horloge murale, ms) ; on l'extrapole jusqu'à maintenant pour absorber le
+  /// délai du message JS→natif.
+  public func playChunksUpTo(videoMs: Double, sentAtMs: Double?, rate: Double) {
     if !isRunning {
       start()
       guard isRunning else {
-        SawtunaaMetric.emit("play_chunks_engine_failed", ["upTo_ms": Int(upToMs)])
+        SawtunaaMetric.emit("play_chunks_engine_failed", ["video_ms": Int(videoMs)])
         return
       }
     }
 
-    // Defensive: only schedule once the playerNode has seen its first IO
-    // cycle. Otherwise scheduleBuffer can throw 'player did not see an IO
-    // cycle' (NSException, uncatchable from Swift). On the first ticks
-    // after start(), lastRenderTime is nil for a few ms — defer scheduling.
-    if playerNode.lastRenderTime == nil {
-      SawtunaaMetric.emit("play_chunks_no_io_cycle_yet", ["upTo_ms": Int(upToMs)])
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
-        self?.playChunksUpTo(upToMs)
+    var videoNowMs = videoMs
+    if let sentAtMs {
+      let transitMs = Date().timeIntervalSince1970 * 1000 - sentAtMs
+      // Horloges murales du même appareil : un écart hors [0, 500] = horloge
+      // ajustée entre-temps, on l'ignore plutôt que de s'y fier.
+      if transitMs > 0 && transitMs < 500 { videoNowMs += transitMs * rate }
+    }
+    lastVideoNowMs = videoNowMs
+
+    // Un `playAt` n'est envoyé que si l'image avance : s'il arrive encore en
+    // pause, c'est que le `resumeAudio` s'est perdu (le JS remet son état de
+    // pause à zéro à chaque init segment, donc après chaque seek).
+    if isPaused { resumePlayback() }
+
+    if needsResync {
+      resync(reason: pendingResyncReason)
+    }
+
+    // Ancrage : il faut que le player ait vu un IO cycle depuis `play()`
+    // (sinon `scheduleBuffer` lève 'player did not see an IO cycle', une
+    // NSException non rattrapable). Le tick suivant (30 ms) réessaie.
+    if anchorSample == nil {
+      guard let render = lastRender(), render.sample > 0 else {
+        SawtunaaMetric.emit("play_chunks_no_io_cycle_yet", ["video_ms": Int(videoNowMs)])
+        return
       }
+      // L'échantillon `render.sample` sort à `render.hostSeconds + outputLatency` :
+      // il doit porter la source que la vidéo affichera à cet instant.
+      let outputLatency = AVAudioSession.sharedInstance().outputLatency
+      let untilAudibleMs = (render.hostSeconds + outputLatency - Self.nowHostSeconds()) * 1000
+      anchorSample = render.sample
+      anchorSourceMs = videoNowMs + untilAudibleMs * rate
+      lastScheduledEndSample = render.sample
+      driftOverCount = 0
+      SawtunaaMetric.emit(
+        "anchor",
+        [
+          "video_ms": Int(videoNowMs),
+          "anchor_source_ms": Int(anchorSourceMs),
+          "output_latency_ms": Int(outputLatency * 1000),
+        ])
+    } else if let audible = audibleSourceMs() {
+      checkDrift(videoNowMs: videoNowMs, audibleMs: audible)
+      if anchorSample == nil { return }  // resync déclenché : ré-ancrage au prochain tick
+    }
+
+    scheduleFromCache(videoNowMs: videoNowMs)
+  }
+
+  private func checkDrift(videoNowMs: Double, audibleMs: Double) {
+    let drift = videoNowMs - audibleMs
+    lastDriftMs = drift
+    guard abs(drift) > Self.driftToleranceMs else {
+      driftOverCount = 0
       return
     }
+    driftOverCount += 1
+    guard driftOverCount >= Self.driftTicksBeforeResync,
+      CFAbsoluteTimeGetCurrent() - lastResyncAt >= Self.minDriftResyncInterval
+    else { return }
+    SawtunaaMetric.emit(
+      "drift_resync", ["drift_ms": Int(drift), "video_ms": Int(videoNowMs)])
+    resync(reason: "drift")
+  }
 
-    lastVideoUpToMs = upToMs
+  /// Planifie, depuis le curseur, les blocs du cache qui tombent dans la
+  /// fenêtre d'avance. Chaque bloc va à SA position sur la timeline du player ;
+  /// ce qui est déjà passé (ou chevauche le bloc précédent) est rogné.
+  private func scheduleFromCache(videoNowMs: Double) {
+    guard let anchorSample, let render = lastRender() else { return }
+    // Ne jamais planifier dans un cycle déjà rendu ou en cours de rendu :
+    // 2 buffers IO + 10 ms de marge pour le temps passé ici sur le main thread.
+    let ioFrames = AVAudioFramePosition(AVAudioSession.sharedInstance().ioBufferDuration * 48000)
+    let earliestSample = render.sample + 2 * ioFrames + 480
 
-    // Cursor-based scheduling over the persistent audio cache:
-    // a chunk is a candidate if timestampMs > scheduledCursorTsMs (strict).
-    // After scheduling, scheduledCursorTsMs is set to that chunk's ts so it
-    // can't be picked again. On seek, the cursor is reset so the cache is
-    // re-traversed from the seek target.
-    while let nextIdx = audioCache.firstIndex(where: {
-      $0.timestampMs > scheduledCursorTsMs
-    }) {
+    while let nextIdx = audioCache.firstIndex(where: { $0.timestampMs > scheduledCursorTsMs }) {
       let next = audioCache[nextIdx]
-      let nextTs = next.timestampMs
-      let nextEnd = nextTs + next.durationMs
+      if next.startMs > videoNowMs + Self.lookaheadMs { return }
 
-      // Wait if next chunk is too far in the future (lookahead cap).
-      if nextTs > upToMs + Self.lookaheadMs {
-        return
-      }
+      let startSample =
+        anchorSample + AVAudioFramePosition(((next.startMs - anchorSourceMs) * 48).rounded())
+      let totalFrames = AVAudioFramePosition(next.buffer.frameLength)
+      let floorSample = max(earliestSample, lastScheduledEndSample)
+      scheduledCursorTsMs = next.timestampMs
 
-      let isFirstChunk = (playedChunkCount == 0)
-
-      // First chunk silence-lead: if the chunk is in the future (init/seek),
-      // insert silence to align audio_start with video.currentTime.
-      if isFirstChunk && nextTs > upToMs + 100 {
-        let silentMs = nextTs - upToMs
-        if silentMs > 2000 {
-          return  // too far ahead, wait
-        }
-        let silentFrames = Int(silentMs * 48)
-        if silentFrames > 0,
-          let silence = AVAudioPCMBuffer(
-            pcmFormat: format, frameCapacity: AVAudioFrameCount(silentFrames))
-        {
-          silence.frameLength = AVAudioFrameCount(silentFrames)
-          playerNode.scheduleBuffer(silence)
-          anchorPlayback(sourceMs: upToMs)
-          lastScheduledEndMs = nextTs
-          SawtunaaMetric.emit(
-            "first_chunk_silence_lead",
-            ["silent_ms": Int(silentMs), "video_ms": Int(upToMs), "next_ts": Int(nextTs)])
-          // Fall through to schedule the chunk in this same iteration
-        }
-      }
-
-      // Skip if entirely in the past — advance cursor without removing from cache
-      if nextEnd < upToMs - 200 {
+      if startSample + totalFrames <= floorSample {
         skippedChunkCount += 1
         SawtunaaMetric.emit(
           "chunk_skip_old",
           [
-            "chunk_ts": Int(nextTs),
-            "video_ms": Int(upToMs),
-            "lag_ms": Int(upToMs - nextEnd),
+            "chunk_ts": Int(next.timestampMs),
+            "video_ms": Int(videoNowMs),
+            "lag_ms": Int(Double(floorSample - startSample - totalFrames) / 48.0),
           ])
-        scheduledCursorTsMs = nextTs  // advance cursor past this chunk
         continue
       }
 
-      // Trim if starts significantly before video time
-      if nextTs < upToMs - 100 {
-        let skipMs = upToMs - nextTs
-        let skipSamples = Int(skipMs * 48)
-        let totalFrames = Int(next.buffer.frameLength)
-        if skipSamples > 0 && skipSamples < totalFrames,
-          let trimmed = AVAudioPCMBuffer(
-            pcmFormat: format, frameCapacity: AVAudioFrameCount(totalFrames - skipSamples))
-        {
-          let remaining = totalFrames - skipSamples
-          trimmed.frameLength = AVAudioFrameCount(remaining)
-          // ⚠️ Tous les canaux, pas seulement le gauche : en stéréo, ne copier
-          // que le canal 0 laissait le droit à zéro sur chaque chunk rogné.
-          let src = next.buffer.floatChannelData!
-          let dst = trimmed.floatChannelData!
-          for ch in 0..<Int(format.channelCount) {
-            for i in 0..<remaining { dst[ch][i] = src[ch][skipSamples + i] }
-          }
-          playerNode.scheduleBuffer(trimmed)
-          playedChunkCount += 1
-          trimmedChunkCount += 1
-          lastScheduledEndMs = nextEnd
-          scheduledCursorTsMs = nextTs
-          if firstChunkPlayedAt == nil {
-            firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
-            anchorPlayback(sourceMs: upToMs)
-            SawtunaaMetric.emit(
-              "first_chunk_played",
-              [
-                "chunk_ts": Int(nextTs),
-                "video_ms": Int(upToMs),
-                "trimmed": true,
-                "skip_ms": Int(skipMs),
-              ])
-          } else {
-            SawtunaaMetric.emit(
-              "chunk_play_trim",
-              [
-                "chunk_ts": Int(nextTs),
-                "video_ms": Int(upToMs),
-                "skip_ms": Int(skipMs),
-              ])
-          }
-          continue
-        }
-      }
-
-      // Fill timestamp gap with silence (only after first chunk)
-      if playedChunkCount > 0 {
-        let gapMs = nextTs - lastScheduledEndMs
-        if gapMs > 30 && gapMs < 30 * 1000 {
-          let silenceFrames = Int(gapMs * 48)
-          if let silence = AVAudioPCMBuffer(
-            pcmFormat: format, frameCapacity: AVAudioFrameCount(silenceFrames))
-          {
-            silence.frameLength = AVAudioFrameCount(silenceFrames)
-            playerNode.scheduleBuffer(silence)
-            gapFillCount += 1
-            SawtunaaMetric.emit(
-              "gap_fill",
-              [
-                "gap_ms": Int(gapMs),
-                "next_ts": Int(nextTs),
-                "last_end_ms": Int(lastScheduledEndMs),
-                "fill_count": gapFillCount,
-              ])
-            lastScheduledEndMs = nextTs
-          }
-        }
-      }
-
-      // Schedule the chunk (full)
-      playerNode.scheduleBuffer(next.buffer)
-      playedChunkCount += 1
-      lastScheduledEndMs = nextEnd
-      scheduledCursorTsMs = nextTs
-      if firstChunkPlayedAt == nil {
-        firstChunkPlayedAt = Int(CFAbsoluteTimeGetCurrent() * 1000)
-        anchorPlayback(sourceMs: nextTs)
-        SawtunaaMetric.emit(
-          "first_chunk_played",
-          [
-            "chunk_ts": Int(nextTs),
-            "video_ms": Int(upToMs),
-            "trimmed": false,
-          ])
+      let skipFrames = max(0, floorSample - startSample)
+      let buffer: AVAudioPCMBuffer
+      if skipFrames > 0 {
+        guard let trimmed = trim(next.buffer, droppingFirst: Int(skipFrames)) else { continue }
+        buffer = trimmed
+        trimmedChunkCount += 1
       } else {
-        SawtunaaMetric.emit(
-          "chunk_play_full",
-          [
-            "chunk_ts": Int(nextTs),
-            "video_ms": Int(upToMs),
-            "frames": next.buffer.frameLength,
-            "play_idx": playedChunkCount,
-          ])
+        buffer = next.buffer
       }
+      let at = startSample + skipFrames
+      playerNode.scheduleBuffer(
+        buffer, at: AVAudioTime(sampleTime: at, atRate: 48000), options: [])
+      lastScheduledEndSample = at + AVAudioFramePosition(buffer.frameLength)
+      playedChunkCount += 1
+
+      let event: String
+      if playedChunkCount == 1 {
+        event = "first_chunk_played"
+      } else {
+        event = skipFrames > 0 ? "chunk_play_trim" : "chunk_play_full"
+      }
+      SawtunaaMetric.emit(
+        event,
+        [
+          "chunk_ts": Int(next.timestampMs),
+          "video_ms": Int(videoNowMs),
+          "trimmed": skipFrames > 0,
+          "skip_ms": Int(Double(skipFrames) / 48.0),
+          "play_idx": playedChunkCount,
+        ])
     }
   }
 
+  /// Copie de `buffer` sans ses `n` premières frames (tous les canaux).
+  private func trim(_ buffer: AVAudioPCMBuffer, droppingFirst n: Int) -> AVAudioPCMBuffer? {
+    let total = Int(buffer.frameLength)
+    guard n < total,
+      let out = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(total - n)),
+      let src = buffer.floatChannelData,
+      let dst = out.floatChannelData
+    else { return nil }
+    let remaining = total - n
+    out.frameLength = AVAudioFrameCount(remaining)
+    // ⚠️ Tous les canaux, pas seulement le gauche : en stéréo, ne copier que
+    // le canal 0 laissait le droit à zéro sur chaque chunk rogné.
+    for ch in 0..<Int(format.channelCount) {
+      for i in 0..<remaining { dst[ch][i] = src[ch][n + i] }
+    }
+    return out
+  }
+
+  private var pendingResyncReason = "resume"
+
+  private func requestResync(reason: String = "config_change") {
+    needsResync = true
+    pendingResyncReason = reason
+  }
+
+  /// Vide le player et oublie l'ancrage : le prochain tick se ré-ancre sur la
+  /// position vidéo du moment et rejoue depuis le cache (rien à re-traiter).
+  private func resync(reason: String) {
+    needsResync = false
+    if isRunning {
+      playerNode.stop()
+      if !isPaused { playerNode.play() }
+    }
+    anchorSample = nil
+    lastScheduledEndSample = 0
+    // Un bloc fait ~1 s : tout ce qui démarre plus de 2 s avant la vidéo est
+    // fini, inutile de le re-parcourir.
+    scheduledCursorTsMs = max(-1, lastVideoNowMs - 2000)
+    playedChunkCount = 0
+    driftOverCount = 0
+    lastDriftMs = nil
+    lastResyncAt = CFAbsoluteTimeGetCurrent()
+    resyncCount += 1
+    SawtunaaMetric.emit("resync", ["reason": reason, "video_ms": Int(lastVideoNowMs)])
+  }
+
+  /// Vidéo en pause OU qui cale (rebuffering, seek en cours) : le JS coupe
+  /// l'audio net pour qu'il ne file pas devant l'image.
   public func pausePlayback() {
+    isPaused = true
     guard isRunning else { return }
     playerNode.pause()
-    isPausedFlag = true
     SawtunaaMetric.emit("pause_audio", [:])
   }
 
+  /// La vidéo avance de nouveau. On ne reprend PAS la file telle quelle :
+  /// l'image redémarre avec un temps de latence que l'audio n'a pas, et la
+  /// pause a été détectée avec jusqu'à un tick de retard. On se ré-ancre.
   public func resumePlayback() {
+    isPaused = false
+    requestResync(reason: "resume")
     guard isRunning else { return }
-    isPausedFlag = false
-    // PlayerNode resumes its existing queue (still in sync with video time
-    // since we dropped incoming chunks during pause and didn't add new ones).
     playerNode.play()
     SawtunaaMetric.emit("resume_audio", [:])
   }
@@ -633,25 +721,13 @@ public class SawtunaaAudioPlayer {
     let prev = audioCache.count
     epoch &+= 1  // invalidate any in-flight preprocess from a prior session
     audioCache.removeAll()
-    if isRunning {
-      playerNode.stop()
-      playerNode.play()
-    }
     preprocessCount = 0
-    playedChunkCount = 0
     skippedChunkCount = 0
     trimmedChunkCount = 0
-    gapFillCount = 0
-    lastScheduledEndMs = 0
-    scheduledCursorTsMs = -1
-    firstChunkPlayedAt = nil
-    anchorAudioSampleTime = nil
-    anchorSourceMs = 0
-    isPausedFlag = false
-    lastVideoUpToMs = 0
-    preprocessQueue.async { [weak self] in
-      self?.nsnet2?.reset()
-    }
+    isPaused = false
+    lastVideoNowMs = 0
+    resync(reason: "clear")
+    resetProcessor()
     SawtunaaMetric.emit(
       "clear_chunks",
       ["dropped_cache": prev, "epoch": Int(epoch)])
@@ -659,28 +735,14 @@ public class SawtunaaAudioPlayer {
 
   /// Seek to a new video position. Keeps the audio cache (so we can re-play
   /// chunks already processed for the seek target if YouTube doesn't re-deliver
-  /// them via appendBuffer). Flushes the player node and resets the playback
-  /// state so the next playChunksUpTo treats it as a fresh start.
+  /// them via appendBuffer).
   public func seekTo(toMs: Double) {
-    if isRunning {
-      playerNode.stop()
-      playerNode.play()
-    }
-    // Reset playback state but keep the cache
-    playedChunkCount = 0
+    lastVideoNowMs = toMs
     skippedChunkCount = 0
     trimmedChunkCount = 0
-    gapFillCount = 0
-    firstChunkPlayedAt = nil
-    anchorAudioSampleTime = nil
-    anchorSourceMs = 0
-    // Position cursors just before toMs so chunks at toMs+ become candidates
-    lastScheduledEndMs = max(0, toMs - 100)
-    scheduledCursorTsMs = max(-1, toMs - 1)
+    resync(reason: "seek")
     // Reset NSNet2 state (the GRU continuity is broken anyway by the seek)
-    preprocessQueue.async { [weak self] in
-      self?.nsnet2?.reset()
-    }
+    resetProcessor()
     let chunksAvailable = audioCache.filter {
       $0.timestampMs + $0.durationMs > toMs - 200
         && $0.timestampMs < toMs + Self.lookaheadMs
