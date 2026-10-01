@@ -132,6 +132,24 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 > position : les blocs de la nouvelle étaient re-datés comme aberrants →
 > silence > 1 min. Les ±10 s (dans le tampon) n'étaient pas touchés.
 
+### Seek lointain : file NSNet2 prioritaire (2026-10-01)
+
+Mesuré sur iPhone 13 (capture `devicectl --console`) : NSNet2 ≈ **290 ms par
+seconde d'audio** (1 thread) et YouTube charge ~35 s d'avance. La file FIFO
+finissait l'audio de l'ANCIENNE position (24 blocs ≈ 7 s) avant d'attaquer la
+nouvelle, dont les premiers blocs, trop tardifs, étaient sautés → 5 à 10 s de
+silence. Désormais `pumpPreprocess()` choisit le prochain bloc : devant la
+lecture d'abord (ordre croissant), derrière en dernier ; un bloc qui ne
+prolonge pas le précédent (recul, ou saut > 2 s) repart d'un NSNet2 remis à
+zéro. Un bloc traité pendant la lecture est planifié aussitôt (sans attendre
+le tick JS).
+
+Même capture : le **premier** ancrage (juste après `engine.start()`) était
+faux de ~70 ms (audio en avance, mesure oscillant de 48 à 83 ms) alors que
+tous les ancrages suivants donnaient 0 ± 1 ms. Le seuil passe à **40 ms sur la
+moyenne de 10 ticks** (au lieu de 80 ms sur 10 ticks consécutifs, jamais
+atteint en 4 min).
+
 ### CPU / chauffe (2026-10-01)
 
 Session ORT créée avec les défauts = un thread par cœur **en attente active**

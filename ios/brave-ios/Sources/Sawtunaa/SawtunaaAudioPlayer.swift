@@ -95,6 +95,9 @@ public class SawtunaaAudioPlayer {
   // `preprocessQueue` (comme `nsnet2.reset()`).
   private var processorFramesIn = 0
   private var processorFramesOut = 0
+  // Fin (ms source) du dernier bloc entré dans NSNet2 : détecte un bloc qui ne
+  // prolonge pas le précédent.
+  private var processorLastEndMs: Double?
   // Browther: stats publiques anonymes — accumule samples traités pour reporter
   // 1 seconde dès qu'on dépasse le sampleRate (=48000), évite spam UserDefaults.
   private var statsAccumulatedSamples: Int = 0
@@ -115,7 +118,7 @@ public class SawtunaaAudioPlayer {
   // Le prochain tick doit vider le player et se ré-ancrer sur la vidéo.
   private var needsResync = false
   private var isPaused = false
-  private var driftOverCount = 0
+  private var driftSamples: [Double] = []
   private var lastResyncAt: CFAbsoluteTime = 0
   private var lastVideoNowMs: Double = 0
   private var lastDriftMs: Double?
@@ -137,13 +140,15 @@ public class SawtunaaAudioPlayer {
   public var isAvailable: Bool { nsnet2?.isAvailable ?? false }
 
   /// Au-delà, l'audio est jugé désynchronisé. L'oreille repère un audio EN
-  /// AVANCE dès ~45 ms et en retard vers ~125 ms (ITU-R BT.1359) : 80 ms reste
-  /// sous le seuil perçu pour le retard, et le resync coûte un micro-trou,
-  /// donc pas plus serré.
-  private static let driftToleranceMs: Double = 80
-  /// Nombre de ticks consécutifs (JS : 30 ms) hors tolérance avant resync —
-  /// ~300 ms, pour ne pas réagir à la gigue d'un seul `currentTime`.
-  private static let driftTicksBeforeResync = 10
+  /// AVANCE dès ~45 ms (ITU-R BT.1359) — d'où 40 ms, appliqués à la MOYENNE
+  /// des derniers ticks. Mesuré le 2026-10-01 : après un bon ancrage la dérive
+  /// reste à 0 ± 1 ms, donc pas de faux resync ; le premier ancrage, pris
+  /// juste après le démarrage du moteur, était parfois faux de ~70 ms (audio
+  /// en avance) avec une mesure qui oscillait de 48 à 83 ms — l'ancien seuil
+  /// (80 ms sur 10 ticks CONSÉCUTIFS) ne s'est jamais déclenché en 4 min.
+  private static let driftToleranceMs: Double = 40
+  /// Fenêtre de la moyenne (ticks JS de 30 ms) : ~300 ms.
+  private static let driftWindow = 10
   /// Garde-fou anti-emballement : un resync de dérive au plus par seconde.
   private static let minDriftResyncInterval: CFAbsoluteTime = 1.0
 
@@ -184,6 +189,7 @@ public class SawtunaaAudioPlayer {
 
       DispatchQueue.main.async {
         self?.nsnet2 = processor
+        self?.pumpPreprocess()
         SawtunaaMetric.emit(
           "model_load_done",
           [
@@ -359,88 +365,128 @@ public class SawtunaaAudioPlayer {
 
   // MARK: - Pre-processing pipeline
 
-  /// Pre-process a stereo PCM chunk through NSNet2 on a serial background queue.
-  /// `samples` is PLANAR: all of L, then all of R (`count == frames * 2`).
-  /// The result is stored in the cache for later playback via `playChunksUpTo`.
+  /// Reçoit un bloc stéréo PCM (PLANAR : tout L puis tout R, `count == frames
+  /// * 2`) et le met en file pour NSNet2. Le résultat va au cache, joué par
+  /// `playChunksUpTo`.
   /// ⚠️ On traite AUSSI pendant la pause : YouTube continue de remplir son
   /// tampon MSE, et un bloc jeté ici ne revient jamais (trou de silence à la
   /// reprise). Le cache + le plafond d'avance empêchent déjà l'audio de
   /// prendre de l'avance — même correctif que sur Android.
   public func preprocessChunk(samples: [Float], timestampMs: Double) {
-    let receivedAt = CFAbsoluteTimeGetCurrent()
-    let chunkEpoch = epoch
-    // No chunk_preprocess_start emit: chunk_preprocess_done arrives
-    // shortly after with all the same info plus the result. Saves
-    // ~1 log line per chunk (a third of all log volume).
+    pendingWork.append(
+      (samples: samples, timestampMs: timestampMs, epoch: epoch,
+       receivedAt: CFAbsoluteTimeGetCurrent()))
+    pumpPreprocess()
+  }
+
+  /// Blocs reçus, pas encore traités (main thread). Un seul en cours de
+  /// traitement à la fois (`preprocessBusy`).
+  private var pendingWork:
+    [(samples: [Float], timestampMs: Double, epoch: UInt64, receivedAt: CFAbsoluteTime)] = []
+  private var preprocessBusy = false
+
+  /// Choisit le PROCHAIN bloc à traiter : d'abord ceux qui sont devant la
+  /// lecture, dans l'ordre ; ceux qui sont derrière (utiles seulement pour un
+  /// retour en arrière) en dernier.
+  ///
+  /// Pourquoi pas l'ordre d'arrivée : NSNet2 coûte ~290 ms par seconde d'audio
+  /// sur iPhone 13 (1 thread) et YouTube charge ~35 s d'avance. Après un seek
+  /// lointain, la file FIFO finissait d'abord l'audio de l'ANCIENNE position
+  /// (24 blocs ≈ 7 s mesurées le 2026-10-01) — la nouvelle arrivait trop tard
+  /// et était sautée : 5 à 10 s de silence.
+  private func nextWorkIndex() -> Int? {
+    guard !pendingWork.isEmpty else { return nil }
+    let playhead = lastVideoNowMs
+    var best: Int?
+    for (i, w) in pendingWork.enumerated() {
+      let ahead = w.timestampMs + 1000 >= playhead
+      if let b = best {
+        let bAhead = pendingWork[b].timestampMs + 1000 >= playhead
+        if ahead != bAhead {
+          if ahead { best = i }
+        } else if ahead ? w.timestampMs < pendingWork[b].timestampMs
+          : w.timestampMs > pendingWork[b].timestampMs
+        {
+          best = i
+        }
+      } else {
+        best = i
+      }
+    }
+    return best
+  }
+
+  private func pumpPreprocess() {
+    guard !preprocessBusy, let nsnet2 else { return }
+    // Blocs d'une session précédente (pageReset / clearChunks) : jetés.
+    pendingWork.removeAll { $0.epoch != epoch }
+    guard let idx = nextWorkIndex() else { return }
+    let work = pendingWork.remove(at: idx)
+    preprocessBusy = true
+    let chunkEpoch = work.epoch
+    let timestampMs = work.timestampMs
     preprocessQueue.async { [weak self] in
-      guard let self = self, let nsnet2 = self.nsnet2 else {
-        SawtunaaMetric.emit(
-          "chunk_preprocess_drop",
-          [
-            "chunk_ts": Int(timestampMs),
-            "reason": "nsnet2_not_ready",
-          ])
-        return
-      }
-      // Early-exit: if a clearChunks/pageReset happened while this chunk
-      // was waiting in the preprocess queue, abort BEFORE running NSNet2.
-      // Otherwise we'd waste ~280ms processing a chunk we'll drop later
-      // anyway — and 15+ chunks in flight at once × 280ms = ~5s of dead
-      // audio after every reset (visible as `chunk_skip_old` cascade).
-      if chunkEpoch != self.epoch {
-        SawtunaaMetric.emit(
-          "chunk_preprocess_drop",
-          [
-            "chunk_ts": Int(timestampMs),
-            "reason": "stale_epoch_pre",
-            "chunk_epoch": Int(chunkEpoch),
-            "current_epoch": Int(self.epoch),
-          ])
-        return
-      }
-      let t0 = CFAbsoluteTimeGetCurrent()
+      guard let self else { return }
       let channels = Int(self.format.channelCount)
+      let inFrames = work.samples.count / channels
+      // NSNet2 est À ÉTAT (GRU + fenêtre STFT) : un bloc qui ne prolonge pas le
+      // précédent (seek, priorité ci-dessus) repart d'un état neuf. Sinon sa
+      // sortie commencerait par la fin du bloc d'avant, d'une autre position.
+      // Un petit trou (< 2 s) dans le flux YouTube ne justifie pas un reset
+      // (qui grésille en pleine parole, cf. macOS).
+      if let lastEnd = self.processorLastEndMs,
+        timestampMs < lastEnd - 5 || timestampMs > lastEnd + 2000
+      {
+        nsnet2.reset()
+        self.processorFramesIn = 0
+        self.processorFramesOut = 0
+      }
+      self.processorLastEndMs = timestampMs + Double(inFrames) / 48.0
+      let t0 = CFAbsoluteTimeGetCurrent()
       // Ce que NSNet2 retenait AVANT ce bloc sort en tête de sa sortie : la
       // sortie commence donc `retainedFrames` avant `timestampMs`.
       let retainedFrames = self.processorFramesIn - self.processorFramesOut
       // Planar in, planar out. ⚠️ `frames` peut être < ce qui a été envoyé :
       // NSNet2 retient jusqu'à une fenêtre d'analyse (latence STFT), comme sur
       // macOS — rien n'est perdu, c'est rendu au chunk suivant.
-      let processed = nsnet2.process(samples)
+      let processed = nsnet2.process(work.samples)
       let nsnet2Ms = Int((CFAbsoluteTimeGetCurrent() - t0) * 1000)
       let frames = processed.count / channels
-      self.processorFramesIn += samples.count / channels
+      self.processorFramesIn += inFrames
       self.processorFramesOut += frames
-      guard frames > 0 else { return }
       let startMs = timestampMs - Double(retainedFrames) / 48.0
 
-      // Browther: stats anonymes — chaque seconde filtrée compte. On compte des
-      // FRAMES, pas des samples : sinon la stéréo doublerait les music_seconds.
-      let sampleRateInt = Int(self.format.sampleRate)
-      self.statsAccumulatedSamples += frames
-      if self.statsAccumulatedSamples >= sampleRateInt {
-        let secondsToReport = self.statsAccumulatedSamples / sampleRateInt
-        self.statsAccumulatedSamples -= secondsToReport * sampleRateInt
-        BrowtherStatsReporter.shared.addMusicSeconds(secondsToReport)
+      var buffer: AVAudioPCMBuffer?
+      if frames > 0 {
+        // Browther: stats anonymes — chaque seconde filtrée compte. On compte
+        // des FRAMES, pas des samples : sinon la stéréo doublerait les
+        // music_seconds.
+        let sampleRateInt = Int(self.format.sampleRate)
+        self.statsAccumulatedSamples += frames
+        if self.statsAccumulatedSamples >= sampleRateInt {
+          let secondsToReport = self.statsAccumulatedSamples / sampleRateInt
+          self.statsAccumulatedSamples -= secondsToReport * sampleRateInt
+          BrowtherStatsReporter.shared.addMusicSeconds(secondsToReport)
+        }
+        if let b = AVAudioPCMBuffer(pcmFormat: self.format, frameCapacity: AVAudioFrameCount(frames)),
+          let channelData = b.floatChannelData
+        {
+          b.frameLength = AVAudioFrameCount(frames)
+          for ch in 0..<channels {
+            let dst = channelData[ch]
+            let base = ch * frames
+            for i in 0..<frames { dst[i] = processed[base + i] }
+          }
+          buffer = b
+        }
       }
 
-      guard
-        let buffer = AVAudioPCMBuffer(
-          pcmFormat: self.format,
-          frameCapacity: AVAudioFrameCount(frames)
-        ),
-        let channelData = buffer.floatChannelData
-      else { return }
-      buffer.frameLength = AVAudioFrameCount(frames)
-      for ch in 0..<channels {
-        let dst = channelData[ch]
-        let base = ch * frames
-        for i in 0..<frames { dst[i] = processed[base + i] }
-      }
-
-      let totalMs = Int((CFAbsoluteTimeGetCurrent() - receivedAt) * 1000)
+      let totalMs = Int((CFAbsoluteTimeGetCurrent() - work.receivedAt) * 1000)
       let durationMs = Double(frames) / 48.0
       DispatchQueue.main.async {
+        self.preprocessBusy = false
+        defer { self.pumpPreprocess() }
+        guard let buffer else { return }
         // Drop the chunk if a clearChunks/pageReset happened between enqueue
         // and completion: it belongs to a stale session.
         if chunkEpoch != self.epoch {
@@ -473,6 +519,11 @@ public class SawtunaaAudioPlayer {
           self.audioCache.removeFirst(self.audioCache.count - 600)
         }
         self.preprocessCount += 1
+        // Un bloc qui arrive pendant la lecture doit être planifié tout de
+        // suite, sans attendre le tick JS suivant.
+        if self.anchorSample != nil, !self.isPaused {
+          self.scheduleFromCache(videoNowMs: self.lastVideoNowMs)
+        }
         SawtunaaMetric.emit(
           "chunk_preprocess_done",
           [
@@ -482,6 +533,7 @@ public class SawtunaaAudioPlayer {
             "total_ms": totalMs,
             "frames": frames,
             "cache_size": self.audioCache.count,
+            "pending": self.pendingWork.count,
             "preprocess_idx": self.preprocessCount,
             "epoch": Int(chunkEpoch),
           ])
@@ -497,6 +549,7 @@ public class SawtunaaAudioPlayer {
       self.nsnet2?.reset()
       self.processorFramesIn = 0
       self.processorFramesOut = 0
+      self.processorLastEndMs = nil
     }
   }
 
@@ -552,7 +605,7 @@ public class SawtunaaAudioPlayer {
       anchorSample = render.sample
       anchorSourceMs = videoNowMs + untilAudibleMs * rate
       lastScheduledEndSample = render.sample
-      driftOverCount = 0
+      driftSamples.removeAll()
       SawtunaaMetric.emit(
         "anchor",
         [
@@ -571,16 +624,15 @@ public class SawtunaaAudioPlayer {
   private func checkDrift(videoNowMs: Double, audibleMs: Double) {
     let drift = videoNowMs - audibleMs
     lastDriftMs = drift
-    guard abs(drift) > Self.driftToleranceMs else {
-      driftOverCount = 0
-      return
-    }
-    driftOverCount += 1
-    guard driftOverCount >= Self.driftTicksBeforeResync,
+    driftSamples.append(drift)
+    if driftSamples.count > Self.driftWindow { driftSamples.removeFirst() }
+    guard driftSamples.count == Self.driftWindow else { return }
+    let mean = driftSamples.reduce(0, +) / Double(driftSamples.count)
+    guard abs(mean) > Self.driftToleranceMs,
       CFAbsoluteTimeGetCurrent() - lastResyncAt >= Self.minDriftResyncInterval
     else { return }
     SawtunaaMetric.emit(
-      "drift_resync", ["drift_ms": Int(drift), "video_ms": Int(videoNowMs)])
+      "drift_resync", ["drift_ms": Int(mean), "video_ms": Int(videoNowMs)])
     resync(reason: "drift")
   }
 
@@ -688,7 +740,7 @@ public class SawtunaaAudioPlayer {
     // fini, inutile de le re-parcourir.
     scheduledCursorTsMs = max(-1, lastVideoNowMs - 2000)
     playedChunkCount = 0
-    driftOverCount = 0
+    driftSamples.removeAll()
     lastDriftMs = nil
     lastResyncAt = CFAbsoluteTimeGetCurrent()
     resyncCount += 1
@@ -721,6 +773,7 @@ public class SawtunaaAudioPlayer {
     let prev = audioCache.count
     epoch &+= 1  // invalidate any in-flight preprocess from a prior session
     audioCache.removeAll()
+    pendingWork.removeAll()
     preprocessCount = 0
     skippedChunkCount = 0
     trimmedChunkCount = 0
