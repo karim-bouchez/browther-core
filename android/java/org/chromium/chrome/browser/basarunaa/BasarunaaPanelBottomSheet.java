@@ -8,9 +8,12 @@ package org.chromium.chrome.browser.basarunaa;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -23,17 +26,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
-import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
-import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
+import org.chromium.chrome.browser.browther_widgets.FeatureTemporarySwitch;
+import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
-import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
@@ -50,6 +52,11 @@ import org.chromium.components.user_prefs.UserPrefs;
 public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
     public static final String TAG = "BasarunaaPanel";
 
+    private static final int COLOR_RED = 0xFFEF4444;
+    private static final int COLOR_GREEN = 0xFF22C55E;
+    private static final int COLOR_AMBER = 0xFFF59E0B;
+    private static final long TICK_MS = 500L;
+
     @Nullable private BrowtherBigToggleView mToggle;
     @Nullable private TextView mStatusText;
     @Nullable private RadioGroup mModeGroup;
@@ -62,6 +69,17 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
     @Nullable private MaterialSwitch mNsfwSwitch;
     @Nullable private TextView mNudenetLabel;
     @Nullable private SeekBar mNudenetSlider;
+    // « Seulement 2 min » (2026-10-01), comme Sawtunaa.
+    @Nullable private Button mTempOffer;
+    @Nullable private View mTempRow;
+    @Nullable private TextView mTempLabel;
+    @Nullable private TextView mTempTime;
+    @Nullable private Button mTempKeep;
+    /** Bascule faite dans CETTE feuille ouverte : on propose le retour automatique. */
+    private boolean mOffered;
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mTick = this::onTick;
+    private final FeatureTemporarySwitch.Observer mTemporaryObserver = this::refreshTemporary;
 
     /** Convenience: build + show. */
     public static void show(FragmentManager fragmentManager) {
@@ -100,6 +118,21 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
         mNsfwSwitch = view.findViewById(R.id.basarunaa_panel_nsfw_switch);
         mNudenetLabel = view.findViewById(R.id.basarunaa_panel_nudenet_label);
         mNudenetSlider = view.findViewById(R.id.basarunaa_panel_nudenet_slider);
+        mTempOffer = view.findViewById(R.id.basarunaa_panel_temp_offer);
+        mTempRow = view.findViewById(R.id.basarunaa_panel_temp_row);
+        mTempLabel = view.findViewById(R.id.basarunaa_panel_temp_label);
+        mTempTime = view.findViewById(R.id.basarunaa_panel_temp_time);
+        mTempKeep = view.findViewById(R.id.basarunaa_panel_temp_keep);
+        if (mTempOffer != null) {
+            mTempOffer.setOnClickListener(
+                    v -> {
+                        mOffered = false;
+                        FeatureTemporarySwitch.basarunaa().start();
+                    });
+        }
+        if (mTempKeep != null) {
+            mTempKeep.setOnClickListener(v -> FeatureTemporarySwitch.basarunaa().keep());
+        }
 
         BrowtherEarlyAccess.bindNotice(view, this::dismiss);
         bindToggle(view);
@@ -139,38 +172,95 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
         mToggle.setCheckedSilently(enabled);
         mToggle.setOnCheckedChangeListener(
                 (v, isChecked) -> {
+                    // Pendant le compte à rebours, rebasculer = revenir tout de suite : le
+                    // retour s'annule seul (FeatureTemporarySwitch), on ne repropose rien.
+                    boolean wasTemporary = FeatureTemporarySwitch.basarunaa().isActive();
                     setPrefBool(BravePref.BASARUNAA_ENABLED, isChecked);
+                    mOffered = !wasTemporary;
+                    // Modèles ORT chargés à la 1ʳᵉ activation (plus à la création d'onglet).
+                    if (isChecked) BasarunaaEngine.getInstance().warmupAsync();
                     BrowtherAnalyticsBridge.trackWithProps(
                             "feature_toggled",
                             new String[] {"feature", "enabled"},
                             new String[] {"basarunaa", Boolean.toString(isChecked)});
                     updateStatusText(isChecked);
                     BrowtherEarlyAccess.setNoticeVisible(root, isChecked);
-                    if (isChecked) {
-                        // OFF → ON : reload du tab, comme le panel Sawtunaa.
-                        // Le RFO (basarunaa_render_frame_observer_android.cc)
-                        // n'injecte PAS le script à chaud — le frame peut être
-                        // provisional (DCHECK ToV8ContextMaybeEmpty) — et
-                        // compte sur ce reload pour un DidClearWindowObject
-                        // propre. Il n'avait jamais été câblé ici : l'utilisateur
-                        // devait recharger la page à la main (constat Karim,
-                        // 2026-09-21). ON → OFF reste live, sans reload.
-                        reloadActiveTab();
-                    }
+                    // Plus de rechargement à l'allumage (2026-10-01) : le RFO injecte le
+                    // script dans le frame déjà chargé (committé), ou le rallume s'il y est
+                    // — cf. BasarunaaRenderFrameObserverAndroid::OnLiveEnable. L'extinction
+                    // remet les images d'origine en direct.
+                    refreshTemporary();
                 });
         updateStatusText(enabled);
     }
 
-    private void reloadActiveTab() {
-        try {
-            Tab tab = BraveActivity.getBraveActivity().getActivityTab();
-            if (tab != null) {
-                Log.i(TAG, "Reloading active tab after Basarunaa ON toggle");
-                tab.reload();
-            }
-        } catch (BraveActivity.BraveActivityNotFoundException e) {
-            Log.e(TAG, "reloadActiveTab " + e);
+    @Override
+    public void onStart() {
+        super.onStart();
+        FeatureTemporarySwitch.basarunaa().addObserver(mTemporaryObserver);
+        refreshTemporary();
+    }
+
+    @Override
+    public void onStop() {
+        FeatureTemporarySwitch.basarunaa().removeObserver(mTemporaryObserver);
+        mHandler.removeCallbacks(mTick);
+        super.onStop();
+    }
+
+    private static int stateColor(boolean enabled) {
+        if (!enabled) return COLOR_RED;
+        return BrowtherEarlyAccess.ENABLED ? COLOR_AMBER : COLOR_GREEN;
+    }
+
+    /** Proposition, ligne de compte à rebours et anneau (cf. SawtunaaPanelBottomSheet). */
+    private void refreshTemporary() {
+        FeatureTemporarySwitch temporary = FeatureTemporarySwitch.basarunaa();
+        boolean enabled = getPrefBool(BravePref.BASARUNAA_ENABLED);
+        boolean active = temporary.isActive();
+        if (active) mOffered = false;
+        if (mTempOffer != null) {
+            mTempOffer.setVisibility(mOffered && !active ? View.VISIBLE : View.GONE);
+            mTempOffer.setText(
+                    enabled
+                            ? R.string.sawtunaa_temp_offer_disable
+                            : R.string.sawtunaa_temp_offer_reenable);
         }
+        if (mTempRow != null) mTempRow.setVisibility(active ? View.VISIBLE : View.GONE);
+        if (mTempLabel != null) {
+            mTempLabel.setText(
+                    enabled
+                            ? R.string.sawtunaa_temp_countdown_disable
+                            : R.string.sawtunaa_temp_countdown_reenable);
+            mTempLabel.setTextColor(stateColor(enabled));
+        }
+        if (mTempKeep != null) {
+            mTempKeep.setText(
+                    enabled ? R.string.sawtunaa_temp_keep_on : R.string.sawtunaa_temp_keep_off);
+        }
+        if (mTempTime != null) mTempTime.setTextColor(stateColor(enabled));
+        mHandler.removeCallbacks(mTick);
+        if (active) {
+            onTick();
+        } else if (mToggle != null) {
+            mToggle.setCountdown(-1f, 0);
+        }
+    }
+
+    private void onTick() {
+        FeatureTemporarySwitch temporary = FeatureTemporarySwitch.basarunaa();
+        temporary.checkDue();
+        if (!temporary.isActive()) return; // l'observateur a déjà tout rafraîchi
+        long remaining = temporary.remainingMs();
+        if (mTempTime != null) {
+            mTempTime.setText(SawtunaaPanelBottomSheet.formatCountdown(remaining));
+        }
+        if (mToggle != null) {
+            mToggle.setCountdown(
+                    remaining / (float) FeatureTemporarySwitch.DURATION_MS,
+                    stateColor(getPrefBool(BravePref.BASARUNAA_ENABLED)));
+        }
+        mHandler.postDelayed(mTick, TICK_MS);
     }
 
     private void bindModeGroup() {

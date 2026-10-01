@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-package org.chromium.chrome.browser.sawtunaa;
+package org.chromium.chrome.browser.browther_widgets;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -25,9 +25,11 @@ import org.chromium.components.prefs.PrefChangeRegistrar;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
- * « Seulement 2 min » — port de l'iOS {@code SawtunaaTemporarySwitch.swift} (maquette validée par
- * Karim le 2026-10-01). Juste après une bascule de Sawtunaa, le panneau propose de revenir
- * automatiquement à l'état d'avant dans 2 min, dans les deux sens.
+ * « Seulement 2 min » — port de l'iOS {@code FeatureTemporarySwitch.swift} (maquette validée par
+ * Karim le 2026-10-01). Juste après une bascule de Sawtunaa ou de Basarunaa, le panneau propose de
+ * revenir automatiquement à l'état d'avant dans 2 min, dans les deux sens. Une instance par
+ * fonctionnalité ({@link #sawtunaa()}, {@link #basarunaa()}) : chacune sa pref, son échéance, son
+ * anneau.
  *
  * <ul>
  *   <li>L'interrupteur montre toujours l'état ACTUEL : la pref n'est touchée qu'à l'échéance.
@@ -37,14 +39,14 @@ import org.chromium.components.user_prefs.UserPrefs;
  *       (retiré le 2026-10-01 après recette iOS : « ça coupe, je ne sais pas pourquoi »).
  *   <li>Portée : tout le navigateur. L'échéance est enregistrée : une appli fermée pendant le compte
  *       à rebours retrouve l'état d'avant au lancement suivant.
- *   <li>⛔ Pas de rallumage pendant la pause du parrainage : elle garde Sawtunaa éteint.
+ *   <li>⛔ Sawtunaa : pas de rallumage pendant la pause du parrainage (elle le garde éteint).
  * </ul>
  *
  * <p>Thread UI uniquement. Créé au premier {@link #get()}, après le chargement natif (la barre
  * d'outils l'appelle dans {@code onNativeLibraryReady}).
  */
 @NullMarked
-public final class SawtunaaTemporarySwitch {
+public final class FeatureTemporarySwitch {
     public static final long DURATION_MS = 120_000L;
 
     /** Prévenu à chaque début / fin de compte à rebours. */
@@ -52,11 +54,15 @@ public final class SawtunaaTemporarySwitch {
         void onTemporarySwitchChanged();
     }
 
-    // SharedPreferences de l'appli (pas ChromeSharedPreferences : ses clés doivent être déclarées).
-    private static final String KEY_REVERT_AT = "browther_sawtunaa_temporary_revert_at";
-    private static final String KEY_REVERT_TO = "browther_sawtunaa_temporary_revert_to";
+    @Nullable private static FeatureTemporarySwitch sSawtunaa;
+    @Nullable private static FeatureTemporarySwitch sBasarunaa;
 
-    @Nullable private static SawtunaaTemporarySwitch sInstance;
+    private final String mFeature;
+    private final String mPref;
+    private final boolean mPausedByReferral;
+    // SharedPreferences de l'appli (pas ChromeSharedPreferences : ses clés doivent être déclarées).
+    private final String mKeyRevertAt;
+    private final String mKeyRevertTo;
 
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private final ObserverList<Observer> mObservers = new ObserverList<>();
@@ -66,22 +72,42 @@ public final class SawtunaaTemporarySwitch {
     private long mRevertAtMs;
     private boolean mRevertTo;
 
-    public static SawtunaaTemporarySwitch get() {
+    public static FeatureTemporarySwitch sawtunaa() {
         ThreadUtils.assertOnUiThread();
-        if (sInstance == null) {
-            sInstance = new SawtunaaTemporarySwitch();
+        if (sSawtunaa == null) {
+            sSawtunaa =
+                    new FeatureTemporarySwitch(
+                            "sawtunaa", BravePref.SAWTUNAA_ENABLED, /* pausedByReferral= */ true);
         }
-        return sInstance;
+        return sSawtunaa;
     }
 
-    private SawtunaaTemporarySwitch() {
+    public static FeatureTemporarySwitch basarunaa() {
+        ThreadUtils.assertOnUiThread();
+        if (sBasarunaa == null) {
+            sBasarunaa =
+                    new FeatureTemporarySwitch(
+                            "basarunaa",
+                            BravePref.BASARUNAA_ENABLED,
+                            /* pausedByReferral= */ false);
+        }
+        return sBasarunaa;
+    }
+
+    private FeatureTemporarySwitch(String feature, String pref, boolean pausedByReferral) {
+        mFeature = feature;
+        mPref = pref;
+        mPausedByReferral = pausedByReferral;
+        // Clés historiques de Sawtunaa conservées (échéance déjà enregistrée).
+        mKeyRevertAt = "browther_" + feature + "_temporary_revert_at";
+        mKeyRevertTo = "browther_" + feature + "_temporary_revert_to";
         SharedPreferences sp = ContextUtils.getAppSharedPreferences();
-        mRevertAtMs = sp.getLong(KEY_REVERT_AT, 0);
-        mRevertTo = sp.getBoolean(KEY_REVERT_TO, false);
+        mRevertAtMs = sp.getLong(mKeyRevertAt, 0);
+        mRevertTo = sp.getBoolean(mKeyRevertTo, false);
         Profile profile = ProfileManager.getLastUsedRegularProfile();
         if (profile != null) {
             mRegistrar = PrefServiceUtil.createFor(profile);
-            mRegistrar.addObserver(BravePref.SAWTUNAA_ENABLED, this::onPrefChanged);
+            mRegistrar.addObserver(mPref, this::onPrefChanged);
         }
         // L'appli était fermée à l'échéance : on rétablit sans attendre.
         checkDue();
@@ -142,7 +168,7 @@ public final class SawtunaaTemporarySwitch {
     private void finish(String reason) {
         boolean target = mRevertTo;
         clear();
-        if (target && BrowtherReferralController.get().isPaused()) {
+        if (target && mPausedByReferral && BrowtherReferralController.get().isPaused()) {
             track(
                     "feature_temporary_end",
                     new String[] {"reason", "skipped"},
@@ -151,7 +177,7 @@ public final class SawtunaaTemporarySwitch {
         }
         Profile profile = ProfileManager.getLastUsedRegularProfile();
         if (profile != null) {
-            UserPrefs.get(profile).setBoolean(BravePref.SAWTUNAA_ENABLED, target);
+            UserPrefs.get(profile).setBoolean(mPref, target);
         }
         track("feature_temporary_end", new String[] {"reason"}, new String[] {reason});
     }
@@ -181,8 +207,8 @@ public final class SawtunaaTemporarySwitch {
     private void persist() {
         ContextUtils.getAppSharedPreferences()
                 .edit()
-                .putLong(KEY_REVERT_AT, mRevertAtMs)
-                .putBoolean(KEY_REVERT_TO, mRevertTo)
+                .putLong(mKeyRevertAt, mRevertAtMs)
+                .putBoolean(mKeyRevertTo, mRevertTo)
                 .apply();
     }
 
@@ -190,16 +216,16 @@ public final class SawtunaaTemporarySwitch {
         for (Observer o : mObservers) o.onTemporarySwitchChanged();
     }
 
-    private static boolean isEnabled() {
+    private boolean isEnabled() {
         Profile profile = ProfileManager.getLastUsedRegularProfile();
-        return profile != null && UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
+        return profile != null && UserPrefs.get(profile).getBoolean(mPref);
     }
 
-    private static void track(String event, String[] keys, String[] values) {
+    private void track(String event, String[] keys, String[] values) {
         String[] k = new String[keys.length + 1];
         String[] v = new String[values.length + 1];
         k[0] = "feature";
-        v[0] = "sawtunaa";
+        v[0] = mFeature;
         System.arraycopy(keys, 0, k, 1, keys.length);
         System.arraycopy(values, 0, v, 1, values.length);
         BrowtherAnalyticsBridge.trackWithProps(event, k, v);

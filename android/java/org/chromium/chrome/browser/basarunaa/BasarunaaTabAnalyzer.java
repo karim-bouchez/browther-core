@@ -10,6 +10,7 @@ import org.jni_zero.CalledByNative;
 import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.browser.preferences.BravePref;
+import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.components.user_prefs.UserPrefs;
 
@@ -41,8 +42,21 @@ public final class BasarunaaTabAnalyzer {
         // Warmup async dès la création du 1er analyzer pour éviter le hit de
         // ~750ms cumulé de lazy-init des sessions ORT au 1er AnalyzeImage
         // (parité iOS BasarunaaPipeline.swift#warmup). No-op si déjà chargé.
-        BasarunaaEngine.getInstance().warmupAsync();
+        // ⚠️ Seulement si Basarunaa est ALLUMÉ (2026-10-01) : éteint (défaut),
+        // les sessions ORT étaient chargées quand même au 1er onglet. Allumé
+        // plus tard, le panneau lance le warmup au moment de la bascule.
+        if (isEnabledPref()) BasarunaaEngine.getInstance().warmupAsync();
         return new BasarunaaTabAnalyzer(instanceId, nativeHelper);
+    }
+
+    private static boolean isEnabledPref() {
+        try {
+            Profile profile = ProfileManager.getLastUsedRegularProfile();
+            return profile != null
+                    && UserPrefs.get(profile).getBoolean(BravePref.BASARUNAA_ENABLED);
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     private BasarunaaTabAnalyzer(int instanceId, long nativeHelper) {

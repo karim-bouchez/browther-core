@@ -62,6 +62,61 @@
         android:layout_marginBottom="12dp"
         android:gravity="center" />
 
+    <!-- Browther : « seulement 2 min » (2026-10-01, maquette v3 validée). Juste après
+         une bascule, tant que la feuille est ouverte : « Réactiver / Couper
+         automatiquement dans 2 min ». Cf. FeatureTemporarySwitch.basarunaa() — même bloc que Sawtunaa. -->
+    <Button
+        android:id="@+id/basarunaa_panel_temp_offer"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <!-- Pendant le compte à rebours : « Réactivation automatique · 1:42 · Ne pas
+         réactiver ». Le temps vit À CÔTÉ du libellé (ordre des mots ≠ selon la langue). -->
+    <LinearLayout
+        android:id="@+id/basarunaa_panel_temp_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/sawtunaa_temp_row_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/basarunaa_panel_temp_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/basarunaa_panel_temp_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFeatureSettings="tnum"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/basarunaa_panel_temp_keep"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/basarunaa_panel_description"
         android:layout_width="match_parent"

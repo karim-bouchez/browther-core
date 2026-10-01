@@ -123,18 +123,21 @@ void BasarunaaRenderFrameObserverAndroid::SetConfig(
     return;
   }
 
-  // OFF → ON live : on N'INJECTE PAS le script ici (frame peut être
-  // provisional, cf. crash DCHECK ToV8ContextMaybeEmpty). Le panel BottomSheet
-  // côté Java déclenche un `tab.reload()` qui produit un
-  // `DidClearWindowObject` clean → InstallBindingAndInjectScript.
+  // Bascule EN DIRECT, dans les deux sens (2026-10-01) : plus de
+  // `tab.reload()` à l'allumage (il renvoyait une vidéo à 0). PostTask : on
+  // sort du callback Mojo avant de toucher à V8.
   if (now_enabled) {
+    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+        FROM_HERE,
+        base::BindOnce(&BasarunaaRenderFrameObserverAndroid::OnLiveEnable,
+                       weak_factory_.GetWeakPtr()));
     return;
   }
 
-  // ON → OFF live : script JS tourne, on lui demande de cleanup via event.
+  // ON → OFF live : le script s'éteint et remet les images d'origine.
   base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
       FROM_HERE,
-      base::BindOnce(&BasarunaaRenderFrameObserverAndroid::DispatchDisableEvent,
+      base::BindOnce(&BasarunaaRenderFrameObserverAndroid::DispatchStateEvent,
                      weak_factory_.GetWeakPtr()));
 }
 
@@ -192,6 +195,7 @@ void BasarunaaRenderFrameObserverAndroid::DidClearWindowObject() {
   }
   // Nouvelle Window = nouveau contexte V8 = nouveau script à installer.
   script_injected_ = false;
+  window_ready_ = true;
 
   if (!settings_ || !settings_->enabled) {
     LOG(INFO) << "[Basarunaa/RFO] DidClearWindowObject — pref OFF / no config, "
@@ -242,10 +246,39 @@ void BasarunaaRenderFrameObserverAndroid::InstallBindingAndInjectScript() {
       blink::mojom::PromiseResultOption::kDoNotWait);
 }
 
-void BasarunaaRenderFrameObserverAndroid::DispatchDisableEvent() {
-  if (settings_ && settings_->enabled) {
+void BasarunaaRenderFrameObserverAndroid::OnLiveEnable() {
+  if (!settings_ || !settings_->enabled) {
+    return;  // rebasculé entre-temps
+  }
+  if (script_injected_) {
+    // Script déjà là (allumé au chargement puis éteint en direct) : il se
+    // relance lui-même dans la même page.
+    DispatchStateEvent();
     return;
   }
+  auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
+  if (!render_frame) {
+    return;
+  }
+  // ⚠️ DCHECK historique (`ToV8ContextMaybeEmpty`, v8_binding_for_core.cc) :
+  // exécuter du script dans le main world d'un frame PROVISOIRE (navigation
+  // pas encore committée — YouTube navigue sans cesse) le déclenche. C'est ce
+  // qui avait fait choisir le rechargement. On n'injecte donc que dans une
+  // Window qui existe (`window_ready_`) d'un frame committé ; sinon rien : le
+  // prochain `DidClearWindowObject` injectera (la pref est désormais ON).
+  // Choix vs « script toujours injecté en veille » (Sawtunaa) : Basarunaa n'a
+  // rien à intercepter dès le chargement pour les images, et 74 Ko par frame
+  // (iframes comprises) seraient payés par TOUS les utilisateurs Basarunaa
+  // éteint (défaut) — ici, éteint = coût nul.
+  if (!window_ready_ || render_frame->GetWebFrame()->IsProvisional()) {
+    LOG(INFO) << "[Basarunaa/RFO] live enable deferred (no committed window)";
+    return;
+  }
+  LOG(INFO) << "[Basarunaa/RFO] live enable: injecting into committed frame";
+  InstallBindingAndInjectScript();
+}
+
+void BasarunaaRenderFrameObserverAndroid::DispatchStateEvent() {
   auto* render_frame = BasarunaaRenderFrameObserverAndroid::render_frame();
   if (!render_frame) {
     return;
@@ -253,13 +286,13 @@ void BasarunaaRenderFrameObserverAndroid::DispatchDisableEvent() {
   if (!script_injected_) {
     return;
   }
-  constexpr std::string_view kDisableScript =
-      "try {"
-      "  window.__basarunaa_disabled = true;"
-      "  window.dispatchEvent(new Event('basarunaa-disable'));"
-      "} catch(e) {}";
-  blink::WebScriptSource source(blink::WebString::FromUTF8(kDisableScript));
-  LOG(INFO) << "[Basarunaa/RFO] Dispatching basarunaa-disable";
+  // L'event ne porte PAS l'état : le script relit `isEnabled()` (la pref du
+  // browser). Une page qui le dispatcherait elle-même ne change rien.
+  constexpr std::string_view kStateScript =
+      "try { window.dispatchEvent(new Event('basarunaa-state')); } catch(e) {}";
+  blink::WebScriptSource source(blink::WebString::FromUTF8(kStateScript));
+  LOG(INFO) << "[Basarunaa/RFO] Dispatching basarunaa-state (enabled="
+            << (settings_ && settings_->enabled ? "true" : "false") << ")";
   render_frame->GetWebFrame()->RequestExecuteScript(
       blink::kMainDOMWorldId, base::span_from_ref(source),
       blink::mojom::UserActivationOption::kDoNotActivate,

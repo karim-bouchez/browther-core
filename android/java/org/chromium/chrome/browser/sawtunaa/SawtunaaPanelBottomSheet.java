@@ -37,6 +37,7 @@ import org.chromium.chrome.browser.browther_referral.ReferralExtraPanel;
 import org.chromium.chrome.browser.browther_referral.core.ExtraFeature;
 import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
+import org.chromium.chrome.browser.browther_widgets.FeatureTemporarySwitch;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.components.user_prefs.UserPrefs;
@@ -67,7 +68,7 @@ import org.chromium.components.user_prefs.UserPrefs;
  * direct (cf. sawtunaa_render_frame_observer.cc).
  *
  * <p>« Seulement 2 min » : juste après une bascule, tant que la feuille est ouverte, un bouton
- * propose le retour automatique à l'état d'avant ({@link SawtunaaTemporarySwitch}) ; pendant le
+ * propose le retour automatique à l'état d'avant ({@link FeatureTemporarySwitch}) ; pendant le
  * compte à rebours, une ligne « libellé · 1:42 · Ne pas réactiver » et un anneau sur le bouton
  * rond de l'interrupteur. Rebasculer l'interrupteur revient tout de suite à l'état d'avant.
  */
@@ -97,7 +98,7 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
 
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private final Runnable mTick = this::onTick;
-    private final SawtunaaTemporarySwitch.Observer mTemporaryObserver = this::refreshTemporary;
+    private final FeatureTemporarySwitch.Observer mTemporaryObserver = this::refreshTemporary;
 
     /** Convenience: build + show. */
     public static void show(FragmentManager fragmentManager) {
@@ -137,11 +138,11 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
             mTempOffer.setOnClickListener(
                     v -> {
                         mOffered = false;
-                        SawtunaaTemporarySwitch.get().start();
+                        FeatureTemporarySwitch.sawtunaa().start();
                     });
         }
         if (mTempKeep != null) {
-            mTempKeep.setOnClickListener(v -> SawtunaaTemporarySwitch.get().keep());
+            mTempKeep.setOnClickListener(v -> FeatureTemporarySwitch.sawtunaa().keep());
         }
 
         boolean enabled =
@@ -166,8 +167,8 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                         }
                         // Une bascule pendant le compte à rebours = revenir tout de suite :
                         // elle rejoint l'état d'avant, le retour s'annule tout seul
-                        // (SawtunaaTemporarySwitch), et on ne repropose rien.
-                        boolean wasTemporary = SawtunaaTemporarySwitch.get().isActive();
+                        // (FeatureTemporarySwitch), et on ne repropose rien.
+                        boolean wasTemporary = FeatureTemporarySwitch.sawtunaa().isActive();
                         UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                                 .setBoolean(BravePref.SAWTUNAA_ENABLED, isChecked);
                         mOffered = !wasTemporary;
@@ -270,13 +271,13 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        SawtunaaTemporarySwitch.get().addObserver(mTemporaryObserver);
+        FeatureTemporarySwitch.sawtunaa().addObserver(mTemporaryObserver);
         refreshTemporary();
     }
 
     @Override
     public void onStop() {
-        SawtunaaTemporarySwitch.get().removeObserver(mTemporaryObserver);
+        FeatureTemporarySwitch.sawtunaa().removeObserver(mTemporaryObserver);
         mHandler.removeCallbacks(mTick);
         super.onStop();
     }
@@ -294,7 +295,7 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
 
     /** Proposition, ligne de compte à rebours et anneau, selon l'état du retour automatique. */
     private void refreshTemporary() {
-        SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
+        FeatureTemporarySwitch temporary = FeatureTemporarySwitch.sawtunaa();
         boolean enabled = isEnabledPref();
         boolean paused = BrowtherReferralController.get().isPaused();
         boolean active = temporary.isActive();
@@ -328,21 +329,21 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void onTick() {
-        SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
+        FeatureTemporarySwitch temporary = FeatureTemporarySwitch.sawtunaa();
         temporary.checkDue();
         if (!temporary.isActive()) return; // l'observateur a déjà tout rafraîchi
         long remaining = temporary.remainingMs();
         if (mTempTime != null) mTempTime.setText(formatCountdown(remaining));
         if (mToggle != null) {
             mToggle.setCountdown(
-                    remaining / (float) SawtunaaTemporarySwitch.DURATION_MS,
+                    remaining / (float) FeatureTemporarySwitch.DURATION_MS,
                     stateColor(isEnabledPref()));
         }
         mHandler.postDelayed(mTick, TICK_MS);
     }
 
     /** « 1:42 ». */
-    static String formatCountdown(long remainingMs) {
+    public static String formatCountdown(long remainingMs) {
         long s = (remainingMs + 999) / 1000;
         return String.format(java.util.Locale.ROOT, "%d:%02d", s / 60, s % 60);
     }

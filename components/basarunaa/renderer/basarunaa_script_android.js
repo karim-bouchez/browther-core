@@ -111,6 +111,11 @@
       this.nextId = 1;
       this.minSize = opts.minSize ?? DEFAULT_MIN_SIZE;
       this.observeMutations = opts.observeMutations ?? true;
+      this.nextId = opts.firstId ?? 1;
+    }
+    /** Prochain identifiant qui serait attribué. */
+    peekNextId() {
+      return this.nextId;
     }
     start() {
       this.scanAll(document);
@@ -1005,6 +1010,13 @@
   }
 
   let intersectionObserver = null;
+  let running = true;
+  function setPipelineRunning(value) {
+    running = value;
+  }
+  function isPipelineRunning() {
+    return running;
+  }
   function setIntersectionObserver(io) {
     intersectionObserver = io;
   }
@@ -1017,6 +1029,66 @@
   }
 
   const imageBytesByImg = /* @__PURE__ */ new WeakMap();
+
+  const originals = /* @__PURE__ */ new Map();
+  function captureOriginal(img) {
+    const known = originals.get(img);
+    if (known) {
+      originals.delete(img);
+      return known;
+    }
+    const sources = [];
+    const pic = img.parentNode;
+    if (pic && pic.tagName === "PICTURE") {
+      pic.querySelectorAll("source").forEach((s) => {
+        const v = s.getAttribute("srcset");
+        if (v !== null) sources.push({ el: s, srcset: v });
+      });
+    }
+    return {
+      el: img,
+      srcset: img.getAttribute("srcset"),
+      sizes: img.getAttribute("sizes"),
+      sources
+    };
+  }
+  function rememberReplacement(fresh, original) {
+    for (const [clone] of originals) {
+      if (!clone.isConnected) originals.delete(clone);
+    }
+    originals.set(fresh, original);
+  }
+  function clearMarks(el) {
+    releaseHideFirst(el);
+    el.removeAttribute(ID_ATTR);
+    el.removeAttribute(STATE_ATTR);
+    el.removeAttribute(ANALYZED_URL_ATTR);
+    el.removeAttribute(BLUR_MARKER);
+    delete el.dataset.basarunaaBlobUrl;
+  }
+  function restoreAllImages() {
+    let restored = 0;
+    for (const [clone, orig] of originals) {
+      const blobUrl = clone.dataset.basarunaaBlobUrl;
+      if (clone.isConnected && clone.parentNode) {
+        clearMarks(orig.el);
+        if (orig.srcset !== null) orig.el.setAttribute("srcset", orig.srcset);
+        if (orig.sizes !== null) orig.el.setAttribute("sizes", orig.sizes);
+        for (const s of orig.sources) s.el.setAttribute("srcset", s.srcset);
+        clone.parentNode.replaceChild(orig.el, clone);
+        restored++;
+      }
+      if (blobUrl) {
+        try {
+          URL.revokeObjectURL(blobUrl);
+        } catch {
+        }
+      }
+    }
+    originals.clear();
+    document.querySelectorAll(`[${BLUR_MARKER}],[${ID_ATTR}],[${STATE_ATTR}],[${ANALYZED_URL_ATTR}]`).forEach((el) => clearMarks(el));
+    return restored;
+  }
 
   function sourceSize(s) {
     const sw = s.naturalWidth;
@@ -1053,6 +1125,12 @@
     return needsAlpha ? { mime: "image/png" } : { mime: "image/jpeg", quality: 0.85 };
   }
   function replaceImgWithBlob(img, blob) {
+    if (!isPipelineRunning()) return null;
+    if (!img.parentNode) {
+      metric("composite_no_parent", { id: img.getAttribute(ID_ATTR) });
+      return null;
+    }
+    const original = captureOriginal(img);
     if (img.hasAttribute("srcset")) img.removeAttribute("srcset");
     if (img.hasAttribute("sizes")) img.removeAttribute("sizes");
     const pic = img.parentNode;
@@ -1078,11 +1156,8 @@
     fresh.src = blobUrl;
     fresh.setAttribute(ID_ATTR, img.getAttribute(ID_ATTR) || "");
     fresh.setAttribute(STATE_ATTR, "keep");
-    if (!img.parentNode) {
-      metric("composite_no_parent", { id: img.getAttribute(ID_ATTR) });
-      return null;
-    }
     img.parentNode.replaceChild(fresh, img);
+    rememberReplacement(fresh, original);
     unobserveImage(img);
     return fresh;
   }
@@ -1553,13 +1628,20 @@
       this.deps = deps;
       this.jobs = [];
       this.analyzing = false;
+      // Fermée par une extinction en direct : plus rien n'entre ni ne part.
+      this.closed = false;
     }
     /**
      * Try to enqueue the image. Returns false if skipped (no ID, too small, cache
      * hit, already analyzed). Cache hits short-circuit and set STATE_ATTR
      * synchronously — no Swift roundtrip.
      */
+    close() {
+      this.closed = true;
+      this.jobs.length = 0;
+    }
     enqueue(img, id) {
+      if (this.closed) return false;
       if (!img || img.tagName !== "IMG") return false;
       const state = img.getAttribute(STATE_ATTR);
       if (state === "keep" || state === "remove" || state === "analyzing") {
@@ -1601,13 +1683,14 @@
       this.drain();
     }
     drain() {
-      if (this.analyzing) return;
+      if (this.analyzing || this.closed) return;
       const job = this.jobs.shift();
       if (!job) return;
       this.analyzing = true;
       job.img.setAttribute(STATE_ATTR, "analyzing");
       job.img.setAttribute(ANALYZED_URL_ATTR, job.url);
       encodeImage(job.img).then((b64) => {
+        if (this.closed) return;
         if (!b64) {
           job.img.setAttribute(STATE_ATTR, "keep");
           this.releaseSlot();
@@ -1621,6 +1704,7 @@
         });
         send("analyzeImage", `${job.id}|${b64}`);
       }).catch((e) => {
+        if (this.closed) return;
         metric("encode_unexpected_error", { msg: String(e).slice(0, 120) });
         job.img.setAttribute(STATE_ATTR, "keep");
         this.releaseSlot();
@@ -1675,6 +1759,7 @@
   function installReplyHandlers(deps) {
     window.__basarunaaApply = function basarunaaApply(id, persons, debugMode, elapsedMs) {
       try {
+        if (!isPipelineRunning()) return;
         const img = findImageById(id);
         const rawPersons = parsePersons(persons);
         const dbgMode = debugMode ?? "none";
@@ -1715,6 +1800,7 @@
     };
     window.__basarunaaApplyNsfw = function basarunaaApplyNsfw(id, score) {
       try {
+        if (!isPipelineRunning()) return;
         const img = findImageById(id);
         metric("apply_nsfw", { id, score, found: !!img });
         if (img) {
@@ -1734,7 +1820,8 @@
   }
 
   const DECISION_CACHE_MAX = 500;
-  function createImagePipeline() {
+  let pageHideListening = false;
+  function createImagePipeline(firstId = 1) {
     const decisionCache = new DecisionCache(DECISION_CACHE_MAX);
     const queue = new AnalyzeQueue({ decisionCache });
     let discoveredCount = 0;
@@ -1767,14 +1854,17 @@
           unobserveImage(img);
         }
       },
-      { minSize: 64 }
+      { minSize: 64, firstId }
     );
     function onPageHide() {
       metric("page_hide", { url: location.href });
       send("pageReset", location.href);
     }
-    window.addEventListener("pagehide", onPageHide);
-    window.addEventListener("beforeunload", onPageHide);
+    if (!pageHideListening) {
+      pageHideListening = true;
+      window.addEventListener("pagehide", onPageHide);
+      window.addEventListener("beforeunload", onPageHide);
+    }
     return {
       scanner,
       queue,
@@ -2206,18 +2296,26 @@ video:not([data-basarunaa]) { filter: none !important; }
   let pipeline = null;
   let videoPipeline = null;
   let started = false;
+  let relevanceWaitArmed = false;
+  let nextImageId = 1;
   function logInfo(msg) {
     send("log", `[basarunaa-android] ${msg}`);
   }
   function teardown() {
+    setPipelineRunning(false);
     if (pipeline) {
+      nextImageId = pipeline.scanner.peekNextId() + 1e3;
       pipeline.stop();
+      pipeline.queue.close();
       pipeline = null;
     }
     if (videoPipeline) {
       videoPipeline.stop();
       videoPipeline = null;
     }
+    const restored = restoreAllImages();
+    started = false;
+    metric("live_disable", { restored });
   }
   function start() {
     if (started) return;
@@ -2231,17 +2329,21 @@ video:not([data-basarunaa]) { filter: none !important; }
       /*neutralizeHideFirst=*/
       false
     )) {
-      onFrameRelevanceChange(
-        (relevant) => {
-          if (relevant) start();
-        },
-        /*neutralizeHideFirst=*/
-        false
-      );
+      if (!relevanceWaitArmed) {
+        relevanceWaitArmed = true;
+        onFrameRelevanceChange(
+          (relevant) => {
+            if (relevant) start();
+          },
+          /*neutralizeHideFirst=*/
+          false
+        );
+      }
       return;
     }
     started = true;
-    pipeline = createImagePipeline();
+    setPipelineRunning(true);
+    pipeline = createImagePipeline(nextImageId);
     pipeline.scanner.start();
     videoPipeline = createVideoPipeline();
     window.__browtherBasarunaaAndroid = {
@@ -2268,14 +2370,17 @@ video:not([data-basarunaa]) { filter: none !important; }
     });
   }
   function attachLifecycleListeners() {
-    window.addEventListener(
-      "basarunaa-disable",
-      () => {
-        logInfo("received basarunaa-disable, teardown");
+    const onState = () => {
+      if (isEnabled()) {
+        logInfo("live enable");
+        start();
+      } else if (started) {
+        logInfo("live disable, teardown + restore");
         teardown();
-      },
-      false
-    );
+      }
+    };
+    window.addEventListener("basarunaa-state", onState, false);
+    window.addEventListener("basarunaa-disable", onState, false);
     window.addEventListener(
       "basarunaa-config-changed",
       () => {

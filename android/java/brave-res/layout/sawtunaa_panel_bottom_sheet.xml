@@ -63,7 +63,7 @@
 
     <!-- Browther : « seulement 2 min » (2026-10-01, maquette v3 validée). Juste après
          une bascule, tant que la feuille est ouverte : « Réactiver / Couper
-         automatiquement dans 2 min ». Cf. SawtunaaTemporarySwitch. -->
+         automatiquement dans 2 min ». Cf. FeatureTemporarySwitch. -->
     <Button
         android:id="@+id/sawtunaa_panel_temp_offer"
         style="?attr/materialButtonOutlinedStyle"

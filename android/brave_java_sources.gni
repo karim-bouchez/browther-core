@@ -413,6 +413,7 @@ brave_java_sources = [
   # Browther: shared widgets (big animated toggle reused by feature panels).
   "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherBigToggleView.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherCountdownRingView.java",
+  "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/FeatureTemporarySwitch.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherDefaultBrowserNotice.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_widgets/BrowtherEarlyAccess.java",
   # Browther: Basarunaa Android
@@ -466,7 +467,6 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPanelBottomSheet.java",
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPlayer.java",
   "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaPreferences.java",
-  "../../brave/android/java/org/chromium/chrome/browser/sawtunaa/SawtunaaTemporarySwitch.java",
   "../../brave/android/java/org/chromium/chrome/browser/searchwidget/SearchWidgetProviderActivity.java",
   "../../brave/android/java/org/chromium/chrome/browser/set_default_browser/BraveSetDefaultBrowserUtils.java",
   "../../brave/android/java/org/chromium/chrome/browser/set_default_browser/SetDefaultBrowserBottomSheetFragment.java",

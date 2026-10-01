@@ -79,8 +79,13 @@ class BasarunaaRenderFrameObserverAndroid
   // `basarunaa_script_android.js`. Idempotent sur un même Window object.
   void InstallBindingAndInjectScript();
 
-  // Dispatche `basarunaa-disable` au main world (script JS écoute).
-  void DispatchDisableEvent();
+  // Dispatche `basarunaa-state` au main world : le script relit
+  // `isEnabled()` et s'éteint (en restaurant les images) ou se rallume.
+  void DispatchStateEvent();
+
+  // OFF → ON en direct : rallume le script présent, ou l'injecte si le frame
+  // est committé (jamais sur un frame provisoire, cf. .cc).
+  void OnLiveEnable();
 
   // Exécute `window.__basarunaaApply(...)` ou `window.__basarunaaApplyNsfw(...)`
   // dans le main world avec les params JSON-encodés.
@@ -97,6 +102,11 @@ class BasarunaaRenderFrameObserverAndroid
   // Suit l'injection du script pour le window object courant. Reset au
   // `DidClearWindowObject` (nouvelle Window = nouveau JS context).
   bool script_injected_ = false;
+
+  // Une Window existe pour le document courant (`DidClearWindowObject` vu),
+  // pref ON ou OFF. Condition, avec `!IsProvisional()`, d'une injection à
+  // chaud sûre.
+  bool window_ready_ = false;
 
   base::WeakPtrFactory<BasarunaaRenderFrameObserverAndroid> weak_factory_{this};
 };

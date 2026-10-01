@@ -124,6 +124,18 @@
           android:layout_marginEnd="8dp"
           android:layout_gravity="bottom|end"
           android:background="@drawable/sawtunaa_badge_red" />
+
+      <!-- Browther: anneau « 2 min » Basarunaa (2026-10-01), même rôle que celui
+           de Sawtunaa ci-dessus. -->
+      <org.chromium.chrome.browser.browther_widgets.BrowtherCountdownRingView
+          android:id="@+id/brave_basarunaa_countdown_ring"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_gravity="center"
+          android:clickable="false"
+          android:focusable="false"
+          android:importantForAccessibility="no"
+          android:visibility="gone" />
   </FrameLayout>
 
   <!-- Browther: Brave Shields toolbar button. Aligned on Sawtunaa/Basarunaa

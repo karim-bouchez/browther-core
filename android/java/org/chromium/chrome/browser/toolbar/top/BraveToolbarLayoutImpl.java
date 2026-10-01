@@ -92,9 +92,9 @@ import org.chromium.chrome.browser.basarunaa.BasarunaaPanelBottomSheet;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.browther_widgets.BrowtherCountdownRingView;
+import org.chromium.chrome.browser.browther_widgets.FeatureTemporarySwitch;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPlayer;
-import org.chromium.chrome.browser.sawtunaa.SawtunaaTemporarySwitch;
 import org.chromium.chrome.browser.shields_panel.ShieldsPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
 import org.chromium.chrome.browser.shields.BraveShieldsMenuObserver;
@@ -196,11 +196,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable View mSawtunaaLayout;
     private @Nullable ImageButton mSawtunaaButton;
     private @Nullable View mSawtunaaBadge;
-    // Browther: anneau du compte à rebours « 2 min » (SawtunaaTemporarySwitch), rafraîchi
+    // Browther: anneau du compte à rebours « 2 min » (FeatureTemporarySwitch), rafraîchi
     // ~1×/s : chaque rafraîchissement force une nouvelle capture de la barre.
     private @Nullable BrowtherCountdownRingView mSawtunaaCountdownRing;
     private final Runnable mSawtunaaCountdownTick = this::updateSawtunaaCountdown;
-    private final SawtunaaTemporarySwitch.Observer mSawtunaaTemporaryObserver =
+    private final FeatureTemporarySwitch.Observer mSawtunaaTemporaryObserver =
             this::updateSawtunaaBadge;
     private boolean mSawtunaaTemporaryObserved;
     // Browther: indicateur « le son traité arrive » (SawtunaaPlayer.LoadingObserver) : un arc qui
@@ -222,6 +222,12 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable ImageButton mBasarunaaButton;
     private @Nullable View mBasarunaaBadge;
     private @Nullable PrefChangeRegistrar mBasarunaaPrefChangeRegistrar;
+    // Browther: anneau « 2 min » Basarunaa (FeatureTemporarySwitch), comme Sawtunaa.
+    private @Nullable BrowtherCountdownRingView mBasarunaaCountdownRing;
+    private final Runnable mBasarunaaCountdownTick = this::updateBasarunaaCountdown;
+    private final FeatureTemporarySwitch.Observer mBasarunaaTemporaryObserver =
+            this::updateBasarunaaBadge;
+    private boolean mBasarunaaTemporaryObserved;
 
     // TabModelSelectorTabObserver setups observer at the ctor
     @SuppressWarnings("UnusedVariable")
@@ -302,13 +308,18 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         removeCallbacks(mSawtunaaCountdownTick);
         removeCallbacks(mSawtunaaSpinnerTick);
         if (mSawtunaaTemporaryObserved) {
-            SawtunaaTemporarySwitch.get().removeObserver(mSawtunaaTemporaryObserver);
+            FeatureTemporarySwitch.sawtunaa().removeObserver(mSawtunaaTemporaryObserver);
             SawtunaaPlayer.removeLoadingObserver(mSawtunaaLoadingObserver);
             mSawtunaaTemporaryObserved = false;
         }
         if (mBasarunaaPrefChangeRegistrar != null) {
             mBasarunaaPrefChangeRegistrar.destroy();
             mBasarunaaPrefChangeRegistrar = null;
+        }
+        removeCallbacks(mBasarunaaCountdownTick);
+        if (mBasarunaaTemporaryObserved) {
+            FeatureTemporarySwitch.basarunaa().removeObserver(mBasarunaaTemporaryObserver);
+            mBasarunaaTemporaryObserved = false;
         }
         super.destroy();
         if (mBraveRewardsNativeWorker != null) {
@@ -389,6 +400,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         mBasarunaaLayout = findViewById(R.id.brave_basarunaa_button_layout);
         mBasarunaaButton = findViewById(R.id.brave_basarunaa_button);
         mBasarunaaBadge = findViewById(R.id.brave_basarunaa_badge);
+        mBasarunaaCountdownRing = findViewById(R.id.brave_basarunaa_countdown_ring);
         if (mBasarunaaButton != null) {
             mBasarunaaButton.setClickable(true);
             mBasarunaaButton.setOnClickListener(this);
@@ -1432,7 +1444,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         removeCallbacks(mSawtunaaCountdownTick);
         if (mSawtunaaBadge == null || !mSawtunaaTemporaryObserved) return;
         removeCallbacks(mSawtunaaSpinnerTick);
-        SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
+        FeatureTemporarySwitch temporary = FeatureTemporarySwitch.sawtunaa();
         temporary.checkDue();
         boolean active = temporary.isActive();
         // Le chargement a priorité sur l'anneau et la pastille (parité iOS).
@@ -1447,7 +1459,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mSawtunaaCountdownRing.setSpinner(loading, featureColor(enabled));
             if (active) {
                 mSawtunaaCountdownRing.setCountdown(
-                        temporary.remainingMs() / (float) SawtunaaTemporarySwitch.DURATION_MS,
+                        temporary.remainingMs() / (float) FeatureTemporarySwitch.DURATION_MS,
                         featureColor(enabled));
             }
         }
@@ -1478,7 +1490,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 BravePref.SAWTUNAA_ENABLED, this::updateSawtunaaBadge);
         // Crée le contrôleur « 2 min » : il reprend un compte à rebours en cours, ou
         // applique tout de suite un retour échu pendant que l'appli était fermée.
-        SawtunaaTemporarySwitch.get().addObserver(mSawtunaaTemporaryObserver);
+        FeatureTemporarySwitch.sawtunaa().addObserver(mSawtunaaTemporaryObserver);
         SawtunaaPlayer.addLoadingObserver(mSawtunaaLoadingObserver);
         mSawtunaaLoading = SawtunaaPlayer.isAnyLoading();
         mSawtunaaTemporaryObserved = true;
@@ -1511,7 +1523,35 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         if (profile == null) return;
         boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.BASARUNAA_ENABLED);
         mBasarunaaBadge.setBackgroundResource(featureBadge(enabled));
+        updateBasarunaaCountdown();
+    }
+
+    /** Anneau « 2 min » Basarunaa à la place de la pastille (cf. updateSawtunaaCountdown). */
+    private void updateBasarunaaCountdown() {
+        removeCallbacks(mBasarunaaCountdownTick);
+        if (mBasarunaaBadge == null) return;
+        if (!mBasarunaaTemporaryObserved) {
+            invalidateToolbarSnapshot();
+            return;
+        }
+        FeatureTemporarySwitch temporary = FeatureTemporarySwitch.basarunaa();
+        temporary.checkDue();
+        boolean active = temporary.isActive();
+        mBasarunaaBadge.setVisibility(active ? View.INVISIBLE : View.VISIBLE);
+        if (mBasarunaaCountdownRing != null) {
+            mBasarunaaCountdownRing.setVisibility(active ? View.VISIBLE : View.GONE);
+            if (active) {
+                Profile profile = ProfileManager.getLastUsedRegularProfile();
+                boolean enabled =
+                        profile != null
+                                && UserPrefs.get(profile).getBoolean(BravePref.BASARUNAA_ENABLED);
+                mBasarunaaCountdownRing.setCountdown(
+                        temporary.remainingMs() / (float) FeatureTemporarySwitch.DURATION_MS,
+                        featureColor(enabled));
+            }
+        }
         invalidateToolbarSnapshot();
+        if (active) postDelayed(mBasarunaaCountdownTick, 1000L);
     }
 
     private void registerBasarunaaPrefObserver() {
@@ -1521,6 +1561,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         mBasarunaaPrefChangeRegistrar = PrefServiceUtil.createFor(profile);
         mBasarunaaPrefChangeRegistrar.addObserver(
                 BravePref.BASARUNAA_ENABLED, this::updateBasarunaaBadge);
+        // Crée le contrôleur « 2 min » (reprise d'un compte à rebours, ou retour échu).
+        FeatureTemporarySwitch.basarunaa().addObserver(mBasarunaaTemporaryObserver);
+        mBasarunaaTemporaryObserved = true;
+        updateBasarunaaBadge();
     }
 
     private void showShieldsMenu() {
