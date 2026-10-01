@@ -125,6 +125,24 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 > `video_stalled` à répétition (STALL_MS trop court pour la fréquence de
 > rafraîchissement de `currentTime`) ou des `drift_resync` en rafale.
 > **Vitesse ≠ 1×** : l'audio joue toujours à 1× → resync ~1/s (non géré).
+>
+> ⚠️ **Régression corrigée le 2026-10-01** : la détection de saut (> 2 s) doit
+> rester AVANT la coupure « vidéo `seeking`/calée ». Placée après, un curseur
+> posé loin (hors tampon YouTube) laissait `lastEstimatedEndMs` sur l'ancienne
+> position : les blocs de la nouvelle étaient re-datés comme aberrants →
+> silence > 1 min. Les ±10 s (dans le tampon) n'étaient pas touchés.
+
+### CPU / chauffe (2026-10-01)
+
+Session ORT créée avec les défauts = un thread par cœur **en attente active**
+entre deux `run` (un par frame de 10,7 ms). Bench Mac du vrai
+`NSNet2Processor.swift` (60 s d'audio stéréo en blocs d'1 s) : **6,3 s CPU pour
+1,26 s de travail** → avec `intraOpNumThreads = 1` + `allow_spinning = 0`
+(= réglage macOS, `kOrtIntraOpThreads`) : **2,1 s CPU (−67 %)**, toujours 30×
+plus rapide que le temps réel, parité golden OK. Pistes restantes, non
+mesurées : `removeFirst(N_HOP)` sur les tableaux d'entrée (décalage O(n) par
+frame), allocations `Data`/`ORTValue` par frame, PCM float32 en base64 côté JS
+(~512 Ko/s de chaîne), tick JS à 30 ms.
 
 ### Mécanismes anti-drift (historique, avant le 2026-09-30)
 

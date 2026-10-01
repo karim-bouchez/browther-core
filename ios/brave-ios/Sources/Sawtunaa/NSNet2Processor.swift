@@ -139,6 +139,14 @@ public class NSNet2Processor {
       let env = try ORTEnv(loggingLevel: .warning)
       let opts = try ORTSessionOptions()
       try opts.setLogSeverityLevel(.warning)
+      // 1 thread, comme macOS (`kOrtIntraOpThreads`) : NSNet2 est un GRU
+      // minuscule, et le pool par défaut (un thread par cœur, en attente
+      // ACTIVE entre deux `run`) brûlait ~5× le CPU utile — mesuré sur Mac
+      // avec ce fichier (bench 2026-10-01 : 60 s d'audio = 6,3 s CPU pour
+      // 1,3 s de travail). C'est ce qui faisait chauffer l'iPhone.
+      try opts.setIntraOpNumThreads(1)
+      try opts.addConfigEntry(withKey: "session.intra_op.allow_spinning", value: "0")
+      try opts.setGraphOptimizationLevel(.all)
       session = try ORTSession(env: env, modelPath: modelPath, sessionOptions: opts)
       print(
         "[\(Self.TAG)] Model loaded (hop=\(Self.N_HOP), \(Float(Self.N_HOP) / Float(Self.SAMPLE_RATE) * 1000)ms, channels=\(channels))"

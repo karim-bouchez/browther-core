@@ -706,25 +706,12 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         lastSeenTimeMs = currentTimeMs;
         lastAdvanceWallMs = nowWall;
       }
-      var stalled = vid.seeking || (nowWall - lastAdvanceWallMs > STALL_MS);
-      if (vid.paused || stalled) {
-        if (!audioPaused) {
-          audioPaused = true;
-          metric(vid.paused ? 'video_paused' : 'video_stalled', {
-            video_ms: Math.round(currentTimeMs),
-            seeking: vid.seeking,
-            ready_state: vid.readyState
-          });
-          send('pauseAudio');
-        }
-        return;
-      }
-      if (audioPaused) {
-        audioPaused = false;
-        metric('video_resumed', { video_ms: Math.round(currentTimeMs) });
-        send('resumeAudio');
-      }
-
+      // ⚠️ Détection du saut AVANT la coupure ci-dessous : pendant un seek la
+      // vidéo est `seeking` (donc on sort du tick), et YouTube livre déjà
+      // l'audio de la nouvelle position. Si `lastEstimatedEndMs` pointe encore
+      // l'ancienne, ces blocs sont jugés aberrants (saut > 60 s) et re-datés à
+      // l'ancienne position : silence jusqu'au prochain envoi de YouTube, plus
+      // d'une minute (régression du 2026-09-30, curseur posé loin).
       if (lastVideoTimeMs >= 0 && Math.abs(currentTimeMs - lastVideoTimeMs) > 2000) {
         metric('seek_detected', {
           from_ms: Math.round(lastVideoTimeMs),
@@ -745,6 +732,25 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         send('seekTo', '' + Math.round(currentTimeMs));
       }
       lastVideoTimeMs = currentTimeMs;
+
+      var stalled = vid.seeking || (nowWall - lastAdvanceWallMs > STALL_MS);
+      if (vid.paused || stalled) {
+        if (!audioPaused) {
+          audioPaused = true;
+          metric(vid.paused ? 'video_paused' : 'video_stalled', {
+            video_ms: Math.round(currentTimeMs),
+            seeking: vid.seeking,
+            ready_state: vid.readyState
+          });
+          send('pauseAudio');
+        }
+        return;
+      }
+      if (audioPaused) {
+        audioPaused = false;
+        metric('video_resumed', { video_ms: Math.round(currentTimeMs) });
+        send('resumeAudio');
+      }
 
       // Position BRUTE + instant du relevé : le natif compense lui-même le
       // transit du message et la latence de sortie réelle (haut-parleur ≠
