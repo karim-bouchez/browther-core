@@ -1514,9 +1514,6 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SAWTUNAA_TEMP_KEEP_ON" desc="Link in the countdown row: cancels the automatic return, music removal stays ON.">
         Keep it on
       </message>
-      <message name="IDS_SAWTUNAA_TEMP_TOOLTIP" desc="Tooltip of the Sawtunaa toolbar icon while a 2-minute temporary switch is running: clicking it returns to the previous state immediately.">
-        Click to switch back now
-      </message>
       <message name="IDS_BASARUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Basarunaa panel when the current tab plays DRM-protected media: explains the amber toolbar badge. Unlike Sawtunaa there is no workaround, and the wording must not pretend otherwise.">
         No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.
       </message>
