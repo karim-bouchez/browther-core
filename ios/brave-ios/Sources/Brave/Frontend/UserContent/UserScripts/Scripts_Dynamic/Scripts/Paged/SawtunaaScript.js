@@ -229,30 +229,66 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     return result;
   }
 
+  // ─── Démuxage des segments médias, en FLUX (2026-10-01) ───
+  // YouTube découpe parfois un segment en plusieurs `appendBuffer`, n'importe
+  // où — y compris au milieu d'un bloc Opus. Analyser chaque morceau isolément
+  // perdait le bloc coupé (dans les deux morceaux) et laissait sans horodatage
+  // les morceaux sans en-tête de Cluster ; dater ces morceaux en comptant les
+  // blocs reçus faisait sortir l'audio EN AVANCE de 20 ms par bloc perdu
+  // (~200-500 ms constatés sur iPhone en début de vidéo, où YouTube envoie
+  // beaucoup de petits morceaux). Désormais, comme un vrai démuxeur :
+  // - les octets d'un élément incomplet en fin de morceau sont gardés
+  //   (`parseCarry`) et recollés devant le morceau suivant ;
+  // - l'horodatage du Cluster courant est gardé (`parseClusterTs`) : chaque
+  //   morceau est daté par SON premier bloc (Cluster + temps relatif du bloc).
+  // Remis à zéro à chaque segment d'init (`resetDemuxer`).
+  var parseCarry = null;
+  var parseClusterTs = -1;
+  // En-tête de Cluster lu, horodatage pas encore : la coupure peut tomber
+  // entre les deux (banc de découpage aléatoire : erreur d'un Cluster, ~10 s).
+  var parseAwaitingTs = false;
+
+  function resetDemuxer() {
+    parseCarry = null;
+    parseClusterTs = -1;
+    parseAwaitingTs = false;
+  }
+
   function parseMediaSegment(buf) {
     var data = new Uint8Array(buf);
+    if (parseCarry) {
+      var joined = new Uint8Array(parseCarry.length + data.length);
+      joined.set(parseCarry, 0);
+      joined.set(data, parseCarry.length);
+      data = joined;
+      parseCarry = null;
+    }
     var packets = [];
-    var clusterTimestampMs = -1;
-    var firstBlockRelativeTs = -1;
-    // Un 0xE7 n'est un horodatage de Cluster que juste après l'en-tête d'un
-    // Cluster. Cherché n'importe où, il se trouvait aussi DANS les paquets
-    // Opus : un morceau de segment sans en-tête (YouTube en envoie) recevait
-    // un horodatage faux de quelques secondes (journaux iPhone 2026-10-01 :
-    // blocs datés 7 897, 28 897… bien loin de la vidéo → silence).
-    var seenCluster = false;
+    var startTimeMs = -1;
+    var clusterTs = parseClusterTs;
+    // Un 0xE7 n'est l'horodatage d'un Cluster que juste après son en-tête :
+    // cherché n'importe où, il se trouvait aussi DANS les paquets Opus.
+    var awaitingClusterTs = parseAwaitingTs;
     var pos = 0;
+    // Marge sous laquelle un en-tête d'élément peut être coupé (ID + taille).
+    var TAIL = 12;
 
-    while (pos < data.length - 4) {
-      if (data[pos] === 0xA3) {
+    while (pos < data.length) {
+      var b = data[pos];
+      if (b === 0xA3) {
+        if (pos + TAIL > data.length) { parseCarry = data.slice(pos); break; }
         var sizeInfo = readVint(data, pos + 1);
         var blockSize = sizeInfo.value;
         var blockStart = pos + 1 + sizeInfo.length;
-        if (blockSize >= 10 && blockSize <= 1500 &&
-            blockStart + blockSize <= data.length &&
-            data[blockStart] === 0x81) {
+        if (blockSize >= 10 && blockSize <= 1500 && data[blockStart] === 0x81) {
+          if (blockStart + blockSize > data.length) {
+            // Bloc coupé par la fin du morceau : la suite arrive au prochain.
+            parseCarry = data.slice(pos);
+            break;
+          }
           var relTsRaw = (data[blockStart + 1] << 8) | data[blockStart + 2];
           var relTs = relTsRaw > 32767 ? relTsRaw - 65536 : relTsRaw;
-          if (firstBlockRelativeTs < 0) firstBlockRelativeTs = relTs;
+          if (startTimeMs < 0 && clusterTs >= 0) startTimeMs = clusterTs + relTs;
           var opusStart = blockStart + 4;
           var opusLen = blockSize - 4;
           if (opusLen >= 3 && opusLen <= 1400) {
@@ -263,17 +299,22 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         }
         pos++;
         continue;
-      } else if (pos + 4 <= data.length &&
-                 data[pos] === 0x1F && data[pos+1] === 0x43 &&
-                 data[pos+2] === 0xB6 && data[pos+3] === 0x75) {
-        var csInfo = readVint(data, pos + 4);
-        pos = pos + 4 + csInfo.length;
-        seenCluster = true;
-        continue;
-      } else if (seenCluster && clusterTimestampMs < 0 && data[pos] === 0xE7 && pos + 1 < data.length) {
+      }
+      if (b === 0x1F) {
+        if (pos + TAIL > data.length) { parseCarry = data.slice(pos); break; }
+        if (data[pos+1] === 0x43 && data[pos+2] === 0xB6 && data[pos+3] === 0x75) {
+          var csInfo = readVint(data, pos + 4);
+          pos = pos + 4 + csInfo.length;
+          awaitingClusterTs = true;
+          clusterTs = -1;  // l'ancien ne vaut plus pour les blocs qui suivent
+          continue;
+        }
+      } else if (awaitingClusterTs && b === 0xE7) {
+        if (pos + TAIL > data.length) { parseCarry = data.slice(pos); break; }
         var tsInfo = readVint(data, pos + 1);
-        if (tsInfo.value <= 8 && pos + 1 + tsInfo.length + tsInfo.value <= data.length) {
-          clusterTimestampMs = readUint(data, pos + 1 + tsInfo.length, tsInfo.value);
+        if (tsInfo.value <= 8) {
+          clusterTs = readUint(data, pos + 1 + tsInfo.length, tsInfo.value);
+          awaitingClusterTs = false;
           pos = pos + 1 + tsInfo.length + tsInfo.value;
           continue;
         }
@@ -281,10 +322,8 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       pos++;
     }
 
-    var startTimeMs = -1;
-    if (clusterTimestampMs >= 0) {
-      startTimeMs = clusterTimestampMs + (firstBlockRelativeTs >= 0 ? firstBlockRelativeTs : 0);
-    }
+    parseClusterTs = clusterTs;
+    parseAwaitingTs = awaitingClusterTs;
     return { packets: packets, startTimeMs: startTimeMs };
   }
 
@@ -686,6 +725,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     }
     if (currentDuration > 0) lastInitSegDuration = currentDuration;
     standbyInit = buf.slice(0);
+    resetDemuxer();
     return contentChanged;
   }
 

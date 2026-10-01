@@ -164,6 +164,26 @@ page crée son MediaSource) → la vidéo repartait de 0.
 - La bonne variante est ré-injectée pour les PROCHAINS chargements (`setScripts`
   OFF puis ON, même geste que Basarunaa « Floutage actif »).
 
+**Démuxage en flux (recette iPhone du 2026-10-01, lue dans les journaux).**
+YouTube coupe ses segments en plusieurs `appendBuffer`, n'importe où, y
+compris au milieu d'un bloc Opus ou entre l'en-tête d'un Cluster et son
+horodatage. Analysés morceau par morceau : bloc coupé perdu, morceaux sans
+horodatage jetés en veille (13 → 20 s manquants à l'allumage), faux
+horodatages trouvés DANS les paquets Opus (blocs datés 0-8 s à 60 s de vidéo →
+plus de 2 min de silence), et datation « en comptant les blocs » qui avançait
+l'audio de 20 ms par bloc perdu (~200-500 ms en début de vidéo). Désormais :
+octets incomplets recollés au morceau suivant, Cluster courant et « en-tête
+lu, horodatage attendu » conservés entre morceaux, chaque morceau daté par son
+premier bloc, `timestampOffset` appliqué, un nouvel init du même contenu ne
+jette plus l'audio en attente. Banc : `private/tools/sawtunaa-demux-bench/run.sh`
+(découpages aléatoires : avant, paquets perdus à chaque essai et jusqu'à 11 s
+d'erreur ; après, 0 perdu, ≤ 1 ms). Même code sur Android
+(`components/sawtunaa/renderer/sawtunaa_script.js`).
+
+Journaux : les métriques (natives ET JS, `SawtunaaMetric.forward`) sortent
+aussi dans le journal unifié → `idevicesyslog -u <udid> | grep '\[METRIC\]'`
+pendant que Karim teste lui-même, sans relancer l'app.
+
 **« Seulement 2 min »** (`Brave/Frontend/Browther/SawtunaaTemporarySwitch.swift`,
 maquette validée par Karim) : juste après une bascule, le panneau propose
 « Réactiver automatiquement dans 2 min » ou « Couper automatiquement dans
