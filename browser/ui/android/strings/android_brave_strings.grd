@@ -4071,9 +4071,6 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_SAWTUNAA_TEMP_KEEP_ON" desc="Link in the countdown row: cancels the automatic return, music removal stays ON.">
       Keep it on
     </message>
-    <message name="IDS_SAWTUNAA_TEMP_ICON_HINT" desc="Accessibility hint / long-press label of the Sawtunaa toolbar button while a 2-minute temporary switch is running: tapping it returns to the previous state immediately.">
-      Tap to switch back now
-    </message>
 
     <!-- Browther: Basarunaa toolbar button + panel (BottomSheet). V1 = juste
          le toggle ; les sliders/mode iOS suivront quand le pipeline ML

@@ -31,9 +31,10 @@ import org.chromium.components.user_prefs.UserPrefs;
  *
  * <ul>
  *   <li>L'interrupteur montre toujours l'état ACTUEL : la pref n'est touchée qu'à l'échéance.
- *   <li>Revenir plus tôt = rebasculer l'interrupteur, ou toucher le bouton de la barre d'outils
- *       ({@link #revertNow}) ; toute écriture de la pref qui rejoint l'état d'avant, d'où qu'elle
- *       vienne (réglages, pause du parrainage…), annule le retour.
+ *   <li>Revenir plus tôt = rebasculer l'interrupteur du panneau ; toute écriture de la pref qui
+ *       rejoint l'état d'avant, d'où qu'elle vienne (réglages, pause du parrainage…), annule le
+ *       retour. ⛔ Le bouton de la barre d'outils ouvre le panneau, il ne revient PAS en arrière
+ *       (retiré le 2026-10-01 après recette iOS : « ça coupe, je ne sais pas pourquoi »).
  *   <li>Portée : tout le navigateur. L'échéance est enregistrée : une appli fermée pendant le compte
  *       à rebours retrouve l'état d'avant au lancement suivant.
  *   <li>⛔ Pas de rallumage pendant la pause du parrainage : elle garde Sawtunaa éteint.
@@ -122,12 +123,6 @@ public final class SawtunaaTemporarySwitch {
         if (!isActive()) return;
         clear();
         track("feature_temporary_end", new String[] {"reason"}, new String[] {"keep"});
-    }
-
-    /** Retour immédiat à l'état d'avant (appui sur le bouton de la barre d'outils). */
-    public void revertNow() {
-        if (!isActive()) return;
-        finish("icon");
     }
 
     /**

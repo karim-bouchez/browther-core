@@ -1310,14 +1310,9 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 BraveYouTubeScriptInjectorNativeHelper.setFullscreen(currentTab.getWebContents());
             }
         } else if (mSawtunaaButton == v && mSawtunaaButton != null) {
-            // Browther: pendant le compte à rebours « 2 min », le bouton revient
-            // tout de suite à l'état d'avant, sans ouvrir le panneau (maquette
-            // validée 2026-10-01, parité iOS).
-            if (mSawtunaaTemporaryObserved && SawtunaaTemporarySwitch.get().isActive()) {
-                SawtunaaTemporarySwitch.get().revertNow();
-                return;
-            }
-            // Browther: open the Sawtunaa panel as a Material BottomSheet.
+            // Browther: open the Sawtunaa panel as a Material BottomSheet — y
+            // compris pendant le compte à rebours « 2 min » : revenir en arrière
+            // d'un appui sur l'icône surprenait (recette Karim iOS 2026-10-01).
             showSawtunaaPanel();
         } else if (mBasarunaaButton == v && mBasarunaaButton != null) {
             showBasarunaaPanel();
@@ -1544,10 +1539,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         } else if (v == mYouTubePipButton) {
             description = resources.getString(R.string.accessibility_toolbar_btn_brave_pip);
         } else if (v == mSawtunaaButton) {
-            description =
-                    mSawtunaaTemporaryObserved && SawtunaaTemporarySwitch.get().isActive()
-                            ? resources.getString(R.string.sawtunaa_temp_icon_hint)
-                            : resources.getString(R.string.accessibility_toolbar_btn_sawtunaa);
+            description = resources.getString(R.string.accessibility_toolbar_btn_sawtunaa);
         } else if (v == mBasarunaaButton) {
             description = resources.getString(R.string.accessibility_toolbar_btn_basarunaa);
         }
