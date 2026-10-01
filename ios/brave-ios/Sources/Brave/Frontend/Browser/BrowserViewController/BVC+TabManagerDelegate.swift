@@ -121,6 +121,7 @@ extension BrowserViewController: TabManagerDelegate {
     }
 
     toolbar?.setSearchButtonState(url: selected?.visibleURL)
+    updateSawtunaaLoadingForSelectedTab()
     if let tab = selected {
       if let scrollView = tab.webViewProxy?.scrollView {
         // For tabs being opened by the DOM via window.open a web view may not be created yet and

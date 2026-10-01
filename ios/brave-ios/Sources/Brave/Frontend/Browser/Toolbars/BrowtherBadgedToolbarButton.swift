@@ -31,6 +31,10 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
   private let countdownTrack = CAShapeLayer()
   private let countdownRing = CAShapeLayer()
   private var countdownActive = false
+  /// Chargement (Sawtunaa : vidéo coupée, son traité pas encore audible) : un
+  /// arc qui tourne autour de l'icône, prioritaire sur l'anneau et le dot.
+  private let loadingArc = CAShapeLayer()
+  private var loadingActive = false
 
   override init() {
     super.init()
@@ -46,6 +50,30 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
       layer.addSublayer(ring)
     }
     countdownTrack.strokeColor = UIColor.systemGray3.cgColor
+    loadingArc.fillColor = nil
+    loadingArc.lineWidth = 2
+    loadingArc.lineCap = .round
+    loadingArc.strokeStart = 0
+    loadingArc.strokeEnd = 0.28
+    loadingArc.isHidden = true
+    layer.addSublayer(loadingArc)
+  }
+
+  func setLoading(_ loading: Bool, color: UIColor) {
+    guard loading != loadingActive else { return }
+    loadingActive = loading
+    loadingArc.isHidden = !loading
+    loadingArc.removeAnimation(forKey: "spin")
+    if loading {
+      loadingArc.strokeColor = color.cgColor
+      let spin = CABasicAnimation(keyPath: "transform.rotation.z")
+      spin.fromValue = 0
+      spin.toValue = 2 * Double.pi
+      spin.duration = 0.9
+      spin.repeatCount = .infinity
+      loadingArc.add(spin, forKey: "spin")
+    }
+    setNeedsLayout()
   }
 
   /// `remaining` nil ou ≤ 0 : retour au dot.
@@ -80,7 +108,9 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
       statusBadge.isHidden = true
       return
     }
-    statusBadge.isHidden = countdownActive
+    statusBadge.isHidden = countdownActive || loadingActive
+    countdownTrack.opacity = loadingActive ? 0 : 1
+    countdownRing.opacity = loadingActive ? 0 : 1
     let radius = max(iconFrame.width, iconFrame.height) / 2 + 4
     let ring = UIBezierPath(
       arcCenter: CGPoint(x: iconFrame.midX, y: iconFrame.midY),
@@ -91,6 +121,17 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
     ).cgPath
     countdownTrack.path = ring
     countdownRing.path = ring
+    // L'arc tourne autour de son propre centre : calque centré sur l'icône,
+    // chemin dans ses coordonnées (la rotation se fait autour de l'anchorPoint).
+    loadingArc.bounds = CGRect(x: 0, y: 0, width: radius * 2, height: radius * 2)
+    loadingArc.position = CGPoint(x: iconFrame.midX, y: iconFrame.midY)
+    loadingArc.path = UIBezierPath(
+      arcCenter: CGPoint(x: radius, y: radius),
+      radius: radius,
+      startAngle: -.pi / 2,
+      endAngle: 1.5 * .pi,
+      clockwise: true
+    ).cgPath
     let side = (iconFrame.width * Self.badgeRatio).rounded()
     statusBadge.frame = CGRect(
       x: iconFrame.maxX - side,

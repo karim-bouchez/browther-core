@@ -397,6 +397,14 @@ class TopToolbarView: UIView, ToolbarProtocol {
     )
   }
 
+  /// Indicateur « le son traité arrive » sur l'icône Sawtunaa.
+  func setSawtunaaLoading(_ loading: Bool) {
+    (sawtunaaButton as? BrowtherBadgedToolbarButton)?.setLoading(
+      loading,
+      color: featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
+    )
+  }
+
   fileprivate func updateBrowtherFeatureButtons() {
     if SawtunaaTemporarySwitch.shared.isActive {
       updateSawtunaaCountdown(revertAt: SawtunaaTemporarySwitch.shared.revertAt)

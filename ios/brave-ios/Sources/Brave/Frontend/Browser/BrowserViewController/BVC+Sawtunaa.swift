@@ -19,4 +19,17 @@ extension BrowserViewController: SawtunaaScriptHandlerDelegate {
     Logger(subsystem: "com.devndin.browther", category: "Sawtunaa")
       .info("Sawtunaa deactivated for tab")
   }
+
+  func sawtunaaLoadingChanged(tab: (any TabState)?, loading: Bool) {
+    guard let tab, tab === tabManager.selectedTab else { return }
+    topToolbar.setSawtunaaLoading(loading)
+  }
+
+  /// À chaque changement d'onglet : l'icône reflète l'onglet affiché.
+  func updateSawtunaaLoadingForSelectedTab() {
+    let handler =
+      tabManager.selectedTab?.browserData?.getContentScript(name: SawtunaaScriptHandler.scriptName)
+      as? SawtunaaScriptHandler
+    topToolbar.setSawtunaaLoading(handler?.isLoading ?? false)
+  }
 }

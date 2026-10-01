@@ -153,6 +153,11 @@ public class SawtunaaAudioPlayer {
 
   public var isAvailable: Bool { nsnet2?.isAvailable ?? false }
 
+  /// Premier bloc traité planifié depuis le dernier (ré)ancrage : il sera
+  /// AUDIBLE dans `delay` secondes (il peut être posé jusqu'à 5 s d'avance).
+  /// Sert à retirer l'indicateur de chargement de l'icône au bon moment.
+  public var onFirstChunkScheduled: ((_ delay: TimeInterval) -> Void)?
+
   /// Au-delà, l'audio est jugé désynchronisé. L'oreille repère un audio EN
   /// AVANCE dès ~45 ms (ITU-R BT.1359) — d'où 40 ms, appliqués à la MOYENNE
   /// des derniers ticks. Mesuré le 2026-10-01 : après un bon ancrage la dérive
@@ -700,6 +705,10 @@ public class SawtunaaAudioPlayer {
       let event: String
       if playedChunkCount == 1 {
         event = "first_chunk_played"
+        let delay =
+          Double(max(0, at - render.sample)) / 48000
+          + AVAudioSession.sharedInstance().outputLatency
+        onFirstChunkScheduled?(delay)
       } else {
         event = skipFrames > 0 ? "chunk_play_trim" : "chunk_play_full"
       }

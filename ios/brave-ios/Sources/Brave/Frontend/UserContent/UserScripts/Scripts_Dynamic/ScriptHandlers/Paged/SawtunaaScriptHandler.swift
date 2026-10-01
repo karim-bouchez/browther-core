@@ -13,6 +13,9 @@ import WebKit
 protocol SawtunaaScriptHandlerDelegate: AnyObject {
   func sawtunaaDidActivate(tab: (any TabState)?)
   func sawtunaaDidDeactivate(tab: (any TabState)?)
+  /// La vidéo est coupée mais le son traité n'est pas encore audible
+  /// (décodage, modèle, premier bloc NSNet2 : ~1 s, parfois plus).
+  func sawtunaaLoadingChanged(tab: (any TabState)?, loading: Bool)
 }
 
 class SawtunaaScriptHandler: TabContentScript {
@@ -20,6 +23,15 @@ class SawtunaaScriptHandler: TabContentScript {
   weak var delegate: SawtunaaScriptHandlerDelegate?
   private var audioPlayer: SawtunaaAudioPlayer?
   private var isActive = false
+  /// Indicateur de chargement sur l'icône (demande Karim 2026-10-01 : « il n'y
+  /// a pas de son, mais ça charge et ça arrive »). Vrai du premier `playAt`
+  /// d'une activation jusqu'à ce que le premier bloc traité soit audible.
+  private(set) var isLoading = false
+  private weak var loadingTab: (any TabState)?
+  private var loadingGeneration = 0
+  /// Filet : jamais un indicateur qui tourne pour toujours (vidéo sans audio
+  /// Opus, flux non couvert…) — on préfère l'absence d'indicateur au mensonge.
+  private static let loadingTimeout: TimeInterval = 15
 
   static let scriptName = "SawtunaaScript"
   static let scriptId = UUID().uuidString
@@ -96,6 +108,14 @@ class SawtunaaScriptHandler: TabContentScript {
     guard audioPlayer == nil else { return }
     SawtunaaMetric.emit("handler_create_player", [:])
     let player = SawtunaaAudioPlayer()
+    player.onFirstChunkScheduled = { [weak self] delay in
+      guard let self, self.isLoading else { return }
+      let generation = self.loadingGeneration
+      DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+        guard let self, self.loadingGeneration == generation else { return }
+        self.setLoading(false, tab: self.loadingTab)
+      }
+    }
 
     if let modelPath = SawtunaaResources.nsnet2ModelPath {
       player.loadModel(path: modelPath)
@@ -149,6 +169,7 @@ class SawtunaaScriptHandler: TabContentScript {
       // reste chargé pour un rallumage immédiat.
       audioPlayer?.clearChunks()
       audioPlayer?.stop()
+      setLoading(false, tab: tab)
       if isActive {
         isActive = false
         delegate?.sawtunaaDidDeactivate(tab: tab)
@@ -168,6 +189,7 @@ class SawtunaaScriptHandler: TabContentScript {
           isActive = true
           SawtunaaMetric.emit("handler_activated", ["first_video_ms": Int(ms)])
           delegate?.sawtunaaDidActivate(tab: tab)
+          setLoading(true, tab: tab)
         }
         let sentAt = parts.count > 1 ? parts[1] : nil
         let rate = (parts.count > 2 ? parts[2] : nil) ?? 1
@@ -178,6 +200,7 @@ class SawtunaaScriptHandler: TabContentScript {
 
     case "clearChunks":
       audioPlayer?.clearChunks()
+      setLoading(false, tab: tab)
       isActive = false
       SawtunaaMetric.emit("handler_clear_chunks", [:])
 
@@ -188,6 +211,7 @@ class SawtunaaScriptHandler: TabContentScript {
       // to "double audio" (old chunks playing on top of the new page).
       let prevActive = isActive
       audioPlayer?.clearChunks()
+      setLoading(false, tab: tab)
       isActive = false
       SawtunaaMetric.emit(
         "handler_page_reset",
@@ -233,6 +257,25 @@ class SawtunaaScriptHandler: TabContentScript {
 
     default:
       SawtunaaMetric.emit("handler_unknown_action", ["action": action])
+    }
+  }
+
+  // MARK: - Loading indicator
+
+  private func setLoading(_ loading: Bool, tab: (any TabState)?) {
+    guard loading != isLoading else { return }
+    isLoading = loading
+    loadingGeneration += 1
+    loadingTab = loading ? tab : nil
+    SawtunaaMetric.emit("loading_indicator", ["loading": loading])
+    delegate?.sawtunaaLoadingChanged(tab: tab, loading: loading)
+    if loading {
+      let generation = loadingGeneration
+      DispatchQueue.main.asyncAfter(deadline: .now() + Self.loadingTimeout) { [weak self] in
+        guard let self, self.isLoading, self.loadingGeneration == generation else { return }
+        SawtunaaMetric.emit("loading_indicator_timeout", [:])
+        self.setLoading(false, tab: self.loadingTab)
+      }
     }
   }
 
