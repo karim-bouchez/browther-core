@@ -394,6 +394,12 @@ extension BrowserViewController: TopToolbarDelegate {
   }
 
   func topToolbarDidTapSawtunaaButton(_ topToolbar: TopToolbarView) {
+    // Compte à rebours « 2 min » en cours : l'icône revient tout de suite à
+    // l'état d'avant, sans ouvrir le panneau (maquette validée 2026-10-01).
+    if SawtunaaTemporarySwitch.shared.isActive {
+      SawtunaaTemporarySwitch.shared.revertNow()
+      return
+    }
     let panel = SawtunaaPanelViewController(reportDomain: reportableDomain)
     let popover = PopoverController(
       contentController: panel,

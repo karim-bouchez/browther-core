@@ -26,5 +26,20 @@ extension Preferences {
       key: "sawtunaa.enabled",
       default: false
     )
+
+    /// Retour automatique « 2 min » en cours (`SawtunaaTemporarySwitch`) :
+    /// instant du retour (secondes depuis 1970), 0 = aucun. Enregistré pour
+    /// qu'une app fermée pendant le compte à rebours retrouve, au lancement
+    /// suivant, l'état d'avant au lieu de garder pour toujours l'état
+    /// temporaire.
+    public static let temporaryRevertAt = Option<Double>(
+      key: "sawtunaa.temporary-revert-at",
+      default: 0
+    )
+    /// État rétabli au retour automatique.
+    public static let temporaryRevertTo = Option<Bool>(
+      key: "sawtunaa.temporary-revert-to",
+      default: false
+    )
   }
 }

@@ -339,6 +339,7 @@ class TopToolbarView: UIView, ToolbarProtocol {
   }()
 
   private weak var sawtunaaBadge: UIView?
+  private var sawtunaaCountdownSubscriptions = Set<AnyCancellable>()
   private weak var basarunaaBadge: UIView?
 
   private func makeBrowtherFeatureButton(
@@ -384,7 +385,22 @@ class TopToolbarView: UIView, ToolbarProtocol {
     return button.statusBadge
   }
 
+  /// L'anneau prend la couleur de l'état ACTUEL (rouge coupé, ambre/vert
+  /// allumé) ; l'aide d'accessibilité dit qu'un appui revient tout de suite.
+  private func updateSawtunaaCountdown(revertAt: Date?) {
+    guard let button = sawtunaaButton as? BrowtherBadgedToolbarButton else { return }
+    button.setCountdown(
+      remaining: revertAt?.timeIntervalSinceNow,
+      total: SawtunaaTemporarySwitch.duration,
+      color: featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
+    )
+    button.accessibilityHint = revertAt == nil ? nil : Strings.Browther.sawtunaaTempIconHint
+  }
+
   fileprivate func updateBrowtherFeatureButtons() {
+    if SawtunaaTemporarySwitch.shared.isActive {
+      updateSawtunaaCountdown(revertAt: SawtunaaTemporarySwitch.shared.revertAt)
+    }
     sawtunaaBadge?.backgroundColor =
       featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
     basarunaaBadge?.backgroundColor =
@@ -516,6 +532,17 @@ class TopToolbarView: UIView, ToolbarProtocol {
     Preferences.Sawtunaa.enabled.observe(from: self)
     Preferences.Basarunaa.enabled.observe(from: self)
     updateBrowtherFeatureButtons()
+    // Anneau du compte à rebours « 2 min » : `$revertAt` émet AVANT l'écriture,
+    // d'où la valeur passée explicitement. Au retour au premier plan, on
+    // relance l'animation sur le temps réellement restant.
+    SawtunaaTemporarySwitch.shared.$revertAt
+      .sink { [weak self] revertAt in self?.updateSawtunaaCountdown(revertAt: revertAt) }
+      .store(in: &sawtunaaCountdownSubscriptions)
+    NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+      .sink { [weak self] _ in
+        self?.updateSawtunaaCountdown(revertAt: SawtunaaTemporarySwitch.shared.revertAt)
+      }
+      .store(in: &sawtunaaCountdownSubscriptions)
 
     [
       leadingItemsStackView, locationContainer, shieldsRewardsStack, trailingItemsStackView,

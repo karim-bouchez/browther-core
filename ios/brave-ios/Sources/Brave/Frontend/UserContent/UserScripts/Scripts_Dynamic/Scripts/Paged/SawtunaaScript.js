@@ -281,6 +281,67 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     return { packets: packets, startTimeMs: startTimeMs };
   }
 
+  // ─── Veille / activation (2026-10-01) ───
+  // Le script est injecté sur TOUTES les pages, Sawtunaa allumé ou non : il
+  // doit être en place AVANT que la page crée son MediaSource, sinon rien
+  // n'est interceptable sans recharger (et recharger renvoie la vidéo à 0).
+  // Éteint (`enabled === false`) = VEILLE : on ne fait que garder une copie
+  // de l'audio Opus COMPRESSÉ (`standby*`, quelques centaines de Ko), sans
+  // décodage, sans NSNet2, sans couper le son. À l'allumage
+  // (`__sawtunaaSetEnabled(true)`, appelé par le natif), on décode cette copie
+  // à partir de la position courante. L'état initial est gravé à l'injection
+  // (variante du WKUserScript) pour qu'une page chargée Sawtunaa allumé ne
+  // laisse jamais passer la musique en attendant une réponse du natif.
+  var enabled = $<sawtunaa_enabled>;
+  // Dernier segment d'init (en-tête Opus) et segments médias analysés
+  // (paquets compressés + horodatage), dans l'ordre d'arrivée.
+  var standbyInit = null;
+  var standbySegments = [];
+  var standbyBytes = 0;
+  var STANDBY_BEHIND_MS = 10000;          // gardé derrière la lecture
+  var STANDBY_MAX_BYTES = 4 * 1024 * 1024; // filet (YouTube : ~20 Ko/s)
+  // Incrémenté à chaque (dés)activation : un décodeur dont le `ready` arrive
+  // après une extinction ne doit rien relancer.
+  var decoderGeneration = 0;
+
+  function segmentBytes(parsed) {
+    var n = 0;
+    for (var i = 0; i < parsed.packets.length; i++) n += parsed.packets[i].byteLength;
+    return n;
+  }
+
+  function standbyStore(parsed) {
+    if (parsed.packets.length === 0 || parsed.startTimeMs < 0
+        || !isFinite(parsed.startTimeMs) || parsed.startTimeMs > 24 * 3600 * 1000) return;
+    parsed.endTimeMs = parsed.startTimeMs + parsed.packets.length * 20;
+    parsed.bytes = segmentBytes(parsed);
+    standbySegments.push(parsed);
+    standbyBytes += parsed.bytes;
+    var v = document.querySelector('video');
+    var oldest = v ? v.currentTime * 1000 - STANDBY_BEHIND_MS : -Infinity;
+    standbySegments = standbySegments.filter(function(s) {
+      var keep = s.endTimeMs >= oldest;
+      if (!keep) standbyBytes -= s.bytes;
+      return keep;
+    });
+    while (standbyBytes > STANDBY_MAX_BYTES && standbySegments.length > 1) {
+      standbyBytes -= standbySegments.shift().bytes;
+    }
+  }
+
+  function standbyEvict(startMs, endMs) {
+    standbySegments = standbySegments.filter(function(s) {
+      var keep = s.endTimeMs <= startMs || s.startTimeMs >= endMs;
+      if (!keep) standbyBytes -= s.bytes;
+      return keep;
+    });
+  }
+
+  function standbyClear() {
+    standbySegments = [];
+    standbyBytes = 0;
+  }
+
   // ─── State ───
   var audioBuffers = [];
   var initInfo = null;
@@ -381,10 +442,16 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     return nativeVolDesc && nativeVolDesc.get ? nativeVolDesc.get.call(v) : v.volume;
   }
 
+  // Vidéos actuellement coupées par nous : à l'extinction, on leur rend leur
+  // son d'avant (`__sawtunaa_saved`), pas un `volume = 1` arbitraire.
+  var mutedVideos = [];
+
   function forceMuteVideo(v) {
     if (!v) return;
-    if (v.__sawtunaa_mute_listener) return;
-    v.__sawtunaa_mute_listener = true;
+    if (v.__sawtunaa_muting) return;
+    v.__sawtunaa_muting = true;
+    v.__sawtunaa_saved = { muted: nativeGetMuted(v), volume: nativeGetVolume(v) };
+    mutedVideos.push(v);
 
     // Apply mute via native setter first.
     nativeSetMuted(v, true);
@@ -426,10 +493,17 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     // fullscreen — it re-mutes via the native prototype setter every time
     // an iOS-internal change happens. We detach on exit so the listener
     // doesn't disturb YouTube's UI logic in normal mode.
+    // Écouteurs plein écran posés UNE fois par élément : la coupure peut être
+    // levée puis remise (veille ↔ actif), ils consultent `__sawtunaa_muting`.
+    if (v.__sawtunaa_fs_hooked) {
+      LOG('Video mute enforcer attached');
+      return;
+    }
+    v.__sawtunaa_fs_hooked = true;
     var fsVolumeListener = null;
     v.addEventListener('webkitbeginfullscreen', function() {
       metric('fullscreen_begin', { video_ms: Math.round(v.currentTime * 1000) });
-      if (fsVolumeListener) return;
+      if (fsVolumeListener || !v.__sawtunaa_muting) return;
       // Listener in CAPTURE phase + stopImmediatePropagation: hides the
       // volumechange events from YouTube's own listeners. Without this,
       // YouTube sees its volume sets being silently reverted and switches
@@ -437,6 +511,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       // fullscreen exit. With stopImmediatePropagation, YouTube never sees
       // the parasitic events — its UI logic stays consistent.
       fsVolumeListener = function(e) {
+        if (!v.__sawtunaa_muting) return;
         e.stopImmediatePropagation();
         if (nativeGetMuted(v) !== true) nativeSetMuted(v, true);
         if (nativeGetVolume(v) !== 0) nativeSetVolume(v, 0);
@@ -450,6 +525,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         fsVolumeListener = null;
       }
       // Final re-mute (no listener active anymore — defineProperty resumes).
+      if (!v.__sawtunaa_muting) return;
       nativeSetMuted(v, true);
       nativeSetVolume(v, 0);
     });
@@ -457,9 +533,24 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     LOG('Video mute enforcer attached');
   }
 
+  // Rend à chaque vidéo coupée son son d'avant : retire les accesseurs posés
+  // sur l'instance (on retombe sur ceux du prototype) puis remet les valeurs
+  // relevées au moment de la coupure.
+  function restoreVideoAudio() {
+    for (var i = 0; i < mutedVideos.length; i++) {
+      var v = mutedVideos[i];
+      v.__sawtunaa_muting = false;
+      try { delete v.muted; delete v.volume; } catch(e) {}
+      var saved = v.__sawtunaa_saved || { muted: false, volume: 1 };
+      nativeSetVolume(v, saved.volume);
+      nativeSetMuted(v, saved.muted);
+    }
+    mutedVideos = [];
+  }
+
   // ─── Auto-activate: mute video, start scheduler ───
   function autoActivate() {
-    if (isActive) return;
+    if (isActive || !enabled) return;
     isActive = true;
     var v = document.querySelector('video');
     forceMuteVideo(v);
@@ -473,9 +564,9 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   // ─── Early activation watcher ───
   var earlyActivationInterval = null;
   function startEarlyActivationWatcher() {
-    if (earlyActivationInterval || isActive) return;
+    if (earlyActivationInterval || isActive || !enabled) return;
     earlyActivationInterval = setInterval(function() {
-      if (isActive) {
+      if (isActive || !enabled) {
         clearInterval(earlyActivationInterval);
         earlyActivationInterval = null;
         return;
@@ -503,19 +594,31 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   // audio at all (we never get a re-delivery to refill our cache).
   var lastInitSegDuration = -1;
 
-  // ─── Init decoder from init segment ───
-  function onInitSegment(buf) {
+  // ─── Init segment : vu dans tous les modes (veille comprise) ───
+  // Détecte un changement de contenu (cf. ci-dessus) et garde l'en-tête pour
+  // pouvoir démarrer un décodeur plus tard, à l'allumage.
+  function noteInitSegment(buf) {
     var v = document.querySelector('video');
     var currentDuration = (v && isFinite(v.duration) && v.duration > 0)
       ? v.duration : -1;
     var prevDuration = lastInitSegDuration;
-    var contentChanged = false;
     if (prevDuration > 0 && currentDuration > 0
         && Math.abs(currentDuration - prevDuration) > 2) {
-      contentChanged = true;
+      metric('content_change_detected', {
+        prev_duration_s: Math.round(prevDuration),
+        new_duration_s: Math.round(currentDuration)
+      });
+      // L'audio gardé en veille appartient à l'ancien contenu.
+      standbyClear();
+      if (enabled) send('pageReset', 'duration_change');
     }
     if (currentDuration > 0) lastInitSegDuration = currentDuration;
+    standbyInit = buf.slice(0);
+  }
 
+  // ─── Init decoder from init segment ───
+  // Remet à zéro l'état de décodage et crée un décodeur Opus (actif seulement).
+  function onInitSegment(buf) {
     initInfo = parseInitSegment(buf);
     decoderInitializing = true;
     pendingSegments = [];
@@ -528,14 +631,6 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     pendingLen = 0;
     pendingStartMs = 0;
     pendingEndMs = 0;
-
-    if (contentChanged) {
-      metric('content_change_detected', {
-        prev_duration_s: Math.round(prevDuration),
-        new_duration_s: Math.round(currentDuration)
-      });
-      send('pageReset', 'duration_change');
-    }
 
     metric('init_segment', {
       channels: initInfo.channels,
@@ -557,34 +652,40 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       channelMappingTable: initInfo.channels === 2 ? [0, 1] : [0],
     });
 
+    var generation = decoderGeneration;
     var decoderStartedAt = performance.now();
     decoder.ready.then(function() {
+      if (generation !== decoderGeneration) {
+        freeDecoder(decoder);
+        return;
+      }
       opusDecoder = decoder;
       decoderInitializing = false;
       metric('decoder_ready', {
         load_ms: Math.round(performance.now() - decoderStartedAt),
         pending: pendingSegments.length
       });
-      for (var i = 0; i < pendingSegments.length; i++) {
-        onMediaSegment(pendingSegments[i]);
-      }
+      var pending = pendingSegments;
       pendingSegments = [];
+      for (var i = 0; i < pending.length; i++) {
+        decodeParsedSegment(pending[i]);
+      }
     }).catch(function(e) {
       decoderInitializing = false;
       metric('decoder_error', { msg: e.message });
     });
   }
 
+  function freeDecoder(d) {
+    try { if (d && typeof d.free === 'function') d.free(); } catch(e) {}
+  }
+
   // ─── Decode + send media segment ───
-  function onMediaSegment(buf) {
+  function decodeParsedSegment(parsed) {
     if (!opusDecoder) {
-      if (decoderInitializing) {
-        pendingSegments.push(buf.slice ? buf.slice(0) : new Uint8Array(buf).buffer);
-      }
+      if (decoderInitializing) pendingSegments.push(parsed);
       return;
     }
-
-    var parsed = parseMediaSegment(buf);
     if (parsed.packets.length === 0) return;
 
     var decodeStart = performance.now();
@@ -596,7 +697,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       metric('decode_done', {
         packets: parsed.packets.length,
         samples: result.samplesDecoded,
-        bytes: buf.byteLength,
+        bytes: parsed.bytes || segmentBytes(parsed),
         ts: parsed.startTimeMs,
         decode_ms: decodeMs,
         video_ms: vidNow ? Math.round(vidNow.currentTime * 1000) : -1
@@ -788,10 +889,19 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
           var bytes = (data instanceof ArrayBuffer) ? data :
                       (ArrayBuffer.isView(data) ? data.buffer.slice(
                           data.byteOffset, data.byteOffset + data.byteLength) : data);
-          if (isInitSeg(bytes)) {
-            onInitSegment(bytes);
-          } else {
-            onMediaSegment(bytes);
+          try {
+            if (isInitSeg(bytes)) {
+              noteInitSegment(bytes);
+              if (enabled) onInitSegment(bytes);
+            } else {
+              // Analysé une seule fois, gardé (copie compressée) dans tous les
+              // modes : c'est la source de l'allumage sans rechargement.
+              var parsed = parseMediaSegment(bytes);
+              standbyStore(parsed);
+              if (enabled) decodeParsedSegment(parsed);
+            }
+          } catch(e) {
+            metric('append_hook_error', { msg: e.message });
           }
         }
         return origAppend.call(this, data);
@@ -801,6 +911,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       if (origRemove) {
         proto.remove = function(start, end) {
           if (audioBuffers.indexOf(this) >= 0) {
+            standbyEvict(start * 1000, end * 1000);
             send('evictRange', Math.round(start * 1000) + '|' + Math.round(end * 1000));
             metric('sb_remove', { start_ms: Math.round(start * 1000), end_ms: Math.round(end * 1000) });
           }
@@ -856,13 +967,67 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   if (hasMS) patchMSE(MediaSource.prototype);
   if (hasMMS) patchMSE(ManagedMediaSource.prototype);
 
-  metric('mse_hooks_installed', {});
+  metric('mse_hooks_installed', { enabled: enabled });
+
+  // ─── Allumage / extinction en direct (appelé par le natif) ───
+  // ⛔ Aucun rechargement : la vidéo garde sa position.
+  // OFF : le son d'origine revient tout de suite et le lecteur natif s'arrête ;
+  //       la veille continue de garder l'audio compressé.
+  // ON  : le son de la vidéo est coupé tout de suite, puis l'audio gardé est
+  //       décodé à partir de la position courante (~1 s avant le son traité,
+  //       le temps du décodeur et du premier bloc NSNet2).
+  function setEnabled(on) {
+    on = !!on;
+    if (on === enabled) return;
+    enabled = on;
+    decoderGeneration++;
+    var v = document.querySelector('video');
+    var nowMs = v ? Math.round(v.currentTime * 1000) : -1;
+    metric(on ? 'live_enable' : 'live_disable', {
+      video_ms: nowMs,
+      standby_segments: standbySegments.length,
+      standby_kb: Math.round(standbyBytes / 1024),
+      has_init: !!standbyInit
+    });
+
+    if (!on) {
+      isActive = false;
+      if (schedulerInterval) { clearInterval(schedulerInterval); schedulerInterval = null; }
+      if (earlyActivationInterval) { clearInterval(earlyActivationInterval); earlyActivationInterval = null; }
+      restoreVideoAudio();
+      freeDecoder(opusDecoder);
+      opusDecoder = null;
+      decoderInitializing = false;
+      pendingSegments = [];
+      decodedSegments = [];
+      pendingLen = 0;
+      audioPaused = false;
+      lastVideoTimeMs = -1;
+      send('deactivate');
+      return;
+    }
+
+    send('activate');
+    // Couper tout de suite une vidéo qui joue : mieux vaut ~1 s de silence
+    // que ~1 s de musique juste après avoir demandé de l'enlever.
+    if (v && !v.paused) forceMuteVideo(v);
+    if (!standbyInit) return;  // rien encore : le prochain init segment démarrera tout
+    onInitSegment(standbyInit);
+    var fromMs = nowMs >= 0 ? nowMs - 500 : -Infinity;
+    standbySegments
+      .filter(function(seg) { return seg.endTimeMs > fromMs; })
+      .sort(function(a, b) { return a.startTimeMs - b.startTimeMs; })
+      .forEach(function(seg) { pendingSegments.push(seg); });
+    startEarlyActivationWatcher();
+  }
+  window.__sawtunaaSetEnabled = setEnabled;
 
   // Periodic video state polling. 2s is enough to catch state transitions
   // for diagnostics (paused, readyState changes); the engine_state poll on
   // the Swift side runs at 1Hz so we already have fine-grained sync data.
   // Going faster here just spams the log without adding signal.
   setInterval(function() {
+    if (!enabled) return;
     var v = document.querySelector('video');
     if (!v) return;
     var bufferedMs = -1;

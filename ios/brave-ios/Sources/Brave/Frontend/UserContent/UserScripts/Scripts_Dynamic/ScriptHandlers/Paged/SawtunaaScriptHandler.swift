@@ -26,38 +26,68 @@ class SawtunaaScriptHandler: TabContentScript {
   static let messageHandlerName = "\(scriptName)_\(messageUUID)"
   static let scriptSandbox: WKContentWorld = .page
 
-  static let userScript: WKUserScript? = {
+  /// Le script est injecté sur toutes les pages, Sawtunaa allumé ou non (en
+  /// veille quand il est éteint) : sans lui en place avant que la page crée
+  /// son MediaSource, l'allumer exigerait un rechargement, et la vidéo
+  /// repartirait de 0. Deux variantes figées selon l'état AU CHARGEMENT
+  /// (`$<sawtunaa_enabled>`) : une page chargée Sawtunaa allumé doit couper la
+  /// musique dès la première image, sans attendre un aller-retour natif. Les
+  /// bascules suivantes passent par `setEnabled(_:in:)`, en direct.
+  /// `UserScriptManager.loadScripts` relit cette propriété à chaque injection.
+  static var userScript: WKUserScript? {
+    Preferences.Sawtunaa.enabled.value ? userScriptOn : userScriptOff
+  }
+  private static let userScriptOn = makeUserScript(enabled: true)
+  private static let userScriptOff = makeUserScript(enabled: false)
+
+  private static func makeUserScript(enabled: Bool) -> WKUserScript? {
     // Load Opus decoder bundle first
     guard let opusSource = loadUserScript(named: "SawtunaaOpusDecoderBundle") else {
       return nil
     }
-    guard var script = loadUserScript(named: scriptName) else {
+    guard let script = loadUserScript(named: scriptName) else {
       return nil
     }
 
     // Prepend Opus decoder (must be available before MSE interception)
-    script = opusSource + "\n" + script
+    let source =
+      opusSource + "\n"
+      + script.replacingOccurrences(
+        of: "$<sawtunaa_enabled>", with: enabled ? "true" : "false")
 
     return WKUserScript(
       source: secureScript(
         handlerName: messageHandlerName,
         securityToken: scriptId,
-        script: script
+        script: source
       ),
       injectionTime: .atDocumentStart,
       forMainFrameOnly: true,
       in: scriptSandbox
     )
-  }()
+  }
+
+  /// Allume / éteint Sawtunaa sur la page DÉJÀ chargée, sans la recharger.
+  @MainActor
+  static func setEnabled(_ enabled: Bool, in tab: some TabState) {
+    Task { @MainActor in
+      _ = try? await tab.evaluateJavaScript(
+        functionName: "window.__sawtunaaSetEnabled",
+        args: [enabled],
+        contentWorld: scriptSandbox
+      )
+    }
+  }
 
   init() {
     SawtunaaMetric.reset()
     SawtunaaMetric.emit("handler_init", [:])
-    // Eager: create player + load NSNet2 model immediately, before any chunk arrives.
-    // Avoids dropping early chunks during the model load latency.
-    // ⚠️ Rien d'audio ici : ce handler existe sur chaque onglet, Sawtunaa allumé ou
-    // non. Le moteur audio n'est créé qu'au premier `playAt` (cf. `makeEngine()`).
-    ensureAudioPlayer()
+    // ⚠️ Ni lecteur ni modèle ici : ce handler existe sur CHAQUE onglet,
+    // Sawtunaa allumé ou non, et le modèle NSNet2 pèse ~25 Mo. Avant le
+    // 2026-10-01, il était chargé à la création de chaque onglet. Il l'est
+    // désormais à la première activation de l'onglet (`activate`, envoyé par
+    // le JS dès l'allumage, pendant que le décodeur Opus démarre), puis reste
+    // chargé pour que les bascules suivantes soient immédiates.
   }
 
   // MARK: - Lifecycle
@@ -105,6 +135,24 @@ class SawtunaaScriptHandler: TabContentScript {
     case "log":
       // Plain text log from JS
       SawtunaaMetric.emit("js_log", ["msg": data])
+
+    case "activate":
+      // Allumage en direct ou page chargée allumée : on lance le chargement du
+      // modèle en parallèle du décodage Opus côté JS.
+      ensureAudioPlayer()
+      SawtunaaMetric.emit("handler_live_activate", [:])
+
+    case "deactivate":
+      // Extinction en direct : le JS a déjà rendu le son à la vidéo. On vide
+      // le lecteur et on arrête le moteur (libère la sortie audio) ; le modèle
+      // reste chargé pour un rallumage immédiat.
+      audioPlayer?.clearChunks()
+      audioPlayer?.stop()
+      if isActive {
+        isActive = false
+        delegate?.sawtunaaDidDeactivate(tab: tab)
+      }
+      SawtunaaMetric.emit("handler_live_deactivate", [:])
 
     case "preprocess":
       ensureAudioPlayer()

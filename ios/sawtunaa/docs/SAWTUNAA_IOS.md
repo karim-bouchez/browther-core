@@ -132,6 +132,52 @@ YouTube envoie l'audio **en avance** (par bursts), on le **traite en avance auss
 > position : les blocs de la nouvelle étaient re-datés comme aberrants →
 > silence > 1 min. Les ±10 s (dans le tampon) n'étaient pas touchés.
 
+### Bascule sans rechargement + « seulement 2 min » (2026-10-01)
+
+Avant : chaque bascule de l'interrupteur rechargeait l'onglet (le script
+n'était injecté que Sawtunaa allumé, et il doit être en place AVANT que la
+page crée son MediaSource) → la vidéo repartait de 0.
+
+- **Script toujours injecté**, en deux variantes figées selon l'état AU
+  CHARGEMENT (`$<sawtunaa_enabled>`) : une page chargée allumée coupe la musique
+  dès la première image sans attendre le natif.
+- **Éteint = veille** : le hook `appendBuffer` analyse chaque segment Opus et
+  en garde la copie **compressée** (`standbySegments` : paquets + horodatage,
+  10 s derrière la lecture, plafond 4 Mo, miroir des `remove()`), sans
+  décodage, sans NSNet2, sans couper le son. Coût : quelques centaines de Ko.
+- **Allumage** (`window.__sawtunaaSetEnabled(true)`, appelé par
+  `SawtunaaScriptHandler.setEnabled(_:in:)` depuis l'observateur de la pref du
+  BVC) : la vidéo qui joue est coupée tout de suite, `activate` part au natif
+  (chargement du modèle en parallèle), un décodeur repart du dernier segment
+  d'init gardé, et les segments gardés à partir de `currentTime − 500 ms` sont
+  décodés puis envoyés comme d'habitude. Le natif s'ancre au premier `playAt`
+  (resync normal). Silence attendu ≈ 1 s (décodeur WASM + premier bloc NSNet2,
+  + chargement du modèle la toute première fois).
+- **Extinction** : timers arrêtés, son d'origine rendu à chaque vidéo coupée
+  avec ses valeurs d'avant (`__sawtunaa_saved`, plus de `volume = 1`
+  arbitraire), décodeur libéré (compteur de génération contre un `ready`
+  tardif), `deactivate` → le natif vide le lecteur et arrête le moteur. Le
+  modèle reste chargé (rallumage immédiat).
+- **Modèle NSNet2 chargé à la première activation de l'onglet**, plus à la
+  création de chaque onglet (~25 Mo + session ORT par onglet auparavant, même
+  Sawtunaa éteint).
+- La bonne variante est ré-injectée pour les PROCHAINS chargements (`setScripts`
+  OFF puis ON, même geste que Basarunaa « Floutage actif »).
+
+**« Seulement 2 min »** (`Brave/Frontend/Browther/SawtunaaTemporarySwitch.swift`,
+maquette validée par Karim) : juste après une bascule, le panneau propose
+« Réactiver automatiquement dans 2 min » ou « Couper automatiquement dans
+2 min » (jusqu'à la fermeture du panneau). Accepté : ligne de compte à rebours
++ « Ne pas réactiver / Ne pas couper », anneau qui se vide sur le bouton rond
+de l'interrupteur et autour de l'icône de la barre d'adresse (Core Animation,
+aucun travail par image). Revenir plus tôt = rebasculer l'interrupteur, ou
+toucher l'icône (sans ouvrir le panneau). Tout le navigateur ; échéance
+enregistrée (`Preferences.Sawtunaa.temporaryRevertAt/To`) → app fermée pendant
+le compte à rebours = état d'avant au lancement suivant. Pas de rallumage
+pendant la pause du parrainage. Events PostHog : `feature_temporary`,
+`feature_temporary_end` (`reason` = timer/icon/toggle/keep/relaunch).
+Chaînes : `private/assets/sawtunaa-temporary-strings.json` (8 × 66 langues).
+
 ### Seek lointain : file NSNet2 prioritaire (2026-10-01)
 
 Mesuré sur iPhone 13 (capture `devicectl --console`) : NSNet2 ≈ **290 ms par

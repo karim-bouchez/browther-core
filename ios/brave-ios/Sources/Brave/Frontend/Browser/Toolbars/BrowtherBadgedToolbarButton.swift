@@ -25,12 +25,53 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
   /// sans revoir macOS *et* l'introduction : les trois doivent rendre pareil.
   private static let badgeRatio: CGFloat = 0.4
 
+  /// Compte à rebours « 2 min » de Sawtunaa : un anneau autour de l'icône qui
+  /// se vide, à la place du dot (cf. `SawtunaaTemporarySwitch`). Animé par
+  /// Core Animation sur toute la durée restante : aucun travail par image.
+  private let countdownTrack = CAShapeLayer()
+  private let countdownRing = CAShapeLayer()
+  private var countdownActive = false
+
   override init() {
     super.init()
     statusBadge.isUserInteractionEnabled = false
     statusBadge.layer.borderWidth = 1
     statusBadge.layer.borderColor = UIColor.white.cgColor
     addSubview(statusBadge)
+    for ring in [countdownTrack, countdownRing] {
+      ring.fillColor = nil
+      ring.lineWidth = 2
+      ring.lineCap = .round
+      ring.isHidden = true
+      layer.addSublayer(ring)
+    }
+    countdownTrack.strokeColor = UIColor.systemGray3.cgColor
+  }
+
+  /// `remaining` nil ou ≤ 0 : retour au dot.
+  func setCountdown(remaining: TimeInterval?, total: TimeInterval, color: UIColor) {
+    countdownRing.removeAnimation(forKey: "countdown")
+    guard let remaining, remaining > 0, total > 0 else {
+      countdownActive = false
+      countdownTrack.isHidden = true
+      countdownRing.isHidden = true
+      setNeedsLayout()
+      return
+    }
+    countdownActive = true
+    countdownTrack.isHidden = false
+    countdownRing.isHidden = false
+    countdownRing.strokeColor = color.cgColor
+    CATransaction.begin()
+    CATransaction.setDisableActions(true)
+    countdownRing.strokeEnd = 0
+    CATransaction.commit()
+    let animation = CABasicAnimation(keyPath: "strokeEnd")
+    animation.fromValue = min(1, remaining / total)
+    animation.toValue = 0
+    animation.duration = remaining
+    countdownRing.add(animation, forKey: "countdown")
+    setNeedsLayout()
   }
 
   override func layoutSubviews() {
@@ -39,7 +80,17 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
       statusBadge.isHidden = true
       return
     }
-    statusBadge.isHidden = false
+    statusBadge.isHidden = countdownActive
+    let radius = max(iconFrame.width, iconFrame.height) / 2 + 4
+    let ring = UIBezierPath(
+      arcCenter: CGPoint(x: iconFrame.midX, y: iconFrame.midY),
+      radius: radius,
+      startAngle: -.pi / 2,
+      endAngle: 1.5 * .pi,
+      clockwise: true
+    ).cgPath
+    countdownTrack.path = ring
+    countdownRing.path = ring
     let side = (iconFrame.width * Self.badgeRatio).rounded()
     statusBadge.frame = CGRect(
       x: iconFrame.maxX - side,

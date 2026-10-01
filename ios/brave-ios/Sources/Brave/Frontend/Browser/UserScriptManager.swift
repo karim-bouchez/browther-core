@@ -359,6 +359,11 @@ class UserScriptManager {
           scriptController.addUserScript(script)
           return
         }
+        // Browther: idem Sawtunaa, variante « allumé / éteint au chargement ».
+        if $0.key == .sawtunaa, let script = SawtunaaScriptHandler.userScript {
+          scriptController.addUserScript(script)
+          return
+        }
         scriptController.addUserScript($0.value)
       }
     }

@@ -213,6 +213,12 @@ struct SawtunaaPanelView: View {
 
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
   @ObservedObject private var referral = BrowtherReferralController.shared
+  /// Retour automatique « 2 min » (cf. `SawtunaaTemporarySwitch`).
+  @ObservedObject private var temporary = SawtunaaTemporarySwitch.shared
+  /// L'utilisateur vient de basculer dans CE panneau ouvert : on lui propose
+  /// le retour automatique. Disparaît à la fermeture (état du panneau, pas
+  /// réglage) — à la réouverture, la bascule est simplement durable.
+  @State private var offered = false
   /// La porte des écrans du parrainage (§ 13.8 de `docs/PARRAINAGE.md`).
   @Environment(\.referralNote) private var note
   @State private var showLimitations = false
@@ -247,7 +253,12 @@ struct SawtunaaPanelView: View {
             {
               return
             }
+            // Une bascule pendant le compte à rebours = revenir tout de suite :
+            // elle rejoint l'état d'avant, le retour est annulé tout seul
+            // (`SawtunaaTemporarySwitch`), et on ne repropose rien.
+            let wasTemporary = temporary.isActive
             enabled.value = newValue
+            offered = !wasTemporary
             BrowtherAnalyticsService.shared.track(
               event: "feature_toggled",
               properties: ["feature": "sawtunaa", "enabled": newValue]
@@ -260,6 +271,12 @@ struct SawtunaaPanelView: View {
         width: ShieldsSwitch.size.width,
         height: ShieldsSwitch.size.height
       )
+      .overlay {
+        if temporary.isActive {
+          TemporaryKnobRing(isOn: enabled.value, temporary: temporary)
+            .allowsHitTesting(false)
+        }
+      }
       .opacity(paused ? 0.4 : 1)
       .allowsHitTesting(!paused)
       .overlay {
@@ -290,6 +307,36 @@ struct SawtunaaPanelView: View {
       .bold()
       .font(.footnote)
       .foregroundStyle(paused ? ReferralPalette.gold : Color(.braveLabel))
+
+      if !paused {
+        if temporary.isActive {
+          TemporaryCountdownRow(isOn: enabled.value, temporary: temporary)
+        } else if offered {
+          Button {
+            temporary.start()
+            offered = false
+          } label: {
+            Label(
+              enabled.value
+                ? Strings.Browther.sawtunaaTempOfferDisable
+                : Strings.Browther.sawtunaaTempOfferReenable,
+              systemImage: "timer"
+            )
+            .font(.callout.weight(.semibold))
+            .foregroundStyle(Color(.braveLabel))
+            .padding(.vertical, 11)
+            .padding(.horizontal, 12)
+            .frame(maxWidth: .infinity)
+            .background(
+              RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color(.secondaryBraveBackground))
+            )
+            .contentShape(Rectangle())
+          }
+          .buttonStyle(.plain)
+          .padding(.horizontal)
+        }
+      }
 
       if paused {
         Text(Strings.BrowtherReferral.lockedMusicRemoval)
@@ -364,6 +411,8 @@ struct SawtunaaPanelView: View {
     .background(Color(.braveBackground))
     .onChange(of: enabled.value) { onLayoutChange() }
     .onChange(of: paused) { onLayoutChange() }
+    .onChange(of: temporary.revertAt) { onLayoutChange() }
+    .onChange(of: offered) { onLayoutChange() }
     .alert(Strings.Browther.sawtunaaLimitationsTitle, isPresented: $showLimitations) {
       Button("OK", role: .cancel) {}
     } message: {
@@ -386,6 +435,85 @@ struct SawtunaaPanelView: View {
     }
     .frame(minWidth: .zero, alignment: .center)
     .padding(.horizontal)
+  }
+}
+
+/// Couleur de l'état ACTUEL pendant le compte à rebours : rouge = coupé,
+/// ambre = allumé (même code que la pastille de la barre d'adresse).
+private func sawtunaaStateColor(isOn: Bool) -> Color {
+  isOn ? Color(red: 0xF5 / 255, green: 0x9E / 255, blue: 0x0B / 255) : Color(.systemRed)
+}
+
+/// « 1:42 ». Le temps vit À CÔTÉ du libellé, jamais dedans : l'ordre des mots
+/// change d'une langue à l'autre, un nombre accolé ne marcherait pas partout.
+private func sawtunaaCountdownText(_ seconds: TimeInterval) -> String {
+  let s = Int(seconds.rounded(.up))
+  return String(format: "%d:%02d", s / 60, s % 60)
+}
+
+/// Ligne « Réactivation automatique · 1:42 · Ne pas réactiver ».
+private struct TemporaryCountdownRow: View {
+  let isOn: Bool
+  @ObservedObject var temporary: SawtunaaTemporarySwitch
+
+  var body: some View {
+    TimelineView(.periodic(from: .now, by: 1)) { context in
+      HStack(spacing: 8) {
+        Image(systemName: "timer")
+        Text(
+          isOn
+            ? Strings.Browther.sawtunaaTempCountdownDisable
+            : Strings.Browther.sawtunaaTempCountdownReenable
+        )
+        .fixedSize(horizontal: false, vertical: true)
+        Spacer(minLength: 4)
+        Text(sawtunaaCountdownText(temporary.remaining(at: context.date)))
+          .monospacedDigit()
+          .bold()
+        Button(isOn ? Strings.Browther.sawtunaaTempKeepOn : Strings.Browther.sawtunaaTempKeepOff) {
+          temporary.keep()
+        }
+        .font(.footnote.weight(.semibold))
+        .foregroundStyle(Color.accentColor)
+      }
+      .font(.footnote.weight(.medium))
+      .foregroundStyle(sawtunaaStateColor(isOn: isOn))
+      .padding(.vertical, 10)
+      .padding(.horizontal, 12)
+      .background(
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+          .fill(Color(.secondaryBraveBackground))
+      )
+      .padding(.horizontal)
+    }
+  }
+}
+
+/// Anneau qui se vide autour du bouton rond de l'interrupteur, avec une flèche
+/// de retour : l'interrupteur reviendra tout seul. Géométrie de `ShieldsSwitch`
+/// (100 × 60, marge 3, bouton de 54).
+private struct TemporaryKnobRing: View {
+  let isOn: Bool
+  @ObservedObject var temporary: SawtunaaTemporarySwitch
+
+  var body: some View {
+    let size = ShieldsSwitch.size
+    let knob = size.height - 6
+    TimelineView(.periodic(from: .now, by: 0.5)) { context in
+      let fraction = temporary.remaining(at: context.date) / SawtunaaTemporarySwitch.duration
+      ZStack {
+        Circle()
+          .trim(from: 0, to: fraction)
+          .stroke(sawtunaaStateColor(isOn: isOn), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+          .rotationEffect(.degrees(-90))
+          .animation(.linear(duration: 0.5), value: fraction)
+        Image(systemName: "arrow.uturn.backward")
+          .font(.system(size: 17, weight: .bold))
+          .foregroundStyle(Color(white: 0.45))
+      }
+      .frame(width: knob - 4, height: knob - 4)
+      .position(x: isOn ? size.width - 3 - knob / 2 : 3 + knob / 2, y: size.height / 2)
+    }
   }
 }
 

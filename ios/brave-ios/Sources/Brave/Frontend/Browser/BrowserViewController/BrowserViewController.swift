@@ -471,6 +471,9 @@ public class BrowserViewController: UIViewController {
     Preferences.Translate.translateEnabled.observe(from: self)
     // Browther: features URL bar live-toggle (cf. UserScriptManager)
     Preferences.Sawtunaa.enabled.observe(from: self)
+    // Reprend un retour automatique « 2 min » en cours, ou l'applique tout de
+    // suite si l'app était fermée à l'échéance.
+    _ = SawtunaaTemporarySwitch.shared
     Preferences.Basarunaa.enabled.observe(from: self)
     Preferences.Basarunaa.blurEnabled.observe(from: self)
     // Sans ces trois-là, la branche « collecte » de `preferencesDidChange` ne
@@ -2906,14 +2909,17 @@ extension BrowserViewController: PreferencesObserver {
         screenTimeViewController = nil
       }
     case Preferences.Sawtunaa.enabled.key:
-      // Browther: live-toggle Sawtunaa depuis le popover URL bar.
-      // Sans ça, le toggle n'a aucun effet jusqu'à un force-quit (cf. note
-      // `alwaysEnabledScripts` dans UserScriptManager).
+      // Browther: bascule Sawtunaa SANS recharger (2026-10-01 ; avant, la page
+      // rechargée renvoyait la vidéo à 0). Le script, toujours injecté, est
+      // allumé/éteint en direct sur chaque onglet ; OFF puis ON ré-injecte la
+      // bonne variante pour les PROCHAINS chargements (`setScripts` ignore un
+      // état inchangé).
       let isOn = Preferences.Sawtunaa.enabled.value
       tabManager.allTabs.forEach {
-        $0.browserData?.setScripts(scripts: [.sawtunaa: isOn])
+        $0.browserData?.setScripts(scripts: [.sawtunaa: false])
+        $0.browserData?.setScripts(scripts: [.sawtunaa: true])
+        SawtunaaScriptHandler.setEnabled(isOn, in: $0)
       }
-      tabManager.reloadSelectedTab()
     case Preferences.Basarunaa.enabled.key:
       // Browther: idem Sawtunaa.
       let isOn = Preferences.Basarunaa.enabled.value

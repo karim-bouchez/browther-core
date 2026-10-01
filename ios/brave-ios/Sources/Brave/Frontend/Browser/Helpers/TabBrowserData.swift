@@ -407,7 +407,9 @@ class TabBrowserData: NSObject, TabObserver {
       .braveTranslate: Preferences.Translate.translateEnabled.value != false,
       // Browther: tracés via userScripts pour permettre le live-toggle URL bar
       // sans force-quit (cf. note `alwaysEnabledScripts` dans UserScriptManager).
-      .sawtunaa: Preferences.Sawtunaa.enabled.value,
+      // Sawtunaa : TOUJOURS injecté (veille quand il est éteint) — c'est ce qui
+      // permet de l'allumer sans recharger (cf. SawtunaaScriptHandler.userScript).
+      .sawtunaa: true,
       .basarunaa: Preferences.Basarunaa.enabled.value,
     ]
 
