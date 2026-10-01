@@ -273,6 +273,11 @@
     var packets = [];
     var clusterTimestampMs = -1;
     var firstBlockRelativeTs = -1;
+    // Un 0xE7 n'est un horodatage de Cluster que juste après l'en-tête d'un
+    // Cluster : cherché n'importe où, il se trouvait aussi DANS les paquets
+    // Opus d'un morceau de segment sans en-tête (faux horodatages — constaté
+    // sur iPhone le 2026-10-01, même parseur ici).
+    var seenCluster = false;
     var pos = 0;
 
     while (pos < data.length - 4) {
@@ -301,8 +306,9 @@
                  data[pos+2] === 0xB6 && data[pos+3] === 0x75) {
         var csInfo = readVint(data, pos + 4);
         pos = pos + 4 + csInfo.length;
+        seenCluster = true;
         continue;
-      } else if (data[pos] === 0xE7 && pos + 1 < data.length) {
+      } else if (seenCluster && clusterTimestampMs < 0 && data[pos] === 0xE7 && pos + 1 < data.length) {
         var tsInfo = readVint(data, pos + 1);
         if (tsInfo.value <= 8 && pos + 1 + tsInfo.length + tsInfo.value <= data.length) {
           clusterTimestampMs = readUint(data, pos + 1 + tsInfo.length, tsInfo.value);
@@ -335,6 +341,27 @@
     var n = 0;
     for (var i = 0; i < parsed.packets.length; i++) n += parsed.packets[i].byteLength;
     return n;
+  }
+
+  // Fin (ms, temps de PRÉSENTATION) du dernier segment média ajouté.
+  var appendLastEndMs = -1;
+
+  // Date un segment en temps de présentation, dans tous les modes : applique
+  // le `timestampOffset` du SourceBuffer (règle MSE), et un morceau sans
+  // en-tête de Cluster (YouTube coupe des segments en plusieurs appendBuffer)
+  // prolonge le précédent — en veille, ces morceaux étaient JETÉS faute
+  // d'horodatage (trous à l'allumage, cf. iOS 2026-10-01).
+  function dateMediaSegment(parsed, sb) {
+    var offMs = Math.round(((sb && sb.timestampOffset) || 0) * 1000);
+    var raw = parsed.startTimeMs;
+    if (raw >= 0 && isFinite(raw)) {
+      parsed.startTimeMs = raw + offMs;
+    } else if (appendLastEndMs >= 0) {
+      parsed.startTimeMs = appendLastEndMs;
+    }
+    if (parsed.startTimeMs >= 0 && parsed.packets.length > 0) {
+      appendLastEndMs = parsed.startTimeMs + parsed.packets.length * 20;
+    }
   }
 
   function standbyStore(parsed) {
@@ -642,26 +669,33 @@
     var currentDuration = (v && isFinite(v.duration) && v.duration > 0)
       ? v.duration : -1;
     var prevDuration = lastInitSegDuration;
-    if (prevDuration > 0 && currentDuration > 0
-        && Math.abs(currentDuration - prevDuration) > 2) {
+    var contentChanged = prevDuration > 0 && currentDuration > 0
+        && Math.abs(currentDuration - prevDuration) > 2;
+    if (contentChanged) {
       metric('content_change_detected', {
         prev_duration_s: Math.round(prevDuration),
         new_duration_s: Math.round(currentDuration)
       });
       // L'audio gardé en veille appartient à l'ancien contenu.
       standbyClear();
+      appendLastEndMs = -1;
       if (enabled) send('pageReset', 'duration_change');
     }
     if (currentDuration > 0) lastInitSegDuration = currentDuration;
     standbyInit = buf.slice(0);
+    return contentChanged;
   }
 
   // ─── Init decoder from init segment ───
   // Remet à zéro l'état de décodage et crée un décodeur Opus (actif seulement).
-  function onInitSegment(buf) {
+  // `dropPending` : seulement si le contenu a changé. Un nouvel init du MÊME
+  // contenu (changement de format, fréquent en début de lecture) ne doit pas
+  // jeter l'audio gardé en veille remis en file à l'allumage (silence en début
+  // de vidéo, recette iOS 2026-10-01).
+  function onInitSegment(buf, dropPending) {
     initInfo = parseInitSegment(buf);
+    if (dropPending || !decoderInitializing) pendingSegments = [];
     decoderInitializing = true;
-    pendingSegments = [];
     decodedSegments = [];
     lastEstimatedEndMs = 0;
     opusDecoder = null;
@@ -906,12 +940,13 @@
                           data.byteOffset, data.byteOffset + data.byteLength) : data);
           try {
             if (isInitSeg(bytes)) {
-              noteInitSegment(bytes);
-              if (enabled) onInitSegment(bytes);
+              var changed = noteInitSegment(bytes);
+              if (enabled) onInitSegment(bytes, changed);
             } else {
               // Analysé une seule fois, gardé (copie compressée) dans tous les
               // modes : c'est la source de l'allumage sans rechargement.
               var parsed = parseMediaSegment(bytes);
+              dateMediaSegment(parsed, this);
               standbyStore(parsed);
               if (enabled) decodeParsedSegment(parsed);
             }
@@ -1030,7 +1065,7 @@
     // que de la musique juste après avoir demandé de l'enlever.
     if (v && !v.paused) forceMuteVideo(v);
     if (!standbyInit) return;  // rien encore : le prochain init segment démarrera tout
-    onInitSegment(standbyInit);
+    onInitSegment(standbyInit, true);
     var fromMs = nowMs >= 0 ? nowMs - 500 : -Infinity;
     standbySegments
       .filter(function(seg) { return seg.endTimeMs > fromMs; })
