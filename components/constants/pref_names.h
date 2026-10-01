@@ -76,6 +76,15 @@ inline constexpr char kSawtunaaEnabled[] = "brave.sawtunaa.enabled";
 // builds gardent la capture).
 inline constexpr char kSawtunaaNativeTapActive[] =
     "brave.sawtunaa.native_tap_active";
+// Browther: Sawtunaa « seulement 2 min » (desktop, 2026-10-01 —
+// SawtunaaTemporarySwitch) : échéance du retour automatique (base::Time nulle
+// = aucun) et état rétabli à l'échéance. Enregistrées pour qu'un navigateur
+// fermé pendant le compte à rebours retrouve, au lancement suivant, l'état
+// d'avant au lieu de garder pour toujours l'état temporaire.
+inline constexpr char kSawtunaaTempRevertAt[] =
+    "brave.sawtunaa.temp_revert_at";
+inline constexpr char kSawtunaaTempRevertTo[] =
+    "brave.sawtunaa.temp_revert_to";
 // Browther: Basarunaa (gender blur on images/videos)
 inline constexpr char kBasarunaaEnabled[] = "brave.basarunaa.enabled";
 // Action mode: "blur-female" (default), "blur-male", or "blur-all".

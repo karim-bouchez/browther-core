@@ -8,6 +8,9 @@
 #include <algorithm>
 
 #include "cc/paint/paint_flags.h"
+#include "third_party/skia/include/core/SkPath.h"
+#include "third_party/skia/include/core/SkPathBuilder.h"
+#include "third_party/skia/include/core/SkRect.h"
 #include "ui/gfx/canvas.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rect_f.h"
@@ -24,8 +27,47 @@ BrowtherStatusDotImageSource::BrowtherStatusDotImageSource(
 
 BrowtherStatusDotImageSource::~BrowtherStatusDotImageSource() = default;
 
+void BrowtherStatusDotImageSource::PaintRing(gfx::Canvas* canvas) {
+  // Cercle centré sur l'icône, un peu plus large qu'elle, clampé au canvas.
+  constexpr float kStroke = 2.0f;
+  const float cx = size().width() / 2.0f;
+  const float cy = size().height() / 2.0f;
+  const float max_radius =
+      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f;
+  const float radius =
+      std::min(max_radius, content_image_size_ / 2.0f + 2.0f);
+  const SkRect oval =
+      SkRect::MakeLTRB(cx - radius, cy - radius, cx + radius, cy + radius);
+
+  cc::PaintFlags track;
+  track.setAntiAlias(true);
+  track.setStyle(cc::PaintFlags::kStroke_Style);
+  track.setStrokeWidth(kStroke);
+  track.setColor(SkColorSetA(dot_color_, 0x40));
+  canvas->DrawPath(SkPath::Oval(oval), track);
+
+  const float fraction = std::clamp(*ring_fraction_, 0.0f, 1.0f);
+  if (fraction <= 0.0f) {
+    return;
+  }
+  cc::PaintFlags ring = track;
+  ring.setColor(dot_color_);
+  ring.setStrokeCap(cc::PaintFlags::kRound_Cap);
+  // 360° pile ferait un ovale fermé ambigu pour addArc : on plafonne juste
+  // en dessous.
+  const SkPath arc =
+      SkPathBuilder()
+          .addArc(oval, -90.0f, std::min(359.9f, 360.0f * fraction))
+          .detach();
+  canvas->DrawPath(arc, ring);
+}
+
 void BrowtherStatusDotImageSource::PaintBadge(gfx::Canvas* canvas) {
   if (dot_color_ == SK_ColorTRANSPARENT) {
+    return;
+  }
+  if (ring_fraction_) {
+    PaintRing(canvas);
     return;
   }
 

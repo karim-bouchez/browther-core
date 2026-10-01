@@ -54,7 +54,15 @@ SawtunaaPanelUI::SawtunaaPanelUI(content::WebUI* web_ui)
       // spécifique à une feature, et la dupliquer coûterait 66 traductions
       // pour un texte identique.
       {"loading", IDS_BASARUNAA_PANEL_LOADING},
-      {"reloadHint", IDS_SAWTUNAA_POPUP_RELOAD_HINT},
+      // Sawtunaa « seulement 2 min » (2026-10-01). Le temps (« 1:42 ») est
+      // affiché À CÔTÉ du libellé, jamais dedans : l'ordre des mots change
+      // d'une langue à l'autre.
+      {"tempOfferReenable", IDS_SAWTUNAA_TEMP_OFFER_REENABLE},
+      {"tempOfferDisable", IDS_SAWTUNAA_TEMP_OFFER_DISABLE},
+      {"tempCountdownReenable", IDS_SAWTUNAA_TEMP_COUNTDOWN_REENABLE},
+      {"tempCountdownDisable", IDS_SAWTUNAA_TEMP_COUNTDOWN_DISABLE},
+      {"tempKeepOff", IDS_SAWTUNAA_TEMP_KEEP_OFF},
+      {"tempKeepOn", IDS_SAWTUNAA_TEMP_KEEP_ON},
       // Deux textes, pas un : sur kBlocked, dire « installez l'app » est FAUX
       // — la page ne joue pas ici, il faut d'abord l'ouvrir ailleurs.
       {"protectedHint", IDS_SAWTUNAA_POPUP_PROTECTED_HINT},

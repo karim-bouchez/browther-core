@@ -43,7 +43,8 @@ class SawtunaaPanelHandler : public sawtunaa::mojom::PanelHandler {
   void CloseUI() override;
   void GetState(GetStateCallback callback) override;
   void SetEnabled(bool enabled) override;
-  void ReloadActiveTab() override;
+  void StartTemporary() override;
+  void KeepTemporary() override;
   void OpenSawtunaaAppPage() override;
   void ReportSite(ReportSiteCallback callback) override;
   void OpenFollowChannel(sawtunaa::mojom::FollowChannel channel) override;
@@ -55,8 +56,6 @@ class SawtunaaPanelHandler : public sawtunaa::mojom::PanelHandler {
   // Onglet actif de cette fenêtre, ou nullptr.
   content::WebContents* GetActiveWebContents();
 
-  // « Un média joue dans l'onglet, le toggle ON n'aura d'effet qu'au reload ».
-  bool ShouldShowReloadHint();
   // Cause du badge ambre pour l'onglet actif, déjà gatée.
   sawtunaa::mojom::ProtectedContentState GetProtectedContentState();
 

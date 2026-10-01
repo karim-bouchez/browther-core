@@ -293,7 +293,66 @@
       outline: 2px solid rgba(245, 158, 11, 0.6);
       outline-offset: 2px;
     }
-    #reload-hint .amber-row { align-items: center; }
+
+    /* ── « Seulement 2 min » ─────────────────────────────────────────────
+       Couleur de l'état ACTUEL : rouge = coupé, ambre = allumé (accès
+       anticipé ; même code que le badge de la barre d'outils). */
+    .big-toggle { --temp-color: #EF4444; }
+    .big-toggle.on { --temp-color: #F59E0B; }
+    .knob-ring {
+      position: absolute; top: 4px; left: 4px;
+      width: 44px; height: 44px;
+      pointer-events: none;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .big-toggle.on .knob-ring { transform: translateX(44px); }
+    .knob-ring circle { fill: none; stroke-width: 3; }
+    .knob-ring-track { stroke: rgba(0, 0, 0, 0.12); }
+    .knob-ring-progress {
+      stroke: var(--temp-color);
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 22px 22px;
+      transition: stroke-dashoffset 1s linear;
+    }
+    .knob-ring-back {
+      fill: none; stroke: #777; stroke-width: 2.4;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .temp-icon {
+      width: 16px; height: 16px; flex: none;
+      fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round;
+    }
+    .temp-offer {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; margin: 4px 0 12px;
+      padding: 10px 12px; border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: inherit; font: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer;
+    }
+    .temp-offer:hover { background: rgba(255, 255, 255, 0.1); }
+    .temp-offer:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.5); }
+    .temp-row {
+      display: flex; align-items: center; gap: 8px;
+      margin: 4px 0 12px; padding: 9px 12px; border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 12.5px; font-weight: 600;
+    }
+    .temp-row.off { color: #F87171; }
+    .temp-row.on { color: #FBBF24; }
+    .temp-label { flex: 1; min-width: 0; }
+    .temp-time { font-variant-numeric: tabular-nums; font-weight: 700; }
+    .temp-keep {
+      border: none; background: none; padding: 2px 0 2px 4px;
+      color: var(--leo-color-text-interactive, #8fb3ff);
+      font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap;
+    }
+    .temp-keep:hover { text-decoration: underline; }
+    /* `display:flex` l'emporterait sur l'attribut ; et sur un <svg>, `hidden`
+       n'a aucun effet sans cette règle. */
+    .temp-offer[hidden], .temp-row[hidden], .knob-ring[hidden] { display: none; }
 
     /* Encadré « contenu protégé (DRM) ».
        ⚠️ PAS cliquable comme le hint reload : personne ne devine qu'on peut
@@ -391,9 +450,36 @@
     </div>
 
     <div class="toggle-wrap">
-      <button id="enabled-toggle" class="big-toggle" aria-label="Sawtunaa"></button>
+      <button id="enabled-toggle" class="big-toggle" aria-label="Sawtunaa">
+        <!-- « Seulement 2 min » : anneau qui se vide autour du bouton rond, et
+             flèche de retour — l'interrupteur reviendra tout seul. -->
+        <svg class="knob-ring" id="knob-ring" viewBox="0 0 44 44" aria-hidden="true" hidden>
+          <circle class="knob-ring-track" cx="22" cy="22" r="20.5"></circle>
+          <circle class="knob-ring-progress" id="knob-ring-progress" cx="22" cy="22" r="20.5"></circle>
+          <path class="knob-ring-back" d="M18.5 15.5 14 20l4.5 4.5M14.5 20H25a5 5 0 0 1 0 10h-3"></path>
+        </svg>
+      </button>
     </div>
     <div class="status" id="status">$i18n{loading}</div>
+
+    <!-- « Seulement 2 min » (2026-10-01, maquette validée par Karim) : juste
+         après une bascule, UNE proposition qui dit ce qu'elle fera ; une fois
+         acceptée, la ligne du compte à rebours. Le temps est à côté du
+         libellé, jamais dedans (ordre des mots variable selon la langue). -->
+    <button type="button" class="temp-offer" id="temp-offer" hidden>
+      <svg class="temp-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9 2h6"></path>
+      </svg>
+      <span id="temp-offer-text"></span>
+    </button>
+    <div class="temp-row" id="temp-row" hidden>
+      <svg class="temp-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9 2h6"></path>
+      </svg>
+      <span class="temp-label" id="temp-label"></span>
+      <span class="temp-time" id="temp-time"></span>
+      <button type="button" class="temp-keep" id="temp-keep"></button>
+    </div>
 
     <div class="desc" id="desc">
       $i18n{description}
@@ -404,17 +490,6 @@
          au-dessus (interrupteur verrouillé + « En pause »), il ne manque qu'une
          porte. Masquée le reste du temps. -->
     <button type="button" class="referral-cta" id="referral-cta" hidden></button>
-
-    <!-- Hint « recharge l'onglet » (masqué tant que non pertinent). -->
-    <button type="button" class="amber-box" id="reload-hint" hidden>
-      <span class="amber-row">
-        <!-- vector_icons::kReloadChromeRefreshIcon -->
-        <svg class="amber-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path>
-        </svg>
-        <span id="reload-hint-text">$i18n{reloadHint}</span>
-      </span>
-    </button>
 
     <!-- Encadré « contenu protégé (DRM) » (masqué tant que non pertinent).
          Répond à la question que l'utilisateur se pose en ouvrant la popup

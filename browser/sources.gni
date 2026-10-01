@@ -665,6 +665,11 @@ if (!is_android) {
     "//brave/browser/browther/referral/browther_referral_tab_helper.h",
     "//brave/browser/browther/referral/browther_referral_usage.cc",
     "//brave/browser/browther/referral/browther_referral_usage.h",
+
+    # [Browther] Sawtunaa « seulement 2 min » : vit ici (pas dans
+    # //brave/browser/sawtunaa) parce qu'il lit la pause du parrainage.
+    "//brave/browser/sawtunaa/sawtunaa_temporary_switch.cc",
+    "//brave/browser/sawtunaa/sawtunaa_temporary_switch.h",
   ]
   brave_chrome_browser_deps += [ "//components/os_crypt/async/browser" ]
 }

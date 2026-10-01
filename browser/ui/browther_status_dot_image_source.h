@@ -6,6 +6,8 @@
 #ifndef BRAVE_BROWSER_UI_BROWTHER_STATUS_DOT_IMAGE_SOURCE_H_
 #define BRAVE_BROWSER_UI_BROWTHER_STATUS_DOT_IMAGE_SOURCE_H_
 
+#include <optional>
+
 #include "chrome/browser/ui/extensions/icon_with_badge_image_source.h"
 #include "third_party/skia/include/core/SkColor.h"
 
@@ -42,12 +44,20 @@ class BrowtherStatusDotImageSource : public IconWithBadgeImageSource {
   ~BrowtherStatusDotImageSource() override;
 
   void SetDotColor(SkColor color) { dot_color_ = color; }
+  // Sawtunaa « seulement 2 min » : à la place du dot, un anneau autour de
+  // l'icône, rempli à |fraction| (1 → 0 au fil du compte à rebours), de la
+  // couleur du dot. nullopt = dot habituel.
+  void SetRingFraction(std::optional<float> fraction) {
+    ring_fraction_ = fraction;
+  }
 
  private:
   void PaintBadge(gfx::Canvas* canvas) override;
+  void PaintRing(gfx::Canvas* canvas);
 
   int content_image_size_;
   SkColor dot_color_ = SK_ColorTRANSPARENT;
+  std::optional<float> ring_fraction_;
 };
 
 }  // namespace browther

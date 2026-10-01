@@ -15,6 +15,7 @@
 #include "base/task/bind_post_task.h"
 #include "base/task/sequenced_task_runner.h"
 #include "content/public/renderer/render_frame.h"
+#include "media/renderers/audio_renderer_impl.h"
 #include "mojo/public/cpp/bindings/callback_helpers.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
 
@@ -46,7 +47,9 @@ void SawtunaaAudioTapClient::BindConfigReceiver(
 }
 
 void SawtunaaAudioTapClient::SetEnabled(bool enabled) {
-  pref_enabled_ = enabled;
+  // Drapeau de process lu par chaque flux audio (thread média) : allume ou
+  // éteint le traitement des lecteurs DÉJÀ créés, sans rechargement.
+  media::AudioRendererImpl::SetSawtunaaTapUserEnabled(enabled);
 }
 
 void SawtunaaAudioTapClient::OnDestruct() {

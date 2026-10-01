@@ -1,8 +1,8 @@
 diff --git a/media/renderers/audio_renderer_impl.h b/media/renderers/audio_renderer_impl.h
-index e060e59f2fe04..62e49bf6fabbb 100644
+index e060e59f2fe04..2160ce0c73baa 100644
 --- a/media/renderers/audio_renderer_impl.h
 +++ b/media/renderers/audio_renderer_impl.h
-@@ -119,6 +119,17 @@ class MEDIA_EXPORT AudioRendererImpl
+@@ -119,6 +119,26 @@ class MEDIA_EXPORT AudioRendererImpl
    void SetPlayDelayCBForTesting(PlayDelayCBForTesting cb);
    bool was_unmuted_for_testing() const { return was_unmuted_; }
  
@@ -10,17 +10,26 @@ index e060e59f2fe04..62e49bf6fabbb 100644
 +  // par RendererImplFactory AVANT Initialize (jamais ensuite — lus sans lock).
 +  // Gate 2 niveaux : la factory ne les pose que si l'embedder les a fournis
 +  // (switch --sawtunaa-audio-tap), ET ce renderer ne s'active que si son
-+  // propre switch est présent (sawtunaa_audio_tap_).
++  // propre switch est présent (sawtunaa_audio_tap_). Depuis le 2026-10-01 ils
++  // sont posés que l'utilisateur ait allumé Sawtunaa ou non : c'est
++  // SetSawtunaaTapUserEnabled (ci-dessous) qui dit, buffer par buffer, si le
++  // flux est traité — d'où l'allumage SANS rechargement.
 +  void SetSawtunaaAudioTap(SawtunaaAudioTapProcessCB process,
 +                           SawtunaaAudioTapControlCB control) {
 +    sawtunaa_tap_process_ = std::move(process);
 +    sawtunaa_tap_control_ = std::move(control);
 +  }
 +
++  // [Browther/Sawtunaa] Choix de l'utilisateur (pref `brave.sawtunaa.enabled`),
++  // poussé par l'embedder (SawtunaaAudioTapClient::SetEnabled, thread
++  // principal du renderer) et lu à CHAQUE buffer décodé (thread média). Un
++  // renderer ne sert qu'un profil : un drapeau de process suffit.
++  static void SetSawtunaaTapUserEnabled(bool enabled);
++
    void decoded_audio_ready_for_testing() {
      DecodedAudioReady(DecoderStatus::Codes::kFailed);
    }
-@@ -266,8 +277,57 @@ class MEDIA_EXPORT AudioRendererImpl
+@@ -266,8 +286,65 @@ class MEDIA_EXPORT AudioRendererImpl
    // AudioRendererAlgorithm::FrontTimestamp().
    base::TimeDelta CalculateClockAndAlgorithmDrift() const;
  
@@ -51,6 +60,14 @@ index e060e59f2fe04..62e49bf6fabbb 100644
 +  // Seek/flush pipeline : drop pending + invalide les réponses en vol +
 +  // reset du flux côté service.
 +  void SawtunaaResetOnFlush_Locked();
++  // [Browther/Sawtunaa] Bascule live : aligne |sawtunaa_user_on_| sur le
++  // drapeau de process. OFF → sortie du tap sans perte (drain des retenus une
++  // fois le batch en vol revenu) et retour au latency hint applicatif ; ON →
++  // nouveau départ (génération, reset GRU, timestamps) et hint 2 s.
++  void SawtunaaSyncUserEnabled_Locked();
++  // Marque l'EOS différé si plus rien n'est retenu ni en vol (sortie du tap
++  // par bypass ou extinction pendant un EOS).
++  void SawtunaaMaybeMarkDeferredEos_Locked();
 +  // Renvoie les buffers RETENUS tels quels dans |algorithm_| (passthrough) —
 +  // sortie du tap sans perte audio. Appelé quand le bypass s'active (service
 +  // qui décline ou contenu protégé), une fois l'éventuel batch en vol revenu
@@ -78,16 +95,27 @@ index e060e59f2fe04..62e49bf6fabbb 100644
    std::unique_ptr<AudioBufferConverter> buffer_converter_;
  
    // Whether or not we expect to handle config changes.
-@@ -417,6 +477,28 @@ class MEDIA_EXPORT AudioRendererImpl
+@@ -417,6 +494,39 @@ class MEDIA_EXPORT AudioRendererImpl
    // Render().
    PlayDelayCBForTesting play_delay_cb_for_testing_;
  
 +  // [Browther/Sawtunaa] audio tap V2 — état du flux async (tous sous lock_).
 +  // Tap actif pour CE flux (posé à Initialize : SawtunaaTapConfigured()).
 +  bool sawtunaa_tap_active_ = false;
-+  // Le service a refusé (rate non géré, modèle absent…) → passthrough
-+  // définitif du flux, plus aucune rétention.
++  // Le service a refusé (rate non géré, modèle absent…) ou contenu protégé →
++  // passthrough définitif du flux, plus aucune rétention (bypass DUR).
 +  bool sawtunaa_tap_bypass_ = false;
++  // L'utilisateur a Sawtunaa allumé pour ce flux (bypass DOUX, réversible) :
++  // suit SetSawtunaaTapUserEnabled. Éteint = buffers droit dans l'algorithme,
++  // comportement upstream (sauf le temps qu'un batch en vol revienne).
++  bool sawtunaa_user_on_ = false;
++  // Le flux a déjà envoyé au moins un batch : le service a un état à
++  // réinitialiser/détruire. Évite des appels de contrôle pour les flux jamais
++  // traités (Sawtunaa éteint).
++  bool sawtunaa_stream_touched_ = false;
++  // Latency hint demandé par l'application, mis de côté pendant que le tap
++  // impose ses 2 s (restauré à l'extinction).
++  std::optional<base::TimeDelta> sawtunaa_app_latency_hint_;
 +  // Buffers décodés retenus (originaux — servent au fallback passthrough).
 +  std::vector<scoped_refptr<AudioBuffer>> sawtunaa_pending_;
 +  int sawtunaa_pending_frames_ = 0;

@@ -8,6 +8,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "base/memory/raw_ref.h"
+#include "base/timer/timer.h"
 #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "components/prefs/pref_change_registrar.h"
 #include "ui/base/metadata/metadata_header_macros.h"
@@ -64,6 +65,10 @@ class SawtunaaActionView : public views::LabelButton,
   raw_ref<TabStripModel> tab_strip_model_;
   PrefChangeRegistrar pref_change_registrar_;
   raw_ptr<views::MenuButtonController> menu_button_controller_ = nullptr;
+  // Sawtunaa « seulement 2 min » : redessine l'anneau une fois par seconde
+  // tant que le compte à rebours tourne (rien à 30 fps : l'anneau d'une icône
+  // de 20 px ne gagne rien à être plus fluide).
+  base::RepeatingTimer countdown_timer_;
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_SAWTUNAA_ACTION_VIEW_H_

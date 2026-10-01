@@ -313,11 +313,9 @@ content::ContentRendererClient::SawtunaaAudioTap
 BraveContentRendererClient::GetSawtunaaAudioTap(
     content::RenderFrame* render_frame) {
   auto* client = sawtunaa::SawtunaaAudioTapClient::Get(render_frame);
-  // Décision LIVE par player : capacité native (switch, injecté sur
-  // kSawtunaaNativeTapActive seul) ET pref utilisateur courante (poussée par
-  // SawtunaaTabHelper via SawtunaaConfig). Toggle ON → effectif au prochain
-  // player (reload d'onglet suffit, même process) ; OFF → gate batch browser
-  // en plus (quasi-live).
+  // Capacité native seule (switch, injecté sur kSawtunaaNativeTapActive) :
+  // la pref utilisateur est appliquée en direct, buffer par buffer, dans
+  // AudioRendererImpl — allumer Sawtunaa ne demande plus de recharger.
   if (!client || !client->tap_enabled()) {
     return {};
   }

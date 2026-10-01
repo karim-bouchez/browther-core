@@ -46,8 +46,8 @@ interface PanelHandler {
   // État complet du panel en UN aller-retour (le panel se réhydrate à chaque
   // `visibilitychange`, autant ne pas empiler les promesses) :
   //  - enabled : pref `kSawtunaaEnabled` ;
-  //  - show_reload_hint : le tap natif est actif ET un média a déjà joué dans
-  //    l'onglet courant ⇒ le toggle ON ne prendra effet qu'au reload ;
+  //  - temp_active / temp_remaining_ms : retour automatique « seulement
+  //    2 min » en cours (SawtunaaTemporarySwitch) et temps restant ;
   //  - protected_state : déjà GATÉ côté browser (pref ON + tap natif actif +
   //    verdict DRM rendu). Le WebUI n'a donc aucune règle métier à connaître.
   //  - can_report_site / report_domain / analytics_off : « ça ne marche pas
@@ -61,7 +61,8 @@ interface PanelHandler {
   //    supplémentaire de Browther). Déjà résolu côté browser ; faux tant que
   //    l'annonce est dormante.
   GetState() => (bool enabled,
-                 bool show_reload_hint,
+                 bool temp_active,
+                 int32 temp_remaining_ms,
                  ProtectedContentState protected_state,
                  bool can_report_site,
                  string report_domain,
@@ -79,10 +80,13 @@ interface PanelHandler {
   // Écrit la pref `kSawtunaaEnabled` (+ télémétrie `feature_toggled`).
   SetEnabled(bool enabled);
 
-  // Recharge l'onglet actif : c'est ce qui rebranche le tap natif sur le média
-  // en cours (la décision se prend à la création du WebMediaPlayer). Ferme la
-  // bulle dans la foulée — son hint n'a plus lieu d'être.
-  ReloadActiveTab();
+  // « Seulement 2 min » : programme le retour automatique à l'état d'AVANT la
+  // bascule qui vient d'avoir lieu. (Le hint « Recharger l'onglet » a disparu
+  // le 2026-10-01 : le tap natif suit le toggle en direct, sans rechargement.)
+  StartTemporary();
+
+  // « Ne pas réactiver » / « Ne pas couper » : annule le retour automatique.
+  KeepTemporary();
 
   // Ouvre la page de l'app autonome Sawtunaa (seule voie qui reste sur du
   // DRM), puis ferme la bulle.

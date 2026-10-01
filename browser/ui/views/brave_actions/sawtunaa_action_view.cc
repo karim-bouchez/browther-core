@@ -12,6 +12,7 @@
 #include "base/functional/bind.h"
 #include "brave/app/brave_command_ids.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
+#include "brave/browser/sawtunaa/sawtunaa_temporary_switch.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/components/constants/browther_early_access.h"
@@ -95,9 +96,22 @@ SawtunaaActionView::SawtunaaActionView(
       kSawtunaaEnabled,
       base::BindRepeating(&SawtunaaActionView::UpdateIconState,
                           base::Unretained(this)));
+  // Compte à rebours « 2 min » : démarré, annulé ou échu.
+  pref_change_registrar_.Add(
+      kSawtunaaTempRevertAt,
+      base::BindRepeating(&SawtunaaActionView::UpdateIconState,
+                          base::Unretained(this)));
+  // Crée le contrôleur dès l'ouverture de la fenêtre : il reprend un retour
+  // automatique en cours, ou l'applique si le navigateur était fermé à
+  // l'échéance.
+  SawtunaaTemporarySwitch::GetForProfile(
+      browser_window_interface->GetProfile());
 }
 
 void SawtunaaActionView::OnButtonPressed(const ui::Event& event) {
+  // ⚠️ Même pendant le compte à rebours « 2 min », le clic OUVRE le panneau
+  // (recette iOS de Karim, 2026-10-01) : revenir tout de suite se fait en
+  // rebasculant l'interrupteur, pas par l'icône.
   // Browther: la popup est un panel WebUI depuis 2026-07-31 (parité avec
   // Basarunaa). Le SawtunaaPanelController ferme la bulle si elle est déjà
   // ouverte — c'est lui qui porte le comportement toggle.
@@ -180,6 +194,25 @@ void SawtunaaActionView::UpdateIconState() {
   const bool amber = kBrowtherEarlyAccess ? active : protected_here;
   image_source->SetDotColor(amber ? kBadgeAmber
                                   : (active ? kBadgeGreen : kBadgeRed));
+
+  // Sawtunaa « seulement 2 min » : anneau qui se vide, de la couleur de l'état
+  // ACTUEL, à la place du dot.
+  auto* temporary = SawtunaaTemporarySwitch::GetForProfile(
+      browser_window_interface_ ? browser_window_interface_->GetProfile()
+                                : nullptr);
+  const bool counting = temporary && temporary->IsActive();
+  if (counting) {
+    image_source->SetRingFraction(static_cast<float>(
+        temporary->Remaining() / SawtunaaTemporarySwitch::kDuration));
+    if (!countdown_timer_.IsRunning()) {
+      countdown_timer_.Start(
+          FROM_HERE, base::Seconds(1),
+          base::BindRepeating(&SawtunaaActionView::UpdateIconState,
+                              base::Unretained(this)));
+    }
+  } else {
+    countdown_timer_.Stop();
+  }
 
   const gfx::ImageSkia icon(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,

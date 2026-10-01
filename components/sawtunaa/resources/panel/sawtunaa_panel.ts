@@ -29,13 +29,23 @@ function notifyShowUI() {
 // browser : le WebUI n'en connaît aucune règle.
 let extrasPaused = false
 
+// « Seulement 2 min » : l'utilisateur vient de basculer dans CE panneau ouvert
+// (proposition visible jusqu'à sa fermeture) ; échéance locale du compte à
+// rebours (0 = aucun) ; état de la pref au dernier rafraîchissement.
+let tempOffered = false
+let tempDeadline = 0
+let lastEnabled = false
+let tempTimer: number | undefined
+
 async function refreshState() {
   try {
     const state = await api().getState()
     extrasPaused = state.extrasPaused
     setUIEnabled(state.enabled)
     setUIEarlyAccess(state.enabled)
-    setUIReloadHint(state.showReloadHint)
+    lastEnabled = state.enabled
+    tempDeadline = state.tempActive ? Date.now() + state.tempRemainingMs : 0
+    setUITemporary()
     setUIProtectedHint(state.protectedState)
     setUIReportSite(state.canReportSite, state.reportDomain, state.analyticsOff)
     setUIReferralPaused(state.pausedStatus, state.pausedBody, state.pausedCta)
@@ -123,14 +133,67 @@ function setUIEarlyAccess(enabled: boolean) {
   document.getElementById('enabled-toggle')?.classList.toggle('early', enabled)
 }
 
-// Sawtunaa V2 : le tap audio natif décide PAR PLAYER, à la création du
-// WebMediaPlayer. Activer Sawtunaa pendant qu'un média joue ne change donc rien
-// pour ce média-là tant que l'onglet n'est pas rechargé (OFF, lui, est
-// quasi-live). Le browser a déjà appliqué toutes les conditions (tap natif
-// actif, média ayant joué, pref ON) — ici on ne fait qu'afficher.
-function setUIReloadHint(visible: boolean) {
-  const box = document.getElementById('reload-hint')
-  if (box) box.hidden = !visible
+// « Seulement 2 min » (maquette validée par Karim le 2026-10-01, port de
+// BrowtherFeaturePanels.swift). L'interrupteur et l'état disent toujours l'état
+// ACTUEL ; ce bloc dit ce qui va se passer. Revenir plus tôt = rebasculer
+// l'interrupteur (le browser annule alors le retour).
+function setUITemporary() {
+  const offer = document.getElementById('temp-offer')
+  const offerText = document.getElementById('temp-offer-text')
+  const row = document.getElementById('temp-row')
+  const label = document.getElementById('temp-label')
+  const time = document.getElementById('temp-time')
+  const keep = document.getElementById('temp-keep')
+  const ring = document.getElementById('knob-ring')
+  const progress = document.getElementById('knob-ring-progress')
+  if (!offer || !offerText || !row || !label || !time || !keep || !ring ||
+      !progress) {
+    return
+  }
+  const remaining = Math.max(0, tempDeadline - Date.now())
+  const active = tempDeadline > 0 && !extrasPaused
+  offer.hidden = active || !tempOffered || extrasPaused
+  offerText.textContent = loadTimeData.getString(
+    lastEnabled ? 'tempOfferDisable' : 'tempOfferReenable')
+  row.hidden = !active
+  row.classList.toggle('on', lastEnabled)
+  row.classList.toggle('off', !lastEnabled)
+  label.textContent = loadTimeData.getString(
+    lastEnabled ? 'tempCountdownDisable' : 'tempCountdownReenable')
+  const seconds = Math.ceil(remaining / 1000)
+  time.textContent =
+    `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
+  keep.textContent = loadTimeData.getString(
+    lastEnabled ? 'tempKeepOn' : 'tempKeepOff')
+  // ⚠️ `hidden` n'est pas une propriété des éléments SVG : attribut.
+  ring.toggleAttribute('hidden', !active)
+  const circumference = 2 * Math.PI * 20.5
+  progress.setAttribute('stroke-dasharray', String(circumference))
+  progress.setAttribute('stroke-dashoffset',
+    String(circumference * (1 - remaining / 120000)))
+
+  if (active && tempTimer === undefined) {
+    tempTimer = window.setInterval(() => {
+      if (Date.now() >= tempDeadline) {
+        // Échéance : c'est le browser qui rebascule ; on relit son état.
+        stopTempTimer()
+        tempDeadline = 0
+        tempOffered = false
+        refreshState()
+        return
+      }
+      setUITemporary()
+    }, 1000)
+  } else if (!active) {
+    stopTempTimer()
+  }
+}
+
+function stopTempTimer() {
+  if (tempTimer !== undefined) {
+    window.clearInterval(tempTimer)
+    tempTimer = undefined
+  }
 }
 
 function setUIProtectedHint(state: number) {
@@ -157,6 +220,11 @@ function onVisibilityChange() {
   if (document.visibilityState === 'visible') {
     notifyShowUI()
     refreshState()
+  } else {
+    // Panneau fermé : la proposition « seulement 2 min » ne survit pas à la
+    // fermeture — rouvert, la bascule est simplement durable.
+    tempOffered = false
+    stopTempTimer()
   }
 }
 
@@ -180,6 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
       desc?.classList.add('blink')
       return
     }
+    // Une bascule pendant le compte à rebours = revenir tout de suite : le
+    // browser annule le retour, et on ne repropose rien.
+    tempOffered = tempDeadline === 0
     setUIEnabled(enabled)
     setUIEarlyAccess(enabled)
     try {
@@ -222,12 +293,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  document.getElementById('reload-hint')?.addEventListener('click', () => {
+  document.getElementById('temp-offer')?.addEventListener('click', () => {
+    tempOffered = false
     try {
-      api().reloadActiveTab()
+      api().startTemporary()
     } catch (err) {
-      console.error('[sawtunaa-panel] reloadActiveTab failed', err)
+      console.error('[sawtunaa-panel] startTemporary failed', err)
     }
+    refreshState()
+  })
+
+  document.getElementById('temp-keep')?.addEventListener('click', () => {
+    try {
+      api().keepTemporary()
+    } catch (err) {
+      console.error('[sawtunaa-panel] keepTemporary failed', err)
+    }
+    refreshState()
   })
 
   // Canaux de diffusion : l'ouverture passe par le browser — la WebContents de

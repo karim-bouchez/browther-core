@@ -438,6 +438,11 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kSawtunaaEnabled, false);  // Browther: Sawtunaa
   // Browther: Sawtunaa audio tap V2 (mise à jour au boot par la factory).
   registry->RegisterBooleanPref(kSawtunaaNativeTapActive, false);
+#if !BUILDFLAG(IS_ANDROID)
+  // Browther: Sawtunaa « seulement 2 min » (SawtunaaTemporarySwitch, desktop).
+  registry->RegisterTimePref(kSawtunaaTempRevertAt, base::Time());
+  registry->RegisterBooleanPref(kSawtunaaTempRevertTo, false);
+#endif
   // Browther : Basarunaa et Sawtunaa partent OFF (accès anticipé, 2026-09-09).
   // Elles marchent, mais pas partout et pas encore assez bien pour être le
   // comportement par défaut d'un navigateur qu'on distribue largement : une

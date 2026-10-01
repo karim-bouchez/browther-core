@@ -62,13 +62,14 @@ class SawtunaaAudioTapClient
   ProcessCB GetProcessCallback();
   ControlCB GetControlCallback();
 
-  // Décision LIVE par player (lue par GetSawtunaaAudioTap à CHAQUE création
-  // de WebMediaPlayer, main thread) : capacité native de ce build (switch
-  // --sawtunaa-audio-tap, injecté sur kSawtunaaNativeTapActive seul) ET pref
-  // utilisateur courante (poussée par SawtunaaTabHelper via SawtunaaConfig —
-  // toggle ON pris en compte au prochain player/reload, sans restart ; OFF
-  // live assuré en plus par le gate batch côté browser).
-  bool tap_enabled() const { return native_available_ && pref_enabled_; }
+  // Callbacks fournis à CHAQUE WebMediaPlayer dès que la capacité native est
+  // là (switch --sawtunaa-audio-tap, injecté sur kSawtunaaNativeTapActive
+  // seul), que l'utilisateur ait allumé Sawtunaa ou non : c'est ce qui permet
+  // de l'allumer SANS recharger (2026-10-01 ; avant, un lecteur créé éteint
+  // restait non traité jusqu'au rechargement, qui renvoyait la vidéo à 0). Le
+  // choix de l'utilisateur est appliqué buffer par buffer dans
+  // AudioRendererImpl (SetSawtunaaTapUserEnabled, poussé par SetEnabled).
+  bool tap_enabled() const { return native_available_; }
 
  private:
   // content::RenderFrameObserver:
@@ -97,11 +98,9 @@ class SawtunaaAudioTapClient
   mojo::Remote<mojom::AudioTapProcessor> processor_;
   mojo::AssociatedReceiverSet<mojom::SawtunaaConfig> config_receivers_;
 
-  // Capacité native du build (switch, immuable) / pref utilisateur (poussée,
-  // défaut false — le push du TabHelper arrive à RenderFrameCreated, bien
-  // avant tout media player).
+  // Capacité native du build (switch, immuable). La pref utilisateur, elle,
+  // part directement dans AudioRendererImpl (cf. SetEnabled).
   bool native_available_ = false;
-  bool pref_enabled_ = false;
 
   base::WeakPtrFactory<SawtunaaAudioTapClient> weak_factory_{this};
 };

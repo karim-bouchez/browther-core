@@ -16,7 +16,7 @@
 #include "brave/browser/ui/webui/browther_referral/browther_referral_dialog.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
-#include "brave/browser/sawtunaa/sawtunaa_audio_processor.h"
+#include "brave/browser/sawtunaa/sawtunaa_temporary_switch.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
@@ -25,14 +25,12 @@
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_commands.h"
 #include "chrome/browser/ui/browser_window/public/browser_window_interface.h"
-#include "chrome/browser/ui/recently_audible_helper.h"
 #include "chrome/browser/ui/singleton_tabs.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
 #include "chrome/browser/ui/webui/webui_embedding_context.h"
 #include "components/prefs/pref_service.h"
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_ui.h"
-#include "ui/base/window_open_disposition.h"
 #include "url/gurl.h"
 
 namespace {
@@ -85,33 +83,6 @@ void SawtunaaPanelHandler::CloseUI() {
   }
 }
 
-bool SawtunaaPanelHandler::ShouldShowReloadHint() {
-  // Uniquement pour le tap natif : ailleurs (Windows / anciens builds), c'est
-  // l'extension MV3 qui traite l'audio et elle prend le toggle en compte sans
-  // reload.
-  if (!profile_->GetPrefs()->GetBoolean(kSawtunaaNativeTapActive)) {
-    return false;
-  }
-  content::WebContents* web_contents = GetActiveWebContents();
-  if (!web_contents) {
-    return false;
-  }
-  // Le tap tourne DÉJÀ pour cette page (au moins un batch traité) : le
-  // WebMediaPlayer en place est bien tapé, un reload ne changerait rien.
-  // Sans ce test, le hint s'affichait dès qu'un média avait été audible — donc
-  // aussi quand la pref était déjà ON au chargement et que tout marchait
-  // (bug rapporté par Karim le 2026-08-09).
-  if (sawtunaa::SawtunaaAudioProcessor::HasTappedAudio(web_contents)) {
-    return false;
-  }
-  // « Un média joue dans l'onglet » : le helper de la tab strip retient aussi
-  // le média mis en pause (WasEverAudible) — son WebMediaPlayer existe déjà,
-  // donc lui aussi restera non tappé jusqu'au reload.
-  auto* audible = RecentlyAudibleHelper::FromWebContents(web_contents);
-  return audible ? audible->WasEverAudible()
-                 : web_contents->IsCurrentlyAudible();
-}
-
 sawtunaa::mojom::ProtectedContentState
 SawtunaaPanelHandler::GetProtectedContentState() {
   // Même gate que le badge ambre : sans tap natif (Windows aujourd'hui), c'est
@@ -138,12 +109,12 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
   const auto report =
       browther_analytics::GetSiteReportState(GetActiveWebContents());
   const auto protected_state = GetProtectedContentState();
-  // Contenu protégé : aucun batch ne passe non plus, mais recharger l'onglet
-  // n'y changerait RIEN — c'est l'encadré ambre qui dit la vérité. Le DRM
-  // gagne, sinon on afficherait deux messages dont un faux.
-  const bool show_reload_hint =
-      enabled && protected_state == sawtunaa::mojom::ProtectedContentState::kNone &&
-      ShouldShowReloadHint();
+  auto* temporary = SawtunaaTemporarySwitch::GetForProfile(profile_);
+  const bool temp_active = temporary && temporary->IsActive();
+  const int32_t temp_remaining_ms =
+      temp_active
+          ? static_cast<int32_t>(temporary->Remaining().InMilliseconds())
+          : 0;
   const bool extras_paused =
       browther_referral::IsMusicRemovalPaused(g_browser_process->local_state());
   // ⭐ Dire la pause DANS le panneau, avec SES propres surfaces (l'état sous
@@ -156,7 +127,8 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
                          : std::string();
   };
   std::move(callback).Run(
-      enabled, show_reload_hint, protected_state, report.can_report,
+      enabled, temp_active, temp_remaining_ms, protected_state,
+      report.can_report,
       report.domain, report.analytics_off, extras_paused,
       text(browther_referral::kPausedStatus),
       text(browther_referral::kPausedBody), text(browther_referral::kPausedCta));
@@ -184,17 +156,16 @@ void SawtunaaPanelHandler::SetEnabled(bool enabled) {
   }
 }
 
-void SawtunaaPanelHandler::ReloadActiveTab() {
-  auto* browser_window_interface = GetBrowserWindowInterface();
-  Browser* browser = browser_window_interface
-                         ? browser_window_interface->GetBrowserForMigrationOnly()
-                         : nullptr;
-  if (browser) {
-    chrome::Reload(browser, WindowOpenDisposition::CURRENT_TAB);
+void SawtunaaPanelHandler::StartTemporary() {
+  if (auto* temporary = SawtunaaTemporarySwitch::GetForProfile(profile_)) {
+    temporary->Start();
   }
-  // Fermée même si on n'a pas pu recharger : l'utilisateur a cliqué, laisser la
-  // bulle ouverte donnerait l'impression que le clic n'a pas été pris.
-  CloseUI();
+}
+
+void SawtunaaPanelHandler::KeepTemporary() {
+  if (auto* temporary = SawtunaaTemporarySwitch::GetForProfile(profile_)) {
+    temporary->Keep();
+  }
 }
 
 void SawtunaaPanelHandler::OpenSawtunaaAppPage() {
