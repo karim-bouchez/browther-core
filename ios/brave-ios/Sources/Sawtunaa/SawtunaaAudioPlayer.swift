@@ -385,41 +385,46 @@ public class SawtunaaAudioPlayer {
     [(samples: [Float], timestampMs: Double, epoch: UInt64, receivedAt: CFAbsoluteTime)] = []
   private var preprocessBusy = false
 
-  /// Choisit le PROCHAIN bloc à traiter : d'abord ceux qui sont devant la
-  /// lecture, dans l'ordre ; ceux qui sont derrière (utiles seulement pour un
-  /// retour en arrière) en dernier.
+  /// Choisit le PROCHAIN bloc à traiter : le premier DEVANT la lecture (ordre
+  /// croissant). Un bloc DERRIÈRE la lecture n'est PAS traité : il reste brut
+  /// en file, et ne redevient candidat que si la lecture repasse avant lui
+  /// (retour en arrière → `seekTo` relance la pompe).
   ///
   /// Pourquoi pas l'ordre d'arrivée : NSNet2 coûte ~290 ms par seconde d'audio
   /// sur iPhone 13 (1 thread) et YouTube charge ~35 s d'avance. Après un seek
   /// lointain, la file FIFO finissait d'abord l'audio de l'ANCIENNE position
   /// (24 blocs ≈ 7 s mesurées le 2026-10-01) — la nouvelle arrivait trop tard
   /// et était sautée : 5 à 10 s de silence.
+  ///
+  /// Pourquoi ne pas traiter « derrière » du tout (avant le 2026-10-01 : en
+  /// dernier) : c'était du CPU — donc de la chauffe — dépensé pour un audio
+  /// qu'on n'entendrait qu'en cas de retour en arrière, et qui, traité depuis
+  /// un NSNet2 remis à zéro, n'était pas meilleur que traité à la demande.
+  /// Pourquoi ne pas le JETER : un retour en arrière DANS le tampon YouTube ne
+  /// re-livre rien (cf. § Cache mirror) — jeté, ce serait du silence. Gardé
+  /// brut, il est traité au moment du retour (~0,3 s sur iPhone 13 pour le
+  /// premier bloc, la cible passant en tête de file).
   private func nextWorkIndex() -> Int? {
-    guard !pendingWork.isEmpty else { return nil }
     let playhead = lastVideoNowMs
     var best: Int?
-    for (i, w) in pendingWork.enumerated() {
-      let ahead = w.timestampMs + 1000 >= playhead
-      if let b = best {
-        let bAhead = pendingWork[b].timestampMs + 1000 >= playhead
-        if ahead != bAhead {
-          if ahead { best = i }
-        } else if ahead ? w.timestampMs < pendingWork[b].timestampMs
-          : w.timestampMs > pendingWork[b].timestampMs
-        {
-          best = i
-        }
-      } else {
-        best = i
-      }
+    for (i, w) in pendingWork.enumerated() where w.timestampMs + 1000 >= playhead {
+      if let b = best, pendingWork[b].timestampMs <= w.timestampMs { continue }
+      best = i
     }
     return best
   }
+
+  /// Plafond de l'audio brut gardé DERRIÈRE la lecture (≈ 384 Ko par seconde
+  /// stéréo) : au-delà d'un retour en arrière usuel (±10 s), YouTube a de
+  /// toute façon purgé son tampon et re-livrera.
+  private static let rawBehindKeepMs: Double = 30_000
 
   private func pumpPreprocess() {
     guard !preprocessBusy, let nsnet2 else { return }
     // Blocs d'une session précédente (pageReset / clearChunks) : jetés.
     pendingWork.removeAll { $0.epoch != epoch }
+    let oldest = lastVideoNowMs - Self.rawBehindKeepMs
+    pendingWork.removeAll { $0.timestampMs + 1000 < oldest }
     guard let idx = nextWorkIndex() else { return }
     let work = pendingWork.remove(at: idx)
     preprocessBusy = true
@@ -796,6 +801,9 @@ public class SawtunaaAudioPlayer {
     resync(reason: "seek")
     // Reset NSNet2 state (the GRU continuity is broken anyway by the seek)
     resetProcessor()
+    // Un retour en arrière remet devant la lecture des blocs restés bruts
+    // (cf. `nextWorkIndex`) : la file, peut-être à l'arrêt, doit repartir.
+    pumpPreprocess()
     let chunksAvailable = audioCache.filter {
       $0.timestampMs + $0.durationMs > toMs - 200
         && $0.timestampMs < toMs + Self.lookaheadMs

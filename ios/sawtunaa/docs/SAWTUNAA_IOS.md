@@ -139,7 +139,7 @@ seconde d'audio** (1 thread) et YouTube charge ~35 s d'avance. La file FIFO
 finissait l'audio de l'ANCIENNE position (24 blocs ≈ 7 s) avant d'attaquer la
 nouvelle, dont les premiers blocs, trop tardifs, étaient sautés → 5 à 10 s de
 silence. Désormais `pumpPreprocess()` choisit le prochain bloc : devant la
-lecture d'abord (ordre croissant), derrière en dernier ; un bloc qui ne
+lecture d'abord (ordre croissant), derrière jamais — gardés bruts, cf. § CPU / chauffe ; un bloc qui ne
 prolonge pas le précédent (recul, ou saut > 2 s) repart d'un NSNet2 remis à
 zéro. Un bloc traité pendant la lecture est planifié aussitôt (sans attendre
 le tick JS).
@@ -157,10 +157,40 @@ entre deux `run` (un par frame de 10,7 ms). Bench Mac du vrai
 `NSNet2Processor.swift` (60 s d'audio stéréo en blocs d'1 s) : **6,3 s CPU pour
 1,26 s de travail** → avec `intraOpNumThreads = 1` + `allow_spinning = 0`
 (= réglage macOS, `kOrtIntraOpThreads`) : **2,1 s CPU (−67 %)**, toujours 30×
-plus rapide que le temps réel, parité golden OK. Pistes restantes, non
-mesurées : `removeFirst(N_HOP)` sur les tableaux d'entrée (décalage O(n) par
-frame), allocations `Data`/`ORTValue` par frame, PCM float32 en base64 côté JS
-(~512 Ko/s de chaîne), tick JS à 30 ms.
+plus rapide que le temps réel, parité golden OK.
+
+**Suite du même jour — les pistes restantes, mesurées.** Banc :
+`private/tools/sawtunaa-swift-golden/bench.sh` (vrai `NSNet2Processor.swift`,
+60 s stéréo en blocs d'1 s planar, comme le JS). ⚠️ Le Mac étant partagé
+(simulateurs, builds), le temps CPU y varie de ±40 % d'une passe à l'autre :
+le juge est le nombre d'**instructions retirées** (`proc_pid_rusage`,
+indépendant de la charge), A/B de deux binaires alternés.
+
+| Piste | Instructions (60 s) | CPU (passe calme) | Verdict |
+|---|---|---|---|
+| Avant | 19,65 G | 2,18 s | — |
+| `removeFirst(N_HOP)` par frame → indice de lecture, compactage 1×/bloc | −0,8 % | ~−1 % | gardé (trivial) |
+| `Data`/`NSMutableData`/`ORTValue` ×3 + sorties allouées par ORT, à chaque frame → tenseurs créés une fois, `run(withInputs:outputs:)` | −2,6 % | ~−3 % | gardé |
+| **Les deux** | **19,00 G (−3,3 %)** | **~2,10 s** | |
+| Tout ce qui n'est pas ORT (STFT, masque, OLA, copies) — mesuré en sautant `session.run` | — | **0,10 s ≈ 4-5 %** | plafond de toute optim DSP restante : **arrêté là** |
+| Pont JS→Swift, côté natif : `Data(base64Encoded:)` + `[Float]`, 1 s stéréo (512 000 car.) | — | 0,10 ms / s d'audio | négligeable |
+| Pont JS→Swift, côté JS : `bytesToBase64` (même code), 1 s stéréo, V8/node | — | ~1 ms / s d'audio (≈ 3 % de NSNet2) | **écarté**, pas touché au JS |
+
+Conclusion : **~95 % du CPU est l'inférence ORT elle-même** (GRU 2×600). Les
+gaspillages autour étaient réels mais petits ; ce qui reste à gagner passe par
+le modèle ou l'exécution (EP CoreML/ANE, quantification), pas par le code
+Swift/JS. Non mesurés ici : le coût WebKit du `postMessage` d'une chaîne de
+512 Ko (IPC, pas JS), et JavaScriptCore (iPhone) vs V8 pour `btoa`.
+
+**Audio derrière la lecture : plus traité.** Depuis le seek lointain (§
+ci-dessus) les blocs derrière la lecture passaient « en dernier » — donc
+étaient quand même tous traités, du CPU pour un audio qu'on n'entend qu'en cas
+de retour en arrière. Ils restent désormais **bruts** en file
+(`nextWorkIndex` ne choisit que devant la lecture) et ne sont traités que si
+la lecture repasse avant eux (`seekTo` relance la file : la cible passe en
+tête, ~0,3 s sur iPhone 13). Ni jetés (un retour en arrière DANS le tampon
+YouTube ne re-livre rien → silence), ni gardés indéfiniment : purge au-delà de
+30 s derrière la lecture (~384 Ko par seconde brute).
 
 ### Mécanismes anti-drift (historique, avant le 2026-09-30)
 

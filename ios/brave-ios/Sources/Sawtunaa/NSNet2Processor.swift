@@ -59,9 +59,16 @@ public class NSNet2Processor {
   private var fftSetup: FFTSetup?
   private let log2n = vDSP_Length(log2(Double(N_FFT)))
 
-  // GRU hidden states [1, 1, 600]
-  private var h1 = [Float](repeating: 0, count: GRU_HIDDEN)
-  private var h2 = [Float](repeating: 0, count: GRU_HIDDEN)
+  /// Tenseurs ONNX créés UNE fois et réutilisés à chaque frame : les entrées
+  /// (features + états GRU [1, 1, 600]) et les sorties (masque + nouveaux
+  /// états). `ORTValue(tensorData:)` ne copie pas — il pointe sur le
+  /// `NSMutableData`, qu'on remplit en place.
+  private struct Tensors {
+    let feat, h1In, h2In, mask, h1Out, h2Out: NSMutableData
+    let inputs: [String: ORTValue]
+    let outputs: [String: ORTValue]
+  }
+  private var tensors: Tensors?
 
   // Overlap-add buffers (un par canal)
   private var overlapL = [Float](repeating: 0, count: N_OVERLAP)
@@ -159,8 +166,7 @@ public class NSNet2Processor {
   // MARK: - Public API
 
   public func reset() {
-    h1 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
-    h2 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
+    zeroGruStates()
     overlapL = [Float](repeating: 0, count: Self.N_OVERLAP)
     overlapR = [Float](repeating: 0, count: Self.N_OVERLAP)
     inputL.removeAll()
@@ -198,13 +204,19 @@ public class NSNet2Processor {
     var outL = [Float]()
     var outR = [Float]()
     outL.reserveCapacity(n)
-    while inputL.count >= Self.N_WIN {
-      processFrame(outL: &outL, outR: &outR)
-      inputL.removeFirst(Self.N_HOP)
-      if channels == 2 {
-        inputR.removeFirst(Self.N_HOP)
-      }
+    // Les frames avancent un indice de lecture ; l'entrée consommée n'est
+    // retirée qu'UNE fois par bloc. Un `removeFirst(N_HOP)` par frame décalait
+    // tout le reste du bloc à chaque fois (~94 décalages de ~24 000 samples par
+    // seconde d'audio et par canal).
+    var pos = 0
+    while inputL.count - pos >= Self.N_WIN {
+      processFrame(at: pos, outL: &outL, outR: &outR)
+      pos += Self.N_HOP
       samplesSinceReset += Self.N_HOP
+    }
+    inputL.removeFirst(pos)
+    if channels == 2 {
+      inputR.removeFirst(pos)
     }
 
     updateSilenceTracking(outL, outR)
@@ -217,8 +229,7 @@ public class NSNet2Processor {
     let silenceDue = silenceSamples >= Self.SILENCE_RESET_MIN_SAMPLES
     let forceDue = samplesSinceReset >= Self.GRU_RESET_FORCE_SAMPLES
     guard silenceDue || forceDue else { return }
-    h1 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
-    h2 = [Float](repeating: 0, count: Self.GRU_HIDDEN)
+    zeroGruStates()
     samplesSinceReset = 0
     if silenceDue {
       silenceSamples = 0
@@ -250,15 +261,44 @@ public class NSNet2Processor {
     }
   }
 
+  private func zeroGruStates() {
+    guard let t = tensors else { return }  // pas encore créés = déjà à zéro
+    t.h1In.resetBytes(in: NSRange(location: 0, length: t.h1In.length))
+    t.h2In.resetBytes(in: NSRange(location: 0, length: t.h2In.length))
+  }
+
+  private func ensureTensors() throws -> Tensors {
+    if let tensors { return tensors }
+    func tensor(_ count: Int) throws -> (NSMutableData, ORTValue) {
+      // NSMutableData(length:) est remis à zéro : états GRU initiaux nuls.
+      let data = NSMutableData(length: count * MemoryLayout<Float>.size)!
+      let value = try ORTValue(
+        tensorData: data, elementType: .float, shape: [1, 1, NSNumber(value: count)])
+      return (data, value)
+    }
+    let feat = try tensor(Self.N_BINS)
+    let h1In = try tensor(Self.GRU_HIDDEN)
+    let h2In = try tensor(Self.GRU_HIDDEN)
+    let mask = try tensor(Self.N_BINS)
+    let h1Out = try tensor(Self.GRU_HIDDEN)
+    let h2Out = try tensor(Self.GRU_HIDDEN)
+    let t = Tensors(
+      feat: feat.0, h1In: h1In.0, h2In: h2In.0, mask: mask.0, h1Out: h1Out.0, h2Out: h2Out.0,
+      inputs: ["input": feat.1, "gru1_h_in": h1In.1, "gru2_h_in": h2In.1],
+      outputs: ["output": mask.1, "gru1_h_out": h1Out.1, "gru2_h_out": h2Out.1])
+    tensors = t
+    return t
+  }
+
   // MARK: - Frame processing
 
-  private func processFrame(outL: inout [Float], outR: inout [Float]) {
+  private func processFrame(at pos: Int, outL: inout [Float], outR: inout [Float]) {
     let t0 = CFAbsoluteTimeGetCurrent()
 
     // 1-2. Fenêtre d'analyse (zero-pad à N_FFT) + RFFT, par canal.
-    analyze(inputL, into: &specLRe, &specLIm)
+    analyze(inputL, at: pos, into: &specLRe, &specLIm)
     if channels == 2 {
-      analyze(inputR, into: &specRRe, &specRIm)
+      analyze(inputR, at: pos, into: &specRRe, &specRIm)
     }
 
     // 3. Features log-power sur le spectre du DOWNMIX (moyenne des spectres —
@@ -277,78 +317,47 @@ public class NSNet2Processor {
     // 4. Inférence ONNX
     guard let session = session else {
       // Passthrough : rendre l'entrée telle quelle plutôt que du silence.
-      outL.append(contentsOf: inputL.prefix(Self.N_HOP))
+      outL.append(contentsOf: inputL[pos..<(pos + Self.N_HOP)])
       if channels == 2 {
-        outR.append(contentsOf: inputR.prefix(Self.N_HOP))
+        outR.append(contentsOf: inputR[pos..<(pos + Self.N_HOP)])
       }
       return
     }
 
     do {
-      let featData = Data(bytes: features, count: Self.N_BINS * MemoryLayout<Float>.size)
-      let h1Data = Data(bytes: h1, count: Self.GRU_HIDDEN * MemoryLayout<Float>.size)
-      let h2Data = Data(bytes: h2, count: Self.GRU_HIDDEN * MemoryLayout<Float>.size)
-
-      let featTensor = try ORTValue(
-        tensorData: NSMutableData(data: featData),
-        elementType: .float,
-        shape: [1, 1, NSNumber(value: Self.N_BINS)]
-      )
-      let h1Tensor = try ORTValue(
-        tensorData: NSMutableData(data: h1Data),
-        elementType: .float,
-        shape: [1, 1, NSNumber(value: Self.GRU_HIDDEN)]
-      )
-      let h2Tensor = try ORTValue(
-        tensorData: NSMutableData(data: h2Data),
-        elementType: .float,
-        shape: [1, 1, NSNumber(value: Self.GRU_HIDDEN)]
-      )
-
-      let outputs = try session.run(
-        withInputs: [
-          "input": featTensor,
-          "gru1_h_in": h1Tensor,
-          "gru2_h_in": h2Tensor,
-        ],
-        outputNames: ["output", "gru1_h_out", "gru2_h_out"],
-        runOptions: nil
-      )
+      let io = try ensureTensors()
+      features.withUnsafeBytes { src in
+        io.feat.mutableBytes.copyMemory(from: src.baseAddress!, byteCount: src.count)
+      }
+      // Sorties pré-allouées : ORT écrit directement dans nos buffers, aucune
+      // allocation par frame (avant : 3 `Data` + 3 `NSMutableData` + 3
+      // `ORTValue` en entrée, et 3 tenseurs alloués par ORT en sortie).
+      try session.run(withInputs: io.inputs, outputs: io.outputs, runOptions: nil)
 
       // 5. Masque appliqué à CHAQUE canal (le masque, lui, est commun).
-      let maskData = try outputs["output"]!.tensorData() as Data
-      maskData.withUnsafeBytes { ptr in
-        let mask = ptr.bindMemory(to: Float.self)
+      let mask = io.mask.bytes.assumingMemoryBound(to: Float.self)
+      for i in 0..<Self.N_BINS {
+        maskedRe[i] = specLRe[i] * mask[i]
+        maskedIm[i] = specLIm[i] * mask[i]
+      }
+      synthesize(&overlapL, into: &outL)
+      if channels == 2 {
         for i in 0..<Self.N_BINS {
-          maskedRe[i] = specLRe[i] * mask[i]
-          maskedIm[i] = specLIm[i] * mask[i]
+          maskedRe[i] = specRRe[i] * mask[i]
+          maskedIm[i] = specRIm[i] * mask[i]
         }
-        synthesize(&overlapL, into: &outL)
-        if channels == 2 {
-          for i in 0..<Self.N_BINS {
-            maskedRe[i] = specRRe[i] * mask[i]
-            maskedIm[i] = specRIm[i] * mask[i]
-          }
-          synthesize(&overlapR, into: &outR)
-        }
+        synthesize(&overlapR, into: &outR)
       }
 
-      // Update GRU states
-      let h1OutData = try outputs["gru1_h_out"]!.tensorData() as Data
-      h1OutData.withUnsafeBytes { ptr in
-        let floats = ptr.bindMemory(to: Float.self)
-        for i in 0..<Self.GRU_HIDDEN { h1[i] = floats[i] }
-      }
-      let h2OutData = try outputs["gru2_h_out"]!.tensorData() as Data
-      h2OutData.withUnsafeBytes { ptr in
-        let floats = ptr.bindMemory(to: Float.self)
-        for i in 0..<Self.GRU_HIDDEN { h2[i] = floats[i] }
-      }
+      // L'état GRU sorti devient l'entrée de la frame suivante.
+      let hiddenBytes = Self.GRU_HIDDEN * MemoryLayout<Float>.size
+      io.h1In.mutableBytes.copyMemory(from: io.h1Out.bytes, byteCount: hiddenBytes)
+      io.h2In.mutableBytes.copyMemory(from: io.h2Out.bytes, byteCount: hiddenBytes)
     } catch {
       print("[\(Self.TAG)] Inference error: \(error)")
-      outL.append(contentsOf: inputL.prefix(Self.N_HOP))
+      outL.append(contentsOf: inputL[pos..<(pos + Self.N_HOP)])
       if channels == 2 {
-        outR.append(contentsOf: inputR.prefix(Self.N_HOP))
+        outR.append(contentsOf: inputR[pos..<(pos + Self.N_HOP)])
       }
       return
     }
@@ -359,9 +368,9 @@ public class NSNet2Processor {
     totalProcessMs += (CFAbsoluteTimeGetCurrent() - t0) * 1000.0
   }
 
-  /// Fenêtre d'analyse + RFFT des N_WIN premiers samples de `input`.
-  private func analyze(_ input: [Float], into re: inout [Float], _ im: inout [Float]) {
-    for i in 0..<Self.N_WIN { windowed[i] = input[i] * win[i] }
+  /// Fenêtre d'analyse + RFFT des N_WIN samples de `input` à partir de `pos`.
+  private func analyze(_ input: [Float], at pos: Int, into re: inout [Float], _ im: inout [Float]) {
+    for i in 0..<Self.N_WIN { windowed[i] = input[pos + i] * win[i] }
     for i in Self.N_WIN..<Self.N_FFT { windowed[i] = 0 }
     rfft(windowed, realOut: &re, imagOut: &im)
   }
