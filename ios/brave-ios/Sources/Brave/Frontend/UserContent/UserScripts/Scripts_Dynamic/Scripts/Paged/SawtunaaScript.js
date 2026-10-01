@@ -976,7 +976,11 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
         var sb = orig.call(this, mimeType);
         patchSB(sb);
         var isAudio = mimeType.indexOf('audio/') === 0;
-        if (isAudio) {
+        // Seul l'Opus en WebM est décodable ici. Depuis que le script tourne
+        // aussi Sawtunaa éteint (veille), suivre un flux AAC/MP4 reviendrait à
+        // analyser et garder des octets illisibles sur tous les sites
+        // (garde-fou repris d'Android, 2026-10-01).
+        if (isAudio && /webm|opus/i.test(mimeType)) {
           audioBuffers.push(sb);
         }
         // Structured metric: lets us survey codec usage across sites
