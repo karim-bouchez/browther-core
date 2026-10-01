@@ -469,6 +469,8 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       Object.defineProperty(v, 'muted', {
         get: function() { return nativeGetMuted(v); },
         set: function(_value) {
+          // Ce que la PAGE veut : rendu tel quel à l'extinction.
+          if (v.__sawtunaa_saved) v.__sawtunaa_saved.muted = !!_value;
           if (nativeGetMuted(v) !== true) nativeSetMuted(v, true);
         },
         configurable: true
@@ -476,6 +478,10 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       Object.defineProperty(v, 'volume', {
         get: function() { return nativeGetVolume(v); },
         set: function(_value) {
+          var vol = Number(_value);
+          if (v.__sawtunaa_saved && isFinite(vol) && vol >= 0 && vol <= 1) {
+            v.__sawtunaa_saved.volume = vol;
+          }
           if (nativeGetVolume(v) !== 0) nativeSetVolume(v, 0);
         },
         configurable: true
@@ -544,6 +550,23 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       var saved = v.__sawtunaa_saved || { muted: false, volume: 1 };
       nativeSetVolume(v, saved.volume);
       nativeSetMuted(v, saved.muted);
+      metric('audio_restored', {
+        video_ms: Math.round(v.currentTime * 1000),
+        saved_muted: saved.muted,
+        saved_volume: saved.volume,
+        paused: v.paused
+      });
+      // WebKit peut refuser/mettre en pause un démute sans geste dans la page :
+      // on veut le VOIR dans les journaux, pas le supposer.
+      (function(video) {
+        setTimeout(function() {
+          metric('audio_restored_check', {
+            muted: nativeGetMuted(video),
+            volume: nativeGetVolume(video),
+            paused: video.paused
+          });
+        }, 700);
+      })(v);
     }
     mutedVideos = [];
   }
@@ -597,13 +620,15 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
   // ─── Init segment : vu dans tous les modes (veille comprise) ───
   // Détecte un changement de contenu (cf. ci-dessus) et garde l'en-tête pour
   // pouvoir démarrer un décodeur plus tard, à l'allumage.
+  // Renvoie `true` si le contenu a changé (l'audio en attente est périmé).
   function noteInitSegment(buf) {
     var v = document.querySelector('video');
     var currentDuration = (v && isFinite(v.duration) && v.duration > 0)
       ? v.duration : -1;
     var prevDuration = lastInitSegDuration;
-    if (prevDuration > 0 && currentDuration > 0
-        && Math.abs(currentDuration - prevDuration) > 2) {
+    var contentChanged = prevDuration > 0 && currentDuration > 0
+        && Math.abs(currentDuration - prevDuration) > 2;
+    if (contentChanged) {
       metric('content_change_detected', {
         prev_duration_s: Math.round(prevDuration),
         new_duration_s: Math.round(currentDuration)
@@ -614,14 +639,22 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     }
     if (currentDuration > 0) lastInitSegDuration = currentDuration;
     standbyInit = buf.slice(0);
+    return contentChanged;
   }
 
   // ─── Init decoder from init segment ───
   // Remet à zéro l'état de décodage et crée un décodeur Opus (actif seulement).
-  function onInitSegment(buf) {
+  // `dropPending` : jeter les segments en attente de décodeur. Seulement si le
+  // contenu a changé : un nouvel init du MÊME contenu (YouTube en envoie un à
+  // chaque changement de format/qualité, fréquent en début de lecture) ne doit
+  // pas jeter l'audio gardé en veille qu'on vient de remettre en file à
+  // l'allumage — sinon plus rien pour la position courante, seulement l'audio
+  // que YouTube charge ~30 s plus loin (silence, recette Karim 2026-10-01).
+  // Ce sont des paquets Opus déjà analysés : n'importe quel décodeur les lit.
+  function onInitSegment(buf, dropPending) {
     initInfo = parseInitSegment(buf);
+    if (dropPending || !decoderInitializing) pendingSegments = [];
     decoderInitializing = true;
-    pendingSegments = [];
     decodedSegments = [];
     lastEstimatedEndMs = 0;
     opusDecoder = null;
@@ -891,8 +924,8 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
                           data.byteOffset, data.byteOffset + data.byteLength) : data);
           try {
             if (isInitSeg(bytes)) {
-              noteInitSegment(bytes);
-              if (enabled) onInitSegment(bytes);
+              var changed = noteInitSegment(bytes);
+              if (enabled) onInitSegment(bytes, changed);
             } else {
               // Analysé une seule fois, gardé (copie compressée) dans tous les
               // modes : c'est la source de l'allumage sans rechargement.
@@ -1012,7 +1045,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     // que ~1 s de musique juste après avoir demandé de l'enlever.
     if (v && !v.paused) forceMuteVideo(v);
     if (!standbyInit) return;  // rien encore : le prochain init segment démarrera tout
-    onInitSegment(standbyInit);
+    onInitSegment(standbyInit, true);
     var fromMs = nowMs >= 0 ? nowMs - 500 : -Infinity;
     standbySegments
       .filter(function(seg) { return seg.endTimeMs > fromMs; })

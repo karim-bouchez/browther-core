@@ -386,7 +386,8 @@ class TopToolbarView: UIView, ToolbarProtocol {
   }
 
   /// L'anneau prend la couleur de l'état ACTUEL (rouge coupé, ambre/vert
-  /// allumé) ; l'aide d'accessibilité dit qu'un appui revient tout de suite.
+  /// allumé). Un appui sur l'icône ouvre le panneau, comme toujours (recette
+  /// Karim 2026-10-01 : revenir d'un appui sur l'icône surprenait).
   private func updateSawtunaaCountdown(revertAt: Date?) {
     guard let button = sawtunaaButton as? BrowtherBadgedToolbarButton else { return }
     button.setCountdown(
@@ -394,7 +395,6 @@ class TopToolbarView: UIView, ToolbarProtocol {
       total: SawtunaaTemporarySwitch.duration,
       color: featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
     )
-    button.accessibilityHint = revertAt == nil ? nil : Strings.Browther.sawtunaaTempIconHint
   }
 
   fileprivate func updateBrowtherFeatureButtons() {

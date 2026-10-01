@@ -85,13 +85,6 @@ extension Strings {
       value: "Keep it on",
       comment: "Sawtunaa panel: cancels the automatic return, stays ON"
     )
-    public static let sawtunaaTempIconHint = NSLocalizedString(
-      "sawtunaaTempIconHint",
-      tableName: "Browther",
-      bundle: .module,
-      value: "Tap to switch back now",
-      comment: "Accessibility hint of the Sawtunaa toolbar button during the 2-minute countdown"
-    )
     public static let sawtunaaLearnMore = NSLocalizedString(
       "sawtunaaLearnMore",
       tableName: "Browther",

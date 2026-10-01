@@ -19,9 +19,11 @@ import UIKit
 /// Règles :
 /// - l'interrupteur montre toujours l'état ACTUEL : le mode temporaire ne
 ///   touche pas la pref pendant les 2 min, il la remet seulement à la fin ;
-/// - revenir plus tôt = rebasculer l'interrupteur, ou toucher l'icône de la
-///   barre d'adresse (`revertNow`) ; toute bascule qui rejoint l'état d'avant,
-///   d'où qu'elle vienne (réglages, pause du parrainage…), annule le retour ;
+/// - revenir plus tôt = rebasculer l'interrupteur du panneau ; toute bascule
+///   qui rejoint l'état d'avant, d'où qu'elle vienne (réglages, pause du
+///   parrainage…), annule le retour. ⛔ L'icône de la barre d'adresse ouvre le
+///   panneau, elle ne revient PAS en arrière (essayé puis retiré le
+///   2026-10-01 : « ça coupe, je ne sais pas pourquoi », recette Karim) ;
 /// - portée : tout le navigateur ; l'échéance est enregistrée, donc une app
 ///   fermée pendant le compte à rebours retrouve l'état d'avant au lancement.
 @MainActor
@@ -88,12 +90,6 @@ final class SawtunaaTemporarySwitch: ObservableObject {
     guard isActive else { return }
     clear()
     track("feature_temporary_end", ["reason": "keep"])
-  }
-
-  /// Retour immédiat à l'état d'avant (appui sur l'icône de la barre d'adresse).
-  func revertNow() {
-    guard isActive else { return }
-    finish(reason: "icon")
   }
 
   private func finish(reason: String) {

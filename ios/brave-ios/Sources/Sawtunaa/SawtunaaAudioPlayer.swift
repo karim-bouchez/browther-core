@@ -6,6 +6,7 @@
 import AVFoundation
 import BrowtherAnalytics
 import Foundation
+import os
 
 /// Provides the path to the NSNet2 ONNX model bundled with the Sawtunaa module.
 public enum SawtunaaResources {
@@ -45,8 +46,15 @@ public enum SawtunaaMetric {
       let json = String(data: data, encoding: .utf8)
     {
       print("[METRIC] \(json)")
+      // Aussi dans le journal unifié : `print` ne sort que par la console de
+      // `devicectl --console`, qui exige de (re)lancer l'app à la place de
+      // Karim. Avec ça, `idevicesyslog` lit les métriques pendant qu'il teste
+      // lui-même (filtrer sur « [METRIC] »).
+      log.notice("[METRIC] \(json, privacy: .public)")
     }
   }
+
+  private static let log = Logger(subsystem: "com.devndin.browther", category: "SawtunaaMetric")
 }
 
 /// Audio player that processes PCM through NSNet2 (noise/music suppression) and plays via AVAudioEngine.
