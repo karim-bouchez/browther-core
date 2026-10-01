@@ -54,6 +54,12 @@ public enum SawtunaaMetric {
     }
   }
 
+  /// Métrique déjà sérialisée (côté JS) : même double sortie que `emit`.
+  public static func forward(_ json: String) {
+    print("[METRIC] \(json)")
+    log.notice("[METRIC] \(json, privacy: .public)")
+  }
+
   private static let log = Logger(subsystem: "com.devndin.browther", category: "SawtunaaMetric")
 }
 

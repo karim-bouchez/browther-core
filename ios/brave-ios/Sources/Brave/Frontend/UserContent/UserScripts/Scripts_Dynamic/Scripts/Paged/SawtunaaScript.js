@@ -234,6 +234,12 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     var packets = [];
     var clusterTimestampMs = -1;
     var firstBlockRelativeTs = -1;
+    // Un 0xE7 n'est un horodatage de Cluster que juste après l'en-tête d'un
+    // Cluster. Cherché n'importe où, il se trouvait aussi DANS les paquets
+    // Opus : un morceau de segment sans en-tête (YouTube en envoie) recevait
+    // un horodatage faux de quelques secondes (journaux iPhone 2026-10-01 :
+    // blocs datés 7 897, 28 897… bien loin de la vidéo → silence).
+    var seenCluster = false;
     var pos = 0;
 
     while (pos < data.length - 4) {
@@ -262,8 +268,9 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
                  data[pos+2] === 0xB6 && data[pos+3] === 0x75) {
         var csInfo = readVint(data, pos + 4);
         pos = pos + 4 + csInfo.length;
+        seenCluster = true;
         continue;
-      } else if (data[pos] === 0xE7 && pos + 1 < data.length) {
+      } else if (seenCluster && clusterTimestampMs < 0 && data[pos] === 0xE7 && pos + 1 < data.length) {
         var tsInfo = readVint(data, pos + 1);
         if (tsInfo.value <= 8 && pos + 1 + tsInfo.length + tsInfo.value <= data.length) {
           clusterTimestampMs = readUint(data, pos + 1 + tsInfo.length, tsInfo.value);
@@ -308,6 +315,45 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
     var n = 0;
     for (var i = 0; i < parsed.packets.length; i++) n += parsed.packets[i].byteLength;
     return n;
+  }
+
+  // Fin (ms, temps de PRÉSENTATION) du dernier segment média ajouté.
+  var appendLastEndMs = -1;
+  var lastLoggedOffsetMs = 0;
+
+  // Date un segment média en temps de présentation, dans TOUS les modes :
+  // - `timestampOffset` du SourceBuffer ajouté (règle MSE : présentation =
+  //   horodatage codé + offset ; ignoré avant le 2026-10-01) ;
+  // - un morceau sans en-tête de Cluster (YouTube coupe parfois un segment en
+  //   plusieurs `appendBuffer`) prolonge le précédent. En veille, ces morceaux
+  //   étaient JETÉS faute d'horodatage : 13 → 20 s manquaient à l'allumage.
+  function dateMediaSegment(parsed, sb) {
+    var offMs = Math.round(((sb && sb.timestampOffset) || 0) * 1000);
+    if (offMs !== lastLoggedOffsetMs) {
+      metric('sb_timestamp_offset', { from_ms: lastLoggedOffsetMs, to_ms: offMs });
+      lastLoggedOffsetMs = offMs;
+    }
+    var raw = parsed.startTimeMs;
+    var continued = false;
+    if (raw >= 0 && isFinite(raw)) {
+      parsed.startTimeMs = raw + offMs;
+    } else if (appendLastEndMs >= 0) {
+      parsed.startTimeMs = appendLastEndMs;
+      continued = true;
+    }
+    if (parsed.startTimeMs >= 0 && parsed.packets.length > 0) {
+      appendLastEndMs = parsed.startTimeMs + parsed.packets.length * 20;
+    }
+    var v = document.querySelector('video');
+    metric('append', {
+      raw_ts: raw,
+      ts: parsed.startTimeMs,
+      off_ms: offMs,
+      packets: parsed.packets.length,
+      cont: continued,
+      enabled: enabled,
+      video_ms: v ? Math.round(v.currentTime * 1000) : -1
+    });
   }
 
   function standbyStore(parsed) {
@@ -635,6 +681,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
       });
       // L'audio gardé en veille appartient à l'ancien contenu.
       standbyClear();
+      appendLastEndMs = -1;
       if (enabled) send('pageReset', 'duration_change');
     }
     if (currentDuration > 0) lastInitSegDuration = currentDuration;
@@ -930,6 +977,7 @@ window.__firefox__.includeOnce("SawtunaaScript", function($) {
               // Analysé une seule fois, gardé (copie compressée) dans tous les
               // modes : c'est la source de l'allumage sans rechargement.
               var parsed = parseMediaSegment(bytes);
+              dateMediaSegment(parsed, this);
               standbyStore(parsed);
               if (enabled) decodeParsedSegment(parsed);
             }

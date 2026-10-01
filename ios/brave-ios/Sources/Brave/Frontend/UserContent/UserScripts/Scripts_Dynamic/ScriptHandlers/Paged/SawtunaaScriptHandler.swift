@@ -130,7 +130,8 @@ class SawtunaaScriptHandler: TabContentScript {
     switch action {
     case "metric":
       // JS-side structured metric: forward as-is to stdout with [METRIC] prefix
-      print("[METRIC] \(data)")
+      // (+ journal unifié, lisible par `idevicesyslog` pendant une recette).
+      SawtunaaMetric.forward(data)
 
     case "log":
       // Plain text log from JS
