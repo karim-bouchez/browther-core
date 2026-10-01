@@ -91,7 +91,9 @@ import org.chromium.chrome.browser.profiles.ProfileManager;
 import org.chromium.chrome.browser.basarunaa.BasarunaaPanelBottomSheet;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
+import org.chromium.chrome.browser.browther_widgets.BrowtherCountdownRingView;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
+import org.chromium.chrome.browser.sawtunaa.SawtunaaTemporarySwitch;
 import org.chromium.chrome.browser.shields_panel.ShieldsPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
 import org.chromium.chrome.browser.shields.BraveShieldsMenuObserver;
@@ -193,6 +195,13 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private @Nullable View mSawtunaaLayout;
     private @Nullable ImageButton mSawtunaaButton;
     private @Nullable View mSawtunaaBadge;
+    // Browther: anneau du compte à rebours « 2 min » (SawtunaaTemporarySwitch), rafraîchi
+    // ~1×/s : chaque rafraîchissement force une nouvelle capture de la barre.
+    private @Nullable BrowtherCountdownRingView mSawtunaaCountdownRing;
+    private final Runnable mSawtunaaCountdownTick = this::updateSawtunaaCountdown;
+    private final SawtunaaTemporarySwitch.Observer mSawtunaaTemporaryObserver =
+            this::updateSawtunaaBadge;
+    private boolean mSawtunaaTemporaryObserved;
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
     // Browther: Brave Shields status badge (iOS parity 2026-06-01). Wired
     // to per-site Shields ON/OFF state via updateBraveShieldsButtonState().
@@ -280,6 +289,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mSawtunaaPrefChangeRegistrar.destroy();
             mSawtunaaPrefChangeRegistrar = null;
         }
+        removeCallbacks(mSawtunaaCountdownTick);
+        if (mSawtunaaTemporaryObserved) {
+            SawtunaaTemporarySwitch.get().removeObserver(mSawtunaaTemporaryObserver);
+            mSawtunaaTemporaryObserved = false;
+        }
         if (mBasarunaaPrefChangeRegistrar != null) {
             mBasarunaaPrefChangeRegistrar.destroy();
             mBasarunaaPrefChangeRegistrar = null;
@@ -347,6 +361,7 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         mSawtunaaLayout = findViewById(R.id.brave_sawtunaa_button_layout);
         mSawtunaaButton = findViewById(R.id.brave_sawtunaa_button);
         mSawtunaaBadge = findViewById(R.id.brave_sawtunaa_badge);
+        mSawtunaaCountdownRing = findViewById(R.id.brave_sawtunaa_countdown_ring);
         if (mSawtunaaButton != null) {
             mSawtunaaButton.setClickable(true);
             mSawtunaaButton.setOnClickListener(this);
@@ -1295,6 +1310,13 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                 BraveYouTubeScriptInjectorNativeHelper.setFullscreen(currentTab.getWebContents());
             }
         } else if (mSawtunaaButton == v && mSawtunaaButton != null) {
+            // Browther: pendant le compte à rebours « 2 min », le bouton revient
+            // tout de suite à l'état d'avant, sans ouvrir le panneau (maquette
+            // validée 2026-10-01, parité iOS).
+            if (mSawtunaaTemporaryObserved && SawtunaaTemporarySwitch.get().isActive()) {
+                SawtunaaTemporarySwitch.get().revertNow();
+                return;
+            }
             // Browther: open the Sawtunaa panel as a Material BottomSheet.
             showSawtunaaPanel();
         } else if (mBasarunaaButton == v && mBasarunaaButton != null) {
@@ -1388,7 +1410,41 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         if (profile == null) return;
         boolean enabled = UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
         mSawtunaaBadge.setBackgroundResource(featureBadge(enabled));
+        updateSawtunaaCountdown();
+    }
+
+    /**
+     * Browther: anneau « 2 min » à la place de la pastille, de la couleur de l'état actuel.
+     * Se reprogramme chaque seconde tant que le compte à rebours court — et vérifie au passage
+     * l'échéance (un Handler ne compte pas la veille profonde).
+     */
+    private void updateSawtunaaCountdown() {
+        removeCallbacks(mSawtunaaCountdownTick);
+        if (mSawtunaaBadge == null || !mSawtunaaTemporaryObserved) return;
+        SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
+        temporary.checkDue();
+        boolean active = temporary.isActive();
+        mSawtunaaBadge.setVisibility(active ? View.INVISIBLE : View.VISIBLE);
+        if (mSawtunaaCountdownRing != null) {
+            mSawtunaaCountdownRing.setVisibility(active ? View.VISIBLE : View.GONE);
+            if (active) {
+                Profile profile = ProfileManager.getLastUsedRegularProfile();
+                boolean enabled =
+                        profile != null
+                                && UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
+                mSawtunaaCountdownRing.setCountdown(
+                        temporary.remainingMs() / (float) SawtunaaTemporarySwitch.DURATION_MS,
+                        featureColor(enabled));
+            }
+        }
         invalidateToolbarSnapshot();
+        if (active) postDelayed(mSawtunaaCountdownTick, 1000L);
+    }
+
+    /** Couleurs de {@link #featureBadge}, pour l'anneau. */
+    private static int featureColor(boolean enabled) {
+        if (!enabled) return 0xFFEF4444;
+        return BrowtherEarlyAccess.ENABLED ? 0xFFF59E0B : 0xFF22C55E;
     }
 
     private void registerSawtunaaPrefObserver() {
@@ -1398,6 +1454,11 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         mSawtunaaPrefChangeRegistrar = PrefServiceUtil.createFor(profile);
         mSawtunaaPrefChangeRegistrar.addObserver(
                 BravePref.SAWTUNAA_ENABLED, this::updateSawtunaaBadge);
+        // Crée le contrôleur « 2 min » : il reprend un compte à rebours en cours, ou
+        // applique tout de suite un retour échu pendant que l'appli était fermée.
+        SawtunaaTemporarySwitch.get().addObserver(mSawtunaaTemporaryObserver);
+        mSawtunaaTemporaryObserved = true;
+        updateSawtunaaBadge();
     }
 
     // Browther: Basarunaa panel + badge helpers (mirror of Sawtunaa).
@@ -1483,7 +1544,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         } else if (v == mYouTubePipButton) {
             description = resources.getString(R.string.accessibility_toolbar_btn_brave_pip);
         } else if (v == mSawtunaaButton) {
-            description = resources.getString(R.string.accessibility_toolbar_btn_sawtunaa);
+            description =
+                    mSawtunaaTemporaryObserved && SawtunaaTemporarySwitch.get().isActive()
+                            ? resources.getString(R.string.sawtunaa_temp_icon_hint)
+                            : resources.getString(R.string.accessibility_toolbar_btn_sawtunaa);
         } else if (v == mBasarunaaButton) {
             description = resources.getString(R.string.accessibility_toolbar_btn_basarunaa);
         }

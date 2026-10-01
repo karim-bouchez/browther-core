@@ -8,6 +8,8 @@ package org.chromium.chrome.browser.sawtunaa;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -16,6 +18,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -25,10 +28,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.chromium.base.Log;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.chrome.R;
-import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
 import org.chromium.chrome.browser.browther_analytics.BrowtherSiteReport;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralController;
@@ -38,7 +39,6 @@ import org.chromium.chrome.browser.browther_widgets.BrowtherBigToggleView;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
-import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
@@ -60,28 +60,44 @@ import org.chromium.components.user_prefs.UserPrefs;
  * <p>Telemetry: every flip of the toggle fires {@code feature_toggled} via
  * {@link BrowtherAnalyticsBridge} (parity with iOS).
  *
- * <p>Propagation du toggle (V1) :
- * <ul>
- *   <li>OFF live : le RFO renderer-side reçoit `SetEnabled(false)` via Mojo
- *       et dispatche `sawtunaa-disable` au main world. Le script JS restaure
- *       les descriptors muted/volume natifs sur le `<video>` → audio
- *       original revient sans reload.</li>
- *   <li>ON live : reload du tab. Le RFO renderer-side ne peut pas injecter
- *       le script à la volée parce que le V8 main world peut être en cours
- *       de navigation (DCHECK fatal dans `MainWorldScriptContext()` si
- *       frame provisional). Le reload garantit un `DidClearWindowObject`
- *       propre, qui ré-injecte le script avec la nouvelle pref.</li>
- * </ul>
+ * <p>Propagation du toggle : SANS rechargement, dans les deux sens (2026-10-01 ; avant,
+ * l'allumage rechargeait l'onglet et la vidéo repartait de 0). Le script est injecté sur toutes
+ * les pages, en veille quand Sawtunaa est éteint ; le RFO renderer-side reçoit
+ * `SetEnabled(...)` via Mojo et dispatche `sawtunaa-state`, le script s'allume ou s'éteint en
+ * direct (cf. sawtunaa_render_frame_observer.cc).
+ *
+ * <p>« Seulement 2 min » : juste après une bascule, tant que la feuille est ouverte, un bouton
+ * propose le retour automatique à l'état d'avant ({@link SawtunaaTemporarySwitch}) ; pendant le
+ * compte à rebours, une ligne « libellé · 1:42 · Ne pas réactiver » et un anneau sur le bouton
+ * rond de l'interrupteur. Rebasculer l'interrupteur revient tout de suite à l'état d'avant.
  */
 @NullMarked
 public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
     public static final String TAG = "SawtunaaPanel";
 
-    private static final String TAG_LOG = "Sawtunaa";
+    private static final int COLOR_RED = 0xFFEF4444;
+    private static final int COLOR_GREEN = 0xFF22C55E;
+    private static final int COLOR_AMBER = 0xFFF59E0B;
+    private static final long TICK_MS = 500L;
 
     @Nullable private BrowtherBigToggleView mToggle;
     @Nullable private TextView mStatusText;
     @Nullable private TextView mDescriptionText;
+    @Nullable private Button mTempOffer;
+    @Nullable private View mTempRow;
+    @Nullable private TextView mTempLabel;
+    @Nullable private TextView mTempTime;
+    @Nullable private Button mTempKeep;
+
+    /**
+     * L'utilisateur vient de basculer dans CETTE feuille ouverte : on lui propose le retour
+     * automatique. État de la feuille, pas réglage — à la réouverture, la bascule est durable.
+     */
+    private boolean mOffered;
+
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mTick = this::onTick;
+    private final SawtunaaTemporarySwitch.Observer mTemporaryObserver = this::refreshTemporary;
 
     /** Convenience: build + show. */
     public static void show(FragmentManager fragmentManager) {
@@ -112,6 +128,21 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
         mToggle = view.findViewById(R.id.sawtunaa_panel_toggle);
         mStatusText = view.findViewById(R.id.sawtunaa_panel_status);
         mDescriptionText = view.findViewById(R.id.sawtunaa_panel_description);
+        mTempOffer = view.findViewById(R.id.sawtunaa_panel_temp_offer);
+        mTempRow = view.findViewById(R.id.sawtunaa_panel_temp_row);
+        mTempLabel = view.findViewById(R.id.sawtunaa_panel_temp_label);
+        mTempTime = view.findViewById(R.id.sawtunaa_panel_temp_time);
+        mTempKeep = view.findViewById(R.id.sawtunaa_panel_temp_keep);
+        if (mTempOffer != null) {
+            mTempOffer.setOnClickListener(
+                    v -> {
+                        mOffered = false;
+                        SawtunaaTemporarySwitch.get().start();
+                    });
+        }
+        if (mTempKeep != null) {
+            mTempKeep.setOnClickListener(v -> SawtunaaTemporarySwitch.get().keep());
+        }
 
         boolean enabled =
                 UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
@@ -133,32 +164,27 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                             if (mToggle != null) mToggle.setCheckedSilently(false);
                             return;
                         }
+                        // Une bascule pendant le compte à rebours = revenir tout de suite :
+                        // elle rejoint l'état d'avant, le retour s'annule tout seul
+                        // (SawtunaaTemporarySwitch), et on ne repropose rien.
+                        boolean wasTemporary = SawtunaaTemporarySwitch.get().isActive();
                         UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                                 .setBoolean(BravePref.SAWTUNAA_ENABLED, isChecked);
+                        mOffered = !wasTemporary;
                         BrowtherAnalyticsBridge.trackWithProps(
                                 "feature_toggled",
                                 new String[] {"feature", "enabled"},
                                 new String[] {"sawtunaa", Boolean.toString(isChecked)});
                         updateStatusText(isChecked);
                         applyEarlyAccess(view, isChecked);
-                        if (isChecked) {
-                            // OFF → ON : reload du tab. Tenter d'injecter le
-                            // script live depuis le RFO crash si le main
-                            // world V8 est en cours de navigation
-                            // (DCHECK dans MainWorldScriptContext). Le reload
-                            // garantit un DidClearWindowObject propre.
-                            reloadActiveTab();
-                        }
-                        // OFF live : pas de reload. Le RFO renderer-side
-                        // reçoit `SawtunaaConfig::SetEnabled(false)` via Mojo
-                        // (poussé par `SawtunaaTabHelper` C++ qui observe la
-                        // pref via `PrefChangeRegistrar`) et dispatche
-                        // `sawtunaa-disable` au main world. Le script JS
-                        // restaure le mute natif live.
+                        refreshTemporary();
+                        // Pas de rechargement : la pref poussée au renderer
+                        // allume / éteint le script en direct.
                     });
         }
 
         updateStatusText(enabled);
+        refreshTemporary();
         installDescription();
         bindReferral(view);
 
@@ -241,15 +267,83 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                 .show();
     }
 
-    private void reloadActiveTab() {
-        try {
-            Tab tab = BraveActivity.getBraveActivity().getActivityTab();
-            if (tab != null) {
-                Log.i(TAG_LOG, "Reloading active tab after Sawtunaa ON toggle");
-                tab.reload();
-            }
-        } catch (BraveActivity.BraveActivityNotFoundException e) {
-            Log.e(TAG_LOG, "reloadActiveTab " + e);
+    @Override
+    public void onStart() {
+        super.onStart();
+        SawtunaaTemporarySwitch.get().addObserver(mTemporaryObserver);
+        refreshTemporary();
+    }
+
+    @Override
+    public void onStop() {
+        SawtunaaTemporarySwitch.get().removeObserver(mTemporaryObserver);
+        mHandler.removeCallbacks(mTick);
+        super.onStop();
+    }
+
+    private static boolean isEnabledPref() {
+        return UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
+                .getBoolean(BravePref.SAWTUNAA_ENABLED);
+    }
+
+    /** Couleur de l'état ACTUEL : rouge coupé, ambre (accès anticipé) / vert allumé. */
+    private static int stateColor(boolean enabled) {
+        if (!enabled) return COLOR_RED;
+        return BrowtherEarlyAccess.ENABLED ? COLOR_AMBER : COLOR_GREEN;
+    }
+
+    /** Proposition, ligne de compte à rebours et anneau, selon l'état du retour automatique. */
+    private void refreshTemporary() {
+        SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
+        boolean enabled = isEnabledPref();
+        boolean paused = BrowtherReferralController.get().isPaused();
+        boolean active = temporary.isActive();
+        if (active) mOffered = false;
+        if (mTempOffer != null) {
+            mTempOffer.setVisibility(mOffered && !active && !paused ? View.VISIBLE : View.GONE);
+            mTempOffer.setText(
+                    enabled
+                            ? R.string.sawtunaa_temp_offer_disable
+                            : R.string.sawtunaa_temp_offer_reenable);
         }
+        if (mTempRow != null) mTempRow.setVisibility(active ? View.VISIBLE : View.GONE);
+        if (mTempLabel != null) {
+            mTempLabel.setText(
+                    enabled
+                            ? R.string.sawtunaa_temp_countdown_disable
+                            : R.string.sawtunaa_temp_countdown_reenable);
+            mTempLabel.setTextColor(stateColor(enabled));
+        }
+        if (mTempKeep != null) {
+            mTempKeep.setText(
+                    enabled ? R.string.sawtunaa_temp_keep_on : R.string.sawtunaa_temp_keep_off);
+        }
+        if (mTempTime != null) mTempTime.setTextColor(stateColor(enabled));
+        mHandler.removeCallbacks(mTick);
+        if (active) {
+            onTick();
+        } else if (mToggle != null) {
+            mToggle.setCountdown(-1f, 0);
+        }
+    }
+
+    private void onTick() {
+        SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
+        temporary.checkDue();
+        if (!temporary.isActive()) return; // l'observateur a déjà tout rafraîchi
+        long remaining = temporary.remainingMs();
+        if (mTempTime != null) mTempTime.setText(formatCountdown(remaining));
+        if (mToggle != null) {
+            mToggle.setCountdown(
+                    remaining / (float) SawtunaaTemporarySwitch.DURATION_MS,
+                    stateColor(isEnabledPref()));
+        }
+        mHandler.postDelayed(mTick, TICK_MS);
+    }
+
+    /** « 1:42 ». */
+    static String formatCountdown(long remainingMs) {
+        long s = (remainingMs + 999) / 1000;
+        return String.format(java.util.Locale.ROOT, "%d:%02d", s / 60, s % 60);
     }
 }

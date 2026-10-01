@@ -17,16 +17,15 @@ namespace sawtunaa {
 // Observer renderer-side du pipeline Sawtunaa, par main frame :
 //   1. Implémente `mojom::SawtunaaConfig` (browser→renderer, AssociatedInterface)
 //      pour recevoir l'état de la pref `kSawtunaaEnabled` poussé par le browser.
-//   2. Au `DidClearWindowObject` ET quand la pref passe à true, installe le
-//      V8 binding `window.__sawtunaa.send/isEnabled` puis injecte le script
-//      `SawtunaaScript.js` dans le main world.
-//   3. Au passage de la pref à false, dispatche `sawtunaa-disable` sur
-//      `window` pour que le script JS restaure les descriptors muted/volume
-//      natifs et stoppe son scheduler (pas de reload nécessaire).
+//   2. Au `DidClearWindowObject`, installe le V8 binding
+//      `window.__sawtunaa.send/isEnabled` puis injecte le script
+//      `SawtunaaScript.js` dans le main world — pref ON ou OFF (éteint, le
+//      script reste en veille).
+//   3. À chaque changement de la pref, dispatche `sawtunaa-state` sur
+//      `window` : le script relit `isEnabled()` et s'allume / s'éteint en
+//      direct, sans rechargement (2026-10-01).
 //
-// Le binding `window.__sawtunaa.isEnabled()` lit `is_enabled()` ci-dessous,
-// permettant au script JS de fail-early avant d'installer le force-mute si
-// la pref est OFF au moment du `DidClearWindowObject`.
+// Le binding `window.__sawtunaa.isEnabled()` lit `is_enabled()` ci-dessous.
 class SawtunaaRenderFrameObserver : public content::RenderFrameObserver,
                                     public mojom::SawtunaaConfig {
  public:
@@ -59,16 +58,16 @@ class SawtunaaRenderFrameObserver : public content::RenderFrameObserver,
   // world. Idempotent au sein d'un même Window object (script_injected_).
   void InstallBindingAndInjectScript();
 
-  // Dispatche `sawtunaa-disable` sur `window` (main world) pour que le
-  // script JS restaure le mute natif et stoppe.
-  void DispatchDisableEvent();
+  // Dispatche `sawtunaa-state` sur `window` (main world) : le script relit
+  // l'état et s'allume / s'éteint.
+  void DispatchStateEvent();
 
   mojo::Remote<mojom::Sawtunaa> sawtunaa_;
   mojo::AssociatedReceiverSet<mojom::SawtunaaConfig> config_receivers_;
 
-  // État poussé par le browser. Défaut false : si le push n'arrive jamais
-  // (ex: process renderer démarré sans tab Sawtunaa actif), on n'injecte
-  // pas → comportement Chromium normal sur les `<video>`.
+  // État poussé par le browser. Défaut false : tant que le push n'est pas
+  // arrivé, le script reste en veille (il ne touche pas au son) ; le push
+  // le réveille via `sawtunaa-state`.
   bool enabled_ = false;
 
   // Suit l'injection du script pour le window object courant. Reset au

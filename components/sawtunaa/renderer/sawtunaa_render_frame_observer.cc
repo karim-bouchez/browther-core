@@ -71,30 +71,27 @@ void SawtunaaRenderFrameObserver::SetEnabled(bool enabled) {
   if (!render_frame || !render_frame->IsMainFrame()) {
     return;
   }
-  // Le SetEnabled arrive depuis un callback Mojo browser→renderer. À ce moment
-  // précis le LocalFrame peut être provisional (navigation pas encore
-  // committed) → `MainWorldScriptContext()` déclenche DCHECK fail dans
-  // `ToV8ContextMaybeEmpty` (cf. v8_binding_for_core.cc:743). On défère sur le
-  // current sequence pour laisser V8 isolate / frame state se stabiliser
-  // avant de toucher au main world.
-  if (enabled) {
-    // OFF → ON : on NE TENTE PAS d'injecter le script ici. Même avec un
-    // PostTask, le frame peut rester provisional plus longtemps qu'on ne
-    // peut deviner (SPA YouTube fait des navs constants). Sans accès à
-    // l'API privée `LocalFrame::IsProvisional()`, le crash DCHECK reste
-    // observable. À la place : le toggle ON côté Java déclenche un
-    // `tab.reload()` qui produit un `DidClearWindowObject` propre, lu
-    // ci-dessous, qui injecte le script avec `enabled_=true` (déjà set).
-    // `enabled_` reste true et sera lu par le prochain DidClearWindowObject.
-  } else {
-    // ON → OFF live. Le script JS est en train de tourner. On lui demande de
-    // restaurer le mute natif et de s'arrêter via l'event `sawtunaa-disable`.
-    // Safe : le frame est committed (sinon le script ne tournerait pas).
-    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
-        FROM_HERE,
-        base::BindOnce(&SawtunaaRenderFrameObserver::DispatchDisableEvent,
-                       weak_factory_.GetWeakPtr()));
+  // Bascule EN DIRECT, dans les deux sens (2026-10-01) : le script est
+  // injecté sur toutes les pages, en veille quand Sawtunaa est éteint, et on
+  // lui signale le nouvel état par l'event `sawtunaa-state`. Plus de
+  // rechargement de l'onglet à l'allumage (il renvoyait la vidéo à 0).
+  //
+  // ⚠️ DCHECK historique : exécuter du script dans le main world d'un frame
+  // PROVISIONAL (navigation pas encore committée) fait échouer
+  // `ToV8ContextMaybeEmpty` (v8_binding_for_core.cc:743). C'est ce qui avait
+  // fait renoncer à injecter au SetEnabled(true). On n'injecte toujours rien
+  // ici : on ne touche qu'une Window dont le script tourne déjà
+  // (`script_injected_`, posé au `DidClearWindowObject`, donc frame
+  // committé) — le même raisonnement que l'ancien chemin OFF, qui n'a jamais
+  // déclenché ce DCHECK. PostTask : on sort du callback Mojo avant de toucher
+  // à V8.
+  if (!script_injected_) {
+    return;
   }
+  base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+      FROM_HERE,
+      base::BindOnce(&SawtunaaRenderFrameObserver::DispatchStateEvent,
+                     weak_factory_.GetWeakPtr()));
 }
 
 void SawtunaaRenderFrameObserver::DidCommitProvisionalLoad(
@@ -122,22 +119,14 @@ void SawtunaaRenderFrameObserver::DidClearWindowObject() {
   // Nouvelle Window = nouveau contexte V8 = nouveau script à installer.
   script_injected_ = false;
 
-  // Gating sur la pref : si OFF, on ne touche PAS la page. Pas de
-  // `window.__sawtunaa`, pas de script JS, pas de force-mute. Browther se
-  // comporte exactement comme Chromium standard pour les `<video>`.
-  if (!enabled_) {
-    LOG(INFO) << "[Sawtunaa/RFO] DidClearWindowObject — pref OFF, skipping "
-                 "script injection";
-    return;
-  }
+  // Injecté que la pref soit ON ou OFF : éteint, le script reste en VEILLE
+  // (il garde seulement une copie de l'audio compressé, ne touche ni au son
+  // ni aux <video>) — c'est ce qui permet de l'allumer plus tard sans
+  // recharger. Il lit l'état via `window.__sawtunaa.isEnabled()`.
   InstallBindingAndInjectScript();
 }
 
 void SawtunaaRenderFrameObserver::InstallBindingAndInjectScript() {
-  // Pref a pu être flipped à false pendant le post-task — abort silencieux.
-  if (!enabled_) {
-    return;
-  }
   auto* render_frame = SawtunaaRenderFrameObserver::render_frame();
   if (!render_frame || !render_frame->IsMainFrame()) {
     return;
@@ -183,11 +172,7 @@ void SawtunaaRenderFrameObserver::InstallBindingAndInjectScript() {
       blink::mojom::PromiseResultOption::kDoNotWait);
 }
 
-void SawtunaaRenderFrameObserver::DispatchDisableEvent() {
-  // Pref a pu être flipped à true pendant le post-task — abort.
-  if (enabled_) {
-    return;
-  }
+void SawtunaaRenderFrameObserver::DispatchStateEvent() {
   auto* render_frame = SawtunaaRenderFrameObserver::render_frame();
   if (!render_frame || !render_frame->IsMainFrame()) {
     return;
@@ -196,16 +181,14 @@ void SawtunaaRenderFrameObserver::DispatchDisableEvent() {
     // Pas de script à informer (jamais injecté sur cette window).
     return;
   }
-  // dispatchEvent + remove notre flag actif. Le script JS écoute sur
-  // `window` et fait son cleanup (restaure descriptors, stop scheduler).
-  constexpr std::string_view kDisableScript =
-      "try {"
-      "  window.__sawtunaa_disabled = true;"
-      "  window.dispatchEvent(new Event('sawtunaa-disable'));"
-      "} catch(e) {}";
-  blink::WebScriptSource source(
-      blink::WebString::FromUTF8(kDisableScript));
-  LOG(INFO) << "[Sawtunaa/RFO] Dispatching sawtunaa-disable";
+  // L'event ne porte PAS l'état : le script relit `isEnabled()` (donc
+  // `enabled_`, la vérité du browser). Une page qui dispatcherait
+  // `sawtunaa-state` elle-même ne peut rien allumer ni éteindre.
+  constexpr std::string_view kStateScript =
+      "try { window.dispatchEvent(new Event('sawtunaa-state')); } catch(e) {}";
+  blink::WebScriptSource source(blink::WebString::FromUTF8(kStateScript));
+  LOG(INFO) << "[Sawtunaa/RFO] Dispatching sawtunaa-state (enabled="
+            << (enabled_ ? "true" : "false") << ")";
   render_frame->GetWebFrame()->RequestExecuteScript(
       blink::kMainDOMWorldId, base::span_from_ref(source),
       blink::mojom::UserActivationOption::kDoNotActivate,

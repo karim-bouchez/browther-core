@@ -78,17 +78,21 @@ SawtunaaTabHelper::SawtunaaTabHelper(content::WebContents* web_contents)
                             base::Unretained(this)));
   }
 
+  // Android : le lecteur Java (AudioTrack + NSNet2, ~25 Mo de modèle) n'est
+  // PLUS créé ici pour chaque onglet — cf. `EnsureJavaPlayer`, appelé à la
+  // première activation (`Activate`, envoyé par le script dès l'allumage).
+}
+
 #if BUILDFLAG(IS_ANDROID)
-  // Jalon 2.D — crée l'instance Java SawtunaaPlayer associée à ce tab.
-  // C'est elle qui pilote AudioTrack + NSNet2 (port direct du Swift).
-  // Coût : ~25 MB modèle ONNX. On la crée pour tous les WC pour préserver
-  // la simplicité (pas de re-create au toggle live ON). Optim future
-  // possible : lazy au premier preprocessChunk.
+void SawtunaaTabHelper::EnsureJavaPlayer() {
+  if (!java_player_.is_null()) {
+    return;
+  }
   JNIEnv* env = base::android::AttachCurrentThread();
   int instance_id = ++g_next_player_instance_id;
   java_player_.Reset(Java_SawtunaaPlayer_create(env, instance_id));
-#endif
 }
+#endif
 
 void SawtunaaTabHelper::RenderFrameCreated(content::RenderFrameHost* rfh) {
   // Push la valeur initiale dès qu'un nouveau frame existe. Le RFO
@@ -156,9 +160,8 @@ void SawtunaaTabHelper::PreprocessChunk(double timestamp_ms,
   // Pas de LOG ici — un chunk par 100-1000 ms × N onglets = trop verbeux.
   // Le metric event `chunk_preprocess_done` côté Java logge déjà le besoin.
 #if BUILDFLAG(IS_ANDROID)
-  if (java_player_.is_null()) {
-    return;
-  }
+  // Filet : un bloc n'arrive que script allumé, donc après `Activate`.
+  EnsureJavaPlayer();
   JNIEnv* env = base::android::AttachCurrentThread();
   base::android::ScopedJavaLocalRef<jfloatArray> j_samples =
       base::android::ToJavaFloatArray(env, samples);
@@ -256,6 +259,27 @@ void SawtunaaTabHelper::ResumeAudio() {
   }
   Java_SawtunaaPlayer_resumeAudio(base::android::AttachCurrentThread(),
                                    java_player_);
+#endif
+}
+
+void SawtunaaTabHelper::Activate() {
+  LOG(INFO) << "[Sawtunaa] Activate";
+#if BUILDFLAG(IS_ANDROID)
+  EnsureJavaPlayer();
+  Java_SawtunaaPlayer_resumeAudio(base::android::AttachCurrentThread(),
+                                   java_player_);
+#endif
+}
+
+void SawtunaaTabHelper::Deactivate() {
+  LOG(INFO) << "[Sawtunaa] Deactivate";
+#if BUILDFLAG(IS_ANDROID)
+  if (java_player_.is_null()) {
+    return;
+  }
+  JNIEnv* env = base::android::AttachCurrentThread();
+  Java_SawtunaaPlayer_clearChunks(env, java_player_);
+  Java_SawtunaaPlayer_pauseAudio(env, java_player_);
 #endif
 }
 

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -109,6 +110,14 @@ public class BrowtherBigToggleView extends View {
     private float mGradientPhase;
     @Nullable private OnCheckedChangeListener mListener;
 
+    // Compte à rebours « 2 min » de Sawtunaa (2026-10-01) : anneau qui se vide autour du bouton
+    // rond + flèche de retour. < 0 = rien.
+    private float mCountdownFraction = -1f;
+    private int mCountdownColor;
+    private final Paint mCountdownPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final RectF mCountdownOval = new RectF();
+    private final Path mCountdownPath = new Path();
+
     public BrowtherBigToggleView(Context context) {
         this(context, null);
     }
@@ -189,6 +198,17 @@ public class BrowtherBigToggleView extends View {
     }
 
     /** Returns the current checked state. */
+    /**
+     * Anneau de compte à rebours sur le bouton rond ({@code fraction} de 1 à 0), de la couleur de
+     * l'état actuel. {@code fraction} < 0 : retiré.
+     */
+    public void setCountdown(float fraction, int color) {
+        if (fraction == mCountdownFraction && color == mCountdownColor) return;
+        mCountdownFraction = fraction;
+        mCountdownColor = color;
+        invalidate();
+    }
+
     public boolean isChecked() {
         return mChecked;
     }
@@ -307,6 +327,16 @@ public class BrowtherBigToggleView extends View {
         // Subtle shadow under thumb (1dp drop).
         canvas.drawCircle(thumbX, thumbY + mDensity, thumbRadius, mThumbShadowPaint);
         canvas.drawCircle(thumbX, thumbY, thumbRadius, mThumbPaint);
+
+        if (mCountdownFraction >= 0f) {
+            float stroke = 3f * mDensity;
+            BrowtherCountdownRingView.drawRing(
+                    canvas, mCountdownPaint, mCountdownOval, thumbX, thumbY,
+                    thumbRadius - stroke, stroke, mCountdownFraction, mCountdownColor);
+            BrowtherCountdownRingView.drawBackArrow(
+                    canvas, mCountdownPaint, mCountdownPath, mCountdownOval, thumbX, thumbY,
+                    thumbRadius, 0xFF737373);
+        }
     }
 
     private int dp(float v) {

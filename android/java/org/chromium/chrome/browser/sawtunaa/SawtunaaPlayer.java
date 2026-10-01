@@ -171,9 +171,10 @@ public final class SawtunaaPlayer {
         // Auto-load NSNet2 depuis les assets — pas besoin de marshalling C++ :
         // le pattern SawtunaaBenchmark (Jalon 1) lit déjà ce path. Le warmup
         // (~1.2 s sur device) tourne sur le preprocess thread, n'impacte pas
-        // l'UI ; preprocessChunk drop les chunks reçus avant le warmup avec
-        // {@code reason: nsnet2_not_ready}, ce qui matche le comportement
-        // Swift quand l'utilisateur active Sawtunaa au démarrage.
+        // l'UI. Depuis le 2026-10-01 ce lecteur n'est créé qu'à la PREMIÈRE
+        // activation de l'onglet (SawtunaaTabHelper::EnsureJavaPlayer), plus
+        // à la création de chaque onglet ; les blocs reçus pendant le
+        // chargement attendent derrière lui (cf. loadModelAsync).
         loadModelAsync();
     }
 
@@ -198,21 +199,26 @@ public final class SawtunaaPlayer {
                 res.processor.process(silence);
                 long warmMs = (SystemClock.elapsedRealtimeNanos() - warmT0) / 1_000_000L;
                 res.processor.reset();
-                boolean posted = postMain(() -> {
-                    mNsnet2 = res.processor;
-                    emit("model_load_done",
-                            "available", true,
-                            "read_ms", readMs,
-                            "load_ms", loadMs,
-                            "warmup_ms", warmMs,
-                            "used_nnapi", res.usedNnapi,
-                            "intra_op_threads", res.intraOpThreads);
-                });
-                if (!posted) {
+                if (mDestroyed) {
                     // Lecteur détruit pendant le chargement : personne ne
                     // fermerait cette session.
                     closeQuietly(res.processor);
+                    return;
                 }
+                // Publié ICI, sur le thread NSNet2 (et plus via le thread
+                // d'état) : les blocs reçus pendant le chargement attendent
+                // dans la file de ce même exécuteur, derrière cette tâche, et
+                // trouvent donc le modèle prêt au lieu d'être jetés
+                // (`nsnet2_not_ready`). Depuis le 2026-10-01 le lecteur naît à
+                // l'allumage : le premier bloc arrive PENDANT le chargement.
+                mNsnet2 = res.processor;
+                emit("model_load_done",
+                        "available", true,
+                        "read_ms", readMs,
+                        "load_ms", loadMs,
+                        "warmup_ms", warmMs,
+                        "used_nnapi", res.usedNnapi,
+                        "intra_op_threads", res.intraOpThreads);
             } catch (Throwable e) {
                 Log.e(TAG, "NSNet2 load failed", e);
                 emit("model_load_done",
@@ -234,9 +240,14 @@ public final class SawtunaaPlayer {
         }
     }
 
+    // Posé par destroy() : un chargement en cours ferme alors sa session
+    // au lieu de la publier.
+    private volatile boolean mDestroyed;
+
     @CalledByNative
     public void destroy() {
         Log.i(TAG, "[Player#%d] destroyed", mInstanceId);
+        mDestroyed = true;
         stop();
         mMainExec.shutdownNow();
         // ⚠️ NE PAS fermer la session ONNX ici. `shutdownNow()` n'interrompt pas

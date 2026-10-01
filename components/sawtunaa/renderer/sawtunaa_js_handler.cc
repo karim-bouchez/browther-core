@@ -158,6 +158,14 @@ void SawtunaaJsHandler::Send(gin::Arguments* args) {
     sawtunaa_->ResumeAudio();
     return;
   }
+  if (action == "activate") {
+    sawtunaa_->Activate();
+    return;
+  }
+  if (action == "deactivate") {
+    sawtunaa_->Deactivate();
+    return;
+  }
   if (action == "preprocess") {
     // Format iOS : "timestampMs|base64Float32Binary". Pipeline :
     //   1. split sur '|' (maxsplit=1, le base64 ne contient pas de '|')

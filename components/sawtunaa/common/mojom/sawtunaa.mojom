@@ -57,6 +57,15 @@ interface Sawtunaa {
   // Pause/resume du playback Java (ne touche pas au scheduler JS).
   PauseAudio();
   ResumeAudio();
+
+  // Allumage en direct, ou page chargée Sawtunaa allumé (2026-10-01) : crée
+  // le lecteur Java de l'onglet s'il n'existe pas encore — c'est ce qui
+  // charge le modèle NSNet2 (~25 Mo), désormais à la PREMIÈRE activation et
+  // plus à la création de chaque onglet — et relance sa sortie audio.
+  Activate();
+  // Extinction en direct : le JS a déjà rendu le son à la vidéo ; on vide la
+  // file Java et on met l'AudioTrack en pause. Le modèle reste chargé.
+  Deactivate();
 };
 
 struct TimeRange {

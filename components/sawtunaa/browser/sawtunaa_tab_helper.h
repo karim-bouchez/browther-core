@@ -78,6 +78,8 @@ class SawtunaaTabHelper
   void SyncRanges(std::vector<mojom::TimeRangePtr> ranges) override;
   void PauseAudio() override;
   void ResumeAudio() override;
+  void Activate() override;
+  void Deactivate() override;
 
  private:
   friend class content::WebContentsUserData<SawtunaaTabHelper>;
@@ -90,6 +92,11 @@ class SawtunaaTabHelper
 
   // PrefChangeRegistrar callback : itère tous les RFH actifs et push.
   void OnEnabledPrefChanged();
+
+#if BUILDFLAG(IS_ANDROID)
+  // Crée le lecteur Java (et donc charge le modèle) à la première activation.
+  void EnsureJavaPlayer();
+#endif
 
   PrefChangeRegistrar pref_change_registrar_;
 
