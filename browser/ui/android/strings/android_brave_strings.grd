@@ -4052,6 +4052,29 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Mobile browsers impose technical restrictions that make this kind of audio filtering harder than on Mac, Windows or Android. We are working on extending it to other sites, in shaa Allah.
     </message>
 
+    <!-- Browther: Sawtunaa « seulement 2 min » (2026-10-01) -->
+    <message name="IDS_SAWTUNAA_TEMP_OFFER_REENABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal OFF: turns it back ON by itself after 2 minutes.">
+      Turn back on automatically in 2 min
+    </message>
+    <message name="IDS_SAWTUNAA_TEMP_OFFER_DISABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal ON: turns it back OFF by itself after 2 minutes.">
+      Turn off automatically in 2 min
+    </message>
+    <message name="IDS_SAWTUNAA_TEMP_COUNTDOWN_REENABLE" desc="Label of the countdown row in the Sawtunaa popup while music removal is temporarily OFF; the remaining time (e.g. 1:42) is shown next to it, separately.">
+      Turning back on automatically
+    </message>
+    <message name="IDS_SAWTUNAA_TEMP_COUNTDOWN_DISABLE" desc="Label of the countdown row in the Sawtunaa popup while music removal is temporarily ON; the remaining time (e.g. 1:42) is shown next to it, separately.">
+      Turning off automatically
+    </message>
+    <message name="IDS_SAWTUNAA_TEMP_KEEP_OFF" desc="Link in the countdown row: cancels the automatic return, music removal stays OFF.">
+      Keep it off
+    </message>
+    <message name="IDS_SAWTUNAA_TEMP_KEEP_ON" desc="Link in the countdown row: cancels the automatic return, music removal stays ON.">
+      Keep it on
+    </message>
+    <message name="IDS_SAWTUNAA_TEMP_ICON_HINT" desc="Accessibility hint / long-press label of the Sawtunaa toolbar button while a 2-minute temporary switch is running: tapping it returns to the previous state immediately.">
+      Tap to switch back now
+    </message>
+
     <!-- Browther: Basarunaa toolbar button + panel (BottomSheet). V1 = juste
          le toggle ; les sliders/mode iOS suivront quand le pipeline ML
          Android sera ported (Phase 3.1 Basarunaa Android). -->

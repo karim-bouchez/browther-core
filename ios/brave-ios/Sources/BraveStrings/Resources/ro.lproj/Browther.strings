@@ -140,3 +140,10 @@
 "introDemoOpenedIn" = "Deschis în Browther";
 "introChannelsSameContent" = "Același conținut pe amândouă";
 "introChannelsSoonDescription" = "Browther e doar o aplicație din ecosistemul dev&din. Anunțăm fiecare noutate — inclusiv estomparea și eliminarea muzicii — pe canalele noastre de WhatsApp și Telegram, in sha Allah.";
+"sawtunaaTempOfferReenable" = "Reactivează automat în 2 min";
+"sawtunaaTempOfferDisable" = "Dezactivează automat în 2 min";
+"sawtunaaTempCountdownReenable" = "Reactivare automată";
+"sawtunaaTempCountdownDisable" = "Dezactivare automată";
+"sawtunaaTempKeepOff" = "Lasă dezactivat";
+"sawtunaaTempKeepOn" = "Lasă activat";
+"sawtunaaTempIconHint" = "Atinge pentru a reveni acum";

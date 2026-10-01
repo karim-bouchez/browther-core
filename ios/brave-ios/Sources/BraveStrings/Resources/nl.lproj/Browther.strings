@@ -140,3 +140,10 @@
 "introDemoOpenedIn" = "Geopend in Browther";
 "introChannelsSameContent" = "Op beide dezelfde inhoud";
 "introChannelsSoonDescription" = "Browther is maar één app uit het dev&din-ecosysteem. We kondigen elke nieuwe versie aan — vervagen en muziek verwijderen inbegrepen — op onze WhatsApp- en Telegram-kanalen, in sha Allah.";
+"sawtunaaTempOfferReenable" = "Over 2 min automatisch weer aanzetten";
+"sawtunaaTempOfferDisable" = "Over 2 min automatisch uitzetten";
+"sawtunaaTempCountdownReenable" = "Gaat automatisch weer aan";
+"sawtunaaTempCountdownDisable" = "Gaat automatisch uit";
+"sawtunaaTempKeepOff" = "Uit laten";
+"sawtunaaTempKeepOn" = "Aan laten";
+"sawtunaaTempIconHint" = "Tik om nu terug te schakelen";

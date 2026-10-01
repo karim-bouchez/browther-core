@@ -140,3 +140,10 @@
 "introDemoOpenedIn" = "Obert a Browther";
 "introChannelsSameContent" = "El mateix contingut a tots dos";
 "introChannelsSoonDescription" = "Browther és només una app de l'ecosistema dev&din. Anunciem cada novetat —el difuminat i l'eliminació de la música inclosos— als nostres canals de WhatsApp i Telegram, in sha Allah.";
+"sawtunaaTempOfferReenable" = "Torna a activar automàticament d'aquí a 2 min";
+"sawtunaaTempOfferDisable" = "Desactiva automàticament d'aquí a 2 min";
+"sawtunaaTempCountdownReenable" = "Reactivació automàtica";
+"sawtunaaTempCountdownDisable" = "Desactivació automàtica";
+"sawtunaaTempKeepOff" = "Mantén-ho desactivat";
+"sawtunaaTempKeepOn" = "Mantén-ho activat";
+"sawtunaaTempIconHint" = "Toca per tornar-hi ara";

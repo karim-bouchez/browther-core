@@ -140,3 +140,10 @@
 "introDemoOpenedIn" = "Browther में खोला गया";
 "introChannelsSameContent" = "दोनों पर एक जैसी सामग्री";
 "introChannelsSoonDescription" = "Browther, dev&din इकोसिस्टम का सिर्फ़ एक ऐप है। हर नए वर्शन की घोषणा — धुंधला करना और संगीत हटाना भी — हम अपने WhatsApp और Telegram चैनलों पर करते हैं, इंशा अल्लाह।";
+"sawtunaaTempOfferReenable" = "2 मिनट में अपने-आप फिर से चालू करें";
+"sawtunaaTempOfferDisable" = "2 मिनट में अपने-आप बंद करें";
+"sawtunaaTempCountdownReenable" = "अपने-आप फिर से चालू हो रहा है";
+"sawtunaaTempCountdownDisable" = "अपने-आप बंद हो रहा है";
+"sawtunaaTempKeepOff" = "बंद ही रखें";
+"sawtunaaTempKeepOn" = "चालू ही रखें";
+"sawtunaaTempIconHint" = "अभी वापस जाने के लिए टैप करें";

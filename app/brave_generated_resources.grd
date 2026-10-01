@@ -1495,6 +1495,28 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
       <message name="IDS_SAWTUNAA_POPUP_PROTECTED_HINT_BLOCKED" desc="Hint inside the Sawtunaa popup when the DRM video cannot be played at all in Browther. BOTH steps are required, in order: the app is installed on the machine, its extension goes into the OTHER browser, and only then is the page opened there. Must not read as a choice between two options.">
         This page cannot play here: protected content (DRM). To watch it without the music: install the Sawtunaa app, add its extension to another browser, then open this page in that browser.
       </message>
+      <!-- Browther: Sawtunaa « seulement 2 min » (2026-10-01) -->
+      <message name="IDS_SAWTUNAA_TEMP_OFFER_REENABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal OFF: turns it back ON by itself after 2 minutes.">
+        Turn back on automatically in 2 min
+      </message>
+      <message name="IDS_SAWTUNAA_TEMP_OFFER_DISABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal ON: turns it back OFF by itself after 2 minutes.">
+        Turn off automatically in 2 min
+      </message>
+      <message name="IDS_SAWTUNAA_TEMP_COUNTDOWN_REENABLE" desc="Label of the countdown row in the Sawtunaa popup while music removal is temporarily OFF; the remaining time (e.g. 1:42) is shown next to it, separately.">
+        Turning back on automatically
+      </message>
+      <message name="IDS_SAWTUNAA_TEMP_COUNTDOWN_DISABLE" desc="Label of the countdown row in the Sawtunaa popup while music removal is temporarily ON; the remaining time (e.g. 1:42) is shown next to it, separately.">
+        Turning off automatically
+      </message>
+      <message name="IDS_SAWTUNAA_TEMP_KEEP_OFF" desc="Link in the countdown row: cancels the automatic return, music removal stays OFF.">
+        Keep it off
+      </message>
+      <message name="IDS_SAWTUNAA_TEMP_KEEP_ON" desc="Link in the countdown row: cancels the automatic return, music removal stays ON.">
+        Keep it on
+      </message>
+      <message name="IDS_SAWTUNAA_TEMP_TOOLTIP" desc="Tooltip of the Sawtunaa toolbar icon while a 2-minute temporary switch is running: clicking it returns to the previous state immediately.">
+        Click to switch back now
+      </message>
       <message name="IDS_BASARUNAA_POPUP_PROTECTED_HINT" desc="Hint inside the Basarunaa panel when the current tab plays DRM-protected media: explains the amber toolbar badge. Unlike Sawtunaa there is no workaround, and the wording must not pretend otherwise.">
         No effect on this page: the content is protected (DRM) and Browther is not allowed to modify it. There is no way around it for blurring.
       </message>

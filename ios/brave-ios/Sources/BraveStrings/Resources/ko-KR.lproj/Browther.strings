@@ -140,3 +140,10 @@
 "introDemoOpenedIn" = "Browther에서 열림";
 "introChannelsSameContent" = "두 곳 모두 같은 내용";
 "introChannelsSoonDescription" = "Browther는 dev&din 생태계의 앱 중 하나일 뿐입니다. 흐림 효과와 음악 제거를 포함한 모든 새 버전 소식은 WhatsApp과 Telegram 채널에서 알려 드립니다. 인샤알라.";
+"sawtunaaTempOfferReenable" = "2분 후 자동으로 다시 켜기";
+"sawtunaaTempOfferDisable" = "2분 후 자동으로 끄기";
+"sawtunaaTempCountdownReenable" = "자동으로 다시 켜짐";
+"sawtunaaTempCountdownDisable" = "자동으로 꺼짐";
+"sawtunaaTempKeepOff" = "계속 끄기";
+"sawtunaaTempKeepOn" = "계속 켜기";
+"sawtunaaTempIconHint" = "지금 되돌리려면 탭하세요";

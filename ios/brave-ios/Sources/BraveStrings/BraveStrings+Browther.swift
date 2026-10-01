@@ -41,6 +41,57 @@ extension Strings {
       value: "For now, this only works on YouTube.",
       comment: "Mobile-only limitation"
     )
+    // Sawtunaa « seulement 2 min » (2026-10-01) — anglais identique au desktop,
+    // cf. private/assets/sawtunaa-temporary-strings.json.
+    public static let sawtunaaTempOfferReenable = NSLocalizedString(
+      "sawtunaaTempOfferReenable",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Turn back on automatically in 2 min",
+      comment: "Sawtunaa panel: button shown right after turning music removal OFF"
+    )
+    public static let sawtunaaTempOfferDisable = NSLocalizedString(
+      "sawtunaaTempOfferDisable",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Turn off automatically in 2 min",
+      comment: "Sawtunaa panel: button shown right after turning music removal ON"
+    )
+    public static let sawtunaaTempCountdownReenable = NSLocalizedString(
+      "sawtunaaTempCountdownReenable",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Turning back on automatically",
+      comment: "Sawtunaa panel: countdown label while temporarily OFF (time shown separately)"
+    )
+    public static let sawtunaaTempCountdownDisable = NSLocalizedString(
+      "sawtunaaTempCountdownDisable",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Turning off automatically",
+      comment: "Sawtunaa panel: countdown label while temporarily ON (time shown separately)"
+    )
+    public static let sawtunaaTempKeepOff = NSLocalizedString(
+      "sawtunaaTempKeepOff",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Keep it off",
+      comment: "Sawtunaa panel: cancels the automatic return, stays OFF"
+    )
+    public static let sawtunaaTempKeepOn = NSLocalizedString(
+      "sawtunaaTempKeepOn",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Keep it on",
+      comment: "Sawtunaa panel: cancels the automatic return, stays ON"
+    )
+    public static let sawtunaaTempIconHint = NSLocalizedString(
+      "sawtunaaTempIconHint",
+      tableName: "Browther",
+      bundle: .module,
+      value: "Tap to switch back now",
+      comment: "Accessibility hint of the Sawtunaa toolbar button during the 2-minute countdown"
+    )
     public static let sawtunaaLearnMore = NSLocalizedString(
       "sawtunaaLearnMore",
       tableName: "Browther",

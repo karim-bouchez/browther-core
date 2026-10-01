@@ -140,3 +140,10 @@
 "introDemoOpenedIn" = "เปิดใน Browther";
 "introChannelsSameContent" = "เนื้อหาเดียวกันทั้งสองช่อง";
 "introChannelsSoonDescription" = "Browther เป็นเพียงแอปหนึ่งในระบบนิเวศของ dev&din เราประกาศทุกเวอร์ชันใหม่ — รวมถึงการเบลอและการนำเพลงออก — ในช่อง WhatsApp และ Telegram ของเรา อินชาอัลลอฮ์";
+"sawtunaaTempOfferReenable" = "เปิดอีกครั้งอัตโนมัติใน 2 นาที";
+"sawtunaaTempOfferDisable" = "ปิดอัตโนมัติใน 2 นาที";
+"sawtunaaTempCountdownReenable" = "กำลังเปิดอีกครั้งอัตโนมัติ";
+"sawtunaaTempCountdownDisable" = "กำลังปิดอัตโนมัติ";
+"sawtunaaTempKeepOff" = "ปิดไว้ต่อไป";
+"sawtunaaTempKeepOn" = "เปิดไว้ต่อไป";
+"sawtunaaTempIconHint" = "แตะเพื่อสลับกลับตอนนี้";
