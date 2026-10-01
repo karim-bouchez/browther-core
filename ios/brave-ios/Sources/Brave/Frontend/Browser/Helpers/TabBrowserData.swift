@@ -410,7 +410,9 @@ class TabBrowserData: NSObject, TabObserver {
       // Sawtunaa : TOUJOURS injecté (veille quand il est éteint) — c'est ce qui
       // permet de l'allumer sans recharger (cf. SawtunaaScriptHandler.userScript).
       .sawtunaa: true,
-      .basarunaa: Preferences.Basarunaa.enabled.value,
+      // Basarunaa : TOUJOURS injecté — l'amorce seule s'il est éteint (cf.
+      // BasarunaaScriptHandler.userScript), pour l'allumer sans recharger.
+      .basarunaa: true,
     ]
 
     userScripts = Set(scriptPreferences.filter({ $0.value }).map({ $0.key }))

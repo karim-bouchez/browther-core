@@ -129,6 +129,11 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
       this.nextId = 1;
       this.minSize = opts.minSize ?? DEFAULT_MIN_SIZE;
       this.observeMutations = opts.observeMutations ?? true;
+      this.nextId = opts.firstId ?? 1;
+    }
+    /** Prochain identifiant qui serait attribué. */
+    peekNextId() {
+      return this.nextId;
     }
     start() {
       this.scanAll(document);
@@ -1132,6 +1137,13 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   let intersectionObserver = null;
+  let running$1 = true;
+  function setPipelineRunning(value) {
+    running$1 = value;
+  }
+  function isPipelineRunning() {
+    return running$1;
+  }
   function setIntersectionObserver(io) {
     intersectionObserver = io;
   }
@@ -1144,6 +1156,66 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   const imageBytesByImg = /* @__PURE__ */ new WeakMap();
+
+  const originals = /* @__PURE__ */ new Map();
+  function captureOriginal(img) {
+    const known = originals.get(img);
+    if (known) {
+      originals.delete(img);
+      return known;
+    }
+    const sources = [];
+    const pic = img.parentNode;
+    if (pic && pic.tagName === "PICTURE") {
+      pic.querySelectorAll("source").forEach((s) => {
+        const v = s.getAttribute("srcset");
+        if (v !== null) sources.push({ el: s, srcset: v });
+      });
+    }
+    return {
+      el: img,
+      srcset: img.getAttribute("srcset"),
+      sizes: img.getAttribute("sizes"),
+      sources
+    };
+  }
+  function rememberReplacement(fresh, original) {
+    for (const [clone] of originals) {
+      if (!clone.isConnected) originals.delete(clone);
+    }
+    originals.set(fresh, original);
+  }
+  function clearMarks(el) {
+    releaseHideFirst(el);
+    el.removeAttribute(ID_ATTR);
+    el.removeAttribute(STATE_ATTR);
+    el.removeAttribute(ANALYZED_URL_ATTR);
+    el.removeAttribute(BLUR_MARKER);
+    delete el.dataset.basarunaaBlobUrl;
+  }
+  function restoreAllImages() {
+    let restored = 0;
+    for (const [clone, orig] of originals) {
+      const blobUrl = clone.dataset.basarunaaBlobUrl;
+      if (clone.isConnected && clone.parentNode) {
+        clearMarks(orig.el);
+        if (orig.srcset !== null) orig.el.setAttribute("srcset", orig.srcset);
+        if (orig.sizes !== null) orig.el.setAttribute("sizes", orig.sizes);
+        for (const s of orig.sources) s.el.setAttribute("srcset", s.srcset);
+        clone.parentNode.replaceChild(orig.el, clone);
+        restored++;
+      }
+      if (blobUrl) {
+        try {
+          URL.revokeObjectURL(blobUrl);
+        } catch {
+        }
+      }
+    }
+    originals.clear();
+    document.querySelectorAll(`[${BLUR_MARKER}],[${ID_ATTR}],[${STATE_ATTR}],[${ANALYZED_URL_ATTR}]`).forEach((el) => clearMarks(el));
+    return restored;
+  }
 
   function sourceSize(s) {
     const sw = s.naturalWidth;
@@ -1180,6 +1252,12 @@ video:not([data-basarunaa]) { filter: none !important; }
     return needsAlpha ? { mime: "image/png" } : { mime: "image/jpeg", quality: 0.85 };
   }
   function replaceImgWithBlob(img, blob) {
+    if (!isPipelineRunning()) return null;
+    if (!img.parentNode) {
+      metric("composite_no_parent", { id: img.getAttribute(ID_ATTR) });
+      return null;
+    }
+    const original = captureOriginal(img);
     if (img.hasAttribute("srcset")) img.removeAttribute("srcset");
     if (img.hasAttribute("sizes")) img.removeAttribute("sizes");
     const pic = img.parentNode;
@@ -1205,11 +1283,8 @@ video:not([data-basarunaa]) { filter: none !important; }
     fresh.src = blobUrl;
     fresh.setAttribute(ID_ATTR, img.getAttribute(ID_ATTR) || "");
     fresh.setAttribute(STATE_ATTR, "keep");
-    if (!img.parentNode) {
-      metric("composite_no_parent", { id: img.getAttribute(ID_ATTR) });
-      return null;
-    }
     img.parentNode.replaceChild(fresh, img);
+    rememberReplacement(fresh, original);
     unobserveImage(img);
     return fresh;
   }
@@ -1680,6 +1755,14 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.deps = deps;
       this.jobs = [];
       this.analyzing = false;
+      // Fermée par une extinction en direct : plus rien n'entre ni ne part. Un
+      // écouteur `load` posé avant l'extinction ne doit pas relancer d'analyse
+      // (ni remettre nos marqueurs sur une image qu'on vient de restaurer).
+      this.closed = false;
+    }
+    close() {
+      this.closed = true;
+      this.jobs.length = 0;
     }
     /**
      * Try to enqueue the image. Returns false if skipped (no ID, too small, cache
@@ -1687,6 +1770,7 @@ video:not([data-basarunaa]) { filter: none !important; }
      * synchronously — no Swift roundtrip.
      */
     enqueue(img, id) {
+      if (this.closed) return false;
       if (!img || img.tagName !== "IMG") return false;
       const state = img.getAttribute(STATE_ATTR);
       if (state === "keep" || state === "remove" || state === "analyzing") {
@@ -1728,13 +1812,14 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.drain();
     }
     drain() {
-      if (this.analyzing) return;
+      if (this.analyzing || this.closed) return;
       const job = this.jobs.shift();
       if (!job) return;
       this.analyzing = true;
       job.img.setAttribute(STATE_ATTR, "analyzing");
       job.img.setAttribute(ANALYZED_URL_ATTR, job.url);
       encodeImage(job.img).then((b64) => {
+        if (this.closed) return;
         if (!b64) {
           job.img.setAttribute(STATE_ATTR, "keep");
           this.releaseSlot();
@@ -1752,6 +1837,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           `${job.id}|${job.img.naturalWidth}|${job.img.naturalHeight}|${this.jobs.length}|${urlB64}|${b64}`
         );
       }).catch((e) => {
+        if (this.closed) return;
         metric("encode_unexpected_error", { msg: String(e).slice(0, 120) });
         job.img.setAttribute(STATE_ATTR, "keep");
         this.releaseSlot();
@@ -1786,6 +1872,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   function installReplyHandlers(deps) {
     window.__basarunaaApply = function basarunaaApply(id, persons, prefs, debugMode, elapsedMs) {
       try {
+        if (!isPipelineRunning()) return;
         const img = findImageById(id);
         const isDebug = debugMode === "boxes" || debugMode === "debug";
         const normalised = normalisePersons(persons ?? []);
@@ -1829,6 +1916,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     };
     window.__basarunaaApplyNsfw = function basarunaaApplyNsfw(id, score) {
       try {
+        if (!isPipelineRunning()) return;
         const img = findImageById(id);
         metric("apply_nsfw", { id, score, found: !!img });
         if (img && isBlurEnabled()) {
@@ -1848,7 +1936,8 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   const DECISION_CACHE_MAX = 500;
-  function createImagePipeline() {
+  let pageHideListening = false;
+  function createImagePipeline(firstId = 1) {
     const decisionCache = new DecisionCache(DECISION_CACHE_MAX);
     const queue = new AnalyzeQueue({ decisionCache });
     let discoveredCount = 0;
@@ -1881,14 +1970,17 @@ video:not([data-basarunaa]) { filter: none !important; }
           unobserveImage(img);
         }
       },
-      { minSize: 64 }
+      { minSize: 64, firstId }
     );
     function onPageHide() {
       metric("page_hide", { url: location.href });
       send("pageReset", location.href);
     }
-    window.addEventListener("pagehide", onPageHide);
-    window.addEventListener("beforeunload", onPageHide);
+    if (!pageHideListening) {
+      pageHideListening = true;
+      window.addEventListener("pagehide", onPageHide);
+      window.addEventListener("beforeunload", onPageHide);
+    }
     return {
       scanner,
       queue,
@@ -3763,6 +3855,10 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   let installed = false;
+  let currentOpts = null;
+  function detachMseTap() {
+    currentOpts = null;
+  }
   function looksLikeInit(head) {
     if (head.length < 8) return false;
     if (head[0] === 26 && head[1] === 69 && head[2] === 223 && head[3] === 163)
@@ -3793,6 +3889,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     return null;
   }
   function installMseTap(opts) {
+    currentOpts = opts;
     if (installed) return true;
     const sources = [];
     const w = window;
@@ -3811,15 +3908,16 @@ video:not([data-basarunaa]) { filter: none !important; }
       proto.appendBuffer = function patchedAppendBuffer(data) {
         try {
           const mimeType = videoBuffers.get(this);
-          if (mimeType) {
+          const opts2 = currentOpts;
+          if (mimeType && opts2) {
             const head = peekHead(data);
             const isInit = head ? looksLikeInit(head) : false;
-            if (!head || isInit || opts.wantsMedia?.() !== false) {
+            if (!head || isInit || opts2.wantsMedia?.() !== false) {
               const bytes = toArrayBuffer(data);
               if (bytes) {
                 queueMicrotask(() => {
                   try {
-                    opts.onSegment({ bytes, isInit, mimeType });
+                    opts2.onSegment({ bytes, isInit, mimeType });
                   } catch (e) {
                   }
                 });
@@ -5805,6 +5903,7 @@ video:not([data-basarunaa]) { filter: none !important; }
     return {
       scanAndWire,
       destroy() {
+        detachMseTap();
         if (decodeAheadTimer !== null) clearInterval(decodeAheadTimer);
         if (pumpTimer !== null) clearInterval(pumpTimer);
         decodeAhead?.destroy();
@@ -5819,21 +5918,56 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   let started = false;
+  let running = false;
+  let imagePipeline = null;
+  let videoPipeline = null;
+  let nextImageId = 1;
+  const controller = {
+    setEnabled(on) {
+      if (on) {
+        if (!running) boot();
+        return;
+      }
+      if (!running) return;
+      running = false;
+      setPipelineRunning(false);
+      if (imagePipeline) {
+        nextImageId = imagePipeline.scanner.peekNextId() + 1e3;
+        imagePipeline.stop();
+        imagePipeline.queue.close();
+      }
+      videoPipeline?.destroy();
+      imagePipeline = null;
+      videoPipeline = null;
+      const restored = restoreAllImages();
+      metric("live_disable", { restored });
+      send("liveDisabled", String(restored));
+    }
+  };
   function start(bridge, config) {
-    if (started) return;
+    if (started) return controller;
     started = true;
     if (bridge) setBridgeContext(bridge);
     setBlurEnabled(config?.blurEnabled !== false);
-    const imagePipeline = createImagePipeline();
-    const videoPipeline = createVideoPipeline();
+    boot();
+    return controller;
+  }
+  function boot() {
+    running = true;
+    setPipelineRunning(true);
+    const images = createImagePipeline(nextImageId);
+    const video = createVideoPipeline();
+    imagePipeline = images;
+    videoPipeline = video;
     window.__browtherBasarunaa = {
       phase: 6,
       defaultMode: DEFAULT_PREFS.mode,
-      cacheSize: imagePipeline.decisionCache.size,
-      imagePipeline,
-      videoPipeline
+      cacheSize: images.decisionCache.size,
+      imagePipeline: images,
+      videoPipeline: video
     };
     const bootScan = () => {
+      if (!running || imagePipeline !== images) return;
       if (!isFrameRelevant(
         /*neutralizeHideFirst=*/
         false
@@ -5847,9 +5981,9 @@ video:not([data-basarunaa]) { filter: none !important; }
         );
         return;
       }
-      imagePipeline.scanner.start();
-      videoPipeline?.scanAndWire();
-      const initialCount = imagePipeline.imagesDiscovered();
+      images.scanner.start();
+      video?.scanAndWire();
+      const initialCount = images.imagesDiscovered();
       metric("script_init", {
         url: location.href,
         initial_imgs: initialCount
@@ -5867,9 +6001,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
   (function expose() {
     if (typeof window === "undefined") return;
-    window.__browtherBasarunaaBootstrap = (bridge, config) => {
-      start(bridge, config);
-    };
+    window.__browtherBasarunaaBootstrap = (bridge, config) => start(bridge, config);
     if (!window.__firefox__ && typeof document !== "undefined") {
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => start(null), {
@@ -5889,9 +6021,22 @@ video:not([data-basarunaa]) { filter: none !important; }
   // Dans une CHAÎNE exprès : non remplacé, il vaut « floutage actif » au lieu
   // d'être une erreur de syntaxe qui éteindrait tout Basarunaa.
   if (typeof window.__browtherBasarunaaBootstrap === 'function') {
-    window.__browtherBasarunaaBootstrap($, {
+    var basarunaaController = window.__browtherBasarunaaBootstrap($, {
       blurEnabled: '$<basarunaa_blur_enabled>' !== 'false'
     });
+    // Bascule sans rechargement (2026-10-01) : le natif allume/éteint le
+    // script DÉJÀ présent par ici. Le jeton (constante du script sécurisé,
+    // inaccessible à la page) empêche une page de s'éteindre elle-même.
+    try {
+      Object.defineProperty(window, '__browtherBasarunaaApplyState', {
+        value: function(token, on) {
+          if (token !== SECURITY_TOKEN || !basarunaaController) return;
+          basarunaaController.setEnabled(!!on);
+        },
+        configurable: false,
+        writable: false
+      });
+    } catch (e) {}
   } else {
     // Bundle didn't expose the bootstrap — log loudly so we catch a broken
     // deploy. The script can't run without the bridge.

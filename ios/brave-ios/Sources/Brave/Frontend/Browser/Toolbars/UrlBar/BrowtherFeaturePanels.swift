@@ -213,8 +213,8 @@ struct SawtunaaPanelView: View {
 
   @ObservedObject private var enabled = Preferences.Sawtunaa.enabled
   @ObservedObject private var referral = BrowtherReferralController.shared
-  /// Retour automatique « 2 min » (cf. `SawtunaaTemporarySwitch`).
-  @ObservedObject private var temporary = SawtunaaTemporarySwitch.shared
+  /// Retour automatique « 2 min » (cf. `FeatureTemporarySwitch`).
+  @ObservedObject private var temporary = FeatureTemporarySwitch.sawtunaa
   /// L'utilisateur vient de basculer dans CE panneau ouvert : on lui propose
   /// le retour automatique. Disparaît à la fermeture (état du panneau, pas
   /// réglage) — à la réouverture, la bascule est simplement durable.
@@ -255,7 +255,7 @@ struct SawtunaaPanelView: View {
             }
             // Une bascule pendant le compte à rebours = revenir tout de suite :
             // elle rejoint l'état d'avant, le retour est annulé tout seul
-            // (`SawtunaaTemporarySwitch`), et on ne repropose rien.
+            // (`FeatureTemporarySwitch`), et on ne repropose rien.
             let wasTemporary = temporary.isActive
             enabled.value = newValue
             offered = !wasTemporary
@@ -312,29 +312,10 @@ struct SawtunaaPanelView: View {
         if temporary.isActive {
           TemporaryCountdownRow(isOn: enabled.value, temporary: temporary)
         } else if offered {
-          Button {
+          TemporaryOfferButton(isOn: enabled.value) {
             temporary.start()
             offered = false
-          } label: {
-            Label(
-              enabled.value
-                ? Strings.Browther.sawtunaaTempOfferDisable
-                : Strings.Browther.sawtunaaTempOfferReenable,
-              systemImage: "timer"
-            )
-            .font(.callout.weight(.semibold))
-            .foregroundStyle(Color(.braveLabel))
-            .padding(.vertical, 11)
-            .padding(.horizontal, 12)
-            .frame(maxWidth: .infinity)
-            .background(
-              RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color(.secondaryBraveBackground))
-            )
-            .contentShape(Rectangle())
           }
-          .buttonStyle(.plain)
-          .padding(.horizontal)
         }
       }
 
@@ -451,10 +432,40 @@ private func sawtunaaCountdownText(_ seconds: TimeInterval) -> String {
   return String(format: "%d:%02d", s / 60, s % 60)
 }
 
+/// « Réactiver automatiquement dans 2 min » / « Couper automatiquement… »,
+/// proposé juste après une bascule (Sawtunaa et Basarunaa).
+private struct TemporaryOfferButton: View {
+  let isOn: Bool
+  let action: () -> Void
+
+  var body: some View {
+    Button(action: action) {
+      Label(
+        isOn
+          ? Strings.Browther.sawtunaaTempOfferDisable
+          : Strings.Browther.sawtunaaTempOfferReenable,
+        systemImage: "timer"
+      )
+      .font(.callout.weight(.semibold))
+      .foregroundStyle(Color(.braveLabel))
+      .padding(.vertical, 11)
+      .padding(.horizontal, 12)
+      .frame(maxWidth: .infinity)
+      .background(
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+          .fill(Color(.secondaryBraveBackground))
+      )
+      .contentShape(Rectangle())
+    }
+    .buttonStyle(.plain)
+    .padding(.horizontal)
+  }
+}
+
 /// Ligne « Réactivation automatique · 1:42 · Ne pas réactiver ».
 private struct TemporaryCountdownRow: View {
   let isOn: Bool
-  @ObservedObject var temporary: SawtunaaTemporarySwitch
+  @ObservedObject var temporary: FeatureTemporarySwitch
 
   var body: some View {
     TimelineView(.periodic(from: .now, by: 1)) { context in
@@ -494,13 +505,13 @@ private struct TemporaryCountdownRow: View {
 /// (100 × 60, marge 3, bouton de 54).
 private struct TemporaryKnobRing: View {
   let isOn: Bool
-  @ObservedObject var temporary: SawtunaaTemporarySwitch
+  @ObservedObject var temporary: FeatureTemporarySwitch
 
   var body: some View {
     let size = ShieldsSwitch.size
     let knob = size.height - 6
     TimelineView(.periodic(from: .now, by: 0.5)) { context in
-      let fraction = temporary.remaining(at: context.date) / SawtunaaTemporarySwitch.duration
+      let fraction = temporary.remaining(at: context.date) / FeatureTemporarySwitch.duration
       ZStack {
         Circle()
           .trim(from: 0, to: fraction)
@@ -690,6 +701,9 @@ struct BasarunaaPanelView: View {
   @ObservedObject private var collectEnabled = Preferences.Basarunaa.collectEnabled
   @ObservedObject private var collectDevice = Preferences.Basarunaa.collectDevice
   @State private var showCollectPanel = false
+  /// « Seulement 2 min », comme Sawtunaa (demande Karim 2026-10-01).
+  @ObservedObject private var temporary = FeatureTemporarySwitch.basarunaa
+  @State private var offered = false
 
   var body: some View {
     // Sans défilement quand tout tient (build des captures store, sans les
@@ -714,7 +728,11 @@ struct BasarunaaPanelView: View {
         isEnabled: Binding(
           get: { enabled.value },
           set: { newValue in
+            // Pendant le compte à rebours, rebasculer = revenir tout de suite
+            // (le retour s'annule seul) : on ne repropose rien.
+            let wasTemporary = temporary.isActive
             enabled.value = newValue
+            offered = !wasTemporary
             BrowtherAnalyticsService.shared.track(
               event: "feature_toggled",
               properties: ["feature": "basarunaa", "enabled": newValue]
@@ -727,11 +745,26 @@ struct BasarunaaPanelView: View {
         width: ShieldsSwitch.size.width,
         height: ShieldsSwitch.size.height
       )
+      .overlay {
+        if temporary.isActive {
+          TemporaryKnobRing(isOn: enabled.value, temporary: temporary)
+            .allowsHitTesting(false)
+        }
+      }
 
       Text(enabled.value ? Strings.Browther.basarunaaStatusOn : Strings.Browther.basarunaaStatusOff)
         .bold()
       .font(.footnote)
       .foregroundStyle(Color(.braveLabel))
+
+      if temporary.isActive {
+        TemporaryCountdownRow(isOn: enabled.value, temporary: temporary)
+      } else if offered {
+        TemporaryOfferButton(isOn: enabled.value) {
+          temporary.start()
+          offered = false
+        }
+      }
 
       // Le panel défile (ScrollView, hauteur fixe) : l'encadré n'a pas besoin
       // qu'on recalcule la taille du popover, contrairement à Sawtunaa.

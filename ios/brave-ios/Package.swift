@@ -261,6 +261,9 @@ var package = Package(
           "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/BasarunaaScript.js"
         ),
         .copy(
+          "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/BasarunaaStub.js"
+        ),
+        .copy(
           "Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/YoutubeQualityScript.js"
         ),
         .copy(

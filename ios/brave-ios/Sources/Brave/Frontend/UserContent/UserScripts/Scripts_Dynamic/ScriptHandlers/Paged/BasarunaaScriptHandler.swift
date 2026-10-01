@@ -313,21 +313,52 @@ class BasarunaaScriptHandler: TabContentScript {
   /// image (c'est là qu'il pose le hide-first) : une réponse d'analyse arrive
   /// trop tard. `UserScriptManager.loadScripts` relit donc cette propriété au
   /// lieu de son dictionnaire figé au lancement.
+  ///
+  /// Bascule SANS rechargement (2026-10-01) : l'amorce `BasarunaaStub` est
+  /// TOUJOURS injectée ; le script complet ne l'est au chargement que si
+  /// Basarunaa est allumé. Éteint → amorce seule (aucun coût). Allumage en
+  /// direct → `syncState` (amorce) → le natif injecte le script complet dans le
+  /// frame (`liveSource`) ou rallume celui qui y est. Extinction → le script
+  /// remet les images d'origine. Cf. `private/docs/BASARUNAA.md` § Bascule.
   static var userScript: WKUserScript? {
-    Preferences.Basarunaa.blurEnabled.value ? userScriptBlurOn : userScriptBlurOff
+    guard Preferences.Basarunaa.enabled.value else { return userScriptStubOnly }
+    return Preferences.Basarunaa.blurEnabled.value ? userScriptBlurOn : userScriptBlurOff
   }
   private static let userScriptBlurOn = makeUserScript(blurEnabled: true)
   private static let userScriptBlurOff = makeUserScript(blurEnabled: false)
+  private static let userScriptStubOnly = makeUserScript(blurEnabled: nil)
 
-  private static func makeUserScript(blurEnabled: Bool) -> WKUserScript? {
+  private static let stubSource = loadUserScript(named: "BasarunaaStub") ?? ""
+
+  /// Script complet sécurisé, à injecter dans un frame à l'allumage en direct
+  /// (même variante « Floutage actif » que l'injection au chargement).
+  static var liveSource: String? {
+    Preferences.Basarunaa.blurEnabled.value ? liveSourceBlurOn : liveSourceBlurOff
+  }
+  private static let liveSourceBlurOn = makeFullSource(blurEnabled: true)
+  private static let liveSourceBlurOff = makeFullSource(blurEnabled: false)
+
+  private static func makeFullSource(blurEnabled: Bool) -> String? {
     guard let script = loadUserScript(named: scriptName) else { return nil }
+    return secureScript(
+      handlerName: messageHandlerName,
+      securityToken: scriptId,
+      script: script.replacingOccurrences(
+        of: "$<basarunaa_blur_enabled>", with: blurEnabled ? "true" : "false")
+    )
+  }
+
+  /// `blurEnabled` nil = amorce seule (Basarunaa éteint au chargement).
+  private static func makeUserScript(blurEnabled: Bool?) -> WKUserScript? {
+    let stub = secureScript(
+      handlerName: messageHandlerName, securityToken: scriptId, script: stubSource)
+    var source = stub
+    if let blurEnabled {
+      guard let full = makeFullSource(blurEnabled: blurEnabled) else { return nil }
+      source += "\n" + full
+    }
     return WKUserScript(
-      source: secureScript(
-        handlerName: messageHandlerName,
-        securityToken: scriptId,
-        script: script.replacingOccurrences(
-          of: "$<basarunaa_blur_enabled>", with: blurEnabled ? "true" : "false")
-      ),
+      source: source,
       injectionTime: .atDocumentStart,
       // [Browther 2026-08-09] false : un player embarqué vit dans un IFRAME
       // (Dailymotion & tous les embeds) — s'en tenir au frame principal
@@ -342,6 +373,18 @@ class BasarunaaScriptHandler: TabContentScript {
       forMainFrameOnly: false,
       in: scriptSandbox
     )
+  }
+
+  /// Allume / éteint Basarunaa sur la page déjà chargée, sans la recharger :
+  /// le frame principal repose la question au natif et la relaie à ses iframes.
+  @MainActor
+  static func sync(in tab: some TabState) {
+    Task { @MainActor in
+      _ = try? await tab.evaluateJavaScript(
+        functionName: "window.__browtherBasarunaaSync",
+        contentWorld: scriptSandbox
+      )
+    }
   }
 
   init() {
@@ -455,6 +498,38 @@ class BasarunaaScriptHandler: TabContentScript {
           id: parsed.id, base64: parsed.jpegB64, tab: typeErasedTab,
           frame: sourceFrame, collect: collectContext)
       }
+
+    case "syncState":
+      // Un frame demande l'état réel (cf. BasarunaaStub.js) : on lui répond,
+      // à LUI. Script complet déjà là → on l'allume/éteint ; absent et
+      // Basarunaa allumé → on l'injecte (il démarre allumé).
+      let on = Preferences.Basarunaa.enabled.value
+      let frame = message.frameInfo
+      Task { @MainActor in
+        let applied = try? await tab.callAsyncJavaScript(
+          """
+          if (typeof window.__browtherBasarunaaApplyState === 'function') {
+            window.__browtherBasarunaaApplyState(token, on);
+            return true;
+          }
+          return false;
+          """,
+          arguments: ["token": Self.scriptId, "on": on],
+          in: frame,
+          contentWorld: Self.scriptSandbox
+        )
+        if on, (applied as? Bool) != true, let source = Self.liveSource {
+          _ = try? await tab.callAsyncJavaScript(
+            source, arguments: [:], in: frame, contentWorld: Self.scriptSandbox)
+          self.log.info("live_inject main=\(frame.isMainFrame, privacy: .public)")
+        }
+      }
+
+    case "liveDisabled":
+      // Extinction en direct : le script a remis les images d'origine.
+      guard message.frameInfo.isMainFrame else { return }
+      isActive = false
+      log.info("live_disabled restored=\(data, privacy: .public)")
 
     case "pageReset":
       // ⚠️ Sans ce gate, un iframe de pub qui se recharge éteindrait le badge

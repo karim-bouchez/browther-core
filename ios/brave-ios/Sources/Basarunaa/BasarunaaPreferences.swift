@@ -47,6 +47,17 @@ extension Preferences {
       default: false
     )
 
+    /// Retour automatique « 2 min » (cf. `FeatureTemporarySwitch.basarunaa`) :
+    /// instant du retour (secondes depuis 1970), 0 = aucun ; état rétabli.
+    public static let temporaryRevertAt = Option<Double>(
+      key: "basarunaa.temporary-revert-at",
+      default: 0
+    )
+    public static let temporaryRevertTo = Option<Bool>(
+      key: "basarunaa.temporary-revert-to",
+      default: false
+    )
+
     /// Which persons should stay blurred when ML runs.
     /// Valid values: `"blur-female"` (POC default), `"blur-male"`, `"blur-all"`.
     /// The historical iOS values `"blur"` / `"strict"` are migrated on read

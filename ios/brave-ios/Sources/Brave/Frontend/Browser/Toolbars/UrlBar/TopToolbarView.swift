@@ -389,11 +389,20 @@ class TopToolbarView: UIView, ToolbarProtocol {
   /// allumé). Un appui sur l'icône ouvre le panneau, comme toujours (recette
   /// Karim 2026-10-01 : revenir d'un appui sur l'icône surprenait).
   private func updateSawtunaaCountdown(revertAt: Date?) {
-    guard let button = sawtunaaButton as? BrowtherBadgedToolbarButton else { return }
-    button.setCountdown(
+    updateCountdown(
+      on: sawtunaaButton, revertAt: revertAt, enabled: Preferences.Sawtunaa.enabled.value)
+  }
+
+  private func updateBasarunaaCountdown(revertAt: Date?) {
+    updateCountdown(
+      on: basarunaaButton, revertAt: revertAt, enabled: Preferences.Basarunaa.enabled.value)
+  }
+
+  private func updateCountdown(on button: ToolbarButton, revertAt: Date?, enabled: Bool) {
+    (button as? BrowtherBadgedToolbarButton)?.setCountdown(
       remaining: revertAt?.timeIntervalSinceNow,
-      total: SawtunaaTemporarySwitch.duration,
-      color: featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
+      total: FeatureTemporarySwitch.duration,
+      color: featureBadgeColor(enabled: enabled)
     )
   }
 
@@ -406,8 +415,11 @@ class TopToolbarView: UIView, ToolbarProtocol {
   }
 
   fileprivate func updateBrowtherFeatureButtons() {
-    if SawtunaaTemporarySwitch.shared.isActive {
-      updateSawtunaaCountdown(revertAt: SawtunaaTemporarySwitch.shared.revertAt)
+    if FeatureTemporarySwitch.sawtunaa.isActive {
+      updateSawtunaaCountdown(revertAt: FeatureTemporarySwitch.sawtunaa.revertAt)
+    }
+    if FeatureTemporarySwitch.basarunaa.isActive {
+      updateBasarunaaCountdown(revertAt: FeatureTemporarySwitch.basarunaa.revertAt)
     }
     sawtunaaBadge?.backgroundColor =
       featureBadgeColor(enabled: Preferences.Sawtunaa.enabled.value)
@@ -543,12 +555,16 @@ class TopToolbarView: UIView, ToolbarProtocol {
     // Anneau du compte à rebours « 2 min » : `$revertAt` émet AVANT l'écriture,
     // d'où la valeur passée explicitement. Au retour au premier plan, on
     // relance l'animation sur le temps réellement restant.
-    SawtunaaTemporarySwitch.shared.$revertAt
+    FeatureTemporarySwitch.sawtunaa.$revertAt
       .sink { [weak self] revertAt in self?.updateSawtunaaCountdown(revertAt: revertAt) }
+      .store(in: &sawtunaaCountdownSubscriptions)
+    FeatureTemporarySwitch.basarunaa.$revertAt
+      .sink { [weak self] revertAt in self?.updateBasarunaaCountdown(revertAt: revertAt) }
       .store(in: &sawtunaaCountdownSubscriptions)
     NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
       .sink { [weak self] _ in
-        self?.updateSawtunaaCountdown(revertAt: SawtunaaTemporarySwitch.shared.revertAt)
+        self?.updateSawtunaaCountdown(revertAt: FeatureTemporarySwitch.sawtunaa.revertAt)
+        self?.updateBasarunaaCountdown(revertAt: FeatureTemporarySwitch.basarunaa.revertAt)
       }
       .store(in: &sawtunaaCountdownSubscriptions)
 

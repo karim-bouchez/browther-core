@@ -26,7 +26,7 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
   private static let badgeRatio: CGFloat = 0.4
 
   /// Compte à rebours « 2 min » de Sawtunaa : un anneau autour de l'icône qui
-  /// se vide, à la place du dot (cf. `SawtunaaTemporarySwitch`). Animé par
+  /// se vide, à la place du dot (cf. `FeatureTemporarySwitch`). Animé par
   /// Core Animation sur toute la durée restante : aucun travail par image.
   private let countdownTrack = CAShapeLayer()
   private let countdownRing = CAShapeLayer()

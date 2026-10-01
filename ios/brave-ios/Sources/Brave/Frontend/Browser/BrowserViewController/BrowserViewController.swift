@@ -473,7 +473,8 @@ public class BrowserViewController: UIViewController {
     Preferences.Sawtunaa.enabled.observe(from: self)
     // Reprend un retour automatique « 2 min » en cours, ou l'applique tout de
     // suite si l'app était fermée à l'échéance.
-    _ = SawtunaaTemporarySwitch.shared
+    _ = FeatureTemporarySwitch.sawtunaa
+    _ = FeatureTemporarySwitch.basarunaa
     Preferences.Basarunaa.enabled.observe(from: self)
     Preferences.Basarunaa.blurEnabled.observe(from: self)
     // Sans ces trois-là, la branche « collecte » de `preferencesDidChange` ne
@@ -2921,12 +2922,15 @@ extension BrowserViewController: PreferencesObserver {
         SawtunaaScriptHandler.setEnabled(isOn, in: $0)
       }
     case Preferences.Basarunaa.enabled.key:
-      // Browther: idem Sawtunaa.
-      let isOn = Preferences.Basarunaa.enabled.value
+      // Browther: bascule SANS recharger (2026-10-01), comme Sawtunaa : la page
+      // déjà chargée est allumée/éteinte en direct (amorce → natif → script
+      // complet), et OFF puis ON ré-injecte la bonne variante pour les
+      // PROCHAINS chargements.
       tabManager.allTabs.forEach {
-        $0.browserData?.setScripts(scripts: [.basarunaa: isOn])
+        $0.browserData?.setScripts(scripts: [.basarunaa: false])
+        $0.browserData?.setScripts(scripts: [.basarunaa: true])
+        BasarunaaScriptHandler.sync(in: $0)
       }
-      tabManager.reloadSelectedTab()
     case Preferences.Basarunaa.blurEnabled.key:
       // Browther: « Floutage actif » est gravé dans le script injecté (le JS en
       // a besoin avant la première image). OFF puis ON force la ré-injection

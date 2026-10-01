@@ -3,6 +3,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import Basarunaa
 import BrowtherAnalytics
 import Combine
 import Foundation
@@ -10,7 +11,7 @@ import Preferences
 import Sawtunaa
 import UIKit
 
-/// « Seulement 2 min » : juste après une bascule de Sawtunaa, le panneau
+/// « Seulement 2 min » : juste après une bascule de Sawtunaa ou de Basarunaa, le panneau
 /// propose de revenir automatiquement à l'état d'avant dans 2 min, dans les
 /// deux sens (« Réactiver automatiquement… » après une coupure, « Couper
 /// automatiquement… » après un allumage). Maquette validée par Karim le
@@ -26,10 +27,34 @@ import UIKit
 ///   2026-10-01 : « ça coupe, je ne sais pas pourquoi », recette Karim) ;
 /// - portée : tout le navigateur ; l'échéance est enregistrée, donc une app
 ///   fermée pendant le compte à rebours retrouve l'état d'avant au lancement.
+///
+/// Basarunaa (2026-10-01, demande Karim) : même mécanique, une instance par
+/// fonctionnalité — chacune a sa préférence, son échéance, son anneau.
 @MainActor
-final class SawtunaaTemporarySwitch: ObservableObject {
-  static let shared = SawtunaaTemporarySwitch()
+final class FeatureTemporarySwitch: ObservableObject {
+  static let sawtunaa = FeatureTemporarySwitch(
+    feature: "sawtunaa",
+    enabled: Preferences.Sawtunaa.enabled,
+    revertAtPref: Preferences.Sawtunaa.temporaryRevertAt,
+    revertToPref: Preferences.Sawtunaa.temporaryRevertTo,
+    // ⛔ Pas de rallumage pendant la pause du parrainage : elle garde le
+    // retrait de la musique éteint (BrowtherReferralController § pause).
+    blocksTurningOn: { BrowtherReferralController.shared.isPaused() }
+  )
+  static let basarunaa = FeatureTemporarySwitch(
+    feature: "basarunaa",
+    enabled: Preferences.Basarunaa.enabled,
+    revertAtPref: Preferences.Basarunaa.temporaryRevertAt,
+    revertToPref: Preferences.Basarunaa.temporaryRevertTo,
+    blocksTurningOn: { false }
+  )
   static let duration: TimeInterval = 120
+
+  private let feature: String
+  private let enabled: Preferences.Option<Bool>
+  private let revertAtPref: Preferences.Option<Double>
+  private let revertToPref: Preferences.Option<Bool>
+  private let blocksTurningOn: @MainActor () -> Bool
 
   /// Échéance du retour automatique ; nil = pas de retour programmé.
   @Published private(set) var revertAt: Date?
@@ -47,10 +72,21 @@ final class SawtunaaTemporarySwitch: ObservableObject {
     return max(0, revertAt.timeIntervalSince(now))
   }
 
-  private init() {
-    let at = Preferences.Sawtunaa.temporaryRevertAt.value
+  private init(
+    feature: String,
+    enabled: Preferences.Option<Bool>,
+    revertAtPref: Preferences.Option<Double>,
+    revertToPref: Preferences.Option<Bool>,
+    blocksTurningOn: @escaping @MainActor () -> Bool
+  ) {
+    self.feature = feature
+    self.enabled = enabled
+    self.revertAtPref = revertAtPref
+    self.revertToPref = revertToPref
+    self.blocksTurningOn = blocksTurningOn
+    let at = revertAtPref.value
     if at > 0 {
-      revertTo = Preferences.Sawtunaa.temporaryRevertTo.value
+      revertTo = revertToPref.value
       let date = Date(timeIntervalSince1970: at)
       if date <= .now {
         // L'app était fermée à l'échéance : on rétablit sans attendre.
@@ -61,7 +97,7 @@ final class SawtunaaTemporarySwitch: ObservableObject {
       }
     }
     // `$value` émet AVANT l'écriture, avec la nouvelle valeur.
-    prefSubscription = Preferences.Sawtunaa.enabled.$value
+    prefSubscription = enabled.$value
       .dropFirst()
       .sink { [weak self] newValue in
         MainActor.assumeIsolated {
@@ -75,13 +111,13 @@ final class SawtunaaTemporarySwitch: ObservableObject {
 
   /// Programme le retour à l'état d'AVANT la bascule qui vient d'avoir lieu.
   func start() {
-    revertTo = !Preferences.Sawtunaa.enabled.value
+    revertTo = !enabled.value
     revertAt = Date(timeIntervalSinceNow: Self.duration)
     persist()
     schedule()
     track(
       "feature_temporary",
-      ["enabled": Preferences.Sawtunaa.enabled.value, "minutes": Int(Self.duration / 60)]
+      ["enabled": enabled.value, "minutes": Int(Self.duration / 60)]
     )
   }
 
@@ -95,13 +131,11 @@ final class SawtunaaTemporarySwitch: ObservableObject {
   private func finish(reason: String) {
     let target = revertTo
     clear()
-    // ⛔ Pas de rallumage pendant la pause du parrainage : elle garde Sawtunaa
-    // éteint (BrowtherReferralController § pause), le rallumer la contournerait.
-    if target, BrowtherReferralController.shared.isPaused() {
+    if target, blocksTurningOn() {
       track("feature_temporary_end", ["reason": reason, "skipped": "referral_paused"])
       return
     }
-    Preferences.Sawtunaa.enabled.value = target
+    enabled.value = target
     if reason == "timer" {
       UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
@@ -112,12 +146,12 @@ final class SawtunaaTemporarySwitch: ObservableObject {
     timer?.invalidate()
     timer = nil
     revertAt = nil
-    Preferences.Sawtunaa.temporaryRevertAt.value = 0
+    revertAtPref.value = 0
   }
 
   private func persist() {
-    Preferences.Sawtunaa.temporaryRevertAt.value = revertAt?.timeIntervalSince1970 ?? 0
-    Preferences.Sawtunaa.temporaryRevertTo.value = revertTo
+    revertAtPref.value = revertAt?.timeIntervalSince1970 ?? 0
+    revertToPref.value = revertTo
   }
 
   private func schedule() {
@@ -133,7 +167,7 @@ final class SawtunaaTemporarySwitch: ObservableObject {
 
   private func track(_ event: String, _ properties: [String: Any]) {
     var props = properties
-    props["feature"] = "sawtunaa"
+    props["feature"] = feature
     BrowtherAnalyticsService.shared.track(event: event, properties: props)
   }
 }
