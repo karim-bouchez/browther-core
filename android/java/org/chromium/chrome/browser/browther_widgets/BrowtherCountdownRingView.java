@@ -26,6 +26,11 @@ import org.chromium.build.annotations.NullMarked;
  * <p>Pas d'animation continue : la barre d'outils le met à jour ~1×/s (chaque mise à jour force une
  * nouvelle capture de la barre, qui coûte). {@link #drawRing} sert aussi au bouton rond de {@link
  * BrowtherBigToggleView}.
+ *
+ * <p>Mode « chargement » ({@link #setSpinner}) : un arc de ~28 % qui tourne, prioritaire sur
+ * l'anneau — port de l'iOS {@code BrowtherBadgedToolbarButton.setLoading}. La barre le fait avancer
+ * par pas de 36° toutes les 100 ms (~10 i/s) : assez pour lire « ça charge », et borné en captures
+ * de barre (l'état dure ~1-2 s).
  */
 @NullMarked
 public class BrowtherCountdownRingView extends View {
@@ -35,6 +40,9 @@ public class BrowtherCountdownRingView extends View {
     private final RectF mOval = new RectF();
     private float mFraction = -1f;
     private int mColor;
+    private boolean mSpinner;
+    private float mSpinnerAngle;
+    private int mSpinnerColor;
 
     public BrowtherCountdownRingView(Context context) {
         this(context, null);
@@ -53,13 +61,39 @@ public class BrowtherCountdownRingView extends View {
         invalidate();
     }
 
+    public void setSpinner(boolean on, int color) {
+        if (on == mSpinner && color == mSpinnerColor) return;
+        mSpinner = on;
+        mSpinnerColor = color;
+        invalidate();
+    }
+
+    /** Fait tourner l'arc d'un pas (appelé par la barre d'outils, ~10×/s). */
+    public void advanceSpinner() {
+        if (!mSpinner) return;
+        mSpinnerAngle = (mSpinnerAngle + 36f) % 360f;
+        invalidate();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mFraction < 0f) return;
         float density = getResources().getDisplayMetrics().density;
         float stroke = 2f * density;
         float radius = Math.min(getWidth(), getHeight()) * 0.5f - stroke;
+        if (mSpinner) {
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(stroke);
+            mPaint.setStrokeCap(Paint.Cap.ROUND);
+            mPaint.setColor(mSpinnerColor);
+            float cx = getWidth() * 0.5f;
+            float cy = getHeight() * 0.5f;
+            mOval.set(cx - radius, cy - radius, cx + radius, cy + radius);
+            canvas.drawArc(mOval, mSpinnerAngle - 90f, 360f * 0.28f, false, mPaint);
+            mPaint.setStyle(Paint.Style.FILL);
+            return;
+        }
+        if (mFraction < 0f) return;
         drawRing(
                 canvas, mPaint, mOval, getWidth() * 0.5f, getHeight() * 0.5f, radius, stroke,
                 mFraction, mColor);

@@ -16,6 +16,10 @@ import org.jni_zero.CalledByNative;
 
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
+import org.chromium.base.ObserverList;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
@@ -24,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -152,6 +157,99 @@ public final class SawtunaaPlayer {
     // peut en tenir un longtemps depuis qu'il attend la fin d'une pause.
     private final AtomicLong mWriteGen = new AtomicLong(0);
 
+    // --- Indicateur de chargement (port iOS 2026-10-01) ---
+    //
+    // Vidéo coupée, son traité pas encore audible (décodage, modèle, premier
+    // bloc NSNet2 : ~1 s, parfois plus) : la barre d'outils fait tourner un arc
+    // autour de l'icône (demande Karim : « il n'y a pas de son, mais ça charge
+    // et ça arrive »). Vrai au premier `playChunksUpTo` d'une session (après
+    // création ou `clearChunks`), faux quand le premier bloc traité devient
+    // audible, à `clearChunks` (extinction, page/vidéo changée), ou au bout de
+    // 15 s (filet : jamais un indicateur qui tourne pour rien).
+    //
+    // ⚠️ État GLOBAL (ensemble des lecteurs en chargement), pas par onglet : le
+    // Java ne sait pas à quel onglet appartient un lecteur sans nouveau JNI. Un
+    // onglet en arrière-plan ne lit pas de vidéo sur Android, et la barre
+    // efface l'indicateur à chaque changement d'onglet (clearLoadingIndicator).
+
+    /** Notifié sur le thread UI. */
+    public interface LoadingObserver {
+        void onSawtunaaLoadingChanged(boolean loading);
+    }
+
+    private static final long LOADING_TIMEOUT_MS = 15_000;
+    // Latence de sortie approximative d'un bloc écrit dans l'AudioTrack vide.
+    private static final long AUDIBLE_MARGIN_MS = 100;
+    // Thread UI uniquement.
+    private static final ObserverList<LoadingObserver> sLoadingObservers = new ObserverList<>();
+    private static final HashSet<Integer> sLoadingPlayers = new HashSet<>();
+
+    // Muté sur mMainExec.
+    private boolean mSessionStarted;
+    private final AtomicLong mLoadingGen = new AtomicLong(0);
+
+    public static void addLoadingObserver(LoadingObserver observer) {
+        ThreadUtils.assertOnUiThread();
+        sLoadingObservers.addObserver(observer);
+    }
+
+    public static void removeLoadingObserver(LoadingObserver observer) {
+        ThreadUtils.assertOnUiThread();
+        sLoadingObservers.removeObserver(observer);
+    }
+
+    public static boolean isAnyLoading() {
+        ThreadUtils.assertOnUiThread();
+        return !sLoadingPlayers.isEmpty();
+    }
+
+    /** Changement d'onglet : l'indicateur ne doit pas suivre l'utilisateur. */
+    public static void clearLoadingIndicator() {
+        ThreadUtils.assertOnUiThread();
+        if (sLoadingPlayers.isEmpty()) return;
+        sLoadingPlayers.clear();
+        for (LoadingObserver o : sLoadingObservers) o.onSawtunaaLoadingChanged(false);
+    }
+
+    private void setLoading(boolean loading) {
+        final long gen = mLoadingGen.incrementAndGet();
+        PostTask.postTask(TaskTraits.UI_DEFAULT, () -> applyLoading(loading));
+        if (loading) {
+            PostTask.postDelayedTask(
+                    TaskTraits.UI_DEFAULT,
+                    () -> {
+                        if (mLoadingGen.get() != gen) return;
+                        emit("loading_indicator_timeout");
+                        applyLoading(false);
+                    },
+                    LOADING_TIMEOUT_MS);
+        }
+    }
+
+    /** Le premier bloc traité sera audible dans {@code delayMs}. */
+    private void endLoadingAfter(long delayMs) {
+        final long gen = mLoadingGen.get();
+        PostTask.postDelayedTask(
+                TaskTraits.UI_DEFAULT,
+                () -> {
+                    if (mLoadingGen.get() == gen) applyLoading(false);
+                },
+                Math.max(0, delayMs));
+    }
+
+    private void applyLoading(boolean loading) {
+        boolean before = !sLoadingPlayers.isEmpty();
+        if (loading) {
+            sLoadingPlayers.add(mInstanceId);
+        } else {
+            sLoadingPlayers.remove(mInstanceId);
+        }
+        boolean after = !sLoadingPlayers.isEmpty();
+        if (before == after) return;
+        emit("loading_indicator", "loading", after);
+        for (LoadingObserver o : sLoadingObservers) o.onSawtunaaLoadingChanged(after);
+    }
+
     // --- Lifecycle ---
 
     /** Créé depuis JNI par SawtunaaTabHelper (1 instance par WebContents). */
@@ -248,6 +346,7 @@ public final class SawtunaaPlayer {
     public void destroy() {
         Log.i(TAG, "[Player#%d] destroyed", mInstanceId);
         mDestroyed = true;
+        setLoading(false);
         stop();
         mMainExec.shutdownNow();
         // ⚠️ NE PAS fermer la session ONNX ici. `shutdownNow()` n'interrompt pas
@@ -692,6 +791,13 @@ public final class SawtunaaPlayer {
             return;
         }
         mLastVideoUpToMs = upToMs;
+        if (!mSessionStarted) {
+            mSessionStarted = true;
+            if (mFirstChunkPlayedAtMs == null) setLoading(true);
+        }
+        // Silence posé devant le premier bloc dans CET appel : il retarde
+        // d'autant le moment où le son traité devient audible.
+        double leadMs = 0;
 
         while (true) {
             int nextIdx = -1;
@@ -726,6 +832,7 @@ public final class SawtunaaPlayer {
                 if (silentFrames > 0) {
                     float[] silence = new float[silentFrames];
                     mWriteQueue.add(silence);
+                    leadMs = silentMs;
                     anchorPlayback(upToMs);
                     mLastScheduledEndMs = nextTs;
                     emit("first_chunk_silence_lead",
@@ -764,6 +871,7 @@ public final class SawtunaaPlayer {
                     if (mFirstChunkPlayedAtMs == null) {
                         mFirstChunkPlayedAtMs = SystemClock.elapsedRealtime();
                         anchorPlayback(upToMs);
+                        endLoadingAfter(AUDIBLE_MARGIN_MS);
                         emit("first_chunk_played",
                                 "chunk_ts", (long) nextTs,
                                 "video_ms", (long) upToMs,
@@ -806,6 +914,7 @@ public final class SawtunaaPlayer {
             if (mFirstChunkPlayedAtMs == null) {
                 mFirstChunkPlayedAtMs = SystemClock.elapsedRealtime();
                 anchorPlayback(nextTs);
+                endLoadingAfter((long) leadMs + AUDIBLE_MARGIN_MS);
                 emit("first_chunk_played",
                         "chunk_ts", (long) nextTs,
                         "video_ms", (long) upToMs,
@@ -888,6 +997,8 @@ public final class SawtunaaPlayer {
             mAnchorAudioFrame = null;
             mAnchorSourceMs = 0;
             mIsPaused = false;
+            mSessionStarted = false;
+            setLoading(false);
             mLastVideoUpToMs = 0;
             // Reset NSNet2 GRU state sur le preprocess thread.
             postPreprocess(() -> {

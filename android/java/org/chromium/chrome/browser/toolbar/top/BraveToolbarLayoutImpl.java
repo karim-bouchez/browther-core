@@ -93,6 +93,7 @@ import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
 import org.chromium.chrome.browser.browther_widgets.BrowtherEarlyAccess;
 import org.chromium.chrome.browser.browther_widgets.BrowtherCountdownRingView;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaPanelBottomSheet;
+import org.chromium.chrome.browser.sawtunaa.SawtunaaPlayer;
 import org.chromium.chrome.browser.sawtunaa.SawtunaaTemporarySwitch;
 import org.chromium.chrome.browser.shields_panel.ShieldsPanelBottomSheet;
 import org.chromium.chrome.browser.shields.BraveShieldsHandler;
@@ -202,6 +203,15 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private final SawtunaaTemporarySwitch.Observer mSawtunaaTemporaryObserver =
             this::updateSawtunaaBadge;
     private boolean mSawtunaaTemporaryObserved;
+    // Browther: indicateur « le son traité arrive » (SawtunaaPlayer.LoadingObserver) : un arc qui
+    // tourne autour de l'icône, avancé toutes les 100 ms (chaque pas = une capture de la barre).
+    private boolean mSawtunaaLoading;
+    private final Runnable mSawtunaaSpinnerTick = this::tickSawtunaaSpinner;
+    private final SawtunaaPlayer.LoadingObserver mSawtunaaLoadingObserver =
+            loading -> {
+                mSawtunaaLoading = loading;
+                updateSawtunaaCountdown();
+            };
     private @Nullable PrefChangeRegistrar mSawtunaaPrefChangeRegistrar;
     // Browther: Brave Shields status badge (iOS parity 2026-06-01). Wired
     // to per-site Shields ON/OFF state via updateBraveShieldsButtonState().
@@ -290,8 +300,10 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
             mSawtunaaPrefChangeRegistrar = null;
         }
         removeCallbacks(mSawtunaaCountdownTick);
+        removeCallbacks(mSawtunaaSpinnerTick);
         if (mSawtunaaTemporaryObserved) {
             SawtunaaTemporarySwitch.get().removeObserver(mSawtunaaTemporaryObserver);
+            SawtunaaPlayer.removeLoadingObserver(mSawtunaaLoadingObserver);
             mSawtunaaTemporaryObserved = false;
         }
         if (mBasarunaaPrefChangeRegistrar != null) {
@@ -713,6 +725,9 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
                     @Override
                     public void didSelectTab(Tab tab, @TabSelectionType int type, int lastId) {
                         showYouTubePipIcon(tab);
+                        // Browther: l'indicateur de chargement Sawtunaa est global (cf.
+                        // SawtunaaPlayer) — il ne doit pas suivre l'utilisateur sur un autre onglet.
+                        SawtunaaPlayer.clearLoadingIndicator();
                         // Reset verified publisher checkmark immediately on tab
                         // switch. The correct state will be restored asynchronously
                         // by onFrontTabPublisherChanged once the publisher query
@@ -1416,17 +1431,21 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
     private void updateSawtunaaCountdown() {
         removeCallbacks(mSawtunaaCountdownTick);
         if (mSawtunaaBadge == null || !mSawtunaaTemporaryObserved) return;
+        removeCallbacks(mSawtunaaSpinnerTick);
         SawtunaaTemporarySwitch temporary = SawtunaaTemporarySwitch.get();
         temporary.checkDue();
         boolean active = temporary.isActive();
-        mSawtunaaBadge.setVisibility(active ? View.INVISIBLE : View.VISIBLE);
+        // Le chargement a priorité sur l'anneau et la pastille (parité iOS).
+        boolean loading = mSawtunaaLoading;
+        mSawtunaaBadge.setVisibility(active || loading ? View.INVISIBLE : View.VISIBLE);
         if (mSawtunaaCountdownRing != null) {
-            mSawtunaaCountdownRing.setVisibility(active ? View.VISIBLE : View.GONE);
+            mSawtunaaCountdownRing.setVisibility(active || loading ? View.VISIBLE : View.GONE);
+            Profile profile = ProfileManager.getLastUsedRegularProfile();
+            boolean enabled =
+                    profile != null
+                            && UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
+            mSawtunaaCountdownRing.setSpinner(loading, featureColor(enabled));
             if (active) {
-                Profile profile = ProfileManager.getLastUsedRegularProfile();
-                boolean enabled =
-                        profile != null
-                                && UserPrefs.get(profile).getBoolean(BravePref.SAWTUNAA_ENABLED);
                 mSawtunaaCountdownRing.setCountdown(
                         temporary.remainingMs() / (float) SawtunaaTemporarySwitch.DURATION_MS,
                         featureColor(enabled));
@@ -1434,6 +1453,14 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         }
         invalidateToolbarSnapshot();
         if (active) postDelayed(mSawtunaaCountdownTick, 1000L);
+        if (loading) postDelayed(mSawtunaaSpinnerTick, 100L);
+    }
+
+    private void tickSawtunaaSpinner() {
+        if (!mSawtunaaLoading || mSawtunaaCountdownRing == null) return;
+        mSawtunaaCountdownRing.advanceSpinner();
+        invalidateToolbarSnapshot();
+        postDelayed(mSawtunaaSpinnerTick, 100L);
     }
 
     /** Couleurs de {@link #featureBadge}, pour l'anneau. */
@@ -1452,6 +1479,8 @@ public abstract class BraveToolbarLayoutImpl extends ToolbarLayout
         // Crée le contrôleur « 2 min » : il reprend un compte à rebours en cours, ou
         // applique tout de suite un retour échu pendant que l'appli était fermée.
         SawtunaaTemporarySwitch.get().addObserver(mSawtunaaTemporaryObserver);
+        SawtunaaPlayer.addLoadingObserver(mSawtunaaLoadingObserver);
+        mSawtunaaLoading = SawtunaaPlayer.isAnyLoading();
         mSawtunaaTemporaryObserved = true;
         updateSawtunaaBadge();
     }
