@@ -139,7 +139,7 @@ seconde d'audio** (1 thread) et YouTube charge ~35 s d'avance. La file FIFO
 finissait l'audio de l'ANCIENNE position (24 blocs ≈ 7 s) avant d'attaquer la
 nouvelle, dont les premiers blocs, trop tardifs, étaient sautés → 5 à 10 s de
 silence. Désormais `pumpPreprocess()` choisit le prochain bloc : devant la
-lecture d'abord (ordre croissant), derrière jamais — gardés bruts, cf. § CPU / chauffe ; un bloc qui ne
+lecture d'abord (ordre croissant), derrière en dernier ; un bloc qui ne
 prolonge pas le précédent (recul, ou saut > 2 s) repart d'un NSNet2 remis à
 zéro. Un bloc traité pendant la lecture est planifié aussitôt (sans attendre
 le tick JS).
@@ -182,15 +182,16 @@ le modèle ou l'exécution (EP CoreML/ANE, quantification), pas par le code
 Swift/JS. Non mesurés ici : le coût WebKit du `postMessage` d'une chaîne de
 512 Ko (IPC, pas JS), et JavaScriptCore (iPhone) vs V8 pour `btoa`.
 
-**Audio derrière la lecture : plus traité.** Depuis le seek lointain (§
-ci-dessus) les blocs derrière la lecture passaient « en dernier » — donc
-étaient quand même tous traités, du CPU pour un audio qu'on n'entend qu'en cas
-de retour en arrière. Ils restent désormais **bruts** en file
-(`nextWorkIndex` ne choisit que devant la lecture) et ne sont traités que si
-la lecture repasse avant eux (`seekTo` relance la file : la cible passe en
-tête, ~0,3 s sur iPhone 13). Ni jetés (un retour en arrière DANS le tampon
-YouTube ne re-livre rien → silence), ni gardés indéfiniment : purge au-delà de
-30 s derrière la lecture (~384 Ko par seconde brute).
+**Audio derrière la lecture : volontairement laissé tel quel.** Après un seek
+lointain, les blocs derrière la lecture sont encore traités (en dernier). Ne
+plus les traiter a été codé puis **retiré le jour même** (consigne Karim : pas
+de changement de comportement de la synchro qu'on vient de stabiliser, pour un
+gain faible). À noter pour plus tard : un recul de ±10 s en lecture normale ne
+serait pas concerné (cet audio est déjà traité et en cache) — seul l'audio
+jamais traité derrière la lecture juste après un grand saut l'est.
+
+Les deux optimisations gardées produisent une sortie **identique octet pour
+octet** à l'ancienne (`bench.sh --runs=1 --dump=<f32>`, 60 s, `cmp`).
 
 ### Mécanismes anti-drift (historique, avant le 2026-09-30)
 
