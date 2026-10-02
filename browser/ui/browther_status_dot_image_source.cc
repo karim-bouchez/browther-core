@@ -31,7 +31,7 @@ BrowtherStatusDotImageSource::~BrowtherStatusDotImageSource() = default;
 
 // static
 int BrowtherStatusDotImageSource::RingIconSize(int content_image_size) {
-  return static_cast<int>(std::lround(content_image_size * 0.72f));
+  return static_cast<int>(std::lround(content_image_size * 0.62f));
 }
 
 // static
@@ -73,7 +73,7 @@ void BrowtherStatusDotImageSource::PaintRing(gfx::Canvas* canvas) {
   // Marge de 3 px sous le bord du canvas : le bouton rogne les derniers
   // pixels (insets), l'anneau au ras du bord était coupé (recette 2026-10-02).
   const float radius =
-      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f - 3.0f;
+      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f - 4.5f;
   const SkRect oval =
       SkRect::MakeLTRB(cx - radius, cy - radius, cx + radius, cy + radius);
 

@@ -44,14 +44,14 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
     addSubview(statusBadge)
     for ring in [countdownTrack, countdownRing] {
       ring.fillColor = nil
-      ring.lineWidth = 1.5
+      ring.lineWidth = 2
       ring.lineCap = .round
       ring.isHidden = true
       layer.addSublayer(ring)
     }
     countdownTrack.strokeColor = UIColor.systemGray3.cgColor
     loadingArc.fillColor = nil
-    loadingArc.lineWidth = 1.5
+    loadingArc.lineWidth = 2
     loadingArc.lineCap = .round
     loadingArc.strokeStart = 0
     loadingArc.strokeEnd = 0.28
@@ -66,20 +66,21 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
     loadingArc.removeAnimation(forKey: "spin")
     if loading {
       loadingArc.strokeColor = color.cgColor
-      let spin = CABasicAnimation(keyPath: "transform.rotation.z")
-      spin.fromValue = 0
-      spin.toValue = 2 * Double.pi
-      spin.duration = 0.9
-      spin.repeatCount = .infinity
-      loadingArc.add(spin, forKey: "spin")
+      startSpin()
     }
     setNeedsLayout()
   }
 
   /// `remaining` nil ou ≤ 0 : retour au dot.
+  /// Échéance et durée du compte à rebours affiché : de quoi RELANCER
+  /// l'animation quand iOS la retire (cf. `didMoveToWindow`).
+  private var countdownDeadline: Date?
+  private var countdownTotal: TimeInterval = 0
+
   func setCountdown(remaining: TimeInterval?, total: TimeInterval, color: UIColor) {
     countdownRing.removeAnimation(forKey: "countdown")
     guard let remaining, remaining > 0, total > 0 else {
+      countdownDeadline = nil
       countdownActive = false
       countdownTrack.isHidden = true
       countdownRing.isHidden = true
@@ -90,16 +91,49 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
     countdownTrack.isHidden = false
     countdownRing.isHidden = false
     countdownRing.strokeColor = color.cgColor
+    countdownDeadline = Date(timeIntervalSinceNow: remaining)
+    countdownTotal = total
+    startCountdownAnimation()
+    setNeedsLayout()
+  }
+
+  private func startCountdownAnimation() {
+    guard let countdownDeadline else { return }
+    let remaining = countdownDeadline.timeIntervalSinceNow
+    guard remaining > 0, countdownTotal > 0 else { return }
     CATransaction.begin()
     CATransaction.setDisableActions(true)
     countdownRing.strokeEnd = 0
     CATransaction.commit()
     let animation = CABasicAnimation(keyPath: "strokeEnd")
-    animation.fromValue = min(1, remaining / total)
+    animation.fromValue = min(1, remaining / countdownTotal)
     animation.toValue = 0
     animation.duration = remaining
     countdownRing.add(animation, forKey: "countdown")
-    setNeedsLayout()
+  }
+
+  private func startSpin() {
+    let spin = CABasicAnimation(keyPath: "transform.rotation.z")
+    spin.fromValue = 0
+    spin.toValue = 2 * Double.pi
+    spin.duration = 0.9
+    spin.repeatCount = .infinity
+    loadingArc.add(spin, forKey: "spin")
+  }
+
+  /// iOS RETIRE les animations Core Animation d'un calque qui quitte l'écran
+  /// (barre cachée sur le Nouvel Onglet, app en arrière-plan) : sans relance,
+  /// l'anneau restait figé sur sa piste grise, sans progression, même de
+  /// retour sur la page (recette Karim 2026-10-02).
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    guard window != nil else { return }
+    if countdownActive, countdownRing.animation(forKey: "countdown") == nil {
+      startCountdownAnimation()
+    }
+    if loadingActive, loadingArc.animation(forKey: "spin") == nil {
+      startSpin()
+    }
   }
 
   override func layoutSubviews() {
@@ -116,14 +150,14 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
       width: iconSize.width, height: iconSize.height)
     let ringing = countdownActive || loadingActive
     // L'icône GARDE sa taille (recette Karim 2026-10-02 : la réduire, non).
-    // L'anneau en fait le tour à +3 pt ; c'est l'espacement de la rangée
+    // L'anneau en fait le tour à +5 pt (il ne touche plus le dessin) ; c'est l'espacement de la rangée
     // (TopToolbarView.shieldsRewardsStack) qui empêche deux anneaux voisins
     // de se toucher.
     imageView.transform = .identity
     statusBadge.isHidden = ringing
     countdownTrack.opacity = loadingActive ? 0 : 1
     countdownRing.opacity = loadingActive ? 0 : 1
-    let radius = max(iconFrame.width, iconFrame.height) / 2 + 3
+    let radius = max(iconFrame.width, iconFrame.height) / 2 + 5
     let ring = UIBezierPath(
       arcCenter: CGPoint(x: iconFrame.midX, y: iconFrame.midY),
       radius: radius,
