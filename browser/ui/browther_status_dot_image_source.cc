@@ -70,8 +70,10 @@ void BrowtherStatusDotImageSource::PaintRing(gfx::Canvas* canvas) {
   constexpr float kStroke = 1.5f;
   const float cx = size().width() / 2.0f;
   const float cy = size().height() / 2.0f;
+  // Marge de 3 px sous le bord du canvas : le bouton rogne les derniers
+  // pixels (insets), l'anneau au ras du bord était coupé (recette 2026-10-02).
   const float radius =
-      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f - 0.5f;
+      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f - 3.0f;
   const SkRect oval =
       SkRect::MakeLTRB(cx - radius, cy - radius, cx + radius, cy + radius);
 

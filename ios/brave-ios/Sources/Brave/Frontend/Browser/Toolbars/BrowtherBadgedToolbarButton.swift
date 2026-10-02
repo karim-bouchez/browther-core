@@ -115,14 +115,15 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
       x: iconCenter.x - iconSize.width / 2, y: iconCenter.y - iconSize.height / 2,
       width: iconSize.width, height: iconSize.height)
     let ringing = countdownActive || loadingActive
-    // Anneau ou chargement : l'icône rétrécit et l'anneau tient dans sa place
-    // habituelle. À +4 pt autour de l'icône pleine taille, il touchait le
-    // dessin ET l'anneau du bouton voisin (recette Karim 2026-10-02).
-    imageView.transform = ringing ? CGAffineTransform(scaleX: 0.68, y: 0.68) : .identity
+    // L'icône GARDE sa taille (recette Karim 2026-10-02 : la réduire, non).
+    // L'anneau en fait le tour à +3 pt ; c'est l'espacement de la rangée
+    // (TopToolbarView.shieldsRewardsStack) qui empêche deux anneaux voisins
+    // de se toucher.
+    imageView.transform = .identity
     statusBadge.isHidden = ringing
     countdownTrack.opacity = loadingActive ? 0 : 1
     countdownRing.opacity = loadingActive ? 0 : 1
-    let radius = max(iconFrame.width, iconFrame.height) / 2
+    let radius = max(iconFrame.width, iconFrame.height) / 2 + 3
     let ring = UIBezierPath(
       arcCenter: CGPoint(x: iconFrame.midX, y: iconFrame.midY),
       radius: radius,
