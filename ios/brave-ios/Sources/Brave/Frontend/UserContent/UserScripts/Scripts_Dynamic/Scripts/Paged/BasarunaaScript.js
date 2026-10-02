@@ -2652,6 +2652,63 @@ video:not([data-basarunaa]) { filter: none !important; }
     });
     return out;
   }
+  const MAX_FMP4_CARRY_BYTES = 16 * 1024 * 1024;
+  class Fmp4FragmentStream {
+    // ⚠️ Pas de « parameter property » : node ne sait pas la dépouiller (bancs).
+    constructor(timescale) {
+      this.carry = null;
+      this.resyncs = 0;
+      this.timescale = timescale;
+    }
+    reset() {
+      this.carry = null;
+    }
+    /** `offsetUs` = `SourceBuffer.timestampOffset` at that append. */
+    push(buf, offsetUs = 0) {
+      let d = new Uint8Array(buf);
+      if (this.carry) {
+        const joined = new Uint8Array(this.carry.length + d.length);
+        joined.set(this.carry, 0);
+        joined.set(d, this.carry.length);
+        d = joined;
+        this.carry = null;
+      }
+      const dv = new DataView(d.buffer, d.byteOffset, d.byteLength);
+      let p = 0;
+      let usable = 0;
+      while (p + 8 <= d.length) {
+        let size = dv.getUint32(p);
+        const isMdat = dv.getUint32(p + 4) === 1835295092;
+        if (size === 1) {
+          if (p + 16 > d.length) break;
+          size = dv.getUint32(p + 12);
+        } else if (size === 0) {
+          break;
+        }
+        if (size < 8) {
+          this.resyncs++;
+          return [];
+        }
+        if (p + size > d.length) break;
+        p += size;
+        if (isMdat) usable = p;
+      }
+      const rest = d.subarray(usable);
+      if (rest.length) {
+        if (rest.length > MAX_FMP4_CARRY_BYTES) {
+          this.resyncs++;
+        } else {
+          this.carry = rest.slice();
+        }
+      }
+      if (!usable) return [];
+      const head = d.subarray(0, usable);
+      const ab = head.byteOffset === 0 && head.byteLength === head.buffer.byteLength ? head.buffer : head.slice().buffer;
+      const samples = parseMediaSegment(ab, this.timescale);
+      if (offsetUs) for (const s of samples) s.timestampUs += offsetUs;
+      return samples;
+    }
+  }
 
   const ID_SEGMENT = 408125543;
   const ID_INFO = 357149030;
@@ -2799,16 +2856,218 @@ video:not([data-basarunaa]) { filter: none !important; }
       trackNumber
     };
   }
-  function parseWebmClusters(buf, cfg) {
-    const d = new Uint8Array(buf);
-    const out = [];
-    const tickUs = cfg.timestampScaleNs / 1e3;
-    let truncatedBlocks = 0;
-    const readBlock = (start, end, clusterTicks, durationUs, forcedKey, truncated) => {
-      if (truncated) {
-        truncatedBlocks++;
-        return;
+  const TOP_LEVEL = /* @__PURE__ */ new Set([
+    ID_SEGMENT,
+    ID_CLUSTER,
+    440786851,
+    290298740,
+    ID_INFO,
+    ID_TRACKS,
+    475249515,
+    272869232,
+    307544935,
+    423732329,
+    236,
+    191
+  ]);
+  const CLOSES_CLUSTER = new Set(
+    [...TOP_LEVEL].filter((id) => id !== 236 && id !== 191)
+  );
+  const CLUSTER_SKIPPED = /* @__PURE__ */ new Set([
+    167,
+    171,
+    22612,
+    175,
+    236,
+    191
+  ]);
+  const MAX_CARRY_BYTES = 8 * 1024 * 1024;
+  class WebmClusterStream {
+    // ⚠️ Pas de « parameter property » (`constructor(private cfg)`) : node ne
+    // sait pas la dépouiller, et ce module doit rester exécutable par les bancs
+    // (`scripts/test_webm_stream.mjs`) sans build.
+    constructor(cfg) {
+      this.carry = null;
+      /**
+       * False until a Cluster id has been seen since the last reset. Until then we
+       * do not try to READ elements, we SEARCH for a Cluster: bytes picked up in
+       * the middle of a frame can look like any element — a phantom Void with a
+       * huge size would swallow the stream for minutes.
+       */
+      this.synced = false;
+      this.inCluster = false;
+      /** Payload bytes left in the open Cluster, or -1 for an unknown size. */
+      this.clusterLeft = -1;
+      this.clusterTicks = 0;
+      /** Bytes of a skipped element still to come (it spans pushes). */
+      this.skipLeft = 0;
+      /** Duration hint for the last sample of a push, whose successor is unknown. */
+      this.lastDurationUs = 33367;
+      /** Times the stream lost sync and looked for the next Cluster. */
+      this.resyncs = 0;
+      this.cfg = cfg;
+      this.tickUs = cfg.timestampScaleNs / 1e3;
+    }
+    reset() {
+      this.carry = null;
+      this.synced = false;
+      this.inCluster = false;
+      this.clusterLeft = -1;
+      this.clusterTicks = 0;
+      this.skipLeft = 0;
+    }
+    /**
+     * Feeds the bytes of one append. `offsetUs` is the SourceBuffer's
+     * `timestampOffset` at that append: MSE presents a frame at its coded
+     * timestamp PLUS that offset, and `video.currentTime` — the clock every
+     * anchor is filed under — is presentation time.
+     */
+    push(buf, offsetUs = 0) {
+      const fresh = new Uint8Array(buf);
+      let d = fresh;
+      if (this.carry) {
+        d = new Uint8Array(this.carry.length + fresh.length);
+        d.set(this.carry, 0);
+        d.set(fresh, this.carry.length);
+        this.carry = null;
       }
+      const out = [];
+      const n = d.length;
+      let p = 0;
+      const consumed = (len) => {
+        if (this.inCluster && this.clusterLeft >= 0) {
+          this.clusterLeft -= len;
+          if (this.clusterLeft <= 0) {
+            this.inCluster = false;
+            this.clusterLeft = -1;
+          }
+        }
+      };
+      while (p < n) {
+        if (!this.synced) {
+          p = this.findCluster(d, p);
+          continue;
+        }
+        if (this.skipLeft > 0) {
+          const k = Math.min(this.skipLeft, n - p);
+          this.skipLeft -= k;
+          consumed(k);
+          p += k;
+          continue;
+        }
+        const id = readId(d, p);
+        const size = id ? readSize(d, p + id.len) : null;
+        if (!id || !size) {
+          if (n - p < 12) {
+            this.carry = d.slice(p);
+            break;
+          }
+          p = this.resync(d, p + 1);
+          continue;
+        }
+        const payload = p + id.len + size.len;
+        if (this.inCluster && CLOSES_CLUSTER.has(id.id)) {
+          this.inCluster = false;
+          this.clusterLeft = -1;
+        }
+        if (!this.inCluster) {
+          if (!TOP_LEVEL.has(id.id)) {
+            p = this.resync(d, p + 1);
+            continue;
+          }
+          if (id.id === ID_CLUSTER || id.id === ID_SEGMENT) {
+            if (payload > n) {
+              this.carry = d.slice(p);
+              break;
+            }
+            if (id.id === ID_CLUSTER) {
+              this.inCluster = true;
+              this.clusterLeft = size.unknown ? -1 : size.value;
+              this.clusterTicks = 0;
+            }
+            p = payload;
+            continue;
+          }
+          if (size.unknown) {
+            p = this.resync(d, p + 1);
+            continue;
+          }
+          p = this.skip(p, payload + size.value, n, consumed);
+          continue;
+        }
+        const wanted = id.id === ID_TIMESTAMP || id.id === ID_SIMPLE_BLOCK || id.id === ID_BLOCK_GROUP;
+        if (size.unknown || !wanted && !CLUSTER_SKIPPED.has(id.id)) {
+          p = this.resync(d, p + 1);
+          continue;
+        }
+        const end = payload + size.value;
+        if (!wanted) {
+          p = this.skip(p, end, n, consumed);
+          continue;
+        }
+        if (end > n) {
+          if (end - p > MAX_CARRY_BYTES) {
+            p = this.resync(d, p + 1);
+            continue;
+          }
+          this.carry = d.slice(p);
+          break;
+        }
+        if (id.id === ID_TIMESTAMP) {
+          this.clusterTicks = readUint(d, payload, size.value);
+        } else if (id.id === ID_SIMPLE_BLOCK) {
+          this.readBlock(d, payload, end, 0, null, offsetUs, out);
+        } else {
+          let bs = -1, be = -1, durationUs = 0, hasReference = false;
+          each(d, payload, end, (g) => {
+            if (g.id === ID_BLOCK) {
+              bs = g.start;
+              be = g.end;
+            } else if (g.id === ID_BLOCK_DURATION)
+              durationUs = Math.round(readUint(d, g.start, g.end - g.start) * this.tickUs);
+            else if (g.id === 251) hasReference = true;
+          });
+          if (bs >= 0) this.readBlock(d, bs, be, durationUs, !hasReference, offsetUs, out);
+        }
+        consumed(end - p);
+        p = end;
+      }
+      for (let i = 0; i < out.length; i++) {
+        const cur = out[i], next = out[i + 1];
+        if (!cur.durationUs) {
+          cur.durationUs = next ? Math.max(0, next.timestampUs - cur.timestampUs) : this.lastDurationUs;
+        }
+        if (cur.durationUs > 0) this.lastDurationUs = cur.durationUs;
+      }
+      return out;
+    }
+    /** Steps over [p, end), across pushes if needed — never carried, a skipped
+     *  element (Cues…) can be large. */
+    skip(p, end, n, consumed) {
+      const stop = Math.min(end, n);
+      this.skipLeft = end - stop;
+      consumed(stop - p);
+      return stop;
+    }
+    /** Lost sync while reading: drop all state, look for the next Cluster. */
+    resync(d, from) {
+      this.resyncs++;
+      this.reset();
+      return this.findCluster(d, from);
+    }
+    /** Offset of the next Cluster id at or after `from` (and we are synced), or
+     *  the end — keeping a 3-byte tail in case the id is split. */
+    findCluster(d, from) {
+      for (let i = from; i + 3 < d.length; i++) {
+        if (d[i] === 31 && d[i + 1] === 67 && d[i + 2] === 182 && d[i + 3] === 117) {
+          this.synced = true;
+          return i;
+        }
+      }
+      this.carry = d.slice(Math.max(from, d.length - 3));
+      return d.length;
+    }
+    readBlock(d, start, end, durationUs, forcedKey, offsetUs, out) {
       const track = readSize(d, start);
       if (!track) return;
       let p = start + track.len;
@@ -2817,59 +3076,16 @@ video:not([data-basarunaa]) { filter: none !important; }
       const rel = raw > 32767 ? raw - 65536 : raw;
       const flags = d[p + 2] ?? 0;
       p += 3;
-      if (track.value !== cfg.trackNumber) return;
+      if (track.value !== this.cfg.trackNumber) return;
       if ((flags & 6) !== 0) return;
       if (p >= end) return;
       out.push({
         data: d.subarray(p, end),
-        timestampUs: Math.round((clusterTicks + rel) * tickUs),
+        timestampUs: Math.round((this.clusterTicks + rel) * this.tickUs) + offsetUs,
         durationUs,
         key: forcedKey !== null ? forcedKey : (flags & 128) !== 0
       });
-    };
-    const walkCluster = (start, end) => {
-      let clusterTicks = 0;
-      each(d, start, end, (e) => {
-        const size = e.end - e.start;
-        if (e.id === ID_TIMESTAMP) {
-          clusterTicks = readUint(d, e.start, size);
-        } else if (e.id === ID_SIMPLE_BLOCK) {
-          readBlock(e.start, e.end, clusterTicks, 0, null, e.truncated);
-        } else if (e.id === ID_BLOCK_GROUP) {
-          let blockStart = -1, blockEnd = -1, durationUs = 0, hasReference = false;
-          let blockTruncated = false;
-          each(d, e.start, e.end, (g) => {
-            if (g.id === ID_BLOCK) {
-              blockStart = g.start;
-              blockEnd = g.end;
-              blockTruncated = g.truncated;
-            } else if (g.id === ID_BLOCK_DURATION)
-              durationUs = Math.round(readUint(d, g.start, g.end - g.start) * tickUs);
-            else if (g.id === 251) hasReference = true;
-          });
-          if (blockStart >= 0)
-            readBlock(
-              blockStart,
-              blockEnd,
-              clusterTicks,
-              durationUs,
-              !hasReference,
-              blockTruncated
-            );
-        }
-      });
-    };
-    eachDeep(d, 0, d.length, (e) => {
-      if (e.id === ID_CLUSTER) walkCluster(e.start, e.end);
-    });
-    for (let i = 0; i < out.length; i++) {
-      const cur = out[i], next = out[i + 1];
-      if (!cur.durationUs)
-        cur.durationUs = next ? Math.max(0, next.timestampUs - cur.timestampUs) : 33367;
     }
-    if (truncatedBlocks)
-      out.truncated = truncatedBlocks;
-    return out;
   }
 
   function codecFromMime(mimeType) {
@@ -2882,7 +3098,6 @@ video:not([data-basarunaa]) { filter: none !important; }
   const SEEK_FWD_MS = 2e3;
   class DecodeAhead {
     constructor(opts = {}) {
-      this.opts = opts;
       this.decoder = null;
       this.config = null;
       this.framesDecoded = 0;
@@ -2923,6 +3138,45 @@ video:not([data-basarunaa]) { filter: none !important; }
       this.suspended = false;
       this.suspends = 0;
       this.droppedUnpainted = 0;
+      /** Le format pour lequel le décodeur est configuré (≠ `config` pendant une
+       *  bascule de qualité : la file finit l'ancien format avant le nouveau). */
+      this.decoderConfig = null;
+      /** Un init de format différent vient d'arriver : au premier segment qui le
+       *  suit, les samples en file qu'il remplace sont jetés. */
+      this.switchPending = false;
+      this.switches = 0;
+      this.aborts = 0;
+      this.opts = opts;
+    }
+    /**
+     * Branche (ou débranche, `null`) l'étage d'analyse.
+     *
+     * Débranché = VEILLE : Basarunaa éteint en direct sur une page chargée
+     * allumée. On continue de recevoir et de démuxer les octets (ni décodage, ni
+     * analyse), et on purge ce que la lecture a dépassé — pour qu'au rallumage
+     * l'avance reparte en une fraction de seconde au lieu d'attendre la vidéo
+     * suivante. Sans cette veille, le nouveau pipeline n'avait jamais vu le
+     * segment d'init et restait en chemin réactif (`ahead OFF (no_anchor_start)`,
+     * recette du 2026-10-02). Le décodeur matériel, lui, est rendu.
+     */
+    setConsumer(opts) {
+      this.opts = opts;
+      if (opts) return;
+      if (this.decoder) {
+        try {
+          this.decoder.close();
+        } catch (e) {
+        }
+        this.decoder = null;
+        this.decoderConfig = null;
+      }
+      this.needKeyframe = true;
+    }
+    /** `SourceBuffer.abort()` : MSE remet son analyseur de segments à zéro, le
+     *  nôtre doit faire pareil. */
+    onAbort() {
+      this.aborts++;
+      this.config?.resetStream();
     }
     /** The element whose `currentTime` defines the playhead we measure against.
      *
@@ -2975,23 +3229,33 @@ video:not([data-basarunaa]) { filter: none !important; }
       let cfg = null;
       if (isWebm) {
         const w = parseWebmInit(seg.bytes, codecFromMime(seg.mimeType));
-        if (w) cfg = {
-          codec: w.codec,
-          codedWidth: w.codedWidth,
-          codedHeight: w.codedHeight,
-          // VP9 n'a pas de `description` : la passer ferait échouer configure().
-          parseSamples: (bytes) => parseWebmClusters(bytes, w)
-        };
+        if (w) {
+          const stream = new WebmClusterStream(w);
+          cfg = {
+            codec: w.codec,
+            codedWidth: w.codedWidth,
+            codedHeight: w.codedHeight,
+            // VP9 n'a pas de `description` : la passer ferait échouer configure().
+            signature: `webm|${w.codec}|${w.codedWidth}x${w.codedHeight}|${w.trackNumber}|${w.timestampScaleNs}`,
+            parseSamples: (bytes, offsetUs) => stream.push(bytes, offsetUs),
+            resetStream: () => stream.reset()
+          };
+        }
       } else {
         const m = parseInitSegment(seg.bytes);
-        if (m) cfg = {
-          codec: m.codec,
-          codedWidth: m.codedWidth,
-          codedHeight: m.codedHeight,
-          description: m.description,
-          // obligatoire : samples AVCC
-          parseSamples: (bytes) => parseMediaSegment(bytes, m.timescale)
-        };
+        if (m) {
+          const stream = new Fmp4FragmentStream(m.timescale);
+          cfg = {
+            codec: m.codec,
+            codedWidth: m.codedWidth,
+            codedHeight: m.codedHeight,
+            description: m.description,
+            // obligatoire : samples AVCC
+            signature: `fmp4|${m.codec}|${m.codedWidth}x${m.codedHeight}|${m.timescale}|${Array.from(m.description).join(",")}`,
+            parseSamples: (bytes, offsetUs) => stream.push(bytes, offsetUs),
+            resetStream: () => stream.reset()
+          };
+        }
       }
       if (!cfg) {
         if (!this.unsupportedReported) {
@@ -3004,16 +3268,26 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         return;
       }
-      this.reset();
+      const prev = this.config;
+      if (prev && prev.signature === cfg.signature) {
+        prev.resetStream();
+        return;
+      }
+      prev?.resetStream();
       this.config = cfg;
       this.droppedBeforeConfig = 0;
-      this.spawnDecoder(cfg);
+      if (prev) {
+        this.switchPending = true;
+        this.switches++;
+      }
+      if (!this.decoder && this.opts) this.spawnDecoder(cfg);
       metric("decode_ahead_config", {
         codec: cfg.codec,
         w: cfg.codedWidth,
         h: cfg.codedHeight,
         container: isWebm ? "webm" : "fmp4",
-        mime_type: seg.mimeType
+        mime_type: seg.mimeType,
+        switch: prev ? 1 : 0
       });
     }
     /** Crée (ou recrée) le décodeur pour la configuration courante. */
@@ -3030,7 +3304,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           this.framesDecoded++;
           this.lastDecodedPtsSec = frame.timestamp / 1e6;
           try {
-            this.opts.onFrame?.(frame, this.lastDecodedPtsSec);
+            this.opts?.onFrame?.(frame, this.lastDecodedPtsSec);
           } finally {
             frame.close();
           }
@@ -3055,6 +3329,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       if (cfg.description) init.description = cfg.description;
       decoder.configure(init);
       this.decoder = decoder;
+      this.decoderConfig = cfg;
       this.decoderDead = false;
       this.needKeyframe = true;
     }
@@ -3088,11 +3363,27 @@ video:not([data-basarunaa]) { filter: none !important; }
           });
         }
         this.needKeyframe = true;
+        cfg.resetStream();
         return;
       }
-      const samples = cfg.parseSamples(seg.bytes);
+      const offsetUs = Math.round((seg.timestampOffsetSec ?? 0) * 1e6);
+      const samples = cfg.parseSamples(seg.bytes, offsetUs);
+      if (this.switchPending && samples.length) {
+        this.switchPending = false;
+        const from = samples[0].timestampUs;
+        const kept = [];
+        let bytes = 0;
+        for (const q of this.pending) {
+          if (q.s.timestampUs < from) {
+            kept.push(q);
+            bytes += q.s.data.byteLength;
+          }
+        }
+        this.pending = kept;
+        this.pendingBytes = bytes;
+      }
       for (const s of samples) {
-        this.pending.push(s);
+        this.pending.push({ s, cfg });
         this.pendingBytes += s.data.byteLength;
       }
       this.pump();
@@ -3117,41 +3408,45 @@ video:not([data-basarunaa]) { filter: none !important; }
         return;
       }
       this.checkDiscontinuity();
-      const cfg = this.config;
-      if (!cfg || !this.pending.length) {
+      if (!this.config || !this.pending.length) {
+        this.stalledTicks = 0;
+        return;
+      }
+      const fedBefore = this.samplesFed;
+      const playhead = this.playheadMs();
+      let lastKey = -1;
+      for (let i = 0; i < this.pending.length; i++) {
+        const q = this.pending[i];
+        if (q.s.timestampUs / 1e3 > playhead) break;
+        if (q.s.key) lastKey = i;
+      }
+      if (lastKey > 0) {
+        for (let i = 0; i < lastKey; i++) this.pendingBytes -= this.pending[i].s.data.byteLength;
+        this.pending.splice(0, lastKey);
+        this.droppedStale += lastKey;
+        this.needKeyframe = true;
+      }
+      if (!this.opts) {
         this.stalledTicks = 0;
         return;
       }
       let dec = this.decoder;
+      const headCfg = this.pending[0].cfg;
       if (!dec || this.decoderDead || dec.state !== "configured") {
-        this.recoveries++;
-        metric("decode_ahead_recover", {
-          recoveries: this.recoveries,
-          errors: this.errors
-        });
-        this.spawnDecoder(cfg);
+        if (dec) {
+          this.recoveries++;
+          metric("decode_ahead_recover", {
+            recoveries: this.recoveries,
+            errors: this.errors
+          });
+        }
+        this.spawnDecoder(headCfg);
         dec = this.decoder;
         if (!dec) return;
       }
-      const fedBefore = this.samplesFed;
-      const playhead = this.playheadMs();
-      let purged = 0;
-      while (this.pending.length) {
-        const head = this.pending[0];
-        if (head.timestampUs / 1e3 >= playhead) break;
-        this.pending.shift();
-        this.pendingBytes -= head.data.byteLength;
-        this.droppedStale++;
-        purged++;
-      }
-      if (purged > 0) this.needKeyframe = true;
-      if (!this.pending.length) {
-        this.stalledTicks = 0;
-        return;
-      }
       const limit = playhead + aheadHorizonMs() + PUMP_MARGIN_MS;
       while (this.pending.length) {
-        const s = this.pending[0];
+        const { s, cfg } = this.pending[0];
         if (s.timestampUs / 1e3 > limit) break;
         if (dec.decodeQueueSize > MAX_QUEUE) {
           metric("decode_ahead_backpressure", { queue: dec.decodeQueueSize });
@@ -3159,6 +3454,11 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         this.pending.shift();
         this.pendingBytes -= s.data.byteLength;
+        if (cfg !== this.decoderConfig) {
+          this.spawnDecoder(cfg);
+          dec = this.decoder;
+          if (!dec) return;
+        }
         if (this.needKeyframe) {
           if (!s.key) continue;
           this.needKeyframe = false;
@@ -3178,7 +3478,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.stalledTicks++;
         if (this.stalledTicks >= 20 && !this.stalledReported) {
           this.stalledReported = true;
-          const head = this.pending[0];
+          const head = this.pending[0].s;
           metric("decode_ahead_stalled", {
             playhead_ms: Math.round(playhead),
             head_ts_ms: Math.round(head.timestampUs / 1e3),
@@ -3237,8 +3537,9 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.pending.length = 0;
         this.pendingBytes = 0;
       } else {
-        this.opts.onDiscontinuity?.();
+        this.opts?.onDiscontinuity?.();
       }
+      this.config?.resetStream();
       metric("decode_ahead_paint", {
         painted: painted ? 1 : 0,
         suspends: this.suspends,
@@ -3304,7 +3605,8 @@ video:not([data-basarunaa]) { filter: none !important; }
             to_ms: Math.round(pm),
             n: this.discontinuities
           });
-          this.opts.onDiscontinuity?.();
+          this.config?.resetStream();
+          this.opts?.onDiscontinuity?.();
         }
       }
       this.lastPlayheadMs = pm;
@@ -3326,7 +3628,10 @@ video:not([data-basarunaa]) { filter: none !important; }
         discontinuities: this.discontinuities,
         droppedStale: this.droppedStale,
         suspends: this.suspends,
-        droppedUnpainted: this.droppedUnpainted
+        droppedUnpainted: this.droppedUnpainted,
+        switches: this.switches,
+        aborts: this.aborts,
+        standby: this.opts ? 0 : 1
       };
     }
     reset() {
@@ -3337,6 +3642,8 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         this.decoder = null;
       }
+      this.decoderConfig = null;
+      this.switchPending = false;
       this.config = null;
       this.lastDecodedPtsSec = 0;
       this.pending.length = 0;
@@ -3856,9 +4163,6 @@ video:not([data-basarunaa]) { filter: none !important; }
 
   let installed = false;
   let currentOpts = null;
-  function detachMseTap() {
-    currentOpts = null;
-  }
   function looksLikeInit(head) {
     if (head.length < 8) return false;
     if (head[0] === 26 && head[1] === 69 && head[2] === 223 && head[3] === 163)
@@ -3915,9 +4219,11 @@ video:not([data-basarunaa]) { filter: none !important; }
             if (!head || isInit || opts2.wantsMedia?.() !== false) {
               const bytes = toArrayBuffer(data);
               if (bytes) {
+                const off = Number(this.timestampOffset);
+                const timestampOffsetSec = Number.isFinite(off) ? off : 0;
                 queueMicrotask(() => {
                   try {
-                    opts2.onSegment({ bytes, isInit, mimeType });
+                    opts2.onSegment({ bytes, isInit, mimeType, timestampOffsetSec });
                   } catch (e) {
                   }
                 });
@@ -3928,6 +4234,23 @@ video:not([data-basarunaa]) { filter: none !important; }
         }
         return original.apply(this, arguments);
       };
+      const originalAbort = proto.abort;
+      if (typeof originalAbort === "function") {
+        proto.abort = function patchedAbort() {
+          try {
+            if (videoBuffers.get(this)) {
+              queueMicrotask(() => {
+                try {
+                  currentOpts?.onAbort?.();
+                } catch (e) {
+                }
+              });
+            }
+          } catch (e) {
+          }
+          return originalAbort.apply(this, arguments);
+        };
+      }
       sbPatched = true;
     }
     for (const { name, proto } of sources) {
@@ -5757,6 +6080,26 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   const DATA_WIRED_ATTR = "data-basarunaa-video-id";
+  let sharedDecodeAhead = null;
+  function getSharedDecodeAhead() {
+    if (sharedDecodeAhead) return sharedDecodeAhead;
+    const da = new DecodeAhead(null);
+    const tapped = installMseTap({
+      onSegment: (seg) => da.onSegment(seg),
+      // Vidéo non peinte : le tap n'a personne à servir, il n'a donc rien à
+      // copier. C'est le seul poste de ce chemin qui s'exécute SUR la pile de
+      // `appendBuffer` — le couper là, et pas seulement plus bas, est ce qui
+      // enlève la dernière dépense faite dans le chemin de lecture de la page.
+      wantsMedia: () => da.wantsMedia(),
+      onAbort: () => da.onAbort()
+    });
+    if (!tapped) {
+      metric("decode_ahead_error", { where: "tap", msg: "no MediaSource" });
+      return null;
+    }
+    sharedDecodeAhead = da;
+    return da;
+  }
   function createVideoPipeline() {
     const hasRVFC = typeof HTMLVideoElement !== "undefined" && typeof HTMLVideoElement.prototype.requestVideoFrameCallback === "function";
     if (!hasRVFC) return null;
@@ -5778,25 +6121,15 @@ video:not([data-basarunaa]) { filter: none !important; }
     let decodeAheadTimer = null;
     let pumpTimer = null;
     if (decodeAheadEnabled() && typeof VideoDecoder !== "undefined") {
-      decodeAhead = new DecodeAhead({
+      decodeAhead = getSharedDecodeAhead();
+      decodeAhead?.setConsumer({
         onFrame: (frame, ptsSec) => aheadAnalyzer?.onFrame(frame, ptsSec),
         onDiscontinuity: () => {
           aheadAnalyzer?.reset();
           aheadStore?.reset();
         }
       });
-      const tapped = installMseTap({
-        onSegment: (seg) => decodeAhead?.onSegment(seg),
-        // Vidéo non peinte : le tap n'a personne à servir, il n'a donc rien à
-        // copier. C'est le seul poste de ce chemin qui s'exécute SUR la pile de
-        // `appendBuffer` — le couper là, et pas seulement plus bas, est ce qui
-        // enlève la dernière dépense faite dans le chemin de lecture de la page.
-        wantsMedia: () => decodeAhead?.wantsMedia() ?? true
-      });
-      if (!tapped) {
-        metric("decode_ahead_error", { where: "tap", msg: "no MediaSource" });
-        decodeAhead = null;
-      } else {
+      if (decodeAhead) {
         let lastSig = "";
         decodeAheadTimer = window.setInterval(() => {
           const st = decodeAhead?.stats();
@@ -5837,24 +6170,25 @@ video:not([data-basarunaa]) { filter: none !important; }
       decodeAhead?.attachVideo(video);
       const id = nextId++;
       video.setAttribute(DATA_WIRED_ATTR, String(id));
-      if (decodeAhead && !aheadStore) {
-        aheadStore = new AheadStore();
-        aheadAnalyzer = new AheadAnalyzer({
-          videoId: id,
-          playheadMs: () => video.currentTime * 1e3,
-          store: aheadStore
-        });
-      }
       const proc = new VideoProcessor(id, video, procOpts);
-      if (aheadStore && aheadAnalyzer && aheadAnalyzer.videoId === id) {
-        proc.attachAheadStore(aheadStore);
-      }
       processors.set(id, proc);
+      if (!aheadStore) claimAhead(id, proc);
       canvasByVideo.set(video, proc.displayCanvas);
       if (!subsBootstrapped) {
         setupFloatingSubtitles(video);
         subsBootstrapped = true;
       }
+    }
+    function claimAhead(id, proc) {
+      if (!decodeAhead) return;
+      const video = proc.video;
+      aheadStore = new AheadStore();
+      aheadAnalyzer = new AheadAnalyzer({
+        videoId: id,
+        playheadMs: () => video.currentTime * 1e3,
+        store: aheadStore
+      });
+      proc.attachAheadStore(aheadStore);
     }
     function releaseAheadIfOwner(id) {
       if (!aheadAnalyzer || aheadAnalyzer.videoId !== id) return;
@@ -5898,15 +6232,22 @@ video:not([data-basarunaa]) { filter: none !important; }
           wired.delete(proc.video);
         }
       }
+      if (decodeAhead && !aheadStore) {
+        for (const [id, proc] of processors) {
+          if (!proc.video.paused && proc.video.currentTime > 0) {
+            claimAhead(id, proc);
+            break;
+          }
+        }
+      }
       scanAndWire();
     }, 1e3);
     return {
       scanAndWire,
       destroy() {
-        detachMseTap();
         if (decodeAheadTimer !== null) clearInterval(decodeAheadTimer);
         if (pumpTimer !== null) clearInterval(pumpTimer);
-        decodeAhead?.destroy();
+        decodeAhead?.setConsumer(null);
         observer.disconnect();
         clearInterval(gcInterval);
         for (const proc of processors.values()) proc.destroy();

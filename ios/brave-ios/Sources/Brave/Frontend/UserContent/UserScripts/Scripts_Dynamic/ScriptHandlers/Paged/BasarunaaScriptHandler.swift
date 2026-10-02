@@ -377,6 +377,41 @@ class BasarunaaScriptHandler: TabContentScript {
 
   /// Allume / éteint Basarunaa sur la page déjà chargée, sans la recharger :
   /// le frame principal repose la question au natif et la relaie à ses iframes.
+  /// L'URL de la vidéo YouTube en cours, avec sa position (`t=…s`) — ou nil si
+  /// la page n'est pas une vidéo YouTube démarrée. Seul YouTube sait reprendre
+  /// à un instant donné par l'URL : ailleurs, recharger renverrait la vidéo à
+  /// zéro, on s'en tient donc à l'injection en direct (chemin réactif).
+  @MainActor
+  static func youtubeResumeURL(in tab: some TabState, frame: WKFrameInfo) async -> URL? {
+    guard let url = tab.visibleURL,
+      let host = url.host?.lowercased(),
+      host == "youtube.com" || host.hasSuffix(".youtube.com"),
+      url.path == "/watch",
+      var comps = URLComponents(url: url, resolvingAgainstBaseURL: false),
+      comps.queryItems?.contains(where: { $0.name == "v" }) == true
+    else { return nil }
+    // Le lecteur : la plus grande vidéo qui a des données (le logo animé de
+    // YouTube est aussi un <video>, minuscule).
+    let position = try? await tab.callAsyncJavaScript(
+      """
+      let best = null;
+      for (const v of document.querySelectorAll('video')) {
+        if (v.readyState === 0 || (v.clientWidth || 0) < 96) continue;
+        if (!best || v.clientWidth > best.clientWidth) best = v;
+      }
+      return best ? best.currentTime : -1;
+      """,
+      arguments: [:],
+      in: frame,
+      contentWorld: scriptSandbox
+    )
+    guard let seconds = (position as? NSNumber)?.doubleValue, seconds >= 0 else { return nil }
+    var items = (comps.queryItems ?? []).filter { $0.name != "t" }
+    items.append(URLQueryItem(name: "t", value: "\(Int(seconds))s"))
+    comps.queryItems = items
+    return comps.url
+  }
+
   @MainActor
   static func sync(in tab: some TabState) {
     Task { @MainActor in
@@ -519,6 +554,18 @@ class BasarunaaScriptHandler: TabContentScript {
           contentWorld: Self.scriptSandbox
         )
         if on, (applied as? Bool) != true, let source = Self.liveSource {
+          // Page chargée éteinte, allumée en direct, avec une vidéo YouTube
+          // déjà démarrée : on recharge UNE fois, au même instant de la vidéo.
+          // Injecté maintenant, le script arriverait après la création des
+          // SourceBuffer — l'analyse en avance (le flou qui suit sans flash)
+          // serait impossible jusqu'à la vidéo suivante. Une fois la page
+          // rechargée allumée, éteindre/rallumer ne recharge plus jamais
+          // (le décodage en avance passe en veille). Décision Karim 2026-10-02.
+          if frame.isMainFrame, let reloadURL = await Self.youtubeResumeURL(in: tab, frame: frame) {
+            self.log.info("live_reload t=\(reloadURL.query ?? "", privacy: .public)")
+            tab.loadRequest(URLRequest(url: reloadURL))
+            return
+          }
           _ = try? await tab.callAsyncJavaScript(
             source, arguments: [:], in: frame, contentWorld: Self.scriptSandbox)
           self.log.info("live_inject main=\(frame.isMainFrame, privacy: .public)")
