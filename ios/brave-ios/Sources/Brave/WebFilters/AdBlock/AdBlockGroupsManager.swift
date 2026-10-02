@@ -527,7 +527,7 @@ import os
   private func getResourcesInfo(fromFileURL fileURL: URL) -> GroupedAdBlockEngine.ResourcesInfo {
     return GroupedAdBlockEngine.ResourcesInfo(
       localFileURL: fileURL,
-      version: fileURL.deletingLastPathComponent().lastPathComponent
+      version: AdblockService.componentVersion(forFolder: fileURL.deletingLastPathComponent())
     )
   }
 
@@ -677,7 +677,7 @@ extension AdBlockEngineManager.FileInfo {
     for source: GroupedAdBlockEngine.Source,
     downloadedFolderURL: URL
   ) {
-    let version = downloadedFolderURL.lastPathComponent
+    let version = AdblockService.componentVersion(forFolder: downloadedFolderURL)
     let localFileURL = downloadedFolderURL.appendingPathComponent("list.txt")
 
     guard FileManager.default.fileExists(atPath: localFileURL.relativePath) else {

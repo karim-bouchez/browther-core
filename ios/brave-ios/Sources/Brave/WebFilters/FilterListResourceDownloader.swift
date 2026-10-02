@@ -149,7 +149,9 @@ extension AdblockService {
 extension AdblockFilterListCatalogEntry {
   /// Create file info for this entry
   func fileInfo(for localFileURL: URL) -> AdBlockEngineManager.FileInfo {
-    let version = localFileURL.deletingLastPathComponent().lastPathComponent
+    let version = AdblockService.componentVersion(
+      forFolder: localFileURL.deletingLastPathComponent()
+    )
 
     return AdBlockEngineManager.FileInfo(
       filterListInfo: GroupedAdBlockEngine.FilterListInfo(

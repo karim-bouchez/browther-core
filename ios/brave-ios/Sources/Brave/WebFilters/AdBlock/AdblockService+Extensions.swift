@@ -27,6 +27,31 @@ extension AdblockService {
     return filterListBaseFolderURL?.appendingPathComponent(filePath)
   }
 
+  /// Browther: version d'une liste (ou des scriptlets) = nom du dossier qui la contient.
+  ///
+  /// Dans le bundle (BraveCore.framework, hors Application Support), ce nom — `<component_id>`,
+  /// `_resources` — ne change JAMAIS d'une release à l'autre : le moteur en cache et les règles
+  /// WebKit n'étaient donc jamais recompilés, et un utilisateur gardait les listes de sa première
+  /// installation. On y ajoute la version du bundle (`adblock_lists/bundle_version.txt`, écrit par
+  /// private/scripts/fetch-shields-lists.py). Les listes téléchargées par la mise à jour à chaud
+  /// (brave/components/browther_shields_lists) ont déjà un dossier par version.
+  public static func componentVersion(forFolder folderURL: URL) -> String {
+    let name = folderURL.lastPathComponent
+    if let baseURL = filterListBaseFolderURL, folderURL.path.hasPrefix(baseURL.path + "/") {
+      return name
+    }
+    let versionFileURL = folderURL.deletingLastPathComponent()
+      .appendingPathComponent("bundle_version.txt")
+    guard
+      let bundleVersion = try? String(contentsOf: versionFileURL, encoding: .utf8)
+        .trimmingCharacters(in: .whitespacesAndNewlines),
+      !bundleVersion.isEmpty
+    else {
+      return name
+    }
+    return "\(name)-\(bundleVersion)"
+  }
+
   /// Since the folder changes upon relaunches we cannot store the whole folder but the path.
   /// Here we extract the path from the folder URL for storage
   public static func extractRelativePath(fromComponentURL filePath: URL?) -> String? {

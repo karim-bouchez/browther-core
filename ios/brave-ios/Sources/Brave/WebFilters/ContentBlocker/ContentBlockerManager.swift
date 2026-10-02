@@ -461,8 +461,9 @@ import os.log
         if let existingVersion = versions.value[identifier] {
           // Browther: recompiler dès que la version CHANGE, pas seulement quand
           // elle augmente. Nos versions sont des noms de dossier choisis par le
-          // C++ (bundle `<component_id>` ou mise à jour à chaud `AAAAMMJJHHMMSS`,
-          // cf. brave/components/browther_shields_lists) : la comparaison
+          // C++ (bundle `<component_id>-<version du bundle>` ou mise à jour à chaud
+          // `AAAAMMJJHHMMSS`, cf. AdblockService.componentVersion et
+          // brave/components/browther_shields_lists) : la comparaison
           // numérique d'upstream jugeait « 2026… » plus ancien que « iodk… »,
           // et le blocage réseau WebKit restait sur les listes du bundle.
           return version != existingVersion
