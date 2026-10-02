@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Otevřeno v Browther";
 "introChannelsSameContent" = "Na obou stejný obsah";
 "introChannelsSoonDescription" = "Browther je jen jedna z aplikací ekosystému dev&din. Každou novinku — včetně rozmazávání a odstraňování hudby — oznamujeme na našich kanálech WhatsApp a Telegram, in šá Alláh.";
-"sawtunaaTempOfferReenable" = "Automaticky znovu zapnout za 2 min";
-"sawtunaaTempOfferDisable" = "Automaticky vypnout za 2 min";
+"sawtunaaTempOfferReenable" = "Automaticky znovu zapnout za 5 min";
+"sawtunaaTempOfferDisable" = "Automaticky vypnout za 5 min";
 "sawtunaaTempCountdownReenable" = "Automatické opětovné zapnutí";
 "sawtunaaTempCountdownDisable" = "Automatické vypnutí";
 "sawtunaaTempKeepOff" = "Nechat vypnuté";

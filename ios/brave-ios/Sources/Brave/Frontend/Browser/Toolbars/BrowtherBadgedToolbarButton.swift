@@ -44,14 +44,14 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
     addSubview(statusBadge)
     for ring in [countdownTrack, countdownRing] {
       ring.fillColor = nil
-      ring.lineWidth = 2
+      ring.lineWidth = 1.5
       ring.lineCap = .round
       ring.isHidden = true
       layer.addSublayer(ring)
     }
     countdownTrack.strokeColor = UIColor.systemGray3.cgColor
     loadingArc.fillColor = nil
-    loadingArc.lineWidth = 2
+    loadingArc.lineWidth = 1.5
     loadingArc.lineCap = .round
     loadingArc.strokeStart = 0
     loadingArc.strokeEnd = 0.28
@@ -104,14 +104,25 @@ class BrowtherBadgedToolbarButton: ToolbarButton {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    guard let iconFrame = imageView?.frame, iconFrame.width > 0 else {
+    guard let imageView, imageView.bounds.width > 0 else {
       statusBadge.isHidden = true
       return
     }
-    statusBadge.isHidden = countdownActive || loadingActive
+    // Géométrie SANS la réduction ci-dessous (`frame` suivrait la transform).
+    let iconSize = imageView.bounds.size
+    let iconCenter = imageView.center
+    let iconFrame = CGRect(
+      x: iconCenter.x - iconSize.width / 2, y: iconCenter.y - iconSize.height / 2,
+      width: iconSize.width, height: iconSize.height)
+    let ringing = countdownActive || loadingActive
+    // Anneau ou chargement : l'icône rétrécit et l'anneau tient dans sa place
+    // habituelle. À +4 pt autour de l'icône pleine taille, il touchait le
+    // dessin ET l'anneau du bouton voisin (recette Karim 2026-10-02).
+    imageView.transform = ringing ? CGAffineTransform(scaleX: 0.68, y: 0.68) : .identity
+    statusBadge.isHidden = ringing
     countdownTrack.opacity = loadingActive ? 0 : 1
     countdownRing.opacity = loadingActive ? 0 : 1
-    let radius = max(iconFrame.width, iconFrame.height) / 2 + 4
+    let radius = max(iconFrame.width, iconFrame.height) / 2
     let ring = UIBezierPath(
       arcCenter: CGPoint(x: iconFrame.midX, y: iconFrame.midY),
       radius: radius,

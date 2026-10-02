@@ -16,11 +16,11 @@
 
 class Profile;
 
-// Browther : « seulement 2 min » (desktop), pour Sawtunaa et Basarunaa. Port
+// Browther : « seulement 5 min » (desktop), pour Sawtunaa et Basarunaa. Port
 // de `FeatureTemporarySwitch.swift` (iOS, la référence de comportement de la
 // maquette validée par Karim le 2026-10-01) :
 //  - juste après une bascule, le panneau propose de revenir automatiquement à
-//    l'état d'avant dans 2 min, dans les deux sens ;
+//    l'état d'avant dans 5 min, dans les deux sens ;
 //  - l'interrupteur montre toujours l'état ACTUEL : la pref n'est touchée qu'à
 //    l'échéance ;
 //  - revenir plus tôt = rebasculer l'interrupteur (le clic sur l'icône ouvre
@@ -49,7 +49,7 @@ class FeatureTemporarySwitch : public base::SupportsUserData::Data {
  public:
   enum class Feature { kSawtunaa, kBasarunaa };
 
-  static constexpr base::TimeDelta kDuration = base::Minutes(2);
+  static constexpr base::TimeDelta kDuration = base::Minutes(5);
 
   static FeatureTemporarySwitch* GetForProfile(Profile* profile,
                                                Feature feature);

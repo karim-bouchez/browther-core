@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Avattu Browtherissa";
 "introChannelsSameContent" = "Molemmissa sama sisältö";
 "introChannelsSoonDescription" = "Browther on vain yksi dev&din-ekosysteemin sovellus. Kerromme jokaisesta uutuudesta — myös sumennuksesta ja musiikin poistosta — WhatsApp- ja Telegram-kanavillamme, in sha Allah.";
-"sawtunaaTempOfferReenable" = "Ota automaattisesti uudelleen käyttöön 2 min kuluttua";
-"sawtunaaTempOfferDisable" = "Poista automaattisesti käytöstä 2 min kuluttua";
+"sawtunaaTempOfferReenable" = "Ota automaattisesti uudelleen käyttöön 5 min kuluttua";
+"sawtunaaTempOfferDisable" = "Poista automaattisesti käytöstä 5 min kuluttua";
 "sawtunaaTempCountdownReenable" = "Otetaan automaattisesti uudelleen käyttöön";
 "sawtunaaTempCountdownDisable" = "Poistetaan automaattisesti käytöstä";
 "sawtunaaTempKeepOff" = "Pidä poissa käytöstä";

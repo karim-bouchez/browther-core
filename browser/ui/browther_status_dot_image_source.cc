@@ -11,7 +11,9 @@
 #include "third_party/skia/include/core/SkPath.h"
 #include "third_party/skia/include/core/SkPathBuilder.h"
 #include "third_party/skia/include/core/SkRect.h"
+#include "skia/ext/image_operations.h"
 #include "ui/gfx/canvas.h"
+#include "ui/gfx/image/image_skia_operations.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rect_f.h"
 #include "ui/gfx/geometry/size.h"
@@ -27,15 +29,49 @@ BrowtherStatusDotImageSource::BrowtherStatusDotImageSource(
 
 BrowtherStatusDotImageSource::~BrowtherStatusDotImageSource() = default;
 
+// static
+int BrowtherStatusDotImageSource::RingIconSize(int content_image_size) {
+  return static_cast<int>(std::lround(content_image_size * 0.72f));
+}
+
+// static
+gfx::ImageSkia BrowtherStatusDotImageSource::ShrinkIconForRing(
+    const gfx::ImageSkia& icon,
+    int content_image_size) {
+  const int s = RingIconSize(content_image_size);
+  return gfx::ImageSkiaOperations::CreateResizedImage(
+      icon, skia::ImageOperations::RESIZE_BEST, gfx::Size(s, s));
+}
+
+std::optional<int> BrowtherStatusDotImageSource::GetCustomGraphicSize() {
+  if (!ring_fraction_) {
+    return std::nullopt;
+  }
+  return RingIconSize(content_image_size_);
+}
+
+std::optional<int> BrowtherStatusDotImageSource::GetCustomGraphicXOffset() {
+  if (!ring_fraction_) {
+    return std::nullopt;
+  }
+  return (size().width() - RingIconSize(content_image_size_)) / 2;
+}
+
+std::optional<int> BrowtherStatusDotImageSource::GetCustomGraphicYOffset() {
+  if (!ring_fraction_) {
+    return std::nullopt;
+  }
+  return (size().height() - RingIconSize(content_image_size_)) / 2;
+}
+
 void BrowtherStatusDotImageSource::PaintRing(gfx::Canvas* canvas) {
-  // Cercle centré sur l'icône, un peu plus large qu'elle, clampé au canvas.
-  constexpr float kStroke = 2.0f;
+  // Cercle au bord du bouton, autour de l'icône réduite (cf.
+  // ShrinkIconForRing) : il ne touche plus le dessin.
+  constexpr float kStroke = 1.5f;
   const float cx = size().width() / 2.0f;
   const float cy = size().height() / 2.0f;
-  const float max_radius =
-      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f;
   const float radius =
-      std::min(max_radius, content_image_size_ / 2.0f + 2.0f);
+      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f - 0.5f;
   const SkRect oval =
       SkRect::MakeLTRB(cx - radius, cy - radius, cx + radius, cy + radius);
 

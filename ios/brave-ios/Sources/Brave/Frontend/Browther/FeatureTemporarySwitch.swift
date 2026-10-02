@@ -11,15 +11,15 @@ import Preferences
 import Sawtunaa
 import UIKit
 
-/// « Seulement 2 min » : juste après une bascule de Sawtunaa ou de Basarunaa, le panneau
-/// propose de revenir automatiquement à l'état d'avant dans 2 min, dans les
+/// « Seulement 5 min » : juste après une bascule de Sawtunaa ou de Basarunaa, le panneau
+/// propose de revenir automatiquement à l'état d'avant dans 5 min, dans les
 /// deux sens (« Réactiver automatiquement… » après une coupure, « Couper
 /// automatiquement… » après un allumage). Maquette validée par Karim le
 /// 2026-10-01 — cf. `private/docs/sawtunaa/README.md` § Bascule temporaire.
 ///
 /// Règles :
 /// - l'interrupteur montre toujours l'état ACTUEL : le mode temporaire ne
-///   touche pas la pref pendant les 2 min, il la remet seulement à la fin ;
+///   touche pas la pref pendant les 5 min, il la remet seulement à la fin ;
 /// - revenir plus tôt = rebasculer l'interrupteur du panneau ; toute bascule
 ///   qui rejoint l'état d'avant, d'où qu'elle vienne (réglages, pause du
 ///   parrainage…), annule le retour. ⛔ L'icône de la barre d'adresse ouvre le
@@ -48,7 +48,7 @@ final class FeatureTemporarySwitch: ObservableObject {
     revertToPref: Preferences.Basarunaa.temporaryRevertTo,
     blocksTurningOn: { false }
   )
-  static let duration: TimeInterval = 120
+  static let duration: TimeInterval = 300
 
   private let feature: String
   private let enabled: Preferences.Option<Bool>

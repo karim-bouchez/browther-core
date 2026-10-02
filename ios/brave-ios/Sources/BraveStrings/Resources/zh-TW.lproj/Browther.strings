@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "已在 Browther 中開啟";
 "introChannelsSameContent" = "兩邊內容相同";
 "introChannelsSoonDescription" = "Browther 只是 dev&din 生態系中的一款 App。我們會在 WhatsApp 和 Telegram 頻道發布每個新版本——包括模糊和去除音樂功能，因沙安拉。";
-"sawtunaaTempOfferReenable" = "2 分鐘後自動重新開啟";
-"sawtunaaTempOfferDisable" = "2 分鐘後自動關閉";
+"sawtunaaTempOfferReenable" = "5 分鐘後自動重新開啟";
+"sawtunaaTempOfferDisable" = "5 分鐘後自動關閉";
 "sawtunaaTempCountdownReenable" = "即將自動重新開啟";
 "sawtunaaTempCountdownDisable" = "即將自動關閉";
 "sawtunaaTempKeepOff" = "保持關閉";

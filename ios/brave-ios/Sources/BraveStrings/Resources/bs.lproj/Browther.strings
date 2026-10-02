@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Otvoreno u Browtheru";
 "introChannelsSameContent" = "Isti sadržaj na oba";
 "introChannelsSoonDescription" = "Browther je samo jedna aplikacija u ekosustavu dev&din. Svaku novost — uključujući zamućivanje i uklanjanje glazbe — najavljujemo na našim kanalima na WhatsAppu i Telegramu, inšallah.";
-"sawtunaaTempOfferReenable" = "Automatski ponovno uključi za 2 min";
-"sawtunaaTempOfferDisable" = "Automatski isključi za 2 min";
+"sawtunaaTempOfferReenable" = "Automatski ponovno uključi za 5 min";
+"sawtunaaTempOfferDisable" = "Automatski isključi za 5 min";
 "sawtunaaTempCountdownReenable" = "Automatsko ponovno uključivanje";
 "sawtunaaTempCountdownDisable" = "Automatsko isključivanje";
 "sawtunaaTempKeepOff" = "Ostavi isključeno";

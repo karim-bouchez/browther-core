@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Открыто в Browther";
 "introChannelsSameContent" = "В обоих — одно и то же";
 "introChannelsSoonDescription" = "Browther — лишь одно из приложений экосистемы dev&din. О каждой новой версии — включая размытие и удаление музыки — мы сообщаем в наших каналах WhatsApp и Telegram, иншаАллах.";
-"sawtunaaTempOfferReenable" = "Автоматически включить снова через 2 мин";
-"sawtunaaTempOfferDisable" = "Автоматически отключить через 2 мин";
+"sawtunaaTempOfferReenable" = "Автоматически включить снова через 5 мин";
+"sawtunaaTempOfferDisable" = "Автоматически отключить через 5 мин";
 "sawtunaaTempCountdownReenable" = "Автоматическое повторное включение";
 "sawtunaaTempCountdownDisable" = "Автоматическое отключение";
 "sawtunaaTempKeepOff" = "Оставить отключённым";

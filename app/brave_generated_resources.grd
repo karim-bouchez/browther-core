@@ -1496,11 +1496,11 @@ Or change later at <ph name="SETTINGS_EXTENIONS_LINK">$2<ex>brave://settings/ext
         This page cannot play here: protected content (DRM). To watch it without the music: install the Sawtunaa app, add its extension to another browser, then open this page in that browser.
       </message>
       <!-- Browther: Sawtunaa « seulement 2 min » (2026-10-01) -->
-      <message name="IDS_SAWTUNAA_TEMP_OFFER_REENABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal OFF: turns it back ON by itself after 2 minutes.">
-        Turn back on automatically in 2 min
+      <message name="IDS_SAWTUNAA_TEMP_OFFER_REENABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal OFF: turns it back ON by itself after 5 minutes.">
+        Turn back on automatically in 5 min
       </message>
-      <message name="IDS_SAWTUNAA_TEMP_OFFER_DISABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal ON: turns it back OFF by itself after 2 minutes.">
-        Turn off automatically in 2 min
+      <message name="IDS_SAWTUNAA_TEMP_OFFER_DISABLE" desc="Button shown in the Sawtunaa popup right after the user turned music removal ON: turns it back OFF by itself after 5 minutes.">
+        Turn off automatically in 5 min
       </message>
       <message name="IDS_SAWTUNAA_TEMP_COUNTDOWN_REENABLE" desc="Label of the countdown row in the Sawtunaa popup while music removal is temporarily OFF; the remaining time (e.g. 1:42) is shown next to it, separately.">
         Turning back on automatically

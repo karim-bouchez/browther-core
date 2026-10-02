@@ -975,10 +975,10 @@ Valamennyi kérés egy anonim proxy szerveren keresztül kerül továbbításra,
 <translation id="7700159354893692113">Ez a funkció még fejlesztés alatt áll</translation>
 <translation id="8511680009616304290">Lehet, hogy még nem működik jól.</translation>
 <translation id="5778063732609426803">Itt jelezzük, amint elkészül, إن شاء الله:</translation>
-<translation id="5643700781374100934">Automatikus visszakapcsolás 2 perc múlva</translation>
-<translation id="6478895935384450237">Automatikus kikapcsolás 2 perc múlva</translation>
 <translation id="4260695055470044350">Automatikus visszakapcsolás</translation>
 <translation id="6823897588119610164">Automatikus kikapcsolás</translation>
 <translation id="8933544192761688416">Maradjon kikapcsolva</translation>
 <translation id="6797745268063125932">Maradjon bekapcsolva</translation>
+<translation id="414597509237500637">Automatikus visszakapcsolás 5 perc múlva</translation>
+<translation id="1938839903414630110">Automatikus kikapcsolás 5 perc múlva</translation>
 </translationbundle>

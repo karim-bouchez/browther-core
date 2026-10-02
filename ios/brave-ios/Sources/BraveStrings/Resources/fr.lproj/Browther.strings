@@ -142,8 +142,8 @@
 "introDemoContactName" = "Famille";
 "introDemoMessageIncoming" = "Regarde ce que j'ai trouvé 🔥";
 "introDemoOpenedIn" = "Ouvert dans Browther";
-"sawtunaaTempOfferReenable" = "Réactiver automatiquement dans 2 min";
-"sawtunaaTempOfferDisable" = "Couper automatiquement dans 2 min";
+"sawtunaaTempOfferReenable" = "Réactiver automatiquement dans 5 min";
+"sawtunaaTempOfferDisable" = "Couper automatiquement dans 5 min";
 "sawtunaaTempCountdownReenable" = "Réactivation automatique";
 "sawtunaaTempCountdownDisable" = "Arrêt automatique";
 "sawtunaaTempKeepOff" = "Ne pas réactiver";

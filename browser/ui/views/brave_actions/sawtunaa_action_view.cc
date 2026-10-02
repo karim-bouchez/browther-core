@@ -179,6 +179,16 @@ void SawtunaaActionView::UpdateIconState() {
     base_icon = gfx::ImageSkiaOperations::CreateColorMask(
         base_icon, cp->GetColor(kColorOmniboxText));
   }
+  // Compte à rebours en cours : icône réduite, l'anneau en fait le tour.
+  auto* temporary = FeatureTemporarySwitch::GetForProfile(
+      browser_window_interface_ ? browser_window_interface_->GetProfile()
+                                : nullptr,
+      FeatureTemporarySwitch::Feature::kSawtunaa);
+  const bool counting = temporary && temporary->IsActive();
+  if (counting) {
+    base_icon = browther::BrowtherStatusDotImageSource::ShrinkIconForRing(
+        base_icon, icon_size);
+  }
   image_source->SetIcon(gfx::Image(base_icon));
   // Ambre = ON mais sans effet sur CET onglet (contenu protégé).
   // ⚠️ Gaté sur kSawtunaaNativeTapActive : quand le tap natif n'est PAS actif
@@ -198,11 +208,6 @@ void SawtunaaActionView::UpdateIconState() {
 
   // Sawtunaa « seulement 2 min » : anneau qui se vide, de la couleur de l'état
   // ACTUEL, à la place du dot.
-  auto* temporary = FeatureTemporarySwitch::GetForProfile(
-      browser_window_interface_ ? browser_window_interface_->GetProfile()
-                                : nullptr,
-      FeatureTemporarySwitch::Feature::kSawtunaa);
-  const bool counting = temporary && temporary->IsActive();
   if (counting) {
     image_source->SetRingFraction(static_cast<float>(
         temporary->Remaining() / FeatureTemporarySwitch::kDuration));

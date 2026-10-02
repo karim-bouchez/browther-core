@@ -1605,10 +1605,10 @@ Se você não aceitar essa solicitação, a VPN não se reconectará, e sua cone
 <translation id="2054543437072081980">Um projeto da</translation>
 <translation id="8934882665878176215">Publicar no meu status do WhatsApp</translation>
 <translation id="5449151118798532167">Convido você a conhecer o Browther: o navegador que corta a música e desfoca as imagens haram.\nCom o meu código {code}, você ganha um mês de recursos adicionais.</translation>
-<translation id="5643700781374100934">Reativar automaticamente em 2 min</translation>
-<translation id="6478895935384450237">Desativar automaticamente em 2 min</translation>
 <translation id="4260695055470044350">Reativação automática</translation>
 <translation id="6823897588119610164">Desativação automática</translation>
 <translation id="8933544192761688416">Manter desativado</translation>
 <translation id="6797745268063125932">Manter ativado</translation>
+<translation id="414597509237500637">Reativar automaticamente em 5 min</translation>
+<translation id="1938839903414630110">Desativar automaticamente em 5 min</translation>
 </translationbundle>

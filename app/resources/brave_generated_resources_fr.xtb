@@ -974,10 +974,10 @@ Ou modifiez les autorisations plus tard à l'adresse <ph name="SETTINGS_EXTENION
 <translation id="7700159354893692113">Cette fonctionnalité est encore en développement</translation>
 <translation id="8511680009616304290">Elle peut ne pas encore bien marcher.</translation>
 <translation id="5778063732609426803">On l'annoncera ici dès qu'elle sera prête, إن شاء الله :</translation>
-<translation id="5643700781374100934">Réactiver automatiquement dans 2 min</translation>
-<translation id="6478895935384450237">Couper automatiquement dans 2 min</translation>
 <translation id="4260695055470044350">Réactivation automatique</translation>
 <translation id="6823897588119610164">Arrêt automatique</translation>
 <translation id="8933544192761688416">Ne pas réactiver</translation>
 <translation id="6797745268063125932">Ne pas couper</translation>
+<translation id="414597509237500637">Réactiver automatiquement dans 5 min</translation>
+<translation id="1938839903414630110">Couper automatiquement dans 5 min</translation>
 </translationbundle>

@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "فُتح في Browther";
 "introChannelsSameContent" = "المحتوى نفسه في كليهما";
 "introChannelsSoonDescription" = "Browther ليس إلا تطبيقًا واحدًا في منظومة dev&din. نعلن عن كل إصدار جديد، ومنه الطمس وإزالة الموسيقى، في قنواتنا على WhatsApp وTelegram، إن شاء الله.";
-"sawtunaaTempOfferReenable" = "إعادة التفعيل تلقائيًا بعد دقيقتين";
-"sawtunaaTempOfferDisable" = "الإيقاف تلقائيًا بعد دقيقتين";
+"sawtunaaTempOfferReenable" = "إعادة التفعيل تلقائيًا بعد 5 دقائق";
+"sawtunaaTempOfferDisable" = "الإيقاف تلقائيًا بعد 5 دقائق";
 "sawtunaaTempCountdownReenable" = "يُعاد التفعيل تلقائيًا";
 "sawtunaaTempCountdownDisable" = "يتوقف تلقائيًا";
 "sawtunaaTempKeepOff" = "إبقاؤه متوقفًا";

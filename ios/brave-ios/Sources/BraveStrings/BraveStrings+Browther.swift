@@ -47,14 +47,14 @@ extension Strings {
       "sawtunaaTempOfferReenable",
       tableName: "Browther",
       bundle: .module,
-      value: "Turn back on automatically in 2 min",
+      value: "Turn back on automatically in 5 min",
       comment: "Sawtunaa panel: button shown right after turning music removal OFF"
     )
     public static let sawtunaaTempOfferDisable = NSLocalizedString(
       "sawtunaaTempOfferDisable",
       tableName: "Browther",
       bundle: .module,
-      value: "Turn off automatically in 2 min",
+      value: "Turn off automatically in 5 min",
       comment: "Sawtunaa panel: button shown right after turning music removal ON"
     )
     public static let sawtunaaTempCountdownReenable = NSLocalizedString(

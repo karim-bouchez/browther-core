@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Đã mở trong Browther";
 "introChannelsSameContent" = "Nội dung giống nhau ở cả hai";
 "introChannelsSoonDescription" = "Browther chỉ là một ứng dụng trong hệ sinh thái dev&din. Chúng tôi thông báo mọi phiên bản mới — kể cả làm mờ và loại bỏ âm nhạc — trên các kênh WhatsApp và Telegram, in sha Allah.";
-"sawtunaaTempOfferReenable" = "Tự động bật lại sau 2 phút";
-"sawtunaaTempOfferDisable" = "Tự động tắt sau 2 phút";
+"sawtunaaTempOfferReenable" = "Tự động bật lại sau 5 phút";
+"sawtunaaTempOfferDisable" = "Tự động tắt sau 5 phút";
 "sawtunaaTempCountdownReenable" = "Sẽ tự động bật lại";
 "sawtunaaTempCountdownDisable" = "Sẽ tự động tắt";
 "sawtunaaTempKeepOff" = "Giữ tắt";

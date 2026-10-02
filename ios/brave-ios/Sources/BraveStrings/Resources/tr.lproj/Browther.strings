@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Browther'da açıldı";
 "introChannelsSameContent" = "İkisinde de aynı içerik";
 "introChannelsSoonDescription" = "Browther, dev&din ekosistemindeki uygulamalardan yalnızca biri. Her yeni sürümü — bulanıklaştırma ve müziği kaldırma dahil — WhatsApp ve Telegram kanallarımızda duyuruyoruz, inşallah.";
-"sawtunaaTempOfferReenable" = "2 dk sonra otomatik olarak yeniden aç";
-"sawtunaaTempOfferDisable" = "2 dk sonra otomatik olarak kapat";
+"sawtunaaTempOfferReenable" = "5 dk sonra otomatik olarak yeniden aç";
+"sawtunaaTempOfferDisable" = "5 dk sonra otomatik olarak kapat";
 "sawtunaaTempCountdownReenable" = "Otomatik olarak yeniden açılacak";
 "sawtunaaTempCountdownDisable" = "Otomatik olarak kapanacak";
 "sawtunaaTempKeepOff" = "Kapalı kalsın";

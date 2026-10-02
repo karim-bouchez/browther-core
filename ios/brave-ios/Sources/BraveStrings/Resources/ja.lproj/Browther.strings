@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Browther で開きました";
 "introChannelsSameContent" = "どちらも同じ内容です";
 "introChannelsSoonDescription" = "Browther は dev&din エコシステムのアプリのひとつにすぎません。ぼかしや音楽の除去を含む新しいバージョンは、WhatsApp と Telegram のチャンネルでお知らせします。インシャーアッラー。";
-"sawtunaaTempOfferReenable" = "2分後に自動で再びオンにする";
-"sawtunaaTempOfferDisable" = "2分後に自動でオフにする";
+"sawtunaaTempOfferReenable" = "5分後に自動で再びオンにする";
+"sawtunaaTempOfferDisable" = "5分後に自動でオフにする";
 "sawtunaaTempCountdownReenable" = "自動で再びオンになります";
 "sawtunaaTempCountdownDisable" = "自動でオフになります";
 "sawtunaaTempKeepOff" = "オフのままにする";

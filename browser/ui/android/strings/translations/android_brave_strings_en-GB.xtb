@@ -1196,10 +1196,10 @@ If you don't accept this request, VPN will not reconnect and your Internet conne
 <translation id="9163277375449415048">Why only YouTube?</translation>
 <translation id="5549680965977750454">Sawtunaa, music and background noise removal</translation>
 <translation id="1804032981782823157">Basarunaa, person blurring by gender</translation>
-<translation id="5643700781374100934">Turn back on automatically in 2 min</translation>
-<translation id="6478895935384450237">Turn off automatically in 2 min</translation>
 <translation id="4260695055470044350">Turning back on automatically</translation>
 <translation id="6823897588119610164">Turning off automatically</translation>
 <translation id="8933544192761688416">Keep it off</translation>
 <translation id="6797745268063125932">Keep it on</translation>
+<translation id="414597509237500637">Turn back on automatically in 5 min</translation>
+<translation id="1938839903414630110">Turn off automatically in 5 min</translation>
 </translationbundle>

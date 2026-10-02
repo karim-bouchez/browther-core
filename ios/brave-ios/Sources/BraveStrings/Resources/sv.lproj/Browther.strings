@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Öppnad i Browther";
 "introChannelsSameContent" = "Samma innehåll på båda";
 "introChannelsSoonDescription" = "Browther är bara en app i dev&din-ekosystemet. Vi meddelar varje ny version — utsuddning och borttagning av musik inräknade — i våra WhatsApp- och Telegram-kanaler, in sha Allah.";
-"sawtunaaTempOfferReenable" = "Slå på igen automatiskt om 2 min";
-"sawtunaaTempOfferDisable" = "Stäng av automatiskt om 2 min";
+"sawtunaaTempOfferReenable" = "Slå på igen automatiskt om 5 min";
+"sawtunaaTempOfferDisable" = "Stäng av automatiskt om 5 min";
 "sawtunaaTempCountdownReenable" = "Slås på igen automatiskt";
 "sawtunaaTempCountdownDisable" = "Stängs av automatiskt";
 "sawtunaaTempKeepOff" = "Låt vara avstängt";

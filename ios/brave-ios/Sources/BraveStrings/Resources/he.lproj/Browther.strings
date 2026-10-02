@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "נפתח ב-Browther";
 "introChannelsSameContent" = "אותו תוכן בשניהם";
 "introChannelsSoonDescription" = "Browther הוא רק אפליקציה אחת באקוסיסטם של dev&din. אנחנו מודיעים על כל גרסה חדשה — כולל הטשטוש והסרת המוזיקה — בערוצי ה-WhatsApp וה-Telegram שלנו, אינשאללה.";
-"sawtunaaTempOfferReenable" = "הפעלה מחדש אוטומטית בעוד 2 דק׳";
-"sawtunaaTempOfferDisable" = "כיבוי אוטומטי בעוד 2 דק׳";
+"sawtunaaTempOfferReenable" = "הפעלה מחדש אוטומטית בעוד 5 דק׳";
+"sawtunaaTempOfferDisable" = "כיבוי אוטומטי בעוד 5 דק׳";
 "sawtunaaTempCountdownReenable" = "הפעלה מחדש אוטומטית";
 "sawtunaaTempCountdownDisable" = "כיבוי אוטומטי";
 "sawtunaaTempKeepOff" = "להשאיר כבוי";

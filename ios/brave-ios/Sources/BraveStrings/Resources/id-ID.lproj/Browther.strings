@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Dibuka di Browther";
 "introChannelsSameContent" = "Konten yang sama di keduanya";
 "introChannelsSoonDescription" = "Browther hanyalah satu aplikasi dalam ekosistem dev&din. Kami mengumumkan setiap versi baru — termasuk pemburaman dan penghapusan musik — di kanal WhatsApp dan Telegram kami, insya Allah.";
-"sawtunaaTempOfferReenable" = "Aktifkan lagi otomatis dalam 2 mnt";
-"sawtunaaTempOfferDisable" = "Nonaktifkan otomatis dalam 2 mnt";
+"sawtunaaTempOfferReenable" = "Aktifkan lagi otomatis dalam 5 mnt";
+"sawtunaaTempOfferDisable" = "Nonaktifkan otomatis dalam 5 mnt";
 "sawtunaaTempCountdownReenable" = "Aktif lagi secara otomatis";
 "sawtunaaTempCountdownDisable" = "Nonaktif secara otomatis";
 "sawtunaaTempKeepOff" = "Biarkan nonaktif";

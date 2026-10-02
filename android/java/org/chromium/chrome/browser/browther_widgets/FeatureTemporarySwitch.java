@@ -25,9 +25,9 @@ import org.chromium.components.prefs.PrefChangeRegistrar;
 import org.chromium.components.user_prefs.UserPrefs;
 
 /**
- * « Seulement 2 min » — port de l'iOS {@code FeatureTemporarySwitch.swift} (maquette validée par
+ * « Seulement 5 min » — port de l'iOS {@code FeatureTemporarySwitch.swift} (maquette validée par
  * Karim le 2026-10-01). Juste après une bascule de Sawtunaa ou de Basarunaa, le panneau propose de
- * revenir automatiquement à l'état d'avant dans 2 min, dans les deux sens. Une instance par
+ * revenir automatiquement à l'état d'avant dans 5 min, dans les deux sens. Une instance par
  * fonctionnalité ({@link #sawtunaa()}, {@link #basarunaa()}) : chacune sa pref, son échéance, son
  * anneau.
  *
@@ -47,7 +47,7 @@ import org.chromium.components.user_prefs.UserPrefs;
  */
 @NullMarked
 public final class FeatureTemporarySwitch {
-    public static final long DURATION_MS = 120_000L;
+    public static final long DURATION_MS = 300_000L;
 
     /** Prévenu à chaque début / fin de compte à rebours. */
     public interface Observer {

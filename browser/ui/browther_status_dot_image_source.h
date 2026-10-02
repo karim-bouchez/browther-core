@@ -8,6 +8,8 @@
 
 #include <optional>
 
+#include "ui/gfx/image/image_skia.h"
+
 #include "chrome/browser/ui/extensions/icon_with_badge_image_source.h"
 #include "third_party/skia/include/core/SkColor.h"
 
@@ -51,9 +53,20 @@ class BrowtherStatusDotImageSource : public IconWithBadgeImageSource {
     ring_fraction_ = fraction;
   }
 
+  // Avec l'anneau, l'icône est RÉDUITE pour que l'anneau en fasse le tour au
+  // bord du bouton : à taille normale, il chevauchait le dessin (rendu tassé,
+  // recette Karim 2026-10-02). L'appelant réduit l'icône avec ceci avant
+  // SetIcon(), l'image source la recentre.
+  static gfx::ImageSkia ShrinkIconForRing(const gfx::ImageSkia& icon,
+                                          int content_image_size);
+
  private:
   void PaintBadge(gfx::Canvas* canvas) override;
   void PaintRing(gfx::Canvas* canvas);
+  std::optional<int> GetCustomGraphicSize() override;
+  std::optional<int> GetCustomGraphicXOffset() override;
+  std::optional<int> GetCustomGraphicYOffset() override;
+  static int RingIconSize(int content_image_size);
 
   int content_image_size_;
   SkColor dot_color_ = SK_ColorTRANSPARENT;

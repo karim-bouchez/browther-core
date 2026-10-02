@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Megnyitva a Browtherben";
 "introChannelsSameContent" = "Mindkettőn ugyanaz a tartalom";
 "introChannelsSoonDescription" = "A Browther csak egy alkalmazás a dev&din ökoszisztémájában. Minden újdonságot — az elhomályosítást és a zene eltávolítását is — WhatsApp- és Telegram-csatornáinkon jelentünk be, insallah.";
-"sawtunaaTempOfferReenable" = "Automatikus visszakapcsolás 2 perc múlva";
-"sawtunaaTempOfferDisable" = "Automatikus kikapcsolás 2 perc múlva";
+"sawtunaaTempOfferReenable" = "Automatikus visszakapcsolás 5 perc múlva";
+"sawtunaaTempOfferDisable" = "Automatikus kikapcsolás 5 perc múlva";
 "sawtunaaTempCountdownReenable" = "Automatikus visszakapcsolás";
 "sawtunaaTempCountdownDisable" = "Automatikus kikapcsolás";
 "sawtunaaTempKeepOff" = "Maradjon kikapcsolva";

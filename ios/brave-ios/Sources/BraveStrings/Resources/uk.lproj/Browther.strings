@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Відкрито в Browther";
 "introChannelsSameContent" = "В обох — те саме";
 "introChannelsSoonDescription" = "Browther — лише один із застосунків екосистеми dev&din. Про кожну нову версію — зокрема розмиття й видалення музики — ми повідомляємо в наших каналах WhatsApp і Telegram, іншаАллах.";
-"sawtunaaTempOfferReenable" = "Автоматично ввімкнути знову через 2 хв";
-"sawtunaaTempOfferDisable" = "Автоматично вимкнути через 2 хв";
+"sawtunaaTempOfferReenable" = "Автоматично ввімкнути знову через 5 хв";
+"sawtunaaTempOfferDisable" = "Автоматично вимкнути через 5 хв";
 "sawtunaaTempCountdownReenable" = "Автоматичне повторне ввімкнення";
 "sawtunaaTempCountdownDisable" = "Автоматичне вимкнення";
 "sawtunaaTempKeepOff" = "Залишити вимкненим";

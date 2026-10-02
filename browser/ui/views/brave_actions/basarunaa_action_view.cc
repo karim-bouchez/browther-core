@@ -154,6 +154,15 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
     icon_image = gfx::ImageSkiaOperations::CreateColorMask(
         icon_image, cp->GetColor(kColorOmniboxText));
   }
+  // Compte à rebours en cours : icône réduite, l'anneau en fait le tour.
+  auto* temporary = FeatureTemporarySwitch::GetForProfile(
+      browser_ ? browser_->profile() : nullptr,
+      FeatureTemporarySwitch::Feature::kBasarunaa);
+  const bool counting = temporary && temporary->IsActive();
+  if (counting) {
+    icon_image = browther::BrowtherStatusDotImageSource::ShrinkIconForRing(
+        icon_image, icon_size);
+  }
   image_source->SetIcon(gfx::Image(icon_image));
   // Ambre = ON mais sans effet sur CET onglet (contenu protégé). Contrairement
   // à Sawtunaa, pas de gate : le floutage vidéo est coupé sur du DRM quelle que
@@ -173,10 +182,7 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
 
   // « Seulement 2 min » : anneau qui se vide, de la couleur de l'état ACTUEL,
   // à la place du dot. Le clic, lui, ouvre toujours le panneau.
-  auto* temporary = FeatureTemporarySwitch::GetForProfile(
-      browser_ ? browser_->profile() : nullptr,
-      FeatureTemporarySwitch::Feature::kBasarunaa);
-  if (temporary && temporary->IsActive()) {
+  if (counting) {
     image_source->SetRingFraction(static_cast<float>(
         temporary->Remaining() / FeatureTemporarySwitch::kDuration));
     if (!countdown_timer_.IsRunning()) {

@@ -140,8 +140,8 @@
 "introDemoOpenedIn" = "Άνοιξε στο Browther";
 "introChannelsSameContent" = "Ίδιο περιεχόμενο και στα δύο";
 "introChannelsSoonDescription" = "Το Browther είναι μόνο μία εφαρμογή του οικοσυστήματος dev&din. Ανακοινώνουμε κάθε νέα έκδοση — μαζί και το θόλωμα και την αφαίρεση της μουσικής — στα κανάλια μας στο WhatsApp και στο Telegram, ιν σα Αλλάχ.";
-"sawtunaaTempOfferReenable" = "Αυτόματη επανενεργοποίηση σε 2 λεπτά";
-"sawtunaaTempOfferDisable" = "Αυτόματη απενεργοποίηση σε 2 λεπτά";
+"sawtunaaTempOfferReenable" = "Αυτόματη επανενεργοποίηση σε 5 λεπτά";
+"sawtunaaTempOfferDisable" = "Αυτόματη απενεργοποίηση σε 5 λεπτά";
 "sawtunaaTempCountdownReenable" = "Αυτόματη επανενεργοποίηση";
 "sawtunaaTempCountdownDisable" = "Αυτόματη απενεργοποίηση";
 "sawtunaaTempKeepOff" = "Να μείνει απενεργοποιημένο";
