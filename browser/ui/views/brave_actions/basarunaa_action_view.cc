@@ -16,6 +16,7 @@
 #include "brave/browser/browther/feature_temporary_switch.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
+#include "chrome/browser/ui/views/toolbar/toolbar_ink_drop_util.h"
 #include "brave/components/constants/browther_early_access.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/profiles/profile.h"
@@ -154,15 +155,12 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
     icon_image = gfx::ImageSkiaOperations::CreateColorMask(
         icon_image, cp->GetColor(kColorOmniboxText));
   }
-  // Compte à rebours en cours : icône réduite, l'anneau en fait le tour.
+  // Compte à rebours en cours : l'anneau est dessiné par le bouton
+  // (PaintButtonContents), l'icône garde sa taille.
   auto* temporary = FeatureTemporarySwitch::GetForProfile(
       browser_ ? browser_->profile() : nullptr,
       FeatureTemporarySwitch::Feature::kBasarunaa);
   const bool counting = temporary && temporary->IsActive();
-  if (counting) {
-    icon_image = browther::BrowtherStatusDotImageSource::ShrinkIconForRing(
-        icon_image, icon_size);
-  }
   image_source->SetIcon(gfx::Image(icon_image));
   // Ambre = ON mais sans effet sur CET onglet (contenu protégé). Contrairement
   // à Sawtunaa, pas de gate : le floutage vidéo est coupé sur du DRM quelle que
@@ -183,8 +181,12 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
   // « Seulement 2 min » : anneau qui se vide, de la couleur de l'état ACTUEL,
   // à la place du dot. Le clic, lui, ouvre toujours le panneau.
   if (counting) {
-    image_source->SetRingFraction(static_cast<float>(
-        temporary->Remaining() / FeatureTemporarySwitch::kDuration));
+    // Le dot laisse la place à l'anneau.
+    ring_color_ = amber ? kBadgeAmber : (IsActive() ? kBadgeGreen : kBadgeRed);
+    image_source->SetDotColor(SK_ColorTRANSPARENT);
+    ring_fraction_ = static_cast<float>(temporary->Remaining() /
+                                        FeatureTemporarySwitch::kDuration);
+    SchedulePaint();
     if (!countdown_timer_.IsRunning()) {
       countdown_timer_.Start(
           FROM_HERE, base::Seconds(1),
@@ -193,6 +195,10 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
     }
   } else {
     countdown_timer_.Stop();
+    if (ring_fraction_) {
+      ring_fraction_.reset();
+      SchedulePaint();
+    }
   }
 
   const gfx::ImageSkia composed(std::move(image_source), preferred_size);
@@ -222,6 +228,19 @@ void BasarunaaActionView::OnTabChangedAt(tabs::TabInterface* tab,
 
 void BasarunaaActionView::OnButtonPressed(const ui::Event& event) {
   chrome::ExecuteCommand(browser_, IDC_SHOW_BASARUNAA_PANEL);
+}
+
+void BasarunaaActionView::PaintButtonContents(gfx::Canvas* canvas) {
+  ToolbarButton::PaintButtonContents(canvas);
+  if (!ring_fraction_) {
+    return;
+  }
+  // À la taille de la zone de survol (même encart que l'ink drop de la barre
+  // d'outils) : l'anneau fait le tour de l'icône jusqu'au bord, sans la réduire.
+  gfx::Rect bounds = GetLocalBounds();
+  bounds.Inset(GetToolbarInkDropInsets(this));
+  browther::BrowtherStatusDotImageSource::PaintCountdownRing(
+      canvas, gfx::RectF(bounds), ring_color_, *ring_fraction_);
 }
 
 BEGIN_METADATA(BasarunaaActionView)

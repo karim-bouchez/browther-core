@@ -8,13 +8,13 @@
 
 #include <optional>
 
-#include "ui/gfx/image/image_skia.h"
 
 #include "chrome/browser/ui/extensions/icon_with_badge_image_source.h"
 #include "third_party/skia/include/core/SkColor.h"
 
 namespace gfx {
 class Canvas;
+class RectF;
 }  // namespace gfx
 
 namespace browther {
@@ -46,31 +46,21 @@ class BrowtherStatusDotImageSource : public IconWithBadgeImageSource {
   ~BrowtherStatusDotImageSource() override;
 
   void SetDotColor(SkColor color) { dot_color_ = color; }
-  // Sawtunaa « seulement 2 min » : à la place du dot, un anneau autour de
-  // l'icône, rempli à |fraction| (1 → 0 au fil du compte à rebours), de la
-  // couleur du dot. nullopt = dot habituel.
-  void SetRingFraction(std::optional<float> fraction) {
-    ring_fraction_ = fraction;
-  }
-
-  // Avec l'anneau, l'icône est RÉDUITE pour que l'anneau en fasse le tour au
-  // bord du bouton : à taille normale, il chevauchait le dessin (rendu tassé,
-  // recette Karim 2026-10-02). L'appelant réduit l'icône avec ceci avant
-  // SetIcon(), l'image source la recentre.
-  static gfx::ImageSkia ShrinkIconForRing(const gfx::ImageSkia& icon,
-                                          int content_image_size);
+  // « Seulement 5 min » (Sawtunaa, Basarunaa) : anneau qui se vide, dessiné
+  // par le BOUTON (PaintButtonContents) à la taille de sa zone de survol, et
+  // non dans cette image : l'image est plus petite que le bouton, l'anneau y
+  // était rogné ou forçait à réduire l'icône (recette Karim 2026-10-02).
+  // Pendant le compte à rebours, l'appelant cache le dot (SK_ColorTRANSPARENT).
+  static void PaintCountdownRing(gfx::Canvas* canvas,
+                                 const gfx::RectF& bounds,
+                                 SkColor color,
+                                 float fraction);
 
  private:
   void PaintBadge(gfx::Canvas* canvas) override;
-  void PaintRing(gfx::Canvas* canvas);
-  std::optional<int> GetCustomGraphicSize() override;
-  std::optional<int> GetCustomGraphicXOffset() override;
-  std::optional<int> GetCustomGraphicYOffset() override;
-  static int RingIconSize(int content_image_size);
 
   int content_image_size_;
   SkColor dot_color_ = SK_ColorTRANSPARENT;
-  std::optional<float> ring_fraction_;
 };
 
 }  // namespace browther

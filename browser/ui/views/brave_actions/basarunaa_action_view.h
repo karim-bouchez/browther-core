@@ -6,12 +6,15 @@
 #ifndef BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_
 #define BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_
 
+#include <optional>
+
 #include "base/memory/raw_ptr.h"
 #include "base/memory/raw_ref.h"
 #include "base/timer/timer.h"
 #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "chrome/browser/ui/views/toolbar/toolbar_button.h"
 #include "components/prefs/pref_change_registrar.h"
+#include "third_party/skia/include/core/SkColor.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 #include "ui/events/event.h"
 
@@ -38,6 +41,10 @@ class BasarunaaActionView : public ToolbarButton,
 
   void Init();
 
+ protected:
+  // views::Button:
+  void PaintButtonContents(gfx::Canvas* canvas) override;
+
  private:
   // ToolbarButton:
   void UpdateColorsAndInsets() override;
@@ -62,6 +69,9 @@ class BasarunaaActionView : public ToolbarButton,
   // « Seulement 2 min » : redessine l'anneau une fois par seconde tant que le
   // compte à rebours tourne (jumeau de SawtunaaActionView).
   base::RepeatingTimer countdown_timer_;
+  // Anneau du compte à rebours (nullopt = pas de compte à rebours).
+  std::optional<float> ring_fraction_;
+  SkColor ring_color_ = SK_ColorTRANSPARENT;
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_

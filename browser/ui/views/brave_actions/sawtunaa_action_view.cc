@@ -179,16 +179,13 @@ void SawtunaaActionView::UpdateIconState() {
     base_icon = gfx::ImageSkiaOperations::CreateColorMask(
         base_icon, cp->GetColor(kColorOmniboxText));
   }
-  // Compte à rebours en cours : icône réduite, l'anneau en fait le tour.
+  // Compte à rebours en cours : l'anneau est dessiné par le bouton
+  // (PaintButtonContents), l'icône garde sa taille.
   auto* temporary = FeatureTemporarySwitch::GetForProfile(
       browser_window_interface_ ? browser_window_interface_->GetProfile()
                                 : nullptr,
       FeatureTemporarySwitch::Feature::kSawtunaa);
   const bool counting = temporary && temporary->IsActive();
-  if (counting) {
-    base_icon = browther::BrowtherStatusDotImageSource::ShrinkIconForRing(
-        base_icon, icon_size);
-  }
   image_source->SetIcon(gfx::Image(base_icon));
   // Ambre = ON mais sans effet sur CET onglet (contenu protégé).
   // ⚠️ Gaté sur kSawtunaaNativeTapActive : quand le tap natif n'est PAS actif
@@ -209,8 +206,12 @@ void SawtunaaActionView::UpdateIconState() {
   // Sawtunaa « seulement 2 min » : anneau qui se vide, de la couleur de l'état
   // ACTUEL, à la place du dot.
   if (counting) {
-    image_source->SetRingFraction(static_cast<float>(
-        temporary->Remaining() / FeatureTemporarySwitch::kDuration));
+    // Le dot laisse la place à l'anneau.
+    ring_color_ = amber ? kBadgeAmber : (active ? kBadgeGreen : kBadgeRed);
+    image_source->SetDotColor(SK_ColorTRANSPARENT);
+    ring_fraction_ = static_cast<float>(temporary->Remaining() /
+                                        FeatureTemporarySwitch::kDuration);
+    SchedulePaint();
     if (!countdown_timer_.IsRunning()) {
       countdown_timer_.Start(
           FROM_HERE, base::Seconds(1),
@@ -219,6 +220,10 @@ void SawtunaaActionView::UpdateIconState() {
     }
   } else {
     countdown_timer_.Stop();
+    if (ring_fraction_) {
+      ring_fraction_.reset();
+      SchedulePaint();
+    }
   }
 
   const gfx::ImageSkia icon(std::move(image_source), preferred_size);
@@ -273,6 +278,19 @@ void SawtunaaActionView::OnTabChangedAt(tabs::TabInterface* tab,
   // donc APRÈS le chargement : sans ce rafraîchissement le badge ne
   // passerait à l'ambre qu'au prochain changement d'onglet.
   UpdateIconState();
+}
+
+void SawtunaaActionView::PaintButtonContents(gfx::Canvas* canvas) {
+  views::LabelButton::PaintButtonContents(canvas);
+  if (!ring_fraction_) {
+    return;
+  }
+  // À la taille de la zone de survol (même encart que l'ink drop de la barre
+  // d'outils) : l'anneau fait le tour de l'icône jusqu'au bord, sans la réduire.
+  gfx::Rect bounds = GetLocalBounds();
+  bounds.Inset(GetToolbarInkDropInsets(this));
+  browther::BrowtherStatusDotImageSource::PaintCountdownRing(
+      canvas, gfx::RectF(bounds), ring_color_, *ring_fraction_);
 }
 
 BEGIN_METADATA(SawtunaaActionView)

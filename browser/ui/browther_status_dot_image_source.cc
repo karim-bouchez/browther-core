@@ -11,9 +11,8 @@
 #include "third_party/skia/include/core/SkPath.h"
 #include "third_party/skia/include/core/SkPathBuilder.h"
 #include "third_party/skia/include/core/SkRect.h"
-#include "skia/ext/image_operations.h"
 #include "ui/gfx/canvas.h"
-#include "ui/gfx/image/image_skia_operations.h"
+#include "ui/gfx/geometry/point_f.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rect_f.h"
 #include "ui/gfx/geometry/size.h"
@@ -30,66 +29,32 @@ BrowtherStatusDotImageSource::BrowtherStatusDotImageSource(
 BrowtherStatusDotImageSource::~BrowtherStatusDotImageSource() = default;
 
 // static
-int BrowtherStatusDotImageSource::RingIconSize(int content_image_size) {
-  return static_cast<int>(std::lround(content_image_size * 0.62f));
-}
-
-// static
-gfx::ImageSkia BrowtherStatusDotImageSource::ShrinkIconForRing(
-    const gfx::ImageSkia& icon,
-    int content_image_size) {
-  const int s = RingIconSize(content_image_size);
-  return gfx::ImageSkiaOperations::CreateResizedImage(
-      icon, skia::ImageOperations::RESIZE_BEST, gfx::Size(s, s));
-}
-
-std::optional<int> BrowtherStatusDotImageSource::GetCustomGraphicSize() {
-  if (!ring_fraction_) {
-    return std::nullopt;
-  }
-  return RingIconSize(content_image_size_);
-}
-
-std::optional<int> BrowtherStatusDotImageSource::GetCustomGraphicXOffset() {
-  if (!ring_fraction_) {
-    return std::nullopt;
-  }
-  return (size().width() - RingIconSize(content_image_size_)) / 2;
-}
-
-std::optional<int> BrowtherStatusDotImageSource::GetCustomGraphicYOffset() {
-  if (!ring_fraction_) {
-    return std::nullopt;
-  }
-  return (size().height() - RingIconSize(content_image_size_)) / 2;
-}
-
-void BrowtherStatusDotImageSource::PaintRing(gfx::Canvas* canvas) {
-  // Cercle au bord du bouton, autour de l'icône réduite (cf.
-  // ShrinkIconForRing) : il ne touche plus le dessin.
-  constexpr float kStroke = 1.5f;
-  const float cx = size().width() / 2.0f;
-  const float cy = size().height() / 2.0f;
-  // Marge de 3 px sous le bord du canvas : le bouton rogne les derniers
-  // pixels (insets), l'anneau au ras du bord était coupé (recette 2026-10-02).
+void BrowtherStatusDotImageSource::PaintCountdownRing(gfx::Canvas* canvas,
+                                                      const gfx::RectF& bounds,
+                                                      SkColor color,
+                                                      float fraction) {
+  constexpr float kStroke = 2.0f;
   const float radius =
-      std::min(size().width(), size().height()) / 2.0f - kStroke / 2.0f - 4.5f;
-  const SkRect oval =
-      SkRect::MakeLTRB(cx - radius, cy - radius, cx + radius, cy + radius);
-
+      std::min(bounds.width(), bounds.height()) / 2.0f - kStroke / 2.0f;
+  if (radius <= 0) {
+    return;
+  }
+  const gfx::PointF c = bounds.CenterPoint();
+  const SkRect oval = SkRect::MakeLTRB(c.x() - radius, c.y() - radius,
+                                       c.x() + radius, c.y() + radius);
   cc::PaintFlags track;
   track.setAntiAlias(true);
   track.setStyle(cc::PaintFlags::kStroke_Style);
   track.setStrokeWidth(kStroke);
-  track.setColor(SkColorSetA(dot_color_, 0x40));
+  track.setColor(SkColorSetA(color, 0x40));
   canvas->DrawPath(SkPath::Oval(oval), track);
 
-  const float fraction = std::clamp(*ring_fraction_, 0.0f, 1.0f);
+  fraction = std::clamp(fraction, 0.0f, 1.0f);
   if (fraction <= 0.0f) {
     return;
   }
   cc::PaintFlags ring = track;
-  ring.setColor(dot_color_);
+  ring.setColor(color);
   ring.setStrokeCap(cc::PaintFlags::kRound_Cap);
   // 360° pile ferait un ovale fermé ambigu pour addArc : on plafonne juste
   // en dessous.
@@ -102,10 +67,6 @@ void BrowtherStatusDotImageSource::PaintRing(gfx::Canvas* canvas) {
 
 void BrowtherStatusDotImageSource::PaintBadge(gfx::Canvas* canvas) {
   if (dot_color_ == SK_ColorTRANSPARENT) {
-    return;
-  }
-  if (ring_fraction_) {
-    PaintRing(canvas);
     return;
   }
 

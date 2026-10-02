@@ -6,11 +6,14 @@
 #ifndef BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_SAWTUNAA_ACTION_VIEW_H_
 #define BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_SAWTUNAA_ACTION_VIEW_H_
 
+#include <optional>
+
 #include "base/memory/raw_ptr.h"
 #include "base/memory/raw_ref.h"
 #include "base/timer/timer.h"
 #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "components/prefs/pref_change_registrar.h"
+#include "third_party/skia/include/core/SkColor.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 #include "ui/events/event.h"
 #include "ui/views/controls/button/label_button.h"
@@ -44,6 +47,10 @@ class SawtunaaActionView : public views::LabelButton,
       const override;
   void OnThemeChanged() override;
 
+ protected:
+  // views::Button:
+  void PaintButtonContents(gfx::Canvas* canvas) override;
+
  private:
   void UpdateIconState();
   bool IsActive() const;
@@ -69,6 +76,9 @@ class SawtunaaActionView : public views::LabelButton,
   // tant que le compte à rebours tourne (rien à 30 fps : l'anneau d'une icône
   // de 20 px ne gagne rien à être plus fluide).
   base::RepeatingTimer countdown_timer_;
+  // Anneau du compte à rebours (nullopt = pas de compte à rebours).
+  std::optional<float> ring_fraction_;
+  SkColor ring_color_ = SK_ColorTRANSPARENT;
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_SAWTUNAA_ACTION_VIEW_H_
