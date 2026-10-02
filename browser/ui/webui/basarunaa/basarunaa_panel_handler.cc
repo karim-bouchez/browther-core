@@ -8,6 +8,7 @@
 #include <utility>
 
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
+#include "brave/browser/browther/feature_temporary_switch.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
 #include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
@@ -67,6 +68,30 @@ void BasarunaaPanelHandler::GetEnabled(GetEnabledCallback callback) {
 
 void BasarunaaPanelHandler::SetEnabled(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaEnabled, enabled);
+}
+
+void BasarunaaPanelHandler::GetTemporary(GetTemporaryCallback callback) {
+  auto* temporary = FeatureTemporarySwitch::GetForProfile(
+      profile_, FeatureTemporarySwitch::Feature::kBasarunaa);
+  const bool active = temporary && temporary->IsActive();
+  std::move(callback).Run(
+      active, active ? static_cast<int32_t>(
+                           temporary->Remaining().InMilliseconds())
+                     : 0);
+}
+
+void BasarunaaPanelHandler::StartTemporary() {
+  if (auto* temporary = FeatureTemporarySwitch::GetForProfile(
+          profile_, FeatureTemporarySwitch::Feature::kBasarunaa)) {
+    temporary->Start();
+  }
+}
+
+void BasarunaaPanelHandler::KeepTemporary() {
+  if (auto* temporary = FeatureTemporarySwitch::GetForProfile(
+          profile_, FeatureTemporarySwitch::Feature::kBasarunaa)) {
+    temporary->Keep();
+  }
 }
 
 void BasarunaaPanelHandler::GetProtectedContent(

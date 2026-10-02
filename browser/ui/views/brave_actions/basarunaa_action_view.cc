@@ -13,6 +13,7 @@
 #include "base/functional/bind.h"
 #include "brave/app/brave_command_ids.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
+#include "brave/browser/browther/feature_temporary_switch.h"
 #include "brave/browser/ui/brave_icon_with_badge_image_source.h"
 #include "brave/browser/ui/browther_status_dot_image_source.h"
 #include "brave/components/constants/browther_early_access.h"
@@ -87,6 +88,16 @@ BasarunaaActionView::BasarunaaActionView(Browser* browser)
       kBasarunaaEnabled,
       base::BindRepeating(&BasarunaaActionView::OnPrefChanged,
                           base::Unretained(this)));
+  // Compte à rebours « 2 min » : démarré, annulé ou échu.
+  pref_change_registrar_.Add(
+      kBasarunaaTempRevertAt,
+      base::BindRepeating(&BasarunaaActionView::OnPrefChanged,
+                          base::Unretained(this)));
+  // Crée le contrôleur dès l'ouverture de la fenêtre : il reprend un retour
+  // automatique en cours, ou l'applique si le navigateur était fermé à
+  // l'échéance.
+  FeatureTemporarySwitch::GetForProfile(
+      browser_->profile(), FeatureTemporarySwitch::Feature::kBasarunaa);
 
   // Browther: le badge dépend maintenant de l'onglet actif (contenu protégé).
   browser_->tab_strip_model()->AddObserver(this);
@@ -159,6 +170,24 @@ void BasarunaaActionView::UpdateColorsAndInsets() {
   const bool amber = kBrowtherEarlyAccess ? IsActive() : protected_here;
   image_source->SetDotColor(
       amber ? kBadgeAmber : (IsActive() ? kBadgeGreen : kBadgeRed));
+
+  // « Seulement 2 min » : anneau qui se vide, de la couleur de l'état ACTUEL,
+  // à la place du dot. Le clic, lui, ouvre toujours le panneau.
+  auto* temporary = FeatureTemporarySwitch::GetForProfile(
+      browser_ ? browser_->profile() : nullptr,
+      FeatureTemporarySwitch::Feature::kBasarunaa);
+  if (temporary && temporary->IsActive()) {
+    image_source->SetRingFraction(static_cast<float>(
+        temporary->Remaining() / FeatureTemporarySwitch::kDuration));
+    if (!countdown_timer_.IsRunning()) {
+      countdown_timer_.Start(
+          FROM_HERE, base::Seconds(1),
+          base::BindRepeating(&BasarunaaActionView::UpdateColorsAndInsets,
+                              base::Unretained(this)));
+    }
+  } else {
+    countdown_timer_.Stop();
+  }
 
   const gfx::ImageSkia composed(std::move(image_source), preferred_size);
   SetImageModel(views::Button::STATE_NORMAL,

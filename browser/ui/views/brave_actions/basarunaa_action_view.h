@@ -8,6 +8,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "base/memory/raw_ref.h"
+#include "base/timer/timer.h"
 #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "chrome/browser/ui/views/toolbar/toolbar_button.h"
 #include "components/prefs/pref_change_registrar.h"
@@ -58,6 +59,9 @@ class BasarunaaActionView : public ToolbarButton,
   raw_ref<PrefService> profile_prefs_;
   PrefChangeRegistrar pref_change_registrar_;
   raw_ptr<views::MenuButtonController> menu_button_controller_ = nullptr;
+  // « Seulement 2 min » : redessine l'anneau une fois par seconde tant que le
+  // compte à rebours tourne (jumeau de SawtunaaActionView).
+  base::RepeatingTimer countdown_timer_;
 };
 
 #endif  // BRAVE_BROWSER_UI_VIEWS_BRAVE_ACTIONS_BASARUNAA_ACTION_VIEW_H_

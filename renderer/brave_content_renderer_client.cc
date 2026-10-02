@@ -286,13 +286,13 @@ BraveContentRendererClient::GetSupportedKeySystems(
 content::ContentRendererClient::VideoLeadFrameSink
 BraveContentRendererClient::GetVideoLeadFrameSink(
     content::RenderFrame* render_frame) {
-  // Décision LIVE par player : capacité native de ce build (switch
-  // --basarunaa-video-tap, injecté par le browser sur la FEATURE
-  // decode-ahead seule) ET pref utilisateur courante (poussée par
-  // BasarunaaVideoTapTabHelper via VideoTapConfig). Toggle ON → effectif au
-  // prochain player (reload d'onglet suffit, même process — avant, le switch
-  // figé au démarrage du process imposait un restart) ; OFF → live (gate dans
-  // OnLeadFrameNotified). Le décodage MATÉRIEL est préservé (plus de
+  // Capacité native seule (switch --basarunaa-video-tap, injecté par le
+  // browser sur la FEATURE decode-ahead seule) : le sink est fourni à tout
+  // player, et le choix utilisateur (poussé par BasarunaaVideoTapTabHelper via
+  // VideoTapConfig) est appliqué frame par frame dans VideoRendererImpl —
+  // allumer Basarunaa agit sur une vidéo DÉJÀ en cours, sans recharger
+  // (2026-10-01), et un utilisateur OFF ne paie toujours rien (ni fenêtre 2 s,
+  // ni frame livrée). Le décodage MATÉRIEL est préservé (plus de
   // --disable-accelerated-video-decode depuis le fix sync-token du
   // 2026-07-02, browther-core 7eba9042164) : les frames GPU-backed passent
   // par le readback non-mutant de LeadFrameReadbackThread.

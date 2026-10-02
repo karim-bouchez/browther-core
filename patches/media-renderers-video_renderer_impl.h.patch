@@ -1,8 +1,8 @@
 diff --git a/media/renderers/video_renderer_impl.h b/media/renderers/video_renderer_impl.h
-index 8ad331101c45a..e4e74c171abfb 100644
+index 8ad331101c45a..631f2f7f5acdd 100644
 --- a/media/renderers/video_renderer_impl.h
 +++ b/media/renderers/video_renderer_impl.h
-@@ -63,7 +63,11 @@ class MEDIA_EXPORT VideoRendererImpl
+@@ -63,13 +63,24 @@ class MEDIA_EXPORT VideoRendererImpl
        bool drop_frames,
        MediaLog* media_log,
        std::unique_ptr<MappableSharedImageVideoFramePool> mappable_si_pool,
@@ -15,7 +15,20 @@ index 8ad331101c45a..e4e74c171abfb 100644
  
    VideoRendererImpl(const VideoRendererImpl&) = delete;
    VideoRendererImpl& operator=(const VideoRendererImpl&) = delete;
-@@ -219,8 +223,33 @@ class MEDIA_EXPORT VideoRendererImpl
+ 
+   ~VideoRendererImpl() override;
+ 
++  // [Browther/Basarunaa] Choix de l'utilisateur (pref), poussé EN DIRECT par le
++  // RenderFrameObserver Basarunaa : drapeau de PROCESS lu à chaque frame sur le
++  // thread média. Le callback decode-ahead est branché sur tout lecteur dès que
++  // la CAPACITÉ est là ; c'est ce drapeau qui l'active — allumer Basarunaa agit
++  // donc sur une vidéo DÉJÀ en cours, sans rechargement (2026-10-01).
++  static void SetBasarunaaTapUserEnabled(bool enabled);
++
+   // VideoRenderer implementation.
+   void Initialize(DemuxerStream* stream,
+                   CdmContext* cdm_context,
+@@ -219,8 +230,45 @@ class MEDIA_EXPORT VideoRendererImpl
    void PaintFirstFrame();
    void PaintFirstFrame_Locked();
  
@@ -24,8 +37,15 @@ index 8ad331101c45a..e4e74c171abfb 100644
 +  // protégé. Seul point de vérité : buffering caps + livraison des frames.
 +  // Appelé sur |task_runner_|.
 +  bool BasarunaaTapActive() const {
-+    return !!lead_frame_cb_ && !basarunaa_protected_content_;
++    return !!lead_frame_cb_ && !basarunaa_protected_content_ &&
++           BasarunaaUserEnabled();
 +  }
++  static bool BasarunaaUserEnabled();
++  // [Browther/Basarunaa] Pose (tap actif) ou retire (inactif) la fenêtre
++  // d'anticipation 2 s, au rythme du choix utilisateur : un lecteur créé
++  // Basarunaa éteint reste strictement upstream tant qu'on ne l'allume pas, et
++  // rend l'éventuel hint de la page quand on l'éteint. |lock_| tenu.
++  void BasarunaaSyncLatencyHint_Locked();
 +  // [Browther/Basarunaa] Coupe le tap si |config| est chiffrée. Idempotent.
 +  void BasarunaaUpdateProtectedContent(const VideoDecoderConfig& config);
 +
@@ -45,6 +65,11 @@ index 8ad331101c45a..e4e74c171abfb 100644
 +  // segment d'init appendé plus tard). Accès sur |task_runner_| uniquement,
 +  // même discipline que |lead_frame_cb_|.
 +  bool basarunaa_protected_content_ = false;
++
++  // [Browther/Basarunaa] Hint 2 s actuellement imposé, et hint de la page qu'il
++  // a remplacé (rendu à l'extinction). Sous |lock_|.
++  bool basarunaa_hint_forced_ = false;
++  std::optional<base::TimeDelta> basarunaa_saved_hint_;
 +
    // Sink which calls into VideoRendererImpl via Render() for video frames.  Do
    // not call any methods on the sink while |lock_| is held or the two threads

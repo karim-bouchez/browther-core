@@ -131,6 +131,7 @@
 #include "components/translate/core/browser/translate_pref_names.h"
 
 #if !BUILDFLAG(IS_ANDROID)
+#include "brave/browser/browther/feature_temporary_switch.h"
 #include "brave/browser/themes/pref_names.h"
 #include "brave/browser/ui/tabs/brave_tab_prefs.h"
 #include "brave/browser/ui/webui/welcome_page/brave_welcome_ui_prefs.h"
@@ -439,9 +440,11 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   // Browther: Sawtunaa audio tap V2 (mise à jour au boot par la factory).
   registry->RegisterBooleanPref(kSawtunaaNativeTapActive, false);
 #if !BUILDFLAG(IS_ANDROID)
-  // Browther: Sawtunaa « seulement 2 min » (SawtunaaTemporarySwitch, desktop).
+  // Browther: « seulement 2 min » (FeatureTemporarySwitch, desktop).
   registry->RegisterTimePref(kSawtunaaTempRevertAt, base::Time());
   registry->RegisterBooleanPref(kSawtunaaTempRevertTo, false);
+  registry->RegisterTimePref(kBasarunaaTempRevertAt, base::Time());
+  registry->RegisterBooleanPref(kBasarunaaTempRevertTo, false);
 #endif
   // Browther : Basarunaa et Sawtunaa partent OFF (accès anticipé, 2026-09-09).
   // Elles marchent, mais pas partout et pas encore assez bien pour être le

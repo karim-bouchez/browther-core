@@ -31,6 +31,14 @@ interface PanelHandler {
   GetEnabled() => (bool enabled);
   SetEnabled(bool enabled);
 
+  // « Seulement 2 min » (2026-10-01, jumeau de sawtunaa_panel.mojom) : retour
+  // automatique à l'état d'avant en cours (FeatureTemporarySwitch) et temps
+  // restant ; programmer le retour à l'état d'AVANT la bascule qui vient
+  // d'avoir lieu ; « Ne pas réactiver / Ne pas couper ».
+  GetTemporary() => (bool active, int32 remaining_ms);
+  StartTemporary();
+  KeepTemporary();
+
   // Browther : faut-il afficher l'encadré « contenu protégé (DRM) » ?
   // Répond à la question que l'utilisateur se pose en ouvrant le panel après
   // avoir vu le badge AMBRE de la toolbar. MÊME condition que le badge :

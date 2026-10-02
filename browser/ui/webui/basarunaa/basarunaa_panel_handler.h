@@ -44,6 +44,9 @@ class BasarunaaPanelHandler : public basarunaa::mojom::PanelHandler {
   void CloseUI() override;
   void GetEnabled(GetEnabledCallback callback) override;
   void SetEnabled(bool enabled) override;
+  void GetTemporary(GetTemporaryCallback callback) override;
+  void StartTemporary() override;
+  void KeepTemporary() override;
   void GetProtectedContent(GetProtectedContentCallback callback) override;
   void GetReportSiteState(GetReportSiteStateCallback callback) override;
   void ReportSite(ReportSiteCallback callback) override;

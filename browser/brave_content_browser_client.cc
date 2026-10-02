@@ -1171,11 +1171,11 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     // Comme pour Sawtunaa (cf. bloc suivant) : le switch porte uniquement la
     // CAPACITÉ du build (feature decode-ahead), PAS la pref utilisateur —
     // celle-ci est poussée en LIVE aux renderers par
-    // BasarunaaVideoTapTabHelper (VideoTapConfig) et décidée PAR PLAYER
-    // (GetVideoLeadFrameSink) : toggle ON = prochain player/reload, sans
-    // restart ; toggle OFF = live (plus aucun readback ni ML). Sans le sink,
-    // le decode-ahead 2 s de VideoRendererImpl n'est jamais forcé → un
-    // utilisateur OFF ne paie rien.
+    // BasarunaaVideoTapTabHelper (VideoTapConfig) et appliquée frame par
+    // frame dans VideoRendererImpl : ON et OFF sont live, y compris sur une
+    // vidéo déjà en cours (2026-10-01). Éteint, le decode-ahead 2 s n'est
+    // jamais forcé et aucune frame n'est livrée → un utilisateur OFF ne paie
+    // rien.
     if (base::FeatureList::IsEnabled(basarunaa::kBasarunaaVideoDecodeAhead)) {
       command_line->AppendSwitch(switches::kBasarunaaVideoTap);
     }
@@ -1183,11 +1183,10 @@ void BraveContentBrowserClient::AppendExtraCommandLineSwitches(
     // [Browther/Sawtunaa] audio tap V2 — bascule (étape 4) : le switch porte
     // uniquement la CAPACITÉ native (kSawtunaaNativeTapActive = build natif +
     // feature), PAS la pref utilisateur — celle-ci est poussée en LIVE aux
-    // renderers par SawtunaaTabHelper (SawtunaaConfig) et décidée PAR PLAYER
-    // (GetSawtunaaAudioTap) : toggle ON = prochain player/reload, sans
-    // restart ; toggle OFF = quasi-live (gate batch browser). Sans callbacks,
-    // le pipeline audio reste strictement upstream (pas de hint 2 s pour les
-    // users OFF).
+    // renderers par SawtunaaTabHelper (SawtunaaConfig) et appliquée buffer
+    // par buffer dans AudioRendererImpl : ON et OFF sont live (2026-10-01).
+    // Éteint, pas de hint 2 s ni de rétention (le pipeline audio reste
+    // upstream).
     if (content::RenderProcessHost* process =
             content::RenderProcessHost::FromID(child_process_id)) {
       auto* prefs = user_prefs::UserPrefs::Get(process->GetBrowserContext());

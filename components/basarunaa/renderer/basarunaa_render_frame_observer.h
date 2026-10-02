@@ -62,15 +62,15 @@ class BasarunaaRenderFrameObserver final
   // thread pour CHAQUE frame décodée-en-avance.
   content::ContentRendererClient::VideoLeadFrameSink GetVideoLeadFrameSink();
 
-  // Décision LIVE par player (lue par GetVideoLeadFrameSink à CHAQUE création
-  // de WebMediaPlayer) : capacité native de ce build (switch
-  // --basarunaa-video-tap, injecté sur la feature seule) ET pref utilisateur
-  // courante (poussée par BasarunaaVideoTapTabHelper). Brancher le sink force
-  // le decode-ahead 2 s côté VideoRendererImpl → on ne le pose JAMAIS pour un
-  // utilisateur OFF. Toggle ON = pris en compte au prochain player (reload
-  // d'onglet suffit, même process) ; OFF = live (gate dans
-  // OnLeadFrameNotified, plus aucun readback ni ML).
-  bool tap_enabled() const { return native_available_ && pref_enabled_; }
+  // Sink fourni à CHAQUE WebMediaPlayer dès que la capacité native est là
+  // (switch --basarunaa-video-tap, injecté sur la feature seule), que
+  // l'utilisateur ait allumé Basarunaa ou non : c'est ce qui permet de
+  // l'allumer sur une vidéo DÉJÀ en cours, sans recharger (2026-10-01 ; avant,
+  // un lecteur créé éteint restait en flou total jusqu'au rechargement). Coût
+  // nul quand c'est éteint : VideoRendererImpl n'impose la fenêtre 2 s et ne
+  // livre de frames que si le choix utilisateur, poussé par SetEnabled
+  // (VideoRendererImpl::SetBasarunaaTapUserEnabled), est ON.
+  bool tap_enabled() const { return native_available_; }
 
  private:
   using LeadFrameReadbackCB = content::ContentRendererClient::LeadFrameReadbackCB;

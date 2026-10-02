@@ -16,7 +16,7 @@
 #include "brave/browser/ui/webui/browther_referral/browther_referral_dialog.h"
 #include "brave/browser/browther/referral/browther_referral_launch.h"
 #include "brave/browser/ui/webui/sawtunaa/sawtunaa_panel_ui.h"
-#include "brave/browser/sawtunaa/sawtunaa_temporary_switch.h"
+#include "brave/browser/browther/feature_temporary_switch.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
@@ -109,7 +109,8 @@ void SawtunaaPanelHandler::GetState(GetStateCallback callback) {
   const auto report =
       browther_analytics::GetSiteReportState(GetActiveWebContents());
   const auto protected_state = GetProtectedContentState();
-  auto* temporary = SawtunaaTemporarySwitch::GetForProfile(profile_);
+  auto* temporary = FeatureTemporarySwitch::GetForProfile(
+          profile_, FeatureTemporarySwitch::Feature::kSawtunaa);
   const bool temp_active = temporary && temporary->IsActive();
   const int32_t temp_remaining_ms =
       temp_active
@@ -157,13 +158,15 @@ void SawtunaaPanelHandler::SetEnabled(bool enabled) {
 }
 
 void SawtunaaPanelHandler::StartTemporary() {
-  if (auto* temporary = SawtunaaTemporarySwitch::GetForProfile(profile_)) {
+  if (auto* temporary = FeatureTemporarySwitch::GetForProfile(
+          profile_, FeatureTemporarySwitch::Feature::kSawtunaa)) {
     temporary->Start();
   }
 }
 
 void SawtunaaPanelHandler::KeepTemporary() {
-  if (auto* temporary = SawtunaaTemporarySwitch::GetForProfile(profile_)) {
+  if (auto* temporary = FeatureTemporarySwitch::GetForProfile(
+          profile_, FeatureTemporarySwitch::Feature::kSawtunaa)) {
     temporary->Keep();
   }
 }

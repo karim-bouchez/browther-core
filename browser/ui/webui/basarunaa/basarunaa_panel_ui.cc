@@ -75,6 +75,15 @@ BasarunaaPanelUI::BasarunaaPanelUI(content::WebUI* web_ui)
       {"nudenetConf", IDS_BASARUNAA_PANEL_NUDENET_CONF},
       {"loading", IDS_BASARUNAA_PANEL_LOADING},
       {"toggleAria", IDS_BASARUNAA_PANEL_TOGGLE_ARIA},
+      // « Seulement 2 min » (2026-10-01) : mêmes textes que Sawtunaa
+      // (génériques, déjà traduits dans les 66 langues). Le temps (« 1:42 »)
+      // est affiché À CÔTÉ du libellé, jamais dedans.
+      {"tempOfferReenable", IDS_SAWTUNAA_TEMP_OFFER_REENABLE},
+      {"tempOfferDisable", IDS_SAWTUNAA_TEMP_OFFER_DISABLE},
+      {"tempCountdownReenable", IDS_SAWTUNAA_TEMP_COUNTDOWN_REENABLE},
+      {"tempCountdownDisable", IDS_SAWTUNAA_TEMP_COUNTDOWN_DISABLE},
+      {"tempKeepOff", IDS_SAWTUNAA_TEMP_KEEP_OFF},
+      {"tempKeepOn", IDS_SAWTUNAA_TEMP_KEEP_ON},
       {"censorEyes", IDS_BASARUNAA_PANEL_CENSOR_EYES},
       {"censorEyesDesc", IDS_BASARUNAA_PANEL_CENSOR_EYES_DESC},
       {"nsfwToggle", IDS_BASARUNAA_PANEL_NSFW_TOGGLE},

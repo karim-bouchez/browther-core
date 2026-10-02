@@ -25,6 +25,7 @@
 #include "base/task/single_thread_task_runner.h"
 #include "base/values.h"
 #include "content/public/renderer/render_frame.h"
+#include "media/renderers/video_renderer_impl.h"
 #include "mojo/public/cpp/base/big_buffer.h"
 #include "third_party/blink/public/common/associated_interfaces/associated_interface_registry.h"
 #include "third_party/blink/public/platform/browser_interface_broker_proxy.h"
@@ -217,6 +218,10 @@ void BasarunaaRenderFrameObserver::SetEnabled(bool enabled) {
     return;
   }
   pref_enabled_ = enabled;
+  // Drapeau de process lu par chaque lecteur vidéo (thread média) : impose ou
+  // retire la fenêtre d'anticipation 2 s et la livraison des frames sur les
+  // lecteurs DÉJÀ créés.
+  media::VideoRendererImpl::SetBasarunaaTapUserEnabled(enabled);
   VLOG(1) << "[bsrV2] pref poussée : enabled=" << enabled;
   if (!enabled) {
     // OFF live : on abandonne l'état de détection de tous les players. Les
