@@ -3131,6 +3131,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       /** Ticks de `pump()` consécutifs sans avoir livré un seul sample alors que
        *  la file n'est pas vide — le compteur qui détecte l'arrêt muet. */
       this.stalledTicks = 0;
+      this.stalledSinceMs = 0;
       this.stalledReported = false;
       this.lastPlayheadMs = -1;
       this.lastPlayheadWallMs = 0;
@@ -3471,12 +3472,16 @@ video:not([data-basarunaa]) { filter: none !important; }
         }));
         this.samplesFed++;
       }
-      if (this.samplesFed > fedBefore) {
+      const nowWall = performance.now();
+      const playing = !(this.activeVideo()?.paused ?? true);
+      if (this.samplesFed > fedBefore || !playing) {
         this.stalledTicks = 0;
+        this.stalledSinceMs = 0;
         this.stalledReported = false;
       } else if (this.pending.length) {
         this.stalledTicks++;
-        if (this.stalledTicks >= 20 && !this.stalledReported) {
+        if (!this.stalledSinceMs) this.stalledSinceMs = nowWall;
+        if (nowWall - this.stalledSinceMs >= 1e4 && !this.stalledReported) {
           this.stalledReported = true;
           const head = this.pending[0].s;
           metric("decode_ahead_stalled", {
@@ -4614,11 +4619,13 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   const PAD_PX = 8;
+  const MASK_SWAP_MIN_MS = 250;
+  const ELLIPSE_MASK = "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%)";
   class BackdropRenderer {
     constructor() {
       /** Pool réutilisé : créer/détruire des div à chaque détection ferait faire au
        *  compositeur exactement le travail qu'on cherche à lui épargner. */
-      this.pool = [];
+      this.slots = [];
       this.attached = false;
       this.container = document.createElement("div");
       const s = this.container.style;
@@ -4642,10 +4649,13 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     /** Flou plein cadre (cold-start, cut, NSFW) — une seule div sur toute la vidéo. */
     fullFrame(geom, radiusPx) {
-      const d = this.take(0);
+      const slot = this.take(0);
+      this.cancelSwap(slot);
+      const d = slot.front;
       this.setRect(d, geom.offX, geom.offY, geom.dispW, geom.dispH);
       this.setRadius(d, radiusPx);
       this.setMask(d, "none", "none");
+      slot.frontKey = "none";
       d.style.setProperty("clip-path", "none", "important");
       d.style.setProperty("border-radius", "0", "important");
       this.trim(1);
@@ -4665,12 +4675,14 @@ video:not([data-basarunaa]) { filter: none !important; }
         const factor = typeof window.__basarunaaBlurRadiusFactor === "number" ? window.__basarunaaBlurRadiusFactor : 0.1;
         const floor = typeof window.__basarunaaBlurRadiusFloor === "number" ? window.__basarunaaBlurRadiusFloor : 32;
         const radius = Math.max(floor, Math.round(Math.max(bw, bh) * factor));
-        const d = this.take(i);
-        this.setRadius(d, radius);
+        const slot = this.take(i);
         if (window.__basarunaaFeatherDisabled === true) {
-          this.placeHardEdged(d, keypoints[i] ?? null, b, geom, sx, sy);
+          this.cancelSwap(slot);
+          this.setRadius(slot.front, radius);
+          this.placeHardEdged(slot.front, keypoints[i] ?? null, b, geom, sx, sy);
+          slot.frontKey = "hard";
         } else {
-          this.placeFeathered(d, keypoints[i] ?? null, b, geom, sx, sy);
+          this.applyFeather(slot, this.featherSpec(keypoints[i] ?? null, b, geom, sx, sy), radius);
         }
       }
       this.trim(bboxes.length);
@@ -4687,22 +4699,130 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
     // ─── interne ───
     take(i) {
-      let d = this.pool[i];
-      if (!d) {
-        d = document.createElement("div");
+      let slot = this.slots[i];
+      if (!slot) {
+        slot = {
+          front: this.makeDiv(),
+          back: this.makeDiv(),
+          frontKey: "",
+          want: null,
+          swapping: false,
+          lastSwapMs: 0,
+          gen: 0,
+          visible: false,
+          timer: null
+        };
+        this.slots[i] = slot;
+      }
+      if (!slot.visible) {
+        slot.visible = true;
+        slot.front.style.setProperty("display", "block", "important");
+      }
+      return slot;
+    }
+    makeDiv() {
+      {
+        const d = document.createElement("div");
         const s = d.style;
         s.setProperty("position", "absolute", "important");
         s.setProperty("pointer-events", "none", "important");
-        this.pool[i] = d;
+        s.setProperty("display", "none", "important");
         this.container.appendChild(d);
+        return d;
       }
-      d.style.setProperty("display", "block", "important");
-      return d;
     }
     trim(keep) {
-      for (let i = keep; i < this.pool.length; i++) {
-        this.pool[i].style.setProperty("display", "none", "important");
+      for (let i = keep; i < this.slots.length; i++) {
+        const slot = this.slots[i];
+        if (!slot.visible) continue;
+        this.cancelSwap(slot);
+        slot.visible = false;
+        slot.front.style.setProperty("display", "none", "important");
       }
+    }
+    /**
+     * Pose le rectangle tout de suite, et le masque SANS JAMAIS le changer sur la
+     * div visible.
+     *
+     * 🔴 Pourquoi (recette Karim 2026-10-02, reproduit sur simulateur) : WebKit
+     * charge une image de masque (`url(data:image/svg+xml…)`) de façon
+     * ASYNCHRONE, et tant qu'elle n'est pas prête, la div est entièrement
+     * masquée — le flou DISPARAÎT. Les bords adoucis (2026-09-29) changeaient ce
+     * masque à chaque résolution du chemin en avance, jusqu'à 20 fois par
+     * seconde : sur iPhone, une frame sur deux sans flou, décision pourtant
+     * stable (HUD `2 blur` sur les deux captures). Chromium décode ces data URL
+     * de façon synchrone : macOS n'a jamais eu le problème.
+     *
+     * Donc : le nouveau masque est posé sur la div CACHÉE (`back`), préchargé ;
+     * la div visible n'est retirée qu'une fois le masque décodé et deux frames
+     * peintes. Pendant l'échange les deux floutent (sur-flou bref, jamais de
+     * trou). Et la forme ne change qu'au plus toutes les `MASK_SWAP_MIN_MS` :
+     * entre deux, la div suit la personne avec le masque précédent, étiré.
+     */
+    applyFeather(slot, spec, radius) {
+      for (const d of [slot.front, slot.back]) {
+        this.setRect(d, spec.x, spec.y, spec.w, spec.h);
+        this.setRadius(d, radius);
+        d.style.setProperty("clip-path", "none", "important");
+        d.style.setProperty("border-radius", "0", "important");
+      }
+      if (slot.frontKey === "" || slot.frontKey === "hard") {
+        this.setMask(slot.front, "ellipse", ELLIPSE_MASK);
+        slot.frontKey = "ellipse";
+      }
+      slot.want = spec;
+      this.maybeSwap(slot);
+    }
+    maybeSwap(slot) {
+      const want = slot.want;
+      if (!want || slot.swapping || !slot.visible || want.key === slot.frontKey) return;
+      if (!want.url) {
+        this.setMask(slot.front, want.key, want.css);
+        slot.frontKey = want.key;
+        return;
+      }
+      const wait = slot.lastSwapMs + MASK_SWAP_MIN_MS - performance.now();
+      if (wait > 0) {
+        if (slot.timer === null) {
+          slot.timer = window.setTimeout(() => {
+            slot.timer = null;
+            this.maybeSwap(slot);
+          }, wait);
+        }
+        return;
+      }
+      slot.swapping = true;
+      const gen = slot.gen;
+      const back = slot.back;
+      this.setMask(back, want.key, want.css);
+      back.style.setProperty("display", "block", "important");
+      const done = () => {
+        if (slot.gen !== gen) return;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          if (slot.gen !== gen) return;
+          slot.front.style.setProperty("display", "none", "important");
+          slot.back = slot.front;
+          slot.front = back;
+          slot.frontKey = want.key;
+          slot.swapping = false;
+          slot.lastSwapMs = performance.now();
+          this.maybeSwap(slot);
+        }));
+      };
+      const img = new Image();
+      img.src = want.url;
+      img.decode().then(done, done);
+    }
+    cancelSwap(slot) {
+      slot.gen++;
+      slot.swapping = false;
+      slot.want = null;
+      if (slot.timer !== null) {
+        clearTimeout(slot.timer);
+        slot.timer = null;
+      }
+      slot.back.style.setProperty("display", "none", "important");
+      if (slot.frontKey !== "none" && slot.frontKey !== "hard") slot.frontKey = "";
     }
     setRadius(d, radius) {
       const s = d.style;
@@ -4749,24 +4869,18 @@ video:not([data-basarunaa]) { filter: none !important; }
      *   4. `stdDeviation` par axe ⇒ dégradé isotrope en pixels écran.
      * Sans pose exploitable : ellipse en dégradé radial sur la boîte (idem macOS).
      */
-    placeFeathered(d, raw, b, geom, sx, sy) {
-      d.style.setProperty("clip-path", "none", "important");
-      d.style.setProperty("border-radius", "0", "important");
+    featherSpec(raw, b, geom, sx, sy) {
       const shape = window.__basarunaaShapeDisabled === true ? null : this.silhouette(raw, b, geom);
       if (!shape) {
-        this.setRect(
-          d,
-          geom.offX + b[0] * sx - PAD_PX,
-          geom.offY + b[1] * sy - PAD_PX,
-          (b[2] - b[0]) * sx + 2 * PAD_PX,
-          (b[3] - b[1]) * sy + 2 * PAD_PX
-        );
-        this.setMask(
-          d,
-          "ellipse",
-          "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%)"
-        );
-        return;
+        return {
+          x: geom.offX + b[0] * sx - PAD_PX,
+          y: geom.offY + b[1] * sy - PAD_PX,
+          w: (b[2] - b[0]) * sx + 2 * PAD_PX,
+          h: (b[3] - b[1]) * sy + 2 * PAD_PX,
+          key: "ellipse",
+          css: ELLIPSE_MASK,
+          url: null
+        };
       }
       const W = geom.dispW;
       const H = geom.dispH;
@@ -4814,13 +4928,17 @@ video:not([data-basarunaa]) { filter: none !important; }
       const ptsStr = pts.join(" ");
       const stdX = (sigmaPx * 100 / (dw * W)).toFixed(2);
       const stdY = (sigmaPx * 100 / (dh * H)).toFixed(2);
-      this.setRect(d, geom.offX + dx1 * W, geom.offY + dy1 * H, dw * W, dh * H);
       const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><filter id='f' x='-60%' y='-60%' width='220%' height='220%'><feGaussianBlur stdDeviation='${stdX} ${stdY}'/></filter><polygon points='${ptsStr}' fill='#fff' filter='url(#f)'/></svg>`;
-      this.setMask(
-        d,
-        `${ptsStr}|${stdX}|${stdY}`,
-        `url("data:image/svg+xml,${encodeURIComponent(svg)}")`
-      );
+      const url = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+      return {
+        x: geom.offX + dx1 * W,
+        y: geom.offY + dy1 * H,
+        w: dw * W,
+        h: dh * H,
+        key: `${ptsStr}|${stdX}|${stdY}`,
+        css: `url("${url}")`,
+        url
+      };
     }
     /**
      * Silhouette en repère NORMALISÉ au cadre [0,1] + son étendue. ⚠️ L'étendue
@@ -6100,6 +6218,10 @@ video:not([data-basarunaa]) { filter: none !important; }
     sharedDecodeAhead = da;
     return da;
   }
+  function prepareVideoStandby() {
+    if (!decodeAheadEnabled() || typeof VideoDecoder === "undefined") return;
+    getSharedDecodeAhead();
+  }
   function createVideoPipeline() {
     const hasRVFC = typeof HTMLVideoElement !== "undefined" && typeof HTMLVideoElement.prototype.requestVideoFrameCallback === "function";
     if (!hasRVFC) return null;
@@ -6290,6 +6412,11 @@ video:not([data-basarunaa]) { filter: none !important; }
     started = true;
     if (bridge) setBridgeContext(bridge);
     setBlurEnabled(config?.blurEnabled !== false);
+    if (config?.standby === true) {
+      prepareVideoStandby();
+      metric("standby_start", { url: location.href });
+      return controller;
+    }
     boot();
     return controller;
   }
@@ -6362,8 +6489,11 @@ video:not([data-basarunaa]) { filter: none !important; }
   // Dans une CHAÎNE exprès : non remplacé, il vaut « floutage actif » au lieu
   // d'être une erreur de syntaxe qui éteindrait tout Basarunaa.
   if (typeof window.__browtherBasarunaaBootstrap === 'function') {
+    // `$<basarunaa_standby>` : `true` = chargé pendant une pause « 5 min »
+    // (veille, cf. userscript.ts). Non remplacé, il vaut « pas de veille ».
     var basarunaaController = window.__browtherBasarunaaBootstrap($, {
-      blurEnabled: '$<basarunaa_blur_enabled>' !== 'false'
+      blurEnabled: '$<basarunaa_blur_enabled>' !== 'false',
+      standby: '$<basarunaa_standby>' === 'true'
     });
     // Bascule sans rechargement (2026-10-01) : le natif allume/éteint le
     // script DÉJÀ présent par ici. Le jeton (constante du script sécurisé,

@@ -150,8 +150,10 @@ final class FeatureTemporarySwitch: ObservableObject {
   }
 
   private func persist() {
-    revertAtPref.value = revertAt?.timeIntervalSince1970 ?? 0
+    // `revertTo` AVANT `revertAt` : l'observateur de `revertAt` (choix du
+    // script Basarunaa injecté, cf. BrowserViewController) lit les deux.
     revertToPref.value = revertTo
+    revertAtPref.value = revertAt?.timeIntervalSince1970 ?? 0
   }
 
   private func schedule() {

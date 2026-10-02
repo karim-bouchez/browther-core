@@ -477,6 +477,7 @@ public class BrowserViewController: UIViewController {
     _ = FeatureTemporarySwitch.basarunaa
     Preferences.Basarunaa.enabled.observe(from: self)
     Preferences.Basarunaa.blurEnabled.observe(from: self)
+    Preferences.Basarunaa.temporaryRevertAt.observe(from: self)
     // Sans ces trois-là, la branche « collecte » de `preferencesDidChange` ne
     // se déclenchait jamais : le collecteur n'apprenait le changement qu'à la
     // page suivante (`basarunaaDidActivate`).
@@ -2930,6 +2931,17 @@ extension BrowserViewController: PreferencesObserver {
         $0.browserData?.setScripts(scripts: [.basarunaa: false])
         $0.browserData?.setScripts(scripts: [.basarunaa: true])
         BasarunaaScriptHandler.sync(in: $0)
+      }
+    case Preferences.Basarunaa.temporaryRevertAt.key:
+      // Browther: « Seulement 5 min » programmé ou terminé pendant que
+      // Basarunaa est éteint → la variante injectée aux PROCHAINS chargements
+      // change (script en veille ↔ amorce seule, cf.
+      // `BasarunaaScriptHandler.userScript`). Rien à faire sur les pages déjà
+      // chargées.
+      guard !Preferences.Basarunaa.enabled.value else { return }
+      tabManager.allTabs.forEach {
+        $0.browserData?.setScripts(scripts: [.basarunaa: false])
+        $0.browserData?.setScripts(scripts: [.basarunaa: true])
       }
     case Preferences.Basarunaa.blurEnabled.key:
       // Browther: « Floutage actif » est gravé dans le script injecté (le JS en

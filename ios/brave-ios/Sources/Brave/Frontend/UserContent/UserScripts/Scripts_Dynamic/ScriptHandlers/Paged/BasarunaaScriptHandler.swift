@@ -321,11 +321,26 @@ class BasarunaaScriptHandler: TabContentScript {
   /// frame (`liveSource`) ou rallume celui qui y est. Extinction → le script
   /// remet les images d'origine. Cf. `private/docs/BASARUNAA.md` § Bascule.
   static var userScript: WKUserScript? {
-    guard Preferences.Basarunaa.enabled.value else { return userScriptStubOnly }
-    return Preferences.Basarunaa.blurEnabled.value ? userScriptBlurOn : userScriptBlurOff
+    let blur = Preferences.Basarunaa.blurEnabled.value
+    guard Preferences.Basarunaa.enabled.value else {
+      // « Seulement 5 min » en cours avec retour à ALLUMÉ programmé : on sait
+      // que Basarunaa va revenir. Le script complet est chargé EN VEILLE (rien
+      // de flouté ni d'analysé, il suit seulement le flux vidéo) pour que le
+      // rallumage se fasse sans recharger la page, avec l'analyse en avance
+      // tout de suite. Décision Karim 2026-10-02.
+      guard willTurnBackOn else { return userScriptStubOnly }
+      return blur ? userScriptStandbyBlurOn : userScriptStandbyBlurOff
+    }
+    return blur ? userScriptBlurOn : userScriptBlurOff
+  }
+  private static var willTurnBackOn: Bool {
+    Preferences.Basarunaa.temporaryRevertTo.value
+      && Preferences.Basarunaa.temporaryRevertAt.value > Date().timeIntervalSince1970
   }
   private static let userScriptBlurOn = makeUserScript(blurEnabled: true)
   private static let userScriptBlurOff = makeUserScript(blurEnabled: false)
+  private static let userScriptStandbyBlurOn = makeUserScript(blurEnabled: true, standby: true)
+  private static let userScriptStandbyBlurOff = makeUserScript(blurEnabled: false, standby: true)
   private static let userScriptStubOnly = makeUserScript(blurEnabled: nil)
 
   private static let stubSource = loadUserScript(named: "BasarunaaStub") ?? ""
@@ -338,23 +353,25 @@ class BasarunaaScriptHandler: TabContentScript {
   private static let liveSourceBlurOn = makeFullSource(blurEnabled: true)
   private static let liveSourceBlurOff = makeFullSource(blurEnabled: false)
 
-  private static func makeFullSource(blurEnabled: Bool) -> String? {
+  private static func makeFullSource(blurEnabled: Bool, standby: Bool = false) -> String? {
     guard let script = loadUserScript(named: scriptName) else { return nil }
     return secureScript(
       handlerName: messageHandlerName,
       securityToken: scriptId,
-      script: script.replacingOccurrences(
-        of: "$<basarunaa_blur_enabled>", with: blurEnabled ? "true" : "false")
+      script: script
+        .replacingOccurrences(
+          of: "$<basarunaa_blur_enabled>", with: blurEnabled ? "true" : "false")
+        .replacingOccurrences(of: "$<basarunaa_standby>", with: standby ? "true" : "false")
     )
   }
 
   /// `blurEnabled` nil = amorce seule (Basarunaa éteint au chargement).
-  private static func makeUserScript(blurEnabled: Bool?) -> WKUserScript? {
+  private static func makeUserScript(blurEnabled: Bool?, standby: Bool = false) -> WKUserScript? {
     let stub = secureScript(
       handlerName: messageHandlerName, securityToken: scriptId, script: stubSource)
     var source = stub
     if let blurEnabled {
-      guard let full = makeFullSource(blurEnabled: blurEnabled) else { return nil }
+      guard let full = makeFullSource(blurEnabled: blurEnabled, standby: standby) else { return nil }
       source += "\n" + full
     }
     return WKUserScript(
