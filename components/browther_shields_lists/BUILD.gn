@@ -1,0 +1,30 @@
+# Copyright (c) 2026 The Browther Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at https://mozilla.org/MPL/2.0/.
+
+# Mise à jour à chaud des listes Shields : l'app télécharge les listes publiées
+# par private/scripts/publish-shields-lists.py (index signé Ed25519) et les
+# substitue à celles du bundle. Voir private/docs/SHIELDS_BUNDLE.md.
+source_set("browther_shields_lists") {
+  sources = [
+    "active_lists.cc",
+    "active_lists.h",
+    "pref_names.h",
+    "shields_lists_updater.cc",
+    "shields_lists_updater.h",
+    "signed_manifest.cc",
+    "signed_manifest.h",
+  ]
+
+  deps = [
+    "//base",
+    "//components/prefs",
+    "//crypto",
+    "//net",
+    "//net/traffic_annotation",
+    "//services/network/public/cpp",
+    "//services/network/public/mojom",
+    "//url",
+  ]
+}
