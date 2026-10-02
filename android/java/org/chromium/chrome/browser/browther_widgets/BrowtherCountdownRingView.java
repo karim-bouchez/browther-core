@@ -80,7 +80,7 @@ public class BrowtherCountdownRingView extends View {
         super.onDraw(canvas);
         float density = getResources().getDisplayMetrics().density;
         float stroke = 2f * density;
-        float radius = Math.min(getWidth(), getHeight()) * 0.5f - stroke;
+        float radius = Math.min(getWidth(), getHeight()) * 0.5f - stroke * 0.5f;
         if (mSpinner) {
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth(stroke);

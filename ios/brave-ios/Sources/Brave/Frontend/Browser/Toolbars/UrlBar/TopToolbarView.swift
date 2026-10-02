@@ -246,9 +246,9 @@ class TopToolbarView: UIView, ToolbarProtocol {
 
   private let shieldsRewardsStack = UIStackView().then {
     $0.distribution = .fillEqually
-    // Browther : 18 et non 8 — l'anneau du compte à rebours (Sawtunaa,
+    // Browther : 12 et non 8 — l'anneau du compte à rebours (Sawtunaa,
     // Basarunaa) déborde de l'icône ; à 8, deux anneaux voisins se touchaient.
-    $0.spacing = 18
+    $0.spacing = 12
     $0.setContentHuggingPriority(.required, for: .horizontal)
   }
 

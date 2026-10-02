@@ -83,13 +83,14 @@
           android:layout_gravity="bottom|end"
           android:background="@drawable/sawtunaa_badge_red" />
 
-      <!-- Browther: anneau du compte à rebours « 2 min » (2026-10-01), à la place
-           de la pastille. Dans ce FrameLayout, donc dessiné aussi dans la capture
+      <!-- Browther: anneau du compte à rebours « 5 min » (2026-10-01), à la place
+           de la pastille. 36 dp autour d'une icône de 24 : il ne touche pas
+           le dessin (parité iOS, recette Karim 2026-10-02). Dans ce FrameLayout, donc dessiné aussi dans la capture
            de la barre (drawAnimationOverlay). -->
       <org.chromium.chrome.browser.browther_widgets.BrowtherCountdownRingView
           android:id="@+id/brave_sawtunaa_countdown_ring"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="36dp"
+          android:layout_height="36dp"
           android:layout_gravity="center"
           android:clickable="false"
           android:focusable="false"
@@ -105,6 +106,7 @@
   <FrameLayout android:id="@+id/brave_basarunaa_button_layout"
       android:layout_width="38dp"
       android:orientation="vertical"
+      android:layout_marginStart="4dp"
       android:layout_marginTop="8dp"
       android:layout_height="40dp" >
 
@@ -129,8 +131,8 @@
            de Sawtunaa ci-dessus. -->
       <org.chromium.chrome.browser.browther_widgets.BrowtherCountdownRingView
           android:id="@+id/brave_basarunaa_countdown_ring"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="36dp"
+          android:layout_height="36dp"
           android:layout_gravity="center"
           android:clickable="false"
           android:focusable="false"
