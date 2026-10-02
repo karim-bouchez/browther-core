@@ -21,11 +21,13 @@ source_set("brave_shields") {
     "//brave/components/brave_shields/core/browser",
     "//brave/components/brave_shields/core/common",
     "//brave/components/brave_shields/core/common/adblock",
+    "//brave/components/browther_shields_lists",
     "//brave/components/cosmetic_filters/resources/data:generated_resources",
     "//brave/components/resources:static_resources",
     "//components/application_locale_storage",
     "//components/component_updater",
     "//ios/chrome/browser/shared/model/application_context",
+    "//services/network/public/cpp",
     "//ui/base",
   ]
 }

@@ -537,8 +537,14 @@ import os
     if let existingResourcesInfo = self.resourcesInfo {
       let newVersion = resourcesInfo.version
       let existingVersion = existingResourcesInfo.version
-      guard newVersion.compare(existingVersion, options: .numeric) == .orderedDescending else {
-        // existing version is the same or newer, do nothing.
+      // Browther: la version est le nom du dossier, et c'est le C++ (bundle ou
+      // mise à jour à chaud, cf. brave/components/browther_shields_lists) qui
+      // décide lequel est actif. Le bundle s'appelle `_resources`, qu'aucune
+      // version numérique ne dépasse : avec la comparaison « plus récent »
+      // d'upstream, les scriptlets téléchargés étaient refusés. On applique
+      // donc tout changement.
+      guard newVersion != existingVersion else {
+        // same version, do nothing.
         return
       }
     }

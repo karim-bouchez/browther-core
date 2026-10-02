@@ -6,6 +6,8 @@
 #ifndef BRAVE_COMPONENTS_BRAVE_SHIELDS_CORE_BROWSER_AD_BLOCK_DEFAULT_RESOURCE_PROVIDER_H_
 #define BRAVE_COMPONENTS_BRAVE_SHIELDS_CORE_BROWSER_AD_BLOCK_DEFAULT_RESOURCE_PROVIDER_H_
 
+#include "base/callback_list.h"
+#include "base/files/file_path.h"
 #include "base/functional/callback.h"
 #include "brave/components/brave_shields/core/browser/ad_block_resource_provider.h"
 
@@ -41,8 +43,14 @@ class AdBlockDefaultResourceProvider : public AdBlockResourceProvider {
   friend class ::AdBlockServiceTest;
 
   void OnComponentReady(const base::FilePath&);
+  // Browther: scriptlets téléchargés par la mise à jour à chaud
+  // (brave/components/browther_shields_lists), sinon ceux du bundle.
+  base::FilePath GetBrowtherResourcesDir() const;
+  void OnBrowtherListsChanged();
 
   base::FilePath component_path_;
+  base::FilePath browther_bundled_dir_;
+  base::CallbackListSubscription browther_lists_subscription_;
 
   base::WeakPtrFactory<AdBlockDefaultResourceProvider> weak_factory_{this};
 };

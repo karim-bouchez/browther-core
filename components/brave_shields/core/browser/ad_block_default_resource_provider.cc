@@ -13,6 +13,8 @@
 #include "base/task/thread_pool.h"
 #include "brave/components/brave_component_updater/browser/dat_file_util.h"
 #include "brave/components/brave_shields/core/browser/ad_block_component_installer.h"
+#include "brave/components/browther_shields_lists/active_lists.h"
+#include "brave/components/browther_shields_lists/signed_manifest.h"
 #include "build/build_config.h"
 #if !BUILDFLAG(IS_IOS)
 // Browther: chrome/common/chrome_paths.h inclut transitivement
@@ -41,8 +43,9 @@ AdBlockDefaultResourceProvider::AdBlockDefaultResourceProvider(
       base::BindRepeating(&AdBlockDefaultResourceProvider::OnComponentReady,
                           weak_factory_.GetWeakPtr()));
 
-  // Browther: charge resources.json depuis le bundle local sans attendre le
-  // component updater (qui ne fonctionne pas — voir SHIELDS_BUNDLE.md).
+  // Browther: charge resources.json en local sans attendre le component
+  // updater (qui ne fonctionne pas — voir SHIELDS_BUNDLE.md) : la version
+  // téléchargée par la mise à jour à chaud si elle existe, sinon le bundle.
   // - Mac/Win/Linux : DIR_RESOURCES + adblock_lists/_resources/.
   // - Android : DIR_USER_DATA + adblock_lists/_resources/ (extrait depuis
   //   APK au boot via shields_bundled_apk_extractor.cc).
@@ -63,8 +66,31 @@ AdBlockDefaultResourceProvider::AdBlockDefaultResourceProvider(
       base::PathService::Get(chrome::DIR_RESOURCES, &base_dir);
 #endif
   if (ok) {
-    OnComponentReady(
-        base_dir.AppendASCII("adblock_lists").AppendASCII("_resources"));
+    browther_bundled_dir_ =
+        base_dir.AppendASCII("adblock_lists").AppendASCII("_resources");
+  }
+  base::FilePath local = GetBrowtherResourcesDir();
+  if (!local.empty()) {
+    OnComponentReady(local);
+  }
+  browther_lists_subscription_ =
+      browther_shields_lists::ActiveLists::GetInstance()
+          ->RegisterChangedCallback(base::BindRepeating(
+              &AdBlockDefaultResourceProvider::OnBrowtherListsChanged,
+              base::Unretained(this)));
+}
+
+base::FilePath AdBlockDefaultResourceProvider::GetBrowtherResourcesDir() const {
+  base::FilePath downloaded =
+      browther_shields_lists::ActiveLists::GetInstance()->GetDownloadedDir(
+          browther_shields_lists::kResourcesDir);
+  return downloaded.empty() ? browther_bundled_dir_ : downloaded;
+}
+
+void AdBlockDefaultResourceProvider::OnBrowtherListsChanged() {
+  base::FilePath dir = GetBrowtherResourcesDir();
+  if (!dir.empty() && dir != component_path_) {
+    OnComponentReady(dir);
   }
 }
 

@@ -23,6 +23,7 @@
 #include "brave/components/brave_search/browser/backup_results_metrics.h"
 #include "brave/components/browther_analytics/distinct_id_provider.h"
 #include "brave/components/browther_analytics/stats_client.h"
+#include "brave/components/browther_shields_lists/active_lists.h"
 #include "brave/components/brave_search_conversion/p3a.h"
 #include "brave/components/brave_shields/content/browser/ad_block_service.h"
 #include "brave/components/brave_shields/core/browser/brave_shields_p3a.h"
@@ -157,6 +158,8 @@ void RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
   browther_analytics::DistinctIdProvider::RegisterLocalStatePrefs(registry);
   browther_analytics::StatsClient::RegisterLocalStatePrefs(registry);
   brave_shields::RegisterPrefsForAdBlockService(registry);
+  // Browther: mise à jour à chaud des listes Shields.
+  browther_shields_lists::RegisterLocalStatePrefs(registry);
   brave_stats::RegisterLocalStatePrefs(registry);
   brave_origin::RegisterLocalStatePrefs(registry);
   ntp_background_images::RegisterLocalStatePrefs(registry);

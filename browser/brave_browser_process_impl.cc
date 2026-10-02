@@ -35,6 +35,8 @@
 #include "brave/components/brave_stats/browser/brave_stats_updater_util.h"
 #include "brave/components/brave_sync/network_time_helper.h"
 #include "brave/components/brave_wallet/common/buildflags/buildflags.h"
+#include "brave/components/browther_shields_lists/active_lists.h"
+#include "brave/components/browther_shields_lists/shields_lists_updater.h"
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/debounce/core/browser/debounce_component_installer.h"
 #include "brave/components/debounce/core/common/features.h"
@@ -316,6 +318,11 @@ void BraveBrowserProcessImpl::StartBraveServices() {
 
 brave_shields::AdBlockService* BraveBrowserProcessImpl::ad_block_service() {
   if (!ad_block_service_) {
+    // Browther: les providers Shields lisent l'ensemble de listes téléchargé
+    // dans leur constructeur — il doit être chargé avant le service.
+    browther_shields_lists::LoadActiveListsFromPrefs(
+        local_state(),
+        profile_manager()->user_data_dir().AppendASCII("BrowtherShieldsLists"));
     scoped_refptr<base::SequencedTaskRunner> task_runner(
         base::ThreadPool::CreateSequencedTaskRunner(
             {base::MayBlock(), base::TaskPriority::USER_BLOCKING,
@@ -325,6 +332,24 @@ brave_shields::AdBlockService* BraveBrowserProcessImpl::ad_block_service() {
         AdBlockSubscriptionDownloadManagerGetter(),
         profile_manager()->user_data_dir().Append(
             profile_manager()->GetInitialProfileDir()));
+
+    // Browther: dossier adblock_lists/ du bundle, pour sa version — même
+    // résolution que les providers (ad_block_component_filters_provider.cc).
+    base::FilePath bundled_root;
+#if BUILDFLAG(IS_ANDROID)
+    base::PathService::Get(chrome::DIR_USER_DATA, &bundled_root);
+#else
+    base::PathService::Get(chrome::DIR_RESOURCES, &bundled_root);
+#endif
+    browther_shields_lists_updater_ =
+        std::make_unique<browther_shields_lists::ShieldsListsUpdater>(
+            local_state(), bundled_root.AppendASCII("adblock_lists"),
+            base::BindRepeating(
+                [](BraveBrowserProcessImpl* self) {
+                  return self->shared_url_loader_factory();
+                },
+                base::Unretained(this)));
+    browther_shields_lists_updater_->Start();
   }
   return ad_block_service_.get();
 }

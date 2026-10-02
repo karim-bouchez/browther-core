@@ -31,6 +31,10 @@ namespace brave_component_updater {
 class LocalDataFilesService;
 }  // namespace brave_component_updater
 
+namespace browther_shields_lists {
+class ShieldsListsUpdater;
+}  // namespace browther_shields_lists
+
 namespace brave_shields {
 class AdBlockService;
 }  // namespace brave_shields
@@ -178,6 +182,10 @@ class BraveBrowserProcessImpl : public BraveBrowserProcess,
   std::unique_ptr<brave_component_updater::BraveComponent::Delegate>
       brave_component_updater_delegate_;
   std::unique_ptr<brave_shields::AdBlockService> ad_block_service_;
+  // Browther: mise à jour à chaud des listes Shields, créée avec
+  // ad_block_service_ (cf. ad_block_service()).
+  std::unique_ptr<browther_shields_lists::ShieldsListsUpdater>
+      browther_shields_lists_updater_;
   std::unique_ptr<https_upgrade_exceptions::HttpsUpgradeExceptionsService>
       https_upgrade_exceptions_service_;
   std::unique_ptr<debounce::DebounceComponentInstaller>

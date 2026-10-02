@@ -19,6 +19,7 @@ source_set("prefs") {
     "//brave/components/brave_rewards/core",
     "//brave/components/brave_shields/core/browser",
     "//brave/components/brave_shields/core/common",
+    "//brave/components/browther_shields_lists",
     "//brave/components/brave_sync:prefs",
     "//brave/components/brave_talk/buildflags",
     "//brave/components/brave_vpn/common/buildflags",

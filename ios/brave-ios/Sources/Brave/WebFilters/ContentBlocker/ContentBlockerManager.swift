@@ -459,10 +459,13 @@ import os.log
       // We should, but this can be false during upgrades if the identifier changed for some reason.
       if await hasRuleList(for: type, mode: mode) {
         if let existingVersion = versions.value[identifier] {
-          // if existing version older than newer version, consider it `missing` so we recompile
-          // version are either in versioning format `1.0.234` / `1.0.2345`,
-          // or as dates, `2025-03-07T10:00:00Z` / `2025-03-07T14:50:38Z`
-          return version.compare(existingVersion, options: .numeric) == .orderedDescending
+          // Browther: recompiler dès que la version CHANGE, pas seulement quand
+          // elle augmente. Nos versions sont des noms de dossier choisis par le
+          // C++ (bundle `<component_id>` ou mise à jour à chaud `AAAAMMJJHHMMSS`,
+          // cf. brave/components/browther_shields_lists) : la comparaison
+          // numérique d'upstream jugeait « 2026… » plus ancien que « iodk… »,
+          // et le blocage réseau WebKit restait sur les listes du bundle.
+          return version != existingVersion
         } else {
           // existing version unavailable, consider it `missing` so we recompile.
           return true

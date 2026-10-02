@@ -6,7 +6,11 @@
 #include <Foundation/Foundation.h>
 
 #include "base/apple/foundation_util.h"
+#include "base/base_paths.h"
+#include "base/files/file_path.h"
+#include "base/functional/bind.h"
 #include "base/memory/raw_ptr.h"
+#include "base/path_service.h"
 #include "base/strings/sys_string_conversions.h"
 #include "base/task/thread_pool.h"
 #include "brave/components/brave_component_updater/browser/dat_file_util.h"
@@ -17,6 +21,8 @@
 #include "brave/components/brave_shields/core/browser/ad_block_list_p3a.h"
 #include "brave/components/brave_shields/core/browser/ad_block_resource_provider.h"
 #include "brave/components/brave_shields/core/browser/filter_list_catalog_entry.h"
+#include "brave/components/browther_shields_lists/active_lists.h"
+#include "brave/components/browther_shields_lists/shields_lists_updater.h"
 #include "brave/components/cosmetic_filters/resources/grit/cosmetic_filters_generated.h"
 #include "brave/ios/browser/api/brave_shields/adblock_filter_list_catalog_entry+private.h"
 #include "brave/ios/browser/api/brave_shields/adblock_service+private.h"
@@ -24,6 +30,7 @@
 #include "components/component_updater/component_updater_service.h"
 #include "components/grit/brave_components_resources.h"
 #include "ios/chrome/browser/shared/model/application_context/application_context.h"
+#include "services/network/public/cpp/shared_url_loader_factory.h"
 #include "ui/base/resource/resource_bundle.h"
 
 namespace brave_shields {
@@ -110,6 +117,9 @@ void AdBlockResourceObserver::OnResourcesLoaded(
       _serviceObservers;
   std::unique_ptr<brave_shields::AdBlockCatalogObserver> _catalogObserver;
   std::unique_ptr<brave_shields::AdBlockResourceObserver> _resourceObserver;
+  // Browther: mise à jour à chaud des listes (cf. brave/components/
+  // browther_shields_lists). Créé après les providers, qu'il fait recharger.
+  std::unique_ptr<browther_shields_lists::ShieldsListsUpdater> _listsUpdater;
 }
 
 @property(nonatomic)
@@ -123,6 +133,16 @@ void AdBlockResourceObserver::OnResourcesLoaded(
     (component_updater::ComponentUpdateService*)componentUpdaterService {
   if ((self = [super init])) {
     _cus = componentUpdaterService;
+    // Browther: les providers lisent l'ensemble de listes téléchargé dans leur
+    // constructeur — il doit être chargé avant eux. Sous Application Support,
+    // comme les composants de Brave : Swift y stocke des chemins relatifs
+    // (AdblockService.extractRelativePath), qui survivent au changement de
+    // conteneur à chaque mise à jour de l'app.
+    base::FilePath app_data;
+    base::PathService::Get(base::DIR_APP_DATA, &app_data);
+    browther_shields_lists::LoadActiveListsFromPrefs(
+        GetApplicationContext()->GetLocalState(),
+        app_data.AppendASCII("BrowtherShieldsLists"));
     _adblockListP3A = std::make_unique<brave_shields::AdBlockListP3A>(
         GetApplicationContext()->GetLocalState());
     _catalogProvider =
@@ -137,6 +157,19 @@ void AdBlockResourceObserver::OnResourcesLoaded(
             _catalogProvider.get(), _adblockListP3A.get());
     _resourceProvider =
         std::make_unique<brave_shields::AdBlockDefaultResourceProvider>(_cus);
+
+    // Browther: le bundle vit dans BraveCore.framework (base::DIR_ASSETS),
+    // comme le résolvent les providers.
+    base::FilePath bundled_root;
+    base::PathService::Get(base::DIR_ASSETS, &bundled_root);
+    _listsUpdater =
+        std::make_unique<browther_shields_lists::ShieldsListsUpdater>(
+            GetApplicationContext()->GetLocalState(),
+            bundled_root.AppendASCII("adblock_lists"),
+            base::BindRepeating([] {
+              return GetApplicationContext()->GetSharedURLLoaderFactory();
+            }));
+    _listsUpdater->Start();
   }
   return self;
 }

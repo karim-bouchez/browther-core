@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "base/callback_list.h"
 #include "base/functional/callback.h"
 #include "base/memory/raw_ptr.h"
 #include "brave/components/brave_component_updater/browser/dat_file_util.h"
@@ -77,12 +78,16 @@ class AdBlockComponentFiltersProvider : public AdBlockFiltersProvider {
   friend class ::DebounceBrowserTest;
 
   void OnComponentReady(const base::FilePath&);
+  // Browther: l'ensemble de listes téléchargé a changé
+  // (brave/components/browther_shields_lists) — recharge si notre dossier change.
+  void OnBrowtherListsChanged();
 
   base::FilePath component_path_;
   std::string component_id_;
   uint8_t permission_mask_;
   const raw_ptr<component_updater::ComponentUpdateService>
       component_updater_service_;
+  base::CallbackListSubscription browther_lists_subscription_;
 
   base::WeakPtrFactory<AdBlockComponentFiltersProvider> weak_factory_{this};
 };

@@ -19,6 +19,7 @@
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider.h"
 #include "brave/components/brave_shields/core/browser/ad_block_filters_provider_manager.h"
 #include "brave/components/brave_shields/core/browser/filter_list_catalog_entry.h"
+#include "brave/components/browther_shields_lists/active_lists.h"
 #include "build/build_config.h"
 #if !BUILDFLAG(IS_IOS)
 // Browther: chrome/common/chrome_paths.h inclut transitivement
@@ -64,6 +65,16 @@ base::FilePath GetBrowtherBundledListPath(const std::string& component_id) {
   }
 #endif
   return base_dir.AppendASCII("adblock_lists").AppendASCII(component_id);
+}
+
+// Browther: la liste téléchargée par la mise à jour à chaud si elle existe,
+// sinon celle du bundle. Voir brave/components/browther_shields_lists.
+base::FilePath GetBrowtherListPath(const std::string& component_id) {
+  base::FilePath downloaded =
+      browther_shields_lists::ActiveLists::GetInstance()->GetDownloadedDir(
+          component_id);
+  return downloaded.empty() ? GetBrowtherBundledListPath(component_id)
+                            : downloaded;
 }
 
 // static
@@ -114,13 +125,25 @@ AdBlockComponentFiltersProvider::AdBlockComponentFiltersProvider(
                             weak_factory_.GetWeakPtr()));
   }
 
-  // Browther: charge immédiatement la liste bundlée depuis l'app sans
-  // attendre le component updater (qui ne fonctionne pas dans Browther — voir
-  // private/docs/SHIELDS_BUNDLE.md). Si jamais le component updater finit par
-  // fonctionner, OnComponentReady() sera ré-appelé avec le path à jour.
-  base::FilePath bundled = GetBrowtherBundledListPath(component_id_);
-  if (!bundled.empty()) {
-    OnComponentReady(bundled);
+  // Browther: charge immédiatement la liste locale (téléchargée, sinon celle
+  // du bundle) sans attendre le component updater, qui ne fonctionne pas dans
+  // Browther — voir private/docs/SHIELDS_BUNDLE.md. Les mises à jour arrivent
+  // par OnBrowtherListsChanged().
+  base::FilePath local = GetBrowtherListPath(component_id_);
+  if (!local.empty()) {
+    OnComponentReady(local);
+  }
+  browther_lists_subscription_ =
+      browther_shields_lists::ActiveLists::GetInstance()
+          ->RegisterChangedCallback(base::BindRepeating(
+              &AdBlockComponentFiltersProvider::OnBrowtherListsChanged,
+              base::Unretained(this)));
+}
+
+void AdBlockComponentFiltersProvider::OnBrowtherListsChanged() {
+  base::FilePath path = GetBrowtherListPath(component_id_);
+  if (!path.empty() && path != component_path_) {
+    OnComponentReady(path);
   }
 }
 
@@ -155,16 +178,14 @@ void AdBlockComponentFiltersProvider::OnComponentReady(
   TRACE_EVENT(
       "brave.adblock", "AdBlockComponentFiltersProvider::OnComponentReady",
       perfetto::TerminatingFlow::FromPointer(this), "path", path.value());
-  base::FilePath old_path = component_path_;
   component_path_ = path;
 
   NotifyObservers(engine_is_default_);
 
-  if (!old_path.empty()) {
-    base::ThreadPool::PostTask(
-        FROM_HERE, {base::TaskPriority::BEST_EFFORT, base::MayBlock()},
-        base::BindOnce(IgnoreResult(&base::DeletePathRecursively), old_path));
-  }
+  // Browther: upstream supprime ici l'ancien dossier du composant. Chez nous
+  // c'est soit le bundle (signé, en lecture seule : le supprimer casserait la
+  // signature macOS), soit un dossier de la mise à jour à chaud, dont
+  // ShieldsListsUpdater fait lui-même le ménage. On ne supprime donc rien.
 }
 
 bool AdBlockComponentFiltersProvider::IsInitialized() const {

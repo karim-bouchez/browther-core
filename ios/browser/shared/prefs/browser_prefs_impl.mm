@@ -14,6 +14,7 @@
 #include "brave/components/brave_rewards/core/pref_registry.h"
 #include "brave/components/brave_shields/core/browser/brave_shields_p3a.h"
 #include "brave/components/brave_shields/core/common/pref_names.h"
+#include "brave/components/browther_shields_lists/active_lists.h"
 #include "brave/components/brave_sync/brave_sync_prefs.h"
 #include "brave/components/brave_talk/buildflags/buildflags.h"
 #include "brave/components/brave_vpn/common/buildflags/buildflags.h"
@@ -119,6 +120,8 @@ void RegisterLocalStatePrefs(PrefRegistrySimple* registry) {
       brave_shields::prefs::kAdBlockCheckedAllDefaultRegions, false);
   registry->RegisterBooleanPref(
       brave_shields::prefs::kAdBlockCheckedDefaultRegion, false);
+  // Browther: mise à jour à chaud des listes Shields.
+  browther_shields_lists::RegisterLocalStatePrefs(registry);
 }
 
 void MigrateObsoleteProfilePrefs(PrefService* prefs) {
