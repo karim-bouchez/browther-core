@@ -4619,7 +4619,7 @@ video:not([data-basarunaa]) { filter: none !important; }
   }
 
   const PAD_PX = 8;
-  const MASK_SWAP_MIN_MS = 250;
+  const MASK_SWAP_MIN_MS = 66;
   const ELLIPSE_MASK = "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%)";
   class BackdropRenderer {
     constructor() {
@@ -4716,6 +4716,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       }
       if (!slot.visible) {
         slot.visible = true;
+        slot.front.style.setProperty("opacity", "1", "important");
         slot.front.style.setProperty("display", "block", "important");
       }
       return slot;
@@ -4753,11 +4754,18 @@ video:not([data-basarunaa]) { filter: none !important; }
      * stable (HUD `2 blur` sur les deux captures). Chromium décode ces data URL
      * de façon synchrone : macOS n'a jamais eu le problème.
      *
-     * Donc : le nouveau masque est posé sur la div CACHÉE (`back`), préchargé ;
-     * la div visible n'est retirée qu'une fois le masque décodé et deux frames
-     * peintes. Pendant l'échange les deux floutent (sur-flou bref, jamais de
-     * trou). Et la forme ne change qu'au plus toutes les `MASK_SWAP_MIN_MS` :
-     * entre deux, la div suit la personne avec le masque précédent, étiré.
+     * Donc : le nouveau masque est posé sur l'AUTRE div (`back`), rendue mais
+     * transparente (`opacity: 0` — une div `display:none` ne chargerait pas son
+     * masque) ; une fois l'image décodée et deux frames passées, on échange les
+     * deux DANS LA MÊME FRAME. Jamais de trou, et jamais deux flous superposés :
+     * la première version de ce correctif laissait les deux div visibles le temps
+     * de l'échange, et ce sur-flou pulsait à l'œil.
+     *
+     * Mesuré sur simulateur (`private/tools/webkit-mask-bench`) : changement
+     * direct 4/700 captures sans flou (13/300 avec le vrai moteur), échange
+     * ci-dessous 0/700. ⚠️ Précharger l'image puis poser le masque sur la div
+     * VISIBLE ne suffit pas (3/200, 2/300 en mode CORS) : le masque CSS refait
+     * son propre chargement.
      */
     applyFeather(slot, spec, radius) {
       for (const d of [slot.front, slot.back]) {
@@ -4795,11 +4803,14 @@ video:not([data-basarunaa]) { filter: none !important; }
       const gen = slot.gen;
       const back = slot.back;
       this.setMask(back, want.key, want.css);
+      back.style.setProperty("opacity", "0", "important");
       back.style.setProperty("display", "block", "important");
+      void getComputedStyle(back).opacity;
       const done = () => {
         if (slot.gen !== gen) return;
         requestAnimationFrame(() => requestAnimationFrame(() => {
           if (slot.gen !== gen) return;
+          back.style.setProperty("opacity", "1", "important");
           slot.front.style.setProperty("display", "none", "important");
           slot.back = slot.front;
           slot.front = back;
@@ -4923,11 +4934,11 @@ video:not([data-basarunaa]) { filter: none !important; }
         else if (pt.x >= 1 - EDGE) lx = 100 + MARGIN;
         if (pt.y <= EDGE) ly = -MARGIN;
         else if (pt.y >= 1 - EDGE) ly = 100 + MARGIN;
-        pts.push(`${lx.toFixed(1)},${ly.toFixed(1)}`);
+        pts.push(`${(Math.round(lx * 2) / 2).toFixed(1)},${(Math.round(ly * 2) / 2).toFixed(1)}`);
       }
       const ptsStr = pts.join(" ");
-      const stdX = (sigmaPx * 100 / (dw * W)).toFixed(2);
-      const stdY = (sigmaPx * 100 / (dh * H)).toFixed(2);
+      const stdX = (sigmaPx * 100 / (dw * W)).toFixed(1);
+      const stdY = (sigmaPx * 100 / (dh * H)).toFixed(1);
       const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><filter id='f' x='-60%' y='-60%' width='220%' height='220%'><feGaussianBlur stdDeviation='${stdX} ${stdY}'/></filter><polygon points='${ptsStr}' fill='#fff' filter='url(#f)'/></svg>`;
       const url = `data:image/svg+xml,${encodeURIComponent(svg)}`;
       return {
