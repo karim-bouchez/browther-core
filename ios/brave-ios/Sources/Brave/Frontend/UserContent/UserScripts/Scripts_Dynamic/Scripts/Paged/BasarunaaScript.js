@@ -5350,35 +5350,59 @@ video:not([data-basarunaa]) { filter: none !important; }
     }
   }
 
-  const SWEEP_STEP_MS = 3e5;
+  const SWEEP_STEP_MS = 18e4;
+  function sweepRequestedByBuild() {
+    return Date.now() < 0;
+  }
   const SWEEP_STEPS = [
-    // ─── Protocole du 2026-09-02 : COMBIEN COÛTE LE RAYON DU FLOU ───
+    // ─── Protocole du 2026-10-03 : COMBIEN COÛTENT LES BORDS ADOUCIS ───
     //
-    // Le coût GPU d'un flou croît avec son rayon : pour chaque pixel de sortie,
-    // le compositeur combine les pixels voisins dans un rayon r. Les GPU font ça
-    // en deux passes séparables (horizontale puis verticale), donc ~2r
-    // échantillons par pixel au lieu de r² — mais ça reste **proportionnel à r**.
-    // Doubler le rayon double à peu près le travail, sur toute la surface floutée
-    // et à chaque image de la vidéo.
+    // Bords adoucis (masque SVG flouté, refait jusqu'à 15 fois par seconde et
+    // par personne) contre bords francs (`clip-path`, le rendu d'avant le
+    // 2026-09-29). Même lecture, même vidéo.
     //
-    // Deux paliers de 5 min, à comparer sur la **décharge de batterie** (journal
-    // `[ENERGY]`, téléphone DÉBRANCHÉ) — la seule grandeur qui intègre CPU, GPU
-    // et ANE à la fois. `thermalState` et `app_cpu` ne répondent ni l'un ni
-    // l'autre à la question posée ici.
+    // Ordre adoucis / francs / francs / adoucis, et non une simple alternance :
+    // si la charge dérive lentement (téléphone qui chauffe, vidéo qui change de
+    // rythme), les deux conditions ont le même instant moyen et la dérive
+    // s'annule. Une alternance simple la compterait dans l'écart.
+    //
+    // L'amorce absorbe ce qui n'est pas du régime établi (chargement, mise en
+    // tampon, premier masque) et le temps de lancer l'enregistrement côté Mac.
+    // Elle n'est pas dépouillée.
     {
-      id: "radius-100",
-      isolates: "rayon nominal (formule macOS : plancher 32 px, puis 10 %)",
+      id: "amorce",
+      isolates: "rien : réglage livré, le temps que la lecture s'établisse",
+      ms: 12e4,
       apply: () => {
-        window.__basarunaaBlurRadiusFactor = 0.1;
-        window.__basarunaaBlurRadiusFloor = 32;
+        window.__basarunaaFeatherDisabled = false;
       }
     },
     {
-      id: "radius-50",
-      isolates: "rayon DEUX FOIS plus petit (5 %, plancher 16 px). Moins de travail GPU, mais silhouette plus devinable — l’écart de chaleur dit ce que coûte la sûreté, et Karim tranche ensuite en connaissance de cause.",
+      id: "adoucis",
+      isolates: "bords adoucis (réglage livré)",
       apply: () => {
-        window.__basarunaaBlurRadiusFactor = 0.05;
-        window.__basarunaaBlurRadiusFloor = 16;
+        window.__basarunaaFeatherDisabled = false;
+      }
+    },
+    {
+      id: "francs",
+      isolates: "bords francs : ni masque, ni seconde div par personne",
+      apply: () => {
+        window.__basarunaaFeatherDisabled = true;
+      }
+    },
+    {
+      id: "francs",
+      isolates: "bords francs, seconde tranche",
+      apply: () => {
+        window.__basarunaaFeatherDisabled = true;
+      }
+    },
+    {
+      id: "adoucis",
+      isolates: "bords adoucis, seconde tranche",
+      apply: () => {
+        window.__basarunaaFeatherDisabled = false;
       }
     }
   ];
@@ -5393,10 +5417,13 @@ video:not([data-basarunaa]) { filter: none !important; }
       step: step.id,
       i: index,
       of: SWEEP_STEPS.length,
-      isolates: step.isolates
+      isolates: step.isolates,
+      // Heure murale de la bascule : c'est elle qui recale les paliers sur une
+      // trace enregistrée depuis le Mac (`t` ne vaut que dans cette page).
+      epoch: Date.now()
     });
     index++;
-    timer = setTimeout(runStep, SWEEP_STEP_MS);
+    timer = setTimeout(runStep, step.ms ?? SWEEP_STEP_MS);
   }
   function startSweep() {
     if (timer) return;
@@ -6555,7 +6582,7 @@ video:not([data-basarunaa]) { filter: none !important; }
       });
       send("scriptReady", location.href);
       reportCapabilities();
-      if (window.__basarunaaSweep === true) startSweep();
+      if (window.__basarunaaSweep === true || sweepRequestedByBuild()) startSweep();
       send("blurApplied", String(initialCount));
     };
     if (document.readyState === "loading") {
