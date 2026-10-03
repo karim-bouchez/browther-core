@@ -952,6 +952,56 @@ window.__firefox__.includeOnce("BasarunaaScript", function($) {
     };
   }
 
+  const REACTIVE_HOLD_MISSES = 2;
+  class ReactiveSmoother {
+    constructor() {
+      this.tracks = new TrackManager();
+      /** trackId → dernière observation FLOUTÉE de cette piste. */
+      this.lastBlurred = /* @__PURE__ */ new Map();
+    }
+    /**
+     * Ingère les personnes d'UNE analyse. `decide` applique la policy de flou
+     * (`core/policy` § `wouldBlur`) au genre retenu.
+     *
+     * Rend les personnes de l'analyse, dans l'ordre d'entrée, suivies des
+     * personnes tenues.
+     */
+    ingest(observations, decide) {
+      const stamps = this.tracks.ingest(observations);
+      const out = [];
+      const seen = /* @__PURE__ */ new Set();
+      for (let i = 0; i < observations.length; i++) {
+        const o = observations[i];
+        const st = stamps[i];
+        const gender = st.votedGender >= 0 ? st.votedGender : o.gender;
+        const conf = st.votedGender >= 0 ? st.votedConf : o.conf;
+        const blur = decide(gender, conf, o.payload);
+        seen.add(st.trackId);
+        if (blur) {
+          this.lastBlurred.set(st.trackId, { payload: o.payload, gender, conf, miss: 0 });
+        } else {
+          this.lastBlurred.delete(st.trackId);
+        }
+        out.push({ payload: o.payload, gender, conf, blur, held: false });
+      }
+      for (const [id, h] of this.lastBlurred) {
+        if (seen.has(id)) continue;
+        h.miss++;
+        if (h.miss > REACTIVE_HOLD_MISSES) {
+          this.lastBlurred.delete(id);
+          continue;
+        }
+        out.push({ payload: h.payload, gender: h.gender, conf: h.conf, blur: true, held: true });
+      }
+      return out;
+    }
+    /** Changement de scène, saut, reprise du réactif : plus rien ne vaut. */
+    reset() {
+      this.tracks.reset();
+      this.lastBlurred.clear();
+    }
+  }
+
   const FEMALE_COLORS = [
     "#FF69B4",
     "#FF1493",
@@ -4305,33 +4355,58 @@ video:not([data-basarunaa]) { filter: none !important; }
         return;
       }
       const list = persons ?? [];
-      const bboxes = [];
-      const blurKeypoints = [];
-      const fullPersons = [];
-      for (const p of list) {
+      const w = analyseW || 1;
+      const h = analyseH || 1;
+      const observations = list.map((p) => {
         const kps = [];
         if (p.keypoints) {
           for (const k of p.keypoints) if (k) kps.push(k);
         }
-        const kpConfidences = kps.length > 0 ? kps.map((k) => k[2]) : null;
-        const blur = wouldBlur({
+        return {
+          nx: p.bbox[0] / w,
+          ny: p.bbox[1] / h,
+          nw: (p.bbox[2] - p.bbox[0]) / w,
+          nh: (p.bbox[3] - p.bbox[1]) / h,
           gender: genderFromWord(p.gender),
           conf: typeof p.genderConfidence === "number" ? p.genderConfidence : 0,
+          payload: {
+            bbox: p.bbox,
+            keypoints: kps,
+            genderWord: p.gender ?? null,
+            genderConfidence: p.genderConfidence ?? null
+          }
+        };
+      });
+      const smoothed = proc.reactive.ingest(
+        observations,
+        (gender, conf, person) => wouldBlur({
+          gender,
+          conf,
           mode: prefs.mode,
           certainty: prefs.genderCertainty,
           minSkeletonActive: !!prefs.minSkeletonActive,
-          kpConfidences
-        });
-        if (blur) {
-          bboxes.push(p.bbox);
-          blurKeypoints.push(kps.length > 0 ? kps : null);
+          kpConfidences: person.keypoints.length > 0 ? person.keypoints.map((k) => k[2]) : null
+        })
+      );
+      const bboxes = [];
+      const blurKeypoints = [];
+      const fullPersons = [];
+      let seenBlurred = 0;
+      let held = 0;
+      for (const sp of smoothed) {
+        const person = sp.payload;
+        if (sp.blur) {
+          bboxes.push(person.bbox);
+          blurKeypoints.push(person.keypoints.length > 0 ? person.keypoints : null);
+          if (sp.held) held++;
+          else seenBlurred++;
         }
         fullPersons.push({
-          bbox: p.bbox,
-          ...kps.length > 0 ? { keypoints: kps } : {},
-          gender: p.gender ?? null,
-          genderConfidence: p.genderConfidence ?? null,
-          blur
+          bbox: person.bbox,
+          ...person.keypoints.length > 0 ? { keypoints: person.keypoints } : {},
+          gender: person.genderWord,
+          genderConfidence: person.genderConfidence,
+          blur: sp.blur
         });
       }
       proc.onYoloApply({
@@ -4340,12 +4415,13 @@ video:not([data-basarunaa]) { filter: none !important; }
         analyseH,
         bboxes,
         blurKeypoints,
+        held,
         isNsfw,
         debugMode,
         fullPersons,
         timing
       });
-      if (bboxes.length > 0) send("statsBlurred", String(bboxes.length));
+      if (seenBlurred > 0) send("statsBlurred", String(seenBlurred));
     };
   }
 
@@ -5489,6 +5565,12 @@ video:not([data-basarunaa]) { filter: none !important; }
       // ce serait 5 inférences par seconde au lieu d'une, soit l'inverse de ce
       // qu'on cherche.
       this.aheadStore = null;
+      /**
+       * Lissage du chemin réactif (vote de genre + tenue d'une personne ratée).
+       * Remis à zéro à chaque changement de scène et à chaque reprise du réactif :
+       * une boîte tenue ne vaut que pour la scène où elle a été vue.
+       */
+      this.reactive = new ReactiveSmoother();
       /** Vrai depuis le tick où l'avance a pris la main — pour ne signaler la
        *  bascule qu'une fois, et savoir d'où l'on revient. */
       this.aheadActive = false;
@@ -5729,6 +5811,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.currentBboxes = [];
         this.currentKeypoints = [];
         this.state = "full_blur";
+        this.reactive.reset();
         applyVideoCssBlur(this.video);
         this.repaintBackdrop();
         const reason = this.unpaintedResume ? "unpainted_resume" : !this.aheadStore ? "no_store" : this.aheadStore.lastMiss ?? "unknown";
@@ -5773,6 +5856,7 @@ video:not([data-basarunaa]) { filter: none !important; }
         this.backdrop.clear();
         this.currentBboxes = [];
         this.state = "full_blur";
+        this.reactive.reset();
         applyVideoCssBlur(this.video);
       } catch {
       }
@@ -5908,6 +5992,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           this.currentBboxes = [];
           this.triggeredByScene = true;
           this.state = "full_blur";
+          this.reactive.reset();
           applyVideoCssBlur(video);
           metric("scene_change", {
             videoId: this.id,
@@ -6196,6 +6281,7 @@ video:not([data-basarunaa]) { filter: none !important; }
           infer_ms: payload.timing?.poseLatencyMs ?? -1,
           nsfw: !!payload.isNsfw,
           n: safeBboxes.length,
+          held: payload.held ?? 0,
           state: this.state
         });
       } catch (e) {

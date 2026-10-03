@@ -706,6 +706,199 @@
     ctx.restore();
   }
 
+  function iou(a, b) {
+    const ax2 = a.nx + a.nw;
+    const ay2 = a.ny + a.nh;
+    const bx2 = b.nx + b.nw;
+    const by2 = b.ny + b.nh;
+    const ix1 = Math.max(a.nx, b.nx);
+    const iy1 = Math.max(a.ny, b.ny);
+    const ix2 = Math.min(ax2, bx2);
+    const iy2 = Math.min(ay2, by2);
+    const inter = Math.max(0, ix2 - ix1) * Math.max(0, iy2 - iy1);
+    const ua = a.nw * a.nh + b.nw * b.nh - inter;
+    return ua > 0 ? inter / ua : 0;
+  }
+
+  const VOTE_MIN_CONF = 0.55;
+  const VOTE_DECAY = 0.9;
+  const TRACK_IOU = 0.2;
+  const TRACK_MAX_MISS = 3;
+  function accumulateVote(t, p) {
+    t.voteM *= VOTE_DECAY;
+    t.voteF *= VOTE_DECAY;
+    t.voteC *= VOTE_DECAY;
+    const c = p.conf >= 0 ? p.conf : 0;
+    if (c >= VOTE_MIN_CONF) {
+      if (p.gender === 0) t.voteM = Math.max(t.voteM, c);
+      else if (p.gender === 1) t.voteF = Math.max(t.voteF, c);
+      else if (p.gender === 2) t.voteC = Math.max(t.voteC, c);
+    }
+    if (t.voteM > 0 || t.voteF > 0 || t.voteC > 0) {
+      let g = 0;
+      let best = t.voteM;
+      if (t.voteF >= best) {
+        g = 1;
+        best = t.voteF;
+      }
+      if (t.voteC > best) {
+        g = 2;
+        best = t.voteC;
+      }
+      t.gender = g;
+      t.conf = best;
+      t.voteT = best;
+    }
+  }
+  class TrackManager {
+    constructor() {
+      this.tracks = [];
+      this.nextTrackId = 0;
+    }
+    /** Nombre de pistes vivantes — diagnostic. */
+    get size() {
+      return this.tracks.length;
+    }
+    /**
+     * Ingère les personnes d'une ancre : match IoU aux pistes, vote, et retourne
+     * pour chaque personne (dans l'ordre d'entrée) le tampon à recopier dessus.
+     */
+    ingest(persons) {
+      const tracks = this.tracks;
+      const stamps = new Array(persons.length);
+      const pairs = [];
+      for (let pi = 0; pi < persons.length; pi++) {
+        for (let ti = 0; ti < tracks.length; ti++) {
+          const io = iou(persons[pi], tracks[ti]);
+          if (io >= TRACK_IOU) pairs.push({ pi, ti, io });
+        }
+      }
+      pairs.sort((a, b) => b.io - a.io);
+      const usedP = /* @__PURE__ */ new Set();
+      const usedT = /* @__PURE__ */ new Set();
+      const matchedT = /* @__PURE__ */ new Set();
+      for (const { pi, ti } of pairs) {
+        if (usedP.has(pi) || usedT.has(ti)) continue;
+        usedP.add(pi);
+        usedT.add(ti);
+        matchedT.add(ti);
+        const t = tracks[ti];
+        const p = persons[pi];
+        t.nx = p.nx;
+        t.ny = p.ny;
+        t.nw = p.nw;
+        t.nh = p.nh;
+        t.miss = 0;
+        accumulateVote(t, p);
+        stamps[pi] = stampOf(t);
+      }
+      for (let pi = 0; pi < persons.length; pi++) {
+        if (usedP.has(pi)) continue;
+        const p = persons[pi];
+        const t = {
+          id: this.nextTrackId++,
+          nx: p.nx,
+          ny: p.ny,
+          nw: p.nw,
+          nh: p.nh,
+          voteM: 0,
+          voteF: 0,
+          voteC: 0,
+          voteT: 0,
+          gender: -1,
+          conf: -1,
+          miss: 0
+        };
+        accumulateVote(t, p);
+        tracks.push(t);
+        stamps[pi] = stampOf(t);
+      }
+      for (let ti = 0; ti < tracks.length; ti++) {
+        if (!matchedT.has(ti)) tracks[ti].miss++;
+      }
+      this.tracks = tracks.filter((t) => t.miss < TRACK_MAX_MISS);
+      return stamps;
+    }
+    /**
+     * Remise à zéro. À appeler à l'OUVERTURE D'UNE SCÈNE (cut) et sur seek : une
+     * identité ne survit pas à un changement de scène — la laisser traverser fait
+     * hériter à une nouvelle personne le genre voté de celle qu'elle remplace.
+     *
+     * 🔴 `nextTrackId` n'est **jamais** remis à zéro, et ce n'est pas un détail
+     * d'hygiène. L'appariement de `persons-match.ts` commence par un match EXACT
+     * sur `trackId` : si les identités repartaient de 0 après un cut, la dernière
+     * personne de l'ancienne scène et la première de la nouvelle porteraient le
+     * même numéro. Elles seraient donc déclarées « la même personne », la
+     * continuité vaudrait 1, le cut serait rejeté comme un faux positif — et le
+     * flou morpherait à travers le changement de scène, exactement ce que le snap
+     * existe pour empêcher.
+     */
+    reset() {
+      this.tracks = [];
+    }
+  }
+  function stampOf(t) {
+    return {
+      trackId: t.id,
+      votedGender: t.gender,
+      votedConf: t.conf,
+      voteM: t.voteM,
+      voteF: t.voteF,
+      voteC: t.voteC,
+      voteT: t.voteT
+    };
+  }
+
+  const REACTIVE_HOLD_MISSES = 2;
+  class ReactiveSmoother {
+    constructor() {
+      this.tracks = new TrackManager();
+      /** trackId → dernière observation FLOUTÉE de cette piste. */
+      this.lastBlurred = /* @__PURE__ */ new Map();
+    }
+    /**
+     * Ingère les personnes d'UNE analyse. `decide` applique la policy de flou
+     * (`core/policy` § `wouldBlur`) au genre retenu.
+     *
+     * Rend les personnes de l'analyse, dans l'ordre d'entrée, suivies des
+     * personnes tenues.
+     */
+    ingest(observations, decide) {
+      const stamps = this.tracks.ingest(observations);
+      const out = [];
+      const seen = /* @__PURE__ */ new Set();
+      for (let i = 0; i < observations.length; i++) {
+        const o = observations[i];
+        const st = stamps[i];
+        const gender = st.votedGender >= 0 ? st.votedGender : o.gender;
+        const conf = st.votedGender >= 0 ? st.votedConf : o.conf;
+        const blur = decide(gender, conf, o.payload);
+        seen.add(st.trackId);
+        if (blur) {
+          this.lastBlurred.set(st.trackId, { payload: o.payload, gender, conf, miss: 0 });
+        } else {
+          this.lastBlurred.delete(st.trackId);
+        }
+        out.push({ payload: o.payload, gender, conf, blur, held: false });
+      }
+      for (const [id, h] of this.lastBlurred) {
+        if (seen.has(id)) continue;
+        h.miss++;
+        if (h.miss > REACTIVE_HOLD_MISSES) {
+          this.lastBlurred.delete(id);
+          continue;
+        }
+        out.push({ payload: h.payload, gender: h.gender, conf: h.conf, blur: true, held: true });
+      }
+      return out;
+    }
+    /** Changement de scène, saut, reprise du réactif : plus rien ne vaut. */
+    reset() {
+      this.tracks.reset();
+      this.lastBlurred.clear();
+    }
+  }
+
   function createVideoStateController(video, overlayCanvas, opts) {
     let state = "full_blur";
     let stateChangeTime = performance.now();
@@ -1948,22 +2141,11 @@
       if (isDebug) drawNsfwBadge(ctx);
       return;
     }
-    const cfg = getConfig();
-    const mode = cfg?.mode || "blur-female";
-    const certainty = typeof cfg?.genderCertainty === "number" ? cfg.genderCertainty : 0.7;
-    const renderables = [];
-    for (const p of t.lastYoloPersons) {
-      const kpConfidences = p.keypoints ? p.keypoints.map((k) => k.confidence) : null;
-      const blur = wouldBlur({
-        gender: p.genderClass,
-        conf: p.genderConfidence ?? 0,
-        mode,
-        certainty,
-        minSkeletonActive: false,
-        kpConfidences
-      });
-      renderables.push({ person: p, genderClass: p.genderClass, blur });
-    }
+    const renderables = t.smoothed.map((sp) => ({
+      person: sp.payload,
+      genderClass: sp.payload.genderClass,
+      blur: sp.blur
+    }));
     let blurredFull = null;
     try {
       const cap = document.createElement("canvas");
@@ -2021,6 +2203,8 @@
   function tickFrame(t) {
     if (t.destroyed) return;
     if (!isElementRendered(t.video)) {
+      t.reactive.reset();
+      t.smoothed = [];
       t.stateController.setState("full_blur");
       t.ctx?.clearRect(0, 0, t.canvas.width, t.canvas.height);
       scheduleNextTick(t);
@@ -2085,6 +2269,8 @@
       ctx,
       stateController,
       lastYoloPersons: [],
+      smoothed: [],
+      reactive: new ReactiveSmoother(),
       isNsfw: false,
       lastYoloSentAt: 0,
       yoloPending: false,
@@ -2142,6 +2328,32 @@
       });
     }
   }
+  function smoothPersons(t, persons) {
+    const cfg = getConfig();
+    const mode = cfg?.mode || "blur-female";
+    const certainty = typeof cfg?.genderCertainty === "number" ? cfg.genderCertainty : 0.7;
+    return t.reactive.ingest(
+      // Boîtes en pixels d'analyse : l'appariement se fait à l'IoU, qui ne
+      // dépend pas de l'unité tant qu'elle est la même d'une analyse à l'autre.
+      persons.map((p) => ({
+        nx: p.bbox[0],
+        ny: p.bbox[1],
+        nw: p.bbox[2] - p.bbox[0],
+        nh: p.bbox[3] - p.bbox[1],
+        gender: p.genderClass,
+        conf: p.genderConfidence ?? 0,
+        payload: p
+      })),
+      (gender, conf, p) => wouldBlur({
+        gender,
+        conf,
+        mode,
+        certainty,
+        minSkeletonActive: false,
+        kpConfidences: p.keypoints ? p.keypoints.map((k) => k.confidence) : null
+      })
+    );
+  }
   function parseYoloPersons(persons) {
     let arr;
     if (typeof persons === "string") {
@@ -2189,8 +2401,9 @@
         if (!t || t.destroyed) return;
         t.yoloPending = false;
         t.lastYoloPersons = parseYoloPersons(persons);
+        t.smoothed = smoothPersons(t, t.lastYoloPersons);
         t.isNsfw = false;
-        if (t.lastYoloPersons.length === 0) {
+        if (t.smoothed.length === 0) {
           t.stateController.setState("safe");
         } else {
           t.stateController.setState("tracking");
