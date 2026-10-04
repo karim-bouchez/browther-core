@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Jos";
+"BraveShieldsStatusValueDown" = "Dezactivate";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Sus";
+"BraveShieldsStatusValueUp" = "Active";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Apasă de două ori pentru a activa sau dezactiva Shields";

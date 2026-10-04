@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Down";
+"BraveShieldsStatusValueDown" = "Deaktiviert";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Online";
+"BraveShieldsStatusValueUp" = "Aktiviert";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Zum Umschalten von Shields doppeltippen";

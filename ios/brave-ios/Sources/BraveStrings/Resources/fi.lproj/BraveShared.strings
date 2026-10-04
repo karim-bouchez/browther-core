@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Alas";
+"BraveShieldsStatusValueDown" = "Pois käytöstä";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Ylös";
+"BraveShieldsStatusValueUp" = "Käytössä";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Vaihda suojauksen asetusta kaksoisnapauttamalla";

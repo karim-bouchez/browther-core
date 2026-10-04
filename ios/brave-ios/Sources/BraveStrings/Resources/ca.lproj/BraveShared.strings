@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Escuts";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Avall";
+"BraveShieldsStatusValueDown" = "Desactivats";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Amunt";
+"BraveShieldsStatusValueUp" = "Activats";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Fes doble toc per activar Escuts";

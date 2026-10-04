@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Menahan Pelindung";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Bawah";
+"BraveShieldsStatusValueDown" = "Dimatikan";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Atas";
+"BraveShieldsStatusValueUp" = "Dihidupkan";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Ketik dua kali untuk togol Shields";

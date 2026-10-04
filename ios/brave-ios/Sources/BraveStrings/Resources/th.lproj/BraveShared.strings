@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "ล่าง";
+"BraveShieldsStatusValueDown" = "ปิด";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "บน";
+"BraveShieldsStatusValueUp" = "เปิด";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "แตะสองครั้งเพื่อเปิดใช้Shields";

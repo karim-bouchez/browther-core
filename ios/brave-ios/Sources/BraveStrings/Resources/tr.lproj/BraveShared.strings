@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Kalkanları";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Aşağı";
+"BraveShieldsStatusValueDown" = "DEVRE DIŞI";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Yukarı";
+"BraveShieldsStatusValueUp" = "ETKİN";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Kalkanları'nı değiştirmek için iki kez dokunun";

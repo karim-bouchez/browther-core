@@ -209,13 +209,13 @@
 "BraveShieldsSiteBroken" = "إذا ظهر هذا الموقع معطلًا ، فجرب إيقاف Shields";
 
 /* Context: 'Brave Shields Up' or 'Brave Shields Down' */
-"BraveShieldsStatusTitle" = "دروع";
+"BraveShieldsStatusTitle" = "الدروع";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "الأسفل";
+"BraveShieldsStatusValueDown" = "مُعطَّلة";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "أعلى";
+"BraveShieldsStatusValueUp" = "مُفعَّلة";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "انقر نقرًا مزدوجًا لتبديل Shields";

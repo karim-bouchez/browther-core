@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Ασπίδες";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Κάτω";
+"BraveShieldsStatusValueDown" = "ΑΝΕΝΕΡΓΕΣ";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Επάνω";
+"BraveShieldsStatusValueUp" = "ΕΝΕΡΓΕΣ";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Πατήστε δύο φορές για εναλλαγή των Ασπίδων";

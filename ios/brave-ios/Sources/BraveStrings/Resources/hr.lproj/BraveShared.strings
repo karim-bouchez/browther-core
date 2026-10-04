@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Štitnici";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Dolje";
+"BraveShieldsStatusValueDown" = "Isključeni";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Podignuti";
+"BraveShieldsStatusValueUp" = "Uključeni";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Dvaput dodirnite za uključivanje/isključivanje Štitova";

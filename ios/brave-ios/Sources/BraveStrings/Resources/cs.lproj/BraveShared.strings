@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Štíty";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Dolů";
+"BraveShieldsStatusValueDown" = "Vypnuty";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Nahoru ";
+"BraveShieldsStatusValueUp" = "Zapnuty";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Dvojitým klepnutím přepnete štíty";

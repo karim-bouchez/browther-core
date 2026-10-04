@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Skjold";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Ned";
+"BraveShieldsStatusValueDown" = "Av";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Opp";
+"BraveShieldsStatusValueUp" = "På";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Dobbeltklikk for å skru av og på Shields";

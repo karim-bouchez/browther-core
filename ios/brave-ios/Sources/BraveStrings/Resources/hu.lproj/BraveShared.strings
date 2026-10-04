@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Védelem";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "Lefelé";
+"BraveShieldsStatusValueDown" = "Kikapcsolva";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Fel";
+"BraveShieldsStatusValueUp" = "Bekapcsolva";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Koppintson duplán a pajzsok átkapcsolásához";

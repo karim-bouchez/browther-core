@@ -212,10 +212,10 @@
 "BraveShieldsStatusTitle" = "Shields";
 
 /* Context: The 'Down' in 'Brave Shields Down' */
-"BraveShieldsStatusValueDown" = "למטה";
+"BraveShieldsStatusValueDown" = "מושבת";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "למעלה";
+"BraveShieldsStatusValueUp" = "מופעל";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "יש ללחוץ לחיצה כפולה כדי להפעיל או לכבות את המגנים";

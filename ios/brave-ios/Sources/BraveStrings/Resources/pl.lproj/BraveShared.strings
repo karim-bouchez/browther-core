@@ -215,7 +215,7 @@
 "BraveShieldsStatusValueDown" = "Wyłączone";
 
 /* Context: The 'Up' in 'Brave Shields Up' */
-"BraveShieldsStatusValueUp" = "Włącz";
+"BraveShieldsStatusValueUp" = "Włączone";
 
 /* The accessibility hint spoken when focused on the main shields toggle */
 "BraveShieldsToggleHint" = "Dotknij dwukrotnie, aby włączyć lub wyłączyć Shields";
