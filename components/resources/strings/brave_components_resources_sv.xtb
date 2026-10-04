@@ -2542,8 +2542,8 @@
 <translation id="8941703009412168350">BRAVE VPN</translation>
 <translation id="6303294677342628402">Shields</translation>
 <translation id="2566054338622820226">Aktivera Browther Shields</translation>
-<translation id="8443488493738411048"><ph name="STATUS_BEFORE"/>Skydden är UP<ph name="STATUS_AFTER"/> för denna webbplats</translation>
-<translation id="2458631245058451506"><ph name="STATUS_BEFORE"/>Skydden är NERE<ph name="STATUS_AFTER"/> för denna webbplats</translation>
+<translation id="8443488493738411048"><ph name="STATUS_BEFORE"/>Skydden är PÅ<ph name="STATUS_AFTER"/> för denna webbplats</translation>
+<translation id="2458631245058451506"><ph name="STATUS_BEFORE"/>Skydden är AV<ph name="STATUS_AFTER"/> för denna webbplats</translation>
 <translation id="4724752924364329714">Om webbplatsen inte fungerar kan du prova att stänga av sköldarna.</translation>
 <translation id="350851416745554454"><ph name="NOTE_BEFORE"/>Obs: detta kan minska Braves integritetsskydd.<ph name="NOTE_AFTER"/></translation>
 <translation id="3620004479054499575">Upplever du problem med den här webbplatsen?</translation>

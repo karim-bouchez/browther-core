@@ -2552,8 +2552,8 @@ other {# источника}
 <translation id="8941703009412168350">BRAVE VPN</translation>
 <translation id="6303294677342628402">Защита</translation>
 <translation id="2566054338622820226">Включить Защиту Browther</translation>
-<translation id="8443488493738411048"><ph name="STATUS_BEFORE"/>Browther Shields находятся вверху<ph name="STATUS_AFTER"/> для этого сайта.</translation>
-<translation id="2458631245058451506"><ph name="STATUS_BEFORE"/>Browther Shieldsнаходятся ВНИЗ<ph name="STATUS_AFTER"/> для этого сайта</translation>
+<translation id="8443488493738411048"><ph name="STATUS_BEFORE"/>Защита ВКЛЮЧЕНА<ph name="STATUS_AFTER"/> для этого сайта</translation>
+<translation id="2458631245058451506"><ph name="STATUS_BEFORE"/>Защита ВЫКЛЮЧЕНА<ph name="STATUS_AFTER"/> для этого сайта</translation>
 <translation id="4724752924364329714">Если этот сайт кажется нерабочим, попробуйте опустить щиты.</translation>
 <translation id="350851416745554454"><ph name="NOTE_BEFORE"/>Примечание: это может снизить уровень защиты конфиденциальности Browther.<ph name="NOTE_AFTER"/></translation>
 <translation id="3620004479054499575">У Вас возникли проблемы с этим сайтом?</translation>

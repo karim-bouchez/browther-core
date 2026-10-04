@@ -2543,8 +2543,8 @@ other {Este mes has visitado # creadores apoyados por Recompensas de Browther}
 <translation id="8941703009412168350">VPN de Browther</translation>
 <translation id="6303294677342628402">Escudos Browther</translation>
 <translation id="2566054338622820226">Habilitar Protecciones de Browther</translation>
-<translation id="8443488493738411048"><ph name="STATUS_BEFORE"/>Escudos está ARRIBA<ph name="STATUS_AFTER"/> para este sitio</translation>
-<translation id="2458631245058451506"><ph name="STATUS_BEFORE"/>Escudos está ABAJO<ph name="STATUS_AFTER"/> para este sitio</translation>
+<translation id="8443488493738411048"><ph name="STATUS_BEFORE"/>Los Escudos están ACTIVADOS<ph name="STATUS_AFTER"/> para este sitio</translation>
+<translation id="2458631245058451506"><ph name="STATUS_BEFORE"/>Los Escudos están DESACTIVADOS<ph name="STATUS_AFTER"/> para este sitio</translation>
 <translation id="4724752924364329714">Si este sitio parece roto, intente Escudos abajo.</translation>
 <translation id="350851416745554454"><ph name="NOTE_BEFORE"/>Nota: esto puede reducir las protecciones de privacidad de Browther.<ph name="NOTE_AFTER"/></translation>
 <translation id="3620004479054499575">¿Está experimentando problemas con este sitio?</translation>
