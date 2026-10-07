@@ -46,6 +46,12 @@ void PreloadMenuLabel();
 // ou deux mots, et c'est déjà le partage retenu sur iOS (Karim, 2026-09-23).
 std::u16string MenuLabel();
 std::u16string SettingsTitle();
+// ⭐ La ligne « Compte dev&din » des Paramètres (clé `account.title`) : le
+// compte facultatif du parrainage ne doit JAMAIS être derrière un défilement
+// (`docs/PARRAINAGE.md` § 7.1, le contrat commun) — il a son entrée ici, en
+// plus du bouton d'en-tête de l'écran Parrainage. Elle ouvre ce même écran,
+// fenêtre du compte ouverte (`browther://referral?account=settings`).
+std::u16string AccountTitle();
 
 // ⭐ Un texte de l'app, pour le NATIF (⛔ pas une chaîne grit, cf. ci-dessus) :
 //   `kMenuSubtitle`   la 2ᵉ ligne de l'entrée du menu — sans elle, le libellé
@@ -58,6 +64,7 @@ std::u16string SettingsTitle();
 // pas : l'appelant se tait alors, ⛔ il n'affiche pas un trou.
 inline constexpr std::string_view kMenuLabel = "menu.label";
 inline constexpr std::string_view kSettingsTitle = "home.title";
+inline constexpr std::string_view kAccountTitle = "account.title";
 inline constexpr std::string_view kMenuSubtitle = "settings.subtitle";
 inline constexpr std::string_view kPausedStatus = "features.paused";
 inline constexpr std::string_view kPausedBody = "locked.musicRemoval";

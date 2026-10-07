@@ -150,6 +150,21 @@ std::u16string FallbackSettingsTitle(const std::string& locale) {
   return u"Referrals";
 }
 
+// La ligne « Compte dev&din » des Paramètres, tant que les textes de l'app ne
+// sont pas lus (ou si elle n'est pas déployée).
+std::u16string FallbackAccountTitle(const std::string& locale) {
+  const std::string language = PrimaryLanguage(locale);
+  if (language == "fr") {
+    return u"Compte dev&din";
+  }
+  if (language == "ar") {
+    // « حساب dev&din », la clé `account.title` de `ar.json` (octets recopiés, ⛔ pas
+    // retapés).
+    return u"\u062D\u0633\u0627\u0628 dev&din";
+  }
+  return u"dev&din account";
+}
+
 /**
  * ⭐ Le libellé des deux entrées (menu ⋯ et Paramètres) : le GESTE, ⛔ pas le
  * nom du dispositif — « Parrainage » ne donne envie à personne dans un menu
@@ -168,7 +183,7 @@ constexpr auto kMenuLabelKeys = std::to_array<std::string_view>(
 // et l'appelant se tait plutôt que d'afficher un trou.
 constexpr auto kOtherKeys = std::to_array<std::string_view>(
     {"home.title", "settings.subtitle", "features.paused",
-     "locked.musicRemoval", "locked.unlock"});
+     "locked.musicRemoval", "locked.unlock", "account.title"});
 
 // Les textes d'une langue : `i18n/<locale>.json`, sinon `i18n/<langue>.json`.
 std::optional<NativeTexts> ReadNativeTexts(std::string locale) {
@@ -267,6 +282,14 @@ std::u16string SettingsTitle() {
     return title;
   }
   return FallbackSettingsTitle(
+      g_browser_process ? g_browser_process->GetApplicationLocale() : "en");
+}
+
+std::u16string AccountTitle() {
+  if (std::u16string title = Text(kAccountTitle); !title.empty()) {
+    return title;
+  }
+  return FallbackAccountTitle(
       g_browser_process ? g_browser_process->GetApplicationLocale() : "en");
 }
 

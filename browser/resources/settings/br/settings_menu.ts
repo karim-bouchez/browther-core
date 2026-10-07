@@ -13,6 +13,9 @@ import 'chrome://resources/brave/leo.bundle.js'
 /** L'écran Parrainage (`browther_referral_launch.h` côté C++). */
 const BROWTHER_REFERRAL_URL = 'browther://referral'
 const BROWTHER_REFERRAL_ID = 'browtherReferralLink'
+/** Le compte dev&din facultatif : l'écran Parrainage, fenêtre du compte ouverte. */
+const BROWTHER_ACCOUNT_URL = 'browther://referral?account=settings'
+const BROWTHER_ACCOUNT_ID = 'browtherAccountLink'
 
 function createMenuElement(
   title: string,
@@ -363,7 +366,9 @@ RegisterPolymerTemplateModifications({
       } else {
         const selectable = menuSelector.getAttribute('selectable') ?? 'a'
         menuSelector.setAttribute(
-          'selectable', `${selectable}:not(#${BROWTHER_REFERRAL_ID})`)
+          'selectable',
+          `${selectable}:not(#${BROWTHER_REFERRAL_ID})`
+            + `:not(#${BROWTHER_ACCOUNT_ID})`)
       }
 
       const referralEl = document.createElement('a')
@@ -388,6 +393,36 @@ RegisterPolymerTemplateModifications({
 
       referralEl.appendChild(document.createElement('cr-ripple'))
       extensionEl.insertAdjacentElement('afterend', referralEl)
+
+      // ⭐ « Compte dev&din », juste sous « Parrainage ». Le compte facultatif
+      // du parrainage ne doit JAMAIS être derrière un défilement (contrat
+      // commun, `docs/PARRAINAGE.md` § 7.1) : c'est ici qu'on le cherche pour
+      // voir avec quel compte on est connecté, se déconnecter, le supprimer,
+      // ou en RETROUVER un sur un ordinateur neuf. Même patron que l'entrée du
+      // dessus (un nouvel onglet, exclue du `selectable`) ; l'écran s'ouvre
+      // sur la fenêtre du compte (`?account=settings`, `webui/referral`).
+      // ⚠️ Sans accent de couleur : seule la porte du parrainage en porte un.
+      const accountEl = document.createElement('a')
+      accountEl.setAttribute('role', 'menuitem')
+      accountEl.setAttribute('id', BROWTHER_ACCOUNT_ID)
+      accountEl.setAttribute('class', 'cr-nav-menu-item')
+      accountEl.setAttribute('href', BROWTHER_ACCOUNT_URL)
+      accountEl.setAttribute('target', '_blank')
+
+      const accountIcon = document.createElement('cr-icon')
+      accountIcon.setAttribute('icon', 'user-circle')
+      accountEl.appendChild(accountIcon)
+
+      const accountText = document.createElement('span')
+      accountText.textContent = loadTimeData.getString('browtherAccountTitle')
+      accountEl.appendChild(accountText)
+
+      const accountExternalIcon = document.createElement('div')
+      accountExternalIcon.setAttribute('class', 'cr-icon icon-external')
+      accountEl.appendChild(accountExternalIcon)
+
+      accountEl.appendChild(document.createElement('cr-ripple'))
+      referralEl.insertAdjacentElement('afterend', accountEl)
     }
 
     // Browther: page Sawtunaa retirée — la popup toolbar suffit (décision

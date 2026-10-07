@@ -495,6 +495,14 @@ void BrowtherReferralHandler::Request(const std::string& id,
       path->starts_with("/v1/admin/")) {
     headers.emplace_back("X-Admin-Token", *admin);
   }
+  // ⭐ L'auth-service habille ses e-mails d'après ces deux en-têtes (le code
+  // de confirmation d'une suppression de compte, `send-deletion-otp`) : sans
+  // eux le courriel part sans le nom de Browther, et en anglais.
+  if (service == browther_referral::Service::kAuth) {
+    headers.emplace_back("X-App-Id", "browther");
+    headers.emplace_back("Accept-Language",
+                         g_browser_process->GetApplicationLocale());
+  }
   const std::string http_method = method && *method == "GET" ? "GET" : "POST";
 
   auto send = base::BindOnce(
