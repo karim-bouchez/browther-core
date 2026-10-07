@@ -59,6 +59,7 @@ public final class ReferralStorage {
         static final String recetteSubject = "browther.referral.recette-subject";
         static final String recetteToken = "browther.referral.recette-token";
         static final String transferredFor = "browther.referral.transferred-for";
+        static final String sharedOnce = "browther.referral.shared-once";
     }
 
     private ReferralJson.Obj read(String key) {
@@ -163,6 +164,19 @@ public final class ReferralStorage {
 
     public void setTransferredFor(String value) {
         backend.put(Key.transferredFor, value);
+    }
+
+    /**
+     * Un partage a abouti sur CET appareil : le code est parti chez des proches. ⚠️ Le service n'en
+     * sait rien (§ 12.1 : partager ne crée rien) — c'est l'appareil qui le retient, et c'est ce qui
+     * fait proposer le compte dans l'onglet « Inviter » ({@link ReferralAccountStakes}).
+     */
+    public boolean sharedOnce() {
+        return "true".equals(backend.get(Key.sharedOnce));
+    }
+
+    public void setSharedOnce(boolean value) {
+        backend.put(Key.sharedOnce, value ? "true" : "false");
     }
 
     // MARK: - 🧪 Recette (§ 12.18)

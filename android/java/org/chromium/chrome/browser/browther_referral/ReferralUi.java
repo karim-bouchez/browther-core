@@ -28,6 +28,7 @@ import android.view.animation.PathInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.chromium.chrome.R;
@@ -470,6 +471,132 @@ public final class ReferralUi {
         button.setLayoutParams(linear(MATCH, WRAP));
         return button;
     }
+
+    // -------------------- Un bouton qui sait attendre (le compte, § 7.1) --------------------
+
+    /**
+     * Un bouton avec SA roue d'attente — la page du compte dev&din a « un état d'attente PAR
+     * bouton » (sinon tous tournent quand on en touche un). La roue prend la place du libellé sans
+     * changer la taille du bouton ; un bouton hors d'usage est terne et sourd. Mêmes cotes que
+     * {@code primaryButton} ({@link ReferralUi#busyFilled}) et {@code secondaryButton} ({@link
+     * ReferralUi#busyOutline}).
+     */
+    public static final class BusyButton extends FrameLayout {
+        private final LinearLayout mLine;
+        private final ProgressBar mSpinner;
+        private boolean mBusy;
+        private boolean mAvailable = true;
+
+        BusyButton(
+                Context context,
+                String label,
+                int iconRes,
+                Drawable background,
+                int ink,
+                float labelSp,
+                float minHeightDp,
+                Runnable action) {
+            super(context);
+            setBackground(background);
+            setMinimumHeight(dp(context, minHeightDp));
+            int padH = dp(context, 16);
+            int padV = dp(context, 10);
+            setPadding(padH, padV, padH, padV);
+
+            mLine = row(context);
+            mLine.setGravity(Gravity.CENTER);
+            if (iconRes != 0) {
+                mLine.addView(glyph(context, iconRes, 18, ink));
+                View space = new View(context);
+                mLine.addView(space, new LinearLayout.LayoutParams(dp(context, 8), 1));
+            }
+            TextView labelView = text(context, label, labelSp, SEMIBOLD, ink);
+            labelView.setGravity(Gravity.CENTER);
+            labelView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            mLine.addView(labelView, new LinearLayout.LayoutParams(WRAP, WRAP));
+            addView(mLine, frame(WRAP, WRAP, Gravity.CENTER));
+
+            mSpinner = new ProgressBar(context);
+            mSpinner.setIndeterminate(true);
+            mSpinner.setIndeterminateTintList(ColorStateList.valueOf(ink));
+            mSpinner.setVisibility(GONE);
+            int size = dp(context, 22);
+            addView(mSpinner, frame(size, size, Gravity.CENTER));
+
+            setClickable(true);
+            setFocusable(true);
+            setContentDescription(label);
+            setOnClickListener(
+                    v -> {
+                        if (!mBusy && mAvailable) action.run();
+                    });
+            pressFeedback(this);
+            setLayoutParams(linear(MATCH, WRAP));
+        }
+
+        /** La roue à la place du libellé (qui garde sa place : le bouton ne change pas de taille). */
+        public void setBusy(boolean busy) {
+            mBusy = busy;
+            mLine.setVisibility(busy ? INVISIBLE : VISIBLE);
+            mSpinner.setVisibility(busy ? VISIBLE : GONE);
+            refresh();
+        }
+
+        /** Hors d'usage : un autre bouton travaille, ou la saisie est incomplète. */
+        public void setAvailable(boolean available) {
+            mAvailable = available;
+            refresh();
+        }
+
+        private void refresh() {
+            setEnabled(mAvailable && !mBusy);
+            animate().cancel();
+            setScaleX(1f);
+            setScaleY(1f);
+            setAlpha(mAvailable || mBusy ? 1f : 0.45f);
+        }
+    }
+
+    /** Plein : le geste principal (aplat du thème), ou celui qui supprime (rouge plein). */
+    public static BusyButton busyFilled(
+            Context context, String label, int iconRes, int fill, int ink, Runnable action) {
+        float radius = dp(context, 18);
+        return new BusyButton(
+                context,
+                label,
+                iconRes,
+                pressable(rounded(fill, radius), withAlpha(ink, 0.2f), radius),
+                ink,
+                16,
+                52,
+                action);
+    }
+
+    /** Contour : l'alternative. {@code stroke} = la couleur du trait. */
+    public static BusyButton busyOutline(
+            Context context, String label, int iconRes, int ink, int stroke, Runnable action) {
+        float radius = dp(context, 14);
+        return new BusyButton(
+                context,
+                label,
+                iconRes,
+                pressable(
+                        rounded(0, radius, dp(context, 1.5f), stroke), withAlpha(ink, 0.12f), radius),
+                ink,
+                15,
+                48,
+                action);
+    }
+
+    /**
+     * Le rouge d'un geste qui supprime — texte et trait (clair sur fond sombre) ; l'aplat du bouton
+     * plein est {@link #DANGER_FILL}, sous du blanc, dans les deux thèmes.
+     */
+    public static int danger(Palette p) {
+        return p.dark ? 0xFFFF6B60 : 0xFFD32F2F;
+    }
+
+    public static final int DANGER_FILL = 0xFFD32F2F;
 
     /**
      * Une sortie en toutes lettres (« Plus tard », la du'a, « Retour »). 🔴 Cliquable sur le texte

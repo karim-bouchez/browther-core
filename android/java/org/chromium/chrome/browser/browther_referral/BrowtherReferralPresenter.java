@@ -6,6 +6,7 @@
 package org.chromium.chrome.browser.browther_referral;
 
 import android.app.Activity;
+import android.app.Dialog;
 
 import androidx.annotation.Nullable;
 
@@ -79,6 +80,81 @@ public final class BrowtherReferralPresenter {
     public static void presentHome(@Nullable Activity activity, Source source) {
         if (activity == null || activity.isFinishing() || activity.isDestroyed()) return;
         new ReferralHomeDialog(activity, source).show();
+    }
+
+    // -------------------- La page du compte dev&din (§ 7.1) --------------------
+
+    /**
+     * D'où l'on ouvre la page du compte — la valeur de {@code screen} dans {@code paywall_action
+     * {action: account}} (les mêmes que l'iOS : {@code ReferralAccountOrigin}).
+     */
+    public enum AccountOrigin {
+        /** Le bouclier de l'en-tête de l'écran Parrainage, ou la rangée d'un onglet. */
+        HOME("home"),
+        /** La ligne « Compte dev&din » des Paramètres. */
+        SETTINGS("settings"),
+        /** La rangée de l'onglet « Soutenir » : c'est aussi l'écran de paiement. */
+        BILLING("billing");
+
+        public final String wire;
+
+        AccountOrigin(String wire) {
+            this.wire = wire;
+        }
+    }
+
+    /**
+     * Ouvre la page du compte parce que la personne l'a DEMANDÉE — et l'écrit ({@code paywall_action
+     * {screen, action: account}}, muet en aperçu). ⛔ Rien quand le compte n'existe pas dans ce
+     * binaire. ⚠️ Ce n'est pas une fenêtre du flow : elle ne se compte pas dans {@code
+     * paywall_shown}, comme sur iOS.
+     */
+    public static void openAccount(
+            @Nullable Activity activity, AccountOrigin origin, boolean preview) {
+        BrowtherReferralController controller = BrowtherReferralController.get();
+        if (!controller.isAccountEnabled()) return;
+        controller.note("paywall_action", preview, "screen", origin.wire, "action", "account");
+        showAccount(activity);
+    }
+
+    /**
+     * Pose la page du compte SANS rien écrire — le retour d'une connexion Google / Apple la rouvre
+     * de lui-même ({@code BrowtherReferralController.finishWebSignIn}). Une seule à la fois.
+     */
+    static void showAccount(@Nullable Activity activity) {
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) return;
+        if (!BrowtherReferralController.get().isAccountEnabled()) return;
+        for (Dialog page : sPages) {
+            if (page instanceof ReferralAccountDialog && page.isShowing()) return;
+        }
+        new ReferralAccountDialog(activity).show();
+    }
+
+    /** Les pages plein écran ouvertes (écran Parrainage, page du compte), du dessous vers le dessus. */
+    private static final List<Dialog> sPages = new ArrayList<>();
+
+    /** Une page s'affiche ({@code onStart}) — elle se retire d'elle-même à {@link #pageHidden}. */
+    static void pageShown(Dialog page) {
+        if (!sPages.contains(page)) sPages.add(page);
+    }
+
+    static void pageHidden(Dialog page) {
+        sPages.remove(page);
+    }
+
+    /**
+     * Ferme l'écran Parrainage et la page du compte : la personne part se connecter dans un onglet
+     * du navigateur, qu'ils COUVRIRAIENT (ce sont des fenêtres plein écran). La page du compte
+     * revient d'elle-même au retour de la connexion.
+     */
+    public static void dismissPages() {
+        for (Dialog page : new ArrayList<>(sPages)) {
+            try {
+                page.dismiss();
+            } catch (RuntimeException e) {
+                // L'activité qui la portait est partie : rien à fermer.
+            }
+        }
     }
 
     // -------------------- La pile plein écran --------------------

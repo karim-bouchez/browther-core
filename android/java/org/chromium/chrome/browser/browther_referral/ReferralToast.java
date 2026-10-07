@@ -44,6 +44,8 @@ public final class ReferralToast {
     private static final Handler sHandler = new Handler(Looper.getMainLooper());
     private static @Nullable PopupWindow sCurrent;
     private static @Nullable Runnable sAutoHide;
+    /** La fenêtre qui porte le toast affiché — voir {@link #hideIfOn}. */
+    private static @Nullable View sAnchor;
 
     private ReferralToast() {}
 
@@ -59,11 +61,45 @@ public final class ReferralToast {
             @Nullable Runnable action,
             boolean persistent) {
         if (activity == null || activity.isFinishing() || activity.isDestroyed()) return;
-        View anchor = activity.getWindow().getDecorView();
+        present(
+                activity.getWindow().getDecorView(),
+                activity,
+                title,
+                body,
+                actionLabel,
+                action,
+                persistent ? 0 : DEFAULT_DURATION_MS);
+    }
+
+    /**
+     * Le même toast, posé sur une fenêtre PRÉCISE — la page du compte dev&din, qui est une fenêtre
+     * plein écran par-dessus l'activité. ⚠️ Un toast ancré sur l'activité s'affiche SOUS une telle
+     * fenêtre (c'est une sous-fenêtre de l'activité) : ce qu'une page dit d'elle-même (« compte
+     * supprimé », « c'est fait ») s'ancre donc sur elle.
+     *
+     * @param window une vue de la fenêtre qui doit le porter (sa vue de décor).
+     * @param durationMs {@code 0} = reste jusqu'à ce qu'on le ferme.
+     */
+    public static void showOn(View window, String title, @Nullable String body, long durationMs) {
+        present(window, window.getContext(), title, body, null, null, durationMs);
+    }
+
+    /** Efface le toast s'il est porté par cette fenêtre — elle se ferme, il partirait de travers. */
+    public static void hideIfOn(View window) {
+        if (sAnchor == window) hide();
+    }
+
+    private static void present(
+            View anchor,
+            Context context,
+            String title,
+            @Nullable String body,
+            @Nullable String actionLabel,
+            @Nullable Runnable action,
+            long durationMs) {
         if (anchor.getWindowToken() == null) return;
         hide();
 
-        Context context = activity;
         ReferralUi.Palette p = ReferralUi.palette(context);
         LinearLayout card = ReferralUi.row(context);
         card.setGravity(Gravity.TOP);
@@ -122,10 +158,11 @@ public final class ReferralToast {
             return;
         }
         sCurrent = popup;
+        sAnchor = anchor;
         card.announceForAccessibility(body == null ? title : title + " " + body);
-        if (persistent) return;
+        if (durationMs <= 0) return;
         sAutoHide = ReferralToast::hide;
-        sHandler.postDelayed(sAutoHide, DEFAULT_DURATION_MS);
+        sHandler.postDelayed(sAutoHide, durationMs);
     }
 
     public static void hide() {
@@ -133,6 +170,7 @@ public final class ReferralToast {
         sAutoHide = null;
         PopupWindow current = sCurrent;
         sCurrent = null;
+        sAnchor = null;
         if (current == null) return;
         try {
             current.dismiss();

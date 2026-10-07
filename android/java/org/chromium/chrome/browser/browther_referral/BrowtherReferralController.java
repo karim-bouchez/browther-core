@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
 
@@ -26,8 +27,15 @@ import org.chromium.chrome.browser.browther_referral.core.MilestoneScale;
 import org.chromium.chrome.browser.browther_referral.core.ProgressOutcome;
 import org.chromium.chrome.browser.browther_referral.core.RecetteState;
 import org.chromium.chrome.browser.browther_referral.core.RedeemOutcome;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAccount;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAccountStakes;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAuthClient;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAuthFailure;
 import org.chromium.chrome.browser.browther_referral.core.ReferralClient;
 import org.chromium.chrome.browser.browther_referral.core.ReferralDate;
+import org.chromium.chrome.browser.browther_referral.core.ReferralDeletability;
+import org.chromium.chrome.browser.browther_referral.core.ReferralDeletionCode;
+import org.chromium.chrome.browser.browther_referral.core.ReferralDeletionOutcome;
 import org.chromium.chrome.browser.browther_referral.core.ReferralIdentityBody;
 import org.chromium.chrome.browser.browther_referral.core.ReferralLaunch;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPlatform;
@@ -37,6 +45,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralPromptState;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStorage;
 import org.chromium.chrome.browser.browther_referral.core.ShareOutcome;
+import org.chromium.chrome.browser.browther_referral.core.TransferOutcome;
 
 import java.io.File;
 import java.time.Instant;
@@ -49,6 +58,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * L'orchestrateur du parrainage Android — docs/PARRAINAGE.md, brief C (§ 10.4) ; port de {@code
@@ -81,7 +91,12 @@ import java.util.function.Consumer;
  *       ⛔ Pas de Play Billing « en attendant ».
  *   <li>La preuve du navigateur par défaut est {@code RoleManager.isRoleHeld(ROLE_BROWSER)} : une
  *       lecture directe, sans quota (⛔ pas l'API rationnée d'Apple).
- *   <li>Pas de compte dev&din dans cette version (§ 7.4) : le sujet est l'appareil.
+ *   <li>⭐ Le compte dev&din FACULTATIF (§ 7.1 du doc commun, porté le 2026-10-07) : sans compte
+ *       le sujet est l'appareil ; connecté, le sujet EST le compte et l'appareil n'est plus que
+ *       {@code deviceRef}. Port de la partie compte de l'iOS, SANS RevenueCat (pas de paiement
+ *       ici) ; Google et Apple passent par un onglet du navigateur ({@link #signIn}), ⛔ pas par
+ *       une feuille système. ⏸ Éteint dans les builds du store ({@link
+ *       ReferralLaunch#accountInStoreBuilds}).
  * </ul>
  *
  * <p>Tout ce qui touche Chromium passe par {@link Platform} ({@code BrowtherReferralChromium}) :
@@ -121,6 +136,28 @@ public final class BrowtherReferralController {
          */
         @Nullable
         Uri shareableUri(File file);
+
+        /**
+         * Le rangement du compte dev&din (§ 7.1) : le jeton chiffré par l'Android Keystore dans le
+         * navigateur ({@link ReferralAccountKeystore}), un faux en mémoire dans l'aperçu.
+         */
+        ReferralAccountStore accountStore();
+
+        /**
+         * Les appels au compte ({@code auth.devndin.com}), dans la langue de l'app — l'aperçu en
+         * rend un faux, sans réseau.
+         */
+        ReferralAuthClient authClient(String language);
+
+        /**
+         * Ouvre la page de connexion Google / Apple dans un NOUVEL onglet du navigateur, au premier
+         * plan — et ramène le navigateur devant si l'on vient des Paramètres. {@code false} = rien
+         * ne s'est ouvert.
+         */
+        boolean openSignInTab(@Nullable Activity from, String url);
+
+        /** Ferme l'onglet ouvert par {@link #openSignInTab}, s'il est encore là. ⛔ Ne lève jamais. */
+        void closeSignInTab();
     }
 
     /** Un écran qui se redessine quand le statut ou l'état local change. */
@@ -156,6 +193,13 @@ public final class BrowtherReferralController {
     /** ⭐ Le moment de mérite « après un retrait de musique » (§ 3.1) : une minute aujourd'hui. */
     private static final long MERIT_MUSIC_SECONDS = 60;
 
+    /**
+     * La connexion Google / Apple se finit dans le quart d'heure (le cookie d'état de l'auth-service
+     * vit 15 min, le code à usage unique 5) : au-delà, un retour {@code browther://auth/callback}
+     * n'est plus attendu, donc plus écouté.
+     */
+    private static final long WEB_SIGN_IN_WINDOW_MS = 15 * 60 * 1000;
+
     private static final String KEY_DEVICE = "browther.referral.device-subject";
     private static final String KEY_LAST_SOLICITATION = "browther.referral.last-solicitation";
 
@@ -163,15 +207,57 @@ public final class BrowtherReferralController {
     private final ReferralStorage mStorage;
     private final Handler mMain = new Handler(Looper.getMainLooper());
     private final ExecutorService mIo = Executors.newSingleThreadExecutor();
+    /**
+     * Le fil des appels au COMPTE (auth-service, Keystore) — à part de {@link #mIo} : une
+     * connexion ne fait pas la queue derrière une retentative du service de parrainage.
+     */
+    private final ExecutorService mAuthIo = Executors.newSingleThreadExecutor();
     private final List<Listener> mListeners = new ArrayList<>();
 
     private final boolean mEnabled;
+    /** Le compte dev&din existe-t-il dans CE binaire ? ({@link ReferralLaunch#isAccountEnabled}) */
+    private final boolean mAccountEnabled;
     private @Nullable ReferralStatus mStatus;
     /** ⭐ Un statut FRAIS de cette session — l'OUVERTURE d'un écran l'exige ; le cache suffit pour peindre. */
     private boolean mFresh;
     private ReferralPromptState mPrompt;
     private @Nullable String mSubjectRef;
     private @Nullable ReferralClient mClient;
+    /** L'identité de CET appareil (ou celle de recette) — le sujet sans compte, le {@code deviceRef} avec. */
+    private @Nullable String mDeviceRef;
+    /**
+     * Le compte dev&din FACULTATIF (§ 7.1) — {@code null} sans compte. Quand il est là, le sujet EST
+     * le compte. ⚠️ Son adresse peut manquer un instant au démarrage (elle se déchiffre hors du fil
+     * de l'interface), ou pour de bon si le coffre est illisible. {@code volatile} : le fil du compte le
+     * lit ({@link #tokenOnAuthThread}).
+     */
+    private volatile @Nullable ReferralAccount mAccount;
+    /**
+     * Le jeton de session du compte, en MÉMOIRE seulement — rangé chiffré par {@link
+     * Platform#accountStore}. ⛔ Jamais journalisé, ⛔ jamais donné à un écran. {@code volatile} :
+     * écrit sur le fil de l'interface, lu sur celui du compte.
+     */
+    private volatile @Nullable String mToken;
+    /**
+     * Un partage a abouti sur CET appareil (§ 7.1) : le code est parti chez des proches. Le service
+     * n'en sait rien (§ 12.1) — c'est ce qui fait proposer le compte en haut de l'onglet
+     * « Inviter », dès le partage.
+     */
+    private boolean mSharedOnce;
+    /**
+     * Le client dont la DÉCLARATION ({@code register-app}) est en cours : son rattachement attend
+     * qu'elle ait répondu — {@link #connect}.
+     */
+    private @Nullable ReferralClient mDeclaring;
+    /** Une connexion Google / Apple est partie dans un onglet : on attend son retour. */
+    private @Nullable ReferralAuthClient.Provider mWebSignIn;
+    private long mWebSignInAt;
+    /** Le retour est arrivé : le code s'échange, le compte se rattache — par quelle porte. */
+    private @Nullable ReferralAuthClient.Provider mWebSignInExchanging;
+    /** L'issue de la connexion par l'onglet, pour la page du compte — lue UNE fois. */
+    private @Nullable ConnectOutcome mWebSignInResult;
+    /** 🧪 L'aperçu à l'émulateur : ni client, ni cache — rien ne part au service de prod. */
+    private boolean mPreviewOnly;
     /**
      * L'intention de la jauge « jouet » : la réponse à « combien penses-tu pouvoir inviter ? »
      * survit d'un écran à l'autre du MÊME moment (§ 12.20).
@@ -220,7 +306,9 @@ public final class BrowtherReferralController {
                             }
                         });
         mEnabled = ReferralLaunch.isEnabled(platform.isStoreBuild());
+        mAccountEnabled = ReferralLaunch.isAccountEnabled(platform.isStoreBuild(), mEnabled);
         mPrompt = mStorage.prompt();
+        mSharedOnce = mStorage.sharedOnce();
     }
 
     // -------------------- Ce que les écrans lisent --------------------
@@ -265,6 +353,27 @@ public final class BrowtherReferralController {
 
     public MilestoneScale scale() {
         return new MilestoneScale(mStatus);
+    }
+
+    /**
+     * Le compte dev&din existe-t-il dans ce binaire ? ⛔ Éteint, RIEN du compte ne s'affiche : ni le
+     * bouclier de l'en-tête, ni les rangées des onglets, ni la ligne des Paramètres.
+     */
+    public boolean isAccountEnabled() {
+        return mAccountEnabled;
+    }
+
+    /** Le compte connecté, ou {@code null}. */
+    public @Nullable ReferralAccount account() {
+        return mAccount;
+    }
+
+    /**
+     * Ce qui est en jeu, onglet par onglet (§ 7.1) : c'est LÀ que le compte se propose, avec les
+     * mots de l'onglet.
+     */
+    public ReferralAccountStakes accountStakes() {
+        return new ReferralAccountStakes(mStatus, mSharedOnce);
     }
 
     public ReferralPromptState prompt() {
@@ -352,16 +461,59 @@ public final class BrowtherReferralController {
         if (mBooted) return;
         mBooted = true;
         if (!mEnabled) return;
-        String device = mStorage.recetteSubject();
-        if (device == null) device = deviceSubject();
-        useSubject(device);
-        register();
+        startSubject();
+    }
+
+    /**
+     * Qui est le sujet, maintenant ? Le compte rangé s'il y en a un, sinon l'appareil — au
+     * démarrage, et quand la recette change d'identité.
+     */
+    private void startSubject() {
+        String recette = mStorage.recetteSubject();
+        String device = recette != null ? recette : deviceSubject();
+        mDeviceRef = device;
+        mAccount = null;
+        mToken = null;
+        // 🧪 Une identité de recette est un appareil NEUF : ⛔ pas de compte dessus (il reste rangé,
+        // et revient avec la vraie identité).
+        if (recette == null && mAccountEnabled) {
+            String accountId = mPlatform.accountStore().accountId();
+            if (accountId != null) {
+                // ⭐ L'identifiant SEUL fait le sujet : il se lit sans le Keystore, tout de suite.
+                // Le jeton et l'adresse se déchiffrent hors du fil de l'interface — et s'ils sont
+                // illisibles, le sujet RESTE le compte (⛔ jamais de retour silencieux à l'appareil).
+                mAccount = new ReferralAccount(accountId, null, null);
+                loadAccountSecrets(accountId);
+            }
+        }
+        useSubject(mAccount != null ? mAccount.userId : device);
+        register(null);
+    }
+
+    /** Le jeton et l'adresse du compte rangé, relus sur le fil du compte. */
+    private void loadAccountSecrets(String accountId) {
+        ReferralAccountStore store = mPlatform.accountStore();
+        onAuth(
+                store::load,
+                null,
+                stored -> {
+                    ReferralAccount current = mAccount;
+                    // Déconnecté, ou reconnecté à un autre compte, entre-temps : ce n'est plus lui.
+                    if (stored == null || current == null) return;
+                    if (!current.userId.equals(accountId)) return;
+                    if (!stored.account.userId.equals(accountId)) return;
+                    if (mToken == null) mToken = stored.token;
+                    if (current.email == null && stored.account.email != null) {
+                        mAccount = stored.account;
+                        notifyChanged();
+                    }
+                });
     }
 
     /**
      * L'identité de l'appareil : un UUID gardé dans les préférences de l'app. ⚠️ Pas de trousseau
-     * synchronisé sur Android : elle ne survit pas à une désinstallation (le compte dev&din, quand
-     * il viendra, fera suivre la personne). ⚠️ Ce n'est PAS l'identifiant de l'analytique.
+     * synchronisé sur Android : elle ne survit pas à une désinstallation — c'est le compte dev&din
+     * (§ 7.1) qui fait suivre la personne. ⚠️ Ce n'est PAS l'identifiant de l'analytique.
      */
     private String deviceSubject() {
         SharedPreferences prefs = mPlatform.preferences();
@@ -372,12 +524,24 @@ public final class BrowtherReferralController {
         return created;
     }
 
+    /**
+     * Le sujet change (démarrage, connexion, déconnexion, recette) : un client neuf, le statut en
+     * cache de CE sujet, et tout est à redemander au service.
+     */
     private void useSubject(String subject) {
         mSubjectRef = subject;
+        if (mPreviewOnly) {
+            // 🧪 L'aperçu garde son statut fictif et n'a pas de client : rien ne part au service.
+            notifyChanged();
+            return;
+        }
         mClient =
                 new ReferralClient(
                         new ReferralIdentityBody(
-                                ReferralProduct.key, subject, null, ReferralPlatform.ANDROID));
+                                ReferralProduct.key,
+                                subject,
+                                subject.equals(mDeviceRef) ? null : mDeviceRef,
+                                ReferralPlatform.ANDROID));
         mStatus = mStorage.cachedStatus(subject);
         mFresh = false;
         mRegistered = false;
@@ -399,29 +563,88 @@ public final class BrowtherReferralController {
                 });
     }
 
-    private void register() {
+    /** Ce que le service a rendu à l'enregistrement : un statut, ou le rattachement qui le porte. */
+    private static final class Registered {
+        final ReferralStatus status;
+        final @Nullable TransferOutcome joined;
+
+        Registered(ReferralStatus status, @Nullable TransferOutcome joined) {
+            this.status = status;
+            this.joined = joined;
+        }
+    }
+
+    /**
+     * Se présenter au service. ⭐ Avec un compte dans lequel CET appareil n'a pas encore été
+     * fusionné, c'est le rattachement ({@code /v1/transfer}) qui tient lieu d'enregistrement.
+     *
+     * @param then appelé quand CETTE tentative a fini (aboutie ou non) — ⛔ pas ses retentatives.
+     */
+    private void register(@Nullable Runnable then) {
         ReferralClient client = mClient;
-        if (client == null || mRegistering == client) return;
+        // ⚠️ `mDeclaring` : une connexion est en train de se déclarer pour ce client — son
+        // rattachement n'a pas le droit de partir avant (le retour au premier plan, qui passe par
+        // ici, ne doit pas le doubler).
+        if (client == null || mRegistering == client || mDeclaring == client) {
+            if (then != null) then.run();
+            return;
+        }
         mRegistering = client;
+        ReferralAccount account = mAccount;
+        String device = mDeviceRef;
+        // ⭐ Le compte vient d'être connecté (ou n'a jamais été fusionné ici) : l'appareil REJOINT
+        // le compte (brief B ter — un seul code, un seul compteur). Une fois par compte ; le
+        // service est idempotent.
+        boolean join =
+                account != null
+                        && device != null
+                        && !account.userId.equals(device)
+                        && !account.userId.equals(mStorage.transferredFor());
         async(
-                client::register,
-                next -> {
+                () -> {
+                    if (join) {
+                        TransferOutcome outcome = client.transfer(device, account.userId);
+                        return new Registered(outcome.status, outcome);
+                    }
+                    return new Registered(client.register(), null);
+                },
+                result -> {
                     if (mRegistering == client) mRegistering = null;
-                    // Le sujet a changé entre-temps (recette) : ce statut n'est plus le sien.
-                    if (mClient != client) return;
-                    adopt(next);
+                    // Le sujet a changé entre-temps (connexion, déconnexion, recette) : ce statut
+                    // n'est plus le sien.
+                    if (mClient != client) {
+                        if (then != null) then.run();
+                        return;
+                    }
+                    if (result.joined != null) {
+                        mStorage.setTransferredFor(account.userId);
+                        adopt(result.status);
+                        Map<String, Object> props = new HashMap<>();
+                        props.put(
+                                "reason",
+                                result.joined.reason == null ? "unknown" : result.joined.reason);
+                        track("account_merged", props);
+                        // ⚠️ La fusion ne porte PAS l'abonnement (§ 12.19) : celui payé sur
+                        // l'ordinateur est rejoué sur le compte par browther-api.
+                        linkBilling();
+                    } else {
+                        adopt(result.status);
+                    }
                     mRegistered = true;
                     mRetryAttempt = 0;
                     mLastRefresh = System.currentTimeMillis();
                     afterFreshStatus();
+                    if (then != null) then.run();
                 },
                 () -> {
                     if (mRegistering == client) mRegistering = null;
                     // 🔴 Sens de la panne : on garde ce qu'on sait, et on retente — puis au retour
                     // au premier plan. ⛔ Jamais une boucle.
-                    if (mClient != client || mRetryAttempt >= RETRY_DELAYS_MS.length) return;
-                    long delay = RETRY_DELAYS_MS[mRetryAttempt++];
-                    mMain.postDelayed(this::register, delay);
+                    if (mClient == client && mRetryAttempt < RETRY_DELAYS_MS.length) {
+                        long delay = RETRY_DELAYS_MS[mRetryAttempt++];
+                        mMain.postDelayed(() -> register(null), delay);
+                    }
+                    if (then != null) then.run();
                 });
     }
 
@@ -446,7 +669,7 @@ public final class BrowtherReferralController {
         if (!mEnabled || mClient == null) return;
         if (!mRegistered) {
             mRetryAttempt = 0;
-            register();
+            register(null);
             return;
         }
         if (System.currentTimeMillis() - mLastRefresh < REFRESH_EVERY_MS) return;
@@ -507,6 +730,440 @@ public final class BrowtherReferralController {
                 });
         reportRefereeDays();
         sendDailySnapshot();
+    }
+
+    // -------------------- Le compte dev&din facultatif (§ 7.1) --------------------
+    //
+    // Port de la partie compte de `BrowtherReferralController.swift`, le contrat commun à toutes les
+    // apps dev&din (docs/PARRAINAGE.md § 7.1, tableau « Le contrat »). Quatre règles tiennent tout :
+    //
+    // 🔴 À la connexion, Browther se DÉCLARE (`register-app`), attendu, AVANT le rattachement.
+    // 🔴 À la déconnexion, le rangement local part d'abord — ⛔ jamais dépendant du réseau.
+    // 🔴 À la suppression, rien de local ne bouge avant le « supprimé » du serveur.
+    // ⛔ On ne déconnecte JAMAIS sur un « on ne sait pas » : rien, ici, ne ramène au sujet d'appareil
+    //    sans un geste de la personne (déconnecter, supprimer) — ni un service injoignable, ni un
+    //    coffre illisible, ni une réponse qu'on ne comprend pas.
+
+    /** Ce qu'une connexion a donné, en clair pour l'écran. */
+    public enum ConnectOutcome {
+        CONNECTED,
+        BAD_CODE,
+        UNREACHABLE,
+        FAILED
+    }
+
+    private ReferralAuthClient auth() {
+        Context context = mPlatform.topActivity();
+        if (context == null) context = mPlatform.appContext();
+        return mPlatform.authClient(ReferralAuthClient.languageTag(ReferralFormat.locale(context)));
+    }
+
+    /**
+     * Un travail sur le fil du compte, son issue sur le fil de l'interface. ⛔ Ne lève jamais :
+     * {@code fallback} si le travail casse.
+     */
+    private <T> void onAuth(Supplier<T> work, T fallback, Consumer<T> done) {
+        mAuthIo.execute(
+                () -> {
+                    T value;
+                    try {
+                        value = work.get();
+                    } catch (RuntimeException e) {
+                        value = fallback;
+                    }
+                    T result = value;
+                    mMain.post(() -> done.accept(result));
+                });
+    }
+
+    private static ConnectOutcome outcome(ReferralAuthFailure failure) {
+        switch (failure.kind) {
+            case UNREACHABLE:
+                return ConnectOutcome.UNREACHABLE;
+            case BAD_CODE:
+                return ConnectOutcome.BAD_CODE;
+            case FAILED:
+            default:
+                return ConnectOutcome.FAILED;
+        }
+    }
+
+    /** Le jeton du compte : en mémoire, sinon relu du rangement. ⚠️ Sur le fil du compte seulement. */
+    private @Nullable String tokenOnAuthThread() {
+        String token = mToken;
+        if (token != null || mAccount == null) return token;
+        ReferralAccountStore.Stored stored = mPlatform.accountStore().load();
+        return stored == null ? null : stored.token;
+    }
+
+    // ---- Se connecter : Google / Apple dans un onglet, ou un code par e-mail
+
+    /**
+     * Google ou Apple : la page de connexion dev&din dans un NOUVEL onglet de Browther — on EST le
+     * navigateur, il n'y a pas de feuille système à ouvrir comme sur iOS. Elle finit sur {@code
+     * browther://auth/callback?code=…}, rattrapé dans le chemin de navigation ({@code
+     * BraveExternalNavigationHandler} → {@code BrowtherReferralHooks.onAuthCallback} → {@link
+     * #onWebSignInCallback}).
+     *
+     * <p>{@code false} = l'onglet n'a pas pu s'ouvrir. {@code true} = la personne est partie se
+     * connecter : l'appelant ferme ses fenêtres (elles couvrent l'onglet), et la page du compte
+     * revient d'elle-même au retour. ⚠️ Android ne dit rien d'un onglet refermé sans se connecter :
+     * il n'y a pas de « annulé », la tentative s'éteint seule ({@link #WEB_SIGN_IN_WINDOW_MS}).
+     */
+    public boolean signIn(ReferralAuthClient.Provider provider, @Nullable Activity from) {
+        if (!mAccountEnabled) return false;
+        Map<String, Object> props = new HashMap<>();
+        props.put("method", provider.rawValue);
+        track("account_login_started", props);
+        // Un seul onglet de connexion à la fois : celui d'une tentative abandonnée part.
+        mPlatform.closeSignInTab();
+        mWebSignIn = null;
+        mWebSignInResult = null;
+        if (!mPlatform.openSignInTab(from, ReferralAuthClient.signInUrl(provider))) return false;
+        mWebSignIn = provider;
+        mWebSignInAt = SystemClock.elapsedRealtime();
+        return true;
+    }
+
+    /**
+     * Le retour {@code browther://auth/callback?code=…} de l'onglet de connexion. ⚠️ Appelé DANS le
+     * chemin de navigation du navigateur : on ne fait que noter, tout le reste part après.
+     *
+     * <p>🔴 N'est écouté que si une connexion a été lancée d'ICI, il y a peu, et que personne n'est
+     * connecté : sans ça, n'importe quelle page pourrait pousser un code à elle et rattacher cet
+     * appareil au compte de quelqu'un d'autre. (Le point d'accroche exige en plus que la navigation
+     * vienne de {@code auth.devndin.com}.)
+     *
+     * <p>⚠️ La page de retour de l'auth-service lance DEUX navigations vers la même adresse (un
+     * script et une balise de rafraîchissement) : la tentative est consommée à la première, la
+     * seconde ne trouve plus rien — le code ne vaut qu'une fois.
+     */
+    public void onWebSignInCallback(String url) {
+        if (!mAccountEnabled || mWebSignIn == null || mAccount != null) return;
+        if (SystemClock.elapsedRealtime() - mWebSignInAt > WEB_SIGN_IN_WINDOW_MS) {
+            mWebSignIn = null;
+            return;
+        }
+        String code = ReferralAuthClient.callbackCode(url);
+        // Un retour sans code (connexion refusée chez Google) : rien à échanger.
+        if (code == null) return;
+        ReferralAuthClient.Provider provider = mWebSignIn;
+        mWebSignIn = null;
+        mMain.post(() -> finishWebSignIn(provider, code));
+    }
+
+    private void finishWebSignIn(ReferralAuthClient.Provider provider, String code) {
+        mWebSignInExchanging = provider;
+        mWebSignInResult = null;
+        try {
+            // L'onglet de connexion a fini son travail ; la page du compte revient, en attente.
+            mPlatform.closeSignInTab();
+            BrowtherReferralPresenter.showAccount(mPlatform.topActivity());
+            notifyChanged();
+        } catch (RuntimeException e) {
+            // ⛔ Une fenêtre qui ne s'ouvre pas (l'activité est partie) ne coûte pas la connexion :
+            // le code s'échange quand même, et son issue se dira par un toast.
+        }
+        ReferralAuthClient auth = auth();
+        connectWith(() -> auth.exchange(code), this::endWebSignIn);
+    }
+
+    private void endWebSignIn(ConnectOutcome outcome) {
+        mWebSignInExchanging = null;
+        mWebSignInResult = outcome;
+        // La page du compte, si elle est ouverte, prend l'issue et la dit elle-même.
+        notifyChanged();
+        if (mWebSignInResult == null) return;
+        // Personne ne regarde (la page a été refermée entre-temps) : ⛔ pas de message périmé à la
+        // prochaine ouverture. Une connexion aboutie se dit quand même.
+        mWebSignInResult = null;
+        Activity activity = mPlatform.topActivity();
+        if (outcome == ConnectOutcome.CONNECTED && activity != null) {
+            ReferralToast.show(activity, linkedMessage(activity), null, null, null, false);
+        }
+    }
+
+    /**
+     * L'onglet de connexion est revenu : le code s'échange, le compte se rattache — la porte qu'on
+     * avait prise, ou {@code null} quand rien n'est en route.
+     */
+    public @Nullable ReferralAuthClient.Provider webSignInExchanging() {
+        return mWebSignInExchanging;
+    }
+
+    /** L'issue de la connexion par l'onglet — rendue UNE fois, à la page du compte. */
+    public @Nullable ConnectOutcome takeWebSignInResult() {
+        ConnectOutcome result = mWebSignInResult;
+        mWebSignInResult = null;
+        return result;
+    }
+
+    /** Le code par e-mail, 1ʳᵉ étape. {@code null} au rappel = envoyé. */
+    public void sendEmailCode(String email, Consumer<ConnectOutcome> done) {
+        Map<String, Object> props = new HashMap<>();
+        props.put("method", "email");
+        track("account_login_started", props);
+        ReferralAuthClient auth = auth();
+        onAuth(
+                () -> {
+                    try {
+                        auth.sendEmailCode(email);
+                        return null;
+                    } catch (ReferralAuthFailure e) {
+                        return outcome(e);
+                    }
+                },
+                ConnectOutcome.FAILED,
+                done);
+    }
+
+    /** Le code par e-mail, 2ᵉ étape. */
+    public void verifyEmailCode(String email, String code, Consumer<ConnectOutcome> done) {
+        ReferralAuthClient auth = auth();
+        connectWith(() -> auth.verifyEmailCode(email, code), done);
+    }
+
+    private interface TokenCall {
+        String get() throws ReferralAuthFailure;
+    }
+
+    /** Obtenir un jeton (échange du code à usage unique, code e-mail), puis connecter. */
+    private void connectWith(TokenCall call, Consumer<ConnectOutcome> done) {
+        mAuthIo.execute(
+                () -> {
+                    String token = null;
+                    ConnectOutcome failure = null;
+                    try {
+                        token = call.get();
+                    } catch (ReferralAuthFailure e) {
+                        failure = outcome(e);
+                    } catch (RuntimeException e) {
+                        failure = ConnectOutcome.FAILED;
+                    }
+                    String value = token;
+                    ConnectOutcome failed = failure;
+                    mMain.post(
+                            () -> {
+                                if (value == null) {
+                                    done.accept(failed == null ? ConnectOutcome.FAILED : failed);
+                                } else {
+                                    connect(value, done);
+                                }
+                            });
+                });
+    }
+
+    /**
+     * Un jeton tout neuf : qui est-ce, le ranger, puis le sujet DEVIENT le compte et l'appareil le
+     * rejoint (fusion).
+     */
+    private void connect(String token, Consumer<ConnectOutcome> done) {
+        ReferralAuthClient auth = auth();
+        ReferralAccountStore store = mPlatform.accountStore();
+        mAuthIo.execute(
+                () -> {
+                    ReferralAccount account = null;
+                    ConnectOutcome failure = null;
+                    try {
+                        account = auth.account(token);
+                        // ⛔ Rien de rangé = pas de connexion : le jeton ne vit nulle part ailleurs.
+                        if (!store.save(account, token)) failure = ConnectOutcome.FAILED;
+                    } catch (ReferralAuthFailure e) {
+                        failure = outcome(e);
+                    } catch (RuntimeException e) {
+                        failure = ConnectOutcome.FAILED;
+                    }
+                    ReferralAccount who = account;
+                    ConnectOutcome failed = failure;
+                    mMain.post(
+                            () -> {
+                                if (failed != null || who == null) {
+                                    done.accept(failed == null ? ConnectOutcome.FAILED : failed);
+                                    return;
+                                }
+                                mAccount = who;
+                                mToken = token;
+                                track("account_linked", new HashMap<>());
+                                useSubject(who.userId);
+                                declareThenJoin(auth, token, done);
+                            });
+                });
+    }
+
+    /**
+     * 🔴 Browther se DÉCLARE d'abord, attendu, AVANT le rattachement : c'est ce qui prouve qu'un
+     * compte est NÉ ici, donc qu'il pourra être supprimé d'ici ({@link
+     * ReferralAuthClient#registerApp}). ⛔ Ne pas déplacer la déclaration après {@link #register},
+     * ni la détacher : {@link #mDeclaring} retient même le rattachement que lancerait un retour au
+     * premier plan pendant qu'elle est en route.
+     */
+    private void declareThenJoin(
+            ReferralAuthClient auth, String token, Consumer<ConnectOutcome> done) {
+        ReferralClient client = mClient;
+        mDeclaring = client;
+        mAuthIo.execute(
+                () -> {
+                    try {
+                        auth.registerApp(token);
+                    } catch (RuntimeException e) {
+                        // Silencieux : le compte ne sera seulement pas supprimable d'ici.
+                    }
+                    mMain.post(
+                            () -> {
+                                if (mDeclaring == client) mDeclaring = null;
+                                // Le rattachement (`/v1/transfer`, une fois par compte), puis
+                                // l'abonnement payé sur l'ordinateur (`linkBilling`, dans `register`).
+                                register(() -> done.accept(ConnectOutcome.CONNECTED));
+                            });
+                });
+    }
+
+    /**
+     * ⭐ L'abonnement payé sur l'ORDINATEUR arrive sur le compte (§ 12.19). ⛔ Jamais bloquant : sans
+     * paiement, rien à rattacher.
+     */
+    private void linkBilling() {
+        ReferralAuthClient auth = auth();
+        String device = mDeviceRef;
+        onAuth(
+                () -> {
+                    String token = tokenOnAuthThread();
+                    return token != null && auth.linkBilling(token, device);
+                },
+                Boolean.FALSE,
+                linked -> {
+                    if (linked) refresh();
+                });
+    }
+
+    /**
+     * ⭐ Le message de connexion NOMME ce qui suit (code, invitations, mois gagnés) — ⛔ pas « ton
+     * soutien », qui se lisait « soutien financier ». L'abonnement n'est cité que s'il y en a un.
+     */
+    public String linkedMessage(Context context) {
+        ReferralStatus known = mStatus;
+        return ReferralStrings.get(
+                context,
+                known != null && known.subscription.active ? "account.linkedPaid" : "account.linked");
+    }
+
+    // ---- Se déconnecter
+
+    /**
+     * Déconnecter CET appareil. ⚠️ Il retrouve une copie de sa couverture (la fusion la lui laisse) ;
+     * le compte, lui, garde tout. ⛔ Ne dépend jamais du réseau.
+     */
+    public void signOut() {
+        if (mAccount == null) return;
+        ReferralAuthClient auth = auth();
+        String known = mToken;
+        if (known == null) {
+            // Le jeton n'était pas encore relu (ou le coffre est illisible) : on le tente une fois,
+            // pour pouvoir révoquer la session. Rien n'en dépend.
+            ReferralAccountStore.Stored stored = mPlatform.accountStore().load();
+            known = stored == null ? null : stored.token;
+        }
+        String token = known;
+        // 🔴 Le rangement local part d'abord — c'est lui qui fait le sujet.
+        forgetAccount();
+        track("account_signed_out", new HashMap<>());
+        if (token != null) {
+            // La session est révoquée en tâche de fond : ⛔ rien n'attend sa réponse.
+            mAuthIo.execute(
+                    () -> {
+                        try {
+                            auth.signOut(token);
+                        } catch (RuntimeException e) {
+                            // La session s'éteindra d'elle-même.
+                        }
+                    });
+        }
+        backToDevice();
+    }
+
+    /** Le rangement local part d'abord — c'est lui qui fait le sujet. */
+    private void forgetAccount() {
+        mPlatform.accountStore().clear();
+        mStorage.setTransferredFor(null);
+        mAccount = null;
+        mToken = null;
+    }
+
+    /** L'appareil redevient le sujet (déconnexion, compte supprimé). */
+    private void backToDevice() {
+        String device = mDeviceRef;
+        if (device == null) {
+            notifyChanged();
+            return;
+        }
+        useSubject(device);
+        register(null);
+    }
+
+    // ---- Supprimer le compte (Google, Apple 5.1.1(v) — § 7.1 du doc commun)
+
+    /**
+     * Ce compte peut-il être supprimé d'ici ? ⭐ Se demande en OUVRANT « Supprimer mon compte »,
+     * avant tout code : un refus se dit tout de suite.
+     */
+    public void checkAccountDeletable(Consumer<ReferralDeletability> done) {
+        ReferralAuthClient auth = auth();
+        onAuth(
+                () -> {
+                    String token = tokenOnAuthThread();
+                    return token == null ? ReferralDeletability.failed() : auth.deletable(token);
+                },
+                ReferralDeletability.failed(),
+                done);
+    }
+
+    /** Le code de confirmation à six chiffres, envoyé à l'adresse du compte. */
+    public void requestAccountDeletionCode(Consumer<ReferralDeletionCode> done) {
+        ReferralAuthClient auth = auth();
+        onAuth(
+                () -> {
+                    String token = tokenOnAuthThread();
+                    return token == null
+                            ? ReferralDeletionCode.failed()
+                            : auth.sendDeletionCode(token);
+                },
+                ReferralDeletionCode.failed(),
+                done);
+    }
+
+    /**
+     * Supprime le compte dev&din ET ce qu'il portait — pour TOUTES les apps dev&din. Un seul appel :
+     * c'est l'auth-service qui fait effacer le parrainage d'abord.
+     *
+     * <p>🔴 <b>Rien de local ne bouge avant le « supprimé » du serveur.</b> Ensuite seulement : le
+     * rangement est vidé, et l'appareil redevient le sujet (il garde sa copie de la couverture). ⚠️
+     * Un abonnement en cours n'est PAS résilié : l'écran le dit avant de demander le code.
+     */
+    public void deleteConnectedAccount(String code, Consumer<ReferralDeletionOutcome> done) {
+        ReferralAuthClient auth = auth();
+        ReferralAccount target = mAccount;
+        onAuth(
+                () -> {
+                    String token = tokenOnAuthThread();
+                    return token == null
+                            ? ReferralDeletionOutcome.failed()
+                            : auth.deleteAccount(token, code);
+                },
+                ReferralDeletionOutcome.failed(),
+                outcome -> {
+                    if (outcome.kind != ReferralDeletionOutcome.Kind.DELETED) {
+                        done.accept(outcome);
+                        return;
+                    }
+                    track("account_deleted", new HashMap<>());
+                    // ⚠️ Seulement si c'est toujours CE compte qui est connecté ici.
+                    ReferralAccount current = mAccount;
+                    if (current != null && target != null && current.userId.equals(target.userId)) {
+                        forgetAccount();
+                        backToDevice();
+                    }
+                    done.accept(outcome);
+                });
     }
 
     // -------------------- L'usage (§ 3.1, § 9) --------------------
@@ -829,8 +1486,18 @@ public final class BrowtherReferralController {
      */
     public void shareDone(String fromScreen, boolean preview) {
         closeCircuit(preview);
+        // ⭐ Retenu AVANT tout appel réseau : le code est parti, que le service réponde ou non — et
+        // c'est ICI, tout de suite, que le compte se propose (la rangée de l'onglet « Inviter »
+        // apparaît au redessin). ⛔ Jamais depuis un aperçu de recette (§ 12.7).
+        if (!preview && !mSharedOnce) {
+            mStorage.setSharedOnce(true);
+            mSharedOnce = true;
+            notifyChanged();
+        }
         ReferralClient client = mClient;
-        if (client == null) return;
+        // ⛔ Un aperçu n'appelle pas le service : `/v1/share` accorderait de VRAIS jours offerts
+        // (même règle que l'iOS et le desktop).
+        if (client == null || preview) return;
         async(
                 client::share,
                 (ShareOutcome outcome) -> {
@@ -1118,13 +1785,28 @@ public final class BrowtherReferralController {
      * sans service — ⛔ jamais appelé par le navigateur.
      */
     public void adoptForPreview(ReferralStatus status) {
+        adoptForPreview(status, null);
+    }
+
+    /** 🧪 Idem, avec un compte connecté (ou {@code null}) — voir la page du compte sans réseau. */
+    public void adoptForPreview(ReferralStatus status, @Nullable ReferralAccount account) {
         // Aucun client : rien ne part vers le service de prod depuis l'émulateur.
+        mPreviewOnly = true;
         mBooted = true;
         mClient = null;
-        mSubjectRef = "preview";
+        mDeviceRef = "preview";
+        mAccount = account;
+        mToken = account == null ? null : "preview";
+        mSubjectRef = account == null ? "preview" : account.userId;
         mStatus = status;
         mFresh = true;
+        mSharedOnce = mStorage.sharedOnce();
         notifyChanged();
+    }
+
+    /** 🧪 Ce contrôleur est-il celui de l'aperçu à l'émulateur ? (statut fictif, aucun service) */
+    public boolean isPreviewOnly() {
+        return mPreviewOnly;
     }
 
     /** 🧪 Oublier ce que l'appareil a vu (annonce, rappels, circuit). */
@@ -1140,11 +1822,9 @@ public final class BrowtherReferralController {
         mStorage.setRecetteSubject(subject);
         forgetPromptForRecette();
         mStorage.setDefaultBrowserDays(new DefaultBrowserDays());
-        // ⭐ Sur Android, pas besoin d'attendre le lancement suivant : le sujet change tout de suite.
-        if (mEnabled) {
-            useSubject(subject != null ? subject : deviceSubject());
-            register();
-        }
+        // ⭐ Sur Android, pas besoin d'attendre le lancement suivant : le sujet change tout de suite
+        // (le compte, lui, ne vaut que pour la VRAIE identité : `startSubject`).
+        if (mEnabled) startSubject();
     }
 
     /**
@@ -1177,8 +1857,24 @@ public final class BrowtherReferralController {
         StringBuilder out = new StringBuilder();
         out.append("Parrainage : ").append(mEnabled ? "allumé" : "éteint").append('\n');
         out.append("Sujet : ")
-                .append(mSubjectRef == null ? "—" : mSubjectRef.substring(0, 8) + "…")
-                .append(usesRecetteIdentity() ? " (recette)" : " (appareil)")
+                .append(
+                        mSubjectRef == null
+                                ? "—"
+                                : mSubjectRef.substring(0, Math.min(8, mSubjectRef.length())) + "…")
+                .append(
+                        usesRecetteIdentity()
+                                ? " (recette)"
+                                : mAccount != null ? " (compte)" : " (appareil)")
+                .append('\n');
+        ReferralAccount account = mAccount;
+        out.append("Compte : ")
+                .append(
+                        !mAccountEnabled
+                                ? "éteint dans ce binaire"
+                                : account == null
+                                        ? "aucun"
+                                        : account.email != null ? account.email : account.userId)
+                .append(account != null && mToken == null ? " (sans jeton lisible)" : "")
                 .append('\n');
         out.append("Statut : ")
                 .append(mStatus == null ? "inconnu" : mFresh ? "frais" : "en cache")

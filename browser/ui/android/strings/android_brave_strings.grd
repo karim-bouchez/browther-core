@@ -4491,6 +4491,150 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Start browsing
     </message>
     <!-- BROWTHER_REFERRAL:BEGIN — généré par private/assets/gen-android-browther-xtb.py (option apply), ⛔ ne pas éditer à la main -->
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_BAD_CODE" desc="Browther referral (pool key account.badCode)" meaning="browther_referral:account.badCode">
+      This code doesn't work. Check it, or ask for a new one.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_BODY_RECOVER" desc="Browther referral (pool key account.bodyRecover)" meaning="browther_referral:account.bodyRecover">
+      Already have a dev&amp;din account? Connect it to get your code, your invitations, your earned months and your subscription back here.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_BODY_SHELTER" desc="Browther referral (pool key account.bodyShelter)" meaning="browther_referral:account.bodyShelter">
+      With a dev&amp;din account, your code, your invitations, your earned months and your subscription follow you on your other devices, and if you change or lose one.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CANCEL" desc="Browther referral (pool key account.cancel)" meaning="browther_referral:account.cancel">
+      Cancel
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CODE_SENT" desc="Browther referral (pool key account.codeSent)" meaning="browther_referral:account.codeSent">
+      Code sent to {email}. It's valid for 15 minutes.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECT" desc="Browther referral (pool key account.connect)" meaning="browther_referral:account.connect">
+      Connect a dev&amp;din account
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED" desc="Browther referral (pool key account.connected)" meaning="browther_referral:account.connected">
+      Connected to your dev&amp;din account.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED_APPLE" desc="Browther referral (pool key account.connectedApple)" meaning="browther_referral:account.connectedApple">
+      Connected to your dev&amp;din account, with Apple.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED_AS" desc="Browther referral (pool key account.connectedAs)" meaning="browther_referral:account.connectedAs">
+      Connected to your dev&amp;din account: {email}
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED_BODY" desc="Browther referral (pool key account.connectedBody)" meaning="browther_referral:account.connectedBody">
+      Everything is safe. On another device, connect this same account to get your code, your invitations, your earned months and your subscription back.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE" desc="Browther referral (pool key account.delete)" meaning="browther_referral:account.delete">
+      Delete my dev&amp;din account
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_BODY" desc="Browther referral (pool key account.deleteBody)" meaning="browther_referral:account.deleteBody">
+      Your dev&amp;din account will be deleted for every dev&amp;din app where you use it, along with your referral code, your invitations and your earned months. This is permanent.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_CONFIRM" desc="Browther referral (pool key account.deleteConfirm)" meaning="browther_referral:account.deleteConfirm">
+      Delete permanently
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_ELSEWHERE" desc="Browther referral (pool key account.deleteElsewhere)" meaning="browther_referral:account.deleteElsewhere">
+      This account is also used by {apps}: delete it from that app. Here, you can disconnect this device.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_ELSEWHERE_UNKNOWN" desc="Browther referral (pool key account.deleteElsewhereUnknown)" meaning="browther_referral:account.deleteElsewhereUnknown">
+      This dev&amp;din account was created in another dev&amp;din app: delete it from that app. Here, you can disconnect this device.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_FAILED" desc="Browther referral (pool key account.deleteFailed)" meaning="browther_referral:account.deleteFailed">
+      The deletion didn't go through. Try again in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_SEND" desc="Browther referral (pool key account.deleteSend)" meaning="browther_referral:account.deleteSend">
+      Get the confirmation code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_SEND_FAILED" desc="Browther referral (pool key account.deleteSendFailed)" meaning="browther_referral:account.deleteSendFailed">
+      We couldn't send the code. Try again in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_SENT" desc="Browther referral (pool key account.deleteSent)" meaning="browther_referral:account.deleteSent">
+      Code sent to {destination}. Enter it to confirm.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETE_SUBSCRIPTION" desc="Browther referral (pool key account.deleteSubscription)" meaning="browther_referral:account.deleteSubscription">
+      A running subscription is not cancelled by this deletion: remember to cancel it where you took it out.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_DELETED" desc="Browther referral (pool key account.deleted)" meaning="browther_referral:account.deleted">
+      Your dev&amp;din account is deleted.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_EMAIL_PLACEHOLDER" desc="Browther referral (pool key account.emailPlaceholder)" meaning="browther_referral:account.emailPlaceholder">
+      example@address.com
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_ERROR" desc="Browther referral (pool key account.error)" meaning="browther_referral:account.error">
+      The sign-in didn't go through.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITATIONS_SUB" desc="Browther referral (pool key account.hint.invitations.sub)" meaning="browther_referral:account.hint.invitations.sub">
+      Connect a dev&amp;din account: your invitations and your earned months follow you if you change devices.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITATIONS_TITLE" desc="Browther referral (pool key account.hint.invitations.title)" meaning="browther_referral:account.hint.invitations.title">
+      Keep your invitations safe
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITE_SUB" desc="Browther referral (pool key account.hint.invite.sub)" meaning="browther_referral:account.hint.invite.sub">
+      Connect a dev&amp;din account: your code and the invitations to come follow you if you change devices.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITE_TITLE" desc="Browther referral (pool key account.hint.invite.title)" meaning="browther_referral:account.hint.invite.title">
+      Keep your code safe
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_PAID_SUB" desc="Browther referral (pool key account.hint.paid.sub)" meaning="browther_referral:account.hint.paid.sub">
+      Connect a dev&amp;din account: you get it back on your other devices, and if you change devices.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_PAID_TITLE" desc="Browther referral (pool key account.hint.paid.title)" meaning="browther_referral:account.hint.paid.title">
+      Keep your subscription safe
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_REFEREE_SUB" desc="Browther referral (pool key account.hint.referee.sub)" meaning="browther_referral:account.hint.referee.sub">
+      Connect a dev&amp;din account: your free month and your progress follow you if you change devices.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_REFEREE_TITLE" desc="Browther referral (pool key account.hint.referee.title)" meaning="browther_referral:account.hint.referee.title">
+      Keep your free month safe
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_LINKED" desc="Browther referral (pool key account.linked)" meaning="browther_referral:account.linked">
+      Done: your code, your invitations and your earned months follow you on this device.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_LINKED_PAID" desc="Browther referral (pool key account.linkedPaid)" meaning="browther_referral:account.linkedPaid">
+      Done: your code, your invitations, your earned months and your subscription follow you on this device.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_MANAGE" desc="Browther referral (pool key account.manage)" meaning="browther_referral:account.manage">
+      See my account
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_OFF" desc="Browther referral (pool key account.off)" meaning="browther_referral:account.off">
+      Not connected
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_ON" desc="Browther referral (pool key account.on)" meaning="browther_referral:account.on">
+      Connected
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_ONLY" desc="Browther referral (pool key account.only)" meaning="browther_referral:account.only">
+      The account only keeps your referrals and your subscription: code, invitations, earned months. Never your history, bookmarks or tabs.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_RECOMMENDED" desc="Browther referral (pool key account.recommended)" meaning="browther_referral:account.recommended">
+      Recommended
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_RETRY" desc="Browther referral (pool key account.retry)" meaning="browther_referral:account.retry">
+      Try again
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_SAME_WAY" desc="Browther referral (pool key account.sameWay)" meaning="browther_referral:account.sameWay">
+      On another device, sign in the same way: same button, or same address.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_SEND_CODE" desc="Browther referral (pool key account.sendCode)" meaning="browther_referral:account.sendCode">
+      Get a code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_SIGN_OUT_DEVICE" desc="Browther referral (pool key account.signOutDevice)" meaning="browther_referral:account.signOutDevice">
+      Disconnect this device
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_TITLE" desc="Browther referral (pool key account.title)" meaning="browther_referral:account.title">
+      dev&amp;din account
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_UNREACHABLE" desc="Browther referral (pool key account.unreachable)" meaning="browther_referral:account.unreachable">
+      We can't reach the sign-in service. Check your connection.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_VERIFY" desc="Browther referral (pool key account.verify)" meaning="browther_referral:account.verify">
+      Sign in
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_WITH_APPLE" desc="Browther referral (pool key account.withApple)" meaning="browther_referral:account.withApple">
+      Continue with Apple
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_WITH_EMAIL" desc="Browther referral (pool key account.withEmail)" meaning="browther_referral:account.withEmail">
+      Continue with an email
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_WITH_GOOGLE" desc="Browther referral (pool key account.withGoogle)" meaning="browther_referral:account.withGoogle">
+      Continue with Google
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_ANNOUNCE_BODY" desc="Browther referral (pool key announce.body)" meaning="browther_referral:announce.body">
       The dev&amp;din studio needs your support to keep offering apps like this one for free. All we're asking is that you spread the word.
     </message>

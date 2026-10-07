@@ -43,6 +43,8 @@ import org.chromium.chrome.browser.browther_referral.core.InvitationItem;
 import org.chromium.chrome.browser.browther_referral.core.InvitationStatus;
 import org.chromium.chrome.browser.browther_referral.core.MilestoneBonus;
 import org.chromium.chrome.browser.browther_referral.core.MilestoneScale;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAccountStake;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAccountStakes;
 import org.chromium.chrome.browser.browther_referral.core.ReferralDate;
 import org.chromium.chrome.browser.browther_referral.core.ReferralInvitations;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPricing;
@@ -74,7 +76,11 @@ import java.util.List;
  * 13.8) : c'est une ROUTE, le point unique des fenêtres du flow ne la voit jamais — seule
  * exception admise au « un seul endroit ».
  *
- * <p>⛔ Pas de section « compte dev&din » : le compte n'est pas encore porté sur Android (§ 7.4).
+ * <p>⭐ <b>Le compte dev&din</b> (§ 7.1 du doc commun, le contrat) : son accès permanent est le
+ * bouclier de l'EN-TÊTE, en face du retour, sur tous les onglets ({@link #updateShield}) — gris,
+ * puis vert et coché une fois connecté ; il se PROPOSE en haut de l'onglet de ce qui est en jeu,
+ * avec les mots de cet onglet ({@link ReferralAccountHint}). ⛔ Pas de bloc en bas d'un onglet. ⛔
+ * Rien de tout ça quand le compte n'existe pas dans ce binaire ({@code isAccountEnabled}).
  */
 public class ReferralHomeDialog extends Dialog implements BrowtherReferralController.Listener {
     private enum Tab {
@@ -97,6 +103,13 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
     private boolean mJustRedeemed;
     private @Nullable ReferralStatus mRendered;
     private @Nullable Tab mRenderedTab;
+    /**
+     * Ce que le compte dev&din changeait au dernier dessin (connecté ou non, quels enjeux) : un
+     * partage qui aboutit ou une connexion redessinent l'onglet SANS que le statut ait bougé.
+     */
+    private int mRenderedAccount = -1;
+    /** Le bouclier de l'en-tête — {@code null} quand le compte n'existe pas dans ce binaire. */
+    private @Nullable ImageView mShield;
 
     private @Nullable TextView mTitle;
     private @Nullable LinearLayout mTabs;
@@ -141,10 +154,41 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         close.setBackground(ReferralUi.pressable(null, ReferralUi.withAlpha(mP.text, 0.1f), ReferralUi.dp(context, 22)));
         close.setOnClickListener(v -> dismiss());
         int closeSize = ReferralUi.dp(context, 44);
+        // ⭐ Avec le compte, la croix passe au DÉBUT : la fin est au bouclier, « en face du retour »
+        // (comme sur iOS). Sans compte dans ce binaire, l'en-tête reste celui d'avant.
+        boolean account = mController.isAccountEnabled();
         FrameLayout.LayoutParams closeParams =
-                ReferralUi.frame(closeSize, closeSize, Gravity.END | Gravity.CENTER_VERTICAL);
+                ReferralUi.frame(
+                        closeSize,
+                        closeSize,
+                        (account ? Gravity.START : Gravity.END) | Gravity.CENTER_VERTICAL);
+        closeParams.setMarginStart(ReferralUi.dp(context, 6));
         closeParams.setMarginEnd(ReferralUi.dp(context, 6));
         bar.addView(close, closeParams);
+        if (account) {
+            // ⭐ L'accès PERMANENT au compte dev&din (§ 7.1) : jamais derrière un défilement — dans
+            // l'en-tête, donc sur TOUS les onglets, et dès l'attente du statut.
+            ImageView shield =
+                    ReferralUi.glyph(context, R.drawable.browther_referral_glyph_shield, 22, mP.text2);
+            int shieldPad = ReferralUi.dp(context, 11);
+            shield.setPadding(shieldPad, shieldPad, shieldPad, shieldPad);
+            shield.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            shield.setBackground(
+                    ReferralUi.pressable(
+                            null, ReferralUi.withAlpha(mP.text, 0.1f), ReferralUi.dp(context, 22)));
+            shield.setOnClickListener(
+                    v -> {
+                        ReferralUi.tick(v);
+                        BrowtherReferralPresenter.openAccount(
+                                mActivity, BrowtherReferralPresenter.AccountOrigin.HOME, false);
+                    });
+            FrameLayout.LayoutParams shieldParams =
+                    ReferralUi.frame(closeSize, closeSize, Gravity.END | Gravity.CENTER_VERTICAL);
+            shieldParams.setMarginEnd(ReferralUi.dp(context, 6));
+            bar.addView(shield, shieldParams);
+            mShield = shield;
+            updateShield();
+        }
         column.addView(bar, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, 52)));
 
         mTabs = ReferralUi.row(context);
@@ -193,6 +237,9 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         mController.addListener(this);
         mController.boot();
         mController.refresh();
+        // Une connexion Google / Apple part dans un onglet : cet écran, plein écran, le couvrirait
+        // — le présentateur doit pouvoir le fermer (`dismissPages`).
+        BrowtherReferralPresenter.pageShown(this);
         render(false);
     }
 
@@ -200,6 +247,7 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
     protected void onStop() {
         super.onStop();
         mController.removeListener(this);
+        BrowtherReferralPresenter.pageHidden(this);
         mHandler.removeCallbacksAndMessages(null);
     }
 
@@ -214,8 +262,44 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
 
     // -------------------- Rendu --------------------
 
+    /**
+     * Gris tant que personne n'est connecté, vert et coché ensuite — son libellé d'accessibilité
+     * dit ce qu'il ouvre.
+     */
+    private void updateShield() {
+        ImageView shield = mShield;
+        if (shield == null) return;
+        boolean connected = mController.account() != null;
+        shield.setImageResource(
+                connected
+                        ? R.drawable.browther_referral_glyph_shield_check
+                        : R.drawable.browther_referral_glyph_shield);
+        shield.setImageTintList(
+                android.content.res.ColorStateList.valueOf(connected ? mP.green : mP.text2));
+        shield.setContentDescription(
+                ReferralStrings.get(getContext(), connected ? "account.manage" : "account.connect"));
+    }
+
+    /** Ce que le compte change à l'écran : connecté ou non, et les enjeux de chaque onglet. */
+    private int accountKey() {
+        if (!mController.isAccountEnabled()) return 0;
+        ReferralAccountStakes stakes = mController.accountStakes();
+        return 1
+                | (mController.account() != null ? 2 : 0)
+                | (stakes.invite ? 4 : 0)
+                | (stakes.invitations ? 8 : 0)
+                | (stakes.referee ? 16 : 0)
+                | (stakes.paid ? 32 : 0);
+    }
+
+    /** La rangée du compte pour cet onglet — {@code null} quand il n'y a rien à proposer. */
+    private @Nullable View accountHint(ReferralAccountStake stake) {
+        return ReferralAccountHint.of(mActivity, mP, stake, false);
+    }
+
     private void render(boolean force) {
         if (mContent == null || mTitle == null || mTabs == null) return;
+        updateShield();
         ReferralStatus status = mController.known();
         if (status == null) {
             mTitle.setText(ReferralStrings.get(getContext(), "home.title"));
@@ -232,8 +316,16 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         }
         mTabs.setVisibility(View.VISIBLE);
         mTitle.setText(title());
-        if (!force && status.equals(mRendered) && mTab == mRenderedTab) return;
-        // Le même onglet, un statut neuf : la jauge est RELIÉE, pas recréée (sa démo ne rejoue pas).
+        int account = accountKey();
+        if (!force
+                && status.equals(mRendered)
+                && mTab == mRenderedTab
+                && account == mRenderedAccount) {
+            return;
+        }
+        mRenderedAccount = account;
+        // Le même onglet, un statut neuf (ou la rangée du compte qui arrive juste après un
+        // partage) : la jauge est RELIÉE, pas recréée (sa démo ne rejoue pas).
         if (!force
                 && mTab == Tab.INVITE
                 && mRenderedTab == Tab.INVITE
@@ -397,6 +489,16 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         MilestoneScale scale = new MilestoneScale(status);
         int validated = status.milestones.validated;
         LinearLayout column = pageColumn(context);
+
+        // ⭐ Le code est parti (un partage vient d'aboutir), ou a déjà servi : « Mets ton code à
+        // l'abri », en haut, tout de suite (§ 7.1).
+        View hint = accountHint(ReferralAccountStake.INVITE);
+        if (hint != null) {
+            LinearLayout.LayoutParams hintParams =
+                    ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP);
+            hintParams.bottomMargin = ReferralUi.dp(context, 18);
+            column.addView(hint, hintParams);
+        }
 
         LinearLayout head = ReferralUi.row(context);
         TextView label =
@@ -601,9 +703,18 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                     ReferralUi.Tone.GREEN,
                     ReferralStrings.get(context, "home.empty"),
                     ReferralStrings.get(context, "home.emptyHint"),
-                    extra);
+                    extra,
+                    null);
         }
         LinearLayout column = pageColumn(context);
+        // ⭐ Une invitation en cours ou validée : « Mets tes invitations à l'abri ».
+        View hint = accountHint(ReferralAccountStake.INVITATIONS);
+        if (hint != null) {
+            LinearLayout.LayoutParams hintParams =
+                    ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP);
+            hintParams.bottomMargin = ReferralUi.dp(context, 12);
+            column.addView(hint, hintParams);
+        }
         if (opens > 0) {
             TextView line =
                     ReferralUi.text(
@@ -761,6 +872,13 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                             celebrate();
                         });
         column.addView(entry, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        // ⭐ Le code d'un proche vient d'être saisi : « Mets ton mois offert à l'abri », sur l'écran
+        // où l'on EST (§ 7.1) — elle arrive avec le statut qui porte le code, au redessin.
+        View hint = mJustRedeemed ? accountHint(ReferralAccountStake.REFEREE) : null;
+        if (hint != null) {
+            column.addView(
+                    hint, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 24)));
+        }
         return scroll(column, true);
     }
 
@@ -820,12 +938,20 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                             () -> choose(Tab.INVITE));
         }
         extra.addView(button, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 14)));
+        // ⭐ Le code d'un proche a été saisi : « Mets ton mois offert à l'abri ». ⚠️ L'onglet est
+        // centré : la rangée, elle, se lit depuis le début de la ligne et prend la largeur.
+        View hint = accountHint(ReferralAccountStake.REFEREE);
+        if (hint != null) {
+            extra.addView(
+                    hint, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 18)));
+        }
         return centeredState(
                 done ? R.drawable.browther_intro_glyph_check : R.drawable.browther_referral_glyph_gift,
                 ReferralUi.Tone.GOLD,
                 ReferralStrings.get(context, "referee.title"),
                 message,
-                extra);
+                extra,
+                null);
     }
 
     /**
@@ -891,7 +1017,10 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                 ReferralUi.Tone.GOLD,
                 ReferralStrings.get(context, "billing.title"),
                 ReferralStrings.get(context, "billing.body"),
-                extra);
+                extra,
+                // ⭐ Abonné : c'est ICI qu'est son abonnement, donc ici que le compte se propose
+                // (§ 7.1) — ⛔ pas sur « Inviter ».
+                accountHint(ReferralAccountStake.PAID));
     }
 
     // -------------------- Briques --------------------
@@ -929,9 +1058,20 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         return scroll;
     }
 
-    /** La grammaire d'un onglet peu rempli (§ 12.26) : une icône dans un rond, un titre, une phrase — CENTRÉS. */
+    /**
+     * La grammaire d'un onglet peu rempli (§ 12.26) : une icône dans un rond, un titre, une phrase
+     * — CENTRÉS.
+     *
+     * @param top ce qui se pose EN HAUT de l'onglet, au-dessus du contenu centré (la rangée du
+     *     compte), ou {@code null}.
+     */
     private View centeredState(
-            int icon, ReferralUi.Tone tone, String title, @Nullable String message, View extra) {
+            int icon,
+            ReferralUi.Tone tone,
+            String title,
+            @Nullable String message,
+            View extra,
+            @Nullable View top) {
         Context context = getContext();
         LinearLayout column = ReferralUi.column(context);
         column.setGravity(Gravity.CENTER);
@@ -950,7 +1090,17 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
             column.addView(body, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 8)));
         }
         column.addView(extra, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 18)));
-        return scroll(column, true);
+        if (top == null) return scroll(column, true);
+        // La rangée en tête, le contenu centré dans ce qu'il reste de la hauteur.
+        LinearLayout outer = ReferralUi.column(context);
+        outer.setBackgroundColor(mP.screen);
+        LinearLayout.LayoutParams topParams = ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP);
+        int side = ReferralUi.dp(context, 16);
+        topParams.leftMargin = side;
+        topParams.rightMargin = side;
+        outer.addView(top, topParams);
+        outer.addView(column, new LinearLayout.LayoutParams(ReferralUi.MATCH, 0, 1));
+        return scroll(outer, true);
     }
 
     /** La barre de progression d'une invitation en cours, toujours de gauche à droite. */

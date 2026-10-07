@@ -39,8 +39,40 @@ public final class ReferralLaunch {
      */
     public static final boolean extrasReleased = false;
 
+    /**
+     * ⏸ **Le compte dev&din facultatif est ÉTEINT dans les builds du store** (§ 7.1 du doc commun,
+     * porté sur Android le 2026-10-07) — alors que le parrainage, lui, y est allumé ({@link
+     * #inStoreBuilds}). Il n'a jamais tourné sur un appareil : il attend la recette de Karim ET la
+     * mise à jour de la déclaration « Sécurité des données » de Google Play (une adresse e-mail
+     * devient collectée — un écart entre la fiche et le binaire vaut un retrait). Hors store (builds
+     * de dev) : allumé, pour la recette.
+     *
+     * <p>Éteint, RIEN du compte n'existe : ni le bouclier de l'en-tête, ni les rangées des onglets,
+     * ni la ligne « Compte dev&din » des Paramètres, et un compte rangé n'est pas relu — le sujet
+     * reste l'appareil.
+     *
+     * <p>🔴 ⛔ Jamais {@code true} sans la SUPPRESSION du compte dans l'app (Google l'exige dès
+     * qu'une app permet d'en créer un, comme Apple 5.1.1(v)) : elle est sur la page du compte
+     * (`ReferralAccountDeletion`). ⛔ Une ligne du code, visible dans git, pas un réglage distant —
+     * même raison que {@link #inStoreBuilds}. Même interrupteur que `ACCOUNT_IN_STORE_BUILDS` de
+     * `fajrunaa/lib/referral/account.ts`.
+     */
+    public static final boolean accountInStoreBuilds = false;
+
     public static boolean isEnabled(boolean isStoreBuild) {
         if (!isStoreBuild) return true;
         return inStoreBuilds;
+    }
+
+    /**
+     * Le compte existe-t-il dans CE binaire ? ⚠️ Jamais sans le parrainage lui-même : il ne porte
+     * que lui.
+     *
+     * @param referralEnabled {@link #isEnabled} pour ce même binaire.
+     */
+    public static boolean isAccountEnabled(boolean isStoreBuild, boolean referralEnabled) {
+        if (!referralEnabled) return false;
+        if (!isStoreBuild) return true;
+        return accountInStoreBuilds;
     }
 }

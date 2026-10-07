@@ -33,6 +33,7 @@ import org.chromium.chrome.browser.brave_origin.BraveOriginSubscriptionPrefs;
 import org.chromium.chrome.browser.browther_intro.BrowtherIntroController;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralController;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralPresenter;
+import org.chromium.chrome.browser.browther_referral.ReferralAccountSettingsPreference;
 import org.chromium.chrome.browser.browther_referral.ReferralRecetteDialog;
 import org.chromium.chrome.browser.browther_referral.ReferralSettingsPreference;
 import org.chromium.chrome.browser.crypto_wallet.BraveWalletPolicy;
@@ -204,6 +205,37 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
                     clicked -> {
                         BrowtherReferralPresenter.presentHome(
                                 requireActivity(), BrowtherReferralPresenter.Source.USER);
+                        return true;
+                    });
+            getPreferenceScreen().addPreference(preference);
+        }
+        preference.setOrder(order);
+    }
+
+    /**
+     * Browther : la ligne « Compte dev&din », juste sous « Parrainage » — l'accès permanent au
+     * compte facultatif, avec son état en clair (docs/PARRAINAGE.md § 7.1). Absente tant que le
+     * compte n'existe pas dans ce binaire (éteint dans les builds du store).
+     */
+    private void updateBrowtherReferralAccountPreference(int order) {
+        Preference existing = findPreference(ReferralAccountSettingsPreference.KEY);
+        if (!BrowtherReferralController.get().isAccountEnabled()) {
+            if (existing != null) getPreferenceScreen().removePreference(existing);
+            return;
+        }
+        ReferralAccountSettingsPreference preference;
+        if (existing instanceof ReferralAccountSettingsPreference) {
+            preference = (ReferralAccountSettingsPreference) existing;
+            preference.refresh();
+        } else {
+            preference =
+                    new ReferralAccountSettingsPreference(getPreferenceManager().getContext());
+            preference.setOnPreferenceClickListener(
+                    clicked -> {
+                        BrowtherReferralPresenter.openAccount(
+                                requireActivity(),
+                                BrowtherReferralPresenter.AccountOrigin.SETTINGS,
+                                false);
                         return true;
                     });
             getPreferenceScreen().addPreference(preference);
@@ -395,6 +427,8 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
 
         // Browther : « Parrainage » en haut des Paramètres (private/docs/PARRAINAGE.md § 2.10).
         updateBrowtherReferralPreference(++braveAccountSectionOrder);
+        // Browther : « Compte dev&din » juste dessous (docs/PARRAINAGE.md § 7.1).
+        updateBrowtherReferralAccountPreference(++braveAccountSectionOrder);
 
         int featuresSectionOrder = braveAccountSectionOrder;
         setPreferenceOrder(PREF_FEATURES_SECTION, ++featuresSectionOrder);

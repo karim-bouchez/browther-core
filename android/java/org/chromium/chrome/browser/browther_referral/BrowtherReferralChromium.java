@@ -16,13 +16,20 @@ import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.FileProviderUtils;
 import org.chromium.base.version_info.VersionInfo;
+import org.chromium.chrome.browser.app.BraveActivity;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_referral.core.ReferralAuthClient;
 import org.chromium.chrome.browser.preferences.BravePref;
 import org.chromium.chrome.browser.profiles.ProfileManager;
+import org.chromium.chrome.browser.tab.Tab;
+import org.chromium.chrome.browser.tab.TabLaunchType;
+import org.chromium.chrome.browser.tabmodel.TabClosureParams;
 import org.chromium.chrome.browser.tracing.settings.DeveloperSettings;
+import org.chromium.chrome.browser.util.TabUtils;
 import org.chromium.components.user_prefs.UserPrefs;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.Map;
 
 /**
@@ -32,6 +39,15 @@ import java.util.Map;
  */
 public final class BrowtherReferralChromium {
     private BrowtherReferralChromium() {}
+
+    /** Le rangement du compte dev&din : un seul, il ne tient que les préférences de l'app. */
+    private static @Nullable ReferralAccountStore sAccountStore;
+
+    /**
+     * L'onglet ouvert pour la connexion Google / Apple — une référence FAIBLE : s'il est fermé par
+     * la personne, on ne le retient pas.
+     */
+    private static @Nullable WeakReference<Tab> sSignInTab;
 
     public static BrowtherReferralController.Platform platform() {
         return new BrowtherReferralController.Platform() {
@@ -107,6 +123,69 @@ public final class BrowtherReferralChromium {
                     return FileProviderUtils.getContentUriFromFile(file);
                 } catch (IllegalArgumentException e) {
                     return null;
+                }
+            }
+
+            @Override
+            public ReferralAccountStore accountStore() {
+                ReferralAccountStore store = sAccountStore;
+                if (store == null) {
+                    // 🔴 Le jeton chiffré par l'Android Keystore, l'identifiant en clair à côté.
+                    store = new ReferralAccountKeystore(ContextUtils.getAppSharedPreferences());
+                    sAccountStore = store;
+                }
+                return store;
+            }
+
+            @Override
+            public ReferralAuthClient authClient(String language) {
+                return new ReferralAuthClient(language);
+            }
+
+            @Override
+            public boolean openSignInTab(@Nullable Activity from, String url) {
+                try {
+                    BraveActivity browser = BraveActivity.getBraveActivity();
+                    // ⛔ Jamais en navigation privée : le compte n'a rien à y faire, et le retour
+                    // n'y est pas écouté (`BrowtherReferralHooks.onAuthCallback`).
+                    Tab tab =
+                            browser.getTabCreator(false)
+                                    .launchUrl(url, TabLaunchType.FROM_CHROME_UI);
+                    if (tab == null) return false;
+                    sSignInTab = new WeakReference<>(tab);
+                    // Depuis les Paramètres (une autre activité, posée sur le navigateur) : le
+                    // navigateur revient devant, comme `TabUtils.openLinkWithFocus`. ⚠️ Cela FERME
+                    // les Paramètres — la page du compte revient sur le navigateur.
+                    if (from != null && from != browser) {
+                        TabUtils.bringChromeTabbedActivityToTheTop(from);
+                    }
+                    return true;
+                } catch (BraveActivity.BraveActivityNotFoundException | RuntimeException e) {
+                    return false;
+                }
+            }
+
+            @Override
+            public void closeSignInTab() {
+                WeakReference<Tab> reference = sSignInTab;
+                sSignInTab = null;
+                Tab tab = reference == null ? null : reference.get();
+                try {
+                    if (tab == null || tab.isDestroyed() || tab.isClosing()) return;
+                    // ⚠️ Seulement s'il est ENCORE sur la page de l'auth-service (son « Redirection
+                    // vers l'application… ») : un onglet de connexion abandonné, puis utilisé pour
+                    // naviguer ailleurs, n'est plus le nôtre — ⛔ on ne ferme pas la page de
+                    // quelqu'un.
+                    if (!ReferralAuthClient.authHost.equals(tab.getUrl().getHost())) return;
+                    // Comme Chromium ferme l'onglet d'une navigation partie vers une autre app
+                    // (`InterceptNavigationDelegateClientImpl.closeTab`) : sans « annuler ».
+                    BraveActivity.getBraveActivity()
+                            .getTabModelSelector()
+                            .tryCloseTab(
+                                    TabClosureParams.closeTab(tab).allowUndo(false).build(),
+                                    /* allowDialog= */ false);
+                } catch (BraveActivity.BraveActivityNotFoundException | RuntimeException e) {
+                    // L'onglet reste sur sa page « Redirection… » : gênant, jamais bloquant.
                 }
             }
         };
