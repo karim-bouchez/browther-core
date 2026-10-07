@@ -50,6 +50,10 @@ final class BrowtherReferralController: ObservableObject {
   /// Le compte dev&din FACULTATIF (§ 7.1) — `nil` sans compte. Quand il est
   /// là, le sujet EST le compte, et l'appareil n'est plus que `deviceRef`.
   @Published private(set) var account: ReferralAccount?
+  /// Un partage a abouti sur CET appareil (§ 7.1) : le code est parti chez des
+  /// proches. Le service n'en sait rien (§ 12.1) — c'est ce qui fait proposer
+  /// le compte en haut de l'onglet « Inviter », dès le partage.
+  @Published private(set) var sharedOnce: Bool
   /// L'intention de la jauge « jouet » : la réponse à « combien penses-tu
   /// pouvoir inviter ? » survit d'un écran à l'autre du MÊME moment (§ 12.20).
   @Published var gaugeIntention: Int?
@@ -96,6 +100,7 @@ final class BrowtherReferralController: ObservableObject {
       storeBillingReady: ReferralPurchases.isReady
     )
     prompt = ReferralStorage.shared.prompt
+    sharedOnce = ReferralStorage.shared.sharedOnce
   }
 
   /// ⭐ **TestFlight est la recette de l'ACHAT** (bac à sable Apple) : le build
@@ -125,6 +130,13 @@ final class BrowtherReferralController: ObservableObject {
   }
 
   var scale: MilestoneScale { MilestoneScale(status: known) }
+
+  /// Ce qui est en jeu, onglet par onglet (§ 7.1) : c'est LÀ que le compte se
+  /// propose, avec les mots de l'onglet. ⚠️ Sur `known` : un abonnement connu
+  /// de l'App Store avant le webhook compte déjà.
+  var accountStakes: ReferralAccountStakes {
+    ReferralAccountStakes(status: known, sharedOnce: sharedOnce)
+  }
 
   func isPaused(now: Date = Date()) -> Bool {
     enabled && extrasReleased && access.isPaused(now: now)
@@ -519,6 +531,11 @@ final class BrowtherReferralController: ObservableObject {
     self.account = account
     track("account_linked", [:])
     useSubject(account.userId)
+    // 🔴 Browther se DÉCLARE d'abord, attendu, AVANT le rattachement : c'est ce
+    // qui prouve qu'un compte est NÉ ici, donc qu'il pourra être supprimé d'ici
+    // (`ReferralAuthClient.registerApp`). ⛔ Ne pas le déplacer après
+    // `register()`, ni le détacher dans une tâche.
+    await auth.registerApp(token: token)
     await register()
     // RevenueCat suit le COMPTE désormais (`logIn`) : ce que l'App Store sait
     // de cet identifiant Apple le rejoint, et le webhook écrit sur le compte.
@@ -541,18 +558,61 @@ final class BrowtherReferralController: ObservableObject {
   /// du réseau.
   func signOut() async {
     let token = ReferralAccountStore.load()?.token
-    ReferralAccountStore.clear()
-    storage.transferredFor = nil
-    account = nil
+    forgetAccount()
     track("account_signed_out", [:])
     if let token {
       let auth = self.auth
       Task.detached { await auth.signOut(token: token) }
     }
+    await backToDevice()
+  }
+
+  /// Le rangement local part d'abord — c'est lui qui fait le sujet.
+  private func forgetAccount() {
+    ReferralAccountStore.clear()
+    storage.transferredFor = nil
+    account = nil
+  }
+
+  /// L'iPhone redevient le sujet (déconnexion, compte supprimé).
+  private func backToDevice() async {
     guard let deviceRef else { return }
     useSubject(deviceRef)
     await register()
     await followSubjectInStore()
+  }
+
+  // MARK: Supprimer le compte (Apple 5.1.1(v) — § 7.1 du doc commun)
+
+  /// Ce compte peut-il être supprimé d'ici ? ⭐ Se demande en OUVRANT
+  /// « Supprimer mon compte », avant tout code : un refus se dit tout de suite.
+  func checkAccountDeletable() async -> ReferralDeletability {
+    guard let token = ReferralAccountStore.load()?.token else { return .failed }
+    return await auth.deletable(token: token)
+  }
+
+  /// Le code de confirmation à six chiffres, envoyé à l'adresse du compte.
+  func requestAccountDeletionCode() async -> ReferralDeletionCode {
+    guard let token = ReferralAccountStore.load()?.token else { return .failed }
+    return await auth.sendDeletionCode(token: token)
+  }
+
+  /// Supprime le compte dev&din ET ce qu'il portait — pour TOUTES les apps
+  /// dev&din. Un seul appel : c'est l'auth-service qui fait effacer le
+  /// parrainage d'abord.
+  ///
+  /// 🔴 **Rien de local ne bouge avant le « supprimé » du serveur.** Ensuite
+  /// seulement : le trousseau est vidé, et l'iPhone redevient le sujet (il
+  /// garde sa copie de la couverture). ⚠️ Un abonnement Apple en cours n'est
+  /// PAS résilié : l'écran le dit avant de demander le code.
+  func deleteConnectedAccount(code: String) async -> ReferralDeletionOutcome {
+    guard let token = ReferralAccountStore.load()?.token else { return .failed }
+    let outcome = await auth.deleteAccount(token: token, otp: code)
+    guard outcome == .deleted else { return outcome }
+    track("account_deleted", [:])
+    forgetAccount()
+    await backToDevice()
+    return outcome
   }
 
   private func followSubjectInStore() async {
@@ -868,6 +928,12 @@ final class BrowtherReferralController: ObservableObject {
     // ⛔ Un aperçu n'appelle pas le service : `/v1/share` accorderait de VRAIS
     // jours offerts (même règle que le desktop).
     guard let client, !preview else { return }
+    // ⭐ Retenu AVANT tout appel réseau : le code est parti, que le service
+    // réponde ou non — et c'est ICI, tout de suite, que le compte se propose.
+    if !sharedOnce {
+      storage.sharedOnce = true
+      sharedOnce = true
+    }
     Task {
       guard let outcome = try? await client.share(), outcome.grace.granted else { return }
       track("referral_grace", ["moment": "share", "screen": origin.rawValue])

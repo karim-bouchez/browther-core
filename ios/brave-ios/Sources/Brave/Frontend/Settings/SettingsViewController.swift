@@ -1205,7 +1205,19 @@ class SettingsViewController: TableViewController {
             )
           },
           cellClass: BrowtherReferralCardCell.self
-        )
+        ),
+        // ⭐ L'accès permanent au compte dev&din facultatif, avec son état en
+        // clair (§ 7.1 du doc commun : jamais derrière un défilement). La
+        // page s'ouvre directement, sans passer par l'écran Parrainage.
+        Row(
+          text: Strings.BrowtherReferral.accountTitle,
+          selection: {
+            // Poussée dans la navigation des Paramètres, et comptée à la même
+            // porte que les autres entrées (`paywall_action {screen: settings}`).
+            BrowtherReferralPresenter.openAccount(from: .settings, note: ReferralNote())
+          },
+          cellClass: BrowtherReferralAccountCell.self
+        ),
       ]
     )
   }

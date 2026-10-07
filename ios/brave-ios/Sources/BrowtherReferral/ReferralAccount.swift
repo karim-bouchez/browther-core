@@ -7,12 +7,17 @@ import Foundation
 import Security
 
 /// Le compte dev&din FACULTATIF sur iPhone — `docs/PARRAINAGE.md` § 7.1 et
-/// § 7.4. ⛔ Jamais exigé : il ne sert qu'à faire suivre le SOUTIEN (mois
-/// gagnés, code, abonnement) d'un appareil à l'autre — c'est le SEUL pont entre
-/// un abonnement payé sur l'ordinateur (Polar) et l'iPhone (StoreKit), qui ne
-/// se voient pas. 🔴 Il ne porte que ça : ni historique, ni favoris, ni onglets.
+/// § 7.4. ⛔ Jamais exigé : il ne sert qu'à faire suivre le PARRAINAGE (code,
+/// invitations, mois gagnés) et l'abonnement d'un appareil à l'autre — c'est le
+/// SEUL pont entre un abonnement payé sur l'ordinateur (Polar) et l'iPhone
+/// (StoreKit), qui ne se voient pas. 🔴 Il ne porte que ça : ni historique, ni
+/// favoris, ni onglets.
 ///
 /// Pendant de `browther_referral_account.cc` (desktop, plateforme de référence).
+/// ⭐ Le contrat est COMMUN à toutes les apps dev&din (§ 7.1, tableau « Le
+/// contrat ») : la déclaration à la connexion et la suppression du compte
+/// vivent plus bas (`registerApp`, `deletable`, `sendDeletionCode`,
+/// `deleteAccount`), leurs règles dans `ReferralAccountRules.swift`.
 ///
 /// ⭐ **On ne se connecte qu'UNE fois, sur un seul appareil** (recette Karim,
 /// 2026-09-24) : **l'appareil connecté affiche un QR, l'autre le scanne**.
@@ -223,6 +228,50 @@ public final class ReferralAuthClient: @unchecked Sendable {
   /// Révoque la session côté serveur — ⛔ sans jamais bloquer la déconnexion.
   public func signOut(token: String) async {
     _ = try? await send("POST", Self.authURL, "/api/auth/sign-out", [:], token: token)
+  }
+
+  // MARK: - Se déclarer, et supprimer le compte (§ 7.1, `docs/AUTH.md`)
+
+  /// Dire à l'auth-service que ce compte sert à Browther (`app_registrations`).
+  ///
+  /// 🔴 **À faire dès la connexion, ATTENDU, avant le rattachement** : c'est ce
+  /// qui prouve, plus tard, qu'un compte est NÉ ici — et donc qu'il peut être
+  /// supprimé d'ici. Un compte bien plus vieux que sa première déclaration
+  /// venait d'une autre app dev&din, qui y garde peut-être des données : sa
+  /// suppression est refusée (`auth-service/src/lib/account-deletion.ts`).
+  /// Silencieux : un échec rend seulement le compte non supprimable d'ici,
+  /// jamais l'inverse.
+  public func registerApp(token: String) async {
+    _ = try? await send("POST", Self.authURL, "/api/auth/register-app", ["appName": Self.appId], token: token)
+  }
+
+  /// Ce compte peut-il être supprimé d'ici ? ⭐ Se demande AVANT d'envoyer le code.
+  public func deletable(token: String) async -> ReferralDeletability {
+    ReferralDeletability(reply: await reply("GET", "/api/auth/account/deletable", nil, token: token))
+  }
+
+  /// Le code de confirmation à six chiffres, envoyé à l'adresse du compte
+  /// (courriel habillé Browther, dans la langue de l'app).
+  public func sendDeletionCode(token: String) async -> ReferralDeletionCode {
+    ReferralDeletionCode(reply: await reply("POST", "/api/auth/send-deletion-otp", [:], token: token))
+  }
+
+  /// Supprime le compte dev&din ET ce qu'il portait, d'UN seul appel :
+  /// l'auth-service fait d'abord effacer le parrainage au service de
+  /// parrainage (`/v1/account/forget`) — ⛔ ce client ne l'appelle pas
+  /// lui-même — et ne supprime rien si celui-ci ne répond pas.
+  /// ⛔ Ne touche à rien de LOCAL : c'est au contrôleur de ramener le sujet à
+  /// l'appareil, et seulement sur `.deleted`.
+  public func deleteAccount(token: String, otp: String) async -> ReferralDeletionOutcome {
+    ReferralDeletionOutcome(
+      reply: await reply("POST", "/api/auth/account/delete", ["otp": otp, "app": Self.appId], token: token)
+    )
+  }
+
+  /// Un appel au nom du compte, rendu tel quel aux règles. `nil` = injoignable.
+  private func reply(_ method: String, _ path: String, _ body: [String: Any]?, token: String) async -> ReferralAuthReply? {
+    guard let (data, status, _) = try? await send(method, Self.authURL, path, body, token: token) else { return nil }
+    return ReferralAuthReply(status: status, data: data)
   }
 
   /// ⭐ `POST /api/billing/link` : l'abonnement Polar payé sur l'ORDINATEUR

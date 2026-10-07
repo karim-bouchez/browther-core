@@ -5,6 +5,7 @@
 
 import BraveStrings
 import BrowtherReferral
+import Combine
 import SwiftUI
 import UIKit
 
@@ -404,6 +405,7 @@ final class ReferralSheetActions {
 
 final class ReferralHomeHostingController: UIHostingController<ReferralHomeView> {
   private let source: ReferralShowSource
+  private var accountObserver: AnyCancellable?
 
   @MainActor
   init(showsClose: Bool, source: ReferralShowSource) {
@@ -413,14 +415,44 @@ final class ReferralHomeHostingController: UIHostingController<ReferralHomeView>
     // barre de navigation qui ne s'accorde pas (recette Karim, 2026-09-23).
     view.backgroundColor = .braveGroupedBackground
     title = Strings.BrowtherReferral.homeTitle
+    // ⚠️ La croix passe à GAUCHE (2026-10-07) : la droite est au compte, « en
+    // face du retour » — qu'on arrive par les Paramètres (retour) ou par une
+    // fenêtre (croix), le bouclier est au même endroit.
     if showsClose {
-      navigationItem.rightBarButtonItem = UIBarButtonItem(
+      navigationItem.leftBarButtonItem = UIBarButtonItem(
         systemItem: .close,
         primaryAction: UIAction { [weak self] _ in
           self?.dismiss(animated: true)
         }
       )
     }
+    // ⭐ **L'accès PERMANENT au compte dev&din** (§ 7.1 du doc commun) : jamais
+    // derrière un défilement — dans l'en-tête, donc sur TOUS les onglets. Gris
+    // tant que personne n'est connecté, vert et coché ensuite. C'est par là
+    // qu'on voit avec quel compte on est connecté, qu'on se déconnecte, qu'on
+    // supprime, et qu'on RETROUVE un compte sur un iPhone neuf.
+    // ⚠️ `@Published` émet AVANT d'écrire : on lit la valeur reçue, ⛔ pas
+    // `controller.account`.
+    accountObserver = BrowtherReferralController.shared.$account
+      .map { $0 != nil }
+      .removeDuplicates()
+      .sink { [weak self] connected in
+        self?.showAccountButton(connected: connected)
+      }
+  }
+
+  private func showAccountButton(connected: Bool) {
+    let button = UIBarButtonItem(
+      image: UIImage(systemName: connected ? "checkmark.shield.fill" : "shield"),
+      primaryAction: UIAction { _ in
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        BrowtherReferralPresenter.openAccount(from: .home, note: ReferralNote())
+      }
+    )
+    button.tintColor = connected ? UIColor(ReferralPalette.green) : .secondaryLabel
+    button.accessibilityLabel =
+      connected ? Strings.BrowtherReferral.accountManage : Strings.BrowtherReferral.accountConnect
+    navigationItem.rightBarButtonItem = button
   }
 
   @available(*, unavailable)

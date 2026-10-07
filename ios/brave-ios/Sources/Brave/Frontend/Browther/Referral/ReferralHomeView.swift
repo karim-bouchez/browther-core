@@ -25,6 +25,12 @@ import UIKit
 /// ⚠️ Intitulés au genre neutre (§ 6) : ⛔ jamais « parrain » / « filleul ».
 /// ⚠️ Le bouton dit « Partager mon code », ⛔ pas « Inviter un proche » : c'est
 /// le bouton qui MÈNE ici.
+///
+/// ⭐ **Le compte dev&din** (§ 7.1, le contrat commun) : son accès permanent est
+/// le bouclier de l'EN-TÊTE, sur tous les onglets
+/// (`ReferralHomeHostingController`) ; il se PROPOSE en haut de l'onglet de ce
+/// qui est en jeu, avec les mots de cet onglet (`ReferralAccountHint`). ⛔ Plus
+/// de bloc en bas de l'onglet « Inviter ».
 struct ReferralHomeView: View {
   enum Tab: Hashable {
     case invite, invitations, code, support
@@ -179,11 +185,16 @@ struct ReferralSupportTab: View {
   var body: some View {
     VStack(spacing: 0) {
       ScrollView {
-        ReferralBillingBody()
-          .padding(.horizontal, 16)
-          .padding(.bottom, 24)
-          .frame(maxWidth: 560)
-          .frame(maxWidth: .infinity)
+        VStack(spacing: 18) {
+          // ⭐ Abonné : c'est ICI qu'est son abonnement, donc ici que le
+          // compte se propose (§ 7.1) — ⛔ pas sur « Inviter ».
+          ReferralAccountHint(stake: .paid)
+          ReferralBillingBody()
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 24)
+        .frame(maxWidth: 560)
+        .frame(maxWidth: .infinity)
       }
       .refreshable { await controller.refresh() }
       VStack(spacing: 0) {
@@ -367,6 +378,9 @@ struct ReferralInviteTab: View {
     let validated = status.milestones.validated
     ScrollView {
       VStack(alignment: .leading, spacing: 18) {
+        // ⭐ Le code est parti (un partage vient d'aboutir), ou a déjà servi :
+        // « Mets ton code à l'abri », en haut, tout de suite (§ 7.1).
+        ReferralAccountHint(stake: .invite)
         VStack(alignment: .leading, spacing: 6) {
           HStack(spacing: 6) {
             Text(Strings.BrowtherReferral.coverA.uppercased())
@@ -418,12 +432,6 @@ struct ReferralInviteTab: View {
         }
 
         ReferralGaugeView(validated: validated, scale: scale, mode: .spring, onCelebrate: onCelebrate)
-
-        // ⭐ Le seul pont entre l'ordinateur et l'iPhone (§ 7.1) : mois, code
-        // et abonnement suivent le compte. Placé comme sur le desktop, après
-        // ce que la personne vient faire ici.
-        ReferralAccountSection()
-          .padding(.top, 8)
       }
       .padding(.horizontal, 16)
       .padding(.bottom, 32)
@@ -500,6 +508,8 @@ struct ReferralInvitationsTab: View {
     } else {
       ScrollView {
         VStack(alignment: .leading, spacing: 12) {
+          // ⭐ Une invitation en cours ou validée : « Mets tes invitations à l'abri ».
+          ReferralAccountHint(stake: .invitations)
           if opens > 0 {
             Text(Strings.BrowtherReferral.homeLinkOpens(opens))
               .font(.footnote)
@@ -588,6 +598,11 @@ struct ReferralCodeTab: View {
         ReferralPrimaryButton(label: Strings.BrowtherReferral.refereeInviteToo, action: onInvite)
           .padding(.top, 4)
       }
+      // ⭐ Le code d'un proche a été saisi : « Mets ton mois offert à l'abri »,
+      // sur l'écran où l'on EST (§ 7.1). ⚠️ L'onglet est centré : la rangée,
+      // elle, se lit à gauche et prend la largeur.
+      ReferralAccountHint(stake: .referee)
+        .padding(.top, 8)
     }
   }
 }

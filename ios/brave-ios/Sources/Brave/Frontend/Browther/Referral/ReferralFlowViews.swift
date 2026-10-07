@@ -599,6 +599,7 @@ struct ReferralThanksView: View {
   var onClose: () -> Void
 
   @ObservedObject private var controller = BrowtherReferralController.shared
+  @Environment(\.referralNote) private var note
   @State private var celebratedAt: Date?
 
   var body: some View {
@@ -612,6 +613,14 @@ struct ReferralThanksView: View {
       )
       ReferralFeatureList(extras: .included, extrasOnly: true)
     } footer: {
+      // ⭐ Le compte se PROPOSE ici, après le paiement (§ 7.1, § 12.19) : un
+      // BOUTON, au-dessus de « Revenir à l'app » — une proposition, ⛔ pas une
+      // étape, ⛔ jamais avant de payer.
+      if controller.account == nil {
+        ReferralSecondaryButton(label: Strings.BrowtherReferral.accountHintPaidTitle) {
+          BrowtherReferralPresenter.openAccount(from: .thanks, note: note)
+        }
+      }
       ReferralTextExit(label: Strings.BrowtherReferral.backToApp, action: onClose)
     }
     .overlay {

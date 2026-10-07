@@ -753,18 +753,127 @@ extension Strings {
     // MARK: Sur tes autres appareils (le compte facultatif, § 7.1)
 
     public static var accountHead: String { t("home.accountHead", "On your other devices") }
-    public static var accountBody: String {
+    /// ⚠️ **« Parrainage », ⛔ plus « soutien »** (contrat commun du compte,
+    /// `docs/PARRAINAGE.md` § 7.1) : « ton soutien » se lisait « soutien
+    /// financier », et qui n'a rien payé ne s'y reconnaissait pas. Le compte
+    /// NOMME ce qu'il porte : code, invitations, mois gagnés, abonnement.
+    /// ⚠️ « appareil », ⛔ pas « iPhone » : les textes du contrat sont les mêmes
+    /// sur l'iPhone, l'ordinateur et Android.
+    public static var accountTitle: String { t("account.title", "dev&din account") }
+    public static var accountOff: String { t("account.off", "Not connected") }
+    public static var accountOn: String { t("account.on", "Connected") }
+    public static var accountManage: String { t("account.manage", "See my account") }
+    /// Qui a quelque chose en jeu (un code parti, une invitation, un abonnement).
+    public static var accountBodyShelter: String {
       t(
-        "account.bodyPhone",
-        "Connect your dev&din account, the same one as on your computer: your months of additional features, your code and your subscription follow you on this iPhone."
+        "account.bodyShelter",
+        "With a dev&din account, your code, your invitations, your earned months and your subscription follow you on your other devices, and if you change or lose one."
+      )
+    }
+    /// Qui arrive sur un appareil neuf : il n'a rien à mettre à l'abri, il RETROUVE.
+    public static var accountBodyRecover: String {
+      t(
+        "account.bodyRecover",
+        "Already have a dev&din account? Connect it to get your code, your invitations, your earned months and your subscription back here."
       )
     }
     public static var accountOnly: String {
       t(
         "account.only",
-        "The account only keeps your support: months earned, code, subscription. Never your history, bookmarks or tabs."
+        "The account only keeps your referrals and your subscription: code, invitations, earned months. Never your history, bookmarks or tabs."
       )
     }
+    public static var accountConnectedBody: String {
+      t(
+        "account.connectedBody",
+        "Everything is safe. On another device, connect this same account to get your code, your invitations, your earned months and your subscription back."
+      )
+    }
+    /// Le piège des deux comptes (Apple « masquer mon adresse » ici, Google là-bas).
+    public static var accountSameWay: String {
+      t("account.sameWay", "On another device, sign in the same way: same button, or same address.")
+    }
+    /// Le tampon du bouton Google (`docs/AUTH.md` § « Quel SSO mettre en avant »).
+    public static var accountRecommended: String { t("account.recommended", "Recommended") }
+
+    // La proposition du compte, onglet par onglet : chacun a SA rangée, avec
+    // ses mots (`ReferralAccountStake`).
+    public static var accountHintInviteTitle: String { t("account.hint.invite.title", "Keep your code safe") }
+    public static var accountHintInviteSub: String {
+      t(
+        "account.hint.invite.sub",
+        "Connect a dev&din account: your code and the invitations to come follow you if you change devices."
+      )
+    }
+    public static var accountHintInvitationsTitle: String {
+      t("account.hint.invitations.title", "Keep your invitations safe")
+    }
+    public static var accountHintInvitationsSub: String {
+      t(
+        "account.hint.invitations.sub",
+        "Connect a dev&din account: your invitations and your earned months follow you if you change devices."
+      )
+    }
+    public static var accountHintRefereeTitle: String {
+      t("account.hint.referee.title", "Keep your free month safe")
+    }
+    public static var accountHintRefereeSub: String {
+      t(
+        "account.hint.referee.sub",
+        "Connect a dev&din account: your free month and your progress follow you if you change devices."
+      )
+    }
+    public static var accountHintPaidTitle: String { t("account.hint.paid.title", "Keep your subscription safe") }
+    public static var accountHintPaidSub: String {
+      t(
+        "account.hint.paid.sub",
+        "Connect a dev&din account: you get it back on your other devices, and if you change devices."
+      )
+    }
+
+    // La suppression du compte, DANS l'app (Apple 5.1.1(v)) : ce qui part,
+    // puis le code à six chiffres reçu par e-mail.
+    public static var accountDelete: String { t("account.delete", "Delete my dev&din account") }
+    public static var accountDeleteBody: String {
+      t(
+        "account.deleteBody",
+        "Your dev&din account will be deleted for every dev&din app where you use it, along with your referral code, your invitations and your earned months. This is permanent."
+      )
+    }
+    /// ⛔ Ne nomme aucune boutique : le compte vaut pour tous les appareils.
+    public static var accountDeleteSubscription: String {
+      t(
+        "account.deleteSubscription",
+        "A running subscription is not cancelled by this deletion: remember to cancel it where you took it out."
+      )
+    }
+    public static var accountDeleteSend: String { t("account.deleteSend", "Get the confirmation code") }
+    public static var accountDeleteSendFailed: String {
+      t("account.deleteSendFailed", "We couldn't send the code. Try again in a moment.")
+    }
+    public static func accountDeleteSent(_ destination: String) -> String {
+      fill(t("account.deleteSent", "Code sent to {destination}. Enter it to confirm."), ["destination": destination])
+    }
+    public static var accountDeleteConfirm: String { t("account.deleteConfirm", "Delete permanently") }
+    public static var accountDeleteFailed: String {
+      t("account.deleteFailed", "The deletion didn't go through. Try again in a moment.")
+    }
+    public static func accountDeleteElsewhere(_ apps: String) -> String {
+      fill(
+        t(
+          "account.deleteElsewhere",
+          "This account is also used by {apps}: delete it from that app. Here, you can disconnect this device."
+        ),
+        ["apps": apps]
+      )
+    }
+    public static var accountDeleteElsewhereUnknown: String {
+      t(
+        "account.deleteElsewhereUnknown",
+        "This dev&din account was created in another dev&din app: delete it from that app. Here, you can disconnect this device."
+      )
+    }
+    public static var accountDeleted: String { t("account.deleted", "Your dev&din account is deleted.") }
     public static var accountConnect: String { t("account.connect", "Connect a dev&din account") }
     public static var accountWithApple: String { t("account.withApple", "Continue with Apple") }
     public static var accountWithGoogle: String { t("account.withGoogle", "Continue with Google") }
@@ -785,23 +894,38 @@ extension Strings {
     }
     public static var accountError: String { t("account.error", "The sign-in didn't go through.") }
     public static var accountConnected: String { t("account.connected", "Connected to your dev&din account.") }
+    /// « Masquer mon adresse » d'Apple : le relais est illisible, on dit par où
+    /// se reconnecter (`ReferralAccountLabel`).
+    public static var accountConnectedApple: String {
+      t("account.connectedApple", "Connected to your dev&din account, with Apple.")
+    }
     public static func accountConnectedAs(_ email: String) -> String {
       fill(t("account.connectedAs", "Connected to your dev&din account: {email}"), ["email": email])
     }
+    /// ⭐ Le message de connexion NOMME ce qui suit — et ne cite l'abonnement
+    /// que s'il y en a un (`accountLinkedPaid`).
     public static var accountLinked: String {
-      t("account.linked", "Done: your support follows you on this iPhone.")
+      t("account.linked", "Done: your code, your invitations and your earned months follow you on this device.")
+    }
+    public static var accountLinkedPaid: String {
+      t(
+        "account.linkedPaid",
+        "Done: your code, your invitations, your earned months and your subscription follow you on this device."
+      )
     }
     public static var accountSignOut: String { t("account.signOutPhone", "Disconnect this iPhone") }
 
     // Relier un appareil : l'appareil connecté affiche un QR, l'autre le scanne.
     public static var accountScan: String { t("account.scan", "Scan my computer's QR code") }
     /// ⚠️ Le chemin se compose des VRAIS libellés (l'entrée du menu ⋯ du
-    /// desktop, le titre de la section) : traduits une fois, ils ne peuvent pas
-    /// diverger de ce que la personne voit à l'écran.
+    /// desktop, le bouton d'en-tête de son écran Parrainage) : traduits une
+    /// fois, ils ne peuvent pas diverger de ce que la personne voit à l'écran.
+    /// Depuis le 2026-10-07, le compte du desktop est dans l'EN-TÊTE
+    /// (« Compte dev&din »), plus dans une rubrique « Sur tes autres appareils ».
     public static var accountScanHint: String {
       fill(
         t("account.scanHint", "On your computer, in Browther: ⋯ menu › {menu} › {section}."),
-        ["menu": t("menu.invite", "Invite someone to Browther"), "section": accountHead]
+        ["menu": t("menu.invite", "Invite someone to Browther"), "section": accountTitle]
       )
     }
     public static var accountOtherWay: String { t("account.otherWay", "Sign in another way") }

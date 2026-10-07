@@ -29,6 +29,7 @@ public final class ReferralStorage: @unchecked Sendable {
     static let recetteSubject = "browther.referral.recette-subject"
     static let recetteToken = "browther.referral.recette-token"
     static let transferredFor = "browther.referral.transferred-for"
+    static let sharedOnce = "browther.referral.shared-once"
   }
 
   // MARK: - L'état des sollicitations
@@ -86,6 +87,15 @@ public final class ReferralStorage: @unchecked Sendable {
   public var transferredFor: String? {
     get { defaults.string(forKey: Key.transferredFor) }
     set { defaults.set(newValue, forKey: Key.transferredFor) }
+  }
+
+  /// Un partage a abouti sur CET appareil : le code est parti chez des
+  /// proches. ⚠️ Le service n'en sait rien (§ 12.1 : partager ne crée rien) —
+  /// c'est l'appareil qui le retient, et c'est ce qui fait proposer le compte
+  /// dans l'onglet « Inviter » (`ReferralAccountStakes`).
+  public var sharedOnce: Bool {
+    get { defaults.bool(forKey: Key.sharedOnce) }
+    set { defaults.set(newValue, forKey: Key.sharedOnce) }
   }
 
   // MARK: - 🧪 Recette (§ 12.18)
