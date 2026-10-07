@@ -379,6 +379,7 @@ struct ReferralAccountDeletion: View {
       .onChange(of: code) { _, next in
         let digits = String(next.filter { $0.isASCII && $0.isNumber }.prefix(ReferralDeletion.codeLength))
         if digits != next { code = digits }
+        // On retape : l'erreur d'avant ne vaut plus.
         problem = nil
       }
       .onAppear { focused = true }
@@ -495,9 +496,10 @@ struct ReferralAccountDeletion: View {
       // à l'ouverture, on le dit de la même façon.
       case .usedElsewhere(let apps):
         step = .blocked(apps: apps)
-      case .badCode:
-        code = ""
-        fail(Strings.BrowtherReferral.accountBadCode)
+      // ⚠️ Le code RESTE dans le champ : on corrige un chiffre, on ne retape
+      // pas tout. ⛔ Ne pas le vider ici — `onChange(of: code)` efface
+      // l'erreur à chaque frappe, il effacerait aussi celle-ci, aussitôt.
+      case .badCode: fail(Strings.BrowtherReferral.accountBadCode)
       case .unreachable: fail(Strings.BrowtherReferral.accountUnreachable)
       case .failed: fail(Strings.BrowtherReferral.accountDeleteFailed)
       }
