@@ -105,6 +105,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralDeletion.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralDeletionCode.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralDeletionOutcome.java",
+  "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralSessionCheck.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralIdentityBody.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralInvitations.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralJson.java",

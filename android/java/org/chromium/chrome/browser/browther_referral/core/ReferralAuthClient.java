@@ -261,6 +261,16 @@ public class ReferralAuthClient {
     }
 
     /** Ce compte peut-il être supprimé d'ici ? ⭐ Se demande AVANT d'envoyer le code. */
+    /**
+     * La session tient-elle toujours ? {@code GONE} = l'auth-service a RÉPONDU qu'elle n'existe
+     * plus ; {@code UNKNOWN} = on ne sait pas, et ⛔ on ne déconnecte jamais là-dessus ({@link
+     * ReferralSessionCheck}).
+     */
+    public ReferralSessionCheck checkSession(String token) {
+        return ReferralSessionCheck.fromReply(
+                quietly("GET", authBase, "/api/auth/get-session", null, token));
+    }
+
     public ReferralDeletability deletable(String token) {
         return ReferralDeletability.fromReply(
                 quietly("GET", authBase, "/api/auth/account/deletable", null, token));

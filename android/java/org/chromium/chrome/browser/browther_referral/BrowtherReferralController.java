@@ -42,6 +42,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralPlatform;
 import org.chromium.chrome.browser.browther_referral.core.ReferralProduct;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPrompt;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPromptState;
+import org.chromium.chrome.browser.browther_referral.core.ReferralSessionCheck;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStorage;
 import org.chromium.chrome.browser.browther_referral.core.ShareOutcome;
@@ -488,6 +489,7 @@ public final class BrowtherReferralController {
         }
         useSubject(mAccount != null ? mAccount.userId : device);
         register(null);
+        verifyAccountSession();
     }
 
     /** Le jeton et l'adresse du compte rangé, relus sur le fil du compte. */
@@ -674,6 +676,9 @@ public final class BrowtherReferralController {
         }
         if (System.currentTimeMillis() - mLastRefresh < REFRESH_EVERY_MS) return;
         refresh();
+        // Un navigateur reste ouvert des jours : la session se revérifie au même rythme que le
+        // statut, ⛔ pas seulement au lancement.
+        verifyAccountSession();
     }
 
     private void adopt(ReferralStatus next) {
@@ -1098,6 +1103,39 @@ public final class BrowtherReferralController {
         }
         useSubject(device);
         register(null);
+    }
+
+    /**
+     * 🔴 <b>La session existe-t-elle encore ?</b> Révoquée, ou compte SUPPRIMÉ depuis un autre
+     * appareil ⇒ retour au sujet d'appareil, en silence (il garde sa copie de la couverture). Sans
+     * cette vérification, l'appareil restait « connecté » à un compte qui n'existe plus, sur un
+     * sujet que le service lui recréait vide ({@link ReferralSessionCheck}).
+     *
+     * <p>⛔ <b>On ne déconnecte jamais sur un « on ne sait pas »</b> : un service injoignable, une
+     * erreur, un coffre illisible à cet instant (pas de jeton à présenter) ne changent RIEN.
+     */
+    private void verifyAccountSession() {
+        ReferralAccount current = mAccount;
+        if (!mAccountEnabled || current == null) return;
+        String accountId = current.userId;
+        ReferralAuthClient auth = auth();
+        onAuth(
+                () -> {
+                    String token = tokenOnAuthThread();
+                    return token == null
+                            ? ReferralSessionCheck.unknown()
+                            : auth.checkSession(token);
+                },
+                ReferralSessionCheck.unknown(),
+                check -> {
+                    // Le compte a pu changer pendant l'appel (déconnexion, autre connexion).
+                    ReferralAccount now = mAccount;
+                    if (now == null || !now.userId.equals(accountId)) return;
+                    if (check.kind != ReferralSessionCheck.Kind.GONE) return;
+                    forgetAccount();
+                    track("account_session_gone", new HashMap<>());
+                    backToDevice();
+                });
     }
 
     // ---- Supprimer le compte (Google, Apple 5.1.1(v) — § 7.1 du doc commun)
