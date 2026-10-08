@@ -394,7 +394,7 @@ RegisterPolymerTemplateModifications({
       referralEl.appendChild(document.createElement('cr-ripple'))
       extensionEl.insertAdjacentElement('afterend', referralEl)
 
-      // ⭐ « Compte dev&din », juste sous « Parrainage ». Le compte facultatif
+      // ⭐ « Mon compte », juste sous « Parrainage ». Le compte facultatif
       // du parrainage ne doit JAMAIS être derrière un défilement (contrat
       // commun, `docs/PARRAINAGE.md` § 7.1) : c'est ici qu'on le cherche pour
       // voir avec quel compte on est connecté, se déconnecter, le supprimer,

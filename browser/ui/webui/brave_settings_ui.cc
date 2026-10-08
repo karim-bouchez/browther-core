@@ -211,7 +211,7 @@ void BraveSettingsUI::AddResources(content::WebUIDataSource* html_source,
                           browther_referral::IsEnabled());
   html_source->AddString("browtherReferralTitle",
                          browther_referral::SettingsTitle());
-  // ⭐ Et la ligne « Compte dev&din », juste dessous : le compte facultatif du
+  // ⭐ Et la ligne « Mon compte », juste dessous : le compte facultatif du
   // parrainage n'est jamais derrière un défilement (contrat commun, § 7.1 de
   // `docs/PARRAINAGE.md`). Elle ouvre l'écran Parrainage, fenêtre du compte
   // ouverte. Même pool de textes (`account.title`), ⛔ pas de chaîne grit.

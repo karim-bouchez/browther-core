@@ -150,19 +150,20 @@ std::u16string FallbackSettingsTitle(const std::string& locale) {
   return u"Referrals";
 }
 
-// La ligne « Compte dev&din » des Paramètres, tant que les textes de l'app ne
-// sont pas lus (ou si elle n'est pas déployée).
+// La ligne « Mon compte » des Paramètres, tant que les textes de l'app ne
+// sont pas lus (ou si elle n'est pas déployée). ⚠️ Plus « Compte dev&din »
+// depuis le 2026-10-08 : aux points d'entrée le compte ne porte pas le nom du
+// studio (`private/docs/PARRAINAGE.md` § 11.5).
 std::u16string FallbackAccountTitle(const std::string& locale) {
   const std::string language = PrimaryLanguage(locale);
   if (language == "fr") {
-    return u"Compte dev&din";
+    return u"Mon compte";
   }
   if (language == "ar") {
-    // « حساب dev&din », la clé `account.title` de `ar.json` (octets recopiés, ⛔ pas
-    // retapés).
-    return u"\u062D\u0633\u0627\u0628 dev&din";
+    // La clé `account.title` de `ar.json` (octets recopiés, ⛔ pas retapés).
+    return u"\u062D\u0633\u0627\u0628\u064A";
   }
-  return u"dev&din account";
+  return u"My account";
 }
 
 /**

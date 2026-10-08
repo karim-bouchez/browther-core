@@ -46,7 +46,7 @@ void PreloadMenuLabel();
 // ou deux mots, et c'est déjà le partage retenu sur iOS (Karim, 2026-09-23).
 std::u16string MenuLabel();
 std::u16string SettingsTitle();
-// ⭐ La ligne « Compte dev&din » des Paramètres (clé `account.title`) : le
+// ⭐ La ligne « Mon compte » des Paramètres (clé `account.title`) : le
 // compte facultatif du parrainage ne doit JAMAIS être derrière un défilement
 // (`docs/PARRAINAGE.md` § 7.1, le contrat commun) — il a son entrée ici, en
 // plus du bouton d'en-tête de l'écran Parrainage. Elle ouvre ce même écran,
