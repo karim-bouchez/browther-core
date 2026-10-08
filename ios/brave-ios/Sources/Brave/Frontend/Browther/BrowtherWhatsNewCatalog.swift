@@ -43,7 +43,8 @@ enum BrowtherWhatsNewCatalog {
       // supprimer), Sawtunaa qui bascule sans recharger et sa pause de cinq
       // minutes (validés sur iPhone le 2026-10-01), carte du code réparée.
       // ⚠️ Pas annoncé, bien qu'embarqué : la bascule Basarunaa sans
-      // rechargement (pas encore recettée sur iPhone à l'heure de l'archive).
+      // rechargement — la matrice la disait « à recetter » à l'heure de
+      // l'archive du build 11 ; Karim a confirmé sa recette juste après.
       id: "2026-10-08",
       date: "2026-10-08",
       lines: [
