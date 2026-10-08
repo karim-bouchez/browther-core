@@ -38,6 +38,36 @@ import Foundation
 enum BrowtherWhatsNewCatalog {
   static let releases: [BrowtherSurfacesRules.WhatsNewRelease] = [
     .init(
+      // Release 2026.10.8 : suppression du compte dev&din dans l'app (Apple
+      // 5.1.1(v) — la 2026.9.30 permettait de le créer sans pouvoir le
+      // supprimer), Sawtunaa qui bascule sans recharger et sa pause de cinq
+      // minutes (validés sur iPhone le 2026-10-01), carte du code réparée.
+      // ⚠️ Pas annoncé, bien qu'embarqué : la bascule Basarunaa sans
+      // rechargement (pas encore recettée sur iPhone à l'heure de l'archive).
+      id: "2026-10-08",
+      date: "2026-10-08",
+      lines: [
+        "fr": [
+          "Il n’y avait aucun moyen de supprimer son compte dev&din depuis l’app. Paramètres › Compte dev&din le permet maintenant, avec un code de confirmation reçu par e-mail.",
+          "Allumer ou éteindre Sawtunaa rechargeait la page. La bascule se fait maintenant sur place, et la vidéo reste où elle en était.",
+          "Pour écouter un passage tel quel, il fallait éteindre Sawtunaa puis penser à le rallumer. « Réactiver automatiquement dans 5 min » le fait revenir tout seul.",
+          "Sur l’écran Parrainage, la carte de ton code était rognée en haut et son logo disparaissait en thème clair. Elle s’affiche maintenant en entier.",
+        ],
+        "en": [
+          "There was no way to delete your dev&din account from the app. Settings › dev&din account now lets you do it, with a confirmation code sent by email.",
+          "Turning Sawtunaa on or off reloaded the page. It now switches in place, and the video stays where it was.",
+          "To listen to a passage as it is, you had to turn Sawtunaa off and then remember to turn it back on. “Turn back on automatically in 5 min” now brings it back by itself.",
+          "On the Referrals screen, the card with your code was cut off at the top and its logo vanished in light mode. It now shows in full.",
+        ],
+        "ar": [
+          "لم تكن هناك طريقة لحذف حسابك في dev&din من داخل التطبيق. صار ذلك ممكنًا الآن من الإعدادات › حساب dev&din، برمز تأكيد يصلك عبر البريد الإلكتروني.",
+          "كان تشغيل Sawtunaa أو إيقافه يعيد تحميل الصفحة. صار التبديل يتم في مكانه، ويبقى الفيديو حيث كان.",
+          "للاستماع إلى مقطع كما هو، كان عليك إيقاف Sawtunaa ثم تذكّر إعادة تشغيله. صار خيار «إعادة التفعيل تلقائيًا بعد 5 دقائق» يعيده من تلقاء نفسه.",
+          "في شاشة التزكية، كانت بطاقة رمزك مقصوصة من الأعلى وكان شعارها يختفي في الوضع الفاتح. صارت تظهر كاملة.",
+        ],
+      ]
+    ),
+    .init(
       // Release 2026.9.30 : floutage des images chargées au défilement, flou
       // vidéo adouci, choix « qui flouter » en cases dans le panel Basarunaa.
       id: "2026-09-30",
