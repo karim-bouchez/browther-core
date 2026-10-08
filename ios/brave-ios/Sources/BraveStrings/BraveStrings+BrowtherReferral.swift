@@ -1057,10 +1057,12 @@ extension Strings {
       public let cardOmni: String
       public let cardGift: String
       public let tag: String
-      /// « Mon code : {code} » — la ligne du message envoyé à un proche (onglet
-      /// « Message »). ⚠️ Ici et pas dans la table traduite : elle suit le texte
-      /// de l'image, donc SA langue (fr, en, ar) — un message ne mélange pas deux
-      /// langues.
+      /// « Mon code de parrainage : {code} » — la ligne du message envoyé à un
+      /// proche (onglet « Message »). ⚠️ Ici et pas dans la table traduite : elle
+      /// suit le texte de l'image, donc SA langue (fr, en, ar) — un message ne
+      /// mélange pas deux langues. ⭐ « de parrainage » (Karim, 2026-10-08) : sous
+      /// la vidéo le message ne dit plus ce que donne le code, il faut donc dire
+      /// ce qu'il EST.
       public let codeLine: String
 
       public var isRTL: Bool { language == "ar" }
@@ -1092,7 +1094,7 @@ extension Strings {
             cardOmni: "Musique coupée · images floutées",
             cardGift: "1\u{00A0}mois de bonus",
             tag: "Un projet",
-            codeLine: "Mon code : {code}"
+            codeLine: "Mon code de parrainage : {code}"
           )
         case "ar":
           return StatusImage(
@@ -1108,7 +1110,7 @@ extension Strings {
             cardOmni: "الموسيقى مقطوعة · الصور مموّهة",
             cardGift: "شهر من الميزات",
             tag: "مشروع من",
-            codeLine: "رمزي: {code}"
+            codeLine: "رمز التزكية الخاص بي: {code}"
           )
         default:
           return StatusImage(
@@ -1124,7 +1126,7 @@ extension Strings {
             cardOmni: "Music off · images blurred",
             cardGift: "1\u{00A0}month of bonus",
             tag: "A project by",
-            codeLine: "My code: {code}"
+            codeLine: "My referral code: {code}"
           )
         }
       }

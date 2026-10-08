@@ -68,7 +68,7 @@ public final class ReferralStatusImage {
         public final String tag;
 
         /**
-         * « Mon code : {code} » — la ligne du message envoyé à un proche (onglet « Message » de la
+         * « Mon code de parrainage : {code} » — la ligne du message envoyé à un proche (onglet « Message » de la
          * feuille de partage, private/docs/PARRAINAGE.md § 11). ⚠️ Ici et pas dans la table
          * traduite : elle suit le texte de l'image, donc SA langue (fr, en, ar) — un message ne
          * mélange pas deux langues.
@@ -131,7 +131,7 @@ public final class ReferralStatusImage {
                             "Musique coupée · images floutées",
                             "1 mois de bonus",
                             "Un projet",
-                            "Mon code : {code}");
+                            "Mon code de parrainage : {code}");
                 case "ar":
                     return new Texts(
                             "ar",
@@ -149,7 +149,7 @@ public final class ReferralStatusImage {
                             "الموسيقى مقطوعة · الصور مموّهة",
                             "شهر من الميزات",
                             "مشروع من",
-                            "رمزي: {code}");
+                            "رمز التزكية الخاص بي: {code}");
                 default:
                     return new Texts(
                             "en",
@@ -167,7 +167,7 @@ public final class ReferralStatusImage {
                             "Music off · images blurred",
                             "1 month of bonus",
                             "A project by",
-                            "My code: {code}");
+                            "My referral code: {code}");
             }
         }
     }

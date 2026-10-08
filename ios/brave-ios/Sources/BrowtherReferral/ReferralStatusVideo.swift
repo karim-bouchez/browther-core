@@ -222,13 +222,25 @@ extension ReferralShare {
     ["[[", "]]", "{{", "}}"].reduce(text) { $0.replacingOccurrences(of: $1, with: "") }
   }
 
-  /// Le message qui accompagne la **VIDÉO** (Karim, 2026-10-08) : le texte de
-  /// l'IMAGE du statut, en clair — une seule source pour ce qu'on dit du
-  /// produit —, puis le code VISIBLE (sur l'image il est sur la carte ; ici il
-  /// n'y a pas de carte), et le lien seul sur la dernière ligne.
+  /// Ce que le message dit du produit sous la vidéo : le PREMIER paragraphe de
+  /// l'image du statut, en clair — une seule source pour ce qu'on dit du produit.
+  ///
+  /// ⛔ **Pas l'offre** (« avec mon code, tu as un mois… », « si 10 personnes
+  /// l'installent… ») — Karim, 2026-10-08 : dans un message à un proche, « ça
+  /// peut refroidir certaines personnes », et ça ne sert à rien : la personne
+  /// touche le lien, et le code s'applique tout seul. L'image du statut, elle,
+  /// garde ses trois paragraphes.
+  public static func videoPitch(paragraphs: [String]) -> String {
+    paragraphs.first.map(stripStatusMarks) ?? ""
+  }
+
+  /// Le message qui accompagne la **VIDÉO** (Karim, 2026-10-08) : ce que fait le
+  /// produit (`videoPitch`), puis le code VISIBLE (sur l'image il est sur la
+  /// carte ; ici il n'y a pas de carte), et le lien seul sur la dernière ligne.
   public static func videoMessage(paragraphs: [String], codeLine: String, code: String, url: String?) -> String {
-    let body = paragraphs.map(stripStatusMarks).joined(separator: "\n\n")
-    return "\(body)\n\n\(codeLine)\n\(link(code: code, url: url))"
+    let pitch = videoPitch(paragraphs: paragraphs)
+    let head = pitch.isEmpty ? "" : "\(pitch)\n\n"
+    return "\(head)\(codeLine)\n\(link(code: code, url: url))"
   }
 
   /// Le message qui accompagne l'**IMAGE** du statut, quand la vidéo est

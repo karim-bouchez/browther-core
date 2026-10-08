@@ -426,8 +426,9 @@ struct ReferralStatusShareContent: View {
 ///
 /// ⭐ **Deux messages, selon la case « Joindre la vidéo »** (Karim, 2026-10-08 —
 /// un texte et un lien seuls engagent peu) :
-/// - cochée : la VIDÉO, et dessous le texte de l'image du statut, le code en
-///   clair, le lien (`ReferralShare.videoMessage`) ;
+/// - cochée : la VIDÉO, et dessous ce que fait le produit (le premier
+///   paragraphe de l'image du statut, ⛔ pas l'offre), le code en clair, le lien
+///   (`ReferralShare.videoMessage`) ;
 /// - décochée : l'IMAGE du statut (elle porte déjà le texte et la carte), et
 ///   dessous le code et le lien (`ReferralShare.imageMessage`).
 /// Un seul fichier par envoi : le texte devient bien sa légende. ⚠️ iMessage :
@@ -569,7 +570,7 @@ struct ReferralMessageShareContent: View {
           }
         }
         .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
-        Text(texts.paragraphs.map(ReferralShare.stripStatusMarks).joined(separator: "\n\n"))
+        Text(ReferralShare.videoPitch(paragraphs: texts.paragraphs))
           .font(.footnote)
           .foregroundStyle(chat.ink)
           .lineLimit(Self.videoTextLines)

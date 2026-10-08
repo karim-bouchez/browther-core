@@ -187,13 +187,10 @@ final class ReferralShareMessageTab {
             bubble.addView(
                     thumb, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(mContext, VIDEO_THUMB_DP)));
 
-            // Le texte de l'image du statut, en clair — coupé ici, entier dans le message.
-            StringBuilder body = new StringBuilder();
-            for (String paragraph : mSheet.texts().paragraphs) {
-                if (body.length() > 0) body.append("\n\n");
-                body.append(ReferralShare.stripStatusMarks(paragraph));
-            }
-            TextView text = line(body.toString(), mChat.ink, rtl);
+            // Ce que fait le produit (le premier paragraphe de l'image du statut, en clair) — ⛔
+            // pas l'offre : le même texte que dans le message (`ReferralShare.videoPitch`).
+            TextView text =
+                    line(ReferralShare.videoPitch(mSheet.texts().paragraphs), mChat.ink, rtl);
             text.setMaxLines(VIDEO_TEXT_LINES);
             text.setEllipsize(TextUtils.TruncateAt.END);
             bubble.addView(text, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, gap));
