@@ -514,11 +514,21 @@ void BrowtherReferralHandler::Request(const std::string& id,
           headers.emplace_back("Authorization",
                                base::StrCat({"Bearer ", *token}));
         }
+        // ⭐ L'app doit pouvoir distinguer « la session n'existe plus » de « on
+        // ne sait pas » (§ 7.1 : ⛔ on ne déconnecte jamais sur un « on ne sait
+        // pas »). Deux faits qu'elle ne peut pas deviner :
+        //   `authorized` — le jeton a bien été JOINT. Un jeton indéchiffrable
+        //     (trousseau illisible à cet instant) part sans `Authorization` et
+        //     reçoit la même réponse qu'une session morte ;
+        //   `parsed` — le corps était du JSON. `null` est la façon dont Better
+        //     Auth dit « pas de session » ; la page HTML d'un intermédiaire,
+        //     servie en 200, donne le même `body` vide ici.
+        const bool authorized = token.has_value();
         browther_referral::Fetch(
             url, method, body, headers,
             base::BindOnce(
                 [](base::WeakPtr<BrowtherReferralHandler> self, std::string id,
-                   browther_referral::FetchResult result) {
+                   bool authorized, browther_referral::FetchResult result) {
                   if (!self) {
                     return;
                   }
@@ -526,10 +536,12 @@ void BrowtherReferralHandler::Request(const std::string& id,
                   out.Set("status", result.status);
                   std::optional<base::Value> parsed =
                       base::JSONReader::Read(result.body, base::JSON_PARSE_RFC);
+                  out.Set("authorized", authorized);
+                  out.Set("parsed", parsed.has_value());
                   out.Set("body", parsed ? std::move(*parsed) : base::Value());
                   self->Reply(id, true, base::Value(std::move(out)));
                 },
-                self, std::move(id)));
+                self, std::move(id), authorized));
       },
       weak_factory_.GetWeakPtr(), id, url, http_method, std::move(body),
       std::move(headers));
