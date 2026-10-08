@@ -9,7 +9,10 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
@@ -438,40 +441,6 @@ public final class ReferralUi {
         return button;
     }
 
-    /**
-     * L'alternative avec un pictogramme — « Publier en statut WhatsApp » sous « Partager mon code »
-     * (§ 9), le pendant du {@code BrowtherIntroOutlineButtonStyle} iOS. Mêmes cotes que {@link
-     * #secondaryButton}.
-     */
-    public static View secondaryButton(
-            Context context, Palette p, String label, int iconRes, Runnable action) {
-        LinearLayout button = row(context);
-        button.setGravity(Gravity.CENTER);
-        float radius = dp(context, 14);
-        button.setBackground(
-                pressable(
-                        rounded(0, radius, dp(context, 1.5f), withAlpha(p.text2, 0.55f)),
-                        withAlpha(p.text, 0.12f),
-                        radius));
-        button.setMinimumHeight(dp(context, 48));
-        int pad = dp(context, 12);
-        button.setPadding(pad, pad / 2, pad, pad / 2);
-        button.addView(glyph(context, iconRes, 16, p.text2));
-        View space = new View(context);
-        button.addView(space, new LinearLayout.LayoutParams(dp(context, 8), 1));
-        TextView labelView = text(context, label, 15, SEMIBOLD, p.text2);
-        labelView.setGravity(Gravity.CENTER);
-        labelView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        button.addView(labelView, new LinearLayout.LayoutParams(WRAP, WRAP));
-        button.setClickable(true);
-        button.setFocusable(true);
-        button.setContentDescription(label);
-        button.setOnClickListener(v -> action.run());
-        pressFeedback(button);
-        button.setLayoutParams(linear(MATCH, WRAP));
-        return button;
-    }
-
     // -------------------- Un bouton qui sait attendre (le compte, § 7.1) --------------------
 
     /**
@@ -652,6 +621,89 @@ public final class ReferralUi {
         row.addView(right, new LinearLayout.LayoutParams(0, dp(context, 1), 1));
         row.setLayoutParams(linear(MATCH, WRAP));
         return row;
+    }
+
+    // -------------------- La signature de l'éditeur (§ 11.5) --------------------
+
+    /**
+     * « Un projet dev&din ↗ » dans la page du compte ({@code docs/SURFACES-COMMUNES.md} § 6) — le
+     * pendant de {@code ReferralStudioSignature} (iOS) : c'est ICI, dans la page, que dev&din se
+     * présente — pas à ses portes, qui disent « Mon compte » (Karim, 2026-10-08). La bordure porte
+     * l'affordance, le logo garde l'orange de dev&din, ⛔ aucun évènement.
+     *
+     * <p>⚠️ Pas la pastille de l'introduction ({@code BrowtherIntroWidgets.signature}) : elle est
+     * muette (ni flèche ni geste) et dessinée pour un fond sombre.
+     *
+     * @param open ce que fait le toucher : ouvrir devndin.com.
+     */
+    public static View studioSignature(Context context, Palette p, Runnable open) {
+        LinearLayout pill = row(context);
+        int padH = dp(context, 14);
+        int padV = dp(context, 7);
+        pill.setPadding(padH, padV, padH, padV);
+        float radius = dp(context, 100);
+        pill.setBackground(
+                pressable(
+                        rounded(0, radius, Math.max(1, dp(context, 1)), p.text3),
+                        withAlpha(p.text, 0.1f),
+                        radius));
+        String label = ReferralStrings.get(context, "card.tag");
+        TextView labelView = text(context, label, 13, REGULAR, p.text2);
+        pill.addView(labelView, new LinearLayout.LayoutParams(WRAP, WRAP));
+        ImageView logo = new ImageView(context);
+        logo.setImageDrawable(devndinLogo(context, p));
+        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        // Les cotes du pictogramme (33,5 × 15 dp) : la hauteur suit les minuscules du libellé.
+        LinearLayout.LayoutParams logoParams =
+                new LinearLayout.LayoutParams(dp(context, 33.5f), dp(context, 15));
+        logoParams.setMarginStart(dp(context, 5));
+        pill.addView(logo, logoParams);
+        ImageView arrow = glyph(context, R.drawable.browther_referral_glyph_arrow_up_right, 10, p.text2);
+        LinearLayout.LayoutParams arrowParams =
+                new LinearLayout.LayoutParams(dp(context, 10), dp(context, 10));
+        arrowParams.setMarginStart(dp(context, 5));
+        pill.addView(arrow, arrowParams);
+        logo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        labelView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        pill.setClickable(true);
+        pill.setFocusable(true);
+        pill.setContentDescription(label + " dev&din");
+        pill.setOnClickListener(v -> open.run());
+        pressFeedback(pill);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(WRAP, WRAP);
+        params.gravity = Gravity.START;
+        pill.setLayoutParams(params);
+        return pill;
+    }
+
+    /**
+     * Le logo dev&din pour le thème de l'écran. ⚠️ Le pictogramme n'existe qu'en UNE version,
+     * dessinée pour un fond sombre (lettres gris clair, « & » orange) — l'introduction et la carte
+     * du code sont toujours sombres. Sur fond clair, ses lettres sont repeintes à l'encre du thème,
+     * pixel par pixel, et l'orange reste tel quel (iOS a deux fichiers pour ça).
+     */
+    private static Drawable devndinLogo(Context context, Palette p) {
+        Drawable logo = context.getDrawable(R.drawable.browther_intro_devndin_logo);
+        if (logo == null || p.dark) return logo;
+        int width = dp(context, 33.5f) * 2;
+        int height = dp(context, 15) * 2;
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        logo.setBounds(0, 0, width, height);
+        logo.draw(new Canvas(bitmap));
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        int ink = p.text & 0x00FFFFFF;
+        for (int i = 0; i < pixels.length; i++) {
+            int pixel = pixels[i];
+            int red = (pixel >> 16) & 0xFF;
+            int green = (pixel >> 8) & 0xFF;
+            int blue = pixel & 0xFF;
+            // Une lettre est grise (ses trois composantes se tiennent) ; l'orange, non.
+            boolean grey = Math.max(red, Math.max(green, blue)) - Math.min(red, Math.min(green, blue)) < 24;
+            if (grey) pixels[i] = (pixel & 0xFF000000) | ink;
+        }
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return new BitmapDrawable(context.getResources(), bitmap);
     }
 
     // -------------------- Le composant « fonctionnalités » (§ 2.2) --------------------

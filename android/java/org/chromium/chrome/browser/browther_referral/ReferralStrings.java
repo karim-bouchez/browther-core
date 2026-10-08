@@ -34,6 +34,7 @@ public final class ReferralStrings {
     private static final Map<String, int[]> PLURALS = new HashMap<>();
 
     static {
+        SIMPLE.put("account.about", R.string.browther_referral_account_about);
         SIMPLE.put("account.badCode", R.string.browther_referral_account_bad_code);
         SIMPLE.put("account.bodyRecover", R.string.browther_referral_account_body_recover);
         SIMPLE.put("account.bodyShelter", R.string.browther_referral_account_body_shelter);
@@ -223,8 +224,34 @@ public final class ReferralStrings {
         SIMPLE.put("reminder.subscription", R.string.browther_referral_reminder_subscription);
         SIMPLE.put("settings.news", R.string.browther_referral_settings_news);
         SIMPLE.put("settings.subtitle", R.string.browther_referral_settings_subtitle);
+        SIMPLE.put("share.attachVideo", R.string.browther_referral_share_attach_video);
         SIMPLE.put("share.copied", R.string.browther_referral_share_copied);
         SIMPLE.put("share.message", R.string.browther_referral_share_message);
+        SIMPLE.put("share.previewA11y", R.string.browther_referral_share_preview_a11y);
+        SIMPLE.put("share.send", R.string.browther_referral_share_send);
+        SIMPLE.put("share.tabMessage", R.string.browther_referral_share_tab_message);
+        SIMPLE.put("status.failed", R.string.browther_referral_status_failed);
+        SIMPLE.put("status.failedVideo", R.string.browther_referral_status_failed_video);
+        SIMPLE.put("status.hintBoth", R.string.browther_referral_status_hint_both);
+        SIMPLE.put("status.hintImageDone", R.string.browther_referral_status_hint_image_done);
+        SIMPLE.put("status.hintImageDoneAuto", R.string.browther_referral_status_hint_image_done_auto);
+        SIMPLE.put("status.hintNone", R.string.browther_referral_status_hint_none);
+        SIMPLE.put("status.hintOne", R.string.browther_referral_status_hint_one);
+        SIMPLE.put("status.hintVideoDone", R.string.browther_referral_status_hint_video_done);
+        SIMPLE.put("status.hintVideoDoneAuto", R.string.browther_referral_status_hint_video_done_auto);
+        SIMPLE.put("status.imageLabel", R.string.browther_referral_status_image_label);
+        SIMPLE.put("status.imageSub", R.string.browther_referral_status_image_sub);
+        SIMPLE.put("status.pickOne", R.string.browther_referral_status_pick_one);
+        SIMPLE.put("status.previewA11y", R.string.browther_referral_status_preview_a11y);
+        SIMPLE.put("status.publishBoth", R.string.browther_referral_status_publish_both);
+        SIMPLE.put("status.publishImage", R.string.browther_referral_status_publish_image);
+        SIMPLE.put("status.publishImageNext", R.string.browther_referral_status_publish_image_next);
+        SIMPLE.put("status.publishVideo", R.string.browther_referral_status_publish_video);
+        SIMPLE.put("status.publishVideoNext", R.string.browther_referral_status_publish_video_next);
+        SIMPLE.put("status.published", R.string.browther_referral_status_published);
+        SIMPLE.put("status.tab", R.string.browther_referral_status_tab);
+        SIMPLE.put("status.videoLabel", R.string.browther_referral_status_video_label);
+        SIMPLE.put("status.videoSub", R.string.browther_referral_status_video_sub);
         SIMPLE.put("support.money", R.string.browther_referral_support_money);
         SIMPLE.put("support.none", R.string.browther_referral_support_none);
         SIMPLE.put("support.or", R.string.browther_referral_support_or);

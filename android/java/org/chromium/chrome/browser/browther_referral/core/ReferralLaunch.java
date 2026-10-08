@@ -47,8 +47,8 @@ public final class ReferralLaunch {
      * devient collectée — un écart entre la fiche et le binaire vaut un retrait). Hors store (builds
      * de dev) : allumé, pour la recette.
      *
-     * <p>Éteint, RIEN du compte n'existe : ni le bouclier de l'en-tête, ni les rangées des onglets,
-     * ni la ligne « Compte dev&din » des Paramètres, et un compte rangé n'est pas relu — le sujet
+     * <p>Éteint, RIEN du compte n'existe : ni l'icône de l'en-tête, ni les rangées des onglets,
+     * ni la ligne « Mon compte » des Paramètres, et un compte rangé n'est pas relu — le sujet
      * reste l'appareil.
      *
      * <p>🔴 ⛔ Jamais {@code true} sans la SUPPRESSION du compte dans l'app (Google l'exige dès

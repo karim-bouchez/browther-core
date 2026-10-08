@@ -27,7 +27,7 @@ import java.util.Locale;
  * <p>De haut en bas : le texte au « tu » (au pluriel en arabe), style surligneur · la carte B9
  * inclinée (−4°, +4° en arabe), ⛔ SANS lien ni « Copier » · l'étiquette « Clique sur le lien en
  * dessous 👇 », droite, posée juste au-dessus de la légende — qui ne contient QUE le lien ({@link
- * ReferralSharing#shareStatus} : l'image + le lien en texte).
+ * ReferralSharing#shareStatusFile} : l'image + le lien en texte).
  *
  * <p>🔴 WhatsApp pose la légende PAR-DESSUS le bas de l'image, et « N vues » dessous : ~250 px du
  * bas sont couverts (recette iPhone Sawtunaa du 2026-09-29). L'étiquette est à 270 px du bas — ⛔ ne
@@ -67,6 +67,14 @@ public final class ReferralStatusImage {
         public final String cardGift;
         public final String tag;
 
+        /**
+         * « Mon code : {code} » — la ligne du message envoyé à un proche (onglet « Message » de la
+         * feuille de partage, private/docs/PARRAINAGE.md § 11). ⚠️ Ici et pas dans la table
+         * traduite : elle suit le texte de l'image, donc SA langue (fr, en, ar) — un message ne
+         * mélange pas deux langues.
+         */
+        public final String codeLine;
+
         private Texts(
                 String language,
                 String[] paragraphs,
@@ -75,7 +83,8 @@ public final class ReferralStatusImage {
                 String cardTab,
                 String cardOmni,
                 String cardGift,
-                String tag) {
+                String tag,
+                String codeLine) {
             this.language = language;
             this.paragraphs = paragraphs;
             this.sticker = sticker;
@@ -84,6 +93,12 @@ public final class ReferralStatusImage {
             this.cardOmni = cardOmni;
             this.cardGift = cardGift;
             this.tag = tag;
+            this.codeLine = codeLine;
+        }
+
+        /** {@link #codeLine}, le code posé à sa place. */
+        public String codeLine(String code) {
+            return codeLine.replace("{code}", code);
         }
 
         public boolean isRtl() {
@@ -115,7 +130,8 @@ public final class ReferralStatusImage {
                             "Parrainage",
                             "Musique coupée · images floutées",
                             "1 mois de bonus",
-                            "Un projet");
+                            "Un projet",
+                            "Mon code : {code}");
                 case "ar":
                     return new Texts(
                             "ar",
@@ -132,7 +148,8 @@ public final class ReferralStatusImage {
                             "التزكية",
                             "الموسيقى مقطوعة · الصور مموّهة",
                             "شهر من الميزات",
-                            "مشروع من");
+                            "مشروع من",
+                            "رمزي: {code}");
                 default:
                     return new Texts(
                             "en",
@@ -149,7 +166,8 @@ public final class ReferralStatusImage {
                             "Referrals",
                             "Music off · images blurred",
                             "1 month of bonus",
-                            "A project by");
+                            "A project by",
+                            "My code: {code}");
             }
         }
     }

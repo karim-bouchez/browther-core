@@ -357,8 +357,8 @@ public final class BrowtherReferralController {
     }
 
     /**
-     * Le compte dev&din existe-t-il dans ce binaire ? ⛔ Éteint, RIEN du compte ne s'affiche : ni le
-     * bouclier de l'en-tête, ni les rangées des onglets, ni la ligne des Paramètres.
+     * Le compte dev&din existe-t-il dans ce binaire ? ⛔ Éteint, RIEN du compte ne s'affiche : ni
+     * l'icône de l'en-tête, ni les rangées des onglets, ni la ligne des Paramètres.
      */
     public boolean isAccountEnabled() {
         return mAccountEnabled;
@@ -1540,12 +1540,11 @@ public final class BrowtherReferralController {
                 client::share,
                 (ShareOutcome outcome) -> {
                     if (outcome.grace == null || !outcome.grace.granted) return;
-                    if (!preview) {
-                        Map<String, Object> props = new HashMap<>();
-                        props.put("moment", "share");
-                        props.put("screen", fromScreen);
-                        track("referral_grace", props);
-                    }
+                    // (Jamais en aperçu : on est sorti plus haut.)
+                    Map<String, Object> props = new HashMap<>();
+                    props.put("moment", "share");
+                    props.put("screen", fromScreen);
+                    track("referral_grace", props);
                     Instant until = ReferralDate.parse(outcome.grace.coveredUntil);
                     mMain.postDelayed(
                             () -> {

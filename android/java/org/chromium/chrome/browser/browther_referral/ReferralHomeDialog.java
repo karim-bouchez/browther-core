@@ -70,17 +70,22 @@ import java.util.List;
  * changement. ⭐ Le titre est celui de l'onglet ; un onglet peu rempli se CENTRE.
  *
  * <p>⚠️ Intitulés au genre neutre (§ 6) : ⛔ jamais « parrain » / « filleul ». ⚠️ Le bouton dit
- * « Partager mon code », ⛔ pas « Inviter un proche » : c'est le bouton qui MÈNE ici.
+ * « Partager mon code », ⛔ pas « Inviter un proche » : c'est le bouton qui MÈNE ici. ⭐ UN bouton,
+ * qui ouvre la feuille à deux onglets — le statut WhatsApp d'abord, le message ensuite ({@link
+ * ReferralShareSheet}, private/docs/PARRAINAGE.md § 11) ; ⛔ plus de second bouton « Publier en
+ * statut WhatsApp ».
  *
  * <p>⭐ Il se compte lui-même, UNE fois par ouverture ({@code paywall_shown {screen: home}}, §
  * 13.8) : c'est une ROUTE, le point unique des fenêtres du flow ne la voit jamais — seule
  * exception admise au « un seul endroit ».
  *
- * <p>⭐ <b>Le compte dev&din</b> (§ 7.1 du doc commun, le contrat) : son accès permanent est le
- * bouclier de l'EN-TÊTE, en face du retour, sur tous les onglets ({@link #updateShield}) — gris,
- * puis vert et coché une fois connecté ; il se PROPOSE en haut de l'onglet de ce qui est en jeu,
- * avec les mots de cet onglet ({@link ReferralAccountHint}). ⛔ Pas de bloc en bas d'un onglet. ⛔
- * Rien de tout ça quand le compte n'existe pas dans ce binaire ({@code isAccountEnabled}).
+ * <p>⭐ <b>Le compte</b> (§ 7.1 du doc commun, le contrat) : son accès permanent est la PERSONNE de
+ * l'EN-TÊTE, en face du retour, sur tous les onglets ({@link #updateAccountIcon}) — grise, puis
+ * verte et cochée une fois connecté. ⭐ Une personne, ⛔ pas un bouclier (Karim, 2026-10-08, § 11.5) :
+ * seul, le bouclier ne se lisait pas comme « se connecter » ; il reste là où les mots disent « à
+ * l'abri » ({@link ReferralAccountHint}). Le compte se PROPOSE en haut de l'onglet de ce qui est en
+ * jeu, avec les mots de cet onglet. ⛔ Pas de bloc en bas d'un onglet. ⛔ Rien de tout ça quand le
+ * compte n'existe pas dans ce binaire ({@code isAccountEnabled}).
  */
 public class ReferralHomeDialog extends Dialog implements BrowtherReferralController.Listener {
     private enum Tab {
@@ -108,8 +113,8 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
      * partage qui aboutit ou une connexion redessinent l'onglet SANS que le statut ait bougé.
      */
     private int mRenderedAccount = -1;
-    /** Le bouclier de l'en-tête — {@code null} quand le compte n'existe pas dans ce binaire. */
-    private @Nullable ImageView mShield;
+    /** La personne de l'en-tête — {@code null} quand le compte n'existe pas dans ce binaire. */
+    private @Nullable ImageView mAccountIcon;
 
     private @Nullable TextView mTitle;
     private @Nullable LinearLayout mTabs;
@@ -154,8 +159,8 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         close.setBackground(ReferralUi.pressable(null, ReferralUi.withAlpha(mP.text, 0.1f), ReferralUi.dp(context, 22)));
         close.setOnClickListener(v -> dismiss());
         int closeSize = ReferralUi.dp(context, 44);
-        // ⭐ Avec le compte, la croix passe au DÉBUT : la fin est au bouclier, « en face du retour »
-        // (comme sur iOS). Sans compte dans ce binaire, l'en-tête reste celui d'avant.
+        // ⭐ Avec le compte, la croix passe au DÉBUT : la fin est à la personne, « en face du
+        // retour » (comme sur iOS). Sans compte dans ce binaire, l'en-tête reste celui d'avant.
         boolean account = mController.isAccountEnabled();
         FrameLayout.LayoutParams closeParams =
                 ReferralUi.frame(
@@ -166,28 +171,28 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
         closeParams.setMarginEnd(ReferralUi.dp(context, 6));
         bar.addView(close, closeParams);
         if (account) {
-            // ⭐ L'accès PERMANENT au compte dev&din (§ 7.1) : jamais derrière un défilement — dans
+            // ⭐ L'accès PERMANENT au compte (§ 7.1) : jamais derrière un défilement — dans
             // l'en-tête, donc sur TOUS les onglets, et dès l'attente du statut.
-            ImageView shield =
-                    ReferralUi.glyph(context, R.drawable.browther_referral_glyph_shield, 22, mP.text2);
-            int shieldPad = ReferralUi.dp(context, 11);
-            shield.setPadding(shieldPad, shieldPad, shieldPad, shieldPad);
-            shield.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            shield.setBackground(
+            ImageView person =
+                    ReferralUi.glyph(context, R.drawable.browther_referral_glyph_person, 22, mP.text2);
+            int personPad = ReferralUi.dp(context, 11);
+            person.setPadding(personPad, personPad, personPad, personPad);
+            person.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            person.setBackground(
                     ReferralUi.pressable(
                             null, ReferralUi.withAlpha(mP.text, 0.1f), ReferralUi.dp(context, 22)));
-            shield.setOnClickListener(
+            person.setOnClickListener(
                     v -> {
                         ReferralUi.tick(v);
                         BrowtherReferralPresenter.openAccount(
                                 mActivity, BrowtherReferralPresenter.AccountOrigin.HOME, false);
                     });
-            FrameLayout.LayoutParams shieldParams =
+            FrameLayout.LayoutParams personParams =
                     ReferralUi.frame(closeSize, closeSize, Gravity.END | Gravity.CENTER_VERTICAL);
-            shieldParams.setMarginEnd(ReferralUi.dp(context, 6));
-            bar.addView(shield, shieldParams);
-            mShield = shield;
-            updateShield();
+            personParams.setMarginEnd(ReferralUi.dp(context, 6));
+            bar.addView(person, personParams);
+            mAccountIcon = person;
+            updateAccountIcon();
         }
         column.addView(bar, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, 52)));
 
@@ -263,20 +268,20 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
     // -------------------- Rendu --------------------
 
     /**
-     * Gris tant que personne n'est connecté, vert et coché ensuite — son libellé d'accessibilité
-     * dit ce qu'il ouvre.
+     * Grise tant que personne n'est connecté, verte et cochée ensuite — son libellé
+     * d'accessibilité dit ce qu'elle ouvre.
      */
-    private void updateShield() {
-        ImageView shield = mShield;
-        if (shield == null) return;
+    private void updateAccountIcon() {
+        ImageView icon = mAccountIcon;
+        if (icon == null) return;
         boolean connected = mController.account() != null;
-        shield.setImageResource(
+        icon.setImageResource(
                 connected
-                        ? R.drawable.browther_referral_glyph_shield_check
-                        : R.drawable.browther_referral_glyph_shield);
-        shield.setImageTintList(
+                        ? R.drawable.browther_referral_glyph_person_check
+                        : R.drawable.browther_referral_glyph_person);
+        icon.setImageTintList(
                 android.content.res.ColorStateList.valueOf(connected ? mP.green : mP.text2));
-        shield.setContentDescription(
+        icon.setContentDescription(
                 ReferralStrings.get(getContext(), connected ? "account.manage" : "account.connect"));
     }
 
@@ -299,7 +304,7 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
 
     private void render(boolean force) {
         if (mContent == null || mTitle == null || mTabs == null) return;
-        updateShield();
+        updateAccountIcon();
         ReferralStatus status = mController.known();
         if (status == null) {
             mTitle.setText(ReferralStrings.get(getContext(), "home.title"));
@@ -572,9 +577,6 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                 shareButton(status),
                 ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 18)));
         column.addView(
-                statusButton(status),
-                ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 8)));
-        column.addView(
                 ReferralUi.footnote(
                         context,
                         mP,
@@ -652,31 +654,13 @@ public class ReferralHomeDialog extends Dialog implements BrowtherReferralContro
                 .show();
     }
 
-    /** 🔴 Partager ne crée AUCUNE invitation : un partage abouti n'ouvre droit qu'aux 3 jours (§ 4). */
-    private View shareButton(ReferralStatus status) {
-        Context context = getContext();
-        return ReferralUi.primaryButton(
-                context,
-                mP,
-                ReferralStrings.get(context, "invite.share"),
-                null,
-                R.drawable.browther_referral_glyph_share,
-                () -> ReferralSharing.share(mActivity, status, "home", false, result -> {}));
-    }
-
     /**
-     * ⭐ Le 2ᵉ geste, sous « Partager mon code » : un contour, ⭐ un libellé qui CITE WhatsApp
-     * (« Publier en statut WhatsApp ») — l'image dit « Clique sur le lien en dessous », vrai
-     * seulement là où le lien devient la légende (§ 9).
+     * ⭐ UN bouton, « Partager mon code », qui porte sa feuille : le statut WhatsApp d'abord (la
+     * vidéo et l'image), le message ensuite ({@link ReferralShareSheet}, § 11). 🔴 Partager ne crée
+     * AUCUNE invitation : un partage abouti n'ouvre droit qu'aux 3 jours (§ 4).
      */
-    private View statusButton(ReferralStatus status) {
-        Context context = getContext();
-        return ReferralUi.secondaryButton(
-                context,
-                mP,
-                ReferralStrings.get(context, "invite.shareStatus"),
-                R.drawable.browther_referral_glyph_status,
-                () -> ReferralSharing.shareStatus(mActivity, status, "home", false, result -> {}));
+    private View shareButton(ReferralStatus status) {
+        return ReferralShareSheet.button(getContext(), mActivity, mP, status, "home", false, null);
     }
 
     // -------------------- Onglet « Invitations » --------------------

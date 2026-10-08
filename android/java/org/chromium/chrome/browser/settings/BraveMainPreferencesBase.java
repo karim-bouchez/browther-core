@@ -213,7 +213,7 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
     }
 
     /**
-     * Browther : la ligne « Compte dev&din », juste sous « Parrainage » — l'accès permanent au
+     * Browther : la ligne « Mon compte », juste sous « Parrainage » — l'accès permanent au
      * compte facultatif, avec son état en clair (docs/PARRAINAGE.md § 7.1). Absente tant que le
      * compte n'existe pas dans ce binaire (éteint dans les builds du store).
      */
@@ -427,7 +427,7 @@ public abstract class BraveMainPreferencesBase extends BravePreferenceFragment
 
         // Browther : « Parrainage » en haut des Paramètres (private/docs/PARRAINAGE.md § 2.10).
         updateBrowtherReferralPreference(++braveAccountSectionOrder);
-        // Browther : « Compte dev&din » juste dessous (docs/PARRAINAGE.md § 7.1).
+        // Browther : « Mon compte » juste dessous (docs/PARRAINAGE.md § 7.1).
         updateBrowtherReferralAccountPreference(++braveAccountSectionOrder);
 
         int featuresSectionOrder = braveAccountSectionOrder;

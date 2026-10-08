@@ -73,11 +73,19 @@ public final class ReferralSheetDialog extends BottomSheetDialog {
                         .getIdentifier("design_bottom_sheet", "id", getContext().getPackageName());
         View sheet = sheetId == 0 ? null : findViewById(sheetId);
         if (sheet != null) sheet.setBackgroundColor(Color.TRANSPARENT);
+        // Une feuille : ses boutons sont en bas, les toasts montent (§ 11.6).
+        BrowtherReferralPresenter.sheetShown(this);
         if (mScreen.kind == ReferralScreen.Kind.VALIDATED
                 || mScreen.kind == ReferralScreen.Kind.REFEREE_DONE) {
             View content = findViewById(android.R.id.content);
             if (content != null) ReferralUi.success(content);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        BrowtherReferralPresenter.sheetHidden(this);
+        super.onStop();
     }
 
     private String s(String key) {

@@ -182,6 +182,8 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
     protected void onStart() {
         super.onStart();
         mController.addListener(this);
+        // Une fenêtre du flow : ses boutons sont en bas, les toasts montent (§ 11.6).
+        BrowtherReferralPresenter.sheetShown(this);
     }
 
     @Override
@@ -189,6 +191,7 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
         mController.removeListener(this);
         // ⚠️ L'intention de la jauge est celle du MOMENT (§ 12.20) : elle s'efface avec le flow.
         mController.setGaugeIntention(null);
+        BrowtherReferralPresenter.sheetHidden(this);
         super.onStop();
     }
 
@@ -657,44 +660,24 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
 
         List<View> footer = new ArrayList<>();
         if (known != null) {
+            // ⭐ Le même bouton et la même feuille que sur l'écran Parrainage (Karim, 2026-10-08,
+            // private/docs/PARRAINAGE.md § 11) : le statut WhatsApp d'abord, la vidéo comprise. ⛔
+            // Plus de second bouton « Publier en statut WhatsApp ».
             footer.add(
-                    ReferralUi.primaryButton(
+                    ReferralShareSheet.button(
                             context,
+                            mActivity,
                             p,
-                            s("invite.share"),
-                            null,
-                            R.drawable.browther_referral_glyph_share,
-                            () ->
-                                    ReferralSharing.share(
-                                            mActivity,
-                                            known,
-                                            "invite",
-                                            mPreview,
-                                            // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16).
-                                            result -> {
-                                                if (mModel != null) {
-                                                    mModel.replaceTop(ReferralScreen.invite(true));
-                                                }
-                                            })));
-            // ⭐ Le statut WhatsApp (§ 9) : l'image + le lien en légende. Abouti, il libère
-            // l'écran 4 lui aussi.
-            footer.add(
-                    ReferralUi.secondaryButton(
-                            context,
-                            p,
-                            s("invite.shareStatus"),
-                            R.drawable.browther_referral_glyph_status,
-                            () ->
-                                    ReferralSharing.shareStatus(
-                                            mActivity,
-                                            known,
-                                            "invite",
-                                            mPreview,
-                                            result -> {
-                                                if (mModel != null) {
-                                                    mModel.replaceTop(ReferralScreen.invite(true));
-                                                }
-                                            })));
+                            known,
+                            "invite",
+                            mPreview,
+                            // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16) — dit une fois, quand
+                            // la feuille se referme.
+                            () -> {
+                                if (mModel != null && isShowing()) {
+                                    mModel.replaceTop(ReferralScreen.invite(true));
+                                }
+                            }));
         }
         footer.add(
                 ReferralUi.textExit(
@@ -957,6 +940,8 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
         List<View> footer = new ArrayList<>();
         ReferralStatus known = mController.known();
         if (known != null) {
+            // ⚠️ Le partage du cadeau garde son message en texte (Karim, 2026-10-08) : la feuille à
+            // deux onglets est celle du code, sur l'écran Parrainage et l'écran 4.
             footer.add(
                     ReferralUi.primaryButton(
                             context,

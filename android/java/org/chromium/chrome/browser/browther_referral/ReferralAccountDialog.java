@@ -8,7 +8,9 @@ package org.chromium.chrome.browser.browther_referral;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,14 +44,24 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralAccountLabel;
  * <h2>Où il se trouve — ⛔ jamais derrière un défilement</h2>
  *
  * <ul>
- *   <li><b>L'en-tête de l'écran Parrainage</b> : un bouclier en face du retour, sur TOUS les onglets
- *       — gris, puis vert et coché une fois connecté ({@link ReferralHomeDialog}). C'est par là
- *       qu'on voit avec quel compte on est connecté, qu'on se déconnecte, qu'on supprime, et qu'on
- *       RETROUVE un compte sur un appareil neuf, où l'on n'a rien en jeu par définition.
- *   <li><b>Les Paramètres</b> : la ligne « Compte dev&din », avec son état en clair ({@code
- *       ReferralAccountSettingsPreference}) — c'est elle qui porte le libellé que le bouclier n'a
- *       pas.
+ *   <li><b>L'en-tête de l'écran Parrainage</b> : une personne en face du retour, sur TOUS les
+ *       onglets — grise, puis verte et cochée une fois connecté ({@link ReferralHomeDialog}).
+ *       C'est par là qu'on voit avec quel compte on est connecté, qu'on se déconnecte, qu'on
+ *       supprime, et qu'on RETROUVE un compte sur un appareil neuf, où l'on n'a rien en jeu par
+ *       définition.
+ *   <li><b>Les Paramètres</b> : la ligne « Mon compte », avec son état en clair ({@code
+ *       ReferralAccountSettingsPreference}) — c'est elle qui porte le libellé que l'icône de
+ *       l'en-tête n'a pas.
  * </ul>
+ *
+ * <h2>Comment il se NOMME (Karim, 2026-10-08 — private/docs/PARRAINAGE.md § 11.5)</h2>
+ *
+ * <p>⭐ <b>« Mon compte » aux points d'entrée</b>, et l'on dit « Connecte-toi ». ⛔ Pas « Compte
+ * dev&din » : qui ne connaît pas le studio ne sait pas de quoi on lui parle. <b>dev&din se présente
+ * DANS la page</b>, une fois entré ({@code account.about}, et la signature « Un projet dev&din »).
+ * Le nom reste sur « Supprimer mon compte dev&din » : la suppression vaut pour toutes ses apps.
+ * L'icône d'ENTRÉE est une personne ; le bouclier reste là où les mots disent « à l'abri » — en
+ * tête de cette page, et sur les rangées des onglets.
  *
  * <h2>Où il se propose</h2>
  *
@@ -279,6 +291,14 @@ public final class ReferralAccountDialog extends Dialog
             // 🔴 Ce que le compte porte, et ce qu'il ne portera jamais — dit tel quel, dans les
             // deux états.
             add(column, note(ReferralStrings.get(getContext(), "account.only")), 16);
+            // ⭐ dev&din se présente ICI, dans la page — pas à ses portes (§ 11.5).
+            add(column, note(ReferralStrings.get(getContext(), "account.about")), 22);
+            add(
+                    column,
+                    ReferralUi.studioSignature(getContext(), mP, this::openStudioSite),
+                    12,
+                    ReferralUi.WRAP,
+                    ReferralUi.WRAP);
         }
         if (account != null) {
             if (mConnectedLine != null) mConnectedLine.setText(connectedLine(getContext(), account));
@@ -365,12 +385,14 @@ public final class ReferralAccountDialog extends Dialog
         add(column, view, topDp, ReferralUi.MATCH);
     }
 
-    /** Un élément de la page, à ses marges. */
+    /** Un élément de la page, à ses marges : toute la largeur, ou un carré de {@code width}. */
     private void add(LinearLayout column, View view, float topDp, int width) {
+        add(column, view, topDp, width, width == ReferralUi.MATCH ? ReferralUi.WRAP : width);
+    }
+
+    private void add(LinearLayout column, View view, float topDp, int width, int height) {
         Context context = getContext();
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(
-                        width, width == ReferralUi.MATCH ? ReferralUi.WRAP : width);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
         params.topMargin = ReferralUi.dp(context, topDp);
         params.setMarginStart(ReferralUi.dp(context, SIDE_DP));
         params.setMarginEnd(ReferralUi.dp(context, SIDE_DP));
@@ -409,6 +431,26 @@ public final class ReferralAccountDialog extends Dialog
             case UNKNOWN:
             default:
                 return ReferralStrings.get(context, "account.connected");
+        }
+    }
+
+    /**
+     * La signature « Un projet dev&din » mène au site du studio — dans un onglet de Browther, que
+     * cette page et l'écran Parrainage (plein écran) couvriraient : on les referme d'abord, comme
+     * pour une connexion par onglet. ⛔ Aucun évènement.
+     */
+    private void openStudioSite() {
+        Intent view = new Intent(Intent.ACTION_VIEW, Uri.parse("https://devndin.com"));
+        BrowtherReferralPresenter.dismissPages();
+        try {
+            // ⚠️ Dans Browther lui-même : sans le paquet, Android proposerait un autre navigateur.
+            mActivity.startActivity(new Intent(view).setPackage(mActivity.getPackageName()));
+        } catch (RuntimeException e) {
+            try {
+                mActivity.startActivity(view);
+            } catch (RuntimeException none) {
+                // Rien pour ouvrir une adresse : on reste où l'on est.
+            }
         }
     }
 

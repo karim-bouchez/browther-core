@@ -7,14 +7,18 @@ package org.chromium.chrome.browser.browther_referral;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.view.View;
+import android.view.Window;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Ouvre les fenêtres du parrainage — pendant de {@code BrowtherReferralPresenter.swift}.
@@ -89,9 +93,9 @@ public final class BrowtherReferralPresenter {
      * {action: account}} (les mêmes que l'iOS : {@code ReferralAccountOrigin}).
      */
     public enum AccountOrigin {
-        /** Le bouclier de l'en-tête de l'écran Parrainage, ou la rangée d'un onglet. */
+        /** La personne de l'en-tête de l'écran Parrainage, ou la rangée d'un onglet. */
         HOME("home"),
-        /** La ligne « Compte dev&din » des Paramètres. */
+        /** La ligne « Mon compte » des Paramètres. */
         SETTINGS("settings"),
         /** La rangée de l'onglet « Soutenir » : c'est aussi l'écran de paiement. */
         BILLING("billing");
@@ -136,10 +140,86 @@ public final class BrowtherReferralPresenter {
     /** Une page s'affiche ({@code onStart}) — elle se retire d'elle-même à {@link #pageHidden}. */
     static void pageShown(Dialog page) {
         if (!sPages.contains(page)) sPages.add(page);
+        windowShown(page, false);
     }
 
     static void pageHidden(Dialog page) {
         sPages.remove(page);
+        windowHidden(page);
+    }
+
+    // -------------------- Ce qui est ouvert : la place des toasts (§ 11.6) --------------------
+
+    /**
+     * Toutes les fenêtres du parrainage affichées, du dessous vers le dessus : les pages (écran
+     * Parrainage, compte), la pile du flow, les feuilles, la feuille « Partager mon code ». Un toast
+     * se pose sur celle du dessus — ancré sur l'activité, il s'afficherait SOUS elle (ce sont des
+     * fenêtres plein écran : le « +3 jours offerts » d'un partage restait caché sous l'écran
+     * Parrainage jusqu'à sa fermeture).
+     */
+    private static final List<Dialog> sWindows = new ArrayList<>();
+
+    /** Parmi elles, les feuilles et la pile du flow : leur bouton principal est EN BAS. */
+    private static final Set<Dialog> sSheets = new HashSet<>();
+
+    /** Une feuille ou la pile du flow s'affiche ({@code onStart}). */
+    static void sheetShown(Dialog sheet) {
+        windowShown(sheet, true);
+    }
+
+    /** …et se retire ({@code onStop} : {@code dismiss()} y passe AVANT de rendre la main). */
+    static void sheetHidden(Dialog sheet) {
+        windowHidden(sheet);
+    }
+
+    private static void windowShown(Dialog window, boolean sheetOrFlow) {
+        if (!sWindows.contains(window)) sWindows.add(window);
+        if (sheetOrFlow) sSheets.add(window);
+    }
+
+    private static void windowHidden(Dialog window) {
+        sWindows.remove(window);
+        sSheets.remove(window);
+        // Le toast qu'elle portait ne part pas avec elle : il se repose sur ce qui RESTE.
+        Window host = window.getWindow();
+        if (host != null) ReferralToast.windowClosed(host.getDecorView());
+    }
+
+    /** La fenêtre du parrainage du dessus, parmi celles qui sont ENCORE là. */
+    private static @Nullable Dialog topWindow() {
+        for (int i = sWindows.size() - 1; i >= 0; i--) {
+            Dialog window = sWindows.get(i);
+            if (window.isShowing() && window.getWindow() != null) return window;
+        }
+        return null;
+    }
+
+    /**
+     * Une feuille ou une fenêtre du flow est-elle posée par-dessus l'écran ? — ce qui fait passer un
+     * toast en haut ({@code core/ReferralToastPlacement}) ; pendant de {@code sheetOrFlowIsOpen}
+     * (iOS).
+     *
+     * <p>⚠️ <b>Ce qui est fermé, ou en train de se fermer, ne compte pas</b> : un toast naît souvent
+     * AU MOMENT où une fenêtre s'en va (« C'est noté » suit l'annonce, « +3 jours offerts » suit un
+     * partage), et c'est l'écran qui RESTE qui décide de sa place — sinon le toast monte, puis
+     * reste en haut, sur le titre et le retour de l'écran d'en dessous (le défaut relevé par Karim
+     * sur Fajrunaa, 2026-10-08). Sur Android {@code dismiss()} retire la fenêtre sur-le-champ (elle
+     * quitte ce registre dans son {@code onStop}) : il suffit donc de FERMER AVANT de poser le
+     * toast — ⛔ jamais l'inverse.
+     */
+    public static boolean sheetOrFlowIsOpen() {
+        Dialog top = topWindow();
+        return top != null && sSheets.contains(top);
+    }
+
+    /**
+     * Où ancrer un toast : la fenêtre du parrainage du dessus — {@code null} quand il n'y en a pas
+     * (le toast se pose alors sur l'activité).
+     */
+    static @Nullable View toastAnchor() {
+        Dialog top = topWindow();
+        Window host = top == null ? null : top.getWindow();
+        return host == null ? null : host.getDecorView();
     }
 
     /**

@@ -16,13 +16,16 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralAccount;
 import org.chromium.chrome.browser.browther_referral.core.ReferralAccountLabel;
 
 /**
- * La ligne « Compte dev&din » des Paramètres, juste sous « Parrainage » — port de {@code
+ * La ligne « Mon compte » des Paramètres, juste sous « Parrainage » — port de {@code
  * ReferralAccountSettingsRow} ({@code ReferralAccountView.swift}), le contrat commun (docs/
- * PARRAINAGE.md § 7.1, « L'accès permanent au compte »).
+ * PARRAINAGE.md § 7.1, « L'accès permanent au compte »). ⛔ Pas « Compte dev&din » : qui ne connaît
+ * pas le studio ne sait pas de quoi on lui parle (Karim, 2026-10-08, private/docs/PARRAINAGE.md §
+ * 11.5) — dev&din se présente dans la page.
  *
  * <p>Son état est EN CLAIR : « Non connecté », ou l'adresse (« Connecté » pour un relais d'Apple ou
  * une adresse qu'on ne connaît pas). C'est là qu'on cherche un compte, et c'est elle qui porte le
- * libellé que le bouclier de l'écran Parrainage n'a pas.
+ * libellé que l'icône de l'écran Parrainage n'a pas. ⭐ Une personne, ⛔ pas un bouclier : c'est une
+ * ENTRÉE dans le compte.
  *
  * <p>⚠️ La page du compte s'ouvre PAR-DESSUS les Paramètres, qui ne « reprennent » donc pas quand
  * elle se ferme : la ligne écoute le contrôleur tant qu'elle est à l'écran ({@link #onAttached}),
@@ -71,8 +74,8 @@ public final class ReferralAccountSettingsPreference extends Preference
                 ContextCompat.getDrawable(
                         context,
                         account == null
-                                ? R.drawable.browther_referral_glyph_shield
-                                : R.drawable.browther_referral_glyph_shield_check);
+                                ? R.drawable.browther_referral_glyph_person
+                                : R.drawable.browther_referral_glyph_person_check);
         if (icon != null) {
             icon = icon.mutate();
             icon.setTint(account == null ? p.text2 : p.green);

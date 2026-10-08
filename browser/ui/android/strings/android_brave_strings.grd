@@ -4491,14 +4491,17 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Start browsing
     </message>
     <!-- BROWTHER_REFERRAL:BEGIN — généré par private/assets/gen-android-browther-xtb.py (option apply), ⛔ ne pas éditer à la main -->
+    <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_ABOUT" desc="Browther referral (pool key account.about)" meaning="browther_referral:account.about">
+      Browther is a browser by the dev&amp;din studio. Your account is a dev&amp;din account: it also works in its other apps.
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_BAD_CODE" desc="Browther referral (pool key account.badCode)" meaning="browther_referral:account.badCode">
       This code doesn't work. Check it, or ask for a new one.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_BODY_RECOVER" desc="Browther referral (pool key account.bodyRecover)" meaning="browther_referral:account.bodyRecover">
-      Already have a dev&amp;din account? Connect it to get your code, your invitations, your earned months and your subscription back here.
+      Already have an account? Sign in to get your code, your invitations, your earned months and your subscription back here.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_BODY_SHELTER" desc="Browther referral (pool key account.bodyShelter)" meaning="browther_referral:account.bodyShelter">
-      With a dev&amp;din account, your code, your invitations, your earned months and your subscription follow you on your other devices, and if you change or lose one.
+      With an account, your code, your invitations, your earned months and your subscription follow you on your other devices, and if you change or lose one.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CANCEL" desc="Browther referral (pool key account.cancel)" meaning="browther_referral:account.cancel">
       Cancel
@@ -4507,16 +4510,16 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Code sent to {email}. It's valid for 15 minutes.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECT" desc="Browther referral (pool key account.connect)" meaning="browther_referral:account.connect">
-      Connect a dev&amp;din account
+      Sign in
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED" desc="Browther referral (pool key account.connected)" meaning="browther_referral:account.connected">
-      Connected to your dev&amp;din account.
+      You're signed in.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED_APPLE" desc="Browther referral (pool key account.connectedApple)" meaning="browther_referral:account.connectedApple">
-      Connected to your dev&amp;din account, with Apple.
+      Signed in with Apple.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED_AS" desc="Browther referral (pool key account.connectedAs)" meaning="browther_referral:account.connectedAs">
-      Connected to your dev&amp;din account: {email}
+      Signed in with {email}
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_CONNECTED_BODY" desc="Browther referral (pool key account.connectedBody)" meaning="browther_referral:account.connectedBody">
       Everything is safe. On another device, connect this same account to get your code, your invitations, your earned months and your subscription back.
@@ -4561,25 +4564,25 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       The sign-in didn't go through.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITATIONS_SUB" desc="Browther referral (pool key account.hint.invitations.sub)" meaning="browther_referral:account.hint.invitations.sub">
-      Connect a dev&amp;din account: your invitations and your earned months follow you if you change devices.
+      Sign in: your invitations and your earned months follow you if you change devices.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITATIONS_TITLE" desc="Browther referral (pool key account.hint.invitations.title)" meaning="browther_referral:account.hint.invitations.title">
       Keep your invitations safe
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITE_SUB" desc="Browther referral (pool key account.hint.invite.sub)" meaning="browther_referral:account.hint.invite.sub">
-      Connect a dev&amp;din account: your code and the invitations to come follow you if you change devices.
+      Sign in: your code and the invitations to come follow you if you change devices.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_INVITE_TITLE" desc="Browther referral (pool key account.hint.invite.title)" meaning="browther_referral:account.hint.invite.title">
       Keep your code safe
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_PAID_SUB" desc="Browther referral (pool key account.hint.paid.sub)" meaning="browther_referral:account.hint.paid.sub">
-      Connect a dev&amp;din account: you get it back on your other devices, and if you change devices.
+      Sign in: you get it back on your other devices, and if you change devices.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_PAID_TITLE" desc="Browther referral (pool key account.hint.paid.title)" meaning="browther_referral:account.hint.paid.title">
       Keep your subscription safe
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_REFEREE_SUB" desc="Browther referral (pool key account.hint.referee.sub)" meaning="browther_referral:account.hint.referee.sub">
-      Connect a dev&amp;din account: your free month and your progress follow you if you change devices.
+      Sign in: your free month and your progress follow you if you change devices.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_HINT_REFEREE_TITLE" desc="Browther referral (pool key account.hint.referee.title)" meaning="browther_referral:account.hint.referee.title">
       Keep your free month safe
@@ -4618,7 +4621,7 @@ If you don't accept this request, VPN will not reconnect and your internet conne
       Disconnect this device
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_TITLE" desc="Browther referral (pool key account.title)" meaning="browther_referral:account.title">
-      dev&amp;din account
+      My account
     </message>
     <message name="IDS_BROWTHER_REFERRAL_ACCOUNT_UNREACHABLE" desc="Browther referral (pool key account.unreachable)" meaning="browther_referral:account.unreachable">
       We can't reach the sign-in service. Check your connection.
@@ -5058,11 +5061,89 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_REFERRAL_SETTINGS_SUBTITLE" desc="Browther referral (pool key settings.subtitle)" meaning="browther_referral:settings.subtitle">
       Earn hassanat and lifetime access
     </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_ATTACH_VIDEO" desc="Browther referral (pool key share.attachVideo)" meaning="browther_referral:share.attachVideo">
+      Attach the video
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_SHARE_COPIED" desc="Browther referral (pool key share.copied)" meaning="browther_referral:share.copied">
       Message copied: just paste it to the person you're inviting.
     </message>
     <message name="IDS_BROWTHER_REFERRAL_SHARE_MESSAGE" desc="Browther referral (pool key share.message)" meaning="browther_referral:share.message">
       I'm inviting you to discover Browther: the browser that mutes music and blurs haram images.\nWith my code {code}, you get a month of additional features.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PREVIEW_A11Y" desc="Browther referral (pool key share.previewA11y)" meaning="browther_referral:share.previewA11y">
+      Your message, as the person will receive it
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_SEND" desc="Browther referral (pool key share.send)" meaning="browther_referral:share.send">
+      Send to someone
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_TAB_MESSAGE" desc="Browther referral (pool key share.tabMessage)" meaning="browther_referral:share.tabMessage">
+      Message
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_FAILED" desc="Browther referral (pool key status.failed)" meaning="browther_referral:status.failed">
+      The image couldn't be prepared. Try again, or share the message.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_FAILED_VIDEO" desc="Browther referral (pool key status.failedVideo)" meaning="browther_referral:status.failedVideo">
+      The video couldn't be shared. Try again, or post your image alone.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_BOTH" desc="Browther referral (pool key status.hintBoth)" meaning="browther_referral:status.hintBoth">
+      WhatsApp opens once per status: each one goes with your link.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_IMAGE_DONE" desc="Browther referral (pool key status.hintImageDone)" meaning="browther_referral:status.hintImageDone">
+      Your image is posted. The video is next.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_IMAGE_DONE_AUTO" desc="Browther referral (pool key status.hintImageDoneAuto)" meaning="browther_referral:status.hintImageDoneAuto">
+      Your image is posted. The video follows in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_NONE" desc="Browther referral (pool key status.hintNone)" meaning="browther_referral:status.hintNone">
+      Tap a card to bring it back.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_ONE" desc="Browther referral (pool key status.hintOne)" meaning="browther_referral:status.hintOne">
+      Tap the other card to post both.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_VIDEO_DONE" desc="Browther referral (pool key status.hintVideoDone)" meaning="browther_referral:status.hintVideoDone">
+      The video is posted. Your image is next.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_HINT_VIDEO_DONE_AUTO" desc="Browther referral (pool key status.hintVideoDoneAuto)" meaning="browther_referral:status.hintVideoDoneAuto">
+      The video is posted. Your image follows in a moment.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_IMAGE_LABEL" desc="Browther referral (pool key status.imageLabel)" meaning="browther_referral:status.imageLabel">
+      Your image
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_IMAGE_SUB" desc="Browther referral (pool key status.imageSub)" meaning="browther_referral:status.imageSub">
+      It carries your code
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PICK_ONE" desc="Browther referral (pool key status.pickOne)" meaning="browther_referral:status.pickOne">
+      Pick at least one status
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PREVIEW_A11Y" desc="Browther referral (pool key status.previewA11y)" meaning="browther_referral:status.previewA11y">
+      Your status image, with your code, and the link as its caption
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PUBLISH_BOTH" desc="Browther referral (pool key status.publishBoth)" meaning="browther_referral:status.publishBoth">
+      Post both statuses
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PUBLISH_IMAGE" desc="Browther referral (pool key status.publishImage)" meaning="browther_referral:status.publishImage">
+      Post your image
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PUBLISH_IMAGE_NEXT" desc="Browther referral (pool key status.publishImageNext)" meaning="browther_referral:status.publishImageNext">
+      Post your image · 2 of 2
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PUBLISH_VIDEO" desc="Browther referral (pool key status.publishVideo)" meaning="browther_referral:status.publishVideo">
+      Post the video
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PUBLISH_VIDEO_NEXT" desc="Browther referral (pool key status.publishVideoNext)" meaning="browther_referral:status.publishVideoNext">
+      Post the video · 2 of 2
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_PUBLISHED" desc="Browther referral (pool key status.published)" meaning="browther_referral:status.published">
+      Posted
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_TAB" desc="Browther referral (pool key status.tab)" meaning="browther_referral:status.tab">
+      WhatsApp status
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_VIDEO_LABEL" desc="Browther referral (pool key status.videoLabel)" meaning="browther_referral:status.videoLabel">
+      The video
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_STATUS_VIDEO_SUB" desc="Browther referral (pool key status.videoSub)" meaning="browther_referral:status.videoSub">
+      It shows the app
     </message>
     <message name="IDS_BROWTHER_REFERRAL_SUPPORT_MONEY" desc="Browther referral (pool key support.money)" meaning="browther_referral:support.money">
       Support financially · {price}/month

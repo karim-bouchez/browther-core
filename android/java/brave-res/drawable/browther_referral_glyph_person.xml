@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 The Browther Authors. All rights reserved.
+     This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this file,
+     You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<!-- Parrainage Browther (private/docs/PARRAINAGE.md § 11.5) : l'ENTRÉE dans le compte, personne
+     non connectée — une personne en contour (le pendant du SF Symbol `person.crop.circle`), même
+     trait que browther_referral_glyph_shield. ⛔ Pas un bouclier : seul, il ne se lisait pas comme
+     « se connecter ». Teinté par le code. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineJoin="round"
+        android:pathData="M8.3 7.9a3.7 3.7 0 1 0 7.4 0a3.7 3.7 0 1 0 -7.4 0Z"/>
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M4.7 20c.5 -3.6 3.3 -5.8 7.3 -5.8s6.8 2.2 7.3 5.8"/>
+</vector>

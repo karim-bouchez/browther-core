@@ -44,4 +44,33 @@ public final class ReferralShare {
     public static String message(String text, String code, String url) {
         return text + "\n" + link(code, url);
     }
+
+    // MARK: - Le message qui accompagne un fichier (onglet « Message », § 11 du doc du produit)
+
+    /** Retire les marques de surlignage de l'image du statut ({@code [[…]]}, {@code {{…}}}). */
+    public static String stripStatusMarks(String text) {
+        return text.replace("[[", "").replace("]]", "").replace("{{", "").replace("}}", "");
+    }
+
+    /**
+     * Le message qui accompagne la **VIDÉO** (Karim, 2026-10-08) : le texte de l'IMAGE du statut,
+     * en clair — une seule source pour ce qu'on dit du produit —, puis le code VISIBLE (sur l'image
+     * il est sur la carte ; ici il n'y a pas de carte), et le lien seul sur la dernière ligne.
+     */
+    public static String videoMessage(String[] paragraphs, String codeLine, String code, String url) {
+        StringBuilder body = new StringBuilder();
+        for (String paragraph : paragraphs) {
+            if (body.length() > 0) body.append("\n\n");
+            body.append(stripStatusMarks(paragraph));
+        }
+        return body + "\n\n" + codeLine + "\n" + link(code, url);
+    }
+
+    /**
+     * Le message qui accompagne l'**IMAGE** du statut, quand la vidéo est décochée. L'image dit
+     * déjà tout : il ne reste que le code, en texte qu'on peut copier, et le lien juste dessous.
+     */
+    public static String imageMessage(String codeLine, String code, String url) {
+        return codeLine + "\n" + link(code, url);
+    }
 }
