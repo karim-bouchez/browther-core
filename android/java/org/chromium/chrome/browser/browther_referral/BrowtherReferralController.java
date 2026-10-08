@@ -96,8 +96,8 @@ import java.util.function.Supplier;
  *       le sujet est l'appareil ; connecté, le sujet EST le compte et l'appareil n'est plus que
  *       {@code deviceRef}. Port de la partie compte de l'iOS, SANS RevenueCat (pas de paiement
  *       ici) ; Google et Apple passent par un onglet du navigateur ({@link #signIn}), ⛔ pas par
- *       une feuille système. ⏸ Éteint dans les builds du store ({@link
- *       ReferralLaunch#accountInStoreBuilds}).
+ *       une feuille système. ✅ Allumé dans les builds du store depuis le 2026-10-08
+ *       ({@link ReferralLaunch#accountInStoreBuilds}).
  * </ul>
  *
  * <p>Tout ce qui touche Chromium passe par {@link Platform} ({@code BrowtherReferralChromium}) :

@@ -40,16 +40,18 @@ public final class ReferralLaunch {
     public static final boolean extrasReleased = false;
 
     /**
-     * ⏸ **Le compte dev&din facultatif est ÉTEINT dans les builds du store** (§ 7.1 du doc commun,
-     * porté sur Android le 2026-10-07) — alors que le parrainage, lui, y est allumé ({@link
-     * #inStoreBuilds}). Il n'a jamais tourné sur un appareil : il attend la recette de Karim ET la
-     * mise à jour de la déclaration « Sécurité des données » de Google Play (une adresse e-mail
-     * devient collectée — un écart entre la fiche et le binaire vaut un retrait). Hors store (builds
-     * de dev) : allumé, pour la recette.
+     * ✅ **Le compte facultatif est ALLUMÉ dans les builds du store depuis le 2026-10-08** (§ 7.1
+     * du doc commun, porté sur Android le 2026-10-07) — décision de Karim : « on peut allumer dans
+     * les builds, je vais tester tout ça ». La déclaration « Sécurité des données » de Google Play
+     * le dit le même jour (adresse e-mail, nom, identifiant de compte, création de compte par
+     * OAuth ou par code, adresse de suppression `browther.devndin.com/fr/account-deletion`) :
+     * private/docs/PARRAINAGE.md § 11.12. ⚠️ À cette date il n'a encore jamais tourné sur un
+     * appareil (connexion Google / Apple par onglet, coffre du Keystore) : c'est la recette de
+     * Karim qui le dira — ⛔ ne pas publier de build de production avant elle.
      *
-     * <p>Éteint, RIEN du compte n'existe : ni l'icône de l'en-tête, ni les rangées des onglets,
-     * ni la ligne « Mon compte » des Paramètres, et un compte rangé n'est pas relu — le sujet
-     * reste l'appareil.
+     * <p>Éteint ({@code false}), RIEN du compte n'existe : ni l'icône de l'en-tête, ni les rangées
+     * des onglets, ni la ligne « Mon compte » des Paramètres, et un compte rangé n'est pas relu —
+     * le sujet reste l'appareil. C'est l'interrupteur à rebasculer si la recette échoue.
      *
      * <p>🔴 ⛔ Jamais {@code true} sans la SUPPRESSION du compte dans l'app (Google l'exige dès
      * qu'une app permet d'en créer un, comme Apple 5.1.1(v)) : elle est sur la page du compte
@@ -57,7 +59,7 @@ public final class ReferralLaunch {
      * même raison que {@link #inStoreBuilds}. Même interrupteur que `ACCOUNT_IN_STORE_BUILDS` de
      * `fajrunaa/lib/referral/account.ts`.
      */
-    public static final boolean accountInStoreBuilds = false;
+    public static final boolean accountInStoreBuilds = true;
 
     public static boolean isEnabled(boolean isStoreBuild) {
         if (!isStoreBuild) return true;
