@@ -26,8 +26,8 @@ import UIKit
 /// ⚠️ Le bouton dit « Partager mon code », ⛔ pas « Inviter un proche » : c'est
 /// le bouton qui MÈNE ici.
 ///
-/// ⭐ **Le compte dev&din** (§ 7.1, le contrat commun) : son accès permanent est
-/// le bouclier de l'EN-TÊTE, sur tous les onglets
+/// ⭐ **Le compte** (§ 7.1, le contrat commun) : son accès permanent est
+/// l'icône de l'EN-TÊTE (une personne), sur tous les onglets
 /// (`ReferralHomeHostingController`) ; il se PROPOSE en haut de l'onglet de ce
 /// qui est en jeu, avec les mots de cet onglet (`ReferralAccountHint`). ⛔ Plus
 /// de bloc en bas de l'onglet « Inviter ».
@@ -242,83 +242,43 @@ struct ReferralPendingView: View {
 
 // MARK: - Partager (§ 12.1)
 
+/// ⭐ **UN bouton, « Partager mon code », qui porte sa feuille** (choix D de
+/// Karim, 2026-10-08 — `private/docs/PARRAINAGE.md` § 11) : deux onglets, le
+/// statut WhatsApp d'abord, le message ensuite (`ReferralShareSheet`). Il fait
+/// la même chose partout où il est posé : onglet Inviter, onglet Invitations,
+/// écran 4 du circuit. ⛔ Plus de second bouton « Publier en statut WhatsApp » :
+/// le statut, le partage qui touche le plus de monde, était « un peu caché ».
+///
 /// 🔴 Partager ne crée AUCUNE invitation : un partage abouti n'ouvre droit
-/// qu'aux 3 jours (§ 4).
-/// ⚠️ `note` : la porte de l'écran qui partage — un partage lancé depuis un
-/// aperçu de recette ne s'écrit pas (§ 13.8).
-@MainActor
-func referralShareMyCode(
-  status: ReferralStatus,
-  origin: ReferralShareOrigin,
-  note: ReferralNote,
-  onAchieved: (() -> Void)? = nil
-) {
-  guard let host = BrowtherReferralPresenter.topController() else { return }
-  ReferralSharing.share(status: status, from: host) { result in
-    note(.referralShared, ["screen": origin.rawValue, "result": result.rawValue, "format": "message"])
-    guard result.achieved else { return }
-    onAchieved?()
-    BrowtherReferralController.shared.shareDone(from: origin, preview: note.preview)
-  }
-}
-
-/// ⭐ Le statut WhatsApp : l'image + le lien en légende (`ReferralSharing.shareStatus`).
-/// Mêmes règles que le message : un partage abouti n'ouvre droit qu'aux
-/// 3 jours (§ 4), et ⛔ rien ne s'écrit depuis un aperçu (§ 13.8).
-/// `format` distingue les deux gestes (`PARRAINAGE-partage-statut.md` § 4).
-@MainActor
-func referralShareStatus(
-  status: ReferralStatus,
-  origin: ReferralShareOrigin,
-  note: ReferralNote,
-  onAchieved: (() -> Void)? = nil
-) {
-  guard let host = BrowtherReferralPresenter.topController() else { return }
-  ReferralSharing.shareStatus(status: status, from: host) { result in
-    note(.referralShared, ["screen": origin.rawValue, "result": result.rawValue, "format": "status"])
-    guard result.achieved else { return }
-    onAchieved?()
-    BrowtherReferralController.shared.shareDone(from: origin, preview: note.preview)
-  }
-}
-
-/// Le 2ᵉ geste, sous « Partager mon code » : un contour, ⭐ un libellé qui CITE
-/// WhatsApp (« Publier en statut WhatsApp ») — l'image dit « Clique sur le lien
-/// en dessous », vrai seulement là où le lien devient la légende.
-struct ReferralStatusShareButton: View {
-  let status: ReferralStatus
-  var origin: ReferralShareOrigin = .home
-  var onAchieved: (() -> Void)?
-
-  @Environment(\.referralNote) private var note
-
-  var body: some View {
-    Button {
-      UIImpactFeedbackGenerator(style: .light).impactOccurred()
-      referralShareStatus(status: status, origin: origin, note: note, onAchieved: onAchieved)
-    } label: {
-      HStack(spacing: 8) {
-        Image(systemName: "circle.dashed.inset.filled")
-          .font(.system(size: 15, weight: .semibold))
-        Text(Strings.BrowtherReferral.shareStatus)
-          .multilineTextAlignment(.center)
-      }
-    }
-    .buttonStyle(BrowtherIntroOutlineButtonStyle())
-  }
-}
-
+/// qu'aux 3 jours (§ 4). ⚠️ `note` : la porte de l'écran qui partage — un
+/// partage lancé depuis un aperçu de recette ne s'écrit pas (§ 13.8).
+/// ⭐ La vidéo est demandée dès que le bouton est à l'écran, pas au tap : elle
+/// est là quand la feuille s'ouvre (`ReferralStatusVideoStore`).
 struct ReferralShareButton: View {
   let status: ReferralStatus
   var origin: ReferralShareOrigin = .home
   var onAchieved: (() -> Void)?
 
   @Environment(\.referralNote) private var note
+  @State private var showsSheet = false
 
   var body: some View {
     ReferralPrimaryButton(label: Strings.BrowtherReferral.shareMyCode, systemImage: "square.and.arrow.up") {
       UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-      referralShareMyCode(status: status, origin: origin, note: note, onAchieved: onAchieved)
+      showsSheet = true
+    }
+    .onAppear { ReferralStatusVideoStore.warmUp() }
+    .sheet(isPresented: $showsSheet) {
+      ReferralShareSheet(
+        status: status,
+        origin: origin,
+        note: note,
+        onAchieved: onAchieved,
+        close: { showsSheet = false }
+      )
+      // ⚠️ En grand d'emblée : les deux vignettes et le bouton tiennent sans défiler.
+      .presentationDetents([.large])
+      .presentationDragIndicator(.visible)
     }
   }
 }
@@ -423,7 +383,6 @@ struct ReferralInviteTab: View {
 
         VStack(spacing: 8) {
           ReferralShareButton(status: status)
-          ReferralStatusShareButton(status: status)
           Text(Strings.BrowtherReferral.inviteFoot(ReferralProduct.validationTargetDays))
             .font(.footnote)
             .foregroundStyle(.secondary)

@@ -45,23 +45,27 @@ enum BrowtherWhatsNewCatalog {
       // ⚠️ Pas annoncé, bien qu'embarqué : la bascule Basarunaa sans
       // rechargement — la matrice la disait « à recetter » à l'heure de
       // l'archive du build 11 ; Karim a confirmé sa recette juste après.
+      // ⚠️ Pas annoncé non plus : la vidéo dans « Partager mon code »
+      // (2026-10-08, `private/docs/PARRAINAGE.md` § 11) — à recetter. La ligne
+      // sur la suppression cite « Mon compte », le libellé des Paramètres depuis
+      // ce même jour (plus « Compte dev&din »).
       id: "2026-10-08",
       date: "2026-10-08",
       lines: [
         "fr": [
-          "Il n’y avait aucun moyen de supprimer son compte dev&din depuis l’app. Paramètres › Compte dev&din le permet maintenant, avec un code de confirmation reçu par e-mail.",
+          "Il n’y avait aucun moyen de supprimer son compte dev&din depuis l’app. Paramètres › Mon compte le permet maintenant, avec un code de confirmation reçu par e-mail.",
           "Allumer ou éteindre Sawtunaa rechargeait la page. La bascule se fait maintenant sur place, et la vidéo reste où elle en était.",
           "Pour écouter un passage tel quel, il fallait éteindre Sawtunaa puis penser à le rallumer. « Réactiver automatiquement dans 5 min » le fait revenir tout seul.",
           "Sur l’écran Parrainage, la carte de ton code était rognée en haut et son logo disparaissait en thème clair. Elle s’affiche maintenant en entier.",
         ],
         "en": [
-          "There was no way to delete your dev&din account from the app. Settings › dev&din account now lets you do it, with a confirmation code sent by email.",
+          "There was no way to delete your dev&din account from the app. Settings › My account now lets you do it, with a confirmation code sent by email.",
           "Turning Sawtunaa on or off reloaded the page. It now switches in place, and the video stays where it was.",
           "To listen to a passage as it is, you had to turn Sawtunaa off and then remember to turn it back on. “Turn back on automatically in 5 min” now brings it back by itself.",
           "On the Referrals screen, the card with your code was cut off at the top and its logo vanished in light mode. It now shows in full.",
         ],
         "ar": [
-          "لم تكن هناك طريقة لحذف حسابك في dev&din من داخل التطبيق. صار ذلك ممكنًا الآن من الإعدادات › حساب dev&din، برمز تأكيد يصلك عبر البريد الإلكتروني.",
+          "لم تكن هناك طريقة لحذف حسابك في dev&din من داخل التطبيق. صار ذلك ممكنًا الآن من الإعدادات › حسابي، برمز تأكيد يصلك عبر البريد الإلكتروني.",
           "كان تشغيل Sawtunaa أو إيقافه يعيد تحميل الصفحة. صار التبديل يتم في مكانه، ويبقى الفيديو حيث كان.",
           "للاستماع إلى مقطع كما هو، كان عليك إيقاف Sawtunaa ثم تذكّر إعادة تشغيله. صار خيار «إعادة التفعيل تلقائيًا بعد 5 دقائق» يعيده من تلقاء نفسه.",
           "في شاشة التزكية، كانت بطاقة رمزك مقصوصة من الأعلى وكان شعارها يختفي في الوضع الفاتح. صارت تظهر كاملة.",

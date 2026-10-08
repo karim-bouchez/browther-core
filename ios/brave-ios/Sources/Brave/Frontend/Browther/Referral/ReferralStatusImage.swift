@@ -16,7 +16,7 @@ import UIKit
 /// surligneur · la carte B9 inclinée (−4°, +4° en arabe), ⛔ SANS lien ni
 /// « Copier » · l'étiquette « Clique sur le lien en dessous 👇 », droite,
 /// posée juste au-dessus de la légende — qui ne contient QUE le lien
-/// (`ReferralSharing.shareStatus` : l'image + le lien en texte).
+/// (`ReferralSharing.shareFile` : un fichier + le lien en texte).
 ///
 /// 🔴 WhatsApp pose la légende PAR-DESSUS le bas de l'image, et « N vues »
 /// dessous : ~250 px du bas sont couverts (recette iPhone Sawtunaa du

@@ -168,7 +168,7 @@ struct ReferralExtraCallout: View {
   }
 }
 
-/// ⭐ **« Compte dev&din » dans les Paramètres** (§ 7.1 du doc commun) : l'accès
+/// ⭐ **« Mon compte » dans les Paramètres** (§ 7.1 du doc commun) : l'accès
 /// permanent au compte facultatif, avec son état en clair — « Non connecté »,
 /// ou l'adresse. La ligne vit juste sous la carte du parrainage, et suit le
 /// compte EN DIRECT (une connexion faite depuis la page poussée se lit au

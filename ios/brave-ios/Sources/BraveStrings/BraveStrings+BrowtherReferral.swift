@@ -432,6 +432,57 @@ extension Strings {
     /// l'image dit « Clique sur le lien en dessous », vrai seulement là où le
     /// lien devient la légende (⛔ pas les stories Instagram / Facebook).
     public static var shareStatus: String { t("invite.shareStatus", "Post to my WhatsApp status") }
+
+    // MARK: La feuille « Partager mon code » : Statut WhatsApp, puis Message
+    //
+    // `private/docs/PARRAINAGE.md` § 11 (2026-10-08) — les mots de Fajrunaa
+    // (`referral.status.*`, `referral.share.*`), ⚠️ les mêmes d'un produit à
+    // l'autre : c'est le même système.
+
+    public static var statusTab: String { t("status.tab", "WhatsApp status") }
+    public static var statusPreviewA11y: String {
+      t("status.previewA11y", "Your status image, with your code, and the link as its caption")
+    }
+    public static var statusFailed: String {
+      t("status.failed", "The image couldn't be prepared. Try again, or share the message.")
+    }
+    public static var statusFailedVideo: String {
+      t("status.failedVideo", "The video couldn't be shared. Try again, or post your image alone.")
+    }
+    public static var statusVideoLabel: String { t("status.videoLabel", "The video") }
+    public static var statusVideoSub: String { t("status.videoSub", "It shows the app") }
+    public static var statusImageLabel: String { t("status.imageLabel", "Your image") }
+    public static var statusImageSub: String { t("status.imageSub", "It carries your code") }
+    public static var statusPublished: String { t("status.published", "Posted") }
+    public static var statusPublishBoth: String { t("status.publishBoth", "Post both statuses") }
+    public static var statusPublishVideo: String { t("status.publishVideo", "Post the video") }
+    public static var statusPublishImage: String { t("status.publishImage", "Post your image") }
+    public static var statusPublishVideoNext: String { t("status.publishVideoNext", "Post the video · 2 of 2") }
+    public static var statusPublishImageNext: String { t("status.publishImageNext", "Post your image · 2 of 2") }
+    public static var statusPickOne: String { t("status.pickOne", "Pick at least one status") }
+    public static var statusHintBoth: String {
+      t("status.hintBoth", "WhatsApp opens once per status: each one goes with your link.")
+    }
+    public static var statusHintOne: String { t("status.hintOne", "Tap the other card to post both.") }
+    public static var statusHintVideoDone: String {
+      t("status.hintVideoDone", "The video is posted. Your image is next.")
+    }
+    public static var statusHintImageDone: String {
+      t("status.hintImageDone", "Your image is posted. The video is next.")
+    }
+    public static var statusHintVideoDoneAuto: String {
+      t("status.hintVideoDoneAuto", "The video is posted. Your image follows in a moment.")
+    }
+    public static var statusHintImageDoneAuto: String {
+      t("status.hintImageDoneAuto", "Your image is posted. The video follows in a moment.")
+    }
+    public static var statusHintNone: String { t("status.hintNone", "Tap a card to bring it back.") }
+    public static var shareTabMessage: String { t("share.tabMessage", "Message") }
+    public static var shareAttachVideo: String { t("share.attachVideo", "Attach the video") }
+    public static var shareSend: String { t("share.send", "Send to someone") }
+    public static var sharePreviewA11y: String {
+      t("share.previewA11y", "Your message, as the person will receive it")
+    }
     public static var back: String { t("invite.back", "Back") }
     public static var backToApp: String { t("invite.closeAfterShare", "Back to the app") }
     public static func inviteFoot(_ days: Int) -> String {
@@ -649,7 +700,7 @@ extension Strings {
     }
     /// La vraie réponse à « j'ai payé ailleurs » : le compte dev&din.
     public static var billingElsewhere: String {
-      t("billing.elsewhere", "Paid on your computer? Connect your dev&din account")
+      t("billing.elsewhere", "Paid on your computer? Sign in")
     }
     public static var billingRestored: String { t("billing.restored", "Done: your subscription is back.") }
     public static var billingRestoreNone: String { t("billing.restoreNone", "Nothing to restore for now.") }
@@ -759,7 +810,7 @@ extension Strings {
     /// NOMME ce qu'il porte : code, invitations, mois gagnés, abonnement.
     /// ⚠️ « appareil », ⛔ pas « iPhone » : les textes du contrat sont les mêmes
     /// sur l'iPhone, l'ordinateur et Android.
-    public static var accountTitle: String { t("account.title", "dev&din account") }
+    public static var accountTitle: String { t("account.title", "My account") }
     public static var accountOff: String { t("account.off", "Not connected") }
     public static var accountOn: String { t("account.on", "Connected") }
     public static var accountManage: String { t("account.manage", "See my account") }
@@ -767,14 +818,26 @@ extension Strings {
     public static var accountBodyShelter: String {
       t(
         "account.bodyShelter",
-        "With a dev&din account, your code, your invitations, your earned months and your subscription follow you on your other devices, and if you change or lose one."
+        "With an account, your code, your invitations, your earned months and your subscription follow you on your other devices, and if you change or lose one."
       )
     }
     /// Qui arrive sur un appareil neuf : il n'a rien à mettre à l'abri, il RETROUVE.
     public static var accountBodyRecover: String {
       t(
         "account.bodyRecover",
-        "Already have a dev&din account? Connect it to get your code, your invitations, your earned months and your subscription back here."
+        "Already have an account? Sign in to get your code, your invitations, your earned months and your subscription back here."
+      )
+    }
+    /// ⭐ **dev&din se présente DANS la page du compte**, pas à ses portes
+    /// (Karim, 2026-10-08 : « les utilisateurs ne connaissent pas forcément la
+    /// marque, le studio ») : aux points d'entrée le compte s'appelle « Mon
+    /// compte » ; une fois entré, cette phrase dit ce qu'est le studio et
+    /// pourquoi le compte est le sien. ⚠️ Le nom reste sur « Supprimer mon
+    /// compte dev&din » : la suppression vaut pour toutes ses apps.
+    public static var accountAbout: String {
+      t(
+        "account.about",
+        "Browther is a browser by the dev&din studio. Your account is a dev&din account: it also works in its other apps."
       )
     }
     public static var accountOnly: String {
@@ -802,7 +865,7 @@ extension Strings {
     public static var accountHintInviteSub: String {
       t(
         "account.hint.invite.sub",
-        "Connect a dev&din account: your code and the invitations to come follow you if you change devices."
+        "Sign in: your code and the invitations to come follow you if you change devices."
       )
     }
     public static var accountHintInvitationsTitle: String {
@@ -811,7 +874,7 @@ extension Strings {
     public static var accountHintInvitationsSub: String {
       t(
         "account.hint.invitations.sub",
-        "Connect a dev&din account: your invitations and your earned months follow you if you change devices."
+        "Sign in: your invitations and your earned months follow you if you change devices."
       )
     }
     public static var accountHintRefereeTitle: String {
@@ -820,14 +883,14 @@ extension Strings {
     public static var accountHintRefereeSub: String {
       t(
         "account.hint.referee.sub",
-        "Connect a dev&din account: your free month and your progress follow you if you change devices."
+        "Sign in: your free month and your progress follow you if you change devices."
       )
     }
     public static var accountHintPaidTitle: String { t("account.hint.paid.title", "Keep your subscription safe") }
     public static var accountHintPaidSub: String {
       t(
         "account.hint.paid.sub",
-        "Connect a dev&din account: you get it back on your other devices, and if you change devices."
+        "Sign in: you get it back on your other devices, and if you change devices."
       )
     }
 
@@ -874,7 +937,7 @@ extension Strings {
       )
     }
     public static var accountDeleted: String { t("account.deleted", "Your dev&din account is deleted.") }
-    public static var accountConnect: String { t("account.connect", "Connect a dev&din account") }
+    public static var accountConnect: String { t("account.connect", "Sign in") }
     public static var accountWithApple: String { t("account.withApple", "Continue with Apple") }
     public static var accountWithGoogle: String { t("account.withGoogle", "Continue with Google") }
     public static var accountWithEmail: String { t("account.withEmail", "Continue with an email") }
@@ -893,14 +956,14 @@ extension Strings {
       t("account.unreachable", "We can't reach the sign-in service. Check your connection.")
     }
     public static var accountError: String { t("account.error", "The sign-in didn't go through.") }
-    public static var accountConnected: String { t("account.connected", "Connected to your dev&din account.") }
+    public static var accountConnected: String { t("account.connected", "You're signed in.") }
     /// « Masquer mon adresse » d'Apple : le relais est illisible, on dit par où
     /// se reconnecter (`ReferralAccountLabel`).
     public static var accountConnectedApple: String {
-      t("account.connectedApple", "Connected to your dev&din account, with Apple.")
+      t("account.connectedApple", "Signed in with Apple.")
     }
     public static func accountConnectedAs(_ email: String) -> String {
-      fill(t("account.connectedAs", "Connected to your dev&din account: {email}"), ["email": email])
+      fill(t("account.connectedAs", "Signed in with {email}"), ["email": email])
     }
     /// ⭐ Le message de connexion NOMME ce qui suit — et ne cite l'abonnement
     /// que s'il y en a un (`accountLinkedPaid`).
@@ -921,7 +984,7 @@ extension Strings {
     /// desktop, le bouton d'en-tête de son écran Parrainage) : traduits une
     /// fois, ils ne peuvent pas diverger de ce que la personne voit à l'écran.
     /// Depuis le 2026-10-07, le compte du desktop est dans l'EN-TÊTE
-    /// (« Compte dev&din »), plus dans une rubrique « Sur tes autres appareils ».
+    /// (« Mon compte »), plus dans une rubrique « Sur tes autres appareils ».
     public static var accountScanHint: String {
       fill(
         t("account.scanHint", "On your computer, in Browther: ⋯ menu › {menu} › {section}."),
@@ -937,7 +1000,7 @@ extension Strings {
       fill(t("account.linkConfirm", "Connect this iPhone to the account {email}?"), ["email": email])
     }
     public static var accountLinkConfirmGeneric: String {
-      t("account.linkConfirmGeneric", "Connect this iPhone to your dev&din account?")
+      t("account.linkConfirmGeneric", "Connect this iPhone to your account?")
     }
     public static var accountLinkCta: String { t("account.linkCta", "Connect") }
     public static var accountApproveTitle: String {
@@ -953,7 +1016,7 @@ extension Strings {
     public static var accountSignInFirst: String {
       t(
         "account.signInFirst",
-        "First connect this iPhone to your dev&din account: the computer will be allowed right after."
+        "First sign in on this iPhone: the computer will be allowed right after."
       )
     }
     public static var accountExpired: String { t("account.expired", "The code has expired.") }
@@ -994,8 +1057,17 @@ extension Strings {
       public let cardOmni: String
       public let cardGift: String
       public let tag: String
+      /// « Mon code : {code} » — la ligne du message envoyé à un proche (onglet
+      /// « Message »). ⚠️ Ici et pas dans la table traduite : elle suit le texte
+      /// de l'image, donc SA langue (fr, en, ar) — un message ne mélange pas deux
+      /// langues.
+      public let codeLine: String
 
       public var isRTL: Bool { language == "ar" }
+
+      public func codeLine(code: String) -> String {
+        BrowtherReferral.fill(codeLine, ["code": code])
+      }
 
       /// Les textes dans la langue servie à l'écran (fr, en ou ar ; sinon l'anglais).
       public static func current(lifetimeAt: Int) -> StatusImage {
@@ -1019,7 +1091,8 @@ extension Strings {
             cardTab: "Parrainage",
             cardOmni: "Musique coupée · images floutées",
             cardGift: "1\u{00A0}mois de bonus",
-            tag: "Un projet"
+            tag: "Un projet",
+            codeLine: "Mon code : {code}"
           )
         case "ar":
           return StatusImage(
@@ -1034,7 +1107,8 @@ extension Strings {
             cardTab: "التزكية",
             cardOmni: "الموسيقى مقطوعة · الصور مموّهة",
             cardGift: "شهر من الميزات",
-            tag: "مشروع من"
+            tag: "مشروع من",
+            codeLine: "رمزي: {code}"
           )
         default:
           return StatusImage(
@@ -1049,7 +1123,8 @@ extension Strings {
             cardTab: "Referrals",
             cardOmni: "Music off · images blurred",
             cardGift: "1\u{00A0}month of bonus",
-            tag: "A project by"
+            tag: "A project by",
+            codeLine: "My code: {code}"
           )
         }
       }

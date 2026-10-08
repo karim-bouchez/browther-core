@@ -17,15 +17,26 @@ import UIKit
 ///
 /// ## Où il se trouve — ⛔ jamais derrière un défilement
 ///
-/// - **L'en-tête de l'écran Parrainage** : un bouclier en face du retour, sur
-///   TOUS les onglets — gris, puis vert et coché une fois connecté
+/// - **L'en-tête de l'écran Parrainage** : une personne en face du retour, sur
+///   TOUS les onglets — grise, puis verte et cochée une fois connecté
 ///   (`ReferralHomeHostingController`). C'est par là qu'on voit avec quel
 ///   compte on est connecté, qu'on se déconnecte, qu'on supprime, et qu'on
 ///   RETROUVE un compte sur un iPhone neuf, où l'on n'a rien en jeu par
 ///   définition.
-/// - **Les Paramètres** : la ligne « Compte dev&din », avec son état en clair
-///   (`ReferralAccountSettingsRow`) — c'est elle qui porte le libellé que le
-///   bouclier n'a pas.
+/// - **Les Paramètres** : la ligne « Mon compte », avec son état en clair
+///   (`ReferralAccountSettingsRow`) — c'est elle qui porte le libellé que
+///   l'icône de l'en-tête n'a pas.
+///
+/// ## Comment il se NOMME (Karim, 2026-10-08 — `private/docs/PARRAINAGE.md` § 11.5)
+///
+/// ⭐ **« Mon compte » aux points d'entrée** (Réglages, titre de la page, rangées
+/// « Mets ton code à l'abri », lien de l'écran de paiement), et on dit
+/// « Connecte-toi ». ⛔ Pas « Compte dev&din » : qui ne connaît pas le studio ne
+/// sait pas de quoi on lui parle. **dev&din se présente DANS la page**, une fois
+/// entré (`accountAbout`, et la signature « Un projet dev&din »). Le nom reste
+/// sur « Supprimer mon compte dev&din » : la suppression vaut pour toutes ses
+/// apps. L'icône d'ENTRÉE est une personne ; le bouclier reste là où les mots
+/// disent « à l'abri ».
 /// - ⛔ Plus de bloc « Sur tes autres appareils » en bas de l'onglet « Inviter »
 ///   (Karim, 2026-10-07, sur Fajrunaa : c'est l'onglet le plus chargé, il
 ///   fallait défiler pour y arriver — « de base, on ne le voit pas »).
@@ -130,6 +141,15 @@ struct ReferralAccountPage: View {
           .font(.footnote)
           .foregroundStyle(Color.secondary)
           .fixedSize(horizontal: false, vertical: true)
+        // ⭐ dev&din se présente ICI, dans la page — pas à ses portes.
+        VStack(alignment: .leading, spacing: 12) {
+          Text(Strings.BrowtherReferral.accountAbout)
+            .font(.footnote)
+            .foregroundStyle(Color.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+          ReferralStudioSignature()
+        }
+        .padding(.top, 6)
       }
       .padding(20)
       .frame(maxWidth: 560, alignment: .leading)
@@ -587,15 +607,15 @@ struct ReferralAccountHint: View {
 
 // MARK: - La ligne des Paramètres
 
-/// « Compte dev&din », avec son état en clair : « Non connecté », ou l'adresse.
-/// C'est là qu'on cherche un compte, et c'est elle qui porte le libellé que le
-/// bouclier de l'écran Parrainage n'a pas.
+/// « Mon compte », avec son état en clair : « Non connecté », ou l'adresse.
+/// C'est là qu'on cherche un compte, et c'est elle qui porte le libellé que
+/// l'icône de l'écran Parrainage n'a pas. ⭐ Une personne, ⛔ pas un bouclier.
 struct ReferralAccountSettingsRow: View {
   @ObservedObject private var controller = BrowtherReferralController.shared
 
   var body: some View {
     HStack(spacing: 12) {
-      Image(systemName: controller.account == nil ? "shield" : "checkmark.shield.fill")
+      Image(systemName: controller.account == nil ? "person.crop.circle" : "person.crop.circle.badge.checkmark")
         .font(.system(size: 20))
         .foregroundStyle(controller.account == nil ? Color.secondary : ReferralPalette.green)
         .frame(width: 32)
@@ -623,6 +643,40 @@ struct ReferralAccountSettingsRow: View {
     guard let account = controller.account else { return Strings.BrowtherReferral.accountOff }
     if case .email(let email) = ReferralAccountLabel(account) { return email }
     return Strings.BrowtherReferral.accountOn
+  }
+}
+
+/// La signature de l'éditeur dans la page du compte : « Un projet dev&din ↗ »
+/// (`docs/SURFACES-COMMUNES.md` § 6) — le pendant SwiftUI de
+/// `BrowtherSignatureFooterView` (pied des Réglages) : la bordure porte
+/// l'affordance, le logo garde l'orange de dev&din, ⛔ aucun évènement.
+struct ReferralStudioSignature: View {
+  var body: some View {
+    Button {
+      guard let url = URL(string: "https://devndin.com") else { return }
+      UIApplication.shared.open(url)
+    } label: {
+      HStack(spacing: 5) {
+        Text(Strings.Browther.signatureLabel)
+          .font(.footnote)
+          .foregroundStyle(Color.secondary)
+        Image("browther-devndin-logo", bundle: .module)
+          .resizable()
+          .scaledToFit()
+          // Ratio du viewBox source (1262 × 565) ; la hauteur suit les minuscules.
+          .frame(width: 15 * 2.2331, height: 15)
+        Image(systemName: "arrow.up.right")
+          .font(.system(size: 10, weight: .semibold))
+          .foregroundStyle(Color.secondary)
+      }
+      .padding(.horizontal, 14)
+      .padding(.vertical, 6)
+      .overlay(Capsule().strokeBorder(Color(UIColor.tertiaryLabel), lineWidth: 1))
+      .contentShape(Capsule())
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel("\(Strings.Browther.signatureLabel) dev&din")
+    .accessibilityAddTraits(.isLink)
   }
 }
 
@@ -792,7 +846,7 @@ struct ReferralLinkFlowSheet: View {
       if outcome == .connected {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         dismiss()
-        BrowtherReferralToast.show(title: done ?? ReferralSignInSheet.linkedMessage(), persistent: false, duration: 6)
+        BrowtherReferralToast.showAfterClosing(title: done ?? ReferralSignInSheet.linkedMessage(), persistent: false, duration: 6)
       } else if outcome != .cancelled {
         step = .problem(message(outcome))
       }
@@ -1065,7 +1119,7 @@ struct ReferralSignInSheet: View {
       case .connected:
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         dismiss()
-        BrowtherReferralToast.show(title: Self.linkedMessage(), persistent: false, duration: 6)
+        BrowtherReferralToast.showAfterClosing(title: Self.linkedMessage(), persistent: false, duration: 6)
       case .cancelled:
         break
       case .badCode:

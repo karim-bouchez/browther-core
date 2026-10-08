@@ -370,11 +370,10 @@ struct ReferralFlowView: View {
         .fixedSize(horizontal: false, vertical: true)
     } footer: {
       if let status = controller.known {
+        // ⭐ Le même bouton et la même feuille que sur l'écran Parrainage
+        // (Karim, 2026-10-08) : le statut WhatsApp d'abord, la vidéo comprise.
         ReferralShareButton(status: status, origin: .invite) {
           // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16).
-          model.replaceTop(.invite(shared: true))
-        }
-        ReferralStatusShareButton(status: status, origin: .invite) {
           model.replaceTop(.invite(shared: true))
         }
       }

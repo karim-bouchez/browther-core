@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import BraveStrings
+import BrowtherReferral
 import SwiftUI
 import UIKit
 
@@ -28,6 +29,9 @@ import UIKit
 /// - La garde a son bouton « Soutenir dev&din » bien visible (§ 12.20), et
 ///   s'efface après ~10 s (§ 12.9 : le temps de se lire).
 /// - Un seul toast à la fois (§ 12.16).
+/// - ⭐ **En bas ; en haut dès qu'une feuille ou une fenêtre du parrainage est
+///   ouverte** (`ReferralToastPlacement`, 2026-10-08) : leur bouton est en bas,
+///   un toast l'aurait recouvert.
 @MainActor
 enum BrowtherReferralToast {
   private static var window: PassthroughWindow?
@@ -47,7 +51,10 @@ enum BrowtherReferralToast {
     else { return }
     hide(animated: false)
 
-    let model = ToastModel(title: title, body: body, actionLabel: action?.label)
+    let placement = ReferralToastPlacement.resolve(
+      sheetOrFlowOpen: BrowtherReferralPresenter.sheetOrFlowIsOpen()
+    )
+    let model = ToastModel(title: title, body: body, actionLabel: action?.label, placement: placement)
     model.onAction = {
       hide(animated: true)
       action?.run()
@@ -71,6 +78,20 @@ enum BrowtherReferralToast {
     let work = DispatchWorkItem { hide(animated: true) }
     dismissWork = work
     DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: work)
+  }
+
+  /// Le même toast, pour ce qui se dit AU MOMENT où une feuille SwiftUI se
+  /// referme (« C'est fait » après la connexion). ⚠️ `dismiss()` ne ferme rien
+  /// sur-le-champ : posé tout de suite, le toast verrait la feuille encore
+  /// ouverte et monterait — puis resterait en haut, sur le bouton retour et le
+  /// titre de la page du compte : exactement le défaut relevé par Karim sur
+  /// Fajrunaa (2026-10-08). Un instant plus tard la feuille est en train de
+  /// partir, et c'est l'écran qui RESTE qui décide
+  /// (`BrowtherReferralPresenter.sheetOrFlowIsOpen`).
+  static func showAfterClosing(title: String, persistent: Bool, duration: TimeInterval = 10) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+      show(title: title, persistent: persistent, duration: duration)
+    }
   }
 
   static func hide(animated: Bool) {
@@ -113,6 +134,7 @@ final class ToastModel: ObservableObject {
   let title: String
   let body: String?
   let actionLabel: String?
+  let placement: ReferralToastPlacement
   @Published var visible = false
   /// Le cadre de la carte, en coordonnées d'écran — c'est LUI qui capte les
   /// touchers (`PassthroughWindow`), pas la vue SwiftUI.
@@ -120,10 +142,11 @@ final class ToastModel: ObservableObject {
   var onAction: (() -> Void)?
   var onClose: (() -> Void)?
 
-  init(title: String, body: String?, actionLabel: String?) {
+  init(title: String, body: String?, actionLabel: String?, placement: ReferralToastPlacement = .bottom) {
     self.title = title
     self.body = body
     self.actionLabel = actionLabel
+    self.placement = placement
   }
 }
 
@@ -132,17 +155,21 @@ struct ReferralToastView: View {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
   var body: some View {
-    VStack {
-      Spacer()
+    let top = model.placement == .top
+    return VStack {
+      if !top { Spacer() }
       if model.visible {
         card
           .transition(
-            reduceMotion ? .opacity : .move(edge: .bottom).combined(with: .opacity)
+            reduceMotion ? .opacity : .move(edge: top ? .top : .bottom).combined(with: .opacity)
           )
       }
+      if top { Spacer() }
     }
     .padding(.horizontal, 12)
-    .padding(.bottom, 64)
+    // En bas : au-dessus de la barre d'outils du navigateur. En haut : sous
+    // l'encoche (la zone sûre fait le reste).
+    .padding(top ? .top : .bottom, top ? 8 : 64)
     .animation(.spring(duration: 0.35, bounce: 0.15), value: model.visible)
   }
 

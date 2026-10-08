@@ -222,6 +222,43 @@ enum BrowtherReferralPresenter {
     }
     return top
   }
+
+  /// Une feuille ou une fenêtre du parrainage est-elle posée par-dessus l'écran ?
+  /// — ce qui fait passer un toast en haut (`ReferralToastPlacement`).
+  ///
+  /// ⚠️ Une feuille SwiftUI (« Partager mon code », la connexion, le scanner)
+  /// n'a pas de type à elle : c'est celle qui est posée sur un écran du
+  /// parrainage. On descend donc la pile des présentations jusqu'au premier
+  /// écran à en-tête (une navigation) ; ⛔ ce qui est posé sur AUTRE chose que
+  /// le parrainage ne déplace rien.
+  @MainActor
+  static func sheetOrFlowIsOpen() -> Bool {
+    guard var current = topController() else { return false }
+    // ⚠️ Un toast naît souvent AU MOMENT où une fenêtre se ferme (0 bis suit
+    // l'annonce, « C'est fait » suit la connexion) : celle qui s'en va ne
+    // compte pas — c'est l'écran qui RESTE qui décide.
+    while current.isBeingDismissed, let below = current.presentingViewController {
+      current = below
+    }
+    if isFlowOrSheet(current) { return true }
+    if current is UINavigationController { return false }
+    while let below = current.presentingViewController {
+      if isReferralScreen(below) { return true }
+      if below is UINavigationController { return false }
+      current = below
+    }
+    return false
+  }
+
+  private static func isFlowOrSheet(_ controller: UIViewController) -> Bool {
+    controller is ReferralFlowHostingController || controller is ReferralSheetHostingController
+  }
+
+  private static func isReferralScreen(_ controller: UIViewController) -> Bool {
+    if isFlowOrSheet(controller) { return true }
+    let shown = (controller as? UINavigationController)?.topViewController ?? controller
+    return shown is ReferralHomeHostingController || shown is ReferralAccountHostingController
+  }
 }
 
 // MARK: - La pile plein écran (O, 0, 2, 2b, et 4 par-dessus 2b)
@@ -417,7 +454,7 @@ final class ReferralHomeHostingController: UIHostingController<ReferralHomeView>
     title = Strings.BrowtherReferral.homeTitle
     // ⚠️ La croix passe à GAUCHE (2026-10-07) : la droite est au compte, « en
     // face du retour » — qu'on arrive par les Paramètres (retour) ou par une
-    // fenêtre (croix), le bouclier est au même endroit.
+    // fenêtre (croix), l'entrée du compte est au même endroit.
     if showsClose {
       navigationItem.leftBarButtonItem = UIBarButtonItem(
         systemItem: .close,
@@ -426,9 +463,9 @@ final class ReferralHomeHostingController: UIHostingController<ReferralHomeView>
         }
       )
     }
-    // ⭐ **L'accès PERMANENT au compte dev&din** (§ 7.1 du doc commun) : jamais
-    // derrière un défilement — dans l'en-tête, donc sur TOUS les onglets. Gris
-    // tant que personne n'est connecté, vert et coché ensuite. C'est par là
+    // ⭐ **L'accès PERMANENT au compte** (§ 7.1 du doc commun) : jamais
+    // derrière un défilement — dans l'en-tête, donc sur TOUS les onglets. Une
+    // personne, grise tant que personne n'est connecté, verte et cochée ensuite. C'est par là
     // qu'on voit avec quel compte on est connecté, qu'on se déconnecte, qu'on
     // supprime, et qu'on RETROUVE un compte sur un iPhone neuf.
     // ⚠️ `@Published` émet AVANT d'écrire : on lit la valeur reçue, ⛔ pas
@@ -443,7 +480,10 @@ final class ReferralHomeHostingController: UIHostingController<ReferralHomeView>
 
   private func showAccountButton(connected: Bool) {
     let button = UIBarButtonItem(
-      image: UIImage(systemName: connected ? "checkmark.shield.fill" : "shield"),
+      // ⭐ Une personne, ⛔ pas un bouclier (Karim, 2026-10-08) : seul dans un
+      // en-tête, le bouclier ne se lisait pas comme « se connecter ». Il reste
+      // là où les mots disent « à l'abri » (les rangées, le haut de la page).
+      image: UIImage(systemName: connected ? "person.crop.circle.badge.checkmark" : "person.crop.circle"),
       primaryAction: UIAction { _ in
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         BrowtherReferralPresenter.openAccount(from: .home, note: ReferralNote())
@@ -522,28 +562,26 @@ enum ReferralSharing {
     host.present(sheet, animated: true)
   }
 
-  /// ⭐ **Le statut WhatsApp** (2026-09-29, `devndin/docs/PARRAINAGE-partage-statut.md`) :
-  /// l'image du statut (`ReferralStatusImage`, dans la langue de l'app : fr,
-  /// en ou ar, sinon l'anglais) **+ le lien SEUL en texte** — WhatsApp en fait
-  /// la légende, juste sous l'étiquette « Clique sur le lien en dessous 👇 ».
-  /// ⛔ Pas le message : il doublerait le texte déjà DANS l'image.
-  /// Le seuil de l'accès à vie vient du barème du service (`lifetimeAt`).
+  /// ⭐ **UN envoi : un fichier et un texte** (2026-10-08, `private/docs/PARRAINAGE.md`
+  /// § 11) — la vidéo de présentation ou l'image du statut, avec le lien SEUL
+  /// (statut WhatsApp : il devient la légende, juste sous l'étiquette « Clique
+  /// sur le lien en dessous 👇 ») ou le message à un proche. ⛔ Jamais deux
+  /// fichiers dans le même envoi : WhatsApp ne donne le texte qu'au premier.
+  ///
+  /// ⚠️ **Le texte d'abord, puis l'adresse du FICHIER** : c'est exactement ce
+  /// que Fajrunaa envoie (`Share.share({ url, message })` de React Native), et
+  /// ce que Karim a recetté sur iPhone le 2026-10-08. ⛔ Ne pas repasser à une
+  /// `UIImage` : c'est un fichier que WhatsApp légende.
+  /// ⛔ Pas de sujet (§ 12.10).
   @MainActor
-  static func shareStatus(
-    status: ReferralStatus,
+  static func shareFile(
+    _ file: URL,
+    text: String,
     from host: UIViewController,
     sourceView: UIView? = nil,
     completion: @escaping (ReferralShareResult) -> Void
   ) {
-    let code = status.referral.code.uppercased()
-    let texts = Strings.BrowtherReferral.StatusImage.current(
-      lifetimeAt: MilestoneScale(status: status).lifetimeAt
-    )
-    let image = ReferralStatusImage.render(code: code, texts: texts)
-    // Réencodée en JPEG : ~300 Ko au lieu de plusieurs Mo en PNG.
-    let payload = image.jpegData(compressionQuality: 0.92).flatMap(UIImage.init(data:)) ?? image
-    let link = ReferralShare.link(code: code, url: status.referral.url)
-    let sheet = UIActivityViewController(activityItems: [payload, link], applicationActivities: nil)
+    let sheet = UIActivityViewController(activityItems: [text, file], applicationActivities: nil)
     sheet.completionWithItemsHandler = { activity, completed, _, _ in
       if !completed {
         completion(.cancelled)
@@ -558,5 +596,31 @@ enum ReferralSharing {
       popover.sourceRect = (sourceView ?? host.view).bounds
     }
     host.present(sheet, animated: true)
+  }
+
+  /// L'image du statut (`ReferralStatusImage`) écrite en JPEG, sous un nom qui
+  /// porte le code — ~300 Ko au lieu de plusieurs Mo en PNG. `nil` si l'écriture
+  /// échoue : le message texte d'avant part alors seul.
+  static func statusImageFile(_ image: UIImage, code: String) -> URL? {
+    guard let data = image.jpegData(compressionQuality: 0.92) else { return nil }
+    let folder = FileManager.default.temporaryDirectory.appendingPathComponent("browther-referral", isDirectory: true)
+    try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+    let file = folder.appendingPathComponent("browther-\(code.lowercased()).jpg")
+    do {
+      try data.write(to: file, options: .atomic)
+      return file
+    } catch {
+      return nil
+    }
+  }
+
+  /// Les propriétés d'un `referral_shared` : `media` dit le fichier joint
+  /// (`video` | `image`), ⛔ absent si le texte est parti seul. ⚠️ Un évènement
+  /// par ENVOI : qui publie les deux statuts en émet deux — compter des
+  /// personnes, pas des lignes.
+  static func properties(_ base: [String: Any], media: ReferralStatusSegment?) -> [String: Any] {
+    var properties = base
+    if let media { properties["media"] = media.rawValue }
+    return properties
   }
 }
