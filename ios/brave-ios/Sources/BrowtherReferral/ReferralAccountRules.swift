@@ -36,9 +36,62 @@ public struct ReferralAuthReply: Sendable {
     (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
   }
 
+  /// Le corps tel quel, `null` compris (`NSNull`) ; `nil` = ce n'était pas du
+  /// JSON (la page d'erreur d'un intermédiaire) : ⛔ ne rien en conclure.
+  var fragment: Any? {
+    try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed])
+  }
+
   static func appNames(_ raw: Any?) -> [String] {
     guard let apps = raw as? [Any] else { return [] }
     return apps.compactMap { ($0 as? [String: Any])?["name"] as? String }.filter { !$0.isEmpty }
+  }
+}
+
+/// La session tient-elle toujours ? — `GET /api/auth/get-session`.
+///
+/// 🔴 **Depuis que le compte peut être SUPPRIMÉ, la question est réelle** : un
+/// compte supprimé (ou une session révoquée) depuis un autre appareil laissait
+/// celui-ci « connecté » à un compte qui n'existe plus, sur un sujet que le
+/// service lui recréait vide — au lieu de le rendre à son sujet d'appareil, qui
+/// porte sa copie de la couverture.
+///
+/// - `gone` : l'auth-service a RÉPONDU que la session n'existe plus (`401`, ou
+///   `200` + `null` — c'est ainsi que Better Auth dit « pas de session ») ;
+/// - `unknown` : on ne sait pas (injoignable, erreur, page HTML servie en 200
+///   par un intermédiaire). ⛔ **On ne déconnecte JAMAIS quelqu'un sur un « on
+///   ne sait pas »** (§ 7.1, « Le sens de la panne »).
+///
+/// Jumeau de `checkSession` dans `fajrunaa/services/referral/account.ts`.
+public enum ReferralSessionCheck: Equatable, Sendable {
+  case alive(ReferralAccount)
+  case gone
+  case unknown
+
+  public init(reply: ReferralAuthReply?) {
+    guard let reply else {
+      self = .unknown
+      return
+    }
+    if reply.status == 401 {
+      self = .gone
+      return
+    }
+    guard reply.status == 200, let body = reply.fragment else {
+      self = .unknown
+      return
+    }
+    if body is NSNull {
+      self = .gone
+      return
+    }
+    if let user = (body as? [String: Any])?["user"] as? [String: Any],
+      let id = user["id"] as? String, !id.isEmpty
+    {
+      self = .alive(ReferralAccount(userId: id, email: user["email"] as? String, name: user["name"] as? String))
+      return
+    }
+    self = .unknown
   }
 }
 

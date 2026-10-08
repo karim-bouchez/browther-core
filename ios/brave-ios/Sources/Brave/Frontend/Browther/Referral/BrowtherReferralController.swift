@@ -207,6 +207,7 @@ final class BrowtherReferralController: ObservableObject {
     }
     Task { await register() }
     Task { await startBilling(subject) }
+    Task { await verifyAccountSession() }
   }
 
   /// Le sujet change (démarrage, connexion, déconnexion) : un client neuf, le
@@ -354,6 +355,9 @@ final class BrowtherReferralController: ObservableObject {
     }
     if let lastRefresh, Date().timeIntervalSince(lastRefresh) < Self.refreshEvery { return }
     Task { await refresh() }
+    // Un navigateur reste ouvert des jours : la session se revérifie au même
+    // rythme que le statut, ⛔ pas seulement au lancement.
+    Task { await verifyAccountSession() }
   }
 
   private func adopt(_ next: ReferralStatus) {
@@ -580,6 +584,38 @@ final class BrowtherReferralController: ObservableObject {
     useSubject(deviceRef)
     await register()
     await followSubjectInStore()
+  }
+
+  /// 🔴 **La session existe-t-elle encore ?** Révoquée, ou compte SUPPRIMÉ
+  /// depuis un autre appareil ⇒ retour au sujet d'appareil, en silence (il
+  /// garde sa copie de la couverture). Sans cette vérification, l'iPhone
+  /// restait « connecté » à un compte qui n'existe plus, sur un sujet que le
+  /// service lui recréait vide (`ReferralSessionCheck`).
+  ///
+  /// ⛔ **On ne déconnecte jamais sur un « on ne sait pas »** : un service
+  /// injoignable, une erreur, un trousseau illisible à cet instant (pas de
+  /// jeton à présenter) ne changent RIEN.
+  private func verifyAccountSession() async {
+    guard let current = account, storage.recetteSubject == nil,
+      let stored = ReferralAccountStore.load(), stored.account.userId == current.userId
+    else { return }
+    let check = await auth.checkSession(token: stored.token)
+    // Le compte a pu changer pendant l'appel (déconnexion, autre connexion).
+    guard account?.userId == current.userId else { return }
+    switch check {
+    case .gone:
+      forgetAccount()
+      track("account_session_gone", [:])
+      await backToDevice()
+    case .alive(let fresh):
+      // L'adresse a pu changer côté compte : l'écran dit la vraie.
+      if fresh.userId == current.userId, fresh.email != current.email {
+        ReferralAccountStore.save(fresh, token: stored.token)
+        account = fresh
+      }
+    case .unknown:
+      break
+    }
   }
 
   // MARK: Supprimer le compte (Apple 5.1.1(v) — § 7.1 du doc commun)

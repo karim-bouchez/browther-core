@@ -225,6 +225,13 @@ public final class ReferralAuthClient: @unchecked Sendable {
     return ReferralAccount(userId: id, email: user["email"] as? String, name: user["name"] as? String)
   }
 
+  /// La session tient-elle toujours ? `.gone` = l'auth-service a RÉPONDU qu'elle
+  /// n'existe plus ; `.unknown` = on ne sait pas, et ⛔ on ne déconnecte jamais
+  /// là-dessus (`ReferralSessionCheck`).
+  public func checkSession(token: String) async -> ReferralSessionCheck {
+    ReferralSessionCheck(reply: await reply("GET", "/api/auth/get-session", nil, token: token))
+  }
+
   /// Révoque la session côté serveur — ⛔ sans jamais bloquer la déconnexion.
   public func signOut(token: String) async {
     _ = try? await send("POST", Self.authURL, "/api/auth/sign-out", [:], token: token)

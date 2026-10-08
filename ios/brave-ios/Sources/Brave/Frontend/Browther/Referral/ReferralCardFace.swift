@@ -23,13 +23,37 @@ struct ReferralCardArt {
     ReferralCardArt(
       icon: UIImage(named: "browther.app.icon", in: .module, with: nil) ?? UIImage(),
       wordmark: UIImage(named: "browther.wordmark.white", in: .module, with: nil) ?? UIImage(),
-      devndin: UIImage(
-        named: "browther-devndin-logo",
-        in: .module,
-        compatibleWith: UITraitCollection(userInterfaceStyle: .dark)
-      ) ?? UIImage()
+      devndin: fixed("browther-devndin-logo", style: .dark)
     )
   }()
+
+  /// Une image du catalogue FIGÉE dans une apparence.
+  ///
+  /// 🔴 **Demander la variante sombre ne suffit pas** : l'image rendue par
+  /// `UIImage(named:in:compatibleWith:)` reste liée au catalogue, et se
+  /// re-résout selon le thème du TÉLÉPHONE au moment d'être dessinée. Sur la
+  /// carte (sombre dans les deux thèmes), le logo dev&din sortait donc foncé
+  /// sur fond noir dès que l'iPhone était en clair (recette Karim,
+  /// 2026-10-08). On la redessine une fois, dans l'apparence voulue : le
+  /// résultat est une image ordinaire, qui ne change plus.
+  /// ⚠️ Grande exprès (le PDF garde son vecteur) : l'image du statut agrandit
+  /// la carte.
+  static func fixed(_ name: String, style: UIUserInterfaceStyle, height: CGFloat = 64) -> UIImage {
+    let traits = UITraitCollection(userInterfaceStyle: style)
+    guard let source = UIImage(named: name, in: .module, compatibleWith: traits),
+      source.size.height > 0
+    else { return UIImage() }
+    let resolved = source.imageAsset?.image(with: traits) ?? source
+    let size = CGSize(width: (height * resolved.size.width / resolved.size.height).rounded(.up), height: height)
+    let format = UIGraphicsImageRendererFormat()
+    format.opaque = false
+    format.scale = 3
+    return UIGraphicsImageRenderer(size: size, format: format).image { _ in
+      traits.performAsCurrent {
+        resolved.draw(in: CGRect(origin: .zero, size: size))
+      }
+    }
+  }
 }
 
 /// ⭐ **Une carte par produit** (`devndin/docs/PARRAINAGE-partage-statut.md` § 2) —
@@ -98,6 +122,12 @@ struct ReferralCardFace: View {
         .frame(width: 110, height: 320)
         .rotationEffect(.degrees(18))
         .offset(x: shine * 594 - 66, y: -56)
+        // 🔴 Le reflet est PLUS HAUT que la carte (320 contre 208) : sans ce
+        // cadre il agrandissait la pile, que le cadre de la carte recentrait
+        // ensuite — tout le contenu remontait de 56 points, onglets et barre
+        // d'adresse rognés par le haut (recette Karim, 2026-10-08). Il
+        // déborde désormais de SON cadre, pas de la mise en page.
+        .frame(width: Self.size.width, height: Self.size.height, alignment: .topLeading)
         .allowsHitTesting(false)
       }
       content
