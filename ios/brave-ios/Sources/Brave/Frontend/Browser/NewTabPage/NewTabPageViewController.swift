@@ -279,7 +279,13 @@ class NewTabPageViewController: UIViewController {
         )
       }
       if betaNoticeProvider.shouldShowNotice() {
-        sections.insert(betaNoticeProvider, at: 0)
+        // « Ce qui a changé » partage cette section mais va en dernier, sous la
+        // pub et les favoris : haut de plusieurs lignes, il les repoussait
+        // sous le pli.
+        switch betaNoticeProvider.placement {
+        case .top: sections.insert(betaNoticeProvider, at: 0)
+        case .bottom: sections.append(betaNoticeProvider)
+        }
       }
     }
 

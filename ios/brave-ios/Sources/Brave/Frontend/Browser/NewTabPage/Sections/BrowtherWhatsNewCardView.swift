@@ -11,9 +11,9 @@ import SnapKit
 import UIKit
 
 /// Encart « Ce qui a changé » du Nouvel Onglet (`docs/SURFACES-COMMUNES.md`
-/// §3.6). Il occupe l'emplacement du bandeau « accès anticipé » — même
-/// matière, même ambre — et le remplace pour la version qui l'apporte (cf.
-/// `BrowtherBetaNoticeSectionProvider`).
+/// §3.6). Même matière et même ambre que le bandeau « accès anticipé », qu'il
+/// remplace pour la version qui l'apporte — mais tout en bas de la page, sous
+/// la pub et les favoris (cf. `BrowtherBetaNoticeSectionProvider`).
 ///
 /// Ce qu'il montre, et rien d'autre : la date de diffusion en surtitre, le
 /// titre, les lignes, « J'ai compris ». ⛔ Pas de numéro de version, pas d'intro
@@ -83,7 +83,11 @@ final class BrowtherWhatsNewCardView: UIView {
     layer.cornerCurve = .continuous
     layer.borderWidth = 1
     layer.borderColor = Self.accent.withAlphaComponent(0.32).cgColor
-    backgroundColor = UIColor(white: 0, alpha: 0.35)
+    let backdropView = BrowtherNoticeBackdropView()
+    addSubview(backdropView)
+    backdropView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
 
     // Tout en VERTICAL, comme le bandeau d'accès anticipé : un stack
     // horizontal ne sait pas passer à la ligne (le défaut du 2026-08-28, où le

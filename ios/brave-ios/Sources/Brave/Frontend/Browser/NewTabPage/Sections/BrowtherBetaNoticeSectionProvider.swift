@@ -33,8 +33,35 @@ import UIKit
 /// LA PLACE du bandeau, et le bandeau de cette version est considéré comme vu :
 /// un seul encart par mise à jour, jamais deux à fermer à la suite. Une version
 /// sans lignes, ou un nouvel arrivant, retrouve le bandeau comme avant.
+///
+/// ## Mais pas au même endroit (2026-10-10)
+///
+/// Le bandeau reste tout en haut : il est court. « Ce qui a changé », lui, va
+/// TOUT EN BAS, sous la pub et les favoris (`Placement`). Avec quatre lignes il
+/// fait 370 pt de haut : en tête, il repoussait les favoris sous le pli sur un
+/// iPhone 13 et la pub avec eux sur un écran plus petit — or la pub doit rester
+/// visible, et un encart qui n'a rien à demander n'a pas à déplacer ce que la
+/// personne vient chercher (retour Karim, 2026-10-10).
 class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider {
   var sectionDidChange: (() -> Void)?
+
+  /// Où la section s'insère dans le Nouvel Onglet (`NewTabPageViewController`).
+  enum Placement {
+    /// En tête, avant les stats : le bandeau « accès anticipé ».
+    case top
+    /// En dernier, sous la pub et les favoris : « Ce qui a changé ».
+    case bottom
+  }
+
+  /// Figée à la création, d'après ce qui est dû à ce moment-là : les sections
+  /// d'un Nouvel Onglet ne changent plus de rang une fois posées. `content` ne
+  /// rend ensuite que ce qui va à cette place.
+  let placement: Placement
+
+  override init() {
+    placement = Self.dueContent?.placement ?? .top
+    super.init()
+  }
 
   /// Ouvre une URL de canal (WhatsApp / Telegram) dans un nouvel onglet.
   var onChannelTapped: ((URL) -> Void)?
@@ -54,9 +81,17 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
   private enum Content {
     case whatsNew(BrowtherSurfacesRules.WhatsNewRelease, isRehearsal: Bool)
     case betaNotice
+
+    var placement: Placement {
+      switch self {
+      case .whatsNew: return .bottom
+      case .betaNotice: return .top
+      }
+    }
   }
 
-  private var content: Content? {
+  /// Ce qui est dû maintenant, où que ce soit.
+  private static var dueContent: Content? {
     if let rehearsal = BrowtherSurfaces.whatsNewRehearsal {
       return .whatsNew(rehearsal, isRehearsal: true)
     }
@@ -64,6 +99,14 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
       return .whatsNew(release, isRehearsal: false)
     }
     return isBetaNoticeDue() ? .betaNotice : nil
+  }
+
+  /// Ce que CETTE section montre : ce qui est dû, s'il va à sa place. Un
+  /// contenu de l'autre place attend le prochain Nouvel Onglet (cas de la
+  /// recette déclenchée alors qu'un onglet porte déjà le bandeau).
+  private var content: Content? {
+    guard let due = Self.dueContent, due.placement == placement else { return nil }
+    return due
   }
 
   /// Version applicative en cours, qui sert de clé au « déjà vu ».
@@ -79,11 +122,11 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
   /// Fermé « pour cette version » seulement : une mise à jour le fait revenir
   /// une fois. Si la version est illisible on montre le bandeau — se taire par
   /// défaut serait le pire des deux comportements.
-  private func isBetaNoticeDue() -> Bool {
+  private static func isBetaNoticeDue() -> Bool {
     if BrowtherStoreScreenshots.isActive {
       return false
     }
-    let version = Self.currentVersion
+    let version = currentVersion
     if version.isEmpty {
       return true
     }
@@ -193,7 +236,9 @@ class BrowtherBetaNoticeSectionProvider: NSObject, NTPObservableSectionProvider 
     if !shouldShowNotice() {
       return .zero
     }
-    return UIEdgeInsets(top: 12, left: 16, bottom: 0, right: 16)
+    // En bas, l'encart est le dernier élément de la page : il lui faut sa marge
+    // du dessous, que la section suivante donnait au bandeau.
+    return UIEdgeInsets(top: 12, left: 16, bottom: placement == .bottom ? 16 : 0, right: 16)
   }
 }
 
@@ -242,6 +287,41 @@ private final class BrowtherFullWidthCell<View: UIView>: UICollectionViewCell,
       ).height
     )
     return attributes
+  }
+}
+
+// MARK: - Fond des encarts
+
+/// Fond commun au bandeau « accès anticipé » et à « Ce qui a changé » : un verre
+/// dépoli sombre, à glisser sous le contenu de l'encart.
+///
+/// Jusqu'au 2026-10-10 c'était un simple voile (noir à 35 %), qui laisse passer
+/// le MOTIF de la photo de fond : sur une image contrastée (un zellige), les
+/// lignes en 13 pt ne se lisaient plus (iPhone de Karim). Le flou efface le
+/// motif ; le voile par-dessus garde le contraste sur une photo claire. Parité
+/// desktop, dont le bandeau a toujours été en `material.thin` + blur.
+final class BrowtherNoticeBackdropView: UIView {
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    isUserInteractionEnabled = false
+
+    let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialDark))
+    let veilView = UIView().then {
+      $0.backgroundColor = UIColor(white: 0, alpha: 0.15)
+    }
+    addSubview(blurView)
+    addSubview(veilView)
+    blurView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+    veilView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError()
   }
 }
 
@@ -330,9 +410,13 @@ private class BrowtherBetaNoticeView: UIView {
     layer.cornerCurve = .continuous
     layer.borderWidth = 1
     layer.borderColor = Self.accent.withAlphaComponent(0.32).cgColor
-    // Le NTP porte une photo de fond : un voile sombre garde le texte lisible
-    // sans masquer l'image, comme le `material.thin` + blur du desktop.
-    backgroundColor = UIColor(white: 0, alpha: 0.35)
+    // Le NTP porte une photo de fond : le verre dépoli garde le texte lisible
+    // quelle que soit l'image (`BrowtherNoticeBackdropView`).
+    let backdropView = BrowtherNoticeBackdropView()
+    addSubview(backdropView)
+    backdropView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
 
     // ⚠️ Le libellé est sur SA PROPRE LIGNE, les deux liens en dessous.
     //
