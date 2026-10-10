@@ -158,10 +158,13 @@ public final class BrowtherDefaultBrowserNotice extends LinearLayout {
         setGravity(Gravity.TOP);
     }
 
-    /** Le fond du bandeau ({@code browther_beta_notice_bg.xml}), recopié. */
+    /**
+     * Le fond du bandeau ({@code browther_beta_notice_bg.xml}), recopié — voile à 70 %, raison
+     * dans ce fichier ; les deux valeurs se changent ensemble.
+     */
     private GradientDrawable background() {
         GradientDrawable shape = new GradientDrawable();
-        shape.setColor(0x59000000);
+        shape.setColor(0xB3000000);
         shape.setStroke(dp(1), 0x52FBBF24);
         shape.setCornerRadius(dp(12));
         return shape;
