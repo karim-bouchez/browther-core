@@ -558,6 +558,7 @@ android_resources("java_resources") {
     "java/brave-res/drawable/sawtunaa_badge_amber.xml",
     "java/brave-res/drawable/sawtunaa_badge_green.xml",
     "java/brave-res/drawable/sawtunaa_badge_red.xml",
+    "java/brave-res/drawable/sawtunaa_temp_row_background.xml",
     "java/brave-res/drawable/selected_dot.xml",
     "java/brave-res/drawable/selected_indicator.xml",
     "java/brave-res/drawable/set_default_rounded_button_disabled.xml",
