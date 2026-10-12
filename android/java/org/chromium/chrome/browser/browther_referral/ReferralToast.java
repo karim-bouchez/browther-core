@@ -41,7 +41,9 @@ import java.lang.ref.WeakReference;
  *
  * <ul>
  *   <li>Un changement d'état reste jusqu'à ce qu'on le ferme (§ 12.26) — 0 bis, 5.
- *   <li>La garde a son bouton « Soutenir dev&din » bien visible (§ 12.20), et s'efface après ~10 s.
+ *   <li>La garde a ses DEUX boutons bien visibles (§ 12.20, § 12.41 du doc commun) : « Inviter un
+ *       proche · gratuit » (plein) et « Soutenir financièrement » (contour), l'un SOUS l'autre —
+ *       côte à côte, deux libellés ne tiennent pas à 360 dp. Elle s'efface après ~10 s.
  *   <li>Un seul toast à la fois (§ 12.16).
  *   <li>⭐ <b>En bas ; en haut dès qu'une feuille ou une fenêtre du flow est ouverte</b> ({@code
  *       core/ReferralToastPlacement}, private/docs/PARRAINAGE.md § 11.6) : leur bouton est en bas,
@@ -82,6 +84,9 @@ public final class ReferralToast {
         final @Nullable String body;
         final @Nullable String actionLabel;
         final @Nullable Runnable action;
+        /** Un second bouton de MÊME rang, en contour, sous le premier (§ 12.41). */
+        final @Nullable String secondaryLabel;
+        final @Nullable Runnable secondaryAction;
         /** Quand il s'efface seul ({@code SystemClock.uptimeMillis}) — {@code 0} = il reste. */
         final long hideAt;
 
@@ -91,18 +96,22 @@ public final class ReferralToast {
                 @Nullable String body,
                 @Nullable String actionLabel,
                 @Nullable Runnable action,
+                @Nullable String secondaryLabel,
+                @Nullable Runnable secondaryAction,
                 long hideAt) {
             this.activity = new WeakReference<>(activity);
             this.title = title;
             this.body = body;
             this.actionLabel = actionLabel;
             this.action = action;
+            this.secondaryLabel = secondaryLabel;
+            this.secondaryAction = secondaryAction;
             this.hideAt = hideAt;
         }
     }
 
     /**
-     * @param actionLabel le bouton du toast (« Soutenir dev&din »), ou {@code null}.
+     * @param actionLabel le bouton du toast, ou {@code null}.
      * @param persistent reste jusqu'à ce qu'on le ferme ; sinon s'efface après ~10 s.
      */
     public static void show(
@@ -127,7 +136,36 @@ public final class ReferralToast {
             long durationMs) {
         if (activity == null) return;
         long hideAt = durationMs <= 0 ? 0 : SystemClock.uptimeMillis() + durationMs;
-        pose(new Spec(activity, title, body, actionLabel, action, hideAt), true);
+        pose(new Spec(activity, title, body, actionLabel, action, null, null, hideAt), true);
+    }
+
+    /**
+     * Le toast à DEUX boutons de même rang (§ 12.41 : la garde d'une fonctionnalité) — le premier
+     * plein, le second en contour, l'un sous l'autre. S'efface après ~10 s.
+     *
+     * @param secondaryLabel le second bouton, ou {@code null} (le paiement n'est pas proposé).
+     */
+    public static void show(
+            @Nullable Activity activity,
+            String title,
+            @Nullable String body,
+            String actionLabel,
+            Runnable action,
+            @Nullable String secondaryLabel,
+            @Nullable Runnable secondaryAction) {
+        if (activity == null) return;
+        long hideAt = SystemClock.uptimeMillis() + DEFAULT_DURATION_MS;
+        pose(
+                new Spec(
+                        activity,
+                        title,
+                        body,
+                        actionLabel,
+                        action,
+                        secondaryLabel,
+                        secondaryAction,
+                        hideAt),
+                true);
     }
 
     /**
@@ -153,6 +191,8 @@ public final class ReferralToast {
                         spec.body,
                         spec.actionLabel,
                         spec.action,
+                        spec.secondaryLabel,
+                        spec.secondaryAction,
                         left,
                         placement,
                         announce);
@@ -173,6 +213,8 @@ public final class ReferralToast {
                 window.getContext(),
                 title,
                 body,
+                null,
+                null,
                 null,
                 null,
                 durationMs,
@@ -204,6 +246,8 @@ public final class ReferralToast {
             @Nullable String body,
             @Nullable String actionLabel,
             @Nullable Runnable action,
+            @Nullable String secondaryLabel,
+            @Nullable Runnable secondaryAction,
             long durationMs,
             ReferralToastPlacement placement,
             boolean announce) {
@@ -227,20 +271,44 @@ public final class ReferralToast {
             texts.addView(bodyView);
         }
         if (actionLabel != null && action != null) {
-            TextView button = ReferralUi.text(context, actionLabel, 13, ReferralUi.SEMIBOLD, p.onPrimary);
+            // ⭐ Deux boutons de même rang (§ 12.41) : même largeur, l'un SOUS l'autre — le plein
+            // d'abord, le contour ensuite. Seul, le bouton garde la largeur de son libellé.
+            boolean two = secondaryLabel != null && secondaryAction != null;
             int padH = ReferralUi.dp(context, 14);
-            int padV = ReferralUi.dp(context, 8);
+            int padV = ReferralUi.dp(context, two ? 9 : 8);
+            float radius = ReferralUi.dp(context, 100);
+            TextView button = ReferralUi.text(context, actionLabel, 13, ReferralUi.SEMIBOLD, p.onPrimary);
             button.setPadding(padH, padV, padH, padV);
-            button.setBackground(ReferralUi.rounded(p.primary, ReferralUi.dp(context, 100)));
+            button.setBackground(ReferralUi.rounded(p.primary, radius));
             button.setOnClickListener(
                     v -> {
                         hide();
                         action.run();
                     });
             LinearLayout.LayoutParams params =
-                    new LinearLayout.LayoutParams(ReferralUi.WRAP, ReferralUi.WRAP);
+                    new LinearLayout.LayoutParams(
+                            two ? ViewGroup.LayoutParams.MATCH_PARENT : ReferralUi.WRAP, ReferralUi.WRAP);
             params.topMargin = ReferralUi.dp(context, 10);
             texts.addView(button, params);
+            if (two) {
+                button.setGravity(Gravity.CENTER);
+                TextView second =
+                        ReferralUi.text(context, secondaryLabel, 13, ReferralUi.SEMIBOLD, p.text);
+                second.setGravity(Gravity.CENTER);
+                second.setPadding(padH, padV, padH, padV);
+                second.setBackground(
+                        ReferralUi.rounded(Color.TRANSPARENT, radius, ReferralUi.dp(context, 1), p.text2));
+                second.setOnClickListener(
+                        v -> {
+                            hide();
+                            secondaryAction.run();
+                        });
+                LinearLayout.LayoutParams secondParams =
+                        new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT, ReferralUi.WRAP);
+                secondParams.topMargin = ReferralUi.dp(context, 8);
+                texts.addView(second, secondParams);
+            }
         }
         card.addView(texts, new LinearLayout.LayoutParams(0, ReferralUi.WRAP, 1));
 

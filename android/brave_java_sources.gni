@@ -120,6 +120,7 @@ brave_java_sources = [
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralStatusVideo.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralStatusVideoLoader.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralStorage.java",
+  "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralLockedToast.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralToastPlacement.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReferralUnavailable.java",
   "../../brave/android/java/org/chromium/chrome/browser/browther_referral/core/ReminderCase.java",

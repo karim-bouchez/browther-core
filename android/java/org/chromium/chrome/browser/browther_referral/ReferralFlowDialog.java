@@ -42,6 +42,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,7 +66,7 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
     private static final int MAX_WIDTH_DP = 560;
 
     private final Activity mActivity;
-    private final ReferralScreen mRoot;
+    private final List<ReferralScreen> mRoot;
     private final Source mSource;
     private final boolean mPreview;
     private final BrowtherReferralController mController = BrowtherReferralController.get();
@@ -83,6 +84,12 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
     private boolean mGiftCelebrated;
 
     public ReferralFlowDialog(Activity activity, ReferralScreen root, Source source, boolean preview) {
+        this(activity, Collections.singletonList(root), source, preview);
+    }
+
+    /** Une pile posée d'un coup — le paiement par-dessus les trois façons (§ 12.41). */
+    public ReferralFlowDialog(
+            Activity activity, List<ReferralScreen> root, Source source, boolean preview) {
         super(
                 activity,
                 ReferralUi.palette(activity).dark

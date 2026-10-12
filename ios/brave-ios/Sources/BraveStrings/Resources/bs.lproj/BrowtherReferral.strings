@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Uklanjanje muzike iz videa";
 "features.essentialLine" = "Osnovno ostaje dostupno: zamućivanje, blokiranje oglasa, pregledavanje.";
 "locked.musicRemoval" = "Uklanjanje muzike je jedna od dodatnih funkcija.";
-"locked.body" = "Da bi ove aplikacije ostale besplatne, studiju dev&din trebate vi.";
+"locked.body" = "Ovu funkciju, i mnoge druge, možete vratiti:";
+"locked.invite" = "Pozovite nekog bliskog · besplatno";
+"locked.billing" = "Podržite finansijski";
 "locked.cta" = "Podržite dev&din";
 "locked.unlock" = "Otključaj";
 "announceLater.title" = "Zabilježeno";

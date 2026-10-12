@@ -181,8 +181,10 @@ public final class ReferralStrings {
         SIMPLE.put("invite.eyebrow", R.string.browther_referral_invite_eyebrow);
         SIMPLE.put("invite.share", R.string.browther_referral_invite_share);
         SIMPLE.put("invite.shareStatus", R.string.browther_referral_invite_share_status);
+        SIMPLE.put("locked.billing", R.string.browther_referral_locked_billing);
         SIMPLE.put("locked.body", R.string.browther_referral_locked_body);
         SIMPLE.put("locked.cta", R.string.browther_referral_locked_cta);
+        SIMPLE.put("locked.invite", R.string.browther_referral_locked_invite);
         SIMPLE.put("locked.musicRemoval", R.string.browther_referral_locked_music_removal);
         SIMPLE.put("locked.unlock", R.string.browther_referral_locked_unlock);
         SIMPLE.put("menu.invite", R.string.browther_referral_menu_invite);

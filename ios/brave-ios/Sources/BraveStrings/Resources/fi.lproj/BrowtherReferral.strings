@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Musiikin poistaminen videoista";
 "features.essentialLine" = "Olennaiset pysyvät käytössä: sumentaminen, mainosten esto, selaaminen.";
 "locked.musicRemoval" = "Musiikin poistaminen kuuluu lisäominaisuuksiin.";
-"locked.body" = "Jotta nämä sovellukset pysyisivät ilmaisina, studio dev&din tarvitsee sinua.";
+"locked.body" = "Voit saada tämän ominaisuuden takaisin, ja paljon muuta:";
+"locked.invite" = "Kutsu joku läheinen · ilmainen";
+"locked.billing" = "Tue taloudellisesti";
 "locked.cta" = "Tue dev&din-studiota";
 "locked.unlock" = "Avaa";
 "announceLater.title" = "Selvä";

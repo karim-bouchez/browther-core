@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Entfernen der Musik aus Videos";
 "features.essentialLine" = "Das Wichtigste bleibt verfügbar: Unscharfmachen, Werbeblocker, Surfen.";
 "locked.musicRemoval" = "Das Entfernen der Musik gehört zu den zusätzlichen Funktionen.";
-"locked.body" = "Damit diese Apps kostenlos bleiben, braucht das Studio dev&din Sie.";
+"locked.body" = "Sie können diese Funktion zurückbekommen – und viele weitere:";
+"locked.invite" = "Jemanden einladen · kostenlos";
+"locked.billing" = "Finanziell unterstützen";
 "locked.cta" = "dev&din unterstützen";
 "locked.unlock" = "Freischalten";
 "announceLater.title" = "Notiert";

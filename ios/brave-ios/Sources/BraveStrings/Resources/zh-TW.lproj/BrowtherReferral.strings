@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "去除影片中的音樂";
 "features.essentialLine" = "基本功能始終可用：模糊、廣告封鎖、瀏覽。";
 "locked.musicRemoval" = "去除音樂屬於附加功能。";
-"locked.body" = "為了讓這些 App 保持免費，dev&din 工作室需要你。";
+"locked.body" = "你可以重新使用這項功能，以及更多其他功能：";
+"locked.invite" = "邀請親友 · 免費";
+"locked.billing" = "資金支持";
 "locked.cta" = "支持 dev&din";
 "locked.unlock" = "解鎖";
 "announceLater.title" = "好的，已記下";

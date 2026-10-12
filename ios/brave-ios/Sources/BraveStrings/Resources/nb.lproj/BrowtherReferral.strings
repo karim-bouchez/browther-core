@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Fjerning av musikk fra videoer";
 "features.essentialLine" = "Det viktigste er fortsatt tilgjengelig: sløring, reklameblokkering, surfing.";
 "locked.musicRemoval" = "Fjerning av musikk er en av ekstrafunksjonene.";
-"locked.body" = "For at disse appene skal forbli gratis, trenger studioet dev&din deg.";
+"locked.body" = "Du kan få tilbake denne funksjonen – og mange flere:";
+"locked.invite" = "Inviter noen · gratis";
+"locked.billing" = "Støtt økonomisk";
 "locked.cta" = "Støtt dev&din";
 "locked.unlock" = "Lås opp";
 "announceLater.title" = "Notert";

@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Borttagning av musik i videor";
 "features.essentialLine" = "Det viktigaste finns kvar: utsuddning, annonsblockering, surfning.";
 "locked.musicRemoval" = "Borttagning av musik är en av extrafunktionerna.";
-"locked.body" = "För att de här apparna ska förbli gratis behöver studion dev&din dig.";
+"locked.body" = "Du kan få tillbaka den här funktionen – och många fler:";
+"locked.invite" = "Bjud in någon · gratis";
+"locked.billing" = "Stöd ekonomiskt";
 "locked.cta" = "Stöd dev&din";
 "locked.unlock" = "Lås upp";
 "announceLater.title" = "Noterat";

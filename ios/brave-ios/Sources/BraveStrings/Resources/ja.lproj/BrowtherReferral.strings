@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "動画から音楽を除去";
 "features.essentialLine" = "基本機能はそのまま使えます：ぼかし、広告ブロック、ブラウジング。";
 "locked.musicRemoval" = "音楽の除去は追加機能のひとつです。";
-"locked.body" = "これらのアプリを無料のまま続けるために、dev&din スタジオにはあなたの力が必要です。";
+"locked.body" = "この機能も、ほかの多くの機能も、また使えるようになります：";
+"locked.invite" = "身近な人を招待 · 無料";
+"locked.billing" = "金銭的に支援";
 "locked.cta" = "dev&din を応援";
 "locked.unlock" = "解除する";
 "announceLater.title" = "了解しました";

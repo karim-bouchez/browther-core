@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "वीडियो से संगीत हटाना";
 "features.essentialLine" = "ज़रूरी चीज़ें उपलब्ध रहती हैं: धुंधला करना, विज्ञापन ब्लॉक करना, ब्राउज़िंग।";
 "locked.musicRemoval" = "संगीत हटाना अतिरिक्त सुविधाओं में से एक है।";
-"locked.body" = "ये ऐप मुफ़्त रहें, इसके लिए dev&din स्टूडियो को आपकी ज़रूरत है।";
+"locked.body" = "आप यह सुविधा, और कई अन्य, वापस पा सकते हैं:";
+"locked.invite" = "किसी क़रीबी को आमंत्रित करें · मुफ़्त";
+"locked.billing" = "आर्थिक रूप से साथ दें";
 "locked.cta" = "dev&din का साथ दें";
 "locked.unlock" = "अनलॉक करें";
 "announceLater.title" = "नोट कर लिया";

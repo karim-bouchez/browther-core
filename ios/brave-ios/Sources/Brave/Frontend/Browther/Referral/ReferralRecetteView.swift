@@ -115,12 +115,8 @@ struct ReferralRecetteView: View {
         }
         Button("Toast 0 bis — « C'est noté »") { controller.announceLaterToast() }
         Button("Toast — garde du retrait de la musique") {
-          BrowtherReferralToast.show(
-            title: Strings.BrowtherReferral.lockedMusicRemoval,
-            body: Strings.BrowtherReferral.lockedBody,
-            action: (Strings.BrowtherReferral.supportDevndin, {}),
-            persistent: false
-          )
+          // Le MÊME code que la vraie garde, ⛔ rien de compté (§ 12.41).
+          controller.showLockedToast(.musicRemoval, presentingFrom: nil, preview: true)
         }
       } header: {
         Text("Revoir un écran (n'écrit rien)")

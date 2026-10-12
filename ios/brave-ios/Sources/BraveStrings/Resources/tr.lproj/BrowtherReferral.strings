@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Videolardan müziğin kaldırılması";
 "features.essentialLine" = "Temel özellikler kullanılabilir kalır: bulanıklaştırma, reklam engelleme, gezinme.";
 "locked.musicRemoval" = "Müziği kaldırma, ek özelliklerden biridir.";
-"locked.body" = "Bu uygulamaların ücretsiz kalması için dev&din stüdyosunun size ihtiyacı var.";
+"locked.body" = "Bu özelliğe ve daha birçoğuna yeniden kavuşabilirsiniz:";
+"locked.invite" = "Bir yakınınızı davet edin · ücretsiz";
+"locked.billing" = "Maddi olarak destekleyin";
 "locked.cta" = "dev&din'i destekleyin";
 "locked.unlock" = "Kilidi aç";
 "announceLater.title" = "Not aldık";

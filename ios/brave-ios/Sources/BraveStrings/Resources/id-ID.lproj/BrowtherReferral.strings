@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Penghapusan musik dari video";
 "features.essentialLine" = "Yang utama tetap tersedia: pemburaman, pemblokiran iklan, penjelajahan.";
 "locked.musicRemoval" = "Penghapusan musik termasuk fitur tambahan.";
-"locked.body" = "Agar aplikasi-aplikasi ini tetap gratis, studio dev&din membutuhkan Anda.";
+"locked.body" = "Anda bisa mendapatkan kembali fitur ini, dan banyak lagi:";
+"locked.invite" = "Undang orang terdekat · gratis";
+"locked.billing" = "Dukung secara finansial";
 "locked.cta" = "Dukung dev&din";
 "locked.unlock" = "Buka";
 "announceLater.title" = "Baik, sudah dicatat";

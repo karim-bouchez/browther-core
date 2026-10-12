@@ -4932,11 +4932,17 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_REFERRAL_INVITE_SHARE_STATUS" desc="Browther referral (pool key invite.shareStatus)" meaning="browther_referral:invite.shareStatus">
       Post to my WhatsApp status
     </message>
+    <message name="IDS_BROWTHER_REFERRAL_LOCKED_BILLING" desc="Browther referral (pool key locked.billing)" meaning="browther_referral:locked.billing">
+      Support financially
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_LOCKED_BODY" desc="Browther referral (pool key locked.body)" meaning="browther_referral:locked.body">
-      For these apps to stay free, the dev&amp;din studio needs you.
+      You can get this feature back, and many more:
     </message>
     <message name="IDS_BROWTHER_REFERRAL_LOCKED_CTA" desc="Browther referral (pool key locked.cta)" meaning="browther_referral:locked.cta">
       Support dev&amp;din
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_LOCKED_INVITE" desc="Browther referral (pool key locked.invite)" meaning="browther_referral:locked.invite">
+      Invite someone · free
     </message>
     <message name="IDS_BROWTHER_REFERRAL_LOCKED_MUSIC_REMOVAL" desc="Browther referral (pool key locked.musicRemoval)" meaning="browther_referral:locked.musicRemoval">
       Music removal is one of the additional features.

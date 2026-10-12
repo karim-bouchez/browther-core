@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "إزالة الموسيقى من مقاطع الفيديو";
 "features.essentialLine" = "الأساسي يبقى متاحًا: التضبيب، وحجب الإعلانات، والتصفّح.";
 "locked.musicRemoval" = "إزالة الموسيقى من المزايا الإضافية.";
-"locked.body" = "لكي تبقى هذه التطبيقات مجانية، يحتاج استوديو dev&din إليك.";
+"locked.body" = "يمكنك استعادة هذه الميزة، وغيرها الكثير:";
+"locked.invite" = "ادعُ شخصًا قريبًا · مجانًا";
+"locked.billing" = "ادعم ماليًا";
 "locked.cta" = "ادعم dev&din";
 "locked.unlock" = "افتح القفل";
 "announceLater.title" = "تمّ";

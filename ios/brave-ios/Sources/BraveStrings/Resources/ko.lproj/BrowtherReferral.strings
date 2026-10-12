@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "동영상 음악 제거";
 "features.essentialLine" = "핵심 기능은 계속 쓸 수 있어요: 흐림 처리, 광고 차단, 브라우징.";
 "locked.musicRemoval" = "음악 제거는 추가 기능 중 하나예요.";
-"locked.body" = "이 앱들이 계속 무료로 남으려면 dev&din 스튜디오에 당신의 도움이 필요해요.";
+"locked.body" = "이 기능은 물론, 다른 많은 기능도 다시 사용할 수 있어요:";
+"locked.invite" = "가까운 사람 초대하기 · 무료";
+"locked.billing" = "금전적으로 후원하기";
 "locked.cta" = "dev&din 응원하기";
 "locked.unlock" = "잠금 해제";
 "announceLater.title" = "알겠어요";

@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "הסרת מוזיקה מסרטונים";
 "features.essentialLine" = "הבסיס נשאר זמין: טשטוש, חסימת פרסומות, גלישה.";
 "locked.musicRemoval" = "הסרת המוזיקה היא אחת מהתכונות הנוספות.";
-"locked.body" = "כדי שהאפליקציות האלה יישארו בחינם, הסטודיו dev&din צריך אותך.";
+"locked.body" = "אפשר לקבל בחזרה את התכונה הזו, ועוד רבות אחרות:";
+"locked.invite" = "להזמין אדם קרוב · בחינם";
+"locked.billing" = "תמיכה כספית";
 "locked.cta" = "לתמוך ב-dev&din";
 "locked.unlock" = "לפתוח";
 "announceLater.title" = "רשמנו";

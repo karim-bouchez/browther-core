@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Zene eltávolítása a videókból";
 "features.essentialLine" = "A lényeg továbbra is elérhető: elhomályosítás, hirdetésblokkolás, böngészés.";
 "locked.musicRemoval" = "A zene eltávolítása a kiegészítő funkciók egyike.";
-"locked.body" = "Ahhoz, hogy ezek az alkalmazások ingyenesek maradjanak, a dev&din stúdiónak szüksége van Önre.";
+"locked.body" = "Ezt a funkciót – és sok mást – visszakaphatja:";
+"locked.invite" = "Hívja meg egy szerettét · ingyen";
+"locked.billing" = "Anyagi támogatás";
 "locked.cta" = "A dev&din támogatása";
 "locked.unlock" = "Feloldás";
 "announceLater.title" = "Feljegyeztük";

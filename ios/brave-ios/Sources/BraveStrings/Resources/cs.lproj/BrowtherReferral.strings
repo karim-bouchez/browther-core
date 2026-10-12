@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Odstraňování hudby z videí";
 "features.essentialLine" = "To podstatné zůstává dostupné: rozmazávání, blokování reklam, prohlížení.";
 "locked.musicRemoval" = "Odstraňování hudby patří mezi doplňkové funkce.";
-"locked.body" = "Aby tyto aplikace zůstaly zdarma, studio dev&din vás potřebuje.";
+"locked.body" = "Tuto funkci, a mnoho dalších, můžete získat zpět:";
+"locked.invite" = "Pozvat někoho blízkého · zdarma";
+"locked.billing" = "Podpořit finančně";
 "locked.cta" = "Podpořit dev&din";
 "locked.unlock" = "Odemknout";
 "announceLater.title" = "Zaznamenáno";

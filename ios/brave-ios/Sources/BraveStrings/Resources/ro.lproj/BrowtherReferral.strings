@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Eliminarea muzicii din videoclipuri";
 "features.essentialLine" = "Esențialul rămâne disponibil: estomparea, blocarea reclamelor, navigarea.";
 "locked.musicRemoval" = "Eliminarea muzicii face parte din funcțiile suplimentare.";
-"locked.body" = "Pentru ca aceste aplicații să rămână gratuite, studioul dev&din are nevoie de tine.";
+"locked.body" = "Poți recupera această funcție, și multe altele:";
+"locked.invite" = "Invită pe cineva apropiat · gratuit";
+"locked.billing" = "Susține financiar";
 "locked.cta" = "Susține dev&din";
 "locked.unlock" = "Deblochează";
 "announceLater.title" = "Am notat";

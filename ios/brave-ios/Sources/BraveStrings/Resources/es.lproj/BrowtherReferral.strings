@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "La eliminación de la música de los vídeos";
 "features.essentialLine" = "Lo esencial sigue disponible: el difuminado, el bloqueo de anuncios, la navegación.";
 "locked.musicRemoval" = "La eliminación de la música forma parte de las funciones adicionales.";
-"locked.body" = "Para que estas apps sigan siendo gratuitas, el estudio dev&din te necesita.";
+"locked.body" = "Puedes recuperar esta función, y muchas más:";
+"locked.invite" = "Invitar a alguien cercano · gratis";
+"locked.billing" = "Apoyar económicamente";
 "locked.cta" = "Apoyar a dev&din";
 "locked.unlock" = "Desbloquear";
 "announceLater.title" = "Anotado";

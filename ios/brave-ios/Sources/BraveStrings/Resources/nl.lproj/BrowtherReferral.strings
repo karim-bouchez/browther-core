@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Muziek uit video's verwijderen";
 "features.essentialLine" = "Het belangrijkste blijft beschikbaar: vervagen, advertenties blokkeren, surfen.";
 "locked.musicRemoval" = "Muziek verwijderen hoort bij de extra functies.";
-"locked.body" = "Om deze apps gratis te houden, heeft de studio dev&din jou nodig.";
+"locked.body" = "Je kunt deze functie terugkrijgen, en nog veel meer:";
+"locked.invite" = "Iemand uitnodigen · gratis";
+"locked.billing" = "Financieel steunen";
 "locked.cta" = "Steun dev&din";
 "locked.unlock" = "Ontgrendelen";
 "announceLater.title" = "Genoteerd";

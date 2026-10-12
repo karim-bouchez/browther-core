@@ -67,6 +67,19 @@ public final class BrowtherReferralPresenter {
         }
     }
 
+    /**
+     * Ouvre une PILE du flow d'un coup — le toast d'une garde (§ 12.41 du doc commun) : « Soutenir
+     * financièrement » pose l'écran de paiement avec les trois façons DESSOUS, pour que « Retour » y
+     * ramène. ⚠️ Seule la fenêtre du dessus se compte ({@code FlowModel.show}) : celle que la
+     * personne voit.
+     */
+    public static void present(
+            @Nullable Activity activity, List<ReferralScreen> stack, Source source, boolean preview) {
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) return;
+        if (stack.isEmpty()) return;
+        new ReferralFlowDialog(activity, stack, source, preview).show();
+    }
+
     /** L'unique émission de {@code paywall_shown}. */
     public static void countShown(
             String screen, Source source, boolean preview, @Nullable Map<String, Object> extra) {
@@ -257,9 +270,17 @@ public final class BrowtherReferralPresenter {
         private final Host mHost;
 
         public FlowModel(ReferralScreen root, Source source, boolean preview, Host host) {
+            this(Collections.singletonList(root), source, preview, host);
+        }
+
+        /**
+         * Une pile posée d'un coup (le paiement par-dessus les trois façons, § 12.41) : ⚠️ seule la
+         * fenêtre du DESSUS est comptée.
+         */
+        public FlowModel(List<ReferralScreen> stack, Source source, boolean preview, Host host) {
             this.preview = preview;
             mHost = host;
-            show(Collections.singletonList(root), source, true);
+            show(stack, source, true);
         }
 
         public ReferralScreen top() {

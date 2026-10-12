@@ -26,8 +26,10 @@ import UIKit
 /// - **Un changement d'état reste jusqu'à ce qu'on le ferme** (§ 12.26 : « c'est
 ///   mieux qu'elle le ferme consciemment ») — 0 bis, 5.
 /// - Un retour de geste (« Message copié ») s'efface seul.
-/// - La garde a son bouton « Soutenir dev&din » bien visible (§ 12.20), et
-///   s'efface après ~10 s (§ 12.9 : le temps de se lire).
+/// - La garde a ses DEUX boutons bien visibles (§ 12.20, § 12.41 du doc
+///   commun) : « Inviter un proche · gratuit » (plein) et « Soutenir
+///   financièrement » (contour), l'un SOUS l'autre — côte à côte, deux libellés
+///   ne tiennent pas sur un téléphone. Elle s'efface après ~10 s (§ 12.9).
 /// - Un seul toast à la fois (§ 12.16).
 /// - ⭐ **En bas ; en haut dès qu'une feuille ou une fenêtre du parrainage est
 ///   ouverte** (`ReferralToastPlacement`, 2026-10-08) : leur bouton est en bas,
@@ -41,6 +43,7 @@ enum BrowtherReferralToast {
     title: String,
     body: String? = nil,
     action: (label: String, run: @MainActor () -> Void)? = nil,
+    secondaryAction: (label: String, run: @MainActor () -> Void)? = nil,
     persistent: Bool,
     duration: TimeInterval = 10
   ) {
@@ -54,10 +57,20 @@ enum BrowtherReferralToast {
     let placement = ReferralToastPlacement.resolve(
       sheetOrFlowOpen: BrowtherReferralPresenter.sheetOrFlowIsOpen()
     )
-    let model = ToastModel(title: title, body: body, actionLabel: action?.label, placement: placement)
+    let model = ToastModel(
+      title: title,
+      body: body,
+      actionLabel: action?.label,
+      secondaryActionLabel: secondaryAction?.label,
+      placement: placement
+    )
     model.onAction = {
       hide(animated: true)
       action?.run()
+    }
+    model.onSecondaryAction = {
+      hide(animated: true)
+      secondaryAction?.run()
     }
     model.onClose = { hide(animated: true) }
 
@@ -117,7 +130,7 @@ enum BrowtherReferralToast {
 /// vue touchée** : SwiftUI dessine tout son contenu dans la vue de l'hôte
 /// (`_UIHostingView`) sans sous-vue par bouton. Comparer `hit ===
 /// rootViewController?.view` renvoyait donc TOUJOURS `nil` — la croix et le
-/// bouton « Soutenir dev&din » d'un toast ne recevaient jamais le toucher
+/// bouton d'un toast ne recevaient jamais le toucher
 /// (constaté par Karim en recette le 2026-09-22 : la croix ne fermait rien).
 /// La carte publie son cadre (`ToastModel.cardFrame`), et lui seul capte.
 final class PassthroughWindow: UIWindow {
@@ -134,18 +147,28 @@ final class ToastModel: ObservableObject {
   let title: String
   let body: String?
   let actionLabel: String?
+  /// Un second bouton de MÊME rang, en contour, sous le premier (§ 12.41).
+  let secondaryActionLabel: String?
   let placement: ReferralToastPlacement
   @Published var visible = false
   /// Le cadre de la carte, en coordonnées d'écran — c'est LUI qui capte les
   /// touchers (`PassthroughWindow`), pas la vue SwiftUI.
   var cardFrame: CGRect = .zero
   var onAction: (() -> Void)?
+  var onSecondaryAction: (() -> Void)?
   var onClose: (() -> Void)?
 
-  init(title: String, body: String?, actionLabel: String?, placement: ReferralToastPlacement = .bottom) {
+  init(
+    title: String,
+    body: String?,
+    actionLabel: String?,
+    secondaryActionLabel: String? = nil,
+    placement: ReferralToastPlacement = .bottom
+  ) {
     self.title = title
     self.body = body
     self.actionLabel = actionLabel
+    self.secondaryActionLabel = secondaryActionLabel
     self.placement = placement
   }
 }
@@ -186,13 +209,47 @@ struct ReferralToastView: View {
             .fixedSize(horizontal: false, vertical: true)
         }
         if let label = model.actionLabel {
-          Button(label) { model.onAction?() }
-            .font(.footnote.weight(.semibold))
-            .foregroundStyle(Color(UIColor.systemBackground))
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background(Color(UIColor.label), in: Capsule())
-            .padding(.top, 6)
+          if let secondary = model.secondaryActionLabel {
+            // ⭐ Deux boutons de même rang (§ 12.41) : même largeur, l'un sous
+            // l'autre — le plein d'abord, le contour ensuite.
+            VStack(spacing: 8) {
+              Button { model.onAction?() } label: {
+                Text(label)
+                  .font(.footnote.weight(.semibold))
+                  .foregroundStyle(Color(UIColor.systemBackground))
+                  .multilineTextAlignment(.center)
+                  .fixedSize(horizontal: false, vertical: true)
+                  .frame(maxWidth: .infinity)
+                  .padding(.horizontal, 14)
+                  .padding(.vertical, 9)
+                  .background(Color(UIColor.label), in: Capsule())
+                  .contentShape(Capsule())
+              }
+              Button { model.onSecondaryAction?() } label: {
+                Text(secondary)
+                  .font(.footnote.weight(.semibold))
+                  // ⚠️ `.primary` DANS un bouton = la teinte : la couleur est dite.
+                  .foregroundStyle(Color(UIColor.label))
+                  .multilineTextAlignment(.center)
+                  .fixedSize(horizontal: false, vertical: true)
+                  .frame(maxWidth: .infinity)
+                  .padding(.horizontal, 14)
+                  .padding(.vertical, 9)
+                  .overlay { Capsule().strokeBorder(Color(UIColor.label).opacity(0.45)) }
+                  .contentShape(Capsule())
+              }
+            }
+            .buttonStyle(.plain)
+            .padding(.top, 8)
+          } else {
+            Button(label) { model.onAction?() }
+              .font(.footnote.weight(.semibold))
+              .foregroundStyle(Color(UIColor.systemBackground))
+              .padding(.horizontal, 14)
+              .padding(.vertical, 8)
+              .background(Color(UIColor.label), in: Capsule())
+              .padding(.top, 6)
+          }
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)

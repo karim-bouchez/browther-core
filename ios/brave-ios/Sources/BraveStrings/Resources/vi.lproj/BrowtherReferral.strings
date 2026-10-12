@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Loại bỏ âm nhạc khỏi video";
 "features.essentialLine" = "Những tính năng thiết yếu vẫn luôn sẵn có: làm mờ, chặn quảng cáo, duyệt web.";
 "locked.musicRemoval" = "Loại bỏ âm nhạc là một trong các tính năng bổ sung.";
-"locked.body" = "Để các ứng dụng này tiếp tục miễn phí, studio dev&din cần bạn.";
+"locked.body" = "Bạn có thể dùng lại tính năng này, và nhiều tính năng khác:";
+"locked.invite" = "Mời người thân · miễn phí";
+"locked.billing" = "Ủng hộ tài chính";
 "locked.cta" = "Ủng hộ dev&din";
 "locked.unlock" = "Mở khóa";
 "announceLater.title" = "Đã ghi nhận";

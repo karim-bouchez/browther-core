@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "去除视频中的音乐";
 "features.essentialLine" = "基本功能始终可用：模糊、广告拦截、浏览。";
 "locked.musicRemoval" = "去除音乐属于附加功能。";
-"locked.body" = "为了让这些应用保持免费，dev&din 工作室需要你。";
+"locked.body" = "你可以重新使用这项功能，以及更多其他功能：";
+"locked.invite" = "邀请亲友 · 免费";
+"locked.billing" = "资金支持";
 "locked.cta" = "支持 dev&din";
 "locked.unlock" = "解锁";
 "announceLater.title" = "好的，已记下";

@@ -1013,35 +1013,85 @@ final class BrowtherReferralController: ObservableObject {
     updatePrompt(ReferralPrompt.markCircuitClosed)
   }
 
-  /// ⭐ **La garde** — `false` ⇒ un **toast** dit que c'est en pause, avec
-  /// « Soutenir dev&din » qui ouvre les trois façons ; l'appelant s'arrête.
+  /// ⭐ **La garde** — `false` ⇒ un **toast** dit que c'est en pause, avec ses
+  /// deux boutons (`showLockedToast`) ; l'appelant s'arrête.
   /// ⛔ On ne masque JAMAIS le bouton : on l'affiche, et la garde convertit
   /// (§ 12.16). Hors parrainage, statut inconnu, avant l'annonce : `true`.
   /// ⛔ Basarunaa n'a pas de garde, jamais (§ 9).
   func requireExtra(_ feature: ExtraFeature, presentingFrom viewController: UIViewController?) -> Bool {
     guard isPaused() else { return true }
+    showLockedToast(feature, presentingFrom: viewController, preview: false)
+    return false
+  }
+
+  /// Le toast d'une garde, avec ses DEUX boutons (§ 12.41 de
+  /// `devndin/docs/PARRAINAGE.md`) : « Inviter un proche · gratuit » ouvre les
+  /// trois façons, « Soutenir financièrement » ouvre DIRECTEMENT le paiement —
+  /// 2b dessous, « Retour » y ramène (`ReferralLockedToast`, le cœur testé).
+  /// ⛔ Plus « Soutenir dev&din » seul : il se lisait « payer ». ⛔ Pas de
+  /// second bouton là où le paiement n'est pas proposé.
+  ///
+  /// ⭐ Un seul point de pose : la vraie garde ET l'aperçu de recette passent
+  /// par ici. 🧪 `preview` : le même toast, les mêmes destinations, ⛔ rien de
+  /// compté.
+  ///
+  /// 📊 `paywall_action { screen: 'locked', action: 'invite' | 'billing' }`
+  /// (⛔ plus `'support'`) ; l'ouverture du paiement se compte au point unique
+  /// (`paywall_shown { screen: 'billing', source: 'locked' }`).
+  func showLockedToast(
+    _ feature: ExtraFeature,
+    presentingFrom viewController: UIViewController?,
+    preview: Bool
+  ) {
     let title: String
     switch feature {
     case .musicRemoval: title = Strings.BrowtherReferral.lockedMusicRemoval
     }
+    let actions = ReferralLockedToast.buttons(billingAvailable: billingAvailable).map {
+      button -> (label: String, run: @MainActor () -> Void) in
+      let label: String
+      switch button {
+      case .invite: label = Strings.BrowtherReferral.lockedInvite
+      case .billing: label = Strings.BrowtherReferral.lockedBilling
+      }
+      return (
+        label,
+        { [weak viewController] in
+          if !preview {
+            self.track("paywall_action", ["screen": "locked", "action": button.rawValue])
+          }
+          guard let host = viewController ?? BrowtherReferralPresenter.topController() else { return }
+          // Ouverte par la personne elle-même : une fenêtre ORDINAIRE (§ 12.16).
+          BrowtherReferralPresenter.present(
+            stack: ReferralLockedToast.stack(for: button).map(Self.lockedScreen),
+            from: host,
+            source: .locked,
+            preview: preview
+          )
+        }
+      )
+    }
     BrowtherReferralToast.show(
       title: title,
       body: Strings.BrowtherReferral.lockedBody,
-      action: (Strings.BrowtherReferral.supportDevndin, { [weak viewController] in
-        self.track("paywall_action", ["screen": "locked", "action": "support"])
-        guard let host = viewController ?? BrowtherReferralPresenter.topController() else { return }
-        // Ouverte par la personne elle-même : une fenêtre ORDINAIRE (§ 12.16).
-        BrowtherReferralPresenter.present(.support(locked: false), from: host, source: .locked)
-      }),
+      action: actions.first,
+      secondaryAction: actions.count > 1 ? actions[1] : nil,
       persistent: false
     )
     BrowtherReferralPresenter.countShown(
       "locked",
       source: .locked,
-      preview: false,
+      preview: preview,
       extra: ["feature": feature.rawValue]
     )
-    return false
+  }
+
+  /// L'écran du flow derrière une destination du toast d'une garde.
+  private static func lockedScreen(_ destination: ReferralLockedToast.Destination) -> ReferralScreen {
+    switch destination {
+    case .support: return .support(locked: false)
+    case .billing: return .billing
+    }
   }
 
   // MARK: - La pause, pour de vrai (⛔ « blocage seulement affiché », § 11.2)
@@ -1051,7 +1101,7 @@ final class BrowtherReferralController: ObservableObject {
   /// garde ne porte que sur le geste d'allumer). Il s'éteint au Nouvel Onglet
   /// suivant — ⚠️ pas au milieu d'une vidéo : changer ce réglage recharge
   /// l'onglet courant, et sur un Nouvel Onglet ça ne coûte rien —, avec le
-  /// toast de la garde (« Soutenir dev&din »). Une fois par pause.
+  /// toast de la garde (ses deux boutons, § 12.41). Une fois par pause.
   ///
   /// Validé par Karim le 2026-09-22 (`private/docs/PARRAINAGE.md` § 3). Dormant
   /// tant que Sawtunaa n'est pas finalisé (rien n'est en pause avant l'annonce).

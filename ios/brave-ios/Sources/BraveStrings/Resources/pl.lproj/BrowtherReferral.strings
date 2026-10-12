@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Usuwanie muzyki z filmów";
 "features.essentialLine" = "To, co najważniejsze, zostaje dostępne: rozmywanie, blokowanie reklam, przeglądanie.";
 "locked.musicRemoval" = "Usuwanie muzyki to jedna z dodatkowych funkcji.";
-"locked.body" = "Żeby te aplikacje pozostały darmowe, studio dev&din potrzebuje ciebie.";
+"locked.body" = "Możesz odzyskać tę funkcję i wiele innych:";
+"locked.invite" = "Zaproś bliską osobę · za darmo";
+"locked.billing" = "Wesprzyj finansowo";
 "locked.cta" = "Wesprzyj dev&din";
 "locked.unlock" = "Odblokuj";
 "announceLater.title" = "Zanotowane";

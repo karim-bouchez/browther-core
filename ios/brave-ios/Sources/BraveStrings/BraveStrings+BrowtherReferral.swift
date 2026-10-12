@@ -151,10 +151,18 @@ extension Strings {
     public static var lockedMusicRemoval: String {
       t("locked.musicRemoval", "Music removal is one of the additional features.")
     }
-    /// ⚠️ La RAISON, pas la rançon (§ 12.20) : la même phrase que l'écran J0.
+    /// ⚠️ La phrase n'énumère plus les façons, et ne dit plus « soutenir » :
+    /// les deux boutons du toast les disent (§ 12.41 du doc commun).
     public static var lockedBody: String {
-      t("locked.body", "For these apps to stay free, the dev&din studio needs you.")
+      t("locked.body", "You can get this feature back, and many more:")
     }
+    /// Les DEUX boutons du toast d'une garde (§ 12.41) — les mots des trois
+    /// façons (2b), ⛔ pas un vocabulaire à part : dérivés de `announce.invite`
+    /// et de `support.money` par `locked_two_buttons_2026-10-12.py`.
+    public static var lockedInvite: String { t("locked.invite", "Invite someone · free") }
+    public static var lockedBilling: String { t("locked.billing", "Support financially") }
+    /// ⛔ Plus le bouton du toast d'une garde (seul, il se lit « payer ») : le
+    /// bouton de J−10 et de J0, déplié par son sous-titre.
     public static var supportDevndin: String { t("locked.cta", "Support dev&din") }
     /// Le bouton du panneau de la fonctionnalité en pause. ⚠️ La clé existait
     /// déjà dans les 36 langues : le natif du desktop la lit dans le pool

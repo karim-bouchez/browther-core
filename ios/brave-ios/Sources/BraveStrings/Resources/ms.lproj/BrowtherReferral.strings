@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "Pembuangan muzik daripada video";
 "features.essentialLine" = "Yang penting kekal tersedia: pengaburan, penyekatan iklan, pelayaran.";
 "locked.musicRemoval" = "Pembuangan muzik ialah salah satu ciri tambahan.";
-"locked.body" = "Supaya aplikasi-aplikasi ini kekal percuma, studio dev&din memerlukan anda.";
+"locked.body" = "Anda boleh mendapatkan semula ciri ini, dan banyak lagi:";
+"locked.invite" = "Jemput orang tersayang · percuma";
+"locked.billing" = "Sokong dari segi kewangan";
 "locked.cta" = "Sokong dev&din";
 "locked.unlock" = "Buka kunci";
 "announceLater.title" = "Baik, dicatat";

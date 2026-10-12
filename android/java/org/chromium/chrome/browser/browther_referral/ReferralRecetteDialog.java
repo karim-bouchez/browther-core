@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import org.chromium.chrome.browser.browther_referral.core.ExtraFeature;
 import org.chromium.chrome.browser.browther_referral.core.RecetteState;
 import org.chromium.chrome.browser.browther_referral.core.ReminderCase;
 
@@ -184,13 +185,8 @@ public final class ReferralRecetteDialog extends Dialog {
         column.addView(button("Toast 0 bis — « C'est noté »", () -> afterClose(
                 () -> mController.announceLaterToast(mActivity))));
         column.addView(button("Toast — garde du retrait de la musique", () -> afterClose(
-                () -> ReferralToast.show(
-                        mActivity,
-                        ReferralStrings.get(mActivity, "locked.musicRemoval"),
-                        ReferralStrings.get(mActivity, "locked.body"),
-                        ReferralStrings.get(mActivity, "locked.cta"),
-                        () -> {},
-                        false))));
+                // Le MÊME code que la vraie garde, ⛔ rien de compté (§ 12.41).
+                () -> mController.showLockedToast(ExtraFeature.MUSIC_REMOVAL, mActivity, true))));
         updateSummary();
     }
 

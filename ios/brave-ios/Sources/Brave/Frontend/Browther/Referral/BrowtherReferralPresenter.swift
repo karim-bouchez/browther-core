@@ -171,6 +171,24 @@ enum BrowtherReferralPresenter {
     host.present(controller, animated: true)
   }
 
+  /// Ouvre une PILE du flow d'un coup — le toast d'une garde (§ 12.41 du doc
+  /// commun) : « Soutenir financièrement » pose l'écran de paiement avec les
+  /// trois façons DESSOUS, pour que « Retour » y ramène. ⚠️ Seule la fenêtre du
+  /// dessus se compte (`ReferralFlowModel.show`) : celle que la personne voit.
+  @MainActor
+  static func present(
+    stack: [ReferralScreen],
+    from host: UIViewController,
+    source: ReferralShowSource,
+    preview: Bool = false
+  ) {
+    guard !stack.isEmpty else { return }
+    host.present(
+      ReferralFlowHostingController(stack: stack, source: source, preview: preview),
+      animated: true
+    )
+  }
+
   /// ⭐⭐ **L'UNIQUE émission de `paywall_shown`** (§ 13.2 de
   /// `docs/PARRAINAGE.md`). Avant le 2026-09-24, seule l'entrée d'une
   /// sollicitation (et le toast de la garde) l'était : les fenêtres posées
@@ -274,10 +292,16 @@ final class ReferralFlowModel: ObservableObject {
   /// Ferme le flow puis ouvre l'écran Parrainage (« Inviter un proche », § 12.15).
   var openHome: (() -> Void)?
 
-  init(root: ReferralScreen, source: ReferralShowSource, preview: Bool) {
+  convenience init(root: ReferralScreen, source: ReferralShowSource, preview: Bool) {
+    self.init(stack: [root], source: source, preview: preview)
+  }
+
+  /// Une pile posée d'un coup (le paiement par-dessus les trois façons,
+  /// § 12.41) : ⚠️ seule la fenêtre du DESSUS est comptée.
+  init(stack initial: [ReferralScreen], source: ReferralShowSource, preview: Bool) {
     stack = []
     self.preview = preview
-    show([root], source: source)
+    show(initial, source: source)
   }
 
   var top: ReferralScreen { stack.last ?? .announce }
@@ -349,8 +373,13 @@ final class ReferralFlowHostingController: UIHostingController<ReferralFlowView>
   private let model: ReferralFlowModel
 
   @MainActor
-  init(root: ReferralScreen, source: ReferralShowSource, preview: Bool) {
-    model = ReferralFlowModel(root: root, source: source, preview: preview)
+  convenience init(root: ReferralScreen, source: ReferralShowSource, preview: Bool) {
+    self.init(stack: [root], source: source, preview: preview)
+  }
+
+  @MainActor
+  init(stack: [ReferralScreen], source: ReferralShowSource, preview: Bool) {
+    model = ReferralFlowModel(stack: stack, source: source, preview: preview)
     super.init(rootView: ReferralFlowView(model: model))
     modalPresentationStyle = .fullScreen
     model.dismiss = { [weak self] in

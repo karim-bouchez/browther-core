@@ -15,7 +15,9 @@
 "features.extras.musicRemoval" = "การนำเพลงออกจากวิดีโอ";
 "features.essentialLine" = "ฟีเจอร์หลักยังใช้ได้เหมือนเดิม: การเบลอ การบล็อกโฆษณา การท่องเว็บ";
 "locked.musicRemoval" = "การนำเพลงออกเป็นหนึ่งในฟีเจอร์เพิ่มเติม";
-"locked.body" = "เพื่อให้แอปเหล่านี้ยังคงฟรี สตูดิโอ dev&din ต้องการคุณ";
+"locked.body" = "คุณสามารถกลับมาใช้ฟีเจอร์นี้ และอื่น ๆ อีกมากมายได้:";
+"locked.invite" = "ชวนคนใกล้ชิด · ฟรี";
+"locked.billing" = "สนับสนุนด้านการเงิน";
 "locked.cta" = "สนับสนุน dev&din";
 "locked.unlock" = "ปลดล็อก";
 "announceLater.title" = "รับทราบแล้ว";

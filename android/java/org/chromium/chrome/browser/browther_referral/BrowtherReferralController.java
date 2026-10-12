@@ -38,6 +38,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralDeletionCode;
 import org.chromium.chrome.browser.browther_referral.core.ReferralDeletionOutcome;
 import org.chromium.chrome.browser.browther_referral.core.ReferralIdentityBody;
 import org.chromium.chrome.browser.browther_referral.core.ReferralLaunch;
+import org.chromium.chrome.browser.browther_referral.core.ReferralLockedToast;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPlatform;
 import org.chromium.chrome.browser.browther_referral.core.ReferralProduct;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPrompt;
@@ -1643,38 +1644,76 @@ public final class BrowtherReferralController {
     }
 
     /**
-     * ⭐ La garde — {@code false} ⇒ un toast dit que c'est en pause, avec « Soutenir dev&din » qui
-     * ouvre les trois façons. ⛔ On ne masque JAMAIS le bouton : on l'affiche, et la garde convertit.
+     * ⭐ La garde — {@code false} ⇒ un toast dit que c'est en pause, avec ses deux boutons ({@link
+     * #showLockedToast}). ⛔ On ne masque JAMAIS le bouton : on l'affiche, et la garde convertit.
      * Hors parrainage, statut inconnu, avant l'annonce : {@code true}. ⛔ Basarunaa n'a pas de garde.
      */
     public boolean requireExtra(ExtraFeature feature, @Nullable Activity activity) {
         if (!isPaused()) return true;
+        showLockedToast(feature, activity, false);
+        return false;
+    }
+
+    /**
+     * Le toast d'une garde, avec ses DEUX boutons (§ 12.41 de `devndin/docs/PARRAINAGE.md`) :
+     * « Inviter un proche · gratuit » ouvre les trois façons, « Soutenir financièrement » ouvre
+     * DIRECTEMENT le paiement (ici, la porte factice) — 2b dessous, « Retour » y ramène ({@link
+     * ReferralLockedToast}, le cœur testé). ⛔ Plus « Soutenir dev&din » seul : il se lisait
+     * « payer ». ⛔ Pas de second bouton là où le paiement n'est pas proposé.
+     *
+     * <p>⭐ Un seul point de pose : la vraie garde ET l'aperçu de recette passent par ici. 🧪
+     * {@code preview} : le même toast, les mêmes destinations, ⛔ rien de compté.
+     *
+     * <p>📊 {@code paywall_action {screen: 'locked', action: 'invite' | 'billing'}} (⛔ plus {@code
+     * 'support'}) ; l'ouverture du paiement se compte au point unique ({@code paywall_shown
+     * {screen: 'billing', source: 'locked'}}).
+     */
+    public void showLockedToast(ExtraFeature feature, @Nullable Activity activity, boolean preview) {
         if (activity != null) {
+            List<ReferralLockedToast.Button> buttons = ReferralLockedToast.buttons(billingAvailable());
+            ReferralLockedToast.Button second = buttons.size() > 1 ? buttons.get(1) : null;
             ReferralToast.show(
                     activity,
                     ReferralStrings.get(activity, "locked.musicRemoval"),
                     ReferralStrings.get(activity, "locked.body"),
-                    ReferralStrings.get(activity, "locked.cta"),
-                    () -> {
-                        Map<String, Object> props = new HashMap<>();
-                        props.put("screen", "locked");
-                        props.put("action", "support");
-                        track("paywall_action", props);
-                        Activity host = mPlatform.topActivity();
-                        // Ouverte par la personne elle-même : une fenêtre ORDINAIRE (§ 12.16).
-                        BrowtherReferralPresenter.present(
-                                host != null ? host : activity,
-                                ReferralScreen.support(false),
-                                BrowtherReferralPresenter.Source.LOCKED,
-                                false);
-                    },
-                    false);
+                    lockedLabel(activity, buttons.get(0)),
+                    () -> openLocked(buttons.get(0), activity, preview),
+                    second == null ? null : lockedLabel(activity, second),
+                    second == null ? null : () -> openLocked(second, activity, preview));
         }
         Map<String, Object> extra = new HashMap<>();
         extra.put("feature", feature.rawValue);
         BrowtherReferralPresenter.countShown(
-                "locked", BrowtherReferralPresenter.Source.LOCKED, false, extra);
-        return false;
+                "locked", BrowtherReferralPresenter.Source.LOCKED, preview, extra);
+    }
+
+    private static String lockedLabel(Activity activity, ReferralLockedToast.Button button) {
+        return ReferralStrings.get(
+                activity, button == ReferralLockedToast.Button.INVITE ? "locked.invite" : "locked.billing");
+    }
+
+    /** Un bouton du toast d'une garde a été touché : il dit lequel, puis ouvre SA façon. */
+    private void openLocked(ReferralLockedToast.Button button, Activity activity, boolean preview) {
+        if (!preview) {
+            Map<String, Object> props = new HashMap<>();
+            props.put("screen", "locked");
+            props.put("action", button.rawValue);
+            track("paywall_action", props);
+        }
+        List<ReferralScreen> stack = new ArrayList<>();
+        for (ReferralLockedToast.Destination destination : ReferralLockedToast.stack(button)) {
+            stack.add(
+                    destination == ReferralLockedToast.Destination.BILLING
+                            ? ReferralScreen.billing()
+                            // Ouverte par la personne elle-même : une fenêtre ORDINAIRE (§ 12.16).
+                            : ReferralScreen.support(false));
+        }
+        Activity host = mPlatform.topActivity();
+        BrowtherReferralPresenter.present(
+                host != null ? host : activity,
+                stack,
+                BrowtherReferralPresenter.Source.LOCKED,
+                preview);
     }
 
     /**
