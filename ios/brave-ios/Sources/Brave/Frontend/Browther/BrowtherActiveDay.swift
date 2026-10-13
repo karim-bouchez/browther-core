@@ -4,6 +4,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import Basarunaa
+import BraveShields
 import BrowtherAnalytics
 import BrowtherReferral
 import Foundation
@@ -77,6 +78,26 @@ public final class BrowtherActiveDay {
       properties["default_browser"] = isDefault
     }
 
+    // La valeur délivrée et les pages ouvertes : les totaux du widget du
+    // Nouvel Onglet (mêmes sources que `StatsSectionProvider`), lus UNE fois —
+    // ce qui est mémorisé plus bas est exactement ce qui est parti.
+    let totals = UsageTotals(
+      blurred: BrowtherStatsReporter.shared.personsBlurredTotal,
+      musicSeconds: BrowtherStatsReporter.shared.musicSecondsTotal,
+      blocked: BraveGlobalShieldStats.shared.adblock
+        + BraveGlobalShieldStats.shared.trackingProtection,
+      pages: Preferences.BrowtherAnalytics.pagesTotal.value
+    ).clamped
+    let lastSent = LastSentUsageTotals(
+      blurred: Preferences.BrowtherAnalytics.lastSentBlurredTotal.value,
+      musicSeconds: Preferences.BrowtherAnalytics.lastSentMusicSecondsTotal.value,
+      blocked: Preferences.BrowtherAnalytics.lastSentBlockedTotal.value,
+      pages: Preferences.BrowtherAnalytics.lastSentPagesTotal.value
+    )
+    for (name, value) in Self.usageProperties(totals: totals, lastSent: lastSent) {
+      properties[name] = value
+    }
+
     // Le jour n'est noté que si l'event est réellement parti : analytics
     // coupée, il reste à compter si elle est rallumée dans la journée.
     guard
@@ -86,6 +107,81 @@ public final class BrowtherActiveDay {
       )
     else { return }
     Preferences.BrowtherAnalytics.lastActiveDay.value = today
+    // Même règle pour les totaux : pas remis, rien n'est mémorisé et l'écart
+    // s'accumule jusqu'au prochain event.
+    Preferences.BrowtherAnalytics.lastSentBlurredTotal.value = totals.blurred
+    Preferences.BrowtherAnalytics.lastSentMusicSecondsTotal.value = totals.musicSeconds
+    Preferences.BrowtherAnalytics.lastSentBlockedTotal.value = totals.blocked
+    Preferences.BrowtherAnalytics.lastSentPagesTotal.value = totals.pages
+  }
+
+  // MARK: - Compteurs d'usage (pur)
+
+  /// Les quatre totaux à vie de l'appareil, à l'instant de l'event.
+  struct UsageTotals: Equatable {
+    /// Personnes floutées par Basarunaa.
+    var blurred: Int
+    /// Secondes de musique retirées par Sawtunaa.
+    var musicSeconds: Int
+    /// Pubs et traqueurs bloqués.
+    var blocked: Int
+    /// Pages ouvertes.
+    var pages: Int
+
+    /// ⛔ Jamais de valeur négative dans l'event ni dans la mémoire.
+    var clamped: UsageTotals {
+      UsageTotals(
+        blurred: max(0, blurred),
+        musicSeconds: max(0, musicSeconds),
+        blocked: max(0, blocked),
+        pages: max(0, pages)
+      )
+    }
+  }
+
+  /// Les totaux partis avec le dernier `app_active` remis — `nil` = aucun.
+  struct LastSentUsageTotals: Equatable {
+    var blurred: Int?
+    var musicSeconds: Int?
+    var blocked: Int?
+    var pages: Int?
+  }
+
+  /// Ce qu'un compteur a gagné depuis le dernier `app_active` remis ; `nil` =
+  /// propriété à omettre.
+  /// - Rien de mémorisé (premier event après la mise à jour) : omis — ⛔ pas
+  ///   tout l'historique de l'appareil sur une seule journée.
+  /// - Total retombé sous la mémoire (données effacées, compteur remis à
+  ///   zéro) : tout ce qu'il porte est nouveau.
+  static func usageIncrement(total: Int, lastSentTotal: Int?) -> Int? {
+    guard let lastSentTotal else { return nil }
+    let total = max(0, total)
+    return total < lastSentTotal ? total : total - lastSentTotal
+  }
+
+  /// Les propriétés de compteurs de `app_active` : les `*_total` toujours (0
+  /// compris), les écarts seulement quand ils sont connus.
+  static func usageProperties(
+    totals: UsageTotals,
+    lastSent: LastSentUsageTotals
+  ) -> [String: Int] {
+    var properties: [String: Int] = [:]
+    let counters: [(name: String, total: Int, lastSentTotal: Int?)] = [
+      ("blurred", totals.blurred, lastSent.blurred),
+      ("music_seconds", totals.musicSeconds, lastSent.musicSeconds),
+      ("blocked", totals.blocked, lastSent.blocked),
+      ("pages", totals.pages, lastSent.pages),
+    ]
+    for counter in counters {
+      properties["\(counter.name)_total"] = max(0, counter.total)
+      if let increment = usageIncrement(
+        total: counter.total,
+        lastSentTotal: counter.lastSentTotal
+      ) {
+        properties[counter.name] = increment
+      }
+    }
+    return properties
   }
 
   // MARK: - Lecture de l'état (pur)

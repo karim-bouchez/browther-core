@@ -12,10 +12,12 @@
 #include "chrome/browser/ui/browser_list_observer.h"
 
 class Browser;
+class Profile;
 
 // Browther : `app_active` — « actif aujourd'hui » (desktop). Au plus un par
 // jour calendaire LOCAL et par installation, avec l'ÉTAT des réglages
-// (navigateur par défaut, floutage, musique) et non les gestes. Même event et
+// (navigateur par défaut, floutage, musique) et non les gestes, plus les
+// compteurs d'usage (flouté, musique retirée, bloqué, pages). Même event et
 // mêmes propriétés qu'Android (`BrowtherDailyActive.java`) et iOS
 // (private/docs/ANALYTICS.md).
 //
@@ -45,6 +47,7 @@ class BrowtherAppActiveTracker : public BrowserListObserver {
 
   void MaybeTrack(Browser* browser);
   void OnDefaultBrowserChecked(base::DictValue properties,
+                               base::WeakPtr<Profile> profile,
                                shell_integration::DefaultWebClientState state);
 
   // Une question au système est déjà partie : les activations de fenêtre qui

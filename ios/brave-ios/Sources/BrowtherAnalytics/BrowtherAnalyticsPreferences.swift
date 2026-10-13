@@ -35,5 +35,40 @@ extension Preferences {
       key: "browther.analytics.last-active-day",
       default: nil
     )
+
+    // MARK: Compteurs d'usage portés par `app_active`
+
+    /// Pages ouvertes depuis l'installation (ou depuis la mise à jour qui a
+    /// introduit ce compteur) : une navigation principale aboutie, `http(s)`,
+    /// hors pages internes et hors navigation privée. ⛔ Un nombre, jamais une
+    /// adresse. Incrémenté par `BrowtherReferralController.notePageLoaded`, à
+    /// côté du compte du jour du parrainage.
+    public static let pagesTotal = Option<Int>(
+      key: "browther.analytics.pages-total",
+      default: 0
+    )
+
+    /// Totaux tels qu'ils sont partis avec le dernier `app_active` REMIS au
+    /// SDK — l'event suivant n'envoie que l'écart, pour qu'une somme d'events
+    /// ne compte jamais deux fois le même appareil.
+    /// ⚠️ Écrits au même moment que `lastActiveDay`, et seulement là.
+    /// `nil` = aucun event parti depuis que ces compteurs existent : l'écart
+    /// est alors omis (⛔ pas tout l'historique de l'appareil d'un coup).
+    public static let lastSentBlurredTotal = Option<Int?>(
+      key: "browther.analytics.last-sent.blurred-total",
+      default: nil
+    )
+    public static let lastSentMusicSecondsTotal = Option<Int?>(
+      key: "browther.analytics.last-sent.music-seconds-total",
+      default: nil
+    )
+    public static let lastSentBlockedTotal = Option<Int?>(
+      key: "browther.analytics.last-sent.blocked-total",
+      default: nil
+    )
+    public static let lastSentPagesTotal = Option<Int?>(
+      key: "browther.analytics.last-sent.pages-total",
+      default: nil
+    )
   }
 }

@@ -136,6 +136,7 @@
 #include "brave/browser/ui/tabs/brave_tab_prefs.h"
 #include "brave/browser/ui/webui/welcome_page/brave_welcome_ui_prefs.h"
 #include "brave/components/brave_private_new_tab_ui/common/pref_names.h"
+#include "brave/components/browther_analytics/pref_names.h"
 #include "chrome/browser/ui/webui/bookmarks/bookmark_prefs.h"
 #include "chrome/browser/ui/webui/side_panel/bookmarks/bookmarks.mojom.h"
 #endif
@@ -445,6 +446,10 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   registry->RegisterBooleanPref(kSawtunaaTempRevertTo, false);
   registry->RegisterTimePref(kBasarunaaTempRevertAt, base::Time());
   registry->RegisterBooleanPref(kBasarunaaTempRevertTo, false);
+  // Browther: `app_active`, mémoire du total de blocages déjà envoyé pour ce
+  // profil (-1 = jamais ; browther_analytics/pref_names.h, desktop).
+  registry->RegisterIntegerPref(
+      browther_analytics::prefs::kAppActiveSentBlocked, -1);
 #endif
   // Browther : Basarunaa et Sawtunaa partent OFF (accès anticipé, 2026-09-09).
   // Elles marchent, mais pas partout et pas encore assez bien pour être le

@@ -8,6 +8,7 @@ package org.chromium.chrome.browser.browther_referral;
 import android.app.Activity;
 import android.view.View;
 
+import org.chromium.chrome.browser.browther_analytics.BrowtherDailyActive;
 import org.chromium.chrome.browser.browther_referral.core.ReferralAuthClient;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.components.external_intents.ExternalNavigationParams;
@@ -36,6 +37,9 @@ public final class BrowtherReferralHooks {
         if (tab == null || url == null || tab.isIncognito()) return;
         String scheme = url.getScheme();
         if (!"http".equals(scheme) && !"https".equals(scheme)) return;
+        // Le total à vie des pages ouvertes (`pages_total` de l'event `app_active`) : la même
+        // unité, comptée ici pour ne pas dépendre de l'état du parrainage.
+        BrowtherDailyActive.notePageOpened();
         try {
             BrowtherReferralController.get().notePageLoaded();
         } catch (RuntimeException e) {

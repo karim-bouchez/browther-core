@@ -672,6 +672,8 @@ final class BrowtherReferralController: ObservableObject {
     boot()
     let today = ReferralDate.localDayKey(now)
     pagesToday = pagesToday.day == today ? (today, pagesToday.count + 1) : (today, 1)
+    // Le même fait, en total à vie, pour `app_active` (cf. `BrowtherActiveDay`).
+    Preferences.BrowtherAnalytics.pagesTotal.value += 1
     noteMusicDayStart(today)
     guard enabled else { return }
     updatePrompt { ReferralPrompt.recordBrowsingDay($0, now: now) }

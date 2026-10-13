@@ -5,7 +5,10 @@
 
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 
+#include <algorithm>
+#include <array>
 #include <limits>
+#include <utility>
 
 #include "base/check.h"
 #include "base/functional/bind.h"
@@ -52,6 +55,43 @@ std::string LocalDayKey(base::Time time) {
   time.LocalExplode(&exploded);
   return base::StringPrintf("%04d-%02d-%02d", exploded.year, exploded.month,
                             exploded.day_of_month);
+}
+
+// Un compteur d'usage de `app_active` tenu en Local State : la pref du total à
+// vie, celle de sa mémoire (total parti avec le dernier event remis) et les
+// deux propriétés envoyées.
+struct AppActiveCounter {
+  const char* total_pref;
+  const char* sent_pref;
+  const char* total_key;
+  const char* added_key;
+};
+
+constexpr std::array<AppActiveCounter, 3> kAppActiveCounters = {{
+    {prefs::kStatsPersonsBlurredTotal, prefs::kAppActiveSentBlurred,
+     "blurred_total", "blurred"},
+    {prefs::kStatsMusicSecondsTotal, prefs::kAppActiveSentMusicSeconds,
+     "music_seconds_total", "music_seconds"},
+    {prefs::kStatsPagesTotal, prefs::kAppActiveSentPages, "pages_total",
+     "pages"},
+}};
+
+// Pose le total et, s'il y a une mémoire, l'ajout depuis le dernier event.
+//  - `sent` < 0 : jamais envoyé (premier event après la mise à jour) ⇒ ajout
+//    OMIS — envoyer tout l'historique d'un coup fausserait la journée ;
+//  - `total` < `sent` : compteur remis à zéro (données effacées) ⇒ l'ajout
+//    est le total actuel ;
+//  - jamais négatif.
+void SetAppActiveCounter(base::DictValue& properties,
+                         const char* total_key,
+                         const char* added_key,
+                         int total,
+                         int sent) {
+  properties.Set(total_key, total);
+  if (sent < 0) {
+    return;
+  }
+  properties.Set(added_key, total >= sent ? total - sent : total);
 }
 
 }  // namespace
@@ -143,13 +183,41 @@ bool BrowtherAnalyticsService::IsAppActiveDue() const {
              LocalDayKey(base::Time::Now());
 }
 
-bool BrowtherAnalyticsService::TrackAppActive(base::DictValue properties) {
+bool BrowtherAnalyticsService::TrackAppActive(
+    base::DictValue properties,
+    std::optional<int> blocked_total,
+    PrefService* profile_prefs) {
   if (!IsAppActiveDue()) {
     return false;
   }
+  // Les totaux sont lus UNE fois : la valeur envoyée et la valeur mémorisée
+  // sont la même, sinon ce qui s'ajoute entre les deux serait perdu.
+  std::array<int, kAppActiveCounters.size()> totals;
+  for (size_t i = 0; i < kAppActiveCounters.size(); ++i) {
+    const AppActiveCounter& counter = kAppActiveCounters[i];
+    totals[i] = std::max(0, local_state_->GetInteger(counter.total_pref));
+    SetAppActiveCounter(properties, counter.total_key, counter.added_key,
+                        totals[i],
+                        local_state_->GetInteger(counter.sent_pref));
+  }
+  const bool has_blocked = blocked_total.has_value() && profile_prefs;
+  const int blocked = has_blocked ? std::max(0, *blocked_total) : 0;
+  if (has_blocked) {
+    SetAppActiveCounter(properties, "blocked_total", "blocked", blocked,
+                        profile_prefs->GetInteger(prefs::kAppActiveSentBlocked));
+  }
+
   posthog_client_->Enqueue("app_active", std::move(properties));
+  // L'event est remis : le jour ET les mémoires, ensemble. Sans event (retour
+  // anticipé ci-dessus), rien n'est noté et l'ajout part avec le prochain.
   local_state_->SetString(prefs::kAppActiveLastDay,
                           LocalDayKey(base::Time::Now()));
+  for (size_t i = 0; i < kAppActiveCounters.size(); ++i) {
+    local_state_->SetInteger(kAppActiveCounters[i].sent_pref, totals[i]);
+  }
+  if (has_blocked) {
+    profile_prefs->SetInteger(prefs::kAppActiveSentBlocked, blocked);
+  }
   return true;
 }
 
@@ -186,6 +254,10 @@ void BrowtherAnalyticsService::IncrementAdsBlocked(int delta) {
     return;
   }
   stats_client_->IncrementAdsBlocked(delta);
+}
+
+void BrowtherAnalyticsService::IncrementPagesOpened() {
+  IncrementIntegerPref(local_state_, prefs::kStatsPagesTotal, 1);
 }
 
 void BrowtherAnalyticsService::FlushStatsNow() {

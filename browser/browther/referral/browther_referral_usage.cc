@@ -15,6 +15,7 @@
 #include "base/strings/stringprintf.h"
 #include "base/task/thread_pool.h"
 #include "brave/browser/browther/referral/browther_referral_prefs.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/browther_analytics/pref_names.h"
 #include "chrome/browser/browser_process.h"
 #include "chrome/browser/shell_integration.h"
@@ -122,6 +123,12 @@ std::string LocalDayKey(base::Time time) {
 void RecordRealPageLoad(PrefService* local_state) {
   if (!local_state) {
     return;
+  }
+  // La même page, comptée aussi dans le total à vie que porte `app_active`
+  // (`pages_total`) — le registre ci-dessous repart de zéro chaque jour.
+  if (auto* analytics =
+          browther_analytics::BrowtherAnalyticsService::GetInstance()) {
+    analytics->IncrementPagesOpened();
   }
   bool should_check = false;
   {

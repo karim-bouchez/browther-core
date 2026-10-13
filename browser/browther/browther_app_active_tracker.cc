@@ -5,12 +5,14 @@
 
 #include "brave/browser/browther/browther_app_active_tracker.h"
 
+#include <optional>
 #include <string>
 #include <utility>
 
 #include "base/functional/bind.h"
 #include "base/memory/ref_counted.h"
 #include "base/memory/scoped_refptr.h"
+#include "base/numerics/safe_conversions.h"
 #include "base/strings/string_util.h"
 #include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/constants/pref_names.h"
@@ -74,7 +76,8 @@ void BrowtherAppActiveTracker::MaybeTrack(Browser* browser) {
   }
   // Plusieurs profils : celui de la fenêtre qu'on vient d'utiliser. Une
   // fenêtre privée lit les réglages du profil dont elle est issue.
-  const PrefService* prefs = profile->GetOriginalProfile()->GetPrefs();
+  profile = profile->GetOriginalProfile();
+  const PrefService* prefs = profile->GetPrefs();
 
   base::DictValue properties;
   // L'interrupteur principal, ⛔ pas la bascule « seulement 5 min »
@@ -95,11 +98,13 @@ void BrowtherAppActiveTracker::MaybeTrack(Browser* browser) {
   auto worker = base::MakeRefCounted<shell_integration::DefaultBrowserWorker>();
   worker->StartCheckIsDefault(
       base::BindOnce(&BrowtherAppActiveTracker::OnDefaultBrowserChecked,
-                     weak_factory_.GetWeakPtr(), std::move(properties)));
+                     weak_factory_.GetWeakPtr(), std::move(properties),
+                     profile->GetWeakPtr()));
 }
 
 void BrowtherAppActiveTracker::OnDefaultBrowserChecked(
     base::DictValue properties,
+    base::WeakPtr<Profile> profile,
     shell_integration::DefaultWebClientState state) {
   check_pending_ = false;
   // ⛔ Jamais `false` par défaut : état inconnu ⇒ propriété omise.
@@ -111,8 +116,24 @@ void BrowtherAppActiveTracker::OnDefaultBrowserChecked(
   }
   if (auto* analytics =
           browther_analytics::BrowtherAnalyticsService::GetInstance()) {
-    // Revérifie le jour et le consentement, et ne note le jour que si l'event
-    // a été remis au client.
-    analytics->TrackAppActive(std::move(properties));
+    // Pubs et traqueurs bloqués : la 3ᵉ colonne du widget stats du Nouvel
+    // Onglet (`NewTabPageHandler::GetShieldsStats`), un total par PROFIL — sa
+    // mémoire « déjà envoyé » vit donc dans ce même profil. Lu ICI et pas
+    // avec les réglages : le total envoyé et le total mémorisé doivent être le
+    // même, dans le même tour. Profil fermé entre-temps, ou invité (ses
+    // compteurs repartent de zéro à chaque session) ⇒ `blocked*` omis, ⛔ pas
+    // de 0 inventé.
+    std::optional<int> blocked_total;
+    PrefService* profile_prefs = nullptr;
+    if (profile && profile->IsRegularProfile()) {
+      profile_prefs = profile->GetPrefs();
+      blocked_total =
+          base::saturated_cast<int>(profile_prefs->GetUint64(kAdsBlocked) +
+                                    profile_prefs->GetUint64(kTrackersBlocked));
+    }
+    // Revérifie le jour et le consentement, et ne note le jour et les
+    // mémoires des compteurs que si l'event a été remis au client.
+    analytics->TrackAppActive(std::move(properties), blocked_total,
+                              profile_prefs);
   }
 }

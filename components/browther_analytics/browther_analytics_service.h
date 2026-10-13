@@ -7,6 +7,7 @@
 #define BRAVE_COMPONENTS_BROWTHER_ANALYTICS_BROWTHER_ANALYTICS_SERVICE_H_
 
 #include <memory>
+#include <optional>
 #include <string>
 
 #include "base/memory/raw_ptr.h"
@@ -55,8 +56,21 @@ class BrowtherAnalyticsService {
   // n'a pas encore été envoyé — avant de réunir des propriétés coûteuses
   // (navigateur par défaut), puis appelle TrackAppActive(), qui revérifie et
   // ne note le jour que si l'event a réellement été remis au client.
+  //
+  // TrackAppActive() joint les compteurs d'usage : pour chacun le total à vie
+  // (`blurred_total`, `music_seconds_total`, `pages_total`, `blocked_total`,
+  // toujours envoyés) et l'ajout depuis le dernier `app_active` remis
+  // (`blurred`, `music_seconds`, `pages`, `blocked`), calculé contre une
+  // mémoire écrite en même temps que le jour — additionner les events ne
+  // compte donc jamais deux fois le même appareil (pref_names.h,
+  // `kAppActiveSent*`). Les trois premiers totaux sont en Local State, le
+  // service les lit lui-même. Les blocages sont par PROFIL : l'appelant donne
+  // leur total et les prefs du profil où vit leur mémoire ; `nullopt` / nul
+  // (profil disparu, invité) ⇒ `blocked*` omis et mémoire intacte.
   bool IsAppActiveDue() const;
-  bool TrackAppActive(base::DictValue properties);
+  bool TrackAppActive(base::DictValue properties,
+                      std::optional<int> blocked_total,
+                      PrefService* profile_prefs);
 
   // Stats cumulatives publiées sur browther.devndin.com via /api/stats.
   // No-op si StatsClient non configuré ou consentement désactivé.
@@ -65,6 +79,11 @@ class BrowtherAnalyticsService {
   void IncrementPersonsBlurred(int delta);
   void IncrementAdsBlocked(int delta);
   void FlushStatsNow();
+
+  // +1 page ouverte (total à vie local, `kStatsPagesTotal`). Pas de gate
+  // analytics : rien ne part sur le réseau ici, le total ne voyage que dans
+  // `app_active`, qui porte son propre consentement.
+  void IncrementPagesOpened();
 
  private:
   BrowtherAnalyticsService(

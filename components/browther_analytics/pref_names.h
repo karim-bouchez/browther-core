@@ -24,6 +24,27 @@ inline constexpr char kOnboardingEventSent[] =
 inline constexpr char kAppActiveLastDay[] =
     "browther.analytics.app_active_last_day";
 
+// Compteurs d'usage joints à `app_active` : le total À VIE tel qu'il est parti
+// avec le dernier `app_active` remis au client. L'ajout envoyé (`blurred`,
+// `music_seconds`, `pages`, `blocked`) = total actuel − cette mémoire, pour
+// qu'additionner les events dans PostHog ne compte jamais deux fois le même
+// appareil. Écrites au même endroit et au même moment que le jour
+// (`TrackAppActive`), donc seulement si l'event est remis. -1 (le défaut) =
+// jamais envoyé ⇒ l'ajout est OMIS de l'event, ⛔ pas tout l'historique d'un
+// coup. Desktop ; Android et iOS tiennent les leurs.
+inline constexpr char kAppActiveSentBlurred[] =
+    "browther.analytics.app_active_sent.blurred";
+inline constexpr char kAppActiveSentMusicSeconds[] =
+    "browther.analytics.app_active_sent.music_seconds";
+inline constexpr char kAppActiveSentPages[] =
+    "browther.analytics.app_active_sent.pages";
+// ⚠️ Celle-ci est une pref de PROFIL, pas de Local State : le total qu'elle
+// mémorise (`kAdsBlocked` + `kTrackersBlocked`) est lui-même par profil. Une
+// mémoire par installation, comparée tour à tour aux totaux de deux profils,
+// renverrait l'historique entier de l'un à chaque changement de fenêtre.
+inline constexpr char kAppActiveSentBlocked[] =
+    "browther.analytics.app_active_sent.blocked";
+
 // Compteurs en attente d'envoi vers /api/stats/ingest. Persistés pour
 // survivre aux relances browser (un crash ne perd pas les secondes
 // accumulées). Reset à 0 après un flush HTTP réussi.
@@ -49,6 +70,14 @@ inline constexpr char kStatsMusicSecondsTotal[] =
     "browther.stats.music_seconds_total";
 inline constexpr char kStatsPersonsBlurredTotal[] =
     "browther.stats.persons_blurred_total";
+
+// Pages ouvertes, total à vie de l'installation (Local State) : un nombre,
+// ⛔ aucune adresse, aucun domaine. Incrémenté à côté du compteur du jour du
+// parrainage (`browther_referral::RecordRealPageLoad`), donc la même unité :
+// une page http(s) qui a fini de charger dans le cadre principal, hors
+// navigation privée. Ne part que dans `app_active` (`pages_total`, `pages`) ;
+// pas affiché, pas envoyé à /api/stats/ingest. Desktop seulement.
+inline constexpr char kStatsPagesTotal[] = "browther.stats.pages_total";
 
 }  // namespace browther_analytics::prefs
 

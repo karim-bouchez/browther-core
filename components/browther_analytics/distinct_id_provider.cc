@@ -35,6 +35,11 @@ void DistinctIdProvider::RegisterLocalStatePrefs(
   registry->RegisterStringPref(prefs::kBrowtherDistinctId, std::string());
   registry->RegisterBooleanPref(prefs::kOnboardingEventSent, false);
   registry->RegisterStringPref(prefs::kAppActiveLastDay, std::string());
+  // Compteurs d'usage de `app_active` : -1 = jamais envoyé (pref_names.h).
+  registry->RegisterIntegerPref(prefs::kAppActiveSentBlurred, -1);
+  registry->RegisterIntegerPref(prefs::kAppActiveSentMusicSeconds, -1);
+  registry->RegisterIntegerPref(prefs::kAppActiveSentPages, -1);
+  registry->RegisterIntegerPref(prefs::kStatsPagesTotal, 0);
 }
 
 }  // namespace browther_analytics
