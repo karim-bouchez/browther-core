@@ -17,6 +17,7 @@
 #include "chrome/browser/browser_process.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/browser_finder.h"
 #include "chrome/browser/ui/browser_list.h"
 #include "components/prefs/pref_service.h"
 
@@ -36,14 +37,23 @@ BrowtherAppActiveTracker::~BrowtherAppActiveTracker() {
 
 // static
 void BrowtherAppActiveTracker::CreateInstance() {
-  if (!g_instance) {
-    g_instance = new BrowtherAppActiveTracker();
+  if (g_instance) {
+    return;
+  }
+  g_instance = new BrowtherAppActiveTracker();
+  // Le lancement : ⚠️ la fenêtre de démarrage EXISTE DÉJÀ ici — les
+  // `PreMainMessageLoopRun` des extra parts passent après la création du
+  // navigateur de démarrage, son `OnBrowserAdded` est donc déjà parti (constat
+  // du 2026-10-13 : sans cette ligne, un lancement à une seule fenêtre
+  // n'envoyait rien tant qu'on ne changeait pas de fenêtre).
+  if (Browser* browser = chrome::FindLastActive()) {
+    g_instance->MaybeTrack(browser);
   }
 }
 
 void BrowtherAppActiveTracker::OnBrowserAdded(Browser* browser) {
-  // Le lancement : aucune fenêtre n'existe encore quand le tracker est créé
-  // (PreMainMessageLoopRun), la première arrive ici — avec son profil chargé.
+  // Lancement sans fenêtre (macOS, ou restauration tardive) puis fenêtres
+  // suivantes : chacune arrive ici avec son profil chargé.
   MaybeTrack(browser);
 }
 
