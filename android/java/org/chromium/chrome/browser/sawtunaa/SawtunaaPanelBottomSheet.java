@@ -172,10 +172,8 @@ public class SawtunaaPanelBottomSheet extends BottomSheetDialogFragment {
                         UserPrefs.get(ProfileManager.getLastUsedRegularProfile())
                                 .setBoolean(BravePref.SAWTUNAA_ENABLED, isChecked);
                         mOffered = !wasTemporary;
-                        BrowtherAnalyticsBridge.trackWithProps(
-                                "feature_toggled",
-                                new String[] {"feature", "enabled"},
-                                new String[] {"sawtunaa", Boolean.toString(isChecked)});
+                        BrowtherAnalyticsBridge.trackTyped(
+                                "feature_toggled", "feature", "sawtunaa", "enabled", isChecked);
                         updateStatusText(isChecked);
                         applyEarlyAccess(view, isChecked);
                         refreshTemporary();

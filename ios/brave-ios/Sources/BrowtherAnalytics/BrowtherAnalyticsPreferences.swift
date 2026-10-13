@@ -27,5 +27,13 @@ extension Preferences {
       key: "browther.analytics.distinct-id",
       default: nil
     )
+    /// Dernier jour LOCAL (`AAAA-MM-JJ`) où `app_active` a été remis au SDK —
+    /// l'event part au plus une fois par jour (cf. `BrowtherActiveDay`).
+    /// ⚠️ Écrit seulement après un envoi réel : analytics coupée, le jour
+    /// reste à compter.
+    public static let lastActiveDay = Option<String?>(
+      key: "browther.analytics.last-active-day",
+      default: nil
+    )
   }
 }

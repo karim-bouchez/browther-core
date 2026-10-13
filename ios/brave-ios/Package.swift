@@ -87,7 +87,8 @@ var package = Package(
     .package(name: "JitsiMeet", path: "../third_party/JitsiMeet"),
     // Browther: analytics
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.40.1"),
-    .package(url: "https://github.com/PostHog/posthog-ios", from: "3.20.0"),
+    // ≥ 3.55.0 : `PostHogConfig.rageClickConfig`, que le service coupe.
+    .package(url: "https://github.com/PostHog/posthog-ios", from: "3.55.0"),
     // Browther: le paiement du parrainage (docs/PARRAINAGE.md § 7.4 — IAP via
     // RevenueCat). Le dépôt « -spm » : le même SDK, sans les sources des autres
     // gestionnaires de paquets à résoudre.

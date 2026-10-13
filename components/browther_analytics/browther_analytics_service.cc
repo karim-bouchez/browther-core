@@ -10,6 +10,8 @@
 #include "base/check.h"
 #include "base/functional/bind.h"
 #include "base/no_destructor.h"
+#include "base/strings/stringprintf.h"
+#include "base/time/time.h"
 #include "brave/components/browther_analytics/distinct_id_provider.h"
 #include "brave/components/browther_analytics/posthog_client.h"
 #include "brave/components/browther_analytics/pref_names.h"
@@ -42,6 +44,14 @@ void IncrementIntegerPref(PrefService* prefs,
     return;
   }
   prefs->SetInteger(path, current + delta);
+}
+
+// Jour calendaire dans le fuseau de la personne (`AAAA-MM-JJ`).
+std::string LocalDayKey(base::Time time) {
+  base::Time::Exploded exploded;
+  time.LocalExplode(&exploded);
+  return base::StringPrintf("%04d-%02d-%02d", exploded.year, exploded.month,
+                            exploded.day_of_month);
 }
 
 }  // namespace
@@ -125,6 +135,22 @@ void BrowtherAnalyticsService::Track(const std::string& event_name,
 
 void BrowtherAnalyticsService::Track(const std::string& event_name) {
   Track(event_name, base::DictValue());
+}
+
+bool BrowtherAnalyticsService::IsAppActiveDue() const {
+  return IsPostHogEnabled() &&
+         local_state_->GetString(prefs::kAppActiveLastDay) !=
+             LocalDayKey(base::Time::Now());
+}
+
+bool BrowtherAnalyticsService::TrackAppActive(base::DictValue properties) {
+  if (!IsAppActiveDue()) {
+    return false;
+  }
+  posthog_client_->Enqueue("app_active", std::move(properties));
+  local_state_->SetString(prefs::kAppActiveLastDay,
+                          LocalDayKey(base::Time::Now()));
+  return true;
 }
 
 bool BrowtherAnalyticsService::IsStatsEnabled() const {

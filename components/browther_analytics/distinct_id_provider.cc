@@ -34,6 +34,7 @@ void DistinctIdProvider::RegisterLocalStatePrefs(
     PrefRegistrySimple* registry) {
   registry->RegisterStringPref(prefs::kBrowtherDistinctId, std::string());
   registry->RegisterBooleanPref(prefs::kOnboardingEventSent, false);
+  registry->RegisterStringPref(prefs::kAppActiveLastDay, std::string());
 }
 
 }  // namespace browther_analytics

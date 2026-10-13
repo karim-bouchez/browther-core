@@ -7,13 +7,14 @@ import Foundation
 import PostHog
 import Preferences
 import Sentry
+import Shared
 import os.log
 
 /// Service singleton qui initialise Sentry + PostHog au lancement, gaté sur les
 /// prefs `BrowtherAnalytics.sentryEnabled` / `posthogEnabled`.
 ///
 /// Contrat d'events partagé avec Desktop (cf. `private/docs/ANALYTICS.md`) :
-/// - `app_launched`, `onboarding_completed`, `default_browser_set`,
+/// - `app_launched`, `app_active`, `onboarding_completed`, `default_browser_set`,
 ///   `consent_changed`, `feature_toggled`, `page_viewed`.
 ///
 /// Pas de PII : pas d'email, pas d'IP, pas d'URL visitée, pas de contenu de page.
@@ -82,17 +83,60 @@ public final class BrowtherAnalyticsService {
   // MARK: - Track API
 
   /// Envoie un event PostHog. No-op si PostHog désactivé ou pas init.
-  /// Les properties communes (`os`, `version`, `$lib`, `$lib_version`) sont auto-injectées.
+  /// Les properties communes (`os`, `version`, `build`, `$lib`, `$lib_version`)
+  /// sont auto-injectées.
   public func track(event: String, properties: [String: Any] = [:]) {
-    guard Preferences.BrowtherAnalytics.posthogEnabled.value else { return }
-    guard let posthog else { return }
-    var props = properties
-    props["os"] = "ios"
-    props["version"] = Bundle.main.infoDictionaryString(forKey: "CFBundleShortVersionString")
-    props["$lib"] = "browther-native"
-    props["$lib_version"] = "1.0.0"
-    posthog.capture(event, properties: props)
+    trackReportingDelivery(event: event, properties: properties)
   }
+
+  /// Comme `track`, mais dit si l'event a réellement été remis au SDK — faux
+  /// quand l'analytics est coupée ou pas encore démarrée. Pour qui doit se
+  /// souvenir d'avoir envoyé (`app_active`, une fois par jour) : sans cette
+  /// réponse, un jour passé analytics coupée serait noté « déjà compté ».
+  @discardableResult
+  public func trackReportingDelivery(event: String, properties: [String: Any] = [:]) -> Bool {
+    guard Preferences.BrowtherAnalytics.posthogEnabled.value else { return false }
+    guard let posthog else { return false }
+    // Une propriété posée par l'appelant l'emporte sur la commune (contrat
+    // analytics 2026-10-13, § 1) : on complète, on n'écrase pas.
+    let common: [String: Any] = [
+      "os": "ios",
+      "version": Bundle.main.infoDictionaryString(forKey: "CFBundleShortVersionString"),
+      "build": Self.buildKind,
+      "$lib": "browther-native",
+      "$lib_version": "1.0.0",
+    ]
+    let props = properties.merging(common) { fromCaller, _ in fromCaller }
+    posthog.capture(event, properties: props)
+    return true
+  }
+
+  /// `release` = binaire distribué par Apple (App Store ou TestFlight), `dev`
+  /// = tout le reste (lancé depuis Xcode, installé en développement ou en
+  /// ad hoc, simulateur). Sert à exclure nos propres appareils des tableaux.
+  ///
+  /// ⚠️ Ni `AppConstants.isOfficialBuild` ni le canal seul ne suffisent :
+  /// - `isOfficialBuild` est VRAI sur nos builds de développement (ils se
+  ///   lient au BraveCore Release, cf. `SettingsViewController`
+  ///   § `isBrowtherRehearsalAvailable`) ;
+  /// - le canal `.release` est aussi celui d'une Release compilée ici et posée
+  ///   sur un iPhone par câble, avant tout passage par Apple.
+  /// D'où le second critère : Apple re-signe ce qu'il distribue et en retire
+  /// `embedded.mobileprovision` — le profil n'existe que dans un binaire
+  /// installé hors store. Le simulateur n'en a pas non plus, il est donc
+  /// écarté à la compilation.
+  ///
+  /// Calculé une fois, au premier event : l'AppDelegate a posé le canal au
+  /// `willFinishLaunching`, bien avant.
+  private static let buildKind: String = {
+    #if targetEnvironment(simulator)
+    return "dev"
+    #else
+    let hasProvisioningProfile =
+      Bundle.main.url(forResource: "embedded", withExtension: "mobileprovision") != nil
+    return AppConstants.buildChannel == .release && !hasProvisioningProfile ? "release" : "dev"
+    #endif
+  }()
 
   /// Envoie tout de suite la file PostHog au lieu d'attendre le lot suivant
   /// (`flushIntervalSeconds`). Réservé aux évènements qu'un humain attend à
@@ -225,6 +269,16 @@ public final class BrowtherAnalyticsService {
     let config = PostHogConfig(apiKey: key, host: AnalyticsConfig.posthogHost)
     config.captureApplicationLifecycleEvents = false
     config.captureScreenViews = false
+    // Aucune capture automatique des gestes : seuls nos events applicatifs
+    // partent. `$rageclick` (trois tapes rapprochées au même endroit) est
+    // ACTIVÉ PAR DÉFAUT par le SDK depuis la 3.55.0, indépendamment de
+    // l'autocapture — il était devenu l'event le plus volumineux du projet
+    // (20 700 en 90 j) sans servir à rien. Même leçon que
+    // `enableCaptureFailedRequests` côté Sentry : un défaut de SDK, pas un choix.
+    config.rageClickConfig.enabled = false
+    // Déjà `false` par défaut (`$autocapture`) ; écrit pour qu'un défaut qui
+    // change à une montée de version ne le rallume pas en silence.
+    config.captureElementInteractions = false
     config.flushAt = 50
     config.flushIntervalSeconds = 30
     PostHogSDK.shared.setup(config)

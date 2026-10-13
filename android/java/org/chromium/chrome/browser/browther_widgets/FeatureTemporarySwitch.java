@@ -138,10 +138,15 @@ public final class FeatureTemporarySwitch {
         persist();
         schedule();
         notifyObservers();
-        track(
+        // Types réels (booléen, entier), comme iOS et desktop — pas des chaînes.
+        BrowtherAnalyticsBridge.trackTyped(
                 "feature_temporary",
-                new String[] {"enabled", "minutes"},
-                new String[] {Boolean.toString(enabled), Long.toString(DURATION_MS / 60_000L)});
+                "feature",
+                mFeature,
+                "enabled",
+                enabled,
+                "minutes",
+                (int) (DURATION_MS / 60_000L));
     }
 
     /** « Ne pas réactiver » / « Ne pas couper » : l'état actuel devient durable. */

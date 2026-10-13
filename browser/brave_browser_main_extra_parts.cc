@@ -6,7 +6,6 @@
 #include "brave/browser/brave_browser_main_extra_parts.h"
 
 #include "base/metrics/histogram_macros.h"
-#include "base/values.h"
 #include "brave/browser/brave_browser_process_impl.h"
 #include "brave/browser/misc_metrics/process_misc_metrics.h"
 #include "brave/browser/misc_metrics/uptime_monitor_impl.h"
@@ -15,10 +14,10 @@
 #include "brave/components/p3a/p3a_service.h"
 #include "components/metrics/metrics_pref_names.h"
 #include "components/prefs/pref_service.h"
-#include "components/version_info/version_info.h"
 #include "services/network/public/cpp/shared_url_loader_factory.h"
 
 #if !BUILDFLAG(IS_ANDROID)
+#include "brave/browser/browther/browther_app_active_tracker.h"
 #include "brave/browser/importer/brave_importer_p3a.h"
 #include "brave/browser/p3a/p3a_core_metrics.h"
 #include "brave/browser/ui/webui/new_tab_page/brave_new_tab_message_handler.h"
@@ -91,15 +90,16 @@ void BraveBrowserMainExtraParts::PreMainMessageLoopRun() {
       g_browser_process->shared_url_loader_factory());
   if (auto* analytics =
           browther_analytics::BrowtherAnalyticsService::GetInstance()) {
-    base::DictValue props;
-    props.Set("version", std::string(version_info::GetVersionNumber()));
-    props.Set("os", std::string(version_info::GetOSType()));
-    analytics->Track("app_launched", std::move(props));
+    // `os`, `version` (CalVer Browther), `chromium_version` et `build` sont
+    // posées sur tout évènement par le client (posthog_client.cc).
+    analytics->Track("app_launched");
   }
 
   // The code below is not supported on android.
 #if !BUILDFLAG(IS_ANDROID)
   brave::BraveWindowTracker::CreateInstance(g_browser_process->local_state());
+  // Browther: `app_active`, une fois par jour où une fenêtre est utilisée.
+  BrowtherAppActiveTracker::CreateInstance();
 #endif  // !BUILDFLAG(IS_ANDROID)
   g_brave_browser_process->process_misc_metrics()->uptime_monitor()->Init();
 }

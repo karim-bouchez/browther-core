@@ -17,6 +17,13 @@ inline constexpr char kBrowtherDistinctId[] = "browther.analytics.distinct_id";
 inline constexpr char kOnboardingEventSent[] =
     "browther.analytics.onboarding_event_sent";
 
+// Dernier jour LOCAL (`AAAA-MM-JJ`) où `app_active` a été remis au client :
+// au plus un par jour et par installation. Écrit seulement après un envoi
+// réel (analytics coupée ⇒ rien n'est noté). Desktop ; Android tient le sien
+// côté Java (`BrowtherDailyActive`).
+inline constexpr char kAppActiveLastDay[] =
+    "browther.analytics.app_active_last_day";
+
 // Compteurs en attente d'envoi vers /api/stats/ingest. Persistés pour
 // survivre aux relances browser (un crash ne perd pas les secondes
 // accumulées). Reset à 0 après un flush HTTP réussi.

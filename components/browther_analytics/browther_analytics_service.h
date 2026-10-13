@@ -49,6 +49,15 @@ class BrowtherAnalyticsService {
   // (cf. l'encadré DRM des panels). L'UI grise l'action et l'explique.
   bool IsTrackingEnabled() const { return IsPostHogEnabled(); }
 
+  // `app_active` — « actif aujourd'hui » : au plus un par jour calendaire
+  // LOCAL et par installation (pref kAppActiveLastDay). L'appelant demande
+  // d'abord IsAppActiveDue() — vrai si l'analytics est active et que le jour
+  // n'a pas encore été envoyé — avant de réunir des propriétés coûteuses
+  // (navigateur par défaut), puis appelle TrackAppActive(), qui revérifie et
+  // ne note le jour que si l'event a réellement été remis au client.
+  bool IsAppActiveDue() const;
+  bool TrackAppActive(base::DictValue properties);
+
   // Stats cumulatives publiées sur browther.devndin.com via /api/stats.
   // No-op si StatsClient non configuré ou consentement désactivé.
   // Callable depuis n'importe quel chemin C++ Browther.

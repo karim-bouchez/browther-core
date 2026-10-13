@@ -3,6 +3,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # you can obtain one at https://mozilla.org/MPL/2.0/.
 
+import("//brave/build/config.gni")
+
 source_set("browther_analytics") {
   sources = [
     "analytics_config.h",
@@ -19,8 +21,12 @@ source_set("browther_analytics") {
     "stats_client.h",
   ]
 
+  # posthog_client.cc : propriété commune `version` (CalVer Browther).
+  defines = [ "BROWTHER_ANALYTICS_VERSION=\"$browther_version\"" ]
+
   deps = [
     "//base",
+    "//base/version_info",
     "//brave/components/p3a",
     "//components/metrics",
     "//components/prefs",

@@ -129,6 +129,7 @@ import org.chromium.chrome.browser.browsing_data.BrowsingDataBridge;
 import org.chromium.chrome.browser.browsing_data.BrowsingDataType;
 import org.chromium.chrome.browser.browsing_data.TimePeriod;
 import org.chromium.chrome.browser.browther_analytics.BrowtherAnalyticsBridge;
+import org.chromium.chrome.browser.browther_analytics.BrowtherDailyActive;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralHooks;
 import org.chromium.chrome.browser.browther_referral.BrowtherReferralPresenter;
 import org.chromium.chrome.browser.compositor.layouts.LayoutManagerChrome;
@@ -393,6 +394,8 @@ public abstract class BraveActivity extends ChromeActivity
 
         // Browther : le parrainage se présente au service / relit son statut (jamais bloquant).
         BrowtherReferralHooks.onForeground();
+        // Browther : `app_active`, au plus une fois par jour local (lancement et retours).
+        BrowtherDailyActive.onForeground();
 
         BraveActivityJni.get().restartStatsUpdater();
         if (BraveVpnUtils.isVpnFeatureSupported(BraveActivity.this)) {

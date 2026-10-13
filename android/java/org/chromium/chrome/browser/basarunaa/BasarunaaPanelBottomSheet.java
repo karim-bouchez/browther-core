@@ -179,10 +179,8 @@ public class BasarunaaPanelBottomSheet extends BottomSheetDialogFragment {
                     mOffered = !wasTemporary;
                     // Modèles ORT chargés à la 1ʳᵉ activation (plus à la création d'onglet).
                     if (isChecked) BasarunaaEngine.getInstance().warmupAsync();
-                    BrowtherAnalyticsBridge.trackWithProps(
-                            "feature_toggled",
-                            new String[] {"feature", "enabled"},
-                            new String[] {"basarunaa", Boolean.toString(isChecked)});
+                    BrowtherAnalyticsBridge.trackTyped(
+                            "feature_toggled", "feature", "basarunaa", "enabled", isChecked);
                     updateStatusText(isChecked);
                     BrowtherEarlyAccess.setNoticeVisible(root, isChecked);
                     // Plus de rechargement à l'allumage (2026-10-01) : le RFO injecte le

@@ -13,6 +13,7 @@
 #include "base/logging.h"
 #include "base/strings/stringprintf.h"
 #include "base/time/time.h"
+#include "base/version_info/version_info.h"
 #include "brave/components/browther_analytics/analytics_config.h"
 #include "build/build_config.h"
 #include "net/base/load_flags.h"
@@ -55,6 +56,50 @@ constexpr net::NetworkTrafficAnnotationTag kTrafficAnnotation =
           policy_exception_justification:
             "Not implemented, consumer-facing browser."
         })ANNOT");
+
+// Version Browther (CalVer), celle que la personne voit. Vient de
+// `browther_version` (build/config.gni) par un define du BUILD.gn, ⛔ pas de
+// `brave/common/browther_version.h` : ce header généré n'est ni versionné ni
+// déposé sur la VM de build Android.
+std::string BrowtherVersion() {
+  std::string version = BROWTHER_ANALYTICS_VERSION;
+#if BUILDFLAG(IS_ANDROID)
+  // Le versionName Android ne garde que AAAA.M.J (build-android-remote.sh,
+  // `--android_override_version_name`) : le compteur du jour va au versionCode.
+  size_t dots = 0;
+  for (size_t i = 0; i < version.size(); ++i) {
+    if (version[i] == '.' && ++dots == 3) {
+      version.resize(i);
+      break;
+    }
+  }
+#endif
+  return version;
+}
+
+// Propriétés communes à TOUS les évènements (private/docs/ANALYTICS.md
+// § Propriétés communes). Une propriété posée par l'appelant l'emporte.
+void AddCommonProperties(base::DictValue& properties) {
+  // Mêmes valeurs qu'`app_launched` envoyait seul jusqu'ici (`Mac OS X`,
+  // `Windows`, `Android`) : ⛔ ne pas les changer, les tableaux filtrent dessus.
+  if (!properties.Find("os")) {
+    properties.Set("os", version_info::GetOSType());
+  }
+  if (!properties.Find("version")) {
+    properties.Set("version", BrowtherVersion());
+  }
+  // L'ancienne valeur de `version` (146.1.90.0).
+  if (!properties.Find("chromium_version")) {
+    properties.Set("chromium_version", version_info::GetVersionNumber());
+  }
+  // `release` = binaire distribué (is_official_build : DMG, installeur
+  // Windows, bundle Play), `dev` = build Component. Sert à sortir nos propres
+  // builds des tableaux.
+  if (!properties.Find("build")) {
+    properties.Set("build",
+                   version_info::IsOfficialBuild() ? "release" : "dev");
+  }
+}
 
 std::string IsoNowUtc() {
   base::Time::Exploded e;
@@ -102,6 +147,7 @@ void PostHogClient::Enqueue(const std::string& event_name,
   // PostHog conventions : $lib helps identify our SDK in dashboards.
   properties.Set("$lib", "browther-native");
   properties.Set("$lib_version", "1.0.0");
+  AddCommonProperties(properties);
   // ⭐ `$os` : les SDK PostHog le posent sur TOUT évènement, ce client-ci ne le
   // faisait pas — les évènements du desktop tombaient dans « aucune valeur »
   // sur toute tuile ventilée par plateforme (les deux tuiles de paiement du

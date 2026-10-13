@@ -7,9 +7,11 @@
 
 #include <utility>
 
+#include "base/values.h"
 #include "brave/browser/browther/browther_protected_content_tab_helper.h"
 #include "brave/browser/browther/feature_temporary_switch.h"
 #include "brave/browser/ui/webui/basarunaa/basarunaa_panel_ui.h"
+#include "brave/components/browther_analytics/browther_analytics_service.h"
 #include "brave/components/browther_analytics/site_report.h"
 #include "brave/components/constants/pref_names.h"
 #include "chrome/browser/ui/browser.h"
@@ -68,6 +70,13 @@ void BasarunaaPanelHandler::GetEnabled(GetEnabledCallback callback) {
 
 void BasarunaaPanelHandler::SetEnabled(bool enabled) {
   profile_->GetPrefs()->SetBoolean(kBasarunaaEnabled, enabled);
+  if (auto* analytics =
+          browther_analytics::BrowtherAnalyticsService::GetInstance()) {
+    base::DictValue props;
+    props.Set("feature", "basarunaa");
+    props.Set("enabled", enabled);
+    analytics->Track("feature_toggled", std::move(props));
+  }
 }
 
 void BasarunaaPanelHandler::GetTemporary(GetTemporaryCallback callback) {

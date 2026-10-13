@@ -671,6 +671,12 @@ if (!is_android) {
     # qu'il lit la pause du parrainage.
     "//brave/browser/browther/feature_temporary_switch.cc",
     "//brave/browser/browther/feature_temporary_switch.h",
+
+    # [Browther] `app_active` (private/docs/ANALYTICS.md) : fenêtres de
+    # navigateur + navigateur par défaut, d'où le desktop seul — Android a
+    # `BrowtherDailyActive.java`.
+    "//brave/browser/browther/browther_app_active_tracker.cc",
+    "//brave/browser/browther/browther_app_active_tracker.h",
   ]
   brave_chrome_browser_deps += [ "//components/os_crypt/async/browser" ]
 }

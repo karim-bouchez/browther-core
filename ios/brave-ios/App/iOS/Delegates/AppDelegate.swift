@@ -149,6 +149,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         "locale": Locale.current.identifier,
       ]
     )
+    // Browther : `app_active`, une fois par jour — au lancement puis à chaque
+    // retour au premier plan (cf. `BrowtherActiveDay`).
+    BrowtherActiveDay.shared.start()
 
     // Browther: pré-warmup Basarunaa pipeline si la feature est activée.
     // Charge les 6 modèles CoreML (~5s cold) en background pour qu'à la
