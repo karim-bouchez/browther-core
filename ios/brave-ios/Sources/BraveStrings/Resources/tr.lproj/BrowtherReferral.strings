@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Davetlerinizden biri yolunda: kodunuz kullanıldı; Browther'ın varsayılan tarayıcı olarak birkaç gün daha kullanılması yeterli.";
 "reminder.months" = "Onaylanan her davet size bir ay daha ekler.";
 "reminder.subscription" = "Desteğiniz için teşekkürler. Bir yakınınızı davet ederek ya da aboneliğinizi yenileyerek ek özellikleri koruyabilirsiniz.";
-"invite.eyebrow" = "Davet edin";
 "invite.share" = "Kodumu paylaş";
 "invite.shareStatus" = "WhatsApp durumumda paylaş";
 "status.tab" = "WhatsApp durumu";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Mesajınız, kişinin alacağı haliyle";
 "invite.back" = "Geri";
 "invite.closeAfterShare" = "Uygulamaya dönün";
+"sharePrompt.title" = "Browther işinize yarıyor mu?";
+"sharePrompt.count.both" = "Browther sizin için {hours} müziği kaldırdı ve {persons} bulanıklaştırdı.";
+"sharePrompt.count.music" = "Browther sizin için {hours} müziği kaldırdı.";
+"sharePrompt.count.blur" = "Browther sizin için {persons} bulanıklaştırdı.";
+"sharePrompt.leadGain" = "Browther'ı bir yakınınızla paylaşın, onaylanan her davet için 1 ay ek özellik kazanın.";
+"sharePrompt.leadPaid" = "Browther'ı bir yakınınızla paylaşın: belki size olduğu kadar ona da faydalı olur.";
+"sharePrompt.later" = "Daha sonra";
+"sharePrompt.mute" = "Bir daha sorma";
 "share.message" = "Seni Browther'ı keşfetmeye davet ediyorum: müziği kesen ve haram görselleri bulanıklaştıran tarayıcı.\n{code} kodumla bir ay ek özellik kazanırsın.";
 "billing.unavailable" = "Abonelik planları şu anda yüklenmiyor.";
 "billing.retry" = "Tekrar deneyin";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Onaylanan her davet size bir ay daha ekler. {count} davet daha ve Browther ömür boyu açılıyor, inşallah.";
 "reminder.subscriptionTitle.one" = "Aboneliğiniz yarın sona eriyor.";
 "reminder.subscriptionTitle.other" = "Aboneliğiniz {count} gün sonra sona eriyor.";
+"sharePrompt.hours.one" = "{count} saatlik";
+"sharePrompt.hours.other" = "{count} saatlik";
+"sharePrompt.persons.one" = "{count} kişiyi";
+"sharePrompt.persons.other" = "{count} kişiyi";
 "invite.foot.one" = "Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanır.";
 "invite.foot.other" = "Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanır.";
 "notice.why.one" = "Bir yakınınız referans kodunuzu kullandı ve Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandı.";

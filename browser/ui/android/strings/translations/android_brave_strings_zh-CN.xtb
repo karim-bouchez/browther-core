@@ -1702,4 +1702,24 @@ Leo AI 的所有对话。此操作无法撤销。</translation>
 <translation id="4424392500145214431">资金支持</translation>
 <translation id="4037525693923559198">你可以重新使用这项功能，以及更多其他功能：</translation>
 <translation id="7947423953490329886">邀请亲友 · 免费</translation>
+<translation id="2145525106182376323">Browther 已为你模糊了 {persons}。</translation>
+<translation id="6400524222547977883">Browther 已为你去除 {hours}的音乐，并模糊了 {persons}。</translation>
+<translation id="6364958544462115942">Browther 已为你去除 {hours}的音乐。</translation>
+<translation id="4804933000285471430">稍后</translation>
+<translation id="6246827307723891473">把 Browther 分享给亲友，每个有效邀请可获得 1 个月附加功能。</translation>
+<translation id="4651970941373266324">把 Browther 分享给亲友：也许它对他们和对你一样有用。</translation>
+<translation id="590886708270558946">不再询问</translation>
+<translation id="6098210946204001748">Browther 对你有帮助吗？</translation>
+<translation id="5983059440745470816">{count} 小时</translation>
+<translation id="6580723708162353591">{count} 小时</translation>
+<translation id="6400687003718578465">{count} 小时</translation>
+<translation id="8951993230737981149">{count} 小时</translation>
+<translation id="4802813661488355122">{count} 小时</translation>
+<translation id="661922550588400846">{count} 小时</translation>
+<translation id="7758527493373512745">{count} 个人</translation>
+<translation id="2216648746170312584">{count} 个人</translation>
+<translation id="595722018333386979">{count} 个人</translation>
+<translation id="4564385327850332369">{count} 个人</translation>
+<translation id="829565773920235096">{count} 个人</translation>
+<translation id="6696217214286867315">{count} 个人</translation>
 </translationbundle>

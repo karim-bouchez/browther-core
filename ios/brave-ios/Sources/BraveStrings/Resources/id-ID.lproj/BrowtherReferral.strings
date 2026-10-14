@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Salah satu undangan Anda sedang berjalan: kode Anda sudah dipakai, tinggal beberapa hari lagi dengan Browther sebagai browser default.";
 "reminder.months" = "Setiap undangan tervalidasi menambah satu bulan lagi.";
 "reminder.subscription" = "Terima kasih atas dukungan Anda. Anda bisa mempertahankan fitur tambahan dengan mengundang orang terdekat, atau dengan memperpanjang langganan.";
-"invite.eyebrow" = "Undang";
 "invite.share" = "Bagikan kode saya";
 "invite.shareStatus" = "Posting ke status WhatsApp saya";
 "status.tab" = "Status WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Pesan Anda, persis seperti yang akan diterima orangnya";
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
+"sharePrompt.title" = "Apakah Browther bermanfaat bagi Anda?";
+"sharePrompt.count.both" = "Browther telah menghapus {hours} musik dan memburamkan {persons} untuk Anda.";
+"sharePrompt.count.music" = "Browther telah menghapus {hours} musik untuk Anda.";
+"sharePrompt.count.blur" = "Browther telah memburamkan {persons} untuk Anda.";
+"sharePrompt.leadGain" = "Bagikan Browther kepada orang terdekat dan dapatkan 1 bulan fitur tambahan untuk setiap undangan tervalidasi.";
+"sharePrompt.leadPaid" = "Bagikan Browther kepada orang terdekat: mungkin akan sama bermanfaatnya bagi mereka seperti bagi Anda.";
+"sharePrompt.later" = "Nanti";
+"sharePrompt.mute" = "Jangan tanya lagi";
 "share.message" = "Aku mengajakmu mencoba Browther: browser yang membisukan musik dan memburamkan gambar haram.\nDengan kodeku {code}, kamu dapat satu bulan fitur tambahan.";
 "billing.unavailable" = "Paket langganan sedang tidak bisa dimuat.";
 "billing.retry" = "Coba lagi";
@@ -262,6 +269,8 @@
 "reminder.monthsNext.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Anda mendapat bonus {bonus} bulan.";
 "reminder.monthsNextLife.other" = "Setiap undangan tervalidasi menambah satu bulan lagi. {count} lagi dan Browther terbuka seumur hidup, insya Allah.";
 "reminder.subscriptionTitle.other" = "Langganan Anda berakhir dalam {count} hari.";
+"sharePrompt.hours.other" = "{count} jam";
+"sharePrompt.persons.other" = "{count} orang";
 "invite.foot.other" = "Undangan tervalidasi setelah orang terdekat Anda memakai Browther sebagai browser default selama {count} hari.";
 "notice.why.other" = "Orang terdekat Anda memakai kode referal Anda, dan baru saja memakai Browther sebagai browser default selama {count} hari.";
 "notice.body.other" = "+{count} bulan fitur tambahan, hingga {date}.";

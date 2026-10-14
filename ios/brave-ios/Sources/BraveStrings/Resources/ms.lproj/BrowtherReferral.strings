@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Salah satu jemputan anda sedang berjalan lancar: kod anda sudah digunakan, cuma tinggal beberapa hari lagi dengan Browther sebagai pelayar lalai.";
 "reminder.months" = "Setiap jemputan disahkan menambah satu bulan lagi.";
 "reminder.subscription" = "Terima kasih atas sokongan anda. Anda boleh mengekalkan ciri tambahan dengan menjemput orang tersayang, atau dengan memperbaharui langganan.";
-"invite.eyebrow" = "Jemput";
 "invite.share" = "Kongsi kod saya";
 "invite.shareStatus" = "Siarkan ke status WhatsApp saya";
 "status.tab" = "Status WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Mesej anda, seperti yang akan diterima oleh orangnya";
 "invite.back" = "Kembali";
 "invite.closeAfterShare" = "Kembali ke aplikasi";
+"sharePrompt.title" = "Adakah Browther berguna kepada anda?";
+"sharePrompt.count.both" = "Browther telah membuang {hours} muzik dan mengaburkan {persons} untuk anda.";
+"sharePrompt.count.music" = "Browther telah membuang {hours} muzik untuk anda.";
+"sharePrompt.count.blur" = "Browther telah mengaburkan {persons} untuk anda.";
+"sharePrompt.leadGain" = "Kongsi Browther dengan orang tersayang dan dapatkan 1 bulan ciri tambahan bagi setiap jemputan disahkan.";
+"sharePrompt.leadPaid" = "Kongsi Browther dengan orang tersayang: mungkin ia sama berguna kepadanya seperti kepada anda.";
+"sharePrompt.later" = "Nanti";
+"sharePrompt.mute" = "Jangan tanya lagi";
 "share.message" = "Saya jemput anda mencuba Browther: pelayar yang membisukan muzik dan mengaburkan imej haram.\nDengan kod saya {code}, anda dapat satu bulan ciri tambahan.";
 "billing.unavailable" = "Pelan langganan tidak dapat dimuatkan buat masa ini.";
 "billing.retry" = "Cuba lagi";
@@ -262,6 +269,8 @@
 "reminder.monthsNext.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan anda mendapat bonus {bonus} bulan.";
 "reminder.monthsNextLife.other" = "Setiap jemputan disahkan menambah satu bulan lagi. {count} lagi dan Browther dibuka seumur hidup, insya-Allah.";
 "reminder.subscriptionTitle.other" = "Langganan anda tamat dalam {count} hari.";
+"sharePrompt.hours.other" = "{count} jam";
+"sharePrompt.persons.other" = "{count} orang";
 "invite.foot.other" = "Jemputan disahkan apabila orang tersayang anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "notice.why.other" = "Orang tersayang anda menggunakan kod rujukan anda, dan baru sahaja mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "notice.body.other" = "+{count} bulan ciri tambahan, hingga {date}.";

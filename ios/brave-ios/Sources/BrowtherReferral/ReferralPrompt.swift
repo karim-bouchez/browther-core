@@ -44,6 +44,11 @@ public struct ReferralPromptState: Codable, Equatable, Sendable {
   public var seenValidated: Int?
   /// Ce que le FILLEUL a déjà vu de sa propre validation (écran 8 bis, § 5.3).
   public var seenRefereeStatus: SeenReferee?
+  /// Le partage proposé (`ReferralSharePrompt`, `docs/PARRAINAGE.md` § 12.45).
+  public var sharePrompt: SharePromptState?
+  /// Dernier écran du parrainage venu À la personne (annonce, rappels, J0,
+  /// 8, 8 bis — ISO) : le partage proposé se tait la semaine qui suit.
+  public var lastScreenAt: String?
 
   public enum Circuit: String, Codable, Sendable {
     case paused, support

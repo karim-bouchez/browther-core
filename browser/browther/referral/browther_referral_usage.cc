@@ -212,6 +212,13 @@ base::DictValue UsageSnapshot(PrefService* local_state) {
   const int baseline = usage.FindInt(kMusicBaseline).value_or(0);
   snapshot.Set("musicSecondsToday",
                std::max(0, MusicTotal(local_state) - baseline));
+  // Les totaux À VIE de la page Nouvel Onglet : le compteur du partage proposé
+  // (« Browther a retiré 12 heures de musique et flouté 1 240 personnes pour
+  // toi », `devndin/docs/PARRAINAGE.md` § 12.45). Des nombres, rien d'autre.
+  snapshot.Set("musicSecondsTotal", MusicTotal(local_state));
+  snapshot.Set("personsBlurredTotal",
+               local_state->GetInteger(
+                   browther_analytics::prefs::kStatsPersonsBlurredTotal));
   snapshot.Set("browsingDays", usage.FindList(kBrowsingDays)
                                    ? usage.FindList(kBrowsingDays)->Clone()
                                    : base::ListValue());

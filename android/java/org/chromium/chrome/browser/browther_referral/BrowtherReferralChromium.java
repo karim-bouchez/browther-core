@@ -86,6 +86,16 @@ public final class BrowtherReferralChromium {
             }
 
             @Override
+            public long personsBlurredTotal() {
+                return BrowtherAnalyticsBridge.getPersonsBlurredTotal();
+            }
+
+            @Override
+            public boolean hasWhatsApp() {
+                return ReferralSharing.whatsAppInstalled(ContextUtils.getApplicationContext());
+            }
+
+            @Override
             public boolean isStoreBuild() {
                 // Le Play Store ne reçoit que des builds officiels ; un build de dev (Component,
                 // non officiel) garde le flow allumé pour la recette (§ 8.5).

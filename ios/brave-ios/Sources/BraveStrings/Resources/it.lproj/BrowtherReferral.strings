@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Uno dei tuoi inviti è sulla buona strada: il tuo codice è stato usato, mancano solo pochi giorni con Browther come browser predefinito.";
 "reminder.months" = "Ogni invito confermato te ne aggiunge un altro.";
 "reminder.subscription" = "Grazie per il tuo sostegno. Puoi mantenere le funzionalità aggiuntive invitando una persona cara o rinnovando.";
-"invite.eyebrow" = "Invita";
 "invite.share" = "Condividi il mio codice";
 "invite.shareStatus" = "Pubblica nel mio stato WhatsApp";
 "status.tab" = "Stato WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Il tuo messaggio, come lo riceverà la persona";
 "invite.back" = "Indietro";
 "invite.closeAfterShare" = "Torna all'app";
+"sharePrompt.title" = "Browther ti è utile?";
+"sharePrompt.count.both" = "Browther ha tolto per te {hours} di musica e sfocato {persons}.";
+"sharePrompt.count.music" = "Browther ha tolto per te {hours} di musica.";
+"sharePrompt.count.blur" = "Browther ha sfocato per te {persons}.";
+"sharePrompt.leadGain" = "Condividi Browther con una persona cara e ottieni 1 mese di funzionalità aggiuntive per ogni invito confermato.";
+"sharePrompt.leadPaid" = "Condividi Browther con una persona cara: forse le servirà quanto serve a te.";
+"sharePrompt.later" = "Più tardi";
+"sharePrompt.mute" = "Non chiedermelo più";
 "share.message" = "Ti invito a scoprire Browther: il browser che toglie la musica e sfoca le immagini haram.\nCon il mio codice {code}, hai un mese di funzionalità aggiuntive.";
 "billing.unavailable" = "I piani non si caricano in questo momento.";
 "billing.retry" = "Riprova";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Ogni invito confermato te ne aggiunge un altro. Ancora {count} e Browther è sbloccato a vita, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Il tuo abbonamento termina domani.";
 "reminder.subscriptionTitle.other" = "Il tuo abbonamento termina tra {count} giorni.";
+"sharePrompt.hours.one" = "{count} ora";
+"sharePrompt.hours.other" = "{count} ore";
+"sharePrompt.persons.one" = "{count} persona";
+"sharePrompt.persons.other" = "{count} persone";
 "invite.foot.one" = "Un invito è confermato quando la persona ha tenuto Browther come browser predefinito per {count} giorno.";
 "invite.foot.other" = "Un invito è confermato quando la persona ha tenuto Browther come browser predefinito per {count} giorni.";
 "notice.why.one" = "Una persona cara ha usato il tuo codice referral e ha appena tenuto Browther come browser predefinito per {count} giorno.";

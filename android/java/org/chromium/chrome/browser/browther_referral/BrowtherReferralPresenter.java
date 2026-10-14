@@ -12,6 +12,8 @@ import android.view.Window;
 
 import androidx.annotation.Nullable;
 
+import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -78,6 +80,24 @@ public final class BrowtherReferralPresenter {
         if (activity == null || activity.isFinishing() || activity.isDestroyed()) return;
         if (stack.isEmpty()) return;
         new ReferralFlowDialog(activity, stack, source, preview).show();
+    }
+
+    /**
+     * ⭐ <b>Le partage proposé</b> (§ 12.45 du doc commun) : la feuille « Partager mon code », ouverte
+     * d'elle-même — comptée ICI ({@code paywall_shown {screen: share_prompt, source: prompt,
+     * opened_on}}), une fois qu'elle est réellement à l'écran. {@code false} = rien ne s'est ouvert.
+     */
+    public static boolean presentSharePrompt(
+            @Nullable Activity activity,
+            ReferralStatus status,
+            ReferralShareSheet.Prompt prompt,
+            boolean preview) {
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) return false;
+        if (!ReferralShareSheet.openPrompt(activity, status, prompt, preview)) return false;
+        Map<String, Object> extra = new HashMap<>();
+        extra.put("opened_on", prompt.openedOn.wire);
+        countShown(ReferralShareSheet.SHARE_PROMPT, Source.PROMPT, preview, extra);
+        return true;
     }
 
     /** L'unique émission de {@code paywall_shown}. */
@@ -253,7 +273,8 @@ public final class BrowtherReferralPresenter {
     // -------------------- La pile plein écran --------------------
 
     /**
-     * La pile des fenêtres plein écran (O, 0, 2, 2b, 4 par-dessus 2b, 7, cadeau, Merci) — pendant de
+     * La pile des fenêtres plein écran (O, 0, 2, 2b, 7, cadeau, Merci — ⛔ plus d'écran 4 depuis le
+     * 2026-10-14, § 12.42 du doc commun) — pendant de
      * {@code ReferralFlowModel}. ⚠️ Sur Android, seule la fenêtre du DESSUS est dessinée (§ 12.38 :
      * une pile de couches laisse fuir le pied de celle du dessous) ; la pile n'est qu'un état.
      */
@@ -321,7 +342,7 @@ public final class BrowtherReferralPresenter {
 
         /**
          * Remplace la fenêtre du dessus : comptée si c'est un AUTRE écran (J0 → les trois façons),
-         * pas si c'est le même dans un autre état (4 partagé).
+         * pas si c'est le même dans un autre état.
          */
         public void replaceTop(ReferralScreen screen) {
             boolean isNew = !top().analyticsName().equals(screen.analyticsName());
@@ -359,9 +380,6 @@ public final class BrowtherReferralPresenter {
                     return !top.chosen;
                 case SUPPORT:
                     return top.locked;
-                case INVITE:
-                    if (top.shared) return false;
-                    return !below.isEmpty() && isLocked(below);
                 case BILLING:
                     // Ce qu'on ouvre par-dessus une fenêtre verrouillée l'est aussi (§ 12.16).
                     return !below.isEmpty() && isLocked(below);

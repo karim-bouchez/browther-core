@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Одне з ваших запрошень на правильному шляху: ваш код використано, лишилося лише кілька днів із Browther за замовчуванням.";
 "reminder.months" = "Кожне підтверджене запрошення додає ще один місяць.";
 "reminder.subscription" = "Дякуємо за підтримку. Ви можете зберегти додаткові функції, запросивши близьку людину або поновивши підписку.";
-"invite.eyebrow" = "Запросити";
 "invite.share" = "Поділитися кодом";
 "invite.shareStatus" = "Опублікувати в статусі WhatsApp";
 "status.tab" = "Статус WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Ваше повідомлення в тому вигляді, в якому його отримає близька людина";
 "invite.back" = "Назад";
 "invite.closeAfterShare" = "Повернутися в застосунок";
+"sharePrompt.title" = "Browther вам корисний?";
+"sharePrompt.count.both" = "Browther прибрав для вас {hours} музики та розмив {persons}.";
+"sharePrompt.count.music" = "Browther прибрав для вас {hours} музики.";
+"sharePrompt.count.blur" = "Browther розмив для вас {persons}.";
+"sharePrompt.leadGain" = "Поділіться Browther із близькою людиною та отримайте 1 місяць додаткових функцій за кожне підтверджене запрошення.";
+"sharePrompt.leadPaid" = "Поділіться Browther із близькою людиною: можливо, він стане їй у пригоді так само, як і вам.";
+"sharePrompt.later" = "Пізніше";
+"sharePrompt.mute" = "Більше не питати";
 "share.message" = "Запрошую тебе познайомитися з Browther — браузером, який вимикає музику й розмиває харам на зображеннях.\nЗ моїм кодом {code} ти отримаєш один місяць додаткових функцій.";
 "billing.unavailable" = "Тарифи поки що не завантажуються.";
 "billing.retry" = "Повторити";
@@ -294,6 +301,12 @@
 "reminder.subscriptionTitle.one" = "Ваша підписка завершується завтра.";
 "reminder.subscriptionTitle.few" = "Ваша підписка завершиться через {count} дні.";
 "reminder.subscriptionTitle.many" = "Ваша підписка завершиться через {count} днів.";
+"sharePrompt.hours.one" = "{count} годину";
+"sharePrompt.hours.few" = "{count} години";
+"sharePrompt.hours.many" = "{count} годин";
+"sharePrompt.persons.one" = "{count} людину";
+"sharePrompt.persons.few" = "{count} людини";
+"sharePrompt.persons.many" = "{count} людей";
 "invite.foot.one" = "Запрошення підтверджується, щойно Browther пробуде у вашої близької людини браузером за замовчуванням {count} день.";
 "invite.foot.few" = "Запрошення підтверджується, щойно Browther пробуде у вашої близької людини браузером за замовчуванням {count} дні.";
 "invite.foot.many" = "Запрошення підтверджується, щойно Browther пробуде у вашої близької людини браузером за замовчуванням {count} днів.";

@@ -29,8 +29,6 @@ public final class ReferralScreen {
         PAUSED,
         /** 2b — les trois façons. {@code locked} = ouvert depuis J0 (circuit fermé, § 12.16). */
         SUPPORT,
-        /** 4 — inviter, par-dessus 2b. {@code shared} = un partage a abouti : fenêtre libérée. */
-        INVITE,
         /** 7 — soutenir financièrement : sur Android, la PORTE FACTICE (§ 12.27). */
         BILLING,
         /** 7 ter — « C'est cadeau ! » (§ 12.27) : le mois offert au toucher de « Je soutiens ». */
@@ -48,7 +46,6 @@ public final class ReferralScreen {
     public final Kind kind;
     public final boolean chosen;
     public final boolean locked;
-    public final boolean shared;
     public final int daysLeft;
     public final @Nullable ReminderCase reminderCase;
     public final int months;
@@ -61,7 +58,6 @@ public final class ReferralScreen {
             Kind kind,
             boolean chosen,
             boolean locked,
-            boolean shared,
             int daysLeft,
             @Nullable ReminderCase reminderCase,
             int months,
@@ -71,7 +67,6 @@ public final class ReferralScreen {
         this.kind = kind;
         this.chosen = chosen;
         this.locked = locked;
-        this.shared = shared;
         this.daysLeft = daysLeft;
         this.reminderCase = reminderCase;
         this.months = months;
@@ -81,7 +76,7 @@ public final class ReferralScreen {
     }
 
     private static ReferralScreen of(Kind kind) {
-        return new ReferralScreen(kind, false, false, false, 0, null, 0, null, false, false);
+        return new ReferralScreen(kind, false, false, 0, null, 0, null, false, false);
     }
 
     public static ReferralScreen welcome() {
@@ -93,15 +88,11 @@ public final class ReferralScreen {
     }
 
     public static ReferralScreen paused(boolean chosen) {
-        return new ReferralScreen(Kind.PAUSED, chosen, false, false, 0, null, 0, null, false, false);
+        return new ReferralScreen(Kind.PAUSED, chosen, false, 0, null, 0, null, false, false);
     }
 
     public static ReferralScreen support(boolean locked) {
-        return new ReferralScreen(Kind.SUPPORT, false, locked, false, 0, null, 0, null, false, false);
-    }
-
-    public static ReferralScreen invite(boolean shared) {
-        return new ReferralScreen(Kind.INVITE, false, false, shared, 0, null, 0, null, false, false);
+        return new ReferralScreen(Kind.SUPPORT, false, locked, 0, null, 0, null, false, false);
     }
 
     public static ReferralScreen billing() {
@@ -109,21 +100,19 @@ public final class ReferralScreen {
     }
 
     public static ReferralScreen gift(boolean granted, @Nullable String until) {
-        return new ReferralScreen(Kind.GIFT, false, false, false, 0, null, 0, until, false, granted);
+        return new ReferralScreen(Kind.GIFT, false, false, 0, null, 0, until, false, granted);
     }
 
     public static ReferralScreen ending(int daysLeft) {
-        return new ReferralScreen(Kind.ENDING, false, false, false, daysLeft, null, 0, null, false, false);
+        return new ReferralScreen(Kind.ENDING, false, false, daysLeft, null, 0, null, false, false);
     }
 
     public static ReferralScreen reminder(int daysLeft, ReminderCase reminderCase) {
-        return new ReferralScreen(
-                Kind.REMINDER, false, false, false, daysLeft, reminderCase, 0, null, false, false);
+        return new ReferralScreen(Kind.REMINDER, false, false, daysLeft, reminderCase, 0, null, false, false);
     }
 
     public static ReferralScreen validated(int months, @Nullable String until, boolean lifetime) {
-        return new ReferralScreen(
-                Kind.VALIDATED, false, false, false, 0, null, months, until, lifetime, false);
+        return new ReferralScreen(Kind.VALIDATED, false, false, 0, null, months, until, lifetime, false);
     }
 
     public static ReferralScreen refereeDone() {
@@ -159,8 +148,6 @@ public final class ReferralScreen {
                 return "paused";
             case SUPPORT:
                 return "support";
-            case INVITE:
-                return "invite";
             case BILLING:
                 return "billing";
             case GIFT:
@@ -195,7 +182,6 @@ public final class ReferralScreen {
         return kind == o.kind
                 && chosen == o.chosen
                 && locked == o.locked
-                && shared == o.shared
                 && daysLeft == o.daysLeft
                 && reminderCase == o.reminderCase
                 && months == o.months
@@ -206,6 +192,6 @@ public final class ReferralScreen {
 
     @Override
     public int hashCode() {
-        return Objects.hash(kind, chosen, locked, shared, daysLeft, reminderCase, months, until);
+        return Objects.hash(kind, chosen, locked, daysLeft, reminderCase, months, until);
     }
 }

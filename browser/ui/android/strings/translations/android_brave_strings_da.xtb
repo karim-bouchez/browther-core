@@ -1700,4 +1700,24 @@ Hvis du ikke godkender denne anmodning, vil VPN-forbindelsen ikke blive genopret
 <translation id="4424392500145214431">Støt økonomisk</translation>
 <translation id="4037525693923559198">Du kan få denne funktion tilbage – og mange flere:</translation>
 <translation id="7947423953490329886">Inviter en, du kender · gratis</translation>
+<translation id="2145525106182376323">Browther har sløret {persons} for dig.</translation>
+<translation id="6400524222547977883">Browther har fjernet {hours} musik og sløret {persons} for dig.</translation>
+<translation id="6364958544462115942">Browther har fjernet {hours} musik for dig.</translation>
+<translation id="4804933000285471430">Senere</translation>
+<translation id="6246827307723891473">Del Browther med en, du kender, og få 1 måned med ekstra funktioner for hver bekræftet invitation.</translation>
+<translation id="4651970941373266324">Del Browther med en, du kender: den kan måske gøre lige så meget gavn for vedkommende som for dig.</translation>
+<translation id="590886708270558946">Spørg mig ikke igen</translation>
+<translation id="6098210946204001748">Er Browther nyttig for dig?</translation>
+<translation id="5983059440745470816">{count} timers</translation>
+<translation id="6580723708162353591">{count} time</translation>
+<translation id="6400687003718578465">{count} timers</translation>
+<translation id="8951993230737981149">{count} timers</translation>
+<translation id="4802813661488355122">{count} timers</translation>
+<translation id="661922550588400846">{count} timers</translation>
+<translation id="7758527493373512745">{count} personer</translation>
+<translation id="2216648746170312584">{count} person</translation>
+<translation id="595722018333386979">{count} personer</translation>
+<translation id="4564385327850332369">{count} personer</translation>
+<translation id="829565773920235096">{count} personer</translation>
+<translation id="6696217214286867315">{count} personer</translation>
 </translationbundle>

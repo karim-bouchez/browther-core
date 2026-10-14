@@ -457,7 +457,11 @@ final class ReferralShareStatusTab {
         // Un sélecteur resté ouvert derrière une feuille refermée : plus personne pour compter.
         if (!mSheet.isShowing() || mSent.get(segment)) return;
         ReferralSharing.noteStatus(
-                mSheet.origin(), mSheet.preview(), ReferralSharing.Result.SHARED, segment);
+                mSheet.origin(),
+                mSheet.openedOn(),
+                mSheet.preview(),
+                ReferralSharing.Result.SHARED,
+                segment);
         Flags wanted = wanted();
         mSent = mSent.with(segment, true);
         mSheet.onSent();
@@ -474,7 +478,11 @@ final class ReferralShareStatusTab {
     /** Rien n'a pu partir : on le dit (en haut — le bouton est en bas), et rien n'est coché « parti ». */
     private void failed(Segment segment) {
         ReferralSharing.noteStatus(
-                mSheet.origin(), mSheet.preview(), ReferralSharing.Result.UNAVAILABLE, segment);
+                mSheet.origin(),
+                mSheet.openedOn(),
+                mSheet.preview(),
+                ReferralSharing.Result.UNAVAILABLE,
+                segment);
         ReferralToast.show(
                 mSheet.activity(),
                 s(segment == Segment.VIDEO ? "status.failedVideo" : "status.failed"),

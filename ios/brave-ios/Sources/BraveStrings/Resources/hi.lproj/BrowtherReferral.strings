@@ -78,7 +78,6 @@
 "reminder.inProgress" = "आपका एक आमंत्रण सही राह पर है: आपका कोड इस्तेमाल हो चुका है, बस डिफ़ॉल्ट ब्राउज़र के रूप में Browther के साथ कुछ दिन बाक़ी हैं।";
 "reminder.months" = "हर मान्य आमंत्रण एक और महीना जोड़ता है।";
 "reminder.subscription" = "आपके साथ के लिए शुक्रिया। किसी क़रीबी को आमंत्रित करके, या रिन्यू करके अतिरिक्त सुविधाएँ बनाए रखें।";
-"invite.eyebrow" = "आमंत्रित करें";
 "invite.share" = "मेरा कोड शेयर करें";
 "invite.shareStatus" = "WhatsApp स्टेटस पर पोस्ट करें";
 "status.tab" = "WhatsApp स्टेटस";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "आपका मैसेज, जैसा आपके क़रीबी को मिलेगा";
 "invite.back" = "वापस";
 "invite.closeAfterShare" = "ऐप पर वापस जाएँ";
+"sharePrompt.title" = "क्या Browther आपके काम आ रहा है?";
+"sharePrompt.count.both" = "Browther ने आपके लिए {hours} संगीत हटाया है और {persons} को धुंधला किया है।";
+"sharePrompt.count.music" = "Browther ने आपके लिए {hours} संगीत हटाया है।";
+"sharePrompt.count.blur" = "Browther ने आपके लिए {persons} को धुंधला किया है।";
+"sharePrompt.leadGain" = "Browther किसी क़रीबी के साथ शेयर करें और हर मान्य आमंत्रण पर 1 महीने की अतिरिक्त सुविधाएँ पाएँ।";
+"sharePrompt.leadPaid" = "Browther किसी क़रीबी के साथ शेयर करें: शायद यह उनके भी उतना ही काम आए जितना आपके।";
+"sharePrompt.later" = "बाद में";
+"sharePrompt.mute" = "दोबारा न पूछें";
 "share.message" = "तुम्हारे लिए एक न्योता: Browther आज़माओ, वह ब्राउज़र जो संगीत बंद करता है और हराम तस्वीरें धुंधली करता है।\nमेरे कोड {code} से तुम्हें अतिरिक्त सुविधाओं के एक महीना मिलेंगे।";
 "billing.unavailable" = "सब्सक्रिप्शन प्लान अभी लोड नहीं हो रहे।";
 "billing.retry" = "फिर कोशिश करें";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "हर मान्य आमंत्रण एक और महीना जोड़ता है। बस {count} और, फिर Browther हमेशा के लिए अनलॉक, इंशा अल्लाह।";
 "reminder.subscriptionTitle.one" = "आपका सब्सक्रिप्शन कल ख़त्म होगा।";
 "reminder.subscriptionTitle.other" = "आपका सब्सक्रिप्शन {count} दिन में ख़त्म होगा।";
+"sharePrompt.hours.one" = "{count} घंटे का";
+"sharePrompt.hours.other" = "{count} घंटे का";
+"sharePrompt.persons.one" = "{count} व्यक्ति";
+"sharePrompt.persons.other" = "{count} लोगों";
 "invite.foot.one" = "आमंत्रण तब मान्य होता है जब आपका क़रीबी {count} दिन तक Browther को डिफ़ॉल्ट ब्राउज़र बनाए रखे।";
 "invite.foot.other" = "आमंत्रण तब मान्य होता है जब आपका क़रीबी {count} दिन तक Browther को डिफ़ॉल्ट ब्राउज़र बनाए रखे।";
 "notice.why.one" = "किसी क़रीबी ने आपका रेफ़रल कोड इस्तेमाल किया, और अभी-अभी {count} दिन तक Browther को अपना डिफ़ॉल्ट ब्राउज़र बनाए रखा।";

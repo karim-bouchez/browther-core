@@ -343,7 +343,11 @@ final class ReferralShareMessageTab {
         // Un sélecteur resté ouvert derrière une feuille refermée : plus personne pour compter.
         if (!mSheet.isShowing()) return;
         ReferralSharing.noteMessage(
-                mSheet.origin(), mSheet.preview(), ReferralSharing.Result.SHARED, media);
+                mSheet.origin(),
+                mSheet.openedOn(),
+                mSheet.preview(),
+                ReferralSharing.Result.SHARED,
+                media);
         mSheet.onSent();
         mSheet.onFinished();
     }

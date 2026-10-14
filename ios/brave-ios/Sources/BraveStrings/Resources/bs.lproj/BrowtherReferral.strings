@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Jedna od vaših pozivnica je na dobrom putu: vaš kod je iskorišten, nedostaje još samo nekoliko dana s Browtherom kao zadanim preglednikom.";
 "reminder.months" = "Svaka potvrđena pozivnica dodaje vam još jedan.";
 "reminder.subscription" = "Hvala na podršci. Dodatne funkcije možete zadržati tako što ćete pozvati nekog bliskog ili obnoviti pretplatu.";
-"invite.eyebrow" = "Pozovi";
 "invite.share" = "Podijeli moj kod";
 "invite.shareStatus" = "Objavite u WhatsApp status";
 "status.tab" = "WhatsApp status";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Vaša poruka onako kako će je primiti bliska osoba";
 "invite.back" = "Nazad";
 "invite.closeAfterShare" = "Nazad u aplikaciju";
+"sharePrompt.title" = "Da li vam je Browther koristan?";
+"sharePrompt.count.both" = "Browther je za vas uklonio {hours} muzike i zamaglio {persons}.";
+"sharePrompt.count.music" = "Browther je za vas uklonio {hours} muzike.";
+"sharePrompt.count.blur" = "Browther je za vas zamaglio {persons}.";
+"sharePrompt.leadGain" = "Podijelite Browther s nekim bliskim i dobijte 1 mjesec dodatnih funkcija za svaku potvrđenu pozivnicu.";
+"sharePrompt.leadPaid" = "Podijelite Browther s nekim bliskim: možda će mu koristiti koliko i vama.";
+"sharePrompt.later" = "Kasnije";
+"sharePrompt.mute" = "Ne pitaj me više";
 "share.message" = "Pozivam te da otkriješ Browther: preglednik koji utišava muziku i zamućuje haram slike.\nS mojim kodom {code} dobijaš jedan mjesec dodatnih funkcija.";
 "billing.unavailable" = "Planovi pretplate se trenutno ne učitavaju.";
 "billing.retry" = "Pokušaj ponovo";
@@ -294,6 +301,12 @@
 "reminder.subscriptionTitle.one" = "Vaša pretplata ističe sutra.";
 "reminder.subscriptionTitle.few" = "Vaša pretplata ističe za {count} dana.";
 "reminder.subscriptionTitle.other" = "Vaša pretplata ističe za {count} dana.";
+"sharePrompt.hours.one" = "{count} sat";
+"sharePrompt.hours.few" = "{count} sata";
+"sharePrompt.hours.other" = "{count} sati";
+"sharePrompt.persons.one" = "{count} osobu";
+"sharePrompt.persons.few" = "{count} osobe";
+"sharePrompt.persons.other" = "{count} osoba";
 "invite.foot.one" = "Pozivnica je potvrđena kada vaša bliska osoba zadrži Browther kao zadani preglednik {count} dan.";
 "invite.foot.few" = "Pozivnica je potvrđena kada vaša bliska osoba zadrži Browther kao zadani preglednik {count} dana.";
 "invite.foot.other" = "Pozivnica je potvrđena kada vaša bliska osoba zadrži Browther kao zadani preglednik {count} dana.";

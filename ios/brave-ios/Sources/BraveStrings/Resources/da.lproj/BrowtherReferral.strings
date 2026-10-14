@@ -78,7 +78,6 @@
 "reminder.inProgress" = "En af dine invitationer er godt på vej: din kode er blevet brugt, der mangler kun et par dage med Browther som standardbrowser.";
 "reminder.months" = "Hver bekræftet invitation giver dig én mere.";
 "reminder.subscription" = "Tak for din støtte. Du kan beholde de ekstra funktioner ved at invitere en, du kender, eller ved at forny.";
-"invite.eyebrow" = "Inviter";
 "invite.share" = "Del min kode";
 "invite.shareStatus" = "Del i min WhatsApp-status";
 "status.tab" = "WhatsApp-status";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Din besked, som din nærtstående modtager den";
 "invite.back" = "Tilbage";
 "invite.closeAfterShare" = "Tilbage til appen";
+"sharePrompt.title" = "Er Browther nyttig for dig?";
+"sharePrompt.count.both" = "Browther har fjernet {hours} musik og sløret {persons} for dig.";
+"sharePrompt.count.music" = "Browther har fjernet {hours} musik for dig.";
+"sharePrompt.count.blur" = "Browther har sløret {persons} for dig.";
+"sharePrompt.leadGain" = "Del Browther med en, du kender, og få 1 måned med ekstra funktioner for hver bekræftet invitation.";
+"sharePrompt.leadPaid" = "Del Browther med en, du kender: den kan måske gøre lige så meget gavn for vedkommende som for dig.";
+"sharePrompt.later" = "Senere";
+"sharePrompt.mute" = "Spørg mig ikke igen";
 "share.message" = "Jeg inviterer dig til at prøve Browther: browseren, der fjerner musik og slører haram-billeder.\nMed min kode {code} får du én måned med ekstra funktioner.";
 "billing.unavailable" = "Abonnementerne kan ikke indlæses lige nu.";
 "billing.retry" = "Prøv igen";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Hver bekræftet invitation giver dig én mere. {count} til, og Browther er låst op for livet, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Dit abonnement slutter i morgen.";
 "reminder.subscriptionTitle.other" = "Dit abonnement slutter om {count} dage.";
+"sharePrompt.hours.one" = "{count} time";
+"sharePrompt.hours.other" = "{count} timers";
+"sharePrompt.persons.one" = "{count} person";
+"sharePrompt.persons.other" = "{count} personer";
 "invite.foot.one" = "En invitation bekræftes, når personen har beholdt Browther som standardbrowser i {count} dag.";
 "invite.foot.other" = "En invitation bekræftes, når personen har beholdt Browther som standardbrowser i {count} dage.";
 "notice.why.one" = "Nogen har brugt din henvisningskode og har lige beholdt Browther som standardbrowser i {count} dag.";

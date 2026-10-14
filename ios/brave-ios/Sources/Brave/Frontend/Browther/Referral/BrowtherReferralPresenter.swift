@@ -23,9 +23,6 @@ enum ReferralScreen: Equatable {
   case paused(chosen: Bool)
   /// 2b — les trois façons. `locked` = ouvert depuis J0 (circuit fermé, § 12.16).
   case support(locked: Bool)
-  /// 4 — inviter, ⚠️ seulement par-dessus 2b (§ 12.15). `shared` = un partage a
-  /// abouti : la fenêtre est libérée.
-  case invite(shared: Bool)
   /// 7 — soutenir financièrement (par-dessus 2b, ou seul).
   case billing
   /// 7 bis — « Merci » (§ 12.17), au retour d'un achat confirmé.
@@ -58,7 +55,6 @@ enum ReferralScreen: Equatable {
     case .announce: return "announce"
     case .paused: return "paused"
     case .support: return "support"
-    case .invite: return "invite"
     case .billing: return "billing"
     case .thanks: return "thanks"
     case .ending: return "ending"
@@ -115,8 +111,12 @@ enum ReferralScreenEvent: String {
 
 /// D'où part un partage (`referral_shared`, `referral_grace`) — ⛔ jamais le
 /// numéro de la maquette (§ 13.2 : Browther y écrivait `4` et `6`).
+/// ⭐ `invite` = le partage des trois façons (2b) : c'est la valeur qu'envoyait
+/// l'écran 4 avant d'être retiré (2026-10-14, § 12.42) — la série continue.
+/// `share_prompt` = le partage proposé (§ 12.45).
 enum ReferralShareOrigin: String {
   case invite, home
+  case sharePrompt = "share_prompt"
 }
 
 /// ⭐⭐ **La SEULE porte par laquelle un écran écrit un évènement** (§ 13.8) —
@@ -130,11 +130,14 @@ enum ReferralShareOrigin: String {
 /// `private/scripts/ios-referral-tests/analytics_check.py`.
 struct ReferralNote {
   var preview = false
+  /// Propriétés ajoutées à TOUT ce que l'écran écrit — le partage proposé y
+  /// pose `opened_on` (l'onglet sur lequel il s'est ouvert, § 12.45).
+  var extra: [String: Any] = [:]
 
   @MainActor
   func callAsFunction(_ event: ReferralScreenEvent, _ properties: [String: Any]) {
     guard !preview else { return }
-    BrowtherSurfaces.track(event.rawValue, properties)
+    BrowtherSurfaces.track(event.rawValue, properties.merging(extra) { own, _ in own })
   }
 }
 
@@ -270,6 +273,36 @@ enum BrowtherReferralPresenter {
 
   private static func isFlowOrSheet(_ controller: UIViewController) -> Bool {
     controller is ReferralFlowHostingController || controller is ReferralSheetHostingController
+      || controller is ReferralSharePromptHostingController
+  }
+
+  /// ⭐ **Le partage proposé** (§ 12.45) : la feuille « Partager mon code »
+  /// elle-même, ouverte d'elle-même — ⛔ pas une seconde feuille. Comptée ici
+  /// (`paywall_shown {screen: share_prompt, opened_on}`), comme toute feuille.
+  @MainActor
+  static func presentSharePrompt(
+    status: ReferralStatus,
+    profile: ReferralSharePrompt.Profile,
+    openedOn: ReferralSharePrompt.Tab,
+    headline: ReferralSharePrompt.Headline,
+    from host: UIViewController,
+    source: ReferralShowSource,
+    preview: Bool = false
+  ) {
+    let controller = ReferralSharePromptHostingController(
+      status: status,
+      profile: profile,
+      openedOn: openedOn,
+      headline: headline,
+      preview: preview
+    )
+    countShown(
+      ReferralShareOrigin.sharePrompt.rawValue,
+      source: source,
+      preview: preview,
+      extra: ["opened_on": openedOn.rawValue]
+    )
+    host.present(controller, animated: true)
   }
 
   private static func isReferralScreen(_ controller: UIViewController) -> Bool {
@@ -357,9 +390,6 @@ final class ReferralFlowModel: ObservableObject {
       return !chosen
     case .support(let locked):
       return locked
-    case .invite(let shared):
-      if shared { return false }
-      return stack.count > 1 && isLocked(Array(stack.dropLast()))
     case .billing:
       // Ce qu'on ouvre par-dessus une fenêtre verrouillée l'est aussi (§ 12.16).
       return stack.count > 1 && isLocked(Array(stack.dropLast()))
@@ -465,6 +495,96 @@ final class ReferralSheetActions {
   var dismiss: (() -> Void)?
   var openHome: (() -> Void)?
   var openSupport: (() -> Void)?
+}
+
+// MARK: - Le partage proposé (§ 12.45)
+
+/// La feuille « Partager mon code », ouverte d'elle-même avec un titre et ses
+/// sorties. ⛔ Elle n'attend pas d'action (§ 2.2 du doc commun) : croix, glissé
+/// et « Plus tard » la referment ; « Ne plus me redemander » pour l'abonné et
+/// l'accès à vie.
+///
+/// ⚠️ **Partager n'est pas fermer** : une feuille refermée APRÈS un partage
+/// abouti n'écrit ni `dismiss` ni fermeture comptée. Une sortie ne se compte
+/// qu'une fois (`settled`).
+final class ReferralSharePromptHostingController: UIHostingController<ReferralShareSheet>,
+  UIAdaptivePresentationControllerDelegate
+{
+  private let profile: ReferralSharePrompt.Profile
+  private let note: ReferralNote
+  private var achieved = false
+  private var settled = false
+
+  @MainActor
+  init(
+    status: ReferralStatus,
+    profile: ReferralSharePrompt.Profile,
+    openedOn: ReferralSharePrompt.Tab,
+    headline: ReferralSharePrompt.Headline,
+    preview: Bool
+  ) {
+    self.profile = profile
+    note = ReferralNote(preview: preview, extra: ["opened_on": openedOn.rawValue])
+    let prompt = ReferralShareSheet.Prompt(profile: profile, headline: headline)
+    super.init(
+      rootView: ReferralShareSheet(
+        status: status,
+        origin: .sharePrompt,
+        note: note,
+        initialTab: openedOn,
+        prompt: prompt,
+        close: {}
+      )
+    )
+    modalPresentationStyle = .pageSheet
+    if let sheet = sheetPresentationController {
+      sheet.detents = [.large()]
+      sheet.prefersGrabberVisible = true
+    }
+    var view = rootView
+    // ⚠️ Dès l'ENVOI, pas au démontage de la feuille : un glissé vers le bas
+    // juste après un partage arrive avant `onAchieved`.
+    view.onSent = { [weak self] in self?.achieved = true }
+    view.close = { [weak self] in self?.dismiss(animated: true) }
+    view.prompt?.onLater = { [weak self] in self?.settle(.later) }
+    view.prompt?.onMute = { [weak self] in self?.settle(.mute) }
+    rootView = view
+  }
+
+  @available(*, unavailable)
+  required dynamic init?(coder aDecoder: NSCoder) {
+    fatalError()
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    presentationController?.delegate = self
+  }
+
+  private enum Exit: String {
+    case later, mute, dismiss
+  }
+
+  private func settle(_ exit: Exit) {
+    if !settled {
+      settled = true
+      // ⚠️ Après un partage abouti, la feuille se referme sans « fermeture ».
+      if !achieved || exit == .mute {
+        note(.paywallAction, ["screen": ReferralShareOrigin.sharePrompt.rawValue, "action": exit.rawValue])
+        BrowtherReferralController.shared.settleSharePrompt(
+          muted: exit == .mute,
+          profile: profile,
+          preview: note.preview
+        )
+      }
+    }
+    if exit != .dismiss { dismiss(animated: true) }
+  }
+
+  /// La fermeture classique (glissé vers le bas) — `action: dismiss`.
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    settle(.dismiss)
+  }
 }
 
 // MARK: - L'écran Parrainage (6)

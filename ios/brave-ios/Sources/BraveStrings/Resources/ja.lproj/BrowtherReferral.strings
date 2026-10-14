@@ -78,7 +78,6 @@
 "reminder.inProgress" = "招待のひとつが順調に進んでいます。コードが使われ、あとは Browther をデフォルトのブラウザにして数日待つだけです。";
 "reminder.months" = "確定した招待 1 件ごとに、1 か月追加されます。";
 "reminder.subscription" = "ご支援ありがとうございます。身近な人を招待するか、更新すると、追加機能を使い続けられます。";
-"invite.eyebrow" = "招待";
 "invite.share" = "コードをシェア";
 "invite.shareStatus" = "WhatsAppのステータスに投稿";
 "status.tab" = "WhatsApp ステータス";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "相手に届くメッセージはこのとおりです";
 "invite.back" = "戻る";
 "invite.closeAfterShare" = "アプリに戻る";
+"sharePrompt.title" = "Browther は役に立っていますか？";
+"sharePrompt.count.both" = "Browther はあなたのために、{hours}分の音楽を取り除き、{persons}をぼかしました。";
+"sharePrompt.count.music" = "Browther はあなたのために、{hours}分の音楽を取り除きました。";
+"sharePrompt.count.blur" = "Browther はあなたのために、{persons}をぼかしました。";
+"sharePrompt.leadGain" = "Browther を身近な人にシェアすると、確定した招待 1 件につき追加機能が 1 か月もらえます。";
+"sharePrompt.leadPaid" = "Browther を身近な人にシェアしましょう。あなたと同じように、その人の役にも立つかもしれません。";
+"sharePrompt.later" = "あとで";
+"sharePrompt.mute" = "今後は表示しない";
 "share.message" = "Browther を紹介します。音楽をカットして、ハラームな画像をぼかすブラウザです。\n私のコード {code} を使うと、追加機能を 1 か月分もらえます。";
 "billing.unavailable" = "現在、プランを読み込めていません。";
 "billing.retry" = "再試行";
@@ -262,6 +269,8 @@
 "reminder.monthsNext.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で {bonus} か月のボーナスです。";
 "reminder.monthsNextLife.other" = "確定した招待 1 件ごとに、1 か月追加されます。あと {count} 件で Browther がずっと使えるようになります、インシャーアッラー。";
 "reminder.subscriptionTitle.other" = "サブスクリプションは {count} 日後に終了します。";
+"sharePrompt.hours.other" = "{count} 時間";
+"sharePrompt.persons.other" = "{count} 人";
 "invite.foot.other" = "招待した人が Browther を {count} 日間デフォルトのブラウザにしておくと、招待が確定します。";
 "notice.why.other" = "身近な人があなたの紹介コードを使い、Browther を {count} 日間デフォルトのブラウザにしました。";
 "notice.body.other" = "+{count} か月分の追加機能（{date} まで）。";

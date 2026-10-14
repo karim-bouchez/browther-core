@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Jedno z twoich zaproszeń jest na dobrej drodze: twój kod został użyty, brakuje już tylko kilku dni z Browther jako domyślną przeglądarką.";
 "reminder.months" = "Każde potwierdzone zaproszenie dodaje kolejny miesiąc.";
 "reminder.subscription" = "Dziękujemy za wsparcie. Możesz zachować dodatkowe funkcje, zapraszając bliską osobę albo odnawiając subskrypcję.";
-"invite.eyebrow" = "Zaproś";
 "invite.share" = "Udostępnij mój kod";
 "invite.shareStatus" = "Opublikuj w statusie WhatsApp";
 "status.tab" = "Status WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Twoja wiadomość w takiej postaci, w jakiej dotrze do bliskiej osoby";
 "invite.back" = "Wstecz";
 "invite.closeAfterShare" = "Wróć do aplikacji";
+"sharePrompt.title" = "Czy Browther ci się przydaje?";
+"sharePrompt.count.both" = "Browther usunął dla ciebie {hours} muzyki i rozmył {persons}.";
+"sharePrompt.count.music" = "Browther usunął dla ciebie {hours} muzyki.";
+"sharePrompt.count.blur" = "Browther rozmył dla ciebie {persons}.";
+"sharePrompt.leadGain" = "Udostępnij Browther bliskiej osobie i zyskaj 1 miesiąc dodatkowych funkcji za każde potwierdzone zaproszenie.";
+"sharePrompt.leadPaid" = "Udostępnij Browther bliskiej osobie: może przyda się jej tak samo jak tobie.";
+"sharePrompt.later" = "Później";
+"sharePrompt.mute" = "Nie pytaj więcej";
 "share.message" = "Zapraszam cię do poznania Browther: przeglądarki, która wycina muzykę i rozmywa obrazy haram.\nZ moim kodem {code} dostajesz jeden miesiąc dodatkowych funkcji.";
 "billing.unavailable" = "Plany na razie się nie ładują.";
 "billing.retry" = "Spróbuj ponownie";
@@ -294,6 +301,12 @@
 "reminder.subscriptionTitle.one" = "Twoja subskrypcja kończy się jutro.";
 "reminder.subscriptionTitle.few" = "Twoja subskrypcja kończy się za {count} dni.";
 "reminder.subscriptionTitle.many" = "Twoja subskrypcja kończy się za {count} dni.";
+"sharePrompt.hours.one" = "{count} godzinę";
+"sharePrompt.hours.few" = "{count} godziny";
+"sharePrompt.hours.many" = "{count} godzin";
+"sharePrompt.persons.one" = "{count} osobę";
+"sharePrompt.persons.few" = "{count} osoby";
+"sharePrompt.persons.many" = "{count} osób";
 "invite.foot.one" = "Zaproszenie zostaje potwierdzone, gdy bliska osoba przez {count} dzień korzysta z Browther jako domyślnej przeglądarki.";
 "invite.foot.few" = "Zaproszenie zostaje potwierdzone, gdy bliska osoba przez {count} dni korzysta z Browther jako domyślnej przeglądarki.";
 "invite.foot.many" = "Zaproszenie zostaje potwierdzone, gdy bliska osoba przez {count} dni korzysta z Browther jako domyślnej przeglądarki.";

@@ -57,6 +57,68 @@ public final class ReferralPromptState {
     public Integer seenValidated;
     /** Ce que le FILLEUL a déjà vu de sa propre validation (écran 8 bis, § 5.3). */
     public SeenReferee seenRefereeStatus;
+    /**
+     * Ce que l'appareil retient du PARTAGE PROPOSÉ (`docs/PARRAINAGE.md` § 12.45, {@link
+     * ReferralSharePrompt}) — {@code null} = jamais montré.
+     */
+    public SharePrompt sharePrompt;
+    /**
+     * Le dernier écran du parrainage venu À la personne (annonce, rappels, J0, 8, 8 bis — ISO) : le
+     * partage proposé se tait la semaine qui suit.
+     */
+    public String lastScreenAt;
+
+    /** Le partage proposé — tous les champs optionnels, comme le reste de l'état. */
+    public static final class SharePrompt {
+        /** Dernier affichage (ISO). */
+        public String shownAt;
+        /** Nombre d'affichages — sa parité choisit l'onglet ouvert. */
+        public Integer count;
+        /** Fermetures d'affilée, sans partage abouti entre deux. */
+        public Integer dismissedInRow;
+        /** Dernier partage abouti, D'OÙ QU'IL VIENNE (ISO). */
+        public String sharedAt;
+        /**
+         * « Ne plus me redemander » : {@code subscription} = jusqu'à la fin de l'abonnement (effacé
+         * quand il s'éteint), {@code lifetime} = pour toujours.
+         */
+        public String muted;
+        /** D'où compter les 7 jours quand l'annonce n'a jamais été montrée (qui a payé avant). */
+        public String since;
+
+        public SharePrompt copy() {
+            SharePrompt c = new SharePrompt();
+            c.shownAt = shownAt;
+            c.count = count;
+            c.dismissedInRow = dismissedInRow;
+            c.sharedAt = sharedAt;
+            c.muted = muted;
+            c.since = since;
+            return c;
+        }
+
+        Map<String, Object> toJson() {
+            Map<String, Object> m = new LinkedHashMap<>();
+            put(m, "shownAt", shownAt);
+            put(m, "count", count);
+            put(m, "dismissedInRow", dismissedInRow);
+            put(m, "sharedAt", sharedAt);
+            put(m, "muted", muted);
+            put(m, "since", since);
+            return m;
+        }
+
+        static SharePrompt fromJson(ReferralJson.Obj o) throws ReferralJson.JsonException {
+            SharePrompt s = new SharePrompt();
+            s.shownAt = o.optString("shownAt");
+            s.count = o.optInteger("count");
+            s.dismissedInRow = o.optInteger("dismissedInRow");
+            s.sharedAt = o.optString("sharedAt");
+            s.muted = o.optString("muted");
+            s.since = o.optString("since");
+            return s;
+        }
+    }
 
     public enum Circuit {
         PAUSED("paused"),
@@ -112,6 +174,8 @@ public final class ReferralPromptState {
         c.meritUsedDay = meritUsedDay;
         c.seenValidated = seenValidated;
         c.seenRefereeStatus = seenRefereeStatus;
+        c.sharePrompt = sharePrompt == null ? null : sharePrompt.copy();
+        c.lastScreenAt = lastScreenAt;
         return c;
     }
 
@@ -133,6 +197,8 @@ public final class ReferralPromptState {
         put(m, "meritUsedDay", meritUsedDay);
         put(m, "seenValidated", seenValidated);
         put(m, "seenRefereeStatus", seenRefereeStatus == null ? null : seenRefereeStatus.rawValue);
+        put(m, "sharePrompt", sharePrompt == null ? null : sharePrompt.toJson());
+        put(m, "lastScreenAt", lastScreenAt);
         return m;
     }
 
@@ -157,6 +223,9 @@ public final class ReferralPromptState {
         s.seenValidated = o.optInteger("seenValidated");
         String seen = o.optString("seenRefereeStatus");
         s.seenRefereeStatus = seen == null ? null : SeenReferee.fromRaw(seen);
+        ReferralJson.Obj share = o.optObj("sharePrompt");
+        s.sharePrompt = share == null ? null : SharePrompt.fromJson(share);
+        s.lastScreenAt = o.optString("lastScreenAt");
         return s;
     }
 

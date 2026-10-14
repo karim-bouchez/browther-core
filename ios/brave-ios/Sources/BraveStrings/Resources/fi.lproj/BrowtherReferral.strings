@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Yksi kutsuistasi on hyvällä mallilla: koodiasi on käytetty, enää puuttuu muutama päivä Browther oletusselaimena.";
 "reminder.months" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää.";
 "reminder.subscription" = "Kiitos tuestasi. Voit pitää lisäominaisuudet kutsumalla jonkun tai uusimalla tilauksesi.";
-"invite.eyebrow" = "Kutsu";
 "invite.share" = "Jaa koodini";
 "invite.shareStatus" = "Julkaise WhatsApp-tilaani";
 "status.tab" = "WhatsApp-tila";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Viestisi sellaisena kuin läheisesi sen saa";
 "invite.back" = "Takaisin";
 "invite.closeAfterShare" = "Takaisin sovellukseen";
+"sharePrompt.title" = "Onko Browther sinulle hyödyllinen?";
+"sharePrompt.count.both" = "Browther on poistanut sinulta {hours} musiikkia ja sumentanut {persons}.";
+"sharePrompt.count.music" = "Browther on poistanut sinulta {hours} musiikkia.";
+"sharePrompt.count.blur" = "Browther on sumentanut sinulle {persons}.";
+"sharePrompt.leadGain" = "Jaa Browther jollekulle läheiselle ja saat 1 kuukauden lisäominaisuuksia jokaisesta vahvistetusta kutsusta.";
+"sharePrompt.leadPaid" = "Jaa Browther jollekulle läheiselle: ehkä siitä on hänelle yhtä paljon hyötyä kuin sinulle.";
+"sharePrompt.later" = "Myöhemmin";
+"sharePrompt.mute" = "Älä kysy uudelleen";
 "share.message" = "Kutsun sinut tutustumaan Browtheriin: selaimeen, joka poistaa musiikin ja sumentaa haram-kuvat.\nKoodillani {code} saat yhden kuukauden lisäominaisuuksia.";
 "billing.unavailable" = "Tilausvaihtoehdot eivät lataudu juuri nyt.";
 "billing.retry" = "Yritä uudelleen";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Jokainen vahvistettu kutsu tuo sinulle yhden lisää. Vielä {count}, niin Browther aukeaa elinikäisesti, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Tilauksesi päättyy huomenna.";
 "reminder.subscriptionTitle.other" = "Tilauksesi päättyy {count} päivän päästä.";
+"sharePrompt.hours.one" = "{count} tunnin";
+"sharePrompt.hours.other" = "{count} tuntia";
+"sharePrompt.persons.one" = "{count} henkilön";
+"sharePrompt.persons.other" = "{count} henkilöä";
 "invite.foot.one" = "Kutsu vahvistetaan, kun kutsumasi henkilö on pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
 "invite.foot.other" = "Kutsu vahvistetaan, kun kutsumasi henkilö on pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
 "notice.why.one" = "Joku käytti suosittelukoodiasi ja on juuri pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";

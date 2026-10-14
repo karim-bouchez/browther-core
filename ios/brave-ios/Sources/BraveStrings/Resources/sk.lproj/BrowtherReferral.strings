@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Jedna z vašich pozvánok je na dobrej ceste: váš kód bol použitý, chýba už len pár dní s Browther ako predvoleným prehliadačom.";
 "reminder.months" = "Každá potvrdená pozvánka vám pridá ďalší mesiac.";
 "reminder.subscription" = "Ďakujeme za vašu podporu. Doplnkové funkcie si môžete ponechať, keď pozvete niekoho blízkeho, alebo keď predplatné obnovíte.";
-"invite.eyebrow" = "Pozvať";
 "invite.share" = "Zdieľať môj kód";
 "invite.shareStatus" = "Zverejniť v stave WhatsApp";
 "status.tab" = "Stav WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Vaša správa tak, ako ju blízka osoba dostane";
 "invite.back" = "Späť";
 "invite.closeAfterShare" = "Späť do aplikácie";
+"sharePrompt.title" = "Je vám Browther užitočný?";
+"sharePrompt.count.both" = "Browther pre vás odstránil {hours} hudby a rozmazal {persons}.";
+"sharePrompt.count.music" = "Browther pre vás odstránil {hours} hudby.";
+"sharePrompt.count.blur" = "Browther pre vás rozmazal {persons}.";
+"sharePrompt.leadGain" = "Zdieľajte Browther s niekým blízkym a za každú potvrdenú pozvánku získajte 1 mesiac doplnkových funkcií.";
+"sharePrompt.leadPaid" = "Zdieľajte Browther s niekým blízkym: možno mu poslúži rovnako ako vám.";
+"sharePrompt.later" = "Neskôr";
+"sharePrompt.mute" = "Už sa nepýtať";
 "share.message" = "Pozývam ťa vyskúšať Browther: prehliadač, ktorý vypína hudbu a rozmazáva haram obrázky.\nS mojím kódom {code} získaš jeden mesiac doplnkových funkcií.";
 "billing.unavailable" = "Tarify sa teraz nenačítavajú.";
 "billing.retry" = "Skúsiť znova";
@@ -294,6 +301,12 @@
 "reminder.subscriptionTitle.one" = "Vaše predplatné končí zajtra.";
 "reminder.subscriptionTitle.few" = "Vaše predplatné končí o {count} dni.";
 "reminder.subscriptionTitle.other" = "Vaše predplatné končí o {count} dní.";
+"sharePrompt.hours.one" = "{count} hodinu";
+"sharePrompt.hours.few" = "{count} hodiny";
+"sharePrompt.hours.other" = "{count} hodín";
+"sharePrompt.persons.one" = "{count} osobu";
+"sharePrompt.persons.few" = "{count} osoby";
+"sharePrompt.persons.other" = "{count} osôb";
 "invite.foot.one" = "Pozvánka sa potvrdí, keď si blízka osoba nechá Browther ako predvolený prehliadač {count} deň.";
 "invite.foot.few" = "Pozvánka sa potvrdí, keď si blízka osoba nechá Browther ako predvolený prehliadač {count} dni.";
 "invite.foot.other" = "Pozvánka sa potvrdí, keď si blízka osoba nechá Browther ako predvolený prehliadač {count} dní.";

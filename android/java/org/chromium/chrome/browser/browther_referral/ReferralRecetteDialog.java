@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 
 import org.chromium.chrome.browser.browther_referral.core.ExtraFeature;
 import org.chromium.chrome.browser.browther_referral.core.RecetteState;
+import org.chromium.chrome.browser.browther_referral.core.ReferralSharePrompt;
 import org.chromium.chrome.browser.browther_referral.core.ReminderCase;
 
 import java.time.Instant;
@@ -160,6 +161,31 @@ public final class ReferralRecetteDialog extends Dialog {
             say("Vraie identité rétablie.");
         }));
 
+        // -------------------- Le partage proposé (§ 12.45) --------------------
+        column.addView(header("Partage proposé"));
+        column.addView(note("Sa ligne « Partage proposé » est dans « Où j'en suis » : dû, ou pourquoi "
+                + "il se tait. Il sort au moment de mérite quand aucun écran daté n'est dû. Profils : "
+                + "« Mois en cours (J−20) » (cocher Sawtunaa finalisé : l'annonce doit être vue), "
+                + "« Abonné », « À vie »."));
+        column.addView(button("Réarmer le partage proposé · Statut", () -> {
+            mController.rearmSharePromptForRecette(ReferralSharePrompt.Tab.STATUS);
+            say("Réarmé sur « Statut WhatsApp » (« Message » sans WhatsApp).");
+        }));
+        column.addView(button("Réarmer le partage proposé · Message", () -> {
+            mController.rearmSharePromptForRecette(ReferralSharePrompt.Tab.MESSAGE);
+            say("Réarmé sur « Message ».");
+        }));
+        column.addView(button("Provoquer le partage proposé maintenant", () -> {
+            mController.liftDayLockForRecette();
+            provoke();
+        }));
+        for (ReferralSharePrompt.Profile profile : ReferralSharePrompt.Profile.values()) {
+            for (ReferralSharePrompt.Tab tab : ReferralSharePrompt.Tab.values()) {
+                sharePromptPreview(column, profile, tab, true);
+            }
+        }
+        sharePromptPreview(column, ReferralSharePrompt.Profile.OFFERED, ReferralSharePrompt.Tab.STATUS, false);
+
         // -------------------- Revoir un écran --------------------
         column.addView(header("Revoir un écran (n'écrit rien)"));
         String until = "2026-12-01T10:00:00.000Z";
@@ -175,7 +201,6 @@ public final class ReferralRecetteDialog extends Dialog {
                 ReferralScreen.reminder(10, ReminderCase.EARNED_MONTHS_ENDING));
         preview(column, "3 — rappel « abonnement annulé »",
                 ReferralScreen.reminder(3, ReminderCase.SUBSCRIPTION_CANCELLED));
-        preview(column, "4 — inviter (seul)", ReferralScreen.invite(false));
         preview(column, "7 — soutenir (porte factice)", ReferralScreen.billing());
         preview(column, "7 ter — c'est cadeau !", ReferralScreen.gift(true, until));
         preview(column, "7 ter — déjà offert", ReferralScreen.gift(false, null));
@@ -237,10 +262,17 @@ public final class ReferralRecetteDialog extends Dialog {
     private String why(BrowtherReferralController.Attempt attempt) {
         switch (attempt) {
             case NONE:
-                return mController.extrasReleased()
-                        ? "Rien n'est dû pour cette situation."
-                        : "Rien n'est dû : l'annonce dort tant que Sawtunaa n'est pas finalisé. "
-                                + "Cocher « Faire comme si Sawtunaa était finalisé ».";
+                ReferralSharePrompt.Verdict share =
+                        mController.sharePromptVerdict(Instant.now(), true);
+                String quiet =
+                        share.due()
+                                ? ""
+                                : " Partage proposé : se tait (" + share.reason.rawValue + ").";
+                return (mController.extrasReleased()
+                                ? "Rien n'est dû pour cette situation."
+                                : "Rien n'est dû : l'annonce dort tant que Sawtunaa n'est pas finalisé. "
+                                        + "Cocher « Faire comme si Sawtunaa était finalisé ».")
+                        + quiet;
             case LOCKED_TODAY:
                 return "Une sollicitation a déjà eu lieu aujourd'hui (verrou du jour).";
             case BUSY:
@@ -260,6 +292,24 @@ public final class ReferralRecetteDialog extends Dialog {
         column.addView(button(label, () -> afterClose(
                 () -> BrowtherReferralPresenter.present(
                         mActivity, screen, BrowtherReferralPresenter.Source.USER, true))));
+    }
+
+    private static final String[] PROFILE_LABELS = {"mois offerts", "abonné", "à vie"};
+
+    /** Un aperçu du partage proposé — la MÊME feuille que le vrai, ⛔ rien d'écrit ni de compté. */
+    private void sharePromptPreview(
+            LinearLayout column,
+            ReferralSharePrompt.Profile profile,
+            ReferralSharePrompt.Tab tab,
+            boolean withCounter) {
+        String label =
+                "Partage proposé · "
+                        + PROFILE_LABELS[profile.ordinal()]
+                        + " · "
+                        + (tab == ReferralSharePrompt.Tab.STATUS ? "Statut" : "Message")
+                        + (withCounter ? "" : " · sans compteur");
+        column.addView(button(label, () -> afterClose(
+                () -> mController.previewSharePromptForRecette(mActivity, profile, tab, withCounter))));
     }
 
     private TextView header(String text) {

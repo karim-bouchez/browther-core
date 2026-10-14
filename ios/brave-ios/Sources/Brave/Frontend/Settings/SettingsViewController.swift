@@ -1418,6 +1418,17 @@ class SettingsViewController: TableViewController {
                 self.dismiss(animated: true) {
                   BrowtherReferralPresenter.present(screen, from: bvc, source: .user, preview: true)
                 }
+              },
+              previewSharePrompt: { [weak self] profile, tab, headline in
+                guard let self, let bvc = self.settingsDelegate as? BrowserViewController else { return }
+                self.dismiss(animated: true) {
+                  BrowtherReferralController.shared.previewSharePrompt(
+                    profile: profile,
+                    tab: tab,
+                    headline: headline,
+                    from: bvc
+                  )
+                }
               }
             )
             self.navigationController?.pushViewController(
@@ -1499,10 +1510,16 @@ class SettingsViewController: TableViewController {
       // AUCUN écran n'est dû, quel que soit le scénario posé (recette Karim,
       // 2026-09-22 : « J−3 ne s'ouvre pas »). On le dit, plutôt que de renvoyer
       // la personne lire son état.
-      message = BrowtherReferralController.shared.extrasReleased
+      let dated = BrowtherReferralController.shared.extrasReleased
         ? "Rien n'est dû (voir « Où j'en suis »)."
         : "Rien n'est dû : l'annonce dort tant que Sawtunaa n'est pas finalisé. Coche « Faire comme si Sawtunaa était finalisé », puis repose la situation."
-    case .lockedToday: message = "Le verrou du jour est pris par une autre fiche."
+      // Le partage proposé DIT pourquoi il se tait (§ 12.45, brief § 2.6).
+      if case .silent(let reason) = BrowtherReferralController.shared.sharePromptVerdict() {
+        message = "\(dated) Partage proposé : se tait — \(reason.rawValue)."
+      } else {
+        message = dated
+      }
+    case .lockedToday: message = "Le verrou du jour (ou le calme de 3 jours, pour le partage proposé) est pris."
     case .busy: message = "L'écran n'est pas libre."
     case .unknown: message = "Statut inconnu : le service n'a pas encore répondu."
     }

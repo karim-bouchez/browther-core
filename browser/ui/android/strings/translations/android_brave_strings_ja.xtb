@@ -1701,4 +1701,24 @@
 <translation id="4424392500145214431">金銭的に支援</translation>
 <translation id="4037525693923559198">この機能も、ほかの多くの機能も、また使えるようになります：</translation>
 <translation id="7947423953490329886">身近な人を招待 · 無料</translation>
+<translation id="2145525106182376323">Browther はあなたのために、{persons}をぼかしました。</translation>
+<translation id="6400524222547977883">Browther はあなたのために、{hours}分の音楽を取り除き、{persons}をぼかしました。</translation>
+<translation id="6364958544462115942">Browther はあなたのために、{hours}分の音楽を取り除きました。</translation>
+<translation id="4804933000285471430">あとで</translation>
+<translation id="6246827307723891473">Browther を身近な人にシェアすると、確定した招待 1 件につき追加機能が 1 か月もらえます。</translation>
+<translation id="4651970941373266324">Browther を身近な人にシェアしましょう。あなたと同じように、その人の役にも立つかもしれません。</translation>
+<translation id="590886708270558946">今後は表示しない</translation>
+<translation id="6098210946204001748">Browther は役に立っていますか？</translation>
+<translation id="5983059440745470816">{count} 時間</translation>
+<translation id="6580723708162353591">{count} 時間</translation>
+<translation id="6400687003718578465">{count} 時間</translation>
+<translation id="8951993230737981149">{count} 時間</translation>
+<translation id="4802813661488355122">{count} 時間</translation>
+<translation id="661922550588400846">{count} 時間</translation>
+<translation id="7758527493373512745">{count} 人</translation>
+<translation id="2216648746170312584">{count} 人</translation>
+<translation id="595722018333386979">{count} 人</translation>
+<translation id="4564385327850332369">{count} 人</translation>
+<translation id="829565773920235096">{count} 人</translation>
+<translation id="6696217214286867315">{count} 人</translation>
 </translationbundle>

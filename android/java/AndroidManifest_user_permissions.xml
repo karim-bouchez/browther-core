@@ -1,1 +1,11 @@
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+
+<!-- Browther (browther_referral_queries) : le partage proposé du parrainage s'ouvre sur
+     « Message » quand WhatsApp n'est pas installé (devndin/docs/PARRAINAGE.md § 12.45). Android 11+
+     ne laisse voir que les paquets déclarés ici : sans eux, `ReferralSharing.whatsAppInstalled`
+     répondrait toujours « non », en silence. Inclus au niveau <manifest> par
+     chrome/android/java/AndroidManifest.xml (patch Brave). -->
+<queries>
+    <package android:name="com.whatsapp" />
+    <package android:name="com.whatsapp.w4b" />
+</queries>

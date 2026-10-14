@@ -18,6 +18,35 @@
 #include "net/base/url_util.h"
 #include "services/network/public/mojom/content_security_policy.mojom.h"
 
+namespace {
+
+// Le site de Browther : le manifeste et les vidéos du statut WhatsApp.
+constexpr char kSiteOrigin[] = "https://browther.devndin.com";
+
+// 🔴 La fenêtre de partage MONTRE ce qui partira du téléphone
+// (`ShareWindow.tsx`, `devndin/docs/PARRAINAGE.md` § 12.45) : elle lit UN
+// fichier public du site (le manifeste des vidéos — aucun jeton n'y part,
+// ⛔ ce n'est pas un appel de service : ceux-là passent par le pont), lit la
+// vidéo en APERÇU par `<video>` (⛔ jamais téléchargée), et dessine l'image
+// du statut avec ses polices, embarquées dans `app.js` (`data:`).
+// `connect_base` = ce que la page autorisait déjà (le Nouvel Onglet a les
+// sources de Chromium, `ui/webui/webui_util.cc`) : on y AJOUTE le site ;
+// `'self'` reste aussi pour les médias et les polices.
+void AllowSharePreview(content::WebUIDataSource* source,
+                       const std::string& connect_base) {
+  source->OverrideContentSecurityPolicy(
+      network::mojom::CSPDirectiveName::ConnectSrc,
+      connect_base + " " + kSiteOrigin + ";");
+  source->OverrideContentSecurityPolicy(
+      network::mojom::CSPDirectiveName::MediaSrc,
+      std::string("media-src 'self' ") + kSiteOrigin + ";");
+  source->OverrideContentSecurityPolicy(
+      network::mojom::CSPDirectiveName::FontSrc,
+      "font-src chrome://resources 'self' data:;");
+}
+
+}  // namespace
+
 BrowtherReferralUI::BrowtherReferralUI(content::WebUI* web_ui)
     : content::WebUIController(web_ui) {
   content::WebUIDataSource* source = content::WebUIDataSource::CreateAndAdd(
@@ -35,9 +64,11 @@ BrowtherReferralUI::BrowtherReferralUI(content::WebUI* web_ui)
       network::mojom::CSPDirectiveName::ImgSrc,
       "img-src 'self' data: blob:;");
   // ⛔ L'app n'appelle AUCUN service elle-même (tout passe par le pont, qui
-  // garde le jeton du compte) : seuls ses propres fichiers de textes.
-  source->OverrideContentSecurityPolicy(
-      network::mojom::CSPDirectiveName::ConnectSrc, "connect-src 'self';");
+  // garde le jeton du compte) : ses propres fichiers de textes, et UN fichier
+  // public du site — le manifeste des vidéos du statut WhatsApp, que la
+  // fenêtre de partage lit pour MONTRER la vidéo (`ShareWindow.tsx`,
+  // `devndin/docs/PARRAINAGE.md` § 12.45). Aucun jeton n'y part.
+  AllowSharePreview(source, "connect-src 'self'");
   // Le QR (SVG construit par React) et les confettis n'écrivent aucun HTML ;
   // Trusted Types coupé comme sur l'introduction (même famille de page).
   source->DisableTrustedTypesCSP();
@@ -62,6 +93,15 @@ void BrowtherReferralUI::AddToHostPage(content::WebUI* web_ui,
                                        content::WebUIDataSource* source,
                                        bool is_new_tab) {
   browther_referral::AddAppFiles(source, "browther-referral/");
+  // Le partage proposé s'ouvre sur le Nouvel Onglet (⛔ jamais dans
+  // l'introduction : elle a ses propres médias, on n'y touche pas).
+  // ⚠️ Appelé APRÈS les réglages de la page (`new_tab_page_initializer.cc`) :
+  // ce qui suit les complète, les sources de connexion de Chromium y restent.
+  if (is_new_tab) {
+    AllowSharePreview(source,
+                      "connect-src chrome://webui-test chrome://resources "
+                      "chrome://theme 'self'");
+  }
   web_ui->AddMessageHandler(std::make_unique<BrowtherReferralHandler>(
       is_new_tab ? BrowtherReferralHandler::Host::kNewTab
                  : BrowtherReferralHandler::Host::kWelcome));

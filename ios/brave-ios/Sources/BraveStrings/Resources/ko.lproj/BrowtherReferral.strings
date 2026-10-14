@@ -78,7 +78,6 @@
 "reminder.inProgress" = "초대 하나가 잘 진행되고 있어요. 코드가 사용되었고, Browther를 기본 브라우저로 며칠만 더 쓰면 돼요.";
 "reminder.months" = "초대가 확정될 때마다 1개월이 더 추가돼요.";
 "reminder.subscription" = "후원해 주셔서 감사해요. 가까운 사람을 초대하거나 구독을 갱신하면 추가 기능을 계속 쓸 수 있어요.";
-"invite.eyebrow" = "초대하기";
 "invite.share" = "내 코드 공유하기";
 "invite.shareStatus" = "WhatsApp 상태에 게시";
 "status.tab" = "WhatsApp 상태";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "상대방에게 이렇게 전달돼요";
 "invite.back" = "뒤로";
 "invite.closeAfterShare" = "앱으로 돌아가기";
+"sharePrompt.title" = "Browther가 도움이 되고 있나요?";
+"sharePrompt.count.both" = "Browther가 당신을 위해 {hours} 분량의 음악을 없애고 {persons}을 흐리게 처리했어요.";
+"sharePrompt.count.music" = "Browther가 당신을 위해 {hours} 분량의 음악을 없앴어요.";
+"sharePrompt.count.blur" = "Browther가 당신을 위해 {persons}을 흐리게 처리했어요.";
+"sharePrompt.leadGain" = "가까운 사람에게 Browther를 공유하고, 확정된 초대 1건마다 추가 기능 1개월을 받으세요.";
+"sharePrompt.leadPaid" = "가까운 사람에게 Browther를 공유해 보세요. 당신에게처럼 그분께도 도움이 될지 몰라요.";
+"sharePrompt.later" = "나중에";
+"sharePrompt.mute" = "다시 묻지 않기";
 "share.message" = "Browther를 소개할게요. 음악을 끄고 하람 이미지를 흐리게 해 주는 브라우저예요.\n내 코드 {code} 입력 시 추가 기능 1개월을 받을 수 있어요.";
 "billing.unavailable" = "지금은 요금제를 불러오지 못하고 있어요.";
 "billing.retry" = "다시 시도";
@@ -262,6 +269,8 @@
 "reminder.monthsNext.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 {bonus}개월 보너스예요.";
 "reminder.monthsNextLife.other" = "초대가 확정될 때마다 1개월이 더 추가돼요. {count}건만 더 하면 Browther가 평생 열려요, 인샤알라.";
 "reminder.subscriptionTitle.other" = "구독이 {count}일 후에 종료돼요.";
+"sharePrompt.hours.other" = "{count}시간";
+"sharePrompt.persons.other" = "{count}명";
 "invite.foot.other" = "초대한 분이 Browther를 기본 브라우저로 {count}일 동안 유지하면 초대가 확정돼요.";
 "notice.why.other" = "가까운 사람이 내 추천 코드를 사용했고, Browther를 기본 브라우저로 {count}일 동안 유지했어요.";
 "notice.body.other" = "추가 기능 +{count}개월, {date}까지.";

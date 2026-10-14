@@ -82,7 +82,10 @@ final class BrowtherPromptCoordinator {
     // Onglet : rien à recharger d'utile) — dormant avant l'annonce.
     referral.enforcePauseIfNeeded(in: browserViewController)
     let today = BrowtherSurfacesRules.dayKey(Date())
-    if referralSession != today, referral.wantsNewTabPage() {
+    // ⚠️ Le partage proposé (§ 12.45) n'est pas daté : une fiche qui attend
+    // cette session passe avant lui (`otherFichePending`).
+    let otherFichePending = sessionPending != nil && !attemptedThisSession
+    if referralSession != today, referral.wantsNewTabPage(otherFichePending: otherFichePending) {
       referralSession = today
       attemptedThisSession = true
       Task { @MainActor [weak browserViewController] in

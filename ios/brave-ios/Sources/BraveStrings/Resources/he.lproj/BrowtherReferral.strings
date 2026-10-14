@@ -78,7 +78,6 @@
 "reminder.inProgress" = "אחת ההזמנות שלך בדרך הנכונה: הקוד שלך נוצל, חסרים רק עוד כמה ימים עם Browther כדפדפן ברירת המחדל.";
 "reminder.months" = "כל הזמנה מאושרת מוסיפה עוד חודש.";
 "reminder.subscription" = "תודה על התמיכה. אפשר לשמור על התכונות הנוספות בהזמנת אדם קרוב, או בחידוש המנוי.";
-"invite.eyebrow" = "הזמנה";
 "invite.share" = "לשתף את הקוד שלי";
 "invite.shareStatus" = "פרסום בסטטוס בוואטסאפ";
 "status.tab" = "סטטוס וואטסאפ";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "ההודעה שלך, כפי שהאדם הקרוב יקבל אותה";
 "invite.back" = "חזרה";
 "invite.closeAfterShare" = "חזרה לאפליקציה";
+"sharePrompt.title" = "Browther מועיל לך?";
+"sharePrompt.count.both" = "Browther הסיר בשבילך {hours} של מוזיקה וטשטש {persons}.";
+"sharePrompt.count.music" = "Browther הסיר בשבילך {hours} של מוזיקה.";
+"sharePrompt.count.blur" = "Browther טשטש בשבילך {persons}.";
+"sharePrompt.leadGain" = "אפשר לשתף את Browther עם אדם קרוב ולקבל חודש אחד של תכונות נוספות על כל הזמנה מאושרת.";
+"sharePrompt.leadPaid" = "אפשר לשתף את Browther עם אדם קרוב: אולי הוא יועיל לו כמו שהוא מועיל לך.";
+"sharePrompt.later" = "אחר כך";
+"sharePrompt.mute" = "לא לשאול אותי שוב";
 "share.message" = "רציתי להכיר לך את Browther: הדפדפן שמשתיק מוזיקה ומטשטש תמונות חראם.\nעם הקוד שלי {code} יש לך חודש של תכונות נוספות.";
 "billing.unavailable" = "המסלולים לא נטענים כרגע.";
 "billing.retry" = "לנסות שוב";
@@ -294,6 +301,12 @@
 "reminder.subscriptionTitle.one" = "המנוי שלך מסתיים מחר.";
 "reminder.subscriptionTitle.two" = "המנוי שלך מסתיים בעוד יומיים.";
 "reminder.subscriptionTitle.other" = "המנוי שלך מסתיים בעוד {count} ימים.";
+"sharePrompt.hours.one" = "שעה אחת";
+"sharePrompt.hours.two" = "שעתיים";
+"sharePrompt.hours.other" = "{count} שעות";
+"sharePrompt.persons.one" = "אדם אחד";
+"sharePrompt.persons.two" = "שני אנשים";
+"sharePrompt.persons.other" = "{count} אנשים";
 "invite.foot.one" = "ההזמנה מאושרת אחרי שהאדם הקרוב אליך משאיר את Browther כדפדפן ברירת המחדל במשך יום אחד.";
 "invite.foot.two" = "ההזמנה מאושרת אחרי שהאדם הקרוב אליך משאיר את Browther כדפדפן ברירת המחדל במשך יומיים.";
 "invite.foot.other" = "ההזמנה מאושרת אחרי שהאדם הקרוב אליך משאיר את Browther כדפדפן ברירת המחדל במשך {count} ימים.";

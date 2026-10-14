@@ -1703,4 +1703,24 @@ Wenn Sie diese Anfrage nicht akzeptieren, wird das VPN nicht erneut verbunden un
 <translation id="4424392500145214431">Finanziell unterstützen</translation>
 <translation id="4037525693923559198">Sie können diese Funktion zurückbekommen – und viele weitere:</translation>
 <translation id="7947423953490329886">Jemanden einladen · kostenlos</translation>
+<translation id="2145525106182376323">Browther hat für Sie {persons} unkenntlich gemacht.</translation>
+<translation id="6400524222547977883">Browther hat für Sie {hours} Musik entfernt und {persons} unkenntlich gemacht.</translation>
+<translation id="6364958544462115942">Browther hat für Sie {hours} Musik entfernt.</translation>
+<translation id="4804933000285471430">Später</translation>
+<translation id="6246827307723891473">Teilen Sie Browther mit jemandem, der Ihnen nahesteht, und erhalten Sie für jede bestätigte Einladung 1 Monat zusätzliche Funktionen.</translation>
+<translation id="4651970941373266324">Teilen Sie Browther mit jemandem, der Ihnen nahesteht: Vielleicht hilft es ihm genauso wie Ihnen.</translation>
+<translation id="590886708270558946">Nicht mehr fragen</translation>
+<translation id="6098210946204001748">Ist Browther für Sie nützlich?</translation>
+<translation id="5983059440745470816">{count} Stunden</translation>
+<translation id="6580723708162353591">{count} Stunde</translation>
+<translation id="6400687003718578465">{count} Stunden</translation>
+<translation id="8951993230737981149">{count} Stunden</translation>
+<translation id="4802813661488355122">{count} Stunden</translation>
+<translation id="661922550588400846">{count} Stunden</translation>
+<translation id="7758527493373512745">{count} Personen</translation>
+<translation id="2216648746170312584">{count} Person</translation>
+<translation id="595722018333386979">{count} Personen</translation>
+<translation id="4564385327850332369">{count} Personen</translation>
+<translation id="829565773920235096">{count} Personen</translation>
+<translation id="6696217214286867315">{count} Personen</translation>
 </translationbundle>

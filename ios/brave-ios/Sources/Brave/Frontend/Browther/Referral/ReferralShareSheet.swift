@@ -28,19 +28,74 @@ import UIKit
 /// referme** (`report`) — pas entre les deux envois, sous WhatsApp. Refermée
 /// après un envoi sur deux : le partage a abouti quand même.
 /// ⚠️ Un seul onglet est monté à la fois : chacun a son lecteur vidéo.
+///
+/// ⭐ **Le partage proposé** (§ 12.45) est CETTE feuille, ouverte d'elle-même
+/// (`ReferralSharePromptHostingController`) : un onglet d'arrivée qui alterne,
+/// un titre au-dessus des onglets et ses sorties en pied (`prompt`). ⛔ Pas une
+/// seconde feuille — les écrans ne lui donnent que leur origine.
 struct ReferralShareSheet: View {
   let status: ReferralStatus
   let origin: ReferralShareOrigin
   let note: ReferralNote
+  /// Ce qui fait de la feuille le partage proposé — `nil` pour « Partager mon code ».
+  var prompt: Prompt?
+  /// Le partage a ABOUTI — appelé une fois, quand la feuille se referme (`report`).
   var onAchieved: (() -> Void)?
-  let close: () -> Void
+  /// Un envoi vient de partir — dès l'envoi, avant que la feuille se referme.
+  var onSent: (() -> Void)?
+  var close: () -> Void
 
-  private enum Tab: Hashable {
-    case status, message
+  /// Le titre et les sorties du partage proposé.
+  struct Prompt {
+    var profile: ReferralSharePrompt.Profile
+    var headline: ReferralSharePrompt.Headline
+    var onLater: (() -> Void)?
+    var onMute: (() -> Void)?
+
+    /// La phrase du compteur, sinon « Browther t'est utile ? ».
+    var title: String {
+      switch headline.kind {
+      case .both:
+        return Strings.BrowtherReferral.sharePromptCountBoth(hours: headline.hours, persons: headline.persons)
+      case .music: return Strings.BrowtherReferral.sharePromptCountMusic(hours: headline.hours)
+      case .blur: return Strings.BrowtherReferral.sharePromptCountBlur(persons: headline.persons)
+      case .none: return Strings.BrowtherReferral.sharePromptTitle
+      }
+    }
+
+    /// 🔴 L'abonné et l'accès à vie n'ont PAS la phrase du gain.
+    var lead: String {
+      profile == .offered ? Strings.BrowtherReferral.sharePromptLeadGain : Strings.BrowtherReferral.sharePromptLeadPaid
+    }
+
+    /// « Ne plus me redemander » : l'abonné et l'accès à vie SEULEMENT.
+    var canMute: Bool { profile != .offered }
+  }
+
+  private typealias Tab = ReferralSharePrompt.Tab
+
+  init(
+    status: ReferralStatus,
+    origin: ReferralShareOrigin,
+    note: ReferralNote,
+    initialTab: ReferralSharePrompt.Tab = .status,
+    prompt: Prompt? = nil,
+    onAchieved: (() -> Void)? = nil,
+    onSent: (() -> Void)? = nil,
+    close: @escaping () -> Void
+  ) {
+    self.status = status
+    self.origin = origin
+    self.note = note
+    self.prompt = prompt
+    self.onAchieved = onAchieved
+    self.onSent = onSent
+    self.close = close
+    _tab = State(initialValue: initialTab)
   }
 
   @StateObject private var video = ReferralStatusVideoWatch()
-  @State private var tab: Tab = .status
+  @State private var tab: Tab
   @State private var image: UIImage?
   @State private var imageFile: URL?
   @State private var achieved = false
@@ -57,10 +112,26 @@ struct ReferralShareSheet: View {
 
   var body: some View {
     VStack(spacing: 0) {
-      Text(Strings.BrowtherReferral.shareMyCode)
-        .font(.headline)
+      if let prompt {
+        VStack(alignment: .leading, spacing: 6) {
+          Text(prompt.title)
+            .font(.title3.weight(.bold))
+          Text(prompt.lead)
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+        }
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: 520, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 24)
         .padding(.top, 26)
         .padding(.bottom, 14)
+      } else {
+        Text(Strings.BrowtherReferral.shareMyCode)
+          .font(.headline)
+          .padding(.top, 26)
+          .padding(.bottom, 14)
+      }
       Picker("", selection: $tab) {
         Text(Strings.BrowtherReferral.statusTab).tag(Tab.status)
         Text(Strings.BrowtherReferral.shareTabMessage).tag(Tab.message)
@@ -78,7 +149,7 @@ struct ReferralShareSheet: View {
               imageFile: imageFile,
               video: video,
               origin: origin,
-              onSent: { achieved = true },
+              onSent: sent,
               onFinished: finish
             )
           case .message:
@@ -90,7 +161,7 @@ struct ReferralShareSheet: View {
               imageFile: imageFile,
               video: video,
               origin: origin,
-              onSent: { achieved = true },
+              onSent: sent,
               onFinished: finish
             )
           }
@@ -99,6 +170,15 @@ struct ReferralShareSheet: View {
         .padding(.bottom, 24)
         .frame(maxWidth: 520)
         .frame(maxWidth: .infinity)
+      }
+      if let prompt {
+        HStack(spacing: 12) {
+          ReferralTextExit(label: Strings.BrowtherReferral.sharePromptLater) { prompt.onLater?() }
+          if prompt.canMute {
+            ReferralTextExit(label: Strings.BrowtherReferral.sharePromptMute) { prompt.onMute?() }
+          }
+        }
+        .padding(.bottom, 8)
       }
     }
     .background(ReferralPalette.screen.ignoresSafeArea())
@@ -117,6 +197,11 @@ struct ReferralShareSheet: View {
       imageFile = ReferralSharing.statusImageFile(rendered, code: code)
     }
     video.start(language: ReferralStatusVideo.statusLanguage(appLanguage: texts.language))
+  }
+
+  private func sent() {
+    achieved = true
+    onSent?()
   }
 
   private func finish() {

@@ -1705,4 +1705,24 @@ Leo AI في المستقبل وستقوم أيضًا بمحو سجل الدرد�
 <translation id="4424392500145214431">ادعم ماليًا</translation>
 <translation id="4037525693923559198">يمكنك استعادة هذه الميزة، وغيرها الكثير:</translation>
 <translation id="7947423953490329886">ادعُ شخصًا قريبًا · مجانًا</translation>
+<translation id="2145525106182376323">ضبّب Browther من أجلك {persons}.</translation>
+<translation id="6400524222547977883">أزال Browther من أجلك {hours} من الموسيقى، وضبّب {persons}.</translation>
+<translation id="6364958544462115942">أزال Browther من أجلك {hours} من الموسيقى.</translation>
+<translation id="4804933000285471430">لاحقًا</translation>
+<translation id="6246827307723891473">شارك Browther مع شخص قريب منك، واكسب شهرًا من المزايا الإضافية عن كل دعوة مؤكَّدة.</translation>
+<translation id="4651970941373266324">شارك Browther مع شخص قريب منك: لعلّه ينفعه كما ينفعك.</translation>
+<translation id="590886708270558946">لا تسألني مرة أخرى</translation>
+<translation id="6098210946204001748">هل ينفعك Browther؟</translation>
+<translation id="5983059440745470816">{count} ساعة</translation>
+<translation id="6580723708162353591">ساعة واحدة</translation>
+<translation id="6400687003718578465">ساعتين</translation>
+<translation id="8951993230737981149">{count} ساعات</translation>
+<translation id="4802813661488355122">{count} ساعةً</translation>
+<translation id="661922550588400846">{count} ساعة</translation>
+<translation id="7758527493373512745">{count} شخص</translation>
+<translation id="2216648746170312584">شخصًا واحدًا</translation>
+<translation id="595722018333386979">شخصين</translation>
+<translation id="4564385327850332369">{count} أشخاص</translation>
+<translation id="829565773920235096">{count} شخصًا</translation>
+<translation id="6696217214286867315">{count} شخص</translation>
 </translationbundle>

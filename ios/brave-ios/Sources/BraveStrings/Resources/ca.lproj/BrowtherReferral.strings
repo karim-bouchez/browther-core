@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Una de les teves invitacions va per bon camí: s'ha fet servir el teu codi, només falten uns quants dies amb Browther per defecte.";
 "reminder.months" = "Cada invitació validada te n'afegeix un més.";
 "reminder.subscription" = "Gràcies pel teu suport. Pots conservar les funcions addicionals convidant algú proper o renovant.";
-"invite.eyebrow" = "Convidar";
 "invite.share" = "Comparteix el meu codi";
 "invite.shareStatus" = "Publica a l'estat de WhatsApp";
 "status.tab" = "Estat de WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "El teu missatge, tal com el rebrà la persona";
 "invite.back" = "Enrere";
 "invite.closeAfterShare" = "Torna a l'app";
+"sharePrompt.title" = "Browther et resulta útil?";
+"sharePrompt.count.both" = "Browther t'ha tret {hours} de música i ha difuminat {persons}.";
+"sharePrompt.count.music" = "Browther t'ha tret {hours} de música.";
+"sharePrompt.count.blur" = "Browther t'ha difuminat {persons}.";
+"sharePrompt.leadGain" = "Comparteix Browther amb algú proper i guanya 1 mes de funcions addicionals per cada invitació validada.";
+"sharePrompt.leadPaid" = "Comparteix Browther amb algú proper: potser li servirà tant com a tu.";
+"sharePrompt.later" = "Més tard";
+"sharePrompt.mute" = "No m'ho tornis a preguntar";
 "share.message" = "Et convido a descobrir Browther: el navegador que treu la música i difumina les imatges haram.\nAmb el meu codi {code}, tens un mes de funcions addicionals.";
 "billing.unavailable" = "Els plans no es carreguen en aquest moment.";
 "billing.retry" = "Torna-ho a provar";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Cada invitació validada te n'afegeix un més. {count} més i Browther queda desbloquejat de per vida, in sha Allah.";
 "reminder.subscriptionTitle.one" = "La teva subscripció s'acaba demà.";
 "reminder.subscriptionTitle.other" = "La teva subscripció s'acaba d'aquí a {count} dies.";
+"sharePrompt.hours.one" = "{count} hora";
+"sharePrompt.hours.other" = "{count} hores";
+"sharePrompt.persons.one" = "{count} persona";
+"sharePrompt.persons.other" = "{count} persones";
 "invite.foot.one" = "Una invitació es valida quan la persona ha mantingut Browther com a navegador per defecte durant {count} dia.";
 "invite.foot.other" = "Una invitació es valida quan la persona ha mantingut Browther com a navegador per defecte durant {count} dies.";
 "notice.why.one" = "Algú proper ha fet servir el teu codi d'apadrinament i acaba de mantenir Browther com a navegador per defecte durant {count} dia.";

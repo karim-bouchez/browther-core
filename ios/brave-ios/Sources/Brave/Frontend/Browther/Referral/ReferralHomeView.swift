@@ -259,7 +259,6 @@ struct ReferralShareButton: View {
   var origin: ReferralShareOrigin = .home
   var onAchieved: (() -> Void)?
 
-  @Environment(\.referralNote) private var note
   @State private var showsSheet = false
 
   var body: some View {
@@ -267,19 +266,65 @@ struct ReferralShareButton: View {
       UIImpactFeedbackGenerator(style: .medium).impactOccurred()
       showsSheet = true
     }
-    .onAppear { ReferralStatusVideoStore.warmUp() }
-    .sheet(isPresented: $showsSheet) {
-      ReferralShareSheet(
+    .referralShareSheet(isPresented: $showsSheet, status: status, origin: origin, onAchieved: onAchieved)
+  }
+}
+
+/// ⭐ **Le seul chemin vers la feuille « Partager mon code »** depuis un écran
+/// (§ 12.42, règle 1) : l'écran 6 (`ReferralShareButton`) et les trois façons
+/// (2b, « Inviter N proches ») — l'origine seule change. Le partage proposé,
+/// qui s'ouvre de lui-même, passe par le présentateur (même feuille).
+///
+/// `onAchieved` : le partage a abouti (appelé quand la feuille se referme) ;
+/// `onClosed` : la feuille est refermée, partage ou non.
+/// ⭐ La vidéo est demandée dès que l'écran est là, pas au tap : elle est prête
+/// quand la feuille s'ouvre (`ReferralStatusVideoStore`).
+struct ReferralShareSheetModifier: ViewModifier {
+  @Binding var isPresented: Bool
+  let status: ReferralStatus?
+  let origin: ReferralShareOrigin
+  var onAchieved: (() -> Void)?
+  var onClosed: (() -> Void)?
+
+  @Environment(\.referralNote) private var note
+
+  func body(content: Content) -> some View {
+    content
+      .onAppear { ReferralStatusVideoStore.warmUp() }
+      .sheet(isPresented: $isPresented, onDismiss: { onClosed?() }) {
+        if let status {
+          ReferralShareSheet(
+            status: status,
+            origin: origin,
+            note: note,
+            onAchieved: onAchieved,
+            close: { isPresented = false }
+          )
+          // ⚠️ En grand d'emblée : les deux vignettes et le bouton tiennent sans défiler.
+          .presentationDetents([.large])
+          .presentationDragIndicator(.visible)
+        }
+      }
+  }
+}
+
+extension View {
+  func referralShareSheet(
+    isPresented: Binding<Bool>,
+    status: ReferralStatus?,
+    origin: ReferralShareOrigin,
+    onAchieved: (() -> Void)? = nil,
+    onClosed: (() -> Void)? = nil
+  ) -> some View {
+    modifier(
+      ReferralShareSheetModifier(
+        isPresented: isPresented,
         status: status,
         origin: origin,
-        note: note,
         onAchieved: onAchieved,
-        close: { showsSheet = false }
+        onClosed: onClosed
       )
-      // ⚠️ En grand d'emblée : les deux vignettes et le bouton tiennent sans défiler.
-      .presentationDetents([.large])
-      .presentationDragIndicator(.visible)
-    }
+    )
   }
 }
 

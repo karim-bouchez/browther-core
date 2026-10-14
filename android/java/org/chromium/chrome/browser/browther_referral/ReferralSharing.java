@@ -13,6 +13,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralStatusVideo;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,8 +42,9 @@ import java.util.function.Consumer;
  * code » ({@link ReferralShareSheet}) qui partage, par <b>UN envoi = UN fichier et un texte</b> :
  * la vidéo de présentation ou l'image du statut, avec le lien SEUL (statut WhatsApp : il devient la
  * légende) ou le message à un proche. ⛔ Jamais deux fichiers dans le même envoi : WhatsApp ne donne
- * le texte qu'au premier. Le message en texte seul ({@link #share}) reste : c'est le partage du
- * cadeau, et le repli quand aucun fichier ne peut partir.
+ * le texte qu'au premier. Le message en texte seul ({@link #shareText}) reste : c'est le repli de
+ * la feuille quand aucun fichier ne peut partir. ⛔ Depuis le 2026-10-14, plus aucun bouton ne
+ * l'ouvre lui-même — le cadeau compris (§ 12.42 du doc commun, règle 1).
  *
  * <p>🔴 Le message part SEUL, en texte : le lien est DANS le texte, sur la dernière ligne — ⛔ ni
  * sujet (il se colle en tête du message dans certaines cibles), ni URL à part.
@@ -112,6 +115,25 @@ public final class ReferralSharing {
      */
     private static final String[] WHATSAPP = {"com.whatsapp", "com.whatsapp.w4b"};
 
+    /**
+     * WhatsApp (ou WhatsApp Business) est-il installé ? — le partage proposé s'ouvre toujours sur
+     * « Message » sans lui (Karim, 2026-10-14). 🔴 Android 11+ ne répond qu'aux paquets déclarés
+     * dans {@code <queries>} (manifeste de Browther, `browther_referral_queries`) : sans eux, la
+     * réponse serait toujours « non », en silence.
+     */
+    public static boolean whatsAppInstalled(Context context) {
+        PackageManager packages = context.getPackageManager();
+        for (String target : WHATSAPP) {
+            try {
+                packages.getPackageInfo(target, 0);
+                return true;
+            } catch (PackageManager.NameNotFoundException e) {
+                // Pas celle-ci : la suivante.
+            }
+        }
+        return false;
+    }
+
     /** L'écriture de l'image (JPEG, ~300 Ko) : hors du fil de l'interface. */
     private static final ExecutorService sIo = Executors.newSingleThreadExecutor();
 
@@ -128,22 +150,10 @@ public final class ReferralSharing {
     // -------------------- Le message en texte seul --------------------
 
     /**
-     * Le sélecteur du système avec le message seul — le partage du cadeau (§ 12.27). {@code done}
-     * n'est appelé que si une cible a été choisie ; l'analytique ({@code referral_shared}) et les 3
-     * jours ({@code shareDone}) sont posés ici — ⛔ muets en aperçu (§ 13.8).
-     */
-    public static void share(
-            Activity activity,
-            ReferralStatus status,
-            String screen,
-            boolean preview,
-            @Nullable Consumer<Result> done) {
-        shareText(activity, status, () -> achieved(screen, preview, Result.SHARED, done));
-    }
-
-    /**
-     * Le même sélecteur, SANS rien compter : la feuille de partage y retombe quand aucun fichier ne
-     * peut partir, et c'est elle qui écrit l'évènement et dit les 3 jours.
+     * Le sélecteur du système avec le message seul, SANS rien compter : la feuille de partage y
+     * retombe quand aucun fichier ne peut partir, et c'est elle qui écrit l'évènement et dit les 3
+     * jours. ⛔ Plus aucun bouton ne l'ouvre lui-même (§ 12.42 du doc commun, règle 1 — le cadeau
+     * passait par ici jusqu'au 2026-10-14) : un seul composant présente le partage.
      */
     static Launch shareText(Activity activity, ReferralStatus status, Runnable chosen) {
         Intent send = new Intent(Intent.ACTION_SEND);
@@ -323,19 +333,25 @@ public final class ReferralSharing {
      * compter des personnes, pas des lignes. ⛔ Muet en aperçu (§ 13.8).
      */
     static void noteStatus(
-            String screen, boolean preview, Result result, ReferralStatusVideo.Segment media) {
+            String screen,
+            @Nullable String openedOn,
+            boolean preview,
+            Result result,
+            ReferralStatusVideo.Segment media) {
         BrowtherReferralController.get()
                 .note(
                         "referral_shared",
                         preview,
-                        "screen",
-                        screen,
-                        "result",
-                        result.wire,
-                        "format",
-                        Format.STATUS.wire,
-                        "media",
-                        media.rawValue);
+                        withOpenedOn(
+                                openedOn,
+                                "screen",
+                                screen,
+                                "result",
+                                result.wire,
+                                "format",
+                                Format.STATUS.wire,
+                                "media",
+                                media.rawValue));
     }
 
     /**
@@ -344,6 +360,7 @@ public final class ReferralSharing {
      */
     static void noteMessage(
             String screen,
+            @Nullable String openedOn,
             boolean preview,
             Result result,
             @Nullable ReferralStatusVideo.Segment media) {
@@ -352,31 +369,47 @@ public final class ReferralSharing {
             controller.note(
                     "referral_shared",
                     preview,
-                    "screen",
-                    screen,
-                    "result",
-                    result.wire,
-                    "format",
-                    Format.MESSAGE.wire);
+                    withOpenedOn(
+                            openedOn,
+                            "screen",
+                            screen,
+                            "result",
+                            result.wire,
+                            "format",
+                            Format.MESSAGE.wire));
             return;
         }
         controller.note(
                 "referral_shared",
                 preview,
-                "screen",
-                screen,
-                "result",
-                result.wire,
-                "format",
-                Format.MESSAGE.wire,
-                "media",
-                media.rawValue);
+                withOpenedOn(
+                        openedOn,
+                        "screen",
+                        screen,
+                        "result",
+                        result.wire,
+                        "format",
+                        Format.MESSAGE.wire,
+                        "media",
+                        media.rawValue));
     }
 
-    /** Un message en texte seul a abouti, hors de la feuille : l'évènement, puis les 3 jours. */
+    /**
+     * Le partage proposé dit aussi l'onglet où il s'est OUVERT ({@code opened_on}, § 12.45 : la
+     * comparaison des deux onglets) — ⛔ absent partout ailleurs.
+     */
+    private static Object[] withOpenedOn(@Nullable String openedOn, Object... keyValues) {
+        if (openedOn == null) return keyValues;
+        Object[] all = Arrays.copyOf(keyValues, keyValues.length + 2);
+        all[keyValues.length] = "opened_on";
+        all[keyValues.length + 1] = openedOn;
+        return all;
+    }
+
+    /** « Copier » a abouti, hors de la feuille : l'évènement, puis les 3 jours. */
     private static void achieved(
             String screen, boolean preview, Result result, @Nullable Consumer<Result> done) {
-        noteMessage(screen, preview, result, null);
+        noteMessage(screen, null, preview, result, null);
         if (done != null) done.accept(result);
         BrowtherReferralController.get().shareDone(screen, preview);
     }

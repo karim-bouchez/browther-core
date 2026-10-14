@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Az egyik meghívása jó úton halad: a kódját felhasználták, és ha a Browther még néhány napig alapértelmezett böngésző marad, megerősítést kap.";
 "reminder.months" = "Minden megerősített meghívással jár még egy hónap.";
 "reminder.subscription" = "Köszönjük a támogatását. A kiegészítő funkciókat megtarthatja, ha meghív egy szerettét, vagy megújítja az előfizetést.";
-"invite.eyebrow" = "Meghívás";
 "invite.share" = "Kódom megosztása";
 "invite.shareStatus" = "Közzététel a WhatsApp-állapotomban";
 "status.tab" = "WhatsApp-állapot";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Az üzenete úgy, ahogyan a közelálló kapja";
 "invite.back" = "Vissza";
 "invite.closeAfterShare" = "Vissza az alkalmazásba";
+"sharePrompt.title" = "Hasznos önnek a Browther?";
+"sharePrompt.count.both" = "A Browther {hours} zenét távolított el és {persons} homályosított el az ön számára.";
+"sharePrompt.count.music" = "A Browther {hours} zenét távolított el az ön számára.";
+"sharePrompt.count.blur" = "A Browther {persons} homályosított el az ön számára.";
+"sharePrompt.leadGain" = "Ossza meg a Browthert egy szerettével, és minden megerősített meghívásért 1 hónap kiegészítő funkciót kap.";
+"sharePrompt.leadPaid" = "Ossza meg a Browthert egy szerettével: talán neki is annyit segít, mint önnek.";
+"sharePrompt.later" = "Később";
+"sharePrompt.mute" = "Ne kérdezze többet";
 "share.message" = "Meghívlak, hogy próbáld ki a Browther böngészőt: kikapcsolja a zenét, és elhomályosítja a haram képeket.\nA kódommal ({code}) egy hónapnyi kiegészítő funkciót kapsz.";
 "billing.unavailable" = "A csomagok most nem töltődnek be.";
 "billing.retry" = "Újra";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Minden megerősített meghívással jár még egy hónap. Még {count}, és a Browther örökre feloldódik, insallah.";
 "reminder.subscriptionTitle.one" = "Az előfizetése holnap megszűnik.";
 "reminder.subscriptionTitle.other" = "Az előfizetése {count} nap múlva megszűnik.";
+"sharePrompt.hours.one" = "{count} órányi";
+"sharePrompt.hours.other" = "{count} órányi";
+"sharePrompt.persons.one" = "{count} személyt";
+"sharePrompt.persons.other" = "{count} személyt";
 "invite.foot.one" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";
 "invite.foot.other" = "A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";
 "notice.why.one" = "Egy szerette felhasználta az ajánlói kódját, és a Browther {count} napig alapértelmezett böngésző volt nála.";

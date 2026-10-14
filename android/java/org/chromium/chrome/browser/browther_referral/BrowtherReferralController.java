@@ -44,6 +44,7 @@ import org.chromium.chrome.browser.browther_referral.core.ReferralProduct;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPrompt;
 import org.chromium.chrome.browser.browther_referral.core.ReferralPromptState;
 import org.chromium.chrome.browser.browther_referral.core.ReferralSessionCheck;
+import org.chromium.chrome.browser.browther_referral.core.ReferralSharePrompt;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStorage;
 import org.chromium.chrome.browser.browther_referral.core.ShareOutcome;
@@ -116,6 +117,19 @@ public final class BrowtherReferralController {
 
         /** Les secondes de musique retirée depuis toujours (statistiques du Nouvel Onglet). */
         long musicSecondsTotal();
+
+        /**
+         * Les personnes floutées depuis toujours (statistiques du Nouvel Onglet) — le compteur du
+         * partage proposé (§ 12.45 du doc commun, Karim 2026-10-14).
+         */
+        long personsBlurredTotal();
+
+        /**
+         * WhatsApp (ou WhatsApp Business) est-il installé ? Sans lui, le partage proposé s'ouvre
+         * toujours sur « Message » (brief § 2.4). ⚠️ Android 11+ : le manifeste doit déclarer les
+         * deux paquets dans {@code <queries>}, sinon la réponse est toujours « non ».
+         */
+        boolean hasWhatsApp();
 
         /** Un build du Play Store (officiel) : le flow y suit {@link ReferralLaunch#inStoreBuilds}. */
         boolean isStoreBuild();
@@ -734,6 +748,10 @@ public final class BrowtherReferralController {
                     }
                     return next;
                 });
+        // Le partage proposé : départ des 7 jours de qui a payé avant l'annonce, et « Ne plus me
+        // redemander » levé quand l'abonnement s'éteint.
+        AccessState fresh = new AccessState(status);
+        updatePrompt(state -> ReferralSharePrompt.sync(state, status, fresh, Instant.now()));
         reportRefereeDays();
         sendDailySnapshot();
     }
@@ -1413,7 +1431,8 @@ public final class BrowtherReferralController {
         if (!mEnabled || mStatus == null || !mFresh) return Attempt.UNKNOWN;
         if (activity == null || !activity.hasWindowFocus()) return Attempt.BUSY;
         Pending pending = pending(now, merit);
-        if (pending == null) return Attempt.NONE;
+        // ⭐ Le partage proposé passe APRÈS tout écran daté — et seulement quand aucun ne sort.
+        if (pending == null) return attemptSharePrompt(activity, now, merit);
         ReferralStatus known = mStatus;
         switch (pending.kind) {
             case NOTICE:
@@ -1431,11 +1450,13 @@ public final class BrowtherReferralController {
                 }
                 BrowtherReferralPresenter.present(
                         activity, pending.screen, BrowtherReferralPresenter.Source.NOTICE, false);
+                screenCameToPerson(now);
                 return Attempt.SHOWN;
             case CIRCUIT:
                 // ⚠️ Pas une nouvelle sollicitation (ni cadence J0) — mais bien un AFFICHAGE.
                 BrowtherReferralPresenter.present(
                         activity, pending.screen, BrowtherReferralPresenter.Source.CIRCUIT, false);
+                screenCameToPerson(now);
                 return Attempt.SHOWN;
             case DECISION:
             default:
@@ -1444,10 +1465,97 @@ public final class BrowtherReferralController {
                 remember(pending.decision, now);
                 BrowtherReferralPresenter.present(
                         activity, pending.screen, BrowtherReferralPresenter.Source.PROMPT, false);
+                screenCameToPerson(now);
                 if (pending.decision.kind == ReferralPrompt.Solicitation.Kind.ANNOUNCE) {
                     startTrialNow();
                 }
                 return Attempt.SHOWN;
+        }
+    }
+
+    // -------------------- Le partage proposé (§ 12.45) --------------------
+
+    /**
+     * Un écran du parrainage vient de venir À la personne (annonce, rappels, J0, 8, 8 bis, circuit
+     * rouvert) : le partage proposé se tait la semaine qui suit.
+     */
+    private void screenCameToPerson(Instant now) {
+        updatePrompt(state -> ReferralSharePrompt.markReferralScreenShown(state, now));
+    }
+
+    /**
+     * 🧪 La règle telle qu'elle jugerait MAINTENANT — la recette dit ainsi pourquoi il se tait.
+     * {@code merit == null} : le vrai moment de mérite.
+     */
+    public ReferralSharePrompt.Verdict sharePromptVerdict(Instant now, @Nullable Boolean merit) {
+        ReferralStatus known = mStatus;
+        if (!mEnabled || known == null || !mFresh) {
+            return ReferralSharePrompt.explain(
+                    new ReferralSharePrompt.Input(mPrompt, null, AccessState.unknown, false, now));
+        }
+        return ReferralSharePrompt.explain(
+                new ReferralSharePrompt.Input(
+                        mPrompt,
+                        known,
+                        new AccessState(known),
+                        merit != null ? merit : isMeritMoment(now),
+                        now));
+    }
+
+    /**
+     * ⭐ Le partage de l'écran Parrainage s'ouvre de lui-même. ⚠️ Sa décision est SÉPARÉE de
+     * {@link ReferralPrompt#decide} : l'abonné et l'accès à vie le voient aussi. Il prend le
+     * verrou du jour (Android n'a ni coordinateur de fiches ni verrou de calme de 3 jours : le
+     * verrou du jour, partagé avec tous les écrans du parrainage, suffit à « jamais deux feuilles
+     * dans la même session »), mais ⛔ ne fait céder la journée à personne : il n'est pas daté.
+     */
+    private Attempt attemptSharePrompt(Activity activity, Instant now, @Nullable Boolean merit) {
+        ReferralSharePrompt.Verdict verdict = sharePromptVerdict(now, merit);
+        if (!verdict.due()) return Attempt.NONE;
+        if (!canSolicitToday(now)) return Attempt.LOCKED_TODAY;
+        ReferralStatus known = mStatus;
+        ReferralSharePrompt.Decision decision = verdict.decision;
+        ReferralShareSheet.Prompt prompt = sharePrompt(decision, Instant.now(), mPlatform.hasWhatsApp());
+        if (!BrowtherReferralPresenter.presentSharePrompt(activity, known, prompt, false)) {
+            return Attempt.BUSY;
+        }
+        markSolicitationShown(now);
+        updatePrompt(state -> ReferralSharePrompt.markShown(state, now));
+        return Attempt.SHOWN;
+    }
+
+    /** Le partage proposé tel qu'il s'affiche : son profil, son onglet (sans WhatsApp : « Message »), son compteur. */
+    private ReferralShareSheet.Prompt sharePrompt(
+            ReferralSharePrompt.Decision decision, Instant now, boolean hasWhatsApp) {
+        ReferralSharePrompt.Tab tab =
+                hasWhatsApp ? decision.openedOn : ReferralSharePrompt.Tab.MESSAGE;
+        return new ReferralShareSheet.Prompt(decision.profile, tab, sharePromptHeadline());
+    }
+
+    /** Le compteur : les totaux À VIE de l'appareil, la règle choisit la phrase. */
+    public ReferralSharePrompt.Headline sharePromptHeadline() {
+        return ReferralSharePrompt.headline(
+                mPlatform.musicSecondsTotal(), mPlatform.personsBlurredTotal());
+    }
+
+    /**
+     * Le partage proposé s'est refermé — {@code paywall_action {screen: share_prompt, action}}
+     * (muet en aperçu), puis ce que l'appareil en retient (⛔ rien en aperçu).
+     */
+    public void settleSharePrompt(
+            ReferralShareSheet.PromptExit exit, ReferralSharePrompt.Profile profile, boolean preview) {
+        note(
+                "paywall_action",
+                preview,
+                "screen",
+                ReferralShareSheet.SHARE_PROMPT,
+                "action",
+                exit.wire);
+        if (preview) return;
+        if (exit == ReferralShareSheet.PromptExit.MUTE) {
+            updatePrompt(state -> ReferralSharePrompt.markMuted(state, profile));
+        } else {
+            updatePrompt(ReferralSharePrompt::markDismissed);
         }
     }
 
@@ -1525,6 +1633,8 @@ public final class BrowtherReferralController {
      */
     public void shareDone(String fromScreen, boolean preview) {
         closeCircuit(preview);
+        // ⭐ D'où qu'il vienne : le partage proposé se tait 30 jours (§ 12.45).
+        if (!preview) updatePrompt(state -> ReferralSharePrompt.markShareAchieved(state, Instant.now()));
         // ⭐ Retenu AVANT tout appel réseau : le code est parti, que le service réponde ou non — et
         // c'est ICI, tout de suite, que le compte se propose (la rangée de l'onglet « Inviter »
         // apparaît au redessin). ⛔ Jamais depuis un aperçu de recette (§ 12.7).
@@ -1922,6 +2032,34 @@ public final class BrowtherReferralController {
         mPagesCount = ReferralPrompt.meritPagesPerDay;
     }
 
+    /**
+     * 🧪 « Réarmer le partage proposé » sur un onglet : efface ce qui le fait taire de son côté
+     * (dernier affichage, partage, fermetures, « Ne plus me redemander », dernier écran) et pose
+     * l'onglet d'arrivée. ⚠️ L'annonce et la pause restent l'état du service (scénario).
+     */
+    public void rearmSharePromptForRecette(ReferralSharePrompt.Tab tab) {
+        Instant now = Instant.now();
+        updatePrompt(state -> ReferralSharePrompt.rearmForRecette(state, tab, now));
+    }
+
+    /** 🧪 Aperçu du partage proposé (n'écrit rien, ne compte rien). */
+    public void previewSharePromptForRecette(
+            Activity activity,
+            ReferralSharePrompt.Profile profile,
+            ReferralSharePrompt.Tab tab,
+            boolean withCounter) {
+        ReferralStatus known = mStatus;
+        if (known == null) return;
+        ReferralSharePrompt.Headline headline =
+                withCounter
+                        ? ReferralSharePrompt.headline(
+                                Math.max(mPlatform.musicSecondsTotal(), 12 * 3600L),
+                                Math.max(mPlatform.personsBlurredTotal(), 1240L))
+                        : ReferralSharePrompt.headline(0, 0);
+        BrowtherReferralPresenter.presentSharePrompt(
+                activity, known, new ReferralShareSheet.Prompt(profile, tab, headline), true);
+    }
+
     public void resetGaugeUnderstoodForRecette() {
         mStorage.setGaugeUnderstood(false);
     }
@@ -1951,6 +2089,22 @@ public final class BrowtherReferralController {
                                         ? "aucun"
                                         : account.email != null ? account.email : account.userId)
                 .append(account != null && mToken == null ? " (sans jeton lisible)" : "")
+                .append('\n');
+        ReferralSharePrompt.Verdict share = sharePromptVerdict(now, null);
+        ReferralSharePrompt.Verdict shareAtMerit = sharePromptVerdict(now, true);
+        out.append("Partage proposé : ")
+                .append(
+                        share.due()
+                                ? "dû (" + share.decision.profile.rawValue + ", "
+                                        + (mPlatform.hasWhatsApp()
+                                                ? share.decision.openedOn.wire
+                                                : "message, sans WhatsApp")
+                                        + ")"
+                                : shareAtMerit.due()
+                                        ? "dû au prochain moment de mérite ("
+                                                + shareAtMerit.decision.profile.rawValue
+                                                + ")"
+                                        : "se tait : " + share.reason.rawValue)
                 .append('\n');
         out.append("Statut : ")
                 .append(mStatus == null ? "inconnu" : mFresh ? "frais" : "en cache")

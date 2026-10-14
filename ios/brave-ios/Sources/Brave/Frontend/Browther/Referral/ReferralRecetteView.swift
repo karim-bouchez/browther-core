@@ -28,6 +28,10 @@ struct ReferralRecetteView: View {
   var provoke: (@MainActor (_ merit: Bool) async -> String)?
   /// Ferme les Paramètres puis montre un écran en aperçu.
   var preview: ((ReferralScreen) -> Void)?
+  /// Ferme les Paramètres puis montre le partage proposé en aperçu.
+  var previewSharePrompt: (
+    (ReferralSharePrompt.Profile, ReferralSharePrompt.Tab, ReferralSharePrompt.Headline) -> Void
+  )?
 
   @ObservedObject private var controller = BrowtherReferralController.shared
   @State private var token = ReferralStorage.shared.recetteToken ?? ""
@@ -76,6 +80,22 @@ struct ReferralRecetteView: View {
         )
       }
 
+      Section {
+        Text(sharePromptLine)
+          .font(.footnote)
+        Button("Réarmer le partage proposé · Statut WhatsApp") { arm(.status) }
+        Button("Réarmer le partage proposé · Message") { arm(.message) }
+      } header: {
+        Text("Partage proposé (§ 12.45)")
+      } footer: {
+        Text(
+          "Réarmer efface ce que l'appareil en a retenu (dernier affichage, partage, fermetures, « ne plus me "
+            + "redemander ») et choisit l'onglet. Il sort alors à « Provoquer maintenant », dans le profil posé "
+            + "(« Mois en cours », « Abonné », « À vie ») — sauf si un écran daté est dû avant lui. Sans WhatsApp, "
+            + "toujours « Message »."
+        )
+      }
+
       Section("Cet appareil") {
         Button("Provoquer maintenant (mérite posé)") {
           Task {
@@ -113,6 +133,9 @@ struct ReferralRecetteView: View {
         ForEach(PreviewItem.all) { item in
           Button(item.label) { preview?(item.screen) }
         }
+        ForEach(SharePromptPreview.all) { item in
+          Button(item.label) { previewSharePrompt?(item.profile, item.tab, item.headline) }
+        }
         Button("Toast 0 bis — « C'est noté »") { controller.announceLaterToast() }
         Button("Toast — garde du retrait de la musique") {
           // Le MÊME code que la vraie garde, ⛔ rien de compté (§ 12.41).
@@ -123,6 +146,38 @@ struct ReferralRecetteView: View {
       }
     }
     .navigationTitle("Parrainage — recette")
+  }
+
+  /// 🧪 Pourquoi le partage proposé sortirait, ou se tait — les dix raisons
+  /// de `ReferralSharePrompt.Silence` (brief § 2.6).
+  private var sharePromptLine: String {
+    switch controller.sharePromptVerdict() {
+    case .due(let decision):
+      return "Dû au prochain moment de mérite — profil \(decision.profile.rawValue), onglet \(decision.openedOn.rawValue)."
+    case .silent(let reason):
+      return "Se tait : \(reason.rawValue) — \(Self.explain(reason))"
+    }
+  }
+
+  private static func explain(_ reason: ReferralSharePrompt.Silence) -> String {
+    switch reason {
+    case .unknown: return "statut inconnu."
+    case .noMerit: return "pas de moment de mérite (5 pages ou 60 s de musique aujourd'hui)."
+    case .paused: return "fonctionnalités en pause : J0 est le créneau."
+    case .beforeAnnounce: return "l'annonce n'a pas été montrée (elle dort tant que Sawtunaa n'est pas finalisé)."
+    case .muted: return "« Ne plus me redemander »."
+    case .tooEarly: return "moins de 7 jours depuis l'annonce."
+    case .recentPrompt: return "déjà proposé il y a moins de 30 jours (60 après deux fermetures)."
+    case .recentShare: return "un partage a abouti il y a moins de 30 jours."
+    case .recentScreen: return "un autre écran du parrainage il y a moins de 7 jours."
+    case .reminderSoon: return "un rappel (J−10) tombe dans moins de 7 jours."
+    }
+  }
+
+  private func arm(_ tab: ReferralSharePrompt.Tab) {
+    controller.armSharePromptForRecette(tab: tab)
+    controller.liftDayLockForRecette()
+    message = "Partage proposé réarmé (\(tab.rawValue)). « Provoquer maintenant » le fait sortir."
   }
 
   private func apply(_ scenario: Scenario) {
@@ -185,6 +240,33 @@ struct ReferralRecetteView: View {
     }
   }
 
+  /// Le partage proposé, dans chaque profil et sur chaque onglet — ⛔ n'écrit
+  /// rien. Le titre suit le compteur RÉEL de l'appareil, sauf « sans compteur ».
+  struct SharePromptPreview: Identifiable {
+    let label: String
+    let profile: ReferralSharePrompt.Profile
+    let tab: ReferralSharePrompt.Tab
+    let headline: ReferralSharePrompt.Headline
+    var id: String { label }
+
+    @MainActor
+    static var all: [SharePromptPreview] {
+      let real = BrowtherReferralController.sharePromptHeadline
+      let none = ReferralSharePrompt.headline(musicSeconds: 0, personsBlurred: 0)
+      let both = ReferralSharePrompt.headline(musicSeconds: 12 * 3600, personsBlurred: 1240)
+      return [
+        .init(label: "Partage proposé — mois offerts · Statut", profile: .offered, tab: .status, headline: real),
+        .init(label: "Partage proposé — mois offerts · Message", profile: .offered, tab: .message, headline: real),
+        .init(label: "Partage proposé — abonné · Statut", profile: .paid, tab: .status, headline: real),
+        .init(label: "Partage proposé — abonné · Message", profile: .paid, tab: .message, headline: real),
+        .init(label: "Partage proposé — à vie · Statut", profile: .lifetime, tab: .status, headline: real),
+        .init(label: "Partage proposé — à vie · Message", profile: .lifetime, tab: .message, headline: real),
+        .init(label: "Partage proposé — sans compteur", profile: .offered, tab: .status, headline: none),
+        .init(label: "Partage proposé — compteur 12 h · 1 240", profile: .offered, tab: .status, headline: both),
+      ]
+    }
+  }
+
   struct PreviewItem: Identifiable {
     let label: String
     let screen: ReferralScreen
@@ -199,7 +281,6 @@ struct ReferralRecetteView: View {
       .init(label: "3 — rappel « en bonne voie »", screen: .reminder(daysLeft: 3, reminderCase: .inProgress)),
       .init(label: "3 — rappel « fin de mois gagnés »", screen: .reminder(daysLeft: 10, reminderCase: .earnedMonthsEnding)),
       .init(label: "3 — rappel « abonnement annulé »", screen: .reminder(daysLeft: 3, reminderCase: .subscriptionCancelled)),
-      .init(label: "4 — inviter (seul)", screen: .invite(shared: false)),
       // ⭐ La capture de vérification d'App Store Connect se prend ICI : le
       // bouton a son vrai visage même sans offre (build de dev).
       .init(label: "7 — payer (capture App Store)", screen: .billing),

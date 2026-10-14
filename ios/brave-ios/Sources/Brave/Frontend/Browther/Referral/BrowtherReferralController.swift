@@ -409,6 +409,12 @@ final class BrowtherReferralController: ObservableObject {
       }
       return next
     }
+    // Le partage proposé (§ 12.45) : le départ des 7 jours de qui a payé avant
+    // l'annonce, et un « Ne plus me redemander » d'abonné qui tombe avec lui.
+    if let known {
+      let access = AccessState(status: known)
+      updatePrompt { ReferralSharePrompt.sync($0, status: known, access: access) }
+    }
     Task { await reportRefereeDays() }
     sendDailySnapshot()
   }
@@ -784,6 +790,9 @@ final class BrowtherReferralController: ObservableObject {
     /// 🔴 Le circuit fermé rouvre tant qu'il n'a pas eu sa réponse (§ 12.16).
     case circuit(ReferralScreen)
     case decision(ReferralPrompt.Solicitation)
+    /// ⭐ Le partage proposé (§ 12.45) — ⛔ pas daté : il passe APRÈS tout écran
+    /// daté, et ne fait céder la journée à personne.
+    case sharePrompt(ReferralSharePrompt.Decision)
   }
 
   func pending(now: Date = Date(), merit: Bool? = nil) -> Pending? {
@@ -795,21 +804,106 @@ final class BrowtherReferralController: ObservableObject {
     if ReferralPrompt.refereeJustValidated(prompt, referredBy: known.referredBy) {
       return .notice(.refereeDone)
     }
-    guard extrasReleased else { return nil }
-    if let entry = ReferralPrompt.circuitToRestore(prompt, status: known, access: access, now: now) {
-      return .circuit(entry == .paused ? .paused(chosen: false) : .support(locked: true))
-    }
-    let decision = ReferralPrompt.decide(
-      .init(
-        state: prompt,
-        status: known,
-        access: access,
-        atMeritMoment: merit ?? isMeritMoment(now: now),
-        extrasReleased: extrasReleased,
-        now: now
+    let atMerit = merit ?? isMeritMoment(now: now)
+    // ⭐ Tant que Sawtunaa n'est pas finalisé, ni circuit ni écran daté (§ 9).
+    if extrasReleased {
+      if let entry = ReferralPrompt.circuitToRestore(prompt, status: known, access: access, now: now) {
+        return .circuit(entry == .paused ? .paused(chosen: false) : .support(locked: true))
+      }
+      let decision = ReferralPrompt.decide(
+        .init(
+          state: prompt,
+          status: known,
+          access: access,
+          atMeritMoment: atMerit,
+          extrasReleased: extrasReleased,
+          now: now
+        )
       )
+      if let decision { return .decision(decision) }
+    }
+    // ⚠️ Le partage proposé, lui, ne dépend pas de l'annonce pour l'abonné et
+    // l'accès à vie (ils le voient sans elle) ; le profil « offert » attend
+    // l'annonce — donc, tant qu'elle dort, Sawtunaa finalisé.
+    return sharePromptDecision(access: access, atMerit: atMerit, now: now).map(Pending.sharePrompt)
+  }
+
+  // MARK: - Le partage proposé (§ 12.45)
+
+  /// WhatsApp (ou WhatsApp Business) est-il installé ? ⭐ Sans lui, le partage
+  /// proposé s'ouvre TOUJOURS sur « Message » (brief § 2.4). Schémas déclarés
+  /// dans `LSApplicationQueriesSchemes` (Info.plist) — sinon `canOpenURL` dit
+  /// toujours non.
+  static var whatsAppInstalled: Bool {
+    ["whatsapp://", "whatsapp-smb://"]
+      .compactMap(URL.init(string:))
+      .contains { UIApplication.shared.canOpenURL($0) }
+  }
+
+  /// Le titre du partage proposé : les totaux À VIE de Browther (§ 12.45 —
+  /// Karim, 2026-10-14 : musique retirée et personnes floutées).
+  static var sharePromptHeadline: ReferralSharePrompt.Headline {
+    ReferralSharePrompt.headline(
+      musicSeconds: BrowtherStatsReporter.shared.musicSecondsTotal,
+      personsBlurred: BrowtherStatsReporter.shared.personsBlurredTotal
     )
-    return decision.map(Pending.decision)
+  }
+
+  private func sharePromptDecision(access: AccessState, atMerit: Bool, now: Date) -> ReferralSharePrompt.Decision? {
+    ReferralSharePrompt.decide(
+      state: prompt,
+      status: known,
+      access: access,
+      atMeritMoment: atMerit,
+      whatsAppInstalled: Self.whatsAppInstalled,
+      now: now
+    )
+  }
+
+  /// 🧪 Pourquoi le partage proposé sortirait — ou se tait (§ 2.6 du brief :
+  /// « il ne se passe rien » doit se distinguer d'un défaut). Mérite supposé.
+  func sharePromptVerdict(now: Date = Date()) -> ReferralSharePrompt.Verdict {
+    ReferralSharePrompt.explain(
+      state: prompt,
+      status: known,
+      access: access,
+      atMeritMoment: true,
+      whatsAppInstalled: Self.whatsAppInstalled,
+      now: now
+    )
+  }
+
+  /// « Plus tard », la croix, le glissé (`muted == false`), ou « Ne plus me
+  /// redemander ». ⛔ Un aperçu n'écrit rien.
+  func settleSharePrompt(muted: Bool, profile: ReferralSharePrompt.Profile, preview: Bool) {
+    guard !preview else { return }
+    updatePrompt { state in
+      muted ? ReferralSharePrompt.markMuted(state, profile: profile) : ReferralSharePrompt.markDismissed(state)
+    }
+  }
+
+  /// 🧪 Remettre le partage proposé en état de sortir, sur l'onglet voulu.
+  func armSharePromptForRecette(tab: ReferralSharePrompt.Tab) {
+    updatePrompt { ReferralSharePrompt.rearmForRecette($0, tab: tab) }
+  }
+
+  /// 🧪 Aperçu (n'écrit rien) : le partage proposé dans un profil et sur un onglet.
+  func previewSharePrompt(
+    profile: ReferralSharePrompt.Profile,
+    tab: ReferralSharePrompt.Tab,
+    headline: ReferralSharePrompt.Headline,
+    from host: UIViewController
+  ) {
+    guard let known else { return }
+    BrowtherReferralPresenter.presentSharePrompt(
+      status: known,
+      profile: profile,
+      openedOn: tab,
+      headline: headline,
+      from: host,
+      source: .prompt,
+      preview: true
+    )
   }
 
   private func validatedScreen(_ status: ReferralStatus) -> ReferralScreen {
@@ -836,10 +930,19 @@ final class BrowtherReferralController: ObservableObject {
   /// ⭐ **Priorité au parrainage** (§ 3.4, question 16) : le coordinateur lui
   /// demande, AVANT d'ouvrir une autre fiche, s'il a quelque chose à dire
   /// maintenant — et lui cède la place.
-  func wantsNewTabPage(now: Date = Date()) -> Bool {
+  ///
+  /// ⚠️ **Le partage proposé ne fait céder la journée à personne** (§ 12.45) :
+  /// il n'est pas daté. Il se plie donc au verrou de calme commun (3 jours,
+  /// comme une fiche d'avis) et laisse passer une fiche qui attend la session
+  /// (`otherFichePending`).
+  func wantsNewTabPage(now: Date = Date(), otherFichePending: Bool = false) -> Bool {
     guard let pending = pending(now: now) else { return false }
-    if case .decision = pending { return Self.canSolicitToday(now: now) }
-    return true
+    switch pending {
+    case .decision: return Self.canSolicitToday(now: now)
+    case .sharePrompt:
+      return !otherFichePending && Self.canSolicitToday(now: now) && !BrowtherSurfaces.isQuiet(now: now)
+    case .notice, .circuit: return true
+    }
   }
 
   /// 🧪 Ce qu'une tentative a donné — l'outil de recette doit DIRE pourquoi
@@ -883,6 +986,9 @@ final class BrowtherReferralController: ObservableObject {
           track("referral_validated", ["validated": known.milestones.validated])
         }
       }
+      // Un écran du parrainage est venu à la personne : le partage proposé se
+      // tait une semaine (§ 12.45).
+      updatePrompt { ReferralSharePrompt.markReferralScreenShown($0, now: now) }
       BrowtherReferralPresenter.present(screen, from: bvc, source: .notice)
       return .shown(screen.analyticsName)
     case .circuit(let screen):
@@ -894,10 +1000,29 @@ final class BrowtherReferralController: ObservableObject {
       guard Self.canSolicitToday(now: now) else { return .lockedToday }
       BrowtherSurfaces.markSolicitationShown(now: now)
       remember(decision, now: now)
+      updatePrompt { ReferralSharePrompt.markReferralScreenShown($0, now: now) }
       let screen = ReferralScreen(decision)
       BrowtherReferralPresenter.present(screen, from: bvc, source: .prompt)
       if decision == .announce { startTrialNow() }
       return .shown(screen.analyticsName)
+    case .sharePrompt(let decision):
+      guard let known else { return .unknown }
+      // ⚠️ Pas daté : la journée ET le calme commun (3 jours), comme une fiche
+      // d'avis — la recette lève les deux.
+      guard Self.canSolicitToday(now: now), recette || !BrowtherSurfaces.isQuiet(now: now) else {
+        return .lockedToday
+      }
+      BrowtherSurfaces.markSolicitationShown(now: now)
+      updatePrompt { ReferralSharePrompt.markShown($0, now: now) }
+      BrowtherReferralPresenter.presentSharePrompt(
+        status: known,
+        profile: decision.profile,
+        openedOn: decision.openedOn,
+        headline: Self.sharePromptHeadline,
+        from: bvc,
+        source: .prompt
+      )
+      return .shown(ReferralShareOrigin.sharePrompt.rawValue)
     }
   }
 
@@ -963,6 +1088,9 @@ final class BrowtherReferralController: ObservableObject {
   /// ⭐ Inviter EST une des trois sorties du circuit.
   func shareDone(from origin: ReferralShareOrigin, preview: Bool) {
     closeCircuit(preview: preview)
+    // ⭐ Un partage abouti, D'OÙ QU'IL VIENNE : le partage proposé se tait
+    // 30 jours, et ses fermetures repartent de zéro (§ 12.45).
+    if !preview { updatePrompt { ReferralSharePrompt.markShareAchieved($0) } }
     // ⛔ Un aperçu n'appelle pas le service : `/v1/share` accorderait de VRAIS
     // jours offerts (même règle que le desktop).
     guard let client, !preview else { return }
@@ -1240,8 +1368,17 @@ final class BrowtherReferralController: ObservableObject {
     case .notice(let screen)?: lines.append("Dû : bonne nouvelle (\(screen.analyticsName))")
     case .circuit(let screen)?: lines.append("Dû : circuit à rouvrir (\(screen.analyticsName))")
     case .decision(let decision)?: lines.append("Dû : \(ReferralScreen(decision).analyticsName)")
+    case .sharePrompt(let decision)?:
+      lines.append("Dû : partage proposé (\(decision.profile.rawValue), \(decision.openedOn.rawValue))")
     case nil: lines.append("Dû : rien")
     }
+    switch sharePromptVerdict(now: now) {
+    case .due(let decision):
+      lines.append("Partage proposé : dû au moment de mérite (\(decision.profile.rawValue), onglet \(decision.openedOn.rawValue))")
+    case .silent(let reason):
+      lines.append("Partage proposé : se tait — \(reason.rawValue)")
+    }
+    lines.append("WhatsApp installé : \(Self.whatsAppInstalled ? "oui" : "non (onglet Message)")")
     return lines.joined(separator: "\n")
   }
 

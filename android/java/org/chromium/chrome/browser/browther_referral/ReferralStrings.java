@@ -232,6 +232,14 @@ public final class ReferralStrings {
         SIMPLE.put("share.previewA11y", R.string.browther_referral_share_preview_a11y);
         SIMPLE.put("share.send", R.string.browther_referral_share_send);
         SIMPLE.put("share.tabMessage", R.string.browther_referral_share_tab_message);
+        SIMPLE.put("sharePrompt.count.blur", R.string.browther_referral_share_prompt_count_blur);
+        SIMPLE.put("sharePrompt.count.both", R.string.browther_referral_share_prompt_count_both);
+        SIMPLE.put("sharePrompt.count.music", R.string.browther_referral_share_prompt_count_music);
+        SIMPLE.put("sharePrompt.later", R.string.browther_referral_share_prompt_later);
+        SIMPLE.put("sharePrompt.leadGain", R.string.browther_referral_share_prompt_lead_gain);
+        SIMPLE.put("sharePrompt.leadPaid", R.string.browther_referral_share_prompt_lead_paid);
+        SIMPLE.put("sharePrompt.mute", R.string.browther_referral_share_prompt_mute);
+        SIMPLE.put("sharePrompt.title", R.string.browther_referral_share_prompt_title);
         SIMPLE.put("status.failed", R.string.browther_referral_status_failed);
         SIMPLE.put("status.failedVideo", R.string.browther_referral_status_failed_video);
         SIMPLE.put("status.hintBoth", R.string.browther_referral_status_hint_both);
@@ -292,6 +300,8 @@ public final class ReferralStrings {
         PLURALS.put("reminder.monthsNextLife", new int[] {R.string.browther_referral_reminder_months_next_life_zero, R.string.browther_referral_reminder_months_next_life_one, R.string.browther_referral_reminder_months_next_life_two, R.string.browther_referral_reminder_months_next_life_few, R.string.browther_referral_reminder_months_next_life_many, R.string.browther_referral_reminder_months_next_life_other});
         PLURALS.put("reminder.monthsTitle", new int[] {R.string.browther_referral_reminder_months_title_zero, R.string.browther_referral_reminder_months_title_one, R.string.browther_referral_reminder_months_title_two, R.string.browther_referral_reminder_months_title_few, R.string.browther_referral_reminder_months_title_many, R.string.browther_referral_reminder_months_title_other});
         PLURALS.put("reminder.subscriptionTitle", new int[] {R.string.browther_referral_reminder_subscription_title_zero, R.string.browther_referral_reminder_subscription_title_one, R.string.browther_referral_reminder_subscription_title_two, R.string.browther_referral_reminder_subscription_title_few, R.string.browther_referral_reminder_subscription_title_many, R.string.browther_referral_reminder_subscription_title_other});
+        PLURALS.put("sharePrompt.hours", new int[] {R.string.browther_referral_share_prompt_hours_zero, R.string.browther_referral_share_prompt_hours_one, R.string.browther_referral_share_prompt_hours_two, R.string.browther_referral_share_prompt_hours_few, R.string.browther_referral_share_prompt_hours_many, R.string.browther_referral_share_prompt_hours_other});
+        PLURALS.put("sharePrompt.persons", new int[] {R.string.browther_referral_share_prompt_persons_zero, R.string.browther_referral_share_prompt_persons_one, R.string.browther_referral_share_prompt_persons_two, R.string.browther_referral_share_prompt_persons_few, R.string.browther_referral_share_prompt_persons_many, R.string.browther_referral_share_prompt_persons_other});
         PLURALS.put("support.inviteCount", new int[] {R.string.browther_referral_support_invite_count_zero, R.string.browther_referral_support_invite_count_one, R.string.browther_referral_support_invite_count_two, R.string.browther_referral_support_invite_count_few, R.string.browther_referral_support_invite_count_many, R.string.browther_referral_support_invite_count_other});
         PLURALS.put("support.inviteSub", new int[] {R.string.browther_referral_support_invite_sub_zero, R.string.browther_referral_support_invite_sub_one, R.string.browther_referral_support_invite_sub_two, R.string.browther_referral_support_invite_sub_few, R.string.browther_referral_support_invite_sub_many, R.string.browther_referral_support_invite_sub_other});
     }

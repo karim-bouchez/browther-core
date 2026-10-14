@@ -78,7 +78,6 @@
 "reminder.inProgress" = "你的一个邀请进展顺利：你的推荐码已被使用，只差再将 Browther 设为默认浏览器几天。";
 "reminder.months" = "每个有效邀请都会再为你增加 1 个月。";
 "reminder.subscription" = "感谢你的支持。邀请亲友或续订，都可以继续使用附加功能。";
-"invite.eyebrow" = "邀请";
 "invite.share" = "分享我的推荐码";
 "invite.shareStatus" = "发布到我的 WhatsApp 动态";
 "status.tab" = "WhatsApp 动态";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "你的亲友收到的消息就是这个样子";
 "invite.back" = "返回";
 "invite.closeAfterShare" = "返回应用";
+"sharePrompt.title" = "Browther 对你有帮助吗？";
+"sharePrompt.count.both" = "Browther 已为你去除 {hours}的音乐，并模糊了 {persons}。";
+"sharePrompt.count.music" = "Browther 已为你去除 {hours}的音乐。";
+"sharePrompt.count.blur" = "Browther 已为你模糊了 {persons}。";
+"sharePrompt.leadGain" = "把 Browther 分享给亲友，每个有效邀请可获得 1 个月附加功能。";
+"sharePrompt.leadPaid" = "把 Browther 分享给亲友：也许它对他们和对你一样有用。";
+"sharePrompt.later" = "稍后";
+"sharePrompt.mute" = "不再询问";
 "share.message" = "邀请你来体验 Browther：一款能去除音乐、模糊哈拉姆图片的浏览器。\n使用我的推荐码 {code}，你可以获得1 个月附加功能。";
 "billing.unavailable" = "目前无法加载订阅方案。";
 "billing.retry" = "重试";
@@ -262,6 +269,8 @@
 "reminder.monthsNext.other" = "每个有效邀请都会再为你增加 1 个月。再 {count} 个，就能拿到 {bonus} 个月的奖励。";
 "reminder.monthsNextLife.other" = "每个有效邀请都会再为你增加 1 个月。再 {count} 个，Browther 就永久解锁，因沙安拉。";
 "reminder.subscriptionTitle.other" = "你的订阅将在 {count} 天后结束。";
+"sharePrompt.hours.other" = "{count} 小时";
+"sharePrompt.persons.other" = "{count} 个人";
 "invite.foot.other" = "你的亲友将 Browther 保持为默认浏览器 {count} 天后，邀请即生效。";
 "notice.why.other" = "有亲友使用了你的推荐码，并刚刚将 Browther 保持为默认浏览器 {count} 天。";
 "notice.body.other" = "+{count} 个月附加功能，有效期至 {date}。";

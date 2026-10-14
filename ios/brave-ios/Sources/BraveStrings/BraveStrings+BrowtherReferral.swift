@@ -103,7 +103,13 @@ extension Strings {
 
     /// Un texte au pluriel : la forme de la langue servie, sinon `other`, sinon
     /// l'anglais. `{count}` est remplacé par le nombre.
-    public static func plural(_ key: String, _ count: Int, one: String, other: String) -> String {
+    public static func plural(
+      _ key: String,
+      _ count: Int,
+      one: String,
+      other: String,
+      grouped: Bool = false
+    ) -> String {
       let missing = "\u{1}"
       let english = count == 1 ? one : other
       var value = NSLocalizedString(
@@ -120,7 +126,15 @@ extension Strings {
       // Un nombre et son unité ne se coupent jamais en fin de ligne (§ 12.26) :
       // « 3 jours », « 2 mois » — espace insécable.
       value = value.replacingOccurrences(of: "{count} ", with: "{count}\u{00A0}")
-      return fill(value, ["count": "\(count)"])
+      return fill(value, ["count": grouped ? groupedNumber(count) : "\(count)"])
+    }
+
+    /// « 1 240 » plutôt que « 1240 » — dans la langue servie.
+    static func groupedNumber(_ count: Int) -> String {
+      let formatter = NumberFormatter()
+      formatter.numberStyle = .decimal
+      formatter.locale = Locale(identifier: language)
+      return formatter.string(from: NSNumber(value: count)) ?? "\(count)"
     }
 
     // MARK: Composant « fonctionnalités » (§ 2.2)
@@ -433,7 +447,6 @@ extension Strings {
 
     // MARK: 4 — inviter
 
-    public static var inviteEyebrow: String { t("invite.eyebrow", "Invite") }
     public static var shareMyCode: String { t("invite.share", "Share my code") }
     /// Le 2ᵉ geste, à côté de « Partager mon code » (2026-09-29,
     /// `devndin/docs/PARRAINAGE-partage-statut.md`) : ⭐ le libellé CITE WhatsApp —
@@ -493,6 +506,53 @@ extension Strings {
     }
     public static var back: String { t("invite.back", "Back") }
     public static var backToApp: String { t("invite.closeAfterShare", "Back to the app") }
+    // MARK: Le partage proposé (§ 12.45, 2026-10-14)
+    //
+    // Au-dessus des onglets de la feuille « Partager mon code », quand elle
+    // s'ouvre d'elle-même. Le compteur de Browther (Karim, 2026-10-14) : les
+    // heures de musique retirées et les personnes floutées, À VIE — chaque
+    // partie se tait sous son seuil (`ReferralSharePrompt.headline`).
+
+    public static var sharePromptTitle: String { t("sharePrompt.title", "Is Browther useful to you?") }
+    public static func sharePromptHours(_ count: Int) -> String {
+      plural("sharePrompt.hours", count, one: "{count} hour", other: "{count} hours", grouped: true)
+    }
+    public static func sharePromptPersons(_ count: Int) -> String {
+      plural("sharePrompt.persons", count, one: "{count} person", other: "{count} people", grouped: true)
+    }
+    public static func sharePromptCountBoth(hours: Int, persons: Int) -> String {
+      fill(
+        t("sharePrompt.count.both", "Browther has removed {hours} of music and blurred {persons} for you."),
+        ["hours": sharePromptHours(hours), "persons": sharePromptPersons(persons)]
+      )
+    }
+    public static func sharePromptCountMusic(hours: Int) -> String {
+      fill(
+        t("sharePrompt.count.music", "Browther has removed {hours} of music for you."),
+        ["hours": sharePromptHours(hours)]
+      )
+    }
+    public static func sharePromptCountBlur(persons: Int) -> String {
+      fill(
+        t("sharePrompt.count.blur", "Browther has blurred {persons} for you."),
+        ["persons": sharePromptPersons(persons)]
+      )
+    }
+    public static var sharePromptLeadGain: String {
+      t(
+        "sharePrompt.leadGain",
+        "Share Browther with someone close to you and earn 1 month of additional features for each validated invitation."
+      )
+    }
+    public static var sharePromptLeadPaid: String {
+      t(
+        "sharePrompt.leadPaid",
+        "Share Browther with someone close to you: it may serve them as much as it serves you."
+      )
+    }
+    public static var sharePromptLater: String { t("sharePrompt.later", "Later") }
+    public static var sharePromptMute: String { t("sharePrompt.mute", "Don't ask me again") }
+
     public static func inviteFoot(_ days: Int) -> String {
       plural(
         "invite.foot",

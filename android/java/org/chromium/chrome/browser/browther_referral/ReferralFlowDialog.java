@@ -46,7 +46,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * La pile plein écran du flow (O, 0, 2, 2b, 4 par-dessus 2b, 7 et le cadeau) — pendant de {@code
+ * La pile plein écran du flow (O, 0, 2, 2b, 7 et le cadeau — ⛔ plus d'écran 4 depuis le 2026-10-14) — pendant de {@code
  * ReferralFlowView} et {@code ReferralFlowShell} (iOS, {@code ReferralFlowViews.swift}).
  *
  * <p>⚠️ <b>Une SEULE vue à la fois</b> (§ 12.38 du doc commun) : sur Android une pile de couches
@@ -78,7 +78,7 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
     private @Nullable FlowModel mModel;
     private @Nullable View mCurrent;
     private @Nullable View mFooter;
-    /** Le statut était-il connu au dernier dessin ? (4 attend le code pour montrer sa carte.) */
+    /** Le statut était-il connu au dernier dessin ? (Le partage attend le code.) */
     private boolean mRenderedWithStatus;
     /** Le cadeau n'a sa fête qu'une fois par écran posé. */
     private boolean mGiftCelebrated;
@@ -301,8 +301,6 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
                 return paused(screen.chosen);
             case SUPPORT:
                 return support(screen.locked);
-            case INVITE:
-                return invite(screen.shared);
             case BILLING:
                 return billing();
             case GIFT:
@@ -613,99 +611,30 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
         String sub =
                 ReferralStrings.plural(
                         context, "support.inviteSub", ReferralProduct.validationTargetDays);
+        // ⭐ « Inviter N proches » ouvre le partage de l'écran Parrainage DIRECTEMENT (§ 12.42 du
+        // doc commun, règle 2) : ⛔ plus d'écran 4, qui redemandait la jauge qu'on vient de régler.
+        // Le critère de validation est le sous-texte du bouton. `invite` reste l'origine du partage
+        // (la série des tuiles continue).
         Runnable open =
                 () -> {
                     action("support", "invite");
-                    if (mModel != null) mModel.push(ReferralScreen.invite(false));
+                    ReferralStatus known = mController.known();
+                    if (known == null) return;
+                    ReferralShareSheet.open(
+                            mActivity,
+                            known,
+                            "invite",
+                            mPreview,
+                            // ⭐ Un partage abouti REFERME les trois façons : c'est une des trois
+                            // sorties du circuit (§ 12.16). ⚠️ Posté : la feuille signale d'abord
+                            // le partage (`shareDone` ferme le circuit), PUIS la fenêtre se ferme —
+                            // piège n° 3 de PROMPT-partage-partout.md. Refermée sans envoi : on
+                            // reste sur 2b.
+                            () -> mHandler.post(this::dismissFlow));
                 };
         return intention >= scale.lifetimeAt
                 ? ReferralUi.lifetimeButton(context, mPalette, label, sub, open)
                 : ReferralUi.primaryButton(context, mPalette, label, sub, 0, open);
-    }
-
-    // -------------------- 4 — inviter --------------------
-
-    private View invite(boolean shared) {
-        Context context = getContext();
-        ReferralUi.Palette p = mPalette;
-        int depth = mModel == null ? 1 : mModel.depth();
-        boolean inCircuit = depth > 1 && !shared;
-        ReferralStatus known = mController.known();
-        ReferralGaugeView gauge =
-                new ReferralGaugeView(
-                        context, ReferralGaugeView.Mode.TOY, known != null, mPreview, this::celebrate);
-        gauge.bind(known == null ? 0 : known.milestones.validated, mController.scale());
-        List<View> content = list(gauge);
-        // ⚠️ La carte du code se place ENTRE la jauge (carte « À vie ») et le bouton de partage :
-        // on partage le code, les deux doivent se toucher (§ 12.20).
-        if (known != null) {
-            content.add(
-                    new ReferralCodeCard(
-                            context,
-                            known,
-                            () -> {
-                                // ⭐ Copier EST un partage abouti (§ 12.20) — 3 jours offerts compris.
-                                mController.note(
-                                        "referral_shared",
-                                        mPreview,
-                                        "screen",
-                                        "invite",
-                                        "result",
-                                        "copied",
-                                        "format",
-                                        ReferralSharing.Format.MESSAGE.wire);
-                                if (mModel != null) mModel.replaceTop(ReferralScreen.invite(true));
-                                mController.shareDone("invite", mPreview);
-                            }));
-        }
-        content.add(
-                ReferralUi.footnote(
-                        context,
-                        p,
-                        ReferralStrings.plural(
-                                context, "invite.foot", ReferralProduct.validationTargetDays)));
-
-        List<View> footer = new ArrayList<>();
-        if (known != null) {
-            // ⭐ Le même bouton et la même feuille que sur l'écran Parrainage (Karim, 2026-10-08,
-            // private/docs/PARRAINAGE.md § 11) : le statut WhatsApp d'abord, la vidéo comprise. ⛔
-            // Plus de second bouton « Publier en statut WhatsApp ».
-            footer.add(
-                    ReferralShareSheet.button(
-                            context,
-                            mActivity,
-                            p,
-                            known,
-                            "invite",
-                            mPreview,
-                            // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16) — dit une fois, quand
-                            // la feuille se referme.
-                            () -> {
-                                if (mModel != null && isShowing()) {
-                                    mModel.replaceTop(ReferralScreen.invite(true));
-                                }
-                            }));
-        }
-        footer.add(
-                ReferralUi.textExit(
-                        context,
-                        p,
-                        shared ? s("invite.closeAfterShare") : s("invite.back"),
-                        false,
-                        !shared,
-                        () -> {
-                            if (shared || !inCircuit) {
-                                dismissFlow();
-                            } else if (mModel != null) {
-                                mModel.back();
-                            }
-                        }));
-        return shell(
-                s("invite.eyebrow"),
-                inCircuit && mModel != null ? mModel::back : null,
-                inCircuit ? null : this::dismissFlow,
-                content,
-                footer);
     }
 
     // -------------------- 7 — soutenir financièrement (porte factice) --------------------
@@ -947,16 +876,11 @@ public final class ReferralFlowDialog extends Dialog implements BrowtherReferral
         List<View> footer = new ArrayList<>();
         ReferralStatus known = mController.known();
         if (known != null) {
-            // ⚠️ Le partage du cadeau garde son message en texte (Karim, 2026-10-08) : la feuille à
-            // deux onglets est celle du code, sur l'écran Parrainage et l'écran 4.
+            // ⭐ Le MÊME partage que l'écran Parrainage (§ 12.42 du doc commun, règle 1 — remplace le
+            // message en texte du 2026-10-08) : la feuille à deux onglets, origine `gift`.
+            // « C'est cadeau ! » ne se referme pas tout seul : il a sa sortie, « Revenir à l'app ».
             footer.add(
-                    ReferralUi.primaryButton(
-                            context,
-                            p,
-                            s("invite.share"),
-                            null,
-                            R.drawable.browther_referral_glyph_share,
-                            () -> ReferralSharing.share(mActivity, known, "gift", mPreview, null)));
+                    ReferralShareSheet.button(context, mActivity, p, known, "gift", mPreview, null));
         }
         footer.add(
                 ReferralUi.textExit(

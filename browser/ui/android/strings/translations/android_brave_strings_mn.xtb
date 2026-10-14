@@ -1712,4 +1712,24 @@ Browther Мэдээ нь хувийн, нэргүй зар сурталчилг�
 <translation id="4424392500145214431">Санхүүгийн дэмжлэг</translation>
 <translation id="4037525693923559198">Та энэ функцийг болон өөр олон боломжийг эргүүлэн авах боломжтой:</translation>
 <translation id="7947423953490329886">Ойр дотны хүнээ урих · үнэгүй</translation>
+<translation id="2145525106182376323">Browther таны төлөө {persons} бүдгэрүүлсэн.</translation>
+<translation id="6400524222547977883">Browther таны төлөө {hours} хөгжим арилгаж, {persons} бүдгэрүүлсэн.</translation>
+<translation id="6364958544462115942">Browther таны төлөө {hours} хөгжим арилгасан.</translation>
+<translation id="4804933000285471430">Дараа нь</translation>
+<translation id="6246827307723891473">Browther-ийг ойр дотны хүнтэйгээ хуваалцаж, баталгаажсан урилга бүрт 1 сарын нэмэлт боломж аваарай.</translation>
+<translation id="4651970941373266324">Browther-ийг ойр дотны хүнтэйгээ хуваалцаарай: танд хэрэгтэй байгаа шиг түүнд ч хэрэг болж магадгүй.</translation>
+<translation id="590886708270558946">Дахиж бүү асуу</translation>
+<translation id="6098210946204001748">Browther танд хэрэгтэй байна уу?</translation>
+<translation id="5983059440745470816">{count} цагийн</translation>
+<translation id="6580723708162353591">{count} цагийн</translation>
+<translation id="6400687003718578465">{count} цагийн</translation>
+<translation id="8951993230737981149">{count} цагийн</translation>
+<translation id="4802813661488355122">{count} цагийн</translation>
+<translation id="661922550588400846">{count} цагийн</translation>
+<translation id="7758527493373512745">{count} хүнийг</translation>
+<translation id="2216648746170312584">{count} хүнийг</translation>
+<translation id="595722018333386979">{count} хүнийг</translation>
+<translation id="4564385327850332369">{count} хүнийг</translation>
+<translation id="829565773920235096">{count} хүнийг</translation>
+<translation id="6696217214286867315">{count} хүнийг</translation>
 </translationbundle>

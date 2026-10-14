@@ -138,6 +138,13 @@ struct ReferralFlowView: View {
   @ObservedObject var model: ReferralFlowModel
   @ObservedObject private var controller = BrowtherReferralController.shared
   @State private var celebratedAt: Date?
+  /// Le partage des trois façons (« Inviter N proches ») est ouvert.
+  @State private var showsShare = false
+  /// ⚠️ Les DEUX faits qui referment 2b (piège § 3.3 de
+  /// `PROMPT-partage-partout.md`) : le partage signalé, et la feuille refermée
+  /// — ils arrivent dans un ordre ou dans l'autre.
+  @State private var shareAchieved = false
+  @State private var shareClosed = false
 
   /// La porte de ce flow — muette s'il est un aperçu (§ 13.8).
   private var note: ReferralNote { ReferralNote(preview: model.preview) }
@@ -151,6 +158,21 @@ struct ReferralFlowView: View {
         .transition(.asymmetric(insertion: .push(from: .trailing), removal: .push(from: .leading)))
     }
     .animation(.smooth(duration: 0.35), value: model.depth)
+    // Le partage des trois façons : la MÊME feuille que l'écran Parrainage,
+    // origine `invite` (la valeur qu'envoyait l'écran 4 — la série continue).
+    .referralShareSheet(
+      isPresented: $showsShare,
+      status: controller.known,
+      origin: .invite,
+      onAchieved: {
+        shareAchieved = true
+        shareSettled()
+      },
+      onClosed: {
+        shareClosed = true
+        shareSettled()
+      }
+    )
     // ⭐ Tout écran du flow (jauge, partage, paiement…) écrit par cette porte.
     .environment(\.referralNote, note)
     .overlay {
@@ -176,7 +198,6 @@ struct ReferralFlowView: View {
     case .announce: announce
     case .paused(let chosen): paused(chosen: chosen)
     case .support(let locked): support(locked: locked)
-    case .invite(let shared): invite(shared: shared)
     case .billing: billing
     case .thanks: ReferralThanksView { model.dismiss?() }
     default: EmptyView()
@@ -311,9 +332,15 @@ struct ReferralFlowView: View {
         ? Strings.BrowtherReferral.supportInviteCount(intention)
         : Strings.BrowtherReferral.inviteSomeone
       let inviteSub = Strings.BrowtherReferral.supportInviteSub(ReferralProduct.validationTargetDays)
+      // ⭐ « Inviter N proches » ouvre le partage DIRECTEMENT (§ 12.42, règle 2 :
+      // l'écran 4 a disparu le 2026-10-14). La feuille est posée par CET écran
+      // plein écran, donc devant lui (⛔ jamais derrière, piège § 3.1).
       let openInvite = {
         action("support", "invite")
-        model.push(.invite(shared: false))
+        guard controller.known != nil else { return }
+        shareAchieved = false
+        shareClosed = false
+        showsShare = true
       }
       if intention >= controller.scale.lifetimeAt {
         ReferralLifetimeButton(label: inviteLabel, sub: inviteSub, action: openInvite)
@@ -336,54 +363,14 @@ struct ReferralFlowView: View {
     }
   }
 
-  // MARK: 4 — inviter (⚠️ seulement dans le circuit des trois façons)
-
-  private func invite(shared: Bool) -> some View {
-    let inCircuit = model.depth > 1 && !shared
-    return ReferralFlowShell(
-      eyebrow: Strings.BrowtherReferral.inviteEyebrow,
-      onBack: inCircuit ? { model.back() } : nil,
-      onClose: inCircuit ? nil : { model.dismiss?() }
-    ) {
-      ReferralGaugeView(
-        validated: controller.known?.milestones.validated ?? 0,
-        scale: controller.scale,
-        mode: .toy,
-        demo: controller.known != nil,
-        intention: $controller.gaugeIntention,
-        onCelebrate: celebrate
-      )
-      // ⚠️ La carte du code se place ENTRE la carte « À vie » et le bouton de
-      // partage : on partage le code, les deux doivent se toucher (§ 12.20).
-      if let status = controller.known {
-        ReferralCodeCard(status: status) {
-          // ⭐ Copier EST un partage abouti (§ 12.20) — 3 jours offerts compris.
-          note(.referralShared, ["screen": ReferralShareOrigin.invite.rawValue, "result": "copied", "format": "message"])
-          model.replaceTop(.invite(shared: true))
-          controller.shareDone(from: .invite, preview: model.preview)
-        }
-      }
-      Text(Strings.BrowtherReferral.inviteFoot(ReferralProduct.validationTargetDays))
-        .font(.footnote)
-        .foregroundStyle(.secondary)
-        .multilineTextAlignment(.center)
-        .fixedSize(horizontal: false, vertical: true)
-    } footer: {
-      if let status = controller.known {
-        // ⭐ Le même bouton et la même feuille que sur l'écran Parrainage
-        // (Karim, 2026-10-08) : le statut WhatsApp d'abord, la vidéo comprise.
-        ReferralShareButton(status: status, origin: .invite) {
-          // ⭐ Un partage abouti LIBÈRE l'écran 4 (§ 12.16).
-          model.replaceTop(.invite(shared: true))
-        }
-      }
-      ReferralTextExit(
-        label: shared ? Strings.BrowtherReferral.backToApp : Strings.BrowtherReferral.back,
-        back: !shared
-      ) {
-        if shared || !inCircuit { model.dismiss?() } else { model.back() }
-      }
-    }
+  /// ⭐ **Un partage abouti referme les trois façons** (§ 12.42) : c'est la
+  /// sortie « inviter » du circuit (§ 12.16 — `shareDone` le ferme). Refermée
+  /// SANS envoi, la feuille rend la main à 2b, toujours verrouillé depuis J0.
+  private func shareSettled() {
+    guard shareAchieved, shareClosed else { return }
+    shareAchieved = false
+    shareClosed = false
+    model.dismiss?()
   }
 }
 

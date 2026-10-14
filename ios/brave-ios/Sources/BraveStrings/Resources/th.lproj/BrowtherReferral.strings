@@ -78,7 +78,6 @@
 "reminder.inProgress" = "คำเชิญหนึ่งของคุณกำลังไปได้ดี: มีคนใช้รหัสของคุณแล้ว เหลือเพียงไม่กี่วันกับ Browther ในฐานะเบราว์เซอร์เริ่มต้น";
 "reminder.months" = "ทุกคำเชิญที่ยืนยันแล้วจะเพิ่มให้อีกหนึ่งเดือน";
 "reminder.subscription" = "ขอบคุณสำหรับการสนับสนุน คุณสามารถใช้ฟีเจอร์เพิ่มเติมต่อได้ด้วยการชวนคนใกล้ชิด หรือต่ออายุการสมัครสมาชิก";
-"invite.eyebrow" = "ชวน";
 "invite.share" = "แชร์รหัสของฉัน";
 "invite.shareStatus" = "โพสต์ลงสถานะ WhatsApp";
 "status.tab" = "สถานะ WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "ข้อความของคุณ ตามที่คนใกล้ตัวจะได้รับ";
 "invite.back" = "ย้อนกลับ";
 "invite.closeAfterShare" = "กลับไปที่แอป";
+"sharePrompt.title" = "Browther มีประโยชน์กับคุณไหม";
+"sharePrompt.count.both" = "Browther ลบเพลงออกให้คุณแล้ว {hours} และเบลอ {persons}";
+"sharePrompt.count.music" = "Browther ลบเพลงออกให้คุณแล้ว {hours}";
+"sharePrompt.count.blur" = "Browther เบลอให้คุณแล้ว {persons}";
+"sharePrompt.leadGain" = "แชร์ Browther ให้คนใกล้ชิด แล้วรับฟีเจอร์เพิ่มเติม 1 เดือนต่อทุกคำเชิญที่ยืนยันแล้ว";
+"sharePrompt.leadPaid" = "แชร์ Browther ให้คนใกล้ชิด: อาจมีประโยชน์กับเขาเท่ากับที่มีประโยชน์กับคุณ";
+"sharePrompt.later" = "ภายหลัง";
+"sharePrompt.mute" = "ไม่ต้องถามอีก";
 "share.message" = "ขอชวนคุณมาลองใช้ Browther: เบราว์เซอร์ที่ตัดเสียงเพลงและเบลอภาพหะรอม\nใช้รหัสของฉัน {code} แล้วคุณจะได้รับฟีเจอร์เพิ่มเติมหนึ่งเดือน";
 "billing.unavailable" = "ตอนนี้ยังโหลดแพ็กเกจไม่ได้";
 "billing.retry" = "ลองอีกครั้ง";
@@ -262,6 +269,8 @@
 "reminder.monthsNext.other" = "ทุกคำเชิญที่ยืนยันแล้วจะเพิ่มให้อีกหนึ่งเดือน อีก {count} รายการ คุณจะได้โบนัส {bonus} เดือน";
 "reminder.monthsNextLife.other" = "ทุกคำเชิญที่ยืนยันแล้วจะเพิ่มให้อีกหนึ่งเดือน อีก {count} รายการ Browther จะปลดล็อกตลอดชีพ อินชาอัลลอฮ์";
 "reminder.subscriptionTitle.other" = "การสมัครสมาชิกของคุณจะสิ้นสุดในอีก {count} วัน";
+"sharePrompt.hours.other" = "{count} ชั่วโมง";
+"sharePrompt.persons.other" = "{count} คน";
 "invite.foot.other" = "คำเชิญจะได้รับการยืนยันเมื่อคนใกล้ชิดของคุณตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นไว้ครบ {count} วัน";
 "notice.why.other" = "คนใกล้ชิดใช้รหัสแนะนำของคุณ และเพิ่งตั้ง Browther เป็นเบราว์เซอร์เริ่มต้นครบ {count} วัน";
 "notice.body.other" = "ฟีเจอร์เพิ่มเติม +{count} เดือน ใช้ได้ถึง {date}";

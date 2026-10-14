@@ -5085,6 +5085,30 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     <message name="IDS_BROWTHER_REFERRAL_SHARE_TAB_MESSAGE" desc="Browther referral (pool key share.tabMessage)" meaning="browther_referral:share.tabMessage">
       Message
     </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_COUNT_BLUR" desc="Browther referral (pool key sharePrompt.count.blur)" meaning="browther_referral:sharePrompt.count.blur">
+      Browther has blurred {persons} for you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_COUNT_BOTH" desc="Browther referral (pool key sharePrompt.count.both)" meaning="browther_referral:sharePrompt.count.both">
+      Browther has removed {hours} of music and blurred {persons} for you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_COUNT_MUSIC" desc="Browther referral (pool key sharePrompt.count.music)" meaning="browther_referral:sharePrompt.count.music">
+      Browther has removed {hours} of music for you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_LATER" desc="Browther referral (pool key sharePrompt.later)" meaning="browther_referral:sharePrompt.later">
+      Later
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_LEAD_GAIN" desc="Browther referral (pool key sharePrompt.leadGain)" meaning="browther_referral:sharePrompt.leadGain">
+      Share Browther with someone close to you and earn 1 month of additional features for each validated invitation.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_LEAD_PAID" desc="Browther referral (pool key sharePrompt.leadPaid)" meaning="browther_referral:sharePrompt.leadPaid">
+      Share Browther with someone close to you: it may serve them as much as it serves you.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_MUTE" desc="Browther referral (pool key sharePrompt.mute)" meaning="browther_referral:sharePrompt.mute">
+      Don't ask me again
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_TITLE" desc="Browther referral (pool key sharePrompt.title)" meaning="browther_referral:sharePrompt.title">
+      Is Browther useful to you?
+    </message>
     <message name="IDS_BROWTHER_REFERRAL_STATUS_FAILED" desc="Browther referral (pool key status.failed)" meaning="browther_referral:status.failed">
       The image couldn't be prepared. Try again, or share the message.
     </message>
@@ -5714,6 +5738,42 @@ If you don't accept this request, VPN will not reconnect and your internet conne
     </message>
     <message name="IDS_BROWTHER_REFERRAL_REMINDER_SUBSCRIPTION_TITLE_OTHER" desc="Browther referral (pool key reminder.subscriptionTitle.other)" meaning="browther_referral:reminder.subscriptionTitle.other">
       Your subscription ends in {count} days.
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_HOURS_ZERO" desc="Browther referral (pool key sharePrompt.hours.zero)" meaning="browther_referral:sharePrompt.hours.zero">
+      {count} hours
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_HOURS_ONE" desc="Browther referral (pool key sharePrompt.hours.one)" meaning="browther_referral:sharePrompt.hours.one">
+      {count} hour
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_HOURS_TWO" desc="Browther referral (pool key sharePrompt.hours.two)" meaning="browther_referral:sharePrompt.hours.two">
+      {count} hours
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_HOURS_FEW" desc="Browther referral (pool key sharePrompt.hours.few)" meaning="browther_referral:sharePrompt.hours.few">
+      {count} hours
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_HOURS_MANY" desc="Browther referral (pool key sharePrompt.hours.many)" meaning="browther_referral:sharePrompt.hours.many">
+      {count} hours
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_HOURS_OTHER" desc="Browther referral (pool key sharePrompt.hours.other)" meaning="browther_referral:sharePrompt.hours.other">
+      {count} hours
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_PERSONS_ZERO" desc="Browther referral (pool key sharePrompt.persons.zero)" meaning="browther_referral:sharePrompt.persons.zero">
+      {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_PERSONS_ONE" desc="Browther referral (pool key sharePrompt.persons.one)" meaning="browther_referral:sharePrompt.persons.one">
+      {count} person
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_PERSONS_TWO" desc="Browther referral (pool key sharePrompt.persons.two)" meaning="browther_referral:sharePrompt.persons.two">
+      {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_PERSONS_FEW" desc="Browther referral (pool key sharePrompt.persons.few)" meaning="browther_referral:sharePrompt.persons.few">
+      {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_PERSONS_MANY" desc="Browther referral (pool key sharePrompt.persons.many)" meaning="browther_referral:sharePrompt.persons.many">
+      {count} people
+    </message>
+    <message name="IDS_BROWTHER_REFERRAL_SHARE_PROMPT_PERSONS_OTHER" desc="Browther referral (pool key sharePrompt.persons.other)" meaning="browther_referral:sharePrompt.persons.other">
+      {count} people
     </message>
     <message name="IDS_BROWTHER_REFERRAL_SUPPORT_INVITE_COUNT_ZERO" desc="Browther referral (pool key support.inviteCount.zero)" meaning="browther_referral:support.inviteCount.zero">
       Invite {count} people

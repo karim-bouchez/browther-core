@@ -29,6 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.browther_referral.core.MilestoneScale;
 import org.chromium.chrome.browser.browther_referral.core.ReferralShare;
+import org.chromium.chrome.browser.browther_referral.core.ReferralSharePrompt;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStatus;
 import org.chromium.chrome.browser.browther_referral.core.ReferralStatusVideo;
 
@@ -60,6 +61,12 @@ import java.util.Locale;
  * <p>⚠️ Un seul onglet est monté à la fois : chacun a son lecteur vidéo. Leur état (ce qui est
  * coché, ce qui est parti), lui, survit au changement d'onglet.
  *
+ * <p>⭐ <b>Le partage proposé</b> (2026-10-14, {@code devndin/docs/PARRAINAGE.md} § 12.45) est CETTE
+ * feuille, ouverte d'elle-même ({@link #openPrompt}) : origine {@code share_prompt}, onglet
+ * d'arrivée choisi par la règle, un titre au-dessus des onglets (le compteur ou « Browther t'est
+ * utile ? », puis la phrase du gain ou celle de l'abonné) et ses sorties (« Plus tard », et « Ne
+ * plus me redemander » pour qui a payé). ⛔ Jamais une seconde feuille écrite à côté.
+ *
  * <p>⚠️ Ce qu'Android ne dit pas : la fin d'un envoi. « Occupé » dure donc du toucher du bouton au
  * RETOUR dans la feuille (sa fenêtre perd le focus, puis le retrouve) — {@link #beginSend}.
  */
@@ -81,6 +88,38 @@ public final class ReferralShareSheet extends BottomSheetDialog {
         MESSAGE
     }
 
+    /** Ce qui fait de la feuille le PARTAGE PROPOSÉ : son profil, son onglet, son compteur. */
+    public static final class Prompt {
+        public final ReferralSharePrompt.Profile profile;
+        public final ReferralSharePrompt.Tab openedOn;
+        public final ReferralSharePrompt.Headline headline;
+
+        public Prompt(
+                ReferralSharePrompt.Profile profile,
+                ReferralSharePrompt.Tab openedOn,
+                ReferralSharePrompt.Headline headline) {
+            this.profile = profile;
+            this.openedOn = openedOn;
+            this.headline = headline;
+        }
+    }
+
+    /** Comment le partage proposé s'est refermé — la valeur de {@code paywall_action.action}. */
+    public enum PromptExit {
+        /** « Plus tard ». */
+        LATER("later"),
+        /** « Ne plus me redemander » (abonné, accès à vie). */
+        MUTE("mute"),
+        /** La croix, le glissé, le retour système. */
+        DISMISS("dismiss");
+
+        public final String wire;
+
+        PromptExit(String wire) {
+            this.wire = wire;
+        }
+    }
+
     /** La feuille ouverte : deux touchers rapides sur le bouton n'en ouvrent pas deux. */
     private static @Nullable WeakReference<ReferralShareSheet> sOpen;
 
@@ -89,6 +128,10 @@ public final class ReferralShareSheet extends BottomSheetDialog {
     private final String mOrigin;
     private final boolean mPreview;
     private final @Nullable Runnable mOnAchieved;
+    /** {@code null} = « Partager mon code » ; sinon le partage proposé. */
+    private final @Nullable Prompt mPrompt;
+    /** La sortie choisie par un bouton du partage proposé, dite à la fermeture. */
+    private @Nullable PromptExit mPromptExit;
     private final ReferralUi.Palette mP;
     private final ReferralStatusImage.Texts mTexts;
     private final String mCode;
@@ -101,7 +144,7 @@ public final class ReferralShareSheet extends BottomSheetDialog {
     private final FrameLayout mContent;
     private final LinearLayout mFooter;
 
-    private Tab mTab = Tab.STATUS;
+    private Tab mTab;
     private @Nullable Bitmap mImage;
     private @Nullable File mImageFile;
     /** Au moins un envoi a abouti. */
@@ -166,23 +209,56 @@ public final class ReferralShareSheet extends BottomSheetDialog {
         if (activity.isFinishing() || activity.isDestroyed()) return;
         ReferralShareSheet open = sOpen == null ? null : sOpen.get();
         if (open != null && open.isShowing()) return;
-        ReferralShareSheet sheet = new ReferralShareSheet(activity, status, origin, preview, onAchieved);
+        ReferralShareSheet sheet =
+                new ReferralShareSheet(activity, status, origin, preview, onAchieved, null);
         sOpen = new WeakReference<>(sheet);
         sheet.show();
     }
+
+    /** Une feuille de partage est-elle déjà à l'écran ? (⛔ jamais deux feuilles, § 3.4.) */
+    public static boolean isOpen() {
+        ReferralShareSheet open = sOpen == null ? null : sOpen.get();
+        return open != null && open.isShowing();
+    }
+
+    /**
+     * ⭐ <b>Le partage proposé</b> : la MÊME feuille, ouverte d'elle-même, origine {@code
+     * share_prompt}. {@code false} = rien ne s'est ouvert (une feuille est déjà là, l'activité
+     * part). Le contrôleur écrit l'affichage APRÈS (⛔ jamais avant d'avoir réellement ouvert).
+     */
+    public static boolean openPrompt(
+            Activity activity, ReferralStatus status, Prompt prompt, boolean preview) {
+        if (activity.isFinishing() || activity.isDestroyed() || isOpen()) return false;
+        ReferralShareSheet sheet =
+                new ReferralShareSheet(activity, status, SHARE_PROMPT, preview, null, prompt);
+        sOpen = new WeakReference<>(sheet);
+        sheet.show();
+        return true;
+    }
+
+    /** L'origine du partage proposé — la valeur de {@code screen} partout (§ 12.45). */
+    public static final String SHARE_PROMPT = "share_prompt";
 
     private ReferralShareSheet(
             Activity activity,
             ReferralStatus status,
             String origin,
             boolean preview,
-            @Nullable Runnable onAchieved) {
+            @Nullable Runnable onAchieved,
+            @Nullable Prompt prompt) {
         super(activity);
         mActivity = activity;
         mStatus = status;
         mOrigin = origin;
         mPreview = preview;
         mOnAchieved = onAchieved;
+        mPrompt = prompt;
+        // ⭐ L'onglet d'arrivée : le statut pour « Partager mon code » (choix D de Karim) ; celui de
+        // la règle pour le partage proposé (il alterne, et c'est « Message » sans WhatsApp).
+        mTab =
+                prompt != null && prompt.openedOn == ReferralSharePrompt.Tab.MESSAGE
+                        ? Tab.MESSAGE
+                        : Tab.STATUS;
         mP = ReferralUi.palette(activity);
         // 🔴 La langue de l'image, de la vidéo et du message joint = celle de l'app (on parle à SES
         // contacts) : fr, en ou ar, sinon l'anglais.
@@ -248,6 +324,12 @@ public final class ReferralShareSheet extends BottomSheetDialog {
 
     boolean preview() {
         return mPreview;
+    }
+
+    /** {@code opened_on} du partage proposé (l'onglet où il s'est OUVERT), {@code null} ailleurs. */
+    @Nullable
+    String openedOn() {
+        return mPrompt == null ? null : mPrompt.openedOn.wire;
     }
 
     ReferralStatusImage.Texts texts() {
@@ -371,6 +453,9 @@ public final class ReferralShareSheet extends BottomSheetDialog {
         // doit prendre la place que lui donne l'écran qui RESTE.
         BrowtherReferralPresenter.sheetHidden(this);
         report();
+        // ⚠️ APRÈS `report` : un partage abouti est écrit d'abord — refermer après avoir partagé
+        // n'est pas une fermeture (`ReferralSharePrompt.markDismissed`).
+        settlePrompt();
         super.onStop();
     }
 
@@ -401,6 +486,25 @@ public final class ReferralShareSheet extends BottomSheetDialog {
         BrowtherReferralController.get().shareDone(mOrigin, mPreview);
     }
 
+    /**
+     * Le partage proposé se referme : la sortie prise (un bouton, sinon la fermeture classique) va
+     * au contrôleur, UNE fois. ⚠️ Une fermeture classique APRÈS un partage n'est pas une
+     * fermeture : rien ne s'écrit.
+     */
+    private boolean mPromptSettled;
+
+    private void settlePrompt() {
+        Prompt prompt = mPrompt;
+        if (prompt == null || mPromptSettled) return;
+        mPromptSettled = true;
+        PromptExit exit = mPromptExit;
+        if (exit == null) {
+            if (mAchieved) return;
+            exit = PromptExit.DISMISS;
+        }
+        BrowtherReferralController.get().settleSharePrompt(exit, prompt.profile, mPreview);
+    }
+
     // -------------------- Le dessin --------------------
 
     private String s(String key) {
@@ -423,16 +527,24 @@ public final class ReferralShareSheet extends BottomSheetDialog {
         stack.setMinimumHeight(
                 Math.round(context.getResources().getDisplayMetrics().heightPixels * 0.86f));
 
-        TextView title = ReferralUi.text(context, s("invite.share"), 17, ReferralUi.SEMIBOLD, p.text);
-        title.setGravity(Gravity.CENTER);
-        title.setSingleLine(true);
-        title.setEllipsize(TextUtils.TruncateAt.END);
-        int titleSide = ReferralUi.dp(context, 56);
-        title.setPadding(titleSide, 0, titleSide, 0);
-        stack.addView(
-                title,
-                ReferralUi.linear(
-                        ReferralUi.MATCH, ReferralUi.dp(context, 44), ReferralUi.dp(context, 10)));
+        if (mPrompt == null) {
+            TextView title =
+                    ReferralUi.text(context, s("invite.share"), 17, ReferralUi.SEMIBOLD, p.text);
+            title.setGravity(Gravity.CENTER);
+            title.setSingleLine(true);
+            title.setEllipsize(TextUtils.TruncateAt.END);
+            int titleSide = ReferralUi.dp(context, 56);
+            title.setPadding(titleSide, 0, titleSide, 0);
+            stack.addView(
+                    title,
+                    ReferralUi.linear(
+                            ReferralUi.MATCH,
+                            ReferralUi.dp(context, 44),
+                            ReferralUi.dp(context, 10)));
+        } else {
+            stack.addView(
+                    promptHeader(mPrompt), ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        }
 
         int side = ReferralUi.dp(context, SIDE_DP);
         LinearLayout.LayoutParams tabsParams =
@@ -470,6 +582,10 @@ public final class ReferralShareSheet extends BottomSheetDialog {
                 new FrameLayout.LayoutParams(
                         contentWidth(), ReferralUi.WRAP, Gravity.CENTER_HORIZONTAL));
         stack.addView(footHolder, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        if (mPrompt != null) {
+            stack.addView(
+                    promptExits(mPrompt), ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        }
         root.addView(stack, new FrameLayout.LayoutParams(ReferralUi.MATCH, ReferralUi.WRAP));
 
         // Fermeture classique, comme les autres feuilles : la croix, le glissé, le retour système.
@@ -485,6 +601,93 @@ public final class ReferralShareSheet extends BottomSheetDialog {
         closeParams.setMarginEnd(ReferralUi.dp(context, 6));
         root.addView(close, closeParams);
         return root;
+    }
+
+    /**
+     * Le titre du partage proposé, au-dessus des onglets (maquette du 2026-10-12) : le compteur
+     * (« Browther a retiré 12 heures de musique et flouté 1240 personnes pour toi. ») ou, quand on
+     * a vraiment très peu, « Browther t'est utile ? » ; puis la phrase du gain, ⛔ jamais pour qui
+     * a payé (la sienne : « il lui servira peut-être autant qu'à toi »).
+     */
+    private View promptHeader(Prompt prompt) {
+        Context context = getContext();
+        LinearLayout header = ReferralUi.column(context);
+        header.setBackgroundColor(mP.screen);
+        int side = ReferralUi.dp(context, SIDE_DP);
+        // La croix est en haut à droite : le titre lui laisse sa place.
+        header.setPadding(side, ReferralUi.dp(context, 18), ReferralUi.dp(context, 56), 0);
+        TextView title =
+                ReferralUi.text(context, headline(context, prompt), 19, ReferralUi.SEMIBOLD, mP.text);
+        header.addView(title, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP));
+        String lead =
+                prompt.profile == ReferralSharePrompt.Profile.OFFERED
+                        ? s("sharePrompt.leadGain")
+                        : s("sharePrompt.leadPaid");
+        TextView body = ReferralUi.text(context, lead, 15, ReferralUi.REGULAR, mP.text2);
+        header.addView(
+                body,
+                ReferralUi.linear(ReferralUi.MATCH, ReferralUi.WRAP, ReferralUi.dp(context, 6)));
+        View space = new View(context);
+        header.addView(space, ReferralUi.linear(ReferralUi.MATCH, ReferralUi.dp(context, 10)));
+        return header;
+    }
+
+    /** La phrase du compteur, dont le CHOIX est dans la règle ({@code ReferralSharePrompt.headline}). */
+    private String headline(Context context, Prompt prompt) {
+        ReferralSharePrompt.Headline h = prompt.headline;
+        String hours = ReferralStrings.plural(context, "sharePrompt.hours", h.hours);
+        String persons = ReferralStrings.plural(context, "sharePrompt.persons", h.persons);
+        switch (h.kind) {
+            case BOTH:
+                return ReferralStrings.fill(
+                        s("sharePrompt.count.both"), "hours", hours, "persons", persons);
+            case MUSIC:
+                return ReferralStrings.fill(s("sharePrompt.count.music"), "hours", hours);
+            case BLUR:
+                return ReferralStrings.fill(s("sharePrompt.count.blur"), "persons", persons);
+            case NONE:
+            default:
+                return s("sharePrompt.title");
+        }
+    }
+
+    /**
+     * Les sorties du partage proposé, sous le pied de l'onglet : « Plus tard » pour tous, « Ne plus
+     * me redemander » en plus pour l'abonné et l'accès à vie. La fermeture classique reste (croix,
+     * glissé, retour) : il n'attend pas une action (§ 2.2).
+     */
+    private View promptExits(Prompt prompt) {
+        Context context = getContext();
+        LinearLayout exits = ReferralUi.row(context);
+        exits.setGravity(Gravity.CENTER);
+        exits.setBackgroundColor(mP.screen);
+        exits.setPadding(0, 0, 0, ReferralUi.dp(context, 8));
+        exits.addView(
+                ReferralUi.textExit(
+                        context,
+                        mP,
+                        s("sharePrompt.later"),
+                        false,
+                        false,
+                        () -> leave(PromptExit.LATER)));
+        if (prompt.profile.canMute()) {
+            View space = new View(context);
+            exits.addView(space, new LinearLayout.LayoutParams(ReferralUi.dp(context, 12), 1));
+            exits.addView(
+                    ReferralUi.textExit(
+                            context,
+                            mP,
+                            s("sharePrompt.mute"),
+                            false,
+                            false,
+                            () -> leave(PromptExit.MUTE)));
+        }
+        return exits;
+    }
+
+    private void leave(PromptExit exit) {
+        if (mPromptExit == null) mPromptExit = exit;
+        dismiss();
     }
 
     /** Pose l'onglet choisi : ses onglets, ce qui défile, son pied. */

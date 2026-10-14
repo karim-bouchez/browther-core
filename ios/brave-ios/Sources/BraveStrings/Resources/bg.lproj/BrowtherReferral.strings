@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Една от поканите ви е на добър път: кодът ви е използван, остават само няколко дни с Browther по подразбиране.";
 "reminder.months" = "Всяка потвърдена покана ви добавя още един месец.";
 "reminder.subscription" = "Благодарим ви за подкрепата. Можете да запазите допълнителните функции, като поканите близък човек или подновите абонамента.";
-"invite.eyebrow" = "Покана";
 "invite.share" = "Сподели кода ми";
 "invite.shareStatus" = "Публикувайте в статуса си в WhatsApp";
 "status.tab" = "Статус в WhatsApp";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Вашето съобщение така, както ще го получи близкият ви";
 "invite.back" = "Назад";
 "invite.closeAfterShare" = "Обратно към приложението";
+"sharePrompt.title" = "Полезен ли ви е Browther?";
+"sharePrompt.count.both" = "Browther премахна {hours} музика и замъгли {persons} за вас.";
+"sharePrompt.count.music" = "Browther премахна {hours} музика за вас.";
+"sharePrompt.count.blur" = "Browther замъгли {persons} за вас.";
+"sharePrompt.leadGain" = "Споделете Browther с близък човек и получете 1 месец допълнителни функции за всяка потвърдена покана.";
+"sharePrompt.leadPaid" = "Споделете Browther с близък човек: може да му бъде толкова полезен, колкото и на вас.";
+"sharePrompt.later" = "По-късно";
+"sharePrompt.mute" = "Не ме питайте повече";
 "share.message" = "Каня те да опиташ Browther — браузърът, който спира музиката и размазва харам изображенията.\nС моя код {code} получаваш един месец допълнителни функции.";
 "billing.unavailable" = "Плановете не се зареждат в момента.";
 "billing.retry" = "Опитайте отново";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Всяка потвърдена покана ви добавя още един месец. Още {count} и Browther се отключва завинаги, иншаллах.";
 "reminder.subscriptionTitle.one" = "Абонаментът ви приключва утре.";
 "reminder.subscriptionTitle.other" = "Абонаментът ви приключва след {count} дни.";
+"sharePrompt.hours.one" = "{count} час";
+"sharePrompt.hours.other" = "{count} часа";
+"sharePrompt.persons.one" = "{count} човек";
+"sharePrompt.persons.other" = "{count} души";
 "invite.foot.one" = "Поканата се потвърждава, когато вашият близък задържи Browther като браузър по подразбиране {count} ден.";
 "invite.foot.other" = "Поканата се потвърждава, когато вашият близък задържи Browther като браузър по подразбиране {count} дни.";
 "notice.why.one" = "Близък човек използва вашия реферален код и току-що задържа Browther като браузър по подразбиране {count} ден.";

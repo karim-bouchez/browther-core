@@ -78,7 +78,6 @@
 "reminder.inProgress" = "Een van je uitnodigingen is goed op weg: je code is gebruikt, er ontbreken nog maar een paar dagen met Browther als standaardbrowser.";
 "reminder.months" = "Elke bevestigde uitnodiging levert je er één bij.";
 "reminder.subscription" = "Bedankt voor je steun. Je kunt de extra functies houden door iemand uit te nodigen, of door te verlengen.";
-"invite.eyebrow" = "Uitnodigen";
 "invite.share" = "Mijn code delen";
 "invite.shareStatus" = "Plaatsen in mijn WhatsApp-status";
 "status.tab" = "WhatsApp-status";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Je bericht, zoals je dierbare het ontvangt";
 "invite.back" = "Terug";
 "invite.closeAfterShare" = "Terug naar de app";
+"sharePrompt.title" = "Heb je iets aan Browther?";
+"sharePrompt.count.both" = "Browther heeft voor jou {hours} muziek verwijderd en {persons} vervaagd.";
+"sharePrompt.count.music" = "Browther heeft voor jou {hours} muziek verwijderd.";
+"sharePrompt.count.blur" = "Browther heeft voor jou {persons} vervaagd.";
+"sharePrompt.leadGain" = "Deel Browther met iemand die je na staat en krijg 1 maand extra functies voor elke bevestigde uitnodiging.";
+"sharePrompt.leadPaid" = "Deel Browther met iemand die je na staat: misschien heeft die er net zoveel aan als jij.";
+"sharePrompt.later" = "Later";
+"sharePrompt.mute" = "Niet meer vragen";
 "share.message" = "Ik nodig je uit om Browther te ontdekken: de browser die muziek weghaalt en haram afbeeldingen vervaagt.\nMet mijn code {code} krijg je één maand extra functies.";
 "billing.unavailable" = "De abonnementen kunnen nu niet worden geladen.";
 "billing.retry" = "Opnieuw proberen";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Elke bevestigde uitnodiging levert je er één bij. Nog {count} en Browther is levenslang ontgrendeld, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Je abonnement stopt morgen.";
 "reminder.subscriptionTitle.other" = "Je abonnement stopt over {count} dagen.";
+"sharePrompt.hours.one" = "{count} uur";
+"sharePrompt.hours.other" = "{count} uur";
+"sharePrompt.persons.one" = "{count} persoon";
+"sharePrompt.persons.other" = "{count} personen";
 "invite.foot.one" = "Een uitnodiging is bevestigd zodra de persoon Browther {count} dag als standaardbrowser heeft gehouden.";
 "invite.foot.other" = "Een uitnodiging is bevestigd zodra de persoon Browther {count} dagen als standaardbrowser heeft gehouden.";
 "notice.why.one" = "Iemand heeft je verwijscode gebruikt en heeft Browther net {count} dag als standaardbrowser gehouden.";

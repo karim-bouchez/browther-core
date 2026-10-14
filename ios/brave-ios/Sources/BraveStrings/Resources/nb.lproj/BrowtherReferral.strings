@@ -78,7 +78,6 @@
 "reminder.inProgress" = "En av invitasjonene dine er godt på vei: koden din er brukt, det mangler bare noen dager med Browther som standardnettleser.";
 "reminder.months" = "Hver bekreftet invitasjon gir deg én til.";
 "reminder.subscription" = "Takk for støtten. Du kan beholde ekstrafunksjonene ved å invitere noen, eller ved å fornye.";
-"invite.eyebrow" = "Inviter";
 "invite.share" = "Del koden min";
 "invite.shareStatus" = "Del i WhatsApp-statusen min";
 "status.tab" = "WhatsApp-status";
@@ -109,6 +108,14 @@
 "share.previewA11y" = "Meldingen din, slik den nærstående mottar den";
 "invite.back" = "Tilbake";
 "invite.closeAfterShare" = "Tilbake til appen";
+"sharePrompt.title" = "Er Browther nyttig for deg?";
+"sharePrompt.count.both" = "Browther har fjernet {hours} musikk og sladdet {persons} for deg.";
+"sharePrompt.count.music" = "Browther har fjernet {hours} musikk for deg.";
+"sharePrompt.count.blur" = "Browther har sladdet {persons} for deg.";
+"sharePrompt.leadGain" = "Del Browther med noen du er glad i, og få 1 måned med ekstrafunksjoner for hver bekreftet invitasjon.";
+"sharePrompt.leadPaid" = "Del Browther med noen du er glad i: kanskje den blir like nyttig for dem som for deg.";
+"sharePrompt.later" = "Senere";
+"sharePrompt.mute" = "Ikke spør meg igjen";
 "share.message" = "Jeg inviterer deg til å oppdage Browther: nettleseren som fjerner musikk og slører haram-bilder.\nMed koden min {code} får du én måned med ekstrafunksjoner.";
 "billing.unavailable" = "Abonnementene kan ikke lastes inn akkurat nå.";
 "billing.retry" = "Prøv igjen";
@@ -278,6 +285,10 @@
 "reminder.monthsNextLife.other" = "Hver bekreftet invitasjon gir deg én til. {count} til, så er Browther låst opp for livet, in sha Allah.";
 "reminder.subscriptionTitle.one" = "Abonnementet ditt avsluttes i morgen.";
 "reminder.subscriptionTitle.other" = "Abonnementet ditt avsluttes om {count} dager.";
+"sharePrompt.hours.one" = "{count} time";
+"sharePrompt.hours.other" = "{count} timer";
+"sharePrompt.persons.one" = "{count} person";
+"sharePrompt.persons.other" = "{count} personer";
 "invite.foot.one" = "En invitasjon bekreftes når personen har beholdt Browther som standardnettleser i {count} dag.";
 "invite.foot.other" = "En invitasjon bekreftes når personen har beholdt Browther som standardnettleser i {count} dager.";
 "notice.why.one" = "Noen har brukt vervekoden din og har nettopp beholdt Browther som standardnettleser i {count} dag.";
